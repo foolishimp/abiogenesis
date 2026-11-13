@@ -1,0 +1,47 @@
+{
+  "kind": "closed_bounded_operator_host_recovery_review",
+  "status": "CLOSED",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "scope": "Exact two-file recovery correction only; no Product work.",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-recovery-001/ROOT_SELECTION.json",
+      "bytes": 3828,
+      "sha256": "e223a7e9ec4597f9eed766cfb25c2bbefaad2a844d8db6359fd3f01ae20552a5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-recovery-001/CONTROL_DIFF.patch",
+      "bytes": 11815,
+      "sha256": "cc5f709b2bd20441d875a929e8e64e782bf9cb745675266b5cfb81db89d80150"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/prepare-and-dispatch.recovery-001.mjs",
+      "bytes": 19777,
+      "sha256": "962ac785340d9dcd45174b29a2aefc322428adb4ce4f861836456a465404807b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/launch-owner-script.recovery-001.mjs",
+      "bytes": 2200,
+      "sha256": "5e34140738d0adcc916a5d8c70b479d41a371d8729d5d5960a5e1ffc60cd5691"
+    }
+  ],
+  "verification": "Both corrected file hashes and the complete recomputed two-file diff match the supplied pins.",
+  "verdict": "NO_BLOCKER_FOUND_IN_EXACT_TWO_FILE_RECOVERY_CORRECTION",
+  "findings": [],
+  "conservedRelations": [
+    "Actual receipts move into execution-recovery-001; occupied actual output slots are checked before acquisition.",
+    "Actual capacity evidence is written inside the new output directory, separate from the retained preparation estimate.",
+    "Outer command and Run request namespace are unique to recovery-001.",
+    "Grant, workload, model/bounds references, SDK call and close/abandon handling remain unchanged.",
+    "Close/resume pins are checked against recovery admission; the permitted binding overlay cannot replace the retained close."
+  ],
+  "remainingBinding": "Root must bind the immediate failed H03 host actual close/resume before launch; this review does not substitute an older close or establish completed binding.",
+  "limits": [
+    "Read-only two-file controls review; no execution or Product effects.",
+    "No additional acquisition or review during this persistence step.",
+    "Root owns final binding/admission and launch; no native outcome, Product acceptance or qualification claim."
+  ],
+  "executed": false,
+  "ProductAccepted": false,
+  "qualified": false
+}

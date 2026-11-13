@@ -1,0 +1,56 @@
+{
+  "kind": "native_author_launch_observation",
+  "status": "ONE_HOST_PREPARING_ACTOR_START_NOT_YET_OBSERVED",
+  "recordedUtc": "2026-11-06T14:45:13.235341+00:00",
+  "selectedTask": "rc7-held-session-author-02",
+  "rootSession": 21953,
+  "hostPreparation": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/HOST_PREPARATION_STARTED.json",
+      "bytes": 200,
+      "sha256": "fa51d0227ee2682a142f0a1ee1ad2b6dff9b057c375aafbcb8360ef49dc5b093"
+    },
+    "startedUtc": "2026-11-06T14:41:43.605Z",
+    "pid": 83585
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 7541,
+    "sha256": "6f392e084cfa0c2419cef9288904e9ddbde4e7669d02898d8eacbacadcc7fd5d"
+  },
+  "dispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/DISPATCH_MANIFEST.json",
+    "bytes": 28323,
+    "sha256": "4893e817408aea1e5356525ae94e307916f02055c1dd2138cf972cc4973e5fbd"
+  },
+  "actor": null,
+  "preparationPhases": null,
+  "timing": {
+    "predecessorSdkCloseUtc": "2026-11-06T13:53:13.218Z",
+    "predecessorCloseToHostMs": 2910387.0,
+    "standing": "Between-task custody/review, separate proof, new blocker triage, controls and Root coordination; not native/runtime performance. Individual subphase attribution not inferred."
+  },
+  "preflightHistory": {
+    "observationOwner": "Root admission record and explicit dispatch message",
+    "standing": "One read-only null-placeholder check error was corrected before effects; retained as control preflight history, not Product/runtime failure."
+  },
+  "sourceAtAdmission": {
+    "sourceCount": 451,
+    "controlCount": 20,
+    "dispatchPinCount": 72,
+    "writePaths": 17
+  },
+  "limits": [
+    "Host start is actual; actor start remains unobserved until allowlisted actual metadata.",
+    "No second dispatch, runtime acquisition, provider invocation or private provider/auth/stderr inspection by custody.",
+    "HS01 partial failures and scoped HS02 post-author proof retain their original subjects; no acceptance or matched speedup claim."
+  ],
+  "futureBindings": {
+    "firstFrozenStage": null,
+    "finalSource": null,
+    "actualResult": null,
+    "actualClose": null,
+    "hs03Activation": null,
+    "releaseCut": null
+  }
+}

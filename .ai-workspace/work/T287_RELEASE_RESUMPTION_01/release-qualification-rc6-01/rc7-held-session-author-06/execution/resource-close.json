@@ -1,0 +1,45 @@
+{
+  "kind": "abg_event_resource_receipt",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "reopen",
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 2356670820,
+    "prefixDigest": "sha256:b8c646d73641ac0fb48d28869d0f7f3622e25323a50ebfaa2b3f3079f25061c0",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 701759869,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:68fbdfbd9417005c4277917d4d3e8881c7d2049e5fd53aab48a005fe1e1ddccf"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 2469184337,
+      "prefixDigest": "sha256:bc8acc20d02dcce182e69db494ffeefff387a4e449aed15305898b97ee07bda7",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 701759869,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+      },
+      "coordinateDigest": "sha256:2f9c2c9ca80a8b242c6b651c77ea09b818ed242681febc463ac6d37b87812f97"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "device": 16777231,
+      "inode": 701759869,
+      "eventLogDigest": "sha256:bc8acc20d02dcce182e69db494ffeefff387a4e449aed15305898b97ee07bda7",
+      "durableByteLength": 2469184337,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "authorityDigest": "sha256:2ebb6bce1ef5583bc6992d53ef1e5fa2bf27f850b696d3cb3c9a456f8cd42707"
+    }
+  },
+  "receiptDigest": "sha256:94ef8b6e09a543f001bc632699638dbb21306e7e18f9dcdb64ffc1a160e2ddc3"
+}

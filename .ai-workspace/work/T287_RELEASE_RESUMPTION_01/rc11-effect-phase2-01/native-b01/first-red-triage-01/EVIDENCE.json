@@ -1,0 +1,110 @@
+{
+  "kind": "bounded-design-proof-first-red-triage",
+  "status": "closed findings; no acceptance",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "cause": "mutable test exposure retained controlledMain command stub; spawn producer was bypassed",
+  "repairTool": {
+    "line": 6696,
+    "id": "toolu_01Adkt6yAuWZGP4jMSRyuSFM",
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "old_string": "  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return runCommand(task, '/controlled', 0, 'attempt://selected');\n  }",
+      "new_string": "  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return production.runCommand(task, '/controlled', 0, 'attempt://selected');\n  }"
+    },
+    "ordinalZeroBased": 55,
+    "result": {
+      "line": 6700,
+      "isError": false,
+      "canonicalBytes": 175,
+      "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+    }
+  },
+  "claims": {
+    "firstRedPreserved": true,
+    "ownerOrOracleChangedByCorrection": false,
+    "actualOwnerRestoredInFinalExposure": true,
+    "historicalPerRowSpawnCensusAvailable": false,
+    "wholeBReview": false,
+    "triageExecution": false
+  },
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-freeze.json",
+      "bytes": 295988,
+      "sha256": "2ed1b3ab7758905dc0c33702893898130de2758d0b026af20898833d5bebe9eb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/NATIVE_CHECKS.json",
+      "bytes": 144542,
+      "sha256": "5877e954961de192dc11af80048129ebdc98c67aecfb7c2a2c9a38c93a628a1d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/TOOL_HISTORY.json",
+      "bytes": 132594,
+      "sha256": "0d4846b58bc62adc5624c5f9157e2736b31335afead0c76b4688c68d0ac98fd6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/WORKER_REPORT.json",
+      "bytes": 9102,
+      "sha256": "f2eeb8bac132650b4cf75024f73ddf3160da843fcc42e92eea38636558777d83"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 92784,
+      "sha256": "4ae70f3c9a8d36ed6541c8ce52551c27c2e31b6b346795a02c53e6d54021a6cf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 75347,
+      "sha256": "c1b6ded8611016673f5ac6dd020af020e2d9135e7478dc4146070dda284994a6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-01.tap",
+      "bytes": 10073,
+      "sha256": "1ad4d489d5742a78ae0f409ea712d991d34dc53ff7a405e04f589d2be1f09500"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-02.tap",
+      "bytes": 9341,
+      "sha256": "6a6c17d89b4876d744f8307b9fa68a914b13a168e5235caa21a18d5641aa39c4"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-03.tap",
+      "bytes": 9333,
+      "sha256": "aea7c2e7947d7b1c6fba336bb856e44133eaab12e589cc7991923d24964f6848"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-04.tap",
+      "bytes": 9349,
+      "sha256": "13c2599815c836c05fabe5abd71546b4ff6b4ef2f99d382617d8ae99066a0b2f"
+    }
+  ],
+  "productFrame": {
+    "fixedAbi5Families": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "activeGoal": "GOAL035",
+    "activeTicket": "T287",
+    "slice": "RC11 Effect Phase2 B; actual command owner to raw-failure test exposure",
+    "sourceAuthority": "frozen candidate workspace transformation",
+    "toolAuthority": "native author, compiler and controlled adapters produce source/evidence only",
+    "runtimeAuthority": "ABG sole admission; direct GTL/HoG ownership and admitted-event replay",
+    "expandedAnalysis": false
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-c0-correction-regressions.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 4,
+    "pass": 4,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/046-t287-c0-correction-regressions.test/process.json",
+    "bytes": 1103,
+    "sha256": "e1538661789f502ef661360d598360cb4ef1c8b429d0bfa07e7ae781cbc64c82"
+  }
+}

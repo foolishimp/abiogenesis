@@ -1,0 +1,75 @@
+{
+  "kind": "root_bounded_d5_successor_review_conjunction",
+  "at": "2026-11-06T02:08:48.643263+00:00",
+  "status": "SOURCE_RELATION_SATISFIED_AFFECTED_INSTALLED_PROOF_SELECTED",
+  "productFrame": "Unchanged ABIogenesis5 fifteen families; GOAL-035/T287/F10/F11 exact-L cold qualification with current shared projection and physical evidence preserved; STDO3.0.4.",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "recheck": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/projection-recheck-001/REVIEW.json",
+    "bytes": 23974,
+    "sha256": "af0e47f2521290d0233081f18ac987950ca3c765ca8d6054d36f58ce83457644"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5608,
+    "sha256": "6ca141a406721beb702b64706ba867d8af58488b067f5fbe203b3582f0a20929"
+  },
+  "unchangedRecoveryReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-review-001/REVIEW.json",
+    "bytes": 33264,
+    "sha256": "6400f8cf2aaaf4cdcb56d738d111222459b7978ae6cc0a47d7ba2e8cd3a068a7"
+  },
+  "priorDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 7145,
+    "sha256": "c8d82498e5b54141bf74f48006f7e9cd4932bae00c6cc5ff9cf5c48223955b12"
+  },
+  "findingDisposition": {
+    "id": "D5-PROJ-001",
+    "status": "corrected on exact N3 subject",
+    "scope": "Existing stamp-presence schedule selected inside authenticated prefix; corrected unstamped-L and current-P premises. No new owner/port/guard/profile relation."
+  },
+  "proofRelations": [
+    "Same test bytes fail before and pass after reader change. Final372 source pins match frozen subject; affected37 test names unchanged, all pass without skip/cancel/todo.",
+    "Actual native terminal, fresh run_result and fresh run_replay agree; replay closed; physical prefix/hash/device/inode and all417 live source members plus3 handoffs verified.",
+    "Only two granted Product files differ from N2; existing recovery, shared projection and causation reviews remain applicable within prior scopes."
+  ],
+  "effectDisposition": {
+    "standing": "within existing Root admitted effects; no retroactive permission",
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/ROOT_CONTROL_ADMISSION.json",
+      "bytes": 9662,
+      "sha256": "ff855fa4d46025f3107bf45ae1621e388c4ea7d0c0375bd679c146aea3ddbb7f"
+    },
+    "interpretation": "Declared /private/tmp/abg-d5c and tmpd5c scratch/cache/helper effects were part of the pinned grant and final Root admission before launch. The narrower worksite write roots are not the entire separately declared external temporary effect grant. No observed Product scope breach; source freeze verified unchanged protected members.",
+    "limits": "Uses disclosed effects and retained custody; no private provider/credential inspection or complete system-call audit."
+  },
+  "selectedNext": {
+    "directory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03",
+    "route": "Existing source:none Testing/UAT with exact420-member source/handoff custody and6 proof controls.",
+    "commands": 7,
+    "modules": 10,
+    "population": 113,
+    "helperRows": 407,
+    "protectedRows": 420,
+    "providerAssessment": "One selected native max UAT, zero Product write roots; component feedback only.",
+    "activation": "Finalize actual source/close/review bindings, final Root control admission, existing-owner preflight, then one exact dispatch. No source coding or automatic retry."
+  },
+  "limits": [
+    "Source relation accepted only for affected proof; actual C2/UAT still pending.",
+    "N2 full113 author evidence remains N2 evidence; N3 author claim is37 only.",
+    "Real-L full qualification population and physical unconfirmed capsule remain explicit.",
+    "Same-family Root/reviewer, independent of native Claude author; no formal third-family F11 J.",
+    "QR02/QR03, selected RC7 overhead work, cut/qualification/publication and human acceptance remain open."
+  ],
+  "overheadReleaseSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_RC7_OVERHEAD_SELECTION.json",
+    "bytes": 4848,
+    "sha256": "9a2289d723d4ea138b520bc68249270fffd93ece12dc2f11eae2656c90bcf765"
+  },
+  "preservation": "All prior failures, immutable profiles/releases, dirty/untracked source and original handoffs remain exact."
+}

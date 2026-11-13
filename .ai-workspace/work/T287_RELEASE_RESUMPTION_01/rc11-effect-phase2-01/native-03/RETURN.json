@@ -1,0 +1,73 @@
+{
+  "status": "NATIVE_R1_SUCCEEDED_SOURCE_FROZEN_EXTERNAL_PROOF_HELD",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-freeze.json",
+    "bytes": 295947,
+    "sha256": "954c2609173832ea9942c7317c4216f138e98543fab1f533e7d0a46fe4aa2c4f"
+  },
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "sourceRows": 1345,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "freezeReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/FREEZE_RECEIPT.json",
+    "bytes": 4793,
+    "sha256": "b9daae992dd8d470327d1588359370c6544ec24be6bea81c6b71eb77d8333c3a"
+  },
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/SOURCE_CUSTODY.json",
+    "bytes": 8447,
+    "sha256": "74440bd64a6300b7287e668a793b7b19ed3fbd2aa506eb21aad1874830cf70a5"
+  },
+  "workerReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/WORKER_REPORT.json",
+    "bytes": 6910,
+    "sha256": "079671bfd78714f855adc6aa6aae886fe76344bc9634b445d3e4b847405db929"
+  },
+  "checks": {
+    "compileExit": 0,
+    "compileSeconds": 8,
+    "controlledTotal": 18,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "firstRed": null
+  },
+  "compiledRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 63651,
+    "sha256": "95385ee5db886ae717600a430baf01e050160aa67b7684b403ac0c63e0ca1ce0"
+  },
+  "compiledOwners": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/tenant/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 10055,
+      "sha256": "5f3cc53f6bfc5fe116e3c6c119ff8a65d45a095d964b45af1da6df15d233a743"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/tenant/build/code/src/shared/owned_process_state.js",
+      "bytes": 8865,
+      "sha256": "0f590cddcbc7bcee2d19af08fd28e8531b7d6f005ab4d56f47875c5d0cea9658"
+    }
+  ],
+  "native": {
+    "transport": "success",
+    "exitCode": 0,
+    "toolCalls": 30,
+    "apiRetries": 0,
+    "actualPhysicalClose": true,
+    "freshResultAndReplay": true,
+    "actorAndCallerAbsent": true
+  },
+  "indexBytesPreserved": true,
+  "remaining": [
+    "Independent R1 source/Design conjunction, including reported in-flight re-check rule",
+    "Root-admitted same probe fixture, whole lifetime and baseline-only signal-notice case",
+    "B and full joint Phase2 proof/acceptance"
+  ],
+  "qualified": false
+}

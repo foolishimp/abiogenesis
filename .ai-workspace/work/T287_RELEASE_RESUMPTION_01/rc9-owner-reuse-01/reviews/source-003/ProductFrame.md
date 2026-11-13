@@ -1,0 +1,13 @@
+# Product Frame
+
+RC9-SOURCE-003 is independent narrow assurance under GOAL-035/T-287 and Root's current activation. The fixed ABIogenesis 5.0 feature families remain F01–07, F09–11 and F13–17. The selected slice is the existing OWN-01 proof fixture: preserve the actual held owner when selecting its nominal calculus prefix; isolate command dependence; measure row work across the called operation; make changed-row refusal explicit; and reach the retained-semantics physical-drift check and final diagnostic.
+
+Current Product Valid Reuse and Proportionality, Installed Product, Definition/Tool/Runtime separation, PROJECTION-025/026 and INSTALL-043–051 govern. Immutable definitions, derived computations and observation counters cannot author runtime truth. ABG owns admitted history; an authentic current held selection may supply a nominal projection through its existing owner. Cold/copied inputs retain their checks. Physical observations do not confer perpetual install validity. No process-local rival runtime authority, new cache/lifetime, or substituted fixture producer qualifies a real handoff.
+
+The Product outcome is truthful affected proof of existing behavior, with no Product, requirement, HOW, production, package, metadata or unit-population change. The source-002 production restoration and metadata assessment remain reusable within their original limits. O3 install-verification reuse is OPEN. Synthetic worker plans do not establish actual actor-producer coverage; absent duplicate/foreign/rollback cases and broader qualification remain explicit.
+
+STDO 3.0.4, manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b, verifies installed/valid under urn:stdo:product-definition:abiogenesis; composition is empty. Current Definition, Intent, Product, requirements and accepted frame (88 selected files) equal this frozen subject and source-002. Current GOALS selects the one-test author03 repair. Product severity S0–S4 remains unchanged.
+
+Exact subject: /private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json, 294773 bytes, SHA-256 32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a; sourceDigest 25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864. All 1340 rows verify. Only test_env/tests/t287-held-owner-fold-reuse.test.mjs differs from source-002; file population is unchanged. Stage/unit results are initially pending and confer no pass credit.
+
+Reviewer /root/rc9_source_review has report-write authority only in reviews/source-003, returns to Root and stops. No source repair, test/provider/native execution, Git/runtime mutation or disposition. This is a shared unrestricted host with instructional scope, not technical isolation. Prior failed frozen subjects remain unchanged.

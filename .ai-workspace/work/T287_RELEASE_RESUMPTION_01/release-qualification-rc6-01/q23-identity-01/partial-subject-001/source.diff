@@ -1,0 +1,124 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts b/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts
+index 30e98d129..243b2e38e 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts
+@@ -100,6 +100,119 @@ export type WorkerTransportContract = {
+   readonly sanitizedEnvironmentPrefixes: readonly string[];
+ };
+ 
++/** One prepared plan's configured actor/profile identity: the exact effective
++ * model selection and its coordinate in the final arguments. The binding keeps
++ * agent, command/args and plan/contract/environment digests as its own members.
++ * This is configured selection under the trusted desktop, not remote provider
++ * attestation; anything the plan does not exactly determine stays unknown. */
++export type ConfiguredActorIdentity = Readonly<{
++  kind: "configured_actor_identity";
++  schemaVersion: "5.0.0";
++  disposition: "established";
++  model: string;
++  source: Readonly<{ kind: "transport_argument"; argumentIndex: number }>;
++}> | Readonly<{
++  kind: "configured_actor_identity";
++  schemaVersion: "5.0.0";
++  disposition: "unknown";
++  reason: ConfiguredActorIdentityUnknownReason;
++}>;
++export const CONFIGURED_ACTOR_IDENTITY_UNKNOWN_REASONS = Object.freeze([
++  "model_selection_absent",
++  "model_selection_ambiguous",
++  "model_environment_conflict",
++  "agent_model_selection_unsupported",
++] as const);
++export type ConfiguredActorIdentityUnknownReason = (typeof CONFIGURED_ACTOR_IDENTITY_UNKNOWN_REASONS)[number];
++
++// Closed per-agent model selection grammar: the selector flags, the options
++// that can replace or remap the main model, and the environment keys whose
++// differing value conflicts with the argument selection.
++const MODEL_SELECTION: Readonly<Partial<Record<KnownTransportAgentKey, Readonly<{
++  selectors: readonly string[]; displacing: readonly string[]; environment: readonly string[];
++}>>>> = deepFreeze({
++  claude: { selectors: ["--model"], displacing: ["--fallback-model", "--agent", "--agents", "--settings"], environment: ["ANTHROPIC_MODEL"] },
++  codex: { selectors: ["--model", "-m"], displacing: ["--profile", "-p", "--config", "-c", "--oss"], environment: [] },
++});
++
++function unknownActorIdentity(reason: ConfiguredActorIdentityUnknownReason): ConfiguredActorIdentity {
++  return deepFreeze({ kind: "configured_actor_identity" as const, schemaVersion: "5.0.0" as const, disposition: "unknown" as const, reason });
++}
++
++/** Exactly one selector in the final arguments establishes the model; none,
++ * several, an empty value or a displacing option leave it unknown. An argv
++ * prompt occupies the final position and is data, never an option. */
++function modelSelectionFromArguments(agentKey: unknown, promptTransport: unknown, args: readonly string[]): ConfiguredActorIdentity {
++  const grammar = typeof agentKey === "string" && Object.hasOwn(MODEL_SELECTION, agentKey)
++    ? MODEL_SELECTION[agentKey as KnownTransportAgentKey] : undefined;
++  if (grammar === undefined || (promptTransport !== "argv" && promptTransport !== "stdin")) {
++    return unknownActorIdentity("agent_model_selection_unsupported");
++  }
++  const options = promptTransport === "argv" ? args.slice(0, -1) : args;
++  const selections: { model: string; argumentIndex: number }[] = [];
++  for (let index = 0; index < options.length; index++) {
++    const arg = options[index]!, flag = arg.split("=", 1)[0]!;
++    if (grammar.displacing.includes(flag)) return unknownActorIdentity("model_selection_ambiguous");
++    if (!grammar.selectors.includes(flag)) continue;
++    if (arg !== flag) selections.push({ model: arg.slice(flag.length + 1), argumentIndex: index });
++    else { selections.push({ model: options[index + 1] ?? "", argumentIndex: index + 1 }); index++; }
++  }
++  if (selections.length === 0) return unknownActorIdentity("model_selection_absent");
++  const selected = selections[0]!;
++  if (selections.length !== 1 || selected.model.length === 0 || selected.model.startsWith("-")) {
++    return unknownActorIdentity("model_selection_ambiguous");
++  }
++  return deepFreeze({ kind: "configured_actor_identity" as const, schemaVersion: "5.0.0" as const, disposition: "established" as const,
++    model: selected.model, source: { kind: "transport_argument" as const, argumentIndex: selected.argumentIndex } });
++}
++
++/** The identity of one exact prepared selection: its final composed arguments
++ * and the sanitized environment the process receives. */
++export function deriveConfiguredActorIdentity(
++  contract: Readonly<Pick<WorkerTransportContract, "agentKey" | "promptTransport">>,
++  args: readonly string[],
++  environment: Readonly<Record<string, string | undefined>>,
++): ConfiguredActorIdentity {
++  const selected = modelSelectionFromArguments(contract.agentKey, contract.promptTransport, args);
++  if (selected.disposition !== "established") return selected;
++  const keys = MODEL_SELECTION[contract.agentKey]?.environment ?? [];
++  return keys.some(key => { const value = environment[key]; return value !== undefined && value.length > 0 && value !== selected.model; })
++    ? unknownActorIdentity("model_environment_conflict") : selected;
++}
++
++export function isConfiguredActorIdentity(value: unknown): value is ConfiguredActorIdentity {
++  if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
++  const identity = value as Record<string, unknown>;
++  if (identity.kind !== "configured_actor_identity" || identity.schemaVersion !== "5.0.0") return false;
++  if (identity.disposition === "unknown") {
++    return hasExactKeys(identity, ["kind", "schemaVersion", "disposition", "reason"]) &&
++      (CONFIGURED_ACTOR_IDENTITY_UNKNOWN_REASONS as readonly unknown[]).includes(identity.reason);
++  }
++  const source = identity.source as Record<string, unknown> | null;
++  return identity.disposition === "established" && hasExactKeys(identity, ["kind", "schemaVersion", "disposition", "model", "source"]) &&
++    typeof identity.model === "string" && identity.model.length > 0 &&
++    typeof source === "object" && source !== null && !Array.isArray(source) && hasExactKeys(source, ["kind", "argumentIndex"]) &&
++    source.kind === "transport_argument" && Number.isSafeInteger(source.argumentIndex) && (source.argumentIndex as number) >= 0;
++}
++
++/** A recorded identity corresponds to its own binding's agent, prompt
++ * delivery and final arguments. Only the captured environment is not
++ * replayable from the binding, so an argument selection may be recorded as an
++ * environment conflict; nothing else differs from the argument derivation. */
++export function configuredActorIdentityCorresponds(
++  identity: unknown,
++  binding: Readonly<{ agentKey?: unknown; promptTransport?: unknown; args?: unknown }>,
++): identity is ConfiguredActorIdentity {
++  if (!isConfiguredActorIdentity(identity) || !Array.isArray(binding.args) ||
++      !binding.args.every((arg): arg is string => typeof arg === "string")) return false;
++  const derived = modelSelectionFromArguments(binding.agentKey, binding.promptTransport, binding.args);
++  if (identity.disposition === "unknown" && identity.reason === "model_environment_conflict") return derived.disposition === "established";
++  return identity.disposition === derived.disposition && (identity.disposition === "unknown"
++    ? derived.disposition === "unknown" && identity.reason === derived.reason
++    : derived.disposition === "established" && identity.model === derived.model &&
++      identity.source.argumentIndex === derived.source.argumentIndex && binding.args[identity.source.argumentIndex] !== undefined);
++}
++
+ export interface WorkerTransportContractOptions {
+   readonly command?: string;
+   readonly prefixArgs?: readonly string[];

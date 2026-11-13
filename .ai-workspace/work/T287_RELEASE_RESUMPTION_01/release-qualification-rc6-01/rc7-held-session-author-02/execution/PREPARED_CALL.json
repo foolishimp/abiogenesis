@@ -1,0 +1,70 @@
+{
+  "status": "PREPARED_SAME_PROCESS_CALL_RETAINED_FOR_SDK",
+  "programRef": "program://abiogenesis/worksite/native-work@5",
+  "startRef": "start://abiogenesis/worksite/native-work@5",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "heldSourceSnapshotSha256": "8e9b7cb1a62cf40d3a7262baa1b274b6276fac254cc0e1e80326b3558b16ff56",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "contextDigest": "sha256:79dc341bd677ae276b7a0762d9b26b3186a422bea31ba8d12ba125f8af2b8d0d",
+  "observedEntries": 474,
+  "selectedFiles": 474,
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs2"
+    },
+    {
+      "name": "LANG",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  ],
+  "eventPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 1910935493,
+    "prefixDigest": "sha256:b63e19d67982429feecae067639de0be4444849ef91ae1f113387275035af166",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 701759869,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:baeac38db2c45405515bc1c38fed006c58388cbd151bbc85a19b87ed8e4f28b5"
+  },
+  "inputCanonicalDigest": "sha256:46e4f978ef944d0ca4b7b5ee6a8d822186d058e282d2abf4ccb26a1b90c5a497",
+  "definitionKey": {
+    "operationId": "abg.operation.run.invoke",
+    "memberKey": "start"
+  },
+  "invocationRef": "invocation://abiogenesis/0ba4bf16c0eb41c8f1c415361f9b5f442c4f88eef7a0bc0c638ca3fbb96ee4b2",
+  "invocationDigest": "sha256:0ba4bf16c0eb41c8f1c415361f9b5f442c4f88eef7a0bc0c638ca3fbb96ee4b2",
+  "capacity": {
+    "kind": "actual_existing_native_order_render_measurement",
+    "renderedNativeOrderBytes": 51584,
+    "maxPromptBytes": 1048576,
+    "reserveBytes": 131072,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Actual owner work-order text, not complete transport/instruction assembly. Existing dispatch owners apply actual remaining guards.",
+      "No selector is part of the selected one-node native author Program."
+    ]
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Same live resource, environment, input and constructed call through preflight; only owner-issued coordinates and preflight metadata are recorded. The acquired call is neither serialized nor hashed."
+}

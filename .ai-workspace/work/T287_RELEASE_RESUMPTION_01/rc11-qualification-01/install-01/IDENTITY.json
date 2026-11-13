@@ -1,0 +1,35 @@
+{
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.11",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.11",
+    "productContentDigest": "sha256:ed3cc99b0dc268b2d7eb2cc8da29dcc68127c996e8f805957d74f23d9fcf2381",
+    "manifestDigest": "sha256:feafd6a00103a8e11db2d46b5777eeb5e62382c877aab65b3ada93fcf5afa706",
+    "artifactDigest": "sha256:f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455",
+    "sourceCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "sourceTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "manifest": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266309,
+    "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+  },
+  "canonicalManifestBytes": 3266308,
+  "mechanicalCanonicalization": "JSON input restricted to ASCII keys and safe integer numbers; UTF-8 sorted compact JSON matches pinned canonical owner law. Actual Product sha256Canonical must confirm at installation. No Product import executed in preparation.",
+  "canonicalOwner": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js",
+    "bytes": 1931,
+    "sha256": "7ab9a42e489f5b0b7f65ddf887cf8afca30cb10013087d81d16dd09acf3d6dee"
+  },
+  "digestOwner": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/digests.js",
+    "bytes": 944,
+    "sha256": "c49125e6657d04f87a844c5456e55dd19ad84df0f2c161998ffe3d97c56e6117"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "members": 5327
+}

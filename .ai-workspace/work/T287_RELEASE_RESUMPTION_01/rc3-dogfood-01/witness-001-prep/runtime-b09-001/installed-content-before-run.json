@@ -1,0 +1,27 @@
+{
+  "phase": "before-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/7bdb0d0a1059c83c8890c1ef76c6b232eab34393702d9efbdd6407c09a5d7fda/4a67bb8810714f1583beb08852d24ab73e74c12886596e824b49dc0e091a628d",
+      "admissionEventRef": "event://abiogenesis/4d785d9d43bc7911be29b445f6066f40c910e508494487b2b30b0ac7d69ab59b",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:d4c3b041d1852b87022defb73dbba82740d79ed2c2f890629e5eddd8cc50e2e1",
+      "productContentDigest": "sha256:7bdb0d0a1059c83c8890c1ef76c6b232eab34393702d9efbdd6407c09a5d7fda",
+      "manifestDigest": "sha256:1298c8106a02cbf2498bdba776a55c89772ab83477fcbe5d44976d32c4cf88e7",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/f1ce2066680c6419e87c1eca1bce5702542eefaae41a8d978eb5eaafa11f5fe0/4a67bb8810714f1583beb08852d24ab73e74c12886596e824b49dc0e091a628d",
+      "admissionEventRef": "event://abiogenesis/65994a440523dcbd3b4e4c84d8c712890d3eb02764c494fa62c5d5017b38395d",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:d549f82c5732eda263234203ae3e4a83d9bd9ccbcfd9c47ec899add5fe396ea6",
+      "productContentDigest": "sha256:f1ce2066680c6419e87c1eca1bce5702542eefaae41a8d978eb5eaafa11f5fe0",
+      "manifestDigest": "sha256:293b12aae33393d3abf164fd46488c64fc9decb681b8debf3bdc8c5081df1bbc",
+      "contentMatches": true
+    }
+  ]
+}

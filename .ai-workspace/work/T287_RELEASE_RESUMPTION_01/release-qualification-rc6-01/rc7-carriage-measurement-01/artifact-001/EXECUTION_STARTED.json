@@ -1,0 +1,35 @@
+{
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_ARTIFACT_BINDINGS_001.json",
+    "bytes": 5556,
+    "sha256": "96964389f30b653cd038da245829c213fe6ca85570f543f84560aced19b854c2"
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r7p/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "NPM_CONFIG_USERCONFIG": "/private/tmp/abg-r7p/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/private/tmp/abg-r7p/npm-global.npmrc",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-r7p/npm-cache",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_IGNORE_SCRIPTS": "true",
+    "NPM_CONFIG_AUDIT": "false",
+    "NPM_CONFIG_FUND": "false",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false"
+  },
+  "bounds": {
+    "packMs": 120000,
+    "installMs": 600000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  },
+  "reusedStageReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/stage.json",
+    "bytes": 97762,
+    "sha256": "27c2c400baf15dd1a4c754fed7df0bfbd22f6af13f6ff7473a084904cabc7340"
+  }
+}

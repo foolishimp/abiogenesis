@@ -1,0 +1,86 @@
+{
+  "status": "PREPARED_OPERATOR_INPUTS",
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 264,
+        "sha256": "6c68c516ddab1d418eee335cac7a57be330e03bca56fcc462a252734f7188153"
+      },
+      "target": "rc4-operator-inputs/native-recovery-12/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 264,
+      "sha256": "6c68c516ddab1d418eee335cac7a57be330e03bca56fcc462a252734f7188153"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/task.DRAFT.md",
+        "bytes": 6516,
+        "sha256": "3605a591a1be4d3386f819f8bf5e6e52652100c011404e12f70985487d975957"
+      },
+      "target": "rc4-operator-inputs/native-recovery-12/task.DRAFT.md",
+      "bytes": 6516,
+      "sha256": "3605a591a1be4d3386f819f8bf5e6e52652100c011404e12f70985487d975957"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/rubric.DRAFT.json",
+        "bytes": 1578,
+        "sha256": "dddcc81cf65ef8a80d7ba8fd488cfef6cf67f4f4974d8ede3b8120a9194bea9d"
+      },
+      "target": "rc4-operator-inputs/native-recovery-12/rubric.DRAFT.json",
+      "bytes": 1578,
+      "sha256": "dddcc81cf65ef8a80d7ba8fd488cfef6cf67f4f4974d8ede3b8120a9194bea9d"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/NATIVE_GRANT.DRAFT.json",
+        "bytes": 6481,
+        "sha256": "a1b7e8ac55d1d27f7905c2d4ccbcb588c53c9e798f3ec9714fdbf9eb0e817236"
+      },
+      "target": "rc4-operator-inputs/native-recovery-12/NATIVE_GRANT.DRAFT.json",
+      "bytes": 6481,
+      "sha256": "a1b7e8ac55d1d27f7905c2d4ccbcb588c53c9e798f3ec9714fdbf9eb0e817236"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 440,
+        "sha256": "586be36d0abf5112d267a898d72e1d3a861f2a538c6b0465923ca967bfce48a5"
+      },
+      "target": "rc4-operator-inputs/native-recovery-12/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 440,
+      "sha256": "586be36d0abf5112d267a898d72e1d3a861f2a538c6b0465923ca967bfce48a5"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 4461,
+        "sha256": "1c13bd09105a5098dbefddb1fd978d406a92532abef4e82131e4d290780d05f0"
+      },
+      "target": "rc4-operator-inputs/native-recovery-12/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 4461,
+      "sha256": "1c13bd09105a5098dbefddb1fd978d406a92532abef4e82131e4d290780d05f0"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/readiness.py",
+        "bytes": 2570,
+        "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-12/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/readiness-inputs.json",
+        "bytes": 92358,
+        "sha256": "b7b20d4e336a6a0dcf7d8aa62b36b54d995a7e31fa06c1cc720852ad0f0278fb"
+      },
+      "target": "rc4-operator-inputs/native-recovery-12/readiness-inputs.json",
+      "bytes": 92358,
+      "sha256": "b7b20d4e336a6a0dcf7d8aa62b36b54d995a7e31fa06c1cc720852ad0f0278fb"
+    }
+  ],
+  "meaning": "Compact causal task/authority/proof references; no historical event log/resume copied into model context."
+}

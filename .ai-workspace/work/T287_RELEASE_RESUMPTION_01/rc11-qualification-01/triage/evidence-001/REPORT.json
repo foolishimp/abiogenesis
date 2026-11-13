@@ -1,0 +1,241 @@
+{
+  "productFrame": "Fixed ABI5 fifteen families F01-F07,F09-F11,F13-F17; GOAL-035/T-287. Selected two proof residuals concern F03/F04/F07/F10, with F15/S7 coverage gates retained. Product574-604 and1240-1266 keep owner admission, causal truth and pure projection distinct. Component fixture snapshots are observation/evidence inputs, not an installed runtime resource, qualification or acceptance.",
+  "role": "Worker static triage; no independent assurance claim",
+  "status": "closed_triage_return",
+  "result": "satisfied",
+  "claim": "Failure localization and proposed bounded evidence repair route on exact RC10 source are sufficient to return to Executive. Generation feasibility, actual fixture identities and all runtime/test outcomes remain indeterminate until executed.",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/triage/evidence-001/ACTIVATION.json",
+    "bytes": 2661,
+    "sha256": "d5f8773a961e13ee054c24808305d155217047d2ba50c864c9cd88c4a7da69a9"
+  },
+  "source": {
+    "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+    "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+    "checkout": "/private/tmp/abg-rc10-retention-20261109"
+  },
+  "builder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "method": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "composition": [],
+    "verification": "stdo status --definition stdo_abiogenesis.json --verify: installed=true valid=true failures=[]; all87 standards members additionally hashed equal to manifest."
+  },
+  "authorityPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "bytes": 16630,
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 10959,
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "bytes": 6297,
+      "sha256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "bytes": 41843,
+      "sha256": "1ddd434b186c73fc9fa37d6579f008071381f7a194d228edfe148e667bfc5289"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "bytes": 5751,
+      "sha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "bytes": 7076,
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+      "bytes": 23558,
+      "sha256": "1bdef2c4eaeb50bb3bfebe48de0c7c3ee169a1adff26687169bf7f38d6f19c91"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "bytes": 10407,
+      "sha256": "63ca4427b4509f643fb58c38dd5e231c485187ae381082f710007872356e6c95"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "bytes": 16381,
+      "sha256": "bedcfe2165b3863efb355a2d20d0f998aba1960bcc2fef9bda019e6b15c6f59c"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "bytes": 55699,
+      "sha256": "c7e2646a84222aa3276a18077010d9674d5c89faebf7449c854a8c6288f7a9f7"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "bytes": 17472,
+      "sha256": "199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "bytes": 55353,
+      "sha256": "306d7410c5791df1e55ba09787681203d54118ca99b90caf92d0c863ab2adc80"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "bytes": 53258,
+      "sha256": "8bff42467575b20f9cdfa1792ebd7ac6b462b11c753303a66d0523b93f901cac"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 225914,
+      "sha256": "08dd6065941ae3f58f4b96ab7f83df0d2a5726bb9e3ef7ba448068026e5598fa"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 65453,
+      "sha256": "75818c123804cd5b945b392c86bb8d203edcb18ecc28dbaa8fc3277bcc7d30dd"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "bytes": 14485,
+      "sha256": "f242656d220350439cf699d1654ce324cb2d6fb4d80b2567b5ba4bd8a7c89994"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 29112,
+      "sha256": "a550c3c8d0e595f5c2020841018c6842f76df8e5f85a2874c96b688c43c32f5b"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 50429,
+      "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 86820,
+      "sha256": "4c27e56ad14e6851ce906856e32ac76d4b9ad26103ccd784969c9a963f45247b"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 296828,
+      "sha256": "c69525417a8765f57ab9d12d631302c633568a276af455dd98101671d4526c52"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 91166,
+      "sha256": "2c1b5b28e7cb48498b08a95d67cb9c28d1548c734a71e26f13697f388ac2304a"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "bytes": 222538,
+      "sha256": "baa43561a69b9fbd29bbc895b28631f70ffddd76de566a5b9566a158f2e2d529"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 147829,
+      "sha256": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 203094,
+      "sha256": "32c9ab82231f187dba17f552931053781d0434d8e109fd1c5c54a0aa577f4345"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+      "bytes": 22350,
+      "sha256": "5fd66737b877301cad2ac3f3c3605a68ba9ee83fc01f4d8be56359b7cdddc4fb"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 153007,
+      "sha256": "f940670cfb03f4cc587d91537b1082b2563b6399332d687ef9319ac6289757de"
+    }
+  ],
+  "historicalEvidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/native-assessment-011-plan/REVIEW.json",
+      "bytes": 11933,
+      "sha256": "6041d3abf85dbe8e51c7214f40b65e8abcadd347f45d334665dac371e32eecb6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/selected-action-profile-019/REVIEW.json",
+      "bytes": 14281,
+      "sha256": "0850c260b3942a5fdd13cf7de10ac4e8d85845ba03e2aa6f63c039590f4ec5e2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/RESIDUALS.md",
+      "bytes": 15882,
+      "sha256": "a17c7d2b8a31e1da9f658a575495617f8862b5c73ad4758a0c9c52d7c5922c4a"
+    }
+  ],
+  "reentry": "realization_refactor of test fixture/proof construction; Product, requirements, accepted runtime HOW and Public semantic membership unchanged. A compact fixture construction/proof record applies existing HOW; missing actual owner outcome returns to Executive instead of broadening runtime.",
+  "proposedAuthorFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md"
+  ],
+  "proposedGeneratedFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json"
+  ],
+  "executionEstimate": {
+    "measured": false,
+    "providerCalls": 0,
+    "minimumAcquisitions": "Two fresh current-owner event resources and independent test products; native one retry Run (up to existing bound3 scripted F_P attempts), selected-action one model-free Run retained at second selected intent.",
+    "planningAllowance": "Owner-generation time unmeasured. Plan 15-30 minutes total after exact artifact/setup is ready; retain per-phase wall time and stop on first premise/semantic failure. This estimate is not an admission bound, SLA or evidence of completion. Fast component replay should be seconds to low tens of seconds, but must be measured; no full setup/transport on ordinary test imports."
+  },
+  "effects": {
+    "builds": 0,
+    "tests": 0,
+    "productImports": 0,
+    "runtimeRuns": 0,
+    "providerCalls": 0,
+    "processEffects": 0,
+    "network": 0,
+    "gitMutations": 0,
+    "sourceWrites": 0
+  },
+  "acceptance": "Withheld; Root owns conjoined scope, native execution admission, acceptance and residual closure."
+}

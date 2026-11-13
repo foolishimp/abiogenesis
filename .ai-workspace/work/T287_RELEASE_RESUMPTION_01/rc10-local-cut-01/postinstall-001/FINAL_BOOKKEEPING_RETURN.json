@@ -1,0 +1,52 @@
+{
+  "status": "ROOT_ACCEPTED_BOUNDED_LOCAL_DELIVERY_RECORDED_TRACKING_UPDATED",
+  "recordedUtc": "2026-11-09T05:11:35.949326+00:00",
+  "rootFinalDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+    "bytes": 9637,
+    "sha256": "72cdf775e7878737781b7edd2879bd5c4d2c28b7b525428917d981eaa7e748c3"
+  },
+  "readme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/README.md",
+    "bytes": 2483,
+    "sha256": "67b1bca9df07d8074f65497251fd44f0d571e4a580889594b95266a016c08f04"
+  },
+  "installReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postinstall-001/INSTALL_RETURN.json",
+    "bytes": 8883,
+    "sha256": "2c02dee975e795c60846f99eeea5551142c451ea7d3a869bed4fe239362812d8"
+  },
+  "trackingUpdate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postinstall-001/TRACKING_UPDATE.json",
+    "bytes": 2535,
+    "sha256": "838f46d7b9be1ea4f6d3ed62d42e7cbb1e534ca498b57f7a840d5d027eb15ce0"
+  },
+  "trackingAfter": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 169880,
+      "sha256": "fc62ab8237fa3af53a196f8cb06c06507d7faeeeab216fb534307e6c00d87d28"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 818591,
+      "sha256": "71b13c26dd801cfc87ca010262e74e356627aa2d85bc6d3fe8ed40c1f5c9df40"
+    }
+  ],
+  "mainIndexUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "candidateCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "finalVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+    "bytes": 9222,
+    "sha256": "1cf59e16087fbc9fdbf2867adff0b20b972ddffacb3c781385b86c1059273719"
+  },
+  "qualified": false,
+  "published": false,
+  "rc9OperationalPinPreserved": true,
+  "nextExecutionSelected": false,
+  "stop": "All authorized delivery and final bookkeeping complete. Return pins to Root and stop."
+}

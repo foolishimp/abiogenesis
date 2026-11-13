@@ -1,0 +1,17 @@
+test: refresh retained native semantic revision fixture
+
+Use the current owned-prefix reader premise and canonical run/related
+selector keys in the existing synthetic component harness. Preserve all
+186 assertion sites, seven test bodies and two historical gates.
+
+Native Construction: result://abiogenesis/ae95925f07b9ac9ce4123cccc831a7f05a1fe2f0977611c956ab03299a949960
+Frozen source SHA256: b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc
+Accepted evidence: release-qualification-rc6-01/fixture-proof-02/ROOT_CONJUNCTION.json
+Current C2: 5 passed, 0 failed, 2 historical skips; four commands exit0.
+Independent MAX source review and native UAT satisfied; fresh result and
+replay agree. Original failed Run and author failures remain preserved.
+
+This is a Root custody commit of the native Worker's accepted test change.
+RC6 release/install is unchanged; full 5.0 qualification remains open.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

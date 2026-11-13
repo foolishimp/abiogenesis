@@ -1,0 +1,15 @@
+{
+  "target": {
+    "memberKey": "graph_call_result",
+    "sourceKind": "graph_call",
+    "targetRef": "graph-call://abiogenesis/62e0b81f697fd37032056fc69f23dd4ccf7fa8cbcffd503850bc181916ab77e2"
+  },
+  "source": {
+    "ref": "graph-call://abiogenesis/62e0b81f697fd37032056fc69f23dd4ccf7fa8cbcffd503850bc181916ab77e2",
+    "digest": "sha256:cc5b707c3fc4e2462bafa92031467536ff0376f56ee0e6e9064cd6f97fd7d3ad"
+  },
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/f9dc276b1a5f3318c6df127bb88fb731d811a6aee19b99d76b8b7817d1cc11a7",
+    "digest": "sha256:f9dc276b1a5f3318c6df127bb88fb731d811a6aee19b99d76b8b7817d1cc11a7"
+  }
+}

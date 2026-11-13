@@ -1,0 +1,22 @@
+{
+  "status": "PARTIAL_PRESERVATION_ONLY",
+  "commit": "5559656d3723c9e4be516c4bb1b7954640b1eead",
+  "tree": "26c9f41a881a2856e23bd1eb50749837bdc343fc",
+  "parent": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "binaryDiffSha256": "f022f0c15b9d07c5dc88822387fcc16473c6986b47fd125df41897bcee2f7b96",
+  "nativeOutput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/archives/fp-a13f808cf0fe0142-output.txt",
+    "bytes": 10342,
+    "sha256": "2514f3c049610d1cf2abe1323198dab5f45445a034ee925732922149ba73c9f4"
+  },
+  "paths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+    "build_tenants/abiogenesis/typescript/design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs"
+  ]
+}

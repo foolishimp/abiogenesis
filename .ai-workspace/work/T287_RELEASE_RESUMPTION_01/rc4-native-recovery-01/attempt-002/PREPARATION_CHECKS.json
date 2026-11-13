@@ -1,0 +1,71 @@
+{
+  "status": "FILE_ONLY_CHECKS_PASSED_NOT_RUNTIME_PREPARED",
+  "checks": [
+    {
+      "kind": "operator-preflight",
+      "result": {
+        "status": "operator_contract_checked_no_runtime",
+        "sourceWriteIntersection": [],
+        "invariantSources": 13,
+        "productWritePaths": 51,
+        "scratchWriteRoots": 1,
+        "commands": 9,
+        "requiredExecutionBudgetMs": 4267250,
+        "method": "current Git checkpoint and live files; no workspace snapshot machinery"
+      }
+    },
+    {
+      "kind": "operator-preflight negative control",
+      "result": {
+        "negativeControl": "source-write overlap refused"
+      }
+    },
+    {
+      "kind": "syntax",
+      "path": "prepare-native-call.mjs",
+      "exitCode": 0
+    },
+    {
+      "kind": "syntax",
+      "path": "dispatch.mjs",
+      "exitCode": 0
+    },
+    {
+      "kind": "syntax",
+      "path": "setup-state.mjs",
+      "exitCode": 0
+    },
+    {
+      "kind": "syntax",
+      "path": "freeze-dispatch.py",
+      "exitCode": 0
+    },
+    {
+      "kind": "syntax",
+      "path": "operator-preflight.py",
+      "exitCode": 0
+    },
+    {
+      "kind": "existing offline inventory verified, no install",
+      "result": {
+        "kind": "offline_dependency_tree_census",
+        "root": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+        "entries": 4576,
+        "regularFiles": 4574,
+        "symlinks": 2,
+        "bytes": 58290948,
+        "canonicalInventorySha256": "6aba0391382aae398fe2ddc62536491ed189d45aa1b36d896fe226a09e409049",
+        "meaning": "Exact local offline test dependency preimage, not a Product or native admission"
+      }
+    },
+    {
+      "kind": "native skill and Product Basis input bytes match pinned installed3.0.2",
+      "result": "verified; does not claim actor read"
+    }
+  ],
+  "runtimeImports": 0,
+  "builds": 0,
+  "providerCalls": 0,
+  "nativeSkillUse": "not yet observed for next task; previous attempt unobserved",
+  "sourceWriteIntersection": []
+}

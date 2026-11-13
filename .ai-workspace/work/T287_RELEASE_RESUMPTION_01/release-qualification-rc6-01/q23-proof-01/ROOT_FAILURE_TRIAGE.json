@@ -1,0 +1,74 @@
+{
+  "kind": "root_q23_uat_constructor_failure_triage",
+  "at": "2026-11-05T20:20:16.497403+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": "ABIogenesis5 fixed fifteen families; GOAL-035/T287/F11-F15 boundedQ23component, STDO3.0.4; Product defines outcome, existing native task owner checks task law, ABG owns runtime admission. No runtime source forgery or Product change.",
+  "actualFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/RUNTIME_FAILURE_OBSERVATION.json",
+    "bytes": 1564,
+    "sha256": "57acff1df722518c9e3f831e05e601844facc57806f096cfc4a2b19693387327"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 4444,
+    "sha256": "e1b303d564da73f98db873fc06157facb06f1e73b3eb1d96acbd707469203120"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/workload.json",
+    "bytes": 75805,
+    "sha256": "f8a3d7fd6064ca64d1ba145bcb9091bf3756a0b60d9bf2ad4d787dfa36b71c10"
+  },
+  "frames": [
+    {
+      "frame": "Product/requirement",
+      "finding": "The component assessment remains required. Passing C2 is retained bounded evidence, not substituted for assessment."
+    },
+    {
+      "frame": "Integration/design",
+      "finding": "Root concatenated readfirst plus the author UAT readFirst; three existing assets occur twice. Initial Governance work-order admission accepts text arrays; the later native task owner requires unique paths."
+    },
+    {
+      "frame": "Identity/authority",
+      "finding": "ActualC2belongs to the failed proofRun and immutableRC6 builder. Successor assessment must reference its genuine Result/CCall/actor coordinates and exact source bytes; no copied Governance observations or fabricated prior success."
+    },
+    {
+      "frame": "Lifecycle/effect",
+      "finding": "No UAT actor launched; no source edits occurred. Current Run is runtime_failed and authentically closed. A later assessment cannot rewrite its disposition."
+    },
+    {
+      "frame": "Proof",
+      "finding": "Six commands and62tests passed,342sources match and346proofinputs remain unchanged. Only the failed later assessment relation needs recovery; no C2 repeat selected."
+    }
+  ],
+  "originatingRelation": {
+    "owner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 18062,
+      "sha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443"
+    },
+    "relation": "unique(task.readFirst) and unique(task.writeRoots)",
+    "duplicates": [
+      "qualification-inputs/q23-author-05/rubric.json",
+      "qualification-inputs/q23-author-05/METHOD_ACCESS.json",
+      "qualification-inputs/q23-author-05/ROOT_POLICY_HOW_SELECTION.json"
+    ],
+    "inputCount": 32,
+    "uniqueCount": 29
+  },
+  "constructionOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+    "bytes": 44995,
+    "sha256": "d4799e3fe08e53ea47a058abe17ac367f4854f6e39d3bfaede76b89099728400"
+  },
+  "supportedCause": "The retained Root packet necessarily violates the native task constructor uniqueness predicate. The admitted failure reports thrown at implementation_invocation, consistent with this violation.",
+  "uncertainty": "No hidden thrown exception message is inferred. Other constructor predicates and exact successor entry require preflight before dispatch.",
+  "whyMissed": "Root checked initial Governance shape, present source inputs, command budget and prompt capacity but did not check uniqueness of every future work-order path list. Q23 source C2 does not test operator packet composition.",
+  "recurrence": "An owner contract was validated only when the future node was constructed. Move this finite task-list check into successor operator preparation; do not add a second runtime validator or change immutable RC6.",
+  "smallestReentry": "Existing one-node native assessment Program with actual C2 producer and current unchanged candidate/rubric; exact catalog/Product-root/schema prerequisites under readiness review. Deduplicate only the operator readFirst union preserving order. Failed default-library Run remains failed.",
+  "preservation": "No re-cut, C2 rerun, private provider output, speculative prior observations, old close substitution, qualification or release claim.",
+  "selectionStatus": "TRIAGE_CLOSED_RECOVERY_READINESS_PENDING"
+}

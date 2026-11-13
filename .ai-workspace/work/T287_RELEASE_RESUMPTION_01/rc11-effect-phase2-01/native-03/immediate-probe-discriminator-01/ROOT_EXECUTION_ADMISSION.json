@@ -1,0 +1,50 @@
+{
+  "id": "PHASE2-A-IMMEDIATE-DISCRIMINATOR-01",
+  "status": "ROOT_ADMITTED_PHASE2_A_IMMEDIATE_PROBE",
+  "recordedAt": "2026-11-10T01:45:33.408209+00:00",
+  "bindingSha256": "8b0acb78bcefdb1730856977a812de0568d70d37e5e4c0a937db7125f1268951",
+  "readySha256": "9e738eeb423da964badcc577b94d8bef80ded563d357a433964f923affc253cd",
+  "commandIds": [
+    "baseline",
+    "candidate"
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/READY.json",
+      "bytes": 4089,
+      "sha256": "9e738eeb423da964badcc577b94d8bef80ded563d357a433964f923affc253cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/BINDING.json",
+      "bytes": 15037,
+      "sha256": "8b0acb78bcefdb1730856977a812de0568d70d37e5e4c0a937db7125f1268951"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/immediate-probe.mjs",
+      "bytes": 5496,
+      "sha256": "0b618f9f7a8339db87ed72d9e7ee5e9813c53cebd2e8570ad7eaeb2465679ff0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/run.py",
+      "bytes": 6076,
+      "sha256": "fc5046716566405fb5e35f7c0997c81dd2328d02cabb99ca9d94462ffd8f9e09"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/INPUT_RELATION.json",
+      "bytes": 3074,
+      "sha256": "b73ef7929b08bc550bde0b642abc3780ba3a6e40eca376187afb70306b08e386"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/REVIEW_CONJUNCTION.json",
+      "bytes": 1502,
+      "sha256": "d512d1cac09f3ec3ae4c8551b5bcc23062b944ff212923be040e60f2d4b19599"
+    }
+  ],
+  "rootDecision": "Root read exact READY, binding, full fixture, driver and relation and admits ONE launch, baseline then candidate once.10s each/30s campaign/1MiB combined output. Preserve immediate pre-assertion facts, cleanup/output/guard receipts. Candidate expected red is evidence only, not repair/retry. Source/Git/provider and other proof remain held.",
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "limits": {
+    "commandSeconds": 10,
+    "campaignSeconds": 30,
+    "outputBytes": 1048576
+  }
+}

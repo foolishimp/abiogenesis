@@ -1,0 +1,152 @@
+{
+  "status": "ROOT_SELECTED_S5_POST_AUTHOR_BUILD_ONLY",
+  "createdUtc": "2026-11-06T21:43:07.309855+00:00",
+  "role": "Separately bound Root operator Writer under existing Root activation; no Product implementation",
+  "productFrame": {
+    "product": "ABIogenesis5.0 fixed fifteen families",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "STDO3.0.4",
+    "composition": []
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_AFTER.json",
+    "bytes": 559922,
+    "sha256": "c65b3703473186207d4787ec0998e6120099f41661b112d3ea0b55760e87e814"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 11876,
+    "sha256": "8b155cbaa167dc2eaf2b0d515f448d3728ccdc6ce2cb771d4a03b95e3669eac1"
+  },
+  "close": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8546,
+    "sha256": "0d084ff96cc77d612f0accc75aa8ade031271505d6f3335ee7b5d62ac8440933"
+  },
+  "commandOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+    "bytes": 39766,
+    "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+  },
+  "stageOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01/prior-author-stage.mjs",
+    "bytes": 8291,
+    "sha256": "fb98dcb5447a3c4554594ad8cae67b1b3f0a357f142a6879fffbdb6daa625347"
+  },
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "label": "sw1-stage-02",
+  "mode": "after",
+  "stageReport": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02-stage.json",
+  "timeoutMs": 960000,
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "TMPDIR": "/private/tmp/abg-sw1"
+  },
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_AFTER.json",
+      "bytes": 559922,
+      "sha256": "c65b3703473186207d4787ec0998e6120099f41661b112d3ea0b55760e87e814"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 11876,
+      "sha256": "8b155cbaa167dc2eaf2b0d515f448d3728ccdc6ce2cb771d4a03b95e3669eac1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8546,
+      "sha256": "0d084ff96cc77d612f0accc75aa8ade031271505d6f3335ee7b5d62ac8440933"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TRANSPORT_OUTCOME_METADATA.json",
+      "bytes": 1673,
+      "sha256": "b704f978063bd6bc0495d1ebf895102713b5d5694fd46c3c3c5ee99e4a3bec52"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-author-build-001/run-build.mjs",
+      "bytes": 3471,
+      "sha256": "cc5f3cc00fab1cd341e2ce2b83cb88cd6b22a89f02a8894ac47d429231874777"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01/prior-author-stage.mjs",
+      "bytes": 8291,
+      "sha256": "fb98dcb5447a3c4554594ad8cae67b1b3f0a357f142a6879fffbdb6daa625347"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01/C2_INPUTS.json",
+      "bytes": 47958,
+      "sha256": "d0b0e49000c6620df5e1a321e45dccbfc3c69591dcf64caa30e71e1cba0dc906"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01/DEPENDENCY_SOURCE_SELECTION.json",
+      "bytes": 4519,
+      "sha256": "07dd5829d2d006c174a74c14ba08b5d1cdb9ca526eeec6347b8eb607a547a342"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01/COMMAND_BOUNDS.json",
+      "bytes": 4299,
+      "sha256": "9e94452b541677a62d3e54ab627ccd063e4f6b2e34d7ee2af06ef077938a71c6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01/SOURCE_CUSTODY.json",
+      "bytes": 2628,
+      "sha256": "35e75a3474bc688dfb30941c0c319b8953e7ea27811cdaa2b6125f04965d7724"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01/npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01/npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "selection": "One unused original stage after actual actor termination, to observe compile/generation/lifecycle on frozen unaccepted source. Original240/600/60-second phase ceilings unchanged;960-second overall envelope. No proof lane, baseline repetition, native Worker, source repair, archive/install, qualification or acceptance. Missing timeout/archive tests and independently reviewed boundary defect remain native completion work.",
+  "unavailable": "NativeResult/native.before/native.after were absent; Root-held/live451-row custody is the selected build basis.",
+  "qualified": false,
+  "accepted": false
+}

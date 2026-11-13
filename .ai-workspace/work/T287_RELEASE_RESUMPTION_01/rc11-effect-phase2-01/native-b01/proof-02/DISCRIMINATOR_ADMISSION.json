@@ -1,0 +1,22 @@
+{
+  "id": "PHASE2-B-UNIT-CONTROL-PREP-02",
+  "decisionOwner": "Root",
+  "selection": "One <=30s control-only discriminator invoking actual revised controller functions; no Product import/test/child workload.",
+  "argv": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator.py"
+  ],
+  "timeoutSeconds": 30,
+  "maxOutputBytes": 1048576,
+  "controller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/unit.py",
+    "bytes": 17434,
+    "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator.py",
+    "bytes": 2468,
+    "sha256": "4e54f0fb4f9aa957c2a7d3e1e7f2b19d33c68eb3320654008dc8d16873501adb"
+  },
+  "disposition": "Explicit preparation grant; actual unit remains held."
+}

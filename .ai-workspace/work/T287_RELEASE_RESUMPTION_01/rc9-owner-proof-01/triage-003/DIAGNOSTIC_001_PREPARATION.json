@@ -1,0 +1,44 @@
+{
+  "status": "HELD_PREPARED_DIAGNOSTIC_NOT_EXECUTED",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/run-m5-diagnostic-001.mjs",
+    "bytes": 9769,
+    "sha256": "04226f8707f113c7fdef85d99fe19fed1ed5ce2465ed6bd527ab42fdd6033fb3"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/M5_DIAGNOSTIC_BINDING.HELD.json",
+    "bytes": 9956,
+    "sha256": "12481c53f55399d69a82a2720b2ee9700029b6eb103af9a10f3ce287299ebded"
+  },
+  "preparationAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/DIAGNOSTIC_001_PREPARATION_ADMISSION.json",
+    "bytes": 792,
+    "sha256": "f52140967e1fe71955f94364ee86f8098feb9781fd6877c30119851401d67a26"
+  },
+  "nativeCloseReadback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/NATIVE003_CLOSE_READBACK.json",
+    "bytes": 1570,
+    "sha256": "811aff1d04f85feebfb8912972f43acf11217b64f787fadddf7e46d4dc99a0ee"
+  },
+  "parserCopiedExactlyFrom": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-003.mjs",
+    "bytes": 13305,
+    "sha256": "74b261f9d3960698edcb9ddcecc3b2cb9121e54fb603b081547c07d37ba56c71"
+  },
+  "fileHostUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/file-host.mjs",
+    "bytes": 2803,
+    "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+  },
+  "firstCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/run-m5-diagnostic-001.mjs",
+    "<actual bound diagnostic binding>",
+    "<actual SHA>",
+    "<Root execution admission>",
+    "<actual SHA>"
+  ],
+  "conditions": "Root admission must bind configuration and both stop checks; fresh output/temp;180s/16MiB/4GiB free. Existing file-host additionally caps owned bytes4GiB. Sample actual host load/ancestry; no quiet-host claim.",
+  "noExecution": true,
+  "originalUnit": "Incomplete after owner timeout;75events70cases5fail, no OWN/global receipt; preserved."
+}

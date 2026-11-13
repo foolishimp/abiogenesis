@@ -1,0 +1,22 @@
+{
+  "addedPaths": [
+    {
+      "bytes": 18695,
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "sha256": "e40d18b2f0c76fe3537e006245138615a48461c12a701a578a8af100cf6cb0f6"
+    },
+    {
+      "bytes": 71047,
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "a1d8696788c7f24d2a3a7f32b63c8c864ad21aab6160d642e7470cf5b4b1743c"
+    }
+  ],
+  "kind": "single_machine_p1_c2_source_closure_amendment",
+  "materializationReceiptSha256": "4ff3375b6f6b6cd5705478ac1276a102fc93146a07e2d7d51ac7e4d26f8d3e26",
+  "priorManifest": "B11_C2_961_PREPARATION.json",
+  "priorManifestSha256": "554172089688e2ba1768856f91d7d3b8a2409a170011fc46da5667282aa3696f",
+  "reason": "All44 granted Product paths must be captured in actual protected C2 source snapshot for source correspondence.",
+  "scope": "P1 operator assessment documents are additional readRoots, not C2 protected source dependencies; no new Product file or authority.",
+  "selectedCount": 963,
+  "selection": "Root explicitly selects B11 fallback961 plus these two existing granted HOWs"
+}

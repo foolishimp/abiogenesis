@@ -1,0 +1,46 @@
+{
+  "kind": "rc5_f4_installed_fixture_repair_grant",
+  "status": "ROOT_SELECTED_NATIVE_PREPARATION",
+  "taskId": "T287_RC5_F4_03",
+  "sourceCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "sourceTree": "c4b60c78533eeff2734c289eccb1b37df982f3b9",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "builderRuntimeBasis": "stdo://releases/v3.0.2/",
+  "builder": "exact installed RC4 f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc5-performance",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "changeClass": "realization_refactor of installed proof fixture/preparation",
+  "derivedReentry": "S2 complete owner-composition and descriptor repair; runtime source unchanged",
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+  ],
+  "scratchWriteRoots": [
+    "rc5-scratch/f4-03/return.json",
+    "rc5-scratch/f4-03/readiness.json",
+    "rc5-scratch/f4-03/tmp"
+  ],
+  "independentReview": "Exact3file repair reviewed independently at max; conjoin held fullF4 codec/store review; no full-code repeat",
+  "closure": "Actual F4 atomic/cold/installed and captured net-byte proof, retained method proof plus missing planning test, independent frozen review, native UAT and fresh result/replay. Local unqualified RC5 only.",
+  "effectOwner": "ABG native coding Worker; Root operator owns preparation/C2 source adoption/local checkpoints",
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 256,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null
+  },
+  "exclusions": [
+    "Product/requirements/Public schema changes",
+    "unselected owners, cold-history rewrite and new store/service/controller",
+    "GC03 host rewrite or full qualification",
+    "canonical generated/build/package/install writes",
+    "old histories/releases, push/tag/global selector"
+  ],
+  "normalTools": "Read-only offline dependencies; syntax and pure owner checks; one focused installed author-feedback run in scratch using exact already-compiled bound archive. No canonical ABI build/pack/install or provider. C2 owns final affected candidate proof."
+}

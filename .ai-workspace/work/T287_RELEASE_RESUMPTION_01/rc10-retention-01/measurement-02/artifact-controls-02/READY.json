@@ -1,0 +1,51 @@
+{
+  "status": "CONDITIONAL_ROOT_GRANT_SATISFIED_READY_FOR_ONE_PROVISIONAL_PACK_INSTALL",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/BINDING.json",
+    "bytes": 6273,
+    "sha256": "1c67c2ce991052706ea3ac94782127b4bbe4e88e6cbc62f1cb422292e1b05f6f"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/prepare-bootstrap.mjs",
+    "bytes": 10812,
+    "sha256": "07f0f4af0726d2e1f728c77fbf79b74943f15e47d4388c654da2615ab80e8613"
+  },
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/DRIVER_DELTA.patch",
+    "bytes": 8749,
+    "sha256": "b6bbdd1db4ebfbafc38e70ed2dc4c6223a59c68846ba62282a21a22d5d293a67"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/ROOT_ADMISSION.json",
+    "bytes": 1642,
+    "sha256": "2b01b3e09bd997f944c71c83cf81d074a723bef9d5bde7cce09ecfd8fe0d63c5"
+  },
+  "focusedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/FOCUSED_RETURN.json",
+    "bytes": 889,
+    "sha256": "7513eb659ad6de78c3306011b37fad03966b7ed3cae5c446881afc825c3bdc66"
+  },
+  "sourceIdentity": {
+    "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292778,
+      "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+    }
+  },
+  "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02",
+  "temp": "/private/tmp/abg-rc10-measurement-bootstrap-002",
+  "bounds": {
+    "hostMs": 600000,
+    "packMs": 120000,
+    "installMs": 480000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "freeReserveBytes": 4294967296,
+    "nodeHeapMiB": 8192
+  },
+  "oldArtifactReused": false,
+  "noBuildOrIdentityEdit": true,
+  "qualified": false
+}

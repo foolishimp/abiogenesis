@@ -1,0 +1,59 @@
+{
+  "status": "ROOT_SELECTED_REGISTERED_SELECTION_WHOLE_PROOF_PREPARATION",
+  "at": "2026-11-07T11:28:40.421428+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 4408,
+    "sha256": "d9adadd2558622cb8f60a20055509a160dd0e4a96f204bce368f19e809663922"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/registered-selection-timeout-015/REVIEW.json",
+    "bytes": 14762,
+    "sha256": "cb0753e3a28e4c76b34d86606d9665e350f136256096faf17eaa669641c372bf"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/registered-selection-timeout-015/README.md",
+    "bytes": 1999,
+    "sha256": "7734653af40689229bf8677ba01281f90a62ab3bc92ebf7f3d4e28e349091985"
+  },
+  "priorStoppedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_015.json",
+    "bytes": 6731,
+    "sha256": "1d7e6bc6d6dd7926b0ee4f865d229ff62c1694605e7ed122b0fc7cf44394e39d"
+  },
+  "rootConjunction": "Closed reviewer and Root reads localize the demonstrated violation to600s total proof budget. A/B selected paths, four cold reads and provenance completed; five negative/gap outcomes remain unknown. No Product counterexample or unique cost cause established. One unchanged whole-file1800000ms proof selected for concrete control review, with all7scenarios/4reads and no filter/repeatOnly/provider; no automatic extension or retry.",
+  "budgetBasisMs": {
+    "twoTimesObservedSetup": 938773.565002,
+    "sevenStartsAtTwoTimesSlowestObserved": 296102.32808800053,
+    "fourReadsAtTwoTimesSlowestObserved": 86568.668664,
+    "additionalOverhead": 120000,
+    "total": 1441444.5617540004,
+    "marginWithin1800000": 358555.4382459996
+  },
+  "budgetStanding": "This about1441.4s allocation leaves358.6s inside1800s. Unseen negative-path duration is not mathematically bounded by the observed positives; the2x multipliers and overhead are declared operating assumptions. No automatic extension or repeat. There is no inner case deadline to defeat this command-only change.",
+  "sourceCorrespondence": {
+    "a6Test": {
+      "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs",
+      "bytes": 13096,
+      "sha256": "13ea567a5e3c0bdbb36b413671c0ee72794fe8306737e0019c47edada2eb5c6c"
+    },
+    "finalA10Test": {
+      "path": "/private/tmp/abg-r8-a10-o7l27nv6/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs",
+      "bytes": 13096,
+      "sha256": "13ea567a5e3c0bdbb36b413671c0ee72794fe8306737e0019c47edada2eb5c6c"
+    },
+    "bytesEqual": true,
+    "dependencyCone": "Closed review pins the unchanged relevant test/support/fixture/owner relation; compiled/dependency/archive bytes retained. Final A10 source is selected for this standalone proof; broad016 continues independently on frozen A6."
+  },
+  "executionAdmitted": false,
+  "effects": "New controls now; one dedicated derived workspace and existing command/file-host owners only after separate Root admission. Zero source/build/generation/provider/Git/cut/install/cleanup effects."
+}

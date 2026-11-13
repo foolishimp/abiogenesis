@@ -1,0 +1,58 @@
+{
+  "kind": "d5_author_03_readiness",
+  "schemaVersion": "1",
+  "at": "2026-11-06T01:55:00Z",
+  "worker": "claude (single fresh native coding Worker, d5-author-03; Opus 5.5)",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "outcome": "Preserve lawful exact-L cold judgment while keeping the current copy-free shared projection and all existing owner admission boundaries.",
+  "claims": {
+    "sourceAcceptance": false,
+    "qualificationAcceptance": false,
+    "releaseAcceptance": false,
+    "profileCut": false,
+    "graphContinuationChosen": false
+  },
+  "readyForRootReview": true,
+  "mechanicalReadiness": {
+    "freshFinalStage": "d5c-final1",
+    "sourceCount": 372,
+    "sourceDigest": "7e8bb3b085517a18a4c6c6cba0d4ae3a54b1738ce3089bd8da6f3ab70e1793dd",
+    "worksiteMatchesFreeze": true,
+    "onlyGrantedPathsDifferFromD5bFinal2": true,
+    "compileExit": 0,
+    "generateExit": 0,
+    "lifecycleGuardExit": 0,
+    "generatedProfileContractUnchanged": "ae38fb37e3c59079e1acab2d920fb2d46d867a3150e89029323014288fa36b2c",
+    "qualificationLane": { "tests": 37, "pass": 37, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0, "exitCode": 0 },
+    "failingBefore": { "stage": "d5c-before1", "tests": 1, "pass": 0, "fail": 1, "assertion": "an L artifact keeps its full preimage (null vs exact J)" },
+    "passingAfter": { "stage": "d5c-final1", "tests": 1, "pass": 1, "fail": 0 },
+    "helperPremiseNecessity": { "stage": "d5c-helper1", "tests": 24, "pass": 22, "fail": 2, "failing": "both Q23 admitJudgment readback positives" }
+  },
+  "freeze": {
+    "changedPaths": [
+      { "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts", "bytes": 102327, "sha256": "ac63c79c77c57a36278fd45126aeadb4d1955d2f84699d05db3bfc7f04bdff6e" },
+      { "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs", "bytes": 98958, "sha256": "b7bbdb76a75bc7d241432a2e045ef338209629f1ea3d8146791887624921b94f" }
+    ],
+    "newProductFiles": [],
+    "inheritedNewProductFilesRetained": [
+      "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+    ],
+    "newHandoffs": [
+      "qualification-scratch/d5-author-03/return.json",
+      "qualification-scratch/d5-author-03/readiness.json",
+      "qualification-scratch/d5-author-03/progress.json"
+    ],
+    "readonlyN2Handoffs": "unchanged at custody pins 0f163d27..., 08e8b9bc..., 96215b74...",
+    "notVerifiedByThisWorker": "The 32 members of the 404-member set outside the 372 closure were not rehashed here (SOURCE_BEFORE is outside the readable scope); none was written by this task and git status is unchanged."
+  },
+  "capsuleResidual": "D5-P6-N1-UNCONFIRMED-01 remains explicit and unexercised.",
+  "openForRoot": [
+    "Frozen two-file recheck and the already required affected seven-command ten-module C2/UAT on the corrected successor.",
+    "Recovery component/replay limits and the original 113-pass scope remain as recorded by N2 and the recovery review.",
+    "Prospective p5/D 3bcc8488... binding at the RC7 cut; reacquire the generated contract and computed descriptor from the frozen source.",
+    "QR02/QR03, formal F11 J, S01/S02/S03/S06, production qualification and human release acceptance."
+  ],
+  "note": "Author feedback only. Stopped after the three N3 handoffs; no source, qualification or release acceptance is claimed."
+}

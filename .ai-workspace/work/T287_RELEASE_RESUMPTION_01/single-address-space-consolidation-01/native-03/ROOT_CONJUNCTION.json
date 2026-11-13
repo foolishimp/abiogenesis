@@ -1,0 +1,91 @@
+{
+  "recordedUtc": "2026-11-03T19:41:58.219749+00:00",
+  "role": "Root Executive conjunction recorded by separately activated operator/evidence Writer",
+  "basis": "STDO3.0.4 / T-287 / GOAL-035 / original R1-R7 and C1-C5",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/review-subject-001/SUBJECT.json",
+    "bytes": 124184,
+    "sha256": "cf84f95de7331851eae35cceca1ec2a9e07bd0e6dda5402cd4c7a6e5b29d5397"
+  },
+  "subjectSha256": "cf84f95de7331851eae35cceca1ec2a9e07bd0e6dda5402cd4c7a6e5b29d5397",
+  "sourceStanding": "Retain exact partial source on bounded independent static compatibility; whole consolidation is unmet",
+  "nativeAuthorReadiness": false,
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/INDEPENDENT_SOURCE_RECHECK.json",
+    "bytes": 10267,
+    "sha256": "265ae9157348b360169008cc9c32f55ec8708262d66570c9955071ca704809d7"
+  },
+  "witnessProofTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/INDEPENDENT_WITNESS_TRIAGE.md",
+    "bytes": 4328,
+    "sha256": "bff7da1db99a8206fac24e1bbd4a00cd670ca165b7eef53addc09b981a076860"
+  },
+  "actualC2Triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/ACTUAL_C2_OUTPUT_TRIAGE.json",
+    "bytes": 6179,
+    "sha256": "aa7b9c71b70d2282758cba074e3a86a4f35efad8c7b7004ccf5b81a1b4c54d60"
+  },
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/execution/outcome-summary.json",
+    "bytes": 544,
+    "sha256": "c9b0d69ef66a15ccba45c702a7ecb48a47882920190d2528ae8aa1f71f73d1a4"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/execution/fresh-reads.json",
+    "bytes": 2411,
+    "sha256": "9a5610ca7f8a8dbd92138ece811ee856f363271ebb5cdfdb36b3fd444806ccf2"
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/execution/after-run-resume.json",
+    "bytes": 99581664,
+    "sha256": "0fe1fda4f4d2e0c0fcdeedd619c7bb4cee7e402c697846f679ceee888a744a88"
+  },
+  "actualC2": {
+    "commands0to5": "exit0",
+    "sourceCorrespondence": "91 of91 equal",
+    "affectedProof": "exit1; no persisted lane tally",
+    "territory": "rejected ungranted alias-selection evidence output",
+    "protectedTrees": "unchanged; productDelta empty",
+    "UAT": "not executed",
+    "terminal": null
+  },
+  "evidenceCorrection": "Closed-owner pure historical projection may reuse its immutable authenticated selection. Explicit fresh read uses active ownership or cold authentication. Preserve original misleading wording; do not add cold reads to match it.",
+  "nextContinuationSelected": true,
+  "selection": "ROOT_REENTRY_SELECTION_04.md",
+  "additionalProductWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs"
+  ],
+  "selectedResiduals": [
+    "Complete worksite command forwarding private carrier and owned historical/current relation",
+    "Complete construction recovery selected facts and body consumers",
+    "Complete ordinary witness admission and profile/successor migration; reconcile old full-sweep test oracle and reach cold/negative assertions",
+    "Complete ordinary retry resume/input and selected-frontier paths",
+    "Complete qualification source carrier and joins; retire displaced materializing artifact adapter",
+    "Retire unconsumed full-history replay and pending-interaction wrappers with their affected test consumers unless an actual supported contract is demonstrated",
+    "Attribute liveness selection/generation lineage and consolidate repeated global fact work via existing computations/indexes",
+    "Execute missing changed-claim discriminators, complete actual C2/UAT/fresh closure, and account for every R1-R7 row without local-only closure"
+  ],
+  "rootOperatorCorrections": [
+    "Declare the R5 alias-selection evidence directory through the existing C2 territory owner",
+    "Persist orchestration lane reports under a dedicated permitted test_runs directory, creating it before each write",
+    "Expose the exact selected file guide for scratch; preserve relative paths and short socket roots"
+  ],
+  "forbidden": [
+    "Root Product/test repairs",
+    "Mutation of prior controls, source snapshots, logs or immutable releases",
+    "Overlapping native coding Workers",
+    "New store/cache/runtime authority",
+    "Push, merge, tag, global selector, new cut/install or stable claim"
+  ],
+  "closure": "One local green or a narrower grant does not discharge the original complete outcome. Preserve accepted evidence and every historical failure."
+}

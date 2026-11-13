@@ -1,0 +1,41 @@
+{
+  "id": "RC9-SETUP-02",
+  "status": "ROOT_ADMITTED_HELD_PREPARATION",
+  "recordedAt": "2026-11-08T07:02:39.931108+00:00",
+  "decisionOwner": "/root Executive",
+  "recordedBy": "/root/rc9_operator",
+  "decisionVerbatim": "ROOT RC9-SETUP-02 ACCEPT reviewedconcrete host62174e1f/TASK1253168b/BINDING294d0d53/scope5d0f6f01/CONTROL_RETURNfe0be127, correctedproof93187b49/template9c8322a9 andPROOF_SCOPE26ab2501. Root independently verified32pins0mismatches, readactualhost+8pathTASK. Execute exact author02 setup commandonceasOperator, declaredauthor02runtime + /private/tmp/abg-r9-a02-001 effects, reopenonlyactualauthor01close; no install/setupreplay. Persistthisadmissionbeforeeffect. Holdsameprocess at actualPREPAREDwith0providerdispatch andreturnpin/session. Laterdispatchproofbindingproduction acceptedasreviewed; actualPREPARED-boundRootadmissionwillfollowquickly. No furthercontrolredraft needed absentmaterialmismatch.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_SCOPE.json",
+      "bytes": 3663,
+      "sha256": "5d0f6f010854447821bc28d65d6bf98f62872fb1511d03bca96f7e927599bb9d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/TASK.json",
+      "bytes": 11863,
+      "sha256": "1253168b96f8c40a63e25dd0f26c4ef791c9c5e41d781e8ce57f3e3563f3ba9e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/BINDING.json",
+      "bytes": 10156,
+      "sha256": "294d0d53881ba9e924382fffd911d2c646d204edb8190e9d94fc140b27b0faae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/host.mjs",
+      "bytes": 13586,
+      "sha256": "62174e1f216e004590b27928b7cdd30a01ffd8584e0d7cc572d27299c02547be"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/CONTROL_RETURN.json",
+      "bytes": 2782,
+      "sha256": "fe0be12724cc617535e8c8564e13e77c0260c13551418cd0bbead2e9b7de2861"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/STATIC_PREFLIGHT.json",
+      "bytes": 12886,
+      "sha256": "aed7585377021c360f039088766ae43bdc121c7bff86b13b0999551a62fbc08a"
+    }
+  ],
+  "providerDispatch": false
+}

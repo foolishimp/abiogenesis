@@ -1,0 +1,35 @@
+{
+  "kind": "stage_owner_receipt_observation",
+  "observedUtc": "2026-11-06T17:28:06.724659+00:00",
+  "stageLabel": "hs3-stage-01",
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/inputs/prior-author-stage.mjs",
+    "bytes": 8318,
+    "sha256": "0017cf6798a85a0415103de9cb17f4ccd55c48305510fd52b9b13f215f794867"
+  },
+  "reportPath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-stage.json",
+  "reportPresent": false,
+  "phaseMetadata": {
+    "setup": {
+      "exitCode": null,
+      "ms": null,
+      "status": "NO_COMPLETED_OWNER_RECEIPT_OBSERVED"
+    },
+    "compile": {
+      "exitCode": null,
+      "ms": null,
+      "status": "NO_COMPLETED_OWNER_RECEIPT_OBSERVED"
+    },
+    "generate": {
+      "exitCode": null,
+      "ms": null,
+      "status": "NO_COMPLETED_OWNER_RECEIPT_OBSERVED"
+    },
+    "lifecycle": {
+      "exitCode": null,
+      "ms": null,
+      "status": "NO_COMPLETED_OWNER_RECEIPT_OBSERVED"
+    }
+  },
+  "limit": "Existing helper emits one consolidated report after setup, compile, generation and lifecycle. It issues no separate per-command receipt. Absent report cannot establish which phase is active, completed or failed; no process inference or stderr read."
+}

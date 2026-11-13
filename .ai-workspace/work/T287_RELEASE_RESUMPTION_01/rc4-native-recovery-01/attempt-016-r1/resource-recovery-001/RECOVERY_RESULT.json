@@ -1,0 +1,22 @@
+{
+  "status": "RECOVERED_RESOURCE_ONLY_NO_RUN_CONTINUATION",
+  "at": "2026-11-02T21:34:09.102Z",
+  "handoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/resource-recovery-001/recovered-close-handoff.json",
+    "bytes": 1338,
+    "sha256": "a38abc78ecefe813285e5505ee2e8468daa6f5253ca8dc24f91d9cd49e185a53"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/resource-recovery-001/recovered-operator-resume.json",
+    "bytes": 73461245,
+    "sha256": "212fffe31d31ad9841710eaed7e8dba130530971b31a820fdd0b32a60d75eb01"
+  },
+  "validatedEventCount": 23259,
+  "eventBytesUnchanged": true,
+  "installedUnchanged": true,
+  "sourceUnchanged": true,
+  "dependenciesUnchanged": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "acceptance": false
+}

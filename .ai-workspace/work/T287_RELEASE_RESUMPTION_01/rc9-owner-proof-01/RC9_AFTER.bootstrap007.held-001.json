@@ -1,0 +1,256 @@
+{
+  "status": "HELD_MATCHED_REFERENCE_MEASUREMENT",
+  "subject": {
+    "label": "RC9-after",
+    "phase": "after",
+    "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceTree": null,
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "installRoot": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant",
+  "bootstrapInstallHost": "/private/tmp/abg-r9m-rc9-bootstrap-007/host",
+  "installReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/installation.json",
+    "bytes": 4231675,
+    "sha256": "327cebf91c092b13c77cf5ae3b409d9c41a20938f5193f16807c84bc2c0adc5e"
+  },
+  "cutRecord": null,
+  "installIdentityPins": [
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "bytes": 13810,
+      "sha256": "26771ef341c8d0d1b927118a9a73556cb93df7cd248dc4f5b187e50a395c4799"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/binding/definition_binding_mechanics.js",
+      "bytes": 18054,
+      "sha256": "9fa71fb621f432110938c7e2a1f3c1b01f02ea356b2f9cf762d59d7e76d3699c"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_definition_call_transport.js",
+      "bytes": 16129,
+      "sha256": "4ffc13a76ec9576b9ca247e0b48df0707ba42dcfcf9216a04a175b8df131caa6"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/catalog.js",
+      "bytes": 29312,
+      "sha256": "d9325a8f7ed1668e5652f4d779a56c6ed2636a8cb301771d61cf1a3389729ebc"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/execution_resolution.js",
+      "bytes": 39228,
+      "sha256": "0dd0507248961168b753aba508db9261a9c3cff1f92905c328df8815af766645"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/semantics.js",
+      "bytes": 17993,
+      "sha256": "33220f692e59263a370cb458c7ffb1dfacbe16e24a44051a003215dd982a513f"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+      "bytes": 43447,
+      "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/execution_basis_record.js",
+      "bytes": 5901,
+      "sha256": "0671c8cf392c0d5bf4734bdef5c91978373e456581595541ac224161bff32918"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/environment_admission.js",
+      "bytes": 39528,
+      "sha256": "f8b158a69d45c2589abb50c88fb550d5b478fab2f0f1305eef78a7d3a1136932"
+    },
+    {
+      "path": "/private/tmp/abg-r9m-rc9-bootstrap-007/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/install_product.js",
+      "bytes": 18933,
+      "sha256": "e5149ede50dd20490b962732d4795e7e6575e61100a699bacd0bc09571d69248"
+    }
+  ],
+  "packageRoot": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+  "helperPins": [
+    {
+      "relativePath": "test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "relativePath": "test_env/support/candidate-basis.mjs",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+    },
+    {
+      "relativePath": "test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "relativePath": "test_env/support/registered-graph-selection.mjs",
+      "bytes": 19702,
+      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+    },
+    {
+      "relativePath": "test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "relativePath": "test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": 9876,
+      "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4"
+    },
+    {
+      "relativePath": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
+    }
+  ],
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/after-rc9-001",
+  "tempRoot": "/private/tmp/abg-r9m-rc9-after-001",
+  "node": {
+    "configuredPath": "/opt/homebrew/bin/node",
+    "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "contextBodyBytes": [
+    1048576,
+    4194304
+  ],
+  "bounds": {
+    "hostMs": 900000,
+    "coldReadMs": 120000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "aggregateBytes": 1073741824,
+    "nodeHeapMiB": 8192
+  },
+  "additionalCounterSources": [
+    {
+      "name": "call",
+      "module": "public/binding/definition_binding_mechanics",
+      "exportName": "observeDefinitionCallWork",
+      "required": false
+    },
+    {
+      "name": "transport",
+      "module": "public/installed_definition_call_transport",
+      "exportName": "observeDefinitionTransportWork",
+      "required": false
+    },
+    {
+      "name": "catalog",
+      "module": "product/catalog",
+      "exportName": "observeCatalogWork",
+      "required": false
+    },
+    {
+      "name": "resolution",
+      "module": "product/execution_resolution",
+      "exportName": "observeExecutionResolutionWork",
+      "required": false
+    },
+    {
+      "name": "input",
+      "module": "product/semantics",
+      "exportName": "observeProductInputWork",
+      "required": false
+    },
+    {
+      "name": "worker",
+      "module": "abg/worker_transport",
+      "exportName": "observeWorkerTransportCopyWork",
+      "required": false
+    },
+    {
+      "name": "basisRow",
+      "module": "abg/calculus/execution_basis_record",
+      "exportName": "observeExecutionBasisRowWork",
+      "required": true
+    },
+    {
+      "name": "environment",
+      "module": "abg/environment_admission",
+      "exportName": "observeWorkspaceEnvironmentWork",
+      "required": true
+    },
+    {
+      "name": "installedContent",
+      "module": "product/install_product",
+      "exportName": "observeInstalledContentWork",
+      "required": true
+    }
+  ],
+  "counterObservationMode": "raw_absolute_snapshots_after_setup_and_around_calls",
+  "unavailableCounterRoles": [
+    "final native contract producer construction/freeze total (no dedicated counter)"
+  ],
+  "cpuProfileCall": "4MiB-profile",
+  "scriptedActorOnly": true,
+  "qualification": false,
+  "bootstrapBudget": {
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007",
+    "tempRoot": "/private/tmp/abg-r9m-rc9-bootstrap-007"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 4087,
+    "sha256": "50697a33ab3761d513cd5363e99a049bb6424d58114cf0fcbc7c90c92e7e7cc8"
+  },
+  "executionStanding": "HELD actual matched source/helper/artifact bindings after successful bootstrap007. Same final003 helper root/pins for both subjects. Two unprofiled1MiB/4MiB calls, existing4held+4fresh read parity; RC9-only separate4MiB profile. Counters/absence remain explicit; O3 physical checks retained. Separate Root measurement admission required; no speedup/qualification claim.",
+  "helperPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/MEASUREMENT_HELPERS.PREPARATION.003.json",
+    "bytes": 1731,
+    "sha256": "0ce8bd5c5c9bc7f0d40fd3617825d792d7499a0459933843e3cfc645bcc0e760"
+  },
+  "finalHelperValidation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ACTUAL003_SOURCE_HELPER_VALIDATION_001.json",
+    "bytes": 10154,
+    "sha256": "8ec1de7fe7a3298f776ca90e4473fbed093b4689212e8b17eae269ffc7d56b01"
+  },
+  "proofScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PROOF_SCOPE_002.json",
+    "bytes": 9982,
+    "sha256": "26ab250198e3e2973113688d580d0443f23c82a9910d7eace6352db646e17ffc"
+  },
+  "counterExportPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/COUNTER_EXPORTS.PREPARATION.003.json",
+    "bytes": 3854,
+    "sha256": "90d461ffc049fa739b6ec12c1f42a0ce5c242ae86d94b80ffde99a84d18be8ad"
+  },
+  "finalCounterValidation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_COMPILED_VALIDATION.007.json",
+    "bytes": 8334,
+    "sha256": "4bc3bcb20a4ef0e000183a24b13a7e09ddd906a16caa4f6e7d5d35b1ce0b8f1b"
+  },
+  "sourceCounterValidation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ACTUAL003_SOURCE_HELPER_VALIDATION_001.json",
+    "bytes": 10154,
+    "sha256": "8ec1de7fe7a3298f776ca90e4473fbed093b4689212e8b17eae269ffc7d56b01"
+  },
+  "completedUnitEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/RESULT.json",
+    "bytes": 9382,
+    "sha256": "3a500ece3a4e8331ce1d33242f4a56658c0355dace659516a22629a5eb93a934"
+  }
+}

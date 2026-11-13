@@ -1,0 +1,67 @@
+{
+  "status": "OBSERVED_NATIVE_SOURCE_FROZEN_READBACK_REVIEW_PROOF_PENDING",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 779397,
+    "sha256": "31c092b1cb8dd767d1178ebba26c4b66651ebe1de032ab401ba6683faa67093b"
+  },
+  "readInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/READ_INPUT.json",
+    "bytes": 252606,
+    "sha256": "19dd130de8c14a9544d31ec71c5527e3838f8cd453c88e3265b2d3dc45b2836a"
+  },
+  "originalExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/execution.json",
+    "bytes": 230278463,
+    "sha256": "8355ba1b173f8e74f1a3d81ed71e42a574c1656e710133eb9031ba76253fea28"
+  },
+  "fullTerminalPresent": true,
+  "authenticatedNativeAfter": true,
+  "run": {
+    "digest": "sha256:6647f0df247870454b7ab337896cc7ff86d8a078f87f0a958e4413040f7e335f",
+    "ref": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9"
+  },
+  "originalOutcome": {
+    "exitCode": 0,
+    "timedOut": false,
+    "truncated": false,
+    "outcomeKind": "result"
+  },
+  "hostExitCode": 0,
+  "pendingReads": [
+    "run_result",
+    "run_replay"
+  ],
+  "physicalResult": {
+    "eventId": "event://abiogenesis/033ca39dd582df3a30caa44e9a3b9e3251ab5b0f1eee8a0be0dadde389908c78",
+    "row": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "offset": 1275740577,
+      "bytes": 50805102,
+      "sha256": "84c196d94f4e0f3aa1e877d75d7e6779128ece3f9fa12bbef7f6847f8198b0aa"
+    }
+  },
+  "files": 470,
+  "handoffs": [
+    {
+      "path": "qualification-scratch/rc7-overhead-author-02/return.json",
+      "bytes": 62835,
+      "sha256": "0fe4b76ed93991e58c5b4d77600861dde479102ae93808499c9f722f1e75fcfe",
+      "admitted": true
+    },
+    {
+      "path": "qualification-scratch/rc7-overhead-author-02/readiness.json",
+      "bytes": 1807,
+      "sha256": "777fad9bc7ce7c82b81010f0dc439be7e8c94d94831ca201536f7e8edc287df7",
+      "admitted": true
+    },
+    {
+      "path": "qualification-scratch/rc7-overhead-author-02/progress.json",
+      "bytes": 1297,
+      "sha256": "3ee75a5fe21ac4d14cf242328fbd451b76ed51ec6e4ea3f7c603c2675ace6721",
+      "admitted": true
+    }
+  ],
+  "qualified": false,
+  "meaning": "Root must execute each pending read once and conjoin exact source/review/proof; this is not coding-task success."
+}

@@ -1,0 +1,47 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "at": "2026-11-07T08:19:47.848219+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "selection": "Root selected one execution009 after exact mechanical toolPin correction, literal executable check and unchanged source/dependency/test/limit/oracle bindings. No further GO required for this precise correction.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "ticket": "T-287",
+  "goal": "GOAL035",
+  "configSha256": "13b047d43215cfd7bc989af818bab827ddfc434345dba866ec2800602f0f997c",
+  "inventorySha256": "fabb5380bc9e008c0cdf685b20d39e05729ee9e035f20e439f4e0e78224feff2",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "5fda406a26573153743d4dc40b48faa3af1b01eb945ab8f9151bb1f72dcca6b4",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_009.json",
+    "bytes": 6943,
+    "sha256": "5fda406a26573153743d4dc40b48faa3af1b01eb945ab8f9151bb1f72dcca6b4"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "stoppedPredecessorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_008.json",
+    "bytes": 16742,
+    "sha256": "587b1f2a0e1abf7968539f1f3f2eed2a321261621f2b22cb6ce2db5d1aa13fb2"
+  },
+  "tool": {
+    "name": "stdo",
+    "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/bin/stdo",
+    "bytes": 203,
+    "sha256": "dd2fb1a3e5e946dc09132a180e3d8fbb4db1f09aa9c2958a802cf56d439c2fb4"
+  },
+  "counts": {
+    "wholeFiles": 92,
+    "passed": 525,
+    "skipped": 122,
+    "scheduledFiles": 116,
+    "execution008NewWholeFiles": 10,
+    "partialGovernedPassesExcluded": 14,
+    "originalIdentitiesPreserved": true
+  },
+  "effects": "One serial remaining-file continuation through existing unchanged proof owners, 116 scheduled; preserve all earlier evidence. Stop first red/incomplete/resource/input drift; no automatic retry, source changes, provider calls, Git, cleanup, cut or install.",
+  "broadAccepted": false
+}

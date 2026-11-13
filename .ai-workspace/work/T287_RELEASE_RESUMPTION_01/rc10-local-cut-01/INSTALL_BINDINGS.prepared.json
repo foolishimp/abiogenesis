@@ -1,0 +1,33 @@
+{
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "activation": null,
+  "executionEnabled": false,
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 2837,
+    "sha256": "7113beb67d03d9c4398f89799ad49a355b00116d07fa8ba7f1a297a7a5c13128"
+  },
+  "buildBindings": null,
+  "sourceCheckpoint": null,
+  "candidate": null,
+  "reproduction": null,
+  "exactTestedArtifact": null,
+  "installInputs": null,
+  "boundedClaim": null,
+  "residuals": null,
+  "rootAuthority": null,
+  "independentPackagingReview": null,
+  "claim": "Local unqualified RC10 candidate; exact shipped-archive proofs retain their recorded limits. Actual installed verification, content/export and empty-resource read/close are evidenced only by final install receipts.",
+  "limits": [
+    "Only this repaired source and a new Root-accepted measured archive may be cut; FAILED bff1a521 archive is explicitly rejected.",
+    "Stage and commit exactly the 27 selected candidate source paths. Preserve main tracked status edits and raw evidence; no main merge.",
+    "Reproduce the exact frozen source, dependency inventory and absent-only RC9 contract seed closure offline; shipped bytes come from the measured archive, never the reproduction. No identity rewrite.",
+    "Preserve immutable installed RC9 as operational pin. No selector change, tag, push, publication, qualification or human acceptance.",
+    "Source/unit/focused/measurement/affected-file evidence retains its actual scope and exclusions. O3 and unselected full-5.0 obligations remain open.",
+    "Final installation standing belongs only to actual FINAL_INSTALL_VERIFICATION.json. No provider/native workflow or extra test population is selected by these controls.",
+    "Each phase needs exact Root admission; packaging review and install admission remain unbound. Failure preserves receipts and partial allocations, with no retry, overwrite or cleanup."
+  ],
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false
+}

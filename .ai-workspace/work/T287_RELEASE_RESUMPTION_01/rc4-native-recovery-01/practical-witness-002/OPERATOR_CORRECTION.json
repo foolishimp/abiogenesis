@@ -1,0 +1,68 @@
+{
+  "status": "SUCCESSOR_OPERATOR_PREPARATION_ONLY",
+  "classification": "Operator realization / Proof integration defect; not Product or recovery failure",
+  "predecessor": {
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/BINDING.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/BINDING.json",
+      "bytes": 14375,
+      "sha256": "1d7f21cb548f4a16aa871f4328f5a61ea35847a76357a2b36d120fa7c951a8c1"
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/PACKET_MANIFEST.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/PACKET_MANIFEST.json",
+      "bytes": 4082,
+      "sha256": "62c6b3383d18eaf292f8a9986a12c41195e27db7ce595108c6c0218b55bbb96f"
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/ROOT_SELECTION-setup.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/ROOT_SELECTION-setup.json",
+      "bytes": 896,
+      "sha256": "6c9a265ca2653fbde952a7f5d289666be59f8b49e663429bca8485fa9ccc1169"
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/proof/FAULT-setup.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/proof/FAULT-setup.json",
+      "bytes": 243,
+      "sha256": "fafd8647867b98f3fb94f41cbdcfe8c979d517783a54f7eb0d9d35b578cd93f2"
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/witness.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/witness.mjs",
+      "bytes": 32608,
+      "sha256": "0293dfd51ba06622ec60e358a95f88935a2675e7e67aaa21f7b2ead81b267bca"
+    }
+  },
+  "rootReportedSetup": {
+    "session": 33182,
+    "exitCode": 1,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "setupHostRetained": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/setup-host/abi5-root-env-wYhQlE",
+    "abandonedSetupLock": "Preserved; no cleanup/recovery/process action by Writer"
+  },
+  "cause": "001 read WorkspaceBinding.canonicalRoot, which is absent. Exact owner helper returns WorkspaceAuthorityBasis separately; canonicalRoot belongs to that authority.",
+  "corrections": [
+    "Read exact WorkspaceAuthorityBasis.canonicalRoot at setup and restore; verify canonical physical root, helper scratch/workspace relation, and binding authorityBasisId/digest/workspaceId/actor equality before worksite use. Retain relation with resume/readiness/provider TMP.",
+    "Check all consumed helper return field groups before call preparation; callback and typed start-return fields have explicit pre-use assertions.",
+    "Map source-basis sourceInvocationRef into deriveInvocationSourceResultBasisAtPrefix input.runtimeInvocationRef; returned basis never exposed runtimeInvocationRef."
+  ],
+  "fieldOwners": [
+    {
+      "fields": "workspaceAuthority.canonicalRoot, authorityBasisId/digest; workspaceBinding roots/identity/lock/authority relation",
+      "source": "code/src/product/environment.ts:104\u2013149,1158\u20131176; helper root-installed-environment.mjs:391\u2013405,568\u2013612"
+    },
+    {
+      "fields": "scratch/installedRoot/installedRoots/verified/admittedInstalls/catalog/catalogView/additionalPublications/additionalProducts/store",
+      "source": "helper root-installed-environment.mjs:568\u2013612"
+    },
+    {
+      "fields": "prepareAdditionalProducts callback scratch/bootstrapPackage/product/gtl/abiPublication/abiPackageArchivePath",
+      "source": "helper root-installed-environment.mjs:259\u2013267"
+    },
+    {
+      "fields": "typed start call/workAuthority/capabilityBasis/resolution/declarationPublications/programValidation",
+      "source": "helper registered-graph-selection.mjs:424\u2013453; product/execution_resolution.ts:143\u2013165"
+    },
+    {
+      "fields": "sourceInvocationRef (returned basis) \u2192 runtimeInvocationRef (derivation input)",
+      "source": "abg/invocation_admission.ts:328,577\u2013578,685"
+    }
+  ],
+  "unchanged": "Exact candidate archive/member bytes, seed, ordinary predeclared A2/B8 same-Program flow, real provider, entered-Testing observer, Root staged calls, source guards and proof criteria. No old failed setup reuse or automatic recovery."
+}

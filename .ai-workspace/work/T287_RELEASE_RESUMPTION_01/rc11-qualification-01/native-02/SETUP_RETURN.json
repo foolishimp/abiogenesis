@@ -1,0 +1,96 @@
+{
+  "status": "ACTUAL_NATIVE02_SETUP_PREPARED_LIVE_DISPATCH_HELD",
+  "utc": "2026-11-09T08:10:15.733508+00:00",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/runtime-001/PREPARED.json",
+    "bytes": 6773,
+    "sha256": "597153b6b88fdf38c673a6a2fc49ab27a3443e996298bb8c1aeb8e199be955bf"
+  },
+  "setupAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/ROOT_SETUP_ADMISSION.json",
+    "bytes": 3955,
+    "sha256": "3fd2dfa074092cf6a8f7dd99214a32d98a7c526f1d8dc9ab18aca59eec22ff0d"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/BINDING.json",
+    "bytes": 15364,
+    "sha256": "1b7b321ff7b30d76a5a337a17d71cdfdc8484d36a7cfc043186f92eb8c979bef"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/TASK.json",
+    "bytes": 8876,
+    "sha256": "f0d6f92f917efe51cd7ea4a62f3f1e4058aafc8ab4913830e82d80bb6cbccb8f"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/host.mjs",
+    "bytes": 15326,
+    "sha256": "8c2a67425d16a3f2ff4a04a93c10cdb45dd7c6d553a1733ca5cf78956d75c16c"
+  },
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/ROOT_SCOPE.json",
+    "bytes": 3569,
+    "sha256": "a2bf2d53c71ec03545800323822a7486859f4be7e96b4b9b892792005204f383"
+  },
+  "actualOpen": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/runtime-001/WORKSPACE_OPEN.json",
+    "bytes": 1051,
+    "sha256": "a588c652a0d1e6e83eb7a74d1db156afb505ca922cb85fa3f5134e8d17e87e27"
+  },
+  "workspaceManifestUnchanged": {
+    "path": "/private/tmp/abg-rc11-qualification-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1839,
+    "sha256": "f28304c016e7543e6f17c0bb6930f36d4754f8e8d82663bd4c0ea7397564b641"
+  },
+  "liveCaller": {
+    "sessionId": 54438,
+    "pid": 63566,
+    "physicalClosed": false,
+    "sameLiveResourceHeld": true,
+    "standing": "Actual PREPARED caller waiting on stdin; no serialized resume."
+  },
+  "invocationRef": "invocation://abiogenesis/011355fa1e51bdf97090e2e5f44a93e6dd1b44dbbd6b70c28510da66fc724241",
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188146,
+    "prefixDigest": "sha256:27598851c1b2ab40a8039ad451289e48ea07e9ac0ef176d781273cf93e82fff5",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 719832172,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:118675c0c7f66510721752fcfa268542bde29be5d8cb56f70c74087130bfa472"
+  },
+  "context": {
+    "digest": "sha256:087a25c85321c540e47187f8164444cf9231aad1e1036e09478ceedd63ae1aa1",
+    "entries": 35,
+    "fileMembers": 32,
+    "sourceBytes": 2844241,
+    "canonicalBytes": 3804633
+  },
+  "renderedBytes": 9904,
+  "renderedScope": "Exact installed native work-order text; provider/system scaffolding is not measured.",
+  "setupElapsedMs": 44212.591958000005,
+  "sourceConserved": {
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/SOURCE_INVENTORY.json",
+      "bytes": 294245,
+      "sha256": "9d8bbf866122f0a5b970c4ffd726d2de7e3bf753af84c25092f9e344ffe7d04c"
+    },
+    "sourceDigest": "f7c0df834e5a293fdb9fe64f2a20fad4f7306406affb30c0daab609b964b400b",
+    "allRows": 1338,
+    "originalRows": 1334,
+    "actualReadonlyFixtures": 4,
+    "inputControlsUnchanged": true
+  },
+  "mainIndexConserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "builderConserved": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "nextBoundary": "Root exact native admission required before stdin/dispatch. No source author/build/tests/generation/staging started in this setup. Failure will be preserved without retry."
+}

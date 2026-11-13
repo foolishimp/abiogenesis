@@ -1,0 +1,69 @@
+{
+  "id": "RC10-LOCAL-CUT-PREPARATION-01-RETURN",
+  "status": "PREPARATION_COMPLETE_EXECUTION_HELD",
+  "recordedUtc": "2026-11-09T04:33:25.892395+00:00",
+  "consumer": "Root",
+  "result": "Concrete RC9-derived checkpoint/reproduction/install controls prepared for repaired RC10 source. Both phases remain held.",
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 2837,
+    "sha256": "7113beb67d03d9c4398f89799ad49a355b00116d07fa8ba7f1a297a7a5c13128"
+  },
+  "route": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/ROUTE.md",
+    "bytes": 4096,
+    "sha256": "07eb9b1bc4f6a4ff472eb2fb9c8be0ea38f3b435ce8baf765b475aa268f17891"
+  },
+  "controlDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/CONTROL_DELTA.md",
+    "bytes": 1162,
+    "sha256": "42a4574c8d6cd14e26e98f0ae801bbb57f613c7c0098f6766c2fc59e8dddb0ff"
+  },
+  "staticChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/STATIC_CHECKS.json",
+    "bytes": 2742,
+    "sha256": "7928615564308dd796943af7d50c2a8878ae2b5d209a0a30cd72f083307208cb"
+  },
+  "buildBindingTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/BUILD_BINDINGS.prepared.json",
+    "bytes": 6396,
+    "sha256": "c57960d2a97dcc41aac331f02f8112f0bf4233189815e651e1fb94fd6c174847"
+  },
+  "installBindingTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/INSTALL_BINDINGS.prepared.json",
+    "bytes": 2087,
+    "sha256": "1fe4fc0d9ef3adbc8493ba0a1a637770a4d80a5e13fc758716f9d95c3d1e1620"
+  },
+  "source": {
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "sourceRows": 1334,
+    "changedSourcePaths": 27,
+    "baseCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "candidateBranch": "codex/rc10-retention",
+    "candidateWorktree": "/private/tmp/abg-rc10-retention-20261109"
+  },
+  "failedArchiveForbidden": "bff1a5214f198f5f133c8643f653dc3cb55022622009c23070e779f0ec2dadec",
+  "unbound": [
+    "Root source/cumulative coverage acceptance",
+    "actual focused/review and unit disposition",
+    "corrected measurement and affected-file disposition",
+    "replacement measured archive, manifest, stage, BUILD_INPUTS and exact source relation",
+    "Root build admission",
+    "actual checkpoint and byte/member-equal reproduction",
+    "final packaging review and bounded claims",
+    "Root install admission and actual installation"
+  ],
+  "effects": {
+    "preparationDirectoryOnly": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01",
+    "source": false,
+    "git": false,
+    "build": false,
+    "test": false,
+    "native": false,
+    "install": false,
+    "mainStatus": false,
+    "newAgentsOrReviews": false
+  },
+  "claim": "Prepared only. No qualification/publication/human acceptance, main merge or selector change selected. Installed RC9 remains immutable operational pin.",
+  "stop": "Return to Root; no execution from this Writer activation."
+}

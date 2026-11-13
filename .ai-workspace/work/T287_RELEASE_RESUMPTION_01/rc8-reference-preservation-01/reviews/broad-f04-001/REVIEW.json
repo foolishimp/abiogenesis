@@ -1,0 +1,414 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "scope": "One broad-proof failure and its two specifically identified neighboring component fixtures. Diagnose the missing current-profile stdout seam without Product repair or general assurance expansion.",
+    "authorityBoundary": "ABG alone owns runtime admission, process facts, liveness and event truth. Synthetic component premises are test arrangements, not admitted runtime facts. Existing local construction/identity facts remain derived tools, not a new runtime authority."
+  },
+  "kind": "independent_bounded_broad_failure_causal_review",
+  "reviewer": "/root/rc8_source_review",
+  "createdUtc": "2026-11-07T06:46:27.951407+00:00",
+  "verdict": "falsified",
+  "claim": "The selected finalized-artifact component fixture supplies a coherent lower admission/prefix premise to the current-profile ActorProcess and can establish its declared first-error/artifact matrix.",
+  "conclusion": "The fixture premise is incomplete: real stdout-window owner calls escape into native store identity checks with a fabricated store. This observed red is a test integration defect and does not demonstrate an RC8 runtime regression.",
+  "subject": {
+    "frozenSource": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "freeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "execution": "rc8-close-proof-01/execution-006",
+    "failingFile": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "failingCase": "F04-A exact request-bound raw result admission is pure and decision-exact",
+    "failureAt": "finalizedArtifactCases valid mode, finalFacts.firstError strict identity assertion, line 323"
+  },
+  "basisPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
+      "bytes": 9354,
+      "sha256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "bytes": 16630,
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55"
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "bytes": 52780,
+      "sha256": "e8aa9f8b3cc25b081a222e640d48b91e931274baa4f45cdd5a8f3a845bc90b1c",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": true
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 121788,
+      "sha256": "9ce365f8cbcb1adfc1b25553d71528468777897c65153af9f4ac5a885d14fb09",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": true
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "bytes": 53258,
+      "sha256": "8bff42467575b20f9cdfa1792ebd7ac6b462b11c753303a66d0523b93f901cac",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": true
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 86579,
+      "sha256": "dd6b49949a460da15069802913f2afc76eeae9b943e3bbb3591955d1c2d2e2fe",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": true
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 225695,
+      "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": true
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "bytes": 36035,
+      "sha256": "ae56354556070d8a7dd990b2b218b071841e38f4121fceb8fee33cc6de575517",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": true
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 64754,
+      "sha256": "cfe2ce70db4935aac785bc92c24fa3634bd8e14ff38476fb612afe4cc12f512b",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": true
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": true
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 50429,
+      "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": false
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 194356,
+      "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659",
+      "matchesFrozenRow": true,
+      "matchesSelectedWork": true,
+      "matchesPreservedRc7File": false
+    }
+  ],
+  "actualExecutionReadbackPins": [
+    {
+      "path": "/private/tmp/abg-r8c-006/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "bytes": 52780,
+      "sha256": "e8aa9f8b3cc25b081a222e640d48b91e931274baa4f45cdd5a8f3a845bc90b1c",
+      "matchesSelectedWork": true
+    },
+    {
+      "path": "/private/tmp/abg-r8c-006/w/build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.js",
+      "bytes": 83215,
+      "sha256": "e810e642fbf63e0fd53b42da9a036dd216b64e345f8d0da63242933eaa932394",
+      "matchesSelectedWork": true
+    },
+    {
+      "path": "/private/tmp/abg-r8c-006/w/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "bytes": 210963,
+      "sha256": "4ae520c24b86cd203b5079d91164353c1fc4ab546eb3d2c33325698553115ae7",
+      "matchesSelectedWork": true
+    },
+    {
+      "path": "/private/tmp/abg-r8c-006/w/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+      "bytes": 29380,
+      "sha256": "8029423301df9dfbd6a6f9b9a57a8581bf110863ed19f4fa98b46f607b803931",
+      "matchesSelectedWork": true
+    },
+    {
+      "path": "/private/tmp/abg-r8c-006/w/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+      "bytes": 43447,
+      "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159",
+      "matchesSelectedWork": true
+    },
+    {
+      "path": "/private/tmp/abg-r8c-006/w/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f",
+      "matchesSelectedWork": true
+    }
+  ],
+  "evidencePins": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/SUMMARY.json",
+      "bytes": 168776,
+      "sha256": "7e0a26418589b3c20eafe8eb1468d90ea03245ac722e9fe5ed69ce2ab4bb96e7"
+    },
+    "failedStdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/commands/078-t287-f04a-probabilistic-result-candidate.stdout",
+      "bytes": 6317,
+      "sha256": "ef6fc6350def2c56254fb7a90665943767d063ded073e6b90131d8e5698c8485"
+    },
+    "commandReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/commands/078-t287-f04a-probabilistic-result-candidate.result.json",
+      "bytes": 1530,
+      "sha256": "74dfd2813a2ee275ab44facf2f230c7daa413e8b74990047d0465493a2ecac99"
+    },
+    "nodeEvents": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/events/078-t287-f04a-probabilistic-result-candidate.jsonl",
+      "bytes": 11163,
+      "sha256": "fa3885f03863ac5a02948071a69cd43f1102f3776d20d535d8bb6937e90b8158"
+    },
+    "priorIndependentSourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-003/REVIEW.json",
+      "bytes": 48569,
+      "sha256": "043f8979e03aaa64250a1f0894f9ec2c90a80e264899afdedb6175acbf9d5316"
+    },
+    "rootSourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 18167,
+      "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+    },
+    "unchangedArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "applicableRelations": [
+    {
+      "owner": "Product A5-F04 at PRODUCT.md:1310",
+      "requirement": "Declared F_P contracts and decision-exact refusal before effect/closure; this fixture exercises artifact admission and error retention under explicitly controlled process/admission premises."
+    },
+    {
+      "owner": "REQ-R-ABG3-TRANSPORT-003/004/014/018/029",
+      "requirement": "Distinguish transport failure from invalid/missing result artifacts; preserve candidate admission against its original request; retain stream evidence and artifact salvage before downstream classification."
+    },
+    {
+      "owner": "REQ-R-ABG3-EVENTS-012/013/014/015/022/024",
+      "requirement": "Actor/process and liveness truth belong to ABG, with exact runtime identity/causation and durable event acceptance. A recorder double cannot earn a native owner identity merely by shape."
+    },
+    {
+      "owner": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md section 10.10 E-A through E-E",
+      "requirement": "Current-profile transport closes stdout windows; ActorProcess stages through the active-transaction branch or a durable-prefix transaction; stageNativeStdoutWindow checks the range/time witness and delegates probes to the existing probe owner; scope flush has one owner and rollback restoration."
+    },
+    {
+      "owner": "STDO3.0.4 stdo-review/EVALUATION and selected Project Frame",
+      "requirement": "Attribute a counterexample to its actual operating model and proof boundary, preserve original failed evidence, and keep component success separate from runtime/qualification conjunction."
+    }
+  ],
+  "independence": {
+    "sourceAuthor": false,
+    "testOperator": false,
+    "performed": "Read-only authority, frozen source, selected execution receipts and exact archive member acquisition; byte hashes and source diffs only. No Product calls, dynamic tests, source/HOW repair, Git effects, providers or retry. Writes only this review capsule.",
+    "reusedJudgments": "Source-003 and Root source acceptance rehash unchanged; neither is converted into broad acceptance. Earlier method verification remains the exact STDO3.0.4/empty-composition selection.",
+    "suppliedHypotheses": "Root supplied the suspected mock seam and neighboring fixture names. Findings below follow independent source/receipt acquisition."
+  },
+  "findings": [
+    {
+      "id": "BROAD-F04-001",
+      "title": "Current stdout-window calls escape the declared component admission premise",
+      "technicalSeverity": "S2",
+      "severityMeaning": "Material proof/integration defect with a bounded test-only correction; no demonstrated shipped runtime defect.",
+      "status": "observed_in_f04_predicted_in_one_neighbor",
+      "evidence": [
+        {
+          "file": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+          "lines": "192-219,221-249,284-302,319-354",
+          "fact": "Declares controlled physical/prefix/recording premises, creates store = {}, merges actual module exports with partial SyntheticModule overrides, emits structured stdout before its retained EPIPE, and checks exact Error object identity."
+        },
+        {
+          "file": "code/src/abg/actor_process.ts",
+          "lines": "1263,1351-1366,1503-1507",
+          "fact": "The current root digest selects stdout-window mode; every delivered window first asks isRuntimeEventTransactionActive and then stages within the existing owner transaction relation."
+        },
+        {
+          "file": "code/src/abg/event_store.ts",
+          "lines": "4622-4644",
+          "fact": "Both active-transaction assertion/query require membership in the module-owned eventState WeakMap. The fabricated fixture store is absent and produces the observed TypeError."
+        },
+        {
+          "file": "code/src/shared/owned_process_lifetime.ts",
+          "lines": "215-219,267-270",
+          "fact": "Observer exceptions call fail, and firstError uses nullish assignment; the earlier owner TypeError is correctly retained before the later EPIPE."
+        },
+        {
+          "file": "code/src/abg/runtime_liveness.ts",
+          "lines": "313-367,391-437",
+          "fact": "Staging also reaches its own real assertRuntimeEventTransactionActive, staged/durable prefix selectors, liveness reconstruction and native probe/event admission. Patching only the ActorProcess transaction query cannot close the fixture boundary."
+        },
+        {
+          "file": "execution-006/commands/078-t287-f04a-probabilistic-result-candidate.stdout",
+          "lines": "5-82",
+          "fact": "Observed TypeError originates at isRuntimeEventTransactionActive -> admitStdoutWindow -> transport window observer. First top-level case fails; second same-native-contract-reuse case passes."
+        }
+      ],
+      "causalChain": [
+        "Fixture chooses current ROOT_EVENT_CONTRACT_DIGEST but supplies an unowned store and partial lower-owner substitutions.",
+        "VM SyntheticModule overrides apply only at the importer. Unreplaced exports and their transitive imports remain the actual installed modules.",
+        "The valid mode emits a structured result on stdout before injecting the retained stderr EPIPE. The result closes a current-profile stdout window.",
+        "ActorProcess calls the real transaction query with the fabricated store; the native owner refuses it.",
+        "OwnedProcessLifetime records that first observer failure; a later stream EPIPE cannot overwrite it.",
+        "The original strict Error identity assertion correctly exposes the incomplete fixture. Later finalized-artifact modes do not run, so their proof remains unavailable."
+      ],
+      "triggerProbability": "Certain for the observed valid-mode current-profile structured stdout path on this selected fixture. The native-workspace sibling is a high-confidence static prediction, not a measured new red.",
+      "realizedHarm": "F04 finalized-artifact proof stops at its first mode and broad execution correctly stops incomplete; delay and missing coverage. No customer/runtime corruption is evidenced by this failure.",
+      "failClosedControls": "Native event-store owner refuses an unconstructed store; lifecycle retains the earliest Error; the test asserts exact identity; the broad runner stops at the first red. None should be weakened.",
+      "blastRadius": "Two supplied-premise fixtures using the current-profile ActorProcess stdout path. Shipped owners and the two test files are unchanged in the relevant RC7 lineage; the test files are not archive members. Legacy fixture and real held-store execution are distinct populations.",
+      "confidence": "High for observed cause and scope exclusion; high source confidence for the sibling exposure; repair correctness remains unproven until selected reproof.",
+      "workaroundOrContainment": "Keep original red and incomplete broad disposition. There is no acceptable ignore/skip/error-substitution workaround. Root may select a bounded test-premise correction.",
+      "repairComplexity": "Low to moderate within two component fixtures, optionally one existing/shared test helper. Reuse real window/probe algorithms against one shared controlled premise; full Runtime conversion would be disproportionate. Exact line count and runtime cost are not yet measured.",
+      "regressionRisk": "Main risk is a fake-success stub, copied window/probe logic, stale prefix selection or weakened assertion masking the property. Product guard/algorithm changes would unnecessarily enlarge risk.",
+      "uncertainty": "No repaired fixture has been authored or executed by this Reviewer. A coherent premise may expose a genuine later assertion failure; do not preclassify such a red.",
+      "priority": "Not assigned; Root owns repair selection and disposition."
+    }
+  ],
+  "affectedPopulation": [
+    {
+      "file": "t287-f04a-probabilistic-result-candidate.test.mjs",
+      "scope": "finalizedArtifactCases",
+      "standing": "Observed failure in first valid mode. Mode list has 13 entries; the first assertion failure prevents the remaining 12 from executing. The separate native-contract-reuse test passed, but does not establish this matrix."
+    },
+    {
+      "file": "t287-native-workspace-work.test.mjs",
+      "scope": "post-effect channel conflict retains admitted native failure scope without a fabricated exchange, lines 81-217",
+      "standing": "Same current digest, unowned store-shaped recorder, partial event_store/runtime_liveness overrides and actual structured stdout producer at lines 149-177. The same ownership query is exposed; no second execution result is claimed. Preserve actual local process and file effect, confirmed group, expected channel-conflict diagnostic, exact prior/cold currentness and nonfabrication assertions."
+    },
+    {
+      "file": "t287-lifecycle-failure-carrier.test.mjs",
+      "scope": "driveActor, lines 90-162",
+      "standing": "Uses LEGACY_ROOT_EVENT_CONTRACT_DIGEST and emits no stdout data. It does not select this window path, so this cause supplies no repair authority for it."
+    }
+  ],
+  "completeAffectedSeam": [
+    {
+      "boundary": "ActorProcess transaction choice",
+      "needs": "One fixture-owned transaction fact for isRuntimeEventTransactionActive, consistent with the transaction wrapper and the stager assertion; preserve the production guard untouched."
+    },
+    {
+      "boundary": "Real stdout staging and probe owner",
+      "needs": "Reuse stageNativeStdoutWindow and stageRuntimeActivityProbe from actual owner source loaded against the same fixture imports. Their internal event_store/event_prefix imports do not inherit ActorProcess overrides automatically."
+    },
+    {
+      "boundary": "Transitive transaction/prefix reads",
+      "needs": "assertRuntimeEventTransactionActive, selectHeldEventStoreDurablePrefix, selectActiveRuntimeTransactionHistoryAtDurablePrefix, selectOwnedRuntimeEventPrefix and selectRuntimeEventPrefixFromStore must resolve to the same fixture store, staged rows and durable predecessor as the recording transaction."
+    },
+    {
+      "boundary": "Transitive recording",
+      "needs": "admitRuntimeEvent and admitNativeRuntimeLivenessEvent must use the same existing recorder and current-prefix advance as ActorProcess, with the declared controlled refusal modes retained."
+    },
+    {
+      "boundary": "Scope flush and current-profile consumer reads",
+      "needs": "Keep actual bind/unbind scope identity coherent; do not claim native rollback/flush coverage from this lower premise. Committed stdout byte totals/consumed references at actor_process:1369-1370,1431-1433,1645 must read the same rows, not the unrelated initial basis prefix."
+    }
+  ],
+  "smallestLawfulReentry": {
+    "owner": "Root selects a test-only native author/Operator task; Reviewer does not dispatch it.",
+    "recommended": "Repair the two current-profile fixture compositions so actual stdout-window/probe owner algorithms execute against one coherent explicitly controlled admission/prefix premise. Prefer existing test support or a narrow shared VM composition helper; do not reproduce the algorithms or build a generic mock runtime protocol.",
+    "alternative": "A legitimate held-store fixture is acceptable when its actual matching prefix, transactions and declaration/admission state are also supplied. Replacing only store = {} with a new empty native store is incomplete; converting the whole unit fixture into a Runtime steel thread is unnecessary.",
+    "prohibitedShortcuts": [
+      "Do not weaken or bypass the production eventState owner guard.",
+      "Do not change expected EPIPE identity, suppress the original first error, skip finalized modes or declare success without a staged stdout row.",
+      "Do not switch current-profile tests to legacy mode, suppress stdout, remove capture/witness checks or replace the real window/probe algorithm with copied logic.",
+      "Do not treat a passing second top-level case or earlier held-store tests as broad closure."
+    ],
+    "reproof": [
+      "Freeze the exact test-only change and re-run the complete F04 file: all 13 modes, same Error identity, artifact refusal/absence/retention, Process-confirmation gating, final normal mode, cold component projection and second same-contract-reuse case.",
+      "Run the complete native-workspace-work file with the unchanged post-effect conflict/group/currentness assertions and actual local process effect. Stop and preserve any new red for its own causal assessment.",
+      "Reacquire exact test/owner/archive correspondence; prove the expected test-only edits remain outside the payload. Preserve archive a178e960 and all original failed receipts; no metadata rewrite or substitution.",
+      "Root then binds lawful reuse/reproof for the remaining broad population and final cut conjunction. No new blanket runtime suite or source audit is selected by this review."
+    ]
+  },
+  "runtimeDiscrimination": {
+    "unchangedFromRc7": [
+      "F04 test",
+      "native-workspace test",
+      "legacy lifecycle test",
+      "actor_process",
+      "event_store",
+      "runtime_liveness",
+      "event_prefix",
+      "owned_process_lifetime"
+    ],
+    "workerTransportDelta": "Read-only exact diff shows only prepared contract/schema immutable reuse and counters plus its import; stdout-window emission, observer/lifetime sequencing and error retention code are unchanged.",
+    "actualExecutionRelation": "Execution-006 selected test and compiled actor/event-store/liveness/worker/lifetime bytes equal the previously built stage-04 subject.",
+    "positiveEvidenceLimit": "Root reports passing HS03 real-store/actual RC7 held-store runs. They are relevant retained controls, not independently reassessed here and not proof of every F04 artifact mode. This diagnosis stands on the actual red plus code path.",
+    "runtimeConclusion": "No runtime defect is established by this counterexample. Runtime correctness beyond the bounded source/retained controls remains under its existing evidence owners."
+  },
+  "archiveRelation": {
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "members": 5325,
+    "threeNamedTestFilesPresent": false,
+    "standing": "A prospective test-only correction can preserve the shipped bytes, but new test source/proof identities must still be frozen and rebound. Packaging preliminary review remains pending cut evidence; broad acceptance is not available."
+  },
+  "limits": [
+    "One causal cone, not general assurance or whole-5.0 qualification.",
+    "No dynamic verification, repair or automatic retry performed.",
+    "The actual failure has not been relabeled as a pass or dismissed from broad coverage.",
+    "Native-workspace exposure is source-predicted; lifecycle fixture exclusion is path-specific.",
+    "No release, immutable-install, stable/global selector or publication acceptance."
+  ],
+  "invalidation": [
+    "A different executed test/compiled owner/archive than the retained pins invalidates this causal attribution.",
+    "A changed profile, stdout input, fixture import composition or real owner transaction/prefix state revises the affected finding.",
+    "An actual held-store path reproducing the failure under a lawful state would require runtime causal review.",
+    "Product/method/frame/capability/severity changes require basis re-entry."
+  ],
+  "returnTo": "/root Executive for exact test-only repair and reproof selection; no repair or execution is selected by this report."
+}

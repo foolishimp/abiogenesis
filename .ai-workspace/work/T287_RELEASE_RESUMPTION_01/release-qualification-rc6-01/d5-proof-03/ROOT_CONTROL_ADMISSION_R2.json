@@ -1,0 +1,19 @@
+{
+  "kind": "root_control_intake_reentry_admission",
+  "status": "ADMITTED_CORRECTED_PREFLIGHT_THEN_EXISTING_TESTING_UAT_IF_OWNERS_PASS",
+  "at": "2026-11-06T02:17:31.182208+00:00",
+  "inherits": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 10965,
+    "sha256": "529d01629f89b6b70c6af4c4b296f446095b3b1c60d5db8046e9ab1af941ae44"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/INTAKE_ROOT_TRIAGE.json",
+    "bytes": 3978,
+    "sha256": "81513d6505d33c33a83ca69715d1b43d9734708486cee3d8581d2923feece3ce"
+  },
+  "effectAndScope": "Same source, commands, roles, profile, limits and final-close binding. Correct the sole requiredSupportRefs omission; update only admission/source-digest/staging pins derived from this control correction. Preserve all failed attempt files.",
+  "writeRoots": "Original operator controls and six already declared input files only; no Product code/test/HOW edits.",
+  "preflightAttempt": 2,
+  "automaticRetry": false
+}

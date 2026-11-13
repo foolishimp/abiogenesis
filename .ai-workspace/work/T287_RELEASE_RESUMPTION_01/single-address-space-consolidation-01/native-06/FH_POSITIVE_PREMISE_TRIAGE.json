@@ -1,0 +1,300 @@
+{
+  "kind": "fh_positive_premise_dependency_triage",
+  "recordedUtc": "2026-11-04T02:29:53.244Z",
+  "frame": {
+    "product": "ABIogenesis5",
+    "fixedFifteenFamilies": true,
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "originalOutcome": "R1-R7/C1-C5 remains selected",
+    "role": "Independent nonauthor architectural/evidence triage; Root owns scope and disposition"
+  },
+  "subjects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/SUBJECT.json",
+      "sha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/REMAINING_PAIR_PROOF_TRIAGE.json",
+      "sha256": "438023f25c87627b91182bd7ac870a2955e9810adfbde7b782608faa0743a98f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/SUBJECT.json",
+      "sha256": "d5699b7d1b53a3968c9e8afd83f9e9436a1bdf53c1c02dabe12161b33e256312"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-duplicate-owner-proof-001/SUBJECT.json",
+      "sha256": "9c4cfd04cc68dbd0ec3e79d2224179cac7524d305d82217e08c9ce836126c02a"
+    }
+  ],
+  "conclusion": {
+    "rawReader": "A finite nonempty F_H response-pair discriminator is constructable under an explicit immutable RAW reader premise using the existing real rehydration, operation preparation, response preparation and fact projectors. No static contradictory guard was found in that route. A ready-made positive seed has not been verified, and no seed or execution was produced in this triage.",
+    "currentAdmission": "It is not a constructive recipe for a current installed admitted response transaction. Current invocation admission permits exactly one direct-invoke capability grant, while the response transaction requires a response grant in that same root invocation. Do not assign another current Public commit-fixture hunt under unchanged grant law.",
+    "necessaryBoundary": "The raw input is closed test data that satisfies the actual reader contracts, not a claim that current root admission emitted it. Prepared events are genuine pure owner outputs under that premise; they are not committed Runtime events or proof of held/durable authority."
+  },
+  "exactMissingCurrentRelation": {
+    "admission": "invocation_admission.ts:722-803, especially781-800;1531-1552: exactly one DIRECT_INVOKE grant checked against the selected run.invoke packet. root-installed-environment.mjs:730-742 constructs only that grant.",
+    "response": "continuation.ts:976-991,1056-1112 requires a matching interaction.respond grant on rootInvocation and current open continuation;1469-1505 also binds capability to the continuation.",
+    "transaction": "continuation.ts:1564-1637 does not manufacture a grant: it reads held predecessor, calls those same preparers, then atomically admits their planned events. No5.0 F_H resume binding is required or supplied by this API.",
+    "effect": "A normal current admitted root/hold cannot simply be handed to commitFhInteractionResponseAtExpectedPrefix and expected to succeed. No new grant semantics, binding or Product-law repair is selected."
+  },
+  "rawDomainEvidence": {
+    "invocationProjection": "invocation_execution_truth.ts:324-361,365-420,432-528 rehydrates the record by exact body digest/reference and Public-event correspondence. It does not rerun validateInvocationCapabilityBasis. hasExactInvocationAdmissionAtPrefix637-658 checks equality with that real reader result.",
+    "capability": "product/invocation.ts:594-685 isCapabilityGrantValue checks exact shape/self-digest. The raw fixture must actually satisfy it. Product grant construction823-854/932-1014 and fixed interaction contracts66-142 remain separate stronger production relations; do not relabel structural raw data as such an authorization.",
+    "definition": "product/interaction_operation_contracts.ts:128-142 supplies existing respond.approve/select/reject/assess/answer_escalation packets. Public fixed-source registry includes this operation; no new F_H resume definition is necessary.",
+    "precedent": "Existing m5-event-store-reopen.test.mjs:953-997 constructs an explicit validated-history collision through the actual event projector and confirms actual rehydration before asserting the consumer result. This is precedent for a RAW reader discriminator, not a positive current F_H seed or a lawful admission claim."
+  },
+  "minimumRawSeed": {
+    "origin": "Create one fresh immutable closed fixture vector from explicitly declared lower-owner data. Do not mutate/relabel a retained installed history, borrow its ownership, copy a live receipt or handcraft an acquired/held prefix. No unconditional owner-validity stubs.",
+    "constructionIntent": "Choose a generic non-construction F_H continuation: constructionIntentRef and constructionIntentDigest null. This removes construction-intent/resume prerequisites from this one response-pair case.",
+    "obligations": [
+      {
+        "id": "seed-invocation",
+        "need": "One self-consistent Public run.invoke operation plus its invocation_admitted record, with exact current fixed definition/member, admission body digest/ref, Public correspondence and capability refs. Its RAW root record contains one structurally valid response grant matching actor, response operation, F_H actorCapabilityRef and root policy. All refs/body digests must be recomputed for the fresh fixture data; this is not emitted current invocation admission.",
+        "gate": "Actual projectExactInvocationAdmissionAtPrefix returns the expected complete root value; actual hasAdmittedInvocationAtPrefix returns true under the reader relation; actual isCapabilityGrantValue accepts the response grant."
+      },
+      {
+        "id": "seed-basis-and-run",
+        "need": "One exact execution-basis record and one Run-open relation naming that invocation. Opening payload and execution basis/root share actor, workspace, catalog basis/view, program/GraphFunction and all required ref/digest identities.",
+        "gate": "Actual projectExactExecutionBasisAtPrefix and hasExactInvocationRunBindingAtPrefix succeed; no fake basis/Run projection."
+      },
+      {
+        "id": "seed-pending-c_call",
+        "need": "One F_H CCall pending carrier with its exact open/fibre/evidence/pending-result/hold-judgment relation, held cursor and opened traversal scope, request and response contracts, request identity/digest and actor capability. Preserve exact phase cardinality/causes/ordinals.",
+        "gate": "Actual projectPendingInteractionCarrier (c_call.ts:4957-4984) returns the expected pending interaction. All underlying data remains a declared lower-owner raw premise, not current effect execution."
+      },
+      {
+        "id": "seed-hold-and-open",
+        "need": "A unique earlier hold route tied to that pending judgment/cursor and consumed availability, followed by one fh_interaction_opened with its exact continuation identity/digest, basis, scope, cCall, cursor and pending carrier fields. No response, resume or terminal lifecycle yet.",
+        "gate": "Actual projectFhContinuations on the selected Run plus actual deriveRuntimeHeldFluentProjection, with full authority raw prefix, returns exactly the intended open continuation. Its strict exactOpenedBasis144-286 checks remain enabled."
+      },
+      {
+        "id": "seed-global-validity",
+        "need": "No unrelated orphan, duplicate or mixed pair that would make the complete effectful query fail before the target. Use a fresh response invocationRef; exact valid Public basis scopes to root workspace with actual definition digest/member and canonical invocation coordinate.",
+        "gate": "Actual projectEffectfulPublicInvocationTruthAtPrefix(P,newRef) is available; baseline F_H projection is valid with no response facts. The raw response-grant premise is explicit, not silently inferred from current Product admission."
+      }
+    ]
+  },
+  "finiteDiscriminator": [
+    {
+      "step": 1,
+      "action": "Stamp each fresh fixture event in order through the actual projectRuntimeEventFromValidatedHistory, deep-freeze the complete RAW data and select it through actual selectValidatedRuntimeEventPrefix. Use actual rehydration/projectors to assert every seed gate before testing the pair.",
+      "routes": [
+        "event_store.ts:2396-2408",
+        "event_prefix.ts:454-490",
+        "invocation_execution_truth.ts:432-528,637-696,701-714",
+        "c_call.ts:4957-4984",
+        "fh_continuation_projection.ts:144-286,552-650"
+      ]
+    },
+    {
+      "step": 2,
+      "action": "Choose one existing response variant, e.g.approve. Construct its exact Public-operation coordinate from the existing fixed packet; supply root workspace scope, a fresh invocationRef and matching actor/capability. Call the real prepareContinuationPublicOperation(P,root,interaction.respond,open,approve,actor,cap,basis). Require prepared_continuation_public_operation.",
+      "routes": [
+        "product/interaction_operation_contracts.ts:66-142",
+        "continuation.ts:911-1053"
+      ]
+    },
+    {
+      "step": 3,
+      "action": "Use that actual prepared value, the exact open continuation, its responseContractRef and an immutable admitted-as-fixture response object in the real prepareFhInteractionResponse. responseBasis has the operation eventTime/correlationId and empty explicit causes. Choose null construction intent; do not add resume.",
+      "routes": [
+        "continuation.ts:729-759",
+        "continuation.ts:1469-1561"
+      ]
+    },
+    {
+      "step": 4,
+      "action": "Use the returned actual explicit validated projectedPrefix. Assert projectFhEffectfulPublicInvocationFacts is valid and has exactly one six-field response fact. Compare all expected refs/digests to the actual prepared operation/response events, not just disposition.",
+      "routes": [
+        "fh_continuation_projection.ts:818-1127"
+      ],
+      "expectedFact": {
+        "operationId": "abg.operation.interaction.respond",
+        "publicInvocationRef": "basis.invocationRef",
+        "ownerInvocationRef": "basis.invocationRef",
+        "ownerInvocationDigest": "basis.invocationDigest",
+        "publicOperationEventRef": "preparedOperation.event.eventId",
+        "admissionEventRef": "preparedResponse.event.eventId"
+      }
+    },
+    {
+      "step": 5,
+      "action": "Ask the actual combined effectful owner for that invocationRef: require duplicate with exactly this priorAdmission. An unrelated fresh ref remains available. An operation-only cut is an orphan/invalid_history, while the paired cut is valid/nonempty. This prevents an always-invalid-nonempty implementation from passing.",
+      "routes": [
+        "effectful_invocation_truth.ts:112-210",
+        "fh_continuation_projection.ts:1107-1127"
+      ]
+    },
+    {
+      "step": 6,
+      "action": "Retain the exact unmodified baseline and assert applicable malformed/missing-response or wrong-source controls with complete codes/refs/order. Do not turn this small positive into exhaustive F_H or run.continue qualification.",
+      "routes": [
+        "existing duplicate raw fixture953-997 remains a separate ambiguity control",
+        "continuation.ts:1074-1110 and fh_continuation_projection.ts:590-650,1031-1122 remain real guards"
+      ]
+    }
+  ],
+  "comparisons": {
+    "apply": [
+      "Repeated calls on the same authentic validated RAW computation prefix: complete fact and combined priorAdmission equality, with declared computational reuse scope.",
+      "Historical raw cuts before operation, operation-only and paired response, plus a legitimate irrelevant RAW suffix: full values/refusals and exact identities under each applicable cut.",
+      "Fresh deep-frozen cloned raw data selected through the real prefix constructor: complete uncached/fresh reconstruction equality, without copied receipt acceptance.",
+      "Optional actual canonical serialization/validateHistoricalEvents read, or fresh child/raw-file read with real bytes/path/digest checks, if selected: explicitly synthetic RAW fixture cold reconstruction, not installed producer history. Use existing writeRuntimeEventPrefixValue for complete output, not opaque handle JSON."
+    ],
+    "doNotApply": [
+      "No current admitInvocation/admitExactInvocation success with that root grant set.",
+      "No commitFhInteractionResponseAtExpectedPrefix success, actual event admission or transaction rollback credit.",
+      "No acquired/held resource, registered live selection, requireCurrent held authority, Event Store generation reuse, close/reopen handoff or SDK/Public dispatch claim.",
+      "No current Public F_H resume, Run continuation success, installed F_H qualification or release readiness."
+    ],
+    "coldTerminology": "A fresh cloned vector is fresh reconstruction, not a physical cold reopen. A synthetic fixture file can exercise a real cold reader under its explicit raw-data premise, but may not be relabeled an Event Store-produced or current Public-admitted history."
+  },
+  "smallestNextPath": {
+    "territory": "One finite test-owned RAW open-F_H seed/helper plus one actual preparation/projection positive in the existing SAS/pair proof owner, using current projector module family. No new runtime, grant framework, Public binding or broad fixture hunt.",
+    "firstDiscriminator": "Build only the seed gates first. If an actual current reader rejects it, return the first exact guard/value discrepancy to Root; do not bypass it or insert always-valid stubs. Then add the two existing preparation calls and exact nonempty fact assertions.",
+    "dependencyStatus": "No ready-made valid positive seed was verified in the supplied six files or duplicate fixture. Their current-intent/selected-action/Run and ambiguity routes remain independent useful evidence; they do not supply this F_H seed.",
+    "rootBoundary": "Root must explicitly select the RAW lower-owner premise and retain the current-admission/commit exclusions before native07 work. No Product-law or grant change is necessary for that conditional reader test, and none is authorized by this triage."
+  },
+  "sourceIdentities": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "sha256": "25aad5b6abaf0630976f18c74f65c2fb8105510294cc8a0f8b6ea7f85e6e2252",
+      "bytes": 62559
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "sha256": "a2da3031ca7c408bac41fea0c39a7043333ce0b14a6769fd82979733b7de22ab",
+      "bytes": 49351
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "sha256": "dcd891fcb9f07a1ba5220c0ff21351c1f2a7c25884b7dcaadb60ceeb8faf4ac3",
+      "bytes": 11967
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-duplicate-owner-proof-001/m5-event-store-reopen.test.mjs",
+      "sha256": "ff28021b9a3b9acffe947ba146ce5ceaffb67fdf13a494de62a995c415e1a68a",
+      "bytes": 84957
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "sha256": "094cce6fb3c539d56c21df0d46550b788f3fb4442016472d0199950b06d23e16",
+      "bytes": 77248
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "sha256": "6a254033a8ea50a1f313340e7ba22c07a1797ff618e6527c473751bac0fdfc89",
+      "bytes": 41277
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "sha256": "4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225",
+      "bytes": 52769
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/public_function_family.ts",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "sha256": "389923685da83ecce33e31b3dc97adc79fcfa20629abcb7b8f4380ab7b535bc3",
+      "bytes": 18098
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "sha256": "843730b78f5da8db57b1204c94710abe4e6636f5c02fb661cb59117c4922c7df",
+      "bytes": 26725
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/interaction_operation_contracts.ts",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "sha256": "bc8498676d016e076af25cef6d14498ead6b5733ce1dc5b781abb9cd6875d266",
+      "bytes": 8336
+    }
+  ],
+  "reusedOwnerIdentities": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "sha256": "79788a830ca61f6c31397c85a95f373d3cddc77e0457c6907452d4b70d452422",
+      "standing": "Final byte correspondence verified in retained code review; owning route reused."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "sha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+      "standing": "Final byte correspondence verified in retained code review; owning route reused."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "standing": "Final byte correspondence verified in retained code review; owning route reused."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c",
+      "standing": "Exact f49 frozen immutable lower owner, previously hash-verified."
+    }
+  ],
+  "suppliedFixtureIdentities": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "sha256": "7c04193bf6b0feb2d90268a4e8e529f2f75ddeba590d0bea277cfb95893f74ab",
+      "bytes": 16539
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a",
+      "bytes": 19702
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1",
+      "bytes": 15792
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4",
+      "bytes": 9876
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "sha256": "bedcfe2165b3863efb355a2d20d0f998aba1960bcc2fef9bda019e6b15c6f59c",
+      "bytes": 16381
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "sha256": "199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2",
+      "bytes": 17472
+    }
+  ],
+  "limits": [
+    "Static contract/dependency triage only. No seed constructed, tests/builds/provider/runtime calls, native contact, Product/test/control edit or moving dirty source read.",
+    "Only FH_POSITIVE_PREMISE_TRIAGE.md/.json written. No automatic N5-PROOF-01 acceptance, deferral or whole-outcome conclusion.",
+    "Feasibility is conditional on constructing an actual self-consistent seed that passes all listed real reader gates; no execution or ready-made seed is claimed.",
+    "Relevant unchanged Product/registry files acquired only from exact f49 git objects with content hashes retained.",
+    "Same-family/non-authorship and prior diagnostic/advice limits apply. Root alone owns scope and acceptance."
+  ],
+  "invalidation": [
+    "A change to raw invocation/basis/pending/F_H reader predicates, grant shape/digest rules or preparation contracts revises the finite raw route.",
+    "A requirement that the seed be emitted by current invocation admission/held response commit changes the premise and reintroduces the exact identified impossible grant relation.",
+    "Any proposed stub, forged ownership, immutable-history mutation or narrower assertion that bypasses a real seed gate invalidates this recipe.",
+    "Actual rejected seed or contrary execution evidence must revise the corresponding static feasibility conclusion."
+  ]
+}

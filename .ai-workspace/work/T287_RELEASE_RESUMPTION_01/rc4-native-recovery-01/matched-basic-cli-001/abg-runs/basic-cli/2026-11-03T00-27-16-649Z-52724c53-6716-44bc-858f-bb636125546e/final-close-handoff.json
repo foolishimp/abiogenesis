@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:5f6f818f067eb76bea084b89fd93795570e8cdb0e7d02753b0e30c891fc4e2ba",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:2d52589912177d166d546acd01a1306b2a837b72f2141dffcfec1134ef499b88",
+    "prefixLength": 24530958,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 682565213
+    }
+  },
+  "reopenAuthority": {
+    "authorityDigest": "sha256:4bbab0ee00b2f5c19d5c12fc68e07d81b51380c21f3844de523912387f9ef8ab",
+    "device": 16777231,
+    "durableByteLength": 24530958,
+    "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+    "eventLogDigest": "sha256:2d52589912177d166d546acd01a1306b2a837b72f2141dffcfec1134ef499b88",
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/resources/events/runtime.events.jsonl",
+    "inode": 682565213,
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0"
+  }
+}

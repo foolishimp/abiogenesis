@@ -1,0 +1,16 @@
+{
+  "id": "single-address-space-whole-path",
+  "files": [
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 10,
+  "fail": 0,
+  "skipped": 0,
+  "wallMs": 434630.335542,
+  "stdoutSha256": "a4d3c997492a4c2e5ecee85ca224ba76d57e414a2e3a269dc4e7415f97d7f3ef",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

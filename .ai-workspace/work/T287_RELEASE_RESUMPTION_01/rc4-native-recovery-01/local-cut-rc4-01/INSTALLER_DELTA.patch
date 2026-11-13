@@ -1,0 +1,55 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/local-cut-01/install-local-rc3.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/install-local-rc4.mjs
+@@ -7,11 +7,11 @@
+ import {join} from 'node:path';
+ import {pathToFileURL} from 'node:url';
+ 
+-const dir='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/local-cut-01';
++const dir='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01';
+ const hex=b=>createHash('sha256').update(b).digest('hex');
+ async function checked(row){assert((await lstat(row.path)).isFile(),row.path);const b=await readFile(row.path);assert.equal(b.length,row.bytes,row.path);assert.equal(hex(b),row.sha256,row.path);return b;}
+ async function absent(path){try{await lstat(path);throw Error('no-clobber collision: '+path);}catch(e){if(e.code!=='ENOENT')throw e;}}
+-assert.equal(process.argv.length,3,'usage: node install-local-rc3.mjs INPUT_MANIFEST_SHA256_HEX');
++assert.equal(process.argv.length,3,'usage: node install-local-rc4.mjs INPUT_MANIFEST_SHA256_HEX');
+ const raw=await readFile(join(dir,'INPUT_MANIFEST.json'));assert.equal(hex(raw),process.argv[2]);const m=JSON.parse(raw);
+ assert.equal(m.status,'ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY');
+ for(const row of m.files)await checked(row);
+@@ -20,7 +20,7 @@
+ // The unchanged Product owner invokes `npm` and tar through PATH; select the pinned tools.
+ assert.equal(m.installPath,'/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin');
+ process.env.PATH=m.installPath;
+-const e=m.expected,archive=await checked(m.archive);
++const e=m.expected;assert.equal(e.packageVersion,'5.0.0-rc.4');assert.equal(e.productId,'product://abiogenesis/typescript-tenant@5.0.0-rc.4');for(const k of ['artifactDigest','manifestDigest','productContentDigest'])assert.match(e[k],/^sha256:[0-9a-f]{64}$/u);assert.match(e.sourceCommit,/^[0-9a-f]{40}$/u);assert.match(m.sourceTree,/^[0-9a-f]{40}$/u);assert(Number.isSafeInteger(m.archiveMembers)&&m.archiveMembers>0);const archive=await checked(m.archive);
+ assert.equal(execFileSync('/usr/bin/git',['-C',m.worksiteRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),e.sourceCommit);
+ for(const args of [['diff','--quiet'],['diff','--cached','--quiet']])execFileSync('/usr/bin/git',['-C',m.worksiteRoot,...args]);
+ await absent(m.releaseRoot);await absent(m.installHost);
+@@ -31,9 +31,9 @@
+ // Effects start only after the exact packet/tools/source/archive and both absences pass.
+ await mkdir(m.releaseRoot,{mode:0o700});
+ const save=(name,value)=>writeFile(join(m.releaseRoot,name),JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+-const retainedArchive=join(m.releaseRoot,'abiogenesis-typescript-tenant-5.0.0-rc.3.tgz');
++const retainedArchive=join(m.releaseRoot,'abiogenesis-typescript-tenant-5.0.0-rc.4.tgz');
+ await writeFile(retainedArchive,archive,{flag:'wx'});assert((await readFile(retainedArchive)).equals(archive));
+-for(const name of ['BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json','ROOT_AUTHORITY.md','F4_DEFERRAL.md','INPUT_MANIFEST.json'])
++for(const name of ['BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json','ROOT_AUTHORITY.md','RESIDUALS.md','INPUT_MANIFEST.json'])
+   await copyFile(join(dir,name),join(m.releaseRoot,name),constants.COPYFILE_EXCL);
+ const bootstrap=join(m.releaseRoot,'bootstrap');await mkdir(bootstrap,{mode:0o700});
+ execFileSync('/usr/bin/tar',['-xzf',retainedArchive,'-C',bootstrap]);
+@@ -65,13 +65,13 @@
+   source:e,sourceTree:m.sourceTree,archive:retainedArchive,installHost:m.installHost,installedRoot:installed.installedRoot,
+   installId:installed.installId,members:inventory.length,selectedInputManifestSha256:hex(raw),
+   published:false,qualified:false,providerCalls:0,nativeRuns:0,tagsCreated:false,selectorChanged:false,
+-  claim:'Exact accepted bounded N1–N4 and installed basic-cli evidence only; external current claim and F4 capsule retained',
++  claim:'Local unqualified RC4 identity with exact changed-identity C2/install proof; inherited1100/4589 consolidation, boundedR1-R5 recovery and one basic-cli pair only through explicit payload correspondence',
+   limits:['No full Product/native qualification or release acceptance','No new native proof performed by installation',
+-    'F4/body-once/F5/965 scaling and native-context predecessor-member continuation remain open'],
++    'Deliberate undispatched Testing recovery boundary only; no general crash/saga proof','One ordered application instrumentation pair; capture boundaries differ, no generalized efficiency or causal gain claim','Whole5.0 qualification, publication, stable release, deferred pilot and measurement leads remain separate'],
+   installedCli:join(installed.installedRoot,'build/code/src/public/cli.js')});
+ const checksums=[];
+-for(const name of ['abiogenesis-typescript-tenant-5.0.0-rc.3.tgz','BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json',
+-  'ROOT_AUTHORITY.md','F4_DEFERRAL.md','INPUT_MANIFEST.json','verification.json','resolved-lock.json','installation.json',
++for(const name of ['abiogenesis-typescript-tenant-5.0.0-rc.4.tgz','BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json',
++  'ROOT_AUTHORITY.md','RESIDUALS.md','INPUT_MANIFEST.json','verification.json','resolved-lock.json','installation.json',
+   'payload-correspondence.json','LOCAL_CUT_RECORD.json'])checksums.push(hex(await readFile(join(m.releaseRoot,name)))+'  '+name);
+ await writeFile(join(m.releaseRoot,'SHA256SUMS'),checksums.join('\n')+'\n',{flag:'wx'});
+ console.log(JSON.stringify({status:'local_cut_and_owner_install_completed',sourceCommit:e.sourceCommit,artifactDigest:e.artifactDigest,

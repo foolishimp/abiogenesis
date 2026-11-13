@@ -1,0 +1,224 @@
+{
+  "kind": "h04_native_author_progress",
+  "updatedUtc": "2026-11-06T18:31:17.053Z",
+  "status": "STOPPED_FIRST_LANE_FAILED_RETURN_TO_ROOT",
+  "edits": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "beforeBytes": 39862,
+      "beforeSha256": "a36bb612733a3fd39802413868f1f6c55ac757207788cfdd94b4f6247e0b7dcc",
+      "afterBytes": 39883,
+      "afterSha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34",
+      "change": "line333 programBinding.productRoot reads the already projected body state.environment.workspaceBinding.roots.productRoot instead of the {ref,digest} coordinate state.binding"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "beforeBytes": 370774,
+      "beforeSha256": "2825568c61d32e7bb6291119fafd140917b205f101a2a9bf3b708e030e5c59cd",
+      "afterBytes": 370990,
+      "afterSha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650",
+      "change": "line2537 W is the projected body caller.state.environment.workspaceBinding (2542-2543 root assertions unchanged, now over the body); line2552 replaces the roots read on the recorded coordinate with two coordinate assertions: setup-identity.workspaceBinding equals the admitted coordinate caller.state.binding, and equals {ref:W.bindingId,digest:W.bindingDigest}"
+    }
+  ],
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-source-freeze.json",
+    "bytes": 96811,
+    "sha256": "47b44fa41ed01cffc9e920725ab8a6aabf56fe67f24ed0c461e6f1337aa0c08d",
+    "label": "hs4-stage-01",
+    "sourceCount": 451,
+    "sourceDigest": "4cc3964124aa8424db8d67d2f992c4a9f8624fd0a88913f09dba478199551956",
+    "stage": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01",
+    "editedRows": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "bytes": 39883,
+        "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 370990,
+        "sha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650"
+      }
+    ],
+    "meaning": "Frozen 451-row H04 subject published before payload copy completion and before any lane, for parallel independent frozen review."
+  },
+  "stage": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-stage.json",
+    "bytes": 100744,
+    "sha256": "0c72ceec667b4e7f696673ce6665c7dbd8085ad90d5c20b1262bd8695206f89f",
+    "label": "hs4-stage-01",
+    "setupMs": 4171,
+    "sourceDigest": "4cc3964124aa8424db8d67d2f992c4a9f8624fd0a88913f09dba478199551956",
+    "productReuse": {
+      "status": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL",
+      "selection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+        "bytes": 1466472,
+        "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+      },
+      "before": {
+        "members": 5325,
+        "bytes": 71702388,
+        "productContentDigest": "sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+        "manifestSha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a",
+        "graphSha256": "82720d92dad9e7c30749042935e69793d93d99092d2a617a434e3e83da1f1432"
+      },
+      "after": {
+        "members": 5325,
+        "bytes": 71702388,
+        "productContentDigest": "sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+        "manifestSha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a",
+        "graphSha256": "82720d92dad9e7c30749042935e69793d93d99092d2a617a434e3e83da1f1432"
+      },
+      "originalCompletedBuildReport": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+        "bytes": 102337,
+        "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+      },
+      "noCompileOrGenerationExecuted": true
+    },
+    "compile": {
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "reused": true,
+      "executed": false,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+        "bytes": 102337,
+        "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+      },
+      "pointer": "/compile",
+      "historicalSourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+      "relation": "All449 non-writable source inputs and full5325-member Product payload unchanged; two changed caller/test mjs paths excluded from declared package payload."
+    },
+    "generate": {
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "reused": true,
+      "executed": false,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+        "bytes": 102337,
+        "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+      },
+      "pointer": "/generate",
+      "historicalSourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+      "relation": "All449 non-writable source inputs and full5325-member Product payload unchanged; two changed caller/test mjs paths excluded from declared package payload."
+    },
+    "lifecycle": {
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "reused": true,
+      "executed": false,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+        "bytes": 102337,
+        "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+      },
+      "pointer": "/lifecycle",
+      "historicalSourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+      "relation": "All449 non-writable source inputs and full5325-member Product payload unchanged; two changed caller/test mjs paths excluded from declared package payload."
+    },
+    "meaning": "Compile/generate/lifecycle rows are reused H03 receipts (executed:false), not newly executed commands."
+  },
+  "lanes": [
+    {
+      "id": "fixed-route",
+      "order": 1,
+      "timeoutMs": 600000,
+      "authoredTestTimeoutMs": 540000,
+      "executed": true,
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-lanes-fixed-route/summary-fixed-route.json",
+        "bytes": 2212,
+        "sha256": "0d7d2a2cb75ea0385b0de71c8aa5131702e9d47a2515502fa785291b3625ed75"
+      },
+      "tap": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-lanes-fixed-route/fixed-route.stdout.tap",
+        "bytes": 3914,
+        "sha256": "f979543dac4f7ba6391b029594817c4fafdf4aaefd470509bffbd18debfb2522"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-lanes-fixed-route/fixed-route.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 1,
+      "ms": 66805,
+      "tests": 7,
+      "pass": 6,
+      "fail": 1,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "requiredActivePass": false,
+      "stageSourceDigest": "4cc3964124aa8424db8d67d2f992c4a9f8624fd0a88913f09dba478199551956",
+      "failing": [
+        "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+      ],
+      "failure": {
+        "lane": "fixed-route",
+        "test": "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+        "location": "test_env/tests/t287-default-library.test.mjs:2585 (refused helper) called from :2602",
+        "call": "fixed-crossed-input = constructFixedWrapperCall(caller,'uat',{input:fixed,source:derived.source})",
+        "expected": "refusal code invalid_intent at /invocation_admission",
+        "actual": "refusal code invalid_input, issuePaths [/input], failure null, events [] (no appended events)",
+        "reachedBeforeFailure": [
+          "populateSandbox library setup completed (H03 TypeError at public-setup:333 no longer occurs)",
+          "corrected body root assertions 2542-2543 and coordinate assertions 2552 passed",
+          "crossed-start refusal at setup-program-binding",
+          "direct fixed Testing completed held, no selector choice, actor roles [c2]",
+          "deriveFixedTestingSource",
+          "fixed-testing-over-state and fixed-construction-over-state refused invalid_intent at invocation admission"
+        ],
+        "notReached": [
+          "refusals-start-no-actor assertion after crossed input",
+          "direct UAT admission/assessment",
+          "held/fresh readback agreement"
+        ],
+        "classification": "New downstream blocker outside the Root-selected coordinate/body cone; the crossed input is refused fail-closed but by input validation rather than invocation admission. Not corrected: out of scope, no correction stage or retry permitted."
+      }
+    },
+    {
+      "id": "held-session",
+      "order": 2,
+      "timeoutMs": 600000,
+      "executed": false,
+      "reason": "Stopped on first failure per allocation law; lane owner also requires fixed-route to pass first. Allocation not consumed."
+    },
+    {
+      "id": "assessment-guards",
+      "order": 3,
+      "timeoutMs": 300000,
+      "executed": false,
+      "reason": "Stopped on first failure per allocation law; lane owner also requires fixed-route to pass first. Allocation not consumed."
+    },
+    {
+      "id": "native-workspace-owner",
+      "order": 4,
+      "timeoutMs": 300000,
+      "executed": false,
+      "reason": "Stopped on first failure per allocation law; lane owner also requires fixed-route to pass first. Allocation not consumed."
+    },
+    {
+      "id": "caller",
+      "order": 5,
+      "timeoutMs": 300000,
+      "executed": false,
+      "reason": "Stopped on first failure per allocation law; lane owner also requires fixed-route to pass first. Allocation not consumed."
+    }
+  ],
+  "accepted": false,
+  "liveSourceCheck": {
+    "liveEqualsFreeze": 451,
+    "stagedEqualsFreeze": 451,
+    "sourceDigest": "4cc3964124aa8424db8d67d2f992c4a9f8624fd0a88913f09dba478199551956",
+    "head": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "emptyIndex": true,
+    "trackedModified": 69,
+    "newSourcePaths": 2
+  }
+}

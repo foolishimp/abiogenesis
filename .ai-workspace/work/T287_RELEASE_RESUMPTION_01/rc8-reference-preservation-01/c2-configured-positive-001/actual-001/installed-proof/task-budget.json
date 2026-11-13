@@ -1,0 +1,31 @@
+{
+  "rule": {
+    "aggregation": "sum",
+    "commandFields": [
+      "timeoutMs",
+      "terminationGraceMs",
+      "terminationGraceMs"
+    ],
+    "httpResponseFields": {
+      "launch": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "request": [
+        "timeoutMs"
+      ]
+    },
+    "perOperationDrain": {
+      "field": "terminationGraceMs",
+      "maximumMs": 250,
+      "operation": "minimum"
+    },
+    "ownerAllowanceMs": 5000,
+    "limitComparison": "required_budget_strictly_less_than_each_limit",
+    "limitOrdering": "absolute_strictly_greater_than_inactivity"
+  },
+  "commandBudgetMs": 14500,
+  "httpProbeBudgetMs": 8250,
+  "requiredExecutionBudgetMs": 27750
+}

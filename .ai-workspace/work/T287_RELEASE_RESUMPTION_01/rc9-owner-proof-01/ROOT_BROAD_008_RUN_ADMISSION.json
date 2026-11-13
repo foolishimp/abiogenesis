@@ -1,0 +1,70 @@
+{
+  "ProductFrame": "stdo://releases/v3.0.4/; same accepted ABI5/T287source25121e78/freeze32d86a52/BUILT003/archivec01e6cfe. Separate Proof Operator; Root owns broad/cut/install/release acceptance.",
+  "status": "ROOT_ADMITTED_RC9_BROAD_CLOSE",
+  "at": "2026-11-08T20:20:52.228303+00:00",
+  "rootSelection": "Actual BROAD008 run selected after closed bind b9fda97a and independent complete same-input/population comparison; execute unchanged owner ONCE in fresh roots, no further approval round trip.",
+  "configSha256": "ec04f94a9eca98ad9a932b12853bbbb74917867a1e5655a9f178463b36a76750",
+  "inventorySha256": "b6011697d340324e18654ec91f0fc24cb9b6d01b035469273c806f88338f7b95",
+  "frozenStageReceiptSha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a",
+  "preparationManifestSha256": "d179449a1ef0e9b33abd55ceba1021cf98744db223366b9fbf71837b2a2b8d74",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-008.json",
+    "bytes": 214131,
+    "sha256": "ec04f94a9eca98ad9a932b12853bbbb74917867a1e5655a9f178463b36a76750"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-002/BOUND_INVENTORY.json",
+    "bytes": 1867635,
+    "sha256": "b6011697d340324e18654ec91f0fc24cb9b6d01b035469273c806f88338f7b95"
+  },
+  "freeze": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "closedBind": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BIND_008_RETURN.json",
+    "bytes": 3429,
+    "sha256": "b9fda97a34b040d07cb41b32a508c9e89acdc1f5f03eb87c719323e8d0a8d4c5"
+  },
+  "selectedDecision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_008_PREPARATION_DECISION.json",
+    "bytes": 13625,
+    "sha256": "9661a6912c5f07e24b1ef41f991cc0e00a4b23c213a2b9febbc1d67d07bb43a1"
+  },
+  "operationalTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-broad-007/OPERATIONAL_TRIAGE.json",
+    "bytes": 11461,
+    "sha256": "ab5bf84a04acb29670f7df0016ea002be97c1cfa7475bebed8ccf85d4a15ad6c"
+  },
+  "independentProductProofTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/broad-007-c0-timeout/REVIEW.json",
+    "bytes": 28551,
+    "sha256": "b4dbfe08116bfef69c51ae05ac2196e73c4a2d903864adaf7594f25a468e613a"
+  },
+  "scope": "One sequential139whole-file continuation with62exact sameRC9wholecredits/eightheld. Fresh broad-002 and /private/tmp/abg-r9c-broad-002 only; candidate refresh must reproduce exactarchive andsixidentities; unchangedserialassertions/innerlimits/providerdisabled environment. Existing ordinary fixture lifecycle and successful derivedbuildcopy specified output-custody cleanup only. No failedscratch reuse, source/Git/native/provider/effect expansion.",
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 11695489,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "selectedPerFileOverrides": {
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000,
+    "test_env/tests/t287-c0-post-publication-failure.test.mjs": 2100000
+  },
+  "closureLimits": "Missing007failedresource receipt and escaped/changed-cwd uncertainty remain explicit; current ordinary successfulclosure resources required. No universal descendant absence claim.",
+  "stop": "First new red/cancel/timeout/incomplete/resource/conservation discrepancy stops and returnsRoot; no automaticretry/capextension.",
+  "runAttempts": 1,
+  "providerCallsSelected": 0,
+  "qualified": false
+}

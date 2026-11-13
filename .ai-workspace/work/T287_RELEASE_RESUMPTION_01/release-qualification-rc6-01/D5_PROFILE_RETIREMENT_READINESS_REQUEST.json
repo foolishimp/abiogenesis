@@ -1,0 +1,23 @@
+{
+  "kind": "root_bounded_profile_retirement_readiness",
+  "at": "2026-11-05T20:00:04.665673+00:00",
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+  "disposition": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/ROOT_PROFILE_DISPOSITION.json",
+  "frame": "Exact STDO3.0.4 Product/requirements and common-library HOW D5; source-derived affected relation and smallest existing-owner increment, no acceptance or new Product authority",
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+  "baselineCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "task": "Translate the already-triggered D5 obligation into a finite existing-owner producer/carrier/consumer map and proposed native grant/proof. Check whether any later accepted closure changed its standing before proposing repair. Distinguish redundant ABG lifecycle payload copies from legitimate helper/OS process observation fields with the same names. Do not propose blanket deletion of terminationConfirmed/exitObserved/timedOut/signalSequence across unrelated carriers. Identify exact derivation and retained legacy/source-profile behavior, current-profile source-to-cut readiness, and nearest affected tests.",
+  "readScope": "Exact frozen Q23 files, exact HEAD common-library/profile HOW and directly named existing debt closure records when needed. No moving source, provider history, broad inventory or unrelated design.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_PROFILE_RETIREMENT_READINESS.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_PROFILE_RETIREMENT_READINESS.md"
+  ],
+  "effects": {
+    "ProductWrites": 0,
+    "tests": 0,
+    "providers": 0,
+    "GitChanges": 0
+  },
+  "bound": "One approximately10-minute readiness pass; identify missing material and return rather than general algebra/constructor redesign.",
+  "return": "Closed contributing readiness result to Root with source pins, active obligation standing, exact proposed write scope and minimal proof. No Worker dispatch or repair selected by this request."
+}

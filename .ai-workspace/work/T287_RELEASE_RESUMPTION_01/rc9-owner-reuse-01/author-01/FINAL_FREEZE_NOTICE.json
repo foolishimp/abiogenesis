@@ -1,0 +1,41 @@
+{
+  "status": "FINAL_SOURCE_FROZEN_BUILD_ACTIVE",
+  "recordedAt": "2026-11-08T06:41:35.554511+00:00",
+  "freeze": {
+    "path": "/private/tmp/abg-r9-owner-native-001/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "528a04c0c171c56affaa1a2f9ba2b66413b7d6007d92bbbe092143a726938c49"
+  },
+  "sourceDigest": "6aacc0e5b7bda528bac527e16551789bb5da43e7aeb7d3408ebde994a9e822ff",
+  "rows": 1340,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+  ],
+  "liveSourceMatchesFrozenRows": true,
+  "sourceAccepted": false,
+  "proofComplete": false,
+  "workerMilestones": [
+    "intake 2026-11-08T06:28:31Z controls read",
+    "progress 06:30:00Z execution-basis row facts edited",
+    "progress 06:30:49Z environment body retention edited",
+    "progress 06:34:05Z install carriage edited (semantics/leaf port/install counters)",
+    "progress 06:34:39Z worker final contract frozen",
+    "progress 06:35:54Z F3 comment, F4 oracle edited",
+    "progress 06:36:28Z HOW 10.12 + binding clause written",
+    "progress 06:39:30Z new test + F6 package.json written; starting author compile check 1",
+    "progress 06:39:55Z compile check 1 found TS2391 overload placement; fixed",
+    "freeze 2026-11-08T06:40:59Z source frozen at worksite /Users/jim/src/apps/abiogenesis-rc9-owner-reuse (no further source edits)",
+    "stage-start 2026-11-08T06:41:06Z"
+  ]
+}

@@ -1,0 +1,461 @@
+{
+  "status": "DIAGNOSTIC_CLOSED_THREE_CASES_ONE_FAILURE_FULL_CAPTURE",
+  "utc": "2026-11-09T09:37:49.526301+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3364,
+    "sha256": "9acd586f8e0d3fd126e8ffe2aa6101036d838189a81a32591050db59096e62af"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/BINDING.json",
+    "bytes": 5925,
+    "sha256": "fb68735b8eeac0e52f34cd4c6564f7f6401f28281b52a3e87b1fe52bb3d0cb91"
+  },
+  "transform": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/SOURCE_TRANSFORM.json",
+    "bytes": 1664,
+    "sha256": "2cf464503d197e12813995e890c2c9b66a49a0a60f3388b9e3e595185cbbe8ae"
+  },
+  "actualCommand": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/run-01/three-case-diagnostic/RETURN.json",
+    "bytes": 3304,
+    "sha256": "265012ec69de1956b34ddef0ac9a6dbba80fb235f14ffe0e26081cd5664ec676"
+  },
+  "stdout": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/run-01/three-case-diagnostic/stdout.log",
+    "bytes": 1409,
+    "sha256": "0f0afde4d22232ddbbaedf85307c15c9a746f3ca10b0f4ea059ba9cc7efcaef3"
+  },
+  "stderr": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/run-01/three-case-diagnostic/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "halt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/run-01/HALT.json",
+    "bytes": 221,
+    "sha256": "62b05ce85a4899251807f84af62e9f7f9201bf273296a5b8417ad4c7c275b9c8"
+  },
+  "counts": {
+    "tests": 3,
+    "pass": 2,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "process": {
+    "exitCode": 1,
+    "wallSeconds": 2.6895803748629987,
+    "timedOut": false,
+    "signals": [],
+    "groupAbsent": true,
+    "cleanupNeeded": false
+  },
+  "observations": [
+    {
+      "label": "post-timeout-output",
+      "record": {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/post-timeout-output/record.json",
+        "bytes": 7571,
+        "sha256": "c5588996371bc7b12589e0e330673a56042dfea86fb4ac04b877c8ebc918c5f9"
+      },
+      "artifacts": [
+        {
+          "name": "prompt",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/post-timeout-output/prompt.bin",
+          "bytes": 38,
+          "sha256": "50dd52398ac941c3581557f5fde6f59cb2a39f678fa44dabb4a1e9dad72cf97b"
+        },
+        {
+          "name": "output",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/post-timeout-output/output.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "stdout",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/post-timeout-output/stdout.bin",
+          "bytes": 111,
+          "sha256": "0891c0ead5ab5de70dd01757906df16bc3f61da7e29bfa056761e9a04f97b29e"
+        },
+        {
+          "name": "stderr",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/post-timeout-output/stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "transport",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/post-timeout-output/transport.bin",
+          "bytes": 2212,
+          "sha256": "a374e908888a46081c1b61af8a6241e40300d837bab895dc8965f90ffe545d5e"
+        }
+      ],
+      "events": [
+        {
+          "name": "onProcessStarted",
+          "atMs": 4.7070410000001175,
+          "returnAtMs": 4.719000000000051,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "onTimeoutObserved",
+          "atMs": 155.85458299999982,
+          "returnAtMs": 155.85783300000003,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "onSignalRequested",
+          "atMs": 155.88254099999995,
+          "returnAtMs": 155.8832910000001,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "onStdoutObserved",
+          "atMs": 160.85037499999999,
+          "returnAtMs": 160.85991599999988,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "onProcessFinalized",
+          "atMs": 167.44887500000004,
+          "returnAtMs": 167.4563330000001,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        }
+      ],
+      "originalCallbackCounts": {},
+      "callbackCounts": {
+        "onProcessStarted": 1,
+        "onTimeoutObserved": 1,
+        "onSignalRequested": 1,
+        "onStdoutObserved": 1,
+        "onProcessFinalized": 1
+      },
+      "returnedAtMs": 169.78150000000005,
+      "resultSummary": {
+        "status": 0,
+        "signal": null,
+        "timeoutClass": "inactivity",
+        "failureClass": "transport_failure",
+        "stdout": "{\"type\":\"result\",\"subtype\":\"success\",\"result\":\"{\\\"kind\\\":\\\"late_worker_output\\\",\\\"schemaVersion\\\":\\\"5.0.0\\\"}\"}\n",
+        "stderr": "",
+        "finalOutput": "",
+        "processFacts": {
+          "directExit": {
+            "status": 0,
+            "signal": null
+          },
+          "launchFailure": null,
+          "noChildEstablished": false,
+          "scopeKind": "posix_process_group",
+          "scopeAbsence": "absent",
+          "closeObserved": true,
+          "streamsDisposed": true,
+          "drainExpired": false,
+          "firstError": null,
+          "cleanupDeadlineNs": {
+            "kind": "bigint",
+            "value": "3048817704572041"
+          },
+          "cleanupElapsedMs": 11.568709,
+          "probeCount": 4,
+          "signalAttempts": 1
+        }
+      }
+    },
+    {
+      "label": "progress-worker",
+      "record": {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/progress-worker/record.json",
+        "bytes": 7995,
+        "sha256": "602031155dc14788d7e39f5b9de3f1e83657a3000f4add633fff7a297ddb133e"
+      },
+      "artifacts": [
+        {
+          "name": "prompt",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/progress-worker/prompt.bin",
+          "bytes": 45,
+          "sha256": "7efe4eab586cc4099919203814722b5bf0756b964f34903009ba8c61a8051edd"
+        },
+        {
+          "name": "output",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/progress-worker/output.bin",
+          "bytes": 86,
+          "sha256": "276672036af0fc907b6185f69a91ec7add5288810a710fe3c761877d58fb9b4d"
+        },
+        {
+          "name": "stdout",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/progress-worker/stdout.bin",
+          "bytes": 86,
+          "sha256": "276672036af0fc907b6185f69a91ec7add5288810a710fe3c761877d58fb9b4d"
+        },
+        {
+          "name": "stderr",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/progress-worker/stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "transport",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/progress-worker/transport.bin",
+          "bytes": 2067,
+          "sha256": "e9536d297c8ef81d4386ad57c05802e4bf12218fc4e076635b2894590ca026eb"
+        }
+      ],
+      "events": [
+        {
+          "name": "onProcessStarted",
+          "atMs": 11.583292000000029,
+          "returnAtMs": 11.617707999999993,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "onStdoutObserved",
+          "atMs": 85.25954200000001,
+          "returnAtMs": 85.35808299999985,
+          "originalCallbackPresent": true,
+          "returnValue": true
+        },
+        {
+          "name": "onStdoutObserved",
+          "atMs": 125.52020799999991,
+          "returnAtMs": 125.5296249999999,
+          "originalCallbackPresent": true,
+          "returnValue": true
+        },
+        {
+          "name": "onStdoutObserved",
+          "atMs": 166.316417,
+          "returnAtMs": 166.32233299999984,
+          "originalCallbackPresent": true,
+          "returnValue": true
+        },
+        {
+          "name": "onStdoutObserved",
+          "atMs": 207.5435,
+          "returnAtMs": 207.54987499999993,
+          "originalCallbackPresent": true,
+          "returnValue": true
+        },
+        {
+          "name": "onStdoutObserved",
+          "atMs": 248.67537500000003,
+          "returnAtMs": 248.68095799999992,
+          "originalCallbackPresent": true,
+          "returnValue": true
+        },
+        {
+          "name": "onStdoutObserved",
+          "atMs": 291.03645800000004,
+          "returnAtMs": 291.043083,
+          "originalCallbackPresent": true,
+          "returnValue": true
+        },
+        {
+          "name": "onStdoutObserved",
+          "atMs": 333.36741699999993,
+          "returnAtMs": 333.37316699999997,
+          "originalCallbackPresent": true,
+          "returnValue": true
+        },
+        {
+          "name": "onProcessFinalized",
+          "atMs": 344.69741699999986,
+          "returnAtMs": 344.705833,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        }
+      ],
+      "originalCallbackCounts": {
+        "onStdoutObserved": 7
+      },
+      "callbackCounts": {
+        "onProcessStarted": 1,
+        "onStdoutObserved": 7,
+        "onProcessFinalized": 1
+      },
+      "returnedAtMs": 401.92054199999984,
+      "resultSummary": {
+        "status": 0,
+        "signal": null,
+        "timeoutClass": null,
+        "failureClass": null,
+        "stdout": "progress-0\nprogress-1\nprogress-2\nprogress-3\nprogress-4\nprogress-5\nprogress-6\ncomplete\n",
+        "stderr": "",
+        "finalOutput": "progress-0\nprogress-1\nprogress-2\nprogress-3\nprogress-4\nprogress-5\nprogress-6\ncomplete\n",
+        "processFacts": {
+          "directExit": {
+            "status": 0,
+            "signal": null
+          },
+          "launchFailure": null,
+          "noChildEstablished": false,
+          "scopeKind": "posix_process_group",
+          "scopeAbsence": "absent",
+          "closeObserved": true,
+          "streamsDisposed": true,
+          "drainExpired": false,
+          "firstError": null,
+          "cleanupDeadlineNs": {
+            "kind": "bigint",
+            "value": "3048816682672416"
+          },
+          "cleanupElapsedMs": 0.62675,
+          "probeCount": 1,
+          "signalAttempts": 0
+        }
+      }
+    },
+    {
+      "label": "unadmitted-progress-worker",
+      "record": {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/unadmitted-progress-worker/record.json",
+        "bytes": 6914,
+        "sha256": "8a33f62c89ad2c2e13570788993bd661f4ff4b5c71b0c2d7d863a500ffc907e5"
+      },
+      "artifacts": [
+        {
+          "name": "prompt",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/unadmitted-progress-worker/prompt.bin",
+          "bytes": 46,
+          "sha256": "ed0ab9460bbe45a1822cd7fde80517f66c2afca8ff2044729d4e1e19740d2dab"
+        },
+        {
+          "name": "output",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/unadmitted-progress-worker/output.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "stdout",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/unadmitted-progress-worker/stdout.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "stderr",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/unadmitted-progress-worker/stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "transport",
+          "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records/unadmitted-progress-worker/transport.bin",
+          "bytes": 1996,
+          "sha256": "2e223a785bc0e3ba76d7852b36fda00f682c2b3d568356a0052e473da96ab157"
+        }
+      ],
+      "events": [
+        {
+          "name": "onProcessStarted",
+          "atMs": 15.071790999999848,
+          "returnAtMs": 15.088790999999901,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "onTimeoutObserved",
+          "atMs": 166.438541,
+          "returnAtMs": 166.462583,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "onSignalRequested",
+          "atMs": 166.51354100000003,
+          "returnAtMs": 166.51816599999984,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        },
+        {
+          "name": "onProcessFinalized",
+          "atMs": 171.86416599999984,
+          "returnAtMs": 171.87287500000002,
+          "originalCallbackPresent": false,
+          "returnValue": {
+            "type": "undefined"
+          }
+        }
+      ],
+      "originalCallbackCounts": {},
+      "callbackCounts": {
+        "onProcessStarted": 1,
+        "onTimeoutObserved": 1,
+        "onSignalRequested": 1,
+        "onProcessFinalized": 1
+      },
+      "returnedAtMs": 177.41816600000016,
+      "resultSummary": {
+        "status": null,
+        "signal": "SIGTERM",
+        "timeoutClass": "inactivity",
+        "failureClass": "transport_failure",
+        "stdout": "",
+        "stderr": "",
+        "finalOutput": "",
+        "processFacts": {
+          "directExit": {
+            "status": null,
+            "signal": "SIGTERM"
+          },
+          "launchFailure": null,
+          "noChildEstablished": false,
+          "scopeKind": "posix_process_group",
+          "scopeAbsence": "absent",
+          "closeObserved": true,
+          "streamsDisposed": true,
+          "drainExpired": false,
+          "firstError": null,
+          "cleanupDeadlineNs": {
+            "kind": "bigint",
+            "value": "3048816997736625"
+          },
+          "cleanupElapsedMs": 5.3355,
+          "probeCount": 3,
+          "signalAttempts": 1
+        }
+      }
+    }
+  ],
+  "finding": "The unacknowledged-output case again failed its raw-observation premise: no stdout callbacks, empty exact stdout/stderr archives, inactivity then SIGTERM. Its original false-return acknowledgement callback never ran. This trace does not establish child readiness or a transport algorithm defect. The observed-progress and post-timeout-output cases passed with their expected admitted/unadmitted output boundaries in this diagnostic attempt.",
+  "limits": [
+    "Wrapper instrumentation is an observational intervention and cannot replace original unit/discriminator outcomes.",
+    "Times are parent callback observations, not exact timer arms, child readiness, signal delivery or direct-exit time.",
+    "No original assertion, worker script, delay, timeout, callback return or candidate source was changed.",
+    "Full captured result/Error/BigInt fields and exact artifact bytes retained after owner return and before test cleanup."
+  ],
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "compiledInventoryDigest": "16497c6763f0cb07a2227cb0ce6de2445e14044b94c6542d0523adbd1ad18d7c",
+  "sourceBuildMainPinGuardsConserved": true,
+  "originalUnitRedPreserved": true,
+  "R6F04A": "Still unexecuted; separate held controls prepared next.",
+  "packHeld": true,
+  "noFurtherAttempt": true
+}

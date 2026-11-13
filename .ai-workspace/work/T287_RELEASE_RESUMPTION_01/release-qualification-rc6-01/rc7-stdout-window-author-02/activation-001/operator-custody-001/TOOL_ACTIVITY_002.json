@@ -1,0 +1,225 @@
+{
+  "kind": "allowlisted_native_tool_use_and_method_order_observation",
+  "observedUtc": "2026-11-06T22:19:08.211417+00:00",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-669923d93710d0c4-stdout.log",
+  "device": 16777231,
+  "inode": 708684233,
+  "suffixStart": 1342817,
+  "suffixEnd": 1708668,
+  "suffixBytes": 365851,
+  "suffixSha256": "19f0ba4b4eee38f46a8cd298401692dcab32412779911d05f0b4562fff028668",
+  "completeRows": 834,
+  "totalCompleteRows": 3013,
+  "uniqueCompleteToolUses": 39,
+  "toolNameCounts": {
+    "Bash": 39
+  },
+  "newToolUses": [
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:18:05.748Z",
+      "toolUseRef": "toolu_019umjy2FbLHJ6qZShYoBsYK",
+      "archiveLine": 2217,
+      "byteOffset": 1354354,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:18:15.971Z",
+      "toolUseRef": "toolu_01KETMGMZYf5HBfYKbHRitXQ",
+      "archiveLine": 2265,
+      "byteOffset": 1393250,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:18:24.895Z",
+      "toolUseRef": "toolu_01V4CS6irZVLXv9Ut7E2kHYe",
+      "archiveLine": 2310,
+      "byteOffset": 1418036,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:18:42.791Z",
+      "toolUseRef": "toolu_01JKbaKJz1hgSbj69uugEkQS",
+      "archiveLine": 2638,
+      "byteOffset": 1537034,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:18:48.751Z",
+      "toolUseRef": "toolu_01NshWt4MSFRMg4E4rRiJC2k",
+      "archiveLine": 2691,
+      "byteOffset": 1574325,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:18:51.215Z",
+      "toolUseRef": "toolu_01CBSnWQLZGVHhSH7UapLmmm",
+      "archiveLine": 2728,
+      "byteOffset": 1587903,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:19:06.472Z",
+      "toolUseRef": "toolu_01Fc2QGU1qche8uNYJoyxjRh",
+      "archiveLine": 3004,
+      "byteOffset": 1695517,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    }
+  ],
+  "statusMetadataCoverageStart": 0,
+  "newToolResultMetadata": [
+    {
+      "tool_use_id": "toolu_019umjy2FbLHJ6qZShYoBsYK",
+      "timestamp": "2026-11-06T22:18:05.780Z",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_01KETMGMZYf5HBfYKbHRitXQ",
+      "timestamp": "2026-11-06T22:18:15.990Z",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_01V4CS6irZVLXv9Ut7E2kHYe",
+      "timestamp": "2026-11-06T22:18:24.917Z",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_01JKbaKJz1hgSbj69uugEkQS",
+      "timestamp": "2026-11-06T22:18:42.837Z",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_01NshWt4MSFRMg4E4rRiJC2k",
+      "timestamp": "2026-11-06T22:18:48.770Z",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_01CBSnWQLZGVHhSH7UapLmmm",
+      "timestamp": "2026-11-06T22:18:51.235Z",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_01Fc2QGU1qche8uNYJoyxjRh",
+      "timestamp": "2026-11-06T22:19:06.504Z",
+      "is_error": false
+    }
+  ],
+  "cumulativeToolResultMetadataCount": 39,
+  "firstSelectedMethodPathTool": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T22:14:52.405Z",
+    "toolUseRef": "toolu_01PLqosQjQDE6cufe8iXgqWi",
+    "archiveLine": 500,
+    "byteOffset": 352350,
+    "path": null,
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": null,
+    "selectedReadFirstPathMentions": [
+      "qualification-inputs/rc7-stdout-window-author-02/METHOD_ACCESS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_CONTROL_ADMISSION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_DEPENDENCY_READY_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/HS03_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/TASK.md",
+      "qualification-inputs/rc7-stdout-window-author-02/NATIVE_GRANT.json",
+      "qualification-inputs/rc7-stdout-window-author-02/SOURCE_CUSTODY.json",
+      "qualification-inputs/rc7-stdout-window-author-02/COMMAND_BOUNDS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/MEASUREMENT_PLAN.json",
+      "AGENTS.md",
+      "stdo_abiogenesis.json"
+    ],
+    "selectedMethodPathPresence": [
+      "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md"
+    ],
+    "selectedMethodManagerCommandPresence": true,
+    "selectedStageExecutionSyntaxPresent": false,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": false
+  },
+  "firstSelectedProductEditTool": null,
+  "firstSelectedBuildOrLaneSyntax": null,
+  "latestToolUse": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T22:19:06.472Z",
+    "toolUseRef": "toolu_01Fc2QGU1qche8uNYJoyxjRh",
+    "archiveLine": 3004,
+    "byteOffset": 1695517,
+    "path": null,
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": null,
+    "selectedReadFirstPathMentions": [],
+    "selectedMethodPathPresence": [],
+    "selectedMethodManagerCommandPresence": false,
+    "selectedStageExecutionSyntaxPresent": false,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": false
+  },
+  "limits": [
+    "Only complete assistant tool-use name/id/path, envelope clock and exact selected method/read-first/stage-lane presence are projected. No thinking, narrative, tool-result body, raw command text, stderr or credentials surfaced. Forward-only explicit tool-result status fields are projected under Root extension.",
+    "Read/tool metadata shows requested access, not successful content interpretation or complete method compliance. Selected command presence does not itself prove successful verification.",
+    "Bash command contents are not retained; unclassified Bash may include operations not identifiable from these allowed metadata. Absence of direct Edit/build metadata is not a universal no-effect proof.",
+    "No old campaign event decode or untracked census. The current actor archive is read incrementally from its prior exact byte cursor."
+  ]
+}

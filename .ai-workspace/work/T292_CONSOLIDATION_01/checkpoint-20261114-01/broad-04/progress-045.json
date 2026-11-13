@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-authenticated-owner-values.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/045-t287-authenticated-owner-values.test/process.json",
+    "bytes": 1105,
+    "sha256": "8292eaa8a234edf5995df397aeee02f0f35588767cff429ffd9732892cbf3080"
+  }
+}

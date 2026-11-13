@@ -1,0 +1,37 @@
+{
+  "kind": "root_bounded_qualification_policy_how_selection",
+  "at": "2026-11-05T15:43:36.902271+00:00",
+  "admission": "User go selects remaining qualification readiness under ROOT_ACTIVATION; this binds the existing Product-owned published role-policy HOW, with unchanged independent-judgment requirements and STDO3.0.4 default. Root selects the bounded declaration as Executive; the ABG-native Worker owns realization in the accepted HOW/code, not operator injection into runtime inputs.",
+  "owner": "QUALIFICATION_ROLE_POLICY in validator/qualification_contracts.ts, through D4/D5 design sections2-3 and existing requirement sources",
+  "architectureResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ARCHITECT_SPLIT_CHECK.json",
+    "bytes": 10258,
+    "sha256": "a21eaf539030deefe05059203fc7ab8ee6916f868b3709821dc1aa922d78fdaf"
+  },
+  "existingProfileDeclarationSource": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "bytes": 19594,
+    "sha256": "364c615d339fe85d187d3f0fd792715da9ee0f127587fb20eb9d27b17aebdf5c"
+  },
+  "declaredClosedCorrespondence": [
+    {
+      "existingProfileLabel": "Claude Opus 5.5",
+      "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+      "effectiveConfiguredModel": "claude-opus-5-5",
+      "declaredModelFamily": "Anthropic Claude"
+    },
+    {
+      "existingProfileLabel": "Codex gpt-6-astra",
+      "actorIdentityRef": "actor-identity://openai/gpt-6-astra",
+      "effectiveConfiguredModel": "gpt-6-astra",
+      "declaredModelFamily": "OpenAI GPT"
+    }
+  ],
+  "meaning": "These are the exact two families declared for this bounded qualification policy, not a transport inference from names or prefixes, not a universal taxonomy, and not new evidence of historical authorship. Same declared family is non-independent by default. Different declared families only permit evaluation of the remaining author/evidence/peer conditions; they do not alone establish independent acceptance.",
+  "requiredCorrespondence": "The published owner must bind the declared profile and source identity to the actual final prepared transport selection; absent/mismatched/ambiguous identity is unknown. A role or model name alone is insufficient. Reuse canonical transport/library/source owners, not a caller-authored policy/checked flag. Keep policy meaning at qualification owner and one identity-bearing transport binding.",
+  "legacyAndOtherProfiles": "Legacy invocations without established identity, unlisted profiles, surviving authors whose identity/family is unresolved, and external sufficiency available only from future J remain unknown/non-green. Do not reconstruct identity merely by applying this table to old role names.",
+  "proofScope": "Controlled native-history component fixture may now use these exact declared policy premises through existing owners; it still does not establish actual production positive invocation or complete F11. The candidate must keep required negative cases unpaid/non-green and ordinary not_required behavior unchanged.",
+  "excluded": "No same-family exception; no new Product WHAT; no generic alternative-provider migration, registry/service, universal family classifier, duplicated identity bodies, or expanded QR02 history repair.",
+  "supersedes": "The statement in ROOT_SCOPE_CLARIFICATION that no concrete pair is selected is superseded only for this bounded two-profile declaration. Its limits on actual eligibility and component proof remain.",
+  "return": "Worker returns exact HOW/code/tests and any insufficient source/owner join; Root independently conjoins frozen review and native proof before accepting this bounded change. Actual cross-family dispatch and QR02 remain dependency-bound."
+}

@@ -1,0 +1,56 @@
+{
+  "kind": "controlled_selector_size_diagnostic",
+  "owner": "installed RC4 projectFramedSynthesisPromptTask and exact renderInstructionSections formatting",
+  "actualFailedTaskResult": "result://abiogenesis/9c572e544aa7121b2e8c1b497eff29d4a4fa95e03e7c0ca31e77e730bc5c14e1",
+  "historicalSelectorPromptSha256": "6b9ec2ce3cccc5fb165fd72b6e81208eaafc3b7513d70421c8ea1fd9000a5a54",
+  "results": [
+    {
+      "variant": "actual_failed",
+      "excludedFromTextualSourceRole": [],
+      "sourceCount": 30,
+      "taskProjectionBytes": 15706354,
+      "predictivePromptBytes": 15727651,
+      "promptBound": 1048576,
+      "reserveBytes": 65536,
+      "withReserveFits": false
+    },
+    {
+      "variant": "artifact_as_read_input",
+      "excludedFromTextualSourceRole": [
+        "rc5-operator-inputs/f4-03/baseline-rc5.tgz"
+      ],
+      "sourceCount": 29,
+      "taskProjectionBytes": 1041183,
+      "predictivePromptBytes": 1062480,
+      "promptBound": 1048576,
+      "reserveBytes": 65536,
+      "withReserveFits": false
+    },
+    {
+      "variant": "artifact_and_held_sources_as_hashed_inputs",
+      "excludedFromTextualSourceRole": [
+        "rc5-operator-inputs/f4-03/baseline-rc5.tgz",
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+        "build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md",
+        "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+        "build_tenants/abiogenesis/typescript/package.json",
+        "build_tenants/abiogenesis/typescript/package-lock.json",
+        "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "build_tenants/abiogenesis/typescript/release-claim.md"
+      ],
+      "sourceCount": 20,
+      "taskProjectionBytes": 541138,
+      "predictivePromptBytes": 562435,
+      "promptBound": 1048576,
+      "reserveBytes": 65536,
+      "withReserveFits": true
+    }
+  ],
+  "limits": [
+    "Task is actual admitted failed input; other sections are exact prior RC4 selector sections, not a new native basis.",
+    "Repriced variants are operator predictions only. Actual admission remains with unchanged runtime owners.",
+    "Artifact remains byte-checked read input and original failure/source are retained. No provider/Run/source mutation."
+  ]
+}

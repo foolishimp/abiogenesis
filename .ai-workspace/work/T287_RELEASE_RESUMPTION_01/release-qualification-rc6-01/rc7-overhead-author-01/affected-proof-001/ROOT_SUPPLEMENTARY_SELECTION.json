@@ -1,0 +1,85 @@
+{
+  "kind": "root_finite_supplementary_test_resource_selection",
+  "recordedUtc": "2026-11-06T04:48:02.406132+00:00",
+  "authority": "Root direct instruction selects exactly the reviewed730-byte fixture copy and proposedFiniteCommand once;300s bound, no auto retry, no other source/resource acquisition.",
+  "rootActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_SELECTION.json",
+    "bytes": 7288,
+    "sha256": "aa3d11eedf7bf44271a825b05466d1a7bc8556377064562b1d14f6a309be9b9a"
+  },
+  "rootReviewDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 4686,
+    "sha256": "b71d632feb75682fc96c77f296ffd24da6709a0eda8654604a1730e672ed165c"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "supplementaryManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/SUPPLEMENTARY_RESOURCE_MANIFEST.json",
+    "bytes": 9197,
+    "sha256": "d755208b3b44ace1c81753ea0f5bd85be824941e8ce27f0eb7b7c417f2fa940e"
+  },
+  "environmentCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/ROOT_ENV_CORRECTION.json",
+    "bytes": 7215,
+    "sha256": "87d11fd7a9a555457c1e0c228415768df9d97156db10988981ffcb5162cf619c"
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/INPUTS.json",
+    "bytes": 231601,
+    "sha256": "ff54ef079550a990702876fc6defd66c5724c6863a16f4df338b62eb91e8fad6"
+  },
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/controls/run-two-cases-001.mjs",
+    "bytes": 5792,
+    "sha256": "c8209d426365bb266a733a1708380abcbdce4d290aad1f8fdcb2e8c8083a5ae4"
+  },
+  "generatedManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3265439,
+    "sha256": "ba8d342851d3a19c5127d7cbb7a6214e3e73c83f8a71bacd4b659f754d11c3c9"
+  },
+  "preservedReports": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/SUMMARY.json",
+      "bytes": 32178,
+      "sha256": "6f357a2bb78d79ed6087fcb5d3dd1c11724ce3e18ed6d34d9cf786f206532609"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/consumers.json",
+      "bytes": 10840,
+      "sha256": "000f8ff7ef68f8b7f0a1ca470b548c19fcec455b4c30e302cebb95868b9c090b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/uat-harness.json",
+      "bytes": 4791,
+      "sha256": "c19b4887b393c79fe6629131a773aedec505035fe847c90cd4d7b6c503ad4f68"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/SKIPS.json",
+      "bytes": 4390,
+      "sha256": "91233862f321e5b41ad1c6322847b78cad8343c646401b32b1ea2dc3f948217e"
+    }
+  ],
+  "requiredEffects": [
+    "Create exactly one absent fixture target from its selected bytes in the existing owned stage",
+    "Execute only the unchanged proposed two-case command once through existing commandRecorder",
+    "Retain reports and verify the original448 files plus added fixture afterward"
+  ],
+  "limits": [
+    "No Product/HOW/test edit, source C write, campaign runtime read/write or immutable install change.",
+    "Do not repeat compile, generation, guard, harness, full consumers or the63 prior passing cases.",
+    "Preserve actual77/63/2/12 and32/32 original artifacts; name-filtered exclusions are not historical skips or passes.",
+    "Seven F11carrier cases remain explicitly unbound/uncovered in the full5.0 qualification gate.",
+    "Stop and return any unexpected failure; no further resource acquisition or automatic retry.",
+    "No whole objective, independent Product acceptance, runtime/evidence admission, qualification or release claim."
+  ]
+}

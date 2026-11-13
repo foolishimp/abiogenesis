@@ -1,0 +1,50 @@
+{
+  "kind": "rc5_method_first_c2_failure_triage",
+  "recordedUtc": "2026-11-03T08:53:28.284679+00:00",
+  "roleTransition": {
+    "from": "Executive evaluator",
+    "to": "Root operator Writer",
+    "grant": "PREPARATION_AUTHORITY.json / ROOT_SELECTION.md; approved RC5 affected proof and operator inputs",
+    "effects": [
+      "append this triage and exact stdout/stderr custody",
+      "prepare successor testing-only input packet after actual owner close"
+    ],
+    "noProductWrites": true
+  },
+  "failure": {
+    "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/worksite-command-execution/9a411e0328c61af31d518fe3471144210fcc916f8db1f293461049472290489e/b25f4a98b6cbc22f40452f77c66d138cdb7d621f0e3d4f66286f65d03bd55849/result.json",
+    "sha256": "7ce274693b047073bfc891f762fe9d49fb64bc283dbf6dde5c0c40aeb4ee3f2f",
+    "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/2a5a8f602d3acfbfed6630c953e5e8ebd6f501739cd1141994a6f707dcc8318e",
+    "helperArtifactDigest": "sha256:2a5a8f602d3acfbfed6630c953e5e8ebd6f501739cd1141994a6f707dcc8318e",
+    "commandId": "command://abiogenesis/rc5/method01/stage-and-proof",
+    "observationRef": "worksite-command-observation://abiogenesis/4916db3808d6ce504cb7474981218be4a3ddc6e43fca201d74610068264dcf0d",
+    "observationDigest": "sha256:4916db3808d6ce504cb7474981218be4a3ddc6e43fca201d74610068264dcf0d",
+    "exitStatus": 1,
+    "violation": "ERR_MODULE_NOT_FOUND at test module linking before selected assertions",
+    "omittedPath": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs"
+  },
+  "triangulation": {
+    "ProductRequirement": "No changed Product behavior evaluated by this failure; selected proof remains unsatisfied. Compilation and generation do not substitute.",
+    "DesignIntegration": "Whole selected test module imports support/language-smoke-fixture.mjs, which statically imports the unchanged fixture. Name filtering does not remove ES module linking dependencies.",
+    "IdentityWorkspace": "Exact frozen native source remains at review-subject-001. The omitted file exists as tracked source; C2 intentionally materialized only declared selectedPaths.",
+    "EffectAuthority": "C2 honored selected input isolation and captured exit1. Helper disposition success denotes completed measurement, not green tests. Pack exit0 does not accept candidate.",
+    "Proof": "Operator selectedPaths were not checked for transitive static imports. Independent predispatch shape/membership review and Worker in-memory feedback did not exercise this actual sandbox selection.",
+    "Recurrence": "Same general fixture-selection class as prior historical reviewer sparse-tree failures. Full native checkout alone did not close C2 materialization dependency relation."
+  },
+  "boundedDiscriminator": {
+    "method": "TypeScript parser static import/export closure of the three selected test modules; compiled code excluded because whole code tree compiled successfully",
+    "checkedStaticModuleFiles": 14,
+    "missingOnSource": [],
+    "omittedFromC2": [
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs"
+    ],
+    "scope": "Static module linking only; dynamic runtime dependencies remain covered by selected actual tests."
+  },
+  "fixture": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+    "bytes": 8359,
+    "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+  },
+  "disposition": "Retain first red; source repair not supported. After actual Run returns, admit testing-only successor packet adding exact omitted fixture and rerun affected recipe on unchanged frozen candidate. No new construction.",
+  "accepted": false
+}

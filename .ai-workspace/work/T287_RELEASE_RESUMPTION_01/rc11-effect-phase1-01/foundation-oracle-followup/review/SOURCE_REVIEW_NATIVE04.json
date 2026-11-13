@@ -1,0 +1,108 @@
+{
+  "kind": "foundation_oracle_frozen_source_review",
+  "recordedAt": "2026-11-09T18:55:00.121432+00:00",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "verdict": "satisfied_source",
+  "closedFinding": "FOUNDATION-ORACLE-001 source-level Proof/Design conflict",
+  "newFindings": [],
+  "preacquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/PREACQUISITION.json",
+    "bytes": 5984,
+    "sha256": "f6bcf9da24a02cbb40753f8b750d49b7f4be719725d9005c857b789b67095c06"
+  },
+  "preimageCommit": "65f311e735c1297b9982117eb73fb6a32999cc02",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/source-freeze.json",
+    "bytes": 295048,
+    "sha256": "12d3f6f9517d3b1173351877303fce46f007974c88e8fb0892b85389fbc700e0"
+  },
+  "sourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "rowsVerified": 1344,
+  "unchangedPreimageRows": 1342,
+  "changed": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "bytes": 60372,
+      "sha256": "77d9f61e3605a2a3d2050e22ec8961f34c8f11d12a9cee9e79f37454437e9879"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 203108,
+      "sha256": "62742b6c222ad698b022b6c00672541a5d701c92dc367191afc41bf0c1fc8f46"
+    }
+  ],
+  "installedTestAndTail": {
+    "startsAt": "installed owner-chain test, baseline line356",
+    "bytes": 46475,
+    "sha256": "3d0fa38735ce71d1ccdb786b75ea6d2ee0c5da1950239bf13be388e1f62432a4"
+  },
+  "finiteDiscriminators": {
+    "positiveSourceFixturePathCombinations": 15,
+    "legacyRefusalCombinations": 45,
+    "staticSourceCases": 2,
+    "completeInstalledCaseUnchanged": true
+  },
+  "criteria": {
+    "F1": "satisfied",
+    "F2": "satisfied",
+    "F3": "satisfied",
+    "F4": "satisfied",
+    "F5": "satisfied",
+    "F6": "satisfied",
+    "F7": "pending_complete_external_installed_proof",
+    "F8": "preserved_subject_correspondence_required"
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/RETURN.json",
+    "bytes": 9674,
+    "sha256": "1bb10b13597ea0b3f812c33f25c0a7cbc973f147e4d97d06a343801134ee6f50"
+  },
+  "nativeSelfChecks": {
+    "syntax": {
+      "stdout": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase1-01/native-04/syntax.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase1-01/native-04/syntax.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 0,
+      "evidence": "Exact native tool result retained in TOOL_HISTORY archive"
+    },
+    "static": {
+      "stdout": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase1-01/native-04/static-oracle.stdout",
+        "bytes": 541,
+        "sha256": "4ddae51eed8620bc159992a2a821fe4a5487bb761925526dc614e11b7013306e"
+      },
+      "stderr": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase1-01/native-04/static-oracle.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "exitCode": 0,
+      "outerSeconds": 60,
+      "fullInstalledCaseExecuted": false
+    }
+  },
+  "externalProof": "pending exact complete installed W2-05 and archive/build correspondence receipts",
+  "phase1Acceptance": "separate and preserved",
+  "reviewerExecutedTestsOrProductCode": false,
+  "independence": "resumed-context nonauthor; no clean-context claim",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/SOURCE_REVIEW_NATIVE04.md",
+    "bytes": 6895,
+    "sha256": "0621d27db3f95762aff9ec1414ddb27f2e9add15e174d3f3d06d1b15e75f9a99"
+  }
+}

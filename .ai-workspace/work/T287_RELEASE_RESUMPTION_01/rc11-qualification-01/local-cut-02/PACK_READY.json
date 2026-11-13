@@ -1,0 +1,29 @@
+{
+  "status": "ROOT_CONDITIONS_SATISFIED_ONE_PACK_READY",
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/CANDIDATE_PACK_CONTROLS.actual.json",
+    "bytes": 8652,
+    "sha256": "65f28bb5d748b91f3963474b4cf193a6d55cc2c6729f50a35e1f271bd82c8366"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_PACK_ADMISSION.json",
+    "bytes": 4496,
+    "sha256": "0bcea3b1981ca7f84b6cc794a556c32d19c4504d6d92754c8eb5e165a88522bc"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/candidate-pack.py",
+    "bytes": 9130,
+    "sha256": "7019a27d5197d397aef379ac34ee3d81ce41af7425a470b91f3ffc9bc113d8e8"
+  },
+  "launchArgv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/candidate-pack.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/CANDIDATE_PACK_CONTROLS.actual.json",
+    "65f28bb5d748b91f3963474b4cf193a6d55cc2c6729f50a35e1f271bd82c8366",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_PACK_ADMISSION.json",
+    "0bcea3b1981ca7f84b6cc794a556c32d19c4504d6d92754c8eb5e165a88522bc"
+  ],
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "unitPassed": false,
+  "m5QualificationBlockerOpen": true
+}

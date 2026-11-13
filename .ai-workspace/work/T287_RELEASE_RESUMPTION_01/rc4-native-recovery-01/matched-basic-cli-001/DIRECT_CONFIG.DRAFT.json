@@ -1,0 +1,96 @@
+{
+  "status": "DRAFT_DIRECT_FIRST_ROOT_REVIEW_REQUIRED",
+  "selectedOrder": [
+    "direct",
+    "ABG"
+  ],
+  "providerExecutable": {
+    "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+    "bytes": 272984176,
+    "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+  },
+  "model": "claude-opus-5-5",
+  "effort": "xhigh",
+  "maxTurns": 96,
+  "args": [
+    "-p",
+    "<EXACT_DIRECT_PROMPT_ARGUMENT>",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--permission-mode",
+    "bypassPermissions",
+    "--tools",
+    "Read,Edit,Write,Glob,Grep,Bash",
+    "--model",
+    "claude-opus-5-5",
+    "--max-turns",
+    "96",
+    "--effort",
+    "xhigh"
+  ],
+  "prompt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/DIRECT_PROMPT.txt",
+    "bytes": 1579,
+    "sha256": "28c1abd66a532ea166202387a08e9745e28edaf2936c5117f81830414e7a2db1"
+  },
+  "proposedCwd": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001",
+  "absoluteTimeoutMs": 5400000,
+  "inactivityTimeoutMs": null,
+  "recorder": "Existing test_env/uat/runner.mjs commandRecorder; absolute timeout only",
+  "environment": {
+    "inheritKeys": [
+      "HOME",
+      "PATH",
+      "LANG",
+      "LC_ALL",
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ],
+    "literal": {
+      "TMPDIR": "/private/tmp",
+      "NODE_OPTIONS": "--max-old-space-size=8192",
+      "BASH_DEFAULT_TIMEOUT_MS": "4500000",
+      "BASH_MAX_TIMEOUT_MS": "4500000",
+      "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+    },
+    "excludedPrefixes": [
+      "ABG_TS_",
+      "ABI5_SCRIPTED_ACTOR"
+    ],
+    "secrets": "Only inherited at selected execution; never retained as values"
+  },
+  "comparisonToActualNative": {
+    "transport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-transport.json",
+      "bytes": 291228,
+      "sha256": "55abe99a0c22e73158d3467f15b41b783df6e3c866973ec7d491caefa30e8495"
+    },
+    "nativeArgs": [
+      "-p",
+      "--disable-slash-commands",
+      "--no-session-persistence",
+      "--output-format",
+      "stream-json",
+      "--include-partial-messages",
+      "--verbose",
+      "--permission-mode",
+      "bypassPermissions",
+      "--tools",
+      "Read,Edit,Write,Glob,Grep,Bash",
+      "--json-schema",
+      "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"summary\",\"gaps\"],\"properties\":{\"summary\":{\"type\":\"string\"},\"gaps\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}",
+      "--model",
+      "claude-opus-5-5",
+      "--max-turns",
+      "96",
+      "--effort",
+      "xhigh"
+    ],
+    "directDifference": "Same pinned provider/model/effort/tool and ordinary transport flags; exact plain application prompt replaces ABG assembly; omit native structured report --json-schema. No system/append-system prompt, method instruction, skill or explicit repository instruction is added.",
+    "ABGAdditional": "Framework Program/selection/native structured report/resource admission/C2/UAT/readback plus their separate roles and protocol tooling; count all costs.",
+    "limits": "ABG75min idle watchdog versus recorder no idle watchdog;90min per provider/96turns common. ABG3h outer bounds multiple roles; direct one90min command. These nonbinding limits remain disclosed, not called identical."
+  }
+}

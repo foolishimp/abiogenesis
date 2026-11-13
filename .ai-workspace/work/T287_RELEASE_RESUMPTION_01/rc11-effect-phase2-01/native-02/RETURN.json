@@ -1,0 +1,91 @@
+{
+  "status": "NATIVE_A_RETURNED_SUCCESS_CLOSED_FROZEN_REVIEW_PROOF_PENDING",
+  "run": {
+    "ref": "run://abiogenesis/1b3a9e57476b927b92b77f31a9de78f00a10bffc8c2db82481f2d16a53edbc05",
+    "digest": "sha256:a83aa9710710937edfdabde90f1816f487ed31af9c0b6cbc4a6c18e43b96a37b"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/ROOT_NATIVE_ADMISSION.json",
+    "bytes": 6987,
+    "sha256": "442abf288cbb28a18d12d0d19c5526ad018ab85be928551f49498ae5ebeda8f4"
+  },
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 190420,
+    "sha256": "690431b181f54ad79d26c46fe4cb2278053c7292e472c913abf0fb66babe6d5b"
+  },
+  "hostFinal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/FINAL.json",
+    "bytes": 2654,
+    "sha256": "a6fceb49595cb941567434ce99fd26eb9fa117347326810e33809d3923f319d4"
+  },
+  "transport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/resources/archives/fp-ce0413d1defa4cd8-transport.json",
+    "bytes": 2189893,
+    "sha256": "caca9142366a1d5fa71339edea199a1e126cc056c9938cbc4c6089f4cdce6046"
+  },
+  "nativeStatus": {
+    "status": 0,
+    "disposition": "success",
+    "assessment": "admitted",
+    "toolCalls": 19,
+    "apiRetries": 0,
+    "sdkElapsedMs": 621670.671292
+  },
+  "actualPhysicalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/resource-close.json",
+    "bytes": 2326,
+    "sha256": "e1389d0698bfdd02d3b6ed698cbdb7214d084bdcac42fbe166eb6fb519848056"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/FRESH_READBACKS.json",
+    "bytes": 6815,
+    "sha256": "09af2d919c94c8f88096d0a5635fcc315fdb9dba03a44301680d7eca38721273"
+  },
+  "freshResult": "typed native observation terminal",
+  "freshReplay": "closed/same typed terminal",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+    "bytes": 296057,
+    "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+  },
+  "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+  "sourceRows": 1345,
+  "changes": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts"
+  ],
+  "workerReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/WORKER_REPORT.json",
+    "bytes": 5653,
+    "sha256": "274ddddc3ecd005639ec9c8583e5a86ebc433cd3442eac6b25865897a2587998"
+  },
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/SOURCE_CUSTODY.json",
+    "bytes": 8695,
+    "sha256": "a895143f93b9248facb26d5a671018449a01c502d40bca50f1dbe114e1ba8b1c"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/NATIVE_CHECKS.json",
+    "bytes": 8668,
+    "sha256": "628d07c861ae66cc4a71640a99907c965eb05fa2a2e6c51f56803c4e47f8146f"
+  },
+  "compileRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 63683,
+    "sha256": "f6a31ed105da856437fe3c349daea7ee434b2d603bd33ee5fb26c39863dd4757"
+  },
+  "coordinationAccounting": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/COORDINATION_ACCOUNTING.json",
+    "bytes": 11980,
+    "sha256": "ae6cb7213e660404e6203b36b5f9b295e04287818e77ea4682bd2d688a7f8be6"
+  },
+  "reportedSemanticGap": "Reentry skips extra probe/staleKILL/timeraftercompletion versusold; possiblelowerprobeCount. Handtrace not failing-beforeproof. Awaitindependentreview andadmitteddiscriminator.",
+  "observationLimit": "Optionalnewstate outsideinitialnativecontext; exactfullfreeze/report/tool/compiledcustodyexplicit.",
+  "selfAcceptance": false,
+  "qualified": false,
+  "BImplemented": false,
+  "next": "Rootconjoinsreview andexactexternalwhole-lifetimecontrols; no proof/setup/provider/commit automatically follows."
+}

@@ -1,0 +1,40 @@
+{
+  "status": "ROOT_ADMITTED_RC11_PROOF_CONTINUATION",
+  "utc": "2026-11-09T08:44:53.454690+00:00",
+  "bindingSha256": "fe50c370b0a637cf77ab466a047b7c303d8204f6d211e5a9f75e8f9770a7dc63",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/BINDING.json",
+      "bytes": 4690,
+      "sha256": "fe50c370b0a637cf77ab466a047b7c303d8204f6d211e5a9f75e8f9770a7dc63"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/COMMANDS.json",
+      "bytes": 1946,
+      "sha256": "b40a82621b1b8d78eda016e6c8d3aaa8dfa30831baf5c5311a6252a77c978219"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/continuation.py",
+      "bytes": 10755,
+      "sha256": "5febefd7a90c6a849e5f53e9fff18b4543ee9062b8c62071155caa1797f5670a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/PREFLIGHT.json",
+      "bytes": 2073,
+      "sha256": "fe967b02cae1174c65f815b8cc911e6d4a0e6061c50a3c687c00e7412fea2c6c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/ROOT_NATIVE_PROOF_ACCEPTANCE.json",
+      "bytes": 924,
+      "sha256": "73dc3d4bd4c5b7d1dfd3433cc0fdb0b3ba4843a3df2a3330615ecf22dfdecb02"
+    }
+  ],
+  "commandIds": [
+    "selected-action",
+    "owned-lifetime",
+    "unit",
+    "r6",
+    "f04a"
+  ],
+  "rootDecision": "Root independently read exact547B native specstdout b7fa1f6e...9e92: fourexpectednamedcases\u2714 and tests4/pass4/fail0/cancelled0/skipped0/todo0; actualexit0/groupabsence/source+compiledguards. Root ACCEPTS this exact bounded4caseproof, preserving originalparser-failure receipt as controlerror. No native rerun. Jointtriage: unchangedsyntax tool/testsource; prepared command omitted reporter selection whileparserrequiredTAP, a proofconfiguration realization_refactor. ExplicitRoot selection of format now, no Productchange or fresh broad investigation. Local pinnedNode allowed reporter flag confirmed. New Writer grant P11/proof-01/reentry-02 and new continuation-02 output underexistingprivateproofroot only; preserveallpriorlogs/HALT/custody/source/compiledbuild. Reuseexactcfd7ead1frozen1340/compiled16497c67 inventory50adfb6f. Fiveunexecutedcommands only: selected-action,owned-lifetime,unit,R6,F04A. Select --test-reporter=tap explicitly BEFOREfiles on eachNode--test. For unit, preserve exactexisting9-file scriptpopulation/otherflags by invoking pinnedNode directly from the frozen expectedUnitScript with thatsoleextra reporterflag (package has no pre/postunit hook; verify); keep NODE_OPTIONS empty toavoid perturbing allnestedprocess environments. Record thismechanicalcommand adaptation; no npm script/sourceedit, same900sunitbound andexistingothers600/900s. VerifyTAPparser againstactualchosenflags statically; do not addpilot test orrerunalreadycompletednative/lint/build. Retainedsource/compiled/deps/environment guards/stopfirstnewfailure/boundedgroupcleanup unchanged. CONDITIONALLY ADMIT thisone fivecommandcontinuation afterexactpreflight/controlhashrecord, nofurtherhandshake. Root reporternativeacceptance record should pin originalactualoutput/receipt and notoverwritefailedstatus. Closeactualresults; noautopatch/retry/extensions. SourcephysicalS3review residual being separatelyadjudicatedafteractualdiagnostics; do not repair source now."
+}

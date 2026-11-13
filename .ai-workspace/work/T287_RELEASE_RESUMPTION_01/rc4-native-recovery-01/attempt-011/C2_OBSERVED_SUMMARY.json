@@ -1,0 +1,328 @@
+{
+  "observed_at": "2026-11-02T07:32:31.725765+00:00",
+  "helper_result_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/archives/worksite-command-execution/d393b67b5d6e76ca6ab66406f9f7132287ff33af26991203a61b18ed46db46aa/828561af9ad07a33747728d6dd2bc834377988516954e2a58def83b722a0841b/result.json",
+  "helper_artifact_digest": "sha256:98d6ae06febf29608838a64b3eeb7943f65ddbf472a693e692a58e5455f7602c",
+  "helper_result_file_sha256": "ba4f1dd441d1c0b114a91690287971d857c6e6f9a9a2694c86f0b7acbdd57383",
+  "disposition": "success",
+  "commands": [
+    {
+      "index": 0,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/fixture-current-measurement",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdoutDigest": "sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6"
+    },
+    {
+      "index": 1,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/source-correspondence",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdoutDigest": "sha256:a66ba2ba4eb9b2787676fa6c4a0c305091ebc850c16304a6e880adb86d9ebbda"
+    },
+    {
+      "index": 2,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdoutDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "index": 3,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdoutDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "index": 4,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/build",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdoutDigest": "sha256:4b917a1e8bc682a17f9a5221bd1f465f674b712c01a8d41f58467feb608a92be"
+    },
+    {
+      "index": 5,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/package",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdoutDigest": "sha256:dab544bd18d18f0340d07c35694dbebb90f32b63e28afd11c5f77fc0a6245231"
+    },
+    {
+      "index": 6,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdoutDigest": "sha256:cbee412cde7ddfd825f375a8811eb51e66c85d17f627ddca6c4bd71dca871977"
+    },
+    {
+      "index": 7,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdoutDigest": "sha256:4fb0f709f44a15aa245a38777cb385f107a697467d4c61dfa7d2074ecebe23dc"
+    },
+    {
+      "index": 8,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdoutDigest": "sha256:1d8adf120472a9adfd562aa04880d5dc35f777ef9f8b350aed0236b95a2d4f25"
+    }
+  ],
+  "predicateObservations": [
+    {
+      "evidence": [
+        {
+          "digest": "sha256:f43ba866b63a7787bd04298a87ce9f1af5b91eb420f601932cf6fd3c9ec07b4d",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/f43ba866b63a7787bd04298a87ce9f1af5b91eb420f601932cf6fd3c9ec07b4d",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/f43ba866b63a7787bd04298a87ce9f1af5b91eb420f601932cf6fd3c9ec07b4d"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 0,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/fixture-current-measurement-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:0443df7f1f223f072b6b28793041a79def65cca933abd8572e1cfbf1b3b8e333",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/0443df7f1f223f072b6b28793041a79def65cca933abd8572e1cfbf1b3b8e333",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/0443df7f1f223f072b6b28793041a79def65cca933abd8572e1cfbf1b3b8e333"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 1,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/source-correspondence-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:e4ac9d21f8c24bb119458980ecd59c9ff0c065f6f0cdfb6e997edfdc0d2e7cb9",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/e4ac9d21f8c24bb119458980ecd59c9ff0c065f6f0cdfb6e997edfdc0d2e7cb9",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/e4ac9d21f8c24bb119458980ecd59c9ff0c065f6f0cdfb6e997edfdc0d2e7cb9"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 2,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/toolchain-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:d22cc7117c5fbd143e5526ba96f2ceccc3a8b721ca9ed97510a6a497d5cbe9f4",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/d22cc7117c5fbd143e5526ba96f2ceccc3a8b721ca9ed97510a6a497d5cbe9f4",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/d22cc7117c5fbd143e5526ba96f2ceccc3a8b721ca9ed97510a6a497d5cbe9f4"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 3,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/contract-seeds-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:fa17d24afafdeb4f4cef12b95965cd9a37494220befe14a2ec99ef394c3f9322",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/fa17d24afafdeb4f4cef12b95965cd9a37494220befe14a2ec99ef394c3f9322",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/fa17d24afafdeb4f4cef12b95965cd9a37494220befe14a2ec99ef394c3f9322"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 4,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/build-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:4aea2216e994e4e40eb991fd03cc0b256c7b888be06650426a1ba84177bd3851",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/4aea2216e994e4e40eb991fd03cc0b256c7b888be06650426a1ba84177bd3851",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/4aea2216e994e4e40eb991fd03cc0b256c7b888be06650426a1ba84177bd3851"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 5,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/package-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:9b6f197f2be8553e904348688c3e40ed122138c2fd1666a4050ca20ad14fd331",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/9b6f197f2be8553e904348688c3e40ed122138c2fd1666a4050ca20ad14fd331",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/9b6f197f2be8553e904348688c3e40ed122138c2fd1666a4050ca20ad14fd331"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 6,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:e229048d1538a7da302a80ff2fd06eb722ebd2403c38fc4a8e098d0d1afab244",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/e229048d1538a7da302a80ff2fd06eb722ebd2403c38fc4a8e098d0d1afab244",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/e229048d1538a7da302a80ff2fd06eb722ebd2403c38fc4a8e098d0d1afab244"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 7,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:9b6f197f2be8553e904348688c3e40ed122138c2fd1666a4050ca20ad14fd331",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/9b6f197f2be8553e904348688c3e40ed122138c2fd1666a4050ca20ad14fd331",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/9b6f197f2be8553e904348688c3e40ed122138c2fd1666a4050ca20ad14fd331"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 105,
+      "ordinal": 8,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests-pass",
+      "predicateKind": "test_pass_count",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:e229048d1538a7da302a80ff2fd06eb722ebd2403c38fc4a8e098d0d1afab244",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/e229048d1538a7da302a80ff2fd06eb722ebd2403c38fc4a8e098d0d1afab244",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/e229048d1538a7da302a80ff2fd06eb722ebd2403c38fc4a8e098d0d1afab244"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 2,
+      "ordinal": 9,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests-pass",
+      "predicateKind": "test_pass_count",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:4584e0fabc221763f3a4d7cfcb84daccd2af05b8c2b72f6fa1f1b20ceb13bfc0",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/4584e0fabc221763f3a4d7cfcb84daccd2af05b8c2b72f6fa1f1b20ceb13bfc0",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/4584e0fabc221763f3a4d7cfcb84daccd2af05b8c2b72f6fa1f1b20ceb13bfc0"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 10,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:4584e0fabc221763f3a4d7cfcb84daccd2af05b8c2b72f6fa1f1b20ceb13bfc0",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/4584e0fabc221763f3a4d7cfcb84daccd2af05b8c2b72f6fa1f1b20ceb13bfc0",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/4584e0fabc221763f3a4d7cfcb84daccd2af05b8c2b72f6fa1f1b20ceb13bfc0"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 115,
+      "ordinal": 11,
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain-pass",
+      "predicateKind": "test_pass_count",
+      "schemaVersion": "5.0.0"
+    }
+  ],
+  "product_delta_count": 0,
+  "worksite_delta_count": 6182,
+  "source_correspondence": {
+    "retained_locator": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/archives/worksite-command-execution/d393b67b5d6e76ca6ab66406f9f7132287ff33af26991203a61b18ed46db46aa/828561af9ad07a33747728d6dd2bc834377988516954e2a58def83b722a0841b/result.json#/commandResults/1/stdout",
+    "projection_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-011/C2_SOURCE_CORRESPONDENCE.jsonl",
+    "sha256": "a66ba2ba4eb9b2787676fa6c4a0c305091ebc850c16304a6e880adb86d9ebbda"
+  },
+  "candidate_archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/archives/worksite-command-execution/d393b67b5d6e76ca6ab66406f9f7132287ff33af26991203a61b18ed46db46aa/828561af9ad07a33747728d6dd2bc834377988516954e2a58def83b722a0841b/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10954740,
+    "sha256": "b0451c1be5bbe95c6d7bb24d01eb91eb44527d254872b19d1971d87307c732c7",
+    "custody": "exact retained file stat and SHA256 checked; no build/copy/install"
+  },
+  "limits": [
+    "Native C2 observation, not whole Run UAT/qualification or Root real-provider witness.",
+    "Candidate archive retains RC3 package metadata; digest identifies this candidate separately from installed RC3."
+  ]
+}

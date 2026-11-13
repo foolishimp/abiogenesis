@@ -1,0 +1,62 @@
+{
+  "status": "PREPARED_OPERATOR_CONTROL_SUCCESSOR_NOT_EXECUTED",
+  "priorFailure": {
+    "classification": "Operator direct-mode declared_start composition error; no Product repair",
+    "session": 66409,
+    "exitCode": 1,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "fault": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/proof/FAULT-setup.json",
+      "bytes": 583,
+      "sha256": "80b745cf4ba05d10ebde9ceb377d6a69b09e71582c745234ca0f74f99cd963dd"
+    }
+  },
+  "preservedPrior": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/BINDING.json",
+      "bytes": 16150,
+      "sha256": "e8091acd4e1d2fc85e7be6bd065bd8084aaffc4f085b95f6719a6f35922d5ae6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/PACKET_MANIFEST.json",
+      "bytes": 4374,
+      "sha256": "497db620399cf2ded8c53bf50bad8fedf2021c9227fbcc1fe19f30b4712de5e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/ROOT_SELECTION-setup.json",
+      "bytes": 1040,
+      "sha256": "ae88cf3a259ad34a95d55f64520ec7443442a0d2fbcdf2365934403850ddb54c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/witness.mjs",
+      "bytes": 36942,
+      "sha256": "a28e2cfab661b1a5b386df15a912a3f06733145563a5883afe2f22cf455b8ea8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/proof/workspace-root-relation.json",
+      "bytes": 668,
+      "sha256": "124aab95c8c137cdeb8bf515a18089f28879eee3b5c1e86dd9b900e065115d6e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/setup-host/abi5-root-env-RevGBY/runtime/events.jsonl",
+      "bytes": 3196379,
+      "sha256": "7aa64a57f61cff1f538d383af172b70062358215157b1152c563411db89690dc"
+    }
+  ],
+  "correction": [
+    "Direct default next selects A bound2. One predeclared Program publicAssetTargets row selects B bound8 through direct asset handle.",
+    "Single frozen operator helper extended with mutually exclusive assetHandle/declaredStartRef; B authority and run-environment resources come from its own selectedCatalogEntry.",
+    "Root setup resolves both entries and retains a source:none initial-input B preview, never dispatched or reused as actual retained B.",
+    "Actual B still requires genuine eligible A state and fresh owner source basis; same immutable Program/catalog/workspace."
+  ],
+  "ownerReferences": [
+    "validator/validation.ts:849-895",
+    "gtl/public_start.ts:47-125",
+    "product/execution_resolution.ts:557-593",
+    "abg/run_invocation_operation.ts:254-263",
+    "abg/invocation_admission.ts:1094-1205,1511-1530"
+  ],
+  "ProductChanges": false,
+  "executed": false
+}

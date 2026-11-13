@@ -1,0 +1,21 @@
+{
+  "status": "ROOT_SELECTED_SCOPED_C2_STOP_SENT",
+  "at": "2026-11-07T14:52:50.699713+00:00",
+  "preStop": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/observations/c2-root-stop-001/PRE_STOP.json",
+    "bytes": 7985,
+    "sha256": "6d68b789bef95c14b71fc3291832d5ba91e9de134f58d20aa8c9367bff55dd0e"
+  },
+  "signalScopePgid": 60595,
+  "termAt": "2026-11-07T14:52:47.711164+00:00",
+  "graceMs": 2000,
+  "membersAfterGrace": [],
+  "killAt": null,
+  "escalation": "not_needed",
+  "selectedGroupMembersAtFinalObservation": [],
+  "driverStillObserved": true,
+  "originalDriverNotSignalled": true,
+  "wholeFileCredit": false,
+  "laterCasesStanding": "Only reporter-observed outcomes count as such. Root interruption is not reclassified as original case timeout/cancellation; command/reporter closure and conservation remain pending.",
+  "escapedDetachedDescendantAbsenceProven": false
+}

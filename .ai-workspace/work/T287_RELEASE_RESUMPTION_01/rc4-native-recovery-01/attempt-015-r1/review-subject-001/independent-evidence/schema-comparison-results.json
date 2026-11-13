@@ -1,0 +1,26 @@
+{
+  "name": "existing-schema-comparison-with-corrected-input",
+  "command": [
+    "/opt/homebrew/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^per-slot owner schemas equal the exact014 baseline archive$",
+    "test_env/tests/t287-framework-handoff-types.test.mjs"
+  ],
+  "environmentOverrides": {
+    "TMPDIR": "/private/tmp/rc4-015-independent-review-eou4p8fp/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_cache": "/private/tmp/rc4-015-independent-review-eou4p8fp/npm-cache",
+    "ABG_FRAMEWORK_HANDOFF_TENANT_ROOT": "/private/tmp/rc4-015-independent-review-eou4p8fp/harness",
+    "ABG_FRAMEWORK_HANDOFF_PACKAGE_ROOT": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "ABG_HC1_BASELINE_ARCHIVE": "/private/tmp/rc4-015-independent-review-eou4p8fp/baseline-014.tgz"
+  },
+  "cwd": "/private/tmp/rc4-015-independent-review-eou4p8fp/harness",
+  "baselineSource": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc4-hc1-baseline-014/b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db.tgz",
+  "baselineSha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db",
+  "exitStatus": 0,
+  "durationMs": 1610,
+  "log": "/private/tmp/rc4-015-independent-review-eou4p8fp/schema-comparison.log",
+  "limit": "Independent corrected-input probe only; original C2 remains exit1."
+}

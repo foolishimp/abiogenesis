@@ -1,0 +1,217 @@
+{
+  "recordedUtc": "2026-11-03T14:47:14.244038+00:00",
+  "status": "NATIVE_CONSOLIDATION_RUNNING",
+  "execSession": 35700,
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "runId": "single-address-space-native-01",
+  "manifestSha256": "1b747368ee37525db26b1aa77ccc3fb1cc188226f1a89cac42aae702d354be15",
+  "startedUtc": "2026-11-03T13:55:29.818Z",
+  "pid": 22060,
+  "contextMap": "CONTEXT_AND_CAUSAL_MAP.md",
+  "rootDisposition": "ROOT_TRIAGE_AND_SELECTION.md",
+  "nativeActivation": "native-01",
+  "closedRC5Handoff": "../rc5-performance-01/local-cut-rc5-01/HANDOFF.md",
+  "setup": {
+    "startedUtc": "2026-11-03T13:36:59.593Z",
+    "setupStartedUtc": "2026-11-03T13:37:19.698Z",
+    "endedUtc": "2026-11-03T13:37:49.000Z",
+    "artifactVerificationMs": 19748.530082999998,
+    "sdkSetupMs": 28938.979459000002,
+    "totalOperatorMs": 49406.601708,
+    "operations": [
+      {
+        "label": "workspace-create",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.workspace.create",
+          "memberKey": "imported"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/7a9c234fd12c2532e57480ad856a4c9f48ee6bc99799f5b0565e97ddb683d18f",
+        "acquisitionKind": "eventless",
+        "closeDigest": null,
+        "started": "2026-11-03T13:37:19.827Z",
+        "wallMs": 73.66570800000045
+      },
+      {
+        "label": "product-verify-0",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.verify",
+          "memberKey": "verify"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/ef618feabc83cd47eeac90237dc9a2e1b18350d5ff4b404a7db37e689b18dad9",
+        "acquisitionKind": "eventless",
+        "closeDigest": null,
+        "started": "2026-11-03T13:37:20.505Z",
+        "wallMs": 212.86479099999997
+      },
+      {
+        "label": "product-verify-1",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.verify",
+          "memberKey": "verify"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/aae8737a87071ba995932cff40694de5115e0ac604213540d44a7ed4baf05107",
+        "acquisitionKind": "eventless",
+        "closeDigest": null,
+        "started": "2026-11-03T13:37:20.845Z",
+        "wallMs": 69.82949999999983
+      },
+      {
+        "label": "product-resolve",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.resolve",
+          "memberKey": "resolve"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/acd18f29042ad8b927c7b2bdc9ce9f97048df7fb959a1f79962d656b77d9e6cd",
+        "acquisitionKind": "eventless",
+        "closeDigest": null,
+        "started": "2026-11-03T13:37:25.543Z",
+        "wallMs": 297.885333000002
+      },
+      {
+        "label": "product-install-0",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.install",
+          "memberKey": "install"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/1c107220a194d7830fcd512501bbf09d9a7fb6fc66d6931f374a20e9bd364342",
+        "acquisitionKind": "new",
+        "closeDigest": "sha256:6f57fe5752424929bc5f55b2be1a71b6e53b3b4177a594db5f9ceb209e0b273f",
+        "started": "2026-11-03T13:37:26.127Z",
+        "wallMs": 4192.6237500000025
+      },
+      {
+        "label": "product-install-1",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.install",
+          "memberKey": "install"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/79dbac731923fc17472ab10f25042659ef9a2833e592422c547c9d6a33984c67",
+        "acquisitionKind": "reopen",
+        "closeDigest": "sha256:4958b4aef353b8ff69e05efc82a279a87afb25f688d02de50afd5ceccc1c7a87",
+        "started": "2026-11-03T13:37:30.797Z",
+        "wallMs": 3156.6440409999996
+      },
+      {
+        "label": "workspace-bind",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.workspace.bind",
+          "memberKey": "bind"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/2a75c51e2a0f44bf0a10227cca12dae4f606c10e824a4092276a66da83af59f4",
+        "acquisitionKind": "reopen",
+        "closeDigest": "sha256:b6b2a5e95ad6d797aa0bb4fc26d49a16556a155acd42a2ea0c04e29de98070af",
+        "started": "2026-11-03T13:37:34.472Z",
+        "wallMs": 1457.7976250000065
+      },
+      {
+        "label": "catalog-admit",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.catalog.admit",
+          "memberKey": "admit"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/96c7b58aa3bc2a7a56f7126b26b600ffa9c2997f0768739941a4ccf4dd876e5c",
+        "acquisitionKind": "reopen",
+        "closeDigest": "sha256:b6b2a5e95ad6d797aa0bb4fc26d49a16556a155acd42a2ea0c04e29de98070af",
+        "started": "2026-11-03T13:37:37.288Z",
+        "wallMs": 5600.704082999997
+      },
+      {
+        "label": "catalog-view",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.catalog.view",
+          "memberKey": "allowlist"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/860658b1227b02328ccf3428bb0e681a05c8f3905e67fdc0fdfb314af739d292",
+        "acquisitionKind": "eventless",
+        "closeDigest": null,
+        "started": "2026-11-03T13:37:44.137Z",
+        "wallMs": 1632.3884590000016
+      },
+      {
+        "label": "program-conformance",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.conformance.evaluate",
+          "memberKey": "gtl_program"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/3ffc55f1813d298c213cabc23edb662ce05281c9aa297d400a0ba5997d2d43ab",
+        "acquisitionKind": "eventless",
+        "closeDigest": null,
+        "started": "2026-11-03T13:37:46.640Z",
+        "wallMs": 1974.5014169999995
+      }
+    ],
+    "workerLaunchMs": null,
+    "betweenTaskMs": null,
+    "qualification": false,
+    "providerCalls": 0,
+    "definition": "SDK setup starts before maintained populateSandbox and ends after its completed owner calls. Imported workspace selection is explicit. Bootstrap import/artifact verification and checkout/preparation are separate."
+  },
+  "preparationFailures": [
+    "native-01/preparation-refusal-01/TRIAGE.json",
+    "native-01/preparation-refusal-02/TRIAGE.json",
+    "native-01/DISPATCH_ARGUMENT_REFUSAL_01.json"
+  ],
+  "unchangedOriginalOutcome": "All red-flag categories tied to existing library, full affected caller migration, unnecessary carriage and duplicate code retired, preserved work information, meaningful end-to-end and measured proof. No local-only closure.",
+  "next": "Observe actual native return, freeze complete subject, independent max review alongside actual C2, native UAT/fresh closure, actual candidate measurement before Root accepts.",
+  "nativeWorker": {
+    "processStartedUtc": "2026-11-03T13:59:40.414Z",
+    "pid": 24697,
+    "processRef": "process://abiogenesis/33ed62b89bd2906150361014b40bfb653b1b948099b16c36c69392129a73731d",
+    "runId": "run://abiogenesis/e5c55074bde51fccffcca7fdad580989e9f6970248247e8e29374ef592962ebb",
+    "ordinal": 579
+  },
+  "timingObservation": "native-01/execution/TIMING_OBSERVATION.json",
+  "continuity": {
+    "resumeOrder": [
+      "STATUS.json",
+      "CONTEXT_AND_CAUSAL_MAP.md",
+      "ROOT_TRIAGE_AND_SELECTION.md",
+      "native-01/execution/TIMING_OBSERVATION.json"
+    ],
+    "frozenIntakeStageIsHistorical": true,
+    "frozenMapSha256": "951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec",
+    "frozenSelectionSha256": "071176d93d9b20f0d7ecc0db7f9fa0a6fea1f6d432766807b6e6ea6a7831de5d",
+    "activeTaskRetainsAllRows": true,
+    "rootClosureRule": "Every R1-R7 row and equivalent affected caller accounted for; one local pass cannot close the task. Preserve applicable accepted evidence and failures; reprove affected relations only.",
+    "resumptionRule": "Reacquire current stage and exact subject, carry original outcome and unresolved relations, then continue the next action. Do not restart completed discovery or qualification."
+  },
+  "acceptance": {
+    "R1": "Measured owner-prefix bypass; full migration and candidate proof pending.",
+    "R2": "Two expanded native-basis callers identified; complete consumer/deletion proof pending.",
+    "R3": "Whole affected call cone in grant; census and measured integrated proof pending.",
+    "R4": "Input sufficiency recorded; actual first task Result28508442B vs prior66632659B with different inputs, no runtime speedup inference.",
+    "R5": "Exact evidence routes supplied; current coding actor reported124534ms auto compaction from367884 to12628tokens. Return coverage must match pinned whole map; actual UAT lookup behavior pending.",
+    "R6": "Probe bytes counted; CPU attribution or supported residual still required.",
+    "R7": "Cold/owned resource paths distinguished; lifecycle migration, cold and fresh proof pending."
+  },
+  "contextAdmissionObservation": "CONTEXT_ADMISSION_OBSERVATION.json",
+  "newActorHistoryObservation": "ACTOR_CONTEXT_COMPACTION_OBSERVATION.json",
+  "operatorObservations": [
+    "CONTEXT_ADMISSION_OBSERVATION.json",
+    "ACTOR_CONTEXT_COMPACTION_OBSERVATION.json",
+    "ACTOR_TOOL_OUTPUT_VOLUME_01.json",
+    "AUTHOR_FEEDBACK_INPUT_OBSERVATION.json",
+    "CONTEXT_CONTINUITY_CHECK_01.json"
+  ],
+  "nativeFeedbackStanding": "Unfrozen scratch feedback only: in-grant46pass/0fail/15skip; installed edge2pass/0fail/0skip. New whole-path proof, frozen independent review and actual C2/UAT still pending."
+}

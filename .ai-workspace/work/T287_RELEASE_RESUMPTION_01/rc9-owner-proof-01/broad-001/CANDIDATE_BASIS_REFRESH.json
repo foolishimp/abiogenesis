@@ -1,0 +1,59 @@
+{
+  "owner": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/scripts/refresh-candidate-basis.mjs",
+    "bytes": 1914,
+    "sha256": "61114eb2c8e984924c2346c44d9b01dc2eaa1eed4a4cd40817fe80ccb6728d00"
+  },
+  "commandReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/setup-refresh-candidate-basis.result.json",
+    "bytes": 1475,
+    "sha256": "5d530d5817cda9e401ec17e342b7a9e05078e0952f9e67c0beff289049596c51"
+  },
+  "originalFixture": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "bytes": 515,
+    "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
+  },
+  "refreshedFixture": {
+    "path": "/private/tmp/abg-r9c-broad-001/w/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "bytes": 515,
+    "sha256": "4eef135ece5dbeb4b7f3b52b6c3254ddb1da3d754a35636a03beacb8de723971"
+  },
+  "refreshedBasis": {
+    "kind": "abi5_root_candidate_basis",
+    "schemaVersion": "5.0.0",
+    "artifactDigest": "sha256:c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+    "productContentDigest": "sha256:b3a3df1f7d59d56414c9fea0d025d48e1b8bdbc27f0b84b8b74a5128a6bcc80c",
+    "manifestDigest": "sha256:780036b1be89caa6e4086c8181111c7c264fa4d7bc1aab033daf886a659351c5",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.9",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.9"
+  },
+  "externalVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/verification.json",
+    "bytes": 15797948,
+    "sha256": "898c979cef4d0ff63f2cb02db22b665b911e3570ee4f95f4eff47d4c77eb5611"
+  },
+  "fieldMatches": {
+    "artifactDigest": true,
+    "productContentDigest": true,
+    "manifestDigest": true,
+    "productId": true,
+    "packageName": true,
+    "packageVersion": true
+  },
+  "fixedExternalArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "actualOwnerProducedArchive": {
+    "path": "/private/tmp/abg-r9c-broad-001/w/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "primaryStageDigest": "a3d3b876f57a943331900bf7a8cb311aedba1e4e294f5d470dd5835fa6f00e83",
+  "derivedStageDigest": "691366bebf212cd763a67a11cbd9d11df41ef914759fcac2424d09f372314eaa",
+  "onlySubstitutedInput": "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+  "standing": "Selected derived test-data transformation only; primary source and negative-test external expectations remain fixed."
+}

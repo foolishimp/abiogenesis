@@ -1,0 +1,30 @@
+{
+  "kind": "native_08_readiness",
+  "recordedUtc": "2026-11-04T07:32:00Z",
+  "authorReady": true,
+  "reason": "The selected N7-PROOF-01 increment is complete. One fresh immutable RAW invocation/grant/basis/Run/pending/hold/open seed passes every real reader gate in order. The actual prepareContinuationPublicOperation and prepareFhInteractionResponse yield one six-field F_H fact and the exact combined priorAdmission, with orphan, guard, crossed-pair and RAW comparison controls. The three affected lanes pass in scratch without skips. No real gate was bypassed and no law changed. Actual C2, independent review, UAT/fresh close and Root conjunction are outside this Worker.",
+  "changedSources": {
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs": "f514341d76b7fea6bed87394f96ccfb30c56517d16c04642fc2f912058a8d113",
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs": "5ae58446ee3139f81d1503864d2e404c0aaa18c807f1d203cfeff2639cca74e7",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "3c412df13f7647ba7c770177b31347f65788680b5e668f9c82cea5a847674312"
+  },
+  "authorLanes": {
+    "single-address-space-whole-path": "10/0/0 (min 10), tmp08/runs/sas-full-1.tap d974b347da9053c92f75dd4de51d5881ff2835c5fead9ae8cddd7a3c0a817383",
+    "shared-owner-declaration-regressions": "31/0/0 (min 31), tmp08/runs/shared-owner-1.tap 656f951a4106346234c329875c9ddb5d43a267506eee428dae1d9c8de13619ef",
+    "current-intent-complete-pair": "1/0/0 (min 1), tmp08/runs/exact-1.tap ce600f4c9d94d095ce61a67cee6f1b372e24da1ce7c4bd643350fca042166b9b",
+    "focused new case (first)": "1/0/0, tmp08/runs/focused-2/stdout.tap 9b70876a089e2e94188ead9396dc876e4bce4ff4e1197f0a3bf9be23d0088fd7; preserved earlier failure focused-1 (fixture assertion only)",
+    "retained ten lanes": "not rerun; original native06/native07 provenance per NATIVE08_EVIDENCE_REUSE.json"
+  },
+  "packageImpact": "None. All three changed paths fall outside the package files set (build/**, contracts/**, product-toolchain-manifest.json) and are selectedChangedProofPaths in NATIVE08_EVIDENCE_REUSE.json.",
+  "preservedLimits": ["selected-action positive unverified at its existing scope", "failed-scope retry proof only under its unadmitted-port premise", "no whole-workflow timing, speedup, bytes, CPU or whole-allocation claim", "RAW F_H seed is conditional reader data, not current admission, commit/resume, physical cold reopen or installed F_H qualification"],
+  "openForRoot": [
+    "actual affected C2 over these exact bytes",
+    "independent max review of the new RAW F_H proof and the HOW bullet",
+    "UAT and fresh result/replay close",
+    "final conjunction of original R1-R7/C1-C5"
+  ],
+  "return": {
+    "path": "consolidation-scratch/native-08/return.json",
+    "sha256": "f9ee32617837ee125bdf88253e00eb99e32323a01c07e91d457ffc94ecd40f89"
+  }
+}

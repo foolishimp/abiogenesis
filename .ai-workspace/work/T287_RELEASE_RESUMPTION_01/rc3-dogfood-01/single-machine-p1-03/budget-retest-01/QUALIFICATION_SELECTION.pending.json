@@ -1,0 +1,14 @@
+{
+  "actualCurrentRun": null,
+  "assessmentInputs": null,
+  "finalSourceCheckpoint": null,
+  "newInvocation": null,
+  "observations": [],
+  "previousRunClosure": null,
+  "priorConstructionAdmission": null,
+  "rootAuthority": null,
+  "sourceBasis": "none",
+  "status": "PENDING_P3_CLOSURE_UNCHANGED_SOURCE_AND_ROOT_REVIEW",
+  "synthesis": null,
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-machine-p1"
+}

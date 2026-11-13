@@ -1,0 +1,53 @@
+{
+  "kind": "native_writer_return",
+  "outcome": "support://abiogenesis/rc4/hc2-canonical-owner-population",
+  "sourceBasis": {
+    "commit": "0a8d330a32d5f577b424394c0424a1cd9abe519b",
+    "tree": "37256c94ccc68050275bfdd5e67f322911d48fc7"
+  },
+  "changeClass": "realization_refactor",
+  "acceptanceClaimed": false,
+  "basisAndSkillUse": {
+    "stdoBasis": "v3.0.2 from stdo_abiogenesis.json; toolchain manager verified the installed release manifest",
+    "productBasisProcedure": ".claude/references/PRODUCT_BASIS.md followed",
+    "skill": ".claude/skills/stdo-work/SKILL.md bootstrap applied",
+    "entry": "direct Writer entry under ABI5_PROJECT_REFERENCE_FRAME_BASIS; one Writer context, no Worker/Reviewer activation",
+    "how": "T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION",
+    "partialReads": ["specification/PRODUCT.md", "REQ-P-POLICY", "REQ-R-ABG3-INSTRUCTION-ASSEMBLY", "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN", "T287_NATIVE_WORKSPACE_WORK_DESIGN"]
+  },
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs"
+  ],
+  "seams": {
+    "1": "constructLifecycleCall -> api.constructInstalledStartCall with the environment callback; freshReadbacks -> api.constructInstalledRunReadCall with population/source refusal before dispatch; harness cases (a) and (c) mock the canonical factories and assert the explicit identities",
+    "2": "post-construction stdoEnvironmentResources insertion and pilotResources import deleted; canonical call dispatched unchanged; legacy pilot deferred T287-HC2-LEGACY-STDO-PILOT-01",
+    "3": "startCall/observedC2Task take resolution and grants from input.factory; preliminary rootResolution removed; exported rootResolution/admitsInput and {root,inputAdmitted,call} kept; ST1 developer-mini test: qualification.startCall graph_function START and shipped-factory greetingAssetHandle asset START",
+    "4": "recursive cold Public pending test: wrong-run (missing_continuation /continuation) and wrong-run-digest (basis_mismatch /run) with zero events; closed child GraphCall graph_call_result with declarationProof -> result, omitted -> projection_basis_mismatch [] with zero events"
+  },
+  "nonChanges": [
+    "No code/src TypeScript, fixture, Program publication, build, generated, dependency or mirror writes",
+    "exact-candidate-qualification.mjs, developer-mini-product.mjs and support/registered-graph-selection.mjs unchanged",
+    "No new Product/Public family, schema, refusal meaning, authority helper or API",
+    "No commit"
+  ],
+  "checks": {
+    "tsc": "node_modules/.bin/tsc (5.9.2) --noEmit --incremental false -p tsconfig.json: exit 0",
+    "nodeCheck": "node --check passes on all 7 edited files",
+    "probes": "in-memory stdin probes with mocks: constructLifecycleCall, freshReadbacks, startCall, observedC2Task passed",
+    "notRun": "node tests and framework-handoff compile fixture: no build/ exists; C2 owns build/package/installed tests"
+  },
+  "residuals": [
+    "Runtime proof of the edited tests is pending the C2 build and installed test lanes",
+    "Child GraphCall selection assumes the recursive Run has a closed child GraphCall whose typed Result reconstructs under env.catalog/env.catalogView; not executed here",
+    "Wrong-run-digest was added alongside wrong-run, following the default-library precedent",
+    "startCall no longer uses the cache passed by exact-candidate-qualification.mjs (not writable); dry mode resolves once per start through the population",
+    "Legacy RC7 STDO pilot deferred: T287-HC2-LEGACY-STDO-PILOT-01",
+    "fresh005, S7, whole qualification and release stay outside this increment"
+  ]
+}

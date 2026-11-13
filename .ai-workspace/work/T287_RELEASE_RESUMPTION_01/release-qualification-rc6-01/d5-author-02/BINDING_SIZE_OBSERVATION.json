@@ -1,0 +1,211 @@
+{
+  "kind": "actual_binding_physical_size_projection_no_content",
+  "recordedUtc": "2026-11-05T23:49:45.110813+00:00",
+  "eventOrdinal": 120028,
+  "rowBytes": 14412670,
+  "rowSha256": "31878706545b0e135c04fb5e9fb051bfbb4a7233784c9a6fd6424d1661be7e31",
+  "topLevel": [
+    {
+      "field": "instructionAssembly",
+      "serializedBytes": 14406752,
+      "kind": "dict"
+    },
+    {
+      "field": "paths",
+      "serializedBytes": 908,
+      "kind": "dict"
+    },
+    {
+      "field": "livenessBinding",
+      "serializedBytes": 702,
+      "kind": "dict"
+    },
+    {
+      "field": "args",
+      "serializedBytes": 503,
+      "kind": "list"
+    },
+    {
+      "field": "command",
+      "serializedBytes": 140,
+      "kind": "str"
+    },
+    {
+      "field": "archiveRoot",
+      "serializedBytes": 139,
+      "kind": "str"
+    },
+    {
+      "field": "transportBindingRef",
+      "serializedBytes": 98,
+      "kind": "str"
+    },
+    {
+      "field": "cCallRef",
+      "serializedBytes": 80,
+      "kind": "str"
+    },
+    {
+      "field": "environmentDigest",
+      "serializedBytes": 73,
+      "kind": "str"
+    },
+    {
+      "field": "environmentPolicyDigest",
+      "serializedBytes": 73,
+      "kind": "str"
+    },
+    {
+      "field": "inputDigest",
+      "serializedBytes": 73,
+      "kind": "str"
+    },
+    {
+      "field": "promptDigest",
+      "serializedBytes": 73,
+      "kind": "str"
+    },
+    {
+      "field": "responseJsonSchemaDigest",
+      "serializedBytes": 73,
+      "kind": "str"
+    },
+    {
+      "field": "transportBindingDigest",
+      "serializedBytes": 73,
+      "kind": "str"
+    },
+    {
+      "field": "transportContractDigest",
+      "serializedBytes": 73,
+      "kind": "str"
+    },
+    {
+      "field": "transportPlanDigest",
+      "serializedBytes": 73,
+      "kind": "str"
+    },
+    {
+      "field": "implementationBindingRef",
+      "serializedBytes": 64,
+      "kind": "str"
+    },
+    {
+      "field": "implementationRef",
+      "serializedBytes": 56,
+      "kind": "str"
+    },
+    {
+      "field": "workerBindingRef",
+      "serializedBytes": 53,
+      "kind": "str"
+    },
+    {
+      "field": "cwd",
+      "serializedBytes": 47,
+      "kind": "str"
+    },
+    {
+      "field": "actorRef",
+      "serializedBytes": 44,
+      "kind": "str"
+    },
+    {
+      "field": "parser",
+      "serializedBytes": 20,
+      "kind": "str"
+    },
+    {
+      "field": "lane",
+      "serializedBytes": 17,
+      "kind": "str"
+    },
+    {
+      "field": "agentKey",
+      "serializedBytes": 8,
+      "kind": "str"
+    },
+    {
+      "field": "absoluteTimeoutMs",
+      "serializedBytes": 7,
+      "kind": "int"
+    },
+    {
+      "field": "promptTransport",
+      "serializedBytes": 7,
+      "kind": "str"
+    },
+    {
+      "field": "timeoutMs",
+      "serializedBytes": 7,
+      "kind": "int"
+    },
+    {
+      "field": "terminationGraceMs",
+      "serializedBytes": 4,
+      "kind": "int"
+    },
+    {
+      "field": "dispatchOrdinal",
+      "serializedBytes": 1,
+      "kind": "int"
+    }
+  ],
+  "largeSubtrees": [
+    {
+      "path": "payload",
+      "kind": "dict",
+      "serializedBytes": 14410757,
+      "membersOrCharacters": 29
+    },
+    {
+      "path": "payload.instructionAssembly",
+      "kind": "dict",
+      "serializedBytes": 14406752,
+      "membersOrCharacters": 10
+    },
+    {
+      "path": "payload.instructionAssembly.envelope",
+      "kind": "dict",
+      "serializedBytes": 14333539,
+      "membersOrCharacters": 9
+    },
+    {
+      "path": "payload.instructionAssembly.envelope.nativeBasis",
+      "kind": "dict",
+      "serializedBytes": 14332202,
+      "membersOrCharacters": 5
+    },
+    {
+      "path": "payload.instructionAssembly.envelope.nativeBasis.executionBasis",
+      "kind": "dict",
+      "serializedBytes": 14324928,
+      "membersOrCharacters": 63
+    },
+    {
+      "path": "payload.instructionAssembly.envelope.nativeBasis.executionBasis.rawInputValue",
+      "kind": "dict",
+      "serializedBytes": 14320013,
+      "membersOrCharacters": 11
+    }
+  ],
+  "limits": [
+    "Sizes use JSON reserialization and are an attribution projection; exact original row size is separately retained.",
+    "No source/prompt/argument/environment values or provider content returned.",
+    "Physical byte counts do not establish CPU or wall-time causation."
+  ],
+  "largeRawInputSubtrees": [
+    {
+      "path": "rawInputValue.context",
+      "bytes": 14309595,
+      "kind": "dict",
+      "membersOrCharacters": 12
+    },
+    {
+      "path": "rawInputValue.context.entries",
+      "bytes": 14278184,
+      "kind": "list",
+      "membersOrCharacters": 407
+    }
+  ]
+}

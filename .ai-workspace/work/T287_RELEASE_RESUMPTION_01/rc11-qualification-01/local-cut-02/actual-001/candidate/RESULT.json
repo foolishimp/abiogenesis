@@ -1,0 +1,16 @@
+{
+  "phase": "candidate",
+  "status": "BUILT",
+  "root": "/private/tmp/abg-rc11-proof-20261109-01/work",
+  "archive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "manifest": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266309,
+    "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+  },
+  "standing": "Retained exact tested rc.11 archive. No metadata mutation or identity-bridge allowance."
+}

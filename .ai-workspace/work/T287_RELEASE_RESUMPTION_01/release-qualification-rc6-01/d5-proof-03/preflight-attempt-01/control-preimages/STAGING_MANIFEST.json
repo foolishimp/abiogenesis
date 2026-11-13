@@ -1,0 +1,48 @@
+{
+  "status": "ROOT_ADMITTED_EXACT_INPUTS_NOT_STAGED",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/BASELINE_OBSERVATION.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-03/BASELINE_OBSERVATION.json",
+      "relativePath": "qualification-inputs/d5-proof-03/BASELINE_OBSERVATION.json",
+      "bytes": 9674,
+      "sha256": "8f43ab0cdfb9efdd5e18602de250a58c8fa580d57e3e06ef62cf339485f5a15a"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/FROZEN_SUBJECT.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-03/FROZEN_SUBJECT.json",
+      "relativePath": "qualification-inputs/d5-proof-03/FROZEN_SUBJECT.json",
+      "bytes": 3264,
+      "sha256": "dbc99e16414417721b7daae53250414c1349f02bf656d7becb2abfc424f68e00"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/PROOF_ONLY_GRANT.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-03/PROOF_ONLY_GRANT.json",
+      "relativePath": "qualification-inputs/d5-proof-03/PROOF_ONLY_GRANT.json",
+      "bytes": 16620,
+      "sha256": "e62855c64c8d27aa7caf05bb2f772c9e4e7f11d26fb1eccb91e6e744540a5360"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/ROOT_FIXTURE_CORRESPONDENCE_NOTE.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-03/ROOT_FIXTURE_CORRESPONDENCE_NOTE.json",
+      "relativePath": "qualification-inputs/d5-proof-03/ROOT_FIXTURE_CORRESPONDENCE_NOTE.json",
+      "bytes": 2644,
+      "sha256": "e02b0010e2f42e7861ef71225870248ae99f4f438f006c4cdcc92f8c5431b151"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/ROOT_UAT_DISPOSITION.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-03/ROOT_UAT_DISPOSITION.json",
+      "relativePath": "qualification-inputs/d5-proof-03/ROOT_UAT_DISPOSITION.json",
+      "bytes": 1686,
+      "sha256": "546717162c7a77849849a55af75b8dc84fce815280b5d274251717b8e09066a8"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/TASK.md",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-03/TASK.md",
+      "relativePath": "qualification-inputs/d5-proof-03/TASK.md",
+      "bytes": 5026,
+      "sha256": "f701d874a3c6a8ab7612ff55dec9da852997d3f0c3424090bcbacdf161f73f17"
+    }
+  ],
+  "meaning": "Final six input pins; staging and existing-owner preflight follow."
+}

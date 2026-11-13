@@ -1,0 +1,506 @@
+{
+  "kind": "actual_f_author_feedback_inventory",
+  "status": "SOURCE_BUILD_GENERATION_AND_RECORDED_FEEDBACK_BOUND_PENDING_ROOT_DISPOSITION",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 18126,
+    "sha256": "6ac0839037dd7e61c2f0efaa3700d5d1067bb7ca63a6e5758de982361bc681cc"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/SOURCE_AFTER.json",
+    "bytes": 498560,
+    "sha256": "1cf6f5123700b283298b2e922b68b7ed7a375b9b58691af28390e7518c256e79"
+  },
+  "returnHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/review-subject-001/handoffs/return.json",
+    "bytes": 18760,
+    "sha256": "2ae30478ef0c32515ab2d0b4368a105e4d1fb9b037e5ccde63ea77a9193fcc48"
+  },
+  "readinessHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/review-subject-001/handoffs/readiness.json",
+    "bytes": 2871,
+    "sha256": "3b13a5cfc7ca1e977d8ba98adf83fda1c37122c8beec922e6d61aee9f6f5b851"
+  },
+  "bounds": {
+    "stagesAllocated": 2,
+    "stageCeiling": 3,
+    "laneAllocations": 4,
+    "laneCeiling": 4,
+    "failedAllocationsRetained": true,
+    "automaticRetry": false
+  },
+  "stages": [
+    {
+      "label": "o7f-stage-01",
+      "mode": "before",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-01-stage.json",
+        "bytes": 97389,
+        "sha256": "9ca90aa6716ac3de2b10f9cfc768e6378b7f4b7ada20349ba90807011f5c28d0"
+      },
+      "sourceCount": 450,
+      "sourceDigest": "7c779af16c883f8ec0f185ad16adf45d2d152bf84418d35b1e0a9e397989eb48",
+      "allPhysicalStageSourcePinsMatch": true,
+      "finalFrozenSourceMatches": 0,
+      "heldBaselineSourceMatches": 381,
+      "setupMs": 1672,
+      "commands": {
+        "compile": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json",
+          "exitCode": 0,
+          "ms": 7438,
+          "limitMs": 240000,
+          "signal": null,
+          "error": null
+        },
+        "generate": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs",
+          "exitCode": 0,
+          "ms": 22301,
+          "limitMs": 180000,
+          "signal": null,
+          "error": null
+        },
+        "lifecycle": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/check-lifecycle-boundary.mjs",
+          "exitCode": 0,
+          "ms": 584,
+          "limitMs": 60000,
+          "signal": null,
+          "error": null
+        }
+      }
+    },
+    {
+      "label": "o7f-stage-02",
+      "mode": "after",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-stage.json",
+        "bytes": 97409,
+        "sha256": "b6b6f41aa890194415bd578248b744ad3e97b6b2bb78826c822c7166e4bf99eb"
+      },
+      "sourceCount": 450,
+      "sourceDigest": "8a88489f56c3689e7d860e9628db6de1193ad1b1553c5a869a90ad3e3eaed533",
+      "allPhysicalStageSourcePinsMatch": true,
+      "finalFrozenSourceMatches": 450,
+      "heldBaselineSourceMatches": 0,
+      "setupMs": 882,
+      "commands": {
+        "compile": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json",
+          "exitCode": 0,
+          "ms": 7343,
+          "limitMs": 240000,
+          "signal": null,
+          "error": null
+        },
+        "generate": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs",
+          "exitCode": 0,
+          "ms": 21976,
+          "limitMs": 180000,
+          "signal": null,
+          "error": null
+        },
+        "lifecycle": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/check-lifecycle-boundary.mjs",
+          "exitCode": 0,
+          "ms": 601,
+          "limitMs": 60000,
+          "signal": null,
+          "error": null
+        }
+      }
+    }
+  ],
+  "lanes": [
+    {
+      "label": "o7f-stage-01",
+      "mode": "before",
+      "id": "fixed-route",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-01-lanes-fixed-route/summary-fixed-route.json",
+        "bytes": 2585,
+        "sha256": "9e2921eaa621e51df05ec30cb65edb3e8118169f7886933cb51efdb6bc3a066f"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-01-lanes-fixed-route/fixed-route.stdout.tap",
+        "bytes": 53185,
+        "sha256": "14676ac780518aecd9746f2e81c70d9b1fde4df53352f113a2cefe78a816fc05"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-01-lanes-fixed-route/fixed-route.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-skip-pattern ^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$ test_env/tests/t287-default-library.test.mjs",
+      "sourceDigest": "7c779af16c883f8ec0f185ad16adf45d2d152bf84418d35b1e0a9e397989eb48",
+      "setupMs": 39,
+      "testMs": 2985,
+      "counts": {
+        "tests": 33,
+        "pass": 25,
+        "fail": 5,
+        "skipped": 3,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "predicates": {
+        "processExit": 1,
+        "within300s": true,
+        "requiredActivePassReported": true,
+        "requiredPrefixes": [
+          "RC7 fixed proof:"
+        ],
+        "historicalSkipsDeclared": true,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "activeRc7": [
+        "RC7 fixed proof: selected children keep the synthesis target guard, selected Result ref and selected instruction order"
+      ],
+      "failingNames": [
+        "RC7 fixed proof: direct root Testing prepares the observed C2 task and folds one selector-free Testing observation",
+        "RC7 fixed proof: direct Testing refuses open scope, fabricated or retained input, and a selector-free fold off the root Testing wrapper",
+        "RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector",
+        "RC7 fixed proof: direct UAT refuses crossed source, row population, producer identity, currentness and off-root relations",
+        "RC7 fixed proof: public-setup invokes Testing directly, derives its admitted state Result once and invokes UAT over exactly that source; the lifecycle start is unchanged"
+      ],
+      "skips": [
+        {
+          "name": "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+          "reasonInTap": "ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture"
+        },
+        {
+          "name": "native observation facts preserve captured history through preparation admission and complete assembly",
+          "reasonInTap": "ABI5_NATIVE_OBSERVATION_CAPTURE unset; requires the captured native observation fixture"
+        },
+        {
+          "name": "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+          "reasonInTap": "ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation"
+        }
+      ],
+      "nameFilteredExclusions": "^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$",
+      "standing": "Retained before counterexample"
+    },
+    {
+      "label": "o7f-stage-02",
+      "mode": "after",
+      "id": "fixed-route",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-lanes-fixed-route/summary-fixed-route.json",
+        "bytes": 2580,
+        "sha256": "a9eb1d1428b40f65f46a2b604090ca484cbb5999af1463bebfb0a614d29d7bda"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-lanes-fixed-route/fixed-route.stdout.tap",
+        "bytes": 10377,
+        "sha256": "6999f776bc33c7dca29c383b284a061866db3dd87c5a245e9cc6a01da9a01a86"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-lanes-fixed-route/fixed-route.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-skip-pattern ^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$ test_env/tests/t287-default-library.test.mjs",
+      "sourceDigest": "8a88489f56c3689e7d860e9628db6de1193ad1b1553c5a869a90ad3e3eaed533",
+      "setupMs": 62,
+      "testMs": 3348,
+      "counts": {
+        "tests": 33,
+        "pass": 30,
+        "fail": 0,
+        "skipped": 3,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "predicates": {
+        "processExit": 0,
+        "within300s": true,
+        "requiredActivePassReported": true,
+        "requiredPrefixes": [
+          "RC7 fixed proof:"
+        ],
+        "historicalSkipsDeclared": true,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "activeRc7": [
+        "RC7 fixed proof: direct root Testing prepares the observed C2 task and folds one selector-free Testing observation",
+        "RC7 fixed proof: direct Testing refuses open scope, fabricated or retained input, and a selector-free fold off the root Testing wrapper",
+        "RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector",
+        "RC7 fixed proof: direct UAT refuses crossed source, row population, producer identity, currentness and off-root relations",
+        "RC7 fixed proof: selected children keep the synthesis target guard, selected Result ref and selected instruction order",
+        "RC7 fixed proof: public-setup invokes Testing directly, derives its admitted state Result once and invokes UAT over exactly that source; the lifecycle start is unchanged"
+      ],
+      "failingNames": [],
+      "skips": [
+        {
+          "name": "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+          "reasonInTap": "ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture"
+        },
+        {
+          "name": "native observation facts preserve captured history through preparation admission and complete assembly",
+          "reasonInTap": "ABI5_NATIVE_OBSERVATION_CAPTURE unset; requires the captured native observation fixture"
+        },
+        {
+          "name": "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+          "reasonInTap": "ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation"
+        }
+      ],
+      "nameFilteredExclusions": "^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$",
+      "standing": "Actual affected author feedback; independent review and installed route proof remain separate"
+    },
+    {
+      "label": "o7f-stage-02",
+      "mode": "after",
+      "id": "cold-resume",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-lanes-cold-resume/summary-cold-resume.json",
+        "bytes": 1365,
+        "sha256": "670e7209d1baac91c4d70825fdbe28670f88d510f7e7b77cfc1e4860b646ba2f"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-lanes-cold-resume/cold-resume.stdout.tap",
+        "bytes": 9305,
+        "sha256": "af43215eb6c067d953780da665fe63be6deec634759aced55752f8bfb1e716de"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-lanes-cold-resume/cold-resume.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$ test_env/tests/t287-default-library.test.mjs",
+      "sourceDigest": "8a88489f56c3689e7d860e9628db6de1193ad1b1553c5a869a90ad3e3eaed533",
+      "setupMs": 68,
+      "testMs": 167499,
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "predicates": {
+        "processExit": 0,
+        "within300s": true,
+        "requiredActivePassReported": true,
+        "requiredPrefixes": [],
+        "historicalSkipsDeclared": true,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "activeRc7": [],
+      "failingNames": [],
+      "skips": [],
+      "nameFilteredExclusions": "All unmatched test names; no pass or skip credit",
+      "standing": "Actual affected author feedback; independent review and installed route proof remain separate"
+    },
+    {
+      "label": "o7f-stage-02",
+      "mode": "after",
+      "id": "caller-regression",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-lanes-caller-regression/summary-caller-regression.json",
+        "bytes": 1235,
+        "sha256": "83dfa5e5adca44e98c37ab901fdd7b284d11f2ff5d99faa246459f3c3da8ff75"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-lanes-caller-regression/caller-regression.stdout.tap",
+        "bytes": 13237,
+        "sha256": "8f64876636f6cc5d6945c654460e56c05b04c530180979c5f6067bec1a222e7e"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02-lanes-caller-regression/caller-regression.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-default-library-fulfillment.test.mjs test_env/uat/harness.test.mjs",
+      "sourceDigest": "8a88489f56c3689e7d860e9628db6de1193ad1b1553c5a869a90ad3e3eaed533",
+      "setupMs": 71,
+      "testMs": 69748,
+      "counts": {
+        "tests": 40,
+        "pass": 40,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "predicates": {
+        "processExit": 0,
+        "within300s": true,
+        "requiredActivePassReported": true,
+        "requiredPrefixes": [
+          "RC7 original stream bytes:"
+        ],
+        "historicalSkipsDeclared": true,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "activeRc7": [
+        "RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view"
+      ],
+      "failingNames": [],
+      "skips": [],
+      "nameFilteredExclusions": null,
+      "standing": "Actual affected author feedback; independent review and installed route proof remain separate"
+    }
+  ],
+  "finalCounts": {
+    "tests": 75,
+    "pass": 72,
+    "fail": 0,
+    "skipped": 3,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "beforeCounts": {
+    "tests": 33,
+    "pass": 25,
+    "fail": 5,
+    "skipped": 3,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "generatedAndControlPins": [
+    {
+      "name": "generator",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "bytes": 53308,
+        "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f"
+      },
+      "claimedProductContentDigest": null
+    },
+    {
+      "name": "lifecycleGuard",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/scripts/check-lifecycle-boundary.mjs",
+        "bytes": 10007,
+        "sha256": "9d5f5ce8a4b9f82a42d7da4a034af4885b554f3d631ded09582fbc8064054351"
+      },
+      "claimedProductContentDigest": null
+    },
+    {
+      "name": "generatedManifestBefore",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-01/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3265439,
+        "sha256": "4f65a5138613f3417d48c30d8053ac419d430050be3ef14ec606d76a44b45844"
+      },
+      "claimedProductContentDigest": "sha256:5aaa5810b9341721f685dbd3a95b5ee9b10f70ffb48aaa485de2ac8eae2761c7",
+      "productContentDigestMatchesActualManifest": true
+    },
+    {
+      "name": "generatedManifestAfter",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3265439,
+        "sha256": "0cc638ec98c18ce3b85e96daf39a8ece08ff63dcb4c0d82c69591e96091f8f5f"
+      },
+      "claimedProductContentDigest": "sha256:3e0dd0247de90baa91c90a842ac3f760584c459b2c0854e23449dbcfc7922767",
+      "productContentDigestMatchesActualManifest": true
+    },
+    {
+      "name": "stageHelper",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-fixed-proof-author-01/prior-author-stage.mjs",
+        "bytes": 7662,
+        "sha256": "6deac2414cbc9b9d1ad75ab8e5e0b5d5dc73e8a088dc17a3aa2c3ce370402f9b"
+      },
+      "claimedProductContentDigest": null
+    },
+    {
+      "name": "laneHelper",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-fixed-proof-author-01/prior-author-lanes.mjs",
+        "bytes": 9363,
+        "sha256": "c7e543d7cd9db2ebbb5c36d6716363d12d1c2434cec4c586995ede7373adb88f"
+      },
+      "claimedProductContentDigest": null
+    },
+    {
+      "name": "c2Inputs",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-fixed-proof-author-01/C2_INPUTS.json",
+        "bytes": 42773,
+        "sha256": "887a0ad2317bc3fed703d4d9e38798b4bb7f0687683fa829635b3565b922a25e"
+      },
+      "claimedProductContentDigest": null
+    },
+    {
+      "name": "commandBounds",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-fixed-proof-author-01/COMMAND_BOUNDS.json",
+        "bytes": 3681,
+        "sha256": "f33c0809a87c828e37f01176c8afdd4127deb411c38008084fb0a39415723591"
+      },
+      "claimedProductContentDigest": null
+    },
+    {
+      "name": "task",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-fixed-proof-author-01/TASK.md",
+        "bytes": 6285,
+        "sha256": "343fcb78d622f6f3ef52fc0b263a562c35e30829e0695688b6f3f34604aa164d"
+      },
+      "claimedProductContentDigest": null
+    }
+  ],
+  "authorReportedOwnerDependency": {
+    "status": "open; outside the five-file grant; not changed",
+    "finding": "ABG invocation admission refuses a retained governance-state source unless the invoked GraphFunction declares abg.supported_fulfillment_profile = GOVERNANCE_FULFILLMENT_PROFILE (abg/invocation_admission.ts:1517-1529, refusal authority_mismatch 'retained library work requires its exact current input, declared entry, Program and workspace authority'). defaultGovernanceGraphFunctions declares it only on the Executive parent (gtl/default_library.ts:72); the Testing/UAT wrappers do not. Public run.invoke passes resolution.graphFunction, the selected catalog entry, so the direct UAT invoke over the admitted Testing state Result is expected to be refused at admission before the owner route runs.",
+    "evidence": "Static read of the owning sources only; not executed. The author harness supplies a controlled invocation admission and does not exercise ABG admission.",
+    "candidateOwners": [
+      "gtl/default_library.ts wrapper declaration (changes wrapper definition/publication digests; the declared meaning 'supports fulfillment profile' does not match a route that refuses fulfillment)",
+      "abg/invocation_admission.ts retained governance-source relation for the direct UAT wrapper over a Testing-wrapper source (generic source admission change)"
+    ],
+    "rootAction": "Root selects the owning path and grant. The Worker did not widen scope."
+  },
+  "authorReportedResiduals": [
+    "OPEN OWNER DEPENDENCY: ABG admission requires abg.supported_fulfillment_profile on the invoked GraphFunction for a retained governance-state source; UAT wrapper lacks it (see ownerDependency).",
+    "Installed fixed Testing -> actual state Result -> native UAT Run, replay, cold readback, timing: Root-owned, not run.",
+    "Root wrapper Run closure and source derivation (requireClosedRun, applicable retained work) and acceptance of the supplied run-environment resources on direct wrapper invoke: not exercised.",
+    "Cross-binding: the existing cover compares one GraphFunction, so the route needs one WorkspaceBinding (HOW states it); not tested.",
+    "Open-fulfillment refusal on the direct route: code-level only (no fulfillment fixture).",
+    "Indeterminate UAT fold is not separately exercised (same path as unmet); parent evaluation unchanged and not on this route.",
+    "STDO assessor role/instruction assembly, installed schema and prompt overflow for the direct UAT task: existing generic tests only.",
+    "Three historical default-library capture/live cases skipped and unbound, no credit; seven F11 cases uncovered.",
+    "Unsupported direct purposes at root (for example construction) are unchanged: they prepare and refuse only at fold."
+  ],
+  "authorScopeDisclosures": [
+    "Writes: the five granted paths; these three handoffs; stage/lane outputs under qualification-scratch/rc7-fixed-proof-author-01/tmp via the supplied helpers (including test-created artifacts/setup020 inside the staged tenant); test temp /private/tmp/abg-o7f via lane TMPDIR.",
+    "zsh heredocs used to pass Python edit scripts create transient shell temp files under the shell's default temp location; one stray empty heredoc ran as a no-op. These are shell mechanics outside the declared paths; their scope standing is uncertain.",
+    "Read-only commands: git diff/status, node --check, stat/shasum, stdo verify for the v3.0.4 basis (any toolchain cache writes are platform-owned).",
+    "Not used: tmpo7f runtime temp (preserved, untouched), network, installs, Git mutation, provider calls, tsc outside stages.",
+    "Before/after observations cover selected worksite facts only and do not prove absence of off-scope writes."
+  ],
+  "scopeDisclosureStanding": "Preserved author statements; selected after/source custody does not establish absence of off-scope temporary effects. No new filesystem census performed.",
+  "phaseTimings": {
+    "hostWallMs": 2522637.322417,
+    "beforeRunIdentityMs": 1189.970875,
+    "acquisitionIncrementMs": 36968.377459,
+    "environmentIncrementMs": 46128.86845799999,
+    "constructionAndPreflightIncrementMs": 1930.6581670000014,
+    "hostPreparationToNativeStartMs": 92358.0,
+    "preparedToNativeStartApproxMs": 6140.125041000007,
+    "nativeProcessWallMs": 2406242.0,
+    "nativeExitToOutcomeSummaryMs": 24052.0,
+    "authorStageSetupMs": 2554,
+    "authorCompileGenerateGuardMs": 60243,
+    "authorLaneMs": 243580,
+    "meaning": "RC6 one-call SDK session datum. Native work includes author feedback. No matched speedup, held public-read session, HS02 or release claim."
+  },
+  "proofLimits": [
+    "Final450 source rows equal staged after bytes and actual native.after; before uses the selected original Product with new selected tests.",
+    "Five before failures retained; no red-before lane represented as pass.",
+    "Final72pass/0fail/3declared historical skips; name-filtered exclusions are distinct from skipped tests.",
+    "Seven F11 carriers remain uncovered outside these lanes.",
+    "Actual installed fixed Testing-to-actual-state-Result-to-native-UAT admission path was not exercised; author reports an owning relation outside its five-file grant.",
+    "No test/build/runtime/readback invocation during this evidence collection. Independent review and Root disposition remain required."
+  ],
+  "qualified": false,
+  "accepted": false
+}

@@ -1,0 +1,58 @@
+{
+  "observedUtc": "2026-11-03T20:41:14.570179+00:00",
+  "scope": "Complete evaluated consolidation successor; immutable installed RC5 unchanged; no new cut/install included",
+  "planningOriginAEDT": "2026-11-04 07:45",
+  "revisedPlanningWindowAEDT": [
+    "2026-11-04 09:45",
+    "2026-11-04 10:45"
+  ],
+  "previousPlanningWindowAEDT": [
+    "2026-11-04 08:15",
+    "2026-11-04 09:00"
+  ],
+  "revisionReason": "Native04 closed coding return leaves liveness candidate-validation reconstruction and three equivalent global walks unchanged, in addition to qualification/replay fixture dependencies omitted by Root. Earlier assumption that liveness work would complete was falsified.",
+  "remainingBreakdown": [
+    {
+      "work": "Current testing/frozen source review and complete next grant",
+      "minutes": [
+        15,
+        25
+      ]
+    },
+    {
+      "work": "Repair liveness reconstruction and consolidate three global scans",
+      "minutes": [
+        45,
+        75
+      ]
+    },
+    {
+      "work": "Qualification/replay callers and affected fixtures",
+      "minutes": [
+        20,
+        35
+      ]
+    },
+    {
+      "work": "Affected build/tests alongside independent review",
+      "minutes": [
+        20,
+        35
+      ]
+    },
+    {
+      "work": "UAT, fresh result/replay and final Root evaluation",
+      "minutes": [
+        10,
+        20
+      ]
+    }
+  ],
+  "assumptions": [
+    "One further coherent coding continuation succeeds",
+    "Review overlaps testing",
+    "No new cut/install or whole-Product qualification included"
+  ],
+  "confidence": "Low; conditional 2-3 hour planning allowance, not a committed deadline. Shared-owner triage may reprice.",
+  "nextRevision": "Closed shared-owner triage or material contrary actual proof"
+}

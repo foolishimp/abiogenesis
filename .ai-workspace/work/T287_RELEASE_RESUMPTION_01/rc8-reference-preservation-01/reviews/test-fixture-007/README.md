@@ -1,0 +1,7 @@
+Product Frame: fixed fifteen-family ABIogenesis 5.0, GOAL-035/T-287, STDO 3.0.4. This is a narrow review of AUTHOR07’s historical-coordinate fixture repair. ABG retains admission/event authority; the helper constructs test coordinates only.
+
+**Satisfied; no findings. HIST-001 is closed for this exact successor and the two selected cases.** Source `b2ca1a75…` / freeze `a4ded31e…` changes one of 1,339 rows: the consolidation test. The helper binds the pinned measured log’s ref, length and hash, then selects its known historical profile through the existing owner. Full-log and scratch-cut coordinates retain their own actual physical identities and selected byte digests. No new event copy, restamp, schema admission or weakened guard was added. No original assertion was removed; later cases are unchanged.
+
+The final filtered lane passed **2/2, no skips**, in 54.429 seconds. It preserves the original context/decision/negative controls and work assertions. This is not a whole-file pass. All 2,132 materialized files match READY; only the test differs from A6. Compiled inputs, archive `a178e960…` and manifest `f74390de…` remain exact. Zero builds ran, and the changed test is unshipped.
+
+Native return, physical close, fresh readbacks and broader/cut conjunction remain with Operator/Root. Prior red evidence and the separate GC03 residual are preserved. No Reviewer tests or source repairs were performed. See [REVIEW.json](REVIEW.json) for exact pins and limits.

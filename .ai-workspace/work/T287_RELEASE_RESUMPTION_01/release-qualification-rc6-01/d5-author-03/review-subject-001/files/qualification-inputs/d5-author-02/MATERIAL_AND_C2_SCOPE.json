@@ -1,0 +1,78 @@
+{
+  "kind": "d5_completion_material_and_protected_scope",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "F10 D5 current-profile lifecycle copy retirement with affected F04/F11 retained provenance; preserve Q23 Q1-Q7",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "outcome": "Complete the already selected D5 retirement through one typed existing-owner projection and authentic affected proof; no new feature or competing runtime.",
+    "authoritySplit": {
+      "source": "Frozen D5 partial601d6588 plus exact base1f62 readonly dependencies; Root author02 selection and registered capsule are current controls. Product/requirements own WHAT; existing HOW owns realization.",
+      "tool": "Exact immutable STDO3.0.4 direct native skills; maintained RC6 operator-client. General host tools are behaviorally scoped, not OS confinement.",
+      "runtime": "Actual D5 close716470691B and authentic retained author binding/catalog/view; ABG alone admits events. This packet has no dispatch authority until Root final admission."
+    },
+    "prohibitions": [
+      "No new store, event stream, controller, framework, profile port, generic provider migration or Production test hook",
+      "No source or whole-release acceptance, QR02/QR03/F11 production eligibility, formal independent review or human acceptance inferred",
+      "No push/merge/tag/publication/global selector, immutable-release edits or unrelated dirty/untracked changes",
+      "No operator Product edits or execution; no new profile field/port, physical-fact deletion or duplicated durable filters."
+    ]
+  },
+  "materialOwners": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+  ],
+  "conditionalWrites": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/check-lifecycle-boundary.mjs",
+      "condition": "Only exact existing recovery-artifact exception text if the admitted expression moves; no new allow-list site or weakened guard."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "condition": "Only a required type alias/declaration for the shared projection. Preserve the full live physical observation and existing port; no serialized profile field or carrier rewrite."
+    }
+  ],
+  "readOnlyBoundaries": [
+    "calculus fold/rules/replay and runtime_liveness",
+    "OwnedProcessFacts, ProcessObservation, shared process/command helper owners",
+    "implementation/leaf_invocation_port.ts and implementation/consensus.ts",
+    "validator/qualification.ts and validator/qualification_contracts.ts",
+    "existing root-installed-environment/language-smoke/D1/native-semantic support; reuse without rewrite"
+  ],
+  "additionalReadonlyInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/ADDITIONAL_SOURCE_SELECTION.json",
+    "bytes": 29735,
+    "sha256": "6288e948612090fb8742fe612c23887105995f90942961ef3805251b33028c4d"
+  },
+  "protectedFileCount": 372,
+  "newProductFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+  ],
+  "handoffs": [
+    "qualification-scratch/d5-author-02/return.json",
+    "qualification-scratch/d5-author-02/readiness.json",
+    "qualification-scratch/d5-author-02/progress.json"
+  ],
+  "readDependencyRule": "Use only selected source/import/resource closure. Nine original modules plus new recovery module execute; added historical example modules are readonly reference inputs, not test activation or permission to acquire their historical evidence.",
+  "existingRendererLimit": "NativeWork owner renders selected work instructions/context coordinates, not all protected compile bodies. Prior author01 exact order was35411bytes; actual author02 rendering must be measured by Root preflight within1MiB with131072bytes reserve. No new prompt mechanism."
+}

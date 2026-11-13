@@ -1,0 +1,20 @@
+{
+  "kind": "operator_budget_and_outcome_review_not_native_authority",
+  "atUtc": "2026-10-31T14:15:37.547941+00:00",
+  "constructionStream": "fp-b75611088e92b2b6-stdout.log",
+  "constructionReportedUsd": "4.0157214",
+  "conservativeTotalUsd": "85.8920688",
+  "unknownB03ReserveUsd": "8",
+  "nextProcessMaximumUsd": "4.5",
+  "witnessReserveUsd": "6",
+  "withNextProcessAndWitnessUsd": "96.3920688",
+  "allocationUsd": "100",
+  "preWitnessStopUsd": "94",
+  "featureDisposition": "partial_not_accepted_named_real_owner_test_absent",
+  "decision": "Allow the current parent closing selector within its existing cap; no additional Construction or paid UAT; any future coding package requires a new Root decision after bounded review and actual remaining budget",
+  "limits": [
+    "No aggregate hard cap is claimed",
+    "Native stopped/blocked outcome must be observed, not fabricated",
+    "Other charges remain unknown"
+  ]
+}

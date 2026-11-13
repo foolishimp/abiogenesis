@@ -1,0 +1,59 @@
+{
+  "kind": "root_operator_host_recovery_selection",
+  "status": "ROOT_SELECTED_CORRECTED_HOST_NOT_YET_DISPATCHED",
+  "selectedUtc": "2026-11-06T16:41:39.347463+00:00",
+  "authority": "Existing user RC7 build instruction; Root separate operator Writer; unchanged selected H03 coding scope. No permission escalation or Product change.",
+  "cause": "Prepared estimate occupied NATIVE_CAPACITY_PREFLIGHT.json, the actual host create-only output path. Host failed with EEXIST before SDK invocation; no Run, actor, native proof or source effects.",
+  "originalFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/DISPATCH_FAILURE.json",
+    "bytes": 725,
+    "sha256": "6ff93195c077dd1bedcc6129b104f6bcd381b3ce81a63490307c1521c4ec0291"
+  },
+  "originalOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/outcome-summary.json",
+    "bytes": 633,
+    "sha256": "e3176f02ad6d760af708029d2e516687d63467f3d05035cd733654ae503e8bd0"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/resource-close.json",
+    "bytes": 2308,
+    "sha256": "213a443f65d082653eb1481e93884ab75940775f60640c6a05f47da7d3793d9d"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "daaa3b3868d7e9e1461c0f081584a012d6aa674f6a171579882f01803480142f"
+  },
+  "originalNativeAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 6179,
+    "sha256": "f1687c50a378dc09b3652b4b5aa9f0ee07f629bf1167ddccc9206bf090692e56"
+  },
+  "correction": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/prepare-and-dispatch.recovery-001.mjs",
+      "bytes": 19777,
+      "sha256": "962ac785340d9dcd45174b29a2aefc322428adb4ce4f861836456a465404807b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/launch-owner-script.recovery-001.mjs",
+      "bytes": 2200,
+      "sha256": "5e34140738d0adcc916a5d8c70b479d41a371d8729d5d5960a5e1ffc60cd5691"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-recovery-001/CONTROL_DIFF.patch",
+      "bytes": 11815,
+      "sha256": "cc5f709b2bd20441d875a929e8e64e782bf9cb745675266b5cfb81db89d80150"
+    }
+  ],
+  "scopeConservation": [
+    "Original attempt, estimate, source,18Cinputs, grant, workload and all failures remain immutable.",
+    "First actual coding Run is still unconsumed; same451-source/fivepath/twostage/eightlane scope and same native absolute/inactivity/model/turn bounds.",
+    "Bind actual immediate failed-preparation close/resume; no copy of an older close in its place.",
+    "Use fresh execution-recovery-001 outputs and unique outer command label/Run request namespace. Actual capacity receipt resides inside the actual output directory.",
+    "All actual output slots are checked absent before expensive installed owner acquisition. This corrects the identified condition; no automatic retry loop."
+  ],
+  "actualDispatch": null,
+  "ProductAccepted": false,
+  "qualified": false
+}

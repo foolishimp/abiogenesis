@@ -1,0 +1,10 @@
+# Symmetric acceptance and execution checklist
+
+- Before either paid arm: Root selects exact inputs/config/profile/order;005 required standing holds. Recheck accepted artifact and current runner pins. Direct root/ancestors contain no inherited repository instructions; disclose native/global defaults, cache and environment. Seed exactly the three pinned source files, no solutions, to each application worksite.
+- Preserve original request/source/obligations/oracle bytes and all seven required artifact meanings. No stage-order or methodology requirement is imposed on the direct agent. Check input immutability and only allowed application outputs.
+- Independently run exact CLI command: status0 and stdout exactly Hello, world! plus one newline. Retain full stdout/stderr/argv/cwd/environment identities.
+- Independently run exact node:test command on both named tests: at least2passes,0fail/0cancel, no required skip. Inspect that both tests spawn the actual generated CLI and assert exit/stdout; reject self-reported or mocked-only output.
+- Independently assess conformance/design/test-design/plan against the same content rubric for both arms. Plan command/args/pass floor/stdout meaning must match actual execution. Truthful direct reports may cite actual tool results; no ABG admission is invented.
+- ABG additionally retains admitted native/C2/UAT/result/replay facts and unchanged independent-oracle result. Do not use the admitted-only oracle as the direct-arm grader.
+- Record every provider role/cost/tokens/turns/time, tool/command records, setup/readback/operator and failure/retry costs. No silent retries or excluded red attempts. Separate005 interruption study, historical development and tooling acquisition from each uninterrupted arm; disclose shared warm tooling.
+- Report per-arm acceptance and unavailable measurements before any comparison. No measured saving, causal attribution, or population-level claim from this single pilot. Stop on actual owner/setup/refusal; return exact evidence to Root.

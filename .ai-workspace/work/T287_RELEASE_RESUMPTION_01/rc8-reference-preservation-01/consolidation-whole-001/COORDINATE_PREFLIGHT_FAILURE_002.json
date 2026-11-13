@@ -1,0 +1,20 @@
+{
+  "status": "OPERATOR_TOOL_PIN_SHAPE_ASSERTION_MISMATCH_BEFORE_ALLOCATION",
+  "observedAt": "2026-11-07T09:20:46.532095+00:00",
+  "recipeSha256": "191a43bcf4531b928a854f300bd1851fbf672ae14a20f7aefd055e0bf177c625",
+  "admissionSha256": "f81167c583092cc9277265333f1c4b41314c1ffc819a85352f4a03e699c52829",
+  "exitCode": 1,
+  "toolWallSeconds": 0.306135375,
+  "error": {
+    "name": "AssertionError",
+    "code": "ERR_ASSERTION",
+    "recipeLine": 9,
+    "callLine": 25,
+    "difference": "Tool pin adds name:node to exact path/bytes/sha256; actual Node path/bytes/sha256 match."
+  },
+  "outputRootExists": false,
+  "scratchRootExists": false,
+  "testStarted": false,
+  "automaticRetry": false,
+  "rootNotified": true
+}

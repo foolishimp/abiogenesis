@@ -1,0 +1,78 @@
+{
+  "status": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/install-admission-001/ROOT_INSTALL_ADMISSION.json",
+    "bytes": 5049,
+    "sha256": "4b5d25ea2b8502865461e8d0cb8e9bfa80e47e4ee66b74511eef87090757c5db"
+  },
+  "executionEnabled": true,
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 2837,
+    "sha256": "7113beb67d03d9c4398f89799ad49a355b00116d07fa8ba7f1a297a7a5c13128"
+  },
+  "buildBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/build-admission-001/ROOT_BUILD_BINDINGS.json",
+    "bytes": 10441,
+    "sha256": "0b08f21281d2f105c1835749b26c362deb2985d9ea047d0e61043c36270733d0"
+  },
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1299,
+    "sha256": "2035647542e1975539a719735e4e043a27d3451b321b7bcdbfd85608a7d783b8"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/candidate/RESULT.json",
+    "bytes": 909,
+    "sha256": "be49278d36c81d9ec013c23fbf3931feda8a873d7ca8534fe68b0050724bcd26"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1285,
+    "sha256": "c35bb2135e03576dcf101f2461c3ac7908966eb014a738307d3efcdda6be3ae4"
+  },
+  "exactTestedArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+    "bytes": 832,
+    "sha256": "4f3da3254e97b3d6b5ed6a974c2decd706357727fea606a010e319a4a5ecd47e"
+  },
+  "installInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+    "bytes": 2735,
+    "sha256": "dc3e9b7b329a8adfe5dd484655934b2a4388ce4a07056fdadcbeab197273219f"
+  },
+  "boundedClaim": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postbuild-001/BOUNDED_CANDIDATE_CLAIM.md",
+    "bytes": 2550,
+    "sha256": "bcdb0c4c71bb750e3b66053e9675dea91623178863d1ad0151dc71d48c48678f"
+  },
+  "residuals": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postbuild-001/RESIDUALS.md",
+    "bytes": 2667,
+    "sha256": "611f6dcbd0f33ba18a8c5cad8af57de8c43e52bb0e1e12ac80455cce7869e6c3"
+  },
+  "rootAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postbuild-001/ROOT_AUTHORITY.md",
+    "bytes": 1556,
+    "sha256": "bbc01de2eb6fa7f8a127e1bf7b8091cb4de466d864d51e8202a55e50bc63589f"
+  },
+  "independentPackagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/reviews/packaging-001/REVIEW.json",
+    "bytes": 22735,
+    "sha256": "72b6984c8f9991a4710de9ffc99d8bc719e806e015b0253e80863fd59f748f45"
+  },
+  "claim": "Local unqualified RC10 candidate from accepted source checkpoint93a0de75a16c9e4cd29ec561d159b12add4bb3fd and measured archive1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9, with actual clean byte/member-equal reproduction. Exact shipped-archive source/proof claims retain their exclusions; actual immutable installation and installed-owner verification are established only by future FINAL_INSTALL_VERIFICATION.json.",
+  "limits": [
+    "Only this repaired source and a new Root-accepted measured archive may be cut; FAILED bff1a521 archive is explicitly rejected.",
+    "Stage and commit exactly the 27 selected candidate source paths. Preserve main tracked status edits and raw evidence; no main merge.",
+    "Reproduce the exact frozen source, dependency inventory and absent-only RC9 contract seed closure offline; shipped bytes come from the measured archive, never the reproduction. No identity rewrite.",
+    "Preserve immutable installed RC9 as operational pin. No selector change, tag, push, publication, qualification or human acceptance.",
+    "Source/unit/focused/measurement/affected-file evidence retains its actual scope and exclusions. O3 and unselected full-5.0 obligations remain open.",
+    "Final installation standing belongs only to actual FINAL_INSTALL_VERIFICATION.json. No provider/native workflow or extra test population is selected by these controls.",
+    "Each phase needs exact Root admission; packaging review and install admission remain unbound. Failure preserves receipts and partial allocations, with no retry, overwrite or cleanup."
+  ],
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false,
+  "executionStanding": "Root RC10-LOCAL-INSTALL-001 admits exactly one preserved-driver install phase for exact reviewed archive/source. No rebuild, retry, tracking updates, selector/publication or final delivery acceptance. Return actual receipts to Root."
+}

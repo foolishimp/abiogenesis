@@ -1,0 +1,94 @@
+{
+  "file": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 884.1553750000312,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 5,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 4,
+    "todo": 0,
+    "topLevel": 5,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "different-cut native Definition reads keep blocked absence and exact historical child result/replay",
+      "file": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl (sha256:f841bba98385)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "current catalog and historical source permission refuse independently",
+      "file": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl (sha256:f841bba98385)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "historical source digest and child declaration evidence remain necessary",
+      "file": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl (sha256:f841bba98385)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "late child proof preserves only the exact acquired prefix; copies and closed owners reconstruct, changed bytes refuse",
+      "file": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl (sha256:f841bba98385)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/events/064-t287-cross-cut-public-read.jsonl",
+    "bytes": 2627,
+    "sha256": "7ce67f147801f80289bb438f5900c4df801cf1d7281ba009db2cf090bf4348f5"
+  },
+  "commandReceipt": "commands/064-t287-cross-cut-public-read.result.json",
+  "workspace": "/private/tmp/abg-r8c-006/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

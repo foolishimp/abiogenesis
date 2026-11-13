@@ -1,0 +1,9 @@
+Product Frame: unchanged ABIogenesis 5 fifteen families F01–F07, F09–F11, F13–F17; GOAL-035/T287 F10 affected D5 proof with F04/F11 preservation. Product/HOW owns scope, immutable RC6 owners govern rendering, and ABG owns runtime truth. This note uses pinned metadata and immutable source inspection only; no moving Product reads, execution, staging or scope change.
+
+The 59 assessment sources have **2,164,452 known prior/static bytes** across 56 entries. Three final handoffs are unbound. The sum includes 1,373,456 prior/baseline bytes across 20 mutable Product inputs and 10,196 placeholder bytes in two proof controls. Those final sizes remain unresolved. The 34 pinned static entries contribute 780,800 bytes. Candidate HOW and rubric add 147,084 prior mutable and 7,610 static bytes, respectively.
+
+This exceeds the 1,048,576-byte prompt cap as raw material, but the existing UAT renderer carries source assets as **path-and-digest references**, not their text. The 59-source reference array is 9,348 bytes. Full Testing command streams/predicate observations and declared role source/access context are included in the prompt; actual final assembly can still exceed the cap and remains subject to the existing owner refusal. Selected source bodies must be reacquired through declared reads, so no provider/tool-read context-fit claim follows from this calculation.
+
+The 412-path worksite context has 10,702,533 known prior/static bytes across 409 entries, below its separate 16,777,216-byte cap. Final changed-source, proof-control and handoff sizes remain unbound; this is not final context validation.
+
+The closed preparation return remains byte-identical at SHA `0e858c1ff159a238f2b0f99d56453f508e3693b93644c3124cdd7640d77f490e`. Exact per-source sizes, metadata pins and immutable owner lines are in the JSON note. No compression route, recipe change or activation was introduced.

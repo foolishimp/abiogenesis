@@ -1,0 +1,15 @@
+{
+  "dependencyInventory": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "contractSeedInventory": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/RC9_CONTRACT_SEED_INVENTORY.json",
+    "bytes": 41764,
+    "sha256": "67792ac89844645fc02afc4e609fcca19f2a2adce56120e274df4e2822b06e7a"
+  },
+  "seededContracts": [],
+  "sourceWins": true,
+  "productRuntimeImportsFromDependencyCheckout": false
+}

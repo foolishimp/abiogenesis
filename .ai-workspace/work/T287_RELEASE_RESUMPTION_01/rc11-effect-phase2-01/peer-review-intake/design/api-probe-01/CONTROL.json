@@ -1,0 +1,88 @@
+{
+  "kind": "one finite API-only feasibility probe",
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "fixture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/api-probe.mjs",
+    "bytes": 7605,
+    "sha256": "093819cf5fe6e9aebe0fd89e4cad55358daeedcd7b3491071fff0e7862d695d3"
+  },
+  "modulePins": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+      "bytes": 40617,
+      "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Effect.js",
+      "bytes": 333597,
+      "sha256": "8f12ad8374f95b25cd4816f3deb45fbfaa547cef71e0f33b0fde8463011e74f5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Exit.js",
+      "bytes": 6323,
+      "sha256": "d5c3b1b908c18e9c00785d5d0a7aa854a25818018b7481205d18e23ba3b11345"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Cause.js",
+      "bytes": 31134,
+      "sha256": "2d54e15e5999f472af97fd9b3f87b8dba77ce1453c8294bdedef0f6e1a122293"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Fiber.js",
+      "bytes": 8706,
+      "sha256": "2dc1bbd03b813200aaf4768deac3e91c626639ebe98027a6f33026065e3c7c67"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Deferred.js",
+      "bytes": 4596,
+      "sha256": "f2be3acd3c3069fb970834e26f3fa5c05a58604e7b4be65af349759b1cd46094"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/core.js",
+      "bytes": 58590,
+      "sha256": "8deadec21d54761138b9525cf6c5a6e959304b9fa34136a1cebf18350792a207"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/core-effect.js",
+      "bytes": 34645,
+      "sha256": "7e76e3e39120d436cd967bddbff4a7d7873194f3ea611576c7c941eb21941a07"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/cause.js",
+      "bytes": 27048,
+      "sha256": "46c33313595785add971a76548742650785777d20682ceaf8e3bc5a4678213ef"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/fiberRuntime.js",
+      "bytes": 85699,
+      "sha256": "d378bdfba82626a2a2599cbad950f2f337669d27684b3b12ead14701fc9b6acc"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/runtime.js",
+      "bytes": 11122,
+      "sha256": "e6993bc7dff5bfd5759a604d498f819fdb3d0b52fe1cec9ef202cd28b237cb48"
+    }
+  ],
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/api-probe.mjs"
+  ],
+  "outerCapSeconds": 10,
+  "maximumOutputBytes": 1048576,
+  "environment": {
+    "NODE_OPTIONS": "",
+    "NODE_PATH": "",
+    "NODE_COMPILE_CACHE": "unset"
+  },
+  "executionCount": 1,
+  "notGranted": [
+    "Product imports/source edits",
+    "provider calls",
+    "fixture OS child launch",
+    "tests against moving A",
+    "production B implementation"
+  ]
+}

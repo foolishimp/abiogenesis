@@ -1,0 +1,103 @@
+{
+  "proof": "C2 installed compact helper stdout/full observation/fresh replay",
+  "artifactSha256": "sha256:a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+  "helperStdoutBytes": 636,
+  "helperArtifactBytes": 570828,
+  "stdoutBytes": 210000,
+  "stderrBytes": 210000,
+  "rawOutputDigest": "sha256:4323a799cea04713e009cbf40d9c666ef5ed74df72e45144ebd4b7ec572ed164",
+  "helperArtifactDigest": "sha256:1c86b2a4b445232e9b1a8528ee836dc4e90a7a72fd01faf391129b24b74db06c",
+  "observationDigest": "sha256:79e534e8ce92f9f9445ef54ddc72fc464e08e3ce8a5737bbfb6d73d95dd6d25e",
+  "replayDigest": "sha256:ef0737c89d2bfbdf527ea24f74bdcb5df78225bbddd61c17d4c64aaa59312aba",
+  "subjectExitStatuses": [
+    7,
+    0
+  ],
+  "refusals": [
+    {
+      "label": "crossed-task-ref",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "crossed-task-digest",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "crossed-attempt",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "crossed-artifact-ref",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "crossed-artifact-digest",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "coherent-foreign-artifact",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "unknown-raw-key",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "legacy-computed-arrays",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "missing-ack",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "non-json-ack",
+      "failureClass": "result_contract_failure"
+    },
+    {
+      "label": "missing-helper-tool",
+      "failureClass": "transport_identity_mismatch"
+    },
+    {
+      "label": "extra-tool",
+      "failureClass": "transport_identity_mismatch"
+    },
+    {
+      "label": "wrong-tool",
+      "failureClass": "transport_identity_mismatch"
+    },
+    {
+      "label": "wrong-tool-input",
+      "failureClass": "transport_identity_mismatch"
+    },
+    {
+      "label": "altered-helper-stream",
+      "failureClass": "helper_artifact_contract_failure"
+    },
+    {
+      "label": "reordered-full-command-vector",
+      "failureClass": "helper_artifact_contract_failure"
+    },
+    {
+      "label": "reordered-full-predicate-vector",
+      "failureClass": "helper_artifact_contract_failure"
+    },
+    {
+      "label": "altered-task-manifest",
+      "failureClass": "helper_manifest_mismatch"
+    },
+    {
+      "label": "altered-launch-manifest",
+      "failureClass": "helper_manifest_mismatch"
+    },
+    {
+      "label": "missing-helper-artifact",
+      "failureClass": "helper_artifact_absent"
+    },
+    {
+      "label": "altered-protected-source",
+      "failureClass": "protected_observation_mismatch"
+    }
+  ],
+  "installedProductUnchanged": true
+}

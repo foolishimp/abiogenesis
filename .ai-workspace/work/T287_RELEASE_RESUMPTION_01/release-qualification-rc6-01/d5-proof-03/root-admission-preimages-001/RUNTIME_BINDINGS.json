@@ -1,0 +1,43 @@
+{
+  "status": "SOURCE_BOUND_ACTUAL_N3_CLOSE_REVIEW_ADMISSION_PENDING",
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "actualResume": null,
+  "actualClosePrefix": null,
+  "rootControlAdmission": null,
+  "consumerBindingSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/CONSUMER_BINDING_RETAINED.json",
+    "bytes": 28708880,
+    "sha256": "66b6584dff16c8c3f4833650a2c780232d1bd58434aa5e05cb9088d7eae63dad"
+  },
+  "overlayFields": [
+    "binding",
+    "catalog",
+    "catalogView"
+  ],
+  "sourceBasis": "none",
+  "limit": "Exact N3 source and three handoffs bound. Genuine actual N3 final close/resume/prefix, closed review disposition and Root admission remain null; no N2 substitution, staging or activation.",
+  "expectedAuthorDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03",
+  "actualClose": null,
+  "authorHandoffs": {
+    "return.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/return.json",
+      "bytes": 15174,
+      "sha256": "ad025195a31b420f9636702e9679b8b33e72af8fc4714bc75202d7dd2e73e06a"
+    },
+    "readiness.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/readiness.json",
+      "bytes": 3588,
+      "sha256": "3667d4276d37fc97f4e4d8bbfb10339b445f2b13a51a2ecd1dc661ce2156e0a4"
+    },
+    "progress.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/progress.json",
+      "bytes": 2527,
+      "sha256": "e8aa3483085178ccc8ecda89e6d7daf8a30bcf1c5b578853ad12a117fce9fcfb"
+    }
+  },
+  "reviewDisposition": null
+}

@@ -1,0 +1,37 @@
+{
+  "kind": "root_status_projection",
+  "at": "2026-11-06T22:51:41.435893+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 13105,
+    "sha256": "0abeadd4419584f3170b01e02cd3e79741f25666f095d524925f8dcf92acaa61"
+  },
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 726775,
+    "sha256": "a497c124f4566cbc05efadf734197b2cc0fe788be8a8d1fa10815368b4611ae4"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 726868,
+    "sha256": "791b7547d346fba8f42e8a014ec0a26bac344dc0fc98322d4d3e422d418b9bf4"
+  },
+  "originalLines": {
+    "3": "Current progress, 2026-11-06T22:22:18.456169+00:00: **RC7_HS03_NATIVE_COMPLETION_RUNNING**. One RC6-driven native Claude Opus5.5 xhigh Worker started2026-11-06T22:14:07.275Z, PID39586, Run d15a0e80; Root host session5575. [S2 admission](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/ROOT_CONTROL_ADMISSION.json)b97beb2b and dispatch09bb2b0d bind the partial physical source selected by [Root disposition](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/ROOT_REVIEW_DISPOSITION.json)edd58154. Scope: structured-boundary/segment-activity repair, internal ordinal-helper declaration, mandatory timeout/archive tests and truthful HOW, then six final lanes on one final source. Two AFTER stages;60-minute native cap23:14:07.275Z; no baseline rerun. S5 timeout, missing NativeResult/native.after, original genuine baseline red and separate generator refusal are preserved. Setup135.683s, prepared-to-actor6.153s and preceding owner-end-to-host37m01.191s are separate costs. Source edits are in progress; no passing successor build/proof/close or full procedure compliance is yet claimed. H06 HS01/small HS02 acceptance remains retained. Installed growth/S6 and local RC7 cut/install remain open; no RC7 install, qualification, publication or selector change.",
+    "68": "- current_activation_status: HS03_NATIVE_COMPLETION_RUNNING (Root session5575; actor39586/Run d15a0e80 started22:14:07.275Z; one60-minute Worker, native cap23:14:07.275Z)",
+    "70": "- current_next_work: [RC7 held-session plan](#rc7-held-session-plan): supervise the focused S2 native completion and review its frozen source alongside build/proof, then installed S4 growth/S6 disposition and reproducible local RC7 cut/install. Preserve the accepted baseline, earlier HS01/HS02 proof and all failed allocations.",
+    "206": "| **RC7-HS-03** | Focused native completion running; source/proof pending | S2 admissionb97beb2b/dispatch09bb2b0d runs one60-minute xhigh Worker from22:14:07.275Z on the exact partial S5 source. Rootedd58154 selects the three concrete repairs plus six unallocated final lanes/two AFTER stages. Main review3212eab2 and declaration addendum1c27ebfa retain the original S5 absolute timeout/runtime_failed, six-file sourcec65b3703 without NativeResult/native.after, genuine BEFORE911-versus3discriminator, compile pass and generator refusal. No successor source/proof/close acceptance yet; baseline and previous completed evidence are not repeated. |"
+  },
+  "changedLineNumbers": [
+    3,
+    68,
+    70,
+    206
+  ],
+  "productEdits": false
+}

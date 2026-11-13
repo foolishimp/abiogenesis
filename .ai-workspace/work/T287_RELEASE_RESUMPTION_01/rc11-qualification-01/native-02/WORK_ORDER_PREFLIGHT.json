@@ -1,0 +1,13 @@
+{
+  "status": "STATIC_PURE_RENDER_PREFLIGHT_NOT_RUNTIME_TASK",
+  "source": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+    "bytes": 22870,
+    "sha256": "fc58ed982728c9fb40811c2f5bc44faae35ca25e119de1f3aaf1295b3f2b693c"
+  },
+  "functionSha256": "5db243ad0ca67f678d06121b9d60308aae29eb4721aebf26d8aca88f76325135",
+  "workOrderBytes": 9904,
+  "workOrderSha256": "bb7fa4992614dbaf894e4cff9326bbfe118a8f207b6949f7f797098fc8bac896",
+  "limitBytes": 12000,
+  "meaning": "Exact installed normal-author renderer executed as isolated pure formatting over bound planned work-order fields only. No Product import/runtime/call/resource identity; actual PREPARED measurement remains later."
+}

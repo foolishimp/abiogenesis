@@ -1,0 +1,25 @@
+{
+  "selectionPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-r7m2/tmp/abi5-root-env-z19Ryq/runtime/events.jsonl",
+    "prefixLength": 10558539,
+    "prefixDigest": "sha256:a87e4b35ce9e36d1d12cfdec0a1308542792e8ac74388373683b854f5764edce",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 708777829,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:e2a3537eb4023bc9c980f9b03d5cde663ffc4914e9df94a7514fb599804ce414"
+  },
+  "projectionBasis": {
+    "ref": "file:///private/tmp/abg-r7m2/tmp/abi5-root-env-z19Ryq/runtime/events.jsonl",
+    "digest": "sha256:e2a3537eb4023bc9c980f9b03d5cde663ffc4914e9df94a7514fb599804ce414"
+  },
+  "identity": {
+    "device": 16777231,
+    "inode": 708777829,
+    "byteCount": 10558539,
+    "digest": "sha256:a87e4b35ce9e36d1d12cfdec0a1308542792e8ac74388373683b854f5764edce"
+  }
+}

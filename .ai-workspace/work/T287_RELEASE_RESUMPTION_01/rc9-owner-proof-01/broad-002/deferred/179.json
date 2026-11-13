@@ -1,0 +1,29 @@
+{
+  "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "testSha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "HIST-001 selected author07 correction pending frozen review and final-source whole-file proof.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/historical-oracles-001/REVIEW.json",
+        "bytes": 26530,
+        "sha256": "ddd9a106b33dd0ea9588fda3de271525b13963f153eb42352f68c576d8d09f12"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/ROOT_SCOPE.json",
+        "bytes": 5357,
+        "sha256": "f3a2b7bd63edc20a2d2b8d643ae39547f721ff6c49907b4ce889df730560e28f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/ROOT_ADMISSION.json",
+        "bytes": 3295,
+        "sha256": "620f5bb408450854dd99f080c1c107f08898a1801e42757ee2091232962d259a"
+      }
+    ],
+    "capsule": "RC8-SAS-WHOLE-PROOF",
+    "successorStanding": "Root selected scheduling exclusion only; see RESIDUAL_REASSESSMENT.json, no closure or inherited semantic no-block"
+  }
+}

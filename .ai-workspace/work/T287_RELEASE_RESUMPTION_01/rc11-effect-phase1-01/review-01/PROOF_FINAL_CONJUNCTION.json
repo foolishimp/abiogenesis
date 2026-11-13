@@ -1,0 +1,114 @@
+{
+  "kind": "final_bounded_phase1_external_proof_conjunction",
+  "recordedAt": "2026-11-09T18:39:04.971268+00:00",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "verdict": "satisfied",
+  "scope": "exact phase1 native03 source and admitted six-command external proof campaign",
+  "newFindings": [],
+  "pendingProofItems": [],
+  "rootAcceptance": "not_claimed",
+  "sourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_RECHECK_NATIVE03.md",
+    "bytes": 5794,
+    "sha256": "e566805c7ef120516c759d0ff242566673d73f0aca529f69d79f618160883847"
+  },
+  "priorCompletedStageReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/PROOF_COMPLETED_STAGES_01.md",
+    "bytes": 9759,
+    "sha256": "6ae1bd84e16f0d9cfbff4658fc5ede226d389ff357affbf4f15f17d6c7566249"
+  },
+  "priorCompletedStageReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/PROOF_COMPLETED_STAGES_01.json",
+    "bytes": 4823,
+    "sha256": "caed18c0f8da0ecb16f99d228a06614a5cbd995edaed08a3f697101e3783335b"
+  },
+  "unitReturn": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/RETURN.json",
+    "bytes": 483807,
+    "sha256": "dac6936fdc6c722a8579608f329d02666e6696ecd60467ae892e3c2cdbe2cd13"
+  },
+  "campaignReturn": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/FINAL_RETURN.json",
+    "bytes": 2384,
+    "sha256": "dd108d63df4222cd9859a07b29fcc287e16e36b198ff4b5d192540ee9a68ff75"
+  },
+  "unitStdout": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/stdout.log",
+    "bytes": 220786,
+    "sha256": "8d75c4f07b87b8ee557fffa1aea9f59361f95d455e73587622a28b983f5bea38"
+  },
+  "unitStderr": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "compiledInventory": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182705,
+    "sha256": "3db4a581d6d81128f477de20b3e9591ce462e0be11dacb27f101fca2a34f2f35"
+  },
+  "unitCounts": {
+    "tests": 102,
+    "pass": 96,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0
+  },
+  "unitSkipped": [
+    {
+      "name": "M5 resolves and independently validates the complete executable root set",
+      "reason": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof"
+    },
+    {
+      "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "reason": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof"
+    },
+    {
+      "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "reason": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof"
+    },
+    {
+      "name": "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "reason": "ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body"
+    },
+    {
+      "name": "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "reason": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)"
+    },
+    {
+      "name": "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "reason": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)"
+    }
+  ],
+  "finalChecks": {
+    "sourceRowsAtEachOfThreeRoots": 1344,
+    "compiledRows": 996,
+    "dependencyRowsAtDonorAndCopy": 4576,
+    "npmOwnerRows": 2326,
+    "preservationPins": 8,
+    "unitEvidencePairs": 34,
+    "unitEmbeddedArchiveMemberHashes": 35,
+    "allNamedUnitCasesAndSkipReasonsExact": true,
+    "previous95UnitNamesConserved": true,
+    "only7AdmittedM5CasesAdded": true,
+    "externalCleanupNeeded": false,
+    "retainedWorkDelta": []
+  },
+  "remainingLimits": [
+    "six optional claims skipped",
+    "historical reds/native02/predecessor findings preserved",
+    "pending synthetic owner/descriptor lasts until bounded test process exits; no physical-close claim",
+    "no arbitrary external I/O cancellation claim",
+    "finite POSIX and controlled fixture evidence only",
+    "no performance/reliability inference",
+    "no installed qualification, release, wider plan completion or Root acceptance claim"
+  ],
+  "reviewerExecutedTestsOrProductCode": false,
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/PROOF_FINAL_CONJUNCTION.md",
+    "bytes": 6019,
+    "sha256": "83cad54b442c3c92c0e23b1813edbaa9923b8bf192f959f6d610f7857fee780c"
+  }
+}

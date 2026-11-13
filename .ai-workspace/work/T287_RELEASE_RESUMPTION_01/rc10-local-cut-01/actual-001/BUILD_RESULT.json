@@ -1,0 +1,28 @@
+{
+  "phase": "build",
+  "startedUtc": "2026-11-09T04:52:46.456Z",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/build-admission-001/ROOT_BUILD_BINDINGS.json",
+    "bytes": 10441,
+    "sha256": "0b08f21281d2f105c1835749b26c362deb2985d9ea047d0e61043c36270733d0"
+  },
+  "status": "BUILD_AND_BYTE_EQUAL_REPRODUCTION_COMPLETE_INSTALL_UNBOUND",
+  "qualified": false,
+  "published": false,
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1299,
+    "sha256": "2035647542e1975539a719735e4e043a27d3451b321b7bcdbfd85608a7d783b8"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/candidate/RESULT.json",
+    "bytes": 909,
+    "sha256": "be49278d36c81d9ec013c23fbf3931feda8a873d7ca8534fe68b0050724bcd26"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1285,
+    "sha256": "c35bb2135e03576dcf101f2461c3ac7908966eb014a738307d3efcdda6be3ae4"
+  },
+  "endedUtc": "2026-11-09T04:53:58.694Z"
+}

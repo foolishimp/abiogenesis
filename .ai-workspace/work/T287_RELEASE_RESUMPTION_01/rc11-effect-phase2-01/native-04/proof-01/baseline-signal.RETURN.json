@@ -1,0 +1,56 @@
+{
+  "id": "baseline-signal",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "--test-name-pattern=^controlled\\ lifetime:\\ re\\-entrant\\ signal\\ notices\\ strengthen\\ or\\ finish\\ the\\ attempt\\ and\\ no\\ obsolete\\ signal\\ follows$",
+    "test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "pid": 81682,
+  "pgid": 81682,
+  "exitCode": 1,
+  "wallSeconds": 0.2320501669999997,
+  "limitCause": null,
+  "cleanupNeeded": false,
+  "signals": [],
+  "groupAbsent": true,
+  "stdout": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/baseline-signal/stdout.log",
+    "bytes": 1251,
+    "sha256": "d7c86e8fbce3d1bde4637d86745b834594d83057712bb5b7d282bb025669d2b9"
+  },
+  "stderr": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/baseline-signal/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "evidence": [],
+  "postguards": {
+    "passed": true,
+    "sourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+    "sourceRows": 1345,
+    "compiledRows": 582,
+    "baselineCompiledRows": 996,
+    "stagedInputsVerified": true
+  },
+  "tap": {
+    "counts": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "names": [
+      "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows"
+    ],
+    "diagnostics": [],
+    "complete": true
+  },
+  "status": "BASELINE_COMPARISON_RETAINED",
+  "failure": null
+}

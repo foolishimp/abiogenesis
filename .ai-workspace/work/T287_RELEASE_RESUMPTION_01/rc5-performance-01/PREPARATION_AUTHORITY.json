@@ -1,0 +1,99 @@
+{
+  "activation": "T287_RC5_PREPARATION_01",
+  "startedUtc": "2026-11-03T08:04:28.516307+00:00",
+  "roleTransition": "Executive -> Writer",
+  "ownerInstruction": "Approved - go, selecting the preceding bounded RC5 performance/reproducibility proposal",
+  "method": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "sourcePredecessor": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+  "branch": "codex/rc5-performance",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc5-performance",
+  "operations": [
+    "create isolated successor worktree from exact RC4",
+    "carry exact current source-method adoption",
+    "record campaign scope and owner bindings",
+    "edit current T-287/GOALS routing preserving history",
+    "prepare operator inputs/scripts and execute existing installed RC4 owners",
+    "local source/evidence checkpoints",
+    "read/freeze/measure/review results"
+  ],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01",
+    "/Users/jim/src/apps/abiogenesis-rc5-performance",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/private/tmp/abg-rc5"
+  ],
+  "exclusions": [
+    "no direct Product code implementation by Executive/Writer",
+    "no push/tag/global selector/stable release",
+    "no old release or historical evidence changes",
+    "no completed qualification reruns"
+  ],
+  "nativeCoding": "separate exact grant; one ABG native Worker at a time, xhigh; independent max reviewers",
+  "status": "preparing",
+  "preExistingDirtyFiles": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 668287,
+      "sha256": "c2ba5753f94b3f48913e916b353ff7ae2cd3487137c6e0ef9e81b5c560fd06b0"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/NEXT_ACTIVATION_LIMITS.md",
+      "bytes": 2333,
+      "sha256": "50b1f502f2bd3a9fe4922391915e37e07ab472fc76b3e292219173cf0e266fbd"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md",
+      "bytes": 4031,
+      "sha256": "d67161759a997b1471691a19dccc33c8ee6b10bf916ee075532086c0ca35d96c"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 6306,
+      "sha256": "6c2f604416499412902f5696953f5a059a88f5a5a348b1b39e58108819ec1940"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 133955,
+      "sha256": "8475ebb342ae80164a7fd7056a8988456780102254858736c2c3d92e52e997db"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "bytes": 101600,
+      "sha256": "62048c056d4f92c0b32852956408a2ccd76d3bc6cbf59370e6adfe618fa06f45"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "bytes": 110059,
+      "sha256": "51ea6ace5d72f269a362839f43e5bd98278502f41dcc3d622e5db4c10273ee21"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "bytes": 9076,
+      "sha256": "a402a3a42606fc389617c800f6578cc1862787f777be986d2f7ed876a7db336c"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    }
+  ]
+}

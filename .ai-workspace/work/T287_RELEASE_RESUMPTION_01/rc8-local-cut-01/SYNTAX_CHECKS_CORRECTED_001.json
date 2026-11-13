@@ -1,0 +1,29 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-001.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-001.mjs",
+        "bytes": 27888,
+        "sha256": "c563c22709857bfa915bf00b3c3bb537ff97358aaccb502664ae3efeb0c32633"
+      }
+    }
+  ],
+  "executed": false,
+  "inverseRestoration": {
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.mjs",
+      "bytes": 23510,
+      "sha256": "d4e3a56f22046bcd237f5a66ee694001f6616f0b00e17b44ff6ba9a836d1500d"
+    },
+    "allOtherDriverBytesConserved": true,
+    "targetedReplacementCount": 8
+  }
+}

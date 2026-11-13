@@ -1,0 +1,81 @@
+{
+  "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1318.6178749999963,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 4,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 4,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "saved native revision bridge preserves revision discriminants and selected-retained ownership",
+      "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT unset; requires the saved native revision bridge prefix root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "saved revision Evidence separates historical origins from checked successor state",
+      "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT unset; requires the saved revision Evidence prefix root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "native correction consumes an actual failed verifier and preserves the unselected file",
+      "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_CORRECTION_NATIVE is not '1'; selects the native correction run over an actual failed verifier",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-008/events/087-t287-generic-job-revision.jsonl",
+    "bytes": 1939,
+    "sha256": "78c481f2e406ec7af4bbcad95da1267585281342d393ea18f5b0249f507edf0d"
+  },
+  "commandReceipt": "commands/087-t287-generic-job-revision.result.json",
+  "workspace": "/private/tmp/abg-r8c-008/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

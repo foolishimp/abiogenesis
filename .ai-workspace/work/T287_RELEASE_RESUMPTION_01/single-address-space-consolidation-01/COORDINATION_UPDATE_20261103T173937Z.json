@@ -1,0 +1,14 @@
+{
+  "recordedUtc": "2026-11-03T17:39:37.253510+00:00",
+  "activation": "CONTEXT_AND_CAUSAL_MAP.md#operator-writer-activation",
+  "effects": [
+    "native-02/REMAINING_OWNER_CLASSIFICATION.md",
+    "ROOT_REENTRY_SELECTION_03.md",
+    "prepare-native-03.py",
+    "STATUS.json"
+  ],
+  "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T173937Z/STATUS.json",
+  "beforeSha256": "f3fb08635c46434fa1d0cbe2b4271454822c948efdc2b5e08a3a37dd6a181b5b",
+  "afterSha256": "b381a42eb03236e31098b3d68cb70c8a6c26d730c7f4bf86426d07433a0c1a4f",
+  "standing": "Completed diagnostic and selected next relation; native-03 preparation not run, no new provider call or Product edit."
+}

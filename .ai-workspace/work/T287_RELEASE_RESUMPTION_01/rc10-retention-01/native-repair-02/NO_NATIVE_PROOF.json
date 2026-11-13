@@ -1,0 +1,6 @@
+{
+  "id": "RC10-INTEGRATION-REPAIR-02-NO-NATIVE-PROOF",
+  "status": "NO_NATIVE_PROOF_SELECTED",
+  "authorChecks": "readback and pinned Node --check only",
+  "externalProof": "After actual native close and successor freeze: separately admitted proof-02 build/focused/unit. All source-artifact fields remain unbound."
+}

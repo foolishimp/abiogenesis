@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-governed-context.test.mjs",
+  "kind": "executed",
+  "passed": false,
+  "wallMs": 27033.854290999996,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 15,
+    "failed": 1,
+    "passed": 14,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 15,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/events/090-t287-governed-context.jsonl",
+    "bytes": 6907,
+    "sha256": "b75814922f58442533941f3176bdaaafc8eeecf7133d8179f8df04f0786c7c65"
+  },
+  "commandReceipt": "commands/090-t287-governed-context.result.json",
+  "workspace": "/private/tmp/abg-r8c-009/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

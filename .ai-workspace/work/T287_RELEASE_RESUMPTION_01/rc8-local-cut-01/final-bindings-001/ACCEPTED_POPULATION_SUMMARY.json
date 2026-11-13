@@ -1,0 +1,190 @@
+{
+  "status": "ACCEPTED_POPULATION_SUMMARY_NO_LEDGER_RESTAMP",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 26861,
+    "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+  },
+  "sourceBroadConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/ROOT_SOURCE_BROAD_CONJUNCTION.json",
+    "bytes": 51978,
+    "sha256": "2fdc2bd5c58ad400183462c3357768eb513f645d4b86bcb4d85b8823d27958b8"
+  },
+  "summary": {
+    "inventoriedFiles": 208,
+    "broadCreditedFiles": 192,
+    "broadActualPasses": 986,
+    "broadHistoricalSkips": 227,
+    "separatelyHandledPopulations": 16,
+    "separateWholeProofs": 4,
+    "acceptedCasewisePopulations": 3,
+    "openResidualPopulations": 9,
+    "pendingA12CasewisePopulation": 0,
+    "allInventoriedFilesAccounted": true,
+    "accounting": "208 =192 retained broad credits +16 separately handled populations;16 =4 separately accepted whole +3 casewise +9 OPEN. Separate proofs are not restamped into the broad025 ledger.",
+    "wholeBroadGreen": false
+  },
+  "separatePopulations": [
+    {
+      "file": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "standing": "ACCEPTED_SEPARATE_WHOLE",
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 3364,
+        "sha256": "66ce47f3e3c3885b2f92bac9236258b83b5eeebc86174b8cd4e65e08c2d37068"
+      },
+      "residual": null
+    },
+    {
+      "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "standing": "ACCEPTED_SEPARATE_WHOLE",
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 3382,
+        "sha256": "5adb7f3484eee3463effd152a96abf2a6d01fb22253f8a0c0b7eece7a2b97991"
+      },
+      "residual": null
+    },
+    {
+      "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+      "standing": "ACCEPTED_SEPARATE_WHOLE",
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/ROOT_PROOF_ACCEPTANCE.json",
+        "bytes": 5538,
+        "sha256": "7c1f566e0ce754acaba86a5c71e499099c207effd4a94ff54d4628196c239bc8"
+      },
+      "residual": null
+    },
+    {
+      "file": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+      "standing": "ACCEPTED_SEPARATE_WHOLE",
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/ROOT_PROOF_ACCEPTANCE.json",
+        "bytes": 5633,
+        "sha256": "ea1e0ad4348e245c1917ebcdf4fe7c540c7e035f7f213a5404de7632438ba26e"
+      },
+      "residual": null
+    },
+    {
+      "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+      "standing": "ACCEPTED_CASEWISE",
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 7205,
+        "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+      },
+      "residual": null
+    },
+    {
+      "file": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "standing": "ACCEPTED_CASEWISE",
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/ROOT_PROOF_ACCEPTANCE.json",
+        "bytes": 7000,
+        "sha256": "2cbd148bbda0fa76061ad9b0d4f2f526bd3fbe4187df8d8bb152cf786ee80fb1"
+      },
+      "residual": null
+    },
+    {
+      "file": "test_env/tests/t287-governed-context.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "acceptance": null,
+      "residual": "RC8-GC03-METHOD-304"
+    },
+    {
+      "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "acceptance": null,
+      "residual": "RC8-NATIVE-ASSESSMENT-PROFILE"
+    },
+    {
+      "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "acceptance": null,
+      "residual": "RC8-SAS-WHOLE-PROOF"
+    },
+    {
+      "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "acceptance": null,
+      "residual": "RC8-PHYSICAL-LIFETIME-013"
+    },
+    {
+      "file": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "acceptance": null,
+      "residual": "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF"
+    },
+    {
+      "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "acceptance": null,
+      "residual": "RC8-SELECTED-ACTION-PROFILE"
+    },
+    {
+      "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "acceptance": null,
+      "residual": "RC8-W2-05-TOKEN-ORACLE"
+    },
+    {
+      "file": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "acceptance": null,
+      "residual": "RC8-C3-COMPOSITION-PROOF-BUDGET"
+    },
+    {
+      "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "acceptance": null,
+      "residual": "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET"
+    },
+    {
+      "file": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "standing": "ACCEPTED_CASEWISE",
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 26861,
+        "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+      },
+      "residual": null
+    }
+  ],
+  "configuredC2Positive": {
+    "standing": "Separate existing accepted configured positive only",
+    "evidence": {
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_PROOF_ACCEPTANCE.json",
+        "bytes": 6648,
+        "sha256": "39720ed81751230af6736335ed3be35a49510586a5e674f9b19c51d111de4a4f"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/RESULT.json",
+        "bytes": 1514,
+        "sha256": "71c3eb4f0c29e933e50a73bf4f058f0b9f464dab41ed3441b51795df1ace7135"
+      },
+      "passed": 1,
+      "skipped": 0,
+      "excluded": 11,
+      "wholeFile": false,
+      "scope": "One configured installed large-log observation/replay case;21 owner-local refusal checks do not close five installed-negative variants; no universal escaped-descendant absence claim."
+    },
+    "actualPassed": 1,
+    "reportedSkipped": 0,
+    "excludedOtherCases": 11,
+    "priorComponentPasses": 6,
+    "priorComponentEvidenceIdentityPreserved": true,
+    "installedNegativeVariantsStillOpen": 5,
+    "wholeFileQualification": false
+  },
+  "allNineResidualsOpen": true,
+  "limits": [
+    "Bounded one-file/two-symbol unshipped fixture successor and exact casewise conjunction only; no new whole-file execution or whole-file pass credit.",
+    "The profile case uses injected Product/environment component premises while exercising native store/admission/transaction/close/reopen/cold correspondence; no installed L-to-W bridge proof.",
+    "Original024 red, original source identity and fourteen passing cases remain historical evidence; all prior accepted code, performance and functional proofs retain their exact subjects and limits.",
+    "All nine residual capsules remain OPEN. Existing limited no-block rationales apply only to this same explicitly unqualified local REF01 cut.",
+    "Twelve cold residuals, S7, fixed15/full5.0 and human gates remain open; no whole-broad-green or all-qualification claim.",
+    "Known-PID and exact-log descriptor observations are bounded custody evidence; no blanket physical or detached-descendant absence claim and no quota-enforcement assurance.",
+    "Observed native process model/effort arguments are declared configuration evidence, not provider telemetry assurance. Separate measured timings are retained without a speedup inference."
+  ]
+}

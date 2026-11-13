@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-selected-execution-closure.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 522.5125000000116,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "selected execution closure over the frozen installed owner, refused request and finite historical fixture",
+      "file": "test_env/tests/t287-selected-execution-closure.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_SELECTED_CLOSURE_INSTALLED_ROOT, ABI5_SELECTED_CLOSURE_EVIDENCE or ABI5_SELECTED_CLOSURE_HISTORY_FIXTURE unset; requires the frozen installed owner, refused request and finite historical fixture",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/events/173-t287-selected-execution-closure.jsonl",
+    "bytes": 1033,
+    "sha256": "a5728f3814a1a284a70e11af9c44f3cd08e267c1e1a458663c2ef74a886bb036"
+  },
+  "commandReceipt": "commands/173-t287-selected-execution-closure.result.json",
+  "workspace": "/private/tmp/abg-r8c-020/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

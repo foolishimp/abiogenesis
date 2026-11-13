@@ -1,0 +1,46 @@
+{
+  "positive": {
+    "status": "OPERATOR_FILE_ONLY_CHECKED",
+    "runtimeCalls": 0,
+    "ProductTestsBuilds": 0,
+    "sourceWriteIntersection": [],
+    "invariantSources": 18,
+    "manualSourceWritePaths": 0,
+    "readOnlyProductPaths": 53,
+    "generatedOutputWriteRoots": 0,
+    "scratchRoots": 1,
+    "readRoots": 982,
+    "selectedC2Paths": 966,
+    "commands": 9,
+    "predicates": 12,
+    "requiredExecutionBudgetMs": 4267250,
+    "selectedEntriesIncludingPlannedInputsAndAbsentScratch": 1251,
+    "selectedRawBytesIncludingPlannedInputs": 42176321,
+    "generatedEntriesIncludingRoot": 0,
+    "generatedRawBytes": 0,
+    "contextCapBytes": 268435456,
+    "contextCapEntries": 10000,
+    "issues": [],
+    "plannedInputs": 0,
+    "materialized": true,
+    "priorScratchSelected": false,
+    "limit": "Filesystem size/read-root prediction only; no admitted context or future-peak guarantee. Root installed preflight must validate actual prepared input/absence/symlink/freshness. New scratch must exist before installed observation; bounded disposable fixture teardown remains native work."
+  },
+  "negative": {
+    "negativeControl": "scratch source/write overlap refused",
+    "runtimeCalls": 0
+  },
+  "readiness": {
+    "status": "FILE_ONLY_READY",
+    "sourceCommit": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+    "selectedEntriesIncludingRoot": 1252,
+    "selectedRawBytes": 42176321,
+    "maxContextFiles": 10000,
+    "maxContextBytes": 268435456,
+    "sourceHashesMatched": 12,
+    "issues": [],
+    "meaning": "Readiness evidence only; no ABI admission, runtime/test/build/provider call. Actual Runtime observation remains authoritative."
+  },
+  "syntax": "3 mjs Node --check;3 Python AST;provider shell -n passed",
+  "runtimeCalls": 0
+}

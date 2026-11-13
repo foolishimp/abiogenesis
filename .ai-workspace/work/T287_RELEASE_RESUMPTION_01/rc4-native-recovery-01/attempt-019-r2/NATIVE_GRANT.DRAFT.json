@@ -1,0 +1,67 @@
+{
+  "basis": {
+    "uri": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "sourceTree": "d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "builder": {
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "cliRelativePath": "build/code/src/public/cli.js",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "archiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+    "manifestSha256": "8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+    "productContentSha256": "c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4"
+  },
+  "kind": "rc4_local_identity_native_grant",
+  "status": "UNFROZEN_PREPARATION_NO_ADMISSION",
+  "changeClass": "release_identity_realization",
+  "Construction": {
+    "productWritePaths": [
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts"
+    ],
+    "generatedOutputWriteRoots": [],
+    "directoryCreationRoots": [],
+    "scratchWriteRoots": [
+      "rc4-scratch/native-recovery-19/return.json",
+      "rc4-scratch/native-recovery-19/readiness.json",
+      "rc4-scratch/native-recovery-19/notes.md",
+      "rc4-scratch/native-recovery-19/tmp"
+    ],
+    "mandatoryExistingPaths": [
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts"
+    ],
+    "nativeCreatedPaths": []
+  },
+  "scope": "Only package version/top and root lock versions plus ABI5_PRODUCT_ID/ABI5_PACKAGE_VERSION change to5.0.0-rc.4. Preserve dependency graph, schemas5.0.0, major5 references, STDO3.0.2, all behavior and history. C2 owns build/pack/generated outputs; no global replacement. Final source/generated adoption and local installation require separate Root selection.",
+  "otherRoleCanonicalWritePaths": [],
+  "tooling": {
+    "offlineReadRoot": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "scratchRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-19",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-19/tmp",
+    "readOnlyProof": "reuse existing offline census and verification script",
+    "normalDevelopmentMethods": "Three identity source edits only; official pinned tsc --noEmit --incremental false allowed if useful, no repeated baseline/audit. C2 alone builds/packages/tests.",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-19/tmp",
+    "environmentBoundary": "All current RC3 writes contained in observedR. Provider-only existingtmp; neutral RuntimeTMP; no RuntimeNPM. Candidate W outsideR proof requires successor installed runtime.",
+    "dependencyLink": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/node_modules",
+    "dependencyTarget": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "dependencyAccess": "Operator-owned link/store read-only tooling; outside W and observedR. Existing full census verified before/after."
+  },
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 96,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "focusedTimeoutMs": 2700000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null,
+    "maxContextBytes": 268435456
+  },
+  "acceptance": "Only scopedRC4 identity, seven C2 commands/UAT, exact full payload correspondence and current provider-free installed smoke. No qualification/publication/selector/push/adoption authority."
+}

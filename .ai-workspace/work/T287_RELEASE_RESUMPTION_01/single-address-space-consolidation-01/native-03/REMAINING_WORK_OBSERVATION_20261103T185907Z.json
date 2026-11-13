@@ -1,0 +1,40 @@
+{
+  "recordedUtc": "2026-11-03T18:59:07.839205+00:00",
+  "kind": "selected_scope_remaining_work_observation",
+  "authority": "ROOT_REENTRY_SELECTION_03.md and original C1-C5 / R1-R7",
+  "workerProgress": {
+    "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-03/progress.json",
+    "sha256": "fae5df9342f5d66a475d8b379a3fe02c454a122c4b34d90f7ba0da0c2a4a6c04",
+    "observed": {
+      "kind": "native_03_progress",
+      "startedUtc": "2026-11-03T18:14:29Z",
+      "milestones": [
+        {
+          "utc": "2026-11-03T18:15:11Z",
+          "milestone": "intake",
+          "detail": "Read TASK, NATIVE_GRANT, selection03, owner/census classifications, recheck, C2 triage, previous return, held evidence, map, rubric. 43 held file hashes + 3 handoff hashes match current worktree. stdo status --verify: installed=true valid=true failures=[] manifest 102817a3..."
+        },
+        {
+          "utc": "2026-11-03T18:30:11Z",
+          "milestone": "liveness+first-migrations",
+          "detail": "liveness frame-scope null CCall short-circuit (extent read keeps authenticity/generation) + envelope-first basis bucket. Scratch meter same input: held 22.996 -> liveness-only candidate 9.732 full passes per unrelated event (both 4/4 pass). Then F_H facts kind-indexed + exact-ID reads + owned physical predecessor; effectful truth owned acquisition + kind-indexed construction/basis; replay ID membership via id-bucket envelopes; projectRuntimePrefixesAtDurablePrefix consumers (run_invocation x5, operator_support) migrated and adapter+export deleted; leaf port pre-effect read owned requireCurrent; invocation_admission reads owned; projectOwnedPrefixArtifactTruth adopted at run_invocation setup, environment (491/1241), materialization, release x2, product read; env forwarding wrapper deleted. tsc --noEmit clean."
+        },
+        {
+          "utc": "2026-11-03T18:56:53Z",
+          "milestone": "authority-effect-witness-receipt-migrations+HOW",
+          "detail": "Migrated requirement_handoff, semantic_revision, result_assessment_operation, self_conformance_basis, worksite_file_replace (333/696, requireCurrent kept), witness_definition_bindings (156/242/308), runtime_failure (276/346), materialization/result post-effect tail checks (extent+1 and tail by index), declaration_application logical-prefix relation (extent + through-event cut + runtimeEventPrefixDigest; absent cut refuses unready). t287-reconstruction-conservation migrated off deleted projectRuntimePrefixesAtDurablePrefix. HOW row updated in ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md. tsc --noEmit clean; w build + manifest exit 0; final lanes 0-3 running. Not migrated: worksite_command_forward 69/189/219, worksite_construction_recovery 215/322, witness_admission_operation, retry 638/3597, qualification_proof."
+        }
+      ]
+    }
+  },
+  "remainingReportedFamilies": [
+    "worksite_command_forward 69/189/219",
+    "worksite_construction_recovery 215/322",
+    "witness_admission_operation",
+    "retry 638/3597",
+    "qualification_proof"
+  ],
+  "countNote": "Worker lists six comma-separated groups when retry638 and retry3597 are counted separately; use exact named sites, not a percentage or headline count.",
+  "disposition": "Remain selected and unresolved. This is a progress observation, not authority to defer, shrink the original outcome, or accept complete consolidation. Final frozen return and independent recheck govern the next decision.",
+  "scheduleRisk": "06:30-07:15AEDT depends on completing these sites and affected proof; another native activation will require a revised estimate."
+}

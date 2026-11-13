@@ -1,0 +1,651 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts
+index e6481f7e3..742e7d8ec 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts
+@@ -3,7 +3,8 @@ import { NATIVE_WORKSPACE_WORK_IDS as ids, isNativeWorkspaceWorkTask, nativeWork
+   nativeWorkspaceWorkResponseSchema, nativeWorkspaceWorkResultContractRef, parseNativeWorkspaceWorkReport, nativeWorkspaceScopeViolations,
+   nativeWorkspaceChangedPaths, nativeWorkspaceWorkProvenance, constructNativeWorkspaceWorkObservation,
+   type NativeWorkspaceWorkTask, type NativeWorkspaceWorkFailure } from "../product/native_workspace_work.js";
+-import { observeWorksiteContext } from "../product/worksite_operations.js";
++import { checkWorksiteWriteRoots, observeWorksiteContext } from "../product/worksite_operations.js";
++import { projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
+ import { carryWorksiteContextBodies, isWorksiteContextObservation, sameWorksiteContextIdentity } from "../product/worksite_effect.js";
+ import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "../product/contracts.js";
+ import { isLeafExecutionAuthority } from "./leaf_execution_authority.js";
+@@ -29,6 +30,18 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
+   if (!isNativeWorkspaceWorkTask(input) || !isLeafExecutionAuthority(authority) ||
+     !nativeWorkspaceWorkAuthorityMatches(input, authority) || prepareAssembly === undefined)
+     throw new TypeError("native workspace work requires its exact admitted effect authority and assembly");
++  // Protected roots: the exact-prefix environment names the install roots; the
++  // worksite owner refuses any W overlapping them or the binding roots.
++  const environment = projectExactPrefixWorkspaceEnvironment(authority.predecessorPrefix,
++    { ref: authority.workspaceBindingIdentity, digest: authority.workspaceBindingDigest });
++  if (environment.kind !== "exact_prefix_workspace_environment" || !canonicalEquals(environment.workspaceBinding, input.workspaceBinding) ||
++    !canonicalEquals(environment.workspaceAuthorityBasis, input.workspaceAuthorityBasis))
++    throw new TypeError("native workspace work requires its exact admitted workspace environment");
++  const protectedWrite = await checkWorksiteWriteRoots({ workspaceAuthorityBasis: input.workspaceAuthorityBasis,
++    workspaceBinding: input.workspaceBinding, protectedInstallRoots: environment.productInstalls.map(install => install.installedRoot),
++    writeRoots: input.writeRoots });
++  if (protectedWrite !== null)
++    throw new TypeError(`native workspace write roots refuse before dispatch: ${protectedWrite.code}: ${protectedWrite.message}`);
+   const observationInput = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
+     readRoots: input.context.readRoots, maxFiles: input.context.maxFiles, maxBytes: input.context.maxBytes };
+   // Fresh physical currentness; the admitted task keeps its own body carriage.
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts b/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts
+index 0c8915e48..e6fe4308b 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts
+@@ -514,6 +514,19 @@ function protectedWorksitePath(
+   );
+ }
+ 
++/** A planned write root meets a declared binding root when either path
++ * contains the other: exact, enclosing or inside. Territory and subject
++ * construction keep containment only, so a read territory may enclose one. */
++export function protectedWorksiteWriteRoot(
++  authority: WorkspaceAuthorityBasis,
++  workspace: WorkspaceBinding,
++  relativeRoot: string,
++): boolean {
++  const candidate = resolve(authority.canonicalRoot, ...relativeRoot.split("/"));
++  return protectedWorksitePath(authority, workspace, relativeRoot) ||
++    Object.values(workspace.roots).some((root) => containsPath(candidate, root));
++}
++
+ function exactExecutionBasis(value: ExecutionBasis): boolean {
+   if (
+     value.kind !== "execution_basis" ||
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts b/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts
+index 7f2b904b8..72b5201f0 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts
+@@ -60,6 +60,7 @@ import {
+   worksiteContextIdentityDigest,
+   worksiteContextObservationRef,
+   normalizeWorksiteRelativePath,
++  protectedWorksiteWriteRoot,
+   worksiteFileParentPaths,
+   worksiteFileParentsFailure,
+   type WorksiteFileParentsRequestInput,
+@@ -969,6 +970,51 @@ function checkedWorksitePath(root: string, protectedRoots: readonly string[], pa
+   return target;
+ }
+ 
++/** Where a planned write root lies physically: an existing file through its
++ * canonical parent, a directory or missing path through
++ * `plannedCanonicalPath`. A link at any existing component refuses. */
++async function plannedWriteRootPath(target: string): Promise<string> {
++  try {
++    const status = await lstat(target);
++    if (status.isSymbolicLink()) throw new TypeError("worksite write root is a symlink");
++    if (!status.isDirectory()) return resolve(await plannedCanonicalPath(dirname(target)), basename(target));
++  } catch (error) {
++    if (errnoCode(error) !== "ENOENT") throw error;
++  }
++  return plannedCanonicalPath(target);
++}
++
++export interface WorksiteWriteRootsInput extends WorksiteReadBasis {
++  readonly writeRoots: readonly string[];
++}
++
++/** Planned write roots W against the protected roots context observation
++ * uses: binding roots by declared path, binding and install roots by resolved
++ * location. A root that equals, encloses or lies inside a protected root
++ * refuses; read roots are not consulted. Reads only. */
++export async function checkWorksiteWriteRoots(input: WorksiteWriteRootsInput): Promise<WorksiteEffectRefusal | null> {
++  const resolved = await worksiteReadRoots(input);
++  if ("kind" in resolved) return resolved;
++  const overlap = () => worksiteRefusal("subject_outside_territory", "worksite write root overlaps a protected install/runtime root");
++  for (const writeRoot of input.writeRoots) {
++    const target = checkedWorksitePath(resolved.root, resolved.protectedRoots, writeRoot);
++    if (typeof target !== "string") return target;
++    const territory = constructWorksiteTerritory({ workspaceAuthorityBasis: input.workspaceAuthorityBasis,
++      workspaceBinding: input.workspaceBinding, relativeRoot: writeRoot, territoryUri: pathToFileURL(target).href });
++    if (territory.kind !== "worksite_territory") return territory;
++    if (protectedWorksiteWriteRoot(input.workspaceAuthorityBasis, input.workspaceBinding, writeRoot)) return overlap();
++    let planned: string;
++    try {
++      planned = await plannedWriteRootPath(target);
++    } catch (error) {
++      return worksiteRefusal("invalid_coordinate", `worksite write root cannot be resolved: ${String(error)}`, null, errnoCode(error));
++    }
++    if (!confined(resolved.root, planned) ||
++      resolved.protectedRoots.some(protectedRoot => confined(protectedRoot, planned) || confined(planned, protectedRoot))) return overlap();
++  }
++  return null;
++}
++
+ /** Read only: no directory prerequisite is manufactured by observation. */
+ export async function observeWorksiteFileParents(input: Omit<WorksiteFileParentsRequestInput, "ancestorObservations"> & { readonly protectedInstallRoots?: readonly string[] }): Promise<WorksiteFileParentsRequest | WorksiteEffectRefusal> {
+   const resolved = await worksiteReadRoots(input);
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+index 2f545058e..d6a159b1c 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+@@ -127,6 +127,102 @@ entries. Native after-state stays available in the ordinary admitted result and
+ replay. Unknown after-state and the original failure remain explicit; no
+ successor observation is manufactured.
+ 
++## Protected write roots
++
++Protected roots P are the WorkspaceBinding roots plus the `installedRoot` of
++each Product install in the exact-prefix workspace environment. A write root
++w ∈ W overlaps P when w equals, encloses or lies inside some p ∈ P. All three
++overlap classes refuse the task before assembly and provider dispatch. R keeps
++its existing legitimacy and observation. An ordinary w outside R that meets no
++p is admitted.
++
++The relation has a path reading and a physical reading, both in the existing
++worksite owners:
++
++- Path (`product/worksite_effect.ts`): `constructWorksiteTerritory` checks the
++  binding join and territory URI, and refuses containment in a declared
++  binding root. `protectedWorksiteWriteRoot` adds the enclosing direction.
++  Read territories keep containment only, so R = `.` stays valid.
++- Physical (`product/worksite_operations.ts`): `checkWorksiteWriteRoots`
++  resolves P through `worksiteReadRoots`, which covers binding and install roots
++  through `plannedCanonicalPath`. It checks the lexical target with
++  `checkedWorksitePath`. It then resolves w physically and refuses either
++  containment direction:
++  - an existing file resolves through its canonical parent;
++  - a directory or missing path resolves through `plannedCanonicalPath`;
++  - a link at any existing component refuses.
++
++```text
++LeafPort ─► realizeNativeWorkspaceWork(task, occurrence, prepareAssembly)
++  realize: task ∧ leaf authority ∧ nativeWorkspaceWorkAuthorityMatches
++  realize ─► projectExactPrefixWorkspaceEnvironment(predecessorPrefix, binding ref/digest)
++          ◄─ environment (binding, authority basis, productInstalls) | refusal
++  realize ─► checkWorksiteWriteRoots({basis, binding, protectedInstallRoots, writeRoots: W})
++    ─► worksiteReadRoots: territory "." ; plannedCanonicalPath(P)
++    ─► per w: checkedWorksitePath ─► constructWorksiteTerritory(w)
++              ─► protectedWorksiteWriteRoot(w) ─► physical w vs P
++          ◄─ null | WorksiteEffectRefusal
++  realize ─► observeWorksiteContext(R) (unchanged currentness check)
++  realize ─► prepareAssembly() ─► request checks ─► prepared invocation (dispatch)
++```
++
++The following throw before `prepareAssembly`:
++
++- an environment refusal;
++- an environment whose binding or authority basis differs from the task;
++- a write-root refusal.
++
++The leaf port records each one as the existing undispatched owner refusal
++(`implementation_exception`, stage `preparation`). The refusal value is the
++existing `WorksiteEffectRefusal` with its existing codes. The physical owner
++and the installed dispatch path share this one preflight. Every native dispatch
++passes it.
++
++The guard preserves these invariants:
++
++- The task schema, `isNativeWorkspaceWorkTask`, native failure classes,
++  refusal codes and the shared impact relation stay unchanged. W\R stays
++  unobserved and is impacted whole. Observed-unchanged R facts stay current.
++  Present and absent facts retire alike.
++- Instruction assembly, its authenticated current-execution binding bytes and
++  shared W/R currentness stay unchanged. The guard runs before assembly and
++  adds no prompt section.
++- The guard only reads. It adds no store, controller, sandbox, scanner,
++  failure code or post-dispatch check, and `complete()` observation is
++  unchanged.
++
++The effect grant covers three files:
++
++- `product/worksite_effect.ts` for the path relation;
++- `product/worksite_operations.ts` for the physical guard;
++- `implementation/native_workspace_work.ts` for the preflight call.
++
++No ABG, instruction-assembly or currentness owner changes.
++
++The proof plan has two parts:
++
++- Component (`t287-native-workspace-work`):
++  - Each overlap class refuses before assembly, through both direct realize
++    and the leaf port, with no dispatch. Path controls declare a binding root
++    inside A. Physical controls use an install root inside A from the
++    environment and a link alias to a protected root.
++  - Prefix-sibling names and W outside R are admitted.
++  - W\R present/absent retirement and R-unchanged currentness hold through the
++    guarded path.
++  - The exact-prefix environment is a controlled premise keyed by the
++    fixture binding.
++- Installed (`t287-default-library` same-Run case): the construction work
++  order adds a W root outside R, and the scripted provider-free native actor
++  writes one file there. The installed realize reads the genuine exact-prefix
++  environment, admits the root, and the Run completes. Assertions cover:
++  - the actor log;
++  - the physical bytes;
++  - the native Result: `changedPaths` excludes the W\R file, and the task's
++    W contains the root while R does not;
++  - currentness: the shared impact and `worksiteCommandSourcesInvalidatedAfter`
++    hold for the W\R file and the changed candidate, but not for an unchanged
++    R source.
++
+ ## Context body carriage (P1)
+ 
+ A worksite context's identity is its workspace authority basis and binding,
+diff --git a/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs b/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs
+index be57aa0ad..1b3c9f622 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs
+@@ -236,10 +236,14 @@ export async function constructInstalledStartCall({
+   declaredStartRef,
+   assetHandle,
+   inputFactory,
++  sourceResult,
+ }) {
+   // One selection: next, one declared start, or one published asset handle.
+   assert.ok(declaredStartRef === undefined || assetHandle === undefined, "start and asset selections are mutually exclusive");
+   if (assetHandle !== undefined) assert.ok(typeof assetHandle === "string" && assetHandle.length > 0, "asset selection names one handle");
++  // A retained-source start names one owner-derived source-result basis and
++  // the Public authority it was projected under; otherwise the source is none.
++  if (sourceResult !== undefined) assert.ok(sourceResult.basis && sourceResult.projectionAuthority, "a source start names its basis and projection authority");
+   const {
+     product,
+     abg,
+@@ -355,7 +359,11 @@ export async function constructInstalledStartCall({
+     input: contractBoundInput,
+     fhMode: "direct",
+     rootMode,
+-    sourceBasis: Object.freeze({ kind: "none" }),
++    sourceBasis: sourceResult === undefined ? Object.freeze({ kind: "none" }) : Object.freeze({
++      kind: "admitted_source_result",
++      projectionAuthority: Object.freeze({ ref: sourceResult.projectionAuthority.ref, digest: sourceResult.projectionAuthority.digest }),
++      sourceResult: Object.freeze({ ref: sourceResult.basis.sourceResultRef, digest: sourceResult.basis.sourceResultDigest }),
++    }),
+   });
+   const steeringDigest = product.sha256Canonical(eventResource);
+   const slots = Object.freeze({
+@@ -424,7 +432,8 @@ export async function constructInstalledStartCall({
+     catalog,
+     catalogView,
+     applications: Object.freeze([]),
+-    source: Object.freeze({ kind: "none" }),
++    source: sourceResult === undefined ? Object.freeze({ kind: "none" })
++      : Object.freeze({ kind: "admitted_source_result", basis: sourceResult.basis }),
+     ...(runEnvironmentResourceFactory === undefined ? {} : {runEnvironmentResources:await runEnvironmentResourceFactory({authority,program:resolution.program,workspaceBinding,product})}),
+   });
+   return {
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs
+index 7b4a6a336..2572836a9 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs
+@@ -124,13 +124,15 @@ async function controlledOwner(f, invalidated=()=>false){
+   const rows=[],invocation={invocationRef:'invocation:fulfillment',invocationAdmissionRef:'admission:fulfillment',capabilityGrants:[f.capabilityGrant]},execution={basisRef:'basis:wrapper',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:fulfillment',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
+   const sourceExecution={...execution};
+   const root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:f.state}};
++  // Root-class identity of the rehydrated root basis; empty unless a case binds it.
++  const rootIdentity={};
+   const owned={program,prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:fulfillment'},inputValue:null,inputRef:'input:fulfillment',inputOrigin:{}};
+   const index=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId);
+   // The one governance-root projection as built, over the same index and the
+   // root basis the indexed root event admits: both relations are supplied.
+   const projectionFile=resolve(packageRoot,'build/code/src/abg/semantic_job.js'),projectionModule=new SourceTextModule(await readFile(projectionFile,'utf8'),{identifier:projectionFile});
+   await projectionModule.link(async s=>{const actual=await import(s.startsWith('node:')||!s.startsWith('.')?s:pathToFileURL(resolve(dirname(projectionFile),s)).href);
+-    const values={...actual,...(s==='./event_prefix.js'?{indexedRuntimeEvents:index}:s==='./execution_basis.js'?{rehydrateExecutionBasisAtPrefix:(_p,ref)=>ref===root.payload.basisRef?{...execution,basisRef:ref,parentExecutionBasisRef:null,rawInputValue:root.payload.rawInputValue}:null}:{})};
++    const values={...actual,...(s==='./event_prefix.js'?{indexedRuntimeEvents:index}:s==='./execution_basis.js'?{rehydrateExecutionBasisAtPrefix:(_p,ref)=>ref===root.payload.basisRef?{...execution,...rootIdentity,basisRef:ref,parentExecutionBasisRef:null,rawInputValue:root.payload.rawInputValue}:null}:{})};
+     return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await projectionModule.evaluate();
+   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+   // Exact ingress/closed occurrence is the controlled premise. Real child,
+@@ -140,7 +142,7 @@ async function controlledOwner(f, invalidated=()=>false){
+     const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceExecution}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?{...projectionModule.namespace}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis:sourceExecution})}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
+-  return {m,owned,rows,execution,sourceExecution,invocation,root,library,at};
++  return {m,owned,rows,execution,sourceExecution,invocation,root,rootIdentity,projection:projectionModule.namespace,library,at};
+ }
+ function synthesis(state,purpose,context,subjectEvidenceRef=null){return {...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:hash(purpose),basis:{inputRef:'input:synthesis',inputDigest:hash(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:hash('environment'),frameEvidenceDigest:hash('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Controlled semantic premise',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Selected work',reason:'Actual evidence',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Chosen work',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current evidence',revisionEvidenceRefs:[],requirementProposals:[]}}};}
+ const provenance=name=>({cCallRef:'call:'+name,executionAuthorityRef:'authority:test',executionAuthorityDigest:hash('authority'),actorInvocationRef:'actor:'+name,transportBindingRef:'transport:test',transportBindingDigest:hash('transport'),promptDigest:hash('prompt'),transportDigest:hash('transport')});
+@@ -181,15 +183,32 @@ test('selected-profile hook and persisted assembly conserve admitted additions t
+   const f=await fixture(t),o=await controlledOwner(f),context=await f.observe(),graph=o.library.graphFunctions.find(g=>g.name===product.governanceRef('graph-function','executive-step'));
+   const node=graph.template.nodes.find(n=>n.nodeRef===graph.declarations['abg.framed_synthesis_locus']),projection=graph.template.nodes.find(n=>n.nodeRef===graph.declarations['abg.framed_synthesis_projection']),role=o.library.runEnvironments[0].roles.find(r=>r.role==='selector');
+   const targets=o.library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']),task={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state:f.state,context};
+-  Object.assign(o.execution,{programRef:o.owned.program.programRef,basisDigest:hash('basis'),registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,hash(g)]))});
++  Object.assign(o.execution,{programRef:o.owned.program.programRef,basisDigest:hash('basis'),graphFunctionRef:graph.name,registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,hash(g)]))});
+   Object.assign(o.owned,{graph:{template:graph.template},inputValue:task,inputRef:'result:prepared',inputDigest:hash(task)});
++  // Current-binding premises the selector guard requires, from this fixture's
++  // one invocation admission, its one Run and its indexed governance root,
++  // whose definition recurses into the executing step.
++  const executive=o.library.graphFunctions.find(g=>g.template.applications.some(a=>a.relationKind==='recurse'&&a.graphFunctionRef===graph.name));
++  Object.assign(o.invocation,{programRef:o.owned.program.programRef,graphFunctionRef:executive.name,graphFunctionDigest:hash(executive),invocationVariant:'direct',publicStart:null,sourceResultBasis:null});
++  Object.assign(o.rootIdentity,{basisClass:'root',graphFunctionRef:executive.name,graphFunctionDigest:hash(executive)});
++  let currentRun=o.owned.call.runId;
+   Object.assign(o.owned.call,{regime:'F_P',cCallRef:'call:selector',cCallDigest:hash('call'),graphCallId:'graph-call:fulfillment',graphFunctionRef:graph.name,programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')});
+   const publication={...o.library,programs:[o.owned.program]},candidate={publication,graphFunction:graph,declarationGraphFunctions:o.library.graphFunctions,executionBasis:o.execution,cCall:o.owned.call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
+   const file=resolve(packageRoot,'build/code/src/abg/instruction_assembly.js');
+-  const load=async()=>{const m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href),replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>o.owned}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:o.execution.invocationAdmissionRef,environmentRef:'environment:fulfillment',environmentDigest:hash('environment'),evidenceDigest:hash('evidence'),contextPolicyDigest:hash(role.contextPolicy),sourceContent:[],accessContent:[]})}:{};const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m;};
++  const load=async()=>{const m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href),replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>o.owned}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:o.execution.invocationAdmissionRef,environmentRef:'environment:fulfillment',environmentDigest:hash('environment'),evidenceDigest:hash('evidence'),contextPolicyDigest:hash(role.contextPolicy),sourceContent:[],accessContent:[]})}:
++    specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:(_p,ref)=>ref===o.invocation.invocationAdmissionRef?o.invocation:null,
++      hasExactInvocationRunBindingAtPrefix:(_p,admission,runId)=>admission===o.invocation&&runId===currentRun}:
++    specifier==='./semantic_job.js'?{...o.projection}:{};const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m;};
+   const pubs=[publication,gtl.constructNativeWorkspaceWorkModulePublication(basis),gtl.constructWorksiteCommandExecutionModulePublication(basis)];
+   const lookup=ref=>pubs.flatMap(p=>p.contracts).find(c=>c.contractRef===ref)??(ref===f.state.original.assessment.resultContract.contractRef?f.state.original.assessment.resultContract:null);
+   const assemblyOwner=await load(),assembly=assemblyOwner.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
++  const shown=assembly.envelope.sections.binding;
++  assert.deepEqual([shown.runId,shown.invocation.invocationAdmissionRef,shown.root.basisRef,shown.root.graphFunctionRef,shown.executing.graphFunctionRef,shown.predecessor],
++    [o.owned.call.runId,o.invocation.invocationAdmissionRef,o.root.payload.basisRef,executive.name,graph.name,null],'current facts come from the indexed root and the admitted Run');
++  // The guard stays live: a foreign Run or a non-root ancestry refuses with the existing typed cause.
++  const refusal={kind:'native_instruction_assembly_refusal',cause:'unknown_dependency',policy:null,role:'selector',unresolvedRefs:[o.execution.invocationAdmissionRef]};
++  currentRun='run:foreign';assert.deepEqual(assemblyOwner.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup),refusal,'foreign Run');currentRun=o.owned.call.runId;
++  o.rootIdentity.basisClass='child';assert.deepEqual(assemblyOwner.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup),refusal,'non-root ancestry');o.rootIdentity.basisClass='root';
+   assert.ok(assembly.request.responseJsonSchema.required.includes('requirementProposals'));
+   assert.ok(assembly.request.prompt.includes(f.state.original.fulfillment.bindings[0].obligationRef));
+   const target=targets.find(g=>g.declarations['abg.default_library_purpose']==='testing'),d=f.state.original.fulfillment;
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+index 86c4b69b3..3d6d9d145 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+@@ -1578,8 +1578,10 @@ test('one installed Public default-library invocation reuses observed files, cor
+ // reports satisfaction. ABI5_SCRIPTED_ACTOR_PHASE=gap-after-construction makes
+ // the selector report a gap once a native Result exists; the prompt directory,
+ // when supplied, receives each selector prompt as delivered.
++// ABI5_SCRIPTED_ACTOR_W_OUTSIDE_R, when supplied, names one worksite-relative
++// file the native worker also writes in its granted W outside observed R.
+ const SCRIPTED_ACTOR=`
+-import {readFileSync,writeFileSync,existsSync,appendFileSync} from 'node:fs';import {spawnSync} from 'node:child_process';
++import {readFileSync,writeFileSync,existsSync,appendFileSync,mkdirSync} from 'node:fs';import {spawnSync} from 'node:child_process';import {dirname} from 'node:path';
+ const args=process.argv.slice(2),at=args.indexOf('--json-schema'),prompt=readFileSync(0,'utf8');
+ // C2 executor: its owner prompt carries the one exact helper command; run it through one Bash tool use.
+ const tasks=prompt.split('\\n\\n').filter(x=>x.startsWith('## task\\n'));let c2=null;
+@@ -1605,6 +1607,7 @@ if('interpretation' in props){
+ }else if('summary' in props&&'gaps' in props){
+  if(!existsSync('generated/hello-world.mjs')){process.stderr.write('scripted worker expects the worksite cwd\\n');process.exit(1);}
+  writeFileSync('generated/hello-world.mjs','console.log("Hello, world!");\\n');role='native';output={summary:'Scripted construction repaired the candidate.',gaps:[]};
++ const outside=process.env.ABI5_SCRIPTED_ACTOR_W_OUTSIDE_R;if(outside){mkdirSync(dirname(outside),{recursive:true});writeFileSync(outside,'scripted disposable tooling\\n');extra={wOutsideR:outside};}
+ }else{role='assess';extra={schemaKeys:Object.keys(props),schema:at>=0};output={kind:props.kind?.const??'consumer_outcome_assessment',disposition:'satisfied',reason:'Scripted assessment.',unresolvedCriteria:[]};}
+ appendFileSync(log,JSON.stringify({role,pid:process.pid,...extra})+'\\n');
+ console.log(JSON.stringify({type:'system',subtype:'init'}));
+@@ -1656,7 +1659,9 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
+   const keep=async(n,v)=>{if(evidence)await writeFile(join(evidence,n),JSON.stringify(v,null,2)+'\n');};
+   const actor=join(proof,'scripted-actor.mjs'),actorLog=join(proof,'scripted-actor.jsonl');
+   await writeFile(actor,'#!'+process.execPath+'\n'+SCRIPTED_ACTOR);await chmod(actor,0o755);await writeFile(join(proof,'host.mjs'),INTERRUPTING_HOST);
+-  const actorEnvironment={...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_SCRIPTED_ACTOR_LOG:actorLog};
++  // W outside R: Construction is also granted one disposable root beyond the observed seed files.
++  const outsideRoot='native-tools',outsideFile=outsideRoot+'/scratch.txt';selection.applicationWriteRoots=[...selection.applicationWriteRoots,outsideRoot];
++  const actorEnvironment={...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_SCRIPTED_ACTOR_LOG:actorLog,ABI5_SCRIPTED_ACTOR_W_OUTSIDE_R:outsideFile};
+   const worksite=env.workspaceBinding.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
+   await cp(join(witnessRoot,'seed'),worksite,{recursive:true});
+   for(const [path,row] of Object.entries(selection.seedFiles))assert.equal(await product.sha256File(join(worksite,path)),'sha256:'+row.sha256);
+@@ -1702,6 +1707,19 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
+   assert.deepEqual(choiceRefs(run0),[product.governanceRef('graph-function','construction'),testingRef],'admitted Construction then Testing selection');
+   const testingChoice=results(run0).filter(e=>e.payload.value?.kind==='registered_graph_choice').at(-1);
+   assert.equal(testingChoice.payload.value.input.value.synthesis.judgment.subjectEvidenceRef,constructionResults[0].payload.resultRef,'Testing subjectEvidence is the actual native-work Result');
++  // W outside R through the installed protected-root preflight: actor, physical effect, unobserved Result and shared currentness.
++  const nativeValue=constructionResults[0].payload.value,nativeRows=(await readFile(actorLog,'utf8')).trim().split('\n').map(l=>JSON.parse(l)).filter(r=>r.role==='native');
++  assert.deepEqual(nativeRows.map(r=>r.wOutsideR),[outsideFile],'the one scripted native actor wrote in W\\R');
++  assert.equal(await readFile(join(worksite,outsideFile),'utf8'),'scripted disposable tooling\n','the W\\R effect is physical');
++  assert.ok(nativeValue.task.writeRoots.includes(outsideRoot),'the admitted task grants the root');
++  assert.equal(nativeValue.task.context.readRoots.some(r=>r==='.'||outsideFile===r||outsideFile.startsWith(r+'/')),false,'the root lies outside observed R');
++  assert.deepEqual(nativeValue.changedPaths,['generated/hello-world.mjs'],'W\\R writes are unobserved, never changedPaths');
++  assert.equal(nativeValue.after.entries.some(e=>e.relativePath.startsWith(outsideRoot+'/')),false);
++  const effectOwner=await load('abg/native_work_effect'),currentness=await load('abg/native_worksite_execution');
++  const impact=effectOwner.nativeWorkImpact(nativeValue.task,nativeValue.changedPaths),unchangedR='source/witness-contract.md';
++  assert.deepEqual([outsideFile,outsideRoot,'generated/hello-world.mjs',unchangedR].map(path=>effectOwner.nativeWorkImpactOverlaps(impact,path)),[true,true,true,false]);
++  assert.deepEqual([[outsideFile],['generated/hello-world.mjs'],[unchangedR]].map(paths=>currentness.worksiteCommandSourcesInvalidatedAfter(prefix,constructionResults[0].admissionOrdinal-1,
++    nativeValue.task.workspaceAuthorityBasis.canonicalRoot,paths)),[true,true,false],'currentness retires W\\R and the changed candidate, never unchanged R');
+   // 3. Cold pending-execution projection over the interrupted Run.
+   const [p,...extra]=cc.projectPendingExecutionContinuations(prefix,runId);
+   assert.equal(extra.length,0);assert.ok(p,'one pending execution');assert.deepEqual(p.chain.map(c=>c.relation),['root','recursion','workflow']);
+@@ -1773,7 +1791,7 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
+   const terminal=reads.run_result.projection.terminalResult,closing=parent.at(-1).payload;
+   assert.deepEqual([terminal?.producer.runRef,terminal?.producer.graphCallRef,terminal?.result],[value.run.ref,value.graphCall.ref,{ref:closing.resultRef,digest:closing.resultDigest}],'cold run_result agrees with the continued Run and its admitted terminal Result');
+   assert.deepEqual(reads.run_replay.projection.replay,value.replay,`cold replay agrees: ${JSON.stringify(reads.run_replay.projection.replay)?.slice(0,600)}`);
+-  const summary={runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),pendingCursorRef:p.pendingCursorRef,progressedInputRef:p.progressedInputRef,
++  const summary={runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),pendingCursorRef:p.pendingCursorRef,progressedInputRef:p.progressedInputRef,wOutsideR:{root:outsideRoot,file:outsideFile,changedPaths:nativeValue.changedPaths},
+     constructionResultRef:constructionResults[0].payload.resultRef,choices:choiceRefs(final),actorRoles,interruption,eventsInterrupted:interrupted.length,eventsFinal:all.length,
+     interruptedPrefixSha256:product.sha256Bytes(bytes),finalLogSha256:product.sha256Bytes(await readFile(eventLogPath)),resumeWallMs:performance.now()-resumedAt,hostWallMs:resumedAt-hostStarted,
+     proofLimit:'Actual installed default-library topology, Public start and run.continue CLI, ABG/HoG/C2/worksite owners and SIGKILL interruption; the model is a scripted stand-in process. Same-Run only: no predecessor-Run R2 recovery, no live provider, no Root installed witness.'};
+@@ -1846,17 +1864,16 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
+   assert.deepEqual(row&&[row.purpose,row.resultDigest,row.cCallRef],['construction',N.payload.resultDigest,N.aggregateId],'the retained state names A\'s native Result');
+   const inputB=installed.retainedGovernanceWorkInput(S.sourceResultValue);assert.ok(inputB);
+   // 2. B: a separately authorized Public start over A's retained state, killed at its durable Testing entry.
+-  const A0=startA.call.invocation,startResource=resource(),steering=product.sha256Canonical(startResource);
+-  const boundInput={contract:A0.request.input.contract,valueRef:'value://default-library-witness/retained-b/input',valueDigest:product.sha256Canonical(inputB),value:inputB};
+-  const startB=publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:env.verified.definitionContractCoordinates,
+-    contractCatalog:env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===A0.definitionKey.operationId).members.find(m=>m.memberKey==='start').slots.request.contractCatalog,
+-    operationId:A0.definitionKey.operationId,memberKey:'start',
+-    request:{...A0.request,input:boundInput,sourceBasis:{kind:'admitted_source_result',projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest},sourceResult:{ref:S.sourceResultRef,digest:S.sourceResultDigest}}},
+-    slots:{...A0.invocationAuthority.slots,input_contract:boundInput,transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering}},
+-    resources:{...startA.call.resources,eventResource:startResource,source:{kind:'admitted_source_result',basis:S}},
+-    requestRef:'public-request://retained-source/b-start',correlationRef:'correlation://retained-source/b-start',eventTime:'2026-11-02T00:02:00.000Z',provenanceRefs:['provenance://default-library-witness/retained-source@5']});
++  // The shared start support assembles B: same Program, A's admitted source result, B's own resource and identity.
++  const A0=startA.call.invocation;
++  const startB=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input:inputB,identity:'retained-b',runEnvironmentResourceFactory:selectedEnvironment.resources,
++    sourceResult:{basis:S,projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest}}});
++  const B0=startB.call.invocation;
++  assert.deepEqual([B0.request.program,B0.request.target,B0.request.input.contract,B0.request.input.value],[A0.request.program,A0.request.target,A0.request.input.contract,inputB],'B keeps A\'s Program and start over the retained input');
++  assert.deepEqual(B0.request.sourceBasis,{kind:'admitted_source_result',projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest},sourceResult:{ref:S.sourceResultRef,digest:S.sourceResultDigest}});
++  assert.deepEqual(startB.call.resources.source,{kind:'admitted_source_result',basis:S});
+   const requestPath=join(proof,'start-request.jsonl'),eventLogPath=fileURLToPath(handoff.prefix.eventLogRef);
+-  await writeFile(requestPath,JSON.stringify({kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition:{kind:'reopen',closeHandoff:handoff},invocation:startB})+'\n');
++  await writeFile(requestPath,JSON.stringify({kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition:{kind:'reopen',closeHandoff:handoff},invocation:startB.call})+'\n');
+   await writeFile(join(proof,'host-input.json'),JSON.stringify({installedRoot:env.installedRoot,requestPath,eventLogPath,proof,closeHandoff:handoff,
+     profileDigest:handoff.prefix.storeIdentity.eventContractDigest,testingGraphFunctionRef:testingRef}));
+   const hostStarted=performance.now(),host=spawn(process.execPath,['--experimental-vm-modules',join(proof,'host.mjs')],{cwd:env.scratch,env:{...actorEnvironment(logB),ABI5_PENDING_TESTING_HOST:join(proof,'host-input.json')}});
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+index 066451f9c..96c400cfb 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+@@ -8,7 +8,7 @@ import { acquireNewEmptyAppendSinkFixture } from '../support/new-empty-append-si
+ import * as native from '../../build/code/src/product/native_workspace_work.js';
+ import { constructNativeWorkspaceWorkModulePublication } from '../../build/code/src/gtl/index.js';
+ import { ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS as semantics } from '../../build/code/src/product/builtin_semantics.js';
+-import { realizeNativeWorkspaceWork } from '../../build/code/src/implementation/native_workspace_work.js';
++import { isDeepStrictEqual } from 'node:util';
+ import { constructLeafExecutionAuthority } from '../../build/code/src/implementation/leaf_execution_authority.js';
+ import { createNewEmptyAppendSink } from '../../build/code/src/abg/index.js';
+ import { eventCalculusEffect, projectNativeWorkRetiredObservations } from '../../build/code/src/abg/event_calculus.js';
+@@ -28,6 +28,27 @@ import { ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store
+ import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
+ import { rehydrateAdmittedImplementationSetAtPrefix } from '../../build/code/src/abg/execution_basis.js';
+ const product = await loadWorksiteOwner();
++// Component frontier: the exact-prefix workspace environment is a controlled
++// premise keyed by each fixture's exact binding and authority prefix. The
++// actual protected-root owner, observation and assembly checks run; the
++// installed same-Run case in t287-default-library reads the genuine environment.
++const environments = new Map();
++const realizeNativeWorkspaceWork = await (async () => {
++  const path = resolve(import.meta.dirname, '../../build/code/src/implementation/native_workspace_work.js');
++  const module = new SourceTextModule(await fs.readFile(path, 'utf8'), {identifier: path});
++  const premise = {projectExactPrefixWorkspaceEnvironment: (prefix, coordinate) => {
++    const row = environments.get(coordinate.ref);
++    return row !== undefined && isDeepStrictEqual(row.prefix, prefix) && row.environment.workspaceBinding.bindingDigest === coordinate.digest
++      ? row.environment : {kind: 'exact_prefix_workspace_environment_refusal', code: 'controlled_premise_absent'};
++  }};
++  await module.link(async specifier => {
++    const imported = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href);
++    const values = {...imported, ...(specifier === '../abg/environment_admission.js' ? premise : {})};
++    return new SyntheticModule(Object.keys(values), function () { for (const [key, value] of Object.entries(values)) this.setExport(key, value); });
++  });
++  await module.evaluate();
++  return module.namespace.realizeNativeWorkspaceWork;
++})();
+ const ids = native.NATIVE_WORKSPACE_WORK_IDS;
+ const digest = label => product.sha256Canonical({ label });
+ const publication = constructNativeWorkspaceWorkModulePublication({productId:'product://native-owner/test',
+@@ -172,21 +193,44 @@ test('post-effect channel conflict retains admitted native failure scope without
+   assert.deepEqual(projectNativeWorkRetiredObservations({...failed,runId:'run://foreign'},prior),[]);
+   t.diagnostic('Actual local process/group completion, supported structured_output/file conflict and partial file effects; lower installation/admission recording, physical-prefix access and liveness admission are controlled doubles. Exact prefix validation and cold basis/invocation/implementation/currentness owners exercised; no live provider, installed Run, probe, assessment, full native/Public admission or UAT credit.');
+ });
+-async function fixture(t, writeRoots = ['target.txt']) {
++async function fixture(t, writeRoots = ['target.txt'], {roots = null, readRoots = ['.'], installRoots = () => []} = {}) {
+   const env = await worksiteFixture(product);
+   t.after(() => fs.rm(env.scratch, {recursive:true, force:true}));
++  if (roots !== null) Object.assign(env, rebind(env, roots(env.canonicalRoot)));
+   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'before\n');
+   await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'unchanged\n');
+   const read = {workspaceAuthorityBasis:env.workspaceAuthorityBasis, workspaceBinding:env.workspaceBinding,
+-    readRoots:['.'], maxFiles:20, maxBytes:10000};
++    readRoots, maxFiles:20, maxBytes:10000};
+   const context = await product.observeWorksiteContext(read);
+   const task = native.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis, workspaceBinding:env.workspaceBinding,
+     capabilityGrant:env.capabilityGrant, context, outcome:'Perform the declared local work', instructions:['Read the selected input.'],
+     readFirst:['target.txt'],writeRoots,checks:[]});
+-  return {...env,read,task};
++  const productInstalls = installRoots(env.canonicalRoot).map(installedRoot => ({productId:'product://native-owner/protected-install', installedRoot}));
++  return {...env,read,task,productInstalls};
++}
++// The worksiteFixture coordinates for a binding whose declared roots differ:
++// binding, grant scope, execution basis and C-call digests are all recomputed.
++function rebind(env, roots) {
++  const hash = product.sha256Canonical, id = (scheme, value) => `${scheme}://abiogenesis/${value.slice(7)}`;
++  const {kind,schemaVersion,bindingId,bindingDigest,admissionEventRef,...bindingBody} = env.workspaceBinding;
++  bindingBody.roots = {...bindingBody.roots, ...roots};
++  const bd = hash(bindingBody), workspaceBinding = {kind,schemaVersion,bindingId:id('workspace-binding',bd),bindingDigest:bd,...bindingBody,admissionEventRef};
++  const {kind:gk,schemaVersion:gs,grantRef,grantDigest,...grantBody} = env.capabilityGrant;
++  Object.assign(grantBody, {scopeRef:workspaceBinding.bindingId, scopeDigest:bd});
++  const gd = hash(grantBody), capabilityGrant = {kind:gk,schemaVersion:gs,grantRef:id('capability-grant',gd),grantDigest:gd,...grantBody};
++  const {kind:ek,schemaVersion:es,disposition,basisRef,basisDigest,admissionEventRef:ea,...basisBody} = env.executionBasis;
++  Object.assign(basisBody, {workspaceBindingId:workspaceBinding.bindingId, workspaceBindingDigest:bd});
++  const ed = hash(basisBody), executionBasis = {kind:ek,schemaVersion:es,disposition,basisRef:id('execution-basis',ed),basisDigest:ed,...basisBody,admissionEventRef:ea};
++  const c = env.cCall, callBody = {basisId:executionBasis.basisRef, graphCallId:c.graphCallId, frameId:c.frameId, vectorIndex:c.vectorIndex,
++    stageRole:c.stageRole, taskOrdinal:c.taskOrdinal, attempt:c.attempt, programLocusRef:c.programLocusRef, retryPath:c.retryPath};
++  const cd = hash(callBody), cCall = {...c, ...callBody, cCallRef:`c-call:${cd}`, cCallDigest:cd};
++  const territory = product.constructWorksiteTerritory({workspaceAuthorityBasis:env.workspaceAuthorityBasis, workspaceBinding,
++    relativeRoot:'.', territoryUri:pathToFileURL(env.canonicalRoot).href});
++  assert.equal(territory.kind, 'worksite_territory');
++  return {workspaceBinding, capabilityGrant, executionBasis, cCall, territory};
+ }
+ // These are cold owner coordinates, not ABG admission or installed/native proof.
+-async function prepare(t, env) {
++async function prepare(t, env, realize = true) {
+   const graphFunctionRef = native.nativeWorkspaceWorkGraphFunctionRef(env.task);
+   const sink = await acquireNewEmptyAppendSinkFixture(t, createNewEmptyAppendSink);
+   const {kind,schemaVersion,disposition,leafResolutionCandidateRef,leafResolutionCandidateDigest,...oldBody}=env.implementationSet.rows[0];
+@@ -221,7 +265,9 @@ async function prepare(t, env) {
+     resultContractRef:native.nativeWorkspaceWorkResultContractRef(env.task),responseJsonSchema:native.nativeWorkspaceWorkResponseSchema(env.task),
+     ...(env.task.assessment===undefined?{}:{responsePresentation:'result_text'})};
+   const occurrence={...call,executionAuthority:authority};
+-  const prepared=await realizeNativeWorkspaceWork(env.task,occurrence,()=>({request}));
++  environments.set(env.workspaceBinding.bindingId,{prefix:sink.prefix,environment:{kind:'exact_prefix_workspace_environment',
++    workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:env.productInstalls??[]}});
++  const prepared=realize?await realizeNativeWorkspaceWork(env.task,occurrence,()=>({request})):null;
+   const exchange=(finalOutput,disposition='success')=>({request,observation:{implementationRef:ids.implementationRef,
+     inputDigest:request.inputDigest,transportLane:'worker_executes',actorInvocationRef:'actor-invocation://native-owner/test',
+     transportBindingRef:'transport-binding://native-owner/test',transportBindingDigest:digest('transport-binding'),
+@@ -254,6 +300,52 @@ test('owner refuses stale context before assembly/dispatch',async t=>{
+   assert.equal(calls,0);
+   await assert.rejects(realizeNativeWorkspaceWork(env.task,{...p.occurrence,executionAuthority:null},()=>({request:p.request})),/authority/);
+ });
++test('protected write roots refuse exact, enclosing and inside overlap before assembly/dispatch; R and W outside R stay admitted',async t=>{
++  // Path controls: a declared binding root inside A. Physical controls: an
++  // install root inside A named only by the environment, and link aliases.
++  const options={roots:root=>({runtimeStateRoot:join(root,'state/runtime')}),readRoots:['target.txt','keep.txt'],installRoots:root=>[join(root,'vendor/install')]};
++  const port=await import('../../build/code/src/implementation/leaf_invocation_port.js');
++  const attempt=async(writeRoots,setup=async()=>{})=>{
++    const env=await fixture(t,writeRoots,options);await setup(env);
++    const p=await prepare(t,env,false),authority=p.occurrence.executionAuthority;let assemblies=0;
++    const assemble=()=>{assemblies++;return {request:p.request};};
++    const direct=await realizeNativeWorkspaceWork(env.task,p.occurrence,assemble).then(prepared=>({prepared}),error=>({error}));
++    const viaPort=await port.invokeLeafOwnerBoundary({resolution:authority.implementationResolution,value:env.task,inputDigest:product.sha256Canonical(env.task),
++      failureValueKind:'native_workspace_work_failure',verifyAuthority:()=>native.nativeWorkspaceWorkAuthorityMatches(env.task,authority),validateSuccess:native.isNativeWorkspaceWorkObservation,
++      resolveWorkerContracts:(r,input)=>semantics.resolveProbabilisticWorkerContracts({inputContractRef:r.inputContractRef,outputContractRef:r.outputContractRef,input}),
++      occurrence:p.occurrence,loadImplementation:async()=>(value,occurrence)=>realizeNativeWorkspaceWork(value,occurrence,assemble)});
++    return {env,direct,viaPort,assemblies:()=>assemblies};
++  };
++  const refuses=async(label,writeRoots,setup)=>{
++    const r=await attempt(writeRoots,setup);
++    assert.match(String(r.direct.error?.message),/write roots refuse before dispatch/,label);
++    assert.equal(r.viaPort.ownerObservation?.stage,'preparation',label);assert.equal(r.viaPort.ownerObservation?.reason,'thrown',label);
++    assert.equal(r.assemblies(),0,label+' refuses before assembly, so no provider request exists');
++  };
++  for(const [label,writeRoots] of [['binding exact',['state/runtime']],['binding enclosing',['state']],['binding inside',['state/runtime/cache']],
++    ['install exact',['vendor/install']],['install enclosing',['vendor']],['install inside',['vendor/install/pkg']],['one overlapping root among ordinary roots',['target.txt','tools','vendor']]])
++    await refuses(label,writeRoots);
++  const alias=(name,target)=>async env=>{await fs.mkdir(target(env),{recursive:true});await fs.symlink(target(env),join(env.canonicalRoot,name));};
++  await refuses('link alias exact',['alias'],alias('alias',env=>env.workspaceBinding.roots.archiveRoot));
++  await refuses('link alias inside',['alias/inner'],alias('alias',env=>env.workspaceBinding.roots.archiveRoot));
++  await refuses('link alias enclosing',['up'],alias('up',env=>env.scratch));
++  for(const [label,writeRoots] of [['W outside R',['target.txt','tools']],['binding prefix sibling',['state/runtime-tools']],
++    ['install prefix sibling',['vendor/install-cache']],['read-only',[]]]){
++    const r=await attempt(writeRoots);
++    assert.equal(r.direct.error,undefined,label+': '+r.direct.error?.message);assert.equal(r.direct.prepared.kind,'prepared_probabilistic_leaf_invocation',label);
++    assert.equal(r.viaPort.kind,'prepared_probabilistic_leaf_owner_invocation',label);assert.equal(r.assemblies(),2,label+' assembles once per admitted preflight');
++  }
++  // The two readings: declared binding roots by path; install roots only physically, from the environment.
++  const env=await fixture(t,['target.txt'],options),protectedInstallRoots=env.productInstalls.map(i=>i.installedRoot);
++  const owner=(writeRoots,installs=protectedInstallRoots)=>product.checkWorksiteWriteRoots({workspaceAuthorityBasis:env.workspaceAuthorityBasis,
++    workspaceBinding:env.workspaceBinding,protectedInstallRoots:installs,writeRoots});
++  assert.deepEqual(['state/runtime','state','state/runtime/cache','vendor/install','vendor','vendor/install/pkg','tools','state/runtime-tools']
++    .map(w=>product.protectedWorksiteWriteRoot(env.workspaceAuthorityBasis,env.workspaceBinding,w)),[true,true,true,false,false,false,false,false]);
++  for(const w of ['state/runtime','state','state/runtime/cache','vendor/install','vendor','vendor/install/pkg'])
++    assert.equal((await owner([w]))?.code,'subject_outside_territory',w);
++  assert.equal(await owner(['vendor'],[]),null,'install protection comes only from the exact environment');
++  assert.equal(await owner(['tools','target.txt']),null);
++});
+ test('actual observation remains independent of report and consumer judgment',async t=>{
+   const env=await fixture(t);const p=await prepare(t,env);
+   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'actual edit\n');
+@@ -437,6 +529,8 @@ test('known native result retires unobserved W\\R facts, present and absent, and
+       predecessorObservation,replacementBytes:Buffer.from('future\n')});
+   }));
+   assert.ok(requests.every(product.isWorksiteFileReplaceRequest));
++  // The protected-root preflight admits ordinary W outside R; currentness below runs through it.
++  assert.equal(await product.checkWorksiteWriteRoots({...env.read,writeRoots:env.task.writeRoots}),null);
+   const p=await prepare(t,env);
+   // Actual local tool write in W\R; R stays unchanged, so the owner observes no change.
+   await fs.writeFile(join(env.canonicalRoot,'tools/cache.txt'),'tool output\n');
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs
+index 2924f5608..70b90c38a 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs
+@@ -10,7 +10,7 @@ import * as product from '../../build/code/src/product/index.js';
+ import * as validator from '../../build/code/src/validator/index.js';
+ import * as v from 'valibot';
+ import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis,publicOperationBasis} from '../support/root-installed-environment.mjs';
+-import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
++import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest,pendingExecutionUseRequest,constructInstalledPendingCall} from '../support/registered-graph-selection.mjs';
+ import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
+ import {NATIVE_SELECTION_STDO3_ROLE} from '../fixtures/registered-selection-product/native.mjs';
+ import {declarations,initialState,validState,evaluatedState,selectionTask,executeA,executeB,SEMANTICS,ref,contract,hash} from '../fixtures/registered-selection-product/recursive.mjs';
+@@ -513,38 +513,19 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
+   const [p,...extra]=cc.projectPendingExecutionContinuations(prefix,runId);
+   assert.equal(extra.length,0);assert.equal(p.phase,'undispatched');assert.equal(p.status,'open');
+   const coordinate=(ref,digest)=>({ref,digest}),zero='sha256:'+'0'.repeat(64);
+-  const rootScope=env.abg.projectOpenedTraversalScopeForFrameAtPrefix?.(prefix,p.chain[0].frameId)??opened.scope;
+-  const request={run:coordinate(runId,rootScope.runDigest),continuation:coordinate(p.continuationRef,p.continuationDigest),
+-    pendingCursor:coordinate(p.pendingCursorRef,p.pendingCursorDigest),continuationInput:coordinate(p.progressedInputRef,p.progressedInputDigest),
+-    expectedBasis:coordinate(p.chain[0].basisRef,p.chain[0].basisDigest)};
+-  // Read-only selection supplies the exact input-slot values the owner will recheck.
+-  const use=cc.selectPendingExecutionUse(prefix,request);assert.equal(use.kind,'pending_execution_use',JSON.stringify(use));
+-  const publications=env.executionResolution.declarationPublications;
+-  const pendingInput=cc.projectPendingExecutionInputAtPrefix(prefix,use,ref=>publications.flatMap(x=>x.graphFunctions).find(g=>g.name===ref)??null,env.programValidation);
+-  assert.ok(pendingInput,'pending input carrier projects');assert.equal(pendingInput.input.inputRef,p.progressedInputRef);
+-  const inputDeclaration=publications.flatMap(x=>x.contracts).find(c=>c.contractRef===pendingInput.inputCarrierRef);assert.ok(inputDeclaration);
++  const request=await pendingExecutionUseRequest({environment:env,prefix,runId,pending:p});
+   const producer=runAt(interruptedEvents).find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===p.progressedInputRef);
+   const completedBefore=runAt(interruptedEvents).filter(e=>e.kind==='c_call_opened').map(e=>e.payload.cursorRef);
+   let handoff=env.store.projectReopenAuthorityAndClose();
+-  const packet=product.RUN_OPERATION_CONTRACTS.continue.current_intent,operationId=packet.definitionKey.operationId;
+-  const grant=product.constructCapabilityGrant(env.policy,env.actorRef,operationId,packet.metadata.capabilityRefs[0],{admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet});
+-  const makeCall=(identity,patch={})=>{
+-    const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};
+-    const r=env.executionResolution.resolution,steering=product.sha256Canonical(eventResource);
+-    const slots={workspace_binding:{ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest},product_set:env.admittedInstalls.map(product.productInstallCoordinate),
+-      dependency_lock:{ref:env.workspaceBinding.lockId,digest:env.workspaceBinding.lockDigest},
+-      catalog_scope:{catalog:{ref:`graph-function-catalog://abiogenesis/${env.catalog.basisDigest.slice(7)}`,digest:env.catalog.basisDigest},view:{ref:`graph-function-catalog-view://abiogenesis/${env.catalogView.viewDigest.slice(7)}`,digest:env.catalogView.viewDigest},allowlist:env.catalogView.allowlist},
+-      execution_program:{ref:r.programRef,digest:r.programDigest},graph_function:{graphFunction:{ref:r.graphFunctionRef,digest:r.graphFunctionDigest},membership:r.programGraphFunctionMembership},
+-      input_contract:{contract:{ref:inputDeclaration.contractRef,digest:product.sha256Canonical(inputDeclaration)},valueRef:pendingInput.input.inputRef,valueDigest:pendingInput.input.inputDigest,value:pendingInput.input.value},
+-      session_policy:{ref:env.policy.policyRef,digest:env.policy.policyDigest},capability_grants:{requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:[{ref:grant.grantRef,digest:grant.grantDigest}]},
+-      actor:{actor:{ref:env.actorRef,digest:product.sha256Canonical({actorRef:env.actorRef})},attribution:{ref:env.invocationAuthority.authorityRef,digest:env.invocationAuthority.authorityDigest}},
+-      transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering},verification_references:null,
+-      execution_basis:{ref:p.chain[0].basisRef,digest:p.chain[0].basisDigest}};
+-    const contractCatalog=env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===operationId).members.find(m=>m.memberKey==='current_intent').slots.request.contractCatalog;
+-    return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:env.verified.definitionContractCoordinates,contractCatalog,operationId,memberKey:'current_intent',
+-      request:{...request,...patch},slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:'5.0.0',eventResource,catalog:env.catalog,catalogView:env.catalogView,applications:[],source:{kind:'none'}},
+-      requestRef:`public-request://pending-execution-public/${identity}`,correlationRef:`correlation://pending-execution-public/${identity}`,eventTime:'2026-11-02T00:01:00.000Z',provenanceRefs:[ref('provenance','fixture')]});
+-  };
++  // The shared support assembles the cold Public pending_execution call. This
++  // Run's root admission names the fixture's admitted invocation authority and
++  // execution resolution; that is the start basis supplied, with no run-environment resources.
++  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,
++    start:{workAuthority:env.invocationAuthority,resolution:env.executionResolution,capabilityBasis:{policy:env.policy,actorRef:env.actorRef},call:{resources:{}}},
++    eventResource:()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)}),
++    identityScope:'pending-execution-public',eventTime:'2026-11-02T00:01:00.000Z',provenanceRef:ref('provenance','fixture')});
++  assert.equal(pending.use.source.continuationRef,p.continuationRef);assert.equal(pending.pendingInput.input.inputRef,p.progressedInputRef);
++  const makeCall=pending.call;
+   const cli=async(identity,call)=>{
+     const execution=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:`pending-${identity}-${Math.random().toString(16).slice(2)}`,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null});
+     const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));

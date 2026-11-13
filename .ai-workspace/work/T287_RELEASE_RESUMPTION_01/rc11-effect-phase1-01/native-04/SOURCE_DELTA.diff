@@ -1,0 +1,108 @@
+diff --git a/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md b/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md
+index 514f66b6c..ee2fce7e6 100644
+--- a/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md
+@@ -1169,8 +1169,8 @@ close (`closeAbgEventResource`) disposes every handle and retained root, and a
+ closed coordinate opens nothing. Actual rollback disposal
+ (`RuntimeHistory.truncate` after a failed append) is not driven, so it is
+ unproved by this test. A fifty-call workload mode is separately selected.
+-The W2 owner-chain oracle admits exactly `selectedDefinitions`,
+-`establishedInvocations` and `gatedResourceMembers` in the binding mechanics.
++The W2 owner-chain source check rejects only the removed legacy root seams and
++judges no call-local collection; owner facts rest on behavioral owner proof.
+ 
+ ## 11. Source-to-library-to-outcome paths
+ 
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs
+index 93a22b663..9de5b87e2 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs
+@@ -307,50 +307,51 @@ const OWNER_CHAIN_PATHS = Object.freeze([
+   "build/code/src/validator/conformance_definition_bindings.js",
+   MECHANICS_PATH,
+ ]);
+-// §10.11 owner-local derived facts: exactly these three declarations, once
+-// each, and only in the binding mechanics. Every other Map is hidden state.
+-const MECHANICS_OWNER_FACTS = Object.freeze({
+-  selectedDefinitions: "WeakMap",
+-  establishedInvocations: "WeakMap",
+-  gatedResourceMembers: "Map",
+-});
++// Removed legacy root seams. This source check proves only that the installed
++// owner chain no longer names them. It judges no collection: owner facts and
++// their identity, admission, currentness and lifetime rest on behavioral owner
++// proof (the installed chain below and §10.11 Proof), not on token absence.
++const REMOVED_LEGACY_SEAMS = Object.freeze([
++  "applyRootPublicInvocation",
++  "createRootOperationContext",
++  "legacyRequest",
++]);
+ 
+ function assertOwnerChainSource(path, source) {
+   assert.doesNotMatch(source, /applyRootPublicInvocation|createRootOperationContext|legacyRequest/u, path);
+-  let residual = source;
+-  if (path === MECHANICS_PATH) {
+-    for (const [name, kind] of Object.entries(MECHANICS_OWNER_FACTS)) {
+-      const declaration = new RegExp(`\\bconst ${name} = new ${kind}\\(\\);`, "gu");
+-      assert.equal(residual.match(declaration)?.length ?? 0, 1, `${path}: ${name} is declared once as ${kind}`);
+-      residual = residual.replace(declaration, "");
++}
++
++const CALL_LOCAL_COLLECTIONS = Object.freeze([
++  ["call-local visited Map", [
++    "function walk(value, visited) {",
++    "  if (visited.has(value)) return true;",
++    "  visited.set(value, true);",
++    "  return Object.values(value).every((member) =>",
++    "    typeof member !== \"object\" || member === null || walk(member, visited));",
++    "}",
++    "export const established = (value) => walk(value, new Map());",
++  ].join("\n")],
++  ["call-local WeakMap", "export function count(values) {\n  const seen = new WeakMap();\n  for (const value of values) seen.set(value, true);\n  return values.filter((value) => seen.has(value)).length;\n}"],
++  ["collection mention", "// A WeakMap or new Map() here is ordinary call-local bookkeeping."],
++]);
++
++test("W2-05 owner-chain static oracle permits call-local collections and mentions", () => {
++  for (const path of OWNER_CHAIN_PATHS) {
++    for (const [label, source] of CALL_LOCAL_COLLECTIONS) {
++      assert.doesNotThrow(() => assertOwnerChainSource(path, source), `${path}: ${label}`);
+     }
+   }
+-  assert.doesNotMatch(residual, /WeakMap|new Map/u, path);
+-}
++});
+ 
+-test("W2-05 owner-chain static oracle admits exactly the three mechanics facts", () => {
+-  const allowed = [
+-    "const selectedDefinitions = new WeakMap();",
+-    "const gatedResourceMembers = new Map();",
+-    "const establishedInvocations = new WeakMap();",
+-  ].join("\n");
+-  assertOwnerChainSource(MECHANICS_PATH, allowed);
+-  for (const path of OWNER_CHAIN_PATHS.filter(path => path !== MECHANICS_PATH)) {
+-    assertOwnerChainSource(path, "export const value = 1;");
+-    assert.throws(() => assertOwnerChainSource(path, "const selectedDefinitions = new WeakMap();"),
+-      assert.AssertionError, `${path} admits no Map`);
+-    assert.throws(() => assertOwnerChainSource(path, "const rows = new Map();"), assert.AssertionError, path);
++test("W2-05 owner-chain static oracle rejects removed legacy root seams", () => {
++  for (const path of OWNER_CHAIN_PATHS) {
++    for (const seam of REMOVED_LEGACY_SEAMS) {
++      for (const [label, source] of CALL_LOCAL_COLLECTIONS) {
++        assert.throws(() => assertOwnerChainSource(path, `${source}\n${seam}();`),
++          assert.AssertionError, `${path}: ${seam} beside ${label}`);
++      }
++    }
+   }
+-  for (const [label, source] of [
+-    ["additional Map", allowed + "\nconst retained = new Map();"],
+-    ["additional WeakMap", allowed + "\nconst retained = new WeakMap();"],
+-    ["duplicate allowed declaration", allowed + "\nconst selectedDefinitions = new WeakMap();"],
+-    ["allowed name with another kind", allowed.replace("gatedResourceMembers = new Map", "gatedResourceMembers = new WeakMap")],
+-    ["missing allowed declaration", allowed.replace("const establishedInvocations = new WeakMap();", "")],
+-    ["legacy request", allowed + "\nlegacyRequest();"],
+-    ["legacy root invocation", allowed + "\napplyRootPublicInvocation();"],
+-    ["legacy root context", allowed + "\ncreateRootOperationContext();"],
+-  ]) assert.throws(() => assertOwnerChainSource(MECHANICS_PATH, source), assert.AssertionError, label);
+ });
+ 
+ test("W2-05 installed Product install and catalog owners compose without catalog runtime truth", async (context) => {

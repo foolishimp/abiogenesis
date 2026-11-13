@@ -1,0 +1,56 @@
+{
+  "status": "BOUND_NOT_EXECUTION_ADMITTED",
+  "at": "2026-11-07T04:38:16.642566+00:00",
+  "activation": "/root/rc7_reference_ticket_writer",
+  "consumer": "/root",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_001.json",
+    "bytes": 13473,
+    "sha256": "368fe5270e7864efe8771ca6d5d62b11e772f55cdda52170e3649b35576b3501"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-001/BOUND_INVENTORY.json",
+    "bytes": 1660396,
+    "sha256": "e959059dd19ab62bf9b2cd11b0209bff94d47602d495f0baa8c0779198020b34"
+  },
+  "creditDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/FOCUSED_CREDIT_DISPOSITION_001.json",
+    "bytes": 10973,
+    "sha256": "2172f11ff8958044fac0326fd09ecd46d7215bf7e0adaa7f9618c244138813b3"
+  },
+  "existingDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.mjs",
+    "bytes": 20061,
+    "sha256": "44bda4222432dc388e3ff963f9a2ab8ce13803d7b473569df7304b085cc0fcc0"
+  },
+  "bindCommand": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.mjs",
+    "bind",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_001.json",
+    "368fe5270e7864efe8771ca6d5d62b11e772f55cdda52170e3649b35576b3501"
+  ],
+  "bindExitCode": 0,
+  "counts": {
+    "testFiles": 207,
+    "harnessFiles": 1,
+    "allTestDirectoryMjs": 212,
+    "focusedWholeFiles": 5,
+    "scheduledFiles": 203
+  },
+  "stageDigest": "7e34d0b0f6579a3b53551c3f4d7ac225740f9f74a13f47b3bdfe68436811d1d2",
+  "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+  "stageFiles": 2020,
+  "dependencyFiles": 4576,
+  "stageBytes": 62962174,
+  "dependencyBytes": 58290948,
+  "basePlusIsolatedCopyBytes": 184215296,
+  "freeBytes": 10013503488,
+  "reserveBytes": 4294967296,
+  "ownedLimitBytes": 4294967296,
+  "skipDeclarationCount": 176,
+  "skipStanding": "Source declarations only. Actual five-file credit remains46 passes and2 historical skips; held filtered2 passes receive no file credit.",
+  "testsExecutedHere": 0,
+  "fixturesAllocated": false,
+  "remaining": "Root reads exact config/inventory and admits execution only after matched after pair/profile/close; no source or release qualification claim."
+}

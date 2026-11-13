@@ -1,0 +1,56 @@
+{
+  "kind": "b06_root_selected_fresh_setup_v1",
+  "status": "DRAFT_INVALID_NULLS_NO_SETUP_AUTHORIZATION",
+  "previous": {
+    "execution": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-007/execution.json",
+      "sha256": null
+    },
+    "afterRun": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-007/after-run-resume.json",
+      "sha256": null
+    },
+    "outcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-007/outcome-summary.json",
+      "sha256": null
+    },
+    "freshReads": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-007/fresh-reads.json",
+      "sha256": null
+    },
+    "started": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-007/STARTED.json",
+      "sha256": null
+    }
+  },
+  "sourceCustody": {
+    "path": null,
+    "sha256": null
+  },
+  "workspaceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/.abiogenesis/workspace-manifest.json",
+    "sha256": null
+  },
+  "workspaceRef": null,
+  "expectedManifestAuthority": {
+    "ref": null,
+    "digest": null
+  },
+  "selectedWorkspaceBasis": {
+    "ref": null,
+    "digest": null
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OPERATOR.md",
+    "sha256": "sha256:894892f17553b4c7c7781aacae7e436f92c43365edeb5399b10cfba0f7ddd896"
+  },
+  "builder": {
+    "installationSha256": null,
+    "summarySha256": null,
+    "payloadCorrespondenceSha256": null
+  },
+  "operatorDecision": {
+    "path": null,
+    "sha256": null
+  }
+}

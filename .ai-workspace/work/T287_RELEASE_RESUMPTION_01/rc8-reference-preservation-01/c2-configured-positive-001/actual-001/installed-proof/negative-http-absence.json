@@ -1,0 +1,9 @@
+{
+  "label": "negative-http",
+  "pid": 78302,
+  "groupId": 78302,
+  "directChildPresence": "absent",
+  "ownedGroupPresence": "absent",
+  "observedAt": "2026-11-07T15:11:50.138Z",
+  "physicalAbsenceIsNotAdmission": true
+}

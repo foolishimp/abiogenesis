@@ -1,0 +1,22 @@
+{
+  "file": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 0,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 1 - conformance owner reuse over the predecessor build, the proof territory and the retained declaration metadata # SKIP ABI5_CONFORMANCE_PREDECESSOR_ROOT, ABI5_CONFORMANCE_PROOF_ROOT or ABI5_CONFORMANCE_METADATA unset; requires the predecessor build, the proof territory and the retained declaration metadata",
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/056-t287-conformance-owner-reuse.test/process.json",
+    "bytes": 1095,
+    "sha256": "bd70d1462e73e24e291496845fa07c52d04dddd3be6f3330aafa4d28da318e41"
+  }
+}

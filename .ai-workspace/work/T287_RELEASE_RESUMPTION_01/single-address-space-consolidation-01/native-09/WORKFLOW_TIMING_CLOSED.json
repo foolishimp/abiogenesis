@@ -1,0 +1,48 @@
+{
+  "kind": "native09_observed_wall_intervals",
+  "recordedUtc": "2026-11-04T14:04:12.210900+00:00",
+  "setup": {
+    "reused": true,
+    "historicalSDKSetupMs": 28938.979459,
+    "historicalArtifactVerificationMs": 19748.530083,
+    "standing": "Reused setup, not charged as a new native09 execution."
+  },
+  "preflightMs": 116957.662,
+  "dispatchToInitialSelectorMs": 467790.0,
+  "dispatchToCodingWorkerMs": 986483.0,
+  "codingWorkerProcessMs": 4351422.0,
+  "codingResultToC2ProcessMs": 1017758.0,
+  "C2ProcessMs": 621944.0,
+  "nativeInvocationMs": 7744952.477375,
+  "outcomeToFinalResumeMs": 870545.643,
+  "hostTotalMs": 8673059.775375295,
+  "priorCloseToDispatcherMs": 10656636.62,
+  "limits": [
+    "Wall intervals are not CPU/causal attribution.",
+    "The larger prior-close interval includes Root scope correction/preparation/review and host launch checks, not only runtime between-task time.",
+    "Native09 was blocked before UAT; this is not complete successful native-workflow performance.",
+    "Builder is immutable installedRC5; these are not performance measurements of the uninstalled targeted source."
+  ],
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/TIMING_OBSERVATION_ENVELOPES.json",
+      "bytes": 26920,
+      "sha256": "e4884a61044c6710e4d69ea84c4bd850d3b8566b0805bd74c0fae440c2d652a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/HOST_PROCESS_EXIT.json",
+      "bytes": 152,
+      "sha256": "0f7ec3284051d86018200769db887b89a17382e2e2e9c2351a5adf98c226d7d3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/outcome-summary.json",
+      "bytes": 537,
+      "sha256": "e2211e63d55d616cd935e2560b309045ed612a9ec8489fe2fc03063dd783edfe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ACTUAL_FINAL_CLOSE_COORDINATES.json",
+      "bytes": 2601,
+      "sha256": "8b5cdf63b2236d1886d1e04c45216935c4c9004d0c3005eb33ec41778e3e2de8"
+    }
+  ]
+}

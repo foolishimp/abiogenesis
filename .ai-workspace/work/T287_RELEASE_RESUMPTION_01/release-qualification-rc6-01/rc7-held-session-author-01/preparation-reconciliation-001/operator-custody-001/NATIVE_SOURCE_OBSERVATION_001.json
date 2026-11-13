@@ -1,0 +1,35 @@
+{
+  "kind": "root_observed_native_source_metadata",
+  "status": "MOVING_SOURCE_METADATA_ONLY_NOT_REVIEW_SUBJECT",
+  "observationOwner": "Root; metadata relayed to operator custody without acquiring moving source",
+  "observedUtc": "2026-11-06T13:15:47.972Z",
+  "nativeStartedUtc": "2026-11-06T12:56:09.443Z",
+  "elapsedFromNativeStartMs": 1178529,
+  "changedAuthorizedFiles": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "observedMtimeUtc": "2026-11-06T13:12:08.850Z"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "observedMtimeUtc": "2026-11-06T13:12:18.463Z"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "observedMtimeUtc": "2026-11-06T13:15:17.435Z"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+      "observedMtimeUtc": "2026-11-06T13:15:17.435Z"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "observedMtimeUtc": "2026-11-06T13:15:17.435Z"
+    }
+  ],
+  "limits": [
+    "19m38.529s is elapsed native time to this observed state, not exact first-edit time.",
+    "No source-content review, build/test result, frozen candidate or acceptance is inferred.",
+    "First substantive frozen after-stage remains pending."
+  ]
+}

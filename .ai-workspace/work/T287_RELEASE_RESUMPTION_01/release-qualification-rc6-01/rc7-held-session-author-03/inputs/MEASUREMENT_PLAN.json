@@ -1,0 +1,17 @@
+{
+  "kind": "bounded_native_correction_measurement_selection",
+  "status": "PROSPECTIVE_FINITE_PROOF",
+  "retainedHS02": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-hs02-once.summary.json",
+    "bytes": 4542,
+    "sha256": "b419f2c2df01c148434dd6763b154adefa7f720b06018c8e01c7a3eacb79d6c0"
+  },
+  "retainScope": "Only unchanged affected owners/exact small fixture; no automatic HS02 repeat or speedup claim.",
+  "newMeasurements": [
+    "Actual complete fixed Testing/UAT with maintained held/fresh terminal agreement and bounded refusal diagnostics within600/540 limits.",
+    "Affected guard/native workspace owner/caller predicates; actual counts and source digests.",
+    "Separate setup/build/native/testing/readback/Root between-task costs."
+  ],
+  "unchangedBuilderColdReads": 0,
+  "limits": "Prior blocked-case timing is not a completed-route estimate. Preserve S4 installed-byte-growth measure and remaining release gates."
+}

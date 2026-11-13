@@ -1,0 +1,182 @@
+{
+ "correction": {
+  "kind": "worker_same_run_correction",
+  "status": "candidate_ready_unaccepted",
+  "startsFrom": "source 3c3c6e803 / tree e669e2a9 + 90c243 + d3662fb5; bytes as bound by C2 3fd2e1e2; findings UAT 3f537f92",
+  "diagnosis": {
+   "firstFailedRelation": "InstalledPublicDefinitionCall<S> was non-distributive over its default selection union, so each shipped constructor's return collapsed to one uncorrelated record; constructEnvelope then erased the owner population to that record with `as unknown as`. The typed transport's per-alternative candidate check (HC1) correctly rejected it, giving TS2345 ('never') on each constructor output and TS2322 on operationId narrowing.",
+   "downstreamSymptoms": [
+    "TS2345 x3 at runInstalledDefinitionCallTransport for start/pending/read outputs",
+    "TS2322 on operationId narrowing"
+   ]
+  },
+  "changed": {
+   "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts": "InstalledPublicDefinitionCall distributes over S; InstalledStartCallSelection / InstalledPendingCallSelection / InstalledRunReadCallSelection correlate operation, member and request variant; constructEnvelope replaced by checkedInstalledCall, the one typing step, released only after admitExactDefinitionCall against the installed member contract and a variant predicate (throws TypeError on crossed population); constructors return the correlated alternative",
+   "build_tenants/abiogenesis/typescript/code/src/public/index.ts": "exports the three correlated selection types",
+   "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts": "populateProductRunInvocation refuses invalid_capability /invocationAuthority when actorRef differs from workspaceBinding.authorizedActorRef (grants, authority and actor slot name one actor)",
+   "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts": "selectConstructionIntentAtPrefix / selectPendingExecutionAtPrefix / selectSelectedActionAtPrefix share select->resolve->prepare between the three owners and populateRunContinuationAtDurablePrefix; owners pass call-bound stages, population plain stages (thrown values preserved via Cause.squash); refusal codes, paths, order and stage names unchanged",
+   "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts": "ShippedConstructorProof (26 assertions), shippedTransport positive use of every constructor, 11 hc2-* negatives with declared codes",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs": "declaration list adds the three selection types; asserts >= 11 hc2 markers",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs": "shipped graph_function start populated and executed through the transport (own Run, one GraphCall, graph_function slot); shipped asset start meets existing invalid_target /program (language Program publishes no asset target), 0 bytes",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs": "wrong-run (missing_continuation /continuation), wrong-run-digest (basis_mismatch /expectedBasis), absent-Run population refusal, stale-prefix (resource_acquisition/acquisition_refused, 0 bytes)",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs": "absent-run owner negative (missing_continuation /request) in every continueSelected; absent-Run population refusal",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs": "pending_execution case: wrong-run, wrong-run-digest (basis_mismatch /run), stale-prefix; retained-source B case: missing historical source Result start refused invalid_input, 0 events",
+   "build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs": "rootAuthority -> rootResolution (environment + owner resolution only); observedC2Task takes the C2 root grant from canonical populateProductRunInvocation via its input factory; no hand-assembled policy/grant/authority remains"
+  },
+  "deleted": [],
+  "unchangedThisCorrection": "other in-grant paths keep their candidate bytes",
+  "compilerFeedback": {
+   "tsc": "pinned tsc --noEmit --incremental false -p tsconfig.json: 0 diagnostics",
+   "declarationEmit": "in memory: 290 files, 0 pre-emit, 0 emit diagnostics",
+   "hc1Proof": "in memory: 0 positive errors, tenant source not compiled, public declarations resolved from memory; 30/30 negatives held (19 HC1 unchanged + 11 HC2), 0 stray",
+   "uatRepro": "constructor outputs accepted by the typed transport and operationId narrows: 0 errors (was TS2345 x3, TS2322)",
+   "nodeCheck": "all 16 modified .mjs pass",
+   "readiness": "FILE_ONLY_READY, 0 issues, 12 source hashes matched (rc4-scratch/native-recovery-16/readiness.json)"
+  },
+  "ownerSharing": {
+   "a": "done: actor mismatch refuses invalid_capability before grant construction",
+   "b": "done: three precise shared sequences (one per variant, so each owner keeps its narrower refusal union); population-only pre-steps (pending projection, use-request projection) stay in the populator",
+   "c": "done: grant derivable because population passes grants to its input factory; same policy, DIRECT_INVOKE_CAPABILITY and start packet as the removed assembly",
+   "d": "kept explicit: stdo_environment_resources {kind, schemaVersion, roots, permission} has no key in strict RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA; the shipped intent carries runEnvironmentResources (kind run_environment_resources), a different shape; no schema added"
+  },
+  "residuals": [
+   "No test, build, pack, install or Run executed by the Worker; all new runtime assertions are authored and unexercised until C2",
+   "Positive asset start execution needs a Program with publicAssetTargets; ST-1's language fixture (out of grant) has none",
+   "uat/harness.test.mjs (out of grant) mocks superseded owners; blocks constructLifecycleCall and freshReadbacks migration - Root",
+   "tenant tsconfig.json skipLibCheck:true is out of grant - Root",
+   "Stale-prefix negatives assume acquisition_refused for a superseded reopen handoff, the class ST-1 already asserts for reads",
+   "exact-candidate-qualification (dispatch consumer) is not in the C2 plan"
+  ],
+  "c2Readiness": "file-ready for the unchanged C2 plan; acceptance not claimed",
+  "scopeDisclosure": "writes: in-grant paths above and rc4-scratch/native-recovery-16/{return.json, readiness.json, notes.md, tmp/probe.mjs, tmp/uat-repro.compile.ts}; TMPDIR set to scratch16/tmp; tmp/node-compile-cache predates NODE_DISABLE_COMPILE_CACHE use; no network, install, build, generated or out-of-grant writes",
+  "stdo": "STDO v3.0.2 Worker frame; candidate_ready is not acceptance"
+ },
+ "priorCorrections": [
+  {
+   "kind": "hc2_same_run_correction_return",
+   "status": "partial_unaccepted",
+   "startsFrom": {
+    "constructionResult": "result://abiogenesis/90c243218be3f425a6c71b4ce483f18da7e2395e6d122f0b170d09337d0ebeda",
+    "c2Result": "result://abiogenesis/849a8bbb52c21c0e54ba09ae97850c4aaacd2a98a13d4405d4676d4068821339",
+    "source": {
+     "commit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+     "tree": "e669e2a903de1893a38271b4010a785cc840333e"
+    }
+   },
+   "diagnosis": {
+    "ST-1": {
+     "bound": true,
+     "from": "command 6 complete stdout (assert.fail at test:505 called from test:1388)",
+     "firstFailedRelation": "test falsifier construction: stale-resource-prefix asked the shipped populator to populate run_status at setupHandoff.prefix, where terminalRun does not exist; populateRunReadAtDurablePrefix -> prepareRunReadAtDurablePrefix correctly returned null -> unknown_source /source/sourceRef",
+     "notTheCause": "shipped populator/owner relation (unchanged); the 3 ST-2b shipped reads and 5 kernel falsifiers before line 1388 passed",
+     "downstreamSymptoms": "ST-3 fresh-process refusal, ST-4 CLI start/reads/flip/crossed, SDK direct invoke and six reads never executed",
+     "graphCallOpened": "structurally confirmed, not runtime-observed: open_call.ts root producer and test_env/proof/abi5-root-r10.events.jsonl carry top-level kind/runId/graphCallId; invoke owner returns a result only with non-null truth.graphCall. Test now binds the GraphCall to invoke ownerOutput.value.graphCall and requires the log to open exactly that one for the Run"
+    },
+    "currentIntent": {
+     "bound": "from the admitted command-8 record and hash-matched source, not from its omitted stdout bytes",
+     "firstFailedRelation": "evidence-root path relation: ABI5_EXACT_INTENT_EVIDENCE_ROOT=test_env/evidence/hc2-current-intent (relative) was used unresolved, so the fixture readyPath and ABG_TS_CLAUDE_COMMAND were cwd-relative while the consumer leaf reads readyPath in the CLI child (cwd: realpath scratch) and actor_process spawns the command from the workspace root; 'continue' cannot complete under that environment",
+     "precedent": "t287-selected-action.test.mjs:12 resolves its evidence root",
+     "populatorDivergence": "none: current_intent variant runs projectConstructionIntentContinuations -> open check -> projectExactExecutionBasisAtPrefix -> ProductExecutionResolutionPort.resolve(admitted) -> prepareConstructionIntentContinuation in the owner's order with the owner's refusal codes and emits request/slots from prepared; constructRunOperationPolicy equals the removed inline owner policy; runOperationAuthorityMatches/expectedRunOperationAuthoritySlots unchanged in meaning",
+     "unconfirmed": "exact failing assertion line/message in the omitted 11143 bytes; a later independent cause is not excluded until C2 reruns"
+    }
+   },
+   "changed": [
+    {
+     "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+     "bytes": 69502,
+     "sha256": "21e90e325cd9bb6b20315685a2974b603b7a1cb528493e836d57d89582e1ff7d",
+     "candidateSha256": "6a5c9cfab5a045b8ef8f2ba0e4ea21fe4a21b8136e9b2ca491545390e352308e",
+     "edits": [
+      "read wrapper: eventResourceOverride falsifier patch (re-envelopes the canonical population with only the event resource substituted)",
+      "stale-resource-prefix: populate at current readHandoff, substitute setupHandoff resource; refusal class resource_acquisition/acquisition_refused and its pre-owner precedence unchanged",
+      "SDK extension: GraphCall from invoke ownerOutput.value.graphCall, log must open exactly that GraphCall for the Run; graph reads use its ref; each populated source ref equals its requested ref",
+      "direct invoke and all six reads retained, none skipped"
+     ]
+    },
+    {
+     "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+     "bytes": 14033,
+     "sha256": "4cf9b8e0c8d6af87accec82a92026af2aae397ed22a8d720c7cb2335fed2971b",
+     "candidateSha256": "f670586a45532ee59d7279eb55fd5a3fc3f133d51c3d9efc8ca0fdec5676c8dc",
+     "edits": [
+      "evidence root path.resolve()d; no change for absent or absolute roots; assertions, sequencing and scenario data unchanged"
+     ]
+    }
+   ],
+   "deleted": [],
+   "unchangedProductSource": true,
+   "compilerFeedback": {
+    "canonical": "tsc 5.9.2 --noEmit --incremental false -p tsconfig.json: exit 0, 0 diagnostics",
+    "declarationEmitInMemory": "290 files, 0 diagnostics, discarded",
+    "hc1ProofInMemory": "skipLibCheck false: positive 0 diagnostics, resolves build/code/src/public/index.d.ts from memory, no tenant source compiled; negatives 19/19 held, 0 stray",
+    "syntax": "node --check pass on both edited .mjs",
+    "readiness": "FILE_ONLY_READY, 0 issues, 12/12 source hashes"
+   },
+   "residuals": [
+    "current-intent exact failing line not confirmed from admitted stdout (omitted from this view; runtime-003 archive outside read scope)",
+    "current_intent/pending_execution/selected_action populator repeats the owners' selection lookups (non-divergent); not factored to avoid touching passing owner lanes without an observed failure",
+    "prior gaps unchanged: uat/harness.test.mjs out of grant (constructLifecycleCall, freshReadbacks); dispatch rootAuthority; stdoEnvironmentResources patch; tenant tsconfig skipLibCheck:true out of grant",
+    "no runtime execution by this Worker: ST-1/ST-4 extension and current-intent need re-run C2"
+   ],
+   "c2Readiness": "candidate for re-run of C2 commands 6 and 8 (and unchanged lanes) after independent build/pack; not accepted",
+   "scopeDisclosure": "writes: the two test files and scratch16 return.json/readiness.json/notes.md; tsc and node run with NODE_DISABLE_COMPILE_CACHE=1, TMPDIR=scratch16/tmp; no build, pack, install, generated output, network or Run",
+   "stdo": "STDO 3.0.2 basis verified read-only (stdo status --verify: installed true, valid true, manifest f7f3f824...); Worker frame EXECUTIVE_BASELINE section 9"
+  }
+ ],
+ "predecessorReturn": {
+  "kind": "hc2_worker_return",
+  "status": "partial_unaccepted",
+  "source": {
+   "commit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+   "tree": "e669e2a903de1893a38271b4010a785cc840333e"
+  },
+  "changeClass": "realization_refactor under accepted HC2 HOW (T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md, Canonical operation population)",
+  "ownerPopulation": {
+   "product/run_invocation_operation.ts": "constructRunOperationPolicy, expectedRunOperationAuthoritySlots (shared by runOperationAuthorityMatches; check order unchanged), private constructRunInvocationAuthorityBasis, populateProductRunInvocation (start next|graph_function|asset|declared_start, direct invoke) over ProductExecutionResolutionPort.resolve; policy/grants precede the input factory, which receives the populated grants",
+   "owner_bindings/run_invocation.ts": "three continuation owners use constructRunOperationPolicy; populateRunContinuationAtDurablePrefix (current_intent, pending_execution, selected_action) mirrors owner derivation from the log and returns setup workspaceBinding",
+   "abg/construction_continuation.ts": "projectPendingExecutionUseRequest (replaces the support private open_call fallback)",
+   "abg/project_read_definition_bindings.ts": "expectedRunReadAuthority shared with runReadKernel; populateRunReadAtDurablePrefix for the six run reads; ABG_RUN_READ_MEMBER_KEYS",
+   "product/admission_authority.ts": "constructAdmissionCapabilityData from actual packet/owner/request/resources/slots; supplied ResolvedAdmissionAuthority and approval stay explicit; existing grant constructors unchanged",
+   "public/installed_public_definition_call.ts": "shipped SDK constructInstalledStartCall, constructInstalledPendingCall, constructInstalledRunReadCall over the package's own product/abg/Public family modules with explicit envelope identity; exported from public/index.ts; CLI JSONL transport unchanged",
+   "indexes": "abg/index.ts, product/index.ts, public/index.ts export the above"
+  },
+  "consumersMigrated": {
+   "support/registered-graph-selection.mjs": "start/pending/read now thin wrappers over shipped constructors; private build/.../open_call.js fallback, read mutation hooks and hand slot bodies removed; pending call(identity) canonical, replay(identity, patch) explicit negative",
+   "support/t287-generic-job-intake.mjs": "start via shipped constructor (input factory gets populated grants)",
+   "support/t287-generic-job-readback.mjs": "reads via shipped constructor",
+   "fixtures/t287-management-supervision/fresh-public-read.mjs": "reads via shipped constructor",
+   "support/retained-installed-consumer.mjs": "AdmissionCapabilityData via constructAdmissionCapabilityData",
+   "support/installed-qualification-conservation.mjs": "admission data, graph_function start and fresh reads via owners/shipped constructors",
+   "support/declared-testing-capability.mjs": "admission data, start and reads via owners/shipped constructors",
+   "qualification/dispatch.mjs": "startCall via shipped constructor; rootAuthority policy via constructRunOperationPolicy (kept for observedC2Task grant)",
+   "uat/continuation.mjs": "B start via shipped constructor from B's own intent; A's request no longer spread into B",
+   "uat/public-setup.mjs": "authorizeInstalledOperation admission data via constructAdmissionCapabilityData",
+   "tests/t287-exact-construction-intent.test.mjs": "current_intent via shipped constructor; falsifiers/consumed patch canonical population",
+   "tests/t287-selected-action.test.mjs": "witness admission data via owner; selected_action via shipped constructor; negatives/duplicates patch canonical population",
+   "tests/t287-default-library.test.mjs, tests/t287-recursive-registered-selection.test.mjs": "pending callers await shipped population; start object no longer authority (expectedAuthority assertion only)",
+   "tests/t287-st1-installed-cross-owner-hello.test.mjs": "local start/read population replaced by shipped constructors; falsifiers patch canonical population; extended with shipped direct invoke + all six reads"
+  },
+  "hc1Residuals": {
+   "skipLibCheck": "test_env/tsconfig.framework-handoff.json skipLibCheck:false",
+   "rawUnavailableRefusals": "t287-framework-handoff-types runs all 9 unavailable leaves through runInstalledDefinitionCallTransport (packed proof, not run locally)",
+   "mixedUnionTyping": "per-alternative CandidateAlternativeHolds; positive valid union + 2 mixed-union negatives"
+  },
+  "compilerFeedback": {
+   "canonical": "tsc 5.9.2 --noEmit --incremental false -p tsconfig.json: 0 diagnostics",
+   "declarationEmitProbe": "in-memory declaration emit (discarded): 290 files, 0 diagnostics",
+   "hc1ProofProbe": "in-memory source-mapped proof compile, skipLibCheck false: positive 0 diagnostics; 19/19 negatives fail on their own line with a declared code",
+   "syntax": "node --check on every edited .mjs: pass"
+  },
+  "residuals": [
+   "uat/public-setup.mjs constructLifecycleCall and uat/runner.mjs freshReadbacks keep hand population: out-of-grant uat/harness.test.mjs mocks the superseded owners and api.constructInstalledPublicDefinitionCall; migration needs that test in scope",
+   "qualification/dispatch.mjs rootAuthority still constructs grants/authority via product constructors for observedC2Task",
+   "declared-testing stdoEnvironmentResources (key absent from the strict run resource schema) conserved as an explicit post-construction resource patch",
+   "canonical tenant tsconfig.json skipLibCheck:true outside write grant",
+   "no runtime, packed, CLI, C2 or UAT execution locally (no build/, builds forbidden); ST-1 extension assumes the direct-invoke Run opens a graph_call_opened event"
+  ],
+  "readiness": "rc4-scratch/native-recovery-16/readiness.json FILE_ONLY_READY, 0 issues, 12 source hashes matched",
+  "c2UatReadiness": "candidate for the selected C2 lanes after an independent build/pack; not accepted; UAT harness lane blocked by residual 1",
+  "stdo": "STDO 3.0.2 basis resolved/verified once at entry through the toolchain manager; Worker frame (EXECUTIVE_BASELINE section 9) with declared section 11 specialist context; no other version, cache or mutable methodology source used",
+  "scopeDisclosure": "TMPDIR=rc4-scratch/native-recovery-16/tmp; tsc wrote tmp/node-compile-cache there. No other writes outside granted paths; no install, build, network or generated output."
+ }
+}

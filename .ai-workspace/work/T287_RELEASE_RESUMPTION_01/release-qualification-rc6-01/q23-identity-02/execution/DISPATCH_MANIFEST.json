@@ -1,0 +1,338 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "at": "2026-11-05T17:06:40.056936+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 9089,
+    "sha256": "73ab66e7bf121349b85d3f075e2a7cae03ce58e835561f2e2643ce6d795fdd8c"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "contextDigest": "sha256:17375ce64b20ee2bd51f0aa8c75813499e8439c9a99f18d655df2b6c931dfcc3",
+  "callCanonicalDigest": "sha256:214a34693c8ac0f2ec254534a4d62fac3e001d7056c8834d6fd2525e6f3c0aa7",
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 384,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 3600000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "actualPreflight": {
+    "wallMs": 25125.86808297783,
+    "budget": {
+      "rule": {
+        "aggregation": "sum",
+        "commandFields": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "httpResponseFields": {
+          "launch": [
+            "timeoutMs",
+            "terminationGraceMs",
+            "terminationGraceMs"
+          ],
+          "request": [
+            "timeoutMs"
+          ]
+        },
+        "perOperationDrain": {
+          "field": "terminationGraceMs",
+          "maximumMs": 250,
+          "operation": "minimum"
+        },
+        "ownerAllowanceMs": 5000,
+        "limitComparison": "required_budget_strictly_less_than_each_limit",
+        "limitOrdering": "absolute_strictly_greater_than_inactivity"
+      },
+      "commandBudgetMs": 1561500,
+      "httpProbeBudgetMs": 0,
+      "requiredExecutionBudgetMs": 1566500
+    },
+    "limits": {
+      "absoluteTimeoutMs": 3600000,
+      "inactivityTimeoutMs": 1800000
+    },
+    "selectorCapacity": {
+      "kind": "bounded_current_initial_projection_measurement",
+      "projectionBytes": 353021,
+      "selectedFiles": 341,
+      "sourceCount": 14,
+      "contextBytes": 11818936,
+      "maxPromptBytes": 1048576,
+      "reserveBytes": 131072,
+      "initialProjectionFitsWithReserve": true,
+      "providerCalls": 0,
+      "RunAdmissions": 0,
+      "limits": [
+        "Initial owner task projection only; not complete rendered request or future-stage fit.",
+        "Existing native assembly applies actual prompt limit before each paid invocation.",
+        "No historical task/prompt bodies or invented future producer observations used."
+      ]
+    }
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/SOURCE_BEFORE.json",
+      "bytes": 71369,
+      "sha256": "420880c5f951bce9925552be4631a075f23126a15a43eb9eeb990f7649a9b5eb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/NATIVE_GRANT.json",
+      "bytes": 33507,
+      "sha256": "ae20f502362713195c2420923522ac269720b05f24e23b308a261f05a251208b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/NATIVE_TASK.json",
+      "bytes": 44074,
+      "sha256": "ea9de9a035372edbb036f072af1a483c84a8d9166d719179cd1fb1efdd663d62"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/C2_RECIPE.json",
+      "bytes": 37660,
+      "sha256": "cfacc5f1891ff5765cea31092dcf202d71dcd0360fbedef40cb237146ed4b6e7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/workload.json",
+      "bytes": 95687,
+      "sha256": "27a8a922fe86d2adf789b96e76f99ff8730557e62c56db1f4430a8b3c58beadd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/prepare-r1.mjs",
+      "bytes": 8947,
+      "sha256": "a5875ef97cfc3ac4fa6f70acfa323b9d31de1bd4e1eae185c459db60cece86f6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/PROVIDER_PROFILE.json",
+      "bytes": 1778,
+      "sha256": "23bba0d6880932aa9d433012d8609c2b9e9fe84f73e1529e735aa37d14245b2b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/claude-provider.sh",
+      "bytes": 241,
+      "sha256": "9b4fe34f52fdf75c8d94f6e989d781406c6e4953ac0af5bd007ee47c21f91204"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/RUNTIME_BINDINGS.json",
+      "bytes": 3212,
+      "sha256": "add7937fbd6b355fc2115e74819fdaf2a5ff071492a2ab8a9c9d8ef4299967f4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/EXPECTED_FUTURE_FILES.json",
+      "bytes": 173,
+      "sha256": "b535af87b13ea5831f46b02fc99349a5ae3ceb97c08b7b01223872362ab87a1b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/STAGING_MANIFEST.json",
+      "bytes": 7570,
+      "sha256": "69696b8a952f735fc2d9dd357e9cfeec3226a5fa82dcd30e794cd933439a3add"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/freeze-source.mjs",
+      "bytes": 8504,
+      "sha256": "a7df86d0435d7d3ac27881a89d1ca1b65b2f3db7c8d1adc2f9e463a0b54e6343"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/observe-progress.py",
+      "bytes": 4827,
+      "sha256": "efebc940a8167bf117fe00e54507eaddc2f5c8797f4a311c132feeab2eb77452"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/capture-c2.mjs",
+      "bytes": 7791,
+      "sha256": "3d26742f2fb9d2ae39a85e7c6f91ecca958fb09ce2f54f9b0f22799a0f939eae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/capture-assessment.mjs",
+      "bytes": 8149,
+      "sha256": "657ad8f872e77ef4f2b6bdae0e4c7c3472c75878e9d3b380a87e670b0df73d5a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/ROOT_CONTROL_ADMISSION.json",
+      "bytes": 9089,
+      "sha256": "73ab66e7bf121349b85d3f075e2a7cae03ce58e835561f2e2643ce6d795fdd8c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/ROOT_SELECTION.json",
+      "bytes": 8486,
+      "sha256": "0378fd25947f07c02f8ea959434793ef6daea050dd238a28afff3e9852e02dab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/ROOT_POLICY_HOW_SELECTION.json",
+      "bytes": 3891,
+      "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/ROOT_SCOPE_CLARIFICATION.json",
+      "bytes": 1397,
+      "sha256": "22bb0fd012df55c925623c256118596ce5e38d0c345da986fa7b8c0136d73647"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/CONTINUATION_BASIS.json",
+      "bytes": 5394,
+      "sha256": "67bacd33da1fdbcf3d3945743df7f3b29b96b13da6a40a04c688b31a85a9efa6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/METHOD_VERIFICATION.json",
+      "bytes": 1368,
+      "sha256": "1f9b60d56d52c6ca935d28439c9e081fbf67c6841d33f9c4b398dbff09d8a652"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/PREPARATION_RETURN.json",
+      "bytes": 3569,
+      "sha256": "936f32a24a4732db26eb40098bb3f920b50d4df4cea24b1d9141597b1fce114c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/PREFLIGHT_RESULT.json",
+      "bytes": 193,
+      "sha256": "7daa697cd09ef8d34e33e19491446b96266fd2819ff44aabf4a1d5b98f82095c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/SELECTOR_CAPACITY_PREFLIGHT.json",
+      "bytes": 596,
+      "sha256": "af2059c749d4141cc5f59c85b4c14c2daf5eda635a44e99b91566587eb3f2598"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/PREPARED_CALL.json",
+      "bytes": 4334,
+      "sha256": "dd947e6917671e6deb2a672d45a51c37b1fb8369d0351b0551cbacd9f9a868fb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/prepared-call.json",
+      "bytes": 29593273,
+      "sha256": "588b774552d3e3b2701366baa77d6a08923f4182b30fdbc569754739eff9281b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/input.json",
+      "bytes": 99350,
+      "sha256": "843703dcd3daf8acec925e5d13c448288961fac05bf54806823d838833953491"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/resume.json",
+      "bytes": 72662117,
+      "sha256": "ece65878c6d9b9364362fafb1765476dad2ac781612fe70346995fa249f20df9"
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/C2_INPUTS.json",
+      "bytes": 95602,
+      "sha256": "5180ae49f2fffc2827860c70979847bffb2626290c2cd48e3ae7e7184cfd253b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/CONTINUATION_BASIS.json",
+      "bytes": 5394,
+      "sha256": "67bacd33da1fdbcf3d3945743df7f3b29b96b13da6a40a04c688b31a85a9efa6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/DEPENDENCY_SOURCE_SELECTION.json",
+      "bytes": 5419,
+      "sha256": "0d41875b43634ef746790ee83699d04def577d5b1b00f29e5d6b73e58140ce75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/IDENTITY_DESIGN_REENTRY.json",
+      "bytes": 20929,
+      "sha256": "7ec6f271253664b7a571d636ef65fddcf77015ed06795238b382368d91165876"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/MATERIAL_AND_C2_SCOPE.json",
+      "bytes": 27566,
+      "sha256": "846fcb04d4208ccf1c68aca6b834b00b4896ddd35380dc0406ac1f576aaafc2f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/METHOD_ACCESS.json",
+      "bytes": 939,
+      "sha256": "6343d7c3c3a8eb0553e9b1452ae36cc70209c222cdde0edf502e102ba0c88d84"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/METHOD_VERIFICATION.json",
+      "bytes": 1368,
+      "sha256": "1f9b60d56d52c6ca935d28439c9e081fbf67c6841d33f9c4b398dbff09d8a652"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/NATIVE_GRANT.json",
+      "bytes": 33507,
+      "sha256": "ae20f502362713195c2420923522ac269720b05f24e23b308a261f05a251208b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/PRIOR_AUTHOR_FEEDBACK.json",
+      "bytes": 11265,
+      "sha256": "eb9dc22b64af676500fde63b02ff4c021ec53f59d96f77d7879a6bc12e1b429c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_IDENTITY_DISPOSITION.json",
+      "bytes": 3523,
+      "sha256": "fe0ac1db2499a2ec73456d50a9a8f57df4cf70ac23c1ccbc8ec375882f7b9497"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_POLICY_HOW_SELECTION.json",
+      "bytes": 3891,
+      "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_SCOPE_CLARIFICATION.json",
+      "bytes": 1397,
+      "sha256": "22bb0fd012df55c925623c256118596ce5e38d0c345da986fa7b8c0136d73647"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_SELECTION.json",
+      "bytes": 8486,
+      "sha256": "0378fd25947f07c02f8ea959434793ef6daea050dd238a28afff3e9852e02dab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/TASK.md",
+      "bytes": 7296,
+      "sha256": "a3fc971b41fee721892bb1de9d496c7c72e06f3c556708a60ed83790117da006"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/c2-proof.mjs",
+      "bytes": 3330,
+      "sha256": "7515af2b875932c7aa12717bb318a31b5158b1e5d4f477993f87667593a1c26d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/prior-author-lanes.mjs",
+      "bytes": 2813,
+      "sha256": "b570358c0eec89e0c25e5a10d39b7794f7b7c0d135a04ae652816a9478209f6b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/prior-author-stage.mjs",
+      "bytes": 3726,
+      "sha256": "bda7e065c4851c5caebeb5ff7ef26a70edecce68edec4cb8167f0e28a4501d45"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/rubric.json",
+      "bytes": 4050,
+      "sha256": "33debdd071f1261a0f31fa587191897e2f858378ece460a67fa24bc2a497155d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/source-correspondence.mjs",
+      "bytes": 2375,
+      "sha256": "0c53ffbf86260d204cb18676a83926c26572181627c64272443b671c647f5484"
+    }
+  ],
+  "automaticRetry": false,
+  "qualification": false,
+  "meaning": "One native Q23 continuation of the exact held unaccepted partial from the actual failed close. No setup repeats or global session resume. Original component scope and strict same-family policy retained."
+}

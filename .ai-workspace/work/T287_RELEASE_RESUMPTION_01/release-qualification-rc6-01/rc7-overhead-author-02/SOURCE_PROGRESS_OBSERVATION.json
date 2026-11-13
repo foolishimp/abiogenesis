@@ -1,0 +1,26 @@
+{
+  "kind": "live_source_progress_metadata_only",
+  "observedUtc": "2026-11-06T05:40:36.326166+00:00",
+  "selectedWritePaths": 86,
+  "changedFromEntryPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/index.ts"
+  ],
+  "unstableDuringRead": [],
+  "missing": [],
+  "standing": "Concurrent worksite observation only; not frozen source, review, implementation completion or acceptance."
+}

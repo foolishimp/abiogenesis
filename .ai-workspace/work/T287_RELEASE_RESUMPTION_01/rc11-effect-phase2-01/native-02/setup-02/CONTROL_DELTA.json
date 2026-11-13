@@ -1,0 +1,100 @@
+{
+  "status": "ROOT_SELECTED_FRESH_HOST_DIRECTORY_STDIN_REENTRY",
+  "failedSetup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/SETUP_RETURN.json",
+    "bytes": 4058,
+    "sha256": "d2ba93e6980d5171b15b2fe195f74784a674b5a2d9d6029bab9bd16dedb5fed7"
+  },
+  "predecessorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/BINDING.r02.json",
+    "bytes": 19443,
+    "sha256": "94c63e2a3034b0c5db668da725cbd0960cf40eab6cce2452a50aac7690c4142b"
+  },
+  "supersededUnexecutedR03": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/READY.r03.json",
+    "bytes": 8561,
+    "sha256": "fd5f3c25e00b1f132aa94b15981262687be769b86a2b9dff0c44e258d9671d3f"
+  },
+  "successorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/BINDING.json",
+    "bytes": 19497,
+    "sha256": "85479530623a587e48c154ec877d7c5b4c264e33b00f7f6c81291318f1baa825"
+  },
+  "host": {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/host.mjs",
+      "bytes": 15522,
+      "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/host.mjs",
+      "bytes": 15522,
+      "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+    },
+    "byteIdentical": true
+  },
+  "relativeImport": {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    "byteIdentical": true
+  },
+  "changedBindingFields": [
+    "runtimeRoot",
+    "scratchRoot",
+    "environment.TMPDIR",
+    "environment.TMPPREFIX",
+    "environment.NPM_CONFIG_CACHE",
+    "proofControls actual relative transport-preflight path only"
+  ],
+  "hostDirectoryAssertionsChecked": [
+    "runtimeRoot is join(dir,runtime-001)",
+    "native admission pin dirname is dir",
+    "relative transport-preflight module copied exactly"
+  ],
+  "sameTask": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/TASK.json",
+    "bytes": 6637,
+    "sha256": "48eb66530603374bafa1bdce154fdbdf6a07e381039d99bc76d009c4c19ef757"
+  },
+  "sameScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/ROOT_SCOPE.json",
+    "bytes": 6009,
+    "sha256": "90add4df71732a80fa17f499b1d5e6e87d970d0e0e6503b4086615ebf74b88b7"
+  },
+  "sameSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/source-freeze.json",
+    "bytes": 295251,
+    "sha256": "9a82a2297b03cec7da18862acca7d12c2625d8f6a85f4d0cf39069de0279e548"
+  },
+  "sameReadOnlyInputPins": true,
+  "sameWorkerEnvironmentAndNativeScratch": true,
+  "launch": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/host.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/BINDING.json",
+      "85479530623a587e48c154ec877d7c5b4c264e33b00f7f6c81291318f1baa825",
+      "<setup-02/Root setup admission path>",
+      "<Root setup admission SHA256>"
+    ],
+    "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/host.mjs /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/BINDING.json 85479530623a587e48c154ec877d7c5b4c264e33b00f7f6c81291318f1baa825 '<setup-02/Root setup admission path>' '<Root setup admission SHA256>'",
+    "tty": true,
+    "login": false,
+    "stdin": "Direct Node command inherits retained live PTY; no heredoc/redirection/pipeline. Setup/native admissions reside in setup-02.",
+    "execution": "HELD pending Root admission"
+  },
+  "syntaxExitCode": 0,
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/TRANSPORT_PREFLIGHT.json",
+    "bytes": 1072,
+    "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+  }
+}

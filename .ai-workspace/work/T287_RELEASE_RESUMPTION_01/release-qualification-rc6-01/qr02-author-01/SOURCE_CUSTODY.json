@@ -1,0 +1,45 @@
+{
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17 unchanged",
+    "slice": "F11/F15 QR02 truthful surviving contributor attribution through existing external record owners",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "basis": "stdo://releases/v3.0.4/",
+    "outcome": "Make the previously selected finite provenance correspondence increment concrete on the actual post-D5 existing owner interfaces, preserving unknown attribution and shared material.",
+    "authoritySplit": {
+      "source": "Six named owners on a future closed post-D5 source; frozen N2 is preparation routing only. No source editing by this activation.",
+      "tool": "Selected STDO3.0.4 and maintained RC6 operator-client; host capabilities are behaviorally scoped, not OS confinement.",
+      "runtime": "No activation. Actual successor Result/source/review, D5 proof disposition, latest real close/resume/prefix and Root admission remain null."
+    }
+  },
+  "status": "PREPARATION_PLACEHOLDERS_NOT_CURRENT_SOURCE",
+  "preparationSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "sourceSubject": null,
+  "sourceResult": null,
+  "sourceReview": null,
+  "d5ProofDisposition": null,
+  "actualClose": null,
+  "sourceBefore": null,
+  "mutableProductPaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+  ],
+  "optionalNewProductPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/qualification-provenance-survival.json"
+  ],
+  "newHandoffs": [
+    "qualification-scratch/qr02-author-01/return.json",
+    "qualification-scratch/qr02-author-01/readiness.json",
+    "qualification-scratch/qr02-author-01/progress.json"
+  ],
+  "inheritedReadonlyHandoffs": [],
+  "rule": "Root binds actual successor and every selected source input after D5 author03 close/recheck and proof03 C2/UAT disposition. Extra unchanged tracked helper acquisition is separately source-pinned and observed; do not label it predecessor Result material. N2 pins are preparation routes only. Root retains full prior custody outside this minimal actor context."
+}

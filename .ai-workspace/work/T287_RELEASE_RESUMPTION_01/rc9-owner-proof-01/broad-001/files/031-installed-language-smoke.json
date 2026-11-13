@@ -1,0 +1,62 @@
+{
+  "file": "test_env/tests/installed-language-smoke.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 40187.91650000005,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/031-installed-language-smoke.jsonl",
+    "bytes": 821,
+    "sha256": "5bf927e2e09c9e025d6db48826caf52dc324e17ff97941f1f07b9817d725aad1"
+  },
+  "commandReceipt": "commands/031-installed-language-smoke.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-non-root-alias-selection.json",
+      "kind": "file",
+      "bytes": 2473,
+      "sha256": "2d05bbba082de4d05d49e63db981238217f09d7cd122c6250c66a0ebce7b40ca",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r7.json",
+      "kind": "file",
+      "bytes": 3331,
+      "sha256": "dbedb7617512eccd43442fec156907b2015c8145b340e54882c3d698ab99cd95",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r8.json",
+      "kind": "file",
+      "bytes": 2444,
+      "sha256": "1ae7c42e56208dc7d2ec3626519cd70ec0decee06581a3f3c996a31936c7f6db",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

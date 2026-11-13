@@ -1,0 +1,167 @@
+{
+  "kind": "root_s2_partial_source_disposition_and_hs03_reentry",
+  "status": "ROOT_SELECTED_S2_PARTIAL_SOURCE_FOR_ARCHIVE_AND_COMPATIBILITY_COMPLETION",
+  "at": "2026-11-06T22:51:41.435893+00:00",
+  "roleTransition": "Executive -> separately bound coordination/operator Writer under existing ROOT_ACTIVATION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; fixed fifteen families",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "boundary": "ABG alone admits runtime truth. Replay is pure over acquired history; SDK/CLI remain thin. Archive references are observation evidence under existing transport/event owners, not new runtime authority."
+  },
+  "evidence": {
+    "sourceAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/SOURCE_AFTER.json",
+      "bytes": 557071,
+      "sha256": "6a11b7193ae07edb1c74d6de969352b464e5d167fd14284ccc71709d25d76cdb"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8413,
+      "sha256": "9e9d637edd84e8bf14489c2c4b6904072d64dd449697ad7429368d01a931355a"
+    },
+    "finalSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 12430,
+      "sha256": "12869a0d9af624f69b551dc3ec19d9844779fd2dbe7ad4e5019fc0e0be2b1dca"
+    },
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/reviews/source-stage-sw2-stage-01/REVIEW.json",
+      "bytes": 20994,
+      "sha256": "30c74fc2a7242ddde9ae62d58a5dd7ddf64fca239d82e59318a220df2df0eea9"
+    },
+    "proofInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/post-return-controls/actual-001/PROOF_INVENTORY.json",
+      "bytes": 14704,
+      "sha256": "825616c90f501613c1605443c00d385b006a6754de675e80f7f0299e9ccd5b35"
+    },
+    "authorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/post-return-controls/actual-001/handoffs/return.json",
+      "bytes": 6459,
+      "sha256": "73e4747922e6c373b17be3203fe5b47c4fa6d2b1ea9f1e20c30f3bf883620acd"
+    },
+    "sessionCosts": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/operator-custody-001/SESSION_COSTS.json",
+      "bytes": 9624,
+      "sha256": "311798c5b7a35c5b455965a07d8746e9809b50152b0800dccef877b7790acea1"
+    },
+    "design": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261106T041246Z_DESIGN_HELD_GRAPH_INTERFACE/README.md",
+      "bytes": 46833,
+      "sha256": "f6e3f15fd5388349e61f99ccd0e90f6018413e8cf6a36c306456f02b94acff48"
+    }
+  },
+  "acceptedClaim": "Physical working basis only: all451 source rows agree across native after, held snapshot, successful stage and live checkout. The exact S2 SDK completed/exit0 and resource closed. Structured-boundary partition and internal declaration repairs are retained. This does not accept HS03 or E4.",
+  "actualProof": {
+    "build": "compile0/7487ms, generation0/22530ms, lifecycle0/589ms",
+    "differential": "2/2 pass; controlled911 emitted chunks ->3 windows; not a full workflow speedup",
+    "scopeOrdering": "2/2 pass",
+    "timeoutInterruption": "10 Node entries,9 pass/1 fail; one pass is an empty filtered file completion. Invalid absolute500ms <= inactivity5000ms refused before launch.",
+    "unrun": [
+      "archive-integrity",
+      "legacy-replay",
+      "native-caller"
+    ]
+  },
+  "triage": [
+    {
+      "id": "HS03-S2-TIMEOUT-FIXTURE",
+      "origin": "Test construction violates existing absolute > inactivity transport contract; Product correctly refused.",
+      "selectedRepair": "Correct only the authored absolute-timeout fixture using valid clocks and actual steady progress, preserving the original failed receipt.",
+      "reproof": "Actual absolute interruption drains the pending window exactly once; inactivity/noise and cleanup remain."
+    },
+    {
+      "id": "HS03-S2-ACTOR-SUCCESSOR",
+      "origin": "Existing proof covers real liveness/store but not actor_process local successor adoption. Transport tests and mocked actor fixtures cannot decide E3.",
+      "selectedRepair": "Reuse t287-lifecycle-failure-carrier VM/component route to actual invokeActorProcessWithAssembly, keeping real EventStore/runtime_liveness for deciding owners. Force not_reached with a pending window and require the next actual admission at its durable successor.",
+      "reproof": "Scope-ordering lane has a separately active actor-successor case; no mocked admission success."
+    },
+    {
+      "id": "HS03-S2-WINDOW-ARCHIVE",
+      "origin": "Design R-E/E4 requires range/digest and first/last capture clocks. actor_process1353 drops these; runtime_liveness395 emits the five old payload fields. Cold owners authenticate event bytes but never the referenced stdout bytes.",
+      "whyPriorChecksMissed": "The selection assumed an existing general cold archive checker. Tests observed live transport integrity; the actual checker is private to no_output construction recovery. Neither validates the promised current window through cold acquisition.",
+      "selectedRepair": "Carry the window offset/length/digest/first-last capture times and separate last qualifying activity from transport through actor and one declared event variant. Extract/reuse the existing range/digest computation and ordinary archive binding/path owner; do not duplicate a new parser/store/validator framework. Validate referenced window bytes once at the existing shared cold decode/adoption boundary for reopen, recover and direct cold reads, including applicable byte-array sibling. Pure fold and warm active selection do no archive reads.",
+      "reproof": "Missing/changed/truncated referenced bytes refuse on actual cold owner paths; archive fsync-before-reference and failure/no-reference remain. Warm work counters do not gain checks."
+    },
+    {
+      "id": "HS03-S2-PROFILE-COMPATIBILITY",
+      "origin": "Contract table hashes include payload keys. S2 only recognizes L and latest3bcc; changing keys is not digest-neutral. Root imported actual immutable RC6 and frozen S2 builds: RC6 current5b35 differs already because D5 removes lifecycle copies and adds configuredIdentity.",
+      "selectedRepair": "One existing profile owner selects the exact table and independent semantic capabilities. Preserve exact L fc3a, RC6 stamped5b35 (copied lifecycle/probes), S2 stamped3bcc (copy-free/probes), and prospective W (copy-free/window witness). No digest-not-latest => L shortcut, restamp, weakened checks or blanket archive obligation on old rows. New RC7 working stores use W. Preserve prior witnessed L transition identities; no P-to-W migration or native continuation on old P is selected in this bounded task.",
+      "reproof": "Hard-pinned old contract digests and original per-chunk rows/event IDs/payloads survive cold reading and applicable fold/call projection. New W refs obey their new contract; undeclared/malformed profile/window combinations refuse."
+    }
+  ],
+  "profileIdentities": {
+    "L": "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c",
+    "installedRc6": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+    "frozenS2": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0",
+    "W": "Native owner authors one exact successor descriptor; canonical regeneration binds its actual identity."
+  },
+  "nextWork": {
+    "reentry": "design_reframe realization completion under already selected R-E, with exact historical representation conservation; no new Product outcome",
+    "owningHow": "Amend existing common HOW10.10 before dependent implementation; retain10.9 accepted held-session relation. Small existing UML plus exact owner/producer/consumer/transaction/cold-boundary/compatibility relation.",
+    "writeCeiling": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "ceilingWhy": "17 existing owners plus7 finite historical-profile consumers and the existing affected native-caller fixture. No new Product files. Worker names only changes necessary for this causal cone.",
+    "allocation": {
+      "stages": 2,
+      "finalLanes": 6,
+      "turns": 320,
+      "absoluteMs": 3600000,
+      "inactivityMs": 1800000,
+      "hostMs": 10800000,
+      "heapMiB": 8192,
+      "nativeWorkers": 1,
+      "automaticRetries": 0
+    },
+    "baselineRerun": false,
+    "stageReview": "Freeze source before affected build/proof and publish it immediately for independent max review alongside testing.",
+    "controlStanding": "A3 mechanical preparation only; actual grant and dispatch still unbound."
+  },
+  "procedureStanding": "Retain S2 initial pending-read record, final explicit missing-full-authority-reread disclosures and out-of-list local checks. No whole-procedure compliance claim. Next author reads exact R-E/E1-E4, relevant Product/requirements, current HOW and named owners before effects; recorded summaries do not replace source authority.",
+  "retainedEvidence": "H06 HS01/small HS02 acceptance and all historical failures remain exact. S5 timeout/missing native after/generator refusal and S2 original test-input failure are preserved. A new contract changes affected closure; repeat only affected final lanes, never the completed baseline or unrelated qualification.",
+  "residuals": [
+    "Installed S4 growth and conditional S6 decision",
+    "Reproducible RC7 local cut/install",
+    "Full installed native-workflow performance",
+    "Exact5.0 qualification and actual human release gates",
+    "Old-P to W runtime migration is outside this bounded fresh-W path and must not be implied"
+  ],
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "rc7Installed": false
+}

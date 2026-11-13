@@ -1,0 +1,159 @@
+{
+  "kind": "readonly_owned_history_discriminator",
+  "startedUtc": "2026-11-03T13:30:16.114Z",
+  "packageRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.4/node_modules/@abiogenesis/typescript-tenant",
+  "eventPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+  "sourceCommit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+  "logSha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+  "coordinate": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 586361364,
+    "prefixDigest": "sha256:532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 685202701,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:9f23584e3c16b47430b6665a1c836f97312fd40fd4e81bbb8c3d921bf78465bb"
+  },
+  "limits": [
+    "One captured historical cut; not a native workflow speedup.",
+    "Inspector instrumentation affects absolute durations.",
+    "Cold file acquisition is reported separately from repeated same-address-space projection.",
+    "Measures this history/materialization path, not all CPU causes of observed event silence."
+  ],
+  "subject": {
+    "ordinal": 23799,
+    "eventRef": "event://abiogenesis/3200aa5c6c89a217bc50388c1cc2b1fb96eaa600dbbc36579bf858ef3f849fee",
+    "cCallRef": "c-call:sha256:91961be974bed3786bb4ccecf4fd9d0d85a8ce52d9532118624834e717e73667",
+    "frameId": "frame://abiogenesis/bb006457fb541cc364bc8baf3fe3365ddf2583e81f0b42b28020266d07474bd8"
+  },
+  "contextDigest": "sha256:163d18833183aa7ddc9a7eebc46689b0ec9fa896683a5fa39ee53663fb69b7d1",
+  "equalContext": true,
+  "status": "COMPARISON_PASSED",
+  "eventLogUnchanged": true,
+  "eventAppends": 0,
+  "storeAcquisitions": 0,
+  "providerCalls": 0,
+  "endedUtc": "2026-11-03T13:30:41.445Z",
+  "measurements": [
+    {
+      "name": "cold_readonly_authentication",
+      "wallMs": 14835.4735,
+      "cpuUserMs": 15205.288,
+      "cpuSystemMs": 567.918,
+      "readCalls": 8985,
+      "readBytes": 666189062,
+      "memoryBefore": {
+        "rss": 285753344,
+        "heapTotal": 171720704,
+        "heapUsed": 33794760,
+        "external": 56312631,
+        "arrayBuffers": 26839
+      },
+      "memoryAfter": {
+        "rss": 1274593280,
+        "heapTotal": 387219456,
+        "heapUsed": 244404784,
+        "external": 5434472,
+        "arrayBuffers": 3030004
+      }
+    },
+    {
+      "name": "owned_prefix_and_liveness",
+      "wallMs": 1963.6655840000003,
+      "cpuUserMs": 1784.298,
+      "cpuSystemMs": 209.29,
+      "readCalls": 12199,
+      "readBytes": 51567041,
+      "memoryBefore": {
+        "rss": 1264648192,
+        "heapTotal": 366231552,
+        "heapUsed": 229942440,
+        "external": 2431323,
+        "arrayBuffers": 26855
+      },
+      "memoryAfter": {
+        "rss": 1281245184,
+        "heapTotal": 437157888,
+        "heapUsed": 333758024,
+        "external": 2480347,
+        "arrayBuffers": 75879
+      },
+      "cpuProfile": "owned_prefix_and_liveness.cpuprofile"
+    },
+    {
+      "name": "expanded_full_history_prefix",
+      "wallMs": 6891.170291999999,
+      "cpuUserMs": 7363.071,
+      "cpuSystemMs": 473.913,
+      "readCalls": 11568,
+      "readBytes": 425363929,
+      "memoryBefore": {
+        "rss": 1278377984,
+        "heapTotal": 432160768,
+        "heapUsed": 293529616,
+        "external": 2431323,
+        "arrayBuffers": 26855
+      },
+      "memoryAfter": {
+        "rss": 1779843072,
+        "heapTotal": 917258240,
+        "heapUsed": 797139512,
+        "external": 3977952,
+        "arrayBuffers": 1573484
+      },
+      "cpuProfile": "expanded_full_history_prefix.cpuprofile"
+    },
+    {
+      "name": "expanded_prefix_liveness",
+      "wallMs": 248.2587080000012,
+      "cpuUserMs": 244.818,
+      "cpuSystemMs": 4.994,
+      "readCalls": 0,
+      "readBytes": 0,
+      "memoryBefore": {
+        "rss": 1762983936,
+        "heapTotal": 905117696,
+        "heapUsed": 761677864,
+        "external": 2431323,
+        "arrayBuffers": 26855
+      },
+      "memoryAfter": {
+        "rss": 1772404736,
+        "heapTotal": 909574144,
+        "heapUsed": 808387360,
+        "external": 2431323,
+        "arrayBuffers": 26855
+      },
+      "cpuProfile": "expanded_prefix_liveness.cpuprofile"
+    },
+    {
+      "name": "owned_prefix_and_liveness_repeat",
+      "wallMs": 0.25183300000207964,
+      "cpuUserMs": 0.259,
+      "cpuSystemMs": 0.003,
+      "readCalls": 0,
+      "readBytes": 0,
+      "memoryBefore": {
+        "rss": 1766195200,
+        "heapTotal": 892583936,
+        "heapUsed": 747664112,
+        "external": 2460510,
+        "arrayBuffers": 26855
+      },
+      "memoryAfter": {
+        "rss": 1766195200,
+        "heapTotal": 892583936,
+        "heapUsed": 747705728,
+        "external": 2460510,
+        "arrayBuffers": 26855
+      },
+      "cpuProfile": "owned_prefix_and_liveness_repeat.cpuprofile"
+    }
+  ],
+  "fullMeasurementPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/owned-history-r1/OWNED_HISTORY_MEASUREMENT.json",
+  "fullMeasurementSha256": "d0c29e52b9493d437ce1a4de98814fc56749ce790ce2a6c452bbd47cee1ce808"
+}

@@ -1,0 +1,260 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; fixed fifteen families F01-F07, F09-F11, F13-F17; GOAL-035 / T-287.",
+    "slice": "Bounded AUTHOR07 one-file historical-coordinate fixture correction closing HIST-001 for the unqualified RC8 reference-preservation cut.",
+    "outcome": "The current reader must authenticate retained history under its own exact profile and each physical file/cut under its own identity, while preserving the existing semantic and work discriminators.",
+    "authoritySplit": "Product/requirements own WHAT; accepted TypeScript HOW owns realization. ABG exclusively owns runtime admission/events/projection; SDK/CLI remain thin. This helper is deterministic test coordinate construction/derived evidence tooling, not a registry, admission mechanism or runtime authority.",
+    "prohibitions": [
+      "No restamping or current-profile fallback.",
+      "No weakening source, physical identity, currentness, semantic or effect checks.",
+      "No Product/schema/owner change or whole-file/broad/release assurance from this two-case lane."
+    ]
+  },
+  "kind": "independent_frozen_successor_review",
+  "recordedUtc": "2026-11-07T08:34:33.102718+00:00",
+  "reviewer": {
+    "actor": "/root/rc8_source_review",
+    "role": "Independent Reviewer only",
+    "independence": "No authorship, dynamic tests, Product calls/imports, provider, Git or repair effects; only read-only source/receipt comparison and static hashing, plus this capsule."
+  },
+  "basis": {
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authorityPins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+        "bytes": 3136,
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 27131,
+        "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+      }
+    ]
+  },
+  "subject": {
+    "sourceDigest": "b2ca1a756b264c1ee13e3bca9ba324d8d499619a28f97874d8fafde6d82ad146",
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/source-freeze.json",
+      "bytes": 295567,
+      "sha256": "a4ded31e5b6e2601969af0bbc050191da458d6520c1397dbd56850eace7e47c7"
+    },
+    "rows": 1339,
+    "sourceDigestRecomputed": true,
+    "baseSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "baseFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    "changedPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "frozenOverlay": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 124515,
+      "sha256": "95b8abcca3d808a77961558f1f2a39e58cb0b89e3bfe65fb37538c0ae9c74aea"
+    },
+    "acceptedPreimage": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 123504,
+      "sha256": "87b241a825aa1a4c9050e89e9f1f05a44d603baf542daacfb58243faef07f2ae"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/READY.json",
+      "bytes": 572576,
+      "sha256": "8af463df739f510f4a9784712c7d6bf6d63ba4605eac707dd3526915e7410860"
+    },
+    "materializedTest": {
+      "path": "/private/tmp/abg-r8-a07-7j_yf4yf/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 124515,
+      "sha256": "95b8abcca3d808a77961558f1f2a39e58cb0b89e3bfe65fb37538c0ae9c74aea"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "manifest": {
+      "path": "/private/tmp/abg-r8-a07-7j_yf4yf/p/w/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    }
+  },
+  "claim": "AUTHOR07 lawfully corrects HIST-001 without changing the Product or weakening the two existing regression claims, and its actual focused proof closes those selected claims on the exact frozen subject.",
+  "verdict": "satisfied",
+  "findings": [],
+  "triage": "not_applicable",
+  "owningRelations": [
+    {
+      "requirements": [
+        "REQ-R-ABG3-EVENTS-001",
+        "REQ-R-ABG3-EVENTS-002",
+        "REQ-R-ABG3-EVENTS-003",
+        "REQ-P-PUBLIC-CONTRACTS-004"
+      ],
+      "how": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md §10.10 E-G; event_contract_profiles.ts:17-67; event_store.ts:3639-3655,3799-3832",
+      "relation": "Historical5b35 and current W51299706 are distinct exact profiles. The current cold reader authenticates the historical rows and rejects a coordinate/profile mismatch; the test must choose the history’s own profile without changing that owner guard."
+    },
+    {
+      "requirements": [
+        "REQ-R-ABG3-PROJECTION-001",
+        "REQ-R-ABG3-PROJECTION-002",
+        "REQ-R-ABG3-PROJECTION-025"
+      ],
+      "how": "Common library reuse/currentness relations and the existing consolidation discriminators as bound by prior review HIST-001",
+      "relation": "Same-source owned/expanded/warm projections and candidate forks retain equal semantic decisions while measuring repeated work. Fixture correction cannot replace expected context with candidate output or delete negative controls/work bounds."
+    }
+  ],
+  "deltaAssessment": {
+    "sourceEnvelope": "A6/A7 manifests both contain1339 rows; exactly one row differs, the named test. The complete unified diff is12 helper/comment lines plus profile binding in the first two cases; every other source row is identical.",
+    "profileProducer": "New retainedProfile at lines56-66 consumes resources.value and baseline.value. It equates logSha256, eventLogRef, prefixLength and prefixDigest to the declared resource, then reads the baseline coordinate’s eventContractDigest and requires the existing profile owner to classify it as non-current. Unknown profiles yield undefined and fail the strict false assertion. With the exact pinned proof-10 inputs this selects5b35ab53, not current W.",
+    "fullLogConsumer": "The first case retains its independently read current device/inode and size, verified complete log hash, actual eventLogRef and freshly canonical coordinate digest. Only the wrong current-profile source is replaced. The original equality to the measured coordinate profile remains.",
+    "physicalCutConsumer": "The second case now reads the same pinned baseline profile. Its coordinateOf still independently obtains the actual path’s device/inode, uses selected.length and sha256Hex(selected), names that actual path and recomputes coordinateDigest. The scratch cut does not inherit the original log’s physical identity. Both full and cut still pass through the real cold reader and exact profile check.",
+    "identityAndCopying": "The new helper reads existing scalar facts; it adds no whole-history/event cloning, schema admission, cache or owner reinterpretation. Existing physical-cut/raw-negative-control operations are unchanged. No historical row is restamped or rewritten by the delta.",
+    "preservedPredicates": [
+      "Exact full log identity and unchanged before/after source.",
+      "25016 rows and subject ordinal23799, event/frame identity, retained measured context digest and owned/expanded/warm parity.",
+      "No full snapshot or immutable walk in the owned path, no hidden cold reacquisition and zero warm body/read work.",
+      "All candidate success/refusal expectations, source/scope/clock/elapsed/causation controls, sibling isolation and unchanged admitted base.",
+      "Existing index/filter/reference-write bounds and their explicit limits; every later test case is byte-identical."
+    ],
+    "assertionLoss": "None. Unified diff removes no assertion; it adds input/profile assertions and replaces only the two current-profile assignments plus the second input destructuring."
+  },
+  "staticCorrespondence": {
+    "sourceManifestChangedRows": 1,
+    "derivedRows": 2132,
+    "derivedChangedRows": 1,
+    "derivedChangedPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "actualDerivedFilesRehashed": 2132,
+    "actualDerivedMismatches": 0,
+    "checkedAttributes": [
+      "regular-file kind",
+      "byte count",
+      "SHA256",
+      "executable bit"
+    ],
+    "compiledInputsUnchanged": true,
+    "productManifestUnchanged": "3266103B/f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102",
+    "productArchiveUnchanged": "11027562B/a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "buildInvocations": 0,
+    "unshipped": "The unchanged exact archive has5325 members and no test_env members, as independently verified in historical-oracles-001; the same archive hash is freshly reverified here. This test-only successor does not change packaged Product bytes."
+  },
+  "inputPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json",
+      "bytes": 6147,
+      "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+      "bytes": 5575,
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+    }
+  ],
+  "retainedHistory": {
+    "bytes": 586361364,
+    "sha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+    "profile": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+    "standing": "Same exact input records as HIST-001; the unchanged tests hash the actual full log and preserve their byte/identity checks. Prior Reviewer full-log hash is reused; this review does not duplicate that large read or execute the reader."
+  },
+  "actualFocusedProof": {
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/RESULT.json",
+      "bytes": 1858,
+      "sha256": "13c7cb1a5c87f7c28e7c6c929fe1441cab01dcfa11aabb005280bab5faaf2da5"
+    },
+    "reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/events.jsonl",
+      "bytes": 1274,
+      "sha256": "d70bce5fcd0f01fab229331525e5893921b889a87b9e34d756a8d4e3cc82e13d"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/commands/test.stdout",
+      "bytes": 10761,
+      "sha256": "f600975552411770e5c253c00d0c3213a20fc1b50e156ecfb7369ff377540895"
+    },
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/commands/test.result.json",
+      "bytes": 1478,
+      "sha256": "f0583bd5810e1eee7bc07a07b8783c392ff0e614e026090ab12380014ccd46e2"
+    },
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/commands/test.request.json",
+      "bytes": 1025,
+      "sha256": "5011f7392df21297ad8d494d9ff19f0959e62d62afafb49e733f5f0c529b6694"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/file-host-binding.json",
+      "bytes": 1576,
+      "sha256": "f641d4aa0416723298cc0ab2fecab5565e2301e7f8bfb4bad4cb8a94a60dfd39"
+    },
+    "counts": {
+      "tests": 2,
+      "failed": 0,
+      "passed": 2,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 2,
+      "suites": 0
+    },
+    "wallMs": 54428.705667,
+    "exitCode": 0,
+    "timedOut": false,
+    "truncated": false,
+    "wholeFile": false,
+    "namePattern": "^(?:retained RC5 history:|liveness candidate validation forks its admitted base:)",
+    "observedMeaning": "Both original selected cases passed with no skip. This includes their unchanged measured context, all semantic/refusal controls and work bounds; no broader case execution is implied.",
+    "boundedDiagnostics": {
+      "ownedWatchedReadBytes": 50997937,
+      "expandedWatchedReadBytes": 425933033,
+      "ownedSnapshotCalls": 0,
+      "ownedImmutabilityWalkCalls": 0,
+      "warmWatchedReadBytes": 0,
+      "warmBodyDecodes": 0,
+      "forks": 4,
+      "forkIndexAdds": 4,
+      "forkLayeredPredicateVisits": 14,
+      "freshIndexAdds": 699,
+      "limits": "These are the existing instrumented discriminators, not total work, heap allocation, all bytes/CPU or a complete native-workflow speedup. Cold acquisition remains separate."
+    }
+  },
+  "priorFindingClosure": {
+    "priorReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/historical-oracles-001/REVIEW.json",
+      "bytes": 26530,
+      "sha256": "ddd9a106b33dd0ea9588fda3de271525b13963f153eb42352f68c576d8d09f12"
+    },
+    "finding": "HIST-001 (S3)",
+    "disposition": "Technical closure supported for the exact successor and two selected cases. Original red/source finding remains unchanged historical evidence. Root alone decides adoption and broader conjunction."
+  },
+  "remainingClaims": [
+    "Other test cases in this file were not executed in this filtered lane; no whole-file credit.",
+    "Native SDK return, physical close and fresh readbacks are Operator/Root’s separate pending conjunction, not prerequisites for this source/focused-proof review result.",
+    "Broader execution, independent residuals including GC03, checkpoint/reproduction/cut/install and release qualification remain outside this closure."
+  ],
+  "recommendedReentry": "No further source repair indicated in this delta. Return the satisfied bounded review to Root for its native-return/source/broad conjunction; do not widen the claim.",
+  "invalidation": [
+    "Any changed frozen source, proof inputs, compiled files, archive or manifest identity.",
+    "Any missing/revised final reporter/RESULT or execution binding.",
+    "A changed claim that requires whole-file, current-profile or full native-workflow assurance."
+  ],
+  "effects": {
+    "writes": [
+      "REVIEW.json",
+      "README.md"
+    ],
+    "testsRun": 0,
+    "productCalls": 0,
+    "sourceOrGitEffects": 0,
+    "providerCalls": 0
+  },
+  "returnTo": "/root Executive"
+}

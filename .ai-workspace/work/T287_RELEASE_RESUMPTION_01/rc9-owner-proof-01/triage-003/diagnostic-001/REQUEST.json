@@ -1,0 +1,68 @@
+{
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/M5_DIAGNOSTIC_BINDING.BOUND.001.json",
+    "sha256": "d5582ae5f0db6dc756263b48a36aa4d88c361e1a0d7212a1851b610425fe819d"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/ROOT_M5_DIAGNOSTIC_001_ADMISSION.json",
+    "sha256": "57307c80426fa272ae6798ab65da530abad82e8340f86992419d51bfb7a06bb1"
+  },
+  "command": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "HOME": "/Users/jim",
+      "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "en_US.UTF-8",
+      "CI": "1",
+      "TMPDIR": "/private/tmp/abg-r9-m5-diagnostic-001/tmp",
+      "NODE_OPTIONS": "--max-old-space-size=8192 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs --test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/events.jsonl",
+      "npm_config_offline": "true",
+      "npm_config_ignore_scripts": "true",
+      "npm_config_update_notifier": "false",
+      "npm_config_audit": "false",
+      "npm_config_fund": "false",
+      "npm_config_cache": "/private/tmp/abg-r9-m5-diagnostic-001/npm-cache",
+      "npm_config_userconfig": "/private/tmp/abg-r9-m5-diagnostic-001/npm-user.npmrc",
+      "npm_config_globalconfig": "/private/tmp/abg-r9-m5-diagnostic-001/npm-global.npmrc"
+    }
+  },
+  "bounds": {
+    "timeoutMs": 180000,
+    "outputBytes": 16777216,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192,
+    "ancestryProbeMs": 2000
+  },
+  "nodeVersion": "v24.7.0",
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "hostPid": 73084,
+  "hostParentPid": 27586,
+  "formerProofStopChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/TIMEOUT_CLOSE_OBSERVATION.json",
+      "bytes": 1297,
+      "sha256": "3d923057d4f8eb82605fc862838577cfbb82528a292b1c400083046393fa2abb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_DESCENDANT_CWD_CHECK.json",
+      "bytes": 216,
+      "sha256": "7d8f6af81d18533d9dfa7af57db5f3bd59611894cd71601c73f2272fc77fe3a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_PROCESS_OWNERSHIP_FINAL.json",
+      "bytes": 494,
+      "sha256": "351ede55b8353d3f29fa6b39d524ed9ad58eedffca3e07092ad90f64b13240dd"
+    }
+  ],
+  "standing": "One diagnostic; no quiet-host assertion, native/provider dispatch, source acceptance or retry."
+}

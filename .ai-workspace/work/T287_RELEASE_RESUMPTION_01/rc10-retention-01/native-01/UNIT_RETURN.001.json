@@ -1,0 +1,37 @@
+{
+  "status": "PASSED_MAINTAINED_ORDINARY_UNIT_ONCE",
+  "result": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/unit-01/RESULT.json",
+    "bytes": 6772,
+    "sha256": "e7c960dbf82900be111350aee58d14f4cb0edc336b709334a44ebb1cc8669e41"
+  },
+  "counts": {
+    "tests": 95,
+    "failed": 0,
+    "passed": 89,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0,
+    "topLevel": 95,
+    "suites": 0
+  },
+  "command": {
+    "exitCode": 0,
+    "signal": null,
+    "failure": null,
+    "timedOut": false,
+    "truncated": false,
+    "wallMs": 171651.399333,
+    "receipt": "commands/unit.result.json"
+  },
+  "reporterComplete": true,
+  "all9FilesComplete": true,
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/UNIT_READY.001.json",
+    "bytes": 2410,
+    "sha256": "3cc3503fbe65c16dce5c156fb9df6a82102406fefb0227ede7bd1b50cdc41d44"
+  },
+  "controlDelta": "External admission CLI pin replaces impossible binding/admission hash cycle; unchanged Product/test/source/population/reporters/limits.",
+  "qualified": false
+}

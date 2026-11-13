@@ -1,0 +1,36 @@
+{
+  "view": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/execution-view",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant",
+  "archive": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+  "archiveSha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "installedPackage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/package.json",
+    "bytes": 10105,
+    "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+  },
+  "installedManifest": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3266232,
+    "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+  },
+  "viewInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/VIEW_INVENTORY.json",
+    "bytes": 11760,
+    "sha256": "cf1c1016967d2b81243aebd49c9d47fe6eff1a31f55bdfafdd3b87d133f77f34"
+  },
+  "oldControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/CONTROLS.json",
+    "bytes": 11915,
+    "sha256": "fb206acb5fcd9921b981cd9ec7f5d908177e906f08c1745acbbd15d0c075d182"
+  },
+  "oldReady": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/READY2.json",
+    "bytes": 5722,
+    "sha256": "a91e283bd9e128b0c8c617947ed2179ad0a0667dcf00f422793996e11bc67539"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "kind": "root_passive_selected_result_envelopes",
+  "observer": "Root Executive",
+  "source": "Root metadata-only suffix observation supplied to separately bound custody Writer",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "fromByte": 1521871701,
+  "toByte": 1676361536,
+  "rowsObserved": 23087,
+  "physicalSizeUnchanged": true,
+  "results": [
+    {
+      "kind": "c_call_result_admitted",
+      "eventId": "event://abiogenesis/a7b63804b25a6d1aab53c2c65e7b71012f82029b026c301360c2acf3258daf4d",
+      "admissionOrdinal": 242123,
+      "eventTime": "2026-11-06T09:53:29.443Z",
+      "offset": 1626195004,
+      "rowBytes": 50139883,
+      "rowSha256": "c0366cbe1d185790cd6727442f23ac44ad054d0aa67d25c38f39be04b4034c8f",
+      "runId": "run://abiogenesis/bdbbc58eec1b159a3acc79fbcbf2130c169a0725ad99207a8846247f367d2345",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "resultRef": "result://abiogenesis/c9714eaecd64558f1f6096e14992e73a1c66df4fb65987783dfaea7307632f35",
+      "resultDigest": "sha256:c9714eaecd64558f1f6096e14992e73a1c66df4fb65987783dfaea7307632f35",
+      "valueDigest": "sha256:3fdff98d605d66337ed30ac5d57cd8c507b71ff19465efac5cfe8819c02b1890"
+    }
+  ],
+  "nativeProcess": [
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 219061,
+      "eventTime": "2026-11-06T09:13:22.491Z",
+      "offset": 1555395702,
+      "rowBytes": 1826,
+      "rowSha256": "6d3f773fef6df2f36a605e90230a7659d85a2da406bb241cb861ee30be94dfbc"
+    },
+    {
+      "kind": "actor_process_exited",
+      "admissionOrdinal": 242116,
+      "eventTime": "2026-11-06T09:53:28.733Z",
+      "offset": 1625110070,
+      "rowBytes": 1740,
+      "rowSha256": "c856ccf859fe7349496d3ad633afac424e18cbafe355d6f6ee7a5f93526e5eb9"
+    }
+  ],
+  "limits": [
+    "Metadata observation, not runtime admission. No provider narrative, raw stream or authentication material acquired.",
+    "Custody binder re-reads only the exact selected physical Result span; no whole-history decoding."
+  ]
+}

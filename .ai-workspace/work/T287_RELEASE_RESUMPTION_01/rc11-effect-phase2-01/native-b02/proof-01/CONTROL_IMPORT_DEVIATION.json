@@ -1,0 +1,10 @@
+{
+  "status": "OPERATOR_CONTROL_IMPORT_CACHE_WRITE_DISCLOSED",
+  "actualPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/__pycache__/unit.cpython-311.pyc",
+  "bytes": 45233,
+  "sha256": "cdd68376cdd9c1e877ea8d6f8449aea32af83f425216609928c9e40d7ba8935f",
+  "observedMtimeNs": 1794285507403908021,
+  "cause": "importlib execution of retained Python controller without disabling bytecode cache in staging process",
+  "scope": "Outside new native-b02/proof-01 territory; existing source/controller/receipt bytes unchanged. No Product/test/runtime execution.",
+  "disposition": "Preserved; Root notified; further proof preparation held. Native same admitted call continues. Future control imports disable bytecode writes. No deletion or repair performed."
+}

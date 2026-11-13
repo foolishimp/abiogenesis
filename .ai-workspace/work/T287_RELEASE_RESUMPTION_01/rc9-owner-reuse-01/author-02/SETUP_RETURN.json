@@ -1,0 +1,114 @@
+{
+  "status": "HELD_PREPARED_NO_NATIVE_DISPATCH",
+  "recordedAt": "2026-11-08T07:03:24.414881+00:00",
+  "sessionId": 23154,
+  "pid": 71304,
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/PREPARED.json",
+    "bytes": 6254,
+    "sha256": "f00e9382436ba0e44dbb2037865175d4ef03b11e8ecb4839741e1cf3cbc6699c"
+  },
+  "setupAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_SETUP_ADMISSION.json",
+    "bytes": 2515,
+    "sha256": "1595cee4a0f42d0e3541b3f0a0f582ee793f235f7bea7c0accebbab306875724"
+  },
+  "hostElapsedMs": 23644.195499999998,
+  "phases": {
+    "artifactVerified": {
+      "utc": "2026-11-08T07:02:59.950Z",
+      "elapsedMs": 19280.673042,
+      "memory": {
+        "rss": 2514698240,
+        "heapTotal": 1790984192,
+        "heapUsed": 1637269248,
+        "external": 254363520,
+        "arrayBuffers": 251934377
+      }
+    },
+    "consumerArtifactVerified": {
+      "utc": "2026-11-08T07:02:59.954Z",
+      "elapsedMs": 19285.1135,
+      "memory": {
+        "rss": 2514780160,
+        "heapTotal": 1790984192,
+        "heapUsed": 1638219144,
+        "external": 254564337,
+        "arrayBuffers": 252135154
+      }
+    },
+    "resourceReacquired": {
+      "utc": "2026-11-08T07:03:00.367Z",
+      "elapsedMs": 19697.658167,
+      "memory": {
+        "rss": 2594897920,
+        "heapTotal": 1837613056,
+        "heapUsed": 1750436592,
+        "external": 276573401,
+        "arrayBuffers": 274144218
+      }
+    },
+    "environmentReconstructed": {
+      "utc": "2026-11-08T07:03:01.178Z",
+      "elapsedMs": 20508.736542,
+      "memory": {
+        "rss": 2714189824,
+        "heapTotal": 1930412032,
+        "heapUsed": 1794801656,
+        "external": 284395307,
+        "arrayBuffers": 281966124
+      }
+    },
+    "catalogReconstructed": {
+      "utc": "2026-11-08T07:03:01.559Z",
+      "elapsedMs": 20890.033417,
+      "memory": {
+        "rss": 2745778176,
+        "heapTotal": 1959657472,
+        "heapUsed": 1872253064,
+        "external": 284403499,
+        "arrayBuffers": 281974316
+      }
+    },
+    "contextObserved": {
+      "utc": "2026-11-08T07:03:01.721Z",
+      "elapsedMs": 21051.311125,
+      "memory": {
+        "rss": 1882439680,
+        "heapTotal": 568033280,
+        "heapUsed": 180614008,
+        "external": 71409351,
+        "arrayBuffers": 68981173
+      }
+    },
+    "nativeCallConstructed": {
+      "utc": "2026-11-08T07:03:03.521Z",
+      "elapsedMs": 22851.998833,
+      "memory": {
+        "rss": 1918648320,
+        "heapTotal": 331464704,
+        "heapUsed": 237275032,
+        "external": 2887750,
+        "arrayBuffers": 460693
+      }
+    }
+  },
+  "sourceRows": 1340,
+  "sourceDigest": "6aacc0e5b7bda528bac527e16551789bb5da43e7aeb7d3408ebde994a9e822ff",
+  "actualClosedPrefixReopened": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 21938126,
+    "prefixDigest": "sha256:4cb10e505bba8cfd750ffb477857a124ab8a9ffe66b9f94953ba24651f6381ea",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 714208439,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:6867daf05cd6b080460a762288c5fda3e295da368de53766034bae918eb6dcfb"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "newInstallOrSetupReplay": false
+}

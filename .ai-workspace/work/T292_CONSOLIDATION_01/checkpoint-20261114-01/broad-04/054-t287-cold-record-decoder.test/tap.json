@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "counts": {
+    "tests": 3,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 3 - material cold history above Node string length decodes by record with unchanged identities # SKIP ABI5_COLD_RECORD_MATERIAL is not '1'; explicit material-memory selection required",
+    "# todo 0"
+  ]
+}

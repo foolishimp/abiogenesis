@@ -1,0 +1,231 @@
+{
+  "kind": "root_selected_stdout_window_native_increment",
+  "status": "ROOT_SELECTED_STDOUT_WINDOW_AUTHOR_INCREMENT",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; fixed fifteen families",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "boundary": "ABG alone admits runtime truth. Replay is pure over acquired history; SDK/CLI remain thin. Archive references are observation evidence under existing transport/event owners, not new runtime authority."
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/SOURCE_BEFORE.json",
+    "bytes": 278984,
+    "sha256": "09fdc508bf9672181e2cdc35ac69299772cbc42f50c8c4e81514062ad8873c81"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8413,
+    "sha256": "9e9d637edd84e8bf14489c2c4b6904072d64dd449697ad7429368d01a931355a"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/execution/after-run-resume.json",
+    "bytes": 72498693,
+    "sha256": "e1d90b7c8dab90b86ea7d85eb929f91e08b92313a5e612011b3809b0df4f9090"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 12430,
+    "sha256": "12869a0d9af624f69b551dc3ec19d9844779fd2dbe7ad4e5019fc0e0be2b1dca"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 13105,
+    "sha256": "0abeadd4419584f3170b01e02cd3e79741f25666f095d524925f8dcf92acaa61"
+  },
+  "finalSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/reviews/source-stage-sw2-stage-01/REVIEW.json",
+    "bytes": 20994,
+    "sha256": "30c74fc2a7242ddde9ae62d58a5dd7ddf64fca239d82e59318a220df2df0eea9"
+  },
+  "ownerRouteAddendum": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/reviews/source-stage-sw2-stage-01/OWNER_ROUTE_ADDENDUM.json",
+    "bytes": 36192,
+    "sha256": "f5df2cbfe11c56855ed2377094318bb83ae6516cf0a7ef1c150d7c3d762af281"
+  },
+  "selectedRepair": {
+    "actions": [
+      {
+        "id": "HS03-S2-TIMEOUT-FIXTURE",
+        "origin": "Test construction violates existing absolute > inactivity transport contract; Product correctly refused.",
+        "selectedRepair": "Correct only the authored absolute-timeout fixture using valid clocks and actual steady progress, preserving the original failed receipt.",
+        "reproof": "Actual absolute interruption drains the pending window exactly once; inactivity/noise and cleanup remain."
+      },
+      {
+        "id": "HS03-S2-ACTOR-SUCCESSOR",
+        "origin": "Existing proof covers real liveness/store but not actor_process local successor adoption. Transport tests and mocked actor fixtures cannot decide E3.",
+        "selectedRepair": "Reuse t287-lifecycle-failure-carrier VM/component route to actual invokeActorProcessWithAssembly, keeping real EventStore/runtime_liveness for deciding owners. Force not_reached with a pending window and require the next actual admission at its durable successor.",
+        "reproof": "Scope-ordering lane has a separately active actor-successor case; no mocked admission success."
+      },
+      {
+        "id": "HS03-S2-WINDOW-ARCHIVE",
+        "origin": "Design R-E/E4 requires range/digest and first/last capture clocks. actor_process1353 drops these; runtime_liveness395 emits the five old payload fields. Cold owners authenticate event bytes but never the referenced stdout bytes.",
+        "whyPriorChecksMissed": "The selection assumed an existing general cold archive checker. Tests observed live transport integrity; the actual checker is private to no_output construction recovery. Neither validates the promised current window through cold acquisition.",
+        "selectedRepair": "Carry the window offset/length/digest/first-last capture times and separate last qualifying activity from transport through actor and one declared event variant. Extract/reuse the existing range/digest computation and ordinary archive binding/path owner; do not duplicate a new parser/store/validator framework. Validate referenced window bytes once at the existing shared cold decode/adoption boundary for reopen, recover and direct cold reads, including applicable byte-array sibling. Pure fold and warm active selection do no archive reads.",
+        "reproof": "Missing/changed/truncated referenced bytes refuse on actual cold owner paths; archive fsync-before-reference and failure/no-reference remain. Warm work counters do not gain checks."
+      },
+      {
+        "id": "HS03-S2-PROFILE-COMPATIBILITY",
+        "origin": "Contract table hashes include payload keys. S2 only recognizes L and latest3bcc; changing keys is not digest-neutral. Root imported actual immutable RC6 and frozen S2 builds: RC6 current5b35 differs already because D5 removes lifecycle copies and adds configuredIdentity.",
+        "selectedRepair": "One existing profile owner selects the exact table and independent semantic capabilities. Preserve exact L fc3a, RC6 stamped5b35 (copied lifecycle/probes), S2 stamped3bcc (copy-free/probes), and prospective W (copy-free/window witness). No digest-not-latest => L shortcut, restamp, weakened checks or blanket archive obligation on old rows. New RC7 working stores use W. Preserve prior witnessed L transition identities; no P-to-W migration or native continuation on old P is selected in this bounded task.",
+        "reproof": "Hard-pinned old contract digests and original per-chunk rows/event IDs/payloads survive cold reading and applicable fold/call projection. New W refs obey their new contract; undeclared/malformed profile/window combinations refuse."
+      }
+    ],
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "standing": "25 existing paths form the complete causal ceiling, not a mandate to edit every path. No new Product files."
+  },
+  "productWriteCeiling": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "profileIdentities": {
+    "L": "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c",
+    "installedRc6": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+    "frozenS2": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0",
+    "W": "Native owner authors one exact successor descriptor; canonical regeneration binds its actual identity."
+  },
+  "historicalRepresentationAuthority": {
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+    "sourceForm": "Actual immutable packaged compiled JavaScript owners; TypeScript source was not packaged and is not claimed.",
+    "owners": [
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "bytes": 198998,
+        "sha256": "706acaaa7300686eed4bcfa739347c12261c874adb20b3d354c7a9f195627199"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_contract_profiles.js",
+        "bytes": 9153,
+        "sha256": "bdace2720987c3e7cf7f7a1f94bfc22e56f865a69e20f44ca4352d4349b2bedb"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/transport_contracts.js",
+        "bytes": 11516,
+        "sha256": "db506fd86877170e6783463c06ac37027e895d15cb029700a2d772e39a69812b"
+      }
+    ],
+    "rootObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 13105,
+      "sha256": "0abeadd4419584f3170b01e02cd3e79741f25666f095d524925f8dcf92acaa61"
+    },
+    "standing": "Read-only historical representation authority; do not modify/copy into current451 sources/restamp old rows or infer semantics from latest digest."
+  },
+  "retainedBefore": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/summary.json",
+      "bytes": 1508,
+      "sha256": "b2b210c971ede687abe790b4a7689a1e684d4b536f69bba32e70b515777c4e18"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/stdout.tap",
+      "bytes": 6157,
+      "sha256": "ab1cb3bf77d06f0bb3813e2512ff7561466402fd7b2ecc40f0ee57d377c4468e"
+    },
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-sw1-stage-01/REVIEW.json",
+      "bytes": 7711,
+      "sha256": "9c2aec81de47d1a72b8fd366b66d7d4e5afcda4e9527497e751854372a27dd8c"
+    },
+    "sourceDigest": "5d51fb333507b2e38183f40c96101358c426c2fa7b49bcb7dc31589e085d063a",
+    "standing": "One genuine cadence red911 versus3, later assertions unreached. Preserved historical before evidence; no successor invocation or qualification credit.",
+    "rootDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 8713,
+      "sha256": "edd5815442f6c27c0bbcd3946204da4e4e1b4f209fd8e30c97aae202213b350b"
+    }
+  },
+  "activation": null,
+  "resources": {
+    "nativeCodingWorkers": 1,
+    "reasoning": "xhigh",
+    "absoluteMs": 3600000,
+    "inactivityMs": 1800000,
+    "maxTurns": 320,
+    "nodeHeapMiB": 8192,
+    "hostMs": 10800000,
+    "maxStages": 2,
+    "maxLaneInvocations": 6,
+    "stageMs": {
+      "compile": 240000,
+      "generate": 600000,
+      "lifecycle": 60000
+    },
+    "laneMs": 300000,
+    "concurrency": 1,
+    "lanes": [
+      "stdout-differential",
+      "scope-ordering",
+      "timeout-interruption",
+      "archive-integrity",
+      "legacy-replay",
+      "native-caller"
+    ]
+  },
+  "originalAllocation": {
+    "S2StagesConsumed": 1,
+    "S2FinalLanesConsumed": 3,
+    "S2FailingLane": "timeout-interruption",
+    "stdoutBeforeRepetitionAuthorized": false,
+    "standing": "Previous green/failed/unrun lanes retained historically. Changed current-profile closure requires affected same-final-source reproof, never baseline rerun."
+  },
+  "meaning": "Root selected coherent completion from partial S2 source; final admission/dispatch and acceptance separate."
+}

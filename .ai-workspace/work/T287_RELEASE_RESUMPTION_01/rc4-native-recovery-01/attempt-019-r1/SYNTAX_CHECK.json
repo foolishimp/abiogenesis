@@ -1,0 +1,84 @@
+{
+  "checks": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/budget-readiness.mjs",
+        "bytes": 1314,
+        "sha256": "8ac9b46683d76909b4885745ded74e15e77c0500a591b32adc90872930c8ca3c"
+      },
+      "exitCode": 0,
+      "mode": "node --check"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/dispatch.mjs",
+        "bytes": 6225,
+        "sha256": "c2c52b865e9532d1073be3180c9686f7e9edfad4f4c387fc547256ecde13b2ec"
+      },
+      "exitCode": 0,
+      "mode": "node --check"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/identity-and-smoke.mjs",
+        "bytes": 5242,
+        "sha256": "d67a512e2cf0544094e2881ed8dfa547f8c5994f5958873b4b8a543eb0c8396c"
+      },
+      "exitCode": 0,
+      "mode": "node --check"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/prepare-native-call.mjs",
+        "bytes": 13385,
+        "sha256": "6282ae9fafb817544f9d9693450493180465c7a9ef84d5423a5ff43add770cd7"
+      },
+      "exitCode": 0,
+      "mode": "node --check"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/pure-config-readiness.mjs",
+        "bytes": 5786,
+        "sha256": "640c6b098ef309c51555d8a5301dbdacefcd98b7bf46aa0887c1406234bfce1e"
+      },
+      "exitCode": 0,
+      "mode": "node --check"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/setup-state.mjs",
+        "bytes": 7608,
+        "sha256": "5b227af0949064d3d5b94c1dc55c1a472c342c25d4cf5a39591125de5d34729b"
+      },
+      "exitCode": 0,
+      "mode": "node --check"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/operator-preflight.py",
+        "bytes": 8113,
+        "sha256": "7f468269dc83e383bada8981dcae5dd96ab704878df0826429b705aeb12ce2ac"
+      },
+      "mode": "Python AST parse"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/freeze-dispatch.py",
+        "bytes": 3633,
+        "sha256": "59a692c2453bd3788d5c16def3145fb9fe7cad78025a4b4aabae62f82542970f"
+      },
+      "mode": "Python AST parse"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/readiness.py",
+        "bytes": 2570,
+        "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+      },
+      "mode": "Python AST parse"
+    }
+  ],
+  "ProductTests": 0,
+  "providerCalls": 0
+}

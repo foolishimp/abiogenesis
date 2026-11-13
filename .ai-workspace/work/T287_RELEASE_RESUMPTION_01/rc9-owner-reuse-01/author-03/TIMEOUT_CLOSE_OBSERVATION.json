@@ -1,0 +1,41 @@
+{
+  "observedAt": "2026-11-08T17:37:42.847811+00:00",
+  "liveSelectedProcesses": [],
+  "unitResultExists": false,
+  "unitCommandResultExists": false,
+  "unitEvents": 75,
+  "caseCount": 70,
+  "failureCount": 5,
+  "OWN": [],
+  "finalUtc": "2026-11-08T17:36:40.216Z",
+  "hostFailure": null,
+  "closedPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 56629020,
+    "prefixDigest": "sha256:23fc255354358a24c9b02ef298904912e9afe8c3f94b28a108a25fb28523af98",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 714208439,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:1876b83b7fb1b5b31af933c1ece4b67db097ec6f012d738ad6353dc29ff87895"
+  },
+  "transportKind": "installed_definition_call_transport_result",
+  "ownerOutcomeKind": "result",
+  "valueType": "dict",
+  "valueKeys": [
+    "invocationKind",
+    "run",
+    "graphCall",
+    "disposition",
+    "result",
+    "terminalResult",
+    "stop",
+    "gap",
+    "interaction",
+    "evidence",
+    "replay"
+  ]
+}

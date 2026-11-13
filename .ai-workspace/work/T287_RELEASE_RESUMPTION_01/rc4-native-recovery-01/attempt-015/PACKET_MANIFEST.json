@@ -1,0 +1,136 @@
+{
+  "status": "PREPARED_FOR_EXACT_ROOT_REVIEW_NO_ADMISSION",
+  "createdUtc": "2026-11-02T15:53:42.363334+00:00",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/CALL_PREPARATION_BINDING.json",
+    "bytes": 91218,
+    "sha256": "f5b4f2a7e96f9e819c4031a9fad8270e9088d4c75392bf1d8bb64ce8244b4cc3"
+  },
+  "sourceCommit": "5331e3ae707fa258fec14bf7b9f7ede76f805fe3",
+  "sourceTree": "8fb09903f1466dd40fc0444e3ab8eb1b4e56f158",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/C2_BUDGET_READINESS.json",
+      "bytes": 1107,
+      "sha256": "5fddff54d8cf4e6e9da3eeddbfdea20490dbaa66c293dd7c41491df911d0ad25"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/CALL_PREPARATION_BINDING.json",
+      "bytes": 91218,
+      "sha256": "f5b4f2a7e96f9e819c4031a9fad8270e9088d4c75392bf1d8bb64ce8244b4cc3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/CHECKPOINT.json",
+      "bytes": 12529,
+      "sha256": "fa83c571375817f2cdc0c23ee744093b82a71458f4622472c9a0783125f1fab6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 237,
+      "sha256": "887e3eb89f2967a5b36f989b45466fc17e19db22a6fc3a2319d8f77d21adac30"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/FILE_ONLY_READINESS.json",
+      "bytes": 1439,
+      "sha256": "78d102be684dd6908c465c42f4dbf5c36e0a901575c13a89cce9d4f31187e0c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/INPUT_MATERIALIZATION.json",
+      "bytes": 3991,
+      "sha256": "e7c3fb98e1f9acd82712c362abcde8bdc0e89dac8ee89c1b624d0978bf5c4ec6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/NATIVE_GRANT.DRAFT.json",
+      "bytes": 24543,
+      "sha256": "903e7d22e0a44e9061be637cc4616ec57f60713049f538b0bb50d49a9a899036"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/NEGATIVE_CONTROLS.json",
+      "bytes": 123,
+      "sha256": "07683229ff2d523d20a63465f1e3b75eebadea5b1562e814e8dba80dd3fbef7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 379,
+      "sha256": "4d1e4455d4653dc19f9fba5e692a4d05668773d4606289df684e0b32d7912565"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/PROVIDER_PROFILE.json",
+      "bytes": 3460,
+      "sha256": "38c95fffcae66afecc011cff02216d54937e14756641a37a2fbcbc99e85feabe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 1715,
+      "sha256": "b57a3a7cb211ab4108f295fbf4b8221d4bc3e02fa23a541c60c9f6b9bd84a3b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/ROOT_ADMISSION.template.json",
+      "bytes": 481,
+      "sha256": "c8fa0bd6e014354d0cb38b5a294a951f98d5ee1810e1cc0418cdae74509a989f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/SYNTAX_CHECK.json",
+      "bytes": 200,
+      "sha256": "17e58bd6c6f024079531d0074525339ec8d0e065cb3bc53645a79f6ba0c0e81b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/claude-provider.sh",
+      "bytes": 393,
+      "sha256": "54e1db0ae7edaac270c936451463828899f3e6ab651ada007260726ba5f3aa0e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/dispatch.mjs",
+      "bytes": 6225,
+      "sha256": "c2c52b865e9532d1073be3180c9686f7e9edfad4f4c387fc547256ecde13b2ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/freeze-dispatch.py",
+      "bytes": 3664,
+      "sha256": "fca23bf4ceb7385dba50db9b810e7aae2259132753ec3d5c93f953f42286d42d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/operator-preflight.py",
+      "bytes": 7724,
+      "sha256": "e16a0e2d7150087efe956c19f95d6134bfb42ef3dc0ab4ddd7a5bd1f2cb69e35"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/prepare-native-call.mjs",
+      "bytes": 12800,
+      "sha256": "fa03684ea8d8e32643369b7ea275bffc0013e21dafa4203219a0d84a053fc762"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/readiness-inputs.json",
+      "bytes": 94162,
+      "sha256": "db2269d4101e423035337247df77c2e765decb41af0c06c19e1bc95541c6e1a0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/rubric.DRAFT.json",
+      "bytes": 1126,
+      "sha256": "64d7e70a0a14e6d2b78a95cccdb31c82528accf15194ac686230da8feb7ec19f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/setup-state.mjs",
+      "bytes": 6885,
+      "sha256": "20daebfcdd30720f153c9dc586a95821a8ab903a756f445e3292a2e4733f5c02"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/task.DRAFT.md",
+      "bytes": 5166,
+      "sha256": "1cdf3ec83ece904abecae80952b4b6334ba00442e57ddd9c1a0a09094e755ff2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/workload.json",
+      "bytes": 250560,
+      "sha256": "20c11d6493ade7cacbd899883b3d57b15e0c58334aecb85a52cadc85eb707ac6"
+    }
+  ],
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "WriterInstalledUse": "Pure existing C2 budget projection only; syntax/file feasibility and authorized non-emitting source readiness; no Public/Runtime/store/preflight/dispatch."
+}

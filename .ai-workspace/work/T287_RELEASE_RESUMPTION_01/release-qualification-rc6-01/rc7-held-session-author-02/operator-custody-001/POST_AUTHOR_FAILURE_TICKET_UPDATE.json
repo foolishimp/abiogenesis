@@ -1,0 +1,35 @@
+{
+  "kind": "operator_post_author_failure_ticket_update",
+  "createdUtc": "2026-11-06T15:47:29.533869+00:00",
+  "ticketBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 720211,
+    "sha256": "96c203796b07d8c8be3398ffa6b4a003f1c03f494a245183f29396024fa1ef6d"
+  },
+  "ticketAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 721438,
+    "sha256": "e905a67c34824d315d9e079abdb93b6823447f38d482bb55979ba2a6cd63f931"
+  },
+  "rootReportedResult": {
+    "session": 4896,
+    "exitCode": 1,
+    "tests": 7,
+    "passes": 6,
+    "failures": 1,
+    "elapsedMs": 86852,
+    "timedOut": false,
+    "remainingLanesRun": false,
+    "tap": {
+      "bytes": 3524,
+      "sha256": "7a5e0d48bd98dc7feb3d77918374358ff3cf3e70f1c8f0cb8db3acbb97baa191"
+    },
+    "summary": {
+      "bytes": 2212,
+      "sha256": "2811b93ac97be79493260669f74a859692b4dbed9969881be126a270c13c10c7"
+    },
+    "assertion": "actual fixed Testing value.disposition was blocked at test2531",
+    "reasonCustody": "Caller receipts removed by test cleanup; actual reason unavailable."
+  },
+  "standing": "Root-supplied result metadata; no re-execution, diagnostic inference, active-control change, new grant or source edit. All earlier ticket text retained as history; original native ledger remains1stage0lanes."
+}

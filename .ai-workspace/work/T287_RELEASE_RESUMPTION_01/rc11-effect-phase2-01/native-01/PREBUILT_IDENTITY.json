@@ -1,0 +1,24 @@
+{
+  "status": "BASELINE_CODE_AND_DEPENDENCIES_READ_ONLY_VERIFIED",
+  "compiledInventory": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182705,
+    "sha256": "3db4a581d6d81128f477de20b3e9591ce462e0be11dacb27f101fca2a34f2f35"
+  },
+  "compiledCodeRowsEqual": 580,
+  "sourceRoot": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript",
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "actualDependencyRoot": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules",
+  "dependencyEntriesEqual": 4576,
+  "effectVersion": "3.22.1",
+  "effectPackage": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+    "bytes": 40617,
+    "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2"
+  },
+  "standing": "Baseline only. Successor production code must compile in declared scratch for cheap checks and later fresh external proof; do not test changed source against stale F/build."
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/r9-causal-result-closure.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/036-r9-causal-result-closure.test/process.json",
+    "bytes": 1084,
+    "sha256": "bb85ecd592ba940e9e3347044bc1e513f544c7b11327bf0aff8208997ad0e59c"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "t287-effect-phase2-native-02-lifetime-a",
+  "status": "READY_FOR_ADMITTED_NATIVE_SOURCE_AUTHOR",
+  "outcome": "Construct bounded lifetime-only A: immutable physical transition and synchronous Node bridge preserving all existing API/snapshot/completion/physical laws; B remains mandatory.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-02",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/tsconfig.json"
+  ],
+  "maxContextFiles": 24,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc11-effect-phase2-01/native-02/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-02/DESIGN_TRIAGE.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-02/PROOF_TRIAGE.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-02/EXTERNAL_TOOLS.json",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "qualification-scratch/rc11-effect-phase2-01/native-02"
+  ],
+  "checks": [
+    "Pinned scratch-only compiler or non-emitting typecheck",
+    "Actual-owner ^controlled (timing|lifetime): <=60s; preserve first red",
+    "All off-scope source exact, snapshot law preserved, truthful A deletion map/B gap"
+  ],
+  "instructions": [
+    "Implement only checkpoint A of PHASE2-A-PREP-01: immutable shared physical state/pure transition plus the narrow synchronous Node bridge. The failed native01 preserved here changed only the plan; it implemented nothing. Read Root scope, closed Design/Proof triage and the actual lifetime owner/test first, then construct this bounded change. Existing stdo-work and accepted HOW apply. Do not rediscover setup or implement B. Only three existing source files, one optional private owned_process_state.ts, and declared scratch are writable. Other material repository source is readonly; readRoots addresses initial context, not a prohibition on targeted relevant reads.\n\nPreserve the current factory/method signatures, completion Promise, synchronous observe<T> value, callback order, Error object identity/first-error suppression and current physical facts. snapshot() MUST keep fresh-object identity and recomputed cleanupElapsedMs, including after completion; do not return the cached completion object. Completion resolves once to its separately sealed facts after synchronous disposal errors are recorded. Keep inert error guards through natural close without late completion mutation. Preserve no-child versus exit, direct-exit capture cutoff, absent/present/unknown, POSIX group versus Windows direct-child scope. No semantic policy/event/replay or universal descendant-absence claim.\n\nReplace the parallel mutable lifetime decisions with one small immutable physical state and pure transition. Original Error objects are opaque references, not cloned/frozen by the reducer. The synchronous bridge publishes state before callbacks, and must reread current state after callback/host reentry before further actions. TERM callback may strengthen to KILL or fail; no obsolete TERM or stale later action may execute. Preserve immediate inline observations, cleanup strengthening/nonextension, phase/probe/drain ownership and actual physical absence. Prefer leaving createMonotonicDeadline byte-identical: bigint nanoseconds, ceil conversion, huge finite chunking, stale-arm rejection and exact not-early/nonrenewal law stay. No async mailbox/fiber-per-event/Effect wrapper, global registry, generic scheduler, duplicate old coordinator or API/helper approval gate in A.\n\nAdd the smallest meaningful controlled lifetime cases that exercise the actual scratch-compiled owner and preserved observable behavior: fresh snapshot identity/elapsed versus sealed completion; synchronous return; callback strengthening/stale-action invalidation; first error/disposal order; no late completion mutation. Keep independently fixed expectations, all existing timing/lifetime tests and physical oracles. Do not assert copied reducer action lists as behavior or relax failures with sleeps. Helper/main, HTTP, worker_transport, shared runner, dependencies and all other source remain untouched. B still must implement scoped Effect command/main and D15 artifact\u2192drained acknowledgment\u2192same original rethrow, and full Phase2 proof/acceptance remains joint.\n\nCorrect the permitted plan's premature authored status and unimplemented deletion map, fifteen listed fields versus seventeen, and its unsupported snapshot identity change. Label replacements prospective until actually removed; report exact A responsibilities deleted, B still planned and historical native01 timeout preserved. Keep phase1/oracle closures and all qualification limits. This is a brief correction, not another broad design pass.\n\nConstruct A before spending the budget on broad discovery. Source selfchecks: pinned TypeScript noEmit or emission only into declared scratch, <=240s with Bash timeout300000ms; for actual-owner checks use the scratch tenant and ABI5_OWNED_PROCESS_PACKAGE_ROOT from EXTERNAL_TOOLS, exact regex ^controlled (timing|lifetime):, outer<=60s with Bash timeout90000ms. Never use stale F/build to claim changed behavior. Retain raw diagnostics and first failed check; no assertion weakening, timeout increase or automatic reattempt. No whole physical/lifetime/m5/unit/installed test, manifest generator, pack/install, Git, paid child agent or provider nesting. Stay within900s/180s/100turns. Return actual changed paths/deletion map, checks/counts/first red and remaining gaps; no self-acceptance or further edits after return."
+  ]
+}

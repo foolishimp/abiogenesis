@@ -1,0 +1,9 @@
+Product Frame: fixed fifteen-family ABIogenesis, GOAL-035/T-287/RC8 REF-01, STDO 3.0.4, empty composition. Additive evidence for the same frozen A8 subject; original review bytes are preserved.
+
+No `abi5-root-env-*` directory remains under the exact test TMPDIR. The helper’s request files and `runtime/events.jsonl` therefore cannot supply history A/B Run IDs or CLI receipts. The helper registers recursive cleanup; its CLI outputs were retained in memory. Existing npm logs do survive.
+
+Both anonymous helper roots, `6dOAwc` and `QoDJah`, have successful ABI/fixture pack and install logs. Their chronology is consistent with case 7’s A/B sequence, but that attribution is inferred: the logs carry no A/B label or Run ID. The later root’s fixture-pack log was last written at **10:12:19.581Z**, and its ABI-install log begins at **10:18:52.602Z**. The approximately **393-second marker gap** lies across remaining fixture preparation, Product verification/lock construction and installation preparation. It is not a measured duration for any one owner. Both subsequent installs record exit 0, the last log ending by its 10:20:39.225Z filesystem marker.
+
+Case 8 did start. Its separate pack log begins at 10:22:09.610Z and records exit 0; its retained bootstrap extraction receipt starts at 10:22:42.604Z and completes successfully in 5.958 seconds. This adds partial setup evidence, without a completed case-8 outcome.
+
+The logs narrow the phase investigation but do not locate the exact timeout within later setup, CLI/readbacks, projections or cleanup, or establish a particular Product or host cause. All previous failures and acceptance limits remain. [PHASE_EVIDENCE.json](PHASE_EVIDENCE.json) binds exact log pins and distinguishes timestamps, inferred history labels and completed command receipts.

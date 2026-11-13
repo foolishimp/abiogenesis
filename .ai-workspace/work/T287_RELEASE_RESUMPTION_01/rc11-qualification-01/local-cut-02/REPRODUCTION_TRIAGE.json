@@ -1,0 +1,455 @@
+{
+  "status": "CLOSED_MECHANICAL_CAUSE_COPY_METADATA_CHANGED_NPM_HIDDEN_LOCK_BRANCH",
+  "comparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/REPRODUCTION_FAILURE_COMPARISON.json",
+    "bytes": 2154,
+    "sha256": "62a76cff700fff8b625e95335b411fb769e1db484439071aa79d79bedb2a4e22"
+  },
+  "sourceCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "dependencyTrees": [
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+      "inventoryExact": true,
+      "filesAndSymlinks": 4576,
+      "directoryCount": 498,
+      "metadataRowsDigest": "727acf4d2713154e704c44adbc58ba5dd2d310f283df73ee277a86e44a17a1d9"
+    },
+    {
+      "root": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/node_modules",
+      "inventoryExact": true,
+      "filesAndSymlinks": 4576,
+      "directoryCount": 498,
+      "metadataRowsDigest": "727acf4d2713154e704c44adbc58ba5dd2d310f283df73ee277a86e44a17a1d9"
+    },
+    {
+      "root": "/private/tmp/abg-rc11-cut-20261109-02/reproduction/build_tenants/abiogenesis/typescript/node_modules",
+      "inventoryExact": true,
+      "filesAndSymlinks": 4576,
+      "directoryCount": 498,
+      "metadataRowsDigest": "7136a87d2b646626e430d45d686611532bbdac17cddec1ba97cf085e5915cc4a"
+    }
+  ],
+  "dependencyModesDiffer": [],
+  "dependencyFileMtimesDiffer": [],
+  "dependencyDirectoryMtimeDifferenceCount": 498,
+  "testedMetadataEqualsOriginalSource": true,
+  "testedHiddenLockGate": {
+    "lock": {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/node_modules/.package-lock.json",
+      "bytes": 7232,
+      "sha256": "a1794bd45aaf7c95b74cf346123594372f153787e5592dc549e4da3e72ea1a3e"
+    },
+    "lockMtimeNs": 1789963978926778390,
+    "thresholdNs": 1789963978936778390,
+    "directoriesChecked": 20,
+    "violations": [],
+    "eligibleByPinnedPredicate": true,
+    "keyDirectories": [
+      {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/node_modules",
+        "mtimeNs": 1789963978926672387
+      },
+      {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/node_modules/fast-check",
+        "mtimeNs": 1789963978768572103
+      },
+      {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/node_modules/pure-rand",
+        "mtimeNs": 1789963978702540538
+      }
+    ]
+  },
+  "reproductionHiddenLockGate": {
+    "lock": {
+      "path": "/private/tmp/abg-rc11-cut-20261109-02/reproduction/build_tenants/abiogenesis/typescript/node_modules/.package-lock.json",
+      "bytes": 7232,
+      "sha256": "a1794bd45aaf7c95b74cf346123594372f153787e5592dc549e4da3e72ea1a3e"
+    },
+    "lockMtimeNs": 1789963978926778390,
+    "thresholdNs": 1789963978936778390,
+    "directoriesChecked": 20,
+    "violations": [
+      {
+        "path": "node_modules",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218761021455131
+      },
+      {
+        "path": "node_modules/@types",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760601283542
+      },
+      {
+        "path": "node_modules/@types/node",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760607709480
+      },
+      {
+        "path": "node_modules/fast-check",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760608248305
+      },
+      {
+        "path": "node_modules/ajv-formats",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760697259543
+      },
+      {
+        "path": "node_modules/pure-rand",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760697976865
+      },
+      {
+        "path": "node_modules/typescript",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760717346679
+      },
+      {
+        "path": "node_modules/effect",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760932613765
+      },
+      {
+        "path": "node_modules/undici-types",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760967813367
+      },
+      {
+        "path": "node_modules/json-schema-traverse",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760969172762
+      },
+      {
+        "path": "node_modules/fast-uri",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760973423777
+      },
+      {
+        "path": "node_modules/@standard-schema",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760973538150
+      },
+      {
+        "path": "node_modules/@standard-schema/spec",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760974211389
+      },
+      {
+        "path": "node_modules/valibot",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760975109708
+      },
+      {
+        "path": "node_modules/jsonc-parser",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760977139384
+      },
+      {
+        "path": "node_modules/@valibot",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760977252715
+      },
+      {
+        "path": "node_modules/@valibot/to-json-schema",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218760978090952
+      },
+      {
+        "path": "node_modules/ajv",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218761008426340
+      },
+      {
+        "path": "node_modules/fast-deep-equal",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218761021405132
+      },
+      {
+        "path": "node_modules/require-from-string",
+        "reason": "newer_directory",
+        "mtimeNs": 1794218761021819666
+      }
+    ],
+    "eligibleByPinnedPredicate": false,
+    "keyDirectories": [
+      {
+        "path": "/private/tmp/abg-rc11-cut-20261109-02/reproduction/build_tenants/abiogenesis/typescript/node_modules",
+        "mtimeNs": 1794218761021455131
+      },
+      {
+        "path": "/private/tmp/abg-rc11-cut-20261109-02/reproduction/build_tenants/abiogenesis/typescript/node_modules/fast-check",
+        "mtimeNs": 1794218760608248305
+      },
+      {
+        "path": "/private/tmp/abg-rc11-cut-20261109-02/reproduction/build_tenants/abiogenesis/typescript/node_modules/pure-rand",
+        "mtimeNs": 1794218760697976865
+      }
+    ]
+  },
+  "actualNpmLogs": {
+    "candidatePack": {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/tmp/npm-cache/_logs/2026-11-09T09_59_14_670Z-debug-0.log",
+        "bytes": 1273,
+        "sha256": "84ebde77d7632c00a275aab2b5aace5b52bc4a9cdacb8d196812459dfa3c6110"
+      },
+      "selectedLines": [
+        "0 verbose cli /opt/homebrew/Cellar/node/24.7.0/bin/node /opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "8 verbose argv \"pack\" \"--ignore-scripts\" \"--offline\" \"--json\" \"--pack-destination\" \"/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts\"",
+        "15 verbose node v24.7.0",
+        "16 verbose npm  v11.5.1"
+      ]
+    },
+    "reproductionProjection": {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-cut-20261109-02/npm-cache/_logs/2026-11-09T10_06_09_650Z-debug-0.log",
+        "bytes": 1219,
+        "sha256": "1ad40ac9fde5bb7cf544c3ab95968831d5762485cbd43ab4afcb8b4a2b62dbaa"
+      },
+      "selectedLines": [
+        "0 verbose cli /opt/homebrew/Cellar/node/24.7.0/bin/node /opt/homebrew/bin/npm",
+        "8 verbose argv \"pack\" \"--dry-run\" \"--ignore-scripts\" \"--json\"",
+        "13 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules",
+        "16 verbose node v24.7.0",
+        "17 verbose npm  v11.5.1"
+      ]
+    },
+    "reproductionPack": {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-cut-20261109-02/npm-cache/_logs/2026-11-09T10_06_31_655Z-debug-0.log",
+        "bytes": 1252,
+        "sha256": "f704c5800f197401cc27800f3ef7520c4dd502d89625d783a1c911f0961d74a1"
+      },
+      "selectedLines": [
+        "0 verbose cli /opt/homebrew/Cellar/node/24.7.0/bin/node /opt/homebrew/bin/npm",
+        "8 verbose argv \"pack\" \"--ignore-scripts\" \"--offline\" \"--json\" \"--pack-destination\" \"artifacts\"",
+        "13 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules",
+        "16 verbose node v24.7.0",
+        "17 verbose npm  v11.5.1"
+      ]
+    }
+  },
+  "npmLibraryInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/NPM_INVENTORY.json",
+    "bytes": 467075,
+    "sha256": "b597b11aaf3b313e3bc93bb67242c69331cd9ee4e246f0a9f39cdc24f3384e7c"
+  },
+  "npmLibraryInventoryExact": true,
+  "npmLibrarySources": [
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/shrinkwrap.js",
+      "bytes": 38053,
+      "sha256": "783828176377372b3641ee41169ce561f5cdcda03d4f10da615b9a0e3a2eb94c"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-actual.js",
+      "bytes": 14873,
+      "sha256": "20c74c9704dc94f656fb8e2f64ff9a89039437e70ad2fb69d13dcead814dcecd"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-virtual.js",
+      "bytes": 9884,
+      "sha256": "7c0cfc479b1d2104ebfdeab437641166f5fb535240be8760b4949f4cecc170eb"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/lib/index.js",
+      "bytes": 15879,
+      "sha256": "e77f7128b7f6a0b5f6a4e5e52de4ada0c3fdaad1542c98957185576ae1d99e35"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/pacote/lib/dir.js",
+      "bytes": 3086,
+      "sha256": "185f5bc3ec548b1a6adfe963e4ed2275159e3654b6ca0d136a45671bf642c0df"
+    }
+  ],
+  "resolvedNpmCli": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+  "resolvedNode": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "candidateNpmLaunch": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/LAUNCH.json",
+    "bytes": 1433,
+    "sha256": "d482993cb08f4d33d21fcdd75b64e872991059af957f782d0b6a08253fc233b1"
+  },
+  "reproductionNpmLaunch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/actual-001/commands/reproduction-pack.request.json",
+    "bytes": 698,
+    "sha256": "8f7a36e8c369cb086aa9519fb3cbeddd177d1038ebbcadb45e6f642428392412"
+  },
+  "environmentDifferences": {
+    "CI": {
+      "candidate": null,
+      "reproduction": "1"
+    },
+    "FORCE_COLOR": {
+      "candidate": "0",
+      "reproduction": null
+    },
+    "GIT_OPTIONAL_LOCKS": {
+      "candidate": null,
+      "reproduction": "0"
+    },
+    "GIT_TERMINAL_PROMPT": {
+      "candidate": null,
+      "reproduction": "0"
+    },
+    "LANG": {
+      "candidate": "en_AU.UTF-8",
+      "reproduction": "en_US.UTF-8"
+    },
+    "LC_ALL": {
+      "candidate": null,
+      "reproduction": "en_US.UTF-8"
+    },
+    "LOGNAME": {
+      "candidate": "jim",
+      "reproduction": null
+    },
+    "NODE_COMPILE_CACHE": {
+      "candidate": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/tmp/node-compile-cache",
+      "reproduction": null
+    },
+    "NODE_OPTIONS": {
+      "candidate": "",
+      "reproduction": "--max-old-space-size=8192"
+    },
+    "NODE_PATH": {
+      "candidate": "",
+      "reproduction": null
+    },
+    "PATH": {
+      "candidate": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "reproduction": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    "SHELL": {
+      "candidate": "/bin/zsh",
+      "reproduction": null
+    },
+    "TMPDIR": {
+      "candidate": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/tmp",
+      "reproduction": "/private/tmp/abg-rc11-cut-20261109-02/tmp"
+    },
+    "USER": {
+      "candidate": "jim",
+      "reproduction": null
+    },
+    "npm_config_cache": {
+      "candidate": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/tmp/npm-cache",
+      "reproduction": "/private/tmp/abg-rc11-cut-20261109-02/npm-cache"
+    },
+    "npm_config_globalconfig": {
+      "candidate": "/private/tmp/abg-rc11-proof-20261109-01/npm-global.npmrc",
+      "reproduction": "/private/tmp/abg-rc11-cut-20261109-02/npm-global.npmrc"
+    },
+    "npm_config_ignore_scripts": {
+      "candidate": null,
+      "reproduction": "true"
+    },
+    "npm_config_update_notifier": {
+      "candidate": "false",
+      "reproduction": null
+    },
+    "npm_config_userconfig": {
+      "candidate": "/private/tmp/abg-rc11-proof-20261109-01/npm-user.npmrc",
+      "reproduction": "/private/tmp/abg-rc11-cut-20261109-02/npm-user.npmrc"
+    }
+  },
+  "compiledOutputRows": 996,
+  "compiledAndContractChanges": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "tested": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197956,
+        "sha256": "dd1d79bb8843aaba2b83ddf0030bdd7ffe72de88a0e2c60dd90eda9831da5dd8"
+      },
+      "reproduction": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197956,
+        "sha256": "27bc7983050f51fea40fb48a315d4f0c430099ccd9f67f186b0aec937d9fa575"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "tested": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3266309,
+        "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+      },
+      "reproduction": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3266232,
+        "sha256": "fd8a60ab776e49fe42d98a52d0e8a935149ca9fc6eafa8fcc64dca8e628485af"
+      }
+    }
+  ],
+  "sharedTarHeaderDifferences": [
+    {
+      "path": "package/product-toolchain-manifest.json",
+      "candidate": {
+        "mode": 420,
+        "uid": 0,
+        "gid": 0,
+        "uname": "",
+        "gname": "",
+        "mtime": 499162500,
+        "type": "0",
+        "linkname": "",
+        "size": 3266309,
+        "devmajor": 0,
+        "devminor": 0,
+        "pax": {}
+      },
+      "reproduction": {
+        "mode": 420,
+        "uid": 0,
+        "gid": 0,
+        "uname": "",
+        "gname": "",
+        "mtime": 499162500,
+        "type": "0",
+        "linkname": "",
+        "size": 3266232,
+        "devmajor": 0,
+        "devminor": 0,
+        "pax": {}
+      }
+    }
+  ],
+  "gzipHeaderCandidate": "1f8b08000000000002ff",
+  "gzipHeaderReproduction": "1f8b08000000000002ff",
+  "originalDependencyCopyOwner": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/proof.py",
+      "bytes": 11223,
+      "sha256": "078bbdfb90ee2cf803b998438d50606e505205e7abb20e39e32be95408758b0f"
+    },
+    "line": 83,
+    "mechanism": "shutil.copytree(..., symlinks=True), default copy2/copystat preserves directories and files"
+  },
+  "reproductionDependencyCopyOwner": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/run-checkpoint-reproduction.mjs",
+      "bytes": 22779,
+      "sha256": "8e98679164a5fa27ad8289e9a504ea801fc3031d4597bfc9dee3796931c30df7"
+    },
+    "line": 81,
+    "mechanism": "cp -cR preserved file bytes/timestamps but refreshed directories"
+  },
+  "generator": {
+    "pin": {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 53308,
+      "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f"
+    },
+    "lines": "484-548",
+    "relation": "npm pack dry-run selects Product payload; path population feeds content digest and generated capability graph/manifest."
+  },
+  "cause": "Dependency directory timestamps were an unbound consumed tool input. Original Python copytree preserves the valid hidden-lock branch; cp -cR refreshes directories and actual npm logs confirm rejection. Hidden lock metadata lacks dependency files whitelists; filesystem fallback reads real files arrays, excludes two CHANGELOGs, and changes Product content/graph/manifest identity. Both invocations resolve exact same pinned Node/npm/library; all dependency bytes/symlinks/modes agree. No new source/compiler defect is demonstrated.",
+  "smallestProposedReentry": "Control-only realization_refactor: preserve first failed copy/archive, existing source commit and exact tested artifact. One fresh clean git-archive reproduction from e2ba05da; use original Python copytree(symlinks=True) for pinned dependency input and explicitly bind/verify directory+file mode/mtime metadata and hidden-lock freshness before generation. Same source-wins absent-only seeds and finite compile/generate/pack/member equality gates. No new commit, source repair, candidate repack or metadata restamp. Execution requires Root conjunction.",
+  "interventionExecuted": false,
+  "retryExecuted": false
+}

@@ -1,0 +1,108 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "fixedFifteenFamilies": true,
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "outcome": "original R1-R7/C1-C5",
+    "sourceDefinition": "STDO3.0.4",
+    "builderRuntime": "immutable installed RC5/STDO3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "emptyCompanions": true,
+    "rootOwnsSelectionAdmissionAcceptance": true
+  },
+  "recordedUtc": "2026-11-04T02:57:17.738011+00:00",
+  "kind": "bounded_prospective_c2_output_custody_review",
+  "subjects": {
+    "native07-c2-proof-template-r2.mjs": {
+      "bytes": 7499,
+      "sha256": "0ab896c6a14a76ae981b49aecc449861006d9fe756aa51bc651bd142f025877f"
+    },
+    "native07-c2-proof-template-r3.mjs": {
+      "bytes": 7744,
+      "sha256": "e5e2fa0c4ce28008051134b893102dc0588da79ec6b91c4ceffccb8bf8250914"
+    },
+    "native-06/C2_STDOUT_REPORT_TRIAGE.json": {
+      "bytes": 2426,
+      "sha256": "de0fe977693fdbf5eaa67bf505ffbd9fe9b2092cdc94f28720007dd0a9e342c6"
+    },
+    "native-06/NATIVE_C2_CLOSED_RESULT.json": {
+      "bytes": 2210,
+      "sha256": "a830c8c535518c30e7ca24775976ee0502e0189d5f13a955a5042fab4fa78067"
+    },
+    "native-06/ACTUAL_C2_SUMMARY.json": {
+      "bytes": 15561,
+      "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+    },
+    "native-06/workload.json": {
+      "bytes": 222391,
+      "sha256": "8d8e9aa9e4bc1833e5698739fd7be3e77badad9e81b8e1614c44714571303469"
+    },
+    "native-06/NATIVE_GRANT.json": {
+      "bytes": 20444,
+      "sha256": "4549ebb7628b42da04a3b28eb80d01702958e6feab8309b5ba6ef1a927c98d1b"
+    }
+  },
+  "verdict": "satisfied exact r3 output/custody delta; no concrete introduced discrepancy",
+  "findings": [],
+  "sourceDelta": {
+    "functionalChange": "Final stdout emits existing status/report without duplicate full proof and awaits standard stdout write callback before existing failing assertion",
+    "unchanged": [
+      "full proof file retention",
+      "nativeTestProof path/producerPath/bytes/sha256/producerLanePassed",
+      "full finite lane/failure report and aggregate predicates",
+      "r2 pre-verification candidate archive and identity custody"
+    ],
+    "newExecution": false,
+    "outerStreamDeliveryGuarantee": false
+  },
+  "actualPredecessor": {
+    "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+    "eventOrdinal": 50207,
+    "lanes": 12,
+    "tally": {
+      "pass": 303,
+      "fail": 0,
+      "skipped": 44
+    },
+    "unmet": "retry-entry minimum/no-skip only",
+    "report": {
+      "bytes": 10510,
+      "sha256": "f7c4b7be249bd46a2fb7d3c6289210b265e666de30eae5a1f5373bad7b4c66d0"
+    },
+    "proof": {
+      "bytes": 162318,
+      "sha256": "ea2ff9037e99d787562a7f67cb7742b8ca6310317b3a6ebc687ed8b3228004fc"
+    },
+    "verification": "actual owner-output and copied custody files match; report retained proof locator agrees",
+    "stdoutLastLineBytes": 65536,
+    "stdoutCause": "not attributed; callback is not proof of all outer transport delivery",
+    "standing": "actual admitted unmet C2; not acceptance or genuine final close"
+  },
+  "outputReadRoute": {
+    "owner": "actual admitted typed worksite_command_execution_observation",
+    "report": "observation.snapshotRoot + actual worksiteDelta relativePath build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-07/single-address-space-c2.json",
+    "reportIdentity": "actual worksiteDelta.after byteLength/digest",
+    "proof": "report.nativeTestProof.path with its bytes/sha256 and observed output identity",
+    "avoid": "guessed archive attempt path or cleanup-prone report.nativeTestProof.producerPath",
+    "mechanism": "existing native/common observation/file owners; no new access mechanism"
+  },
+  "literalAuthorityCheck": {
+    "workloadReadRootCount": 899,
+    "generatedReportProofReadRootsPresent": false,
+    "currentTestingUatInstructions": "generic",
+    "grantReadAccess": "affected cone and explicitly named captured proof paths; observed readset is not filesystem confidentiality",
+    "concreteFinalCompletion": "Name this finite typed C2 output-read route in workOrders.testing.instructions and workOrders.uat.instructions; make the same captured-output permission explicit in grant.readAccess",
+    "notRequired": "Do not preselect nonexistent future output files as input context or invent an archive root",
+    "conditionalLimit": "If final packet imposes stricter literal read policy, add actual owner-returned output paths through that existing policy before assessment",
+    "standing": "precise assembly requirement, not missing-future-control finding"
+  },
+  "limits": [
+    "No Product/runtime/qualification change",
+    "No execution/tests/builds/preparation/native/provider contact",
+    "No Product/test/control repair or moving Product reads",
+    "Only permitted report pair written",
+    "Root final template pin, genuine close, final controls and conjunction remain required",
+    "Prior proof findings and custody history preserved"
+  ]
+}

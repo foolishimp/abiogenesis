@@ -1,0 +1,28 @@
+--- measurement-01/measurement.test.mjs
++++ measurement-02/measurement.test.mjs
+@@ -63,16 +63,21 @@
+      witnessAttempted=true;
+      const coordinate=store.selectHeldEventStoreDurablePrefix(held.store);
+      const current=prefix.projectOwnedRuntimeEventPrefixAtDurablePrefix(coordinate);
+-     const matching=[...current.selection.select('kind:basis_admitted').rows()].filter(row=>row.scalarPayload.invocationRef===populated.call.invocation.invocationRef);
+-     assert.equal(matching.length,1,'actual in-flight invocation has one basis metadata row');
++     const publicRequestInvocationRef=populated.call.invocation.invocationRef;
++     const admittedRows=[...current.selection.select('kind:invocation_admitted').rows()].filter(row=>row.scalarPayload.publicRequestInvocationRef===publicRequestInvocationRef);
++     assert.equal(admittedRows.length,1,'one actual admitted invocation maps this Public request');
++     const admittedInvocationRef=admittedRows[0].scalarPayload.invocationRef;
++     assert.equal(typeof admittedInvocationRef,'string');assert(admittedInvocationRef.length>0);
++     const matching=[...current.selection.select('kind:basis_admitted').rows()].filter(row=>row.scalarPayload.invocationRef===admittedInvocationRef);
++     assert.equal(matching.length,1,'actual admitted invocation has one basis metadata row');
+      const row=matching[0],keys=row.selectorKeys.filter(key=>key.startsWith('payload:basisRef:'));
+      assert.equal(keys.length,1);const basisRef=keys[0].slice('payload:basisRef:'.length);assert.equal(row.envelope.basisId,basisRef);
+      const w0=basis.observeExecutionBasisRowWork(),first=basis.projectExactExecutionBasisRecordAtPrefix(current,basisRef);
+      const second=basis.projectExactExecutionBasisRecordAtPrefix(current,basisRef),w1=basis.observeExecutionBasisRowWork();
+      assert(first!==null);assert.strictEqual(second,first,'in-flight repeated basis read preserves actual retained identity');
+      assert.deepEqual(delta(w0,w1),{rowAdmissions:0,bodyDigests:0},'both reads reuse the already retained row without new row work');
+-     assert.equal(first.invocationRef,populated.call.invocation.invocationRef);assert.deepEqual(gauges(),g,'identity witness changes no retention gauge');
+-     inFlightWitness={actualCurrentPrefix:coordinate,basisRef,invocationRef:first.invocationRef,admissionEventRef:row.envelope.eventId,admissionOrdinal:row.envelope.admissionOrdinal,strictIdentity:true,bothReadWorkDelta:delta(w0,w1),gauges:g,selection:'actual installed owner current metadata; no new retention handle'};
++     assert.equal(first.invocationRef,admittedInvocationRef);assert.deepEqual(gauges(),g,'identity witness changes no retention gauge');
++     inFlightWitness={actualCurrentPrefix:coordinate,publicRequestInvocationRef,admittedInvocationRef,invocationAdmissionEventRef:admittedRows[0].envelope.eventId,basisRef,invocationRef:first.invocationRef,admissionEventRef:row.envelope.eventId,admissionOrdinal:row.envelope.admissionOrdinal,strictIdentity:true,bothReadWorkDelta:delta(w0,w1),gauges:g,selection:'actual installed owner current metadata; no new retention handle'};
+     }
+    }catch(e){sampleError??=String(e?.stack??e);}};
+    const timer=setInterval(sample,b.sampleIntervalMs),callAt=performance.now();let outcome;

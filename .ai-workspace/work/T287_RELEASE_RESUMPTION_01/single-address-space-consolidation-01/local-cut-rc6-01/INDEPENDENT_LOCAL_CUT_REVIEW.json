@@ -1,0 +1,284 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5, fixed fifteen families",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": {
+      "basis": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "composition": [],
+      "definition": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+      "verification": "stdo status --definition <exact definition> --verify: exit0, installed=true, valid=true, failures=[]"
+    },
+    "selectedOutcome": "Owner-authorized local unqualified RC6 identity/evidence/package cut and existing-owner local installation after accepted targeted IR01/IR02 refactor; no new functionality or qualification.",
+    "ProductBoundary": [
+      "specification/PRODUCT.md:1113 owner-selected unqualified preview boundary",
+      "specification/PRODUCT.md:1478 ABG5-S07 remains prospective exact qualified release law",
+      "specification/PRODUCT.md:1597 sole immutable method basis",
+      "specification/GOALS.md:20 current owner-selected RC6 local cut",
+      "build_tenants/abiogenesis/typescript/release-claim.md exact bounded RC6 claim"
+    ],
+    "authoritySplit": "Product/requirements retain WHAT; exact committed source and deterministic generated artifacts define the local candidate; existing Product verify/lock/install owners alone perform installation; native RC5 observations retain their original Run/package identities; Root conjoins and selects effects.",
+    "prohibitions": "No second runtime/controller/catalog, semantic-law change, native qualification relabelling, wider outcome closure, stable release, selector, tag, push, merge or publication."
+  },
+  "kind": "independent_bounded_local_rc6_cut_review",
+  "recordedUtc": "2026-11-05T02:09:06.829103+00:00",
+  "verdict": "satisfied",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "sourceTree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+  "findings": [],
+  "triage": "not_applicable",
+  "severity": "not_applicable_no_findings",
+  "claim": "The exact RC6 source, evidence and package bridge is identity/derived-metadata only relative to the accepted native source, preserves all bounded claims and failures, reproduces byte-exactly, and the selected installer conserves the existing owner/no-clobber route. Actual installation receipts are not yet claimed.",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/REVIEW_REQUEST.json",
+    "bytes": 4111,
+    "sha256": "81153fb496d3ef2c660a823df122476cf3afba9ebe6b943adefde5d7fa654dde"
+  },
+  "controlPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/WRITER_ACTIVATION.json",
+      "bytes": 3887,
+      "sha256": "3676d710be85db541522aa0c1d898b49225e636cd16d976664679a3fa2d7d078",
+      "requestSha256Matched": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/SOURCE_CHECKPOINT.json",
+      "bytes": 1177,
+      "sha256": "ae3da23b13755a8b1640459f0178bb5a73c53e44d7f518a6a84d275d89cd2ff5",
+      "requestSha256Matched": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/ARTIFACT_IDENTITY_BRIDGE.json",
+      "bytes": 3370,
+      "sha256": "da399a114c85a4014261c4944ecdf76d9dcbe0c953362ce9809a7b19735e20e0",
+      "requestSha256Matched": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/install-local-rc6.mjs",
+      "bytes": 7228,
+      "sha256": "33d99f68f65b206f27b791b2d487afbc1b2ac5c80d20e29f30d1f39dcebced0d",
+      "requestSha256Matched": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/prepare-install.py",
+      "bytes": 6614,
+      "sha256": "86da79c1e618961fbb3bc0f2e19e2f8c7ecba0bcc2b4c6c4b40156c605348b7c",
+      "requestSha256Matched": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/FREEZE_PREPARATION_REFUSAL_01.json",
+      "bytes": 1213,
+      "sha256": "de0859adb09038f49b37879e061029e69996673484a1e337142ea5aa4b939c9c",
+      "requestSha256Matched": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/FREEZE_PREPARATION_REFUSAL_02.json",
+      "bytes": 720,
+      "sha256": "dee42b2fee45e3e87297cba7b3f8197ccec5a71f13453093019fa1ee543add2a",
+      "requestSha256Matched": true
+    }
+  ],
+  "artifactClassification": {
+    "committedSourceAndPackage": "immutable definition and derived build artifact",
+    "sourceBridgeIndexProofAndRefusals": "observation/evidence, not ABG authority or new qualification",
+    "prepareInstall": "bounded operator construction of exact installation inputs after this review and reproduction",
+    "installer": "workspace transformation delegated to existing Product owners; no native Run or private runtime event writer"
+  },
+  "sourceCustody": {
+    "headAndTreeExact": true,
+    "trackedIndexAndWorktreeClean": true,
+    "acceptedNativeSubjectSha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13",
+    "all157NativeSourcePinsConservedInCommit": true,
+    "cumulativeSourcePaths": 108,
+    "allCumulativePathsInFrozen157": true,
+    "previouslyUntrackedFrozenPathsNowCommitted": [
+      "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "identityOnlySourceChanges": [
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts"
+    ],
+    "identitySourceCheck": "All three complete files are exact rc.5-to-rc.6 substitutions. Dependencies, scripts and logical schema/workflow constants are unchanged. Only the two existing Product/package constants change emitted JavaScript.",
+    "otherCommittedDelta": "Declared release-claim/current coordination metadata, bounded evidence capsule and two existing generated projections; no additional implementation relation was found.",
+    "sourceBridge": {
+      "path": ".ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/SOURCE_BRIDGE.json",
+      "sha256": "e392e46703ece22ed47a50ddecc9f86fb7a7c9a5b21ffc2ea0c8b2a1bc22587c"
+    },
+    "evidenceIndex": {
+      "path": ".ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/INDEX.json",
+      "sha256": "ee58e3a10ee9c9386921ae8fe6479c83fd86ba5718d1b58d120774d82a4166bb",
+      "exactOriginalAndCommittedCopies": 23,
+      "allMatch": true
+    },
+    "extraCommittedCopies": "Activation, artifact bridge and both preparation refusals also match their exact outer originals; generated custody matches both committed generated outputs."
+  },
+  "packageBridge": {
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/ARTIFACT_IDENTITY_BRIDGE.json",
+      "bytes": 3370,
+      "sha256": "da399a114c85a4014261c4944ecdf76d9dcbe0c953362ce9809a7b19735e20e0"
+    },
+    "nativeArtifact": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/actual-c2-001/candidate-package.tgz",
+      "bytes": 10988328,
+      "sha256": "e0a84d336073fffb59696ebdedf0f5bd9224d4857d8124cd1400646819dfdf66"
+    },
+    "rc6Artifact": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+      "bytes": 10988465,
+      "sha256": "e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4"
+    },
+    "sameMemberSet": true,
+    "members": 5325,
+    "byteIdenticalMembers": 5319,
+    "changedMembers": [
+      "package/build/code/src/product/builtin_semantics.d.ts",
+      "package/build/code/src/product/contracts.d.ts",
+      "package/build/code/src/product/contracts.js",
+      "package/contracts/capabilities/capability-definition-graph.json",
+      "package/package.json",
+      "package/product-toolchain-manifest.json"
+    ],
+    "independentChecks": "Read both authenticated tarballs without extraction or execution; all members are regular files. Independently compared every member and its digest. builtin_semantics.d.ts, contracts.d.ts, contracts.js and package.json are complete version substitutions; graph/manifest changes are the existing generated identity/digest/ref cascade, produced from the conserved source plus declared identity inputs.",
+    "generatedProjectionCheck": "Unchanged existing generator and dependency definition; committed capability graph and manifest hashes match generated custody and the clean reproduction. Reproduction archive is byte-identical, covering all derived identities rather than treating arbitrary digest differences as an excuse.",
+    "manifestSha256": "b18114a29e8aaa207f5f3d04849d6da1a72d0c1d05e5841ee66db12fa52a22cc",
+    "productContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+    "nativeEvidenceStanding": "Proof10 remains on its original RC5-labelled archive e0a84d336073fffb59696ebdedf0f5bd9224d4857d8124cd1400646819dfdf66; no new RC6 native or qualification execution is inferred."
+  },
+  "reproduction": {
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/RESULT.json",
+      "bytes": 7699,
+      "sha256": "d32cc03c62479730635f5c56aad01d654313c30ecfaf45595d73c826f027b4fc"
+    },
+    "status": "BYTE_EQUAL",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "archiveBytes": 10988465,
+    "archiveSha256": "e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "recordedCommands": [
+      "archive",
+      "extract",
+      "offline-dependencies",
+      "compile",
+      "generate",
+      "pack"
+    ],
+    "allExit0": true,
+    "allRecordedOutputPinsVerified": true,
+    "independentArtifactCheck": "Candidate and reproduction archive bytes/hash independently rechecked; reproduced manifest matches the committed generated manifest.",
+    "limit": "Root performed reproduction separately. Reviewer did not compile, generate, pack or run tests. This is build reproducibility, not qualification."
+  },
+  "claimAndEvidence": {
+    "releaseClaimSha256": "100bf2841ea82bb3ba7dfde95161c91e6d2b2458adaf0aa227d740e409bd5fbe",
+    "acceptedRootConjunction": {
+      "path": ".ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/proof-10/ROOT_CONJUNCTION.json",
+      "sha256": "4d74f116ae022fae56d517ebda3bda4b3032a62bf7e7d992ad7f53c1c7122313"
+    },
+    "reusedStanding": "Root accepted bounded T1-T5 after actual proof10 12/0/0, independent source/completion review, satisfied native UAT, completed lifecycle and genuine fresh-result/replay agreement with final160-source conservation. This local packaging review verifies committed custody and claim correspondence, not a fresh native re-evaluation.",
+    "preservedFailures": {
+      "native09": {
+        "total": {
+          "pass": 77,
+          "fail": 8,
+          "skipped": 75
+        },
+        "wholePath": {
+          "pass": 5,
+          "fail": 7,
+          "skipped": 0
+        },
+        "revision": {
+          "pass": 4,
+          "fail": 1,
+          "skipped": 2
+        },
+        "consumers": {
+          "pass": 59,
+          "fail": 0,
+          "skipped": 73
+        },
+        "nativeProof": null,
+        "uat": "not_selected",
+        "disposition": "blocked"
+      },
+      "meaning": "Current12/0/0 closes only the missing-baseline whole-path gap; it does not rewrite prior failures, lower floors or add old rows to the new tally."
+    },
+    "retainedLimits": [
+      "T2 remains preserved available behavior with revision4/1/2 failure/suffix and historical gated arms unverified. N9-RETAINED-FIXTURE-01 stays open before dependent D2/qualification claims.",
+      "Wider R1-R7/C1-C5, fifteen-family qualification, installed S01/S02/S03/S06, native F11 and sole AF22, exact prospective qualified release and human acceptance remain open.",
+      "Measured owner reuse does not prove complete RC6 workflow latency; cold authentication/setup/launch/between-task work remain distinct.",
+      "Same-family independent actors; no clean-family claim."
+    ]
+  },
+  "installerRoute": {
+    "candidate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/install-local-rc6.mjs",
+      "bytes": 7228,
+      "sha256": "33d99f68f65b206f27b791b2d487afbc1b2ac5c80d20e29f30d1f39dcebced0d"
+    },
+    "existingRc5Installer": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/install-local-rc5.mjs",
+      "sha256": "15f6639ee3204234e471bc37a994c7abfb84163e66e66051bbc8a417ac981450"
+    },
+    "comparison": "Only selected control-directory, usage/version/Product and retained archive filename labels differ. Existing control/tool/archive authentication, source cleanliness, no-clobber and owner invocation sequence are unchanged.",
+    "preconditions": "prepare-install.py:11-18 requires exact satisfied review/sourceCommit and BYTE_EQUAL reproduction, exact candidate archive, absent release/install roots and clean selected HEAD; the final input manifest pins tools, evidence, claims and selected archive.",
+    "effectSequence": [
+      "install-local-rc6.mjs:15-29 authenticates selected manifest/files/tool executables/source/archive and rejects existing release/install roots before effects",
+      "lines32-45 create fresh exclusive custody/bootstrap and check derived manifest identity",
+      "lines46-55 call existing verifyProduct, constructResolvedProductLock, installProduct, isProductInstallCandidate and installedProductContentMatches",
+      "lines57-75 independently compare every installed archive member and save exact verification/lock/install/payload/cut/checksum receipts"
+    ],
+    "existingOwners": [
+      "code/src/product/verify_product.ts:2011 authenticates actual archive and expected artifact/manifest identities",
+      "code/src/product/environment.ts:533 constructs the resolved Product lock",
+      "code/src/product/install_product.ts:298 delegates lock membership, current verification and complete materialized payload checks; target_not_empty remains at351-353"
+    ],
+    "noClobber": "Outer lstat absence checks before allocation and immediately before install; release mkdir is nonrecursive; receipts/archive use wx or COPYFILE_EXCL; failures preserve partial allocations and refuse implicit overwrite/removal/retry. Existing Product owner still requires empty install target.",
+    "futureLimit": "No install was performed or credited by this review. Exact final manifest/effect selection, Product owner success and 5325-member installed correspondence remain actual Root installation outputs."
+  },
+  "operatorPreparationRefusals": [
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/FREEZE_PREPARATION_REFUSAL_01.json",
+        "bytes": 1213,
+        "sha256": "de0859adb09038f49b37879e061029e69996673484a1e337142ea5aa4b939c9c"
+      },
+      "standing": "Preserved operator preparation exit1: initial archive whitelist omitted builtin_semantics.d.ts. Complete version-normalized equality establishes the existing inferred declaration; adding only that declared identity projection did not change Product behavior."
+    },
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/FREEZE_PREPARATION_REFUSAL_02.json",
+        "bytes": 720,
+        "sha256": "dee42b2fee45e3e87297cba7b3f8197ccec5a71f13453093019fa1ee543add2a"
+      },
+      "standing": "Preserved operator preparation exit2: whitespace linter consumed exact source.diff evidence. The later source/documentary check preserves raw patch bytes; no Product edit, source predicate waiver or historical green is inferred."
+    }
+  ],
+  "limits": [
+    "Only local source/evidence/identity bridge and reuse of the existing installer were reviewed. No source implementation or broad qualification review was reopened.",
+    "Installed verification/lock/install and all-member receipts remain later actual outputs; satisfied here does not claim they already exist.",
+    "Old cuts, failures and qualification exclusions remain immutable. No tag/publication/global selector/stable release claim.",
+    "Review is nonauthorship of this cut/installer preparation, with prior source/control/evidence review roles disclosed; host unrestricted and same model family."
+  ],
+  "invalidation": [
+    "Different source commit/tree, dirty tracked source, changed exact control/evidence/artifact pin or unexpected seventh member difference",
+    "Reproduction mismatch, altered identity/generator/dependency relation, broader claim or relabelled native evidence",
+    "Existing target root, owner refusal, wrong resolved lock or installed byte mismatch: preserve refusal/partial allocation and return to Root; no automatic repair or overwrite"
+  ],
+  "reviewEffects": {
+    "ProductEdits": 0,
+    "builds": 0,
+    "tests": 0,
+    "providers": 0,
+    "nativeRuns": 0,
+    "installations": 0,
+    "delegation": 0,
+    "writes": [
+      "INDEPENDENT_LOCAL_CUT_REVIEW.json",
+      "INDEPENDENT_LOCAL_CUT_REVIEW.md"
+    ]
+  }
+}

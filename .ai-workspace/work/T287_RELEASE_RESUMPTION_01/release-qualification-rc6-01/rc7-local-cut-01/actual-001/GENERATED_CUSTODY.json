@@ -1,0 +1,30 @@
+{
+  "generator": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+  "generatedDelta": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "835a595ec0b025ded19a6d11fedf0bb8026d7acb1909911aed1f8d96ec89e24d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 153007,
+      "sha256": "f940670cfb03f4cc587d91537b1082b2563b6399332d687ef9319ac6289757de"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+      "bytes": 255,
+      "sha256": "7bc5c5edda1829087b3e746c3406a3a90917a0014442444ef99b2e423df196fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548"
+    }
+  ],
+  "artifactBridge": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/ARTIFACT_IDENTITY_BRIDGE.json",
+    "bytes": 3244,
+    "sha256": "ed7f2e1fc658ed1907532920bfb27a071b095b6807813e1f46d1ae8bfc7a1681"
+  }
+}

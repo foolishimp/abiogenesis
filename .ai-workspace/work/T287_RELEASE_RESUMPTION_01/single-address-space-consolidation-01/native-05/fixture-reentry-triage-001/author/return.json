@@ -1,0 +1,811 @@
+{
+ "kind": "native_05_return",
+ "returnedUtc": "2026-11-03T23:07:49Z",
+ "status": "partial",
+ "readiness": false,
+ "basis": {
+  "stdo": "3.0.4",
+  "baselineCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "heldSource": "consolidation-inputs/native-05/HELD_SOURCE_AND_EVIDENCE.json"
+ },
+ "native05ChangedFiles": [
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+   "predecessor": "held_native04",
+   "predecessorSha256": "4dfa39eb28bded4e726ccf8f4dbb5a1696a12a7b18aa70d49e403737d59da050",
+   "sha256": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+   "predecessor": "held_native04",
+   "predecessorSha256": "ec6bce207e50187e6d863203496252f882adc192c977c425fe10a87ce27a1563",
+   "sha256": "5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+   "predecessor": "held_native04",
+   "predecessorSha256": "694302358bb0adb6590ef4e5d4500d679a0dfbd4827c78b1285737ee0475278b",
+   "sha256": "dcd891fcb9f07a1ba5220c0ff21351c1f2a7c25884b7dcaadb60ceeb8faf4ac3"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+   "predecessor": "held_native04",
+   "predecessorSha256": "a341d0ef3898c031c25285ccae67b9a0f7f892bf87e4a49d5748cf8556e39e81",
+   "sha256": "a2da3031ca7c408bac41fea0c39a7043333ce0b14a6769fd82979733b7de22ab"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+   "predecessor": "held_native04",
+   "predecessorSha256": "d93ac0bc7e06b2021ac27b7839f99832ec39dd0b5ff7d1c31bc77f75cf6409a0",
+   "sha256": "ded48ff44daab08cc8841dd454155dd736efc8c81fb7a7a147df52ce8ddd3304"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+   "predecessor": "held_native04",
+   "predecessorSha256": "6369f58eaacaee1472e7502af8ddb6dbfba701840b58698b20502dde58342cec",
+   "sha256": "6a254033a8ea50a1f313340e7ba22c07a1797ff618e6527c473751bac0fdfc89"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+   "predecessor": "held_native04",
+   "predecessorSha256": "8c593d1e9485e7dd0ab6997273630b827f45429a2220370e1cf023af8cce803a",
+   "sha256": "c9ea7515696efdc160c59f6faa3f0f28243f20b247b164baea3c64ec3c4f6993"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+   "predecessor": "held_native04",
+   "predecessorSha256": "80921f68c624747865ac3ef685a8cb4c287247d9465181176a3e9d79a76f95b9",
+   "sha256": "8b8cdd35d0298469424d7226d0fb58a125b64cd6556eddfc7ff716c0aea372ea"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+   "predecessor": "f49",
+   "predecessorSha256": "a0ba80a5744cc70309bcd39d7d008b6f015f104744036c0df0f9b81623532942",
+   "sha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+   "predecessor": "held_native04",
+   "predecessorSha256": "836de942e5e2209d14e288549461dfa76af52bf964cf39efcadd426792a11c8f",
+   "sha256": "6917be69cee67d6f3383bc7b7f9cce1bee2c338478c394afe89a5512496597b9"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+   "predecessor": "f49",
+   "predecessorSha256": "985f4199aa412d0e6cf77d3915d92dfee231ab75db3e759649669cdb2d157219",
+   "sha256": "ab53666bd5c40d2a8de5f20c925462be9bba9353c39325589f35c771ab1f1f3a"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+   "predecessor": "held_native04",
+   "predecessorSha256": "d1dff3b446c30d0a575a915bfaff0d7940071355822a8e71688bdf6b715bef88",
+   "sha256": "5173d59042e89399c35a092363c1722e1a67f6aec6fd4011b7d5f3cf8ab961ce"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "ab413ca641cae12384c8eb559d01d809fd6a1cca3a19d6fb73945c20b21076ba",
+   "sha256": "4ec5ecc1aba27aaba522dffef69776c8fd8afcb79fda17cc6ce7245e30a448d3"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+   "predecessor": "f49",
+   "predecessorSha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e",
+   "sha256": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+   "predecessor": "f49",
+   "predecessorSha256": "89f440e0e1296b42e00d1aeb970e35ea2edea808d8ba4f9a03d0401da75b95b4",
+   "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+   "predecessor": "f49",
+   "predecessorSha256": "590a2f9110587f57a72e4438d3bb6c45d3847d314a875f4dfefc4731e6c99f62",
+   "sha256": "544b44c5250610fe9c8830b332eda51e9bb943264339701eebca309f17284475"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "d5ab42a4f91970f328e9b15bea532dee86def237c6b7709a31a00165799cace7",
+   "sha256": "44fa23a3288ec3ab756c57ece114acfd34fda4902944b04ab27be62cd2813dfc"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs",
+   "predecessor": "f49",
+   "predecessorSha256": "274d00933bbf54fb17b6f3fe3a62926a2101521bf955c972ac007e795efa4355",
+   "sha256": "379a3434a504128e2e8e16e44e0bf1d61d924158af4f323c4860535629637f43"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "532ad9a99905a8d9f33a34e4738e2615daaa1ced7a371a8a42eaa5a070e24791",
+   "sha256": "10f5b68598a3206f9a631643bec2314d1515f21a0065e08c6fc370b6bb94a7ea"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "ac15324af0b2a7a0c704a622410d14875219c5ade0fdda76f2a81ce7725f29b7",
+   "sha256": "bc155c423a992e376be7c6fe55ce0043e0172340318103aa298a83e19015d827"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "209a3540fc5a23f1395b6ee21bfa30e63a4571b51cfb38f87c18d2fb4e94f478",
+   "sha256": "a8f0525caa1b047f304fe87afaa80b51854b5c050b384c8c7098609bab290067"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "bff068ad057b36f0892be033d80ab7de73da94b008249c5f9225e496064f216f",
+   "sha256": "23afb69fc48c66844b1172858d0bcb9f736fd23ab09a7f4e0e31fc75c8c39429"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "2165a7b8064c4e62bff4f03207b424ff5678b32a2205ace69f85462215a74b2e",
+   "sha256": "8f4d2f649bce9bf26d279cfc4ee3f856b32511db9172649ebec87ca5ff89959c"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "0cdb83cddc28146bc24306783bbcc945652c29f6ca21b6b8c8a669104c788c36",
+   "sha256": "8928a5cf1e3753517cb9e7b5202e20f7594d82e9bdd044f9a0ae69212e336d81"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "679798679dbf0d84ffe00ec6b56ab058a9cdb7acf21d8f96ee571432b6be457d",
+   "sha256": "09ec146a4bd4a789f28a11d04b72ea86a936414318dba433eff25848dfa2dadc"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "c0b5244560f3e9451a250184b14916f574f57551acfd8667584d5e3c0af7156c",
+   "sha256": "c18384e6cdc80cd8fcd7cac2108ed29fb10569a62f42c652937e1c85b984ac87"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "8044ba06fe564ded3394debe22ad7e6b6d3ecb48f8075820c1d0738c66558f7f",
+   "sha256": "397b99b3401c13fb6591d55b3a2abab347fd5cc510c43b83b714f6cae29b30cb"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+   "predecessor": "f49",
+   "predecessorSha256": "b35acf7c5a419f3db7d43ba5ba9ed629c37bc9ee87fff2afc4492fe2a900c1f4",
+   "sha256": "b374f43c7b600dbfe07024f092a31c54e5ab019250b4b12d45d5e3ba917e330b"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "659e498c72ec413bb0d94ee066601f05a263207a693105787438c69ab7750093",
+   "sha256": "cbe17a4e483a2f4ddb6ed0fe0d9b38979a1becc80429ecb2d33c42e9259d45c9"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "54b7822bccbb6f810678007304669d356470d4d472dd52f721fd7adc615291df",
+   "sha256": "efc165d2f823fe874418aa3ecdf5d5d65b27f18ed047997bb00f3afcd21b9dbf"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "819643393a4b8458a90ea8ce3331f8a27699c5b39cf955b356a74bfce5c92d5c",
+   "sha256": "1d395a555ac1917700243b1acd6258b5f1800184ee54395305ec072ef0bab462"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "1c02eada9753ef982fc744e6dd8e2b0652c7040b26f60116c9def17b2a636efd",
+   "sha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+   "predecessor": "held_native04",
+   "predecessorSha256": "8e51f29e39d8957cfd11e636290a4eca7bc458dfb1512e1d490aad513bfb8504",
+   "sha256": "200f4a94e0fd84296f35816f663e747830c1690375daa986d51cfaa3c0c2d51e"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+   "predecessor": "f49",
+   "predecessorSha256": "37311bb1f6435509549ff0a9410fa39139982c2798541623e76d8cada2db7e87",
+   "sha256": "aa1ab8ed6a5cd947f35ffab910e4a840db70592ea4bbeadaf709d5cdcefb9778"
+  }
+ ],
+ "trackedChangedOutsideGrant": [],
+ "sourceHashes": {
+  "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335",
+  "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts": "79788a830ca61f6c31397c85a95f373d3cddc77e0457c6907452d4b70d452422",
+  "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts": "5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7",
+  "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16",
+  "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts": "25aad5b6abaf0630976f18c74f65c2fb8105510294cc8a0f8b6ea7f85e6e2252",
+  "build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts": "b6f77d6f8b26718040e0d558bcecab0781d5864bc7dd2108a6779f0ee63881e0",
+  "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts": "dcd891fcb9f07a1ba5220c0ff21351c1f2a7c25884b7dcaadb60ceeb8faf4ac3",
+  "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb",
+  "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+  "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+  "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts": "a2da3031ca7c408bac41fea0c39a7043333ce0b14a6769fd82979733b7de22ab",
+  "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts": "8feeb5ab8bf7f4582828aaa5420ad0b956f492a9f3bb2b68123b24a52fad71e4",
+  "build_tenants/abiogenesis/typescript/code/src/abg/index.ts": "ded48ff44daab08cc8841dd454155dd736efc8c81fb7a7a147df52ce8ddd3304",
+  "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts": "094cce6fb3c539d56c21df0d46550b788f3fb4442016472d0199950b06d23e16",
+  "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts": "6a254033a8ea50a1f313340e7ba22c07a1797ff618e6527c473751bac0fdfc89",
+  "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts": "70808821083b7c0d7abe595f05d42188868b631bef441152573658b4d9b7a99c",
+  "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts": "51c49b7069a6a56362cfc53e8d7681b855ca8b28af77e9fd49c18defd3f57eff",
+  "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697",
+  "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts": "c9ea7515696efdc160c59f6faa3f0f28243f20b247b164baea3c64ec3c4f6993",
+  "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts": "8b8cdd35d0298469424d7226d0fb58a125b64cd6556eddfc7ff716c0aea372ea",
+  "build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts": "9d37ed9c8d216dd6420d7254571fd555d67d653b367c9d5a25eefefbb42a857a",
+  "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts": "4e0c0fdcd94cd586019c622aa9a2a1703ab720b576e091378c67c96627defee1",
+  "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts": "59db62729425cb8c7ed871348cb44e5e9c8cbe283b8e6f35c7bb35f3187e1d31",
+  "build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts": "ea2df4a553c8fea801277f9b68707ae7cd7ce08bff7c10e3d1552d6d01bfce8c",
+  "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4",
+  "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+  "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts": "e657a900c12f7ceee1152711845518a96cf48ac0b67a5566ec47fa516824190d",
+  "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts": "ce9cc8c74568ec7a8fe6dc2f061a3fb8693416f0874739345c286bdce12aec5d",
+  "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts": "cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1",
+  "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts": "c16c27de89523969d3f4a4b066c539115aff0150f5abe00ef147728763291e8f",
+  "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts": "7dfe27e457a1b04c677382696524aed744b75c4079132837a78bc2c9ea20b208",
+  "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts": "6917be69cee67d6f3383bc7b7f9cce1bee2c338478c394afe89a5512496597b9",
+  "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts": "209968ba13beeb5160d6bb51a65bca5431f4e2f94497f3c8f7130624ad776c60",
+  "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts": "ab53666bd5c40d2a8de5f20c925462be9bba9353c39325589f35c771ab1f1f3a",
+  "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts": "78d213d48e697882b8614d825c8a6cb4b4c7ee9ef5b5f3a75cbc72f80c33ec49",
+  "build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts": "27125e01d9b2a479d2c76cf942a24d2833a3a95614b41fbd895cbcda68ad1efd",
+  "build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts": "76d38a6b1f7c7a18321a609df9fb17f15be6fd179da4de34884f900c0ad6542c",
+  "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts": "93b5f832601192409dbdbdb9db0cc9988c6c3d7e1d94026504008b28ab07cc74",
+  "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts": "a634bb0b19affc2e3cbb093101df3537a31c7e220962b7e9fc2a2c1a0a10709a",
+  "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts": "a9cdf5c7688efee2754ea92bf682b703e89792c4cd4171c51be64d9b66351a4e",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts": "7da8c71f162549621ea2adebe149fdd5509c85046c7d57ad50e35985493db0c6",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts": "5ce21cf9f9e234ebd2e5bae2ec9df96083214f667e1e9c23ecb15f908c6b3189",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": "3ad3fba807e2a22ec31403048ed02a652a4de3fa1b0434a3f531fafbb72f0aa6",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts": "c1ae30fe5ce0adae13613da1d5882d475230355713da12b4e85b22b1fff94fc1",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts": "0b748040414ae9ab6b46d29678a7dee7855db86a2c3f05cde7eb0908e78fb409",
+  "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts": "73c27a0ed2d4e65a0317a1c6f5e16e5294248db7077960d273e9213f62052dc0",
+  "build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts": "27595e7d07b94d7144f66d3264ae8a1b8266838588a568ab74b0f7a454f936e0",
+  "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts": "8c3a5e21adcb002d34ba5487d44fe2c8ad34c3f618472781f96bd2524ffce4cf",
+  "build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts": "d54ace08f6eea2e5c18c058c0e61a485161fbd572548a0a8e9c35d56069f9845",
+  "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts": "0487b8b2f1f909adb043722d15ee7018c03b21942ed642cf35960f7bf087e284",
+  "build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts": "1d7dbc683a541bccc08a4bcd7f7f09140da321d2cf0266b05dc70870ae4389d3",
+  "build_tenants/abiogenesis/typescript/code/src/product/result_definition_bindings.ts": "80384b0f1fe02452720a0439daceee8868c9c85b69e7d04701f8b34b1f11f40d",
+  "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts": "7d267578046f50f08d5724a450633e193470a46eaf1d842330507d87b50b447b",
+  "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "5173d59042e89399c35a092363c1722e1a67f6aec6fd4011b7d5f3cf8ab961ce",
+  "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md": "2e906352d2b83f13635126608467fc4898af2c7916ac7eb8d0c6aee882120121",
+  "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8",
+  "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md": "11d4dac7fb052b8cad1b0e9e6a6aaef7185ed7891de6fc4f4b1b329dc57fb636",
+  "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs": "4ec5ecc1aba27aaba522dffef69776c8fd8afcb79fda17cc6ce7245e30a448d3",
+  "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3",
+  "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a",
+  "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs": "544b44c5250610fe9c8830b332eda51e9bb943264339701eebca309f17284475",
+  "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs": "44fa23a3288ec3ab756c57ece114acfd34fda4902944b04ab27be62cd2813dfc",
+  "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs": "b106e1de259ec993469a3d320316646eae9490330ec0bcb86fad2be7214dee7f",
+  "build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs": "d221155c75ad5a059e7523bdd62c53e27d70ad02675d91ea0d284645aaa2aedc",
+  "build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs": "5dd7aefe879b65d2baf7e01d7d83eea6444848f5ae24f0c3b98ad68a5e164feb",
+  "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs": "379a3434a504128e2e8e16e44e0bf1d61d924158af4f323c4860535629637f43",
+  "build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs": "9db87e6586201f7ac806df00076fd4a289241750c9bb6cf367081b50f613cd94",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-family.test.mjs": "e1c90c79cf3f58bac6c12f54c094470b04a5865f044676358e244fdd809d809b",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs": "10f5b68598a3206f9a631643bec2314d1515f21a0065e08c6fc370b6bb94a7ea",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs": "bc155c423a992e376be7c6fe55ce0043e0172340318103aa298a83e19015d827",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs": "a8f0525caa1b047f304fe87afaa80b51854b5c050b384c8c7098609bab290067",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs": "a0536113e290c074ea8a8066ea734fd798153808ec72b7faf6d1d8228e90a1b2",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs": "a56347f2621ec53733c27de869c1d0396d07f3bae09384a8dc5a8659958a9d99",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-cross-cut-public-read.test.mjs": "1b3fcf8c7862c1c1b18bf1fbe3f6afd2759c66d7df6e50685e15f2d36f8551b9",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs": "69344dc2df9b76e0bf18c9b1adade8bbd249e5d97cac7de430498695d0d75087",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs": "4718c90ba665fe2d2103ef4a13e433575b7f0f0e33e05cc225210c74fd91c7b5",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs": "23afb69fc48c66844b1172858d0bcb9f736fd23ab09a7f4e0e31fc75c8c39429",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-environment-projection-conservation.test.mjs": "07912e09bcb432f4f7cf3e6b240dd27a9d54a891eee161aea4e28f6e5756da71",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs": "390667fdfb25dfbb198df335db6518449410d954f60b2914f7c9c9283d8efc49",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs": "e3d9d16cbf136031ff199cb9f718eaf7cde6c9cd4c3bd29e3c28ee19610dad4a",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs": "8f4d2f649bce9bf26d279cfc4ee3f856b32511db9172649ebec87ca5ff89959c",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs": "8928a5cf1e3753517cb9e7b5202e20f7594d82e9bdd044f9a0ae69212e336d81",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-malformed-gtl-gate.test.mjs": "ba7506e029f26e2175a0c02ce5f7976032ccce22e15a9b825d9e6f79571253b3",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs": "b5ab9c0faad5048fd8e9e3e7a39ec08c540a568a56e0b16baaa846dd5aea5686",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs": "f6ce712c35478568a0e7bd08722c8804b2d7c88ac58920273ce6abaf7163ae7a",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs": "5f746eec8f1f598fe3ce5ea2d9698d44338842cf4470fb7195836b4f36917160",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs": "cc296f454540913704d3e48d1fdc240c935cc0616098f61381e38f025ec75e5e",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs": "4f92919b9dbd537eaefc9899a56caf3edffb4ce4d9783aa315ddcbb71c3ee8f6",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs": "e2d74fde4a620024c97641939e2d50fd988437804b87121484a513cb24b778be",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs": "eec3a064046060312ef0201bce20df5b46f781b48da2bd9f628a39faf3c1c4ad",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs": "09ec146a4bd4a789f28a11d04b72ea86a936414318dba433eff25848dfa2dadc",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs": "e8b911080ff7ef26ef7b6472471223abf44a187ff48ae659385edc4b5a163eac",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs": "c18384e6cdc80cd8fcd7cac2108ed29fb10569a62f42c652937e1c85b984ac87",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs": "ea2e0464b25199867753b2a11de04527d051a86e6992c3a29645521e7dbb7f67",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs": "ca9b7b4ceb2933c8b013ebcedbc3edfab5d05558f7f575d03510dcef514b1403",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs": "397b99b3401c13fb6591d55b3a2abab347fd5cc510c43b83b714f6cae29b30cb",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs": "2125bd4fc66a3218827f3cc859a566836ded0dcf6096d81a90e4eff721b7cc56",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-reconstruction-conservation.test.mjs": "bfeccd64488a0f32f23e905c55e035858e2cf98ab30cfad6d6550e1f99f34854",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs": "b374f43c7b600dbfe07024f092a31c54e5ab019250b4b12d45d5e3ba917e330b",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs": "90540971276c92787e9a10877c2ccfe2798b58d1e438abf9b96167a7d4ecd7c8",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-failure-diagnostic.test.mjs": "d8b216839f1882003f0c82339110dbb0bf5be6de580a6a8ae5d947c3eeef24f0",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs": "cbe17a4e483a2f4ddb6ed0fe0d9b38979a1becc80429ecb2d33c42e9259d45c9",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs": "efc165d2f823fe874418aa3ecdf5d5d65b27f18ed047997bb00f3afcd21b9dbf",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs": "e17e26f31e1c85a285420bc2f74c66cddf22d960943020007583919729eef519",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": "a0984ff7f82cb0ac57175e7fa858e8b928e469704f3a25326ccb38868df7717f",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs": "1d395a555ac1917700243b1acd6258b5f1800184ee54395305ec072ef0bab462",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs": "200f4a94e0fd84296f35816f663e747830c1690375daa986d51cfaa3c0c2d51e",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t288-initial-cursor-entry.test.mjs": "3032b45c11c7b081cb8732c9875f4aff08ccec359de504a101f4bde7c93d884b",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs": "f4cbf1fed4b4d671c7c7f7e6fc4e378ec1abf22965384d1fc73c385786ada6ef",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs": "aa1ab8ed6a5cd947f35ffab910e4a840db70592ea4bbeadaf709d5cdcefb9778",
+  "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs": "25c3756928fb8a568e515538ed38500e8a8bbb8ec695e76fdcc380b3a6a7c37d",
+  "build_tenants/abiogenesis/typescript/test_env/tests/witness-run-stopped-definition-binding.test.mjs": "a8201916bcb5892c04de594bf48136624d0b2bee36eb1e526cd3155ae03e568b",
+  "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs": "3d336f70e8b21349fd0768a1abed407debcc6d0edf6dffa5c570b6bdc6b80efd",
+  "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05",
+  "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+ },
+ "census": {
+  "migrated": [
+   "calculus/liveness.ts livenessReconstruction: forks the admitted predecessor selected by runtimeEventValidationBase (forkAt) for each validation prefix; layered base indexes; byIdentity buckets (someIdentified) for terminal/process identities replace kind-wide some() scans; context declarations read their aggregate related: bucket",
+   "runtime_history.ts runtimeHistorySelectorKeys (shared by live append and cold decode): public-operation:<operationId>, public-continuation:<continuationKind>, construction-operation:<operationAdmissionEventRef>",
+   "invocation_execution_truth.projectExactRunInvocationFactsAtPrefix, fh_continuation_projection (respond/continue classes, kind-indexed owner events, envelope order, owned-cut predecessor digest), effectful_invocation_truth (one owned acquisition, construction classes and construction-operation joins): shared classification, unchanged predicates",
+   "worksite_revision.ts internal RuntimeEventPrefix overload; worksite_command_forward.ts caller cast removed",
+   "qualification_proof.ts ExecutionSourceFacts carries the owned prefix (projectOwnedPrefixArtifactTruth + runtimePrefixFromOwnedArtifactTruth); joins via related:/id:/kind:/run:/payload:resultRef: indexes; readOwnedRuntimeEventPrefixAtDurablePrefix; exported projectQualificationConsumer returns the same value fields and keeps the prefix internal (qualificationConsumerOwner)",
+   "test_env/support/malformed-gtl-native-fixture.mjs synthetic event_prefix/artifact_truth stubs for the owned interfaces (lower-owner premises unchanged)",
+   "t287-qualification-producer-acquisition-reuse: checked owner copy (ABI5_PRODUCER_OWNER_COPY_FIXTURE), archive dd76783f sha/bytes and in-memory ustar member equality for every materialized source-map file and the materializer, historical module URLs from materializedOwnerRoot; bridges call the historical owners",
+   "adapter consumers t287-ordered-reconstruction, t287-authenticated-owner-values, t289-install-event-bodies -> runtimePrefixFromOwnedArtifactTruth with writeRuntimeEventPrefixValue complete values",
+   "eleven request consumers (c0-correction 1, c0-post-publication 2, live-worksite 1, post-binding 2, worksite-branch 2, worksite-command-execution 1, worksite-construction 2) -> owner replay / projectOwnedRuntimeTruthAtDurablePrefix",
+   "fresh-process-runtime-proof.mjs and runtime-retained-projections-worker.mjs: direct installed replay.js/event_prefix.js owners; complete values via writeRuntimeEventPrefixValue and materializeRuntimeReplayGuard; children consume reopened.prefix after the correspondence check",
+   "direct consumers: c0-post-publication, post-binding, st1, deferred-application-restoration, held-prefix (with predecessor-cut discriminator); runtime-f09-worker uses replay.projectOwnedRuntimeTruthAtDurablePrefix from the same environment.installedRoot module instance as its retry owner, and its route-failure fault reaches the owned frame-liveness read",
+   "t287-release-acceptance stubs renamed to projectOwnedPrefixArtifactTruth (held drift)"
+  ],
+  "deleted": [
+   "artifact_truth.runtimePrefixFromArtifactTruth (no production or current test consumer; the producer test bridge calls the historical module of that name)",
+   "replay.projectRuntimeTruthAtDurablePrefix, replay.projectRuntimePrefixesAtDurablePrefix, interface ActiveRuntimeTransactionProjection",
+   "abg/index export projectRuntimeTruthAtDurablePrefix"
+  ],
+  "retained": [
+   "artifact_truth.projectExactPrefixArtifactTruth: cold copied-coordinate reconstruction (different contract: authenticates bytes cold)",
+   "deferred_application.ts:51 readRuntimeEventsAtDurablePrefix: complete restoration snapshot (named complete output)",
+   "replay.projectOwnedRuntimeTruthAtDurablePrefix / OwnedActiveRuntimeTransactionProjection: the owned direct-module operation consumed by c_call_outcome and the migrated tests",
+   "global pair walks in projectExactRunInvocationFactsAtPrefix and the F_H/effectful owners: history-wide refusals over the classified bodies",
+   "test_env/qualification/inventory.json and recipe: historical rc.1 evidence, unchanged"
+  ],
+  "remaining": [
+   "retry.ts:70 still imports readRuntimeEventsAtDurablePrefix with no use in the file (held, not changed by native05)",
+   "runtime-f09-worker consumers (t287-f09-frontier-handoff, t287-r4-aba-retry via falsifiers/runtime-f09.mjs, runtime-f09-product.mjs) are absent from C2_SELECTED_INPUTS"
+  ]
+ },
+ "dispositions": {
+  "R1": "Source repaired; partial proof. livenessReconstruction forks the admitted predecessor (runtimeEventValidationBase -> forkAt), following the event_calculus fork route; no derivation is shared across speculative and admitted cuts. On the same retained RC5 input (base 55 events, 7 candidates): fork and fresh decisions equal [true,false x5,true]; the base context is unchanged and equals the fresh context; 4 forks (envelope-refused candidates stop before liveness); 4 fork index rows vs 699 for the fresh reconstruction (whole-path-6/7). Prior-invocation advance growth no longer applies to forks because a fork starts at its base. The some() growth is removed structurally (identity buckets, related: lookups) but is not separately metered. The native04 STEPS 0/32/256 growth probe was not rerun, and no relevant-prior-invocation versus unrelated-growth fixture pair was built.",
+  "R2": "No change in native05; held native01/02 disposition stands.",
+  "R3": "Shared public-operation acquisition/classification realized with per-owner predicates retained. Qualification carrier migrated and runtimePrefixFromArtifactTruth retired. Replay complete-history wrapper retired with all request consumers and both fresh children. Worksite cast removed. Global orphan/complete-pair refusal stays history-wide on real cuts 9445/9446/9447 (whole-path-7 case 4). Remaining complete readers are the named retained outputs.",
+  "R4": "Operator input sufficiency stays outside this grant. Declaration predecessor proven on the r4-catalog-admission owner with real Event Store prefixes: application for empty/equal, empty/nonempty, exact predecessor, equal nonempty and copied earlier/current; logical refusal for a shorter cut and a foreign log; physical authentication refusal for altered/reordered/altered-current bytes; closed-owner cold cases (r4-1 8/8). A same-log divergent cut is explicitly not claimed.",
+  "R5": "Outside grant. Scratch used C2_SELECTED_INPUTS with relative paths and exact declared external inputs, with no broad search or archive copy.",
+  "R6": "Liveness meaning unchanged (fork/fresh decisions and context equal, controls refused). Probe CPU share not measured.",
+  "R7": "Two actual fresh child processes kept, consuming reopened.prefix with correspondence checks; complete values through the canonical writers (fresh-process-1 1/1; replay-consumers-1). Maintained SDK and installed producer/consumer cold reopen pass in scratch (whole-path-6/7). Actual C2/UAT fresh result/replay closure open."
+ },
+ "rubric": {
+  "C1": "partial: the selected adapters and wrapper are retired and the shared owners realized; the named retained readers carry different contracts. Not claimed as whole consolidation while the budget and growth-fixture discriminators remain open.",
+  "C2": "partial: same-input scratch meter (fork rows, retained-history bytes, classification parity), exact values and the stale/copied/foreign/rollback refusals in the whole-path cases. No actual C2.",
+  "C3": "scratch only: installed producer/consumer and maintained SDK cases pass (whole-path-6 6/0/0). Actual installed C2/UAT not executed.",
+  "C4": "R1-R7 dispositioned above with evidence and named residuals.",
+  "C5": "unmet: actual C2, independent review and Root conjunction are outside this Worker."
+ },
+ "proof": {
+  "build": "tmp05/w2 from C2_SELECTED_INPUTS; tsc exit 0; generate-product-manifest exit 0 (tmp05/build-w2.log); typecheck tmp05/tc.sh exit 0",
+  "env": "cwd tenant; TMPDIR=tmp05/t; NODE_OPTIONS=--max-old-space-size=8192; ABI5_CONSOLIDATION_INPUTS=tmp05/w2/consolidation-inputs/native-05; node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap",
+  "runs": [
+   {
+    "label": "qual-components-1",
+    "tap": "tmp05/runs/qual-components-1.tap",
+    "tapSha256": "d9e71cd4d1f08f6db3038de390be8e33c2335b029f9c3e4e481538031cd47dd7",
+    "purpose": "C2 qualification-owner-components: qualification carrier, synthetic fixture consumers and producer context",
+    "files": [
+     "t287-malformed-gtl-gate",
+     "t287-native-structural-gates",
+     "t287-native-runtime-gate",
+     "t287-release-acceptance",
+     "t287-qualification-contraction",
+     "t287-qual056-material",
+     "t287-qualification-producer-context"
+    ],
+    "tests": 44,
+    "pass": 41,
+    "fail": 2,
+    "skipped": 1,
+    "exit": "exit 1",
+    "failed": [
+     "tapped owner returns the declared result or withholding refusal through one artifact/close consequence",
+     "fresh-process release projection conserves original O and distinguishes accepted, withheld and incomplete"
+    ],
+    "note": "2 reds were t287-release-acceptance stubs still naming projectExactPrefixArtifactTruth (held drift from an earlier owner migration); repaired, see release-acceptance-2. 1 declared skip ABI5_OWNED_PROOF_DECLARATION."
+   },
+   {
+    "label": "release-acceptance-2",
+    "tap": "tmp05/runs/release-acceptance-2.tap",
+    "tapSha256": "48fcbd7e36fe2d3a82b05e0ff6a9388d95d0ddfe1048462007b30263f102a2d2",
+    "purpose": "release-acceptance stub rename rerun",
+    "files": [
+     "t287-release-acceptance"
+    ],
+    "tests": 6,
+    "pass": 6,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": []
+   },
+   {
+    "label": "producer-1",
+    "tap": "tmp05/runs/producer-1.tap",
+    "tapSha256": "97184de6474c27c3f851a0a230af8f0a782716c95166b2b804a53e68abe0c3ee",
+    "purpose": "real historical producer through the checked owner copy; archive/source-map verification, source-hook URL, currentness/copy negatives",
+    "files": [
+     "t287-qualification-producer-acquisition-reuse"
+    ],
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": [],
+    "env": {
+     "ABI5_PRODUCER_OWNER_COPY_FIXTURE": "declared record",
+     "four producer fixture variables": "NEXT_PROOF_EXTERNAL_INPUTS.environment"
+    }
+   },
+   {
+    "label": "adapter-consumers-1",
+    "tap": "tmp05/runs/adapter-consumers-1.tap",
+    "tapSha256": "3eba1afc0682b2abf0da01b1232bdfb81fb381fb4a5d78de932ef98b382db203",
+    "purpose": "runtimePrefixFromArtifactTruth retirement consumers",
+    "files": [
+     "t287-ordered-reconstruction",
+     "t287-authenticated-owner-values",
+     "t289-install-event-bodies"
+    ],
+    "tests": 14,
+    "pass": 9,
+    "fail": 1,
+    "skipped": 4,
+    "exit": "exit 1",
+    "failed": [
+     "T289 owner serialization and cold historical/reference reconstruction preserve exact install truth"
+    ],
+    "note": "1 red is T289 \"successful suffixes retain the established first-install fact\" (strictEqual identity) on the declared legacy T288 history; f49-t289-1 reproduces it on an f49 baseline build. The adapter-retirement assertions at t289:56/67 execute and pass."
+   },
+   {
+    "label": "f49-t289-1",
+    "tap": "tmp05/runs/f49-t289-1.tap",
+    "tapSha256": "021f30b0c45d67076b3dd17a6ab4437ff353378d0dbe130776e4033341f1489c",
+    "purpose": "f49 baseline build classification of the T289 red",
+    "files": [
+     "t289-install-event-bodies"
+    ],
+    "tests": 4,
+    "pass": 3,
+    "fail": 1,
+    "skipped": 0,
+    "exit": "exit 1",
+    "failed": [
+     "T289 owner serialization and cold historical/reference reconstruction preserve exact install truth"
+    ],
+    "note": "tmp05/h0 is an f49 git-archive tsc build."
+   },
+   {
+    "label": "affected-owner-2",
+    "tap": "tmp05/runs/affected-owner-2.tap",
+    "tapSha256": "35dcae56b8f08da9ba685282426931022af402cddb36e73eb656c5e098ff8d32",
+    "purpose": "C2 affected-owner-lanes, 24 files (prior actual C2 106/0/30)",
+    "files": [
+     "C2_INPUTS lanes[affected-owner-lanes].files"
+    ],
+    "tests": 136,
+    "pass": 108,
+    "fail": 0,
+    "skipped": 28,
+    "exit": "exit 0",
+    "failed": [],
+    "note": "affected-owner-1 is a preserved shell word-splitting failure before any test."
+   },
+   {
+    "label": "r4-1",
+    "tap": "tmp05/runs/r4-1.tap",
+    "tapSha256": "759d493268713ee500fa74e0568563fef4cb54a2e91a2eafd659f5bcdaffd33e",
+    "purpose": "R4 declaration predecessor on real Event Store prefixes: empty/nonempty/exact/equal/shorter/foreign/copied; physical vs logical refusals",
+    "files": [
+     "r4-catalog-admission"
+    ],
+    "tests": 8,
+    "pass": 8,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": []
+   },
+   {
+    "label": "fresh-process-1",
+    "tap": "tmp05/runs/fresh-process-1.tap",
+    "tapSha256": "967a46734e01044490e806412ca6b413b09872583f3d87636b447ac138340eda",
+    "purpose": "fresh-process dispatcher through direct replay/prefix owners",
+    "files": [
+     "m5-fresh-process-reconstruction"
+    ],
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": []
+   },
+   {
+    "label": "replay-consumers-1",
+    "tap": "tmp05/runs/replay-consumers-1.tap",
+    "tapSha256": "d38de69cc46c145def2a59f4a350108df73be5aea272e6b001311b2817eec15a",
+    "purpose": "eleven migrated request consumers, both fresh children, direct complete-value consumers",
+    "files": [
+     "t287-c0-correction-regressions",
+     "t287-c0-post-publication-failure",
+     "t287-deferred-application-restoration",
+     "t287-held-prefix",
+     "t287-live-worksite-construction",
+     "t287-post-binding-worksite-write",
+     "t287-st1-installed-cross-owner-hello",
+     "t287-worksite-branch-construction",
+     "t287-worksite-command-execution",
+     "t287-worksite-construction"
+    ],
+    "tests": null,
+    "pass": null,
+    "fail": null,
+    "skipped": null,
+    "exit": "  ...",
+    "failed": []
+   },
+   {
+    "label": "whole-path-5",
+    "tap": "tmp05/runs/whole-path-5.tap",
+    "tapSha256": "7d132ab872ac06992e2221041339bafeb677cd99e19f169120dd320d4d620030",
+    "purpose": "consolidation whole path before the fork row metric",
+    "files": [
+     "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "tests": 6,
+    "pass": 5,
+    "fail": 1,
+    "skipped": 0,
+    "exit": "exit 1",
+    "failed": [
+     "liveness candidate validation forks its admitted base: equal decisions and context, isolated siblings, unchanged base, no per-candidate rebuild"
+    ],
+    "note": "fork case red on a decodeEventBody metric that the fresh array never exercises; replaced by the liveness index-row count."
+   },
+   {
+    "label": "whole-path-6",
+    "tap": "tmp05/runs/whole-path-6.tap",
+    "tapSha256": "beda6ec09dab9e8b219247de1bcc577f2cef9966a6fd4735f7dc7b313cfbe8fd",
+    "purpose": "consolidation whole path: retained history, liveness fork, shared classification, installed producer/consumer, maintained SDK, proof record",
+    "files": [
+     "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "tests": 6,
+    "pass": 6,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": []
+   },
+   {
+    "label": "global-pairs-1",
+    "tap": "tmp05/runs/global-pairs-1.tap",
+    "tapSha256": "abb00d059f972637a6292ea79e9bcabace03757a4705450b971f74612db96387",
+    "purpose": "global run-invocation pair and missing/foreign Run discriminator alone",
+    "files": [
+     "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": []
+   },
+   {
+    "label": "whole-path-7",
+    "tap": "tmp05/runs/whole-path-7.tap",
+    "tapSha256": "93052e235bf7230fb9962fa9f702a2ab8244261b70b10340894b24f91c7a2a63",
+    "purpose": "consolidation whole path including the global pair/identity case",
+    "files": [
+     "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": []
+   },
+   {
+    "label": "retry-budget-1",
+    "tap": "tmp05/runs/retry-budget-1.tap",
+    "tapSha256": "f473afc7b744805e834aa156c77d7f60b670f56f9e1336c7ab0efb51ec144ed2",
+    "purpose": "retry/budget owners with the declared S02 retry fixture",
+    "files": [
+     "t287-retry-run-prefix",
+     "t287-event-calculus-owner-continuation",
+     "m5-retry-lifecycle-authority"
+    ],
+    "tests": 11,
+    "pass": 7,
+    "fail": 3,
+    "skipped": 1,
+    "exit": "exit 1",
+    "failed": [
+     "retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs",
+     "retry entry refuses foreign scope and stale source without committing a partial transition",
+     "retry entry retains the failed native scope refusal and refuses an unrelated authority prefix"
+    ],
+    "env": {
+     "ABI5_S02_RETRY_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04"
+    },
+    "note": "3 reds: every S02 fixture case refuses at reopenEventStore (contract_mismatch: the rc.1 reopen authority names another event contract) before any retry assertion; f49-retry-2 reproduces all 3 at the f49 baseline. COST33 case skipped: ABI5_EC_OWNER_* unset."
+   },
+   {
+    "label": "f49-retry-2",
+    "tap": "tmp05/runs/f49-retry-2.tap",
+    "tapSha256": "41ce1c924a8f6c6acc2966282df7974d5ab9550539ea349dcbdd63c4b5bb64bb",
+    "purpose": "f49 baseline classification of the retry fixture reds",
+    "files": [
+     "t287-retry-run-prefix"
+    ],
+    "tests": 3,
+    "pass": 0,
+    "fail": 3,
+    "skipped": 0,
+    "exit": "exit 1",
+    "failed": [
+     "retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs",
+     "retry entry refuses foreign scope and stale source without committing a partial transition",
+     "retry entry retains the failed native scope refusal and refuses an unrelated authority prefix"
+    ],
+    "env": {
+     "ABI5_S02_RETRY_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04"
+    }
+   },
+   {
+    "label": "f09-consumers-1",
+    "tap": "tmp05/runs/f09-consumers-1.tap",
+    "tapSha256": "09c1038b3c5a849797b865a34ceaf6a89e1263ea0c2d89d279c5522fdc52475f",
+    "purpose": "consumers of the migrated runtime-f09-worker",
+    "files": [
+     "t287-f09-frontier-handoff",
+     "t287-r4-aba-retry"
+    ],
+    "tests": 2,
+    "pass": 1,
+    "fail": 1,
+    "skipped": 0,
+    "exit": "exit 1",
+    "failed": [
+     "T-287 F09 retry frontier hands off to a restarted consumer"
+    ],
+    "note": "These two tests and falsifiers/runtime-f09.mjs, runtime-f09-product.mjs are not in C2_SELECTED_INPUTS; copied into tmp05/w2. The red was caused by native05: the worker imported replay.js from its own resolved package, a different module instance from environment.installedRoot, so retry.admitRetryRuntimeFailureTransition did not recognize the owned prefix. Repaired by loading replayOwner beside retryOwner from environment.installedRoot."
+   },
+   {
+    "label": "f09-consumers-2",
+    "tap": "tmp05/runs/f09-consumers-2.tap",
+    "tapSha256": "0d8d6563a323b625a44c3557ddd077825d3e1fc629c9af9fb907001cb5210fd5",
+    "purpose": "runtime-f09-worker consumers after the module-identity repair",
+    "files": [
+     "t287-f09-frontier-handoff",
+     "t287-r4-aba-retry"
+    ],
+    "tests": 2,
+    "pass": 1,
+    "fail": 1,
+    "skipped": 0,
+    "exit": "exit 1",
+    "failed": [
+     "T-287 F09 retry frontier hands off to a restarted consumer"
+    ],
+    "note": "rejectAttempt now passes. The remaining red is advanceRetry:1335 (projected_retry_resume where the injected route fault expects projected_retry_resume_refusal). Its fault patches store.readAll() inside admitRoute, but held native01-04 runtime_liveness.ts reads frame liveness through selectRuntimeEventPrefixFromStore (owned history for a durable store), so the fault never fires. Before native05, rejectAttempt worked and the same path was reached, so this red predates native05 and was masked by the f09-consumers-1 failure. Repaired in the worker fault model; see f09-consumers-3."
+   },
+   {
+    "label": "f09-consumers-3",
+    "tap": "tmp05/runs/f09-consumers-3.tap",
+    "tapSha256": "db55c18baacbb2b1d7e1e369fd858a3d7f0042d8d7960e5662786bdfc3646a18",
+    "purpose": "F09 frontier handoff after the route-failure fault-model repair",
+    "files": [
+     "t287-f09-frontier-handoff"
+    ],
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": []
+   },
+   {
+    "label": "f09-consumers-4",
+    "tap": "tmp05/runs/f09-consumers-4.tap",
+    "tapSha256": "4f82cc38c65169da1550d8e430625b40aa73973e15dc62ca0980fd8f699dab4c",
+    "purpose": "R4 A-B-A retry with the final runtime-f09-worker bytes",
+    "files": [
+     "t287-r4-aba-retry"
+    ],
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": []
+   },
+   {
+    "label": "remaining-c2-1",
+    "tap": "tmp05/runs/remaining-c2-1.tap",
+    "tapSha256": "de7d023ef8ee0e732adea0ff7873178ebb2cb4c7b805bdcd9355070eb5844a90",
+    "purpose": "C2 lanes not otherwise run: shared-owner calculus fold, forward-recovery-contracts, installed-affected-lane",
+    "files": [
+     "t287-calculus-fold",
+     "forward-command-owners",
+     "forward-command-contracts",
+     "d1-preserved-result-mechanics",
+     "m5-installed-graph-edge"
+    ],
+    "tests": 38,
+    "pass": 37,
+    "fail": 0,
+    "skipped": 1,
+    "exit": "exit 0",
+    "failed": []
+   },
+   {
+    "label": "harness-1",
+    "tap": "tmp05/runs/harness-1.tap",
+    "tapSha256": "fa69a9113ea437090625362cf53db4785a0eb867135b058046845de8696481a4",
+    "purpose": "C2 maintained-setup-harness with the Root-selected config.example.json present in scratch",
+    "files": [
+     "test_env/uat/harness.test.mjs"
+    ],
+    "tests": 32,
+    "pass": 32,
+    "fail": 0,
+    "skipped": 0,
+    "exit": "exit 0",
+    "failed": []
+   }
+  ],
+  "preservedFailedRuns": [
+   "whole-path-2",
+   "whole-path-3",
+   "whole-path-4",
+   "affected-owner-1",
+   "f49-retry-1",
+   "probe-t289-1",
+   "probe-t289-2"
+  ],
+  "proofArtifacts": [
+   "whole-path-1.proof.json",
+   "whole-path-2.proof-after.json",
+   "whole-path-3.proof.json",
+   "whole-path-4.proof.json",
+   "whole-path-5.proof.json",
+   "whole-path-6.proof.json",
+   "whole-path-7.proof.json"
+  ]
+ },
+ "residuals": [
+  "Null/non-null CCall budget: partial. The unchanged t287-calculus-fold C-12 (no retry attempt, budget absent) and C-12b cases (derived budget 2 in the threshold projection digest; wrong attempt digest refused at every cut) pass on the native05 source cold, warm, streaming and forked (remaining-c2-1). A many-attempt case and the installed retry path are not proven. The declared S02 retry fixture refuses at reopenEventStore with contract_mismatch (rc.1 event contract) at both f49 and the current source; the retained RC5 log has no retry_attempt_opened; COST33 needs undeclared ABI5_EC_OWNER_* inputs. The t287-retry-run-prefix cases need a current-contract retry history or a historical-contract reopen route: a concrete missing input/owner relation.",
+  "T289 \"successful suffixes retain the established first-install fact\" fails on the declared legacy T288 history at f49 and the current source (cold historical refusal event_envelope_invalid on the first three legacy events; values equal, identity differs). Not caused by native05; the adapter-retirement assertions pass.",
+  "Global duplicate pairs and the F_H/construction global walks have no physical instance in the retained RC5 history (6 operations, all run.invoke; 0 construction uses). They are covered by class-bucket parity against the complete predicates and by classifier-level orphan/mixed-arm controls, not by a physical duplicate history.",
+  "Missing vs out-of-scope at Public read level (t287-cross-cut-public-read not_found vs blocked) stays gated by ABI5_EVIDENCE_ROOT; native05 proves the owner-level distinction on real retained cuts instead.",
+  "The R1 growth relation is accounted structurally and by fork index rows. The native04 growth probe and a relevant/unrelated growth fixture pair were not rerun.",
+  "runtime-f09-worker consumers are absent from C2_SELECTED_INPUTS, so actual C2 will not execute that migrated worker unless Root selects them.",
+  "Review point: the t287-f09-frontier-handoff route-failure fault model in runtime-f09-worker advanceRetry was adapted by native05. Held runtime_liveness borrows the owned durable history, so patching store.readAll() alone no longer reached admitRoute frame liveness. Now, inside admitRoute only and for this store only, configuredDurableLogPath() returns null, so frame liveness takes its snapshot route and the existing empty readAll fault applies. f09-consumers-3 passes with the unchanged retry_route_refused, store/digest/byte-equality and later digest-fault assertions. Review should confirm this keeps the intended fault meaning.",
+  "Historical liveness equality cases on other histories stay declared-skipped because their inputs were not declared to this Worker: t287-ordered-reconstruction \"historical liveness folds\" (ABI5_HISTORICAL_LIVENESS_LOG), \"liveness historical-cut intermediates\" (ABI5_LIVENESS_CUT_HISTORY), and COST33 t287-event-calculus-owner-continuation (ABI5_EC_OWNER_*). Native05 proves fork equality on the retained RC5 cut instead.",
+  "Expected actual-C2 reds from the pre-existing failures above: retry-entry-consumers (t287-retry-run-prefix, minimumPasses 3, no skips) and shared-owner-declaration-regressions (t289 case 1).",
+  "test_env/uat/config.example.json (prior C2 missing-config red) is Root-selected data; native05 did not touch it."
+ ],
+ "disclosures": [
+  "Earlier in this native session /tmp/ignore was created and removed (outside the declared scratch roots).",
+  "tmp05/h0 is an f49 git-archive baseline build in scratch, used only to classify the T289 and retry reds; t287-retry-run-prefix.test.mjs was written there from f49 via git show.",
+  "Read-only external reads: the retained RC5 event log, the four producer fixture records, the owner-copy record and its archive, the T288 legacy history, and the S02 retry fixture files (checked by sha256 in tests).",
+  "Test harness fixtures ran npm pack and npm install --offline --ignore-scripts of the locally built tarball into tmp05/t. The npm cache and logs landed in tmp05/_cacache and tmp05/_logs. No network fetch appears in those logs.",
+  "Probes in tmp05/probe: t289-hist.mjs and retry-reopen.mjs (each wrote and removed a scratch copy under tmp05/t), plus this handoff generator.",
+  "tmp05/w1 is a preserved failed build carrying an instrumented copy of declaration_exports.js (original in tmp05/dbg-declaration_exports.js.orig).",
+  "tmp05/w2 received t287-f09-frontier-handoff, t287-r4-aba-retry, falsifiers/runtime-f09.mjs and runtime-f09-product.mjs (outside C2_SELECTED_INPUTS) for one run.",
+  "tmp05/w2 test and support files were synced from the worktree between runs without rebuilding the package; the design HOW is the only selected file differing from w2.",
+  "No commit, stash, network, publication, dependency install into the source tree, provider or subagent."
+ ]
+}

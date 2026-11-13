@@ -1,0 +1,388 @@
+{
+  "kind": "rc4_hc1_owner_derived_native_handoff_grant",
+  "status": "PREPARED_FOR_ROOT_REVIEW",
+  "basis": {
+    "uri": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "sourceCommit": "5331e3ae707fa258fec14bf7b9f7ede76f805fe3",
+  "sourceTree": "8fb09903f1466dd40fc0444e3ab8eb1b4e56f158",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "builder": {
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3/node_modules/@abiogenesis/typescript-tenant",
+    "cliRelativePath": "build/code/src/public/cli.js",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "archiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+    "manifestSha256": "8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+    "productContentSha256": "c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4"
+  },
+  "changeClass": "realization_refactor",
+  "Construction": {
+    "productWritePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/catalog_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/environment_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/install_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/interaction_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/materialization_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/project_read_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_operations.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/result_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/verification_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/workspace_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+      "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/validator/index.ts",
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs"
+    ],
+    "generatedOutputWriteRoots": [],
+    "directoryCreationRoots": [
+      "build_tenants/abiogenesis/typescript/test_env/types"
+    ],
+    "directoryCreationLimit": "Only parent for mandatory framework-handoff.compile.ts; no unnamed Product descendants",
+    "scratchWriteRoots": [
+      "rc4-scratch/native-recovery-15/return.json",
+      "rc4-scratch/native-recovery-15/readiness.json",
+      "rc4-scratch/native-recovery-15/notes.md",
+      "rc4-scratch/native-recovery-15/tmp"
+    ],
+    "mandatoryExistingPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "conditionalExistingPaths": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+        "condition": "Signature-only type consumer/export closure, only on actual compile need; no broad overload or runtime import cycle."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+        "condition": "Signature-only type consumer/export closure, only on actual compile need; no broad overload or runtime import cycle."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/install_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/interaction_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/materialization_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_operations.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/result_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "condition": "Signature-only type consumer/export closure, only on actual compile need; no broad overload or runtime import cycle."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/verification_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/workspace_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+        "condition": "Owner-independent generic extraction only if necessary; no shared-to-owner imports or new domain roster."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+        "condition": "Owner-independent generic extraction only if necessary; no shared-to-owner imports or new domain roster."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+        "condition": "Signature-only concrete packet/member/request/resources/receipt inference propagation; no owner execution/permission change."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+        "condition": "Owner-schema helper literal/generic inference only on demonstrated widening; runtime schema bytes/member meanings must remain identical."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/validator/index.ts",
+        "condition": "Signature-only type consumer/export closure, only on actual compile need; no broad overload or runtime import cycle."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "condition": "Optional proof script only; existing package export paths/dependencies/semantic version unchanged."
+      }
+    ],
+    "nativeCreatedPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs"
+    ]
+  },
+  "otherRoleCanonicalWritePaths": [],
+  "tooling": {
+    "offlineReadRoot": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "scratchRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-15",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-15/tmp",
+    "readOnlyProof": "reuse existing offline census and verification script",
+    "normalDevelopmentMethods": "Ordinary source edits/reads, official pinned tsc --noEmit --incremental false -p tsconfig.json on canonical tenant and strict noEmit fixture when canonical package types exist; no install/build/generated writes/mirror. C2 independently builds/packages/tests.",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-15/tmp",
+    "environmentBoundary": "All current RC3 writes contained in observedR. Provider-only existingtmp; neutral RuntimeTMP; no RuntimeNPM. Candidate W outsideR proof requires successor installed runtime.",
+    "dependencyLink": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/node_modules",
+    "dependencyTarget": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "dependencyAccess": "Operator-owned link/store read-only tooling; outside W and observedR. Existing full census verified before/after."
+  },
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 256,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "focusedTimeoutMs": 2700000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null,
+    "maxContextBytes": 268435456
+  },
+  "acceptance": "HC1 exact56 declared/47 callable/9 unavailable type coupling, packed.d.ts proof, semantic schema conservation, owner-produced014 fixture and C2/UAT. Not HC2 or practical005 completion.",
+  "scopeExclusions": [
+    "HC2 population/migration remains later",
+    "No schema/event/refusal/API-family meaning change, unavailable callable manufacture, permission changes or generic receipt constructor",
+    "No canonical generated/build/dependency writes; read-only official noEmit feedback allowed",
+    "No out-of-cone source path; named concrete need returns to Root",
+    "014 guard/currentness behavior remains unchanged unless concrete new blocker is admitted"
+  ],
+  "checkpointMeaning": "Native014 source preserved unaccepted, accepted HOW checkpoint5331 for HC1",
+  "proposedScopeReason": "Root accepted HC1 type closure then HC2 caller population/retirement then005",
+  "reviewStanding": "HC1 packet prepared, not executed",
+  "evidenceBoundary": "Inherited014 independent cold recursive40.48s and installedWoutsideR/A-B, original C2red/UATunmet retained",
+  "readOnlyPriorEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/typed-handoff-consolidation-001/HOW_AND_TOOLING_PROVISION_RECEIPT.json",
+      "bytes": 3258,
+      "sha256": "0f1d63c8d67c1b4c5bf61aaa12db22a6b3e7e6acde10eca9f83aed56abbf2d05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/PARTIAL_CHECKPOINT.json",
+      "bytes": 14066,
+      "sha256": "96193ebf488e9f9374dcdbcb0b4638493822d5b38a8977170cf070b744a0b745"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/independent-evidence/LOCALIZATION_RECEIPT.json",
+      "bytes": 6878,
+      "sha256": "12a3134ad47c010ce38e44eb11b28058de9207a7d628678d417de4ba16eec2b8"
+    }
+  ],
+  "reviewedRoutes": "Accepted native HOW on source5331; derived owner source-set and actual binding types; existing NativeInstructionAssembly.request",
+  "laterCampaignBoundary": "R1\u2013R5 unchanged; S7 unexecuted, practical real-native witness and empirical/release acceptance remain distinct.",
+  "privateRealizationFreedom": "Ordinary private helper functions/exports/parameters inside granted existing owners may share the same guard; no Product/Public-family/schema/contract meaning change. Canonical support edits remain conditional on actual caller reuse with conserved meaning.",
+  "ownerSourceRelation": [
+    {
+      "sourceModulePath": "product/workspace_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "WORKSPACE_DEFINITION_BINDINGS",
+      "contractRoot": "WORKSPACE_OPERATION_CONTRACTS",
+      "bindingModule": "code/src/product/workspace_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "product/project_read_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "PRODUCT_PROJECT_READ_DEFINITION_BINDINGS",
+      "contractRoot": "PRODUCT_PROJECT_READ_CONTRACTS",
+      "bindingModule": "code/src/product/project_read_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "abg/project_read_operation_contracts.ts",
+      "packageExportPath": "./abg",
+      "definitionBindingExportName": "ABG_PROJECT_READ_DEFINITION_BINDINGS",
+      "contractRoot": "ABG_PROJECT_READ_CONTRACTS",
+      "bindingModule": "code/src/abg/project_read_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "product/verification_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "PRODUCT_VERIFICATION_DEFINITION_BINDINGS",
+      "contractRoot": "PRODUCT_VERIFICATION_CONTRACTS",
+      "bindingModule": "code/src/product/verification_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "product/environment_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS",
+      "contractRoot": "PRODUCT_ENVIRONMENT_CONTRACTS",
+      "bindingModule": "code/src/product/environment_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "product/install_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "PRODUCT_INSTALL_DEFINITION_BINDINGS",
+      "contractRoot": "PRODUCT_INSTALL_CONTRACTS",
+      "bindingModule": "code/src/product/install_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "product/catalog_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "CATALOG_DEFINITION_BINDINGS",
+      "contractRoot": "CATALOG_OPERATION_CONTRACTS",
+      "bindingModule": "code/src/product/catalog_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "product/run_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "RUN_DEFINITION_BINDINGS",
+      "contractRoot": "RUN_OPERATION_CONTRACTS",
+      "bindingModule": "code/src/owner_bindings/run_invocation.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "product/interaction_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "INTERACTION_DEFINITION_BINDINGS",
+      "contractRoot": "INTERACTION_OPERATION_CONTRACTS",
+      "bindingModule": null,
+      "unavailableMeaning": "No concrete binding export; preserve existing installed_binding_unavailable, no invented resource type"
+    },
+    {
+      "sourceModulePath": "product/interaction_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "RESULT_DEFINITION_BINDINGS",
+      "contractRoot": "RESULT_OPERATION_CONTRACTS",
+      "bindingModule": "code/src/product/result_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "abg/witness_operation_contracts.ts",
+      "packageExportPath": "./abg",
+      "definitionBindingExportName": "WITNESS_DEFINITION_BINDINGS",
+      "contractRoot": "WITNESS_OPERATION_CONTRACTS",
+      "bindingModule": "code/src/abg/witness_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "validator/conformance_operation_contracts.ts",
+      "packageExportPath": "./validator",
+      "definitionBindingExportName": "CONFORMANCE_DEFINITION_BINDINGS",
+      "contractRoot": "CONFORMANCE_OPERATION_CONTRACTS",
+      "bindingModule": "code/src/validator/conformance_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "product/materialization_operation_contracts.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "MATERIALIZATION_DEFINITION_BINDINGS",
+      "contractRoot": "MATERIALIZATION_OPERATION_CONTRACTS",
+      "bindingModule": "code/src/product/materialization_definition_bindings.ts",
+      "unavailableMeaning": null
+    },
+    {
+      "sourceModulePath": "product/release_snapshot_operations.ts",
+      "packageExportPath": "./product",
+      "definitionBindingExportName": "RELEASE_SNAPSHOT_DEFINITION_BINDINGS",
+      "contractRoot": "RELEASE_OPERATION_CONTRACTS",
+      "bindingModule": "code/src/product/release_snapshot_definition_bindings.ts",
+      "unavailableMeaning": null
+    }
+  ]
+}

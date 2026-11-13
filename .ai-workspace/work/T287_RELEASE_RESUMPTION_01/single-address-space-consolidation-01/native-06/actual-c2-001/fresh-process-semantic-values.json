@@ -1,0 +1,16 @@
+{
+  "id": "fresh-process-semantic-values",
+  "files": [
+    "test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 1,
+  "fail": 0,
+  "skipped": 0,
+  "wallMs": 38557.39254199993,
+  "stdoutSha256": "e817c40edc9f43c8d9b793cc1fcbb42b4c212f5cc0af1dccc56e188bb338b1db",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

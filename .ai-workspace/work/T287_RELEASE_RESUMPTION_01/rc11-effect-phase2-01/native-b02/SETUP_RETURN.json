@@ -1,0 +1,98 @@
+{
+  "status": "PREPARED_HELD_FOR_ROOT_NATIVE_ADMISSION",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/PREPARED.json",
+    "bytes": 6753,
+    "sha256": "59ad3b759017c3f138982ddf61399b9716e85ac2410b0dc6eb0b5c2651b72558"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/BINDING.json",
+    "bytes": 21810,
+    "sha256": "e7ce51aad78d4c3e89293d1f2a2f7c3f83ffcd433e8abf64b32690052e19f7f5"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/TASK.json",
+    "bytes": 5589,
+    "sha256": "5fc3a0bff06884f5e2b4299419eb66f8c166ca1fe588a1d9a55e2dd749d73ed7"
+  },
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/ROOT_SCOPE.json",
+    "bytes": 5918,
+    "sha256": "ebc6b485091166c314f22cb93506dcce32f61e81001c7ec52d891a5a5ecec638"
+  },
+  "setupAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/ROOT_SETUP_ADMISSION.json",
+    "bytes": 2360,
+    "sha256": "c42c6c54b27ff5196c20c5a93a128a740c3f45d7556d88bdfb098b42ef01084e"
+  },
+  "sessionId": 85549,
+  "pid": 8454,
+  "invocationRef": "invocation://abiogenesis/99149d2cfc0cc8a07a58c3795a9a415dc362bfdc0d8161c371b8e0ee4d720277",
+  "nativeSelection": {
+    "programRef": "program://abiogenesis/worksite/native-work@5",
+    "startRef": "start://abiogenesis/worksite/native-work@5",
+    "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+    "viewDigest": "sha256:4f51550e591a887fb76aea9b0fa107aca5a22b71c966ec3a41f82f72e980d227"
+  },
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188266,
+    "prefixDigest": "sha256:7301a9317d926889c4ce8fd9c99aabc891da4f602693451e8cd9d23f7b704c04",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 720866211,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:755f43fae59e0f2b3b592598abb014e7a2761d6cfc8f1ec1e7539d161fe64742"
+  },
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/a63d41cb4074375624ff60595a47e4921f2033fcef65181386a196881cf5a217",
+    "digest": "sha256:a63d41cb4074375624ff60595a47e4921f2033fcef65181386a196881cf5a217"
+  },
+  "context": {
+    "digest": "sha256:f702f68cc545049ce5b3ff5c8b230d1f984161d5b18e36abebce710857eeb0e9",
+    "entries": 6,
+    "fileMembers": 6,
+    "sourceBytes": 339072,
+    "canonicalBytes": 454885
+  },
+  "renderedBytes": 6834,
+  "transportPreflight": {
+    "status": "PASSED",
+    "source": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+      "bytes": 43447,
+      "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+    },
+    "functionSha256": "af5edc19ebb7c6ca6190637a840342620650a98c13568132b50ed25fbbef1ac7",
+    "selected": {
+      "source": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+        "bytes": 43447,
+        "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+      },
+      "functionBytes": 346,
+      "functionSha256": "af5edc19ebb7c6ca6190637a840342620650a98c13568132b50ed25fbbef1ac7",
+      "inactivityTimeoutMs": 180000,
+      "absoluteTimeoutMs": 1800000,
+      "maxTurns": 100
+    },
+    "oldEqualTimeoutRejected": true,
+    "meaning": "Only the exact installed pure timeout validator executed; no runtime or provider allocation."
+  },
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "sourceRowsVerified": 1345,
+  "protectedPinsVerified": 13,
+  "headsExact": {
+    "/Users/jim/src/apps/abiogenesis": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+    "/private/tmp/abg-rc11-foundation-20261110-01": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+    "/private/tmp/abg-rc11-qualification-20261109": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "actualProviderCalls": 0,
+  "actualRunAdmissions": 0,
+  "hostAlive": true,
+  "resourceClosure": "Intentionally live at PREPARED; no source dispatch or serialized resume. Same held caller required for Root native admission.",
+  "sourceRuntimeSplit": "New setup-owned runtime/scratch only; source/index/tracking/old evidence preserved."
+}

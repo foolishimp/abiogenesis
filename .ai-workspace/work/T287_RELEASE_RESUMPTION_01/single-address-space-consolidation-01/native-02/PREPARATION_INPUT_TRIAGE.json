@@ -1,0 +1,18 @@
+{
+  "kind": "operator_preparation_failure_triage",
+  "at": "2026-11-03T16:12:06.786159+00:00",
+  "failure": "Selected PERFORMANCE_DETAIL.json was not copied to new native-02 inputs before file sufficiency assertion",
+  "origin": "Root operator recipe copied Markdown timing projection but omitted JSON selected by the reused readset",
+  "frames": {
+    "Product": "No Product change or semantic failure",
+    "Design": "Original causal map and continuation selection unchanged",
+    "Integration": "New selected-path projection requires exact timing JSON already held in predecessor inputs",
+    "Effect": "Metadata and scratch preparation only; no Product edits, provider dispatch or Run admission",
+    "Proof": "File existence assertion failed before workload write or installed preflight; no success inferred"
+  },
+  "repair": "Copy the exact existing JSON and resume identical metadata preparation with equality checks",
+  "preserve": "Original preparation script and this failure retained",
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "scriptSha256": "ff79af8bce3bc34b39f03bda9d4932050cab143f239b9451ac058ff1a919b2d6"
+}

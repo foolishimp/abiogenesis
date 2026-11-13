@@ -1,0 +1,3538 @@
+{
+  "kind": "passive_native_tool_metadata_observation",
+  "recordedUtc": "2026-11-03T23:04:33.349361+00:00",
+  "nativeActivation": "native-05",
+  "nativeProcessStartedUtc": "2026-11-03T21:40:38.777Z",
+  "physicalLogPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-a5cd3c2bb5354fdf-stdout.log",
+    "bytes": 14157938,
+    "sha256": "c6a3eab981f99fa2813934c0b0a75e77423b9a224f5759a06c637140b6693099"
+  },
+  "wireBytesByMessageType": {
+    "system": 360707,
+    "stream_event": 8507671,
+    "assistant": 1924702,
+    "rate_limit_event": 734,
+    "user": 3349792,
+    "tool_progress": 14332
+  },
+  "messageRowsByType": {
+    "system": 1898,
+    "stream_event": 24030,
+    "assistant": 665,
+    "rate_limit_event": 2,
+    "user": 351,
+    "tool_progress": 48
+  },
+  "toolCounts": {
+    "Bash": 324,
+    "Read": 7,
+    "Edit": 13,
+    "Grep": 4,
+    "Write": 1
+  },
+  "completedTools": 349,
+  "toolResultContentBytes": 1111352,
+  "elapsedNativeObservedMs": 5034572.361,
+  "emittedCallToResultUnionMs": 1792022.002,
+  "outsideThoseIntervalsMs": 3242550.359,
+  "tools": [
+    {
+      "id": "toolu_01VSjp2BupJt3yNew8wFjpNV",
+      "name": "Bash",
+      "description": "Record start time and list native-05 inputs",
+      "emittedUtc": "2026-11-03T21:40:52.827Z",
+      "resultUtc": "2026-11-03T21:40:53.289Z",
+      "isError": false,
+      "contentBytes": 3474,
+      "emittedCallToResultMs": 462.0
+    },
+    {
+      "id": "toolu_01T6thLe6kriP88nL9eHVcuJ",
+      "name": "Bash",
+      "description": "Read TASK and NATIVE_GRANT",
+      "emittedUtc": "2026-11-03T21:40:57.426Z",
+      "resultUtc": "2026-11-03T21:40:57.445Z",
+      "isError": false,
+      "contentBytes": 25516,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_014DQ1JEsZDtM7X2zZx4Re3M",
+      "name": "Bash",
+      "description": "Read selection05 and prior conjunction",
+      "emittedUtc": "2026-11-03T21:40:58.468Z",
+      "resultUtc": "2026-11-03T21:40:58.491Z",
+      "isError": false,
+      "contentBytes": 2295,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01TrCSJRQjDR1KZq46bj6UuW",
+      "name": "Read",
+      "description": null,
+      "emittedUtc": "2026-11-03T21:41:01.754Z",
+      "resultUtc": "2026-11-03T21:41:02.164Z",
+      "isError": false,
+      "contentBytes": 36433,
+      "emittedCallToResultMs": 410.0
+    },
+    {
+      "id": "toolu_019kRQgQjh51Rwa7e9A13mqx",
+      "name": "Bash",
+      "description": "Read shared owner triage",
+      "emittedUtc": "2026-11-03T21:41:06.281Z",
+      "resultUtc": "2026-11-03T21:41:06.297Z",
+      "isError": false,
+      "contentBytes": 17841,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01CUTQ2NBuezRi6A8syQACDy",
+      "name": "Bash",
+      "description": "Read causal map and rubric",
+      "emittedUtc": "2026-11-03T21:41:07.391Z",
+      "resultUtc": "2026-11-03T21:41:07.408Z",
+      "isError": false,
+      "contentBytes": 13180,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_01HhiVAHUTfqu3RQYm1v4K8c",
+      "name": "Bash",
+      "description": "Read previous native return",
+      "emittedUtc": "2026-11-03T21:41:08.268Z",
+      "resultUtc": "2026-11-03T21:41:11.269Z",
+      "isError": false,
+      "contentBytes": 2352,
+      "emittedCallToResultMs": 3001.0
+    },
+    {
+      "id": "toolu_017cTs3iTPduQYzNGBs59Aab",
+      "name": "Bash",
+      "description": "Summarize previous native return",
+      "emittedUtc": "2026-11-03T21:41:15.882Z",
+      "resultUtc": "2026-11-03T21:41:18.735Z",
+      "isError": false,
+      "contentBytes": 26681,
+      "emittedCallToResultMs": 2853.0
+    },
+    {
+      "id": "toolu_01NqEQb7Ynk7bxu4diokMN1r",
+      "name": "Bash",
+      "description": "Read declaration addendum and fixture triage",
+      "emittedUtc": "2026-11-03T21:41:26.594Z",
+      "resultUtc": "2026-11-03T21:41:26.610Z",
+      "isError": false,
+      "contentBytes": 11665,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01CZpqButBXWkDuxskXtWS2w",
+      "name": "Bash",
+      "description": "Read independent source recheck",
+      "emittedUtc": "2026-11-03T21:41:27.644Z",
+      "resultUtc": "2026-11-03T21:41:27.676Z",
+      "isError": false,
+      "contentBytes": 30159,
+      "emittedCallToResultMs": 32.0
+    },
+    {
+      "id": "toolu_01QrLa6Z85gHPVoCzRn1h1eP",
+      "name": "Bash",
+      "description": "Read external proof inputs",
+      "emittedUtc": "2026-11-03T21:41:28.652Z",
+      "resultUtc": "2026-11-03T21:41:28.668Z",
+      "isError": false,
+      "contentBytes": 20352,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01F3zEhD2LULLWmefuT9J5A4",
+      "name": "Bash",
+      "description": "Read owner classification and C2 summary",
+      "emittedUtc": "2026-11-03T21:41:29.970Z",
+      "resultUtc": "2026-11-03T21:41:30.007Z",
+      "isError": false,
+      "contentBytes": 25782,
+      "emittedCallToResultMs": 37.0
+    },
+    {
+      "id": "toolu_01VVqFe74jciRixBXTvEK4yN",
+      "name": "Bash",
+      "description": "Skim C2 input triage and held evidence",
+      "emittedUtc": "2026-11-03T21:41:39.550Z",
+      "resultUtc": "2026-11-03T21:41:39.590Z",
+      "isError": false,
+      "contentBytes": 9263,
+      "emittedCallToResultMs": 40.0
+    },
+    {
+      "id": "toolu_01HNvAM2v3VHozYM5Qk7LRaW",
+      "name": "Bash",
+      "description": "Verify STDO basis and worktree diff",
+      "emittedUtc": "2026-11-03T21:41:48.016Z",
+      "resultUtc": "2026-11-03T21:41:52.416Z",
+      "isError": false,
+      "contentBytes": 1712,
+      "emittedCallToResultMs": 4400.0
+    },
+    {
+      "id": "toolu_01GHrCuRtPg2fQ4UJzXFYX1r",
+      "name": "Bash",
+      "description": "Verify worksite matches held native04 hashes",
+      "emittedUtc": "2026-11-03T21:41:58.100Z",
+      "resultUtc": "2026-11-03T21:42:01.592Z",
+      "isError": false,
+      "contentBytes": 5145,
+      "emittedCallToResultMs": 3492.0
+    },
+    {
+      "id": "toolu_017Xm7y3Jqd5GM6XSzPsYzn9",
+      "name": "Bash",
+      "description": "Write initial progress; locate validation base",
+      "emittedUtc": "2026-11-03T21:42:10.519Z",
+      "resultUtc": "2026-11-03T21:42:10.632Z",
+      "isError": false,
+      "contentBytes": 4812,
+      "emittedCallToResultMs": 113.0
+    },
+    {
+      "id": "toolu_016duao8EHBiemE8dP7a2sXt",
+      "name": "Bash",
+      "description": "Read event_prefix validation section",
+      "emittedUtc": "2026-11-03T21:42:14.076Z",
+      "resultUtc": "2026-11-03T21:42:14.100Z",
+      "isError": false,
+      "contentBytes": 17006,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01VQKfEED1Gvf6TkM6x9ETXu",
+      "name": "Bash",
+      "description": "Read event_calculus fork and runtime_liveness validation",
+      "emittedUtc": "2026-11-03T21:42:18.785Z",
+      "resultUtc": "2026-11-03T21:42:18.805Z",
+      "isError": false,
+      "contentBytes": 8118,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_01JUq91rkr5vKxoiR9DL6NgV",
+      "name": "Bash",
+      "description": "Outline calculus/liveness.ts",
+      "emittedUtc": "2026-11-03T21:42:22.610Z",
+      "resultUtc": "2026-11-03T21:42:22.632Z",
+      "isError": false,
+      "contentBytes": 6231,
+      "emittedCallToResultMs": 22.0
+    },
+    {
+      "id": "toolu_01S3KSpArQ3yvYcqjYmsrCfG",
+      "name": "Bash",
+      "description": "Read liveness reconstruction class",
+      "emittedUtc": "2026-11-03T21:42:25.949Z",
+      "resultUtc": "2026-11-03T21:42:25.964Z",
+      "isError": false,
+      "contentBytes": 18758,
+      "emittedCallToResultMs": 15.0
+    },
+    {
+      "id": "toolu_01FD4MCv8izjzBKgorrfgTXg",
+      "name": "Bash",
+      "description": "Read RuntimeEventCalculusDerivation forkAt",
+      "emittedUtc": "2026-11-03T21:42:33.647Z",
+      "resultUtc": "2026-11-03T21:42:33.672Z",
+      "isError": false,
+      "contentBytes": 5421,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_0155F7KzLvHRCPRQe3ARYp2i",
+      "name": "Bash",
+      "description": "Read runtime_derivation.ts",
+      "emittedUtc": "2026-11-03T21:43:07.964Z",
+      "resultUtc": "2026-11-03T21:43:07.984Z",
+      "isError": false,
+      "contentBytes": 6020,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_01VRhf9kn9SUVR4JyTkC6zWa",
+      "name": "Bash",
+      "description": "Read decideRuntimeLivenessEvent and semantics",
+      "emittedUtc": "2026-11-03T21:43:27.589Z",
+      "resultUtc": "2026-11-03T21:43:27.605Z",
+      "isError": false,
+      "contentBytes": 16522,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01ApwXg7akXYRxnKxbB8WKdV",
+      "name": "Bash",
+      "description": "Read runtime_history selector vocabulary",
+      "emittedUtc": "2026-11-03T21:43:40.383Z",
+      "resultUtc": "2026-11-03T21:43:40.405Z",
+      "isError": false,
+      "contentBytes": 10707,
+      "emittedCallToResultMs": 22.0
+    },
+    {
+      "id": "toolu_012h5QaHUmDYTNXL2vrmZjnn",
+      "name": "Bash",
+      "description": "Find reconstruction field usages",
+      "emittedUtc": "2026-11-03T21:44:42.096Z",
+      "resultUtc": "2026-11-03T21:44:42.126Z",
+      "isError": false,
+      "contentBytes": 912,
+      "emittedCallToResultMs": 30.0
+    },
+    {
+      "id": "toolu_01679gvWMA4VcNbGGyTSGDVq",
+      "name": "Bash",
+      "description": "Find reconstruction usages across tree",
+      "emittedUtc": "2026-11-03T21:44:46.848Z",
+      "resultUtc": "2026-11-03T21:44:47.191Z",
+      "isError": false,
+      "contentBytes": 2352,
+      "emittedCallToResultMs": 343.0
+    },
+    {
+      "id": "toolu_01JDmrw9uHZ4C63mLgVCpYvc",
+      "name": "Bash",
+      "description": "Read runtime_liveness consumers",
+      "emittedUtc": "2026-11-03T21:44:52.476Z",
+      "resultUtc": "2026-11-03T21:44:52.499Z",
+      "isError": false,
+      "contentBytes": 14748,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01XXEvCDctXmTCgSAmgPcCYo",
+      "name": "Bash",
+      "description": "Find actor_process_started construction",
+      "emittedUtc": "2026-11-03T21:44:59.026Z",
+      "resultUtc": "2026-11-03T21:44:59.048Z",
+      "isError": false,
+      "contentBytes": 176,
+      "emittedCallToResultMs": 22.0
+    },
+    {
+      "id": "toolu_01Gh5j8uewNMeNXRK2fJgXXR",
+      "name": "Bash",
+      "description": "Inspect actor_process_started envelope",
+      "emittedUtc": "2026-11-03T21:45:02.613Z",
+      "resultUtc": "2026-11-03T21:45:02.634Z",
+      "isError": false,
+      "contentBytes": 1876,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_014NgLncvr18rFCVTxhzxVyM",
+      "name": "Bash",
+      "description": "Check actor_process_started admission contract",
+      "emittedUtc": "2026-11-03T21:45:08.898Z",
+      "resultUtc": "2026-11-03T21:45:08.918Z",
+      "isError": false,
+      "contentBytes": 1351,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_016KF4ii9hWihhMqW3B8eiez",
+      "name": "Bash",
+      "description": "Check process event parent identity rule",
+      "emittedUtc": "2026-11-03T21:45:13.022Z",
+      "resultUtc": "2026-11-03T21:45:13.043Z",
+      "isError": false,
+      "contentBytes": 1664,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_01MkQ9pbcfWFmgTPKjfrNTsC",
+      "name": "Bash",
+      "description": "Read liveness context derivation",
+      "emittedUtc": "2026-11-03T21:45:45.455Z",
+      "resultUtc": "2026-11-03T21:45:45.476Z",
+      "isError": false,
+      "contentBytes": 14535,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_01HLaTQurBiE48NhLVf4y54u",
+      "name": "Bash",
+      "description": "Read retry budget facts section",
+      "emittedUtc": "2026-11-03T21:45:56.485Z",
+      "resultUtc": "2026-11-03T21:45:56.526Z",
+      "isError": false,
+      "contentBytes": 6723,
+      "emittedCallToResultMs": 41.0
+    },
+    {
+      "id": "toolu_0136eWyXK7geALNgBmXocR5k",
+      "name": "Bash",
+      "description": "Check structuralRoutesHold and process live",
+      "emittedUtc": "2026-11-03T21:47:02.879Z",
+      "resultUtc": "2026-11-03T21:47:02.902Z",
+      "isError": false,
+      "contentBytes": 1573,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01CdWVUeAb4KnW4MbDtK6Re7",
+      "name": "Bash",
+      "description": "Read liveness imports",
+      "emittedUtc": "2026-11-03T21:47:09.660Z",
+      "resultUtc": "2026-11-03T21:47:09.675Z",
+      "isError": false,
+      "contentBytes": 2664,
+      "emittedCallToResultMs": 15.0
+    },
+    {
+      "id": "toolu_01YFXZxhBY9cyE2PsbjA4iom",
+      "name": "Bash",
+      "description": "Check calculus boundary import rules",
+      "emittedUtc": "2026-11-03T21:47:17.944Z",
+      "resultUtc": "2026-11-03T21:47:17.961Z",
+      "isError": false,
+      "contentBytes": 712,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+      "name": "Bash",
+      "description": "Replace liveness reconstruction class with fork-capable version",
+      "emittedUtc": "2026-11-03T21:48:16.897Z",
+      "resultUtc": "2026-11-03T21:53:50.838Z",
+      "isError": false,
+      "contentBytes": 168,
+      "emittedCallToResultMs": 333941.0
+    },
+    {
+      "id": "toolu_01W5YieQ9xBGCoPjQPELDHMm",
+      "name": "Bash",
+      "description": "Update liveness call sites to identity-scoped queries",
+      "emittedUtc": "2026-11-03T21:54:23.144Z",
+      "resultUtc": "2026-11-03T21:54:23.202Z",
+      "isError": false,
+      "contentBytes": 33,
+      "emittedCallToResultMs": 58.0
+    },
+    {
+      "id": "toolu_01GYLXHk4fHfZ7DBJ8PYHWEv",
+      "name": "Bash",
+      "description": "Scope liveness context lookups to related buckets",
+      "emittedUtc": "2026-11-03T21:54:42.631Z",
+      "resultUtc": "2026-11-03T21:54:42.666Z",
+      "isError": false,
+      "contentBytes": 10,
+      "emittedCallToResultMs": 35.0
+    },
+    {
+      "id": "toolu_01FXHVPBvneCzCwQu3xYqPRV",
+      "name": "Bash",
+      "description": "Inspect tmp04 scratch and C2 inputs",
+      "emittedUtc": "2026-11-03T21:54:50.763Z",
+      "resultUtc": "2026-11-03T21:54:50.801Z",
+      "isError": false,
+      "contentBytes": 5777,
+      "emittedCallToResultMs": 38.0
+    },
+    {
+      "id": "toolu_01TJUMYFZJayQCECQK4cV4P4",
+      "name": "Bash",
+      "description": "Inspect native04 scratch build recipe",
+      "emittedUtc": "2026-11-03T21:55:10.449Z",
+      "resultUtc": "2026-11-03T21:55:10.494Z",
+      "isError": false,
+      "contentBytes": 3793,
+      "emittedCallToResultMs": 45.0
+    },
+    {
+      "id": "toolu_01M6vS2s6x6ejHrnBgpPBMg1",
+      "name": "Bash",
+      "description": "Typecheck current source in tmp05 scratch",
+      "emittedUtc": "2026-11-03T21:55:17.096Z",
+      "resultUtc": "2026-11-03T21:55:23.454Z",
+      "isError": false,
+      "contentBytes": 93,
+      "emittedCallToResultMs": 6358.0
+    },
+    {
+      "id": "toolu_01Y1Fovzdo3xJy2AryuC9PaJ",
+      "name": "Bash",
+      "description": "Locate public operation scans",
+      "emittedUtc": "2026-11-03T21:55:29.347Z",
+      "resultUtc": "2026-11-03T21:55:29.366Z",
+      "isError": false,
+      "contentBytes": 1091,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_013T6gSjWMrqpXUFjYzCRPM9",
+      "name": "Bash",
+      "description": "Read three public-operation consumers",
+      "emittedUtc": "2026-11-03T21:55:33.119Z",
+      "resultUtc": "2026-11-03T21:55:33.144Z",
+      "isError": false,
+      "contentBytes": 7602,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_01S6eV4MtcvBrgE12p144iZZ",
+      "name": "Bash",
+      "description": "Check selector key users and import graph",
+      "emittedUtc": "2026-11-03T21:56:04.626Z",
+      "resultUtc": "2026-11-03T21:56:04.675Z",
+      "isError": false,
+      "contentBytes": 3343,
+      "emittedCallToResultMs": 49.0
+    },
+    {
+      "id": "toolu_015Fr1JmQ2PbJPCnTdhgfPnt",
+      "name": "Bash",
+      "description": "Find selector key consumers",
+      "emittedUtc": "2026-11-03T21:56:10.382Z",
+      "resultUtc": "2026-11-03T21:56:10.472Z",
+      "isError": false,
+      "contentBytes": 1952,
+      "emittedCallToResultMs": 90.0
+    },
+    {
+      "id": "toolu_01DGt99aUFNgZruqbnCddmo2",
+      "name": "Bash",
+      "description": "Add public-operation selector keys and migrate consumers",
+      "emittedUtc": "2026-11-03T21:56:29.020Z",
+      "resultUtc": "2026-11-03T21:56:29.060Z",
+      "isError": false,
+      "contentBytes": 3761,
+      "emittedCallToResultMs": 40.0
+    },
+    {
+      "id": "toolu_01HWe5j1fEMKwzkS8XmK39Qs",
+      "name": "Bash",
+      "description": "Check construction basis lookups",
+      "emittedUtc": "2026-11-03T21:56:40.309Z",
+      "resultUtc": "2026-11-03T21:56:40.361Z",
+      "isError": false,
+      "contentBytes": 1719,
+      "emittedCallToResultMs": 52.0
+    },
+    {
+      "id": "toolu_01TgS3Znjei4SdRcDWW8GP1e",
+      "name": "Bash",
+      "description": "Add construction-operation key and typecheck",
+      "emittedUtc": "2026-11-03T21:56:47.971Z",
+      "resultUtc": "2026-11-03T21:56:54.212Z",
+      "isError": false,
+      "contentBytes": 18,
+      "emittedCallToResultMs": 6241.0
+    },
+    {
+      "id": "toolu_01UQkkW5KTbUGgiaZLCha4KD",
+      "name": "Bash",
+      "description": "Read retained-vector owner and caller cast",
+      "emittedUtc": "2026-11-03T21:56:59.703Z",
+      "resultUtc": "2026-11-03T21:56:59.809Z",
+      "isError": false,
+      "contentBytes": 4070,
+      "emittedCallToResultMs": 106.0
+    },
+    {
+      "id": "toolu_01Yb4j2LkQaP5LewD2PDdcZc",
+      "name": "Bash",
+      "description": "Add internal overload and remove cast",
+      "emittedUtc": "2026-11-03T21:57:10.290Z",
+      "resultUtc": "2026-11-03T21:57:10.333Z",
+      "isError": false,
+      "contentBytes": 1198,
+      "emittedCallToResultMs": 43.0
+    },
+    {
+      "id": "toolu_017eZZwA62hcTvWQ14jxgwzv",
+      "name": "Bash",
+      "description": "Read retained vector function body",
+      "emittedUtc": "2026-11-03T21:57:15.990Z",
+      "resultUtc": "2026-11-03T21:57:16.012Z",
+      "isError": false,
+      "contentBytes": 5739,
+      "emittedCallToResultMs": 22.0
+    },
+    {
+      "id": "toolu_01GEiqHZ2zTTPZYApvLz8Es3",
+      "name": "Bash",
+      "description": "Name overload return type and typecheck",
+      "emittedUtc": "2026-11-03T21:57:23.757Z",
+      "resultUtc": "2026-11-03T21:57:29.962Z",
+      "isError": false,
+      "contentBytes": 8,
+      "emittedCallToResultMs": 6205.0
+    },
+    {
+      "id": "toolu_01DkAou81dtVZ4uDE3rBh7i3",
+      "name": "Bash",
+      "description": "Confirm tsconfig scope",
+      "emittedUtc": "2026-11-03T21:57:34.822Z",
+      "resultUtc": "2026-11-03T21:57:34.841Z",
+      "isError": false,
+      "contentBytes": 688,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01RQcWpJkcXMKpe7todQefqm",
+      "name": "Bash",
+      "description": "Survey qualification_proof array sites",
+      "emittedUtc": "2026-11-03T21:57:40.417Z",
+      "resultUtc": "2026-11-03T21:57:40.443Z",
+      "isError": false,
+      "contentBytes": 11840,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_01L8eJe1WUD3HmMGmke37G7J",
+      "name": "Bash",
+      "description": "Read synthetic qualification fixture",
+      "emittedUtc": "2026-11-03T21:57:55.126Z",
+      "resultUtc": "2026-11-03T21:57:55.149Z",
+      "isError": false,
+      "contentBytes": 17662,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01Y7YEssumeBadWoihSCf8wU",
+      "name": "Bash",
+      "description": "Read producer acquisition reuse test",
+      "emittedUtc": "2026-11-03T21:58:15.896Z",
+      "resultUtc": "2026-11-03T21:58:15.915Z",
+      "isError": false,
+      "contentBytes": 18707,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01M7VWrwisK7ucVDgCi5cmfA",
+      "name": "Bash",
+      "description": "Read qualification source facts carrier",
+      "emittedUtc": "2026-11-03T21:58:39.266Z",
+      "resultUtc": "2026-11-03T21:58:39.282Z",
+      "isError": false,
+      "contentBytes": 7109,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01JHL1NqV3vQ1uDUPA9BHvsD",
+      "name": "Bash",
+      "description": "Read remaining qualification acquisition sites",
+      "emittedUtc": "2026-11-03T21:58:58.188Z",
+      "resultUtc": "2026-11-03T21:58:58.221Z",
+      "isError": false,
+      "contentBytes": 14545,
+      "emittedCallToResultMs": 33.0
+    },
+    {
+      "id": "toolu_01NzRC3T9BzofrACsYPJFsCM",
+      "name": "Bash",
+      "description": "Check owned artifact API and rc.1 exports",
+      "emittedUtc": "2026-11-03T21:59:20.789Z",
+      "resultUtc": "2026-11-03T21:59:20.820Z",
+      "isError": false,
+      "contentBytes": 2791,
+      "emittedCallToResultMs": 31.0
+    },
+    {
+      "id": "toolu_01KHj4JHerFykpXpag6tHf7q",
+      "name": "Bash",
+      "description": "Compare owned artifact truth APIs",
+      "emittedUtc": "2026-11-03T21:59:28.931Z",
+      "resultUtc": "2026-11-03T21:59:28.955Z",
+      "isError": false,
+      "contentBytes": 3205,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_015WA86xRw4VGBrSf37QLrWv",
+      "name": "Bash",
+      "description": "List event-array join sites in qualification_proof",
+      "emittedUtc": "2026-11-03T21:59:52.277Z",
+      "resultUtc": "2026-11-03T21:59:52.296Z",
+      "isError": false,
+      "contentBytes": 3899,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01Jw1mWcLAwUrVHrYdW1fKaq",
+      "name": "Bash",
+      "description": "Read join sites in detail",
+      "emittedUtc": "2026-11-03T22:00:12.594Z",
+      "resultUtc": "2026-11-03T22:00:12.618Z",
+      "isError": false,
+      "contentBytes": 7053,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01NCdbJaqbuVxmswMtn5uTzw",
+      "name": "Bash",
+      "description": "Migrate qualification_proof carrier to owned prefix with indexed joins",
+      "emittedUtc": "2026-11-03T22:01:03.874Z",
+      "resultUtc": "2026-11-03T22:01:03.912Z",
+      "isError": false,
+      "contentBytes": 17,
+      "emittedCallToResultMs": 38.0
+    },
+    {
+      "id": "toolu_016qY6EciZAAsepFcSZja8f6",
+      "name": "Bash",
+      "description": "Check time, remaining references, and typecheck",
+      "emittedUtc": "2026-11-03T22:03:07.814Z",
+      "resultUtc": "2026-11-03T22:03:13.534Z",
+      "isError": false,
+      "contentBytes": 1603,
+      "emittedCallToResultMs": 5720.0
+    },
+    {
+      "id": "toolu_012nFn9pXx1p52wJpqQ99uDJ",
+      "name": "Bash",
+      "description": "Inspect leaf_invocation_port consumer of graph owner",
+      "emittedUtc": "2026-11-03T22:03:18.517Z",
+      "resultUtc": "2026-11-03T22:03:18.543Z",
+      "isError": false,
+      "contentBytes": 4114,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_018jyPGrc5sFBZV5gHyL3kJi",
+      "name": "Bash",
+      "description": "Inspect projectQualificationConsumer return shape",
+      "emittedUtc": "2026-11-03T22:03:23.492Z",
+      "resultUtc": "2026-11-03T22:03:23.514Z",
+      "isError": false,
+      "contentBytes": 4038,
+      "emittedCallToResultMs": 22.0
+    },
+    {
+      "id": "toolu_012NKVGa8yZxQfBNdSiCY1k5",
+      "name": "Bash",
+      "description": "Show qualificationOwner computation",
+      "emittedUtc": "2026-11-03T22:03:25.704Z",
+      "resultUtc": "2026-11-03T22:03:25.745Z",
+      "isError": false,
+      "contentBytes": 1295,
+      "emittedCallToResultMs": 41.0
+    },
+    {
+      "id": "toolu_01WVURSuLLYBAtoEFmPxAKpk",
+      "name": "Bash",
+      "description": "Locate resolveSelfConformanceOwner signature",
+      "emittedUtc": "2026-11-03T22:03:30.980Z",
+      "resultUtc": "2026-11-03T22:03:31.081Z",
+      "isError": false,
+      "contentBytes": 531,
+      "emittedCallToResultMs": 101.0
+    },
+    {
+      "id": "toolu_019dB4m8fyxaAUESZcC8nL6T",
+      "name": "Bash",
+      "description": "Show self-conformance owner function",
+      "emittedUtc": "2026-11-03T22:03:32.017Z",
+      "resultUtc": "2026-11-03T22:03:32.033Z",
+      "isError": false,
+      "contentBytes": 33,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01L9D4j9FmSh64JtZteSBDMJ",
+      "name": "Bash",
+      "description": "Read resolveSelfConformanceOwner body",
+      "emittedUtc": "2026-11-03T22:03:33.910Z",
+      "resultUtc": "2026-11-03T22:03:33.927Z",
+      "isError": false,
+      "contentBytes": 1808,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_0167Mr4T8Z45eQwk2eJ8JjH7",
+      "name": "Bash",
+      "description": "Find write scope declarations mentioning leaf_invocation_port",
+      "emittedUtc": "2026-11-03T22:03:38.083Z",
+      "resultUtc": "2026-11-03T22:03:38.198Z",
+      "isError": false,
+      "contentBytes": 1420,
+      "emittedCallToResultMs": 115.0
+    },
+    {
+      "id": "toolu_01MkF4W6hKtmQMpP12qd83Cc",
+      "name": "Bash",
+      "description": "Print native grant write scope",
+      "emittedUtc": "2026-11-03T22:03:41.362Z",
+      "resultUtc": "2026-11-03T22:03:41.395Z",
+      "isError": false,
+      "contentBytes": 12357,
+      "emittedCallToResultMs": 33.0
+    },
+    {
+      "id": "toolu_01WeTVYeE5CVTXuqAE2jidEo",
+      "name": "Bash",
+      "description": "Narrow self-conformance owner type and typecheck",
+      "emittedUtc": "2026-11-03T22:03:44.643Z",
+      "resultUtc": "2026-11-03T22:03:50.829Z",
+      "isError": false,
+      "contentBytes": 8,
+      "emittedCallToResultMs": 6186.0
+    },
+    {
+      "id": "toolu_017N1EeLyeEhpKcdfraoFDZz",
+      "name": "Bash",
+      "description": "Check remaining events-field consumers",
+      "emittedUtc": "2026-11-03T22:03:53.916Z",
+      "resultUtc": "2026-11-03T22:03:54.120Z",
+      "isError": false,
+      "contentBytes": 220,
+      "emittedCallToResultMs": 204.0
+    },
+    {
+      "id": "toolu_01DxYYARAhGNaAQPq3nyrcuG",
+      "name": "Bash",
+      "description": "Check tests and fixture stub sites",
+      "emittedUtc": "2026-11-03T22:03:57.685Z",
+      "resultUtc": "2026-11-03T22:03:57.708Z",
+      "isError": false,
+      "contentBytes": 640,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01KjX9bUzoKt4T29NWWAfDss",
+      "name": "Bash",
+      "description": "Read fixture stub block",
+      "emittedUtc": "2026-11-03T22:03:59.741Z",
+      "resultUtc": "2026-11-03T22:03:59.757Z",
+      "isError": false,
+      "contentBytes": 11173,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_019Ncz5F6Nw2kSZXLA7n7AFe",
+      "name": "Bash",
+      "description": "Find fixture stub consumers and selector key function",
+      "emittedUtc": "2026-11-03T22:04:09.866Z",
+      "resultUtc": "2026-11-03T22:04:09.887Z",
+      "isError": false,
+      "contentBytes": 4016,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_01HdS1zfw5LbWpE1Sbi1mQRU",
+      "name": "Bash",
+      "description": "Verify indexed join keys and fixture stub consumers",
+      "emittedUtc": "2026-11-03T22:04:14.593Z",
+      "resultUtc": "2026-11-03T22:04:14.856Z",
+      "isError": false,
+      "contentBytes": 8540,
+      "emittedCallToResultMs": 263.0
+    },
+    {
+      "id": "toolu_01K39GX9vR46JRXT1MNLqWFQ",
+      "name": "Bash",
+      "description": "Locate sourceFixtures and nativeStubs usage",
+      "emittedUtc": "2026-11-03T22:04:18.340Z",
+      "resultUtc": "2026-11-03T22:04:18.499Z",
+      "isError": false,
+      "contentBytes": 1017,
+      "emittedCallToResultMs": 159.0
+    },
+    {
+      "id": "toolu_01Y3K7fcnZoQ8D832DnJbBXq",
+      "name": "Bash",
+      "description": "Read fixture module loading section",
+      "emittedUtc": "2026-11-03T22:04:28.214Z",
+      "resultUtc": "2026-11-03T22:04:28.229Z",
+      "isError": false,
+      "contentBytes": 1229,
+      "emittedCallToResultMs": 15.0
+    },
+    {
+      "id": "toolu_01RCf5Myyq8J4TmTmjPJRDHP",
+      "name": "Bash",
+      "description": "Check imports from stubbed modules",
+      "emittedUtc": "2026-11-03T22:04:32.301Z",
+      "resultUtc": "2026-11-03T22:04:32.318Z",
+      "isError": false,
+      "contentBytes": 762,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_01Wy7BZ4uQXf9U8hgQkuRF4Y",
+      "name": "Bash",
+      "description": "Update synthetic fixture event_prefix and artifact stubs",
+      "emittedUtc": "2026-11-03T22:04:43.498Z",
+      "resultUtc": "2026-11-03T22:04:43.535Z",
+      "isError": false,
+      "contentBytes": 91,
+      "emittedCallToResultMs": 37.0
+    },
+    {
+      "id": "toolu_01A7M9ZYVhT15Rg4dzFT1deS",
+      "name": "Bash",
+      "description": "Read producer acquisition test",
+      "emittedUtc": "2026-11-03T22:04:46.763Z",
+      "resultUtc": "2026-11-03T22:04:46.778Z",
+      "isError": false,
+      "contentBytes": 18627,
+      "emittedCallToResultMs": 15.0
+    },
+    {
+      "id": "toolu_01MCHLCa7Bpxd3SBdkGxKGJE",
+      "name": "Bash",
+      "description": "Check HEAD dispatch expression and read external inputs record",
+      "emittedUtc": "2026-11-03T22:04:54.488Z",
+      "resultUtc": "2026-11-03T22:04:54.542Z",
+      "isError": false,
+      "contentBytes": 6360,
+      "emittedCallToResultMs": 54.0
+    },
+    {
+      "id": "toolu_01Xvt8VSLDVtL13ZVWGeG8QF",
+      "name": "Bash",
+      "description": "List verified source map and env variables",
+      "emittedUtc": "2026-11-03T22:05:04.639Z",
+      "resultUtc": "2026-11-03T22:05:04.678Z",
+      "isError": false,
+      "contentBytes": 8464,
+      "emittedCallToResultMs": 39.0
+    },
+    {
+      "id": "toolu_01QDUdMCYgUXosV3QpXpgoyr",
+      "name": "Bash",
+      "description": "Inspect original owner pin records",
+      "emittedUtc": "2026-11-03T22:05:13.864Z",
+      "resultUtc": "2026-11-03T22:05:13.941Z",
+      "isError": false,
+      "contentBytes": 7308,
+      "emittedCallToResultMs": 77.0
+    },
+    {
+      "id": "toolu_01NpqYKXKDvvAh6yaFj3RttW",
+      "name": "Bash",
+      "description": "Inspect historical rc.1 indexed lookup vocabulary",
+      "emittedUtc": "2026-11-03T22:05:44.961Z",
+      "resultUtc": "2026-11-03T22:05:44.984Z",
+      "isError": false,
+      "contentBytes": 5425,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01Ds7WkDkCC3Rzui93kk8eQk",
+      "name": "Bash",
+      "description": "Read historical selector key derivation",
+      "emittedUtc": "2026-11-03T22:05:47.572Z",
+      "resultUtc": "2026-11-03T22:05:47.587Z",
+      "isError": false,
+      "contentBytes": 2252,
+      "emittedCallToResultMs": 15.0
+    },
+    {
+      "id": "toolu_015zWhc4B15QNFCnP8XUMMEP",
+      "name": "Bash",
+      "description": "Check related parent key in current vocabulary",
+      "emittedUtc": "2026-11-03T22:05:51.978Z",
+      "resultUtc": "2026-11-03T22:05:51.994Z",
+      "isError": false,
+      "contentBytes": 1372,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01LVeiVqxNMnPd5E8WaMiPTi",
+      "name": "Bash",
+      "description": "Adapt producer test to checked owner copy and bridges",
+      "emittedUtc": "2026-11-03T22:06:19.574Z",
+      "resultUtc": "2026-11-03T22:06:19.615Z",
+      "isError": false,
+      "contentBytes": 131,
+      "emittedCallToResultMs": 41.0
+    },
+    {
+      "id": "toolu_01KsunBqHM5bgw4yVNF3Pp7x",
+      "name": "Bash",
+      "description": "Find remaining adapter references",
+      "emittedUtc": "2026-11-03T22:06:24.523Z",
+      "resultUtc": "2026-11-03T22:06:24.705Z",
+      "isError": false,
+      "contentBytes": 3315,
+      "emittedCallToResultMs": 182.0
+    },
+    {
+      "id": "toolu_013wpMu5cGCEdGGULfSJaLda",
+      "name": "Bash",
+      "description": "Read adapter test consumers and writer locations",
+      "emittedUtc": "2026-11-03T22:06:36.817Z",
+      "resultUtc": "2026-11-03T22:06:37.006Z",
+      "isError": false,
+      "contentBytes": 7078,
+      "emittedCallToResultMs": 189.0
+    },
+    {
+      "id": "toolu_01Gkf2JdxrE3xHR72b9DqP3R",
+      "name": "Bash",
+      "description": "Inspect prefix value writer and types",
+      "emittedUtc": "2026-11-03T22:06:42.869Z",
+      "resultUtc": "2026-11-03T22:06:42.893Z",
+      "isError": false,
+      "contentBytes": 2313,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01HgQku4q2QeDnoSWR5LjWBb",
+      "name": "Bash",
+      "description": "Retire adapter and migrate its test consumers; typecheck",
+      "emittedUtc": "2026-11-03T22:07:05.797Z",
+      "resultUtc": "2026-11-03T22:07:12.031Z",
+      "isError": false,
+      "contentBytes": 1075,
+      "emittedCallToResultMs": 6234.0
+    },
+    {
+      "id": "toolu_01D9tjYHmYRPu5nC7XCkHDFG",
+      "name": "Bash",
+      "description": "Census replay wrapper references",
+      "emittedUtc": "2026-11-03T22:07:16.320Z",
+      "resultUtc": "2026-11-03T22:07:16.536Z",
+      "isError": false,
+      "contentBytes": 1680,
+      "emittedCallToResultMs": 216.0
+    },
+    {
+      "id": "toolu_01R3Vj6hREge6bT1VdiL9L9T",
+      "name": "Bash",
+      "description": "Read replay wrapper and its consumers",
+      "emittedUtc": "2026-11-03T22:07:19.541Z",
+      "resultUtc": "2026-11-03T22:07:19.609Z",
+      "isError": false,
+      "contentBytes": 20362,
+      "emittedCallToResultMs": 68.0
+    },
+    {
+      "id": "toolu_01BuiuHnFHD8Tw4MsyqpfPyT",
+      "name": "Bash",
+      "description": "Survey fresh-process dispatcher",
+      "emittedUtc": "2026-11-03T22:07:24.199Z",
+      "resultUtc": "2026-11-03T22:07:24.223Z",
+      "isError": false,
+      "contentBytes": 1047,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_0187Q7Hau1xtYkwjHGVXokxq",
+      "name": "Bash",
+      "description": "Read fresh-process dispatcher",
+      "emittedUtc": "2026-11-03T22:07:26.827Z",
+      "resultUtc": "2026-11-03T22:07:26.847Z",
+      "isError": false,
+      "contentBytes": 5335,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_017g6QAnt7hKgtxpagXywcpL",
+      "name": "Bash",
+      "description": "Read child worker and m5 consumer requests",
+      "emittedUtc": "2026-11-03T22:07:29.718Z",
+      "resultUtc": "2026-11-03T22:07:29.737Z",
+      "isError": false,
+      "contentBytes": 2776,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_015de2UpwnF1pYX1RCJUQP6T",
+      "name": "Bash",
+      "description": "Check replay guard fields and consumer signatures",
+      "emittedUtc": "2026-11-03T22:08:09.707Z",
+      "resultUtc": "2026-11-03T22:08:09.772Z",
+      "isError": false,
+      "contentBytes": 4095,
+      "emittedCallToResultMs": 65.0
+    },
+    {
+      "id": "toolu_0175Xc4k1obj7WJz9cbjnD8T",
+      "name": "Bash",
+      "description": "Migrate dispatcher parent and child to direct replay owner",
+      "emittedUtc": "2026-11-03T22:08:27.870Z",
+      "resultUtc": "2026-11-03T22:08:27.903Z",
+      "isError": false,
+      "contentBytes": 4,
+      "emittedCallToResultMs": 33.0
+    },
+    {
+      "id": "toolu_01RgPEucVwr8PkqRD9nBWJfp",
+      "name": "Bash",
+      "description": "Locate remaining dynamic request producers",
+      "emittedUtc": "2026-11-03T22:08:37.890Z",
+      "resultUtc": "2026-11-03T22:08:37.952Z",
+      "isError": false,
+      "contentBytes": 1627,
+      "emittedCallToResultMs": 62.0
+    },
+    {
+      "id": "toolu_01Q3Q7XZqgJb4244QkrZjcHU",
+      "name": "Bash",
+      "description": "Rewrite dynamic requests to direct replay owner",
+      "emittedUtc": "2026-11-03T22:08:48.513Z",
+      "resultUtc": "2026-11-03T22:08:48.567Z",
+      "isError": false,
+      "contentBytes": 1693,
+      "emittedCallToResultMs": 54.0
+    },
+    {
+      "id": "toolu_01Hf6ZjNy5AWYJ1arJDa2A3y",
+      "name": "Bash",
+      "description": "Find abg module origins in direct consumers",
+      "emittedUtc": "2026-11-03T22:08:53.639Z",
+      "resultUtc": "2026-11-03T22:08:53.675Z",
+      "isError": false,
+      "contentBytes": 677,
+      "emittedCallToResultMs": 36.0
+    },
+    {
+      "id": "toolu_017t6xZuhcZjxeY6pBeJW3G5",
+      "name": "Bash",
+      "description": "Inspect module origins for direct consumers",
+      "emittedUtc": "2026-11-03T22:08:58.147Z",
+      "resultUtc": "2026-11-03T22:08:58.181Z",
+      "isError": false,
+      "contentBytes": 3187,
+      "emittedCallToResultMs": 34.0
+    },
+    {
+      "id": "toolu_01BzVwZynqt9Msd4rCZz6wiJ",
+      "name": "Bash",
+      "description": "Inspect deferred application and held-prefix contexts",
+      "emittedUtc": "2026-11-03T22:09:09.301Z",
+      "resultUtc": "2026-11-03T22:09:09.326Z",
+      "isError": false,
+      "contentBytes": 3857,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_01XiXcuns2qM1D6odfvnqd3D",
+      "name": "Bash",
+      "description": "Read held-prefix fixture structure",
+      "emittedUtc": "2026-11-03T22:09:19.850Z",
+      "resultUtc": "2026-11-03T22:09:19.866Z",
+      "isError": false,
+      "contentBytes": 6092,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01QJLcTdBSVKb3q8R3oLDvni",
+      "name": "Bash",
+      "description": "List fixture variables declared for C2",
+      "emittedUtc": "2026-11-03T22:09:29.401Z",
+      "resultUtc": "2026-11-03T22:09:29.421Z",
+      "isError": false,
+      "contentBytes": 276,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_01XBwTTMBHXaWiU3NDZ7YrDE",
+      "name": "Bash",
+      "description": "Inspect C2 proof lanes and environment",
+      "emittedUtc": "2026-11-03T22:09:32.621Z",
+      "resultUtc": "2026-11-03T22:09:32.641Z",
+      "isError": false,
+      "contentBytes": 1366,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_011SRwZTXNTc33BrMZmuqzer",
+      "name": "Bash",
+      "description": "Find nominal-validated refusal and fixture gate",
+      "emittedUtc": "2026-11-03T22:09:38.809Z",
+      "resultUtc": "2026-11-03T22:09:38.903Z",
+      "isError": false,
+      "contentBytes": 399,
+      "emittedCallToResultMs": 94.0
+    },
+    {
+      "id": "toolu_019HkYZHTQ8o6MFLHfAfLjus",
+      "name": "Bash",
+      "description": "Check judgment candidate replay type",
+      "emittedUtc": "2026-11-03T22:09:45.770Z",
+      "resultUtc": "2026-11-03T22:09:45.870Z",
+      "isError": false,
+      "contentBytes": 1310,
+      "emittedCallToResultMs": 100.0
+    },
+    {
+      "id": "toolu_01Ds4igsrqXn3K9NcjJuCnj1",
+      "name": "Bash",
+      "description": "Inspect remaining direct consumer contexts",
+      "emittedUtc": "2026-11-03T22:09:51.479Z",
+      "resultUtc": "2026-11-03T22:09:51.510Z",
+      "isError": false,
+      "contentBytes": 2007,
+      "emittedCallToResultMs": 31.0
+    },
+    {
+      "id": "toolu_016kq7Umc7XYhLfB2TEgm71E",
+      "name": "Bash",
+      "description": "Find installed root bindings near consumers",
+      "emittedUtc": "2026-11-03T22:09:58.048Z",
+      "resultUtc": "2026-11-03T22:09:58.077Z",
+      "isError": false,
+      "contentBytes": 162,
+      "emittedCallToResultMs": 29.0
+    },
+    {
+      "id": "toolu_01WsrFbtstxjFBejRbhfhJPW",
+      "name": "Bash",
+      "description": "Find abg and root bindings",
+      "emittedUtc": "2026-11-03T22:10:02.212Z",
+      "resultUtc": "2026-11-03T22:10:02.238Z",
+      "isError": false,
+      "contentBytes": 917,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_017nKGGpZ58WgpYwDUZnYhW6",
+      "name": "Bash",
+      "description": "Migrate direct wrapper consumers",
+      "emittedUtc": "2026-11-03T22:10:25.216Z",
+      "resultUtc": "2026-11-03T22:10:25.261Z",
+      "isError": false,
+      "contentBytes": 1033,
+      "emittedCallToResultMs": 45.0
+    },
+    {
+      "id": "toolu_013SLjp3vuGRQq7auYnLFCzH",
+      "name": "Bash",
+      "description": "Check wrapper type and export usage",
+      "emittedUtc": "2026-11-03T22:10:32.341Z",
+      "resultUtc": "2026-11-03T22:10:32.631Z",
+      "isError": false,
+      "contentBytes": 6259,
+      "emittedCallToResultMs": 290.0
+    },
+    {
+      "id": "toolu_01Xv8SDqqV4QenTHPS9yZ2zm",
+      "name": "Bash",
+      "description": "Delete replay wrapper and typecheck",
+      "emittedUtc": "2026-11-03T22:10:40.121Z",
+      "resultUtc": "2026-11-03T22:10:46.423Z",
+      "isError": false,
+      "contentBytes": 15,
+      "emittedCallToResultMs": 6302.0
+    },
+    {
+      "id": "toolu_01NtNiZ1cfd4cC2R7BT9PGfS",
+      "name": "Bash",
+      "description": "Check for now-unused imports",
+      "emittedUtc": "2026-11-03T22:10:52.854Z",
+      "resultUtc": "2026-11-03T22:10:52.893Z",
+      "isError": false,
+      "contentBytes": 326,
+      "emittedCallToResultMs": 39.0
+    },
+    {
+      "id": "toolu_01UczELAcJDVvvppXwahh8MN",
+      "name": "Bash",
+      "description": "Locate the single remaining import references",
+      "emittedUtc": "2026-11-03T22:10:56.284Z",
+      "resultUtc": "2026-11-03T22:10:56.303Z",
+      "isError": false,
+      "contentBytes": 76,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_011txM52HKw2rwtmebM96ciy",
+      "name": "Bash",
+      "description": "Show import blocks to prune",
+      "emittedUtc": "2026-11-03T22:10:59.549Z",
+      "resultUtc": "2026-11-03T22:10:59.567Z",
+      "isError": false,
+      "contentBytes": 561,
+      "emittedCallToResultMs": 18.0
+    },
+    {
+      "id": "toolu_017oMqteKFABB6ASnqney3CA",
+      "name": "Bash",
+      "description": "Prune unused imports and typecheck",
+      "emittedUtc": "2026-11-03T22:11:05.339Z",
+      "resultUtc": "2026-11-03T22:11:11.652Z",
+      "isError": false,
+      "contentBytes": 8,
+      "emittedCallToResultMs": 6313.0
+    },
+    {
+      "id": "toolu_01RbpAqKnj8oDXii7QocofdV",
+      "name": "Bash",
+      "description": "Read current progress record",
+      "emittedUtc": "2026-11-03T22:11:15.734Z",
+      "resultUtc": "2026-11-03T22:11:15.755Z",
+      "isError": false,
+      "contentBytes": 467,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_01PhZj3KuuG6yYagrcuT1AuA",
+      "name": "Bash",
+      "description": "Update progress and inspect C2 selected inputs",
+      "emittedUtc": "2026-11-03T22:11:23.097Z",
+      "resultUtc": "2026-11-03T22:11:23.146Z",
+      "isError": false,
+      "contentBytes": 823,
+      "emittedCallToResultMs": 49.0
+    },
+    {
+      "id": "toolu_01TuSprd1fuK9dL5wSzkvB8y",
+      "name": "Bash",
+      "description": "Inspect scratch dir and C2 build commands",
+      "emittedUtc": "2026-11-03T22:11:28.613Z",
+      "resultUtc": "2026-11-03T22:11:28.649Z",
+      "isError": false,
+      "contentBytes": 3912,
+      "emittedCallToResultMs": 36.0
+    },
+    {
+      "id": "toolu_01R1tKox3EFShwb5ZSz98GZT",
+      "name": "Bash",
+      "description": "List C2 lanes and files",
+      "emittedUtc": "2026-11-03T22:11:33.050Z",
+      "resultUtc": "2026-11-03T22:11:33.080Z",
+      "isError": false,
+      "contentBytes": 3628,
+      "emittedCallToResultMs": 30.0
+    },
+    {
+      "id": "toolu_01HVM4wXL4ePfgthuK5RN7CH",
+      "name": "Bash",
+      "description": "Find build recipe for scratch",
+      "emittedUtc": "2026-11-03T22:11:37.808Z",
+      "resultUtc": "2026-11-03T22:11:37.841Z",
+      "isError": false,
+      "contentBytes": 1919,
+      "emittedCallToResultMs": 33.0
+    },
+    {
+      "id": "toolu_01X4Lc7BsPg31hzEoqoGcAUj",
+      "name": "Bash",
+      "description": "Check tenant layout and toolchain size",
+      "emittedUtc": "2026-11-03T22:11:45.402Z",
+      "resultUtc": "2026-11-03T22:11:45.483Z",
+      "isError": false,
+      "contentBytes": 1117,
+      "emittedCallToResultMs": 81.0
+    },
+    {
+      "id": "toolu_01TM6yAa1HJhQvKPhZbDcWgd",
+      "name": "Bash",
+      "description": "Read typecheck script and package scripts",
+      "emittedUtc": "2026-11-03T22:11:50.863Z",
+      "resultUtc": "2026-11-03T22:11:50.880Z",
+      "isError": false,
+      "contentBytes": 2062,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_014DYqpTCy4AtKXQZEK5WXT6",
+      "name": "Bash",
+      "description": "Create and run scratch full build",
+      "emittedUtc": "2026-11-03T22:11:58.486Z",
+      "resultUtc": "2026-11-03T22:12:16.381Z",
+      "isError": false,
+      "contentBytes": 564,
+      "emittedCallToResultMs": 17895.0
+    },
+    {
+      "id": "toolu_01BVrNvK1xPksX6hehdcLPrm",
+      "name": "Bash",
+      "description": "Read generator declaration-closure check",
+      "emittedUtc": "2026-11-03T22:12:20.305Z",
+      "resultUtc": "2026-11-03T22:12:20.321Z",
+      "isError": false,
+      "contentBytes": 1942,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_012mjtzzrsCy5njNgDeyFFSU",
+      "name": "Bash",
+      "description": "Locate declaration closure resolver",
+      "emittedUtc": "2026-11-03T22:12:28.821Z",
+      "resultUtc": "2026-11-03T22:12:28.978Z",
+      "isError": false,
+      "contentBytes": 161,
+      "emittedCallToResultMs": 157.0
+    },
+    {
+      "id": "toolu_01GkbzG282UkVLYYtAUxro2Z",
+      "name": "Bash",
+      "description": "Inspect closure resolver refusal points",
+      "emittedUtc": "2026-11-03T22:12:32.531Z",
+      "resultUtc": "2026-11-03T22:12:32.554Z",
+      "isError": false,
+      "contentBytes": 3810,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01Ud2CdHeexDbJxLQHxDskqS",
+      "name": "Bash",
+      "description": "Find diagnostics checks in closure resolver",
+      "emittedUtc": "2026-11-03T22:12:39.866Z",
+      "resultUtc": "2026-11-03T22:12:39.884Z",
+      "isError": false,
+      "contentBytes": 84,
+      "emittedCallToResultMs": 18.0
+    },
+    {
+      "id": "toolu_01192NPp4NVmeqAK5wqMfPNx",
+      "name": "Bash",
+      "description": "Read resolver body around refusals",
+      "emittedUtc": "2026-11-03T22:12:43.117Z",
+      "resultUtc": "2026-11-03T22:12:43.136Z",
+      "isError": false,
+      "contentBytes": 2332,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01EY18ta8dAx9awcJW7ibLJe",
+      "name": "Bash",
+      "description": "Instrument scratch resolver to find refusal",
+      "emittedUtc": "2026-11-03T22:12:51.658Z",
+      "resultUtc": "2026-11-03T22:13:00.561Z",
+      "isError": false,
+      "contentBytes": 165,
+      "emittedCallToResultMs": 8903.0
+    },
+    {
+      "id": "toolu_01LXKiD2Un6PzNbueYrUx64m",
+      "name": "Bash",
+      "description": "Locate instrumented refusal sites",
+      "emittedUtc": "2026-11-03T22:13:03.971Z",
+      "resultUtc": "2026-11-03T22:13:03.988Z",
+      "isError": false,
+      "contentBytes": 112,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_015Hb8C3RSMYJ9ByDtks34Pg",
+      "name": "Bash",
+      "description": "Read the refusing check",
+      "emittedUtc": "2026-11-03T22:13:07.034Z",
+      "resultUtc": "2026-11-03T22:13:07.049Z",
+      "isError": false,
+      "contentBytes": 1565,
+      "emittedCallToResultMs": 15.0
+    },
+    {
+      "id": "toolu_01M8KPm3i2heSm2k3a8jnpq9",
+      "name": "Bash",
+      "description": "Print declaration diagnostics",
+      "emittedUtc": "2026-11-03T22:13:12.096Z",
+      "resultUtc": "2026-11-03T22:13:20.993Z",
+      "isError": false,
+      "contentBytes": 651,
+      "emittedCallToResultMs": 8897.0
+    },
+    {
+      "id": "toolu_01GjMfatxNefJDLnNcETbYci",
+      "name": "Bash",
+      "description": "Find d.ts exposure of internal prefix type",
+      "emittedUtc": "2026-11-03T22:13:30.807Z",
+      "resultUtc": "2026-11-03T22:13:30.831Z",
+      "isError": false,
+      "contentBytes": 2725,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_018g5W9QHB4vWaaVDVr3AEvU",
+      "name": "Bash",
+      "description": "Find consumers of projectQualificationConsumer",
+      "emittedUtc": "2026-11-03T22:13:35.569Z",
+      "resultUtc": "2026-11-03T22:13:35.642Z",
+      "isError": false,
+      "contentBytes": 2887,
+      "emittedCallToResultMs": 73.0
+    },
+    {
+      "id": "toolu_01N1nndE3cECjcdPfL8A6nZs",
+      "name": "Bash",
+      "description": "Check internal and test uses of consumer prefix",
+      "emittedUtc": "2026-11-03T22:13:50.839Z",
+      "resultUtc": "2026-11-03T22:13:50.906Z",
+      "isError": false,
+      "contentBytes": 2156,
+      "emittedCallToResultMs": 67.0
+    },
+    {
+      "id": "toolu_0182pByXhdfNMNtHfYVG6yjJ",
+      "name": "Bash",
+      "description": "Keep consumer prefix private and typecheck",
+      "emittedUtc": "2026-11-03T22:14:12.524Z",
+      "resultUtc": "2026-11-03T22:14:18.886Z",
+      "isError": false,
+      "contentBytes": 965,
+      "emittedCallToResultMs": 6362.0
+    },
+    {
+      "id": "toolu_01DQndNo11ncxRo9ckwJN1rm",
+      "name": "Bash",
+      "description": "Revert unneeded cast and typecheck",
+      "emittedUtc": "2026-11-03T22:14:24.357Z",
+      "resultUtc": "2026-11-03T22:14:30.599Z",
+      "isError": false,
+      "contentBytes": 8,
+      "emittedCallToResultMs": 6242.0
+    },
+    {
+      "id": "toolu_0144g8xevJhXucM2TTzMJFzW",
+      "name": "Bash",
+      "description": "Fresh scratch build w2",
+      "emittedUtc": "2026-11-03T22:14:35.619Z",
+      "resultUtc": "2026-11-03T22:15:06.224Z",
+      "isError": false,
+      "contentBytes": 114,
+      "emittedCallToResultMs": 30605.0
+    },
+    {
+      "id": "toolu_01BJUVganabLk9EffRioppjG",
+      "name": "Bash",
+      "description": "Run qualification component tests",
+      "emittedUtc": "2026-11-03T22:15:17.067Z",
+      "resultUtc": "2026-11-03T22:15:31.043Z",
+      "isError": false,
+      "contentBytes": 97,
+      "emittedCallToResultMs": 13976.0
+    },
+    {
+      "id": "toolu_019YqHVrGQY8PbLBE72Sp6o9",
+      "name": "Bash",
+      "description": "Inspect qualification test failures",
+      "emittedUtc": "2026-11-03T22:15:34.688Z",
+      "resultUtc": "2026-11-03T22:15:34.708Z",
+      "isError": false,
+      "contentBytes": 755,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_01BusT3zDRfeetvvJxX8nFPC",
+      "name": "Bash",
+      "description": "Read release-acceptance failure details",
+      "emittedUtc": "2026-11-03T22:15:39.092Z",
+      "resultUtc": "2026-11-03T22:15:39.108Z",
+      "isError": false,
+      "contentBytes": 2154,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01NqE9eAqYS3e9G47mXvC77f",
+      "name": "Bash",
+      "description": "Read release-acceptance test",
+      "emittedUtc": "2026-11-03T22:15:42.059Z",
+      "resultUtc": "2026-11-03T22:15:42.077Z",
+      "isError": false,
+      "contentBytes": 7251,
+      "emittedCallToResultMs": 18.0
+    },
+    {
+      "id": "toolu_01TZqR1tyDGuNJRamdB5Wza3",
+      "name": "Bash",
+      "description": "Check whether release owners changed artifact reader",
+      "emittedUtc": "2026-11-03T22:15:49.187Z",
+      "resultUtc": "2026-11-03T22:15:49.399Z",
+      "isError": false,
+      "contentBytes": 1513,
+      "emittedCallToResultMs": 212.0
+    },
+    {
+      "id": "toolu_01Vy19cWnT3ujAyfy3DCdwt3",
+      "name": "Bash",
+      "description": "Align release-acceptance stubs to owner import",
+      "emittedUtc": "2026-11-03T22:15:58.597Z",
+      "resultUtc": "2026-11-03T22:15:58.631Z",
+      "isError": false,
+      "contentBytes": 244,
+      "emittedCallToResultMs": 34.0
+    },
+    {
+      "id": "toolu_01EqGgBggNAuKweiyY1Qasn2",
+      "name": "Bash",
+      "description": "Rerun release-acceptance with aligned stubs",
+      "emittedUtc": "2026-11-03T22:16:05.019Z",
+      "resultUtc": "2026-11-03T22:16:09.265Z",
+      "isError": false,
+      "contentBytes": 535,
+      "emittedCallToResultMs": 4246.0
+    },
+    {
+      "id": "toolu_016m8zY7eJLX7HyGcUpFUKjd",
+      "name": "Bash",
+      "description": "Run historical producer acquisition test",
+      "emittedUtc": "2026-11-03T22:16:16.014Z",
+      "resultUtc": "2026-11-03T22:16:31.653Z",
+      "isError": false,
+      "contentBytes": 95,
+      "emittedCallToResultMs": 15639.0
+    },
+    {
+      "id": "toolu_01Dngd6AceVM4Yr5c7qRtrSo",
+      "name": "Bash",
+      "description": "Show producer diagnostics and T289 input record",
+      "emittedUtc": "2026-11-03T22:16:35.286Z",
+      "resultUtc": "2026-11-03T22:16:35.322Z",
+      "isError": false,
+      "contentBytes": 1904,
+      "emittedCallToResultMs": 36.0
+    },
+    {
+      "id": "toolu_01NDc2wwxcQZg9xBSgkBg9X2",
+      "name": "Bash",
+      "description": "Run T289 and artifact adapter consumer tests",
+      "emittedUtc": "2026-11-03T22:16:40.830Z",
+      "resultUtc": "2026-11-03T22:16:54.450Z",
+      "isError": false,
+      "contentBytes": 1020,
+      "emittedCallToResultMs": 13620.0
+    },
+    {
+      "id": "toolu_01ATp9ZowMuKd3y8GZUrA8GJ",
+      "name": "Bash",
+      "description": "Read T289 failure",
+      "emittedUtc": "2026-11-03T22:16:57.518Z",
+      "resultUtc": "2026-11-03T22:16:57.542Z",
+      "isError": false,
+      "contentBytes": 3571,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01Ex44yB8KDsVfz9acTbqF1p",
+      "name": "Bash",
+      "description": "Locate the failing T289 assertion",
+      "emittedUtc": "2026-11-03T22:17:01.565Z",
+      "resultUtc": "2026-11-03T22:17:01.723Z",
+      "isError": false,
+      "contentBytes": 1528,
+      "emittedCallToResultMs": 158.0
+    },
+    {
+      "id": "toolu_017S6UFV9zKutF2TX3Yammvd",
+      "name": "Bash",
+      "description": "Check diffs in artifact derivation owners",
+      "emittedUtc": "2026-11-03T22:17:15.104Z",
+      "resultUtc": "2026-11-03T22:17:15.178Z",
+      "isError": false,
+      "contentBytes": 1796,
+      "emittedCallToResultMs": 74.0
+    },
+    {
+      "id": "toolu_01USYi1HtP5qRFgdadUjqDTA",
+      "name": "Bash",
+      "description": "Show environment_admission diff",
+      "emittedUtc": "2026-11-03T22:17:18.920Z",
+      "resultUtc": "2026-11-03T22:17:18.961Z",
+      "isError": false,
+      "contentBytes": 3106,
+      "emittedCallToResultMs": 41.0
+    },
+    {
+      "id": "toolu_01GpdLc748NtVxstDusKk3vE",
+      "name": "Bash",
+      "description": "Probe T289 identity versus value equality in scratch",
+      "emittedUtc": "2026-11-03T22:17:38.097Z",
+      "resultUtc": "2026-11-03T22:17:38.524Z",
+      "isError": false,
+      "contentBytes": 93,
+      "emittedCallToResultMs": 427.0
+    },
+    {
+      "id": "toolu_018GaNVAAKYD5TwRBXikA6pF",
+      "name": "Bash",
+      "description": "Rerun T289 probe with declared history",
+      "emittedUtc": "2026-11-03T22:17:44.620Z",
+      "resultUtc": "2026-11-03T22:17:58.110Z",
+      "isError": false,
+      "contentBytes": 666,
+      "emittedCallToResultMs": 13490.0
+    },
+    {
+      "id": "toolu_01UHzJCjfXwTzq4vq63jp5RC",
+      "name": "Bash",
+      "description": "Read cold child failure in probe",
+      "emittedUtc": "2026-11-03T22:18:02.301Z",
+      "resultUtc": "2026-11-03T22:18:02.318Z",
+      "isError": false,
+      "contentBytes": 917,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_019HnkggziVTTShQdbdxZmV4",
+      "name": "Bash",
+      "description": "Read T289 cold child section",
+      "emittedUtc": "2026-11-03T22:18:05.686Z",
+      "resultUtc": "2026-11-03T22:18:05.710Z",
+      "isError": false,
+      "contentBytes": 1536,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01JWSna8ijN4wg1zWwkeu2FX",
+      "name": "Bash",
+      "description": "Read T289 historical entry setup",
+      "emittedUtc": "2026-11-03T22:18:10.809Z",
+      "resultUtc": "2026-11-03T22:18:10.832Z",
+      "isError": false,
+      "contentBytes": 2679,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01TiRjNxjRWUpLT41tWaHnDf",
+      "name": "Bash",
+      "description": "Find T289 history setup and filePrefix",
+      "emittedUtc": "2026-11-03T22:18:18.435Z",
+      "resultUtc": "2026-11-03T22:18:18.456Z",
+      "isError": false,
+      "contentBytes": 2105,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_018zHS26MiiGXgCATbyhidc7",
+      "name": "Bash",
+      "description": "Probe cold artifact truth refusal on legacy history",
+      "emittedUtc": "2026-11-03T22:18:25.777Z",
+      "resultUtc": "2026-11-03T22:18:26.177Z",
+      "isError": false,
+      "contentBytes": 247,
+      "emittedCallToResultMs": 400.0
+    },
+    {
+      "id": "toolu_01DapBfaVAYXVpT4z6Hy6qZP",
+      "name": "Bash",
+      "description": "Build HEAD baseline in scratch and rerun probe",
+      "emittedUtc": "2026-11-03T22:18:37.295Z",
+      "resultUtc": "2026-11-03T22:18:45.124Z",
+      "isError": false,
+      "contentBytes": 254,
+      "emittedCallToResultMs": 7829.0
+    },
+    {
+      "id": "toolu_01BbWsPHvE1g2JTZWso2LKTJ",
+      "name": "Bash",
+      "description": "Run T289 at HEAD baseline in scratch",
+      "emittedUtc": "2026-11-03T22:18:54.365Z",
+      "resultUtc": "2026-11-03T22:19:13.129Z",
+      "isError": false,
+      "contentBytes": 342,
+      "emittedCallToResultMs": 18764.0
+    },
+    {
+      "id": "toolu_0199Uij8CD9XKRAMMt3aBJ3S",
+      "name": "Bash",
+      "description": "Run affected-owner lane in scratch",
+      "emittedUtc": "2026-11-03T22:19:27.211Z",
+      "resultUtc": "2026-11-03T22:19:27.298Z",
+      "isError": false,
+      "contentBytes": 28,
+      "emittedCallToResultMs": 87.0
+    },
+    {
+      "id": "toolu_01NiBAXiLRYx2JJS4sEBKHvH",
+      "name": "Bash",
+      "description": "Inspect immediate run failure",
+      "emittedUtc": "2026-11-03T22:19:30.887Z",
+      "resultUtc": "2026-11-03T22:19:30.902Z",
+      "isError": false,
+      "contentBytes": 1385,
+      "emittedCallToResultMs": 15.0
+    },
+    {
+      "id": "toolu_01RxWkroaWWyqfPEBhgbPkw9",
+      "name": "Bash",
+      "description": "Run affected-owner lane with split file list",
+      "emittedUtc": "2026-11-03T22:19:36.412Z",
+      "resultUtc": "2026-11-03T22:25:40.901Z",
+      "isError": false,
+      "contentBytes": 121,
+      "emittedCallToResultMs": 364489.0
+    },
+    {
+      "id": "toolu_015Q3UruGTYqoVNzEoe6gyyr",
+      "name": "Bash",
+      "description": "Summarize skip reasons",
+      "emittedUtc": "2026-11-03T22:25:46.675Z",
+      "resultUtc": "2026-11-03T22:25:46.696Z",
+      "isError": false,
+      "contentBytes": 2178,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_01VXvPT5mMTJEHqUQm2XSTWY",
+      "name": "Bash",
+      "description": "Start whole-path meter test in background",
+      "emittedUtc": "2026-11-03T22:25:52.872Z",
+      "resultUtc": "2026-11-03T22:25:54.903Z",
+      "isError": false,
+      "contentBytes": 236,
+      "emittedCallToResultMs": 2031.0
+    },
+    {
+      "id": "toolu_019RjopVMo4kWGKZ3ZPiqqx8",
+      "name": "Bash",
+      "description": "Extract discriminator requirements from native04 return",
+      "emittedUtc": "2026-11-03T22:26:02.484Z",
+      "resultUtc": "2026-11-03T22:26:02.591Z",
+      "isError": false,
+      "contentBytes": 1121,
+      "emittedCallToResultMs": 107.0
+    },
+    {
+      "id": "toolu_01TA9hi36KF31NNBu2rreBRA",
+      "name": "Bash",
+      "description": "Find discriminator families in prior return and conjunction",
+      "emittedUtc": "2026-11-03T22:26:11.163Z",
+      "resultUtc": "2026-11-03T22:26:11.204Z",
+      "isError": false,
+      "contentBytes": 833,
+      "emittedCallToResultMs": 41.0
+    },
+    {
+      "id": "toolu_01TwQfwLevAyiTNtwJa2FQrq",
+      "name": "Bash",
+      "description": "Read discriminator record and R4 addendum",
+      "emittedUtc": "2026-11-03T22:26:14.899Z",
+      "resultUtc": "2026-11-03T22:26:14.937Z",
+      "isError": false,
+      "contentBytes": 5736,
+      "emittedCallToResultMs": 38.0
+    },
+    {
+      "id": "toolu_01GbjxShFseG8onWFnPNrs4R",
+      "name": "Bash",
+      "description": "Read R4 catalog admission fixture",
+      "emittedUtc": "2026-11-03T22:26:21.819Z",
+      "resultUtc": "2026-11-03T22:26:21.843Z",
+      "isError": false,
+      "contentBytes": 8924,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01K4Sh7rTDdm3dv98uFKq7Bo",
+      "name": "Bash",
+      "description": "Read reconstructCatalogApplication predecessor relation",
+      "emittedUtc": "2026-11-03T22:26:25.843Z",
+      "resultUtc": "2026-11-03T22:26:25.866Z",
+      "isError": false,
+      "contentBytes": 3757,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01NVeZXZApxU5pDDu4hNKKeP",
+      "name": "Bash",
+      "description": "Read minimal event candidate and sink helpers",
+      "emittedUtc": "2026-11-03T22:26:33.024Z",
+      "resultUtc": "2026-11-03T22:26:33.044Z",
+      "isError": false,
+      "contentBytes": 3950,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_011mJJkG2bsTJrqV4NkByeNL",
+      "name": "Bash",
+      "description": "Read candidate shape and store append exports",
+      "emittedUtc": "2026-11-03T22:26:37.207Z",
+      "resultUtc": "2026-11-03T22:26:37.233Z",
+      "isError": false,
+      "contentBytes": 821,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_01Kfgt7Lc5So1FG9tGzesirx",
+      "name": "Bash",
+      "description": "Check failure shape and prefix use in constructor",
+      "emittedUtc": "2026-11-03T22:27:02.489Z",
+      "resultUtc": "2026-11-03T22:27:02.523Z",
+      "isError": false,
+      "contentBytes": 819,
+      "emittedCallToResultMs": 34.0
+    },
+    {
+      "id": "toolu_012FimWAdwLpP46WYDVTPFgM",
+      "name": "Bash",
+      "description": "Add R4 declaration predecessor component cases",
+      "emittedUtc": "2026-11-03T22:27:24.030Z",
+      "resultUtc": "2026-11-03T22:27:24.069Z",
+      "isError": false,
+      "contentBytes": 6,
+      "emittedCallToResultMs": 39.0
+    },
+    {
+      "id": "toolu_01V5CTpN5AaaBBXeAsuVAPvo",
+      "name": "Bash",
+      "description": "Check whole-path progress and run R4 test",
+      "emittedUtc": "2026-11-03T22:27:35.577Z",
+      "resultUtc": "2026-11-03T22:27:36.245Z",
+      "isError": false,
+      "contentBytes": 1793,
+      "emittedCallToResultMs": 668.0
+    },
+    {
+      "id": "toolu_01HGbi6HW29Nysw7AT9qeJVn",
+      "name": "Bash",
+      "description": "Find liveness API and validation-prefix tests",
+      "emittedUtc": "2026-11-03T22:27:47.738Z",
+      "resultUtc": "2026-11-03T22:27:47.991Z",
+      "isError": false,
+      "contentBytes": 1280,
+      "emittedCallToResultMs": 253.0
+    },
+    {
+      "id": "toolu_014LLRqBxJJQedpjAhXaeWHq",
+      "name": "Bash",
+      "description": "Read validation prefix extension and liveness entry",
+      "emittedUtc": "2026-11-03T22:27:52.237Z",
+      "resultUtc": "2026-11-03T22:27:52.268Z",
+      "isError": false,
+      "contentBytes": 4734,
+      "emittedCallToResultMs": 31.0
+    },
+    {
+      "id": "toolu_01FGtT1VrSt88ewXCpbSAkr7",
+      "name": "Bash",
+      "description": "Find liveness meter in consolidation support",
+      "emittedUtc": "2026-11-03T22:27:58.207Z",
+      "resultUtc": "2026-11-03T22:27:58.233Z",
+      "isError": false,
+      "contentBytes": 1719,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_01QvPb3ij5DnbJWnE1ePTLxT",
+      "name": "Bash",
+      "description": "Read measured liveness cost attribution",
+      "emittedUtc": "2026-11-03T22:28:03.187Z",
+      "resultUtc": "2026-11-03T22:28:03.205Z",
+      "isError": false,
+      "contentBytes": 778,
+      "emittedCallToResultMs": 18.0
+    },
+    {
+      "id": "toolu_01A7sr13zYzoxj5xA7YNSy1D",
+      "name": "Bash",
+      "description": "Locate liveness probe attribution source",
+      "emittedUtc": "2026-11-03T22:28:06.841Z",
+      "resultUtc": "2026-11-03T22:28:07.098Z",
+      "isError": false,
+      "contentBytes": 5101,
+      "emittedCallToResultMs": 257.0
+    },
+    {
+      "id": "toolu_01HMvWGNDQmfr2ct1vUwx2fx",
+      "name": "Bash",
+      "description": "Inspect meter call counters",
+      "emittedUtc": "2026-11-03T22:28:12.252Z",
+      "resultUtc": "2026-11-03T22:28:12.271Z",
+      "isError": false,
+      "contentBytes": 739,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01NZFe1hGCtY35iqoGvi2TVG",
+      "name": "Bash",
+      "description": "Read meter implementation",
+      "emittedUtc": "2026-11-03T22:28:15.420Z",
+      "resultUtc": "2026-11-03T22:28:15.437Z",
+      "isError": false,
+      "contentBytes": 3204,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_01QSix5gqMpw4koiKs29NhSY",
+      "name": "Bash",
+      "description": "Read meter counted owner functions",
+      "emittedUtc": "2026-11-03T22:28:19.522Z",
+      "resultUtc": "2026-11-03T22:28:19.545Z",
+      "isError": false,
+      "contentBytes": 3082,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01TBcLqtV1JXxYz82H5CQdCc",
+      "name": "Bash",
+      "description": "Check whole-path test progress",
+      "emittedUtc": "2026-11-03T22:28:25.862Z",
+      "resultUtc": "2026-11-03T22:28:25.886Z",
+      "isError": false,
+      "contentBytes": 394,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01RarMNjKsLoDqS1wyHdsN2D",
+      "name": "Bash",
+      "description": "Read liveness advance and reconstruction call sites",
+      "emittedUtc": "2026-11-03T22:28:48.050Z",
+      "resultUtc": "2026-11-03T22:28:48.075Z",
+      "isError": false,
+      "contentBytes": 5704,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_01V7Jk5GUPKXaAdMyfE3dFot",
+      "name": "Bash",
+      "description": "Read liveness projections and validation route",
+      "emittedUtc": "2026-11-03T22:28:53.924Z",
+      "resultUtc": "2026-11-03T22:28:53.943Z",
+      "isError": false,
+      "contentBytes": 3818,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01Er7CcqLrzip9BCx11h34R1",
+      "name": "Bash",
+      "description": "Find liveness admission tests and retained history source",
+      "emittedUtc": "2026-11-03T22:29:14.899Z",
+      "resultUtc": "2026-11-03T22:29:15.031Z",
+      "isError": false,
+      "contentBytes": 2479,
+      "emittedCallToResultMs": 132.0
+    },
+    {
+      "id": "toolu_01Qhm56YfLsL5hTHy1fQbr9d",
+      "name": "Bash",
+      "description": "Find liveness validator uses in owner continuation test",
+      "emittedUtc": "2026-11-03T22:29:18.886Z",
+      "resultUtc": "2026-11-03T22:29:18.905Z",
+      "isError": false,
+      "contentBytes": 903,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01D1P2eWu42gXkHqvJPMgN5p",
+      "name": "Bash",
+      "description": "Read owner continuation liveness fixtures",
+      "emittedUtc": "2026-11-03T22:29:22.990Z",
+      "resultUtc": "2026-11-03T22:29:23.017Z",
+      "isError": false,
+      "contentBytes": 9122,
+      "emittedCallToResultMs": 27.0
+    },
+    {
+      "id": "toolu_01TPtLfkCzBa6bVv8LPQ1heV",
+      "name": "Bash",
+      "description": "Read consolidation test header and support exports",
+      "emittedUtc": "2026-11-03T22:30:18.336Z",
+      "resultUtc": "2026-11-03T22:30:18.360Z",
+      "isError": false,
+      "contentBytes": 3753,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01LzVnzsTjGBihFNFmofSSBT",
+      "name": "Bash",
+      "description": "Locate test order, proof writes and C2 proof check",
+      "emittedUtc": "2026-11-03T22:30:24.492Z",
+      "resultUtc": "2026-11-03T22:30:24.515Z",
+      "isError": false,
+      "contentBytes": 2470,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_016eQEjjuh5XthFNzWwshASx",
+      "name": "Bash",
+      "description": "Add liveness fork discriminator case and meter counters",
+      "emittedUtc": "2026-11-03T22:30:52.021Z",
+      "resultUtc": "2026-11-03T22:30:52.065Z",
+      "isError": false,
+      "contentBytes": 351,
+      "emittedCallToResultMs": 44.0
+    },
+    {
+      "id": "toolu_011FHECdd9FHQgtgpaTn5b79",
+      "name": "Bash",
+      "description": "Relax comparison count and check whole-path status",
+      "emittedUtc": "2026-11-03T22:31:07.347Z",
+      "resultUtc": "2026-11-03T22:31:07.387Z",
+      "isError": false,
+      "contentBytes": 538,
+      "emittedCallToResultMs": 40.0
+    },
+    {
+      "id": "toolu_016RRNK1deoBEoP5eoEoteDZ",
+      "name": "Bash",
+      "description": "Run liveness fork discriminator case",
+      "emittedUtc": "2026-11-03T22:31:16.277Z",
+      "resultUtc": "2026-11-03T22:35:01.360Z",
+      "isError": false,
+      "contentBytes": 1553,
+      "emittedCallToResultMs": 225083.0
+    },
+    {
+      "id": "toolu_01NAT77fMZDWhFLzhMWLTtZN",
+      "name": "Bash",
+      "description": "Select target through owner indexes and byte offsets",
+      "emittedUtc": "2026-11-03T22:35:18.645Z",
+      "resultUtc": "2026-11-03T22:35:18.695Z",
+      "isError": false,
+      "contentBytes": 307,
+      "emittedCallToResultMs": 50.0
+    },
+    {
+      "id": "toolu_01VFudw1cg687n98Q52KuPdu",
+      "name": "Bash",
+      "description": "Rerun whole-path with fixed discriminator",
+      "emittedUtc": "2026-11-03T22:35:33.204Z",
+      "resultUtc": "2026-11-03T22:39:25.156Z",
+      "isError": false,
+      "contentBytes": 1179,
+      "emittedCallToResultMs": 231952.0
+    },
+    {
+      "id": "toolu_015JWm7S66skocubQkraghZN",
+      "name": "Bash",
+      "description": "Fix fork count assertion and rerun whole-path in background",
+      "emittedUtc": "2026-11-03T22:39:38.966Z",
+      "resultUtc": "2026-11-03T22:39:39.012Z",
+      "isError": false,
+      "contentBytes": 10,
+      "emittedCallToResultMs": 46.0
+    },
+    {
+      "id": "toolu_01RhjexM8fsCDA7A42jVho8m",
+      "name": "Bash",
+      "description": "Read budget facts owner, current and baseline",
+      "emittedUtc": "2026-11-03T22:39:46.395Z",
+      "resultUtc": "2026-11-03T22:39:46.436Z",
+      "isError": false,
+      "contentBytes": 7621,
+      "emittedCallToResultMs": 41.0
+    },
+    {
+      "id": "toolu_015ogeBQra2t6deUnphzYEt3",
+      "name": "Bash",
+      "description": "Read retry run prefix test structure",
+      "emittedUtc": "2026-11-03T22:39:52.211Z",
+      "resultUtc": "2026-11-03T22:39:52.234Z",
+      "isError": false,
+      "contentBytes": 3484,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_017TfUQkFZwMsiD4MPdHivbz",
+      "name": "Bash",
+      "description": "Read fixture return and invocation scope type",
+      "emittedUtc": "2026-11-03T22:39:58.722Z",
+      "resultUtc": "2026-11-03T22:39:58.839Z",
+      "isError": false,
+      "contentBytes": 3330,
+      "emittedCallToResultMs": 117.0
+    },
+    {
+      "id": "toolu_013wWiWAinBEVWTWj2d8EeKs",
+      "name": "Bash",
+      "description": "Read invocation scope type and basis body selection",
+      "emittedUtc": "2026-11-03T22:40:02.824Z",
+      "resultUtc": "2026-11-03T22:40:02.847Z",
+      "isError": false,
+      "contentBytes": 1486,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01DxFeKPi3wUAFPVuaXgifWX",
+      "name": "Bash",
+      "description": "Inspect retry fixture for budget-scope cases",
+      "emittedUtc": "2026-11-03T22:40:20.352Z",
+      "resultUtc": "2026-11-03T22:40:20.402Z",
+      "isError": false,
+      "contentBytes": 51,
+      "emittedCallToResultMs": 50.0
+    },
+    {
+      "id": "toolu_01V1QKkLKNdwhaUXwdwUtN2t",
+      "name": "Bash",
+      "description": "Show effectful invocation truth diff",
+      "emittedUtc": "2026-11-03T22:40:32.285Z",
+      "resultUtc": "2026-11-03T22:40:32.363Z",
+      "isError": false,
+      "contentBytes": 4287,
+      "emittedCallToResultMs": 78.0
+    },
+    {
+      "id": "toolu_017KrHKsrRJoiXJFGR3wLTSu",
+      "name": "Bash",
+      "description": "Find remaining global walks in public-operation consumers",
+      "emittedUtc": "2026-11-03T22:40:43.271Z",
+      "resultUtc": "2026-11-03T22:40:43.295Z",
+      "isError": false,
+      "contentBytes": 1272,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01596ymkZtnPzvsp1acvNme6",
+      "name": "Bash",
+      "description": "Check whole-path-4 progress",
+      "emittedUtc": "2026-11-03T22:41:01.955Z",
+      "resultUtc": "2026-11-03T22:41:01.980Z",
+      "isError": false,
+      "contentBytes": 352,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_01XUSxuE4iBg97fsMUuk3o21",
+      "name": "Bash",
+      "description": "Read fork case failure detail",
+      "emittedUtc": "2026-11-03T22:41:05.332Z",
+      "resultUtc": "2026-11-03T22:41:05.354Z",
+      "isError": false,
+      "contentBytes": 983,
+      "emittedCallToResultMs": 22.0
+    },
+    {
+      "id": "toolu_017Si9qwcJuUEosSfVRkeuci",
+      "name": "Bash",
+      "description": "Replace constructor-based assertion with exact fork count",
+      "emittedUtc": "2026-11-03T22:41:23.989Z",
+      "resultUtc": "2026-11-03T22:41:24.021Z",
+      "isError": false,
+      "contentBytes": 4,
+      "emittedCallToResultMs": 32.0
+    },
+    {
+      "id": "toolu_01Hur2oh41JQB1qt68pN5zts",
+      "name": "Bash",
+      "description": "Find live store in installed case",
+      "emittedUtc": "2026-11-03T22:41:42.177Z",
+      "resultUtc": "2026-11-03T22:41:42.204Z",
+      "isError": false,
+      "contentBytes": 3831,
+      "emittedCallToResultMs": 27.0
+    },
+    {
+      "id": "toolu_01Anc6LDNKSrNS5HivofJ6fb",
+      "name": "Bash",
+      "description": "Read end of installed case for insertion point",
+      "emittedUtc": "2026-11-03T22:41:45.755Z",
+      "resultUtc": "2026-11-03T22:41:45.773Z",
+      "isError": false,
+      "contentBytes": 2277,
+      "emittedCallToResultMs": 18.0
+    },
+    {
+      "id": "toolu_017MmFVWpyVRYxRV4d28QR1V",
+      "name": "Bash",
+      "description": "Locate close point in installed case",
+      "emittedUtc": "2026-11-03T22:41:54.086Z",
+      "resultUtc": "2026-11-03T22:41:54.111Z",
+      "isError": false,
+      "contentBytes": 332,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_01WVU9v9e4sWxPDndi4QGAFX",
+      "name": "Bash",
+      "description": "Add classification parity and orphan/mixed-arm checks",
+      "emittedUtc": "2026-11-03T22:42:16.903Z",
+      "resultUtc": "2026-11-03T22:42:16.944Z",
+      "isError": false,
+      "contentBytes": 116,
+      "emittedCallToResultMs": 41.0
+    },
+    {
+      "id": "toolu_01Fvjrw6hd4mvfiNVkR5wpU3",
+      "name": "Bash",
+      "description": "Wait for whole-path-4 to finish",
+      "emittedUtc": "2026-11-03T22:42:23.029Z",
+      "resultUtc": "2026-11-03T22:43:23.065Z",
+      "isError": false,
+      "contentBytes": 316,
+      "emittedCallToResultMs": 60036.0
+    },
+    {
+      "id": "toolu_0115y1KGTh4cfCsDuaseN5tW",
+      "name": "Bash",
+      "description": "Locate HOW sentences to reconcile",
+      "emittedUtc": "2026-11-03T22:43:28.432Z",
+      "resultUtc": "2026-11-03T22:43:28.455Z",
+      "isError": false,
+      "contentBytes": 420,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_016kXsh6Xe26JRBYMgzZpG3e",
+      "name": "Bash",
+      "description": "Read HOW lines 190-200 and section 10.4",
+      "emittedUtc": "2026-11-03T22:43:31.407Z",
+      "resultUtc": "2026-11-03T22:43:31.430Z",
+      "isError": false,
+      "contentBytes": 10153,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01LQnoa1xjPDxpcehRZBdZb9",
+      "name": "Bash",
+      "description": "Get class lines and HOW phrases",
+      "emittedUtc": "2026-11-03T22:43:47.621Z",
+      "resultUtc": "2026-11-03T22:43:47.647Z",
+      "isError": false,
+      "contentBytes": 689,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_013XpyLWKbzz8NoertHWqR2Q",
+      "name": "Bash",
+      "description": "Reconcile HOW section text with realization",
+      "emittedUtc": "2026-11-03T22:44:06.757Z",
+      "resultUtc": "2026-11-03T22:44:06.801Z",
+      "isError": false,
+      "contentBytes": 574,
+      "emittedCallToResultMs": 44.0
+    },
+    {
+      "id": "toolu_01JrWSgSuS4dFFkJzPFQq9YM",
+      "name": "Bash",
+      "description": "Start whole-path run 5 in background",
+      "emittedUtc": "2026-11-03T22:44:11.783Z",
+      "resultUtc": "2026-11-03T22:44:11.807Z",
+      "isError": false,
+      "contentBytes": 10,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01NCkQniPkPbMQcmq4F5AMu9",
+      "name": "Bash",
+      "description": "Survey cross-cut public read test",
+      "emittedUtc": "2026-11-03T22:44:15.578Z",
+      "resultUtc": "2026-11-03T22:44:15.601Z",
+      "isError": false,
+      "contentBytes": 2130,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_017dBZefGUyGGhQwBvHytZLQ",
+      "name": "Bash",
+      "description": "Read cross-cut test fixture and read case",
+      "emittedUtc": "2026-11-03T22:44:19.064Z",
+      "resultUtc": "2026-11-03T22:44:19.086Z",
+      "isError": false,
+      "contentBytes": 4826,
+      "emittedCallToResultMs": 22.0
+    },
+    {
+      "id": "toolu_018qXGVA6VcbWFpvf6NrnJwz",
+      "name": "Bash",
+      "description": "Run fresh-process reconstruction test",
+      "emittedUtc": "2026-11-03T22:44:34.202Z",
+      "resultUtc": "2026-11-03T22:45:14.475Z",
+      "isError": false,
+      "contentBytes": 95,
+      "emittedCallToResultMs": 40273.0
+    },
+    {
+      "id": "toolu_01MD8RBPVgZHvswmqS4x2sSi",
+      "name": "Bash",
+      "description": "Start replay consumer lane; check whole-path-5",
+      "emittedUtc": "2026-11-03T22:45:21.893Z",
+      "resultUtc": "2026-11-03T22:45:22.945Z",
+      "isError": false,
+      "contentBytes": 926,
+      "emittedCallToResultMs": 1052.0
+    },
+    {
+      "id": "toolu_0147qG1YYQJ6CEXWKK9d38wT",
+      "name": "Bash",
+      "description": "Read fork case failure in run 5",
+      "emittedUtc": "2026-11-03T22:45:25.147Z",
+      "resultUtc": "2026-11-03T22:45:25.172Z",
+      "isError": false,
+      "contentBytes": 1105,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_0137tcwySgxzrHGdDC7w3Qsr",
+      "name": "Bash",
+      "description": "Check per-row function name uniqueness",
+      "emittedUtc": "2026-11-03T22:45:35.059Z",
+      "resultUtc": "2026-11-03T22:45:35.246Z",
+      "isError": false,
+      "contentBytes": 1217,
+      "emittedCallToResultMs": 187.0
+    },
+    {
+      "id": "toolu_01Nw5nf5y9o5kroTWPhxjQKS",
+      "name": "Bash",
+      "description": "Count liveness index rows via qualified meter key",
+      "emittedUtc": "2026-11-03T22:45:51.589Z",
+      "resultUtc": "2026-11-03T22:45:51.629Z",
+      "isError": false,
+      "contentBytes": 4,
+      "emittedCallToResultMs": 40.0
+    },
+    {
+      "id": "toolu_018sWETULH9HQ2yiKJjTXvzf",
+      "name": "Bash",
+      "description": "Add classifier orphan/mixed-arm controls; check run 5",
+      "emittedUtc": "2026-11-03T22:46:07.586Z",
+      "resultUtc": "2026-11-03T22:46:07.630Z",
+      "isError": false,
+      "contentBytes": 286,
+      "emittedCallToResultMs": 44.0
+    },
+    {
+      "id": "toolu_01Lkj2yVyEY1SNyNyXz7Shiz",
+      "name": "Bash",
+      "description": "Read rubric and R1-R7 definitions",
+      "emittedUtc": "2026-11-03T22:46:12.168Z",
+      "resultUtc": "2026-11-03T22:46:12.206Z",
+      "isError": false,
+      "contentBytes": 3910,
+      "emittedCallToResultMs": 38.0
+    },
+    {
+      "id": "toolu_016K2xXkdxjMgx99CBhDWfyF",
+      "name": "Bash",
+      "description": "Read R1-R7 obligations and prior dispositions",
+      "emittedUtc": "2026-11-03T22:46:15.810Z",
+      "resultUtc": "2026-11-03T22:46:15.848Z",
+      "isError": false,
+      "contentBytes": 983,
+      "emittedCallToResultMs": 38.0
+    },
+    {
+      "id": "toolu_01LV9Feio7MU5HvENYaRtpNZ",
+      "name": "Bash",
+      "description": "Read prior return rows and census",
+      "emittedUtc": "2026-11-03T22:46:18.619Z",
+      "resultUtc": "2026-11-03T22:46:18.663Z",
+      "isError": false,
+      "contentBytes": 4955,
+      "emittedCallToResultMs": 44.0
+    },
+    {
+      "id": "toolu_01UXqvuERnzUE3qU1afKuRc6",
+      "name": "Bash",
+      "description": "Check run 5 and replay consumers progress",
+      "emittedUtc": "2026-11-03T22:46:21.908Z",
+      "resultUtc": "2026-11-03T22:47:06.942Z",
+      "isError": false,
+      "contentBytes": 381,
+      "emittedCallToResultMs": 45034.0
+    },
+    {
+      "id": "toolu_01RPHhZfP5uiWXq6JV5tQFb7",
+      "name": "Bash",
+      "description": "Inspect held source hash record",
+      "emittedUtc": "2026-11-03T22:47:11.957Z",
+      "resultUtc": "2026-11-03T22:47:11.990Z",
+      "isError": false,
+      "contentBytes": 2478,
+      "emittedCallToResultMs": 33.0
+    },
+    {
+      "id": "toolu_015UxVbtvEMiRFByQELuXiC2",
+      "name": "Bash",
+      "description": "Compute native05 changed-file census vs held hashes",
+      "emittedUtc": "2026-11-03T22:47:18.373Z",
+      "resultUtc": "2026-11-03T22:47:23.758Z",
+      "isError": false,
+      "contentBytes": 4330,
+      "emittedCallToResultMs": 5385.0
+    },
+    {
+      "id": "toolu_01UqPsPH9ngHRHVRBkcs3L1H",
+      "name": "Bash",
+      "description": "Check time, run artifacts and running tests",
+      "emittedUtc": "2026-11-03T22:48:54.846Z",
+      "resultUtc": "2026-11-03T22:48:55.067Z",
+      "isError": false,
+      "contentBytes": 2385,
+      "emittedCallToResultMs": 221.0
+    },
+    {
+      "id": "toolu_01WLTvWJDKt1za498Qsq1nYb",
+      "name": "Bash",
+      "description": "Inspect whole-path-5 and replay-consumers results",
+      "emittedUtc": "2026-11-03T22:48:59.069Z",
+      "resultUtc": "2026-11-03T22:48:59.100Z",
+      "isError": false,
+      "contentBytes": 2697,
+      "emittedCallToResultMs": 31.0
+    },
+    {
+      "id": "toolu_011wcv2wcbwao13m9zMdfXpJ",
+      "name": "Bash",
+      "description": "Check which tests import the consolidation support and diffs vs w2",
+      "emittedUtc": "2026-11-03T22:49:04.476Z",
+      "resultUtc": "2026-11-03T22:49:04.596Z",
+      "isError": false,
+      "contentBytes": 240,
+      "emittedCallToResultMs": 120.0
+    },
+    {
+      "id": "toolu_01TJ6ZcfGzAEYZzFVp7v5LJP",
+      "name": "Bash",
+      "description": "Preserve proof, sync files, launch whole-path-6",
+      "emittedUtc": "2026-11-03T22:49:09.349Z",
+      "resultUtc": "2026-11-03T22:49:09.382Z",
+      "isError": false,
+      "contentBytes": 1251,
+      "emittedCallToResultMs": 33.0
+    },
+    {
+      "id": "toolu_01JSe9q1ArDPC74avu25CWbc",
+      "name": "Bash",
+      "description": "Read existing native-05 handoff files",
+      "emittedUtc": "2026-11-03T22:49:12.093Z",
+      "resultUtc": "2026-11-03T22:49:12.119Z",
+      "isError": false,
+      "contentBytes": 1748,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_01F4GpM2VHyKguGBg77k9yn8",
+      "name": "Bash",
+      "description": "Find handoff requirements in TASK.md",
+      "emittedUtc": "2026-11-03T22:49:14.899Z",
+      "resultUtc": "2026-11-03T22:49:14.920Z",
+      "isError": false,
+      "contentBytes": 1965,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_017aT6knqSeGnaYq6jzkGw8w",
+      "name": "Bash",
+      "description": "Reread TASK.md and previous return shape",
+      "emittedUtc": "2026-11-03T22:49:17.388Z",
+      "resultUtc": "2026-11-03T22:49:17.407Z",
+      "isError": true,
+      "contentBytes": 6919,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01L9DYA8bWpwSH4N4B3aoTzj",
+      "name": "Bash",
+      "description": "Reread selection05 and rubric",
+      "emittedUtc": "2026-11-03T22:49:20.566Z",
+      "resultUtc": "2026-11-03T22:49:20.584Z",
+      "isError": true,
+      "contentBytes": 10216,
+      "emittedCallToResultMs": 18.0
+    },
+    {
+      "id": "toolu_01EkmtZ5q4Vmr4TaCprpx1aT",
+      "name": "Bash",
+      "description": "Read selected continuation section",
+      "emittedUtc": "2026-11-03T22:49:23.203Z",
+      "resultUtc": "2026-11-03T22:49:23.223Z",
+      "isError": false,
+      "contentBytes": 4870,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_01BqMkdbkpHMcyVcsKsLYMCu",
+      "name": "Bash",
+      "description": "Read rubric and check whole-path-6 progress",
+      "emittedUtc": "2026-11-03T22:49:27.705Z",
+      "resultUtc": "2026-11-03T22:49:27.755Z",
+      "isError": false,
+      "contentBytes": 1913,
+      "emittedCallToResultMs": 50.0
+    },
+    {
+      "id": "toolu_01Lz3qrognKiUrGWmiCuFnnM",
+      "name": "Bash",
+      "description": "Locate R1-R7 definitions in causal map",
+      "emittedUtc": "2026-11-03T22:49:32.342Z",
+      "resultUtc": "2026-11-03T22:49:32.359Z",
+      "isError": false,
+      "contentBytes": 2873,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_01MPwyAsgM1eSL5Dx779pFB3",
+      "name": "Bash",
+      "description": "Find discriminator definitions in prior inputs",
+      "emittedUtc": "2026-11-03T22:49:36.718Z",
+      "resultUtc": "2026-11-03T22:49:36.744Z",
+      "isError": false,
+      "contentBytes": 1793,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_01UgGMvpEdKuQP3hMXSXumfr",
+      "name": "Bash",
+      "description": "Read discriminator matrix in shared owner triage",
+      "emittedUtc": "2026-11-03T22:49:38.681Z",
+      "resultUtc": "2026-11-03T22:49:38.697Z",
+      "isError": false,
+      "contentBytes": 6890,
+      "emittedCallToResultMs": 16.0
+    },
+    {
+      "id": "toolu_01WV8dQUP1VAdfwBXQJHWMg7",
+      "name": "Bash",
+      "description": "Locate retry fixture path and test gating",
+      "emittedUtc": "2026-11-03T22:49:47.916Z",
+      "resultUtc": "2026-11-03T22:49:47.957Z",
+      "isError": false,
+      "contentBytes": 2605,
+      "emittedCallToResultMs": 41.0
+    },
+    {
+      "id": "toolu_01KTqrfsE1YGaFgybcgpWfXB",
+      "name": "Bash",
+      "description": "Inspect retry test for writes to the fixture",
+      "emittedUtc": "2026-11-03T22:49:51.649Z",
+      "resultUtc": "2026-11-03T22:49:51.672Z",
+      "isError": false,
+      "contentBytes": 3281,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01CaAcV35FJkZyv1qkUsZDN6",
+      "name": "Bash",
+      "description": "Launch retry/budget lane with declared fixture",
+      "emittedUtc": "2026-11-03T22:49:56.928Z",
+      "resultUtc": "2026-11-03T22:49:56.957Z",
+      "isError": false,
+      "contentBytes": 119,
+      "emittedCallToResultMs": 29.0
+    },
+    {
+      "id": "toolu_01R8bTsebLdXpkKtxvcGMYyR",
+      "name": "Bash",
+      "description": "Find missing/out-of-scope handling in consumers",
+      "emittedUtc": "2026-11-03T22:50:00.674Z",
+      "resultUtc": "2026-11-03T22:50:00.705Z",
+      "isError": false,
+      "contentBytes": 9292,
+      "emittedCallToResultMs": 31.0
+    },
+    {
+      "id": "toolu_01XcNhtAMuy1J2sYTXrw1L98",
+      "name": "Bash",
+      "description": "Inspect invocation_execution_truth Run joins",
+      "emittedUtc": "2026-11-03T22:50:05.229Z",
+      "resultUtc": "2026-11-03T22:50:05.278Z",
+      "isError": false,
+      "contentBytes": 3334,
+      "emittedCallToResultMs": 49.0
+    },
+    {
+      "id": "toolu_01YLFsWmTcUj9WYDnrJA4VEz",
+      "name": "Bash",
+      "description": "Read projectExactRunInvocationFactsAtPrefix",
+      "emittedUtc": "2026-11-03T22:50:07.114Z",
+      "resultUtc": "2026-11-03T22:50:07.131Z",
+      "isError": false,
+      "contentBytes": 3323,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_01LxrdZEgHSAhhHGy56wtLaB",
+      "name": "Bash",
+      "description": "Check affected-owner lane coverage and r5 pair test",
+      "emittedUtc": "2026-11-03T22:50:14.784Z",
+      "resultUtc": "2026-11-03T22:50:14.806Z",
+      "isError": false,
+      "contentBytes": 1617,
+      "emittedCallToResultMs": 22.0
+    },
+    {
+      "id": "toolu_01RLiowBeHV9gKpUmGrEK7dv",
+      "name": "Bash",
+      "description": "Read run binding check and prefix helpers",
+      "emittedUtc": "2026-11-03T22:50:22.959Z",
+      "resultUtc": "2026-11-03T22:50:22.981Z",
+      "isError": false,
+      "contentBytes": 3464,
+      "emittedCallToResultMs": 22.0
+    },
+    {
+      "id": "toolu_01Bjew3Us19Wq4Hp7vBTsRVK",
+      "name": "Bash",
+      "description": "Read validation extension and fork test setup",
+      "emittedUtc": "2026-11-03T22:50:31.193Z",
+      "resultUtc": "2026-11-03T22:50:31.216Z",
+      "isError": false,
+      "contentBytes": 9493,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01SEVdymYs1UDmkGKkiRQ5hy",
+      "name": "Bash",
+      "description": "Find the retained log path used by tests",
+      "emittedUtc": "2026-11-03T22:50:45.908Z",
+      "resultUtc": "2026-11-03T22:50:45.934Z",
+      "isError": false,
+      "contentBytes": 873,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_01Rho2mxnYMpCwfNUFraCWmy",
+      "name": "Bash",
+      "description": "Find consolidationInputs and resource paths",
+      "emittedUtc": "2026-11-03T22:50:48.557Z",
+      "resultUtc": "2026-11-03T22:50:48.578Z",
+      "isError": false,
+      "contentBytes": 579,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_011gaeTM1MuX78bcdk4SUkc2",
+      "name": "Bash",
+      "description": "Locate early run.invoke pairs in retained log (read-only)",
+      "emittedUtc": "2026-11-03T22:50:54.253Z",
+      "resultUtc": "2026-11-03T22:50:54.796Z",
+      "isError": false,
+      "contentBytes": 1295,
+      "emittedCallToResultMs": 543.0
+    },
+    {
+      "id": "toolu_013jny8UNzuPyfdhKqbQjeud",
+      "name": "Bash",
+      "description": "List test file structure and helpers",
+      "emittedUtc": "2026-11-03T22:51:13.039Z",
+      "resultUtc": "2026-11-03T22:51:13.058Z",
+      "isError": false,
+      "contentBytes": 3598,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01FaVbtKJrDYyNthfnhBvRqF",
+      "name": "Read",
+      "description": null,
+      "emittedUtc": "2026-11-03T22:51:15.157Z",
+      "resultUtc": "2026-11-03T22:51:15.166Z",
+      "isError": false,
+      "contentBytes": 5844,
+      "emittedCallToResultMs": 9.0
+    },
+    {
+      "id": "toolu_01VoXQ1CF8aWEPrZfyRoXSfj",
+      "name": "Read",
+      "description": null,
+      "emittedUtc": "2026-11-03T22:51:16.132Z",
+      "resultUtc": "2026-11-03T22:51:16.142Z",
+      "isError": false,
+      "contentBytes": 413,
+      "emittedCallToResultMs": 10.0
+    },
+    {
+      "id": "toolu_01QNyXZrfZuXbgJHbUtkWeEs",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T22:52:01.986Z",
+      "resultUtc": "2026-11-03T22:52:01.995Z",
+      "isError": false,
+      "contentBytes": 195,
+      "emittedCallToResultMs": 9.0
+    },
+    {
+      "id": "toolu_01VHoAh9UC3t6rPW5Vpgm7Pr",
+      "name": "Bash",
+      "description": "Check running lanes",
+      "emittedUtc": "2026-11-03T22:52:06.047Z",
+      "resultUtc": "2026-11-03T22:52:06.080Z",
+      "isError": false,
+      "contentBytes": 1893,
+      "emittedCallToResultMs": 33.0
+    },
+    {
+      "id": "toolu_01H38T8Be2VYph6E27EemjcG",
+      "name": "Bash",
+      "description": "Inspect retry lane failures",
+      "emittedUtc": "2026-11-03T22:52:09.912Z",
+      "resultUtc": "2026-11-03T22:52:09.933Z",
+      "isError": false,
+      "contentBytes": 2101,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_01FpYPouD7qeJRizxYVBKoHA",
+      "name": "Bash",
+      "description": "Read retry failure details",
+      "emittedUtc": "2026-11-03T22:52:11.813Z",
+      "resultUtc": "2026-11-03T22:52:11.831Z",
+      "isError": false,
+      "contentBytes": 4396,
+      "emittedCallToResultMs": 18.0
+    },
+    {
+      "id": "toolu_01TY6AvVF8CygFpmWUBnsbk6",
+      "name": "Bash",
+      "description": "Classify retry failures on f49 baseline build",
+      "emittedUtc": "2026-11-03T22:52:18.323Z",
+      "resultUtc": "2026-11-03T22:52:18.400Z",
+      "isError": false,
+      "contentBytes": 8,
+      "emittedCallToResultMs": 77.0
+    },
+    {
+      "id": "toolu_01N5bqw6thFVBBTr6mTvCcZV",
+      "name": "Bash",
+      "description": "Read baseline retry run output",
+      "emittedUtc": "2026-11-03T22:52:20.716Z",
+      "resultUtc": "2026-11-03T22:52:20.731Z",
+      "isError": false,
+      "contentBytes": 72,
+      "emittedCallToResultMs": 15.0
+    },
+    {
+      "id": "toolu_01A1Ry7u1pSAuX3hNLPLvMGS",
+      "name": "Bash",
+      "description": "Check baseline build contents",
+      "emittedUtc": "2026-11-03T22:52:25.976Z",
+      "resultUtc": "2026-11-03T22:52:26.026Z",
+      "isError": false,
+      "contentBytes": 116,
+      "emittedCallToResultMs": 50.0
+    },
+    {
+      "id": "toolu_01P61s3qVRUH64S1hn3Cs3fd",
+      "name": "Bash",
+      "description": "Run f49 retry test on baseline build",
+      "emittedUtc": "2026-11-03T22:52:30.001Z",
+      "resultUtc": "2026-11-03T22:52:30.656Z",
+      "isError": false,
+      "contentBytes": 565,
+      "emittedCallToResultMs": 655.0
+    },
+    {
+      "id": "toolu_01XWkEAvCHmgLfkLnzaWezvL",
+      "name": "Bash",
+      "description": "Check whole-path-6 status",
+      "emittedUtc": "2026-11-03T22:52:36.695Z",
+      "resultUtc": "2026-11-03T22:52:36.718Z",
+      "isError": false,
+      "contentBytes": 1007,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01H448bkrf9Akfvpfyw4krSU",
+      "name": "Bash",
+      "description": "Census remaining references to retired and retained owners",
+      "emittedUtc": "2026-11-03T22:52:44.232Z",
+      "resultUtc": "2026-11-03T22:52:45.063Z",
+      "isError": false,
+      "contentBytes": 4221,
+      "emittedCallToResultMs": 831.0
+    },
+    {
+      "id": "toolu_01HoiNotVynQ1Ne5X8B9yAXq",
+      "name": "Bash",
+      "description": "Verify replay.ts deletion and remaining raw readers",
+      "emittedUtc": "2026-11-03T22:52:49.230Z",
+      "resultUtc": "2026-11-03T22:52:49.285Z",
+      "isError": false,
+      "contentBytes": 3506,
+      "emittedCallToResultMs": 55.0
+    },
+    {
+      "id": "toolu_01NYv814zEAqVZNbjPQmhtWc",
+      "name": "Bash",
+      "description": "Wait and check whole-path-6 and replay lane",
+      "emittedUtc": "2026-11-03T22:52:53.831Z",
+      "resultUtc": "2026-11-03T22:53:53.865Z",
+      "isError": false,
+      "contentBytes": 111,
+      "emittedCallToResultMs": 60034.0
+    },
+    {
+      "id": "toolu_01NYg1Yoargd6KrAp5SzdFjH",
+      "name": "Bash",
+      "description": "Preserve proof, sync test, run the new discriminator",
+      "emittedUtc": "2026-11-03T22:53:58.650Z",
+      "resultUtc": "2026-11-03T22:53:58.703Z",
+      "isError": false,
+      "contentBytes": 11,
+      "emittedCallToResultMs": 53.0
+    },
+    {
+      "id": "toolu_01B4dRKrGnju3N2FxCeLPsvf",
+      "name": "Bash",
+      "description": "Summarize all proof lanes and their test files",
+      "emittedUtc": "2026-11-03T22:54:04.756Z",
+      "resultUtc": "2026-11-03T22:54:04.883Z",
+      "isError": false,
+      "contentBytes": 636,
+      "emittedCallToResultMs": 127.0
+    },
+    {
+      "id": "toolu_01NMCxKRgscEY4pUHSU2oGMG",
+      "name": "Bash",
+      "description": "List tmp05 scratch contents",
+      "emittedUtc": "2026-11-03T22:54:08.416Z",
+      "resultUtc": "2026-11-03T22:54:08.435Z",
+      "isError": false,
+      "contentBytes": 359,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_014867TWGHRMo4yCFpk1PTh8",
+      "name": "Bash",
+      "description": "Inspect build script and npm logs in scratch",
+      "emittedUtc": "2026-11-03T22:54:11.593Z",
+      "resultUtc": "2026-11-03T22:54:11.624Z",
+      "isError": false,
+      "contentBytes": 2110,
+      "emittedCallToResultMs": 31.0
+    },
+    {
+      "id": "toolu_01LqoGSgLthTHPCgNsS7YHZb",
+      "name": "Bash",
+      "description": "Check npm logs for network use",
+      "emittedUtc": "2026-11-03T22:54:17.517Z",
+      "resultUtc": "2026-11-03T22:54:17.543Z",
+      "isError": true,
+      "contentBytes": 1819,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_01AAy9YQST6wAJHZkNWCAH4T",
+      "name": "Bash",
+      "description": "Check global-pairs-1 result",
+      "emittedUtc": "2026-11-03T22:54:23.172Z",
+      "resultUtc": "2026-11-03T22:54:43.203Z",
+      "isError": false,
+      "contentBytes": 582,
+      "emittedCallToResultMs": 20031.0
+    },
+    {
+      "id": "toolu_01Vr9vGkhR66w4LApv2rpNd7",
+      "name": "Bash",
+      "description": "Review classification diffs in F_H and effectful consumers",
+      "emittedUtc": "2026-11-03T22:54:48.793Z",
+      "resultUtc": "2026-11-03T22:54:48.836Z",
+      "isError": false,
+      "contentBytes": 5469,
+      "emittedCallToResultMs": 43.0
+    },
+    {
+      "id": "toolu_01E2eAUxyAFXuP8gUMftphYJ",
+      "name": "Bash",
+      "description": "Launch whole-path-7 full consolidation run",
+      "emittedUtc": "2026-11-03T22:54:56.143Z",
+      "resultUtc": "2026-11-03T22:54:56.166Z",
+      "isError": false,
+      "contentBytes": 11,
+      "emittedCallToResultMs": 23.0
+    },
+    {
+      "id": "toolu_01VbGJ1HF4HCfBVNi87ayB2j",
+      "name": "Bash",
+      "description": "Compare worktree to w2 proof build inputs",
+      "emittedUtc": "2026-11-03T22:55:01.363Z",
+      "resultUtc": "2026-11-03T22:55:01.562Z",
+      "isError": false,
+      "contentBytes": 173,
+      "emittedCallToResultMs": 199.0
+    },
+    {
+      "id": "toolu_01BaHp2m7V7DHwmiTG1ZQzJ9",
+      "name": "Bash",
+      "description": "Summarize liveness fork/identity changes",
+      "emittedUtc": "2026-11-03T22:55:12.754Z",
+      "resultUtc": "2026-11-03T22:55:12.780Z",
+      "isError": false,
+      "contentBytes": 4213,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_01QqvBifrrRFFBkUNJLtkWVU",
+      "name": "Bash",
+      "description": "Read prior R1-R7 dispositions from native04 return",
+      "emittedUtc": "2026-11-03T22:55:14.279Z",
+      "resultUtc": "2026-11-03T22:55:14.300Z",
+      "isError": false,
+      "contentBytes": 1309,
+      "emittedCallToResultMs": 21.0
+    },
+    {
+      "id": "toolu_01MaZf9TLvf467DFsR8Cj1QD",
+      "name": "Bash",
+      "description": "Read prior R1/C dispositions fully",
+      "emittedUtc": "2026-11-03T22:55:16.440Z",
+      "resultUtc": "2026-11-03T22:55:16.458Z",
+      "isError": false,
+      "contentBytes": 4546,
+      "emittedCallToResultMs": 18.0
+    },
+    {
+      "id": "toolu_01Khm9y4ywAmc27yFHkQXNM6",
+      "name": "Bash",
+      "description": "Check final typecheck and build logs",
+      "emittedUtc": "2026-11-03T22:55:22.702Z",
+      "resultUtc": "2026-11-03T22:55:26.309Z",
+      "isError": false,
+      "contentBytes": 863,
+      "emittedCallToResultMs": 3607.0
+    },
+    {
+      "id": "toolu_011m66uqwBkQksH8Keqj8LZt",
+      "name": "Bash",
+      "description": "Identify exactly which files native05 changed",
+      "emittedUtc": "2026-11-03T22:55:43.313Z",
+      "resultUtc": "2026-11-03T22:55:45.020Z",
+      "isError": false,
+      "contentBytes": 2335,
+      "emittedCallToResultMs": 1707.0
+    },
+    {
+      "id": "toolu_01HNeQz4WQpL5wow1E4QEqoW",
+      "name": "Bash",
+      "description": "Check whole-path-7 and replay lane progress",
+      "emittedUtc": "2026-11-03T22:55:49.181Z",
+      "resultUtc": "2026-11-03T22:56:34.216Z",
+      "isError": false,
+      "contentBytes": 494,
+      "emittedCallToResultMs": 45035.0
+    },
+    {
+      "id": "toolu_01XWx1TupMEaHjvyqHGK3u7Z",
+      "name": "Bash",
+      "description": "Show running test lane command lines",
+      "emittedUtc": "2026-11-03T22:56:36.829Z",
+      "resultUtc": "2026-11-03T22:56:36.888Z",
+      "isError": false,
+      "contentBytes": 814,
+      "emittedCallToResultMs": 59.0
+    },
+    {
+      "id": "toolu_019sk8KNsRrrYnqi9F6EafYT",
+      "name": "Bash",
+      "description": "Find tests using the migrated falsifier workers",
+      "emittedUtc": "2026-11-03T22:56:41.454Z",
+      "resultUtc": "2026-11-03T22:56:41.478Z",
+      "isError": false,
+      "contentBytes": 45,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_012WKREsiQZaiGJEiKWm3737",
+      "name": "Grep",
+      "description": null,
+      "emittedUtc": "2026-11-03T22:56:43.561Z",
+      "resultUtc": "2026-11-03T22:56:43.586Z",
+      "isError": false,
+      "contentBytes": 3901,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_012bWM5TXGqHUidP1eVEP3zb",
+      "name": "Bash",
+      "description": "Inspect sha256 pinning of migrated helpers",
+      "emittedUtc": "2026-11-03T22:56:46.598Z",
+      "resultUtc": "2026-11-03T22:56:46.617Z",
+      "isError": false,
+      "contentBytes": 2719,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01TpzhRzsb8vHReveZ4PjF9t",
+      "name": "Grep",
+      "description": null,
+      "emittedUtc": "2026-11-03T22:56:50.705Z",
+      "resultUtc": "2026-11-03T22:56:50.745Z",
+      "isError": false,
+      "contentBytes": 204,
+      "emittedCallToResultMs": 40.0
+    },
+    {
+      "id": "toolu_01JWhhGFsYaKv61D7vAkpUPS",
+      "name": "Bash",
+      "description": "Check f09 consumer test gating and w2 sync",
+      "emittedUtc": "2026-11-03T22:56:55.283Z",
+      "resultUtc": "2026-11-03T22:56:55.310Z",
+      "isError": false,
+      "contentBytes": 207,
+      "emittedCallToResultMs": 27.0
+    },
+    {
+      "id": "toolu_01UHAgNxcpWvkQ25U1LT1MG7",
+      "name": "Bash",
+      "description": "Check whether f09 tests are selected C2 inputs",
+      "emittedUtc": "2026-11-03T22:56:58.152Z",
+      "resultUtc": "2026-11-03T22:56:58.189Z",
+      "isError": false,
+      "contentBytes": 327,
+      "emittedCallToResultMs": 37.0
+    },
+    {
+      "id": "toolu_01BWK1gQmRgsgjDSPitC8oNR",
+      "name": "Bash",
+      "description": "List f09 test local imports and gates",
+      "emittedUtc": "2026-11-03T22:57:04.591Z",
+      "resultUtc": "2026-11-03T22:57:04.616Z",
+      "isError": false,
+      "contentBytes": 122,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_01Hxyxhhkr36THz3AehffE9L",
+      "name": "Bash",
+      "description": "Copy f09 consumers into w2 and run them",
+      "emittedUtc": "2026-11-03T22:57:09.810Z",
+      "resultUtc": "2026-11-03T22:57:09.839Z",
+      "isError": false,
+      "contentBytes": 304,
+      "emittedCallToResultMs": 29.0
+    },
+    {
+      "id": "toolu_015w8WRMoyam7E1X1XuNZfUa",
+      "name": "Bash",
+      "description": "Probe the retry fixture reopen refusal reason in scratch",
+      "emittedUtc": "2026-11-03T22:57:25.071Z",
+      "resultUtc": "2026-11-03T22:57:25.485Z",
+      "isError": false,
+      "contentBytes": 915,
+      "emittedCallToResultMs": 414.0
+    },
+    {
+      "id": "toolu_01XT7Gy1gHaqEisGdUQRHseW",
+      "name": "Bash",
+      "description": "Locate CCall budget law and existing tests",
+      "emittedUtc": "2026-11-03T22:57:32.717Z",
+      "resultUtc": "2026-11-03T22:57:32.799Z",
+      "isError": false,
+      "contentBytes": 5453,
+      "emittedCallToResultMs": 82.0
+    },
+    {
+      "id": "toolu_01So8dmfDpmmwHvrSwDp1bps",
+      "name": "Bash",
+      "description": "Check the three running lanes",
+      "emittedUtc": "2026-11-03T22:57:40.455Z",
+      "resultUtc": "2026-11-03T22:57:40.489Z",
+      "isError": false,
+      "contentBytes": 2226,
+      "emittedCallToResultMs": 34.0
+    },
+    {
+      "id": "toolu_01LPkq12egRa1G12DGTN56A5",
+      "name": "Bash",
+      "description": "Check retained raw readers and proof case values",
+      "emittedUtc": "2026-11-03T22:57:56.665Z",
+      "resultUtc": "2026-11-03T22:57:56.709Z",
+      "isError": false,
+      "contentBytes": 1043,
+      "emittedCallToResultMs": 44.0
+    },
+    {
+      "id": "toolu_01KaAyEgoo79KYkdPtvCzo5v",
+      "name": "Write",
+      "description": null,
+      "emittedUtc": "2026-11-03T22:59:12.975Z",
+      "resultUtc": "2026-11-03T22:59:12.982Z",
+      "isError": false,
+      "contentBytes": 175,
+      "emittedCallToResultMs": 7.0
+    },
+    {
+      "id": "toolu_01TEP8Gc3PXuxbE5SqA9YF3D",
+      "name": "Bash",
+      "description": "Recover test file lists of earlier lanes",
+      "emittedUtc": "2026-11-03T22:59:17.419Z",
+      "resultUtc": "2026-11-03T22:59:17.507Z",
+      "isError": false,
+      "contentBytes": 1130,
+      "emittedCallToResultMs": 88.0
+    },
+    {
+      "id": "toolu_018kBntkHRD5NZwXUmEQTbo1",
+      "name": "Bash",
+      "description": "Find the C2 affected lane definition",
+      "emittedUtc": "2026-11-03T22:59:22.308Z",
+      "resultUtc": "2026-11-03T22:59:22.346Z",
+      "isError": false,
+      "contentBytes": 310,
+      "emittedCallToResultMs": 38.0
+    },
+    {
+      "id": "toolu_01JgBLNu4K9wD1wigyjwdUj9",
+      "name": "Bash",
+      "description": "Inspect C2 lane definitions and required claims",
+      "emittedUtc": "2026-11-03T22:59:25.040Z",
+      "resultUtc": "2026-11-03T22:59:25.072Z",
+      "isError": false,
+      "contentBytes": 3112,
+      "emittedCallToResultMs": 32.0
+    },
+    {
+      "id": "toolu_01Btjikjs3V1wEv9zxyrr3dn",
+      "name": "Bash",
+      "description": "Check harness config presence and lane files",
+      "emittedUtc": "2026-11-03T22:59:34.666Z",
+      "resultUtc": "2026-11-03T22:59:34.713Z",
+      "isError": false,
+      "contentBytes": 1836,
+      "emittedCallToResultMs": 47.0
+    },
+    {
+      "id": "toolu_01EjJwbVXDREkJ58z8W3aq3z",
+      "name": "Bash",
+      "description": "Launch remaining C2-selected lanes in scratch",
+      "emittedUtc": "2026-11-03T22:59:42.477Z",
+      "resultUtc": "2026-11-03T22:59:42.501Z",
+      "isError": false,
+      "contentBytes": 11,
+      "emittedCallToResultMs": 24.0
+    },
+    {
+      "id": "toolu_01AMJf31T7hpntS6HMoL1haK",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T22:59:48.226Z",
+      "resultUtc": "2026-11-03T22:59:48.232Z",
+      "isError": false,
+      "contentBytes": 185,
+      "emittedCallToResultMs": 6.0
+    },
+    {
+      "id": "toolu_0161bhvr2KBFTwQJ4zuVNYa6",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T22:59:50.711Z",
+      "resultUtc": "2026-11-03T22:59:50.717Z",
+      "isError": false,
+      "contentBytes": 185,
+      "emittedCallToResultMs": 6.0
+    },
+    {
+      "id": "toolu_01HJLqC38vgxMbNEvQtJQFEs",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T22:59:52.448Z",
+      "resultUtc": "2026-11-03T22:59:52.454Z",
+      "isError": false,
+      "contentBytes": 185,
+      "emittedCallToResultMs": 6.0
+    },
+    {
+      "id": "toolu_011jMyZLpYyAMT5UAmJhFQ9j",
+      "name": "Bash",
+      "description": "List adapter lane results and skips",
+      "emittedUtc": "2026-11-03T22:59:55.964Z",
+      "resultUtc": "2026-11-03T22:59:56.039Z",
+      "isError": false,
+      "contentBytes": 2214,
+      "emittedCallToResultMs": 75.0
+    },
+    {
+      "id": "toolu_0158zrV7mcykQktwcbu9w4cF",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:00:09.105Z",
+      "resultUtc": "2026-11-03T23:00:09.110Z",
+      "isError": false,
+      "contentBytes": 185,
+      "emittedCallToResultMs": 5.0
+    },
+    {
+      "id": "toolu_016s61pQWS4NUwP1b6pRpyPs",
+      "name": "Bash",
+      "description": "Poll all running lanes",
+      "emittedUtc": "2026-11-03T23:00:14.955Z",
+      "resultUtc": "2026-11-03T23:00:45.029Z",
+      "isError": false,
+      "contentBytes": 439,
+      "emittedCallToResultMs": 30074.0
+    },
+    {
+      "id": "toolu_017XutGi6maapbDBiSRLadZi",
+      "name": "Bash",
+      "description": "Preserve proof and inspect f09 failure",
+      "emittedUtc": "2026-11-03T23:00:48.395Z",
+      "resultUtc": "2026-11-03T23:00:48.431Z",
+      "isError": false,
+      "contentBytes": 3838,
+      "emittedCallToResultMs": 36.0
+    },
+    {
+      "id": "toolu_018bBkfmfU9rfiC4VaNE8R8J",
+      "name": "Bash",
+      "description": "Inspect runtime-f09-worker migration diff",
+      "emittedUtc": "2026-11-03T23:00:54.056Z",
+      "resultUtc": "2026-11-03T23:00:54.106Z",
+      "isError": false,
+      "contentBytes": 1825,
+      "emittedCallToResultMs": 50.0
+    },
+    {
+      "id": "toolu_01LbebirYRHwhvS3mevvxDxo",
+      "name": "Bash",
+      "description": "Inspect retry transition and prefix digest signatures",
+      "emittedUtc": "2026-11-03T23:00:59.514Z",
+      "resultUtc": "2026-11-03T23:00:59.548Z",
+      "isError": false,
+      "contentBytes": 5176,
+      "emittedCallToResultMs": 34.0
+    },
+    {
+      "id": "toolu_01KQREyCooax1eCdhPmMgaJT",
+      "name": "Bash",
+      "description": "Inspect compiled digest path and owned replay projection",
+      "emittedUtc": "2026-11-03T23:01:05.464Z",
+      "resultUtc": "2026-11-03T23:01:05.490Z",
+      "isError": false,
+      "contentBytes": 2345,
+      "emittedCallToResultMs": 26.0
+    },
+    {
+      "id": "toolu_01X2YNBiENr1S2avRz47VivD",
+      "name": "Bash",
+      "description": "Inspect how the f09 worker imports owners",
+      "emittedUtc": "2026-11-03T23:01:10.917Z",
+      "resultUtc": "2026-11-03T23:01:10.948Z",
+      "isError": false,
+      "contentBytes": 1642,
+      "emittedCallToResultMs": 31.0
+    },
+    {
+      "id": "toolu_016KJrJqbQaGekCxGtCYyxU4",
+      "name": "Bash",
+      "description": "Find retryOwner import and located prefix check",
+      "emittedUtc": "2026-11-03T23:01:13.646Z",
+      "resultUtc": "2026-11-03T23:01:13.675Z",
+      "isError": false,
+      "contentBytes": 933,
+      "emittedCallToResultMs": 29.0
+    },
+    {
+      "id": "toolu_01P9zJtkeGYXGB8XFMg1qKwV",
+      "name": "Bash",
+      "description": "Find abg binding and other installed owner uses",
+      "emittedUtc": "2026-11-03T23:01:22.924Z",
+      "resultUtc": "2026-11-03T23:01:22.952Z",
+      "isError": false,
+      "contentBytes": 1013,
+      "emittedCallToResultMs": 28.0
+    },
+    {
+      "id": "toolu_01DzppQXVmtMCnbhDKumvjbS",
+      "name": "Read",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:01:25.008Z",
+      "resultUtc": "2026-11-03T23:01:25.013Z",
+      "isError": false,
+      "contentBytes": 249,
+      "emittedCallToResultMs": 5.0
+    },
+    {
+      "id": "toolu_01MxbhaTYrQj3L2Q9GKBinfb",
+      "name": "Bash",
+      "description": "Check abg binding at f49 and environment.installedRoot usage",
+      "emittedUtc": "2026-11-03T23:01:26.648Z",
+      "resultUtc": "2026-11-03T23:01:26.685Z",
+      "isError": false,
+      "contentBytes": 574,
+      "emittedCallToResultMs": 37.0
+    },
+    {
+      "id": "toolu_01MQqx85CTtnF8ZJFXQCSG4B",
+      "name": "Read",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:01:28.563Z",
+      "resultUtc": "2026-11-03T23:01:28.568Z",
+      "isError": false,
+      "contentBytes": 1922,
+      "emittedCallToResultMs": 5.0
+    },
+    {
+      "id": "toolu_01Qskf7r1m5KQuAcZXQekANw",
+      "name": "Bash",
+      "description": "See how environment owners are returned to rejectAttempt",
+      "emittedUtc": "2026-11-03T23:01:31.207Z",
+      "resultUtc": "2026-11-03T23:01:31.232Z",
+      "isError": false,
+      "contentBytes": 609,
+      "emittedCallToResultMs": 25.0
+    },
+    {
+      "id": "toolu_01Gdz2NUbxfVmJ31qoLz9b8n",
+      "name": "Read",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:01:34.325Z",
+      "resultUtc": "2026-11-03T23:01:34.330Z",
+      "isError": false,
+      "contentBytes": 1114,
+      "emittedCallToResultMs": 5.0
+    },
+    {
+      "id": "toolu_015B5RSUKfnw9cVQosvNQGt7",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:01:37.287Z",
+      "resultUtc": "2026-11-03T23:01:37.293Z",
+      "isError": false,
+      "contentBytes": 174,
+      "emittedCallToResultMs": 6.0
+    },
+    {
+      "id": "toolu_0166mKYvUFt3A8s6PEv8kpx3",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:01:39.499Z",
+      "resultUtc": "2026-11-03T23:01:39.505Z",
+      "isError": false,
+      "contentBytes": 174,
+      "emittedCallToResultMs": 6.0
+    },
+    {
+      "id": "toolu_01NyweCXrRJxH6aeAUqSWuKk",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:01:41.027Z",
+      "resultUtc": "2026-11-03T23:01:41.036Z",
+      "isError": false,
+      "contentBytes": 174,
+      "emittedCallToResultMs": 9.0
+    },
+    {
+      "id": "toolu_018c11FPoExt3BsnFgChzemn",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:01:42.339Z",
+      "resultUtc": "2026-11-03T23:01:42.345Z",
+      "isError": false,
+      "contentBytes": 174,
+      "emittedCallToResultMs": 6.0
+    },
+    {
+      "id": "toolu_01HK1NxrJeFWTR3VwwJ24v8q",
+      "name": "Bash",
+      "description": "Sync fixed f09 worker and rerun its consumers",
+      "emittedUtc": "2026-11-03T23:01:49.547Z",
+      "resultUtc": "2026-11-03T23:01:49.598Z",
+      "isError": false,
+      "contentBytes": 193,
+      "emittedCallToResultMs": 51.0
+    },
+    {
+      "id": "toolu_01TjpPhWos9LBAxYrZM2RvRH",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:01:56.440Z",
+      "resultUtc": "2026-11-03T23:01:56.444Z",
+      "isError": false,
+      "contentBytes": 185,
+      "emittedCallToResultMs": 4.0
+    },
+    {
+      "id": "toolu_013JuNWP88THHwN46yYr2Fiv",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:01:58.400Z",
+      "resultUtc": "2026-11-03T23:01:58.404Z",
+      "isError": false,
+      "contentBytes": 185,
+      "emittedCallToResultMs": 4.0
+    },
+    {
+      "id": "toolu_01PFZtNZLmkUXb9YzcUtAfae",
+      "name": "Bash",
+      "description": "Poll lanes after the f09 rerun",
+      "emittedUtc": "2026-11-03T23:02:03.154Z",
+      "resultUtc": "2026-11-03T23:03:18.215Z",
+      "isError": false,
+      "contentBytes": 408,
+      "emittedCallToResultMs": 75061.0
+    },
+    {
+      "id": "toolu_01VUoDQ5MaW1VUtfS7HQnt2h",
+      "name": "Bash",
+      "description": "Inspect f09 rerun failure",
+      "emittedUtc": "2026-11-03T23:03:20.246Z",
+      "resultUtc": "2026-11-03T23:03:20.265Z",
+      "isError": false,
+      "contentBytes": 1382,
+      "emittedCallToResultMs": 19.0
+    },
+    {
+      "id": "toolu_01KoV2akLugvkfBNH9JoFHcD",
+      "name": "Read",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:03:26.589Z",
+      "resultUtc": "2026-11-03T23:03:26.595Z",
+      "isError": false,
+      "contentBytes": 3237,
+      "emittedCallToResultMs": 6.0
+    },
+    {
+      "id": "toolu_01AHtUXVbqzDsyyzMCvpQGNT",
+      "name": "Bash",
+      "description": "Locate admitRoute implementation",
+      "emittedUtc": "2026-11-03T23:03:37.114Z",
+      "resultUtc": "2026-11-03T23:03:37.131Z",
+      "isError": false,
+      "contentBytes": 44,
+      "emittedCallToResultMs": 17.0
+    },
+    {
+      "id": "toolu_01MgqxNiKwUfv22JCo1qsdNA",
+      "name": "Grep",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:03:39.187Z",
+      "resultUtc": "2026-11-03T23:03:39.207Z",
+      "isError": false,
+      "contentBytes": 2529,
+      "emittedCallToResultMs": 20.0
+    },
+    {
+      "id": "toolu_01TVrZWCp1b6DL3VM9BNZNVj",
+      "name": "Bash",
+      "description": "Compare admitRoute store reads with f49",
+      "emittedUtc": "2026-11-03T23:03:42.934Z",
+      "resultUtc": "2026-11-03T23:03:42.981Z",
+      "isError": false,
+      "contentBytes": 67,
+      "emittedCallToResultMs": 47.0
+    },
+    {
+      "id": "toolu_01LFGwDHRRHHj424gNiiWoav",
+      "name": "Bash",
+      "description": "Check whether the store-read removal is held native04 work",
+      "emittedUtc": "2026-11-03T23:03:50.526Z",
+      "resultUtc": "2026-11-03T23:03:50.598Z",
+      "isError": true,
+      "contentBytes": 1316,
+      "emittedCallToResultMs": 72.0
+    },
+    {
+      "id": "toolu_015dofcxfZDD2JLN1k422CJM",
+      "name": "Grep",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:03:58.388Z",
+      "resultUtc": "2026-11-03T23:03:58.398Z",
+      "isError": false,
+      "contentBytes": 1169,
+      "emittedCallToResultMs": 10.0
+    },
+    {
+      "id": "toolu_018oJbF7RQNFKTRLqfi3j6zE",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:04:12.547Z",
+      "resultUtc": "2026-11-03T23:04:12.552Z",
+      "isError": false,
+      "contentBytes": 185,
+      "emittedCallToResultMs": 5.0
+    },
+    {
+      "id": "toolu_014XdPPyJdHCdWpMZXKFu2t7",
+      "name": "Edit",
+      "description": null,
+      "emittedUtc": "2026-11-03T23:04:16.180Z",
+      "resultUtc": "2026-11-03T23:04:16.184Z",
+      "isError": false,
+      "contentBytes": 185,
+      "emittedCallToResultMs": 4.0
+    },
+    {
+      "id": "toolu_01Mcrih2exBdGCZf1mBoepjo",
+      "name": "Bash",
+      "description": "Inspect owned prefix selection from store",
+      "emittedUtc": "2026-11-03T23:04:21.101Z",
+      "resultUtc": "2026-11-03T23:04:21.118Z",
+      "isError": false,
+      "contentBytes": 972,
+      "emittedCallToResultMs": 17.0
+    }
+  ],
+  "limits": [
+    "Only tool-call/result metadata and physical byte counts are inspected; no hidden reasoning is used.",
+    "Assistant tool emission is a transport timestamp, not an exact host process-start measurement.",
+    "Intervals include scheduling, execution and result transport; overlap is unioned. Outside intervals cannot be assigned to model, CPU, provider wait or ABG work without further evidence.",
+    "Physical stream/assistant records may repeat content; wire bytes are not unique model context or required work information.",
+    "Current author-feedback tools and failures are separate from actual C2 and Product acceptance."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "sourcePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+  "bytes": 10988328,
+  "sha256": "e0a84d336073fffb59696ebdedf0f5bd9224d4857d8124cd1400646819dfdf66",
+  "integrity": "sha512-x94GJ6eVkYMYl1NcNFVcfTqZ1C9c2PPndjSdF7+5oyEejHBGse/kegi+1rmClzVVrJNmqIQosZsk588tO8m0aQ==",
+  "standing": "Actual proof10 sandbox package retained before fixture cleanup; test custody only, no cut/install or inherited new execution"
+}

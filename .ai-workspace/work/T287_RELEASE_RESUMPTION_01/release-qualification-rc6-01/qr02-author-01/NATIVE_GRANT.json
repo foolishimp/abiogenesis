@@ -1,0 +1,96 @@
+{
+  "kind": "prospective_bounded_native_worker_grant",
+  "status": "DRAFT_NOT_ADMITTED_NO_IMPLEMENTATION",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17 unchanged",
+    "slice": "F11/F15 QR02 truthful surviving contributor attribution through existing external record owners",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "basis": "stdo://releases/v3.0.4/",
+    "outcome": "Make the previously selected finite provenance correspondence increment concrete on the actual post-D5 existing owner interfaces, preserving unknown attribution and shared material.",
+    "authoritySplit": {
+      "source": "Six named owners on a future closed post-D5 source; frozen N2 is preparation routing only. No source editing by this activation.",
+      "tool": "Selected STDO3.0.4 and maintained RC6 operator-client; host capabilities are behaviorally scoped, not OS confinement.",
+      "runtime": "No activation. Actual successor Result/source/review, D5 proof disposition, latest real close/resume/prefix and Root admission remain null."
+    }
+  },
+  "preparationSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr02-author-01/ROOT_PREPARATION_SELECTION.json",
+    "bytes": 4624,
+    "sha256": "2fa0d1f84887332b36af484309678af3121fc8ad6d11027266ca1d8e676f3f09"
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr02-reentry-02/READINESS.json",
+    "bytes": 42699,
+    "sha256": "8bf14e581effd0b2e87851293e1092cdffc2baac6447820f5ddd211e0d926902"
+  },
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "sourceCommit": null,
+  "sourceSubject": null,
+  "sourceResult": null,
+  "sourceReview": null,
+  "d5ProofDisposition": null,
+  "rootAdmissionRef": null,
+  "changeClass": "existing HOW/domain-contract re-entry and realization under unchanged Product WHAT",
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+  ],
+  "optionalNewFixture": "build_tenants/abiogenesis/typescript/test_env/fixtures/qualification-provenance-survival.json",
+  "nativeWriteRoots": [
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/qualification-provenance-survival.json",
+    "qualification-scratch/qr02-author-01/return.json",
+    "qualification-scratch/qr02-author-01/readiness.json",
+    "qualification-scratch/qr02-author-01/progress.json",
+    "qualification-scratch/qr02-author-01/tmp"
+  ],
+  "newFilesExpectedAfterConstruction": [],
+  "optionalNewProductPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/qualification-provenance-survival.json"
+  ],
+  "inheritedNewProductPaths": [],
+  "expectedFutureFiles": [
+    "qualification-scratch/qr02-author-01/return.json",
+    "qualification-scratch/qr02-author-01/readiness.json",
+    "qualification-scratch/qr02-author-01/progress.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/qualification-provenance-survival.json"
+  ],
+  "handoffFiles": [
+    "qualification-scratch/qr02-author-01/return.json",
+    "qualification-scratch/qr02-author-01/readiness.json",
+    "qualification-scratch/qr02-author-01/progress.json"
+  ],
+  "inheritedReadonlyHandoffs": [],
+  "sourceSelectionRef": "qualification-inputs/qr02-author-01/SOURCE_SELECTION.json",
+  "materialSelectionRef": "qualification-inputs/qr02-author-01/MATERIAL_SELECTION.json",
+  "dependencySelection": "qualification-inputs/qr02-author-01/DEPENDENCY_SOURCE_SELECTION.json",
+  "externalTemporaryEffectsProposal": {
+    "providerScratch": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpqr02a",
+    "providerNpmCache": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpqr02a/npm-cache",
+    "providerShellTmpPrefix": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpqr02a/zsh",
+    "testTmpdir": "/private/tmp/abg-qr02a",
+    "testNpmCache": "/private/tmp/abg-qr02a/npm-cache",
+    "testShellTmpPrefix": "/private/tmp/abg-qr02a/zsh",
+    "standing": "Future exact Root admission only; no scratch/staging created in preparation."
+  },
+  "tools": "General host read/edit/shell for the later native task, behaviorally limited; no OS confinement or independence claim. Only ABG dispatches the actual native author.",
+  "prohibitions": [
+    "No Product/requirements, strict family policy, provider route, physical event profile or external paid-eligibility-refusal changes.",
+    "No new store, registry, runtime, history framework or historical native author invention.",
+    "No unrelated source edits, Git writes, installs/network, publication, release claim or automatic retry.",
+    "No direct provider launch, private credential/provider narrative/history reads or further delegation.",
+    "No unrelated predecessor controls/handoffs as semantic context; preserve unrelated worksite bytes.",
+    "No broad historical contributor census; unresolved earlier contributions stay explicit."
+  ],
+  "returnRequirement": "One genuine native return with exact changed paths and test evidence; stop editing. Root freezes the exact source and independently activates max review. No autonomous patch-review loop."
+}

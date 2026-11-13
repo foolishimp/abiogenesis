@@ -1,0 +1,7 @@
+{
+  "kind": "selected_test_static_import_closure",
+  "roots": 5,
+  "filesVisited": 20,
+  "missing": [],
+  "dynamicCase": "Omitted planning dynamic consumer is explicitly selected; other default-library dynamic branches remain unselected."
+}

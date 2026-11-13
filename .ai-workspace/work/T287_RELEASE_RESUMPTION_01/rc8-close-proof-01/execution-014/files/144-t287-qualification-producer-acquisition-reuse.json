@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 20782.302666999865,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "T-287 qualification producer acquisition reuse over the copied producer history and the historical owner",
+      "file": "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_PRODUCER_HISTORY_FIXTURE, ABI5_PRODUCER_CONTEXT_FIXTURE, ABI5_PRODUCER_OWNER_FIXTURE, ABI5_PRODUCER_OWNER_SOURCE_FIXTURE, ABI5_PRODUCER_OWNER_COPY_FIXTURE unset; requires the finite copied producer history, its retained context, the exact historical owner fixtures and their checked owner copy",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/events/144-t287-qualification-producer-acquisition-reuse.jsonl",
+    "bytes": 1161,
+    "sha256": "2686bf5e286fe40cccdc6ce9736c787947625f7689aefb170ecc541f2b9bc55a"
+  },
+  "commandReceipt": "commands/144-t287-qualification-producer-acquisition-reuse.result.json",
+  "workspace": "/private/tmp/abg-r8c-014/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

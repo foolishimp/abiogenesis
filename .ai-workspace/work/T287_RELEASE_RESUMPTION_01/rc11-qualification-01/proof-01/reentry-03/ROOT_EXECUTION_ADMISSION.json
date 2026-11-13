@@ -1,0 +1,43 @@
+{
+  "status": "ROOT_ADMITTED_RC11_PROOF_CONTINUATION",
+  "utc": "2026-11-09T08:55:08.530317+00:00",
+  "bindingSha256": "8488d7c684e99fc7f0bd296d5be23f3bab763cf4e7020ad506c3d3805be71eb5",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/BINDING.json",
+      "bytes": 4993,
+      "sha256": "8488d7c684e99fc7f0bd296d5be23f3bab763cf4e7020ad506c3d3805be71eb5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/COMMANDS.json",
+      "bytes": 1285,
+      "sha256": "e6cf84334be6b46c4867460b46829fb15ab79aa32105ce02b613b0c351ffd7e7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/continuation.py",
+      "bytes": 10756,
+      "sha256": "a0e31ba7c7e418f921c5cdac0344078b2f843a133c06f5d328da6a5d55d548ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/PREFLIGHT.json",
+      "bytes": 1331,
+      "sha256": "f849e4d57f12f89685fe569b04a030c8337eddc08108947e4a8f3ae36e10333c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/ROOT_PASSED_PROOF_ACCEPTANCE.json",
+      "bytes": 1646,
+      "sha256": "e50577076302db84617479a1c536712384c7405534dd24c66458e0073da99bd1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/LIFETIME_DIAGNOSTIC_DECODING.json",
+      "bytes": 61513,
+      "sha256": "c768e75175be972613c17cec076e589e8ee349787b55c2193025006ed5171b68"
+    }
+  ],
+  "commandIds": [
+    "unit",
+    "r6",
+    "f04a"
+  ],
+  "rootDecision": "Root independently verified the actual lifetime TAP: 18 passed, no failure/skip/cancellation, exit 0 and absent group. I decoded all eight primary diagnostics from stdout SHA 12721b5d5a910263c4a0f8a61dcaa6cbd0139a75ca7a3dcb4e1d1fa16f989263 and verified each roundtrip back to its exact raw TAP line. The pinned Node built-in internal/test_runner/reporter/tap applies tapEscape to diagnostic.message: backslashes double and # becomes \\#. JSON.stringify produced single-line JSON without literal control characters, so undo those two escapes once before JSON parsing; re-escaping must equal the original line. All observed publication times are before owner return and setup cutoff; missing-port is explicitly unobserved. Do not rerun lifetime or selected-action. Root accepts their bounded test outcomes, preserving the original parser-failure receipt as a control defect. Physical reviewer will independently assess the exact rows. New Writer activation grants P11/proof-01/reentry-03 controls/receipts and create-once continuation-03 outputs under the same private proof root. Reuse the retained exact source/compiled/dependency inventories. Execute ONLY the three unexecuted commands: nine-file unit population, R6, F04A, with the already-selected explicit TAP flags, unchanged 900 s bounds and environment. No physical diagnostic parser is required for these commands; ordinary TAP framing/count validation stays. No rebuild, restage, source change, native call, or repeat of passed work. Record the reporter triage and a separate derived decoding receipt for the preserved lifetime bytes, without changing prior output or failure status. Conditional admission: execute once after exact retained-state preflight and new control hashes are recorded; stop on any genuinely new failure. Keep this continuation small; no new harness architecture or discovery. Return cumulative actual counts and exact receipts after completion."
+}

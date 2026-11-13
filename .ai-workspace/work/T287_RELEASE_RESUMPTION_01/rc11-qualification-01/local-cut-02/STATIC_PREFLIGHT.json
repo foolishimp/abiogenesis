@@ -1,0 +1,38 @@
+{
+  "status": "PREPARATION_CHECKS_PASSED_EFFECTS_HELD",
+  "pythonSyntax": [
+    "candidate-pack.py",
+    "exact-artifact-correspondence.py"
+  ],
+  "nodeSyntax": {
+    "file": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/run-checkpoint-reproduction.mjs",
+      "bytes": 22779,
+      "sha256": "8e98679164a5fa27ad8289e9a504ea801fc3031d4597bfc9dee3796931c30df7"
+    },
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/run-checkpoint-reproduction.mjs"
+    ],
+    "exitCode": 0
+  },
+  "sourceRows": 1340,
+  "selectedPaths": 14,
+  "newPaths": 6,
+  "deletedPaths": 0,
+  "sourceRootAndFrozenRootBound": true,
+  "mainAndCandidateBasesDistinct": true,
+  "retainedTestedTree": "/private/tmp/abg-rc11-proof-20261109-01/work",
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182855,
+    "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+  },
+  "packOutputAbsent": true,
+  "rootExecutionBindingsUnbound": true,
+  "proofPending": [
+    "f04a"
+  ],
+  "standing": "Control/static checks only; no Product tests, build, pack, Git effect or installation."
+}

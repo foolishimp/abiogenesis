@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 353.1209169999929,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "direct-symbol reuse conserves complete closure output and ownership refusals",
+      "file": "test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_DECLARATION_BASELINE_MODULE or ABI5_DECLARATION_PROOF_ROOT unset; requires exact frozen baseline module and proof-local output root",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/events/068-t287-declaration-closure-symbol-reuse.jsonl",
+    "bytes": 952,
+    "sha256": "31dadc10d4ee86df2b35da0d3ff623b3fcecdf38d59a43d19595531e8ad03f36"
+  },
+  "commandReceipt": "commands/068-t287-declaration-closure-symbol-reuse.result.json",
+  "workspace": "/private/tmp/abg-r8c-006/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

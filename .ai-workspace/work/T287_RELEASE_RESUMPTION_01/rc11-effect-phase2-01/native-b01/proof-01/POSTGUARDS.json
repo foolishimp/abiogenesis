@@ -1,0 +1,64 @@
+{
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "frozenLiveStageRowsExact": 1345,
+  "compiledRows": 998,
+  "compiledInventory": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 183894,
+    "sha256": "46693cab5a5a0aa954a339f62b0d4a4dd7cfea38f45e968c924a93a92e43c6c8"
+  },
+  "retainedGeneratedDeltaExact": true,
+  "dependencyFileLinkAndDirectoryHiddenLockMetadataExact": true,
+  "npmExact": true,
+  "allProtectionPinsAndHeadsExact": true,
+  "archive": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11052094,
+    "sha256": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8"
+  },
+  "archiveMembers": 5329,
+  "bootstrapMemberEqualityAfter": true,
+  "actualProductManifest": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3275542,
+    "sha256": "0a39a5ad916a98a7943a0b3720e8b46e8d2d288050f502ad558cb635aad74f79"
+  },
+  "originGate": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/build/EFFECT_MODULE_ORIGINS.json",
+    "bytes": 15565,
+    "sha256": "745e0815c28171da5580430a32c2fc71295378e0960e383f9d3e8c211cf875d2"
+  },
+  "commandGroupsAbsent": true,
+  "driverAndUnitPids": [
+    {
+      "pid": 69979,
+      "present": false
+    },
+    {
+      "pid": 70047,
+      "present": false
+    },
+    {
+      "pid": 71834,
+      "present": false
+    },
+    {
+      "pid": 71846,
+      "present": false
+    }
+  ],
+  "currentlyVisibleScopedProcesses": [],
+  "unitPartial": {
+    "complete": false,
+    "resultLines": 61,
+    "passedLines": 61,
+    "failedLines": 0,
+    "summaryCounts": {},
+    "standing": "Operator-interrupted partial unit; no full-unit or M5 subset pass claim."
+  },
+  "C2TagMismatch": {
+    "actualTagged": "sha256:7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+    "controlExpectedRaw": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+    "payloadDigestEqualAfterExplicitTagRelation": true
+  }
+}

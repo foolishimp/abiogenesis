@@ -1,0 +1,251 @@
+{
+  "kind": "rc4_hc1_independent_review_probe_receipt",
+  "status": "BOUNDED_CODE_GAP_AND_PROOF_REPAIRS_REQUIRED_NO_ACCEPTANCE",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/SUBJECT.json",
+    "sha256": "b0fa68e5e06a0d228f564b90bf5952141a1fc1e9a509a29fc4dee0f13a55024d"
+  },
+  "c2Custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/C2_CUSTODY.json",
+    "sha256": "f74d444c6a4e4984c120b4982f7d4338926b8902fc456e5a5455657858912751"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/worksite-command-execution/c54ee942d3352989a5b8cc6c8d43f3694bde6150762622ed3cb962919d0035d4/5e983cee43acb2b8aeecfe2fc3ff9752816d43e79bbdb35243870f9a4f848840/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10960912,
+    "sha256": "2296fb98614bc00ca04645a427f5cb85083c282a9e0b9247072697a00481895d"
+  },
+  "compiler": {
+    "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/compiler/node_modules/typescript/bin/tsc",
+    "packageVersion": "5.9.2",
+    "librarySha256": "a040f97c9d0223f64c8ebc380c5e48eb7945f1142f7c1dc9c3ec4acdb6c1c613"
+  },
+  "commands": [
+    {
+      "name": "strict-packed",
+      "command": [
+        "/opt/homebrew/bin/node",
+        "/private/tmp/rc4-015-independent-review-eou4p8fp/compiler/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false",
+        "-p",
+        "tsconfig.strict.json"
+      ],
+      "cwd": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer",
+      "exitStatus": 0,
+      "durationMs": 4255,
+      "log": "/private/tmp/rc4-015-independent-review-eou4p8fp/strict-packed.log"
+    },
+    {
+      "name": "union-control",
+      "command": [
+        "/opt/homebrew/bin/node",
+        "/private/tmp/rc4-015-independent-review-eou4p8fp/compiler/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false",
+        "-p",
+        "tsconfig.union.json"
+      ],
+      "cwd": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer",
+      "exitStatus": 2,
+      "durationMs": 3424,
+      "log": "/private/tmp/rc4-015-independent-review-eou4p8fp/union-control.log"
+    },
+    {
+      "name": "existing-schema-comparison-with-corrected-input",
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^per-slot owner schemas equal the exact014 baseline archive$",
+        "test_env/tests/t287-framework-handoff-types.test.mjs"
+      ],
+      "environmentOverrides": {
+        "TMPDIR": "/private/tmp/rc4-015-independent-review-eou4p8fp/tmp",
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "npm_config_cache": "/private/tmp/rc4-015-independent-review-eou4p8fp/npm-cache",
+        "ABG_FRAMEWORK_HANDOFF_TENANT_ROOT": "/private/tmp/rc4-015-independent-review-eou4p8fp/harness",
+        "ABG_FRAMEWORK_HANDOFF_PACKAGE_ROOT": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "ABG_HC1_BASELINE_ARCHIVE": "/private/tmp/rc4-015-independent-review-eou4p8fp/baseline-014.tgz"
+      },
+      "cwd": "/private/tmp/rc4-015-independent-review-eou4p8fp/harness",
+      "baselineSource": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc4-hc1-baseline-014/b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db.tgz",
+      "baselineSha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db",
+      "exitStatus": 0,
+      "durationMs": 1610,
+      "log": "/private/tmp/rc4-015-independent-review-eou4p8fp/schema-comparison.log",
+      "limit": "Independent corrected-input probe only; original C2 remains exit1."
+    }
+  ],
+  "findings": [
+    {
+      "id": "HC1-MIXED-UNION",
+      "owner": "code/src/public/installed_definition_call_transport.ts:75-85",
+      "observed": "Single forgedStart is rejected TS2345; valid start|verify union is accepted; mixed start|forgedStart union is also accepted. All use actual packed canonical exports without any or casts.",
+      "consequence": "Selected typed transport admits a statically invalid alternative in a union; runtime ingress remains unchanged and can refuse it.",
+      "minimalRepair": "Candidate check must reject when any known typed alternative has crossed request/resources, while preserving valid unions and genuinely raw unknown input; add finite compiler negative beside the existing forgedStart check."
+    },
+    {
+      "id": "HC1-BASELINE-ENV",
+      "owner": "test_env/tests/t287-framework-handoff-types.test.mjs:258",
+      "observed": "Original C2 supplies ABI5_HC1_BASELINE_PACKAGE_PATH, harness reads ABG_HC1_BASELINE_ARCHIVE. Original6-case lane5pass1fail exit1. Corrected-input existing one-case independent probe passes1/1; all224 slot schemas/contracts equal baseline and familyDigestEqual true.",
+      "minimalRepair": "Consume the selected admitted baseline variable in the existing harness; retain exact SHA check."
+    },
+    {
+      "id": "HC1-LIBCHECK",
+      "owner": "test_env/tsconfig.framework-handoff.json:13",
+      "observed": "skipLibCheck:true suppresses library diagnostics contrary to HC1 proof plan. Independent actual packed proof with false exits0 and no diagnostics.",
+      "minimalRepair": "Set skipLibCheck false in existing proof configuration and carry normal C2 proof."
+    },
+    {
+      "id": "HC1-UNAVAILABLE-COVERAGE",
+      "owner": "test_env/tests/t287-framework-handoff-types.test.mjs:197-254",
+      "observed": "Runtime census checks all9 absent binding leaves but only attest is sent through the raw transport; remaining8 causes unexecuted. Runtime selection/refusal ordering unchanged by static diff.",
+      "minimalRepair": "Extend existing finite unavailable-case proof to all9; no new policy or schema family."
+    }
+  ],
+  "verified": {
+    "originalC2": [
+      {
+        "ordinal": 0,
+        "commandId": "command://abiogenesis/rc4/attempt015/source-correspondence",
+        "exitStatus": 0,
+        "timedOut": false,
+        "counts": {}
+      },
+      {
+        "ordinal": 1,
+        "commandId": "command://abiogenesis/rc4/attempt015/offline-toolchain",
+        "exitStatus": 0,
+        "timedOut": false,
+        "counts": {}
+      },
+      {
+        "ordinal": 2,
+        "commandId": "command://abiogenesis/rc4/attempt015/contract-seeds",
+        "exitStatus": 0,
+        "timedOut": false,
+        "counts": {}
+      },
+      {
+        "ordinal": 3,
+        "commandId": "command://abiogenesis/rc4/attempt015/build",
+        "exitStatus": 0,
+        "timedOut": false,
+        "counts": {}
+      },
+      {
+        "ordinal": 4,
+        "commandId": "command://abiogenesis/rc4/attempt015/package",
+        "exitStatus": 0,
+        "timedOut": false,
+        "counts": {}
+      },
+      {
+        "ordinal": 5,
+        "commandId": "command://abiogenesis/rc4/attempt015/type-proof",
+        "exitStatus": 1,
+        "timedOut": false,
+        "counts": {
+          "tests": 6,
+          "pass": 5,
+          "fail": 1,
+          "cancelled": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "ordinal": 6,
+        "commandId": "command://abiogenesis/rc4/attempt015/affected-owner",
+        "exitStatus": 0,
+        "timedOut": false,
+        "counts": {
+          "tests": 47,
+          "pass": 46,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 1
+        }
+      },
+      {
+        "ordinal": 7,
+        "commandId": "command://abiogenesis/rc4/attempt015/artifact",
+        "exitStatus": 0,
+        "timedOut": false,
+        "counts": {
+          "tests": 1,
+          "pass": 1,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        }
+      }
+    ],
+    "sourceHashesUnchanged": 13,
+    "originalAndCopiedArchiveUnchanged": true,
+    "baselineSha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db",
+    "strictPackedCompileNoDiagnostics": true,
+    "schemaComparisonSlots": 224,
+    "familyDigestEqual": true
+  },
+  "evidenceFiles": [
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/MANIFEST.json",
+      "bytes": 2833,
+      "sha256": "df3df0608d27d8c6660de3be1197733405b1aa48cbf3b7f818776f9a7741b718"
+    },
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/compiler-results.json",
+      "bytes": 976,
+      "sha256": "1e21319f2085532dbd0735b1718676da445594325875de0aaa7c293795bc5ea1"
+    },
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/schema-comparison-results.json",
+      "bytes": 1459,
+      "sha256": "069b5cf30133593e42167e677ad916de55c54eb8adcef05305d25288ddf0891d"
+    },
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/strict-packed.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/union-control.log",
+      "bytes": 294,
+      "sha256": "e02ca6f44c80a96afd25c5ed6f4ceed5fb32cc9412d30cb83ba5a4d6c4a5269c"
+    },
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/schema-comparison.log",
+      "bytes": 359,
+      "sha256": "1d1276c19609774be0e68a190e1ff1c3c9dc840e8045d0021e1837cf880fc2bb"
+    },
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/union-control.ts",
+      "bytes": 1748,
+      "sha256": "3f2f1ed50e8d45ed099ae60ade58ddbcb7cbc1c123a34b075959d43841af22e3"
+    },
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/tsconfig.strict.json",
+      "bytes": 624,
+      "sha256": "7c1f087bd4cff80a600783b77c15ba87b649d7629c16144dbfc3d7440d5467dd"
+    },
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/tsconfig.union.json",
+      "bytes": 612,
+      "sha256": "4c6c950769f0a91243063279ea02043107afbf0692adb8641157366dc822f8d5"
+    },
+    {
+      "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/framework-handoff.compile.ts",
+      "bytes": 20380,
+      "sha256": "dbe62f2acd7b750bc0fc2cd19360e586d4a67dc81470f83b558e016ad0280c82"
+    }
+  ],
+  "limits": [
+    "No repository, Git, native runtime or provider mutation; no repair.",
+    "No broad suite rerun. Compiler controls and one existing selected schema case only.",
+    "Independent corrected-input/schema and strict probes do not change original C2 failure or earn UAT/acceptance.",
+    "HC2 caller population/retirement, missing8 unavailable runtime checks, actual future repaired candidate proof and real-provider005 remain open."
+  ]
+}

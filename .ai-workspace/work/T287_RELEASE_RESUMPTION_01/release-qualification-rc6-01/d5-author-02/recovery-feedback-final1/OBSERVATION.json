@@ -1,0 +1,54 @@
+{
+  "kind": "retained_current_projection_recovery_author_feedback",
+  "at": "2026-11-06T01:00:17.745041+00:00",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final1-stage.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-feedback-final1/d5b-final1-stage.json",
+      "bytes": 78911,
+      "sha256": "0bb81112802a0b6366f39e2c8dabd494ef0acd1bf728f2ac3cc0f7cace968de6"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final1-lanes-recovery/summary-recovery.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-feedback-final1/summary-recovery.json",
+      "bytes": 754,
+      "sha256": "52d855380f7988a817d8332ddcd8c1eca187611607e74802c6b7345026b03693"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final1-lanes-recovery/recovery.stdout.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-feedback-final1/recovery.stdout.tap",
+      "bytes": 6780,
+      "sha256": "60401fe5225ee6d8d25418b30d262f9b6fbe04410b7b0f61e16c22bea36a7092"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final1-lanes-recovery/recovery.stderr.log",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-feedback-final1/recovery.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "summary": [
+    {
+      "id": "recovery",
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final1/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 109911,
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "minimumTests": 1,
+      "failing": [],
+      "stdoutSha256": "60401fe5225ee6d8d25418b30d262f9b6fbe04410b7b0f61e16c22bea36a7092",
+      "stdoutBytes": 6780,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "diagnosticRecords": [],
+  "standing": "Author feedback from a staged build; final source correspondence, native return, independent frozen review and actual C2/UAT remain pending."
+}

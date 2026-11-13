@@ -1,0 +1,55 @@
+--- author-10/TASK.json
++++ author-11/TASK.json
+@@ -3,9 +3,9 @@
+   "maxContextBytes": 25165824,
+   "maxPromptBytes": 1048576,
+   "checks": [],
+-  "id": "T287-RC8-AUTHOR10-OWNED-LIFETIME-FIXTURE",
++  "id": "T287-RC8-AUTHOR11-O1-COMPONENT-PREMISE",
+   "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+-  "outcome": "Repair the missing prepared-archive premise in controlled worker handback and retain owner/readiness diagnostics before physical lifetime assertions; preserve every assertion and current deadline in one whole18-case file.",
++  "outcome": "Repair only the selected O1 materialization binding component premise and prove its complete existing positive-admission/invalid-body-refusal assertions through one exact name-filtered case.",
+   "readRoots": [
+     "AGENTS.md",
+     "CLAUDE.md",
+@@ -13,7 +13,7 @@
+     "specification/PRODUCT.md",
+     "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+     "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+-    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
++    "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+     "build_tenants/abiogenesis/typescript/test_env/support",
+     "build_tenants/abiogenesis/typescript/test_env/fixtures",
+     "build_tenants/abiogenesis/typescript/code/src"
+@@ -25,20 +25,20 @@
+     "specification/PRODUCT.md",
+     "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+     "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+-    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+-    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts"
++    "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
++    "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts"
+   ],
+   "writeRoots": [
+-    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+-    "qualification-scratch/rc8-reference-preservation-01/author-10"
++    "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
++    "qualification-scratch/rc8-reference-preservation-01/author-11"
+   ],
+   "instructions": [
+-    "Use installed STDO3.0.4 stdo-work/coordinated handoff, unchanged fixed15families/GOAL035/T287/project frame/empty composition. One Claude Opus5.5 xhigh task after Root admits this held call; no second provider/reviewer/delegation.",
+-    "Read the two exact adopted review capsules by reference: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-handback-013/REVIEW.json SHAa19c188666aa1b34043d621f96ab0dfedc2b9ee6dd4fb17818ad62836f760f9f and /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-http-013/REVIEW.json SHAd104515cea3dca505c1716e0c6bd382753f4856e9e9ea171ddbd146686526b9d plus adjacent READMEs. Prior A9 complete custody is /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/OPERATOR_RETURN.json; bounded acceptance /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/ROOT_SOURCE_ACCEPTANCE.json. Preimage is exact d521558b/1339rows with cumulative A9 READY. Genuine A9 close162240361/a59c87de and fresh typed parity are complete. Cumulative A8 SAS remains separately pending; failed A8 Run is not relabeled. External governance/reviews/handoffs and needed code/src transitive imports are read-only authorized; follow actual imports, do not bulk-copy log/catalog/graph.",
+-    "Edit ONLY build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs plus own qualification-scratch/rc8-reference-preservation-01/author-10. Test6 private runProcess opens stdout r+ before spawning/installing guards. Replace the missing /controlled/no-output fixture premise with real temporary precreated empty stdout/stderr files through existing fs/setup/cleanup. Preserve controlled child/clock and every one of12 error/order/scope/observer combinations, original exact canonical completion facts and later finalizationError assertions. runProcess resolves facts; do not change the oracle to reject EPIPE, fake finalization, suppress rejected promises or bypass owner guards.",
+-    "For physical test15 retain all five modes, and for test16 all three owner legs (worker, command, HTTP). Emit existing result/error/status/timeout/stdout/stderr/processFacts and bounded existing readiness/PID observations BEFORE assertions can erase them or cleanup discards their evidence. Preserve every response/group/capture/cleanup/negative assertion and original skip condition. Use existing result/lifetime carriers and test diagnostics; no new runtime/helper/API/harness. Keep every current physical timeout and grace unchanged. This is a diagnostic discriminator; no supported claim that host load or deadline caused the prior red. If actual red persists, preserve decisive observations and return it without repair in this frozen turn.",
+-    "After the bounded edit run /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof.mjs freeze ONCE. The recipe retains cumulative A9 READY overlays and exact compiled/dependency/config/archive bytes, applying only this test file. Zero builds/generation. Publish FREEZE_NOTICE immediately under qualification-scratch/rc8-reference-preservation-01/author-10; no source edits after freeze. Root reviews the immutable diff alongside proof.",
+-    "Run exactly /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof.mjs test lifetime once, whole file. Eighteen cases, expected18passes/0skips on this Darwin host; preserve existing platform skips unchanged. One command600000ms/16MiBoutput/8GiBheap,4GiBowned/reserve. Native1800000ms absolute/300000ms inactivity/inherited grace includes authoring and proof. Stop first red/refusal/incomplete/resource/input mismatch or larger necessary scope; keep evidence and return, no repair/retry/timeout extension.",
+-    "Write concise intake, immediate freeze notice and HANDOFF under qualification-scratch/rc8-reference-preservation-01/author-10. Report exact source delta, actual whole-file counts and all retained diagnostic observations, with component-premise limits. Preserve broad013 partial15passes/3reds and every earlier failure. Broad014 immutable A6 verification and full SAS frozen A8 proof are separate; do not rerun them. No network/npm install, source writes outside grant, Git/cut/push/global selector/disk cleanup. Root alone accepts source."
++    "Execute only this bounded A11 fixture correction under unchanged STDO3.0.4, fixed15families, GOAL035/T287 and the project frame. Root admitted source scope and one maintained-owner preparation; native execution occurs only after the held host receives its separate exact Root admission. One Claude Opus5.5 xhigh coding Worker; no delegation or additional provider calls.",
++    "Preimage is accepted A10 source6c8d900c/1339rows and cumulative A10 READY, with genuine closed177717936B/de44153a runtime. Read the closed causal conclusion at /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/required-operation-016/README.md and REVIEW.json by reference, plus /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/OPERATOR_RETURN.json and /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SCOPE.json. Preserve A10 residuals and broad016 failure/nine partial successes; do not restamp them or reconstruct runtime truth.",
++    "In build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs, change ONLY the final O1 callback-local artifact-truth override key near line491 from projectExactPrefixArtifactTruth to projectOwnedPrefixArtifactTruth. Keep its result stub, every assertion, all other cases and all Product/HOW/API/helper/guard/receipt bytes unchanged. The complete affected cone contains this one obsolete override. Do not fabricate full-store completion: the positive oracle checks artifact ingress/body, not Effect success; the invalid-body negative must execute and retain its exact stage/code.",
++    "Needed code/src transitive owner imports and existing test/support/fixtures are authorized read-only. Start with the target test and product/materialization_definition_bindings.ts at the actual owner call; follow only relevant imports. Selected governance/review/handoff routes are read-only references. Do not bulk copy owner trees, prior Catalog/lock/graph, or runtime histories into context.",
++    "Freeze once with /opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs freeze. Publish FREEZE_NOTICE immediately in qualification-scratch/rc8-reference-preservation-01/author-11 so independent review overlaps proof. Reuse cumulative A10READY compiled/dependency/config/archive inputs; zero builds/generation/repack and no source edits after freeze.",
++    "Run exactly /opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs test materialization-o1 once. The existing positive exact-name filter selects one final O1 test, expected1pass0reportedskip. Three other top-level tests/nine previously reported cases are excluded, not skipped or rerun. Do not claim whole-file qualification. Preserve complete command/reporter/outcome bytes and stop first red/incomplete/input/resource/scope failure without repair/retry/timeout extension.",
++    "Native absolute cap1800000ms and inactivity300000ms; proof600000ms/16MiB/8GiBheap/4GiBreserve and owned growth. Write concise HANDOFF in own progress with exact one-file delta, freeze/result pins and limits. No Git/cut/install/global selector/cleanup/source edits outside the target. Root alone accepts and conjoins unchanged prior cases."
+   ]
+ }

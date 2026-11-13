@@ -1,0 +1,2873 @@
+{
+  "kind": "single_address_space_consolidation_proof",
+  "schemaVersion": "5.0.0",
+  "sourcePreimage": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8/1f076d43d0cda78fa77baaf7f448b10d324467ec46e458078c2bd12f1bfbd848/sandbox/build_tenants/abiogenesis/typescript/",
+  "startedUtc": "2026-11-03T23:34:53.360Z",
+  "cases": {
+    "retainedHistory": {
+      "eventLog": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+        "bytes": 586361364,
+        "sha256Before": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+        "sha256After": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+        "identityUnchanged": true,
+        "appends": 0,
+        "storeAcquisitions": 0
+      },
+      "measuredBaseline": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8/1f076d43d0cda78fa77baaf7f448b10d324467ec46e458078c2bd12f1bfbd848/sandbox/consolidation-inputs/native-05/MEASURED_BASELINE.json",
+        "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06",
+        "runtime": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.4/node_modules/@abiogenesis/typescript-tenant",
+        "contextDigest": "sha256:163d18833183aa7ddc9a7eebc46689b0ec9fa896683a5fa39ee53663fb69b7d1"
+      },
+      "subject": {
+        "ordinal": 23799,
+        "eventRef": "event://abiogenesis/3200aa5c6c89a217bc50388c1cc2b1fb96eaa600dbbc36579bf858ef3f849fee",
+        "cCallRef": "c-call:sha256:91961be974bed3786bb4ccecf4fd9d0d85a8ce52d9532118624834e717e73667",
+        "frameId": "frame://abiogenesis/bb006457fb541cc364bc8baf3fe3365ddf2583e81f0b42b28020266d07474bd8"
+      },
+      "contextDigest": "sha256:163d18833183aa7ddc9a7eebc46689b0ec9fa896683a5fa39ee53663fb69b7d1",
+      "equalContext": true,
+      "measurements": [
+        {
+          "name": "cold_readonly_authentication",
+          "wallMs": 25023.467125,
+          "cpuUserMs": 25392.686,
+          "cpuSystemMs": 454.019,
+          "io": {
+            "readCalls": 8985,
+            "readBytes": 666189062,
+            "watchedReadCalls": 8985,
+            "watchedReadBytes": 666189062
+          },
+          "memoryBefore": {
+            "rss": 298680320,
+            "heapUsed": 39393880,
+            "external": 24923737,
+            "arrayBuffers": 22254491
+          },
+          "memoryAfter": {
+            "rss": 1267335168,
+            "heapUsed": 286588688,
+            "external": 17897822,
+            "arrayBuffers": 15228536
+          },
+          "heapUsedDelta": 247194808,
+          "rssDelta": 968654848,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 0,
+            "decodeEventBody": 25053,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 75443,
+            "canonicalJson": 37667,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 1,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "owned_prefix_and_liveness",
+          "wallMs": 1917.8550830000022,
+          "cpuUserMs": 1735.606,
+          "cpuSystemMs": 209.912,
+          "io": {
+            "readCalls": 11978,
+            "readBytes": 50997937,
+            "watchedReadCalls": 11978,
+            "watchedReadBytes": 50997937
+          },
+          "memoryBefore": {
+            "rss": 1267351552,
+            "heapUsed": 286898344,
+            "external": 17897822,
+            "arrayBuffers": 15228536
+          },
+          "memoryAfter": {
+            "rss": 1293959168,
+            "heapUsed": 366586800,
+            "external": 16103745,
+            "arrayBuffers": 13434459
+          },
+          "heapUsedDelta": 79688456,
+          "rssDelta": 26607616,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 7,
+            "snapshot": 0,
+            "decodeEventBody": 11978,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 2,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 11987,
+            "canonicalJson": 23957,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 1,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 36269
+          }
+        },
+        {
+          "name": "expanded_full_history_prefix",
+          "wallMs": 6923.122125000002,
+          "cpuUserMs": 7264.118,
+          "cpuSystemMs": 447.425,
+          "io": {
+            "readCalls": 11789,
+            "readBytes": 425933033,
+            "watchedReadCalls": 11789,
+            "watchedReadBytes": 425933033
+          },
+          "memoryBefore": {
+            "rss": 1293959168,
+            "heapUsed": 366826584,
+            "external": 16103745,
+            "arrayBuffers": 13434459
+          },
+          "memoryAfter": {
+            "rss": 1607417856,
+            "heapUsed": 866450536,
+            "external": 69345360,
+            "arrayBuffers": 66676074
+          },
+          "heapUsedDelta": 499623952,
+          "rssDelta": 313458688,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 1,
+            "snapshot": 2,
+            "decodeEventBody": 11789,
+            "isImmutableRuntimeValue": 4559844,
+            "selectValidatedRuntimeEventPrefix": 1,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 11895,
+            "canonicalJson": 23578,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "expanded_prefix_liveness",
+          "wallMs": 233.60887499999808,
+          "cpuUserMs": 239.369,
+          "cpuSystemMs": 1.998,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 1607434240,
+            "heapUsed": 866636704,
+            "external": 69345360,
+            "arrayBuffers": 66676074
+          },
+          "memoryAfter": {
+            "rss": 1623490560,
+            "heapUsed": 853881888,
+            "external": 69345360,
+            "arrayBuffers": 66676074
+          },
+          "heapUsedDelta": -12754816,
+          "rssDelta": 16056320,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 3,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 7,
+            "canonicalJson": 1,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 1,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 36269
+          }
+        },
+        {
+          "name": "owned_prefix_and_liveness_repeat",
+          "wallMs": 0.1319999999977881,
+          "cpuUserMs": 0.229,
+          "cpuSystemMs": 0.009,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 1623670784,
+            "heapUsed": 854189488,
+            "external": 69374547,
+            "arrayBuffers": 66676074
+          },
+          "memoryAfter": {
+            "rss": 1623670784,
+            "heapUsed": 854229888,
+            "external": 69374547,
+            "arrayBuffers": 66676074
+          },
+          "heapUsedDelta": 40400,
+          "rssDelta": 0,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 0,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 1,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 0,
+            "canonicalJson": 0,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        }
+      ]
+    },
+    "livenessFork": {
+      "baseEvents": 55,
+      "target": "event://abiogenesis/540765cc912c93600a7e4439311bfa56d9b86d0badbb23a6f1b5a4c1c0fbc363",
+      "decisions": [
+        [
+          "admitted",
+          true
+        ],
+        [
+          "source",
+          false
+        ],
+        [
+          "scope",
+          false
+        ],
+        [
+          "clock",
+          false
+        ],
+        [
+          "elapsed",
+          false
+        ],
+        [
+          "causation",
+          false
+        ],
+        [
+          "admitted again",
+          true
+        ]
+      ],
+      "controls": [
+        "source",
+        "scope",
+        "clock",
+        "elapsed",
+        "causation"
+      ],
+      "work": {
+        "forks": 4,
+        "forkIndexRows": 4,
+        "freshIndexRows": 699,
+        "forkBodyDecodes": 0,
+        "freshBodyDecodes": 0,
+        "constructorCoverage": {
+          "forked": 2,
+          "fresh": 7
+        }
+      },
+      "measurements": [
+        {
+          "name": "fork_candidates",
+          "wallMs": 47.611166999995476,
+          "cpuUserMs": 50.322,
+          "cpuSystemMs": 1.382,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 2565586944,
+            "heapUsed": 1210121496,
+            "external": 665466824,
+            "arrayBuffers": 662768261
+          },
+          "memoryAfter": {
+            "rss": 2580922368,
+            "heapUsed": 1197499448,
+            "external": 665466824,
+            "arrayBuffers": 662768261
+          },
+          "heapUsedDelta": -12622048,
+          "rssDelta": 15335424,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 33,
+            "snapshot": 3,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 473,
+            "selectValidatedRuntimeEventPrefix": 3,
+            "selectOwnedRuntimeEventPrefix": 101,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 272,
+            "canonicalJson": 187,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 2,
+            "forkAt": 4,
+            "abg/calculus/liveness.js#add": 4
+          }
+        },
+        {
+          "name": "fresh_candidates",
+          "wallMs": 402.5459169999958,
+          "cpuUserMs": 391.638,
+          "cpuSystemMs": 48.973,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 2580922368,
+            "heapUsed": 1197793224,
+            "external": 665466824,
+            "arrayBuffers": 662768261
+          },
+          "memoryAfter": {
+            "rss": 2930081792,
+            "heapUsed": 1538724824,
+            "external": 665466824,
+            "arrayBuffers": 662768261
+          },
+          "heapUsedDelta": 340931600,
+          "rssDelta": 349159424,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 221,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 678820,
+            "selectValidatedRuntimeEventPrefix": 9,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 731,
+            "canonicalJson": 431,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 7,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 699
+          }
+        }
+      ]
+    },
+    "publicOperationClassification": {
+      "operations": 6,
+      "constructionUses": 0,
+      "orphanUses": 0,
+      "mixedArmUses": 0,
+      "classes": {
+        "public-operation:abg.operation.run.invoke": 6,
+        "public-operation:abg.operation.interaction.respond": 0,
+        "public-operation:abg.operation.run.continue": 0,
+        "public-operation:abg.operation.project.read": 0,
+        "public-continuation:construction_intent": 0,
+        "public-continuation:selected_action": 0,
+        "public-continuation:pending_execution": 0
+      }
+    },
+    "globalRunInvocationPairs": {
+      "cuts": {
+        "before": 9445,
+        "orphan": 9446,
+        "paired": 9447,
+        "opened": 9450,
+        "full": 25016
+      },
+      "orphanRefusal": [
+        "event://abiogenesis/0a6d5112ab8d384aa8d9dfb189e1308b12a9b991688cbbd80b600ea3173bef77"
+      ],
+      "foreignRun": "run://abiogenesis/9e5d9fd2f8d0647cf8fa9aa56c2fc107fe2b6385cee1261307578b02c7de447e",
+      "missingRun": "run://abiogenesis/absent"
+    },
+    "installedPath": {
+      "installedRoot": "/private/tmp/abg-rc5/abi5-root-env-XmV19w/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "runId": "run://abiogenesis/bb5cdfe1421077784245d8c003fc49406a2dbb9f2cc2a90f612f6c4e4b468d4e",
+      "producerConsumer": [
+        {
+          "cCallRef": "c-call:sha256:0bfdcdad480053a4f2cb22871095f098d2f5889ecfa5a1fd61eb65ae7ac5a741",
+          "valueDigest": "sha256:b1d20b3970aa40974b3fa9a80e14c241cbb1dcdd31c5a3718f9a58a9377e4477"
+        },
+        {
+          "cCallRef": "c-call:sha256:8eab4c3224df12a1e103f24ecae701672334ea69b37511dbdb62febf265a8acd",
+          "valueDigest": "sha256:325c2066a034c53060bce0b358e43cc704e6153b37c3e9c65ae1592fe7c1ced8"
+        }
+      ],
+      "coldReads": [
+        "run_result",
+        "run_replay"
+      ],
+      "initialPrefix": {
+        "coordinateDigest": "sha256:23ed30b80d5f33685e4f1384dcc38086665f1b8769214abad4d829fcff6a1066",
+        "eventLogRef": "file:///private/tmp/abg-rc5/abi5-root-env-XmV19w/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:220e6e29b8b2a8303b5674488ab657c40f12892659fbf955fcc988c9862c49e7",
+        "prefixLength": 3367670,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+          "inode": 695133423
+        }
+      },
+      "finalPrefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///private/tmp/abg-rc5/abi5-root-env-XmV19w/runtime/events.jsonl",
+        "prefixLength": 4143523,
+        "prefixDigest": "sha256:143d2525dfed5ad2596941ec570bf0cc152d173ab3e78a5bf2b53458f61a34e9",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 695133423,
+          "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+        },
+        "coordinateDigest": "sha256:aca61942909aceb610bb378568d7ae436fce49b6b727f128a2013e9668203490"
+      },
+      "eventLogSha256Before": "220e6e29b8b2a8303b5674488ab657c40f12892659fbf955fcc988c9862c49e7",
+      "eventLogSha256After": "143d2525dfed5ad2596941ec570bf0cc152d173ab3e78a5bf2b53458f61a34e9",
+      "unrelatedAppends": 292,
+      "appendedBytes": 3756,
+      "rolledBackAppends": 1,
+      "refusals": [
+        "stale_selection",
+        "stale_coordinate",
+        "copied_selection",
+        "foreign_prefix_select",
+        "foreign_prefix_close",
+        "controlled_rollback",
+        "pre_rollback_history_selection",
+        "stale_handoff_reopen"
+      ],
+      "invocation": {
+        "program": "program://abi5-tests/structural/graph-edge@5",
+        "borrowed": true,
+        "unrelatedSteps": [
+          0,
+          32,
+          256
+        ],
+        "rows": [
+          {
+            "index": 0,
+            "entryEvents": 55,
+            "successorEvents": 103,
+            "runId": "run://abiogenesis/a8b12f9aff6036009bb67c3470222e08fb045b0497844fbcf9fdfa97413115ee",
+            "events": 44,
+            "ownerWork": {
+              "bodyRows": 2913,
+              "bodyDecodes": 61,
+              "scopeRows": 48,
+              "membershipComparisons": 6388,
+              "selectorRows": 96
+            },
+            "refusals": {
+              "stale": {
+                "kind": "installed_definition_call_transport_refusal",
+                "code": "acquisition_mismatch",
+                "exitCode": null
+              },
+              "copied": {
+                "kind": "installed_definition_call_transport_refusal",
+                "code": "acquisition_mismatch",
+                "exitCode": null
+              },
+              "crossed": {
+                "kind": "installed_definition_call_transport_refusal",
+                "code": "acquisition_mismatch",
+                "exitCode": null
+              }
+            },
+            "continuation": {
+              "ownerWork": {
+                "bodyRows": 1,
+                "bodyDecodes": 0,
+                "scopeRows": 0,
+                "membershipComparisons": 0,
+                "selectorRows": 0
+              },
+              "measurement": {
+                "name": "construction_continuation_no_pending_0",
+                "wallMs": 0.2737499999930151,
+                "cpuUserMs": 0.256,
+                "cpuSystemMs": 0.023,
+                "io": {
+                  "readCalls": 0,
+                  "readBytes": 0,
+                  "watchedReadCalls": 0,
+                  "watchedReadBytes": 0
+                },
+                "memoryBefore": {
+                  "rss": 4625793024,
+                  "heapUsed": 2039730632,
+                  "external": 29591762,
+                  "arrayBuffers": 26878286
+                },
+                "memoryAfter": {
+                  "rss": 4625940480,
+                  "heapUsed": 2039943392,
+                  "external": 29591762,
+                  "arrayBuffers": 26878286
+                },
+                "heapUsedDelta": 212760,
+                "rssDelta": 147456,
+                "ownerCalls": {
+                  "readAll": 0,
+                  "materialize": 1,
+                  "snapshot": 0,
+                  "decodeEventBody": 0,
+                  "isImmutableRuntimeValue": 0,
+                  "selectValidatedRuntimeEventPrefix": 0,
+                  "selectOwnedRuntimeEventPrefix": 1,
+                  "validateHistoricalEvents": 0,
+                  "readAuthenticatedRuntimePrefixBytes": 0,
+                  "sha256Canonical": 1,
+                  "canonicalJson": 0,
+                  "acquireAbgEventResource": 0,
+                  "closeAbgEventResource": 0,
+                  "runInstalledDefinitionCallWithResource": 0,
+                  "runInstalledDefinitionCallTransport": 0,
+                  "admitTraversalFrameCursor": 0,
+                  "admitPendingConstructionIntentContinuation": 1,
+                  "rehydrateParentReturnFrames": 0,
+                  "readRuntimeEventsAtDurablePrefix": 0,
+                  "projectRuntimeEventsAtDurablePrefix": 0,
+                  "readHeldRuntimeEventsAtDurablePrefix": 0,
+                  "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                  "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+                  "readOwnedRuntimeHistoryAtDurablePrefix": 1,
+                  "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+                  "RuntimeLivenessReconstruction": 0,
+                  "forkAt": 0,
+                  "abg/calculus/liveness.js#add": 0
+                }
+              }
+            },
+            "replaced": {
+              "ownerWork": {
+                "bodyRows": 103,
+                "bodyDecodes": 0,
+                "scopeRows": 0,
+                "membershipComparisons": 0,
+                "selectorRows": 0
+              },
+              "measurement": {
+                "name": "replaced_continuation_expansion_0",
+                "wallMs": 6.679791999980807,
+                "cpuUserMs": 6.58,
+                "cpuSystemMs": 0.105,
+                "io": {
+                  "readCalls": 0,
+                  "readBytes": 0,
+                  "watchedReadCalls": 0,
+                  "watchedReadBytes": 0
+                },
+                "memoryBefore": {
+                  "rss": 4625940480,
+                  "heapUsed": 2040186280,
+                  "external": 29591762,
+                  "arrayBuffers": 26878286
+                },
+                "memoryAfter": {
+                  "rss": 4627283968,
+                  "heapUsed": 2061102400,
+                  "external": 29591762,
+                  "arrayBuffers": 26878286
+                },
+                "heapUsedDelta": 20916120,
+                "rssDelta": 1343488,
+                "ownerCalls": {
+                  "readAll": 0,
+                  "materialize": 1,
+                  "snapshot": 1,
+                  "decodeEventBody": 0,
+                  "isImmutableRuntimeValue": 72792,
+                  "selectValidatedRuntimeEventPrefix": 1,
+                  "selectOwnedRuntimeEventPrefix": 0,
+                  "validateHistoricalEvents": 0,
+                  "readAuthenticatedRuntimePrefixBytes": 0,
+                  "sha256Canonical": 0,
+                  "canonicalJson": 0,
+                  "acquireAbgEventResource": 0,
+                  "closeAbgEventResource": 0,
+                  "runInstalledDefinitionCallWithResource": 0,
+                  "runInstalledDefinitionCallTransport": 0,
+                  "admitTraversalFrameCursor": 0,
+                  "admitPendingConstructionIntentContinuation": 0,
+                  "rehydrateParentReturnFrames": 0,
+                  "readRuntimeEventsAtDurablePrefix": 1,
+                  "projectRuntimeEventsAtDurablePrefix": 0,
+                  "readHeldRuntimeEventsAtDurablePrefix": 0,
+                  "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                  "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+                  "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+                  "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+                  "RuntimeLivenessReconstruction": 0,
+                  "forkAt": 0,
+                  "abg/calculus/liveness.js#add": 0
+                }
+              }
+            },
+            "construct": {
+              "name": "invocation_construct_0",
+              "wallMs": 627.6449579999899,
+              "cpuUserMs": 619.751,
+              "cpuSystemMs": 8.059,
+              "io": {
+                "readCalls": 0,
+                "readBytes": 0,
+                "watchedReadCalls": 0,
+                "watchedReadBytes": 0
+              },
+              "memoryBefore": {
+                "rss": 4459577344,
+                "heapUsed": 1767019960,
+                "external": 29687339,
+                "arrayBuffers": 26973863
+              },
+              "memoryAfter": {
+                "rss": 4468211712,
+                "heapUsed": 1811369896,
+                "external": 29406487,
+                "arrayBuffers": 26693011
+              },
+              "heapUsedDelta": 44349936,
+              "rssDelta": 8634368,
+              "ownerCalls": {
+                "readAll": 0,
+                "materialize": 0,
+                "snapshot": 0,
+                "decodeEventBody": 0,
+                "isImmutableRuntimeValue": 0,
+                "selectValidatedRuntimeEventPrefix": 0,
+                "selectOwnedRuntimeEventPrefix": 0,
+                "validateHistoricalEvents": 0,
+                "readAuthenticatedRuntimePrefixBytes": 0,
+                "sha256Canonical": 260,
+                "canonicalJson": 5216,
+                "acquireAbgEventResource": 0,
+                "closeAbgEventResource": 0,
+                "runInstalledDefinitionCallWithResource": 0,
+                "runInstalledDefinitionCallTransport": 0,
+                "admitTraversalFrameCursor": 0,
+                "admitPendingConstructionIntentContinuation": 0,
+                "rehydrateParentReturnFrames": 0,
+                "readRuntimeEventsAtDurablePrefix": 0,
+                "projectRuntimeEventsAtDurablePrefix": 0,
+                "readHeldRuntimeEventsAtDurablePrefix": 0,
+                "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+                "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+                "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+                "RuntimeLivenessReconstruction": 0,
+                "forkAt": 0,
+                "abg/calculus/liveness.js#add": 0
+              }
+            },
+            "run": {
+              "name": "invocation_run_0",
+              "wallMs": 3814.269417000003,
+              "cpuUserMs": 3746.157,
+              "cpuSystemMs": 49.797,
+              "io": {
+                "readCalls": 61,
+                "readBytes": 3401098,
+                "watchedReadCalls": 61,
+                "watchedReadBytes": 3401098
+              },
+              "memoryBefore": {
+                "rss": 4468244480,
+                "heapUsed": 1811972600,
+                "external": 29406487,
+                "arrayBuffers": 26693011
+              },
+              "memoryAfter": {
+                "rss": 4624875520,
+                "heapUsed": 2035475608,
+                "external": 29591762,
+                "arrayBuffers": 26878286
+              },
+              "heapUsedDelta": 223503008,
+              "rssDelta": 156631040,
+              "ownerCalls": {
+                "readAll": 0,
+                "materialize": 439,
+                "snapshot": 25,
+                "decodeEventBody": 61,
+                "isImmutableRuntimeValue": 1629,
+                "selectValidatedRuntimeEventPrefix": 30,
+                "selectOwnedRuntimeEventPrefix": 427,
+                "validateHistoricalEvents": 0,
+                "readAuthenticatedRuntimePrefixBytes": 0,
+                "sha256Canonical": 2267,
+                "canonicalJson": 21914,
+                "acquireAbgEventResource": 1,
+                "closeAbgEventResource": 0,
+                "runInstalledDefinitionCallWithResource": 1,
+                "runInstalledDefinitionCallTransport": 0,
+                "admitTraversalFrameCursor": 1,
+                "admitPendingConstructionIntentContinuation": 1,
+                "rehydrateParentReturnFrames": 0,
+                "readRuntimeEventsAtDurablePrefix": 0,
+                "projectRuntimeEventsAtDurablePrefix": 0,
+                "readHeldRuntimeEventsAtDurablePrefix": 0,
+                "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 19,
+                "readOwnedRuntimeHistoryAtDurablePrefix": 4,
+                "projectOwnedRuntimeHistoryAtDurablePrefix": 14,
+                "RuntimeLivenessReconstruction": 25,
+                "forkAt": 24,
+                "abg/calculus/liveness.js#add": 209
+              }
+            }
+          },
+          {
+            "index": 1,
+            "entryEvents": 135,
+            "successorEvents": 183,
+            "runId": "run://abiogenesis/fd664365a3ac35f8ea7504ccf77ffe1042a0ad707ecb84f481b4dc6770167d5d",
+            "events": 44,
+            "ownerWork": {
+              "bodyRows": 2571,
+              "bodyDecodes": 80,
+              "scopeRows": 48,
+              "membershipComparisons": 8042,
+              "selectorRows": 96
+            },
+            "refusals": {
+              "stale": {
+                "kind": "installed_definition_call_transport_refusal",
+                "code": "acquisition_mismatch",
+                "exitCode": null
+              },
+              "copied": {
+                "kind": "installed_definition_call_transport_refusal",
+                "code": "acquisition_mismatch",
+                "exitCode": null
+              },
+              "crossed": {
+                "kind": "installed_definition_call_transport_refusal",
+                "code": "acquisition_mismatch",
+                "exitCode": null
+              }
+            },
+            "continuation": {
+              "ownerWork": {
+                "bodyRows": 1,
+                "bodyDecodes": 0,
+                "scopeRows": 0,
+                "membershipComparisons": 0,
+                "selectorRows": 0
+              },
+              "measurement": {
+                "name": "construction_continuation_no_pending_1",
+                "wallMs": 0.19845799999893643,
+                "cpuUserMs": 0.202,
+                "cpuSystemMs": 0.003,
+                "io": {
+                  "readCalls": 0,
+                  "readBytes": 0,
+                  "watchedReadCalls": 0,
+                  "watchedReadBytes": 0
+                },
+                "memoryBefore": {
+                  "rss": 4310827008,
+                  "heapUsed": 1467050768,
+                  "external": 2988534,
+                  "arrayBuffers": 275058
+                },
+                "memoryAfter": {
+                  "rss": 4310827008,
+                  "heapUsed": 1467126160,
+                  "external": 2988534,
+                  "arrayBuffers": 275058
+                },
+                "heapUsedDelta": 75392,
+                "rssDelta": 0,
+                "ownerCalls": {
+                  "readAll": 0,
+                  "materialize": 1,
+                  "snapshot": 0,
+                  "decodeEventBody": 0,
+                  "isImmutableRuntimeValue": 0,
+                  "selectValidatedRuntimeEventPrefix": 0,
+                  "selectOwnedRuntimeEventPrefix": 1,
+                  "validateHistoricalEvents": 0,
+                  "readAuthenticatedRuntimePrefixBytes": 0,
+                  "sha256Canonical": 1,
+                  "canonicalJson": 0,
+                  "acquireAbgEventResource": 0,
+                  "closeAbgEventResource": 0,
+                  "runInstalledDefinitionCallWithResource": 0,
+                  "runInstalledDefinitionCallTransport": 0,
+                  "admitTraversalFrameCursor": 0,
+                  "admitPendingConstructionIntentContinuation": 1,
+                  "rehydrateParentReturnFrames": 0,
+                  "readRuntimeEventsAtDurablePrefix": 0,
+                  "projectRuntimeEventsAtDurablePrefix": 0,
+                  "readHeldRuntimeEventsAtDurablePrefix": 0,
+                  "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                  "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+                  "readOwnedRuntimeHistoryAtDurablePrefix": 1,
+                  "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+                  "RuntimeLivenessReconstruction": 0,
+                  "forkAt": 0,
+                  "abg/calculus/liveness.js#add": 0
+                }
+              }
+            },
+            "replaced": {
+              "ownerWork": {
+                "bodyRows": 183,
+                "bodyDecodes": 0,
+                "scopeRows": 0,
+                "membershipComparisons": 0,
+                "selectorRows": 0
+              },
+              "measurement": {
+                "name": "replaced_continuation_expansion_1",
+                "wallMs": 8.757707999990089,
+                "cpuUserMs": 9.198,
+                "cpuSystemMs": 0.148,
+                "io": {
+                  "readCalls": 0,
+                  "readBytes": 0,
+                  "watchedReadCalls": 0,
+                  "watchedReadBytes": 0
+                },
+                "memoryBefore": {
+                  "rss": 4310827008,
+                  "heapUsed": 1467376200,
+                  "external": 2988534,
+                  "arrayBuffers": 275058
+                },
+                "memoryAfter": {
+                  "rss": 4310433792,
+                  "heapUsed": 1421341856,
+                  "external": 2988534,
+                  "arrayBuffers": 106574
+                },
+                "heapUsedDelta": -46034344,
+                "rssDelta": -393216,
+                "ownerCalls": {
+                  "readAll": 0,
+                  "materialize": 1,
+                  "snapshot": 1,
+                  "decodeEventBody": 0,
+                  "isImmutableRuntimeValue": 76165,
+                  "selectValidatedRuntimeEventPrefix": 1,
+                  "selectOwnedRuntimeEventPrefix": 0,
+                  "validateHistoricalEvents": 0,
+                  "readAuthenticatedRuntimePrefixBytes": 0,
+                  "sha256Canonical": 0,
+                  "canonicalJson": 0,
+                  "acquireAbgEventResource": 0,
+                  "closeAbgEventResource": 0,
+                  "runInstalledDefinitionCallWithResource": 0,
+                  "runInstalledDefinitionCallTransport": 0,
+                  "admitTraversalFrameCursor": 0,
+                  "admitPendingConstructionIntentContinuation": 0,
+                  "rehydrateParentReturnFrames": 0,
+                  "readRuntimeEventsAtDurablePrefix": 1,
+                  "projectRuntimeEventsAtDurablePrefix": 0,
+                  "readHeldRuntimeEventsAtDurablePrefix": 0,
+                  "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                  "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+                  "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+                  "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+                  "RuntimeLivenessReconstruction": 0,
+                  "forkAt": 0,
+                  "abg/calculus/liveness.js#add": 0
+                }
+              }
+            },
+            "construct": {
+              "name": "invocation_construct_1",
+              "wallMs": 599.2249589999847,
+              "cpuUserMs": 593.668,
+              "cpuSystemMs": 7.106,
+              "io": {
+                "readCalls": 0,
+                "readBytes": 0,
+                "watchedReadCalls": 0,
+                "watchedReadBytes": 0
+              },
+              "memoryBefore": {
+                "rss": 4640931840,
+                "heapUsed": 2044634776,
+                "external": 29480639,
+                "arrayBuffers": 26767163
+              },
+              "memoryAfter": {
+                "rss": 4630708224,
+                "heapUsed": 2066341992,
+                "external": 29423295,
+                "arrayBuffers": 26709819
+              },
+              "heapUsedDelta": 21707216,
+              "rssDelta": -10223616,
+              "ownerCalls": {
+                "readAll": 0,
+                "materialize": 0,
+                "snapshot": 0,
+                "decodeEventBody": 0,
+                "isImmutableRuntimeValue": 0,
+                "selectValidatedRuntimeEventPrefix": 0,
+                "selectOwnedRuntimeEventPrefix": 0,
+                "validateHistoricalEvents": 0,
+                "readAuthenticatedRuntimePrefixBytes": 0,
+                "sha256Canonical": 260,
+                "canonicalJson": 5216,
+                "acquireAbgEventResource": 0,
+                "closeAbgEventResource": 0,
+                "runInstalledDefinitionCallWithResource": 0,
+                "runInstalledDefinitionCallTransport": 0,
+                "admitTraversalFrameCursor": 0,
+                "admitPendingConstructionIntentContinuation": 0,
+                "rehydrateParentReturnFrames": 0,
+                "readRuntimeEventsAtDurablePrefix": 0,
+                "projectRuntimeEventsAtDurablePrefix": 0,
+                "readHeldRuntimeEventsAtDurablePrefix": 0,
+                "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+                "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+                "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+                "RuntimeLivenessReconstruction": 0,
+                "forkAt": 0,
+                "abg/calculus/liveness.js#add": 0
+              }
+            },
+            "run": {
+              "name": "invocation_run_1",
+              "wallMs": 3432.141917000001,
+              "cpuUserMs": 3644.427,
+              "cpuSystemMs": 48.264,
+              "io": {
+                "readCalls": 80,
+                "readBytes": 195712,
+                "watchedReadCalls": 80,
+                "watchedReadBytes": 195712
+              },
+              "memoryBefore": {
+                "rss": 4630708224,
+                "heapUsed": 2066900192,
+                "external": 29423295,
+                "arrayBuffers": 26709819
+              },
+              "memoryAfter": {
+                "rss": 4310384640,
+                "heapUsed": 1462839928,
+                "external": 2988534,
+                "arrayBuffers": 275058
+              },
+              "heapUsedDelta": -604060264,
+              "rssDelta": -320323584,
+              "ownerCalls": {
+                "readAll": 0,
+                "materialize": 435,
+                "snapshot": 24,
+                "decodeEventBody": 80,
+                "isImmutableRuntimeValue": 1627,
+                "selectValidatedRuntimeEventPrefix": 29,
+                "selectOwnedRuntimeEventPrefix": 373,
+                "validateHistoricalEvents": 0,
+                "readAuthenticatedRuntimePrefixBytes": 0,
+                "sha256Canonical": 2083,
+                "canonicalJson": 19197,
+                "acquireAbgEventResource": 1,
+                "closeAbgEventResource": 0,
+                "runInstalledDefinitionCallWithResource": 1,
+                "runInstalledDefinitionCallTransport": 0,
+                "admitTraversalFrameCursor": 1,
+                "admitPendingConstructionIntentContinuation": 1,
+                "rehydrateParentReturnFrames": 0,
+                "readRuntimeEventsAtDurablePrefix": 0,
+                "projectRuntimeEventsAtDurablePrefix": 0,
+                "readHeldRuntimeEventsAtDurablePrefix": 0,
+                "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 19,
+                "readOwnedRuntimeHistoryAtDurablePrefix": 4,
+                "projectOwnedRuntimeHistoryAtDurablePrefix": 14,
+                "RuntimeLivenessReconstruction": 25,
+                "forkAt": 24,
+                "abg/calculus/liveness.js#add": 241
+              }
+            }
+          },
+          {
+            "index": 2,
+            "entryEvents": 439,
+            "successorEvents": 487,
+            "runId": "run://abiogenesis/6edf54f165cc05e3addc81f10749660fc3db15b12cef3d5b69ebe70a36e5744e",
+            "events": 44,
+            "ownerWork": {
+              "bodyRows": 2809,
+              "bodyDecodes": 304,
+              "scopeRows": 48,
+              "membershipComparisons": 9696,
+              "selectorRows": 96
+            },
+            "refusals": {
+              "stale": {
+                "kind": "installed_definition_call_transport_refusal",
+                "code": "acquisition_mismatch",
+                "exitCode": null
+              },
+              "copied": {
+                "kind": "installed_definition_call_transport_refusal",
+                "code": "acquisition_mismatch",
+                "exitCode": null
+              },
+              "crossed": {
+                "kind": "installed_definition_call_transport_refusal",
+                "code": "acquisition_mismatch",
+                "exitCode": null
+              }
+            },
+            "continuation": {
+              "ownerWork": {
+                "bodyRows": 1,
+                "bodyDecodes": 0,
+                "scopeRows": 0,
+                "membershipComparisons": 0,
+                "selectorRows": 0
+              },
+              "measurement": {
+                "name": "construction_continuation_no_pending_2",
+                "wallMs": 0.2034589999821037,
+                "cpuUserMs": 0.207,
+                "cpuSystemMs": 0.002,
+                "io": {
+                  "readCalls": 0,
+                  "readBytes": 0,
+                  "watchedReadCalls": 0,
+                  "watchedReadBytes": 0
+                },
+                "memoryBefore": {
+                  "rss": 4146266112,
+                  "heapUsed": 1505078480,
+                  "external": 2962751,
+                  "arrayBuffers": 249275
+                },
+                "memoryAfter": {
+                  "rss": 4146266112,
+                  "heapUsed": 1505153872,
+                  "external": 2962751,
+                  "arrayBuffers": 249275
+                },
+                "heapUsedDelta": 75392,
+                "rssDelta": 0,
+                "ownerCalls": {
+                  "readAll": 0,
+                  "materialize": 1,
+                  "snapshot": 0,
+                  "decodeEventBody": 0,
+                  "isImmutableRuntimeValue": 0,
+                  "selectValidatedRuntimeEventPrefix": 0,
+                  "selectOwnedRuntimeEventPrefix": 1,
+                  "validateHistoricalEvents": 0,
+                  "readAuthenticatedRuntimePrefixBytes": 0,
+                  "sha256Canonical": 1,
+                  "canonicalJson": 0,
+                  "acquireAbgEventResource": 0,
+                  "closeAbgEventResource": 0,
+                  "runInstalledDefinitionCallWithResource": 0,
+                  "runInstalledDefinitionCallTransport": 0,
+                  "admitTraversalFrameCursor": 0,
+                  "admitPendingConstructionIntentContinuation": 1,
+                  "rehydrateParentReturnFrames": 0,
+                  "readRuntimeEventsAtDurablePrefix": 0,
+                  "projectRuntimeEventsAtDurablePrefix": 0,
+                  "readHeldRuntimeEventsAtDurablePrefix": 0,
+                  "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                  "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+                  "readOwnedRuntimeHistoryAtDurablePrefix": 1,
+                  "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+                  "RuntimeLivenessReconstruction": 0,
+                  "forkAt": 0,
+                  "abg/calculus/liveness.js#add": 0
+                }
+              }
+            },
+            "replaced": {
+              "ownerWork": {
+                "bodyRows": 487,
+                "bodyDecodes": 0,
+                "scopeRows": 0,
+                "membershipComparisons": 0,
+                "selectorRows": 0
+              },
+              "measurement": {
+                "name": "replaced_continuation_expansion_2",
+                "wallMs": 8.936374999990221,
+                "cpuUserMs": 9.435,
+                "cpuSystemMs": 0.159,
+                "io": {
+                  "readCalls": 0,
+                  "readBytes": 0,
+                  "watchedReadCalls": 0,
+                  "watchedReadBytes": 0
+                },
+                "memoryBefore": {
+                  "rss": 4146266112,
+                  "heapUsed": 1505396832,
+                  "external": 2962751,
+                  "arrayBuffers": 249275
+                },
+                "memoryAfter": {
+                  "rss": 4146724864,
+                  "heapUsed": 1462351848,
+                  "external": 2962751,
+                  "arrayBuffers": 52031
+                },
+                "heapUsedDelta": -43044984,
+                "rssDelta": 458752,
+                "ownerCalls": {
+                  "readAll": 0,
+                  "materialize": 1,
+                  "snapshot": 1,
+                  "decodeEventBody": 0,
+                  "isImmutableRuntimeValue": 84242,
+                  "selectValidatedRuntimeEventPrefix": 1,
+                  "selectOwnedRuntimeEventPrefix": 0,
+                  "validateHistoricalEvents": 0,
+                  "readAuthenticatedRuntimePrefixBytes": 0,
+                  "sha256Canonical": 0,
+                  "canonicalJson": 0,
+                  "acquireAbgEventResource": 0,
+                  "closeAbgEventResource": 0,
+                  "runInstalledDefinitionCallWithResource": 0,
+                  "runInstalledDefinitionCallTransport": 0,
+                  "admitTraversalFrameCursor": 0,
+                  "admitPendingConstructionIntentContinuation": 0,
+                  "rehydrateParentReturnFrames": 0,
+                  "readRuntimeEventsAtDurablePrefix": 1,
+                  "projectRuntimeEventsAtDurablePrefix": 0,
+                  "readHeldRuntimeEventsAtDurablePrefix": 0,
+                  "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                  "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+                  "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+                  "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+                  "RuntimeLivenessReconstruction": 0,
+                  "forkAt": 0,
+                  "abg/calculus/liveness.js#add": 0
+                }
+              }
+            },
+            "construct": {
+              "name": "invocation_construct_2",
+              "wallMs": 605.3860830000194,
+              "cpuUserMs": 594.85,
+              "cpuSystemMs": 13.214,
+              "io": {
+                "readCalls": 0,
+                "readBytes": 0,
+                "watchedReadCalls": 0,
+                "watchedReadBytes": 0
+              },
+              "memoryBefore": {
+                "rss": 4325916672,
+                "heapUsed": 1497917504,
+                "external": 3246034,
+                "arrayBuffers": 532558
+              },
+              "memoryAfter": {
+                "rss": 4101914624,
+                "heapUsed": 1459736968,
+                "external": 2820050,
+                "arrayBuffers": 106574
+              },
+              "heapUsedDelta": -38180536,
+              "rssDelta": -224002048,
+              "ownerCalls": {
+                "readAll": 0,
+                "materialize": 0,
+                "snapshot": 0,
+                "decodeEventBody": 0,
+                "isImmutableRuntimeValue": 0,
+                "selectValidatedRuntimeEventPrefix": 0,
+                "selectOwnedRuntimeEventPrefix": 0,
+                "validateHistoricalEvents": 0,
+                "readAuthenticatedRuntimePrefixBytes": 0,
+                "sha256Canonical": 260,
+                "canonicalJson": 5216,
+                "acquireAbgEventResource": 0,
+                "closeAbgEventResource": 0,
+                "runInstalledDefinitionCallWithResource": 0,
+                "runInstalledDefinitionCallTransport": 0,
+                "admitTraversalFrameCursor": 0,
+                "admitPendingConstructionIntentContinuation": 0,
+                "rehydrateParentReturnFrames": 0,
+                "readRuntimeEventsAtDurablePrefix": 0,
+                "projectRuntimeEventsAtDurablePrefix": 0,
+                "readHeldRuntimeEventsAtDurablePrefix": 0,
+                "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+                "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+                "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+                "RuntimeLivenessReconstruction": 0,
+                "forkAt": 0,
+                "abg/calculus/liveness.js#add": 0
+              }
+            },
+            "run": {
+              "name": "invocation_run_2",
+              "wallMs": 3441.8729999999923,
+              "cpuUserMs": 3673.926,
+              "cpuSystemMs": 45.718,
+              "io": {
+                "readCalls": 304,
+                "readBytes": 411442,
+                "watchedReadCalls": 304,
+                "watchedReadBytes": 411442
+              },
+              "memoryBefore": {
+                "rss": 4101931008,
+                "heapUsed": 1460254472,
+                "external": 2820050,
+                "arrayBuffers": 106574
+              },
+              "memoryAfter": {
+                "rss": 4145872896,
+                "heapUsed": 1500673816,
+                "external": 2962751,
+                "arrayBuffers": 249275
+              },
+              "heapUsedDelta": 40419344,
+              "rssDelta": 43941888,
+              "ownerCalls": {
+                "readAll": 0,
+                "materialize": 437,
+                "snapshot": 24,
+                "decodeEventBody": 304,
+                "isImmutableRuntimeValue": 1627,
+                "selectValidatedRuntimeEventPrefix": 29,
+                "selectOwnedRuntimeEventPrefix": 597,
+                "validateHistoricalEvents": 0,
+                "readAuthenticatedRuntimePrefixBytes": 0,
+                "sha256Canonical": 2309,
+                "canonicalJson": 19647,
+                "acquireAbgEventResource": 1,
+                "closeAbgEventResource": 0,
+                "runInstalledDefinitionCallWithResource": 1,
+                "runInstalledDefinitionCallTransport": 0,
+                "admitTraversalFrameCursor": 1,
+                "admitPendingConstructionIntentContinuation": 1,
+                "rehydrateParentReturnFrames": 0,
+                "readRuntimeEventsAtDurablePrefix": 0,
+                "projectRuntimeEventsAtDurablePrefix": 0,
+                "readHeldRuntimeEventsAtDurablePrefix": 0,
+                "readActiveRuntimeTransactionAtDurablePrefix": 0,
+                "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 19,
+                "readOwnedRuntimeHistoryAtDurablePrefix": 4,
+                "projectOwnedRuntimeHistoryAtDurablePrefix": 14,
+                "RuntimeLivenessReconstruction": 25,
+                "forkAt": 24,
+                "abg/calculus/liveness.js#add": 465
+              }
+            }
+          }
+        ],
+        "reference": {
+          "name": "replaced_durable_prefix_expansion",
+          "events": 487,
+          "ownerWork": {
+            "bodyRows": 487,
+            "bodyDecodes": 0,
+            "scopeRows": 0,
+            "membershipComparisons": 0,
+            "selectorRows": 0
+          },
+          "measurement": {
+            "name": "replaced_durable_prefix_expansion",
+            "wallMs": 9.29924999998184,
+            "cpuUserMs": 9.239,
+            "cpuSystemMs": 0.504,
+            "io": {
+              "readCalls": 0,
+              "readBytes": 0,
+              "watchedReadCalls": 0,
+              "watchedReadBytes": 0
+            },
+            "memoryBefore": {
+              "rss": 4165419008,
+              "heapUsed": 1514988112,
+              "external": 2765507,
+              "arrayBuffers": 52031
+            },
+            "memoryAfter": {
+              "rss": 4150755328,
+              "heapUsed": 1456376952,
+              "external": 2765507,
+              "arrayBuffers": 52031
+            },
+            "heapUsedDelta": -58611160,
+            "rssDelta": -14663680,
+            "ownerCalls": {
+              "readAll": 0,
+              "materialize": 1,
+              "snapshot": 1,
+              "decodeEventBody": 0,
+              "isImmutableRuntimeValue": 84242,
+              "selectValidatedRuntimeEventPrefix": 1,
+              "selectOwnedRuntimeEventPrefix": 0,
+              "validateHistoricalEvents": 0,
+              "readAuthenticatedRuntimePrefixBytes": 0,
+              "sha256Canonical": 0,
+              "canonicalJson": 0,
+              "acquireAbgEventResource": 0,
+              "closeAbgEventResource": 0,
+              "runInstalledDefinitionCallWithResource": 0,
+              "runInstalledDefinitionCallTransport": 0,
+              "admitTraversalFrameCursor": 0,
+              "admitPendingConstructionIntentContinuation": 0,
+              "rehydrateParentReturnFrames": 0,
+              "readRuntimeEventsAtDurablePrefix": 1,
+              "projectRuntimeEventsAtDurablePrefix": 0,
+              "readHeldRuntimeEventsAtDurablePrefix": 0,
+              "readActiveRuntimeTransactionAtDurablePrefix": 0,
+              "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+              "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+              "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+              "RuntimeLivenessReconstruction": 0,
+              "forkAt": 0,
+              "abg/calculus/liveness.js#add": 0
+            }
+          }
+        },
+        "growthRows": [
+          {
+            "from": 0,
+            "to": 1,
+            "historyEvents": 80,
+            "unrelatedEvents": 32,
+            "bodyRows": -342,
+            "isImmutableRuntimeValue": -2,
+            "snapshot": -1,
+            "continuationBodyRows": 0,
+            "replacedBodyRows": 80,
+            "continuationWalks": 0,
+            "replacedWalks": 3373
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "historyEvents": 304,
+            "unrelatedEvents": 256,
+            "bodyRows": 238,
+            "isImmutableRuntimeValue": 0,
+            "snapshot": 0,
+            "continuationBodyRows": 0,
+            "replacedBodyRows": 304,
+            "continuationWalks": 0,
+            "replacedWalks": 8077
+          }
+        ],
+        "unrelatedWork": {
+          "fullPasses": 2.5892857142857144,
+          "immutabilityWalks": 0.000051615753255078056,
+          "snapshotsPerEvent": 0.004464285714285714,
+          "continuationPasses": 0,
+          "replacedPasses": 1,
+          "continuationWalksPerEvent": 0,
+          "replacedWalksPerEvent": 21
+        },
+        "remainingDurablePrefixReaderCalls": 0
+      },
+      "acquisitionKinds": {
+        "closedProjection": {
+          "readCalls": 0,
+          "readBytes": 0,
+          "watchedReadCalls": 0,
+          "watchedReadBytes": 0
+        },
+        "closedFreshRead": {
+          "readCalls": 64,
+          "readBytes": 4143523,
+          "watchedReadCalls": 64,
+          "watchedReadBytes": 4143523
+        },
+        "copiedProjection": {
+          "readCalls": 64,
+          "readBytes": 4143523,
+          "watchedReadCalls": 64,
+          "watchedReadBytes": 4143523
+        }
+      },
+      "measurements": [
+        {
+          "name": "cold_reopen",
+          "wallMs": 188.81962499997462,
+          "cpuUserMs": 182.14,
+          "cpuSystemMs": 2.521,
+          "io": {
+            "readCalls": 52,
+            "readBytes": 3367670,
+            "watchedReadCalls": 52,
+            "watchedReadBytes": 3367670
+          },
+          "memoryBefore": {
+            "rss": 4424630272,
+            "heapUsed": 1704474952,
+            "external": 20250876,
+            "arrayBuffers": 17537400
+          },
+          "memoryAfter": {
+            "rss": 4431069184,
+            "heapUsed": 1729139592,
+            "external": 20000286,
+            "arrayBuffers": 17286810
+          },
+          "heapUsedDelta": 24664640,
+          "rssDelta": 6438912,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 1,
+            "decodeEventBody": 51,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 160,
+            "canonicalJson": 77,
+            "acquireAbgEventResource": 1,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "held_owned_selection",
+          "wallMs": 11.060624999983702,
+          "cpuUserMs": 10.921,
+          "cpuSystemMs": 0.147,
+          "io": {
+            "readCalls": 42,
+            "readBytes": 135785,
+            "watchedReadCalls": 42,
+            "watchedReadBytes": 135785
+          },
+          "memoryBefore": {
+            "rss": 4431069184,
+            "heapUsed": 1729466384,
+            "external": 20000286,
+            "arrayBuffers": 17286810
+          },
+          "memoryAfter": {
+            "rss": 4431069184,
+            "heapUsed": 1742056120,
+            "external": 20289444,
+            "arrayBuffers": 17575968
+          },
+          "heapUsedDelta": 12589736,
+          "rssDelta": 0,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 16,
+            "snapshot": 0,
+            "decodeEventBody": 42,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 7,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 178,
+            "canonicalJson": 155,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 1,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 88
+          }
+        },
+        {
+          "name": "held_expanded_readAll_selection",
+          "wallMs": 122.0190419999999,
+          "cpuUserMs": 121.701,
+          "cpuSystemMs": 2.973,
+          "io": {
+            "readCalls": 9,
+            "readBytes": 3231885,
+            "watchedReadCalls": 9,
+            "watchedReadBytes": 3231885
+          },
+          "memoryBefore": {
+            "rss": 4431069184,
+            "heapUsed": 1742367008,
+            "external": 20289444,
+            "arrayBuffers": 17575968
+          },
+          "memoryAfter": {
+            "rss": 4448043008,
+            "heapUsed": 1747719808,
+            "external": 23047884,
+            "arrayBuffers": 20269943
+          },
+          "heapUsedDelta": 5352800,
+          "rssDelta": 16973824,
+          "ownerCalls": {
+            "readAll": 1,
+            "materialize": 1,
+            "snapshot": 8,
+            "decodeEventBody": 9,
+            "isImmutableRuntimeValue": 70005,
+            "selectValidatedRuntimeEventPrefix": 1,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 145,
+            "canonicalJson": 140,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 1,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 88
+          }
+        },
+        {
+          "name": "exact_prefix_artifact_truth",
+          "wallMs": 410.90891600001487,
+          "cpuUserMs": 409.047,
+          "cpuSystemMs": 2.918,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 4438441984,
+            "heapUsed": 1730474768,
+            "external": 22983419,
+            "arrayBuffers": 20269943
+          },
+          "memoryAfter": {
+            "rss": 4444848128,
+            "heapUsed": 1765914560,
+            "external": 22983419,
+            "arrayBuffers": 20269943
+          },
+          "heapUsedDelta": 35439792,
+          "rssDelta": 6406144,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 1,
+            "snapshot": 89,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 70009,
+            "selectValidatedRuntimeEventPrefix": 2,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 291,
+            "canonicalJson": 2786,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 1,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 1,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 88
+          }
+        },
+        {
+          "name": "owned_prefix_artifact_truth",
+          "wallMs": 398.1379579999775,
+          "cpuUserMs": 395.798,
+          "cpuSystemMs": 2.637,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 4444848128,
+            "heapUsed": 1766357896,
+            "external": 22983419,
+            "arrayBuffers": 20269943
+          },
+          "memoryAfter": {
+            "rss": 4451237888,
+            "heapUsed": 1775726872,
+            "external": 22983419,
+            "arrayBuffers": 20269943
+          },
+          "heapUsedDelta": 9368976,
+          "rssDelta": 6389760,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 7,
+            "snapshot": 1,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 2,
+            "selectValidatedRuntimeEventPrefix": 1,
+            "selectOwnedRuntimeEventPrefix": 83,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 206,
+            "canonicalJson": 2757,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 1,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "held_owned_selection_after_growth",
+          "wallMs": 0.7225829999952111,
+          "cpuUserMs": 0.713,
+          "cpuSystemMs": 0.015,
+          "io": {
+            "readCalls": 1,
+            "readBytes": 939,
+            "watchedReadCalls": 1,
+            "watchedReadBytes": 939
+          },
+          "memoryBefore": {
+            "rss": 4451270656,
+            "heapUsed": 1776832104,
+            "external": 22991811,
+            "arrayBuffers": 20278335
+          },
+          "memoryAfter": {
+            "rss": 4451270656,
+            "heapUsed": 1777455520,
+            "external": 22992750,
+            "arrayBuffers": 20279274
+          },
+          "heapUsedDelta": 623416,
+          "rssDelta": 0,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 0,
+            "decodeEventBody": 1,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 1,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 10,
+            "canonicalJson": 2,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 4
+          }
+        },
+        {
+          "name": "held_expanded_readAll_after_growth",
+          "wallMs": 40.75045900000259,
+          "cpuUserMs": 39.831,
+          "cpuSystemMs": 1.048,
+          "io": {
+            "readCalls": 3,
+            "readBytes": 2817,
+            "watchedReadCalls": 3,
+            "watchedReadBytes": 2817
+          },
+          "memoryBefore": {
+            "rss": 4451270656,
+            "heapUsed": 1777749568,
+            "external": 22992750,
+            "arrayBuffers": 20279274
+          },
+          "memoryAfter": {
+            "rss": 4466278400,
+            "heapUsed": 1793805576,
+            "external": 23003759,
+            "arrayBuffers": 20278335
+          },
+          "heapUsedDelta": 16056008,
+          "rssDelta": 15007744,
+          "ownerCalls": {
+            "readAll": 1,
+            "materialize": 1,
+            "snapshot": 8,
+            "decodeEventBody": 3,
+            "isImmutableRuntimeValue": 70089,
+            "selectValidatedRuntimeEventPrefix": 1,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 139,
+            "canonicalJson": 132,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 1,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 92
+          }
+        },
+        {
+          "name": "held_owned_selection_repeat",
+          "wallMs": 0.585332999995444,
+          "cpuUserMs": 0.665,
+          "cpuSystemMs": 0.009,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 4466278400,
+            "heapUsed": 1794130168,
+            "external": 22991811,
+            "arrayBuffers": 20278335
+          },
+          "memoryAfter": {
+            "rss": 4466278400,
+            "heapUsed": 1794815880,
+            "external": 22991811,
+            "arrayBuffers": 20278335
+          },
+          "heapUsedDelta": 685712,
+          "rssDelta": 0,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 0,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 1,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 9,
+            "canonicalJson": 0,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "copied_coordinate_cold_read",
+          "wallMs": 181.95908299999428,
+          "cpuUserMs": 181.757,
+          "cpuSystemMs": 2.222,
+          "io": {
+            "readCalls": 52,
+            "readBytes": 3371426,
+            "watchedReadCalls": 52,
+            "watchedReadBytes": 3371426
+          },
+          "memoryBefore": {
+            "rss": 4466311168,
+            "heapUsed": 1796100840,
+            "external": 22992011,
+            "arrayBuffers": 20278535
+          },
+          "memoryAfter": {
+            "rss": 4459528192,
+            "heapUsed": 1816189064,
+            "external": 29634558,
+            "arrayBuffers": 26921082
+          },
+          "heapUsedDelta": 20088224,
+          "rssDelta": -6782976,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 0,
+            "decodeEventBody": 55,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 1,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 162,
+            "canonicalJson": 79,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 1,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 1,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "cold_reopen_after_close",
+          "wallMs": 242.0252080000064,
+          "cpuUserMs": 236.218,
+          "cpuSystemMs": 2.482,
+          "io": {
+            "readCalls": 64,
+            "readBytes": 4143523,
+            "watchedReadCalls": 64,
+            "watchedReadBytes": 4143523
+          },
+          "memoryBefore": {
+            "rss": 4167106560,
+            "heapUsed": 1492742584,
+            "external": 15989249,
+            "arrayBuffers": 13275773
+          },
+          "memoryAfter": {
+            "rss": 4173676544,
+            "heapUsed": 1510805128,
+            "external": 22608525,
+            "arrayBuffers": 19895049
+          },
+          "heapUsedDelta": 18062544,
+          "rssDelta": 6569984,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 1,
+            "decodeEventBody": 487,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 1185,
+            "canonicalJson": 585,
+            "acquireAbgEventResource": 1,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        }
+      ]
+    },
+    "maintainedSetup": {
+      "artifactSha256": "4fcd845f4ea6b49a8e5f9bb270c1285617f33dff86a38ff26e25ce51517fdf3b",
+      "calls": [
+        {
+          "label": "workspace-create",
+          "acquisitionKind": "eventless",
+          "entryPrefixLength": null,
+          "successorPrefixLength": null,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 123.63483299998916,
+          "cpuUserMs": 135.527
+        },
+        {
+          "label": "product-verify-0",
+          "acquisitionKind": "eventless",
+          "entryPrefixLength": null,
+          "successorPrefixLength": null,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 304.77670899999794,
+          "cpuUserMs": 308.568
+        },
+        {
+          "label": "product-verify-1",
+          "acquisitionKind": "eventless",
+          "entryPrefixLength": null,
+          "successorPrefixLength": null,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 118.40650000001187,
+          "cpuUserMs": 117.956
+        },
+        {
+          "label": "product-resolve",
+          "acquisitionKind": "eventless",
+          "entryPrefixLength": null,
+          "successorPrefixLength": null,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 385.1075000000128,
+          "cpuUserMs": 383.194
+        },
+        {
+          "label": "product-install-0",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 0,
+          "successorPrefixLength": 3187321,
+          "eventLogReadCalls": 1,
+          "eventLogReadBytes": 3187321,
+          "wallMs": 4230.892625000008,
+          "cpuUserMs": 1927.6
+        },
+        {
+          "label": "product-install-1",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 3187321,
+          "successorPrefixLength": 3190624,
+          "eventLogReadCalls": 1,
+          "eventLogReadBytes": 3303,
+          "wallMs": 2459.400708000001,
+          "cpuUserMs": 708.925
+        },
+        {
+          "label": "workspace-bind",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 3190624,
+          "successorPrefixLength": 3195392,
+          "eventLogReadCalls": 1,
+          "eventLogReadBytes": 4768,
+          "wallMs": 787.7544160000107,
+          "cpuUserMs": 780.081
+        },
+        {
+          "label": "catalog-admit",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 3195392,
+          "successorPrefixLength": 3195392,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 5183.304125000024,
+          "cpuUserMs": 5115.686
+        },
+        {
+          "label": "catalog-view",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 3195392,
+          "successorPrefixLength": 3195392,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 1263.0644169999869,
+          "cpuUserMs": 1273.287
+        },
+        {
+          "label": "program-conformance",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 3195392,
+          "successorPrefixLength": 3195392,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 1582.434333000012,
+          "cpuUserMs": 1579.1
+        },
+        {
+          "label": "catalog-view-cold-0",
+          "acquisitionKind": "eventless",
+          "entryPrefixLength": null,
+          "successorPrefixLength": null,
+          "eventLogReadCalls": 52,
+          "eventLogReadBytes": 6390784,
+          "wallMs": 4122.189582999999,
+          "cpuUserMs": 4105.207
+        },
+        {
+          "label": "program-conformance-cold-1",
+          "acquisitionKind": "eventless",
+          "entryPrefixLength": null,
+          "successorPrefixLength": null,
+          "eventLogReadCalls": 52,
+          "eventLogReadBytes": 6390784,
+          "wallMs": 4426.469624999998,
+          "cpuUserMs": 4967.763
+        },
+        {
+          "label": "catalog-view-cold-2",
+          "acquisitionKind": "eventless",
+          "entryPrefixLength": null,
+          "successorPrefixLength": null,
+          "eventLogReadCalls": 52,
+          "eventLogReadBytes": 6390784,
+          "wallMs": 4193.718708,
+          "cpuUserMs": 4185.094
+        },
+        {
+          "label": "program-conformance-cold-3",
+          "acquisitionKind": "eventless",
+          "entryPrefixLength": null,
+          "successorPrefixLength": null,
+          "eventLogReadCalls": 52,
+          "eventLogReadBytes": 6390784,
+          "wallMs": 4600.378667000012,
+          "cpuUserMs": 4564.962
+        },
+        {
+          "label": "catalog-view-borrowed-0",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 3195392,
+          "successorPrefixLength": 3195392,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 3433.3482080000103,
+          "cpuUserMs": 3425.977
+        },
+        {
+          "label": "program-conformance-borrowed-1",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 3195392,
+          "successorPrefixLength": 3195392,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 3644.0117080000055,
+          "cpuUserMs": 3607.275
+        },
+        {
+          "label": "catalog-view-borrowed-2",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 3195392,
+          "successorPrefixLength": 3195392,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 3303.918541000021,
+          "cpuUserMs": 3299.515
+        },
+        {
+          "label": "program-conformance-borrowed-3",
+          "acquisitionKind": "borrowed",
+          "entryPrefixLength": 3195392,
+          "successorPrefixLength": 3195392,
+          "eventLogReadCalls": 0,
+          "eventLogReadBytes": 0,
+          "wallMs": 3452.272958000016,
+          "cpuUserMs": 3441.015
+        }
+      ],
+      "lifecycle": {
+        "setupAcquisitions": 1,
+        "setupCloses": 1,
+        "replacedReopensPerSetup": 3,
+        "replacedClosesPerSetup": 4
+      },
+      "finalClose": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///private/tmp/abg-rc5/abi5-single-address-setup-CgvViE/ordinary/resources/events/runtime.events.jsonl",
+        "prefixLength": 3195392,
+        "prefixDigest": "sha256:8653f2a7450a337cefee7f4a4f33ef99ee2ed0e83b66cfb6db55fa9d38627c39",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 695140059,
+          "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+        },
+        "coordinateDigest": "sha256:84203d29dd4758a13ef8d7f5b19832ce4324dc9d88411fb965975b536c6e6dca"
+      },
+      "failure": {
+        "failedAt": "product-install-1",
+        "closePrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///private/tmp/abg-rc5/abi5-single-address-setup-CgvViE/failure/resources/events/runtime.events.jsonl",
+          "prefixLength": 3187318,
+          "prefixDigest": "sha256:8535489441ba54bdde9b50518d0fb5833b84b7d19ea943ccca89a160d9cb8f67",
+          "storeIdentity": {
+            "device": 16777231,
+            "inode": 695176491,
+            "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+          },
+          "coordinateDigest": "sha256:3e3944dacc998ad05de293aaed234a2a555ef9e0386dc82c1531c8f1cd5075a3"
+        },
+        "calls": [
+          {
+            "label": "workspace-create",
+            "acquisitionKind": "eventless",
+            "entryPrefixLength": null,
+            "successorPrefixLength": null,
+            "eventLogReadCalls": 0,
+            "eventLogReadBytes": 0,
+            "wallMs": 136.61054199998034,
+            "cpuUserMs": 150.266
+          },
+          {
+            "label": "product-verify-0",
+            "acquisitionKind": "eventless",
+            "entryPrefixLength": null,
+            "successorPrefixLength": null,
+            "eventLogReadCalls": 0,
+            "eventLogReadBytes": 0,
+            "wallMs": 312.52250000002095,
+            "cpuUserMs": 315.265
+          },
+          {
+            "label": "product-verify-1",
+            "acquisitionKind": "eventless",
+            "entryPrefixLength": null,
+            "successorPrefixLength": null,
+            "eventLogReadCalls": 0,
+            "eventLogReadBytes": 0,
+            "wallMs": 124.49462499999208,
+            "cpuUserMs": 123.809
+          },
+          {
+            "label": "product-resolve",
+            "acquisitionKind": "eventless",
+            "entryPrefixLength": null,
+            "successorPrefixLength": null,
+            "eventLogReadCalls": 0,
+            "eventLogReadBytes": 0,
+            "wallMs": 393.3390000000363,
+            "cpuUserMs": 390.845
+          },
+          {
+            "label": "product-install-0",
+            "acquisitionKind": "borrowed",
+            "entryPrefixLength": 0,
+            "successorPrefixLength": 3187318,
+            "eventLogReadCalls": 1,
+            "eventLogReadBytes": 3187318,
+            "wallMs": 4063.857374999963,
+            "cpuUserMs": 1909.252
+          }
+        ]
+      },
+      "boundCallComparison": [
+        {
+          "name": "catalog-view-cold-bound-prefix-0",
+          "wallMs": 5412.970792000007,
+          "cpuUserMs": 5385.053,
+          "cpuSystemMs": 58.065,
+          "io": {
+            "readCalls": 104,
+            "readBytes": 12781568,
+            "watchedReadCalls": 104,
+            "watchedReadBytes": 12781568
+          },
+          "memoryBefore": {
+            "rss": 5133893632,
+            "heapUsed": 2012555696,
+            "external": 12786274,
+            "arrayBuffers": 10072855
+          },
+          "memoryAfter": {
+            "rss": 5271273472,
+            "heapUsed": 2220873512,
+            "external": 19229591,
+            "arrayBuffers": 16516172
+          },
+          "heapUsedDelta": 208317816,
+          "rssDelta": 137379840,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 2,
+            "snapshot": 0,
+            "decodeEventBody": 12,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 8,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 744,
+            "canonicalJson": 21374,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 1,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "program-conformance-cold-bound-prefix-1",
+          "wallMs": 5724.403791999997,
+          "cpuUserMs": 6255.779,
+          "cpuSystemMs": 74.983,
+          "io": {
+            "readCalls": 104,
+            "readBytes": 12781568,
+            "watchedReadCalls": 104,
+            "watchedReadBytes": 12781568
+          },
+          "memoryBefore": {
+            "rss": 5271617536,
+            "heapUsed": 2221700200,
+            "external": 19229591,
+            "arrayBuffers": 16516172
+          },
+          "memoryAfter": {
+            "rss": 4848779264,
+            "heapUsed": 1495522720,
+            "external": 2815626,
+            "arrayBuffers": 102207
+          },
+          "heapUsedDelta": -726177480,
+          "rssDelta": -422838272,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 2,
+            "snapshot": 0,
+            "decodeEventBody": 12,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 8,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 1129,
+            "canonicalJson": 24029,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 1,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "catalog-view-cold-bound-prefix-2",
+          "wallMs": 5502.10037499998,
+          "cpuUserMs": 5485.583,
+          "cpuSystemMs": 59.091,
+          "io": {
+            "readCalls": 104,
+            "readBytes": 12781568,
+            "watchedReadCalls": 104,
+            "watchedReadBytes": 12781568
+          },
+          "memoryBefore": {
+            "rss": 4849123328,
+            "heapUsed": 1496475552,
+            "external": 2815626,
+            "arrayBuffers": 102207
+          },
+          "memoryAfter": {
+            "rss": 5013307392,
+            "heapUsed": 1741107736,
+            "external": 18775541,
+            "arrayBuffers": 16062122
+          },
+          "heapUsedDelta": 244632184,
+          "rssDelta": 164184064,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 2,
+            "snapshot": 0,
+            "decodeEventBody": 12,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 8,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 744,
+            "canonicalJson": 21374,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 1,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "program-conformance-cold-bound-prefix-3",
+          "wallMs": 5991.109916999994,
+          "cpuUserMs": 5942.647,
+          "cpuSystemMs": 76.876,
+          "io": {
+            "readCalls": 104,
+            "readBytes": 12781568,
+            "watchedReadCalls": 104,
+            "watchedReadBytes": 12781568
+          },
+          "memoryBefore": {
+            "rss": 5013618688,
+            "heapUsed": 1741931888,
+            "external": 18775541,
+            "arrayBuffers": 16062122
+          },
+          "memoryAfter": {
+            "rss": 5210718208,
+            "heapUsed": 2043238224,
+            "external": 38029273,
+            "arrayBuffers": 35315854
+          },
+          "heapUsedDelta": 301306336,
+          "rssDelta": 197099520,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 2,
+            "snapshot": 0,
+            "decodeEventBody": 12,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 8,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 1129,
+            "canonicalJson": 24029,
+            "acquireAbgEventResource": 0,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 1,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "setup-cold-reopen",
+          "wallMs": 192.87849999999162,
+          "cpuUserMs": 185.854,
+          "cpuSystemMs": 3.293,
+          "io": {
+            "readCalls": 49,
+            "readBytes": 3195392,
+            "watchedReadCalls": 49,
+            "watchedReadBytes": 3195392
+          },
+          "memoryBefore": {
+            "rss": 5211062272,
+            "heapUsed": 2044254344,
+            "external": 38029273,
+            "arrayBuffers": 35315854
+          },
+          "memoryAfter": {
+            "rss": 5217124352,
+            "heapUsed": 2068854512,
+            "external": 44374682,
+            "arrayBuffers": 41661263
+          },
+          "heapUsedDelta": 24600168,
+          "rssDelta": 6062080,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 1,
+            "decodeEventBody": 3,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 0,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 14,
+            "canonicalJson": 5,
+            "acquireAbgEventResource": 1,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 0,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "catalog-view-borrowed-0",
+          "wallMs": 4654.066458000016,
+          "cpuUserMs": 4632.797,
+          "cpuSystemMs": 47.747,
+          "io": {
+            "readCalls": 3,
+            "readBytes": 3195392,
+            "watchedReadCalls": 3,
+            "watchedReadBytes": 3195392
+          },
+          "memoryBefore": {
+            "rss": 5217271808,
+            "heapUsed": 2069190728,
+            "external": 44374682,
+            "arrayBuffers": 41661263
+          },
+          "memoryAfter": {
+            "rss": 5363056640,
+            "heapUsed": 2258101744,
+            "external": 47574219,
+            "arrayBuffers": 44860800
+          },
+          "heapUsedDelta": 188911016,
+          "rssDelta": 145784832,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 1,
+            "snapshot": 0,
+            "decodeEventBody": 3,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 5,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 662,
+            "canonicalJson": 18647,
+            "acquireAbgEventResource": 1,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 1,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "program-conformance-borrowed-1",
+          "wallMs": 4105.5769169999985,
+          "cpuUserMs": 4066.538,
+          "cpuSystemMs": 49.053,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 5363367936,
+            "heapUsed": 2258897880,
+            "external": 47574219,
+            "arrayBuffers": 44860800
+          },
+          "memoryAfter": {
+            "rss": 5500026880,
+            "heapUsed": 2406404752,
+            "external": 47590603,
+            "arrayBuffers": 44877184
+          },
+          "heapUsedDelta": 147506872,
+          "rssDelta": 136658944,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 0,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 2,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 978,
+            "canonicalJson": 18668,
+            "acquireAbgEventResource": 1,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 1,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "catalog-view-borrowed-2",
+          "wallMs": 3727.4142500000016,
+          "cpuUserMs": 3721.865,
+          "cpuSystemMs": 36.353,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 5500338176,
+            "heapUsed": 2407294656,
+            "external": 47590603,
+            "arrayBuffers": 44877184
+          },
+          "memoryAfter": {
+            "rss": 5620596736,
+            "heapUsed": 2570801896,
+            "external": 47598795,
+            "arrayBuffers": 44885376
+          },
+          "heapUsedDelta": 163507240,
+          "rssDelta": 120258560,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 0,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 2,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 594,
+            "canonicalJson": 16013,
+            "acquireAbgEventResource": 1,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 1,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        },
+        {
+          "name": "program-conformance-borrowed-3",
+          "wallMs": 3878.725708999991,
+          "cpuUserMs": 3865.589,
+          "cpuSystemMs": 38.626,
+          "io": {
+            "readCalls": 0,
+            "readBytes": 0,
+            "watchedReadCalls": 0,
+            "watchedReadBytes": 0
+          },
+          "memoryBefore": {
+            "rss": 5620744192,
+            "heapUsed": 2571619816,
+            "external": 47598795,
+            "arrayBuffers": 44885376
+          },
+          "memoryAfter": {
+            "rss": 5757730816,
+            "heapUsed": 2797963128,
+            "external": 47664331,
+            "arrayBuffers": 44950912
+          },
+          "heapUsedDelta": 226343312,
+          "rssDelta": 136986624,
+          "ownerCalls": {
+            "readAll": 0,
+            "materialize": 0,
+            "snapshot": 0,
+            "decodeEventBody": 0,
+            "isImmutableRuntimeValue": 0,
+            "selectValidatedRuntimeEventPrefix": 0,
+            "selectOwnedRuntimeEventPrefix": 2,
+            "validateHistoricalEvents": 0,
+            "readAuthenticatedRuntimePrefixBytes": 0,
+            "sha256Canonical": 978,
+            "canonicalJson": 18668,
+            "acquireAbgEventResource": 1,
+            "closeAbgEventResource": 0,
+            "runInstalledDefinitionCallWithResource": 1,
+            "runInstalledDefinitionCallTransport": 0,
+            "admitTraversalFrameCursor": 0,
+            "admitPendingConstructionIntentContinuation": 0,
+            "rehydrateParentReturnFrames": 0,
+            "readRuntimeEventsAtDurablePrefix": 0,
+            "projectRuntimeEventsAtDurablePrefix": 0,
+            "readHeldRuntimeEventsAtDurablePrefix": 0,
+            "readActiveRuntimeTransactionAtDurablePrefix": 0,
+            "selectActiveRuntimeTransactionHistoryAtDurablePrefix": 0,
+            "readOwnedRuntimeHistoryAtDurablePrefix": 0,
+            "projectOwnedRuntimeHistoryAtDurablePrefix": 2,
+            "RuntimeLivenessReconstruction": 0,
+            "forkAt": 0,
+            "abg/calculus/liveness.js#add": 0
+          }
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Same-process measurements of the actual candidate owners; inspector coverage perturbs absolute durations.",
+    "Counts and bytes discriminate repeated work; wall and CPU values are recorded without a speedup claim.",
+    "No release, qualification, publication or independent acceptance is implied."
+  ],
+  "endedUtc": "2026-11-03T23:39:38.776Z",
+  "qualified": false,
+  "published": false
+}

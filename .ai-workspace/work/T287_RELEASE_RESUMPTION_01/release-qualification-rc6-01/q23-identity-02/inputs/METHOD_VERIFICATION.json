@@ -1,0 +1,24 @@
+{
+  "basis": "stdo://releases/v3.0.4/",
+  "cut": "v3.0.4",
+  "definition": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+  "definition_id": "urn:stdo:product-definition:abiogenesis",
+  "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4",
+  "installed": true,
+  "valid": true,
+  "failures": [],
+  "verifiedUtc": "2026-11-05T15:33:48.148892+00:00",
+  "stdo_abiogenesis.json": {
+    "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+  },
+  "specification/PRODUCT.md": {
+    "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/PRODUCT.md": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+  },
+  "AGENTS.md": {
+    "/Users/jim/src/apps/abiogenesis/AGENTS.md": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/AGENTS.md": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+  }
+}

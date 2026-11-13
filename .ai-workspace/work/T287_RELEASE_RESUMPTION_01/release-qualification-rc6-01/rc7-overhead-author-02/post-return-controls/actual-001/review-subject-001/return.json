@@ -1,0 +1,1058 @@
+{
+ "kind": "rc7_overhead_author_02_return",
+ "schemaVersion": "1",
+ "at": "2026-11-06T06:07:24.170Z",
+ "status": "FROZEN_AUTHOR_CANDIDATE_WITH_OUT_OF_CONE_DEPENDENCY",
+ "claims": {
+  "acceptance": false,
+  "qualification": false,
+  "publication": false,
+  "speedup": false,
+  "sourceWidePass": false
+ },
+ "outcome": "R1-task and R2 realized in existing owners; PC-001 complete-body and actual-current-input discriminators active; PC-002 M03 wording qualified; RC7-PREFIX-RUNNER-01 original stream bytes retained.",
+ "changedSource": {
+  "finalStage": "o7b-after-04",
+  "finalStageSourceDigest": "c5986d3bdc3620f2e621318b11def7f8bc39f59115eebafe15738335b35e1d9a",
+  "count": 31,
+  "allInWriteScope": true,
+  "liveEqualsFinalStage": true,
+  "files": [
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+    "bytes": 75786,
+    "sha256": "e47bb8f6e50171204313a3c3dbff786bf4189143557d6f63153c853fff767d6d",
+    "baselineBytes": 73973,
+    "baselineSha256": "473c76ab37376ba3d00de076859b01947236a3da97c6773b2b961ca571453397",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "bytes": 47701,
+    "sha256": "83c69d83739b5f439bcd00a92ca768819a4e729feaa3a17f9c9fd489f48a5543",
+    "baselineBytes": 47371,
+    "baselineSha256": "54699a535c44ea4890687c06772e70622a452c3a8fabb4f01e11a17b8bf021ff",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "bytes": 22106,
+    "sha256": "2b99772e48426efea16e86d25aa94b4d30f87877ba957b65f4bf3c0eab1175d8",
+    "baselineBytes": 21789,
+    "baselineSha256": "82e31562919f7463058c23e866ad8710c1bd53826056ba764286ee523b40770f",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "bytes": 64754,
+    "sha256": "cfe2ce70db4935aac785bc92c24fa3634bd8e14ff38476fb612afe4cc12f512b",
+    "baselineBytes": 61840,
+    "baselineSha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "bytes": 127146,
+    "sha256": "7a0a4d40b96c22389338debd6ba57ec1d90226e7f6189a18aaacd2e285e4ef07",
+    "baselineBytes": 126876,
+    "baselineSha256": "c0acb42e8ecf2f0410049cd02dd16564dbd86a5df93b2c5acf91ac8c4f2501a6",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "bytes": 37508,
+    "sha256": "aa55a0c82c5e0167b1378ca2d096df39591389357fd6e353db7e6b23509d7c0b",
+    "baselineBytes": 37252,
+    "baselineSha256": "70808821083b7c0d7abe595f05d42188868b631bef441152573658b4d9b7a99c",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+    "bytes": 23428,
+    "sha256": "6460194c1cd022e27b0775657bac504cb19543d6e7d41dc2f77d6f96def5e49c",
+    "baselineBytes": 21248,
+    "baselineSha256": "32fa5b7a0e8589604fabe4d9fba8ff380e78d1118768f059993956f7942de648",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "bytes": 44501,
+    "sha256": "58bfd6ef4d02b60dd3159a8485846561d48cb94fef01003584d26d21777d9217",
+    "baselineBytes": 44193,
+    "baselineSha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "bytes": 56682,
+    "sha256": "e2ce63c050584a14c040d71866867d5fda859395dfbac0cc64b5a94ca2d36938",
+    "baselineBytes": 56294,
+    "baselineSha256": "d2ba1c12967011e20a5b5589fd1f1f5a3aba0e1b4755894744137a43d043d8cf",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "bytes": 95942,
+    "sha256": "7f416285da92da046c393eccd8319eca6debd8c271f04636fb6ec1acaf82b133",
+    "baselineBytes": 95841,
+    "baselineSha256": "150ac49608bec68d136e231cba780a47aab1364313be0b0be169d7e364a767bc",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+    "bytes": 8269,
+    "sha256": "aa0b6d90eb88912f50b543e105c607a4063964e506df3dfe97933415ae2f7481",
+    "baselineBytes": 8239,
+    "baselineSha256": "2acac61c0e14585b76ace3eda640fb8492ba12d079f5b84b66197d7e73d82377",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+    "bytes": 25939,
+    "sha256": "bc327cd09edefac59b0e678a7feee975e3e8e812d3db954809e26a08be02402e",
+    "baselineBytes": 25817,
+    "baselineSha256": "722efdc516c910083b216121843c46ad3d2a4c1975d7e14615b94e30b2c40952",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+    "bytes": 27351,
+    "sha256": "eea3f793159d40ea3d29831658ab6d816867233b1adfa4ec91cb6497eaa61f6a",
+    "baselineBytes": 22490,
+    "baselineSha256": "4c4dac4382677004697bf31a6e59504a6efe55cccee9c901bde454b9e36bf55d",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "bytes": 96630,
+    "sha256": "e3bbdcccc525f000821533dd316c7362fc437b64ad0c3dd028e331f3d4776bb6",
+    "baselineBytes": 96067,
+    "baselineSha256": "1229239650fbebd80b111b4c41c658cac13f63ca9fd1e50d5f09509fef3fbe27",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+    "bytes": 39245,
+    "sha256": "74fe5f7af00a06ab475d47fde04bbc51301f6079888c5fd0732fd7394ff72595",
+    "baselineBytes": 38287,
+    "baselineSha256": "6775e8b1e1e8529cd39ad328e3654ab8a03a65923c1fc3235b3cc2cb02613cc0",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "bytes": 143487,
+    "sha256": "1f1bcf8484f6ee7f733ea5d68ac9d5c1ca531c4b5b57b1c40314ca0ddb862a17",
+    "baselineBytes": 143027,
+    "baselineSha256": "6766194e77012654f660814674842ec372e63bc6020df3ffc3110debb2bf5db1",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+    "bytes": 94165,
+    "sha256": "2439b35daff61354cfa0a0b9f5566f143fc0ce05a47fb04b63b8d6701bd1b54b",
+    "baselineBytes": 93164,
+    "baselineSha256": "91731ec9443858de4f0013d877e9b00596a224347246ca6f52a9ce4f28f95338",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "bytes": 154467,
+    "sha256": "2eac881080d095ac05644a2440597c92f08d48d26cd1eae14ac92db829b105f0",
+    "baselineBytes": 153632,
+    "baselineSha256": "87ef39bb7bd73cfe516e1ddadaf811657f5418203774ba660693f9528ebda7dd",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+    "bytes": 20885,
+    "sha256": "8e7209b6465d038d2d5ced4e9854efda971855128bdb38f3d9b15fa1d5e2ab58",
+    "baselineBytes": 20621,
+    "baselineSha256": "ba3334e638d6464df618b75cd0ae03f93b9dff05f14530281141b0d5811f5078",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+    "bytes": 48811,
+    "sha256": "c0e0f49afedd9e8c20700968bfb17c30d0d4d8b46b8cdc836a024523963ea59a",
+    "baselineBytes": 48203,
+    "baselineSha256": "b3fb9ceae5918fadeaffd9012f9d97723fc056d2512ac1e9b6000e7b9ca05bd4",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "bytes": 290877,
+    "sha256": "4fcbd6e2c470d506df9c319a3b7108450f887cef3373cca3813e2f66d97ea138",
+    "baselineBytes": 290041,
+    "baselineSha256": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "bytes": 108051,
+    "sha256": "c8829b9e234574307e4456f3208bbd990b09147b287525d246e640c89313d069",
+    "baselineBytes": 98123,
+    "baselineSha256": "50fdb8c5cefc1183545642d7fc1606f6611c95009b3090a3c3f74032fa4c8904",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "bytes": 10560,
+    "sha256": "bdc820d117ec9a3c1a446d4a3c6f5ee62bb3c6119d367c9c6ab45cd152d09dec",
+    "baselineBytes": 10486,
+    "baselineSha256": "f6ce712c35478568a0e7bd08722c8804b2d7c88ac58920273ce6abaf7163ae7a",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-evidence.test.mjs",
+    "bytes": 5745,
+    "sha256": "3b9782a88b737f7bf6df2d24d16c353aa7fd6355b4ed05557f149fa25d55ff66",
+    "baselineBytes": 5600,
+    "baselineSha256": "fec7bad38b1bbcf933c27d5bd8efc0cd3f2874b74cd6f84f07b99aab33b7aa43",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "bytes": 41398,
+    "sha256": "52660cc680f68cf43cf5b1ea148f98b124ea84baf5b2955d5b844cc8bca476f7",
+    "baselineBytes": 41359,
+    "baselineSha256": "192164a33709d8214531a1d8b59b1851954b83e3e03055b338bb9c3c9b904b7e",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "bytes": 67615,
+    "sha256": "57af9679678d52fba08ce1bcba560f0acda2872fbd0aebcf6008b418cf57e71c",
+    "baselineBytes": 67553,
+    "baselineSha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "bytes": 130802,
+    "sha256": "5bbcded2c4877ebd8549305768fc3839543e2bc841a1618e2f9a3db65478d23d",
+    "baselineBytes": 130546,
+    "baselineSha256": "853c62cc2a819d44cca08f0157d29e87ee034306f9badc2e56732f9c0081f8eb",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "bytes": 52838,
+    "sha256": "6ead5f54bcdbe1a8006560a8420208442c2a98b20b91f553ca168b2694be49db",
+    "baselineBytes": 52759,
+    "baselineSha256": "eec3a064046060312ef0201bce20df5b46f781b48da2bd9f628a39faf3c1c4ad",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "bytes": 118690,
+    "sha256": "1aefd7d8ae52a2b1cc0ac929ca003966de5980bce5d73a17fb43b94d7d5e9e25",
+    "baselineBytes": 115882,
+    "baselineSha256": "b9af1afd99cba80bdaa4f89586c3b45c246036d9a3ef1915bdb1c0ffa7a97783",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "bytes": 98227,
+    "sha256": "17557b8cc6d3dbc8ff8e8ec79586b39b8411035032890f8518ae259eba0a0673",
+    "baselineBytes": 96545,
+    "baselineSha256": "3d336f70e8b21349fd0768a1abed407debcc6d0edf6dffa5c570b6bdc6b80efd",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "bytes": 39759,
+    "sha256": "40f54b3e0901431b8d46556866c4277b10253bddc1ff320e5c01fd6e095094b3",
+    "baselineBytes": 39702,
+    "baselineSha256": "5d3850a9c4c6157bce7d0d4491c0d0c0b50ec85471708a05a43b2ff81247a551",
+    "inWriteScope": true,
+    "liveEqualsFinalStage": true
+   }
+  ]
+ },
+ "build": {
+  "stage": "o7b-after-04",
+  "compile": "exit 0",
+  "selectedBuiltOutputs": [
+   {
+    "path": "build/code/src/product/native_workspace_work.js",
+    "bytes": 22870,
+    "sha256": "fc58ed982728c9fb40811c2f5bc44faae35ca25e119de1f3aaf1295b3f2b693c"
+   },
+   {
+    "path": "build/code/src/product/worksite_effect.js",
+    "bytes": 80257,
+    "sha256": "e933a540a77a715ba891ac3cf50b7491a8e59f04bd5365c973a565ef34cab7f9"
+   },
+   {
+    "path": "build/code/src/product/worksite_command_execution.js",
+    "bytes": 119249,
+    "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790"
+   },
+   {
+    "path": "build/code/src/abg/event_prefix.js",
+    "bytes": 54048,
+    "sha256": "9575e9a8c0b16d2004dbd6e597d7e6726fbaa1a662f95d93d78e74dde6763cb1"
+   },
+   {
+    "path": "build/code/src/abg/native_worksite_execution.js",
+    "bytes": 18853,
+    "sha256": "6fd95f8e6b6adb60b4be0e28ef6fc66ddb9678e95c03aa30952c098982df9b49"
+   },
+   {
+    "path": "build/code/src/abg/calculus/axioms.js",
+    "bytes": 76835,
+    "sha256": "35fc539e77334c00ab4cbe8add17e01f8b94c02784080a467dbcb4df6562182a"
+   },
+   {
+    "path": "build/code/src/abg/event_calculus.js",
+    "bytes": 19254,
+    "sha256": "25f5dbcd01283ffa5822da37e38c82535ec95a0bd590797a91713e18202bdfac"
+   }
+  ],
+  "note": "Build output exists only in the staged scratch tenant; no Product worktree build output written (tsc --noEmit checks only)."
+ },
+ "generator": {
+  "stage": "o7b-after-04",
+  "exitCode": 1,
+  "error": "C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js",
+  "lifecycleGuard": "not run (generator failed first)",
+  "cause": "product/worksite_command_execution.ts validators read the embedded native Result without task, which changes the built member bytes; the pinned member lives in gtl/worksite_command_execution.ts outside the write grant.",
+  "outOfConePin": {
+   "owner": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+   "ownerWritable": false,
+   "member": "build/code/src/product/worksite_command_execution.js",
+   "current": {
+    "byteCount": 118773,
+    "digest": "sha256:89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c",
+    "startByte": 108688,
+    "endByte": 111120,
+    "spanDigest": "sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf"
+   },
+   "required": {
+    "byteCount": 119249,
+    "digest": "sha256:b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+    "startByte": 109164,
+    "endByte": 111596,
+    "spanDigest": "sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf",
+    "spanUnique": true,
+    "rendererTextUnchanged": true
+   }
+  }
+ },
+ "retiredDuplication": {
+  "resultTask": "Prospective native_workspace_work_observation/failure carry inputDigest = sha256Canonical(task) = CCall basis rawInputDigest and no task field (product/native_workspace_work.ts constructNativeWorkspaceWorkObservation/constructNativeWorkspaceWorkFailure; isNativeWorkspaceWorkObservation exact key set). Test: RC7 complete carriage (t287-native-workspace-work) resultTask=0, Object.hasOwn(value,'task')=false; real store test resultTask occurrences=0.",
+  "derivedBefore": "No before on prospective observation or failure; injected before or task breaks the digest and is refused; prospective-with-before re-sealed is refused. Test asserts resultContext=0 and failure task-context occurrences=0.",
+  "bindingRawInput": "Persisted binding executionBasis is the coordinate without rawInputValue (R3, realized by author-01, asserted again): bindingTask=0 and binding.executionBasis deepEquals basis minus rawInputValue.",
+  "unchangedAfterCopies": "Unchanged after entries are admitted_member {basisRef,basisDigest,path:[context,entries,i]} naming the Result's own admitted basis input (carryWorksiteContextBodies with basis holder, implementation/native_workspace_work.ts); changed bytes inline once. Tests: resultUnchangedBytes=0; real-store log writes each body version once; producer carriage reuses basis holder (a) and Result holder (b).",
+  "downstreamEmbeddings": "sourceNativeWork in C2 tasks embeds the prospective Result, so it also carries no task; ABG consumers take sourceTask from projectNativeWorkspaceWorkSourceAtPrefix/projectNativeWorkspaceWorkResultTaskAtPrefix (default_library, semantic_job, semantic_revision, native_work_reacquisition, instruction_assembly views, worksite_command_execution validators, axioms/event_calculus physical scope)."
+ },
+ "r2Holder": "WorksiteContextBodyMember = {resultRef,resultDigest,path} | {basisRef,basisDigest,path}. basis_admitted rows index inline task-context bodies under native-context-body:<digest>; resolveWorksiteContextBodyAtPrefix resolves basis members through the held basis_admitted row (basisDigest checked) with the existing malformed/missing/pending/foreign/tampered/stale/denied refusals; sourceUseDeclaresMember declares basis-held members of a selected prospective Result for cross-Run use.",
+ "inputProof": {
+  "test": "RC7 actual current input: the Result task is its own admitted basis input, held and cold; crossed coordinates refuse (t287-event-body-encoding.test.mjs)",
+  "fixture": "Real EventStore admission (createNewEmptyAppendSink, admitRuntimeEvent/Batch), real worksite observation, owner constructNativeWorkspaceWorkTask/Observation, owner carryWorksiteContextBodies; provenance coordinates are supplied values, no actor/provider ran.",
+  "held": "projectNativeWorkspaceWorkResultTaskAtPrefix(prefix,event) deepEquals the task; projectExactExecutionBasisAtPrefix(event.basisId).rawInputValue is the task.",
+  "cold": "After deleting the worksite src tree, validateHistoricalEvents(log bytes) -> selectValidatedRuntimeEventPrefix: same task joined; basis-held a.txt body resolves from log bytes; nativeWorkspaceWorkObservationMatchesTask holds.",
+  "refusal": "null for crossed admitted native basis, non-task basis, foreign CCall (provenance.cCallRef != aggregateId), absent basis and crossed event basisId; basis member refusals tampered (basisDigest), pending (unadmitted basisRef), tampered (crossed basis/path), foreign (other Run).",
+  "effect": "Effect owner test (RC7 complete carriage, t287-native-workspace-work): actual realizeNativeWorkspaceWork completion over an actual local edit; changedPaths, after digests and failure/unknown after preserved; foreign task refused by nativeWorkspaceWorkResultMatches; crossed task refuses the failure.",
+  "controlledPremises": "Component tests in default-library(-fulfillment), currentness consumers and semantic-job/revision supply the basis-owner result-task join as a controlled premise keyed by inputDigest (heldNativeObservation / nativeResultTaskPremise / sourceTask in source premises). They are not admission proof; the genuine join is the real-store test above."
+ },
+ "originalByteCustody": {
+  "test": "RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view (test_env/uat/harness.test.mjs)",
+  "change": "commandRecorder writes the original stdout/stderr Buffers (out/err) to commands/<label>.stdout/.stderr; result.json references byteCount/digest of those same bytes; returned stdout/stderr remain decoded utf8 text views; timeout/truncation/failure fields unchanged.",
+  "cases": "valid UTF-8 (multi-byte) and non-UTF-8 (0xff 0xfe, truncated 0xc3, lone 0x80) streams; retained bytes deepEqual originals; byteCount/digest equal; non-UTF-8 decoded view length differs from original bytes.",
+  "result": "pass in runner lane o7b-after-03 and o7b-after-04"
+ },
+ "beforeFailure": {
+  "stage": "o7b-before-01 (frozen A Product source, current tests)",
+  "lane": "carriage",
+  "result": "fail 2: RC7 complete carriage asserts 'the Result carries no task' (1 !== 0); diagnostic basisTask=1 bindingTask=0 resultTask=1 resultContext=1 resultUnchangedBytes=2 resultBytes=8649; t287-event-body-encoding failed to load (projectNativeWorkspaceWorkResultTaskAtPrefix absent)."
+ },
+ "finalLanes": [
+  {
+   "stage": "o7b-after-04",
+   "lane": "carriage",
+   "exitCode": 1,
+   "ms": 19665,
+   "tests": 94,
+   "pass": 86,
+   "fail": 1,
+   "skipped": 7,
+   "failing": [
+    "native publication agrees with actual generated artifact manifest identity"
+   ],
+   "activeRc7": [
+    "RC7 complete carriage: the admitted basis is the only task and unchanged-body holder; the Result births only changed bytes",
+    "RC7 actual current input: the Result task is its own admitted basis input, held and cold; crossed coordinates refuse",
+    "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+   ],
+   "requiredActivePass": true,
+   "historicalSkipsDeclared": false,
+   "skippedNames": [
+    "RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction",
+    "actual native author fold consumes its admitted retained pair; crossed basis and input refuse",
+    "actual historical pre-result occurrence authenticates with unchanged source and all current physical context",
+    "actual closed child survives blocked parent without acquiring closed-Run source authority",
+    "actual source rejects absent child, foreign provenance, changed context and uncovered authority",
+    "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset",
+    "admitted pure consumer evaluates a native task as data without physical authority"
+   ],
+   "stdoutSha256": "a50bd1347c0d8080eac115d9f4529656fd43e3db13555fecef05b5cb069b4ada",
+   "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-native-workspace-work.test.mjs test_env/tests/t287-native-assembly-retained-input.test.mjs test_env/tests/t287-event-body-encoding.test.mjs test_env/tests/t287-native-work-reacquisition.test.mjs test_env/tests/t287-native-work-reacquisition-normalization.test.mjs test_env/tests/t287-native-work-unknown-effect.test.mjs"
+  },
+  {
+   "stage": "o7b-after-04",
+   "lane": "runner",
+   "exitCode": 1,
+   "ms": 19432,
+   "tests": 33,
+   "pass": 32,
+   "fail": 1,
+   "skipped": 0,
+   "failing": [
+    "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+   ],
+   "activeRc7": [
+    "RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view"
+   ],
+   "requiredActivePass": true,
+   "historicalSkipsDeclared": true,
+   "skippedNames": [],
+   "stdoutSha256": "0ad63b54be714018d90ff68bb25359753d5ff2db5978030c2a24eab5c1cf5697",
+   "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/uat/harness.test.mjs"
+  },
+  {
+   "stage": "o7b-after-04",
+   "lane": "consumers",
+   "exitCode": 1,
+   "ms": 97796,
+   "tests": 77,
+   "pass": 60,
+   "fail": 5,
+   "skipped": 12,
+   "failing": [
+    "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+    "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+    "T-287 C1 remains singular inside the C3 composite publication",
+    "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+    "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+   ],
+   "activeRc7": [],
+   "requiredActivePass": true,
+   "historicalSkipsDeclared": true,
+   "skippedNames": [
+    "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+    "native observation facts preserve captured history through preparation admission and complete assembly",
+    "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+    "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+    "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+    "closed resource forms retain nonempty group arrays and actual old embedded identities",
+    "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+    "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+    "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+    "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+    "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+    "full F11 input and scope output keep compact identities and whole-scope blocked findings"
+   ],
+   "stdoutSha256": "3d23e26f7de3492524bd823e95bf7204e7203eadef6f1d09db774f4cb12c79d9",
+   "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?!(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$).*$ test_env/tests/t287-native-work-currentness-consumers.test.mjs test_env/tests/t287-native-semantic-job.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs test_env/tests/t287-native-c2-instruction-assembly.test.mjs test_env/tests/t287-default-library.test.mjs test_env/tests/t287-default-library-fulfillment.test.mjs test_env/tests/t287-observed-worksite-command.test.mjs test_env/tests/t287-worksite-construction.test.mjs test_env/tests/t287-qualification-carrier-resource.test.mjs"
+  },
+  {
+   "stage": "o7b-after-04",
+   "lane": "cold-resume",
+   "exitCode": 1,
+   "ms": 29220,
+   "tests": 2,
+   "pass": 0,
+   "fail": 2,
+   "skipped": 0,
+   "failing": [
+    "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+    "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+   ],
+   "activeRc7": [],
+   "requiredActivePass": true,
+   "historicalSkipsDeclared": true,
+   "skippedNames": [],
+   "stdoutSha256": "a8df2302af0b11036f2a407f9e4e2531c2879639b47f9e5cea8351158fcbe0b9",
+   "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$ test_env/tests/t287-default-library.test.mjs"
+  }
+ ],
+ "finalFailureClassification": "All 9 final failures (carriage 1, runner 1, consumers 5, cold-resume 2) are ENOENT product-toolchain-manifest.json, the generator not producing the manifest because of the out-of-cone C2 pin. No other final failure.",
+ "skips": {
+  "consumers": "12 skips = the 12 Root-declared historical/F11 uncovered cases (historicalSkipsDeclared=true); not pass credit.",
+  "carriage": "7 env-gated skips (retained-root/extract inputs unset); lane has no declared allowance so historicalSkipsDeclared=false; 6 were also skipped on before, the 7th (RC5 captured-route-37961) belongs to t287-event-body-encoding which failed to load on before.",
+  "consumersFilter": "The consumers negative filter did not exclude the two cold cases: they ran in consumers and in cold-resume (both ENOENT manifest)."
+ },
+ "design": {
+  "pc002": "design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md unchanged-digest sentence qualified to within-attempt; prospective carrier removal changes envelope identity; retained values keep bytes/digests under original owners.",
+  "how": "design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md §10.8 R1-task and R2 rows state the realized law; residual paragraph replaced by the C2 pin dependency."
+ },
+ "retainedHistory": "Retained Results carrying task/before keep original contract: isNativeWorkspaceWorkObservation/Failure accept them; projectNativeWorkspaceWorkResultTaskAtPrefix and axioms nativeWorkPhysicalScope read the retained task; no restamping or compatibility layer.",
+ "budget": {
+  "stages": {
+   "used": 5,
+   "max": 4,
+   "labels": [
+    "o7b-before-01",
+    "o7b-after-01",
+    "o7b-after-02",
+    "o7b-after-03",
+    "o7b-after-04"
+   ],
+   "overrun": "one stage over the cap (o7b-after-04 is the fifth); counting error, disclosed"
+  },
+  "laneInvocations": {
+   "used": 13,
+   "max": 12,
+   "overrun": "one invocation over the cap; counting error, disclosed"
+  },
+  "stageResults": [
+   {
+    "label": "o7b-before-01",
+    "mode": "before",
+    "sourceDigest": "dee46feceb2254a3bbaaf66f3139e7f83b72f434c935ab6036fa552acff1e88b",
+    "sourceCount": 449,
+    "compile": {
+     "exitCode": 0,
+     "ms": 8318
+    },
+    "generate": {
+     "exitCode": 0,
+     "ms": 34947,
+     "error": null
+    },
+    "lifecycle": {
+     "exitCode": 0
+    }
+   },
+   {
+    "label": "o7b-after-01",
+    "mode": "after",
+    "sourceDigest": "0c21353927593dc05d20cf660f2093a6bc280688834cf083a1a5f36329ad4f46",
+    "sourceCount": 449,
+    "compile": {
+     "exitCode": 0,
+     "ms": 8148
+    },
+    "generate": {
+     "exitCode": 1,
+     "ms": 355,
+     "error": "C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js"
+    },
+    "lifecycle": null
+   },
+   {
+    "label": "o7b-after-02",
+    "mode": "after",
+    "sourceDigest": "6101a92e7463f9a7b8d67853453c8f0f7d3f20948c2197ce581129f2868a4863",
+    "sourceCount": 449,
+    "compile": {
+     "exitCode": 0,
+     "ms": 8368
+    },
+    "generate": {
+     "exitCode": 1,
+     "ms": 397,
+     "error": "C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js"
+    },
+    "lifecycle": null
+   },
+   {
+    "label": "o7b-after-03",
+    "mode": "after",
+    "sourceDigest": "f9567b49278edfcce269997dc96a280f0621b055325113b185ba68e131fe2ad1",
+    "sourceCount": 449,
+    "compile": {
+     "exitCode": 0,
+     "ms": 7944
+    },
+    "generate": {
+     "exitCode": 1,
+     "ms": 386,
+     "error": "C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js"
+    },
+    "lifecycle": null
+   },
+   {
+    "label": "o7b-after-04",
+    "mode": "after",
+    "sourceDigest": "c5986d3bdc3620f2e621318b11def7f8bc39f59115eebafe15738335b35e1d9a",
+    "sourceCount": 449,
+    "compile": {
+     "exitCode": 0,
+     "ms": 8265
+    },
+    "generate": {
+     "exitCode": 1,
+     "ms": 387,
+     "error": "C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js"
+    },
+    "lifecycle": null
+   }
+  ],
+  "laneResults": [
+   {
+    "stage": "o7b-before-01",
+    "lane": "carriage",
+    "exitCode": 1,
+    "ms": 4834,
+    "tests": 69,
+    "pass": 61,
+    "fail": 2,
+    "skipped": 6,
+    "failing": [
+     "test_env/tests/t287-event-body-encoding.test.mjs",
+     "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+    ],
+    "activeRc7": [],
+    "requiredActivePass": false,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [
+     "actual native author fold consumes its admitted retained pair; crossed basis and input refuse",
+     "actual historical pre-result occurrence authenticates with unchanged source and all current physical context",
+     "actual closed child survives blocked parent without acquiring closed-Run source authority",
+     "actual source rejects absent child, foreign provenance, changed context and uncovered authority",
+     "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset",
+     "admitted pure consumer evaluates a native task as data without physical authority"
+    ],
+    "stdoutSha256": "e2527c429c00b0126192912b99fa97847190e57438d37c53d816e2eed66ed95f",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-native-workspace-work.test.mjs test_env/tests/t287-native-assembly-retained-input.test.mjs test_env/tests/t287-event-body-encoding.test.mjs test_env/tests/t287-native-work-reacquisition.test.mjs test_env/tests/t287-native-work-reacquisition-normalization.test.mjs test_env/tests/t287-native-work-unknown-effect.test.mjs"
+   },
+   {
+    "stage": "o7b-after-01",
+    "lane": "carriage",
+    "exitCode": 1,
+    "ms": 19551,
+    "tests": 94,
+    "pass": 73,
+    "fail": 14,
+    "skipped": 7,
+    "failing": [
+     "RC7 complete carriage: the admitted basis is the only task and unchanged-body holder; the Result births only changed bytes",
+     "reference preparation resolves exact dependencies in leaf and builtin fallbacks",
+     "cold admitted preparation consumes Result/J without declaration resolution or history reread",
+     "inline request and task identities remain unchanged through cold admitted consumption",
+     "library prepare-testing reuses the invoking private operation and its actual F_D origin",
+     "library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards",
+     "fresh inline context joins a member-carried source after by physical identity, with no inherited carriage",
+     "unknown exact and subtree",
+     "unknown whole root",
+     "known exact change within wider scope",
+     "unknown native after-state retires only potentially writable C0 facts",
+     "observed partial failure retires touched C0 facts but preserves unchanged and absent paths",
+     "native publication agrees with actual generated artifact manifest identity",
+     "typed read-only assessment retains F_P source and exact observed basis, not a work report"
+    ],
+    "activeRc7": [
+     "RC7 actual current input: the Result task is its own admitted basis input, held and cold; crossed coordinates refuse",
+     "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": false,
+    "skippedNames": [
+     "RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction",
+     "actual native author fold consumes its admitted retained pair; crossed basis and input refuse",
+     "actual historical pre-result occurrence authenticates with unchanged source and all current physical context",
+     "actual closed child survives blocked parent without acquiring closed-Run source authority",
+     "actual source rejects absent child, foreign provenance, changed context and uncovered authority",
+     "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset",
+     "admitted pure consumer evaluates a native task as data without physical authority"
+    ],
+    "stdoutSha256": "915a19e7f94696bc2e543e590bfeaf5c320d93857d0592b0ee98312c41da57a9",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-native-workspace-work.test.mjs test_env/tests/t287-native-assembly-retained-input.test.mjs test_env/tests/t287-event-body-encoding.test.mjs test_env/tests/t287-native-work-reacquisition.test.mjs test_env/tests/t287-native-work-reacquisition-normalization.test.mjs test_env/tests/t287-native-work-unknown-effect.test.mjs"
+   },
+   {
+    "stage": "o7b-after-01",
+    "lane": "runner",
+    "exitCode": 1,
+    "ms": 17680,
+    "tests": 33,
+    "pass": 32,
+    "fail": 1,
+    "skipped": 0,
+    "failing": [
+     "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+    ],
+    "activeRc7": [
+     "RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "stdoutSha256": "691a69a7cd0e196069c05cd093ba9e991acc8ef2f9e01fa8cc9b65cc4ad315cc",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/uat/harness.test.mjs"
+   },
+   {
+    "stage": "o7b-after-01",
+    "lane": "consumers",
+    "exitCode": 1,
+    "ms": 72941,
+    "tests": 77,
+    "pass": 44,
+    "fail": 21,
+    "skipped": 12,
+    "failing": [
+     "real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage",
+     "UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+     "Retained prior-Run source use: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+     "framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+     "fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+     "UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+     "C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+     "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+     "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+     "declared command-executor assembly accepts native C2 and keeps exact task, owner and context refusals",
+     "native Design command budget retains exact capacity through both roles, readiness and historical correspondence",
+     "native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain",
+     "four assessed stages conserve requirement bindings and restrict construction/C2 to current Design",
+     "native C2 retains assessed non-target dependencies without granting realization credit",
+     "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+     "U1-P5-02 actual C0 successor and every affected currentness consumer",
+     "TD-08 (a): basis-admission worksite currentness equals the head reference on every history and dependency list",
+     "later admitted failed native residue invalidates observed inputs without requiring physical mismatch",
+     "T-287 C1 remains singular inside the C3 composite publication",
+     "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+     "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+    ],
+    "activeRc7": [],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [
+     "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+     "native observation facts preserve captured history through preparation admission and complete assembly",
+     "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+     "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+     "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+     "closed resource forms retain nonempty group arrays and actual old embedded identities",
+     "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+     "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+     "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+     "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+     "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+     "full F11 input and scope output keep compact identities and whole-scope blocked findings"
+    ],
+    "stdoutSha256": "98096869a0f2aa58ed08a60585509b0e8232b00da14c9b0a8acd90f25f6ffd59",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?!(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$).*$ test_env/tests/t287-native-work-currentness-consumers.test.mjs test_env/tests/t287-native-semantic-job.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs test_env/tests/t287-native-c2-instruction-assembly.test.mjs test_env/tests/t287-default-library.test.mjs test_env/tests/t287-default-library-fulfillment.test.mjs test_env/tests/t287-observed-worksite-command.test.mjs test_env/tests/t287-worksite-construction.test.mjs test_env/tests/t287-qualification-carrier-resource.test.mjs"
+   },
+   {
+    "stage": "o7b-after-02",
+    "lane": "carriage",
+    "exitCode": 1,
+    "ms": 20182,
+    "tests": 94,
+    "pass": 84,
+    "fail": 3,
+    "skipped": 7,
+    "failing": [
+     "RC7 complete carriage: the admitted basis is the only task and unchanged-body holder; the Result births only changed bytes",
+     "native publication agrees with actual generated artifact manifest identity",
+     "typed read-only assessment retains F_P source and exact observed basis, not a work report"
+    ],
+    "activeRc7": [
+     "RC7 actual current input: the Result task is its own admitted basis input, held and cold; crossed coordinates refuse",
+     "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": false,
+    "skippedNames": [
+     "RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction",
+     "actual native author fold consumes its admitted retained pair; crossed basis and input refuse",
+     "actual historical pre-result occurrence authenticates with unchanged source and all current physical context",
+     "actual closed child survives blocked parent without acquiring closed-Run source authority",
+     "actual source rejects absent child, foreign provenance, changed context and uncovered authority",
+     "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset",
+     "admitted pure consumer evaluates a native task as data without physical authority"
+    ],
+    "stdoutSha256": "6a260724c690ed35aad2295914a374c15756a6ddd129878176d6af8bc0874068",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-native-workspace-work.test.mjs test_env/tests/t287-native-assembly-retained-input.test.mjs test_env/tests/t287-event-body-encoding.test.mjs test_env/tests/t287-native-work-reacquisition.test.mjs test_env/tests/t287-native-work-reacquisition-normalization.test.mjs test_env/tests/t287-native-work-unknown-effect.test.mjs"
+   },
+   {
+    "stage": "o7b-after-02",
+    "lane": "consumers",
+    "exitCode": 1,
+    "ms": 82850,
+    "tests": 77,
+    "pass": 50,
+    "fail": 15,
+    "skipped": 12,
+    "failing": [
+     "UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+     "Retained prior-Run source use: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+     "declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+     "framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+     "fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+     "UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+     "C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+     "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+     "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+     "U1-P5-02 actual C0 successor and every affected currentness consumer",
+     "TD-08 (a): basis-admission worksite currentness equals the head reference on every history and dependency list",
+     "later admitted failed native residue invalidates observed inputs without requiring physical mismatch",
+     "T-287 C1 remains singular inside the C3 composite publication",
+     "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+     "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+    ],
+    "activeRc7": [],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [
+     "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+     "native observation facts preserve captured history through preparation admission and complete assembly",
+     "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+     "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+     "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+     "closed resource forms retain nonempty group arrays and actual old embedded identities",
+     "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+     "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+     "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+     "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+     "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+     "full F11 input and scope output keep compact identities and whole-scope blocked findings"
+    ],
+    "stdoutSha256": "8e7750d6a05864ce6cc92ba625358298fadac8873613dd9059da009c8a11e07f",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?!(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$).*$ test_env/tests/t287-native-work-currentness-consumers.test.mjs test_env/tests/t287-native-semantic-job.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs test_env/tests/t287-native-c2-instruction-assembly.test.mjs test_env/tests/t287-default-library.test.mjs test_env/tests/t287-default-library-fulfillment.test.mjs test_env/tests/t287-observed-worksite-command.test.mjs test_env/tests/t287-worksite-construction.test.mjs test_env/tests/t287-qualification-carrier-resource.test.mjs"
+   },
+   {
+    "stage": "o7b-after-03",
+    "lane": "carriage",
+    "exitCode": 1,
+    "ms": 19680,
+    "tests": 94,
+    "pass": 86,
+    "fail": 1,
+    "skipped": 7,
+    "failing": [
+     "native publication agrees with actual generated artifact manifest identity"
+    ],
+    "activeRc7": [
+     "RC7 complete carriage: the admitted basis is the only task and unchanged-body holder; the Result births only changed bytes",
+     "RC7 actual current input: the Result task is its own admitted basis input, held and cold; crossed coordinates refuse",
+     "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": false,
+    "skippedNames": [
+     "RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction",
+     "actual native author fold consumes its admitted retained pair; crossed basis and input refuse",
+     "actual historical pre-result occurrence authenticates with unchanged source and all current physical context",
+     "actual closed child survives blocked parent without acquiring closed-Run source authority",
+     "actual source rejects absent child, foreign provenance, changed context and uncovered authority",
+     "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset",
+     "admitted pure consumer evaluates a native task as data without physical authority"
+    ],
+    "stdoutSha256": "58ff1aec94fec6b2783262e86a4515e020560e9c7c99cee1ca7b041d4192b530",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-native-workspace-work.test.mjs test_env/tests/t287-native-assembly-retained-input.test.mjs test_env/tests/t287-event-body-encoding.test.mjs test_env/tests/t287-native-work-reacquisition.test.mjs test_env/tests/t287-native-work-reacquisition-normalization.test.mjs test_env/tests/t287-native-work-unknown-effect.test.mjs"
+   },
+   {
+    "stage": "o7b-after-03",
+    "lane": "runner",
+    "exitCode": 1,
+    "ms": 15693,
+    "tests": 33,
+    "pass": 32,
+    "fail": 1,
+    "skipped": 0,
+    "failing": [
+     "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+    ],
+    "activeRc7": [
+     "RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "stdoutSha256": "b938f2a335ba2d72772005a56217d70ee6d95bf9c503096467c0b7ec5cfdfe7d",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/uat/harness.test.mjs"
+   },
+   {
+    "stage": "o7b-after-03",
+    "lane": "consumers",
+    "exitCode": 1,
+    "ms": 82827,
+    "tests": 77,
+    "pass": 59,
+    "fail": 6,
+    "skipped": 12,
+    "failing": [
+     "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+     "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+     "TD-08 (a): basis-admission worksite currentness equals the head reference on every history and dependency list",
+     "T-287 C1 remains singular inside the C3 composite publication",
+     "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+     "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+    ],
+    "activeRc7": [],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [
+     "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+     "native observation facts preserve captured history through preparation admission and complete assembly",
+     "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+     "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+     "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+     "closed resource forms retain nonempty group arrays and actual old embedded identities",
+     "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+     "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+     "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+     "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+     "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+     "full F11 input and scope output keep compact identities and whole-scope blocked findings"
+    ],
+    "stdoutSha256": "3a98b66a3979731db3eb34dcd3b09da44627a354dfff8b3115195b4fe85cef74",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?!(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$).*$ test_env/tests/t287-native-work-currentness-consumers.test.mjs test_env/tests/t287-native-semantic-job.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs test_env/tests/t287-native-c2-instruction-assembly.test.mjs test_env/tests/t287-default-library.test.mjs test_env/tests/t287-default-library-fulfillment.test.mjs test_env/tests/t287-observed-worksite-command.test.mjs test_env/tests/t287-worksite-construction.test.mjs test_env/tests/t287-qualification-carrier-resource.test.mjs"
+   },
+   {
+    "stage": "o7b-after-04",
+    "lane": "carriage",
+    "exitCode": 1,
+    "ms": 19665,
+    "tests": 94,
+    "pass": 86,
+    "fail": 1,
+    "skipped": 7,
+    "failing": [
+     "native publication agrees with actual generated artifact manifest identity"
+    ],
+    "activeRc7": [
+     "RC7 complete carriage: the admitted basis is the only task and unchanged-body holder; the Result births only changed bytes",
+     "RC7 actual current input: the Result task is its own admitted basis input, held and cold; crossed coordinates refuse",
+     "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": false,
+    "skippedNames": [
+     "RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction",
+     "actual native author fold consumes its admitted retained pair; crossed basis and input refuse",
+     "actual historical pre-result occurrence authenticates with unchanged source and all current physical context",
+     "actual closed child survives blocked parent without acquiring closed-Run source authority",
+     "actual source rejects absent child, foreign provenance, changed context and uncovered authority",
+     "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset",
+     "admitted pure consumer evaluates a native task as data without physical authority"
+    ],
+    "stdoutSha256": "a50bd1347c0d8080eac115d9f4529656fd43e3db13555fecef05b5cb069b4ada",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-native-workspace-work.test.mjs test_env/tests/t287-native-assembly-retained-input.test.mjs test_env/tests/t287-event-body-encoding.test.mjs test_env/tests/t287-native-work-reacquisition.test.mjs test_env/tests/t287-native-work-reacquisition-normalization.test.mjs test_env/tests/t287-native-work-unknown-effect.test.mjs"
+   },
+   {
+    "stage": "o7b-after-04",
+    "lane": "runner",
+    "exitCode": 1,
+    "ms": 19432,
+    "tests": 33,
+    "pass": 32,
+    "fail": 1,
+    "skipped": 0,
+    "failing": [
+     "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+    ],
+    "activeRc7": [
+     "RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "stdoutSha256": "0ad63b54be714018d90ff68bb25359753d5ff2db5978030c2a24eab5c1cf5697",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/uat/harness.test.mjs"
+   },
+   {
+    "stage": "o7b-after-04",
+    "lane": "consumers",
+    "exitCode": 1,
+    "ms": 97796,
+    "tests": 77,
+    "pass": 60,
+    "fail": 5,
+    "skipped": 12,
+    "failing": [
+     "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+     "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+     "T-287 C1 remains singular inside the C3 composite publication",
+     "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+     "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+    ],
+    "activeRc7": [],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [
+     "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+     "native observation facts preserve captured history through preparation admission and complete assembly",
+     "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+     "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+     "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+     "closed resource forms retain nonempty group arrays and actual old embedded identities",
+     "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+     "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+     "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+     "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+     "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+     "full F11 input and scope output keep compact identities and whole-scope blocked findings"
+    ],
+    "stdoutSha256": "3d23e26f7de3492524bd823e95bf7204e7203eadef6f1d09db774f4cb12c79d9",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?!(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$).*$ test_env/tests/t287-native-work-currentness-consumers.test.mjs test_env/tests/t287-native-semantic-job.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs test_env/tests/t287-native-c2-instruction-assembly.test.mjs test_env/tests/t287-default-library.test.mjs test_env/tests/t287-default-library-fulfillment.test.mjs test_env/tests/t287-observed-worksite-command.test.mjs test_env/tests/t287-worksite-construction.test.mjs test_env/tests/t287-qualification-carrier-resource.test.mjs"
+   },
+   {
+    "stage": "o7b-after-04",
+    "lane": "cold-resume",
+    "exitCode": 1,
+    "ms": 29220,
+    "tests": 2,
+    "pass": 0,
+    "fail": 2,
+    "skipped": 0,
+    "failing": [
+     "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+     "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+    ],
+    "activeRc7": [],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "stdoutSha256": "a8df2302af0b11036f2a407f9e4e2531c2879639b47f9e5cea8351158fcbe0b9",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$ test_env/tests/t287-default-library.test.mjs"
+   }
+  ],
+  "automaticRetry": false,
+  "timeoutsChanged": false
+ },
+ "scopeDisclosures": [
+  "Created and immediately deleted an empty file qualification-scratch/rc7-overhead-author-02/lane-data.tmp.json (scratch root, not one of the four declared scratch paths) during handoff computation.",
+  "tsc --noEmit ran in the worksite tenant (no emit, no tsbuildinfo).",
+  "Stage/lane scripts wrote only under qualification-scratch/rc7-overhead-author-02/tmp and /private/tmp/abg-o7b."
+ ],
+ "missing": [
+  "Root reconciliation of the C2 renderer member pin in gtl/worksite_command_execution.ts (out of write grant) to the required values above, then a fresh generate/guard and the manifest-dependent cases.",
+  "Installed/native matched-workload readback, timing and recovery proof (Root-owned).",
+  "12 declared-uncovered historical/F11 consumer cases remain unexercised.",
+  "Env-gated retained-root carriage cases remain skipped (inputs not selected)."
+ ],
+ "freeze": "Frozen at o7b-after-04 source digest; worker stops."
+}

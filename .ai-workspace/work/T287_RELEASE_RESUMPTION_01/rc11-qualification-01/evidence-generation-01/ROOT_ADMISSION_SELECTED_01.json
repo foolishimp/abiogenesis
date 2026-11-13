@@ -1,0 +1,60 @@
+{
+  "id": "RC11-EVIDENCE-SELECTED-01",
+  "decisionOwner": "/root Executive",
+  "actor": "/root/rc11_evidence_triage as external proof-control Writer/Operator",
+  "decision": "admitted exactly one selected-action execution; native-assessment held",
+  "at": "2026-11-09T06:57:08.152865+00:00",
+  "callerDeadline": "2026-11-09T07:14:38.152865+00:00",
+  "rootReprice": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_REPRICE_01.json",
+    "bytes": 3254,
+    "sha256": "596ee32800d6173c5dcb5224d6deb688533905c77bd564252a04b79b23c351e9"
+  },
+  "controls": {
+    "READY.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/READY.json",
+      "bytes": 3684,
+      "sha256": "360fbf1f6ab1b4f8f722fe7f6cbb61377cdcfec51749423fa612473bbae74461"
+    },
+    "CONTROLS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/CONTROLS.json",
+      "bytes": 6831,
+      "sha256": "b2b1c849907cb6d7dc555b79e00f5e012958119fb832ff00ddc166954514b8b9"
+    },
+    "run.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/run.mjs",
+      "bytes": 9052,
+      "sha256": "9f6a8b501f221b9e5b495c52b78ee3f7cf3112c9f4a10dfcaf7dc0af4e9a82cd"
+    },
+    "common.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/common.mjs",
+      "bytes": 2784,
+      "sha256": "d888e6a5d2a605856452aefc3cc321cfc57366dc0d3721a93a2654f73510d1f5"
+    }
+  },
+  "verification": {
+    "inputs": 17,
+    "scripts": 4,
+    "mismatches": []
+  },
+  "command": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/run.mjs",
+      "selected-action"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01",
+    "env": {
+      "RC11_EVIDENCE_ADMISSION": "RC11-EVIDENCE-GENERATION-01-ROOT-ADMITTED"
+    }
+  },
+  "limits": {
+    "callerMaximumMs": 1050000,
+    "hostMaximumMs": 900000,
+    "ownedGroupSignalGraceMs": 5000,
+    "pollMaximumMs": 50000
+  },
+  "effects": "Only new raw/selected-action/tmp, raw records and generated/selected-action here; offline fixture packs/installs; exact existing model-free host self-SIGKILL boundary, exact attempted store lock recovery and owned close/physical read. Preserve original canonical bytes.",
+  "exclusions": "No native-assessment, paid provider, network, candidate/source writes, staging, second run, retry or new mutation after failure. Return failure with actual physical uncertainty.",
+  "acceptance": "Not granted; return execution/provenance/closure/snapshot facts to Root."
+}

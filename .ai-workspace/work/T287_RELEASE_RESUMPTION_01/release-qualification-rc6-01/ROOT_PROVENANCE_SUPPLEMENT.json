@@ -1,0 +1,70 @@
+{
+  "kind": "root_source_grounded_provenance_supplement",
+  "recordedUtc": "2026-11-05T08:44:16.784229+00:00",
+  "baselineReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/PROVENANCE_READINESS_REVIEW.json",
+    "bytes": 29844,
+    "sha256": "163d0a6484dab2b9f1f53a3519a95429479dcbb58affe894b8c75a765d08f574"
+  },
+  "scope": "The same three representative RC6 members; no whole-inventory or release qualification claim.",
+  "recoveredOriginalC2Record": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T290_DEBT_WAVE_01/phase_c.md",
+      "bytes": 1547011,
+      "sha256": "77deda171c38b0ad4c095084a7914f906d70ddf9f87f21714a280f9ec20112fe"
+    },
+    "spans": [
+      {
+        "startLine": 178,
+        "endLine": 201,
+        "startByte": 30425,
+        "endByte": 40602,
+        "sha256": "389aeed33ed51041e3d0d1a6e117b3c1efff88e075588ab21c712f30e63b32ef",
+        "meaning": "Original C-2 activation, exact qualification_contracts equality-helper scope and Opus5.5 return identity"
+      },
+      {
+        "startLine": 620,
+        "endLine": 630,
+        "startByte": 99036,
+        "endByte": 103135,
+        "sha256": "20a170bda0b564c76213d68609a7228057de3c792444536bf3af21bfce2b7075",
+        "meaning": "Original C-2 Executive acceptance at b8f66ef4 and retained limits"
+      }
+    ],
+    "constructionCommit": "b8f66ef4b",
+    "declaredAuthor": "Claude Opus5.5",
+    "effect": "Original C-2 activation/grant/return/acceptance is now located. Preserve reviewer original unknown as its bounded acquisition result; no new owner input is needed just to locate this record.",
+    "limits": "Earlier inherited contributors and complete source-attribution sufficiency remain separate; retained old test outcomes are not current execution."
+  },
+  "native06DeclaredProfile": {
+    "profile": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/PROVIDER_PROFILE.json",
+      "bytes": 1574,
+      "sha256": "6c0e0a0f26e5f20cf1fccf5143237b6d4f15679ec859b9bcfcbc2c98cdd35534"
+    },
+    "started": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/STARTED.json",
+      "bytes": 1014,
+      "sha256": "c8d6c152a6e6ae993950d52e44e735466caed0fd66a4e0fb609416336cfd5a46"
+    },
+    "dispatchManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/DISPATCH_MANIFEST.json",
+      "bytes": 29564,
+      "sha256": "a8560d667af2e2395883c865671b1de4fd868481db94e2c2ef3bb3b072a00ee8"
+    },
+    "selectedAgent": "claude",
+    "selectedModel": "claude-opus-5-5",
+    "requestedEffort": [
+      "--effort",
+      "xhigh"
+    ],
+    "agreement": "Started provider selection equals pinned profile; Started manifest digest matches actual dispatch manifest.",
+    "limits": "Operator selection evidence only. This supplement does not authenticate actual admitted construction occurrence/transport, add missing canonical identity to historical events, infer family equivalence, or close Q23."
+  },
+  "outstanding": [
+    "QR01 actual configured/admitted identity correspondence and source-bound independence policy",
+    "QR02 relevant historical-to-current contributor correspondence and native producer eligibility",
+    "Broader original contribution evidence under exact existing arms"
+  ],
+  "effects": "Read-only evidence acquisition and this coordination record. No source/HOW/test mutation, build, provider, qualification or review relabeling."
+}

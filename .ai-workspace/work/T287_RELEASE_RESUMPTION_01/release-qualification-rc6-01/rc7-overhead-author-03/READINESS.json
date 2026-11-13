@@ -1,0 +1,169 @@
+{
+  "kind": "known_bridge_operator_control_preparation",
+  "status": "PREPARED_SYNTAX_ONLY_ROOT_MATERIALIZATION_AND_FINAL_ADMISSION_PENDING",
+  "productFrame": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "method": "STDO3.0.4",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "product": "fixed15 ABIogenesis5.0 / GOAL-035 / T-287; existing owners and unchanged Product WHAT"
+  },
+  "sourceReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SOURCE_REFERENCE.json",
+    "bytes": 232463,
+    "sha256": "9fb2db3d1ebcc9faf9eba7c93f474bfd415601fa1bfbccbc0b34ddd66121c7f8"
+  },
+  "effectiveScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_SCOPE_ADDENDUM_01.json",
+    "bytes": 3732,
+    "sha256": "a7a6c55080b90a1a0655990842df785edb977d6211f809d9f95e299d8f35c45b"
+  },
+  "originalThreePathDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/KNOWN_SCOPE_DRAFT.json",
+    "bytes": 807,
+    "sha256": "c6ffcce673b21dfd9770cdf38ed5aef5dcb08c168b94ec0e9fd7c68c70f0edca"
+  },
+  "rootReviewDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 6623,
+    "sha256": "c613378b2fa10f72d89a546c7b1bd8b792af5cf674b0a4d486fd0b7bd98eb5f3"
+  },
+  "closedSourceReviews": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/reviews/result-current-input-001/REVIEW.json",
+      "bytes": 51904,
+      "sha256": "c78ac2c3f82c17392d36ed745f1d3588fa6fdcb4d8b95ba912b3b3579b444206"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/reviews/body-custody-runner-001/REVIEW.json",
+      "bytes": 28524,
+      "sha256": "b24ced9bb6b60923798296b7985f065207c7cc8191838f4c560ac441855dc1d3"
+    }
+  ],
+  "actualPredecessorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 11973,
+    "sha256": "07c9b3d953198a2e4f3d86a623074f88c29cb829871e8bc18d06f0a342f87be4"
+  },
+  "originalPredecessorResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/after-run-resume.json",
+    "bytes": 72497977,
+    "sha256": "34102b8ee052c13c9ea6238d55fe02c1d0a5722a1596f43b5bd43b4b0594f13a"
+  },
+  "counts": {
+    "frozenSourceNames": 449,
+    "frozenSourceBytes": 12120102,
+    "priorControlsExcluded": 21,
+    "sourceWrites": 4,
+    "inheritedTrackedChanges": 54,
+    "inheritedNewFiles": 2,
+    "proposedStagedControls": 17,
+    "nonHandoffContextEntries": 466,
+    "absentHandoffs": 3,
+    "totalContextEntries": 469,
+    "requiredUniqueTests": 7,
+    "requiredLanes": 4,
+    "stageAllocationCeiling": 2,
+    "laneAllocationCeiling": 6
+  },
+  "proofSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/inputs/AFFECTED_PROOF_BINDING.json",
+    "bytes": 13245,
+    "sha256": "a2c819186f08e951bad8d0de844c021107414ce6a39a01bf314e2ccc2d76f2f7"
+  },
+  "controlChecks": {
+    "syntax": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SYNTAX_CHECKS.json",
+      "bytes": 1932,
+      "sha256": "1ce1a5850bb9bb60e24dcdbb97fe9c7fbde78cea2ddb4ac914108267e659b6f4"
+    },
+    "pureControlSemantics": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/CONTROL_SEMANTICS.json",
+      "bytes": 2977,
+      "sha256": "93d2c6e7be278f5a815dfab95e1978ecfa7bfa2b1ce8c7c41754b9379a6c17fa"
+    }
+  },
+  "reusedOwners": {
+    "stageSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/inputs/prior-author-stage.mjs",
+      "bytes": 5467,
+      "sha256": "42b8e0be20aee737080591ffb9baff87109affc65a1b813e2b65dbe6a68a78a3"
+    },
+    "laneSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/inputs/prior-author-lanes.mjs",
+      "bytes": 5372,
+      "sha256": "358bb8a44dd8f64b4a0a1cd647d4efe271f65c3d3e5c3cb626b2869e8af9cca3"
+    },
+    "oldPrepare": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/prepare-r1.mjs",
+      "bytes": 11805,
+      "sha256": "d9947f8f3d58d8c11f847c1df84c364fc5bfb42776786ff7ab51b88367422128"
+    },
+    "oldDispatch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/dispatch.mjs",
+      "bytes": 6191,
+      "sha256": "90a36e9764de4cb0205bca8ac5c1e0fee0b6f4f36c56c608c9bad226b7988e3e"
+    },
+    "canonicalRunner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    },
+    "dependencySelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/inputs/DEPENDENCY_SOURCE_SELECTION.json",
+      "bytes": 5798,
+      "sha256": "c70ea6a7cfcf91f152792141919c16ae48edc6f7024329561e75a586c726870a"
+    }
+  },
+  "adaptations": [
+    "Stage/lane exact task paths; four positive exact name filters; positive testSkipPattern support for later complements. No duplicated cold cases or negative-name complement.",
+    "Derive used allocations from existing finite scratch stage directories/stage receipts/lane output directories. Failed/incomplete allocations count; missing final receipts stop new work. Current selected execution is serial, not a new concurrent locking protocol.",
+    "Retain existing after-stage copy/compiler/generator/guard and existing lane spawnSync owner; pin/read-only source preservation, stage/live-source equality before lane, sanitized offline environment and distinct empty configs. Existing per-command bounds unchanged.",
+    "Combine B preparation and invocation into one host with one installedModules call, one caller.refresh, one context observation and one constructed reopen call. The same caller/environment/call reaches unchanged invokeLifecycle. No intermediate full prepared-call/input/resume serialization or second parent dispatch acquisition.",
+    "Reuse unchanged canonical commandRecorder for outer real host and cold CLI. Replace B full-buffer physical log hashing with its existing canonical streaming eventResourceIdentity helper; preserve before/after physical prefix check without parsing history.",
+    "Builtin performance marks retain scalar pre-start timings through existing exclusiveRecord PREPARED_CALL/STARTED owners: control pins, resume/config, source controls, installedModules, refresh, prefix identity, context observation, construct call, capacity/canonical digest and prefix preservation. Invocation duration is separate.",
+    "Actual receipt/close are retained only from returned execution; one complete successor resume is written after return. Root passive freeze uses actual physical Result/observation coordinates and original typed terminal/valueDigest through existing B/A custody algorithms. No fake admission or old close fallback."
+  ],
+  "adaptationDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/source-adaptation.diff",
+    "bytes": 54008,
+    "sha256": "6e1374ab51d0815d9aef0f7bb58276fb5eb25ba470602fbc2f2990ee7049f15e"
+  },
+  "postReturnSequence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/POST_RETURN_CUSTODY.template.json",
+    "bytes": 3800,
+    "sha256": "f620bb2542afa5b60e6b6ed75fbcb8a1dfdce9425281aeddc54800c917ff907d"
+  },
+  "materializationMap": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/STAGED_CONTROL_MAP.json",
+    "bytes": 7318,
+    "sha256": "1ecbb3df106ff9379b1e03bca509bcbdad56fc0e41c8935beb056e3f5f8c3711"
+  },
+  "unbound": {
+    "rootSourceBeforeMaterialization": null,
+    "finalStagedControlPins": null,
+    "workloadSourceDigestsAfterMaterialization": null,
+    "rootControlAdmission": null,
+    "hostManifestFinalPins": null,
+    "actualFutureHostReceipt": null,
+    "actualFutureExecutionResumeClose": null,
+    "actualFuturePhysicalResultObservation": null,
+    "rootFutureFreshReadSelection": null
+  },
+  "supersededFilterProposal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/preparation-reconciliation-001",
+    "standing": "Original closed packet remains unchanged. Its negative-name exclusion proposal is superseded by B control-filter-triage positive --test-skip-pattern for ordinary complement and positive --test-name-pattern for cold selection. Root must apply that proven correction when later materializing fixed Testing/UAT; do not reuse the negative filter.",
+    "evidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/control-filter-triage-001/SUMMARY.json",
+      "bytes": 2663,
+      "sha256": "5b9f5405325c5f1162aef4b4fff4b58e55c1be483a57505841e473aea704bccb"
+    }
+  },
+  "limits": [
+    "Preparation is operator readiness, not Product authorship, independent acceptance or runtime/evidence admission. No live C source reads/writes, staging, build, test lane, SDK/runtime/provider/credential invocation, installed mutation or new agent in this task. Named preserved proof summaries were read by exact pinned paths.",
+    "All known B source/close/review inputs are bound; future bridge inputs/outputs above remain unbound. Root materializes exact controls and source custody before final admission, then executes the bounded launcher.",
+    "Syntax and pure expression checks do not attest end-to-end host execution, native prompt transport size, current credentials, generated Product or test sufficiency. Existing owner capacity preflight remains actual at launch.",
+    "Current immutable RC6 commandRecorder/invokeColdInstalledEntry legacy stdout/resultJSON copies remain unchanged and measured owner cost. New summaries add no complete owner-output copies. Build feedback retains existing stage-owner tail reporting; lane stdout/stderr retain its existing full text capture.",
+    "Source material remains frozen. No inherited overall B source success;19 historical skips, D5 recovery, full5.0 qualification, matched aggregate performance and the later fixed Testing/UAT increment remain open.",
+    "Source errors, host/resource errors or null/failed after observation retain partial standing and stop the relevant route. No hidden retry, budget enlargement or speculative resource selection."
+  ]
+}

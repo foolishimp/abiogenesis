@@ -1,0 +1,212 @@
+{
+  "kind": "bounded_d5_read_and_protected_source_scope",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "F10 lifecycle truth and triggered pre-RC7 D5 profile obligation; preserve unaccepted Q23 F11/F15 increment",
+    "outcome": "Retire only redundant current-profile ABG lifecycle copies through existing owners; preserve physical/helper observations, primary facts, deterministic fold/replay and exact historical profile standing.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Product/requirements own WHAT; existing common-library/native-profile HOW owns D5. Frozen author06 subject676931d1 is current source, unaccepted pending proof/formal review.",
+      "tool": "Exact immutable STDO3.0.4 and maintained operator-client/RC6 owners. Host tools are behaviorally scoped, not OS confinement. This Writer prepares controls only.",
+      "runtime": "ABG and its single fold own runtime truth. Existing one-node native author Program; final resume/close unbound until Root supplies genuine proof03 close."
+    },
+    "prohibitions": [
+      "No new WHAT, registry/store/event stream, fold/rules/replay/runtime_liveness/transport_contracts/OwnedProcessFacts/helper rewrite.",
+      "No native ancestry invention, prior-journal mutation, universal backward compatibility, automatic retry or claimed Q23 acceptance.",
+      "Operator preparation cannot stage, preflight, run tests/build/provider/runtime/Git or change Product."
+    ]
+  },
+  "materialOwners": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts"
+  ],
+  "materialTests": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs"
+  ],
+  "protectedReadOnlyOwners": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/process/",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts"
+  ],
+  "governingHOW": {
+    "count": 3,
+    "standing": "Reuse the prior closed report exact pins/sections; at most these three existing HOW reads for future Worker. No extra requirement/history expansion.",
+    "reads": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 145655,
+        "sha256": "a9a69cdf6657e90581d3cfe5482668872bb7bc7b572a4b3ac97d628c414248f9",
+        "lines": "201-215;221-230;538-544;601-621;672",
+        "role": "Active D5 law and explicit physical/helper/derived-state distinction."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 21291,
+        "sha256": "8dd2fa84d4705009959572386817077797adcb54d76239b9c4fb628e4e6dd029",
+        "lines": "sections2-5",
+        "role": "Exact original L and current profile behavior; no generic registry or migration."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 86253,
+        "sha256": "2883a6df78ac9c632b22bd6ce395e95dddea553ef885c0292aa8e6b666663098",
+        "lines": "469-486",
+        "role": "Retained original executable plus fresh successor store; unsupported predecessor-current digest refuses."
+      }
+    ]
+  },
+  "materialAdditionalTestsAndFixtures": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "bytes": 27824,
+      "sha256": "22aade8295f93cbea4f8e64bb313464fbeca24cabe79c00925f80ccaa4315a8c",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": [
+        "build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "bytes": 80836,
+      "sha256": "c62071e4afc2f938ba9d84f67071686c8c2286ec1efcbd1d61a16ead7d7051f2",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": [
+        "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "bytes": 84957,
+      "sha256": "ff28021b9a3b9acffe947ba146ce5ceaffb67fdf13a494de62a995c415e1a68a",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": [
+        "build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/r10-projection-family/s01-store.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-entry212-reopen-worker.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/support/t287-entry212-reopen-worker.mjs",
+      "bytes": 1318,
+      "sha256": "9d997bff795751550b14dfe1af36fb2316b9fa42c420b33eec056aa32115ab66",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": []
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": []
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "bytes": 2704,
+      "sha256": "9ee35f0cacaacff06581007aa89d7a8814dd873c0ae42a3b848e914090089b87",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": [
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+      "bytes": 12780,
+      "sha256": "05b4c66807a5650ec6283901c5ee315c19320d90365cd59a9176e266395bb39b",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": []
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "bytes": 52437,
+      "sha256": "a0884d77ac6314ff579dd39a6d453a231a4f38254ce9f4ddbc81be8c4436e7e0",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": [
+        "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "bytes": 29332,
+      "sha256": "5ae58446ee3139f81d1503864d2e404c0aaa18c807f1d203cfeff2639cca74e7",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": []
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/r10-projection-family/s01-store.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/fixtures/r10-projection-family/s01-store.mjs",
+      "bytes": 2994,
+      "sha256": "2ad4c8af6faa86923b08bfdd27e421114dc09bcde2dbc37072db73203121d3b5",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": [
+        "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": [
+        "build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "bytes": 9623,
+      "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": []
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+      "bytes": 2031,
+      "sha256": "92f9faa3ec401fd80309b17f546a79354ae36b1869780c55fa5332110171a9d2",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": []
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "source": "git:1f62c0095e6196b089071bb72e88217792edf6ff:build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd",
+      "alreadyInQ23Selection": false,
+      "relativeImportDependencies": []
+    }
+  ],
+  "readDependencyRule": "Follow imports/read fixtures within the exact protected closure; no unrelated history/private provider content. Complete compile bodies are not eagerly quoted.",
+  "existingRendererLimit": "Path/digest metadata remains repeated in existing native interfaces. Root must measure actual rendered order at future preflight; no capacity pass claimed."
+}

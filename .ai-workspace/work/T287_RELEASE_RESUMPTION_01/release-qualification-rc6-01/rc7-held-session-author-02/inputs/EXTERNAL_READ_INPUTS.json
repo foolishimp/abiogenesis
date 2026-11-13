@@ -1,0 +1,42 @@
+{
+  "kind": "bounded_external_read_selection",
+  "status": "SELECTED_READ_ONLY",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/reviews/held-stage03-001/REVIEW.json",
+      "bytes": 38486,
+      "sha256": "7eadf0c978a64c5491ba556f79cf7f3846ea476d199a9828fa93b6105f086cae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 7500,
+      "sha256": "c1a3d77c74c716e4b5413067aed917560318b1239c2244e6f2356ae8ba3ac20f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_ARCHITECTURE_SELECTION.json",
+      "bytes": 9639,
+      "sha256": "5bd1530ddfe7df8a8db61f351f50233c2ac54d84107d5b652e0367283785312f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/PROGRAM_ENVIRONMENT_TRIAGE.json",
+      "bytes": 6234,
+      "sha256": "52309666c19fb4ab06127b3d34370111ba832f43b4d6dc3ddb8b22046727625b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_POST_PROOF_DISPOSITION.json",
+      "bytes": 12677,
+      "sha256": "be2821a3e6e1e89fa1083598b2555702786936786ef5f41eb03862bd3254261a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-hs02-once.summary.json",
+      "bytes": 4542,
+      "sha256": "b419f2c2df01c148434dd6763b154adefa7f720b06018c8e01c7a3eacb79d6c0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-fixed-admission-once.summary.json",
+      "bytes": 2370,
+      "sha256": "40243c5f7b5e0ee9e648097514fe19620f5f6b746dd35e8930a46bb5cbe9fd4d"
+    }
+  ],
+  "meaning": "Exact metadata/review/Root source inputs only when necessary; no full historical event logs, raw provider output, credentials or full resume in native context."
+}

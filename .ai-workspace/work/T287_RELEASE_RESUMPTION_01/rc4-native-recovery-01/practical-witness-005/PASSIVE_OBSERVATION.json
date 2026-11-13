@@ -1,0 +1,113 @@
+{
+  "initialPrefix": 3196379,
+  "cursor": 9932482,
+  "milestones": [
+    {
+      "kind": "invocation_admitted",
+      "ordinal": 5,
+      "eventTime": "2026-11-02T23:52:14.439Z",
+      "offset": 3200708,
+      "bytes": 352531,
+      "invocationRef": "invocation://abiogenesis/b30ba9ffce84e29a86ee7cb728a97d98900f54494f532a7515a92c9cc6e339df",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/fb8f07222b8193ecad95a9710f0d91906d5d4d8d93e3fdf0e32579dbcaca5f9e"
+    },
+    {
+      "kind": "run_segment_opened",
+      "ordinal": 8,
+      "eventTime": "2026-11-02T23:52:14.486Z",
+      "offset": 3615756,
+      "bytes": 2333,
+      "runId": "run://abiogenesis/bd963a4f887e323833dd9f892237159c75d8ddd0da67a0dc932b050de1de6207",
+      "invocationRef": "invocation://abiogenesis/b30ba9ffce84e29a86ee7cb728a97d98900f54494f532a7515a92c9cc6e339df",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/fb8f07222b8193ecad95a9710f0d91906d5d4d8d93e3fdf0e32579dbcaca5f9e"
+    },
+    {
+      "kind": "actor_transport_binding_admitted",
+      "ordinal": 53,
+      "eventTime": "2026-11-02T23:52:15.657Z",
+      "offset": 3798262,
+      "bytes": 96013,
+      "cCallRef": "c-call:sha256:651b5bcb38781b321897629058f04b5d25e8cb686115ac62e4478544c6669e27",
+      "paths": {
+        "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-4b53cd8df528babb-output.txt",
+        "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-4b53cd8df528babb-prompt.txt",
+        "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-4b53cd8df528babb-stderr.log",
+        "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-4b53cd8df528babb-stdout.log",
+        "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-4b53cd8df528babb-transport.json"
+      }
+    },
+    {
+      "kind": "actor_process_started",
+      "ordinal": 55,
+      "eventTime": "2026-11-02T23:52:15.667Z",
+      "offset": 3896822,
+      "bytes": 1834,
+      "actorInvocationRef": "actor-invocation://abiogenesis/a5c8a6f94bf65fc6c6b4411adc6ad884578c220fe845193df3fd84cc49cb7010",
+      "cCallRef": "c-call:sha256:651b5bcb38781b321897629058f04b5d25e8cb686115ac62e4478544c6669e27",
+      "processId": 58399
+    },
+    {
+      "kind": "actor_transport_binding_admitted",
+      "ordinal": 967,
+      "eventTime": "2026-11-02T23:53:13.550Z",
+      "offset": 6892099,
+      "bytes": 139771,
+      "cCallRef": "c-call:sha256:d22512336b2b9ba8f3ac3a1011c4ebdbb7c09b2da3f174b9da64bb6691fd7538",
+      "paths": {
+        "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-output.txt",
+        "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-prompt.txt",
+        "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-stderr.log",
+        "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-stdout.log",
+        "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-transport.json"
+      }
+    },
+    {
+      "kind": "actor_process_started",
+      "ordinal": 969,
+      "eventTime": "2026-11-02T23:53:13.560Z",
+      "offset": 7034446,
+      "bytes": 1863,
+      "actorInvocationRef": "actor-invocation://abiogenesis/243d4f38f3394011c3709d1c2edd566ca768dd682565402b92d2e6756435f2b6",
+      "cCallRef": "c-call:sha256:d22512336b2b9ba8f3ac3a1011c4ebdbb7c09b2da3f174b9da64bb6691fd7538",
+      "processId": 59052
+    },
+    {
+      "kind": "graph_call_closed",
+      "ordinal": 1772,
+      "eventTime": "2026-11-02T23:54:44.082Z",
+      "offset": 9602632,
+      "bytes": 1701,
+      "graphCallId": "graph-call://abiogenesis/fef0bd65c732e57b12de2f7b91b1e31e77ffd79a8f8fa84e298d422a0c206ed3"
+    },
+    {
+      "kind": "graph_call_closed",
+      "ordinal": 1806,
+      "eventTime": "2026-11-02T23:54:45.395Z",
+      "offset": 9808709,
+      "bytes": 1687,
+      "graphCallId": "graph-call://abiogenesis/bfe87efb7ea20191385200c2c2aafeb5174b0156330f8e597415c3fd474e17c1"
+    },
+    {
+      "kind": "graph_call_closed",
+      "ordinal": 1823,
+      "eventTime": "2026-11-02T23:54:45.677Z",
+      "offset": 9862943,
+      "bytes": 1672,
+      "graphCallId": "graph-call://abiogenesis/b50ce04131e5b863630fdebd9c5271831640a48f06635ea66eab0c27ee568d03"
+    },
+    {
+      "kind": "run_stopped",
+      "ordinal": 1844,
+      "eventTime": "2026-11-02T23:54:47.138Z",
+      "offset": 9930673,
+      "bytes": 1809,
+      "cCallRef": "c-call:sha256:cbd9d7dd2e9db64b6ec804e47e00837ebb2486c7ade1ce64615686e899f778df",
+      "reasonRef": "reason://abiogenesis/recursion/bound-exhausted@5",
+      "disposition": "blocked"
+    }
+  ],
+  "scope": "Passive suffix-only005 actual A; no runtime imports or effects.",
+  "observedAt": "2026-11-02T23:54:51.823351+00:00",
+  "physicalBytes": 9932482,
+  "returnFileObserved": true
+}

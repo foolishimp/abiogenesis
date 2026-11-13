@@ -1,0 +1,27 @@
+{
+  "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "testSha256": "1ddd434b186c73fc9fa37d6579f008071381f7a194d228edfe148e667bfc5289",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Actual011 module-initialization event payload refusal awaits Root causal triage; no repair selected.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_011.json",
+        "bytes": 11060,
+        "sha256": "d0e57ed210542f6dc92286d82ad577dc4660f5c6bcfdf7db78705c2d4fc8d712"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/109-t287-native-assessment-evidence.json",
+        "bytes": 1171,
+        "sha256": "bd4ac7517cc4633efabd6ef96d79fc33da5b995cf7af1bdb33f6a6217c681d3d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/commands/109-t287-native-assessment-evidence.stdout",
+        "bytes": 1933,
+        "sha256": "5ac03b537a3aebe0e44ab7cd5ea772a7ee070edf37236c6d80090ccfb7ffa10c"
+      }
+    ]
+  }
+}

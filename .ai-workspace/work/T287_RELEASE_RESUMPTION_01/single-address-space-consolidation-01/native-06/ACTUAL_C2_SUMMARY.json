@@ -1,0 +1,402 @@
+{
+  "recordedUtc": "2026-11-04T02:51:22.753Z",
+  "status": "ACTUAL_C2_COMPLETED_WITH_UNMET_PREDICATES",
+  "standing": "Actual helper and admitted C2 Result conjoined; Root acceptance remains separate.",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/a47c7a3b4cebaa43a3f165d7bd4cdab169a494dcbef990570696780f91897fbc",
+  "helperArtifactDigest": "sha256:a47c7a3b4cebaa43a3f165d7bd4cdab169a494dcbef990570696780f91897fbc",
+  "helperPhysicalSha256": "d9c23d04a62039b393e33a87806400f3c23b137b588e78223a02e6b2f6c69a02",
+  "helperProducer": {
+    "attemptRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0e69bcdee7ab956483b63ee16b426d9cde8d5dd0e2a402a6cc0655f7ae5189e7/0f5b8d3b431f1eee3fd71051ca2ad8909c13c59318586ad127cdeebb900957f9",
+    "taskRef": "worksite-command-execution-task://abiogenesis/0e69bcdee7ab956483b63ee16b426d9cde8d5dd0e2a402a6cc0655f7ae5189e7",
+    "taskDigest": "sha256:0e69bcdee7ab956483b63ee16b426d9cde8d5dd0e2a402a6cc0655f7ae5189e7",
+    "coordinates": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/C2_HELPER_COORDINATES.json",
+      "bytes": 3691,
+      "sha256": "ddeafea46d6d6641ee7523c4de0d6e2af5ec14792fd05785dfbcf093dc8856ca"
+    }
+  },
+  "commands": [
+    {
+      "ordinal": 0,
+      "commandId": "command://abiogenesis/single-address-space/native-06/source-correspondence",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 22700,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 1,
+      "commandId": "command://abiogenesis/single-address-space/native-06/offline-toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 2,
+      "commandId": "command://abiogenesis/single-address-space/native-06/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 3,
+      "commandId": "command://abiogenesis/single-address-space/native-06/compile",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 4,
+      "commandId": "command://abiogenesis/single-address-space/native-06/generate",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 5,
+      "commandId": "command://abiogenesis/single-address-space/native-06/pack",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 700124,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 6,
+      "commandId": "command://abiogenesis/single-address-space/native-06/affected-proof",
+      "exitStatus": 1,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 72533,
+      "stderrBytes": 840
+    }
+  ],
+  "predicateObservedValues": [
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-06/source-correspondence/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-06/offline-toolchain/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-06/contract-seeds/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-06/compile/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-06/generate/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-06/pack/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-06/affected-proof/exit",
+      "observedValue": 1
+    }
+  ],
+  "sourceCorrespondence": {
+    "count": 124,
+    "allEqualFrozenSourceAndHandoff": true,
+    "subjectSha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670",
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/actual-c2-001/SOURCE_CORRESPONDENCE.json",
+      "bytes": 63426,
+      "sha256": "565f8ce5119c9243c91d7dd0bdb58b0615cf297bd07ce3eefbcccb705622ccb7"
+    }
+  },
+  "protectedInputCount": 899,
+  "protectedBeforeEqualsAfter": true,
+  "productDelta": [],
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 9,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 451915.525625,
+      "stdoutSha256": "ac58e21c17c7c5ce56e70992fd17cfb7bbf31501c5141894d69c8c840aa81a64",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "affected-owner-lanes",
+      "files": [
+        "test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+        "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+        "test_env/tests/t287-authenticated-owner-values.test.mjs",
+        "test_env/tests/t287-authenticated-owner-family.test.mjs",
+        "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "test_env/tests/t287-declared-testing-capability.test.mjs",
+        "test_env/tests/t287-default-library.test.mjs",
+        "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "test_env/tests/t287-continuation-causation.test.mjs",
+        "test_env/tests/t287-owned-native-proof.test.mjs",
+        "test_env/tests/t287-native-owner-reuse.test.mjs",
+        "test_env/tests/t288-initial-cursor-entry.test.mjs",
+        "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+        "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/t287-cross-cut-public-read.test.mjs",
+        "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "test_env/tests/witness-run-stopped-definition-binding.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 106,
+      "fail": 0,
+      "skipped": 30,
+      "wallMs": 364187.12912500004,
+      "stdoutSha256": "7a9e4db5acc70412b38b03ac56b3e5c7dde5c264a66845bef5ee42b48fe758e5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 31,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 57719.83750000002,
+      "stdoutSha256": "1e5672135a02c746c2eeb963bca0a185c2d408cca747b9f2e9d72660c64d7888",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "qualification-owner-components",
+      "files": [
+        "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+        "test_env/tests/t287-native-runtime-gate.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 43,
+      "fail": 0,
+      "skipped": 1,
+      "wallMs": 17077.846791999997,
+      "stdoutSha256": "34f47ea437546fc3ae676931eb67c799ef64819b08a724caf24a83445150ac1a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "historical-producer-acquisition",
+      "files": [
+        "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 15944.27099999995,
+      "stdoutSha256": "234f37ab9f56c14fb5dfd30d98e5133491309a92bf568bb71b4aebbc0367cb32",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "retry-entry-consumers",
+      "files": [
+        "test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 0,
+      "fail": 0,
+      "skipped": 3,
+      "wallMs": 415.87933399993926,
+      "stdoutSha256": "c7a4eac48c46598ddf39fb9f5c3a9bcac7bcc7b6ceac25f68007e3e0bb6bc520",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [
+        "required cases did not execute",
+        "required unskipped lane did not execute without skips"
+      ]
+    },
+    {
+      "id": "current-f09-retry-consumers",
+      "files": [
+        "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+        "test_env/tests/t287-r4-aba-retry.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 114375.42791700002,
+      "stdoutSha256": "600dd529818d39cfeb1b84e3d1e147a91ba848162fe7df0ed05f4254d2f358d2",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "replay-request-consumers",
+      "files": [
+        "test_env/tests/t287-c0-correction-regressions.test.mjs",
+        "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+        "test_env/tests/t287-deferred-application-restoration.test.mjs",
+        "test_env/tests/t287-held-prefix.test.mjs",
+        "test_env/tests/t287-live-worksite-construction.test.mjs",
+        "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+        "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+        "test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "test_env/tests/t287-worksite-command-execution.test.mjs",
+        "test_env/tests/t287-worksite-construction.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 57,
+      "fail": 0,
+      "skipped": 9,
+      "wallMs": 1987995.568959,
+      "stdoutSha256": "9957b08c7c4842cbb4194f32f2ce4839d8c73313b77a784d9183cbb733030dba",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "fresh-process-semantic-values",
+      "files": [
+        "test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 38557.39254199993,
+      "stdoutSha256": "e817c40edc9f43c8d9b793cc1fcbb42b4c212f5cc0af1dccc56e188bb338b1db",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "forward-recovery-contracts",
+      "files": [
+        "test_env/tests/forward-command-owners.test.mjs",
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/d1-preserved-result-mechanics.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 17,
+      "fail": 0,
+      "skipped": 1,
+      "wallMs": 1445.1814999999478,
+      "stdoutSha256": "56861aaeb0c347183f96a1c4ca21b9520d6161418fdd8d5aae2c4970617f94ea",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "installed-affected-lane",
+      "files": [
+        "test_env/tests/m5-installed-graph-edge.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 81072.54487500014,
+      "stdoutSha256": "671d1393e2cc4755c9735c962252fef339c36136ba184b322a1144d40dc83a78",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "maintained-setup-harness",
+      "files": [
+        "test_env/uat/harness.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 32,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 67467.79991700035,
+      "stdoutSha256": "21945d1781dc2dbfca89ea9a8e92666cd60131f1a295c087b661f4b9cec0434c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    }
+  ],
+  "tally": {
+    "pass": 303,
+    "fail": 0,
+    "skipped": 44
+  },
+  "nativeProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0e69bcdee7ab956483b63ee16b426d9cde8d5dd0e2a402a6cc0655f7ae5189e7/0f5b8d3b431f1eee3fd71051ca2ad8909c13c59318586ad127cdeebb900957f9/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-06/single-address-space-proof.json",
+    "producerPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0e69bcdee7ab956483b63ee16b426d9cde8d5dd0e2a402a6cc0655f7ae5189e7/0f5b8d3b431f1eee3fd71051ca2ad8909c13c59318586ad127cdeebb900957f9/sandbox/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+    "bytes": 162318,
+    "sha256": "ea2ff9037e99d787562a7f67cb7742b8ca6310317b3a6ebc687ed8b3228004fc",
+    "producerLanePassed": true,
+    "custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/actual-c2-001/single-address-space-proof.json",
+      "bytes": 162318,
+      "sha256": "ea2ff9037e99d787562a7f67cb7742b8ca6310317b3a6ebc687ed8b3228004fc"
+    }
+  },
+  "failure": [
+    {
+      "lane": "retry-entry-consumers",
+      "reason": "required cases did not execute"
+    },
+    {
+      "lane": "retry-entry-consumers",
+      "reason": "required unskipped lane did not execute without skips"
+    }
+  ],
+  "unrunLanes": [],
+  "priorEvidencePreserved": true
+}

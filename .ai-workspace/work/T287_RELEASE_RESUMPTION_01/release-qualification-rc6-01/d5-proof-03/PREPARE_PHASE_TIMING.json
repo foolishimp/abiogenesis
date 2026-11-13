@@ -1,0 +1,212 @@
+{
+  "kind": "bounded_operator_phase_wall_timing",
+  "script": "prepare-r1.mjs",
+  "moduleBodyEnteredUtc": "2026-11-06T02:26:47.000Z",
+  "endedUtc": "2026-11-06T02:29:02.111Z",
+  "moduleBodyElapsedMs": 135109.87133300002,
+  "status": "script_completed",
+  "markerOverflow": false,
+  "phases": [
+    {
+      "phase": "module_body_entry",
+      "enteredUtc": "2026-11-06T02:26:47.001Z",
+      "offsetMs": 0.6561249999999994,
+      "durationMs": 0.022124999999999062
+    },
+    {
+      "phase": "binding_and_admission_pin_checks",
+      "enteredUtc": "2026-11-06T02:26:47.001Z",
+      "offsetMs": 0.6782499999999985,
+      "durationMs": 35.830042
+    },
+    {
+      "phase": "actual_resume_parse_and_close_check",
+      "enteredUtc": "2026-11-06T02:26:47.036Z",
+      "offsetMs": 36.508292,
+      "durationMs": 122.273375
+    },
+    {
+      "phase": "workload_and_grant_load",
+      "enteredUtc": "2026-11-06T02:26:47.159Z",
+      "offsetMs": 158.781667,
+      "durationMs": 0.5144579999999905
+    },
+    {
+      "phase": "consumer_binding_verify_parse_and_overlay",
+      "enteredUtc": "2026-11-06T02:26:47.159Z",
+      "offsetMs": 159.296125,
+      "durationMs": 65.069917
+    },
+    {
+      "phase": "source_identity_and_hash_correspondence",
+      "enteredUtc": "2026-11-06T02:26:47.224Z",
+      "offsetMs": 224.366042,
+      "durationMs": 69.74016599999999
+    },
+    {
+      "phase": "selected_environment_preparation",
+      "enteredUtc": "2026-11-06T02:26:47.294Z",
+      "offsetMs": 294.106208,
+      "durationMs": 0.372208999999998
+    },
+    {
+      "phase": "installed_owner_loading",
+      "enteredUtc": "2026-11-06T02:26:47.294Z",
+      "offsetMs": 294.478417,
+      "durationMs": 305.321083
+    },
+    {
+      "phase": "governance_input_construction",
+      "enteredUtc": "2026-11-06T02:26:47.600Z",
+      "offsetMs": 599.7995,
+      "durationMs": 0.5875829999999951
+    },
+    {
+      "phase": "command_and_actor_owner_loading",
+      "enteredUtc": "2026-11-06T02:26:47.600Z",
+      "offsetMs": 600.387083,
+      "durationMs": 0.1825420000000122
+    },
+    {
+      "phase": "existing_budget_projection_and_guard",
+      "enteredUtc": "2026-11-06T02:26:47.601Z",
+      "offsetMs": 600.569625,
+      "durationMs": 0.1024169999999458
+    },
+    {
+      "phase": "dry_caller_setup",
+      "enteredUtc": "2026-11-06T02:26:47.601Z",
+      "offsetMs": 600.6720419999999,
+      "durationMs": 0.09066600000005565
+    },
+    {
+      "phase": "environment_refresh",
+      "enteredUtc": "2026-11-06T02:26:47.601Z",
+      "offsetMs": 600.762708,
+      "durationMs": 61812.121417
+    },
+    {
+      "phase": "installed_content_verification",
+      "enteredUtc": "2026-11-06T02:27:49.413Z",
+      "offsetMs": 62412.884125000004,
+      "durationMs": 537.375
+    },
+    {
+      "phase": "physical_prefix_read_and_hash",
+      "enteredUtc": "2026-11-06T02:27:49.951Z",
+      "offsetMs": 62950.259125000004,
+      "durationMs": 593.7964579999971
+    },
+    {
+      "phase": "worksite_observation",
+      "enteredUtc": "2026-11-06T02:27:50.544Z",
+      "offsetMs": 63544.055583,
+      "durationMs": 226.69295899999997
+    },
+    {
+      "phase": "observed_source_and_assessment_asset_checks",
+      "enteredUtc": "2026-11-06T02:27:50.771Z",
+      "offsetMs": 63770.748542,
+      "durationMs": 0.5317080000022543
+    },
+    {
+      "phase": "projection_owner_loading",
+      "enteredUtc": "2026-11-06T02:27:50.772Z",
+      "offsetMs": 63771.28025,
+      "durationMs": 0.21679199999925913
+    },
+    {
+      "phase": "initial_projection_and_size_calculation",
+      "enteredUtc": "2026-11-06T02:27:50.772Z",
+      "offsetMs": 63771.497042,
+      "durationMs": 17.96808299999975
+    },
+    {
+      "phase": "capacity_record_persistence",
+      "enteredUtc": "2026-11-06T02:27:50.790Z",
+      "offsetMs": 63789.465125,
+      "durationMs": 3.2021249999961583
+    },
+    {
+      "phase": "capacity_guard",
+      "enteredUtc": "2026-11-06T02:27:50.793Z",
+      "offsetMs": 63792.66725,
+      "durationMs": 0.00450000000273576
+    },
+    {
+      "phase": "subjects_and_command_configuration",
+      "enteredUtc": "2026-11-06T02:27:50.793Z",
+      "offsetMs": 63792.67175,
+      "durationMs": 26.92320800000016
+    },
+    {
+      "phase": "execution_archive_setup",
+      "enteredUtc": "2026-11-06T02:27:50.820Z",
+      "offsetMs": 63819.594958,
+      "durationMs": 0.1377920000013546
+    },
+    {
+      "phase": "recording_caller_setup",
+      "enteredUtc": "2026-11-06T02:27:50.820Z",
+      "offsetMs": 63819.73275,
+      "durationMs": 0.40654199999698903
+    },
+    {
+      "phase": "run_record_persistence",
+      "enteredUtc": "2026-11-06T02:27:50.820Z",
+      "offsetMs": 63820.139292,
+      "durationMs": 0.3020830000023125
+    },
+    {
+      "phase": "governance_input_persistence",
+      "enteredUtc": "2026-11-06T02:27:50.821Z",
+      "offsetMs": 63820.441375,
+      "durationMs": 0.39237499999580905
+    },
+    {
+      "phase": "lifecycle_call_construction",
+      "enteredUtc": "2026-11-06T02:27:50.821Z",
+      "offsetMs": 63820.83375,
+      "durationMs": 69925.12391700002
+    },
+    {
+      "phase": "lifecycle_call_persistence",
+      "enteredUtc": "2026-11-06T02:29:00.747Z",
+      "offsetMs": 133745.957667,
+      "durationMs": 121.94329100000323
+    },
+    {
+      "phase": "final_prefix_read_and_consistency_check",
+      "enteredUtc": "2026-11-06T02:29:00.869Z",
+      "offsetMs": 133867.900958,
+      "durationMs": 752.6749999999884
+    },
+    {
+      "phase": "preflight_summary_construction",
+      "enteredUtc": "2026-11-06T02:29:01.621Z",
+      "offsetMs": 134620.575958,
+      "durationMs": 129.26116700001876
+    },
+    {
+      "phase": "preflight_summary_persistence",
+      "enteredUtc": "2026-11-06T02:29:01.751Z",
+      "offsetMs": 134749.83712500002,
+      "durationMs": 0.40945799998007715
+    },
+    {
+      "phase": "prepared_resume_persistence",
+      "enteredUtc": "2026-11-06T02:29:01.751Z",
+      "offsetMs": 134750.246583,
+      "durationMs": 359.62475000001723
+    }
+  ],
+  "existingCommandTiming": "execution/commands/<existing-label>.request.json started; result.json started,wallMs,exitCode,signal,timedOut,truncated. Reuse only these scalar fields; command recorder unchanged.",
+  "limits": [
+    "Module body begins after static imports; host launch and static import time require existing external launch evidence.",
+    "Sequential monotonic wall intervals include I/O, scheduling and bookkeeping, not CPU attribution or causal speedup.",
+    "invokeLifecycle includes its existing before/after installed-content checks; existing command wall times overlap this interval. Do not add them.",
+    "Fresh-readback command details remain in existing run_result/run_replay command metadata. Selected record phases start at record entry after argument evaluation.",
+    "Timing artifact serialization/write is excluded. A hard kill or static import failure may leave no artifact. Existing artifact is never overwritten.",
+    "Timing is observation only, with no new predicate, owner admission, retry, provider telemetry, private payload, environment value or credential."
+  ]
+}

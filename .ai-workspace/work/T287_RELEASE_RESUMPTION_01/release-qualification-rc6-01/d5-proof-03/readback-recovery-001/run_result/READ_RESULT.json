@@ -1,0 +1,11 @@
+{
+  "memberKey": "run_result",
+  "ownerOutput": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "not_found",
+      "evidenceRefs": [],
+      "issuePaths": []
+    }
+  }
+}

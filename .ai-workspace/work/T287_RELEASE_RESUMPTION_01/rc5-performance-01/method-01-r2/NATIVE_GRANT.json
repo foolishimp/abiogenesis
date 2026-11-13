@@ -1,0 +1,41 @@
+{
+  "kind": "rc5_method304_testing_reentry",
+  "status": "ROOT_SELECTED_NATIVE_PREPARATION",
+  "taskId": "T287_RC5_METHOD_01_R2",
+  "sourceCommit": "90721c86680f17c1877dc26c9eb93b4243188785",
+  "sourceTree": "fa31348ea74e4dbd875f6b9e006e896adee77661",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "builderRuntimeBasis": "stdo://releases/v3.0.2/",
+  "builder": "exact installed RC4 f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc5-performance",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "changeClass": "proof_repair",
+  "derivedReentry": "Root operator selected input closure; unchanged frozen native candidate",
+  "productWritePaths": [],
+  "scratchWriteRoots": [],
+  "independentReview": "method-01 source snapshot reviewed by rc5_method_review max; source-only satisfied, C2/UAT pending",
+  "closure": "Same candidate7files; unchanged six-command C2 plan with omitted tracked language-smoke/program.mjs now selected; actual C2/UAT and fresh result/replay; original red retained.",
+  "effectOwner": "ABG native Testing/C2 and independent UAT; no native Construction activation",
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 128,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null
+  },
+  "exclusions": [
+    "all canonical Product source writes",
+    "native Construction / Design / Specification / Induction activation",
+    "event codec/F4 deferred to next serial native increment",
+    "Product/requirement/Public schema changes",
+    "GC03 historical host-adapter supplement",
+    "canonical build/install/package or manual generated contract changes",
+    "global selectors/push/tag/release",
+    "old immutable releases/history"
+  ],
+  "normalTools": "Pinned offline node_modules is read-only; optional noEmit/syntax feedback; C2 alone compiles, stages, builds and tests actual candidate. No symlinks in observed inputs, no scratch mirrors, no replacement Run."
+}

@@ -1,0 +1,7 @@
+# Closed009 partial and retained standing
+
+Preserved commit7e914327158b7631d1df40b9ec1b068960013b10/tree c1a6d7d911def21b201700bd61249b1074bc493b contains exactly7native changed files from365; all match native post-work observation and C2 evidence. Root accepts R3 producer-coordinate fix at reviewed/component+conservation standing and unused WeakSet retirement. Stubbed component regression does not prove actual installed cross-Run execution; preserve it and finish integration, not duplicate that repair.
+
+009 Root11641 exited0. Product blocked/terminalnull, actual typed stop at30505/04:06:43.398Z is reason://abiogenesis/recursion/bound-exhausted@5. UAT unmet is the assessment outcome, not typed stop cause. C2:9commands exit0,12predicates,220pass/18existing skips/0fail. Same-Run scripted cold witness and generated correspondence conserved. UAT found R2/body use/cross-Run integration and remaining duplication audit unmet; oldRC3 release-claim candidate pointer corrected prospectively in010 only.
+
+Six F_P costUSD21.8689002; cumulative17F_P/USD88.1778884, host74m20.566s, native Construction21m10.8s (not82minutes). Costs are provider-reported RC3-builder measurements, not matched RC4 efficiency. Architectural source challenge completed on becc conjoined with365; actual candidate/runtime empirical acceptance and Root real-native practical witness remain open. Preserve all original receipts, scratch and prior failure evidence.

@@ -1,0 +1,116 @@
+{
+  "kind": "bounded_h05_preparation_validation",
+  "status": "STATIC_AND_SYNTAX_PASSED_NO_EXECUTION",
+  "at": "2026-11-06T18:48:46.265866+00:00",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_BEFORE.json",
+    "bytes": 233295,
+    "sha256": "55389f6db03cb7c06090ada66e4827d4d39de186c6ebe88acb9f04b523629dbc"
+  },
+  "sourceReferenceRows": 451,
+  "mutableRows": 1,
+  "protectedRows": 450,
+  "sourceReferenceRelation": "Exact actual H04 path/bytes/sha256/sourceSnapshot correspondence; no body copies; Root final live/index verification remains.",
+  "reviewOwnerReferences": 7,
+  "reviewOwnerReferencesInside451": true,
+  "selectedReadScope": "Explicit source/control filenames and pinned external owner/review paths only; no broad/glob Grep. H04 disclosure preserved.",
+  "payloadBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+    "bytes": 1466472,
+    "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+  },
+  "payloadMembers": 5325,
+  "payloadInventoryCopied": false,
+  "nativeControls": 18,
+  "preparedControls": 17,
+  "contextEntries": 472,
+  "stageAllocations": 1,
+  "laneAllocations": 5,
+  "laneCeilingsMs": [
+    600000,
+    600000,
+    300000,
+    300000,
+    300000
+  ],
+  "authoredTimeoutsMs": {
+    "fixed": 540000,
+    "held": 280000
+  },
+  "codeControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/CODE_CONTROL_PINS.json",
+    "bytes": 5470,
+    "sha256": "922fb2e87c5a383df73056a59d4dc1e864ae4c9edb603de95f0540e4bf350ff2"
+  },
+  "codeSyntaxChecks": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/inputs/prior-author-stage.mjs",
+        "bytes": 6891,
+        "sha256": "992909f6ae89b7624c1ab36055b97ed17f419f5321601ac9de02ae19fdd3fba7"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/inputs/prior-author-lanes.mjs",
+        "bytes": 10602,
+        "sha256": "5b709aca5c8656fc74a8debefc3d92854636459b66bf6703f440a4e2b2bca346"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/prepare-and-dispatch.mjs",
+        "bytes": 19673,
+        "sha256": "fe452297e4e665a68129b7331fc6a90c74a0c53ab30bc91f07ecd90cdfc5086d"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/launch-owner-script.mjs",
+        "bytes": 2388,
+        "sha256": "e334554dc18b8efd4f80cccd47398af8d8253e26d902f948225034b29595706a"
+      },
+      "exitCode": 0
+    }
+  ],
+  "wrapperSyntaxExitCode": 0,
+  "wrapperMode": "0755",
+  "jsonParsed": 25,
+  "actualOutputSlotsAbsent": true,
+  "sameCompletePredecessorSuccessLaw": true,
+  "immutableSourceAndPayloadShared": true,
+  "actualPredecessor": {
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8788,
+      "sha256": "e43d763b6fd7f453f065a8d1c44f47108a8371410f3649b93344ac07c3fa120c"
+    },
+    "resume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/execution/after-run-resume.json",
+      "bytes": 72498689,
+      "sha256": "f4a15a0719eee9987124ec5d3f1543c0fee120616588368224afde1a0e33b0bb"
+    },
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 2253967206,
+      "prefixDigest": "sha256:b8d83721bee664cedc7331c82229aba96928c25f3c92be0f3c309d73ee9ec9ea",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 701759869,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+      },
+      "coordinateDigest": "sha256:e22f1921507a46a1a87387019ee1675f1cc11f8e819d7ee5a2390080cd0b427d"
+    }
+  },
+  "effectsExecuted": false,
+  "limits": [
+    "No Product/HOW/test/source edits, staging, build, test, runtime, provider, credential or Git effects.",
+    "Full payload verification occurs again before/after future stage copy; no new build proof claimed.",
+    "Actual future controls/source/proof/acceptance remain Root-owned."
+  ]
+}

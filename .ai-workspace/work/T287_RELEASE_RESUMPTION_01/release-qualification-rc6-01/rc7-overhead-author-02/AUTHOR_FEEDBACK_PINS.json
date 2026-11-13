@@ -1,0 +1,418 @@
+{
+  "kind": "root_pinned_actual_author_feedback",
+  "at": "2026-11-06T06:22:35.600775+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 779397,
+    "sha256": "31c092b1cb8dd767d1178ebba26c4b66651ebe1de032ab401ba6683faa67093b"
+  },
+  "frozenReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/return.json",
+    "bytes": 62835,
+    "sha256": "0fe4b76ed93991e58c5b4d77600861dde479102ae93808499c9f722f1e75fcfe"
+  },
+  "derivation": "Exact stage and lane labels named in frozen return.budget; paths follow the unchanged admitted prior-author-stage/lanes owner output rules. No recursive scan or rerun.",
+  "stages": [
+    {
+      "label": "o7b-before-01",
+      "report": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-before-01-stage.json",
+        "bytes": 97095,
+        "sha256": "925e2bcba9cc3bb73e115fb235722ca86c7525fc6bda0113a6ea41d6e60ea2a9"
+      },
+      "sourceDigest": "dee46feceb2254a3bbaaf66f3139e7f83b72f434c935ab6036fa552acff1e88b"
+    },
+    {
+      "label": "o7b-after-01",
+      "report": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-stage.json",
+        "bytes": 97468,
+        "sha256": "e2fa93a67aaa49bb7526d42a2ceb7b0655ed148f54bbd1af6e63fc43d2aaeb82"
+      },
+      "sourceDigest": "0c21353927593dc05d20cf660f2093a6bc280688834cf083a1a5f36329ad4f46"
+    },
+    {
+      "label": "o7b-after-02",
+      "report": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-02-stage.json",
+        "bytes": 97468,
+        "sha256": "2c413d190650a928e96a003a8f8d276d29d2121c63ac63fb31cc657ad20c0cac"
+      },
+      "sourceDigest": "6101a92e7463f9a7b8d67853453c8f0f7d3f20948c2197ce581129f2868a4863"
+    },
+    {
+      "label": "o7b-after-03",
+      "report": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-stage.json",
+        "bytes": 97468,
+        "sha256": "26853eeb9d98f012d23821e8343cd492c5027fe38b5518b846636e8bd8f40edd"
+      },
+      "sourceDigest": "f9567b49278edfcce269997dc96a280f0621b055325113b185ba68e131fe2ad1"
+    },
+    {
+      "label": "o7b-after-04",
+      "report": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-stage.json",
+        "bytes": 97468,
+        "sha256": "3b3b6e94b77a390286276f36cd0dd9978548505b149eca05a041a75604c3199e"
+      },
+      "sourceDigest": "c5986d3bdc3620f2e621318b11def7f8bc39f59115eebafe15738335b35e1d9a"
+    }
+  ],
+  "lanes": [
+    {
+      "stage": "o7b-before-01",
+      "lane": "carriage",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-before-01-lanes-carriage/summary-carriage.json",
+        "bytes": 1992,
+        "sha256": "c659e86a1f193d5ab82e4116d3d00d7b0181a4351a3e678cf996f26783b58da1"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-before-01-lanes-carriage/carriage.stdout.tap",
+        "bytes": 25031,
+        "sha256": "e2527c429c00b0126192912b99fa97847190e57438d37c53d816e2eed66ed95f"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-before-01-lanes-carriage/carriage.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 61,
+        "fail": 2,
+        "skipped": 6,
+        "cancelled": 0,
+        "ms": 4834
+      },
+      "final": false
+    },
+    {
+      "stage": "o7b-after-01",
+      "lane": "carriage",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-carriage/summary-carriage.json",
+        "bytes": 3390,
+        "sha256": "8bbc4a99b86d47a3f8d61e3832927a92b06b522a2fcdb7c9c33c033d5f66517b"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-carriage/carriage.stdout.tap",
+        "bytes": 118026,
+        "sha256": "915a19e7f94696bc2e543e590bfeaf5c320d93857d0592b0ee98312c41da57a9"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-carriage/carriage.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 73,
+        "fail": 14,
+        "skipped": 7,
+        "cancelled": 0,
+        "ms": 19551
+      },
+      "final": false
+    },
+    {
+      "stage": "o7b-after-01",
+      "lane": "runner",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-runner/summary-runner.json",
+        "bytes": 1097,
+        "sha256": "415f232fd14f7e17a588ed2c2e1662cd82a2bd50f8d33e8c1f3bbdeaa27da6ee"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-runner/runner.stdout.tap",
+        "bytes": 9428,
+        "sha256": "691a69a7cd0e196069c05cd093ba9e991acc8ef2f9e01fa8cc9b65cc4ad315cc"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-runner/runner.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 32,
+        "fail": 1,
+        "skipped": 0,
+        "cancelled": 0,
+        "ms": 17680
+      },
+      "final": false
+    },
+    {
+      "stage": "o7b-after-01",
+      "lane": "consumers",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-consumers/summary-consumers.json",
+        "bytes": 5349,
+        "sha256": "f0e6e929dd7f83da243b72cd36c5b21e6bdd4747eeb87fcc6b2745080a47884f"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-consumers/consumers.stdout.tap",
+        "bytes": 49950,
+        "sha256": "98096869a0f2aa58ed08a60585509b0e8232b00da14c9b0a8acd90f25f6ffd59"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-consumers/consumers.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 44,
+        "fail": 21,
+        "skipped": 12,
+        "cancelled": 0,
+        "ms": 72941
+      },
+      "final": false
+    },
+    {
+      "stage": "o7b-after-02",
+      "lane": "carriage",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-02-lanes-carriage/summary-carriage.json",
+        "bytes": 2482,
+        "sha256": "21bd22f0caa6f6cee11579658cadc5a665b3409c873ba453b7c66b693a9e83c2"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-02-lanes-carriage/carriage.stdout.tap",
+        "bytes": 35756,
+        "sha256": "6a260724c690ed35aad2295914a374c15756a6ddd129878176d6af8bc0874068"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-02-lanes-carriage/carriage.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 84,
+        "fail": 3,
+        "skipped": 7,
+        "cancelled": 0,
+        "ms": 20182
+      },
+      "final": false
+    },
+    {
+      "stage": "o7b-after-02",
+      "lane": "consumers",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-02-lanes-consumers/summary-consumers.json",
+        "bytes": 4640,
+        "sha256": "426ec0b5b8c14812554dd9fcf7aa9bd7b0b8d63b0283909c36468cb5504a40af"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-02-lanes-consumers/consumers.stdout.tap",
+        "bytes": 42125,
+        "sha256": "8e7750d6a05864ce6cc92ba625358298fadac8873613dd9059da009c8a11e07f"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-02-lanes-consumers/consumers.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 50,
+        "fail": 15,
+        "skipped": 12,
+        "cancelled": 0,
+        "ms": 82850
+      },
+      "final": false
+    },
+    {
+      "stage": "o7b-after-03",
+      "lane": "carriage",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-lanes-carriage/summary-carriage.json",
+        "bytes": 2383,
+        "sha256": "7c74ebe530a68d3f12ba51d540529d4ab79a1115668dcf3ac8f75ed4dfe34c4f"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-lanes-carriage/carriage.stdout.tap",
+        "bytes": 33480,
+        "sha256": "58ff1aec94fec6b2783262e86a4515e020560e9c7c99cee1ca7b041d4192b530"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-lanes-carriage/carriage.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 86,
+        "fail": 1,
+        "skipped": 7,
+        "cancelled": 0,
+        "ms": 19680
+      },
+      "final": false
+    },
+    {
+      "stage": "o7b-after-03",
+      "lane": "runner",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-lanes-runner/summary-runner.json",
+        "bytes": 1097,
+        "sha256": "ab179dedc59635ce3d88d4118c03cc4fbe50d30119899bb2135e0ba6e0ac3f7e"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-lanes-runner/runner.stdout.tap",
+        "bytes": 9414,
+        "sha256": "b938f2a335ba2d72772005a56217d70ee6d95bf9c503096467c0b7ec5cfdfe7d"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-lanes-runner/runner.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 32,
+        "fail": 1,
+        "skipped": 0,
+        "cancelled": 0,
+        "ms": 15693
+      },
+      "final": false
+    },
+    {
+      "stage": "o7b-after-03",
+      "lane": "consumers",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-lanes-consumers/summary-consumers.json",
+        "bytes": 3643,
+        "sha256": "70694e00b65e073022dffe71e017c8ff3e8b17606363f83c7925f23bd0ca3bd8"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-lanes-consumers/consumers.stdout.tap",
+        "bytes": 37657,
+        "sha256": "3a98b66a3979731db3eb34dcd3b09da44627a354dfff8b3115195b4fe85cef74"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-03-lanes-consumers/consumers.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 59,
+        "fail": 6,
+        "skipped": 12,
+        "cancelled": 0,
+        "ms": 82827
+      },
+      "final": false
+    },
+    {
+      "stage": "o7b-after-04",
+      "lane": "carriage",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-carriage/summary-carriage.json",
+        "bytes": 2383,
+        "sha256": "e526da765befd23a21c1541326a7f38cf9ecb09195d8429893a4f1ab02295fe8"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-carriage/carriage.stdout.tap",
+        "bytes": 33480,
+        "sha256": "a50bd1347c0d8080eac115d9f4529656fd43e3db13555fecef05b5cb069b4ada"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-carriage/carriage.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 86,
+        "fail": 1,
+        "skipped": 7,
+        "cancelled": 0,
+        "ms": 19665
+      },
+      "final": true
+    },
+    {
+      "stage": "o7b-after-04",
+      "lane": "runner",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-runner/summary-runner.json",
+        "bytes": 1097,
+        "sha256": "09c1855222b8a63792bd70a3b8ec765faae3c5817e13e698d11ab7886c2ba19d"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-runner/runner.stdout.tap",
+        "bytes": 9417,
+        "sha256": "0ad63b54be714018d90ff68bb25359753d5ff2db5978030c2a24eab5c1cf5697"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-runner/runner.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 32,
+        "fail": 1,
+        "skipped": 0,
+        "cancelled": 0,
+        "ms": 19432
+      },
+      "final": true
+    },
+    {
+      "stage": "o7b-after-04",
+      "lane": "consumers",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-consumers/summary-consumers.json",
+        "bytes": 3523,
+        "sha256": "6482e8ba246dedadd891b921a96bcf751843390589ca82385607a0f7549a8daa"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-consumers/consumers.stdout.tap",
+        "bytes": 36689,
+        "sha256": "3d23e26f7de3492524bd823e95bf7204e7203eadef6f1d09db774f4cb12c79d9"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-consumers/consumers.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 60,
+        "fail": 5,
+        "skipped": 12,
+        "cancelled": 0,
+        "ms": 97796
+      },
+      "final": true
+    },
+    {
+      "stage": "o7b-after-04",
+      "lane": "cold-resume",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-cold-resume/summary-cold-resume.json",
+        "bytes": 1466,
+        "sha256": "07e9a55dc94d27ca4e93166e472d1f341b77a603b3cb0cb5794852763dc3affd"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-cold-resume/cold-resume.stdout.tap",
+        "bytes": 3115,
+        "sha256": "a8df2302af0b11036f2a407f9e4e2531c2879639b47f9e5cea8351158fcbe0b9"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-cold-resume/cold-resume.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "pass": 0,
+        "fail": 2,
+        "skipped": 0,
+        "cancelled": 0,
+        "ms": 29220
+      },
+      "final": true
+    }
+  ],
+  "finalStageSourceMatches": 449,
+  "finalSourceDigest": "c5986d3bdc3620f2e621318b11def7f8bc39f59115eebafe15738335b35e1d9a",
+  "standing": "Author feedback only. Source matches actual native.after snapshot; failures/skips/command overruns retained, no acceptance or installed qualification."
+}

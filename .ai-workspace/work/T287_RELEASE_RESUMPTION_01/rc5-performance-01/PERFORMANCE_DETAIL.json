@@ -1,0 +1,434 @@
+{
+  "kind": "root_attributed_independent_closed_log_analysis",
+  "recordedUtc": "2026-11-03T13:28:17.612897+00:00",
+  "reviewer": "/root/rc5_scope_review",
+  "reviewEffort": "max",
+  "reviewDisposition": "read-only timing and source-owner attribution; no repairs or runtime execution",
+  "runtimeSourceCommit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+  "log": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 586361364,
+    "sha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+    "firstOrdinal": 21234,
+    "lastOrdinal": 25016,
+    "selectedByteOffset": 454895046,
+    "selectedBytes": 131466318,
+    "selectedRows": 3783,
+    "timestampsNondecreasing": true
+  },
+  "lifecycleRows": [
+    {
+      "phase": "dispatch_to_initial_selector",
+      "fromOrdinal": null,
+      "toOrdinal": 21285,
+      "startUTC": "11:47:02.652",
+      "endUTC": "11:48:41.230",
+      "wallMs": 98578
+    },
+    {
+      "phase": "initial_selector",
+      "fromOrdinal": 21285,
+      "toOrdinal": 21489,
+      "startUTC": "11:48:41.230",
+      "endUTC": "11:49:47.327",
+      "wallMs": 66097
+    },
+    {
+      "phase": "initial_selector_exit_to_coding",
+      "fromOrdinal": 21489,
+      "toOrdinal": 21561,
+      "startUTC": "11:49:47.327",
+      "endUTC": "11:51:13.859",
+      "wallMs": 86532
+    },
+    {
+      "phase": "coding_actor",
+      "fromOrdinal": 21561,
+      "toOrdinal": 23566,
+      "startUTC": "11:51:13.859",
+      "endUTC": "12:07:52.114",
+      "wallMs": 998255
+    },
+    {
+      "phase": "coding_exit_to_testing_selector",
+      "fromOrdinal": 23566,
+      "toOrdinal": 23679,
+      "startUTC": "12:07:52.114",
+      "endUTC": "12:14:47.347",
+      "wallMs": 415233
+    },
+    {
+      "phase": "testing_selector",
+      "fromOrdinal": 23679,
+      "toOrdinal": 23731,
+      "startUTC": "12:14:47.347",
+      "endUTC": "12:17:38.426",
+      "wallMs": 171079
+    },
+    {
+      "phase": "testing_selector_exit_to_c2",
+      "fromOrdinal": 23731,
+      "toOrdinal": 23803,
+      "startUTC": "12:17:38.426",
+      "endUTC": "12:22:33.069",
+      "wallMs": 294643
+    },
+    {
+      "phase": "c2_actor",
+      "fromOrdinal": 23803,
+      "toOrdinal": 23862,
+      "startUTC": "12:22:33.069",
+      "endUTC": "12:26:23.506",
+      "wallMs": 230437
+    },
+    {
+      "phase": "c2_exit_to_uat_selector",
+      "fromOrdinal": 23862,
+      "toOrdinal": 23975,
+      "startUTC": "12:26:23.506",
+      "endUTC": "12:28:22.232",
+      "wallMs": 118726
+    },
+    {
+      "phase": "uat_selector",
+      "fromOrdinal": 23975,
+      "toOrdinal": 24193,
+      "startUTC": "12:28:22.232",
+      "endUTC": "12:29:43.536",
+      "wallMs": 81304
+    },
+    {
+      "phase": "uat_selector_exit_to_uat",
+      "fromOrdinal": 24193,
+      "toOrdinal": 24265,
+      "startUTC": "12:29:43.536",
+      "endUTC": "12:32:02.617",
+      "wallMs": 139081
+    },
+    {
+      "phase": "uat_actor",
+      "fromOrdinal": 24265,
+      "toOrdinal": 24924,
+      "startUTC": "12:32:02.617",
+      "endUTC": "12:44:24.244",
+      "wallMs": 741627
+    },
+    {
+      "phase": "uat_exit_to_run_close",
+      "fromOrdinal": 24924,
+      "toOrdinal": 25016,
+      "startUTC": "12:44:24.244",
+      "endUTC": "12:46:04.916",
+      "wallMs": 100672
+    },
+    {
+      "phase": "run_close_to_receipt",
+      "fromOrdinal": 25016,
+      "toOrdinal": null,
+      "startUTC": "12:46:04.916",
+      "endUTC": "12:46:46.194",
+      "wallMs": 41278
+    }
+  ],
+  "handoffRows": [
+    {
+      "phase": "native_judgment_construction_close_fold",
+      "fromOrdinal": 23573,
+      "toOrdinal": 23616,
+      "startUTC": "12:08:07.729",
+      "endUTC": "12:10:05.441",
+      "wallMs": 117712,
+      "rows": 43,
+      "physicalBytes": 2033001,
+      "probes": 24
+    },
+    {
+      "phase": "executive_step_close_root_foldback",
+      "fromOrdinal": 23616,
+      "toOrdinal": 23634,
+      "startUTC": "12:10:05.441",
+      "endUTC": "12:10:43.423",
+      "wallMs": 37982,
+      "rows": 18,
+      "physicalBytes": 58109,
+      "probes": 9
+    },
+    {
+      "phase": "root_foldback_to_reentry_route",
+      "fromOrdinal": 23634,
+      "toOrdinal": 23635,
+      "startUTC": "12:10:43.423",
+      "endUTC": "12:12:33.518",
+      "wallMs": 110095,
+      "rows": 1,
+      "physicalBytes": 2958,
+      "probes": 0
+    },
+    {
+      "phase": "parent_reentry_selection_prepare_transport",
+      "fromOrdinal": 23635,
+      "toOrdinal": 23679,
+      "startUTC": "12:12:33.518",
+      "endUTC": "12:14:47.347",
+      "wallMs": 133829,
+      "rows": 44,
+      "physicalBytes": 2002079,
+      "probes": 24
+    },
+    {
+      "phase": "testing_selector_actor",
+      "fromOrdinal": 23679,
+      "toOrdinal": 23731,
+      "startUTC": "12:14:47.347",
+      "endUTC": "12:17:38.426",
+      "wallMs": 171079,
+      "rows": 52,
+      "physicalBytes": 167623,
+      "probes": 29
+    },
+    {
+      "phase": "selector_result_judgment_project_choice",
+      "fromOrdinal": 23731,
+      "toOrdinal": 23751,
+      "startUTC": "12:17:38.426",
+      "endUTC": "12:18:16.280",
+      "wallMs": 37854,
+      "rows": 20,
+      "physicalBytes": 429052,
+      "probes": 10
+    },
+    {
+      "phase": "choice_judgment_route_testing_entry",
+      "fromOrdinal": 23751,
+      "toOrdinal": 23767,
+      "startUTC": "12:18:16.280",
+      "endUTC": "12:19:14.488",
+      "wallMs": 58208,
+      "rows": 16,
+      "physicalBytes": 397837,
+      "probes": 10
+    },
+    {
+      "phase": "testing_graph_open_to_prepare_call",
+      "fromOrdinal": 23767,
+      "toOrdinal": 23771,
+      "startUTC": "12:19:14.488",
+      "endUTC": "12:19:47.649",
+      "wallMs": 33161,
+      "rows": 4,
+      "physicalBytes": 12143,
+      "probes": 1
+    },
+    {
+      "phase": "prepare_testing_to_result",
+      "fromOrdinal": 23771,
+      "toOrdinal": 23778,
+      "startUTC": "12:19:47.649",
+      "endUTC": "12:20:05.349",
+      "wallMs": 17700,
+      "rows": 7,
+      "physicalBytes": 2977641,
+      "probes": 4
+    },
+    {
+      "phase": "prepared_result_judgment_child_workflow",
+      "fromOrdinal": 23778,
+      "toOrdinal": 23788,
+      "startUTC": "12:20:05.349",
+      "endUTC": "12:20:32.747",
+      "wallMs": 27398,
+      "rows": 10,
+      "physicalBytes": 35481,
+      "probes": 7
+    },
+    {
+      "phase": "c2_child_workflow_to_basis",
+      "fromOrdinal": 23788,
+      "toOrdinal": 23793,
+      "startUTC": "12:20:32.747",
+      "endUTC": "12:21:23.351",
+      "wallMs": 50604,
+      "rows": 5,
+      "physicalBytes": 22074,
+      "probes": 3
+    },
+    {
+      "phase": "c2_basis_to_selected_fibre",
+      "fromOrdinal": 23793,
+      "toOrdinal": 23799,
+      "startUTC": "12:21:23.351",
+      "endUTC": "12:21:34.438",
+      "wallMs": 11087,
+      "rows": 6,
+      "physicalBytes": 17177,
+      "probes": 1
+    },
+    {
+      "phase": "c2_selected_fibre_to_transport",
+      "fromOrdinal": 23799,
+      "toOrdinal": 23801,
+      "startUTC": "12:21:34.438",
+      "endUTC": "12:22:32.941",
+      "wallMs": 58503,
+      "rows": 2,
+      "physicalBytes": 3070077,
+      "probes": 1
+    },
+    {
+      "phase": "transport_to_process_start",
+      "fromOrdinal": 23801,
+      "toOrdinal": 23803,
+      "startUTC": "12:22:32.941",
+      "endUTC": "12:22:33.069",
+      "wallMs": 128,
+      "rows": 2,
+      "physicalBytes": 4521,
+      "probes": 0
+    }
+  ],
+  "countConvention": "(fromOrdinal,toOrdinal]; handoff rows refine lifecycle rows and are not added again",
+  "utcDate": "2026-11-03",
+  "lifecycleUtcMs": 3583542,
+  "lifecycleMonotonicMs": 3583521.860667,
+  "endpointClockResidualMs": 20.139333,
+  "actorProcessMs": 2288799,
+  "nonActorLifecycleMs": 1294743,
+  "providerReportedWallMs": 2215773,
+  "nativeResultToC2Ms": 865340,
+  "nativeResultToC2NonActorMs": 694261,
+  "lifecycleAndFreshReadsMs": 3867732.039958,
+  "setupMs": 27849.5,
+  "artifactVerificationMs": 18897.741833,
+  "physicalKinds": [
+    {
+      "kind": "c_call_result_admitted",
+      "count": 28,
+      "physicalBytes": 92148525
+    },
+    {
+      "kind": "traversal_route_admitted",
+      "count": 28,
+      "physicalBytes": 15306229
+    },
+    {
+      "kind": "actor_transport_binding_admitted",
+      "count": 6,
+      "physicalBytes": 10173743
+    },
+    {
+      "kind": "runtime_activity_probe_observed",
+      "count": 1907,
+      "physicalBytes": 8087566
+    },
+    {
+      "kind": "actor_process_stdout_observed",
+      "count": 1588,
+      "physicalBytes": 3022775
+    },
+    {
+      "kind": "basis_admitted",
+      "count": 10,
+      "physicalBytes": 1558911
+    },
+    {
+      "kind": "other_kinds",
+      "count": 216,
+      "physicalBytes": 1168569
+    }
+  ],
+  "initialResult": {
+    "ordinal": 21270,
+    "physicalBytes": 66632659,
+    "valueJsonBytes": 66630662,
+    "contextJsonBytes": 66477032,
+    "entriesJsonBytes": 66412096,
+    "readRootsJsonBytes": 64129,
+    "stateJsonBytes": 153554,
+    "files": 807,
+    "decodedBytes": 49638930,
+    "base64Chars": 66186260,
+    "largestEntries": [
+      {
+        "path": "rc5-operator-inputs/f4-03/baseline-rc5.tgz",
+        "decodedBytes": 10998785,
+        "base64Chars": 14665048,
+        "entryJsonBytes": 14665296,
+        "physicalBodyOccurrences": 1
+      },
+      {
+        "path": "rc5-operator-inputs/f4-01/retained-method-c2-event.json",
+        "decodedBytes": 7397397,
+        "base64Chars": 9863196,
+        "entryJsonBytes": 9863456,
+        "physicalBodyOccurrences": 1
+      },
+      {
+        "path": "rc5-operator-inputs/f4-01/retained-method-c2-result.json",
+        "decodedBytes": 7166170,
+        "base64Chars": 9554896,
+        "entryJsonBytes": 9555157,
+        "physicalBodyOccurrences": 1
+      },
+      {
+        "path": "rc5-operator-inputs/f4-01/CAPTURED_ROUTE_SAMPLE.json",
+        "decodedBytes": 3140860,
+        "base64Chars": 4187816,
+        "entryJsonBytes": 4188073,
+        "physicalBodyOccurrences": 1
+      },
+      {
+        "path": "rc5-operator-inputs/f4-01/contract-seeds/schemas/public-operation.schema.json",
+        "decodedBytes": 2870138,
+        "base64Chars": 3826852,
+        "entryJsonBytes": 3827134,
+        "physicalBodyOccurrences": 1
+      },
+      {
+        "path": "rc5-operator-inputs/f4-01/contract-seeds/qualification/rule-catalog.json",
+        "decodedBytes": 1770456,
+        "base64Chars": 2360608,
+        "entryJsonBytes": 2360885,
+        "physicalBodyOccurrences": 1
+      },
+      {
+        "path": "rc5-operator-inputs/f4-01/contract-seeds/schemas/self-conformance.schema.json",
+        "decodedBytes": 1050028,
+        "base64Chars": 1400040,
+        "entryJsonBytes": 1400322,
+        "physicalBodyOccurrences": 1
+      }
+    ]
+  },
+  "uatBroadSearch": {
+    "fromOrdinal": 24537,
+    "toOrdinal": 24565,
+    "startUtc": "2026-11-03T12:35:09.854Z",
+    "endUtc": "2026-11-03T12:42:07.440Z",
+    "shellToolEnvelopeMs": 417586,
+    "progressRecords": 13,
+    "reportedLastElapsedMs": 390000,
+    "claim": "shell-tool envelope; no grep-only CPU attribution"
+  },
+  "probeSources": {
+    "stdout": 1555,
+    "frame_progress": 188,
+    "event_log": 44,
+    "result_artifact": 34,
+    "graph_progress": 22,
+    "evaluator_progress": 22,
+    "structured_output": 12,
+    "stderr": 6,
+    "tool_progress": 6,
+    "api_progress": 6,
+    "process_lifecycle": 6,
+    "archive": 6
+  },
+  "limits": [
+    "Event timestamps identify observation intervals, not CPU spans.",
+    "Native probe timestamps deliberately inherit producer timestamps.",
+    "The six actor windows include tool work; provider reports are not inference-only CPU.",
+    "Complete large bodies occur once physically; repeated logical materialization is a separate question.",
+    "RC4 executed this workload; RC5 runtime performance remains unmeasured.",
+    "Earlier failed attempts and Root preparation are excluded from the successful lifecycle duration and remain retained."
+  ]
+}

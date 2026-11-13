@@ -1,0 +1,347 @@
+{
+  "kind": "root_affected_proof_finite_environment_reentry",
+  "status": "AFFECTED_LANES_COMPLETED_NO_ACCEPTANCE",
+  "startedUtc": "2026-11-06T04:36:30.163Z",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "resources": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/proof-resource-preparation-001/RESOURCE_MANIFEST.json",
+    "bytes": 60869,
+    "sha256": "cfe6bccd52ae7873a0fdebefdf2e9c9a080a3ff1e891b2dc42befbff508de6d4"
+  },
+  "source397Digest": "f74c9abcdc2e9463c1ce8d13b3b60cd657db6e366fd2b09c4c57de512c6f527b",
+  "correction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/ROOT_ENV_CORRECTION.json",
+    "bytes": 7215,
+    "sha256": "87d11fd7a9a555457c1e0c228415768df9d97156db10988981ffcb5162cf619c"
+  },
+  "compileReused": {
+    "label": "compile",
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/compile.request.json",
+      "bytes": 684,
+      "sha256": "205324d17c72353d30fe0f106c5e9fc3aefe91e1b60d2c1f6704d82350261f47"
+    },
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/compile.result.json",
+      "bytes": 844,
+      "sha256": "1d8a6110c59b34712649f7b2bfc54a0e6f3a4964054707040ecbec2ffe7b8e77"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 8098.897500000001
+  },
+  "commands": [
+    {
+      "label": "generate-env-01",
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate-env-01.request.json",
+        "bytes": 659,
+        "sha256": "20513cc403834b4d20f704ffc11104d4cf62470b64d3a2577ed66e3442c4a323"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate-env-01.result.json",
+        "bytes": 814,
+        "sha256": "eb18b17d7f66fc95fe09bbf11d512edf1ba92f2431fbe70c2d8262295c9f4575"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate-env-01.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate-env-01.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "wallMs": 33918.616666
+    },
+    {
+      "label": "lifecycle",
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/lifecycle.request.json",
+        "bytes": 657,
+        "sha256": "599bac483e80cab1bb478a673d9c53f8a8fce24c459a89984d49cb655400440f"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/lifecycle.result.json",
+        "bytes": 908,
+        "sha256": "255963f7ef8f398da0a72377f5c094a16e2ff0320bf6c58bd074387dd946db2e"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/lifecycle.stdout",
+        "bytes": 90,
+        "sha256": "0e56cd8c536c9c74c47da96b72ab178932da674ec21c7dbf5a1d86e336fc0f99"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/lifecycle.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "wallMs": 620.7138330000016
+    },
+    {
+      "label": "consumers",
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/consumers.request.json",
+        "bytes": 1273,
+        "sha256": "c41397ac087ce3a7db5bc934b189bc9d67e6979ade24221e23b6e12fcc222659"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/consumers.result.json",
+        "bytes": 36725,
+        "sha256": "75091ca5400d373efafef3b3b5755275d5ec227d78dab1a28a892f3865c3dd22"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/consumers.stdout",
+        "bytes": 34379,
+        "sha256": "2eac76cee0d3ad4092faeb56c46ddc39b21fc28dc38faf2d64c0e41ca00cce2f"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/consumers.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "wallMs": 225415.243667,
+      "tap": {
+        "tests": 77,
+        "pass": 63,
+        "fail": 2,
+        "cancelled": 0,
+        "skipped": 12,
+        "todo": 0,
+        "failedNames": [
+          "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+          "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+        ],
+        "passedNames": [
+          "prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes",
+          "fulfillment raw schema and binder share nonempty support role forms without semantic judgment",
+          "pure projection separates historical adverse evidence, current roles, policy completeness and later obligations",
+          "real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage",
+          "selected-profile hook and persisted assembly conserve admitted additions through selected and gap projection",
+          "UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+          "Retained prior-Run source use: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+          "default library preserves cumulative wrapper bindings and rejects duplicate carried refs",
+          "installed root publication precondition rejects a bad non-selected publication",
+          "default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation",
+          "independent consumer restricts choices while preserving actual native role and schema owners",
+          "retention and execution share root, imported and exact external semantics owner selection",
+          "declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+          "RC5 STDO 3.0.4 default role content is the exact packaged subset with its selected skill closure and capability instructions separate",
+          "RC5 STDO 3.0.4 actual acquisition delivers each role its selected skill closure and refuses altered, missing and unpermitted members",
+          "framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe",
+          "framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+          "selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges",
+          "selector planning delivers a short strict UTF-8 stream whole and keeps longer, binary or unverified streams as explicit omissions",
+          "native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+          "worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+          "worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+          "fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+          "UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+          "C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+          "parent conservation joins the pre-Run root basis through exact invocation and root implementation set",
+          "one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root",
+          "DataMapper caller separates author territories and baseline inputs from future final proof",
+          "consumer-authored source and scope remain exact application data; no solution is in library",
+          "observed child provenance joins the current preparation and rejects crossed or missing causal facts",
+          "observed command correspondence conserves explicit input across empty and different process environments",
+          "declared command-executor assembly accepts native C2 and keeps exact task, owner and context refusals",
+          "native Design command budget retains exact capacity through both roles, readiness and historical correspondence",
+          "command cleanup budget rejects the old one-grace envelope through the semantic owner",
+          "command budget shares HTTP terms and exact existing C2 selector behavior",
+          "native workspace candidate derives through the Product algebra; provenance never becomes cold admission",
+          "independent rejection is retained and cannot advance; changed candidate or protected source refuses",
+          "native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain",
+          "four assessed stages conserve requirement bindings and restrict construction/C2 to current Design",
+          "native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations",
+          "native C2 retains assessed non-target dependencies without granting realization credit",
+          "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+          "native revision complete publication admits unique carriers and retains the exact factory graph",
+          "native revision installed descriptor loader discovers every declared leaf through module exports",
+          "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+          "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring",
+          "U1-P5-02 actual C0 successor and every affected currentness consumer",
+          "U1 physical target scope successor across bindings and native Result scopes",
+          "TD-08 (a): basis-admission worksite currentness equals the head reference on every history and dependency list",
+          "TD-08 (b): visits grow with the subject's causes; joins are independent of unrelated causes",
+          "TD-09 (a): the C2 prefix correspondence equals the base comparison at every cut and view pair; a repeated read compares nothing",
+          "C-14: the C0 failure evidence check refuses its one cited row by order; the owner answer stays null",
+          "extended original C2 plan preserves all 26 sources through native and observed owners",
+          "observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol",
+          "observed C2 zero write declaration executes readonly helper and refuses real mirror mutation",
+          "observed C2 refuses foreign, absent, duplicate, mixed and writable source claims",
+          "observed root source gate binds actual input and refuses stale, crossed and child authority",
+          "later admitted failed native residue invalidates observed inputs without requiring physical mismatch",
+          "changed physical observed source refuses before archive creation or command dispatch",
+          "observed C2 result, native acknowledgment and closure bind the same task without turning red execution green",
+          "T-287 C1 remains singular inside the C3 composite publication",
+          "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+          "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+        ],
+        "skippedNames": [
+          "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+          "native observation facts preserve captured history through preparation admission and complete assembly",
+          "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+          "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+          "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+          "closed resource forms retain nonempty group arrays and actual old embedded identities",
+          "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+          "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+          "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+          "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+          "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+          "full F11 input and scope output keep compact identities and whole-scope blocked findings"
+        ],
+        "declaredSkipPredicate": false,
+        "allowedHistoricalSkippedTests": [
+          "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+          "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+          "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+          "native observation facts preserve captured history through preparation admission and complete assembly",
+          "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes"
+        ]
+      }
+    },
+    {
+      "label": "uat-harness",
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/uat-harness.request.json",
+        "bytes": 753,
+        "sha256": "47d01cccc1104f84c7d2f60b767cfe83cb1e2baab558c86f82c74206e5abc431"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/uat-harness.result.json",
+        "bytes": 11244,
+        "sha256": "6c98cd4df7f01ea208533e9d83b81e05b13cce55ff902a726f9a4b0e01098422"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/uat-harness.stdout",
+        "bytes": 9933,
+        "sha256": "7ac59877cd84387f6c6b9a9b664c9efd9f1388c4af6f3f8dff61ed0054aed65b"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/uat-harness.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "wallMs": 131760.806167,
+      "tap": {
+        "tests": 32,
+        "pass": 32,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "failedNames": [],
+        "passedNames": [
+          "Oracle event acquisition records the authentic prefix without serializing or changing complete owner events",
+          "Oracle event acquisition preserves owner refusals and archive errors without writing alternate event evidence",
+          "Eventless read conservation hashes bounded chunks and detects tampering, append and identical-byte replacement",
+          "Owned XML acquisition verifies literal report digest, length, identity, complete set and symlink confinement",
+          "Owned XML acquisition selects latest original red and its depth names, rejecting unadmitted and foreign sources",
+          "Owned XML inventory requires the original complete matching set from the same selected observation",
+          "Owned XML mutation episodes require their own snapshot reports and distinct actual command experiments",
+          "basic-cli",
+          "js-tenant-test",
+          "js-sdlc-bootstrap",
+          "rust-cli",
+          "rust-service",
+          "parallel-js",
+          "Owned report repair preserves all six original Hello mechanical command and source cases",
+          "Source-use attribution refuses unauthenticated or unadmitted current invocations through actual installed owners",
+          "Source-use finite owner tuples preserve cross-Run consumer guards under an explicit admission projection premise",
+          "Caller execution policy omits optional actor caps, retains explicit positive flags and rejects invalid caps",
+          "Caller execution policy preserves acquired meaning and all command fields except explicit effective timeout; canonical C2 budget fits",
+          "Fresh supplied work transfers exact retained material into source-none empty owner state without old archive or producer changes",
+          "Resume refuses changed pins, symlinks, unauthorized paths and existing destinations before file transfer",
+          "Resume selection requires one explicit source archive and cannot be activated by ordinary run flags",
+          "Seven exact original workloads authenticate source, request and independent oracle before use",
+          "Resolved toolchain identity and configured environment flow into the canonical owner carrier",
+          "Archive paths are unique and failed subprocess streams survive before any assertion or teardown",
+          "Archived judgment conserves acquired module, manifest and rubric despite later ambient edits; tampering refuses",
+          "Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse",
+          "Rust-service mechanical oracle preserves coordinate spelling independence without inventing semantic UAT",
+          "Rust-service mechanical oracle conserves admission, execution, source, artifact and pass-floor guards",
+          "Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner",
+          "Native refusal without an admitted Run is preserved before any refresh, reopen or read",
+          "Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes",
+          "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+        ],
+        "skippedNames": [],
+        "declaredSkipPredicate": true,
+        "allowedHistoricalSkippedTests": []
+      }
+    }
+  ],
+  "timings": {
+    "generate-env-01Ms": 33918.616666,
+    "lifecycleMs": 620.7138330000016,
+    "consumersMs": 225415.243667,
+    "uat-harnessMs": 131760.806167,
+    "reentryTotalMs": 391799.67062499997
+  },
+  "limits": [
+    "Separate Root affected proof; does not extend exhausted author feedback budget.",
+    "No live campaign runtime, original source or prior stage writes; fresh owned test fixtures only.",
+    "Only compile240s, generate180s, lifecycle60s, exact consumers300s and harness300s once each. No retry or test/code edits.",
+    "Sanitized explicit environment; no inherited provider, credentials or external ABI5 selectors. Only local UAT unit output root selected.",
+    "Result.task and unchanged after inline remain partial-author residuals; no whole objective, source acceptance or qualification claim."
+  ],
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/private/tmp/abg-o7p",
+    "TMPPREFIX": "/private/tmp/abg-o7p/zsh",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-o7p/npm-cache",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/controls/npm-user.empty.conf",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/controls/npm-global.empty.conf",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "ABI5_UAT_UNIT_ROOT": "/private/tmp/abg-o7p/uat-units"
+  },
+  "generatedManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3265439,
+    "sha256": "ba8d342851d3a19c5127d7cbb7a6214e3e73c83f8a71bacd4b659f754d11c3c9"
+  },
+  "source397ChangesDuringBuild": [],
+  "endedUtc": "2026-11-06T04:43:01.966Z"
+}

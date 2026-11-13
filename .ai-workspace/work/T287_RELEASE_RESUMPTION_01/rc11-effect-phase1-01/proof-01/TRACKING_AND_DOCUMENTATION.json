@@ -1,0 +1,92 @@
+{
+  "utc": "2026-11-09T18:42:12.067696+00:00",
+  "changes": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 165916,
+        "sha256": "70f25ef8f760add62b7e0ee4aefaa4dd8061b401762f07eb51b3971cdd350cac"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 167610,
+        "sha256": "2eee0e510ece90daf00b6f91a259d57593323a9175f9f9e38ed7c263e4134239"
+      },
+      "prefixBytes": 1694,
+      "priorBodyByteExact": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 814716,
+        "sha256": "022a7a38b36737ec284a2354802076346533caad7a8f6c9c2436ac2341aaf02b"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 817325,
+        "sha256": "c6f7e18121d734156055795746d56a276ab973c487f19e9821e7bc49aa63ef8d"
+      },
+      "prefixBytes": 2609,
+      "priorBodyByteExact": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 183620,
+        "sha256": "b2cf515465321f69b0650f3fd3c0f64e346d8f26d207309d6a9f236ea2c0da64"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 185314,
+        "sha256": "8dac4c0015e87c241008cefc60c774273d9631c96ec093f11ff5091d71439d5a"
+      },
+      "prefixBytes": 1694,
+      "priorBodyByteExact": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 834340,
+        "sha256": "89e39c581131262338415fff6663845e7269849b929c577931c985ab7d0f198b"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 836949,
+        "sha256": "ba9bba44b8d4847ce8745b58cc88f7341efcce393a1ca0c0fb874d2138948dbb"
+      },
+      "prefixBytes": 2609,
+      "priorBodyByteExact": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 11973,
+        "sha256": "3da4e193dc63c958602a5a900677bd5f7602953ce3666da9a9d8fa062f88e969"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 12488,
+        "sha256": "1e74bd81742816ff4ecb7c82606a27bae60cef6889b8dafc4bf827b4e21d49d8"
+      },
+      "scope": "two current-status paragraphs only; substantive ordered plan unchanged"
+    }
+  ],
+  "postProofCandidateDeltaPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "specification/GOALS.md"
+  ],
+  "other1341CandidateRowsEqualTestedFreeze": true,
+  "fourTestedFilesByteExact": true,
+  "planDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/DOCUMENTARY_PLAN_DELTA.diff",
+    "bytes": 3250,
+    "sha256": "eccf8e5a16875a205b1f1ba98e385c6a0060babb07118d3bde5746b0168c3578"
+  },
+  "noTestOrBuildReexecution": true
+}

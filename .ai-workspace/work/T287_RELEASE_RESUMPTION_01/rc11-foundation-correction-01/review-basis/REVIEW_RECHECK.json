@@ -1,0 +1,53 @@
+{
+  "kind": "targeted_independent_product_design_recheck",
+  "recordedAt": "2026-11-09T17:30:44.205130+00:00",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "verdict": "satisfied",
+  "triage": "not_applicable",
+  "closedFinding": "FND-CLARITY-001",
+  "priorSeverity": "S3",
+  "newFindings": [],
+  "scope": "Two constitution clarification hunks only; no whole-review repetition",
+  "subject": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+    "bytes": 396214,
+    "sha256": "43ce5ccae4fc28a4ac5d20cc14b2188ff7176c8a06bec9e89c5c39ac1f0e3536"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/FOUNDATION_CLARITY.diff",
+    "bytes": 7467,
+    "sha256": "b0420136c2bc648bc16b5091f60e2fef24cefe5f2e9b9712eeaed9fe93205831"
+  },
+  "controlReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/CLARITY_RETURN.json",
+    "bytes": 4785,
+    "sha256": "48feb167aa55ea579c0a4e2b9e708150830d3af6f74d9c7e517364ebdc72c087"
+  },
+  "priorReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/review-basis/REVIEW.md",
+    "bytes": 12016,
+    "sha256": "4a2097c8fd093a261d9b2803bd5d88faedcb46557fa670504ceacfcbd4f8ad1d"
+  },
+  "checks": {
+    "exactHashesMatch": true,
+    "hunks": 2,
+    "reverseDiffPriorConstitutionSha256": "db267d0b96baf5dbc6c6c4621e133e20365c5dbe1e64c9b274944d04352d3b62",
+    "heldCarrierLocalAmbiguityClosed": true,
+    "resourceNonselectionExplicitlyScoped": true,
+    "noNewSemanticAuthorityOrPerApiGate": true
+  },
+  "independence": "resumed context; nonauthor; no clean-context claim",
+  "carriedForward": "Other four authority files and eight generated outputs unchanged per Root activation; not re-audited",
+  "exclusions": [
+    "separately accepted prospective functional plan",
+    "implementation/runtime/source pilot",
+    "tests/builds/generation",
+    "packaging/release/install/pin",
+    "whole qualification and original failure/debt closure"
+  ],
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/review-basis/REVIEW_RECHECK.md",
+    "bytes": 3548,
+    "sha256": "9435ab85746192f823c2c206535232db56b8d0eb6ba22aec58ed5d98dfcab261"
+  }
+}

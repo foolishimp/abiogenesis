@@ -1,0 +1,35 @@
+{
+  "kind": "h06_remaining_root_bindings",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 9291,
+    "sha256": "d3b7b87fab998bca08bc8572ddea2c34e4342378d30981c6a4b033416c3bc258"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_BEFORE.json",
+    "bytes": 233286,
+    "sha256": "822c7268e1acdf9e1615f0811b8fa35e7656d11c952c656439674794ce156c9d"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8045,
+    "sha256": "d3c8fc06ce2b305c089257a0b9524650c69512e2d029d2995ca36d47420a90a9"
+  },
+  "originalResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "62d6acfaa2d31add120ecafb37cac00c473c1a5a62b46852d18373268356d1f5"
+  },
+  "rootControlAdmission": null,
+  "finalWorkloadDigest": null,
+  "dispatchManifest": null,
+  "sourceLiveAndIndexVerification": "Root final check against451 actual H05 baseline/69tracked+2new before staging and admission.",
+  "futureNativeResult": null,
+  "futureProof": null,
+  "limits": "Only final Root admission/staged digests/derived future outputs remain; no source/close fallback and no placeholder actual receipts.",
+  "actualH05SourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_AFTER.json",
+    "bytes": 563015,
+    "sha256": "2a385829927eac2ba13be072d7deab71949ab9db56bc6fb2797bd786398aa519"
+  }
+}

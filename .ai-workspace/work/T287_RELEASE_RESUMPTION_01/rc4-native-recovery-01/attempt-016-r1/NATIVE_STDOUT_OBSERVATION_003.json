@@ -1,0 +1,354 @@
+{
+  "observerPid": 30725,
+  "observedUtc": "2026-11-02T21:33:37.204050+00:00",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-a26263de9da732c1-stdout.log",
+  "physicalCompleteCursor": 7470987,
+  "records": [
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01U8N3rc9rNGC8QQLLJJ4nLs",
+      "command": "which stdo; stdo status --definition stdo_abiogenesis.json --verify 2>&1 | head -30",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01U8N3rc9rNGC8QQLLJJ4nLs",
+      "is_error": false,
+      "content": "/Users/jim/.local/bin/stdo\n{\n  \"basis\": \"stdo://releases/v3.0.2/\",\n  \"cut\": \"v3.0.2\",\n  \"definition\": \"/Users/jim/src/apps/abiogenesis-rc4-native-recovery/stdo_abiogenesis.json\",\n  \"definition_id\": \"urn:stdo:product-definition:abiogenesis\",\n  \"failures\": [],\n  \"installed\": true,\n  \"manifest_sha256\": \"f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477\",\n  \"path\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2\",\n  \"release\": {\n    \"commit\": \"23ca9c0929d7be8570edafaf30542e3daeb8dc1f\",\n    \"cut\": \"v3.0.2\",\n    \"profile\": \"stable-v1\",\n    \"project_release_namespace\": \"specification_methodology\",\n    \"project_subtree_root\": \"specification_methodology/v3\",\n    \"project_subtree_tree\": \"4c870cb441be3574b911bacca28497fefc70e084\",\n    \"qualified_ref\": \"refs/tags/specification_methodology/v3.0.2\",\n    \"standards_tree\": \"f01a58e381a60edc7ed840cc9803f7d7296d65eb\",\n    \"tag_object\": \"d03b00a7fdf8972dc236b52eb09f3eccba7f62cb\",\n    \"tree\": \"c64345a9b2127df3cddc0e26f49bc9dac2a24bff\"\n  },\n  \"schema\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/schemas/product-definition.schema.json\",\n  \"selector\": \"stdo://channels/3.0.2\",\n  \"standards\": {\n    \"installed_root\": \"standards\",\n    \"member_count\": 67,\n    \"member_set_sha256\": \"644e5f6a509e0d79a2077ece8f1c25fc72e6abb5f03a95075b6e5b6eb565eb9d\",\n    \"members\": [\n      {\n        \"path\": \"ACTIVATION.md\","
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01F1LefgxGuHuGCMh3jwhHTN",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && cat rc4-operator-inputs/native-recovery-16/readiness.py | head -120; cat rc4-operator-inputs/native-recovery-16/readiness-inputs.json | head -60",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01F1LefgxGuHuGCMh3jwhHTN",
+      "is_error": false,
+      "content": "ulus/fold.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/calculus/index.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/child_lifecycle.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/closure.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/event_log.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/fan_out.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/fan_out_projection.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/fh_resume_relation.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/governed_context_client.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/index.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts\",\n    \"build_tenants/abiogenesis/typescript/code/src/abg/m03.ts\","
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Write",
+      "id": "toolu_018q9Kk7pEfp8vbX6232dyFP",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/tmp/probe.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_018q9Kk7pEfp8vbX6232dyFP",
+      "is_error": false,
+      "content": "File created successfully at: /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/tmp/probe.mjs (file state is current in your context \u2014 no need to Read it back)"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01NQB7bqoepdVyAE2R8WVNMz",
+      "command": "python3 - <<'EOF'\np='code/src/public/installed_public_definition_call.ts'\ns=open(p).read()\n# start\nold_a='''  | Readonly<{\n      kind: \"installed_start_call\";\n      call: InstalledPublicDefinitionCall;\n      population: product.PopulatedProductRunInvocation<S[\"memberKey\"]>;\n    }>'''\nnew_a='''  | Readonly<{\n      kind: \"installed_start_call\";\n      call: InstalledPublicDefinitionCall<InstalledStartCallSelection<S>>;\n      population: product.PopulatedProductRunInvocation<S[\"memberKey\"]>;\n    }>'''\nassert old_a in s; s=s.replace(old_a,new_a)\nold_b='''  return Object.freeze({\n    kind: \"installed_start_call\" as const,\n    call: constructEnvelope(input.envelope, \"abg.operation.run.invoke\", population.memberKey,\n      population.request, population.slots, resources),\n    population,\n  });'''\nnew_b='''  const selection: product.ProductRunInvocationSelectionIntent = input.selection;\n  if (population.memberKey !== selection.memberKey) {\n    throw new TypeError(\"run.invoke population differs from its selected member\");\n  }\n  return Object.freeze({\n    kind: \"installed_start_call\" as const,\n    call: checkedInstalledCall<InstalledStartCallSelection<S>>(\n      input.envelope,\n      { operationId: \"abg.operation.run.invoke\", memberKey: population.memberKey },\n      { request: population.request, slots: population.slots, resources },\n      (request) => selection.memberKey === \"invoke\" ||\n        isRecord(request.target) && request.target.kind === selection.target.kind,\n    ),\n    population,\n  });'''\nassert old_b in s; s=s.replace(old_b,new_b)\n# pending\nold_c='''export async function constructInstalledPendingCall(input: InstalledRunCallResourceIntent & Readonly<{\n  selection: product.RunContinuationSelectionIntent;'''\nnew_c='''export async function constructInstalledPendingCall<\n  S extends product.RunContinuationSelectionIntent,\n>(input: InstalledRunCallResourceIntent & Readonly<{\n  selection: S;'''\nassert old_c in s; s=s.replace(old_c,new_c)\nold_d='''  | Readonly<{ kind: \"installed_pending_call\"; call: InstalledPublicDefinitionCall; population: product.PopulatedRunContinuation }>'''\nnew_d='''  | Readonly<{\n      kind: \"installed_pending_call\";\n      call: InstalledPublicDefinitionCall<InstalledPendingCallSelection<S>>;\n      population: product.PopulatedRunContinuation;\n    }>'''\nassert old_d in s; s=s.replace(old_d,new_d)\nold_e='''  return Object.freeze({\n    kind: \"installed_pending_call\" as const,\n    call: constructEnvelope(input.envelope, \"abg.operation.run.con",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01NQB7bqoepdVyAE2R8WVNMz",
+      "is_error": false,
+      "content": "tionCallSelection<Extract<{ readonly definitionKey: { readonly operationId: \"abg.operation.project.read\"; readonly memberKey: \"install_evidence\"; }; readonly memberPath: readonly [\"install_evidence\"]; readonly packageExportPath: \"./product\"; readonly definitionBindingExportName: \"PRODUCT_PROJECT...' is not assignable to type 'InstalledPublicDefinitionCallSelectionOf<{ readonly definitionKey: { readonly operationId: \"abg.operation.workspace.open\"; readonly memberKey: \"open\"; }; readonly memberPath: readonly [\"open\", \"open\"]; readonly packageExportPath: \"./product\"; readonly definitionBindingExportName: \"WORKSPACE_DEFINITION_BINDINGS\"; rea...'.\n    Type 'InstalledPublicDefinitionCallSelectionOf<Readonly<{ definitionKey: Readonly<{ operationId: \"abg.operation.project.read\"; memberKey: K; }>; }> & { readonly definitionKey: { readonly operationId: \"abg.operation.project.read\"; readonly memberKey: \"install_evidence\"; }; ... 4 more ...; readonly binding: OwnerCallableDef...' is not assignable to type 'InstalledPublicDefinitionCallSelectionOf<{ readonly definitionKey: { readonly operationId: \"abg.operation.workspace.open\"; readonly memberKey: \"open\"; }; readonly memberPath: readonly [\"open\", \"open\"]; readonly packageExportPath: \"./product\"; readonly definitionBindingExportName: \"WORKSPACE_DEFINITION_BINDINGS\"; rea...'.\n      Type 'InstalledPublicDefinitionCallSelectionOf<Readonly<{ definitionKey: Readonly<{ operationId: \"abg.operation.project.read\"; memberKey: K; }>; }> & { readonly definitionKey: { readonly operationId: \"abg.operation.project.read\"; readonly memberKey: \"install_evidence\"; }; ... 4 more ...; readonly binding: OwnerCallableDef...' is not assignable to type 'InstalledPublicDefinitionCallSelectionOf<{ readonly definitionKey: { readonly operationId: \"abg.operation.workspace.open\"; readonly memberKey: \"open\"; }; readonly memberPath: readonly [\"open\", \"open\"]; readonly packageExportPath: \"./product\"; readonly definitionBindingExportName: \"WORKSPACE_DEFINITION_BINDINGS\"; rea...'.\n        Types of property 'request' are incompatible.\n          Type '{ caseKey: \"install_evidence\"; source: { sourceKind: \"installed_product\"; sourceRef: string; sourceDigest: `sha256:${string}`; }; projectionBasis: { projectionBasisRef: string; projectionBasisDigest: `sha256:${string}`; }; selector: { ...; }; }' is missing the following properties from type '{ targetRoot: string; expectedAuthority: { ref: string; digest: `sha256:${string}`; }; }': targetRoot, expectedAuthority"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01WLQJLReTDDa82sBdzgTg1e",
+      "command": "python3 - <<'EOF'\np='code/src/public/installed_public_definition_call.ts'\ns=open(p).read()\nold='''export type InstalledRunReadCallSelection<\n  K extends abg.AbgRunReadMemberKey = abg.AbgRunReadMemberKey,\n> = MemberSelection<\"abg.operation.project.read\", K>;'''\nnew='''type RunReadCallSelections = {\n  readonly [K in abg.AbgRunReadMemberKey]:\n    MemberSelection<\"abg.operation.project.read\", K>;\n};\n\n/** The `project.read` member one run-read key names. */\nexport type InstalledRunReadCallSelection<\n  K extends abg.AbgRunReadMemberKey = abg.AbgRunReadMemberKey,\n> = RunReadCallSelections[K];'''\nassert old in s\ns=s.replace('''/** The `project.read` member one run-read key names. */\n'''+old,new)\nopen(p,'w').write(s)\nEOF\nTMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/tmp NODE_DISABLE_COMPILE_CACHE=1 node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json --noErrorTruncation 2>&1 | head -c 6000",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01WLQJLReTDDa82sBdzgTg1e",
+      "is_error": false,
+      "content": "code/src/public/installed_public_definition_call.ts(460,58): error TS2345: Argument of type '{ product: typeof import(\"/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/product/index\", { with: { \"resolution-mode\": \"import\" } }); installedPublic: Readonly<{ PUBLIC_FUNCTION_DEFINITION_FAMILY: IntrinsicPublicFunctionFamily; PUBLIC_OPERATION_CONTRACT_PROJECTIONS: readonly IntrinsicPublicOperationContractProjection[]; PUBLIC_PROJECTION_PAYLOADS: PublicProjectionPayloads; }>; definitionContractCoordinates: CompleteDefinitionContractCoordinateMap; contractCatalog: PublicContractCatalogCoordinate; } & S & { requestRef: string; correlationRef: string; eventTime: string; provenanceRefs: readonly string[]; }' is not assignable to parameter of type 'InstalledPublicDefinitionCallInput<S>'.\n  Type '{ product: typeof import(\"/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/product/index\", { with: { \"resolution-mode\": \"import\" } }); installedPublic: Readonly<{ PUBLIC_FUNCTION_DEFINITION_FAMILY: IntrinsicPublicFunctionFamily; PUBLIC_OPERATION_CONTRACT_PROJECTIONS: readonly IntrinsicPublicOperationContractProjection[]; PUBLIC_PROJECTION_PAYLOADS: PublicProjectionPayloads; }>; definitionContractCoordinates: CompleteDefinitionContractCoordinateMap; contractCatalog: PublicContractCatalogCoordinate; } & S & { requestRef: string; correlationRef: string; eventTime: string; provenanceRefs: readonly string[]; }' is not assignable to type 'InstalledPublicDefinitionCallEnvironment'."
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01UiAbZcQxRNW6KNgSaXJr7A",
+      "command": "python3 - <<'EOF'\np='code/src/public/installed_public_definition_call.ts'\ns=open(p).read()\nold='''  const call = constructInstalledPublicDefinitionCall<S>({\n    product: product,\n    installedPublic: INSTALLED_PUBLIC,\n    definitionContractCoordinates: envelope.definitionContractCoordinates,\n    contractCatalog: verifiedContractCatalog(envelope.definitionContractCoordinates, key.operationId, key.memberKey),\n    ...selection,\n    requestRef: envelope.requestRef,\n    correlationRef: envelope.correlationRef,\n    eventTime: envelope.eventTime,\n    provenanceRefs: envelope.provenanceRefs,\n  });'''\nnew='''  const environment: InstalledPublicDefinitionCallEnvironment = {\n    product: product,\n    installedPublic: INSTALLED_PUBLIC,\n    definitionContractCoordinates: envelope.definitionContractCoordinates,\n    contractCatalog: verifiedContractCatalog(envelope.definitionContractCoordinates, key.operationId, key.memberKey),\n    requestRef: envelope.requestRef,\n    correlationRef: envelope.correlationRef,\n    eventTime: envelope.eventTime,\n    provenanceRefs: envelope.provenanceRefs,\n  };\n  const call = constructInstalledPublicDefinitionCall<S>({ ...environment, ...selection });'''\nassert old in s\ns=s.replace(old,new)\nopen(p,'w').write(s)\nEOF\nTMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/tmp NODE_DISABLE_COMPILE_CACHE=1 node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1 | head -c 4000; echo EXIT $?",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01UiAbZcQxRNW6KNgSaXJr7A",
+      "is_error": false,
+      "content": "EXIT 0"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01U7oqBCkFHKbduhLBW2MkSD",
+      "command": "python3 - <<'EOF'\np='test_env/tests/t287-framework-handoff-types.test.mjs'\ns=open(p).read()\nold='''// T287 HC1 owner-derived native call typing. Real compiler checks of the\n// canonical and packed package declarations, packed-runtime inventory and raw\n// refusals, and a per-slot schema comparison with the exact014 baseline. Not\n// HC2 population, installed Run proof, qualification or release evidence.'''\nnew='''// T287 HC1 owner-derived native call typing and the HC2 shipped constructor\n// types. Real compiler checks of the canonical and packed package\n// declarations, packed-runtime inventory and raw refusals, and a per-slot\n// schema comparison with the exact014 baseline. Not HC2 runtime population,\n// installed Run proof, qualification or release evidence.'''\nassert old in s; s=s.replace(old,new)\nold2='''  assert.ok(markers.length >= 17);'''\nnew2='''  assert.ok(markers.length >= 17);\n  // The shipped constructors' crossed operation/variant pairings.\n  assert.ok(markers.filter(m => m.name.startsWith('hc2-')).length >= 11);'''\nassert old2 in s; s=s.replace(old2,new2)\nold3='''const HC1_DECLARATIONS = ['OwnerCallableDefinitionMember', 'OwnerUnavailableDefinitionMember',\n  'InstalledPublicDefinitionCallSelection', 'InstalledDefinitionCallTransportOutcomeOf'];'''\nnew3='''const HC1_DECLARATIONS = ['OwnerCallableDefinitionMember', 'OwnerUnavailableDefinitionMember',\n  'InstalledPublicDefinitionCallSelection', 'InstalledDefinitionCallTransportOutcomeOf',\n  'InstalledStartCallSelection', 'InstalledPendingCallSelection', 'InstalledRunReadCallSelection'];'''\nassert old3 in s; s=s.replace(old3,new3)\nopen(p,'w').write(s)\nEOF\nNODE_DISABLE_COMPILE_CACHE=1 node --check test_env/tests/t287-framework-handoff-types.test.mjs && echo ok",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01U7oqBCkFHKbduhLBW2MkSD",
+      "is_error": false,
+      "content": "ok"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01R9hsBGGJYw7x3yqxFuDHVw",
+      "command": "python3 - <<'EOF'\np='code/src/owner_bindings/run_invocation.ts'\ns=open(p).read()\nold_res='''  const resolve = (programRef: string, graphFunctionRef: string) => ProductExecutionResolutionPort.resolve({\n    catalog: input.catalog, catalogView: input.catalogView, admittedInstalls: setup.admittedInstalls,\n    verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),\n    programRef, selection: { kind: \"admitted\", graphFunctionRef },\n  });\n'''\nnew_res='''  const resources = Object.freeze({ catalog: input.catalog, catalogView: input.catalogView });\n'''\nassert old_res in s; s=s.replace(old_res,new_res)\nold_ci='''    const selected = projectConstructionIntentContinuations(prefix, runRef).find(c =>\n      c.continuationRef === selection.continuation.ref && c.continuationDigest === selection.continuation.digest);\n    if (selected === undefined) return refuse(\"missing_continuation\", \"/continuation\");\n    if (selected.status !== \"open\") return refuse(\"resolved_continuation\", \"/continuation\");\n    const sourceRoot = projectExactExecutionBasisAtPrefix(prefix, selected.parentExecutionBasisRef);\n    if (sourceRoot === null) return refuse(\"basis_mismatch\", \"/expectedBasis\");\n    const resolution = await resolve(sourceRoot.programRef, sourceRoot.graphFunctionRef);\n    if (resolution.kind !== \"loaded_product_execution_resolution\") return refuse(\"basis_mismatch\", \"/program\");\n    const prepared = prepareConstructionIntentContinuation(prefix, selected, resolution);\n    if (prepared === null) return refuse(\"basis_mismatch\", \"/continuation\");\n'''\nnew_ci='''    const shared = await runPopulationSelection(selectConstructionIntentAtPrefix(POPULATION_CONTINUATION_STAGES, setup, resources,\n      prefix, runRef, selection.continuation));\n    if (shared.kind === \"refused\") return refuse(shared.code, shared.path);\n    const { selected, resolution, prepared } = shared;\n'''\nassert old_ci in s; s=s.replace(old_ci,new_ci)\nold_pe='''    const use = selectPendingExecutionUse(prefix, useRequest);\n    if (use.kind === \"refused\") return refuse(use.code, use.path);\n    const resolution = await resolve(use.rootBasis.programRef, use.rootBasis.graphFunctionRef);\n    if (resolution.kind !== \"loaded_product_execution_resolution\") return refuse(\"basis_mismatch\", \"/program\");\n    const prepared = preparePendingExecutionContinuation(prefix, use, resolution);\n    if (prepared === null) return refuse(\"basis_mismatch\", \"/continuation\");\n'''\nnew_pe='''    const shared = await ",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01R9hsBGGJYw7x3yqxFuDHVw",
+      "is_error": false,
+      "content": "node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1  10.44s user 0.22s system 168% cpu 6.309 total\nhead -40  0.00s user 0.00s system 0% cpu 6.309 total"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_011HJgj7juexwPLvFP9Cr9Ht",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_011HJgj7juexwPLvFP9Cr9Ht",
+      "is_error": false,
+      "content": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs has been updated successfully."
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01Xgs5cD9tvnsNR3H48Q93tS",
+      "command": "python3 - <<'EOF'\np='test_env/tests/t287-exact-construction-intent.test.mjs'\ns=open(p).read()\nold=\"\"\" const results=[];\n for(const [name,patch]of [['wrong-basis',{expectedBasis:{ref:prepared.root.basisRef,digest:prepared.root.basisDigest}}],['wrong-input',{continuationInput:{ref:prepared.pending.input.inputRef,digest:'sha256:'+'0'.repeat(64)}}],['wrong-intent',{currentIntent:{ref:prepared.intent.constructionIntentRef,digest:'sha256:'+'0'.repeat(64)}}],['unknown-continuation',{continuation:{ref:'continuation://abiogenesis/'+'0'.repeat(64),digest:'sha256:'+'0'.repeat(64)}}],['continue',null],['consumed',{}]]) {\n  const call=await makeCall(name,patch);await save(`${name}-call.json`,call);\"\"\"\nnew=\"\"\" const results=[],handoffs={};\n // The continuation is Run-scoped: a Run that does not hold it, or the Run under another digest, is refused.\n const expectedRefusals={'wrong-run':['missing_continuation','/continuation'],'wrong-run-digest':['basis_mismatch','/expectedBasis'],consumed:['resolved_continuation','/continuation']};\n for(const [name,patch]of [['wrong-basis',{expectedBasis:{ref:prepared.root.basisRef,digest:prepared.root.basisDigest}}],['wrong-input',{continuationInput:{ref:prepared.pending.input.inputRef,digest:'sha256:'+'0'.repeat(64)}}],['wrong-intent',{currentIntent:{ref:prepared.intent.constructionIntentRef,digest:'sha256:'+'0'.repeat(64)}}],['unknown-continuation',{continuation:{ref:'continuation://abiogenesis/'+'0'.repeat(64),digest:'sha256:'+'0'.repeat(64)}}],['wrong-run',{run:{ref:`${opened.scope.runId}/absent`,digest:'sha256:'+'0'.repeat(64)}}],['wrong-run-digest',{run:{ref:opened.scope.runId,digest:'sha256:'+'0'.repeat(64)}}],['continue',null],['consumed',{}]]) {\n  handoffs[name]=handoff;\n  const call=await makeCall(name,patch);await save(`${name}-call.json`,call);\"\"\"\nassert old in s; s=s.replace(old,new)\nold2=\"\"\"  } else assert.equal(receipt.ownerOutput.outcomeKind,'refusal',JSON.stringify(receipt.ownerOutput));\n }\n\"\"\"\nnew2=\"\"\"  } else {assert.equal(receipt.ownerOutput.outcomeKind,'refusal',JSON.stringify(receipt.ownerOutput));\n   if(expectedRefusals[name])assert.deepEqual([receipt.ownerOutput.value.code,receipt.ownerOutput.value.issuePaths],[expectedRefusals[name][0],[expectedRefusals[name][1]]],name);}\n }\n // Population names the Run: one that does not hold the continuation is refused before any call exists.\n const absentRun=await publicApi.constructInstalledPendingCall({selection:{kind:'current_intent',runRef:`${opened.scope.runId}/absent`,co",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01Xgs5cD9tvnsNR3H48Q93tS",
+      "is_error": false,
+      "content": "ok"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01RxuPM45FmQCVbv7uPJBeTd",
+      "command": "python3 - <<'EOF'\np='test_env/tests/t287-exact-construction-intent.test.mjs'\ns=open(p).read()\nold=\"'wrong-run-digest':['basis_mismatch','/expectedBasis'],consumed:['resolved_continuation','/continuation']};\"\nassert old in s\ns=s.replace(old,\"'wrong-run-digest':['basis_mismatch','/expectedBasis']};\")\nopen(p,'w').write(s)\nEOF\nnode --check test_env/tests/t287-exact-construction-intent.test.mjs && echo ok",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01RxuPM45FmQCVbv7uPJBeTd",
+      "is_error": false,
+      "content": "ok"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01GtxX2ABgDZgLxBYxLKcY6c",
+      "command": "python3 - <<'EOF'\np='test_env/tests/t287-selected-action.test.mjs'\ns=open(p).read()\nold=\"\"\" assert.deepEqual([canonical.population.authority.authorityDigest,canonical.population.policy.policyDigest],[e.invocationAuthority.authorityDigest,e.policy.policyDigest],'attribution and policy are the original admission');\n\"\"\"\nnew=\"\"\" assert.deepEqual([canonical.population.authority.authorityDigest,canonical.population.policy.policyDigest],[e.invocationAuthority.authorityDigest,e.policy.policyDigest],'attribution and policy are the original admission');\n // The selected continuation is Run-scoped: population and the owner refuse a Run that does not hold it.\n const absentRun={ref:`${selectedRequest.run.ref}/absent`,digest:'sha256:'+'0'.repeat(64)};\n assert.deepEqual(await c.publicApi.constructInstalledPendingCall({selection:{kind:'selected_action',request:{...selectedRequest,run:absentRun},currentExecutionBasis:coord(e.executionBasis)},catalog:e.catalog,catalogView:e.catalogView,applications:[],eventResource:resource(c),envelope:envelope('absent-run-population')}),\n  {kind:'run_continuation_population_refusal',code:'missing_continuation',issuePath:'/request'});\n\"\"\"\nassert s.count(old)==1; s=s.replace(old,new)\nold2=\"\"\" const negatives=[['alternate-view',{}, {},'basis_mismatch','/continuation',alternate],\"\"\"\nnew2=\"\"\" const negatives=[['absent-run',{run:absentRun},{},'missing_continuation','/request'],['alternate-view',{}, {},'basis_mismatch','/continuation',alternate],\"\"\"\nassert s.count(old2)==1; s=s.replace(old2,new2)\nopen(p,'w').write(s)\nEOF\nnode --check test_env/tests/t287-selected-action.test.mjs && echo ok",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01GtxX2ABgDZgLxBYxLKcY6c",
+      "is_error": false,
+      "content": "ok"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01YDnrM64qrhrEUCVYtusoys",
+      "command": "python3 - <<'EOF'\np='test_env/tests/t287-default-library.test.mjs'\ns=open(p).read()\nold=\"\"\"  assert.equal(read().length,interrupted.length,'a crossed request admits nothing');\n  const resumedAt=performance.now(),continued=await cli('continue',await pending.call('continue'));\n\"\"\"\nnew=\"\"\"  assert.equal(read().length,interrupted.length,'a crossed request admits nothing');\n  // The pending execution is Run-scoped: a Run that does not hold it, or its Run under another digest, is refused.\n  for(const [name,run,code,path] of [['wrong-run',{ref:`${runId}/absent`,digest:zero},'missing_continuation','/continuation'],['wrong-run-digest',{ref:runId,digest:zero},'basis_mismatch','/run']]){\n    const out=(await cli(name,pending.replay(name,{run}))).receipt;\n    assert.equal(out.ownerOutput.outcomeKind,'refusal',name);assert.equal(out.ownerOutput.value.code,code,name);assert.deepEqual(out.ownerOutput.value.issuePaths,[path],name);\n    assert.equal(read().length,interrupted.length,`${name} admits nothing`);\n  }\n  // Populated at the pre-continue handoff, executed after the use: the superseded prefix is refused at acquisition.\n  const staleHandoff=handoff,staleCall=await pending.call('stale-prefix');\n  const resumedAt=performance.now(),continued=await cli('continue',await pending.call('continue'));\n\"\"\"\nassert s.count(old)==1; s=s.replace(old,new)\nold2=\"\"\"  assert.equal(second.ownerOutput.outcomeKind,'refusal');assert.equal(second.ownerOutput.value.code,'resolved_continuation');assert.deepEqual(second.ownerOutput.value.issuePaths,['/continuation'],'one use');\n  assert.equal(read().length,afterContinue,'second use admits nothing');\n\"\"\"\nnew2=\"\"\"  assert.equal(second.ownerOutput.outcomeKind,'refusal');assert.equal(second.ownerOutput.value.code,'resolved_continuation');assert.deepEqual(second.ownerOutput.value.issuePaths,['/continuation'],'one use');\n  assert.equal(read().length,afterContinue,'second use admits nothing');\n  const staleExecution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity:'stale-prefix',acquisition:{kind:'reopen',closeHandoff:staleHandoff},call:staleCall,expectedExitCode:null,environment:actorEnvironment});\n  const staleFault=staleExecution.output.receipt?.failure?.fault;\n  assert.deepEqual([staleFault?.stage,staleFault?.code],['resource_acquisition','acquisition_refused'],JSON.stringify(staleExecution.output).slice(0,4000));\n  assert.equal(read().length,afterContinue,'a stale prefix admits nothing');\n\"\"\"\nassert s.count(o",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01YDnrM64qrhrEUCVYtusoys",
+      "is_error": false,
+      "content": "ok"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_019zSX57RFRqovxAqhSWgrC3",
+      "command": "python3 - <<'EOF'\np='test_env/qualification/dispatch.mjs'\ns=open(p).read()\nold=s[s.index(\"/** The root invocation authority of one Program's graph function\"):s.index(\"/** The input admitted by the Program's declared input contract\")]\nnew=\"\"\"/** The owner-resolved root of one Program's graph function over the current environment: the environment and the\n * exact graph_function start resolution. Policy, grants and invocation authority are not assembled here: the canonical\n * start population owns them (product/run_invocation_operation.ts populateProductRunInvocation). */\nexport async function rootResolution(caller, { programRef, graphFunctionRef }, cache) {\n  const { product, abg } = caller.runtime, state = caller.state;\n  // A cache is valid only while the prefix is unchanged (the dry mode); the live mode passes none.\n  const key = programRef + '\\\\n' + product.sha256Canonical(state.closeHandoff);\n  if (cache?.has(key)) return cache.get(key);\n  const environment = caller.refresh(), admittedInstalls = environment.productInstalls, workspaceBinding = environment.workspaceBinding;\n  const resolution = await product.ProductExecutionResolutionPort.resolve({ catalog: state.catalog, catalogView: state.catalogView, admittedInstalls,\n    verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), programRef,\n    selection: { kind: 'start', scope: 'program', target: 'graph_function', graphFunctionHandle: graphFunctionRef, until: 'converged', rootMode: 'direct' } });\n  if (resolution.kind !== 'loaded_product_execution_resolution') throw new TypeError('resolution of ' + programRef + ': ' + (resolution.code ?? resolution.kind));\n  const value = { environment, admittedInstalls, workspaceBinding, resolution };\n  cache?.set(key, value);\n  return value;\n}\n\n/** The canonical run.invoke start population of one Program's graph function over a factory-built input: the Product\n * run owner resolves, constructs the policy and grants, and hands them to the factory before it admits the input. */\nfunction populateStart(caller, root, program, factory) {\n  const { product, abg } = caller.runtime, state = caller.state, { environment, admittedInstalls, workspaceBinding } = root;\n  return product.populateProductRunInvocation({\n    selection: { memberKey: 'start', target: { kind: 'graph_function', handle: program.graphFunctionRef }, rootMode: 'direct', fhMode: 'direct' },\n    programRef: program.programRef, catalog: state.catalog, catalogView: state",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_019zSX57RFRqovxAqhSWgrC3",
+      "is_error": false,
+      "content": "ok"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_0187MNGvc8ZNj8qzuTk2RQxK",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && export TMPDIR=$PWD/rc4-scratch/native-recovery-16/tmp NODE_DISABLE_COMPILE_CACHE=1 && (cd build_tenants/abiogenesis/typescript && node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json; echo \"tsc exit $?\") 2>&1 | tail -20 && node rc4-scratch/native-recovery-16/tmp/probe.mjs rc4-scratch/native-recovery-16/tmp/uat-repro.compile.ts 2>&1 | tail -30",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_0187MNGvc8ZNj8qzuTk2RQxK",
+      "is_error": false,
+      "content": "tsc exit 0\n{\"phase\":\"declaration_emit\",\"files\":290,\"preEmitDiagnostics\":0,\"emitDiagnostics\":0,\"ms\":6542}\n{\"phase\":\"hc1_proof_positive\",\"errors\":0,\"tenantSourceCompiled\":0,\"publicDeclarationsResolved\":true}\n{\"phase\":\"hc1_proof_negatives\",\"markers\":30,\"held\":30,\"stray\":0}\n{\"phase\":\"extra_uat-repro.compile.ts_positive\",\"errors\":0,\"tenantSourceCompiled\":0,\"publicDeclarationsResolved\":true}\n{\"phase\":\"done\",\"ms\":19059}"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01VDnPX7mCYbrJ3rx697CNwS",
+      "command": "for f in $(git status --porcelain | awk '{print $2}' | grep '\\.mjs$'); do node --check \"$f\" && echo \"ok $f\" || echo \"FAIL $f\"; done; git status --porcelain; cd build_tenants/abiogenesis/typescript && git diff --stat -- . | tail -3; git diff -U0 -- test_env/tests/t287-framework-handoff-types.test.mjs | grep -n \"56\\|47\\|224\\|\\b9\\b\" | head",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01VDnPX7mCYbrJ3rx697CNwS",
+      "is_error": false,
+      "content": "lic_definition_call.ts\n M build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs\n M build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs\n M build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs\n M build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs\n M build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs\n M build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs\n M build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs\n M build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-readback.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json\n M build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts\n M build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs\n M build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs\n?? .abiogenesis/\n?? .claude/\n?? build_tenants/abiogenesis/typescript/node_modules\n?? rc3-operator-inputs/\n?? rc4-operator-inputs/\n?? rc4-scratch/\n .../typescript/test_env/uat/continuation.mjs       |  55 +-\n .../typescript/test_env/uat/public-setup.mjs       |  10 +-\n 28 files changed, 2294 insertions(+), 1342 deletions(-)\n22:@@ -243 +247,4 @@ test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members an\n28:@@ -245,4 +251,0 @@ test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members an\n33:@@ -251,7 +254,18 @@ test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members an\n59:@@ -259,14 +273,33 @@ test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members an\n105:+  assert.equal(unavailableCalls.length, 9);\n107:@@ -279 +312,2 @@ test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members an"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01LTmFBis8x4TfkNDcLuE9MF",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && export TMPDIR=$PWD/rc4-scratch/native-recovery-16/tmp && python3 rc4-operator-inputs/native-recovery-16/readiness.py rc4-operator-inputs/native-recovery-16/readiness-inputs.json > rc4-scratch/native-recovery-16/readiness.json; echo \"exit $?\"; python3 -c \"\nimport json;d=json.load(open('rc4-scratch/native-recovery-16/readiness.json'))\nprint({k:(v if not isinstance(v,(list,dict)) else (len(v) if isinstance(v,list) else list(v)[:12])) for k,v in d.items()})\"",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01LTmFBis8x4TfkNDcLuE9MF",
+      "is_error": false,
+      "content": "exit 0\n{'status': 'FILE_ONLY_READY', 'sourceCommit': '3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f', 'selectedEntriesIncludingRoot': 1265, 'selectedRawBytes': 43929165, 'maxContextFiles': 10000, 'maxContextBytes': 268435456, 'sourceHashesMatched': 12, 'issues': 0, 'meaning': 'Readiness evidence only; no ABI admission, runtime/test/build/provider call. Actual Runtime observation remains authoritative.'}"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01RRAfxrCUQex1ekh193JR9i",
+      "command": "python3 - <<'EOF'\nimport json\np='rc4-scratch/native-recovery-16/return.json'\nd=json.load(open(p))\nsrc='build_tenants/abiogenesis/typescript/'\nnew={\n \"kind\":\"worker_same_run_correction\",\"status\":\"candidate_ready_unaccepted\",\n \"startsFrom\":\"source 3c3c6e803 / tree e669e2a9 + 90c243 + d3662fb5; bytes as bound by C2 3fd2e1e2; findings UAT 3f537f92\",\n \"diagnosis\":{\n  \"firstFailedRelation\":\"InstalledPublicDefinitionCall<S> was non-distributive over its default selection union, so each shipped constructor's return collapsed to one uncorrelated record; constructEnvelope then erased the owner population to that record with `as unknown as`. The typed transport's per-alternative candidate check (HC1) correctly rejected it, giving TS2345 ('never') on each constructor output and TS2322 on operationId narrowing.\",\n  \"downstreamSymptoms\":[\"TS2345 x3 at runInstalledDefinitionCallTransport for start/pending/read outputs\",\"TS2322 on operationId narrowing\"]},\n \"changed\":{\n  src+\"code/src/public/installed_public_definition_call.ts\":\"InstalledPublicDefinitionCall distributes over S; InstalledStartCallSelection / InstalledPendingCallSelection / InstalledRunReadCallSelection correlate operation, member and request variant; constructEnvelope replaced by checkedInstalledCall, the one typing step, released only after admitExactDefinitionCall against the installed member contract and a variant predicate (throws TypeError on crossed population); constructors return the correlated alternative\",\n  src+\"code/src/public/index.ts\":\"exports the three correlated selection types\",\n  src+\"code/src/product/run_invocation_operation.ts\":\"populateProductRunInvocation refuses invalid_capability /invocationAuthority when actorRef differs from workspaceBinding.authorizedActorRef (grants, authority and actor slot name one actor)\",\n  src+\"code/src/owner_bindings/run_invocation.ts\":\"selectConstructionIntentAtPrefix / selectPendingExecutionAtPrefix / selectSelectedActionAtPrefix share select->resolve->prepare between the three owners and populateRunContinuationAtDurablePrefix; owners pass call-bound stages, population plain stages (thrown values preserved via Cause.squash); refusal codes, paths, order and stage names unchanged\",\n  src+\"test_env/types/framework-handoff.compile.ts\":\"ShippedConstructorProof (26 assertions), shippedTransport positive use of every constructor, 11 hc2-* negatives with declared codes\",\n  src+\"test_env/tests/t287-framework-handoff-types.test.mjs\":\"declaration list adds the thre",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01RRAfxrCUQex1ekh193JR9i",
+      "is_error": false,
+      "content": "json ok"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01VpNDsuqRoTGTNe2KjwJH7c",
+      "command": "python3 - <<'EOF'\np='test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs'\ns=open(p).read()\nold=\"\"\"  assert.notEqual(\n    graphStart.call.invocation.invocationAuthority.slots.graph_function,\n    null,\n    \"a graph_function start carries its GraphFunction slot\",\n  );\"\"\"\nnew=\"\"\"  assert.ok(\n    graphStart.call.invocation.invocationAuthority.slots.graph_function,\n    \"a graph_function start carries its GraphFunction slot\",\n  );\"\"\"\nassert s.count(old)==1; s=s.replace(old,new); open(p,'w').write(s)\nEOF\nnode --check test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs && echo ok; head -12 test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs | grep -n assert",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01VpNDsuqRoTGTNe2KjwJH7c",
+      "is_error": false,
+      "content": "ok\n1:import assert from \"node:assert/strict\";"
+    },
+    {
+      "duration_api_ms": 1674799,
+      "stop_reason": "tool_use",
+      "session_id": "789139fe-177a-4a91-9389-4b1c45d15c8f",
+      "total_cost_usd": 15.349661599999996,
+      "usage": {
+        "input_tokens": 348,
+        "cache_creation_input_tokens": 618337,
+        "cache_read_input_tokens": 33640479,
+        "output_tokens": 166203,
+        "output_tokens_details": {
+          "thinking_tokens": 88929
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 618337,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 2931,
+          "outputTokens": 179394,
+          "cacheReadInputTokens": 34005983,
+          "cacheCreationInputTokens": 618770,
+          "webSearchRequests": 0,
+          "costUSD": 15.349661599999996,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 88929,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "permission_denials": [],
+      "terminal_reason": "completed",
+      "fast_mode_state": "off",
+      "fast_mode_disabled_reason": "sdk_opt_in_required",
+      "subagent_stats": {
+        "spawned": 0,
+        "requested": {
+          "background": 0,
+          "foreground": 0,
+          "unset": 0
+        },
+        "started_in_background": 0,
+        "max_depth": 0,
+        "spawned_by_subagents": 0,
+        "completed": 0,
+        "failed": 0,
+        "killed": {
+          "parent": 0,
+          "user": 0,
+          "system": 0
+        },
+        "refused": {
+          "depth_limit": 0,
+          "concurrency_limit": 0,
+          "budget": 0
+        },
+        "by_type": {}
+      },
+      "safety_stops": 0,
+      "is_error": false,
+      "num_turns": 187,
+      "subtype": "success",
+      "api_error_status": null,
+      "result": "{\"summary\":\"Same-Run Worker correction, STDO v3.0.2. Starting point: source 3c3c6e803 / tree e669e2a9 + 90c243 + d3662fb5, bytes as bound by C2 3fd2e1e2, driven by UAT 3f537f92. Status: candidate_ready, unaccepted.\\n\\nHC2-1 coupled types:\\n- First failed relation: InstalledPublicDefinitionCall<S> did not distribute over its selection union, so each constructor returned one uncorrelated record. constructEnvelope then erased the population into it with `as unknown as`.\\n- Downstream symptoms: HC1's per-alternative candidate check rejected those outputs, giving TS2345 three times and TS2322 when narrowing operationId.\\n- Fix:\\n  - The call type now distributes over its selection union.\\n  - InstalledStartCallSelection, InstalledPendingCallSelection and InstalledRunReadCallSelection correlate operation, member and request variant; public/index.ts exports them.\\n  - constructEnvelope is replaced by checkedInstalledCall. It is the one typing step and releases a call only after admitExactDefinitionCall against the installed member contract and a variant check pass; otherwise it throws TypeError.\\n  - The shipped typed transport now accepts every constructor output, and operationId narrows.\\n- Proof (framework-handoff.compile.ts):\\n  - ShippedConstructorProof with 26 assertions.\\n  - A positive transport use of each constructor.\\n  - 11 hc2 negatives, each failing on its own line with a declared code.\\n  - The HC1 19 negatives, 56/47/9, the 9 raw refusals and the 224 exact014 slots are unchanged.\\n\\nStart coverage (ST-1):\\n- A shipped graph_function start is populated and executed through the transport, with its own Run, one GraphCall and the graph_function slot.\\n- The shipped asset start meets the existing invalid_target /program refusal with 0 bytes, because the language Program publishes no asset target.\\n\\nNegatives, placed only where the unchanged C2 plan runs them:\\n- current_intent (exact-construction-intent):\\n  - wrong Run: missing_continuation /continuation;\\n  - wrong Run digest: basis_mismatch /expectedBasis;\\n  - absent-Run population refusal;\\n  - stale prefix: resource_acquisition / acquisition_refused, 0 bytes.\\n- selected_action: absent Run refused by the owner (missing_continuation /request) and by population.\\n- default-library pending_execution case: wrong Run, wrong Run digest (basis_mismatch /run), stale prefix.\\n- retained-source B case: a start naming an absent historical source Result is refused invalid_input and admits 0 events.\\n- Consumed continuation was already covered in every lane; those cases are unchanged.\\n\\nOwner sharing:\\n- (a) populateProductRunInvocation refuses invalid_capability /invocationAuthority when actorRef differs from the binding's authorized actor.\\n- (b) Three shared select\u2192resolve\u2192prepare sequences are used by the three owners and populateRunContinuationAtDurablePrefix. Refusal codes, paths, order and stage names are unchanged. Population throws are preserved via Cause.squash.\\n- (c) dispatch rootAuthority is now rootResolution (environment plus owner resolution only). observedC2Task takes the C2 grant from canonical populateProductRunInvocation through its input factory. That grant uses the same policy, DIRECT_INVOKE_CAPABILITY and start packet as the removed assembly.\\n- (d) Kept explicit; see gaps.\\n\\nChanged paths (28, all in grant; none deleted):\\n- This correction: public/installed_public_definition_call.ts, public/index.ts, product/run_invocation_operation.ts, owner_bindings/run_invocation.ts, types/framework-handoff.compile.ts, t287-framework-handoff-types.test.mjs, t287-st1-installed-cross-owner-hello.test.mjs, t287-exact-construction-intent.test.mjs, t287-selected-action.test.mjs, t287-default-library.test.mjs, qualification/dispatch.mjs.\\n- All other in-grant paths keep their candidate bytes.\\n\\nCompiler feedback:\\n- Pinned tsc --noEmit --incremental false: 0 diagnostics.\\n- In-memory declaration emit: 290 files, 0 diagnostics.\\n- In-memory HC1/HC2 proof compile: 0 positive errors, 30/30 negatives held, 0 stray.\\n- UAT reproduction compile: 0 errors (was TS2345 x3 and TS2322).\\n- node --check: all 16 modified .mjs pass.\\n- readiness.py: FILE_ONLY_READY, 0 issues, retained in rc4-scratch/native-recovery-16/readiness.json. This is file readiness, not admission.\\n\\nScope disclosure:\\n- Writes outside canonical paths: rc4-scratch/native-recovery-16/{return.json (prior returns kept under priorCorrections and predecessorReturn), readiness.json, notes.md (appended), tmp/probe.mjs, tmp/uat-repro.compile.ts}.\\n- TMPDIR was set to scratch16/tmp.\\n- No network, install, build, pack, generated write, out-of-grant write or Worker-created Run.\\n\\nC2 readiness: file-ready for the unchanged C2 plan; acceptance not claimed.\",\"gaps\":[\"The Worker ran no test, build, pack, install or Run. Every new runtime assertion (ST-1 graph_function and asset starts, wrong-Run, stale-prefix and missing-source negatives, shared continuation sequences, dispatch population) is authored but unexercised until C2.\",\"Positive asset-start execution is not covered: ST-1's language-smoke fixture publishes no publicAssetTargets, and the fixture files (fixtures/language-smoke/program.mjs, support/language-smoke-fixture.mjs) are out of grant. The asset start is covered only by the existing invalid_target refusal.\",\"Stale-prefix negatives expect resource_acquisition/acquisition_refused when reopening a superseded handoff. That is the class ST-1 already asserts for reads; for run.continue it is not observed until C2.\",\"4(d): the pilot's stdo_environment_resources {kind, schemaVersion, roots, permission{operation:'project', roots}} has no key in the strictObject RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA. The shipped InstalledRunCallResourceIntent carries only runEnvironmentResources (kind run_environment_resources), a different shape. The resource therefore stays an explicit patch in declared-testing-capability.mjs; no schema was added.\",\"Root: uat/harness.test.mjs (out of grant) mocks the superseded owners. This blocks migrating public-setup constructLifecycleCall and runner freshReadbacks to canonical population.\",\"Root: the tenant tsconfig.json keeps skipLibCheck:true (out of grant). The HC1 proof config uses skipLibCheck:false.\",\"dispatch.mjs observedC2Task and rootResolution are consumed by exact-candidate-qualification.mjs, which the C2 plan does not run. The 4(c) migration is checked only by node --check.\"]}",
+      "structured_output": {
+        "summary": "Same-Run Worker correction, STDO v3.0.2. Starting point: source 3c3c6e803 / tree e669e2a9 + 90c243 + d3662fb5, bytes as bound by C2 3fd2e1e2, driven by UAT 3f537f92. Status: candidate_ready, unaccepted.\n\nHC2-1 coupled types:\n- First failed relation: InstalledPublicDefinitionCall<S> did not distribute over its selection union, so each constructor returned one uncorrelated record. constructEnvelope then erased the population into it with `as unknown as`.\n- Downstream symptoms: HC1's per-alternative candidate check rejected those outputs, giving TS2345 three times and TS2322 when narrowing operationId.\n- Fix:\n  - The call type now distributes over its selection union.\n  - InstalledStartCallSelection, InstalledPendingCallSelection and InstalledRunReadCallSelection correlate operation, member and request variant; public/index.ts exports them.\n  - constructEnvelope is replaced by checkedInstalledCall. It is the one typing step and releases a call only after admitExactDefinitionCall against the installed member contract and a variant check pass; otherwise it throws TypeError.\n  - The shipped typed transport now accepts every constructor output, and operationId narrows.\n- Proof (framework-handoff.compile.ts):\n  - ShippedConstructorProof with 26 assertions.\n  - A positive transport use of each constructor.\n  - 11 hc2 negatives, each failing on its own line with a declared code.\n  - The HC1 19 negatives, 56/47/9, the 9 raw refusals and the 224 exact014 slots are unchanged.\n\nStart coverage (ST-1):\n- A shipped graph_function start is populated and executed through the transport, with its own Run, one GraphCall and the graph_function slot.\n- The shipped asset start meets the existing invalid_target /program refusal with 0 bytes, because the language Program publishes no asset target.\n\nNegatives, placed only where the unchanged C2 plan runs them:\n- current_intent (exact-construction-intent):\n  - wrong Run: missing_continuation /continuation;\n  - wrong Run digest: basis_mismatch /expectedBasis;\n  - absent-Run population refusal;\n  - stale prefix: resource_acquisition / acquisition_refused, 0 bytes.\n- selected_action: absent Run refused by the owner (missing_continuation /request) and by population.\n- default-library pending_execution case: wrong Run, wrong Run digest (basis_mismatch /run), stale prefix.\n- retained-source B case: a start naming an absent historical source Result is refused invalid_input and admits 0 events.\n- Consumed continuation was already covered in every lane; those cases are unchanged.\n\nOwner sharing:\n- (a) populateProductRunInvocation refuses invalid_capability /invocationAuthority when actorRef differs from the binding's authorized actor.\n- (b) Three shared select\u2192resolve\u2192prepare sequences are used by the three owners and populateRunContinuationAtDurablePrefix. Refusal codes, paths, order and stage names are unchanged. Population throws are preserved via Cause.squash.\n- (c) dispatch rootAuthority is now rootResolution (environment plus owner resolution only). observedC2Task takes the C2 grant from canonical populateProductRunInvocation through its input factory. That grant uses the same policy, DIRECT_INVOKE_CAPABILITY and start packet as the removed assembly.\n- (d) Kept explicit; see gaps.\n\nChanged paths (28, all in grant; none deleted):\n- This correction: public/installed_public_definition_call.ts, public/index.ts, product/run_invocation_operation.ts, owner_bindings/run_invocation.ts, types/framework-handoff.compile.ts, t287-framework-handoff-types.test.mjs, t287-st1-installed-cross-owner-hello.test.mjs, t287-exact-construction-intent.test.mjs, t287-selected-action.test.mjs, t287-default-library.test.mjs, qualification/dispatch.mjs.\n- All other in-grant paths keep their candidate bytes.\n\nCompiler feedback:\n- Pinned tsc --noEmit --incremental false: 0 diagnostics.\n- In-memory declaration emit: 290 files, 0 diagnostics.\n- In-memory HC1/HC2 proof compile: 0 positive errors, 30/30 negatives held, 0 stray.\n- UAT reproduction compile: 0 errors (was TS2345 x3 and TS2322).\n- node --check: all 16 modified .mjs pass.\n- readiness.py: FILE_ONLY_READY, 0 issues, retained in rc4-scratch/native-recovery-16/readiness.json. This is file readiness, not admission.\n\nScope disclosure:\n- Writes outside canonical paths: rc4-scratch/native-recovery-16/{return.json (prior returns kept under priorCorrections and predecessorReturn), readiness.json, notes.md (appended), tmp/probe.mjs, tmp/uat-repro.compile.ts}.\n- TMPDIR was set to scratch16/tmp.\n- No network, install, build, pack, generated write, out-of-grant write or Worker-created Run.\n\nC2 readiness: file-ready for the unchanged C2 plan; acceptance not claimed.",
+        "gaps": [
+          "The Worker ran no test, build, pack, install or Run. Every new runtime assertion (ST-1 graph_function and asset starts, wrong-Run, stale-prefix and missing-source negatives, shared continuation sequences, dispatch population) is authored but unexercised until C2.",
+          "Positive asset-start execution is not covered: ST-1's language-smoke fixture publishes no publicAssetTargets, and the fixture files (fixtures/language-smoke/program.mjs, support/language-smoke-fixture.mjs) are out of grant. The asset start is covered only by the existing invalid_target refusal.",
+          "Stale-prefix negatives expect resource_acquisition/acquisition_refused when reopening a superseded handoff. That is the class ST-1 already asserts for reads; for run.continue it is not observed until C2.",
+          "4(d): the pilot's stdo_environment_resources {kind, schemaVersion, roots, permission{operation:'project', roots}} has no key in the strictObject RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA. The shipped InstalledRunCallResourceIntent carries only runEnvironmentResources (kind run_environment_resources), a different shape. The resource therefore stays an explicit patch in declared-testing-capability.mjs; no schema was added.",
+          "Root: uat/harness.test.mjs (out of grant) mocks the superseded owners. This blocks migrating public-setup constructLifecycleCall and runner freshReadbacks to canonical population.",
+          "Root: the tenant tsconfig.json keeps skipLibCheck:true (out of grant). The HC1 proof config uses skipLibCheck:false.",
+          "dispatch.mjs observedC2Task and rootResolution are consumed by exact-candidate-qualification.mjs, which the C2 plan does not run. The 4(c) migration is checked only by node --check."
+        ]
+      },
+      "ttft_ms": 7282,
+      "type": "result",
+      "duration_ms": 2273087,
+      "uuid": "bc5f1bbf-7c0e-490a-8eb7-2b647d812b68",
+      "ttft_stream_ms": 6415,
+      "time_to_request_ms": 4460,
+      "first_content_frame_ms": 6416,
+      "queued_turn_count": 0,
+      "result_index": 0
+    }
+  ]
+}

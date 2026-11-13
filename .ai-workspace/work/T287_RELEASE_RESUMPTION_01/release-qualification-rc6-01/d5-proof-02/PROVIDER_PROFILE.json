@@ -1,0 +1,44 @@
+{
+  "kind": "bounded_d5_author02_proof_provider_template",
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 128,
+    "appendArgs": [
+      "--effort",
+      "max"
+    ],
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 3600000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5p2",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "BASH_DEFAULT_TIMEOUT_MS": "7200000",
+    "BASH_MAX_TIMEOUT_MS": "7200000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1",
+    "TMPPREFIX": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5p2/zsh",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5p2/npm-cache"
+  },
+  "outerTimeoutMs": 10800000,
+  "maxBudgetUsd": null,
+  "realClaude": "/Users/jim/.local/share/claude/versions/2.1.306",
+  "realClaudeSha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b",
+  "providerScratch": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5p2",
+  "noGlobalPluginChange": true,
+  "selectedSkill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+  "continuationStanding": "Future fresh Testing/UAT only on actual completed author02 source; max assessment, no coding or author session. Final source/close/Root admission remain unbound; no independent third-family qualification.",
+  "credentialPresenceStanding": "Future launch availability unverified; credential name only. No credential/auth file read in preparation."
+}

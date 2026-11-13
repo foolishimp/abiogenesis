@@ -1,0 +1,48 @@
+{
+  "status": "EXACT_REPAIRED_COMPILED_INPUT_CLOSURE",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292778,
+    "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "files": [
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10105,
+      "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/package-lock.json",
+      "bytes": 8003,
+      "sha256": "99be49abe9c9532e019fb274a2d39e7ecac0518b02a3384f1fcf106ddcf9c0b6"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "bytes": 604,
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 53308,
+      "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f"
+    }
+  ],
+  "packageFiles": [
+    "build/**",
+    "contracts/**",
+    "product-toolchain-manifest.json"
+  ],
+  "tsInclude": [
+    "code/src/**/*.ts"
+  ],
+  "noExtendsReferencesPlugins": true,
+  "generatedManifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266232,
+    "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+  },
+  "sourceRows": 1334,
+  "unchangedStageInputRows": 693,
+  "rowRule": "All frozen rows rechecked; code/scripts/test_env and package/config inputs match compiled stage. This is a new build of repaired TS, not old compiled-proof transfer."
+}

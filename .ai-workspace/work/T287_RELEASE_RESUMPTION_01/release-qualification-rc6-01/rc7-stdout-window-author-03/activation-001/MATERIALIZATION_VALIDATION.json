@@ -1,0 +1,76 @@
+{
+  "kind": "static_materialization_relation_validation",
+  "status": "CONTROLS_READY_NOT_ADMITTED_NOT_DISPATCHED",
+  "closedUtc": "2026-11-06T23:02:47.854403+00:00",
+  "materialization": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/MATERIALIZATION_MANIFEST.json",
+    "bytes": 12369,
+    "sha256": "7c7464894658700a1630f1dce8910eb269d2c3f32693c722c6098b05cd91e909"
+  },
+  "selectedScopeReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/reviews/root-scope-001/REVIEW.json",
+    "bytes": 8904,
+    "sha256": "3160c1b19d3d71bd87a424275278d59f16941ba99b1b3724dd556f7b96e0d28c"
+  },
+  "scopeReviewStanding": "Independent Root scope review; not self-authored control acceptance.",
+  "parserChecks": {
+    "node": 4,
+    "shell": 1,
+    "passed": true
+  },
+  "pinChecks": {
+    "occurrences": 184,
+    "uniqueActualFiles": 67,
+    "historicalPreimageResolutions": 5,
+    "mismatches": []
+  },
+  "sameScopeRelations": {
+    "sourceRows": 451,
+    "writePaths": 25,
+    "controls": 20,
+    "futureHandoffs": 3,
+    "contextEntries": 474,
+    "grantWriteRootsEqualWorkload": true,
+    "grantBoundsEqualProfileAndCommands": true,
+    "sourceAndControlDigestsEqualWorkload": true,
+    "soleUnboundSourceIndex": 462,
+    "sourceSnapshotBytesBeforeAdmissionAndHandoffs": 12745994,
+    "maxContextBytes": 16777216
+  },
+  "selectors": {
+    "positiveFilters": 6,
+    "minimumTests": [
+      2,
+      3,
+      9,
+      6,
+      7,
+      6
+    ],
+    "allMandatoryPrefixesSelected": true,
+    "perLaneMs": 300000,
+    "serial": true,
+    "stages": 2,
+    "laneInvocations": 6,
+    "testExecution": false
+  },
+  "recordedLatency": {
+    "RootScopeSelectedUtc": "2026-11-06T22:51:41.435893+00:00",
+    "controlsCheckedUtc": "2026-11-06T23:02:47.854403+00:00",
+    "scopeSelectionToCheckedControlsMs": 666418.51,
+    "limit": "Operational interval including message/coordination/preparation, not native runtime or performance."
+  },
+  "prewriteCorrections": [
+    "Writer JavaScript template quoting parse error before any materialization effect, corrected.",
+    "Final scope-review locator initially used task root; corrected to exact activation root before validation record."
+  ],
+  "effects": {
+    "ProductEdits": 0,
+    "CStaging": 0,
+    "runtimeAcquisitions": 0,
+    "providerCalls": 0,
+    "proofLanes": 0
+  },
+  "RootAdmission": null,
+  "dispatch": null
+}

@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-05T19:46:26.660511+00:00",
+  "pid": 68818,
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/REVIEW_REQUEST.md",
+    "bytes": 24972,
+    "sha256": "09bc08c023e82d375192dc7466ae3b230feb0b0691a2c95152118ce32f546de8"
+  },
+  "automaticRetry": false
+}

@@ -1,0 +1,19 @@
+{
+  "id": "RC9-OWN-PROOF-004",
+  "status": "ROOT_SELECTED_PREPARATION_ONLY",
+  "at": "2026-11-08T17:54:53.620523+00:00",
+  "role": "separate Proof-Control Writer",
+  "scope": "One complete unchanged OWN-01 on existing BUILT003,1case/no skip; existing500000ms inner deadline;600000ms outer;16MiB output;4GiB free/owned;8GiB heap;10s ancestry observation. Root later binds execution.",
+  "fixtureEffectClarification": "Root expressly authorizes existing test-owned disposable fixture packs: root-installed-environment packs already-built003 Product and language-smoke packs its generated fixture, confined to fresh owned test scratch. No independent candidate/bootstrap/release packaging, Product rebuild or identity rewrite. Existing scratch content mutation/refusal assertions and test after-hooks remain unchanged.",
+  "stops": "No source/build/metadata/native/provider/Git effect, deadline enlargement or automatic retry. Preserve both M5 reds. No bootstrap gate/broad population alteration or hidden green unit.",
+  "predecessorScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/run-m5-diagnostic-001.mjs",
+    "bytes": 9769,
+    "sha256": "04226f8707f113c7fdef85d99fe19fed1ed5ce2465ed6bd527ab42fdd6033fb3"
+  },
+  "m5Ownership": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/OWNERSHIP_CHECK_001.json",
+    "bytes": 4788,
+    "sha256": "ebfdcf7909a5fa870a8fbaed4c10e3cb1adf252fb5a6d8f122b0dc15ea5a8386"
+  }
+}

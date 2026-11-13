@@ -1,0 +1,152 @@
+{
+  "kind": "native_author_control_admission",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "selectedTask": "rc7-held-session-author-03",
+  "admittedUtc": "2026-11-06T16:47:29.222510+00:00",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_SELECTION.json",
+    "bytes": 5121,
+    "sha256": "8aa0ee39cdc0aab6586bd5bc018514736d32f3cabd081bf63fd0efa563bd3f01"
+  },
+  "architectureSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 7741,
+    "sha256": "2fe46b95de9428e86f421759ddad6dac7ed064bef9ac9180feebf7f530309c98"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/failed-preparation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8335,
+    "sha256": "5ba039f83ec4da0c6299eca407961cbf709e7ab6c57223a5e558d46d427cda52"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "daaa3b3868d7e9e1461c0f081584a012d6aa674f6a171579882f01803480142f"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+    "bytes": 240531,
+    "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_AFTER.json",
+    "bytes": 557347,
+    "sha256": "515dd6b7d33208e4fa5fed02f7d15ebac853eefc7467c9da6c856e7f29fe3006"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5681,
+    "sha256": "056516a52d383b7837ea32cf82342ba49187acd818406fcddbf776ed05061e6e"
+  },
+  "maintainedCheckerSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "bytes": 39766,
+    "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+  },
+  "operatorRunner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+    "bytes": 39766,
+    "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+  },
+  "operatorPublicSetup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/public-setup.mjs",
+    "bytes": 29259,
+    "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+  },
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+  ],
+  "sourceCount": 451,
+  "finalStagedControlCount": 18,
+  "finalContextCount": 472,
+  "rootAdmission": {
+    "decision": "activate_corrected_operator_host_for_unconsumed_native_scope",
+    "role": "Root Executive -> separately bound operator Writer; one ABG-native xhigh coding Worker",
+    "authority": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "method": "STDO3.0.4",
+    "userInstruction": "ok build the RC7 according to this design applying any corrections",
+    "meaning": "First actual H03 native invocation under unchanged451-source/five-write/two-stage/eight-lane scope. Prior operator attempt failed before SDK/Run/actor; fresh output namespace removes occupied estimate/actual receipt path. Actual immediate failed-preparation close/resume are bound; original source/18controls/workload remain immutable."
+  },
+  "bounds": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1,
+    "stages": 2,
+    "lanes": 8,
+    "primaryLaneTimeoutsMs": [
+      600000,
+      300000,
+      300000,
+      300000
+    ]
+  },
+  "checks": {
+    "preparationPinsVerified": 38,
+    "heldAndLiveSourceRowsVerified": 451,
+    "preservedTrackedChanges": 69,
+    "inheritedNewProductPaths": 2,
+    "priorNativeHostClosed": true,
+    "indexEmpty": true,
+    "providerExecutable": true,
+    "hostStageLaneParsers": true,
+    "safeIntegerExactBoundsBeforeAllocation": true,
+    "noCapabilityCallSerialization": true,
+    "originalDispatchPinsStillMatch": 67,
+    "nativeActorOrRunPreviouslyInvoked": false,
+    "freshRuntimeOutputDirectoryAbsent": true,
+    "futureActualOutputsCheckedBeforeAcquisition": true,
+    "nativeHandoffsAbsent": 3,
+    "immediateFailedPreparationCloseBound": true
+  },
+  "preparationCorrection": "Unused duplicate buildAuthority removed after Root identified two stale H02 relations. Original closed preimages and correction c17c918d5d753e6026150a0bf9f8d1d1d01b53826556cc4e7b05da9f0f36d60e retained; corrected manifest aa935a1693f06aa27c6cde6432b7bd05068414747f73f49969fd0607327b7984. Root first read-only staging-count check assumed18 prepared entries; corrected to actual17 plus future admission, before effects.",
+  "historicalUnexercised": [
+    "admitted pure consumer evaluates a native task as data without physical authority; existing ABI5_NATIVE_WORK_RETAINED_ROOT remains unbound, no proof credit."
+  ],
+  "actualFutureResult": null,
+  "qualified": false,
+  "published": false,
+  "recoverySelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-recovery-001/ROOT_SELECTION.json",
+    "bytes": 3828,
+    "sha256": "e223a7e9ec4597f9eed766cfb25c2bbefaad2a844d8db6359fd3f01ae20552a5"
+  },
+  "independentOperatorRecoveryReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-recovery-001/REVIEW.json",
+    "bytes": 2774,
+    "sha256": "1c0848770c01158868b2a2f9d931c3e5c93fe1faa50ddf2d203c3a7b675909d3"
+  },
+  "originalNativeAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 6179,
+    "sha256": "f1687c50a378dc09b3652b4b5aa9f0ee07f629bf1167ddccc9206bf090692e56"
+  },
+  "hostRecovery": {
+    "attempt": "recovery-001",
+    "correction": "Actual capacity receipt now inside fresh execution output directory; every actual output slot checked absent before acquisition.",
+    "actualFailure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/DISPATCH_FAILURE.json",
+      "bytes": 725,
+      "sha256": "6ff93195c077dd1bedcc6129b104f6bcd381b3ce81a63490307c1521c4ec0291"
+    },
+    "failedPreparationCustody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/failed-preparation-001/CUSTODY.json",
+      "bytes": 6554,
+      "sha256": "052932b3cf4535b1a07e0dee8d34005aa2e26661205aa5bbc49a93afeeb01bb4"
+    },
+    "changedCondition": true,
+    "automaticRetries": 0,
+    "sourceOrNativeControlMutations": false
+  }
+}

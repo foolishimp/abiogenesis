@@ -1,0 +1,27 @@
+{
+  "kind": "predictive_final_control_assessor_capacity",
+  "recordedUtc": "2026-11-04T03:39:48.410Z",
+  "standing": "Pure installed-renderer diagnostic using actual closed role bytes, current control text/scopes/source pins and a labelled baseline C2 producer with compact pack stdout. Not a future owner task, assembly basis, admission, Result or assessment.",
+  "baselineTaskSha256": "f8d585d107f847decc652cef2f93a230c1f0b863e5e4d763c3d22bd77aba9455",
+  "workloadSha256": "d66de529701b24fa0ff7f39dcbb64fbfca192159b328b8efa2146efbee212199",
+  "installedRendererSha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443",
+  "actualRolePrefixBytes": 59675,
+  "selectedReadRoots": 911,
+  "diagnosticReadFirst": 50,
+  "currentAssessmentSources": 37,
+  "compactPackStdoutBytes": 45,
+  "workOrderBytes": 266395,
+  "promptBytes": 326070,
+  "promptSha256": "5132687560ed60f96e9ed05cf9fcf613ae776d3f29d8a3329c75d01be757bb77",
+  "maxPromptBytes": 1048576,
+  "reserveBytes": 131072,
+  "headroomBytes": 722506,
+  "fitsWithReserve": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "limits": [
+    "Baseline admitted identity/parent/planner/producer fields remain historical labels only. Actual future diagnostic streams, planning and source handoffs may differ.",
+    "The baseline full proof stdout is retained in this estimate; selected wrapper removes that duplicate. Current compact archive/report custody remains required.",
+    "128KiB additional reserve is an operator allowance, not proof of every future context. Actual installed assembly remains authoritative and fail-closed."
+  ]
+}

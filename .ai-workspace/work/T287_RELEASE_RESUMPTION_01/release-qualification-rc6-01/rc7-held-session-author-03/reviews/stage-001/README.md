@@ -1,0 +1,17 @@
+Product Frame: unchanged ABIogenesis 5.0 fifteen-family scope, GOAL035/T287, installed/read STDO3.0.4 with empty composition and the accepted ABI5 reference frame. ABG retains admission/runtime authority. RC6 remains the installed builder; RC7 source is prospective.
+
+**Closed bounded source review: no concrete blocker established in H03 stage01.** Root owns disposition.
+
+Subject: `review-subject-stage-001/SUBJECT.json`, 267155 bytes, SHA256 `1c0531c2ce628677ccfb7ac4f78ce812ad031d91689f0c23b69fda67102e3447`. Source digest: `8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f`. The closed review independently verified all 451 frozen bodies, five before/after inputs and the exact five-row delta against pinned SOURCE_BEFORE; 446 rows remain unchanged. REVIEW.json records each changed input pin.
+
+- `public-setup.mjs:184–336` chooses the Program/publication and unique admitted install before workspace binding. Product/artifact/content/manifest/publication coordinates identify the owner. Its root, Program and publication consistently drive binding, Catalog membership, conformance and setup identity.
+- `public-setup.mjs:354–409` reuses the setup library view for both fixed calls and refuses mismatched bindings before population. Ordinary consumer setup remains the default. There is no mid-call rebind or task/grant rewrite.
+- Unchanged `execution_basis.ts:647,720` preserves both Program-owner root equalities and surrounding publication, leaf and implementation checks. Both installs stay admitted; the assessment remains consumer-owned with its consumer-to-ABI lock relation.
+- `t287-native-workspace-work.test.mjs:286–307,864–890,1126–1221` addresses H02-FIXTURE-001 in source by carrying assessmentPublication, owner.resolution and resolved-lock/install facts. Crossed or absent facts remain negative controls. These are explicitly controlled component premises, not installed admission evidence.
+- `t287-default-library.test.mjs:2534–2554,2590–2633` retains the setup tuple, actual Testing-to-derived-state-to-UAT path, consumer schema/lock, no-selector assertions, retained-source/currentness refusals and complete held/fresh owner-output equality. The two HOW additions describe this correction and its proof limits. Bounded diagnostics report refusal coordinates without copying task or provider bodies.
+
+No further source repair is recommended by this review. The historical 44-event H02 refusal remains preserved.
+
+At source-review closure, build/lane and final native-after/return/close evidence were unavailable. The subsequently supplied stage report is separately pinned: `operator-custody-001/recovery-001/stage-001/stage.json`, 97531 bytes, SHA256 `9ad0946d9c442075add5a0d6bc216f70981ef80471eb8b3858ce1c2e3aff312b`. Setup took 40.841 seconds; compile passed in 116.576 seconds; generation timed out after 180.074 seconds with SIGTERM/ETIMEDOUT. Lifecycle and lanes did not run. Source is reported unchanged. This is an unresolved build/proof limitation, not a source finding or expected semantic red. Root reports genuine SDK host exit 0/close; final source custody remains pending and is not independently authenticated by this review.
+
+Reviewer performed no source edits, tests, builds, runtime/provider calls or private actor-narrative inspection. This is independent same-family component review, not Root acceptance, formal F11 J qualification, installed candidate qualification, release evidence or measured speedup. Root conjoins final custody and separately admitted proof.

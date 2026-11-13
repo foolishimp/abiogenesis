@@ -1,0 +1,135 @@
+{
+  "kind": "rc5_f4_03_r1_native_work_return",
+  "taskId": "T287_RC5_F4_03_R1",
+  "workResult": "candidate_ready",
+  "meaning": "A frozen 3-file candidate is available. This is not acceptance, C2, independent review or UAT.",
+  "basis": {
+    "sourceCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+    "sourceTree": "c4b60c78533eeff2734c289eccb1b37df982f3b9",
+    "methodBasis": "stdo://releases/v3.0.4/",
+    "changeClass": "realization_refactor of installed proof fixture/preparation",
+    "authority": "rc5-operator-inputs/f4-03-r1/TASK.md, NATIVE_GRANT.json, REENTRY_TRIAGE.md (selected 3-file repair); INDEPENDENT_SOURCE_REVIEW finding RC5-F4-INSTALLED-FIXTURE-01"
+  },
+  "changedPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "before": { "sha256": "34d91efdba0602ad47d375fb46a85015eabd7d816a63eba68b3f113559986f95", "bytes": 4500 },
+      "after": { "sha256": "9099c80e78261f507288c8597bad0495d70628a9b21990f1e3283c536df70c65", "bytes": 4878 }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "before": { "sha256": "75a744779ec76a9f68a836977d0b0553204919b21cf4b3654eb6251d85d63761", "bytes": 40946 },
+      "after": { "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511", "bytes": 42751 }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+      "before": { "sha256": "ce0c19f3d5b7e0ea83e26c9b67c0410baa732701d786a3b5314409ee6d8b06fe", "bytes": 11250 },
+      "after": { "sha256": "74346a233678f1af5443b5175a2361c8fd5345b4ed8be31743199998e7589733", "bytes": 14154 }
+    }
+  ],
+  "subject": {
+    "sha256": "29deca34f68eb9369fff142a50c72bf63f7aa601fa33825803cc59c74a730e8a",
+    "method": "sha256 of JSON.stringify([{bytes,path,sha256}...]) over the three after rows in path order, as listed in readiness.json",
+    "gitDiffSha256": "359dcef6055cc12e6f58f5e68e26fc2e444ff1a4d31e6fea99ca11f09a17ae8a",
+    "gitDiffStat": "3 files changed, 78 insertions(+), 12 deletions(-)"
+  },
+  "ownerChoices": [
+    {
+      "seam": "canonical ABI CommandExecution publication",
+      "choice": "The RC5 test passes additionalCorePublicationConstructors: [\"constructWorksiteCommandExecutionModulePublication\"]. installed-language-test.mjs forwards it unchanged to the existing root-installed-environment option, which constructs the publication through the installed gtl owner from the packed candidate basis. The fixture declares no T and sets no semanticLifecycle."
+    },
+    {
+      "seam": "cross-publication Program validation",
+      "choice": "New explicit opt-in option crossPublicationProgram, forwarded by installed-language-test.mjs. When it is true, setupInstalledRootCatalog leaves the selected root Program out of publication-local validation. Once the genuine Catalog and CatalogView exist, it calls product.resolveProgramDeclarationClosure(catalog, catalogView, rootProgramRef), then product.constructCatalogProgramValidationInput(catalog, catalogView, closure, closureProgram), then validator.validateProgram. A closure refusal, raw_admission_refusal or static_validation_refusal fails with its JSON as the assertion message. The program is taken from closure.programPublication. No rival inventory or success flag. When the option is absent, behaviour is the same as before, except that local validations are now paired by Program index rather than by result.programRef. A typed refusal therefore reaches the assertion message instead of an undefined dereference, and the every-valid assertion now carries the refusals as its message."
+    },
+    {
+      "seam": "packaged rc5Consumer descriptor",
+      "choice": "One more leaf.mjs anchor edit in the existing test-local sourceTransform: RC5_CONSUMER_DESCRIPTOR=descriptor('rc5Consumer') is appended to the existing export list and uses the fixture's own descriptor() helper. The fixture package/manifest/install chain in language-structural-fixture.mjs is unchanged."
+    },
+    {
+      "seam": "installed test assertions",
+      "choice": "The test title prefix 'RC5 retained route' is unchanged. New assertions: the fixture publication declares no T. Exactly one admitted ABI CommandExecution publication declares T, equal to product.RETAINED_GRAPH_INPUT_CONTRACT. Both resolution.programDeclarationClosure and resolution.declarationClosure name T's owner exactly as {contract, T, ABI productId, ABI installId, WORKSITE_COMMAND_EXECUTION_IDS.moduleRef, modulePublicationSemanticDigest(publication)}. The setup and execution programValidations name the RC5 Program. The consumer has one implementation row, owned by the fixture, with input T and output S, and its descriptor digest matches exactly one packaged descriptor (rc5Consumer, fixture package, build/leaf.mjs). The existing v1 parent Result, v3 route naming that Result, logical E/S, consumer value S, run_closed and fresh run_result/run_replay assertions are kept unchanged."
+    }
+  ],
+  "nonChanges": [
+    "The 9 HELD_SOURCE_INVARIANTS files were re-hashed after feedback and all are equal.",
+    "Of the FAILED_C2_OBSERVATION sourceCorrespondence rows, only m5-installed-graph-edge.test.mjs changed.",
+    "language-structural-fixture.mjs, fixtures/language-structural/*, runtime/Product/codec/store/method/identity/contracts and the accepted HOW are not edited.",
+    "M5 graph-edge test body unchanged.",
+    "No canonical build, pack, install, generated-byte change or provider call."
+  ],
+  "feedback": [
+    {
+      "id": "syntax",
+      "command": "node --check <each of the 3 changed files>",
+      "cwd": "build_tenants/abiogenesis/typescript",
+      "exit": 0,
+      "streams": "stdout 'syntax ok <file>' x3; stderr empty"
+    },
+    {
+      "id": "typecheck",
+      "command": "node_modules/.bin/tsc --noEmit -p tsconfig.json",
+      "cwd": "build_tenants/abiogenesis/typescript",
+      "tool": "TypeScript 5.9.2, Node v24.7.0",
+      "exit": 0,
+      "wallSeconds": 7,
+      "stdout": { "path": "rc5-scratch/f4-03-r1/tmp/streams/tsc-noemit.stdout", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" },
+      "stderr": { "path": "rc5-scratch/f4-03-r1/tmp/streams/tsc-noemit.stderr", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" },
+      "limit": "Checks the unchanged held TS sources only. The .mjs candidate files are outside tsconfig include."
+    },
+    {
+      "id": "feedback-tree",
+      "command": "tar -xzf rc5-operator-inputs/f4-03/baseline-rc5.tgz twice, into tmp/host/node_modules/@abiogenesis/typescript-tenant (bootstrap host) and tmp/tree (packageRoot); cp -R test_env/support and test_env/fixtures plus test_env/tests/m5-installed-graph-edge.test.mjs into tmp/tree/test_env",
+      "archiveSha256Before": "4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+      "copiedFilesVerifiedByteEqual": ["tests/m5-installed-graph-edge.test.mjs", "support/installed-language-test.mjs", "support/root-installed-environment.mjs", "support/language-structural-fixture.mjs", "fixtures/language-structural/program.mjs", "fixtures/language-structural/leaf.mjs"],
+      "note": "The archive bundles its runtime node_modules. No dependency links were created."
+    },
+    {
+      "id": "handoff-inspection",
+      "command": "TMPDIR=$T/tmpdir npm_config_logs_dir=$T/npm-logs npm_config_update_notifier=false node inspect-handoffs.mjs $T/tree <abs>/rc5-operator-inputs/f4-03/baseline-rc5.tgz $T/host 4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+      "cwd": "rc5-scratch/f4-03-r1/tmp/scripts",
+      "script": { "path": "rc5-scratch/f4-03-r1/tmp/scripts/inspect-handoffs.mjs", "sha256": "77abcd1b81c20929d612af2d7db0b8952f35e881e7f4de6b48b53339fe4ac268" },
+      "method": "Frozen-artifact setupInstalledRootCatalog using the exact candidate sourceTransform text extracted from the copied test, then product.resolveProgramDeclarationClosure and product.ProductExecutionResolutionPort.resolve (direct selection). No CLI Run.",
+      "exit": 0,
+      "wallSeconds": 32,
+      "stdout": { "path": "rc5-scratch/f4-03-r1/tmp/streams/inspect-handoffs.stdout", "bytes": 8150, "sha256": "57def85d65983a4f9c632bcdccfa55dda839c2b948627fc5af72ac2c27ddedbf" },
+      "stderr": { "path": "rc5-scratch/f4-03-r1/tmp/streams/inspect-handoffs.stderr", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" },
+      "observed": {
+        "setupProgramValidation": "program_validation for program://abi5-tests/structural/rc5-retained@5 (Catalog-closure path)",
+        "catalogPublications": ["module://abiogenesis/worksite/construction@5 (no T)", "module://abiogenesis/worksite/command-execution@5 (declares T)", "module://abi5-tests/structural/mechanics@5 (no T)"],
+        "programClosurePublications": ["module://abi5-tests/structural/mechanics@5", "module://abiogenesis/worksite/command-execution@5"],
+        "TOwner": "product://abiogenesis/typescript-tenant@5.0.0-rc.5 module://abiogenesis/worksite/command-execution@5 publicationDigest sha256:31578881cad12ba4e51cfe7ec13349aa031a29bf1447753d56a3c56353b50486, same in program and execution closures",
+        "ESOwner": "product://abi5-tests/structural-fixtures@5.0.0 module://abi5-tests/structural/mechanics@5",
+        "executionResolution": "loaded_product_execution_resolution",
+        "rc5ConsumerDescriptor": "exported and loaded, descriptorDigest sha256:00ec075217f034e24fe23f8d05b1fff96ce6cf89a7f9268ea124b3d3953ac9b8; implementation row node://abi5-tests/structural/rc5-retained/consume@5, input contract://abiogenesis/worksite/retained-graph-input@5, owner product://abi5-tests/structural-fixtures@5.0.0"
+      }
+    },
+    {
+      "id": "installed-rc5",
+      "command": "TMPDIR=$T/tmpdir npm_config_logs_dir=$T/npm-logs npm_config_update_notifier=false ABI5_WAVE1_FROZEN_ARTIFACT_PATH=<abs>/rc5-operator-inputs/f4-03/baseline-rc5.tgz ABI5_WAVE1_FROZEN_INSTALL_HOST=$T/host ABI5_WAVE1_FROZEN_ARTIFACT_SHA256=4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8 node --experimental-vm-modules --test --test-reporter=tap --test-concurrency=1 '--test-name-pattern=^RC5 retained route' test_env/tests/m5-installed-graph-edge.test.mjs",
+      "cwd": "rc5-scratch/f4-03-r1/tmp/tree",
+      "artifactMode": "Existing frozen-artifact mode of setupInstalledRootCatalog. The helper does not repack and asserts sha256File(artifact) equals the bound digest.",
+      "exit": 0,
+      "wallSeconds": 41,
+      "tap": "ok 1 - RC5 retained route carries an installed c_workflow source as a physical reference to its admitted Result; tests 1, pass 1, fail 0, cancelled 0, skipped 0, todo 0, duration_ms 40940.078375",
+      "stdout": { "path": "rc5-scratch/f4-03-r1/tmp/streams/installed-rc5.stdout", "bytes": 404, "sha256": "c4fec2ec0eb5652c27af3a92d6ca007a50fc2c0017629089a1dd6f8560650a15" },
+      "stderr": { "path": "rc5-scratch/f4-03-r1/tmp/streams/installed-rc5.stderr", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" },
+      "archiveSha256After": "4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8"
+    }
+  ],
+  "errors": "No command failed. No new integration failure.",
+  "residuals": [
+    "The feedback is author feedback only. It is not C2, independent review, native UAT or acceptance.",
+    "Only the RC5 test was executed. The unchanged M5 graph-edge test in the same file was filtered by name pattern and not run. C2's installed-retained-route command runs the whole file.",
+    "The feedback archive is the failed-C2 compiled archive 4c098c82. C2 compiles, builds and packs its own snapshot, so its artifact digest may differ. The installed claim on that snapshot belongs to C2.",
+    "Final C2 must still run the existing 7 commands with immutable c2-final-proof.mjs. Its correspondence must add the 2 support files (installed-language-test.mjs 9099c80e…, root-installed-environment.mjs 48b5c453…) and the new test hash 74346a23….",
+    "Still owed: independent max review of the 3-file repair, conjoined with the held no-material-codec finding; native UAT with fresh result/replay; Root adoption and local cut.",
+    "The tsc check covers held TS sources only. The .mjs files received syntax checks only."
+  ],
+  "disclosures": [
+    "Writes stayed inside the declared scratch. Platform env already set TMPDIR and NPM_CONFIG_CACHE to rc5-scratch/f4-03-r1/tmp: npm's cache (tmp/_cacache, about 11M) and tsc's Node compile cache (tmp/node-compile-cache) landed there. The feedback runs further set TMPDIR=tmp/tmpdir (event-store locks, node-compile-cache, removed helper scratch) and npm logs to tmp/npm-logs. A find -newer marker over ~/.npm/_cacache and ~/.npm/_logs counted 0 new files.",
+    "Scratch artifacts are kept: tmp/host (about 82M extracted archive), tmp/tree (about 84M extracted archive plus copied test_env), tmp/scripts, tmp/streams (including two empty marker files), tmp/npm-logs, tmp/tmpdir.",
+    "Reads outside the enumerated readable list: test_env/tests/t287-governed-context.test.mjs lines 700-760 (precedent for constructWorksiteCommandExecutionModulePublication via additionalCorePublicationConstructors); grep match lines in test_env/tests/t287-c0-post-publication-failure.test.mjs and r5-invocation-admission.test.mjs; read-only metadata find over ~/.npm/_cacache and ~/.npm/_logs. The cp -R of test_env/support and test_env/fixtures (130 files copied into tmp/tree/test_env) may include files outside the enumerated list; they were copied, not otherwise inspected.",
+    "No network, provider call, publish, dependency install outside helper-owned scratch installs, Git mutation or edit outside the grant."
+  ]
+}

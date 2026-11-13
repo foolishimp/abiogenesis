@@ -1,0 +1,8 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "ROOT_SELECTS_EXACT_BINDING",
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "sourceTree": "d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6",
+  "decision": "Root may admit existing-candidate018 acquisition/verification zero-provider installed preflight/call preparation; actual frozen-call review precedes dispatch. Preserve017 operator failure; normal bounded same-Run counterevidence repair allowed. Fresh005/qualification/release separate."
+}

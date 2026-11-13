@@ -1,0 +1,67 @@
+{
+  "status": "PREPARED_OPERATOR_LOCUS_SUCCESSOR_NOT_EXECUTED",
+  "priorFailure": {
+    "classification": "Operator duplicate C leaf program locus in whole-Program fixture; no Product repair",
+    "session": 86056,
+    "exitCode": 1,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "fault": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/proof/FAULT-setup.json",
+      "bytes": 539,
+      "sha256": "dfd205ef3f5ac92553d93d407f4651f07929b0689f4035609e523bef6a28ebd1"
+    }
+  },
+  "preservedPrior": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/BINDING.json",
+      "bytes": 16621,
+      "sha256": "aa5a17dd9f8f1408d7752cc0e180e0019ee441461686c24aa01bc8a74b2dfb17"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/PACKET_MANIFEST.json",
+      "bytes": 4668,
+      "sha256": "b13de70f7297ee34a667f535887ce62f1270f3c711bfb94ab8aff84518d9b48f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/ROOT_SELECTION-setup.json",
+      "bytes": 1158,
+      "sha256": "4c22db212d95512d63b13db859d0aa67d343051b02e67d8116d3cefb6dbf524a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/witness.mjs",
+      "bytes": 38385,
+      "sha256": "9efd8c43cc9dac80e854817743dd955db85e0866cc563e801d8151978a4f770d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/operator.mjs",
+      "bytes": 8345,
+      "sha256": "065d8f5ba06c57802d979191b97e1a12bb4b75add219e338a3350a950b93a40c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/proof/workspace-root-relation.json",
+      "bytes": 668,
+      "sha256": "2c8006a79a4a217677706a0a417fca9c1d1ea24863e07447b292308db7b147f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/setup-host/abi5-root-env-wz1KCc/runtime/events.jsonl",
+      "bytes": 3196379,
+      "sha256": "897116a18650b7f412cb8c95351c5085e9f54fbf7043bff7e8cfa1c831492d7e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/setup-host/abi5-root-env-wz1KCc/registered-selection-data-product-source/build/publication.json",
+      "bytes": 31471,
+      "sha256": "9b0cc946c4973717224fd58d4aa5c2a236e30bb3e0857210a14aec170499c3ec"
+    }
+  ],
+  "correction": "B-only paired nodeRef/programLocusRef/armId/startNodeRef/terminalNodeRefs through existing gtl.C.of/cCarrier; all other selected declaration content conserved",
+  "expectedDeclarationCanonicalDigest": "sha256:c1e559fb34c282f941f2a59b9bd0108f7604e60bc5c719a2d4f152b2989df5e7",
+  "pureReadinessAuthorized": true,
+  "ProductChanges": false,
+  "setupExecuted": false,
+  "pureReadiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/PURE_READINESS_RESULT.json",
+    "bytes": 4984,
+    "sha256": "2a3ad7f5e488b47423aa4d491c881e7a491152c63c94c8b6e20f7da3119c1c78"
+  }
+}

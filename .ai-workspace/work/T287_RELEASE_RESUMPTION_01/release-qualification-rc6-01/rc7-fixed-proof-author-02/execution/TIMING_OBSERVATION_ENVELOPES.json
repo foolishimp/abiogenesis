@@ -1,0 +1,46 @@
+{
+  "kind": "root_metadata_only_physical_event_observation",
+  "observedBy": "Root Executive",
+  "recordedUtc": "2026-11-06T12:31:37.162242+00:00",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "fromByte": 1676361536,
+  "toByte": 1797536125,
+  "completeNewRows": 12157,
+  "observationScope": "Only F2 new physical suffix metadata; no provider stdout/narrative/body inspection by Root. Exact selected Result span may be read by passive custody.",
+  "results": [
+    {
+      "eventId": "event://abiogenesis/5970ff74239e8e11da4c5f2606dc47a1ddb2ff8aa13cd6bd550a64cb647948f7",
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 254280,
+      "eventTime": "2026-11-06T12:25:35.471Z",
+      "offset": 1747250124,
+      "rowBytes": 50259352,
+      "rowSha256": "1c2ce0802eced633ec5b667fc22ece59cfbe5598147aa0fe71669b88e6c40ec4",
+      "runId": "run://abiogenesis/736cc2314d58500ac5d0a2a8d8b1955452f9fc3e0586976a8945257f9ff73bc0",
+      "resultRef": "result://abiogenesis/84817d060a569d56c185ec7820558b027f34e110b0544178a0dab833c7923242",
+      "resultDigest": "sha256:84817d060a569d56c185ec7820558b027f34e110b0544178a0dab833c7923242",
+      "valueDigest": "sha256:745e9c0a96d29df6faa7d2ecf74d6399bf9984a5146a0b45afd17048b0b81540"
+    }
+  ],
+  "nativeProcessStarted": {
+    "eventTime": "2026-11-06T11:54:18.734Z",
+    "pid": 60393,
+    "processRef": "process://abiogenesis/b4c6507ad04029e9c40babf2b915badc761cb6aadc947b39014082526e0bf1a4",
+    "physicalCoordinates": null,
+    "basis": "Earlier Root metadata observation; no additional scan."
+  },
+  "hostExit": {
+    "session": 4445,
+    "exitCode": 0,
+    "wallMs": 2029073.160375,
+    "basis": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/commands/sdk-native-host.result.json",
+      "bytes": 2314,
+      "sha256": "47df53e41a0fccc9674c615a8705ab2d9b74a59d3ce8eb40f9ee38cfa4052138"
+    }
+  },
+  "limitations": [
+    "No fresh F2 cold result/replay observation selected.",
+    "Observation is metadata evidence, not runtime admission or Product acceptance."
+  ]
+}

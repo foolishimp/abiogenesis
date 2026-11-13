@@ -1,0 +1,18 @@
+{
+  "kind": "source_custody_selection",
+  "status": "UNBOUND_ACCEPTED_H05_RETURN_REQUIRED",
+  "sourceBefore": null,
+  "sourceCommit": null,
+  "frozenSubject": null,
+  "sourceAfter": null,
+  "sourceDisposition": null,
+  "actualClose": null,
+  "actualResume": null,
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_SELECTION.reference.json",
+    "bytes": 43674,
+    "sha256": "292e0f235f3d2ea9a5d69fa46a09568d4394d8d35fa8cfeca31c5a838bb187da"
+  },
+  "sourceCount": 451,
+  "meaning": "451 names match actual H05 admission. Final accepted H05 source/tested-stage/native.after equality, Root disposition and genuine close/resume remain unbound; original failure and missing acceptance preserved."
+}

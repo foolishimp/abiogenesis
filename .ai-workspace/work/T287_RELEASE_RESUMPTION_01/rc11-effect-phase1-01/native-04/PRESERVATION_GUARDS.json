@@ -1,0 +1,51 @@
+{
+  "indices": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+      "bytes": 29655080,
+      "sha256": "287793bfb9ef88984179dbdc944d367f8c4443371ead4598442b94def52bc5b3"
+    }
+  ],
+  "heads": {
+    "/Users/jim/src/apps/abiogenesis": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "/private/tmp/abg-rc11-foundation-20261110-01": "65f311e735c1297b9982117eb73fb6a32999cc02",
+    "/private/tmp/abg-rc11-qualification-20261109": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "mainTracking": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 185314,
+      "sha256": "8dac4c0015e87c241008cefc60c774273d9631c96ec093f11ff5091d71439d5a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 836949,
+      "sha256": "ba9bba44b8d4847ce8745b58cc88f7341efcce393a1ca0c0fb874d2138948dbb"
+    }
+  ],
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/SOURCE_INVENTORY.json",
+    "bytes": 295292,
+    "sha256": "5d6d631622d19db8b0ebb253fdd5069ced8986089dc2ef294fd853ff0fab5a8d"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "id": "PHASE2-AB-FINAL-ACCEPTANCE-01",
+  "decisionOwner": "Root Executive",
+  "recordedBy": "separate Writer/Operator",
+  "recordedUtc": "2026-11-10T05:01:48.017088+00:00",
+  "status": "ROOT_ACCEPTED_BOUNDED_PHASE2_A_B_SOURCE_AND_SELECTED_PROOF",
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+    "bytes": 295433,
+    "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+  },
+  "sourceRows": 1345,
+  "finalIndependentConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-review/FINAL_CONJUNCTION.md",
+    "bytes": 7623,
+    "sha256": "3abb615287e8ef325b0983bfe6f744c70383544d916b8f69cc526a9c6e2b28ac"
+  },
+  "finalIndependentEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-review/FINAL_CONJUNCTION.json",
+    "bytes": 43988,
+    "sha256": "8f2c3e73ec843bf1b7f4cc11f92aa48da94c13ee28482e53b0b6f3381d47e5da"
+  },
+  "unit": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/EXECUTION_RETURN.json",
+    "bytes": 9302,
+    "sha256": "6e8e323d39103eaa71bc33df08f3a6a59f70eac5651f6919a61d743e39872ff0"
+  },
+  "physicalClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PHYSICAL_CLOSURE.json",
+    "bytes": 8292,
+    "sha256": "5f3b05b6bd2262bc5158da1e1c2e1b6372af5898222164a64d055320667046e1"
+  },
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/POSTGUARDS.json",
+    "bytes": 712,
+    "sha256": "d42b052fff905b1f53d15113b58b0d0724ec13106fe0dcf69bdf02b971a1ac94"
+  },
+  "priorA": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4061,
+    "sha256": "a6a1b16d59f112078793743265a72308b2f59b3978db9dde68ca3b40fe8df6ea"
+  },
+  "retainedB": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+    "bytes": 2281,
+    "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+  },
+  "productionProofConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+    "bytes": 6141,
+    "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+  },
+  "accepted": "Exactly bounded Phase2 A+B construction/physical-contract/command-main scope and error/refusal integration; no further selected proof or repair required. Separate A and retained B production evidence are conjoined with the new complete original unit.",
+  "unitCounts": {
+    "tests": 102,
+    "pass": 96,
+    "skips": 6,
+    "fail": 0,
+    "M5SubsetPass": 39,
+    "M5EvidenceIds": 34,
+    "groupRows": 6
+  },
+  "retainedRelations": "Normal build and Effect origin; helper2/B6; one configured installed C2 with artifact/ack/admitted observation/two fresh replays; whole lifetime34/eight physical witnesses. Overlapping populations are not summed. Old accepted observations retain original subjects.",
+  "limits": [
+    "Six exact historical skips and two deferred capsules remain open.",
+    "Preserve A/R1/R2 history, original native/controller/campaign failures and unauthorized continuation, unit02 red, native read-only Git deviation and closed Python-cache custody; no retroactive authorization or changed receipt status.",
+    "Synthetic pending-owner, inherited constructor/refused-input, bounded Cause diagnostic/private-adapter and atomic-publication/response-delivery limits remain.",
+    "No release or installed/full5.0/S7/human qualification, speed/general reliability/net-deletion claim, pin change, or Phase3-4/GC03 activation."
+  ],
+  "effectsGrantedNow": "Record this Root decision and bind it into the outside-worktree checkpoint proposal only. Actual live source/tracking writes and Git remain held pending Root review of proposed diff/plan."
+}

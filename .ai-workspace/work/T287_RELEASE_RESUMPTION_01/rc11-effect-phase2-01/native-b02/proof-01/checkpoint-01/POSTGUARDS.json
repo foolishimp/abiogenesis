@@ -1,0 +1,40 @@
+{
+  "status": "PASSED",
+  "nonTargetPreservationPinsExact": 10,
+  "basis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/BINDING.json",
+    "bytes": 14125,
+    "sha256": "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a"
+  },
+  "mainHEAD": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+  "mainIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29373151,
+    "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+  },
+  "candidateHEAD": "b7cf409fc74eca639525fccbea52e666be7743d4",
+  "candidateTree": "0f26a089130ecc58e060698703f0407246463a35",
+  "candidateIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+    "bytes": 29655224,
+    "sha256": "969ce9121e57d68025fc42557539cbd591f848a8bbb3b808521953dda847c2b0"
+  },
+  "candidateTrackedClean": true,
+  "candidateStagedEmpty": true,
+  "deliveredC11HEAD": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "fullSourceInventoryExact": true,
+  "codeAndTestsConserved": true,
+  "mainTrackingPriorBodiesConserved": true,
+  "hookConserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/hooks/post-commit",
+    "bytes": 356,
+    "sha256": "f3eb4d1f62924c09d481a0563a84b158c66eb2feb3431cfdb3e6760aab4d661d"
+  },
+  "untrackedWork": "No untracked path was staged, removed or rewritten; controls were created only in the authorized evidence directory.",
+  "authorizedChangesOnly": [
+    "F Effect plan documentary bytes",
+    "six F index entries and one local commit",
+    "main GOALS/T287 prefixes",
+    "fresh checkpoint evidence"
+  ]
+}

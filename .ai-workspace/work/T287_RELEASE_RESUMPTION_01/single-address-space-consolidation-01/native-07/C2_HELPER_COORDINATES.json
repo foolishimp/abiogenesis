@@ -1,0 +1,36 @@
+{
+  "recordedUtc": "2026-11-04T05:14:19.479614+00:00",
+  "standing": "Actual helper task coordinates from observed native C2 Bash invocation and owner-produced launch manifest; no result/pass claim",
+  "toolUseId": "toolu_011P4x4Ea52pDEzD9nhpd7s3",
+  "toolCommand": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2/fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667/launch.json'",
+  "actorCoordinatesSha256": "34aa9f3b50909c202169f2e16b2c3cee9a6fc962f56523cbb3575ebef761a260",
+  "launch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2/fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667/launch.json",
+    "sha256": "ee6b6c274f201b35659cb6330bdeca3c8e2a19308a61b7552f2e87e371201d58",
+    "manifestDigest": "sha256:92daea7fedf4591f1027db2f64bb4594ccd61ab24affccc838c4857c8bfa4c1a"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2/fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667/task.json",
+    "sha256": "9fc33df241c081a1e4e185ec9d343712a263acbba9619893affc2c4ac868f05c",
+    "bytes": 3801164,
+    "manifestDigest": "sha256:9fc33df241c081a1e4e185ec9d343712a263acbba9619893affc2c4ac868f05c",
+    "taskRef": "worksite-command-execution-task://abiogenesis/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2",
+    "taskDigest": "sha256:691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2"
+  },
+  "attempt": {
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2/fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667",
+    "ref": "worksite-command-attempt://abiogenesis/920ec186aeef47a27be0a4e277f1104207cff8a4fbf2f668c1d1375ed51c9a38",
+    "digest": "sha256:fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667"
+  },
+  "occurrence": {
+    "attempt": 1,
+    "cCallRef": "c-call:sha256:bf406fd971bb86070b1f249e51bda66916ddc280d5e839f8ecef56ce4c47495c",
+    "executionAuthority": null,
+    "frameId": "frame://abiogenesis/b28d85dd16c96399962e2701acbb1e36df7002095510ca987b4009b1c134d868",
+    "graphCallId": "graph-call://abiogenesis/e2001c4cc31f998d15eb3d2f8e28018c70dc648336271e86c3bbc12883c637da",
+    "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+    "runId": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+    "taskOrdinal": null
+  },
+  "helperModulePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js"
+}

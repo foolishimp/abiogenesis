@@ -1,0 +1,22 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "activation": "T287_RC5_METHOD_01_R2",
+  "admittedUtc": "2026-11-03T09:01:38.310015+00:00",
+  "roleTransition": "Executive owner/input reentry decision -> Root operator Writer",
+  "operationGrant": "Invoke exact installedRC4 prepared fresh start for Testing then UAT on unchanged source. No Construction/sourcewrite. Retain actual close/freshreads.",
+  "userAuthority": "Approved boundedRC5 scope; FIRST_C2_FAILURE_TRIAGE and unchangedsource independentreview.",
+  "sourceCommit": "90721c86680f17c1877dc26c9eb93b4243188785",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc5-performance",
+  "nativeContractDigest": "sha256:c6f803134f1c5758200df874caa8ff3cdb9f7989b6abcdcbc05e8f5ac1de2a17",
+  "workloadDigest": "sha256:bd0ab02b040f62a9e8e0f600c792d1b6becf7d67c55ebdaa0dd55538ee3450f3",
+  "preparedCall": "sha256:234fbaadfd50f5d70c2cb7f11707ccee8e0fecf6387a528a5f6b8a18b73a26d1",
+  "nativeRuntimeAdmission": "Exact installed Public/ABG owner on dispatch",
+  "review": "Independentmethod01 source satisfied; proportional input closure discriminator+installed preflight satisfied; no new Product delta",
+  "scope": "Affected Testing/UAT reproof after one missing trackedfixture; same6commands",
+  "exclusions": [
+    "noConstruction",
+    "no oldhistory/release mutation",
+    "no push/global selector/stable claim",
+    "no completedqualificationrerun"
+  ]
+}

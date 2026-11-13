@@ -1,0 +1,56 @@
+{
+  "artifactSha256": "sha256:0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/WORKSPACE_AUTHORITY.md",
+    "sha256": "sha256:4edacd1910e58b91b6fa0dc3b1589dccd1b7f44d47800606716c5fbd1b6d1e43"
+  },
+  "executablePins": [
+    {
+      "path": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+      "sha256": "sha256:a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "sha256:fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "sha256:8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    }
+  ],
+  "kind": "single_machine_p1_root_setup_selection_v1",
+  "nodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "npmPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+  "operatorClosure": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/public-setup.mjs",
+      "sha256": "sha256:85781ebc5dddde17356c3f1a9ddc815c9bc982040a809be19c1b93e1f0c1811f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/runner.mjs",
+      "sha256": "sha256:705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/consumer.mjs",
+      "sha256": "sha256:9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/scenarios.mjs",
+      "sha256": "sha256:ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/verify-c2-b07.py",
+      "sha256": "sha256:083387b0db5d7d6ee8eba110d333d893616a82b4c028aecf332fda8172f64e2e"
+    }
+  ],
+  "operatorScriptSha256": "sha256:645f379c035b113b4cac3f12f593e3ce933b9fe02e71fdb80b59d71ae3fe9148",
+  "providerDispatch": false,
+  "pythonPath": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+  "recursionBound": 4,
+  "runId": "single-machine-p1-01",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001",
+  "selectionAuthority": "Root explicit selection under owner single-machine P1 fix/continuation instruction; no provider dispatch or native Result claimed",
+  "sourceCommit": "97406077c9a91e18e9425c3df55c6cd80f4c2073",
+  "status": "ROOT_SELECTED_SETUP",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-machine-p1"
+}

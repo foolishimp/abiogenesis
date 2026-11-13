@@ -1,0 +1,95 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "MATERIALIZED_FINITE_COMMANDS_ROOT_ADMISSION_PENDING",
+  "readCommands": [
+    "Exact future SOURCE_BEFORE files and selected control inputs; installed STDO3.0.4 skill/direct references and pinned offline toolchain/contract seed. No broad tree/history/provider scans.",
+    "Read-only git diff/status/rev-parse/show on the selected future source; rg on the selected source/resource names only."
+  ],
+  "writeCommands": [
+    "Only five Product/HOW/test paths, three handoffs and this task scratch. Stop on any newly required Product/HOW path.",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7f runtime/provider temp and /private/tmp/abg-o7f test temp, including named cache/zsh children; preserve existing contents, no cleanup.",
+    "Future selected npm-user.npmrc and npm-global.npmrc are two distinct empty staged controls; no shared /dev/null config roles."
+  ],
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-fixed-proof-author-01/prior-author-stage.mjs",
+        "<fresh-label>",
+        "before|after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 3,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 180000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-fixed-proof-author-01/prior-author-lanes.mjs",
+        "<fresh-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "fixed-route",
+        "cold-resume",
+        "caller-regression"
+      ],
+      "maxLaneInvocations": 4,
+      "perLaneTimeoutMs": 300000,
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "missingResources": "Exact450 source/resource rows are now pinned in SOURCE_BEFORE from accepted N plus tracked HOW. Three historical default-library cases and seven F11 cases remain uncovered as selected; required active tests cannot skip.",
+  "invocationAllocation": [
+    {
+      "stage": "before",
+      "lane": "fixed-route",
+      "maximum": 1,
+      "standing": "Meaningful selected before counterexample; retain actual failure."
+    },
+    {
+      "stage": "after",
+      "lane": "fixed-route",
+      "maximum": 1
+    },
+    {
+      "stage": "after",
+      "lane": "cold-resume",
+      "maximum": 1
+    },
+    {
+      "stage": "after",
+      "lane": "caller-regression",
+      "maximum": 1
+    }
+  ],
+  "partitionStanding": "Use the exact anchored positive --test-skip-pattern for fixed-route and the same anchored positive --test-name-pattern for cold-resume. Preserve all cases once; exclusions receive no pass/skip credit. Required active tests and both cold cases may not skip. Three stages/four invocations and300s per lane remain unchanged.",
+  "stageLabels": [
+    "o7f-stage-01",
+    "o7f-stage-02",
+    "o7f-stage-03"
+  ],
+  "maxStages": 3,
+  "maxLaneInvocations": 4,
+  "concurrency": 1,
+  "laneIds": [
+    "fixed-route",
+    "cold-resume",
+    "caller-regression"
+  ],
+  "allocationLaw": "Use existing allocated stage directories/stage receipts/lane output directories before every create-only allocation. Failed/incomplete allocations count; incomplete prior work stops. Exactly one before:fixed-route and one each after:fixed-route/cold-resume/caller-regression; no counter/store or concurrent helper execution."
+}

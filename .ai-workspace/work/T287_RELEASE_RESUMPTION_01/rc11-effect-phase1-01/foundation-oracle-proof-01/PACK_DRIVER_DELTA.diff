@@ -1,0 +1,52 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/candidate-pack.py
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/candidate-pack.py
+@@ -39,24 +39,18 @@
+ controls_path,controls_sha,admission_path,admission_sha=sys.argv[1:]
+ assert sha(Path(controls_path).read_bytes())==controls_sha;c=json.loads(Path(controls_path).read_text())
+ assert sha(Path(admission_path).read_bytes())==admission_sha;a=json.loads(Path(admission_path).read_text())
+-assert a['status']=='ROOT_ADMITTED_RC11_BOUNDED_LOCAL_CANDIDATE_PACK' and a['controlsSha256']==controls_sha
++assert a['status']=='ROOT_ADMITTED_FOUNDATION_ORACLE_PROOF_PACK' and a['controlsSha256']==controls_sha
+ for p in a['files']:checked(p)
+-for k in ['node','npmCli','builderPin','builderArchive']:checked(c[k])
+-assert a['qualified'] is False and a['unitPassed'] is False and a['m5QualificationBlockerOpen'] is True
+-assert c['status']=='PREPARED_BOUND_LOCAL_CANDIDATE_PACK_EXECUTION_HELD'
+-assert json.loads(checked(c['rootBoundedDisposition']))['status']=='M5_DEFERRED_EXPLICIT_QUALIFICATION_BLOCKER_LOCAL_DELIVERY_CONTINUES_CONDITIONALLY'
+-for r in c['targetedEvidence']:checked(r)
+-for k in ['unitRed','m5Red','diagnostic']:checked(c[k])
+-assert c['proofPins'] and set(c['proofPins'])=={'r6','f04a','final'}
+-for r in c['proofPins'].values():checked(r)
+-assert all(c['proofPins'][k]['path']==c['proofCommands'][k] for k in ['r6','f04a']) and c['proofPins']['final']['path']==c['proofFinal']
+-checked(c['rootDebtRegistration'])
+-proofs={k:json.loads(Path(p).read_text()) for k,p in c['proofCommands'].items()}
+-assert all(x['status']=='PASSED' and x['exitCode']==0 and x['groupAbsent'] for x in proofs.values())
+-assert json.loads(Path(c['proofFinal']).read_text())['status']=='MECHANICAL_PROOF_COMMANDS_PASSED_PENDING_ROOT_REVIEW'
++for k in ['node','npmCli','builderPin','builderArchive','rootPhase1Acceptance','buildInputRelation','subjectInventory']:checked(c[k])
++assert c['status']=='PREPARED_FOUNDATION_ORACLE_PROOF_PACK_HELD'
++subject=json.loads(checked(c['subjectInventory']));assert subject['sourceDigest']==c['subjectSourceDigest']
++assert json.loads(checked(c['buildInputRelation']))['rebuildOrRegenerationRequiredForSelectedDelta'] is False
+ fr=json.loads(checked(c['sourceInventory']));rows=fr['rows'];source=Path(c['frozenRoot']);work=Path(c['testedWork']);tenant=work/c['tenantRelative']
+ compiled=json.loads(checked(c['compiledInventory']));dep=json.loads(checked(c['dependencyInventory']));npm=json.loads(checked(c['npmInventory']))
+ def guards():
++ assert same_source(Path(c['subjectFrozenRoot']),subject['rows'])==c['subjectSourceDigest']
++ assert same_source(Path(c['subjectSourceRoot']),subject['rows'])==c['subjectSourceDigest']
++ for p in c['preservationPins']:checked(p)
+  assert same_source(source,rows)==c['sourceDigest']
+  current=rows_at(work,rows);assert [{'before':x,'after':z} for x,z in zip(rows,current) if x!=z]==c['retainedWorkDelta']
+  got=[]
+@@ -94,6 +88,7 @@
+     while time.monotonic()<until and not group_absent(child.pid):child.poll();time.sleep(.05)
+   try:code=child.wait(timeout=1)
+   except subprocess.TimeoutExpired:code=None
++ large=large or (output/'stdout.log').stat().st_size+(output/'stderr.log').stat().st_size>c['maxOutputBytes']
+  result={'argv':argv,'exitCode':code,'wallSeconds':time.monotonic()-start,'timedOut':timed,'outputBudgetExceeded':large,'signals':signals,'groupAbsent':group_absent(child.pid),'cleanupNeeded':cleanup,'stdout':pin(output/'stdout.log'),'stderr':pin(output/'stderr.log')}
+  save(output/'COMMAND_RETURN.json',result)
+  assert code==0 and not timed and not large and not cleanup and group_absent(child.pid),'pack command failed/incomplete'
+@@ -110,7 +105,7 @@
+  for r in compiled['rows']:assert {k:members_by_path[r['path']][k] for k in ['path','bytes','sha256']}==r,'tested build member omitted/changed '+r['path']
+  guards();assert rows_at(snap,compiled['rows'])==compiled['rows'];verify_tree(dep);verify_tree(npm)
+  save(output/'ARCHIVE_MEMBERS.json',{'archive':archive_pin,'rows':member_rows,'members':len(member_rows),'payloadBytes':sum(r['bytes'] for r in member_rows),'allMembersMatchTestedWork':True,'allCompiledContractManifestMembersPresentAndExact':True})
+- save(output/'RETURN.json',{'status':'CANDIDATE_ARCHIVE_MATCHES_EXACT_TESTED_TREE','sourceDigest':c['sourceDigest'],'archive':archive_pin,'members':len(member_rows),'payloadBytes':sum(r['bytes'] for r in member_rows),'compiledInventory':c['compiledInventory'],'testedSnapshot':pin(output/'TESTED_BUILD_SNAPSHOT.json'),'command':pin(output/'COMMAND_RETURN.json'),'memberReceipt':pin(output/'ARCHIVE_MEMBERS.json'),'sourceAndCompiledConserved':True,'m5QualificationBlockerOpen':True,'unitPassed':False,'standing':'Candidate artifact only; m5 and qualification remain open. No acceptance, commit, reproduction, install, release or pin.'})
++ save(output/'RETURN.json',{'status':'CANDIDATE_ARCHIVE_MATCHES_EXACT_TESTED_TREE','sourceDigest':c['sourceDigest'],'archive':archive_pin,'members':len(member_rows),'payloadBytes':sum(r['bytes'] for r in member_rows),'compiledInventory':c['compiledInventory'],'testedSnapshot':pin(output/'TESTED_BUILD_SNAPSHOT.json'),'command':pin(output/'COMMAND_RETURN.json'),'memberReceipt':pin(output/'ARCHIVE_MEMBERS.json'),'sourceAndCompiledConserved':True,'subjectSourceDigest':c['subjectSourceDigest'],'buildInputRelation':c['buildInputRelation'],'standing':'Current proof artifact only; selected oracle full installed proof remains pending. No release/install/publication or whole qualification.'})
+  print(json.dumps({'archive':archive_pin,'return':pin(output/'RETURN.json'),'members':len(member_rows)}),flush=True)
+ except Exception as error:
+  save(output/'HALT.json',{'error':str(error),'standing':'Preserve allocation and all outputs. No retry, rebuild, source repair or installation.'});raise

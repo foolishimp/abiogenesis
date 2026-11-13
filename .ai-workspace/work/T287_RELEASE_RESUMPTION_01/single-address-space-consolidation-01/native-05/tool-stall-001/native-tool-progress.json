@@ -1,0 +1,112 @@
+[
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-0",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 30,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "8e9ddf99-e043-4d38-859f-3b50ef8cfc30"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-1",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 60,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "f3c492f3-99f6-4107-abe5-701765afa48b"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-2",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 90,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "5e79a811-b96b-4df7-b1e6-ee9784026246"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-3",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 120,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "17c8a7be-7bad-4a86-a03f-2e96258be71a"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-4",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 150,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "115a5266-a59c-4bb3-a141-f76bd24eaae2"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-5",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 180,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "38f6f577-0976-4ede-b10e-fbcb7ede6a0f"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-6",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 210,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "5cb1a83e-4a40-466d-b119-eb01a1cdf8bb"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-7",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 240,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "702e9773-87ab-4f19-8841-1819111fee1b"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-8",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 270,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "42bfe751-ee0a-4740-ae9e-09db8bfbb43d"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-9",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 300,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "9ebe0e93-86c1-4985-92b9-912ee1a6b6a8"
+  },
+  {
+    "type": "tool_progress",
+    "tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF-heartbeat-10",
+    "tool_name": "Bash",
+    "parent_tool_use_id": "toolu_01ArJ57rj5DaM8CJGkSAX9WF",
+    "elapsed_time_seconds": 330,
+    "heartbeat": true,
+    "session_id": "88761cf2-1c27-47c5-9ff4-afc36aa4ca42",
+    "uuid": "cf9d4063-f52c-4a80-a318-44835b085a0e"
+  }
+]

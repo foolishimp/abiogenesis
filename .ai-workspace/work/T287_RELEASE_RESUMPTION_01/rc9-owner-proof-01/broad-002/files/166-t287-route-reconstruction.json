@@ -1,0 +1,81 @@
+{
+  "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 10912.396000000183,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 13,
+    "failed": 0,
+    "passed": 10,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 12,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "retained native outputs and exact pre-basis historical owner facts are conserved",
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "P0_RETAINED_NATIVE_SCRATCH unset; requires the retained native scratch holding full-outcome.json",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "route facts ignore unrelated growth and preserve relevant source, cursor and intent changes",
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "P0_RETAINED_NATIVE_SCRATCH unset; requires the retained native scratch holding full-outcome.json",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 11,
+      "type": "case",
+      "passed": true,
+      "name": "the S01 store's persisted replay digests recompute through head and the new writer",
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "nesting": 1,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/166-t287-route-reconstruction.jsonl",
+    "bytes": 4588,
+    "sha256": "e2a4d7a762ddec5186e74d47890ea5cd101300cbe31f5c304d6e57795d3de2b1"
+  },
+  "commandReceipt": "commands/166-t287-route-reconstruction.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

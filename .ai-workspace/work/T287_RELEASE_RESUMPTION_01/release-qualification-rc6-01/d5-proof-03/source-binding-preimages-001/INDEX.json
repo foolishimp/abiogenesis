@@ -1,0 +1,231 @@
+{
+  "kind": "exact_pre_source_binding_controls",
+  "at": "2026-11-06T02:04:09.138926+00:00",
+  "files": [
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/BUDGET_STATIC.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/BUDGET_STATIC.json",
+        "bytes": 761,
+        "sha256": "bcd2596c3e3a1b8589305632b8d4e2b5c56a23fd10c91868526aa757c8fb2af2"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/C2_RECIPE.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/C2_RECIPE.json",
+        "bytes": 46449,
+        "sha256": "2f4a4f29be4f3d4f8e3e97bf0f7833171c723e5154c4bc78191d509a9e6f759a"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/CONTROL_PREPARATION.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/CONTROL_PREPARATION.json",
+        "bytes": 21041,
+        "sha256": "ff983c019f6b5000a1a3d9bae0d02f9e5ad2f636f908a22262030cb2eda13d99"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/CONTROL_PREPARATION.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/CONTROL_PREPARATION.md",
+        "bytes": 2532,
+        "sha256": "9c68b059d2bd8d88fdd601dd24f611145207bc0a5e0a38325e0d48c6e9bf2094"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/DECLARED_REPORT_INDEX.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/DECLARED_REPORT_INDEX.json",
+        "bytes": 37197,
+        "sha256": "73185f32a708181a805dbc0190095c5d57d88d688b5d8985edc087348e5ccba6"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/EXPECTED_FUTURE_FILES.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/EXPECTED_FUTURE_FILES.json",
+        "bytes": 3,
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PREDECESSOR_PINS.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/PREDECESSOR_PINS.json",
+        "bytes": 9550,
+        "sha256": "c4cba088c9754571fdfe2c87d104a5478fe87d9d0bb362280fc55476cf3b40ef"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PROOF_ONLY_GRANT.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/PROOF_ONLY_GRANT.json",
+        "bytes": 13589,
+        "sha256": "9657d5c4d9f8fbd68abf56c6efe15864e8fc51c7dc588b34a4fd98d93b34b4f1"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PROVIDER_PROFILE.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/PROVIDER_PROFILE.json",
+        "bytes": 2099,
+        "sha256": "249a92c036c44fd3cb2b3d3af3202aa5c68111d8b092326b5f64f6e0c9df074f"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/RESOURCE_NOTE.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/RESOURCE_NOTE.json",
+        "bytes": 4011,
+        "sha256": "49e3aae8efb66e87f79770ad3ec9269b993945affa1079d6bf840976ac8fec18"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/REUSE_COMPARISON.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/REUSE_COMPARISON.json",
+        "bytes": 5195,
+        "sha256": "318f2620c54108adba4e5455eac75097b13dc10e44d9bb3c8c0b3d7712ffffb2"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ROOT_PREPARATION_REQUEST.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/ROOT_PREPARATION_REQUEST.md",
+        "bytes": 2310,
+        "sha256": "15c77d3f6ea42dfc1f59f5bc18b62b729fdc5df918f4c6af8e618d50e52988b9"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/RUNTIME_BINDINGS.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/RUNTIME_BINDINGS.json",
+        "bytes": 1064,
+        "sha256": "2215c8d8a4c3291b327f88385d7cda73efd5c9903cc2caadfe50861213cab666"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/SOURCE_BEFORE.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/SOURCE_BEFORE.json",
+        "bytes": 34554,
+        "sha256": "e27eeeb056a50892b00416c784e631a6c81a7f9abe73e3e3a6e7d7db1c722e69"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/STAGING_MANIFEST.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/STAGING_MANIFEST.json",
+        "bytes": 3113,
+        "sha256": "fdf2526f674f4244bce86423723ba65d0a0260aaf027ee2d7f6f2f432fb7bcc3"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/STATIC_CHECKS.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/STATIC_CHECKS.json",
+        "bytes": 5111,
+        "sha256": "0de63fc0d91f854fae54cf58dce3cff5e78cc1049e61a7181866b87f194eb94f"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/capture-assessment.mjs",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/capture-assessment.mjs",
+        "bytes": 7314,
+        "sha256": "d8a5e258871f6e54b804afb1f578112123db9667bf3922df63956f0f940a5a0a"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/capture-c2.mjs",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/capture-c2.mjs",
+        "bytes": 11689,
+        "sha256": "f87d97ab208c17b602f0126dfb6e091ed093d12b5d7d7fa4db69dbad7494b0f4"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/claude-provider.sh",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/claude-provider.sh",
+        "bytes": 422,
+        "sha256": "2e27ae9aad6bf5f31caa9655657a6d1e2da4081aa43521dd5bbc98b4cd48c781"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/dispatch.mjs",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/dispatch.mjs",
+        "bytes": 11850,
+        "sha256": "af2bcbc6cd35a451964222dae74f043f7198d5b713ae78bebd8f5a7b0efbfa44"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/prepare-r1.mjs",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/prepare-r1.mjs",
+        "bytes": 21293,
+        "sha256": "500058c8aa0984b74eb1dbc858b8f82477ca2877e4c9ccd9977d6297c7b6f02c"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/workload.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/workload.json",
+        "bytes": 101467,
+        "sha256": "cf8dce5d81943113d82bdf06cebaf76c2d851be184b4ec9ff2db3b359d771ad4"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/BASELINE_OBSERVATION.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/inputs/BASELINE_OBSERVATION.json",
+        "bytes": 9674,
+        "sha256": "8f43ab0cdfb9efdd5e18602de250a58c8fa580d57e3e06ef62cf339485f5a15a"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/FROZEN_SUBJECT.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/inputs/FROZEN_SUBJECT.json",
+        "bytes": 684,
+        "sha256": "0767882619963116392f71ebfd5b2a807df3d5a08ad9029211a39c9fe10f1499"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/PROOF_ONLY_GRANT.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/inputs/PROOF_ONLY_GRANT.json",
+        "bytes": 13589,
+        "sha256": "9657d5c4d9f8fbd68abf56c6efe15864e8fc51c7dc588b34a4fd98d93b34b4f1"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/ROOT_FIXTURE_CORRESPONDENCE_NOTE.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/inputs/ROOT_FIXTURE_CORRESPONDENCE_NOTE.json",
+        "bytes": 2644,
+        "sha256": "e02b0010e2f42e7861ef71225870248ae99f4f438f006c4cdcc92f8c5431b151"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/ROOT_UAT_DISPOSITION.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/inputs/ROOT_UAT_DISPOSITION.json",
+        "bytes": 1686,
+        "sha256": "546717162c7a77849849a55af75b8dc84fce815280b5d274251717b8e09066a8"
+      }
+    },
+    {
+      "originalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/TASK.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/inputs/TASK.md",
+        "bytes": 5026,
+        "sha256": "f701d874a3c6a8ab7612ff55dec9da852997d3f0c3424090bcbacdf161f73f17"
+      }
+    }
+  ],
+  "standing": "Closed preparation and all original template bytes retained; original CONTROL_PREPARATION remains unchanged."
+}

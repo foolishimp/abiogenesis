@@ -1,0 +1,789 @@
+{
+  "kind": "d5_authentic_recovery_fixture_readiness",
+  "status": "closed",
+  "verdict": "indeterminate",
+  "readyForP6Execution": false,
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": "fixed fifteen",
+    "goal": "GOAL-035",
+    "ticket": "T287",
+    "selectedFamily": "F10",
+    "affectedProvenance": [
+      "F04",
+      "F11"
+    ],
+    "boundary": "Existing Product/requirements own behavior; existing HOW/ABG own realization and admission. No new store, controller, runtime truth, history migration or physical-fact deletion.",
+    "evaluationRole": "same-family contributing technical evaluation returned to Root; no formal independent acceptance or native J"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+    "sha256": "601d6588e7c8c9f03a5305a378fb3454f815e641003668677b51142b590b096f",
+    "files": 386,
+    "nativePartialResultRef": "59fca6278b522da77bf12388de1d33eec009461898e437079d0a2fa0dc21d4eb",
+    "nativePartialResultOrdinal": 120005,
+    "unchangedBase": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "method": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+      "definitionInstalled": true,
+      "definitionVerificationFailures": []
+    }
+  },
+  "claim": "Find an authentic current-profile non-null projectPreservedWorksiteProposal fixture, not a supplied prefix or shape-valid stand-in.",
+  "conclusion": {
+    "supported": "Existing production owners expose a finite lawful composition route. No production behavior change is established as necessary to create the fixture.",
+    "notEstablished": "P6 is unperformed. No acquired helper already composes this route, but such a helper need not preexist: its finite declaration bundle and driver are the selected test Writer deliverable.",
+    "smallestUnavailableOwnerInput": null,
+    "nextOwner": "Root may grant the bounded fixture construction plus its first authentic positive attempt now. No separate readiness ceremony is needed after writing the fixture; ordinary constructors, Catalog/Program validation and actual projection are its discriminators. No Production repair is selected by this report.",
+    "unconstructedOwnerOutput": "The packaged test-owned source/lifecycle publication, complete root/preparation Program graphs and subsequent genuine requirement-handoff/assessment/bridge/Construction admissions. These are constructible Writer outputs under the available owner interfaces, not missing external semantic or authority material."
+  },
+  "priorReadinessCorrection": {
+    "verdict": "falsified",
+    "invalidatedPremise": "The earlier minimumPositiveFixture one-file premise cannot pass the existing semantic design bridge. This was a chosen fixture assumption, not authority to bypass semantic_stage.",
+    "ownerRoutes": [
+      "product/semantic_stage.ts:263-315",
+      "product/semantic_stage.ts:343-353",
+      "gtl/semantic_stage.ts:152-184",
+      "product/worksite_construction.ts:603-627"
+    ],
+    "minimum": "At least two selected targets: one implementation and one verifier, both carrying the selected obligation; at least one selected command; one exact non-null realization/proof/policy/shape join per selected obligation.",
+    "candidatePayloadRule": "The bridge selects both targets into constructionTask.targets. The recovered worker result must return both in exactly that order. There is no payload-versus-preimage inequality requirement in constructWorksiteConstructionWorkerResult: implementation may change while verifier returns byte-identical original content. Merely observing the verifier without selecting/returning it is insufficient.",
+    "effects": "This positive projects a preserved proposal. It must not apply either replacement or claim command execution.",
+    "whyMissed": "Prior readiness traced the downstream archive/protocol shape and named an assessed-design premise, but did not discharge deriveSemanticWorksiteConstructionConfiguration or package the source/lifecycle/Program owner dependencies. The original author support grant contained direct Construction bootstrap, not a legacy semantic composition harness."
+  },
+  "existingSupportLimits": [
+    {
+      "source": "test_env/support/root-installed-environment.mjs:168-638",
+      "supports": "Real artifact verification/install, ProductInstall admissions, WorkspaceAuthority/WorkspaceBinding admission, additional Products and core publications, real Catalog and cross-publication Program validation.",
+      "limit": "prepareAdditionalProducts must actually provide a package/manifest/publication; it is not a substitute for that missing bundle."
+    },
+    {
+      "source": "test_env/support/root-installed-environment.mjs:640-862,865-1023",
+      "supports": "Ordinary invocation authority and admission; actual ProductExecutionResolutionPort.",
+      "limit": "setupInstalledRootResolution requires cLeafTerms(rootNode.term)[0] and a root executable implementation binding at 897-927. A root beginning with workflow.C(stage) cannot simply be passed to setupInstalledRootExecutionBasis. A test-only composition driver must use the earlier invocation helper and the ordinary graph/implementation-set/basis owners without inventing a root leaf."
+    },
+    {
+      "source": "test_env/support/language-smoke-fixture.mjs:18-76",
+      "supports": "Existing pattern for a physically packaged test Product, payload inventory, capability graph, contribution/semantic digests, resolved dependency and installed publication loading.",
+      "limit": "It packages language declarations; it does not already package this recovery semantic Program."
+    },
+    {
+      "source": "test_env/tests/t287-worksite-construction.test.mjs:38-81,384-427,524-577",
+      "supports": "Actual local executable selected through ABG_TS_CLAUDE_COMMAND; native owner transport and HoG traversal over a real installed environment.",
+      "limit": "Direct Construction has no assessed bridge/preparation ancestry; its successful final-output protocol must be changed in a future fixture to proposal+ack without final result."
+    },
+    {
+      "source": "test_env/support/d1-preserved-result-harness.mjs:8-25,41-51",
+      "supports": "Historical selector shape and structural closure examples only.",
+      "limit": "Explicit uninstalled digests, assumed Catalog readiness and inaccessible external store cannot become a fresh authentic positive."
+    },
+    {
+      "source": "test_env/fixtures/native-semantic-revision/declarations.mjs:68-131; test_env/tests/t287-native-semantic-revision.test.mjs:1-2,19-35",
+      "supports": "Finite declarations for the newer native-work lifecycle, and explicitly scoped component premises.",
+      "limit": "Uses constructNativeSemanticStageGraphFunctions/native construction, not the legacy semantic_stage_assessor -> design_worksite -> preparation -> WORKSITE_CONSTRUCTION_IDS.graphFunctionRef chain authenticated by this recovery consumer."
+    }
+  ],
+  "concreteControlledPremise": {
+    "status": "finite proposed test data, not admitted evidence or an implemented fixture",
+    "source": {
+      "text": "Implement answer() returning 42 and verify it.\n",
+      "declaration": "gtl.constructRequirementHandoffDeclaration over one real UTF-8 member, exact byte length/digest/whole-span source binding and one requirement/obligation. Use product.constructRequirementHandoffInput for its bytes.",
+      "requirementRef": "requirement://abi5-tests/d5-recovery/answer@5",
+      "obligationRef": "obligation://abi5-tests/d5-recovery/answer@5",
+      "realizationContract": "contract://abi5-tests/d5-recovery/realization@5",
+      "proofContract": "contract://abi5-tests/d5-recovery/proof@5",
+      "proofPolicyRef": "policy://abi5-tests/d5-recovery/answer@5",
+      "proofShapeRef": "shape://abi5-tests/d5-recovery/answer@5",
+      "policyShapeJoin": "Exactly one policy and one shape refer to the same requirement/obligation and these source-owned role contracts. The source binding is exact. The value kinds are required by gtl/semantic_stage.ts:165-175; no null fulfillment fields.",
+      "roleContracts": [
+        {
+          "contractRef": "contract://abi5-tests/d5-recovery/realization@5",
+          "contractKind": "output",
+          "contractVersion": "5.0.0",
+          "valueKind": "worksite_construction_result"
+        },
+        {
+          "contractRef": "contract://abi5-tests/d5-recovery/proof@5",
+          "contractKind": "output",
+          "contractVersion": "5.0.0",
+          "valueKind": "worksite_command_execution_observation"
+        }
+      ],
+      "roleContractOwner": "The source consumer publication owns these two unique test-role contracts via constructRequirementHandoffConsumerPublication(..., roleContracts). Do not duplicate canonical ABI contract refs into a competing publication. validRequirementHandoffPublication checks local ownership; validSemanticLifecyclePublication checks the exact output value kinds. The execution graphs retain the canonical ABI Construction/C2 input/output contracts. This is ordinary test Product declaration data, not a new Production registry or semantic policy.",
+      "proofPolicy": {
+        "policyRef": "policy://abi5-tests/d5-recovery/answer@5",
+        "sourceRequirementRef": "requirement://abi5-tests/d5-recovery/answer@5",
+        "sourceBindings": "the exact whole-source span derived from the real member bytes",
+        "scope": "controlled D5 recovery composition fixture",
+        "realizationMeaning": [
+          "The implementation returns 42."
+        ],
+        "proofMeaning": [
+          "The verifier invokes the implementation and checks 42."
+        ],
+        "unprovedScope": [
+          "Semantic model quality, application qualification, and command execution are not established by this preserved-proposal fixture."
+        ],
+        "closureRule": "The fixture selects its two target roles and preserves exact owner joins; only the read-only recovery projection is claimed.",
+        "obligationRef": "obligation://abi5-tests/d5-recovery/answer@5"
+      },
+      "proofShape": {
+        "proofShapeRef": "shape://abi5-tests/d5-recovery/answer@5",
+        "requiredEvidenceRoles": [
+          "realization",
+          "verifier_artifact",
+          "verifier_execution",
+          "semantic_assessment"
+        ],
+        "sharedBasis": [
+          "complete_source",
+          "requirement_and_obligation",
+          "current_worksite",
+          "admitted_result"
+        ],
+        "requiredContent": [
+          "One selected implementation and one selected verifier tied to the same obligation."
+        ],
+        "nativeCarrierBoundary": "Actual owners issue the source, asset, assessment, bridge, Construction and physical-process coordinates; the controlled semantic candidate is a test premise.",
+        "requirementRef": "requirement://abi5-tests/d5-recovery/answer@5",
+        "obligationRef": "obligation://abi5-tests/d5-recovery/answer@5",
+        "roleContractRefs": {
+          "realization": "contract://abi5-tests/d5-recovery/realization@5",
+          "proof": "contract://abi5-tests/d5-recovery/proof@5"
+        }
+      },
+      "proofPolicyShapeCaveat": "Declaring verifier-execution as a role does not assert it occurred. The intentionally blocked Construction path proves preserved proposal authenticity only; command/C2 and full application closure stay unproved."
+    },
+    "lifecycle": {
+      "constructor": "gtl.constructSemanticLifecycleDeclaration",
+      "data": "taskData={}, evaluationData={}, their computed sha256Canonical digests; one design stage, no predecessor stages, bodyCapabilities=[worksite_design], one criterion.",
+      "surface": "requiredContexts includes the exact source context; outputContractRefs=[SEMANTIC_STAGE_IDS.workerContractRef], constructorRef/rendererRef equal SEMANTIC_STAGE_IDS; proofObligationRefs contains the one obligation.",
+      "assembly": "role_scoped_worksite with current_inventory for both author and assessor; declared sectionOrder role/source/obligations/predecessors/worksite/evidence/task/response; declared_semantic_assessment; finite maxPromptBytes.",
+      "semanticPremise": "A controlled author candidate selects both Product-derived targetRefs and the one command; a controlled assessor candidate supplies the exact declared criterion, satisfied, with genuine source quotations/statement refs. ABG and implementation/semantic_stage generate source coordinates and distinct actorInvocationRefs. This proves mechanical conservation only, not semantic quality or independent qualification."
+    },
+    "worksite": {
+      "relativeRoot": "proof",
+      "targets": [
+        {
+          "relativePath": "proof/app.mjs",
+          "role": "implementation",
+          "preimage": "export const answer = () => 0;\n",
+          "proposedReplacement": "export const answer = () => 42;\n"
+        },
+        {
+          "relativePath": "proof/verify.mjs",
+          "role": "verifier",
+          "preimage": "import { strict as assert } from 'node:assert';\nimport { answer } from './app.mjs';\nassert.equal(answer(), 42);\n",
+          "proposedReplacement": "byte-identical to verifier preimage"
+        }
+      ],
+      "construction": "Create physical regular files in the admitted temporary workspace. For each, call constructWorksiteSubject, constructWorksiteTerritory and observeWorksiteSubject; constructWorksiteConstructionTask gives the target identities. Carry the same exact WorkspaceAuthorityBasis, admitted WorkspaceBinding and current invocation capabilityGrant into SemanticWorksiteBasis. Do not make up target refs or observations.",
+      "selection": "Both design.targets rows reference the same obligation; dependencyTargetRefs=[]; dependencyDisposition=sufficient; commandRefs contains the one command."
+    },
+    "command": {
+      "commandId": "command://abi5-tests/d5-recovery/verify@5",
+      "executable": "process.execPath at future fixture creation",
+      "args": [
+        "verify.mjs"
+      ],
+      "relativeCwd": "proof",
+      "environment": {},
+      "timeoutMs": 5000,
+      "terminationGraceMs": 250,
+      "expectedReports": []
+    },
+    "outcomePredicates": [],
+    "allowedWriteTerritories": [],
+    "commandScope": "Declared and constructor-validated only. Its execution is not required for this positive because the candidate leaf intentionally returns no_output and blocks Construction before replacement or C2."
+  },
+  "ownerSequence": [
+    {
+      "step": 1,
+      "owner": "Test fixture writer -> Product publication/installation owners",
+      "calls": "constructRequirementHandoffModulePublication(actual ABI artifact basis); constructRequirementHandoffConsumerPublication(actual consumer basis, native publication, declaration, consumer identity, role contracts); constructSemanticLifecycleDeclaration; constructSemanticStageGraphFunction; constructSemanticBridgeGraphFunction; constructSemanticClosureContract; modulePublication.",
+      "material": "A physically packaged consumer with its actual manifest publicationBindings and declared dependency on the exact ABI artifact. Publish source/lifecycle/graphs/Programs and all closure contracts; use ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS for the semantic Program. Source roleContracts use unique test-owned refs with the required canonical value kinds, not duplicated ABI contract identities.",
+      "routes": [
+        "gtl/requirement_handoff.ts:98-187",
+        "gtl/semantic_stage.ts:130-184",
+        "gtl/semantic_stage_publication.ts:57-104",
+        "product/builtin_semantics.ts:810-839",
+        "test_env/support/language-smoke-fixture.mjs:18-76"
+      ],
+      "state": "finite test Writer deliverable; governing inputs available"
+    },
+    {
+      "step": 2,
+      "owner": "setupInstalledRootCatalog -> Product/ABG environment owners",
+      "calls": "prepareAdditionalProducts; verifyProduct; constructResolvedProductLock; installProduct; admitProductInstall; constructProductSet; constructWorkspaceAuthorityBasis; constructWorkspaceBinding; admitWorkspaceBinding; admitGraphFunctionCatalog; narrowGraphFunctionCatalog; resolveProgramDeclarationClosure; constructCatalogProgramValidationInput; validateProgram.",
+      "material": "Current D5-built artifact and verified package digests; fresh actual store using current event-contract profile; actual consumer root as declared productRoot; canonical temp workspace. Allowlist the source start and semantic start through existing Catalog view owner.",
+      "routes": [
+        "test_env/support/root-installed-environment.mjs:257-337,356-441,444-588"
+      ],
+      "state": "existing owners; create the concrete bundle/current-source built artifact as part of the selected fixture task"
+    },
+    {
+      "step": 3,
+      "owner": "Ordinary F_D requirement-handoff invocation",
+      "calls": "setupInstalledRootInvocation; ProductExecutionResolutionPort.resolve; constructRootInvocationPolicy; constructCapabilityGrant; constructInvocationAuthority; constructDirectInvocation; admitInvocation; materializeGraph; validateGraph; resolveImplementationSet; validateImplementationResolutionSet; admitExecutionBasis; constructAdmittedLeafInvocationPort; openTraversalScope; hog.executeGraphTraversal.",
+      "material": "Run the installed source declaration with real source input; retain its successful/advance RequirementHandoffOutput from owner-issued CCall Result/Judgment. A prior genuine source invocation in the same admitted environment is sufficient for the source handoff; the later assessor/bridge/preparation/Construction must share their own invocation.",
+      "routes": [
+        "test_env/support/root-installed-environment.mjs:640-862,902-953,1081-1149",
+        "test_env/tests/t287-worksite-construction.test.mjs:529-573",
+        "abg/semantic_stage.ts:188-201"
+      ],
+      "state": "real owner execution is a fixture deliverable, not unavailable external native history"
+    },
+    {
+      "step": 4,
+      "owner": "Semantic invocation and native author/assessor owners",
+      "calls": "constructSemanticStageEnvelope({sourceHandoff,lifecycle,taskData,evaluationData,worksite}); ordinary second invocation with inputFactory receiving actual current grant; the declared stage uses C.compose(author,assessor). HoG creates actual child bases/CCalls and implementation/semantic_stage derives assets and assessments from owned transport occurrences.",
+      "material": "One invocation, Program, WorkspaceBinding and root implementation set for stage/bridge/preparation/Construction. Both author/assessor return successful structured_output raw candidates through the actual local process; no prefilled SemanticActorSource.",
+      "routes": [
+        "product/semantic_stage.ts:355-365,384-421",
+        "gtl/semantic_stage_publication.ts:57-68",
+        "implementation/semantic_stage.ts:59-102",
+        "abg/semantic_stage.ts:103-141,188-248"
+      ],
+      "state": "test-only workflow-root driver to construct under existing owners; no external owner input missing"
+    },
+    {
+      "step": 5,
+      "owner": "Declared legacy design bridge and preparation child graph",
+      "calls": "constructSemanticBridgeGraphFunction({graphFunctionRef,nodeRef,closureContractRef,operation:design_worksite}); realizeSemanticWorksiteBridge -> projectSemanticWorksitePreparation -> deriveSemanticWorksitePreparation -> constructWorksiteCommandPreparationInput. The preparation graph first calls ABI selectBindingRef, then workflow.C(WORKSITE_CONSTRUCTION_IDS.graphFunctionRef).",
+      "material": "A complete preparation composition should retain entry via worksiteRetentionBinding(false) for ABI prepareBindingRef and C2 after Construction, even though the selected no_output branch stops beforehand. Its exact closure/failure declarations and Program callable closure still need to be authored and validated.",
+      "routes": [
+        "gtl/semantic_stage_publication.ts:70-81",
+        "abg/semantic_stage.ts:276-305",
+        "product/semantic_stage.ts:263-353",
+        "product/worksite_preparation.ts:107-110,150-152",
+        "product/worksite_preparation_contracts.ts:53-70,131-145",
+        "gtl/worksite_command_execution.ts:149-168",
+        "product/execution_resolution.ts:809-829"
+      ],
+      "state": "graph/publication realization and validation are bounded Writer work; no governing input gap identified"
+    },
+    {
+      "step": 6,
+      "owner": "Actor/process/worker-transport owners for the Construction candidate",
+      "calls": "Use the real admitted leaf port and HoG executor; select a temporary controlled local executable via ABG_TS_CLAUDE_COMMAND. Existing actor_process chooses the Claude stream-json protocol and actual worker_transport owns process lifetime and archive writes.",
+      "material": "Executable dispatches by the supplied --json-schema kind: semantic author/assessor produce successful structured_output; Construction emits exactly one assistant StructuredOutput tool_use plus one user tool_result acknowledgment with matching id and session_id, then exits 0 with no result record. Candidate includes both task-derived targets in order. Controlled payload data contains no fabricated native coordinates.",
+      "protocol": {
+        "proposal": {
+          "type": "assistant",
+          "session_id": "d5-controlled-session",
+          "message": {
+            "content": [
+              {
+                "type": "tool_use",
+                "id": "d5-proposal",
+                "name": "StructuredOutput",
+                "input": "task-derived worksite_construction_worker_result with both files"
+              }
+            ]
+          }
+        },
+        "acknowledgment": {
+          "type": "user",
+          "session_id": "d5-controlled-session",
+          "message": {
+            "content": [
+              {
+                "type": "tool_result",
+                "tool_use_id": "d5-proposal",
+                "content": "Structured output provided successfully",
+                "is_error": false
+              }
+            ]
+          }
+        },
+        "newlineTerminatedRecords": true
+      },
+      "routes": [
+        "test_env/tests/t287-worksite-construction.test.mjs:38-81,524-577",
+        "abg/actor_process.ts:902-922,1043-1067",
+        "abg/worker_transport.ts:612-680",
+        "abg/worksite_construction_recovery.ts:169-217"
+      ],
+      "state": "existing local process seam; bounded test executable to construct"
+    },
+    {
+      "step": 7,
+      "owner": "ABG admitted failure -> read-only recovery projection",
+      "calls": "Retain the actual binding/start/chunks/exit/artifact/no_output failure, failed CCall Result and blocked Judgment. Select the real held durable prefix; constructWorksitePreservedResultSource using only that coordinate and the actual sourceCCallRef/actorInvocationRef; call projectPreservedWorksiteProposal.",
+      "material": "Real prompt/output/stdout/stderr/transport regular files under admitted archiveRoot; exact digest and stream-chunk custody. transport.json omits all three retired booleans, has timeoutClass=null, processFacts classifies exited, status=0, signal=null; artifact observation retains its required live fields. Do not hand-write archive or append events.",
+      "routes": [
+        "abg/worksite_construction_recovery.ts:62-143,221-327",
+        "abg/worker_transport.ts:633-680"
+      ],
+      "prediction": "Non-null result containing two ordered files, assessedEnvelopeDigest, actual original failed Result/Judgment and protocol/stream/artifact coordinates; zero additional events, no target changes.",
+      "state": "unperformed; first positive attempt is part of the fixture task if Root selects it"
+    }
+  ],
+  "finiteGraphProposal": {
+    "status": "finite Writer construction under existing contracts; not yet implemented or validated",
+    "names": "Use test-owned declaration refs in an abi5-tests/d5-recovery namespace; these are authored declaration identifiers, never asserted runtime ancestry.",
+    "sourceProgram": "One source-only Program/start for the actual consumer requirement handoff.",
+    "semanticProgram": "One direct mixed Program/start: design stage workflow -> design_worksite bridge workflow -> preparation workflow -> evidence_input workflow -> envelope_output workflow. Lifecycle policy names the exact legacy semantic lifecycle. Stage, bridge and prep are in the same invocation.",
+    "preparationGraph": "select-construction C.of -> workflow.C(canonical Construction) -> prepare-task C.of with worksiteRetentionBinding(false) -> workflow.C(canonical C2). No new leaf implementation. Declared Construction/C0/vector/reducer callable closure and C2 owner must resolve even when the selected failure path prevents their later calls.",
+    "stageAndBridgeIdentity": "Keep constructSemanticStageGraphFunction and constructSemanticBridgeGraphFunction outputs exact; recovery reconstructs those graphs and compares materialization/CCall identity. A renamed/rewritten approximate stage graph is insufficient.",
+    "missingConcreteArguments": "No external decision or semantic/authority material is missing. The exact graph node/edge/closure/failure assignments are Worker-owned HOW realization under the identified existing contracts, and must be produced/validated by the fixture task. Their absence as existing code is not a stop before implementation.",
+    "oneConsumerPackaging": "A single test-owned consumer package/publication can contain the source declaration and legacy lifecycle, source Program and semantic Program, stage/bridge/preparation/evidence/terminal graphs and declared closures. Borrow the ABI semantic-stage semantics binding, which delegates requirement-handoff and generic ABI contract interpretation. Package all authored declarations and compute actual inventory/semantic/manifest/archive digests using the existing test Product pattern."
+  },
+  "discriminators": [
+    {
+      "id": "P6",
+      "claim": "Authentic current-profile recovery projection over copy-free archive",
+      "action": "First construct and validate the missing fixture bundle; then run only the lower-owner source/stage/bridge/Construction route above and assert non-null with two exact candidate members.",
+      "requiredEvidence": "Owner-issued source/assessment/bridge/entry/Construction coordinates, current profile durable prefix, exact archive digests, unchanged target bytes/store after projection.",
+      "status": "unperformed; ready for bounded fixture construction and first attempt after ordinary owner validations"
+    },
+    {
+      "id": "N1-timeout",
+      "action": "Separate genuine Construction attempt of the same fixture: emit proposal+ack then remain alive beyond the explicitly bounded transport timeout; actual lifetime owner terminates/observes it.",
+      "prediction": "Recovery returns null on actual timed_out/non-no_output/termination relation. No mutation of positive history.",
+      "status": "local process route available only after positive fixture exists; unperformed"
+    },
+    {
+      "id": "N1-nonzero",
+      "action": "Separate genuine attempt: same protocol, exit status 7.",
+      "prediction": "Recovery returns null because the original physical/actor outcome is not completed exit-0/no_output.",
+      "status": "local process route available only after positive fixture exists; unperformed"
+    },
+    {
+      "id": "N1-unconfirmed",
+      "action": "Require a genuinely owner-recorded unconfirmed boundary if asserting a current-profile end-to-end discriminator. Do not forge a missing-exit event or transplant the legacy component recorder.",
+      "prediction": "Current recovery requires actor_process_terminated, exact exited status 0/signal null and completed processFacts; unconfirmed cannot qualify.",
+      "status": "static guard established; authentic physical current-profile fixture not located. Existing lifecycle test at 20-29,49-58,86-161,266-288 is an explicitly mocked physical/prefix component and does not discharge P6/N1 integration. This separate physical residual is not a prerequisite to implement the positive."
+    },
+    {
+      "id": "N2-ack",
+      "action": "Separate genuine attempt: change only acknowledgment tool_use_id or session_id in controlled stdout; keep actual transport/archive admission. Also a pure projectPreservedStructuredProposal check may localize the protocol relation.",
+      "prediction": "Full projection null at protocol identity/order check. Pure parser evidence alone is not P6.",
+      "routes": [
+        "abg/worksite_construction_recovery.ts:169-210"
+      ],
+      "status": "unperformed"
+    },
+    {
+      "id": "N2-artifact",
+      "action": "After a valid disposable positive is closed, change one archived byte without altering its retained event/digest, then project the same actual source selector. Preserve original positive evidence separately.",
+      "prediction": "Null on artifact digest/chunk custody. This is a disposable test negative, never production evidence correction.",
+      "routes": [
+        "abg/worksite_construction_recovery.ts:277-315"
+      ],
+      "status": "unperformed"
+    },
+    {
+      "id": "N3",
+      "action": "Use actual identifiers from two completed fixture attempts and cross actorInvocationRef/sourceCCallRef or use the actual earlier source prefix excluding the selected call. Retain both histories; do not invent UUIDs as positive ancestry.",
+      "prediction": "Null. A direct Construction source with an otherwise genuine archive also remains null because taskBridge is absent.",
+      "routes": [
+        "abg/worksite_construction_recovery.ts:99-143,223-275"
+      ],
+      "status": "unperformed"
+    }
+  ],
+  "cheapestLawfulProof": {
+    "first": "Complete one test-owned declaration bundle and require actual Catalog/Program/implementation resolution before any local actor process. Then the one successful F_D handoff plus three controlled local actor calls (semantic author, assessor, Construction) is the finite positive.",
+    "after": "Reuse that fixture environment and authentic source premise where ordinary invocation owners permit for nearest negatives; obtain new actual sibling attempts rather than re-run unrelated lanes.",
+    "cannotSubstitute": [
+      "Pure Product construction of a satisfied envelope",
+      "VM owner overrides or verifyAuthority=>true",
+      "Synthetic prefix/Result/Judgment or hand-written archived processFacts",
+      "Historical RC4 recovery or newer native-work lifecycle",
+      "Existing null-only or protocol-only cases"
+    ],
+    "scope": "No need to apply preserved replacements, execute C2, qualify a semantic model, finish full recovery, or repeat broad nine-module lanes merely to discover this fixture prerequisite."
+  },
+  "reuseAndInvalidation": {
+    "retained": [
+      "Actual D5 partial Result and its bounded author-reported checks/failure/skips",
+      "Prior protocol and archive guard analysis as conditional owner facts",
+      "Existing mocks as explicitly labeled component evidence",
+      "All prior failed Runs and Q23/C2 scope on their original subjects"
+    ],
+    "invalidated": [
+      "Prior claim that one file suffices for authentic assessed-design recovery",
+      "Inference that direct Construction/root-installed-environment already composes the required ancestry",
+      "Any claim that a mocked unconfirmed component is an authentic current-profile P6 negative"
+    ],
+    "newSubject": "Fixture or D5 source changes require a newly pinned built artifact/current-profile fresh store for affected proof. Do not restamp a predecessor store or transfer prior C2/qualification to a new source.",
+    "m2": "No new M2 retirement selection. The partial return keeps its shared observationDigest/qualification consumer dependency; this task does not revisit it."
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "result": "falsified",
+      "subject": "prior readiness one-file premise",
+      "trigger": "Any attempt to create the selected genuine design bridge with only one role/target",
+      "effect": "deriveSemanticWorksiteConstructionConfiguration returns null before the new transport archive branch",
+      "triage": {
+        "frequency": "certain for the stated one-file fixture",
+        "realizedHarm": "No false admission observed; actual author stopped and retained partial return. Wasted preparation and blocked P6 proof.",
+        "containment": "Existing bridge and recovery guards fail closed.",
+        "repairClass": "test-fixture correction under unchanged law",
+        "complexity": "bounded but more than an added response shape: real source/lifecycle publication plus Program composition and native process owner chain",
+        "regressionRisk": "Low if confined to isolated test support; expanding Production semantics or authority would materially raise it",
+        "priority": "Root-owned; no independent Executive selection",
+        "uncertainty": "No execution; full declaration bundle remains unvalidated"
+      }
+    },
+    {
+      "id": "R2",
+      "result": "indeterminate",
+      "subject": "authentic fixture execution and positive result",
+      "triage": {
+        "frequency": "fixture not implemented; no external semantic/authority input missing",
+        "realizedHarm": "P6 remains unproved; no demonstrated Production regression",
+        "containment": "Build and attempt the positive through ordinary typed owners; do not claim a result before it exists.",
+        "repairClass": "finite test-owned declaration/driver addition is indicated; Production change not established",
+        "complexity": "requires exact Program/closure/owner validation and current-source artifact",
+        "regressionRisk": "avoid wrapper framework, fake admissions, or predicate/authority bypass",
+        "priority": "Root-owned",
+        "uncertainty": "Complete graph/package validity is implementation validation, not an external prerequisite. Actual non-null and authentic physical unconfirmed negative are unperformed."
+      }
+    }
+  ],
+  "unperformedCoverage": [
+    "No constructors executed, package built/installed, test run, local worker started, provider called, runtime event written or historical private stream read.",
+    "No claim that the proposed fixture validates, that P6 passes, that D5 is accepted, or that current-source full recovery/replay is qualified."
+  ],
+  "owningReentry": {
+    "owner": "Root selects a bounded native test-fixture Writer task",
+    "readiness": "Ready to construct the fixture and attempt its authentic positive under the available contracts/material inputs. Not an assertion that P6 already passes.",
+    "requiredDeliverable": "Two test files below supplying the installed consumer declaration bundle, workflow-root driver and controlled physical local process; actual source/semantic/bridge/Construction admissions and non-null projection.",
+    "externalInputsMissing": [],
+    "stopCondition": "Return an exact owner diagnostic only if the cause requires missing external authority/semantic material, read/write territory outside the grant, or a Production behavior change. Routine graph/manifest/fixture-constructor corrections within the named test territory are implementation work and do not require another readiness review.",
+    "physicalResidual": "Actual current-profile termination-unconfirmed integration remains separate. Do not relabel the legacy mocked component as that proof or make it a prerequisite to build the positive.",
+    "stagedOrder": [
+      "Preserve the present D5 partial source and its original evidence.",
+      "Build the authentic finite fixture and reach non-null against that current partial source before broad lanes or M2 edits.",
+      "Retain the exact baseline source/build/profile/prefix/archive proof.",
+      "Only if Root separately includes the necessary M2 owner/consumer scope in the same task, make those changes and rerun this same fixture on the new exact source/current-profile fresh store with the selected copies absent. No prior event or archive rewrite."
+    ]
+  },
+  "evidence": {
+    "frozen": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        "sha256": "06afb4725c375d5bce2e28f4415c7f47ceb9e9e8f11422bf5b4400a37a924a82",
+        "bytes": 40227,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+        "sha256": "f1985ef058a3a4ef1109df8fb048d98ca420a6863cc8c605fea624feda6e16f4",
+        "bytes": 30545,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+        "sha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+        "bytes": 129406,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "sha256": "94908ca0c4900dcf7be787f207dafe87be9288f0da1b75c88b9cfb5cec33679b",
+        "bytes": 82336,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "sha256": "352e98b9faf3713166b3a39271ba472c62b40b67546a8443df1681f119c5aab9",
+        "bytes": 37162,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts",
+        "sha256": "9309c0b8af66820dd511193373b6bc241a7d3709fa76ef3142b5c1e63fd11e18",
+        "bytes": 12660,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts",
+        "sha256": "27251cc90131c0c863af87d72ad78a4e6941a60b74bf582c02fe6d561ce2c301",
+        "bytes": 21492,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts",
+        "sha256": "156aa6c57477177ba0eabf0bea93d4504849ad2af7456fc749e6b0daaf719407",
+        "bytes": 15339,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction.ts",
+        "sha256": "b4fc61f5bad3f129652447d11c99256afb24534ddeb08dd95969e96b20f3a78b",
+        "bytes": 24516,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+        "sha256": "2faf93d2def13bc8f8eb9d2759e190994712f575f39b5ef567ec407686c1b22b",
+        "bytes": 24181,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts",
+        "sha256": "29b28ad15eb7d43166cf45446b76524f78ecd051f736f5d827bc5f18eef100d7",
+        "bytes": 36241,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts",
+        "sha256": "368752ce44b3d08e8f859a8e9b4566c4b5138330237da3791e2a5ffd7067b639",
+        "bytes": 39046,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation.ts",
+        "sha256": "ef55daddb577b836982d7e910503de1041d64b51fb7522fb7f9be07edff127f9",
+        "bytes": 18831,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts",
+        "sha256": "7b51d07ad2c03510dc66b642519b7799608cca5ad0d144c32983d16b7f96ecbb",
+        "bytes": 15389,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "sha256": "6766194e77012654f660814674842ec372e63bc6020df3ffc3110debb2bf5db1",
+        "bytes": 143027,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "sha256": "729336931f3708a0f9432da21d102f1a5f714614a06bc229f40384a89189710f",
+        "bytes": 46572,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+        "sha256": "84e5288f43469b6494cd88b307b3c93bf4fb531a68508f1aff250f26f886d5eb",
+        "bytes": 63239,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+        "sha256": "78d213d48e697882b8614d825c8a6cb4b4c7ee9ef5b5f3a75cbc72f80c33ec49",
+        "bytes": 46913,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+        "bytes": 42751,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "sha256": "2d1bb0cf164a28e931d76155ad7efe084f68edce623519dd22b6cb74ce8d7abc",
+        "bytes": 36543,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "specification/PRODUCT.md",
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+        "bytes": 100324,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/specification/PRODUCT.md",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "stdo_abiogenesis.json",
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+        "bytes": 3136,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/stdo_abiogenesis.json",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "sha256": "e3233793d10b6ffdafa41f414821b9fa6a64b9fd9cebba8a612b1b73389594ad",
+        "bytes": 147084,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "acquisition": "frozen SUBJECT member"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        "sha256": "0a05f75ab566602af154e99044a24760e0ef1fb46a5393ef44ab024ef40d4919",
+        "bytes": 21963,
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        "acquisition": "frozen SUBJECT member"
+      }
+    ],
+    "omittedSupportAtUnchangedBase": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+        "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+        "bytes": 7276,
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "acquisition": "exact read-only git show; outside original author support grant; no historical log read"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+        "sha256": "200f4a94e0fd84296f35816f663e747830c1690375daa986d51cfaa3c0c2d51e",
+        "bytes": 42549,
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "acquisition": "exact read-only git show; outside original author support grant; no historical log read"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+        "sha256": "98f1994045dbbeda2087b80a6bf569659a89056a4346f3670e77b14792d6d44d",
+        "bytes": 5091,
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "acquisition": "exact read-only git show; outside original author support grant; no historical log read"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+        "sha256": "f95df8511a4d56148a80bac009ea41bceeb17907f59488bd6b24a39281d6fd59",
+        "bytes": 21165,
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "acquisition": "exact read-only git show; outside original author support grant; no historical log read"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+        "sha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc",
+        "bytes": 67553,
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "acquisition": "exact read-only git show; outside original author support grant; no historical log read"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+        "sha256": "208787a16a81dc51f5aa676e129bdd462710952c68a1652ab383bf4a58420fcf",
+        "bytes": 23199,
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "acquisition": "exact read-only git show; outside original author support grant; no historical log read"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+        "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a",
+        "bytes": 9594,
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "acquisition": "exact read-only git show; outside original author support grant; no historical log read"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+        "sha256": "3fa8fa8ffea19a187f727d64f6da3940e8def6ab3dadad0e055c0c45848ec0b3",
+        "bytes": 9459,
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "acquisition": "exact read-only git show; outside original author support grant; no historical log read"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+        "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+        "bytes": 9963,
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "acquisition": "exact read-only git show; outside original author support grant; no historical log read"
+      }
+    ],
+    "controlsAndClosedInputs": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/recovery-owner-reentry-001/REVIEW_REQUEST.md",
+        "sha256": "8d905f8ac736c696c3116692e53781d2b575b9e2d16ccdf9000848e0bd1a1163",
+        "bytes": 3910
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_SELECTION.json",
+        "sha256": "7c748823ac447064b1dd31d5e42f50680365ca588240e4420c57ccad6663f3c1",
+        "bytes": 10325
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/return.json",
+        "sha256": "09981772fb4a212adb06454e5681e43f465d88d9a4fd4be006de4c4985f68b5f",
+        "bytes": 17280
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/readiness.json",
+        "sha256": "ffcdd69d36e8fb8288000705b8ae99eb24d2b0a32a0d1e9e9280896a7dd96ef0",
+        "bytes": 3097
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_RECOVERY_PROOF_READINESS.json",
+        "sha256": "a1844b66d6eb4177ea642ea38ad4c7da9938cf171667c9e1167a57cb0c1db65d",
+        "bytes": 24139
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_RECOVERY_PROOF_READINESS.md",
+        "sha256": "b0ff036002bc48e9025fceb11780b0b9ab600442a335570693268020baffefeb",
+        "bytes": 5794
+      }
+    ]
+  },
+  "limits": {
+    "reportWritesOnly": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/recovery-owner-reentry-001/READINESS.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/recovery-owner-reentry-001/READINESS.md"
+    ],
+    "activation": false,
+    "independentAcceptance": false,
+    "noClaimOfMissingGeneralCapability": true
+  },
+  "readyForBoundedFixtureConstruction": true,
+  "readyForFixtureConstructionIncludingFirstPositiveAttempt": true,
+  "P6RunnableWithoutWritingFixture": false,
+  "P6PositiveEstablished": false,
+  "externalSemanticOrAuthorityInputMissing": false,
+  "readinessDistinction": {
+    "buildVerdict": "satisfied",
+    "meaning": "Existing governing contracts and material test premises are sufficient for a native Writer to construct the finite fixture and attempt the first positive. The test package, graphs, driver and actual owner admissions are deliverables of that task, not external prerequisites that must preexist.",
+    "executionVerdict": "indeterminate",
+    "meaningOfReadyForP6ExecutionFalse": "No implemented fixture is currently runnable and no positive has been observed. This does not forbid the Writer from running the first positive after building/validating the fixture within a Root-selected task.",
+    "externalSemanticAuthorityInputsMissing": [],
+    "implementationWorkRemaining": [
+      "Construct test-owned source/lifecycle/role-contract publication and complete Program/graph/closure/failure declarations under existing constructors.",
+      "Package the test Product with real digests; use ordinary installed Catalog/authority/admission owners.",
+      "Implement a local workflow-root composition driver using the existing owners rather than passing workflow.C to the executable-root-only helper.",
+      "Construct controlled local worker and inspect actual owner-returned coordinates/archives to establish non-null."
+    ],
+    "separateResidual": "An authentic physical termination-unconfirmed fixture has not been located; this does not block building the positive. Preserve its component/static limits if that end-to-end negative remains open."
+  },
+  "minimumWriterTerritory": {
+    "newTest": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+      "purpose": "P6 positive and finite authentic negatives; explicitly separate parser/component/static evidence and any unconfirmed physical residual."
+    },
+    "newSupport": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "purpose": "Test-owned declaration/package generation in a temporary directory, ordinary installed owner bootstrap/invocation, workflow-root owner-call composition, controlled local worker generation, retained exact evidence selection. No new Production runtime or registry."
+    },
+    "HOW": {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+      "purpose": "Only if the selected Writer workflow requires HOW recording: document the existing two-target paired-role/source/graph/physical-custody proof construction and scope. No governing behavior change.",
+      "requiredForExecutableFixture": false
+    },
+    "readReuse": [
+      "test_env/support/root-installed-environment.mjs",
+      "test_env/support/language-smoke-fixture.mjs",
+      "test_env/tests/t287-worksite-construction.test.mjs",
+      "the pinned Product/GTL/ABG/HoG owners in evidence"
+    ],
+    "noExistingSupportRewriteRequired": true,
+    "noHistoricalHarnessRewriteRequired": true,
+    "productionWritesForFixture": [],
+    "M2Territory": "Separate from this minimum fixture cone; remains whatever exact original/next Root grant selects. This report does not silently enlarge it."
+  }
+}

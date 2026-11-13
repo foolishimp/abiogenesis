@@ -1,0 +1,227 @@
+{
+  "status": "FULL_CORRECTION_CARRIERS_PASSED_CLOSED_PENDING_ROOT_ACCEPTANCE",
+  "at": "2026-11-07T12:43:55.487446+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "sourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 7205,
+    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/source-freeze.json",
+    "bytes": 295552,
+    "sha256": "422808c5850d72cb0533fa7ddba6864c757f9b23eeba756466f4157f20cd7879"
+  },
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/READY.json",
+    "bytes": 572407,
+    "sha256": "0380ef49e60c0331d03bc2cb5d975b30f4fa775a357c71a5c0f99246cbb1401a"
+  },
+  "unchangedTest": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-rp2-correction-carriers.test.mjs",
+    "bytes": 5612,
+    "sha256": "8980e3c7e8f0dddf542219aed644d9fc12449baefe912004285d985dec2b0618"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/rp2-correction-timeout-017/REVIEW.json",
+    "bytes": 15868,
+    "sha256": "dd46bac88e189b8d61f43115398c73ee08591bedfbd4f78e7d5413b6e25cc516"
+  },
+  "priorStoppedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_017.json",
+    "bytes": 13201,
+    "sha256": "0b67ad05bc49ff1b6b45283922fe02630982e4a27dd0ee6b0960fb0b94372616"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/ROOT_ADMISSION.json",
+    "bytes": 3526,
+    "sha256": "bce42ac46efcc70fd0aa8e4190ae655e159b5aaa488c2f24323a77afa24198a9"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/PREPARATION.json",
+    "bytes": 5065,
+    "sha256": "ab601815cc91531cf6a8a52755d661e40699dcf97e45617f4d07f76a020d3a91"
+  },
+  "start": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/EXECUTION_STARTED.json",
+    "bytes": 2019,
+    "sha256": "373180a07f5f848235723b5508be75b4d9ebe6a74e71309afbb77a86161eba52"
+  },
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/RESULT.json",
+    "bytes": 853,
+    "sha256": "7fc9169a5c9efe36e919bc4fae6be7c598542d9e5b9f4605f3423549136cc593"
+  },
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/events.jsonl",
+    "bytes": 841,
+    "sha256": "a916d8cdc17ac50d6a8ad6e0fdb905184d21f322716e82abfc3ab9f4d8080303"
+  },
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/commands/test.result.json",
+    "bytes": 1489,
+    "sha256": "ece2e4b93cc0e7d2ae2a7d32f9c8e02c1e54e0012f2b598e97b3fcfc20e9a12d"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/commands/test.stdout",
+    "bytes": 412,
+    "sha256": "67c87479c324261d7d447e47bab2e11cecb141a27e0854d8b0152d2ca876a346"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/commands/test.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "modes": [
+    {
+      "mode": "inspect_runtime_archive",
+      "run": {
+        "digest": "sha256:1cf0edecdf753a01c5e361ca63d607ccbd00f2b5bb65a371a9c21b11e7b61ec8",
+        "ref": "run://abiogenesis/7058f18c519d9fa576707b6132034b0954b5c600899a05adfa129d835514c2f4"
+      },
+      "runDisposition": "runtime_failed",
+      "actualStopDisposition": "inspect_runtime_archive",
+      "failure": null,
+      "terminalResult": null,
+      "replayStatus": "stopped",
+      "replayFailure": null,
+      "replayTerminalResult": null,
+      "replaySourceAndSubjectEqualRun": true,
+      "replayPrefixUnchanged": true,
+      "savedEventsEqualActualLogSlice": true,
+      "runtimeFailureRunClosedHumanResponseAbsent": true,
+      "runWallMs": 37955.15829200001,
+      "coldReplayWallMs": 19102.573957999994,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence/inspect_runtime_archive-receipt.json",
+        "bytes": 52121,
+        "sha256": "271131723ce0a88e6c5e516ffc579bacd2a567cb313a5fcf5635ab17220736c1"
+      },
+      "events": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence/inspect_runtime_archive-events.json",
+        "bytes": 880385,
+        "sha256": "99d441aee83ede4bea90945b2d93388188b6972c1587436385a52de47db38f37"
+      },
+      "replay": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence/inspect_runtime_archive-replay.json",
+        "bytes": 4706,
+        "sha256": "30ee6f7bdefeeea5a190921ddf3dfbbcc80d4d7ad57936bf8eb5fe86b8775f03"
+      }
+    },
+    {
+      "mode": "escalate",
+      "run": {
+        "digest": "sha256:c7648c2edfdd4489177cc9268d66eb6abccbd295fa5b2d5f02c4bae0deaf91fb",
+        "ref": "run://abiogenesis/1e504aca812f877d0e62aa6e1e2cf288a3b4cb790ae30c7c632dda20b618eac3"
+      },
+      "runDisposition": "runtime_failed",
+      "actualStopDisposition": "escalate",
+      "failure": null,
+      "terminalResult": null,
+      "replayStatus": "stopped",
+      "replayFailure": null,
+      "replayTerminalResult": null,
+      "replaySourceAndSubjectEqualRun": true,
+      "replayPrefixUnchanged": true,
+      "savedEventsEqualActualLogSlice": true,
+      "runtimeFailureRunClosedHumanResponseAbsent": true,
+      "runWallMs": 34185.520334,
+      "coldReplayWallMs": 19325.56391700002,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence/escalate-receipt.json",
+        "bytes": 52101,
+        "sha256": "27b057cb0dcc65dfa44b8949255203ba0a425dbd659973ab92fdf74341eabcaf"
+      },
+      "events": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence/escalate-events.json",
+        "bytes": 876971,
+        "sha256": "7fb83ad1e19a754be58b019a85c989385a11158bb0e8e298999ea8c27f035b60"
+      },
+      "replay": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence/escalate-replay.json",
+        "bytes": 4690,
+        "sha256": "53642bf7c9f2bf52f540f12e9d97984c27fe94231f37a9e5a195aa7d915a3262"
+      }
+    }
+  ],
+  "finalHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence/handoff.json",
+    "bytes": 1190,
+    "sha256": "f0da272a303f020c513af9393ab4860b20c041ab3527cfcd64b7ef85d997fea4"
+  },
+  "fixtureResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence/result.json",
+    "bytes": 143,
+    "sha256": "104b1cbcb7bdcd7683faf26cd101798140df1950a9a9d535c89431b94e06c79b"
+  },
+  "setup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence/setup.json",
+    "bytes": 439,
+    "sha256": "aeff6899437494c52789e708aae58f40f3b5b6ceb79467c0530d5c5c7aad56b1"
+  },
+  "finalPhysicalLog": {
+    "path": "/private/tmp/abg-r8-correction-001/t/abi5-root-env-xD1xuz/runtime/events.jsonl",
+    "bytes": 4682901,
+    "sha256": "626763078bfb798a07c37e0512d9f002f7b3f8faae8f513f012e1e77b4202b61"
+  },
+  "finalPrefix": {
+    "coordinateDigest": "sha256:32a299a4bfe9642ef142d900ff740b99efd8b39823dd241c229cab3f544cce58",
+    "eventLogRef": "file:///private/tmp/abg-r8-correction-001/t/abi5-root-env-xD1xuz/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:626763078bfb798a07c37e0512d9f002f7b3f8faae8f513f012e1e77b4202b61",
+    "prefixLength": 4682901,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+      "inode": 713436141
+    }
+  },
+  "physicalIdentity": {
+    "device": 16777231,
+    "inode": 713436141,
+    "bytes": 4682901
+  },
+  "conservation": {
+    "bothRunAndReadPrefixesMatchActualLog": true,
+    "bothColdReplayPrefixesUnchanged": true,
+    "secondRunEntryEqualsFirstReplayClose": true,
+    "finalHandoffEqualsLastReplayClose": true,
+    "primarySourceAndDependenciesPreserved": true,
+    "archiveMatchesIndependentA178": true
+  },
+  "counts": {
+    "wholeFile": true,
+    "topLevelPassed": 1,
+    "skipped": 0,
+    "modes": 2,
+    "coldReplays": 2
+  },
+  "timing": {
+    "commandStartedUtc": "2026-11-07T12:35:22.750Z",
+    "commandWallMs": 399307.969583,
+    "recipeMs": 401845.580042,
+    "setupPhaseIsolatedMs": null,
+    "setupTimingStanding": "The unchanged test records setup identities but no isolated setup timer; no inferred phase or host-cause claim."
+  },
+  "custody": {
+    "hostPid": 78800,
+    "session": 99160,
+    "hostExitCode": 0,
+    "commandExitCode": 0,
+    "timedOut": false,
+    "truncated": false,
+    "signal": null,
+    "providerCalls": 0,
+    "buildInvocations": 0,
+    "sourceEdits": 0,
+    "retry": false
+  },
+  "standing": "One exact A11 whole-file proof, separately conjoin with broadA6 ledger without restamping it. Original017 pre-Run timeout retained. Both scripted child correction modes are proved with stopped cold replay; no human-response/resume or whole5/cut qualification claim."
+}

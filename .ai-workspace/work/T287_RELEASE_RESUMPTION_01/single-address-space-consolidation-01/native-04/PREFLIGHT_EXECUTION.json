@@ -1,0 +1,9 @@
+{
+  "startedUtc": "2026-11-03T19:42:23.619201+00:00",
+  "endedUtc": "2026-11-03T19:42:56.157854+00:00",
+  "wallMs": 32538.638416677713,
+  "exitCode": 0,
+  "kind": "installed_owner_preflight",
+  "setup": "existing maintained SDK setup reused; not a new setup measurement",
+  "providerCalls": 0
+}

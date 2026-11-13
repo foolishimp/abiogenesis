@@ -1,0 +1,17 @@
+{
+  "recordedUtc": "2026-11-04T13:16:43.333312+00:00",
+  "kind": "passive_c2_failure_custody_totality",
+  "originalPreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/capture-c2.mjs",
+    "bytes": 12341,
+    "sha256": "cb4f854b871c704d7e58243c808285125b10076938b5c185831f362036694537"
+  },
+  "captureScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/capture-c2-total.mjs",
+    "bytes": 12579,
+    "sha256": "ba82bc8bcd16391310b7acbf08189c45c0438a51a6d7addb638368686acf33dc"
+  },
+  "effect": "Permit capture of an actual failed C2 report whose nativeTestProof is null, only when its report explicitly records no retained producer proof; preserve null and all failures. All owner/source/helper/hash validation remains.",
+  "status": "Prepared only; no actual C2 capture executed.",
+  "scope": "Root operator custody only. No in-flight control, Product, candidate or runtime effect."
+}

@@ -1,0 +1,37 @@
+{
+  "authorityBasis": {
+    "authorityDigest": "sha256:92bbba62cef072fdc0ba4d95f71a58c35f1ca88ee159c63a157db0b6bfac8e58",
+    "authorityRef": "workspace-authority://abiogenesis/92bbba62cef072fdc0ba4d95f71a58c35f1ca88ee159c63a157db0b6bfac8e58",
+    "importAuthorityDigest": "sha256:3459fbf26460275ec10a36150f2d8f4f705df81224059fc9fb82697b06cb7f7e",
+    "importAuthorityRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/OPERATOR.md",
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "source": "admitted_import"
+  },
+  "authorityMode": "imported",
+  "bindingDigest": null,
+  "bindingRef": null,
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis-rc2-dogfood",
+  "configurationDigest": null,
+  "configurationRef": null,
+  "creationManifestDigest": "sha256:64b94283892f2e346e811c48e509bac90c04046b8d7a0534b1d86d70702f4f87",
+  "creationManifestRef": "workspace-creation://abiogenesis/64b94283892f2e346e811c48e509bac90c04046b8d7a0534b1d86d70702f4f87",
+  "kind": "workspace_manifest",
+  "preservationPolicy": "preserve_existing_project_truth",
+  "preservationState": "preserved",
+  "provenance": [
+    {
+      "provenanceDigest": "sha256:3459fbf26460275ec10a36150f2d8f4f705df81224059fc9fb82697b06cb7f7e",
+      "provenanceRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/OPERATOR.md"
+    },
+    {
+      "provenanceDigest": "sha256:64b94283892f2e346e811c48e509bac90c04046b8d7a0534b1d86d70702f4f87",
+      "provenanceRef": "workspace-creation://abiogenesis/64b94283892f2e346e811c48e509bac90c04046b8d7a0534b1d86d70702f4f87"
+    }
+  ],
+  "scaffoldPolicy": "not_applicable",
+  "scaffoldState": "preserved_project_authority",
+  "schemaVersion": "5.0.0",
+  "workspaceDigest": "sha256:960435661d0f70d535e8d473c183ee9465ac596533cc078c4ba06fcc7734d048",
+  "workspaceRef": "workspace://abiogenesis/960435661d0f70d535e8d473c183ee9465ac596533cc078c4ba06fcc7734d048"
+}

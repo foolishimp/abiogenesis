@@ -1,0 +1,166 @@
+{
+  "kind": "independent_reviewer_bounded_localization",
+  "subjectSha256": "59a34082855c8db167d2a85575203f04761fadd0bd627bf52308c0fe30e11dcd",
+  "archiveSha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db",
+  "runtime": "v24.7.0",
+  "executedExistingTest": {
+    "cwd": "/private/tmp/rc4-014-independent-review-r_vmsxub/frozen-host/node_modules/@abiogenesis/typescript-tenant",
+    "argv": [
+      "/opt/homebrew/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-timeout=240000",
+      "--test-name-pattern=^interrupted recursive workflow resumes once through the cold Public run.continue pending_execution arm$",
+      "test_env/tests/t287-recursive-registered-selection.test.mjs"
+    ],
+    "environmentOverrides": {
+      "TMPDIR": "/private/tmp/rc4-014-independent-review-r_vmsxub/tmp",
+      "npm_config_cache": "/private/tmp/rc4-014-independent-review-r_vmsxub/npm-cache",
+      "NODE_OPTIONS": "--max-old-space-size=8192",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/private/tmp/rc4-014-independent-review-r_vmsxub/candidate.tgz",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/rc4-014-independent-review-r_vmsxub/frozen-host",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db"
+    },
+    "exitStatus": 0,
+    "testCount": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "testDurationMs": 40112.500666,
+    "runnerDurationMs": 40478.967958,
+    "log": "recursive-cold-public.log"
+  },
+  "sourcePreservation": {
+    "snapshotFiles": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+        "snapshotSha256": "32ed7dd156ac305e79dc3a9e87f6a3e5f76d5b9087ce7a4add992e82aa0af799",
+        "recordedAfterSnapshotCorrespondenceMatch": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+        "snapshotSha256": "91731ec9443858de4f0013d877e9b00596a224347246ca6f52a9ce4f28f95338",
+        "recordedAfterSnapshotCorrespondenceMatch": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+        "snapshotSha256": "b8151b429002efb8e1cdfa5e602dd731d4e3c64cd2b08f38b5e829e41d2719bc",
+        "recordedAfterSnapshotCorrespondenceMatch": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+        "snapshotSha256": "06ec590a6e39fa4aa5ef8f3bf231d464d0de2d1f3fa2d8c8016445e96d77695c",
+        "recordedAfterSnapshotCorrespondenceMatch": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "snapshotSha256": "283337824cf412a361bc9a49b99358bdb56675a74f069748d3f63bbb8c5742c2",
+        "recordedAfterSnapshotCorrespondenceMatch": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+        "snapshotSha256": "b3fb9ceae5918fadeaffd9012f9d97723fc056d2512ac1e9b6000e7b9ca05bd4",
+        "recordedAfterSnapshotCorrespondenceMatch": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "snapshotSha256": "2496802e0a6156a08244a2c3808f3210f60120fffb69c41f4617c615f49f46ed",
+        "recordedAfterSnapshotCorrespondenceMatch": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "snapshotSha256": "9a6ea5ebb1b0ee43ace33d17d779ddb8084ffd66c27cc390f7ebeb50e744e592",
+        "recordedAfterSnapshotCorrespondenceMatch": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+        "snapshotSha256": "bfc31213c58575d2afee4b287bb4a0f5acbba7f65b539daabb49c7a669429761",
+        "recordedAfterSnapshotCorrespondenceMatch": true
+      }
+    ],
+    "copiedTestSupportFilesUnchanged": true,
+    "originalAndCopiedArchivesUnchanged": true
+  },
+  "C2RetainedFacts": {
+    "focused": {
+      "tests": 60,
+      "pass": 57,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 2
+    },
+    "affected": {
+      "tests": 42,
+      "pass": 38,
+      "fail": 0,
+      "cancelled": 1,
+      "skipped": 3,
+      "commandExit": 124,
+      "timedOut": true,
+      "runnerDurationMs": 299966.1955,
+      "recursiveFileDurationMs": 115485.927417,
+      "elapsedBeforeRecursiveFileMs": 184480.268083
+    },
+    "sameRunInstalledWOutsideR": {
+      "passed": true,
+      "durationMs": 91600.46025
+    },
+    "retainedSourceAB": {
+      "passed": true,
+      "durationMs": 88931.851167
+    }
+  },
+  "fixtureLocalization": {
+    "observed": "At native-workspace-work test line336 expected prepared_probabilistic_leaf_owner_invocation, got closed_leaf_owner_receipt; previous direct preparation assertion passed.",
+    "staticCause": "prepare() at264-266 supplies5fields; leaf_invocation_port exact11field guard at392-418 rejects prepared workerRequest and returns undispatched malformed_return/preparation/malformed_preparation at773-774.",
+    "missingFields": [
+      "actorRef",
+      "workerBindingRef",
+      "materializationPlanRef",
+      "rendererRef",
+      "instructionContractRef",
+      "prompt"
+    ],
+    "guardNegativeCasesCompletedBeforeFailure": 10,
+    "subsequentPositiveControlsNotReached": [
+      "binding prefix sibling",
+      "install prefix sibling",
+      "read-only"
+    ],
+    "laterDirectOwnerChecksNotReached": true
+  },
+  "limits": [
+    "No source edits, test patches, provider calls or broad suite reruns.",
+    "Existing isolated cold Public recursive test passed; earlier authenticated-recursive-child-failure case and complete recursive file remain without a completed verdict here.",
+    "No Product acceptance or fresh real-provider recovery credit."
+  ],
+  "logs": [
+    {
+      "path": "c2-command-6.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "c2-command-6.stdout.log",
+      "bytes": 15862,
+      "sha256": "7d2ef44ef9f646fda4e6dff06741adddb3db8ba34b2d766aa356a9a3cdd4e601"
+    },
+    {
+      "path": "c2-command-7.stderr.log",
+      "bytes": 49,
+      "sha256": "3154960decd075ed56867dec48e15e1eca0f810701e871b0c8e67620b32612cc"
+    },
+    {
+      "path": "c2-command-7.stdout.log",
+      "bytes": 14337,
+      "sha256": "4facdbca172fc67aa175d84eace1261409a0e4d5b663e538d21b547606899ae8"
+    },
+    {
+      "path": "recursive-cold-public.log",
+      "bytes": 1100,
+      "sha256": "53b0e13f8f00fceb2a6b74adaf5eb12610bfe08c033d9d182d5729ad00d65ae1"
+    }
+  ]
+}

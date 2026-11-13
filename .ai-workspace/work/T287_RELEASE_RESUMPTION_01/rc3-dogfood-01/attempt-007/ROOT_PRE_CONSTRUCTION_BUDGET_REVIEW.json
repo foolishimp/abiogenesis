@@ -1,0 +1,22 @@
+{
+  "kind": "operator_budget_review_not_native_authority",
+  "atUtc": "2026-10-31T14:01:52.888204+00:00",
+  "selectorStream": "fp-d99f15da2fe9e513-stdout.log",
+  "selectorReportedUsd": "2.312724",
+  "allReportedNativeTotalUsd": "73.8763474",
+  "unknownB03ReserveUsd": "8",
+  "conservativeTotalUsd": "81.8763474",
+  "nextConstructionMaximumUsd": "4.5",
+  "reservedWitnessUsd": "6",
+  "withNextConstructionAndWitnessUsd": "92.3763474",
+  "preWitnessStopUsd": "94",
+  "allocationUsd": "100",
+  "decision": "Continue the selected single Construction; review actual Return and costs before subsequent paid work",
+  "limits": [
+    "Provider telemetry is not a billing statement",
+    "Unknown B03 reserve is not zero or claimed actual cost",
+    "Other charges remain unknown",
+    "No enforced aggregate cap; Root monitors actual transitions",
+    "No retry or extra Construction; C2 and then stop before native witness"
+  ]
+}

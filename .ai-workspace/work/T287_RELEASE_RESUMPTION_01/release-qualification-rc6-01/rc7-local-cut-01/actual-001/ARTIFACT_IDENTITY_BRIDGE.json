@@ -1,0 +1,68 @@
+{
+  "kind": "native_proof_artifact_to_rc7_bridge",
+  "nativeArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "bytes": 11021939,
+    "sha256": "ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693"
+  },
+  "rc7Artifact": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+    "bytes": 11022180,
+    "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+  },
+  "sameMemberSet": true,
+  "members": 5325,
+  "unchangedMembers": 5319,
+  "changedMembers": [
+    {
+      "path": "package/build/code/src/product/builtin_semantics.d.ts",
+      "beforeBytes": 11545,
+      "afterBytes": 11545,
+      "beforeSha256": "ad95a042fccd82e67ad77ad4b1ff85640d20027cc7606b9b811ce05e393765d0",
+      "afterSha256": "ad4c0eea205d9b56474534f621a1f15f147bcc254978b4f788db7c5600ec1ad0",
+      "classification": "existing identity constants or their derived declaration only"
+    },
+    {
+      "path": "package/build/code/src/product/contracts.d.ts",
+      "beforeBytes": 13303,
+      "afterBytes": 13303,
+      "beforeSha256": "06f55cb153b089b7cce6a2cb25c1ff541c68688556d2d5af4f3a07fa239e11c4",
+      "afterSha256": "7d7975b695eb15adcae939c9944673a898814352a07e076d7b25481555cc867f",
+      "classification": "existing identity constants or their derived declaration only"
+    },
+    {
+      "path": "package/build/code/src/product/contracts.js",
+      "beforeBytes": 880,
+      "afterBytes": 880,
+      "beforeSha256": "1949314ec3ad66af243a23417a5114a0408a3b410064497ae056dacc58476953",
+      "afterSha256": "b74671c786ae10ffff42c9355e0944ee711773339ed9c423c7885838b283dc68",
+      "classification": "existing identity constants or their derived declaration only"
+    },
+    {
+      "path": "package/contracts/capabilities/capability-definition-graph.json",
+      "beforeBytes": 197474,
+      "afterBytes": 197474,
+      "beforeSha256": "814b8b85c955ca461a7317e60e915d5d45a928163a41b4a7fad083a6d451e83a",
+      "afterSha256": "835a595ec0b025ded19a6d11fedf0bb8026d7acb1909911aed1f8d96ec89e24d",
+      "classification": "existing generated projection; exact changed bytes require packaging review"
+    },
+    {
+      "path": "package/package.json",
+      "beforeBytes": 10003,
+      "afterBytes": 10003,
+      "beforeSha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da",
+      "afterSha256": "535f08828c79bbd48602dffb886a56409f1927d2fb7be686734c126b9da70278",
+      "classification": "package identity only"
+    },
+    {
+      "path": "package/product-toolchain-manifest.json",
+      "beforeBytes": 3266103,
+      "afterBytes": 3266103,
+      "beforeSha256": "07626f47b6060024b8faec7541ca7068fad0de1ce64162aa1259c9be324aae85",
+      "afterSha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548",
+      "classification": "existing generated projection; exact changed bytes require packaging review"
+    }
+  ],
+  "nativeArtifactRelation": "IDENTITY_ONLY_OR_REVIEWED_GENERATED_DELTA",
+  "qualified": false
+}

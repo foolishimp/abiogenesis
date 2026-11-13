@@ -1,0 +1,43 @@
+{
+  "status": "SOURCE_CONTROLS_READY_FOR_BOUNDED_REVIEW_ARTIFACT_UNBOUND",
+  "rootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/ROOT_REVIEW_DISPOSITION.001.json",
+    "bytes": 1400,
+    "sha256": "02775086f55dee33d80c57df430f150b78e1a2f6304f5357e0772724cf3257b0"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/BINDING.HELD.001.json",
+    "bytes": 7189,
+    "sha256": "9e6a94451de072ea2a084bdcba38a0e420ac92417571c61a27fd0b9bfd40a5d1"
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+    "bytes": 18586,
+    "sha256": "6ee572a47ba4fef8ac35ef0a8130415e306986da8aa306675ec2149b2cf44663"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/run-measurement.mjs",
+    "bytes": 6877,
+    "sha256": "232618be9344c8e1b17c6e2fe4da5ac45e98ffb77904c201bd8b4f7b0b9e17d3"
+  },
+  "syntaxCheck": "Both scripts: exact pinned Node --check exit0; no runtime allocation/test/build/install/provider action.",
+  "inFlightSeam": [
+    "event_store.selectHeldEventStoreDurablePrefix(held.store)",
+    "event_prefix.projectOwnedRuntimeEventPrefixAtDurablePrefix(currentCoordinate)",
+    "RuntimeHistorySelection.select(kind:basis_admitted).rows() metadata; scalarPayload.invocationRef and selectorKeys payload:basisRef:",
+    "Two projectExactExecutionBasisRecordAtPrefix reads synchronously after positive gauges, strict identity and zero combined row work; no new handle."
+  ],
+  "heap": "Natural parent memory outside oneCall scope, no forced GC/no --expose-gc.",
+  "pending": [
+    "Actual candidate archive/install/source relation pins.",
+    "Root bounded adapter review and execution admission.",
+    "Final HOW correction/source successor and exact compiled-input transfer relation before acceptance."
+  ],
+  "minimumFutureLaunch": [
+    "pinned Node",
+    "run-measurement.mjs",
+    "bound successor BINDING SHA",
+    "separately pinned ROOT_ADMISSION SHA"
+  ],
+  "unperformed": "No50-call measurement or active-run proof is claimed."
+}

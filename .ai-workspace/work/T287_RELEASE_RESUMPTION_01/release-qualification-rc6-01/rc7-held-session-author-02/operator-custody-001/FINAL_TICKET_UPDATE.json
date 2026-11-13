@@ -1,0 +1,40 @@
+{
+  "kind": "operator_actual_return_ticket_update",
+  "createdUtc": "2026-11-06T15:45:36.438469+00:00",
+  "ticketBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 717769,
+    "sha256": "a16361e2c91b78b1d602d7e40afb7edeb9c11e3da47e25a45fee0c1314c505a5"
+  },
+  "ticketAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 720211,
+    "sha256": "96c203796b07d8c8be3398ffa6b4a003f1c03f494a245183f29396024fa1ef6d"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_AFTER.json",
+    "bytes": 557347,
+    "sha256": "515dd6b7d33208e4fa5fed02f7d15ebac853eefc7467c9da6c856e7f29fe3006"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10421,
+    "sha256": "7ddb9f2f715158677c4c11564b3996d43e13131d0cc9efb3524a3baef28ad494"
+  },
+  "postAuthorAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/post-author-proof-001/ROOT_ADMISSION.json",
+    "bytes": 2369,
+    "sha256": "8175c3f9d7ab41fefacf7246b862b9f5142d052bf9f62b5d3be97834e166776f"
+  },
+  "rootSessionCosts": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/ROOT_SESSION_COSTS.json",
+    "bytes": 3906,
+    "sha256": "222a6ff9247e08d892d937b3f3c3f6b91759a30a4e83bf696e859e90e15ae218"
+  },
+  "successorScopeProposal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/SUCCESSOR_SCOPE_PROPOSAL.json",
+    "bytes": 2705,
+    "sha256": "c8fe5d2959e0098f91356dd43c9c02972c75d1e887b6293b5e79f36564aa3786"
+  },
+  "effects": "Current ticket metadata and one-path scope proposal only; all earlier ticket text retained as historical. No Product/source/active control/runtime/test effect."
+}

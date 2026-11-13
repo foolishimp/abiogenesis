@@ -1,0 +1,99 @@
+{
+  "status": "PREPARED_NOT_DISPATCHED",
+  "sourceCommit": "90721c86680f17c1877dc26c9eb93b4243188785",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc5-performance",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "contextDigest": "sha256:41b2f7bfcc8125e904bdd0a646141e6f877db936127ff954946607893d79408b",
+  "observedEntries": 985,
+  "selectedFiles": 983,
+  "commands": 6,
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 2611500,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 2616500
+  },
+  "limits": {
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 4500000
+  },
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/private/tmp/abg-rc5"
+    },
+    {
+      "name": "LANG",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  ],
+  "eventPrefix": {
+    "coordinateDigest": "sha256:e06dcabe9617b3bdbf502c470c7da4e51bac46825dc0febe9a6db0a4a0fcaaee",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:07dfc9236c505bdf9cfe9a0e7f370359ac4cb62faa113d197b9d843bc7fe257a",
+    "prefixLength": 117241320,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 685202701
+    }
+  },
+  "inputCanonicalDigest": "sha256:880716d2c78cbef39c05fdc2dcbd6edc6a7013c65b47779b63549e34ec3b2a2b",
+  "callCanonicalDigest": "sha256:234fbaadfd50f5d70c2cb7f11707ccee8e0fecf6387a528a5f6b8a18b73a26d1",
+  "callFileSha256": "412eaf543e7e2d2e19440addf5cdcee98a1211616f6d2bb1a6b031d6a2d4e1e3",
+  "workloadSha256": "bd0ab02b040f62a9e8e0f600c792d1b6becf7d67c55ebdaa0dd55538ee3450f3",
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-rc5",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "BASH_DEFAULT_TIMEOUT_MS": "4500000",
+    "BASH_MAX_TIMEOUT_MS": "4500000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Actual installed constructors/configuration/context and Public start-call population; no native dispatch or candidate acceptance."
+}

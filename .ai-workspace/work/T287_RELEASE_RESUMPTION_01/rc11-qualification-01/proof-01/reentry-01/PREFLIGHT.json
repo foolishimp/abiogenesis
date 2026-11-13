@@ -1,0 +1,43 @@
+{
+  "status": "EXACT_RETAINED_BUILD_PREFLIGHT_PASSED",
+  "utc": "2026-11-09T08:37:36.016537+00:00",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/BINDING.json",
+    "bytes": 4378,
+    "sha256": "14fb6652b98b3ee88374ea63cdd976f117d0c0d54eb0d8d55d0ac206fc14a781"
+  },
+  "sourceRows": 1340,
+  "compiledRows": 996,
+  "compiledBytes": 39679091,
+  "sourceAndOriginalStageExact": true,
+  "workDifferencesExactlyBuildAndLintReceipts": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "835a595ec0b025ded19a6d11fedf0bb8026d7acb1909911aed1f8d96ec89e24d"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197956,
+        "sha256": "dd1d79bb8843aaba2b83ddf0030bdd7ffe72de88a0e2c60dd90eda9831da5dd8"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266103,
+        "sha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266309,
+        "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+      }
+    }
+  ],
+  "controlledBlocksByteExact": 14,
+  "dependencyNpmAndWorkDependencyTreesExact": true,
+  "oldControlsAndOutputsPreserved": true,
+  "effects": "Control/inventory/recipe only; no syntax/lint/test/runtime command launched."
+}

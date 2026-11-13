@@ -1,0 +1,9 @@
+{
+  "startedUtc": "2026-11-05T02:10:05.319131+00:00",
+  "endedUtc": "2026-11-05T02:16:04.378691+00:00",
+  "wallMs": 359062.946,
+  "exit": 0,
+  "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/INSTALL.stdout",
+  "stderrPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/INSTALL.stderr",
+  "inputManifestSha256": "1c0c44ae71e0f17626345d7ede63ab86a0c064e6add75a73038fc06f6b3d9d98"
+}

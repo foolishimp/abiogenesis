@@ -1,0 +1,17 @@
+{
+  "kind": "read_only_paired_owner_context_discriminator",
+  "predecessor": "CONTEXT_DIAGNOSTIC_001.json",
+  "onlyDelta": {
+    "removedRedundantAbsentReadRoot": "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+    "coveringReadRoot": "build_tenants/abiogenesis/typescript/test_env/support",
+    "writeScopeUnchanged": true
+  },
+  "result": {
+    "kind": "worksite_context_observation",
+    "entries": 846,
+    "digest": "sha256:7d898f06cbb15b7d4c3920be2b9104b83f7590b624d53d19787d686e20fdf802"
+  },
+  "wallMs": 257.39166699999987,
+  "noEventAcquisition": true,
+  "noProvider": true
+}

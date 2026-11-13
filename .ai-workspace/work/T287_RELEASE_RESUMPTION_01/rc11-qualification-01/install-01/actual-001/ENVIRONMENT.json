@@ -1,0 +1,25 @@
+{
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0",
+    "TMPDIR": "/private/tmp/abg-rc11-install-20261109-01/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "NODE_COMPILE_CACHE": "/private/tmp/abg-rc11-install-20261109-01/node-compile-cache",
+    "npm_config_userconfig": "/private/tmp/abg-rc11-install-20261109-01/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-rc11-install-20261109-01/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-rc11-install-20261109-01/npm-cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "boundsMs": {
+    "install": 1200000,
+    "installedOwner": 900000
+  }
+}

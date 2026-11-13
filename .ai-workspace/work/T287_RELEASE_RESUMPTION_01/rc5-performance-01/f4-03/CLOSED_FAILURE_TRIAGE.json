@@ -1,0 +1,52 @@
+{
+  "status": "CLOSED_RUNTIME_FAILED_BEFORE_ACTOR",
+  "at": "2026-11-03T11:44:15.995711+00:00",
+  "origin": "Root treated baseline archive and nine held implementation files as full textual task sources; actual selector owner refused declared_bound_overflow",
+  "actualFailure": "NATIVE_ASSEMBLY_FAILURE.json",
+  "predictiveProjection": "SELECTOR_SIZE_DIAGNOSTIC.json",
+  "bytes": {
+    "failed": 15727651,
+    "withoutArchive": 1062480,
+    "artifactAndHeldFilesAsHashedInputs": 562435,
+    "bound": 1048576,
+    "reserve": 65536
+  },
+  "roles": "Original task sources are fully delivered to closed selector; read-only executable artifact and held implementation bytes belong to observed file inputs with exact hash invariants",
+  "priorPreflightMiss": "Constructor/context/C2budget checks did not render selector projection; late failure was allowed by incomplete Root preflight",
+  "reentry": "Operator packet only; keep archive/held files in readRoots and selectedPaths, protect by existing grants and exact immutable metadata, remove their full-body textual source role, add predictive actual-owner projection capacity check",
+  "freshResult": "not_found",
+  "freshReplay": {
+    "fromOrdinal": 0,
+    "kind": "run_replay_projection",
+    "limit": 4096,
+    "replay": {
+      "digest": "sha256:0d59ab9b4fb9204ff8e5c7cad373d09894f674d74b7828f6ded086dbbacb9646",
+      "ref": "replay://abiogenesis/0d59ab9b4fb9204ff8e5c7cad373d09894f674d74b7828f6ded086dbbacb9646"
+    },
+    "status": "failed",
+    "subject": {
+      "digest": "sha256:5ab1dbc434a06664e6cb167495cbd5154f71f3803dc96539cd1e1d7384c5949b",
+      "ref": "run://abiogenesis/31625d07c595b692fe74b718600b5b9bb5ecf11e56a67f5651917e3ef242b7f5"
+    },
+    "terminalResult": null
+  },
+  "actorStarts": 0,
+  "providerCalls": 0,
+  "sourceEdits": 0,
+  "outcome": {
+    "startedUtc": "2026-11-03T11:33:48.014Z",
+    "endedUtc": "2026-11-03T11:36:11.320Z",
+    "wallMs": 143304.705542,
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:5ab1dbc434a06664e6cb167495cbd5154f71f3803dc96539cd1e1d7384c5949b",
+      "ref": "run://abiogenesis/31625d07c595b692fe74b718600b5b9bb5ecf11e56a67f5651917e3ef242b7f5"
+    },
+    "terminal": null,
+    "qualified": false,
+    "meaning": "Native return; independent source review and actual C2/UAT determine bounded acceptance."
+  },
+  "sourceCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e"
+}

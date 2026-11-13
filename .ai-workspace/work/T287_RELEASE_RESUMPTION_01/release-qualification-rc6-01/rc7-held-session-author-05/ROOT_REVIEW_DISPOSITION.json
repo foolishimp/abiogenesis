@@ -1,0 +1,84 @@
+{
+  "kind": "root_native_successor_partial_disposition",
+  "status": "BOUNDED_ORACLE_CORRECTION_AND_TWO_LANES_ACCEPTED_REMAINING_GUARD_PROOF_OPEN",
+  "at": "2026-11-06T19:12:44.860595+00:00",
+  "roleTransition": "Executive -> separately bound coordination/operator Writer under existing ROOT_ACTIVATION",
+  "productFrame": {
+    "goal": "GOAL-035/T-287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "composition": []
+  },
+  "evidence": {
+    "sourceAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_AFTER.json",
+      "bytes": 563015,
+      "sha256": "2a385829927eac2ba13be072d7deab71949ab9db56bc6fb2797bd786398aa519"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8045,
+      "sha256": "d3c8fc06ce2b305c089257a0b9524650c69512e2d029d2995ca36d47420a90a9"
+    },
+    "finalSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 8447,
+      "sha256": "d7e7d2ea776e756bd466ec2afc7f38c8cc1581eb2f1e6c79a60a9b3381722714"
+    },
+    "proofInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/post-return-controls/actual-001/PROOF_INVENTORY.json",
+      "bytes": 14969,
+      "sha256": "c43d922fa28baf554cf6db62c98ed95a568fc650c458a54d5389e86804d085de"
+    },
+    "custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/post-return-controls/actual-001/CUSTODY.json",
+      "bytes": 18279,
+      "sha256": "b30e6705265f7a565933691a5e27d45a5875dc8033be4c99df2dfd3d0985b6dd"
+    },
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/reviews/stage-001/REVIEW.json",
+      "bytes": 8507,
+      "sha256": "5fe2377f5eef5cea1cb7591d3c427387c5499506a0f418f60d858948066c4343"
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+      "bytes": 4046,
+      "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+    },
+    "sessionCosts": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/SESSION_COSTS.json",
+      "bytes": 3739,
+      "sha256": "5260ba49c9bae5f3f893086045982fa71afe2bf0c5fb98e5e2fd45ebb6f2ee76"
+    }
+  },
+  "decision": {
+    "boundedTestCorrectionAccepted": true,
+    "fullHeldSessionExitAccepted": false,
+    "sourceRetainedForSmallestLawfulContinuation": true,
+    "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "scope": "Exact four-case refusal oracle correction in the one selected test file. Independent frozen review has no concrete blocker; final native.after, stage, held snapshots and live selected source agree. Product payloads remain unchanged.",
+    "passedEvidence": [
+      "fixed-route: 7 passed, 0 failed/skipped/cancelled; actual selected Testing/UAT and held/fresh discriminator",
+      "held-session: 1 passed, 0 failed/skipped/cancelled; one acquisition, zero additional warm-call history decode/reopen, zero held-read history/body work and four refusal controls"
+    ],
+    "failurePreserved": "assessment-guards: 0 passed/1 failed at nativeWorkspaceAssessmentSchema(undeclared) in the existing negative fixture, before its intended assessment dispatch. Author reports inconsistent schema/result/schemaAsset identities; independent complete fixture-cone triage remains pending.",
+    "unallocated": [
+      "native-workspace-owner",
+      "caller"
+    ],
+    "nextBoundary": "Conjoin independent fixture/contract triage before selecting the smallest correction and affected proof. No retry or S5 launch is granted by this partial disposition."
+  },
+  "measurementLimits": [
+    "Small installed F_D fixture only; not installed large-log growth or full native-workflow performance.",
+    "Two warm calls still read 96 bodies / 3500127 bytes. Selected cold counters exclude child CLI instrumentation.",
+    "Historical H03 compile/generation/lifecycle reused explicitly; no new compile/generation in H05.",
+    "Native host close is completed; this does not make all selected proof lanes pass."
+  ],
+  "preservation": "All prior accepted evidence, original failures, H04 read-scope disclosure and unmatched timing observations retain their exact scope; no broad workspace no-effect claim.",
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "rc7Installed": false
+}

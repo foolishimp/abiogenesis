@@ -1,0 +1,19 @@
+{
+  "status": "M5_DEFERRED_EXPLICIT_QUALIFICATION_BLOCKER_LOCAL_DELIVERY_CONTINUES_CONDITIONALLY",
+  "diagnostic": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/RETURN.json",
+    "bytes": 16613,
+    "sha256": "2041b6e3c7f35e8984891b2b1111a7677943cb55989d39af6645de2371ea33de"
+  },
+  "unitRed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/RETURN.json",
+    "bytes": 10855,
+    "sha256": "39b278807ba09acfee766d8b0062970d2faf267c48f0392f25409d5cd5f42948"
+  },
+  "discriminatorRed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/RETURN.json",
+    "bytes": 7350,
+    "sha256": "be223716ab973c3494408b298f363c65e24b5cd1beef0523a34a2b3f80fcc652"
+  },
+  "rootDecision": "Root read all three diagnostic records and copied artifacts: unacknowledged-output has launchFailure null, directExit SIGTERM, no output/callback, clean group absence; false acknowledgement was not exercised. Other two diagnostic cases demonstrate bounded intended outcomes. No current contradiction of selected RC11 claims is established; m5 cause/proof remains open. Continue bounded local delivery only with explicit m5 qualification blocker, remaining helper proof and packaging. No repaired-unit/all-green claim. Pack/tracking/cut remain separately held."
+}

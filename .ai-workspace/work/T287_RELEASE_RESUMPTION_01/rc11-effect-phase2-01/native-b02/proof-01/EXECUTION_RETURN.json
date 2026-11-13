@@ -1,0 +1,250 @@
+{
+  "status": "ONE_COMPLETE_UNIT_PASSED_PENDING_ROOT_FINAL_CONJUNCTION",
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+    "bytes": 295433,
+    "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+  },
+  "RootSourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 1986,
+    "sha256": "c74b62ce83ca614552304cf0c4a9edad9449162164170d49cd9577a81c5d0c4e"
+  },
+  "RootExecutionAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3515,
+    "sha256": "95e44862c5000fa0dab4cc19245df55d83e286b58b5a923f27cf3b504815141a"
+  },
+  "campaign": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/CAMPAIGN_RETURN.json",
+    "bytes": 803,
+    "sha256": "257d747bbb4b3db3ae9e7346a33957b43c228216dfb860a238968c1f6dd2e974"
+  },
+  "command": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/COMMAND_RETURN.json",
+    "bytes": 1329,
+    "sha256": "82ca582d8ff932d6fefdfc64718c9cea4f73e545b0301614945ec3f430f836d6"
+  },
+  "unit": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/UNIT_RETURN.json",
+    "bytes": 502148,
+    "sha256": "26788f385c6994442727d5ef6899a23025713fdacb601d1a7eb2ec196ad2097e"
+  },
+  "final": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/FINAL_RETURN.json",
+    "bytes": 526054,
+    "sha256": "ed678ce29eabb944dff1504f7624729ea01c8e4619203ad14415e59ea3cfe155"
+  },
+  "rawStdout": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/stdout.log",
+    "bytes": 221512,
+    "sha256": "f5d609dd5ab05eecfe94c80fb4e867228c5aa50126feed9c03c113e1be8ac816"
+  },
+  "rawStderr": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "counts": {
+    "tests": 102,
+    "pass": 96,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0
+  },
+  "skippedNames": [
+    "M5 resolves and independently validates the complete executable root set",
+    "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+    "M5 F_H-only roots produce one valid empty executable-resolution set",
+    "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+    "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+    "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings"
+  ],
+  "M5": {
+    "tests": 39,
+    "passed": 39,
+    "skipped": 0,
+    "evidenceIds": 34,
+    "allSixGroupRows": [
+      {
+        "caseId": "owned-group-command-TERM",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-command-TERM--23627.json",
+          "bytes": 1698,
+          "sha256": "b1f6624521462e59a27876bb343e4a42e21228e4b4bcd576069bd8454b59ced9"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-command-normal",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-command-normal--23627.json",
+          "bytes": 1698,
+          "sha256": "2022dd985e3faa9009d030beae248b8eabb30982ddaba43b89c644813445f21d"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-http-TERM",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-http-TERM--23627.json",
+          "bytes": 1245,
+          "sha256": "7d554ba27b9755d1cd07588bb475f9bf074880f0f8a8d9fac2e429878d1ce68c"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-http-normal",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-http-normal--23627.json",
+          "bytes": 1623,
+          "sha256": "198aa9983d35d574f49e9296919e51437f74e7ab4bd0bd9be7baea53f107ed19"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-worker-TERM",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-worker-TERM--23627.json",
+          "bytes": 4917,
+          "sha256": "0f88c557be94ed306cbb5521b6c3a64772083cfb4f3bf5c97511e77d6ab8603e"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-worker-normal",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-worker-normal--23627.json",
+          "bytes": 4857,
+          "sha256": "d0caf8eecdd81c8030c9ceaa218bd0c2daae5d72042c28663d471357c7331450"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      }
+    ]
+  },
+  "httpNormal": {
+    "evidence": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-http-normal--23627.json",
+      "bytes": 1623,
+      "sha256": "198aa9983d35d574f49e9296919e51437f74e7ab4bd0bd9be7baea53f107ed19"
+    },
+    "fixture": [
+      {
+        "event": "port-published",
+        "port": 63145
+      },
+      {
+        "event": "request-received",
+        "method": "GET",
+        "url": "/",
+        "localPort": 63145
+      },
+      {
+        "event": "response-write-attempt",
+        "bytes": 11
+      },
+      {
+        "event": "response-finished"
+      },
+      {
+        "event": "exit-intention",
+        "status": 0
+      }
+    ],
+    "port": {
+      "relativePath": "http-normal.port",
+      "port": 63145,
+      "state": "observed",
+      "issue": null,
+      "byteLength": 5,
+      "digest": "sha256:0a0330b6cc6ac56e67075cb3f6de00b3ef03c518da330ab09666a22da31ac861"
+    },
+    "request": {
+      "hostname": "127.0.0.1",
+      "port": 63145,
+      "method": "GET",
+      "path": "/",
+      "timeoutMs": 10505
+    },
+    "response": {
+      "status": 200,
+      "body": "actual-http",
+      "bodyDigest": "sha256:e5ab4333bf8dcadb488fa653be055c239888ce705142af82536e39db927c44d0",
+      "byteLength": 11
+    },
+    "exitStatus": 0,
+    "timedOut": false,
+    "signals": [
+      "SIGTERM",
+      "SIGKILL"
+    ],
+    "groupPresent": false,
+    "descendantPresent": false
+  },
+  "elapsed": {
+    "commandSeconds": 151.25906941713765,
+    "campaignSeconds": 155.69187820795923
+  },
+  "noTimeoutOutputRefusalOrExternalCleanup": true,
+  "physicalClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PHYSICAL_CLOSURE.json",
+    "bytes": 8292,
+    "sha256": "5f3b05b6bd2262bc5158da1e1c2e1b6372af5898222164a64d055320667046e1"
+  },
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/POSTGUARDS.json",
+    "bytes": 712,
+    "sha256": "d42b052fff905b1f53d15113b58b0d0724ec13106fe0dcf69bdf02b971a1ac94"
+  },
+  "productionProofConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+    "bytes": 6141,
+    "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+  },
+  "unchangedController": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py",
+    "bytes": 17434,
+    "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+  },
+  "historicalFailuresPreserved": true,
+  "remaining": "Root final A+B conjunction and independent Proof. Six skips/two deferred capsules, publication/response limits and original failures persist. No additional execution, qualification/release/Git/tracking effects.",
+  "qualified": false
+}

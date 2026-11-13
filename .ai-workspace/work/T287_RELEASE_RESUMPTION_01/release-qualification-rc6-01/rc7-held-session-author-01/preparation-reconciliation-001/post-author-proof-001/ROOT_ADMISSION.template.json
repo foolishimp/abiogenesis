@@ -1,0 +1,7 @@
+{
+  "status": "UNBOUND_ROOT_FINAL_ADMISSION_REQUIRED",
+  "manifestSha256": null,
+  "subjectSha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741",
+  "decision": "Two exact post-author commands only; original author ledger remains unchanged.",
+  "admittedUtc": null
+}

@@ -1,0 +1,377 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts b/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts
+index 2d9c7483d..5e40f6704 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts
+@@ -1,4 +1,9 @@
+ import type { ChildProcess } from "node:child_process";
++import {
++  initialOwnedProcessState, transitionOwnedProcess,
++  type OwnedProcessInput, type OwnedProcessNotice, type OwnedProcessScopeAbsence,
++  type OwnedProcessTiming, type OwnedProcessWait, type OwnedProcessWaitName,
++} from "./owned_process_state.js";
+ 
+ const HOST_MAX_MS = 2_147_483_647;
+ const NS_PER_MS = 1_000_000n;
+@@ -70,7 +75,7 @@ export function createMonotonicDeadline(clock: MonotonicTimerHost = nodeClock) {
+   };
+ }
+ 
+-export type OwnedProcessScopeAbsence = "absent" | "present" | "unknown";
++export type { OwnedProcessScopeAbsence };
+ export interface OwnedProcessHost {
+   readonly clock: MonotonicTimerHost;
+   readonly platform: "posix" | "win32";
+@@ -146,148 +151,107 @@ export function createOwnedProcessLifetime(
+   }
+   const host = bounds.host ?? nodeHost;
+   const clock = host.clock;
+-  const grace = durationNs(bounds.terminationGraceMs);
+-  const drain = durationNs(Math.min(bounds.terminationGraceMs, 250));
+-  const phaseTimer = createMonotonicDeadline(clock);
+-  const probeTimer = createMonotonicDeadline(clock);
+-  const drainTimer = createMonotonicDeadline(clock);
+-  let phase: "live" | "term" | "kill" | "drain" | "complete" = "live";
+-  let directExit: OwnedProcessFacts["directExit"] = null;
+-  let launchFailure: Error | null = null;
+-  let firstError: Error | null = null;
+-  let scopeAbsence: OwnedProcessScopeAbsence = "unknown";
+-  let closeObserved = false;
+-  let streamsDisposed = false;
+-  let drainExpired = false;
+-  let cleanupStartedNs: bigint | null = null;
+-  let scopeDeadlineNs: bigint | null = null;
+-  let cleanupDeadlineNs: bigint | null = null;
+-  let probeCount = 0;
+-  let signalAttempts = 0;
+-  let killAttempted = false;
+-  let completionPublished = false;
++  const timing: OwnedProcessTiming = Object.freeze({
++    platform: host.platform,
++    graceNs: durationNs(bounds.terminationGraceMs),
++    drainNs: durationNs(Math.min(bounds.terminationGraceMs, 250)),
++    probeNs: durationNs(Math.min(bounds.terminationGraceMs, 10)),
++  });
++  const timers: Record<OwnedProcessWaitName, ReturnType<typeof createMonotonicDeadline>> = {
++    phase: createMonotonicDeadline(clock), probe: createMonotonicDeadline(clock), drain: createMonotonicDeadline(clock),
++  };
++  const armed: Record<OwnedProcessWaitName, OwnedProcessWait | null> = { phase: null, probe: null, drain: null };
++  let current = initialOwnedProcessState;
+   let resolveCompletion!: (facts: OwnedProcessFacts) => void;
+   const completion = new Promise<OwnedProcessFacts>((resolve) => { resolveCompletion = resolve; });
+-  const noChild = (): boolean => child.pid === undefined && launchFailure !== null;
+-  const snapshot = (): OwnedProcessFacts => ({
+-    directExit, launchFailure, noChildEstablished: noChild(),
+-    scopeKind: host.platform === "win32" ? "windows_direct_child" : "posix_process_group",
+-    scopeAbsence, closeObserved, streamsDisposed, drainExpired, firstError,
+-    cleanupDeadlineNs,
+-    cleanupElapsedMs: cleanupStartedNs === null ? 0 : Number(clock.nowNs() - cleanupStartedNs) / 1_000_000,
+-    probeCount, signalAttempts,
+-  });
+-  const probe = (): OwnedProcessScopeAbsence => {
+-    probeCount += 1;
+-    if (noChild()) scopeAbsence = "absent";
+-    else if (host.platform === "win32") scopeAbsence = directExit === null ? "unknown" : "absent";
+-    else if (child.pid === undefined) scopeAbsence = "unknown";
+-    else {
+-      try { scopeAbsence = host.probeGroup(child.pid); }
+-      catch { scopeAbsence = "unknown"; }
+-    }
+-    return scopeAbsence;
++  // Every call returns a fresh view; elapsed cleanup time is recomputed, also after completion.
++  const snapshot = (): OwnedProcessFacts => {
++    const s = current;
++    return {
++      directExit: s.directExit, launchFailure: s.launchFailure,
++      noChildEstablished: child.pid === undefined && s.launchFailure !== null,
++      scopeKind: host.platform === "win32" ? "windows_direct_child" : "posix_process_group",
++      scopeAbsence: s.scopeAbsence, closeObserved: s.closeObserved, streamsDisposed: s.streamsDisposed,
++      drainExpired: s.drainExpired, firstError: s.firstError,
++      cleanupDeadlineNs: s.cleanupDeadlineNs,
++      cleanupElapsedMs: s.cleanupStartedNs === null ? 0 : Number(clock.nowNs() - s.cleanupStartedNs) / 1_000_000,
++      probeCount: s.probeCount, signalAttempts: s.signalAttempts,
++    };
+   };
+-  const signal = (value: "SIGTERM" | "SIGKILL"): void => {
+-    if (noChild() || (value === "SIGKILL" && killAttempted)) return;
+-    if (value === "SIGKILL") killAttempted = true;
+-    signalAttempts += 1;
+-    try { host.signal(child, value); }
+-    catch { /* Signal failure cannot establish absence. */ }
++  const probeGroup = (pid: number | undefined): OwnedProcessScopeAbsence => {
++    if (pid === undefined) return "unknown";
++    try { return host.probeGroup(pid); }
++    catch { return "unknown"; }
+   };
+-  const complete = (): void => {
+-    if (phase === "complete") return;
+-    phase = "complete";
+-    phaseTimer.cancel(); probeTimer.cancel(); drainTimer.cancel();
++  const notify = (notice: OwnedProcessNotice): void => {
++    if (notice.kind === "error") observations.onError?.(notice.error);
++    else if (notice.kind === "exit") observations.onExit?.(notice.status, notice.signal);
++    else if (notice.kind === "signal") observations.onSignalRequested?.(notice.signal);
++    else observations.onUnconfirmed?.();
++  };
++  // Waits follow the published state; an already-due wait re-enters synchronously.
++  const reconcile = (): void => {
++    for (const name of ["phase", "probe", "drain"] as const) {
++      const wait = current.waits[name];
++      if (armed[name] === wait) continue;
++      armed[name] = wait;
++      if (wait === null) timers[name].cancel();
++      else timers[name].at(wait.atNs, () => dispatch({ kind: "due", wait: name, token: wait }));
++    }
++  };
++  const dispose = (): void => {
+     child.off("spawn", onSpawn);
+     child.off("exit", onExit); child.off("close", onClose);
+-    streamsDisposed = true;
+     for (const stream of [child.stdin, child.stdout, child.stderr]) {
+       try { stream?.destroy(); }
+-      catch (error) { streamsDisposed = false; fail(error); }
++      catch (error) { failWith(error, true); }
+     }
+     // Synchronous disposal errors still belong to this outcome. Errors queued
+     // for later delivery cannot rewrite it or become an unhandled host error.
+     for (const disconnect of errorGuards) disconnect();
+-    completionPublished = true;
+-    resolveCompletion(Object.freeze(snapshot()));
+   };
++  /** Publish the next state before any action; after host or callback re-entry,
++   * only inputs decided against the then-current state may act. */
++  function dispatch(input: OwnedProcessInput): void {
++    const step = transitionOwnedProcess(timing, current, input, { nowNs: clock.nowNs(), pid: child.pid });
++    current = step.state;
++    if (step.signal !== null) {
++      try { host.signal(child, step.signal); }
++      catch { /* Signal failure cannot establish absence. */ }
++    }
++    reconcile();
++    if (current !== step.state) return;
++    const tail = step.tail;
++    let next = step.next;
++    if (tail?.kind === "notify") observe(() => notify(tail.notice));
++    else if (tail?.kind === "probe") next = [{ kind: "probed", then: tail.then, absence: tail.known ?? probeGroup(tail.pid) }, ...next];
++    else if (tail?.kind === "dispose") dispose();
++    else if (tail?.kind === "publish") resolveCompletion(Object.freeze(snapshot()));
++    for (const following of next) dispatch(following);
++  }
+   const observe = <T>(action: () => T): T | undefined => {
+-    if (phase === "complete" || firstError !== null) return undefined;
++    if (current.phase === "complete" || current.firstError !== null) return undefined;
+     try { return action(); }
+     catch (error) { fail(error); return undefined; }
+   };
+-  const finishScope = (): void => {
+-    if (phase === "drain" || phase === "complete") return;
+-    phase = "drain";
+-    phaseTimer.cancel(); probeTimer.cancel();
+-    if (scopeAbsence !== "absent") observe(() => observations.onUnconfirmed?.());
+-    if (closeObserved) { complete(); return; }
+-    const requested = clock.nowNs() + drain;
+-    const deadline = cleanupDeadlineNs === null || requested < cleanupDeadlineNs ? requested : cleanupDeadlineNs;
+-    drainTimer.at(deadline, () => { drainExpired = true; complete(); });
+-  };
+-  const check = (): void => {
+-    probeTimer.cancel();
+-    if (phase === "live" || phase === "drain" || phase === "complete") return;
+-    if (probe() === "absent" && (directExit !== null || noChild())) { finishScope(); return; }
+-    probeTimer.after(Math.min(bounds.terminationGraceMs, 10), check);
+-  };
+-  const startKill = (): void => {
+-    if (phase === "kill" || phase === "complete") return;
+-    if (phase === "drain") { if (scopeAbsence !== "absent") signal("SIGKILL"); return; }
+-    phase = "kill";
+-    phaseTimer.cancel();
+-    if (probe() === "absent" && (directExit !== null || noChild())) { finishScope(); return; }
+-    observe(() => observations.onSignalRequested?.("SIGKILL"));
+-    signal("SIGKILL");
+-    const requested = clock.nowNs() + grace;
+-    scopeDeadlineNs = scopeDeadlineNs === null || requested < scopeDeadlineNs ? requested : scopeDeadlineNs;
+-    const final = scopeDeadlineNs + drain;
+-    if (cleanupDeadlineNs === null || final < cleanupDeadlineNs) cleanupDeadlineNs = final;
+-    phaseTimer.at(scopeDeadlineNs, () => { probe(); finishScope(); });
+-    check();
+-  };
+   const requestTermination = (mode: "graceful" | "immediate" = "graceful"): void => {
+-    if (phase === "complete") return;
+-    if (phase !== "live") { if (mode === "immediate") startKill(); return; }
+-    cleanupStartedNs = clock.nowNs();
+-    scopeDeadlineNs = cleanupStartedNs + 2n * grace;
+-    cleanupDeadlineNs = scopeDeadlineNs + drain;
+-    if (probe() === "absent" && (directExit !== null || noChild())) { finishScope(); return; }
+-    if (mode === "immediate") { startKill(); return; }
+-    phase = "term";
+-    observe(() => observations.onSignalRequested?.("SIGTERM"));
+-    // A throwing signal observer may already have strengthened this attempt.
+-    if (phase !== "term") return;
+-    signal("SIGTERM");
+-    phaseTimer.at(cleanupStartedNs + grace, startKill);
+-    check();
++    dispatch({ kind: "terminate", mode });
+   };
+-  const fail = (error: unknown): void => {
+-    if (completionPublished) return;
+-    firstError ??= error instanceof Error ? error : new TypeError(String(error));
+-    requestTermination("immediate");
++  const failWith = (error: unknown, disposal: boolean): void => {
++    if (current.sealed) return;
++    dispatch({ kind: "fail", disposal,
++      error: current.firstError ?? (error instanceof Error ? error : new TypeError(String(error))) });
+   };
++  const fail = (error: unknown): void => { failWith(error, false); };
+   function onSpawn(): void { if (child.pid !== undefined) observe(() => observations.onSpawn?.(child.pid!)); }
+   function onError(error: Error): void {
+-    if (child.pid === undefined) {
+-      launchFailure ??= error;
+-      observe(() => observations.onError?.(error));
+-      requestTermination();
+-    } else fail(error);
++    if (child.pid === undefined) dispatch({ kind: "launchError", error });
++    else fail(error);
+   }
+   function onExit(status: number | null, signalValue: NodeJS.Signals | null): void {
+-    directExit = Object.freeze({ status, signal: signalValue });
+-    observe(() => observations.onExit?.(status, signalValue));
+-    requestTermination();
+-    check();
+-  }
+-  function onClose(): void {
+-    closeObserved = true;
+-    if (phase === "drain") complete();
+-    else { requestTermination(); check(); }
++    dispatch({ kind: "exit", status, signal: signalValue });
+   }
++  function onClose(): void { dispatch({ kind: "close" }); }
+   const errorGuards = [guardOwnedErrors(child, onError)];
+   for (const stream of [child.stdin, child.stdout, child.stderr]) {
+     if (stream !== null && !stream.closed) errorGuards.push(guardOwnedErrors(stream, fail));
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md b/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md
+index ae2997fb6..959b6f19f 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md
+@@ -1,6 +1,6 @@
+ # T-287 Effect Functional repair and refactor plan
+ 
+-Status: **Phase1A/1B and FOUNDATION-ORACLE-001 accepted for their exact successor sources and selected proofs; phases 2–4 and GC03 remain planned and unactivated.** Root [PHASE1-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_FINAL_ACCEPTANCE.json) retains the phase1 closure: deterministic 29/29, lifetime 18/18, m5 39/39 and original nine-file unit 96 passes/six declared skips. Root [FOUNDATION-ORACLE-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/ROOT_FINAL_ACCEPTANCE.json) accepts native04 source `002e481a…` and whole installed W2-05 3/3 with zero skips on proof archive `fdbf93de…`. The two oracle/Design files and prior four phase1 test/support files remain exact; this status and tracking prefixes are documentary post-proof deltas. Historical failures, six skipped claims, synthetic pending-owner limit and wider qualification obligations remain. Installed old RC11 is unchanged/unqualified/unpublished; RC10 remains pinned. No later production implementation or release is activated.
++Status: **Phase1A/1B and FOUNDATION-ORACLE-001 accepted for their exact successor sources and selected proofs; Root PHASE2-SCOPE-01 activated the phase2 lifetime/command slice below on checkpoint `ed17ab14…`; native01 ended at its absolute 900s timeout with this plan edit only and zero implementation (its failed run is preserved). Root PHASE2-A-PREP-01 split phase2 into checkpoint A (shared lifetime) then B (command/main). Native02 authored A only; it is unreviewed and unproved beyond its own controlled selfcheck. B is unimplemented. Full phase2 acceptance remains joint A+B with its selected proof. Phases 3–4 and GC03 remain planned and unactivated.** Root [PHASE1-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_FINAL_ACCEPTANCE.json) retains the phase1 closure: deterministic 29/29, lifetime 18/18, m5 39/39 and original nine-file unit 96 passes/six declared skips. Root [FOUNDATION-ORACLE-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/ROOT_FINAL_ACCEPTANCE.json) accepts native04 source `002e481a…` and whole installed W2-05 3/3 with zero skips on proof archive `fdbf93de…`; that oracle is closed. Those counts are baseline for their exact sources, not evidence for the phase2 successor. Historical failures, six skipped claims, synthetic pending-owner limit and wider qualification obligations remain. Installed old RC11 is unchanged/unqualified/unpublished; RC10 remains pinned. No release is activated.
+ 
+ ## Basis and responsibility
+ 
+@@ -23,6 +23,20 @@ The proved defects belong to test Proof: `observePublication` credits results af
+ 
+ Phases1A/1B may have separate design preparation; integrate and prove one source freeze sequentially. Later shared lifetime/caller source changes and physical proofs are sequential. Each phase returns its exact changed paths, deleted mechanics, actual receipts and unresolved claims to Root before the next activation. No universal framework, registry, event bus or new runtime authority follows from this plan.
+ 
++## Phase2 accepted HOW (PHASE2-SCOPE-01, split A/B by PHASE2-A-PREP-01)
++
++Correspondence below is by status: **A removed** means absent from native02's authored, unreviewed A source; **B prospective** remains design until its source exists.
++
++| Status | Displaced mechanism | Replacement |
++|---|---|---|
++| **A removed** | `createOwnedProcessLifetime`'s fifteen parallel mutable fields (`phase`, `directExit`, `launchFailure`, `firstError`, `scopeAbsence`, `closeObserved`, `streamsDisposed`, `drainExpired`, `cleanupStartedNs`, `scopeDeadlineNs`, `cleanupDeadlineNs`, `probeCount`, `signalAttempts`, `killAttempted`, `completionPublished`); the decision closures `noChild`, `probe`, `signal`, `complete`, `finishScope`, `check`, `startKill`; the decision bodies of `requestTermination`, `fail`, `onError`, `onExit`, `onClose`; and the `if (phase !== "term") return` stale-TERM patch | One frozen `OwnedProcessState` (those fifteen facts, `completionPublished` as `sealed`, plus its three waits) and pure `transitionOwnedProcess(timing, state, input, at)` in `shared/owned_process_state.ts`. Each step returns the next state, at most one signal and at most one re-entrant tail (`notify`, `probe`, `dispose`, `publish`); the tail's continuation is a new input decided against the then-current state. The stale-TERM law is retained as the `notified` phase guard. Error objects remain opaque references. |
++| **A removed** | Imperative `phaseTimer`/`probeTimer`/`drainTimer` arming and cancellation inside each closure | The synchronous bridge publishes state, performs the step's signal, then reconciles the three unchanged `createMonotonicDeadline` waits from state; a fired wait is accepted only while it is still the state's wait object. If an already-due wait re-enters, the step's remaining tail is dropped as obsolete. `createMonotonicDeadline` and its arithmetic are byte-identical. |
++| **A preserved, not changed** | `snapshot()` and completion | `snapshot()` still returns a fresh unfrozen view with `cleanupElapsedMs` recomputed on each call, including after completion. Only the completion facts are sealed once, frozen after synchronous disposal errors are recorded and owner error reporting is disconnected. Inert stream/child error guards remain until natural close without mutation authority. Factory/method signatures, inline `observe<T>` return and the Promise completion are unchanged. |
++| **B prospective** | `runCommand`'s ad hoc `try/finally` coordinator (timeout cancel, heartbeat clear, `activeCommand` reset, capture close and listener removal) and its Promise result | `runCommand` returns one Effect. A Scope owns: the spawned child and lifetime (acquired together; release requests the existing finite cleanup, awaits the lifetime's own completion, then clears `activeCommand`), the unchanged heartbeat interval, and the capture listeners plus command timeout (released only after that physical completion). Ownership precedes fallible listener/timeout setup, whose error remains `lifetime.fail`. No retry, race or Effect timeout is added; Scope interruption is not physical absence. |
++| **B prospective** | `main`'s Promise sequencing | One helper Effect program, executed once through `runEffectProgram` in `main`; `await main()` stays. Existing async owners are lifted with their original rejection value; only `WorksiteHelperFailure` is caught for D15; the acknowledgment write is drained before the same failure is the program failure; `main` rethrows the squashed original cause. |
++
++A adds no Effect wrapper, scheduler, mailbox, registry or second coordinator; its bridge still holds the current-state reference and the armed-wait record. HTTP `oneHttpRequest`/`runHttpProbe` bodies, `worker_transport`, `shared/process`, `shared/effect_definition`, the SIGTERM/SIGINT `process.exit` emergency boundary (ordinary finalizers do not run through it), Product, schemas and admission/replay stay unchanged.
++
+ ## Phase1 causal proof and retained effects
+ 
+ First test observer stop during await, cutoff10/resolve11, exact boundary10, a never-resolving read, read error, completion before cutoff, and late resolution after return. Check eligibility before every probe and after each wait. Return one sealed snapshot independently of an unresolved external read; no late callback may mutate it or start another probe. Record immediate owner-settle time before copying artifacts. Retain result/error, fixture body/handler/timer readiness, write attempt/completion, exit intention, stdout/stderr and cleanup/absence facts before assertions and scratch removal.
+@@ -45,4 +59,4 @@ After phase2, assess `pinnedGc03HostReader` for reuse of a direct-child lifetime
+ 
+ Retain already-scoped `run_invocation` ownership and the thin npm/git adapters unless a counterexample or exact shared cancellation/diagnostic contract demonstrates deletion benefit. Preserve invocation identity, computational release versus semantic closure, expected-prefix handoffs and admitted truth. Promise syntax alone is not a refactor reason. No new package, library upgrade, blanket Promise conversion or autonomous publication retry is selected.
+ 
+-Root closes `RC11-LIFETIME-OBS-LATE-001` and `RC11-M5-TRANSPORT-PROOF-001` only for the accepted Phase1 successor and selected proof. Historical red runs and native02 timeout remain preserved; six skipped claims and the synthetic pending-owner limit remain explicit. `FOUNDATION-ORACLE-001` is active for the separate W2-05 collection-token oracle and matching Design sentence; it does not reopen Phase1 proof. Diagnostic green does not replace qualification. Local RC11 remains installed, unqualified and unpublished; RC10 remains pinned builder. Native-workflow, full5.0, S7, other capsules and human obligations remain open. Packaging's declared metadata-dependent reproduction and guards are retained; this plan does not reopen packaging or claim file-bytes-only reproducibility.
++Root closes `RC11-LIFETIME-OBS-LATE-001` and `RC11-M5-TRANSPORT-PROOF-001` only for the accepted Phase1 successor and selected proof. Historical red runs and native02 timeout remain preserved; six skipped claims and the synthetic pending-owner limit remain explicit. `FOUNDATION-ORACLE-001` is closed by its own Root acceptance above; it does not reopen Phase1 proof. Diagnostic green does not replace qualification. Local RC11 remains installed, unqualified and unpublished; RC10 remains pinned builder. Native-workflow, full5.0, S7, other capsules and human obligations remain open. Packaging's declared metadata-dependent reproduction and guards are retained; this plan does not reopen packaging or claim file-bytes-only reproducibility.
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
+index 1bba17825..38bcb4d3e 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
+@@ -327,6 +327,85 @@ test('controlled lifetime: no launch, close without exit, probe errors and Windo
+   assert.equal(probes, 0); assert.equal(facts.closeObserved, true);
+ });
+ 
++test('controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes', async () => {
++  const x = controlledLifetime(); let completions = 0;
++  x.lifetime.completion.then(() => completions++);
++  assert.equal(x.lifetime.requestTermination(), undefined);
++  assert.deepEqual(x.signals, [{ value: 'SIGTERM', time: 0n }], 'TERM is requested before the call returns');
++  assert.equal(x.lifetime.observe(() => 'inline'), 'inline');
++  x.timer.advance(25);
++  const early = x.lifetime.snapshot(), again = x.lifetime.snapshot();
++  assert.notEqual(early, again); assert.deepEqual(early, again);
++  assert.equal(early.cleanupElapsedMs, 25); assert.equal(Object.isFrozen(early), false);
++  x.timer.advance(275); const facts = await x.lifetime.completion;
++  assert(Object.isFrozen(facts)); assert.equal(facts.cleanupElapsedMs, 300); assert.equal(facts.cleanupDeadlineNs, 300_000_000n);
++  x.timer.advance(50); const after = x.lifetime.snapshot();
++  assert.notEqual(after, facts); assert.notEqual(after, x.lifetime.snapshot());
++  assert.equal(after.cleanupElapsedMs, 350); assert.equal(facts.cleanupElapsedMs, 300);
++  const late = new Error('late failure');
++  x.lifetime.fail(late); x.lifetime.requestTermination('immediate');
++  x.child.stdout.emit('error', late); x.child.emit('error', late);
++  assert.equal(x.lifetime.observe(() => 'late'), undefined);
++  assert.equal(facts.firstError, null); assert.equal(x.lifetime.snapshot().firstError, null);
++  assert.equal(await x.lifetime.completion, facts); assert.equal(completions, 1);
++  assert.deepEqual(x.signals.map(row => row.value), ['SIGTERM', 'SIGKILL']); assert.equal(x.timer.active(), 0);
++});
++
++test('controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows', async () => {
++  const notices = [];
++  const strengthened = controlledLifetime({ observations: { onSignalRequested: value => {
++    notices.push(value); if (value === 'SIGTERM') strengthened.lifetime.requestTermination('immediate');
++  } } });
++  strengthened.lifetime.requestTermination();
++  assert.deepEqual(notices, ['SIGTERM', 'SIGKILL']);
++  assert.deepEqual(strengthened.signals, [{ value: 'SIGKILL', time: 0n }], 'no TERM after strengthening');
++  assert.equal(strengthened.lifetime.snapshot().cleanupDeadlineNs, 200_000_000n);
++  strengthened.timer.advance(200); const kept = await strengthened.lifetime.completion;
++  assert.equal(kept.signalAttempts, 1); assert.equal(kept.firstError, null); assert.equal(kept.drainExpired, true);
++  assert.deepEqual(strengthened.signals.map(row => row.value), ['SIGKILL']); assert.equal(strengthened.timer.active(), 0);
++
++  const first = new Error('TERM notice failure');
++  const failed = controlledLifetime({ observations: { onSignalRequested: value => { if (value === 'SIGTERM') throw first; } } });
++  failed.lifetime.requestTermination();
++  assert.deepEqual(failed.signals.map(row => row.value), ['SIGKILL']);
++  assert.equal(failed.lifetime.snapshot().firstError, first);
++  failed.timer.advance(200); assert.equal((await failed.lifetime.completion).firstError, first);
++  assert.equal(failed.timer.active(), 0);
++
++  let absent = false;
++  const finished = controlledLifetime({ probe: () => absent ? 'absent' : 'present', observations: { onSignalRequested: value => {
++    if (value !== 'SIGKILL') return;
++    absent = true; finished.child.emit('exit', 0, null); finished.child.emit('close');
++  } } });
++  finished.lifetime.requestTermination('immediate');
++  const facts = await finished.lifetime.completion;
++  assert.deepEqual(finished.signals, [], 'no KILL after the attempt finished during its own notice');
++  assert.equal(finished.timer.active(), 0, 'no wait armed after completion');
++  assert.equal(facts.signalAttempts, 0); assert.equal(facts.closeObserved, true); assert.equal(facts.scopeAbsence, 'absent');
++  assert.equal(facts.drainExpired, false); assert.equal(facts.cleanupDeadlineNs, 300_000_000n);
++});
++
++test('controlled lifetime: first error and disposal faults are recorded before the one completion publication', async () => {
++  const owner = new Error('owner failure'), stdoutFault = new Error('stdout dispose');
++  for (const origin of ['owner', 'stdout', 'stderr']) {
++    const child = new ControlledChild(), attempts = [];
++    child.stdout.destroy = () => { child.disposals++; attempts.push('stdout'); if (origin !== 'stderr') throw stdoutFault; };
++    child.stderr.destroy = () => { child.disposals++; attempts.push('stderr'); throw 'stderr dispose'; };
++    const x = controlledLifetime({ childOverride: child, probe: () => 'absent' });
++    let published = null; x.lifetime.completion.then(facts => { published = facts; });
++    if (origin === 'owner') x.lifetime.fail(owner);
++    child.emit('exit', 0, null); child.emit('close');
++    assert.deepEqual(attempts, ['stdout', 'stderr']); assert.equal(child.disposals, 3);
++    const facts = await x.lifetime.completion;
++    assert.equal(published, facts); assert(Object.isFrozen(facts)); assert.equal(facts.streamsDisposed, false);
++    if (origin === 'owner') assert.equal(facts.firstError, owner);
++    else if (origin === 'stdout') assert.equal(facts.firstError, stdoutFault);
++    else { assert(facts.firstError instanceof TypeError); assert.equal(facts.firstError.message, 'stderr dispose'); }
++    x.lifetime.fail(new Error('after publication'));
++    assert.equal(x.lifetime.snapshot().firstError, facts.firstError); assert.equal(x.timer.active(), 0);
++  }
++});
++
+ async function helperModule(t, control = false, overrides = {}) {
+   const path = join(packageRoot, 'build/code/src/implementation/worksite_command_helper.js');
+   let source = (await readFile(path, 'utf8')).replace(/^#!.*\n/u, '');

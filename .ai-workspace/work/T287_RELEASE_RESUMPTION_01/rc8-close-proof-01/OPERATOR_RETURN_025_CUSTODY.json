@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-07T15:29:28.066928+00:00",
+  "operatorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_025.json",
+    "bytes": 11877,
+    "sha256": "78fae0e88a483d8268e527cfdf3868f97565aeff5cac86baf4a558cf284a203a"
+  },
+  "correction": "The original return scanned direct build-effects files and therefore left isolatedBuildCustody empty. Both existing owner CUSTODY receipts are nested one directory below; exact pins supplied here. Original return/conservation/results unchanged, no re-execution or effect.",
+  "isolatedBuildCustody": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/build-effects/207-t287-w2-05-generator-package-reproducibility/CUSTODY.json",
+      "bytes": 1048,
+      "sha256": "a8785c0c16a1b92ff73d09ca878e959ddeaf0536c0b775dfdbc63742260a4fe3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/build-effects/208-t287-w2-05-release-snapshot-definition-bindings/CUSTODY.json",
+      "bytes": 569,
+      "sha256": "40b8b9c92fee334e72fef5033554fa9bca543c225a2aed7ab523689e3efc4fab"
+    }
+  ]
+}

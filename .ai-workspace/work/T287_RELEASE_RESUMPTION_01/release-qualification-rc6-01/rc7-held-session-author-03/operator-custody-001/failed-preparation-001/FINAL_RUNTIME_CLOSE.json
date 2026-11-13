@@ -1,0 +1,157 @@
+{
+  "kind": "actual_native_preparation_runtime_close",
+  "status": "FAILED_PREPARATION_RESOURCE_CLOSED_NO_NATIVE_INVOKED",
+  "createdUtc": "2026-11-06T16:41:31.872269+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 6179,
+    "sha256": "f1687c50a378dc09b3652b4b5aa9f0ee07f629bf1167ddccc9206bf090692e56"
+  },
+  "actualExecution": null,
+  "actualReceiptPointer": null,
+  "actualResourceClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/resource-close.json",
+    "bytes": 2308,
+    "sha256": "213a443f65d082653eb1481e93884ab75940775f60640c6a05f47da7d3793d9d"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "daaa3b3868d7e9e1461c0f081584a012d6aa674f6a171579882f01803480142f"
+  },
+  "outcomeSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/outcome-summary.json",
+    "bytes": 633,
+    "sha256": "e3176f02ad6d760af708029d2e516687d63467f3d05035cd733654ae503e8bd0"
+  },
+  "actualFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/DISPATCH_FAILURE.json",
+    "bytes": 725,
+    "sha256": "6ff93195c077dd1bedcc6129b104f6bcd381b3ce81a63490307c1521c4ec0291"
+  },
+  "actualSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_AFTER.json",
+    "bytes": 557347,
+    "sha256": "515dd6b7d33208e4fa5fed02f7d15ebac853eefc7467c9da6c856e7f29fe3006"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+    "bytes": 240531,
+    "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+  },
+  "sourceStanding": "Same451-file partial H02 repair baseline, freshly verified unchanged after this failed preparation; no new native source observation.",
+  "actualSourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/failed-preparation-001/CUSTODY.json",
+    "bytes": 6554,
+    "sha256": "052932b3cf4535b1a07e0dee8d34005aa2e26661205aa5bbc49a93afeeb01bb4"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 2052404992,
+      "prefixDigest": "sha256:0c6cdd8b361e21206d68a31927759696b8a2e95e371e9223c64666726ad8d926",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 701759869,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+      },
+      "coordinateDigest": "sha256:2a1e037bdf9900e4adfb8712cb019b16a685b765183f4f36b60f9e765ff46188"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "device": 16777231,
+      "inode": 701759869,
+      "eventLogDigest": "sha256:0c6cdd8b361e21206d68a31927759696b8a2e95e371e9223c64666726ad8d926",
+      "durableByteLength": 2052404992,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "authorityDigest": "sha256:3f38ae063ef89d1612cbf4d04cf568b8b7063f74d6690cdc85ee4bbaa29a9a2c"
+    }
+  },
+  "physicalPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "observedBytes": 2052404992,
+    "device": 16777231,
+    "inode": 701759869,
+    "actualOwnerPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 2052404992,
+      "prefixDigest": "sha256:0c6cdd8b361e21206d68a31927759696b8a2e95e371e9223c64666726ad8d926",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 701759869,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+      },
+      "coordinateDigest": "sha256:2a1e037bdf9900e4adfb8712cb019b16a685b765183f4f36b60f9e765ff46188"
+    },
+    "samePredecessorCoordinateAndReportedDigest": true,
+    "freshFullPrefixHashPerformed": false,
+    "priorVerifiedPhysicalPrefix": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 10421,
+      "sha256": "7ddb9f2f715158677c4c11564b3996d43e13131d0cc9efb3524a3baef28ad494"
+    },
+    "standing": "Fresh size/device/inode observation plus actual owner close equality to the already verified predecessor. No second full campaign scan/hash or event decode."
+  },
+  "sdk": {
+    "invoked": false,
+    "exitCode": null,
+    "outcome": null,
+    "run": null,
+    "actor": null,
+    "physicalCloseSucceeded": true
+  },
+  "host": {
+    "rootSession": 47574,
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 457897.731625,
+    "owner": "Root actual exec return"
+  },
+  "timing": {
+    "beforeIdentityMs": 11395.603333000001,
+    "acquireAfterIdentityMs": 293235.21866700007,
+    "environmentAfterAcquireMs": 121341.00491699995,
+    "afterEnvironmentThroughFailureAndCloseMs": 21880.953000000038,
+    "constructionCompleteMs": null,
+    "actorStartUtc": null,
+    "nativeWorkMs": null,
+    "hostStartedUtc": "2026-11-06T16:27:18.008Z",
+    "endedUtc": "2026-11-06T16:34:45.830Z",
+    "hostWallMs": 447852.77991700004,
+    "rootOuterWallMs": 457897.731625,
+    "rootCoordinationMarks": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/ROOT_COORDINATION_MARKS.json",
+      "bytes": 2659,
+      "sha256": "9eae118dce6bb4f3c23ece55534a413bd4a8b3c496c2f9201dc5722481bf24f5"
+    },
+    "standing": "No actor started; no prepared-call completion timestamp exists. The final interval includes failed receipt writing/cleanup/close and is not assigned exclusively to call construction. No speedup or cost-cause inference from unmatched runs or samples."
+  },
+  "readbacks": {
+    "performed": false,
+    "standing": "No native call/Result exists from this attempt. No cold campaign drain."
+  },
+  "qualified": false,
+  "accepted": false,
+  "published": false,
+  "futureRecovery": {
+    "rootOwned": true,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001",
+    "sameUnconsumedCodingScope": true,
+    "actualFutureInvocation": null
+  },
+  "limits": [
+    "No SDK/Run/actor/source-effect claim; no native.after or handoff fabricated.",
+    "Only451 selected source rows,18 staged controls and67 pins were compared; no full no-outside-effects assertion.",
+    "Original estimate/attempt/controls remain immutable. Root owns fresh execution-recovery-001 host using the same unconsumed H03 coding scope.",
+    "No new packet/task/source edit, staging, build/test/runtime acquisition/provider or cold drain by custody Writer."
+  ]
+}

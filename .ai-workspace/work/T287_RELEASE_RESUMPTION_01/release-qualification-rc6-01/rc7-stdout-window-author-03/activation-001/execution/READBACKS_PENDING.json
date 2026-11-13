@@ -1,0 +1,16 @@
+{
+  "status": "ACTUAL_SDK_RETURN_AND_OUTER_CLOSE_RETAINED_READBACKS_PENDING",
+  "actualOutcomeFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/execution.json",
+  "receiptPointer": "/receipt",
+  "actualCloseReceiptFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/resource-close.json",
+  "closeHandoffPointer": "/closeHandoff",
+  "actualResumeFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/after-run-resume.json",
+  "run": {
+    "ref": "run://abiogenesis/d9665b8953d9293cdaa66f285a41e238678b5e2fee19d143eb2d7074bc4fc041",
+    "digest": "sha256:dd2b2f5193092193fb3bea4973b30afa93d7f75076d67027e939d810cc2cc921"
+  },
+  "terminalPresent": true,
+  "errors": [],
+  "qualified": false,
+  "meaning": "Let this host exit. Root binds separate actual cold reads and compares full returned terminal/value/producer/ref/digest. No environment refresh or raw-prefix recapture here."
+}

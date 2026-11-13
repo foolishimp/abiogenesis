@@ -1,0 +1,93 @@
+{
+  "observed_at": "2026-11-02T07:52:10.824816+00:00",
+  "source_receipt": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-operator-inputs/native-recovery-11/SOURCE_RECEIPTS.json",
+  "source_receipt_sha256": "9ab052be1d9004959971ba766464aeb9f783b99dd81fa6c81743727d29238d62",
+  "method": "File-only exact 12 declared source bytes/hash comparison; no Git or Product operation. Does not establish absence of other source changes.",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "expected_sha256": "50d14f82db074dafef93999993b4d45c6cc177c55fb977b6ff0babc32fb8fd63",
+      "sha256": "50d14f82db074dafef93999993b4d45c6cc177c55fb977b6ff0babc32fb8fd63",
+      "bytes": 146271,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "expected_sha256": "f98657628c0c21147f84e3d7c854df04014f71eef4a0920c2ac3cb34e66cd15d",
+      "sha256": "f98657628c0c21147f84e3d7c854df04014f71eef4a0920c2ac3cb34e66cd15d",
+      "bytes": 47365,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "expected_sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "bytes": 61840,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "expected_sha256": "a87fe93c34a3c6f7c07e7e47329e93147e8c3ccccc441714420e0e78c4168eb9",
+      "sha256": "a87fe93c34a3c6f7c07e7e47329e93147e8c3ccccc441714420e0e78c4168eb9",
+      "bytes": 122422,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "expected_sha256": "6369f58eaacaee1472e7502af8ddb6dbfba701840b58698b20502dde58342cec",
+      "sha256": "6369f58eaacaee1472e7502af8ddb6dbfba701840b58698b20502dde58342cec",
+      "bytes": 41266,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "expected_sha256": "78d213d48e697882b8614d825c8a6cb4b4c7ee9ef5b5f3a75cbc72f80c33ec49",
+      "sha256": "78d213d48e697882b8614d825c8a6cb4b4c7ee9ef5b5f3a75cbc72f80c33ec49",
+      "bytes": 46913,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "expected_sha256": "8453b404179065603cb786d2a307439fe07119d8b0a29e6249c0bdd4ddb33839",
+      "sha256": "8453b404179065603cb786d2a307439fe07119d8b0a29e6249c0bdd4ddb33839",
+      "bytes": 197474,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "expected_sha256": "8569be499d52429d35ca0015ba05e7395ded850d5f793aed800da2c5336915f2",
+      "sha256": "8569be499d52429d35ca0015ba05e7395ded850d5f793aed800da2c5336915f2",
+      "bytes": 27713,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "expected_sha256": "dafcbb49fd379a495151ebe1777acd8b0e41be8089985b64c09d8e09091b64f3",
+      "sha256": "dafcbb49fd379a495151ebe1777acd8b0e41be8089985b64c09d8e09091b64f3",
+      "bytes": 69522,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "expected_sha256": "69044fb6ef2367e6275eb578720605a09911a002bb7d37124d2d7a43f5faacce",
+      "sha256": "69044fb6ef2367e6275eb578720605a09911a002bb7d37124d2d7a43f5faacce",
+      "bytes": 3274041,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "expected_sha256": "a434d21da6b2a444d545b3ac70b822d04b0f07e2ceaa5b7ba2341513f6fbb03c",
+      "sha256": "a434d21da6b2a444d545b3ac70b822d04b0f07e2ceaa5b7ba2341513f6fbb03c",
+      "bytes": 271366,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "expected_sha256": "170d6ed6af2094bbddeb9895c0167b9e1e97afeafa4364ec470063fa0fe9374e",
+      "sha256": "170d6ed6af2094bbddeb9895c0167b9e1e97afeafa4364ec470063fa0fe9374e",
+      "bytes": 74084,
+      "matches": true
+    }
+  ],
+  "all_12_match": true
+}

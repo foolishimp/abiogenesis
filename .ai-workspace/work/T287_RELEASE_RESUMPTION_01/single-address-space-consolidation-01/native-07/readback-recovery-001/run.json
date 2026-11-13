@@ -1,0 +1,13 @@
+{
+  "kind": "actual_invocation_close_readback_recovery",
+  "startedUtc": "2026-11-04T05:52:54.660Z",
+  "sourceRunRef": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+  "actualInvocationClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/calls/lifecycle-start.close.json",
+    "bytes": 1368,
+    "sha256": "974285215f3a66047b2a62c69bb1216580e458ef610105aa0ddeeeda75a67576"
+  },
+  "hostHeapLimitBytes": 8791261184,
+  "nativeWorkRepeated": false,
+  "providerCalls": 0
+}

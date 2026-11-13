@@ -1,0 +1,192 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-owner-proof-004.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/run-owner-diagnosis-006.mjs
+@@ -1,6 +1,6 @@
+-// One Root-selected complete OWN-01 proof over the unchanged built003 stage; no source/test edits.
++//006 diagnostic successor of004; unchanged OWN test, external observation only.
+ import assert from 'node:assert/strict';
+-import {readFile,writeFile,mkdir,lstat,realpath,statfs} from 'node:fs/promises';
++import {readFile,writeFile,mkdir,lstat,realpath,statfs,readdir,open} from 'node:fs/promises';
+ import {createHash} from 'node:crypto';
+ import {join,dirname,resolve} from 'node:path';
+ import {pathToFileURL} from 'node:url';
+@@ -25,29 +25,80 @@
+   return {rows,summary,counts:summary?.counts??null,skips,complete,parseFailure};
+ }
+ // UNIT_REPORTER_PARSER_END
+-const [bindingPath,bindingSha,admissionPath,admissionSha]=process.argv.slice(2);assert.equal(process.argv.length,6,'usage: node run-owner-proof-004.mjs BINDING SHA ROOT_ADMISSION SHA');
+-const raw=await readFile(bindingPath);assert.equal(hex(raw),bindingSha);const b=JSON.parse(raw);assert.equal(b.status,'BOUND_RC9_OWN_PROOF');
+-const ar=await readFile(admissionPath);assert.equal(hex(ar),admissionSha);const admission=JSON.parse(ar);assert.equal(admission.status,'ROOT_ADMITTED_RC9_OWN_PROOF');assert.equal(admission.bindingSha256,bindingSha);assert.equal(admission.formerProofProcessesStopped,true);assert.deepEqual(admission.formerProofStopChecks,b.formerProofStopChecks);
+-assert.equal(b.bounds.timeoutMs,600000);assert.equal(b.bounds.outputBytes,16777216);assert.equal(b.bounds.reserveBytes,4294967296);assert.equal(b.bounds.maxOwnedBytes,4294967296);assert.equal(b.bounds.pollMs,10000);assert.equal(b.bounds.ancestryProbeMs,10000);assert.equal(b.expectedCases,1);
+-assert.equal(b.outputRoot,join(dirname(resolve(bindingPath)),'owner-proof-004'));assert.equal(b.scratchRoot,'/private/tmp/abg-r9-owner-external-004');
+-assert.equal(await realpath(process.execPath),b.node.path);for(const p of [b.node,b.ps,b.sourceFreeze,b.completedStage,b.buildInputs,b.dependencyInventory,b.stageManifest,b.reporter,b.fileHost,b.parserOwner,...b.commandOwnerPins,...b.materialPins,...b.formerProofStopChecks])await checked(p);
++const [bindingPath,bindingSha,admissionPath,admissionSha]=process.argv.slice(2);assert.equal(process.argv.length,6,'usage: node run-owner-diagnosis-006.mjs BINDING SHA ROOT_ADMISSION SHA');
++const raw=await readFile(bindingPath);assert.equal(hex(raw),bindingSha);const b=JSON.parse(raw);assert.equal(b.status,'BOUND_RC9_OWNER_DIAGNOSIS');
++const ar=await readFile(admissionPath);assert.equal(hex(ar),admissionSha);const admission=JSON.parse(ar);assert.equal(admission.status,'ROOT_ADMITTED_RC9_OWNER_DIAGNOSIS');assert.equal(admission.bindingSha256,bindingSha);assert.equal(admission.formerProofProcessesStopped,true);assert.deepEqual(admission.formerProofStopChecks,b.formerProofStopChecks);
++assert.equal(b.bounds.timeoutMs,600000);assert.equal(b.bounds.outputBytes,16777216);assert.equal(b.bounds.reserveBytes,4294967296);assert.equal(b.bounds.maxOwnedBytes,4294967296);assert.equal(b.bounds.pollMs,10000);assert.equal(b.bounds.ancestryProbeMs,10000);assert.equal(b.expectedCases,1);assert.equal(b.bounds.cpuIntervalUs,10000);assert.equal(b.bounds.profileBytes,67108864);assert.equal(b.bounds.cpuPollMs,10000);assert.equal(b.bounds.maxCpuProbes,64);assert.equal(b.bounds.cpuRecordBytes,4194304);assert.equal(b.bounds.phaseAtMs,300000);assert.equal(b.bounds.phaseProbeMs,10000);assert.equal(b.bounds.phaseReadBytes,1048576);
++assert.equal(b.outputRoot,join(dirname(resolve(bindingPath)),'execution-001'));assert.equal(b.scratchRoot,'/private/tmp/abg-r9-owner-diagnosis-006');
++assert.equal(await realpath(process.execPath),b.node.path);for(const p of [b.node,b.ps,b.sourceFreeze,b.completedStage,b.buildInputs,b.dependencyInventory,b.stageManifest,b.reporter,b.fileHost,b.parserOwner,...b.commandOwnerPins,...b.materialPins,...b.formerProofStopChecks,b.formerOwnProofStop,...b.diagnosticControlPins])await checked(p);assert.deepEqual(admission.formerOwnProofStop,b.formerOwnProofStop);
+ const frozen=JSON.parse(await checked(b.sourceFreeze)),stage=JSON.parse(await checked(b.completedStage));assert.equal(frozen.sourceDigest,b.sourceDigest);assert.equal(stage.sourceDigest,b.sourceDigest);assert.equal(stage.status,'BUILT');assert.equal(stage.tenant,b.cwd);
+-assert.equal(b.innerTimeoutMs,500000);assert.equal(b.testFile,'test_env/tests/t287-held-owner-fold-reuse.test.mjs');assert((await readFile(join(b.cwd,b.testFile),'utf8')).includes('{timeout:500_000}'));for(const tool of b.fixtureToolPins){assert.equal(await realpath(tool.configuredPath),tool.realPath);await checked({path:tool.realPath,bytes:tool.bytes,sha256:tool.sha256});}assert.deepEqual(b.command.args,['--experimental-vm-modules','--test','--test-concurrency=1',b.testFile]);assert.equal(b.command.executable,b.node.path);assert.equal(b.command.cwd,b.cwd);
++assert.equal(b.innerTimeoutMs,500000);assert.equal(b.testFile,'test_env/tests/t287-held-owner-fold-reuse.test.mjs');assert((await readFile(join(b.cwd,b.testFile),'utf8')).includes('{timeout:500_000}'));for(const tool of b.fixtureToolPins){assert.equal(await realpath(tool.configuredPath),tool.realPath);await checked({path:tool.realPath,bytes:tool.bytes,sha256:tool.sha256});}assert.deepEqual(b.command.args,['--cpu-prof','--cpu-prof-dir='+join(b.outputRoot,'profiles'),'--cpu-prof-interval=10000','--experimental-vm-modules','--test','--test-concurrency=1',b.testFile]);assert.equal(b.command.executable,b.node.path);assert.equal(b.command.cwd,b.cwd);
+ const expectedOptions='--max-old-space-size=8192 --test-reporter=spec --test-reporter-destination=stdout --test-reporter='+b.reporter.path+' --test-reporter-destination='+join(b.outputRoot,'events.jsonl');assert.equal(b.command.environment.NODE_OPTIONS,expectedOptions);assert.equal(b.command.environment.TMPDIR,join(b.scratchRoot,'tmp'));assert(!Object.keys(b.command.environment).some(k=>/CLAUDE|ANTHROPIC|OPENAI|PROVIDER/.test(k)));
+ await absent(b.outputRoot);await absent(b.scratchRoot);const fs=await statfs(dirname(b.outputRoot));assert(fs.bavail*fs.bsize>=b.bounds.reserveBytes,'4GiB free reserve required');
+ const {commandRecorder,exclusiveRecord}=await import(pathToFileURL(b.commandOwnerPins[0].path));
+-await mkdir(b.outputRoot);await mkdir(b.scratchRoot);await mkdir(join(b.scratchRoot,'tmp'));for(const n of ['npm-user.npmrc','npm-global.npmrc'])await writeFile(join(b.scratchRoot,n),'',{flag:'wx'});
++await mkdir(b.outputRoot);await mkdir(join(b.outputRoot,'profiles'));await mkdir(b.scratchRoot);await mkdir(join(b.scratchRoot,'tmp'));for(const n of ['npm-user.npmrc','npm-global.npmrc'])await writeFile(join(b.scratchRoot,n),'',{flag:'wx'});
+ const save=(n,x)=>exclusiveRecord(b.outputRoot,n,x);const hostSamples=[];
+ function sample(point){hostSamples.push({point,at:new Date().toISOString(),pid:process.pid,ppid:process.ppid,loadAverage:loadavg(),logicalCPUs:cpus().length,memoryFreeBytes:freemem(),memoryTotalBytes:totalmem()});}
+-async function ancestry(point){try{const {stdout}=await exec(b.ps.path,['-axo','pid=,ppid=,pgid=,stat=,etime=,comm='],{timeout:b.bounds.ancestryProbeMs,maxBuffer:1048576,env:{PATH:'/usr/bin:/bin'},encoding:'utf8'});const rows=stdout.split('\n').flatMap(l=>{const m=l.trim().match(/^(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(.*)$/);return m?[{pid:+m[1],ppid:+m[2],pgid:+m[3],state:m[4],elapsed:m[5],command:m[6]}]:[];});const keep=new Set([process.pid]);let cursor=process.pid;for(let i=0;i<32;i++){const row=rows.find(x=>x.pid===cursor);if(!row||keep.has(row.ppid))break;keep.add(row.ppid);cursor=row.ppid;}const descendants=new Set([process.pid]);for(let i=0;i<32;i++){let changed=false;for(const row of rows)if(descendants.has(row.ppid)&&!descendants.has(row.pid)){descendants.add(row.pid);changed=true;}if(!changed)break;}await save('ancestry-'+point+'.json',{at:new Date().toISOString(),hostPid:process.pid,rows:rows.filter(r=>keep.has(r.pid)||descendants.has(r.pid)),standing:'Observed host ancestors and descendants only; detached-descendant absence is not proved.'});return null;}catch(e){const failure=String(e);await save('ancestry-'+point+'.json',{at:new Date().toISOString(),failure});return failure;}}
++const cpuRecords=[],cpuLast=new Map(),knownDescendants=new Set();let cpuProbeCount=0,cpuRecordBytes=0,cpuBusy=false,cpuPending=null;
++const cpuSeconds=value=>{const m=value.match(/^(?:(\d+)-)?(?:(\d+):)?(\d+):(\d+(?:\.\d+)?)$/);return m?Number(m[1]??0)*86400+Number(m[2]??0)*3600+Number(m[3])*60+Number(m[4]):null;};
++async function ancestry(point){
++ if(cpuProbeCount>=b.bounds.maxCpuProbes)return 'CPU probe count exhausted';cpuProbeCount++;
++ const started=performance.now(),record={point,at:new Date().toISOString(),startedMonotonicMs:started,hostPid:process.pid,rows:[],failure:null};
++ try{
++  const {stdout}=await exec(b.ps.path,['-axo','pid=,ppid=,pgid=,lstart=,etime=,time=,stat=,comm='],{timeout:b.bounds.ancestryProbeMs,maxBuffer:1048576,env:{PATH:'/usr/bin:/bin',LANG:'C',LC_ALL:'C'},encoding:'utf8'});
++  const rows=stdout.split('\n').filter(l=>l.trim()).map(l=>{const m=l.trim().match(/^(\d+)\s+(\d+)\s+(\d+)\s+(\w{3}\s+\w{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\d{4})\s+(\S+)\s+(\S+)\s+(\S+)\s+(.*)$/);assert(m,'unparsed ps row');return {pid:+m[1],ppid:+m[2],pgid:+m[3],start:m[4].replace(/\s+/g,' '),elapsed:m[5],cpuTime:m[6],state:m[7],command:m[8]};});
++  const ancestors=new Set([process.pid]);let cursor=process.pid;for(let i=0;i<32;i++){const row=rows.find(x=>x.pid===cursor);if(!row||ancestors.has(row.ppid))break;ancestors.add(row.ppid);cursor=row.ppid;}
++  const descendants=new Set([process.pid]);for(let i=0;i<32;i++){let changed=false;for(const row of rows)if(descendants.has(row.ppid)&&!descendants.has(row.pid)){descendants.add(row.pid);changed=true;}if(!changed)break;}
++  const selected=rows.filter(r=>ancestors.has(r.pid)||descendants.has(r.pid)||knownDescendants.has(r.pid+'@'+r.start));assert(selected.length<=256,'owned row cap');
++  record.observedMonotonicMs=performance.now();for(const row of selected){
++   row.identity=row.pid+'@'+row.start;row.role=row.pid===process.pid?'external_host':descendants.has(row.pid)?'descendant':knownDescendants.has(row.identity)?'previously_observed_descendant':'ancestor';
++   if(row.role==='descendant')knownDescendants.add(row.identity);row.cpuSeconds=cpuSeconds(row.cpuTime);assert(row.cpuSeconds!==null,'unparsed CPU time');
++   const previous=cpuLast.get(row.identity);row.deltaCpuSeconds=previous?row.cpuSeconds-previous.cpuSeconds:null;row.deltaObservedMs=previous?record.observedMonotonicMs-previous.at:null;
++   row.cpuPerElapsed=previous&&row.deltaObservedMs>0&&row.deltaCpuSeconds>=0?row.deltaCpuSeconds/(row.deltaObservedMs/1000):null;cpuLast.set(row.identity,{cpuSeconds:row.cpuSeconds,at:record.observedMonotonicMs});
++  }record.rows=selected;record.standing='CPU time is accumulated user+system; elapsed is actual observer interval. Short-lived/unknown detached processes may be missed. No wait-cause or CPU-saturation inference.';
++ }catch(e){record.failure=String(e);}
++ record.finishedAt=new Date().toISOString();record.probeWallMs=performance.now()-started;let encoded=JSON.stringify(record);if(cpuRecordBytes+Buffer.byteLength(encoded)>b.bounds.cpuRecordBytes){record.rows=[];record.failure='CPU retained-record byte cap';encoded=JSON.stringify(record);}cpuRecordBytes+=Buffer.byteLength(encoded);cpuRecords.push(record);await save('ancestry-'+point+'.json',record);return record.failure;
++}
++async function phaseObservation(){
++ const started=performance.now(),receipt={at:new Date().toISOString(),commandRelativeMs:started-commandStartedMonotonic,helper:b.phaseObserver,timeoutMs:b.bounds.phaseProbeMs};let child;
++ const observed=await new Promise(resolve=>{child=execFile(b.node.path,[b.phaseObserver.path,join(b.scratchRoot,'tmp')],{timeout:b.bounds.phaseProbeMs,maxBuffer:1048576,env:{PATH:'/usr/bin:/bin',LANG:'C',LC_ALL:'C'},encoding:'utf8'},(error,stdout,stderr)=>resolve({error:error?{code:error.code,signal:error.signal,killed:error.killed,message:error.message}:null,stdout,stderr}));receipt.helperPid=child.pid??null;receipt.helperParentPid=process.pid;});
++ receipt.wallMs=performance.now()-started;receipt.error=observed.error;receipt.stderr=observed.stderr;try{receipt.observation=JSON.parse(observed.stdout);}catch(e){receipt.observation={status:'UNKNOWN',failure:String(e)};}receipt.standing='One bounded physical-event observation only; missing/partial rows remain unknown. No ABG truth admission or assertion credit.';await save('PHASE_OBSERVATION.json',receipt);
++}
++async function collectProfiles(){
++ const report={capBytes:b.bounds.profileBytes,actualTotalBytes:0,collectedBytes:0,files:[],failures:[],expectedProcessIds:{testRunner:null,testFile:null},complete:false,standing:'Profiles must correspond to observed owned processes. A missing, over-cap or invalid/truncated file is unavailable, never zero CPU.'};
++ let started=null;try{started=JSON.parse(await readFile(join(b.outputRoot,'FILE_CHILD_STARTED.json'),'utf8'));assert.deepEqual(started.args,b.command.args);assert.equal(started.executable,b.node.path);assert(Number.isSafeInteger(started.testRunnerPid));report.expectedProcessIds.testRunner=started.testRunnerPid;}catch(e){report.failures.push('runner identity: '+String(e));}
++ const rows=cpuRecords.flatMap(r=>r.rows),isNode=r=>r.command===b.node.path||r.command==='node';const testRows=rows.filter(r=>r.ppid===started?.testRunnerPid&&isNode(r));const testIds=[...new Set(testRows.map(r=>r.identity))];
++ if(testIds.length===1)report.expectedProcessIds.testFile=testRows[0].pid;else report.failures.push('isolated test PID identity count '+testIds.length);
++ let names=[];try{names=await readdir(join(b.outputRoot,'profiles'));assert(names.length<=32,'profile file count cap');}catch(e){report.failures.push(String(e));names=[];}
++ for(const name of names.sort()){
++  const entry={name};try{const path=join(b.outputRoot,'profiles',name),st=await lstat(path);assert(st.isFile()&&!st.isSymbolicLink(),'profile not regular');entry.bytes=st.size;report.actualTotalBytes+=st.size;const m=name.match(/^CPU\.(\d{8})\.(\d{6})\.(\d+)\.(\d+)\.(\d+)\.cpuprofile$/);assert(m,'unexpected profile name');entry.pid=+m[3];entry.threadId=+m[4];
++   const identities=[...new Set(rows.filter(r=>r.pid===entry.pid&&isNode(r)&&r.role==='descendant').map(r=>r.identity))];entry.observedProcessIdentities=identities;assert.equal(identities.length,1,'profile process correspondence incomplete');
++   entry.role=entry.pid===report.expectedProcessIds.testRunner?'test_runner':entry.pid===report.expectedProcessIds.testFile?'isolated_test_file':'other_observed_descendant';
++   assert(report.collectedBytes+st.size<=b.bounds.profileBytes,'profile collection byte cap');const fd=await open(path,'r');let data;try{const buffer=Buffer.alloc(st.size);let offset=0;while(offset<buffer.length){const r=await fd.read(buffer,offset,buffer.length-offset,offset);if(r.bytesRead===0)break;offset+=r.bytesRead;report.collectedBytes+=r.bytesRead;}data=buffer.subarray(0,offset);assert.equal((await fd.stat()).size,st.size,'profile grew during bounded collection');assert.equal(data.length,st.size,'profile changed or truncated during collection');}finally{await fd.close();}entry.sha256=hex(data);const profile=JSON.parse(data);
++   assert(Array.isArray(profile.nodes)&&Array.isArray(profile.samples)&&Array.isArray(profile.timeDeltas)&&profile.samples.length===profile.timeDeltas.length&&Number.isFinite(profile.startTime)&&Number.isFinite(profile.endTime)&&profile.endTime>=profile.startTime,'profile structural completeness');
++   entry.sampleCount=profile.samples.length;entry.nodeCount=profile.nodes.length;entry.startTimeUs=profile.startTime;entry.endTimeUs=profile.endTime;entry.status='COMPLETE_PROFILE';
++  }catch(e){entry.status='UNAVAILABLE';entry.failure=String(e);report.failures.push(name+': '+String(e));}report.files.push(entry);
++ }
++ for(const role of ['test_runner','isolated_test_file'])if(!report.files.some(f=>f.role===role&&f.status==='COMPLETE_PROFILE'&&f.sampleCount>0))report.failures.push('missing complete sampled '+role+' profile');
++ if(report.actualTotalBytes>b.bounds.profileBytes)report.failures.push('actual profile bytes exceed operational cap; no files truncated or removed');report.complete=report.failures.length===0;await save('PROFILE_COLLECTION.json',report);return report;
++}
+ sample('before');const preAncestryFailure=await ancestry('before');
+-await save('REQUEST.json',{binding:{path:resolve(bindingPath),sha256:bindingSha},admission:{path:resolve(admissionPath),sha256:admissionSha},command:b.command,bounds:b.bounds,nodeVersion:process.version,nodeExecutable:process.execPath,hostPid:process.pid,hostParentPid:process.ppid,formerProofStopChecks:b.formerProofStopChecks,standing:'One complete OWN proof with its existing disposable fixture effects; no quiet-host assertion, native/provider dispatch, source acceptance or retry.'});
++await save('REQUEST.json',{binding:{path:resolve(bindingPath),sha256:bindingSha},admission:{path:resolve(admissionPath),sha256:admissionSha},command:b.command,bounds:b.bounds,nodeVersion:process.version,nodeExecutable:process.execPath,hostPid:process.pid,hostParentPid:process.ppid,formerProofStopChecks:b.formerProofStopChecks,standing:'One diagnostic OWN execution with unchanged assertions and normal disposable fixture effects; original test verdict preserved. No quiet-host assertion, source acceptance or retry.'});
+ assert.equal(preAncestryFailure,null,'preflight ancestry observation incomplete');
+-const fileBinding=join(b.outputRoot,'FILE_HOST_BINDING.json');await writeFile(fileBinding,JSON.stringify({executable:b.node.path,args:b.command.args,cwd:b.cwd,outputRoot:b.outputRoot,scratchRoot:b.scratchRoot,resourceRecord:join(b.outputRoot,'RESOURCES.json'),bounds:b.bounds},null,2)+'\n',{flag:'wx'});const filePin=await pin(fileBinding);
+-const timer=setInterval(()=>sample('during'),1000);let ancestryFailure=null;const during=new Promise(resolve=>setTimeout(()=>ancestry('during').then(x=>{ancestryFailure=x;resolve();}),1000));let result=null,commandFailure=null;
+-try{result=await commandRecorder(b.outputRoot,{environment:b.command.environment,timeoutMs:b.bounds.timeoutMs,maxOutputBytes:b.bounds.outputBytes})('own01',b.node.path,[b.fileHost.path,fileBinding,filePin.sha256],{cwd:b.cwd});}catch(e){commandFailure=String(e?.stack??e);}finally{clearInterval(timer);await during;sample('after');}
++const fileBinding=join(b.outputRoot,'FILE_HOST_BINDING.json');await writeFile(fileBinding,JSON.stringify({executable:b.node.path,args:b.command.args,cwd:b.cwd,outputRoot:b.outputRoot,scratchRoot:b.scratchRoot,profileRoot:join(b.outputRoot,'profiles'),resourceRecord:join(b.outputRoot,'RESOURCES.json'),bounds:b.bounds},null,2)+'\n',{flag:'wx'});const filePin=await pin(fileBinding);
++const commandStartedMonotonic=performance.now();let commandLive=true,result=null,commandFailure=null,ancestryFailure=null,phasePending=null,phaseAttempted=false;
++const timer=setInterval(()=>sample('during'),1000);
++const kickCpu=()=>{if(!commandLive||cpuBusy)return;cpuBusy=true;cpuPending=ancestry('during-'+String(cpuProbeCount).padStart(3,'0')).then(f=>{if(f)ancestryFailure??=f;}).finally(()=>{cpuBusy=false;});};
++const earlyCpu=setTimeout(kickCpu,1000),cpuTimer=setInterval(kickCpu,b.bounds.cpuPollMs);
++const phaseTimer=setTimeout(()=>{if(commandLive){phaseAttempted=true;phasePending=phaseObservation().catch(async e=>{await save('PHASE_OBSERVATION_FAILURE.json',{failure:String(e)});});}},b.bounds.phaseAtMs);
++try{result=await commandRecorder(b.outputRoot,{environment:b.command.environment,timeoutMs:b.bounds.timeoutMs,maxOutputBytes:b.bounds.outputBytes})('own01',b.node.path,[b.fileHost.path,fileBinding,filePin.sha256],{cwd:b.cwd});}catch(e){commandFailure=String(e?.stack??e);}finally{
++ commandLive=false;clearInterval(timer);clearInterval(cpuTimer);clearTimeout(earlyCpu);clearTimeout(phaseTimer);if(cpuPending)await cpuPending;if(phasePending)await phasePending;sample('after');
++}
++if(!phaseAttempted)await save('PHASE_OBSERVATION.json',{status:'NOT_ATTEMPTED_COMMAND_ALREADY_CLOSED',standing:'No phase observation and no phase inference.'});
+ const postAncestryFailure=await ancestry('after');await save('HOST_OBSERVATIONS.json',{samples:hostSamples,ancestryFailure,postAncestryFailure,quietHostClaim:false});
+-let bytes=null,readFailure=null;try{bytes=await readFile(join(b.outputRoot,'events.jsonl'));}catch(e){readFailure=String(e);}const evidence=parseUnitReporter(bytes,b.bounds.outputBytes);let conservationFailure=null;try{for(const p of [b.sourceFreeze,b.completedStage,b.stageManifest,...b.materialPins])await checked(p);}catch(e){conservationFailure=String(e);}
++await save('PROCESS_CPU_OBSERVATIONS.json',{probeCount:cpuProbeCount,retainedBytes:cpuRecordBytes,records:cpuRecords.map(r=>({point:r.point,at:r.at,probeWallMs:r.probeWallMs,failure:r.failure,receipt:'ancestry-'+r.point+'.json'})),standing:'Use each retained per-process CPU delta with actual elapsed interval; no aggregate saturation or wait-cause inference. No detached-descendant absence claim.'});
++const profileCollection=await collectProfiles();
++let bytes=null,readFailure=null;try{bytes=await readFile(join(b.outputRoot,'events.jsonl'));}catch(e){readFailure=String(e);}const evidence=parseUnitReporter(bytes,b.bounds.outputBytes);let conservationFailure=null;try{for(const p of [b.sourceFreeze,b.completedStage,b.stageManifest,...b.materialPins,...b.diagnosticControlPins])await checked(p);}catch(e){conservationFailure=String(e);}
+ let ownerObservations=null,ownerObservationFailure=null,ownerObservationLines=[];
+ try{assert(typeof result?.stdout==='string','command stdout unavailable');assert.equal(b.finalObservationDiagnostic.marker,'RC9_OWN01_OBSERVATIONS ');assert.equal(b.finalObservationDiagnostic.required,true);
+   ownerObservationLines=result.stdout.split(/\r?\n/u).filter(line=>line.includes(b.finalObservationDiagnostic.marker));assert.equal(ownerObservationLines.length,1,'one final OWN diagnostic required');
+@@ -57,5 +108,6 @@
+ await save('OWN01_OBSERVATIONS.json',{marker:b.finalObservationDiagnostic.marker,lines:ownerObservationLines,observations:ownerObservations,failure:ownerObservationFailure,standing:'Existing final test diagnostic; no counter reinterpretation or additional acceptance claim.'});
+ let resources=null;try{resources=JSON.parse(await readFile(join(b.outputRoot,'RESOURCES.json'),'utf8'));}catch{}
+ const cases=evidence.rows.filter(r=>r.type==='case'),counts=evidence.counts;const passed=result?.exitCode===0&&!result.signal&&!result.failure&&!result.timedOut&&!result.truncated&&!commandFailure&&evidence.complete&&evidence.summary?.success===true&&counts?.tests===b.expectedCases&&counts.passed===b.expectedCases&&counts.failed===0&&counts.cancelled===0&&counts.skipped===0&&counts.todo===0&&cases.length===b.expectedCases&&cases.every(r=>r.file===b.testFile&&!r.skip&&!r.todo)&&!ancestryFailure&&!postAncestryFailure&&!conservationFailure&&resources?.status==='CHILD_CLOSED'&&resources.monitorFailure===null&&!ownerObservationFailure;
+-await save('RESULT.json',{status:passed?'OWN_PROOF_PASSED':evidence.complete&&counts?.failed>0?'OWN_PROOF_FAILED':'OWN_PROOF_INCOMPLETE',counts,ownerObservationFailure,ownerObservations:await pin(join(b.outputRoot,'OWN01_OBSERVATIONS.json')),skips:evidence.skips,reporterComplete:evidence.complete,parseFailure:readFailure??evidence.parseFailure,command:result?{exitCode:result.exitCode,signal:result.signal,timedOut:result.timedOut,truncated:result.truncated,failure:result.failure,wallMs:result.wallMs}:null,commandFailure,conservationFailure,ancestryFailure,postAncestryFailure,reporter:bytes===null?null:await pin(join(b.outputRoot,'events.jsonl')),sourceDigest:b.sourceDigest,wholeFile:passed,originalUnitStanding:'FAILED/INCOMPLETE_UNCHANGED',sourceAcceptance:false,standing:'Actual complete OWN outcome and final observation status recorded before success assertion. No automatic retry or source acceptance. Original unit remains incomplete; M5 residual and bootstrap/broad conjunction remain Root-owned.'});
+-if(!passed)process.exitCode=1;
++const originalTestVerdict=!evidence.complete?'incomplete_reporter':counts?.cancelled>0?'cancelled':counts?.failed>0?'failed':evidence.summary?.success===true&&counts?.passed===1?'passed':'incomplete';
++await save('RESULT.json',{diagnosis:'RC9_OWNER_DIAGNOSIS_006',originalTestVerdict,cpuDiagnosticsComplete:profileCollection.complete&&!ancestryFailure&&!postAncestryFailure,profileCollection:await pin(join(b.outputRoot,'PROFILE_COLLECTION.json')),processCpuObservations:await pin(join(b.outputRoot,'PROCESS_CPU_OBSERVATIONS.json')),fileHostChildOutcome:resources?.childOutcome??null,status:passed?'OWN_PROOF_PASSED':evidence.complete&&counts?.failed>0?'OWN_PROOF_FAILED':'OWN_PROOF_INCOMPLETE',counts,ownerObservationFailure,ownerObservations:await pin(join(b.outputRoot,'OWN01_OBSERVATIONS.json')),skips:evidence.skips,reporterComplete:evidence.complete,parseFailure:readFailure??evidence.parseFailure,command:result?{exitCode:result.exitCode,signal:result.signal,timedOut:result.timedOut,truncated:result.truncated,failure:result.failure,wallMs:result.wallMs}:null,commandFailure,conservationFailure,ancestryFailure,postAncestryFailure,reporter:bytes===null?null:await pin(join(b.outputRoot,'events.jsonl')),sourceDigest:b.sourceDigest,wholeFile:passed,originalUnitStanding:'FAILED/INCOMPLETE_UNCHANGED',sourceAcceptance:false,standing:'Actual original OWN verdict and diagnostic availability recorded separately. Cancellation remains incomplete proof even when profiles are usable. No automatic retry or source acceptance. Original unit remains incomplete; M5 residual and bootstrap/broad conjunction remain Root-owned.'});
++if(!passed||!profileCollection.complete)process.exitCode=1;
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/file-host.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/file-host-006.mjs
+@@ -1,4 +1,4 @@
+-// Operational disk monitor inside the existing commandRecorder's owned process group.
++//006 successor: same command owner/group, plus64MiB profile collection observation.
+ import assert from 'node:assert/strict';
+ import {spawn} from 'node:child_process';
+ import {createHash} from 'node:crypto';
+@@ -7,22 +7,25 @@
+ const [path,sha]=process.argv.slice(2),raw=await readFile(path);assert.equal(createHash('sha256').update(raw).digest('hex'),sha);const b=JSON.parse(raw);
+ async function size(p){let s;try{s=await lstat(p);}catch(e){if(e.code==='ENOENT')return 0;throw e;}if(s.isSymbolicLink())return 0;if(s.isFile())return s.size;
+   let n=0;for(const v of await readdir(p))try{n+=await size(join(p,v));}catch(e){if(e.code!=='ENOENT')throw e;}return n;}
+-const samples=[];let maxOwnedBytes=0,minFreeBytes=Infinity,stopping=false,busy=false,monitorFailure=null;
+-async function sample(){const s=await statfs(b.outputRoot),r={at:new Date().toISOString(),freeBytes:s.bavail*s.bsize,ownedBytes:await size(b.outputRoot)+await size(b.scratchRoot)};
+-  maxOwnedBytes=Math.max(maxOwnedBytes,r.ownedBytes);minFreeBytes=Math.min(minFreeBytes,r.freeBytes);samples.push(r);return r;}
+-async function save(status){await mkdir(dirname(b.resourceRecord),{recursive:true});await writeFile(b.resourceRecord,JSON.stringify({status,samples,maxOwnedBytes,minFreeBytes,
++assert.equal(b.bounds.profileBytes,67108864);assert.equal(b.profileRoot,join(b.outputRoot,'profiles'));
++const samples=[];let maxOwnedBytes=0,maxProfileBytes=0,minFreeBytes=Infinity,stopping=false,busy=false,monitorFailure=null,childOutcome=null;
++async function sample(){const s=await statfs(b.outputRoot),r={at:new Date().toISOString(),freeBytes:s.bavail*s.bsize,ownedBytes:await size(b.outputRoot)+await size(b.scratchRoot),profileBytes:await size(b.profileRoot)};
++  maxProfileBytes=Math.max(maxProfileBytes,r.profileBytes);maxOwnedBytes=Math.max(maxOwnedBytes,r.ownedBytes);minFreeBytes=Math.min(minFreeBytes,r.freeBytes);samples.push(r);return r;}
++async function save(status){await mkdir(dirname(b.resourceRecord),{recursive:true});await writeFile(b.resourceRecord,JSON.stringify({status,samples,maxOwnedBytes,maxProfileBytes,minFreeBytes,childOutcome,
+   monitorFailure,overshootPossible:true,quotaEnforced:false,detachedDescendantAbsenceProven:false},null,2)+'\n',{flag:'wx'});}
+ async function stop(reason){if(stopping)return;stopping=true;monitorFailure=reason;await save('RESOURCE_OPERATIONAL_STOP');
+   // commandRecorder starts this host as the group leader. Preserve its raw return; stop only this owned group.
+   process.on('SIGTERM',()=>{});try{process.kill(-process.pid,'SIGTERM');}catch{}
+   setTimeout(()=>{try{process.kill(-process.pid,'SIGKILL');}catch{}},2000);
+ }
+-const first=await sample();if(first.freeBytes<b.bounds.reserveBytes||first.ownedBytes>b.bounds.maxOwnedBytes){await save('RESOURCE_PREFLIGHT_REFUSAL');process.exitCode=2;}
++const first=await sample();if(first.freeBytes<b.bounds.reserveBytes||first.ownedBytes>b.bounds.maxOwnedBytes||first.profileBytes>b.bounds.profileBytes){await save('RESOURCE_PREFLIGHT_REFUSAL');process.exitCode=2;}
+ else{
+   const child=spawn(b.executable,b.args,{cwd:b.cwd,env:process.env,stdio:'inherit'});
+-  const timer=setInterval(async()=>{if(busy||stopping)return;busy=true;try{const r=await sample();if(r.freeBytes<b.bounds.reserveBytes||r.ownedBytes>b.bounds.maxOwnedBytes)await stop('monitored disk bound');}
++  const closed=new Promise(resolve=>{child.on('error',e=>resolve({exitCode:1,error:String(e)}));child.on('close',(exitCode,signal)=>resolve({exitCode,signal}));});
++  await writeFile(join(b.outputRoot,'FILE_CHILD_STARTED.json'),JSON.stringify({at:new Date().toISOString(),fileHostPid:process.pid,testRunnerPid:child.pid??null,executable:b.executable,args:b.args,cwd:b.cwd},null,2)+'\n',{flag:'wx'});
++  const timer=setInterval(async()=>{if(busy||stopping)return;busy=true;try{const r=await sample();if(r.freeBytes<b.bounds.reserveBytes||r.ownedBytes>b.bounds.maxOwnedBytes||r.profileBytes>b.bounds.profileBytes)await stop('monitored disk/profile bound');}
+     catch(e){await stop(String(e));}finally{busy=false;}},b.bounds.pollMs);
+-  const result=await new Promise(resolve=>{child.on('error',e=>resolve({exitCode:1,error:String(e)}));child.on('close',(exitCode,signal)=>resolve({exitCode,signal}));});
+-  clearInterval(timer);while(busy)await new Promise(r=>setTimeout(r,20));
+-  if(!stopping){await sample();monitorFailure=result.error??null;await save('CHILD_CLOSED');process.exitCode=result.exitCode??1;}
++  const result=await closed;
++  childOutcome=result;clearInterval(timer);while(busy)await new Promise(r=>setTimeout(r,20));
++  if(!stopping){const last=await sample();const over=last.freeBytes<b.bounds.reserveBytes||last.ownedBytes>b.bounds.maxOwnedBytes||last.profileBytes>b.bounds.profileBytes;monitorFailure=result.error??(over?'disk/profile bound exceeded at child close':null);await save(over?'RESOURCE_CLOSED_OVER_BOUND':'CHILD_CLOSED');process.exitCode=over?2:result.exitCode??1;}
+ }
+--- /dev/null
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/phase-tail-006.mjs
+@@ -0,0 +1,31 @@
++// One read-only physical-envelope tail observation; no Product import or truth admission.
++import {opendir,lstat,open,realpath} from 'node:fs/promises';
++import {join} from 'node:path';
++const [root]=process.argv.slice(2);const out={at:new Date().toISOString(),standing:'Physical envelope metadata only; no ABG admission, replay, assertion or whole-history progress claim.',rows:[]};
++try{
++ if(root!=='/private/tmp/abg-r9-owner-diagnosis-006/tmp')throw Error('unexpected owned root');
++ if(await realpath(root)!==root)throw Error('owned root is not canonical');
++ const dirs=[];let names=0;const iterator=await opendir(root);
++ for await(const entry of iterator){if(++names>128)throw Error('directory enumeration cap');if(entry.name.startsWith('abi5-root-env-')&&entry.isDirectory()&&!entry.isSymbolicLink())dirs.push(entry.name);}
++ out.directoryNamesExamined=names;out.matchingFixtureDirectories=dirs.length;if(dirs.length!==1)throw Error('exactly one current fixture directory required');
++ const fixture=join(root,dirs[0]),runtime=join(fixture,'runtime'),path=join(runtime,'events.jsonl');
++ for(const p of [fixture,runtime,path]){const st=await lstat(p);if(st.isSymbolicLink())throw Error('symlink in observation path');}
++ if(await realpath(path)!==path)throw Error('noncanonical event path');
++ const fd=await open(path,'r');try{
++  const st=await fd.stat();if(!st.isFile())throw Error('event path is not regular');const start=Math.max(0,st.size-1048576),buf=Buffer.alloc(st.size-start);
++  const {bytesRead}=await fd.read(buf,0,buf.length,start);let tail=buf.subarray(0,bytesRead);out.fileSize=st.size;out.readOffset=start;out.bytesRead=bytesRead;out.partialInitialRowDiscarded=start>0;
++  if(start>0){const first=tail.indexOf(10);tail=first<0?Buffer.alloc(0):tail.subarray(first+1);}
++  const last=tail.lastIndexOf(10);out.partialFinalRowDiscarded=last!==tail.length-1;tail=last<0?Buffer.alloc(0):tail.subarray(0,last+1);
++  const lines=tail.toString('utf8').split('\n').filter(Boolean);out.completeRowsInWindow=lines.length;out.rowsLimited=lines.length>256;let invalidRows=0;
++  for(const line of lines.slice(-256)){try{
++   const raw=JSON.parse(line);const e=raw?.kind==='abg_admitted_body_reference_record'?raw.event:raw;
++   if(!e||typeof e.kind!=='string'||e.kind.length>128||!Number.isSafeInteger(e.admissionOrdinal)||e.admissionOrdinal<1)throw Error('invalid envelope');
++   const row={kind:e.kind,admissionOrdinal:e.admissionOrdinal};
++   if(Object.hasOwn(e,'eventTime')){const t=JSON.stringify(e.eventTime);if(t.length>2048)throw Error('eventTime metadata bound');row.eventTime=e.eventTime;}
++   if(e.runId!==undefined){if(typeof e.runId!=='string'||e.runId.length>512)throw Error('runId metadata bound');row.runId=e.runId;}
++   out.rows.push(row);
++  }catch{invalidRows++;}}
++  out.invalidRows=invalidRows;out.status=out.rows.length?'PHYSICAL_ROWS_OBSERVED':'UNKNOWN';out.partialOrAbsentMeans='unknown, never no progress';
++ }finally{await fd.close();}
++}catch(e){out.status='UNKNOWN';out.failure=String(e);}
++process.stdout.write(JSON.stringify(out)+'\n');

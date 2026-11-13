@@ -1,0 +1,76 @@
+{
+  "kind": "foundation_oracle_artifact_input_correspondence",
+  "recordedAt": "2026-11-09T19:01:03.254056+00:00",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "verdict": "satisfied_artifact_and_input_relation",
+  "newFindings": [],
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/SOURCE_REVIEW_NATIVE04.json",
+    "bytes": 4765,
+    "sha256": "08256201f29d8179abbd2a62e3835eb78de38734fbaa803125b09298f8d5703a"
+  },
+  "buildInputRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/BUILD_INPUT_RELATION.json",
+    "bytes": 6080,
+    "sha256": "41ba68f729a1da03bae445a58e8d9cf0ec91c70d685e1de7b0810255fdffdbc6"
+  },
+  "archiveReturn": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/RETURN.json",
+    "bytes": 1937,
+    "sha256": "e0b50708ae235504f74b3e62b94f72dd151947d64307d9596a6b11ad19099ed6"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045845,
+    "sha256": "fdbf93de131905f79e96c8716dbb833ae8b308b3e791e1ac63a79b59a1c74d46"
+  },
+  "members": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/ARCHIVE_MEMBERS.json",
+    "bytes": 1099505,
+    "sha256": "5b61c7b8926862c6791d2988a524f3c09c862dbfc441f6addfde61e3fc9e38f8"
+  },
+  "packCommand": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/COMMAND_RETURN.json",
+    "bytes": 881,
+    "sha256": "b9e6e93f654ef3d1990c14677e4370c7201ca4bedc084548e4f5f4ca85adf046"
+  },
+  "compiledInventory": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182705,
+    "sha256": "3db4a581d6d81128f477de20b3e9591ce462e0be11dacb27f101fca2a34f2f35"
+  },
+  "testedSnapshot": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/TESTED_BUILD_SNAPSHOT.json",
+    "bytes": 463,
+    "sha256": "32764ab74c887f70a999aeeccfa37a00890fe36e39a0063e1666cba0571a6ce9"
+  },
+  "independentChecks": {
+    "allQ1SourceRowsConserved": 1344,
+    "exactPostQ1DeltaRows": 5,
+    "allActualArchiveMembersMatchTestedWork": 5327,
+    "payloadBytes": 71840473,
+    "allCompiledRowsMatchTestedSnapshot": 996,
+    "frozenAuthoritySourcesVerified": 95,
+    "unsafeOrDuplicateOrLinkMembers": 0,
+    "npmProjectionEqualsActualMembers": true,
+    "allDeclaredExportAndBinTargetsPresent": true,
+    "manifestPayloadDigestRecomputed": "sha256:778f5667e380f52fdf35398c48b24ff875598a6c3588cc030faa440283c11587"
+  },
+  "pending": [
+    "complete three-case installed W2-05 proof on this exact archive and frozen native04 test",
+    "Root conjunction and acceptance"
+  ],
+  "limits": [
+    "single fresh proof archive, not old delivered RC11",
+    "no clean-reproduction claim",
+    "no performance/reliability/installed qualification/release claim",
+    "literal T287/GOALS routing references are not followed as content inputs by this generator",
+    "phase1 acceptance remains separate"
+  ],
+  "reviewerExecutedProductCodeOrTests": false,
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/ARTIFACT_CORRESPONDENCE.md",
+    "bytes": 5672,
+    "sha256": "9a4629872664a30b669548f0e76ccb1b7d8da0774b51bcae695cc409e7c3a9dd"
+  }
+}

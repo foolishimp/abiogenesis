@@ -1,0 +1,401 @@
+{
+  "status": "CODE_COMPLETE_FOR_VERIFICATION",
+  "recordedUtc": "2026-11-07T04:38:16.827105+00:00",
+  "executive": "/root",
+  "recorder": "/root/rc8_operator",
+  "authority": "Explicit Root disposition after reading exact source003 review, six lane results, five source diffs, actual SDK changedPaths/terminal and fresh readback RESULT. This is a separate Operator Writer effect recording Root acceptance.",
+  "scopeOfAcceptance": "Bounded RC8 REF01 SOURCE + FOCUSED acceptance only. Broad proof, performance/profile, cut/install and whole5.0 qualification remain outside this acceptance.",
+  "source": {
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "frozenRoot": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source",
+    "rows": 1338,
+    "currentRowsExactlyMatchFreeze": true,
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "rc7TrackedCleanAtRead": true,
+    "totalChangedPathsFromRc7": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs"
+    ],
+    "deltaFromStage03": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "bytes": 50287,
+        "sha256": "472cd345cd3e67e32e997361e2b24d2b11d09e7a3ec9726cb6da30d66a2be8db"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "bytes": 29474,
+        "sha256": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 28391,
+        "sha256": "e966a48e9106f41c5bc86ca4f0d3fa093fe33730c58eb83740ed2a13c771cb4e"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 194356,
+        "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+        "bytes": 21885,
+        "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1"
+      }
+    ],
+    "sdkActualChangedPathsExactlyMatchFiveFileDelta": true,
+    "all18CumulativePathsWithinGrant": true
+  },
+  "review": {
+    "acceptedReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-003/REVIEW.json",
+      "bytes": 48569,
+      "sha256": "043f8979e03aaa64250a1f0894f9ec2c90a80e264899afdedb6175acbf9d5316"
+    },
+    "readme": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-003/README.md",
+      "bytes": 7634,
+      "sha256": "96db73407e5ab1c7538403774f4b4c52196609fdc6e216cebde5ea66f3eb53bd"
+    },
+    "rootDisposition": "Satisfied with no findings; source001 twoS2 and source002 RC8-SOURCE-003 are corrected on this exact successor. Historical source/reviews/failures remain preserved.",
+    "ownerHandoff": "Root accepts the source-established narrow trusted internal Product-input handoff at the canonical constructor; no new trust protocol is needed.",
+    "rawBoundary": "Root accepts directly established defaulted/raw expected1copy as lawful raw ingress; maintained-constructor first/warm expected0 was not weakened."
+  },
+  "proof": {
+    "stage": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/RESULT.json",
+      "bytes": 848,
+      "sha256": "838905e62db6a10282a24617d4e3002369327f2d899afb1a9e5e1d16eb6bb4b1"
+    },
+    "buildResults": [
+      {
+        "id": "compile",
+        "exitCode": 0,
+        "wallMs": 9448.063041000001,
+        "timedOut": false
+      },
+      {
+        "id": "generate",
+        "exitCode": 0,
+        "wallMs": 23501.455584000003,
+        "timedOut": false
+      },
+      {
+        "id": "imports",
+        "exitCode": 0,
+        "wallMs": 176.8629579999979,
+        "timedOut": false
+      },
+      {
+        "id": "lifecycle",
+        "exitCode": 0,
+        "wallMs": 708.2619170000035,
+        "timedOut": false
+      },
+      {
+        "id": "calculus",
+        "exitCode": 0,
+        "wallMs": 234.58591599999636,
+        "timedOut": false
+      }
+    ],
+    "lanes": [
+      {
+        "lane": "owned-call",
+        "name": "lane-02",
+        "counts": {
+          "tests": 1,
+          "pass": 1,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 45248.671125,
+        "result": {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/RESULT.json",
+          "bytes": 341,
+          "sha256": "6ba4b1d5816d9176cc9c8af46dd34be6794525e8a02cfe9f377fa6cb9d1d2a7a"
+        }
+      },
+      {
+        "lane": "binding",
+        "name": "lane-03",
+        "counts": {
+          "tests": 5,
+          "pass": 3,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 2,
+          "todo": 0
+        },
+        "wallMs": 782.4945409999999,
+        "result": {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/RESULT.json",
+          "bytes": 343,
+          "sha256": "6792ff9f2a15aed71028f34f7718f7b7373a88a1f0162c574dfe42a6330b2c06"
+        }
+      },
+      {
+        "lane": "catalog",
+        "name": "lane-04",
+        "counts": {
+          "tests": 8,
+          "pass": 8,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 605.954583,
+        "result": {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/RESULT.json",
+          "bytes": 336,
+          "sha256": "d45e06539cb01d0287f3c7e1982282a752b356137444b96b0606fbbd9fad67e0"
+        }
+      },
+      {
+        "lane": "invocation",
+        "name": "lane-05",
+        "counts": {
+          "tests": 2,
+          "pass": 2,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 75322.628459,
+        "result": {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/RESULT.json",
+          "bytes": 341,
+          "sha256": "92951975bf5df216c58c2a18acd7490902898be755b692c0dc1a9b9ca7483231"
+        }
+      },
+      {
+        "lane": "worker",
+        "name": "lane-06",
+        "counts": {
+          "tests": 32,
+          "pass": 32,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 11924.032708,
+        "result": {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/RESULT.json",
+          "bytes": 339,
+          "sha256": "8d6e32a229aee97db4be68a4033950d29f891b75c1971c24ef49c0230548c1e6"
+        }
+      },
+      {
+        "lane": "held",
+        "name": "lane-07",
+        "counts": {
+          "tests": 2,
+          "pass": 2,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 44008.21175,
+        "result": {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-07/RESULT.json",
+          "bytes": 366,
+          "sha256": "3534b90d6250c7843dbc3da0cc44bb5562989cb059beec8fdfb5424acaa3ed6a"
+        }
+      }
+    ],
+    "aggregate": {
+      "tests": 50,
+      "pass": 48,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 2,
+      "todo": 0
+    },
+    "ownedCallStdout": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.stdout",
+      "bytes": 7530,
+      "sha256": "52ce158069798edbf972a9096e60218b2ddb56613f88f3d1f80df7c75f60c9c5"
+    },
+    "absoluteSetupObserved": {
+      "catalogFullAdmissions": 1,
+      "catalogViewConstructions": 1,
+      "productInputCopies": 0
+    },
+    "normalFirstAndWarmObserved": "Each new construction counts one Product input admission copy; subsequent transport/real-owner inputCopies0,inputReuses1 with actual nested request/Catalog/view identity.",
+    "skips": "Two static-binding historical preparation cases require ABI5_PREPARATION_RESOLVE_CALL and are unexecuted. Held proof selects exactly the two current disposable/HS02 tests, not its whole file.",
+    "wholeFileCredit": "Five unfiltered current files have46passes+2historicalskips. Held two passes are partial-file evidence.",
+    "sourceStagesRemaining": 0,
+    "successorFocusedInvocationsRemaining": 1
+  },
+  "native": {
+    "run": {
+      "ref": "run://abiogenesis/200292f7529c927051c8b1356cc13c420576001c6670f803c5aedf9f6171eb6a",
+      "digest": "sha256:123c1746a993f1f3c74999e52ef55c037ea16f3cdf38f842215e583c78424f24"
+    },
+    "singleAuthor03Dispatch": true,
+    "actualSdkReturned": true,
+    "actualPhysicalClose": true,
+    "final": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/runtime-001/FINAL.json",
+      "bytes": 3202,
+      "sha256": "4596a63ae3842155b280c43bf820d504d2e98457f22a4c04aea8a1a79a0f8824"
+    },
+    "sdkOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 1294313,
+      "sha256": "41c09c5acb354b58b3bb2f32fd0aafbc8ca31af512fb0436f5845045ac17e177"
+    },
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/runtime-001/resource-close.json",
+      "bytes": 2305,
+      "sha256": "da933b9f6e016336c0ae555430a821be077b9ea2c608e5ca1612f4790973d86c"
+    },
+    "finalPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 79112126,
+      "prefixDigest": "sha256:0f17cdf350cb75b6e5551d89efeade82d0f27332bdd91c7228ffb4bbccae80da",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 708868359,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:6112c30afde3b6a7fdfa2c7a2b84aab4715e4986ba2f52d4116108e0114b9c02"
+    },
+    "sdkFailure": null,
+    "freshReadbackRecipe": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/readbacks.mjs",
+      "bytes": 4791,
+      "sha256": "3b14c70e32ec5f69df585294d54a7968c7bf2fe99413190b089b77fcd573df71"
+    },
+    "readbackSubjectBeforeCalls": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/readbacks-001/run.json",
+      "bytes": 4051,
+      "sha256": "c7ca27d7b3a8e8ead0ca5fb29a1ed41dcb5b30260b2d9efa65797017285586a2"
+    },
+    "freshReadbacks": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/readbacks-001/RESULT.json",
+      "bytes": 6629,
+      "sha256": "697d98f78b99dc82eb6041dca390d51ea36ad1b14ce1962e5634d531e179a4f4"
+    },
+    "rawReadOutcomes": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/readbacks-001/calls/run_result.outcome.json",
+        "bytes": 1241995,
+        "sha256": "a67ce84da4ab2aaf2dbbd25b37138fcc3444da2826041065e6d492e301b21a0d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/readbacks-001/calls/run_replay.outcome.json",
+        "bytes": 1241584,
+        "sha256": "78403ee043550c77c27f21437fb180e44574bf8c27093937e33f6827f85d472d"
+      }
+    ],
+    "comparison": "Both full typed terminal objects, including value, producer and projection basis, equal the actual SDK terminal on this observed subject. Distinct operation owner-output envelopes are preserved, not asserted equal. Both read outcomes are results; replay is closed; prefix and physical identity are unchanged.",
+    "readbackRetries": 0
+  },
+  "timing": {
+    "functionalPrepareMs": 22499.524374999997,
+    "preparedToAdmissionRecordMs": 50960.095,
+    "preparedToDispatchMs": 56413.0,
+    "dispatchToActorStartMs": 8965.0,
+    "dispatchToSdkReturnMs": 685391.6245,
+    "sdkReturnAndPhysicalCloseUtc": "2026-11-07T04:33:45.453Z",
+    "focusedCommandWallMs": 177891.993166,
+    "freshReadbackWallMs": 14837.523667
+  },
+  "limits": [
+    "Owned payload discriminator uses start. Invoke branch is source-reviewed without a dedicated payload witness.",
+    "Construction still does raw IJSON admission, canonical schema container rebuilding and one establishment walk. Postconstruction zero counters do not hide or negate this work.",
+    "Physical native linking and shared gates outside the named owner counters are not assigned zero work. Separate CPU profile owns remaining attribution.",
+    "Twelve cold residuals and S7 are unchanged; broad/profile/cut/install/whole5.0 claims are pending their separate owners."
+  ],
+  "departures": [
+    "Initial read-only monitor assumed old uozznezy root, while frozen author03 BINDING/recipe selected uoznnezy. Notification of freeze occurred after build; monitor corrected from BINDING. No control/source/runtime repair was applied.",
+    "Worker reports a read-only no-emit compiler API check before freeze; exact handoff retains other procedure details."
+  ],
+  "workerHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/author-03/HANDOFF.md",
+    "bytes": 12980,
+    "sha256": "d7f607d48574691a40f6d2b6d5359517b163d9a99809fd4b0d9d2dfcdb685e6f"
+  },
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SCOPE.json",
+      "bytes": 7102,
+      "sha256": "757afe1a967d7b3f07d23c225beac1a4d75b90811548cad4fabd61781111d098"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_ADMISSION.json",
+      "bytes": 5652,
+      "sha256": "cab17af644b3cc1739faf0c351659563538f56b735198d38a9e96fc4c205f4d3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/BINDING.json",
+      "bytes": 3620,
+      "sha256": "781d805351dcab39fdccf59b87e8538afe7accd3870e315e42f5900d03975114"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/TASK.json",
+      "bytes": 10079,
+      "sha256": "e55a0164fc3592bb2a73f6e23b10acc2f16250409d5a62a2283a2ec6cf724fe7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/host.mjs",
+      "bytes": 12242,
+      "sha256": "a1ee90828a5b4bfda1de6cc17d6f4b29e4425e98e26d35ae4599fa9bed099b45"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/proof.mjs",
+      "bytes": 7049,
+      "sha256": "88079977af71de5efbd5577302842629e386887799e548ec186fc9df67604667"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/CONTROL_FREEZE.json",
+      "bytes": 1862,
+      "sha256": "7cc5150387af15229daee4967ecbf3b98a5c4b2a3d538f014651cf9ead9ffbaa"
+    }
+  ],
+  "priorFailureConservation": {
+    "stage01": "Original Operator enumeration failure retained.",
+    "stage02": "Prior48passes/2skips remain assigned to their original subject.",
+    "stage03Halt": {
+      "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/HALT.json",
+      "bytes": 124,
+      "sha256": "efa159c8fc1f2bf0a221a6ef9c8f3209028015dd8915b54931356657213ab7aa"
+    }
+  },
+  "freeBytes": 10013499392,
+  "sourceAccepted": true,
+  "qualified": false,
+  "cutInstall": false,
+  "newCodingWorkerSelected": false
+}

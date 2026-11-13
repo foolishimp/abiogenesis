@@ -1,0 +1,13 @@
+**PREPARED DRAFT — authority envelope, not execution admission or final acceptance.**
+
+The user's instruction **“ok move to rc7 build rc8”** supplies continuing upstream authority. Root remains Executive under T-287/GOAL035, the fixed fifteen-family [Project Reference-Frame Basis](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md), STDO3.0.4 and empty composition. This Writer activation creates only the successor claim drafts and their preparation record; it launches no work and selects no new disposition.
+
+The later concrete Root binding may authorize these already-selected local effects:
+
+1. Checkpoint the exact 26 selected paths (23 tracked modifications/three new files) in the [A11 source inventory](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_FINAL_SOURCE_INVENTORY_003.json), sourceDigest `95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04`, 1,339 rows. Preserve unrelated dirty work, untracked `.abiogenesis/` and `qualification-scratch/` histories, and all existing immutable releases/worktrees.
+2. Reproduce that clean checkpoint through the existing canonical generator/package owners. The resulting archive must equal the tested `sha256:a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9` bytes, with compiled manifest `f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102` and exact payload correspondence. No identity bridge or additional source work is authorized by these drafts.
+3. Obtain later independent review on the exact selected cut, then use existing Product verification/resolved-lock/install owners and bounded actual-installed export/read/close smoke. Full lifecycle/performance remains scoped to the exact-archive installed scratch proof; immutable-root smoke is narrower.
+
+Root must first conjoin the final broad outcome, accepted source/proof relations and [seven residual limits](RESIDUALS.md). The final [source/artifact evidence map](SOURCE_ARTIFACT_EVIDENCE_MAP.json) must bind actual source commit/tree, reproduced archive, review, final acceptance and installation/smoke receipts. Those future pins and final counts are deliberately absent here; preparation remains `broadClose:null`/execution disabled. This text cannot admit its own checkpoint, build or install.
+
+No push, tag, merge, global selector change, stable/released/qualified claim, historical deletion or modification of an existing immutable release is included. Existing upstream authority and later concrete Root execution bindings remain controlling; this preparation adds no user-approval round.

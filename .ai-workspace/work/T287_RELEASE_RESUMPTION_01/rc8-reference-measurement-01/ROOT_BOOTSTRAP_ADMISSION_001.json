@@ -1,0 +1,49 @@
+{
+  "status": "ROOT_ADMITTED_ONE_RC8_ISOLATED_BOOTSTRAP",
+  "at": "2026-11-07T04:39:13.738075+00:00",
+  "executive": "/root",
+  "writerOperator": "/root/rc7_reference_ticket_writer",
+  "rootDispositionVerbatim": "Root read source003 full README, every focused RESULT, all5 corrected files, actualSDK and freshreadback RESULT. Bounded source accepted; rc8_operator is writing author03/ROOT_SOURCE_ACCEPTANCE.json now and will send pin. I have read full prepare-after-bootstrap-001.mjs873828fc\u2026, template2f22dab5\u2026, manifestd550aea0\u2026 and owner sequence. ADMIT ONE bootstrap execution as soon as acceptance record pins correctly: fill frozen template ONLY status ROOT_SELECTED_RC8_AFTER_BOOTSTRAP, activation (this exact Root disposition), sourceAcceptance(actualnewpin), preparationManifestd550aea0. Write/pin final bindings; independently read back substitutions and unchanged remaining template bytes/values, emit binding pin then execute existing exact command once. Accepted frozen source2b5849ec/freeze73bf1ee9/stage838905e6/manifestf74390de; archive identity still produced by one npm pack through frozen stage. Existing budget600s/pack120/install480,1GiBowned,4GiBfree,16MiBoutput. This is selected isolated bootstrap only; no finalcut/Git/provider/broad execution or repair retry. Return actual verification/lock/install/content, exactarchive/source relation and after preadmission binding pins promptly. Root will consume actual outputs before next measurement. Broad binding prep can continue after bootstrap returns, no heavy suite during measuredpair.",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "sourcePreparation": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/AFTER_BOOTSTRAP_MANIFEST_001.json",
+    "bytes": 2707,
+    "sha256": "d550aea0243fdc4624449b2f9568196ca02e3b33eb0137b2bd9041081af1e51d"
+  },
+  "template": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/AFTER_BOOTSTRAP_BINDINGS_001.template.json",
+    "bytes": 4183,
+    "sha256": "2f22dab5b081694df717e4e33060381064af1092c90cd16ed8c606dc3ed044f4"
+  },
+  "bounds": {
+    "hostMs": 600000,
+    "packMs": 120000,
+    "installMs": 480000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "freeReserveBytes": 4294967296,
+    "nodeHeapMiB": 8192
+  },
+  "maximumExecutions": 1,
+  "automaticRetry": false,
+  "afterMeasurementAdmitted": false,
+  "broadExecutionAdmitted": false
+}

@@ -1,0 +1,978 @@
+{
+ "kind": "native_04_return",
+ "schemaVersion": "5.0.0",
+ "recordedUtc": "2026-11-03T20:31:50Z",
+ "standing": "Partial source continuation of held native-03 (cf84f95d). Truthful partial evidence; not readiness and not whole consolidation. Root alone conjoins acceptance.",
+ "basis": {
+  "product": "ABIogenesis5 / GOAL-035 / T-287",
+  "stdo": "3.0.4 (stdo status --verify installed=true valid=true at 19:52:30Z)",
+  "selection": "ROOT_REENTRY_SELECTION_04 + PRIOR_ACTIVATION_CONJUNCTION",
+  "closure": "original R1-R7 and rubric C1-C5",
+  "changeClass": "realization_refactor",
+  "baselineCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "heldSubjectSha256": "cf84f95de7331851eae35cceca1ec2a9e07bd0e6dda5402cd4c7a6e5b29d5397"
+ },
+ "sources": {
+  "meaning": "Every path changed from f49 or listed in the held subject; sha256 of the final worksite bytes. changedFromHeld marks native-04 increments.",
+  "files": [
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "bytes": 42973,
+    "sha256": "4dfa39eb28bded4e726ccf8f4dbb5a1696a12a7b18aa70d49e403737d59da050",
+    "heldSha256": "4dfa39eb28bded4e726ccf8f4dbb5a1696a12a7b18aa70d49e403737d59da050",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "bytes": 293838,
+    "sha256": "79788a830ca61f6c31397c85a95f373d3cddc77e0457c6907452d4b70d452422",
+    "heldSha256": "10cac78fc4123c186c3153adcb0a8ea990592e60f188ab6ddcc112258831697c",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+    "bytes": 63253,
+    "sha256": "ec6bce207e50187e6d863203496252f882adc192c977c425fe10a87ce27a1563",
+    "heldSha256": "ec6bce207e50187e6d863203496252f882adc192c977c425fe10a87ce27a1563",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+    "bytes": 147829,
+    "sha256": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16",
+    "heldSha256": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+    "bytes": 62559,
+    "sha256": "25aad5b6abaf0630976f18c74f65c2fb8105510294cc8a0f8b6ea7f85e6e2252",
+    "heldSha256": "25aad5b6abaf0630976f18c74f65c2fb8105510294cc8a0f8b6ea7f85e6e2252",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts",
+    "bytes": 5517,
+    "sha256": "b6f77d6f8b26718040e0d558bcecab0781d5864bc7dd2108a6779f0ee63881e0",
+    "heldSha256": "b6f77d6f8b26718040e0d558bcecab0781d5864bc7dd2108a6779f0ee63881e0",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+    "bytes": 11717,
+    "sha256": "694302358bb0adb6590ef4e5d4500d679a0dfbd4827c78b1285737ee0475278b",
+    "heldSha256": "694302358bb0adb6590ef4e5d4500d679a0dfbd4827c78b1285737ee0475278b",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "bytes": 46702,
+    "sha256": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb",
+    "heldSha256": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "bytes": 129406,
+    "sha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+    "heldSha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+    "bytes": 49031,
+    "sha256": "a341d0ef3898c031c25285ccae67b9a0f7f892bf87e4a49d5748cf8556e39e81",
+    "heldSha256": "a341d0ef3898c031c25285ccae67b9a0f7f892bf87e4a49d5748cf8556e39e81",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+    "bytes": 44711,
+    "sha256": "8feeb5ab8bf7f4582828aaa5420ad0b956f492a9f3bb2b68123b24a52fad71e4",
+    "heldSha256": "8feeb5ab8bf7f4582828aaa5420ad0b956f492a9f3bb2b68123b24a52fad71e4",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+    "bytes": 21603,
+    "sha256": "d93ac0bc7e06b2021ac27b7839f99832ec39dd0b5ff7d1c31bc77f75cf6409a0",
+    "heldSha256": "684851d7c532be091c8243e805fa3c4411a7b913bff0ee27789ff04a5545cc8a",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+    "bytes": 77248,
+    "sha256": "094cce6fb3c539d56c21df0d46550b788f3fb4442016472d0199950b06d23e16",
+    "heldSha256": "094cce6fb3c539d56c21df0d46550b788f3fb4442016472d0199950b06d23e16",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+    "bytes": 41266,
+    "sha256": "6369f58eaacaee1472e7502af8ddb6dbfba701840b58698b20502dde58342cec",
+    "heldSha256": "6369f58eaacaee1472e7502af8ddb6dbfba701840b58698b20502dde58342cec",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "bytes": 37252,
+    "sha256": "70808821083b7c0d7abe595f05d42188868b631bef441152573658b4d9b7a99c",
+    "heldSha256": "70808821083b7c0d7abe595f05d42188868b631bef441152573658b4d9b7a99c",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+    "bytes": 33064,
+    "sha256": "51c49b7069a6a56362cfc53e8d7681b855ca8b28af77e9fd49c18defd3f57eff",
+    "heldSha256": "51c49b7069a6a56362cfc53e8d7681b855ca8b28af77e9fd49c18defd3f57eff",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "bytes": 92881,
+    "sha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697",
+    "heldSha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "bytes": 89942,
+    "sha256": "8c593d1e9485e7dd0ab6997273630b827f45429a2220370e1cf023af8cce803a",
+    "heldSha256": "8c593d1e9485e7dd0ab6997273630b827f45429a2220370e1cf023af8cce803a",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+    "bytes": 115717,
+    "sha256": "80921f68c624747865ac3ef685a8cb4c287247d9465181176a3e9d79a76f95b9",
+    "heldSha256": "80921f68c624747865ac3ef685a8cb4c287247d9465181176a3e9d79a76f95b9",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts",
+    "bytes": 6896,
+    "sha256": "9d37ed9c8d216dd6420d7254571fd555d67d653b367c9d5a25eefefbb42a857a",
+    "heldSha256": "9d37ed9c8d216dd6420d7254571fd555d67d653b367c9d5a25eefefbb42a857a",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+    "bytes": 222591,
+    "sha256": "4e0c0fdcd94cd586019c622aa9a2a1703ab720b576e091378c67c96627defee1",
+    "heldSha256": "631ea93a706f2de70e06c1d9b0e549caf4fffb73117285206e309d15d67f6c88",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+    "bytes": 15934,
+    "sha256": "ea2df4a553c8fea801277f9b68707ae7cd7ce08bff7c10e3d1552d6d01bfce8c",
+    "heldSha256": "ea2df4a553c8fea801277f9b68707ae7cd7ce08bff7c10e3d1552d6d01bfce8c",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "bytes": 29515,
+    "sha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+    "heldSha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "bytes": 96776,
+    "sha256": "e657a900c12f7ceee1152711845518a96cf48ac0b67a5566ec47fa516824190d",
+    "heldSha256": "e657a900c12f7ceee1152711845518a96cf48ac0b67a5566ec47fa516824190d",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+    "bytes": 51361,
+    "sha256": "ce9cc8c74568ec7a8fe6dc2f061a3fb8693416f0874739345c286bdce12aec5d",
+    "heldSha256": "ce9cc8c74568ec7a8fe6dc2f061a3fb8693416f0874739345c286bdce12aec5d",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+    "bytes": 222875,
+    "sha256": "cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1",
+    "heldSha256": "cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+    "bytes": 40995,
+    "sha256": "c16c27de89523969d3f4a4b066c539115aff0150f5abe00ef147728763291e8f",
+    "heldSha256": "8287cb9a8760690b0c096b12b1c23677156cf0e62dbfe8b28fe4b0cfc45a5efd",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+    "bytes": 21005,
+    "sha256": "7dfe27e457a1b04c677382696524aed744b75c4079132837a78bc2c9ea20b208",
+    "heldSha256": "b651177b087583f624ee66b933972060d05622f9a3281bf1887e25face3d5053",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+    "bytes": 29653,
+    "sha256": "836de942e5e2209d14e288549461dfa76af52bf964cf39efcadd426792a11c8f",
+    "heldSha256": "f733e53c643f2ae29f55ccb839f9be97847241ebcd9b9665338a115cd4c84145",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+    "bytes": 39664,
+    "sha256": "209968ba13beeb5160d6bb51a65bca5431f4e2f94497f3c8f7130624ad776c60",
+    "heldSha256": "a5c198364795811715ccef6a9118ad09096a6fa8901073d48c4df92273b463ba",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+    "bytes": 46913,
+    "sha256": "78d213d48e697882b8614d825c8a6cb4b4c7ee9ef5b5f3a75cbc72f80c33ec49",
+    "heldSha256": "78d213d48e697882b8614d825c8a6cb4b4c7ee9ef5b5f3a75cbc72f80c33ec49",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts",
+    "bytes": 3406,
+    "sha256": "27125e01d9b2a479d2c76cf942a24d2833a3a95614b41fbd895cbcda68ad1efd",
+    "heldSha256": "27125e01d9b2a479d2c76cf942a24d2833a3a95614b41fbd895cbcda68ad1efd",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts",
+    "bytes": 5268,
+    "sha256": "76d38a6b1f7c7a18321a609df9fb17f15be6fd179da4de34884f900c0ad6542c",
+    "heldSha256": "76d38a6b1f7c7a18321a609df9fb17f15be6fd179da4de34884f900c0ad6542c",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+    "bytes": 12031,
+    "sha256": "93b5f832601192409dbdbdb9db0cc9988c6c3d7e1d94026504008b28ab07cc74",
+    "heldSha256": "93b5f832601192409dbdbdb9db0cc9988c6c3d7e1d94026504008b28ab07cc74",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+    "bytes": 41904,
+    "sha256": "a634bb0b19affc2e3cbb093101df3537a31c7e220962b7e9fc2a2c1a0a10709a",
+    "heldSha256": "a634bb0b19affc2e3cbb093101df3537a31c7e220962b7e9fc2a2c1a0a10709a",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+    "bytes": 44434,
+    "sha256": "a9cdf5c7688efee2754ea92bf682b703e89792c4cd4171c51be64d9b66351a4e",
+    "heldSha256": "a9cdf5c7688efee2754ea92bf682b703e89792c4cd4171c51be64d9b66351a4e",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "bytes": 19897,
+    "sha256": "7da8c71f162549621ea2adebe149fdd5509c85046c7d57ad50e35985493db0c6",
+    "heldSha256": "7da8c71f162549621ea2adebe149fdd5509c85046c7d57ad50e35985493db0c6",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+    "bytes": 9247,
+    "sha256": "5ce21cf9f9e234ebd2e5bae2ec9df96083214f667e1e9c23ecb15f908c6b3189",
+    "heldSha256": "5ce21cf9f9e234ebd2e5bae2ec9df96083214f667e1e9c23ecb15f908c6b3189",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "bytes": 82821,
+    "sha256": "3ad3fba807e2a22ec31403048ed02a652a4de3fa1b0434a3f531fafbb72f0aa6",
+    "heldSha256": "3ad3fba807e2a22ec31403048ed02a652a4de3fa1b0434a3f531fafbb72f0aa6",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+    "bytes": 3150,
+    "sha256": "c1ae30fe5ce0adae13613da1d5882d475230355713da12b4e85b22b1fff94fc1",
+    "heldSha256": "c1ae30fe5ce0adae13613da1d5882d475230355713da12b4e85b22b1fff94fc1",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+    "bytes": 39492,
+    "sha256": "0b748040414ae9ab6b46d29678a7dee7855db86a2c3f05cde7eb0908e78fb409",
+    "heldSha256": "0b748040414ae9ab6b46d29678a7dee7855db86a2c3f05cde7eb0908e78fb409",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "bytes": 107947,
+    "sha256": "73c27a0ed2d4e65a0317a1c6f5e16e5294248db7077960d273e9213f62052dc0",
+    "heldSha256": "73c27a0ed2d4e65a0317a1c6f5e16e5294248db7077960d273e9213f62052dc0",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts",
+    "bytes": 19215,
+    "sha256": "27595e7d07b94d7144f66d3264ae8a1b8266838588a568ab74b0f7a454f936e0",
+    "heldSha256": "27595e7d07b94d7144f66d3264ae8a1b8266838588a568ab74b0f7a454f936e0",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts",
+    "bytes": 24185,
+    "sha256": "8c3a5e21adcb002d34ba5487d44fe2c8ad34c3f618472781f96bd2524ffce4cf",
+    "heldSha256": "8c3a5e21adcb002d34ba5487d44fe2c8ad34c3f618472781f96bd2524ffce4cf",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+    "bytes": 31281,
+    "sha256": "d54ace08f6eea2e5c18c058c0e61a485161fbd572548a0a8e9c35d56069f9845",
+    "heldSha256": "d54ace08f6eea2e5c18c058c0e61a485161fbd572548a0a8e9c35d56069f9845",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+    "bytes": 21038,
+    "sha256": "0487b8b2f1f909adb043722d15ee7018c03b21942ed642cf35960f7bf087e284",
+    "heldSha256": "0487b8b2f1f909adb043722d15ee7018c03b21942ed642cf35960f7bf087e284",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+    "bytes": 25505,
+    "sha256": "1d7dbc683a541bccc08a4bcd7f7f09140da321d2cf0266b05dc70870ae4389d3",
+    "heldSha256": "1d7dbc683a541bccc08a4bcd7f7f09140da321d2cf0266b05dc70870ae4389d3",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/result_definition_bindings.ts",
+    "bytes": 15025,
+    "sha256": "80384b0f1fe02452720a0439daceee8868c9c85b69e7d04701f8b34b1f11f40d",
+    "heldSha256": "80384b0f1fe02452720a0439daceee8868c9c85b69e7d04701f8b34b1f11f40d",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+    "bytes": 7526,
+    "sha256": "7d267578046f50f08d5724a450633e193470a46eaf1d842330507d87b50b447b",
+    "heldSha256": "7d267578046f50f08d5724a450633e193470a46eaf1d842330507d87b50b447b",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "bytes": 139516,
+    "sha256": "d1dff3b446c30d0a575a915bfaff0d7940071355822a8e71688bdf6b715bef88",
+    "heldSha256": "6925b93db2e0d81508b1b90abeb2813a16004a2395d5f97c16c6d219ee3ee829",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "bytes": 71565,
+    "sha256": "2e906352d2b83f13635126608467fc4898af2c7916ac7eb8d0c6aee882120121",
+    "heldSha256": "2e906352d2b83f13635126608467fc4898af2c7916ac7eb8d0c6aee882120121",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "bytes": 82902,
+    "sha256": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8",
+    "heldSha256": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+    "bytes": 18054,
+    "sha256": "11d4dac7fb052b8cad1b0e9e6a6aaef7185ed7891de6fc4f4b1b329dc57fb636",
+    "heldSha256": "11d4dac7fb052b8cad1b0e9e6a6aaef7185ed7891de6fc4f4b1b329dc57fb636",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+    "bytes": 9403,
+    "sha256": "d5ab42a4f91970f328e9b15bea532dee86def237c6b7709a31a00165799cace7",
+    "heldSha256": "d5ab42a4f91970f328e9b15bea532dee86def237c6b7709a31a00165799cace7",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+    "bytes": 4556,
+    "sha256": "b106e1de259ec993469a3d320316646eae9490330ec0bcb86fad2be7214dee7f",
+    "heldSha256": "b106e1de259ec993469a3d320316646eae9490330ec0bcb86fad2be7214dee7f",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+    "bytes": 19959,
+    "sha256": "5dd7aefe879b65d2baf7e01d7d83eea6444848f5ae24f0c3b98ad68a5e164feb",
+    "heldSha256": "5dd7aefe879b65d2baf7e01d7d83eea6444848f5ae24f0c3b98ad68a5e164feb",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs",
+    "bytes": 27376,
+    "sha256": "9db87e6586201f7ac806df00076fd4a289241750c9bb6cf367081b50f613cd94",
+    "heldSha256": "9db87e6586201f7ac806df00076fd4a289241750c9bb6cf367081b50f613cd94",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-family.test.mjs",
+    "bytes": 7132,
+    "sha256": "e1c90c79cf3f58bac6c12f54c094470b04a5865f044676358e244fdd809d809b",
+    "heldSha256": "e1c90c79cf3f58bac6c12f54c094470b04a5865f044676358e244fdd809d809b",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+    "bytes": 14684,
+    "sha256": "532ad9a99905a8d9f33a34e4738e2615daaa1ced7a371a8a42eaa5a070e24791",
+    "heldSha256": "532ad9a99905a8d9f33a34e4738e2615daaa1ced7a371a8a42eaa5a070e24791",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+    "bytes": 12353,
+    "sha256": "a56347f2621ec53733c27de869c1d0396d07f3bae09384a8dc5a8659958a9d99",
+    "heldSha256": "a56347f2621ec53733c27de869c1d0396d07f3bae09384a8dc5a8659958a9d99",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-cross-cut-public-read.test.mjs",
+    "bytes": 19700,
+    "sha256": "1b3fcf8c7862c1c1b18bf1fbe3f6afd2759c66d7df6e50685e15f2d36f8551b9",
+    "heldSha256": "1b3fcf8c7862c1c1b18bf1fbe3f6afd2759c66d7df6e50685e15f2d36f8551b9",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs",
+    "bytes": 89876,
+    "sha256": "69344dc2df9b76e0bf18c9b1adade8bbd249e5d97cac7de430498695d0d75087",
+    "heldSha256": "69344dc2df9b76e0bf18c9b1adade8bbd249e5d97cac7de430498695d0d75087",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs",
+    "bytes": 28860,
+    "sha256": "4718c90ba665fe2d2103ef4a13e433575b7f0f0e33e05cc225210c74fd91c7b5",
+    "heldSha256": "4718c90ba665fe2d2103ef4a13e433575b7f0f0e33e05cc225210c74fd91c7b5",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "bytes": 290041,
+    "sha256": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+    "heldSha256": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-environment-projection-conservation.test.mjs",
+    "bytes": 4512,
+    "sha256": "07912e09bcb432f4f7cf3e6b240dd27a9d54a891eee161aea4e28f6e5756da71",
+    "heldSha256": "07912e09bcb432f4f7cf3e6b240dd27a9d54a891eee161aea4e28f6e5756da71",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+    "bytes": 17058,
+    "sha256": "390667fdfb25dfbb198df335db6518449410d954f60b2914f7c9c9283d8efc49",
+    "heldSha256": "390667fdfb25dfbb198df335db6518449410d954f60b2914f7c9c9283d8efc49",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+    "bytes": 8003,
+    "sha256": "e3d9d16cbf136031ff199cb9f718eaf7cde6c9cd4c3bd29e3c28ee19610dad4a",
+    "heldSha256": "e3d9d16cbf136031ff199cb9f718eaf7cde6c9cd4c3bd29e3c28ee19610dad4a",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "bytes": 14925,
+    "sha256": "b5ab9c0faad5048fd8e9e3e7a39ec08c540a568a56e0b16baaa846dd5aea5686",
+    "heldSha256": "b5ab9c0faad5048fd8e9e3e7a39ec08c540a568a56e0b16baaa846dd5aea5686",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "bytes": 10486,
+    "sha256": "f6ce712c35478568a0e7bd08722c8804b2d7c88ac58920273ce6abaf7163ae7a",
+    "heldSha256": "f6ce712c35478568a0e7bd08722c8804b2d7c88ac58920273ce6abaf7163ae7a",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+    "bytes": 12240,
+    "sha256": "5f746eec8f1f598fe3ce5ea2d9698d44338842cf4470fb7195836b4f36917160",
+    "heldSha256": "5f746eec8f1f598fe3ce5ea2d9698d44338842cf4470fb7195836b4f36917160",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+    "bytes": 4636,
+    "sha256": "e2d74fde4a620024c97641939e2d50fd988437804b87121484a513cb24b778be",
+    "heldSha256": "e2d74fde4a620024c97641939e2d50fd988437804b87121484a513cb24b778be",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "bytes": 52759,
+    "sha256": "eec3a064046060312ef0201bce20df5b46f781b48da2bd9f628a39faf3c1c4ad",
+    "heldSha256": "eec3a064046060312ef0201bce20df5b46f781b48da2bd9f628a39faf3c1c4ad",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+    "bytes": 42394,
+    "sha256": "679798679dbf0d84ffe00ec6b56ab058a9cdb7acf21d8f96ee571432b6be457d",
+    "heldSha256": "679798679dbf0d84ffe00ec6b56ab058a9cdb7acf21d8f96ee571432b6be457d",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+    "bytes": 15707,
+    "sha256": "e8b911080ff7ef26ef7b6472471223abf44a187ff48ae659385edc4b5a163eac",
+    "heldSha256": "e8b911080ff7ef26ef7b6472471223abf44a187ff48ae659385edc4b5a163eac",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+    "bytes": 18444,
+    "sha256": "8044ba06fe564ded3394debe22ad7e6b6d3ecb48f8075820c1d0738c66558f7f",
+    "heldSha256": "8044ba06fe564ded3394debe22ad7e6b6d3ecb48f8075820c1d0738c66558f7f",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-reconstruction-conservation.test.mjs",
+    "bytes": 6661,
+    "sha256": "bfeccd64488a0f32f23e905c55e035858e2cf98ab30cfad6d6550e1f99f34854",
+    "heldSha256": "bfeccd64488a0f32f23e905c55e035858e2cf98ab30cfad6d6550e1f99f34854",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+    "bytes": 9421,
+    "sha256": "90540971276c92787e9a10877c2ccfe2798b58d1e438abf9b96167a7d4ecd7c8",
+    "heldSha256": "90540971276c92787e9a10877c2ccfe2798b58d1e438abf9b96167a7d4ecd7c8",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+    "bytes": 87045,
+    "sha256": "d8b216839f1882003f0c82339110dbb0bf5be6de580a6a8ae5d947c3eeef24f0",
+    "heldSha256": "d8b216839f1882003f0c82339110dbb0bf5be6de580a6a8ae5d947c3eeef24f0",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "bytes": 46630,
+    "sha256": "659e498c72ec413bb0d94ee066601f05a263207a693105787438c69ab7750093",
+    "heldSha256": "f1923613a8993df445f9b3dc469f7056502691e1852a334364fba019f82a6fd2",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+    "bytes": 6407,
+    "sha256": "e17e26f31e1c85a285420bc2f74c66cddf22d960943020007583919729eef519",
+    "heldSha256": "e17e26f31e1c85a285420bc2f74c66cddf22d960943020007583919729eef519",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+    "bytes": 5151,
+    "sha256": "a0984ff7f82cb0ac57175e7fa858e8b928e469704f3a25326ccb38868df7717f",
+    "heldSha256": "a0984ff7f82cb0ac57175e7fa858e8b928e469704f3a25326ccb38868df7717f",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-initial-cursor-entry.test.mjs",
+    "bytes": 3158,
+    "sha256": "3032b45c11c7b081cb8732c9875f4aff08ccec359de504a101f4bde7c93d884b",
+    "heldSha256": "3032b45c11c7b081cb8732c9875f4aff08ccec359de504a101f4bde7c93d884b",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "bytes": 42213,
+    "sha256": "f4cbf1fed4b4d671c7c7f7e6fc4e378ec1abf22965384d1fc73c385786ada6ef",
+    "heldSha256": "f4cbf1fed4b4d671c7c7f7e6fc4e378ec1abf22965384d1fc73c385786ada6ef",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+    "bytes": 27192,
+    "sha256": "25c3756928fb8a568e515538ed38500e8a8bbb8ec695e76fdcc380b3a6a7c37d",
+    "heldSha256": "4bd8ca0fff90958a769d15dba4587d1b99ef17db609e78618088246f14093ce0",
+    "changedFromHeld": true,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+    "bytes": 12526,
+    "sha256": "a8201916bcb5892c04de594bf48136624d0b2bee36eb1e526cd3155ae03e568b",
+    "heldSha256": "a8201916bcb5892c04de594bf48136624d0b2bee36eb1e526cd3155ae03e568b",
+    "changedFromHeld": false,
+    "changedFromF49": false
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "bytes": 96545,
+    "sha256": "3d336f70e8b21349fd0768a1abed407debcc6d0edf6dffa5c570b6bdc6b80efd",
+    "heldSha256": "3d336f70e8b21349fd0768a1abed407debcc6d0edf6dffa5c570b6bdc6b80efd",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "bytes": 29259,
+    "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05",
+    "heldSha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "bytes": 37910,
+    "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2",
+    "heldSha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2",
+    "changedFromHeld": false,
+    "changedFromF49": true
+   }
+  ]
+ },
+ "native04Increment": [
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+   "change": "Source 69 pure historical projection (projectOwned); relation 189 and basis 219 explicit readOwned; private events carrier removed; ancestry = historicalPrefixOf (current cut through source last event: equal extent and same owned cut or equal runtimeEventPrefixDigest); dispatch/consumption/failed-successor/unique-producer via kind:/related:/payload:/basis: indexes; exported results no longer expose the owner prefix (private forwardSourceAt). Declaration, producer uniqueness, ancestry and physical worksite checks retained."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+   "change": "Proposal 215 and basis 322 readOwned; taskBridge, actor/process/chunk/exit/binding facts via related:/id:/kind:/payload: indexes; chunk order by admissionOrdinal and foreign-parent refusal kept; archived bytes, session/order and current cursor/binding checks unchanged; exported authenticate result no longer exposes the prefix (private preservedResultOwner)."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+   "change": "Entry 1127: assertHeldEventStoreAtDurablePrefix + selectRuntimeEventPrefixFromStore (held currentness, no second cold acquisition, no complete materialization); duplicates invocation:, basis payload:basisRef:, run open kind:, hygiene payload:artifactRef:, Run members via selectRuntimeEventPrefixFromAuthority. Attestation keeps the complete canonical-chain hash (runtimeEventBodiesAtPrefix) with eventCount from the extent."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+   "change": "Profile transition 156: readOwned successor, profile schedule from the owned cut, boundary via runtimeEventAtPrefixIndex; successor event 308 via id: index."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+   "change": "Resume 638: successor readOwned, attempt = last envelope, route via id:, bounded route-to-attempt ordinal interval reading bodies only for probe kinds; input 3597: explicit entry readOwned, owned variant projectOwned. Complete plans 5119/5683 unchanged."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+   "change": "planPendingInteractionAdmission deleted (no production or test consumer); unused materializeRuntimeReplayGuard import removed."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+   "change": "planPendingInteractionAdmission export removed."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+   "change": "\u00a710.4 runtime-history row: migrated forward/recovery/witness/retry callers, S3 pure-projection vs explicit-fresh-read distinction, planPendingInteractionAdmission removed, projectRuntimeTruthAtDurablePrefix consumer named, separate-owner sentence replaced (attestation complete hash; qualification still reads complete source)."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+   "change": "Count equalities replaced by HOW64/66 classification: acquisition decode once over exactly the entry extent (64 KiB chunks), every read classified, selected bodies fewer than closed rows; semantic/cold/forged/changed-byte/restored and profile copied/content/boundary/unauthorized/repeated controls run before the work-shape assertions. No minimum sweep and no hardcoded 323/3."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+   "change": "Installed case adds closed-owner acquisition-kind discriminator recorded as proof.cases.installedPath.acquisitionKinds."
+  }
+ ],
+ "census": {
+  "migrated": [
+   "worksite_command_forward 69/189/219 + private array consumers",
+   "worksite_construction_recovery 215/322 + CCall/process/chunk/proposal consumers",
+   "witness_admission_operation 1127 + member facts",
+   "witness_definition_bindings 156/308",
+   "retry 638/3597"
+  ],
+  "deleted": [
+   "c_call.planPendingInteractionAdmission and its abg/index export (no consumer found)",
+   "private events members of forward source/relation and recovery basis results",
+   "exported owner-prefix members of forward/recovery results (private helpers retain them)"
+  ],
+  "retained": [
+   {
+    "caller": "replay.ts:120 projectRuntimeTruthAtDurablePrefix",
+    "reason": "Demonstrated supported consumer: test_env/support/fresh-process-runtime-proof.mjs observeRetained calls owner[exportName](durablePrefix) and falsifiers/runtime-retained-projections-worker.mjs compare complete ReplayState members (cCalls, fanOutCompletions, currentWorksiteObservations, runStoppedDisposition) across processes; both are out of grant and no equivalent public export exists (projectOwnedRuntimeTruthAtDurablePrefix returns a guard, projectRunTruthAtDurablePrefix a different shape). forward-2 case 26 exercised this path."
+   },
+   {
+    "caller": "witness attestation complete canonical-chain hash",
+    "reason": "Genuine complete output (selection04)."
+   },
+   {
+    "caller": "traversal_route 5280/5453/5614/5752 complete mode; retry 5119/5130/5683 complete plans; continuation 1580 commitFhInteractionResponseAtExpectedPrefix; deferred_application 51; event_log 40 persistEventLog; replay.ts:564 replay(store)",
+    "reason": "Named complete-output contracts (independent recheck classification)."
+   },
+   {
+    "caller": "artifact_truth 854 projectExactPrefixArtifactTruth",
+    "reason": "Copied-projection cold reconstruction and qualification-source reader."
+   }
+  ],
+  "remaining": [
+   {
+    "caller": "qualification_proof 96/141/146/149/287/451/456/571/609/685/688/710/738/817/820/913/930 and ~45 array sites",
+    "reason": "Not migrated. Blocker: out-of-grant test_env/support/malformed-gtl-native-fixture.mjs links abg/qualification_proof.js via vm.SourceTextModule against SyntheticModule stubs exporting only readRuntimeEventsAtDurablePrefix/selectValidatedRuntimeEventPrefix/runtimeEventsFromValidatedPrefix/runtimePrefixFromArtifactTruth array forms; any new import fails at link. Users include t287-malformed-gtl-gate, t287-native-structural-gates, t287-native-runtime-gate, t287-release-acceptance, t287-qualification-contraction and qualification/recipe/verification-recipe.json."
+   },
+   {
+    "caller": "artifact_truth 841 runtimePrefixFromArtifactTruth",
+    "reason": "Not retired: sole production consumer qualification_proof:141; test consumers t287-qualification-producer-acquisition-reuse:85, t287-ordered-reconstruction:16/87, t287-authenticated-owner-values:45/65/66/69 (in grant) and t289-install-event-bodies:56/67, malformed-gtl-native-fixture:157 (out of grant)."
+   }
+  ]
+ },
+ "rows": {
+  "R1": "Remaining liveness/global work traced with the existing body-row meter (tmp04/p probe, same equal inputs STEPS 0/32/256, exact values/refusals asserted by the case). Per invocation: 25 RuntimeLivenessReconstruction constructions and 25 new derivation scopes, constant with history size; every one is runtime_validation_event_prefix@entry+k from admitNativeRuntimeLivenessEvent -> validateRuntimeLivenessEventAtPrefix -> livenessReconstruction -> runtimePrefixComputation, scope reason new_key 'all' (each candidate validation prefix has its own derivation source), so each rebuilds from ordinal 0. Prior-invocation growth: advance 1152->1728 (+576 per prior invocation) and some() scans at liveness.ts:418-425 via decideRuntimeLivenessEvent/deriveRuntimeLivenessSemantics (+~630). Unrelated history: exactly three global public_operation_admitted body walks per invocation (fh_continuation_projection projectFhEffectfulPublicInvocationFacts, invocation_execution_truth projectExactRunInvocationFactsAtPrefix, effectful_invocation_truth projectEffectfulPublicInvocationTruthAtPrefix), each reading every unrelated body once (36->292 rows), plus RuntimeEventCalculusDerivation.advance reading only newly admitted rows once (incremental, necessary). No source change for this row in native-04; returned to Root.",
+  "R2": "No change this increment; held native-01/02 disposition stands.",
+  "R3": "Forward, recovery, witness admission/profile/successor and retry resume/input owners now borrow owned prefixes and indexes; remaining complete readers are named complete outputs or the blocked qualification source.",
+  "R4": "Operator input sufficiency: not in this grant; retained disposition.",
+  "R5": "Operator search/evidence territory: not in this grant; scratch used C2_SELECTED_INPUTS with relative paths; two selected-file gaps recorded under proof.",
+  "R6": "Liveness meaning unchanged; the lineage trace attributes the reconstruction cost to per-candidate validation derivation sources (see R1); probe CPU share not measured.",
+  "R7": "Closed-owner discriminator executed: pure projection after close 0 event-log bytes; explicit fresh read after close and copied-coordinate projection each read exactly prefixLength bytes; digests equal. Maintained SDK case and cold reopen pass in scratch (sas-1). Actual C2, UAT, fresh result/replay closure open."
+ },
+ "rubric": {
+  "C1": "unmet: qualification_proof and runtimePrefixFromArtifactTruth remain; liveness/global walks returned",
+  "C2": "partial: scratch same-input owner meter only; no actual C2",
+  "C3": "scratch whole-path lane passed (sas-1 4/4); actual installed C2/UAT not executed",
+  "C4": "all R1-R7 dispositioned here; R4/R5 outside grant",
+  "C5": "unmet: actual C2 and independent review are Root's"
+ },
+ "s3EvidenceCorrection": "A retained immutable authenticated receipt permits pure historical projection of that exact coordinate after its owner closes (projectOwnedRuntimeEventPrefixAtDurablePrefix, projectOwnedPrefixArtifactTruth). An explicit fresh read (readOwnedRuntimeEventPrefixAtDurablePrefix) requires active ownership or cold authentication; a copied coordinate authenticates cold. No cold read was added to match the earlier wording. Executed: sas-disc-1.",
+ "proof": {
+  "scratch": "tmp04/w from C2_SELECTED_INPUTS (relative paths), contract-seeds as contracts/, offline toolchain copied as node_modules; tsc -p tsconfig.json exit0; generate-product-manifest exit0 (gen-5); emitted .d.ts errors equal held baseline (4 pre-existing)",
+  "typecheck": "tmp04/tc.sh tsc --noEmit exit0 (tc-10.log) on final code",
+  "env": "cwd tenant; TMPDIR=tmp04/t/a; NODE_OPTIONS=--max-old-space-size=8192; ABI5_CONSOLIDATION_INPUTS=tmp04/w/consolidation-inputs/native-04; node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap",
+  "runs": [
+   {
+    "tap": "witness-1.tap",
+    "files": "witness-reprice + witness-run-stopped",
+    "result": "18/4 fail: second cold acquisition at witness admission (642 vs 321), held family 12 reads, profile 2 acquisitions, live stop 6 reads; preserved"
+   },
+   {
+    "tap": "witness-2.tap",
+    "result": "18/4 fail after projectOwned at entry (copied I-JSON coordinate is not a known selection; still cold); preserved"
+   },
+   {
+    "tap": "witness-3.tap",
+    "result": "21/1: held-store selection fixed reads; remaining failure was my incorrect selectedBytes<20MiB oracle (the 20 MiB seed is the basis_admitted body required by hasExactBasis); preserved"
+   },
+   {
+    "tap": "witness-4.tap",
+    "result": "22/0/0 final witness source; material case acquisition 321 reads/20972406B = entry, selected 2 (<3 closed rows), unclassified 0, decoder parse 1; held native family 0 reads; live stop 3 reads 0 decodes"
+   },
+   {
+    "tap": "owners-1.no-timeout-binary.tap",
+    "result": "exit127 (no timeout binary on macOS); empty; preserved"
+   },
+   {
+    "tap": "owners-2.tap",
+    "files": "m5-retry-lifecycle-authority, t287-retry-run-prefix, forward-command-owners, forward-command-contracts, d1-preserved-result-mechanics",
+    "result": "24/0/4 skip (3 retry-entry cases need undeclared ABI5_S02_RETRY_FIXTURE; 1 needs ABI5_EVIDENCE_ROOT)"
+   },
+   {
+    "tap": "forward-1.tap",
+    "files": "t287-worksite-command-execution, t287-runtime-failure-diagnostic",
+    "result": "32/1: case 26 MODULE_NOT_FOUND test_env/falsifiers/runtime-retained-projections-worker.mjs (not in C2_SELECTED_INPUTS)"
+   },
+   {
+    "tap": "forward-2.tap",
+    "result": "case 26 1/0 after copying that worker"
+   },
+   {
+    "tap": "sas-1.tap",
+    "files": "t287-single-address-space-consolidation (pre-discriminator test bytes)",
+    "result": "4/0/0 exit0"
+   },
+   {
+    "tap": "sas-disc-1.tap",
+    "result": "installed case with acquisition-kind discriminator 1/0"
+   },
+   {
+    "tap": "probe-1.tap",
+    "result": "lineage probe on tmp04/p instrumented build (scratch only) 1/0; summaries runs/probe/inv-0..2.json"
+   },
+   {
+    "tap": "sas-2.tap",
+    "files": "t287-single-address-space-consolidation (final test bytes)",
+    "result": "4/0/0 exit0",
+    "acquisitionKinds": {
+     "closedProjection": {
+      "readCalls": 0,
+      "readBytes": 0,
+      "watchedReadCalls": 0,
+      "watchedReadBytes": 0
+     },
+     "closedFreshRead": {
+      "readCalls": 64,
+      "readBytes": 4143894,
+      "watchedReadCalls": 64,
+      "watchedReadBytes": 4143894
+     },
+     "copiedProjection": {
+      "readCalls": 64,
+      "readBytes": 4143894,
+      "watchedReadCalls": 64,
+      "watchedReadBytes": 4143894
+     }
+    },
+    "unrelatedWork": {
+     "fullPasses": 5.732142857142857,
+     "immutabilityWalks": 5.1615753255078056e-05,
+     "snapshotsPerEvent": 0.004464285714285714,
+     "continuationPasses": 0,
+     "replacedPasses": 1,
+     "continuationWalksPerEvent": 0,
+     "replacedWalksPerEvent": 21
+    },
+    "proofArtifact": {
+     "path": "tmp04/w/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+     "bytes": 98383,
+     "sha256": "cf4cf84fa61343162a61b4ff4b9a483349a9ce2a28e171f29a1fde89aac68b6a"
+    }
+   }
+  ],
+  "tapSha256": {
+   "witness-1.tap": "722aa8a3890778b383bac3d16ef084ee9fbf78b51dc1e9a37b496be10471fd3d",
+   "witness-2.tap": "be9b570ad940e722b3be1af95777b739c527c71e9f92863e3cdcc8f238302fe8",
+   "witness-3.tap": "79860824a38fccc3373180179193dc3c056330ac7de7a397c184521202cbfcb0",
+   "witness-4.tap": "6b6d4a044c4ebdf6c3c7c667d7fd4c3184ff8cf78ccfde374bafbdc2c41141bb",
+   "owners-1.no-timeout-binary.tap": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "owners-2.tap": "6cecc4a71894d2e232ad0198c2b4d8229ffb5cadc42307bb49df7cbd34035636",
+   "forward-1.tap": "0b0309cd9470af024c53db2d4f26bf087519df35cd62cad5a5ad895c9c70589f",
+   "forward-2.tap": "00139ff50c57c35852cd1c5e71e37cb8f7f5635c7348b953eb16d5339a5c551d",
+   "sas-1.tap": "ce604f90e66f59b34b876946082f3adacfe470ccd1268a5b0a6eaaa1ec16aa8c",
+   "sas-disc-1.tap": "64f7e9ac7338c3ed03600603a566381762b64bc7928b4c16fbe6e2c278488fd8",
+   "probe-1.tap": "4f854d614c2a064e2e94367b2784bf4ff1b1946161141ef44d2d18e0203c9aca",
+   "witness-probe-1.tap": "42b1f05308ce3c2434cff9ebc09434fe99753301c5444914b3a2feb154bb5e4f",
+   "witness-probe-2.tap": "ccd21e1b891c33915f1fd61d3e5e25eab9c0eb940245b6d40932528201284330",
+   "sas-2.tap": "d3eab28d061ba89b824ab9d2799d1fbe0eac9f417e9ccb6a6c9eb357c9155f6f"
+  },
+  "probeSha256": {
+   "inv-0.json": "77cecfee99716c5292c2cae0089a352f0f92f54c24f39e7d41829b06313ccd94",
+   "inv-1.json": "1430cbdb2a990fc97dc6453355086089315001442c7f4c8f7c5243a5772c9013",
+   "inv-2.json": "48bf05702b8d27c8203ebfdabe1eaac2769c50f76400461b5def06c5dd8d6064"
+  },
+  "notExecuted": [
+   "actual C2 recipe",
+   "installed-affected-lane m5-installed-graph-edge",
+   "maintained-setup-harness lane",
+   "complete affected-owner-lanes (24 files); only changed-claim subsets above",
+   "native UAT, fresh result/replay closure"
+  ]
+ },
+ "discriminators": {
+  "executed": [
+   "warm/held vs copied/cold acquisition and closed projection vs fresh read (sas-disc-1)",
+   "witness semantic, cold correspondence, forged receipt, changed bytes, restored bytes, profile copied/content/boundary/unauthorized/repeated (witness-4)",
+   "held witness family without reads (witness-4 case 13)",
+   "stale/copied/foreign/rollback refusals and cold reopen (sas-1 case 2)"
+  ],
+  "notAdded": [
+   "null vs non-null budget scope",
+   "out-of-Run malformed/duplicate public-operation pairs",
+   "orphan and mixed-arm F_H/construction facts",
+   "missing vs out-of-scope identity",
+   "declaration empty/nonempty/missing/altered/reordered predecessor: reconstructCatalogApplication needs CatalogApplicationResources; the only fixture is the ungranted steel-consumer-declaration test"
+  ]
+ },
+ "returnedToRoot": [
+  "Out-of-grant repair for qualification_proof migration: test_env/support/malformed-gtl-native-fixture.mjs stubs (and t289-install-event-bodies) must expose the owned event_prefix/artifact_truth exports before qualification_proof can import them; then runtimePrefixFromArtifactTruth can retire.",
+  "Liveness candidate validation lineage: runtimePrefixComputation over a ValidationRuntimeEventPrefix uses the candidate's own derivation source (event_prefix locatedReceipt/runtime_derivation.selectionScope new_key), so validateRuntimeLivenessEventAtPrefix rebuilds RuntimeLivenessReconstruction from 0 for each of ~25 native liveness admissions per invocation. Reuse requires a canonical prefix/derivation relation (base-scope borrowing for validation prefixes) or a liveness fork design; event_prefix/runtime_derivation are read-only to this grant.",
+  "Three global public_operation_admitted body walks per invocation share one information requirement (global malformed/duplicate/complete-pair) but are separate passes; consolidating them through one existing owned computation needs a unified pair-fact contract across fh_continuation_projection/invocation_execution_truth/effectful_invocation_truth.",
+  "worksite_revision.projectClosedConstructionRetainedVector(prefix: ValidatedRuntimeEventPrefix) is out of grant; forward calls it through a typed call-site widening because its body uses only RuntimeEventPrefix helpers. Required repair: an @internal RuntimeEventPrefix overload there.",
+  "C2_SELECTED_INPUTS omits test_env/falsifiers/runtime-retained-projections-worker.mjs (needed by t287-worksite-command-execution) and the ABI5_S02_RETRY_FIXTURE carrier.",
+  "Declared ./abg TypeScript return shapes of projectWorksiteCommandForwardSource/Relation, authenticateWorksiteCommandForwardBasis and authenticateWorksitePreservedResultBasis no longer carry prefix/events (private carriage per selection04); runtime JS consumers in tests only null-check. Root to confirm this is not a Public serialized change."
+ ],
+ "outOfScopeOrDisclosedActions": [
+  "Scratch tmp04/w: 861 C2-selected files plus unselected forward-command-owners, forward-command-contracts, d1-preserved-result-mechanics tests and falsifiers/runtime-retained-projections-worker.mjs copied with relative paths; offline toolchain node_modules copied (first symlink failed manifest root check, gen-1).",
+  "Scratch tmp04/p: copy of tmp04/w with instrumented build JS (runtime_history/calculus/liveness/runtime_derivation) and a probe copy of the whole-path test; manifest regenerated there; never used for proof of source.",
+  "Temporary probe edits to tmp04/w witness test copy were restored from the worksite bytes before witness-3/4 (cmp equal).",
+  "tmp04/w artifacts/single-address-space-proof.json from sas-1 renamed .sas-1.json before sas-2.",
+  "Observed concurrent writes by another actor under /Users/jim/src/apps/abiogenesis/.ai-workspace/work/.../single-address-space-consolidation-01 (historical-owner-fixture-001, native-04, prepare-native-05.py, ROOT_REENTRY_SELECTION_05.md); not mine, not read as authority.",
+  "No commit, push, network, dependency install, provider or subagent."
+ ]
+}

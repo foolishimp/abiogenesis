@@ -1,0 +1,271 @@
+{
+  "productFrame": "Unchanged fixed fifteen-feature ABIogenesis 5.0 / GOAL-035 / T-287. The actual frozen Product Definition selects STDO 3.0.4 with composition []; RC6 remains the immutable installed builder, N is prospective RC7 author-check source. GTL owns definitions, HoG traversal, ABG the sole admission/runtime truth; existing event/body/effect owners are reused. No new store, runtime, controller, cache, serializer, second stream or compact Public mode; no Product WHAT expansion.",
+  "kind": "independent_frozen_four_path_bridge_review",
+  "reviewId": "bridge-stage01-001",
+  "at": "2026-11-06T07:44:56.964075+00:00",
+  "status": "CLOSED",
+  "coreResult": "satisfied",
+  "claim": "The exact four-file N delta lawfully reconciles the compiled C2 identity, exposes the unchanged installed-content checker, and migrates the two existing cold-test consumers through the existing native task/body owners without erasing their ordinary semantic/currentness/cold/refusal oracles. This is a bounded static source predicate, not complete installed R1/R2 acceptance.",
+  "recommendation": "Preserve this exact bridge for Root conjunction with final native.after/source matching and the seven affected test results. No new blocking source defect or additional implementation requirement was established. Do not promote this author-check snapshot or this component review to accepted source, qualification, release or measured speedup.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/SUBJECT.json",
+    "bytes": 5616,
+    "sha256": "1f6d164d5bda072805daaefebd072d42c0c04b7e903eb62048a4bb5737d9f366",
+    "standing": "FROZEN_STAGE_SOURCE_REVIEW_WHILE_TARGETED_TESTS_RUN",
+    "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737",
+    "files": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+        "snapshot": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/files/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+          "bytes": 24181,
+          "sha256": "527cc1336c4286779d59dd699ff0e8921cb10c665f616e9108251c95b5cf23c2"
+        },
+        "heldPreimage": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+          "bytes": 24181,
+          "sha256": "2faf93d2def13bc8f8eb9d2759e190994712f575f39b5ef567ec407686c1b22b"
+        },
+        "changed": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "snapshot": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+          "bytes": 156293,
+          "sha256": "2f80715880c73f366b0fd4232e34c504db0ebadadfd156e2014deb919fbf481f"
+        },
+        "heldPreimage": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+          "bytes": 154467,
+          "sha256": "2eac881080d095ac05644a2440597c92f08d48d26cd1eae14ac92db829b105f0"
+        },
+        "changed": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "snapshot": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "bytes": 292701,
+          "sha256": "2d956ee914d4a100beb3e2c1f178d0260dc84141e51c023467b28875d78aa15e"
+        },
+        "heldPreimage": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "bytes": 290877,
+          "sha256": "4fcbd6e2c470d506df9c319a3b7108450f887cef3373cca3813e2f66d97ea138"
+        },
+        "changed": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "snapshot": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+          "bytes": 39766,
+          "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+        },
+        "heldPreimage": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+          "bytes": 39759,
+          "sha256": "40f54b3e0901431b8d46556866c4277b10253bddc1ff320e5c01fd6e095094b3"
+        },
+        "changed": true
+      }
+    ],
+    "entrySourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SOURCE_BEFORE.json",
+      "bytes": 273167,
+      "sha256": "dd60fc6d8488c5bf3d38c5be6ed26aa94a15682d58b7edb1e958a773e6653268"
+    },
+    "stageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-stage.json",
+      "bytes": 97218,
+      "sha256": "e532290786dba62a7e232c8f7eef0e4b3b6872ed5542a5e1866e098fb4d167c9"
+    },
+    "compiledC2Member": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+      "bytes": 119249,
+      "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790"
+    },
+    "verification": {
+      "changedSnapshotAndBPreimagePairsVerified": 4,
+      "inheritedFrozenBodiesAndStageRowsVerifiedEqual": 445,
+      "stagePopulation": 449,
+      "errors": []
+    }
+  },
+  "basis": {
+    "definition": {
+      "relativePath": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "relativePath": "specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "frame": {
+      "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "methodRelease": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "reviewSkill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+      "bytes": 8074,
+      "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+    },
+    "readCurrentness": "Applicable apps and checkout AGENTS, selected native STDO review skill and relevant Product/requirements/HOW were read in this continuing review thread. Manager resolution and installed verification were completed on the identical selected definition; this activation rehashed the installed skill and all 449 frozen source bodies including definition/Product/frame. No mutable C source was used as the subject.",
+    "expectation": "Product exact owner reuse and retained evidence identity; REQ-R-ABG3-PROJECTION exact currentness/source authority, instruction-assembly exact accessible context, REQ-P-QUAL original command/readback bytes; HOW 10.8 R1-R6. No new design branch."
+  },
+  "controls": {
+    "scopeAddendum": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_SCOPE_ADDENDUM_01.json",
+      "bytes": 3732,
+      "sha256": "a7a6c55080b90a1a0655990842df785edb977d6211f809d9f95e299d8f35c45b"
+    },
+    "rootDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 6623,
+      "sha256": "c613378b2fa10f72d89a546c7b1bd8b792af5cf674b0a4d486fd0b7bd98eb5f3"
+    },
+    "currentInputReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/reviews/result-current-input-001/REVIEW.json",
+      "bytes": 51904,
+      "sha256": "c78ac2c3f82c17392d36ed745f1d3588fa6fdcb4d8b95ba912b3b3579b444206"
+    },
+    "priorBodyRunnerReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/reviews/body-custody-runner-001/REVIEW.json",
+      "bytes": 28524,
+      "sha256": "b24ced9bb6b60923798296b7985f065207c7cc8191838f4c560ac441855dc1d3"
+    },
+    "writeGrant": "Only rc7-overhead-author-03/reviews/bridge-stage01-001/REVIEW.md and REVIEW.json; output location confirmed by Root."
+  },
+  "evaluatedRelations": [
+    {
+      "id": "N-C2-001",
+      "result": "satisfied",
+      "scope": "Exact member/span reconciliation; no generator weakening",
+      "evidence": [
+        "GTL snapshot lines 36-39 changes only member digest and byteCount; line 61 changes only startByte/endByte.",
+        "Compiled frozen member verified 119249 bytes, sha256:b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790. Byte slice [109164,111596) is 2432 bytes and hashes to unchanged spanDigest 1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf.",
+        "All 445 other source rows including generator/guard equal the B snapshots; no guard edits. Pinned stage report records compile/generate/lifecycle exitCode 0, no signal/error."
+      ],
+      "limit": "Stage output/source identity is verified; final actual NativeResult source equivalence is a separate Root gate."
+    },
+    {
+      "id": "N-CHECKER-001",
+      "result": "satisfied",
+      "scope": "Reuse the one installed-content checker",
+      "evidence": [
+        "runner.mjs:358 adds export only; body lines 359-370 is byte-for-byte unchanged from B.",
+        "It calls caller.runtime.product.installedProductContentMatches, records phase observations and refuses unless the two installations match. invokeLifecycle still checks before and in finally after its cold invocation at lines 375-380.",
+        "No new checker, SDK implementation, transport, serialization or cache path is introduced."
+      ],
+      "limit": "Export availability does not itself prove a separate acquired-resource SDK consumer invocation; operational conjunction stays with Root."
+    },
+    {
+      "id": "N-COLD-TASK-001",
+      "result": "satisfied",
+      "scope": "R1-CONSUMER-001 migration in both ordinary cold tests",
+      "evidence": [
+        "t287-default-library.test.mjs:1821-1835 resolves the actual construction Result through projectNativeWorkspaceWorkResultTaskAtPrefix at the recovered prefix, asserts equality with that Result own admitted basis rawInputValue, and uses the task for original write roots/read scope/effect/currentness oracles.",
+        "Lines 2084-2098 use the same native owner at finalPrefix for source N, assert the prospective basis belongs to A, and preserve the old task-bearing Result arm. No root-input substitution or caller-seeded task is introduced.",
+        "Parent progressed input differs from root-entry input (1842-1843); actual SIGKILL and exclusive recovery, crossed cursor/Run/digest/stale-prefix refusals, same-Run continuation and cold reads remain.",
+        "The native own-basis semantic premise is inherited from the separately closed B current-input review, not generalized to arbitrary multi-leaf CCalls."
+      ],
+      "limit": "Static migration is complete; actual execution of the seven affected cases and final subject binding were not performed by this reviewer."
+    },
+    {
+      "id": "N-COLD-BODY-001",
+      "result": "satisfied",
+      "scope": "Preserve exact cross-Run declared-body lineage and failure boundaries",
+      "evidence": [
+        "Lines 2091-2096 choose exact resultRef/resultDigest/task-context coordinates for retained original inline bodies, basisRef/basisDigest/context coordinates for prospective inline task bodies, and preserve an already-admitted member unchanged. Holder lookup branches on basisRef.",
+        "Lines 2080-2081 bind B source use to A selected native Result identity; 2097-2104 require every carried A member to equal the selected task declaration and use the existing resolver to prove exact seed bytes and holder event.",
+        "Lines 2115-2131 retain changed-after birth in B and foreign, tampered, stale, denied, missing and pending refusals. No source authority is derived from holder location alone.",
+        "Lines 2024-2068 preserve separate A/B identities, unknown-effect refusal, one continuation, no new A admission, no repeat native work, exact sourceNativeWork, one C2 result; 2132-2141 retain terminal and replay equality."
+      ],
+      "limit": "The ordinary fixture first holds the seed context in a framed_synthesis_task Result; its resultDigest tamper and substitute-Result negatives target that arm. The new basis-holder lookup arm is not separately proven by those two negatives. This is a declared coverage limit, not a new bridge repair requirement; existing B holder-specific tests keep their bounded standing."
+    },
+    {
+      "id": "N-HOW-001",
+      "result": "satisfied",
+      "scope": "Truthful ownership and residual statement",
+      "evidence": [
+        "HOW 10.8 gives exact compiled member/span coordinates and retains fail-closed generator ownership.",
+        "It describes the existing task/body owners, unchanged checker export, finite seven-case proof scope and scripted/installed proof limits through the cited tests.",
+        "It explicitly does not claim whole installed R1/R2 composition, matched performance or qualification. No historical receipt is rewritten."
+      ],
+      "limit": "Normative design wording about the acquired-resource SDK caller is not independent evidence of an executed consumer."
+    }
+  ],
+  "findings": [],
+  "coverageObservations": [
+    {
+      "id": "N-COVERAGE-001",
+      "classification": "Bounded alternate-holder negative coverage; no new defect established",
+      "trigger": "If path0 were changed to a basis-held member, the unchanged negative at line 2126 would append resultDigest instead of tampering basisDigest; the exact source-member comparison would then refuse foreign, not the asserted tampered. Line 2123 also constructs Result coordinates from holder0.",
+      "actualStanding": "Existing ordinary fixture seed context is first admitted in a framed_synthesis_task Result and reused by native preparation; these negatives retain their original Result-held meaning. Root explicitly selected preservation of that ordinary oracle and the prior B holder-specific tests, not another fixture loop.",
+      "harm": "Do not count these ordinary Result-held negatives as exhaustive basis-holder negative proof. No observed runtime authority failure or current fixture failure is established.",
+      "failClosedControl": "A changed holder arm producing another refusal cannot silently earn a passing tampered assertion; the resolver and exact expected code still fail closed.",
+      "repairCost": "None selected for this bridge. If the fixture later changes holder kind, branch only the existing coordinate mutation/source-negative selection at that owner; no runtime redesign.",
+      "priority": "coverage_limit_only",
+      "confidence": "High for static branch behavior; actual receipt holder selection remains for Root conjunction."
+    }
+  ],
+  "mechanicalEvidence": {
+    "performedByReviewer": "Read and hash verification only; no tests/build/generation/runtime/provider calls.",
+    "pinnedStageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-stage.json",
+      "bytes": 97218,
+      "sha256": "e532290786dba62a7e232c8f7eef0e4b3b6872ed5542a5e1866e098fb4d167c9"
+    },
+    "observedExitCodes": {
+      "compile": 0,
+      "generate": 0,
+      "lifecycle": 0
+    },
+    "unverifiedRootReportedAtActivation": "Publication one case passed; other six cases were running. This review does not count them as independently read passing receipts.",
+    "performance": "No measured speedup or aggregate timing claim; compilation/setup/host/dispatch/native/closure/cold reads/between-task costs remain distinct from immutable RC6 timings.",
+    "rootReportedAtClosure": {
+      "sourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737",
+      "publication": 1,
+      "c1Consumers": 3,
+      "coldResume": 2,
+      "runner": 1,
+      "reportedOutcome": "All seven selected cases exit 0, fail/skip/cancel 0, exactSelectedPass true.",
+      "standing": "Root message received after static review closure; author feedback not independently read here and not final NativeResult source admission. Root will pin reports/stdout and match final source; no reruns selected."
+    }
+  },
+  "neededConjunction": [
+    "Root matches actual final native.after and frozen final source to these four snapshots plus all 445 inherited rows and the stage source digest before using this static review.",
+    "Root binds exact final source to the existing finite seven affected cases: publication 1, C1 consumers 3, two actual default-library cold cases, maintained runner setup 1. Use genuine generation/lifecycle and complete selected results, not syntax checks or historical greens.",
+    "Conjoin the two B independent reviews, B component proof and this delta review; preserve any newly observed failure for bounded Root triage. No additional review-generated test family or runtime redesign is required."
+  ],
+  "residuals": [
+    "N is an author-check frozen stage, not NativeResult-admitted final source. Full installed R1/R2 integration remains indeterminate within this review.",
+    "The two cold cases exercise actual installed Public/ABG/HoG/C2/worksite/SIGKILL owners with a scripted model process; they are not a live provider or Root installed witness, even if all selected cases pass.",
+    "All B generation failure and nine failing invocations (seven unique cases, two cold repeats), B 5/4 stage and 13/12 lane overruns, and disclosed out-of-grant scratch process nonconformance remain historical facts. This bridge does not retroactively convert them to green.",
+    "Preserve A accepted prefix acquisition step and bounded original-byte runner correction, prior recovery/cancellation/8 GiB OOM history and unknown exact heap cause; this bridge provides no OOM remedy or new timing attribution.",
+    "Unchanged inherited D5/carriage/F11 work and existing uncovered cases retain their prior status. No full-suite demand, whole-source approval, normal-output re-expansion or new product scope is introduced.",
+    "Same-family independent component review to Root, not formal ABI5 qualification J/F11 or release authority; Root owns conjunction and disposition."
+  ],
+  "independence": {
+    "reviewer": "/root/rc7_partial_prefix_review",
+    "authorRole": "ABG native Worker only",
+    "mode": "Independent same-family frozen-source component review at requested MAX depth, proportionate to four-path delta",
+    "unperformed": "No authoring/repair, tests, builds, runtime/provider/network/credential/Git calls, or further agents."
+  },
+  "invalidation": [
+    "Any changed final source row, compiled member/span, selected Product Definition/method identity, actual holder assumption in the ordinary fixture, or failing selected test requires Root to revise the affected conclusion rather than extend it silently."
+  ],
+  "effectsPerformed": [
+    "Read pinned source/control/evidence files and compare hashes/deltas.",
+    "Write only the two granted review artifacts."
+  ],
+  "returnTo": "Root Executive"
+}

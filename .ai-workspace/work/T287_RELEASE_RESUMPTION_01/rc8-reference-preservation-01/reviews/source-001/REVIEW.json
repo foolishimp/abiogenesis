@@ -1,0 +1,500 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "fixedFamilies": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "activeWork": "GOAL-035 / T-287 release resumption; RC7 builder to prospective RC8; REF-01 constructed-call reference preservation",
+    "selectedOutcome": "Preserve established immutable request, Catalog, view and admitted input identity from constructor through native transport and static binder to the real Product/run owner; eliminate repeated full work after setup while preserving canonical raw admission, currentness, semantic and effect checks.",
+    "classification": "Owner-local identity bookkeeping is deterministic construction / a derived tool. It is not runtime admission authority, a durable registry, an event writer or a lifecycle.",
+    "authoritySplit": "Product/requirements own WHAT; the TypeScript HOW realizes it; exact immutable definitions and reconstructible Catalog/view remain eventless. ABG alone admits runtime truth and events; SDK/CLI remain thin invocation/projection shells.",
+    "prohibitions": [
+      "No new universal trust registry, store, language, runtime, public controller or replacement admission calculus",
+      "No migration of the twelve cold reads or S7 export census deletion",
+      "No whole-5.0 qualification, release, installation or selector claim from this review"
+    ],
+    "composition": []
+  },
+  "reviewId": "T287-RC8-REF01-SOURCE-001",
+  "recordedUtc": "2026-11-07T03:44:56.165130+00:00",
+  "role": "Reviewer",
+  "actor": "/root/rc8_source_review",
+  "returnTo": "/root",
+  "verdict": "falsified",
+  "claim": "The exact frozen RC8 REF-01 realization closes constructed-call identity reuse and the zero-repeated-work bound without changing schema/default/refusal, currentness or effect semantics.",
+  "independence": {
+    "authoredSubject": false,
+    "repairedSubject": false,
+    "testExecutionByReviewer": false,
+    "authorAsDeclaredByExecutive": "Native Claude Opus 5.5 xhigh",
+    "reviewerFamily": "OpenAI Codex; max requested by Executive; precise host model revision not independently exposed",
+    "evidenceConditions": "Governing Product/frame/requirements expectations preceded candidate exposure. Supplied focus hypotheses, author residuals and later Executive observations/test notifications were visible and are not treated as independent findings or runtime proof. Source was independently reacquired and hashed; judgments below derive from that source.",
+    "hostBoundary": "Tools have broader capabilities than this activation. No enforced information-isolation claim. Reads and the two report writes are the only performed effects; no Product/Git/runtime/provider/test mutations."
+  },
+  "basis": {
+    "productDefinition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/TASK.002.json",
+      "bytes": 10804,
+      "sha256": "aedba92096b81986f2371f941eb9d427368aae11c46f70c327564a3cbb54d8f0"
+    },
+    "stdo": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "verification": "stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify: exit 0, installed=true, valid=true, failures=[]; required members resolved through stdo"
+    },
+    "severityScale": "Product frame descending S0-S4; S2 material semantic/authority/causal/proportionality/proof defect with bounded workaround. No priority or promotion disposition is assigned.",
+    "owningRelations": [
+      "PRODUCT.md:811-848 Live State, Recovery And Valid Reuse; 1240-1275 Definition, Tool, Runtime Authority and Compression Boundary; F01/F05/F06/F09/F10 in fixed fifteen-family set",
+      "REQ-P-PUBLIC-CONTRACTS-009/010: exact declared defaults, invocation identity and owning semantic function",
+      "REQ-P-CATALOG-014/017/029/030: exact coherent readiness, exact idempotence, eventless construction and separate ABG runtime truth",
+      "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md: admission family, O-SCHEMA, 10.9 residuals and new 10.11 X1-X6",
+      "T-287 anchors rc7-reference-preservation-follow-up and rc8-reference-preservation-plan; TASK.002 exact grant",
+      "STDO EVALUATION 3/4/5 and ACTIVATION 7; project Reviewer/Executive separation and proportionality"
+    ],
+    "requirements": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+        "bytes": 19406,
+        "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-CATALOG.md",
+        "bytes": 13757,
+        "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+      }
+    ]
+  },
+  "subject": {
+    "sourceRoot": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source-freeze.json",
+      "bytes": 293771,
+      "sha256": "0b387280632b2bb43220a867c6d8563b9153f43a1783e510f5721f989523e022"
+    },
+    "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+    "sourceDigestIndependentlyRecomputed": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+    "verifiedMembers": 1338,
+    "memberMismatches": 0,
+    "baseline": {
+      "commit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+      "worktree": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+      "headMatched": true
+    },
+    "delta": {
+      "trackedChanged": 13,
+      "newFiles": 2,
+      "totalFiles": 15,
+      "method": "All selected frozen blobs compared to exact baseline Git blob identities; matches the 15-file supplied delta.",
+      "files": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+          "bytes": 50320,
+          "sha256": "653857ff3b78e7fd1f0bd37b0e504afeddcaf6d128fab0b4174d04f739990f8b"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+          "bytes": 36876,
+          "sha256": "a7f8656189c0a7b754c93680011d9ccd07b9e3eb714c681a9b86a9824b15a6c5"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+          "bytes": 13080,
+          "sha256": "7d068fe8136483682efcb823d26d3031ff01e5c8498302a6c78943d859ac7f56"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+          "bytes": 47655,
+          "sha256": "0a1fcbf60c8fb132747fbf31f1ce486676b0033c713eed8eaa78d521a6d3aec9"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+          "bytes": 49817,
+          "sha256": "0ae97ae95f37e76be6ad37b8565228aeeedcba0661538a89d4ff578ad307dc12"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "bytes": 28326,
+          "sha256": "6176a1afddccc929de14a8e765675638a3ab1d9b2a4b0d28bcb8a6a834b4274f"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+          "bytes": 19157,
+          "sha256": "1f12826edc8dbad7ef59f6e782e8ea06fbbf47844f23a15c7b38fc85cb59fd17"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+          "bytes": 7176,
+          "sha256": "78016af0361b311618dfda2fdfe0af28a7123454be0aa95cbf0333130dcf9e8c"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+          "bytes": 21284,
+          "sha256": "714cead7c0bf4ec2acc408b998817e720cd09dde37c0b0536b54c75d3dde53f8"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+          "bytes": 27548,
+          "sha256": "0cb0d20978e47eff03a1ba4c94ccf9bd243687176dcf4460fc80d8c6313bba13"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+          "bytes": 187789,
+          "sha256": "e4ec76856e11429af1413487e6b37563944a6a784fa2ea36843d76bd76aa8772"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+          "bytes": 8001,
+          "sha256": "305f7494ff2e171720a12f604ddb19c9cfca7cb01a83a1d030c39647c927789d"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/package.json",
+          "bytes": 10003,
+          "sha256": "a0f72d262f00eabc74f6aaa963972888c3bb15cf703c30f7ad1bec8413e7fd17"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+          "bytes": 1474,
+          "sha256": "1945a53c4e637f5a2a6eebeb4be97a4e38aaa3b645cd0e001cab0061caa856a2"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 10863,
+          "sha256": "b7a114e8a2407139b6b439b3b2173eb9b9e38db351502575bea1d0f4895f10a5"
+        }
+      ]
+    }
+  },
+  "findings": [
+    {
+      "id": "RC8-SOURCE-001",
+      "severity": "S2",
+      "verdict": "falsified",
+      "title": "The first binder call repeats whole Catalog/view work after setup and the zero-work counters do not observe it",
+      "violatedRelation": "T-287 REF-01 lines 206-212 and TASK.002 require established-object reuse, one full unchanged Catalog admission per session, and zero repeated cloning/full admissions/deep-frozen walks after setup. HOW 10.11 X4 and Retained work permit a new full structural pass at first binder sight, weakening that selected bound.",
+      "counterexample": "After setup creates the owner Catalog/view, their first run-binder use has no retainedResourceMembers entry under the run member schemas. admitResources builds fresh, calls admitContract, then checks isDeeplyFrozen on both original members. admitContract unconditionally calls tree-constructing admitJson before Valibot; the run schemas are full strictObject trees. Their outputs are then discarded in favor of original frozen members. The one logical Catalog owner cache can hit while these full-tree passes still occur.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+          "bytes": 7176,
+          "sha256": "78016af0361b311618dfda2fdfe0af28a7123454be0aa95cbf0333130dcf9e8c",
+          "lines": [
+            79,
+            102
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/shared/admit/contract.ts",
+          "bytes": 1919,
+          "sha256": "7bdbd692078330566e4982de80bc7880f332b35c11ab7103d93ca97bed36d0d2",
+          "lines": [
+            17,
+            27
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+          "bytes": 107947,
+          "sha256": "73c27a0ed2d4e65a0317a1c6f5e16e5294248db7077960d273e9213f62052dc0",
+          "lines": [
+            981,
+            1040
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+          "bytes": 36876,
+          "sha256": "a7f8656189c0a7b754c93680011d9ccd07b9e3eb714c681a9b86a9824b15a6c5",
+          "lines": [
+            417,
+            432
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 10863,
+          "sha256": "b7a114e8a2407139b6b439b3b2173eb9b9e38db351502575bea1d0f4895f10a5",
+          "lines": [
+            35,
+            68
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+          "bytes": 187789,
+          "sha256": "e4ec76856e11429af1413487e6b37563944a6a784fa2ea36843d76bd76aa8772",
+          "lines": [
+            970,
+            1009
+          ]
+        }
+      ],
+      "triage": {
+        "class": "complete",
+        "triggerProbability": "Certain on first use of a ready Catalog/view under a previously unused run-binder member schema after setup; subsequent identical members can hit the new cache.",
+        "realizedHarm": "The selected zero-repeat computational bound is false: complete Catalog/view I-JSON copying, schema traversal/reconstruction and a frozen walk occur after setup. No latency, allocation-byte or RSS magnitude is claimed from static source.",
+        "failClosedControls": "Canonical admission still runs on that first sight and Product equality/currentness/effect checks remain. This finding is unnecessary work and incomplete proof, not shown unauthorized runtime truth.",
+        "causalAssessment": "Identity is recovered after the generic gate has already repeated the work, and counters observe selected owner calls rather than all material copying/walking at this seam.",
+        "confidence": "high for source control flow and counter coverage; operational magnitude indeterminate",
+        "blastRadius": "First unchanged Catalog/view use for the selected run binder; full selected source path is affected even when later warm calls pass. No claim about all cold reads.",
+        "containment": "Retain the source as a bounded partial and do not consume the counter zeros as full REF-01 completion. Ordinary invocation behavior can remain usable.",
+        "repairComplexity": "Bounded existing-owner/binder re-entry; exact implementation effort indeterminate.",
+        "regressionRisk": "Moderate at the shared binder; widening to a generic schema interpreter or shared admission/immutable redesign would substantially increase risk.",
+        "repairRabbitHoleRisk": "Avoid general purity proofs, common admission redesign and migration of unrelated consumers."
+      },
+      "smallestLawfulReentry": "Re-enter HOW 10.11 and the existing constructor/binder plus Catalog/view owners. Consume their exact established-value facts before any whole-tree gate or frozen walk. A new Valibot custom predicate alone is insufficient while admitContract still runs admitJson first. Preserve canonical admission for raw/foreign/changed values.",
+      "closureFalsifiers": [
+        "The first post-setup constructed run call performs any full Catalog/view JSON copy, full structural schema reconstruction, frozen walk, owner admission miss or full canonical comparison.",
+        "Counters say zero while a direct work-site probe or CPU profile records the omitted full-tree work."
+      ],
+      "requiredEvidence": "One exact real constructor-to-run-owner first call and warm successor calls, with identity observations and counters/probes at actual copy/walk/admission sites; retain unchanged currentness and raw/refusal cases. Native module/declaration work must have its own measured site if zero linking is claimed."
+    },
+    {
+      "id": "RC8-SOURCE-002",
+      "severity": "S2",
+      "verdict": "falsified",
+      "title": "Frozen raw values are recorded and reused as if they were canonical schema outputs",
+      "violatedRelation": "REQ-P-PUBLIC-CONTRACTS-009/010, Product Live State/Valid Reuse, HOW admission law and X1/X4 require exact request/default/output identity and unchanged raw I-JSON/refusal semantics. A frozen input proves immutability, not equivalence to its schema output or independence from a schema currentness basis.",
+      "counterexamples": [
+        {
+          "id": "normalized-request",
+          "status": "source-derived; not executed",
+          "entry": "Existing defaultedStartCall witness in t287-w2-05-static-binding-algebra.test.mjs:302-339, passed to the new exported internal establishExactDefinitionCall with RUN_OPERATION_CONTRACTS.invoke.start.",
+          "causalPath": "The witness omits raw fhMode but binds identity to the schema-defaulted request. Ordinary admitExactDefinitionCall returns the normalized invocation, and the existing test expects ownerRequest.fhMode=direct. Establishment checks only non-null admission, discards that returned invocation, freezes and registers call.invocation. Later reuse returns that raw invocation without default application or digest recheck. The receiving owner can get missing fhMode and a raw request body differing from its declared requestDigest.",
+          "limit": "Normal populateProductRunInvocation explicitly supplies fhMode/rootMode, so this is not a claim that the passing ordinary start fixture already takes this defaulted path."
+        },
+        {
+          "id": "resource-schema-output",
+          "status": "source-derived; not executed",
+          "entry": "bindStaticOwner with a valid invocation and strict resource schema whose member is a same-type transform, for example a frozen {n:1} admitted by a member schema returning {n:2}.",
+          "causalPath": "admitContract produces the transformed value; admitResources ignores output[key] whenever the raw member is deeply frozen and returns/caches {n:1}. On later use it omits that member schema entirely. Likewise reconstructing output only from the supplied member list omits any schema-created default keys.",
+          "limit": "No transforming production member schema was established in the selected run resource schema. This is a falsifier of the generic binder contract the change now implements, not an allegation that every ordinary run transforms its Catalog."
+        },
+        {
+          "id": "raw-ijson-refusal",
+          "status": "source-derived; not executed",
+          "entry": "A resource assertion shell with a required known data property defined non-enumerably, otherwise carrying valid values.",
+          "causalPath": "admitResources checks that a property is a data descriptor but never checks enumerable=true. Object.fromEntries turns it into an enumerable property before admitContract sees it. The original canonical admitJson explicitly refuses non-enumerable object data properties. The new binder admits the normalized shell instead of preserving that refusal.",
+          "limit": "CLI JSON cannot express this descriptor. The native/in-process raw boundary can. A frozen rebox retaining an established invocation is recognized by isEstablishedDefinitionCall, so the transport cannot be assumed always to detach/refuse such reboxed resources first."
+        }
+      ],
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+          "bytes": 19157,
+          "sha256": "1f12826edc8dbad7ef59f6e782e8ea06fbbf47844f23a15c7b38fc85cb59fd17",
+          "lines": [
+            195,
+            213
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+          "bytes": 19157,
+          "sha256": "1f12826edc8dbad7ef59f6e782e8ea06fbbf47844f23a15c7b38fc85cb59fd17",
+          "lines": [
+            429,
+            475
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+          "bytes": 7176,
+          "sha256": "78016af0361b311618dfda2fdfe0af28a7123454be0aa95cbf0333130dcf9e8c",
+          "lines": [
+            73,
+            102
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/shared/admit/contract.ts",
+          "bytes": 1919,
+          "sha256": "7bdbd692078330566e4982de80bc7880f332b35c11ab7103d93ca97bed36d0d2",
+          "lines": [
+            7,
+            27
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/shared/admit/json.ts",
+          "bytes": 13711,
+          "sha256": "c539fa3ae2278493eb7149cdf205e3eb98535d9704368b4b3147fb004aa06912",
+          "lines": [
+            249,
+            265
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+          "bytes": 10837,
+          "sha256": "ee11e047ef37b0af4af9de1326e8942d2a38a604ade3aafd1008526b4d03175f",
+          "lines": [
+            156,
+            157
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+          "bytes": 43212,
+          "sha256": "3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f",
+          "lines": [
+            302,
+            339
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+          "bytes": 49817,
+          "sha256": "0ae97ae95f37e76be6ad37b8565228aeeedcba0661538a89d4ff578ad307dc12",
+          "lines": [
+            1018,
+            1034
+          ]
+        }
+      ],
+      "triage": {
+        "class": "complete",
+        "triggerProbability": "Conditional. Standard generated run requests supply the defaults. Raw/defaulted establishment and the generic schema cases are legal entry states of the touched helpers; no observed production incidence is asserted.",
+        "realizedHarm": "Source-derived counterexamples change receiving-owner request meaning, declared body identity, schema output/defaults or canonical raw refusal. The normal installed fixture does not establish these cases.",
+        "failClosedControls": "Existing current event-selection, Product semantic, installed-content and effect checks remain. They may contain downstream misuse but do not restore the original normalized input or raw refusal; no ABG authority bypass or corrupt admitted event is demonstrated.",
+        "causalAssessment": "Both new reuse mechanisms replace an owner-returned admission output with frozen raw input. The resource cache generalizes this substitution over arbitrary member schemas without a law that their output is the original object or that their judgment depends only on that immutable object.",
+        "confidence": "high for source-derived output/refusal divergences; downstream effect incidence indeterminate",
+        "blastRadius": "New establishment helper and generic static resource binder. Selected start/default semantics supply a concrete existing witness; other production transforming/currentness-sensitive schemas are not censused.",
+        "containment": "Keep unaffected ordinary owner checks and existing canonical admission path. Do not grant reuse merely from deep freezing plus schema identity.",
+        "repairComplexity": "Bounded to construction/normalization and binder resource ownership; no new Product WHAT or library algebra is required.",
+        "regressionRisk": "Moderate because the generic binder serves multiple owners. Broad callback/purity analysis would be disproportionate.",
+        "repairRabbitHoleRisk": "Do not add a universal trust registry or a second Valibot interpreter. Keep explicit existing-owner facts and canonical admission/normalization outputs."
+      },
+      "smallestLawfulReentry": "Re-enter X1/X4 under unchanged Product/requirements. Retain the actual canonical admission result, or preserve the raw route when a constructor cannot establish the required exact identity. Replace generic frozen-member/schema inference with exact established facts supplied by existing owners; preserve schema output/default/refusal semantics for all untouched raw paths. Preserve currentness/effect checks independently of reuse.",
+      "closureFalsifiers": [
+        "Establishing the existing defaulted-start witness changes the owner request or leaves its digest inconsistent.",
+        "A same-type member transform or omitted resource default changes between canonical and reused binder admission.",
+        "A non-enumerable required resource property becomes accepted only through the new binder path.",
+        "A mutable, copied or foreign value can gain an owner-established fact merely from an equal digest or frozen shell."
+      ],
+      "requiredEvidence": "Focused canonical-versus-reuse output/refusal probes for the existing defaulted-start witness, one same-type resource transform/default case and the non-enumerable raw shell, plus the first-call/warm real run-owner identity path. Preserve the worker prepared-plan mutation test and stale-selection refusal. These are bounded discriminators, not a new whole-library test program."
+    }
+  ],
+  "boundedSupportedRelations": [
+    "The normal constructed start path explicitly populates defaults, freezes the invocation once and carries that exact invocation through the native fast path and binder into real Product preparation; the new test probes that actual receiving owner, not only a mock.",
+    "ReadyCatalog retention remains under the existing owner WeakMap keyed by canonical readinessBasis, and view reuse under the existing owner Catalog identity. These local deterministic tools are not ABG runtime authority.",
+    "Native transport retains explicit event-selection identity, bound-prefix matching and assertAcquiredAbgEventResourceSelectionCurrent before invocation. Product input reuse still calls the loaded Product admitInput guard; currentness/effect code was not removed by this delta.",
+    "Mutable worker contracts/schemas retain structuredClone and freezing; the new shallow-frozen-shell branch uses isDeeplyFrozen and therefore still copies a shell with mutable descendants. Dynamic stability was not executed by this reviewer.",
+    "HOW 10.9 names six held reads and twelve cold residuals; no twelve-read migration or S7 deletion is in the verified delta.",
+    "Package metadata delta is bounded to the selected RC7-to-RC8 identity paths. No release acceptance follows."
+  ],
+  "adjacentObservations": [
+    {
+      "id": "A1",
+      "triage": "not_applicable",
+      "observation": "isEstablishedDefinitionCall records invocation identity, not complete call identity. Object.freeze({...constructedCall}) with the same frozen resources passes, unlike the unfrozen spread in the new test. A frozen resource rebox retaining the invocation can pass too. This falsifies the HOW/test prose that every copied/foreign call detaches. Reuse of exact owned components may be lawful; no separate ABG authority bypass or need for a whole-call registry is inferred. Reconcile the criterion and raw resource falsifier within the same X1/X3/X4 re-entry.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+          "bytes": 19157,
+          "sha256": "1f12826edc8dbad7ef59f6e782e8ea06fbbf47844f23a15c7b38fc85cb59fd17",
+          "lines": [
+            209,
+            213
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 10863,
+          "sha256": "b7a114e8a2407139b6b439b3b2173eb9b9e38db351502575bea1d0f4895f10a5",
+          "lines": [
+            74,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "triage": "not_applicable",
+      "observation": "definitionTransportWork.relinks counts retained verifier values reattached after structuredClone. It does not count native module/declaration loading or linking. HOW names it accurately as retained-verifier relinks; zero native module/declaration work remains unproved.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+          "bytes": 21284,
+          "sha256": "714cead7c0bf4ec2acc408b998817e720cd09dde37c0b0536b54c75d3dde53f8",
+          "lines": [
+            299,
+            355
+          ]
+        }
+      ]
+    }
+  ],
+  "proof": {
+    "reviewerExecuted": "Read-only source/authority acquisition, stdo verification/resolution, file/hash and Git blob comparisons only. No tests or Product execution.",
+    "stageResult": {
+      "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/RESULT.json",
+      "bytes": 843,
+      "sha256": "c95cbbde589d8cf990f0f6df4df714a899641b4bc3399b6fb6309d3e271b183e"
+    },
+    "stageResultInterpretation": "Exact retained RESULT.json reports compile/generation/imports/lifecycle/calculus exit 0. This is retained Operator evidence, not Reviewer execution or semantic closure.",
+    "reviewPacket": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/REVIEW_PACKET_STAGE02.json",
+      "bytes": 6893,
+      "sha256": "0228bf8bff6b4279be2f0e5e1895e9d699ba61bbbeddaef94d50bdc692e6757b"
+    },
+    "laterOperatorNotification": "Executive reports all six focused lanes closed with 48 passes, 2 historical skips, no failures; current source still matches 1338 rows and fresh result/replay/close conserved. No final lane/readback artifacts were independently reacquired in this source review. The reported passes do not exercise the source-derived counterexamples.",
+    "notPerformed": [
+      "Dynamic reproduction of the counterexamples",
+      "Independent installed functional run, current result/replay readback, cold/recovery/refusal execution or worker mutation execution",
+      "Matched RC8 1MiB/4MiB performance comparison or CPU-profile assessment",
+      "Physical native module/declaration-link work measurement",
+      "Broad close coverage, whole-5.0 qualification, packaging/install/release acceptance",
+      "General census of all production member schema transforms or ambient predicates"
+    ],
+    "remainingClaims": [
+      "Full first-post-setup and warm-call work bound",
+      "Canonical output/default/refusal preservation under reuse",
+      "Exact interpretation of copied/reboxed/foreign calls",
+      "Actual native module/declaration work and matched performance",
+      "Remaining installed affected/broad proof and qualification at their existing owners"
+    ]
+  },
+  "recommendation": "Return for the smallest existing-owner HOW/construction/binder/Catalog-view correction under unchanged Product law. Preserve the frozen partial and valid evidence; do not expand into shared admission/immutable algebra, universal trust bookkeeping, all-library purity proof, cold-read migration or unrelated source cleanup. Executive alone selects priority, repair, narrowing, deferral, acceptance or release.",
+  "priority": "not_assigned",
+  "promotionDisposition": "not_assigned",
+  "sourceAccepted": false,
+  "invalidation": [
+    "Material changes to any cited source, normalized schema behavior, selected inputs/evidence or source-freeze inventory",
+    "Changed Product/STDO/frame/requirement basis or reviewer capability/independence condition",
+    "An exact affected execution or source observation refutes a stated causal path or establishes a presently unmeasured claim"
+  ],
+  "artifactEffects": [
+    "reviews/source-001/REVIEW.json",
+    "reviews/source-001/README.md"
+  ]
+}

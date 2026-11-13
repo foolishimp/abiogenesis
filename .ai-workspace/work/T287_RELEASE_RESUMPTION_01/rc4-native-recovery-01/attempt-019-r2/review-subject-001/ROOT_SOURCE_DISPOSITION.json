@@ -1,0 +1,18 @@
+{
+  "status": "ROOT_ACCEPTED_BOUNDED_RC4_ID1_SOURCE_IDENTITY",
+  "recordedAt": "2026-11-03T01:26:31.274504+00:00",
+  "operator": "Root",
+  "subjectSha256": "89e7abe672385edc706037488e32a355237985cf0238450854e1b72a8b1e0be3",
+  "nativeResultRef": "result://abiogenesis/609c21cf83da13ca232afca9ab789956049be0b69f7b70858713ef886e1bbaf1",
+  "basis": "Root conjoins admitted source correspondence with independent max review: exactly five single-byte 3-to-4 changes across three files; other source/dependencies/schema/@5 unchanged.",
+  "remaining": [
+    "RC4-ID2 and ID3 actual C2/UAT",
+    "Actual candidate payload correspondence and installed smoke",
+    "Separate Root-selected generated adoption/local installation"
+  ],
+  "limits": [
+    "Author readiness bytes/digest mismatch remains attributed operator/evidence limit.",
+    "Author did not provide a fresh STDO verification receipt.",
+    "No live repair, source commit, artifact adoption or release inferred."
+  ]
+}

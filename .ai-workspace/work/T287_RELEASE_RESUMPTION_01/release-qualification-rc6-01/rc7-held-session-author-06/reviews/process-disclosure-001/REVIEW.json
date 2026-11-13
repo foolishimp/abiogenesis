@@ -1,0 +1,170 @@
+{
+  "reviewId": "H06-PROCESS-DISCLOSURE-001",
+  "status": "closed",
+  "createdAt": "2026-11-06T19:48:30.031568+00:00",
+  "productFrame": {
+    "product": "ABIogenesis 5.0 fixed fifteen feature families",
+    "goal": "GOAL-035 / T-287",
+    "method": "STDO 3.0.4",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "boundary": "Existing Root disposition authority and exact Product/runtime owners; immutable RC6 builder, prospective RC7. No Product reframe."
+  },
+  "verdict": "bounded_source_and_mechanical_evidence_reuse_remains_available; full_author_procedure_compliance_is_not_available",
+  "scope": "Only authored process disclosures and the deciding installed method/activation-grant clauses. Reuse the closed frozen one-field source and evidence-applicability review; no repeated Product or proof audit.",
+  "subject": {
+    "authoredDisclosure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/handoffs/return.json",
+      "bytes": 16789,
+      "sha256": "492a9d4fbdd82d320212288a803022c35832b5e75924642289c5cfc18380319e",
+      "jsonPointer": "/readScope/disclosures"
+    },
+    "rootSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json",
+      "bytes": 9291,
+      "sha256": "d3b7b87fab998bca08bc8572ddea2c34e4342378d30981c6a4b033416c3bc258"
+    },
+    "nativeGrant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/NATIVE_GRANT.json",
+      "bytes": 58047,
+      "sha256": "d8b731fd4baf18c266bfa81bc881eb32037185e0b2c7deb0ebe12efda45161f8",
+      "clauses": [
+        "prohibitions",
+        "readScope",
+        "externalTemporaryEffectsProposal.standing"
+      ]
+    },
+    "methodAccess": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/METHOD_ACCESS.json",
+      "bytes": 939,
+      "sha256": "6343d7c3c3a8eb0553e9b1452ae36cc70209c222cdde0edf502e102ba0c88d84",
+      "lines": "3-12"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/TASK.md",
+      "bytes": 3033,
+      "sha256": "8a381a1965c871a21353839d3b042c78d778a8e06d73e91810372160dbc7a00d",
+      "lines": "7,13,15"
+    },
+    "reusedIndependentSourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/reviews/stage-001/REVIEW.json",
+      "bytes": 12611,
+      "sha256": "f44ce517aa8d6ecc3882c11383e02d028bc9de1f72041af786b86b5375919de0"
+    }
+  },
+  "methodVerification": {
+    "basisUri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "method": "Resolved exact URIs through the installed stdo manager and checked selected member bytes against the exact manifest. Current Product Definition still equals the selected b5720642 identity.",
+    "decidingMembers": [
+      {
+        "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+        "bytes": 142205,
+        "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+        "anchors": [
+          "2-context-construction-under-an-envelope:Acquisition",
+          "3-step-results-and-disposition",
+          "7-closed-result-and-reuse"
+        ],
+        "lines": [
+          "797-833",
+          "940-954",
+          "1049-1064",
+          "1681-1745"
+        ]
+      },
+      {
+        "uri": "stdo://releases/v3.0.4/standards/FOUNDATIONS.md",
+        "bytes": 131400,
+        "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+        "anchors": [
+          "work-boundary",
+          "change-impact-and-evidence-reuse"
+        ],
+        "lines": [
+          "251-264",
+          "1378-1429"
+        ]
+      },
+      {
+        "uri": "stdo://releases/v3.0.4/standards/EVALUATION.md",
+        "bytes": 91301,
+        "sha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485",
+        "anchors": [
+          "3-independent-assessment"
+        ],
+        "lines": [
+          "190-219"
+        ]
+      }
+    ],
+    "sourceDevelopmentEntryClauses": [
+      {
+        "file": "AGENTS.md",
+        "bytes": 12932,
+        "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84",
+        "lines": "174-189"
+      },
+      {
+        "file": "CLAUDE.md",
+        "bytes": 6306,
+        "sha256": "6c2f604416499412902f5696953f5a059a88f5a5a348b1b39e58108819ec1940",
+        "lines": "81-96"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "H06-PROCEDURE-001",
+      "severity": "S2",
+      "classification": "disclosed acquisition/order/method-use nonconformance; no Product defect established",
+      "trigger": "The author reports a whole-worktree untracked-name census, required Read-first material acquired only after edit/proof, and no applicable installed STDO skill load/manager verification by the Worker.",
+      "probability": "Disclosed as actual by the final pinned author return; not independently reconstructed from private tools or external output.",
+      "harm": "Full admitted read-scope, read-order and native-method-use compliance cannot be claimed. After-the-fact reads and green tests do not establish those historical predicates.",
+      "control": "Exact scope, immutable source/receipt custody and independent review preserve a separate basis for source and functional claims. The process disclosures and original failures remain visible.",
+      "minimumRepair": "No retrospective source repair or proof replay follows. Root dispositions the exact artifacts with the process failure retained; the next native activation must perform the already required installed skill/bootstrap and selected Read-first acquisition before dependent edits/build/proof, using existing carriers only.",
+      "repairCost": "Prospective first-instruction/bootstrap metadata correction in the existing S5 packet; no Product change or new framework."
+    }
+  ],
+  "claimDisposition": [
+    {
+      "claim": "Exact one-field source and unchanged dependency closure",
+      "standing": "Closed independent review remains applicable. Root/carriage report actual native.after/stage/held/live451 agreement and preserved controls/handoffs; no contradictory source/effect mismatch has been supplied. This review does not repeat that custody proof."
+    },
+    {
+      "claim": "Actual bounded functional proof and retained H05 evidence",
+      "standing": "Root may use the independently assessed candidate and actual pinned mechanical receipts under its existing disposition grant. The reported77new passes/1declared historical skip and original8H05 passes retain their own subjects, assumptions and limits; this process review is not their proof source and does not relabel or rerun them."
+    },
+    {
+      "claim": "Whole author procedure compliance",
+      "standing": "Unavailable; specific declared acquisition/order/skill-use predicates are contradicted by the authored disclosures. Do not record later reads, runtime completion, or successful tests as retroactive method activation/compliance."
+    },
+    {
+      "claim": "No external reads/effects or complete context-fit accounting",
+      "standing": "Not established here. The disclosure reports broader name acquisition and automatic platform tool-result persistence. It does not prove21MB entered model context, and its assertion that no outside contents were read was not independently audited. No external output contents/names or private actor material were acquired by this Reviewer."
+    }
+  ],
+  "lawfulAdoption": "ACTIVATION separates admission, output availability, evaluation and disposition. Its section7 and FOUNDATIONS change-impact law invalidate affected claims while preserving demonstrably independent surviving results. EVALUATION permits shared mechanical evidence while requiring the Reviewer own the judgment. Root can therefore adopt/use the exact independently assessed source and actual bounded proof at their declared boundary without accepting the author procedure as compliant. Acceptance of source/proof neither waives the disclosed scope violation nor rewrites the past. A separately mandatory procedure-conformance claim remains unsatisfied.",
+  "invalidationAssessment": {
+    "established": "The new disclosure is a material/revising input for any full process/read-scope/read-first/native-method-use claim. The broad metadata enumeration is an actual reported acquisition-scope deviation; it is not excused merely by being read-only.",
+    "notEstablished": "No changed Product authority, schema owner, source bytes, package/fixture/test inputs, proof identity, independently assessed judgment, or selected physical Product effect has been shown by these disclosures. There is no current source/proof invalidator requiring automatic replay.",
+    "residual": "Do not elevate custody over selected surfaces to a global absence-of-off-scope-effects claim. If later admissible evidence changes a material source/proof/independence premise, re-enter only the affected result under ACTIVATION section7."
+  },
+  "smallestNextReentry": {
+    "currentH06": "Root records the process disclosure and exact bounded source/proof adoption separately in its existing disposition. Preserve all H06 and predecessor history; no new coding Worker, source edit or test repeat is required by this finding.",
+    "prospectiveS5": [
+      "Put the exact pinned installed stdo-work/METHOD_ACCESS invocation and required Read-first acquisition first in the existing work order, before any edit/build/proof. This enforces existing AGENTS/METHOD_ACCESS obligations, not a new method gate.",
+      "Use existing progress.json for bounded bootstrap metadata: selected method/member identity and manager verification reference, named required reads completed, and their ordering before the first effect. Do not include private provider narrative or expanded external filename lists.",
+      "Use the existing finite451-source list and exact approved paths. Do not issue a whole-worktree untracked census.",
+      "Root/carriage may observe only named Read/tool path metadata to corroborate execution of the declared bootstrap; such metadata does not prove comprehension or full future compliance. Bind any prospective instruction change in the existing Root activation packet; no plugin registration, new framework/controller or Product contract."
+    ]
+  },
+  "limits": [
+    "The authored disclosure is the process subject; its command/output extent was not independently audited. Only named installed method and grant clauses were read.",
+    "No external tool-result file, expanded untracked filenames, private provider/actor text, credentials, tests, build, runtime acquisition or launch was accessed/executed. No Product/control repair; only these create-only review artifacts written.",
+    "Root owns adoption, acceptance and next activation. This same-family bounded process/evidence review is not formal F11 J, whole method qualification, release qualification or performance evidence."
+  ]
+}

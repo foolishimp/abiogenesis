@@ -1,0 +1,161 @@
+{
+  "productFrame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "selection": "Fixed fifteen families F01-F07,F09-F11,F13-F17 / GOAL-035 / T-287 / RC8 REF-01; explicitly unqualified local cut",
+    "method": "STDO 3.0.4 / manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b / empty composition",
+    "authority": "ABG owns admitted prefixes, acquisition and replay truth. Proof observation counts create no admission authority. The outer command cap is an Operator/Proof common clock. Root owns the new proof selection and case-wise/cut conjunction."
+  },
+  "reviewId": "st2a-e-timeout-020",
+  "at": "2026-11-07T13:38:45.455259+00:00",
+  "role": "Independent MAX Reviewer; no source authoring, execution or intervention",
+  "verdict": {
+    "status": "indeterminate",
+    "claim": "Both current ST-2A-E cases complete under the original600000ms whole-command budget.",
+    "finding": "ST2AE-020-001",
+    "severity": "S3",
+    "classification": "Composition budget exhausted after a real first-case pass; no semantic assertion red.",
+    "retained": "One actual top-level pass remains evidence. No whole-file pass/end/count aggregate is present."
+  },
+  "relations": [
+    "PROJECTION-001/002/025 and EVENTS-001/002/003 require exact immutable historical/current prefix facts and preserve real acquisition/refusal boundaries.",
+    "Common library HOW10.9 Runtime history distinguishes ordinary copied/deserialized coordinates from established authenticated owner coordinates. Separate copies acquire cold; an exact established coordinate may reuse its owner.",
+    "The first test covers exact environment identity/no append, missing binding, historical-after-successor projection and wrong/foreign coordinates. The second covers actual decode work for raw/copy/owned values and tampered-prefix refusals. Its instrumentation is an observation of existing owner functions, not a substitute owner or runtime authority."
+  ],
+  "terminalEvidence": {
+    "startedUtc": "2026-11-07T13:23:30.560Z",
+    "timeoutMs": 600000,
+    "wallMs": 600076.912667,
+    "exitCode": null,
+    "signal": "SIGTERM",
+    "timedOut": true,
+    "truncated": false,
+    "firstCase": {
+      "name": "ST-2A-E projects one exact immutable workspace environment without append",
+      "status": "passed",
+      "durationMs": 599196.256042
+    },
+    "reporter": "begin plus one passing top-level case; no summary/end; file receipt counts=null",
+    "secondCase": "RC7 prefix reuse: run-read population decodes a deserialized prefix once and keeps refusals",
+    "firstRunLogLimit": "First scratch root yDz29R is no longer present; helper context.after closes its store and removes its scratch. Retained npm logs show primary/fixture pack and primary/additional install all exit0. No post-hoc first Runtime log attribution is made."
+  },
+  "actualFrontier": {
+    "firstScratch": "/private/tmp/abg-r8c-020/t/abi5-root-env-yDz29R",
+    "secondScratch": "/private/tmp/abg-r8c-020/t/abi5-root-env-QqxLrZ",
+    "secondCreatedUtc": "2026-11-07T13:33:30.002597Z",
+    "createdOffsetSeconds": 599.442597,
+    "remainingToOriginalCapSeconds": 0.557403,
+    "secondState": "Only an empty artifacts directory exists; no archive, install or Runtime directory. No second-case assertion was reached. Absence of a second npm log does not prove whether a child process had begun startup.",
+    "sourceCausality": "Both top-level callbacks independently await setupInstalledRootCatalog. Case1:26-32 additionally prepares/installs a language fixture; case2:191-193 requests one ordinary packed-ABI setup. The helper starts each with a fresh mkdtemp and archive directory, then pack/extract/verify/install/content checks, owner load, store/environment admission and catalog preparation. This is two sequential Proof setups under one600s cap, not two new runtime controllers or an observed infinite Product loop.",
+    "timeLimits": "First-case duration is actual complete-case timing, not isolated setup or CPU attribution. Npm log timestamps locate steps but do not establish a unique host/disk/CPU cause. Second full setup/assertion cost is unmeasured."
+  },
+  "independence": {
+    "conclusion": "An exact filtered second-case proof is a faithful independent execution of its declared population; no concrete first-case semantic prerequisite was found.",
+    "evidence": [
+      "Module scope contains imports, packageRoot and bindingCoordinate only; no mutable fixture is populated by case1 for case2.",
+      "Each callback calls setupInstalledRootCatalog with its own test context. The helper allocates fresh scratch/install/store, imports the installed owners from that installation and registers its own store-close/remove hook (root-installed-environment:168-180).",
+      "Case2 destructures only its own environment, constructs its own coordinate, bytes, absent-source and malformed values, and has no read of case1 variables or artifacts (test:190-235).",
+      "Case1 never calls countedOwnerCalls. Each countedOwnerCalls invocation creates/connects a new inspector Session and starts precise coverage; its finally captures/stops/disconnects that session (support/t287-exact-prefix-projection-reuse.mjs:69-82). There is no shared profiler session, accumulated count or first-case hook to prime it.",
+      "Common module/host caches can affect timing, but no declared semantic/identity premise relies on case1 warming them. Real cold acquisition is deliberately forced by distinct deserialized objects within case2 itself."
+    ],
+    "limits": "This is bounded source independence analysis, not a universal Node cache or profiler purity proof."
+  },
+  "unexecutedPopulation": [
+    "First deserialized raw prefix yields unknown_source with exactly one decode.",
+    "A separately cloned equal coordinate independently yields the same refusal and exactly one decode.",
+    "The exact owner-acquired truth.prefix reuses its owner with zero additional decode.",
+    "Wrong binding retains projection_basis_mismatch with one decode. Rehashed wrong prefix digest and unsigned shortened prefix retain artifact_truth_invalid.",
+    "The Runtime log remains byte-identical after all population reads."
+  ],
+  "recommendation": {
+    "kind": "one exact filtered proof of case2; preserve the completed first case",
+    "testNamePattern": "^RC7 prefix reuse: run-read population decodes a deserialized prefix once and keeps refusals$",
+    "commandBudgetMs": 1200000,
+    "reason": "One fresh setup plus the complete raw/copy/owned/refusal/no-append population.1200s is about twice the actual599.196s complete first case, which also installed an additional Product; it leaves600.804s beyond that observed complete-case cost. This is an explicit operating allowance, not a measured upper bound for case2.",
+    "selection": "No source edit, new test, helper change, global frozen-artifact shortcut, new instrumentation or first-case rerun. Root must admit the exact command/source/archive/filter/budget in a fresh control; the original600s result remains unchanged.",
+    "success": "Require actual final reporter1pass/0fail, first case excluded by positive exact-name filter (not converted to new skip coverage), zero truncation/timeout, unchanged source/archive/dependencies and actual cleanup/command closure.",
+    "conjunction": "Retain the original A6 first-case receipt at its original identity. Bind the new case2 result on the selected A11 subject through exact unchanged test/helper/Product/archive correspondence. Root may claim both case populations have passed separately; never claim a new whole-file execution or restamp the broad A6 ledger.",
+    "stop": "Any assertion red, source drift or timeout returns to Root with original evidence. No automatic further enlargement, rerun, optimization, assertion suppression or Product repair."
+  },
+  "impactAndCost": {
+    "currentPath": "The actual first pass supports exact workspace environment identity/refusals without append. It does not replace case2 work-count/current-acquisition controls, which are material to this reference-preservation boundary. No runtime semantic defect has been observed.",
+    "cost": "One unexecuted case and one fresh setup, bounded by20-minute command plus separately bounded staging/closure; avoid repeating the completed ~10-minute case. No native coding Worker is needed for proof-only re-entry.",
+    "qualification": "Original full-file/aggregate proof remains incomplete. Case-wise acceptance is Root-owned, explicitly scoped; no whole-broad, whole5.0 or cut acceptance follows from this review."
+  },
+  "source": {
+    "actualA6": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "selectedA11": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "archive": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "comparison": "All four pins match stage04, actual broad020 and selected RC7 bytes and the A6/A11 frozen rows. No Product/source regression is inferred from the cap.",
+    "pins": {
+      "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs": {
+        "bytes": 10056,
+        "sha256": "a8cc28369dc70e05ab229ef5c8bc489e4669d3faddea601c60908b7c2b2eeef6"
+      },
+      "test_env/support/root-installed-environment.mjs": {
+        "bytes": 42751,
+        "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+      },
+      "test_env/support/t287-exact-prefix-projection-reuse.mjs": {
+        "bytes": 5516,
+        "sha256": "b98662b050796206dac7aec5131ab44edb07ca4d8f2cfe334859b0a27d7ee938"
+      },
+      "test_env/support/language-smoke-fixture.mjs": {
+        "bytes": 7276,
+        "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+      }
+    }
+  },
+  "evidenceBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+  "evidencePins": {
+    "OPERATOR_RETURN_020.json": {
+      "path": "OPERATOR_RETURN_020.json",
+      "bytes": 13144,
+      "sha256": "235e98d46ede7b62870720820501c33e301a9269b024eba3db04c9ca2357199a"
+    },
+    "execution-020/files/176-t287-st2a-e-exact-prefix-workspace-environment.json": {
+      "path": "execution-020/files/176-t287-st2a-e-exact-prefix-workspace-environment.json",
+      "bytes": 1080,
+      "sha256": "80552f3e182416b3273a98a2c2830eed738ee95130a17add5e5aba3cb43664ec"
+    },
+    "execution-020/commands/176-t287-st2a-e-exact-prefix-workspace-environment.result.json": {
+      "path": "execution-020/commands/176-t287-st2a-e-exact-prefix-workspace-environment.result.json",
+      "bytes": 1550,
+      "sha256": "8e16191fd9e3cd1dd0de58a45a69ac425a150f5e54aada072372737f9d8fafd2"
+    },
+    "execution-020/commands/176-t287-st2a-e-exact-prefix-workspace-environment.stdout": {
+      "path": "execution-020/commands/176-t287-st2a-e-exact-prefix-workspace-environment.stdout",
+      "bytes": 237,
+      "sha256": "da9c08faffb0219707596faac1766e9d8211f922f857d69222d81a50c05d6862"
+    },
+    "execution-020/events/176-t287-st2a-e-exact-prefix-workspace-environment.jsonl": {
+      "path": "execution-020/events/176-t287-st2a-e-exact-prefix-workspace-environment.jsonl",
+      "bytes": 374,
+      "sha256": "d20b520576d4baecc328ee415e49433f9cf6df5cf77dd5d15b82155dfe1a312d"
+    }
+  },
+  "npmEvidenceBase": "/private/tmp/abg-r8c-020",
+  "npmEvidence": [
+    {
+      "path": "n/_logs/2026-11-07T13_23_30_855Z-debug-0.log",
+      "bytes": 1181,
+      "sha256": "22b8e1904bc9b8794d95b1d10bd6079fc0aab3228dbad755147e90dcdeb828e7"
+    },
+    {
+      "path": "n/_logs/2026-11-07T13_24_32_103Z-debug-0.log",
+      "bytes": 1169,
+      "sha256": "b373a6d8f2d6ded684d67a279a5c1b62af56ee49da61b306ca6cee13c146d10c"
+    },
+    {
+      "path": "n/_logs/2026-11-07T13_30_17_610Z-debug-0.log",
+      "bytes": 1909,
+      "sha256": "ffddf6f266aecd4a0f60e032b934e2de60fd61f3149ffdb88a7cd72a808309fd"
+    },
+    {
+      "path": "n/_logs/2026-11-07T13_32_03_336Z-debug-0.log",
+      "bytes": 2623,
+      "sha256": "e1e969af18525ccb9b90350a0a9d38525d3e733fe4807e35be807d5bad759d68"
+    }
+  ],
+  "authorityReuse": "Unchanged Product/Definition/frame, requirements and common HOW pins retained in closed RO16 and selected-action-profile019 reviews. This review adds only the exact terminal/frontier and case-independence relation.",
+  "effects": "Only this new review capsule written after actual terminal evidence appeared. No tests, Product/module calls, provider, profiler execution, source change, Git, process intervention or cleanup."
+}

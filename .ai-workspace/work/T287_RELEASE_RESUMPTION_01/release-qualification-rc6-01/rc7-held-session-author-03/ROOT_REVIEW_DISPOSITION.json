@@ -1,0 +1,120 @@
+{
+  "kind": "root_rc7_h03_partial_source_and_operator_continuation_disposition",
+  "status": "PARTIAL_SOURCE_REVIEWED_BUILD_PROOF_INCOMPLETE",
+  "createdUtc": "2026-11-06T17:40:55.565762+00:00",
+  "productFrame": {
+    "product": "ABIogenesis5.0 fixed fifteen-family scope",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "installed STDO3.0.4",
+    "composition": [],
+    "runtimeAuthority": "ABG",
+    "installedBuilder": "5.0.0-rc.6",
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_ARCHITECTURE_SELECTION.json",
+      "bytes": 7741,
+      "sha256": "2fe46b95de9428e86f421759ddad6dac7ed064bef9ac9180feebf7f530309c98"
+    }
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_AFTER.json",
+    "bytes": 563481,
+    "sha256": "91d1bf35da77f4fb7edb425ea5d7b94a736f60ae192e730cf36d6771418f22fe"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/SUBJECT.json",
+    "bytes": 267155,
+    "sha256": "1c0531c2ce628677ccfb7ac4f78ce812ad031d91689f0c23b69fda67102e3447"
+  },
+  "actualFinalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-return-controls/actual-recovery-001/review-subject-001/SUBJECT.json",
+    "bytes": 12176,
+    "sha256": "5cdc2465bb214215b7a7bd99e2f1adccab2302c04f9bae01f617b9198426babe"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8372,
+    "sha256": "7fa76990041e5b6dec07fc719ac86305b029eaba063602055a17b3a8905c86a3"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/reviews/stage-001/REVIEW.json",
+    "bytes": 12073,
+    "sha256": "3a5e846016b06799ecf9c9ea91184b7dfd0721456dc1b8bac6dd81ea92317a73"
+  },
+  "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+  "conjunction": {
+    "sourceRows": 451,
+    "changedSelectedPaths": 5,
+    "nativeBeforeAfterStageHeldLiveCorrespondence": "closed by actual custody",
+    "originalControls": 18,
+    "handoffs": 3,
+    "dispatchPins": 79,
+    "sourceReview": "no concrete source blocker established",
+    "runtimeCompletion": "actual SDK result/completed and host exit0 with physical close",
+    "ProductAcceptance": false
+  },
+  "failedBuild": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/stage-001/stage.json",
+      "bytes": 97531,
+      "sha256": "9ad0946d9c442075add5a0d6bc216f70981ef80471eb8b3858ce1c2e3aff312b"
+    },
+    "setupMs": 40841,
+    "compile": {
+      "exitCode": 0,
+      "ms": 116576
+    },
+    "generation": {
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "error": "spawnSync ETIMEDOUT",
+      "ms": 180074,
+      "originalBoundMs": 180000
+    },
+    "lifecycle": "not run",
+    "nativeStageCount": 1,
+    "nativeLaneCount": 0,
+    "cause": "unassigned; slowdown also affected setup and compilation"
+  },
+  "decision": {
+    "source": "retain exact frozen candidate, with no Product or test source repair selected",
+    "next": "separately admitted once-only operator generation continuation after actual host close",
+    "generationBoundMs": 600000,
+    "lifecycleBoundMs": 60000,
+    "reuseCompile": "only with preserved original pass and pinned compiled-output/source correspondence",
+    "proofAfterSuccessfulBuild": [
+      "fixed-route",
+      "assessment-guards",
+      "native-workspace-owner",
+      "caller"
+    ],
+    "proofBoundsMs": [
+      600000,
+      300000,
+      300000,
+      300000
+    ],
+    "automaticRetries": 0,
+    "newNativeCoder": false,
+    "originalFailedReportMutable": false,
+    "RootAdmissionRequiredBeforeExecution": true,
+    "stop": "any new failed command, changed source, surviving stage writer, or new Product/architecture failure"
+  },
+  "proofObligations": [
+    "Preserve partial output preimages and original failed build/return ledger.",
+    "Use canonical generator/lifecycle and existing commandRecorder with finite group deadlines and observed phase/resource costs.",
+    "Write a separate build-completion record naming reused compile proof and new generation/lifecycle receipts.",
+    "Run only the four unconsumed primary lanes after successful completion; preserve the one named historical retained-root skip without proof credit.",
+    "Keep complete installed Testing-to-derived-state-to-UAT and held/fresh agreement as the actual integration exit.",
+    "Conjoin actual proof with this frozen source review before source acceptance or HS03 activation."
+  ],
+  "limits": [
+    "The continuation is selected but not executed by this disposition.",
+    "No new source defect, exact slowdown cause, native workflow speedup, Product acceptance or release is claimed.",
+    "Original first H03 preparation failure, source history, earlier evidence and immutable RC6 remain preserved."
+  ],
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

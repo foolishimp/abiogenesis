@@ -1,0 +1,420 @@
+{
+  "id": "RC10-ROOT-BOUNDED-ACCEPTANCE-002",
+  "status": "ROOT_ACCEPTED_SELECTED_SOURCE_AND_ALL_SELECTED_PROOF_BUILD_ADMISSION_HELD",
+  "recordedUtc": "2026-11-09T04:51:16.199281+00:00",
+  "decisionOwner": "Root Executive",
+  "recordedBy": "/root/rc10_lifetime_triage, separately activated Writer",
+  "authority": "Direct Root instructions accept bounded repaired source/review/build/focused/unit/measurement, then the actual6-file affected result, then conjoin final Operator proof/conservation. Root requires no additional review cycle or tests before the exact checkpoint/reproduction phase. One separate exact Root build admission is still required; no execution is authorized by Writer.",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "sourceRows": 1334,
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "evidence": {
+    "nativeRepair": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/RETURN.json",
+      "bytes": 2205,
+      "sha256": "b937bd3f9c726d7b283f0ef72706e0735a8836bf67173c66635d0c5d7ed1ca6b"
+    },
+    "nativeCustody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NATIVE_CUSTODY.json",
+      "bytes": 6813,
+      "sha256": "f97d6e4487f773979fe36b5eea9d8ba44ee12bf7aa5f44cf59abae5b75cd7b96"
+    },
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+      "bytes": 293103,
+      "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+    },
+    "priorSourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/reviews/source-001/REVIEW.json",
+      "bytes": 21604,
+      "sha256": "dd327d8eb701033b2b8b0da293960a5716cf7326813d743675f5cf4fb7cb3cd8"
+    },
+    "repairReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/reviews/source-001/repair-002.json",
+      "bytes": 14701,
+      "sha256": "2fef309737772c39b3b498d5a0a4e680154f3df9bb170199c27495b2b5c4f732"
+    },
+    "stage": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/RESULT.json",
+      "bytes": 986,
+      "sha256": "ae5cf7e38f13a03e1f27eb90aa3f26c9c78be29243b8cc9d5298ee62fa4f2045"
+    },
+    "stageSourceFreeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292778,
+      "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+    },
+    "stageBuildInputs": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/BUILD_INPUTS.json",
+      "bytes": 624,
+      "sha256": "4e0da2c18d40ac5855531a741d40f2f10a328edc965233ce1cb079e6c69ab985"
+    },
+    "focused": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/focused-01/RESULT.json",
+      "bytes": 2272,
+      "sha256": "68176a792986c22b419d8a3baf94f3e95d2a348c431194bbf8257eb1f98bfe70"
+    },
+    "strictFirstCall": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/STRICT_FOCUSED_OBSERVATION.json",
+      "bytes": 3466,
+      "sha256": "aeab83667304aef7dd15ebe07c3ec96622aaba60f321da175d2a4b3ad80b45c5"
+    },
+    "unit": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/unit-01/RESULT.json",
+      "bytes": 6777,
+      "sha256": "8ad8cc41bf49b86c92079f9105078cc1d01016013067672a0b17a3333cdb4624"
+    },
+    "artifactReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/RETURN.json",
+      "bytes": 3268,
+      "sha256": "3e6948470ffeda5a00f30c3602d369a42c7f71e1de44eecee3a2dea4be644149"
+    },
+    "sourceArtifactRelation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 2891,
+      "sha256": "4fee5659101505a05b23efce242369730e09cf951b61ce870a56c437fdae2367"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+      "bytes": 11028443,
+      "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+    },
+    "stageManifest": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266232,
+      "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+    },
+    "measurementReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/RETURN.001.json",
+      "bytes": 11074,
+      "sha256": "4cb43518f92a3fd94e02688bcf9dc1b7e4684f823b2170999efce598d6e395a3"
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/actual-001/MEASUREMENT.json",
+      "bytes": 120509,
+      "sha256": "b0262a7a9184de0a1b281ba9049a84afec3e93a055d77e6bb2c1d101c4eeb184"
+    },
+    "measurementHost": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/actual-001/HOST_RESULT.json",
+      "bytes": 4346,
+      "sha256": "c977e3126fe6e5a4f029d64a7446130c129677c32a02d3ab242a4ddd3ded9fce"
+    },
+    "actualPhysicalClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/actual-001/ACTUAL_CLOSE.json",
+      "bytes": 2112,
+      "sha256": "8a6c2dc6c623b21e608ce4ea6169c96d302c0773a86c71d35281dbda19545161"
+    },
+    "failureHistory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/FAILURE_HANDOFF.001.json",
+      "bytes": 12714,
+      "sha256": "60e3f4ff054e5cef0a38709c859bfc131f17b55aea3fbb4ee840f7a4e5040cb3"
+    },
+    "executedCounterexample": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/reviews/source-001/executed-counterexample-001.json",
+      "bytes": 18507,
+      "sha256": "bebd8440ebdcffebf83e4b9a0e9710df149b22abf729e6d550e8f261b39bcbd9"
+    },
+    "inheritedRC9Residuals": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/RESIDUALS.md",
+      "bytes": 15882,
+      "sha256": "a17c7d2b8a31e1da9f658a575495617f8862b5c73ad4758a0c9c52d7c5922c4a"
+    },
+    "inheritedRC9FinalDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 8644,
+      "sha256": "f89bfbaf4bff5f7248258a4fa011b4096d7dc6a7589b5b8f93c0ee46e47fed25"
+    },
+    "affectedBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/AFFECTED_BINDING.READY.json",
+      "bytes": 8031,
+      "sha256": "dcf159fe5282a3aea5b0730b77d3d93c58c1498afc6bc10bf90dca97e68e49e3"
+    },
+    "affectedResult": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/affected-01/RESULT.json",
+      "bytes": 4851,
+      "sha256": "65412e60b1982b08587c3f277f1e47c151b130d2fd20a0184aad51cbd0713cc7"
+    },
+    "affectedReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/AFFECTED_RETURN.json",
+      "bytes": 5610,
+      "sha256": "9f43f1186a00b4b3616251bd990209f380e49c2b7233ae3bace427bef293d192"
+    },
+    "finalOperatorProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/FINAL_PROOF_RETURN.json",
+      "bytes": 3648,
+      "sha256": "fd51510765631321900683a45cba8c629db6a10a4641f02aa0f19533b9690b2e"
+    },
+    "finalConservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/FINAL_CONSERVATION.json",
+      "bytes": 2499,
+      "sha256": "b8d6fb0a0de0595184003eb3c28d341ec8d3a7f5c19de64c64f49d242dd4c897"
+    }
+  },
+  "acceptedClaims": {
+    "source": "Exact27-path RC10 delta including23dead-function deletions across17files; the3-file repair conserves1331other rows. No Product/API/outcome expansion.",
+    "review": "Original exact-delta deletion/metadata static result retained; limited independent3-file repair review satisfied. Original falsifications remain historical.",
+    "build": {
+      "status": "BUILT",
+      "commands": [
+        "compile",
+        "generate",
+        "imports",
+        "lifecycle",
+        "calculus"
+      ],
+      "failures": 0
+    },
+    "focused": {
+      "passed": 1,
+      "skipped": 1,
+      "failed": 0,
+      "firstActualCall": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1,
+        "newBases": 1,
+        "postCallRetainedOwners": 0
+      }
+    },
+    "unit": {
+      "wholeFiles": 9,
+      "passed": 89,
+      "skipped": 6,
+      "failed": 0,
+      "skipRecords": [
+        {
+          "ordinal": 37,
+          "type": "case",
+          "passed": true,
+          "name": "M5 resolves and independently validates the complete executable root set",
+          "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+          "nesting": 0,
+          "testNumber": 35,
+          "suite": false,
+          "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+          "todo": false,
+          "error": null
+        },
+        {
+          "ordinal": 38,
+          "type": "case",
+          "passed": true,
+          "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+          "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+          "nesting": 0,
+          "testNumber": 36,
+          "suite": false,
+          "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+          "todo": false,
+          "error": null
+        },
+        {
+          "ordinal": 39,
+          "type": "case",
+          "passed": true,
+          "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+          "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+          "nesting": 0,
+          "testNumber": 37,
+          "suite": false,
+          "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+          "todo": false,
+          "error": null
+        },
+        {
+          "ordinal": 82,
+          "type": "case",
+          "passed": true,
+          "name": "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+          "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+          "nesting": 0,
+          "testNumber": 77,
+          "suite": false,
+          "skip": "ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body",
+          "todo": false,
+          "error": null
+        },
+        {
+          "ordinal": 88,
+          "type": "case",
+          "passed": true,
+          "name": "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+          "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+          "nesting": 0,
+          "testNumber": 82,
+          "suite": false,
+          "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+          "todo": false,
+          "error": null
+        },
+        {
+          "ordinal": 89,
+          "type": "case",
+          "passed": true,
+          "name": "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+          "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+          "nesting": 0,
+          "testNumber": 83,
+          "suite": false,
+          "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+          "todo": false,
+          "error": null
+        }
+      ]
+    },
+    "measurement": {
+      "calls": 50,
+      "callsPerSize": {
+        "1048576": 25,
+        "4194304": 25
+      },
+      "everyCallWork": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      },
+      "everyActiveSampleMaximum": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "historyBasisBodies": 1
+      },
+      "everyPostCallGaugeZero": true,
+      "firstPairStrictIdentity": true,
+      "firstPairRepeatedWork": {
+        "rowAdmissions": 0,
+        "bodyDigests": 0
+      },
+      "historicalProbes": 12,
+      "historicalGaugesZero": true,
+      "warmReads": 4,
+      "coldReads": 4,
+      "readbackEquality": true,
+      "actualPhysicalClose": true,
+      "providerCallsSelected": 0
+    },
+    "affected": {
+      "wholeFiles": 6,
+      "passed": 56,
+      "skipped": 2,
+      "failed": 0,
+      "files": [
+        "test_env/tests/m5-event-store-reopen.test.mjs",
+        "test_env/tests/m5-event-calculus-runtime.test.mjs",
+        "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+        "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+        "test_env/tests/runtime-scope-regressions.test.mjs",
+        "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+      ],
+      "skipRecords": [
+        {
+          "ordinal": 1,
+          "type": "case",
+          "passed": true,
+          "name": "nominal prefix reuse preserves full historical EC and replay including fresh process",
+          "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+          "nesting": 0,
+          "testNumber": 1,
+          "suite": false,
+          "skip": "ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
+          "todo": false,
+          "error": null
+        },
+        {
+          "ordinal": 42,
+          "type": "case",
+          "passed": true,
+          "name": "TD-23 (c) the retained S01 store keeps its historical prefix through rows that straddle 64 KiB reads",
+          "file": "test_env/tests/m5-event-store-reopen.test.mjs",
+          "nesting": 0,
+          "testNumber": 41,
+          "suite": false,
+          "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+          "todo": false,
+          "error": null
+        }
+      ],
+      "allFileSummariesComplete": true,
+      "missingFiles": [],
+      "exitCode": 0,
+      "timedOut": false,
+      "truncated": false,
+      "resourceFailure": null
+    },
+    "finalConservation": {
+      "sourceRows": 1334,
+      "sourceCopiesCompared": 3,
+      "compiledInputRowsCompared": 693,
+      "packageMembersStillMatchArchive": 5325,
+      "heads": {
+        "/Users/jim/src/apps/abiogenesis": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+        "/private/tmp/abg-rc10-retention-20261109": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299"
+      },
+      "mainTrackingFrozenPins": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+          "bytes": 817015,
+          "sha256": "4c57b8606b481c2777b055a4245a1a7c49013595b368460d5828721b804a9372"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+          "bytes": 168282,
+          "sha256": "4f04d84f6de75aa6f23c52199b08b643ad6c8a2c21e8d0692c63386ee9a9d2e1"
+        }
+      ],
+      "operatorExecutionState": "All Operator native/build/focused/unit/affected/measurement processes returned; no active run, source edit or tracking write. Cut/install belongs to separately activated Writer and Root."
+    }
+  },
+  "findingDispositions": [
+    {
+      "id": "RC10-SOURCE-01-F1",
+      "history": "Original zero-only genuine-run postconditions and manually opened positive probes could not falsify missing owner integration. Prior finding remains preserved.",
+      "successorDisposition": "Root accepts bounded repair: persistent first real single-basis call1/1 regression passed; exact-archive corrected measurement observed positive owners on all50 calls, actual first-pair identity and zero repeated row work. Continuation/overlapping/exceptional owner families remain excluded."
+    },
+    {
+      "id": "RC10-SOURCE-01-F2",
+      "history": "Prior HOW falsely described rollback as executed; original finding/report remains preserved.",
+      "successorDisposition": "Owning HOW now explicitly marks failed-append/truncate rollback unproved; limited independent repair review satisfied. This closes the inaccurate description, not rollback proof."
+    },
+    {
+      "id": "RC10-SOURCE-01-F3",
+      "history": "Failed archive bff1a521 first1MiB call:87samples,1handle,0rows/0historybodies,18/18 work. Start used public request identity while basis used distinct admitted identity.",
+      "successorDisposition": "Root accepts repair on demonstrated start path: acquisition moved to admitted.successorPrefix/admission.invocationRef before basis construction; exact source review, genuine first-call regression and corrected50-call relation witnesses agree. Failed candidate remains forbidden and its evidence is not restamped."
+    }
+  ],
+  "affectedAcceptance": {
+    "decisionOwner": "Root Executive",
+    "accepted": true,
+    "scope": "six named whole files and actual56pass/2explicit historical-fixture skips/0fail only",
+    "result": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/affected-01/RESULT.json",
+      "bytes": 4851,
+      "sha256": "65412e60b1982b08587c3f277f1e47c151b130d2fd20a0184aad51cbd0713cc7"
+    },
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/AFFECTED_RETURN.json",
+      "bytes": 5610,
+      "sha256": "9f43f1186a00b4b3616251bd990209f380e49c2b7233ae3bace427bef293d192"
+    }
+  },
+  "affectedStanding": "Completed bounded result accepted by Root; no whole201-file RC10 broad or qualification claim.",
+  "limits": [
+    "Source acceptance and proof satisfaction are bounded to the stated successor, exact artifact, fixtures and actual assertions. No whole-candidate independent re-review or whole201-file RC10 broad execution is claimed.",
+    "No continuation reacquisition, actual overlapping owner operations, failed-append rollback/stale generation, or actual refusal/runtime-failure/defect/interruption/held-gap exit population is newly proved. Manual handle probes remain component evidence.",
+    "Duplicate matching basis rows and foreign held-store counterexamples remain unperformed. Existing membership/cardinality/refusal laws are retained, not universally qualified.",
+    "Retained payload gauges are logical canonical raw-input bytes in the two selected owners, not allocated heap. Natural process heap/RSS samples are finite observations without forced GC; no whole-heap, descendant-memory, speedup or asymptotic bound.",
+    "Six ordinary-unit skips, two affected-file historical-fixture skips and the focused workload50 mode skip remain skips. The separate installed50-call measurement supplies its own population only.",
+    "Eight inherited RC8 capsules retain original failures, triggers and reopening conditions; RC9 limited-no-block conclusions are not blanket RC10 acceptance transfer. O3, twelve cold residuals, remaining S7 scope, fixed15/full5.0 qualification and human gates remain open.",
+    "No source checkpoint, clean reproduction, release directory, immutable RC10 installation, selector change, main merge, tag, push or publication is asserted or authorized by this acceptance packet."
+  ],
+  "executionEnabled": false,
+  "buildAdmission": null,
+  "qualified": false,
+  "published": false,
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/ROOT_BOUNDED_ACCEPTANCE.001.json",
+    "bytes": 16300,
+    "sha256": "d215ce348375621f00bc69b51d95e037a8aa275c4472a54e23d4ad979de836b9"
+  }
+}

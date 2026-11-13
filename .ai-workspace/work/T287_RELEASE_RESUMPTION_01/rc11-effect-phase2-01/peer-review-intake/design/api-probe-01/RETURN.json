@@ -1,0 +1,94 @@
+{
+  "status": "SINGLE_API_PROBE_CLOSED",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/api-probe.mjs"
+  ],
+  "pid": 35146,
+  "exitCode": 0,
+  "wallSeconds": 0.08719700016081333,
+  "outerCapSeconds": 10,
+  "limitCause": null,
+  "driverSignals": [],
+  "outputBytes": 52,
+  "artifacts": {
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/stdout.log",
+      "bytes": 52,
+      "sha256": "86193b42816f912278f16297d6ed910958b9efbc9f2ebfad8b15cfbf26ca0cf8"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/RESULT.json",
+      "bytes": 13967,
+      "sha256": "7f49125b85650b3914deb54aa9729d8589a49e23552f03298074cd09e731d3dd"
+    },
+    "OBSERVATIONS.jsonl": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/OBSERVATIONS.jsonl",
+      "bytes": 7005,
+      "sha256": "d3d6ba36ddce1278ff4db434a8e5990eb51c5f9c920dbe6cc7596b2712e710c6"
+    }
+  },
+  "prePinsVerified": true,
+  "postguards": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/api-probe.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Effect.js",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Exit.js",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Cause.js",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Fiber.js",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Deferred.js",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/core.js",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/core-effect.js",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/cause.js",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/fiberRuntime.js",
+      "unchanged": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/internal/runtime.js",
+      "unchanged": true
+    }
+  ],
+  "allPostguardsPassed": true,
+  "executionCount": 1,
+  "standing": "API-only Effect feasibility; no Product/installed/physical-process claim; no retries"
+}

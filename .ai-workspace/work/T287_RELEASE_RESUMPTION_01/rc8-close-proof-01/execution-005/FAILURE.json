@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-07T06:12:20.696Z",
+  "failure": "Error: FIRST_TEST_RED_OR_INCOMPLETE: test_env/tests/t287-calculus-fold.test.mjs\n    at run (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-005.mjs:184:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-005.mjs:212:3",
+  "retainedScratch": "/private/tmp/abg-r8c-005",
+  "autoRetry": false
+}

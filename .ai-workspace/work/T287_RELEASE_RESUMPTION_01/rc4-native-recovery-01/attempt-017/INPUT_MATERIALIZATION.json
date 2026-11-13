@@ -1,0 +1,85 @@
+{
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 433,
+        "sha256": "b359b302cbe1fb968bcfecd92e1fe8ff526e595170ddf0d309316d2ae13c450d"
+      },
+      "target": "rc4-operator-inputs/native-recovery-17/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 433,
+      "sha256": "b359b302cbe1fb968bcfecd92e1fe8ff526e595170ddf0d309316d2ae13c450d"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/task.DRAFT.md",
+        "bytes": 4958,
+        "sha256": "5a422de425ccf6c9ff77eab878ff56ae80db99194a0da3d1cf64ecb5aa522ea4"
+      },
+      "target": "rc4-operator-inputs/native-recovery-17/task.DRAFT.md",
+      "bytes": 4958,
+      "sha256": "5a422de425ccf6c9ff77eab878ff56ae80db99194a0da3d1cf64ecb5aa522ea4"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/rubric.DRAFT.json",
+        "bytes": 3803,
+        "sha256": "db6457f9e66ac8cb8b5f2c7a58ea467b726b410be6cfccb714431dab9b00ba3c"
+      },
+      "target": "rc4-operator-inputs/native-recovery-17/rubric.DRAFT.json",
+      "bytes": 3803,
+      "sha256": "db6457f9e66ac8cb8b5f2c7a58ea467b726b410be6cfccb714431dab9b00ba3c"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/NATIVE_GRANT.DRAFT.json",
+        "bytes": 15122,
+        "sha256": "c0a0b00bbc4cd4799a098aa634dab71a83d181f76d7c3ff36378ea513524fa4b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-17/NATIVE_GRANT.DRAFT.json",
+      "bytes": 15122,
+      "sha256": "c0a0b00bbc4cd4799a098aa634dab71a83d181f76d7c3ff36378ea513524fa4b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 481,
+        "sha256": "a51b162b9aa9ac26436555d61cd3c756f5c27853928d8c2972b53f374b309828"
+      },
+      "target": "rc4-operator-inputs/native-recovery-17/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 481,
+      "sha256": "a51b162b9aa9ac26436555d61cd3c756f5c27853928d8c2972b53f374b309828"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 2997,
+        "sha256": "ac56a7e86ff430244da88c1eac67939fb95f5fdf2c12c650776051b233e05ec4"
+      },
+      "target": "rc4-operator-inputs/native-recovery-17/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 2997,
+      "sha256": "ac56a7e86ff430244da88c1eac67939fb95f5fdf2c12c650776051b233e05ec4"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/readiness.py",
+        "bytes": 2570,
+        "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-17/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/readiness-inputs.json",
+        "bytes": 93918,
+        "sha256": "ab193e5a157c82c009fabe88d7d2da40fdf5925cd94bd628dc62c32653d98a2f"
+      },
+      "target": "rc4-operator-inputs/native-recovery-17/readiness-inputs.json",
+      "bytes": 93918,
+      "sha256": "ab193e5a157c82c009fabe88d7d2da40fdf5925cd94bd628dc62c32653d98a2f"
+    }
+  ],
+  "meaning": "Eight compact invariant inputs; no Product scaffolds/history bodies. Newly selected scratch17 only."
+}

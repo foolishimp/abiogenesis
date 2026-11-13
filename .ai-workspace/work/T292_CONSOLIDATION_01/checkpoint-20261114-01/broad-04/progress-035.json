@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/r8-direct-hog-entry.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/035-r8-direct-hog-entry.test/process.json",
+    "bytes": 1069,
+    "sha256": "d1eab9c4adf7150f9d7ad6decbe84f8a7050f6190bd9f084fc1ee3eb797f3562"
+  }
+}

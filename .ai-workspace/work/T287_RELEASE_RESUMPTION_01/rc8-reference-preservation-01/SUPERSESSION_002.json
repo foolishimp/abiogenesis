@@ -1,0 +1,79 @@
+{
+  "utc": "2026-11-07T03:02:12.177316+00:00",
+  "source": "Root messages selecting the paired owner discriminator and one resume from actual runtime-001 close",
+  "classification": "operator-context-closure mismatch; original diagnostic gap; no Product repair",
+  "originals": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/TASK.json",
+      "bytes": 10664,
+      "sha256": "c39e4b16b78c98ff551fbf9a2fadc55eff883fac7d8a1139139a5ee54f8ef5eb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.json",
+      "bytes": 8654,
+      "sha256": "94bf7b566df03bcba154cec251c7ae42c0e1f6369eddc87f39be8ad389533a6b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/host.mjs",
+      "bytes": 10440,
+      "sha256": "be4d9890bd6108579ac3aa037a4b33af3273d08cfdec2e882ce235612e41002a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/proof.mjs",
+      "bytes": 5678,
+      "sha256": "77897f53bb3371bdd3057845b0d0cf5133995a0db22ca399987e357a78a2bd0a"
+    }
+  ],
+  "actualFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/FAILURE.json",
+    "bytes": 880,
+    "sha256": "afa5dbdece5622d4fd8bfc1d1ef70efd847a72727dbfbafd431a14affce643f4"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resource-close.json",
+    "bytes": 2293,
+    "sha256": "9f175f4d3d6cc24f416255740306b91978419cc99fc550eb8c814166e5cd50bf"
+  },
+  "discriminators": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/CONTEXT_DIAGNOSTIC_001.json",
+      "bytes": 628,
+      "sha256": "248101cd1e78247326d773d1d7db4cc0884bb1924ddfd8a3fd95ed39a9fe32ad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/CONTEXT_DIAGNOSTIC_002.json",
+      "bytes": 619,
+      "sha256": "0402574376861af4249f89307bbd3ae5c960fd1bc7e391f85274961452fcafe4"
+    }
+  ],
+  "diagnosticDeparture": "An earlier read-only diagnostic attempted to use coordinate-only public receipt fields as full read basis and threw ERR_INVALID_ARG_TYPE before owner observation; no event resource/provider effect. The retained diagnostic uses actual close-derived owner environment.",
+  "successors": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/TASK.002.json",
+      "bytes": 10804,
+      "sha256": "aedba92096b81986f2371f941eb9d427368aae11c46f70c327564a3cbb54d8f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+      "bytes": 9837,
+      "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/host.002.mjs",
+      "bytes": 12842,
+      "sha256": "bbf4bd81e711b6ec78e5035151c452c5ed7604856cc242e16493642323e5638b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/proof.002.mjs",
+      "bytes": 5804,
+      "sha256": "20b964b0900b15c25306a20061b18b03a5c792e6231daa98d929f0fcbd9fc395"
+    }
+  ],
+  "changes": [
+    "omit redundant nested absent support read root; keep directory read scope and optional write root",
+    "Worker correctness fixture/counters only; matched measurements assigned separate Root Operator",
+    "compile-only readiness failure consumes stage without integration HALT",
+    "one actual-close reopen and cold owner reconstruction; no reinstall/setup/runtime replacement"
+  ],
+  "noNativeDispatch": true
+}

@@ -1,0 +1,19 @@
+{
+  "recordedUtc": "2026-11-03T23:34:18.015Z",
+  "standing": "Actual admitted actor binding; helper producer coordinates not yet acquired",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+  "ordinal": 42907,
+  "eventTime": "2026-11-03T23:33:32.465Z",
+  "eventOffset": 438623952,
+  "eventRowBytes": 5489441,
+  "eventRowSha256": "e8a8add626f5fe9c917e796e40ddbe544bbedc16a4585c469ebcb1623649a344",
+  "transportBindingRef": "transport-binding://abiogenesis/4f4a57815e13deadf6ef5950647be8b583f96d646287604515d4aadea7fa4436",
+  "transportBindingDigest": "sha256:4f4a57815e13deadf6ef5950647be8b583f96d646287604515d4aadea7fa4436",
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-7db7a54d5680efb7-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-7db7a54d5680efb7-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-7db7a54d5680efb7-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-7db7a54d5680efb7-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-7db7a54d5680efb7-transport.json"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "retained_post_author_proof_input_selection",
+  "status": "EXACT_PRIOR_RESULTS_BOUND_NOT_NEW_AUTHOR_LANE_CREDIT",
+  "disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_POST_PROOF_DISPOSITION.json",
+    "bytes": 12677,
+    "sha256": "be2821a3e6e1e89fa1083598b2555702786936786ef5f41eb03862bd3254261a"
+  },
+  "hs02Summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-hs02-once.summary.json",
+    "bytes": 4542,
+    "sha256": "b419f2c2df01c148434dd6763b154adefa7f720b06018c8e01c7a3eacb79d6c0"
+  },
+  "fixedAdmissionSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-fixed-admission-once.summary.json",
+    "bytes": 2370,
+    "sha256": "40243c5f7b5e0ee9e648097514fe19620f5f6b746dd35e8930a46bb5cbe9fd4d"
+  },
+  "aggregate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/SUMMARY.json",
+    "bytes": 9304,
+    "sha256": "27afdfd35630253ec66a96950867ac2f014fca0f7aa43f04429cd0e71d6f5a4c"
+  },
+  "standing": [
+    "HS02 one actual pass in260.138s/RSS3093086208B on small installed F_D fixture: one acquisition/decode, two warm calls/two held reads with zero added decode/reopen/history bytes, refusal and cold agreement within exact tested scope.",
+    "No large-log/native-performance qualification. Reuse only unchanged affected owners, not later changed source or maintained fixed caller.",
+    "Actual fixed case refused before Testing execution at /program/runEnvironment unsupported_declaration; preserve it and correct the selected whole-Program declaration input.",
+    "These are separate post-author operator receipts; HS01 author ledger remains four stages/two failed lanes."
+  ]
+}

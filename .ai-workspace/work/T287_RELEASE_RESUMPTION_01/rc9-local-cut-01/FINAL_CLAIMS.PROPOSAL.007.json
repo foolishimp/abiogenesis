@@ -1,0 +1,117 @@
+{
+  "status": "PROPOSED_FINAL_CLAIMS_NOT_ADJUDICATED",
+  "at": "2026-11-08T19:31:42.998Z",
+  "authority": "Root bounded local-cut Writer preparation while broad runs. Claim/residual proposal only; Root disposition remains required.",
+  "subject": {
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "rows": 1340,
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    }
+  },
+  "proposedBoundedClaim": "Local unqualified RC9 candidate for the bounded lawful installed path established by accepted source/build/ordinary unit, exact-archive reference/counter/close measurement and W2. Final checkpoint, byte-equal reproduction, packaging review and immutable installation are not yet performed. No wider semantic no-block, general reliability, provider operation or qualification claim.",
+  "acceptedInputs": {
+    "sourceAndFocused": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "reference": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_REFERENCE_ACCEPTANCE_007.json",
+      "bytes": 6336,
+      "sha256": "4c8bc5fb42d98e1073a4cedf89dada5faf5fa2e6dcf090b64cc79b60f99c2f68"
+    },
+    "W2": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_W2_ACCEPTANCE_007.json",
+      "bytes": 5841,
+      "sha256": "13f892866a4c65dbad43a832c765f72ca9a3faedecfe9ce645c9cebc322ba310"
+    }
+  },
+  "remainingCapsules": {
+    "historicalSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/RESIDUALS.md",
+      "bytes": 12832,
+      "sha256": "396b1c7c0ae1f7ac39b9a7d53d54aae7c0e9317997055207d5b8254198a13e00"
+    },
+    "items": [
+      {
+        "id": "RC8-GC03-METHOD-304",
+        "status": "OPEN",
+        "rc9Disposition": null,
+        "standing": "Original evidence, limits and reopening conditions retained by historicalSource; no automatic transfer of RC8 limited no-block judgment. Root successor adjudication awaits actual broad close."
+      },
+      {
+        "id": "RC8-NATIVE-ASSESSMENT-PROFILE",
+        "status": "OPEN",
+        "rc9Disposition": null,
+        "standing": "Original evidence, limits and reopening conditions retained by historicalSource; no automatic transfer of RC8 limited no-block judgment. Root successor adjudication awaits actual broad close."
+      },
+      {
+        "id": "RC8-SAS-WHOLE-PROOF",
+        "status": "OPEN",
+        "rc9Disposition": null,
+        "standing": "Original evidence, limits and reopening conditions retained by historicalSource; no automatic transfer of RC8 limited no-block judgment. Root successor adjudication awaits actual broad close."
+      },
+      {
+        "id": "RC8-PHYSICAL-LIFETIME-013",
+        "status": "OPEN",
+        "rc9Disposition": null,
+        "standing": "Original evidence, limits and reopening conditions retained by historicalSource; no automatic transfer of RC8 limited no-block judgment. Root successor adjudication awaits actual broad close."
+      },
+      {
+        "id": "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+        "status": "OPEN",
+        "rc9Disposition": null,
+        "standing": "Original evidence, limits and reopening conditions retained by historicalSource; no automatic transfer of RC8 limited no-block judgment. Root successor adjudication awaits actual broad close."
+      },
+      {
+        "id": "RC8-SELECTED-ACTION-PROFILE",
+        "status": "OPEN",
+        "rc9Disposition": null,
+        "standing": "Original evidence, limits and reopening conditions retained by historicalSource; no automatic transfer of RC8 limited no-block judgment. Root successor adjudication awaits actual broad close."
+      },
+      {
+        "id": "RC8-C3-COMPOSITION-PROOF-BUDGET",
+        "status": "OPEN",
+        "rc9Disposition": null,
+        "standing": "Original evidence, limits and reopening conditions retained by historicalSource; no automatic transfer of RC8 limited no-block judgment. Root successor adjudication awaits actual broad close."
+      },
+      {
+        "id": "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET",
+        "status": "OPEN",
+        "rc9Disposition": null,
+        "standing": "Original evidence, limits and reopening conditions retained by historicalSource; no automatic transfer of RC8 limited no-block judgment. Root successor adjudication awaits actual broad close."
+      }
+    ]
+  },
+  "successorClosure": {
+    "id": "RC8-W2-05-TOKEN-ORACLE",
+    "acceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_W2_ACCEPTANCE_007.json",
+      "bytes": 5841,
+      "sha256": "13f892866a4c65dbad43a832c765f72ca9a3faedecfe9ce645c9cebc322ba310"
+    },
+    "standing": "Exact RC9 source/archive only; original RC8 red and residual immutable."
+  },
+  "additionalOpen": [
+    "O3 retained installed-verification performance reuse; original physical checks retained",
+    "12 cold residuals",
+    "S7",
+    "full15/full5.0 qualification",
+    "human acceptance"
+  ],
+  "undeliveredProof": "New duplicate/foreign/rollback row probes were not delivered; no credit. Source/OWN/REF evidence supports only its bounded relations. Synthetic worker-plan probes do not establish actual actor-producer construction totals; scripted F_P reference measurement is not real-provider operational proof.",
+  "history": "Native01/02 failed proofs, native03 timeout/failed close, M5 failures and OWN004 cancellation remain historical. Later exact successes do not resolve timing cause or establish reliability.",
+  "pending": {
+    "broadClose": null,
+    "finalResidualAdjudication": null,
+    "finalBoundedClaimAcceptance": null,
+    "sourceCheckpoint": null,
+    "byteEqualReproduction": null,
+    "packagingReview": null,
+    "installAdmission": null
+  },
+  "executionEnabled": false
+}

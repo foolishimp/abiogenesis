@@ -1,0 +1,25 @@
+{
+  "status": "CONTROL_PREPARATION_CHECKED",
+  "controlSyntaxOnly": {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/run-owner-diagnosis-006.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "wallMs": 59.33599965646863
+  },
+  "unchangedHelperSyntaxChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/PREPARATION_CHECKS.json",
+    "bytes": 1561,
+    "sha256": "dd0ffa8ba60f8e63281c6aedaa5c762bf49fdd207690c7ae9aea9e2c2873e4a4"
+  },
+  "pinChecks": {
+    "count": 61,
+    "mismatches": []
+  },
+  "staticRevision": "Before handoff, profile reads changed to bounded descriptor reads so growing files cannot bypass64MiB collection cap. Earlier check record preserved.",
+  "execution": "No runner/helper body, test, Product or runtime allocation executed."
+}

@@ -1,0 +1,35 @@
+{
+  "recordedUtc": "2026-11-06T02:59:31.394Z",
+  "nativeActorLaunched": false,
+  "assessmentTask": null,
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "limits": [
+    "Passive metadata/public-assessment custody only. No diagnostic/private provider text or raw source-bearing event printed/copied.",
+    "No source acceptance, formal independent third-family judgment, Q23 eligibility or release qualification inferred."
+  ],
+  "status": "CLOSED_WITHOUT_NATIVE_UAT_RESULT",
+  "coordinates": null,
+  "assessment": null,
+  "actualOutcome": {
+    "file": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/execution/outcome-summary.json",
+      "bytes": 537,
+      "sha256": "1b93b1067ba4b7e219e3990fa012168a36653fb14f8e350e51a5dda9871e81d7"
+    },
+    "outcomeKind": "result",
+    "disposition": "blocked",
+    "runRef": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851",
+    "terminalPresent": false
+  },
+  "finalClose": null,
+  "observation": {
+    "fromByte": 1016286093,
+    "throughByte": 1057950101,
+    "throughOrdinal": 175729
+  },
+  "standing": "Actual owner-return/final-close evidence without native UAT result. No blocked-disposition or causal assumption; Root triages actual cause."
+}

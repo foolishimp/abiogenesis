@@ -1,0 +1,36 @@
+{
+  "status": "F4_01_NATIVE_RUNNING",
+  "recordedUtc": "2026-11-03T09:46:42.850953+00:00",
+  "sourceCommit": "9f3f22b0f733718bee88d5ca1cc306ed0446797a",
+  "sourceReview": "satisfied, exact7file native return; INDEPENDENT_SOURCE_REVIEW.json",
+  "firstRun": "blocked; failed selected import before tests, FIRST_C2_FAILURE_TRIAGE.json",
+  "currentActivation": "f4-01",
+  "started": "2026-11-03T09:39:43.089Z",
+  "execSession": 28818,
+  "manifestSha256": "e92f700c1a0fbc1f4e1c1ba580783b4ec994894b4f09b6a53ca648f2c38e0486",
+  "constructionGranted": true,
+  "predicate": "One F4 native coding return; frozen review, actual seven-command C2, native UAT and fresh result/replay pending",
+  "next": "Conjoin F4 and held method proof; exact generated adoption and local unqualifiedRC5 cut/install only after acceptance",
+  "metrics": {
+    "sdkSetupMs": 27849.5,
+    "artifactVerificationMs": 18897.741833,
+    "firstTaskAdmissionToWorkerProcessMs": 6065.0,
+    "firstDispatchToWorkerProcessMs": 79426.0,
+    "nativeResultToC2ProcessMs": 164524.0,
+    "betweenCodingTasksMs": null,
+    "dispatchToInitialSelectorProcessMs": 52546.0,
+    "dispatchToNativeWorkerProcessMs": 167737.0,
+    "nativeTaskAdmissionToWorkerProcessMs": 30864.0,
+    "betweenCodingTaskWallMsIncludingRootAndProof": 3325760.0,
+    "betweenCodingTasksInterpretation": "Wall interval includes Root evaluation, failed proof and preparation; not runtime overhead"
+  },
+  "qualified": false,
+  "localRC5CutExists": false,
+  "notes": [
+    "Method generated outputs9f3 are candidate custody, not final acceptance. Historical failures preserved."
+  ],
+  "secondRun": "blocked; eighteen selected C2 passes; native UAT indeterminate at omitted planning test, Root diagnostic1pass; preserved",
+  "nativeWorkerStartedUtc": "2026-11-03T09:42:30.826Z",
+  "nativeRun": "run://abiogenesis/8c6c119b8894c464169008bbf23d78b2ba1924ea34d4b44d5f9129af84665106",
+  "nativeWorkerPid": 59418
+}

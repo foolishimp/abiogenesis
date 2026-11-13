@@ -1,0 +1,63 @@
+{
+  "status": "HELD_PREPARED_NO_NATIVE_DISPATCH",
+  "recordedUtc": "2026-11-09T04:14:38.824130+00:00",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/runtime-001/PREPARED.json",
+    "bytes": 6771,
+    "sha256": "0af19da8c8798a550480318b9f8230af41fe26a72a1c4bb87c6ef2ca7f90a799"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/BINDING.PREPARATION.json",
+    "bytes": 14453,
+    "sha256": "4ee5c0c3bee7404dddf0c959fcec00ea0de149f7bc065fcece74ec0f277092d8"
+  },
+  "setupAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/ROOT_SETUP_ADMISSION.json",
+    "bytes": 2787,
+    "sha256": "8ad8e809d9641b14422f17ec432cdd5f068430b527c81e46dc2079382e604573"
+  },
+  "sessionId": 66920,
+  "pid": 91989,
+  "actualOpen": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/runtime-001/WORKSPACE_OPEN.json",
+    "bytes": 1039,
+    "sha256": "70063b24c6e4476e16665812646994cbc3a41e552b159d06692036e483fd42e9"
+  },
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/runtime-001/TRANSPORT_PREFLIGHT.json",
+    "bytes": 1070,
+    "sha256": "db718d10b6c59cd8e508d66bc4ac21e3b59bdf1f83f0611d05ff876b1a65028d"
+  },
+  "sourceRowsVerified": 1334,
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "manifestConserved": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1855,
+    "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+  },
+  "context": {
+    "digest": "sha256:31edf34902226763e346bad705c1154c4c109922841009e34e9c03a3568a6e70",
+    "entries": 23,
+    "fileMembers": 22,
+    "sourceBytes": 884760,
+    "canonicalBytes": 1187951
+  },
+  "renderedBytes": 6851,
+  "invocationRef": "invocation://abiogenesis/2e5a04c2c93b7b0bbec14dd927cd54fffe9215718ec98205056cbb488b00531f",
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3187545,
+    "prefixDigest": "sha256:412f90f17d7a3cdc57148790f1f52281e305f0a43162072d589799d3f3679cfd",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 719038900,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:6ac430fb5f2e285d39984f13696e31edfa93b98ed36f18b276bb3b2ed0ae79d1"
+  },
+  "elapsedMs": 61680.161042,
+  "providerCalls": 0,
+  "next": "Root may admit exactly this native call on same live caller; no serialized resume/new resource. No controls/source rewrites after context observation."
+}

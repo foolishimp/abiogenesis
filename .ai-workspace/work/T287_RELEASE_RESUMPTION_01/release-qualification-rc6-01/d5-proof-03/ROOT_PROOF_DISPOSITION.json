@@ -1,0 +1,55 @@
+{
+  "kind": "root_d5_failed_installed_proof_disposition",
+  "at": "2026-11-06T03:11:57.990071+00:00",
+  "status": "CURRENT_RECOVERY_COMPLETION_UNSATISFIED_VALID_SUBCLAIMS_PRESERVED",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "actualC2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ACTUAL_C2_SUMMARY.json",
+    "bytes": 7161,
+    "sha256": "12514b1a38b1fa7eeceb1de261d74866bf6fc6db3dce4ee323ca1a9956521f70"
+  },
+  "nativeUat": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/NATIVE_UAT_CLOSED_RESULT.json",
+    "bytes": 1566,
+    "sha256": "c0de6cae525566658dc08b423b8b5446dc8741e91e6068123a2fcce45912766c"
+  },
+  "timeoutReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/timeout-triage-001/REVIEW.json",
+    "bytes": 37646,
+    "sha256": "ff5e7b4396453b7da75b48210fc2cfc3a87c83fb967de59226353af0ada491dd"
+  },
+  "finding": {
+    "id": "D5-C2-TIME-001",
+    "reviewerSeverity": "S2",
+    "scope": "Complete installed recovery test and dependent D5 conjunction",
+    "rootDisposition": "Retain112 exact passes and actual partial recovery observations, but no completed recovery lane/UAT or installed D5 acceptance. No recovery Product defect established; no Product repair selected from timer alone."
+  },
+  "cause": {
+    "established": "117000ms Node test bound cancels while last controlled negative Run is pending.120000ms lane and900000ms component bounds did not fire.13.187s distributed loss versus final2 at last admission exceeds prior7.928s headroom.",
+    "unknown": "Subphase CPU/I/O/GC/contention and exact historical ambient environment; no measured single bottleneck or flake frequency.",
+    "separate": "Host8GiB readback OOM occurred later and cannot explain earlier test timeout."
+  },
+  "nextProofSelection": {
+    "route": "Existing root-installed-environment selectedFrozenArtifact path/SHA/installHost, explicit matching current candidate and existing Product verification/install owners. Retain all recovery semantic cases and117000/120000 bounds; provision exact package outside timed test.",
+    "sequencing": "Do not repeat this held candidate now merely to close an intermediate identifier. Continue owner-selected RC7 consolidation after actual P3 receipt/readback recovery; run the unresolved recovery completion on the resulting exact affected candidate alongside only its invalidated proof cone.",
+    "reason": "The selected logical carrier consolidation changes actual native-result consumers used by D5. Current failed gate stays open, while a separate whole native proof on immediately superseded source would add no release coverage. This is Executive evidence sequencing, not acceptance or waiver.",
+    "sourceRebind": "If source/artifact/contract changes, bind new exact identity and classify affected113 dependencies. Historical112pass support remains old-subject evidence; reuse only demonstrated unchanged relations. Never relabel oldpasses as whole new candidate proof.",
+    "activationTrigger": "Returned logical-consolidation frozen subject before dependent installed D5/RC7 qualification. If consolidation stops before changing the recovery dependencies, return to exact current recovery-only proof with same-source artifact.",
+    "failureStop": "One changed-condition discriminator; another cancellation returns to resource owner before any retry or budget change."
+  },
+  "overheadSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_SELECTION.json",
+    "bytes": 7288,
+    "sha256": "aa3d11eedf7bf44271a825b05466d1a7bc8556377064562b1d14f6a309be9b9a"
+  },
+  "releaseStanding": "D5completion remains a gate; no release, qualification, UAT or sourceconjunction acceptance. Prior capsule D5-P6 remains unchanged."
+}

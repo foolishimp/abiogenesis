@@ -1,0 +1,5 @@
+{
+  "toolChunk": "749976",
+  "effect": "none; Python parsed whole input before executing",
+  "error": "one mismatched bracket in read-only git assertion; corrected before preflight; no installation attempt"
+}

@@ -1,0 +1,32 @@
+{
+  "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+  "kind": "executed",
+  "passed": false,
+  "wallMs": 600115.018333,
+  "exitCode": null,
+  "signal": "SIGTERM",
+  "timedOut": true,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": null,
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/events/153-t287-registered-graph-selection.jsonl",
+    "bytes": 89,
+    "sha256": "99214721eb7f724e9c91b40977ad5c9c5ac1684293bd9154a68f1b23064e5a65"
+  },
+  "commandReceipt": "commands/153-t287-registered-graph-selection.result.json",
+  "workspace": "/private/tmp/abg-r8c-015/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

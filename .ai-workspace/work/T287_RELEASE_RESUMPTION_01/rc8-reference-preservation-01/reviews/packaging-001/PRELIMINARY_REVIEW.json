@@ -1,0 +1,363 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "scope": "Independent bounded packaging review of the exact accepted stage-04 archive and its declared source/member relation; source-003 remains the source assessment.",
+    "authorityBoundary": "Product owns exact immutable artifact identity and eventless construction; ABG alone owns runtime admission, events, replay and closure. Local owner bookkeeping remains deterministic construction or a derived tool, not new runtime authority."
+  },
+  "kind": "independent_rc8_packaging_review",
+  "reviewer": "/root/rc8_source_review",
+  "createdUtc": "2026-11-07T05:08:27.355078+00:00",
+  "status": "PARTIAL_ARCHIVE_REVIEW_REPRODUCTION_PENDING",
+  "verdict": "indeterminate",
+  "boundedArchiveVerdict": "satisfied",
+  "findings": [],
+  "claim": "The selected RC8 archive is internally coherent, equals its declared built stage, and preserves the accepted frozen-source relation. A complete source-checkpoint/clean-reproduction cut judgment remains pending actual evidence.",
+  "sourceCommit": null,
+  "sourceTree": null,
+  "subject": {
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "frozenSource": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source",
+    "freeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceRows": 1338,
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "baseCommitStanding": "Immutable RC7 ancestry only, not an RC8 source checkpoint.",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.8",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.8"
+  },
+  "basisPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-CATALOG.md",
+      "bytes": 13757,
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-INSTALL.md",
+      "bytes": 21741,
+      "sha256": "1882675ef5f4dd33a8dd4ee5d80ff33203d243fb30ec65b125057b7db081b98f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    }
+  ],
+  "controlPins": {
+    "sourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 18167,
+      "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+    },
+    "independentSourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-003/REVIEW.json",
+      "bytes": 48569,
+      "sha256": "043f8979e03aaa64250a1f0894f9ec2c90a80e264899afdedb6175acbf9d5316"
+    },
+    "sourceArtifactRelation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 2557,
+      "sha256": "3dfe718500c18a0100544ae9bb4ef4a56d3c6211daff676f4c38145cf585fe7a"
+    },
+    "testedStageManifest": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    },
+    "scratchInstallationRecord": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/installation.json",
+      "bytes": 4231675,
+      "sha256": "97e861d1a0955873ff6f43265ab6f633e371a7179f7048f3db6dfc5299ba8d77"
+    },
+    "scratchOwnerContentCheck": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/OWNER_CONTENT_CHECK.json",
+      "bytes": 529,
+      "sha256": "991a34739103ced07081d6aeb0752f691bb340738292a9f1c1e1bd304ffd7cb6"
+    },
+    "rootAfterMeasurementAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_MEASUREMENT_ACCEPTANCE_004.json",
+      "bytes": 5739,
+      "sha256": "e4e961ab00b4c4c2cffebd95609fecab0c9b06dc32705f10bd5e3606692d4c86"
+    },
+    "preparedCutBindings": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_BUILD_BINDINGS_STAGE04.prepared.json",
+      "bytes": 12561,
+      "sha256": "73282cbe3e1b1c63a4ad70bd7b85f9b2de654bfbc3a1760384e22029f8ff0e47"
+    },
+    "correctedDriver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-001.mjs",
+      "bytes": 27888,
+      "sha256": "c563c22709857bfa915bf00b3c3bb537ff97358aaccb502664ae3efeb0c32633"
+    },
+    "correctedPreparationManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_001.json",
+      "bytes": 3657,
+      "sha256": "2590a9475777ca956cdd638250a274901e67a3d0d520f5909797147dc433617b"
+    },
+    "reviewSkill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+      "bytes": 8074,
+      "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+    }
+  },
+  "reacquiredOwnerPinsMatchedFrozenRows": [
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 53308,
+      "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/shared/digests.ts",
+      "bytes": 1270,
+      "sha256": "dbb2c3d0a718dfc11abbfea5aadb184c8956de29dfbff8c64aea465c691a49fb"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "bytes": 2021,
+      "sha256": "08dc650521e9349ed1d7e4f2d5b65e701bbe148d1e89c3d077a9d2ed128d798a"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/shared/capability_contracts.ts",
+      "bytes": 26465,
+      "sha256": "2c94652bb8263eaae2b62404fcc541fb3c87fa72774ee9b7132899b0c7497a42"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
+      "bytes": 39884,
+      "sha256": "0e3c069b541851da42a42d1328bec45ad0e3fc263a73d3d34ef816edfef17ebb"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10003,
+      "sha256": "a0f72d262f00eabc74f6aaa963972888c3bb15cf703c30f7ad1bec8413e7fd17"
+    }
+  ],
+  "applicableRelations": [
+    {
+      "requirements": [
+        "REQ-P-PUBLIC-CONTRACTS-001",
+        "REQ-P-PUBLIC-CONTRACTS-002",
+        "REQ-P-PUBLIC-CONTRACTS-002A",
+        "REQ-P-PUBLIC-CONTRACTS-003",
+        "REQ-P-PUBLIC-CONTRACTS-004"
+      ],
+      "property": "Exact package/manifest identity, safe root-relative locators, deterministic byte and canonical inventory digests, and addressable contract assets/declarations.",
+      "owningHow": "M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md:480-484,728-729,736,740; static publishing realization generate-product-manifest.mjs:495-547,1068,1243-1275; shared/digests.ts:25-37; shared/canonical_json.ts:19-62."
+    },
+    {
+      "requirements": [
+        "REQ-P-CATALOG-001",
+        "REQ-P-CATALOG-002",
+        "REQ-P-CATALOG-003",
+        "REQ-P-CATALOG-004",
+        "REQ-P-CATALOG-005"
+      ],
+      "property": "One immutable product/descriptor/contribution/artifact relation; package presence conveys no admission or invocation authority.",
+      "owningHow": "M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md:480-498 and 728-729."
+    },
+    {
+      "requirements": [
+        "REQ-P-INSTALL-043",
+        "REQ-P-INSTALL-044",
+        "REQ-P-INSTALL-045",
+        "REQ-P-INSTALL-046",
+        "REQ-P-INSTALL-047",
+        "REQ-P-INSTALL-048"
+      ],
+      "property": "Supplied-artifact verification before immutable installation, no conflicting identity overwrite and no source substitution.",
+      "coverage": "Archive and retained scratch-installed relation assessed here. Actual immutable RC8 cut/install and source-blind functional acceptance remain separate pending effects."
+    }
+  ],
+  "independence": {
+    "productAuthor": false,
+    "operator": false,
+    "sourceReviewReused": "Exact source-003 assessment and Root source acceptance were rehashed unchanged. The source audit and focused tests were not repeated.",
+    "performed": "Read-only source/control acquisition; Python standard-library archive streaming and digest computations. No extraction, Product code import, test, provider invocation, runtime mutation, Git effect or Product repair. Writes only this packaging review directory.",
+    "rootRulingsSeparate": "Root accepted source/focused and AFTER measurement. Those rulings are retained as selected inputs and are not recreated by this packaging review."
+  },
+  "checks": {
+    "archiveIdentity": {
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "matchesSelectedPin": true
+    },
+    "members": {
+      "count": 5325,
+      "regularFiles": 5325,
+      "mode0644": 5325,
+      "duplicates": [],
+      "unsafeOrNonPackagePaths": [],
+      "linksOrOtherMemberTypes": [],
+      "stageByteMismatches": [],
+      "inventoryDigest": "sha256:7e578f2d327c9c3b8244f5cfc1923662cd98b1ee3c89b389742dfe844ac1bb12",
+      "inventoryDefinition": "Canonical JSON of path-sorted rows {path,bytes,sha256,mode}, package/ prefix removed, numeric tar mode retained."
+    },
+    "productPayload": {
+      "locators": 5323,
+      "duplicates": 0,
+      "missing": [],
+      "extra": [],
+      "projectionExclusions": [
+        "product-toolchain-manifest.json",
+        "contracts/capabilities/capability-definition-graph.json"
+      ],
+      "projectionOwner": "Existing generate-product-manifest.mjs:519-523; separately content-addressed capability graph asset was also checked. This is the existing source-accepted projection, not a new omission.",
+      "declaredAndRecomputedDigest": "sha256:5dd1e8165ec9fb25dceec68c6f81e79afd8b94debddbce77a15f02ab2928d6cb"
+    },
+    "manifest": {
+      "bytes": 3266103,
+      "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102",
+      "matchesStage": true,
+      "canonicalDigest": "sha256:0fc9fc5e92cb8bfbfc064f18e50324358f19d418ea508d41d6a5f3e69547da3b",
+      "canonicalSerializationPlusNewlineMatches": true,
+      "numericValues": 0,
+      "canonicalizationMethod": "Independent Python sorted-key compact UTF-8 JSON; manifest contains no numeric values; exact canonical-plus-newline byte equality was verified before relying on its digest."
+    },
+    "contributionManifest": {
+      "declaredAndRecomputedDigest": "sha256:ec1f7a77362a3e46d7cb2a11ef53c41a67ce9b53b4b7ddc8db996253b093f125"
+    },
+    "publicCatalog": {
+      "rows": 75,
+      "declaredAndRecomputedDigest": "sha256:0c7370253ec04a69573197cd8e42ff89458eb97005057d206ec35fffd323b5a8",
+      "nativeTypedGroups": 23,
+      "assetOwningRows": 52,
+      "nativeLocatorRows": 50,
+      "declarationInventoryOccurrences": 14872,
+      "declarationDigestOrExportFailures": [],
+      "contractDigestFailuresUnderApplicableKind": [],
+      "catalogSchemaDigestMatches": true,
+      "assetLocatorOccurrencesIncludingGraph": 54,
+      "assetLocatorDigestFailures": [],
+      "exportAndBinTargets": 32,
+      "missingExportOrBinTargets": [],
+      "limit": "This checks declared files and digests; it does not execute imports or prove completeness of every native declaration closure."
+    },
+    "sourceArtifactRelation": {
+      "recordPinMatches": true,
+      "sourceAcceptancePinMatches": true,
+      "priorIndependentReviewPinMatches": true,
+      "freezePinMatches": true,
+      "selectedOwnerRowsMatchFreeze": 6,
+      "archivePackageJsonMatchesFrozenSource": true,
+      "archiveAllMembersMatchDeclaredBuiltStage": true,
+      "sourceIdentityKind": "base_plus_exact_frozen_overlay",
+      "newCheckpointEstablished": false,
+      "cleanReproductionEstablished": false
+    },
+    "scratchInstalledRelation": {
+      "retainedInstallationAndOwnerCheckPinsMatch": true,
+      "installedRoot": "/private/tmp/abg-r8m-rc8-bootstrap-001/host/node_modules/@abiogenesis/typescript-tenant",
+      "artifactManifestContentIdentitiesMatch": true,
+      "ownerReceiptContentMatches": true,
+      "standing": "Retained scratch install and measurement evidence only. Reviewer did not re-run Product verification or installation; this is not the final immutable local cut."
+    },
+    "preparedCut": {
+      "status": "PREPARED_LOCAL_RC8_BUILD_BROAD_ACCEPTANCE_PENDING",
+      "expectedChangedPaths": 18,
+      "expectedNewPaths": 2,
+      "rewriteIdentity": false,
+      "broadClose": null,
+      "driverEnforces": "Pin checks and exact selected source membership; checkpoint only selected paths; one clean compile/generate/pack from checkpoint; archive byte count and SHA equality plus member correspondence; install input remains the original measured archive.",
+      "driverEvidence": "run-local-cut.corrected-001.mjs:48-53,92-116,120-124,131-138",
+      "standing": "Inspected control intent, not executed proof. No completed checkpoint or reproduction inferred."
+    }
+  },
+  "counterexamplesConsidered": [
+    {
+      "question": "Wrong archive or stale stage selected?",
+      "result": "Selected archive hash/size and every member match the bound stage; source acceptance/freeze/relation pins match."
+    },
+    {
+      "question": "Duplicate, unsafe, omitted or substituted payload member?",
+      "result": "No duplicate/unsafe/link entries; exact locator population, all bytes, declared asset and declaration digests match."
+    },
+    {
+      "question": "Metadata rewrite or repack treated as the measured artifact?",
+      "result": "Prepared driver forbids identity rewrite and requires clean archive equality, then retains the exact measured input. Actual enforcement remains unexecuted evidence."
+    },
+    {
+      "question": "RC7 base, scratch install, green focused evidence, or prepared controls inflated to a completed RC8 cut?",
+      "result": "Those identities and standings remain separate. Current review leaves source checkpoint, clean reproduction and immutable install pending."
+    }
+  ],
+  "triage": {
+    "status": "unresolved_evidence_for_complete_cut",
+    "technicalSeverity": "not_assigned_no_material_defect_found",
+    "confidence": "High for observed archive/member/digest facts; incomplete for the future cut conjunction.",
+    "triggerAndHarm": "No supported packaging defect trigger or realized harm found in this bounded read. Missing actual reproduction/checkpoint evidence prevents the full conjunction.",
+    "containment": "Prepared/install driver requires the later exact checkpoint and satisfied review before installation. This preliminary result has verdict indeterminate and null checkpoint identity.",
+    "repairScope": "No Product or packaging repair recommended from current evidence.",
+    "regressionRisk": "No repair introduced.",
+    "priority": "Not assigned; Executive owns disposition."
+  },
+  "pendingEvidence": [
+    "Root-selected actual build bindings after broad acceptance",
+    "Actual exact source checkpoint commit/tree and selected path conservation",
+    "Clean reproduction archive/manifest equal to the measured archive and actual command close",
+    "Independent readback of actual exact-artifact correspondence",
+    "Final immutable local installation, payload correspondence and installed owner/functional receipts remain a separate Root-selected effect after this packaging close"
+  ],
+  "limits": [
+    "No source re-audit or test execution.",
+    "No whole-5.0 qualification, release publication, tag, stable/global selector, native provider productivity, general speedup or memory-improvement claim.",
+    "AFTER acceptance records one matched pair and separate parent CPU profile, including remaining construction and worker-copy work; packaging adds no performance inference.",
+    "Absolute setup Catalog work and post-setup reuse remain as established by source/focused/measurement owners; no new physical-native-link or shared-gate zero claim.",
+    "The prepared control is intentionally not accepted as actual reproduction or cut/install evidence."
+  ],
+  "invalidation": [
+    "A change to archive, manifest, member bytes, source freeze/acceptance or source-artifact binding invalidates affected facts.",
+    "A changed Product/requirements/frame/method or scope/capability/severity basis requires re-entry.",
+    "Actual reproduction or installed evidence that disagrees with these identities revises the affected conclusion."
+  ],
+  "owningReentry": "Return to /root Executive. Reacquire actual checkpoint/reproduction/correspondence pins for a brief final packaging close of this same review. Root conjoins broad/source/execution/measurement and separately decides installation and acceptance."
+}

@@ -1,0 +1,115 @@
+{
+  "status": "PHASE2_NATIVE01_CLOSED_ABSOLUTE_TIMEOUT_PLAN_ONLY_PARTIAL",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/ROOT_NATIVE_ADMISSION.json",
+    "bytes": 6294,
+    "sha256": "d35c26b26fd48281e74b39749fcd5ec8f1b302fb795c0ef35ade80b3b5382ad6"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/PREPARED.json",
+    "bytes": 6763,
+    "sha256": "36a7f05e79cb3da87c7e0e8ac95cb485123e46ab018839128af3d9b26fe7827f"
+  },
+  "run": {
+    "ref": "run://abiogenesis/21914c4647d17bc222480d9d9746b50389505ae6d6842668f124fc262da57437",
+    "digest": "sha256:ed23e072d385d4605cd982d3905a519730c87786cfa74ab923c01defd42e3b00"
+  },
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 64877,
+    "sha256": "4d9108276bf7151b8b0335b61dc158d367dff1ef035071fb6341ddce641b8c9e"
+  },
+  "transport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/archives/fp-3b22023555e14491-transport.json",
+    "bytes": 2363086,
+    "sha256": "6084390a9f5b4da973d85e5d3a77657a70a8671743fde33075a18ba0796e7a64"
+  },
+  "outcome": {
+    "disposition": "failure",
+    "failureClass": "transport_failure",
+    "status": 143,
+    "signal": null,
+    "timeoutClass": "absolute",
+    "absoluteTimeoutMs": 900000,
+    "timeoutMs": 180000,
+    "toolCallCount": 34,
+    "apiRetryCount": 0,
+    "structuredEventCount": 3099,
+    "progressEventCount": 3069
+  },
+  "finalOutputBytes": 0,
+  "nativeResultAssessment": "absent",
+  "physicalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resource-close.json",
+    "bytes": 2299,
+    "sha256": "4ab90398f976d6ed6fadfe6f68880d78679a0e0ad893dcfb4baa1f8a5b9604d7"
+  },
+  "hostFinal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/FINAL.json",
+    "bytes": 2653,
+    "sha256": "b0bd585ee20bc3b34591a8f9d59a4eaba8623ef0c0786da0b66c0a3509811f55"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/FRESH_READBACKS.json",
+    "bytes": 1679,
+    "sha256": "1a3e70c5b9f3260a85355a8dd1aa2c34c0cd921b667f8eb930d41f17c1bde149"
+  },
+  "freshResult": "refusal/no terminalResult",
+  "freshReplay": "failed/no terminalResult",
+  "publicProcessEvents": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/PUBLIC_PROCESS_EVENTS.json",
+    "bytes": 3306,
+    "sha256": "21fcf8eae91768dc847c41215eec783b447c48ef985024f0bde4b7019c63c146"
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/source-freeze.json",
+    "bytes": 295251,
+    "sha256": "9a82a2297b03cec7da18862acca7d12c2625d8f6a85f4d0cf39069de0279e548"
+  },
+  "sourceDigest": "64afc834b8442a42b42663ecca5514e33832edc531e9f01f03c9eacb4b67098b",
+  "sourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_CUSTODY.json",
+    "bytes": 11214,
+    "sha256": "7626760e0ae3c81a2d6b990585ba6c29831cce38fd29fb858c26e6d548ca1df9"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_DELTA.diff",
+    "bytes": 9428,
+    "sha256": "d3938a815bc380ee1ebb5562455198aaa43e4373b9485918f5fbd61d731ab692"
+  },
+  "publicUsage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/PUBLIC_USAGE.json",
+    "bytes": 1094,
+    "sha256": "a6af4febbf2a2214d9f3ef08df7717a95fbd86b552825021753e1c42306e8102"
+  },
+  "toolHistory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/TOOL_HISTORY.json",
+    "bytes": 24298,
+    "sha256": "0b21f53cd72be17c813467270e3b02e58d987ebcfd85a3e5cd73fe0931bbcc05"
+  },
+  "sourceEffect": {
+    "count": 1,
+    "toolOrdinalZeroBased": 33,
+    "stdoutLine": 2839,
+    "matchedResult": {
+      "line": 2843,
+      "bytes": 2163,
+      "sha256": "b25fae067687fbe76f999015cc90d6344c8107b3534df5d64b4d94c74f9d1d2f",
+      "isError": false
+    },
+    "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "fileMtimeUtc": "2026-11-10T00:20:54.907931+00:00",
+    "timingLimit": "mtime and stream position are observations, not exact authenticated effect time."
+  },
+  "implementationChanges": 0,
+  "selfchecksExecuted": [],
+  "deletionMapStanding": "Prospective plan only; no code responsibilities removed.",
+  "partialOutputContradictions": [
+    "Plan says source authored despite implementation/tests unchanged.",
+    "Plan proposes snapshot identity change; Root requires fresh-object/recomputed elapsed snapshot semantics. Preserved without repair."
+  ],
+  "qualification": false,
+  "acceptance": false,
+  "whyIncomplete": "Unknown beyond actual absolute timeout; no Product defect or internal-reasoning explanation inferred.",
+  "nextEffects": "Separate A controls preparation only; no setup/provider/proof/source repair."
+}

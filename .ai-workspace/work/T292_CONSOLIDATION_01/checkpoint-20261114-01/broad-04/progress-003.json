@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/d2-acknowledgment.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/003-d2-acknowledgment.test/process.json",
+    "bytes": 1063,
+    "sha256": "f4738a62df884c6250cddc67b63961737d1429217a1268958412b335c4d1cabd"
+  }
+}

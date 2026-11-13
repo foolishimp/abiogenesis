@@ -1,0 +1,38 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {pathToFileURL} from 'node:url';
+const N="/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06",I="/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant";
+const {renderNativeWorkspaceWorkOrder}=await import(pathToFileURL(I+'/build/code/src/product/native_workspace_work.js').href);
+const {canonicalJson}=await import(pathToFileURL(I+'/build/code/src/shared/canonical_json.js').href);
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),bytes=x=>Buffer.byteLength(typeof x==='string'?x:JSON.stringify(x));
+const tb=fs.readFileSync(N+'/ACTUAL_UAT_TASK.json');
+if(sha(tb)!=='f8d585d107f847decc652cef2f93a230c1f0b863e5e4d763c3d22bd77aba9455')throw Error('task mismatch');
+const task=JSON.parse(tb),roleData=JSON.parse(fs.readFileSync(N+'/uat-capacity-triage-001/actual-role-content.json'));
+const role=roleData.roles.find(r=>r.role==='assessor').content;
+const rendered=renderNativeWorkspaceWorkOrder(task),rolePrefix='Declared role context:\n'+canonicalJson(role)+'\n\n';
+const instruction=task.instructions[9],offset=instruction.indexOf('{'),intro=instruction.slice(0,offset),producer=JSON.parse(instruction.slice(offset));
+if(intro+JSON.stringify(producer)!==instruction)throw Error('producer reserialization changed baseline');
+const commands=producer.commandResults,pack=commands.find(r=>r.ordinal===5),meta=JSON.parse(pack.stdout.text)[0];
+const streamRows=commands.map(r=>({ordinal:r.ordinal,commandId:r.commandId,exitStatus:r.exitStatus,stdoutBytes:r.stdout.byteLength,stderrBytes:r.stderr.byteLength,stdoutSerializedBytes:bytes(r.stdout),stderrSerializedBytes:bytes(r.stderr),commandRecordBytes:bytes(r)}));
+const sections=[];let cursor=0;
+const firstInstruction=rendered.indexOf(task.instructions[0],rendered.indexOf('Instructions:\n'));
+const headings=[['opening','Outcome: '],['outcome','Worksite root: '],['worksite_root','Read first: '],['read_first','Readable worksite scope: '],['readable_scope','Exact assessment basis: '],['assessment_basis','Exact declared response JSON Schema: '],['response_schema','Instructions:\n']];
+for(const [name,next]of headings){const end=rendered.indexOf(next,cursor);if(end<0)throw Error('section '+name);sections.push({name,bytes:bytes(rendered.slice(cursor,end))});cursor=end;}
+sections.push({name:'instruction_heading',bytes:bytes(rendered.slice(cursor,firstInstruction))});cursor=firstInstruction;
+for(let i=0;i<task.instructions.length;i++){const s=task.instructions[i];if(!rendered.startsWith(s,cursor))throw Error('instruction boundary '+i);const end=cursor+s.length+1;sections.push({name:'instruction_'+i,bytes:bytes(rendered.slice(cursor,end))});cursor=end;}
+sections.push({name:'checks_and_scope_return_instructions',bytes:bytes(rendered.slice(cursor))});
+if(sections.reduce((s,r)=>s+r.bytes,0)!==bytes(rendered))throw Error('section conservation');
+const replacement=meta.filename+'\n';
+const diagnosticProducer=structuredClone(producer),diagnosticPack=diagnosticProducer.commandResults.find(r=>r.ordinal===5);
+diagnosticPack.stdout={byteLength:bytes(replacement),digest:'sha256:'+sha(replacement),encoding:'utf8',text:replacement};
+const diagnosticTask={...task,instructions:task.instructions.map((s,i)=>i===9?intro+JSON.stringify(diagnosticProducer):s)};
+const predicted=rolePrefix+renderNativeWorkspaceWorkOrder(diagnosticTask);
+const predictions=[{kind:'in_memory_counterfactual_not_an_admitted_future_task',change:'Only command5 stdout is replaced with the actual baseline filename plus newline; other producer fields, task, role, parent display and proof stdout held byte-identical. Old admitted identity fields are retained solely as baseline labels and confer no new producer identity.',replacementStdoutBytes:bytes(replacement),predictedWorkOrderBytes:bytes(renderNativeWorkspaceWorkOrder(diagnosticTask)),predictedPromptBytes:bytes(predicted),headroomBytes:1048576-bytes(predicted),savedRenderedBytes:bytes(rolePrefix+rendered)-bytes(predicted),promptSha256:sha(predicted)}];
+const contextFields=Object.fromEntries(Object.entries(task.context).map(([k,v])=>[k,bytes(v)]));
+const parentText=task.instructions[4],parent=JSON.parse(parentText.slice(parentText.indexOf('[')));
+const parentRows=parent.map(r=>({purpose:r.purpose,recordBytes:bytes(r),observedBytes:bytes(r.observed),commands:r.observed.commandResults?.map(c=>({ordinal:c.ordinal,stdoutDisplayedBytes:c.stdout.displayedByteCount,stderrDisplayedBytes:c.stderr.displayedByteCount,stdoutOmittedBytes:c.stdout.omittedByteCount,stderrOmittedBytes:c.stderr.omittedByteCount}))??[]}));
+const packFields=Object.fromEntries(Object.entries(meta).map(([k,v])=>[k,bytes(v)]));
+const workScope=task.context.readRoots;
+const report={kind:'pure_installed_renderer_size_attribution_and_labelled_counterfactual',task:{path:N+'/ACTUAL_UAT_TASK.json',sha256:sha(tb),bytes:tb.length},installedRenderer:I+'/build/code/src/product/native_workspace_work.js',workOrderBytes:bytes(rendered),rolePrefixBytes:bytes(rolePrefix),promptBytes:bytes(rolePrefix+rendered),maxPromptBytes:1048576,sections,taskTopLevelSerializedFields:Object.fromEntries(Object.entries(task).map(([k,v])=>[k,bytes(v)])),contextFields,instructions:task.instructions.map((s,i)=>({ordinal:i,textBytes:bytes(s)})),producer:{introBytes:bytes(intro),jsonBytes:bytes(producer),commandResultsBytes:bytes(commands),predicateObservationsBytes:bytes(producer.predicateObservations),commands:streamRows,fieldBytes:Object.fromEntries(Object.entries(producer).map(([k,v])=>[k,bytes(v)]))},pack:{stdoutBytes:pack.stdout.byteLength,stdoutSha256:sha(pack.stdout.text),commandRecordBytes:bytes(pack),filename:meta.filename,entryCount:meta.entryCount,archiveBytes:meta.size,unpackedBytes:meta.unpackedSize,fields:packFields,inventoryEntries:meta.files.length},parentRows,readableScope:{paths:workScope.length,jsonBytes:bytes(workScope),pathTextBytes:workScope.reduce((n,p)=>n+bytes(p),0),mandatoryAssessmentSources:task.assessment.sources.length,readFirstCount:task.readFirst.length,metadataEntries:task.context.entries.length,metadataEntryVectorBytes:bytes(task.context.entries),inlineBodyFields:task.context.entries.filter(e=>Object.keys(e).some(k=>/^(bytesBase64|text|content|body|payload)$/.test(k))).length},predictions,limits:['Counterfactual uses actual closed role bytes and the actual renderer, not a new admitted task/result; next source names, C2 results, identities, diagnostics and original input scopes may differ.','No npm, test, provider, runtime admission or event effect executed. Actual native06 full command streams and refusal preserved.','Role projector values are authenticated through the granted cold prefix; this diagnostic composes their bytes exactly at instruction_assembly.js156 but does not fabricate or authenticate a new native instruction basis.']};
+fs.writeFileSync(N+'/uat-capacity-triage-001/size-attribution.json',JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({sections,producer:report.producer.commands,pack:report.pack,predictions,readableScope:report.readableScope}));

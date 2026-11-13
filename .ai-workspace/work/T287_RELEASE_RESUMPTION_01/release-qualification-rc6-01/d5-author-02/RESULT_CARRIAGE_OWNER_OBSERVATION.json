@@ -1,0 +1,60 @@
+{
+  "kind": "bounded_native_result_duplicate_carriage_owner_observation",
+  "recordedUtc": "2026-11-06T01:53:00.447789+00:00",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "event": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "offset": 871337919,
+    "physicalBytes": 43149597,
+    "sha256": "d1562b3d27a6959ed6ebca5493d8c92d29c766feffdd97e706c18342e5fd1327",
+    "ordinal": 161290,
+    "run": "run://abiogenesis/b56cbd17c80c1bee4e769a27271dc38f96362d252743df06b12a3ebef7d1face",
+    "resultRef": "result://abiogenesis/7a40936609b3ef857aad38fc82b03254c287b770b53388b909eda04ce4d5add6"
+  },
+  "measured": {
+    "valueCompactUtf8Bytes": 43147626,
+    "taskCompactUtf8Bytes": 14320013,
+    "taskContextCompactUtf8Bytes": 14309595,
+    "beforeCompactUtf8Bytes": 14309595,
+    "afterCompactUtf8Bytes": 14511485,
+    "taskContextEqualsBefore": true,
+    "beforeEntryCount": 407,
+    "afterEntryCount": 407,
+    "unchangedEntriesAcrossBeforeAfter": 389,
+    "sumUnchangedEntryCompactUtf8Bytes": 12660520,
+    "changedPathsCount": 18,
+    "reportCompactUtf8Bytes": 3921
+  },
+  "ownerMapping": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+        "bytes": 21411,
+        "sha256": "a74b4b064bc02691012bb770a2fd67c778f96dd077b611b4c361ba8959560292"
+      },
+      "lines": "148-180",
+      "mechanism": "NativeWorkspaceWorkObservation carries task, before and after; constructor assigns before: task.context. This duplicates the same full context within one observation before serialization."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "bytes": 16414,
+        "sha256": "5013543113cd3a2b30c7a22726da885debcf72f54bc812b2632f940e70ac2789"
+      },
+      "lines": "9-25,44-82,139-186,219-246",
+      "mechanism": "Existing physical body owner supports exact whole basis input/Result value references and native definition material, plus consumed Result route references. These reuse whole earlier admitted members; they do not deduplicate task.context/before/unchanged after subtrees inside this first distinct Result value."
+    }
+  ],
+  "disposition": "Recorded causal baggage observation for existing owner consolidation; no Product repair or descriptor/schema change selected by this observation. Current two-file legacy repair and D5 proof remain bounded.",
+  "functionalInformation": "Task identity/grant, before/after physical identities, changed bytes, report and provenance are work information. Three full overlapping body populations are carriage, not three different observations. Preserve exact primary facts and deterministic cold reconstruction through existing owners if a successor repair is selected.",
+  "limits": [
+    "Read one pinned physical Result row only; metadata sizes/equality/counts, no private provider reasoning/narrative/tool_result/stderr inspected or output.",
+    "Compact JSON field byte lengths are derived measurements, not separately stored row lengths. Equal entry byte sums exclude container punctuation and are not guaranteed archive savings.",
+    "No measured CPU or runtime causation, no matched speedup, no complete-log census.",
+    "No new store, event stream or independent body library proposed; exact reuse construction and compatibility remain design work if selected."
+  ]
+}

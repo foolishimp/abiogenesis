@@ -1,0 +1,69 @@
+{
+  "role": "resumed Design/Owner triage; not independent patch assurance",
+  "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+  "finding": "Probe result is recorded after reentry without origin eligibility; accounting occurs at return instead of actual entry",
+  "predictedSealedCounterexample": {
+    "actualHostProbeEntries": 2,
+    "candidateCompletion": {
+      "scopeAbsence": "absent",
+      "probeCount": 1
+    },
+    "candidateLaterSnapshot": {
+      "scopeAbsence": "present",
+      "probeCount": 2
+    },
+    "executedHere": false
+  },
+  "repairRequirements": [
+    "count entered probe before host reentry",
+    "do not count merely proposed/cancelled tails",
+    "reject stale result and continuation before any fact write",
+    "retain probe fast-path count meaning",
+    "preserve fresh snapshot behavior and separate immutable completion",
+    "preserve pending disposal/notification continuations"
+  ],
+  "repairCone": [
+    "shared/owned_process_lifetime.ts",
+    "shared/owned_process_state.ts",
+    "existing controlled lifetime cases",
+    "A plan/deletion evidence only if needed"
+  ],
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+      "bytes": 296057,
+      "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/ROOT_SCOPE.json",
+      "bytes": 6009,
+      "sha256": "90add4df71732a80fa17f499b1d5e6e87d970d0e0e6503b4086615ebf74b88b7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/TASK.json",
+      "bytes": 6637,
+      "sha256": "48eb66530603374bafa1bdce154fdbdf6a07e381039d99bc76d009c4c19ef757"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/triage-design/ASSESSMENT.md",
+      "bytes": 7837,
+      "sha256": "8078d559c667982ab73e913dc4260a3697771b0fb0d339e61eabc31469963401"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11508,
+      "sha256": "4dd9aa2ac5d53529dac83b165775fb8980d9b3fc57997a148efde00d8563d51b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 12604,
+      "sha256": "9c555e755cfb2d1b35cf6ba4f7b5eb8afc5c06e2de6ca000960828430edbd3c8"
+    }
+  ],
+  "limits": [
+    "No actual-owner reproduction executed by this agent",
+    "Baseline stale-return hazard distinguished from candidate accounting regression",
+    "Root decides disposition; independent review continues"
+  ],
+  "reportSha256": "46155a87d5b32671b25a6cf01ff30f8ab35cd0b335099c3c0cf66197ca3e1a21"
+}

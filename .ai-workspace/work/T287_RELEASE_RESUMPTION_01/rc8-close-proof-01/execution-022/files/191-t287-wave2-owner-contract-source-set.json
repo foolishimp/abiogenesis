@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1520.6669999998994,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 15,
+    "failed": 0,
+    "passed": 15,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 15,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/events/191-t287-wave2-owner-contract-source-set.jsonl",
+    "bytes": 4607,
+    "sha256": "998802012b912899bd59070f84e40b323e1c3ea85a1e916318182259bef33db4"
+  },
+  "commandReceipt": "commands/191-t287-wave2-owner-contract-source-set.result.json",
+  "workspace": "/private/tmp/abg-r8c-022/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

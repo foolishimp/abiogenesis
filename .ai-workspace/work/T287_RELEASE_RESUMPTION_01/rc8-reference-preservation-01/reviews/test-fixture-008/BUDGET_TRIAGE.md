@@ -1,0 +1,9 @@
+Product Frame: fixed fifteen-family ABIogenesis5.0, GOAL-035/T-287/REF-01, STDO3.0.4, empty composition. A8 source86711/efba6bea and source review239114a2 remain unchanged.
+
+S3 operational budget failure is confirmed by the owner: absolute timeout09:06:20.877Z at900010.989417ms. It fired4.344s before the first historical command's nominal ten-minute deadline. Two serial ten-minute commands plus authoring could not fit the selected fifteen-minute native budget. The SDK receipt records runtime_failed with result and terminalResult null; transport return/physical close do not turn that into native success.
+
+Partial reporter records both classification and global-pairs cases passed. The questioned case therefore did terminate here. It deliberately authenticates five independent cold prefixes from the586MB history; later projections use bounded indexed owner relations. No measured CPU attribution or Product performance regression is established. Final command/lane receipts and coordinate execution remain absent.
+
+Recommend control-only external re-entry on the exact frozen source: whole coordinates11cases independently first, then existing whole consolidation12cases/one-hour command with unchanged600/900s per-case limits and aggregate case included. A new explicit control version may remove the old focused-success prerequisite; preserve its failed/partial evidence and never fabricate it. No source edits or new Worker are needed. The one-hour attempt is constructable, not guaranteed green; any real per-case failure gets its own triage.
+
+BUDGET_TRIAGE.json binds the exact timeout row, independently rehashed146410800-byte durable prefix, receipt/source/control pins, limits and recommendation. Root retains disposition. No tests, profiling, Product calls or process effects were performed.

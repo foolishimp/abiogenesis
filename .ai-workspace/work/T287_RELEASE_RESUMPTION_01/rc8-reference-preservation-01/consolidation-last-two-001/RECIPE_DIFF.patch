@@ -1,0 +1,49 @@
+--- consolidation-whole-001/run.reentry-003.mjs
++++ consolidation-last-two-001/run.mjs
+@@ -1,4 +1,4 @@
+-// Two exact external fixture-close tuples through the same recorder and file host; no source changes.
++// Exactly two remaining historical cases through the same recorder and file host; partial proof only.
+ import assert from 'node:assert/strict';
+ import {createHash} from 'node:crypto';
+ import {readFile,writeFile,mkdir,lstat,readlink,copyFile,chmod,symlink,statfs} from 'node:fs/promises';
+@@ -11,16 +11,16 @@
+ const [configPath,configSha,admissionPath,admissionSha]=process.argv.slice(2);
+ const raw=await readFile(configPath);assert.equal(sha(raw),configSha);const c=JSON.parse(raw);
+ const admissionRaw=await readFile(admissionPath);assert.equal(sha(admissionRaw),admissionSha);const admission=JSON.parse(admissionRaw);
+-assert.equal(c.status,'BOUND_FULL_CONSOLIDATION_FILE');assert.equal(admission.status,'ROOT_ADMITTED_FULL_CONSOLIDATION_FILE');assert.equal(admission.bindingSha256,configSha);
++assert.equal(c.status,'BOUND_FILTERED_CONSOLIDATION_CASES');assert.equal(admission.status,'ROOT_ADMITTED_FILTERED_CONSOLIDATION_CASES');assert.equal(admission.bindingSha256,configSha);
+ for(const p of admission.files??[])await checked(p);
+-const coordinates=c.file==='test_env/tests/t287-installed-product-coordinate.test.mjs';
+-assert(coordinates?c.expectedCases===11&&c.commandTimeoutMs===600000:c.file==='test_env/tests/t287-single-address-space-consolidation.test.mjs'&&c.expectedCases===12&&c.commandTimeoutMs===3600000);
++assert.equal(c.file,'test_env/tests/t287-single-address-space-consolidation.test.mjs');assert.equal(c.expectedCases,2);assert.equal(c.expectedSkipped,0);assert.equal(c.excludedCaseCount,10);assert.equal(c.wholeFile,false);assert.equal(c.commandTimeoutMs,1800000);
++assert.equal(c.namePattern,'^(?:historical revision cuts:|semantic stage authentication borrows the owned prefix:)');
+ assert.equal(c.bounds.outputBytes,16777216);assert.equal(c.bounds.nodeHeapMiB,8192);assert.equal(c.bounds.reserveBytes,4294967296);assert.equal(c.bounds.maxOwnedBytes,4294967296);
+ const review=JSON.parse(await checked(c.review));assert.equal(review.verdict,'satisfied_for_bounded_frozen_source_delta; focused_execution_pending');assert.equal(review.findings.length,0);
+ const reentry=JSON.parse(await checked(c.rootReentry));assert.equal(reentry.status,'ROOT_SELECTED_EXTERNAL_FROZEN_SOURCE_PROOF_REENTRY');assert.equal(reentry.sourceDigest,c.sourceDigest);
+ assert.deepEqual(c.failedNative,reentry.failedNative);const failedSdk=JSON.parse(await checked(c.failedNative.sdk));await checked(c.failedNative.close);
+ assert.equal(failedSdk.receipt.ownerOutput.value.disposition,'runtime_failed');assert.equal(failedSdk.receipt.ownerOutput.value.result,null);assert.equal(failedSdk.receipt.ownerOutput.value.terminalResult,null);
+-if(!coordinates){assert.equal(admission.coordinateProof.path,c.coordinateResultPath);const prior=JSON.parse(await checked(admission.coordinateProof));assert.equal(prior.status,'PASSED');assert.equal(prior.sourceDigest,c.sourceDigest);assert.equal(prior.counts.passed,11);assert.equal(prior.wholeFile,true);}
++{assert.equal(admission.coordinateProof.path,c.coordinateResultPath);const prior=JSON.parse(await checked(admission.coordinateProof));assert.equal(prior.status,'PASSED');assert.equal(prior.sourceDigest,c.sourceDigest);assert.equal(prior.counts.passed,11);assert.equal(prior.wholeFile,true);}
+ const freeze=JSON.parse(await checked(c.sourceFreeze)),ready=JSON.parse(await checked(c.ready)),inventory=JSON.parse(await checked(c.inventory));
+ assert.equal(freeze.sourceDigest,c.sourceDigest);assert.equal(ready.sourceDigest,c.sourceDigest);await checked(c.artifact);await checked(c.runner);await checked(c.fileHost);for(const p of c.toolPins)await checked({path:p.path,bytes:p.bytes,sha256:p.sha256});
+ const resources=JSON.parse(await checked(c.historicalInputs.resources)),baseline=JSON.parse(await checked(c.historicalInputs.baseline));
+@@ -44,14 +44,14 @@
+   const env={HOME:process.env.HOME,PATH:join(c.scratchRoot,'b')+':/usr/bin:/bin:/usr/sbin:/sbin',LANG:'en_US.UTF-8',LC_ALL:'en_US.UTF-8',CI:'1',TMPDIR:join(c.scratchRoot,'t'),NODE_OPTIONS:'--max-old-space-size=8192',
+     npm_config_userconfig:join(c.scratchRoot,'user.npmrc'),npm_config_globalconfig:join(c.scratchRoot,'global.npmrc'),npm_config_cache:join(c.scratchRoot,'n'),npm_config_offline:'true',npm_config_audit:'false',npm_config_fund:'false',npm_config_update_notifier:'false',
+     ABG_TS_CLAUDE_COMMAND:join(c.scratchRoot,'UNSELECTED_PROVIDER'),ABG_TS_LIVE_CLAUDE_COMMAND:join(c.scratchRoot,'UNSELECTED_PROVIDER'),ABI5_UAT_UNIT_ROOT:join(tenant,'test_env/test_runs/sandbox-uat-units'),ABI5_CONSOLIDATION_INPUTS:c.historicalInputs.root};
+-  const events=join(c.outputRoot,'events.jsonl'),args=['--experimental-vm-modules','--test','--test-concurrency=1','--test-reporter=tap','--test-reporter-destination=stdout','--test-reporter='+join(tenant,'scripts/node-test-evidence-reporter.mjs'),'--test-reporter-destination='+events,c.file];
+-  await record('EXECUTION_STARTED.json',{at:new Date().toISOString(),pid:process.pid,binding:await pin(configPath),admission:await pin(admissionPath),sourceDigest:c.sourceDigest,file:c.file,wholeFile:true,expectedCases:c.expectedCases,environment:env});
++  const events=join(c.outputRoot,'events.jsonl'),args=['--experimental-vm-modules','--test','--test-concurrency=1','--test-reporter=tap','--test-reporter-destination=stdout','--test-reporter='+join(tenant,'scripts/node-test-evidence-reporter.mjs'),'--test-reporter-destination='+events,'--test-name-pattern='+c.namePattern,c.file];
++  await record('EXECUTION_STARTED.json',{at:new Date().toISOString(),pid:process.pid,binding:await pin(configPath),admission:await pin(admissionPath),sourceDigest:c.sourceDigest,file:c.file,wholeFile:false,expectedCases:c.expectedCases,namePattern:c.namePattern,excludedCaseCount:c.excludedCaseCount,environment:env});
+   await record('file-host-binding.json',{executable:c.node.realPath,args,cwd:tenant,outputRoot:c.outputRoot,scratchRoot:c.scratchRoot,resourceRecord:join(c.outputRoot,'resources.json'),bounds:c.bounds});
+   const host=await pin(join(c.outputRoot,'file-host-binding.json')),command=commandRecorder(c.outputRoot,{environment:env,timeoutMs:c.commandTimeoutMs,maxOutputBytes:c.bounds.outputBytes});
+   result=await command('test',c.node.realPath,[c.fileHost.path,host.path,host.sha256],{cwd:tenant,environment:env,timeoutMs:c.commandTimeoutMs});
+   const eventPin=await pin(events);assert(eventPin.bytes<=c.bounds.outputBytes);const rows=(await readFile(events,'utf8')).trim().split('\n').map(l=>JSON.parse(l)),summary=rows.filter(r=>r.type==='summary'&&r.file===null).at(-1);
+-  const passed=result.exitCode===0&&!result.signal&&!result.timedOut&&!result.truncated&&!result.failure&&summary?.success===true&&summary.counts.passed===c.expectedCases&&summary.counts.skipped===0&&rows.at(-1)?.type==='end';
++  const passed=result.exitCode===0&&!result.signal&&!result.timedOut&&!result.truncated&&!result.failure&&summary?.success===true&&summary.counts.passed===c.expectedCases&&summary.counts.skipped===c.expectedSkipped&&rows.at(-1)?.type==='end';
+   await verify(work,ready.derivedStageFiles);await verify(join(tenant,'node_modules'),inventory.dependencyFiles);await verify(ready.work,ready.derivedStageFiles);await verify(inventory.dependencyRoot,inventory.dependencyFiles);
+-  await record('RESULT.json',{status:passed?'PASSED':'FAILED',sourceDigest:c.sourceDigest,file:c.file,wholeFile:true,counts:summary?.counts??null,events:eventPin,wallMs:result.wallMs,totalMs:performance.now()-started,exitCode:result.exitCode,signal:result.signal,timedOut:result.timedOut,truncated:result.truncated,primaryPreserved:true,buildInvocations:0,providerCalls:0});
+-  console.log(JSON.stringify({status:passed?'PASSED':'FAILED',counts:summary?.counts,wallMs:result.wallMs}));assert(passed,'Selected whole fixture file incomplete or red');
++  await record('RESULT.json',{status:passed?'PASSED':'FAILED',sourceDigest:c.sourceDigest,file:c.file,wholeFile:false,namePattern:c.namePattern,excludedCaseCount:c.excludedCaseCount,excludedHaveNoCoverage:true,counts:summary?.counts??null,events:eventPin,wallMs:result.wallMs,totalMs:performance.now()-started,exitCode:result.exitCode,signal:result.signal,timedOut:result.timedOut,truncated:result.truncated,primaryPreserved:true,buildInvocations:0,providerCalls:0});
++  console.log(JSON.stringify({status:passed?'PASSED':'FAILED',counts:summary?.counts,wallMs:result.wallMs}));assert(passed,'Selected two-case proof incomplete or red');
+ }catch(error){await record('HALT.json',{at:new Date().toISOString(),error:String(error?.stack??error),result,automaticRetry:false});throw error;}

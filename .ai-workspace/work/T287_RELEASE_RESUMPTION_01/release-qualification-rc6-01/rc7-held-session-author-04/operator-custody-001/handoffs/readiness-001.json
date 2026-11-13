@@ -1,0 +1,46 @@
+{
+  "kind": "h04_native_author_readiness",
+  "createdUtc": "2026-11-06T18:28:51.764Z",
+  "status": "SOURCE_AUTHORED_STAGE_PENDING",
+  "edits": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "beforeBytes": 39862,
+      "beforeSha256": "a36bb612733a3fd39802413868f1f6c55ac757207788cfdd94b4f6247e0b7dcc",
+      "afterBytes": 39883,
+      "afterSha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34",
+      "change": "line333 programBinding.productRoot reads the already projected body state.environment.workspaceBinding.roots.productRoot instead of the {ref,digest} coordinate state.binding"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "beforeBytes": 370774,
+      "beforeSha256": "2825568c61d32e7bb6291119fafd140917b205f101a2a9bf3b708e030e5c59cd",
+      "afterBytes": 370990,
+      "afterSha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650",
+      "change": "line2537 W is the projected body caller.state.environment.workspaceBinding (2542-2543 root assertions unchanged, now over the body); line2552 replaces the roots read on the recorded coordinate with two coordinate assertions: setup-identity.workspaceBinding equals the admitted coordinate caller.state.binding, and equals {ref:W.bindingId,digest:W.bindingDigest}"
+    }
+  ],
+  "unchangedSources": 449,
+  "sourceRows": 451,
+  "baselinePin": "SOURCE_BEFORE ecbb6b1f4ff3e896601a2f4d3c2e3bd230ef2786ef44833b9fcccce2b3d89adb verified",
+  "head": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "emptyIndex": true,
+  "preservedTrackedModifications": 69,
+  "preservedNewProductPaths": 2,
+  "checks": [
+    "node --check on both edited files",
+    "in-memory 449-row baseline byte/sha comparison: 0 mismatches",
+    "no remaining state.binding.roots or identity.workspaceBinding.roots access under test_env"
+  ],
+  "notChanged": [
+    "code/src",
+    "HOW/design",
+    "Product guards",
+    "refresh/reopen calls",
+    "helpers/exports",
+    "authored test timeouts",
+    "setup-identity record shape"
+  ],
+  "stageSlotUnused": true,
+  "accepted": false
+}

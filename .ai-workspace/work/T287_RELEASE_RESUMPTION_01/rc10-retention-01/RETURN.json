@@ -1,0 +1,41 @@
+{
+  "status": "RC10_PREPARATION_COMPLETE_EXECUTION_HELD",
+  "recordedAt": "2026-11-09T02:28:40.397541+00:00",
+  "actor": "/root/rc10_operator",
+  "consumer": "/root",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/PREPARATION.md",
+    "bytes": 12974,
+    "sha256": "d93c99f01c29a4e834fb79607fb86bdb9bdce685bdc7112de0de6be4f6790fdc"
+  },
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/BASELINE.json",
+    "bytes": 11212,
+    "sha256": "6b6fa148e45653a23c24b8ccf11c09566e3af24ea51b7d96737d9b70097dd025"
+  },
+  "changedPaths": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/PREPARATION.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/BASELINE.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/RETURN.json",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "verification": {
+    "stdoValid": true,
+    "builderPinMatches": true,
+    "archiveMembersEqual": 5325,
+    "productUnchanged": true,
+    "priorTrackingBodiesPreservedVerbatim": true,
+    "postWriteTrackedDeltaExact": [
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "specification/GOALS.md"
+    ],
+    "sourceControlPreimagesUnchangedExceptTracking": true,
+    "headUnchanged": true
+  },
+  "nativeAcquired": false,
+  "providerDispatched": false,
+  "testsRun": false,
+  "worktreeCreated": false,
+  "nextDependency": "Root source/design conjunction and exact execution/proof operation grant; backlog additions are not inferred."
+}

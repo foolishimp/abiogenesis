@@ -1,0 +1,97 @@
+{
+  "kind": "frozen_before_lane_observation",
+  "status": "TWO_FAILURES_PRESERVED_BASELINE_DISCRIMINATOR_STANDING_UNRESOLVED",
+  "createdUtc": "2026-11-06T13:37:07.589999+00:00",
+  "beforeSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-002/SUBJECT.json",
+    "bytes": 259532,
+    "sha256": "7697aef139f20749a687e33fc5a333f2caccdf0e3545d4c409b8cb05f74b6d01"
+  },
+  "build": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-002/BUILD.json",
+    "bytes": 2259,
+    "sha256": "1208843959392575daeab856fb8d76c86d39ebd3766a485243fa292e8a8b341a"
+  },
+  "artifacts": [
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-lanes-held-session-before/summary-held-session-before.json",
+        "bytes": 1385,
+        "sha256": "d78ea9d3e7a746eadd7093999eebbe867a299a574091991391f7ae6fc88b8d92"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-002/evidence/summary-held-session-before.json",
+        "bytes": 1385,
+        "sha256": "d78ea9d3e7a746eadd7093999eebbe867a299a574091991391f7ae6fc88b8d92"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-lanes-held-session-before/held-session-before.stdout.tap",
+        "bytes": 3315,
+        "sha256": "3af4e4a388c211a16e89819e9c0f8e9adeeeddfdf24513e1a792f56e1ed18976"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-002/evidence/held-session-before.stdout.tap",
+        "bytes": 3315,
+        "sha256": "3af4e4a388c211a16e89819e9c0f8e9adeeeddfdf24513e1a792f56e1ed18976"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-lanes-held-session-before/held-session-before.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-002/evidence/held-session-before.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "laneSummary": {
+    "id": "held-session-before",
+    "mode": "before",
+    "setupMs": 155,
+    "priorLaneAllocations": 0,
+    "laneAllocationCap": 8,
+    "stageSourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd",
+    "activeRc7": [],
+    "requiredActivePass": false,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:RC7 HS02:|RC7 fixed admission: ) test_env/tests/t287-exact-prefix-projection-reuse.test.mjs test_env/tests/t287-default-library.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "ms": 251117,
+    "tests": 2,
+    "pass": 0,
+    "fail": 2,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 2,
+    "failing": [
+      "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+      "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+    ],
+    "stdoutSha256": "3af4e4a388c211a16e89819e9c0f8e9adeeeddfdf24513e1a792f56e1ed18976",
+    "stdoutBytes": 3315,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "standing": [
+    "Actual lane2tests/0pass/2fail/0skip/0cancel,251.117s and exit1 is preserved.",
+    "Summary identifies the real fixed-admission case and a file-level exact-prefix test failure; it does not establish two intended semantic counterexamples.",
+    "activeRc7 is empty and requiredActivePass false; no HS02 baseline proof or admission-boundary conclusion inferred by custody.",
+    "TAP/stderr retained by bytes/hash only; source review and failure interpretation remain Root/reviewer-owned."
+  ],
+  "allocation": {
+    "stagesUsed": 2,
+    "lanesUsed": 1,
+    "stageCap": 4,
+    "laneCap": 8
+  }
+}

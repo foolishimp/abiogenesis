@@ -1,0 +1,56 @@
+{
+  "status": "PREPARED_TWO_CASE_EXTERNAL_PROOF_NO_EXECUTION",
+  "at": "2026-11-07T10:33:52.037106+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL035",
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-last-two-001/run.mjs",
+    "bytes": 9587,
+    "sha256": "a0865cd6931497fe7922d2aa2cc48638acda9adea7418b3fc66dec5609f3db2f"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-last-two-001/RECIPE_DIFF.patch",
+    "bytes": 8779,
+    "sha256": "f033de788b56004d54ebbca71849dd6e5848f704cab7ea18ad1703fc6d3ebffa"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-last-two-001/BINDING.json",
+    "bytes": 8826,
+    "sha256": "51a4e20d83b9331c30d890224e5c337b0f7a81e7045bf4c70d8d760f0905dd54"
+  },
+  "predecessorRecipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-003.mjs",
+    "bytes": 9290,
+    "sha256": "c66493aa3d20640b4af59d74750c3e5eb26656d04b09f76ca260328f4463af5c"
+  },
+  "priorWholeFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/OPERATOR_RETURN_REENTRY_003.json",
+    "bytes": 8655,
+    "sha256": "2b736982f6d72e0d859f938b22ddc0f09b3ec1cc6570abfa3374217e9cedc11d"
+  },
+  "sourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+  "reuse": "Exact frozen A8 READY2132 rows, physical4576 dependencies, archive/current fixture/proof-10 input and tools unchanged. Dedicated derived workspace; no build/generation/provider or primary mutation.",
+  "countingEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/RESULT.json",
+    "bytes": 1858,
+    "sha256": "13c7cb1a5c87f7c28e7c6c929fe1441cab01dcfa11aabb005280bab5faaf2da5"
+  },
+  "selectedCounts": {
+    "passed": 2,
+    "reportedSkipped": 0,
+    "excludedNoCoverage": 10,
+    "wholeFile": false
+  },
+  "bounds": {
+    "commandTimeoutMs": 1800000,
+    "originalPerCaseTimeoutMs": 600000,
+    "outputBytes": 16777216,
+    "heapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "ownedBytes": 4294967296
+  },
+  "standing": "No rerun of cases1-6, timed-outcase7 or other completed lanes; only the two exact positive name prefixes. End/success required; no aggregate or whole-file credit. Preserve every prior failure. Await exact Root execution admission; output and scratch absent."
+}

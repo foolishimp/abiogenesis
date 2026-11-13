@@ -1,0 +1,26 @@
+{
+  "startedUtc": "2026-11-02T10:18:19.573Z",
+  "pid": 1284,
+  "sourceBasis": "none",
+  "sourceCommit": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+  "eventPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 1015795478,
+    "sha256": "b2212d450a9889bf7b7d4031d6380805d2992dece491d431ad1430af69a93693",
+    "device": 16777231,
+    "inode": 673308256,
+    "coordinateDigest": "sha256:b2e0756cc3cf0e18f2906a78df28f62aaad2367b13a5466ea4b11fe89240df55"
+  },
+  "initialObservations": 0,
+  "RuntimeTMPDIR": "/private/tmp/abiogenesis-rc4-runtime-01",
+  "providerCommand": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/claude-provider.sh",
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/PROVIDER_PROFILE.json",
+    "bytes": 3355,
+    "sha256": "f39cdd382599c84179fc653da3266a56fda9f367a5f901859860435a8e272f50"
+  },
+  "automaticRetry": false,
+  "pendingFrontierRecovery": false,
+  "R2Closure": false,
+  "qualification": false
+}

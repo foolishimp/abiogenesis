@@ -1,0 +1,55 @@
+{
+  "kind": "operator_preparation_syntax_and_pin_checks",
+  "at": "2026-11-06T20:14:06.556231+00:00",
+  "checks": [
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/prepare-test-artifact.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/prepare-test-artifact.mjs",
+        "bytes": 9699,
+        "sha256": "6736f1b6c4700daa6bc11c8863b3eb7c3d33de952f4776cb0badb2ee11ab9308"
+      }
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/install-test-artifact.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/install-test-artifact.mjs",
+        "bytes": 3511,
+        "sha256": "0786437a3e0f275fd2bfebf66c9c2e65479acb1c515ce857be5ed1f516cd1a22"
+      }
+    }
+  ],
+  "measurementPreparationPinsVerified": 10,
+  "measurementPreparationUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/PREPARATION_MANIFEST.json",
+    "bytes": 3987,
+    "sha256": "3468b45d6a09300fcdee5b0693be365d9224f63949267b00844fab39589b34a0"
+  },
+  "existingOwnerAndToolPinsVerified": true,
+  "freshOutputsAbsent": {
+    "artifactRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001",
+    "artifactTemp": "/private/tmp/abg-r7p",
+    "bootstrapInstallHost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/bootstrap-install",
+    "measurementRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001",
+    "measurementTemp": "/private/tmp/abg-r7m"
+  },
+  "scriptedActorExecutable": true,
+  "packInstallBuildTestRuntimeExecuted": false,
+  "limitations": [
+    "Syntax and finite pin/shape checks only; future accepted S5 stage and Product archive relation are unbound."
+  ]
+}

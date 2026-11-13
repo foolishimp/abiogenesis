@@ -1,0 +1,105 @@
+{
+  "status": "BROAD_CLOSE_STOPPED_REQUIRES_ROOT_TRIAGE",
+  "at": "2026-11-07T08:23:52.329862+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_009.json",
+    "bytes": 2515,
+    "sha256": "c11cb529990911972770ece70f0a14831f86338d8df6af92c7792fa35743ecb8"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_009.json",
+    "bytes": 6943,
+    "sha256": "5fda406a26573153743d4dc40b48faa3af1b01eb945ab8f9151bb1f72dcca6b4"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_008.json",
+    "bytes": 16742,
+    "sha256": "587b1f2a0e1abf7968539f1f3f2eed2a321261621f2b22cb6ce2db5d1aa13fb2"
+  },
+  "execution": {
+    "pid": 17575,
+    "sessionId": 66501,
+    "startedUtc": "2026-11-07T08:20:01.285Z",
+    "stoppedUtc": "2026-11-07T08:21:27.650Z",
+    "wallMs": 87750,
+    "exitCode": 1,
+    "processObservedAbsent": true,
+    "primaryPreserved": true
+  },
+  "stop": {
+    "file": "test_env/tests/t287-governed-context.test.mjs",
+    "case": "GC03 real owner allowed denied cold tamper",
+    "location": "materializeGc03Recipe/place at test source599; called at605/730",
+    "error": "method/EVALUATION.md differs from its custody digest",
+    "actualSha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485",
+    "expectedSha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+    "standing": "The pinned stdo launcher resolved the selected release; execution advanced beyond the prior missing-tool boundary. This new custody mismatch is returned without source/fixture repair, waiver or retry. Root owns applicability and causal triage.",
+    "fileWallMs": 27033.854290999996,
+    "timedOut": false,
+    "truncated": false,
+    "signal": null
+  },
+  "counts": {
+    "retainedWholeFiles": 92,
+    "retainedPassed": 525,
+    "retainedSkipped": 122,
+    "newCompleteWholeFiles": 0,
+    "failedFilePartialPassedExcluded": 14,
+    "failedFileFailures": 1,
+    "remainingFilesIncludingFailure": 116,
+    "totalFiles": 208
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "48f4946ae9362fa2c40811c7e6196d3d3c13446de48c71584f5326c6adf88470"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/SUMMARY.json",
+      "bytes": 199874,
+      "sha256": "fec043777077efa9d64c57b93679b4f7db88f16337908d42165b9b321be320e5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/files/090-t287-governed-context.json",
+      "bytes": 1146,
+      "sha256": "7badbafe093f2794489da40da34f496003f536bda3a3263118e00c4121034183"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/commands/090-t287-governed-context.request.json",
+      "bytes": 975,
+      "sha256": "a1cfa670dd0a883fce8df0c7fd6fdfa9e07909e223d3dad7332339d81ac3aadb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/commands/090-t287-governed-context.result.json",
+      "bytes": 1475,
+      "sha256": "f4551a544e045cee117e6aa9a4f4a29c435a3ab97a15ccfcbaa2d7e0d214845a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/commands/090-t287-governed-context.stdout",
+      "bytes": 5713,
+      "sha256": "98ffa6372a20219a072be7c1f213ae935c65a7d8a7ae35e851b34644333a7d48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/commands/090-t287-governed-context.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/events/090-t287-governed-context.jsonl",
+      "bytes": 6907,
+      "sha256": "b75814922f58442533941f3176bdaaafc8eeecf7133d8179f8df04f0786c7c65"
+    }
+  ],
+  "preservation": {
+    "sourceWrites": 0,
+    "providerCalls": 0,
+    "gitEffects": 0,
+    "cleanup": false,
+    "automaticRetry": false,
+    "priorReceiptsUnchanged": true,
+    "scratchRetained": "/private/tmp/abg-r8c-009"
+  },
+  "nextBoundary": "Root triage; no broad continuation selected. Separate author07 historical-profile preparation remains within its existing grant; provider dispatch held.",
+  "broadAccepted": false
+}

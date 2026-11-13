@@ -1,0 +1,97 @@
+{
+  "status": "BROAD_016_PREPARED_NOT_EXECUTION_ADMITTED",
+  "at": "2026-11-07T11:22:48.950046+00:00",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-016.mjs",
+    "bytes": 33132,
+    "sha256": "d3c9f5b20483b8723ae7181757a31331810ea6452d195bf95d9f291530af9cda"
+  },
+  "driverDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_016.patch",
+    "bytes": 3803,
+    "sha256": "76b400519faee00b8c2b7f85e116cb52ce32b0af5f1f54f6e0062e314045ee4c"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_017.json",
+    "bytes": 355004,
+    "sha256": "f675340b088734a023c447405efbe13bb8d231006506db520c4b48822d4fa077"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-017/BOUND_INVENTORY.json",
+    "bytes": 2026141,
+    "sha256": "7a142f5fa43b03becc1ef72a852215fb01359d0fa7d165a6ef4f3b0b97eec386"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_016.json",
+    "bytes": 5134,
+    "sha256": "fab2e6f52652698fc7f8b7f8322679dcfea7a0d049eceb69c54a18b1fec8b419"
+  },
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 147,
+    "passed": 801,
+    "skipped": 192,
+    "scheduled": 53,
+    "deferredNoCoverage": 8
+  },
+  "stageDigest": "860a77f27357793b982d1943b6f8aff1dda3fce523d88c15d7ac43c56f36b26d",
+  "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+  "sourceDependencyTestToolEnvOracleBoundsUnchanged": true,
+  "priorCreditsAndDeferralsUnchanged": true,
+  "changedInventoryFields": [
+    "at",
+    "config",
+    "counts",
+    "deferredFiles"
+  ],
+  "newDeferral": {
+    "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+    "testSha256": "13ea567a5e3c0bdbb36b413671c0ee72794fe8306737e0019c47edada2eb5c6c",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Root causal triage pending; zero whole/test credit; no final no-block or retry disposition. Temporary scheduling deferral only, not a technical-debt acceptance.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_015.json",
+        "bytes": 6731,
+        "sha256": "1d7e6bc6d6dd7926b0ee4f865d229ff62c1694605e7ed122b0fc7cf44394e39d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/FAILURE.json",
+        "bytes": 612,
+        "sha256": "76aa032784aff0c64fd8bf885027cbbd2d153279a40ed41f30fa674c569ff63f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/files/153-t287-registered-graph-selection.json",
+        "bytes": 1034,
+        "sha256": "929f2a391255099e480fade0eb468b458d21e04d1ecd5d6dfcfe7b4a035cbe93"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/commands/153-t287-registered-graph-selection.result.json",
+        "bytes": 1504,
+        "sha256": "418671d5a19934cb9b627e1c8e509129e9b1fd4e93334352ef26d79fa91b83cc"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/commands/153-t287-registered-graph-selection.stdout",
+        "bytes": 63,
+        "sha256": "6eb6b3b13c4aa7171b9e31ead93e8174edb8a68f85e069b04497acfa45116d30"
+      }
+    ]
+  },
+  "rootAdmission": null,
+  "syntaxPassed": true,
+  "bindOnlyExitCode": 0,
+  "testsExecuted": 0,
+  "prospectiveCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-016.mjs",
+    "run",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_017.json",
+    "f675340b088734a023c447405efbe13bb8d231006506db520c4b48822d4fa077",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-017/BOUND_INVENTORY.json",
+    "7a142f5fa43b03becc1ef72a852215fb01359d0fa7d165a6ef4f3b0b97eec386",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_016.json",
+    "<exact future Root admission SHA256>"
+  ],
+  "executionSelected": false
+}

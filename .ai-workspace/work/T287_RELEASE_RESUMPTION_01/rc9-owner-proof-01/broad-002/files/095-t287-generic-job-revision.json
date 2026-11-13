@@ -1,0 +1,81 @@
+{
+  "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1548.1697919997387,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 4,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 4,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "saved native revision bridge preserves revision discriminants and selected-retained ownership",
+      "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT unset; requires the saved native revision bridge prefix root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "saved revision Evidence separates historical origins from checked successor state",
+      "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT unset; requires the saved revision Evidence prefix root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "native correction consumes an actual failed verifier and preserves the unselected file",
+      "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_CORRECTION_NATIVE is not '1'; selects the native correction run over an actual failed verifier",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/095-t287-generic-job-revision.jsonl",
+    "bytes": 1937,
+    "sha256": "9f77c6113f89cf78d983ea19832531dbc61004cc913cbe0a0d3207eeb4d2e083"
+  },
+  "commandReceipt": "commands/095-t287-generic-job-revision.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

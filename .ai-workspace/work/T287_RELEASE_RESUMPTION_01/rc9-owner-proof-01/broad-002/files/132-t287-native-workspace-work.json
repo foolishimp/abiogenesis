@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 3760.460582999978,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 44,
+    "failed": 0,
+    "passed": 43,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 40,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 23,
+      "type": "case",
+      "passed": true,
+      "name": "admitted pure consumer evaluates a native task as data without physical authority",
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "nesting": 0,
+      "testNumber": 19,
+      "suite": false,
+      "skip": "ABI5_NATIVE_WORK_RETAINED_ROOT unset; requires the retained installed consumer first-leaf failure",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/132-t287-native-workspace-work.jsonl",
+    "bytes": 12711,
+    "sha256": "53143d527f45facced96a6a08c2c4e9c11a67f9e8f16a0cdb0d4fdcec302452b"
+  },
+  "commandReceipt": "commands/132-t287-native-workspace-work.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

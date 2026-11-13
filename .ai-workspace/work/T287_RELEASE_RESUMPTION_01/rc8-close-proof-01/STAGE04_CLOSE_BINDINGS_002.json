@@ -1,0 +1,326 @@
+{
+  "status": "BOUND_RC8_CLOSE_PROOF",
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "stage": {
+    "root": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work",
+    "freezeReceipt": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "materializationRoots": [
+      "build_tenants/abiogenesis/typescript",
+      "specification",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE",
+      "stdo_abiogenesis.json",
+      "AGENTS.md",
+      "CLAUDE.md"
+    ],
+    "bindingNote": "Exact already-built stage04; bind inventories only. Source acceptance remains Root disposition and no execution is admitted by this preparation.",
+    "completedStage": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/RESULT.json",
+      "bytes": 848,
+      "sha256": "838905e62db6a10282a24617d4e3002369327f2d899afb1a9e5e1d16eb6bb4b1"
+    }
+  },
+  "dependencies": {
+    "root": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/node_modules",
+    "bindingNote": "Exact stage-selected pinned dependency root. Bind inventories all members; execution copies once and links only its own dependency copy into its own fixture workspaces."
+  },
+  "node": {
+    "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "toolPins": [
+    {
+      "name": "node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "name": "python3",
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "bytes": 33816,
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa"
+    }
+  ],
+  "ownerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "bindingRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-002",
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001",
+  "scratchRoot": "/private/tmp/abg-r8c-001",
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "fileTimeoutMs": {
+    "test_env/tests/t287-governed-context.test.mjs": 2100000,
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs": 3600000,
+    "test_env/tests/t289-install-event-bodies.test.mjs": 1200000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000
+  },
+  "focusedCoverage": [
+    {
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/RESULT.json",
+          "bytes": 341,
+          "sha256": "6ba4b1d5816d9176cc9c8af46dd34be6794525e8a02cfe9f377fa6cb9d1d2a7a"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.request.json",
+          "bytes": 759,
+          "sha256": "90c3b485b404891b7ec3c5eef52c572d7b739425d0e892df5e5430c476424a46"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.result.json",
+          "bytes": 1211,
+          "sha256": "c17e562f1ddcc1d4b217daca459cc869e11542ccbcbf68577464b09d26f84aa9"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.stdout",
+          "bytes": 7530,
+          "sha256": "52ce158069798edbf972a9096e60218b2ddb56613f88f3d1f80df7c75f60c9c5"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/RESULT.json",
+          "bytes": 343,
+          "sha256": "6792ff9f2a15aed71028f34f7718f7b7373a88a1f0162c574dfe42a6330b2c06"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/commands/test.request.json",
+          "bytes": 767,
+          "sha256": "734a072ed7d9c29fbe3f442062af677de445e8c97158c3a1ff585957af9898fb"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/commands/test.result.json",
+          "bytes": 1224,
+          "sha256": "4bea8478690f88ab2bcf3a1d927951f8a4ab17b23a8982516363fb91f97e5772"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/commands/test.stdout",
+          "bytes": 2349,
+          "sha256": "fe1cfee945d53728ca2a273487db900db79b22e673d41386f64160f4f7a6ad26"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 5,
+        "passed": 3,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 2,
+        "todo": 0
+      }
+    },
+    {
+      "file": "test_env/tests/r4-catalog-admission.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "379a3434a504128e2e8e16e44e0bf1d61d924158af4f323c4860535629637f43",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/RESULT.json",
+          "bytes": 336,
+          "sha256": "d45e06539cb01d0287f3c7e1982282a752b356137444b96b0606fbbd9fad67e0"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/commands/test.request.json",
+          "bytes": 754,
+          "sha256": "f3f3dd2b1c09c3699bfd5d14266603430c3dd3f0c458a2a03f5dbec60918251c"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/commands/test.result.json",
+          "bytes": 1204,
+          "sha256": "9322114e1b3a71e9328db5c7d69c9bec4725a12e00d3a26d50a44679405fc89f"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/commands/test.stdout",
+          "bytes": 3097,
+          "sha256": "cb05358a39d7485360e5a19ced3e70e541b81f7bdebc86f4f1ec4cd3b0a2bfe6"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 8,
+        "passed": 8,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "file": "test_env/tests/r5-invocation-admission.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "9db87e6586201f7ac806df00076fd4a289241750c9bb6cf367081b50f613cd94",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/RESULT.json",
+          "bytes": 341,
+          "sha256": "92951975bf5df216c58c2a18acd7490902898be755b692c0dc1a9b9ca7483231"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/commands/test.request.json",
+          "bytes": 757,
+          "sha256": "c32a34206580acb73bbe87e8f30ecfecc1ade4f56743fae149dc0aacfb045720"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/commands/test.result.json",
+          "bytes": 1208,
+          "sha256": "db2255758fdd6dd082fd585b20a0130f56f92b1b9f3073d063a5e5ef3e1577fc"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/commands/test.stdout",
+          "bytes": 592,
+          "sha256": "52a12e650ecff82d5c86205a00a8211458c9e5bae99711030960e3a4a33038aa"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 2,
+        "passed": 2,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/RESULT.json",
+          "bytes": 339,
+          "sha256": "8d6e32a229aee97db4be68a4033950d29f891b75c1971c24ef49c0230548c1e6"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/commands/test.request.json",
+          "bytes": 753,
+          "sha256": "ad7dced46747b12075d9c9e09cf1d2326fefa094865aa4373a3ffc6f59bd0fd8"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/commands/test.result.json",
+          "bytes": 1205,
+          "sha256": "c35a6e23ef868bfc67ae899b271dbb9275a2946264e4a83a473d172d64aabf61"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/commands/test.stdout",
+          "bytes": 9819,
+          "sha256": "45006f62b056d62518f0b9540ec97c53aa4cf7eb2686d74f32eea1bce9cd4a36"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 32,
+        "passed": 32,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    }
+  ],
+  "providerCallsSelected": 0,
+  "qualification": false,
+  "executionStanding": "CORRECTED INVENTORY PREPARATION ONLY. Use corrected driver/manifest and binding-002; original binding-001 omitted bundled build node_modules and is superseded. Root reads exact config/inventory before separate execution admission, after matched measurement/profile closes. No tests or test fixture allocations selected by bind."
+}

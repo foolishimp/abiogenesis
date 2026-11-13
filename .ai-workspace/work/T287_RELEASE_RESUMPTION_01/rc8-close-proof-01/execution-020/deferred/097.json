@@ -1,0 +1,27 @@
+{
+  "file": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+    "testSha256": "7934030bf45017bb9d07877981d9a7b80436be52c88686a909c5390539644813",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Actual execution010 six read-member failures await selected fixture-only owner completion seam review; no runtime repair selected.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_010.json",
+        "bytes": 10716,
+        "sha256": "5c1ceb68316e0704d5ca17b49ac56aeeb424bc4941ee48638d961f65ce046313"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-010/files/097-t287-installed-product-coordinate.json",
+        "bytes": 1182,
+        "sha256": "57c17c8dec7fa050315409885f3880f55c69f58567e89e5ee02e94eef3eba84e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-010/commands/097-t287-installed-product-coordinate.stdout",
+        "bytes": 6333,
+        "sha256": "928f2737c09d38b9bb113091163b5cde6e1da828f3605723c7c7b713888b1d89"
+      }
+    ]
+  }
+}

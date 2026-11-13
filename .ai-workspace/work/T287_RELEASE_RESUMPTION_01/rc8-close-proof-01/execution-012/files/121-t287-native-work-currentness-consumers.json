@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 398442.80937500007,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 6,
+    "failed": 0,
+    "passed": 6,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 6,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/events/121-t287-native-work-currentness-consumers.jsonl",
+    "bytes": 2344,
+    "sha256": "d3c79cede4e21a01a536a5c7ba873d9833deac7f43364fff42113a4ea144f5b6"
+  },
+  "commandReceipt": "commands/121-t287-native-work-currentness-consumers.result.json",
+  "workspace": "/private/tmp/abg-r8c-012/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

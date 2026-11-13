@@ -1,0 +1,9 @@
+# Attempt003 draft handoff
+
+Prepared over PARTIAL `6dffbc0adbe19c3cae4eba4248173108a1c45477` / tree `83b0847252d829d3140db667bace91153ae3c5bc`. Root’s exact scope/evidence reprice is incorporated. Final narrow existing replacement-Run source-use route remains pending; final freeze is withheld. No ROOT_ADMISSION.json, final binding, frozen packet or actual call exists. No ABI/runtime/provider operation, build or Product test was executed.
+
+Scope draft: existing51 Product paths plus `code/src/abg/fh_continuation_projection.ts` =52, and separate `rc4-scratch/native-recovery-03` resource subtree. Thirteen invariant sources are disjoint from Product/scratch writes. The extra owner already belongs to the prior C2 selected read set; only the source-correspondence command’s path list is extended. All9 C2 purposes/predicates and other command bytes remain. Only maxTurns rises to480; xhigh/no dollar cap/75min inactivity/90min absolute/45min focused/3h outer remain.
+
+Existing attempt002 supported final handoff references 150636131 bytes, prefix digest `sha256:481885a0d7e7944959c914e6a56028437f173a05caa9c40697914b088b182a1c`, coordinate digest `sha256:f7179edb884c49033be68f9cfb7d72298d2b88dba1e63f36f2b68faa3c902af0`. File identity/hash/size checked read-only with stable stat; installed validity remains Root preflight’s responsibility. Reuse is for a fresh `sourceBasis:none` development task, not run.continue recovery proof. No old scratch is source authority or selected for deletion.
+
+Operator source/write disjointness and negative-overlap control pass; JavaScript/Python syntax passes. Script reuse is retargeted to attempt003. Actual installed preflight and generated-call review remain unperformed and Root-only. The final replacement-Run route, final materialized input identities, concrete binding, exact admission and eventual actual call are still required. Current draft sources are reversible operator inputs; no native Product bytes were changed.

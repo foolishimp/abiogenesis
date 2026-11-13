@@ -1,0 +1,61 @@
+{
+  "diagnosis": "RC9_OWNER_DIAGNOSIS_006",
+  "originalTestVerdict": "passed",
+  "cpuDiagnosticsComplete": false,
+  "profileCollection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/PROFILE_COLLECTION.json",
+    "bytes": 929,
+    "sha256": "f7f568875b99a173073c52f6bc0bb4f19dfc6f89de8c2104b0de53c607f7ffbc"
+  },
+  "processCpuObservations": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/PROCESS_CPU_OBSERVATIONS.json",
+    "bytes": 1351,
+    "sha256": "2cf8609ee3a85392f3d1778ef192e446e40a0d2ca32a8bcafa1692828a1f3f70"
+  },
+  "fileHostChildOutcome": {
+    "exitCode": 0,
+    "signal": null
+  },
+  "status": "OWN_PROOF_PASSED",
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "ownerObservationFailure": null,
+  "ownerObservations": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/OWN01_OBSERVATIONS.json",
+    "bytes": 7656,
+    "sha256": "fa2018c5cf22e009eb7f6a8aa37d8e63fbc2df3f1208b339ce223527f8ab0bc6"
+  },
+  "skips": [],
+  "reporterComplete": true,
+  "parseFailure": null,
+  "command": {
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 38862.481125
+  },
+  "commandFailure": null,
+  "conservationFailure": null,
+  "ancestryFailure": null,
+  "postAncestryFailure": null,
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/events.jsonl",
+    "bytes": 888,
+    "sha256": "1a6d7754e57af030bf9314114ce11ccc1a23b84b50e7687ecfbec7aa2be65627"
+  },
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "wholeFile": true,
+  "originalUnitStanding": "FAILED/INCOMPLETE_UNCHANGED",
+  "sourceAcceptance": false,
+  "standing": "Actual original OWN verdict and diagnostic availability recorded separately. Cancellation remains incomplete proof even when profiles are usable. No automatic retry or source acceptance. Original unit remains incomplete; M5 residual and bootstrap/broad conjunction remain Root-owned."
+}

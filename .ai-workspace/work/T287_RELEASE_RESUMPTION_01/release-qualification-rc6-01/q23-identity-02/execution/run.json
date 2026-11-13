@@ -1,0 +1,8 @@
+{
+  "kind": "bounded_q23_native_construction_preparation",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "heldSourceSnapshotSha256": "420880c5f951bce9925552be4631a075f23126a15a43eb9eeb990f7649a9b5eb",
+  "sourceBasis": "none",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

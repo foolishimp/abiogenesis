@@ -1,0 +1,69 @@
+{
+  "kind": "root_native_program_basis_refusal_triage",
+  "at": "2026-11-05T18:48:45.153554+00:00",
+  "actualRefusal": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "invalid_graph_function",
+      "evidenceRefs": [
+        "event://abiogenesis/d071fa59636d7be1a01cc59568167145f92c4adb19bb0855b9a22fe05ab5960f",
+        "diagnostic://abiogenesis/execution-basis/worksite-environment-authority-mismatch@5"
+      ],
+      "issuePaths": [
+        "/execution_basis"
+      ]
+    }
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/calls/lifecycle-start.outcome.json",
+    "bytes": 4141,
+    "sha256": "85db6026848ebf80e0797a4d447fbca33c24ac3dea87cbe1208d1ef03a5f742c"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/after-run-resume.json",
+    "bytes": 72663606,
+    "sha256": "cda9e1191ed960dd444cbc518b88cf3df43a82f8fc882f8521b458655f37dfdf"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:23abd6f15895d6cd9718b8817f8d2a621bd207b9f0ccb365dccfbba23f63fa57",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:b686e9bde92ee4debec0b3d5a20d6e4bbae86c05fb31996690dc75a7059aee85",
+    "prefixLength": 230057925,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "sourceUnchanged": true,
+  "RunAdmissions": 0,
+  "providerCalls": 0,
+  "cause": "Root reused the workflow consumer worksite binding for the ABI-owned native-work root Program. Existing exactProgramOwnerInstall requires the root Program owner installation to equal workspaceBinding.roots.productRoot.",
+  "frames": [
+    {
+      "frame": "operator subject/binding selection",
+      "finding": "Program owner changed while root Product binding stayed consumer-owned. Static public population and prompt checks do not establish execution-basis admission."
+    },
+    {
+      "frame": "installed Product boundary",
+      "finding": "Runtime correctly refused before a Run/actor. Existing execution_basis.js exactProgramOwnerInstall is the material owner; no Product defect or code repair is inferred."
+    },
+    {
+      "frame": "source and evidence",
+      "finding": "Twelve-file partial unchanged. Failed call and new genuine close remain historical. No author session was resumed or forked."
+    },
+    {
+      "frame": "selected next owner path",
+      "finding": "Use existing workspace-bind, Catalog admission and view owners for an explicit ABI-root binding over the same actual worksite and installed set. Preserve old binding/catalog/view for later clean consumer-owned proof. No reinstall, global selector, custom Program/router or source change."
+    }
+  ],
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/execution_basis.js",
+    "bytes": 113305,
+    "sha256": "792a8c6032ebb4efb3f036ce34b6e362a45121c1505f84d2976c658f7d6c40e9"
+  },
+  "oldProductRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+  "selectedProductRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+}

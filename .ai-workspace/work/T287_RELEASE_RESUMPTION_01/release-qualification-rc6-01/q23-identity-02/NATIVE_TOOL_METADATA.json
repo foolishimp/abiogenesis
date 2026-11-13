@@ -1,0 +1,48 @@
+{
+  "kind": "allowlisted_native_tool_use_metadata_only",
+  "at": "2026-11-05T18:09:49.440895+00:00",
+  "sourcePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-a7850398982e3db6-stdout.log",
+  "completePrefixBytes": 11022047,
+  "completePrefixSha256": "d54dbfee894e726de7ea2cb00aee5215afcb513267ea38631267347228ef59b6",
+  "uniqueToolUses": 258,
+  "toolCounts": {
+    "Bash": 216,
+    "Read": 30,
+    "Edit": 6,
+    "Grep": 6
+  },
+  "recent": [
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    }
+  ],
+  "terminalMetadata": null,
+  "limits": "Only assistant tool_use metadata and explicit terminal counters projected. No private reasoning/narrative or tool_result inspected or output; not Product result/acceptance."
+}

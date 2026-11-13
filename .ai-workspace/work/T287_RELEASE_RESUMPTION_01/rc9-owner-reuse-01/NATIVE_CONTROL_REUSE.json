@@ -1,0 +1,135 @@
+{
+  "status": "PROPOSED_ROUTE_SCOPE_AND_ACTIVATION_HELD",
+  "recordedAt": "2026-11-08T06:14:15.188327+00:00",
+  "builder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/CHECKOUT.json",
+    "bytes": 1467,
+    "sha256": "28b9d806864d6a67361fc06a474af848cf0dec325f0e6dd085ca79a0926319ff"
+  },
+  "preparationIntake": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/INTAKE.json",
+    "bytes": 4799,
+    "sha256": "59e678e747bc2051a779da756742815309fbb3101a60a6a3a1439376f6805f1c"
+  },
+  "precedents": {
+    "BINDING.002.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+      "bytes": 9837,
+      "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+    },
+    "host.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/host.mjs",
+      "bytes": 10440,
+      "sha256": "be4d9890bd6108579ac3aa037a4b33af3273d08cfdec2e882ce235612e41002a"
+    },
+    "author-12/host.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/host.mjs",
+      "bytes": 12242,
+      "sha256": "ea4664c63e512366e70dc736bfcb0624a01459100c6063d596001c54c3c08312"
+    },
+    "author-12/TASK.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/TASK.json",
+      "bytes": 6688,
+      "sha256": "92b4fcedc260f3d46d1c1cf6533ab7d66b6ec71bd13422b30ae0ff75b0862118"
+    },
+    "author-12/ROOT_SCOPE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SCOPE.json",
+      "bytes": 18972,
+      "sha256": "7fdd2b56eea22bcb8ea8396e4fc150a26a91af7a8023c9646ddec89b03db2168"
+    },
+    "author-12/readbacks.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/readbacks.mjs",
+      "bytes": 4791,
+      "sha256": "51139e4cdcf234b123e333c94522c488cdacb044f9b23565f29f30178c7280ba"
+    }
+  },
+  "sourceHelpers": {
+    "public-setup.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39883,
+      "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+    },
+    "runner.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    "consumer.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    "scenarios.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  },
+  "helperCopyNeeded": false,
+  "helperRoute": "Import these exact maintained C9-at-RC8 helper bytes by pinned absolute path; installedModules takes immutable RC8 installed root. No new framework shape, runtime or helper library is defined. Refresh affected pins only under a later source-change grant.",
+  "exports": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/INSTALLED_EXPORT_CHECK.json",
+    "bytes": 2263,
+    "sha256": "6249fbf755334b59e3b3b04d2bc0c0384d39d1647710e5a6935a0e4948c1ed53"
+  },
+  "freshInitialSetup": {
+    "owningHow": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md#maintained-setup-owner-reuse-rc4-setup020",
+    "hostPrecedent": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/host.mjs",
+    "sequence": [
+      "public-setup.installedModules(RC8 installedRoot)",
+      "public-setup.verifyArtifact over exact RC8 archive/manifest",
+      "public-setup.publicCaller over new runtime record/resource roots",
+      "existing imported-workspace owner adaptation with preserve_all_existing for RC9 worksite",
+      "public-setup.populateSandbox(caller,{retain:true,program:library}) constructs fresh ProductSet/lock/catalog/setup Program through maintained installed owners",
+      "select native Program by RC8 NATIVE_WORKSPACE_WORK_IDS from the fresh catalog and derive native view",
+      "observeWorksiteContext over Root-selected source scope",
+      "api.constructInstalledStartCall with constructNativeWorkspaceWorkTask through its factory using owner-issued workspaceBinding/grant",
+      "retain same live owner resource, environment, catalog and constructed call for exact Root dispatch admission",
+      "runner.invokeLifecycle only after exact later dispatch grant",
+      "actual owner close followed by runner.freshReadbacks against exact actual closed successor"
+    ]
+  },
+  "author12Reuse": "Reuse the pin checks, actual task/source checking, held prepared stdin-admission boundary, actual-close handling and genuine fresh-readback pattern. Do not reuse its RC7 setup/reopen/resource/Program/catalog/lock coordinates, Run id, close authority, preimages or fixed digest literals.",
+  "unallocatedProposedRoots": {
+    "runtime": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/runtime-001",
+    "firstNativeTask": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01",
+    "scratch": "Fresh finite scratch under /private/tmp; actual path and ownership to be allocated only under later Root setup grant"
+  },
+  "modelPolicy": {
+    "humanProxy": "gpt-6-astra max",
+    "processActors": "gpt-6-astra xhigh",
+    "nativeAuthor": "claude-opus-5-5 xhigh"
+  },
+  "providerPrecedent": {
+    "executable": {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+    },
+    "wrapper": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/claude-provider.sh",
+      "bytes": 68,
+      "sha256": "93542d7ecc30905e9f04ced90dd571b9514bfd8a62e4276620fd6d364051b997"
+    },
+    "status": "Historical pins only; freshly verify exact native executable and wrapper at concrete preparation. Never retarget global configuration. No credentials read."
+  },
+  "missingRequiredBindings": [
+    "Closed Root conjunction and exact implementation/HOW/proof scope",
+    "Per-task TASK read/write roots, checks, input/prompt limits and stop contract",
+    "Concrete fresh runtime/scratch/resource authorization and ownership",
+    "Fresh Program/catalog/lock/ProductSet and exact installed verifier results from owner setup",
+    "Exact source/helper/toolchain/provider pins and command limits for that activation",
+    "Prepared native call and Root dispatch admission",
+    "RC9 final proof population and residual disposition"
+  ],
+  "noDispatchReadinessClaim": true,
+  "runtimeAllocated": false,
+  "providerDispatched": false,
+  "sourceEdited": false,
+  "builderQualified": false
+}

@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 708.6142080000136,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 7,
+    "failed": 0,
+    "passed": 7,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 7,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-003/events/024-m5-retry-lifecycle-authority.jsonl",
+    "bytes": 2446,
+    "sha256": "272814700671c1d8e3f1e6648b371cdf9ac2af06b003ac4274936ce6ea69e1d7"
+  },
+  "commandReceipt": "commands/024-m5-retry-lifecycle-authority.result.json",
+  "workspace": "/private/tmp/abg-r8c-003/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

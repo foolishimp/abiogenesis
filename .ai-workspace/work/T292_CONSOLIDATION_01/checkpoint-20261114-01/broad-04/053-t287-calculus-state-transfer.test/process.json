@@ -1,0 +1,32 @@
+{
+  "label": "053-t287-calculus-state-transfer.test",
+  "started": "2026-11-13T11:11:41.834026+00:00",
+  "ended": "2026-11-13T11:18:49.182121+00:00",
+  "wallMs": 427379,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/053-t287-calculus-state-transfer.test/stdout.raw",
+      "bytes": 13637,
+      "sha256": "1c6d513294ac11b16f52d7f70a8dd233808ba526ebe916f4c730eb9828d15b83"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/053-t287-calculus-state-transfer.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 28,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

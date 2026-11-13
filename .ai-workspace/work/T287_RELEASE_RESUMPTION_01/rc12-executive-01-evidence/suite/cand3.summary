@@ -1,0 +1,6 @@
+start 20:48
+build exit 0
+r3-workspace-binding exit 0 ℹ tests 1 ℹ pass 1 ℹ fail 0 ℹ skipped 0 
+witness-reprice-definition-binding exit 1 ℹ tests 15 ℹ pass 14 ℹ fail 1 ℹ skipped 0 
+t287-c0-post-publication-failure exit 1 ℹ tests 31 ℹ pass 30 ℹ fail 1 ℹ skipped 0 
+end 21:10

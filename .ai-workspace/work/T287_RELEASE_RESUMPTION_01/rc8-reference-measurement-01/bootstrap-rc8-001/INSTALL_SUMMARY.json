@@ -1,0 +1,34 @@
+{
+  "status": "ISOLATED_RC8_BOOTSTRAP_MATERIALIZED",
+  "sourceIdentity": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "releaseCut": false,
+  "qualified": false,
+  "providerCalls": 0,
+  "installedRoot": "/private/tmp/abg-r8m-rc8-bootstrap-001/host/node_modules/@abiogenesis/typescript-tenant",
+  "artifactDigest": "sha256:a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+  "budget": {
+    "label": "after_materialization",
+    "logicalBytes": 120646198,
+    "freeBytes": 9647149056,
+    "quota": false,
+    "overshootPossible": true
+  }
+}

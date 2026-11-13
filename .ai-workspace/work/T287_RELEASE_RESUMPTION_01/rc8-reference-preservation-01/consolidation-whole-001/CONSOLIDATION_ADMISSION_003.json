@@ -1,0 +1,33 @@
+{
+  "status": "ROOT_ADMITTED_FULL_CONSOLIDATION_FILE",
+  "at": "2026-11-07T09:24:22.115144+00:00",
+  "bindingSha256": "ccd638b11a2e35bd6b19724e35f929776bbb8261d06c3c095eed67290150161b",
+  "coordinateProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/coordinates-001/RESULT.json",
+    "bytes": 870,
+    "sha256": "1fd5cc47b8cb2c000a3474015f6882c395cfc4fa36b34027b03eed4a3f05f40e"
+  },
+  "rootDisposition": "Root admits one whole SAS run conditional on exact same-source whole coordinate PASSED11. Predicate now holds. Retain failed A8 native Run and partial historical proof; no Worker restart. Twelve cases including final aggregate required; existing1h cap and first-new-red/drift/resource stop, no retry/build/provider/source edit/cleanup.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-003.mjs",
+      "bytes": 9290,
+      "sha256": "c66493aa3d20640b4af59d74750c3e5eb26656d04b09f76ca260328f4463af5c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/REENTRY_DIFF_003.patch",
+      "bytes": 1805,
+      "sha256": "07c9493623061507d3352aecc240bb041e772bf9dddffc18cf0f53a07a4102ca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/PREPARATION_REENTRY_003.json",
+      "bytes": 1785,
+      "sha256": "80e9bf1c7ac655de7c14c83d8173476fdd8958b2542e50296a50f0784ce6fe1f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/ROOT_REENTRY_001.json",
+      "bytes": 3462,
+      "sha256": "d437a7374fc31d580a1fd53ccc7b9f70fed47e6480bc1d0bfed8f5f4855048ab"
+    }
+  ]
+}

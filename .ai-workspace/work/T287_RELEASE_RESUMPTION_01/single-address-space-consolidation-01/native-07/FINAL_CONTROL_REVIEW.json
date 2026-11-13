@@ -1,0 +1,239 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "fixedFifteenFamilies": true,
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "scope": "original R1-R7/C1-C5",
+    "sourceDefinition": "STDO3.0.4",
+    "builderRuntime": "immutable installed RC5/STDO3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "emptyCompanions": true,
+    "rootOwnsSelectionAdmissionAcceptance": true
+  },
+  "recordedUtc": "2026-11-04T03:44:19.447542+00:00",
+  "kind": "bounded_final_native07_control_review",
+  "role": "independent nonauthor MAX; same-family and prior-advisory limits retained",
+  "subjects": {
+    "ROOT_REENTRY_SELECTION_07.md": {
+      "bytes": 12312,
+      "sha256": "24fb0de17574b992d28fab71009f086f56c346e84effd98e9b7654b4551d6bc2"
+    },
+    "native-06/ROOT_CONJUNCTION.json": {
+      "bytes": 21305,
+      "sha256": "c42f01a28029f29ff00a9f01800344c5fa64be21121f496061015f5bc1772c27"
+    },
+    "native-06/NATIVE07_EVIDENCE_REUSE.json": {
+      "bytes": 306610,
+      "sha256": "e01bbc9b6b3d6998eac59ef3092294785e2a01ce76c4bdf2617971e95bce0165"
+    },
+    "native-07/workload.json": {
+      "bytes": 215356,
+      "sha256": "d66de529701b24fa0ff7f39dcbb64fbfca192159b328b8efa2146efbee212199"
+    },
+    "prepare-native-07-r5.py": {
+      "bytes": 20311,
+      "sha256": "c7102bcff606f0babf31c888a4ee5d89a11025ba01aa0ae976bfa21cbae7affd"
+    },
+    "native07-c2-proof-template.mjs": {
+      "bytes": 7744,
+      "sha256": "e5e2fa0c4ce28008051134b893102dc0588da79ec6b91c4ceffccb8bf8250914"
+    },
+    "native-07/DOWNSTREAM_CAPACITY_PREFLIGHT.json": {
+      "bytes": 1604,
+      "sha256": "4ab8a93dca3b8cb4f1247c96cd9ada7d8ee353d96be76fd1e9e962d1c1c42ba9"
+    },
+    "native-07/SELECTOR_CAPACITY_PREFLIGHT_R1.json": {
+      "bytes": 1168,
+      "sha256": "0b3807df68e6198679595df332f3f122394da7c6b6e831f5feffaaed09ffea16"
+    },
+    "native-07/downstream-capacity-preflight.mjs": {
+      "bytes": 4595,
+      "sha256": "1d1d0ea30ed11107cdf72ee6f60a1203cac2dfe666299ebeab8235febadc827d"
+    }
+  },
+  "generatedInputPins": {
+    "C2_INPUTS.json": {
+      "bytes": 21389,
+      "sha256": "2e6e5b349ee6a00e2a217a82ec819e56802de1a60350fd10244017e7458461f8"
+    },
+    "NATIVE_GRANT.json": {
+      "bytes": 17783,
+      "sha256": "d75aca0b77bb8fa54394ecc6c0bed35df0aa4d5f3d63e7d9ef31f0ccac7503a4"
+    },
+    "NATIVE07_EVIDENCE_REUSE.json": {
+      "bytes": 306610,
+      "sha256": "e01bbc9b6b3d6998eac59ef3092294785e2a01ce76c4bdf2617971e95bce0165"
+    },
+    "c2-proof.mjs": {
+      "bytes": 7744,
+      "sha256": "e5e2fa0c4ce28008051134b893102dc0588da79ec6b91c4ceffccb8bf8250914"
+    }
+  },
+  "verdict": "satisfied within exact final-control/conditional-reuse scope",
+  "findings": [],
+  "predecessor": {
+    "sourceSubjectSha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670",
+    "standing": "genuine runtime_failed close, actual unmet C2, actual UAT prompt refusal before actor, no terminal result",
+    "verifiedPinnedRecords": [
+      "actualOutcome",
+      "freshReadbacks",
+      "actualFinalClose",
+      "sourceAfterFinalClose"
+    ],
+    "c2": {
+      "pass": 303,
+      "fail": 0,
+      "skipped": 44,
+      "lanes": 12,
+      "onlyUnmet": "retry-entry zero passes/three required skips",
+      "historicalSkips": 41
+    }
+  },
+  "conditionalReuse": {
+    "guardedFiles": 879,
+    "excludedFiles": 20,
+    "priorSelectedFiles": 899,
+    "partitionVerified": true,
+    "actualHelperGuardMatches": 879,
+    "guardDestinationsSelected": 879,
+    "mappedInputCopiesVerified": 236,
+    "retainedLanes": 8,
+    "retainedRecordsEqualActualC2": true,
+    "priorPasses": 261,
+    "historicalSkips": 41,
+    "newExecution": false,
+    "excludedCategories": {
+      "selectedExistingProofHOW": 5,
+      "oldHandoffs": 3,
+      "rewrittenControls": 12
+    },
+    "newWritableCaseOutsidePriorSelection": "t287-exact-construction-intent.test.mjs",
+    "targetedDependencyCheck": "No executable references from guarded retained cone to excluded changed proof modules/rewritten controls; only rerun calculus/whole-path tests import SAS support. Documentation/history mentions retain historical scope.",
+    "inventoryCarriage": "Full inventory mechanically selected/readable/pinned, not embedded in model source bodies",
+    "invalidators": [
+      "Any package-byte mismatch",
+      "Any guarded source/dependency mismatch",
+      "A newly discovered dependency on a selected changed proof module",
+      "A changed material external input or runtime environment"
+    ],
+    "package": {
+      "bytes": 11003160,
+      "integrity": "sha512-brBeDiZdepxOza+Jm5MiQBGggpc/DtEieOE5+jUw2xnkaCxTN2UhT+dggwPsoRrCAI1t9G2VpvlLiR8rFZ5zgA==",
+      "origin": "actual closed command5 npm JSON metadata; both prior pins verified",
+      "futureMatch": "required, not measured here"
+    }
+  },
+  "newLanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "minimumPasses": 9,
+      "requireNoSkips": true
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "minimumPasses": 31,
+      "requireNoSkips": true
+    },
+    {
+      "id": "retry-entry-consumers",
+      "files": [
+        "test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "minimumPasses": 3,
+      "requireNoSkips": true
+    },
+    {
+      "id": "current-f09-retry-consumers",
+      "files": [
+        "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+        "test_env/tests/t287-r4-aba-retry.test.mjs"
+      ],
+      "minimumPasses": 2,
+      "requireNoSkips": true
+    },
+    {
+      "id": "current-intent-complete-pair",
+      "files": [
+        "test_env/tests/t287-exact-construction-intent.test.mjs"
+      ],
+      "minimumPasses": 1,
+      "requireNoSkips": true
+    }
+  ],
+  "permissionBoundary": {
+    "custodySourcePaths": 122,
+    "actualConstructionSourcePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+    ],
+    "constructionScratchRootCount": 5,
+    "otherRoleWriteRoots": {
+      "design": [],
+      "induction": [],
+      "specification": [],
+      "testing": [],
+      "uat": []
+    },
+    "conditionalOwnerEffects": [],
+    "prohibited": "Product code/law/binding/runtime/cache/store or unselected fixture repair; exact need returns to Root",
+    "c2OutputEvaluation": "Explicit returned snapshotRoot/worksiteDelta -> report -> nativeTestProof.path reads in testing/uat instructions and grant; execution Worker stays prescribed helper/result only"
+  },
+  "orchestration": {
+    "wrapperThreeCopiesSha256": "e5e2fa0c4ce28008051134b893102dc0588da79ec6b91c4ceffccb8bf8250914",
+    "packArgs": [
+      "pack",
+      "--ignore-scripts",
+      "--silent",
+      "--pack-destination",
+      "artifacts"
+    ],
+    "sevenProcessExitPredicatesUnchanged": true,
+    "oldNpmInventoryPreserved": true,
+    "r3CustodyAndCompactOutputPreserved": true,
+    "reuseMismatchFailsAggregate": true,
+    "newLanesStillExecute": true,
+    "sourceCorrespondence": "wide custody list plus actual returned handoffs, not new repair permission"
+  },
+  "capacity": {
+    "selector": {
+      "recordSha256": "0b3807df68e6198679595df332f3f122394da7c6b6e831f5feffaaed09ffea16",
+      "promptBytes": 949994,
+      "reserveBytes": 65536,
+      "bound": 1048576,
+      "fits": true,
+      "standing": "predictive historical other sections; no future admission or all-context guarantee"
+    },
+    "downstream": {
+      "recordSha256": "4ab8a93dca3b8cb4f1247c96cd9ada7d8ee353d96be76fd1e9e962d1c1c42ba9",
+      "promptBytes": 326070,
+      "reserveBytes": 131072,
+      "bound": 1048576,
+      "fits": true,
+      "workloadSha256": "d66de529701b24fa0ff7f39dcbb64fbfca192159b328b8efa2146efbee212199",
+      "standing": "final current text/scopes/pins with actual closed role and labelled baseline producer; not future task/basis/Result or UAT"
+    },
+    "installedPreflight": "Root separately reports successful 911 files/7 commands/3376750ms requirement; not rerun here"
+  },
+  "limits": [
+    "No Product code/reviews reopened",
+    "Existing source/proof findings remain separate/open until their actual changed evidence",
+    "No future actual results required or credited at preparation",
+    "No tests/builds/providers/native contact/preparation execution",
+    "Only permitted final review pair written",
+    "Root conjoins exact preflight/capacity/prepared call before admission and actual full conjunction for acceptance",
+    "No exhaustive dependency/toolchain/qualification audit; material new dependency/runtime/external change invalidates reuse"
+  ]
+}

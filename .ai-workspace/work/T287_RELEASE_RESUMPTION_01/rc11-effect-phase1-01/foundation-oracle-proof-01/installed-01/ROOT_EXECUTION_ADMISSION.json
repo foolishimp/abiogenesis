@@ -1,0 +1,50 @@
+{
+  "id": "FOUNDATION-ORACLE-INSTALLED-PROOF-01",
+  "status": "ROOT_ADMITTED_FOUNDATION_ORACLE_INSTALLED_PROOF",
+  "utc": "2026-11-09T19:01:53.613560+00:00",
+  "decisionOwner": "/root",
+  "bindingSha256": "3218fb52ac3a169b16bf9b48248eb707a253aae2a0a669d6a692a5d44b8ee467",
+  "controlsSha256": "d0f4e4b3e923d4fdef86a7e1fe17790ffddee6e9a8b48f47ce19920ea06385cc",
+  "readySha256": "adb008d37e38cdcda25c0f38f923d3e1a97f1cd5b182ec4669204436640cc8ec",
+  "driverSha256": "31e9c90720932e894a28ed13612b2f1750d9d480702dba781dd490c28072e15c",
+  "commandIds": [
+    "bootstrap",
+    "w2-05"
+  ],
+  "sourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "proofArchive": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045845,
+    "sha256": "fdbf93de131905f79e96c8716dbb833ae8b308b3e791e1ac63a79b59a1c74d46"
+  },
+  "expectedProductContentDigest": "sha256:778f5667e380f52fdf35398c48b24ff875598a6c3588cc030faa440283c11587",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/READY.json",
+      "bytes": 6001,
+      "sha256": "adb008d37e38cdcda25c0f38f923d3e1a97f1cd5b182ec4669204436640cc8ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/BINDING.json",
+      "bytes": 6829,
+      "sha256": "3218fb52ac3a169b16bf9b48248eb707a253aae2a0a669d6a692a5d44b8ee467"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/CONTROLS.json",
+      "bytes": 4952,
+      "sha256": "d0f4e4b3e923d4fdef86a7e1fe17790ffddee6e9a8b48f47ce19920ea06385cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/proof.py",
+      "bytes": 19380,
+      "sha256": "31e9c90720932e894a28ed13612b2f1750d9d480702dba781dd490c28072e15c"
+    }
+  ],
+  "limits": {
+    "bootstrapSeconds": 180,
+    "wholeFileSeconds": 900,
+    "campaignSeconds": 1500,
+    "outputBytes": 104857600
+  },
+  "grant": "One sequence [bootstrap,w2-05] on exact frozen1344 source and declared fresh temporary bootstrap/private proof staging/cache/owned runtime. All3 literal cases and actual W2_05_PROOF must pass,0skips;56definitions/11additions, no fixed callable quota. Cleanup required counts as failure. No rebuild, provider, global install/release, source/tracking/Git edits, retry or following work after failure."
+}

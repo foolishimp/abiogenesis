@@ -1,0 +1,94 @@
+{
+  "kind": "operator_native_host_launch_observation",
+  "status": "HOST_PREPARING_ACTOR_NOT_YET_OBSERVED",
+  "observedUtc": "2026-11-06T18:53:53.591015+00:00",
+  "rootSession": 64819,
+  "hostPid": 67069,
+  "hostStartedUtc": "2026-11-06T18:52:08.621Z",
+  "commandRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/commands/sdk-native-host.request.json",
+    "bytes": 1841,
+    "sha256": "afa9ce6459ad23ad338d8a6a0c829f26527f4e23e025eec2ea87945d46f32cbc"
+  },
+  "requestToHostMs": 1166.0,
+  "hostMarker": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/HOST_PREPARATION_STARTED.json",
+    "bytes": 200,
+    "sha256": "836e0c3366a380fb4d27ac5ac3b79b762e11b1b7cd7dd8195341d062dad1b6c9"
+  },
+  "dispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/DISPATCH_MANIFEST.json",
+    "bytes": 27913,
+    "sha256": "ea51fe3805aecac005a30afd64f552d10ab535047a52a1700ebc9db8c4ac64c3"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 6930,
+    "sha256": "97fc2a5b508955a064b6e98a383ccf0634f28a224d23b1507417b9bb02eb2446"
+  },
+  "finalBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_FINAL_BINDINGS.json",
+    "bytes": 5693,
+    "sha256": "ea47014c1c7a68c011fbc7131835bbdca81378574a7365f64e3308f033bebfdd"
+  },
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 8523,
+    "sha256": "e4e99717b58f6406cd149a2c9c7b40cfd028fceccdfe204518ef8f1aa9b8d8c6"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_BEFORE.json",
+    "bytes": 233295,
+    "sha256": "55389f6db03cb7c06090ada66e4827d4d39de186c6ebe88acb9f04b523629dbc"
+  },
+  "sourceCount": 451,
+  "protectedSourceRows": 450,
+  "stagedControls": 18,
+  "dispatchPins": 92,
+  "selectedContextEntries": 472,
+  "baselinePreservation": {
+    "trackedModifiedPaths": 69,
+    "newProductPaths": 2,
+    "emptyIndex": true,
+    "standing": "Root preflight verified inheritedTrackedChangedPaths after a read-only field-name check correction, before staging/runtime. Final custody will independently conjoin actual source."
+  },
+  "selectedWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "stageAndLaneBounds": {
+    "stages": 1,
+    "lanes": 5,
+    "order": [
+      "fixed-route",
+      "held-session",
+      "assessment-guards",
+      "native-workspace-owner",
+      "caller"
+    ],
+    "compileGenerationLifecycleExecuted": false,
+    "reusedProductPayloadMembers": 5325
+  },
+  "immediateActualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8788,
+    "sha256": "e43d763b6fd7f453f065a8d1c44f47108a8371410f3649b93344ac07c3fa120c"
+  },
+  "immediateActualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "f4a15a0719eee9987124ec5d3f1543c0fee120616588368224afde1a0e33b0bb"
+  },
+  "eventSuffixStart": 2253967206,
+  "betweenTask": {
+    "H04HostCloseSummaryUtc": "2026-11-06T18:31:48.502Z",
+    "H04CloseSummaryToH05HostMs": 1220119.0,
+    "standing": "Between-task/operator review, oracle correction selection, preparation and admission. Not RC7 native runtime performance."
+  },
+  "actualActorStart": null,
+  "actualFutureReturn": null,
+  "standing": [
+    "One Root launch; no retry/acquisition by custody Writer.",
+    "Exact named owner reads selected; no private provider/auth content, broad history scan or source/control/ticket mutation.",
+    "Freeze451 source rows before payload reuse/proof. Preserve H04 stale readiness/read-scope disclosure and all historical failures; no acceptance inferred."
+  ]
+}

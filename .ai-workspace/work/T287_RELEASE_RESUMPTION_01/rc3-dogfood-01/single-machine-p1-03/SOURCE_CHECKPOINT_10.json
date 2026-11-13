@@ -1,0 +1,62 @@
+{
+  "files": [
+    {
+      "bytes": 142929,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "0d9a1332eeef34e065275fa17da41729bd21a52e725a8a70b13f9b3c66c29edf"
+    },
+    {
+      "bytes": 38179,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "sha256": "0e037aa24c16f6389601eb2ac7fe782dbccbfd251842550ee38d69689e8ad7e5"
+    },
+    {
+      "bytes": 24181,
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "edeb3857b126608f34b041302b591444140797e806a308d87e2aa84b4d590508"
+    },
+    {
+      "bytes": 56725,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "sha256": "821b5e08ea33365bb304674650399f98701236797c881ca7a8f2d499676680ec"
+    },
+    {
+      "bytes": 49136,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "b79d5265dcf83d76792e3035bb4b76f8082b5bb8edf7320edd6ee524ccf3c609"
+    },
+    {
+      "bytes": 25087,
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "b04e6d685bba02af568c08e3bcc6044bfc90b90426954366fbfdba972b423806"
+    },
+    {
+      "bytes": 71983,
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "b24a1272ba436bc082f9eb8e161ae4b5a95b7bc7b8e01178bb3454fa920ecca4"
+    },
+    {
+      "bytes": 120502,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "3f78db27edb607b0ed2405e106abeb43c96a09df9b2b3fd4ec9eab974070274a"
+    },
+    {
+      "bytes": 7078,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "sha256": "3c6a310d4719acf0f0db7689abfda2953d8404a7939e80a58b89850bc222feba"
+    },
+    {
+      "bytes": 19137,
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "sha256": "a9594ae35df45aee492255f0ef9e7bfb8725927440b9a1f8303a3e6f52a585a2"
+    }
+  ],
+  "kind": "p1_03_exact_existing_source_preimages",
+  "prior53Checkpoint": {
+    "bytes": 15673,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/SOURCE_CHECKPOINT_53.json",
+    "sha256": "eaf9372495ba34789d240f3bb16e2cc29327f93255818c0b7bf084aab3050f0a"
+  },
+  "sourceCommit": "9c4a5c5e136ec564c66d1598fd32161ad4101f24",
+  "sourceStanding": "Exact second20 native partial checkpoint; no P1 acceptance"
+}

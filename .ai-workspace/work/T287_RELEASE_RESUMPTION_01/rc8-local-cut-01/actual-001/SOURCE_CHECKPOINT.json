@@ -1,0 +1,26 @@
+{
+  "kind": "rc8_local_source_checkpoint",
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+  "branch": "codex/rc8-reference-preservation",
+  "worktree": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+  "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof-evidence/source-freeze.json",
+    "bytes": 295551,
+    "sha256": "bf762d202c262042bd6dc015518c8147ee44848af1cbe98e412761e71468ebe6"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SOURCE_INVENTORY.json",
+    "bytes": 541876,
+    "sha256": "311af9d981a6d5369d8a90fb1c31243bf0452208eefb43d10aa55240bb6c7db2"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "sourceCount": 1339,
+  "identityChanges": [],
+  "standing": "Exact accepted frozen overlay checkpoint. Local unqualified; install unexecuted."
+}

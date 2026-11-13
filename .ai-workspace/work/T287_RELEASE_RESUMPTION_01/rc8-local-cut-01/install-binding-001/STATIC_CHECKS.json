@@ -1,0 +1,63 @@
+{
+  "status": "REVIEWED_INSTALL_INPUTS_AND_ABSENCES_CHECKED_NO_EXECUTION",
+  "at": "2026-11-07T22:50:03.010724+00:00",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/INSTALL_BINDINGS.prepared.json",
+    "bytes": 5491,
+    "sha256": "f1f1f936920ad6084cf0e085e4cd790b072f057a352c8286576aa8de3f8c0837"
+  },
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/reviews/packaging-001/REVIEW.json",
+    "bytes": 23777,
+    "sha256": "dabaf2e7f0aec43a338084924cf92fa75818f2c7b24cdf5f26fc0e2d2fef408a"
+  },
+  "reviewVerdict": "satisfied",
+  "reviewFindings": [],
+  "reviewClaimPinsMatch": true,
+  "allElevenRequiredInputPinsMatch": true,
+  "driverUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "bytes": 27890,
+    "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+  },
+  "claimsAndLimitsUnchanged": true,
+  "buildSuppliesUnchangedBounds": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "twoEmptyEnvironmentConfigsMatch": true,
+  "absences": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8",
+      "absent": true
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8",
+      "absent": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001",
+      "absent": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+      "absent": true
+    },
+    {
+      "path": "/private/tmp/abg-r8c-cut/installed-smoke",
+      "absent": true
+    }
+  ],
+  "sourceBroadAndProofAuditRepeated": false,
+  "activation": null,
+  "executionEnabled": false,
+  "mismatches": []
+}

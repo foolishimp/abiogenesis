@@ -1,0 +1,80 @@
+{
+  "status": "PREPARED_FULL_INSTALLED_W2_05_ROUTE_ARTIFACT_UNBOUND_EXECUTION_HELD",
+  "subjectInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/source-freeze.json",
+    "bytes": 295048,
+    "sha256": "12d3f6f9517d3b1173351877303fce46f007974c88e8fb0892b85389fbc700e0"
+  },
+  "subjectDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "maintainedHarness": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+    "bytes": 9963,
+    "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c"
+  },
+  "candidateBasisHelper": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+    "bytes": 1177,
+    "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+  },
+  "test": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "bytes": 60372,
+    "sha256": "77d9f61e3605a2a3d2050e22ec8961f34c8f11d12a9cee9e79f37454437e9879"
+  },
+  "wholeFileNames": [
+    "W2-05 owner-chain static oracle permits call-local collections and mentions",
+    "W2-05 owner-chain static oracle rejects removed legacy root seams",
+    "W2-05 installed Product install and catalog owners compose without catalog runtime truth"
+  ],
+  "expectedCounts": {
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "proofRoot": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01",
+  "archive": null,
+  "archiveBindingMeaning": "Must come from this exact prepared current proof pack, never delivered RC11 or RC10. Bind actual SHA/manifest/member receipt before installed proof execution.",
+  "temporaryInstall": {
+    "installHost": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/bootstrap-host",
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "install",
+      "--ignore-scripts",
+      "--offline",
+      "--no-audit",
+      "--no-fund",
+      "<exact newly packed archive>"
+    ],
+    "absoluteSeconds": 180,
+    "meaning": "Bootstrap only in isolated scratch, following maintained harness semantics; all regular archive members compared afterward. Actual test then invokes current installed Product verify/lock/install/workspace/catalog owners."
+  },
+  "environmentBindings": {
+    "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "<exact newly packed archive>",
+    "ABI5_WAVE1_FROZEN_INSTALL_HOST": "<exact temporary bootstrap host>",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "<actual new archive SHA256>"
+  },
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+  ],
+  "wholeFileOuterSeconds": 900,
+  "maxOutputBytes": 104857600,
+  "reserveBytes": 4294967296,
+  "processCleanup": "Existing bounded TERM5s/KILL1s recipe; actual leftover group or cleanup is incomplete, not a passing proof.",
+  "staging": "New private source/work; copy exact1344 frozen rows; overlay same996 compiled/contracts/manifest rows with identity check; copy pinned dependencies preserving metadata. No rebuilding.",
+  "successEvidence": [
+    "All3 literal whole-file cases,0skips,exit0 and group absence",
+    "Actual W2_05_PROOF line matches newly packed archive, content/manifest and56callable/definition census, eventCountBeforeCatalog=eventCountAfterCatalog=2",
+    "All source/compiled/dependency guards remain exact and no source edit; retain existing owner assertion population unchanged"
+  ],
+  "proofReuse": "Accepted Phase1 original9-file unit includes exact unchanged owned-call-reference proof. Reuse by current production/helper/test identity, no automatic rerun.",
+  "execution": "No pack, bootstrap install or full test launched by preparation; separate Root admission and concrete artifact pin required."
+}

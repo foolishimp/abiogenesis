@@ -1,0 +1,49 @@
+{
+  "kind": "root_integration_failure_triage",
+  "at": "2026-11-06T23:57:58.207449+00:00",
+  "status": "OPERATOR_BASIS_CORRECTION_SELECTED_PREPARATION_PENDING",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 10863,
+    "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+  },
+  "observed": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/SUMMARY.json",
+      "bytes": 1426,
+      "sha256": "03776698a2c74ea05c8c737570d036aa051186f8790e0575f2b97cb2859f8969"
+    },
+    "verified": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/verification.json",
+      "bytes": 15797364,
+      "sha256": "ce518cb867f6ceb6612afd9510f8b18ca3f0f95eaa6a247e3358a9cefee4a549"
+    },
+    "refusal": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/resolved-lock.json",
+      "bytes": 218,
+      "sha256": "da516723f516f49380f8b7330b2a14d29e6ec99ec7ffd041a24c651b7e526d6c"
+    },
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/commands/verify-install-once.result.json",
+      "bytes": 1513,
+      "sha256": "7f29bdbb56b701b2e8e6358496610877af259cf20a69ac786f4634b87689b595"
+    },
+    "reason": "incompatible_dependency: selected ABIogenesis Product does not match the installed compiler basis",
+    "installationPerformed": false
+  },
+  "productFrame": "Unchanged STDO3.0.4 / ABI5 fixed15 families / GOAL035 / T287; ABG runtime authority unchanged.",
+  "evaluation": {
+    "product": "Correctly refuses a lock whose selected compiler Product differs from the executing owner basis. No Product defect established.",
+    "how": "Use the existing maintained bootstrap route: authenticate/extract the selected archive and use its Product owners. No guard/contract change.",
+    "operation": "Prepared measurement installer mistakenly imported immutable RC6 Product for construction of a lock over changed source with retained rc.6 version. Exact archive verification succeeded before the refusal.",
+    "proof": "No measurement has run, no installed result or speed claim. Original pack/verification/refusal are retained."
+  },
+  "selectedCorrection": "One separately bound operator continuation reuses original archive and verified record, authenticates exact candidate bootstrap extraction, then invokes existing candidate Product lock/install/content owners in fresh allocation. No repeated pack/build or Product edits. No implicit retry.",
+  "preparedCut": "Existing local-cut installer already extracts/imports the selected archive; no matching owner-basis correction is required there.",
+  "qualification": false
+}

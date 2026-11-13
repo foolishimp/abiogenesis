@@ -1,0 +1,17 @@
+{
+  "status": "ROOT_SELECTED_LIGHTWEIGHT_PREPARATION_ONLY",
+  "at": "2026-11-08T18:03:11.568986+00:00",
+  "role": "separate Proof-Control Writer",
+  "scope": "Root selected seven-file remainder from unchanged nine-file unit script, excluding current OWN and recurrent M5. One held900s command; existing file-host/reporter, normal six skip dispositions. No automatic execution, build/native/provider/source/test/Git edits, bootstrap gate or201 broad population change.",
+  "testOwnedEffects": "Normal disposable test fixture pack/install effects authorized; no Product rebuild or public cut.",
+  "priorCaseAndSkipEvidence": {
+    "path": "/private/tmp/abg-r9-owner-native-002/unit-01/events.jsonl",
+    "bytes": 31338,
+    "sha256": "5e1b0f36649f89192dc76bf14206f5d06a587a8408777a3d6aecc954e965037a"
+  },
+  "closedM5Return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/DIAGNOSTIC_001_RETURN.json",
+    "bytes": 17371,
+    "sha256": "097042ba30a1c7d905f5f607e36d4f4a51631a979dcd3d0e73b1c1cb451ac84a"
+  }
+}

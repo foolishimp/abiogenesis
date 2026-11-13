@@ -1,0 +1,21 @@
+{
+  "kind": "pure_existing_governance_intake_counterexample_localization",
+  "at": "2026-11-06T02:16:16.055Z",
+  "workloadSha256": "77312d6dff04e89a6605c5979b30b88966cccf7504fbe0e647dbef9061bf0922",
+  "originalRequiredSupportRefs": [],
+  "originalError": "governance input requires complete original source, scope and declared work contracts",
+  "correctedRequiredSupportRefs": [
+    "support://abiogenesis/t287/d5-proof-03"
+  ],
+  "correctedAccepted": true,
+  "sourceMeaning": "The same already-selected D5 P1-P7 and preserved Q23 Q1-Q7 outcome, exact candidate and actual seven-command C2/UAT. This support reference names that existing task obligation; it adds no Product criterion.",
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+    "sha256": "e4090de450b9e80c7de43f3ca16df7cec5de0b43c6e101453e45093a4b5c437a"
+  },
+  "changedOriginalFields": [
+    "requiredSupportRefs"
+  ],
+  "effects": "Pure existing constructor only, no runtime/provider/Git/source effects. Local control observation written.",
+  "limits": "Not a preflight rerun or input/source/qualification acceptance."
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-c2-child-program.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 4,
+    "pass": 4,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/049-t287-c2-child-program.test/process.json",
+    "bytes": 1075,
+    "sha256": "b327315fb90a36d3c5c0373b5104996fedaa05a238bc6aa2331538ba54159bf4"
+  }
+}

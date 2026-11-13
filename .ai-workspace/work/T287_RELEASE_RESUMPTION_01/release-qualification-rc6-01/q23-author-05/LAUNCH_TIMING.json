@@ -1,0 +1,15 @@
+{
+  "kind": "separated_native_launch_timing",
+  "at": "2026-11-05T19:18:47.285889+00:00",
+  "setupReused": true,
+  "newSetupRuns": 0,
+  "preflightMs": 22571.813125163317,
+  "dispatchToNativeWorkerMs": 24467.0,
+  "priorHostCloseToDispatchOperatorAndReentryMs": 1058858.153,
+  "selectorMs": null,
+  "limits": [
+    "Prior host close to dispatch includes Root evidence/control preparation and owner preflight; not runtime between-node latency.",
+    "Native author completion, later proof transitions and full workflow performance remain unmeasured.",
+    "Direct NativeWork event log grew by roughly25MB before source completion; retained-carriage issue remains open."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 42366.806417000014,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 3,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 3,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "T287 retained scope and same-inode byte mutation cannot reuse false truth",
+      "file": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_PREFIX_EVENT_PATH unset; requires the retained event log",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/006-t287-exact-prefix-projection-reuse.jsonl",
+    "bytes": 1569,
+    "sha256": "cdd0848549030170cd27fd10f25c3fbbe3b0a77261e19eb43f1b211085278325"
+  },
+  "commandReceipt": "commands/006-t287-exact-prefix-projection-reuse.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

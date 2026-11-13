@@ -1,0 +1,36 @@
+{
+  "kind": "root_isolated_s4_test_artifact_activation",
+  "status": "ROOT_SELECTED_ISOLATED_S4_TEST_ARTIFACT",
+  "at": "2026-11-06T23:54:21.665022+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 10863,
+    "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+  },
+  "proposal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_BINDINGS.proposal-001.json",
+    "bytes": 4858,
+    "sha256": "5a00db50562b48232762dac2f13706b05c17bb127981f6a41351af652c5fa36d"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/reviews/artifact-controls-001/REVIEW.json",
+    "bytes": 12967,
+    "sha256": "d3f9c5f3ded29561d114e0a405a14d1faabe428563fda9728e9920d108d6ada5"
+  },
+  "selection": "Reuse successful accepted S3 stage; exactly one ignore-scripts pack and one isolated immutable-RC6-Product-owner bootstrap verification/install. No compile/generation or candidate identity edit. Subsequent measurement requires its own actual binding.",
+  "boundsSelectedByRoot": {
+    "packMs": 120000,
+    "installMs": 600000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001",
+  "tempRoot": "/private/tmp/abg-r7p",
+  "preservation": "Create-only outputs, retain partial failures, no automatic retry/cleanup, no source/release/selector change.",
+  "availableBytes": 6785552384
+}

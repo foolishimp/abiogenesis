@@ -1,0 +1,139 @@
+{
+  "ProductFrame": "Same separately admitted external Proof-Control Writer; Root owns conjunction and execution selection.",
+  "status": "BROAD_ACTUAL_BINDINGS_PREPARED_EXECUTION_HELD",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.held-007.json",
+    "bytes": 47082,
+    "sha256": "302959f8a94b3256a1dd216cdcf63fad223c73609702177e4349008f29d8db57"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS_007_DIFF.patch",
+    "bytes": 16271,
+    "sha256": "85d5aef2386ab6368b9bc7e6c88c39477d276cc796a8788b9fa8e70f1f71c7b8"
+  },
+  "inputCensus": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_INPUT_CENSUS_007.json",
+    "bytes": 15998,
+    "sha256": "fe155a5e2e6246181bba0b0243b0e3c5eed7f9e2b8e7f9a6a5900d6bc1521cb8"
+  },
+  "unchangedOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+      "bytes": 32816,
+      "sha256": "2e8e4155be73606d1009b629019b9966470225890a785c78105c6b6a80ba383e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    }
+  ],
+  "source": {
+    "freeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "digest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "rows": 1340,
+    "built": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+      "bytes": 929,
+      "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+    },
+    "buildInputs": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/BUILD_INPUTS.json",
+      "bytes": 658,
+      "sha256": "c42d1febdcdab91abab2550b6337d63ec17be1310a8d5cb8e37693518224d232"
+    }
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "packageMembers": 5325,
+  "dependencyMembers": 4328,
+  "population": {
+    "total": 209,
+    "selected": 201,
+    "held": 8,
+    "firstFiles": [
+      "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "test_env/tests/t287-owned-call-reference.test.mjs",
+      "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "test_env/tests/t289-install-event-bodies.test.mjs",
+      "test_env/tests/t287-calculus-fold.test.mjs",
+      "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "test_env/tests/m5-worker-transport.test.mjs",
+      "test_env/tests/r4-catalog-admission.test.mjs",
+      "test_env/tests/r5-invocation-admission.test.mjs",
+      "test_env/tests/r7-graph-validation-basis.test.mjs",
+      "test_env/tests/r8-direct-hog-entry.test.mjs",
+      "test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+    ],
+    "focusedCredits": 0,
+    "sourceTestSupportMjsCompared": 321,
+    "unchangedMjs": 313,
+    "changedOrNewMjs": 8
+  },
+  "unchangedBounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "readiness": {
+    "bindingOutputAndScratchAbsent": true,
+    "oracleCurrentSourcePinsBound": true,
+    "candidateBasisNeedsDerivedRefresh": true,
+    "actualBoundInventory": null,
+    "rootBindAndRunAdmission": null
+  },
+  "knownOuterVsInnerLimits": [
+    {
+      "file": "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "declaration": "test(\"installed ordinary job traverses full native semantic, parent, C1, C2 and Evidence owners\", { timeout: 3600000,",
+      "innerMs": 3600000,
+      "outerMs": 600000,
+      "standing": "Existing inner allowance exceeds selected operational outer cap; no extension or success guarantee. Stop first cap/incomplete."
+    },
+    {
+      "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "declaration": "timeout: 7200000, skip: process.env.ABI5_GENERIC_JOB_CORRECTION_NATIVE !== \"1\" && \"ABI5_GENERIC_JOB_CORRECTION_NATIVE is not '1'; selects the native correction run over an actual failed verifier\" }, async () => {",
+      "innerMs": 7200000,
+      "outerMs": 600000,
+      "standing": "Existing inner allowance exceeds selected operational outer cap; no extension or success guarantee. Stop first cap/incomplete."
+    },
+    {
+      "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+      "declaration": "test('T-287 R2-b result.assess through the installed transport: the declared result and an owner refusal', { timeout: 1800000 }, async t => {",
+      "innerMs": 1800000,
+      "outerMs": 600000,
+      "standing": "Existing inner allowance exceeds selected operational outer cap; no extension or success guarantee. Stop first cap/incomplete."
+    },
+    {
+      "file": "test_env/tests/t289-install-event-bodies.test.mjs",
+      "declaration": "const timeout = { timeout: 900_000 };",
+      "innerMs": 900000,
+      "outerMs": 600000,
+      "standing": "Existing inner allowance exceeds selected operational outer cap; no extension or success guarantee. Stop first cap/incomplete."
+    }
+  ],
+  "firstCommandAfterAdmission": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+    "bind",
+    "<new status-only BOUND_RC9_CLOSE_PROOF binding>",
+    "<actual binding SHA>"
+  ],
+  "nextRunShape": "exact-node close-proof.mjs run actual-config SHA actual-BOUND_INVENTORY SHA ROOT_ADMITTED_RC9_BROAD_CLOSE SHA",
+  "limits": "No bind, materialization, refresh pack, test, provider, source/Git or cleanup effect. Readiness pins are preparation; existing bind/run revalidate actual bytes. All nine historical capsules and other residuals stay open. O3 physical checks retained."
+}

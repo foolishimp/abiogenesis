@@ -1,0 +1,158 @@
+{
+  "kind": "bounded_m5_overlap_control_repricing",
+  "status": "RECOMMEND_UNIT_ONCE_EXACT_M5_SUBSET",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/b-preparation-01/M5_ECONOMY_APPENDIX.md",
+    "bytes": 3912,
+    "sha256": "a7f008d05f41ac2c9d838f3a77d4d83569938824b4321c1743048a1c8a631674"
+  },
+  "supersedes": "Only standalone m5 step in original b-preparation-01; no execution admission or selected campaign cap.",
+  "sourceReviewPerformed": false,
+  "executionPerformed": false,
+  "originalRoutes": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/b-preparation-01/ROUTES.json",
+    "bytes": 30676,
+    "sha256": "b1e3ba6674997087ecb29a4e67e752b4256ee1eea6aed2a8337bc0b89a657a53"
+  },
+  "retainedInputs": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/m5/LAUNCH.json",
+      "bytes": 692,
+      "sha256": "0dd91d6d8aecbc583f6cb183349b89477c549980a71e743d830312856fd4c913"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/LAUNCH.json",
+      "bytes": 1157,
+      "sha256": "34ad89705513e70f8874bfeca23ad1221466c3110d345f65ac1fa2732a354cee"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/m5/RETURN.json",
+      "bytes": 472297,
+      "sha256": "26f55b3efd4d5bd08bc687a210df1930d88178072a841a950e9c3b5fcff9596d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/RETURN.json",
+      "bytes": 483807,
+      "sha256": "dac6936fdc6c722a8579608f329d02666e6696ecd60467ae892e3c2cdbe2cd13"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/ENVIRONMENT.json",
+      "bytes": 2712,
+      "sha256": "042a0006ea175c6a098be1aebf124685673ac305c4f1f10ad71c3b61ac111e40"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/CONTROLS.json",
+      "bytes": 28145,
+      "sha256": "5f09730a45ea2a3220e070feb4ac81f642e762f6810261c220aa9bc56a5bd2ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 145250,
+      "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "bytes": 1349,
+      "sha256": "603feef050dc15e99b59eef38196bcfedd396285033f939cdb21ca24b26d8ec0"
+    }
+  ],
+  "rawTapPins": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/m5/stdout.log",
+      "bytes": 191734,
+      "sha256": "91c2a302da5b76cbcbeed5dc5f96bdd82b052cef26526b4fae65a29b1b9b782d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/stdout.log",
+      "bytes": 220786,
+      "sha256": "8d75c4f07b87b8ee557fffa1aea9f59361f95d455e73587622a28b983f5bea38"
+    }
+  ],
+  "verifiedRelation": {
+    "sameBinaryFlagsCwdBaseEnvironmentAndBuild": true,
+    "defaultPerFileIsolationRetained": true,
+    "standaloneEvidencePid": 761,
+    "unitEvidencePid": 2735,
+    "exactNamesWithinUnitOnce": 39,
+    "unitResultPositionsOneBased": [
+      39,
+      77
+    ],
+    "subsetPassed": 39,
+    "subsetSkipped": 0,
+    "nonM5PrefixNames": 8,
+    "sameRetainedM5EvidenceCaseIds": 34,
+    "rawTapAndAll68EvidenceFilePinsVerified": true,
+    "unitCounts": {
+      "tests": 102,
+      "pass": 96,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 6,
+      "todo": 0
+    },
+    "bothCommandGroupsAbsentWithoutDriverCleanup": true
+  },
+  "m5ExpectedNamesFromPriorExactSubject": [
+    "M5 B-001 preserves lane-owned Claude execution posture",
+    "M5 native report keeps its original host schema presentation",
+    "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+    "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+    "M5 B-001 bounds append arguments for all four transport contracts",
+    "M5 B-001 gives agent-specific sandbox binding precedence",
+    "M5 transport identity changes with parser and prompt-delivery semantics",
+    "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+    "M5 Bash tool identity ignores only optional string description metadata",
+    "M5 B-001 rejects tool activity only in the closed-prompt lane",
+    "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+    "M5 selected result text cannot admit a valid file without its final carrier",
+    "M5 actual owner, controlled clock: a true acknowledgement renews inactivity and the timeout cutoff excludes later semantic bytes",
+    "M5 actual owner, controlled clock: a false acknowledgement never renews inactivity",
+    "M5 actual owner, controlled clock: continuous true acknowledgements never renew the absolute deadline",
+    "M5 actual owner, controlled clock: descendant bytes after direct exit reach the closed-capture branch and stay outside raw and semantic output",
+    "M5 actual owner, controlled clock: identical ordered progress gives one outcome under split and coalesced capture",
+    "M5 actual owner, controlled clock: the progress completion instant is the capture that completes the ordered record under every split, and incomplete completion has none",
+    "M5 actual owner, controlled clock: a rejected drive retains its available trace without awaiting the pending owner and rethrows the identical failure",
+    "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+    "M5 ABG transport renews its inactivity lease only from observed progress",
+    "M5 ABG transport does not renew from unacknowledged output",
+    "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+    "owned process groups retain descendant cleanup after normal and TERM leader exits",
+    "M5 ABG transport excludes descendant output emitted after direct-process exit",
+    "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+    "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+    "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+    "TD-11: the incremental tool projection equals the head projection at every cut",
+    "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+    "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+    "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+    "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+    "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+    "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+    "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+    "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+    "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+    "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization"
+  ],
+  "successorBindings": {
+    "frozenSource": null,
+    "m5TestAndAdapters": null,
+    "build": null,
+    "actualUnitReceipt": null,
+    "actualM5SubsetReceipt": null
+  },
+  "budgetDelta": {
+    "removedStandaloneCapSeconds": 600,
+    "revisedSumPerStepCapsSeconds": 4740,
+    "campaignCapSelected": false,
+    "unitCapSeconds": 1800,
+    "separateM5File600sCapClaim": false
+  },
+  "standing": [
+    "One unit execution with M5 subset evidence; no additive/replication claim.",
+    "Six exact unit skips preserved outside M5 population.",
+    "Six B cases precede C2; whole lifetime stays later.",
+    "Original failures and synthetic pending-descriptor limit remain.",
+    "On unit failure preserve actual evidence and stop dependent claims; no automatic retry."
+  ]
+}

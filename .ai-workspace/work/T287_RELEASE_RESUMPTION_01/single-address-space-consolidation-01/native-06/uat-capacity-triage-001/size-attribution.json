@@ -1,0 +1,361 @@
+{
+  "kind": "pure_installed_renderer_size_attribution_and_labelled_counterfactual",
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_UAT_TASK.json",
+    "sha256": "f8d585d107f847decc652cef2f93a230c1f0b863e5e4d763c3d22bd77aba9455",
+    "bytes": 1798584
+  },
+  "installedRenderer": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+  "workOrderBytes": 1033310,
+  "rolePrefixBytes": 59675,
+  "promptBytes": 1092985,
+  "maxPromptBytes": 1048576,
+  "sections": [
+    {
+      "name": "opening",
+      "bytes": 144
+    },
+    {
+      "name": "outcome",
+      "bytes": 197
+    },
+    {
+      "name": "worksite_root",
+      "bytes": 68
+    },
+    {
+      "name": "read_first",
+      "bytes": 2300
+    },
+    {
+      "name": "readable_scope",
+      "bytes": 73076
+    },
+    {
+      "name": "assessment_basis",
+      "bytes": 6517
+    },
+    {
+      "name": "response_schema",
+      "bytes": 499
+    },
+    {
+      "name": "instruction_heading",
+      "bytes": 14
+    },
+    {
+      "name": "instruction_0",
+      "bytes": 267
+    },
+    {
+      "name": "instruction_1",
+      "bytes": 261
+    },
+    {
+      "name": "instruction_2",
+      "bytes": 213
+    },
+    {
+      "name": "instruction_3",
+      "bytes": 103
+    },
+    {
+      "name": "instruction_4",
+      "bytes": 58526
+    },
+    {
+      "name": "instruction_5",
+      "bytes": 546
+    },
+    {
+      "name": "instruction_6",
+      "bytes": 232
+    },
+    {
+      "name": "instruction_7",
+      "bytes": 6931
+    },
+    {
+      "name": "instruction_8",
+      "bytes": 584
+    },
+    {
+      "name": "instruction_9",
+      "bytes": 881713
+    },
+    {
+      "name": "checks_and_scope_return_instructions",
+      "bytes": 1119
+    }
+  ],
+  "taskTopLevelSerializedFields": {
+    "assessment": 7042,
+    "capabilityGrant": 2639,
+    "checks": 2,
+    "context": 534602,
+    "instructions": 1079069,
+    "kind": 26,
+    "outcome": 187,
+    "readFirst": 2287,
+    "schemaVersion": 5,
+    "workspaceAuthorityBasis": 760,
+    "workspaceBinding": 2188,
+    "writeRoots": 2
+  },
+  "contextFields": {
+    "entries": 460745,
+    "kind": 28,
+    "maxBytes": 9,
+    "maxFiles": 5,
+    "observationDigest": 71,
+    "observationRef": 107,
+    "readRoots": 73050,
+    "schemaVersion": 5,
+    "workspaceAuthorityBasisDigest": 71,
+    "workspaceAuthorityBasisRef": 98,
+    "workspaceBindingDigest": 71,
+    "workspaceBindingIdentity": 96
+  },
+  "instructions": [
+    {
+      "ordinal": 0,
+      "textBytes": 266
+    },
+    {
+      "ordinal": 1,
+      "textBytes": 260
+    },
+    {
+      "ordinal": 2,
+      "textBytes": 212
+    },
+    {
+      "ordinal": 3,
+      "textBytes": 102
+    },
+    {
+      "ordinal": 4,
+      "textBytes": 58525
+    },
+    {
+      "ordinal": 5,
+      "textBytes": 545
+    },
+    {
+      "ordinal": 6,
+      "textBytes": 231
+    },
+    {
+      "ordinal": 7,
+      "textBytes": 6930
+    },
+    {
+      "ordinal": 8,
+      "textBytes": 583
+    },
+    {
+      "ordinal": 9,
+      "textBytes": 881712
+    }
+  ],
+  "producer": {
+    "introBytes": 690,
+    "jsonBytes": 881022,
+    "commandResultsBytes": 876180,
+    "predicateObservationsBytes": 4398,
+    "commands": [
+      {
+        "ordinal": 0,
+        "commandId": "command://abiogenesis/single-address-space/native-06/source-correspondence",
+        "exitStatus": 0,
+        "stdoutBytes": 22700,
+        "stderrBytes": 0,
+        "stdoutSerializedBytes": 24195,
+        "stderrSerializedBytes": 127,
+        "commandRecordBytes": 24680
+      },
+      {
+        "ordinal": 1,
+        "commandId": "command://abiogenesis/single-address-space/native-06/offline-toolchain",
+        "exitStatus": 0,
+        "stdoutBytes": 0,
+        "stderrBytes": 0,
+        "stdoutSerializedBytes": 127,
+        "stderrSerializedBytes": 127,
+        "commandRecordBytes": 608
+      },
+      {
+        "ordinal": 2,
+        "commandId": "command://abiogenesis/single-address-space/native-06/contract-seeds",
+        "exitStatus": 0,
+        "stdoutBytes": 0,
+        "stderrBytes": 0,
+        "stdoutSerializedBytes": 127,
+        "stderrSerializedBytes": 127,
+        "commandRecordBytes": 605
+      },
+      {
+        "ordinal": 3,
+        "commandId": "command://abiogenesis/single-address-space/native-06/compile",
+        "exitStatus": 0,
+        "stdoutBytes": 0,
+        "stderrBytes": 0,
+        "stdoutSerializedBytes": 127,
+        "stderrSerializedBytes": 127,
+        "commandRecordBytes": 598
+      },
+      {
+        "ordinal": 4,
+        "commandId": "command://abiogenesis/single-address-space/native-06/generate",
+        "exitStatus": 0,
+        "stdoutBytes": 0,
+        "stderrBytes": 0,
+        "stdoutSerializedBytes": 127,
+        "stderrSerializedBytes": 127,
+        "commandRecordBytes": 599
+      },
+      {
+        "ordinal": 5,
+        "commandId": "command://abiogenesis/single-address-space/native-06/pack",
+        "exitStatus": 0,
+        "stdoutBytes": 700124,
+        "stderrBytes": 0,
+        "stdoutSerializedBytes": 769571,
+        "stderrSerializedBytes": 127,
+        "commandRecordBytes": 770039
+      },
+      {
+        "ordinal": 6,
+        "commandId": "command://abiogenesis/single-address-space/native-06/affected-proof",
+        "exitStatus": 1,
+        "stdoutBytes": 72533,
+        "stderrBytes": 840,
+        "stdoutSerializedBytes": 77689,
+        "stderrSerializedBytes": 1003,
+        "commandRecordBytes": 79043
+      }
+    ],
+    "fieldBytes": {
+      "resultRef": 85,
+      "resultDigest": 71,
+      "cCallRef": 78,
+      "actorInvocationRef": 95,
+      "commandResults": 876180,
+      "predicateObservations": 4398
+    }
+  },
+  "pack": {
+    "stdoutBytes": 700124,
+    "stdoutSha256": "9b892c41126234165195d628b0d095c60bc959b683808a60faeeb4a8cfb75d52",
+    "commandRecordBytes": 770039,
+    "filename": "abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+    "entryCount": 5325,
+    "archiveBytes": 11003160,
+    "unpackedBytes": 71767759,
+    "fields": {
+      "id": 41,
+      "name": 30,
+      "version": 10,
+      "size": 8,
+      "unpackedSize": 8,
+      "shasum": 40,
+      "integrity": 95,
+      "filename": 44,
+      "files": 465032,
+      "entryCount": 4,
+      "bundled": 204
+    },
+    "inventoryEntries": 5325
+  },
+  "parentRows": [
+    {
+      "purpose": "construction",
+      "recordBytes": 4923,
+      "observedBytes": 4287,
+      "commands": []
+    },
+    {
+      "purpose": "testing",
+      "recordBytes": 53569,
+      "observedBytes": 52943,
+      "commands": [
+        {
+          "ordinal": 0,
+          "stdoutDisplayedBytes": 317,
+          "stderrDisplayedBytes": 0,
+          "stdoutOmittedBytes": 22383,
+          "stderrOmittedBytes": 0
+        },
+        {
+          "ordinal": 1,
+          "stdoutDisplayedBytes": 0,
+          "stderrDisplayedBytes": 0,
+          "stdoutOmittedBytes": 0,
+          "stderrOmittedBytes": 0
+        },
+        {
+          "ordinal": 2,
+          "stdoutDisplayedBytes": 0,
+          "stderrDisplayedBytes": 0,
+          "stdoutOmittedBytes": 0,
+          "stderrOmittedBytes": 0
+        },
+        {
+          "ordinal": 3,
+          "stdoutDisplayedBytes": 0,
+          "stderrDisplayedBytes": 0,
+          "stdoutOmittedBytes": 0,
+          "stderrOmittedBytes": 0
+        },
+        {
+          "ordinal": 4,
+          "stdoutDisplayedBytes": 0,
+          "stderrDisplayedBytes": 0,
+          "stdoutOmittedBytes": 0,
+          "stderrOmittedBytes": 0
+        },
+        {
+          "ordinal": 5,
+          "stdoutDisplayedBytes": 4,
+          "stderrDisplayedBytes": 0,
+          "stdoutOmittedBytes": 700120,
+          "stderrOmittedBytes": 0
+        },
+        {
+          "ordinal": 6,
+          "stdoutDisplayedBytes": 8192,
+          "stderrDisplayedBytes": 840,
+          "stdoutOmittedBytes": 64341,
+          "stderrOmittedBytes": 0
+        }
+      ]
+    }
+  ],
+  "readableScope": {
+    "paths": 899,
+    "jsonBytes": 73050,
+    "pathTextBytes": 70352,
+    "mandatoryAssessmentSources": 36,
+    "readFirstCount": 40,
+    "metadataEntries": 899,
+    "metadataEntryVectorBytes": 460745,
+    "inlineBodyFields": 0
+  },
+  "predictions": [
+    {
+      "kind": "in_memory_counterfactual_not_an_admitted_future_task",
+      "change": "Only command5 stdout is replaced with the actual baseline filename plus newline; other producer fields, task, role, parent display and proof stdout held byte-identical. Old admitted identity fields are retained solely as baseline labels and confer no new producer identity.",
+      "replacementStdoutBytes": 45,
+      "predictedWorkOrderBytes": 263913,
+      "predictedPromptBytes": 323588,
+      "headroomBytes": 724988,
+      "savedRenderedBytes": 769397,
+      "promptSha256": "13e638cf2f60154f782ec144e39338760fbfe00ecf7c7db8213b35ff7408bf73"
+    }
+  ],
+  "limits": [
+    "Counterfactual uses actual closed role bytes and the actual renderer, not a new admitted task/result; next source names, C2 results, identities, diagnostics and original input scopes may differ.",
+    "No npm, test, provider, runtime admission or event effect executed. Actual native06 full command streams and refusal preserved.",
+    "Role projector values are authenticated through the granted cold prefix; this diagnostic composes their bytes exactly at instruction_assembly.js156 but does not fabricate or authenticate a new native instruction basis."
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "status": "PREPARED_ACTUAL_CLOSED_SUBJECT_AWAITING_ROOT_READ_ADMISSION",
+  "at": "2026-11-07T12:18:25.410427+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "baseScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/readbacks.mjs",
+    "bytes": 4791,
+    "sha256": "3542bd217aa93a234eac06fe889dff796a8c01b23ab50f22a43de0f49d482e35"
+  },
+  "draft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/READBACK_PREPARATION.draft.json",
+    "bytes": 2338,
+    "sha256": "b4ac670f7cd10664a8ef22d718bc9a2df67ad5088a10ae3c728fe2344f3ea4b5"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/readbacks.mjs",
+    "bytes": 4791,
+    "sha256": "fd1046a4cfedc2d7839902b4174ee08394be3824705e856c81a86c3fb4436aee"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/READBACK_DIFF.patch",
+    "bytes": 3008,
+    "sha256": "a91c809dd56ece862006d14d80663e3dd56ac6821b112e4190b92b57d81ff4b3"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/BINDING.json",
+    "bytes": 5090,
+    "sha256": "d172b81abff26cd54198429f4ccf965fcca7624f591add59709d1a7859fdb359"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/PREPARED.json",
+    "bytes": 6159,
+    "sha256": "48b3467078e80f16f4ae61aacad6f26b3e6db39c1776411a690396aa2b32f4ca"
+  },
+  "actualSdk": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 523288,
+    "sha256": "a522b418d4e188f8745f0fd3722a9e58e35ffdc150e1ce4abcb9938d77f414e0"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "e4b341435ebfabe78c83d2c20bf911eeb9afc22ff082fbc0976a03e5ccd77703"
+  },
+  "final": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/FINAL.json",
+    "bytes": 3180,
+    "sha256": "e33f58f8a80463034f83058b6dcd8cca8515039e2a59cc980da22bf2cf3ffc93"
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/NATIVE_RETURN.json",
+    "bytes": 3053,
+    "sha256": "1499aa7d0022aea68b44bd3e156fb0f83a8e2e26962b9ef9a703c65e68e97841"
+  },
+  "run": {
+    "ref": "run://abiogenesis/c06be45e2c660d8baecb314cf6e8e2fc7806c3da0b49ca725cf4d7f7a21d38b6",
+    "digest": "sha256:24f40c21fa0e88c4ca3f21cf1d3d096dcdeb23a48145767cb1a91e34b1a2643e"
+  },
+  "closedPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 192595103,
+    "prefixDigest": "sha256:ccf41d16714b6148491cf842e834764d2c892789f51b3acec3f998f8f82dea39",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 708868359,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:49a385677c464929c5c939b5eb024a95fa167102878c98b7c41884ee223d00fb"
+  },
+  "actualOutcome": {
+    "outcomeKind": "result",
+    "disposition": "completed",
+    "typedTerminalPresent": true
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/source-freeze.json",
+    "bytes": 295552,
+    "sha256": "422808c5850d72cb0533fa7ddba6864c757f9b23eeba756466f4157f20cd7879"
+  },
+  "focusedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/lane-01/RESULT.json",
+    "bytes": 985,
+    "sha256": "f23f86b6ccc0320b2ec484802414ea19e2d0b888848531add46a8462706daf58"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/required-operation-011-source/REVIEW.json",
+    "bytes": 8001,
+    "sha256": "51979073b0e8209098154856cc55da9a814fe9fe7a57bb65930ebb87567a861c"
+  },
+  "handoff": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/author-11/HANDOFF.md",
+    "bytes": 5888,
+    "sha256": "47dd94c6fb25cca3a62c63321f4e38c96426ea941ccf16d7e61eabbafbfa39d9"
+  },
+  "timingMs": {
+    "ownerSetup": 397419.086458,
+    "controlAndImport": 11211.91875,
+    "constructedToDispatch": 114186.0,
+    "dispatchToActor": 168347.0,
+    "sdkCall": 761165.2490409999,
+    "actualCloseAfterSdk": 0.9986250000074506,
+    "priorCloseRecordToDispatch": 4296225.0
+  },
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/readbacks.mjs"
+  ],
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/readbacks-001",
+  "relation": "Existing installed read owners; two fresh cold result/replay reads, full typed terminals compared to actual SDK, unchanged closed physical prefix. Only four actual pin values and author runId differ from A10 script.",
+  "executionEnabled": false,
+  "providerCalls": 0,
+  "sourceAccepted": false,
+  "wholeFileCreditAdded": false
+}

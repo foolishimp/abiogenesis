@@ -1,0 +1,12 @@
+[
+  {
+    "dependencyRef": "dependency://abiogenesis/default-library/stdo-frames@5",
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b10-003/bootstrap-install/node_modules/@abiogenesis/typescript-tenant/contracts/default-library/stdo",
+    "recordPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b10-003/bootstrap-install/node_modules/@abiogenesis/typescript-tenant/contracts/default-library/stdo/context.inventory.json"
+  },
+  {
+    "dependencyRef": "dependency://abi5-tests/gc03/policy@5",
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b10-003/gc03-policy",
+    "recordPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b10-003/gc03-policy/inventory.json"
+  }
+]

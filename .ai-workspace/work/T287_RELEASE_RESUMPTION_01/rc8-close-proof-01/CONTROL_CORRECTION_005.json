@@ -1,0 +1,92 @@
+{
+  "status": "RECOVERED_CAPACITY_CONTINUATION_BOUND",
+  "recordedUtc": "2026-11-07T05:49:53.044292+00:00",
+  "executive": "/root",
+  "operator": "/root/rc8_operator",
+  "rootDisposition": "One bounded execution005 after observed free-space recovery; no extra GO when existing guard passes. If a resource stop recurs without a new diagnosable capacity change, do not keep resubmitting.",
+  "rootTriage": {
+    "priorStop": "Global free bytes crossed4GiB reserve while final monitored owned bytes stayed291933808; operational interruption, not assertion red.",
+    "cause": "Unknown; swap3816.75MiB unchanged across Root observations; no cleanup or fix claim. Escaped descendant absence is not established.",
+    "rootFreeSpaceObservations": [
+      {
+        "at": "2026-11-07T05:42Z",
+        "freeBytes": 5562128512
+      },
+      {
+        "at": "2026-11-07T05:47:29.731Z",
+        "freeBytes": 9643057152
+      }
+    ]
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-005.mjs",
+    "bytes": 24935,
+    "sha256": "6ba51634931b2420422fb14ac3f9105db4493a932d612324d64c9297b43dbc6c"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_006.json",
+    "bytes": 102205,
+    "sha256": "c39c607ab882ca03e5e5e7b0fc0ca999d4877fecc7fc965ad3797e03d7c286f0"
+  },
+  "previousReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_004.json",
+    "bytes": 9509,
+    "sha256": "1a168f01edac53715644b550e1aea13230383152c440d98f857024e7fce44893"
+  },
+  "changes": [
+    "Driver preparation/usage filenames only",
+    "Fresh binding006/execution005/scratch005",
+    "22complete-file credits added with exact source/test/actual success receipt joins",
+    "Only C0post-publication-failure timeout changes from default600000ms to2100000ms for31staticcases; run whole file again; no credit/tally for its5partial passes"
+  ],
+  "syntax": {
+    "command": "node --check close-proof.corrected-005.mjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  "bind": {
+    "invocations": 1,
+    "exitCode": 0,
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-006/BOUND_INVENTORY.json",
+      "bytes": 1778137,
+      "sha256": "81bc7cfbeb94c2aa76f27f50e82b654574314f64af330d01c8261606ea844151"
+    },
+    "onlyChangedFields": [
+      "at",
+      "config",
+      "counts",
+      "focusedCoverage"
+    ],
+    "stageRows": 2131,
+    "dependencyRows": 4576,
+    "stageDigest": "d5976daaa2fd294fe703e10a325a3c60a76e391fb6c1f37ac9b46823aa30303d",
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "allOriginalRowsAndDigestsUnchanged": true
+  },
+  "credits": {
+    "newFiles": 22,
+    "newPasses": 27,
+    "newSkips": 24,
+    "totalFiles": 54,
+    "totalPasses": 276,
+    "totalSkips": 81,
+    "scheduled": 154,
+    "interruptedFileCredited": false,
+    "receiptChecks": "Successful full command without filtering; complete successful reporter footer/counts, exact test bytes and stdout/stderr receipts. Existing refreshed-basis relation remains exact and selected."
+  },
+  "preservedCandidateBasisRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/CANDIDATE_BASIS_REFRESH.json",
+    "bytes": 3194,
+    "sha256": "31e834aff63754a574f13cd042a7959992e55669923e00f527d62faa7e3e6fd4"
+  },
+  "capacityGuard": {
+    "freeBytes": 20145229824,
+    "twoCopyFootprint": 247528492,
+    "reserveBytes": 4294967296,
+    "passed": true
+  },
+  "testsExecutedDuringPreparation": 0,
+  "cleanup": false,
+  "sourceEdits": false
+}

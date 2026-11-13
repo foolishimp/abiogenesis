@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/runtime-scope-regressions.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/040-runtime-scope-regressions.test/process.json",
+    "bytes": 1087,
+    "sha256": "c0c50ee7d0411746c090ec962bcc743a702419f6e56d3cba4e2a8e765549a715"
+  }
+}

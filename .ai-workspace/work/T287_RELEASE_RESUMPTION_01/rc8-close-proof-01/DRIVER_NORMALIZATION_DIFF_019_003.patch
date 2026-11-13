@@ -1,0 +1,11 @@
+--- close-proof.corrected-019.mjs
++++ close-proof.corrected-019-003.mjs
+@@ -45,7 +45,7 @@
+ const digestRows=rows=>hex(Buffer.from(JSON.stringify(rows)));
+ async function selectedActionInputs(c){
+   const input=c.selectedActionDefaultInputs,review=JSON.parse(await checked(input.review)),closure=review.inputClosure;
+-  assert.equal(input.sourceRoot,await realpath(input.sourceRoot));assert.equal(join(input.sourceRoot,closure.derivedTargetPrefix),closure.originalRoot);
++  assert.equal(input.sourceRoot,await realpath(input.sourceRoot));assert.equal(resolve(input.sourceRoot,closure.derivedTargetPrefix),resolve(closure.originalRoot));
+   assert.deepEqual(closure.requiredDefault.map(r=>r.path).sort(),['selected-action-04/environment.json','selected-action-04/interrupted-prefix.jsonl','selected-action-04/opened.json']);
+   const rows=closure.requiredDefault.map(r=>({path:relativePath(closure.derivedTargetPrefix+r.path),kind:'file',bytes:r.bytes,sha256:r.sha256,executable:false})).sort((a,b)=>a.path.localeCompare(b.path));
+   assert.deepEqual(input.files,rows);assert.deepEqual(input.provenance,closure.originalRecords.slice(0,2).map(r=>({...r,path:join(closure.originalRoot,r.path)})));

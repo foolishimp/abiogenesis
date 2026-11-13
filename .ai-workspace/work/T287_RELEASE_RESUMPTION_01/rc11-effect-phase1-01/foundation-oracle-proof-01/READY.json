@@ -1,0 +1,44 @@
+{
+  "status": "FOUNDATION_ORACLE_PACK_AND_FULL_FILE_ROUTE_READY_EXECUTION_HELD",
+  "packDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/candidate-pack.py",
+    "bytes": 8852,
+    "sha256": "dc02d51288ffe24fbbd38b8a7b455d7af254339309718b2eb1d0d6b5a3fbae4e"
+  },
+  "packDriverPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/candidate-pack.py",
+    "bytes": 9130,
+    "sha256": "7019a27d5197d397aef379ac34ee3d81ce41af7425a470b91f3ffc9bc113d8e8"
+  },
+  "driverDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/PACK_DRIVER_DELTA.diff",
+    "bytes": 5974,
+    "sha256": "6a25271e2aef8a85d76f6eb5039271f97e3014f3d56fbf468168aab6898653b8"
+  },
+  "packControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/PACK_CONTROLS.json",
+    "bytes": 5982,
+    "sha256": "bc1a6cf37809b716819821c62a80542989f10119236f15aff2c6a4dbbb8f65fe"
+  },
+  "buildInputRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/BUILD_INPUT_RELATION.json",
+    "bytes": 6080,
+    "sha256": "41ba68f729a1da03bae445a58e8d9cf0ec91c70d685e1de7b0810255fdffdbc6"
+  },
+  "installedRoute": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/INSTALLED_PROOF_ROUTE.json",
+    "bytes": 4210,
+    "sha256": "8de7e6a8137347bccd85b2247707f385bed84d4fd6e355d34157a3b96cf5f163"
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/RETURN.json",
+    "bytes": 9674,
+    "sha256": "1bb10b13597ea0b3f812c33f25c0a7cbc973f147e4d97d06a343801134ee6f50"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/source-freeze.json",
+    "bytes": 295048,
+    "sha256": "12d3f6f9517d3b1173351877303fce46f007974c88e8fb0892b85389fbc700e0"
+  },
+  "pending": "Root source conjunction and explicit pack admission; then bind actual archive/bootstrap and full-file execution controls. No release/global install or broader suite."
+}

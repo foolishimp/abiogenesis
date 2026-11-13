@@ -1,0 +1,54 @@
+{
+  "status": "DIRECT_ROOT_ACCEPTED_ABG_SETUP_ACTIVE",
+  "recordedAt": "2026-11-03T00:21:30.457404+00:00",
+  "order": [
+    "direct",
+    "ABG"
+  ],
+  "provisioningRecordedAt": "2026-11-03T00:18:35.292060+00:00",
+  "actualDirectStarted": "2026-11-03T00:19:50.913Z",
+  "actualDirectCwd": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001",
+  "actualDirectTimeoutMs": 5400000,
+  "observedProviderPid": 79779,
+  "observedProviderParentPid": 79775,
+  "RootSession": 29990,
+  "executiveCost": "UNKNOWN; provisioning/selection/review operator work is separate, not zero or inferred from provider time",
+  "noAdditionalTrialSelected": true,
+  "returnReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/DIRECT_RETURN_CUSTODY.json",
+    "bytes": 5829,
+    "sha256": "4fa7871e67f5a63dc3a597587712a97cf96dfab1474b72735d61bcc56047eee6"
+  },
+  "providerCostUsd": 0.7862238,
+  "hostWallMs": 175318.79833299998,
+  "actualABGArchive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e",
+  "actualABGWorksite": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/sandbox/worksite",
+  "workspaceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/workspace-manifest.json",
+    "bytes": 1704,
+    "sha256": "5cf14e833562aeed30a48d9f4c5100ec46e341b7d24390ae5f591a7e31dede52"
+  },
+  "actualDirectInitialization": {
+    "tools": [
+      "Bash",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Read",
+      "Write"
+    ],
+    "model": "claude-opus-5-5",
+    "permissionMode": "bypassPermissions",
+    "claude_code_version": "2.1.306",
+    "skills": [],
+    "slash_commands": [],
+    "mcpServerNames": []
+  },
+  "independentReviewOverlap": {
+    "observedAt": "2026-11-03T00:40:32.288195+00:00",
+    "selectedBy": "Root",
+    "subject": "ABG_CONSTRUCTION_OBSERVED.json",
+    "subjectSha256": "84935cbc5a05e1e6ff91338ec3f6d044e93a8b3808e31980cae8e51ca678cfee",
+    "scope": "Same direct application rubric; independent max read-only review overlaps native UAT. Final exact file delta and external checks remain required. Project-level delivery overlap, no changed native Program."
+  }
+}

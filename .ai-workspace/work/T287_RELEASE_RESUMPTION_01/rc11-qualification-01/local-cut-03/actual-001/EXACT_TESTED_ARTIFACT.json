@@ -1,0 +1,20 @@
+{
+  "kind": "exact_tested_rc10_artifact_correspondence",
+  "status": "BYTE_EQUAL",
+  "testedArchive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "reproductionArchive": {
+    "path": "/private/tmp/abg-rc11-reproduction-20261109-03/reproduction/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "sameMemberSet": true,
+  "members": 5327,
+  "unchangedMembers": 5327,
+  "changedMembers": [],
+  "identityBridgeAllowance": false,
+  "qualified": false
+}

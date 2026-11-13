@@ -1,0 +1,81 @@
+{
+  "id": "FOUNDATION-BASIS-01",
+  "status": "ROOT_ADMITTED_AUTHORITY_AMENDMENT",
+  "recordedUtc": "2026-11-09T17:11:13.735498+00:00",
+  "priorActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/ACTIVATION.json",
+    "bytes": 6494,
+    "sha256": "f640957cc2988777515af12812ddffbdf5a389f4d699a2ed5440dcb0e312ac0b"
+  },
+  "sourcePreimages": {
+    "specification/PRODUCT.md": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 391566,
+      "sha256": "68577ff6afbc8f4e03f4846d3831367c734b418eda3ca60867d1b369288ca681"
+    },
+    "AGENTS.md": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    },
+    "CLAUDE.md": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/CLAUDE.md",
+      "bytes": 6306,
+      "sha256": "6c2f604416499412902f5696953f5a059a88f5a5a348b1b39e58108819ec1940"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "bytes": 7453,
+      "sha256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed"
+    }
+  },
+  "indicesBefore": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+      "bytes": 29654632,
+      "sha256": "1565ede1946f801ec1cf5ed2fe18fc9ec9c2e44a1179e47f0513b73e9d082c01"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    }
+  ],
+  "ownerInstruction": [
+    "Effect API prohibition was misunderstanding",
+    "ABG is the application sitting on the best possible implementation of the design",
+    "yes do this, this may have been the root blocker of many refactor attempts that were silently killed or hamstrung"
+  ],
+  "decision": "Product realization-profile reconciliation then design_reframe. Product text/realization constraint changes; fixed fifteen outcomes, behavioral requirements and serialized Public contracts remain unchanged. Core Effect3.22.1 mechanisms may realize authorized contracts without semantic authority. No per-API/helper approval gate, automatic concurrency/retry, upgrade or production transport rewrite.",
+  "writes": [
+    "/private/tmp/abg-rc11-foundation-20261110-01/specification/PRODUCT.md",
+    "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+    "/private/tmp/abg-rc11-foundation-20261110-01/AGENTS.md",
+    "/private/tmp/abg-rc11-foundation-20261110-01/CLAUDE.md",
+    "/private/tmp/abg-rc11-foundation-20261110-01/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+    "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator"
+  ],
+  "generationGrant": "Existing successor-local tsc/build and generate-qualification-rule-catalog.mjs --stage-authorities with exact successor and STDO3.0.4; normal deterministic manifest reconciliation. Generated authority definitions only, no positive qualification evidence. Actual output delta must be recorded.",
+  "held": [
+    "production and test source edits",
+    "native setup/provider dispatch",
+    "commit/merge/push",
+    "release/install/operational pin change"
+  ],
+  "historyConfidence": "Active D2 mechanism exclusion is established; no attribution of specific later native author failures to that exclusion.",
+  "staticEnforcement": "Root/source assurance found no static Effect API blacklist. No Map/WeakMap oracle changes selected."
+}

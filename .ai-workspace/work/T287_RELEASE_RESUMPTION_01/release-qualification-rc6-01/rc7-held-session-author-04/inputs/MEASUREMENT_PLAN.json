@@ -1,0 +1,21 @@
+{
+  "kind": "bounded_native_correction_measurement_selection",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 8291,
+    "sha256": "cc20cf0f68cda24c53afcf79c992db65ebfc886da2bf5fefdbb1ee0acb27a466"
+  },
+  "retainedHS02": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-hs02-once.summary.json",
+    "bytes": 4542,
+    "sha256": "b419f2c2df01c148434dd6763b154adefa7f720b06018c8e01c7a3eacb79d6c0"
+  },
+  "retainScope": "Prior HS02 remains accepted bounded evidence. This new run covers affected ordinary consumer setup; no benchmark/speedup claim.",
+  "newMeasurements": [
+    "Stage source freeze and exact full payload reuse, with historical build receipts distinguished from copy time.",
+    "Fixed-route600s followed by existing HS02 lane600s (authored280s), assessment/native-workspace/caller300s each; preserve original failures and actual selected counts.",
+    "Separate setup/reuse/native/testing/readback/coordination timings; no whole runtime performance claim."
+  ],
+  "unchangedBuilderColdReads": 0,
+  "limits": "No new whole campaign qualification; S4-growth/S6 and remaining release gates remain."
+}

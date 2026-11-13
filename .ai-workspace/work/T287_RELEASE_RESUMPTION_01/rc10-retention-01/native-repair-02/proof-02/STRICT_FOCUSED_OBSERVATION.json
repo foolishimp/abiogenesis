@@ -1,0 +1,114 @@
+{
+  "status": "STRICT_FIRST_CALL_OBSERVATION_PASSED",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "focusedReceipt": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/focused-01/RESULT.json",
+    "bytes": 2272,
+    "sha256": "68176a792986c22b419d8a3baf94f3e95d2a348c431194bbf8257eb1f98bfe70"
+  },
+  "stdout": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/focused-01/commands/focused.stdout",
+    "bytes": 2089,
+    "sha256": "e4fbbd20b79cb414538fdedef9e734bc65a2ea654c494c4db55bc5e88669936e"
+  },
+  "integrated": {
+    "callWork": {
+      "rowAdmissions": 1,
+      "bodyDigests": 1
+    },
+    "newBases": 1,
+    "basisInvocationRefs": [
+      "invocation://abiogenesis/0604f31e7c22a3ff35d4c08450283d39e97533b75062f28aed086fc5822b81d4"
+    ],
+    "after": {
+      "openHandles": 0,
+      "retainedRows": 0,
+      "retainedPayloadBytes": 0,
+      "historyBasisBodies": 0,
+      "historyBasisPayloadBytes": 0
+    }
+  },
+  "allObservations": {
+    "mode": "functional",
+    "runs": [
+      {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      }
+    ],
+    "integrated": {
+      "callWork": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      },
+      "newBases": 1,
+      "basisInvocationRefs": [
+        "invocation://abiogenesis/0604f31e7c22a3ff35d4c08450283d39e97533b75062f28aed086fc5822b81d4"
+      ],
+      "after": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      }
+    },
+    "historical": {
+      "coldWork": {
+        "rowAdmissions": 2,
+        "bodyDigests": 2
+      },
+      "activeFirst": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      },
+      "activeAgain": {
+        "rowAdmissions": 0,
+        "bodyDigests": 0
+      },
+      "copied": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      },
+      "released": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    "gauges": {
+      "oneA": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 75,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 75
+      },
+      "afterB": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 75,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 75
+      }
+    },
+    "meaning": "retainedPayloadBytes/historyBasisPayloadBytes are logical UTF-8 canonical JSON bytes of rawInputValue recorded once at insertion; not heap, RSS or allocation size",
+    "unproved": [
+      "rollback disposal (RuntimeHistory.truncate) is not driven by an actual failed append here",
+      "duplicate rows (many before lookup) are not constructed here",
+      "refusal, runtime failure, interruption and held/gap exits of an actual Run",
+      "continuation reacquisition",
+      "no heap or performance claim"
+    ]
+  },
+  "standing": "Executed fixture-specific first call before manual probes. 50-call installed proof remains separate."
+}

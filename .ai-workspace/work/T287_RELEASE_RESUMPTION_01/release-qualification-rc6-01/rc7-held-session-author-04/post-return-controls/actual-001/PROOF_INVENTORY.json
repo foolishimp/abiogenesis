@@ -1,0 +1,198 @@
+{
+  "kind": "native_author_actual_proof_inventory",
+  "status": "PARTIAL_FIXED_ROUTE_ASSERTION_FAILURE_FOUR_LANES_UNRUN",
+  "createdUtc": "2026-11-06T18:37:31.919493+00:00",
+  "finalFrozenStage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/review-subject-stage-001/SUBJECT.json",
+    "bytes": 264445,
+    "sha256": "b5715335929d4cb2ba1b81879471970a5f78106a1aaa65571de55a7a5c506793"
+  },
+  "sourceCount": 451,
+  "sourceDigest": "4cc3964124aa8424db8d67d2f992c4a9f8624fd0a88913f09dba478199551956",
+  "stageFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/review-subject-stage-001/evidence/source-freeze.json",
+    "bytes": 96811,
+    "sha256": "47b44fa41ed01cffc9e920725ab8a6aabf56fe67f24ed0c461e6f1337aa0c08d"
+  },
+  "stageReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/review-subject-stage-001/evidence/stage.json",
+    "bytes": 100744,
+    "sha256": "0c72ceec667b4e7f696673ce6665c7dbd8085ad90d5c20b1262bd8695206f89f"
+  },
+  "stagesConsumed": 1,
+  "maxStages": 1,
+  "laneInvocationsConsumed": 1,
+  "maxLaneInvocations": 5,
+  "setupMs": 4171,
+  "reusedBuildEvidence": {
+    "compile": {
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "reused": true,
+      "executed": false,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+        "bytes": 102337,
+        "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+      },
+      "pointer": "/compile",
+      "historicalSourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+      "relation": "All449 non-writable source inputs and full5325-member Product payload unchanged; two changed caller/test mjs paths excluded from declared package payload."
+    },
+    "generate": {
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "reused": true,
+      "executed": false,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+        "bytes": 102337,
+        "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+      },
+      "pointer": "/generate",
+      "historicalSourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+      "relation": "All449 non-writable source inputs and full5325-member Product payload unchanged; two changed caller/test mjs paths excluded from declared package payload."
+    },
+    "lifecycle": {
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "reused": true,
+      "executed": false,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+        "bytes": 102337,
+        "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+      },
+      "pointer": "/lifecycle",
+      "historicalSourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+      "relation": "All449 non-writable source inputs and full5325-member Product payload unchanged; two changed caller/test mjs paths excluded from declared package payload."
+    }
+  },
+  "productReuse": {
+    "status": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL",
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+      "bytes": 1466472,
+      "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+    },
+    "before": {
+      "members": 5325,
+      "bytes": 71702388,
+      "productContentDigest": "sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+      "manifestSha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a",
+      "graphSha256": "82720d92dad9e7c30749042935e69793d93d99092d2a617a434e3e83da1f1432"
+    },
+    "after": {
+      "members": 5325,
+      "bytes": 71702388,
+      "productContentDigest": "sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+      "manifestSha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a",
+      "graphSha256": "82720d92dad9e7c30749042935e69793d93d99092d2a617a434e3e83da1f1432"
+    },
+    "originalCompletedBuildReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+      "bytes": 102337,
+      "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+    },
+    "noCompileOrGenerationExecuted": true
+  },
+  "executedLanes": [
+    {
+      "id": "fixed-route",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/operator-custody-001/lanes/fixed-route/summary.json",
+        "bytes": 2212,
+        "sha256": "0d7d2a2cb75ea0385b0de71c8aa5131702e9d47a2515502fa785291b3625ed75"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-lanes-fixed-route/fixed-route.stdout.tap",
+        "bytes": 3914,
+        "sha256": "f979543dac4f7ba6391b029594817c4fafdf4aaefd470509bffbd18debfb2522"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-lanes-fixed-route/fixed-route.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tests": 7,
+      "pass": 6,
+      "fail": 1,
+      "skipped": 0,
+      "cancelled": 0,
+      "exitCode": 1,
+      "ms": 66805,
+      "failureMetadata": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/operator-custody-001/lanes/fixed-route/FAILURE_METADATA.json",
+        "bytes": 1353,
+        "sha256": "532acf7178bf5238823a4c1af09f2875924a9b830d77edde3608bf3fcb82fe78"
+      }
+    }
+  ],
+  "remainingLanes": {
+    "held-session": "NOT_RUN_AFTER_FIRST_FAILURE",
+    "assessment-guards": "NOT_RUN_AFTER_FIRST_FAILURE",
+    "native-workspace-owner": "NOT_RUN_AFTER_FIRST_FAILURE",
+    "caller": "NOT_RUN_AFTER_FIRST_FAILURE"
+  },
+  "boundedActualProgress": {
+    "source": "Root source-order examination conjoined with the actual failed assertion",
+    "completed": "Actual Testing and derived state Result assertions precede and completed before the fixed-crossed-input failure.",
+    "notReached": "UAT and full-route terminal agreement not reached.",
+    "limit": "This bounded progress does not establish full fixed route, later held-session lane or qualification."
+  },
+  "all451FinalStageFilesEqualActualNativeAfterAndLive": true,
+  "handoffs": [
+    {
+      "relativePath": "qualification-scratch/rc7-held-session-author-04/progress.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/progress.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/post-return-controls/actual-001/handoffs/progress.json",
+        "bytes": 11462,
+        "sha256": "ddc92926096c8cec782023ba51d3c5bd50ecd63c1bb3e57bf647d391f201e81e"
+      },
+      "beforeState": "absent",
+      "afterEntryIndex": 459
+    },
+    {
+      "relativePath": "qualification-scratch/rc7-held-session-author-04/readiness.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/readiness.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/post-return-controls/actual-001/handoffs/readiness.json",
+        "bytes": 2171,
+        "sha256": "3f342aceadbd4cec6980f9cbf25e528cf00bfe88d729feb3846c4a7d65847c4a"
+      },
+      "beforeState": "absent",
+      "afterEntryIndex": 460
+    },
+    {
+      "relativePath": "qualification-scratch/rc7-held-session-author-04/return.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/return.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/post-return-controls/actual-001/handoffs/return.json",
+        "bytes": 14005,
+        "sha256": "4a6289d91e9e5c3c06176b60d6ed10b93ebe522c1233772e29e6bd79b8eb4975"
+      },
+      "beforeState": "absent",
+      "afterEntryIndex": 461
+    }
+  ],
+  "readinessLimit": {
+    "status": "SOURCE_AUTHORED_STAGE_PENDING",
+    "standing": "Original SOURCE_AUTHORED_STAGE_PENDING readiness body is stale relative to final stage/proof and is preserved exactly, not normalized."
+  },
+  "declaredReadScopeLimit": {
+    "literalDisclosure": [
+      "Read-only Grep over test_env/*.mjs to confirm the cone touched files beyond the listed readable scope (e.g. test_env/uat/continuation.mjs, other tests); no edits."
+    ],
+    "explicitlyNamedOutsidePath": "build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs",
+    "namedPathInSelected451": false,
+    "unspecifiedOtherPaths": "other tests",
+    "standing": "Declared read-scope uncertainty retained. No provider/tool-result inspection to reconstruct unnamed paths."
+  },
+  "historicalProofStanding": "All H03 native/operator failures unchanged. Completed Product build evidence is explicitly reused, never relabeled as H04 execution.",
+  "qualified": false,
+  "accepted": false
+}

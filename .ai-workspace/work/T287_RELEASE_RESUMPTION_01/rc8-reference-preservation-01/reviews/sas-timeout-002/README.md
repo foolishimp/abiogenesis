@@ -1,0 +1,11 @@
+Product Frame: ABIogenesis 5.0, fixed fifteen families, GOAL-035/T-287/RC8 REF-01; STDO 3.0.4, empty composition. This is independent Proof triage on frozen A8 `86711a566006…` / freeze `efba6bea8f3d…`; Root owns disposition.
+
+The selected whole-file proof failed its bounds. Six cases passed in 2515.265 s. Case 7 reported `testTimeoutFailure` at 919.400 s against its 900 s limit. The command then reached 3600.075 s and ended with `SIGTERM`; final RESULT is `FAILED`, without final counts or an aggregate. No semantic assertion failure was reported.
+
+Case 7 is byte-identical to stage 04. It creates two fresh installed Runs, with default result/replay readbacks, then checks the real complete-pair owners over warm, copied and cold cuts. It does not consume the large historical RC5 log. No phase receipt locates the delay. A Product regression, loop, replay pathology or unique host cause is therefore unproved; Runtime latency impact remains unknown. Increasing only the outer deadline cannot fix its own case limit.
+
+The smallest new proof is a separately selected run of unchanged cases 10 and 11, which independently exercise A8’s remaining historical-profile helper change. Keep their 600 s limits and every assertion, provide a coherent outer budget, and retain actual selected/excluded counts. Cases 3/4 and the separate coordinate file (11/11) already passed. This can close the changed fixture’s evidence without repeating six completed cases; it cannot produce whole-SAS green or the aggregate.
+
+One S3 Proof-limit finding is retained. A Root-adopted residual for case 7, unproved cases 8/9 and full-file/aggregate completion is a defensible option for the explicitly unqualified REF-01 cut. Cases 10/11 remain in that residual until proved. The trigger is any complete-SAS, affected coverage or qualification claim; closure requires phase attribution and actual outstanding proof, without weakened guards or reconstructed aggregate success. Original A8 native failure remains separate.
+
+Exact pins, source lines, claim limits and the conditional recommendation are in [REVIEW.json](REVIEW.json). No tests, Product calls, profiling, process actions, source repairs or disposition were performed by this Reviewer.

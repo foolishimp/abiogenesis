@@ -1,0 +1,51 @@
+{
+  "kind": "root_rc7_local_candidate_install_activation",
+  "status": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "at": "2026-11-07T00:25:14.961924+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "buildBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_BUILD_BINDINGS_001.json",
+    "bytes": 6266,
+    "sha256": "7e1e6ee9766e063030119a6a3910259f552556ce9ebbf33a7bf4a303b3e570ca"
+  },
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 4370,
+    "sha256": "2e2ee9ba7063024c5da0b9955c119b9dc7f6dee51c1ec2aaed93b7e060042b0e"
+  },
+  "actualBuildCompletion": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/BUILD_RESULT.json",
+    "bytes": 1408,
+    "sha256": "74e985058aa25c9405e4c3ce0c8ab67845cdc40530cf8c8fa8d52853fae3c834"
+  },
+  "cleanReproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1261,
+    "sha256": "d72aa3def4385d419aac75c143df12e740251e5163e1750c73a484f92ac712e3"
+  },
+  "independentPackagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/reviews/packaging-001/REVIEW.json",
+    "bytes": 23783,
+    "sha256": "d47424edf14fd4259c45f3cdd5b21613baa8024c78076e0f50842a13560e3489"
+  },
+  "selection": "Fresh local RC7 custody and one exact selected-archive Product-owner verification/lock/installation, all5325payload byte correspondence and one fresh installed-owner content check. No new build, provider/native run or completed qualification repetition.",
+  "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b",
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7",
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7",
+  "boundsMs": {
+    "install": 600000,
+    "installedOwner": 60000
+  },
+  "maxOutputBytes": 67108864,
+  "nodeHeapMiB": 8192,
+  "availableBytes": 6112477184,
+  "failurePolicy": "Preserve partial allocation and original receipt on refusal; no automatic retry, overwrite or cleanup.",
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

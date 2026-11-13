@@ -1,0 +1,242 @@
+{
+  "startedUtc": "2026-11-05T01:53:23.867370+00:00",
+  "completedUtc": "2026-11-05T02:16:33.790388+00:00",
+  "candidateCommands": [
+    {
+      "label": "offline-dependencies",
+      "argv": [
+        "/bin/cp",
+        "-cR",
+        "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/node_modules"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "exit": 0,
+      "wallMs": 535.473,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/offline-dependencies.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/offline-dependencies.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "label": "compile",
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript",
+      "exit": 0,
+      "wallMs": 7185.272,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/compile.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/compile.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "label": "generate",
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript",
+      "exit": 0,
+      "wallMs": 21907.736,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/generate.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/generate.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "label": "pack",
+      "argv": [
+        "/opt/homebrew/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "artifacts"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript",
+      "exit": 0,
+      "wallMs": 3523.062,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/pack.stdout",
+        "bytes": 700121,
+        "sha256": "5437305836dc45bea39a430c649228e8fc32b09ee3689257a47787aea95862aa"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/pack.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "cleanReproductionCommands": [
+    {
+      "label": "archive",
+      "argv": [
+        "/usr/bin/git",
+        "-C",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+        "archive",
+        "--format=tar",
+        "--output=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/source.tar",
+        "e7179b19b50c3b2f918e59425667ed79239e4a68",
+        "build_tenants/abiogenesis/typescript",
+        "specification",
+        "stdo_abiogenesis.json",
+        "AGENTS.md",
+        "CLAUDE.md"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "exit": 0,
+      "wallMs": 362.201,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/archive.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/archive.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "label": "extract",
+      "argv": [
+        "/usr/bin/tar",
+        "-xf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/source.tar",
+        "-C",
+        "/private/tmp/abg-rc5/rc6-reproduction-zqayz418"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc6-reproduction-zqayz418",
+      "exit": 0,
+      "wallMs": 180.748,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/extract.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/extract.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "label": "offline-dependencies",
+      "argv": [
+        "/bin/cp",
+        "-cR",
+        "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+        "/private/tmp/abg-rc5/rc6-reproduction-zqayz418/build_tenants/abiogenesis/typescript/node_modules"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc6-reproduction-zqayz418",
+      "exit": 0,
+      "wallMs": 617.256,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/offline-dependencies.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/offline-dependencies.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "label": "compile",
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc6-reproduction-zqayz418/build_tenants/abiogenesis/typescript",
+      "exit": 0,
+      "wallMs": 9013.476,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/compile.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/compile.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "label": "generate",
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc6-reproduction-zqayz418/build_tenants/abiogenesis/typescript",
+      "exit": 0,
+      "wallMs": 23943.32,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/generate.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/generate.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "label": "pack",
+      "argv": [
+        "/opt/homebrew/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "artifacts"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc6-reproduction-zqayz418/build_tenants/abiogenesis/typescript",
+      "exit": 0,
+      "wallMs": 3760.305,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/pack.stdout",
+        "bytes": 700121,
+        "sha256": "5437305836dc45bea39a430c649228e8fc32b09ee3689257a47787aea95862aa"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/pack.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "installedOwnerReadWallMs": 16161.648,
+  "nativeWorkerLaunchMs": null,
+  "nativeBetweenTaskMs": null,
+  "nativeProviderActors": 0,
+  "meaning": "Mechanical local delivery timings only. No new SDK setup/native launch/between-task observation; proof10 timings remain on installed RC5. RC6 complete native-workflow performance remains unmeasured."
+}

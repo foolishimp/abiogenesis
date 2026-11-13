@@ -1,0 +1,9 @@
+# Root bounded P3 acceptance and one actual-artifact proof selection
+
+Root confirmed resource-retest session84371 exit0, ended2026-11-01T08:52:33.525Z: result/completed with typed terminal, matching fresh run_result and closed replay on Run3c6fe33614606bc0a66263d727c271f9f171aa35c1e245eb646c87188eb250e0. Stable observed custody83426fe1… binds the actual Testing/UAT admissions, final Return/readbacks and source/artifact; it is evidence, not the Root decision.
+
+ROOT DISPOSITION: accept bounded N1–N4 under the already-selected narrow P3 authority, using inherited ten-source review plus all nine actual green C2 commands, admitted satisfied UAT and matching fresh readbacks. Source checkpointbcb1faf63cfb39bd7ccf7e14b48b133d1163216b remains clean and its ten native-author hashes are unchanged. The earlier blocked P3 Run and its focused600s timeout remain failed historical evidence. No sameRun Construction is invented for this Testing/UAT-only Run; prior authoring remains external custody.
+
+Root selects exact observed archive70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd (10942981B; contentc89cf68f…/manifest8e2230b5…) ONLY for one fresh installed ordinary basic-cli proof through the retained harness. Preserve the exact original six fixtures, ten-root workload, two commands, bound12 and14-check independent oracle/profile. Materialize config with the existing pure prepare-config.py; Root alone invokes existing preflight and run after final input review. No provider/Public/runtime invocation is authorized to this Writer.
+
+This is neither a local release/cut nor external publication, AF22/AF25, whole-Product qualification, full original P1/native-context continuation, old003 retrocredit, model independence or OS confinement. End-to-end efficiency remains pending actual proof/measurements. Historical basic-cli9b644/23532557B is a same-input observation comparator, not a strict matched CPU/provider benchmark or10%B11 gate.

@@ -1,0 +1,31 @@
+{
+  "status": "FAILED",
+  "lane": "lifetime",
+  "file": "t287-owned-process-lifetime.test.mjs",
+  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+  "counts": {
+    "tests": 18,
+    "failed": 2,
+    "passed": 16,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 18,
+    "suites": 0
+  },
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/lane-01/events.jsonl",
+    "bytes": 7903,
+    "sha256": "ff7ac84ed19f27db9dfa7e6274f34d94c0ce52759cddba91c2de929357be682e"
+  },
+  "wholeFile": true,
+  "namePattern": null,
+  "optionalInputsSelected": false,
+  "wallMs": 26683.131666999994,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "primaryPreserved": true,
+  "buildInvocations": 0
+}

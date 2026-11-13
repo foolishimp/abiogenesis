@@ -1,0 +1,8 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "ROOT_SELECTS_EXACT_BINDING",
+  "sourceCommit": "0a8d330a32d5f577b424394c0424a1cd9abe519b",
+  "sourceTree": "37256c94ccc68050275bfdd5e67f322911d48fc7",
+  "decision": "Root may admit bounded HC2 completion zero-provider installed preflight/call construction. Actual frozen-call review precedes one-shot dispatch. Inherit C3; declared same-Run consequence allowed; fresh005/qualification/release separate."
+}

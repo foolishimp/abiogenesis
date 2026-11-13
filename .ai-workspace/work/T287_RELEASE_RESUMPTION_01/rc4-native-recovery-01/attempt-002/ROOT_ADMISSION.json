@@ -1,0 +1,42 @@
+{
+  "kind": "rc4_native_recovery_attempt_002_root_admission",
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "recordedAt": "2026-11-01T13:38:31.110704+00:00",
+  "bindingSha256": "921b09baf0736e547e617ab75d6438fef98ee674fd684c09757c22bee4532aa5",
+  "packetSha256": "c3ace8827721048db1da3de779b5b43d17267f2c2385eee0ebb00999160ae91f",
+  "sourceCommit": "5559656d3723c9e4be516c4bb1b7954640b1eead",
+  "sourceTree": "26c9f41a881a2856e23bd1eb50749837bdc343fc",
+  "authority": "Root exact packet review and admission under existing owner-authorized RC3-to-RC4 point-one mandate; recorded by separately bound Writer",
+  "decision": "ADMITTED: Root may perform installed preflight and call preparation, then review the actual frozen call before one-shot dispatch. Product authorship remains solely ABG-native.",
+  "reviewed": [
+    "task.md",
+    "rubric.json",
+    "setup-state.mjs",
+    "prepare-native-call.mjs",
+    "dispatch.mjs"
+  ],
+  "basis": {
+    "selectedOutcome": "Same actual default-library pending native Testing recovery, consolidation and scoped debt retirement",
+    "ProductWritePaths": 51,
+    "scratchWriteRoots": 1,
+    "offlineTooling": "declared read-only existing offline dependency store",
+    "invariantSources": 13,
+    "sourceWriteIntersection": [],
+    "C2CommandPurposes": 9,
+    "maxContextBytes": 268435456,
+    "contextLimitMeaning": "ceiling for declared scratch, not a performance claim",
+    "resources": "xhigh, 240 turns, idle75min, absolute90min, focused45min, outer3h, no dollar cap"
+  },
+  "reuse": "Final authenticated caller handoff for a fresh sourceBasis:none current-state task; not a run.continue recovery proof",
+  "conditions": [
+    "Root alone imports installed ABI runtime or invokes Public/provider/preflight/dispatch",
+    "Any preflight refusal returns to Root; no implicit fallback",
+    "Later real installed interruption/fresh-process/no-duplicate-Construction/result-replay proof remains distinct",
+    "No new Product or methodology governance",
+    "Frozen packet/binding/materialized inputs unchanged"
+  ],
+  "nativeDispatch": "not started by this admission record",
+  "qualification": false,
+  "release": false
+}

@@ -1,0 +1,22 @@
+{
+  "status": "PREPARATION_CHECKED",
+  "syntaxOnly": {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-full-unit-007.mjs"
+    ],
+    "exitCode": 0,
+    "wallMs": 21.968958899378777,
+    "stdout": "",
+    "stderr": ""
+  },
+  "pins": {
+    "count": 77,
+    "mismatches": []
+  },
+  "unitNodeConfiguredPath": "/opt/homebrew/bin/node",
+  "unitNodeResolvedPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "runtimeRootsAbsent": true,
+  "standing": "Control syntax and byte identities only; no unit, Product, runtime allocation or packaging execution."
+}

@@ -1,0 +1,8 @@
+{
+  "role": "operator/evidence Writer",
+  "authority": "native-02/ROOT_WRITER_ACTIVATION.json",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json",
+  "beforeSha256": "ab0f35dec2184f4525c5cb982ebdc2242d39adadd7c302e261be24de14412ed7",
+  "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T163844Z/STATUS.json",
+  "afterSha256": "894bbd3994a72543c15d93b1432e1a683f508a233355ff83ab7ab026e4579163"
+}

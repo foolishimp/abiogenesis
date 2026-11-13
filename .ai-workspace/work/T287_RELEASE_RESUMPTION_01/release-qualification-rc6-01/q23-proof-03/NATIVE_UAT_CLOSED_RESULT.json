@@ -1,0 +1,25 @@
+{
+  "recordedUtc": "2026-11-05T21:33:54.347Z",
+  "status": "CLOSED_WITHOUT_NATIVE_UAT_RESULT",
+  "assessment": null,
+  "nativeActorLaunched": false,
+  "assessmentTaskObserved": false,
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/outcome-summary.json",
+    "bytes": 543,
+    "sha256": "fb8f0adf08d25905f5a20cbac2bbf5279fa01e6be90136d5be8392f084a217b9",
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:7ace1ada199a075743e479ce1b8fb4499b1f15f085806d9cb8ef10274cd2cef8",
+      "ref": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497"
+    },
+    "terminalPresent": false
+  },
+  "observation": {
+    "fromByte": 539268763,
+    "throughByte": 573221934,
+    "throughOrdinal": 95434
+  },
+  "standing": "Closed outcome retained without claiming UAT; Root must triangulate the actual cause before any retry."
+}

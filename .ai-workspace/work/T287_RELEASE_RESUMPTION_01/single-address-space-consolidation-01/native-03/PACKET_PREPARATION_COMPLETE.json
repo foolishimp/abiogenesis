@@ -1,0 +1,37 @@
+{
+  "status": "READY_FOR_INSTALLED_PREFLIGHT",
+  "recordedUtc": "2026-11-03T18:07:30.558568+00:00",
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/SOURCE_BEFORE.json",
+    "bytes": 36601,
+    "sha256": "fc469814b72598157a462fa24ba9959d479932e87b463a6ada3383ce97de2f33"
+  },
+  "selectedFiles": 843,
+  "existingSelectedBytes": 21865155,
+  "futureFiles": [
+    "consolidation-scratch/native-03/return.json",
+    "consolidation-scratch/native-03/readiness.json",
+    "consolidation-scratch/native-03/progress.json"
+  ],
+  "sourcePins": 28,
+  "commands": 7,
+  "lanes": [
+    "affected-owner-lanes",
+    "installed-affected-lane",
+    "single-address-space-whole-path",
+    "maintained-setup-harness"
+  ],
+  "productWritePaths": 88,
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/workload.json",
+    "bytes": 194723,
+    "sha256": "15193568c3c54039b035627849ee7194bfe29bc64845f8f65fa37b741a6cae34"
+  },
+  "nativeDispatched": false,
+  "providerCalls": 0,
+  "previousActualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/execution/after-run-resume.json",
+    "bytes": 99580615,
+    "sha256": "c66641ad6a2468832a0752fab421a93b2dabd997f1bfdfd042e7214b992341df"
+  }
+}

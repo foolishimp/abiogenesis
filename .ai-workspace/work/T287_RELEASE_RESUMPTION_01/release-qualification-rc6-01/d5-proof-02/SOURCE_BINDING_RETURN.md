@@ -1,0 +1,11 @@
+Product Frame: unchanged ABIogenesis 5 fifteen families F01–F07, F09–F11, F13–F17; GOAL-035/T287 F10 affected D5 proof with F04/F11 preservation. Product/HOW owns scope; installed RC6 owners govern execution; ABG alone admits runtime truth. This return records frozen-source custody and operator bindings, with no staging, execution, Product edit or acceptance.
+
+**HELD_FOR_ROOT_SOURCE_REPAIR.** Root reports a legacy cold-reader counterexample: an authentic unstamped L artifact is classified as current, while the new positive fixture artificially stamps LEGACY. Root reports current-P unaffected; closed review/triage remains its responsibility. This exact author02 source is historical and must not receive C2/UAT activation before corrected source and a new explicit Root selection.
+
+All 404 frozen members match their snapshot hashes and admitted after-entry metadata. Both final1/final2 stages contain the same 372 actual source members and digest `f7d7594f66362312755f1d3c8740f0aca1129cd89f7352e9dd26c07a8d136233`. The two new Product files are included; three handoffs are separately pinned. The proof packet now binds all 407 C2 inputs and 412 context paths.
+
+The genuine author02 close `05964a28…` and 72,494,784-byte resume are bound at the 914,514,036-byte prefix. Resume bytes/hash and close coordinates match. No predecessor close was used. Root admission remains null, and both binding/grant statuses enforce the repair hold.
+
+Retained author TAP counters match 113 passes with zero failures/skips/cancellations/todo. Recovery took 109,911 ms and 109,235 ms against 120,000 ms, leaving roughly ten seconds. These are prior author checks, not native C2/UAT or acceptance. The unconfirmed-physical capsule remains open. The p5 profile ref is unchanged while the candidate current digest is `3bcc8488…`; CT02 profile/cut acceptance remains open.
+
+Original controls/placeholders are preserved under `source-binding-preimages-001`. Original closed preparation, timed script hashes, seven-command recipe and provider profile remain unchanged. Current source/close correspondence is useful historical evidence; future repair selection must reacquire and bind the corrected subject and its actual close before any activation.

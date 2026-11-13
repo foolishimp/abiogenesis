@@ -1,0 +1,442 @@
+{
+  "productFrame": {
+    "product": "Unchanged ABIogenesis5 fifteen families/GOAL-035/T-287",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "slice": "Fixed Testing-to-actual-admitted-C2-to-independent-UAT; selected RC7-LAUNCH-02",
+    "authority": "Product WHAT; accepted library HOW/contract; SDK deterministic selection; ABG source/effect/result admission; native UAT judgment; Root grant/conjunction"
+  },
+  "kind": "contributing_fixed_proof_route_architectural_readiness",
+  "at": "2026-11-06T03:35:08.276959+00:00",
+  "status": "SELECTED_RC7_WORK_REQUIRES_HOW_CONTRACT_AND_GRANT_REENTRY_NOT_IMPLEMENTED",
+  "observed": {
+    "selectorWallMs": [
+      334345,
+      317643
+    ],
+    "selectorTotalMs": 651988,
+    "nativeAssessorLaunched": false,
+    "inputShape": {
+      "synthesisNull": true,
+      "observationCount": 0,
+      "workOrders": [
+        "testing",
+        "uat"
+      ],
+      "fulfillmentPresent": false,
+      "requiredSupportCount": 1
+    },
+    "limit": "Wall observations are not measured removable time."
+  },
+  "decision": "Direct invoke of existing Testing and UAT wrappers in current consumer Program; existing admitted_source_result joins their genuine Results. No new pipeline graph, runtime, controller, public mode or selector substitute.",
+  "route": {
+    "testing": {
+      "api": "constructInstalledStartCall",
+      "selection": "{memberKey:invoke,catalogHandle:installed governanceRef(graph-function,testing)}",
+      "input": "Exact fresh fixed governance_work_state and source:none",
+      "output": "Conserved state with one actual C2 observation, null selector provenance and unresolved outcomes"
+    },
+    "handoff": {
+      "api": "deriveInvocationSourceResultBasisAtPrefix",
+      "inputFields": [
+        "authenticated prefix",
+        "publicAuthorityDigest",
+        "runtimeInvocationRef",
+        "invocationAdmissionRef",
+        "runId",
+        "returned Testing resultRef"
+      ],
+      "result": "Existing ProductInvocationSourceResultBasis; retain original producer/Run/GraphCall/CCall/result/replay coordinates",
+      "nextInput": "retainedGovernanceWorkInput(basis.sourceResultValue), unchanged",
+      "sourceIntent": "{kind:admitted_source_result,basis,projectionAuthority}; existing rehydration at owner_bindings/run_invocation.ts1276ff"
+    },
+    "uat": {
+      "api": "constructInstalledStartCall",
+      "selection": "{memberKey:invoke,catalogHandle:installed governanceRef(graph-function,uat)}",
+      "producerRule": "Require sourceResultBasis.sourceGraphFunctionRef to be Testing wrapper, synthesis:null and exactly one purpose:testing observation binding actual C2 resultRef/digest/cCallRef/actorInvocationRef. This projects a declared single-producer input. Zero/multiple/other producers refuse; no latest/eligible search.",
+      "preserve": [
+        "subjectEvidence admission/basis/workspace/actor/source-use joins",
+        "Fresh context/protected dependency correspondence and worksiteCommandSourcesInvalidatedAfter",
+        "Whole authenticated producer streams/predicates within declared prompt bound",
+        "Full original source/candidate/rubric/criteria",
+        "Installed consumer schema and STDO assessor role",
+        "Actual native F_P assessment, no writes and independent actor"
+      ],
+      "output": "Actual assessment Result folded with null selector provenance. Unmet/indeterminate preserved; wrapper closure is not parent convergence."
+    }
+  },
+  "contractDelta": {
+    "product/default_library.ts": "Nullable observation.synthesisResultRef for authenticated direct contributions; actual synthesis refs unchanged. Existing state.synthesis remains null.",
+    "abg/default_library.ts": "Authenticate direct-root relation through invocation root/execution basis equality and exact Testing/UAT target. Allow fresh fixed Testing or exact admitted direct-Testing source only. Preserve sourceResult retained child/input join, all original state, actual C2/native identities. Selected children keep synthesis target guard. Bind the explicit single producer through existing subjectEvidence checks; make governing full-original UAT instructions unconditional with respect to advisory synthesis.",
+    "caller": "Use existing invoke selection and source intent under new fixed-proof grant. Do not mutate P3/current RC6 controls.",
+    "classification": "Observable library contract/admission extension requiring accepted HOW and Product/contract compatibility review, rebuilt identities and affected proof. No new Product feature meaning or authority is indicated."
+  },
+  "finiteFiles": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript",
+    "files": [
+      "code/src/product/default_library.ts",
+      "code/src/abg/default_library.ts",
+      "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "test_env/uat/public-setup.mjs",
+      "test_env/tests/t287-default-library.test.mjs"
+    ],
+    "expectedUnchanged": [
+      "gtl/default_library.ts existing wrapper/Program/closure declarations",
+      "test_env/uat/consumer.mjs existing membership/schema/STDO ownership",
+      "Public SDK and generic source admission",
+      "native C2 and assessment identities"
+    ],
+    "grant": "One Root-selected RC7 nativeWorker HOW/contract increment and bounded fixed-proof grant; separate from first carriage increment but remains release work."
+  },
+  "bareChildrenAlternative": "Published direct C2/assessment Programs exist but native task validateInvocationBasis currently requires sourceResultBasis:null, and assessment needs consumer raw-result declaration plus STDO role. Extending bare ingress and transferring full producer/currentness checks is larger than repairing existing wrappers for this scope.",
+  "selectorLaw": "Current frozen wrapper/grant still requires synthesis. Product1093-1111 and HOW122-151 do not require another open-choice selector for fixed explicit work. Genuine unresolved work/producer choice stays F_P; direct route refuses multi-producer/open-fulfillment/general scope.",
+  "nearestDiscriminator": {
+    "positive": "One installed direct Testing -> actual admitted Testing state Result -> direct UAT -> independent native assessor; zero governance selectors; exact source, causal child and replay identities; preserved originals and truthful bounded closure.",
+    "negative": [
+      "fabricated/copied/mutated retained observations with source:none",
+      "missing source Result or wrong result/digest/CCall/actor/foreign wrapper",
+      "zero/multiple producer rows or non-fixed/open-fulfillment scope",
+      "changed measured dependency or later invalidating effect",
+      "missing schema/role, changed rubric, aliased assessor or prompt overflow",
+      "red C2/unmet or indeterminate UAT must not become parent success"
+    ],
+    "regression": "Existing genuine-selector wrappers retain authentic synthesis refs and parent evaluation",
+    "measurement": "Same files/commands/rubric/capacity/installed mode; separate Root prep, extra invocation boundaries, C2, UAT, fold and fresh reads; no651988ms savings claim",
+    "notRun": true
+  },
+  "pins": {
+    "authority": {
+      "selection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_RC7_OVERHEAD_SELECTION.json",
+        "bytes": 4848,
+        "sha256": "9a2289d723d4ea138b520bc68249270fffd93ece12dc2f11eae2656c90bcf765"
+      },
+      "product": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+        "lines": [
+          [
+            811,
+            849
+          ],
+          [
+            1093,
+            1111
+          ]
+        ]
+      },
+      "how": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "bytes": 82902,
+        "sha256": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8",
+        "lines": [
+          [
+            104,
+            151
+          ]
+        ]
+      },
+      "currentGrant": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PROOF_ONLY_GRANT.json",
+        "bytes": 17213,
+        "sha256": "59c6f9cfbc12e385cd0c022fd8e834157d702c6b7064590ceced9c2792c8c235"
+      },
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+        "bytes": 494547,
+        "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+      }
+    },
+    "source": {
+      "gtl/default_library.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "bytes": 24296,
+        "sha256": "b3c030f8797b4ef7e5e04008b7c323783e840b2e3abb40bd03a97a48c50f7735",
+        "lines": [
+          [
+            37,
+            51
+          ],
+          [
+            285,
+            311
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "product/default_library.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "bytes": 36411,
+        "sha256": "7177148ab49e3ce1a8cd35f2cf5f6bb49c52465ac7907708ec27835ec037aa36",
+        "lines": [
+          [
+            47,
+            115
+          ],
+          [
+            155,
+            168
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "abg/default_library.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "bytes": 47365,
+        "sha256": "f98657628c0c21147f84e3d7c854df04014f71eef4a0920c2ac3cb34e66cd15d",
+        "lines": [
+          [
+            42,
+            120
+          ],
+          [
+            178,
+            266
+          ],
+          [
+            287,
+            410
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "abg/invocation_execution_truth.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+        "bytes": 41277,
+        "sha256": "6a254033a8ea50a1f313340e7ba22c07a1797ff618e6527c473751bac0fdfc89",
+        "lines": [
+          [
+            260,
+            284
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "abg/invocation_admission.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+        "bytes": 77248,
+        "sha256": "094cce6fb3c539d56c21df0d46550b788f3fb4442016472d0199950b06d23e16",
+        "lines": [
+          [
+            608,
+            621
+          ],
+          [
+            668,
+            693
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "public/installed_public_definition_call.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 27318,
+        "sha256": "27de3ce5c295b3aaa76b58bb062357763a6109ddf6d55ba9b1844fd75914bd29",
+        "lines": [
+          [
+            518,
+            566
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "product/run_invocation_operation.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "bytes": 48321,
+        "sha256": "028298bf9539c633c080621d863ccb77f50d0bb96fa8ea343b94542cdfe842ad",
+        "lines": [
+          [
+            673,
+            691
+          ],
+          [
+            802,
+            860
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "owner_bindings/run_invocation.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "bytes": 107947,
+        "sha256": "73c27a0ed2d4e65a0317a1c6f5e16e5294248db7077960d273e9213f62052dc0",
+        "lines": [
+          [
+            1276,
+            1294
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "product/builtin_semantics.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+        "bytes": 63239,
+        "sha256": "84e5288f43469b6494cd88b307b3c93bf4fb531a68508f1aff250f26f886d5eb",
+        "lines": [
+          [
+            309,
+            342
+          ],
+          [
+            1032,
+            1047
+          ],
+          [
+            1068,
+            1088
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "abg/instruction_assembly.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "bytes": 126341,
+        "sha256": "da1228f3876aca87ba065863bc990e216214f329ddb1e3d773466af08d18ee21",
+        "lines": [
+          [
+            154,
+            204
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "product/native_workspace_assessment.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+        "bytes": 7671,
+        "sha256": "a0466006270f103352a86fd0faa4bd531997b7372d4d68e147b8e3975af06e85",
+        "lines": [
+          [
+            14,
+            31
+          ],
+          [
+            63,
+            103
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "product/native_workspace_work.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+        "bytes": 21411,
+        "sha256": "a74b4b064bc02691012bb770a2fd67c778f96dd077b611b4c361ba8959560292",
+        "lines": [
+          [
+            23,
+            54
+          ],
+          [
+            185,
+            199
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "gtl/worksite_command_execution.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+        "bytes": 24181,
+        "sha256": "2faf93d2def13bc8f8eb9d2759e190994712f575f39b5ef567ec407686c1b22b",
+        "lines": [
+          [
+            261,
+            276
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "gtl/native_workspace_work.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+        "bytes": 8726,
+        "sha256": "e46879346a2bbf47e0e37e529582a01c1f37c955fc5d9fb9f3a175010813ae25",
+        "lines": [
+          [
+            60,
+            79
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      },
+      "product/execution_resolution.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "bytes": 46572,
+        "sha256": "729336931f3708a0f9432da21d102f1a5f714614a06bc229f40384a89189710f",
+        "lines": [
+          [
+            518,
+            557
+          ],
+          [
+            936,
+            969
+          ]
+        ],
+        "verifiedAgainstSubject": true
+      }
+    },
+    "evidence": {
+      "timing": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/TIMING_FAILURE_BREAKDOWN.json",
+        "bytes": 3442,
+        "sha256": "e8e32b5c001c541762714be37425fe5b84894bd12531da2001adf585e760a80d"
+      },
+      "input": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/execution/input.json",
+        "bytes": 99183,
+        "sha256": "785c08a5b4f769292c610608dd963290fe126d2cc6e5df3f3a9ab6c75e564c4a"
+      },
+      "consumer": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+        "bytes": 11420,
+        "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+        "lines": [
+          [
+            23,
+            46
+          ]
+        ]
+      },
+      "caller": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "bytes": 29259,
+        "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05",
+        "lines": [
+          [
+            303,
+            339
+          ]
+        ]
+      },
+      "nearestTest": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 290041,
+        "sha256": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+        "lines": [
+          [
+            157,
+            210
+          ],
+          [
+            1021,
+            1393
+          ],
+          [
+            1482,
+            1520
+          ],
+          [
+            1922,
+            2000
+          ]
+        ]
+      }
+    }
+  },
+  "effectsPerformed": [
+    "Bounded source/authority and safe input-shape/timing inspection",
+    "Only FIXED_PROOF_ROUTE.md/json written",
+    "No SDK construction/invocation, runtime, provider, tests, build, Git, network, source changes or agents"
+  ],
+  "priorReports": "READINESS, SAME_PROCESS_REUSE and host-memory-triage reports preserved",
+  "returnTo": "Root conjunction/nativeWorker grant; contributing readiness only"
+}

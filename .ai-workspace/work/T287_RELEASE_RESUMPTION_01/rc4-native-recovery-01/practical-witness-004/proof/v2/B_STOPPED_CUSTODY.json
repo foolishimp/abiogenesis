@@ -1,0 +1,181 @@
+{
+  "status": "B_NORMAL_BLOCKED_BEFORE_TESTING_CUSTODY_ONLY",
+  "at": "2026-11-02T09:40:33.698Z",
+  "sourceCommit": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+  "sourceTree": "d136d90f44921b2944579bf89fbac0075052920b",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/BINDING-v2.json",
+    "bytes": 19086,
+    "sha256": "1f68439e4039ed6a7ed43b66728ec20a80085a621140f02be0e788bfdb78c5c2"
+  },
+  "packet": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/PACKET_MANIFEST-v2.json",
+    "bytes": 2853,
+    "sha256": "7b7ea85e5920d41d1374657bb12788dd1227cdf0a1473a502b293f65623d2a85"
+  },
+  "originalHostReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/b-host-return.json",
+    "bytes": 247718,
+    "sha256": "95718d378d27d7ce023674cc428c260d165c5aef5dc7b0ac2745266b2a49859a"
+  },
+  "driverFault": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/FAULT-interrupt-b.json",
+    "bytes": 251,
+    "sha256": "281ac558439d46c0b3fb6c25209b246b6f55f7eac831b73c05c4b9f092450738"
+  },
+  "unexpectedCompletion": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/unexpected-completion.json",
+    "bytes": 20,
+    "sha256": "ff8ae5796bcef71911ff9c5c3eaea341819c471f669549e252b830106edd4305"
+  },
+  "bCall": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/b.call.json",
+    "bytes": 28890383,
+    "sha256": "bb792507d2017736d7c1b02414b02d8a7f90c431318a89121dfee22798313ed2"
+  },
+  "actualTransport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/b-stopped.transport-output.json",
+    "bytes": 300645,
+    "sha256": "a2b7ee9791a3333b313faead34693fa2d12bbe3053ab52e4c9804d3aa83a70fe"
+  },
+  "stoppedResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/b-stopped.resume.json",
+    "bytes": 92635,
+    "sha256": "06323da7070a3d6ad53c3dc55d49bcdd4ad484da4d9a333a1cf624f7062b7d87"
+  },
+  "baselineReferencedNotCopied": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/a.resume.json",
+    "bytes": 91173550,
+    "sha256": "42c39cbb0af88576996c81c6ea8ac8cfd0a6dcd0797e48d8ebe3101f80845fcb"
+  },
+  "startBOwnerReferenced": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/b-start.owner.json",
+    "bytes": 40093833,
+    "sha256": "85c499f024148ea0785ae8ea6f829904887fa75f9830b3443d8aeadb8cf42912"
+  },
+  "actual": {
+    "hostExitCode": 0,
+    "hostSignal": null,
+    "hostWallMs": 101018.736834,
+    "receiptFailure": null,
+    "disposition": "blocked",
+    "run": {
+      "digest": "sha256:7b0d347222da29280a11fce8500bc37a5d936d10c28a53414abcce7727851ea2",
+      "ref": "run://abiogenesis/f748bf5ebcf2a2fe7142727c2c4c48d4584a387d665f1b0c8ad964cb413598c9"
+    },
+    "invocationAdmission": {
+      "digest": "sha256:c435ce506bdb7252aa90e5e3f1692181867a7ef48a477d646f80c36f5c303ef5",
+      "ref": "invocation-admission://abiogenesis/c435ce506bdb7252aa90e5e3f1692181867a7ef48a477d646f80c36f5c303ef5"
+    },
+    "testingEntries": 0,
+    "providerActors": 1,
+    "providerResults": [
+      {
+        "eventId": "event://abiogenesis/ef925175d3c71b916130566efff458c12e926786107b17626f954f8c7bfcb358",
+        "totalCostUsd": 0.339116,
+        "turns": 2,
+        "durationMs": 87655
+      }
+    ],
+    "gap": [
+      {
+        "ordinal": 2770,
+        "eventId": "event://abiogenesis/556ff310dea3fbf56f7102c250e4607655d3c299cc45c78c5db8a27a94055a72",
+        "resultRef": "result://abiogenesis/bb9af862e7640957c1ae9d595a9334e96aa13c2dc1309f6acc7c54799548538a",
+        "resultClass": "success",
+        "kind": "registered_graph_choice",
+        "value": {
+          "disposition": "gap",
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "result://abiogenesis/3aa1a08af54d821c9c359d7716672249114b92e0dec819ae0ec561d52bab6ee1",
+            "worksite-context-observation://abiogenesis/40334f1d743d429a6f797c008d8c8c21f89538f6452829a34e5d0d9e4393cd12"
+          ],
+          "kind": "registered_graph_choice",
+          "missingSupportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ],
+          "reason": "This root executes no further member. The original witness says this first root is ordinarily bounded after one child, and that a separately declared root will verify the exact retained work. The one commissioned Construction child has completed with a retained, byte-confirmed repair. Selecting Testing here would go beyond this root's authorised continuation. The required verification is preserved as explicit gaps and mapped contributions for the verifying root: Testing of Result 3aa1…'s retained file, then UAT on current evidence. No success is asserted.",
+          "schemaVersion": "5.0.0"
+        }
+      }
+    ]
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:c6f69679d6f514f8c4dd73003d09e46d208d5b7a80c92bd48f5855fbf946caab",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:e13f16d7c86a4d6309d5811f13b79c768387c3972dd09b5b594067ff8d55457a",
+    "prefixLength": 13453010,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 680615283
+    }
+  },
+  "log": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl",
+    "bytes": 13453010,
+    "sha256": "e13f16d7c86a4d6309d5811f13b79c768387c3972dd09b5b594067ff8d55457a",
+    "unchangedDuringCustody": true
+  },
+  "providerFiles": [
+    {
+      "role": "output",
+      "eventId": "event://abiogenesis/ef925175d3c71b916130566efff458c12e926786107b17626f954f8c7bfcb358",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-output.txt",
+      "bytes": 9085,
+      "sha256": "a1ca292d873b095408c81f3e5210844292a87912074d1faa299544a6ca144579"
+    },
+    {
+      "role": "prompt",
+      "eventId": "event://abiogenesis/ef925175d3c71b916130566efff458c12e926786107b17626f954f8c7bfcb358",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-prompt.txt",
+      "bytes": 44960,
+      "sha256": "0b1918f621f585b1b3e8daf6a22a4b84fb2f13c166b3e08464a478e154d4db5d"
+    },
+    {
+      "role": "stderr",
+      "eventId": "event://abiogenesis/ef925175d3c71b916130566efff458c12e926786107b17626f954f8c7bfcb358",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "role": "stdout",
+      "eventId": "event://abiogenesis/ef925175d3c71b916130566efff458c12e926786107b17626f954f8c7bfcb358",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-stdout.log",
+      "bytes": 305304,
+      "sha256": "eb049428fc61127a0f712bf777709ca3463a317b06e225f2df44c5601733b99f"
+    },
+    {
+      "role": "transport",
+      "eventId": "event://abiogenesis/ef925175d3c71b916130566efff458c12e926786107b17626f954f8c7bfcb358",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-transport.json",
+      "bytes": 352874,
+      "sha256": "74adc72a1b2b617aca0c97f68984890cdf0691198016c0d7717e2860f74600ab"
+    }
+  ],
+  "pureChecks": {
+    "currentPrefixArtifactTruth": true,
+    "invocationAdmissionRehydrated": true,
+    "admissionDigestMatches": true,
+    "RunBindingMatches": true,
+    "preparedBPublicInvocationMatches": true
+  },
+  "RootReportedAccounting": {
+    "B": {
+      "costUsd": 0.339116,
+      "FP": 1,
+      "hostWallMs": 101018.736834
+    },
+    "practicalAplusB": {
+      "costUsd": 0.8784886,
+      "FP": 3
+    }
+  },
+  "pendingOwnerQuestion": "Root/reviewer triage original task first-root/one-child suffix versus absent current B/root8 presentation; no new input, control, Run or retry selected.",
+  "quiescence": "Root owns physical process check; Writer performed no process action.",
+  "limits": "No Testing frontier, interruption or recovery completion; no Runtime/C2 failure. Accepted4fda/native011 and tooling-only3.0.3 standing unchanged. No Public/provider/event mutation during custody."
+}

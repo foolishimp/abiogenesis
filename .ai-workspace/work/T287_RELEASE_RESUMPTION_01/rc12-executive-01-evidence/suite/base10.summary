@@ -1,0 +1,13 @@
+start 20:18
+build exit 0
+witness-reprice-definition-binding exit 1 ℹ tests 15 ℹ pass 14 ℹ fail 1 ℹ skipped 0 
+t287-route-reconstruction exit 1 ℹ tests 13 ℹ pass 8 ℹ fail 2 ℹ skipped 3 
+t287-single-address-space-consolidation exit 1 ℹ tests 12 ℹ pass 5 ℹ fail 7 ℹ skipped 0 
+t287-calculus-fold exit 1 ℹ tests 25 ℹ pass 23 ℹ fail 2 ℹ skipped 0 
+t287-governed-context exit 1 ℹ tests 15 ℹ pass 14 ℹ fail 1 ℹ skipped 0 
+t287-framework-handoff-types exit 1 ℹ tests 6 ℹ pass 5 ℹ fail 1 ℹ skipped 0 
+r1-packed-artifact exit 1 ℹ tests 1 ℹ pass 0 ℹ fail 1 ℹ skipped 0 
+r2-clean-install exit 1 ℹ tests 1 ℹ pass 0 ℹ fail 1 ℹ skipped 0 
+r3-workspace-binding exit 1 ℹ tests 1 ℹ pass 0 ℹ fail 1 ℹ skipped 0 
+t287-c0-post-publication-failure exit 0 ℹ tests 31 ℹ pass 31 ℹ fail 0 ℹ skipped 0 
+end 20:47

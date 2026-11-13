@@ -1,0 +1,141 @@
+{
+  "checks": [
+    {
+      "ordinalZeroBased": 17,
+      "tool": {
+        "line": 1451,
+        "id": "toolu_014Qi6ENxjATg43WcjCoNBqZ",
+        "name": "Bash",
+        "input": {
+          "command": "S=qualification-scratch/rc11-effect-phase2-01/native-04 && mkdir \"$S/tenant\" && cp build_tenants/abiogenesis/typescript/package.json \"$S/tenant/package.json\" && ln -s /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules \"$S/tenant/node_modules\" && ls -la \"$S/tenant\" && start=$(date +%s) && perl -e 'alarm 240; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js -p /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/tsconfig.json --outDir /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src --incremental false > \"$S/compile-01.log\" 2>&1; rc=$?; echo \"exit=$rc seconds=$(( $(date +%s) - start ))\" | tee \"$S/compile-01.exit\"; wc -c \"$S/compile-01.log\"; head -40 \"$S/compile-01.log\"",
+          "description": "Create scratch tenant and run fresh compile",
+          "timeout": 300000
+        },
+        "result": {
+          "line": 1455,
+          "isError": false,
+          "canonicalBytes": 420,
+          "sha256": "b131b0fa5615f23a4a6e29da9709ed23b6f7dcf076e9c79cc34f41d9debddfaf"
+        }
+      },
+      "actualOutput": "total 24\ndrwxr-xr-x  4 jim  wheel    128 Nov 10 13:04 .\ndrwxr-xr-x  6 jim  wheel    192 Nov 10 13:04 ..\nlrwxr-xr-x  1 jim  wheel     94 Nov 10 13:04 node_modules -> /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules\n-rw-r--r--  1 jim  wheel  10105 Nov 10 13:04 package.json\nexit=0 seconds=8\n       0 qualification-scratch/rc11-effect-phase2-01/native-04/compile-01.log"
+    },
+    {
+      "ordinalZeroBased": 18,
+      "tool": {
+        "line": 1559,
+        "id": "toolu_01BmgULmMJnDPib2Kmphf6zz",
+        "name": "Bash",
+        "input": {
+          "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04 && grep -n \"terminate-immediate\\\" ? terminate\" \"$S/tenant/build/code/src/shared/owned_process_state.js\" && cd build_tenants/abiogenesis/typescript && start=$(date +%s) && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=\"$S/tenant\" ABI5_TEST_EVIDENCE_DIR=\"$S/evidence\" TMPDIR=\"$S/tmp\" NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 '--test-name-pattern=^controlled (timing|lifetime):' test_env/tests/t287-owned-process-lifetime.test.mjs > \"$S/controlled-01.tap\" 2>&1; rc=$?; echo \"exit=$rc seconds=$(( $(date +%s) - start ))\" | tee \"$S/controlled-01.exit\"; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration)\" \"$S/controlled-01.tap\"; grep -nE \"^(not )?ok \" \"$S/controlled-01.tap\" | head -60",
+          "description": "Run exact controlled selector against scratch owner",
+          "timeout": 90000
+        },
+        "result": {
+          "line": 1563,
+          "isError": false,
+          "canonicalBytes": 2652,
+          "sha256": "befd8a83ef71605c37cedc55424543e04b13d24bd6f60c115fd58efd6b0ca893"
+        }
+      },
+      "actualOutput": "80:        return input.probe.then === \"terminate-immediate\" ? terminate(timing, s, \"immediate\", at) : step(s);\nexit=0 seconds=0\n# tests 20\n# suites 0\n# pass 20\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 214.266709\n3:ok 1 - controlled timing: host boundaries, finite huge and fractional delays never become early actions\n9:ok 2 - controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing\n15:ok 3 - controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit\n21:ok 4 - controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure\n27:ok 5 - controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection\n33:ok 6 - controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct\n39:ok 7 - controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close\n45:ok 8 - controlled lifetime: callback errors stop ordinary observations and retain the first error\n51:ok 9 - controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct\n57:ok 10 - controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes\n63:ok 11 - controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows\n69:ok 12 - controlled lifetime: first error and disposal faults are recorded before the one completion publication\n75:ok 13 - controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result\n81:ok 14 - controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close\n87:ok 15 - controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result\n93:ok 16 - controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact\n99:ok 17 - controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result\n105:ok 18 - controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result\n111:ok 19 - controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted\n117:ok 20 - controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds"
+    }
+  ],
+  "receipts": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/compile-01.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/compile-01.exit",
+      "bytes": 17,
+      "sha256": "964616f1199b7b39bae8c6c821f5791cbe8bca9eeabf6fef1d2a67ca22d8aeee"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/controlled-01.tap",
+      "bytes": 5861,
+      "sha256": "d9eb6adfeb844d3a90e89f98720b31f555ba215414e184be8dfda39c22c7db96"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/controlled-01.exit",
+      "bytes": 17,
+      "sha256": "22027140955e3b6476e3daa99822e17ffadd8684fd0cf69f8cfa4f65e914dc82"
+    }
+  ],
+  "population": {
+    "tests": 20,
+    "pass": 20,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "names": [
+      "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+      "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+      "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+      "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+      "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+      "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+      "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+      "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+      "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+      "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+      "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+      "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+      "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+      "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+      "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+      "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+      "controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result",
+      "controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result",
+      "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+      "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds"
+    ],
+    "durationMs": 214.266709
+  },
+  "firstRed": null,
+  "compilerInputOrder": {
+    "lastCodeWriteOrdinal": 15,
+    "compileOrdinal": 17,
+    "controlledOrdinal": 18,
+    "laterWrites": "Plan only; no later source TS/test edits.",
+    "writes": [
+      {
+        "ordinalZeroBased": 14,
+        "name": "Edit",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts"
+      },
+      {
+        "ordinalZeroBased": 15,
+        "name": "Edit",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+      },
+      {
+        "ordinalZeroBased": 20,
+        "name": "Edit",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+      },
+      {
+        "ordinalZeroBased": 21,
+        "name": "Edit",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+      },
+      {
+        "ordinalZeroBased": 22,
+        "name": "Edit",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+      },
+      {
+        "ordinalZeroBased": 23,
+        "name": "Edit",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+      },
+      {
+        "ordinalZeroBased": 24,
+        "name": "Edit",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+      }
+    ]
+  }
+}

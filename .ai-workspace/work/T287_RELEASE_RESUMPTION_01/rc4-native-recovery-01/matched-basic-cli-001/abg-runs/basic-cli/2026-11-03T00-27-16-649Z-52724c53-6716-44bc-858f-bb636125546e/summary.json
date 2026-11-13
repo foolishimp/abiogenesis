@@ -1,0 +1,12 @@
+{
+  "scenario": "basic-cli",
+  "runId": "2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e",
+  "mode": "run",
+  "status": "passed",
+  "uatPass": true,
+  "runtimeDisposition": "result",
+  "terminalAvailable": true,
+  "independentOracle": "satisfied",
+  "reason": "Selected original obligations and exact terminal/readbacks agree"
+}

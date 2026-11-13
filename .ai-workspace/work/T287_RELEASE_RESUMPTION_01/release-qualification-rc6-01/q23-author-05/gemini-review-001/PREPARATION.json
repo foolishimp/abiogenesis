@@ -1,0 +1,33 @@
+{
+  "kind": "root_bounded_frozen_review_mechanics_preparation",
+  "status": "PREPARED_NOT_SOURCE_BOUND_NOT_DISPATCHED",
+  "at": "2026-11-05T19:26:40.583766+00:00",
+  "capabilitySource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/GEMINI_AUTH_ROUTE.json",
+    "sha256": "bf4607e30056cdf6e5b17336d843f30a5f48985b8a84cfc6a95e2f51712aa86d"
+  },
+  "selection": "One non-contributing Google Gemini source review after exact native freeze, highest installed supported thinking HIGH. No literal max enum or actual model/access/independence claim from this preparation.",
+  "modeSelection": "Use existing default approval mode, not the optional planning workflow. The same high-tier deny-all/allow-four policy controls actual permitted effects; default also avoids the plan-mode exclusion of core allowlist enforcement described in the closed capability record. No new dispatcher or provider integration.",
+  "profile": {
+    "model": "gemini-3.1-pro-preview",
+    "thinking": "HIGH",
+    "maximumSessionTurns": 32
+  },
+  "preconditions": [
+    "Exact admitted native source freeze and Root review request",
+    "All frozen-source/configuration member hashes rebound",
+    "Fixed system policy directory still absent, no unexpected global policy overrides",
+    "One selected normal CLI invocation with existing credential path, per-run storage and no operator credential-content read",
+    "Actual response/model/error/tool metadata checked; no unbound fallback silently accepted"
+  ],
+  "operations": {
+    "providerCalls": 0,
+    "authCalls": 0,
+    "candidateReads": 0,
+    "candidateEdits": 0,
+    "globalChanges": 0
+  },
+  "limits": "This is a technical source assurance review, not a Product F11 invocation or alternate-provider implementation. Current Q23 two-profile policy is unchanged. Authentication artifacts remain private and excluded from review/custody output.",
+  "sourceExpected": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+  "requestTemplate": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/REVIEW_REQUEST_TEMPLATE.md"
+}

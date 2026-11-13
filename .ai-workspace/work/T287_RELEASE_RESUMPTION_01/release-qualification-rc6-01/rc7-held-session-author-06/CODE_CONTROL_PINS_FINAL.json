@@ -1,0 +1,42 @@
+{
+  "kind": "closed_h06_selected_code_controls",
+  "original": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/CODE_CONTROL_PINS.json",
+    "bytes": 10091,
+    "sha256": "f84943e6e224ff472d750061fb74f1fe0db8c772080f2652784341b63c51b455"
+  },
+  "correction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/HOST_STATUS_CORRECTION.json",
+    "bytes": 3099,
+    "sha256": "330e7f86c10da6d17f631c1d4dca54482be694c32eb6c32ec7bbe6d610099bc6"
+  },
+  "selectedFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/prior-author-stage.mjs",
+      "bytes": 6891,
+      "sha256": "ddde69ffc1421672735701d7d6344898ae0cd3973b26ba0a95227548561c49dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/prior-author-lanes.mjs",
+      "bytes": 10474,
+      "sha256": "5ee692a49a9ad68eacff16deb5cf682f42f8e356144b0c043063cace7dcfd15c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/prepare-and-dispatch.corrected.mjs",
+      "bytes": 19675,
+      "sha256": "fed2ff089d7f6e35fb08da5f855ce2b384e69938296f9930ce2bdc0429936a27"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/launch-owner-script.corrected.mjs",
+      "bytes": 2398,
+      "sha256": "6ee174e71b11fc16a678e546a15be4da3cbeeb928e09074289f08f0d6e22ea49"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/claude-provider.sh",
+      "bytes": 731,
+      "sha256": "fa66e1a4d40811c2ae6433b4a1fe2cc070310cbdfe23609cf050f487eb5125a4"
+    }
+  ],
+  "standing": "Select corrected host/launcher; original host/launcher retained as preimages only. No further code changes.",
+  "futureAdmission": null
+}

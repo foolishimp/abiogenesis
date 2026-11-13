@@ -1,0 +1,20 @@
+{
+  "testFile": "test_env/tests/t287-calculus-fold.test.mjs",
+  "testSource": {
+    "path": "/private/tmp/abg-r8c-006/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "bytes": 142461,
+    "sha256": "5d243d6980631afa11d313c8b5bc09b9da7369eda6032bd23704a53fb16eb95b"
+  },
+  "metadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/metadata.json",
+    "bytes": 46684229,
+    "sha256": "2c9328e4abb8e25f8fbfc7a1e4574e481fb5889bf17bc04108f2571d2d3536b9"
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "environmentVariable": "ABI5_HS03_STREAM_METADATA",
+  "standing": "Historical metadata oracle by read-only reference. Current tests synthesize chunks and admit new current events; no historical event import or relabelling."
+}

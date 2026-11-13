@@ -1,0 +1,31 @@
+{
+  "status": "DRAFT_PENDING_INDEPENDENT_SOURCE_USE_DIAGNOSIS",
+  "sourceCommit": "becc45851bf6e794a6411bd8d1f412b4f67cd181",
+  "sourceTree": "d8cf0eee6a038a0b91496439f92c596e5fabe19b",
+  "partialPreservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/PARTIAL_CHECKPOINT.json",
+    "bytes": 16521,
+    "sha256": "2bc2a2b996b5c005984c2a452102b3e6004ebf4297bd799bf9a0681e7ae62abd"
+  },
+  "builder": {
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3/node_modules/@abiogenesis/typescript-tenant",
+    "cliRelativePath": "build/code/src/public/cli.js",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "archiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+    "manifestSha256": "8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+    "productContentSha256": "c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4"
+  },
+  "writeBound": {
+    "sourcePaths": 52,
+    "generatedOutputRoots": [
+      "build_tenants/abiogenesis/typescript/contracts",
+      "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    ],
+    "scratchRoots": [
+      "rc4-scratch/native-recovery-04"
+    ]
+  },
+  "acceptance": false,
+  "qualification": false,
+  "dispatchSelected": false
+}

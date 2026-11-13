@@ -1,0 +1,44 @@
+{
+  "ProductFrame": "stdo://releases/v3.0.4/; same accepted ABI5/T287 source25121e78/freeze32d86a52/BUILT003/archivec01e6cfe. External Proof Writer; Root owns run admission/conjunction.",
+  "status": "ROOT_ADMITTED_RC9_BROAD_008_BIND_ONLY",
+  "at": "2026-11-08T20:19:42.942116+00:00",
+  "rootGrant": "Root reviewed complete allowed-field diff, all8limits,62credits/counts and373unique evidence pins with0mismatch; selected one status-only successor and one unchanged bind invocation. No run/scratch materialization/tests/provider/source/Git effects. Stop on failure/mismatch without retry.",
+  "heldPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.held-008.json",
+    "bytes": 214130,
+    "sha256": "18c89393cf54e43d38ad1321581941f66e81b98aa4db9f8a5f19bd3b24fc5fcd"
+  },
+  "actualConfig": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-008.json",
+    "bytes": 214131,
+    "sha256": "ec04f94a9eca98ad9a932b12853bbbb74917867a1e5655a9f178463b36a76750"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_PREPARATION_008_RETURN.json",
+    "bytes": 5269,
+    "sha256": "c787838984545de959b26b19baeee07d52c52a5b0e3626a854110be5ef3606a8"
+  },
+  "preparationDecision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_008_PREPARATION_DECISION.json",
+    "bytes": 13625,
+    "sha256": "9661a6912c5f07e24b1ef41f991cc0e00a4b23c213a2b9febbc1d67d07bb43a1"
+  },
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+    "bytes": 32816,
+    "sha256": "2e8e4155be73606d1009b629019b9966470225890a785c78105c6b6a80ba383e"
+  },
+  "node": {
+    "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "expectedPopulation": {
+    "total": 209,
+    "creditedWhole": 62,
+    "held": 8,
+    "scheduled": 139
+  },
+  "grantLimit": "bind only; actual inventory/digest equivalence return before separate Root run admission",
+  "runAdmitted": false
+}

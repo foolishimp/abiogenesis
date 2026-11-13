@@ -1,0 +1,70 @@
+{
+  "scratch": "/private/tmp/abg-r8-c2p-001/t/abi5-root-env-SCdtkL",
+  "scratchParent": "/private/tmp/abg-r8-c2p-001/t",
+  "evidenceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/installed-proof",
+  "retained": true,
+  "deferredCleanupHookCount": 1,
+  "deferredCleanupHooksInvoked": 0,
+  "originalStoreCloseAttempted": true,
+  "closeError": null,
+  "replayStoreCloseAttempted": true,
+  "setupFailedBeforeStoreHandoff": false,
+  "processes": [
+    {
+      "label": "construction",
+      "pid": 78078,
+      "groupId": 78078,
+      "directChildPresence": "absent",
+      "ownedGroupPresence": "absent",
+      "observedAt": "2026-11-07T15:11:37.806Z",
+      "physicalAbsenceIsNotAdmission": true
+    },
+    {
+      "label": "command-transport",
+      "pid": 78231,
+      "groupId": 78231,
+      "directChildPresence": "absent",
+      "ownedGroupPresence": "absent",
+      "observedAt": "2026-11-07T15:11:46.518Z",
+      "physicalAbsenceIsNotAdmission": true
+    },
+    {
+      "label": "helper-shell",
+      "pid": 78246,
+      "groupId": null,
+      "directChildPresence": "absent",
+      "ownedGroupPresence": null,
+      "observedAt": "2026-11-07T15:11:46.518Z",
+      "physicalAbsenceIsNotAdmission": true
+    },
+    {
+      "label": "admitted-http",
+      "pid": 78249,
+      "groupId": 78249,
+      "directChildPresence": "absent",
+      "ownedGroupPresence": "absent",
+      "observedAt": "2026-11-07T15:11:46.651Z",
+      "physicalAbsenceIsNotAdmission": true
+    },
+    {
+      "label": "negative-helper-shell",
+      "pid": 78290,
+      "groupId": null,
+      "directChildPresence": "absent",
+      "ownedGroupPresence": null,
+      "observedAt": "2026-11-07T15:11:50.137Z",
+      "physicalAbsenceIsNotAdmission": true
+    },
+    {
+      "label": "negative-http",
+      "pid": 78302,
+      "groupId": 78302,
+      "directChildPresence": "absent",
+      "ownedGroupPresence": "absent",
+      "observedAt": "2026-11-07T15:11:50.138Z",
+      "physicalAbsenceIsNotAdmission": true
+    }
+  ],
+  "firstFailure": null,
+  "admissionAndPhysicalAbsenceAreDistinct": true
+}

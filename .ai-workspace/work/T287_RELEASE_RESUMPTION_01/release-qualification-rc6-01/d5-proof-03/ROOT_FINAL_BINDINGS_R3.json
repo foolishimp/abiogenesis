@@ -1,0 +1,46 @@
+{
+  "at": "2026-11-06T02:26:46.925921+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ROOT_CONTROL_ADMISSION_R3.json",
+    "bytes": 1087,
+    "sha256": "8b87277c071f6025c1eccc8b2a97e422b585d426bd655268a5256dd9de2180c9"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/workload.json",
+      "bytes": 95132,
+      "sha256": "153e63429eb586f9c052d7ab543243885f7bdd7a2d5d42a1b2879f85b57ec7a6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/RUNTIME_BINDINGS.json",
+      "bytes": 3905,
+      "sha256": "4d402449bb16afdddd36f0854a8677b0ce41a40738ce45bf5e11dd5829ad2670"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PROOF_ONLY_GRANT.json",
+      "bytes": 17213,
+      "sha256": "59c6f9cfbc12e385cd0c022fd8e834157d702c6b7064590ceced9c2792c8c235"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/SOURCE_BEFORE.json",
+      "bytes": 248463,
+      "sha256": "6ba4bc83915cfd2dbe4d507bcce8eec46b8842f3041b0edcc007c8f63209afd9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/STAGING_MANIFEST.json",
+      "bytes": 3073,
+      "sha256": "347e3bc0f173b7df2456bc53826d78349259ea00a8df89bd4f8cd01f8cc7a095"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/RESOURCE_NOTE.json",
+      "bytes": 5911,
+      "sha256": "477eb770aff17d41cc86afc9d5be5fc508cdf5771a02e29bbae709cd72239b48"
+    }
+  ],
+  "status": "PRIMARY_SOURCE_SELECTION_STAGED_PREFLIGHT_NEXT",
+  "protected420Unchanged": true,
+  "context426Unchanged": true,
+  "assessment70Unchanged": true,
+  "commandsAndCriteriaUnchanged": true,
+  "actualPreflightPending": true
+}

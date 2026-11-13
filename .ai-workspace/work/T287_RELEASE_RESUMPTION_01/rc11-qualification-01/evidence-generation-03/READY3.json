@@ -1,0 +1,119 @@
+{
+  "id": "RC11-NATIVE-READY-03",
+  "state": "closed_mechanical_preparation_conditional_Root_grant",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/ACTIVATION.json",
+    "bytes": 4010,
+    "sha256": "074ec866cdad0100f23ea2decaea0861783bd883b24c1a16b4d232a02df83cec"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/CONTROLS.json",
+    "bytes": 14360,
+    "sha256": "b489596e7abca8651a4f307060ceadbc74ce2aff1e013af73904dda002d9744c"
+  },
+  "readme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/README.md",
+    "bytes": 2454,
+    "sha256": "63643e7a13b898509a9c1625388c8cc56ffe5459524f7e06ac8af1f778bc3bc0"
+  },
+  "checks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/VIEW_BASIS.json",
+      "bytes": 2173,
+      "sha256": "0d75d16d04dec43b79cd41b563efbd30ef3a8923b0e1a22829f484b613d89a21"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/VIEW_INVENTORY.json",
+      "bytes": 11760,
+      "sha256": "cf1c1016967d2b81243aebd49c9d47fe6eff1a31f55bdfafdd3b87d133f77f34"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/TARGET_VERIFICATION.json",
+      "bytes": 3181,
+      "sha256": "f7974c6b05f481d5d6d1c8ac5c2fa30ff302194abc0c8e6edd4b992963238346"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/RESOLUTION.json",
+      "bytes": 12430,
+      "sha256": "edd7e4e7183ddd0d77b04764545a17b7082defe730625b442441cc54562b6cc6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/SYNTAX.json",
+      "bytes": 2147,
+      "sha256": "cf6c2e33aaa67df0d315c0a834cf2fb3e671d3605bda0af966abb04aa18470bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/HELPER.diff",
+      "bytes": 511,
+      "sha256": "d15f69a28c19434fddf53abb38cea06d8fc4aba616659c8340d6db696bded82c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/verify_view.py",
+      "bytes": 3830,
+      "sha256": "12d960055e29cee996f76aac5d8eef301c7588a3267d36eed3711d6a165ae690"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/resolve_view.mjs",
+      "bytes": 2042,
+      "sha256": "8ba5b21f2d501e65cc4c6fc604e974bbf9c3043bf261c14cfef62cdeffe9d8b2"
+    }
+  ],
+  "runtimeScripts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/common.mjs",
+      "bytes": 2784,
+      "sha256": "d888e6a5d2a605856452aefc3cc321cfc57366dc0d3721a93a2654f73510d1f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/malformed-actor.mjs",
+      "bytes": 354,
+      "sha256": "11225f275863fd370717968b02104c964bbd222c53f679ab27619854ed5461f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/native-host.mjs",
+      "bytes": 10116,
+      "sha256": "e97056e7f1ab539db1a991af43cee4cdc339420bbabfec9587efabd8d561ba68"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/run.mjs",
+      "bytes": 9052,
+      "sha256": "9f6a8b501f221b9e5b495c52b78ee3f7cf3112c9f4a10dfcaf7dc0af4e9a82cd"
+    }
+  ],
+  "independentCausalTrace": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/native-setup-002/REVIEW.md",
+    "bytes": 9376,
+    "sha256": "282baa43c72cd8a1d7c206376f9caa9fe3f719045e6e95db84497c575d550e2a"
+  },
+  "priorRecovery": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/recovery-native-failure-001/RETURN.json",
+    "bytes": 2374,
+    "sha256": "7d5b55ff67790e5dfdda417c8be3dcaa81212069335e7545472a8141aeb1819d"
+  },
+  "bankedSelectedSnapshot": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/fixture.json",
+      "bytes": 11153,
+      "sha256": "1712be167cf4ef6cb97bf9e8f11271afed44bdeb4e9e012dbc12341e433b6743"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/events.jsonl.gz",
+      "bytes": 823504,
+      "sha256": "b86084dc4a61fc84f0231e20d76b9d91c236ed7a7fa34b7436ed489d8ab21f4d"
+    }
+  ],
+  "command": "NODE_OPTIONS='' NODE_PATH='' RC11_EVIDENCE_ADMISSION=RC11-EVIDENCE-GENERATION-03-ROOT-ADMITTED /opt/homebrew/Cellar/node/24.7.0/bin/node run.mjs native-assessment",
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03",
+  "callerMaximumMs": 1050000,
+  "hostMaximumMs": 900000,
+  "signalGraceMs": 5000,
+  "pollMaximumMs": 50000,
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "sourceClaim": "Immutable C10 provenance plus one explicit external test-helper correction; no new Product/source cut.",
+  "builderPinSha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0",
+  "archiveSha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9",
+  "runtimeExecuted": false,
+  "inputsCount": 31,
+  "return": "No qualification, acceptance or staging claim. Conditional grant applies one native03 invocation only."
+}

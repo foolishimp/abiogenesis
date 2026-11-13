@@ -1,0 +1,48 @@
+{
+  "builderInstalledRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "builderResume": {
+    "bytes": 73451705,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/operator-resume-material.json",
+    "sha256": "33f6f6695cf1a2dce4de9f80ff15b1bf76f9b405168125dfe6bc6e746b70c5aa"
+  },
+  "canonicalProductWrites": [],
+  "criteriaUnchanged": {
+    "bytes": 1843,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/rubric.json",
+    "sha256": "b460a5b77875c5e7006eece0043cedae0e6d76439fe2b928831b96d33d4b781e"
+  },
+  "executablePins": null,
+  "expectedManifestAuthority": null,
+  "files": null,
+  "inheritedInstalledCustody": {
+    "bytes": 2300090,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/PREPARATION_MANIFEST.json",
+    "sha256": "324a96e0183eba68705c8e3589da79db9d9a2ab991234d63c629ec8a3efe6852"
+  },
+  "kind": "p3_budget_retest_root_setup_selection",
+  "nodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "npmPath": "/opt/homebrew/bin/npm",
+  "observations": [],
+  "previous": {
+    "afterRun": null,
+    "execution": null,
+    "freshReads": null,
+    "outcome": null
+  },
+  "priorConstructionAdmission": null,
+  "providerDispatch": false,
+  "recursionBound": 3,
+  "rootAuthority": null,
+  "runId": "single-machine-p1-03-budget-retest-01",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/runtime-001",
+  "selectedWorkspaceBasis": null,
+  "setupOperation": "supported workspace.open + normal Product/consumer verification/install/bind/catalog/conformance; no lifecycle/provider",
+  "sourceBasis": "none",
+  "sourceCheckpoint": null,
+  "sourceCommit": null,
+  "status": "PENDING_P3_RETURN_SOURCE_FREEZE_AND_ROOT_REVIEW",
+  "synthesis": null,
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-machine-p1",
+  "workspaceManifest": null,
+  "workspaceRef": null
+}

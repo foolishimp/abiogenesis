@@ -1,0 +1,114 @@
+{
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "activation": null,
+  "executionEnabled": false,
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/PREPARATION_MANIFEST.json",
+    "bytes": 1742,
+    "sha256": "8b8458c532e5b0e4fccd2fe470d8e52311db4fcfdbd17eda823f3c9f164902ea"
+  },
+  "source": {
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/RETURN.json",
+      "bytes": 10143,
+      "sha256": "6202205241d2c3690242658558f98a3ef5a1e6d8e1dc8c08ef7b61b95b553dce"
+    },
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+      "bytes": 298978,
+      "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+    },
+    "mainCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "baseCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+    "baseTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+    "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+    "deletedPaths": [],
+    "expectedChangedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json",
+      "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs"
+    ],
+    "expectedNewPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs"
+    ],
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/SOURCE_SELECTION.json",
+      "bytes": 3025,
+      "sha256": "6a61df0b17f3522422e142dfb997aebfcb2a3951994146822f05ac4bc1fed743"
+    },
+    "cumulativeSourceCoverageDisposition": null,
+    "testedArchive": null,
+    "testedManifest": {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266309,
+      "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+    },
+    "testedStageRoot": "/private/tmp/abg-rc11-proof-20261109-01/work",
+    "testedBuildInputs": {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/STAGE.json",
+      "bytes": 1124,
+      "sha256": "bda690c4d79cda21f13291d2d79f233e53f1e71dd4c48e5b6e0bc08dd6118208"
+    },
+    "testedArchiveSourceRelation": null,
+    "frozenRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/frozen-source"
+  },
+  "acceptance": {
+    "source": null,
+    "targetedProof": null,
+    "unitDisposition": null,
+    "remainingProof": null
+  },
+  "metadata": {
+    "toVersion": "5.0.0-rc.11",
+    "rewriteIdentity": false
+  },
+  "paths": {
+    "repository": "/Users/jim/src/apps/abiogenesis",
+    "worktree": "/private/tmp/abg-rc11-qualification-20261109",
+    "branch": "codex/rc11-qualification",
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/actual-001",
+    "temp": "/private/tmp/abg-rc11-cut-20261109-02",
+    "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11"
+  },
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "maxOutputBytes": 67108864,
+  "nodeHeapMiB": 8192,
+  "limits": [
+    "Commit only 14 selected paths, 6 new and no deletions; preserve excluded evidence/main/index/RC10 pin.",
+    "Reproduce from exact candidate checkpoint via git archive, pinned offline dependencies and absent-only RC10 contract seeds, source wins; require complete archive and member equality to tested candidate archive.",
+    "Original unit and m5 discriminator remain red, diagnostic does not replace them; explicit m5 qualification blocker is open.",
+    "No source rewrite, main merge, release/install, operational selector, tag/push, paid provider or qualification.",
+    "Separate Root binding required. Preserve any failure and partial allocation; no retry or repair."
+  ],
+  "executionStanding": "Prepared selective checkpoint and exact reproduction only; pack, acceptance and execution bindings remain unbound.",
+  "qualified": false,
+  "unitPassed": false,
+  "m5QualificationBlockerOpen": true,
+  "rootDebtRegistration": null
+}

@@ -1,0 +1,52 @@
+{
+  "kind": "static_reconciliation_checks_only",
+  "originalManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/PREPARATION_MANIFEST.json",
+    "bytes": 9510,
+    "sha256": "f582b18851ba6d5da85c47805137c0ec689dcf46eac88a96471b7373f2096786"
+  },
+  "originalPinsVerifiedAndUnchanged": 30,
+  "sourceUnion": 450,
+  "sourceDiffCount": 2,
+  "sameFiveProductWritePaths": true,
+  "proposedControls": 16,
+  "proposedContextNames": 469,
+  "futureSourceBytesAndInheritedFactsNull": true,
+  "futureRuntimeAdmissionNull": true,
+  "shortTempsUnchanged": [
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7f",
+    "/private/tmp/abg-o7f"
+  ],
+  "distinctEmptyNpmConfigs": true,
+  "maxStages": 3,
+  "maxLaneInvocations": 4,
+  "perLaneMs": 300000,
+  "syntaxOnly": [
+    {
+      "command": "node --check inputs/prior-author-stage.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check inputs/prior-author-lanes.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "sh -n claude-provider.template.sh",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check dispatch.template.mjs",
+      "exitCode": 0
+    }
+  ],
+  "notRun": [
+    "staging",
+    "provider",
+    "runtime",
+    "SDK",
+    "build",
+    "test"
+  ],
+  "authority": "Root materialization/admission remains future and unbound.",
+  "dispatchTimingExistingOwnerCallOrderAndCountsPreserved": true
+}

@@ -1,0 +1,26 @@
+--- run-local-cut.corrected-001.mjs
++++ run-local-cut.corrected-002.mjs
+@@ -17,12 +17,12 @@
+ async function absent(p){try{await lstat(p);throw Error('preserved allocation/collision: '+p);}catch(e){if(e.code!=='ENOENT')throw e;}}
+ function rel(p){assert(typeof p==='string'&&p&&!isAbsolute(p)&&!p.includes('\\')&&!p.split('/').some(x=>!x||x==='.'||x==='..'||x==='.git'),p);return p;}
+ async function safeTarget(root,p){rel(p);let at=root;for(const part of p.split('/').slice(0,-1)){at=join(at,part);try{const s=await lstat(at);assert(s.isDirectory()&&!s.isSymbolicLink(),at);}catch(e){if(e.code!=='ENOENT')throw e;await mkdir(at);}}const dest=join(root,p);try{const s=await lstat(dest);assert(s.isFile()&&!s.isSymbolicLink(),dest);}catch(e){if(e.code!=='ENOENT')throw e;}return dest;}
+-assert.equal(process.argv.length,5,'usage: node run-local-cut.corrected-001.mjs build|install ROOT_BINDINGS.json SHA256_HEX');
++assert.equal(process.argv.length,5,'usage: node run-local-cut.corrected-002.mjs build|install ROOT_BINDINGS.json SHA256_HEX');
+ const [phase,input,inputSha]=process.argv.slice(2);assert(['build','install'].includes(phase));
+ const raw=await readFile(resolve(input));assert.equal(hex(raw),inputSha);const b=JSON.parse(raw);
+ assert.equal(b.status,phase==='build'?'ROOT_SELECTED_LOCAL_RC8_BUILD_ONLY':'ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY','future binding/activation still unbound');
+ await checked(b.activation);
+-const prep=await jsonPin(b.preparationManifest);assert.equal(prep.status,'PREPARED_UNBOUND_NO_EXECUTION');assert.equal(prep.controlRevision,'exact-source-selection-and-archive-inputs-001');
++const prep=await jsonPin(b.preparationManifest);assert.equal(prep.status,'PREPARED_UNBOUND_NO_EXECUTION');assert.equal(prep.controlRevision,'exact-source-selection-and-archive-inputs-002');
+ for(const p of prep.files)await checked(p);
+ const own=JSON.parse(await readFile(join(here,'OWNER_AND_TOOL_PINS.json'),'utf8'));
+ for(const p of own.canonicalCommandOwner)await checked(p);await checked(own.directSmokeOwner);
+@@ -36,7 +36,7 @@
+ let build=b;
+ if(phase==='install')build=await jsonPin(b.buildBindings);
+ assert.deepEqual(build.paths,p);assert.equal(build.nodeHeapMiB,8192);assert.equal(build.maxOutputBytes,67108864);
+-const ceilings={git:120000,dependencies:120000,compile:240000,generate:600000,pack:120000,inventory:120000,install:600000,installedOwner:60000};
++const ceilings={git:120000,dependencies:120000,compile:240000,generate:600000,pack:120000,inventory:120000,install:1200000,installedOwner:900000};
+ for(const [k,v] of Object.entries(ceilings))assert(Number.isInteger(build.boundsMs[k])&&build.boundsMs[k]>0&&build.boundsMs[k]<=v,k);
+ async function reserve(){const s=await statfs(p.repository);assert(s.bavail*s.bsize>=4294967296,'4 GiB free-space reserve: stop, preserve custody, no retry');return s.bavail*s.bsize;}
+ async function openCommands(root){const command=commandRecorder(root,{environment:env,maxOutputBytes:build.maxOutputBytes});return async(label,exe,args,cwd=W,kind='git')=>{await reserve();const r=await command(label,exe,args,{cwd,environment:env,timeoutMs:build.boundsMs[kind]});assert(!r.timedOut&&!r.truncated&&!r.failure&&r.exitCode===0&&r.signal===null,'command failed; retained original receipt: '+label);await reserve();return r;};}

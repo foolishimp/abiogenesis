@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-05T20:32:40.827176+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/central-preimages/0-GOALS.md",
+      "sha256": "35aff5c958e7b48f03424c1b9269313e0e099e81b6979fbb9691a2dd8c6aa2cf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/central-preimages/1-T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "78c9dccdbc54d16f3f9e227ca27e0cb86bbf822731373d9efd5e4035c0a00dc0"
+    }
+  ]
+}

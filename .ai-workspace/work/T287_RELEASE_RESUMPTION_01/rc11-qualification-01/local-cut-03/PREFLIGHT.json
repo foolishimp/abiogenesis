@@ -1,0 +1,72 @@
+{
+  "status": "EXACT_REPRODUCTION_ONLY_PREFLIGHT_PASSED",
+  "nodeSyntaxExit": 0,
+  "pythonSyntax": "passed",
+  "npmInventoryExact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/NPM_INVENTORY.json",
+    "bytes": 467075,
+    "sha256": "b597b11aaf3b313e3bc93bb67242c69331cd9ee4e246f0a9f39cdc24f3384e7c"
+  },
+  "npmSourcePins": [
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/shrinkwrap.js",
+      "bytes": 38053,
+      "sha256": "783828176377372b3641ee41169ce561f5cdcda03d4f10da615b9a0e3a2eb94c"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-actual.js",
+      "bytes": 14873,
+      "sha256": "20c74c9704dc94f656fb8e2f64ff9a89039437e70ad2fb69d13dcead814dcecd"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-virtual.js",
+      "bytes": 9884,
+      "sha256": "7c0cfc479b1d2104ebfdeab437641166f5fb535240be8760b4949f4cecc170eb"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/lib/index.js",
+      "bytes": 15879,
+      "sha256": "e77f7128b7f6a0b5f6a4e5e52de4ada0c3fdaad1542c98957185576ae1d99e35"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/pacote/lib/dir.js",
+      "bytes": 3086,
+      "sha256": "185f5bc3ec548b1a6adfe963e4ed2275159e3654b6ca0d136a45671bf642c0df"
+    }
+  ],
+  "dependencyMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/DEPENDENCY_METADATA.json",
+    "bytes": 5242,
+    "sha256": "76e95e5611c5c96c9069ffe231865f35e0abcb2d73e38fae4015a10911922ad1"
+  },
+  "relevantDirectories": 20,
+  "donorTestedMetadataEqual": true,
+  "candidateCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "candidateTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "sourceAndIndexClean": true,
+  "mainTrackingPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 176302,
+      "sha256": "c7f0586b208c001e35c54a2db1571d858140f9cc06d1ff14711f72766923b94a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 827077,
+      "sha256": "f2bd87d7d29c02d80a5c18fa5782b6de3d07abb42833999efda4ff6e64d9bf19"
+    }
+  ],
+  "outputTempReleaseInstallAbsent": true,
+  "noGitMutationCommands": true,
+  "noCandidateRepack": true,
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/ROOT_REPRODUCTION_BINDING.json",
+    "bytes": 10622,
+    "sha256": "a20ba392da0e2b3f081416ba0e3d0f4185f3070ac56dd326b3a245075ef485e4"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-07T04:49:04.798Z",
+  "failure": "Error: FIRST_TEST_RED_OR_INCOMPLETE: test_env/tests/a5-f02-canonical-gtl-identity.test.mjs\n    at run (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-001.mjs:151:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-001.mjs:179:3",
+  "retainedScratch": "/private/tmp/abg-r8c-001",
+  "autoRetry": false
+}

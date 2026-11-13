@@ -1,0 +1,49 @@
+{
+  "kind": "rc4_root_native_packet_admission",
+  "status": "ROOT_ADMITTED_NATIVE_PACKET_SETUP_SELECTED_NOT_EXECUTED",
+  "recordedAt": "2026-11-01T12:08:40.197052+00:00",
+  "authority": "Root delegated Executive under current user explicit RC3-to-RC4 point1 implementation/provider instruction and existing Product recovery/REQ-P-POLICY-024 run.continue requirement",
+  "mechanism": "Exact current-session Root admission, recorded by separately granted preparation Writer; not native event or release acceptance",
+  "admittedFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/REVISION_2_MANIFEST.json",
+      "bytes": 3790,
+      "sha256": "f66971eb79dfe4108a8c45874026297f73d9e4493b5d8d97f7d33794bfc391ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/NATIVE_GRANT.v2.DRAFT.json",
+      "bytes": 34996,
+      "sha256": "2d569540fa0b33e19c54e18ba03e2fc759197acebf589a965e0883c37bdfdf1f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/DESIGN_AND_ACTIVATION.v2.md",
+      "bytes": 9114,
+      "sha256": "cb1bf5cc69f70646664935686945d4df99d2d8e00dd87d94b2c8c670d50892c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/rubric.v2.DRAFT.json",
+      "bytes": 2566,
+      "sha256": "0d081f4d6245df52e8cbf867358b2721daa0bc4c01bede3ed3cd4b4e28c8d9ab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/prepare-rc3-builder.v2.mjs",
+      "bytes": 7581,
+      "sha256": "c29a11236931746e8a611113d37cdd04e049c0d36c9d45c8a90122987b91999d"
+    }
+  ],
+  "decision": "ADMITTED; proceed fresh installed-RC3 setup preparation and source-pinned no-clobber inputs in new worktree; Root alone executes Public/runtime/provider scripts",
+  "conditions": [
+    "51 existing paths are conditional outer bound, not required edits",
+    "9 generated correspondence assets only in owned scratch/C2",
+    "No new Product family/requirement/failure-code set/event family/engine/store/controller or reserved5.1behavior",
+    "Actual default-library registered-selection/recursion pending Testing; no narrower fixture/fresh-retained approximation",
+    "Source/model-freeC2/native UAT does not replace Root later actual installed interruption/fresh-process/no-duplicateConstruction/result-replay proof"
+  ],
+  "helperGrant": [
+    "Record admission/admitted grant/workspace authority/setup selection and freeze exact setup command",
+    "No-clobber source-pinned operator/task/authority/dependency input materialization in new worktree only",
+    "No tracked Product source/design/test writes; no dependency install, ABI import, Public/provider call"
+  ],
+  "nativeDispatch": "not launched",
+  "nativeSetup": "not executed"
+}

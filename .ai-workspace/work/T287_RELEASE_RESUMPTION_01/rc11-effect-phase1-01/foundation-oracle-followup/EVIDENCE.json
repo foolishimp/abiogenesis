@@ -1,0 +1,117 @@
+{
+  "kind": "authority_proof_triage",
+  "date": "2026-11-10",
+  "context": "resumed",
+  "subject_basis": "db9cf974 plus supplied phase1 freeze c4a8c7cc; production and authority unchanged",
+  "result": "falsified: all non-whitelisted Map/WeakMap uses are hidden semantic state",
+  "severity": "S2; priority/disposition Root-owned",
+  "counterexample": "Existing one-call deep-immutability visited Set may be equivalently implemented by a one-call Map without authority change; source-token gate rejects it",
+  "production_defect_established": false,
+  "minimal_change_scope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+  ],
+  "no_execution": true,
+  "phase1_proof": "continues unchanged; no rerun or acceptance effect",
+  "search_scope": [
+    "current test_env/tests",
+    "current test_env/support",
+    "current scripts"
+  ],
+  "additional_literal_effect_api_bans_found": false,
+  "limits": "not exhaustive semantic test review; no historical scan; no candidate implementation assurance",
+  "evidence": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "lines": [
+        303,
+        310,
+        318,
+        328,
+        342,
+        353,
+        1628
+      ],
+      "bytes": 60790,
+      "sha256": "cec88a1d0f39784b6a981f6ebd720fc5e8ca744dea810d95e757cb4e97f82b84"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "lines": [
+        124,
+        137,
+        169,
+        181,
+        219,
+        447
+      ],
+      "bytes": 20232,
+      "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "lines": [
+        937,
+        1172
+      ],
+      "bytes": 203094,
+      "sha256": "32c9ab82231f187dba17f552931053781d0434d8e109fd1c5c54a0aa577f4345"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "lines": [
+        3490
+      ],
+      "bytes": 396214,
+      "sha256": "43ce5ccae4fc28a4ac5d20cc14b2188ff7176c8a06bec9e89c5c39ac1f0e3536"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/AGENTS.md",
+      "lines": [
+        154
+      ],
+      "bytes": 13754,
+      "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/PRODUCT.md",
+      "lines": [
+        81,
+        249,
+        855
+      ],
+      "bytes": 101285,
+      "sha256": "c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/requirements/product/REQ-P-CATALOG.md",
+      "lines": [
+        75,
+        126,
+        141,
+        213,
+        226
+      ],
+      "bytes": 13757,
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "lines": [
+        241,
+        250
+      ],
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "lines": [
+        23,
+        44
+      ],
+      "bytes": 15892,
+      "sha256": "9ffdc51f90561375bdf228cf48f6bc8e2a187bb7079ea1db0a2a267093216c03"
+    }
+  ]
+}

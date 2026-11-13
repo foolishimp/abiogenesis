@@ -1,0 +1,72 @@
+{
+  "kind": "root_selected_deferred_proof_control_preparation",
+  "at": "2026-11-06T00:08:19.636105+00:00",
+  "role": "Separate operator-control Writer; no Product coder or runtime activation",
+  "productFrame": {
+    "product": "ABIogenesis 5.0 / GOAL-035 / T-287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "outcome": "Prepare affected native C2/UAT through existing RC6 owners for one actual completed D5 source; no whole qualification or human acceptance claim."
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "selectedAuthor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/ROOT_SELECTION.json",
+    "bytes": 12229,
+    "sha256": "f1b3938469cc6e18ad634e4e7fbb741d57afcb222cdde14365f9c8a0f11e5645"
+  },
+  "authorControlReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/PREPARATION_RETURN.json",
+    "bytes": 36832,
+    "sha256": "a77f215cee8a2e60c71101f8e86c93f0e74e25c04cf0f2f949c989576e0f0cde"
+  },
+  "authorBaseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/baseline-feedback-001/OBSERVATION.json",
+    "bytes": 9674,
+    "sha256": "8f43ab0cdfb9efdd5e18602de250a58c8fa580d57e3e06ef62cf339485f5a15a"
+  },
+  "priorDormantTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-01/PREPARATION_RETURN.json",
+    "bytes": 20957,
+    "sha256": "4d872c2f5e8d2cc20080043f2e66fcaf0a3d507ab475d54a04e2bb90fe34edbf"
+  },
+  "status": "PREPARE_CONTROLS_ONLY_WAIT_FOR_ACTUAL_AUTHOR_RETURN_AND_CLOSE",
+  "readTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/UAT_CONSTRUCTION_TRIAGE.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/ROOT_UAT_DISPOSITION.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "Exact installed immutable RC6 SDK/owner code and STDO3.0.4 standards already selected; closed source/evidence pins referenced by listed controls"
+  ],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02"
+  ],
+  "task": [
+    "Adapt the existing dormant d5-proof-01 maintained SDK/owner controls for completed d5-author-02, using its actual seven-command, ten-module C2 recipe and complete source/context/future handoff selection. Do not activate or blindly copy old source bindings.",
+    "Use only static controls and frozen baseline/source inputs. Do not inspect or change moving Product code, HOW or tests. Any final source-dependent values remain explicitly unresolved until Root supplies actual N frozen SUBJECT, native return/readiness and genuine final owner close.",
+    "Preserve the proof03 exact three-stale-handoff correction; assessment.sources and readFirst must be current, unique and correctly separated from fresh handoffs. Bind real after-observation/context only at finalization.",
+    "Prepare minimal maintainable controls using existing scripts/owners. Capture C2 by command IDs, all seven commands and ten unique modules, actual source correspondence, recovery/full-carrier evidence and UAT failure/no-result as well as success. Retain all failures.",
+    "No fake future refs, reuse of old current close, source-null bypass, skipped-C2 path, evaluator substitution or assertions of automatic eligibility. Explicit guarded deferred binding is allowed; a live call must not be constructed yet.",
+    "Return finite CONTROL_PREPARATION.json and .md: exact prepared file pins, static checks actually performed, required actual inputs still pending, recipe/module mapping, activation stops, effect limits, and bounded resource calculation. No full runtime-derived budget is claimed without the final call."
+  ],
+  "pendingInputs": [
+    "Actual complete d5-author-02 source Result and frozen SUBJECT",
+    "Actual native author return/readiness and full affected checks",
+    "Latest genuine d5-author-02 FINAL_RUNTIME_CLOSE and after-run resume",
+    "Root frozen-source disposition and final control admission"
+  ],
+  "prohibitions": [
+    "No source/worksite staging or Product/HOW/test/Git writes",
+    "No preflight, call construction, provider, runtime, test/build or setup execution",
+    "Do not reopen the active campaign, run a second coder, or use d5-author-01 predecessor close as a current successor close",
+    "No credential/private provider diagnostics read or retry",
+    "No new framework, controller, registry or proof mechanism"
+  ],
+  "return": "Control preparation only to Root. Root supplies the actual completed source/close and admits finalization before any staging/preflight/dispatch."
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/018-m5-fresh-process-reconstruction.test/process.json",
+    "bytes": 1105,
+    "sha256": "ca1e7279093ad673a3e8a5e4928a8b19a39662de6b4e04d04c2adef3b9ec53a7"
+  }
+}

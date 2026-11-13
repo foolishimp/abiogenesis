@@ -1,0 +1,214 @@
+{
+  "kind": "actual_single_address_space_c2_orchestration_result",
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 10,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 434630.335542,
+      "stdoutSha256": "a4d3c997492a4c2e5ecee85ca224ba76d57e414a2e3a269dc4e7415f97d7f3ef",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 31,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 58384.946915999986,
+      "stdoutSha256": "fd65dea7d0911e3d1c92d754b252ec5f357bd8ee6f8da8b4b34225ecb37a835b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "current-intent-complete-pair",
+      "files": [
+        "test_env/tests/t287-exact-construction-intent.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 62895.91966699995,
+      "stdoutSha256": "f75348ffdda20eea29fe9718a0fad1232373d15bfa34d761dacc948713370352",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    }
+  ],
+  "failures": [],
+  "retainedEvidenceVerification": {
+    "kind": "retained_c2_evidence_correspondence",
+    "manifestSha256": "a66c4447bed2b621dd102df8779a0d854ed1308f7d1a5b98fcbe9e374d61a902",
+    "actualPriorC2ResultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+    "priorSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/SUBJECT.json",
+      "bytes": 184296,
+      "sha256": "46bb8546b515e044011e4f3c129b1aba2947ddfc13396e870392532ea4b344ae"
+    },
+    "packageArchiveSha256": "091ab10a500eea30f59cc3952c21d181eb9d85277c4b2591556308faa435f0e2",
+    "packageArchiveIntegrity": "sha512-brBeDiZdepxOza+Jm5MiQBGggpc/DtEieOE5+jUw2xnkaCxTN2UhT+dggwPsoRrCAI1t9G2VpvlLiR8rFZ5zgA==",
+    "unchangedFiles": 893,
+    "retainedLaneIds": [
+      "affected-owner-lanes",
+      "qualification-owner-components",
+      "historical-producer-acquisition",
+      "replay-request-consumers",
+      "fresh-process-semantic-values",
+      "forward-recovery-contracts",
+      "installed-affected-lane",
+      "maintained-setup-harness",
+      "retry-entry-consumers",
+      "current-f09-retry-consumers"
+    ],
+    "newExecution": false,
+    "originalExecutions": [
+      {
+        "id": "affected-owner-lanes",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "qualification-owner-components",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "historical-producer-acquisition",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "replay-request-consumers",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "fresh-process-semantic-values",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "forward-recovery-contracts",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "installed-affected-lane",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "maintained-setup-harness",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "retry-entry-consumers",
+        "activation": "native-07",
+        "resultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+          "bytes": 17240,
+          "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+        },
+        "newExecution": false
+      },
+      {
+        "id": "current-f09-retry-consumers",
+        "activation": "native-07",
+        "resultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+          "bytes": 17240,
+          "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+        },
+        "newExecution": false
+      }
+    ],
+    "meaning": "Exact runtime archive and declared test/helper/source dependencies agree with closed prior evidence; these lanes were not rerun here."
+  },
+  "nativeTestProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/ba6c12b18a03bf7e6a04c1885c0a6a79d51b874478293cf1e650f8dd78b16c71/8b19eb22587efb7cab4154f4647d15eb1316d78dd018624255afd39e9c3bca8c/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-08/single-address-space-proof.json",
+    "producerPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/ba6c12b18a03bf7e6a04c1885c0a6a79d51b874478293cf1e650f8dd78b16c71/8b19eb22587efb7cab4154f4647d15eb1316d78dd018624255afd39e9c3bca8c/sandbox/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+    "bytes": 181197,
+    "sha256": "c6cbd12a15aac014125dacb096a06947b75c9f53214943568286688884b0a90c",
+    "producerLanePassed": true
+  },
+  "sourceManifestSha256": "5306b00163571fafa257fb999a20ec7230e0e3ab6ddeb5a1554ff43192fa406c",
+  "authority": "Tests and native-authored proof retain their own claims; this wrapper records outcomes and fails every unmet selected predicate.",
+  "qualified": false,
+  "published": false
+}

@@ -1,0 +1,159 @@
+{
+  "kind": "independent_f1_proof_authority_intake",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "independence": "resumed-context prior reviewer; nonauthor of correction and production; no clean-context claim",
+  "frame": {
+    "definition_sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "stdo_version": "3.0.4",
+    "selected_manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "atlas_anchor": "f-end-to-end-interface-integration",
+    "assurance": "Proof/Authority/Reuse"
+  },
+  "peer_commit": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+  "peer_commit_bytes_equal_read_file": true,
+  "source_basis": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e; scoped owner files independently compared with accepted native04",
+  "disposition": {
+    "accepted_correction": "preserved",
+    "phase1": "preserved",
+    "f1": "bounded proof-coverage follow-up; no demonstrated Product defect",
+    "phase2_a_b_blocker": false,
+    "condition": "owner-chain facts and required consumer checks remain unchanged",
+    "proposed_constructor_name_gate": "not congruent as a semantic oracle",
+    "universal_retention_safety": "not established by finite selected proof",
+    "root_acceptance": "reserved"
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/PRODUCT.md",
+      "bytes": 101285,
+      "sha256": "c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 396214,
+      "sha256": "43ce5ccae4fc28a4ac5d20cc14b2188ff7176c8a06bec9e89c5c39ac1f0e3536"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 203108,
+      "sha256": "62742b6c222ad698b022b6c00672541a5d701c92dc367191afc41bf0c1fc8f46"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "bytes": 60372,
+      "sha256": "77d9f61e3605a2a3d2050e22ec8961f34c8f11d12a9cee9e79f37454437e9879"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+      "bytes": 21885,
+      "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "bytes": 22243,
+      "sha256": "3952ee6f533cd869fb4dee29ade2b443670c3d4ad3434da17551dac0da0e1c03"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "bytes": 20232,
+      "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+      "bytes": 7039,
+      "sha256": "fd0624a822044ea73bd2b77ae8492bd6ed95595b98d451e7f0260c1d62fd31d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261110T001300Z_REVIEW_RC11_FOUNDATION_CORRECTION_SLICE/README.md",
+      "bytes": 18045,
+      "sha256": "1e3460f5db2749990f535a033773ffb6f5a2c763dcab730e632b2a270ad143af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/PREACQUISITION.md",
+      "bytes": 4378,
+      "sha256": "3a07f2461953e1ae1ef3858711727944bd278778c15ae5746c4177857e6c500d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/SOURCE_REVIEW_NATIVE04.md",
+      "bytes": 6895,
+      "sha256": "0621d27db3f95762aff9ec1414ddb27f2e9add15e174d3f3d06d1b15e75f9a99"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/FINAL_CONJUNCTION_NATIVE04.md",
+      "bytes": 4476,
+      "sha256": "ac7405dd945919dbed08c49693f18b375a925ddf6d2eb7477261af87b8c9b8a3"
+    }
+  ],
+  "owner_source_correspondence": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "bytes": 15249,
+      "sha256": "1507111b8f82cba53411ee7b9acdc3bd534892c64e9c06f90ad74cf25f07ce44",
+      "accepted_native04_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "equals_accepted_native04": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "bytes": 36626,
+      "sha256": "3abcb99e003110bd6cd3ab4ecb216340578d2fb26c6794e46d2b4208a9d41d88",
+      "accepted_native04_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "equals_accepted_native04": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "bytes": 42707,
+      "sha256": "1152662cdf107d8495ea1df5c203578cdf9041c08360452820dd3bba60303d48",
+      "accepted_native04_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "equals_accepted_native04": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "bytes": 20739,
+      "sha256": "113fbb5bfb6859cabe1e83b53bad2491a7467bc0d8d984c936e67c1cd2ed0eef",
+      "accepted_native04_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "equals_accepted_native04": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "bytes": 20232,
+      "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812",
+      "accepted_native04_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "equals_accepted_native04": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+      "bytes": 7039,
+      "sha256": "fd0624a822044ea73bd2b77ae8492bd6ed95595b98d451e7f0260c1d62fd31d4",
+      "accepted_native04_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+      "equals_accepted_native04": true
+    }
+  ],
+  "finite_followup": [
+    "Map each retained semantic fact to owner, exact key/basis, lifetime/invalidation and checks that must still run; include actual X4 binder, not only five W2 scan paths.",
+    "Use actual binder/owner route: repeated same frozen raw subject across distinct structural schema outcomes, canonical-admission equality, and required per-call predicate checks; raw-identity-only cache/raw-substitution must be falsified.",
+    "Account for X1 definition/request-schema mismatch coverage without inventing arbitrary mutation of immutable admitted facts.",
+    "Reuse physical changed-install retained-consumer proof for currentness; preserve declared lifetime/rollback residuals."
+  ],
+  "limits": [
+    "No new execution or repair.",
+    "No exhaustive production-state audit or universal proof of cache absence.",
+    "Peer historical causal claim not independently verified.",
+    "No new qualification, release or installed-artifact credit."
+  ],
+  "assessment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/proof/ASSESSMENT.md",
+    "bytes": 7070,
+    "sha256": "36280c84d46a57ca4c5faa6639a9d99826139a05a04d8d83923e7e89c880422e"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "read_only_exact_owner_context_discriminator",
+  "inputs": {
+    "task": "TASK.json",
+    "setup": "runtime-001/setup-identity.json",
+    "close": "runtime-001/resource-close.json"
+  },
+  "environmentKind": "exact_prefix_workspace_environment",
+  "result": {
+    "kind": "worksite_effect_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "refused",
+    "code": "stale_observation",
+    "message": "worksite context did not produce a complete closed observation",
+    "lastObservation": null,
+    "substrateCode": null
+  },
+  "wallMs": 645.7769169999999,
+  "noEventAcquisition": true,
+  "noProvider": true
+}

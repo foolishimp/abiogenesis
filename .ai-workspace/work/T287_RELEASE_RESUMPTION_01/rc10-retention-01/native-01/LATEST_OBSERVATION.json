@@ -1,0 +1,109 @@
+{
+  "utc": "2026-11-09T03:20:40.448056+00:00",
+  "eventBytes": 19601425,
+  "newEventKinds": {
+    "actor_process_stdout_observed": 3,
+    "runtime_activity_probe_observed": 11,
+    "actor_process_exited": 1,
+    "actor_result_artifact_observed": 1,
+    "actor_invocation_closed": 1,
+    "c_call_evidenced": 1,
+    "c_call_result_admitted": 1,
+    "c_call_judged": 1,
+    "traversal_route_admitted": 1,
+    "terminal_reached": 1,
+    "frame_closed": 1,
+    "graph_call_closed": 1,
+    "run_closed": 1
+  },
+  "latestTools": [
+    {
+      "name": "StructuredOutput",
+      "description": ""
+    }
+  ],
+  "providerResults": [
+    {
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 889218,
+      "duration_api_ms": 599942,
+      "num_turns": 54,
+      "total_cost_usd": 3.772072200000001,
+      "usage": {
+        "input_tokens": 96,
+        "cache_creation_input_tokens": 174113,
+        "cache_read_input_tokens": 5980221,
+        "output_tokens": 59137,
+        "output_tokens_details": {
+          "thinking_tokens": 23288
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 174113,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    }
+  ],
+  "processes": [],
+  "trackedChangedCount": 26,
+  "requiredNewTestExists": true,
+  "receipts": {
+    "stage-01/source-freeze.json": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292744,
+      "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19",
+      "summary": {
+        "status": "FROZEN_BEFORE_BUILD",
+        "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34"
+      }
+    },
+    "stage-01/RESULT.json": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/RESULT.json",
+      "bytes": 981,
+      "sha256": "f1ef5cab56be6249461fa1cc51ed4cfbe2353bb06c250f8a31d9fbab1525ab50",
+      "summary": {
+        "status": "BUILT",
+        "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34"
+      }
+    },
+    "focused-01/RESULT.json": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/focused-01/RESULT.json",
+      "bytes": 2267,
+      "sha256": "2015725d557cd16e2f153057115c4b18d6dbd69d0f6b9cee56cd200cf1790dbf",
+      "summary": {
+        "status": "PASSED",
+        "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34"
+      }
+    },
+    "NATIVE_RETURN.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/runtime-001/NATIVE_RETURN.json",
+      "bytes": 2167,
+      "sha256": "753dfb3b631e84483fbddadca00116661c1c3cf0e1afa6f867b8c8f7a78f86c0"
+    },
+    "resource-close.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/runtime-001/resource-close.json",
+      "bytes": 2289,
+      "sha256": "b334a0b977efe589709eaf1f90012972b9a540310ccb697313527a884d2a0c8e"
+    },
+    "FRESH_READBACKS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/runtime-001/FRESH_READBACKS.json",
+      "bytes": 6803,
+      "sha256": "811cda4d7b2071adfba789e4f1c171e898ab52e702830231c83e1001bfc7e699"
+    },
+    "FINAL.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/runtime-001/FINAL.json",
+      "bytes": 2645,
+      "sha256": "465348bd71b0855baaeb355c5c25313f1c71634c1fb8e37ae195c0c9c5da4bce"
+    }
+  }
+}

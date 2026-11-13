@@ -1,0 +1,62 @@
+{
+  "file": "test_env/tests/r1-packed-artifact.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 25956.831500000004,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/events/029-r1-packed-artifact.jsonl",
+    "bytes": 766,
+    "sha256": "90293edc8a52d1aa917ce0e3ded5a80b643076b573569d7707354d9ca477bafc"
+  },
+  "commandReceipt": "commands/029-r1-packed-artifact.result.json",
+  "workspace": "/private/tmp/abg-r8c-004/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    },
+    {
+      "path": "artifacts/self-consistent-substitution-abiogenesis-typescript-tenant.tgz",
+      "kind": "file",
+      "bytes": 11731826,
+      "sha256": "f089b64558f4c1e8303aec8a9f368d41de93212246b6dbca4913d0e92ea07d01",
+      "executable": false
+    },
+    {
+      "path": "artifacts/tampered-abiogenesis-typescript-tenant.tgz",
+      "kind": "file",
+      "bytes": 11731797,
+      "sha256": "8d8240b5fa8993429efb1a05a61cd56562b482ed87b9fbe02929538de96596d4",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r1.json",
+      "kind": "file",
+      "bytes": 16042622,
+      "sha256": "42b676ada4971917588abd59ffb17db4fcb46e51ca6a4e125f79ffa098c8e3d5",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

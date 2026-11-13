@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/m5-s03-authority.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 111326.14070800005,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 5,
+    "failed": 0,
+    "passed": 5,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 5,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-003/events/025-m5-s03-authority.jsonl",
+    "bytes": 1881,
+    "sha256": "116a5843c3501f29b3ea3acfac94ad95ac189f0b901db3c07206a2415a68e8e4"
+  },
+  "commandReceipt": "commands/025-m5-s03-authority.result.json",
+  "workspace": "/private/tmp/abg-r8c-003/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

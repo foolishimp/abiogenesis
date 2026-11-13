@@ -1,0 +1,123 @@
+{
+  "role": "resumed Design/Owner triage; not independent implementation review",
+  "run": "21914c4647d17bc222480d9d9746b50389505ae6d6842668f124fc262da57437",
+  "sourceDigest": "64afc834b8442a42b42663ecca5514e33832edc531e9f01f03c9eacb4b67098b",
+  "inventoryComparison": {
+    "rows": 1344,
+    "unchanged": 1343,
+    "changed": [
+      "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+    ],
+    "added": [],
+    "deleted": []
+  },
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/design-intake/ASSESSMENT.md",
+      "bytes": 10454,
+      "sha256": "2076fe346f4345d3f2f1ae5425ea981fe4b6750f92335bc007a5e74dc355f13b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json",
+      "bytes": 5536,
+      "sha256": "8d45c82e7e9f39628e4063c28902ec89091de37f60137663c530a7a83f708a7f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/TASK.json",
+      "bytes": 8487,
+      "sha256": "5df3c12a1de2ee6538eeee51114f1185a229c7a76180ba425921063ab1d6699a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_INVENTORY.json",
+      "bytes": 294794,
+      "sha256": "e003b09affcd088fd0900d853ca60d7d157696a0a998e86e94f1dbeaa522e69b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/source-freeze.json",
+      "bytes": 295251,
+      "sha256": "9a82a2297b03cec7da18862acca7d12c2625d8f6a85f4d0cf39069de0279e548"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/FREEZE_RECEIPT.json",
+      "bytes": 2328,
+      "sha256": "baff943bfeb3a654cd21064954f20375f74dea005b86cc6249bc4e34cb87b7e1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_DELTA.diff",
+      "bytes": 9428,
+      "sha256": "d3938a815bc380ee1ebb5562455198aaa43e4373b9485918f5fbd61d731ab692"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/FINAL.json",
+      "bytes": 2653,
+      "sha256": "b0bd585ee20bc3b34591a8f9d59a4eaba8623ef0c0786da0b66c0a3509811f55"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/NATIVE_RETURN.json",
+      "bytes": 2175,
+      "sha256": "9b066806efdc97d9aa3cd312d87ed59a224d60bf1f4fcd4c64e78e26eb7c1d89"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/FRESH_READBACKS.json",
+      "bytes": 1679,
+      "sha256": "1a3e70c5b9f3260a85355a8dd1aa2c34c0cd921b667f8eb930d41f17c1bde149"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-01/EXTERNAL_TOOLS.json",
+      "bytes": 3737,
+      "sha256": "dcf032dd2d74eaa11a4ce8c34f3acaa954e21828846089f1077f3f96d9ef254b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 16214,
+      "sha256": "c4580846ef6a09ca26413b691960ecd2e04074cc263e92844b4f18f2a52a451e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 68872,
+      "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 52787,
+      "sha256": "4db80cc8cf535099e138138720dc0ffb196e81ed35a8c9fe3b3037fee9a1ab91"
+    }
+  ],
+  "sourceFindings": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "line": 3,
+      "finding": "Authored-source status unsupported; only plan changed."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "line": 34,
+      "finding": "Shared completion/snapshot identity would alter current behavior; Root requires existing snapshot values and fresh identity preserved."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "line": 32,
+      "finding": "Deletion map prospective; listed state-field count is fifteen; reentry law must remain."
+    }
+  ],
+  "recommendation": "Sequential A shared immutable physical transition then B actual scoped command/main; joint final acceptance cone unchanged",
+  "operatorOnlyFacts": [
+    "34 tool calls, zero retries and no observed selfcheck are attributed to verified operator receipt; no independent transcript census"
+  ],
+  "corrections": [
+    "Actual operative controlledCheck uses ^controlled and includes timing; prior omission inference withdrawn."
+  ],
+  "notEstablished": [
+    "provider reasoning",
+    "language restriction caused incomplete pass",
+    "Product defect",
+    "any implementation or test acceptance"
+  ],
+  "effects": "read-only evidence and create-once triage reports",
+  "reportSha256": "8078d559c667982ab73e913dc4260a3697771b0fb0d339e61eabc31469963401"
+}

@@ -1,0 +1,75 @@
+{
+  "label": "uat-harness",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/uat-harness.request.json",
+    "bytes": 753,
+    "sha256": "47d01cccc1104f84c7d2f60b767cfe83cb1e2baab558c86f82c74206e5abc431"
+  },
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/uat-harness.result.json",
+    "bytes": 11244,
+    "sha256": "6c98cd4df7f01ea208533e9d83b81e05b13cce55ff902a726f9a4b0e01098422"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/uat-harness.stdout",
+    "bytes": 9933,
+    "sha256": "7ac59877cd84387f6c6b9a9b664c9efd9f1388c4af6f3f8dff61ed0054aed65b"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/uat-harness.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "wallMs": 131760.806167,
+  "tap": {
+    "tests": 32,
+    "pass": 32,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "failedNames": [],
+    "passedNames": [
+      "Oracle event acquisition records the authentic prefix without serializing or changing complete owner events",
+      "Oracle event acquisition preserves owner refusals and archive errors without writing alternate event evidence",
+      "Eventless read conservation hashes bounded chunks and detects tampering, append and identical-byte replacement",
+      "Owned XML acquisition verifies literal report digest, length, identity, complete set and symlink confinement",
+      "Owned XML acquisition selects latest original red and its depth names, rejecting unadmitted and foreign sources",
+      "Owned XML inventory requires the original complete matching set from the same selected observation",
+      "Owned XML mutation episodes require their own snapshot reports and distinct actual command experiments",
+      "basic-cli",
+      "js-tenant-test",
+      "js-sdlc-bootstrap",
+      "rust-cli",
+      "rust-service",
+      "parallel-js",
+      "Owned report repair preserves all six original Hello mechanical command and source cases",
+      "Source-use attribution refuses unauthenticated or unadmitted current invocations through actual installed owners",
+      "Source-use finite owner tuples preserve cross-Run consumer guards under an explicit admission projection premise",
+      "Caller execution policy omits optional actor caps, retains explicit positive flags and rejects invalid caps",
+      "Caller execution policy preserves acquired meaning and all command fields except explicit effective timeout; canonical C2 budget fits",
+      "Fresh supplied work transfers exact retained material into source-none empty owner state without old archive or producer changes",
+      "Resume refuses changed pins, symlinks, unauthorized paths and existing destinations before file transfer",
+      "Resume selection requires one explicit source archive and cannot be activated by ordinary run flags",
+      "Seven exact original workloads authenticate source, request and independent oracle before use",
+      "Resolved toolchain identity and configured environment flow into the canonical owner carrier",
+      "Archive paths are unique and failed subprocess streams survive before any assertion or teardown",
+      "Archived judgment conserves acquired module, manifest and rubric despite later ambient edits; tampering refuses",
+      "Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse",
+      "Rust-service mechanical oracle preserves coordinate spelling independence without inventing semantic UAT",
+      "Rust-service mechanical oracle conserves admission, execution, source, artifact and pass-floor guards",
+      "Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner",
+      "Native refusal without an admitted Run is preserved before any refresh, reopen or read",
+      "Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes",
+      "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+    ],
+    "skippedNames": [],
+    "declaredSkipPredicate": true,
+    "allowedHistoricalSkippedTests": []
+  }
+}

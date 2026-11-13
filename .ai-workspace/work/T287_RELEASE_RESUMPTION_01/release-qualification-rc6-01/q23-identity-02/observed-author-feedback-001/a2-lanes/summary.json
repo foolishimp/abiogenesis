@@ -1,0 +1,51 @@
+[
+  {
+    "id": "transport",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/m5-worker-transport.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-02/tmp/a2/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 9320,
+    "tests": 23,
+    "pass": 23,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 23,
+    "failing": [],
+    "stdoutSha256": "955458df2b777ef652927dcfa5000f0dd865d2c882f74d69aa6d4fbee4c905e1",
+    "stdoutBytes": 6647,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "id": "qualification",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/t287-result-evidence-lineage-projection.test.mjs test_env/tests/t287-qualification-producer-context.test.mjs test_env/tests/t287-qualification-contraction.test.mjs test_env/tests/t287-qualification-scopes.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-02/tmp/a2/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "ms": 3776,
+    "tests": 32,
+    "pass": 24,
+    "fail": 8,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 32,
+    "failing": [
+      "actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused",
+      "green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task",
+      "whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green",
+      "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked",
+      "same candidate in distinct original install/workspace/resource authenticates and conserves original producer material",
+      "candidate law source and genuine runtime coordinates cannot be crossed or replaced by a read wrapper",
+      "original source currentness is rechecked at dispatch while historical authenticated prefix remains replayable",
+      "duplicate aliases and competing successful producers remain refused in their original context"
+    ],
+    "stdoutSha256": "e11bb16b5c12613ef6956b025029f46e1b420557b4a525b5ee3ea498daca11c7",
+    "stdoutBytes": 24634,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

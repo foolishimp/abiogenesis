@@ -1,0 +1,131 @@
+--- subject001/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs
++++ subject002/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs
+@@ -467,7 +467,8 @@
+ }
+ 
+ /** One run read through the shipped SDK constructor. A falsifier patches the
+- * canonical population explicitly and re-envelopes it. */
++ * canonical population explicitly and re-envelopes it; a substituted event
++ * resource replaces only the resource the population was constructed at. */
+ function constructInstalledRunReadCall({
+   environment,
+   publicApi,
+@@ -480,6 +481,7 @@
+   definitionContractCoordinatesOverride = null,
+   mutateRequest = null,
+   mutateSlots = null,
++  eventResourceOverride = null,
+ }) {
+   const { product, workspaceBinding } = environment;
+   const envelope = Object.freeze({
+@@ -512,7 +514,8 @@
+   );
+   const patched = mutateRequest !== null || mutateSlots !== null ||
+     contractCatalogOverride !== null ||
+-    definitionContractCoordinatesOverride !== null;
++    definitionContractCoordinatesOverride !== null ||
++    eventResourceOverride !== null;
+   return Object.freeze({
+     packet: population.packet,
+     grants: population.grants,
+@@ -531,7 +534,12 @@
+         population.slots,
+         population.grants,
+       ),
+-      resources: constructed.call.resources,
++      resources: eventResourceOverride === null
++        ? constructed.call.resources
++        : Object.freeze({
++            ...constructed.call.resources,
++            eventResource: eventResourceOverride,
++          }),
+       requestRef: envelope.requestRef,
+       correlationRef: envelope.correlationRef,
+       eventTime: envelope.eventTime,
+@@ -1385,13 +1393,16 @@
+     readHandoff = refused.resources.eventResource.closeHandoff;
+   }
+ 
++  // The Run is absent at the setup prefix, so canonical population at the
++  // current handoff precedes the explicit stale-resource substitution.
+   const staleRead = constructInstalledRunReadCall({
+     environment,
+     publicApi,
+     memberKey: "run_status",
+     selector: Object.freeze({ kind: "none" }),
+     source: terminalRun,
+-    eventResource: reopenedReadResource(product, setupHandoff),
++    eventResource: reopenedReadResource(product, readHandoff),
++    eventResourceOverride: reopenedReadResource(product, setupHandoff),
+     identity: "stale-resource-prefix",
+   });
+   const staleFault = await Effect.runPromise(Effect.flip(
+@@ -1883,11 +1894,19 @@
+   assert.notEqual(invokeRun.ref, st4Run.ref, "direct invoke opens its own Run");
+   assert.notEqual(invokeRun.ref, terminalRun.ref, "direct invoke opens its own Run");
+   sdkHandoff = invokeOutcome.receipt.resources.eventResource.closeHandoff;
+-  const invokeGraphCall = abg.readRuntimeEventsAtDurablePrefix(sdkHandoff.prefix)
+-    .find((event) =>
+-      event.kind === "graph_call_opened" && event.runId === invokeRun.ref
+-    );
+-  assert.ok(invokeGraphCall, "the direct invoke opens one GraphCall");
++  // The invoke owner names its GraphCall; the durable log opens exactly that
++  // one GraphCall for the direct-invoke Run.
++  const invokeGraphCall = invokeOutcome.receipt.ownerOutput.value.graphCall;
++  assert.ok(invokeGraphCall, "the direct invoke result names its GraphCall");
++  assert.deepEqual(
++    abg.readRuntimeEventsAtDurablePrefix(sdkHandoff.prefix)
++      .filter((event) =>
++        event.kind === "graph_call_opened" && event.runId === invokeRun.ref
++      )
++      .map((event) => event.graphCallId),
++    [invokeGraphCall.ref],
++    "the direct-invoke Run opens exactly its result GraphCall",
++  );
+   const declarationProof = Object.freeze({
+     kind: "abg_historical_declaration_proof",
+     schemaVersion,
+@@ -1903,10 +1922,10 @@
+       limit: 1024,
+     })],
+     ["run_gaps", invokeRun.ref, Object.freeze({ kind: "none" })],
+-    ["graph_call_result", invokeGraphCall.graphCallId, Object.freeze({
++    ["graph_call_result", invokeGraphCall.ref, Object.freeze({
+       kind: "none",
+     })],
+-    ["graph_call_replay", invokeGraphCall.graphCallId, Object.freeze({
++    ["graph_call_replay", invokeGraphCall.ref, Object.freeze({
+       kind: "ordinal_page",
+       fromOrdinal: 0,
+       limit: 1024,
+@@ -1935,6 +1954,11 @@
+     if (construction.kind !== "installed_run_read_call") {
+       assert.fail(`${memberKey} ${JSON.stringify(construction)}`);
+     }
++    assert.equal(
++      construction.population.source.ref,
++      sourceRef,
++      `${memberKey} populated source`,
++    );
+     const readOutcome = await publicApi.runInstalledDefinitionCallTransport(
+       Object.freeze({ kind: "reopen", closeHandoff: sdkHandoff }),
+       construction.call,
+--- subject001/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs
++++ subject002/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs
+@@ -2,13 +2,14 @@
+ import test from 'node:test';
+ import {mkdtemp,mkdir,readFile,writeFile,chmod,copyFile} from 'node:fs/promises';
+ import {tmpdir} from 'node:os';
+-import {join} from 'node:path';
++import {join,resolve} from 'node:path';
+ import {pathToFileURL} from 'node:url';
+ import {setupInstalledRootExecutionBasis} from '../support/root-installed-environment.mjs';
+ import {prepareRegisteredSelectionProduct,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
+ import {declarations,ref,contract,actionCatalog} from '../fixtures/exact-intent-product/index.mjs';
+ const root=new URL('../..',import.meta.url).pathname;
+-const proof=process.env.ABI5_EXACT_INTENT_EVIDENCE_ROOT??await mkdtemp(join(tmpdir(),'abi5-exact-intent-proof-'));
++// The CLI and actor processes run in other directories: the fixture readyPath and fixed transport under this root stay absolute.
++const proof=resolve(process.env.ABI5_EXACT_INTENT_EVIDENCE_ROOT??await mkdtemp(join(tmpdir(),'abi5-exact-intent-proof-')));
+ await mkdir(proof,{recursive:true});
+ const save=async(name,value)=>writeFile(join(proof,name),JSON.stringify(value,null,2)+'\n');
+ const freeze=value=>{if(value&&typeof value==='object'){Object.values(value).forEach(freeze);Object.freeze(value);}return value;};

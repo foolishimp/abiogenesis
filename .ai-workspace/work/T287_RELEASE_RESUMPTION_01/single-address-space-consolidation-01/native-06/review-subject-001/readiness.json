@@ -1,0 +1,46 @@
+{
+ "kind": "native_06_readiness",
+ "recordedUtc": "2026-11-04T01:37:32Z",
+ "ready": false,
+ "status": "not_ready",
+ "reason": "partial return: the retry fixture rebuild and F09 consumer runs are open, N5-PROOF-01 has unexercised branches, and actual C2/UAT/review are outside this Worker",
+ "subject": {
+  "return": "consolidation-scratch/native-06/return.json",
+  "changedFromNative05": [
+   "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+   "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+   "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+   "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+   "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs"
+  ],
+  "sourceHashes": {
+   "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "61fdfd9f68ed4e1b94aa143542d5f7919221f688b140e94fa9b7c52faba2591f",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs": "9407605058cce466f6efe2d2e4b11bf0198e77cfacbc9fef109070ff4ec41cb3",
+   "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4",
+   "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+   "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts": "42ef88f96981adc827aa40bf3c6d3af3a9af7ef3278a6e958f2aebd513f6a38b",
+   "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs": "51cd9b45a10e5f464c01a4b1a979f4c780ca5360a9b3200e7f5a156b7bdd72c0",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs": "af65174bcb7ea1fb37d358650c70b4dd310408a391291c7f2439e22549ee8c36",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs": "8e6176b038ce315697921846a2055b0d6bf0a06e2f88399a906b3a7c49ad0960",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs": "b768ee0976a20b66a8ae204b9452742ed9afca2008f75dc98240bc648f910236",
+   "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs": "b581f43132bfafe9b11a90af90130d3b1a70fe5c355ba336d595805571963fab"
+  }
+ },
+ "expectedC2Reds": [
+  "retry-entry-consumers: t287-retry-run-prefix still pinned to the S02 rc.1 fixture"
+ ],
+ "gaps": [
+  "Retry: t287-retry-run-prefix is not rebuilt on F09 producers. It still names the S02 rc.1 fixture and refuses before retry assertions; nested depths 1/2, neighbour, foreign, stale, failed-scope and many-match retry controls do not exist on current history. The retry-entry lane (minimum 3, no skips) will fail actual C2.",
+  "F09 consumers (t287-f09-frontier-handoff, t287-r4-aba-retry, runtime-f09/runtime-f09-product) not run in native06; the native05 route-fault adaptation still needs review in the final F09 delta.",
+  "N5-PROOF-01: duplicate_outer_invocation, a valid F_H/construction complete-pair baseline, and growth by a second unrelated Run are not exercised; unrelated growth used a workspace operation.",
+  "R1 allocation: per-query layered work is measured as rows visited and noisy heap deltas, not allocated bytes.",
+  "Qualification per-cut retention grows with the number of distinct cuts asked in one derivation scope; bounded by scope lifetime, not separately metered.",
+  "Scratch design file holds the native05 bytes (design is not consumed by tests); the worktree design HOW carries the native06 sentence.",
+  "Author-run scratch passes are not actual C2, UAT or independent review."
+ ]
+}

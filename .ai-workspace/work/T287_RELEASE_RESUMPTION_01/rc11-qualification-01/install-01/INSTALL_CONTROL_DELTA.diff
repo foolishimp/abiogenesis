@@ -1,0 +1,40 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/install-local-rc10.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/install-local-rc11.mjs
+@@ -12,7 +12,7 @@
+ const hex=b=>createHash('sha256').update(b).digest('hex');
+ async function checked(row){assert((await lstat(row.path)).isFile(),row.path);const b=await readFile(row.path);assert.equal(b.length,row.bytes,row.path);assert.equal(hex(b),row.sha256,row.path);return b;}
+ async function absent(path){try{await lstat(path);throw Error('no-clobber collision: '+path);}catch(e){if(e.code!=='ENOENT')throw e;}}
+-assert.equal(process.argv.length,4,'usage: node install-local-rc10.mjs INPUT_MANIFEST_PATH INPUT_MANIFEST_SHA256_HEX');
++assert.equal(process.argv.length,4,'usage: node install-local-rc11.mjs INPUT_MANIFEST_PATH INPUT_MANIFEST_SHA256_HEX');
+ const raw=await readFile(inputPath);assert.equal(hex(raw),process.argv[3]);const m=JSON.parse(raw);
+ assert.equal(m.status,'ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY');assert.equal(m.executionEnabled,true);await checked(m.activation);
+ for(const row of m.files)await checked(row);
+@@ -21,8 +21,8 @@
+ // The unchanged Product owner invokes `npm` and tar through PATH; select the pinned tools.
+ assert.equal(m.installPath,'/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin');
+ process.env.PATH=m.installPath;
+-assert.notEqual(m.archive.sha256,'bff1a5214f198f5f133c8643f653dc3cb55022622009c23070e779f0ec2dadec','FAILED candidate archive is forbidden');
+-const e=m.expected;assert.equal(e.packageVersion,'5.0.0-rc.10');assert.equal(e.productId,'product://abiogenesis/typescript-tenant@5.0.0-rc.10');for(const k of ['artifactDigest','manifestDigest','productContentDigest'])assert.match(e[k],/^sha256:[0-9a-f]{64}$/u);assert.match(e.sourceCommit,/^[0-9a-f]{40}$/u);assert.match(m.sourceTree,/^[0-9a-f]{40}$/u);assert(Number.isSafeInteger(m.archiveMembers)&&m.archiveMembers>0);const archive=await checked(m.archive);
++assert.equal(m.archive.sha256,'f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455');assert.equal(m.archiveMembers,5327);process.env.GIT_OPTIONAL_LOCKS='0';
++const e=m.expected;assert.equal(e.packageVersion,'5.0.0-rc.11');assert.equal(e.productId,'product://abiogenesis/typescript-tenant@5.0.0-rc.11');for(const k of ['artifactDigest','manifestDigest','productContentDigest'])assert.match(e[k],/^sha256:[0-9a-f]{64}$/u);assert.match(e.sourceCommit,/^[0-9a-f]{40}$/u);assert.match(m.sourceTree,/^[0-9a-f]{40}$/u);assert(Number.isSafeInteger(m.archiveMembers)&&m.archiveMembers>0);const archive=await checked(m.archive);
+ assert.equal(execFileSync('/usr/bin/git',['-C',m.worksiteRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),e.sourceCommit);
+ for(const args of [['diff','--quiet'],['diff','--cached','--quiet']])execFileSync('/usr/bin/git',['-C',m.worksiteRoot,...args]);
+ await absent(m.releaseRoot);await absent(m.installHost);
+@@ -33,7 +33,7 @@
+ // Effects start only after the exact packet/tools/source/archive and both absences pass.
+ await mkdir(m.releaseRoot,{mode:0o700});
+ const save=(name,value)=>writeFile(join(m.releaseRoot,name),JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+-const retainedArchive=join(m.releaseRoot,'abiogenesis-typescript-tenant-5.0.0-rc.10.tgz');
++const retainedArchive=join(m.releaseRoot,'abiogenesis-typescript-tenant-5.0.0-rc.11.tgz');
+ await writeFile(retainedArchive,archive,{flag:'wx'});assert((await readFile(retainedArchive)).equals(archive));
+ for(const name of ['BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json','ROOT_AUTHORITY.md','RESIDUALS.md','INPUT_MANIFEST.json'])
+   await copyFile(join(dir,name),join(m.releaseRoot,name),constants.COPYFILE_EXCL);
+@@ -71,7 +71,7 @@
+   limits:m.limits,
+   installedCli:join(installed.installedRoot,'build/code/src/public/cli.js')});
+ const checksums=[];
+-for(const name of ['abiogenesis-typescript-tenant-5.0.0-rc.10.tgz','BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json',
++for(const name of ['abiogenesis-typescript-tenant-5.0.0-rc.11.tgz','BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json',
+   'ROOT_AUTHORITY.md','RESIDUALS.md','INPUT_MANIFEST.json','verification.json','resolved-lock.json','installation.json',
+   'payload-correspondence.json','LOCAL_CUT_RECORD.json'])checksums.push(hex(await readFile(join(m.releaseRoot,name)))+'  '+name);
+ await writeFile(join(m.releaseRoot,'SHA256SUMS'),checksums.join('\n')+'\n',{flag:'wx'});

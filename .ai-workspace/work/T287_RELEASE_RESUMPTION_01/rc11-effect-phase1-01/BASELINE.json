@@ -1,0 +1,44 @@
+{
+  "status": "READY_FOR_FRESH_IMPORTED_SETUP",
+  "sourceCommit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+  "sourceTree": "e7c0998717c1d641fa5d7777d2145453ff111a05",
+  "trackedCleanBeforeTracking": true,
+  "onlyTrackedPreDispatchChanges": [
+    "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+    "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "workspaceManifestAbsent": true,
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/SOURCE_INVENTORY.json",
+    "bytes": 294548,
+    "sha256": "98a84890cf6f04c7552356404aead51784446fcf5f25f22d1b99f5e520a0d8cf"
+  },
+  "sourceDigest": "804eaa90bedbb77ff40ea69fecc26f66d03db765c564fd9337235add20702ed0",
+  "priorMaterialization": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/WORKTREE_PREPARATION.json",
+    "bytes": 6620,
+    "sha256": "01ca8165218df38829596dd0d73bafd86cd522c490e6daf00697998becf92529"
+  },
+  "acceptedCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/CHECKPOINT_RETURN.json",
+    "bytes": 6116,
+    "sha256": "492c6f56c9f8351599e460c75d658c153e1a6fff67015e4addd9770ec1714de4"
+  },
+  "indices": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+      "bytes": 29654776,
+      "sha256": "7ef4f3d6ff1367062f2848b6ba22a91a32078bac81aedc860a0898ae1da46f01"
+    }
+  ]
+}

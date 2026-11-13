@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-default-library-reviews.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 10,
+    "pass": 10,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/065-t287-default-library-reviews.test/process.json",
+    "bytes": 1099,
+    "sha256": "2ae24be8faffc9fe83df68a56e8aaf5718690613af79f6567ab71234d730622d"
+  }
+}

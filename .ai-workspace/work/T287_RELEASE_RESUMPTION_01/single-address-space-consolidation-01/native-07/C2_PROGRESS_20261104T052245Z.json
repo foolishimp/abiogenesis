@@ -1,0 +1,44 @@
+{
+  "recordedUtc": "2026-11-04T05:22:45.797607+00:00",
+  "standing": "Passive live helper-file observation; actual helper/admitted C2 conjunction pending",
+  "coordinates": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/C2_HELPER_COORDINATES.json",
+    "bytes": 3691,
+    "sha256": "a8c21a5f45da29fd76d6cb09625fe59016724c616216f10a693aa989fe5c7520"
+  },
+  "completedLanes": [
+    {
+      "id": "retry-entry-consumers",
+      "exitCode": 0,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 45525.58729200001,
+      "unmet": []
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "exitCode": 0,
+      "pass": 31,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 59212.00129099999,
+      "unmet": []
+    },
+    {
+      "id": "single-address-space-whole-path",
+      "exitCode": 0,
+      "pass": 9,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 445517.669542,
+      "unmet": []
+    }
+  ],
+  "passingTests": 43,
+  "failingTests": 0,
+  "skippedTests": 0,
+  "sourceAndResultCorrespondence": "pending actual helper and admitted C2 Result",
+  "actorStartedUtc": "2026-11-04T05:11:03.024Z",
+  "nativeResultToActorMs": 871112
+}

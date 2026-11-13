@@ -1,0 +1,492 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/runtime-001/resources/archives/fp-10a84437947bfb25-stdout.log",
+    "bytes": 2429811,
+    "sha256": "6e17c9e50068d941119f66655f551e6895baca6933e887eaa7e07d0d45c5f1d1"
+  },
+  "tools": [
+    {
+      "line": 35,
+      "id": "toolu_01FSfEz1yHyBeKRbbZzjUNzs",
+      "name": "Bash",
+      "input": {
+        "command": "ls qualification-inputs/rc11-effect-phase2-01/native-03/ && cat qualification-inputs/rc11-effect-phase2-01/native-03/ROOT_SCOPE.json && cat qualification-inputs/rc11-effect-phase2-01/native-03/EXTERNAL_TOOLS.json",
+        "description": "List and read native-03 scope and tools inputs"
+      },
+      "result": {
+        "line": 40,
+        "isError": false,
+        "canonicalBytes": 11295,
+        "sha256": "86ae61c216c677f652376d7b137c1551b2bced560ea59f49f7594f91a7c237d5"
+      }
+    },
+    {
+      "line": 60,
+      "id": "toolu_018STkCA3F5wpYysRXxqsszW",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03 && cat EXECUTED_DESIGN.md && echo ======= && cat EXECUTED_PROOF.md",
+        "description": "Read executed design and proof evidence"
+      },
+      "result": {
+        "line": 64,
+        "isError": true,
+        "canonicalBytes": 4240,
+        "sha256": "17bbfb6fd2e231c233a7ff165e7a9f20eb52bfbb55efbc34c42e02120526b381"
+      }
+    },
+    {
+      "line": 87,
+      "id": "toolu_018pihJkra9gMCAHfFG4qDqa",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03 && cat DESIGN_R1.md && echo ====== && cat SOURCE_REVIEW.md && echo ===== && cat CANDIDATE_OBSERVATION.json BASELINE_OBSERVATION.json",
+        "description": "Read R1 design, source review, and observations"
+      },
+      "result": {
+        "line": 91,
+        "isError": true,
+        "canonicalBytes": 7546,
+        "sha256": "1d4d75d2a500484e81a060b3cf212a0686e3cb3e8f6e1d3d2a89b8aac77bfed6"
+      }
+    },
+    {
+      "line": 120,
+      "id": "toolu_017oWdXFWKX4pEqz6XM2bAz9",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03 && cat SOURCE_REVIEW.md; echo '-----'; cat CANDIDATE_OBSERVATION.json; echo '-----'; cat BASELINE_OBSERVATION.json",
+        "description": "Read source review and observation records"
+      },
+      "result": {
+        "line": 124,
+        "isError": false,
+        "canonicalBytes": 14710,
+        "sha256": "29cdd39ad8785280afda713bb0f6211b1cfcfb819ae69f74a13d322cdb72e709"
+      }
+    },
+    {
+      "line": 148,
+      "id": "toolu_01RuhiSrwC8UCVkiC2v7hSoQ",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && cat -n build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+        "description": "Read lifetime bridge module"
+      },
+      "result": {
+        "line": 152,
+        "isError": false,
+        "canonicalBytes": 13978,
+        "sha256": "f1b392b68f06c3d48e116025adbccf160c975e1e1139efab1819efc365b31568"
+      }
+    },
+    {
+      "line": 164,
+      "id": "toolu_01Hh1YtBZheZ7yp1AtmMiwA2",
+      "name": "Bash",
+      "input": {
+        "command": "cat -n build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+        "description": "Read pure state module"
+      },
+      "result": {
+        "line": 168,
+        "isError": false,
+        "canonicalBytes": 14931,
+        "sha256": "910b5e15403d2c52dd29b1075ca2d34c7a89215e14b02d637b8c4842d915a1ad"
+      }
+    },
+    {
+      "line": 199,
+      "id": "toolu_01HRsJUW1ztTaELc99iuk5vu",
+      "name": "Bash",
+      "input": {
+        "command": "wc -l build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs && grep -n \"^test\\|^  test\\|^describe\\|test(\\\"\\|test('\\|controlled\" build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs | head -80",
+        "description": "Inspect lifetime test structure"
+      },
+      "result": {
+        "line": 203,
+        "isError": false,
+        "canonicalBytes": 7410,
+        "sha256": "7d33d98a9ebd8d653de57a9332133699928d93ffdbacda2cf0a6e9f82b964bc1"
+      }
+    },
+    {
+      "line": 233,
+      "id": "toolu_01XmoR7eE2JpGDoCAdjDCuGL",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,130p build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "Read test header and helpers"
+      },
+      "result": {
+        "line": 237,
+        "isError": false,
+        "canonicalBytes": 7463,
+        "sha256": "e79a00441535fbfd28159568fe884b1ac549fb16a5cc872c4b54d47b2b06139a"
+      }
+    },
+    {
+      "line": 251,
+      "id": "toolu_019JkNZXVG7pu66cv3Q8xNgz",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 127,410p build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "Read controlled lifetime tests"
+      },
+      "result": {
+        "line": 255,
+        "isError": false,
+        "canonicalBytes": 19705,
+        "sha256": "a2c914c0f6e2c6f370334020a2d4cf289fe9783159cf7b553666cde9daddfd99"
+      }
+    },
+    {
+      "line": 269,
+      "id": "toolu_01CuUF8tcxbWLJwh5rJAyBF9",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 770,817p build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "Read final controlled cases"
+      },
+      "result": {
+        "line": 273,
+        "isError": false,
+        "canonicalBytes": 4102,
+        "sha256": "69e8de2cb71f47b7665d50823ce440ea4178ce3c98f884e7c3455b1e64fd558d"
+      }
+    },
+    {
+      "line": 308,
+      "id": "toolu_01XZsR3F7uKrCWziqnoTqRzx",
+      "name": "Bash",
+      "input": {
+        "command": "wc -l build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md && cat build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "description": "Read the refactor plan document"
+      },
+      "result": {
+        "line": 312,
+        "isError": false,
+        "canonicalBytes": 17474,
+        "sha256": "15e3f94a31086728d3748d873fd55f93baaa43da482ff32c02b8ac06d877e6ac"
+      }
+    },
+    {
+      "line": 1251,
+      "id": "toolu_01QgSyf8v3b8uGZbqXS7rz3h",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && cat tsconfig.json && cat package.json && wc -lc code/src/shared/owned_process_lifetime.ts code/src/shared/owned_process_state.ts && ls /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/ 2>&1; ls /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03 2>&1",
+        "description": "Read tsconfig, package.json, sizes, scratch layout"
+      },
+      "result": {
+        "line": 1255,
+        "isError": false,
+        "canonicalBytes": 11527,
+        "sha256": "6ba493c7849ea9dc18f92f5be437b25ea18207161a94f0a074c8e264464795e1"
+      }
+    },
+    {
+      "line": 1279,
+      "id": "toolu_01N8nGGE8GoNQ5hQaNzVuBzr",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && sed -n 1,80p AGENTS.md | head -80; ls qualification-scratch/rc11-effect-phase2-01/native-02/ 2>&1 | head",
+        "description": "Skim AGENTS.md and prior scratch layout"
+      },
+      "result": {
+        "line": 1281,
+        "isError": false,
+        "canonicalBytes": 5005,
+        "sha256": "f0f64ea2f02015d1b6a73aa9b5b99130149b402669791155825c8fe0da418d3a"
+      }
+    },
+    {
+      "line": 1318,
+      "id": "toolu_01FVJgk1zodW6M6UVpkRudYW",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01 && ls -la native-02/tenant native-03 native-03/evidence native-03/tmp native-03/npm-cache | head -40",
+        "description": "Inspect prior and current scratch tenant layout"
+      },
+      "result": {
+        "line": 1322,
+        "isError": false,
+        "canonicalBytes": 1041,
+        "sha256": "dd2456c11266d46d32939eaf1ed82f382b3228fb302fc8a590dfdd9e9df9628e"
+      }
+    },
+    {
+      "line": 1590,
+      "id": "toolu_011B68ouXaf1hpdb9pPWVM5K",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared && python3 -I - <<'EOF'\nimport pathlib\np = pathlib.Path(\"owned_process_state.ts\")\ns = p.read_text()\ndef sub(old, new):\n    global s\n    assert s.count(old) == 1, old\n    s = s.replace(old, new)\nsub(\"\"\"  readonly probeCount: number;\n  readonly signalAttempts: number;\n  readonly killAttempted: boolean;\n  readonly sealed: boolean;\n  readonly waits: Readonly<Record<OwnedProcessWaitName, OwnedProcessWait | null>>;\n}\"\"\", \"\"\"  readonly probeCount: number;\n  readonly signalAttempts: number;\n  readonly killAttempted: boolean;\n  readonly sealed: boolean;\n  readonly waits: Readonly<Record<OwnedProcessWaitName, OwnedProcessWait | null>>;\n  /** The entered assessment whose result is still current; a later entry or completion supersedes it. */\n  readonly probing: OwnedProcessProbe | null;\n}\"\"\")\nsub(\"\"\"type ProbeContinuation = \"terminate-graceful\" | \"terminate-immediate\" | \"kill\" | \"check\" | \"deadline\";\n\"\"\", \"\"\"type ProbeContinuation = \"terminate-graceful\" | \"terminate-immediate\" | \"kill\" | \"check\" | \"deadline\";\n/** One proposed assessment; like a wait, its result is accepted only while it is the state's own probe. */\nexport interface OwnedProcessProbe { readonly then: ProbeContinuation }\n\"\"\")\nsub(\"\"\"  | { readonly kind: \"probed\"; readonly then: ProbeContinuation; readonly absence: OwnedProcessScopeAbsence }\"\"\",\n\"\"\"  | { readonly kind: \"probing\"; readonly probe: OwnedProcessProbe }\n  | { readonly kind: \"probed\"; readonly probe: OwnedProcessProbe; readonly absence: OwnedProcessScopeAbsence }\"\"\")\nsub(\"\"\"  | { readonly kind: \"probe\"; readonly then: ProbeContinuation; readonly known: OwnedProcessScopeAbsence | null; readonly pid: number | undefined }\"\"\",\n\"\"\"  | { readonly kind: \"probe\"; readonly probe: OwnedProcessProbe; readonly known: OwnedProcessScopeAbsence | null; readonly pid: number | undefined }\"\"\")\nsub(\"\"\"  probeCount: 0, signalAttempts: 0, killAttempted: false, sealed: false, waits: NO_WAITS,\n});\"\"\", \"\"\"  probeCount: 0, signalAttempts: 0, killAttempted: false, sealed: false, waits: NO_WAITS, probing: null,\n});\"\"\")\nsub(\"\"\"  return step(s, signal, { kind: \"probe\", then, known, pid: at.pid });\"\"\",\n\"\"\"  return step(s, signal, { kind: \"probe\", probe: Object.freeze({ then }), known, pid: at.pid });\"\"\")\nsub(\"\"\"  const cleared: OwnedProcessState = { ...s, waits: { ...s.waits, probe: null } };\n  if (cleared.phase !== \"term\" && cleared.phase !== \"kill\") return step(cleared, signal);\n  return probe(timing, cleared, at, \"check\", signal);\"\"\",\n\"\"\"  const cleared: OwnedProcessState = { ...s, waits: { ...s.waits, probe: null } };\n  // An entered assessment still in progress is this re-check: its own result\n  // decides against the then-current state, so its kill/deadline duty survives.\n  if ((cleared.phase !== \"term\" && cleared.phase !== \"kill\") || cleared.probing !== null) return step(cleared, signal);\n  return probe(timing, cleared, at, \"check\", signal);\"\"\")\nsub(\"\"\"  return step({ ...s, phase: \"complete\", streamsDisposed: true, waits: NO_WAITS }, null, { kind: \"dispose\" }, [{ kind: \"seal\" }]);\"\"\",\n\"\"\"  return step({ ...s, phase: \"complete\", streamsDisposed: true, waits: NO_WAITS, probing: null }, null, { kind: \"dispose\" }, [{ kind: \"seal\" }]);\"\"\")\nsub(\"\"\"  const recorded: OwnedProcessState = { ...s, probeCount: s.probeCount + 1, scopeAbsence: input.absence };\n  const gone = input.absence === \"absent\" && (recorded.directExit !== null || noChild(recorded, at));\n  switch (input.then) {\"\"\",\n\"\"\"  // Counted at entry. A superseded or completed assessment writes no fact and continues nothing.\n  if (s.probing !== input.probe) return step(s);\n  const recorded: OwnedProcessState = { ...s, probing: null, scopeAbsence: input.absence };\n  const gone = input.absence === \"absent\" && (recorded.directExit !== null || noChild(recorded, at));\n  switch (input.probe.then) {\"\"\")\nsub(\"\"\"      if (input.then === \"terminate-immediate\") return startKill(timing, recorded, at);\"\"\",\n\"\"\"      if (input.probe.then === \"terminate-immediate\") return startKill(timing, recorded, at);\"\"\")\nsub(\"\"\"    case \"probed\": return probed(timing, s, input, at);\"\"\",\n\"\"\"    case \"probing\": return step({ ...s, probeCount: s.probeCount + 1, probing: input.probe });\n    case \"probed\": return probed(timing, s, input, at);\"\"\")\np.write_text(s)\nEOF",
+        "description": "Apply entry-accounting and probe-identity edits to state module"
+      },
+      "result": {
+        "line": 1594,
+        "isError": false,
+        "canonicalBytes": 33,
+        "sha256": "9cef1004a72776b0430d10e19df35f56eb801506643c5b3369e1ea996d106a80"
+      }
+    },
+    {
+      "line": 1655,
+      "id": "toolu_016RvZurbEwa7jbSXCCCnZKe",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+        "old_string": "    if (tail?.kind === \"notify\") observe(() => notify(tail.notice));\n    else if (tail?.kind === \"probe\") next = [{ kind: \"probed\", then: tail.then, absence: tail.known ?? probeGroup(tail.pid) }, ...next];\n    else if (tail?.kind === \"dispose\") dispose();",
+        "new_string": "    if (tail?.kind === \"notify\") observe(() => notify(tail.notice));\n    else if (tail?.kind === \"probe\") {\n      // Count the entered assessment before evaluation or the host can re-enter.\n      dispatch({ kind: \"probing\", probe: tail.probe });\n      next = [{ kind: \"probed\", probe: tail.probe, absence: tail.known ?? probeGroup(tail.pid) }, ...next];\n    } else if (tail?.kind === \"dispose\") dispose();"
+      },
+      "result": {
+        "line": 1659,
+        "isError": false,
+        "canonicalBytes": 165,
+        "sha256": "5098204a350850ffe79ec417e606ec929a0cd16bfe00fae7f9ca86e534e1362a"
+      }
+    },
+    {
+      "line": 1680,
+      "id": "toolu_01WUrpgA8uK6R68n8qLdMDzW",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,70p owned_process_state.ts && sed -n 100,125p owned_process_state.ts && sed -n 150,180p owned_process_state.ts && sed -n 220,235p owned_process_state.ts",
+        "description": "Review edited state module sections"
+      },
+      "result": {
+        "line": 1684,
+        "isError": false,
+        "canonicalBytes": 8766,
+        "sha256": "b98987be3edcdd24223a8b3007f1481beafb98b6744d4860c2dec1fc307388ce"
+      }
+    },
+    {
+      "line": 1808,
+      "id": "toolu_01QRqbRZGagLUAbpf5QGZmDM",
+      "name": "Grep",
+      "input": {
+        "pattern": "probeCount|probes",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "output_mode": "content"
+      },
+      "result": {
+        "line": 1812,
+        "isError": false,
+        "canonicalBytes": 456,
+        "sha256": "52955be8ae6a5482290ba4349c2bdc4afcb015792eebdc319db67645935127d3"
+      }
+    },
+    {
+      "line": 2401,
+      "id": "toolu_01FyWtup1oJKh4unFJ8NBqhC",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "    x.lifetime.fail(new Error('after publication'));\n    assert.equal(x.lifetime.snapshot().firstError, facts.firstError); assert.equal(x.timer.active(), 0);\n  }\n});\n",
+        "new_string": "    x.lifetime.fail(new Error('after publication'));\n    assert.equal(x.lifetime.snapshot().firstError, facts.firstError); assert.equal(x.timer.active(), 0);\n  }\n});\n\n// One independent census of every host call; a fixture may re-enter the actual owner from either call.\nfunction censusLifetime({ probe = () => 'present', signal = () => {}, platform = 'posix', observations = {} } = {}) {\n  const timer = controlledClock(), child = new ControlledChild(), calls = [];\n  const enters = () => calls.filter(row => row[0] === 'enter').length;\n  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: 100, host: {\n    clock: timer.clock, platform,\n    probeGroup: () => {\n      const ordinal = enters() + 1; calls.push(['enter', ordinal]);\n      const absence = probe(ordinal); calls.push(['return', ordinal, absence]); return absence;\n    },\n    signal: (_child, value) => { calls.push(['signal', value]); signal(value); },\n  } }, observations);\n  return { timer, child, calls, enters, lifetime };\n}\n\ntest('controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result', async () => {\n  let completions = 0;\n  const x = censusLifetime({ probe: ordinal => {\n    if (ordinal !== 1) return 'absent';\n    x.calls.push(['exit']); x.child.emit('exit', 0, null);\n    x.calls.push(['close']); x.child.emit('close');\n    return 'present';\n  } });\n  x.lifetime.completion.then(() => completions++);\n  x.lifetime.requestTermination();\n  assert.deepEqual(x.calls, [['enter', 1], ['exit'], ['enter', 2], ['return', 2, 'absent'], ['close'], ['return', 1, 'present']]);\n  const immediate = x.lifetime.snapshot(), facts = await x.lifetime.completion;\n  assert(Object.isFrozen(facts)); assert.notEqual(immediate, facts); assert.equal(facts.cleanupElapsedMs, 0);\n  for (const view of [facts, immediate]) {\n    assert.equal(view.scopeAbsence, 'absent'); assert.equal(view.probeCount, 2); assert.equal(view.signalAttempts, 0);\n    assert.deepEqual(view.directExit, { status: 0, signal: null }); assert.equal(view.closeObserved, true);\n    assert.equal(view.streamsDisposed, true); assert.equal(view.drainExpired, false); assert.equal(view.cleanupDeadlineNs, 300_000_000n);\n  }\n  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);\n  x.timer.advance(25); const later = x.lifetime.snapshot();\n  assert.notEqual(later, immediate); assert.equal(later.cleanupElapsedMs, 25); assert.equal(facts.cleanupElapsedMs, 0);\n  assert.equal(later.scopeAbsence, 'absent'); assert.equal(later.probeCount, 2); assert.equal(later.signalAttempts, 0);\n  assert.equal(await x.lifetime.completion, facts); assert.equal(completions, 1);\n  assert.equal(x.calls.length, 6, 'no later probe or signal'); assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);\n});\n\ntest('controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close', async () => {\n  let published = null;\n  const x = censusLifetime({ probe: ordinal => {\n    if (ordinal !== 1) return 'absent';\n    x.calls.push(['exit']); x.child.emit('exit', 0, null);\n    return 'present';\n  } });\n  x.lifetime.completion.then(facts => { published = facts; });\n  x.lifetime.requestTermination();\n  assert.deepEqual(x.calls, [['enter', 1], ['exit'], ['enter', 2], ['return', 2, 'absent'], ['return', 1, 'present']]);\n  await Promise.resolve();\n  const pending = x.lifetime.snapshot();\n  assert.equal(published, null, 'the drain is still pending');\n  assert.equal(pending.scopeAbsence, 'absent'); assert.equal(pending.probeCount, 2); assert.equal(pending.signalAttempts, 0);\n  assert.equal(pending.closeObserved, false); assert.equal(pending.streamsDisposed, false); assert.equal(pending.drainExpired, false);\n  assert.equal(x.child.disposals, 0); assert.equal(x.timer.active(), 1, 'only the bounded drain wait');\n  x.child.emit('close');\n  const facts = await x.lifetime.completion;\n  assert.equal(published, facts); assert(Object.isFrozen(facts));\n  assert.equal(facts.scopeAbsence, 'absent'); assert.equal(facts.probeCount, 2); assert.equal(facts.signalAttempts, 0);\n  assert.equal(facts.closeObserved, true); assert.equal(facts.streamsDisposed, true); assert.equal(facts.drainExpired, false);\n  assert.equal(x.calls.length, 5); assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);\n});\n\ntest('controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result', async () => {\n  let tightened = null;\n  const x = censusLifetime({ probe: ordinal => {\n    if (ordinal !== 1) return 'present';\n    x.lifetime.requestTermination('immediate'); tightened = x.lifetime.snapshot().cleanupDeadlineNs;\n    return 'absent';\n  } });\n  x.lifetime.requestTermination();\n  assert.deepEqual(x.calls, [['enter', 1], ['enter', 2], ['return', 2, 'present'], ['enter', 3], ['return', 3, 'present'],\n    ['signal', 'SIGKILL'], ['enter', 4], ['return', 4, 'present'], ['return', 1, 'absent']]);\n  const active = x.lifetime.snapshot();\n  assert.equal(active.scopeAbsence, 'present', 'the stale absent result never becomes current');\n  assert.equal(active.probeCount, 4); assert.equal(active.signalAttempts, 1);\n  assert.equal(tightened, 200_000_000n); assert.equal(active.cleanupDeadlineNs, tightened);\n  assert.deepEqual(x.timer.arms.map(row => row.delay), [100, 10], 'KILL scope and re-check waits only');\n  x.timer.advance(200); const facts = await x.lifetime.completion;\n  assert.equal(facts.scopeAbsence, 'present'); assert.equal(facts.drainExpired, true); assert.equal(facts.cleanupDeadlineNs, tightened);\n  assert.equal(facts.probeCount, x.enters()); assert.equal(facts.signalAttempts, 1);\n  assert.deepEqual(x.calls.filter(row => row[0] === 'signal'), [['signal', 'SIGKILL']]);\n  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);\n});\n\ntest('controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted', async () => {\n  const ordinary = censusLifetime({ probe: () => 'absent' });\n  ordinary.child.emit('exit', 0, null); ordinary.child.emit('close');\n  const done = await ordinary.lifetime.completion;\n  assert.deepEqual(ordinary.calls, [['enter', 1], ['return', 1, 'absent']]);\n  assert.equal(done.probeCount, 1); assert.equal(done.scopeAbsence, 'absent'); assert.equal(done.signalAttempts, 0);\n\n  const throwing = censusLifetime({ probe: () => { throw Object.assign(new Error('EPERM'), { code: 'EPERM' }); } });\n  throwing.child.emit('exit', 0, null);\n  assert.deepEqual(throwing.calls, [['enter', 1], ['signal', 'SIGTERM'], ['enter', 2], ['enter', 3]]);\n  assert.equal(throwing.lifetime.snapshot().probeCount, 3); assert.equal(throwing.lifetime.snapshot().scopeAbsence, 'unknown');\n  throwing.timer.advance(300); const unknown = await throwing.lifetime.completion;\n  assert.equal(unknown.probeCount, throwing.enters()); assert.equal(unknown.scopeAbsence, 'unknown'); assert.equal(unknown.firstError, null);\n\n  const noChild = censusLifetime(); noChild.child.pid = undefined;\n  noChild.child.emit('error', new Error('ENOENT')); noChild.child.emit('close');\n  const missing = await noChild.lifetime.completion;\n  assert.equal(missing.noChildEstablished, true); assert.equal(missing.probeCount, 1); assert.equal(missing.scopeAbsence, 'absent');\n  assert.deepEqual(noChild.calls, []);\n  const windows = censusLifetime({ platform: 'win32' });\n  windows.child.emit('exit', 0, null); windows.child.emit('close');\n  const direct = await windows.lifetime.completion;\n  assert.equal(direct.probeCount, 1); assert.equal(direct.scopeAbsence, 'absent'); assert.deepEqual(windows.calls, []);\n  const unlaunched = censusLifetime(); unlaunched.child.pid = undefined;\n  unlaunched.lifetime.requestTermination();\n  assert.deepEqual(unlaunched.calls, [['signal', 'SIGTERM']]);\n  assert.equal(unlaunched.lifetime.snapshot().probeCount, 2); assert.equal(unlaunched.lifetime.snapshot().scopeAbsence, 'unknown');\n\n  // TERM itself ends the group; the re-check proposed with that signal never enters.\n  let absent = false;\n  const bySignal = censusLifetime({ probe: () => absent ? 'absent' : 'present', signal: value => {\n    if (value !== 'SIGTERM') return;\n    absent = true; bySignal.calls.push(['exit']); bySignal.child.emit('exit', null, 'SIGTERM');\n    bySignal.calls.push(['close']); bySignal.child.emit('close');\n  } });\n  bySignal.lifetime.requestTermination();\n  assert.deepEqual(bySignal.calls, [['enter', 1], ['return', 1, 'present'], ['signal', 'SIGTERM'], ['exit'],\n    ['enter', 2], ['return', 2, 'absent'], ['close']]);\n  const signalled = await bySignal.lifetime.completion;\n  assert.equal(signalled.probeCount, 2); assert.equal(signalled.signalAttempts, 1); assert.equal(signalled.scopeAbsence, 'absent');\n  assert.equal(bySignal.child.disposals, 3); assert.equal(bySignal.timer.active(), 0);\n\n  // A slow TERM notice makes the grace wait already due; that wait re-enters and the re-check never enters.\n  let slow = true;\n  const byWait = censusLifetime({ observations: { onSignalRequested: value => {\n    if (value === 'SIGTERM' && slow) { slow = false; byWait.timer.advance(150); }\n  } } });\n  byWait.lifetime.requestTermination();\n  assert.deepEqual(byWait.calls, [['enter', 1], ['return', 1, 'present'], ['signal', 'SIGTERM'], ['enter', 2], ['return', 2, 'present'],\n    ['signal', 'SIGKILL'], ['enter', 3], ['return', 3, 'present']]);\n  assert.equal(byWait.lifetime.snapshot().probeCount, 3);\n  byWait.timer.advance(200); const waited = await byWait.lifetime.completion;\n  assert.equal(waited.probeCount, byWait.enters()); assert.equal(waited.signalAttempts, 2); assert.equal(waited.drainExpired, true);\n  assert.equal(byWait.timer.active(), 0);\n});\n"
+      },
+      "result": {
+        "line": 2405,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 2541,
+      "id": "toolu_011CYoMfk2DphxuUkFoXmuKo",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "  assert.deepEqual(x.calls.filter(row => row[0] === 'signal'), [['signal', 'SIGKILL']]);\n  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);\n});\n\ntest('controlled lifetime: ordinary, throwing and fast-path",
+        "new_string": "  assert.deepEqual(x.calls.filter(row => row[0] === 'signal'), [['signal', 'SIGKILL']]);\n  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);\n});\n\ntest('controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact', async () => {\n  const x = censusLifetime({ probe: ordinal => {\n    if (ordinal === 2) { x.calls.push(['exit']); x.child.emit('exit', 0, null); }\n    return 'present';\n  } });\n  x.lifetime.requestTermination('immediate');\n  assert.deepEqual(x.calls, [['enter', 1], ['return', 1, 'present'], ['enter', 2], ['exit'], ['return', 2, 'present'],\n    ['signal', 'SIGKILL'], ['enter', 3], ['return', 3, 'present']]);\n  const active = x.lifetime.snapshot();\n  assert.equal(active.probeCount, 3); assert.equal(active.signalAttempts, 1); assert.equal(active.cleanupDeadlineNs, 200_000_000n);\n  assert.deepEqual(x.timer.arms.map(row => row.delay), [100, 10], 'KILL scope and re-check waits only');\n  x.timer.advance(200); const facts = await x.lifetime.completion;\n  assert.deepEqual(facts.directExit, { status: 0, signal: null }); assert.equal(facts.scopeAbsence, 'present');\n  assert.equal(facts.drainExpired, true); assert.equal(facts.probeCount, x.enters()); assert.equal(facts.signalAttempts, 1);\n  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);\n});\n\ntest('controlled lifetime: ordinary, throwing and fast-path"
+      },
+      "result": {
+        "line": 2545,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 2636,
+      "id": "toolu_01CsdAKLbQf8u3TYKoJ8eq9o",
+      "name": "Bash",
+      "input": {
+        "command": "command -v timeout gtimeout perl; S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03; T=/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript; mkdir \"$S/tenant\" && cp \"$T/package.json\" \"$S/tenant/package.json\" && ln -s \"$T/node_modules\" \"$S/tenant/node_modules\" && ls -la \"$S/tenant\" && shasum -a 256 /opt/homebrew/Cellar/node/24.7.0/bin/node \"$T/node_modules/typescript/lib/tsc.js\"",
+        "description": "Create scratch tenant and verify pinned tool hashes"
+      },
+      "result": {
+        "line": 2640,
+        "isError": false,
+        "canonicalBytes": 631,
+        "sha256": "28f515d7eb945035f400d848aa01dbf2d35b8869aaab1451a79d81e58f3f04be"
+      }
+    },
+    {
+      "line": 2697,
+      "id": "toolu_01Xu3ocNhj8RjTuvrCxAiS9k",
+      "name": "Bash",
+      "input": {
+        "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03; R=/private/tmp/abg-rc11-foundation-20261110-01; start=$(date +%s); perl -e 'alarm shift; exec @ARGV' 240 /opt/homebrew/Cellar/node/24.7.0/bin/node \"$R/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js\" -p \"$R/build_tenants/abiogenesis/typescript/tsconfig.json\" --outDir \"$S/tenant/build/code/src\" --incremental false > \"$S/compile-01.log\" 2>&1; rc=$?; echo \"exit=$rc seconds=$(( $(date +%s) - start ))\"; cat \"$S/compile-01.log\" | head -40; ls -la \"$S/tenant/build/code/src/shared/\" | grep owned_process",
+        "description": "Compile changed source into scratch tenant with 240s cap",
+        "timeout": 300000
+      },
+      "result": {
+        "line": 2701,
+        "isError": false,
+        "canonicalBytes": 308,
+        "sha256": "84796bf799b9e2601209ec69d48c9f23c0bc05dd1a48764fd480b019503a6158"
+      }
+    },
+    {
+      "line": 2739,
+      "id": "toolu_01E1cgmBZco7YNherBMFFNNv",
+      "name": "Bash",
+      "input": {
+        "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03; grep -n \"probing\" \"$S/tenant/build/code/src/shared/owned_process_state.js\" \"$S/tenant/build/code/src/shared/owned_process_lifetime.js\"; shasum -a 256 \"$S/tenant/build/code/src/shared/owned_process_state.js\" \"$S/tenant/build/code/src/shared/owned_process_lifetime.js\"",
+        "description": "Confirm compiled owner contains the repair"
+      },
+      "result": {
+        "line": 2743,
+        "isError": false,
+        "canonicalBytes": 2160,
+        "sha256": "ad0c13fb8a20a04d4ddfcc9f6bf96db50082b6505996a653aad83fc81d0a26c6"
+      }
+    },
+    {
+      "line": 2829,
+      "id": "toolu_01KVmYrte9Fu6QyWp1LWPfUP",
+      "name": "Bash",
+      "input": {
+        "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03; cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && start=$(date +%s); env ABI5_OWNED_PROCESS_PACKAGE_ROOT=\"$S/tenant\" ABI5_TEST_EVIDENCE_DIR=\"$S/evidence\" TMPDIR=\"$S/tmp\" NODE_OPTIONS= NODE_PATH= perl -e 'alarm shift; exec @ARGV' 60 /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 '--test-name-pattern=^controlled (timing|lifetime):' test_env/tests/t287-owned-process-lifetime.test.mjs > \"$S/controlled-01.tap\" 2>&1; rc=$?; echo \"exit=$rc seconds=$(( $(date +%s) - start ))\"; grep -E \"^(not )?ok|^# (tests|suites|pass|fail|skipped|todo|cancelled|duration)\" \"$S/controlled-01.tap\"",
+        "description": "Run controlled timing/lifetime selector with 60s cap",
+        "timeout": 90000
+      },
+      "result": {
+        "line": 2833,
+        "isError": false,
+        "canonicalBytes": 2204,
+        "sha256": "85cd3f5aeb2c7d8c8f644b45ebefa3707a3dfe468836ea3787359c22ffe65e7e"
+      }
+    },
+    {
+      "line": 2915,
+      "id": "toolu_01KvtBtW9sZLgELn58my3Qvk",
+      "name": "Bash",
+      "input": {
+        "command": "wc -lc code/src/shared/owned_process_lifetime.ts code/src/shared/owned_process_state.ts test_env/tests/t287-owned-process-lifetime.test.mjs && for f in code/src/shared/owned_process_lifetime.ts code/src/shared/owned_process_state.ts; do printf '%s code(non-blank,non-comment-only)=' \"$f\"; grep -Ev '^\\s*$|^\\s*(//|/\\*\\*?|\\*)' \"$f\" | wc -l; done; shasum -a 256 code/src/shared/owned_process_lifetime.ts code/src/shared/owned_process_state.ts test_env/tests/t287-owned-process-lifetime.test.mjs; wc -lc /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/owned_process_lifetime.before.ts",
+        "description": "Measure both modules and test file after the repair"
+      },
+      "result": {
+        "line": 2919,
+        "isError": false,
+        "canonicalBytes": 862,
+        "sha256": "aa1ef6fd11095fa83b8525d5846a653aa353d2ea2acdb38c0f2131274ca79879"
+      }
+    },
+    {
+      "line": 2960,
+      "id": "toolu_01D73oMnRBYKytj7jR7cVpY3",
+      "name": "Bash",
+      "input": {
+        "command": "f=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/owned_process_lifetime.before.ts; shasum -a 256 \"$f\"; grep -Ev '^\\s*$|^\\s*(//|/\\*\\*?|\\*)' \"$f\" | wc -l",
+        "description": "Measure pre-A lifetime code lines for like-for-like accounting"
+      },
+      "result": {
+        "line": 2964,
+        "isError": false,
+        "canonicalBytes": 209,
+        "sha256": "28d2d2decae3768276d3fc64619c03c0dab6e22799816c736a2a0c6eb4919564"
+      }
+    },
+    {
+      "line": 3260,
+      "id": "toolu_018QgJ5x4UxtkvtGqtm2gYXc",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design && python3 -I - <<'EOF'\nimport pathlib\np = pathlib.Path(\"T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md\")\ns = p.read_text()\ndef sub(old, new):\n    global s\n    assert s.count(old) == 1, old\n    s = s.replace(old, new)\nsub(\"Native02 authored A only; it is unreviewed and unproved beyond its own controlled selfcheck. B is unimplemented.\",\n\"Native02 authored A only; it is unreviewed and unproved beyond its own controlled selfcheck. Independent source review then found A violation R1 (stale host-probe result/continuation and return-time probe accounting). Both retained red discriminator samples stand ([candidate](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-candidate-001/OBSERVATION.json) `0f3d6150\u2026`, [baseline](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-baseline-001/OBSERVATION.json) `7db4f706\u2026`): the native02 candidate entered two probes yet sealed count1 and later accepted stale present/count2; the predecessor sealed count2, but its obsolete continuation reopened cleanup for a third probe, TERM and a second disposal. These are distinct mechanisms and neither is compatibility law. Under Root PHASE2-A-R1-PREP-01, native03 authored only the narrow R1 repair below on admitted source `cddcc3bc\u2026` (freeze `b5a8316d\u2026`); it is unreviewed and has only its own scratch compile and controlled 18/18 selfcheck. The same external probe plus whole lifetime proof remain required before B. B and peer retained-fact coverage are unimplemented.\")\nsub(\"| **A removed** | `createOwnedProcessLifetime`'s fifteen parallel mutable fields\",\n\"| **A removed** | `createOwnedProcessLifetime`'s fifteen parallel mutable fields\")\nsub(\"One frozen `OwnedProcessState` (those fifteen facts, `completionPublished` as `sealed`, plus its three waits)\",\n\"One frozen `OwnedProcessState` (those fifteen facts, `completionPublished` as `sealed`, plus its three waits and the current entered probe `probing`)\")\nsub(\"\"\"| **A preserved, not changed** | `snapshot()` and completion |\"\"\",\n\"\"\"| **A R1 repaired (native03, unreviewed)** | Native02's return-time `probeCount` increment and unconditional stale `probed` fact write/continuation | Immediately before the fast-path evaluation or host probe can re-enter, the bridge dispatches pure `probing`: it counts that entered assessment and makes the tail's probe token the state's `probing`. Like a wait, `probed` acts only while its token is current; a later entry or completion supersedes it, so a stale or sealed result writes no fact and continues nothing, and its entered count is never decremented. A tail cancelled by its own signal/reconcile re-entry never enters and is not counted. A re-check requested while an assessment is still in progress proposes no second probe; that assessment's own result decides against the then-current state, so its kill/deadline continuation cannot be lost to a nested check. Legitimate notify/dispose/seal continuations are unchanged. |\n| **A preserved, not changed** | `snapshot()` and completion |\"\"\")\nsub(\"A adds no Effect wrapper, scheduler, mailbox, registry or second coordinator; its bridge still holds the current-state reference and the armed-wait record.\",\n\"A adds no Effect wrapper, scheduler, mailbox, registry, parallel probe counter or second coordinator; its bridge still holds the current-state reference and the armed-wait record. **Accounting covers both modules.** The pre-A lifetime was 298 lines/12,633 bytes (278 non-blank, non-comment). Native02 A was lifetime 262/11,508 plus state 227/12,604, totalling 489/24,112. Native03 R1 is lifetime 265/11,658 plus state 237/13,490, totalling 502/25,148 (241 + 201 = 442 non-blank, non-comment): +204 lines/+12,515 bytes over the predecessor. A consolidates mutable decision state and scattered timer arming into one immutable state/transition plus bridge reconciliation. It is not net deletion; no speed, memory, maintenance or lifecycle-cost saving is claimed.\")\np.write_text(s)\nEOF\ngrep -n \"R1\" T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md | cut -c1-200",
+        "description": "Apply A/R1 status and accounting edits to the plan"
+      },
+      "result": {
+        "line": 3264,
+        "isError": false,
+        "canonicalBytes": 606,
+        "sha256": "d394b17605eeb3496c7259fb57c85c05a99aeff174ad81d10b72642c0d6705be"
+      }
+    },
+    {
+      "line": 3334,
+      "id": "toolu_011c5Fig5iLtud48gHwur486",
+      "name": "Bash",
+      "input": {
+        "command": "python3 -I - <<'EOF'\nimport pathlib\np = pathlib.Path(\"T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md\")\ns = p.read_text()\nold = \"Correspondence below is by status: **A removed** means absent from native02's authored, unreviewed A source; **B prospective** remains design until its source exists.\"\nassert s.count(old) == 1\ns = s.replace(old, \"Correspondence below is by status: **A removed** means absent from native02's authored, unreviewed A source; **A R1 repaired** is native03's authored, unreviewed correction to that source; **B prospective** remains design until its source exists.\")\np.write_text(s)\nEOF\nsed -n 3p T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md; sed -n 27,40p T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "description": "Note R1 status in table legend and review plan text"
+      },
+      "result": {
+        "line": 3338,
+        "isError": false,
+        "canonicalBytes": 8365,
+        "sha256": "b29a3014ebae184008213da192c40c2b137c70e7d5b2cc78d3c9ca5659a38b4c"
+      }
+    },
+    {
+      "line": 3405,
+      "id": "toolu_01Fw78gxhMGPypFvA1knoMkE",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && sed -n 213,236p code/src/shared/owned_process_lifetime.ts; ls -la /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03 /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/evidence /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/tmp; shasum -a 256 /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/controlled-01.tap design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "description": "Review bridge edit and scratch artifacts"
+      },
+      "result": {
+        "line": 3409,
+        "isError": false,
+        "canonicalBytes": 2652,
+        "sha256": "f5c82a8b95645d444239ebdf7b1fe31c3abeb8ab51df58fac3afc3ee5a04c73b"
+      }
+    },
+    {
+      "line": 3445,
+      "id": "toolu_01Bfd5DCRksNS8cdfDkxVwXp",
+      "name": "Bash",
+      "input": {
+        "command": "echo \"TMPDIR=$TMPDIR\"; ls -la /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/tmp/node-compile-cache",
+        "description": "Check where Node compile cache was written"
+      },
+      "result": {
+        "line": 3449,
+        "isError": false,
+        "canonicalBytes": 281,
+        "sha256": "ff70c61e0b24eaa4236fa29b5e3b7f2238ac09b44ad72f65e4f34cd67d4b1e50"
+      }
+    },
+    {
+      "line": 3918,
+      "id": "toolu_012xujswy2SxyCg97V58Bsfj",
+      "name": "StructuredOutput",
+      "input": {
+        "summary": "I repaired R1 in the existing A source (native02 freeze b5a8316d / source cddcc3bc). The fresh scratch compile exited 0 and the exact controlled selector passed 18/18 on its first run, so there is no first red. That is the only evidence: nothing has been reviewed, and Root still owns acceptance.\n\n**What changed (only the four permitted files plus scratch):**\n- **`owned_process_state.ts`** (pure state):\n  - Each proposed probe now carries a frozen token `{then}`, and the state has one new field, `probing`.\n  - A new `probing` input adds 1 to `probeCount` and makes that probe's token current.\n  - `probed` no longer counts. It returns the state unchanged if its token is not current, so a superseded, stale or sealed result writes no absence and starts no follow-on work, and its count is never taken back.\n  - `complete()` clears `probing`.\n  - New rule in `check()`: while a probe is still in progress, a re-check does not start a second probe; the in-progress probe's own result decides. Without this, a nested re-check could replace an in-progress kill or deadline probe, so KILL would never be sent and no scope deadline would be set, leaving cleanup unbounded under controlled re-entry. Without re-entry it never triggers.\n- **`owned_process_lifetime.ts`** (synchronous bridge): after the existing signal and wait-reconcile check, the probe step now dispatches `probing` before the known-result shortcut or the host probe can re-enter, then dispatches `probed` with its token. A probe cancelled by an earlier signal or wait re-entry never reaches that point, so it is not counted. `createMonotonicDeadline`, the API, snapshot and completion behaviour, Error references and disposal order are unchanged.\n- **`t287-owned-process-lifetime.test.mjs`**: I added a small helper that records every host probe and signal call in order, plus five `controlled lifetime:` tests. All 13 existing timing/lifetime cases and every other test are unchanged.\n  1. **Exit+close during a probe:** exactly the calls enter1, exit, enter2, return2 absent, close, return1 present. Completion and later fresh snapshots show absent, probe count 2, no signals; 3 stream destroys, no timers left; elapsed time 0, then 25ms after the clock advance; one frozen completion.\n  2. **Exit only, then explicit close:** absent with count 2 while draining, with the drain wait the only timer; explicit close then seals absent with count 2.\n  3. **Immediate strengthening during a graceful probe:** I derived the trace myself: enter1, enter2/present, enter3/present, KILL, enter4/present, return1 absent (stale). Absence stays present, count 4, no TERM, cleanup deadline tightened to 200ms with waits of 100ms and 10ms. At completion the count equals the recorded probe calls.\n  4. **Re-check during a kill probe:** that probe stays current and still sends one KILL (covers the new rule).\n  5. **Counting cases:**\n\n     | Case | Probe count | Host probe calls |\n     |---|---|---|\n     | Ordinary | 1 | 1 |\n     | Throwing probe | 3 | 3 |\n     | No child | 1 | 0 |\n     | Windows | 1 | 0 |\n     | Undefined PID | 2 | 0 |\n     | Re-check cancelled by TERM re-entry | 2 | 2 |\n     | Re-check cancelled by an already-due grace wait | 3 | 3 |\n\n     In the two cancelled cases, counting at proposal instead of entry would give 3 and 4.\n- **Plan:** I updated only the current A/R1 status, the R1 row of the responsibility table, the two-module accounting and the table legend. It keeps both original red samples (candidate 0f3d6150, baseline 7db4f706) as separate mechanisms, neither treated as compatibility. It also keeps the native01 failure and all qualification limits, and states that B and peer retained-fact coverage are not implemented.\n\n**Size accounting (both modules):**\n\n| Version | Lifetime | State | Total |\n|---|---|---|---|\n| Before A | 298 lines / 12,633 bytes (278 code lines) | \u2014 | 298 / 12,633 |\n| Native02 A | 262 / 11,508 | 227 / 12,604 | 489 / 24,112 |\n| Native03 R1 | 265 / 11,658 | 237 / 13,490 | 502 / 25,148 (442 code lines) |\n\nR1 is +204 lines / +12,515 bytes over the original. This is consolidation, not net deletion.\n\n**Checks:**\n- Pinned node and tsc hashes matched. The scratch tenant has a copied `package.json` and a `node_modules` symlink to the source dependencies.\n- Compile with the pinned argv into `native-03/tenant`: exit 0, 8s, empty `compile-01.log`.\n- Selector with the actual scratch-compiled owner and the declared environment: exit 0 in under 1s, 18 tests, 18 passed, 0 failed or skipped; raw output in `controlled-01.tap` (sha256 56e8b00a\u2026).\n\n**Hashes:** lifetime.ts fbb571cc\u2026, state.ts 6af5f671\u2026, test bde24cca\u2026, plan 71414a3f\u2026, compiled state.js 0f590cdd\u2026, compiled lifetime.js 5f3cc53f\u2026.\n\n**Scope disclosures:**\n- Read-only, outside the listed read roots: I listed the `native-02` scratch directory, and hashed and measured `native-02/owned_process_lifetime.before.ts` (sha256 77feebf6\u2026) to get the pre-A line counts.\n- Node wrote its compile cache under `native-03/tmp`, because the shell's TMPDIR already pointed at the scratch tmp.\n- No Git, network, install, pack or provider calls.",
+        "gaps": [
+          "Not reviewed. The only evidence is the scratch compile and the 18/18 controlled run. Still required before B: re-running the same external probe on a frozen source, the whole lifetime file (physical, worker handback, helper/command/HTTP controlled cases), m5, unit and installed proof.",
+          "The separate --noEmit typecheck was not run. The scratch compile used the same tsconfig with noEmitOnError and exited 0.",
+          "One rule goes beyond the Design's literal text: while a probe is still in progress, a re-check does not start a second probe. It is needed so that rejecting stale results cannot drop a kill or deadline step when a nested re-check replaces an in-progress kill or deadline probe. Only controlled test 16 covers it; Root and review should assess it.",
+          "Existing behaviour not changed (outside R1): if exit or close re-enters during an immediate-termination probe while the process is still live, the nested graceful termination replaces it. Cleanup then sends TERM first and KILL at the grace deadline, as in native02 and the predecessor. Termination stays bounded.",
+          "In the strengthening and cancelled-tail cases, the final probe count is checked against the independent call record, not against a fixed number such as 14. The immediate re-entrant traces are fixed literals.",
+          "I did not hash-check that the worktree source matches freeze cddcc3bc before editing, because the inventory is outside scope and Git was not allowed. The pre-edit sizes (262/11,508 and 227/12,604) match the source review.",
+          "B (command/main) and peer retained-fact coverage are untouched and not implemented. Full Phase2 acceptance remains joint A+B."
+        ]
+      },
+      "result": {
+        "line": 3920,
+        "isError": false,
+        "canonicalBytes": 41,
+        "sha256": "f151386d9c0ce2da9766ad2a0d8a6ff960e90d35288cd975ec54c55402534184"
+      }
+    }
+  ],
+  "standing": "Public tool inputs and output-coordinate pins only; no internal reasoning extracted."
+}

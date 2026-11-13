@@ -1,0 +1,39 @@
+{
+  "status": "ACTUAL_NATIVE_RECEIPT_RETAINED_READBACKS_PENDING",
+  "actualExecutionFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/execution.json",
+  "actualResumeFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/after-run-resume.json",
+  "actualClose": {
+    "prefix": {
+      "coordinateDigest": "sha256:21b9cda957dd2aa2fa3d2efe693930771d7ebb1bf315375429021f05ec8ad470",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:43971715126df0313735626e05181fa3f804357f7765b2ab657be15c13b012ea",
+      "prefixLength": 1521871701,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 701759869
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:b5aa8b58490cd7524093910a92815f3af2816f7a56c2b8e0c549a92dc5c749a5",
+      "device": 16777231,
+      "durableByteLength": 1521871701,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:43971715126df0313735626e05181fa3f804357f7765b2ab657be15c13b012ea",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "inode": 701759869,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "run": {
+    "digest": "sha256:3ff5031db0c5af54362d6aed74d6b4a0515b0176b192776f8658ee5d2f900e35",
+    "ref": "run://abiogenesis/4dbcf7d8368c7bfa449c68be5bd443ab224e710b1496116a8b541939007f9ab2"
+  },
+  "terminalPresent": true,
+  "postReturnSelectionFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/POST_RETURN_CUSTODY_R2.json",
+  "qualified": false,
+  "meaning": "Let this host exit. Bind actual CLI receipt, physical Result row and after observation; keep B mandatory cold reads unchanged. Any selected fresh read must match the complete original typed terminal, not exit zero or null alone."
+}

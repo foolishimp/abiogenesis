@@ -1,0 +1,56 @@
+{
+  "kind": "maintained_continuation_control_reuse",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/prepare-r1.mjs",
+      "bytes": 11770,
+      "sha256": "b821f95b10e87618e5f852d1a9abe6a77f85a4e014f8bbfe1d59ed1986fa1f33"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/dispatch.mjs",
+      "bytes": 6191,
+      "sha256": "90a36e9764de4cb0205bca8ac5c1e0fee0b6f4f36c56c608c9bad226b7988e3e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/launch-owner-script.py",
+      "bytes": 1866,
+      "sha256": "9b5eb990fb89e489716a8523c7e0853e38d196a99a46f2926eadae89f5e55795"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/claude-provider.sh",
+      "bytes": 419,
+      "sha256": "a67eb54c7c9481e27478bc93814e001d5625c539cd5ce0d8a15dd7a759eef34a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/PROVIDER_PROFILE.json",
+      "bytes": 2649,
+      "sha256": "461e42c7725a58f9f077747500cbb590bfca1e78a18abcbe6a2011b0ce553283"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/prior-author-stage.mjs",
+      "bytes": 5151,
+      "sha256": "6202653655dfa611781ab2afe5e93b7a24464afca78f9487a9dc1126f4868f72"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/prior-author-lanes.mjs",
+      "bytes": 4865,
+      "sha256": "dbea00c8b22f7686ae553aa77d79e47a0792ad4eb93583fac2b4cc5c3210ab3b"
+    }
+  ],
+  "changes": [
+    "Current A source/close/resume reference and selected continuation task.",
+    "50 resource rows plus maintained harness included in this new baseline; no append into A active controls.",
+    "Actual close report path actualCloseHandoff.prefix used by existing owner preparer.",
+    "Short unique tmpo7b/abg-o7b and two distinct empty npm config inputs.",
+    "Before stage uses current maintained harness test with original frozen runner; no copied supervisor.",
+    "4stages/12lanes, final complete-body/original-byte predicates; prefix/legacy causal only.",
+    "Apply historical evidence root only to its declared legacy lane; other lanes preserve current affected-proof unbound historical selectors."
+  ],
+  "notExecuted": [
+    "Product edits",
+    "Product tests/build",
+    "runtime/preflight/dispatch",
+    "provider/credential access",
+    "C staging/scratch/temp creation"
+  ]
+}

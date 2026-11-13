@@ -1,0 +1,99 @@
+{
+  "kind": "prospective_operator_preparation_not_admission",
+  "recordedUtc": "2026-11-03T23:27:37.228104+00:00",
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "ticket": "T-287",
+    "method": "STDO3.0.4",
+    "scope": "Original complete R1-R7/C1-C5 remains selected"
+  },
+  "heldSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/review-subject-001/SUBJECT.json",
+    "sha256": "509603ed3f8f1a1c1e71a6a37b7e4769f869094924618d687c81516c97321ab4"
+  },
+  "currentRunClose": "Pending; no native06 dispatch or source edit selected by this preparation record",
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/FINAL_SOURCE_REVIEW_CUSTODY.json",
+      "sha256": "ac8cadc6459b19671b0dedf4d1d685ca370996ddaeabf569ea34ac01ca67053d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/ROOT_N5_CODE01_DISPOSITION.json",
+      "sha256": "cfb02b957b0d4a333c2a3b0bb50ada1b821d4181d300e94bbf8562acfe08838b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_INTERIM_PROOF_REVIEW.json",
+      "sha256": "a2ca95c15d8cc643466a2fc83a4bc193217a981ab5b77c8b113d618cd5972e00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_FIXTURE_ROUTE_TRIAGE.json",
+      "sha256": "fd3e9dd6eaee1ee99d990dda18fb610c7b8cdf8c94952ee274065e4a7cfc8432"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_F09_PROOF_DELTA_REVIEW.json",
+      "sha256": "1c657d368ca2cffb44bfed2f3a209c428a48507541d7db18ce10aa166749837a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/REPLAY_LANE_BUDGET_OBSERVATION_001.json",
+      "sha256": "68088df6ce0965524fd2a7bcb63a3da3ca0bca24d9138a05c696ec1d1dc9de86"
+    }
+  ],
+  "remainingWork": [
+    {
+      "id": "N5-CODE-01",
+      "owner": "qualification_proof delegates to existing exact basis/opened carrier/admitted CCall owners",
+      "effect": "Remove or bypass redundant graph/state cache shortcuts; preserve legitimate immutable material reuse",
+      "proof": "Genuine held P warmed, admit exact phase-invalidating suffix, warm/cold current refusal and historical P validity; unrelated extension reuse"
+    },
+    {
+      "id": "N5-PROOF-01",
+      "owner": "actual effectful invocation and F_H complete-pair projectors",
+      "effect": "Finite meaningful mixed-arm/orphan/duplicate controls through actual affected owners; retain classifier and real Run-orphan coverage",
+      "proof": "Exact refusals/reasons/eventRefs and ordering, before/after unrelated Run; warm versus cold/uncached with explicit lower premises"
+    },
+    {
+      "id": "R1-LIVENESS-DISCRIMINATORS",
+      "owner": "existing budgetLivenessFixture and actual calculus liveness owner",
+      "effect": "Null/missing scope, valid non-null, many-matching attempt/progress, irrelevant scopes and authentic/current guards; relevant/unrelated growth case using existing probe",
+      "proof": "Cold/warm/streaming/fork complete values/refusals; distinguish candidate fork work, history growth and actual required related work; no CPU attribution from elapsed alone"
+    },
+    {
+      "id": "CURRENT-RETRY-FIXTURE",
+      "owner": "existing F09 producers, installed owner family, actual close/reopen/resume",
+      "effect": "Use current genuine history for existing selected retry tests; retain nested retry and neighboring stopped-Run/foreign/stale/failed-scope controls; F09 alone does not prove all conditions",
+      "proof": "Add four omitted consumer/helper inputs and run actual affected cases, with current-contract producer and same installed module identities"
+    },
+    {
+      "id": "CURRENT-INSTALL-FIXTURE",
+      "owner": "setupInstalledRootCatalog and existing authentic owned/cold readers",
+      "effect": "Replace stale legacy fixture premises with actual current candidates/lock/binding; do not rewrite immutable historical events or loosen identity oracle",
+      "proof": "Warm identity, cold complete semantic equality, reference resolution and selected stale/foreign/physical/refusal controls"
+    },
+    {
+      "id": "EXECUTION-AND-CONJUNCTION",
+      "owner": "existing C2/UAT/fresh read owners and independent reviewers",
+      "effect": "Actual affected C2, frozen source correspondence, final review, UAT/fresh closure; preserve all accepted evidence and failures",
+      "proof": "Every original row accounted; no whole acceptance from local green"
+    }
+  ],
+  "additionalSelectedAndWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs"
+  ],
+  "operatorPreparation": {
+    "inputs": "Preserve available historical controls/evidence but embed only current governing law, original full causal map/rubric, exact current held source/return, closed current findings/triages and next task. Keep large inventories/read guides available without redundant prompt body embedding. No scope reset.",
+    "budgets": "Use measured replay33m57s and F09 producer/child costs plus safety margin; validate enclosing command/attempt and installed-owner capacity. Current admitted controls remain immutable.",
+    "proofOrchestration": "Consider retaining each completed lane and continuing independent lanes to aggregate failure, rather than losing later proof after the first fixture red. All selected pass/minimum/no-new-skip predicates and final aggregate failure remain mandatory; no passing envelope on failed lanes.",
+    "sourceControl": "No Root Product/test repair; no push/merge/tag/new cut/selector/release claim. One native xhigh coding Worker; max independent review of frozen affected deltas.",
+    "activationConditions": [
+      "Actual native05 owner close and fresh readbacks retained",
+      "Final Root conjunction and exact next selection",
+      "Complete selected imports/fixture data/source hashes",
+      "Installed preflight and capacity pass",
+      "Proportional frozen control review as needed"
+    ]
+  },
+  "etaBasis": "Earlier20-35min C2 estimate omitted an actual34min replay lane. Reprice remaining schedule after current next selection/close and final affected recipe; current12:00-13:30 planning window is at risk."
+}

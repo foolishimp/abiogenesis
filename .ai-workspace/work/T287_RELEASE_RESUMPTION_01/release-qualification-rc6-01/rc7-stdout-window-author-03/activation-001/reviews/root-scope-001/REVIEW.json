@@ -1,0 +1,113 @@
+{
+  "ProductFrame": "Fixed ABIogenesis5.0 fifteen families F01-F07,F09-F11,F13-F17, GOAL-035/T287; STDO3.0.4 with empty composition. Window archive references remain observation evidence under existing transport/event/profile/archive owners. ABG alone admits runtime truth; SDK/CLI remain thin. No new runtime, store, controller or authority.",
+  "kind": "bounded_root_scope_review",
+  "reviewId": "HS03-S3-ROOT-SCOPE-001",
+  "at": "2026-11-06T22:56:25.924350+00:00",
+  "actor": "/root/rc7_growth_control_review",
+  "returnTo": "/root",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 13105,
+    "sha256": "0abeadd4419584f3170b01e02cd3e79741f25666f095d524925f8dcf92acaa61"
+  },
+  "supportingClosedOwnerRoute": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/reviews/source-stage-sw2-stage-01/OWNER_ROUTE_ADDENDUM.json",
+    "bytes": 36192,
+    "sha256": "f5df2cbfe11c56855ed2377094318bb83ae6516cf0a7ef1c150d7c3d762af281"
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "statusVerification": {
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "claim": "The frozen Root S3 work selection has no concrete contradiction in its bounded archive/profile scope, compatibility promise or six-lane deciding proof; its permitted existing owners can realize the selected fresh-W path without a new runtime authority.",
+  "result": "satisfied",
+  "findings": [],
+  "triage": {
+    "class": "not_applicable"
+  },
+  "recommendation": "No blocker to this bounded work-scope selection. No implementation acceptance or launch admission is supplied.",
+  "checks": [
+    {
+      "relation": "Archive witness and cold validation",
+      "result": "satisfied",
+      "evidence": "Pinned held design R-E/E1-E4 at343; pinned event_store2117-2129,3592-3620,3728-3775,3941-3958,4044-4066,4147-4158.",
+      "conclusion": "Scope carries range/digest, first/last capture and distinct qualifying clocks and selects one applicable cold validation relation before authenticated history/adoption. Direct cold reads bypass seed, so shared seed alone is insufficient; the scope explicitly includes direct decode and byte-array sibling. Active-selection early returns and pure folds stay outside archive I/O."
+    },
+    {
+      "relation": "Exact profile compatibility",
+      "result": "satisfied",
+      "evidence": "Root profileIdentities and triage/HS03-S2-PROFILE-COMPATIBILITY; closed addendum profileDecision; pinned event_contract_profiles160-175 and event_store1184-1192,3758-3769.",
+      "conclusion": "The existing descriptor hashes the complete table and its decoder collapses stamped profiles to current, so the selected exact-table/capability separation addresses the identified causal defect. Preserve L fc3a, RC6 5b35 and S2 3bcc independently; W is a new exact descriptor, not extra fields under an old digest. Historical rows, stamps, payloads, IDs, cuts and already-witnessed L transition identities remain exact. Fresh W does not imply P-to-W migration or new-window continuation in old P."
+    },
+    {
+      "relation": "Finite owner and proof closure",
+      "result": "satisfied",
+      "evidence": "Root nextWork/writeCeiling compared with addendum profileDecision/namedDependenciesOutside17.",
+      "conclusion": "25 unique existing paths include all seven declared additional profile consumers, range-recovery owner, actual actor/liveness/store owners, and the actor, cold-store, compatibility and native-caller test owners. The ceiling is sufficient for the declared joins; it does not select blanket edits or new Product files."
+    },
+    {
+      "relation": "Partial source and historical evidence standing",
+      "result": "satisfied",
+      "evidence": "Root acceptedClaim, actualProof, retainedEvidence, procedureStanding and residuals; sourceAfter/actualClose/finalSubject/proofInventory metadata pins match.",
+      "conclusion": "Successful S2 build, differential and scope observations remain bounded; timeout fixture refusal and three unrun lanes are explicit. HS03/E4 are not accepted. S5 failures and incomplete procedure standing remain preserved. Only affected final proof is selected; baseline and unrelated qualification are not repeated."
+    }
+  ],
+  "sixLaneDecidingProof": [
+    {
+      "lane": "stdout-differential",
+      "selectedDecision": "Current window cadence, exact capture/qualifying-time semantics and original differential obligations under W; old BEFORE red is retained by reference."
+    },
+    {
+      "lane": "scope-ordering",
+      "selectedDecision": "Existing scope/producer ordering plus a separately active call through actual invokeActorProcessWithAssembly, with real EventStore/runtime_liveness, pending-window not_reached and the next actual admission using the durable successor. An empty filtered file or mocked admission does not prove that assignment."
+    },
+    {
+      "lane": "timeout-interruption",
+      "selectedDecision": "Admissible absolute > inactivity clocks with real steady progress; actual absolute interruption drains a pending window exactly once while inactivity/noise and cleanup behavior remain."
+    },
+    {
+      "lane": "archive-integrity",
+      "selectedDecision": "W witness/archive positive and missing/changed/truncated negatives through actual cold read/reopen/recovery and applicable byte-array sibling; fsync-before-reference/failure refusal remain. Warm work must gain no archive checks."
+    },
+    {
+      "lane": "legacy-replay",
+      "selectedDecision": "Hard-pinned L/RC6/S2 descriptors and original per-chunk rows, event IDs, payloads, cuts and applicable fold/call projections, including prior witnessed L boundaries; malformed or undeclared profile/window combinations refuse."
+    },
+    {
+      "lane": "native-caller",
+      "selectedDecision": "Affected ordinary native caller and generated artifact identity on the fresh-W candidate, preserving exact current contracts without implying old-P migration or whole-workflow qualification."
+    }
+  ],
+  "futureControlBoundary": "Final lane file lists and active-case selectors must realize this already-selected proof mapping, particularly lifecycle-failure-carrier actor successor and event-store-reopen cold archive cases. The forthcoming frozen control delta is a separate subject; no claim is made about its not-yet-reviewed filters, hashes, grant or admission.",
+  "scopeInterpretation": "Fresh-W/no-P-continuation applies to the prospective RC7 working runtime. The separately pinned immutable RC6 author/build runtime keeps its original basis; this scope does not migrate that builder.",
+  "notPerformed": [
+    "No broad design or Product-source review, no implementation repair or control/test edit.",
+    "No tests, builds, module imports, runtime/provider calls, private material acquisition, historical replay or repeated qualification.",
+    "No future control review, current source acceptance, cold proof execution, performance claim or release decision."
+  ],
+  "independenceAndLimits": "Fresh separate-actor assessment of this exact Root scope; no scope authorship or candidate repair. No cross-family or enforced clean-room claim. Closed owner evidence and exact facts are reused within their stated scope; full profile-table qualification and final source/proof remain future work.",
+  "effects": [
+    "Read-only named documents, narrow pinned owner ranges and metadata/hash checks; stdo status verification.",
+    "Create-only REVIEW.json at the Root-granted path."
+  ],
+  "invalidation": [
+    "Changed Root disposition, owner-route evidence, exact profile identities or Product/method/frame.",
+    "Final controls or implementation omit a selected cold path, add warm archive checks, relax old profile identities or require out-of-scope migration.",
+    "A concrete source/proof observation contradicts the reviewed owner or six-lane relation."
+  ],
+  "return": "Root retains priority, admission, scope disposition and acceptance. No new gate or Worker activation is created by this review."
+}

@@ -1,0 +1,32 @@
+{
+  "label": "014-integration-shared-seams.test",
+  "started": "2026-11-13T10:16:52.889081+00:00",
+  "ended": "2026-11-13T10:16:56.143807+00:00",
+  "wallMs": 3255,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/014-integration-shared-seams.test/stdout.raw",
+      "bytes": 621,
+      "sha256": "400e8f1e818b39ed51619efbba43ebd84044e7cb629510d4810c6d14002a3d2d"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/014-integration-shared-seams.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 2,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

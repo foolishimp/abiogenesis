@@ -1,0 +1,30 @@
+{
+  "recordedUtc": "2026-11-03T22:49:20.832068+00:00",
+  "basis": "ABI5 GOAL-035 T-287 STDO3.0.4 original scope",
+  "question": "Resolve only the actual source-reader domain premise of N5-CODE-01: can an owned lineage used by qualification extend with the phase-invalidating suffix before an earlier mandatory owner refuses it? Distinguish public production append, internal source reader, cold validation and owned cached-reader paths.",
+  "priorSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-code-review-001/SUBJECT.json",
+    "sha256": "c641a25e2c3bebf72eec86158b9a22e6ca0f9bcae23d49ea8ce108c2b5056729"
+  },
+  "closedReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_INTERIM_CODE_REVIEW.json",
+    "sha256": "7b92835342855fd2ec03611e74f50c00db8de6cc1870134bdb0bff8f3b34170a"
+  },
+  "additionalFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/qualification-domain-001/event_store.ts",
+      "bytes": 213856,
+      "sha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c",
+      "standing": "Exact f49 unchanged source"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/qualification-domain-001/event_calculus.ts",
+      "bytes": 21789,
+      "sha256": "82e31562919f7463058c23e866ad8710c1bd53826056ba764286ee523b40770f",
+      "standing": "Exact f49 unchanged source"
+    }
+  ],
+  "effects": "Read-only domain followup, no test, source repair, provider or generic hardening. Ask for exact further owner dependency if necessary; no moving-source review."
+}

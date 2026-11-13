@@ -1,0 +1,38 @@
+{
+  "kind": "fresh_native_author_bounded_repair_basis",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "sourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/inputs/SOURCE_CUSTODY.json",
+    "bytes": 2795,
+    "sha256": "c23dd71e2d68678dc073a81365d6c4bb7618fd2f6ba6138c1136dd486c8f7eae"
+  },
+  "closedReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/codex-review-001/REVIEW.json",
+    "bytes": 37177,
+    "sha256": "14d8cd29a2dcf9bcab9f43c2ef4822aaea6f206a9abaadbb87fc9f3d95e0e135"
+  },
+  "rootTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_FAILURE_TRIAGE.json",
+    "bytes": 7169,
+    "sha256": "fd3e8eaea7821b1d29fe2ba70883efda9c6f1b90a082398c42c06d3d4bb6e211"
+  },
+  "rootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 3601,
+    "sha256": "492098e914184de1bb9cffe21da2c00e0d2ca11060128e6cd333096539ce4ef5"
+  },
+  "priorC2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/ACTUAL_C2_SUMMARY.json",
+    "bytes": 4012,
+    "sha256": "4df8bd84310a5dc2933aa3a33a617cf27d827d07f46e8abb8c1fcde8161d66a7"
+  },
+  "meaning": "Fresh author context/source:none ABG invocation. Prior source339 and13-file diff preserved. Prior62passes retained for old subject; no baseline rerun. Six-path repair only; separate proof after source freezes.",
+  "limitations": [
+    "No peer-positive bootstrap from missing peers or future J/binding.",
+    "No production independence, Q23/F11 or release closure."
+  ]
+}

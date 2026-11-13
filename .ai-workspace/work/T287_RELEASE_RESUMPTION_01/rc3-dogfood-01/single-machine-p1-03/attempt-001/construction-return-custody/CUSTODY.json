@@ -1,0 +1,197 @@
+{
+  "files": [
+    {
+      "bytes": 121881,
+      "copy": "source/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "6c4a00507c9b276f478ab3ededf15513fb3c517217eea833245fc46eae71ef4b"
+    },
+    {
+      "bytes": 37094,
+      "copy": "source/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "sha256": "2ea8516698f0578bd7eb1882919ba100741eea6fddd2528fa33eccd195ed97e1"
+    },
+    {
+      "bytes": 24181,
+      "copy": "source/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "2faf93d2def13bc8f8eb9d2759e190994712f575f39b5ef567ec407686c1b22b"
+    },
+    {
+      "bytes": 143027,
+      "copy": "source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "6766194e77012654f660814674842ec372e63bc6020df3ffc3110debb2bf5db1"
+    },
+    {
+      "bytes": 20174,
+      "copy": "source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "sha256": "190bbc2d6115ce8eae8021d25d3f27f42be3536fe326dee762fe35dbcc0c065f"
+    },
+    {
+      "bytes": 26079,
+      "copy": "source/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "cb1c5405e9136128c713c2d3630818821e12a2be0e7f8f5cfd4c17b1527b750f"
+    },
+    {
+      "bytes": 72393,
+      "copy": "source/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "533480ed2edcfe90f878ab17f2f473af7906bdce2c73178c78c78d0c741dcc2d"
+    },
+    {
+      "bytes": 57354,
+      "copy": "source/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "sha256": "7c3656c791b6cb207ff3f059d4f0145781c1d05db4951a05e977501fab29fc11"
+    },
+    {
+      "bytes": 14920,
+      "copy": "source/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "sha256": "fafb8eb47d56a3c3534dfb046b9aea9d3fc9d59754fd9e1bf1c26f0eb7d37921"
+    },
+    {
+      "bytes": 52744,
+      "copy": "source/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "b36b41eb6d95ad77bbfd776c31483dbae0ec09fb817e062d3b86c4cce367e2a8"
+    }
+  ],
+  "kind": "p1_03_construction_provider_return_custody",
+  "limits": [
+    "Provider Return and scratch self-checks only; native admission and C2 are separate.",
+    "Source copies and diff record the point-in-time post-Return; later owner work may change the worksite."
+  ],
+  "patch": {
+    "bytes": 41737,
+    "sha256": "947f2033baa3eb9c1fa620a24f1ee0bf1624effd27dd9a896e822e51a8c37a19"
+  },
+  "providerResult": {
+    "durationMs": 2057497,
+    "numTurns": 123,
+    "path": "provider-result.json",
+    "reportedCostUsd": 9.849362999999997,
+    "sha256": "dcc5324e96bea47a3315440d3fd411724261725106fdafabbd613b91baf01991",
+    "subtype": "success"
+  },
+  "providerStream": {
+    "bytes": 6148234,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/fp-3ba9a0edaa3cba80-stdout.log",
+    "sha256": "ff7c940844701b59741c44a62411ccb505bd0609df2d26044cae867b9e778ca3"
+  },
+  "scopeStatus": " M build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts\n M build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts\n M build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts\n M build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts\n M build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md\n M build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md\n M build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs\n",
+  "scratch": [
+    {
+      "bytes": 107,
+      "name": "affected.stderr",
+      "sha256": "dabbec52197b6fcfbd9340539477cf313d409ff2cc09ff02486088337ddfa591"
+    },
+    {
+      "bytes": 11517,
+      "name": "affected.stdout",
+      "sha256": "73cef84c6c10d690482ad2e2a2d606b047e43f4a2b1507a4f5e3a9f656e4d819"
+    },
+    {
+      "bytes": 114,
+      "name": "artifact.stderr",
+      "sha256": "f4e4f0b5e865f9f1d8aeb6bc2438bfc6824bc81cf0e45ac52b29402e835a8e75"
+    },
+    {
+      "bytes": 284,
+      "name": "artifact.stdout",
+      "sha256": "69b9664a6ffca32aae82500aab4c62da451953c7fb9a627a8633c0ed08a26aba"
+    },
+    {
+      "bytes": 98,
+      "name": "build.stderr",
+      "sha256": "6c821f768ee534b7d8bf35a3e57e70898961de13213b1c73db902c26e0513e35"
+    },
+    {
+      "bytes": 215,
+      "name": "build.stdout",
+      "sha256": "4b917a1e8bc682a17f9a5221bd1f465f674b712c01a8d41f58467feb608a92be"
+    },
+    {
+      "bytes": 0,
+      "name": "build2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 215,
+      "name": "build2.stdout",
+      "sha256": "4b917a1e8bc682a17f9a5221bd1f465f674b712c01a8d41f58467feb608a92be"
+    },
+    {
+      "bytes": 110,
+      "name": "edited3.stderr",
+      "sha256": "8d6ca75d92bb7ba0f1979ad0a293195660318a18a140e62e4ab813c1d2001833"
+    },
+    {
+      "bytes": 7820,
+      "name": "edited3.stdout",
+      "sha256": "061b55aa5950ac2aeaddd9c77a54236e77757b7a8e63877564b39fac2c9277d7"
+    },
+    {
+      "bytes": 119,
+      "name": "extra.stderr",
+      "sha256": "fffd114f303e23639aaa6a8c08f921bbd707f6be90180878a34dcc6395ba2434"
+    },
+    {
+      "bytes": 11930,
+      "name": "extra.stdout",
+      "sha256": "ec3e7f8a579949729a72bad37a40dff88958fae5a53118be43f2f0f3ac17fb43"
+    },
+    {
+      "bytes": 123,
+      "name": "focused.stderr",
+      "sha256": "861f382483e420eb633826a4f3fb4e3d8d83e351605ce89c197df2a840cb40ff"
+    },
+    {
+      "bytes": 46227,
+      "name": "focused.stdout",
+      "sha256": "6e324231586af57e038e56907b9cb5364a9da600b5300cd7e8c1a89d45390b3d"
+    },
+    {
+      "bytes": 12774,
+      "name": "mut.stdout",
+      "sha256": "664357854f24f1e67a5ab30c0932141f15934b10811cabe17621ad40a0701628"
+    },
+    {
+      "bytes": 5504,
+      "name": "mutation.stdout",
+      "sha256": "54e3f28744d68763ee57757d66cdcac9eaf9271bc20e62b1288067effce76c6b"
+    },
+    {
+      "bytes": 111,
+      "name": "package.stderr",
+      "sha256": "78f4c492ef7204a6558aed6cf5bde016827a1870f519a812d1eae3acc86126cf"
+    },
+    {
+      "bytes": 482,
+      "name": "package.stdout",
+      "sha256": "f67d447e8c9f5fc9e2926eb2eaa5619b92b429fb10145270bf8ca25308c82017"
+    },
+    {
+      "bytes": 0,
+      "name": "package2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 482,
+      "name": "package2.stdout",
+      "sha256": "f67d447e8c9f5fc9e2926eb2eaa5619b92b429fb10145270bf8ca25308c82017"
+    }
+  ],
+  "skillMdMentionedInToolInputs": [],
+  "sourceCommit": "9c4a5c5e136ec564c66d1598fd32161ad4101f24",
+  "toolUseCounts": {
+    "Bash": 100,
+    "Edit": 19,
+    "Read": 2,
+    "StructuredOutput": 1
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "kind": "bounded_operator_control_writer_return",
+  "status": "PREPARED_NOT_DISPATCHED",
+  "at": "2026-11-06T03:37:11.091567+00:00",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/PREPARATION_MANIFEST.json",
+    "bytes": 28498,
+    "sha256": "62ac3b9a3e5e2ca158c121c318cba6b276838244cc20c04a33c70d7646d5d87b"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_SELECTION.json",
+    "bytes": 7288,
+    "sha256": "aa3d11eedf7bf44271a825b05466d1a7bc8556377064562b1d14f6a309be9b9a"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/SOURCE_BEFORE.json",
+    "bytes": 215422,
+    "sha256": "05b4059600a96f515a4aa4f68e3975b85c3dc45d4652ca892dac3683eb22ae7e"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/TASK.md",
+    "bytes": 10423,
+    "sha256": "16f44f181620d17ba60b2569b52329dbbf32c491fab2c8f37799fad7a2a4113d"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/NATIVE_GRANT.json",
+    "bytes": 202455,
+    "sha256": "eaf8cc661bd5378a4f89a494c403b91f138c44acb4fa22c83e12246ef76803fc"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/workload.json",
+    "bytes": 86758,
+    "sha256": "c1ec6bd4fa295818ceaccfa0e04aedeb4d60f79f3cf25692223790b78924fcc7"
+  },
+  "providerProfile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/PROVIDER_PROFILE.json",
+    "bytes": 2649,
+    "sha256": "461e42c7725a58f9f077747500cbb590bfca1e78a18abcbe6a2011b0ce553283"
+  },
+  "runtimeBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/RUNTIME_BINDINGS.json",
+    "bytes": 5342,
+    "sha256": "aefc96c860252f0ba3dc0baa0a649df55ea20d82e927c4d7e736c94a473b16cc"
+  },
+  "staticChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/STATIC_CHECKS.json",
+    "bytes": 5453,
+    "sha256": "265f773047484858d6f6dcf5a6f0797dc55500ef5aa4cc1d1db902487e361c2e"
+  },
+  "staging": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/STAGING_MANIFEST.json",
+    "bytes": 10284,
+    "sha256": "7be14954c6ea456bdd4ac9df7d60b144937bb145bfd21aad9d2ba5cf5b6e7b65"
+  },
+  "postReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/POST_RETURN_READBACK_SELECTION.json",
+    "bytes": 3699,
+    "sha256": "666b46993ae8bb2d4f417989f8e97e937e6ed1f3814b2e541bd89074f791c051"
+  },
+  "counts": {
+    "selectedContextPaths": 419,
+    "existingFileBodies": 416,
+    "absentHandoffs": 3,
+    "sourceInventory": 397,
+    "freshCurrentPins": 46,
+    "compileCodeFiles": 290,
+    "stagedClosure": 397,
+    "permittedProductWritePaths": 85,
+    "nativeWriteRoots": 89,
+    "inheritedModifiedProduct": 20,
+    "inheritedNewProduct": 2
+  },
+  "bytes": {
+    "sourceBodies": 11433514,
+    "controlBodies": 458227,
+    "selectedPhysicalBodies": 11891741,
+    "maxContextBytes": 16777216,
+    "sourceBeforeMetadata": 215422,
+    "sourceBeforeInNativeContext": false,
+    "renderedOrderConservativeEstimate": 47038,
+    "promptReserve": 131072,
+    "maxPromptBytes": 1048576
+  },
+  "budget": {
+    "turns": 320,
+    "effort": "xhigh",
+    "absoluteMs": 5400000,
+    "inactivityMs": 1800000,
+    "hostMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetry": false,
+    "individualTestTimeoutChanged": false
+  },
+  "actualPredecessor": {
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 6583,
+      "sha256": "39e3410b7d40a20588e380189e6a77d7480e0fecfc54e3cfdbf04fe98bd5e887"
+    },
+    "resume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/after-run-resume.json",
+      "bytes": 72684562,
+      "sha256": "b6740b2697e2d5b74820bdbf339655c7bbd7c9e76fdfcd8af0242676ef93773e"
+    },
+    "prefixLength": 1057950101,
+    "standing": "Resource closed and usable; prior Run blocked, terminal absent, D5 proof unsatisfied."
+  },
+  "effects": {
+    "ProductEdits": 0,
+    "ProductBuildsOrTests": 0,
+    "runtimePreflight": 0,
+    "nativeDispatch": 0,
+    "providerCalls": 0,
+    "credentialAccess": false,
+    "sourceLocalStaging": false,
+    "writes": "Assigned preparation directory only; 20 modified and two new inherited Product files preserved."
+  },
+  "next": "Root stages the exact 19 input controls, prepares only the declared scratch and exact short runtime/provider/test temporary roots, preserving existing content, binds its exact control admission into RUNTIME_BINDINGS and runs the existing prepare-r1 owner preflight. One exact native dispatch follows only the actual owner result and Root admission. Dispatch drains actual receipt/resume and exits; Root binds source freeze/review and existing capture-once cold reads to the actual returned coordinates.",
+  "materialControlRelationUnresolved": null,
+  "residuals": [
+    "Actual installed owner preparation/capacity and native dispatch remain unperformed; static order estimate is not a native capacity receipt.",
+    "Root execution admission remains unbound. No extra postread gate/framework was added.",
+    "Author migration, meaningful before/after semantics and whole-carriage measurement remain the native task; all 85 permitted paths are a complete causal cone, not mandatory edits or automatic lane repetition.",
+    "Actual post-host cold reads must compare the full typed terminal against the actual author receipt. Freeze, independent review and affected installed proof remain Root subsequent operations.",
+    "Historical 112 passes remain old-subject evidence; recovery completion remains unsatisfied and sequenced onto the returned affected candidate. No new-candidate credit or acceptance is claimed."
+  ],
+  "independence": "This Writer previously authored architecture advice. Control readiness/self-check supplies no independent Product acceptance.",
+  "tempCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_TEMP_CORRECTION.json",
+    "bytes": 10897,
+    "sha256": "554d29ee9f1fe0cf5f59159abaa5516780cd16db53a72d9b6940eaffd36c81ba"
+  },
+  "supersedes": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/superseded-preparation-001/PREPARATION_RETURN.json",
+    "bytes": 6827,
+    "sha256": "6c6a6de21346541490175ff5b59fcec092099c7b8b657d9965f991f37dc48faf"
+  }
+}

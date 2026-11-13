@@ -1,0 +1,87 @@
+{
+  "kind": "matched_reference_operator_default_start_correction",
+  "status": "ROOT_SELECTED_EXACT_KNOWN_CORRECTION",
+  "at": "2026-11-07T03:11:56.463824+00:00",
+  "actor": "/root/rc7_reference_ticket_writer",
+  "issuer": "/root",
+  "authority": "Root expressly authorized the exact target-only correction, versioned successor pins/readback and one corrected baseline invocation without another approval wait. Stop on any new integration failure; no automatic retry.",
+  "classification": "Operator fixture/control correction; no Product defect, law change or code repair.",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/FAILURE.json",
+    "bytes": 723,
+    "sha256": "76b58403005f33dccc9c3fa992eb34a3b23f513ec7862e30d7ae13697bc9bf64"
+  },
+  "failedMeasurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/MEASUREMENT.json",
+    "bytes": 8117,
+    "sha256": "b32924dfaa6e96f0b50cc6af6f08cea8ef618d9e050c95aedf4d1ecefd3d056c"
+  },
+  "failedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/EXECUTION_RETURN.json",
+    "bytes": 7417,
+    "sha256": "e06ea70a1130d078ea59502f279a5ecbdc751ec5afe2218fa0ffbadf98f7ea38"
+  },
+  "failedAttemptStanding": "First constructor refused invalid_target /program; zero measurement cases/SDK calls. Held resource abandoned; measurement ACTUAL_CLOSE absent. Original records and controls remain unchanged.",
+  "cause": "Root supplied predecessor preparation-002 rather than accepted growth preparation-003. The borrowed fixture paired declared_start with rootMode direct. Direct next selects the native Program unique declared default through the existing owner.",
+  "whyReviewMissedIt": "Syntax checks validate JavaScript parsing, not the Product cross-field relation between rootMode and target. The supplied older fixture was reused without conjoining its selection with the accepted preparation-003 correction. Measurement instrumentation review did not detect that stale caller selection.",
+  "knownCorrection": {
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/PREPARATION_MANIFEST.json",
+      "bytes": 2751,
+      "sha256": "ec11820ad54f484ecb3b1d6bf3b6c7cc3cfe97fe710106ac5798645cd1665ca3"
+    },
+    "triage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/ROOT_SELECTION_AND_TRIAGE.json",
+      "bytes": 3700,
+      "sha256": "e8d36ccbcc9172cf3c77f852f00a8ecc206ba00036f287af9af767833d0eec9b"
+    },
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/reviews/correction-001/REVIEW.json",
+      "bytes": 5720,
+      "sha256": "42de4312c439cd6ea98a6f7fa75ee8aa93ff356f192c492dd32c3ae22c02e766"
+    },
+    "fixture": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/measurement.test.mjs",
+      "bytes": 22684,
+      "sha256": "169e983f93f84f141f967c1c698d2e19b3139f25888337df5ded4ca72c8a5ffc"
+    }
+  },
+  "currentOwnerEvidenceFromRoot": [
+    "C7 code/src/gtl/public_start.ts:51-99: direct next/no caller startRef",
+    "C7 code/src/gtl/native_workspace_work.ts:38-40: unique default start"
+  ],
+  "exactDelta": {
+    "fixture": {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement.test.mjs",
+        "bytes": 23104,
+        "sha256": "e863fc59d1f6326e75dfc8d870893a69ca41280a6fb5f3a234e400d849a90e8f"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement-002.test.mjs",
+        "bytes": 23072,
+        "sha256": "4e1f72c4df690c242fc4775dd74ec5157e18e4851f8ad210dfd98a597124f9b7"
+      },
+      "onlyReplacement": {
+        "before": "target:{kind:'declared_start',startRef:ids.startRef}",
+        "after": "target:{kind:'next'}"
+      },
+      "inverseByteEquality": true
+    },
+    "runner": "Versioned manifest/fixture basenames and usage label only; inverse byte equality checked.",
+    "bindings": "Only outputRoot before-rc7-002 and tempRoot /private/tmp/abg-r8m-rc7-before-002 change."
+  },
+  "preserved": [
+    "All new wall/memory/counter/profile/budget assertions",
+    "Unprofiled matched pair and third after-only profile call",
+    "Existing setup/constructor/SDK/cold CLI owners",
+    "Original failed run and initial setup close; no completed measurement close claim",
+    "Product/source/immutable installs/tickets/GOALS/Git"
+  ],
+  "baselineBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC7_BEFORE_002.bindings.json",
+    "bytes": 4862,
+    "sha256": "5d1176b2e91655eba2fcafb3414e6f4f079c1600aa83bf7b01b99d295c3c4e18"
+  },
+  "next": "Syntax/readback/pin successor, create ROOT_ADMISSION_002, execute once under this Root disposition."
+}

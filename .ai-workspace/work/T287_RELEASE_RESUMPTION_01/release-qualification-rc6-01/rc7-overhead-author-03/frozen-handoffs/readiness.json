@@ -1,0 +1,30 @@
+{
+ "kind": "rc7_overhead_author_03_readiness",
+ "schemaVersion": "1",
+ "at": "2026-11-06T07:42:18Z",
+ "frozenStage": "o7c-stage-01",
+ "frozenSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737",
+ "mechanicalReadiness": {
+  "compile": true,
+  "generator": true,
+  "lifecycleGuard": true,
+  "generatedMemberMatchesDeclaration": true,
+  "manifestPresent": true,
+  "selectedLanes": {
+   "publication": "1/1",
+   "c1-consumers": "3/3",
+   "cold-resume": "2/2",
+   "runner": "1/1"
+  },
+  "skipsInSelectedLanes": 0
+ },
+ "changedPaths": [
+  "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+  "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+  "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+ ],
+ "readyForRootReview": true,
+ "acceptanceClaim": false,
+ "qualificationClaim": false
+}

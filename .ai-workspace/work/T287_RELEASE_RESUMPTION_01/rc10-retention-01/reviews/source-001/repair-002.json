@@ -1,0 +1,189 @@
+{
+  "id": "RC10-SOURCE-01-REPAIR-002",
+  "status": "closed",
+  "recordedAt": "2026-11-09T04:27:51.366654+00:00",
+  "actor": "/root/rc10_source_review",
+  "role": "Reviewer",
+  "consumer": "/root Executive",
+  "entry": "Exact installed STDO 3.0.4 stdo-review recipient; prior verified basis/independence and Product expectations reused for bounded repair closure.",
+  "productFrame": "ABIogenesis 5.0 retains the fixed fifteen families. This T-287 RC10 repair conserves Product-derived semantic invocation identity, ABG admission, direct HoG execution, replay and existing scoped computation lifetime. The only changed implementation relation is start-owner eligibility for disposable basis retention. Public request identity remains distinct. No new runtime authority, public API, heap guarantee, Product requirement or qualification claim is selected.",
+  "basis": {
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame_sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "law": "Existing exact-admitted-invocation O1 lifetime; Product/REQ-R-ABG3-INTERPRET identity and admission split; EVALUATION 3/4 and ACTIVATION 7 exact-subject and material-evidence reuse."
+  },
+  "subject": {
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+      "bytes": 293103,
+      "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+    },
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source",
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "predecessorSourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+    "verified_rows": 1334,
+    "mismatches": [],
+    "changed_files": 3,
+    "other_rows_identical": 1331,
+    "removed_rows": []
+  },
+  "control": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/RETURN.json",
+      "bytes": 2205,
+      "sha256": "b937bd3f9c726d7b283f0ef72706e0735a8836bf67173c66635d0c5d7ed1ca6b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NATIVE_CUSTODY.json",
+      "bytes": 6813,
+      "sha256": "f97d6e4487f773979fe36b5eea9d8ba44ee12bf7aa5f44cf59abae5b75cd7b96"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/ROOT_NATIVE_ADMISSION.json",
+      "bytes": 3422,
+      "sha256": "53d43253378037f212275b6eeea9a89b625cb41198ba0aaaa5c5710b080c215d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/READY.json",
+      "bytes": 2473,
+      "sha256": "ee8a22bb7f47d417053bd3e4f58fab528eadf9424c79dc60d110e50cd8525918"
+    }
+  ],
+  "scope": "Three-file successor diff and exact predecessor-to-successor F2/F3 relations; authored first-call regression sensitivity and corrected external witness preparation. No whole-candidate re-review.",
+  "verdict": "satisfied",
+  "standing": "Bounded static repair and proof-preparation result only. No new findings. Runtime closure/acceptance remains pending exact executed evidence and Root disposition.",
+  "findings": [],
+  "triage": "not_applicable",
+  "priority": "not_applicable to this no-finding result; existing finding priorities remain Root-owned",
+  "predicate_results": [
+    {
+      "id": "F3_source_identity_repair",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "evidence": "run_invocation.ts:1439-1444 now opens retainBasisLifetime(admitted.successorPrefix, admission.invocationRef) only after successful invocation_admission_receipt and before graph/basis construction. The Product-derived candidate invocationRef admitted by ABG is exactly the one carried into basis_admitted. The returned current successor is bound by the existing transaction owner to this history. Public request ref no longer opens a hold.",
+      "limits": "Satisfies source correction of F3; does not claim observed active retention or runtime closure."
+    },
+    {
+      "id": "lifetime_and_continuation_conservation",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "evidence": "Only start acquisition location/key and helper parameter/comment change. Effect.scoped/acquireRelease finalizer remains. Before-admission refusal opens no handle; all post-acquisition exits still release inside the same scope. Three continuation acquisitions, cache root maps, rollback/close mechanics and public return/refusal code are byte-conserved.",
+      "limits": "Existing continuation/overlap/rollback/exceptional-exit operational residuals remain."
+    },
+    {
+      "id": "F2_how_evidence_correction",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "evidence": "HOW distinguishes first actual single-root single-leaf count prediction, subsequent manual probes and physical close. It explicitly states failed-append/RuntimeHistory.truncate rollback is not driven and remains unproved by this test. No executed-pass statement is added.",
+      "limits": "Closes the source-level inaccurate coverage description, not rollback proof."
+    },
+    {
+      "id": "authored_first_call_regression",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "evidence": "The first genuine installed call precedes all manual handles. Work counters bracket only runInstalledDefinitionCallWithResource; construction/observers excluded. The test requires 1 row admission and 1 body digest, exactly 1 new basis via owned envelope metadata and zero retention after return. Metadata counting performs no body projection and cannot supply the measured row work.",
+      "limits": "This is a fixture-specific expected count, not a general per-invocation bound or an executed failing-before/passing-after result. It does not replace external in-flight identity/body-root proof."
+    },
+    {
+      "id": "external_body_relation_witness_preparation",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "evidence": "Positive handles/checked rows/history body gauges precede observer reads. Actual current invocation_admitted bodies are read by existing selection.eventById; publicRequestInvocationRef selects one mapping and body invocationRef is cross-checked against indexed metadata. Basis row selection and final identity assertion use that admitted ref. The admission event ref and both identity coordinates are retained in the compact witness. No scalar whitelist assumption or new handle/index is used. Strict identity, zero work across both basis reads and unchanged gauges remain.",
+      "limits": "Suitable preparation; subject/build/archive/install/runtime binding is still null in the reviewed held binding. No actual new witness or F1 operational closure is claimed."
+    }
+  ],
+  "identity_chain": [
+    "Unchanged product/invocation.ts:1213 records publicRequestInvocationRef; :1222-1229 derives the separate semantic candidate invocationRef.",
+    "Unchanged product/run_invocation_operation.ts:773-795 prepares the actual direct/start candidate; invocation_admission.ts:1582-1594 carries both values.",
+    "ABG invocation admission returns committed.successorPrefix with the exact admitted record (:1647-1729). Repaired owner uses this returned coordinate and admission.invocationRef (:1444).",
+    "Existing execution_basis.ts:2085 consumes admission.invocationRef, child bases inherit it, and retained row/body lookup is keyed by that exact identity.",
+    "Observer does not infer publicRequestInvocationRef from scalarPayload: runtime_history.ts:37-39 whitelist excludes it; :472-475 eventById reads the actual selected verified body. The corrected witness consumes that body relation and checks its metadata correspondence."
+  ],
+  "proof_guard_conservation": "Full measurement-script diff against measurement-01 changes only Public-to-admitted witness resolution/recording; host diff changes only disposable scratch identity. Existing 50 alternating 1/4 MiB calls, positive per-call gauges, detailed first-pair identity/work proof, zero after-return/history, first/last warm/cold bounded replay parity, actual close, no forced GC, budget and failure/no-retry guards remain.",
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 109784,
+      "sha256": "0a28ac029e7ec2cb506ba55bc9723fd4dea0eee32e045cbf6c8692ae32f0ebf2",
+      "lines": "1240-1250,1418-1444"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 203094,
+      "sha256": "32c9ab82231f187dba17f552931053781d0434d8e109fd1c5c54a0aa577f4345",
+      "lines": "1066-1094,1158-1172"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+      "bytes": 15036,
+      "sha256": "0ac57f9af340f1d057ce7147f90d3830bcd6c1313a82eb1441ce46d2aa06c2bf",
+      "lines": "38-49,61-85"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "bytes": 52769,
+      "sha256": "4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225",
+      "lines": "1213-1229"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "bytes": 77610,
+      "sha256": "89aee2eb45c514af1061336b7c7a537892129699a590ef317e902d8b45bf90aa",
+      "lines": "1582-1594,1647-1729"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "bytes": 49843,
+      "sha256": "df69e55518f88c01ec98c3edbf5480c4dbc8956693ab44a6e5d63a89a922534d",
+      "lines": "37-39,472-475,597-606"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/measurement.test.mjs",
+      "bytes": 19969,
+      "sha256": "14a1e88e9d3e62faab83b78b87f1a4074c9648fbeba47aab1a32d2f672dba532",
+      "lines": "62-91"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/run-measurement.mjs",
+      "bytes": 6877,
+      "sha256": "cbf6e18c4bc639a9e9186ce142dcbace52e8a3ad1f72919a8584ea1336bece75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/BINDING.HELD.json",
+      "bytes": 4520,
+      "sha256": "b21f7b8871ab829a174a4df614e44f6954965003038b6bcb656969fb405d97ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/RELATION_BASIS.json",
+      "bytes": 1990,
+      "sha256": "77834c4595777bed8643806f66a86cdec9f50c83c2144590bf6071efeceac09d"
+    }
+  ],
+  "prior_judgment_standing": {
+    "F3": "New successor source correction satisfied; original defective candidate finding remains preserved. Actual integrated proof pending.",
+    "F2": "Successor HOW correction satisfied; original inaccurate sentence remains in preserved predecessor report.",
+    "F1": "Authored regression now adds real-call work sensitivity and external witness identity preparation is corrected. Required actual in-flight evidence remains unperformed in this review; no closure inferred.",
+    "deletions": "23-deletion prior static result retained: all involved source except start owner and two non-deletion files is byte-conserved. No fresh global deletion audit.",
+    "prior_failed_measurement": "Retains its valid counterexample only on predecessor candidate; it neither proves failure nor success of successor."
+  },
+  "independence": "Reviewer authored none of these three successor files. Native-author summaries are custody inputs; exact frozen source and observer source were independently read. Shared filesystem is not technical read isolation.",
+  "unperformed": [
+    "Successor build/focused/unit execution (Root running separately)",
+    "Fresh successor archive/install/source-artifact identity verification",
+    "Corrected external 50-call execution and first-pair active identity/work witness",
+    "Operational continuation/overlap/rollback/exceptional/nonterminal exits",
+    "Whole qualification, native UAT and release"
+  ],
+  "residual_uncertainty": "Exact 1/1 fixture count and 20 ms in-flight sampling must be tested. Sampler absence is failure/incompleteness, not satisfaction. Reading small non-basis admission bodies may affect ordinary allocations/work observations, but cannot open basis holds; gauge-invariance and preexisting-positive gates keep it from supplying retention evidence. No heap/GC bound or general per-invocation row limit is supported.",
+  "invalidation": [
+    "Changed successor or observer/helper/control bytes",
+    "Changed source/build/archive/install relation or actual execution population",
+    "Actual proof contradicting identity, active reuse, lifetime disposal or truthful output",
+    "New supported consumer/counterexample affecting conserved conclusions"
+  ],
+  "return": "Root owns disposition and next authorized proof/acceptance decision. This result grants no execution or source repair.",
+  "effects": "Only repair-002.json and repair-002.md under original review directory. Prior reports preserved; no Product/control/test changes or runtime/native/test/build execution."
+}

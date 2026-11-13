@@ -1,0 +1,18 @@
+{
+  "status": "HELD_AUTHOR02_PREPARATION_TEN_SOURCE_TARGETS_FOUR_READONLY_DATA_INPUTS",
+  "scopeUpdate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/LEAF_SCOPE_UPDATE.json",
+    "bytes": 2683,
+    "sha256": "1d375a64936ba47ca99b4273afdb2b823b0101d588b5300a0ceebb5e7784cfd3"
+  },
+  "draftTaskPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/TASK.skeleton.r03.json",
+  "draftStanding": "No final task hash, source inventory, executable binding or call constructed; prior drafts preserved.",
+  "sourceTargetCount": 10,
+  "readonlyDataCount": 4,
+  "existingSelectedActionCopiesConserved": true,
+  "helperAndLeafPreimagesConserved": true,
+  "sourceEdits": 0,
+  "runtimeEffects": 0,
+  "mainTrackingEdits": 0,
+  "nextOwner": "Root after actual native snapshot banked and exact staging/proof conjunction."
+}

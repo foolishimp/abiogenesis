@@ -1,0 +1,36 @@
+{
+  "kind": "root_proof_packet_preflight_failure_triage",
+  "at": "2026-11-05T21:17:58.853793+00:00",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-02/PREFLIGHT_RESULT.json",
+    "bytes": 153,
+    "sha256": "0dbbeb6d31346a83fb14823cb74565cba1595228c81f7e11514b9dc585384e19"
+  },
+  "diagnostic": {
+    "type": "TypeError",
+    "message": "governance input requires complete original source, scope and declared work contracts",
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-02/PREFLIGHT.stderr",
+      "bytes": 926,
+      "sha256": "f2be807c8fc4861d4aedde604f817f5863a0fbe2f71e8ba558c41b9094acf2da"
+    }
+  },
+  "frames": {
+    "product": "Existing native assessment has separate candidate, rubric and source roles; no new Product outcome.",
+    "design": "Existing governanceAssessmentRolesDistinct enforces role separation before graph work or provider invocation.",
+    "integration": "Root copied author06 assessment.sources into proof02; the native coding route did not use constructGovernanceWorkState, whereas the consumer proof route does.",
+    "identity": "Exactly one overlap: qualification-inputs/q23-author-06/rubric.json. Frozen source and latest owned close match.",
+    "effects": "Preflight failed before execution directory, call construction, event admission or provider. Event prefix unchanged at 539268763 bytes.",
+    "proof": "This is an operator packet failure. It invalidates no prior source or author check and establishes no C2/UAT."
+  },
+  "cause": "Root proof template failed to project the author acquisition list onto the existing disjoint assessment roles. Npm/TMP environment corrections were not the cause.",
+  "whyMissed": "The prior repair removed duplicate work-order readFirst entries but did not check assessment candidate/rubric exclusion after changing from the native author input to the consumer input.",
+  "selectedRepair": "Prepare q23-proof-03 from the retained proof02 template; exclude candidatePath and rubricPath from assessment.sources, retain their owning dedicated fields and readRoots. Preserve all proof02 files. Use the same actual author06 close. No Product edits or repeat author work.",
+  "scope": "One existing operator packet transformation. No new schema, runtime, sandbox or assurance cycle.",
+  "retryRule": "One explicitly selected corrected preflight, then one dispatch only if actual owner checks pass. No automatic retry.",
+  "eventPrefixUnchanged": true,
+  "providerCalls": 0,
+  "runAdmissions": 0,
+  "sourceAcceptance": false,
+  "remaining": "Frozen source recheck and affected C2/UAT; formal independent review credential route remains open."
+}

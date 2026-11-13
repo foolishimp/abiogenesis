@@ -1,0 +1,52 @@
+{
+  "kind": "root_between_task_coordination_marks",
+  "createdUtc": "2026-11-06T16:08:32.498411+00:00",
+  "status": "H03_NOT_DISPATCHED_FUTURE_SETUP_UNMEASURED",
+  "priorClose": {
+    "at": "2026-11-06T15:36:58.005Z",
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/outcome-summary.json",
+      "bytes": 821,
+      "sha256": "40d1d99d97590e79dd6d1e6a7d507dc2a0880eb7d4af45f9cf28efaad9bbcc00"
+    }
+  },
+  "operatorProof": {
+    "startedUtc": "2026-11-06T15:42:19.989Z",
+    "endedUtcDerivedFromMonotonicWall": "2026-11-06T15:43:46.841080+00:00",
+    "wallMs": 86852.080208,
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/post-author-proof-001/commands/fixed-route.result.json",
+      "bytes": 1032,
+      "sha256": "b48bd282a7017cd70303031b890e5582af49a145980ecbae01b1e168a5c09c7c"
+    }
+  },
+  "diagnostic": {
+    "startedUtc": "2026-11-06T15:48:40.331Z",
+    "endedUtcDerivedFromMonotonicWall": "2026-11-06T15:50:06.758246+00:00",
+    "wallMs": 86427.245917,
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/commands/blocked-testing-once.result.json",
+      "bytes": 1346,
+      "sha256": "06cf756f1e8fec97a0a7d21dfd03f888d9268d516f7e47c72876e28fa16f8f9c"
+    }
+  },
+  "successorArchitectureSelection": {
+    "at": "2026-11-06T15:59:09.700803+00:00",
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_ARCHITECTURE_SELECTION.json",
+      "bytes": 7741,
+      "sha256": "2fe46b95de9428e86f421759ddad6dac7ed064bef9ac9180feebf7f530309c98"
+    }
+  },
+  "intervalsMs": {
+    "priorCloseToProofRequest": 321984.0,
+    "proofEndToDiagnosticRequest": 293489.92,
+    "diagnosticEndToArchitectureRecord": 542942.557
+  },
+  "classification": [
+    "These are coordination/proof/diagnosis/selection intervals between native tasks, not runtime startup or provider coding time.",
+    "Intervals include overlapping independent source custody/review/operator preparation; no fabricated exclusive attribution.",
+    "Wall-time end estimates use a UTC start plus measured monotonic duration and may differ from file write completion.",
+    "H03 host/start marks will supply setup and worker-launch timings separately; no total transition or speedup claim yet."
+  ]
+}

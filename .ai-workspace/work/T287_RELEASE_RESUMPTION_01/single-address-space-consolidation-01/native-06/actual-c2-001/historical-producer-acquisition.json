@@ -1,0 +1,16 @@
+{
+  "id": "historical-producer-acquisition",
+  "files": [
+    "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 3,
+  "fail": 0,
+  "skipped": 0,
+  "wallMs": 15944.27099999995,
+  "stdoutSha256": "234f37ab9f56c14fb5dfd30d98e5133491309a92bf568bb71b4aebbc0367cb32",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

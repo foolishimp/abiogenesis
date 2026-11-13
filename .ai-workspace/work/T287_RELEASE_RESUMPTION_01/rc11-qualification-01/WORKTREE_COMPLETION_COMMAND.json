@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "git",
+    "-C",
+    "/private/tmp/abg-rc11-qualification-20261109",
+    "read-tree",
+    "--reset",
+    "-u",
+    "93a0de75a16c9e4cd29ec561d159b12add4bb3fd"
+  ],
+  "exitCode": 0,
+  "stdoutBytes": 0,
+  "utc": "2026-11-09T06:16:16.625729+00:00"
+}

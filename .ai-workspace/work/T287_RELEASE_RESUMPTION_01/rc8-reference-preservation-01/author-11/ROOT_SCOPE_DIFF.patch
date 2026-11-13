@@ -1,0 +1,152 @@
+--- author-10/ROOT_SCOPE.json
++++ author-11/ROOT_SCOPE.json
+@@ -1,35 +1,34 @@
+ {
+   "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+-  "id": "T287-RC8-AUTHOR10-OWNED-LIFETIME-FIXTURE",
+-  "at": "2026-11-07T10:22:53.963675+00:00",
+-  "authority": "Root selected A10 one-file fixture premise/evidence correction, then authorized final controls and maintained-owner PREPARE on genuine A9 close. Exact held call still requires Root one-dispatch admission. Existing user approval unchanged.",
++  "id": "T287-RC8-AUTHOR11-O1-COMPONENT-PREMISE",
++  "at": "2026-11-07T11:54:37.416567+00:00",
++  "authority": "Existing user RC7-to-RC8 approval; Root final A11 lawful re-entry and one maintained-owner preparation selection. Root read the closed causal review and exact host/proof deltas. Separate native dispatch admission remains required.",
+   "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+   "method": "stdo://releases/v3.0.4/",
+   "composition": [],
+   "fixedFamilies": 15,
+   "ticket": "T-287",
+-  "goal": "GOAL035",
+-  "sourcePreimageDigest": "d521558b06efbec82eae02a5405a3bb3ac494842be24e700a5ec61548a9eec35",
++  "goal": "GOAL-035",
++  "sourcePreimageDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+   "sourcePreimageFreeze": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/source-freeze.json",
+-    "bytes": 295548,
+-    "sha256": "e0a0c4ebc6b46c45e6f325760307fd30e949f71eee2fb3719cff103734665f9c"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/source-freeze.json",
++    "bytes": 295542,
++    "sha256": "e2db4c2e9356da0d97d6277567504650078a8bf1d5b7085dfaee63a4dbae5007"
+   },
+-  "sourcePreimageStanding": "A9 one-file increment d521 is bounded accepted with four active component cases and truthful completed SDK/close/fresh full-terminal parity. Cumulative A8 SAS source closure remains separately pending; A8 runtime_failed and all prior reds remain unchanged.",
+   "sourceIncrementAcceptance": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/ROOT_SOURCE_ACCEPTANCE.json",
+-    "bytes": 3382,
+-    "sha256": "5adb7f3484eee3463effd152a96abf2a6d01fb22253f8a0c0b7eece7a2b97991"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SOURCE_ACCEPTANCE.json",
++    "bytes": 4408,
++    "sha256": "d9adadd2558622cb8f60a20055509a160dd0e4a96f204bce368f19e809663922"
+   },
+   "actualPriorClose": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/runtime-001/resource-close.json",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/runtime-001/resource-close.json",
+     "bytes": 2308,
+-    "sha256": "5aa74712b3aa081545c306b947748144bf3fbf6ba97521e92faebe8282d1b473"
++    "sha256": "d708e7218bd3ddc0c3b8286732c0767a31fb2aa422fcaf0fc5d47a6e7488dceb"
+   },
+   "priorReturn": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/OPERATOR_RETURN.json",
+-    "bytes": 6984,
+-    "sha256": "1828ac827e503c1daec162f796d453e72a5b7d9c3a83bcde18647a49d185b5a4"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/OPERATOR_RETURN.json",
++    "bytes": 9462,
++    "sha256": "968799201db7afdf86bddee69d2ec834a5f0cb94277b4770a2f11e7823ecaf4d"
+   },
+   "productArchive": {
+     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+@@ -38,39 +37,40 @@
+   },
+   "reviews": [
+     {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-handback-013/REVIEW.json",
+-      "bytes": 11213,
+-      "sha256": "a19c188666aa1b34043d621f96ab0dfedc2b9ee6dd4fb17818ad62836f760f9f"
+-    },
+-    {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-http-013/REVIEW.json",
+-      "bytes": 26086,
+-      "sha256": "d104515cea3dca505c1716e0c6bd382753f4856e9e9ea171ddbd146686526b9d"
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/required-operation-016/REVIEW.json",
++      "bytes": 14356,
++      "sha256": "53e69f4caa8deb7f8925cad68d720362e71f6e4509c0ce8224b3b0c8fc36c953"
+     }
+   ],
+   "reviewReadmes": [
+     {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-handback-013/README.md",
+-      "bytes": 1780,
+-      "sha256": "7658a2be48a21585566bedd254183c851f26aa10a187c196534489523121a31c"
+-    },
+-    {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-http-013/README.md",
+-      "bytes": 6346,
+-      "sha256": "92dac6a77cb008746eccd8d15dffdc8301cb5363d641bfe084c0a28ac04ae02b"
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/required-operation-016/README.md",
++      "bytes": 2211,
++      "sha256": "7c8995f74481c258ed0bf8656c5baf5f6a0c52241ad4a69056945dad04608921"
+     }
+   ],
+   "preparation": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/PREPARATION.json",
+-    "bytes": 8154,
+-    "sha256": "0723feeced1303f42a0b9b84b195ce8a6955d20f8b118d3bba72ce4749731db0"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/PREPARATION.json",
++    "bytes": 7299,
++    "sha256": "10d491d1e7483ce99453844ff9d8c0cb60605130d62cbd78bd6b4c5abfb6145c"
+   },
+-  "rootConjunction": "Test6 omits the prepared archive required before private runProcess installs guards; retain all twelve controlled combinations and canonical facts. Test15/test16 assert before preserving decisive owner/readiness observations; diagnostic correction only, no supported Product repair or timeout extension. Keep existing physical deadlines/graces unchanged.",
++  "rootConjunction": "S3 fixture seam mismatch: the callback-local override still names projectExactPrefixArtifactTruth while the current materialization owner calls projectOwnedPrefixArtifactTruth. The actual016 failure preceded ingress/body comparison. Exactly one obsolete override is the complete affected cone. Positive oracle is artifact ingress/body, not successful Effect completion; negative exact stage/code must execute. No Product regression or runtime receipt expansion is selected.",
++  "selectedEdit": {
++    "file": {
++      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
++      "bytes": 44662,
++      "sha256": "b4aacfd349c111119d51970aceb92a6ec3f4ce6e21770c87701c5e82eb2bd35c"
++    },
++    "line": 491,
++    "from": "projectExactPrefixArtifactTruth",
++    "to": "projectOwnedPrefixArtifactTruth",
++    "extent": "Only the callback-local override key; preserve the result stub, all assertions and every other case."
++  },
+   "sourceWritePaths": [
+-    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
++    "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs"
+   ],
+   "readOnlyOwnerLibraryRoot": "build_tenants/abiogenesis/typescript/code/src",
+-  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-10",
++  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-11",
+   "budgets": {
+     "sourceOverlayFreezes": 1,
+     "buildInvocations": 0,
+@@ -83,19 +83,24 @@
+     "reserveBytes": 4294967296,
+     "maxOwnedBytes": 4294967296,
+     "pollMs": 10000,
+-    "focusedNameFilteredInvocations": 0,
+-    "focusedWholeFileInvocations": 1
++    "focusedNameFilteredInvocations": 1,
++    "focusedWholeFileInvocations": 0
+   },
++  "coverage": "One positive exact-name-filtered final O1 test: expected1pass0reportedskip, three other top-level tests/nine previously reported cases excluded without new coverage. No whole-file claim.",
+   "permissions": {
+-    "ownerPrepare": true,
+-    "providerDispatch": false,
+-    "furtherRootAdmissionRequired": true,
+-    "sourceCodingByOperator": false
++    "controlPreparation": true,
++    "oneOwnerPreparation": true,
++    "nativeDispatch": false,
++    "operatorSourceEdits": false,
++    "oneNativeCodingWorkerAfterSeparateAdmission": true
+   },
+   "prohibited": [
+-    "No Product/HOW/helper/API/baseline/config changes or new harness.",
+-    "No changed physical timeout/grace, relaxed assertions, fake finalization, ignored rejection or added skips.",
+-    "One freeze and one whole-file proof only; stop first red/incomplete/bound/expanded scope with diagnostics, no repair or retry after freeze.",
+-    "No extra provider/reviewer/Git/cut/push/selector/cleanup or repeated broad/SAS proof."
++    "Product/HOW/API/helper/guard/receipt changes",
++    "Fabricated full-store completion",
++    "Additional cases or assertions changed",
++    "Build/generation/repack",
++    "Automatic repair/retry or timeout extension",
++    "Git/cut/install/global selector/provider actions outside the separately admitted coding call",
++    "Cleanup"
+   ]
+ }

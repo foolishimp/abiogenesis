@@ -1,0 +1,140 @@
+{
+  "kind": "bounded_declaration_build_addendum",
+  "status": "CLOSED_ADDITIONAL_LOCAL_DECLARATION_REPAIR_REQUIRED",
+  "createdUtc": "2026-11-06T21:49:28.883136+00:00",
+  "productFrame": "Unchanged ABIogenesis5.0 fixed fifteen families / GOAL-035 / T-287 / STDO3.0.4 empty composition; same exact Product/frame and ABG owner boundaries as main review.",
+  "extendsWithoutRewriting": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-final-001/REVIEW.json",
+    "bytes": 26134,
+    "sha256": "3212eab2eb4cfab51562d87ab6bdde529391c148251a28fec85989dd8b456f68"
+  },
+  "exactSourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 11876,
+    "sha256": "8b155cbaa167dc2eaf2b0d515f448d3728ccdc6ce2cb771d4a03b95e3669eac1"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_AFTER.json",
+    "bytes": 559922,
+    "sha256": "c65b3703473186207d4787ec0998e6120099f41661b112d3ea0b55760e87e814"
+  },
+  "build": {
+    "report": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02-stage.json",
+      "bytes": 98048,
+      "sha256": "f93450ebe9044325d964cc6dea99e417b8044b68c941717eeaa59ba5418a9f78"
+    },
+    "rootSelectionPrefix": "e777e47b",
+    "stageLabel": "sw1-stage-02",
+    "mode": "after",
+    "sourceDigest": "e68ea7b31fd98bf15a42267ec3f65fc436d2589e0c7f3a8d381964c7ba7f8f84",
+    "sourceRowsMatchFinalInventory": 451,
+    "setupMs": 1672,
+    "compile": {
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 7206,
+      "stdout": "",
+      "stderr": ""
+    },
+    "generate": {
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs",
+      "exitCode": 1,
+      "signal": null,
+      "error": null,
+      "ms": 9023,
+      "stdout": "",
+      "stderr": "file:///Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:583\n  throw new Error(\"packed native declaration closure is invalid\");\n        ^\n\nError: packed native declaration closure is invalid\n    at file:///Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:583:9\n\nNode.js v24.7.0\n"
+    },
+    "lifecycle": null,
+    "proofLanes": "None executed. This operator diagnostic is separate from the failed native round and does not supply a NativeResult/native.after."
+  },
+  "finding": {
+    "id": "HS03-DECLARATION-001",
+    "severity": "S2",
+    "classification": "New internal-prefix type leaks into packed declaration closure",
+    "trigger": "Canonical packed native declaration closure check after successful source compilation.",
+    "observed": "The exact stage compiles exit0 in7206ms, but generation exits1 in9023ms at generate-product-manifest.mjs:583 with packed native declaration closure is invalid. Lifecycle is unrun. All451 report source rows equal the final frozen inventory.",
+    "decidingJoin": [
+      "runtime_liveness.ts:372-375 newly exports nextNativeProcessStreamOrdinal(prefix: RuntimeEventPrefix, processRef: string). It is used by existing actor_process and window admission owners.",
+      "event_prefix.ts:48-49 declares RuntimeEventPrefix @internal. tsconfig.json:16 enables stripInternal; actual stage02 event_prefix.d.ts therefore contains no RuntimeEventPrefix export.",
+      "Actual emitted stage02 runtime_liveness.d.ts:1 imports RuntimeEventPrefix from ./event_prefix.js and line54 exposes it in nextNativeProcessStreamOrdinal. The BEFORE declaration lacked both additions.",
+      "The public ABG root already reaches runtime_liveness via index.ts:14-16. resolveNativeDeclarationClosures checks owned declarations under strict TypeScript; declaration_exports.ts:1738-1754 rejects semantic diagnostics for this owned missing export. The generator throws when that owner returns null at583."
+    ],
+    "ranking": {
+      "probability": "Deterministic invalid emitted declaration and observed canonical failure.",
+      "harm": "Blocks canonical manifest/catalog construction before lifecycle or any final proof; no fabricated success escapes.",
+      "failClosedControl": "Source compile succeeded, then the existing strict packed declaration owner correctly refused the missing owned export.",
+      "repairCost": "One narrow declaration-visibility annotation in already-selected runtime_liveness.ts; no new schema owner or relaxed guard."
+    },
+    "minimumRemedy": "Mark the actor-internal nextNativeProcessStreamOrdinal helper @internal so stripInternal omits its native declaration and the otherwise-unused internal type import. If a public helper were intentionally needed, follow the already-established ValidatedRuntimeEventPrefix public overload plus @internal RuntimeEventPrefix overload pattern; no such public expansion is required by this task.",
+    "preserve": "Do not export the internal prefix into Public, change stripInternal/skipLibCheck, suppress diagnostics, bypass canonical generation or edit owner_contract_source_set merely to hide the failure.",
+    "scopeConclusion": "No owner_contract_source_set correction is established. Its actual emitted declaration is byte-identical to BEFORE. RuntimeEventPrefix exposure is a sufficient concrete local defect; the generic generator error did not retain a nested diagnostic, so this is a source/emitted-declaration causal conclusion rather than a claimed logged TypeScript diagnostic code.",
+    "decidingEvidenceAfterRepair": "Use the already-selected successor canonical compile/generation/lifecycle sequence on its exact frozen source. No standalone test/rerun or broader type-system redesign is requested; later generation faults, if any, remain to be observed."
+  },
+  "emittedDeclarations": {
+    "runtimeLiveness": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.d.ts",
+      "bytes": 6505,
+      "sha256": "9d3f47d400d34622ec85ded5420bfce0f9990d5859bbe8730e166638be1218e6"
+    },
+    "eventPrefix": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02/build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.d.ts",
+      "bytes": 4515,
+      "sha256": "bae8a81d9a2f823affd8a2d4e467130f6b39c12058ab2acbf74e970d21affb6b"
+    },
+    "ownerContractSourceSet": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02/build_tenants/abiogenesis/typescript/build/code/src/public/binding/owner_contract_source_set.d.ts",
+      "bytes": 477012,
+      "sha256": "e04599e1b4fdf25d3462c1ec3d0cb241b751ad90f26700c777a99d511971a8e1"
+    }
+  },
+  "frozenOwners": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 53308,
+      "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "bytes": 124067,
+      "sha256": "551a8ff27246d5c993fecebb30a6ce95a897dbd3889c43cc9d65ad18738124c2",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "bytes": 34175,
+      "sha256": "a14023071cbb3e70146708f0ed72b42dd061a96aa72d54e8a788b4bea00ff541",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 64754,
+      "sha256": "cfe2ce70db4935aac785bc92c24fa3634bd8e14ff38476fb612afe4cc12f512b",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "bytes": 21565,
+      "sha256": "ded48ff44daab08cc8841dd454155dd736efc8c81fb7a7a147df52ce8ddd3304",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/index.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/tsconfig.json",
+      "bytes": 604,
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/tsconfig.json"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "bytes": 26725,
+      "sha256": "843730b78f5da8db57b1204c94710abe4e6636f5c02fb661cb59117c4922c7df",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts"
+    }
+  ],
+  "consolidatedDisposition": "Preserve the six-file partial source and genuine BEFORE failure. One Root-selected native completion now has three bounded obligations: structured-boundary/subsegment correction, mandatory timeout/archive proof completion and truthful HOW, and this internal declaration-visibility fix. The source is not ready for AFTER proof or acceptance as it stands.",
+  "limits": "Read-only report/frozen source and exact completed-stage emitted declarations; no compiler/generator/test/runtime/provider invocation or source edit by Reviewer. Main review remains immutable. No NativeResult custody, whole procedure claim, F11 J, installed RC7 performance or release claim."
+}

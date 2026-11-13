@@ -1,0 +1,30 @@
+{
+  "recordedUtc": "2026-11-04T06:13:02.611180+00:00",
+  "kind": "actual_final_close_coordinates",
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/after-run-resume.json",
+    "bytes": 73163274,
+    "sha256": "a27ab6da07a1166d16c63e215d2e08b80662d5512c4a08ec040aa2efad533d5e",
+    "savedUtc": "2026-11-04T06:03:59.799580+00:00"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:ed0f2ce3aec4ca992b1887a678b582866ae846be7c792722cfcde8afacc5c282",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:566def8b3bb94b0805af8e41484bbcb15f50fae2c95a454b7497ece0afe742cc",
+    "prefixLength": 672021993,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 685986968
+    }
+  },
+  "runRef": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+  "standing": "Actual invocation close retained; missing fresh SDK readbacks completed in a separately selected recovery after host failure. No old close substituted or acceptance inferred.",
+  "readbackRecovery": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/readback-recovery-001/RECOVERY_COMPLETE.json",
+    "bytes": 1157,
+    "sha256": "58e8459f5f54d77942838a1522594718c29afabb201fc3b9ca9d8fa6189fd6c3"
+  }
+}

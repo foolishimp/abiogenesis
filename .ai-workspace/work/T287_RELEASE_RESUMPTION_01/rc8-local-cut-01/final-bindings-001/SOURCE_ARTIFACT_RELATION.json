@@ -1,0 +1,217 @@
+{
+  "kind": "accepted_a12_source_to_retained_exact_tested_archive",
+  "status": "ROOT_ACCEPTED_SOURCE_CORRESPONDENCE_CLEAN_CHECKPOINT_REPRODUCTION_FORTHCOMING",
+  "at": "2026-11-07T22:40:02.722554+00:00",
+  "sourceDigest": "60f8e595cfcf1b11f01dd0d46c9030d5042fc3edb076d20993c583e0b6b98e32",
+  "sourceRows": 1339,
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof-evidence/source-freeze.json",
+    "bytes": 295551,
+    "sha256": "bf762d202c262042bd6dc015518c8147ee44848af1cbe98e412761e71468ebe6"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SOURCE_INVENTORY.json",
+    "bytes": 541876,
+    "sha256": "311af9d981a6d5369d8a90fb1c31243bf0452208eefb43d10aa55240bb6c7db2"
+  },
+  "selectedSourceDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SELECTED_SOURCE_DELTA.json",
+    "bytes": 6664,
+    "sha256": "8dbcad9f52f08292a9e8bf3ef7e3b8feaae4cb7d142fac342d467e67342785c4"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 26861,
+    "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+  },
+  "sourceBroadConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/ROOT_SOURCE_BROAD_CONJUNCTION.json",
+    "bytes": 51978,
+    "sha256": "2fdc2bd5c58ad400183462c3357768eb513f645d4b86bcb4d85b8823d27958b8"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-012/REVIEW.json",
+    "bytes": 26939,
+    "sha256": "69d03be0390306196b7f59f46135f48dfd0ca7ea2bc6b10a5701c48de9064edd"
+  },
+  "operatorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/OPERATOR_RETURN.json",
+    "bytes": 13043,
+    "sha256": "522582d8d73b0837633e073ead1af7012b26b0e4c0f324b93071066762dad3a1"
+  },
+  "freshReadResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/readbacks-001/RESULT.json",
+    "bytes": 6630,
+    "sha256": "26a204b244b9883ad3ba46c3323a7d3b78578e9121763899514e948844ffea9f"
+  },
+  "originalProductSourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "originalProductSourceRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 2557,
+    "sha256": "3dfe718500c18a0100544ae9bb4ef4a56d3c6211daff676f4c38145cf585fe7a"
+  },
+  "retainedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "testedManifest": {
+    "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+  },
+  "acceptedCorrespondence": {
+    "preparedRelation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SOURCE_ARTIFACT_RELATION.prepared.json",
+      "bytes": 6093,
+      "sha256": "eb10a17e703925b245bf40bbc596e98cd3de7bd1e0da8a2ab88341f7cb69f03e"
+    },
+    "finalPreparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/PREPARATION_RETURN.json",
+      "bytes": 5966,
+      "sha256": "711e93b8e922672a2890b268ebcda2554514f561aee0b915c05525464c6f77c9"
+    },
+    "sourceInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SOURCE_INVENTORY.json",
+      "bytes": 541876,
+      "sha256": "311af9d981a6d5369d8a90fb1c31243bf0452208eefb43d10aa55240bb6c7db2"
+    },
+    "selectedSourceDelta": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SELECTED_SOURCE_DELTA.json",
+      "bytes": 6664,
+      "sha256": "8dbcad9f52f08292a9e8bf3ef7e3b8feaae4cb7d142fac342d467e67342785c4"
+    },
+    "originalProductSourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 18167,
+      "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+    },
+    "originalProductSourceRelation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 2557,
+      "sha256": "3dfe718500c18a0100544ae9bb4ef4a56d3c6211daff676f4c38145cf585fe7a"
+    },
+    "productArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "testedManifest": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    },
+    "sourceRows": 1339,
+    "immutableSnapshotRowsMatched": 1339,
+    "liveRowsMatchedAtPreparation": 1339,
+    "derivedStageRowsMatchedAtPreparation": 2132,
+    "compiledOwnerRowsUnchanged": 580,
+    "selectedPaths": 27,
+    "trackedModifiedPaths": 24,
+    "newPaths": 3,
+    "cumulativeUnshippedChangedPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs"
+    ],
+    "cumulativeUnshippedChangedPathCount": 9,
+    "archiveMemberCount": 5325,
+    "allCumulativeChangedPathsAbsentFromTestedArchive": true,
+    "meaning": "A12 changes only unshipped test fixture bytes. Retained executable Product owner bytes, tested archive and manifest remain unchanged under the declared originalA3-to-A12 source relation. The final exact source inventory is accepted for this bounded local cut; a clean checkpoint/reproduction is still pending separate selection.",
+    "newExecutableArtifactEstablished": false
+  },
+  "casewiseCoverage": {
+    "priorEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_024.json",
+      "bytes": 22348,
+      "sha256": "3293171df8aa6b164a93fc4a67ab30448eba30916783394009581c8d632eae88"
+    },
+    "retainedCaseEvidence": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/SUMMARY.json",
+        "bytes": 541011,
+        "sha256": "59d7b38e94e2a8ce32770244372c7268db9a0bae7e9ece7920d7e016fe1bab65"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/FAILURE.json",
+        "bytes": 615,
+        "sha256": "08bd7f1e49f51a64e01bf6304da6559b7ee4a95bd743a4d70ffc5bfef78b08fa"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/files/204-witness-reprice-definition-binding.json",
+        "bytes": 1185,
+        "sha256": "aa18c261ad492c3538e71e1afc08cb860487187c388eaab32320f05068345430"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.request.json",
+        "bytes": 987,
+        "sha256": "2a4906cf98fb5f2a3a767ac9b7941ecb43106bc417364e718cb67d294c8a8d64"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.result.json",
+        "bytes": 1512,
+        "sha256": "85659a719c4ef509a6cd46140cedd5ff4fa6aa2b254fbbd2686f80962a7c7aaf"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.stdout",
+        "bytes": 6782,
+        "sha256": "433a249063a45f53a123546617f2e13af04afabdb80ea14d92dadd778d88a7d2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/events/204-witness-reprice-definition-binding.jsonl",
+        "bytes": 10512,
+        "sha256": "f2c1c83657c75efa8edf4cb596d1c810cdf079ee3f31ddc268a209872dbdb40b"
+      }
+    ],
+    "priorSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "priorActualPassingCases": 14,
+    "priorActualFailedCases": 1,
+    "originalFailurePreserved": true,
+    "newFocusedPassingCases": 1,
+    "newReportedSkips": 0,
+    "excludedOtherCasesInNewExecution": 14,
+    "caseFilter": "^Public profile reprice retains the exact L-to-P boundary and standalone cold content checks$",
+    "completeSelectedCase": true,
+    "finalDiagnosticEmitted": true,
+    "conjoinedIntendedCases": 15,
+    "newWholeFileExecution": false,
+    "newWholeFilePassCredit": false,
+    "broadLedgerRestamped": false,
+    "casewiseApplicability": "Independent source review confirms unchanged other-case bodies and no cross-case precondition; Root accepts retained fourteen actual passes plus new one, retaining exact original evidence identities.",
+    "componentPremiseLimit": "The profile case uses injected Product/environment component premises while exercising native store/admission/transaction/close/reopen/cold correspondence; no installed L-to-W bridge proof.",
+    "physicalTamperBoundary": "Physical-byte tamper assertions belong to the retained other cases; A12 case14 supplies cold correspondence and changed content/boundary controls."
+  },
+  "limits": [
+    "Bounded one-file/two-symbol unshipped fixture successor and exact casewise conjunction only; no new whole-file execution or whole-file pass credit.",
+    "The profile case uses injected Product/environment component premises while exercising native store/admission/transaction/close/reopen/cold correspondence; no installed L-to-W bridge proof.",
+    "Original024 red, original source identity and fourteen passing cases remain historical evidence; all prior accepted code, performance and functional proofs retain their exact subjects and limits.",
+    "All nine residual capsules remain OPEN. Existing limited no-block rationales apply only to this same explicitly unqualified local REF01 cut.",
+    "Twelve cold residuals, S7, fixed15/full5.0 and human gates remain open; no whole-broad-green or all-qualification claim.",
+    "Known-PID and exact-log descriptor observations are bounded custody evidence; no blanket physical or detached-descendant absence claim and no quota-enforcement assurance.",
+    "Observed native process model/effort arguments are declared configuration evidence, not provider telemetry assurance. Separate measured timings are retained without a speedup inference."
+  ],
+  "futureEvidence": {
+    "sourceCheckpointCommit": null,
+    "sourceCheckpointTree": null,
+    "cleanReproduction": null,
+    "exactPackagingReview": null,
+    "immutableInstall": null,
+    "actualInstalledSmoke": null
+  },
+  "executionEnabled": false
+}

@@ -1,0 +1,283 @@
+{
+  "recordedUtc": "2026-11-04T13:33:10.738Z",
+  "status": "ACTUAL_C2_COMPLETED_WITH_UNMET_PREDICATES",
+  "standing": "Actual helper and admitted C2 Result conjoined; Root acceptance remains separate.",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/ee4fd033349bb12023907fac3964688332d486da9afc40c944cd17670a8c6fa1",
+  "helperArtifactDigest": "sha256:ee4fd033349bb12023907fac3964688332d486da9afc40c944cd17670a8c6fa1",
+  "helperPhysicalSha256": "b4099dfb5e2039ad96d67c1b24b24c1623a085ce56413ce14a4b727457edf43c",
+  "helperProducer": {
+    "attemptRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d/387b7d84a2111e7b0f02625056dff5b0193ce2a42a771b6bef316a40ce5043c4",
+    "taskRef": "worksite-command-execution-task://abiogenesis/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d",
+    "taskDigest": "sha256:174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d",
+    "coordinates": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/C2_HELPER_COORDINATES.json",
+      "bytes": 3729,
+      "sha256": "df4c5cdc1a1c0d0ae78f210751e4cff848abf9bf9f72e242d3d833cfee9e63bf"
+    }
+  },
+  "commands": [
+    {
+      "ordinal": 0,
+      "commandId": "command://abiogenesis/single-address-space/native-09/source-correspondence",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 29321,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 1,
+      "commandId": "command://abiogenesis/single-address-space/native-09/offline-toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 2,
+      "commandId": "command://abiogenesis/single-address-space/native-09/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 3,
+      "commandId": "command://abiogenesis/single-address-space/native-09/compile",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 4,
+      "commandId": "command://abiogenesis/single-address-space/native-09/generate",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 5,
+      "commandId": "command://abiogenesis/single-address-space/native-09/pack",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 45,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 6,
+      "commandId": "command://abiogenesis/single-address-space/native-09/affected-proof",
+      "exitStatus": 1,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 8244,
+      "stderrBytes": 1976
+    }
+  ],
+  "predicateObservedValues": [
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-09/source-correspondence/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-09/offline-toolchain/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-09/contract-seeds/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-09/compile/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-09/generate/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-09/pack/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-09/affected-proof/exit",
+      "observedValue": 1
+    }
+  ],
+  "sourceCorrespondence": {
+    "count": 160,
+    "allEqualFrozenSourceAndHandoff": true,
+    "subjectSha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13",
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/actual-c2-001/SOURCE_CORRESPONDENCE.json",
+      "bytes": 81744,
+      "sha256": "c86d92f047f63e19ad6b51fcf057244a4b1b064a835db91376d035d44043391f"
+    }
+  },
+  "protectedInputCount": 969,
+  "protectedBeforeEqualsAfter": true,
+  "productDelta": [],
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "exitCode": 1,
+      "signal": null,
+      "error": null,
+      "pass": 5,
+      "fail": 7,
+      "skipped": 0,
+      "wallMs": 338433.621708,
+      "stdoutSha256": "a518b164f36472026f0cf6d9df51d5cf852f6d1b64af2f14bfb321d7b8567e7f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [
+        "process did not complete successfully",
+        "failed or absent test tally",
+        "required cases did not execute"
+      ]
+    },
+    {
+      "id": "native-semantic-job",
+      "files": [
+        "test_env/tests/t287-native-semantic-job.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 9,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 1054.7461250000051,
+      "stdoutSha256": "89ad80bfdf68fef6892bae0e596af1a1d6dd4ca4f4210c9387912b9b214269de",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "native-semantic-revision",
+      "files": [
+        "test_env/tests/t287-native-semantic-revision.test.mjs"
+      ],
+      "exitCode": 1,
+      "signal": null,
+      "error": null,
+      "pass": 4,
+      "fail": 1,
+      "skipped": 2,
+      "wallMs": 754.3289590000059,
+      "stdoutSha256": "6c94afcb0f13f505192c9ffb639874db7d55deb1afe05a2a984bf72abaf094d1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [
+        "process did not complete successfully",
+        "failed or absent test tally",
+        "required cases did not execute"
+      ]
+    },
+    {
+      "id": "semantic-interface-and-fixture-consumers",
+      "files": [
+        "test_env/tests/d2-acknowledgment.test.mjs",
+        "test_env/tests/d2-binding-query-reuse.test.mjs",
+        "test_env/tests/d2-binding-transition.test.mjs",
+        "test_env/tests/d2-bounded-repair.test.mjs",
+        "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+        "test_env/tests/d2-historical-design.test.mjs",
+        "test_env/tests/d2-workflow-step.test.mjs",
+        "test_env/tests/t287-c2-child-program.test.mjs",
+        "test_env/tests/t287-d1-semantic-stage.test.mjs",
+        "test_env/tests/t287-generic-job-intake.test.mjs",
+        "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+        "test_env/tests/t287-generic-job-meaning.test.mjs",
+        "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+        "test_env/tests/t287-generic-job-revision.test.mjs",
+        "test_env/tests/t287-management-context.test.mjs",
+        "test_env/tests/t287-management-supervision.test.mjs",
+        "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+        "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+        "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+        "test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "test_env/tests/t287-predecessor-context.test.mjs",
+        "test_env/tests/t287-stdo-environment-citation.test.mjs",
+        "test_env/tests/t287-stdo-run-environment.test.mjs",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 59,
+      "fail": 0,
+      "skipped": 73,
+      "wallMs": 194386.76029199996,
+      "stdoutSha256": "fce94ec203cc0d16f92770525cfc84ed8758795cc741bfab11f40ad6f056171a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [
+        "required cases did not execute"
+      ]
+    }
+  ],
+  "tally": {
+    "pass": 77,
+    "fail": 8,
+    "skipped": 75
+  },
+  "retainedEvidenceVerification": null,
+  "retainedPriorEvidence": [],
+  "retainedEvidenceStanding": "Prior rows are not included in newly executed tally and receive credit only if exact correspondence succeeded.",
+  "nativeProof": null,
+  "failure": [
+    {
+      "lane": "single-address-space-whole-path",
+      "reason": "process did not complete successfully"
+    },
+    {
+      "lane": "single-address-space-whole-path",
+      "reason": "failed or absent test tally"
+    },
+    {
+      "lane": "single-address-space-whole-path",
+      "reason": "required cases did not execute"
+    },
+    {
+      "lane": "single-address-space-whole-path",
+      "reason": "native producer proof unavailable or invalid",
+      "detail": "ENOENT: no such file or directory, open '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d/387b7d84a2111e7b0f02625056dff5b0193ce2a42a771b6bef316a40ce5043c4/sandbox/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json'"
+    },
+    {
+      "lane": "native-semantic-revision",
+      "reason": "process did not complete successfully"
+    },
+    {
+      "lane": "native-semantic-revision",
+      "reason": "failed or absent test tally"
+    },
+    {
+      "lane": "native-semantic-revision",
+      "reason": "required cases did not execute"
+    },
+    {
+      "lane": "semantic-interface-and-fixture-consumers",
+      "reason": "required cases did not execute"
+    },
+    {
+      "lane": "single-address-space-whole-path",
+      "reason": "no retained whole-path producer proof"
+    }
+  ],
+  "unrunLanes": [],
+  "priorEvidencePreserved": true
+}

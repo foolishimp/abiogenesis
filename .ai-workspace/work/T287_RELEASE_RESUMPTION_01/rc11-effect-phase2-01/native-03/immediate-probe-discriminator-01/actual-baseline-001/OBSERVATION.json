@@ -1,0 +1,597 @@
+{
+  "mode": "baseline",
+  "owner": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    }
+  ],
+  "request": "immediate",
+  "graceMs": 100,
+  "injection": "first probe exit(0,null) only; no close",
+  "callError": null,
+  "beforeAdvance": {
+    "atNs": {
+      "kind": "bigint",
+      "value": "0"
+    },
+    "facts": {
+      "directExit": {
+        "status": 0,
+        "signal": null
+      },
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "scopeKind": "posix_process_group",
+      "scopeAbsence": "present",
+      "closeObserved": false,
+      "streamsDisposed": false,
+      "drainExpired": false,
+      "firstError": null,
+      "cleanupDeadlineNs": {
+        "kind": "bigint",
+        "value": "200000000"
+      },
+      "cleanupElapsedMs": 0,
+      "probeCount": 6,
+      "signalAttempts": 2
+    },
+    "hostCalls": 6,
+    "signals": [
+      {
+        "kind": "signal",
+        "value": "SIGTERM",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "signal",
+        "value": "SIGKILL",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      }
+    ],
+    "trace": [
+      {
+        "kind": "probe_enter",
+        "ordinal": 1,
+        "pid": 321,
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "inject_exit",
+        "status": 0,
+        "signal": null,
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_enter",
+        "ordinal": 2,
+        "pid": 321,
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_return",
+        "ordinal": 2,
+        "absence": "present",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "signal",
+        "value": "SIGTERM",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_enter",
+        "ordinal": 3,
+        "pid": 321,
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_return",
+        "ordinal": 3,
+        "absence": "present",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_enter",
+        "ordinal": 4,
+        "pid": 321,
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_return",
+        "ordinal": 4,
+        "absence": "present",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_return",
+        "ordinal": 1,
+        "absence": "present",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_enter",
+        "ordinal": 5,
+        "pid": 321,
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_return",
+        "ordinal": 5,
+        "absence": "present",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "signal",
+        "value": "SIGKILL",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_enter",
+        "ordinal": 6,
+        "pid": 321,
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      },
+      {
+        "kind": "probe_return",
+        "ordinal": 6,
+        "absence": "present",
+        "atNs": {
+          "kind": "bigint",
+          "value": "0"
+        }
+      }
+    ],
+    "disposals": 0,
+    "activeTimers": [
+      {
+        "id": 4,
+        "dueNs": {
+          "kind": "bigint",
+          "value": "100000000"
+        },
+        "delayMs": 100
+      },
+      {
+        "id": 5,
+        "dueNs": {
+          "kind": "bigint",
+          "value": "10000000"
+        },
+        "delayMs": 10
+      }
+    ]
+  },
+  "cleanupError": null,
+  "completionSettled": true,
+  "settledWithinBound": true,
+  "completionFacts": {
+    "directExit": {
+      "status": 0,
+      "signal": null
+    },
+    "launchFailure": null,
+    "noChildEstablished": false,
+    "scopeKind": "posix_process_group",
+    "scopeAbsence": "present",
+    "closeObserved": false,
+    "streamsDisposed": true,
+    "drainExpired": true,
+    "firstError": null,
+    "cleanupDeadlineNs": {
+      "kind": "bigint",
+      "value": "200000000"
+    },
+    "cleanupElapsedMs": 200,
+    "probeCount": 16,
+    "signalAttempts": 2
+  },
+  "completionFrozen": true,
+  "afterCleanup": {
+    "directExit": {
+      "status": 0,
+      "signal": null
+    },
+    "launchFailure": null,
+    "noChildEstablished": false,
+    "scopeKind": "posix_process_group",
+    "scopeAbsence": "present",
+    "closeObserved": false,
+    "streamsDisposed": true,
+    "drainExpired": true,
+    "firstError": null,
+    "cleanupDeadlineNs": {
+      "kind": "bigint",
+      "value": "200000000"
+    },
+    "cleanupElapsedMs": 1000,
+    "probeCount": 16,
+    "signalAttempts": 2
+  },
+  "hostCalls": 16,
+  "signals": [
+    {
+      "kind": "signal",
+      "value": "SIGTERM",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "signal",
+      "value": "SIGKILL",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    }
+  ],
+  "trace": [
+    {
+      "kind": "probe_enter",
+      "ordinal": 1,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "inject_exit",
+      "status": 0,
+      "signal": null,
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 2,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 2,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "signal",
+      "value": "SIGTERM",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 3,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 3,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 4,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 4,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 1,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 5,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 5,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "signal",
+      "value": "SIGKILL",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 6,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 6,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "0"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 7,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "10000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 7,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "10000000"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 8,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "20000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 8,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "20000000"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 9,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "30000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 9,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "30000000"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 10,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "40000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 10,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "40000000"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 11,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "50000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 11,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "50000000"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 12,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "60000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 12,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "60000000"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 13,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "70000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 13,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "70000000"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 14,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "80000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 14,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "80000000"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 15,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "90000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 15,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "90000000"
+      }
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 16,
+      "pid": 321,
+      "atNs": {
+        "kind": "bigint",
+        "value": "100000000"
+      }
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 16,
+      "absence": "present",
+      "atNs": {
+        "kind": "bigint",
+        "value": "100000000"
+      }
+    }
+  ],
+  "disposals": 3,
+  "remainingTimers": [],
+  "standing": "Actual imported owner with controlled child/clock/probe/signal. No OS child or OS signal. Immediate cut precedes all clock advances; cleanup facts are separate. No production or qualification claim."
+}

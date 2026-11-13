@@ -1,0 +1,143 @@
+{
+  "kind": "root_held_session_source_and_functional_evidence_adoption",
+  "status": "ROOT_ADOPTED_HS01_AND_BOUNDED_HS02_SOURCE_PROOF",
+  "at": "2026-11-06T19:49:56.157265+00:00",
+  "roleTransition": "Executive -> separately bound coordination/operator Writer under existing ROOT_ACTIVATION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": {
+    "goal": "GOAL-035",
+    "families": "F01-F07,F09-F11,F13-F17; fifteen selected 5.0 families",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    }
+  },
+  "evidence": {
+    "sourceAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_AFTER.json",
+      "bytes": 563047,
+      "sha256": "b4a2fdc723a131caed5bb323157a55416c2ed9974edab7fbe68ff10efa8d8fa1"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 9225,
+      "sha256": "2a9a8b0b475b87551f650c1573ebb842bb952b71fc7b983195a44463d13bafe9"
+    },
+    "finalSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 8314,
+      "sha256": "30fefcf5e9da5b01135da739ffdae1a153089bcae51f19da72d8258d2840ea82"
+    },
+    "custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/CUSTODY.json",
+      "bytes": 20273,
+      "sha256": "40b3cdb4a4286d308d1fad6abfe38ed5b1e0b872e6ee55e4e9b2d8f2e6eca12a"
+    },
+    "proofInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/PROOF_INVENTORY.json",
+      "bytes": 15345,
+      "sha256": "5488dc0c162bd73cce17d1847bd7d4674d80baebb5baaaf45f7f0f86e67ed400"
+    },
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/reviews/stage-001/REVIEW.json",
+      "bytes": 12611,
+      "sha256": "f44ce517aa8d6ecc3882c11383e02d028bc9de1f72041af786b86b5375919de0"
+    },
+    "processReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/reviews/process-disclosure-001/REVIEW.json",
+      "bytes": 11859,
+      "sha256": "b2343205638f5b4542a58b6b5acb445595335c60c615dee7f7be4f4621ba3357"
+    },
+    "authorDisclosure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/handoffs/return.json",
+      "bytes": 16789,
+      "sha256": "492a9d4fbdd82d320212288a803022c35832b5e75924642289c5cfc18380319e"
+    },
+    "sessionCosts": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/operator-custody-001/SESSION_COSTS.json",
+      "bytes": 4604,
+      "sha256": "0249b8f99bf6c73293c318d6f4bb70cc22aff80327edeceb0b5d41328d4acddd"
+    },
+    "originalResume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/after-run-resume.json",
+      "bytes": 72498689,
+      "sha256": "969ec498630bf7448ac005399972b59fe8e38b8509d4d63779266e284a354309"
+    },
+    "retainedH05Disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 5439,
+      "sha256": "229dad7dfaef6df2ff2a1b005ef4f7df38416ad3a221c79a18fe57a1c9c36e7a"
+    },
+    "retainedH05Measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+      "bytes": 4046,
+      "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+    }
+  },
+  "sourceDigest": "a07beb4b5ffe861cc5610ede437e18a4089f9f23b3b9cb6cc0a8d688aeb99b91",
+  "decision": {
+    "boundedSourceAndFunctionalEvidenceAccepted": true,
+    "HS01IntegrationAccepted": true,
+    "HS02SmallHeldSessionCounterProofAccepted": true,
+    "HS02InstalledGrowthComplete": false,
+    "HS03DependencyReady": true,
+    "wholeAuthorProcedureConformant": false,
+    "selection": "Adopt the exact independently reviewed H06 source and actual functional receipts. Preserve the original H05 fixed-route7/7 and held-session1/1 on the independently verified unchanged dependency closures.",
+    "sourceConservation": "All451 current files freshly matched actual sourceAfter; native.after/stage/held/live equality,18controls/3handoffs and105dispatch pins remain established by closed custody. One local fixture identity changed;450protected files and all5325 Product payloads are unchanged.",
+    "actualH06Proof": {
+      "tests": 78,
+      "pass": 77,
+      "fail": 0,
+      "historicalUnexercised": 1,
+      "cancelled": 0,
+      "lanes": 3,
+      "stages": 1
+    },
+    "retainedH05Proof": {
+      "fixedRoutePass": 7,
+      "heldSessionPass": 1,
+      "reexecuted": false,
+      "relabelledAsH06": false
+    },
+    "skip": "admitted pure consumer evaluates a native task as data without physical authority remains the exact historical unbound ABI5_NATIVE_WORK_RETAINED_ROOT case, with no proof credit.",
+    "whyNoReplay": "Independent frozen source review, bounded reuse review and actual receipts establish the selected source/functional claims. The process review identifies no source/proof/runtime authority invalidator requiring their repetition."
+  },
+  "processDisposition": {
+    "id": "RC7-PROC-H06-01",
+    "status": "HISTORICAL_NONCONFORMANCE_RETAINED_NEXT_ACTIVATION_CORRECTION_SELECTED",
+    "owner": "Root Executive and next native Worker",
+    "owningFrame": "Selected STDO3.0.4 ACTIVATION acquisition/work-boundary/reuse and ABI Native STDO Skills",
+    "finding": "Unselected filename census/platform persistence, late selected authority/owner reads, and omitted native installed skill loading defeat full author procedure/read-order/read-scope/native-method-use claims.",
+    "limits": "No claim that the model consumed the entire21MB filename output, no evidence that outside file contents were read, no broad no-outside-effects assertion. External tool-result contents remain unacquired.",
+    "nextReentry": "Before S5 Product edits or build/test effects, the native Worker explicitly invokes the exact installed stdo-work entrypoint through existing METHOD_ACCESS and reads the selected authority/owner inputs. Record bounded bootstrap/read-first metadata in the existing progress handoff; use the finite451 source list instead of an untracked census. Root observes only tool names/paths/times, not provider narrative.",
+    "trigger": "Next native S5 activation",
+    "falsifier": "Missing bootstrap/read-first observation before first Product edit/build, renewed broad acquisition, or a newly established material source/proof/effect invalidator returns to Root.",
+    "historicalComplianceRestored": false,
+    "newFrameworkOrGate": false
+  },
+  "nextSelectedWork": "Materialize the existing S5/HS03 activation from this actual accepted H06 source and genuine close/resume. Preserve frozen templates and original H05 evidence; update only actual dependency bindings and the in-grant bootstrap/scope clarification. Root admission precedes one native dispatch.",
+  "residuals": [
+    "HS03 stdout batching and common scope-keyed pre-decision flush remain unimplemented.",
+    "Installed S4 byte-growth measurement and conditional S6 disposition remain open.",
+    "Warm calls in the small H05 fixture still read96bodies/3500127bytes; only warm history and held-read work counters are zero. Child CLI work and aggregate peak RSS are excluded from that measurement.",
+    "Full installed native-workflow performance, exact candidate qualification and reserved actual human release gates remain open.",
+    "RC7 has not been cut or installed; RC6 remains builder. All prior failures, partial reviews, process disclosures and immutable releases remain preserved."
+  ],
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "rc7Installed": false
+}

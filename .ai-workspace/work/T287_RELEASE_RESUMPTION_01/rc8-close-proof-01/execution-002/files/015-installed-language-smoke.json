@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/installed-language-smoke.test.mjs",
+  "kind": "executed",
+  "passed": false,
+  "wallMs": 5284.628249999998,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 1,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/events/015-installed-language-smoke.jsonl",
+    "bytes": 3067,
+    "sha256": "739c338c76031fa5cb494c9cae9ee73ef78fbab3d0b806f03b1c80520ca83ccf"
+  },
+  "commandReceipt": "commands/015-installed-language-smoke.result.json",
+  "workspace": "/private/tmp/abg-r8c-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "root_installed_rc6_maintained_setup_launch",
+  "startedUtc": "2026-11-05T07:57:24.650971+00:00",
+  "selectionSha256": "ba0807540a2e74997b35a80ee875b93ba39a9045b37046ea63452f9376b7548e",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/setup-rc6.mjs",
+    "ba0807540a2e74997b35a80ee875b93ba39a9045b37046ea63452f9376b7548e"
+  ],
+  "providerDispatch": false,
+  "nativeDispatch": false
+}

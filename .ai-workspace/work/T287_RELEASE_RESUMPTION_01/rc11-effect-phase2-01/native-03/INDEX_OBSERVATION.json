@@ -1,0 +1,49 @@
+{
+  "indices": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29373151,
+        "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29373151,
+        "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+      },
+      "byteEqual": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      "byteEqual": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29655080,
+        "sha256": "98894232f012280d3b8c3acd7e9e45f0819418abe7d3923de4a16addbae73f49"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29655080,
+        "sha256": "98894232f012280d3b8c3acd7e9e45f0819418abe7d3923de4a16addbae73f49"
+      },
+      "byteEqual": true
+    }
+  ],
+  "allByteEqual": true,
+  "candidateStagedDiffExit": 0,
+  "candidateStagedDiff": "",
+  "candidateHead": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+  "trackedStatus": " M build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts\n M build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs\n",
+  "attribution": "Root disclosed read-only git status without GIT_OPTIONAL_LOCKS=0 at01:32Z; possible index stat metadata refresh. No restoration or index mutation by Operator; byte drift and logical content are separate."
+}

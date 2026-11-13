@@ -1,0 +1,12 @@
+{
+  "b11ArchiveSha256": "0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c",
+  "b11RunRef": "run://abiogenesis/4e1de2e9334620f62f9bb725d24517d6ea6ecfe3f68c5e064795561ffa5d20aa",
+  "c2NativeResult": "result://abiogenesis/6a33512a7df328ba9452f1aaf8ef5085ae9ab89ba1be67c094d9ea2693f69167",
+  "kind": "single_machine_p1_selected_counterexample",
+  "measurementPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/efficiency-p1-01/MEASUREMENTS.json",
+  "measurementSha256": "a379f30afa5dbc10803f17751ecc8ca5144a8c40effd799cd55b66e649b7f7ff",
+  "rcaPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/efficiency-p1-01/ROOT_CAUSE_ANALYSIS.md",
+  "rcaSha256": "5d161713957c3e9c6972444e6981aaff2ff9413b78d6bab99aa9c5a461e06690",
+  "sourceCheckpoint": "97406077c9a91e18e9425c3df55c6cd80f4c2073",
+  "standing": "measured B11 representation and cold profiling; no claim all gap is CPU or fixed"
+}

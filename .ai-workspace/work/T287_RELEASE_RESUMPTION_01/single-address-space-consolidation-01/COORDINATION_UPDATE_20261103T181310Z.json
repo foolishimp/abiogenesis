@@ -1,0 +1,13 @@
+{
+  "recordedUtc": "2026-11-03T18:13:10.000640+00:00",
+  "activation": "native-03/ROOT_WRITER_ACTIVATION.json",
+  "effects": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "preimages": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T181310Z",
+  "nativeDispatchManifestSha256": "3411a694625331b8681b8ffe4fe5abb16cd18c145a903a3cb5047433277b7b54",
+  "rootBetweenActivationMs": 593978.0,
+  "sourceChangedByRoot": false
+}

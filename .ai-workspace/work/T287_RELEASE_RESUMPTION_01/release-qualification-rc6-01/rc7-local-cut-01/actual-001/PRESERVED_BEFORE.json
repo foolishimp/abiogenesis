@@ -1,0 +1,20 @@
+[
+  {
+    "root": "/Users/jim/src/apps/abiogenesis",
+    "head": "d560948ef67c26a23ab8307c7ebf135133f0de93",
+    "index": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29350795,
+      "sha256": "3fdaf4fb43967504ba25caf8e770baef30f567046522b080a5a2e061db3d721c"
+    }
+  },
+  {
+    "root": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "head": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "index": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc6-local-cut/index",
+      "bytes": 29188043,
+      "sha256": "1965a35228084e0dccc331eaf13b20edaf3f6c9cdb22d4af539ac659b2609ddf"
+    }
+  }
+]

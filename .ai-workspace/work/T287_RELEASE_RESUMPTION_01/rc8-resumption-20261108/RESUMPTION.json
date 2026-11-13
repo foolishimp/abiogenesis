@@ -1,0 +1,276 @@
+{
+  "status": "RC8_A11_ACCEPTED_BROAD025_COMPLETE_C2_POSITIVE_ACCEPTED_A12_PREPARING_NINE_RESIDUALS_OPEN_CUT8_HELD",
+  "at": "2026-11-07T22:14:08.167995Z",
+  "localDate": "2026-11-08",
+  "timezone": "Australia/Sydney",
+  "recordKind": "Root-directed delivery-state reconciliation; no new execution or acceptance",
+  "writer": {
+    "identity": "/root/rc8_delivery_record",
+    "role": "separately activated Writer",
+    "consumer": "/root Executive",
+    "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-ticket/SKILL.md",
+    "grant": "Root NEW_TASK: reconcile stale current status only and durably record resumption/agent policy",
+    "writeTerritory": [
+      "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/RESUMPTION.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/WRITER_RETURN.json"
+    ],
+    "hostBoundary": "Separate delegated context with supplied Root packet and system/developer instructions; shared unrestricted filesystem/tools. No enforced read sandbox or independent semantic review is claimed. No subagents."
+  },
+  "provenance": {
+    "latestUserInstruction": "ok continue on",
+    "meaning": "Continue the reviewed selected local delivery plan; instruction provenance, not blanket evidence acceptance",
+    "source": "Root assignment carrying the user instruction",
+    "stoppedProxyThread": "01a1a034-5c16-7200-a3a8-fc3c5844c096",
+    "successorRootThread": "01a1b734-f631-7990-9791-534d6a13d5fe",
+    "threadStanding": "Root-supplied resumption provenance; Writer did not inspect or operate those threads"
+  },
+  "agentPolicy": {
+    "exactRule": "human-proxy Executive gpt-6-astra max; Codex operators/writers/bounded reviewers gpt-6-astra xhigh; native workers claude-opus-5-5 xhigh",
+    "humanProxyExecutive": {
+      "model": "gpt-6-astra",
+      "reasoningEffort": "max"
+    },
+    "codexOperatorsWritersBoundedReviewers": {
+      "model": "gpt-6-astra",
+      "reasoningEffort": "xhigh"
+    },
+    "nativeWorkers": {
+      "model": "claude-opus-5-5",
+      "reasoningEffort": "xhigh"
+    },
+    "scope": "Current resumption and subsequent selected activations; prior evidence retains its historical actor settings",
+    "globalSettingsChanged": false,
+    "actualRuntimeModelVerification": "Required policy recorded from Root; this Writer does not claim provider telemetry verification"
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "composition": [],
+    "projectFrame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "fixedFamilies": 15,
+    "goal": "GOAL-035",
+    "ticket": "T-287"
+  },
+  "triage": {
+    "boundary": "Delivery-state bookkeeping under unchanged fixed-fifteen-family Product/requirements/design",
+    "substantiveProductChange": false,
+    "retainedChangeClass": "realization_refactor",
+    "firstChangedSurface": "GOALS current-state projection and T-287 current fields/RC8 plan",
+    "reEntryPoint": "Existing T-287/GOAL-035 Root disposition and exact existing acceptance/evidence routes",
+    "targetTruth": "Current records match bounded evidence and selected preparation state",
+    "closureLaw": "Four permitted record files written, source pins verified, historical text and nine residual capsules preserved; return to Root",
+    "nonClosureConditions": [
+      "No new execution or source/proof acceptance",
+      "No all-green/whole-C2/whole-release qualification",
+      "No CUT8 admission from this record",
+      "No Product/requirements/design/code/test/C8/evidence/Git/global-settings effects"
+    ],
+    "executionContractState": "A12 controls PREPARING; this bookkeeping record is not an executable admission"
+  },
+  "evidence": {
+    "a11SourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 7205,
+      "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+    },
+    "c2ConfiguredPositiveAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_PROOF_ACCEPTANCE.json",
+      "bytes": 6648,
+      "sha256": "39720ed81751230af6736335ed3be35a49510586a5e674f9b19c51d111de4a4f"
+    },
+    "witnessRepriceCausalReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/witness-reprice-024/REVIEW.json",
+      "bytes": 17442,
+      "sha256": "d9ebd6d2a12d677dad8db35ac83d976e953db5aaaf3c87a1b15ef26edc9b592a"
+    },
+    "broad024": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_024.json",
+      "bytes": 22348,
+      "sha256": "3293171df8aa6b164a93fc4a67ab30448eba30916783394009581c8d632eae88"
+    },
+    "broad025": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_025.json",
+      "bytes": 11877,
+      "sha256": "78fae0e88a483d8268e527cfdf3868f97565aeff5cac86baf4a558cf284a203a"
+    },
+    "broad025CustodyCorrection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_025_CUSTODY.json",
+      "bytes": 1279,
+      "sha256": "d4ad589a678dfdfdb37184f149112c02dfb73e1746fb8e9991b1e9c362c7795f"
+    },
+    "cut8Preparation004": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_FINAL_BINDING_PREPARATION_RETURN_004.json",
+      "bytes": 3425,
+      "sha256": "11c60a31ba7e960211a4b9a27fb53c055b32295701a1bcf06a354f62766b8a07"
+    },
+    "a12HistoricalReadinessDraft": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/READINESS.draft.json",
+      "bytes": 5714,
+      "sha256": "7c03901b1d27923d14f6f8f1086c186333028837daffd5cc8e6d4a67f94bf396"
+    }
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "retainedSource": {
+    "sourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "sourceRows": 1339,
+    "selectedPaths": 26,
+    "acceptanceStanding": "Existing bounded A11 acceptance retained; no new acceptance",
+    "installedBuilder": "5.0.0-rc.7, locally installed/unqualified"
+  },
+  "proofState": {
+    "wholeFileCredits": 192,
+    "passesInWholeLedger": 986,
+    "historicalSkipsInWholeLedger": 227,
+    "inventoriedFiles": 208,
+    "separatelyHandledFilePopulations": 16,
+    "broad025NewIndependentFiles": 4,
+    "broad025NewPasses": 43,
+    "broad024WitnessReprice": {
+      "passed": 14,
+      "failed": 1,
+      "wholeCredit": false,
+      "originalFailurePreserved": true
+    },
+    "configuredC2Positive": {
+      "existingAcceptance": true,
+      "acceptedCases": 1,
+      "wholeC2Qualification": false,
+      "negativeVariantsStillOpen": 5,
+      "priorComponentPasses": 6,
+      "newWholeFileCredit": false
+    },
+    "rootResumptionCorrespondenceObservation": {
+      "source": "Root message to Writer during this resumption",
+      "testsExecuted": 0,
+      "summarySha256": "eb75b384b2371c12147746bd5ee1eff4650bd42afc5b8d0f0764e5bf41e19999",
+      "retainedWholeCredits": 188,
+      "additionalCompleteFiles": 4,
+      "currentC8TestHashesVerified": 192,
+      "uniqueEvidencePinsVerified": 1096,
+      "mismatches": 0,
+      "meaning": "Root reports actual read-only byte/hash checks; not a new execution, independent semantic review or acceptance"
+    },
+    "allGreenClaim": false,
+    "wholeReleaseQualified": false
+  },
+  "residuals": {
+    "status": "OPEN",
+    "ids": [
+      "RC8-GC03-METHOD-304",
+      "RC8-NATIVE-ASSESSMENT-PROFILE",
+      "RC8-SAS-WHOLE-PROOF",
+      "RC8-PHYSICAL-LIFETIME-013",
+      "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+      "RC8-SELECTED-ACTION-PROFILE",
+      "RC8-W2-05-TOKEN-ORACLE",
+      "RC8-C3-COMPOSITION-PROOF-BUDGET",
+      "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET"
+    ],
+    "allNineCapsuleBytesUnchanged": true,
+    "capsulesBytes": 24382,
+    "capsulesSha256": "5df1a142129ea645b593d60963f33a2ccf95f6a839c2998c939692f2ad4531c0",
+    "fiveInstalledC2NegativesSeparateFromAcceptedPositive": true,
+    "twelveColdResidualsAndS7Preserved": true
+  },
+  "a12": {
+    "selectionOwner": "Root Executive",
+    "selection": "Exact two-reference test-only correction supported by closed WITNESS-REPRICE-024 review",
+    "status": "PREPARING",
+    "changeClass": "realization_refactor",
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+    "edit": "Use ROOT_WINDOW_EVENT_PROFILE_REF in profileRequest evidence and corresponding missing-evidence negative removal; retain all digests/assertions/helpers/owners",
+    "builder": "immutable installed RC7",
+    "worker": {
+      "model": "claude-opus-5-5",
+      "reasoningEffort": "xhigh"
+    },
+    "existingCaseFilter": "^Public profile reprice retains the exact L-to-P boundary and standalone cold content checks$",
+    "build": false,
+    "generate": false,
+    "repack": false,
+    "runtimeOwnerChanges": false,
+    "sdkAllocation": false,
+    "providerDispatch": false,
+    "actualSourceEffect": false,
+    "newAcceptance": false,
+    "knownControlEntriesAtObservation": [
+      "HOST_DIFF.patch",
+      "PROOF_DIFF.patch",
+      "READINESS.draft.json",
+      "STATIC_PREFLIGHT.json",
+      "host.mjs",
+      "launch.py",
+      "proof.mjs"
+    ],
+    "operatorConfirmation": "/root/rc8_operator confirmed PREPARING only; no SDK acquisition/resource allocation/provider dispatch/source edits/tests. Its static preflight reports 1339 C8 source rows,2132 stage rows,4576 dependency rows and exact closed prefix192595103/ccf41d16 unchanged with zero mismatches; known hosts absent and exact log has no open PID. This is a source-attributed operator observation, not universal descendant absence."
+  },
+  "cut8": {
+    "status": "HELD",
+    "preparation004ExecutionEnabled": false,
+    "preparation004BroadClose": null,
+    "requiredNext": "Actual source/proof conjunction and concrete fresh bindings before existing local checkpoint, byte-equal reproduction, packaging review, installation/payload verification and bounded smoke",
+    "pushSelected": false,
+    "tagSelected": false,
+    "mergeSelected": false,
+    "publicationSelected": false,
+    "globalSelectorSelected": false
+  },
+  "previousCurrentStatePreserved": {
+    "goalsTop": "Current selection, 2026-11-07T15:07:35Z: **RC8_A11_ACCEPTED_BROAD023_CLOSED_C2_POSITIVE_PREPARING_NINE_RESIDUALS_OPEN_CUT8_HELD**. [Broad023 return](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json) 9191ae63 retains 178 whole files/919 passes/211 historical skips; six actual C2 component passes remain partial, two 180s timeouts and scoped Root TERM remain separate, with no aggregate/whole credit. The [ninth residual](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-c2-installed-negative-proof-budget) covers five installed negative variants only. Configured C2 positive and broad024 are preparing, neither launched: 15 other files/15 deferrals = four accepted whole proofs, two case-wise proofs and nine OPEN residual populations; positive proof remains pending separately. A11 source 95d3d1d0/26 paths/archive a178e960/performance remain accepted; coding Workers=0, CUT8 held. No negative reproof/source/timer repair selected.",
+    "ticketTop": "Current selection, 2026-11-07T15:07:35Z: **RC8_A11_ACCEPTED_BROAD023_CLOSED_C2_POSITIVE_PREPARING_NINE_RESIDUALS_OPEN_CUT8_HELD**. [Broad023 return](../../work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json) 9191ae63 preserves six actual C2 component passes, two 180s installed-case timeouts and the scoped Root stop; no whole-file credit or final reporter aggregate. A6 coverage remains 178 whole files/919 passes/211 historical skips. Root registered [RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET](#rc8-c2-installed-negative-proof-budget) for five installed negative variants only; the main positive timeout is separate. One existing configured positive proof and broad024 are preparing, neither launched: 15 other files scheduled, 15 scheduling deferrals comprising four accepted whole proofs, two case-wise proofs and nine OPEN residual file populations. C2 positive proof remains pending separately. [A11 acceptance](../../work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json) f6438805 retains source 95d3d1d0/26 paths, archive a178e960/performance and closed native/fresh parity; coding Workers=0. CUT8 held; no negative reproof/source/timer repair selected.",
+    "ticketFields": [
+      "- updated_at: 2026-11-07",
+      "- current_method_basis: stdo://releases/v3.0.4/ (source-development adoption, owner instruction 2026-11-03; retained RC4 artifacts and Runs keep their exact 3.0.2 basis)",
+      "- current_method_manifest_sha256: 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "- current_activation: [Broad023 return](../../work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json) 9191ae63 owns closed broad023. Root adopts [RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET](#rc8-c2-installed-negative-proof-budget) from [closed C2 review](../../work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023/REVIEW.json) 0bb7370d and selects preparation of the unchanged configured C2 positive case, separately from five negative variants. Broad024 preparation covers 15 other files; controls/admissions remain pending and neither successor has launched. [A11 acceptance](../../work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json) f6438805 remains bounded source authority. Documentation Writer `/root/rc7_reference_ticket_writer` captures this disposition only.",
+      "- current_activation_status: RC8_A11_ACCEPTED_BROAD023_CLOSED_C2_POSITIVE_PREPARING_NINE_RESIDUALS_OPEN_CUT8_HELD (broad023 closed; 178 whole credits and six C2 partial passes kept separate; configured positive/broad024 preparing only; 15 other scheduled files/15 deferrals distinguish four whole proofs, two case-wise proofs and nine OPEN residual populations; coding Workers=0)",
+      "- current_handoff: [Broad023 return](../../work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json) 9191ae63 and [closed C2 review](../../work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023/REVIEW.json) 0bb7370d own the stopped C2 evidence and selected positive-route preparation. [RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET](#rc8-c2-installed-negative-proof-budget) excludes the still-pending positive case. Broad024 has 15 other files and 15 scheduling deferrals; no launch is claimed. [CUT8 preparation004](../../work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_FINAL_BINDING_PREPARATION_RETURN_004.json) 11c60a31/4dc591ac remains source 95d3d1d0/26-path preparation with `broadClose:null`/execution disabled. Existing capsules, Root-stop records and immutable claim drafts are preserved.",
+      "- current_next_work: Finish controls for the existing exact-filtered C2 compact-ack positive route and broad024, then use only their concrete Root-admitted bindings. Positive preparation uses empty NODE_OPTIONS, exact archive/bootstrap installation and actual manifest pins, retained owner phases/replay, existing 600s inner and candidate 900s outer bounds; it cannot close five installed negative variants. Conjoin actual outcomes with retained 178 whole credits, separate accepted proofs and nine OPEN residual dispositions before CUT8 checkpoint/rebuild/review/install. No negative proof/source/timer repair or automatic retry is selected; preserve twelve cold residuals, S7 and broader5.0/human gates.",
+      "- current_prerequisite_deliverable: common_computational_capability_library",
+      "- current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27",
+      "- current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families",
+      "- current_runtime_frontier: As of 2026-11-07T15:07:35Z, broad023 is closed after Root-scoped TERM to PGID 60595 at 14:52:47.711164Z; selected group was absent after 2s and the driver closed without being signalled, no KILL. File-host final resource receipt and escaped-detached-descendant absence remain unproved. Six component passes remain partial; no final reporter aggregate/whole credit. Configured C2 positive and broad024 are preparing, not launched; coding Workers=0. A11 retains full typed fresh parity; RC7 is the locally installed/unqualified builder, global selector unchanged. CUT8 held/unexecuted.",
+      "- current_qualification: OPEN_fifteen_families_F11_sole_AF22_pre_RC_installed_RC_and_human_acceptance",
+      "- current_method_basis: stdo://releases/v2.5.1-rc.2/",
+      "- current_method_manifest_sha256: 3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+      "- updated_at: 2026-11-05",
+      "- current_sandbox_uat_plan: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/plan.md",
+      "- current_sandbox_uat_acceptance: .ai-workspace/work/T287_SANDBOX_UAT_01/acceptance.md"
+    ],
+    "rc8Plan": "#### Selected RC7 builder → RC8 plan (2026-11-07)\n\n**Authoritative current plan, 2026-11-07T15:07:35Z — broad023 closed; configured C2 positive/broad024 preparation only; nine OPEN residuals; CUT8 held.** [Broad023 return](../../work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json) 9191ae63 retains 178 whole/919 passes/211 historical skips plus six separately retained C2 partial passes. [RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET](#rc8-c2-installed-negative-proof-budget) covers only five installed negative variants; positive proof is pending separately. Broad024 plans 15 other files/15 deferrals; no successor launch or whole C2 claim.\n\n| Task | Current disposition / remaining work |\n| --- | --- |\n| RC8-00 | BOUNDED COMPLETE: exact RC7 builder binding, functional preparation and actual native launches. RC7 remains installed/unqualified. |\n| RC8-01 | ACCEPTED: owning HOW and existing-owner REF-01 correction on stage04; source2b5849ec/freeze73bf1ee9. No shared-admission redesign. |\n| RC8-02 | COMPLETE: the three Product-refactor native Runs returned and physically closed; source003 max review has no findings; final focused lanes48passes/2historicalskips. Product-refactor native Workers=0; test-only Run status is recorded in RC8-04. |\n| RC8-03 | BOUNDED ACCEPTED: RC7-before and RC8-after unprofiled1MiB/4MiB pair, separate4MiB parent profile, complete warm/cold equality and actual close; Results2617B. Not blanket zero-copy, consistent memory improvement or statistical speedup qualification. |\n| RC8-04 | BROAD023 CLOSED: 178 whole files/919 passes/211 historical skips retained; six C2 component passes are partial, two 180s installed timeouts and Root stop preserved, no aggregate/whole credit. Configured C2 positive and broad024 PREPARING ONLY: 15 other files/15 scheduling deferrals = four accepted whole proofs + two case-wise proofs + nine OPEN residual populations. New [RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET](#rc8-c2-installed-negative-proof-budget) covers five negatives only; positive remains pending. Coding Workers=0; CUT8 held. |\n| RC8-05 | PENDING: byte-equal clean reproduction and local cut/install of the same tested archivea178e960, payload correspondence and bounded actual-installed owner smoke. Whole5.0/human qualification gates remain. |\n\n",
+    "topAndPlanRetainedAsHistoryInMarkdown": true
+  },
+  "invalidators": [
+    "Changed material authority/evidence/source pins",
+    "New A12 allocation, dispatch, source effect or outcome",
+    "New Root disposition or accepted source/proof conjunction"
+  ],
+  "writerEffects": {
+    "documentationOnly": true,
+    "sourceOrTestEffects": 0,
+    "sdkAllocations": 0,
+    "providerDispatches": 0,
+    "testRuns": 0,
+    "gitMutations": 0,
+    "globalSettingMutations": 0
+  }
+}

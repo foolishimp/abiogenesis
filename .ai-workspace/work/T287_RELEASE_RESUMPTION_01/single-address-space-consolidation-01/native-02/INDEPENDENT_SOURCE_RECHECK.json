@@ -1,0 +1,31 @@
+{
+  "recordedUtc": "2026-11-03T18:01:29.115262+00:00",
+  "reviewer": "/root/rc5_method_review",
+  "effort": "max",
+  "productFrame": "Fixed ABIogenesis5, GOAL035/T287, unchanged Product and STDO3.0.4; ABG sole runtime authority; cold/currentness/rollback and true complete-output boundaries remain.",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/review-subject-001/SUBJECT.json",
+  "subjectSha256": "9cb2e4d899b01f12597d23853ea7569cf816951a379821a2a24dc65bde398435",
+  "verdict": "Satisfied for bounded SAS01-03 repaired claim; no material findings. Retain for continuation; whole consolidation withheld.",
+  "verified": {
+    "all43FileHashesMatchAfterObservation": true,
+    "incrementChangedPaths": 14,
+    "physicalNativeResultOrdinal": 18360,
+    "physicalRowHashVerified": true,
+    "authorTapHashesVerified": true,
+    "unchangedNative01ReviewReused": true
+  },
+  "claims": {
+    "SAS01": "Owned transaction selection, indexed duplicate-frame predicate and scoped Run authority; four continuation readers plus parent rehydration use owned durable reader, retaining domain and cold fallback.",
+    "SAS02": "Expanding adapter, export and unused proof-operation field removed; tests use owned operation; distinct correspondence judgment remains.",
+    "SAS03": "Fresh current artifact pack identity; one acquisition, chained borrowed selections, final close; verification/install/environment/heavy/warm assertions retained.",
+    "measurement": "Actual borrowed invocations, equal traversal/values and stale/copied/crossed refusals; old transaction reader absent. Held before fails exact reader assertion. Local continuation0 vs1 unrelated-body pass. Whole invocation25 to23 partial only; no wall-time improvement."
+  },
+  "knownOpen": "Remaining cost including related:null is selected in selection03, not a new finding. Actual C2/UAT and Root conjunction open at review.",
+  "triage": "not_applicable",
+  "limits": [
+    "No source edits/tests/builds/provider or moving reads",
+    "Author feedback is not actual C2",
+    "Optional historical owner-reuse read-count lane unqualified",
+    "Invalidated by changed bytes, coupled contracts or contrary evidence"
+  ]
+}

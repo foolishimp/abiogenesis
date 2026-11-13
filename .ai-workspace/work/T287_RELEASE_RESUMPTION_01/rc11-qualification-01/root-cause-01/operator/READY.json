@@ -1,0 +1,46 @@
+{
+  "status": "READY_SINGLE_SIX_CASE_DIAGNOSTIC",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/ACTIVATION.json",
+    "bytes": 2454,
+    "sha256": "ac002d0874850f7aae32f8379d3adf82be06633422aa5d4b0a66e2f80641d724"
+  },
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/PLAN.json",
+    "bytes": 2977,
+    "sha256": "1bae993918f7fa7b8788df251f2b29bd6f5db61c262a16f86d535d2778dff07f"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/BINDING.json",
+    "bytes": 7871,
+    "sha256": "79118ca24ab8cb701d9bf6a413fdacb1991dc06abb96926b0b3924263e4eafce"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/diagnostic.py",
+    "bytes": 12211,
+    "sha256": "2a1fe52f30af37844ea29e8fe4d732fe257b952fa0f5e661182e4f91906c2b9d"
+  },
+  "runnerDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/RUNNER_DELTA.diff",
+    "bytes": 8862,
+    "sha256": "be656cd12edf1ce0fe0c97f555a3274d1ff3dd40a540b9d894c319a977031716"
+  },
+  "transform": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/SOURCE_TRANSFORM.json",
+    "bytes": 2058,
+    "sha256": "1b368396cacfbeefa8686719480de3c82d295b866c2b611b93195348e0c87c2a"
+  },
+  "commands": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/COMMANDS.json",
+    "bytes": 913,
+    "sha256": "769f4d1dfeae45bc173671add6a8352b6a7a98a45d48f7e200cd4a668cd3126a"
+  },
+  "syntaxChecked": true,
+  "hostCovariates": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/HOST_OBSERVATION.json",
+    "bytes": 534,
+    "sha256": "5fee9a652cf5190a18de7230b70ad9df64c80d73d910c2bf69b95db1ebb9661f"
+  },
+  "sourceEffects": false,
+  "followupExperimentsHeld": true
+}

@@ -1,0 +1,124 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "ROOT_SELECTED_CEILINGS_F2_BINDING_PENDING",
+  "readCommands": [
+    "Exact future SOURCE_BEFORE names, selected control inputs, installed STDO3.0.4 skill/direct references and exact offline toolchain/contract seed. No broad tree/history/private-provider scans.",
+    "Read-only rg and git diff/status/rev-parse/show on the admitted selected source; no Git mutation."
+  ],
+  "writeCommands": [
+    "Only 27 named existing owner/HOW/test files, three handoffs and selected scratch. Conditional paths are a ceiling, not a mandate. Stop and return any required outside path.",
+    "Runtime/provider temp /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs1 and test temp /private/tmp/abg-hs1, named cache/zsh children; preserve all existing contents. Distinct staged empty npm user/global configs."
+  ],
+  "stageLabels": [
+    "hs1-stage-01",
+    "hs1-stage-02",
+    "hs1-stage-03",
+    "hs1-stage-04"
+  ],
+  "maxStages": 4,
+  "maxLaneInvocations": 8,
+  "concurrency": 1,
+  "laneIds": [
+    "held-session-before",
+    "held-session-measured",
+    "held-session-final",
+    "read-owner",
+    "caller",
+    "fixed-route",
+    "cold-resume",
+    "body-conservation"
+  ],
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-01/prior-author-stage.mjs",
+        "<next-fresh-selected-label>",
+        "before|after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 4,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 180000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-01/prior-author-lanes.mjs",
+        "<successful-frozen-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "held-session-before",
+        "held-session-measured",
+        "held-session-final",
+        "read-owner",
+        "caller",
+        "fixed-route",
+        "cold-resume",
+        "body-conservation"
+      ],
+      "maxLaneInvocations": 8,
+      "perLaneTimeoutMs": 300000,
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "invocationAllocation": [
+    {
+      "phase": "before",
+      "lane": "held-session-before",
+      "maximum": 1
+    },
+    {
+      "phase": "after_before_deletion",
+      "lane": "held-session-measured",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "held-session-final",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "read-owner",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "caller",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "fixed-route",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "cold-resume",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "body-conservation",
+      "maximum": 1
+    }
+  ],
+  "allocationLaw": "Existing create-only stage/lane reservations count even on failure/incompleteness. One invocation per exact lane id across all stages; no retry. Measured held-session precedes final held-session; final held-session and five affected lanes use one identical final source digest. Before is expected red evidence. Four stage slots permit bounded build correction; every stage and lane retains its receipt. No manual extra build/test.",
+  "missingResources": "Report exact unavailable material; never skip mandatory HS02/currentness/read/body proof. Three inherited historical fixed-route cases remain unbound/uncovered. No S01/D4/F11 capture or live-provider fixture is activated.",
+  "freezeBeforeFeedback": "Stage sources and HOW are create-only snapshots with source-freeze receipt before build/testing. Publish that exact path/digest through progress.json immediately; Root may issue max frozen review while native lanes continue. Final native.after must match final staged source/HOW."
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/integration-shared-seams.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/014-integration-shared-seams.test/process.json",
+    "bytes": 1083,
+    "sha256": "40e05f187ac54806b06bab739fbec7c7643561ab2cd5313c220428877e598bfd"
+  }
+}

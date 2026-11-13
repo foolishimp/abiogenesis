@@ -1,0 +1,59 @@
+{
+  "kind": "concrete_existing_owner_finalization_handoff",
+  "status": "CONTROLS_READY_ROOT_ADMISSION_PENDING",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/SOURCE_BEFORE.json",
+    "bytes": 278984,
+    "sha256": "09fdc508bf9672181e2cdc35ac69299772cbc42f50c8c4e81514062ad8873c81"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8413,
+    "sha256": "9e9d637edd84e8bf14489c2c4b6904072d64dd449697ad7429368d01a931355a"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/execution/after-run-resume.json",
+    "bytes": 72498693,
+    "sha256": "e1d90b7c8dab90b86ea7d85eb929f91e08b92313a5e612011b3809b0df4f9090"
+  },
+  "runtime": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/RUNTIME_BINDINGS.json",
+    "bytes": 6940,
+    "sha256": "89759b9e021fb42363e962143a6ed3da17462ae2956bd0860852eab743a5c17f"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/workload.json",
+    "bytes": 191298,
+    "sha256": "d6879fa9e6db3a29fc173b0d87038c7cb8759b8b44021a3817999d07ce72527a"
+  },
+  "staging": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/STAGING_MANIFEST.json",
+    "bytes": 11325,
+    "sha256": "2d1ce3bb206be9113a2eb81e36fc6ed6c120816a25f4c73a50f0b4a54b5aebae"
+  },
+  "admissionRequiredFields": [
+    "selection",
+    "actualClose",
+    "sourceBefore",
+    "maintainedCheckerSource",
+    "operatorRunner",
+    "operatorPublicSetup"
+  ],
+  "admissionPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_CONTROL_ADMISSION.json",
+  "soleFutureWorkloadBinding": {
+    "index": 462,
+    "path": "qualification-inputs/rc7-stdout-window-author-03/ROOT_CONTROL_ADMISSION.json",
+    "digest": null
+  },
+  "realCapacityOutput": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/NATIVE_CAPACITY_PREFLIGHT.json",
+  "capacityOutputMustRemainAbsent": true,
+  "launcher": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/launch-owner-script.mjs",
+    "<actual-dispatch-manifest-sha256>"
+  ],
+  "requiredEnvironment": {
+    "NODE_OPTIONS": "--max-old-space-size=8192"
+  },
+  "noDispatchPerformed": true
+}

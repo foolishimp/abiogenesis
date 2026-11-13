@@ -1,0 +1,63 @@
+{
+  "kind": "allowlisted_native_tool_use_metadata_only",
+  "at": "2026-11-06T01:56:51.125905+00:00",
+  "sourcePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-411eae67f6d724d8-stdout.log",
+  "completePrefixBytes": 4008412,
+  "completePrefixSha256": "ca501a2a47615eb3e405c9c433c777899fbd87bc1bad7ce1729af78bbd440608",
+  "uniqueToolUses": 73,
+  "toolCounts": {
+    "Bash": 58,
+    "Grep": 2,
+    "Edit": 7,
+    "Write": 5,
+    "StructuredOutput": 1
+  },
+  "recent": [
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Write",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/return.json"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Edit",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/return.json"
+    },
+    {
+      "name": "Write",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/readiness.json"
+    },
+    {
+      "name": "Write",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/progress.json"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "StructuredOutput"
+    }
+  ],
+  "terminalMetadata": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "num_turns": 74,
+    "duration_ms": 785427,
+    "duration_api_ms": 660501,
+    "total_cost_usd": 4.654827400000002,
+    "stop_reason": "tool_use",
+    "session_id": "30521bd6-fcc1-4081-bac9-4890bc4f109d"
+  },
+  "limits": "Only assistant tool_use metadata and explicit terminal counters projected. No private reasoning/narrative or tool_result inspected or output; not Product result/acceptance."
+}

@@ -1,0 +1,29 @@
+{
+  "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "testSha256": "59fa9dc768b052149ee036577a23d60a55c1747b75337aebdce61027c20a6918",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Actual013 controlled-handback and physical HTTP owner failures await separate Root review;15partial passes/3reds add no whole-file credit. No repair/disposition selected.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_013.json",
+        "bytes": 7180,
+        "sha256": "17280683dd905725c48fd3fcd43ed11f9b76441894852e5fd1187f0ebb3f2a92"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/files/131-t287-owned-process-lifetime.json",
+        "bytes": 1158,
+        "sha256": "582101cad174afd22e5eb92925f8f91ac79422def9f29a5019606d35ad056464"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/commands/131-t287-owned-process-lifetime.stdout",
+        "bytes": 8164,
+        "sha256": "56dc83affb7b717cfb528bd8f18b59d2272456c55164faacc49015b5c2be5938"
+      }
+    ],
+    "capsule": "RC8-PHYSICAL-LIFETIME-013",
+    "successorStanding": "Root selected scheduling exclusion only; see RESIDUAL_REASSESSMENT.json, no closure or inherited semantic no-block"
+  }
+}

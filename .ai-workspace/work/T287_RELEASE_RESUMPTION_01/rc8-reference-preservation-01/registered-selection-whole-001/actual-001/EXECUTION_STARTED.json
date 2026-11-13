@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-07T11:31:32.391Z",
+  "pid": 40630,
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/BINDING.json",
+    "bytes": 7773,
+    "sha256": "6925cef6df88ac18c3b2eccda73d4697e44495ff8e26a5d46a761094a9e998e2"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/ROOT_ADMISSION.json",
+    "bytes": 3475,
+    "sha256": "b5f6bc461c21b856b1327397eca1a92f20df76d510888f5d0427432902b5cb1e"
+  },
+  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+  "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+  "wholeFile": true,
+  "expectedCases": 1,
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/private/tmp/abg-r8-selection-001/b:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r8-selection-001/t",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-r8-selection-001/user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-r8-selection-001/global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-r8-selection-001/n",
+    "npm_config_offline": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "ABG_TS_CLAUDE_COMMAND": "/private/tmp/abg-r8-selection-001/UNSELECTED_PROVIDER",
+    "ABG_TS_LIVE_CLAUDE_COMMAND": "/private/tmp/abg-r8-selection-001/UNSELECTED_PROVIDER",
+    "ABI5_UAT_UNIT_ROOT": "/private/tmp/abg-r8-selection-001/w/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat-units",
+    "ABI5_SELECTION_EVIDENCE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/actual-001/selection-evidence"
+  }
+}

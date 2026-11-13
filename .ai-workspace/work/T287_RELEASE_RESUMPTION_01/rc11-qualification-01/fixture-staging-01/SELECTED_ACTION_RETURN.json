@@ -1,0 +1,76 @@
+{
+  "status": "SELECTED_ACTION_AUTHENTIC_COMPONENT_INPUT_STAGED_ONLY",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/fixture-staging-01/ROOT_SELECTED_ADMISSION.json",
+    "bytes": 2052,
+    "sha256": "3bf642bdbd3850d70b15655dca390f2f79067611de96cffdf18442482e002c53"
+  },
+  "copied": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/events.jsonl.gz",
+        "bytes": 823504,
+        "sha256": "b86084dc4a61fc84f0231e20d76b9d91c236ed7a7fa34b7436ed489d8ab21f4d"
+      },
+      "destination": {
+        "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+        "bytes": 823504,
+        "sha256": "b86084dc4a61fc84f0231e20d76b9d91c236ed7a7fa34b7436ed489d8ab21f4d"
+      },
+      "byteEquality": true
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/fixture.json",
+        "bytes": 11153,
+        "sha256": "1712be167cf4ef6cb97bf9e8f11271afed44bdeb4e9e012dbc12341e433b6743"
+      },
+      "destination": {
+        "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json",
+        "bytes": 11153,
+        "sha256": "1712be167cf4ef6cb97bf9e8f11271afed44bdeb4e9e012dbc12341e433b6743"
+      },
+      "byteEquality": true
+    }
+  ],
+  "decompressed": {
+    "bytes": 4023353,
+    "sha256": "1b56eedb4718e9638e68cec8775314e03571dd6aed90486c5510ceaeb25a575d",
+    "rows": 216
+  },
+  "conservation": {
+    "baseline": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/SOURCE_INVENTORY.json",
+      "bytes": 292691,
+      "sha256": "e25d162544a1779ecdbdbe4fe99a7fbe4ead1589341a34096c136af90fade90d"
+    },
+    "originalRowsEqual": 1334,
+    "otherFutureTargetsStillAbsent": [
+      "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+      "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+      "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+      "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json"
+    ],
+    "mainIndexEqual": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    "builderGuardsEqual": true,
+    "mainTrackingEqual": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 174167,
+        "sha256": "05adccfbdd8ffaeb42cdea28f1434163af3b9fa94223bf170a9dfcdeb9a6e7b6"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 822834,
+        "sha256": "c7c3ca4e2fb27b4bcc8961f19c25f72d8198b7642281a96c4aeb204ded868f4f"
+      }
+    ]
+  },
+  "standing": "Exact accepted input bytes only. No selector-case result, test execution, qualification, final source freeze or native02 binding. Native-assessment staging remains pending Root.",
+  "runtimeEffects": 0,
+  "sourceSemanticEdits": 0
+}

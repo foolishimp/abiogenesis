@@ -1,0 +1,559 @@
+{
+  "historicalSameInput": {
+    "contextVersionCount": 2,
+    "contexts": [
+      {
+        "contextDigest": "sha256:96cc5ab277d5b9b84f704cdec3eac0f402dc5e06aac6b672f106eb5377b5c09d",
+        "contextJsonBytes": 257712,
+        "families": {
+          "actor_transport_binding_admitted": 4,
+          "c_call_result_admitted": 8,
+          "traversal_route_admitted": 4
+        },
+        "fileVersions": [
+          {
+            "byteLength": 4916,
+            "digest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+            "families": {
+              "actor_transport_binding_admitted": 4,
+              "c_call_result_admitted": 8,
+              "traversal_route_admitted": 4
+            },
+            "inline": 16,
+            "members": 0,
+            "relativePath": "source/basic-cli/obligations.json"
+          },
+          {
+            "byteLength": 1112,
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+            "families": {
+              "actor_transport_binding_admitted": 4,
+              "c_call_result_admitted": 8,
+              "traversal_route_admitted": 4
+            },
+            "inline": 16,
+            "members": 0,
+            "relativePath": "source/basic-cli/oracle.json"
+          },
+          {
+            "byteLength": 4325,
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+            "families": {
+              "actor_transport_binding_admitted": 4,
+              "c_call_result_admitted": 8,
+              "traversal_route_admitted": 4
+            },
+            "inline": 16,
+            "members": 0,
+            "relativePath": "source/basic-cli/source.original.txt"
+          }
+        ],
+        "inline": 48,
+        "inlineDecodedBytes": 165648,
+        "inlineEncodedBytes": 220928,
+        "members": 0,
+        "occurrences": 16
+      },
+      {
+        "contextDigest": "sha256:1e8a1892fd522bf92bb881a21f342d716edb372a09743ed87371bf0bdbbb7a6e",
+        "contextJsonBytes": 444380,
+        "families": {
+          "actor_transport_binding_admitted": 3,
+          "c_call_result_admitted": 9,
+          "traversal_route_admitted": 5
+        },
+        "fileVersions": [
+          {
+            "byteLength": 1739,
+            "digest": "sha256:e8518e9d9e0ec5ac0e89aecbcdbff694bf2381aa563dc50db3979a665aa26835",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "design/implementation-design.md"
+          },
+          {
+            "byteLength": 1589,
+            "digest": "sha256:c12cf2e85da4684bfc7e19206901cbc51ca4714f7e54aff00701460763c9d62b",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "design/test-design.md"
+          },
+          {
+            "byteLength": 41,
+            "digest": "sha256:28f2a389bcd8996da86d6ca79e0df4d2c17a003a78df09a440fb3aa4ff09f261",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "generated/hello-world.mjs"
+          },
+          {
+            "byteLength": 4916,
+            "digest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "source/basic-cli/obligations.json"
+          },
+          {
+            "byteLength": 1112,
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "source/basic-cli/oracle.json"
+          },
+          {
+            "byteLength": 4325,
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "source/basic-cli/source.original.txt"
+          },
+          {
+            "byteLength": 1607,
+            "digest": "sha256:4cfd6678177e4a7a45bae8102b32f5b084749ff94b1d319dd799b97e2fc17bad",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "specification/project-conformance.md"
+          },
+          {
+            "byteLength": 373,
+            "digest": "sha256:42eef5e08ba580addedf7933087ab76c4214affde1b0c2b7e2641708e11498a9",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "test-execution-plan.json"
+          },
+          {
+            "byteLength": 649,
+            "digest": "sha256:49aa60f32775e5b6acb1c96ca10eb2ae9d7258a918e53c87d4557f6d84e49c92",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "test/component/hello-cli.test.mjs"
+          },
+          {
+            "byteLength": 649,
+            "digest": "sha256:9fd503ee1bc4ff9b2f0592282dcddf36a6b7abf9aa82b991895c7bea7cf1003f",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 17,
+            "members": 0,
+            "relativePath": "test/uat/hello-cli.uat.test.mjs"
+          }
+        ],
+        "inline": 170,
+        "inlineDecodedBytes": 289000,
+        "inlineEncodedBytes": 385628,
+        "members": 0,
+        "occurrences": 17
+      }
+    ],
+    "declaredHolderVersionMultiplicity": [
+      3,
+      3,
+      3,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+    ],
+    "declaredResultInlineHolderEntries": 69,
+    "declaredResultMemberEntries": 0,
+    "eventCount": 5227,
+    "familyBytes": {
+      "abg_admitted_body_reference_record": 70825,
+      "actor_invocation_closed": 215296,
+      "actor_invocation_started": 15746,
+      "actor_process_exited": 10921,
+      "actor_process_started": 11436,
+      "actor_process_stdout_observed": 4430264,
+      "actor_result_artifact_observed": 72036,
+      "actor_transport_binding_admitted": 1275498,
+      "basis_admitted": 160821,
+      "c_call_evidenced": 94210,
+      "c_call_fibre_selected": 64920,
+      "c_call_judged": 62522,
+      "c_call_opened": 77165,
+      "c_call_result_admitted": 1216335,
+      "child_foldback_admitted": 28747,
+      "frame_closed": 17261,
+      "frame_opened": 26822,
+      "graph_call_closed": 17294,
+      "graph_call_opened": 26663,
+      "implementation_admitted": 53576,
+      "invocation_admitted": 353274,
+      "public_operation_admitted": 4425,
+      "public_operation_artifact_admitted": 3196769,
+      "run_closed": 1512,
+      "run_segment_opened": 2382,
+      "runtime_activity_probe_observed": 11308069,
+      "terminal_reached": 24328,
+      "traversal_cursor_entered": 31542,
+      "traversal_route_admitted": 661898
+    },
+    "familyCounts": {
+      "abg_admitted_body_reference_record": 15,
+      "actor_invocation_closed": 6,
+      "actor_invocation_started": 6,
+      "actor_process_exited": 6,
+      "actor_process_started": 6,
+      "actor_process_stdout_observed": 2299,
+      "actor_result_artifact_observed": 6,
+      "actor_transport_binding_admitted": 6,
+      "basis_admitted": 4,
+      "c_call_evidenced": 28,
+      "c_call_fibre_selected": 28,
+      "c_call_judged": 28,
+      "c_call_opened": 28,
+      "c_call_result_admitted": 19,
+      "child_foldback_admitted": 9,
+      "frame_closed": 10,
+      "frame_opened": 10,
+      "graph_call_closed": 10,
+      "graph_call_opened": 10,
+      "implementation_admitted": 1,
+      "invocation_admitted": 1,
+      "public_operation_admitted": 1,
+      "public_operation_artifact_admitted": 3,
+      "run_closed": 1,
+      "run_segment_opened": 1,
+      "runtime_activity_probe_observed": 2637,
+      "terminal_reached": 10,
+      "traversal_cursor_entered": 10,
+      "traversal_route_admitted": 28
+    },
+    "label": "historicalSameInput",
+    "physicalBytes": 23532557,
+    "unchangedPrefix": true
+  },
+  "kind": "pure_structured_context_carriage_observation",
+  "limits": [
+    "Pure byte/shape analysis, not owner admission authentication; timed owner read separate",
+    "Only structured Context objects are counted, not escaped JSON/text/tool bodies",
+    "Context cohorts use observationDigest plus authority/binding scope; file versions additionally path/fileIdentity/digest/length",
+    "Declared holder counts use exact finite nativeContextBodyHolders positions from accepted current source; legacy old holders are reported under same positions only",
+    "Same-input historical observation, not matched model output/CPU/provider causal benchmark; no performance gate"
+  ],
+  "new": {
+    "contextVersionCount": 2,
+    "contexts": [
+      {
+        "contextDigest": "sha256:b2cbc32170267e5a6aa94accff3c7b6f98e2002dc716813755ab25097f5b647d",
+        "contextJsonBytes": 57911,
+        "families": {
+          "actor_transport_binding_admitted": 3,
+          "c_call_result_admitted": 8,
+          "traversal_route_admitted": 4
+        },
+        "fileVersions": [
+          {
+            "byteLength": 4916,
+            "digest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 8,
+              "traversal_route_admitted": 4
+            },
+            "inline": 1,
+            "members": 14,
+            "relativePath": "source/basic-cli/obligations.json"
+          },
+          {
+            "byteLength": 1112,
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 8,
+              "traversal_route_admitted": 4
+            },
+            "inline": 1,
+            "members": 14,
+            "relativePath": "source/basic-cli/oracle.json"
+          },
+          {
+            "byteLength": 4325,
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+            "families": {
+              "actor_transport_binding_admitted": 3,
+              "c_call_result_admitted": 8,
+              "traversal_route_admitted": 4
+            },
+            "inline": 1,
+            "members": 14,
+            "relativePath": "source/basic-cli/source.original.txt"
+          }
+        ],
+        "inline": 3,
+        "inlineDecodedBytes": 10353,
+        "inlineEncodedBytes": 13808,
+        "members": 42,
+        "occurrences": 15
+      },
+      {
+        "contextDigest": "sha256:2ed688dcdb4ebbec90f4f7f607c50d2c8aeedcbf96035d06641ef57f90602e1b",
+        "contextJsonBytes": 172842,
+        "families": {
+          "actor_transport_binding_admitted": 2,
+          "c_call_result_admitted": 9,
+          "traversal_route_admitted": 5
+        },
+        "fileVersions": [
+          {
+            "byteLength": 2242,
+            "digest": "sha256:2515273fa3a2903cd0c681f1b62220a0d1205949ba5c011f19790d6098afeeff",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 6,
+            "members": 10,
+            "relativePath": "design/implementation-design.md"
+          },
+          {
+            "byteLength": 2676,
+            "digest": "sha256:42c70743b4052b54792509a9e142657eb35ed935fbb12f0321f1370ed94cee08",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 6,
+            "members": 10,
+            "relativePath": "design/test-design.md"
+          },
+          {
+            "byteLength": 61,
+            "digest": "sha256:fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 6,
+            "members": 10,
+            "relativePath": "generated/hello-world.mjs"
+          },
+          {
+            "byteLength": 4916,
+            "digest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 0,
+            "members": 16,
+            "relativePath": "source/basic-cli/obligations.json"
+          },
+          {
+            "byteLength": 1112,
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 0,
+            "members": 16,
+            "relativePath": "source/basic-cli/oracle.json"
+          },
+          {
+            "byteLength": 4325,
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 0,
+            "members": 16,
+            "relativePath": "source/basic-cli/source.original.txt"
+          },
+          {
+            "byteLength": 2486,
+            "digest": "sha256:57991e7528329a8e59bdb17da36832d02e073d0f0a9155409002a5fa9b78c1cc",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 6,
+            "members": 10,
+            "relativePath": "specification/project-conformance.md"
+          },
+          {
+            "byteLength": 1935,
+            "digest": "sha256:23454f12fb313a93bca8d89094f0f4a64b9b716f2d985711a36fd7ab126d5006",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 6,
+            "members": 10,
+            "relativePath": "test-execution-plan.json"
+          },
+          {
+            "byteLength": 971,
+            "digest": "sha256:8c06afa92733ada4fbd170d71bdce0be4358e12ce3fbde136f1f8d82d841258e",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 6,
+            "members": 10,
+            "relativePath": "test/component/hello-cli.test.mjs"
+          },
+          {
+            "byteLength": 952,
+            "digest": "sha256:1421d383c85b9c696e72f409262a57dafcc75228b621f8c24f38b6613e453e08",
+            "families": {
+              "actor_transport_binding_admitted": 2,
+              "c_call_result_admitted": 9,
+              "traversal_route_admitted": 5
+            },
+            "inline": 6,
+            "members": 10,
+            "relativePath": "test/uat/hello-cli.uat.test.mjs"
+          }
+        ],
+        "inline": 42,
+        "inlineDecodedBytes": 67938,
+        "inlineEncodedBytes": 90648,
+        "members": 118,
+        "occurrences": 16
+      }
+    ],
+    "declaredHolderVersionMultiplicity": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "declaredResultInlineHolderEntries": 10,
+    "declaredResultMemberEntries": 59,
+    "eventCount": 5629,
+    "familyBytes": {
+      "abg_admitted_body_reference_record": 70825,
+      "actor_invocation_closed": 232697,
+      "actor_invocation_started": 15746,
+      "actor_process_exited": 10922,
+      "actor_process_started": 11436,
+      "actor_process_stdout_observed": 4816701,
+      "actor_result_artifact_observed": 73688,
+      "actor_transport_binding_admitted": 1099064,
+      "basis_admitted": 161958,
+      "c_call_evidenced": 94213,
+      "c_call_fibre_selected": 64924,
+      "c_call_judged": 62525,
+      "c_call_opened": 77169,
+      "c_call_result_admitted": 991684,
+      "child_foldback_admitted": 28747,
+      "frame_closed": 17261,
+      "frame_opened": 26823,
+      "graph_call_closed": 17294,
+      "graph_call_opened": 26664,
+      "implementation_admitted": 53576,
+      "invocation_admitted": 353442,
+      "public_operation_admitted": 4425,
+      "public_operation_artifact_admitted": 3197021,
+      "run_closed": 1512,
+      "run_segment_opened": 2382,
+      "runtime_activity_probe_observed": 12185660,
+      "terminal_reached": 24328,
+      "traversal_cursor_entered": 31543,
+      "traversal_route_admitted": 539378
+    },
+    "familyCounts": {
+      "abg_admitted_body_reference_record": 15,
+      "actor_invocation_closed": 6,
+      "actor_invocation_started": 6,
+      "actor_process_exited": 6,
+      "actor_process_started": 6,
+      "actor_process_stdout_observed": 2499,
+      "actor_result_artifact_observed": 6,
+      "actor_transport_binding_admitted": 6,
+      "basis_admitted": 4,
+      "c_call_evidenced": 28,
+      "c_call_fibre_selected": 28,
+      "c_call_judged": 28,
+      "c_call_opened": 28,
+      "c_call_result_admitted": 19,
+      "child_foldback_admitted": 9,
+      "frame_closed": 10,
+      "frame_opened": 10,
+      "graph_call_closed": 10,
+      "graph_call_opened": 10,
+      "implementation_admitted": 1,
+      "invocation_admitted": 1,
+      "public_operation_admitted": 1,
+      "public_operation_artifact_admitted": 3,
+      "run_closed": 1,
+      "run_segment_opened": 1,
+      "runtime_activity_probe_observed": 2839,
+      "terminal_reached": 10,
+      "traversal_cursor_entered": 10,
+      "traversal_route_admitted": 28
+    },
+    "label": "new",
+    "physicalBytes": 24293608,
+    "unchangedPrefix": true
+  }
+}

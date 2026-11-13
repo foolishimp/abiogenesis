@@ -1,0 +1,128 @@
+{
+  "kind": "rc5_installed_rc4_setup_selection",
+  "status": "ROOT_SELECTED_SETUP",
+  "selectedUtc": "2026-11-03T08:07:53.503761+00:00",
+  "config": {
+    "runId": "rc5-performance-01",
+    "sourceCommit": "3e2304de7dbad73b85dbf27e94c54766202f1583",
+    "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc5-performance",
+    "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001",
+    "bootstrapRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.4/node_modules/@abiogenesis/typescript-tenant",
+    "builder": {
+      "artifactDigest": "sha256:f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+      "manifestDigest": "sha256:fd3cc983ea7490407ac629a249b9ef42ce77c61cdefc2ad5147d1a02be2c0d6a",
+      "productContentDigest": "sha256:41c0540f2888495e252e83ff0108455c9077fb1b0bfa35276043cac4bdc6c1ae",
+      "sourceCommit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+      "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+      "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.4/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "nodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "toolchains": {
+      "npm": {
+        "executable": "/opt/homebrew/bin/npm"
+      }
+    },
+    "recursionBound": 8,
+    "processTimeoutMs": 10800000,
+    "maxProcessOutputBytes": 536870912,
+    "inheritEnvironment": [
+      "HOME",
+      "PATH",
+      "LANG",
+      "LC_ALL",
+      "TMPDIR",
+      "NODE_OPTIONS",
+      "STDO_STORE"
+    ],
+    "toolchainEnvironment": {
+      "HOME": "/Users/jim",
+      "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "en_US.UTF-8",
+      "TMPDIR": "/private/tmp/abg-rc5",
+      "NODE_OPTIONS": "--max-old-space-size=8192",
+      "STDO_STORE": "/Users/jim/Library/Application Support/STDO"
+    },
+    "provider": {
+      "enabled": false
+    }
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-rc5",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO"
+  },
+  "importAuthority": {
+    "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/WORKSPACE_IMPORT_AUTHORITY.json",
+    "digest": "sha256:5319d8bf266b5478c5c881816fed08b1689b181566310abcc8aa3dccb65811f7"
+  },
+  "installedInventory": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/payload-correspondence.json",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/ROOT_SELECTION.md",
+      "bytes": 4449,
+      "sha256": "6d48a8b02578b578dfbbdb20adaf2cce83bb149fe3b50a19c0055c1a0496e044"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/PREPARATION_AUTHORITY.json",
+      "bytes": 4005,
+      "sha256": "a8749f4eaaefb3e1145beae49400616556fb921ef349a9b6a1ebf99c7458afc3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/setup-rc4.mjs",
+      "bytes": 5954,
+      "sha256": "f79eaa0ddc6d77c8ff54e6dfdc5c36a57602dffbc55a265a37e0c85980edb249"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/WORKSPACE_IMPORT_AUTHORITY.json",
+      "bytes": 550,
+      "sha256": "5319d8bf266b5478c5c881816fed08b1689b181566310abcc8aa3dccb65811f7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/LOCAL_CUT_RECORD.json",
+      "bytes": 2381,
+      "sha256": "1e93fb578c18d6d936c3384b01b462749888f72504a700b27bce4f4a80ae9038"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+      "bytes": 10971457,
+      "sha256": "f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/payload-correspondence.json",
+      "bytes": 1034317,
+      "sha256": "07c1fa9fe4b46da0dc3e62f4de33cd8035ec252c4e78f003e32941ff79466bab"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.4/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3274041,
+      "sha256": "940efb406b0da172f42a76f502ea0153f260da43b1cf417a1d46bbe6835cffd0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/operator-client/public-setup.mjs",
+      "bytes": 26465,
+      "sha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/operator-client/runner.mjs",
+      "bytes": 37818,
+      "sha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/operator-client/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "providerDispatch": false,
+  "rootDecision": "Approved user scope; lawful imported workspace member and maintained SDK setup. Exact bytes inspected; source checkout complete. Separate native admission follows."
+}

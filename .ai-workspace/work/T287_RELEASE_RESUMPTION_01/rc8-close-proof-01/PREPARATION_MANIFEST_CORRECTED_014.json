@@ -1,0 +1,99 @@
+{
+  "status": "PREPARED_EXACT_SIXTH_DEFERRAL_AND_CREDIT_CONTINUATION",
+  "at": "2026-11-07T09:49:23.528018+00:00",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_013.json",
+    "bytes": 4920,
+    "sha256": "c5fa86f08f18f6aca0a39efe3709ef1c251e248fec2cb77876e68c5f11350300"
+  },
+  "stoppedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_013.json",
+    "bytes": 7180,
+    "sha256": "17280683dd905725c48fd3fcd43ed11f9b76441894852e5fd1187f0ebb3f2a92"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-014.mjs",
+      "bytes": 33012,
+      "sha256": "cffaac7f3bf32496a2a1c2ed8dc6c98e9a74338a73026f2363a1e039d152460f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_015.json",
+      "bytes": 295991,
+      "sha256": "2ca29b33ab5ef3c3faf3be918bc2a28550b02c255744334e23e4a50f2d33a681"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_014.patch",
+      "bytes": 3567,
+      "sha256": "e1b60d03f31b37b026728b4ff867597a10a730e64bb99cd555f7a5a3190fc85a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/INPUT_CENSUS_008.json",
+      "bytes": 8169,
+      "sha256": "2e5ed0954831d00c421802d83b15732f2dff94259ef3fe55ec70558e0ca9d712"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 9246,
+      "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_BASIS.json",
+      "bytes": 5584,
+      "sha256": "5e6bb661ed9ccbe0e2c6c3a202e30d8b8b38659cdbfb7bea3ca73c86e6d632b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/FOCUSED_CREDIT_DISPOSITION_001.json",
+      "bytes": 10973,
+      "sha256": "2172f11ff8958044fac0326fd09ecd46d7215bf7e0adaa7f9618c244138813b3"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/package.json",
+      "bytes": 2792,
+      "sha256": "de931013323716d4bcbb452f3be68b7d86fcc7f65a4534f329141616744d6f8d"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/index.js",
+      "bytes": 273,
+      "sha256": "da8c11620eada2c05b7c3466df0abebc42d278bef3b5bb3b135c6c63d85f60d2"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/package.json",
+      "bytes": 1421,
+      "sha256": "b2afa7f4ab048813b9bac37d4a06176037fb11254dc2671c647d2f1a3ff672a2"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/lib/index.js",
+      "bytes": 15879,
+      "sha256": "e77f7128b7f6a0b5f6a4e5e52de4ada0c3fdaad1542c98957185576ae1d99e35"
+    }
+  ],
+  "boundInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-015/BOUND_INVENTORY.json",
+    "bytes": 1967328,
+    "sha256": "c07c3e7e1476ab810f9598886d79fb57f6861d5811204db51b3967dee77049d2"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "delta": "Only driver version filenames and exact sixth deferred filename. Config adds3actual successful013 credits, preserving all124prior credits and their original identities; new allocation names and standing only. All other source/dependency/test/tool/env/oracle/limit rows exactly conserved.",
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 127,
+    "passed": 739,
+    "skipped": 167,
+    "scheduled": 75,
+    "deferredNoCoverage": 6
+  },
+  "sourceAndDependencyRowsEqualPredecessor": true,
+  "testsExecutedDuringPreparation": 0,
+  "outputScratchAdmissionAbsent": true,
+  "rootSelection": "Root conditionally selected one independent remainder after A9 actor capture; exact predicates passed, no additional GO."
+}

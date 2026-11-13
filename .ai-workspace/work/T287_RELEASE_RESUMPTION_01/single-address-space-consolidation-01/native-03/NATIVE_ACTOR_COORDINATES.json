@@ -1,0 +1,21 @@
+{
+  "recordedUtc": "2026-11-03T18:17:22.544098+00:00",
+  "eventRef": "event://abiogenesis/9c7a6ee2ae5fdf7b11bf173b7b65ae7ba771a3c5ad417ff07b9c165cac128333",
+  "eventOrdinal": 20205,
+  "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+  "runId": "run://abiogenesis/e8640dc9a7edee04810c57d9015d9ae46a5fbe8868860cd5e302814a30f2019a",
+  "physicalRow": {
+    "offset": 196845377,
+    "rowBytes": 810360,
+    "rowSha256": "284e3f42ec15258b56912b57e1e34c9bf650ce5f14038d8fbbb0c8a7ade940b0"
+  },
+  "transportBindingRef": "transport-binding://abiogenesis/d413dfd77a70d0b0133e7b6ce4aae0a8d943ac0827100cc9036b149ab1d8f0c6",
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-a95e5ce555e70871-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-a95e5ce555e70871-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-a95e5ce555e70871-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-a95e5ce555e70871-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-a95e5ce555e70871-transport.json"
+  },
+  "standing": "Physical envelope path observation; not assembly/body authentication or acceptance"
+}

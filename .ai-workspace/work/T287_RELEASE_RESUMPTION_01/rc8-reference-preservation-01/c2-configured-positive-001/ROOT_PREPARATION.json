@@ -1,0 +1,44 @@
+{
+  "status": "ROOT_SELECTED_CONFIGURED_C2_POSITIVE_PREPARATION",
+  "at": "2026-11-07T15:04:43.265712+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "sourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 7205,
+    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023/REVIEW.json",
+    "bytes": 20463,
+    "sha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907"
+  },
+  "rootSelection": "Root selects preparation of the existing one-case configured C2 positive route after reading closed review0bb7370d. Concrete Root execution admission remains required.",
+  "namePattern": "^T-287 C2 compact acknowledgment preserves installed large-log observation and replay$",
+  "population": {
+    "expectedPasses": 1,
+    "expectedReportedSkips": 0,
+    "excludedCases": 11,
+    "wholeFile": false,
+    "sixComponentsRepeated": false
+  },
+  "ownerBounds": {
+    "commandMs": 900000,
+    "resourceCeilingMs": 1800000,
+    "existingInnerCaseMs": 600000,
+    "existingActorInactivityMs": 60000,
+    "existingActorAbsoluteMs": 90000,
+    "existingReplayMs": 30000,
+    "existingReplayGraceMs": 1000
+  },
+  "ownerRelation": "Existing accepted RC8 bootstrap host supplies exact a178 archive owners. frozenArtifact skips packing/extraction; unchanged setup still verifies, resolves lock and installs its fresh consumer at execution. This is not final Library RC8. Configured case retains phase/Run/observation/replay/physical-close/process-absence evidence. Controlled actor, no live provider.",
+  "effectGrantLiteralStanding": "PROOF_CONFIG exact existing effectGrant literal is prepared inert data; no execution until separate ROOT_ADMISSION.",
+  "allowedEffectsAfterAdmission": "New derived worksite/scratch/evidence and existing selected test owners only. No source/build/generation/repack/general cleanup/global effects. One heavy proof, no automatic retry.",
+  "limits": "Positive case cannot close five distinct installed negative variants; ninth residual selected by Root separately, registration pending. No whole-file/live-provider claim.",
+  "priorStop": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json",
+    "bytes": 13134,
+    "sha256": "9191ae6376601e9e91562936363e070d0a2bf0c00c57e60565c177a9b01dd207"
+  }
+}

@@ -1,0 +1,7 @@
+PREPARED_NOT_DISPATCHED. Exact frozen A559b05be, genuine A close and original resume are bound by reference; no extra72MB copy. Closed affected proof is conjoined: initial63 consumer passes,32 harness passes and2/2 selected cold cases; original failures and12 uncovered historical/F11 cases remain explicit.
+
+449 baseline rows retain397 admitted A source rows separately from51 readonly resources and the fresh maintained harness. Exactly86 existing Product/HOW/test write paths, no new Product files. The20 source-local controls remain unstaged. Complete R1-task/R2 before broad final feedback; new complete-body, actual-current-input and original-byte predicates must execute. Declared-testing historical companion route is source pattern only.
+
+Short tmpo7b and /private/tmp/abg-o7b paths and two distinct empty npm configs are bound consistently. D4 evidence-root variable applies only to legacy. Limits remain320/xhigh/90min/30min/3h/8GiB, with4 stages/12 lanes; prefix/legacy reruns only actual causal need.
+
+Root steps: final exact admission, stage declared inputs/scratch/temps, run existing owner preflight/capacity, dispatch one native worker. Root owns subsequent freeze/readback/review/installed proof. No Product/C staging/runtime execution or independent acceptance occurred. Preparation wall time, including the affected-proof wait, is separately recorded in PREPARATION_TIMING.json. Fixed-route packet stays parked.

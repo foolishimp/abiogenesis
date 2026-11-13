@@ -1,0 +1,31 @@
+{
+  "id": "RC11-NATIVE-FIXTURE-04-EXECUTION",
+  "issuer": "/root Executive conditional grant, recorded after all mechanical predicates passed",
+  "at": "2026-11-09T07:53:43.058258+00:00",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/READY4.json",
+    "bytes": 6238,
+    "sha256": "8b4129667ddb4ea1e2b52a693e17e873c61a80fc769ff1aab9f2bd002e2d4963"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/CONTROLS.json",
+    "bytes": 16033,
+    "sha256": "ed78c1dcd579120aec2b87cfdfd4896c2be1f829b9d2dc6b6836d8866bfa32a9"
+  },
+  "construction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/CONSTRUCTION_PREFLIGHT.json",
+    "bytes": 1145,
+    "sha256": "0eb77368b7de760bf9f4f4cb2a7c6dedee75a39a5c137b6a80613bacaa71ab5f"
+  },
+  "command": "NODE_OPTIONS='' NODE_PATH='' RC11_EVIDENCE_ADMISSION=RC11-EVIDENCE-GENERATION-04-ROOT-ADMITTED /opt/homebrew/Cellar/node/24.7.0/bin/node run.mjs native-assessment",
+  "conditions": {
+    "fourRuntimeControlsByteEqual03": true,
+    "exactTwoViewCorrections": true,
+    "sourceAnd5121InstalledFilesConserved": true,
+    "staticSelfResolutionRC10": true,
+    "syntaxAndPureConstructionPassed": true,
+    "no04RawOutput": true,
+    "allPreviousSubjectsAndSelected02Conserved": true
+  },
+  "grant": "Exactly one native-assessment04 under original bounds/effect territory; failure stops with no fifth attempt. No additional roundtrip required byRoot."
+}

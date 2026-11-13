@@ -1,0 +1,19 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/private/tmp/abg-r8c-021/w/build_tenants/abiogenesis/typescript/scripts/refresh-candidate-basis.mjs"
+  ],
+  "cwd": "/private/tmp/abg-r8c-021/w/build_tenants/abiogenesis/typescript",
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021",
+  "scratchRoot": "/private/tmp/abg-r8c-021",
+  "resourceRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/resources/setup-refresh-candidate-basis.json",
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  }
+}

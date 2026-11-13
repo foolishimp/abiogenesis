@@ -1,0 +1,11 @@
+{
+  "status": "ROOT_SELECTED_ONE_SHOT_CONTINUE_B",
+  "operator": "Root",
+  "selectedAt": "2026-11-03T00:02:28.492216+00:00",
+  "bindingSha256": "be5a291b2390e1a5fed5c0a2ddcb008f097ea0fcdddaf19d21a1810c5335d92b",
+  "allowedStages": [
+    "continue-b"
+  ],
+  "callSha256": "f2fec4bd654760975b33b8ff8abd9d3e421fedb69d3ca692ea1fdbcbdaef03cd",
+  "decision": "Root verified genuine owner recovery of unchanged13831280B/f69e1 prefix and owner-reconstructed undispatched Testing cursor501202f8 in same B738cb4e3, original B admission049b6241/root basisb4474937, exact pending continuation60b03dbc/input7337dc1b/b2f1b169. Select exactly one fresh-process continue-b on reviewed call/public invocation8be49562. No retry or predecessor Construction rerun; later read-b/proof selection requires actual return."
+}

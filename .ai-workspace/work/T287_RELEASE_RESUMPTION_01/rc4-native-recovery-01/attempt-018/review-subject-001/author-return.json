@@ -1,0 +1,73 @@
+{
+  "kind": "native_writer_return",
+  "attempt": "018",
+  "outcome": "support://abiogenesis/rc4/hc2-canonical-owner-population",
+  "contribution": "existing-candidate acquisition; no code change",
+  "selectionRef": "result://abiogenesis/6304cc7fd517e682f7c179427e18d6d674e0fd4b6b275943ad62443b94aebb35",
+  "sourceBasis": {
+    "commit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+    "tree": "d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6",
+    "headAtStartAndReturn": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+    "trackedClean": true
+  },
+  "changeClass": "acquisition_verification (no realization change)",
+  "workResult": "candidate_ready",
+  "workResultMeaning": "Existing candidate adopted unchanged with file-only readiness. Not accept. Twelve C2 commands and native UAT have not run.",
+  "acceptanceClaimed": false,
+  "basisAndSkillUse": {
+    "productBasisProcedure": ".claude/references/PRODUCT_BASIS.md applied: one definition stdo_abiogenesis.json (urn:stdo:product-definition:abiogenesis), empty composition",
+    "verification": "stdo status --definition stdo_abiogenesis.json --verify: installed true, valid true, failures [], basis stdo://releases/v3.0.2/, manifest_sha256 f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477 (equals definition and on-disk manifest.json sha256)",
+    "resolvedMembers": {
+      "standards/frames/bootstrap.md": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502 (hash-verified; not read in full)",
+      "standards/ACTIVATION.md": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d (hash-verified; not read in full)",
+      "standards/EXECUTIVE_BASELINE.md": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a (equals supplied role-context memberDigest; sections 9 and 11 consumed from the supplied spans)"
+    },
+    "skill": ".claude/skills/stdo-work/SKILL.md applied for basis selection, acquisition and work-basis binding. The work basis is the supplied admitted selection plus NATIVE_GRANT.DRAFT.json; no ticket was drafted or created",
+    "entry": "direct Writer entry under ABI5_PROJECT_REFERENCE_FRAME_BASIS; one context; no Executive, Worker or Reviewer activation",
+    "how": "T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION (HC1/HC2 sections read in full)",
+    "fullReads": ["AGENTS.md", "ABI5_PROJECT_REFERENCE_FRAME_BASIS.md", "T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md", "REQ-R-ABG3-CONTINUATION.md", "PRODUCT_BASIS.md", "stdo-work SKILL.md", "stdo_abiogenesis.json", "all six rc4-operator-inputs/native-recovery-18 drafts and readiness.py"],
+    "partialReads": ["PRODUCT.md (headings; SDK And CLI; Definition, Tool, And Runtime Authority)", "REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md (criteria 001-018 start)", "REQ-P-POLICY.md (headings)", "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md (headings)", "T287_NATIVE_WORKSPACE_WORK_DESIGN.md (headings)"]
+  },
+  "adoption": {
+    "grantPathCorrespondence": "35 of 35 NATIVE_GRANT productWritePaths match the attempt-017 PARTIAL_CHECKPOINT blob, sha256 and bytes at 1100bd8; the grant path set equals the checkpoint set",
+    "hc2Exports": "constructInstalledStartCall/PendingCall/RunReadCall at code/src/public/installed_public_definition_call.ts:525,582,646, exported at code/src/public/index.ts:55-58; constructAdmissionCapabilityData at code/src/product/admission_authority.ts:232",
+    "callerConsumption": "the seven 017 MJS files reference the canonical factories (uat/public-setup, uat/runner, uat/harness.test, qualification/dispatch, support/declared-testing-capability, ST1 test, recursive test)",
+    "legacyPatchRemoved": "no stdoEnvironmentResources or pilotResources in support/declared-testing-capability.mjs",
+    "requiredHarnessCases": "all four rubric titles are present verbatim at test_env/uat/harness.test.mjs:547,652,716,728; not executed"
+  },
+  "priorEvidence": {
+    "hashVerified": "all 7 REVIEWED_ROUTES files match listed bytes and sha256",
+    "read": ["attempt-017 PARTIAL_CHECKPOINT.json", "review-subject-001/author-return.json", "review-subject-001/native-output.txt", "execution/outcome-summary.json"],
+    "hashOnly": ["review-subject-001/SUBJECT.json", "execution/fresh-reads.json", "attempt-016-r1 REVIEW_RECEIPT.json"],
+    "standing": "017 Run disposition blocked, terminal null; 017 tsc noEmit, node --check and mock probes are bounded author evidence only, not current installed proof"
+  },
+  "readiness": {
+    "command": "python3 -I -B rc4-operator-inputs/native-recovery-18/readiness.py rc4-operator-inputs/native-recovery-18/readiness-inputs.json",
+    "status": "FILE_ONLY_READY",
+    "sourceHashesMatched": 12,
+    "issues": [],
+    "record": "rc4-scratch/native-recovery-18/readiness.json"
+  },
+  "changedPaths": [
+    "rc4-scratch/native-recovery-18/return.json",
+    "rc4-scratch/native-recovery-18/readiness.json",
+    "rc4-scratch/native-recovery-18/notes.md"
+  ],
+  "nonChanges": [
+    "No Product, code, test, fixture, generated, build, dependency or mirror writes",
+    "No author build, tsc, test suite, architecture audit or source census",
+    "No commit, stash or Git state change"
+  ],
+  "disclosures": [
+    "Read-only access outside the listed worksite read scope: the seven prior-evidence files under /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/, as REVIEWED_ROUTES_AND_PRIOR_RESULTS.md directs, and the installed STDO v3.0.2 release under ~/Library/Application Support/STDO/releases/v3.0.2 through stdo status/resolve plus direct reads of manifest.json and member hashes",
+    "Any cache or log writes made by the stdo CLI during status/resolve are unknown; the CLI is documented as read-only",
+    "Python ran with -I -B, so no bytecode was written; readiness stdout was redirected only into readiness.json"
+  ],
+  "residuals": [
+    "C2: all twelve current commands and predicates (packed/union/all9/schema, canonical starts/continuations/six reads/bootstrap, four anchored harness cases) remain unexecuted and owned by Testing",
+    "UAT against the five unchanged HC2 criteria is pending a new admitted NativeResult and current C2",
+    "Carried from 017: the child GraphCall read assumes a closed child GraphCall reconstructs under env.catalog/env.catalogView (unexecuted); wrong-run-digest was added alongside wrong-run; startCall ignores the cache that exact-candidate-qualification.mjs passes",
+    "Legacy RC7 STDO pilot deferred (T287-HC2-LEGACY-STDO-PILOT-01); fresh005, S7, empirical comparison, whole qualification and release are excluded",
+    "The 35-path repair allowance is unused; a bounded repair is allowed only after genuine later C2 counterevidence"
+  ]
+}

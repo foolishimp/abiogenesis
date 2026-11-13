@@ -1,0 +1,207 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "fixedFifteenFamilies": true,
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "outcome": "whole affected caller migration, original R1-R7/C1-C5",
+    "sourceDefinition": "STDO3.0.4",
+    "builderRuntime": "immutable installed RC5/STDO3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "emptyCompanions": true,
+    "rootOwnsConjunctionAcceptance": true
+  },
+  "recordedUtc": "2026-11-04T05:13:13.129184+00:00",
+  "kind": "independent_native07_proof_performance_how_review",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/SUBJECT.json",
+    "sha256": "46bb8546b515e044011e4f3c129b1aba2947ddfc13396e870392532ea4b344ae",
+    "resultRef": "result://abiogenesis/0138c3581877dcadcdaa5dd1426ff1d55f29e86f17cdb1685168dcd3a2da0a8b",
+    "eventOrdinal": 54503,
+    "eventTime": "2026-11-04T04:56:31.911Z",
+    "afterObservationDigest": "sha256:ac6bb17a83e1010d32993394c00f755a05ebb356acadb8c7c54b179ccb37bd59",
+    "sourceFilesVerified": 122,
+    "authorTapsVerified": 24,
+    "productCodeChanged": false
+  },
+  "projection": {
+    "sha256": "bf2ebb7b3baa5a5fa4de2d58fee4eb9bd9e7f84fbea36741fed688a74dbb3c21",
+    "files": 5,
+    "diffBytes": 74824,
+    "diffSha256": "174895efa6e1227ab678f3302283bff639239b49b77934f6df029f9b02809c9f",
+    "beforeAfterAndDiffHashesVerified": true
+  },
+  "reviewScope": [
+    "calculus budget query/cut/extension proof",
+    "SAS allocation unit/bound proof",
+    "common HOW correspondence"
+  ],
+  "findings": [],
+  "verdict": "no material finding in exact reviewed delta; bounded selected source/proof sufficiency satisfied; no whole-outcome or execution acceptance",
+  "closureDispositions": {
+    "N6-R1-PROOF-01": {
+      "status": "source-repaired for selected finite canonical RAW query/cut/extension contract",
+      "sourceRefs": [
+        "calculus-fold:938-977,978-1011",
+        "event_prefix:263-278,524-544,737-745",
+        "runtime_derivation:38-79",
+        "calculus/liveness:919-954"
+      ],
+      "evidence": "10 queries passed at every successive cut, one-row and chained canonical extensions; full expected values, independent fresh source at each cut and base preservation",
+      "authorObservation": {
+        "streamingCuts": 176,
+        "oneRowExtensions": 166,
+        "chainedExtensionCalls": 92
+      },
+      "prefixStanding": "validated RAW prefix; owned=false, validationReceipt=false",
+      "notProved": "ten variants on owned-base runtime_validation_event_prefix receipts; no synthetic admission/physical ownership inferred",
+      "compositionalBasis": "Budget predicate common across canonical indexed selectors; retained SAS owned/expanded values/currentness/cold/rollback proof353-481 and actual owned candidate reconstruction145-253 remain separate. No stronger all-brand promise added."
+    },
+    "N6-R1-PROOF-02": {
+      "status": "source-repaired omitted layered vector-element category for the stated source-derived narrower fixture",
+      "sourceRefs": [
+        "SAS:199-253",
+        "support:55-72,113-143",
+        "calculus/liveness:374-395,413-454,479-499,572-577",
+        "runtime_liveness:187-195"
+      ],
+      "counterProvenance": "per-interval V8 precise call coverage, qualified module functions and unique compiled filter-callback anchor; unchanged helper hash",
+      "sameInputConservation": "candidate decisions/refusals, full base/sibling equality and fresh reconstruction retained",
+      "measuredAuthorCounters": {
+        "F": 4,
+        "V": 14,
+        "Q": 607,
+        "forkIndexAddCalls": 4,
+        "freshIndexAddCalls": 699,
+        "freshInheritedVisits": 0
+      },
+      "referenceWriteBounds": {
+        "filterResult": 14,
+        "mergeInherited": 14,
+        "mergeOwn": 14,
+        "layeredTotal": 42,
+        "candidateMemberships": 8,
+        "combined": 50
+      },
+      "arrayExpressionBounds": {
+        "oneBaseCalls": 303,
+        "layeredCreations": 620,
+        "ownBuckets": 8
+      },
+      "units": "source bounds/reference writes vs member pushes; array expressions separate; primitive14 terms are bounds, not measured allocations",
+      "assumptions": [
+        "one flat primed owned admitted base",
+        "one probe row per candidate fork",
+        "one fork-own member per queried key",
+        "nonempty merges bounded by retained inherited rows",
+        "complete exact counter/source interval"
+      ],
+      "excluded": [
+        "first acquisition/base indexing",
+        "all caller arrays/folds/maps/sets",
+        "capacity growth/engine heap behavior",
+        "allocated bytes",
+        "CPU",
+        "whole allocation",
+        "complete workflow speedup"
+      ]
+    },
+    "R1": "bounded budget and candidate-accounting proof retained; original whole caller/currentness outcome remains separate",
+    "C2": "meaningful same-input redundant reference-write reduction supported for stated warm-base fixture; actual C2 pending; no whole speed claim",
+    "C4": "HOW643 matches source bounds/limits; no complete caller/rubric closure inferred"
+  },
+  "growthObservation": {
+    "domain": "warm indexed RAW query, indexing/selection setup outside measurement",
+    "baseHistory": 15,
+    "relatedHistory": 31,
+    "unrelatedHistory": 23,
+    "baseBasis": 15,
+    "relatedBasis": 31,
+    "unrelatedBasis": 15,
+    "bodyLookupsEach": 2,
+    "envelopeSelectorCallsEach": 2,
+    "fullFactsEqual": true,
+    "notClaimed": "zero cold indexing or physical I/O"
+  },
+  "sourcePins": {
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs": {
+      "bytes": 80836,
+      "sha256": "c62071e4afc2f938ba9d84f67071686c8c2286ec1efcbd1d61a16ead7d7051f2"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs": {
+      "bytes": 90554,
+      "sha256": "deb87b9693556f5d6f778ca3bb5dd929c5080f47577626361fbeb7530935a28c"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs": {
+      "bytes": 11376,
+      "sha256": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4"
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": {
+      "bytes": 143598,
+      "sha256": "3148d08b537f53cff92777660f5fe92dc1df8ef001206e07a581546ed13ce8e1"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts": {
+      "bytes": 61840,
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts": {
+      "bytes": 6467,
+      "sha256": "59db62729425cb8c7ed871348cb44e5e9c8cbe283b8e6f35c7bb35f3187e1d31"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts": {
+      "bytes": 71127,
+      "sha256": "5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts": {
+      "bytes": 29515,
+      "sha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97"
+    }
+  },
+  "handoffPins": {
+    "return.json": "0a50973bdfbbc167764f2d3da8b7b4e69058b68a356545342642a83d6d822732",
+    "readiness.json": "d5890a8f290eea37aa0b9ebca3186e00d3b39017f778b4010ec85eac166ddb19",
+    "progress.json": "3a3254295c91b88106c4a240055a744cc4a898703bcde2d94c200eae90f7dbc6"
+  },
+  "authorFeedback": {
+    "fold-1.tap": {
+      "bytes": 2432,
+      "sha256": "8fae3ae04338352209535de16fd6f6931bb46c374fe55dbb4245a0e6ba78dd7d"
+    },
+    "fold-full-1.tap": {
+      "bytes": 11479,
+      "sha256": "3b321cafce3578e15cb225e1beb246a6a67246d04606cf1a21fea33c5d865c4f"
+    },
+    "sas-fork-1.tap": {
+      "bytes": 1895,
+      "sha256": "2d71de849bf53152f28870a7d2e3473140e71a7155b921d4c780cbd2f9dab0ef"
+    },
+    "sas-fork-2.tap": {
+      "bytes": 3000,
+      "sha256": "d4ff1fe613efcac87302de5bd5470850f59c34d2c8fa6ed7e988c08b5b5b59b7"
+    },
+    "sas-full-1.tap": {
+      "bytes": 58027,
+      "sha256": "3f4cb5cbff238c289f554e7bb5535a3285f3ac23a356e9622a2f61facb7d478a"
+    }
+  },
+  "authorLaneStanding": "captured author feedback only; fold1/0, fold-full19/0, focusedSAS1/0, fullSAS9/0; no current C2/UAT credit",
+  "boundedReentry": {
+    "requiredNow": false,
+    "triggers": [
+      "contrary actual C2/result",
+      "changed base/candidate/source assumptions",
+      "changed/incomplete counter anchor or interval",
+      "promoting conditional source bounds to bytes/CPU/whole-workflow claims"
+    ],
+    "method": "existing canonical owners and present focused proof, no redesign/framework/full unaffected qualification"
+  },
+  "limits": [
+    "No Product source/code review restarted; all unchanged code judgments retained",
+    "Pair/retry/FH scope left to separate reviewer",
+    "No tests/builds/providers/native contact/thinking read/moving Product reads",
+    "Only permitted report pair written",
+    "Return/readiness partial/false; actual C2/UAT/fresh closure and Root conjunction remain separate",
+    "No aggregate author scratch artifact outside frozen custody credited",
+    "Same-family/non-authorship/prior-advisory limits retained"
+  ]
+}

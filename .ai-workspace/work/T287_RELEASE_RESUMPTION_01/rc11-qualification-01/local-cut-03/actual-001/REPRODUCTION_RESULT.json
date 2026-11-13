@@ -1,0 +1,34 @@
+{
+  "status": "BYTE_EQUAL",
+  "sourceCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "sourceTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "root": "/private/tmp/abg-rc11-reproduction-20261109-03/reproduction",
+  "sourceArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/actual-001/reproduction-source.tar",
+    "bytes": 42987520,
+    "sha256": "f66a2725d81de2ad8e13386506c45650195ba16aeac3176a688b37931cd77247"
+  },
+  "expectedArchive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-reproduction-20261109-03/reproduction/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "manifest": {
+    "path": "/private/tmp/abg-rc11-reproduction-20261109-03/reproduction/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266309,
+    "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+  },
+  "dependencyMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/DEPENDENCY_METADATA.json",
+    "bytes": 5242,
+    "sha256": "76e95e5611c5c96c9069ffe231865f35e0abcb2d73e38fae4015a10911922ad1"
+  },
+  "sourceWins": true,
+  "actualSeeds": [],
+  "metadataDependent": true
+}

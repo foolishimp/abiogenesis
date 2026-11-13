@@ -1,0 +1,331 @@
+{
+  "kind": "independent_fixture_route_triage",
+  "recordedUtc": "2026-11-03T23:20:06.355Z",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/SUBJECT.json",
+    "sha256": "1e710c87d3f482e8a7b8bbe5967a9311153b6c5a0d24a77c984c665c5857be88",
+    "filesVerified": 19
+  },
+  "frame": {
+    "product": "ABIogenesis5",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "STDO3.0.4",
+    "originalOutcome": "R1-R7/C1-C5 remains selected",
+    "standing": "Read-only operator/fixture route triage. No native Result, C2, source acceptance, qualification or release credit."
+  },
+  "verdict": "Existing current-contract producer/read-owner routes suffice for bounded reentry under unchanged law; two stale fixture premises do not establish native05 regressions. Selected proof remains incomplete.",
+  "findings": [
+    {
+      "id": "N5-FIXTURE-01",
+      "severity": "S2",
+      "category": "operator stale fixture / open selected proof",
+      "origin": "The selected S02 rc.1 close authority is copied with its original eventContractDigest; recomputing a new path/byte authority digest does not make that event contract current.",
+      "routes": [
+        "test_env/tests/t287-retry-run-prefix.test.mjs:18-37",
+        "code/src/abg/event_store.ts:4061-4077 (exact f49)"
+      ],
+      "observed": "All three retry tests fail at fixture:33 on both current author lane and f49 baseline, before retry assertions. Exact contract_mismatch diagnosis is author-reported and agrees with the frozen owner branch; triage did not execute it.",
+      "effect": "No evidence for the later route/attempt, selected-Run, currentness, duplicate, nested or failed-scope assertions.",
+      "remedy": "Use existing F09 current installed producer and genuine L-issued close/reopen authority; do not alter legacy history or digest/profile stamps."
+    },
+    {
+      "id": "N5-FIXTURE-02",
+      "severity": "S2",
+      "category": "stale test premise / open install-body proof",
+      "origin": "T289 imports a legacy first-three-row layout and embedded duplicate locks, then aborts at a warm identity equality before its cold reader assertions.",
+      "routes": [
+        "test_env/tests/t289-install-event-bodies.test.mjs:129-155",
+        "test_env/tests/t289-install-event-bodies.test.mjs:251-255",
+        "test_env/tests/t289-install-event-bodies.test.mjs:286-305",
+        "test_env/support/t287-exact-prefix-projection-reuse.mjs:18-25"
+      ],
+      "observed": "Frozen f49 and current author TAPs reproduce strictEqual failure at254 (equal-looking fact values, different identity). The cold event_envelope_invalid statement comes from the frozen author return; it is not an executed assertion later in this failed test, nor separately reproduced by this triage.",
+      "effect": "Later cold/reference/mutation conjunction is unearned in that case. Baseline reproduction prevents attributing this failure trigger to native05; it does not validate arbitrary current source.",
+      "remedy": "Reuse actual current setupInstalledRootCatalog candidates, resolved lock, binding and admitted prefixes. Preserve warm identity in the same authentic owned lineage and cold semantic/refusal equality. Do not replace strictEqual with value equality just to green this case, relabel unsupported legacy bytes valid, or merely swap the environment history path."
+    },
+    {
+      "id": "N5-FIXTURE-03",
+      "severity": "S2",
+      "category": "missing selected consumer inputs",
+      "origin": "Already implemented F09 consumer wrappers and their two helper modules are not selected C2 inputs.",
+      "remedy": "Select the finite four-file consumer closure listed below together with already selected worker/current support and final exact hashes. Execute focused changed-claim lanes, not historical whole qualification."
+    }
+  ],
+  "currentRetryRoute": [
+    {
+      "path": "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+      "lines": "1-12",
+      "relation": "setupInstalledCliHarness -> runAxF09"
+    },
+    {
+      "path": "test_env/tests/t287-r4-aba-retry.test.mjs",
+      "lines": "1-12",
+      "relation": "same harness -> runAxF09Aba"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f09-product.mjs",
+      "lines": "549-574",
+      "relation": "prepareDeveloperMiniProduct, existing authored current c_retry fixture; default budget3, option4; actual compiled fixture pack"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f09.mjs",
+      "lines": "229-276",
+      "relation": "Install actual fixture; distinct producer and consumer child processes; propagate genuine handoff"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f09-worker.mjs",
+      "lines": "1005-1095",
+      "relation": "same installed owners through setupInstalledRootCatalog -> setupInstalledRootExecutionBasis; actual basis/graph/program/validation and leaf port"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f09-worker.mjs",
+      "lines": "2000-2037;2250-2275;2413-2435",
+      "relation": "Event Store-issued prefix and reopen authority -> fresh reopen -> exact replay/projection -> actual projected retry resume with adjacent route/attempt admissions"
+    }
+  ],
+  "coverage": {
+    "alreadyImplementedF09": [
+      "default budget3: two genuine failures, retry paths [1],[2], third attempt after actual fresh-process projection/reopen/resume",
+      "A-B-A budget4: genuine attempts1..4, last-progress comparison and fourth-attempt success",
+      "forged graph validation/malformed time refusal, stale prefix, route and attempt rollback, mismatched projected carrier/prefix/projection controls, no-append bytes/digest checks"
+    ],
+    "notEquivalentOrUnproved": [
+      "F09 successive depth1 attempts do not establish old S02 nested retry depths1,2 and its three real stopped neighbor Runs",
+      "several genuine sequential attempts do not prove ambiguous many matching attempt/progress rows in budget exact-match selection",
+      "null cCallRef frame/actor budget absence requires explicit owner-level discriminator and authenticity/currentness check",
+      "foreign/stale authority and failed scope original S02 assertions remain selected unless supplied by an explicitly equivalent focused current-producer case",
+      "actual C2 remains absent; later author replay lane still running at intake"
+    ]
+  },
+  "budgetProof": {
+    "owner": "code/src/abg/calculus/liveness.ts:916-954 (frozen interim source)",
+    "law": "null CCall reads authenticated extent and returns absent; non-null uses exact scope/attempt/task/retryPath and checked records; absent/many/invalid attempt gives absent, absent/many/invalid progress leaves eligibility unset",
+    "existingFixture": "test_env/tests/t287-calculus-fold.test.mjs:697-800 budgetLivenessFixture;803-857 cold/warm/streaming/fork and bad-digest assertions",
+    "minimalAddition": "Extend existing bounded owner fixture for null and missing-call scope, valid non-null, distinct irrelevant attempts/scopes and many matching attempts/progress. Assert exact values, persisted projection/refusal equivalence and mutation/currentness guards across cold/warm/forks; distinguish synthetic lower-owner probes from installed history."
+  },
+  "installProofRoute": {
+    "producer": "test_env/support/root-installed-environment.mjs:356-435;591-625: actual empty sink, all candidates admitted against one resolved lock, workspace binding; returns installCandidates, admittedInstallResults, lock, workspaceAuthority, bindingCandidate, store and durablePrefix",
+    "fixture": "Existing prepareAxF09RetryProduct plus prepareAdditionalProducts option already supplies the second current installed Product; no new runtime or authority.",
+    "reader": "Use artifact/event-prefix owners from the same installedRoot as the store; projectOwnedPrefixArtifactTruth / projectOwnedRuntimeEventPrefixAtDurablePrefix for owned warm lineage. Copied handles stay unauthentic. Fresh child reads actual Event Store-produced physical bytes using the shipped decoder and exact raw-coordinate authentication; compares decoded artifact/lock/environment truth.",
+    "guards": [
+      "second physical lock is a reference to earlier inline lock, not another embedded lock",
+      "all pre-append malformed/digest/source/forward/reference-chain/lock/currentness controls retained",
+      "prior-prefix immutability, duplicate/refusal eventlessness and transaction rollback retained",
+      "cold complete value equality, actual separate process, exact byte/digest and inode/path/foreign/prefix refusals retained",
+      "history with invalid or unsupported envelope/profile retains refusal; no stamp or digest rewriting"
+    ],
+    "limits": "A new fixture path alone cannot satisfy existing test assumptions: first-three plain JSON rows, duplicate embedded locks, old historical/mixed valid classifications and same-owner lineage all need explicit reconciliation in the test owner."
+  },
+  "newSelectedConsumerPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs"
+  ],
+  "alreadySelected": [
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/developer-mini-product.mjs"
+  ],
+  "transitiveInputsToRetain": [
+    "build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/**",
+    "build_tenants/abiogenesis/typescript/language-smoke fixture files used by the existing support",
+    "build_tenants/abiogenesis/typescript/candidate package.json/product manifest/build outputs and staged node dependencies"
+  ],
+  "custody": {
+    "subjectFiles": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+        "bytes": 33808,
+        "sha256": "aa1ab8ed6a5cd947f35ffab910e4a840db70592ea4bbeadaf709d5cdcefb9778"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+        "bytes": 9421,
+        "sha256": "90540971276c92787e9a10877c2ccfe2798b58d1e438abf9b96167a7d4ecd7c8"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "bytes": 71077,
+        "sha256": "a0536113e290c074ea8a8066ea734fd798153808ec72b7faf6d1d8228e90a1b2"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "bytes": 17058,
+        "sha256": "390667fdfb25dfbb198df335db6518449410d954f60b2914f7c9c9283d8efc49"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+        "bytes": 467,
+        "sha256": "14102c36ffa9761598fbd12c7774dff7e06edea05477a25cef15309a3d94d2ba"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+        "bytes": 483,
+        "sha256": "ea517677bea5b6fe4c246f8f95de2e69e7c766dad6c0166ab5371b2783edfbd7"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+        "bytes": 42234,
+        "sha256": "48e43ae17b1b0cd7cf36d47bc71e01729d77cf2962225ceb222d9fba483a8b9d"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+        "bytes": 25551,
+        "sha256": "bf86720cb046017715ad345b1cf7e392af914d903e0c04b2c867edf37070f226"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-05/return.json",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/return.json",
+        "bytes": 56732,
+        "sha256": "04c367a78fc09aac80732b5e2421ee5bd3c3beef0f0f779ea3ba3fe2372c385b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-05/readiness.json",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/readiness.json",
+        "bytes": 1556,
+        "sha256": "4fc771ba1454dd249a0c15f2c9377df3ab0bbafe8082157a4a44756da8b5cf39"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/adapter-consumers-1.tap",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/adapter-consumers-1.tap",
+        "bytes": 5946936,
+        "sha256": "3eba1afc0682b2abf0da01b1232bdfb81fb381fb4a5d78de932ef98b382db203"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/f49-t289-1.tap",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f49-t289-1.tap",
+        "bytes": 5943053,
+        "sha256": "021f30b0c45d67076b3dd17a6ab4437ff353378d0dbe130776e4033341f1489c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/retry-budget-1.tap",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/retry-budget-1.tap",
+        "bytes": 6579,
+        "sha256": "f473afc7b744805e834aa156c77d7f60b670f56f9e1336c7ab0efb51ec144ed2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/f49-retry-2.tap",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f49-retry-2.tap",
+        "bytes": 4535,
+        "sha256": "41ce1c924a8f6c6acc2966282df7974d5ab9550539ea349dcbdd63c4b5bb64bb"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/f09-consumers-3.tap",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f09-consumers-3.tap",
+        "bytes": 316,
+        "sha256": "db55c18baacbb2b1d7e1e369fd858a3d7f0042d8d7960e5662786bdfc3646a18"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/f09-consumers-4.tap",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f09-consumers-4.tap",
+        "bytes": 338,
+        "sha256": "4f82cc38c65169da1550d8e430625b40aa73973e15dc62ca0980fd8f699dab4c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/NEXT_PROOF_EXTERNAL_INPUTS.json",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/references/NEXT_PROOF_EXTERNAL_INPUTS.json",
+        "bytes": 17613,
+        "sha256": "162f0a6fe698fe65019c0b40bfaeac4556d72503a825649b92871d81038a1864"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/NEXT_ADDITIONAL_PROOF_INPUTS.json",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/references/NEXT_ADDITIONAL_PROOF_INPUTS.json",
+        "bytes": 1975,
+        "sha256": "6dd8cf03bd5e2d16f1740334080c1cdb7542d6d382f9d95724dae2857a0c060b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/TASK.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/references/TASK.md",
+        "bytes": 6783,
+        "sha256": "82bd80dc31a279bbd28dc6a4d3bbaf55065c6b565b77c32f4758ae709be551c8"
+      }
+    ],
+    "supportSources": {
+      "kind": "current_fixture_support_identity",
+      "recordedUtc": "2026-11-03T23:16:51.749940+00:00",
+      "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "files": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-support-current-001/root-cli-environment.mjs",
+          "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+          "bytes": 9963,
+          "equalImmutableF49": true,
+          "selectedCurrentC2": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-support-current-001/root-installed-environment.mjs",
+          "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+          "bytes": 42751,
+          "equalImmutableF49": true,
+          "selectedCurrentC2": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/developer-mini-product.mjs",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-support-current-001/developer-mini-product.mjs",
+          "sha256": "9c1aaa148aee8a1403db0f068fc47afa16a147c0be7d27c1bd74ddc7c9f4b39a",
+          "bytes": 13419,
+          "equalImmutableF49": true,
+          "selectedCurrentC2": true
+        }
+      ],
+      "standing": "Passive frozen current support bytes, independently equal exact f49 git objects; no execution/source acceptance."
+    },
+    "additionalWorker": {
+      "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-f09-review-001/SUBJECT.json",
+      "subjectSha256": "84b3622a0701460b0b8838e2ad2a5c81921600247501ff82063c99a2f8d5732d",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-f09-review-001/runtime-f09-worker.mjs",
+      "sha256": "4ec5ecc1aba27aaba522dffef69776c8fd8afcb79fda17cc6ce7245e30a448d3",
+      "bytes": 128216,
+      "standing": "Exact local interim source; final native Result/after-observation pending. Author TAPs remain author feedback."
+    },
+    "supersededWorker": {
+      "sha256": "ea7ec41f4aa4d58aafdf139ff5e93c42507014846810c68946ff8215582de01d",
+      "note": "Older linked interim-proof worker has readAll-only route fault. Do not conflate with later additive frozen worker or bind latter TAPs to former."
+    },
+    "ownerPins": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+        "sha256": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+        "sha256": "5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40"
+      }
+    ],
+    "exactF49EventStoreSha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c"
+  },
+  "nextAdmission": {
+    "territory": "Existing named retry/fold/install tests, existing F09 worker/helpers/fixture declarations as concretely required for missing cases; no Product owner repair follows from the two baseline reds.",
+    "proof": "Two existing F09 wrapper tests; focused existing fold budget discriminators; selected current-Run/nested/foreign/stale/failure controls; focused current-contract T289 serialization/owned reuse/cold reference/rollback/refusal cases. No old qualification or recipe regeneration.",
+    "operatorBudget": "F09 worker timeout is900000ms per child; default frontier path has two sequential children and A-B-A one. Account producer/setup/pack costs and separately observed replay lane >30min versus25min command timeout. Reprice concrete next affected commands from observed timings; these are budget/proof risks, not Product regression or causal CPU evidence."
+  },
+  "limits": [
+    "Static triage only; no source mutation, test/build execution, runtime/provider or external-history read",
+    "Only two authorized evidence outputs written",
+    "Frozen support currentness was separately supplied and hash-verified; these three current files equal exact f49",
+    "Scoped F09 fault-model semantics belongs to separate designated method reviewer; no duplicate acceptance here",
+    "No complete qualification, source acceptance or native05 readiness conclusion"
+  ]
+}

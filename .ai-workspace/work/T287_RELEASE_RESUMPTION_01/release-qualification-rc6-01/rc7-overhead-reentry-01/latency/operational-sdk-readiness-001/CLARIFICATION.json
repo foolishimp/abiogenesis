@@ -1,0 +1,86 @@
+{
+  "productFrame": "Unchanged ABIogenesis5 fifteen families / GOAL-035 / T287 / STDO3.0.4 composition[]. Narrow existing-owner harness export clarification; immutable RC6 and active B untouched.",
+  "kind": "operational_sdk_harness_export_clarification",
+  "at": "2026-11-06T05:59:45.749122+00:00",
+  "status": "CLOSED_EXPORT_BARRIER_AND_INTERIM_ROUTE_IDENTIFIED",
+  "preservesClosedReadiness": true,
+  "finding": {
+    "exportedEquivalent": false,
+    "scope": "The exact selected operator-client runner/public-setup and installed Product content-check export.",
+    "existingPrivateOwner": "operator-client/runner.mjs:332-345 checkInstalledIdentity(caller,installations,phase)",
+    "soleExportedWrapper": "invokeLifecycle:349-355 calls the checker before and in finally after invokeColdInstalledEntry, with no transport-selection argument.",
+    "whyProductExportIsNotEquivalent": "product.installedProductContentMatches(install) is exported and supplies the underlying per-install boolean. It does not perform the harness's selected two-install cardinality, record all exact install observations, or raise the same phase BoundaryFailure. Rebuilding that loop/record/refusal at a caller would copy the private helper semantics. public-setup.verifyArtifact:89-98 instead verifies a packed artifact; it is not this installed before/after check.",
+    "correctionToReadiness": "The Product SDK acquired-resource route is already supported. The complete guarded operator route cannot currently import its existing identity-check helper. This is a real harness export barrier, not a missing Product/SDK resource capability."
+  },
+  "minimalMaintainedChange": {
+    "selectedRecommendation": "Expose the existing checkInstalledIdentity function by changing its declaration to export async function checkInstalledIdentity(caller,installations,phase), leaving its body and invokeLifecycle behavior unchanged.",
+    "maintainedOwner": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "exactFrozenReference": "Frozen A runner:357 (checker),374-380 (existing invokeLifecycle). Active B source was not read; the change must bind the actual frozen returned version.",
+    "sourceClassification": "One maintained harness export change, native-Worker owned after B freezes; unchanged Product meaning, SDK API and check semantics. No checker copy, private-source extraction, eval, new helper, new supervisor or bypass.",
+    "futureScope": "The selected fixed-route cone presently names five files and excludes runner.mjs. Root may explicitly add this one existing path to that native task's grant. This clarification does not silently expand the five-file selection.",
+    "adoption": "After that native return and Root source disposition, refresh/pin the existing operator-client runner from the maintained owner under separate control authority. Import the real export in future guarded SDK controls; preserve before-run and after-run/finally calls and actual failure records. Do not load the mutable candidate checker during the task which changes it.",
+    "alternative": "A transport-neutral extension inside the existing invokeLifecycle owner is possible but changes more control flow than exporting the unchanged helper; it is unnecessary to close this specific export barrier.",
+    "boundedValidation": "Confirm the frozen changed declaration is exported, the helper body and current cold invokeLifecycle remain conserved, and the existing harness still exercises its declared install mismatch/before/after behavior. No new test framework or extra Product files are indicated. Nothing executed here."
+  },
+  "interimNextNativeTask": {
+    "supported": true,
+    "composition": "The next fixed-route native author can retain preparation, call construction and mechanical preflight in one host, then call the unchanged exported invokeLifecycle. That wrapper preserves both current trusted identity checks and the real cold CLI metadata/close.",
+    "exactResourceRule": "Construct a reopen-based DefinitionCall from the genuine current close, retaining that same prepared.call in memory through the host's preflight and invokeLifecycle. Use the existing read-prefix/environment reuse for preparation. Do not carry a live acquired append-resource selection into the CLI.",
+    "ownershipLimit": "If an outer writable resource was acquired, it must be genuinely closed before a cold CLI can reopen, and the call must be rebuilt against that actual close. Do not replace only eventResource: transport-steering and invocation identity depend on it. The simpler interim route keeps the existing reopen-based call and does not acquire an outer append resource.",
+    "preservedBoundary": "The parent need not serialize/reparse its prepared call or restart between preflight and invocation. invokeColdInstalledEntry still writes its actual CLI request and the child still reacquires history. This is an intentional interim cold boundary, not the complete one-resource sequence or a measured performance improvement.",
+    "sequencing": "Launch the task that exposes the helper through this existing guarded cold invocation. Once its actual frozen return is admitted, a later ordinary author can use the already-supported acquired SDK route with the newly exported existing guard.",
+    "currentProof": "B's actual close, full cold result/replay readbacks and all selected source/review/proof duties remain unchanged. Root owns any future grant/proof sequence; no waiver or present dispatch is selected."
+  },
+  "pins": {
+    "closedReadiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/operational-sdk-readiness-001/READINESS.json",
+      "bytes": 38954,
+      "sha256": "7d39b7b3afe316ff71ba21500f070063d9edce3c7656e0b58d2e196c632cfa46"
+    },
+    "closedMarkdown": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/operational-sdk-readiness-001/READINESS.md",
+      "bytes": 8595,
+      "sha256": "09a043d04451fe8b6744cc4f377f9409a1aff470fa32a18db2336cb7ff68530d"
+    },
+    "operatorRunner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    },
+    "operatorSetup": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    "frozenRunner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 39702,
+      "sha256": "5d3850a9c4c6157bce7d0d4491c0d0c0b50ec85471708a05a43b2ff81247a551"
+    },
+    "productExports": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "bytes": 13690,
+      "sha256": "163f1e44620fa7049ff97f6973fca01ef5e205846945e15188511571b28e2f0d"
+    },
+    "productContentOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/install_product.js",
+      "bytes": 18110,
+      "sha256": "a07c1b9db467b039efe8ebdaae6586c7d88d28d7e798c3ba7c4f8308bbe1a2f1"
+    }
+  },
+  "effects": {
+    "writes": [
+      "CLARIFICATION.json",
+      "CLARIFICATION.md"
+    ],
+    "sourceEdits": false,
+    "controlEdits": false,
+    "tests": false,
+    "runtime": false,
+    "provider": false,
+    "credentials": false,
+    "network": false,
+    "activeSourceRead": false
+  },
+  "residual": "Root chooses whether to add the one maintained runner export to the next native increment and binds its actual frozen source/control adoption. No further API design is necessary for this question."
+}

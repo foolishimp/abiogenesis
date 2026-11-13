@@ -1,0 +1,530 @@
+{
+  "id": "RC9-BROAD-007-C0-TIMEOUT-TRIAGE",
+  "recordedAt": "2026-11-08T20:14:25.851367+00:00",
+  "status": "CLOSED",
+  "ProductFrame": "ProductFrame.md",
+  "classification": {
+    "supported": "Proof-envelope/control-transfer defect: known per-file allowances were omitted. BROAD007 fileTimeoutMs is empty; C0 fell to600000 ms despite the identical 31-case RC8 test completing under2100000 ms.",
+    "sourceRegression": "Not established. Fifteen complete RC9 cases pass; no failed assertion or test-level timeout is observed. O1/O2 cost attribution remains unmeasured; no host-load cause inferred.",
+    "qualification": "Broad proof incomplete; no new source/artifact/release acceptance."
+  },
+  "findings": [
+    {
+      "id": "BROAD-C0-001",
+      "severity": "S2",
+      "owner": "External proof configuration, not Product source",
+      "evidence": "600005.996708 ms command expiration by SIGTERM, 15 passes/no summary/end; same test prior 31/31 pass at 1285269.541 ms with 2100000 ms cap. Current binding dropped every prior override.",
+      "boundedCorrectionForRootSelection": "A new external continuation binding can retain the exact prior applicable finite per-file map and unchanged assertions, run the entire C0 file, and reuse only valid whole-file RC9 receipts. No cap change or execution was performed or authorized by this review.",
+      "riskAndCost": "No source repair indicated; C0 allowance 35 minutes is a ceiling, not a duration promise. Existing same-source whole passes should not be replayed solely because a later independent file exhausted its envelope. Physical descendant closure and fresh materialization remain external operational prerequisites."
+    }
+  ],
+  "C0Population": {
+    "total": 31,
+    "completedPasses": 15,
+    "failedCases": 0,
+    "skippedCases": 0,
+    "uncompletedSuffix": [
+      "B04-03 primary-cause-preserved",
+      "B04-04 owner-read",
+      "B04-04 owner-mismatch",
+      "B04-05 append-complete",
+      "B04-05 append-publication-only",
+      "B04-05 append-retained-receipt",
+      "B04-05 result-rejection-complete",
+      "B04-05 evidence-rejection-publication-only",
+      "B04-05 result-rejection-retained-receipt",
+      "B04-07 stale-O0",
+      "B04-07 failed-link",
+      "B04-07 failed-rename",
+      "B04-C01 link-read-close",
+      "B04-C01 rename-read-close",
+      "B04-C01 owner-read-close",
+      "B04-C01 close-only"
+    ],
+    "suffixStanding": "16 cases lack complete observations. The precise in-flight phase/case at kill is not localized; do not label all16 as never entered. No suffix/whole-file credit follows from15 partial passes.",
+    "registration": "test file725\u2013758: one registration per row, no timeout/concurrency/filter options; ordinary Node command uses --test-concurrency=1.",
+    "timing": {
+      "currentFirst15SumMs": 563126.005419,
+      "currentCompletedCaseMinMs": 36569.847,
+      "currentCompletedCaseMaxMs": 37983.7705,
+      "priorWholeCommandMs": 1285269.541,
+      "priorFirst15SumMs": 634761.301335,
+      "priorWholeCounts": "31pass/0fail/0skip;35JSONL records with begin,file/global summaries,end"
+    },
+    "timingStanding": "Current prefix and prior completion establish inadequate600 s allocation. They are not a matched performance experiment, a linear completion guarantee, or a cause diagnosis."
+  },
+  "fixtureAndCausalCone": {
+    "normalMode": "Recorded RC9 and RC8 command environments omit ABG_C0_POTENTIAL_PROOF, ABG_C0_PROOF_ROOT and ABI5_WAVE1_FROZEN_* selectors. Normal cases use fresh scratch and ordinary pack/extract/verify/install; no extra language fixture because rootPublicationKind is worksite_c0. Potential-mode alias/semantic-origin/retained-proof branches are not this run.",
+    "setupAndTeardown": "runCase402\u2013445 -> setupInstalledRootExecutionBasis -> setupInstalledRootCatalog168+. Each case creates a fresh installed environment, admits lock/install/binding/invocation/basis/resolution and leaf port; no cross-case installed-owner reuse is selected. npm pack and tar execFile calls have no local timeout. context.after closes the durable log and recursively removes scratch; this has no local elapsed ceiling. Fault monkey-patches are restored in traversal finally. No whole-case elapsed assertion exists.",
+    "assertionsAndChildren": "Each normal case inventories installed bytes/identities before and after the physical fault, checks exact owner/ABG outcome and refusal lineage, and calls fresh-process projection equality. That support closes the parent log/reopen handoff, runs two sequential real child processes and compares complete retained/fresh projections. Each child has a 30000 ms deadline and 1000 ms termination grace; physical scope absence/direct exit0 are checked. This local child ceiling is not a 31-case file bound or guaranteed teardown duration.",
+    "O1O2": "Execution-basis row law and environment-body reuse can be reached within each installed lineage and by retained/cold replay. Fresh per-case roots/modules/logs and two fresh children legitimately perform cold work; the optimizations do not promise reuse across cases or skip physical provisioning. Existing reviewed prefix/cardinality/dependency semantics remain the governing claim. No targeted work counter/profile was collected here, so no cost attribution follows.",
+    "O4": "The selected worksite_c0 binding is F_D realizeWorksiteFileReplace (gtl/worksite_c0.ts263\u2013270). The replay helper spawns its own direct child with serialized reopen data; it does not select the F_P actor-process worker-plan path. A generic child-process label does not establish O4 involvement.",
+    "physicalSemantics": "semantics.ts and leaf_invocation_port.ts are byte-identical across the four compared roots. O3 shortcut remains removed; physical acquisition/content checks stay in place. Test/helper bytes and fresh-worker bytes match historical execution. No physical-check removal or cross-resolution cache is proposed."
+  },
+  "sameByteEvidence": {
+    "roots": [
+      "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript",
+      "/private/tmp/abg-r9c-broad-001/w/build_tenants/abiogenesis/typescript",
+      "/private/tmp/abg-r8c-005/w/build_tenants/abiogenesis/typescript",
+      "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript"
+    ],
+    "sha256ByRelativePath": {
+      "test_env/tests/t287-c0-post-publication-failure.test.mjs": "a8f0525caa1b047f304fe87afaa80b51854b5c050b384c8c7098609bab290067",
+      "test_env/support/root-installed-environment.mjs": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+      "test_env/support/fresh-process-runtime-proof.mjs": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a",
+      "test_env/support/candidate-basis.mjs": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd",
+      "test_env/support/language-smoke-fixture.mjs": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "code/src/product/semantics.ts": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe",
+      "code/src/implementation/leaf_invocation_port.ts": "e5a6448c5896225d47645a8458ffc25f2ea1d6fccdffa182163363eb6ad34846"
+    },
+    "freshReplayWorkerSha256": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3",
+    "comparisonLimit": "RC8 archive/source subject differs from RC9 overall, so historical durations/population are precedents, not transferable RC9 pass credits."
+  },
+  "continuationEnvelope": {
+    "proposalOnly": true,
+    "C0WholeFileMs": 2100000,
+    "applicableOverrideCount": 8,
+    "mapPartition": {
+      "remaining139": 8,
+      "completed62": 1,
+      "held8": 3
+    },
+    "ordinaryDefaultMs": 600000,
+    "existingOverallMs": 14400000,
+    "standing": "Root can select the eight applicable prior allowances with the existing finite campaign/resource/output bounds and stop-on-first-red/incomplete behavior. The overall 4 h cap is an operational budget, not a prediction that 139 files must finish. Inner assertions and child deadlines stay unchanged; held files remain unselected. Missing or new envelope evidence must be explicit, not an automatic extension."
+  },
+  "completePriorOverrideMap": {
+    "source": "RC8LatestActuallyExecutedBinding",
+    "receiptRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+    "rows": [
+      {
+        "file": "test_env/tests/t287-governed-context.test.mjs",
+        "fileTimeoutMs": 2100000,
+        "currentPopulation": "held8",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-008/files/090-t287-governed-context.json",
+            "sha256": "d010c5e2903874cca7681d5e12b8995ecbb66774e1cc171331501a7a77955e42",
+            "passed": false,
+            "wallMs": 1609.8327909999934,
+            "counts": {
+              "tests": 15,
+              "failed": 1,
+              "passed": 14,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 15,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "a8671bc55b3106dcdc4bbac53028c381489ccf331b7bfc2f2de57796caad3862",
+            "commandReceipt": "execution-008/commands/090-t287-governed-context.result.json",
+            "commandSha256": "58d57a8d3af0bc2c83d2510e56884b006e85f2650435b74cdea49cf00e54509e"
+          },
+          {
+            "receipt": "execution-009/files/090-t287-governed-context.json",
+            "sha256": "7badbafe093f2794489da40da34f496003f536bda3a3263118e00c4121034183",
+            "passed": false,
+            "wallMs": 27033.854290999996,
+            "counts": {
+              "tests": 15,
+              "failed": 1,
+              "passed": 14,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 15,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "b75814922f58442533941f3176bdaaafc8eeecf7133d8179f8df04f0786c7c65",
+            "commandReceipt": "execution-009/commands/090-t287-governed-context.result.json",
+            "commandSha256": "f4551a544e045cee117e6aa9a4f4a29c435a3ab97a15ccfcbaa2d7e0d214845a"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+        "fileTimeoutMs": 2100000,
+        "currentPopulation": "remaining139",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-016/files/156-t287-required-operation-bindings.json",
+            "sha256": "0b18fd7642c65dbc7b42286633274507633d5f4769d699f53956ded60ba43f6f",
+            "passed": false,
+            "wallMs": 589831.679416,
+            "counts": {
+              "tests": 10,
+              "failed": 1,
+              "passed": 9,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 4,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "6ad13ba459d9af1c2b7eae1633f3bf96febe0cd471d9db38c1a38516e3867996",
+            "commandReceipt": "execution-016/commands/156-t287-required-operation-bindings.result.json",
+            "commandSha256": "0a8e21db632698a7950e95db38fe18c1d0d1316a178e76299d2d74448a7ed0ee"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "fileTimeoutMs": 3600000,
+        "currentPopulation": "held8",
+        "priorExecutedReceipts": [],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t289-install-event-bodies.test.mjs",
+        "fileTimeoutMs": 1200000,
+        "currentPopulation": "completed62",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-024/files/198-t289-install-event-bodies.json",
+            "sha256": "18942f97e217e35b609a2105f18df0c7734824290f2f8e9cbf8bffd846341a5c",
+            "passed": true,
+            "wallMs": 60074.18854099998,
+            "counts": {
+              "tests": 4,
+              "failed": 0,
+              "passed": 4,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 4,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "b7fe540b65f5915cff5eff43a54a7ad72e29efd4774f8b2930d0890e7311cf0c",
+            "commandReceipt": "execution-024/commands/198-t289-install-event-bodies.result.json",
+            "commandSha256": "6a9380d06d654d557933fcf5fb15c6b4401055229d6fcc8ae660a0602c3f5007"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+        "fileTimeoutMs": 900000,
+        "currentPopulation": "remaining139",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-006/files/058-t287-calculus-state-transfer.json",
+            "sha256": "00f090a7fd6abfafc11f32a51faa408d45a273f82b8405b8e8591844e2a11b97",
+            "passed": true,
+            "wallMs": 260545.03749999998,
+            "counts": {
+              "tests": 8,
+              "failed": 0,
+              "passed": 8,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 1,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "b05c2edd11badaf226a1ae64c4475efde471bf82a554c34c08f40f280305f781",
+            "commandReceipt": "execution-006/commands/058-t287-calculus-state-transfer.result.json",
+            "commandSha256": "a226f47e072bfc9dfc7704a305eb1e84c2b40627cc79a4800d01bad6d0b6b1d2"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t287-management-supervision.test.mjs",
+        "fileTimeoutMs": 900000,
+        "currentPopulation": "remaining139",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-011/files/106-t287-management-supervision.json",
+            "sha256": "f2f74bca5bcf1a1ce9eb6778e039df9f65e54249092f6ff6cc99bf67fb131398",
+            "passed": true,
+            "wallMs": 191461.566125,
+            "counts": {
+              "tests": 5,
+              "failed": 0,
+              "passed": 5,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 5,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "fdd002fd58ba1139112800e97c34a848b4e024b693a5189b99381b03d32818b6",
+            "commandReceipt": "execution-011/commands/106-t287-management-supervision.result.json",
+            "commandSha256": "96af0c9605d17aae6a07913e675045862075c4e409b9674ee19de07800e2f53d"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t287-default-library.test.mjs",
+        "fileTimeoutMs": 900000,
+        "currentPopulation": "remaining139",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-006/files/071-t287-default-library.json",
+            "sha256": "435bced65e2fa85d539f82c094ed849fd239d17c249f47c6228f7046c88affea",
+            "passed": true,
+            "wallMs": 321809.94695799996,
+            "counts": {
+              "tests": 37,
+              "failed": 0,
+              "passed": 34,
+              "cancelled": 0,
+              "skipped": 3,
+              "todo": 0,
+              "topLevel": 37,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "5ffb9f57325966f6f849728c6ab8154b611c6b53b84f16e38e35fa6602878d22",
+            "commandReceipt": "execution-006/commands/071-t287-default-library.result.json",
+            "commandSha256": "78ff5189c8337675afb3caa2783d4b79fd259508520bba0e614fd2615420f92a"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/uat/harness.test.mjs",
+        "fileTimeoutMs": 1200000,
+        "currentPopulation": "remaining139",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-025/files/206-harness.json",
+            "sha256": "30af41dc58f13f6d9d12f6621cb44e89916d1cb7555a72f6851d08ef0f8c7c06",
+            "passed": true,
+            "wallMs": 71095.358292,
+            "counts": {
+              "tests": 33,
+              "failed": 0,
+              "passed": 33,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 27,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "83b094cc367c44680941c336a7b929aa3abdf37cbb0301b1579369c7492fc501",
+            "commandReceipt": "execution-025/commands/206-harness.result.json",
+            "commandSha256": "572f8d87eb1f70072e9283de4a7ed0b2d60738bb064928edbddb209cf1e54466"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+        "fileTimeoutMs": 900000,
+        "currentPopulation": "remaining139",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-025/files/207-t287-w2-05-generator-package-reproducibility.json",
+            "sha256": "0d7ec54f38a3b280cbd64f0dfc68b752f0f88a474bb96acb1e1e4c26fd5c3cd2",
+            "passed": true,
+            "wallMs": 124172.339917,
+            "counts": {
+              "tests": 2,
+              "failed": 0,
+              "passed": 2,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 2,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "f33faaa2caf376400ee942f4522685441056f3a01c784a79f8c0988fdc800edb",
+            "commandReceipt": "execution-025/commands/207-t287-w2-05-generator-package-reproducibility.result.json",
+            "commandSha256": "e5473aa774178636e087b6c39fd8c75c4da7e4d2567ac29036429636b5eadabc"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+        "fileTimeoutMs": 900000,
+        "currentPopulation": "remaining139",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-025/files/208-t287-w2-05-release-snapshot-definition-bindings.json",
+            "sha256": "3b9de1dafeec504ed66649bf4db7675e53e3c62d137623506072d45bdd26fb57",
+            "passed": true,
+            "wallMs": 35992.45629200002,
+            "counts": {
+              "tests": 1,
+              "failed": 0,
+              "passed": 1,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 1,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "cd9ef06d5d8338bf62f078066e5357b72ec9cad333774a2e38094b700b8c5d01",
+            "commandReceipt": "execution-025/commands/208-t287-w2-05-release-snapshot-definition-bindings.result.json",
+            "commandSha256": "fb538da9786b47071c10643ee83695e40d91fe41aec7a529b548330ca0376b8d"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+        "fileTimeoutMs": 2100000,
+        "currentPopulation": "remaining139",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-004/files/053-t287-c0-post-publication-failure.json",
+            "sha256": "4074c8d5ddd38ef7f56c49e8f62caf8b7de4bc67e2fc1adf666a0ad24c681901",
+            "passed": false,
+            "wallMs": 232437.94237499998,
+            "counts": null,
+            "timedOut": false,
+            "signal": "SIGKILL",
+            "reporterSha256": "d3467f19ac5f4ed5027308a8522279d9773e0cc58b263a662d1de7842ff30d27",
+            "commandReceipt": "execution-004/commands/053-t287-c0-post-publication-failure.result.json",
+            "commandSha256": "81fd29cf1bd59cf0bb60b6f497a72bcfbb8cf45cf63f70c2e7890dbcfbeeed36"
+          },
+          {
+            "receipt": "execution-005/files/053-t287-c0-post-publication-failure.json",
+            "sha256": "91ee0076607de441d71b2202948fa9ed9e4740d85d0c48bbebbbc0468c2cf5a8",
+            "passed": true,
+            "wallMs": 1285269.541,
+            "counts": {
+              "tests": 31,
+              "failed": 0,
+              "passed": 31,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 31,
+              "suites": 0
+            },
+            "timedOut": false,
+            "signal": null,
+            "reporterSha256": "a0e974ab17ddafcbb922fd9f447ec9dd2f714569e8f1448980456eacd04b6a5f",
+            "commandReceipt": "execution-005/commands/053-t287-c0-post-publication-failure.result.json",
+            "commandSha256": "ebd7e2b818eb8321c7a3dd52c373505d8ff1bdb10ed1a85282f13657239ab727"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      },
+      {
+        "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+        "fileTimeoutMs": 1200000,
+        "currentPopulation": "held8",
+        "priorExecutedReceipts": [
+          {
+            "receipt": "execution-023/files/193-t287-worksite-command-execution.json",
+            "sha256": "43812cca630de3b50ca1063b2a84d04ad26e3a69f776dc1bc2854da4c644f46b",
+            "passed": false,
+            "wallMs": 514396.790625,
+            "counts": null,
+            "timedOut": false,
+            "signal": "SIGTERM",
+            "reporterSha256": "0a55e50dfa68cde4229624d163ad0eb42efd20b1a6a8e9cbe4dc331c0f168544",
+            "commandReceipt": "execution-023/commands/193-t287-worksite-command-execution.result.json",
+            "commandSha256": "56c9f95bfd2991d5693d918d133ae0a6f1e7b8ce6e5c58bddc876e3cb37d7b26"
+          }
+        ],
+        "standing": "Prior durations inform envelope only; no RC9 coverage transferred."
+      }
+    ]
+  },
+  "reuse62": {
+    "supportedSubject": "Same source 25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864 / BUILT003 / archive c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+    "independentRecordCheck": "All 62 raw reporter pins, begin/end, contiguous ordinals and successful global counts agree with their file receipts; commands exit0/no timeout/truncation; zero sourceEffects reported. No mismatch. This is receipt checking, not repeated testing or a source inventory.",
+    "counts": {
+      "tests": 411,
+      "passed": 329,
+      "skipped": 82,
+      "failed": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "conditions": "Fresh continuation must bind exact unchanged source/build/dependencies/artifact, relevant external inputs/oracles, case population and environment standing; explicitly name 62 credits without double-counting, preserve 82 skips and eight held files. Driver checked ordinary derived input/dependency conservation after each success; failed063 does not retrospectively erase those completed observations. It also does not authorize reuse of uncertain failed scratch state.",
+    "remaining": "139 selected whole files including full 31-case C0; 138 never attempted in007. No RC8 pass transfer and no 15-case fragment credit."
+  },
+  "closureLimits": "The stopped file has no final CHILD_CLOSED/resource receipt, no summary/end, and no final derived-input conservation credit. SIGTERM/command close is not universal physical descendant absence. The separate Proof/Operator review owns actual closure and fresh admission; this reviewer made no process observation or signal. Later closure receipts can be conjoined without altering these historical records.",
+  "effects": "Read-only source/proof acquisition plus files in this report directory only. No test/retry/repair/build/provider/native/process signal/Git effect. Root owns all selection and disposition.",
+  "pins": {
+    "broadReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_007_RETURN.json",
+      "bytes": 10385,
+      "sha256": "7a4468717984da45e21d03de99903f58ab1da7f0fae794169c16a67ed5516d09"
+    },
+    "broadSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/SUMMARY.json",
+      "bytes": 240335,
+      "sha256": "54515e229b659bc25127cb042d6375745c5dff1b06d346cd1d6dd380dae9f27f"
+    },
+    "currentBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-007.json",
+      "bytes": 47083,
+      "sha256": "a2ba7d6fd3f757329cdcdb95002e684d91dce89ec17e1f9288ee375e456828ee"
+    },
+    "currentCommand": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/063-t287-c0-post-publication-failure.result.json",
+      "bytes": 1515,
+      "sha256": "bd12469b00cecf943f02aabbcda657205da8b2d967f2c19ac53c22578a1a02b0"
+    },
+    "currentEvents": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/063-t287-c0-post-publication-failure.jsonl",
+      "bytes": 4157,
+      "sha256": "899a9b5288eca4647b9738e27bff0bfc325212299a1a22e526f4472460399700"
+    },
+    "currentStdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/063-t287-c0-post-publication-failure.stdout",
+      "bytes": 3309,
+      "sha256": "6d90dbd0ac1175cd82e268e7f16436039a45e17a7992356b1f8d88c5ff036b69"
+    },
+    "RC8C0Binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_006.json",
+      "bytes": 102205,
+      "sha256": "c39c607ab882ca03e5e5e7b0fc0ca999d4877fecc7fc965ad3797e03d7c286f0"
+    },
+    "RC8LatestActuallyExecutedBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_027.json",
+      "bytes": 489036,
+      "sha256": "8cf662e888328a458e77b8277182f5b6cb8345353e863e817ba95118df44da7b"
+    },
+    "RC8LatestExecutionLink": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "a208e630404bf06de53118583286253c92cedcd8e5951215fe87869b378ef343"
+    },
+    "RC8C0File": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-005/files/053-t287-c0-post-publication-failure.json",
+      "bytes": 1171,
+      "sha256": "91ee0076607de441d71b2202948fa9ed9e4740d85d0c48bbebbbc0468c2cf5a8"
+    },
+    "RC8C0Events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-005/events/053-t287-c0-post-publication-failure.jsonl",
+      "bytes": 9014,
+      "sha256": "a0e974ab17ddafcbb922fd9f447ec9dd2f714569e8f1448980456eacd04b6a5f"
+    },
+    "RC8C0Stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-005/commands/053-t287-c0-post-publication-failure.stdout",
+      "bytes": 7021,
+      "sha256": "fe990009710813d582842c2952e9e71542b48487300341bf6c3ba4b9209d085b"
+    }
+  }
+}

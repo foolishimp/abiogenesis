@@ -1,0 +1,108 @@
+{
+  "existing": [
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "bytes": 41843,
+      "sha256": "1ddd434b186c73fc9fa37d6579f008071381f7a194d228edfe148e667bfc5289"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "bytes": 5751,
+      "sha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 45742,
+      "sha256": "59fa9dc768b052149ee036577a23d60a55c1747b75337aebdce61027c20a6918"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10105,
+      "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/package-lock.json",
+      "bytes": 8003,
+      "sha256": "99be49abe9c9532e019fb274a2d39e7ecac0518b02a3384f1fcf106ddcf9c0b6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "bytes": 13082,
+      "sha256": "e8568ddda6bfb7c9001d884c9c00a74530bb04b4fe33b3d4dad28a2c6ad2773e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "bytes": 10407,
+      "sha256": "63ca4427b4509f643fb58c38dd5e231c485187ae381082f710007872356e6c95"
+    }
+  ],
+  "newAbsent": [
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md"
+  ],
+  "readonlyFixtures": [
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+      "bytes": 779443,
+      "sha256": "66162a9332dcabf7410d630551cdf12b4b272c70aa02d777f879a165a7fa8a2e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+      "bytes": 8208,
+      "sha256": "2c3330b69ca39febeb0e01760a4b6f7bb1af1758b8b33f2dcc54eeb017e1ecb6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+      "bytes": 823504,
+      "sha256": "b86084dc4a61fc84f0231e20d76b9d91c236ed7a7fa34b7436ed489d8ab21f4d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json",
+      "bytes": 11153,
+      "sha256": "1712be167cf4ef6cb97bf9e8f11271afed44bdeb4e9e012dbc12341e433b6743"
+    }
+  ],
+  "fixedPostimages": [
+    {
+      "target": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "preimage": {
+        "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 42751,
+        "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+      },
+      "postimage": {
+        "path": "/private/tmp/abg-rc11-qualification-20261109/qualification-inputs/rc11-qualification-01/native-02/helper.postimage.mjs",
+        "bytes": 42787,
+        "sha256": "de52e0b3114318420ce56d83dff9de3ac2f8c3ed431b0f0a965dd9acad9b1436"
+      },
+      "externalViewPostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/root-installed-environment.mjs",
+        "bytes": 42787,
+        "sha256": "de52e0b3114318420ce56d83dff9de3ac2f8c3ed431b0f0a965dd9acad9b1436"
+      }
+    },
+    {
+      "target": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "preimage": {
+        "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+        "bytes": 10407,
+        "sha256": "63ca4427b4509f643fb58c38dd5e231c485187ae381082f710007872356e6c95"
+      },
+      "postimage": {
+        "path": "/private/tmp/abg-rc11-qualification-20261109/qualification-inputs/rc11-qualification-01/native-02/leaf.postimage.mjs",
+        "bytes": 10611,
+        "sha256": "dfd366a2711bd4325f48c2249d10b74aafb59af7eb91e77a9a9804668c9ea67f"
+      },
+      "externalViewPostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/language-structural/leaf.mjs",
+        "bytes": 10611,
+        "sha256": "dfd366a2711bd4325f48c2249d10b74aafb59af7eb91e77a9a9804668c9ea67f"
+      }
+    }
+  ]
+}

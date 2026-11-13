@@ -1,0 +1,27 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "--test-reporter-destination=stdout",
+    "--test-reporter=/private/tmp/abg-r8-st2ae-001/w/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+    "--test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/actual-001/events.jsonl",
+    "--test-name-pattern=^RC7 prefix reuse: run-read population decodes a deserialized prefix once and keeps refusals$",
+    "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs"
+  ],
+  "cwd": "/private/tmp/abg-r8-st2ae-001/w/build_tenants/abiogenesis/typescript",
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/actual-001",
+  "scratchRoot": "/private/tmp/abg-r8-st2ae-001",
+  "resourceRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/actual-001/resources.json",
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 1800000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  }
+}

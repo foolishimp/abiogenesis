@@ -1,0 +1,63 @@
+{
+  "id": "RC10-REPAIR-PROOF-STAGE-02-READY",
+  "status": "FROZEN_SUCCESSOR_STAGE_READY_EXECUTION_HELD",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/frozen-proof.mjs",
+    "bytes": 15645,
+    "sha256": "e7de3cec3058cdfc22da52b7cd047a9a98d4d796426fde9d14c1d7bcac0ac689"
+  },
+  "driverDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/DRIVER_DELTA.patch",
+    "bytes": 8002,
+    "sha256": "bbe11c466c64de129d3882f4f938488f2f5ad4cfa45988d9a62131d98fb49d7f"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/STAGE_BINDING.json",
+    "bytes": 7151,
+    "sha256": "dc928c30149b86b971305d442cdded381dc23f071ac7d0dc9b344daaecdaf901"
+  },
+  "nativeCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NATIVE_CUSTODY.json",
+    "bytes": 6813,
+    "sha256": "f97d6e4487f773979fe36b5eea9d8ba44ee12bf7aa5f44cf59abae5b75cd7b96"
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+    "bytes": 293103,
+    "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "sourceRows": 1334,
+  "sourceBytes": 38188055,
+  "unchangedOtherRows": 1331,
+  "sourceInput": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source",
+  "proofRoot": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof",
+  "launchArgv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/frozen-proof.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/STAGE_BINDING.json",
+    "dc928c30149b86b971305d442cdded381dc23f071ac7d0dc9b344daaecdaf901",
+    "stage",
+    "stage-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/ROOT_STAGE_ADMISSION.json",
+    "<exact separate admission sha256>"
+  ],
+  "limits": {
+    "stageMs": 600000,
+    "heapMiB": 8192,
+    "maxOutputBytes": 16777216,
+    "maxOwnedBytes": 4294967296,
+    "reserveBytes": 4294967296
+  },
+  "steps": [
+    "compile",
+    "generate",
+    "imports",
+    "lifecycle",
+    "calculus"
+  ],
+  "next": "Separate Root admission for this one external frozen build; later focused/unit each bind actual built stage and separate CLI admission. No source edit or retry.",
+  "noProvider": true,
+  "qualified": false
+}

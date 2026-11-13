@@ -1,0 +1,57 @@
+{
+  "status": "NATIVE_ACTOR_STARTED",
+  "observedUtc": "2026-11-07T03:05:35.456015+00:00",
+  "hostPid": 38197,
+  "sessionId": 94711,
+  "nativePid": 39752,
+  "runRef": "run://abiogenesis/0526a286827851182b39b6bc2df9007e588ec2b972854d6248e924f84b8afd77",
+  "actorInvocationRef": "actor-invocation://abiogenesis/2df9d0eebd11691253071e4a78522e37fd59f72f5167cd3f10df2a4a37ba106f",
+  "actorStartUtc": "2026-11-07T03:04:41.867Z",
+  "dispatchRecordedUtc": "2026-11-07T03:04:34.791Z",
+  "dispatchRecordedToActorMs": 7076.0,
+  "actorStartedEvent": {
+    "admissionOrdinal": 18,
+    "aggregateId": "process://abiogenesis/3b84cf603330aaa6f1821fe6843d638da3825f312425c9ea9d7f00a5cfab8925",
+    "aggregateType": "process",
+    "basisId": "execution-basis://abiogenesis/6b4b3039caddad2c66f0924b54628908a3cac956525f7990bfb0b4f9182e1f8c",
+    "causationEventRefs": [
+      "event://abiogenesis/c56b2254a61378dd76264b54a76349de5a36764dd93be50adae2348c29c20357"
+    ],
+    "correlationId": "correlation://abiogenesis/t287/rc8-ref01/hog/leaf/0/actor-process",
+    "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+    "eventId": "event://abiogenesis/8d4a0c551e92550ebbc16937126e7d7bbf1cbc5c39a865f446db4f784d5b5d90",
+    "eventTime": "2026-11-07T03:04:41.867Z",
+    "frameId": "frame://abiogenesis/2e348c798c1f667ee20ea2067f20d27263125e3d4306b0cdaf752cd5b8cbe93e",
+    "graphCallId": "graph-call://abiogenesis/e82f89aba8f499fb460ae36dce1ab2aa9709d5ff21cdf889013742552298f322",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "kind": "actor_process_started",
+    "materializationRef": "graph-materialization://abiogenesis/93ed7d4f41f617459de83f7dde0e525f4cd872c200dd47e11f89e539e7936760",
+    "parentAggregateId": "actor-invocation://abiogenesis/2df9d0eebd11691253071e4a78522e37fd59f72f5167cd3f10df2a4a37ba106f",
+    "payload": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/2df9d0eebd11691253071e4a78522e37fd59f72f5167cd3f10df2a4a37ba106f",
+      "cCallRef": "c-call:sha256:5c952622aca2a372b9973de98c36bd0b6481deea4266f8c081cdf52bd2f491c5",
+      "processId": 39752,
+      "processRef": "process://abiogenesis/3b84cf603330aaa6f1821fe6843d638da3825f312425c9ea9d7f00a5cfab8925"
+    },
+    "payloadDigest": "sha256:7711e8bfe36882f04049e83ef178b645c2fff374381806da6a8349987c6399a4",
+    "runId": "run://abiogenesis/0526a286827851182b39b6bc2df9007e588ec2b972854d6248e924f84b8afd77",
+    "scopeClass": "run",
+    "workflowVersion": "5.0.0"
+  },
+  "evidenceRead": {
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "tailBudgetBytes": 262144,
+    "actualBytesRead": 255390,
+    "fileBytesAtRead": 25904060
+  },
+  "timingBoundaries": {
+    "initialInstalledSetupCumulativeMs": 40213.242708,
+    "resume002PreparationCumulativeMs": 21254.930333,
+    "coordination": "Preparation/review/control-triage and idle admitted-gate wait remain separate; no matched speedup claim"
+  },
+  "provider": "claude-opus-5-5",
+  "effort": "xhigh",
+  "nativeReturnPending": true,
+  "physicalClosePending": true,
+  "qualified": false
+}

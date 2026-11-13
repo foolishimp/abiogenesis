@@ -1,0 +1,18 @@
+{
+  "kind": "passive_actual_selector_prompt_observation",
+  "at": "2026-11-03T11:58:02.735466+00:00",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/fp-168a3d1b3282d324-prompt.txt",
+  "bytes": 566948,
+  "sha256": "f84dafa551e2e99ae7f32870d7489e833e854e31a96db3ae195b39ca1431b11c",
+  "declaredMaxPromptBytes": 1048576,
+  "actualUnderBound": true,
+  "actualSelectorProcessStartedUtc": "2026-11-03T11:48:41.230Z",
+  "actualWorkerProcessStartedUtc": "2026-11-03T11:51:13.859Z",
+  "preflightPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/SELECTOR_CAPACITY_PREFLIGHT.json",
+  "preflightSha256": "66bd6e05a1ce632f4e147094a34fc411aac6c8c93a5c801130bd44ae252b08cd",
+  "limits": [
+    "Historical-placeholder model-free estimate did not itself authorize execution.",
+    "Actual process starts evidence successful instruction assembly for this packet only.",
+    "No UAT, candidate acceptance or repeatable latency improvement inferred."
+  ]
+}

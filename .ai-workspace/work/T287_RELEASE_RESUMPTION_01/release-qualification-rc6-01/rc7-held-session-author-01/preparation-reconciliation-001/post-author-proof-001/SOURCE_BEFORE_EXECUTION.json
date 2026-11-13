@@ -1,0 +1,10 @@
+{
+  "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+  "sourceRows": 450,
+  "generatedManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+  },
+  "matched": true
+}

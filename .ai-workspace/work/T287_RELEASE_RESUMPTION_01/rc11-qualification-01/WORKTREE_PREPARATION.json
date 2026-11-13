@@ -1,0 +1,43 @@
+{
+  "status": "RC11_BASELINE_PREPARED_NO_RUNTIME",
+  "sourceRoot": "/private/tmp/abg-rc11-qualification-20261109",
+  "branch": "codex/rc11-qualification",
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/SOURCE_INVENTORY.json",
+    "bytes": 292691,
+    "sha256": "e25d162544a1779ecdbdbe4fe99a7fbe4ead1589341a34096c136af90fade90d"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "regularFiles": 1334,
+  "payloadBytes": 38188055,
+  "trackedStatus": "clean",
+  "expectedUntrackedInfrastructure": [
+    "build_tenants/abiogenesis/typescript/node_modules"
+  ],
+  "initialFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/WORKTREE_MATERIALIZATION_FAILURE.json",
+    "bytes": 952,
+    "sha256": "cd97046da4739e5e3fd04fec5634eb01f5905feaaecec3cd62b5ea41b14eedda"
+  },
+  "completionCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/WORKTREE_COMPLETION_COMMAND.json",
+    "bytes": 264,
+    "sha256": "415f98066c056a8fc864e9c6b74e7cb05f03c3ffbea8607b88c25407e02546ca"
+  },
+  "dependencyLink": {
+    "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/node_modules",
+    "target": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+    "standing": "Shared read-only dependency authority, no technical isolation claim. Directory-only ignore pattern does not hide symlink; this is expected infrastructure, not Product change.",
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+      "bytes": 901147,
+      "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+    }
+  },
+  "workspaceManifestAbsent": true,
+  "allOriginalPreservationGuardsEqual": true,
+  "runtimeAllocated": false,
+  "providerCalls": 0
+}

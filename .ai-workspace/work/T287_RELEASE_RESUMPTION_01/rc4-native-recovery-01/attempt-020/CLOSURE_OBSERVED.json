@@ -1,0 +1,187 @@
+{
+  "status": "ACTUAL020_RUNTIME_FAILED_NO_SUCCESSFUL_AFTER_NO_C2_UAT",
+  "recordedAt": "2026-11-03T02:50:13.917802+00:00",
+  "outcome": {
+    "ended": "2026-11-03T02:45:56.428Z",
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:383caa84391fa487f2c748817a33a0b00cc696388e0fbe547859e26db08af01b",
+      "ref": "run://abiogenesis/b3db8f441192ac08e74119217ebbb004abd27739cc3b27ba89619b7cb530737f"
+    },
+    "terminal": null,
+    "qualification": false,
+    "R2Closure": false,
+    "meaning": "Fresh native development; actual Testing/UAT and R1\u2013R5 evidence determine outcome. No recovery or qualification credit follows merely from dispatch."
+  },
+  "outcomePin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/execution/outcome-summary.json",
+    "bytes": 557,
+    "sha256": "47005938fe1d2e657edbdf3e20323839e95c998d095ab2ceb7bdc642010d57fe"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/execution/after-run-resume.json",
+    "bytes": 99888522,
+    "sha256": "cd797b0afcc3e2431c80541ec8f729996012a2308f55c25974b373e1674a703f"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:89d2e84d7697a35359abe91d090897e9fed6eabcb6ecb950cb2e42cde13781d8",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:81664756393508f9b4be99f12ef50d1da6b305474977723a90413282e3d2f803",
+      "prefixLength": 750160699,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 681463484
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:d42d6f725a6e1f83d5a23d310caf4ae8a5228d6d80f1dfe11772de368baeb6e5",
+      "device": 16777231,
+      "durableByteLength": 750160699,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:81664756393508f9b4be99f12ef50d1da6b305474977723a90413282e3d2f803",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+      "inode": 681463484,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/execution/fresh-reads.json",
+    "bytes": 2396,
+    "sha256": "8f51decda79ef30b3d835d70f1c110d19099674e8fa5094ce1d1084008c47c8a"
+  },
+  "runtimeFailureOrdinal": 35465,
+  "runtimeFailureTime": "2026-11-03T02:43:54.450Z",
+  "nativeFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/NATIVE_FAILURE_OBSERVED.json",
+    "bytes": 6749,
+    "sha256": "9e727519a0ffc25518a938abdbee2a1643ee4f55413bf109047a03213891f4db"
+  },
+  "physicalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/SUBJECT.json",
+    "bytes": 6170,
+    "sha256": "0a780655d6adcef335c87a4383261179d7c52c50dc1c9d0d78d97ef88ee522f7"
+  },
+  "providerRoles": [
+    {
+      "role": "initial-selector",
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-67926b65d2548b7c-stdout.log",
+        "bytes": 255934,
+        "sha256": "6a393d96a484eda19319d1708aeac26b87adde247dad385e801efcb1f7d6c201"
+      },
+      "subtype": "success",
+      "num_turns": 2,
+      "duration_ms": 63845,
+      "duration_api_ms": 51602,
+      "total_cost_usd": 2.138252,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 255433,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 4739,
+        "output_tokens_details": {
+          "thinking_tokens": 1368
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 255433,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 2,
+          "outputTokens": 4739,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 255433,
+          "webSearchRequests": 0,
+          "costUSD": 2.138252,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 1368,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      }
+    },
+    {
+      "role": "Construction",
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-ac407ced5c6db43f-stdout.log",
+        "bytes": 5401796,
+        "sha256": "19ff503a84c3ab6e02c906593676aff04bc4a44e71bbf85dba310922b4ee3e4e"
+      },
+      "subtype": "success",
+      "num_turns": 109,
+      "duration_ms": 1568522,
+      "duration_api_ms": 1455394,
+      "total_cost_usd": 10.623278799999998,
+      "usage": {
+        "input_tokens": 200,
+        "cache_creation_input_tokens": 423356,
+        "cache_read_input_tokens": 19798570,
+        "output_tokens": 145221,
+        "output_tokens_details": {
+          "thinking_tokens": 94130
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 423356,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 2848,
+          "outputTokens": 159462,
+          "cacheReadInputTokens": 20164194,
+          "cacheCreationInputTokens": 423948,
+          "webSearchRequests": 0,
+          "costUSD": 10.623278799999998,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 94130,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      }
+    }
+  ],
+  "providerCalls": 2,
+  "reportedUsd": 12.761530799999997,
+  "reportedTurns": 111,
+  "billingOrEfficiencyClaim": false,
+  "sourceAcceptance": false,
+  "sourceCommit": false,
+  "cleanupOrRetry": false,
+  "limits": [
+    "Provider success and physical source custody do not establish successful native after-observation.",
+    "No C2 or UAT executed. Existing prior bounded recovery/pilot acceptance is unchanged.",
+    "Reported provider cost excludes unpriced Executive/review/operator work."
+  ]
+}

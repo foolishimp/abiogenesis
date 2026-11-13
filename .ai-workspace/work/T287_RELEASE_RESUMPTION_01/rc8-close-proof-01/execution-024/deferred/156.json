@@ -1,0 +1,32 @@
+{
+  "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+    "testSha256": "b4aacfd349c111119d51970aceb92a6ec3f4ce6e21770c87701c5e82eb2bd35c",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Root causal repair/proof triage pending on actual016 O1 assertion red. Nine partial successes receive zero whole-file credit; temporary scheduling only, no no-block, debt acceptance or automatic retry disposition.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_016.json",
+        "bytes": 10507,
+        "sha256": "1a53977e9bbeb224b88511768a4fee503630bc05853a0c45a2710fbf7306133e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-016/files/156-t287-required-operation-bindings.json",
+        "bytes": 1172,
+        "sha256": "0b18fd7642c65dbc7b42286633274507633d5f4769d699f53956ded60ba43f6f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-016/commands/156-t287-required-operation-bindings.result.json",
+        "bytes": 1503,
+        "sha256": "0a8e21db632698a7950e95db38fe18c1d0d1316a178e76299d2d74448a7ed0ee"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-016/commands/156-t287-required-operation-bindings.stdout",
+        "bytes": 4460,
+        "sha256": "e7a04325c36d3669dbcc377612ef289bcd5e553f6cc78224a840925b1a827c58"
+      }
+    ]
+  }
+}

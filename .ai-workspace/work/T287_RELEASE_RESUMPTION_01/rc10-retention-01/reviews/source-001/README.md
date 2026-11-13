@@ -1,0 +1,18 @@
+# RC10-SOURCE-01 — closed independent source review
+
+Product frame: ABIogenesis 5.0 retains its fixed fifteen families. This T-287 RC10 slice contracts disposable computation in existing run scopes while conserving exact invocation/basis, direct GTL/HoG execution, ABG admission and replay. Installed RC9 is the builder; the reviewed prospective RC10 source is frozen. No new runtime authority, public API, hostile-host requirement or heap guarantee is selected.
+
+**Verdict: falsified for proof/evidence sufficiency; no supported source implementation or deletion counterexample found.** Root alone assigns priority and disposition. Source lifetime and deletion/metadata predicates are satisfied within this static review's limits. No whole-Product qualification or release claim follows.
+
+- **F1 — S2:** The lifetime test's real calls assert only zero after completion. Active identity/work and overlap probes manually open retention handles after those calls. Removing the four run-owner acquisition calls would leave those assertions unable to detect missing production integration. This is a static counterexample to proof sensitivity, not an executed mutation or runtime defect. Actual in-flight owner observation is still required; pending external proof can supply it without source mutation.
+- **F2 — S3:** The library HOW says the new test drives rollback disposal, while the test never causes rollback and explicitly reports it unproved. The evidence description must retain that limit. Close disposal is exercised by the authored case.
+
+The reviewed implementation holds checked rows and committed decoded basis bodies only for eligible invocation handles on the exact store history. Exact membership/cardinality precede reuse. Four Effect scopes release on exits; borrowed completion does not prolong computational retention. Physical close and rollback dispose roots and invalidate old handles. Child/continuation identities follow existing admitted invocation relations. Historical reads stay cold without holds; full return/refusal semantics remain. These are source conclusions, not executed operational proof.
+
+All **23 selected declarations across 17 files** are deleted. Underlying owners remain, finite package/barrel/native routes were checked, and the computed semantic-revision bindings remain live. The whole delta has **27 files**; metadata changes are exact RC10 version substitutions only. No dependency or script change was found. M05's single changed cell preserves immutable successor construction from the actual close pair and same source Run/Product basis.
+
+Subject: sourceDigest `86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34`; freeze SHA-256 `85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19`; baseline `dd6938dd84fac37a76128d14cf1b5f0fa8aec299`. All 1,334 frozen rows independently matched their byte counts and SHA-256. Exact STDO 3.0.4 definition/basis/frame/control pins verified; composition is empty. Authorship is separate from native Claude Opus 5.5; unrestricted shared filesystem is not read isolation.
+
+The pinned build receipt reports compile/generate/imports/lifecycle/calculus success; this Reviewer ran none. Authored workload50 uses tiny/~4 KiB strings, not MiB values. Genuine active overlap, exceptional/nonterminal exits, continuation, duplicate/foreign rows, rollback, selected large-input workload, native after/close and fresh replay remain separate evidence. O3 is untouched/open. Pending proof may close these limits but is not presumed passed.
+
+[Exact result, findings, triage and evidence](./REVIEW.json). No Product edits, test/build/native execution, Git effects, repairs, new agents, tickets or next-work activation. Returned to Root; stopped.

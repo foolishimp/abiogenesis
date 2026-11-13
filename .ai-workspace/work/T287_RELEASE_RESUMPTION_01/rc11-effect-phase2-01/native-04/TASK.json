@@ -1,0 +1,45 @@
+{
+  "id": "t287-effect-phase2-native-04-r2",
+  "status": "READY_FOR_ADMITTED_NATIVE_SOURCE_AUTHOR",
+  "outcome": "Preserve immediate cleanup intent across stale probe rejection without resurrecting completed cleanup.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-04",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/tsconfig.json"
+  ],
+  "maxContextFiles": 24,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc11-effect-phase2-01/native-04/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-04/SOURCE_SUBJECT.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-04/EXECUTED_PROOF.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-04/EXTERNAL_TOOLS.json",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "qualification-scratch/rc11-effect-phase2-01/native-04"
+  ],
+  "checks": [
+    "Fresh scratch compiler<=240s/Bash300000",
+    "Actual-owner ^controlled (timing|lifetime): <=60s/Bash90000; preserve first red",
+    "Four-path delta only; preserve R1 laws,18 prior controlled cases and current physical facts"
+  ],
+  "instructions": [
+    "Implement only R2 on the exact native03 R1 successor. Read ROOT_SCOPE, SOURCE_SUBJECT, EXECUTED_PROOF and the current two shared modules; SOURCE_SUBJECT pins all four author targets and the Operator has verified the full1345-row subject, so do not spend the call scanning the whole inventory. The short Design/source reviews and retained actual observations explain the repair boundary. No broad A redesign or B work. The addressed readRoots select initial context; relevant repository contracts remain read-only.\n\nRejecting an obsolete probe observation must not discard a still-valid immediate cleanup request. Preserve stronger immediate intent across nested graceful exit/close reentry; decide against current physical state, reject stale absence and preserve actual entry counts. Never resurrect completed cleanup or replay stale continuations unconditionally. Keep one state/decision owner with the existing synchronous bridge. The algorithm and local carrier are your choice under this contract; no independent supervisor/counter or new mechanism approval gate. Preserve the coalescing rule's finite KILL/deadline duty and R1 entry-count/current-origin guarantees, including no-child/Windows assessment semantics and pre-entry cancelled tails.\n\nThe exact paired fixture in inputs/immediate-probe.mjs uses grace100, first probe exit-only, all probes present, outer requestTermination('immediate'). Its preserved pre-A result requests TERM,KILL at clock0 with200ms deadline; native03 requests TERM only with300ms deadline and KILL at100ms. Actual independent counts match recorded counts in both. Native03 fails the first KILL-before-handback assertion; later300ms is observation, not an assertion pass. Preserve these records unchanged. Later bounded cleanup does not discharge immediate intent.\n\nAdd meaningful controlled actual-owner cases: (1) reproduce that exact first-probe exit-only/all-present immediate relation, requiring KILL before the outer request returns, cleanupDeadline no later than200ms at grace100, and independent actual entry census rather than an invented total count; (2) outer immediate with nested absent plus exit+close completion, requiring no subsequent signals/probes/disposal, aligned frozen completion/later snapshots and no timer residue. Retain all18 previous controlled timing/lifetime cases and other test bodies/oracles. No reducer action-list oracle, copied model, sleep or oracle relaxation. Preserve createMonotonicDeadline, bigint bounds, fresh-object/recomputed-elapsed snapshot behavior, separately sealed completion, original first Error references and lawful disposal/seal continuations.\n\nCorrect only the permitted plan's current A/R1/R2 status and compatibility/accounting statement. R1 is source-satisfied, R2 is an executed A regression; the prior report's claim 'as in native02 and the predecessor' is false for pre-A. State the correction in the NEW return/plan without altering old native03 records. Include combined bridge+state line/coordination counts; this is consolidation, not net deletion. Keep B, peer retained-fact proof and full Phase2 acceptance pending. Do not claim external proof from native selfchecks.\n\nUse EXTERNAL_TOOLS for fresh native04 scratch compilation (outer240s, Bash300000ms), then exactly ^controlled (timing|lifetime): against that freshly compiled actual owner (outer60s, Bash90000ms). All outputs/temp/evidence stay in granted scratch; dependencies and source build are read-only. Retain raw first-red diagnostics. Compiler diagnostics may be repaired within this one call; a genuine semantic contradiction returns facts, no blind rerun or weakened test. No whole lifetime/physical/m5/unit/installed campaign, pack/generation/install, Git, nested provider or paid child. The absolute900s/inactivity180s/100turn envelope is fixed. Return actual four-path delta, both-module accounting, actual checks/first red and gaps, then stop edits. Root alone accepts source/proof."
+  ]
+}

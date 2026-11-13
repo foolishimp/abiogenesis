@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-generic-job-intake.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 45573.531792,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "retained two-job native intake rejects crossed job values and scopes",
+      "file": "test_env/tests/t287-generic-job-intake.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_RETAINED_PROOF unset; requires the retained two-job native intake proof",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-008/events/081-t287-generic-job-intake.jsonl",
+    "bytes": 1157,
+    "sha256": "344df7e3d1ac994cca10e0d1d9756fe141487b172d24c2a089524f0a7cc0ebe5"
+  },
+  "commandReceipt": "commands/081-t287-generic-job-intake.result.json",
+  "workspace": "/private/tmp/abg-r8c-008/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

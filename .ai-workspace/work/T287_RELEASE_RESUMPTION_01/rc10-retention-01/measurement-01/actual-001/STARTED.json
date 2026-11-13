@@ -1,0 +1,45 @@
+{
+  "utc": "2026-11-09T03:54:31.994Z",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/MEASUREMENT_BINDING.PRE_ADMISSION.json",
+    "sha256": "39e8c557cb55b8b72e3009b6941f7c346b2e18765eb8aa578de66619fe2fe4a6"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/ROOT_ADMISSION.001.json",
+    "sha256": "1d6af18ad166d5ab9d499afefee85b1ccccf350c99b94ed18820030dafb6738d"
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-rc10-retention-measurement-001/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-rc10-retention-measurement-001/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-rc10-retention-measurement-001/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-rc10-retention-measurement-001/npm-cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "ABG_TS_CLAUDE_COMMAND": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/scripted-readonly-actor.mjs",
+    "ABG_TS_FP_TIMEOUT_MS": "30000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "60000",
+    "ABG_TS_FP_TERMINATION_GRACE_MS": "2000",
+    "ABI5_RETENTION_BINDING": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/MEASUREMENT_BINDING.PRE_ADMISSION.json",
+    "ABI5_RETENTION_BINDING_SHA256": "39e8c557cb55b8b72e3009b6941f7c346b2e18765eb8aa578de66619fe2fe4a6"
+  },
+  "bounds": {
+    "hostMs": 900000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "nodeHeapMiB": 8192,
+    "coldReadMs": 120000,
+    "actorInactivityMs": 30000,
+    "actorAbsoluteMs": 60000,
+    "reserveBytes": 4294967296
+  },
+  "providerCallsSelected": 0
+}

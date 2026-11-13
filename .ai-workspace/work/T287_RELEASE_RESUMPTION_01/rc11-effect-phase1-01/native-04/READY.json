@@ -1,0 +1,101 @@
+{
+  "status": "FOUNDATION_ORACLE_GENUINE_OPEN_SETUP_READY_PROVIDER_HELD",
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/ROOT_SCOPE.json",
+    "bytes": 3354,
+    "sha256": "e216e396b0b365a4d76acd80a7ebe98ade56c2c8ea826f5a3ea44b9e21bf26be"
+  },
+  "review": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/ASSESSMENT.md",
+      "bytes": 6616,
+      "sha256": "b6704ca0ae4efe6c2ac4af9e1a02c5b866a3bb52497bf49e1489ff0503342ed7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/EVIDENCE.json",
+      "bytes": 4014,
+      "sha256": "5d052a6209e89a61ad04941a739585a75df95549f71085a9181e3d01b24cae95"
+    }
+  ],
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/TASK.json",
+    "bytes": 4509,
+    "sha256": "484600f0c43a3c712f267c12a96f75784de30cba66111677ce6c5fdcd5f90b19"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/BINDING.json",
+    "bytes": 19609,
+    "sha256": "806f446cd79df34abbe41c64d58935b3d700f6756dee95435cb339bbc859fec4"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/host.mjs",
+    "bytes": 15522,
+    "sha256": "723a94a1973fa2c9c74b3315d295bb75c99bc3f7358109c6c0494f2ce2c821fb"
+  },
+  "hostRelation": "Byte-identical to successful native03 host; no control framework change.",
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/TRANSPORT_PREFLIGHT.json",
+    "bytes": 1072,
+    "sha256": "e136a40002fb82db21cb30f9a88945d35c8aeabc68213d6ba8e767de3bbfc311"
+  },
+  "prebuiltIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/PREBUILT_IDENTITY.json",
+    "bytes": 1361,
+    "sha256": "19d1b7bf30423814ac27f82bc0c416b28890ff4c3e8a64afe3caed4a2525bc9e"
+  },
+  "preservationGuards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/PRESERVATION_GUARDS.json",
+    "bytes": 2189,
+    "sha256": "8842621d961e5d1e230528c1825f2c59d9f878a03a7493edfc525905d14eeb4c"
+  },
+  "syntax": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/host.mjs",
+        "bytes": 15522,
+        "sha256": "723a94a1973fa2c9c74b3315d295bb75c99bc3f7358109c6c0494f2ce2c821fb"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/transport-preflight.mjs",
+        "bytes": 1458,
+        "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+      },
+      "exitCode": 0
+    }
+  ],
+  "context": {
+    "fileMembers": 14,
+    "sourceMemberBytes": 353549,
+    "instructionUtf8Bytes": 2494,
+    "sourceContentsInlined": false,
+    "renderedBytes": "Actual installed renderer measured at PREPARED"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/SOURCE_INVENTORY.json",
+    "bytes": 295292,
+    "sha256": "5d6d631622d19db8b0ebb253fdd5069ced8986089dc2ef294fd853ff0fab5a8d"
+  },
+  "sourceDigest": "4f44c044916a3517519f552510d6c548502372fca828af6f3b4607d2093d031b",
+  "workspaceManifest": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+    "bytes": 1839,
+    "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+  },
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/runtime-001",
+  "setupBudgetMs": 900000,
+  "setupPerCommandMs": 300000,
+  "nativeCeilingMs": 600000,
+  "nativeInactivityMs": 180000,
+  "maxTurns": 100,
+  "reserveBytes": 4294967296,
+  "freeBytes": 383330590720,
+  "providerExecutable": {
+    "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+    "bytes": 272984176,
+    "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+  },
+  "outputControls": "Existing installed canonical native transport unchanged; native600s/100turns and exactstaticcheck60s. Setup command recorder300s/16MiB. No invented native byte ceiling."
+}

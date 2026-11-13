@@ -1,0 +1,160 @@
+{
+  "kind": "closed_independent_conditional_native_preparation_review",
+  "reviewId": "HS03-STDOUT-PREPARATION-001",
+  "status": "CLOSED",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "reasoning": "max, explicitly selected by Root",
+  "productFrame": {
+    "product": "Unchanged fixed fifteen-feature ABIogenesis 5.0 / GOAL-035 / T287",
+    "method": "STDO3.0.4",
+    "composition": [],
+    "referenceFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "boundary": "Conditional HS03 stdout-window native task/HOW/proof controls only. No native activation, nonexistent-implementation review, Product source acceptance or new runtime authority."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/PREPARATION_MANIFEST.json",
+    "bytes": 23144,
+    "sha256": "161eb78985e35fe0e33ce3ce0ebaecd677cf3c3340fa8226a5e9378b4f98de0e",
+    "verifiedListedFiles": 35,
+    "standing": "All35 listed physical files matched manifest sizes/hashes. Historical metadata was hash-checked, not semantically reread; no original historical log or private provider body was acquired."
+  },
+  "supplement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/NONADMITTING_SUCCESSOR_OBLIGATION.json",
+    "bytes": 1593,
+    "sha256": "6489d74427f058bc69908202442c84ddee4d6afcedfc62e45ac91df40bf98acf",
+    "verified": true,
+    "standing": "Separate Root obligation, outside the closed35-file manifest and its20 planned native inputs."
+  },
+  "controlPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/TASK.md",
+      "bytes": 8715,
+      "sha256": "b7e08bee48b156f9606083b32b01c43ec2585c596f8d76c22da3b56cde6efd5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/HS03_SELECTION.json",
+      "bytes": 2867,
+      "sha256": "dea1cd67075ffe9213cb6b8751a2a8a6e86b9ed441a4edf2fcfb376a1da68cf6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/MEASUREMENT_PLAN.json",
+      "bytes": 2648,
+      "sha256": "9a858a832480dc31ad17c05a29e9916d9866b168ecf0a36c2f9a46a2152d3c3a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/prior-author-lanes.mjs",
+      "bytes": 10409,
+      "sha256": "7f376706300f654960f8c762345400edec2d63c92a853bb9dd37bf709a511b93"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/prior-author-stage.mjs",
+      "bytes": 8291,
+      "sha256": "83b48071b56a237fe028ad042513804b5c569aa169a1ce46c71dbc4c417e4f15"
+    }
+  ],
+  "verdict": "TWO_BOUNDED_PREPARATION_CORRECTIONS_AND_KNOWN_FUTURE_BINDINGS_REQUIRED",
+  "findings": [
+    {
+      "id": "HS03-PREP-SUCCESSOR-001",
+      "classification": "Missing explicit native delivery of selected non-admitting successor obligation",
+      "refs": [
+        "PREPARATION_MANIFEST.json:futureNativeInputs",
+        "inputs/TASK.md:11",
+        "inputs/MEASUREMENT_PLAN.json:11,32",
+        "NONADMITTING_SUCCESSOR_OBLIGATION.json:obligation,proof"
+      ],
+      "trigger": "Final materialization copies the planned20 native inputs unchanged. The standalone supplement is not among them; existing TASK/plan require pre-projection/not_reached flushing but do not explicitly state durableOnly projection and actual successor adoption when no threshold event is emitted.",
+      "harm": "The future Worker can satisfy the broad pre-flush wording with transaction-local staging or leave actor_process successorPrefix at the old predecessor after a durable flush and runtime_threshold_not_reached. This is an instruction/proof delivery gap, not an observed implementation defect.",
+      "probability": "Concrete delivery omission; future implementation outcome is unmeasured.",
+      "failClosedControl": "Packet remains conditional and unactivated; Root final materialization is the present gate.",
+      "minimumCorrection": "Fold the exact supplemental durable projection and non-admitting successor adoption obligation into admitted TASK/HOW-first and selected proof wording, or pin/stage it as an explicit native input. Require the existing selected differential/timeout proof to observe the actual successor on not_reached. No new lane, scope or framework.",
+      "repairCost": "Small immutable successor control amendment and repinning."
+    },
+    {
+      "id": "HS03-PREP-ALLOCATION-002",
+      "classification": "Lane input validation occurs after create-only allocation",
+      "refs": [
+        "inputs/prior-author-lanes.mjs:63-79",
+        "inputs/prior-author-lanes.mjs:30-35"
+      ],
+      "trigger": "The helper creates out at line65, then validates historical metadata count/pin at72-77 and timeout/filter settings at79. Missing/changed metadata or an invalid selected lane setting throws before summary creation.",
+      "harm": "A non-executed lane leaves an incomplete reservation, consumes the finite allocation and blocks every later lane/stage under the existing incomplete-allocation rule. This repeats the late-preflight failure shape; no current lane timeout mismatch was found.",
+      "probability": "Deterministic for a failed late preflight; current metadata pin and all seven300000ms lane settings matched.",
+      "failClosedControl": "No test starts with invalid input, but the stale reservation prevents completion of the selected proof.",
+      "minimumCorrection": "Select the exact lane and validate its timeout, positive filters and required external metadata before mkdir(out). Keep create-only reservation immediately before actual execution and preserve failed/incomplete executed allocations; retain four-stage/seven-lane ceilings.",
+      "repairCost": "Small reorder in the existing lane helper; no new allocation or retry mechanism."
+    }
+  ],
+  "conservedPreparedRequirements": [
+    {
+      "refs": [
+        "inputs/TASK.md:9-13",
+        "inputs/HS03_SELECTION.json:12-22"
+      ],
+      "relation": "HOW-first scope-owned common flush is selected for all four existing producers and threshold projection, including not_reached, with explicit two-scope reentrancy/commit/rollback/final-partial handling."
+    },
+    {
+      "refs": [
+        "inputs/TASK.md:9,13",
+        "inputs/HS03_SELECTION.json:18-20"
+      ],
+      "relation": "Actual worker_transport archive-byte owner must write/fsync before reference; failed I/O must not publish unavailable bytes, and current cold/replay checks retain archive range/digest integrity."
+    },
+    {
+      "refs": [
+        "inputs/TASK.md:9,19",
+        "inputs/MEASUREMENT_PLAN.json:25-30"
+      ],
+      "relation": "Last qualifying activity is distinct from first/last byte capture and flush/admission times. Noise does not renew activity. Historical632 stdout rows without qualifying probes are not classified as noise; missing capture clocks/turn boundaries are not invented."
+    },
+    {
+      "refs": [
+        "inputs/TASK.md:21-35",
+        "inputs/C2_INPUTS.template.json:lanes",
+        "inputs/COMMAND_BOUNDS.json:12-114"
+      ],
+      "relation": "Seven exact serial lanes cover before/final differential, scopes, timeout/interruption, archive, legacy replay and native callers. Same final source digest is required for the final differential and five affected lanes. No broad suite or automatic retry is selected."
+    },
+    {
+      "refs": [
+        "inputs/prior-author-stage.mjs:20-33",
+        "inputs/prior-author-lanes.mjs:24-61"
+      ],
+      "relation": "Helpers enforce four selected stage labels, seven lane allocations, per-lane uniqueness and incomplete-attempt stops. Actual compile/test failures remain counted and retained."
+    },
+    {
+      "refs": [
+        "inputs/TASK.md:13,19",
+        "inputs/MEASUREMENT_PLAN.json:14,29"
+      ],
+      "relation": "Old profile/cut identities are conserved; observable current contract changes require canonical regeneration and exact member/span checks. Historical metadata is an oracle, never a runtime stream or archive-byte proof."
+    }
+  ],
+  "requiredFutureMaterialization": {
+    "sourceRows": "Replace the450-row historical reference with the actual accepted451-row H03-inclusive source subject/inventory. The preparation is not currently dispatchable.",
+    "controls": [
+      "SOURCE_BEFORE",
+      "SOURCE_CUSTODY",
+      "C2 protectedSourcePaths",
+      "native grant/context and workload source lists",
+      "derived source/context counts and pins",
+      "actual dependency-ready selection and admission"
+    ],
+    "countLimit": "Recompute the current473 planned context count.451 sources plus unchanged20 inputs and3 handoffs would be474; explicitly adding an input requires recomputation again. Do not treat historical counts as authority.",
+    "runtimeAndEvidence": "Bind actual accepted source/proof/measurement/disposition and genuine predecessor receipt/close/resume before activation; H03 remains future.",
+    "helperCountBehavior": "Stage/lane source counts derive from bound protectedSourcePaths; no hardcoded450 execution check was identified in the reviewed helpers."
+  },
+  "limits": [
+    "No HS03 Product implementation exists for this review to assess; transaction recursion, durability and successor realization remain future source/proof obligations.",
+    "No builds, syntax checks, tests, runtime/provider calls, dispatch or original historical log reread performed by Reviewer.",
+    "No private provider narrative/body or credentials inspected.",
+    "No Product or prepared-control edits. Only the granted review artifacts were created.",
+    "This is same-family bounded controls review, not release-family qualification, source acceptance, measured speedup or S6 repricing.",
+    "Root owns immutable successor preparation, final native activation and acceptance."
+  ],
+  "activated": false,
+  "executed": false,
+  "sourceAccepted": false,
+  "qualified": false,
+  "published": false
+}

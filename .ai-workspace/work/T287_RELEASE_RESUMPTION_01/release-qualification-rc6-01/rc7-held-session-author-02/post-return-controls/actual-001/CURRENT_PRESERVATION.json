@@ -1,0 +1,310 @@
+{
+  "trackedChangedCount": 69,
+  "trackedChangedPaths": [
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/index.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-evidence.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "status": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs"
+    }
+  ],
+  "collapsedUntrackedEntries": [
+    ".abiogenesis/",
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+    "qualification-inputs/",
+    "qualification-scratch/",
+    "tmpd5a/",
+    "tmphs2/",
+    "tmpo7b/",
+    "tmpq23/",
+    "tmpq23b/",
+    "tmpq23e/",
+    "tmpq23f/"
+  ],
+  "inheritedTrackedBefore": 63,
+  "existingNewProductPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+  ],
+  "newTrackedModifiedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md"
+  ],
+  "readOnlyGitStatus": true,
+  "indexLockDisabled": true
+}

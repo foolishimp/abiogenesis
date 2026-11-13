@@ -1,0 +1,58 @@
+{
+  "status": "ROOT_SELECTED_EXACT_TWO_SYMLINKS_UNLINKED",
+  "completedAt": "2026-11-03T02:52:10.798201+00:00",
+  "rootAuthority": "Root message after actual session25304 exit0/chunkabcc5d",
+  "quiescence": {
+    "checkedAt": "2026-11-03T02:52:10.797261+00:00",
+    "matchingActiveProcesses": [],
+    "knownPids": [
+      58359,
+      63848,
+      61590
+    ]
+  },
+  "before": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-20/tmp/probe/build",
+      "device": 16777231,
+      "inode": 682700257,
+      "uid": 501,
+      "mode": 41453,
+      "literalTarget": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build",
+      "targetIdentity": {
+        "device": 16777231,
+        "inode": 681475319,
+        "mode": 16877,
+        "mtimeNs": 1793642058770741417
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-20/tmp/probe/contracts",
+      "device": 16777231,
+      "inode": 682714132,
+      "uid": 501,
+      "mode": 41453,
+      "literalTarget": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/contracts",
+      "targetIdentity": {
+        "device": 16777231,
+        "inode": 681477194,
+        "mode": 16877,
+        "mtimeNs": 1793642058933902174
+      }
+    }
+  ],
+  "after": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-20/tmp/probe/build",
+      "absent": true,
+      "targetIdentityUnchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-20/tmp/probe/contracts",
+      "absent": true,
+      "targetIdentityUnchanged": true
+    }
+  ],
+  "effect": "Unlink only these two directory entries. No recursive deletion, target-tree edits, other scratch or source edits.",
+  "causalLimit": "Actual owner refusal named symlink_forbidden but did not identify an offending path; these are the two exact observed author-created links, not a claim that no other readiness issue exists."
+}

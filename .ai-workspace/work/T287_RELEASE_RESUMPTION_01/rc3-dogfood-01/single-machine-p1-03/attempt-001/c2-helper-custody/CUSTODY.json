@@ -1,0 +1,214 @@
+{
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/fixture-current-measurement",
+      "exitStatus": 0,
+      "observationDigest": "sha256:e1844f29b048d810c74fbdd42589d8607fdae54b659f01922cc6039d0489f649",
+      "observationRef": "worksite-command-observation://abiogenesis/e1844f29b048d810c74fbdd42589d8607fdae54b659f01922cc6039d0489f649",
+      "processSignal": null,
+      "streams": {
+        "stderr": {
+          "bytes": 0,
+          "path": "fixture-current-measurement.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 4616,
+          "path": "fixture-current-measurement.stdout",
+          "sha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6"
+        }
+      },
+      "terminationConfirmed": true,
+      "timedOut": false,
+      "timeoutMs": 30000
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/source-correspondence",
+      "exitStatus": 0,
+      "observationDigest": "sha256:70bc502c487dbaf037b15072a4b5881f632beb328933475cac23d3e88a0b1af2",
+      "observationRef": "worksite-command-observation://abiogenesis/70bc502c487dbaf037b15072a4b5881f632beb328933475cac23d3e88a0b1af2",
+      "processSignal": null,
+      "streams": {
+        "stderr": {
+          "bytes": 0,
+          "path": "source-correspondence.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 1424,
+          "path": "source-correspondence.stdout",
+          "sha256": "f7d16498d07712e228bfa5ebb1f709526e70a17594df7bd3c76bc0369475016b"
+        }
+      },
+      "terminationConfirmed": true,
+      "timedOut": false,
+      "timeoutMs": 30000
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/toolchain",
+      "exitStatus": 0,
+      "observationDigest": "sha256:475910547995b31edc9699a0c8591c1872563a03ba4e7f7bcc06e28096e77bdc",
+      "observationRef": "worksite-command-observation://abiogenesis/475910547995b31edc9699a0c8591c1872563a03ba4e7f7bcc06e28096e77bdc",
+      "processSignal": null,
+      "streams": {
+        "stderr": {
+          "bytes": 0,
+          "path": "toolchain.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": "toolchain.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "terminationConfirmed": true,
+      "timedOut": false,
+      "timeoutMs": 60000
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/contract-seeds",
+      "exitStatus": 0,
+      "observationDigest": "sha256:f0a81c97e9633f73c8b558c24ae0cb40d1b4f16fff2ea24d9035cab835dfa1d4",
+      "observationRef": "worksite-command-observation://abiogenesis/f0a81c97e9633f73c8b558c24ae0cb40d1b4f16fff2ea24d9035cab835dfa1d4",
+      "processSignal": null,
+      "streams": {
+        "stderr": {
+          "bytes": 0,
+          "path": "contract-seeds.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "path": "contract-seeds.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "terminationConfirmed": true,
+      "timedOut": false,
+      "timeoutMs": 30000
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/build",
+      "exitStatus": 0,
+      "observationDigest": "sha256:b29107f7049b2dfdb759d77bdfe7a3d68a40fa9e44a83f04f6c63e9e5c401c06",
+      "observationRef": "worksite-command-observation://abiogenesis/b29107f7049b2dfdb759d77bdfe7a3d68a40fa9e44a83f04f6c63e9e5c401c06",
+      "processSignal": null,
+      "streams": {
+        "stderr": {
+          "bytes": 0,
+          "path": "build.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 215,
+          "path": "build.stdout",
+          "sha256": "4b917a1e8bc682a17f9a5221bd1f465f674b712c01a8d41f58467feb608a92be"
+        }
+      },
+      "terminationConfirmed": true,
+      "timedOut": false,
+      "timeoutMs": 480000
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/package",
+      "exitStatus": 0,
+      "observationDigest": "sha256:91962a3850b088c42a0bab8d926089abd6569cab9cc08148ba045131f9c5ff94",
+      "observationRef": "worksite-command-observation://abiogenesis/91962a3850b088c42a0bab8d926089abd6569cab9cc08148ba045131f9c5ff94",
+      "processSignal": null,
+      "streams": {
+        "stderr": {
+          "bytes": 0,
+          "path": "package.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 482,
+          "path": "package.stdout",
+          "sha256": "f67d447e8c9f5fc9e2926eb2eaa5619b92b429fb10145270bf8ca25308c82017"
+        }
+      },
+      "terminationConfirmed": true,
+      "timedOut": false,
+      "timeoutMs": 60000
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain",
+      "exitStatus": 124,
+      "observationDigest": "sha256:5c3c48e167e5e2a97ec2198f60936b5e468dda52e74c3eddba8c1f1dfd37d2f7",
+      "observationRef": "worksite-command-observation://abiogenesis/5c3c48e167e5e2a97ec2198f60936b5e468dda52e74c3eddba8c1f1dfd37d2f7",
+      "processSignal": null,
+      "streams": {
+        "stderr": {
+          "bytes": 49,
+          "path": "focused-owner-chain.stderr",
+          "sha256": "3154960decd075ed56867dec48e15e1eca0f810701e871b0c8e67620b32612cc"
+        },
+        "stdout": {
+          "bytes": 37291,
+          "path": "focused-owner-chain.stdout",
+          "sha256": "333800f5ced552e49cd809b19e2da3c77f63bee599d548bc837ea1a66fbb19c7"
+        }
+      },
+      "terminationConfirmed": true,
+      "timedOut": true,
+      "timeoutMs": 600000
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests",
+      "exitStatus": 0,
+      "observationDigest": "sha256:e925f59216dc9f2add7b68807f9f41b6e6cf9cb17abf74e18f9fb8508f53a23f",
+      "observationRef": "worksite-command-observation://abiogenesis/e925f59216dc9f2add7b68807f9f41b6e6cf9cb17abf74e18f9fb8508f53a23f",
+      "processSignal": null,
+      "streams": {
+        "stderr": {
+          "bytes": 0,
+          "path": "affected-owner-tests.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 19719,
+          "path": "affected-owner-tests.stdout",
+          "sha256": "a0e571d4aadfc6e77cbb453e03cd08a0b15129790ada0857106797b139ff9197"
+        }
+      },
+      "terminationConfirmed": true,
+      "timedOut": false,
+      "timeoutMs": 300000
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests",
+      "exitStatus": 0,
+      "observationDigest": "sha256:e05d06b998b241be1bd5d6971e448b2cbb90c7b4ee0b13b6fdba1ac18ee4ab5e",
+      "observationRef": "worksite-command-observation://abiogenesis/e05d06b998b241be1bd5d6971e448b2cbb90c7b4ee0b13b6fdba1ac18ee4ab5e",
+      "processSignal": null,
+      "streams": {
+        "stderr": {
+          "bytes": 0,
+          "path": "artifact-tests.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 312,
+          "path": "artifact-tests.stdout",
+          "sha256": "fd007c430fa7ea0144f7d1760274654ca1722ee38146506abbce308b719519f6"
+        }
+      },
+      "terminationConfirmed": true,
+      "timedOut": false,
+      "timeoutMs": 480000
+    }
+  ],
+  "helperArtifactDigest": "sha256:6c7bf48bfb6ab11fe5845bdd74853ac4653aaaf292b20fee225ababa14e17f30",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/6c7bf48bfb6ab11fe5845bdd74853ac4653aaaf292b20fee225ababa14e17f30",
+  "helperResultBytes": 6272460,
+  "helperResultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/worksite-command-execution/51717170187809060e33cb0af9a7a0d87c0446a4f7661b396c2ac113879d4751/e98da6bc6b049353e1efc9c642358d502b0363b23ca48c0525a62b69cf26f3c8/result.json",
+  "helperResultSha256": "7a5b1ad23fa70e4debb39a36de65b68f6c81081a20db5e7ce7fabb8f61a21433",
+  "kind": "p1_03_c2_helper_observation_custody",
+  "limits": [
+    "Helper bytes observed; native Testing admission and parent outcome remain separate.",
+    "Timeout did not produce a passing focused test."
+  ],
+  "snapshotDigest": "sha256:501da71899b21c6ea97d0484e15a23278fe8b0f68d1af1bccbc02fe267da01a6",
+  "snapshotRef": "worksite-command-snapshot://abiogenesis/501da71899b21c6ea97d0484e15a23278fe8b0f68d1af1bccbc02fe267da01a6"
+}

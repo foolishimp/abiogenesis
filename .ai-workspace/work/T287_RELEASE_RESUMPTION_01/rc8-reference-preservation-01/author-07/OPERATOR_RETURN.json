@@ -1,0 +1,177 @@
+{
+  "status": "NATIVE_RETURNED_CLOSED_FOCUSED_PASSED_ROOT_CONJUNCTION_PENDING",
+  "at": "2026-11-07T08:34:34.755517+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/ROOT_ADMISSION.json",
+    "bytes": 3295,
+    "sha256": "620f5bb408450854dd99f080c1c107f08898a1801e42757ee2091232962d259a"
+  },
+  "controlFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/CONTROL_FREEZE.json",
+    "bytes": 2207,
+    "sha256": "a61152a173b955b42269ff2de26c518b891e072979e20ff18154232cf45402e8"
+  },
+  "source": {
+    "digest": "b2ca1a756b264c1ee13e3bca9ba324d8d499619a28f97874d8fafde6d82ad146",
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/source-freeze.json",
+      "bytes": 295567,
+      "sha256": "a4ded31e5b6e2601969af0bbc050191da458d6520c1397dbd56850eace7e47c7"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/READY.json",
+      "bytes": 572576,
+      "sha256": "8af463df739f510f4a9784712c7d6bf6d63ba4605eac707dd3526915e7410860"
+    },
+    "rows": 1339,
+    "currentSourceRowMismatches": 0,
+    "actualSdkChangedPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "incrementalChangedPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "baseAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 9246,
+      "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+    },
+    "compiledDependencyConfigArchiveReuse": "Existing proof owner verified cumulative A6 inputs with only the granted test increment; zero builds.",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "proof": {
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/RESULT.json",
+      "bytes": 1858,
+      "sha256": "13c7cb1a5c87f7c28e7c6c929fe1441cab01dcfa11aabb005280bab5faaf2da5"
+    },
+    "counts": {
+      "tests": 2,
+      "failed": 0,
+      "passed": 2,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 2,
+      "suites": 0
+    },
+    "wallMs": 54428.705667,
+    "wholeFile": false,
+    "namePattern": "^(?:retained RC5 history:|liveness candidate validation forks its admitted base:)",
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/events.jsonl",
+      "bytes": 1274,
+      "sha256": "d70bce5fcd0f01fab229331525e5893921b889a87b9e34d756a8d4e3cc82e13d"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/commands/test.stdout",
+      "bytes": 10761,
+      "sha256": "f600975552411770e5c253c00d0c3213a20fc1b50e156ecfb7369ff377540895"
+    },
+    "primaryPreserved": true,
+    "buildInvocations": 0
+  },
+  "actualNative": {
+    "runRef": "run://abiogenesis/1d28e3213f5107b523d048b6332224c7e77d47f877264595a75b2b4f4f15cdaa",
+    "actorPid": 21873,
+    "hostPid": 19812,
+    "sessionId": 44028,
+    "exitCode": 0,
+    "failure": null,
+    "sdkOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 652257,
+      "sha256": "a6121516630821a9a1e8b5d49a9db7b37b529fdd9168059fa02a620684f55731"
+    },
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/runtime-001/resource-close.json",
+      "bytes": 2308,
+      "sha256": "78f735ab9b3a86655f9da5b81bb033c75c29ac3be4b0c00dd1fb01f4c77d275b"
+    },
+    "final": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/runtime-001/FINAL.json",
+      "bytes": 3202,
+      "sha256": "0c992401417530192ece6b1536a8b469dd8f30bfca39a29e44260c6a2b82d788"
+    },
+    "closedUtc": "2026-11-07T08:31:58.276Z",
+    "processesObservedAbsent": true,
+    "activeCodingWorkers": 0,
+    "closedPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 131303212,
+      "prefixDigest": "sha256:509d77c9cc41b0777e65f5b410974efd4ee47db140c1e7fef2b9977179ecf648",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 708868359,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:728ea7cae2343b9a88858d0c2730f4e1a4e2c9a36fe76c839cdfd0f3144267fc"
+    }
+  },
+  "freshReadbacks": {
+    "recipe": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/readbacks.mjs",
+      "bytes": 4791,
+      "sha256": "a2c6c38890eb196a5b9986d2b168f82325e6b1d60d6f5aa4d10f58223db3385f"
+    },
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/readbacks-001/RESULT.json",
+      "bytes": 6636,
+      "sha256": "cd7b2c1c61eeb8b691815875baa462c873c1e38bf821716c298125895b9741f5"
+    },
+    "wallMs": 21963.106417000003,
+    "fullTypedTerminalsEqualActualSdk": true,
+    "prefixUnchanged": true,
+    "replayStatus": "closed",
+    "standing": "Typed terminal/value/producer identity matches; no claim that projection envelopes at differing bases are byte-identical."
+  },
+  "timingsMs": {
+    "controlAndImport": 849.9286669999999,
+    "functionalPrepare": 26084.393625,
+    "coldReacquire": 1737.0048750000024,
+    "preparedToDispatch": 146580.0,
+    "dispatchToActor": 10854.0,
+    "previousNativePhysicalCloseToDispatch": 2311610.0,
+    "dispatchToSdkReturn": 341871.92904200003,
+    "focusedProof": 54428.705667,
+    "freshReadbacks": 21963.106417000003
+  },
+  "handoff": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/author-07/HANDOFF.md",
+    "bytes": 4601,
+    "sha256": "639d4f532d973e8f4f3e399fa419bb442f9ab0c7a18821e36926d56ed705e3b6"
+  },
+  "remainingCounterexample": {
+    "standing": "Worker-reported source prediction, unexecuted and untouched outside the selected first-two-case grant. Root disposition required; not a Product regression finding or admitted residual.",
+    "file": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "sites": [
+      {
+        "line": 278,
+        "case": "shared public-operation classification"
+      },
+      {
+        "line": 328,
+        "case": "global run-invocation pairs"
+      },
+      {
+        "line": 1205,
+        "helper": "retainedOwnedPrefix; historical revision cuts and semantic stage authentication"
+      }
+    ],
+    "claim": "These later retained-log coordinates still use current ROOT_EVENT_CONTRACT_DIGEST and are predicted to meet the same cold-reader profile refusal."
+  },
+  "limits": [
+    "Two filtered cases only; no whole-file consolidation or broad credit.",
+    "Independent frozen review and source acceptance remain Root effects.",
+    "No additional native dispatch, Product/HOW/library changes, Git/cut/install/selector/cleanup or retry. Broad010 has a separate stopped return."
+  ],
+  "sourceAccepted": false,
+  "broadAccepted": false,
+  "qualified": false
+}

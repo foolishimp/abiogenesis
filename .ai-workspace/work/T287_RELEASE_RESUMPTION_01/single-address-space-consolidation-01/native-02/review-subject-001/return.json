@@ -1,0 +1,551 @@
+{
+  "kind": "native_02_return",
+  "schemaVersion": "5.0.0",
+  "standing": "Author return of the native-02 Worker. Scratch feedback is author feedback, not actual C2, independent review, UAT or acceptance.",
+  "recordedUtc": "2026-11-04T08:00:00Z",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "subject": {
+    "sourcePreimage": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+    "heldSubjectMatchedAtStart": "all 33 HELD_SOURCE_AND_EVIDENCE digests matched; held work continued, not restarted",
+    "changedPathCount": 33,
+    "native02ChangedPathCount": 14,
+    "allChangedPathsInC2SourceCorrespondence": true,
+    "changedPaths": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "status": "M",
+        "bytes": 294547,
+        "sha256": "10cac78fc4123c186c3153adcb0a8ea990592e60f188ab6ddcc112258831697c",
+        "heldSha256": "10cac78fc4123c186c3153adcb0a8ea990592e60f188ab6ddcc112258831697c",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+        "status": "M",
+        "bytes": 147829,
+        "sha256": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16",
+        "heldSha256": null,
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+        "status": "M",
+        "bytes": 62559,
+        "sha256": "25aad5b6abaf0630976f18c74f65c2fb8105510294cc8a0f8b6ea7f85e6e2252",
+        "heldSha256": "25aad5b6abaf0630976f18c74f65c2fb8105510294cc8a0f8b6ea7f85e6e2252",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+        "status": "M",
+        "bytes": 46872,
+        "sha256": "06b425bef6bbd2af68ba3e7fdc873c24b7cfde5721090949805be2427f31bc33",
+        "heldSha256": "06b425bef6bbd2af68ba3e7fdc873c24b7cfde5721090949805be2427f31bc33",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+        "status": "M",
+        "bytes": 129406,
+        "sha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+        "heldSha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+        "status": "M",
+        "bytes": 44711,
+        "sha256": "8feeb5ab8bf7f4582828aaa5420ad0b956f492a9f3bb2b68123b24a52fad71e4",
+        "heldSha256": "8feeb5ab8bf7f4582828aaa5420ad0b956f492a9f3bb2b68123b24a52fad71e4",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+        "status": "M",
+        "bytes": 21679,
+        "sha256": "b86b17a978cad10dcbb3c720de1203f845323d8d1943999a41ad0e030fea61b1",
+        "heldSha256": "7b0477b0ce489f487cd764d83bcea353019520ddfc0433843b41d3ba0b217beb",
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+        "status": "M",
+        "bytes": 37252,
+        "sha256": "70808821083b7c0d7abe595f05d42188868b631bef441152573658b4d9b7a99c",
+        "heldSha256": "264d51cabd8679edfb86893590a567138e078b3e4e482cd68915fb46e48b758f",
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+        "status": "M",
+        "bytes": 33064,
+        "sha256": "51c49b7069a6a56362cfc53e8d7681b855ca8b28af77e9fd49c18defd3f57eff",
+        "heldSha256": "51c49b7069a6a56362cfc53e8d7681b855ca8b28af77e9fd49c18defd3f57eff",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "status": "M",
+        "bytes": 29515,
+        "sha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+        "heldSha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+        "status": "M",
+        "bytes": 51361,
+        "sha256": "ce9cc8c74568ec7a8fe6dc2f061a3fb8693416f0874739345c286bdce12aec5d",
+        "heldSha256": null,
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+        "status": "M",
+        "bytes": 222875,
+        "sha256": "cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1",
+        "heldSha256": "cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+        "status": "M",
+        "bytes": 12031,
+        "sha256": "93b5f832601192409dbdbdb9db0cc9988c6c3d7e1d94026504008b28ab07cc74",
+        "heldSha256": null,
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+        "status": "M",
+        "bytes": 19897,
+        "sha256": "7da8c71f162549621ea2adebe149fdd5509c85046c7d57ad50e35985493db0c6",
+        "heldSha256": null,
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+        "status": "M",
+        "bytes": 9247,
+        "sha256": "5ce21cf9f9e234ebd2e5bae2ec9df96083214f667e1e9c23ecb15f908c6b3189",
+        "heldSha256": "5ce21cf9f9e234ebd2e5bae2ec9df96083214f667e1e9c23ecb15f908c6b3189",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+        "status": "M",
+        "bytes": 3150,
+        "sha256": "c1ae30fe5ce0adae13613da1d5882d475230355713da12b4e85b22b1fff94fc1",
+        "heldSha256": "c1ae30fe5ce0adae13613da1d5882d475230355713da12b4e85b22b1fff94fc1",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "status": "M",
+        "bytes": 136338,
+        "sha256": "927f8221297a109ee4952b6ada3d304ab355bef694a114c8c5fd27247450c6f6",
+        "heldSha256": "bf2017d81179c178c45048318a242704de271852facfceba46df6868f4dfb2d1",
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md",
+        "status": "M",
+        "bytes": 71565,
+        "sha256": "2e906352d2b83f13635126608467fc4898af2c7916ac7eb8d0c6aee882120121",
+        "heldSha256": "2e906352d2b83f13635126608467fc4898af2c7916ac7eb8d0c6aee882120121",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "status": "M",
+        "bytes": 82902,
+        "sha256": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8",
+        "heldSha256": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+        "status": "M",
+        "bytes": 18054,
+        "sha256": "11d4dac7fb052b8cad1b0e9e6a6aaef7185ed7891de6fc4f4b1b329dc57fb636",
+        "heldSha256": "11d4dac7fb052b8cad1b0e9e6a6aaef7185ed7891de6fc4f4b1b329dc57fb636",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+        "status": "M",
+        "bytes": 14684,
+        "sha256": "532ad9a99905a8d9f33a34e4738e2615daaa1ced7a371a8a42eaa5a070e24791",
+        "heldSha256": "532ad9a99905a8d9f33a34e4738e2615daaa1ced7a371a8a42eaa5a070e24791",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs",
+        "status": "M",
+        "bytes": 28860,
+        "sha256": "4718c90ba665fe2d2103ef4a13e433575b7f0f0e33e05cc225210c74fd91c7b5",
+        "heldSha256": "4718c90ba665fe2d2103ef4a13e433575b7f0f0e33e05cc225210c74fd91c7b5",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "status": "M",
+        "bytes": 14925,
+        "sha256": "b5ab9c0faad5048fd8e9e3e7a39ec08c540a568a56e0b16baaa846dd5aea5686",
+        "heldSha256": "b5ab9c0faad5048fd8e9e3e7a39ec08c540a568a56e0b16baaa846dd5aea5686",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+        "status": "M",
+        "bytes": 12240,
+        "sha256": "5f746eec8f1f598fe3ce5ea2d9698d44338842cf4470fb7195836b4f36917160",
+        "heldSha256": null,
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+        "status": "M",
+        "bytes": 4636,
+        "sha256": "e2d74fde4a620024c97641939e2d50fd988437804b87121484a513cb24b778be",
+        "heldSha256": null,
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "status": "M",
+        "bytes": 52759,
+        "sha256": "eec3a064046060312ef0201bce20df5b46f781b48da2bd9f628a39faf3c1c4ad",
+        "heldSha256": "b36b41eb6d95ad77bbfd776c31483dbae0ec09fb817e062d3b86c4cce367e2a8",
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+        "status": "M",
+        "bytes": 15707,
+        "sha256": "e8b911080ff7ef26ef7b6472471223abf44a187ff48ae659385edc4b5a163eac",
+        "heldSha256": null,
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "status": "M",
+        "bytes": 42213,
+        "sha256": "f4cbf1fed4b4d671c7c7f7e6fc4e378ec1abf22965384d1fc73c385786ada6ef",
+        "heldSha256": "f4cbf1fed4b4d671c7c7f7e6fc4e378ec1abf22965384d1fc73c385786ada6ef",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+        "status": "M",
+        "bytes": 96545,
+        "sha256": "3d336f70e8b21349fd0768a1abed407debcc6d0edf6dffa5c570b6bdc6b80efd",
+        "heldSha256": null,
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "status": "M",
+        "bytes": 29259,
+        "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05",
+        "heldSha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "status": "M",
+        "bytes": 37910,
+        "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2",
+        "heldSha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2",
+        "changedByNative02": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+        "status": "??",
+        "bytes": 9403,
+        "sha256": "d5ab42a4f91970f328e9b15bea532dee86def237c6b7709a31a00165799cace7",
+        "heldSha256": "78fa645e06b02ff46451dcd6eb1a313874fd3a1ffd0de3025613b184b85472eb",
+        "changedByNative02": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "status": "??",
+        "bytes": 44968,
+        "sha256": "f1923613a8993df445f9b3dc469f7056502691e1852a334364fba019f82a6fd2",
+        "heldSha256": "815997fefb8b4087910765d8dbe05867df2e7c5daddeeeaded8de4df5943f877",
+        "changedByNative02": true
+      }
+    ]
+  },
+  "findings": {
+    "SAS-01": {
+      "status": "resolved for the named callers",
+      "sites": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+          "lines": "769,834,839",
+          "change": "admitTraversalFrameCursor reads the held transaction's owned durable predecessor (selectActiveRuntimeTransactionHistoryAtDurablePrefix + selectOwnedRuntimeEventPrefix); the repeat check uses the related:<frameId> envelope index with the same kind and aggregateId predicate; the Run scope derives by selectRuntimeEventPrefixFromAuthority. No complete vector, snapshot or second validated prefix."
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+          "lines": "57-62,142,1710,2177,2339",
+          "change": "no-pending, reentry, selected-action and pending-execution paths read readOwnedRuntimeEventPrefixAtDurablePrefix (open owner borrows; copied or closed-owner coordinate is authenticated cold, the reader's existing meaning); currentness digests compare runtimeEventPrefixDigest, equal for owned and validated prefixes; deriveConstructionIntentContinuations reads the Run-open envelope before any Run body."
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+          "lines": "1131",
+          "change": "unchanged; its per-successor call reaches the migrated owner"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+          "lines": "11-15,94,155,244",
+          "change": "parent return reads readOwnedRuntimeEventPrefixAtDurablePrefix; unbound recovery coordinates keep cold authentication."
+        }
+      ],
+      "retainedChecks": "domain, recovery, currentness (requireCurrent and digest), rollback generation and genuinely cold acquisition unchanged; owner modules event_store/event_prefix/runtime_history untouched"
+    },
+    "SAS-02": {
+      "status": "resolved",
+      "deleted": [
+        "abg/native_work_reacquisition.ts authenticateNativeWorkReacquisition (complete-copy adapter: Object.freeze([...bodies]) + selectValidatedRuntimeEventPrefix)",
+        "abg/index.ts export of authenticateNativeWorkReacquisition",
+        "implementation/contracts.ts NativeLeafProofOperations.nativeWorkReacquisition? (no supplier)"
+      ],
+      "migratedTests": [
+        "t287-native-work-reacquisition (3 sites)",
+        "t287-native-work-reacquisition-normalization (2)",
+        "t287-owned-native-proof (4)",
+        "t287-native-owner-reuse (4; optional env-gated lane, its read-count assertion was already stale at f49, no credit claimed)"
+      ],
+      "retained": {
+        "nativeOwnedWorkReacquisition": "supplied leaf_invocation_port.ts:470, consumed implementation/native_work_reacquisition.ts:21",
+        "nativeWorkReacquisition judgment": "supplied leaf_invocation_port.ts:514, consumed product/builtin_semantics.ts:259"
+      },
+      "remainingReferences": 0
+    },
+    "SAS-03": {
+      "status": "resolved",
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "change": "identity from a fresh npm pack of the built tenant (packed bytes digest + built product-toolchain-manifest; rc.5 on this candidate), no persisted rc.4 basis read, support URI no longer rc4-labelled; lifecycle assertions: 4 eventless calls, 6 borrowed calls each entering at the acquired selection or the preceding successor, completion successors for the 4 history-writing calls, one acquisition and one final close at the last successor, refused repeat acquires nothing; verification, resolution, install, environment, npm, heavy-entry and warm-control assertions retained; proof records prefixDigest, borrowedCalls and finalClose",
+      "publicSetup": "unchanged; already the borrowed lifecycle"
+    },
+    "installedMeter": {
+      "status": "resolved",
+      "paths": [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs"
+      ],
+      "change": "after the CLI producer/consumer Run, three in-process borrowed graph-edge invocations run inside the meter on the held resource after 0, 32 and 256 unrelated workspace events; COUNTED adds the migrated owners and durable-prefix readers; owner RuntimeHistory.work deltas recorded; input default is consolidation-inputs/native-02",
+      "assertions": [
+        "traversal event kinds and producer/consumer values equal the CLI Run at every size",
+        "stale, copied and crossed selections refuse acquisition_mismatch equally at every size and append nothing",
+        "cursor admission and per-successor continuation are reached; readActiveRuntimeTransactionAtDurablePrefix 0",
+        "complete durable-prefix reader calls constant across sizes",
+        "same input: migrated continuation 0 body passes and 0 immutability walks over unrelated history; replaced expression exactly 1 pass and 21 walk calls per unrelated event"
+      ],
+      "measured": {
+        "proofSha256": "6734d5155ae50c23b4ce3fdcd735ffd53dc4f7de0b5a0352bd0116e495cb5ea8",
+        "wholeInvocationBodyPassesPerUnrelatedEvent": 22.996,
+        "invocationWallMs": [
+          4647,
+          4679,
+          4804
+        ],
+        "heldBaselineSameInvocation": {
+          "build": "scratch tmp/held: candidate tests over held source for the six native-02 code files",
+          "bodyPassesPerUnrelatedEvent": 24.996,
+          "readRuntimeEventsAtDurablePrefix": 7,
+          "readActiveRuntimeTransactionAtDurablePrefix": 1,
+          "isImmutableRuntimeValuePerInvocation": [
+            639028,
+            669383,
+            742076
+          ],
+          "wallMs": [
+            4716,
+            4766,
+            4878
+          ],
+          "meterResult": "fails 'cursor admission materializes no transaction history' (1 !== 0)"
+        },
+        "candidate": {
+          "readRuntimeEventsAtDurablePrefix": 6,
+          "readActiveRuntimeTransactionAtDurablePrefix": 0,
+          "isImmutableRuntimeValuePerInvocation": [
+            495537,
+            519146,
+            575685
+          ]
+        },
+        "reading": "SAS-01 removes 2 full passes per unrelated event per invocation on this fixture (25.0 to 23.0) and about 23% of immutability-walk calls; wall time is unchanged within noise; no speedup claim"
+      }
+    },
+    "HOW": {
+      "status": "resolved",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "change": "runtime-history row names the migrated callers, the readOwned reader meaning, the Run-open envelope precheck, the five named complete-output exports, and states that the complete durable-prefix readers of other owners are outside the row; no zero-materialization or fewer-decode claim",
+      "otherDesignDocs": "T287_DEFAULT_GOVERNANCE_LIBRARY, T287_REGISTERED_GRAPH_SELECTION_NATIVE, T287_D1_REQUIREMENT_LIFECYCLE held edits retained; no reference to the removed adapter"
+    }
+  },
+  "census": {
+    "callersMigrated": [
+      "abg/traversal_cursor.ts admitTraversalFrameCursor",
+      "abg/construction_continuation.ts admitPendingConstructionIntentContinuation, admitConstructionContinuationReentry, admitSelectedActionContinuationOperation, admitPendingExecutionContinuationOperation",
+      "hog/parent_rehydration.ts rehydrateParentReturnFrames",
+      "held native-01 migrations retained: runtime_liveness, graph_application, execution_basis, open_call, c_call, continuation, traversal_route (owned mode), environment_admission, native_work_reacquisition, default_library, hog lifecycles"
+    ],
+    "inTerritoryRetained": [
+      {
+        "site": "abg/continuation.ts:1579 commitFhInteractionResponseAtExpectedPrefix",
+        "contract": "CommittedFhInteractionResponseResult publishes a validated prefix (constitution L56, abg.operation.interaction.respond)",
+        "consumers": "abg package export (abg/index.ts:303); no source binding consumer",
+        "cost": "one complete held materialization and validated-prefix selection per committed response"
+      },
+      {
+        "site": "abg/traversal_route.ts:5263,5280,5453,5614,5752 complete mode",
+        "contract": "admitTraversalTransition, admitCompletedRetryTraversalTransition, admitBlockedRetryTraversalTransition return complete RouteTransitionAdmission and replay state",
+        "consumers": "abg package exports; tests retained-route-cursor-transition, t287-authenticated-owner-family, r9-causal-result-closure, t287-retry-run-prefix; source uses the owned variants (hog/retry_lifecycle, hog/structural_transition)",
+        "cost": "complete transaction snapshot + successor complete read + immutability walk per transition"
+      },
+      {
+        "site": "abg/c_call.ts:7430 planPendingInteractionAdmission",
+        "contract": "complete projectedPrefix and materialized replay guard over planOwnedPendingInteractionAdmission",
+        "consumers": "abg package export only (abg/index.ts:258); no source or test consumer found",
+        "cost": "complete body copy + immutability walk + replay-guard materialization",
+        "disposition": "retained (retainedContracts); retirement returned to Root because no concrete consumer was found and it is a package export"
+      },
+      {
+        "site": "abg/event_prefix selectRuntimeEventPrefixFromStore pure-memory branch",
+        "contract": "memory store has no durable history",
+        "consumers": "memory-store owners and tests",
+        "cost": "readAll + validated selection"
+      },
+      {
+        "site": "abg/environment_admission.ts:491,792,1241 projectExactPrefixArtifactTruth",
+        "contract": "exact artifact truth with cold re-authentication after owner close",
+        "consumers": "invocation_admission.admitInvocationWithRequest, environment admission",
+        "cost": "one complete durable read per call (measured on the invocation path)",
+        "disposition": "projectOwnedPrefixArtifactTruth borrows a closed owner's selection and would drop the cold check; an equivalent needs an artifact_truth variant over readOwnedRuntimeEventPrefixAtDurablePrefix (missing owner relation, returned to Root)"
+      },
+      {
+        "site": "body-view aliases open_call.ts:558, continuation.ts:949, traversal_route.ts:5299,5342",
+        "contract": "selectValidatedRuntimeEventPrefix over a RuntimeEventBodyView returns its owner prefix",
+        "cost": "no expansion"
+      }
+    ],
+    "outOfTerritory": {
+      "measuredOnOrdinaryInvocation": [
+        "abg/calculus/liveness.ts:799 projectRuntimeRetryBudgetFacts: frame-scope liveness (cCallRef null) selects related:null, the bucket of every null-parent event (41 rows after 32, 298 after 256 unrelated events), then finds no c_call_opened; the dominant term, about 22 body passes per unrelated event per invocation",
+        "abg/invocation_admission.ts:923-924 admitInvocationWithRequest",
+        "abg/effectful_invocation_truth.ts:145-146, 182 (full body-view filter)",
+        "abg/fh_continuation_projection.ts:883 projectFhEffectfulPublicInvocationFacts (full body-view filter)",
+        "abg/artifact_truth.ts:854 projectExactPrefixArtifactTruth (3 calls: run_invocation projectSetupTruth, environment_admission workspace environment, effectful truth)",
+        "abg/project_read_ports.ts:710-711 prepareRead (run truth)",
+        "abg/replay.ts:123-124 projectRuntimePrefixesAtDurablePrefix; replay.ts:2213 projectRunSemanticReplay (full body-view map)"
+      ],
+      "unmeasuredOrdinaryOwners": [
+        "owner_bindings/run_invocation.ts:1329 deriveCurrentSourceUse (source start)",
+        "abg/invocation_admission.ts:675-676",
+        "abg/retry.ts:638,3597,5119,5683",
+        "abg/runtime_failure.ts:276,346",
+        "abg/deferred_application.ts:51",
+        "abg/worksite_command_forward.ts:69,189,219",
+        "abg/worksite_construction_recovery.ts:215,322",
+        "abg/witness_definition_bindings.ts:156,242,308",
+        "abg/witness_admission_operation.ts:1127",
+        "abg/requirement_handoff.ts:29",
+        "abg/semantic_revision.ts:198",
+        "implementation/leaf_invocation_port.ts:1144",
+        "implementation/worksite_file_replace.ts:333,696",
+        "product/materialization_definition_bindings.ts:303-304",
+        "product/result_definition_bindings.ts:165-166",
+        "product/declaration_application.ts:268-269",
+        "product/result_assessment_operation.ts:558",
+        "validator/self_conformance_basis.ts:36",
+        "hog/entry.ts callers of the migrated owners need no change"
+      ],
+      "completeOrRawByDesign": [
+        "abg/replay.ts:574 replay (complete replay)",
+        "abg/event_log.ts:40 persistEventLog",
+        "abg/qualification_proof.ts (23 reader rows, qualification proof)"
+      ],
+      "method": "grep of readRuntimeEventsAtDurablePrefix/projectRuntimeEventsAtDurablePrefix/readHeldRuntimeEventsAtDurablePrefix/readActiveRuntimeTransactionAtDurablePrefix/readAll/selectValidatedRuntimeEventPrefix over code/src (owners excluded), arguments classified; measured rows attributed by scratch-only stack probes in a scratch build, removed by a clean rebuild"
+    }
+  },
+  "rows": {
+    "R1": "SAS-01 named callers migrated; the actual invocation is metered (frame admission, traversal completion, continuation) with equal outcomes and refusals; the whole-invocation remainder (about 23 passes per unrelated event) is attributed to outside owners and returned",
+    "R2": "SAS-01 and SAS-02 resolved in territory; exact source delivered in the worksite with hashes",
+    "R3": "SAS-01 resolved for traversal_cursor, construction_continuation (4 paths), graph_execute consumer and parent_rehydration",
+    "R4": "Operator input sufficiency remains separate (retained review disposition)",
+    "R5": "Operator search and current history/limit evidence remain separate (retained review disposition)",
+    "R6": "Meaning preserved; reduced liveness reconstruction retained; probe CPU still not fully attributed",
+    "R7": "SDK author proof supported; SAS-03 resolved; cold costs recorded (retained-log cold authentication 666189062 B, 23991 ms); actual C2 and native UAT open"
+  },
+  "criteria": {
+    "C1": "Partial: named and held callers use existing owned prefix, resource and digest owners; SAS-02 adapter removed; every retained in-territory complete path has a named contract and consumer; the out-of-territory inventory remains and is returned. Not claimed as whole consolidation.",
+    "C2": "Same-input: retained RC5 log owned 51567041 B vs expanded 425363929 B, 0 vs 4559844 immutability calls, same context; installed migrated continuation 0 vs 1 pass per unrelated event; same invocation held 25.0 vs candidate 23.0 passes per unrelated event. Owned decodes 12199 vs 11568 (more), so no fewer-decode or zero-materialization claim; event-log bytes, body rows and CPU are recorded separately; CPU causes not attributed.",
+    "C3": "Installed producer/consumer (CLI plus three borrowed in-process invocations) and the maintained SDK setup execute with one acquisition, final close, failure close at the held prefix and cold reopen in scratch; no new runtime, cache, store or authority.",
+    "C4": "R1-R7 dispositions above; startup and digest caller families covered by the held review and unchanged here.",
+    "C5": "Scratch C2 orchestration passes all four lanes (author feedback); new consolidation cases run without skips; external log unchanged; independent review and actual C2 pending; no qualification or speedup claim."
+  },
+  "feedback": {
+    "scratchC2Orchestration": {
+      "script": "consolidation-inputs/native-02/c2-proof.mjs run unmodified in scratch tmp/cand",
+      "lanes": {
+        "affected-owner-lanes": {
+          "pass": 48,
+          "fail": 0,
+          "skipped": 20
+        },
+        "installed-affected-lane": {
+          "pass": 2,
+          "fail": 0,
+          "skipped": 0
+        },
+        "single-address-space-whole-path": {
+          "pass": 4,
+          "fail": 0,
+          "skipped": 0
+        },
+        "maintained-setup-harness": {
+          "pass": 32,
+          "fail": 0,
+          "skipped": 0
+        }
+      },
+      "reportSha256": "b3445bae022e21aad032a5ae05f573fe5b44bb253ccc0ca13b3a1dfa7d203b64",
+      "proofSha256": "6734d5155ae50c23b4ce3fdcd735ffd53dc4f7de0b5a0352bd0116e495cb5ea8"
+    },
+    "extraAffected": {
+      "sas01PathTests": "39 tests: 23 pass, 15 env-gated skips, 1 fail: t287-selected-action-authority loads its retained fixture with selectValidatedRuntimeEventPrefix and unchanged event_store refuses it ('profile schedule requires the original gap-free stamped history') before any owner code; also fails ENOENT without the fixture env",
+      "selectedActionLive": "t287-selected-action with a scratch evidence root: 1/1 pass (admitSelectedActionContinuationOperation path)"
+    },
+    "externalLog": {
+      "sha256Before": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+      "sha256After": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+      "bytes": 586361364,
+      "identityUnchanged": true
+    },
+    "native01Predecessor": "read only; its cand source supplied held versions for the scratch held baseline"
+  },
+  "returnedToRoot": [
+    "calculus/liveness.ts projectRuntimeRetryBudgetFacts related:null selection for frame-scope liveness: dominant accumulated work over unrelated null-parent history (about 22 passes per unrelated event per invocation); an equivalent repair returns absent for a non-string cCallRef or selects the c_call_opened envelope before decoding",
+    "Owned-reader variant of exact artifact truth (artifact_truth.ts) with readOwnedRuntimeEventPrefixAtDurablePrefix semantics; needed before environment_admission, run_invocation projectSetupTruth and effectful truth can migrate",
+    "Complete durable-prefix readers measured on the ordinary invocation: invocation_admission, effectful_invocation_truth, fh_continuation_projection, project_read_ports, replay prefixes and run semantic replay",
+    "Unmeasured ordinary complete readers listed in census.outOfTerritory.unmeasuredOrdinaryOwners need owner triage",
+    "planPendingInteractionAdmission has no concrete consumer; retirement of the package export needs Public-family authority",
+    "t287-selected-action-authority retained fixture is refused by the current event_store profile schedule (pre-existing, outside territory)",
+    "About 4 RuntimeDerivationSource.snapshot calls per unrelated event per invocation remain unattributed"
+  ],
+  "limits": [
+    "Scratch feedback is author feedback on a scratch build of the worksite source; not the operator's C2 or acceptance.",
+    "Body-pass and walk slopes are from one 2-node graph-edge fixture with 0/32/256 unrelated workspace events; no extrapolation to other workloads.",
+    "Inspector coverage perturbs durations; wall and CPU are recorded without a speedup claim.",
+    "Stack attribution came from scratch-only probes in a scratch build, removed by a clean rebuild before final feedback.",
+    "Owned decodes exceed expanded decodes on the retained log; no fewer-decode or zero-materialization claim.",
+    "No qualification, release, publication, commit or provider dispatch."
+  ]
+}

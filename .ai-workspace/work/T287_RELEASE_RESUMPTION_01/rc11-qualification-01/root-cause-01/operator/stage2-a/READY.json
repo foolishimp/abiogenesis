@@ -1,0 +1,52 @@
+{
+  "status": "READY_FINITE_STARTUP_DELAY_COUNTERFACTUAL",
+  "stage1": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/STAGE1_RETURN.json",
+    "bytes": 32689,
+    "sha256": "cd1efd942a0d48d922f0ffe7817267f45fdf1910f611445f45556f9f1675c5d1"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/BINDING.json",
+    "bytes": 8704,
+    "sha256": "25f5b9ee3f9269c5ec4b9f0f53404ec0a6d4ea9fcc68b3e89110fc1ffd7c43c7"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/diagnostic.py",
+    "bytes": 12222,
+    "sha256": "cc66d3691adb5f656d1631cd0273a8423b474541957e770904f9398ff79a6ac5"
+  },
+  "transform": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/SOURCE_TRANSFORM.json",
+    "bytes": 1701,
+    "sha256": "11edd520edfac63d3d0ac7298e1d9d352b27844199c5d7f03050ba7fa1c4e5cd"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/SOURCE_TRANSFORM.diff",
+    "bytes": 13699,
+    "sha256": "35996c96387453dd3c6c2862d93437dcb5013e9bef329a1b5dac3c3a32712237"
+  },
+  "command": {
+    "id": "six-case-delay-counterfactual",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "--test-name-pattern=^(?:M5\\ ABG\\ transport\\ force\\-terminates\\ a\\ worker\\ that\\ ignores\\ SIGTERM|M5\\ ABG\\ transport\\ renews\\ its\\ inactivity\\ lease\\ only\\ from\\ observed\\ progress|M5\\ ABG\\ transport\\ does\\ not\\ renew\\ from\\ unacknowledged\\ output|M5\\ ABG\\ transport\\ excludes\\ semantic\\ output\\ emitted\\ after\\ its\\ timeout\\ boundary|owned\\ process\\ groups\\ retain\\ descendant\\ cleanup\\ after\\ normal\\ and\\ TERM\\ leader\\ exits|M5\\ ABG\\ transport\\ excludes\\ descendant\\ output\\ emitted\\ after\\ direct\\-process\\ exit)$",
+      "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/test_env/tests/m5-worker-transport.delay.test.mjs"
+    ],
+    "timeoutSeconds": 60
+  },
+  "exactDelayMs": 600,
+  "selectedDelayedRoles": [
+    "resistant-worker.mjs",
+    "progress-worker.mjs",
+    "unadmitted-progress-worker.mjs",
+    "post-timeout-worker.mjs",
+    "post-exit-worker.mjs",
+    "http-normal-leader.mjs"
+  ],
+  "originalProductTimeoutsChanged": false,
+  "syntaxChecked": true
+}

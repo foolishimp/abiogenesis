@@ -1,0 +1,194 @@
+{
+  "kind": "native_actor_tool_output_volume_observation",
+  "recordedUtc": "2026-11-03T14:30:33.599645+00:00",
+  "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-32ab2b36fa2c8225-stdout.log",
+  "completePrefixBytes": 6154811,
+  "completePrefixSha256": "098c670978e6a2adfd04b28e0c4b2f6178798518fcff97523d7bd8e4c41511ea",
+  "toolResults": 156,
+  "serializedToolResultContentBytes": 706299,
+  "identicalRepeatedOutputBytesBeyondFirst": 26928,
+  "largestResults": [
+    {
+      "toolUseId": "toolu_01Ce6PttEizPAK6q2f8yx9e7",
+      "archiveOffset": 353125,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 62568,
+      "outputSha256": "f29d8d4edebc3b4b40a401b085c1f096603bea19c145981a1c5424a6e52257bf",
+      "isError": false,
+      "tool": "Read",
+      "description": null,
+      "path": "/Users/jim/.claude/projects/-Users-jim-src-apps-abiogenesis-single-address-space/9b3fd73b-38c3-4909-8cde-4108737c382c/tool-results/bcgzv6svu.txt"
+    },
+    {
+      "toolUseId": "toolu_01LfaZqUvSjE2yWN6gq2QZH1",
+      "archiveOffset": 1283783,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 38646,
+      "outputSha256": "05abd711d17ae1d0c427277f54170c23e068166562244b36f15761d07f694de6",
+      "isError": false,
+      "tool": "Read",
+      "description": null,
+      "path": "/Users/jim/.claude/projects/-Users-jim-src-apps-abiogenesis-single-address-space/9b3fd73b-38c3-4909-8cde-4108737c382c/tool-results/b2xwg07zk.txt"
+    },
+    {
+      "toolUseId": "toolu_01HrriWVBYmr3kCtgsF6HAUP",
+      "archiveOffset": 759553,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 29514,
+      "outputSha256": "578ddcdfd9adc7d12fd6d6be7624241a51f1d0dcb4aba90486fc7b66cd22eba8",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read runtime_liveness.ts",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_018HxYybg5obJwv5Qm4PZxpD",
+      "archiveOffset": 3751852,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 26464,
+      "outputSha256": "4a758bfb2d418c6e7018025812d08c8ba49dedd2760048a8b0a72dbc43b0f365",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read public-setup.mjs",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_01X48oWrKDa1RtRiL4iD1Xb2",
+      "archiveOffset": 4147502,
+      "phaseAfterCompactions": 1,
+      "outputBytes": 26464,
+      "outputSha256": "4a758bfb2d418c6e7018025812d08c8ba49dedd2760048a8b0a72dbc43b0f365",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read public-setup module",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_01BHLxYLuKQsGicwU13KhWot",
+      "archiveOffset": 258651,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 21730,
+      "outputSha256": "35e996d55c029213e189ca76027984d619ce1a33a4c219d580695c3fd00cf6bc",
+      "isError": false,
+      "tool": "Bash",
+      "description": "List headings in common library design",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_01HuQoJDnEaepipXMHUqpocN",
+      "archiveOffset": 548261,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 16370,
+      "outputSha256": "d53068f3d6b51862b7e94582ea2c8224988f291442d960ffc2af00623917433c",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read event_prefix.ts head",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_01CWpTyFbhko3ziVbAb4Y8vE",
+      "archiveOffset": 4230550,
+      "phaseAfterCompactions": 1,
+      "outputBytes": 14851,
+      "outputSha256": "d94b1811c8542dbd1e79c0d0903664f4f923ec5a76f5be3022da27af2c782ce7",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read continuation borrowing idiom",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_01Xe4Ep2vJQ8yT5sRjYQQcYa",
+      "archiveOffset": 3890827,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 13836,
+      "outputSha256": "823a1b33d926fdbaa95cfe849015fd598d26382e7346f169427b15098caa44f5",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read borrowed-resource patterns in continuation and support",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_018T1rAGYj7uMBCPMJa1HPbf",
+      "archiveOffset": 68202,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 11712,
+      "outputSha256": "aaf9cd397dc46c51be2e4ed8b02b0d4c84f9873bfa53e91d4ff992e1dfba65fa",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read task and grant files",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_014kuzCDRuQceSdzW3V6iRZY",
+      "archiveOffset": 4107395,
+      "phaseAfterCompactions": 1,
+      "outputBytes": 11085,
+      "outputSha256": "11de8665b259f0b87c09d1c41fd5ed68b3835eb917093209440641aa954c2929",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read runner main flow",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_01XSQ4N72xnXHXiCEWZAUKML",
+      "archiveOffset": 45206,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 11068,
+      "outputSha256": "ccd5db36d8b3a10be7576d53d4ba1743ba2321ce9e7c0b26cdbdded860df3256",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read context and causal map",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_01PgMRKSvM8tEpCf8yfEqebb",
+      "archiveOffset": 128792,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 10920,
+      "outputSha256": "6f36cf312c07b26a4b2588863cd56ca00b35ffe98a3ebb1397a23f80e360c2af",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read measured baseline and C2 inputs",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_01VWvbgTfUQ7GSzq34eKU2ny",
+      "archiveOffset": 873629,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 10661,
+      "outputSha256": "6362c56804d929fe650038f86724be42e828c4e81ca12e8eec7913fc68eb7139",
+      "isError": false,
+      "tool": "Bash",
+      "description": "Read transaction helpers in event_store",
+      "path": null
+    },
+    {
+      "toolUseId": "toolu_015iXE6NQQtqviFEU2b8G8Db",
+      "archiveOffset": 487816,
+      "phaseAfterCompactions": 0,
+      "outputBytes": 10380,
+      "outputSha256": "be6768234d6940e7b0677365c19911039b50e7e695b3dfe32ae8da3f6a99f31b",
+      "isError": false,
+      "tool": "Read",
+      "description": null,
+      "path": "/Users/jim/.claude/projects/-Users-jim-src-apps-abiogenesis-single-address-space/9b3fd73b-38c3-4909-8cde-4108737c382c/tool-results/bcgzv6svu.txt"
+    }
+  ],
+  "phaseTotals": [
+    {
+      "phaseAfterCompactions": 0,
+      "results": 97,
+      "outputBytes": 523051
+    },
+    {
+      "phaseAfterCompactions": 1,
+      "results": 59,
+      "outputBytes": 183248
+    }
+  ],
+  "limits": [
+    "Archive tool-result content byte counts are not provider token counts or the complete context.",
+    "Identical output alone does not decide whether a repeated observation was needed.",
+    "Readiness and full caller proof remain pending; this is operator/actor history evidence, not a Product code defect."
+  ]
+}

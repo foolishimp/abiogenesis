@@ -1,0 +1,35 @@
+{
+  "ProductFrame": "Root read-only operational triage only; exact known-input conservation after stopped broad007, no source assessment or behavioral acceptance.",
+  "status": "KNOWN_DERIVED_INPUT_CONSERVATION_CHECKED",
+  "at": "2026-11-08T20:10:55.511199+00:00",
+  "boundInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-001/BOUND_INVENTORY.json",
+    "bytes": 1701389,
+    "sha256": "e75c167187c939e5c54e5de207d978697829ba953e7fea944dae28ed05d2966d"
+  },
+  "candidateRefresh": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/CANDIDATE_BASIS_REFRESH.json",
+    "bytes": 3166,
+    "sha256": "a5af0ab2b0e6c5920fdbf82dd118f522a4c98af2511dc1d1d97bebda57de974e"
+  },
+  "commonRoot": "/private/tmp/abg-r9c-broad-001/w",
+  "dependencyRoot": "/private/tmp/abg-r9c-broad-001/w/build_tenants/abiogenesis/typescript/node_modules",
+  "expectedDerivedSourceRows": 2133,
+  "sourceMismatches": [],
+  "externalRows": 3,
+  "externalMismatches": [],
+  "dependencyRows": 4576,
+  "dependencyMismatches": [],
+  "archive": {
+    "path": "/private/tmp/abg-r9c-broad-001/w/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "archiveMatchesFixedMeasuredArchive": true,
+  "test": {
+    "path": "/private/tmp/abg-r9c-broad-001/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "bytes": 56917,
+    "sha256": "a8f0525caa1b047f304fe87afaa80b51854b5c050b384c8c7098609bab290067"
+  },
+  "limits": "Only already-bound declared rows and approved derived candidate-fixture replacement checked; this is not a new inventory/membership scan, an unknown-file absence proof, source semantics review, or proof completion. No mutations or process signals."
+}

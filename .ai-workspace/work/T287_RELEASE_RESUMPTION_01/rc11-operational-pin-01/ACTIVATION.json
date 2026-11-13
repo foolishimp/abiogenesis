@@ -1,0 +1,65 @@
+{
+  "id": "RC11-PIN-RC12-WAIT-001",
+  "role": "separately activated Writer/Operator; stdo-work recipient",
+  "actor": "/root/rc10_operator",
+  "decisionOwner": "/root Executive",
+  "startedUtc": "2026-11-10T22:12:05.909987+00:00",
+  "ownerInstruction": "we have been using the tool to build the next RC of the tool, pin RC11 as the abg to build what youve described above as RC12 and wait",
+  "RootAdmission": "Operational pin plus durable RC12 scope/hold only; verify installed immutable RC11 as project/work operational builder, record WAITING_FOR_OWNER_RESUME, then stop. No Product implementation, runtime or actor is selected.",
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifest": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/manifest.json",
+      "bytes": 18022,
+      "sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+    },
+    "composition": [],
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frames": [
+      "Install/Proof for exact identity",
+      "Worker for documentary operational pin"
+    ],
+    "skill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    },
+    "installedBasisValidation": "Consume Root fresh status --verify: installed=true, valid=true, failures=[] on this exact Definition/basis. Recheck selected member bytes; no alternate mutable method selected."
+  },
+  "changeIntent": "Project/work builder selection and held next-RC intent; not implementation or an authority-document rewrite.",
+  "closureLaw": "Exact archive identity and complete safe regular-member equality to installed payload; retained owner semantic digests distinguished from byte pins; exact tracking preimages and source/index/old-pin conservation; durable RC12 wait status.",
+  "supersededTruth": "RC10 current operational-builder role only; its exact pin remains historical provenance for RC11 construction. Legacy Consensus Product/F08/S05 text is a future owning reconciliation, not changed by this record.",
+  "sourceSubject": {
+    "installedRC11Commit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+    "installedRC11Tree": "1aabb06494de37a644b645161c6491d5b005cc73",
+    "laterContinuationSource": "b7cf409fc74eca639525fccbea52e666be7743d4",
+    "laterSourceIsNotInsideInstalledRC11": true
+  },
+  "allowedWrites": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/ACTIVATION.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/BUILDER_PIN.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/RC12_INTENT.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/RETURN.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/README.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/verify_payload.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/VERIFICATION.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/FAILURE.json",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md (one prefix only)",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md (one prefix only)"
+  ],
+  "operationBoundary": "Full workspace tools and retained context; explicit operation boundary, not enforced isolation or independent/clean-context review.",
+  "prohibited": "No Product execution/resource, actor/provider/native Run, build/test/install/recut, source/design/package edit, Git write/worktree, selector/config, release/publication or RC12 start.",
+  "stops": "Mismatch or preimage drift: bounded failure only, no repair/pin/tracking mutation.",
+  "returnTo": "/root Executive; stop after recording."
+}

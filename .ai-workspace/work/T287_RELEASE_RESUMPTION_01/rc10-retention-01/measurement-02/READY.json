@@ -1,0 +1,53 @@
+{
+  "id": "RC10-MEASUREMENT-02-PREPARATION",
+  "status": "CORRECTED_WITNESS_PREPARED_ARTIFACT_AND_EXECUTION_HELD",
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/ROOT_SCOPE.json",
+    "bytes": 6945,
+    "sha256": "2e73c0e378a8d91d87ce066c77fb3411d74f9751bfcd5aaa843d01796e802b56"
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/measurement.test.mjs",
+    "bytes": 19190,
+    "sha256": "020e2fb64fd022f66441d72120e019e9b07a6325e9e5b8c08aae5b286306d133"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/run-measurement.mjs",
+    "bytes": 6877,
+    "sha256": "cbf6e18c4bc639a9e9186ce142dcbace52e8a3ad1f72919a8584ea1336bece75"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/BINDING.HELD.json",
+    "bytes": 4146,
+    "sha256": "b69488d9ff32bf95ed94e6c24ecf485b0d9ffceeef40ac75c054cb7ff1ac10ba"
+  },
+  "measurementDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/measurement.test.mjs.patch",
+    "bytes": 3286,
+    "sha256": "a68a5bfd89f0564e1ae30ede7b7c172525fbf7c795eab36dd4dee3b3ed2fdf6e"
+  },
+  "hostDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/run-measurement.mjs.patch",
+    "bytes": 1622,
+    "sha256": "418fa5728f76eb2f8e62681f01143a5203898f08ebe9dce40e9c0ebf90351683"
+  },
+  "syntaxChecks": "Both Node --check passed; no test executed.",
+  "changedRelation": "Actual current owned prefix -> invocation_admitted scalar publicRequestInvocationRef matching constructed Public request -> admitted invocationRef -> basis_admitted scalar invocationRef -> selectorKeys basisRef. No new retention handle.",
+  "preserved": [
+    "Positive retainedRows/historyBasisBodies gate before basis projection",
+    "Two synchronous reads preserve strict identity and zero rowAdmissions/bodyDigests delta",
+    "50 alternating 1 MiB/4 MiB real context bodies; logical payloadBytes is actual task canonical rawInputValue bytes",
+    "Natural heap/RSS after dropping per-call objects; no forced GC",
+    "Zero-after, finite historical sentinel reads, actual physical close and fresh readback gates",
+    "900s/1GiB/8192MiB/16MiB output/4GiB reserve; no real provider"
+  ],
+  "unbound": [
+    "successor sourceDigest/freeze",
+    "new compiled package root and helper pins",
+    "archive and provisional installation",
+    "source-build-artifact relation",
+    "execution admission"
+  ],
+  "runtimeAllocated": false,
+  "qualified": false
+}

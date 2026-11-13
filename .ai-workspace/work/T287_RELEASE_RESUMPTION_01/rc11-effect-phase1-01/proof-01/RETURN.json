@@ -1,0 +1,525 @@
+{
+  "status": "PHASE1_EXTERNAL_PROOF_CLOSED_PENDING_ROOT_CONJUNCTION",
+  "utc": "2026-11-09T18:37:25.642808+00:00",
+  "sourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+  "sourceRows": 1344,
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/source-freeze.json",
+    "bytes": 295022,
+    "sha256": "9ff5a44dcaca743e51be2313c21e503a437b57f036162a0f8cc2e37d4df20ae3"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/BINDING.json",
+    "bytes": 5251,
+    "sha256": "e3b91f2103182daffca5a85381cbf9358f563cc2f6c6901c4496a681570ecf46"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3842,
+    "sha256": "ac0d360ac7fe7e52a2ac999fa9207f330990d3755ee1e5e646e744c7336e7a02"
+  },
+  "allocation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-plan/ALLOCATION_02.md",
+    "bytes": 1190,
+    "sha256": "4b9ebac15a10bbe1f66e017ac6c34eb1463d2bbaaa41bbd35639ba8969a8b4f3"
+  },
+  "actualFinal": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/FINAL_RETURN.json",
+    "bytes": 2384,
+    "sha256": "dd108d63df4222cd9859a07b29fcc287e16e36b198ff4b5d192540ee9a68ff75"
+  },
+  "commands": [
+    {
+      "id": "lint",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/lint/RETURN.json",
+        "bytes": 1210,
+        "sha256": "7ffb1b8c84ca5a468c0752e11d4f2552bf574027fdd0a0800977484cb3a2b9fb"
+      },
+      "wallSeconds": 0.22371225012466311,
+      "exitCode": 0,
+      "groupAbsentAtOwnerReturn": true,
+      "cleanupNeeded": false,
+      "counts": null,
+      "completeNamedPopulation": null,
+      "retainedEvidenceFiles": 0
+    },
+    {
+      "id": "build",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/build/RETURN.json",
+        "bytes": 1123,
+        "sha256": "797468fea65a73e297f4279478f8ff74a20ae806136baab30f0d09e8d77ec07d"
+      },
+      "wallSeconds": 31.075017749797553,
+      "exitCode": 0,
+      "groupAbsentAtOwnerReturn": true,
+      "cleanupNeeded": false,
+      "counts": null,
+      "completeNamedPopulation": null,
+      "retainedEvidenceFiles": 0
+    },
+    {
+      "id": "deterministic",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/deterministic/RETURN.json",
+        "bytes": 203218,
+        "sha256": "7ea7151da6fe417e9a02e2578de9207edac1039ecbd4429e541bf65e475e19e8"
+      },
+      "wallSeconds": 1.6146209170110524,
+      "exitCode": 0,
+      "groupAbsentAtOwnerReturn": true,
+      "cleanupNeeded": false,
+      "counts": {
+        "tests": 29,
+        "pass": 29,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "completeNamedPopulation": true,
+      "retainedEvidenceFiles": 23
+    },
+    {
+      "id": "owned-lifetime",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/RETURN.json",
+        "bytes": 119374,
+        "sha256": "76cddabbb9f1eb4e8329c972e1cbb8d59c71a00f03290c19c95c1b839bc1cb49"
+      },
+      "wallSeconds": 12.349862500093877,
+      "exitCode": 0,
+      "groupAbsentAtOwnerReturn": true,
+      "cleanupNeeded": false,
+      "counts": {
+        "tests": 18,
+        "pass": 18,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "completeNamedPopulation": true,
+      "retainedEvidenceFiles": 8
+    },
+    {
+      "id": "m5",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/m5/RETURN.json",
+        "bytes": 472297,
+        "sha256": "26f55b3efd4d5bd08bc687a210df1930d88178072a841a950e9c3b5fcff9596d"
+      },
+      "wallSeconds": 62.5285304998979,
+      "exitCode": 0,
+      "groupAbsentAtOwnerReturn": true,
+      "cleanupNeeded": false,
+      "counts": {
+        "tests": 39,
+        "pass": 39,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "completeNamedPopulation": true,
+      "retainedEvidenceFiles": 34
+    },
+    {
+      "id": "unit",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/RETURN.json",
+        "bytes": 483807,
+        "sha256": "dac6936fdc6c722a8579608f329d02666e6696ecd60467ae892e3c2cdbe2cd13"
+      },
+      "wallSeconds": 156.86010695900768,
+      "exitCode": 0,
+      "groupAbsentAtOwnerReturn": true,
+      "cleanupNeeded": false,
+      "counts": {
+        "tests": 102,
+        "pass": 96,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 6,
+        "todo": 0
+      },
+      "completeNamedPopulation": true,
+      "retainedEvidenceFiles": 34
+    }
+  ],
+  "unitSkips": [
+    "ok 35 - M5 resolves and independently validates the complete executable root set # SKIP ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+    "ok 36 - M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases # SKIP ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+    "ok 37 - M5 F_H-only roots produce one valid empty executable-resolution set # SKIP ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+    "ok 84 - material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction # SKIP ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body",
+    "ok 89 - native D2 root-backed binding cover authenticates source ancestry and preserves first refusals # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+    "ok 90 - native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)"
+  ],
+  "controlledLifetimeLoop": {
+    "name": "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+    "orders": [
+      "error-exit",
+      "exit-error"
+    ],
+    "scopes": [
+      "absent",
+      "present",
+      "unknown"
+    ],
+    "observerFails": [
+      false,
+      true
+    ],
+    "combinations": 12,
+    "proof": "Unchanged exact finite2x3x2loop plus whole testcase pass; no per-iteration diagnostic instrumentation added or required.",
+    "standing": "Unchanged loop source plus actual whole-case pass, no periteration instrumentation claim."
+  },
+  "physicalDiagnostics": [
+    {
+      "caseId": "physical-capture-command",
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-command--145.json",
+        "bytes": 2387,
+        "sha256": "b85b334631d35f8878d2edf1821e0c592a9f0ab706ba700f10c652434eb68aee"
+      },
+      "scopeAbsent": true,
+      "readinessEnd": "complete",
+      "observedAtMs": {
+        "identity": 57.649,
+        "ready": 57.782
+      },
+      "unobserved": [],
+      "sealedAtMs": 57.803,
+      "ownerReturnMs": 105.729,
+      "setupMs": 10005,
+      "ownerThrew": false
+    },
+    {
+      "caseId": "physical-capture-http",
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-http--145.json",
+        "bytes": 1928,
+        "sha256": "e7f37dbc56cb38be716d9b20668be27b362b496cf7954c9e280738b48ec0fe9c"
+      },
+      "scopeAbsent": true,
+      "readinessEnd": "complete",
+      "observedAtMs": {
+        "identity": 50.713,
+        "ready": 50.887
+      },
+      "unobserved": [],
+      "sealedAtMs": 50.926,
+      "ownerReturnMs": 103.109,
+      "setupMs": 10005,
+      "ownerThrew": false
+    },
+    {
+      "caseId": "physical-capture-worker",
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-worker--145.json",
+        "bytes": 3406,
+        "sha256": "c1c2b50a6295bed727c874f677cd28eba6bee92d7f9fff7a896e8d246aba355a"
+      },
+      "scopeAbsent": true,
+      "readinessEnd": "complete",
+      "observedAtMs": {
+        "identity": 60.201,
+        "ready": 60.374
+      },
+      "unobserved": [],
+      "sealedAtMs": 60.387,
+      "ownerReturnMs": 108.883,
+      "setupMs": 10005,
+      "ownerThrew": false
+    },
+    {
+      "caseId": "physical-http-invalid",
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-invalid--145.json",
+        "bytes": 1880,
+        "sha256": "5186d55e701e1c5b957060b63ecd759949ffb5c15011c314ca87102a2bb78fb5"
+      },
+      "scopeAbsent": true,
+      "readinessEnd": "complete",
+      "observedAtMs": {
+        "identity": 49.927,
+        "port": 50.146
+      },
+      "unobserved": [],
+      "sealedAtMs": 50.162,
+      "ownerReturnMs": 54.533,
+      "setupMs": 5000,
+      "ownerThrew": false
+    },
+    {
+      "caseId": "physical-http-missing",
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-missing--145.json",
+        "bytes": 1772,
+        "sha256": "35c36e68063b6cd9d719546e4ed8355a4edfd4de0188486f37e770e2515bc6fc"
+      },
+      "scopeAbsent": true,
+      "readinessEnd": "setup_deadline",
+      "observedAtMs": {
+        "identity": 47.342
+      },
+      "unobserved": [
+        "port"
+      ],
+      "sealedAtMs": 5000.158,
+      "ownerReturnMs": 5309.565,
+      "setupMs": 5000,
+      "ownerThrew": false
+    },
+    {
+      "caseId": "physical-http-owner-error",
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-owner-error--145.json",
+        "bytes": 3878,
+        "sha256": "a1e74b58074659526f8025d642346f25fba85e19b219b075a8419155e19c9a03"
+      },
+      "scopeAbsent": true,
+      "readinessEnd": "owner_returned",
+      "observedAtMs": {},
+      "unobserved": [
+        "identity",
+        "port"
+      ],
+      "sealedAtMs": 55.845,
+      "ownerReturnMs": 55.811,
+      "setupMs": 5000,
+      "ownerThrew": true
+    },
+    {
+      "caseId": "physical-http-request-failure",
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-request-failure--145.json",
+        "bytes": 1964,
+        "sha256": "d0a65015d8b4df6c1d051f8bdcf47e71e552606999e3e12c19f148e53e9ed114"
+      },
+      "scopeAbsent": true,
+      "readinessEnd": "complete",
+      "observedAtMs": {
+        "identity": 46.31,
+        "port": 46.417
+      },
+      "unobserved": [],
+      "sealedAtMs": 46.435,
+      "ownerReturnMs": 5606.332,
+      "setupMs": 5000,
+      "ownerThrew": false
+    },
+    {
+      "caseId": "physical-http-response",
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-response--145.json",
+        "bytes": 2055,
+        "sha256": "365c83d2862d9e2e0b4d55e54be742e25b2d7a7b184e2b60a625c5eb657db254"
+      },
+      "scopeAbsent": true,
+      "readinessEnd": "complete",
+      "observedAtMs": {
+        "identity": 41.288,
+        "port": 53.54
+      },
+      "unobserved": [],
+      "sealedAtMs": 53.61,
+      "ownerReturnMs": 63.078,
+      "setupMs": 5000,
+      "ownerThrew": false
+    }
+  ],
+  "nonvacuousPhysicalM5": {
+    "progress": {
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/m5/evidence/m5-worker-transport--progress-lease--761.json",
+        "bytes": 15252,
+        "sha256": "6b9bbbb425b757d8b13a75343ff22632a37233e68b594630290bf0caae0368f2"
+      },
+      "bounds": {
+        "leaseMs": 5000,
+        "intervalMs": 50,
+        "records": 111,
+        "absoluteMs": 15550
+      },
+      "timing": {
+        "spawnToCompleteCaptureMs": 5766.525374999999,
+        "maxAcknowledgedGapMs": 52.81304100000034,
+        "callbacks": 112
+      },
+      "settledMs": 5772.964333000001,
+      "failure": null
+    },
+    "postExit": {
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/m5/evidence/m5-worker-transport--post-exit-output--761.json",
+        "bytes": 5425,
+        "sha256": "bb17909c5bb77ee41c8c400d91a1ea09590866704f8edc977104652e6b797602"
+      },
+      "fixture": {
+        "ready": "{\"pid\":2488,\"ppid\":2473}",
+        "events": [
+          {
+            "event": "leader-exit-intent",
+            "status": 47
+          },
+          {
+            "event": "term-received"
+          },
+          {
+            "event": "write-attempt",
+            "bytes": 109
+          },
+          {
+            "event": "write-callback",
+            "code": "EPIPE"
+          }
+        ]
+      },
+      "directExit": {
+        "status": 47,
+        "signal": null
+      },
+      "stdout": "",
+      "groupPresent": false,
+      "descendantPresent": false,
+      "failure": null
+    }
+  },
+  "preservation": {
+    "currentAuthorSourceAll1344RowsEqual": true,
+    "frozenSourceAll1344RowsEqual": true,
+    "preservationPinsRechecked": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29372910,
+        "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29654776,
+        "sha256": "7ef4f3d6ff1367062f2848b6ba22a91a32078bac81aedc860a0898ae1da46f01"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 183620,
+        "sha256": "b2cf515465321f69b0650f3fd3c0f64e346d8f26d207309d6a9f236ea2c0da64"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 834340,
+        "sha256": "89e39c581131262338415fff6663845e7269849b929c577931c985ab7d0f198b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+        "bytes": 7591,
+        "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+        "bytes": 11028443,
+        "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+        "bytes": 3266232,
+        "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+      }
+    ],
+    "sourceAndCompiledPostGuards": {
+      "status": "MECHANICAL_PROOF_COMMANDS_PASSED_PENDING_ROOT_REVIEW",
+      "sourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+      "commands": [
+        {
+          "id": "lint",
+          "status": "PASSED",
+          "receipt": {
+            "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/lint/RETURN.json",
+            "bytes": 1210,
+            "sha256": "7ffb1b8c84ca5a468c0752e11d4f2552bf574027fdd0a0800977484cb3a2b9fb"
+          }
+        },
+        {
+          "id": "build",
+          "status": "PASSED",
+          "receipt": {
+            "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/build/RETURN.json",
+            "bytes": 1123,
+            "sha256": "797468fea65a73e297f4279478f8ff74a20ae806136baab30f0d09e8d77ec07d"
+          }
+        },
+        {
+          "id": "deterministic",
+          "status": "PASSED",
+          "receipt": {
+            "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/deterministic/RETURN.json",
+            "bytes": 203218,
+            "sha256": "7ea7151da6fe417e9a02e2578de9207edac1039ecbd4429e541bf65e475e19e8"
+          }
+        },
+        {
+          "id": "owned-lifetime",
+          "status": "PASSED",
+          "receipt": {
+            "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/RETURN.json",
+            "bytes": 119374,
+            "sha256": "76cddabbb9f1eb4e8329c972e1cbb8d59c71a00f03290c19c95c1b839bc1cb49"
+          }
+        },
+        {
+          "id": "m5",
+          "status": "PASSED",
+          "receipt": {
+            "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/m5/RETURN.json",
+            "bytes": 472297,
+            "sha256": "26f55b3efd4d5bd08bc687a210df1930d88178072a841a950e9c3b5fcff9596d"
+          }
+        },
+        {
+          "id": "unit",
+          "status": "PASSED",
+          "receipt": {
+            "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/RETURN.json",
+            "bytes": 483807,
+            "sha256": "dac6936fdc6c722a8579608f329d02666e6696ecd60467ae892e3c2cdbe2cd13"
+          }
+        }
+      ],
+      "originalFrozenSourceConserved": true,
+      "dependencyAndNpmAuthorityConserved": true,
+      "compiledInventory": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+        "bytes": 182705,
+        "sha256": "3db4a581d6d81128f477de20b3e9591ce462e0be11dacb27f101fca2a34f2f35"
+      },
+      "retainedWorkDelta": [],
+      "standing": "Finite commands/full selected files only; skips recorded, no assurance/qualification/acceptance."
+    },
+    "dependencyMetadata": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/DEPENDENCY_METADATA.json",
+      "bytes": 111933,
+      "sha256": "420d460491e1ca10db69682f6b0ac536840b35dda7ad014a1210f1802eabe00b"
+    },
+    "zeroContractSeeds": true,
+    "sourceTrackingGitEditsDuringProof": false
+  },
+  "prospectiveCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/CHECKPOINT_PLAN.md",
+    "bytes": 2672,
+    "sha256": "17424aeffe8edaf84e3b56cbee4701743a9bab8130c1a3417f18d6c2f8f93cd0"
+  },
+  "limits": [
+    "Counts overlap across deterministic/full-file/unit invocations; no unique total is claimed.",
+    "The six exact retained-fixture skips remain open.",
+    "Synthetic controlled rejection leaves an owner pending until its bounded test process ends; this does not establish physical close.",
+    "The 600 s m5 cap was a prospective experiment allocation, not a sum of every legacy maximum or an owner-clock change.",
+    "Historical red unit/m5 invocations, erased original child facts and native02 timeout are preserved; this proof does not retroactively alter them.",
+    "No source acceptance, debt closure, full qualification, next production phase, commit, artifact or installation is asserted by this Worker."
+  ]
+}

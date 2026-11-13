@@ -1,0 +1,159 @@
+{
+  "productFrame": "ABIogenesis fixed fifteen families; GOAL-035/T-287/RC8 REF-01; STDO 3.0.4, empty composition; repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md. Independent Reviewer; Root retains disposition.",
+  "recordedUtc": "2026-11-07T10:51:10.190944+00:00",
+  "kind": "additive_log_based_phase_evidence",
+  "subject": {
+    "sourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+    "freezeSha256": "efba6bea8f3d0e1b0695772c18bdd731652b0f0652a2a878619b2445c073fc50",
+    "testSha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314"
+  },
+  "originalPreserved": {
+    "reviewSha256": "aa795159f828488487fd02bdc82392718cbfa2203d270fa8e705537ff8c75930",
+    "readmeSha256": "290839a235198b22cfd18fb5ec2b69602a01eca1a3c1dee7983eccb62e37acfe"
+  },
+  "acquisition": {
+    "workspace": "/private/tmp/abg-r8-sas-002",
+    "basis": "EXECUTION_STARTED/file-host binding declares TMPDIR=<workspace>/t and npm_config_cache=<workspace>/n; root-installed-environment.mjs:174,359 declares abi5-root-env-*/runtime/events.jsonl. registered-graph-selection.mjs:424 declares st4-<identity>-request.jsonl in the same root.",
+    "boundedRead": "Direct children of workspace and t; direct abi5-root-env-* request names; eleven small npm debug logs under n/_logs; exact later acquire-bootstrap receipt and empty output files. No recursive host search, old retained-log read, Product call or test.",
+    "currentTmpChildren": [
+      "abi5-single-address-setup-deBGeM",
+      "abiogenesis-event-store-locks-v5",
+      "node-compile-cache"
+    ],
+    "retainedRootEnvironmentCount": 0,
+    "absence": "No abi5-root-env-* directory survives, including 6dOAwc and QoDJah. Therefore neither named case-7 st4 request nor runtime/events.jsonl is available at its declared location. Source registers recursive t.after removal at root-installed-environment.mjs:175-178; absence is consistent with that cleanup, but does not timestamp or independently prove the deletion action.",
+    "retentionLimit": "npm logs declare logs-max:10 and removal of older logs. Their retained population is incomplete historical coverage. The direct CLI helper captures stdout/receipt in memory and does not persist a per-CLI command receipt."
+  },
+  "observations": [
+    "The retained logs directly name roots 6dOAwc and QoDJah and show successful ABI pack, structural-fixture pack, ABI install and structural-fixture install for each. They are concrete provisioning progress, not Run or owner-assertion receipts.",
+    "Root 6dOAwc has log stamps 10:06:49.640 (ABI pack), 10:06:54.352 (fixture pack), 10:07:18.098 (ABI install), 10:07:43.239 (fixture install). The last file mtime is 10:08:14.038409Z; all four record exit 0 / info ok.",
+    "Root QoDJah has log stamps 10:11:21.137, 10:12:16.902, 10:18:52.602 and 10:20:02.690 for the same sequence. The final install log mtime is 10:20:39.224751Z; all four record exit 0 / info ok.",
+    "For QoDJah, the successful fixture-pack log last-write time 10:12:19.580766Z precedes the ABI-install log stamp 10:18:52.602Z by 393.021234 s. This is a wall-clock separation of existing markers, not a measured function duration. Source root-installed-environment.mjs:258-302 places remaining fixture preparation, verifyProduct for ABI and additional Product, lock construction and install preparation along this interval. No receipt divides its cost among those actions or host scheduling.",
+    "Case 8 definitely started: its uniquely declared abi5-single-address-setup-deBGeM pack log is stamped 10:22:09.610Z and records exit 0. Its acquire-bootstrap command started 10:22:42.604Z and completed exit 0 in 5958.437083 ms. This is partial case-8 setup evidence; no completed case-8 proof or later assertion is credited."
+  ],
+  "attributionAndLimits": {
+    "historyLabels": "The two root-environment sequences are consistent with sequential history A then history B during case 7, followed by case 8. This association is inferred from retained command chronology, the test structure and whole-command/TAP record; the logs themselves contain neither single-address-space-complete-pair-a/b nor a Run ID. Do not present anonymous roots as directly identified Runs.",
+    "timeoutFrontier": "Evidence now narrows substantial work to successful provisioning and an unexplained gap before the later root installation. It does not locate the precise case-7 timeout inside post-install setup, CLI execution, result/replay readbacks, complete-pair projections or cleanup. No per-phase start/end receipt or surviving event history resolves that frontier.",
+    "timingSemantics": "npm log filename stamps and filesystem mtimes are retained wall-clock markers. mtime is a final-write observation, not an authenticated subprocess end time; only the case-8 command recorder provides explicit started/wallMs/exit fields. No durations were invented from code order.",
+    "cause": "No npm failure is reported in these commands. Product verification/install preparation is a narrower unresolved phase than an undifferentiated whole case, but no specific function, CPU, memory, disk, host-load issue, loop or RC8 regression is established.",
+    "credit": "Original case-7 timeout, whole-command FAILED, six completed passes and separate A8 failed native standing remain unchanged. Update any shorthand unexecuted-case-8 claim to started but incomplete. The original review already says no completed outcome, which remains accurate."
+  },
+  "logBase": "/private/tmp/abg-r8-sas-002/n/_logs",
+  "logPinsAndMarkers": [
+    {
+      "file": "2026-11-07T10_06_49_640Z-debug-0.log",
+      "bytes": 1197,
+      "sha256": "9a87e21bb1692ee7e900b2f16fa69c70b76f8125205092e40dfc7b2a129e8fc8",
+      "helperRoot": "abi5-root-env-6dOAwc",
+      "logTimestampUtc": "2026-11-07T10:06:49.640Z",
+      "lastWriteUtc": "2026-11-07T10:06:53.413623+00:00",
+      "operation": "pack ABI",
+      "terminalExitZero": true,
+      "terminalInfoOk": true
+    },
+    {
+      "file": "2026-11-07T10_06_54_352Z-debug-0.log",
+      "bytes": 1145,
+      "sha256": "80fb84c0113ec35a13723ee8cd96f27343d722029ec065d8b8745611018554e3",
+      "helperRoot": "abi5-root-env-6dOAwc",
+      "logTimestampUtc": "2026-11-07T10:06:54.352Z",
+      "lastWriteUtc": "2026-11-07T10:06:54.494310+00:00",
+      "operation": "pack fixture",
+      "terminalExitZero": true,
+      "terminalInfoOk": true
+    },
+    {
+      "file": "2026-11-07T10_07_18_098Z-debug-0.log",
+      "bytes": 1876,
+      "sha256": "e41f76dd32bed41f2a96ec821f35e92ab47673e82c05ca462884e73755bcaa80",
+      "helperRoot": "abi5-root-env-6dOAwc",
+      "logTimestampUtc": "2026-11-07T10:07:18.098Z",
+      "lastWriteUtc": "2026-11-07T10:07:20.233086+00:00",
+      "operation": "install ABI",
+      "terminalExitZero": true,
+      "terminalInfoOk": true
+    },
+    {
+      "file": "2026-11-07T10_07_43_239Z-debug-0.log",
+      "bytes": 2699,
+      "sha256": "3a557dd24b6da17918e95234b5782c6b81eb53e2008575f99176a2f45ff27102",
+      "helperRoot": "abi5-root-env-6dOAwc",
+      "logTimestampUtc": "2026-11-07T10:07:43.239Z",
+      "lastWriteUtc": "2026-11-07T10:08:14.038409+00:00",
+      "operation": "install fixture",
+      "terminalExitZero": true,
+      "terminalInfoOk": true
+    },
+    {
+      "file": "2026-11-07T10_11_21_137Z-debug-0.log",
+      "bytes": 1252,
+      "sha256": "8adb72be281a0ed904919bccabf6cffb45850a3a05c96d5b883c1261b48c339c",
+      "helperRoot": "abi5-root-env-QoDJah",
+      "logTimestampUtc": "2026-11-07T10:11:21.137Z",
+      "lastWriteUtc": "2026-11-07T10:11:56.754652+00:00",
+      "operation": "pack ABI",
+      "terminalExitZero": true,
+      "terminalInfoOk": true
+    },
+    {
+      "file": "2026-11-07T10_12_16_902Z-debug-0.log",
+      "bytes": 1200,
+      "sha256": "665c9bbae95df1ac5147e3a8341b020b5c0cfec0aa69f5ba3e507e6e614d1689",
+      "helperRoot": "abi5-root-env-QoDJah",
+      "logTimestampUtc": "2026-11-07T10:12:16.902Z",
+      "lastWriteUtc": "2026-11-07T10:12:19.580766+00:00",
+      "operation": "pack fixture",
+      "terminalExitZero": true,
+      "terminalInfoOk": true
+    },
+    {
+      "file": "2026-11-07T10_18_52_602Z-debug-0.log",
+      "bytes": 1931,
+      "sha256": "c1e69c4717d1ac163bb3276d5c44d0a49a03d432e6b12fddc911d8ce716e1ae9",
+      "helperRoot": "abi5-root-env-QoDJah",
+      "logTimestampUtc": "2026-11-07T10:18:52.602Z",
+      "lastWriteUtc": "2026-11-07T10:19:40.988238+00:00",
+      "operation": "install ABI",
+      "terminalExitZero": true,
+      "terminalInfoOk": true
+    },
+    {
+      "file": "2026-11-07T10_20_02_690Z-debug-0.log",
+      "bytes": 2699,
+      "sha256": "1ab23a6c1e6b5fc06e8f3535037362ac856fea6b3b2e75f03dc3158037916ebc",
+      "helperRoot": "abi5-root-env-QoDJah",
+      "logTimestampUtc": "2026-11-07T10:20:02.690Z",
+      "lastWriteUtc": "2026-11-07T10:20:39.224751+00:00",
+      "operation": "install fixture",
+      "terminalExitZero": true,
+      "terminalInfoOk": true
+    },
+    {
+      "file": "2026-11-07T10_22_09_610Z-debug-0.log",
+      "bytes": 1264,
+      "sha256": "e1c3fee441a034602cfa3935bf852eea101b4435254726192d861e7292b31b32",
+      "helperRoot": "abi5-single-address-setup-deBGeM",
+      "logTimestampUtc": "2026-11-07T10:22:09.610Z",
+      "lastWriteUtc": "2026-11-07T10:22:42.528830+00:00",
+      "operation": "pack ABI",
+      "terminalExitZero": true,
+      "terminalInfoOk": true
+    }
+  ],
+  "case8BootstrapReceipt": {
+    "path": "/private/tmp/abg-r8-sas-002/t/abi5-single-address-setup-deBGeM/ordinary/commands/acquire-bootstrap.result.json",
+    "bytes": 1136,
+    "sha256": "ade03c2dcfc985f1a60f18eb085bace51c15dd277d60f20806fee1cbd79bc789"
+  },
+  "case8BootstrapOutcome": {
+    "started": "2026-11-07T10:22:42.604Z",
+    "wallMs": 5958.437082999852,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "disposition": "No repair, rerun, residual or acceptance change selected. Further phase attribution needs separately authorized evidence; this follow-up stops at retained evidence.",
+  "effects": "Only PHASE_EVIDENCE.json and PHASE_EVIDENCE.md added. Original capsule bytes verified unchanged; no process, test, Product, provider, profiling, source, Git or cleanup effects."
+}

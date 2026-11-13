@@ -1,0 +1,40 @@
+{
+  "status": "NARROW_NATIVE_CONTROL_PREPARATION_ONLY",
+  "rootDirection": "Confirmed m5 completion-partition oracle defect; production owner behavior not implicated. Await remaining review and final narrow admission; no runtime/provider acquisition yet.",
+  "predecessorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/RETURN.json",
+    "bytes": 4357,
+    "sha256": "3aaf253bb65f852499f8e2f623978932d8539ccf29b1f8ff84f3d1a15aac394f"
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/source-freeze.json",
+    "bytes": 295015,
+    "sha256": "73fa9681d7153644a5c1ca76bfb23c0282afa8005fc79cfb1e2339711a606bf2"
+  },
+  "sourceDigest": "5eb4b82b5861c25a4df23b6d42444b0ad9240d4fb76e7ac93851d5bbd9074fea",
+  "taskDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/TASK.DRAFT.json",
+    "bytes": 2831,
+    "sha256": "d9a3fee6951e7b00ff183a45210ed0f88662ae4aa5b52160675c0e787540e2f9"
+  },
+  "reusableHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/host.mjs",
+    "bytes": 15410,
+    "sha256": "1b8173d71d932a9ad93ed280ee22e331dc9e9d17e4543b2480aa24f5e2794172"
+  },
+  "reentry": "Fresh genuine Public open.open with current manifest expectedAuthority; never reuse prior Run/event resource/caller. Current host route already validated.",
+  "currentWorkspaceManifest": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+    "bytes": 1839,
+    "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+  },
+  "sourceWrites": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "qualification-scratch/rc11-effect-phase1-01/native-03"
+  ],
+  "effectState": {
+    "setup": false,
+    "native": false,
+    "sourceChanges": false
+  }
+}

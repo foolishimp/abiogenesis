@@ -1,0 +1,47 @@
+{
+  "kind": "root_readback_control_predicate_localization",
+  "at": "2026-11-06T03:14:12.104248+00:00",
+  "status": "OWNER_REFUSAL_CORRECT_OPERATOR_SUCCESS_PREDICATE_TOO_NARROW",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/run_result/calls/run_result.outcome.json",
+    "bytes": 3344,
+    "sha256": "cb3746458958d474f931d2d8ec6c8b5b02ec8e255b9ef10e4ab5d13837c8069f"
+  },
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/run_result/FAILURE.json",
+    "bytes": 1393,
+    "sha256": "2e97cf24c39092dd8ee3cbfe10f3b446eea5b22223d77c53c3d45c0e48e908d9"
+  },
+  "originalHelper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/read-one.mjs",
+    "bytes": 5018,
+    "sha256": "cafe3342f0ed9613a9717333a9eb66f1207df31717fee27d32fc414c4828f623"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/run_result.RESULT.json",
+    "bytes": 174,
+    "sha256": "7bec9b141538638f790171bd5980bb5c1ca82c51a28db042fecc61d9b9954e63"
+  },
+  "productFrame": "Actual blocked invocation has terminalnull; exact run_result must truthfully return not_found. Existing runner freshReadbacks permits absent projections; no Product defect evidenced.",
+  "ownerOutput": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "not_found",
+      "evidenceRefs": [],
+      "issuePaths": []
+    }
+  },
+  "returnedCloseMatchesActualReceipt": true,
+  "rootDisposition": "Preserve original helper failure and actualread. Reconcile already-retained not_found without re-execution; correct successorhelper to distinguish requested run_result refusal from run_replay projection. Run only stillpending replay.",
+  "sourceOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    }
+  ],
+  "limits": [
+    "No rerun/retry of completed read or C2, no qualified/release claim.",
+    "Physical prefix unchanged will be verified against actual returnedclose in reconciliation."
+  ]
+}

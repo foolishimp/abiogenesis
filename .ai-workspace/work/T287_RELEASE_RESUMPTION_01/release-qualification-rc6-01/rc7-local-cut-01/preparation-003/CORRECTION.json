@@ -1,0 +1,39 @@
+{
+  "kind": "local_cut_actual_output_slot_correction",
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "createdUtc": "2026-11-06T17:15:44.212180+00:00",
+  "predecessorManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/PREPARATION_MANIFEST.json",
+    "bytes": 3714,
+    "sha256": "5866706673b233f00976fea12c96e7e5a15054addd8f42f0abcc7a30adb28855"
+  },
+  "finding": "FINAL_INSTALL_VERIFICATION.json is created in the existing build output root, outside new install-001; an occupied slot would previously fail only after owner install.",
+  "correction": "Add the final verification file to the existing early absence list before install allocation/commands. Reuse unchanged preparation002 auxiliary owners by reference.",
+  "entrypoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/run-local-cut.mjs",
+    "bytes": 25084,
+    "sha256": "a4cca4be8dd7030c9d25b189fd1e39d664ecb3ffd6b66399f4a1d85e72ba208e"
+  },
+  "original": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/run-local-cut.mjs",
+    "bytes": 24942,
+    "sha256": "8cd87ba2b62e3fd95900c1f0a8a789beaa8ca5cc20ac930c02d92bd3863b1fc6"
+  },
+  "syntax": {
+    "argv": [
+      "node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/run-local-cut.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/run-local-cut.mjs",
+      "bytes": 25084,
+      "sha256": "a4cca4be8dd7030c9d25b189fd1e39d664ecb3ffd6b66399f4a1d85e72ba208e"
+    }
+  },
+  "futureSourceAcceptanceArchiveAndActivation": null,
+  "limits": "No build/pack/install/source/Git/release effects. Root still binds accepted exact source, HS01/HS02/HS03, S4-growth/S6 disposition, archive and activation. No old failure is overwritten."
+}

@@ -1,0 +1,32 @@
+{
+  "label": "029-r2-clean-install.test",
+  "started": "2026-11-13T10:34:36.272049+00:00",
+  "ended": "2026-11-13T10:35:46.746330+00:00",
+  "wallMs": 70473,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/029-r2-clean-install.test/stdout.raw",
+      "bytes": 369,
+      "sha256": "5f8ba51faaca8c06744f7271fbf69a7e0f30d7ab87d43e990e286f6e158696fc"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/029-r2-clean-install.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 6,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

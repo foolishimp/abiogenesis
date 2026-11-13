@@ -1,0 +1,53 @@
+{
+  "kind": "operator_preparation_static_validation",
+  "status": "PASSED_WITH_EXPLICIT_FUTURE_BINDINGS",
+  "createdUtc": "2026-11-06T21:51:47.609356+00:00",
+  "parserChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/prepare-and-dispatch.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/launch-owner-script.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/inputs/prior-author-stage.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/inputs/prior-author-lanes.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/claude-provider.sh",
+      "command": "sh -n",
+      "exitCode": 0
+    }
+  ],
+  "jsonFilesParsed": 16,
+  "distinctActualPinsRecursivelyChecked": 54,
+  "explicitFuturePinPlaceholders": 1,
+  "pinMismatches": [],
+  "sourceRowsVerifiedFromFrozenReferences": 451,
+  "semanticChecks": [
+    "2 AFTER stages;6 once-only final lanes;stdout-before excluded",
+    "320turn/60min absolute/30min inactivity/3h host/8GiB proposal matches profile/grant/bounds",
+    "451source+20controls+3handoffs=474 unique context paths;readFirst subset;writeRoots match",
+    "Root selection/native grant/admission/dispatch remain unbound; no actual runtime directory or capacity receipt pre-created",
+    "Short temp paths;distinct npm config paths;executable wrapper mode0755"
+  ],
+  "CInputsCreated": false,
+  "CScratchCreated": false,
+  "ProductWrites": false,
+  "runtimeOrProviderExecuted": false,
+  "nativeDispatches": 0,
+  "limits": [
+    "Static preparation validation only; no native task, Product test/build, admission, source acceptance or performance claim.",
+    "The coordinate-normalized delta is a review convenience. Exact source/prepared byte pins and full CONTROL_ADAPTATION.diff remain authoritative."
+  ]
+}

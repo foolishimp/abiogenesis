@@ -1,0 +1,50 @@
+{
+  "status": "READY_EXECUTION_HELD",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "stage": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/RESULT.json",
+    "bytes": 986,
+    "sha256": "ae5cf7e38f13a03e1f27eb90aa3f26c9c78be29243b8cc9d5298ee62fa4f2045"
+  },
+  "unitDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/frozen-proof.mjs",
+    "bytes": 15645,
+    "sha256": "e7de3cec3058cdfc22da52b7cd047a9a98d4d796426fde9d14c1d7bcac0ac689"
+  },
+  "unitBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/UNIT_BINDING.READY.json",
+    "bytes": 7443,
+    "sha256": "d7420703482337071dcd0389d9db6dabd97b60e3c59eed485e12c7c0eda5e4be"
+  },
+  "unitPopulation": "Maintained9-file test:unit verbatim, no prior subject credit transfer.",
+  "affectedDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/affected-proof.mjs",
+    "bytes": 15676,
+    "sha256": "c063e7d37e2488dc9e6bb960f784fd84311f11c47f604778d2c173e2c191fa70"
+  },
+  "affectedDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/AFFECTED_DRIVER_DELTA.patch",
+    "bytes": 4726,
+    "sha256": "91f97f7e7af0839875edac97e35d3064cc2359b1910b6cf0f3029e0e50a170b8"
+  },
+  "affectedBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/AFFECTED_BINDING.READY.json",
+    "bytes": 8031,
+    "sha256": "dcf159fe5282a3aea5b0730b77d3d93c58c1498afc6bc10bf90dca97e68e49e3"
+  },
+  "affectedPopulation": [
+    "test_env/tests/m5-event-store-reopen.test.mjs",
+    "test_env/tests/m5-event-calculus-runtime.test.mjs",
+    "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+    "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+    "test_env/tests/runtime-scope-regressions.test.mjs",
+    "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+  ],
+  "limits": "Each lane900s,8192MiBheap,16MiBoutput,4GiBreserve/owned; sequentialtestconcurrency1. Existing structured reporter and actual completion gates unchanged.",
+  "outputs": {
+    "unit": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/unit-01",
+    "affected": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/affected-01"
+  },
+  "mode": "Six unfiltered files through same finite reporter route; no new test/source behavior or assertions.",
+  "executed": false
+}

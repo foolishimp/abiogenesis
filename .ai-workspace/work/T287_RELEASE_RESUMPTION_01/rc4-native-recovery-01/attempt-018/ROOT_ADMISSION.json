@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "d3eb18ccfef17d386bfd49c9eb069d939dfe57bf193ee225322aa2254d468b6e",
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "sourceTree": "d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6",
+  "decision": "Root admits018 zero-provider installed preflight/call preparation only. Acquire and conserve the implemented candidate, no implementation redo, then current twelve C2 commands/native UAT. Actual generated-call review and frozen-manifest selection precede one-shot dispatch. Profile unchanged; no Run/provider selected by this admission.",
+  "packetSha256": "0859121d3d09a555355679680990118cb024bc289f3f4a3880be2450e9b964dc",
+  "admittedAtUtc": "2026-11-02T22:50:51.952553+00:00"
+}

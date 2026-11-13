@@ -1,0 +1,40 @@
+{
+  "status": "ROOT_ADMITTED_RC11_PROOF_CONTINUATION",
+  "utc": "2026-11-09T09:23:11.132740+00:00",
+  "bindingSha256": "450451ea5aee56fc8b5344ae1b0f9f0057a3eafccb76917ab8a0daeb083ec67e",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/BINDING.json",
+      "bytes": 5279,
+      "sha256": "450451ea5aee56fc8b5344ae1b0f9f0057a3eafccb76917ab8a0daeb083ec67e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/COMMANDS.json",
+      "bytes": 874,
+      "sha256": "29c1db819bdca7b6cf937faaec055ccb8467e6aa533b9950da0a5b94e126d298"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/continuation.py",
+      "bytes": 10741,
+      "sha256": "cd9abe3d5115d5ed51b1efaf06e33c4d166d98908d5f39da1bfe83735e2e4819"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/READY.json",
+      "bytes": 1509,
+      "sha256": "6b3cb36db74e76f15ddcc54f686095df1d407ce8a9a338bd76691f8c181d4653"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/CLOSED_TRIAGE.json",
+      "bytes": 5731,
+      "sha256": "4aa3f781b7aa17f92ee991731ddc1d610eda8708ff0ddc435f80ca06c14e2214"
+    }
+  ],
+  "commandIds": [
+    "m5-discriminator",
+    "r6",
+    "f04a"
+  ],
+  "rootDecision": "Independent source-assurance triage is CLOSED: exact failed m5 plus worker_transport/owned_process_lifetime/worksite_command_helper match RC10 and proof bytes; changed helper/leaf unreachable; sequential run; absent failed-actor facts prevent cause attribution. Root conjoins that with receipt/source review and selects bounded Proof re-entry. You may now, in your separately declared mechanical Worker phase, record ROOT_EXECUTION_ADMISSION under reentry-04 and execute the one whole m5 file once after verifying prepared controls and existing source/build/env guards; prospective300 s outer cap, same flags/internal budgets, no source change. If it passes, run original R6 then F04A once at900 s each. Stop first actual failure/incomplete/guard drift; no auto-repeat or budget increase. All writes limited to new reentry-04 controls, new continuation-04 output/private test scratch. Pack remains held: original whole-unit red must remain explicit regardless of this result. Return actual finite counts/receipts and process closure. Root will decide artifact acceptance separately. No need to wait for another Root permission after exact preflight succeeds.",
+  "rootFollowup": "The execution grant supersedes preparation-only. Keep RC10 environment differences explicit; do not copy heap/reporting settings or infer they caused failures.",
+  "actorPhase": "Separate mechanical Worker executing only exact admitted proof commands; no source authoring or acceptance."
+}

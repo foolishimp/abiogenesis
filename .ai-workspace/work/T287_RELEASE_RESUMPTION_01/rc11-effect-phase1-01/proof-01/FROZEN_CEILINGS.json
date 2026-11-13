@@ -1,0 +1,45 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "bytes": 145250,
+    "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+  },
+  "m5SetupMs": 5000,
+  "m5GroupSetupMs": 10005,
+  "m5AdministrativeMs": 5000,
+  "cleanupLaw": "2*g+min(g,250)",
+  "m5ExplicitTopLevelSeconds": {
+    "forceTerm": 11,
+    "progress": 21,
+    "falseAck": 16,
+    "lateTimeout": 16,
+    "groupedWorkerCommandHTTP": 77,
+    "postExit": 18,
+    "unchangedEPIPE": 10
+  },
+  "explicitSumSeconds": 169,
+  "progress": {
+    "records": 111,
+    "intervalMs": 50,
+    "workloadMs": 5550,
+    "initialLeaseMs": 5000,
+    "absoluteMs": 15550
+  },
+  "lifetime": {
+    "physicalHTTPSeconds": 62,
+    "physicalCaptureSeconds": 51,
+    "otherPhysicalSeconds": [
+      5,
+      5
+    ],
+    "controlledBlocks": 14,
+    "controlledHandbackCombinations": 12,
+    "outerSeconds": 300
+  },
+  "m5WholeFileOuterSeconds": 600,
+  "m5Standing": "Prospective whole-file finite experiment cap.169s sums the explicit physical case caps above; it is not a claim that all legacy4x inactivity backstops sum below600s. Original owner timers and all legacy populations remain unchanged. Any outer timeout is incomplete/failure and stops.",
+  "unitOuterSeconds": 1800,
+  "stageMaximumSeconds": 600,
+  "campaignMaximumSeconds": 4200,
+  "ownerClockChange": false
+}

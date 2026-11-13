@@ -1,0 +1,73 @@
+{
+  "status": "EXACT_RC9_ARTIFACT_AND_BOOTSTRAP_COMPLETE_AFTER_UNADMITTED",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_BINDINGS.actual003.bound-007.json",
+    "bytes": 11485,
+    "sha256": "d121de891d68079f327e7c2914c0457eb58cbe14dc2360d0e1e3298ee0d0806d"
+  },
+  "sourceIdentity": {
+    "label": "RC9-after",
+    "phase": "after",
+    "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceTree": null,
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "compileExecuted": false,
+  "generationExecuted": false,
+  "packCount": 1,
+  "installCount": 1,
+  "qualified": false,
+  "budgetObservations": [
+    {
+      "label": "before_pack-once",
+      "logicalBytes": 2815,
+      "freeBytes": 337854832640,
+      "quota": false,
+      "overshootPossible": true
+    },
+    {
+      "label": "after_pack-once",
+      "logicalBytes": 24252419,
+      "freeBytes": 337828413440,
+      "quota": false,
+      "overshootPossible": true
+    },
+    {
+      "label": "before_verify-lock-install-once",
+      "logicalBytes": 24910892,
+      "freeBytes": 337827696640,
+      "quota": false,
+      "overshootPossible": true
+    },
+    {
+      "label": "after_verify-lock-install-once",
+      "logicalBytes": 121313865,
+      "freeBytes": 337712918528,
+      "quota": false,
+      "overshootPossible": true
+    }
+  ],
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 4087,
+    "sha256": "50697a33ab3761d513cd5363e99a049bb6424d58114cf0fcbc7c90c92e7e7cc8"
+  },
+  "afterBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/AFTER_BINDINGS.pre-admission.json",
+    "bytes": 11120,
+    "sha256": "976274bbea3fd5636afcc4aee0e9af7b3cfed8f1e987121cb0ceb3f24ac210e2"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "rc11_local_source_checkpoint",
+  "sourceCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "sourceTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "branch": "codex/rc11-qualification",
+  "worktree": "/private/tmp/abg-rc11-qualification-20261109",
+  "baseCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/RETURN.json",
+    "bytes": 10143,
+    "sha256": "6202205241d2c3690242658558f98a3ef5a1e6d8e1dc8c08ef7b61b95b553dce"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+    "bytes": 298978,
+    "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "sourceCount": 1340,
+  "identityChanges": [],
+  "standing": "Exact accepted frozen overlay checkpoint. Local unqualified; install unexecuted."
+}

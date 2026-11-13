@@ -1,0 +1,56 @@
+[
+  {
+    "id": "native-workspace-owner",
+    "mode": "after",
+    "setupMs": 67,
+    "priorLaneAllocations": 1,
+    "laneAllocationCap": 3,
+    "stageSourceDigest": "a07beb4b5ffe861cc5610ede437e18a4089f9f23b3b9cb6cc0a8d688aeb99b91",
+    "integrationEvidenceSourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "integrationEvidenceReused": false,
+    "retainedPredecessorEvidence": {
+      "fixedRoute": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/fixed-route/summary.json",
+        "bytes": 2207,
+        "sha256": "7a663214febb66f14bb77cb581d505adcd0b7a80535775650bd7d582796c7174"
+      },
+      "heldSession": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/summary.json",
+        "bytes": 1676,
+        "sha256": "3651fc18f0d9982e0a170aad6a6aee7c133115f524ee0981f06107ab104d1e8f"
+      },
+      "measurement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+        "bytes": 4046,
+        "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+      },
+      "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+      "reuseCondition": "All Product/SDK/caller/helper and fixed-route/held-session test closures remain unchanged. Independent frozen one-field diff review establishes applicability; retain original H05 identifiers and do not relabel these as H06 executions. Any affected closure change returns to Root before further execution."
+    },
+    "activeRc7": [
+      "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [
+      "admitted pure consumer evaluates a native task as data without physical authority"
+    ],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-native-workspace-work.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 1726,
+    "tests": 44,
+    "pass": 43,
+    "fail": 0,
+    "skipped": 1,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 1,
+    "failing": [],
+    "stdoutSha256": "95b7472ebb6134bfb62c20ab7eef03cd038e90d61948b0c9cc535fdf1b8aefed",
+    "stdoutBytes": 14464,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

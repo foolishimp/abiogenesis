@@ -1,0 +1,26 @@
+{
+  "status": "ROOT_ACCEPTED_HOW_WRITTEN_UNCOMMITTED",
+  "sourceCommit": "6027d03d94438260b28472e1465fe4dfdc88f1c0",
+  "sourceTree": "e27359c0b3632946eac8d01a838ebd54e0db56cf",
+  "authority": "Root accepted typed_handoff_design under explicit owner implementation authorization; three named HOW-only edits. No Product code or Git mutation.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "beforeSha256": "e928ddf8c85f6d49c3db949202bba6bcdf189fb256b3b9da96a6dced8cdd4b18",
+      "afterSha256": "04093bd312d84e54dec0b098f3d3a4ff0afb61a8619b7133b7e9a118a4892cf3",
+      "bytes": 17624
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "beforeSha256": "b263bcefbf80bc2bdb1c8bca118cbe597cc8135e05995ef40e234abe96890a0c",
+      "afterSha256": "eabbe029c6551408b4fe061eebc47f90c2e83a98695dd58d64d354b46d3da57d",
+      "bytes": 172297
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "beforeSha256": "06ec590a6e39fa4aa5ef8f3bf231d464d0de2d1f3fa2d8c8016445e96d77695c",
+      "afterSha256": "3642a5d070359287eed4530147406686268316e65dd6450e3be46301afd5b775",
+      "bytes": 34100
+    }
+  ]
+}

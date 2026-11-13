@@ -1,0 +1,288 @@
+{
+  "kind": "root_post_author_selected_proof_disposition",
+  "status": "TWO_CASES_CLOSED_HS02_BOUNDED_PASS_FIXED_ADMISSION_REFUSED",
+  "recordedUtc": "2026-11-06T14:18:21.341704+00:00",
+  "authority": "Root separately admitted the fixed two-command operator allocation and subsequently accepted the actual HS02 measurement within its small installed F_D fixture scope. This record is whole post-proof disposition, not Product/source acceptance.",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_ADMISSION.json",
+    "bytes": 2022,
+    "sha256": "0b4b7591cb7d8b3fb6e78707fc6d1c90f834f3f3ec1ace095aa9ab6d0eecb697"
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/MANIFEST.json",
+    "bytes": 3964,
+    "sha256": "4a9659ac582930a1ef4e566080b8c039180db88606fa8f71fa96366e98ded4f4"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-002/SUBJECT.json",
+    "bytes": 296146,
+    "sha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741"
+  },
+  "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+  "originalSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/SUMMARY.json",
+    "bytes": 9304,
+    "sha256": "27afdfd35630253ec66a96950867ac2f014fca0f7aa43f04429cd0e71d6f5a4c"
+  },
+  "cases": [
+    {
+      "label": "operator-hs02-once",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-hs02-once.summary.json",
+        "bytes": 4542,
+        "sha256": "b419f2c2df01c148434dd6763b154adefa7f720b06018c8e01c7a3eacb79d6c0"
+      },
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "commandMs": 260137.987667,
+      "maximumResidentSetSizeBytes": 3093086208,
+      "standing": "Root accepted bounded one-acquisition/multiple-call/both-read/refusal/close/same-prefix-cold-equality proof in this small installed F_D fixture."
+    },
+    {
+      "label": "operator-fixed-admission-once",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-fixed-admission-once.summary.json",
+        "bytes": 2370,
+        "sha256": "40243c5f7b5e0ee9e648097514fe19620f5f6b746dd35e8930a46bb5cbe9fd4d"
+      },
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "commandMs": 286825.12299999996,
+      "maximumResidentSetSizeBytes": 3290890240,
+      "standing": "Actual maintained caller refused at run-environment declaration; no Testing/UAT/admission success."
+    }
+  ],
+  "combinedCounts": {
+    "tests": 2,
+    "pass": 1,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "boundedHeldMeasurement": {
+    "ownerDiagnostic": {
+      "artifact": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-hs02-once.stdout",
+        "bytes": 2450,
+        "sha256": "a4734d93d9088699ffd413ad4d57fb0f83378e8c18f073fd4a1f1e985279f974"
+      },
+      "marker": "RC7_HS02_MEASUREMENT"
+    },
+    "initial": {
+      "reopens": 1,
+      "decodes": 1,
+      "decodedRows": 34,
+      "historyBytesRead": 3290300
+    },
+    "phases": [
+      {
+        "name": "acquisition",
+        "ms": 458.2,
+        "rss": 2816098304,
+        "work": {
+          "historyDecodes": 1,
+          "decodedRows": 34,
+          "historyBytesRead": 3290300,
+          "storeReopens": 1,
+          "coldHistoryReads": 0,
+          "bodyReads": 0,
+          "bodyBytesRead": 0
+        }
+      },
+      {
+        "name": "warm_calls",
+        "ms": 13586.2,
+        "rss": 2781265920,
+        "work": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 96,
+          "bodyBytesRead": 3500127
+        },
+        "calls": 2
+      },
+      {
+        "name": "warm_reads",
+        "ms": 3148.2,
+        "rss": 2802253824,
+        "work": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 0,
+          "bodyBytesRead": 0
+        },
+        "reads": 2
+      },
+      {
+        "name": "selected_cold_proof",
+        "ms": 16576.8,
+        "rss": 2828156928,
+        "work": {
+          "historyDecodes": 2,
+          "decodedRows": 192,
+          "historyBytesRead": 7000254,
+          "storeReopens": 0,
+          "coldHistoryReads": 2,
+          "bodyReads": 192,
+          "bodyBytesRead": 7000254
+        },
+        "processes": 2,
+        "note": "cold work runs in child CLI processes; this process counts only its own"
+      }
+    ],
+    "refusals": [
+      {
+        "label": "stale",
+        "outcomeKind": "installed_definition_call_transport_refusal",
+        "code": null
+      },
+      {
+        "label": "copied",
+        "outcomeKind": "installed_definition_call_transport_refusal",
+        "code": null
+      },
+      {
+        "label": "foreign",
+        "outcomeKind": "installed_definition_call_transport_refusal",
+        "code": null
+      },
+      {
+        "label": "closed",
+        "outcomeKind": "installed_definition_call_transport_refusal",
+        "code": null
+      }
+    ],
+    "prefix": {
+      "bytes": 3500127,
+      "coordinateDigest": "sha256:dd58ef6b5e84117f15b70e387cfccfb56460e80413b45181ae2cd32075ff5208"
+    },
+    "resultDigest": "sha256:cc18e11e162aa8e2ea6df78d5c8533ff0ff58676e82f0b58aeee2b31ba121294",
+    "replayDigest": "sha256:ddd8dc600f5d39ce3b67725f72406b75b0f5a6c8784f994654107efa6ac283eb",
+    "testTotalMs": 254846,
+    "namedPhaseSumMs": 33769.4,
+    "unassignedFixtureSetupOtherMs": 221076.6,
+    "unassignedMeaning": "Approximately 221.077 seconds are outside the named phases; do not label that residual measured startup or fully accounted latency.",
+    "baselineSpeedComparison": null,
+    "baselineStanding": "No genuine matched HS02 baseline speed comparison exists. Earlier missing-material and failed-source results remain failures, not speed baselines.",
+    "rssStanding": "The /usr/bin/time maximum resident set size belongs to the timed test command and is separate from per-phase process.memoryUsage().rss.",
+    "coldCounterStanding": "Named cold phase records this process counters only; its two child CLI processes are not included in those counters.",
+    "limit": "Smallest installed F_D fixture in one test process; not the installed large-log S4 growth result and no performance claim."
+  },
+  "actualNextFailure": {
+    "label": "fixed-testing",
+    "outcomeKind": "refusal",
+    "code": "invalid_program",
+    "issuePaths": [
+      "/program/runEnvironment",
+      "/runEnvironment/cause/unsupported_declaration"
+    ],
+    "definitionKey": {
+      "operationId": "abg.operation.run.invoke",
+      "memberKey": "invoke"
+    },
+    "invocationRef": "invocation://abiogenesis/c880e8002cbe1e5a09b6a667f09209fa76b1a1a96f45ab956bbcb07d160bb5ee",
+    "productExecutionResolution": null,
+    "invocationAdmission": null,
+    "run": null,
+    "replay": null,
+    "eventResourceKind": "abg_event_resource_completion",
+    "prefixUnchanged": true,
+    "prefixBytes": 3186947,
+    "prefixCoordinateDigest": "sha256:7b4ed7a750bd404a9a006b5448f228c5ec387eea71e74ea2534dcd94bd8109a7",
+    "receiptDigest": "sha256:0b8aa21a680fc67aa5c0dac31c4d797d272d1c36c959df9beee5e32d287dd81d",
+    "failureType": "testCodeFailure",
+    "testDurationMs": 283886.463084,
+    "sourceLocations": [
+      "test_env/uat/public-setup.mjs:171",
+      "test_env/tests/t287-default-library.test.mjs:2520"
+    ],
+    "retainedTap": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-fixed-admission-once.stdout",
+      "bytes": 3546,
+      "sha256": "3ec2eae8b8b0d40d8b0e781d9d64c4b8ff94aab81a0cc5e39b7a5d182c44b59c"
+    },
+    "causeLimit": "The exact current refusal localizes the next blocker to the declared Program/run-environment relation. No deeper source cause or repair scope is inferred by this operator; Root owns triangulation."
+  },
+  "sourcePreservation": {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/SOURCE_BEFORE_EXECUTION.json",
+      "bytes": 458,
+      "sha256": "5e275f9a2ebe9ee52e1355ad4a65a76e73d7b39f7c4d3e0c74cd303169539aee"
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/SOURCE_AFTER_EXECUTION.json",
+      "bytes": 458,
+      "sha256": "5e275f9a2ebe9ee52e1355ad4a65a76e73d7b39f7c4d3e0c74cd303169539aee"
+    },
+    "rows": 450,
+    "sameDigest": true,
+    "generatedManifestUnchanged": true,
+    "originalAuthorControls": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/inputs/prior-author-lanes.mjs",
+        "bytes": 10073,
+        "sha256": "7b22c3e9fbbb0449356b725e8906879e5e929c8902d7c6077727e71f3bacbcf2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/inputs/COMMAND_BOUNDS.json",
+        "bytes": 4996,
+        "sha256": "2880e974265027539d08fef8948bde866621071fba1ab8131330e6bbf9a96f62"
+      }
+    ],
+    "originalAuthorControlsStillMatch": true,
+    "originalAuthorLedgerRewritten": false
+  },
+  "allocation": {
+    "freshOperatorLanes": 2,
+    "maximum": 2,
+    "serial": true,
+    "completed": 2,
+    "automaticRetries": 0,
+    "sourceEdits": 0,
+    "newBuilds": 0,
+    "newGenerations": 0,
+    "campaignColdDrains": 0,
+    "unsafeExecution": false,
+    "originalAuthorGateRetroactivelySatisfied": false
+  },
+  "operatorTiming": {
+    "executionStarted": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/EXECUTION_STARTED.json",
+      "bytes": 493,
+      "sha256": "7e9152eb9437260455d2701b0501eb9920f63e55b85ea2fa11c84ad7d33557ab"
+    },
+    "entryUtc": "2026-11-06T14:07:28.806Z",
+    "firstCommandUtc": "2026-11-06T14:07:29.047Z",
+    "entryToFirstCommandMs": 241.0,
+    "secondCommandUtc": "2026-11-06T14:11:49.896Z",
+    "sumCommandMs": 546963.110667,
+    "classification": "Operator proof readiness and test execution, separate from native author startup/work and Root coordination.",
+    "fullyAccountedEndToEndLatency": false
+  },
+  "remaining": [
+    "Fixed Testing-to-UAT real admission and downstream negative/assessment relations remain unproved.",
+    "Maintained runner regression and other unexecuted author lanes remain open.",
+    "Large-log installed held/cold and context/result growth claims are not established by this small fixture.",
+    "Source/native-after custody, independent review, Product acceptance, full qualification and release remain Root-owned separate conjunctions."
+  ],
+  "nextAction": "Return exact current failure and bounded HS02 evidence to Root. No test retry, control change or source repair selected."
+}

@@ -1,0 +1,86 @@
+{
+  "status": "PASSED_READ_ONLY_NO_RUNTIME",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/proof.py",
+    "bytes": 19052,
+    "sha256": "10f167d0a051fd41a175526e680c6fd7f6759bf9a342cebc7df1ba16379d6d5c"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/BINDING.json",
+    "bytes": 12559,
+    "sha256": "a4db01e7a17adfab94dbfa9e6c4b9185410d04e327f5ea71e64760ef462992be"
+  },
+  "elapsedSeconds": 1.5221525826491416,
+  "sourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "sourceRows": 1344,
+  "exactSourceRoots": [
+    "/private/tmp/abg-rc11-foundation-20261110-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/frozen-source",
+    "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/source",
+    "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/work"
+  ],
+  "compiledRows": 996,
+  "compiledDonorAndWorkEqual": true,
+  "dependencyMetadataConserved": true,
+  "protectionPinsExact": 8,
+  "retainedControlPinsExact": 17,
+  "bootstrapGroupAbsent": true,
+  "wholeFilePreviouslyUnstarted": true,
+  "continuationOutputAbsent": true,
+  "archiveInstallEquality": {
+    "archive": {
+      "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+      "bytes": 11045845,
+      "sha256": "fdbf93de131905f79e96c8716dbb833ae8b308b3e791e1ac63a79b59a1c74d46"
+    },
+    "archiveMembers": {
+      "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/ARCHIVE_MEMBERS.json",
+      "bytes": 1099505,
+      "sha256": "5b61c7b8926862c6791d2988a524f3c09c862dbfc441f6addfde61e3fc9e38f8"
+    },
+    "installedPackageRoot": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/bootstrap-host/node_modules/@abiogenesis/typescript-tenant",
+    "regularFiles": 5327,
+    "payloadBytes": 71840473,
+    "allRegularMembersEqual": true,
+    "extraMissingSymlinkMembers": [],
+    "manifest": {
+      "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/bootstrap-host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266309,
+      "sha256": "53c884303235e4de5d33c1bc58d31bcab77c0e0fad725d48caf73d871f93d3ad"
+    },
+    "productContentDigest": "sha256:778f5667e380f52fdf35398c48b24ff875598a6c3588cc030faa440283c11587"
+  },
+  "unchangedSingleCommand": {
+    "id": "w2-05",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+    ],
+    "timeoutSeconds": 900,
+    "expectedTests": 3,
+    "expectedSkipped": 0,
+    "expectedSkippedNames": [],
+    "expectedNames": [
+      "W2-05 owner-chain static oracle permits call-local collections and mentions",
+      "W2-05 owner-chain static oracle rejects removed legacy root seams",
+      "W2-05 installed Product install and catalog owners compose without catalog runtime truth"
+    ]
+  },
+  "sourceReview": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/INSTALLED01_ORDER_FAILURE_REVIEW.md",
+      "bytes": 4919,
+      "sha256": "35ac07d9d8aea2a95e678bc66cee9a69edf7e17317b89c19407a91100bc94175"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/INSTALLED01_ORDER_FAILURE_REVIEW.json",
+      "bytes": 4035,
+      "sha256": "07b7e3ca41109b431ac860dff3c155ddad11b7d3d71d3ae99bbee0ece6a8ec5e"
+    }
+  ],
+  "checks": "Compiled driver syntax in memory and executed only its read-only retained-state preflight; no test, runtime, copy, installation or output allocation."
+}

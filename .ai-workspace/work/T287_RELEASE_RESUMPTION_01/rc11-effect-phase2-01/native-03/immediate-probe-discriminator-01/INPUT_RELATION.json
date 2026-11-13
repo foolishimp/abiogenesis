@@ -1,0 +1,50 @@
+{
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-freeze.json",
+    "bytes": 295947,
+    "sha256": "954c2609173832ea9942c7317c4216f138e98543fab1f533e7d0a46fe4aa2c4f"
+  },
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/COMPILED_SCRATCH_INVENTORY.json",
+    "bytes": 106060,
+    "sha256": "79e47225c535955d22bf8c012b4b7954f4daf6ca9d43826d0fd39391d1c14e65"
+  },
+  "compileRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 63651,
+    "sha256": "95385ee5db886ae717600a430baf01e050160aa67b7684b403ac0c63e0ca1ce0"
+  },
+  "baselineSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "bytes": 12633,
+    "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+  },
+  "baselineCompiled": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+    "bytes": 11604,
+    "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+  },
+  "baselineBuildRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/INPUT_RELATION.json",
+    "bytes": 3793,
+    "sha256": "8415e5b8a070d466b697888d9feb24861668961eb2f46e2840c321d694e583f1"
+  },
+  "predecessorFixture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/probe-reentry.mjs",
+    "bytes": 4720,
+    "sha256": "904f5bfc90e1ebbb0092530de564c8fda16f5fa1d609d5929ebc2c14f1ca00e4"
+  },
+  "newFixture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/immediate-probe.mjs",
+    "bytes": 5496,
+    "sha256": "0b618f9f7a8339db87ed72d9e7ee5e9813c53cebd2e8570ad7eaeb2465679ff0"
+  },
+  "fixtureDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/FIXTURE_DELTA.diff",
+    "bytes": 10645,
+    "sha256": "3856877648f97d86a7894837e823e1ff32c2f19ef6526e8518cd266b66c22a72"
+  },
+  "execution": false,
+  "meaning": "Reuse prior finite controlled child/clock/observation pattern. Exact selected change: immediate request, first-probe exit-only, all probes present, capture immediate cut before advancing clock and finite owner-timer cleanup. No source or compiled owner alteration."
+}

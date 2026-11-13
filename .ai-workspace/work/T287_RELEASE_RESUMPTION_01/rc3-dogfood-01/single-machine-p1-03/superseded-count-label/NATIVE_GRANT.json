@@ -1,0 +1,229 @@
+{
+  "Construction": {
+    "existingWritePathsVerified": true,
+    "howPaths": [
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md"
+    ],
+    "limits": [
+      "Only ten existing canonical Product paths; native Worker sole author; no requirement to edit all ten.",
+      "Fresh owned TMPDIR/current declared copies/pinned offline tools: ordinary emit/build/test/debug; no network/install/original-dependency/canonical-generated writes.",
+      "Worker chooses implementation/inspection/debug order; meaningful edited-candidate actual feedback and required native Return/C2/UAT remain."
+    ],
+    "localHelperPlacement": "Native realization may name private functions only inside the listed existing owners; no new Product file/module/helper service is selected",
+    "newProductPaths": [],
+    "outcome": "Complete Root-selected prospective P1-03 N1-N4 over second20 source; preserve deferred fullP1/native-context residuals.",
+    "preimages": [
+      {
+        "bytes": 142929,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "sha256": "0d9a1332eeef34e065275fa17da41729bd21a52e725a8a70b13f9b3c66c29edf"
+      },
+      {
+        "bytes": 38179,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+        "sha256": "0e037aa24c16f6389601eb2ac7fe782dbccbfd251842550ee38d69689e8ad7e5"
+      },
+      {
+        "bytes": 24181,
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+        "sha256": "edeb3857b126608f34b041302b591444140797e806a308d87e2aa84b4d590508"
+      },
+      {
+        "bytes": 56725,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+        "sha256": "821b5e08ea33365bb304674650399f98701236797c881ca7a8f2d499676680ec"
+      },
+      {
+        "bytes": 49136,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "sha256": "b79d5265dcf83d76792e3035bb4b76f8082b5bb8edf7320edd6ee524ccf3c609"
+      },
+      {
+        "bytes": 25087,
+        "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+        "sha256": "b04e6d685bba02af568c08e3bcc6044bfc90b90426954366fbfdba972b423806"
+      },
+      {
+        "bytes": 71983,
+        "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "sha256": "b24a1272ba436bc082f9eb8e161ae4b5a95b7bc7b8e01178bb3454fa920ecca4"
+      },
+      {
+        "bytes": 120502,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "sha256": "3f78db27edb607b0ed2405e106abeb43c96a09df9b2b3fd4ec9eab974070274a"
+      },
+      {
+        "bytes": 7078,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "sha256": "3c6a310d4719acf0f0db7689abfda2953d8404a7939e80a58b89850bc222feba"
+      },
+      {
+        "bytes": 19137,
+        "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+        "sha256": "a9594ae35df45aee492255f0ef9e7bfb8725927440b9a1f8303a3e6f52a585a2"
+      }
+    ],
+    "writeGrantStanding": "finite outer bound, not mandatory edits; only causally required changes; delete superseded paths",
+    "writePathCount": 10,
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md"
+    ]
+  },
+  "RootAdmission": {
+    "authority": "Owner evaluate+action request and Root explicit05:18UTC admission of task/rubric/up10/prospective repricing",
+    "decision": "Prepare narrow native completion, Root actual dispatch only after exact review",
+    "mechanism": "Exact current-session Root instruction retained in ROOT_DISPOSITION; not native admission",
+    "selectedSubject": "9c4a5c5e136ec564c66d1598fd32161ad4101f24"
+  },
+  "RootAuthority": {
+    "bytes": 3417,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/ROOT_AUTHORITY.md",
+    "sha256": "2085be0708734d53cf9ca82f8fb1b581d28453ac286dc701eaf8e82600cec289"
+  },
+  "Testing": {
+    "canonicalWritePaths": [],
+    "changedOperatorArguments": [
+      "source-correspondence exact affected source/test/HOW member list",
+      "focused-owner-chain these eight existing test files with new required cases"
+    ],
+    "focusedFiles": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-cold-record-decoder.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs"
+    ],
+    "metricClaim": "source-proven old expanded representation versus actual new owner reconstruction/counts and new-owner cold/warm resources; not an old-runtime benchmark",
+    "outcome": "All nine conserved commands/predicates and eleven focused plus affected/artifact lanes; exact ten-source correspondence; meaningful required cases, no new skips.",
+    "purposes": 9,
+    "readRootCount": 970,
+    "requiredExistingAffectedFiles": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "selectedPathCount": 963,
+    "sourceClosure": "Conserved963 producer dependencies; seven separate P1-02 diagnostic/assessment reads give970 readRoots.",
+    "sourceClosureAmendment": {
+      "bytes": 4904,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/AMENDMENT_01.md",
+      "sha256": "b59c6cb61a7f99cf2ff6eef170821881862b8ae1cae3dd8d2152f15608a0973e"
+    },
+    "sourceClosureManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/B11_C2_961_PREPARATION.json",
+      "sha256": "554172089688e2ba1768856f91d7d3b8a2409a170011fc46da5667282aa3696f"
+    },
+    "sourceCorrespondencePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md"
+    ],
+    "toolchainEnvironment": "reuse exact existing offline/STDO/Node/npm/Python pins; no rebuild/install"
+  },
+  "UAT": {
+    "canonicalWritePaths": [],
+    "criteriaCount": 4,
+    "criteriaSha256": "b460a5b77875c5e7006eece0043cedae0e6d76439fe2b928831b96d33d4b781e",
+    "criteriaSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/rubric.json",
+    "outcome": "Evaluate actual admitted C2 against prospective bounded N1-N4 only; future Root live/resource proofs excluded."
+  },
+  "actualSetupCallManifest": null,
+  "amendment": {
+    "bytes": 4904,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/AMENDMENT_01.md",
+    "sha256": "b59c6cb61a7f99cf2ff6eef170821881862b8ae1cae3dd8d2152f15608a0973e"
+  },
+  "basis": {
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "uri": "stdo://releases/v3.0.2/"
+  },
+  "builderArchiveSha256": "0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c",
+  "changeClass": "bounded_design_contract_reentry_then_realization",
+  "completionAmendment": {
+    "bytes": 3417,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/ROOT_DISPOSITION.md",
+    "sha256": "2085be0708734d53cf9ca82f8fb1b581d28453ac286dc701eaf8e82600cec289"
+  },
+  "designDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/DESIGN_AND_ACTIVATION.md",
+    "sha256": "1f8ac926fdecc1a1a842f77a6571ef28c97307407e2b0aa901fe774d8b4177f8"
+  },
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "futureInstalledWitness": "Root separate actual installed14/14 functional + same-workload resources and appropriately bounded cold proof; no arbitrary cross-workload threshold",
+  "helperEffects": "Root-authorized operator documentation/input materialization/model-free preparation and exact20-path native-source preservation checkpoint only; no Product authorship/native/Public/provider execution",
+  "initialState": {
+    "observations": [],
+    "sourceBasis": "none",
+    "synthesis": null
+  },
+  "kind": "single_machine_p1_03_root_admitted_native_preparation",
+  "nativeResourceSelection": "Root selected xhigh240turns/90minabsolute/40minidle/3houter/no$cap",
+  "originalDraft": {
+    "bytes": 19220,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/NATIVE_GRANT_DRAFT.json",
+    "sha256": "612d1c3d7efbe5f523741b4a9a12d67982c173aab4df6db1133573aa6503ebef"
+  },
+  "originalRootAdmission": {
+    "actualDispatchGate": "Root-only final exact input/call/source/roles/limits/prefix/manifest preflight and reviewed one-shot launch",
+    "authority": "Owner actual single-machine fix instruction and Root explicit current-session conditional-GO/two-test/criterion4/963 amendment ruling",
+    "decision": "Admit finite bounded HOW/contract re-entry and native Worker preparation, not actual dispatch",
+    "mechanism": "Explicit Root instruction retained by this operator admission record; not a native Result/event/cryptographic signature",
+    "preserved": "All old verdicts and currentProduct outcome, saga/typedrefusal/cold boundaries remain",
+    "selectedSubject": "97406077c9a91e18e9425c3df55c6cd80f4c2073"
+  },
+  "packageVersionSelection": "preserve5.0.0-rc.3; no operator-selected identity change",
+  "proofPlan": {
+    "bytes": 7080,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/PROOF_PLAN.md",
+    "sha256": "3c223a8963f4cc7ab34017e3872633ab9c784d5749223e85fce65c6136c2d579"
+  },
+  "proposedNativeLimits": {
+    "absoluteTimeoutMs": 5400000,
+    "effort": "xhigh",
+    "inactivityTimeoutMs": 2400000,
+    "maxBudgetUsd": null,
+    "maxTurns": 240,
+    "model": "claude-opus-5-5",
+    "outerTimeoutMs": 10800000,
+    "recursionBound": 4,
+    "selection": "Root-selected resource ceilings; actual input/call/manifest still requires review"
+  },
+  "sourceCheckpoint": {
+    "bytes": 2703,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/SOURCE_CHECKPOINT_10.json",
+    "sha256": "f7dce3983a8795756656ff0379a7ee276f7bd899e5473244d8c640a8d3494a78"
+  },
+  "sourceCommit": "9c4a5c5e136ec564c66d1598fd32161ad4101f24",
+  "status": "ROOT_ADMITTED_NARROW_N1_N4_PREPARATION",
+  "stopBefore": [
+    "Any actual provider dispatch without Root final exactcall/manifest selection",
+    "unexpected actual Product/public meaning, event/store authority or ungranted effect change",
+    "an actual coherent repair needs an ungranted owner; internal implementation choices within53 remain the worker's",
+    "missing required protectedsource materialization"
+  ],
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-machine-p1"
+}

@@ -1,0 +1,5 @@
+RC11 preparation only. Installed RC10 is the operational builder; RC9 remains its construction provenance. The new sparse worktree has the exact accepted RC10 source and a read-only-authority shared dependency link. ROOT_SELECTION records the three selected residuals; no Product edit, runtime/setup/provider, build/test/install or qualification occurred.
+
+The initial absent-index no-checkout setup failure is preserved in WORKTREE_MATERIALIZATION_FAILURE.json; Root authorized completing only the empty new worktree. WORKTREE_PREPARATION and SOURCE_INVENTORY bind the resulting exact baseline. TRACKING_RECEIPT proves current prefixes preserve all prior main tracking bytes and the main index.
+
+NATIVE_ROUTE_PREPARATION and native-01 controls prepare the fresh imported-workspace route through installed RC10; they are not an executable task/admission. Exact owner reports, native context/write scope/budgets and separately admitted model-free fixture generation/staging remain pending Root conjunction. Final source freeze must include the actual staged evidence, after its production.

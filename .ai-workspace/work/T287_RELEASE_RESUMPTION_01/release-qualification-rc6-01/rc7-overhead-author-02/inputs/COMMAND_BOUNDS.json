@@ -1,0 +1,83 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "PREPARED_NOT_DISPATCHED_ROOT_ADMISSION_PENDING",
+  "readCommands": [
+    "Read only the exact selected SOURCE_BEFORE and workload paths, installed selected method/direct references, pinned toolchain/contract seed, exact declared source snapshots and historical fixture pins.",
+    "rg over the selected source/test/HOW files for the actual consumer relation; git status/diff/show/rev-parse/ls-files read-only for this source and named baseline. Never scan whole provider/history archives."
+  ],
+  "writeCommands": [
+    "Only86 exact permitted existing Product/HOW/test paths, three handoffs and this task scratch; no new Product files.",
+    "Root-admitted short runtime/provider /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7b and test /private/tmp/abg-o7b effects, preserve existing content."
+  ],
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-overhead-author-02/prior-author-stage.mjs",
+        "<fresh-label>",
+        "before|after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 4,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 180000,
+      "guardTimeoutMs": 60000,
+      "outputs": "qualification-scratch/rc7-overhead-author-02/tmp/<fresh-label>"
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-overhead-author-02/prior-author-lanes.mjs",
+        "<fresh-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "carriage",
+        "consumers",
+        "cold-resume",
+        "runner",
+        "prefix",
+        "legacy"
+      ],
+      "maxLaneInvocations": 12,
+      "concurrency": 1,
+      "perLaneTimeoutMs": 300000
+    }
+  ],
+  "syntaxCommands": [
+    "node --check for exact edited .mjs files; source read-only compiler diagnostics through selected stage."
+  ],
+  "measurementCommands": "Use selected existing test/support owners in the above scratch stage. Temporary instrumentation of a copied compiled owner in scratch is permitted for acquisition-count/byte/phase proof; no Product hook or second framework. Keep exact source/mutation and report the discriminator. No active campaign runtime invocation.",
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "nonClosure": "Budget expiry, skipped required proof, absent historical inputs, source/contract drift or any remaining duplication is explicit partial/non-closure. Do not raise budgets or substitute earlier receipt.",
+  "externalTemporaryEffects": {
+    "runtimeAndProviderRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7b",
+    "testRoot": "/private/tmp/abg-o7b",
+    "npmUserConfig": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-02/npm-user.npmrc",
+    "npmGlobalConfig": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-02/npm-global.npmrc",
+    "preservation": "Two distinct empty staged input files, no /dev/null alias. Preserve existing temp content; no cleanup."
+  },
+  "sequence": "Nearest meaningful failing-before discriminator first; complete coherent R1-task/R2 consumer migration before broad feedback. Run final affected checks on one exact final stage. Prefix/legacy only actual causal need. Preserve first failures; no repeated missing-resource lanes.",
+  "excludedCommand": "Do not execute historical declared-testing STDO2.5.0-rc.7 companion/native route (55min outer/20min native/45s cold). Source pattern only; current method remains STDO3.0.4/composition[].",
+  "historicalEvidenceEnvironment": "The declared D4 ABI5_EVIDENCE_ROOT is set only for the legacy lane. Current consumer/carriage/runner/prefix lanes leave historical selectors absent as in the bound affected proof; missing D2/F11 materials receive no pass credit.",
+  "consumerLanePartition": {
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/CONSUMER_LANE_SPLIT.json",
+      "bytes": 12229,
+      "sha256": "ae40ff141c7a5391f741bc2999f118ae85deeb9149dd8deed0bd32aff2001204"
+    },
+    "consumersPattern": "^(?!(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$).*$",
+    "coldResumePattern": "^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$",
+    "required": "Run every selected test exactly once across the two lanes; each300s, serial,4stages/12total invocations unchanged. No unfiltered consumer run."
+  }
+}

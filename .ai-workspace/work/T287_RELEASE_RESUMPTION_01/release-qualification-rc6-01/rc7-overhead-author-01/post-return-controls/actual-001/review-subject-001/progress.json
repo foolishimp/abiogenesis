@@ -1,0 +1,77 @@
+{
+  "kind": "rc7_overhead_author_progress",
+  "task": "rc7-overhead-author-01",
+  "at": "2026-11-06T04:20:41.819Z",
+  "state": "FROZEN",
+  "sequence": [
+    {
+      "step": "control intake",
+      "inputs": [
+        "ROOT_CONTROL_ADMISSION",
+        "ROOT_SELECTION",
+        "ROOT_ACTIVATION",
+        "TASK",
+        "NATIVE_GRANT (summary fields)",
+        "SOURCE_CUSTODY",
+        "METHOD_ACCESS",
+        "LOGICAL_BOUNDARY",
+        "LATENCY_READINESS",
+        "SAME_PROCESS_REUSE",
+        "CARRIAGE_READINESS",
+        "MEASUREMENT_PLAN",
+        "COMMAND_BOUNDS",
+        "C2_INPUTS lanes",
+        "ROOT_PROOF_DISPOSITION",
+        "ROOT_RESOURCE_BINDING",
+        "installed stdo-work SKILL.md"
+      ]
+    },
+    {
+      "step": "owning HOW first",
+      "files": [
+        "design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md §10.8",
+        "design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md binding paragraph"
+      ]
+    },
+    {
+      "step": "realization",
+      "relations": [
+        "R3",
+        "R5",
+        "R6",
+        "R1 before"
+      ]
+    },
+    {
+      "step": "stage rc7a-after-01",
+      "result": "compile/generate/guard pass; carriage, prefix pass; consumers 29 fail"
+    },
+    {
+      "step": "repair",
+      "detail": "persistedNativeBasis copies executionBasis only when the basis supplies it (component premise without executionBasis)"
+    },
+    {
+      "step": "stage rc7a-before-01",
+      "result": "baseline discriminators fail as expected; consumers 28 staged-closure failures"
+    },
+    {
+      "step": "stage rc7a-after-02",
+      "result": "carriage, prefix, legacy 0 fail; consumers 28 failures identical to baseline"
+    },
+    {
+      "step": "freeze and handoffs",
+      "files": [
+        "return.json",
+        "readiness.json",
+        "progress.json"
+      ]
+    }
+  ],
+  "budget": {
+    "wallMinutes": "about 40 of 90",
+    "stages": "3/3",
+    "laneInvocations": "10/10",
+    "retries": 0
+  },
+  "stop": "No further edits after return."
+}

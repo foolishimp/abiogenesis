@@ -1,0 +1,24 @@
+{
+  "kind": "rc6_local_source_checkpoint",
+  "at": "2026-11-05T02:00:58.639932+00:00",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "sourceTree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+  "branch": "codex/rc6-local-cut",
+  "worktree": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "baseCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "bytes": 10988465,
+    "sha256": "e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4"
+  },
+  "artifactBridgeSha256": "da399a114c85a4014261c4944ecdf76d9dcbe0c953362ce9809a7b19735e20e0",
+  "sourceSubjectSha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13",
+  "evidenceIndexSha256": "ee58e3a10ee9c9386921ae8fe6479c83fd86ba5718d1b58d120774d82a4166bb",
+  "generatedTrackedFiles": 2,
+  "changedPaths": 146,
+  "standing": "Local unqualified checkpoint; cut/install not yet executed",
+  "operatorPreparationRefusals": [
+    "FREEZE_PREPARATION_REFUSAL_01.json",
+    "FREEZE_PREPARATION_REFUSAL_02.json"
+  ]
+}

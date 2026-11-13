@@ -1,0 +1,18 @@
+{
+  "status": "CONTROL_FINALIZATION_PREFLIGHT_PIN_MISMATCH_NO_PROOF_EFFECT",
+  "at": "2026-11-07T15:04:43.265228+00:00",
+  "earlierObservedReview": {
+    "bytes": 19676,
+    "sha256": "bddd9bcca16e4b718c95d87bdbe7ce44677efbe1864b3e6576a9b3f2d9a9ddae"
+  },
+  "selectedClosedReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023/REVIEW.json",
+    "bytes": 20463,
+    "sha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907"
+  },
+  "actualPreflight": "Python assertion on review hash exited1 before writing ROOT_PREPARATION/BINDING or invoking any owner/test.",
+  "rootClarification": "Earlier bytes were in-progress, not a frozen admitted subject. Use only closed Root-selected0bb7370d/20463B.",
+  "proofEffects": 0,
+  "ProductEffects": 0,
+  "unchangedSyntaxNotRepeated": true
+}

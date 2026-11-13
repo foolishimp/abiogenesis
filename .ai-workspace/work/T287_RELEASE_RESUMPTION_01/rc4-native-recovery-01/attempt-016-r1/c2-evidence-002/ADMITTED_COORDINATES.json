@@ -1,0 +1,40 @@
+{
+  "kind": "PASSIVE_ADMITTED_SECOND_C2_COORDINATE_PROJECTION",
+  "physicalOffset": 226595828,
+  "physicalBytes": 25377463,
+  "rowSha256": "4708728a7819aa2f680fb4cd8fb100590cca0f404a4f8e6a3a662638814e5616",
+  "admissionOrdinal": 15479,
+  "eventId": "event://abiogenesis/631bfeb57da1d935feb18566d9f1e9e3b6df2df014e26d3dafcbb5f9d58a1cae",
+  "eventTime": "2026-11-02T20:09:13.630Z",
+  "resultRef": "result://abiogenesis/3fd2e1e23af709e9c7ddbe6189d2c577ec9c3d9b7b6bbd8aca0c965afd493b9b",
+  "resultDigest": "sha256:3fd2e1e23af709e9c7ddbe6189d2c577ec9c3d9b7b6bbd8aca0c965afd493b9b",
+  "helperArtifactDigest": "sha256:4c3a870c8ab4f4b8879fcf6f6ba50ec57be2d0710c627cbbf214ddd6cf3f05f6",
+  "observationDigest": "sha256:dfdca8dd5c5481e3cff16e5ebabc6025718508e703258c005d2e3828778375b1",
+  "commandExits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "predicateObservedValues": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "standing": "Actual admitted second native C2 observation, all11 exits0. No UAT/Run closure/acceptance."
+}

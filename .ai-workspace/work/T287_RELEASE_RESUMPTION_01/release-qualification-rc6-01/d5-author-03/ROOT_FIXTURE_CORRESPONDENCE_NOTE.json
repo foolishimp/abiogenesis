@@ -1,0 +1,29 @@
+{
+  "kind": "root_same_cone_fixture_correspondence_supplement",
+  "at": "2026-11-06T01:33:35.002438+00:00",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/ROOT_SELECTION.json",
+    "bytes": 7456,
+    "sha256": "8d3e52bce4bf3c69c21e2300ce0804a672d367c474a5caa153330ce6633ea943"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "bytes": 98486,
+    "sha256": "e1bbcfacc0d30d934489d44aac4dfbd1db48923bdbfed504f58739a22303b638"
+  },
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "bytes": 215016,
+    "sha256": "01c82b88e65e12b367b9683241407bcc7707531679963c04a580855bcfa1df71"
+  },
+  "sharedProjection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "bytes": 26359,
+    "sha256": "136957305e752f6a7ff93f9b4ee50bca08cffe11873c9f9b708b9d15f9b0008b"
+  },
+  "finding": "Existing admitJudgment in scopes test lines501-509 has a copy-free current observation but no event stamp. The same defective cold predicate treats it as current. Once profile selection is corrected, this synthetic current premise would be classified as L and rejected.",
+  "cause": "Test premise does not carry the actual owner envelope distinction. This is the same representation correspondence defect as D5-PROJ-001, within the already selected test file.",
+  "scope": "Keep two-file write territory. Correct current-P artifact premises to carry the exact current stamp; L premises must omit it and preserve four lifecycle copies. Reuse existing ROOT_EVENT_CONTRACT_DIGEST import in scopes test. Do not edit shared malformed-gtl-native-fixture or add a new runtime/profile helper.",
+  "evidence": "Static exact-source inspection only. No new test execution or extra counterexample severity claimed. Native Worker produces failing-before/passing-after and existing affected five-module lane.",
+  "return": "Contributing Root same-cone triage supplement for N3 Worker, with source tests and writer choice retained; not independent review or expanded Product scope."
+}

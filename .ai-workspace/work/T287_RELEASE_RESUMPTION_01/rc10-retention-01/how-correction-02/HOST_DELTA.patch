@@ -1,0 +1,46 @@
+--- how-correction-01/host.mjs
++++ how-correction-02/host.mjs
+@@ -20,7 +20,7 @@
+ assert(setupAdmission.grantsFreshPublicSetup===true&&setupAdmission.providerDispatch===false,'setup grant must hold native dispatch');
+ Object.assign(process.env,binding.environment);
+ const pinned=async p=>{const b=await readFile(p.path);assert.equal(b.length,p.bytes,p.path);assert.equal(sha(b),p.sha256,p.path);return b;};
+-for(const p of [...(setupAdmission.files??[]),binding.builderPin,binding.scopeInputGrant,...binding.readOnlyInputPins,binding.activation,binding.task,binding.archive,binding.sourceMaterialization,binding.providerExecutable,binding.providerWrapper,...Object.values(binding.sourceHelpers),...binding.dependencyPins,binding.sourceInventory,...binding.proofControls])await pinned(p);
++for(const p of [...(setupAdmission.files??[]),binding.builderPin,binding.workspaceOpenManifest,binding.scopeInputGrant,...binding.readOnlyInputPins,binding.activation,binding.task,binding.archive,binding.sourceMaterialization,binding.providerExecutable,binding.providerWrapper,...Object.values(binding.sourceHelpers),...binding.dependencyPins,binding.sourceInventory,...binding.proofControls])await pinned(p);
+ const task=JSON.parse(await pinned(binding.task)),free=async()=>{const s=await statfs(dir);return s.bavail*s.bsize;};
+ assert((await free())>binding.reserveBytes);assert.equal(execFileSync('/usr/bin/git',['-C',binding.sourceRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),binding.sourceCommit);
+ const source=JSON.parse(await pinned(binding.sourceInventory));
+@@ -45,13 +45,29 @@
+   const native=await setupOwner.verifyArtifact(runtime,{artifactPath:binding.archive.path,manifest,expectedArtifactDigest:'sha256:'+binding.archive.sha256},record,'abg');mark('artifactVerified');
+   caller=setupOwner.publicCaller({root:binding.runtimeRoot,runtime,native,config,record,actorRef:'actor://abiogenesis/operator/codex-root',
+     command:runner.commandRecorder(binding.runtimeRoot,{environment:binding.environment,timeoutMs:binding.proofTimeoutMs})});
+-  // Exact existing imported-workspace adaptation from setup-rc6.mjs; setup graph stays maintained.
+-  const authorize=caller.authorize;let imported=0;
++  // RC10-HOW-OPEN-02: actual Public open of the original admitted manifest.
++  const manifestBytes=await pinned(binding.workspaceOpenManifest),existingManifest=JSON.parse(manifestBytes);
++  assert.equal(existingManifest.canonicalRoot,binding.sourceRoot);assert.equal(existingManifest.bindingRef,null);
++  const expectedAuthority={ref:existingManifest.authorityBasis.authorityRef,digest:existingManifest.authorityBasis.authorityDigest};
++  assert.deepEqual(expectedAuthority,binding.expectedWorkspaceAuthority);
++  const authorize=caller.authorize,invoke=caller.invoke;let opened=0,openObserved=0;
+   caller.authorize=(packet,request,resources,slots)=>packet===product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.clean
+-    ?(assert.equal(imported++,0),authorize(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.imported,
+-      {targetRoot:binding.sourceRoot,createPolicy:'imported',importAuthority:{ref:pathToFileURL(binding.activation.path).href,digest:'sha256:'+binding.activation.sha256},preservationPolicy:'preserve_all_existing'},resources,slots))
++    ?(assert.equal(opened++,0),authorize(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.open.open,
++      {targetRoot:binding.sourceRoot,expectedAuthority},resources,{}))
+     :authorize(packet,request,resources,slots);
+-  setup=await setupOwner.populateSandbox(caller,{retain:true,program:'library'});assert.equal(imported,1);await checkSource();mark('setupHeld');
++  caller.invoke=async(label,call,options)=>{
++    const actual=await invoke(label,call,options);
++    if(label==='workspace-create'){
++      assert.equal(openObserved++,0);assert.equal(actual.call.invocation.definitionKey.operationId,'abg.operation.workspace.open');
++      assert.equal(actual.call.invocation.definitionKey.memberKey,'open');assert.equal(actual.receipt.ownerOutput.outcomeKind,'result');
++      assert.equal(actual.receipt.ownerOutput.value.disposition,'unbound');assert.deepEqual(actual.receipt.ownerOutput.value.authority,expectedAuthority);
++      assert.equal(actual.receipt.resources.manifest.locator,binding.workspaceOpenManifest.path);
++      assert.equal(actual.receipt.resources.manifest.valueDigest,product.sha256Canonical(existingManifest));
++      await pinned(binding.workspaceOpenManifest);await record('WORKSPACE_OPEN.json',{definitionKey:actual.call.invocation.definitionKey,disposition:actual.receipt.ownerOutput.value.disposition,manifest:binding.workspaceOpenManifest,authority:expectedAuthority,receipt:actual.receipt.resources});
++    }
++    return actual;
++  };
++  setup=await setupOwner.populateSandbox(caller,{retain:true,program:'library'});assert.equal(opened,1);assert.equal(openObserved,1);await pinned(binding.workspaceOpenManifest);await checkSource();mark('setupHeld');
+   const env=caller.refresh(),ids=product.NATIVE_WORKSPACE_WORK_IDS;
+   assert.equal(env.workspaceBinding.roots.productRoot,caller.installedRoot);
+   const nativePrograms=caller.state.catalog.boundPublications.flatMap(p=>p.programs).filter(p=>p.programRef===ids.programRef);assert.equal(nativePrograms.length,1);

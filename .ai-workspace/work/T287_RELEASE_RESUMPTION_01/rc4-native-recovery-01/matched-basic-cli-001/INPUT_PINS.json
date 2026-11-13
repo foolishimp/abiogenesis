@@ -1,0 +1,177 @@
+{
+  "status": "FILE_ONLY_PREPARATION_NO_EXECUTION_SELECTED",
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10971372,
+    "sha256": "4589f5c5174cb84ba37f4efecd15f52f6437fa696d117aeff58b84bd5f8363ac"
+  },
+  "runnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript",
+  "runnerAndCallerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/scripts/sandbox-uat.mjs",
+      "bytes": 182,
+      "sha256": "9a88014f68f50ee592190b00d14f3b58ba5f744ec794cd017ce9e0b6a4fc1576"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 36084,
+      "sha256": "a09343856e9fd6571b0947993679f6724aac3af123eec12d6ff93e57daa716ce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 25076,
+      "sha256": "26c38cf79f253c2d293e6960c0f52f24d6115177f0281efcef970ce587eab8b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "compiledRootCheck": {
+    "all5321PackageMembersEqualAccepted4589": true,
+    "comparisonCustody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/CANDIDATE_C3_CUSTODY.json",
+      "bytes": 999086,
+      "sha256": "ae849c0224a053abb12873dcecf64ae6024bdf63e85c7317d246553a030a7193"
+    },
+    "scope": "Exact018 C2 sandbox compiled/package content; no canonical stale build or rebuilding."
+  },
+  "inputPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "bytes": 34763,
+      "sha256": "666afea3643b5fcb8cf226d61bfa2022e249ad28620246e7c93387f1d9cca843"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+      "bytes": 4916,
+      "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/request.json",
+      "bytes": 23299,
+      "sha256": "340c8a331d41d4b0160131be7ba700ab2833d9a3ea10ae62df4febce40e50219"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "bytes": 26966,
+      "sha256": "a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11"
+    }
+  ],
+  "initialApplicationFiles": [
+    {
+      "path": "source/basic-cli/source.original.txt",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+        "bytes": 4325,
+        "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+      }
+    },
+    {
+      "path": "source/basic-cli/obligations.json",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+        "bytes": 4916,
+        "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+      }
+    },
+    {
+      "path": "source/basic-cli/oracle.json",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+        "bytes": 1112,
+        "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+      }
+    }
+  ],
+  "initialSolvedArtifacts": [],
+  "allowedOutputs": [
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "generated/hello-world.mjs",
+    "design/test-design.md",
+    "test/component/hello-cli.test.mjs",
+    "test/uat/hello-cli.uat.test.mjs",
+    "test-execution-plan.json"
+  ],
+  "externalCommands": [
+    {
+      "commandId": "command://abiogenesis-sandbox-uat/basic-cli/cli",
+      "executable": "node",
+      "args": [
+        "generated/hello-world.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {},
+      "timeoutMs": 60000,
+      "terminationGraceMs": 5000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis-sandbox-uat/basic-cli/tests",
+      "executable": "node",
+      "args": [
+        "--test",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {},
+      "timeoutMs": 120000,
+      "terminationGraceMs": 5000,
+      "expectedReports": []
+    }
+  ],
+  "externalAcceptance": {
+    "stdout": "Hello, world!\n",
+    "exitStatus": 0,
+    "minimumPasses": 2,
+    "failures": 0,
+    "requiredContentAndTestFiles": [
+      "specification/project-conformance.md",
+      "design/implementation-design.md",
+      "generated/hello-world.mjs",
+      "design/test-design.md",
+      "test/component/hello-cli.test.mjs",
+      "test/uat/hello-cli.uat.test.mjs",
+      "test-execution-plan.json"
+    ],
+    "contentAssessment": "Same independent reviewer rubric applied to both output sets; actual execution checked independently. No fabricated ABG receipt for direct arm."
+  },
+  "tools": [
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    }
+  ],
+  "directWorkspaceProposed": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001",
+  "setupOrProviderExecuted": false
+}

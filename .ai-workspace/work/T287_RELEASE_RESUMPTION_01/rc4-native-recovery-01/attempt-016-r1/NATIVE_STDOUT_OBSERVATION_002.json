@@ -1,0 +1,354 @@
+{
+  "observerPid": 91071,
+  "observedUtc": "2026-11-02T21:33:31.947006+00:00",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-59f76379c92099a1-stdout.log",
+  "physicalCompleteCursor": 4321310,
+  "records": [
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_011BPL9pMsyR8EwKuAp5vBaA",
+      "command": "cat rc4-operator-inputs/native-recovery-16/CURRENT_SELECTION.DRAFT.md rc4-operator-inputs/native-recovery-16/PARTIAL_DISPOSITION.DRAFT.md rc4-operator-inputs/native-recovery-16/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md rc4-operator-inputs/native-recovery-16/rubric.DRAFT.json rc4-operator-inputs/native-recovery-16/readiness.py; cat rc4-scratch/native-recovery-16/return.json rc4-scratch/native-recovery-16/readiness.json",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_011BPL9pMsyR8EwKuAp5vBaA",
+      "is_error": false,
+      "content": "onCapabilityData\",\n    \"tests/t287-exact-construction-intent.test.mjs\": \"current_intent via shipped constructor; falsifiers/consumed patch canonical population\",\n    \"tests/t287-selected-action.test.mjs\": \"witness admission data via owner; selected_action via shipped constructor; negatives/duplicates patch canonical population\",\n    \"tests/t287-default-library.test.mjs, tests/t287-recursive-registered-selection.test.mjs\": \"pending callers await shipped population; start object no longer authority (expectedAuthority assertion only)\",\n    \"tests/t287-st1-installed-cross-owner-hello.test.mjs\": \"local start/read population replaced by shipped constructors; falsifiers patch canonical population; extended with shipped direct invoke + all six reads\"\n  },\n  \"hc1Residuals\": {\n    \"skipLibCheck\": \"test_env/tsconfig.framework-handoff.json skipLibCheck:false\",\n    \"rawUnavailableRefusals\": \"t287-framework-handoff-types runs all 9 unavailable leaves through runInstalledDefinitionCallTransport (packed proof, not run locally)\",\n    \"mixedUnionTyping\": \"per-alternative CandidateAlternativeHolds; positive valid union + 2 mixed-union negatives\"\n  },\n  \"compilerFeedback\": {\n    \"canonical\": \"tsc 5.9.2 --noEmit --incremental false -p tsconfig.json: 0 diagnostics\",\n    \"declarationEmitProbe\": \"in-memory declaration emit (discarded): 290 files, 0 diagnostics\",\n    \"hc1ProofProbe\": \"in-memory source-mapped proof compile, skipLibCheck false: positive 0 diagnostics; 19/19 negatives fail on their own line with a declared code\",\n    \"syntax\": \"node --check on every edited .mjs: pass\"\n  },\n  \"residuals\": [\n    \"uat/public-setup.mjs constructLifecycleCall and uat/runner.mjs freshReadbacks keep hand population: out-of-grant uat/harness.test.mjs mocks the superseded owners and api.constructInstalledPublicDefinitionCall; migration needs that test in scope\",\n    \"qualification/dispatch.mjs rootAuthority still constructs grants/authority via product constructors for observedC2Task\",\n    \"declared-testing stdoEnvironmentResources (key absent from the strict run resource schema) conserved as an explicit post-construction resource patch\",\n    \"canonical tenant tsconfig.json skipLibCheck:true outside write grant\",\n    \"no runtime, packed, CLI, C2 or UAT execution locally (no build/, builds forbidden); ST-1 extension assumes the direct-invoke Run opens a graph_call_opened event\"\n  ],\n  \"readiness\": \"rc4-scratch/native-recovery-16/readiness.json FILE_ONLY_READY, 0 issues, 12 source hashes matched\",\n  \"c2UatReadiness\": \"candidate for the selected C2 lanes after an independent build/pack; not accepted; UAT harness lane blocked by residual 1\",\n  \"stdo\": \"STDO 3.0.2 basis resolved/verified once at entry through the toolchain manager; Worker frame (EXECUTIVE_BASELINE section 9) with declared section 11 specialist context; no other version, cache or mutable methodology source used\",\n  \"scopeDisclosure\": \"TMPDIR=rc4-scratch/native-recovery-16/tmp; tsc wrote tmp/node-compile-cache there. No other writes outside granted paths; no install, build, network or generated output.\"\n}\n{\n  \"status\": \"FILE_ONLY_READY\",\n  \"sourceCommit\": \"3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f\",\n  \"selectedEntriesIncludingRoot\": 1263,\n  \"selectedRawBytes\": 43875461,\n  \"maxContextFiles\": 10000,\n  \"maxContextBytes\": 268435456,\n  \"sourceHashesMatched\": 12,\n  \"issues\": [],\n  \"meaning\": \"Readiness evidence only; no ABI admission, runtime/test/build/provider call. Actual Runtime observation remains authoritative.\"\n}"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_016Uv49VEgeM8NPNSY57NNyU",
+      "command": "which stdo; stdo status --definition stdo_abiogenesis.json --verify 2>&1 | head -40",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_016Uv49VEgeM8NPNSY57NNyU",
+      "is_error": false,
+      "content": "/Users/jim/.local/bin/stdo\n{\n  \"basis\": \"stdo://releases/v3.0.2/\",\n  \"cut\": \"v3.0.2\",\n  \"definition\": \"/Users/jim/src/apps/abiogenesis-rc4-native-recovery/stdo_abiogenesis.json\",\n  \"definition_id\": \"urn:stdo:product-definition:abiogenesis\",\n  \"failures\": [],\n  \"installed\": true,\n  \"manifest_sha256\": \"f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477\",\n  \"path\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2\",\n  \"release\": {\n    \"commit\": \"23ca9c0929d7be8570edafaf30542e3daeb8dc1f\",\n    \"cut\": \"v3.0.2\",\n    \"profile\": \"stable-v1\",\n    \"project_release_namespace\": \"specification_methodology\",\n    \"project_subtree_root\": \"specification_methodology/v3\",\n    \"project_subtree_tree\": \"4c870cb441be3574b911bacca28497fefc70e084\",\n    \"qualified_ref\": \"refs/tags/specification_methodology/v3.0.2\",\n    \"standards_tree\": \"f01a58e381a60edc7ed840cc9803f7d7296d65eb\",\n    \"tag_object\": \"d03b00a7fdf8972dc236b52eb09f3eccba7f62cb\",\n    \"tree\": \"c64345a9b2127df3cddc0e26f49bc9dac2a24bff\"\n  },\n  \"schema\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/schemas/product-definition.schema.json\",\n  \"selector\": \"stdo://channels/3.0.2\",\n  \"standards\": {\n    \"installed_root\": \"standards\",\n    \"member_count\": 67,\n    \"member_set_sha256\": \"644e5f6a509e0d79a2077ece8f1c25fc72e6abb5f03a95075b6e5b6eb565eb9d\",\n    \"members\": [\n      {\n        \"path\": \"ACTIVATION.md\",\n        \"sha256\": \"56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d\"\n      },\n      {\n        \"path\": \"ASSURANCE.md\",\n        \"sha256\": \"5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca\"\n      },\n      {\n        \"path\": \"AXIOMATIC_CALCULUS.md\",\n        \"sha256\": \"b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5\"\n      },"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01HeMfjzoBuJA92CuaigiCC8",
+      "command": "stdo status --definition stdo_abiogenesis.json --verify 2>&1 | grep -E '\"(valid|installed)\"'; cd build_tenants/abiogenesis/typescript && grep -n \"unknown_source\\|populateRunReadAtDurablePrefix\\|run_read_population_refusal\" code/src/abg/project_read_definition_bindings.ts | head -40",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01HeMfjzoBuJA92CuaigiCC8",
+      "is_error": false,
+      "content": "  \"installed\": true,\n  \"valid\": true\n277:    | \"unknown_source\"\n660:export function populateRunReadAtDurablePrefix<K extends RunReadMemberKey>(input: Readonly<{\n677:      kind: \"run_read_population_refusal\";\n678:      code: \"artifact_truth_invalid\" | \"projection_basis_mismatch\" | \"unknown_source\";\n682:  const refusal = (code: \"artifact_truth_invalid\" | \"projection_basis_mismatch\" | \"unknown_source\", issuePath: string) =>\n683:    Object.freeze({ kind: \"run_read_population_refusal\" as const, code, issuePath });\n693:  if (truth === null) return refusal(\"unknown_source\", \"/source/sourceRef\");\n820:            refusalOutput(packet, \"unknown_source\", \"/source/sourceRef\"),"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_01RMo3nNrcbdUdxuVu1ZaFSA",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01RMo3nNrcbdUdxuVu1ZaFSA",
+      "is_error": false,
+      "content": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs has been updated successfully."
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_018J3voAHCi3a4xQhJR9Scv1",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_018J3voAHCi3a4xQhJR9Scv1",
+      "is_error": false,
+      "content": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs has been updated successfully."
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_01H2jMxT7syGseEDPAmNu8KC",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01H2jMxT7syGseEDPAmNu8KC",
+      "is_error": false,
+      "content": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs has been updated successfully."
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_01VB8cwig69hXpERDzpLYuyn",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01VB8cwig69hXpERDzpLYuyn",
+      "is_error": false,
+      "content": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs has been updated successfully."
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_01VLK24JwFmVpguA14tNjMme",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01VLK24JwFmVpguA14tNjMme",
+      "is_error": false,
+      "content": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs has been updated successfully."
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_01383fFtwNaBso8bVA5MM5jz",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01383fFtwNaBso8bVA5MM5jz",
+      "is_error": false,
+      "content": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs has been updated successfully."
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_01WqCTZe4oYiwEqDebsEPMFU",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01WqCTZe4oYiwEqDebsEPMFU",
+      "is_error": false,
+      "content": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs has been updated successfully."
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_01FH9kYfbVxS2xkYFUzsE6u7",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs"
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01FH9kYfbVxS2xkYFUzsE6u7",
+      "is_error": false,
+      "content": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs has been updated successfully. (file state is current in your context \u2014 no need to Read it back)"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_012BDM6LhX6mDD88auB6L3tP",
+      "command": "ls -la node_modules | head -2; S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/tmp; time env TMPDIR=$S NODE_DISABLE_COMPILE_CACHE=1 node node_modules/typescript/bin/tsc --version; time env TMPDIR=$S NODE_DISABLE_COMPILE_CACHE=1 node node_modules/typescript/bin/tsc --noEmit --incremental false -p tsconfig.json; echo \"exit=$?\"",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_012BDM6LhX6mDD88auB6L3tP",
+      "is_error": false,
+      "content": "lrwxr-xr-x  1 jim  staff  89 Nov  3 02:38 node_modules -> /Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules\nVersion 5.9.2\nenv TMPDIR=$S NODE_DISABLE_COMPILE_CACHE=1 node  --version  0.07s user 0.01s system 94% cpu 0.091 total\nenv TMPDIR=$S NODE_DISABLE_COMPILE_CACHE=1 node  --noEmit --incremental false  10.01s user 0.23s system 168% cpu 6.076 total\nexit=0"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01KaHtFKaWhxHyp8F998PSZa",
+      "command": "cat test_env/tsconfig.framework-handoff.json; grep -n \"createProgram\\|paths\\|compilerOptions\\|createCompilerHost\\|noEmit\\|negative\" test_env/tests/t287-framework-handoff-types.test.mjs | head -40",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01KaHtFKaWhxHyp8F998PSZa",
+      "is_error": false,
+      "content": "{\n  \"compilerOptions\": {\n    \"exactOptionalPropertyTypes\": true,\n    \"forceConsistentCasingInFileNames\": true,\n    \"incremental\": false,\n    \"module\": \"NodeNext\",\n    \"moduleResolution\": \"NodeNext\",\n    \"noEmit\": true,\n    \"noFallthroughCasesInSwitch\": true,\n    \"noImplicitOverride\": true,\n    \"noImplicitReturns\": true,\n    \"noUncheckedIndexedAccess\": true,\n    \"skipLibCheck\": false,\n    \"strict\": true,\n    \"target\": \"ES2022\",\n    \"typeRoots\": [\"../node_modules/@types\"],\n    \"types\": [\"node\"],\n    \"verbatimModuleSyntax\": true\n  },\n  \"files\": [\"types/framework-handoff.compile.ts\"]\n}\n60:  const host = ts.createCompilerHost(options);\n67:  const program = ts.createProgram({rootNames: [rootFile], options, host});\n167:  assert.equal(proofText.match(/@ts-expect-error/g).length, markers.length, 'every expected error is a named HC1 negative');\n185:test('each HC1 negative fails on its own line for its declared reason', () => {\n219:    packageDeclarations: declarations.length, negatives: markers.length}));"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01DuTPE9W9tSSMjE5KefvB6m",
+      "command": "sed -n 1,240p test_env/tests/t287-framework-handoff-types.test.mjs",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01DuTPE9W9tSSMjE5KefvB6m",
+      "is_error": false,
+      "content": "line === marker.line).map(row => row.code);\n    assert.ok(codes.length > 0, `${marker.name} does not fail`);\n    for (const code of codes) assert.ok(marker.codes.includes(code), `${marker.name}: TS${code}`);\n  }\n  assert.deepEqual(rows.filter(row => !markers.some(marker => row.line === marker.line && row.file !== null && path.resolve(row.file) === proofPath)), []);\n});\n\ntest('packed consumer compiles the HC1 proof from canonical package declarations only', t => {\n  const packageRoot = candidatePackage(t);\n  const manifest = requireHc1Declarations(packageRoot);\n  const consumer = scratch(t, 'abg-hc1-consumer-');\n  fs.writeFileSync(path.join(consumer, 'package.json'), '{\"type\":\"module\",\"private\":true}\\n');\n  fs.mkdirSync(path.join(consumer, 'node_modules/@abiogenesis'), {recursive: true});\n  fs.symlinkSync(packageRoot, path.join(consumer, 'node_modules', PACKAGE_NAME), 'dir');\n  const root = path.join(consumer, 'framework-handoff.compile.ts');\n  fs.copyFileSync(proofPath, root);\n  const {program, errors} = compile(root, {...proofConfig().options, preserveSymlinks: true});\n  assert.deepEqual(errors.map(format), []);\n  const files = program.getSourceFiles().map(file => path.resolve(file.fileName));\n  const tenantOwned = [path.join(tenant, 'code'), path.join(tenant, 'build')].map(dir => dir + path.sep);\n  assert.equal(files.some(file => tenantOwned.some(dir => file.startsWith(dir))), false, 'no tenant source or build is compiled');\n  const declarations = files.filter(file => file.startsWith(path.join(consumer, 'node_modules', PACKAGE_NAME, 'build') + path.sep));\n  assert.ok(declarations.length > 0);\n  for (const subpath of ['./public', './product']) {\n    const resolved = ts.resolveModuleName(PACKAGE_NAME + subpath.slice(1), root, {...proofConfig().options, preserveSymlinks: true}, ts.sys).resolvedModule;\n    assert.equal(path.resolve(resolved.resolvedFileName), path.join(consumer, 'node_modules', PACKAGE_NAME, manifest.exports[subpath].types));\n  }\n  t.diagnostic(JSON.stringify({kind: 'hc1_packed_consumer', compilerVersion: ts.version, package: `${manifest.name}@${manifest.version}`,\n    packageDeclarations: declarations.length, negatives: markers.length}));\n});\n\ntest('packed runtime keeps 56 declared, 47 callable and 9 unavailable members and its raw refusals', async t => {\n  const pkg = await loadPackage(candidatePackage(t));\n  const definitions = pkg.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions;\n  assert.deepEqual(definitions.map(keyOf).sort(), [...oracle('DECLARED')].sort());\n  const modules = {'./product': pkg.product, './abg': pkg.abg, './validator': pkg.validator};\n  const callable = [], unavailable = [];\n  for (const definition of definitions) {\n    const locator = definition.executionBindingSpecification.callable;\n    assert.equal(locator.packageName, PACKAGE_NAME);\n    // The binding member path is the owner contract-root member path.\n    assert.deepEqual(locator.memberPath, definition.requestContract.source.memberPath, keyOf(definition));\n    let selected = modules[locator.packageExportPath];\n    for (const segment of [locator.namedExport, ...locator.memberPath]) {\n      selected = selected !== null && typeof selected === 'object' && Object.hasOwn(selected, segment) ? selected[segment] : undefined;\n    }\n    (typeof selected === 'function' ? callable : unavailable).push(keyOf(definition));\n    if (typeof selected !== 'function') assert.equal(selected, undefined, keyOf(definition));\n  }\n  assert.equal(callable.length, 47);"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01GUyfqn1b9tkRF3DToNH29D",
+      "command": "env TMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/tmp NODE_DISABLE_COMPILE_CACHE=1 node - <<'EOF'\nconst ts = require('typescript'), path = require('node:path'), fs = require('node:fs');\nconst tenant = process.cwd();\nconst parse = file => { const p = ts.getParsedCommandLineOfConfigFile(file, {}, {...ts.sys, onUnRecoverableConfigFileDiagnostic: d => { throw new Error(ts.flattenDiagnosticMessageText(d.messageText, '\\n')); }}); if (p.errors.length) throw new Error('config errors'); return p; };\n// 1. Declarations of the exact source, emitted to memory only.\nconst canonical = parse(path.join(tenant, 'tsconfig.json'));\nconst out = new Map();\nconst emitProgram = ts.createProgram({rootNames: canonical.fileNames, options: {...canonical.options, emitDeclarationOnly: true, noEmitOnError: false}});\nconst emitted = emitProgram.emit(undefined, (file, text) => out.set(path.resolve(file), text), undefined, true);\nconst emitErrors = [...ts.getPreEmitDiagnostics(emitProgram), ...emitted.diagnostics].filter(d => d.category === ts.DiagnosticCategory.Error);\nconsole.log(JSON.stringify({kind: 'declaration_emit_in_memory', files: out.size, diagnostics: emitErrors.length}));\nfor (const d of emitErrors.slice(0, 10)) console.log(ts.flattenDiagnosticMessageText(d.messageText, '\\n').slice(0, 300));\n// 2. The HC1 proof against those declarations (skipLibCheck false); build/ served from memory.\nconst proofPath = path.join(tenant, 'test_env/types/framework-handoff.compile.ts');\nconst proofOptions = parse(path.join(tenant, 'test_env/tsconfig.framework-handoff.json')).options;\nconst proofText = fs.readFileSync(proofPath, 'utf8');\nconst buildRoot = path.join(tenant, 'build') + path.sep;\nconst dirs = new Set(); for (const file of out.keys()) { let d = path.dirname(file); while (d.startsWith(path.join(tenant, 'build'))) { dirs.add(d); d = path.dirname(d); } }\nfunction compile(text) {\n  const host = ts.createCompilerHost(proofOptions);\n  const gsf = host.getSourceFile.bind(host), rf = host.readFile.bind(host), fe = host.fileExists.bind(host), de = host.directoryExists?.bind(host);\n  host.fileExists = f => out.has(path.resolve(f)) || (!path.resolve(f).startsWith(buildRoot) && fe(f));\n  host.readFile = f => path.resolve(f) === proofPath ? text : out.get(path.resolve(f)) ?? (path.resolve(f).startsWith(buildRoot) ? undefined : rf(f));\n  host.directoryExists = d => dirs.has(path.resolve(d)) || (!path.resolve(d).startsWith(buildRoot) && (de ? de(d) : true));\n  host.getSourceFile = (f, lang, ...rest) => path.resolve(f) === proofPath ? ts.createSourceFile(f, text, lang, true)\n    : out.has(path.resolve(f)) ? ts.createSourceFile(f, out.get(path.resolve(f)), lang, true) : gsf(f, lang, ...rest);\n  const program = ts.createProgram({rootNames: [proofPath], options: proofOptions, host});\n  return {program, errors: ts.getPreEmitDiagnostics(program).filter(d => d.category === ts.DiagnosticCategory.Error)};\n}\nconst fmt = d => ({code: d.code, file: d.file ?",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01GUyfqn1b9tkRF3DToNH29D",
+      "is_error": false,
+      "content": "{\"kind\":\"declaration_emit_in_memory\",\"files\":290,\"diagnostics\":0}\n{\"kind\":\"hc1_proof_positive\",\"skipLibCheck\":false,\"diagnostics\":0,\"tenantSourceCompiled\":false,\"publicDeclarationResolved\":true}\n{\"kind\":\"hc1_proof_negatives\",\"markers\":19,\"held\":19,\"failing\":[],\"stray\":0}"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01Jd7PRg5E3NPZ9ZZVkLbVvf",
+      "command": "for f in test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs test_env/tests/t287-exact-construction-intent.test.mjs; do env NODE_DISABLE_COMPILE_CACHE=1 node --check \"$f\" && echo \"ok $f\"; done; cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && git status --short | grep -v '^ M build_tenants' ; ls -la rc4-scratch/native-recovery-16/tmp; ls build_tenants/abiogenesis/typescript/build 2>&1 | head -1",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01Jd7PRg5E3NPZ9ZZVkLbVvf",
+      "is_error": false,
+      "content": "ok test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs\nok test_env/tests/t287-exact-construction-intent.test.mjs\n?? .abiogenesis/\n?? .claude/\n?? build_tenants/abiogenesis/typescript/node_modules\n?? rc3-operator-inputs/\n?? rc4-operator-inputs/\n?? rc4-scratch/\ntotal 0\ndrwxr-xr-x  3 jim  staff   96 Nov  3 05:33 .\ndrwxr-xr-x  6 jim  staff  192 Nov  3 06:10 ..\ndrwxr-xr-x  3 jim  staff   96 Nov  3 05:33 node-compile-cache\nls: build_tenants/abiogenesis/typescript/build: No such file or directory"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01Qure98xLtEcHGNW5io8EEg",
+      "command": "python3 rc4-operator-inputs/native-recovery-16/readiness.py rc4-operator-inputs/native-recovery-16/readiness-inputs.json > rc4-scratch/native-recovery-16/readiness.json; echo \"exit=$?\"; cat rc4-scratch/native-recovery-16/readiness.json",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01Qure98xLtEcHGNW5io8EEg",
+      "is_error": false,
+      "content": "exit=0\n{\n  \"status\": \"FILE_ONLY_READY\",\n  \"sourceCommit\": \"3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f\",\n  \"selectedEntriesIncludingRoot\": 1263,\n  \"selectedRawBytes\": 43884333,\n  \"maxContextFiles\": 10000,\n  \"maxContextBytes\": 268435456,\n  \"sourceHashesMatched\": 12,\n  \"issues\": [],\n  \"meaning\": \"Readiness evidence only; no ABI admission, runtime/test/build/provider call. Actual Runtime observation remains authoritative.\"\n}"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_013v5iK2qunyVn8WuKtzsjPb",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && python3 - <<'EOF'\nimport json\np='rc4-scratch/native-recovery-16/return.json'\nprior=json.load(open(p))\ncorrection={\n \"kind\":\"hc2_same_run_correction_return\",\"status\":\"partial_unaccepted\",\n \"startsFrom\":{\"constructionResult\":\"result://abiogenesis/90c243218be3f425a6c71b4ce483f18da7e2395e6d122f0b170d09337d0ebeda\",\"c2Result\":\"result://abiogenesis/849a8bbb52c21c0e54ba09ae97850c4aaacd2a98a13d4405d4676d4068821339\",\"source\":{\"commit\":\"3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f\",\"tree\":\"e669e2a903de1893a38271b4010a785cc840333e\"}},\n \"diagnosis\":{\n  \"ST-1\":{\"bound\":True,\"from\":\"command 6 complete stdout (assert.fail at test:505 called from test:1388)\",\n   \"firstFailedRelation\":\"test falsifier construction: stale-resource-prefix asked the shipped populator to populate run_status at setupHandoff.prefix, where terminalRun does not exist; populateRunReadAtDurablePrefix -> prepareRunReadAtDurablePrefix correctly returned null -> unknown_source /source/sourceRef\",\n   \"notTheCause\":\"shipped populator/owner relation (unchanged); the 3 ST-2b shipped reads and 5 kernel falsifiers before line 1388 passed\",\n   \"downstreamSymptoms\":\"ST-3 fresh-process refusal, ST-4 CLI start/reads/flip/crossed, SDK direct invoke and six reads never executed\",\n   \"graphCallOpened\":\"structurally confirmed, not runtime-observed: open_call.ts root producer and test_env/proof/abi5-root-r10.events.jsonl carry top-level kind/runId/graphCallId; invoke owner returns a result only with non-null truth.graphCall. Test now binds the GraphCall to invoke ownerOutput.value.graphCall and requires the log to open exactly that one for the Run\"},\n  \"currentIntent\":{\"bound\":\"from the admitted command-8 record and hash-matched source, not from its omitted stdout bytes\",\n   \"firstFailedRelation\":\"evidence-root path relation: ABI5_EXACT_INTENT_EVIDENCE_ROOT=test_env/evidence/hc2-current-intent (relative) was used unresolved, so the fixture readyPath and ABG_TS_CLAUDE_COMMAND were cwd-relative while the consumer leaf reads readyPath in the CLI child (cwd: realpath scratch) and actor_process spawns the command from the workspace root; 'continue' cannot complete under that environment\",\n   \"precedent\":\"t287-selected-action.test.mjs:12 resolves its evidence root\",\n   \"populatorDivergence\":\"none: current_intent variant runs projectConstructionIntentContinuations -> open check -> projectExactExecutionBasisAtPrefix -> ProductExecutionResolutionPort.resolve(admitted) -> prepareConstructionIntentContinuation in the owner's order with the owner's refusal codes and emits request/slots from prepared; constructRunOperationPolicy equals the removed inline owner policy; runOperationAuthorityMatches/expectedRunOperationAuthoritySlots unchanged in meaning\",\n   \"unconfirmed\":\"exact failing assertion line/message in the omitted 11143 bytes; a later independent cause is not excluded until C2 reruns\"}},\n \"changed\":[\n  {\"path\":\"build_tenants/abiogenesis/typescript/test_env/test",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_013v5iK2qunyVn8WuKtzsjPb",
+      "is_error": false,
+      "content": "return.json ok"
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01VptAxBsudYonDyow4nQ4GC",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && cat > /dev/null <<'X'\nX\nnode -e '\nconst fs=require(\"fs\"),c=require(\"crypto\");\nconst exp={\"code/src/abg/construction_continuation.ts\":\"c6683babc1900ce6bdd203f1ed535b19899685ca089ed8e0bea8e28693b6801f\",\"code/src/abg/definition_event_resource.ts\":\"7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9\",\"code/src/abg/index.ts\":\"adc4269c43e3b3320dabaa7838fbba138901ba26bb69538d25162ec5d7288424\",\"code/src/abg/project_read_definition_bindings.ts\":\"7e280a39ea57094d52c9daff5bed18f4d4d8de20fe5785b48b2a3041189c753b\",\"code/src/abg/project_read_ports.ts\":\"5e0b45c35d9db3ca8ecd57d792a386dcb762a08303fe69558081f86ae579535f\",\"code/src/owner_bindings/run_invocation.ts\":\"1fa80852b71a1530b2d2232c449104032bcabe4fddf312d7e1ab0a7c8e22d819\",\"code/src/product/admission_authority.ts\":\"ac9f99052dff54dc2fb7c331ffebe405c44c9673dbf871b02f4e1abdc24aba8f\",\"code/src/product/execution_resolution.ts\":\"729336931f3708a0f9432da21d102f1a5f714614a06bc229f40384a89189710f\",\"code/src/product/index.ts\":\"722efdc516c910083b216121843c46ad3d2a4c1975d7e14615b94e30b2c40952\",\"code/src/product/invocation.ts\":\"4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225\",\"code/src/product/run_invocation_operation.ts\":\"4d4e4abe57e2c48fcffd6ee5c7473e8464ff9f6a746a14f2680b3cacbb1d2d13\",\"code/src/product/stdo_environment.ts\":\"a2d7b810f84bc2746d142fc9f5d2e8cba1ecc1f26c26f6a8f2e5921e195ba696\",\"code/src/public/index.ts\":\"25b3f84c27987c6368c2b857f6b2263d584ba087db1c35f4734edda00913184c\",\"code/src/public/installed_definition_call_transport.ts\":\"e19d6f4461e58e7fa13c5fd76064a78c466fb2fed5e09b3ce6509b95834081aa\",\"code/src/public/installed_public_definition_call.ts\":\"8e1949302adf2ad28af53d9ef65b070a13df75bb25e9fa1b4f4cd750eb209738\",\"test_env/fixtures/t287-management-supervision/fresh-public-read.mjs\":\"e5b74ce25b5823952917fd3e58b3f2aafefb225729746ba0ec49acb88d0c44f1\",\"test_env/qualification/dispatch.mjs\":\"7fa74e1d7c13885b3cf93c4765ecd9cdc2027f49423bc9dee628f3c0b675c48d\",\"test_env/support/declared-testing-capability.mjs\":\"3f613effe18146e6662308196f1b0379d90bd541c3f21afcf5b949ea178d1b9f\",\"test_env/support/installed-qualification-conservation.mjs\":\"f4d8cf0253eb696b4839b4158718c21a0cee616f549c1c58658d2dca3f7a6510\",\"test_env/support/registered-graph-selection.mjs\":\"e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a\",\"test_env/support/retained-installed-consumer.mjs\":\"5afc97ceb6f3691a6a47cb2ff670b074c6d36c885d3121a5fe051e7aface972d\",\"test_env/support/t287-generic-job-intake.mjs\":\"e4198842253a06c015f3d398a4417d9341ad0276be29e5f0195ecde059ec092d\",\"test_env/support/t287-generic-job-readback.mjs\":\"8305db5a8d7d4c94dd153a97b8aad91d662b3ffbc35ff9a6cff6e02e20e01f75\",\"test_env/tests/t287-default-library.test.mjs\":\"8437ce56edf3b80a82f58178ca28835dcd3b16a368eeb1c9bad97b259dad5a49\",\"test_env/tests/t287-exact-construction-intent.test.mjs\":\"f670586a45532ee59d7279eb55fd5a3fc3f133d51c3d9efc8ca0fdec5676c8dc\",\"test_e",
+      "file_path": null
+    },
+    {
+      "stage": "tool_result",
+      "id": "toolu_01VptAxBsudYonDyow4nQ4GC",
+      "is_error": false,
+      "content": "{\"checked\":34,\"changedSinceC2\":[\"test_env/tests/t287-exact-construction-intent.test.mjs\",\"test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs\"]}"
+    },
+    {
+      "duration_api_ms": 970008,
+      "stop_reason": "tool_use",
+      "session_id": "e793a212-e46c-4153-b78e-3baab6e94944",
+      "total_cost_usd": 8.5891946,
+      "usage": {
+        "input_tokens": 164,
+        "cache_creation_input_tokens": 357357,
+        "cache_read_input_tokens": 20291513,
+        "output_tokens": 83569,
+        "output_tokens_details": {
+          "thinking_tokens": 53513
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 357357,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 164,
+          "outputTokens": 83569,
+          "cacheReadInputTokens": 20291513,
+          "cacheCreationInputTokens": 357357,
+          "webSearchRequests": 0,
+          "costUSD": 8.5891946,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 53513,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "permission_denials": [],
+      "terminal_reason": "completed",
+      "fast_mode_state": "off",
+      "fast_mode_disabled_reason": "sdk_opt_in_required",
+      "subagent_stats": {
+        "spawned": 0,
+        "requested": {
+          "background": 0,
+          "foreground": 0,
+          "unset": 0
+        },
+        "started_in_background": 0,
+        "max_depth": 0,
+        "spawned_by_subagents": 0,
+        "completed": 0,
+        "failed": 0,
+        "killed": {
+          "parent": 0,
+          "user": 0,
+          "system": 0
+        },
+        "refused": {
+          "depth_limit": 0,
+          "concurrency_limit": 0,
+          "budget": 0
+        },
+        "by_type": {}
+      },
+      "safety_stops": 0,
+      "is_error": false,
+      "num_turns": 89,
+      "subtype": "success",
+      "api_error_status": null,
+      "result": "{\"summary\":\"Same-Run correction of the two failures C2 observed in Result 849a8bbb, starting from the Construction 90c243 candidate (source 3c3c6e803 / tree e669e2a9). Of the 34 granted paths, only two test files changed; no product source was touched and nothing was deleted. No acceptance is claimed.\\n\\nSTDO 3.0.2 was verified read-only (stdo status --verify: installed, valid, manifest f7f3f824\u2026). I worked under the Worker frame (EXECUTIVE_BASELINE \u00a79).\\n\\n**(a) ST-1 diagnosis.** Bound from the complete stdout of command 6.\\n- The failure is not the first shipped read. The three earlier ST-2b reads (run_status, run_result, run_replay) and all five kernel falsifiers passed before the failure.\\n- What failed is the stale-resource-prefix negative case (test line 1388, asserting at line 505). It asked the shipped constructor to populate run_status at the setup handoff's prefix. The Run does not exist at that prefix yet.\\n- prepareRunReadAtDurablePrefix therefore correctly returned null, giving unknown_source at /source/sourceRef. The populator and its owner relations are right; the test's source/resource pairing is wrong.\\n- Downstream symptoms: ST-3's fresh-process refusal, the ST-4 CLI start, reads, flip and crossed-handoff cases, and the direct invoke with all six reads never ran.\\n\\n**(a) Repair**, in t287-st1-installed-cross-owner-hello.test.mjs:\\n- The read wrapper gains an explicit `eventResourceOverride` falsifier patch. It re-envelopes the canonical population with only the event resource replaced.\\n- The stale case now populates at the current read handoff and substitutes the stale setup resource. The refusal stays resource_acquisition / acquisition_refused, before the owner runs, as before.\\n- `graph_call_opened` check, against actual evidence: the root producer in open_call.ts and the proof log abi5-root-r10.events.jsonl both carry top-level kind, runId and graphCallId. The invoke owner only returns a result when its GraphCall is non-null.\\n- The test now takes the GraphCall from the invoke's own output (`ownerOutput.value.graphCall`). It requires the log to open exactly that one GraphCall for the Run, and it uses that ref for both graph reads.\\n- Each populated source ref must equal its requested ref. Digests are not compared, because semanticPayloadDigest depends on which events the read selects.\\n- The direct invoke and all six reads are kept; none is skipped.\\n\\n**(b) Current-intent diagnosis.** The populator does not diverge from prepareConstructionIntentContinuation.\\n- Its current_intent variant calls the same owner functions in the owner's order, with the same refusal codes and order, and builds the request and slots from the prepared values.\\n- The factored constructRunOperationPolicy equals the inline policy it replaced in the owners. runOperationAuthorityMatches has the same meaning as before.\\n- The cause is bound from command 8's recorded environment and the hash-matched test source, not from its stdout. The relevant 11,143 bytes are omitted from my view, and the runtime-003 archive is outside my read scope.\\n- C2 set ABI5_EXACT_INTENT_EVIDENCE_ROOT to a relative path (test_env/evidence/hc2-current-intent). The test used it unresolved, so the fixture's readyPath and the ABG_TS_CLAUDE_COMMAND path were relative.\\n- The consumer leaf reads readyPath inside the CLI child, which runs in the scratch directory. actor_process spawns the command from the workspace root. Under that environment the 'continue' case cannot complete.\\n- selected-action already resolves its evidence root (t287-selected-action.test.mjs:12).\\n\\n**(b) Repair**, in t287-exact-construction-intent.test.mjs: the evidence root is now passed through path.resolve(). Nothing changes when the root is absent or absolute. Assertions, sequencing and scenario data are unchanged.\\n\\n**Inventory** (both paths under build_tenants/abiogenesis/typescript/test_env/tests/):\\n- t287-st1-installed-cross-owner-hello.test.mjs: 69502 bytes, sha256 21e90e32\u2026; C2 tested 6a5c9cfa\u2026.\\n- t287-exact-construction-intent.test.mjs: 14033 bytes, sha256 4cf9b8e0\u2026; C2 tested f670586a\u2026.\\n- The other 32 granted paths still match the hashes C2 tested.\\n\\n**Author feedback:**\\n- tsc 5.9.2 `--noEmit --incremental false -p tsconfig.json`: exit 0, 0 diagnostics.\\n- In-memory declaration emit: 290 files, 0 diagnostics, discarded.\\n- In-memory HC1 proof compile with skipLibCheck:false: 0 positive diagnostics. The public declarations resolved from memory and no tenant source was compiled. 19 of 19 negatives held, with 0 stray errors.\\n- node --check passes on both edited files.\\n- readiness.py: FILE_ONLY_READY, 0 issues, 12/12 source hashes. Output is in rc4-scratch/native-recovery-16/readiness.json.\\n\\nI also updated return.json (the earlier return is kept verbatim under predecessorReturn) and appended to notes.md. tsc and node ran with the compile cache disabled and TMPDIR set to scratch16/tmp. There was no build, pack, install, generated output, network access or Run.\",\"gaps\":[\"Nothing was run at runtime. The corrected ST-1 (stale refusal, ST-3/ST-4, direct invoke, six reads) and current-intent lanes need a fresh build/pack and a re-run of C2 commands 6 and 8.\",\"Current-intent: the exact failing assertion line was not confirmed. Its stdout is omitted from this view and the runtime-003 archive is outside the read scope. The fix follows from the recorded relative evidence-root environment. A later, independent cause cannot be ruled out until C2 re-runs.\",\"The direct-invoke GraphCall relation is confirmed by code and proof-log evidence only. The test now checks it against the actual log when it runs.\",\"All three continuation variants of the populator repeat the owners' selection lookups (find the continuation, check it is open, resolve the basis). They do not diverge, and I did not factor them out, to avoid touching owner lanes that passed with no observed failure. Root may judge this under HC2-2.\",\"Prior Root-only gaps are unchanged. uat/harness.test.mjs is outside the grant, which blocks migrating constructLifecycleCall and freshReadbacks. The tenant tsconfig.json still has skipLibCheck:true and is also outside the grant.\",\"Prior unrelated residuals are unchanged and were not implicated: dispatch rootAuthority still builds observedC2Task's grant and authority, and the declared-testing stdoEnvironmentResources patch remains.\",\"No acceptance is claimed. Independent C2/UAT and the decision on how the graph continues stay with Root.\"]}",
+      "structured_output": {
+        "summary": "Same-Run correction of the two failures C2 observed in Result 849a8bbb, starting from the Construction 90c243 candidate (source 3c3c6e803 / tree e669e2a9). Of the 34 granted paths, only two test files changed; no product source was touched and nothing was deleted. No acceptance is claimed.\n\nSTDO 3.0.2 was verified read-only (stdo status --verify: installed, valid, manifest f7f3f824\u2026). I worked under the Worker frame (EXECUTIVE_BASELINE \u00a79).\n\n**(a) ST-1 diagnosis.** Bound from the complete stdout of command 6.\n- The failure is not the first shipped read. The three earlier ST-2b reads (run_status, run_result, run_replay) and all five kernel falsifiers passed before the failure.\n- What failed is the stale-resource-prefix negative case (test line 1388, asserting at line 505). It asked the shipped constructor to populate run_status at the setup handoff's prefix. The Run does not exist at that prefix yet.\n- prepareRunReadAtDurablePrefix therefore correctly returned null, giving unknown_source at /source/sourceRef. The populator and its owner relations are right; the test's source/resource pairing is wrong.\n- Downstream symptoms: ST-3's fresh-process refusal, the ST-4 CLI start, reads, flip and crossed-handoff cases, and the direct invoke with all six reads never ran.\n\n**(a) Repair**, in t287-st1-installed-cross-owner-hello.test.mjs:\n- The read wrapper gains an explicit `eventResourceOverride` falsifier patch. It re-envelopes the canonical population with only the event resource replaced.\n- The stale case now populates at the current read handoff and substitutes the stale setup resource. The refusal stays resource_acquisition / acquisition_refused, before the owner runs, as before.\n- `graph_call_opened` check, against actual evidence: the root producer in open_call.ts and the proof log abi5-root-r10.events.jsonl both carry top-level kind, runId and graphCallId. The invoke owner only returns a result when its GraphCall is non-null.\n- The test now takes the GraphCall from the invoke's own output (`ownerOutput.value.graphCall`). It requires the log to open exactly that one GraphCall for the Run, and it uses that ref for both graph reads.\n- Each populated source ref must equal its requested ref. Digests are not compared, because semanticPayloadDigest depends on which events the read selects.\n- The direct invoke and all six reads are kept; none is skipped.\n\n**(b) Current-intent diagnosis.** The populator does not diverge from prepareConstructionIntentContinuation.\n- Its current_intent variant calls the same owner functions in the owner's order, with the same refusal codes and order, and builds the request and slots from the prepared values.\n- The factored constructRunOperationPolicy equals the inline policy it replaced in the owners. runOperationAuthorityMatches has the same meaning as before.\n- The cause is bound from command 8's recorded environment and the hash-matched test source, not from its stdout. The relevant 11,143 bytes are omitted from my view, and the runtime-003 archive is outside my read scope.\n- C2 set ABI5_EXACT_INTENT_EVIDENCE_ROOT to a relative path (test_env/evidence/hc2-current-intent). The test used it unresolved, so the fixture's readyPath and the ABG_TS_CLAUDE_COMMAND path were relative.\n- The consumer leaf reads readyPath inside the CLI child, which runs in the scratch directory. actor_process spawns the command from the workspace root. Under that environment the 'continue' case cannot complete.\n- selected-action already resolves its evidence root (t287-selected-action.test.mjs:12).\n\n**(b) Repair**, in t287-exact-construction-intent.test.mjs: the evidence root is now passed through path.resolve(). Nothing changes when the root is absent or absolute. Assertions, sequencing and scenario data are unchanged.\n\n**Inventory** (both paths under build_tenants/abiogenesis/typescript/test_env/tests/):\n- t287-st1-installed-cross-owner-hello.test.mjs: 69502 bytes, sha256 21e90e32\u2026; C2 tested 6a5c9cfa\u2026.\n- t287-exact-construction-intent.test.mjs: 14033 bytes, sha256 4cf9b8e0\u2026; C2 tested f670586a\u2026.\n- The other 32 granted paths still match the hashes C2 tested.\n\n**Author feedback:**\n- tsc 5.9.2 `--noEmit --incremental false -p tsconfig.json`: exit 0, 0 diagnostics.\n- In-memory declaration emit: 290 files, 0 diagnostics, discarded.\n- In-memory HC1 proof compile with skipLibCheck:false: 0 positive diagnostics. The public declarations resolved from memory and no tenant source was compiled. 19 of 19 negatives held, with 0 stray errors.\n- node --check passes on both edited files.\n- readiness.py: FILE_ONLY_READY, 0 issues, 12/12 source hashes. Output is in rc4-scratch/native-recovery-16/readiness.json.\n\nI also updated return.json (the earlier return is kept verbatim under predecessorReturn) and appended to notes.md. tsc and node ran with the compile cache disabled and TMPDIR set to scratch16/tmp. There was no build, pack, install, generated output, network access or Run.",
+        "gaps": [
+          "Nothing was run at runtime. The corrected ST-1 (stale refusal, ST-3/ST-4, direct invoke, six reads) and current-intent lanes need a fresh build/pack and a re-run of C2 commands 6 and 8.",
+          "Current-intent: the exact failing assertion line was not confirmed. Its stdout is omitted from this view and the runtime-003 archive is outside the read scope. The fix follows from the recorded relative evidence-root environment. A later, independent cause cannot be ruled out until C2 re-runs.",
+          "The direct-invoke GraphCall relation is confirmed by code and proof-log evidence only. The test now checks it against the actual log when it runs.",
+          "All three continuation variants of the populator repeat the owners' selection lookups (find the continuation, check it is open, resolve the basis). They do not diverge, and I did not factor them out, to avoid touching owner lanes that passed with no observed failure. Root may judge this under HC2-2.",
+          "Prior Root-only gaps are unchanged. uat/harness.test.mjs is outside the grant, which blocks migrating constructLifecycleCall and freshReadbacks. The tenant tsconfig.json still has skipLibCheck:true and is also outside the grant.",
+          "Prior unrelated residuals are unchanged and were not implicated: dispatch rootAuthority still builds observedC2Task's grant and authority, and the declared-testing stdoEnvironmentResources patch remains.",
+          "No acceptance is claimed. Independent C2/UAT and the decision on how the graph continues stay with Root."
+        ]
+      },
+      "ttft_ms": 13953,
+      "type": "result",
+      "duration_ms": 1016893,
+      "uuid": "c0fe0e8e-6617-4fb2-a257-2ffdb8297f4a",
+      "ttft_stream_ms": 8377,
+      "time_to_request_ms": 4565,
+      "first_content_frame_ms": 8377,
+      "queued_turn_count": 0,
+      "result_index": 0
+    }
+  ]
+}

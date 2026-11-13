@@ -1,0 +1,6 @@
+{
+  "runId": "rc2-dogfood-01-attempt-005",
+  "priorAttempt": "attempt-004",
+  "relation": "new Run, diagnostic-03 complete executable input; Construction only maintains GTL pin, Testing owns isolated build; no inherited completion credit",
+  "at": "2026-10-30T13:25:17.861Z"
+}

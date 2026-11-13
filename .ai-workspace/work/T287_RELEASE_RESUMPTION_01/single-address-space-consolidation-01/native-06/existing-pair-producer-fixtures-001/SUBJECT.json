@@ -1,0 +1,48 @@
+{
+  "recordedUtc": "2026-11-04T01:51:59.130060+00:00",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "standing": "Exact unchanged baseline fixture candidates for read-only route triage; no native06 C2 or execution claim",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "sha256": "7c04193bf6b0feb2d90268a4e8e529f2f75ddeba590d0bea277cfb95893f74ab",
+      "bytes": 16539
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a",
+      "bytes": 19702
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1",
+      "bytes": 15792
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4",
+      "bytes": 9876
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "sha256": "bedcfe2165b3863efb355a2d20d0f998aba1960bcc2fef9bda019e6b15c6f59c",
+      "bytes": 16381
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/files/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "sha256": "199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2",
+      "bytes": 17472
+    }
+  ],
+  "limits": [
+    "Not a proven current F_H response/resume fixture",
+    "No current Public F_H resume binding is inferred",
+    "Only select existing finite construction/current-owner routes after concrete assessment"
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "status": "MAIN_AND_DELIVERED_BYTES_PRESERVED_SUCCESSOR_INDEX_LOGICALLY_EQUAL",
+  "preserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/config",
+      "bytes": 3394,
+      "sha256": "60caaf703e24da50190aec332fb9d77204049d8594079b57dd3a42d051daf7d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 7591,
+      "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 14965,
+      "sha256": "5d6c3ec6d2094a041e25d5515347f83be0d5bc6694fc12e552089b66b34cf121"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10105,
+      "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266232,
+      "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10105,
+      "sha256": "02789c3812e488e53e7a6fe9bd3affd0d39144cd5e69b68adf48c7a7f1f6b9d1"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266309,
+      "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+    }
+  ],
+  "tracking": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "originalOrigin": "existing bytes",
+      "beforeBytes": 177987,
+      "beforeSha256": "c0a8a9ed43787dd075a46f23a9d090add6f30164369ca51e415e01053d5613cb",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 179199,
+        "sha256": "94ca7e1343a56ac062558a6ce6eb91c1d5fe696665648096bff26ba9d8087c50"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "originalOrigin": "existing bytes",
+      "beforeBytes": 828718,
+      "beforeSha256": "17465ae63c2967b22cee48611af7f92d143aba496790fbef1d6ae820e304bd15",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 829919,
+        "sha256": "dc7a35e07f4bbbd0ed785fb187097773810df9767fba7f70711d86fcd3fdb246"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+      "originalOrigin": "existing bytes",
+      "beforeBytes": 161038,
+      "beforeSha256": "3a2f6e6f6c54e3baadffcf32b40114692d0004259a75ce149f472ac75684b4d8",
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 162250,
+        "sha256": "109e726b02022eb3692300ae4741df5c0fc323629d45f72c043d439f8735d1d0"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "originalOrigin": "exact base Git blob, sparse path absent",
+      "beforeBytes": 809837,
+      "beforeSha256": "b8be48d3ec2be5074d857a5c2f62b4882e992dc3aa7d2b4fb51a54a7fc5ba1f2",
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 811038,
+        "sha256": "abf8095852c8c2c0a4034a68c20cf0c5612693dd247b0f234dc1768f6e3e7230"
+      },
+      "priorBodyPreserved": true
+    }
+  ],
+  "indices": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29372910,
+        "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29372910,
+        "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+      },
+      "byteEqual": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29654632,
+        "sha256": "1565ede1946f801ec1cf5ed2fe18fc9ec9c2e44a1179e47f0513b73e9d082c01"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29654624,
+        "sha256": "d54e6de36c16a0f4dec19ea1bcd3650c79a85abca98d9f10ec88bf20aa0c1880"
+      },
+      "byteEqual": false,
+      "logicalStagedContentEqualsBase": true,
+      "disposition": "Root accepts read-only staged equivalence; metadata difference retained, not attributed or restored."
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      "byteEqual": true
+    }
+  ],
+  "originalDiagnosisPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/ROOT_CAUSE_AND_PLAN.md",
+    "bytes": 4838,
+    "sha256": "d9a9b7343dd5c66ce7c6eef11bfe18ec921d8b570a450fcc8514619e6d76e88c"
+  },
+  "sourceRoot": "/private/tmp/abg-rc11-foundation-20261110-01",
+  "originalSourceRowsConservedOutsideSelectedDelta": true,
+  "productionAndTestSourceUnchanged": true,
+  "mainSourceExceptTwoAuthorizedTrackingPrefixesUnchangedByThisWriter": true,
+  "noWorkspaceRuntimeAllocated": true
+}

@@ -1,0 +1,20 @@
+{
+  "status": "EXACT_FROZEN_PACKET_PREPARED_ROOT_STAGING_PENDING",
+  "at": "2026-11-05T21:15:59.645229+00:00",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/C2_RECIPE.json",
+    "bytes": 39590,
+    "sha256": "997ce5d8bbdcf2b70222b1fef2d93637d3950434877b5378648cb7850bfd8406"
+  },
+  "selectedSourceFiles": 367,
+  "readRoots": 371,
+  "commands": 6,
+  "providerCalls": 0,
+  "sourceEdits": 0,
+  "limits": "No execution or acceptance. Root must stage input files, capture current source hashes, admit and preflight exact controls before one dispatch."
+}

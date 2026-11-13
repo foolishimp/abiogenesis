@@ -1,0 +1,33 @@
+{
+  "recordedUtc": "2026-11-03T21:11:47.634350+00:00",
+  "kind": "additional_finite_read_only_proof_input_selection",
+  "purpose": "Exercise changed T289 artifact-adapter consumer and cold/rollback refusals; do not rerun the old T289 installed campaign or whole qualification",
+  "history": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/candidates/T288-workflow-scope-rm55auw0/tmp/abi5-root-env-sia11F/runtime/events.jsonl",
+    "bytes": 13144942,
+    "sha256": "c8f43ff2d79850800ef85b537c055bf3a7dc0bff38509b02c803b4669bea7073",
+    "firstOperations": [
+      "abg.operation.product.install",
+      "abg.operation.product.install",
+      "abg.operation.workspace.bind"
+    ],
+    "firstTwoLocksEqual": true
+  },
+  "provenance": [
+    ".ai-workspace/tickets/completed/T-289-deduplicate-immutable-install-event-bodies.md",
+    ".ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/t289-completion.md",
+    ".ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/t289-event-body-review.md"
+  ],
+  "environment": {
+    "ABI5_INSTALL_BODY_HISTORY": "/Users/jim/Library/Application Support/ABIogenesis/candidates/T288-workflow-scope-rm55auw0/tmp/abi5-root-env-sia11F/runtime/events.jsonl",
+    "ABI5_INSTALL_BODY_HISTORY_SHA256": "c8f43ff2d79850800ef85b537c055bf3a7dc0bff38509b02c803b4669bea7073"
+  },
+  "ordinaryContext": "Exact external path/hash only; no history copy in the native context and no append to original history",
+  "limits": [
+    "Actual current owner tests authenticate/produce their disposable copies",
+    "No new qualification credit for the old source",
+    "ABI5_OWNED_PROOF_DECLARATION historical branch remains explicitly unselected and earns no credit",
+    "No old Thread2 activation; focused actual predecessor relation uses existing R4 component fixture with explicit lower premises"
+  ],
+  "digestFormat": "Plain lowercase hex, matching the existing test helper sha256; checked before native05 input/admission."
+}

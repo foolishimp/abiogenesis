@@ -1,0 +1,12 @@
+{
+  "status": "HOST_RETURNED",
+  "at": "2026-11-06T07:43:56.733Z",
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "wallMs": 1424517.558583,
+  "commandResultFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/host-supervision-r2/commands/native-host.result.json",
+  "meaning": "Host process return only. Actual inner CLI receipt and close, source custody and selected proof determine standing; no inferred success."
+}

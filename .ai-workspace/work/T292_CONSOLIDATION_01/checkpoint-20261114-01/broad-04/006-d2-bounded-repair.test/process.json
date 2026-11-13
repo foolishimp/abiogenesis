@@ -1,0 +1,32 @@
+{
+  "label": "006-d2-bounded-repair.test",
+  "started": "2026-11-13T10:14:10.144833+00:00",
+  "ended": "2026-11-13T10:14:15.806713+00:00",
+  "wallMs": 5663,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/006-d2-bounded-repair.test/stdout.raw",
+      "bytes": 2392,
+      "sha256": "fc4a690f8234bbc859be325ebf633cad51f74169c92d654a805039ded63f1ed4"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/006-d2-bounded-repair.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 2,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

@@ -1,0 +1,21 @@
+{
+  "status": "ROOT_CONJOINED_R1_SOURCE_SATISFIED_DISTINCT_R2_BLOCKER",
+  "rootDisposition": "Root read both closed reviews: R1 source-satisfied, separate A R2 immediate-intent blocker. This discriminator evaluates R2 only; it does not reopen R1 or imply A acceptance. External three-member proof remains held; no execution is admitted by this record.",
+  "sourceAssessment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-review/ASSESSMENT.md",
+    "bytes": 6574,
+    "sha256": "f67d5a5f9eecf69f56dd341814681b09b9d0ef6ec38bed4ef3aef0016ef024bc"
+  },
+  "designAssessment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/design-review/ASSESSMENT.md",
+    "bytes": 6382,
+    "sha256": "51f6a3c41c30652c8f2e4be86b4c5eba94cd0b21f3ee3b3855670d635584df8f"
+  },
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/READY.json",
+    "bytes": 4089,
+    "sha256": "9e738eeb423da964badcc577b94d8bef80ded563d357a433964f923affc253cd"
+  },
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "history": "Native03 succeeded with18/18controlled selfchecks. Prior native02 R1 red and baseline invalid post-seal work remain preserved; historical causation/OS absence/qualification are not established."
+}

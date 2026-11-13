@@ -1,0 +1,199 @@
+{
+  "roles": [
+    {
+      "eventId": "event://abiogenesis/6527ff4c5580d9848f7fec25d90fee7e2c98bc6dfda7e528b6c398da0e36d26b",
+      "cCallRef": "c-call:sha256:651b5bcb38781b321897629058f04b5d25e8cb686115ac62e4478544c6669e27",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-4b53cd8df528babb-stdout.log",
+      "bytes": 177417,
+      "sha256": "803389bb57ae0f02275633c24939c607763f572fec5bc01a14a380c1a11ee947",
+      "totalCostUsd": 0.23184,
+      "turns": 2,
+      "durationMs": 48174,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 19739,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 3696,
+        "output_tokens_details": {
+          "thinking_tokens": 1349
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 19739,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "eventId": "event://abiogenesis/b4bf9ef179e6874916405b33024f29148bb4812f6e30316ba6c668483dcab9f4",
+      "cCallRef": "c-call:sha256:d22512336b2b9ba8f3ac3a1011c4ebdbb7c09b2da3f174b9da64bb6691fd7538",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-stdout.log",
+      "bytes": 256445,
+      "sha256": "aa400af2d30f756f235991743430ee2338259eba14976380675cd170136ca45d",
+      "totalCostUsd": 0.33181239999999995,
+      "turns": 9,
+      "durationMs": 88493,
+      "usage": {
+        "input_tokens": 14,
+        "cache_creation_input_tokens": 27559,
+        "cache_read_input_tokens": 189122,
+        "output_tokens": 3673,
+        "output_tokens_details": {
+          "thinking_tokens": 595
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 27559,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "eventId": "event://abiogenesis/a20f4662a7734fa16430a0f866645f5a63e252ba046fabeae6da16860c5dc3c7",
+      "cCallRef": "c-call:sha256:00bdd33c3d8a765b59221afcf8ebba0be3dab5e817b3d8a1d4a5695e26dfbf6d",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-afbf62cf903a7c63-stdout.log",
+      "bytes": 210579,
+      "sha256": "915b442f93087b435ef2d1e6cd8b3f03e5da65e2a50602e49f9d42788e4a7a7b",
+      "totalCostUsd": 0.273604,
+      "turns": 2,
+      "durationMs": 47932,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 24867,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 3733,
+        "output_tokens_details": {
+          "thinking_tokens": 904
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 24867,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "eventId": "event://abiogenesis/f4b478c6242fe7ecd841b62a14ad70a343e40065b23e272aae48dc7c6401bc56",
+      "cCallRef": "c-call:sha256:f32807a6815417739b222b426dde57986cf1ada6adbb1abc8641e5291fe99367",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-13dc3089351e5c32-stdout.log",
+      "bytes": 63644,
+      "sha256": "3e0f8c37c2f573f3df4125df3de13a87ce75893936d328f8df9311b66d2993bf",
+      "totalCostUsd": 0.357433,
+      "turns": 3,
+      "durationMs": 43925,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 41117,
+        "cache_read_input_tokens": 40205,
+        "output_tokens": 1022,
+        "output_tokens_details": {
+          "thinking_tokens": 83
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 41117,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "eventId": "event://abiogenesis/62a99bc93f0eea752c45db8f840ef366c88d53fd7fa722f30b05ebdab802a1cf",
+      "cCallRef": "c-call:sha256:95abd168fc15fe9fca42815ba153d435a7767671e96ac91203ca80e8133e2292",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-3f7250185cc86a5e-stdout.log",
+      "bytes": 233580,
+      "sha256": "d99f2eaa6d88adb4cf271e09873009a47940169f57225d4098cd2b5a9ff29361",
+      "totalCostUsd": 0.318852,
+      "turns": 2,
+      "durationMs": 52627,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 29248,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 4243,
+        "output_tokens_details": {
+          "thinking_tokens": 1064
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 29248,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "eventId": "event://abiogenesis/bab90f7730aa0dbf53dad9a7bd3f7aca245f525449d8a7b40ffd76dcba593695",
+      "cCallRef": "c-call:sha256:8ec1aeab9e87138cd771b62a5cca06a04a1b025d47a0dbdd8630f9f5b6bd9474",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-c89328318c2093e3-stdout.log",
+      "bytes": 241322,
+      "sha256": "c2193c96de901d88e575661ae22cea9290a1cb56e092eee81b1e3112a6f2fea5",
+      "totalCostUsd": 0.4586076,
+      "turns": 6,
+      "durationMs": 103509,
+      "usage": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 41173,
+        "cache_read_input_tokens": 178218,
+        "output_tokens": 4677,
+        "output_tokens_details": {
+          "thinking_tokens": 1582
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 41173,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    }
+  ],
+  "knownCostUsd": 1.9721490000000004,
+  "unknownCharges": 0,
+  "meaning": "Reported provider artifacts; not independent billing or matched comparison."
+}

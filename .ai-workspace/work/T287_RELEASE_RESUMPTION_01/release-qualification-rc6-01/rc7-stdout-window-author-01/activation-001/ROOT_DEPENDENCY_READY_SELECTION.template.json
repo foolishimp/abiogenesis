@@ -1,0 +1,37 @@
+{
+  "kind": "root_actual_h05_dependency_ready_selection",
+  "status": "UNBOUND_H05_ACCEPTANCE_REQUIRED",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "H05": {
+    "sourceSubject": null,
+    "sourceAfter": null,
+    "RootDisposition": null,
+    "sourceStageNativeAfterLiveEquality": null,
+    "proofInventory": null,
+    "independentReview": null,
+    "actualClose": null,
+    "actualResume": null
+  },
+  "HS01HS02": {
+    "acceptedSource": null,
+    "RootDisposition": null,
+    "retainedProofMeasurements": null
+  },
+  "observedPredecessor": {
+    "launch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/LAUNCH.json",
+      "bytes": 4628,
+      "sha256": "a189f90ce733d076be0148025c3a501319eceb2903aca6509a2342c7fc945f08"
+    },
+    "actorStart": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/ACTOR_START.json",
+      "bytes": 1905,
+      "sha256": "add2b6f273d56bd8c45befa0f7ac1fae67de50ddb9098e4d806fdf5f3fdc16fd"
+    }
+  },
+  "limits": "Actual H05 first two lanes passed, assessment failed and acceptance is unavailable pending Root triage. No green dependency is inferred and no alternate predecessor selected."
+}

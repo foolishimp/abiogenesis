@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-s03-authority.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 4,
+    "pass": 4,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/022-m5-s03-authority.test/process.json",
+    "bytes": 1061,
+    "sha256": "6ad570e0e0f1d961478c4ee365e7d0f034218afdf223049a626bfd3e5632672e"
+  }
+}

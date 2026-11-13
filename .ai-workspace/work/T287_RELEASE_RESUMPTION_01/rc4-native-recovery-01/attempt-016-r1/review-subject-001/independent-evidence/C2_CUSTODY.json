@@ -1,0 +1,20 @@
+{
+  "status": "ADDITIVE_READ_ONLY_CAUSAL_EVIDENCE",
+  "recordedUtc": "2026-11-02T19:35:49.475640+00:00",
+  "priorCustodySha256": "f97fdb3d3158ea0895a212434a4c9af2fb25c3d73fe4b19d85cf691cd4664d69",
+  "files": [
+    {
+      "source": "/private/tmp/rc4-016-independent-review-uki2gn2f/C2_LOCALIZATION.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/independent-evidence/C2_LOCALIZATION.json",
+      "bytes": 8471,
+      "sha256": "c3ac7123ed793d44f36d779ab934bc278e19d67a41e17acdf71cbaecbea75984"
+    },
+    {
+      "source": "/private/tmp/rc4-016-independent-review-uki2gn2f/C2_CURRENT_INTENT_CAUSAL_EXTRACT.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/independent-evidence/C2_CURRENT_INTENT_CAUSAL_EXTRACT.json",
+      "bytes": 5871,
+      "sha256": "5eb3bb06b49e4444e265270d819c1b4605aac6a0efb3c489120a48a553f6fbd9"
+    }
+  ],
+  "limits": "ST1 stopped before later direct invoke/six reads, unexecuted. Current-intent continuation admitted122 then ENOENT166; successful terminal/consumed-resend not earned. No rerun or Product regression claim."
+}

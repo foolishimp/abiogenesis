@@ -1,0 +1,13 @@
+--- witness.mjs
++++ witness-final.mjs
+@@ -10,8 +10,8 @@
+ const stages=['setup','run-a','acquire-a','read-a','prepare-b','interrupt-b','recover-b','prepare-continue','continue-b','read-b','proof'];assert(stages.includes(mode),'One explicit Root stage required');
+ const read=p=>readFile(p,'utf8').then(JSON.parse),hash=b=>createHash('sha256').update(b).digest('hex');
+ const record=async(n,v)=>writeFile(join(P,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
+-const raw=await readFile(join(D,'BINDING.DRAFT.json'));assert.equal(hash(raw),bindingDigest,'Exact selected packet required');const selection=JSON.parse(raw);if(mode==='setup'){assert(['REVIEWABLE_PROVISIONAL_C3_SETUP_ONLY','FROZEN_HC2_CANDIDATE_OPERATOR_READY'].includes(selection.status),'Exact setup packet required');}else{assert.equal(selection.status,'FROZEN_HC2_CANDIDATE_OPERATOR_READY','Paid/read/recovery stages require final accepted candidate binding');assert(selection.acceptedCandidate?.sha256&&selection.acceptedCandidate?.path,'Root accepted candidate receipt must be pinned');}
+-const approval=await read(join(D,'ROOT_SELECTION-'+mode+'.json')); assert.equal(approval.bindingSha256,bindingDigest);assert(approval.allowedStages.includes(mode),'Stage not selected by Root');
++const raw=await readFile(join(D,'BINDING.FINAL.json'));assert.equal(hash(raw),bindingDigest,'Exact selected packet required');const selection=JSON.parse(raw);if(mode==='setup'){assert(['REVIEWABLE_PROVISIONAL_C3_SETUP_ONLY','FROZEN_HC2_CANDIDATE_OPERATOR_READY'].includes(selection.status),'Exact setup packet required');}else{assert.equal(selection.status,'FROZEN_HC2_CANDIDATE_OPERATOR_READY','Paid/read/recovery stages require final accepted candidate binding');assert(selection.acceptedCandidate?.sha256&&selection.acceptedCandidate?.path,'Root accepted candidate receipt must be pinned');}
++const approval=await read(join(D,'ROOT_SELECTION-final-'+mode+'.json')); assert.equal(approval.bindingSha256,bindingDigest);assert(approval.allowedStages.includes(mode),'Stage not selected by Root');
+ for(const r of selection.files){const b=await readFile(r.path);assert.equal(b.length,r.bytes);assert.equal(hash(b),r.sha256,r.path);}
+ const custodyBytes=await readFile(selection.candidateCustody.path);assert.equal(custodyBytes.length,selection.candidateCustody.bytes);assert.equal(hash(custodyBytes),selection.candidateCustody.sha256);const custody=JSON.parse(custodyBytes);
+ for(const root of selection.operatorRoots){const st=await lstat(root.path);assert(st.isDirectory()&&!st.isSymbolicLink());assert.equal(await realpath(root.path),root.path);assert.equal(st.dev,root.device);assert.equal(st.ino,root.inode);assert.equal(st.uid,root.uid);}

@@ -1,0 +1,5 @@
+start 17:51
+build exit 0
+tests exit 1
+end 20:17
+ℹ tests 1396 ℹ pass 1142 ℹ fail 18 ℹ cancelled 0 ℹ skipped 236 

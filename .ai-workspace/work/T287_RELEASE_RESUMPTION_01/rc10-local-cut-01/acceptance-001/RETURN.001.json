@@ -1,0 +1,68 @@
+{
+  "id": "RC10-LOCAL-CUT-ACCEPTANCE-001-RETURN",
+  "status": "ACCEPTANCE_AND_BINDING_SUCCESSOR_PREPARED_AFFECTED_AND_BUILD_ADMISSION_HELD",
+  "recordedUtc": "2026-11-09T04:49:20.020159+00:00",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "records": {
+    "ROOT_BOUNDED_ACCEPTANCE.001.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/ROOT_BOUNDED_ACCEPTANCE.001.json",
+      "bytes": 16300,
+      "sha256": "d215ce348375621f00bc69b51d95e037a8aa275c4472a54e23d4ad979de836b9"
+    },
+    "CUMULATIVE_SOURCE_COVERAGE.001.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/CUMULATIVE_SOURCE_COVERAGE.001.json",
+      "bytes": 11027,
+      "sha256": "df8b145469f7bce0b37314d3fcb9686ba62a426c98eb30ddd72c4bacd246fa5f"
+    },
+    "SOURCE_ARTIFACT_CONJUNCTION.001.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/SOURCE_ARTIFACT_CONJUNCTION.001.json",
+      "bytes": 3863,
+      "sha256": "2d576b57b8ccb542a7927ab0f74a7de7d2e7d18f8778e6203b9de48584cb2f14"
+    },
+    "BUILD_BINDINGS.001.HELD.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/BUILD_BINDINGS.001.HELD.json",
+      "bytes": 9849,
+      "sha256": "81ad1f130e24e92112b00551468b3f563aec085f2f2b8f543bf3aaf1fbcd11e3"
+    },
+    "BOUNDED_CANDIDATE_CLAIM.001.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/BOUNDED_CANDIDATE_CLAIM.001.md",
+      "bytes": 1950,
+      "sha256": "6f80d02129a8e6e39cdedc4ef36c8aa7b1dd92b1da9fb638ba26fd8fd2383602"
+    },
+    "RESIDUALS.001.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/RESIDUALS.001.md",
+      "bytes": 2341,
+      "sha256": "96e1525e88bcae342b5daa01dce42ca41108942fc3b1c433f49a1f4508cca6ac"
+    },
+    "ROOT_AUTHORITY.001.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/ROOT_AUTHORITY.001.md",
+      "bytes": 1071,
+      "sha256": "599f1d416f8648d127d2458ea1852a9a80e930d90d0208f1e79726c6a439acb8"
+    },
+    "EVIDENCE_CHECKS.001.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/EVIDENCE_CHECKS.001.json",
+      "bytes": 7860,
+      "sha256": "688d71487b2db0b6666d9fda1314a37076be9fcdc9e8bad4e5f39acf5bb6af53"
+    }
+  },
+  "preservedPreparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 2837,
+    "sha256": "7113beb67d03d9c4398f89799ad49a355b00116d07fa8ba7f1a297a7a5c13128"
+  },
+  "unbound": [
+    "actual affected6 RESULT/RETURN and Root disposition",
+    "Root build activation/admission",
+    "source checkpoint and byte-equal reproduction",
+    "packaging review and Root install admission",
+    "actual immutable RC10 installation"
+  ],
+  "executionEnabled": false,
+  "sourceGitBuildInstallMainEffects": false,
+  "stop": "Return to Root. On affected proof return, reacquire exact final artifact and prepare a successor conjunction; current packet and original controls remain preserved."
+}

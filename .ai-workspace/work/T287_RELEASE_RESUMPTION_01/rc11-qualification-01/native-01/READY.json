@@ -1,0 +1,96 @@
+{
+  "status": "RC11_FRESH_SETUP_READY_NATIVE_HELD",
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SCOPE.json",
+    "bytes": 7770,
+    "sha256": "96771f46109ffd8fe96316e47a2f7174f4898d58edcbd3998e703def8ce3855f"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/TASK.FINAL.json",
+    "bytes": 12893,
+    "sha256": "e02abeeff9299f682a86003cff8119582de44ef0be7814d1a0b66148d2e45bbe"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/BINDING.FINAL.json",
+    "bytes": 14595,
+    "sha256": "98ebd56cb07423f7fde5169dc8ec30a26c8e323635913359e0d566710b325a20"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/host.mjs",
+    "bytes": 13794,
+    "sha256": "fbaf2602e6b371417d04fc46acf09d4524f91b892058b9fdbbc90c6cb5d0c0b4"
+  },
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/TRANSPORT_PREFLIGHT.json",
+    "bytes": 1072,
+    "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+  },
+  "context": {
+    "fileMembers": 47,
+    "sourceMemberBytes": 2244565,
+    "absentObservedTargets": [
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md"
+    ],
+    "instructionUtf8Bytes": 7171,
+    "taskJsonBytes": 12893,
+    "renderedBytes": "Measured by actual installed renderer in PREPARED; file content is not embedded by renderer.",
+    "contextCeilings": {
+      "files": 80,
+      "bytes": 8388608,
+      "promptBytes": 1048576
+    }
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/SOURCE_INVENTORY.json",
+    "bytes": 292691,
+    "sha256": "e25d162544a1779ecdbdbe4fe99a7fbe4ead1589341a34096c136af90fade90d"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "nativeLimits": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 100,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 180000,
+    "absoluteTimeoutMs": 900000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "setupBudgetMs": 900000,
+  "setupPerCommandMs": 300000,
+  "reserveBytes": 4294967296,
+  "freeBytes": 388801417216,
+  "controlSyntaxChecks": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/host.mjs",
+        "bytes": 13794,
+        "sha256": "fbaf2602e6b371417d04fc46acf09d4524f91b892058b9fdbbc90c6cb5d0c0b4"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/transport-preflight.mjs",
+        "bytes": 1458,
+        "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+      },
+      "exitCode": 0
+    }
+  ],
+  "sourceConserved": true,
+  "mainIndexConserved": true,
+  "builderConserved": true,
+  "setupAdmission": "Root RC11-NATIVE-PREP-02 directly grants one fresh imported setup after these controls; provider remains held",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/runtime-001",
+  "nativeScratch": "/private/tmp/abg-rc11-qualification-20261109/qualification-scratch/rc11-qualification-01/native-01",
+  "immutableInputs": "/private/tmp/abg-rc11-qualification-20261109/qualification-inputs/rc11-qualification-01/native-01",
+  "tty": true
+}

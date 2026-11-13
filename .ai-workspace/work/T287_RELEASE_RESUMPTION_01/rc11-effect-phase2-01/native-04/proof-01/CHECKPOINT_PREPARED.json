@@ -1,0 +1,93 @@
+{
+  "status": "DOCUMENTARY_EDITS_RECORDED_SELECTIVE_COMMIT_NEXT",
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4061,
+    "sha256": "a6a1b16d59f112078793743265a72308b2f59b3978db9dde68ca3b40fe8df6ea"
+  },
+  "base": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+  "paths": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+  ],
+  "plan": {
+    "before": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 23439,
+      "sha256": "fc6332312ec96172d95e4543566bc1242a314b0feaa90dd7bf18b37fbe4fb9d8"
+    },
+    "after": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 21129,
+      "sha256": "31957341c3efa5aa47f6ab8fc660dae5bb19640d205a1d0822b2249dc2f54427"
+    },
+    "delta": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/DOCUMENTARY_DELTA.diff",
+      "bytes": 14717,
+      "sha256": "cded184c2e4a34c7580f72088f604c0f463a96ab8a3254747f3c2d9e13e4776d"
+    }
+  },
+  "mainTracking": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 191021,
+        "sha256": "62b85b8aadc12f3d016a0d8a1507e5e579c9622ceaf9dc2d9c72a7c04e361de4"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 193382,
+        "sha256": "d89dc35bbe5fb3eca8a05cc69f78014365e81832f2d6bc537742863570c033d8"
+      },
+      "priorBodyPreserved": true,
+      "prefixBytes": 2361
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 842656,
+        "sha256": "1af5587188d37424f5d2940603feffaef455ed2e49072555d1aee09401b42cf3"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 845017,
+        "sha256": "bf11dcf4410b05a257de4074a7c502cb919b33c1805d1d63cc2d29428005a49d"
+      },
+      "priorBodyPreserved": true,
+      "prefixBytes": 2361
+    }
+  ],
+  "indicesBefore": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29373151,
+      "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+      "bytes": 29655080,
+      "sha256": "98894232f012280d3b8c3acd7e9e45f0819418abe7d3923de4a16addbae73f49"
+    }
+  ],
+  "headsBefore": {
+    "/Users/jim/src/apps/abiogenesis": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+    "/private/tmp/abg-rc11-foundation-20261110-01": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+    "/private/tmp/abg-rc11-qualification-20261109": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "untrackedBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/CHECKPOINT_UNTRACKED_BEFORE.bin",
+    "bytes": 58458,
+    "sha256": "f54649d55a3dd1fcdd2b94d878397b9b7d4f5eaf0ba89d83840a603bea3df737"
+  },
+  "testedCodeTestExact": true,
+  "compiler582RowsExact": true,
+  "hooks": "Only applicable executable post-commit is standard git-lfs. Its documented scope is changed lockable files; all4selected paths have filter/lockable unspecified. No pre-commit/prepare-commit-msg/commit-msg hook and no hook override.",
+  "standing": "No tests repeated. Only F index/commit effects next; main index remains unchanged."
+}

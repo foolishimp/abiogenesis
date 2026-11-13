@@ -1,0 +1,88 @@
+{
+  "status": "NATIVE_FAILED_TIMEOUT_SOURCE_FROZEN_FOR_EXTERNAL_PROOF",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/ROOT_NATIVE_ADMISSION.json",
+    "bytes": 4048,
+    "sha256": "e4eca09be517089b1b8613bc87815db8563e48d5b9a2a03c90255411e68a41fa"
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/source-freeze.json",
+    "bytes": 295015,
+    "sha256": "73fa9681d7153644a5c1ca76bfb23c0282afa8005fc79cfb1e2339711a606bf2"
+  },
+  "sourceDigest": "5eb4b82b5861c25a4df23b6d42444b0ad9240d4fb76e7ac93851d5bbd9074fea",
+  "sourceRows": 1344,
+  "frozenSourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/frozen-source",
+  "sourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/SOURCE_CUSTODY.json",
+    "bytes": 20993,
+    "sha256": "86f70fcc34bf1643dc316f26ba0548c9a09596c3967313697d62f551114c5f73"
+  },
+  "nativeCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/NATIVE_CUSTODY.json",
+    "bytes": 28858,
+    "sha256": "f23f34bd0a3cb5b61a9e91c0bca6ec58add35821abafd363c1886d9b4f042111"
+  },
+  "nativeOutcome": {
+    "disposition": "failure",
+    "failureClass": "transport_failure",
+    "timeoutClass": "absolute",
+    "processStatus": 143,
+    "processSignal": null,
+    "finalOutput": "",
+    "nativeResultAssessment": {
+      "disposition": "absent",
+      "inputDigest": "sha256:98693648baa0d03cba76fe24ff7ae5f26481ced137e2ac1ebb302e20e2289073",
+      "kind": "native_worker_result_assessment",
+      "rawOutputDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "resultContractRef": "contract://abiogenesis/worksite/native-work/worker-report@5",
+      "schemaVersion": "5.0.0",
+      "verification": null
+    },
+    "apiRetryCount": 0,
+    "toolCallCount": 33,
+    "stdoutByteLength": 3246684,
+    "stderrByteLength": 0,
+    "artifactDigests": {
+      "output": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "prompt": "sha256:690125a773a5cb26ae37e4ff74bb061c3b8ee1f36ffee5b9dda7cf6eb58b8852",
+      "stderr": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "sha256:8457a6aacf992f2db89dcaf97a8f9cc6a74bc30e3d7e4427df9108442d9bff0b",
+      "transport": "sha256:6c06aa3b1ef959cadcd8924d0d12d8b57e5ac5797225e0843ac1cf7dec43d022"
+    },
+    "actorInvocationRef": "actor-invocation://abiogenesis/4e0a84df5805de06165c4bb741e73d1f0c2ba8b41c3863200ca3c9087456adb0",
+    "processRef": "process://abiogenesis/175ca36f73d011c2ad34a816aa8c96b50d745962e753c6ce9d70fdabf54adfa4"
+  },
+  "sourceChangedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs"
+  ],
+  "unexpectedSourceChanges": [],
+  "allListedGuardsConserved": true,
+  "checks": {
+    "syntaxFilesPassed": 4,
+    "observerTests": 8,
+    "observerPass": 8,
+    "observerFail": 0,
+    "observerSkip": 0,
+    "fullLifetimeM5UnitExecuted": false
+  },
+  "physicalClose": true,
+  "freshReplay": "failed, terminal null",
+  "freshResult": "refusal",
+  "toolReadDeviation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/TOOL_READ_DEVIATIONS.json",
+    "bytes": 36137,
+    "sha256": "e4aaa1dadfa13aa37e85370d08aadf98baf041d3c9a44163d3f32932da7c0550"
+  },
+  "remaining": [
+    "Independent source assurance; no native report or self-acceptance.",
+    "External deterministic, full lifetime, full m5 and exact nine-file unit proof held for Root binding.",
+    "M5 deterministic/physical additions are syntax-checked only; scratch blocks and design note retained.",
+    "Both qualification debts remain open."
+  ],
+  "sourceWritesStopped": true,
+  "qualified": false
+}

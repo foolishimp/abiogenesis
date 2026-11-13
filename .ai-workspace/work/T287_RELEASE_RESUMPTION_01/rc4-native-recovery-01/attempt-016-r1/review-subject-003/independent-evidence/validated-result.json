@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/opt/homebrew/bin/node",
+    "/private/tmp/rc4-016-c3-independent-review-hz5nfqhh/compiler/node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "--incremental",
+    "false",
+    "-p",
+    "tsconfig.validated.json"
+  ],
+  "cwd": "/private/tmp/rc4-016-c3-independent-review-hz5nfqhh/consumer",
+  "startedUtc": "2026-11-02T21:30:42.643575+00:00",
+  "durationMs": 3333,
+  "exitStatus": 0,
+  "stdoutBytes": 0,
+  "stderrBytes": 0,
+  "diagnosticCount": 0,
+  "compilerVersion": "5.9.2",
+  "strict": true,
+  "skipLibCheck": false,
+  "probeByteIdenticalToHistoricalValidatedProbe": true,
+  "historicalDiagnosticCount": 12,
+  "historicalExitStatus": 2
+}

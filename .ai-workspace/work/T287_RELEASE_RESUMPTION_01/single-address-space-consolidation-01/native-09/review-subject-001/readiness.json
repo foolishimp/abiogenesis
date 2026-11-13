@@ -1,0 +1,50 @@
+{
+ "kind": "native_09_readiness",
+ "recordedUtc": "2026-11-04T13:04:24Z",
+ "authorReady": true,
+ "reason": "The targeted IR-01/IR-02 increment is complete. Three cuts use validatedRuntimeEventPrefixBeforeEvent and seven ordinary calls use the owned semantic authenticators. Four wrappers are retired with every consumer migrated. Two focused same-input/work cases pass. Build passes, whole-path is 12/0/0 and job 9/0/0. Revision 4/1/2 and consumers 59/0/73 equal the exact preimage. Actual C2, independent review, UAT/fresh close and Root conjunction are outside this Worker.",
+ "changedSources": {
+  "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts": "da1228f3876aca87ba065863bc990e216214f329ddb1e3d773466af08d18ee21",
+  "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": "d70db3d73cd08a20e1a40b6ecb3483b43d025d449c7a7fba9d53fc9f8f7776ea",
+  "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205",
+  "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts": "f1985ef058a3a4ef1109df8fb048d98ca420a6863cc8c605fea624feda6e16f4",
+  "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts": "2dd3e1754453b211c8650fda8eab469ce8d9ae3bdb0dc989fbd3d7677f06d16f",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": "91dc54b4ddd40b002b30d11bdea0495148205a1c27e0c0ed0f8f4b028ac1cf11",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts": "3dbb44016a2825bb341ad3d553b2b068a27e0a14a3e8321c36d5ea805ee858b4",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts": "1098ab420c054169f3b723010e9a69a045826332a0ecadd67063f3b737dd10b4",
+  "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "a9a69cdf6657e90581d3cfe5482668872bb7bc7b572a4b3ac97d628c414248f9",
+  "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs": "b633d1f69ef4f24d521e056206f0fb6f7b6467444d06dc64a9f9a23f69f98627",
+  "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs": "3fa8fa8ffea19a187f727d64f6da3940e8def6ab3dadad0e055c0c45848ec0b3",
+  "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs": "36c984cc22806467e7c2f8e7c349ed320eb641bf99f677a3be4769431f9e5f71",
+  "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs": "e7b0d6615f749765dc1a1f36c2c6e4532f9a96d6db69e1c0576784c6634ceb74",
+  "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs": "d56f24818f0dcf41469f643534f914b460fa7df096dcfe7ff3896861092fe814",
+  "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs": "66ae4ab0e86a8027fdc2af04fdf0cd041969924a3f0a0b616b8da795134a37ee",
+  "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs": "1cdca8f351b403f27692916414090c9d07f4f8446b03056c411d9c4214b8bf45",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs": "208787a16a81dc51f5aa676e129bdd462710952c68a1652ab383bf4a58420fcf",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs": "70eff7397c922af818841ce76053ff9308df4fe3a52ebb6dc2d882d666b1ec28",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs": "b095f4a838898fcefca99a5c1881eb70844327c51e9b787d4b1b104e82bb99b2",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs": "50f1cf9a0956da96eef82d06f19e1a3ad4030d26216537a449fa07d1e8cb58e3",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs": "3f872da9d31e01ff088ff5ef328a3aaaa4fd6f1476bf57dec65300874eb81e17",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs": "87b241a825aa1a4c9050e89e9f1f05a44d603baf542daacfb58243faef07f2ae",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs": "8a6b05b9c1b33a961d1b65b107bae4314613a7b795d4e3580c774efa1dea51cf",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs": "715c7fade431fa3e49ca42f025b8e0afb4a45a8458e8d054329edd1884d65f20",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs": "f8b5f1bc6524865cece43bc53fe9684431edd1390bb30f5c18b3e974e2ffd85a"
+ },
+ "authorLanes": {
+  "single-address-space-whole-path": "12/0/0 (min 12) 14dd7ff774722dfc01ff64fab460c8ede3e939181f98581228449457e3a74e11",
+  "native-semantic-job": "9/0/0 (min 9) 47abb464fbfaa4ac76d70a5f1ff8b3d88bf8ac359f993f6cefcd2c2a126ba9a6",
+  "native-semantic-revision": "4/1/2 (min 5; pre-existing failure identical at preimage) 97d1fcc2eef622b86bd2efc72a7a5b3520da5ec6db5a90452066e5d96902648b",
+  "semantic-interface-and-fixture-consumers": "59/0/73 (floor 62; identical at preimage) 40b359d06d7c76aa6431ec4aa30a86562aaf46a6381064e620f4d2f166eb33bc"
+ },
+ "expectedC2Blockers": [
+  "native-09 inputs lack MEASURED_BASELINE.json (whole-path)",
+  "revision min 5 vs 4 (pre-existing)",
+  "consumer floor 62 vs 59 (historical gates)"
+ ],
+ "return": {
+  "path": "consolidation-scratch/native-09/return.json",
+  "bytes": 44419,
+  "sha256": "363dcc99427517a4c9f3fcf5209176783ad8b107a972507402d7e5f37746518c"
+ }
+}

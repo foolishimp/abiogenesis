@@ -6,7 +6,7 @@
 - owner: abiogenesis
 - build_tenant: typescript
 - parent: T-292
-- updated_at: 2026-11-13
+- updated_at: 2026-11-14
 - change_class: realization_refactor
 - derived_change_classes: design_reframe or requirement_reprice only for a row that says so
 - re_entry_point: `.ai-workspace/tickets/active/T-292-consolidate-and-clean-the-code-base.md`, the amendment of 2026-11-13
@@ -68,11 +68,13 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | B-30 | Historical Catalog seam proof invokes the strict new-work default on its retained old-release input | Exact `21e6d7571` broad file014; `b30-catalog-proof-01/INPUTS.json` | S4 | P1 | Integrated at `6b3fe2712`; exact old fixture and all negatives use recorded, strict/default refuse before/after. Author 2/2 and non-author technical QA satisfied. Production unchanged; composed continuation pending |
 
+| B-31 | F04-A valid probabilistic-result candidate tests return refusal: two failures after 68 completed files | Exact a2626fa54 broad-04 file069, checkpoint-20261114-01/broad-04 | Untriaged | Before composed completion | Failure and full receipts preserved; no root-cause claim, repair or retry in checkpoint task |
+
 ## Schedule
 
 | When | Items |
 |---|---|
-| In flight | Composed broad-04 selected on exact `a2626fa54`; B-30 integrated/QA satisfied, same RC13 archive; history and delivery unperformed |
+| Current | User-selected main checkpoint and obsolete-worktree cleanup; broad-04 halted on B-31, campaign clock expired; history and delivery unperformed |
 | Dependency-ready sequence | Composed history and physical reads under the unchanged clock, then local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |

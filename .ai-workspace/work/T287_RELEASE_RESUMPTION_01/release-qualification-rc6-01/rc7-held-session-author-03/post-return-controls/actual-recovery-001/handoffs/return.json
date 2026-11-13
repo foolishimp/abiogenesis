@@ -1,0 +1,111 @@
+{
+  "kind": "rc7_held_session_author_return",
+  "task": "rc7-held-session-author-03",
+  "status": "RETURNED_TO_ROOT_RESOURCE_INSUFFICIENCY_NO_LANE_PROOF",
+  "acceptanceClaim": "none",
+  "speedClaim": "none; Under30s remains forecast",
+  "returnedUtc": "2026-11-07T04:31:00Z",
+  "basis": {
+    "headCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "sourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+      "bytes": 240531,
+      "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+    },
+    "protectedSourceCount": 451,
+    "stdo": "v3.0.4, empty composition"
+  },
+  "changedPaths": [
+    {"path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md", "bytes": 97222, "sha256": "4a6d2a978a46de8e8eac04b4ff17a164dcfc3a5e495e6686f69eaff743b9b548", "role": "HOW first: Setup Program binding (HS3)"},
+    {"path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md", "bytes": 165642, "sha256": "20d8ecc674badb488adb22488f176e9695b527bf3ef02996be92497546b4107f", "role": "HOW first: 10.9 setup Program binding, refusal diagnostics, fixture migration (HS3)"},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs", "bytes": 39862, "sha256": "a36bb612733a3fd39802413868f1f6c55ac757207788cfdd94b4f6247e0b7dcc", "role": "caller setup"},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs", "bytes": 370774, "sha256": "2825568c61d32e7bb6291119fafd140917b205f101a2a9bf3b708e030e5c59cd", "role": "fixed-route and assessment-guards assertions"},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs", "bytes": 121788, "sha256": "9ce365f8cbcb1adfc1b25553d71528468777897c65153af9f4ac5a885d14fb09", "role": "H02-FIXTURE-001 migration"}
+  ],
+  "unchangedProtectedPaths": 446,
+  "preservation": {
+    "trackedModifiedPaths": 69,
+    "newProductPathsPresent": [
+      "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+    ],
+    "codeSrcEdits": 0,
+    "gitMutation": "none (no commit, stash, branch, push or tag)",
+    "currentSourceDriftFromFreeze": []
+  },
+  "correction": {
+    "1_hardcodedSetup": "populateSandbox(caller,{program}) chooses one Program (consumer default | library default@5) before workspace binding; productRoot, catalog-view allowlist, program-conformance packet and setup-identity all derive from that choice.",
+    "2_ownerBeforeBinding": "setupProgram selects the unique holder publication and Program among candidate publications right after consumer verifyArtifact; setupProgramOwner selects the unique admitted install by Product/artifact/content/manifest digests and exactly one contribution binding of the publication semantic digest; productRoot = owner.installedRoot (BoundaryFailure setup-program / setup-program-owner otherwise).",
+    "3_sharedBinding": "The consumer default stays the ordinary start. The fixed Testing and UAT selectors require state.programBinding.selection=library and reuse the setup Catalog view (no re-narrow); the consumer start refuses a library binding with setup-program-binding before any task/grant/invocation.",
+    "4_installGuards": "exactProgramOwnerInstall and exactChildOwnerInstallations unchanged (Product code untouched).",
+    "5_schemaAndEdge": "Consumer assessment schema and consumer->ABI requires edge unchanged; integration asserts both installs in the one ProductSet and exactly one consumer->ABI requires edge.",
+    "6_fixtureMigration": "t287-native-workspace-work: carried declaring assessmentPublication, owner resolution = admitted row, install with lock coordinates, lock with owner/assessor rows plus requires edge; positive prepare plus omitted, crossed-owner, crossed-lock-digest/row, missing/reversed edge, crossed assessor resolution, missing lock and unselected-contract refusals.",
+    "7_refusalDiagnostics": "rc7RefusalRecord bounds label, exitCode, outcomeKind, disposition/code, issuePaths<=8, failure stage/code/message, and <=8 events of child_preparation_refused/runtime_failure_observed/actor_invocation_failed/run_stopped with ordinal/eventId/GraphFunction and payload stage/code/failureClass/disposition/childGraphFunctionRef/message<=240; used in refused(), completedRun() and the assessment-dependency start assertion. No raw task/context/provider text/credentials or CLI metadata.",
+    "catalogCanonicalization": "Catalog admission canonicalizes publications, so setup matches the Catalog-bound publication by moduleRef, owningProductId, artifactDigest and modulePublicationSemanticDigest, and records catalogProgramDigest from the Catalog-bound Program."
+  },
+  "stageLedger": [
+    {
+      "label": "hs3-stage-01",
+      "mode": "after",
+      "allocation": "1 of 2",
+      "sourceFreeze": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-source-freeze.json",
+        "bytes": 96806,
+        "sha256": "eb320d02899be369b64c290928c02243009c8ac97d6de922e5bbaeeb113bf9ec",
+        "sourceCount": 451,
+        "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+        "pinnedInProgressBeforeBuildResult": true
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-stage.json",
+        "bytes": 97531,
+        "sha256": "9ad0946d9c442075add5a0d6bc216f70981ef80471eb8b3858ce1c2e3aff312b"
+      },
+      "consoleLog": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-console.log",
+        "bytes": 711,
+        "sha256": "9a24b0847ddd23c8cffee4285f47840214e6a36804ffbffcdd45017b1ef54283"
+      },
+      "setupMs": 40841,
+      "compile": {"exitCode": 0, "signal": null, "ms": 116576},
+      "generate": {"exitCode": null, "signal": "SIGTERM", "error": "spawnSync node ETIMEDOUT", "ms": 180074, "boundMs": 180000, "stdout": "", "stderr": ""},
+      "lifecycle": "not run (generate incomplete)",
+      "stageExit": 1
+    }
+  ],
+  "laneLedger": [],
+  "laneAllocationsConsumed": "0 of 8",
+  "lanesNotRun": ["fixed-route", "assessment-guards", "native-workspace-owner", "caller"],
+  "laneBlocker": "prior-author-lanes.mjs refuses any lane on a stage whose generate/lifecycle did not exit 0.",
+  "historicalSkip": {
+    "test": "admitted pure consumer evaluates a native task as data without physical authority",
+    "disposition": "unbound and unexercised; no proof credit; no external live route. No lane ran, so no skip was observed."
+  },
+  "failures": [
+    {
+      "id": "HS3-STAGE01-GENERATE-TIMEOUT",
+      "stage": "hs3-stage-01 canonical generate (scripts/generate-product-manifest.mjs)",
+      "observed": "SIGTERM at the selected 180000ms bound, empty stdout/stderr; compile passed; lifecycle guard not reached.",
+      "classification": "resource insufficiency, not a localized in-scope source failure",
+      "evidence": [
+        "Host load averages 13.66/15.46/13.80 on 16 CPUs at 04:29 local; concurrent desktop workloads present.",
+        "Same 451-source line HS2 stage01 (rc7-held-session-author-02/review-subject-stage-001/evidence/hs2-stage-01-stage.json): setup 1600ms, compile 7628ms, generate 22604ms. This run: setup 40841ms (25x), compile 116576ms (15x).",
+        "Precedent: HS1 before-stage-001 (rc7-held-session-author-01/.../hs1-stage-01-stage.json) generate SIGTERM at 180073ms under load; HS1 later stages generated in 92-100s.",
+        "The changed paths are caller/test/HOW only; the generator's npm pack dry-run projection does not execute them. No orphaned generator or npm process remained."
+      ],
+      "routing": "Returned to Root per packet: resource insufficiency. Stage02 is not allocated because its prerequisite (recorded localized in-scope failure plus actual correction) does not exist and an identical rebuild is a forbidden identical retry."
+    }
+  ],
+  "actualPredicatesAndReceipts": "None. No lane ran; no owner receipt, setup outcome, conformance disposition or test tally exists for this source.",
+  "staticChecks": [
+    "node --check passed for the three changed .mjs paths (syntax only).",
+    "All 451 protected paths compared with H02 SOURCE_BEFORE: exactly the five permitted paths differ."
+  ],
+  "disclosures": [
+    "Created qualification-scratch/rc7-held-session-author-03/ and tmp/ (declared). The stage script created tmp/hs3-stage-01/ (staged source, copied toolchain, contracts, partial generator placeholders) and the freeze/report files.",
+    "Shell redirection wrote tmp/hs3-stage-01-console.log (declared tmp); the stage ran as a background shell job so the freeze could be pinned in progress.json while the build ran.",
+    "The stage script used /private/tmp/abg-hs3 (existing; node-compile-cache, npm-cache present). tmphs3 was not modified by me.",
+    "Read-only inspection beyond the 451 names, with scope uncertainty: prior stage reports under the immutable H02/HS1/other author history (timing comparison only), scripts/generate-product-manifest.mjs, and host ps/uptime/sysctl. No history file was written.",
+    "No network, publish, dependency install, Product code/guard edit or git mutation."
+  ]
+}

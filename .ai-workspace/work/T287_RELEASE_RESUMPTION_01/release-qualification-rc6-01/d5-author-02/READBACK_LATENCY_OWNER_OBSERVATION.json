@@ -1,0 +1,55 @@
+{
+  "kind": "closed_readback_wall_intervals_and_existing_owner_routes",
+  "at": "2026-11-06T01:18:30.049194+00:00",
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/TIMING_BREAKDOWN.json",
+    "bytes": 7290,
+    "sha256": "a19d931abfbc09ebfbb72d13f54e6268aaf2c174f56f61665f157d858881c2b9"
+  },
+  "intervalsMs": {
+    "outcomeToRunResultSubprocess": 214963.0,
+    "runResultSubprocess": 85709.91191700008,
+    "runResultExitToRunReplaySubprocess": 161617.088,
+    "runReplaySubprocess": 86359.34341700003,
+    "runReplayExitToHostReturn": 2883.697
+  },
+  "ownerPaths": {
+    "freshReadbacks": {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+        "bytes": 37910,
+        "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+      },
+      "lines": [
+        261,
+        273
+      ],
+      "sequence": [
+        "caller.refresh (existing exact-prefix artifact truth and workspace environment projection)",
+        "eventResourceIdentity on the physical log",
+        "constructInstalledRunReadCall for each of run_result and run_replay",
+        "invokeColdInstalledEntry for each read; exact CLI request through declared installed owner",
+        "retain and compare fresh projections and unchanged physical prefix"
+      ]
+    },
+    "callerRefresh": {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+        "bytes": 29259,
+        "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+      },
+      "lines": [
+        127,
+        134
+      ],
+      "owner": "projectOwnedPrefixArtifactTruth, validateExactPrefixArtifactTruthProjection, projectWorkspaceEnvironmentFromArtifactTruth"
+    }
+  },
+  "finding": "Readback subprocesses consume about 172 seconds; additional pre-call and between-call wall intervals consume about 377 seconds. Existing owner sequence identifies the bounded instrumentation locus, but it does not assign these intervals to individual functions.",
+  "nextMeasurement": "Already prepared operator phase timing around proof02 freshReadbacks; deeper per-owner attribution remains unmeasured. No replacement mechanism or source repair selected by this observation.",
+  "limits": [
+    "Wall intervals include scheduling, serialization, parsing and file work; not CPU attribution.",
+    "Readback uses genuine fresh installed CLI processes as required for the existing proof claim. Do not infer distributed trust requirements from that test shape.",
+    "No private provider content or environment values emitted."
+  ]
+}

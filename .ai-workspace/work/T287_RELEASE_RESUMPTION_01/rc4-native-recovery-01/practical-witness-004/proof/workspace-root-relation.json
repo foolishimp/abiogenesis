@@ -1,0 +1,9 @@
+{
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace",
+  "device": 16777231,
+  "inode": 680615296,
+  "authorityBasisId": "workspace-authority://abiogenesis/14c6a00f477e44d4d02fc0e70cf0720c8aafabd5fd7daec553d0a306fe219b29",
+  "authorityBasisDigest": "sha256:14c6a00f477e44d4d02fc0e70cf0720c8aafabd5fd7daec553d0a306fe219b29",
+  "bindingId": "workspace-binding://abiogenesis/431a17bc66a90c5c4e8f172424c08de4f9546fa1c230f480b7c15713d135e8ee",
+  "bindingDigest": "sha256:431a17bc66a90c5c4e8f172424c08de4f9546fa1c230f480b7c15713d135e8ee"
+}

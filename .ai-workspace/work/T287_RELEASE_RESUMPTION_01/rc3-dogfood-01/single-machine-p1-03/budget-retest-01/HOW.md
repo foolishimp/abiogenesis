@@ -1,0 +1,7 @@
+# Existing observed Testing/UAT route, resource-only requalification
+
+Root selected the existing two-purpose default governance constructor and normally published consumer/catalog, opening the same canonical worksite through supported Public workspace.open in a fresh setup/event resource. The prior Run is neither recovered nor replaced and no old Result is imported; initial source:none/observations[]/synthesisnull. A fresh Testing contribution with null subject observes supplied actual files and creates the new sameRun Testing Result that UAT assesses. No sameRun Construction is invented or required.
+
+Canonical Product writes are empty for every role. Preserve exact authored source/criteria/963 producer dependencies and all nine command purposes/IDs/environments/predicates; the sole command resource delta is focused timeout600000→1200000ms. Same eleven focused files/affected/artifact lanes execute; full outputs and predicate observations govern. Actor idle/Bash3600000ms/absolute5400000ms/outer10800000ms exceed helper2767250ms. Source identity, actual prior Construction custody/parent closure and selected current source are late-bound before setup.
+
+Do not use admitted_source_result/current_intent to rewrite the old original command plan. Retain their exact-value law and old failure. No new Product code, schema, controller, store authority or synthetic Result; the new EventStore is the ordinary supported fresh setup, not recovery history. Root dispatch follows independent actual setup/call review.

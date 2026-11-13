@@ -1,0 +1,85 @@
+{
+  "bytes": 70825,
+  "count": 15,
+  "familyAttribution": "event-analysis classifies existing codec references by embedded event.kind; context walk counts physically stored structured Context only, does not expand codec body references",
+  "physicalBodyReferenceRecords": [
+    {
+      "bytes": 2393,
+      "eventKind": "c_call_result_admitted",
+      "physicalLine": 20
+    },
+    {
+      "bytes": 8191,
+      "eventKind": "basis_admitted",
+      "physicalLine": 28
+    },
+    {
+      "bytes": 8079,
+      "eventKind": "basis_admitted",
+      "physicalLine": 1119
+    },
+    {
+      "bytes": 2472,
+      "eventKind": "c_call_result_admitted",
+      "physicalLine": 2778
+    },
+    {
+      "bytes": 2429,
+      "eventKind": "c_call_result_admitted",
+      "physicalLine": 2812
+    },
+    {
+      "bytes": 2403,
+      "eventKind": "c_call_result_admitted",
+      "physicalLine": 2836
+    },
+    {
+      "bytes": 8201,
+      "eventKind": "basis_admitted",
+      "physicalLine": 2844
+    },
+    {
+      "bytes": 8153,
+      "eventKind": "basis_admitted",
+      "physicalLine": 3733
+    },
+    {
+      "bytes": 2478,
+      "eventKind": "c_call_result_admitted",
+      "physicalLine": 3984
+    },
+    {
+      "bytes": 2429,
+      "eventKind": "c_call_result_admitted",
+      "physicalLine": 4018
+    },
+    {
+      "bytes": 2403,
+      "eventKind": "c_call_result_admitted",
+      "physicalLine": 4042
+    },
+    {
+      "bytes": 8201,
+      "eventKind": "basis_admitted",
+      "physicalLine": 4050
+    },
+    {
+      "bytes": 8101,
+      "eventKind": "basis_admitted",
+      "physicalLine": 4905
+    },
+    {
+      "bytes": 2463,
+      "eventKind": "c_call_result_admitted",
+      "physicalLine": 5557
+    },
+    {
+      "bytes": 2429,
+      "eventKind": "c_call_result_admitted",
+      "physicalLine": 5591
+    }
+  ],
+  "prefixBytes": 24293608,
+  "prefixSha256": "sha256:5bcdeb0ddfbc4d970b868cfadf15b070738d6290a0039ba0a9781ff02ff4f79b",
+  "prefixStillUnchanged": true
+}

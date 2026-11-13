@@ -1,0 +1,99 @@
+{
+  "status": "A_ACTUAL_NATIVE_CONSTRUCTION_AND_NORMAL_BOUND_STOP",
+  "observedAt": "2026-11-02T23:56:10.299501+00:00",
+  "transport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a.transport.json",
+    "bytes": 789807,
+    "sha256": "23892695c18ded8963a3ecb3b458ae2e6e96a021e6a4b89315369a937c1a6264"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a.resume.json",
+    "bytes": 1734,
+    "sha256": "3d8930e844d3108c4700c5c0e769b3448db1d1a9228ecc79c2a88c829508180d"
+  },
+  "run": {
+    "digest": "sha256:c011397f2a0601fe9c17afe647039741a39eebc973318297059ce09cbbb6ec57",
+    "ref": "run://abiogenesis/bd963a4f887e323833dd9f892237159c75d8ddd0da67a0dc932b050de1de6207"
+  },
+  "invocationAdmission": {
+    "digest": "sha256:fb8f07222b8193ecad95a9710f0d91906d5d4d8d93e3fdf0e32579dbcaca5f9e",
+    "ref": "invocation-admission://abiogenesis/fb8f07222b8193ecad95a9710f0d91906d5d4d8d93e3fdf0e32579dbcaca5f9e"
+  },
+  "ownerDisposition": "blocked",
+  "terminalFieldPresent": false,
+  "hostExitCode": 0,
+  "hostWallMs": 157091.435291,
+  "failure": null,
+  "stop": {
+    "ordinal": 1844,
+    "eventTime": "2026-11-02T23:54:47.138Z",
+    "reasonRef": "reason://abiogenesis/recursion/bound-exhausted@5"
+  },
+  "nativeResult": {
+    "ordinal": 1763,
+    "ref": "result://abiogenesis/e77502328c543c3fbe8d5ef5f27f8bd59865024cf8c8a7114d9a2baeabc1f39c",
+    "afterObservationDigest": "sha256:c54c59fb77e2b242b65b624a7ec4f1fe1c3eb739616b0cc315df6d07a1921a7f",
+    "changedPaths": [
+      "generated/hello-world.mjs"
+    ]
+  },
+  "handoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:8f03ab91d514a0d6597e9cded23428faedaa3410df6fa5f2c867021e9d14a6e4",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:95acf94861abf3e37ecd0117ebc2c0f4b2fe8fdcd7dc16d5e1fd94dfe77db994",
+      "prefixLength": 9932482,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 682218298
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:ca99071f96d7eb2e7195ce2d5c7b6db007724e2266f8c24c3a447dc4aaee02d7",
+      "device": 16777231,
+      "durableByteLength": 9932482,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:95acf94861abf3e37ecd0117ebc2c0f4b2fe8fdcd7dc16d5e1fd94dfe77db994",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/runtime/events.jsonl",
+      "inode": 682218298,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "providers": [
+    {
+      "actor": "fp-4b53cd8df528babb",
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-4b53cd8df528babb-stdout.log",
+        "bytes": 177417,
+        "sha256": "803389bb57ae0f02275633c24939c607763f572fec5bc01a14a380c1a11ee947"
+      },
+      "subtype": "success",
+      "is_error": false,
+      "num_turns": 2,
+      "total_cost_usd": 0.23184,
+      "duration_ms": 48174,
+      "duration_api_ms": 36342
+    },
+    {
+      "actor": "fp-dfed6db7618639a4",
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-stdout.log",
+        "bytes": 256445,
+        "sha256": "aa400af2d30f756f235991743430ee2338259eba14976380675cd170136ca45d"
+      },
+      "subtype": "success",
+      "is_error": false,
+      "num_turns": 9,
+      "total_cost_usd": 0.33181239999999995,
+      "duration_ms": 88493,
+      "duration_api_ms": 44065
+    }
+  ],
+  "providerCostUsd": 0.5636524,
+  "FP": 2,
+  "limits": "No B, interruption, cold continuation, Testing or practical recovery completion. Existing owner derives eligible latest A source in separately Root-selected acquire-a stage; no selection from compressed physical rows."
+}

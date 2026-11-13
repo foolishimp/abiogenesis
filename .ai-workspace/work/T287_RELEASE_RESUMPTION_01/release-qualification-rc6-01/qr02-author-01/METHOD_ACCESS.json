@@ -1,0 +1,13 @@
+{
+  "kind": "selected_native_method_read_routes",
+  "basis": "stdo://releases/v3.0.4/",
+  "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "pluginRoot": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec",
+  "entrypoint": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+  "access": "Read exact selected immutable plugin skill and its directly referenced installed standards/resources with relative references intact, verified through stdo manager. Read current Root authority/triage/work grant named by this packet. No host plugin registration claim or mutable selector change.",
+  "sourceAuthority": [
+    "AGENTS.md#native-stdo-skills",
+    "CLAUDE.md#native-stdo-skills"
+  ],
+  "scope": "Exact selected immutable method and direct references only. No local .claude copy, host registration or mutable selector change."
+}

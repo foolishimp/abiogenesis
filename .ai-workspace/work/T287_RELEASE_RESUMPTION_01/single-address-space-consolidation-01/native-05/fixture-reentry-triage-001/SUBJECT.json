@@ -1,0 +1,149 @@
+{
+  "kind": "frozen_operator_fixture_route_triage",
+  "recordedUtc": "2026-11-03T23:10:52.351580+00:00",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "sha256": "aa1ab8ed6a5cd947f35ffab910e4a840db70592ea4bbeadaf709d5cdcefb9778",
+      "bytes": 33808,
+      "basis": "frozen_interim_proof_snapshot"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "sha256": "90540971276c92787e9a10877c2ccfe2798b58d1e438abf9b96167a7d4ecd7c8",
+      "bytes": 9421,
+      "basis": "frozen_interim_proof_snapshot"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "sha256": "a0536113e290c074ea8a8066ea734fd798153808ec72b7faf6d1d8228e90a1b2",
+      "bytes": 71077,
+      "basis": "frozen_interim_proof_snapshot"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "sha256": "390667fdfb25dfbb198df335db6518449410d954f60b2914f7c9c9283d8efc49",
+      "bytes": 17058,
+      "basis": "frozen_interim_proof_snapshot"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+      "sha256": "14102c36ffa9761598fbd12c7774dff7e06edea05477a25cef15309a3d94d2ba",
+      "bytes": 467,
+      "basis": "immutable_f49_unchanged_selected_source"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+      "sha256": "ea517677bea5b6fe4c246f8f95de2e69e7c766dad6c0166ab5371b2783edfbd7",
+      "bytes": 483,
+      "basis": "immutable_f49_unchanged_selected_source"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+      "sha256": "48e43ae17b1b0cd7cf36d47bc71e01729d77cf2962225ceb222d9fba483a8b9d",
+      "bytes": 42234,
+      "basis": "immutable_f49_unchanged_selected_source"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+      "sha256": "bf86720cb046017715ad345b1cf7e392af914d903e0c04b2c867edf37070f226",
+      "bytes": 25551,
+      "basis": "immutable_f49_unchanged_selected_source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-05/return.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/return.json",
+      "sha256": "04c367a78fc09aac80732b5e2421ee5bd3c3beef0f0f779ea3ba3fe2372c385b",
+      "bytes": 56732,
+      "basis": "author_interim_handoff_not_native_admitted_return"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-05/readiness.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/readiness.json",
+      "sha256": "4fc771ba1454dd249a0c15f2c9377df3ab0bbafe8082157a4a44756da8b5cf39",
+      "bytes": 1556,
+      "basis": "author_interim_handoff_not_native_admitted_return"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/adapter-consumers-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/adapter-consumers-1.tap",
+      "sha256": "3eba1afc0682b2abf0da01b1232bdfb81fb381fb4a5d78de932ef98b382db203",
+      "bytes": 5946936,
+      "basis": "author_scratch_feedback_not_C2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/f49-t289-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f49-t289-1.tap",
+      "sha256": "021f30b0c45d67076b3dd17a6ab4437ff353378d0dbe130776e4033341f1489c",
+      "bytes": 5943053,
+      "basis": "author_scratch_feedback_not_C2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/retry-budget-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/retry-budget-1.tap",
+      "sha256": "f473afc7b744805e834aa156c77d7f60b670f56f9e1336c7ab0efb51ec144ed2",
+      "bytes": 6579,
+      "basis": "author_scratch_feedback_not_C2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/f49-retry-2.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f49-retry-2.tap",
+      "sha256": "41ce1c924a8f6c6acc2966282df7974d5ab9550539ea349dcbdd63c4b5bb64bb",
+      "bytes": 4535,
+      "basis": "author_scratch_feedback_not_C2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/f09-consumers-3.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f09-consumers-3.tap",
+      "sha256": "db55c18baacbb2b1d7e1e369fd858a3d7f0042d8d7960e5662786bdfc3646a18",
+      "bytes": 316,
+      "basis": "author_scratch_feedback_not_C2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/f09-consumers-4.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f09-consumers-4.tap",
+      "sha256": "4f82cc38c65169da1550d8e430625b40aa73973e15dc62ca0980fd8f699dab4c",
+      "bytes": 338,
+      "basis": "author_scratch_feedback_not_C2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/NEXT_PROOF_EXTERNAL_INPUTS.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/references/NEXT_PROOF_EXTERNAL_INPUTS.json",
+      "sha256": "162f0a6fe698fe65019c0b40bfaeac4556d72503a825649b92871d81038a1864",
+      "bytes": 17613,
+      "basis": "frozen_admitted_native05_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/NEXT_ADDITIONAL_PROOF_INPUTS.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/references/NEXT_ADDITIONAL_PROOF_INPUTS.json",
+      "sha256": "6dd8cf03bd5e2d16f1740334080c1cdb7542d6d382f9d95724dae2857a0c060b",
+      "bytes": 1975,
+      "basis": "frozen_admitted_native05_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/TASK.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/references/TASK.md",
+      "sha256": "82bd80dc31a279bbd28dc6a4d3bbaf55065c6b565b77c32f4758ae709be551c8",
+      "bytes": 6783,
+      "basis": "frozen_admitted_native05_input"
+    }
+  ],
+  "priorProofSnapshot": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/SUBJECT.json",
+    "sha256": "e31947dac73ce9624984a83d36be187cdf896d6ce6568094b2f0694dc59eeeb9"
+  },
+  "existingOwnerSnapshot": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/qualification-domain-001/SUBJECT.json",
+    "sha256": "e012a0cc9a0e2c1c9011e72f76f7c59c9269ac00bdaf8421efdaa26e407d4990"
+  },
+  "scope": "Classify two author-reported baseline fixture failures and identify minimal existing owner/current-contract fixture route for selected retry budget/currentness and install-body proof. Actual native Result/C2 remain pending. No broader implementation or qualification."
+}

@@ -1,0 +1,23 @@
+{
+  "status": "ROOT_ACCEPTED_DIRECT_ARM_APPLICATION_OUTCOME",
+  "operator": "Root",
+  "recordedAt": "2026-11-03T00:29:30.123282+00:00",
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/DIRECT_RETURN_CUSTODY.json",
+    "bytes": 5829,
+    "sha256": "4fa7871e67f5a63dc3a597587712a97cf96dfab1474b72735d61bcc56047eee6"
+  },
+  "externalChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/external-checks-direct/EXTERNAL_RETURN.json",
+    "bytes": 1853,
+    "sha256": "1423064c19cb687ab70f43557427700fa743f20ee961084b8b03ef07556a8d4c"
+  },
+  "decision": "Root conjoins independent max10-pin review/three unchanged inputs/seven permitted outputs with exact external command captures. Genuine CLI-spawning tests and consistent docs/plan;14-byte Hello stdout,empty stderr,exit0,2pass/0cancel/0skip. Direct application outcome accepted.",
+  "nonblockingFinding": "Documentation omits node:url import detail; no repair selected.",
+  "providerReportedCostUsd": 0.7862238,
+  "providerReportedTurns": 19,
+  "hostWallMs": 175318.798333,
+  "limits": "Provider-reported cost, not billing; no comparative claim until actual ABG outcome. Root/operator/provisioning/assessment costs separate and unpriced. No ABG admission fabricated.",
+  "concurrency": "Independent direct review completed while ABG arm started; project-level delivery overlap only, no changed native Program or pilot workload.",
+  "directFilesChangedByWriter": false
+}

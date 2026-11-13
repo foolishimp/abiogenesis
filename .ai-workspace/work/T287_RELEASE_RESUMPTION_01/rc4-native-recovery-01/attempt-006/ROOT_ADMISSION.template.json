@@ -1,0 +1,8 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "TO_BE_SELECTED_BY_ROOT",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "sourceTree": "d3d22391589dcb6fd8d86ed128b0ede69b77348c",
+  "decision": "Preparation-only packet. Root exact review must explicitly admit installed preflight/call construction; dispatch requires separate actual frozen-call review."
+}

@@ -1,0 +1,746 @@
+{
+  "kind": "independent_actual_selector_task_projection_attribution",
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_POST_C2_SELECTOR_TASK.json",
+    "bytes": 1046417,
+    "sha256": "a9f2f0c0b8dcbdc4de224b675930e9f4c88ec9da15919cb26eb8cc091f3e8bb7"
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2/fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667/result.json",
+    "bytes": 6140328,
+    "sha256": "4428fffafefdb46bc7f5ad2ce95f4109591a5b47dae072cae95fa0d173b2eb48",
+    "snapshotRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2/fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667/sandbox",
+    "artifactRef": "worksite-command-helper-artifact://abiogenesis/da8d9a39ee78dfaf40a4ac70699d192b55e815694fc27f3689a42b631420bb5a"
+  },
+  "taskProjectionBytes": 998425,
+  "taskProjectionSha256": "7821f4ffa9e17fe2ea230176f1266e4c1665a9a02b5dc174ff6a4dc34883d716",
+  "fields": [
+    {
+      "path": "taskRef",
+      "bytes": 54
+    },
+    {
+      "path": "originalTask",
+      "bytes": 201
+    },
+    {
+      "path": "authorityRefs",
+      "bytes": 1230
+    },
+    {
+      "path": "protectedSources",
+      "bytes": 2164
+    },
+    {
+      "path": "requiredSupportRefs",
+      "bytes": 74
+    },
+    {
+      "path": "worksite",
+      "bytes": 807554
+    },
+    {
+      "path": "workOrders",
+      "bytes": 16893
+    },
+    {
+      "path": "testing",
+      "bytes": 96877
+    },
+    {
+      "path": "subjectEvidenceDomains",
+      "bytes": 290
+    },
+    {
+      "path": "testingPrerequisites",
+      "bytes": 345
+    },
+    {
+      "path": "assessment",
+      "bytes": 2533
+    },
+    {
+      "path": "fulfillment",
+      "bytes": 4
+    },
+    {
+      "path": "observations",
+      "bytes": 57240
+    },
+    {
+      "path": "planningEvidenceMeaning",
+      "bytes": 618
+    },
+    {
+      "path": "unresolvedSupportRefs",
+      "bytes": 74
+    },
+    {
+      "path": "priorJudgment",
+      "bytes": 11979
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": ".claude/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00"
+    },
+    {
+      "path": ".claude/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"
+    },
+    {
+      "path": ".claude/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "bytes": 1812,
+      "sha256": "1c6e6da5dc3ab79243318cf85f821fff1caed7bac0d86ed152aa62faa7a2aa62"
+    },
+    {
+      "path": "consolidation-inputs/native-07/C2_INPUTS.json",
+      "bytes": 21389,
+      "sha256": "2e6e5b349ee6a00e2a217a82ec819e56802de1a60350fd10244017e7458461f8"
+    },
+    {
+      "path": "consolidation-inputs/native-07/CENSUS_FOLLOWUP_CLASSIFICATION.md",
+      "bytes": 7871,
+      "sha256": "40346cbd77607b788effd122a9c6d83e778c0424725222633d13d5b1a5224d7d"
+    },
+    {
+      "path": "consolidation-inputs/native-07/CONTEXT_AND_CAUSAL_MAP.md",
+      "bytes": 11069,
+      "sha256": "951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec"
+    },
+    {
+      "path": "consolidation-inputs/native-07/EXTERNAL_READ_RESOURCES.json",
+      "bytes": 1105,
+      "sha256": "5934e0091ba7a7c0e19c740c4c9d90cbf0ed5c95bece381c5ac7764294cf4eac"
+    },
+    {
+      "path": "consolidation-inputs/native-07/FH_POSITIVE_PREMISE_TRIAGE.md",
+      "bytes": 7226,
+      "sha256": "f999cde290d0dfd715e19ab4c9b8659f51c9119b16b0fe090d027fd60183b974"
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+      "bytes": 20861,
+      "sha256": "59ce21490ad62cded338af47597e2188d4d6f021cfa0b91efdedd6b090f7899b"
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+      "bytes": 14613,
+      "sha256": "89c35598884f969c4e626d6045ee0f35814f8cba2f63d0d4b55ca5540eeeb8cf"
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+      "bytes": 26888,
+      "sha256": "248a20394349977a6cd9d6c281404dbb9fe1c15dd8bbe52584f0c1015e542e8b"
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+      "bytes": 20971,
+      "sha256": "d08944f9abb7ed116922310dc9080162077d49647e4d6b7a33e2802c1acd8115"
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_R1_PAIR_PROOF_REVIEW.md",
+      "bytes": 6569,
+      "sha256": "cc992e60a0cfbb3a340458e93b623428431ee97685d8892e912e29123166a6d2"
+    },
+    {
+      "path": "consolidation-inputs/native-07/INPUT_SUFFICIENCY.json",
+      "bytes": 2240,
+      "sha256": "c2d540e2e65886f81c3d7c9aeaac0c59ee3b26c19d18463569aa038382a74569"
+    },
+    {
+      "path": "consolidation-inputs/native-07/LAYERED_ALLOCATION_BOUND_TRIAGE.md",
+      "bytes": 5881,
+      "sha256": "961d381e7410c99ce9cfb44483e82294bbdd5533d699f7e0806793c974abcdec"
+    },
+    {
+      "path": "consolidation-inputs/native-07/MEASURED_BASELINE.json",
+      "bytes": 5575,
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+    },
+    {
+      "path": "consolidation-inputs/native-07/NATIVE_C2_CLOSED_RESULT.json",
+      "bytes": 2210,
+      "sha256": "a830c8c535518c30e7ca24775976ee0502e0189d5f13a955a5042fab4fa78067"
+    },
+    {
+      "path": "consolidation-inputs/native-07/NATIVE_GRANT.json",
+      "bytes": 17783,
+      "sha256": "d75aca0b77bb8fa54394ecc6c0bed35df0aa4d5f3d63e7d9ef31f0ccac7503a4"
+    },
+    {
+      "path": "consolidation-inputs/native-07/NATIVE_UAT_CLOSED_RESULT.json",
+      "bytes": 6403,
+      "sha256": "e7be64e897614fb2d9f088c14f637991e37123f3e3fb2e93f84b8d44523566b8"
+    },
+    {
+      "path": "consolidation-inputs/native-07/NEXT_PROOF_EXTERNAL_INPUTS.json",
+      "bytes": 17613,
+      "sha256": "162f0a6fe698fe65019c0b40bfaeac4556d72503a825649b92871d81038a1864"
+    },
+    {
+      "path": "consolidation-inputs/native-07/PERFORMANCE_DETAIL.md",
+      "bytes": 3524,
+      "sha256": "93218ff1e5bd4591b71274f36716656d70b795815c7bc8758c99d8f7673e059f"
+    },
+    {
+      "path": "consolidation-inputs/native-07/PREVIOUS_NATIVE_RETURN.json",
+      "bytes": 68048,
+      "sha256": "da660fb70a04e7b0603cddb4c0439f502f6e026a7f2ecd5dd6ceca5d6320d938"
+    },
+    {
+      "path": "consolidation-inputs/native-07/PRIOR_ACTIVATION_CONJUNCTION.json",
+      "bytes": 21305,
+      "sha256": "c42f01a28029f29ff00a9f01800344c5fa64be21121f496061015f5bc1772c27"
+    },
+    {
+      "path": "consolidation-inputs/native-07/PRIOR_ACTUAL_C2_SUMMARY.json",
+      "bytes": 15561,
+      "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+    },
+    {
+      "path": "consolidation-inputs/native-07/REMAINING_OWNER_CLASSIFICATION.md",
+      "bytes": 9434,
+      "sha256": "08835d3d39f6cd7ac1fc7826dab0d1970f2b6d28211a903437366297fb50d84e"
+    },
+    {
+      "path": "consolidation-inputs/native-07/REMAINING_PAIR_PROOF_TRIAGE.md",
+      "bytes": 13531,
+      "sha256": "2878be07fb7a31154feecb8d7da472a760e6881e540c53298711d94ff3ff4d79"
+    },
+    {
+      "path": "consolidation-inputs/native-07/ROOT_REENTRY_SELECTION_07.md",
+      "bytes": 12312,
+      "sha256": "24fb0de17574b992d28fab71009f086f56c346e84effd98e9b7654b4551d6bc2"
+    },
+    {
+      "path": "consolidation-inputs/native-07/ROOT_TRIAGE_AND_SELECTION.md",
+      "bytes": 7947,
+      "sha256": "071176d93d9b20f0d7ecc0db7f9fa0a6fea1f6d432766807b6e6ea6a7831de5d"
+    },
+    {
+      "path": "consolidation-inputs/native-07/TASK.md",
+      "bytes": 1962,
+      "sha256": "f2d57672679a0a8329a49974615065252dcaecc632769ce06ed291499954fa8e"
+    },
+    {
+      "path": "consolidation-inputs/native-07/UAT_CAPACITY_TRIAGE.md",
+      "bytes": 9512,
+      "sha256": "9f7dfd2f7b44c20f262f5e7716e6e2a42484ead4cdec4638f20d83cc1e63105c"
+    },
+    {
+      "path": "consolidation-inputs/native-07/c2-proof.mjs",
+      "bytes": 7744,
+      "sha256": "e5e2fa0c4ce28008051134b893102dc0588da79ec6b91c4ceffccb8bf8250914"
+    },
+    {
+      "path": "consolidation-inputs/native-07/rubric.json",
+      "bytes": 1879,
+      "sha256": "987adaade5d582b1a9bf616a38e90e2ae18db7b154aa297459e4c61e973dcae9"
+    },
+    {
+      "path": "specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    }
+  ],
+  "sources": [
+    {
+      "path": "specification/PRODUCT.md",
+      "sourceBytes": 100324,
+      "entryBytes": 102261,
+      "metadataBytes": 185,
+      "removableRenderedBytes": 102076,
+      "contentBytes": 100324,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/PREVIOUS_NATIVE_RETURN.json",
+      "sourceBytes": 68048,
+      "entryBytes": 72166,
+      "metadataBytes": 218,
+      "removableRenderedBytes": 71948,
+      "contentBytes": 68048,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+      "sourceBytes": 26888,
+      "entryBytes": 28430,
+      "metadataBytes": 236,
+      "removableRenderedBytes": 28194,
+      "contentBytes": 26888,
+      "contentIn": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sourceBytes": 27131,
+      "entryBytes": 27846,
+      "metadataBytes": 241,
+      "removableRenderedBytes": 27605,
+      "contentBytes": 27131,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/PRIOR_ACTIVATION_CONJUNCTION.json",
+      "sourceBytes": 21305,
+      "entryBytes": 22877,
+      "metadataBytes": 224,
+      "removableRenderedBytes": 22653,
+      "contentBytes": 21305,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/C2_INPUTS.json",
+      "sourceBytes": 21389,
+      "entryBytes": 22751,
+      "metadataBytes": 205,
+      "removableRenderedBytes": 22546,
+      "contentBytes": 21389,
+      "contentIn": null
+    },
+    {
+      "path": ".claude/references/COORDINATED_HANDOFF.md",
+      "sourceBytes": 22028,
+      "entryBytes": 22622,
+      "metadataBytes": 201,
+      "removableRenderedBytes": 22421,
+      "contentBytes": 22028,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+      "sourceBytes": 20971,
+      "entryBytes": 22109,
+      "metadataBytes": 242,
+      "removableRenderedBytes": 21867,
+      "contentBytes": 20971,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+      "sourceBytes": 20861,
+      "entryBytes": 22057,
+      "metadataBytes": 233,
+      "removableRenderedBytes": 21824,
+      "contentBytes": 20861,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/NATIVE_GRANT.json",
+      "sourceBytes": 17783,
+      "entryBytes": 18693,
+      "metadataBytes": 208,
+      "removableRenderedBytes": 18485,
+      "contentBytes": 17783,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/NEXT_PROOF_EXTERNAL_INPUTS.json",
+      "sourceBytes": 17613,
+      "entryBytes": 18527,
+      "metadataBytes": 222,
+      "removableRenderedBytes": 18305,
+      "contentBytes": 17613,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/PRIOR_ACTUAL_C2_SUMMARY.json",
+      "sourceBytes": 15561,
+      "entryBytes": 16999,
+      "metadataBytes": 219,
+      "removableRenderedBytes": 16780,
+      "contentBytes": 15561,
+      "contentIn": null
+    },
+    {
+      "path": "specification/INTENT.md",
+      "sourceBytes": 16326,
+      "entryBytes": 16870,
+      "metadataBytes": 183,
+      "removableRenderedBytes": 16687,
+      "contentBytes": 16326,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+      "sourceBytes": 14613,
+      "entryBytes": 15542,
+      "metadataBytes": 232,
+      "removableRenderedBytes": 15310,
+      "contentBytes": 14613,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/REMAINING_PAIR_PROOF_TRIAGE.md",
+      "sourceBytes": 13531,
+      "entryBytes": 13837,
+      "metadataBytes": 221,
+      "removableRenderedBytes": 13616,
+      "contentBytes": 13531,
+      "contentIn": null
+    },
+    {
+      "path": ".claude/skills/stdo-work/SKILL.md",
+      "sourceBytes": 13369,
+      "entryBytes": 13825,
+      "metadataBytes": 193,
+      "removableRenderedBytes": 13632,
+      "contentBytes": 13369,
+      "contentIn": null
+    },
+    {
+      "path": "AGENTS.md",
+      "sourceBytes": 12932,
+      "entryBytes": 13342,
+      "metadataBytes": 169,
+      "removableRenderedBytes": 13173,
+      "contentBytes": 12932,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/ROOT_REENTRY_SELECTION_07.md",
+      "sourceBytes": 12312,
+      "entryBytes": 12712,
+      "metadataBytes": 219,
+      "removableRenderedBytes": 12493,
+      "contentBytes": 12312,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/CONTEXT_AND_CAUSAL_MAP.md",
+      "sourceBytes": 11069,
+      "entryBytes": 11464,
+      "metadataBytes": 216,
+      "removableRenderedBytes": 11248,
+      "contentBytes": 11069,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/REMAINING_OWNER_CLASSIFICATION.md",
+      "sourceBytes": 9434,
+      "entryBytes": 9820,
+      "metadataBytes": 223,
+      "removableRenderedBytes": 9597,
+      "contentBytes": 9434,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/UAT_CAPACITY_TRIAGE.md",
+      "sourceBytes": 9512,
+      "entryBytes": 9809,
+      "metadataBytes": 212,
+      "removableRenderedBytes": 9597,
+      "contentBytes": 9512,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/ROOT_TRIAGE_AND_SELECTION.md",
+      "sourceBytes": 7947,
+      "entryBytes": 8322,
+      "metadataBytes": 218,
+      "removableRenderedBytes": 8104,
+      "contentBytes": 7947,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/CENSUS_FOLLOWUP_CLASSIFICATION.md",
+      "sourceBytes": 7871,
+      "entryBytes": 8197,
+      "metadataBytes": 223,
+      "removableRenderedBytes": 7974,
+      "contentBytes": 7871,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/c2-proof.mjs",
+      "sourceBytes": 7744,
+      "entryBytes": 8092,
+      "metadataBytes": 202,
+      "removableRenderedBytes": 7890,
+      "contentBytes": 7744,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/FH_POSITIVE_PREMISE_TRIAGE.md",
+      "sourceBytes": 7226,
+      "entryBytes": 7506,
+      "metadataBytes": 219,
+      "removableRenderedBytes": 7287,
+      "contentBytes": 7226,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/NATIVE_UAT_CLOSED_RESULT.json",
+      "sourceBytes": 6403,
+      "entryBytes": 6947,
+      "metadataBytes": 219,
+      "removableRenderedBytes": 6728,
+      "contentBytes": 6403,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_R1_PAIR_PROOF_REVIEW.md",
+      "sourceBytes": 6569,
+      "entryBytes": 6858,
+      "metadataBytes": 233,
+      "removableRenderedBytes": 6625,
+      "contentBytes": 6569,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/MEASURED_BASELINE.json",
+      "sourceBytes": 5575,
+      "entryBytes": 6299,
+      "metadataBytes": 212,
+      "removableRenderedBytes": 6087,
+      "contentBytes": 5575,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/LAYERED_ALLOCATION_BOUND_TRIAGE.md",
+      "sourceBytes": 5881,
+      "entryBytes": 6164,
+      "metadataBytes": 224,
+      "removableRenderedBytes": 5940,
+      "contentBytes": 5881,
+      "contentIn": null
+    },
+    {
+      "path": ".claude/references/PRODUCT_BASIS.md",
+      "sourceBytes": 3947,
+      "entryBytes": 4250,
+      "metadataBytes": 194,
+      "removableRenderedBytes": 4056,
+      "contentBytes": 3947,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/PERFORMANCE_DETAIL.md",
+      "sourceBytes": 3524,
+      "entryBytes": 3785,
+      "metadataBytes": 211,
+      "removableRenderedBytes": 3574,
+      "contentBytes": 3524,
+      "contentIn": null
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sourceBytes": 3136,
+      "entryBytes": 3675,
+      "metadataBytes": 180,
+      "removableRenderedBytes": 3495,
+      "contentBytes": 3136,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/INPUT_SUFFICIENCY.json",
+      "sourceBytes": 2240,
+      "entryBytes": 2615,
+      "metadataBytes": 212,
+      "removableRenderedBytes": 2403,
+      "contentBytes": 2240,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/NATIVE_C2_CLOSED_RESULT.json",
+      "sourceBytes": 2210,
+      "entryBytes": 2599,
+      "metadataBytes": 218,
+      "removableRenderedBytes": 2381,
+      "contentBytes": 2210,
+      "contentIn": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "sourceBytes": 1812,
+      "entryBytes": 2262,
+      "metadataBytes": 228,
+      "removableRenderedBytes": 2034,
+      "contentBytes": 1812,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/TASK.md",
+      "sourceBytes": 1962,
+      "entryBytes": 2220,
+      "metadataBytes": 197,
+      "removableRenderedBytes": 2023,
+      "contentBytes": 1962,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/rubric.json",
+      "sourceBytes": 1879,
+      "entryBytes": 2195,
+      "metadataBytes": 201,
+      "removableRenderedBytes": 1994,
+      "contentBytes": 1879,
+      "contentIn": null
+    },
+    {
+      "path": "consolidation-inputs/native-07/EXTERNAL_READ_RESOURCES.json",
+      "sourceBytes": 1105,
+      "entryBytes": 1400,
+      "metadataBytes": 218,
+      "removableRenderedBytes": 1182,
+      "contentBytes": 1105,
+      "contentIn": null
+    }
+  ],
+  "worksite": {
+    "files": 911,
+    "fileVectorBytes": 807143,
+    "metadataOnlyFileVectorBytes": 217309,
+    "inlineSourceBytesAboveMetadata": 589834
+  },
+  "testing": {
+    "totalBytes": 96877,
+    "selectedPathsBytes": 73911,
+    "selectedPaths": 911,
+    "commandsBytes": 20581,
+    "commands": 7
+  },
+  "observations": [
+    {
+      "purpose": "construction",
+      "bytes": 6242
+    },
+    {
+      "purpose": "testing",
+      "bytes": 50995
+    }
+  ],
+  "priorJudgmentBytes": 11979,
+  "previousReturnFieldBytes": [
+    {
+      "field": "proof",
+      "serializedBytes": 22629
+    },
+    {
+      "field": "sourceHashes",
+      "serializedBytes": 17811
+    },
+    {
+      "field": "census",
+      "serializedBytes": 7022
+    },
+    {
+      "field": "changedFromNative05",
+      "serializedBytes": 2990
+    },
+    {
+      "field": "dispositions",
+      "serializedBytes": 2796
+    },
+    {
+      "field": "scratchCorrespondence",
+      "serializedBytes": 2010
+    },
+    {
+      "field": "disclosures",
+      "serializedBytes": 1635
+    },
+    {
+      "field": "gaps",
+      "serializedBytes": 1191
+    },
+    {
+      "field": "basis",
+      "serializedBytes": 1016
+    },
+    {
+      "field": "rubric",
+      "serializedBytes": 986
+    },
+    {
+      "field": "grantPathsOutsideSubject",
+      "serializedBytes": 669
+    },
+    {
+      "field": "trackedChangedNewSinceSubject",
+      "serializedBytes": 276
+    },
+    {
+      "field": "returnedUtc",
+      "serializedBytes": 20
+    },
+    {
+      "field": "kind",
+      "serializedBytes": 16
+    },
+    {
+      "field": "status",
+      "serializedBytes": 7
+    },
+    {
+      "field": "readiness",
+      "serializedBytes": 5
+    },
+    {
+      "field": "unchangedFromNative05Count",
+      "serializedBytes": 3
+    },
+    {
+      "field": "trackedChangedOutsideGrant",
+      "serializedBytes": 2
+    }
+  ],
+  "predictions": [
+    {
+      "name": "completed_native06_review_bodies",
+      "kind": "predictive_source_selection_only_not_future_admission",
+      "referenceOnlyPaths": [
+        "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json"
+      ],
+      "heldUnchanged": "All worksite files/context, readRoots/testing selectedPaths, construction readFirst, assessment sources, requiredSupportRefs, outcome/criteria, observations and prior judgment remain baseline byte values. Only selector-embedded original.sources membership changes.",
+      "taskProjectionBytes": 910915,
+      "savedTaskBytes": 87510
+    },
+    {
+      "name": "reviews_plus_previous_native06_return",
+      "kind": "predictive_source_selection_only_not_future_admission",
+      "referenceOnlyPaths": [
+        "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+        "consolidation-inputs/native-07/PREVIOUS_NATIVE_RETURN.json"
+      ],
+      "heldUnchanged": "All worksite files/context, readRoots/testing selectedPaths, construction readFirst, assessment sources, requiredSupportRefs, outcome/criteria, observations and prior judgment remain baseline byte values. Only selector-embedded original.sources membership changes.",
+      "taskProjectionBytes": 838906,
+      "savedTaskBytes": 159519
+    }
+  ]
+}

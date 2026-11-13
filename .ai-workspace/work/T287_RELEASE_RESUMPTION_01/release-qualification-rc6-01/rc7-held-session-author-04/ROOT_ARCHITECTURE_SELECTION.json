@@ -1,0 +1,148 @@
+{
+  "kind": "root_h04_coordinate_body_caller_correction_selection",
+  "status": "ROOT_SELECTED_NATIVE_TWO_FILE_REALIZATION_CORRECTION",
+  "createdUtc": "2026-11-06T18:02:46.871416+00:00",
+  "productFrame": {
+    "method": "installed STDO3.0.4",
+    "product": "ABIogenesis5.0 fixed fifteen-family scope",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "composition": [],
+    "runtimeAuthority": "ABG",
+    "installedBuilder": "5.0.0-rc.6",
+    "classification": "existing HOW realization correction; no new Product outcome, authority, public contract or runtime entity"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_AFTER.json",
+    "bytes": 563481,
+    "sha256": "91d1bf35da77f4fb7edb425ea5d7b94a736f60ae192e730cf36d6771418f22fe"
+  },
+  "actualFinalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-return-controls/actual-recovery-001/review-subject-001/SUBJECT.json",
+    "bytes": 12176,
+    "sha256": "5cdc2465bb214215b7a7bd99e2f1adccab2302c04f9bae01f617b9198426babe"
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8372,
+    "sha256": "7fa76990041e5b6dec07fc719ac86305b029eaba063602055a17b3a8905c86a3"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/after-run-resume.json",
+    "bytes": 72498702,
+    "sha256": "521b5f15987a92fdf818503cd62e057758bf3a656f36c7532204624cfa98aceb"
+  },
+  "priorSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/reviews/stage-001/REVIEW.json",
+    "bytes": 12073,
+    "sha256": "3a5e846016b06799ecf9c9ea91184b7dfd0721456dc1b8bac6dd81ea92317a73"
+  },
+  "newCounterexample": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/reviews/caller-binding-001/REVIEW.json",
+    "bytes": 10026,
+    "sha256": "abb34839071f71a49760c7be816601df018d07def4f76a363aba268d9b5a9871"
+  },
+  "actualFailedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/proof/SUMMARY.json",
+    "bytes": 4570,
+    "sha256": "4455a79dd7c6a7e4d7d2a66b17b038f2e0ceb4e7bb40f2f7562bf2e3fea12d19"
+  },
+  "completedBuildReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+    "bytes": 102337,
+    "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+  },
+  "completedBuildSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/SUMMARY.json",
+    "bytes": 4084,
+    "sha256": "10364df1188c668e6bd4406bd0a7c6c69a16db4ef915df8d4513b9fb20689007"
+  },
+  "rootCause": {
+    "origin": "The new caller record and assertions treat a {ref,digest} binding coordinate as a WorkspaceBinding body.",
+    "actualFailure": "TypeError reading productRoot at public-setup.mjs333 during populateSandbox, before actual Testing admission.",
+    "outputContract": "environment_operation_contracts.ts449\u2013454 declares bind result.binding as refDigestSchema; environment_definition_bindings.ts169\u2013172/779 construct ref=bindingId and digest=bindingDigest.",
+    "existingBodyOwner": "publicCaller.refresh projects the owned prefix into state.environment.workspaceBinding; this existing derived body supplies roots.",
+    "completeAffectedCone": [
+      "public-setup.mjs333 state.programBinding.productRoot",
+      "t287-default-library.test.mjs2537 W assignment and2542\u20132543 root assertions",
+      "t287-default-library.test.mjs2552 recorded-coordinate assertion"
+    ],
+    "affectedPaths": "Both fixed library setup and ordinary consumer setup use the unconditional setup record.",
+    "whyPriorChecksMissed": "Three edited files are untyped mjs; controlled caller case injects programBinding and bypasses populateSandbox. Source review missed the explicit owner-output shape join; actual installed integration caught it."
+  },
+  "selectedRepair": {
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "body": "Read roots from the already derived state.environment.workspaceBinding.",
+    "coordinate": "Keep state.binding and setup-identity.workspaceBinding as the existing admitted coordinate; compare coordinate identity without adding a serialized body.",
+    "forbidden": [
+      "extra refresh/reopen for this field access",
+      "new helper/controller/cache/public export",
+      "Product guard or code/src change",
+      "mid-call rebinding",
+      "adding a full WorkspaceBinding body to the identity record",
+      "HOW rewrite or expanded feature scope"
+    ],
+    "owningHow": "Existing H03 HOW and SINGLE_START section3 remain applicable; this correction realizes their existing body/coordinate distinction."
+  },
+  "nativeExecution": {
+    "oneCodingWorker": true,
+    "reasoning": "xhigh",
+    "maxTurns": 320,
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 1800000,
+    "hostTimeoutMs": 10800000,
+    "memoryLimitMiB": 8192,
+    "automaticRetries": 0,
+    "sourceRows": 451,
+    "stages": 1,
+    "lanes": [
+      {
+        "id": "fixed-route",
+        "timeoutMs": 600000
+      },
+      {
+        "id": "held-session",
+        "timeoutMs": 600000
+      },
+      {
+        "id": "assessment-guards",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "native-workspace-owner",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "caller",
+        "timeoutMs": 300000
+      }
+    ],
+    "stop": "Any unexpected Product/architecture failure, source mismatch, unsafe artifact reuse or out-of-scope correction returns to Root."
+  },
+  "proofOrder": {
+    "first": "Actual installed Testing -> admitted state Result -> UAT, including complete held/fresh agreement.",
+    "second": "Existing HS02 installed ordinary-consumer/held-session case, because the changed unconditional setup affects that path; its previous accepted evidence stays historical.",
+    "remaining": "Previously unconsumed affected assessment, workspace-owner and caller lanes.",
+    "allowedHistoricalSkip": "admitted pure consumer evaluates a native task as data without physical authority",
+    "newTests": "No new mirror test is selected; use the existing affected integration/counter cases."
+  },
+  "buildEvidenceReuse": {
+    "selection": "Freeze the451-row caller-only successor and use an isolated copy of the exact completed H03 Product payload and dependency owners.",
+    "requirements": [
+      "Both writable mjs paths are excluded from the declared package payload.",
+      "Verify unchanged Product/package/source inputs and full declared Product payload membership/bytes against the completed H03 manifest and existing owners.",
+      "Preserve original stage and all failures; publish a new frozen source subject before proof.",
+      "Explicitly identify reused compile/generation/lifecycle evidence; do not relabel old commands as newly executed.",
+      "If exact reuse cannot be supported, return to Root before effects rather than inventing a cache or framework."
+    ],
+    "noUnnecessaryCompileOrGeneration": true
+  },
+  "acceptanceBoundary": "Root conjoins actual native.after/stage/live custody, independent max frozen review and all five selected lanes before accepting HS01/HS02 and activating HS03.",
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

@@ -1,0 +1,94 @@
+{
+  "kind": "closed_selected_two_case_proof_return",
+  "status": "SELECTED_TWO_CASES_PASSED_NO_ACCEPTANCE",
+  "recordedUtc": "2026-11-06T04:53:02.571984+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/ROOT_SUPPLEMENTARY_SELECTION.json",
+    "bytes": 5385,
+    "sha256": "5031d4f213e09f60130d7378ddae40146186ae9e3d353b9bb734670244b50c19"
+  },
+  "closedResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/TWO_CASE_REENTRY.json",
+    "bytes": 5837,
+    "sha256": "f16d92786ba6dbcf83da4c3381aea94077a857aeb11778e933073bcc6219008e"
+  },
+  "commandReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/default-library-two-cases-001.result.json",
+    "bytes": 10832,
+    "sha256": "88648b918ee61a0f38ee1fd6a1c528329738375b6c7cd1364b93d0d474d15eb3"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/default-library-two-cases-001.stdout",
+    "bytes": 9142,
+    "sha256": "9b8cdafeeaf66553140cb32fa6cb442b35ad5ef9ebfc4fc16d0f36391af1c054"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/default-library-two-cases-001.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "selectedCounts": {
+    "requested": 2,
+    "pass": 2,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0
+  },
+  "testDurations": [
+    {
+      "name": "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+      "durationMs": 121436.521709
+    },
+    {
+      "name": "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+      "durationMs": 122431.591292
+    }
+  ],
+  "wallMs": 244431.585458,
+  "timeoutMs": 300000,
+  "timedOut": false,
+  "truncated": false,
+  "exitCode": 0,
+  "nameFiltering": "Exact anchored two-case selector was used unchanged. Node emitted only these two cases and no name-filter exclusion rows; unselected cases were not run and receive neither pass nor source-declared skip credit.",
+  "afterEquality": {
+    "checked": 449,
+    "changes": []
+  },
+  "preservedReportsAfter": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/SUMMARY.json",
+      "bytes": 32178,
+      "sha256": "6f357a2bb78d79ed6087fcb5d3dd1c11724ce3e18ed6d34d9cf786f206532609"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/consumers.json",
+      "bytes": 10840,
+      "sha256": "000f8ff7ef68f8b7f0a1ca470b548c19fcec455b4c30e302cebb95868b9c090b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/uat-harness.json",
+      "bytes": 4791,
+      "sha256": "c19b4887b393c79fe6629131a773aedec505035fe847c90cd4d7b6c503ad4f68"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/SKIPS.json",
+      "bytes": 4390,
+      "sha256": "91233862f321e5b41ad1c6322847b78cad8343c646401b32b1ea2dc3f948217e"
+    }
+  ],
+  "qualificationCarrierStanding": "Seven ABI5_F11_CARRIER_FULL_FIXTURE cases remain unbound/uncovered; no credit or full5.0 qualification-gate change.",
+  "coverageStanding": "This exact frozen partial candidate now has selected cold pending-Testing resume and cross-Run retained-source-use proof under the added existing fixture. Original consumer77/63/2/12 and harness32/32 receipts remain intact. No aggregate full-lane rerun or whole Product success is claimed.",
+  "limits": [
+    "No Product/HOW/test edit, source C write, campaign runtime read/write or immutable install change.",
+    "Do not repeat compile, generation, guard, harness, full consumers or the63 prior passing cases.",
+    "Preserve actual77/63/2/12 and32/32 original artifacts; name-filtered exclusions are not historical skips or passes.",
+    "Seven F11carrier cases remain explicitly unbound/uncovered in the full5.0 qualification gate.",
+    "Stop and return any unexpected failure; no further resource acquisition or automatic retry.",
+    "No whole objective, independent Product acceptance, runtime/evidence admission, qualification or release claim."
+  ]
+}

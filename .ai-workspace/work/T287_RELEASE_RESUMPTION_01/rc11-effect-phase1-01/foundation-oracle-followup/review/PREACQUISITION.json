@@ -1,0 +1,120 @@
+{
+  "kind": "foundation_oracle_preacquisition",
+  "recordedAt": "2026-11-09T18:45:58.725303+00:00",
+  "status": "ready-for-frozen-review",
+  "authorityIssues": [],
+  "candidateExposed": false,
+  "baselineCommit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+  "sourcePins": [
+    {
+      "commit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+      "path": "AGENTS.md",
+      "bytes": 13754,
+      "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd"
+    },
+    {
+      "commit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+      "path": "specification/PRODUCT.md",
+      "bytes": 101285,
+      "sha256": "c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6"
+    },
+    {
+      "commit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 396214,
+      "sha256": "43ce5ccae4fc28a4ac5d20cc14b2188ff7176c8a06bec9e89c5c39ac1f0e3536"
+    },
+    {
+      "commit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+      "path": "specification/requirements/product/REQ-P-CATALOG.md",
+      "bytes": 13757,
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+    },
+    {
+      "commit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+      "path": "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+    },
+    {
+      "commit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "bytes": 60790,
+      "sha256": "cec88a1d0f39784b6a981f6ebd720fc5e8ca744dea810d95e757cb4e97f82b84"
+    },
+    {
+      "commit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 203094,
+      "sha256": "32c9ab82231f187dba17f552931053781d0434d8e109fd1c5c54a0aa577f4345"
+    },
+    {
+      "commit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "bytes": 20232,
+      "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812"
+    }
+  ],
+  "triage": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/ASSESSMENT.md",
+      "bytes": 6616,
+      "sha256": "b6704ca0ae4efe6c2ac4af9e1a02c5b866a3bb52497bf49e1489ff0503342ed7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/EVIDENCE.json",
+      "bytes": 4014,
+      "sha256": "5d052a6209e89a61ad04941a739585a75df95549f71085a9181e3d01b24cae95"
+    }
+  ],
+  "selectedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+  ],
+  "installedBehaviorTailBaseline": {
+    "startsAt": "installed owner-chain test, baseline line356",
+    "bytes": 46475,
+    "sha256": "3d0fa38735ce71d1ccdb786b75ea6d2ee0c5da1950239bf13be388e1f62432a4"
+  },
+  "criteria": [
+    {
+      "id": "F1",
+      "expectation": "Exactly the selected W2-05 oracle/comment/mutation cases and matching Common Library Design sentence change; no production, requirement, dependency, legacy-root exclusion or installed behavioral assertion change."
+    },
+    {
+      "id": "F2",
+      "expectation": "Capability names, constructor choice, declaration count or exact helper/variable names do not become semantic permission or forbidden-authority evidence. No replacement API/helper approval gate."
+    },
+    {
+      "id": "F3",
+      "expectation": "A fresh call-local Map visited relation equivalent to the existing Set is accepted by the corrected static oracle. Benign collection spelling/data/comments do not manufacture an authority failure."
+    },
+    {
+      "id": "F4",
+      "expectation": "Legacy applyRootPublicInvocation/createRootOperationContext/legacyRequest exclusions remain exercised and installed OWNER_CHAIN_PATHS are still read through the real installed harness."
+    },
+    {
+      "id": "F5",
+      "expectation": "Owner facts retain exact definition/request-schema/canonical-output/deep-immutability basis, copy/raw/mutation/default refusal, catalog coherence/idempotence, eventless construction and ABG runtime truth. Existing installed behavioral assertions remain intact."
+    },
+    {
+      "id": "F6",
+      "expectation": "Design states the semantic owner/lifetime boundary and truthful limited purpose of the oracle, rather than exactly three allowed collections or an unsupported claim that token absence proves no hidden authority."
+    },
+    {
+      "id": "F7",
+      "expectation": "Corrected static cases discriminate benign local mechanism from the retained forbidden legacy seams. Complete W2-05 installed-owner-chain proof uses the exact frozen successor and actual installed source path; case names/counts/skips and artifact/build correspondence are retained."
+    },
+    {
+      "id": "F8",
+      "expectation": "Reference/canonical owner proof is conjoined only where exact source/build subjects remain valid. Phase1 receipts remain separate; W2-05 is not credited to their unit selection. No runtime/installed/whole5.0 qualification claim follows."
+    }
+  ],
+  "executedTestsOrProductCode": false,
+  "phase1Proof": "separate closed scope preserved",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/PREACQUISITION.md",
+    "bytes": 4378,
+    "sha256": "3a07f2461953e1ae1ef3858711727944bd278778c15ae5746c4177857e6c500d"
+  }
+}

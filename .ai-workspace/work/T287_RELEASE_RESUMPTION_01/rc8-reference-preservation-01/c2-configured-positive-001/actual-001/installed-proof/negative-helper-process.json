@@ -1,0 +1,10 @@
+{
+  "pid": 78290,
+  "ownsGroup": false,
+  "directExit": {
+    "status": 0,
+    "signal": null
+  },
+  "closeObserved": true,
+  "failure": null
+}

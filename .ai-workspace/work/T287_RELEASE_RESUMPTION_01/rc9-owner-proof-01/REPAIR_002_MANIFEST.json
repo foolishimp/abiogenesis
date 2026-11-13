@@ -1,0 +1,588 @@
+{
+  "status": "PREPARED_NATIVE_EXECUTION_HELD",
+  "at": "2026-11-08T06:56:02.380410+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-002.mjs",
+      "bytes": 13305,
+      "sha256": "93187b4943f22cb4d601341962faa617a3b8a551b7b733187784f594c39c9170"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FOCUSED_BINDING.PREPARATION.002.json",
+      "bytes": 5758,
+      "sha256": "9c8322a919101bec5b6fe54e89695b997f44f4618ec1dc0845fc6c8c33bfd99d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/REPAIR_002_ADMISSION.json",
+      "bytes": 2138,
+      "sha256": "3df6e9094b02325b9e1e666e81bc136c63fad57c82390f71c22e096ebcd72fea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/REPAIR_002_SOURCE_CORRESPONDENCE.json",
+      "bytes": 603,
+      "sha256": "cc1ad690ae5fac55ef0bbbfe82e71e1465fcddc4ed3e857f74d368bd4432ac87"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/REPAIR_002_RESULT.json",
+      "bytes": 6685,
+      "sha256": "164e9311765cee0075792ad2dc7595b8c933c1db38d5572d42c02571e82cf17a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/CONTROL_REQUEST.json",
+      "bytes": 2531,
+      "sha256": "910199dd6ebbac9992c307dacb3a754475b6ba5b26f23c2f83884a7a03a943ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/OBSERVATIONS.json",
+      "bytes": 4128,
+      "sha256": "8bd4fabecdb1b832710ebae0b0a09e548a22bb96a1558dfb4c143329385da636"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/RESULT.json",
+      "bytes": 706,
+      "sha256": "f0c9c3d6594d82f0d28fddc6d789c52d1c1960d59b47e9ac024012b800edd84a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.request.json",
+      "bytes": 709,
+      "sha256": "2ee9a1a60fa13a10dea6e7f3f79a9efafdd644046808ca0298fc74e9f153ec00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.result.json",
+      "bytes": 1173,
+      "sha256": "15be5cb0f26b7b1b06bb3e9ebcfe98d9706649b050bb8d10f16e8cb6a855d8fe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.stdout",
+      "bytes": 1316,
+      "sha256": "d4d469a777f6f68cb0f7cf9b0a4c022e362710992874a196f2537f068d5bfd7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/events.jsonl",
+      "bytes": 2005,
+      "sha256": "3aca8779fa27b1e05bcf3c8eb457de80a6875f926a98b8c52909296c90dd24da"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/npm-cache/_logs/2026-11-08T06_54_32_732Z-debug-0.log",
+      "bytes": 1463,
+      "sha256": "c65ff450b3df00b950676c883fac5998c3e7e2e266661c84dcbe8389d02bd5b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/package.json",
+      "bytes": 251,
+      "sha256": "df60d066eb9afcfc6d09ef05faf201e42885be668d4db4868aa90fcf6aadc161"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/run.mjs",
+      "bytes": 5550,
+      "sha256": "3294b4b8cf918c0d70167c0c48ad0e60ccdc706669ef64a07588e4e3f2c233bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/scripts/node-test-evidence-reporter.mjs",
+      "bytes": 1514,
+      "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/test_env/tests/control-reporter.test.mjs",
+      "bytes": 186,
+      "sha256": "68b657cce164948e48e0e4660c4b95335123efc5c4e258ee80c019184bbacb9a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/0655ecda",
+      "bytes": 1124,
+      "sha256": "31a45bb484cb90bb01a73f3168dcf33b3e04be43f8518cfa359180732192e313"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/077122c4",
+      "bytes": 1332,
+      "sha256": "939275a0aa833fba6fb95b86fa054d061daf71e2f7e555b28631ba1b955a29ee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/0dfc1d4d",
+      "bytes": 2276,
+      "sha256": "dda5d779a6a978469d82bb9a9f7c8d44cb934c43787b0362435538f8d1432828"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/0f88073a",
+      "bytes": 2284,
+      "sha256": "766f3958c514c50c41988a6f556504a5cb86d948015afb648586fbc2f22f65be"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/150f4755",
+      "bytes": 1820,
+      "sha256": "c2dbb55f706068a8dfb313fca6fda5da78636115183546941f827c73f70fdf4a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/1640165a",
+      "bytes": 1052,
+      "sha256": "36998e5104b08509b7b49a451031190a644f9a8a5d106bbd2ac03918d456b9cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/166d9515",
+      "bytes": 1108,
+      "sha256": "25931a29e2f7dd272634e1482d8ed36c3d97242b8e45ff572b686a6db5d5534f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/19f11bee",
+      "bytes": 3476,
+      "sha256": "a42958e0a4363693ce374d6c341130369c716c37b3aabebfc0627e16b537bd07"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/1b6c267b",
+      "bytes": 2188,
+      "sha256": "bb00df0081eb60070ff0d7a88feeff64021cf9e8d12af9e31bc196fe0e03a459"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/1b6cfceb",
+      "bytes": 1412,
+      "sha256": "d88898ed0e21dddf6922294e35e06d4a83742abb915a7c74b3f81649b8c0c7cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/1c192005",
+      "bytes": 916,
+      "sha256": "f5a7f9df44b3ad563a446de1811876e71d82346b8b1ce5829d6d6864982351f7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/1cf2efb3",
+      "bytes": 916,
+      "sha256": "b1324f3f55ff7a71d68fa7ad7e2ca5fa767f1c70b222051b564987e4be8fa1b8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/223fc457",
+      "bytes": 7156,
+      "sha256": "3b7432efa9c9f462e577e4253f35dc8c6aece4804996fb2cc915786f7ecab47e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/2411af24",
+      "bytes": 916,
+      "sha256": "28485a4c9ec26ca8f9fefcea30f599836063d1c3c969e889fc389e97b7ba88ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/246a8652",
+      "bytes": 3516,
+      "sha256": "315d650eaa428445cc23299ccb068431e58e9291dd8610ea10607eb443d19ddf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/248ff18b",
+      "bytes": 3764,
+      "sha256": "e6ed7fa6a2f2dce50871e255f7e7488e51f24c0c00d14b413c9f091392d22fb6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/26d7b246",
+      "bytes": 916,
+      "sha256": "0c3258966b6a24edc69ff0107342eb66ed047b4e30d807aea2732370d815f97a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/29598173",
+      "bytes": 876,
+      "sha256": "3c9ead9e24043d8a90d2ec42268c926fc93809b5d8c776b16b865a33a89ca724"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/2baa6322",
+      "bytes": 1124,
+      "sha256": "7eb2f6c59c7ec0e8aadc50bd5c6b1a5a00498e8b61c779027b6004758b261e08"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/2c943337",
+      "bytes": 1324,
+      "sha256": "35376f1d0d4978d3f5a3f7049eaff001c214a70f1990845a5dc0d93a7e11a291"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/306554cb",
+      "bytes": 1108,
+      "sha256": "49958371eba5b5898bb22d6ba8834ca339c0e0f3748d73a2509c878efaee7174"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/31bc4b51",
+      "bytes": 916,
+      "sha256": "eb83b59b79d75b04214f89a20c155aa08672703186c1d8ccc0d29cda89bb34d7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/36a5744b",
+      "bytes": 5644,
+      "sha256": "c2734ebe2196b91d0de2ac92ee103cdf13cddcf44930b0a2142b46978344c4a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/37dbed22",
+      "bytes": 988,
+      "sha256": "e490c1bbf9b9147e0f45265959b6bff9b33cf942e4de56a13d3581799f654cca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/398eb1ef",
+      "bytes": 1212,
+      "sha256": "244d34e3db1190c337e592945149fee49632710e96ca74b92719acac88df9d31"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/3998ea18",
+      "bytes": 9492,
+      "sha256": "e37d7980849fe1410f5cfe98c998ad61742dae1c7ea59082d951dfe4a20f8f11"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/3eecffc1",
+      "bytes": 900,
+      "sha256": "7906f8ceb72b5179b78772b67895e562bc329fbefc555fee93128f679e2442fa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/454c08be",
+      "bytes": 13012,
+      "sha256": "e2be1e7cb9e72c6e34a1361ddc3e26cd61621f79bf55f6f19f8a485ccd39a328"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/47041e08",
+      "bytes": 4404,
+      "sha256": "8a3e9e3bb49fb2d045ad64259047451b86d27b008638959c8c2d3b24b16078dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/487752f8",
+      "bytes": 2900,
+      "sha256": "3ac7defc067c218d08b0bae94abc9dcbf405279f4c711666662f1c540c597838"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/48b9a2e3",
+      "bytes": 2572,
+      "sha256": "6818a893cd6c1af44bf6b961ae84b5df86c0b0d02e8945c5e059ad2917129353"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/49a62087",
+      "bytes": 2324,
+      "sha256": "acc92c0edf88d509b75475270ee4ded43b5337c92d3a3ed0e00a54488851f01e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/4dbcb496",
+      "bytes": 1084,
+      "sha256": "e2d0b2c180ddf4359541731b130837d026ac0e6fcbd98cddf84417960a5eecc6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/4de8c1bf",
+      "bytes": 948,
+      "sha256": "ea74688ef4a79764baaedb237d8c74a36f34dc5796dbae1b90200422b5e3b18b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/4ed65fe7",
+      "bytes": 916,
+      "sha256": "866dbe4d0838ce21a5f3818d03d2305219859c674ef652da80dd8d12e7f8b48b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/51078357",
+      "bytes": 916,
+      "sha256": "88b7c48b2441cc0145127597d10ff7780407e5db6e85b0f4fc80933a7b19517c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/55cce99e",
+      "bytes": 2324,
+      "sha256": "9b52517638a0efe6f6703e86c0df757ee7bffe74f8bacb2da177feae8b214223"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/5c9623a4",
+      "bytes": 2308,
+      "sha256": "c3e7023cf6d1f17ad1a0f4a16914100a071556eadfc84f15c391194087f0a3d2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/5ce3c97b",
+      "bytes": 932,
+      "sha256": "8ca20eac0c69a9a2e319b5a5bbf4b39f8676494f265d5614154106358f0efacd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/5db4d748",
+      "bytes": 1388,
+      "sha256": "212d7c04b48c7996db9305fe7a0a423a49dcbaa75654bc07749b1705f6f58b34"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/60a7eab6",
+      "bytes": 1020,
+      "sha256": "983d1c651173e4b09d3220815a3515542b4fa7503e8b34715a3c48e6d3d1ca87"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/6ce020bb",
+      "bytes": 2316,
+      "sha256": "0b4a393e38b0f347a639daa830db761a954bf75381de2c69b95c502247286c7e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/718e1354",
+      "bytes": 8748,
+      "sha256": "a0bf71fc7e6e4f6f56c3796cf5ebfe9fc7e465ddbac7b5d27d77be78e793b905"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/7492db49",
+      "bytes": 2596,
+      "sha256": "2ea5f347cb795c031bee9215ffe0d099a34e4649f61f556b5ad6475a37050d76"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/75407596",
+      "bytes": 2556,
+      "sha256": "47865b5d92624a047e855982b7339f8dad0a972449937ae60363b00b01c029ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/79bc75c8",
+      "bytes": 1316,
+      "sha256": "b297fe7d20ddc2f6a828e6a91dadb0f65da80dbad96d4369319bf25ee8509010"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/7a03d2a1",
+      "bytes": 1500,
+      "sha256": "2583cf2cec5de1391dd609ddb6dc1cda60a33e62c175f8e3eede3e0dcbc34e48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/83c7e61f",
+      "bytes": 1228,
+      "sha256": "5dccfc2280635ab82f25de3cae86283913b60acc9f0bf8a489dcac0bbc0638a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/847afa15",
+      "bytes": 2492,
+      "sha256": "0b2f4abe5fa0b58dddc1644cfa950010aa5b7dcb8e127630492a5475d7eddfb6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/84d4083b",
+      "bytes": 2380,
+      "sha256": "73d16b813db8fe53311b999e4b88d780f458f0c72165640e2d291343421cbeb0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/8b37215e",
+      "bytes": 980,
+      "sha256": "4b09828712e610918ee67649be2775b3dfce92d9a9205863ffee6add17250bb9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/8b39ebf7",
+      "bytes": 2828,
+      "sha256": "d1341577a369bb817007305942b171b91b6bef187745e405244530fd706bc796"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/8e31f510",
+      "bytes": 1220,
+      "sha256": "373b8a88d7fca0f809c587b8b6f8a60377a9ce0cb37f8ebf5c4d7dfc88190370"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/8fe23731",
+      "bytes": 1004,
+      "sha256": "a2dfb4d1aade9c5807af557f05d416d9215bb6eaf717dce0736fbcfa8b5e66b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/920a4535",
+      "bytes": 1260,
+      "sha256": "d34f05bdf8e318a27234d352f6ce291336803f445fecd6f048db1a01c4b2cc75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/949b5c94",
+      "bytes": 8380,
+      "sha256": "981f9c8f9c19c40705a4fd28ca4bc2333939b307b89787375a8b756c3d857b29"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/959a3c83",
+      "bytes": 4788,
+      "sha256": "348914c7a5998aab0770d64e203049c0604102d2b3bb0166063a99a7454d1ef2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/980f2fcd",
+      "bytes": 948,
+      "sha256": "0c8184c7c5bc3122801814ea74f31031f4a5716a56323484a4186960391f0f09"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/9addeb73",
+      "bytes": 1052,
+      "sha256": "304c7005b1f892c571b500de03a498c8127773abb26fb10fb4ceadffce764aad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/9dbc92c2",
+      "bytes": 1388,
+      "sha256": "a3cc4ab19b22e6a5a4941f785de917fd1ef53e71a158187d6e5ae52357fffc48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/9edc30e0",
+      "bytes": 3516,
+      "sha256": "e2c21fc1569ef2509d42af78eb9076d157ad25c9acf4a333804d857c9f7bcc8e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/a0277bba",
+      "bytes": 1524,
+      "sha256": "ad8aeb95d1abf7359d6ae5af6b5991c292977fe4dfc8283979d5d96653d98497"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/a39eb04b",
+      "bytes": 884,
+      "sha256": "ff5f57760bccd727cded5ff11fafc70f02aaa0e3aa0626f8f2928c9fbe04b9e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/a967a5bb",
+      "bytes": 884,
+      "sha256": "e8cd1028618d0e15f398082de1b74befdb203de1ae7fb3886e4691d67100a7d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/aae01ffb",
+      "bytes": 1932,
+      "sha256": "d1c594cc29797fbe2ec3beca5925e8f3e4bea40f2600579223723e524a2dada1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/ab6c4841",
+      "bytes": 2836,
+      "sha256": "b60a657e34a84c7dd569749335cda5f31b8ec34389128e46d831aa9d68454831"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/af2e7c4d",
+      "bytes": 1508,
+      "sha256": "28d2d4084fd8a06a0a9603b144d29b9c2c58a927dfe74942ed9f063bdd7b6dd9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/afc3f028",
+      "bytes": 1076,
+      "sha256": "c85ed4323580105a191fdd072df12543892ada0ea72caa3bce342d71121a3c0d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/b49b5c7f",
+      "bytes": 1988,
+      "sha256": "6d86432bfc4892a7feefad320f26956944d963af128d262230e902a08c10279f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/b624a7b7",
+      "bytes": 4308,
+      "sha256": "ae1c3193ba11e5c0cb49fd4784185da1f5df05338664eef137a6a3010e35d15a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/b6b1b90b",
+      "bytes": 884,
+      "sha256": "385980b48315446153cd9f849db9212eb55dd40196967305c3cdfe2a98790fb8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/b6d0e37a",
+      "bytes": 7436,
+      "sha256": "79d9d7372598e6a07cb27128115002eeb80c09ac41080b1be1fa0aab8a99b587"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/c3891229",
+      "bytes": 868,
+      "sha256": "2a05a2aec29e893de4eb9c8cae55891ce8d6461f2b63d8eb6e11ce3289846388"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/c889005c",
+      "bytes": 1508,
+      "sha256": "df6fe3f0b30a9698e5460f23b56d161692718d150dd4d9b8b165db9c93093532"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/ceefbcb8",
+      "bytes": 1092,
+      "sha256": "01335d8799a5462cec1bb4782657c7f2c96ce9d54b061dc5d3534bfe493fe17c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/d1367827",
+      "bytes": 4660,
+      "sha256": "f6a665f797f4e23c3c05f184c0d0ebc04144cafc4f84dee61ac2ee9753e673a0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/d381c602",
+      "bytes": 3076,
+      "sha256": "1c5fc99f8a8e190e7cf73e8545bbd41f75b5fbcc3f577713506901968e77bbfa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/d68d97f0",
+      "bytes": 1060,
+      "sha256": "f0accc62e2164e3891d54ac9d6eba5a2009dec69ed9c23d7e2163b72b4daf7c2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/d7988491",
+      "bytes": 988,
+      "sha256": "f62f202b14ab9fcfa937a1179e8717c43418c69bdfb77964396df0abd2138297"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/dea5df01",
+      "bytes": 1028,
+      "sha256": "abb11222afb7c76ceb2f0785cd352dbdaef1a8af3ce76b9120784df59b10cc2b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/df704faf",
+      "bytes": 1268,
+      "sha256": "2d3aa0efb0f95abcf3762f996d7b8414eecb41ddb1ed25d57a0832d7a0d60467"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/e1d9c08e",
+      "bytes": 2940,
+      "sha256": "6da7a8ffb88fac79b742961d4b8aca2bc6d769fcf89a186099553168fca8dd71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/e21e283a",
+      "bytes": 1540,
+      "sha256": "56f4b9135d92f9cb501927a1751771d313940494db815b1be2328c0b9f86e7b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/e71300ea",
+      "bytes": 1708,
+      "sha256": "adcd08c2bc26cd6f891a4b1ae1e7ba0362412bce144734e69ec93fce25073c98"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/e82805fc",
+      "bytes": 1676,
+      "sha256": "ca008420ebe2b6d038a9d108c9d46d996608a66d1dbe5b0d9527e65dfff06105"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/eb2270d5",
+      "bytes": 916,
+      "sha256": "4df43ecabccdaa416b06b0b92c48922ca1833182c21650b38675cafee331e2be"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/eea756eb",
+      "bytes": 948,
+      "sha256": "344b612fe197ffaf5b9c4218cc6c28b0db93b61eadf09a15dd483b0121cdc543"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/eec35fdd",
+      "bytes": 1140,
+      "sha256": "2af206022b159b258a70a851dfc6139984617162a48db56503a5128dd160b524"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/f015c2c7",
+      "bytes": 1524,
+      "sha256": "61fb2b5bedb7066c059a1cba79fdddaa9b29fcd8c62d7b77319958d9ada12b57"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/f207c936",
+      "bytes": 5716,
+      "sha256": "7ab48b96c547e6bb81438a4af5be47763a27b610188d4be3082b7d6e445aeb97"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/f3e92294",
+      "bytes": 932,
+      "sha256": "796e2d099445b5a76df7b6335af33612be08ac0b79bec82df9bd97e53f2d4c09"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/f4f15a9f",
+      "bytes": 900,
+      "sha256": "045dabf28ce3416868bdf0f61ef966e32b61e53e917c27a5115a4334b9dcb2c2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/f7b19e10",
+      "bytes": 73604,
+      "sha256": "9d531b3d49b0239eb9c67b2c7980a6b63e5669847504cd4b5d5414474943144a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/fa64bb03",
+      "bytes": 1292,
+      "sha256": "f4f5cc962b9da7eaa3f8226c39059dcef068dc7ed946e24e7822a9369f397ecc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/ff793e18",
+      "bytes": 1508,
+      "sha256": "59a89806884e08aee82d8f5f96b9d188f970d4cc2c94c5a0ac02772f17f9a32e"
+    }
+  ],
+  "preservedPriorManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PREPARATION_MANIFEST.json",
+    "bytes": 5835,
+    "sha256": "d179449a1ef0e9b33abd55ceba1021cf98744db223366b9fbf71837b2a2b8d74"
+  },
+  "noPriorFilesChanged": true,
+  "nativeScratchAllocated": false
+}

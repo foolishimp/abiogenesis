@@ -1,0 +1,428 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; GOAL-035 / T-287; all fifteen families remain the larger Product frame",
+    "selectedSlice": "Q23 frozen native-provenance component proof, Q1-Q7 rubric; retain authentic C2 and determine the bounded UAT-only integration route",
+    "userOutcome": "Obtain native assessment of the selected frozen source and retained evidence without paying for an unchanged C2 repeat solely because the operator UAT packet was malformed.",
+    "integration": "Selected Product declarations -> exact bound Catalog/View and Program -> admitted native-work assessor -> schema-owned result and ABG proof.",
+    "authority": "Root owns execution and source disposition; this is a contributing Executive triage report under STDO 3.0.4, not an execution grant or independent acceptance.",
+    "proofBoundary": "C2 command/component success is distinct from UAT, whole Q23 acceptance, F11, production assessor eligibility and release qualification."
+  },
+  "status": "CLOSED_READ_ONLY_RETAINED_STANDALONE_ROUTE_NOT_CURRENTLY_CONSTRUCTIBLE",
+  "disposition": "Preserve old C2 evidence and failed Run. Do not activate q23-uat-02 or alter owner/catalog declarations. Root subsequently selected source repair for separately established Q4/Q1 findings; affected C2 and UAT must then bind the repaired source through the known default consumer route. This does not justify repeating C2 solely for the operator readFirst error.",
+  "method": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "frame": "Integration / Authority / Proof",
+    "currentAgentsRead": [
+      "/Users/jim/src/apps/AGENTS.md",
+      "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "/Users/jim/src/apps/abiogenesis-rc6-local-cut/AGENTS.md"
+    ]
+  },
+  "pins": {
+    "frozenSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+      "bytes": 411940,
+      "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+    },
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "actualC2Summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/ACTUAL_C2_SUMMARY.json",
+      "bytes": 4012,
+      "sha256": "4df8bd84310a5dc2933aa3a33a617cf27d827d07f46e8abb8c1fcde8161d66a7"
+    },
+    "physicalC2Row": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/actual-c2-001/ADMITTED_C2_RESULT_PHYSICAL.json",
+      "bytes": 4948949,
+      "sha256": "be3c66f2f6fe93ba468905f0b59a60b20a062e04e9473b82ee78088d3a984896"
+    },
+    "workload": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/workload.json",
+      "bytes": 75805,
+      "sha256": "f8a3d7fd6064ca64d1ba145bcb9091bf3756a0b60d9bf2ad4d787dfa36b71c10"
+    },
+    "runtimeFailureObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/RUNTIME_FAILURE_OBSERVATION.json",
+      "bytes": 1564,
+      "sha256": "57acff1df722518c9e3f831e05e601844facc57806f096cfc4a2b19693387327"
+    },
+    "latestResume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/after-run-resume.json",
+      "bytes": 72668372,
+      "sha256": "e10435e6bbaf9d0d3320d7868b356aca71c2bdba01a4104903eeb55aa205d3d6"
+    },
+    "finalRuntimeClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 4444,
+      "sha256": "e1b303d564da73f98db873fc06157facb06f1e73b3eb1d96acbd707469203120"
+    },
+    "installedInstructionAssembly": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+      "bytes": 124338,
+      "sha256": "1c8ce10ae0a54979af2384cc8fa7af9c8c5b1498255d967f5655aaa29136bfde",
+      "lineRoutes": [
+        130,
+        144
+      ]
+    },
+    "latestDurablePrefix": {
+      "length": 431855279,
+      "sha256": "8603143a3d6c1488140e44c9ce6b432ef3a55c762c2f1982aa52af48d3370d35"
+    },
+    "frozenOwners": [
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+        "sha256": "a74b4b064bc02691012bb770a2fd67c778f96dd077b611b4c361ba8959560292",
+        "lineRoutes": [
+          36,
+          54,
+          190,
+          192
+        ]
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+        "sha256": "a0466006270f103352a86fd0faa4bd531997b7372d4d68e147b8e3975af06e85",
+        "lineRoutes": [
+          82,
+          103
+        ]
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "sha256": "f98657628c0c21147f84e3d7c854df04014f71eef4a0920c2ac3cb34e66cd15d",
+        "lineRoutes": [
+          228,
+          262
+        ]
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+        "sha256": "e46879346a2bbf47e0e37e529582a01c1f37c955fc5d9fb9f3a175010813ae25",
+        "lineRoutes": [
+          61,
+          77
+        ]
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "sha256": "da1228f3876aca87ba065863bc990e216214f329ddb1e3d773466af08d18ee21",
+        "lineRoutes": [
+          163,
+          200
+        ]
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+        "sha256": "32ed7dd156ac305e79dc3a9e87f6a3e5f76d5b9087ce7a4add992e82aa0af799",
+        "lineRoutes": [
+          27,
+          87
+        ]
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "6b91dcbd8327b922a6c563685fa3aa1346ea3e5fdda56015bef8a66eec93753b",
+        "lineRoutes": [
+          1374,
+          1384
+        ]
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+        "sha256": "ee11e047ef37b0af4af9de1326e8942d2a38a604ade3aafd1008526b4d03175f",
+        "lineRoutes": [
+          122,
+          159
+        ]
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "sha256": "729336931f3708a0f9432da21d102f1a5f714614a06bc229f40384a89189710f",
+        "lineRoutes": [
+          506,
+          540,
+          617,
+          624
+        ]
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "sha256": "028298bf9539c633c080621d863ccb77f50d0bb96fa8ea343b94542cdfe842ad",
+        "lineRoutes": [
+          595,
+          644,
+          874,
+          924
+        ]
+      }
+    ]
+  },
+  "retainedProof": {
+    "c2": {
+      "commands": 6,
+      "tests": 62,
+      "transportTests": 26,
+      "qualificationTests": 36,
+      "failedTests": 0,
+      "skippedTests": 0,
+      "correspondences": 342,
+      "scope": "Old frozen subject only; source-correspondence, offline-toolchain, contract-seeds, compile, generate, component-proof.",
+      "actualProducer": {
+        "cCallRef": "c-call:sha256:1ed0db1603637a3036e24d338a8cf96754a014eb8dd1614c99f54b967058dbca",
+        "resultRef": "result://abiogenesis/99166fdb5b130122291c83d01df2c8f661c1e4b40837d2b2e727de6d526a8db3",
+        "resultDigest": "sha256:99166fdb5b130122291c83d01df2c8f661c1e4b40837d2b2e727de6d526a8db3",
+        "valueDigest": "sha256:3d51ed224dce0ab6554398a781dfc35ec891af4a05243df1fdbcfa4d8eea180b",
+        "valueKind": "worksite_command_execution_observation",
+        "contractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+        "admissionOrdinal": 76117,
+        "eventId": "event://abiogenesis/a44078374a09730f7d5d40db13f7bb3a5bd3ff5e979c0fc02e995df484c0055e",
+        "runId": "run://abiogenesis/13153bebad985222e998e336b206fca8111acfbfd6464cdb413bbc6b5a8960ff",
+        "actorInvocationRef": "actor-invocation://abiogenesis/fca11370a89a1814f49faa95f372528f875633ce296c059b59b12ce0c29571e6",
+        "actorProcessRef": "process://abiogenesis/9cd3a6cfa89e7bc428addf3018a1e428fd34e3ed76c3c61d551f0277479a8e76",
+        "actorRef": "actor://abiogenesis/worksite/command-execution-worker@5"
+      },
+      "logByteOffset": 421003886,
+      "logRowByteLength": 4948949
+    },
+    "finalConservation": {
+      "frozenMembers": 339,
+      "proofInputs": 346,
+      "status": "Root verified all unchanged at final close; no broader qualification inferred."
+    },
+    "failedRun": {
+      "runRef": "run://abiogenesis/13153bebad985222e998e336b206fca8111acfbfd6464cdb413bbc6b5a8960ff",
+      "uatFailureOrdinal": 77434,
+      "failureClass": "implementation_exception",
+      "decodedDiagnosticKnownOnly": {
+        "reason": "thrown",
+        "stage": "implementation_invocation"
+      },
+      "assessorActorStarted": false,
+      "closure": "runtime_failed; run_result not_found, replay failed, null terminal result; preserve this Run."
+    }
+  },
+  "necessaryCause": {
+    "owner": "product/native_workspace_work.ts:46,51-54",
+    "construction": "abg/default_library.ts:259-262 copies order.readFirst, then deduplicates only appended assessment assets.",
+    "selectedInput": {
+      "readFirstCount": 32,
+      "uniqueCount": 29,
+      "duplicates": [
+        {
+          "path": "qualification-inputs/q23-author-05/rubric.json",
+          "zeroBasedIndices": [
+            4,
+            14
+          ]
+        },
+        {
+          "path": "qualification-inputs/q23-author-05/METHOD_ACCESS.json",
+          "zeroBasedIndices": [
+            6,
+            11
+          ]
+        },
+        {
+          "path": "qualification-inputs/q23-author-05/ROOT_POLICY_HOW_SELECTION.json",
+          "zeroBasedIndices": [
+            7,
+            9
+          ]
+        }
+      ]
+    },
+    "conclusion": "The selected UAT work order necessarily violates the existing unique readFirst task predicate. Root concatenated overlapping preparation lists. Stable first-occurrence deduplication is a packet correction; no Product policy change is required for that correction.",
+    "limits": "No hidden thrown message inferred. Actual low-level thrown-constructor argument was not independently recovered. The retained selected workload and exact constructor establish the violation; the placeholder diagnosticRef was not decoded."
+  },
+  "existingStandaloneRoute": {
+    "operation": {
+      "operationId": "abg.operation.run.invoke",
+      "memberKey": "invoke",
+      "requiredRequestFields": [
+        "program(ref,digest)",
+        "catalogHandle",
+        "inputContract(ref,digest)",
+        "input",
+        "catalogView(ref,digest)",
+        "allowlist",
+        "sourceBasis"
+      ]
+    },
+    "assessmentProgram": {
+      "callableMembership": [
+        "graph-function://abiogenesis/worksite/native-work/assessment@5"
+      ],
+      "closureContractRef": "contract://abiogenesis/worksite/native-work/closure@5",
+      "kind": "gtl_program",
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "policies": {
+        "abg.compute_regime": "F_P",
+        "abg.default_start_ref": "start://abiogenesis/worksite/native-work/assessment@5",
+        "abg.root_mode": "direct"
+      },
+      "programRef": "program://abiogenesis/worksite/native-work/assessment@5",
+      "starts": [
+        {
+          "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+          "startRef": "start://abiogenesis/worksite/native-work/assessment@5"
+        }
+      ],
+      "version": "5.0.0"
+    },
+    "assessmentGraphFunction": {
+      "name": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawResultContractDeclaration": null
+    },
+    "taskContract": "contract://abiogenesis/worksite/native-work/task@5",
+    "observationContract": "contract://abiogenesis/worksite/native-work/observation@5",
+    "catalogEntry": {
+      "handle": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "definitionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "programMembershipRefs": [
+        "program://abiogenesis/worksite/native-work/assessment@5"
+      ]
+    },
+    "consumerProgram": {
+      "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+      "starts": [
+        {
+          "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+          "startRef": "start://abi5-tests/sandbox-uat/lifecycle@5"
+        }
+      ],
+      "assessmentIsCallableMember": true,
+      "rawResultDeclarationOwner": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    },
+    "blockers": [
+      {
+        "id": "UAT-R1",
+        "owner": "abg/instruction_assembly.ts:174-185; installed JS:134-144",
+        "fact": "For assessment, selected Program must contain a graph in basis.publication declaring the selected abg.raw_result_contract. The one-node native assessment Program contains only assessmentGF; its declaration explicitly removes abg.raw_result_contract. Therefore declaredResult is false before native dispatch.",
+        "scope": "A catalog-view allowlist alone cannot change this declaration guard."
+      },
+      {
+        "id": "UAT-R2",
+        "owner": "product/execution_resolution.ts:617-624",
+        "fact": "Direct invoke/start of assessmentGF under the retained consumer lifecycle Program additionally requires its Catalog entry programMembershipRefs to include that Program. The retained assessment entry names only the native assessment Program. Consumer callableMembership alone is insufficient.",
+        "scope": "The consumer executive declares the required result contract, but that does not authorize this alternative direct root."
+      }
+    ],
+    "conclusion": "The assessment capability exists. A no-C2 standalone invocation is not currently constructible from the retained declarations as selected. Do not fabricate membership, raw-result ownership, Governance observations or synthesis. No general absence of native assessment capability is claimed."
+  },
+  "schemaOwner": {
+    "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+    "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+    "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/c26f074de3d597788f4af6d9c88c779fdb71c996740c106782190ae87ec86d67/59b6f86920c35eacacc4554a89d2938ced68e1338152a0904e895841ae92d60a",
+    "artifactDigest": "sha256:a0fe55fd8a26fc503f70b63d44cde3185bd840fc8501772d632932a9b69e0feb",
+    "manifestDigest": "sha256:0d0f51588d996e699ae163116347568597cfafd8306d971835977663bde9440c",
+    "productContentDigest": "sha256:c26f074de3d597788f4af6d9c88c779fdb71c996740c106782190ae87ec86d67",
+    "contract": {
+      "contractKind": "output",
+      "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+      "contractVersion": "5.0.0",
+      "valueKind": "sandbox_uat_assessment"
+    },
+    "schemaAsset": {
+      "contractId": "contract://abi5-tests/sandbox-uat/assessment@5",
+      "contractKind": "schema_asset",
+      "contractVersion": "5.0.0",
+      "contractDigest": "sha256:f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7",
+      "assetLocator": {
+        "path": "contracts/assessment.schema.json",
+        "mediaType": "application/schema+json",
+        "schemaVersion": "5.0.0",
+        "contentDigest": "sha256:f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7"
+      }
+    },
+    "requirements": "Carry this exact published output contract, schema_asset bytes and admitted consumer installation/publication through execution resolution. The exact owner must match publication artifact/content/manifest and module publication binding; schema identity, kind and result validation must succeed. Retention in a full catalog is necessary but does not remove UAT-R1/R2."
+  },
+  "minimalPrerequisites": [
+    {
+      "order": 1,
+      "owner": "Root / exact Product run invocation and catalog-view owners",
+      "requirement": "Reopen from the latest real prefix; retain valid exact workspace binding, admitted installations and full catalog. An assessment allowlist would be necessary, but not sufficient under the present declarations. No standalone root may be activated under UAT-R1/R2."
+    },
+    {
+      "order": 2,
+      "owner": "Existing Product/native instruction-assembly, Program membership and schema owners",
+      "requirement": "A lawful route must jointly bind selected Program/root, assessment callable membership and declared consumer result contract. Do not patch these declarations in operator data. Root has chosen source repair plus the known default consumer route; this report does not select a standalone owner repair."
+    },
+    {
+      "order": 3,
+      "owner": "Root mechanical evidence custody; existing worksite observation and task constructors",
+      "requirement": "If preparing later assessment evidence, verify retained physical C2 row against exact event-log bytes. Project all six complete commandResults and all predicateObservations with producer/result/event coordinates; stage byte-identical source-correspondence/component/TAP reports; preserve candidate HOW and Q1-Q7 rubric. Bind each staged file digest in a fresh current-worksite context, unique readFirst, writeRoots=[], and exact sources/candidate/rubric assessment selection. No full helper snapshot or repeated raw C2 body is required for that bounded component assessment."
+    },
+    {
+      "order": 4,
+      "owner": "Existing native-work and STDO run-environment owners",
+      "requirement": "Retain an admitted assessor role with current_worksite, exact Product root/binding/capability/actor, independent producer versus assessor cCallRef and actorInvocationRef, selected schema owner and pre-dispatch context/prompt limits. Do not invent model-family taxonomy or an independence exception."
+    },
+    {
+      "order": 5,
+      "owner": "Root source/proof disposition",
+      "requirement": "Do not dispatch the proposed old-source q23-uat-02 packet. After selected source repair, run only the affected required C2/UAT proof on the new frozen subject through the known default consumer route. Preserve previous passes and failed Runs with their original subject scope."
+    }
+  ],
+  "evidenceProjectionAssessment": {
+    "sufficientForBoundedComponentEvidence": true,
+    "conditions": [
+      "Verify authentic physical row custody at the retained prefix.",
+      "Preserve complete commandResults and predicateObservations, including failures/skips if any; no edited or synthetic verdict.",
+      "Preserve exact artifact bytes/digests and original candidate HOW and Q1-Q7 rubric.",
+      "State old source and runtime subject explicitly; current-subject claims require actual correspondence.",
+      "Use fresh admitted context/task and existing runtime/schema/role gates."
+    ],
+    "notSufficientFor": "Overcoming Program/result-declaration admission gates, claiming whole default-library lifecycle success, authenticating a new source from old C2, production eligibility, F11 or release acceptance."
+  },
+  "unresolveds": [
+    {
+      "item": "Q4 and Q1 source issues",
+      "status": "Reported and dispositioned by Root during this triage, not independently audited here; source repair selected, so later affected proof requires a new source pin."
+    },
+    {
+      "item": "Alternative retained-source continuation",
+      "status": "No exact admissible continuation that skips C2 and preserves all source-use authority was established within this bounded pass. A terminal runtime_failed Run is not a held continuation. Do not construct Governance state by injecting observations/synthesis."
+    },
+    {
+      "item": "New assessment result",
+      "status": "None produced; no assessor dispatched; no activation performed."
+    },
+    {
+      "item": "Hidden runtime exception text",
+      "status": "Unknown; no inference beyond established duplicate-input violation."
+    }
+  ],
+  "executedEffects": {
+    "readOnlyInspection": true,
+    "reportWritesOnly": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/Q23_UAT_RECOVERY_READINESS.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/Q23_UAT_RECOVERY_READINESS.md"
+    ],
+    "productEdits": false,
+    "testsBuilds": false,
+    "providerOrNativeActivation": false,
+    "runtimeEventWrites": false,
+    "catalogOrInstallMutation": false,
+    "privateProviderTextInspected": false
+  },
+  "returnTo": "Root; closed bounded Executive triage, no activation grant."
+}

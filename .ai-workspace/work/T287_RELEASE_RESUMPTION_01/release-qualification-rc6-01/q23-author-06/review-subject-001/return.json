@@ -1,0 +1,163 @@
+{
+  "kind": "q23_author_06_bounded_repair_return",
+  "status": "candidate_returned_for_root_freeze",
+  "acceptanceClaimed": false,
+  "actor": {
+    "role": "One fresh-context ABG-native author Worker (Claude Opus 5.5) under NATIVE_GRANT; no selector, C2, UAT, review or session resume.",
+    "method": "Exact immutable stdo-work skill read through METHOD_ACCESS (STDO 3.0.4 plugin root). Packet grant used as the admitted execution contract; no ticket created."
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "changeClass": "Bounded repair of two selected counterexamples through six existing HOW/code/test owners (realization correction of accepted HOW; Product WHAT unchanged)"
+  },
+  "subject": {
+    "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "sourceTree": "ff447cb7c9cf04c2af9cc784ef3ff0e1892ab702",
+    "frozenSubjectSha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638",
+    "intakeVerification": "Before editing, all 13 frozen changed paths were hash-equal to CLOSED_REVIEW.subject.changedFiles. The frozen preimage was rebuilt in scratch from HEAD plus FROZEN_13_FILE_DIFF.patch and matched all 13 hashes.",
+    "unchangedFrozenPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs"
+    ]
+  },
+  "changedPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "frozen": {"bytes": 22383, "sha256": "4081e74e9bcb33cb493328fbe7c54ff57ea26a1571f66958a839824e926947cf"},
+      "repair": {"bytes": 23728, "sha256": "3ea897beaddc78f9887a0dd1c726565f7e895914e69fc2b5fd8f611fab1be2b1"},
+      "change": "Q1. The private closed MODEL_SELECTION grammar now also declares option arity for the options the transport and actor owners compose. claude operands: --output-format --permission-mode --tools --json-schema --append-system-prompt. claude flags: -p --disable-slash-commands --no-session-persistence --include-partial-messages --verbose --safe-mode. codex operands: --sandbox -o. codex flags: --full-auto --skip-git-repo-check. modelSelectionFromArguments skips the operand of a declared value-bearing option as data. A selector-shaped argument directly after an option outside the grammar, or anywhere after `--`, returns model_selection_ambiguous. Exported types, the unknown-reason list, deriveConfiguredActorIdentity, configuredActorIdentityCorresponds and the event-contract profile are unchanged; the grammar is module-private and feeds no digest."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "frozen": {"bytes": 78920, "sha256": "436ea942a5da2f4c9fd89f4c576f968500c398097c9b00fd520f8577e3ecca22"},
+      "repair": {"bytes": 79234, "sha256": "1f7a1590b36022d705edddb373107d473b2d38181601974f723736b038beeda4"},
+      "change": "Q4. decideQualificationDispatchEligibility takes peers as the declared peer-slot population, each entry {slotRef, selections}, or null when the plan declares no peer. It compares every admitted occurrence first, so a same-family peer stays ineligible and an unresolved one stays unknown. It then returns unknown(required_peer_missing) when no peer slot is declared or any declared slot has no admitted occurrence."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "frozen": {"bytes": 101638, "sha256": "eadea0767a720a6dae113153a142d98a7dbfd4f482c46b4a34339c064f46e35d"},
+      "repair": {"bytes": 101944, "sha256": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264"},
+      "change": "Q4. admittedPeerSelections keeps admitted occurrences per declared peer slot and returns every declared slot, so a slot with no start keeps an empty list instead of disappearing. The dispatch call site is unchanged. Replay in resolveQualificationAssessments passes the same per-slot shape, one selected J per declared slot, or an empty list if a slot row were absent."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "frozen": {"bytes": 54194, "sha256": "0bbbd4c8e96e6aacca5c9a961100ecac60a211efae94f9a94276223c095fc32d"},
+      "repair": {"bytes": 55857, "sha256": "b5cf1ecc08df2593214a4e6e9b97d5c4c936bf7513549ee0b77e361db175728a"},
+      "change": "Section 3 Q23. Item 1 states the declared arity, operand-as-data and unknown-role rules. Item 5 makes every declared peer slot required, and its order bullet makes a missing slot unknown(required_peer_missing). Item 6 replaces the rejected first-peer-without-peer-evidence sentence with per-slot collection and states that fresh peer-required plans are refused. Item 7 replays over every declared peer slot. Production limits record the peer-route dependency and the at-most-one-operand assumption for options outside the grammar."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "frozen": {"bytes": 90781, "sha256": "879368cf595e31599399c135df4a131b11ca42fe4ea211abb5137454fb953a6f"},
+      "repair": {"bytes": 95469, "sha256": "45c3dd890bb633f1e0bb369a7a5a511380eaa0149c771006c0b2ba0fec687d5c"},
+      "change": "One new test plus added assertions in the existing binding-contract test (event-store admission of the operand case)."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "frozen": {"bytes": 82877, "sha256": "d039e94c714169cac9321afdd0471aa29c5ef01469f9742a1427c30d56251bb3"},
+      "repair": {"bytes": 88039, "sha256": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf"},
+      "change": "nativeHistory gains a labelled per-slot `peers` premise. Each entry is a selection (an admitted start), 'unstarted' (peer call opened, no actor start) or 'absent' (never opened). Two peers give the assessor two criteria with distinct criterionRefs, one shared with each peer. The single-peer history is byte-identical to before. Owner-level, Validator-level and actual actor_process gate cases are added for Q4, and owner and gate cases for Q1."
+    }
+  ],
+  "authorDelta": {
+    "path": "qualification-scratch/q23-author-06/tmp/author-delta.patch",
+    "bytes": 43416,
+    "sha256": "8a46fc490de2844f68de2421f9217bb0d73d8cc02d15ce85cf1066e35a122766",
+    "meaning": "diff -u of the six paths from the verified frozen preimage (tmp/frozen-subject) to the repaired worksite bytes."
+  },
+  "findings": [
+    {
+      "id": "Q23-SR-01 / Q4 missing declared peer",
+      "failingBeforeReasoning": "Grounded in CLOSED_REVIEW controlledOwnerInput and the frozen bytes; no pre-repair run was selected or executed. In the frozen qualification_proof.ts, admittedPeerSelections (lines 742-761) appended only for actual actor_invocation_started rows and returned one flat list, dropping slot identity. qualificationAssessorEligibility (782-786) passed that list whenever peerSlots was nonempty. In a valid two-slot declared_independent_peers plan whose other slot had no start, the list was []. The frozen decideQualificationDispatchEligibility (qualification.ts 558-564) rejected only peers===null, so the loop ran zero times and returned eligible. actor_process then proceeded to the binding/start transaction.",
+      "repair": "Slot-complete facts from the existing collector; the Validator refuses missing declared slots. No future peer identity, J or occurrence is inferred, the gate is not bypassed, and no peer planning is added.",
+      "passingAfterAssertions": [
+        "t287-qualification-scopes 'Q23 authors, provenance, peers and owner connection refuse before dispatch' (ok 34, repair-02): owner op returns unknown(required_peer_missing) for the only peer slot never opened, the only peer slot opened without an actor start, one admitted cross-family peer plus one unstarted peer, one admitted peer plus one never-opened peer, and both peers missing. An admitted same-family peer beside a missing slot stays ineligible(peer_same_declared_family). Controls: the existing single admitted cross-family peer is eligible; two admitted cross-family peer slots in a 3-slot plan are eligible.",
+        "Same test, the Validator itself: null, [], one empty slot and an observed subset of declared slots each give unknown(required_peer_missing). A same-family occurrence beside a missing slot is ineligible. A started peer without evidence ([null]) is unknown(peer_identity_absent). Every declared slot with a cross-family occurrence is eligible. author_distinct with no peers is eligible.",
+        "t287-qualification-scopes 'Q23 actor_process gates the actual prepared selection before binding or provider start' (ok 35, repair-02), through the real emitted actor_process and owner-minted operation: the only peer slot never opened, opened without a start, one of two peers unstarted, and both missing each refuse with actor_process_invocation_refused 'qualification dispatch refused: unknown: required_peer_missing'. Each has successorPrefix==predecessorPrefix, no binding or start transaction and zero provider starts. Controls: 1 and 2 admitted cross-family peer slots each produce exactly one provider start and one identity-bearing binding. Existing eligible, refusal and ordinary non-assessment controls pass."
+      ]
+    },
+    {
+      "id": "Q23-SR-02 / Q1 prompt-operand false identity",
+      "failingBeforeReasoning": "Grounded in CLOSED_REVIEW controlledOwnerInput and the frozen bytes; no pre-repair run was selected or executed. The frozen modelSelectionFromArguments (transport_contracts.ts 152-174) treated every unconsumed token as a potential option. --append-system-prompt was not in the grammar and was skipped, so its operand --model=claude-opus-5-5 matched the selector and established claude-opus-5-5 at the operand's argumentIndex. configuredActorIdentityCorresponds re-ran the same scan, so the event-store guard accepted it, and the owner/gate treated the assessor as the declared Claude Opus 5.5 profile.",
+      "repair": "The existing closed owner grammar declares the arity of the owner-composed options. A declared operand is data. An unsupported role (an option outside the grammar directly before a selector-shaped argument, or `--`) stays unknown. There is no general CLI parser, prefix family inference, remote attestation or default eligibility.",
+      "passingAfterAssertions": [
+        "m5-worker-transport 'M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown' (ok 25, repair-02): [--append-system-prompt, --model=claude-opus-5-5] and [--append-system-prompt, --model, claude-opus-5-5] give unknown(model_selection_absent) and correspond to their own binding. The established identity read from the operand is a valid identity shape but no longer corresponds. The actor owner's own shape (--tools ..., --append-system-prompt <selector-shaped data>, --json-schema, then a real --model claude-opus-5-5) establishes the real selector at its own coordinate. Controls --effort xhigh --model, --effort=xhigh --model and an inline declared operand stay established. --system-prompt directly before --model=..., --effort directly before --model, and selector text after -- give model_selection_ambiguous.",
+        "m5-worker-transport 'M5 Q23 the current binding contract records one corresponding identity' (ok 27, repair-02): assertRuntimeEventContract admits the operand binding with its own unknown identity and refuses an established identity pointing at the operand ('current actor binding identity differs from its own agent and final arguments').",
+        "t287-qualification-scopes ok 32: the owner op gives unknown(assessor_identity_unknown) for the operand-only selection. ok 35: the actual actor_process gate, with ABG_TS_CLAUDE_APPEND_ARGS=[--append-system-prompt, --model=claude-opus-5-5] and no real selector, refuses 'unknown: assessor_identity_unknown' with no transaction and zero provider starts.",
+        "All pre-existing Q23 identity assertions (exact selections, inline selector, codex template, two selectors, option-like value, displacing options, environment conflict, unsupported agents, forged guards and correspondence negatives) pass unchanged."
+      ]
+    }
+  ],
+  "checks": {
+    "kind": "author_checks_only",
+    "procedure": "Supplied prior-author-stage.mjs and prior-author-lanes.mjs copied byte-identical into qualification-scratch/q23-author-06/tmp. Each label was used once and no prior report was deleted or overwritten. Toolchain and contract seeds are the DEPENDENCY_SOURCE_SELECTION pins, verified by the stage helper. Test TMPDIR was /private/tmp/abg-q23f.",
+    "attempts": [
+      {
+        "label": "repair-01",
+        "standing": "Superseded intermediate. Same Q1/Q4 logic and tests as repair-02; afterwards only a transport_contracts.ts doc comment and HOW text changed.",
+        "stage": {"path": "qualification-scratch/q23-author-06/tmp/repair-01-stage.json", "bytes": 71288, "sha256": "092b0ca2890bd654fa39c40774295365016ffc2f5dbe8f08bf97cb18bc9e778a", "sourceCount": 339, "sourceDigest": "38568091681f9a721f3f859b72c164987fa3158738458905a8720b25b23204d6", "compileExit": 0, "generateExit": 0},
+        "lanes": [
+          {"id": "transport", "summary": {"path": "qualification-scratch/q23-author-06/tmp/repair-01-lanes/summary-transport.json", "bytes": 741, "sha256": "c3b1ea281e9328d6f5d24c5f2bb06e059e7e6660ceb08d79f40d9c3aaaa98f3a"}, "exitCode": 0, "tests": 27, "pass": 27, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0},
+          {"id": "qualification", "summary": {"path": "qualification-scratch/q23-author-06/tmp/repair-01-lanes/summary-qualification.json", "bytes": 983, "sha256": "8eafe846e286b8ff862090fb8827eb8e470a14fa3a84e52e7b0ef244ae355319"}, "exitCode": 0, "tests": 36, "pass": 36, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0}
+        ]
+      },
+      {
+        "label": "repair-02",
+        "standing": "Final author check over the exact returned bytes; the stage report's six-path hashes equal the worksite hashes above.",
+        "stage": {"path": "qualification-scratch/q23-author-06/tmp/repair-02-stage.json", "bytes": 71288, "sha256": "c1b88f104b4ff2eba2ac06438b0bd782bc6d2557842a3c79d4119e36eb7a64a0", "sourceCount": 339, "sourceDigest": "e3ec8a4f34834848983c1946bb59b30c5a3480432a0704afbe02a8a225e782de",
+          "compile": "node node_modules/typescript/bin/tsc -p tsconfig.json -> exit 0", "generate": "node scripts/generate-product-manifest.mjs -> exit 0"},
+        "lanesSummary": {"path": "qualification-scratch/q23-author-06/tmp/repair-02-lanes/summary.json", "bytes": 1721, "sha256": "dd1516c5af121138fbe5e3e54e8ac48f36843f0f70431e320f886de3e294d66d"},
+        "lanes": [
+          {"id": "transport", "files": ["test_env/tests/m5-worker-transport.test.mjs"], "exitCode": 0, "tests": 27, "pass": 27, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0, "minimumTests": 26,
+            "tap": {"path": "qualification-scratch/q23-author-06/tmp/repair-02-lanes/transport.stdout.tap", "bytes": 7943, "sha256": "29dfe49cd423fb65dc8d198a85dae341ebf3c27ab4cab175902e57b444c6242e"}, "stderrBytes": 0},
+          {"id": "qualification", "files": ["test_env/tests/t287-c2a-fp-source-contract.test.mjs", "test_env/tests/t287-result-evidence-lineage-projection.test.mjs", "test_env/tests/t287-qualification-producer-context.test.mjs", "test_env/tests/t287-qualification-contraction.test.mjs", "test_env/tests/t287-qualification-scopes.test.mjs"], "exitCode": 0, "tests": 36, "pass": 36, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0, "minimumTests": 36,
+            "tap": {"path": "qualification-scratch/q23-author-06/tmp/repair-02-lanes/qualification.stdout.tap", "bytes": 15002, "sha256": "5541f5b6f4a60abefbc979a65e2276dac6d715010f69e2351debb9908dc23194"}, "stderrBytes": 0}
+        ]
+      }
+    ],
+    "populationNote": "Transport went 26->27 with one new top-level test. Qualification stayed at 36 because the cases were added inside existing Q23 tests. Counts are omission guards; the semantic evidence is the named assertions above.",
+    "notExecuted": [
+      "No pre-repair baseline or mutation probe (not selected). Failing-before is reasoning over the frozen bytes and the closed counterexamples only.",
+      "No broad suite, live provider, native C2 or UAT, dependency installation or Git mutation."
+    ]
+  },
+  "standingSeparation": {
+    "authorChecks": "The finite local feedback above, over the repaired bytes in an isolated scratch compile.",
+    "independentReview": "Not performed; Root freezes and reviews separately.",
+    "nativeC2UAT": "Not performed. The previous actual 62/62 C2 remains evidence for the older frozen subject only and cannot accept this repair.",
+    "productionReleaseQualification": "Not established; QR02, QR03, actual production-positive eligibility, D5 and release remain separate."
+  },
+  "boundedRubricStanding": {
+    "Q1": "Author-checked repair of the operand counterexample through the existing closed owner grammar, at derivation, correspondence, event-store admission, owner op and the actual gate. The identity is configured selection only, with no remote attestation. Limit: an option outside the grammar is assumed to take at most one operand.",
+    "Q2": "Code path unchanged (c_call projection, J readback, event-store correspondence call). The corrected derivation is now what those owners re-derive. Existing legacy, mismatched, substituted, crossed and digest-changed readback negatives pass, warm and cold.",
+    "Q3": "Policy declaration and qualification_contracts.ts are byte-identical. There is still no prefix taxonomy or fallback permission. The same declared family stays ineligible, including a known same-family peer beside a missing slot.",
+    "Q4": "Author-checked repair. Missing declared peers refuse before binding/start for all-missing (never opened; opened but unstarted) and partially-missing (one of two) cases. Existing same-family, identity, owner, prior-author and future-J-only refusals and the not_required/ordinary controls pass.",
+    "Q5": "Existing native-history component fixture extended with labelled per-slot peer premises. No physical admission, real journal or production eligibility is represented.",
+    "Q6": "Author run on this host: both selected lanes 27/27 and 36/36, zero fail/skip/cancel/todo, after compile/generate exit 0. This is not native C2.",
+    "Q7": "Only the six granted paths changed; the other seven frozen paths are byte-identical; no Product WHAT. Off-scope effects are disclosed under residuals."
+  },
+  "residuals": [
+    {"id": "R1", "kind": "missing_owner_relation", "fact": "Slot-complete refusal makes every fresh author_and_peer_distinct plan non-dispatchable: its first slot has no prior admitted peer start. No existing owner in this cone supplies authenticated configured identity or evidence for a declared peer slot before that slot's own actor start. A production peer route needs a separately selected owner relation outside the six-path grant. Author_distinct dispatch is unaffected."},
+    {"id": "R2", "kind": "bounded_grammar_assumption", "fact": "Declared arity covers only the options the transport and actor owners compose. An option outside the grammar is treated as consuming at most the next argument. A hypothetical unlisted option with two or more fixed operands before a selector-shaped argument is not modelled. No live CLI behavior is claimed."},
+    {"id": "R3", "kind": "proof_gap", "fact": "No new replay test of a complete peer plan through resolveQualificationAssessments. The replay change only reshapes facts that were already slot-complete. Existing Q23 J readback tests cover single-slot plans."},
+    {"id": "R4", "kind": "fixture_premise", "fact": "The two-peer fixture gives the assessor two criteria with the same rule/surface groups and distinct criterionRefs, one shared with each peer, because the policy publishes two actor refs. This is a component premise, not a production plan."},
+    {"id": "R5", "kind": "disclosed_off_scope_effect", "fact": "Network: during repair-01, the canonical generator invoked by the supplied stage helper ran `npm pack --dry-run --ignore-scripts --json`. With a fresh npm cache, npm's update notifier made one `http fetch GET 200 https://registry.npmjs.org/npm` (tmpq23f/npm-cache/_logs/2026-11-05T20_54_33_331Z-debug-0.log). The repair-02 log shows no fetch. Nothing was installed or published, and the request carried no worksite data. Binding npm_config_update_notifier=false or offline npm for future helper/C2 runs would remove this."},
+    {"id": "R6", "kind": "disclosed_effect", "fact": "The inherited TMPDIR and NPM_CONFIG_CACHE pointed at the declared provider scratch tmpq23f. The stage runs created tmpq23f/node-compile-cache (tsc) and tmpq23f/npm-cache (npm pack). The test runs used /private/tmp/abg-q23f and left it empty."},
+    {"id": "R7", "kind": "scope_uncertainty", "fact": "Several commands used zsh here-documents (progress.json seed, python one-offs, frozen-preimage reconstruction). zsh normally backs heredocs with transient files under TMPPREFIX=/tmp/zsh, outside the declared write scope, and deletes them. Host tool outputs persisted under ~/.claude/projects are platform transport."},
+    {"id": "R8", "kind": "scratch_artifacts", "fact": "Inside the declared tmp: copied helpers, repair-01 and repair-02 stages and reports, frozen-subject (HEAD plus frozen patch, hash-verified) and author-delta.patch. Nothing was deleted."},
+    {"id": "R9", "kind": "retained_scope", "fact": "D5 retirement, QR02 attribution reconstruction, QR03/production-positive eligibility, external future-J unknown and release qualification remain open and unchanged."}
+  ],
+  "handoffs": {
+    "readiness": "qualification-scratch/q23-author-06/readiness.json",
+    "progress": "qualification-scratch/q23-author-06/progress.json"
+  }
+}

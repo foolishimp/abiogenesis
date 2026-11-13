@@ -1,0 +1,32 @@
+{
+  "recordedUtc": "2026-11-03T14:04:53.878478+00:00",
+  "role": "Root separately activated operator/evidence Writer",
+  "grant": "CONTEXT_AND_CAUSAL_MAP.md#operator-writer-activation",
+  "effects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T140453Z/T-287.md",
+      "beforeSha256": "5d6acb8fdbe7dc8bb3ee79fe19037fdc12bcc16bc636569b92ed88c6a1fe4d1c",
+      "afterSha256": "740589260b805b4e55000d9a05dc203cb9f2a49608a025952ee35bdaa67f2310"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T140453Z/GOALS.md",
+      "beforeSha256": "f199c090d74f76f2faf9add01da50c91fc5454c21e3b19efc412fc36f938312b",
+      "afterSha256": "a4bbbc6a845960069a0f36c608bc50ef3e4f38bc1903d4aa675c299e53784efc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T140453Z/STATUS.json",
+      "beforeSha256": "e2748d71ad05b88458c82663aa091792b705d16f6b724c2015dd1967928ff108",
+      "afterSha256": "474b4934254897f68de20e418492834f7dfc006895423799d96d4283625a9c29"
+    }
+  ],
+  "unchanged": [
+    "frozen dispatch inputs",
+    "source code and tests",
+    "immutable RC4 and RC5",
+    "prior evidence and failures"
+  ],
+  "return": "Executive coordination"
+}

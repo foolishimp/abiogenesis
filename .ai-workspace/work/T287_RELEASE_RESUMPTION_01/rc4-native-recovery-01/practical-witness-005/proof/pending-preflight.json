@@ -1,0 +1,21 @@
+{
+  "stage": "AFTER_ACTUAL_B_FRONTIER_BEFORE_CONTINUATION_PROVIDER",
+  "invocation": {
+    "invocation": {
+      "ref": "invocation-admission://abiogenesis/049b6241f1066091d50a703cfcce052dfe142f697beaa9f890954bb3f1ef7533",
+      "digest": "sha256:049b6241f1066091d50a703cfcce052dfe142f697beaa9f890954bb3f1ef7533"
+    },
+    "publicInvocationRef": "invocation://abiogenesis/da5b3d16db6c6a49f335453af869ac9749cdfb9ec77d0410e2e29fbc2162a950",
+    "rootBasis": {
+      "ref": "execution-basis://abiogenesis/b44749370f1591744616bfae6fc0f55bc4a778c15ebd0d88916d60cad346983a",
+      "digest": "sha256:b44749370f1591744616bfae6fc0f55bc4a778c15ebd0d88916d60cad346983a"
+    },
+    "rootScope": {
+      "ref": "traversal-scope://abiogenesis/9bbe4650b9f3c3c2f679a3048c98ca8f591c5c483a28c2c0577aa078984704be",
+      "digest": "sha256:9bbe4650b9f3c3c2f679a3048c98ca8f591c5c483a28c2c0577aa078984704be"
+    },
+    "runId": "run://abiogenesis/738cb4e371bd22e5af782f014e9228e39709273dad6c48e236f29776f666afec"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

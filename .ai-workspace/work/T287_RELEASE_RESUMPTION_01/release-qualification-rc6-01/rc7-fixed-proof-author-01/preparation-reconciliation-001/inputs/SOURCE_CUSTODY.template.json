@@ -1,0 +1,16 @@
+{
+  "kind": "source_custody_selection",
+  "sourceBefore": null,
+  "sourceCommit": null,
+  "frozenSubject": null,
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/preparation-reconciliation-001/SOURCE_SELECTION.json",
+    "bytes": 41477,
+    "sha256": "ad7a7f1fb0f5c6d6406739368d307b713378d9ee559b304e3822347d0cb0fe0b"
+  },
+  "currentSourceFiles": null,
+  "sourceBytes": null,
+  "inheritedTrackedChangedPaths": null,
+  "inheritedNewProductPaths": null,
+  "meaning": "TEMPLATE ONLY. Bind the actual completed frozen predecessor and all selected source/resources before staging or owner preparation."
+}

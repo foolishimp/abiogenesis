@@ -1,0 +1,51 @@
+{
+  "memberKey": "run_replay",
+  "projection": {
+    "fromOrdinal": 0,
+    "kind": "run_replay_projection",
+    "limit": 4096,
+    "replay": {
+      "digest": "sha256:b09c18ae5e425a74dc4fbe012dd717bfd2b385b79641ac9cd3b12122cd7b9362",
+      "ref": "replay://abiogenesis/b09c18ae5e425a74dc4fbe012dd717bfd2b385b79641ac9cd3b12122cd7b9362"
+    },
+    "status": "blocked",
+    "subject": {
+      "digest": "sha256:c3f09e39d01787b33dd16d3d52015a8bc676ee6cd374f4dc0ed1059c018db5a5",
+      "ref": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851"
+    },
+    "terminalResult": null
+  },
+  "source": {
+    "digest": "sha256:c3f09e39d01787b33dd16d3d52015a8bc676ee6cd374f4dc0ed1059c018db5a5",
+    "ref": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851"
+  },
+  "ownerOutput": {
+    "outcomeKind": "result",
+    "value": {
+      "caseKey": "run_replay",
+      "projection": {
+        "fromOrdinal": 0,
+        "kind": "run_replay_projection",
+        "limit": 4096,
+        "replay": {
+          "digest": "sha256:b09c18ae5e425a74dc4fbe012dd717bfd2b385b79641ac9cd3b12122cd7b9362",
+          "ref": "replay://abiogenesis/b09c18ae5e425a74dc4fbe012dd717bfd2b385b79641ac9cd3b12122cd7b9362"
+        },
+        "status": "blocked",
+        "subject": {
+          "digest": "sha256:c3f09e39d01787b33dd16d3d52015a8bc676ee6cd374f4dc0ed1059c018db5a5",
+          "ref": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851"
+        },
+        "terminalResult": null
+      },
+      "projectionBasis": {
+        "digest": "sha256:56a796f7ca179fb03538d31e77b995157c699c40abc28025837f7d6f2ae335db",
+        "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl"
+      },
+      "source": {
+        "digest": "sha256:c3f09e39d01787b33dd16d3d52015a8bc676ee6cd374f4dc0ed1059c018db5a5",
+        "ref": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851"
+      }
+    }
+  }
+}

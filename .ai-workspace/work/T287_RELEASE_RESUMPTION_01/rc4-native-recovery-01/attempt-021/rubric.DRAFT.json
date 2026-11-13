@@ -1,0 +1,31 @@
+{
+  "kind": "rc4_setup_owner_reuse_acceptance_rubric",
+  "criteria": [
+    {
+      "id": "SETUP-1",
+      "criterion": "Normal maintained setup uses one installed SDK module and actual constructed owner values; old setup JSONL/child CLI/stdout parser bodies removed, no mode/fallback. Cold lifecycle/recovery/fresh reads remain explicit and callable."
+    },
+    {
+      "id": "SETUP-2",
+      "criterion": "Provider-free actual candidate setup executes ten owner operations and two genuine installs with exact closes/value-request joins/physical content/PATH+TMPDIR. Same-instance complete serial library-read interval and real positive cold re-verification after warm-up establish only the bounded fresh full TypeScript program-construction claim for the fixed nonempty declaration path; no total verifier/declaration-work claim or substituted behavior."
+    },
+    {
+      "id": "SETUP-3",
+      "criterion": "Entire affected harness and required new case execute; selected raw/copied/foreign/changed-request/malformed/acquisition/stale-physical and cold read controls preserve actual owner semantics. Valid raw inputs may pass only through genuine cold verification. Required cases cannot skip or succeed with zero tests."
+    },
+    {
+      "id": "SETUP-4",
+      "criterion": "All ten C2 commands exit0, exact source correspondence/full payload delta and current provider-free installed smoke pass. Six identity-derived package members explained; other executable/declaration/schema bytes remain conserved. No canonical generated writes/adoption claimed."
+    },
+    {
+      "id": "SETUP-5",
+      "criterion": "Actual bounded phase/sentinel/environment evidence and warm positive control support the selected claim. Zero library reads do not exclude preliminary parsing. Other environment keys remain ambient; no full environment equivalence, history repair, paid pilot, whole qualification or release claim."
+    }
+  ],
+  "excluded": [
+    "History projection/cache/runtime redesign",
+    "Paid pilot or recovery rerun",
+    "Full5.0qualification/publication/global selector",
+    "Unselected Product API/schema changes"
+  ]
+}

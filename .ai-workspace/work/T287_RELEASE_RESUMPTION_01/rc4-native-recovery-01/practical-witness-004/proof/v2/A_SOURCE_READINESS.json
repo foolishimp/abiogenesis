@@ -1,0 +1,50 @@
+{
+  "status": "EXISTING_A_SOURCE_ELIGIBLE_PURE_OWNER_READ",
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/a.resume.json",
+    "bytes": 91173550,
+    "sha256": "42c39cbb0af88576996c81c6ea8ac8cfd0a6dcd0797e48d8ebe3101f80845fcb"
+  },
+  "aTransport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/a.transport.json",
+    "bytes": 639575,
+    "sha256": "9c64098d5456e2c2569e377a0c36dd646db990cf920ba7e02db40635c5cffeec"
+  },
+  "run": "run://abiogenesis/a8ec73dd9eab809c3c609ff94b56ab3212882592e1358a76c681ebb0e6540e4f",
+  "invocationAdmission": {
+    "ref": "invocation-admission://abiogenesis/4cb6c8105420e10b6c8e42a9a65d31efa55894f3dfd12dadfe00725a759fe52f",
+    "digest": "sha256:4cb6c8105420e10b6c8e42a9a65d31efa55894f3dfd12dadfe00725a759fe52f"
+  },
+  "sourceBasisRef": "invocation-source-result://abiogenesis/c99d32947cd1dbcea727387f378c8b6a9e4788d1592f8c1ab6eefeaf015b025a",
+  "sourceResultRef": "result://abiogenesis/118bb63c73181a9e89d79b88c42bc0ef8c5e914721c3ced627386bd7b939ab6b",
+  "nativeResultRef": "result://abiogenesis/3aa1a08af54d821c9c359d7716672249114b92e0dec819ae0ec561d52bab6ee1",
+  "sourceResultDigest": "sha256:118bb63c73181a9e89d79b88c42bc0ef8c5e914721c3ced627386bd7b939ab6b",
+  "observationCount": 1,
+  "log": {
+    "bytes": 8805484,
+    "sha256": "21c9692a1e71272f07a5c5e1bf9becf7cf967bd10fa8c5dfadc9823463cca92d",
+    "prefix": {
+      "coordinateDigest": "sha256:d69e45feff5613d06ec390aebc7f2037189361ad51c416c9e848a85c05d86ec7",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:21c9692a1e71272f07a5c5e1bf9becf7cf967bd10fa8c5dfadc9823463cca92d",
+      "prefixLength": 8805484,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 680615283
+      }
+    }
+  },
+  "priorComparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/A_SOURCE_COMPARISON.json",
+    "bytes": 10609,
+    "sha256": "32fb258276d00fbbc436ad0c78801a2cd49a26c3edf3b2cfb9fe04aee736c249"
+  },
+  "currentPrefixArtifactTruth": true,
+  "providerCalls": 0,
+  "PublicCalls": 0,
+  "eventMutations": 0,
+  "limits": "Pure existing owner projection; not B admission or recovery completion."
+}

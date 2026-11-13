@@ -1,0 +1,10 @@
+{
+  "status": "EXISTING_PRODUCT_OWNER_CONTENT_MATCHES",
+  "installedRoot": "/private/tmp/abg-r8m-rc8-bootstrap-001/host/node_modules/@abiogenesis/typescript-tenant",
+  "artifactDigest": "sha256:a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+  "manifestDigest": "sha256:0fc9fc5e92cb8bfbfc064f18e50324358f19d418ea508d41d6a5f3e69547da3b",
+  "productContentDigest": "sha256:5dd1e8165ec9fb25dceec68c6f81e79afd8b94debddbce77a15f02ab2928d6cb",
+  "contentMatches": true,
+  "releaseCut": false,
+  "qualified": false
+}

@@ -1,0 +1,54 @@
+{
+  "status": "PROPOSED_NOT_IMPLEMENTED_NOT_ACTIVATED",
+  "baseScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-001.mjs",
+    "bytes": 15441,
+    "sha256": "e1b003e346f6b99133eb2a745501771952a75372d1df8112c13f5dc092e168fb"
+  },
+  "reason": "Original bootstrap requires unit.bindingSha256 equal built.bindingSha256.007 is a newly admitted external unit execution over the same existing stage and must retain a separate binding.",
+  "minimalReplacement": {
+    "historicalBuildRelation": [
+      "unit.buildBindingSha256 == built.bindingSha256",
+      "unit.stageBuildBinding == externalUnitBinding.stageBuildBinding",
+      "externalUnitBinding.stageBuildBinding.sha256 == built.bindingSha256",
+      "unit.completedStage == externalUnitBinding.completedStage == bootstrap.completedStage"
+    ],
+    "freshExternalExecutionRelation": [
+      "unit.scope == FRESH_EXTERNAL_NORMAL_NINE_FILE_UNIT",
+      "unit.bindingSha256 == pinned externalUnitBinding SHA",
+      "externalUnitBinding.status == BOUND_RC9_FULL_UNIT",
+      "pinned externalUnitAdmission.status == ROOT_ADMITTED_RC9_FULL_UNIT",
+      "externalUnitAdmission.bindingSha256 == unit.bindingSha256",
+      "unit.executionAdmission matches actual pinned externalUnitAdmission",
+      "externalUnitBinding.sourceFreeze == bootstrap.sourceIdentity.sourceFreeze",
+      "externalUnitBinding.stageManifest == bootstrap.stageManifest",
+      "externalUnitBinding.buildInputs == bootstrap.buildInputs",
+      "unit/source/external binding source digests equal frozen source digest"
+    ],
+    "strictUnitGates": [
+      "unit.status PASSED, normalNineFileUnitPassed true, profiling false",
+      "95tests,89passes,6skips,0failed/cancelled/todo/suites",
+      "9observed files match exact unchanged ordinary script population; missingFiles empty",
+      "casePopulationMatches,filePopulationMatches,fileSummariesComplete,ordinalsComplete,skipMatches alltrue",
+      "complete reporter, parseFailure null, summarySuccess true",
+      "exact required OWN+REF cases passed; diagnosticFailure null and both pinned final diagnostics valid",
+      "resourceFailure,conservationFailure,ancestryFailure,postAncestryFailure allnull",
+      "actual command and command receipt exit0/no signal/failure/timeout/truncation",
+      "pinned case coverage,reporter configuration,file-host binding and raw reporter agree with external unit binding/RESULT",
+      "file-host child args equal [pinned npmCli,run,test:unit]; no profiling; explicit reporter options/destination unchanged"
+    ]
+  },
+  "oldGatesPreserved": "SourceAcceptance and Root bootstrap activation remain required; build compile/generate/imports/lifecycle/calculus receipts, source rechecks, manifest/archive/install correspondence and bounds stay unchanged.",
+  "futureBindings": {
+    "completedUnit": null,
+    "externalUnitBinding": null,
+    "externalUnitAdmission": null,
+    "unitReporter": null,
+    "unitCommandReceipt": null,
+    "unitCaseCoverage": null,
+    "unitRequiredDiagnostics": null,
+    "unitReporterConfiguration": null,
+    "unitFileHostBinding": null
+  },
+  "execution": "No bootstrap script or pinned template edited. No build/pack/install/artifact allocation selected by this proposal."
+}

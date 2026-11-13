@@ -1,0 +1,75 @@
+{
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17 unchanged",
+    "slice": "F10 D5 durable lifecycle observation, affected F11 cold qualification and historical L compatibility",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Preserve lawful exact-L cold judgment while keeping the current copy-free shared projection and all existing owner admission boundaries.",
+    "authoritySplit": {
+      "source": "Frozen actual N2 subject1cc4af13 and closed review conjunction select only two existing files; all404 inherited files and three N2 handoffs are current custody inputs. Product/requirements/HOW unchanged.",
+      "tool": "Exact immutable STDO3.0.4 stdo-work and maintained RC6 NativeWork/operator-client owners. Host tools are behaviorally scoped, not OS confinement.",
+      "runtime": "Genuine N2 final close05964a28/resume and retained authentic author binding/catalog/view only. Source candidate and immutable installed builder/runtime are separate authorities; ABG alone admits events."
+    },
+    "prohibitions": [
+      "No other Product/HOW/test or profile descriptor/ref change; no new abstraction or framework.",
+      "No source acceptance, formal qualification, QR02/QR03/F11 or release/human acceptance inferred.",
+      "Preparation is controls only: no staging, owner calls, provider/runtime, tests/builds or Git effects."
+    ]
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "sourceResult": {
+    "digest": "sha256:7a40936609b3ef857aad38fc82b03254c287b770b53388b909eda04ce4d5add6",
+    "ref": "result://abiogenesis/7a40936609b3ef857aad38fc82b03254c287b770b53388b909eda04ce4d5add6"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5475,
+    "sha256": "05964a28314c79e70a6ee83e5f5bfc4c2ac2901e2bf1bafa081d6eb13cd1537f"
+  },
+  "oldHandoffs": {
+    "return.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/return.json",
+      "bytes": 44667,
+      "sha256": "0f163d27f452dde406c776f68406a699e72020bd134716038b4591b47ec895f2"
+    },
+    "readiness.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/readiness.json",
+      "bytes": 8988,
+      "sha256": "08e8b9bca084fe55f9913af2164b3afb244ada0df8d5af05b5e4b4feef252813"
+    },
+    "progress.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/progress.json",
+      "bytes": 8129,
+      "sha256": "96215b74ee73f0db4791ab52257f96e5b6934a017975b7fc8accc8d521fdd836"
+    }
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/SOURCE_BEFORE.json",
+    "bytes": 196232,
+    "sha256": "0a2860a142a61bb01e415b022939e063e468ff6a996fc43c7081bf047c662e78"
+  },
+  "existingFiles": 407,
+  "inheritedFrozenMembers": 404,
+  "inheritedTrackedChanges": 20,
+  "inheritedNewProductFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+  ],
+  "mutableProductPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+  ],
+  "newProductFiles": [],
+  "newHandoffs": [
+    "qualification-scratch/d5-author-03/return.json",
+    "qualification-scratch/d5-author-03/readiness.json",
+    "qualification-scratch/d5-author-03/progress.json"
+  ],
+  "meaning": "N2 files/controls and old handoffs remain readonly, except the two named source/test paths. The final freeze must retain inherited untracked Product files and old handoffs as inputs; only three new N3 handoffs are separated from source acquisition."
+}

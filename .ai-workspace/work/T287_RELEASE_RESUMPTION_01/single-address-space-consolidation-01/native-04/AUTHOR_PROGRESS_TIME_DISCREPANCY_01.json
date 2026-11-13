@@ -1,0 +1,16 @@
+{
+  "recordedUtc": "2026-11-03T19:52:38.561571+00:00",
+  "observedUtc": "2026-11-03T19:51:54+00:00",
+  "sourcePath": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-04/progress.json",
+  "sourceBytes": 309,
+  "sourceSha256": "b9564e89e770aabec2d1282b6603a2972e23341f52d603b322a8f1900fa6af20",
+  "sourceMtimeUtc": "2026-11-03T19:49:50.363561+00:00",
+  "futureLabels": [
+    {
+      "utc": "2026-11-03T19:52:30Z",
+      "event": "stdo status --verify installed=true valid=true failures=[] manifest 102817a3; held subject cf84f95d 89/89 worksite files equal"
+    }
+  ],
+  "standing": "Author progress label is ahead of the Root clock. Author narrative can indicate work state, but its timestamps are excluded from elapsed-time calculations. No Product defect or acceptance is inferred.",
+  "timingAuthority": "Admitted event timestamps and Root process/clock receipts; setup, launch, in-Run handoff and Root between-activation time remain separate."
+}

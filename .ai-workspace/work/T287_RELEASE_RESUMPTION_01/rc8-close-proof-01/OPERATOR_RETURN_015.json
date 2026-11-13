@@ -1,0 +1,144 @@
+{
+  "status": "BROAD_015_STOPPED_INCOMPLETE_NO_NEW_WHOLE_CREDIT",
+  "at": "2026-11-07T11:16:14.760321+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_015.json",
+    "bytes": 2689,
+    "sha256": "d050267efc73cc8a47ea3f5c5b073c937f3c85182fc56a538746a860769d2de7"
+  },
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_016.json",
+    "bytes": 352940,
+    "sha256": "052e28bd3df0f6f83a806e5be261ca589261d3dec90429b3479d7f86310d7356"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-016/BOUND_INVENTORY.json",
+    "bytes": 2024198,
+    "sha256": "be06177e975d0eee00bf2ff2a3b9aca236ab63994ac3b83d29a7bcd35d54e55a"
+  },
+  "start": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/EXECUTION_STARTED.json",
+    "bytes": 2622,
+    "sha256": "b0c63ccca5451a0781e2ea6cd39f62657f41c04b009404ee8c3f1b9a6131955f"
+  },
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/SUMMARY.json",
+    "bytes": 384395,
+    "sha256": "445f630c6071d020adfd1a60a9694e69b18961b79b5c469fa5a33b38a81d3e65"
+  },
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/FAILURE.json",
+    "bytes": 612,
+    "sha256": "76aa032784aff0c64fd8bf885027cbbd2d153279a40ed41f30fa674c569ff63f"
+  },
+  "actual": {
+    "driverPid": 24497,
+    "session": 88361,
+    "sessionExitCode": 1,
+    "driverAndSelectedCommandPathsAbsentAt": "2026-11-07T11:16:14.760321+00:00",
+    "matchingProcessesObserved": 0,
+    "termination": "Existing commandRecorder600000ms timeout/SIGTERM; no manual signal or retry. Path/PID observation does not establish absence of every possible detached descendant.",
+    "commandStart": "2026-11-07T11:04:52.568Z",
+    "commandWallMs": 600115.018333,
+    "driverWallMs": 696399,
+    "stopAt": "2026-11-07T11:14:52.896Z",
+    "summaryAt": "2026-11-07T11:15:07.247Z"
+  },
+  "stoppedFile": {
+    "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+    "fileReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/files/153-t287-registered-graph-selection.json",
+      "bytes": 1034,
+      "sha256": "929f2a391255099e480fade0eb468b458d21e04d1ecd5d6dfcfe7b4a035cbe93"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/file-bindings/153-t287-registered-graph-selection.json",
+      "bytes": 1259,
+      "sha256": "150e044c0e3e09b56b5a6bf8df0c40381b242f457fdb29103365d5c68feb658a"
+    },
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/commands/153-t287-registered-graph-selection.request.json",
+      "bytes": 984,
+      "sha256": "e7a78b311e185e9c6c1d3990e11ee579cfc95efa02d88386c25da9379ab00064"
+    },
+    "commandResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/commands/153-t287-registered-graph-selection.result.json",
+      "bytes": 1504,
+      "sha256": "418671d5a19934cb9b627e1c8e509129e9b1fd4e93334352ef26d79fa91b83cc"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/commands/153-t287-registered-graph-selection.stdout",
+      "bytes": 63,
+      "sha256": "6eb6b3b13c4aa7171b9e31ead93e8174edb8a68f85e069b04497acfa45116d30"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/commands/153-t287-registered-graph-selection.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/events/153-t287-registered-graph-selection.jsonl",
+      "bytes": 89,
+      "sha256": "99214721eb7f724e9c91b40977ad5c9c5ac1684293bd9154a68f1b23064e5a65"
+    },
+    "completedCases": 0,
+    "reportedPasses": 0,
+    "reportedFailures": 0,
+    "counts": null,
+    "wholeFileCredit": false,
+    "rawDiagnostic": "TAP header plus A completed21150.2ms and B completed18345.1ms. These are diagnostic phase lines, not completed test cases or assertions.",
+    "disposition": "600s incomplete command; no semantic red or Product defect established from this receipt."
+  },
+  "ledger": {
+    "allVisibleFiles": 208,
+    "retainedWholeCredits": 147,
+    "retainedPassed": 801,
+    "retainedHistoricalSkipped": 192,
+    "newCompletedWholeFiles": 0,
+    "newPassed": 0,
+    "newSkipped": 0,
+    "selectedDeferralsNoCoverage": 7,
+    "unfinishedSelectedFilesIncludingTimeout": 54,
+    "otherUnvisitedScheduledFiles": 53,
+    "visitedCreditRows": 146,
+    "visitedCreditPasses": 798,
+    "visitedCreditSkips": 190,
+    "unvisitedStillValidCredit": {
+      "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "counts": {
+        "tests": 5,
+        "passed": 3,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 2,
+        "todo": 0
+      },
+      "identityStanding": "Existing exact credit retained from configuration; not restamped or rerun."
+    }
+  },
+  "primaryPreserved": true,
+  "providerCalls": 0,
+  "autoRetry": false,
+  "continuationSelected": false,
+  "sourceMutations": false,
+  "cutOrInstallExecuted": false,
+  "broadAccepted": false,
+  "qualified": false,
+  "priorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_014.json",
+    "bytes": 6259,
+    "sha256": "0700752b456589a9873b246f01736b4264adf842e47598453230a4e31f11dd92"
+  }
+}

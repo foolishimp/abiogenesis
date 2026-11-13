@@ -1,0 +1,46 @@
+{
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis",
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/selected-action-inputs-018/REVIEW.json",
+    "bytes": 16136,
+    "sha256": "4e185513f2d493db4bfea3d659a419ab3dcb75a59eda78290462cfe038ed5a55"
+  },
+  "provenance": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/freeze.json",
+      "bytes": 33386,
+      "sha256": "243b67d1956cd01c21a26d6725c0e7e66f0d16de3cb70bc0ef3e11feb02a80d9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/proof-manifest.json",
+      "bytes": 21951,
+      "sha256": "8970e05386811d76354ec8a6a2b5d92776b8b5d45853d96a7bfb5294a927e096"
+    }
+  ],
+  "files": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/environment.json",
+      "kind": "file",
+      "bytes": 38680887,
+      "sha256": "36e5184c773b2db277347d2417b49df88d3168dea5665f2780481597326628cb",
+      "executable": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/interrupted-prefix.jsonl",
+      "kind": "file",
+      "bytes": 3319378,
+      "sha256": "450e1cb9e597dd5ccc0a9d9fa00fe423006e81ee26cc7225f7277e2f155063bb",
+      "executable": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/opened.json",
+      "kind": "file",
+      "bytes": 6369,
+      "sha256": "be800c13c44ac5416791fa18f9e65ab8fae6b0eeef081bd641f3219b2363b145",
+      "executable": false
+    }
+  ],
+  "destinationRoot": "/private/tmp/abg-r9c-broad-002/x208",
+  "destinationReadbackPassed": true,
+  "standing": "Exact external historical default inputs; source inventory unchanged and no optional selector enabled."
+}

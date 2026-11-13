@@ -1,0 +1,84 @@
+{
+  "status": "PREPARATION_ONLY_NO_TASK_OR_ADMISSION",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/SOURCE_INVENTORY.json",
+    "bytes": 292691,
+    "sha256": "e25d162544a1779ecdbdbe4fe99a7fbe4ead1589341a34096c136af90fade90d"
+  },
+  "sourceRoot": "/private/tmp/abg-rc11-qualification-20261109",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant",
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/host.mjs",
+    "bytes": 13794,
+    "sha256": "fbaf2602e6b371417d04fc46acf09d4524f91b892058b9fdbbc90c6cb5d0c0b4"
+  },
+  "validatedFreshHostPrecedent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/host.mjs",
+    "bytes": 13629,
+    "sha256": "940b1d9d8e75775959bb850e42b54011611f1c7bd1dccd9c08d3ee2a2705a611"
+  },
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/transport-preflight.mjs",
+    "bytes": 1458,
+    "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+  },
+  "transportContract": {
+    "source": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+      "bytes": 43447,
+      "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+    },
+    "functionBytes": 346,
+    "functionSha256": "af5edc19ebb7c6ca6190637a840342620650a98c13568132b50ed25fbbef1ac7",
+    "law": "absoluteTimeoutMs > inactivityTimeoutMs, positive safe integer limits; exact Opus 5.5 xhigh",
+    "budgets": "pending Root final conjunction"
+  },
+  "route": "First fresh nonempty RC11 worksite uses actual WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.imported with preserved existing source and this activation authority. Maintained populateSandbox builds actual setup; native constructInstalledStartCall uses current owned resource and narrowed native Program. PREPARED stays on same live PTY awaiting separate Root admission. No prior RC10 workspace/Run/event-resource identity is copied. Actual close and fresh result/replay readback remain required.",
+  "hostDelta": "RC11 labels/path; RC10 builder via binding; installed pure timeout preflight at setup and dispatch; source-only native admission pins task instead of obsolete focused proof binding. All other maintained setup/constructor/dispatch/close mechanics retained.",
+  "sourceHelpers": [
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39883,
+      "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "workOrderDirection": {
+    "existingTests": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+    ],
+    "proposedNewSupportRoot": "build_tenants/abiogenesis/typescript/test_env/support/rc11-current-evidence",
+    "proposedGeneratedFixtureRoot": "build_tenants/abiogenesis/typescript/test_env/fixtures/rc11-current-evidence",
+    "metadataOnly": [
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts"
+    ],
+    "class": "test-owner realization_refactor; no runtime behavior changes",
+    "evidence": "Actual model-free installed RC10 owner Runs generated once externally; exact raw prefixes gzip-preserved and validated by current validateHistoricalEvents then selectValidatedRuntimeEventPrefix. No re-admission/restamp/reindex. Deterministic staging requires separate grant, then final source freeze after actual generated outputs. Existing selected-action physical third remains a separate explicit gate.",
+    "pending": "Closed two-owner reports, exact native task/read/write authority and budgets, generator child termination/recovery grant, fixture staging allocation, external proof population/limits."
+  },
+  "runtimeAllocated": false,
+  "providerCalls": 0
+}

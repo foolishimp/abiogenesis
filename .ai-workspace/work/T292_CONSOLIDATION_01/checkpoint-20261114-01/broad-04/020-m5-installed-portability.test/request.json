@@ -1,0 +1,112 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "test_env/tests/m5-installed-portability.test.mjs"
+  ],
+  "cwd": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript",
+  "started": "2026-11-13T10:23:49.226250+00:00",
+  "selectedTimeoutMs": 600000,
+  "effectiveTimeoutMs": 600000,
+  "wholeDeadlineLimitsCommand": false,
+  "environment": {
+    "HOME": "/Users/jim",
+    "USER": "jim",
+    "LOGNAME": "jim",
+    "SHELL": "/bin/zsh",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/private/tmp/abg-rc13-composed-proof-20261113/broad-tmp-04",
+    "NODE_OPTIONS": "",
+    "NODE_PATH": "",
+    "FORCE_COLOR": "0",
+    "ABI5_EVIDENCE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace",
+    "ABI5_TESTING_MODE": "mechanical",
+    "ABI5_CANDIDATE_BASIS_SOURCE": "committed",
+    "npm_config_offline": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/private/tmp/abg-rc13-composed-proof-20261113/broad-tmp-04/npm-cache",
+    "npm_config_userconfig": "/private/tmp/abg-rc13-composed-proof-20261113/broad-tmp-04/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-rc13-composed-proof-20261113/broad-tmp-04/npm-global.npmrc"
+  },
+  "subject": {
+    "worktree": "/private/tmp/abg-rc13-composed-final-04",
+    "commit": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+    "tree": "9a11ff240da2b7e66dc76e024c48de65b24c240c",
+    "artifact": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/cut-dry/cut-dry-run-20261113T100856806Z-22025/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+      "bytes": 10793225,
+      "sha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0"
+    },
+    "artifactSourceReceipt": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/ARTIFACT_SOURCE_CORRESPONDENCE.json",
+      "bytes": 1461,
+      "sha256": "ce535beeef6b02c59dd09e17e3c27dc748ca70d1a384285a34ce210c6ad13ee8"
+    },
+    "buildPins": [
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3100640,
+        "sha256": "00e0647836f72999ab899375067c4093a79d3cec07b1e063e0fb937f88019410"
+      },
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/build/code/src/product/index.js",
+        "bytes": 13334,
+        "sha256": "0d2ba1c681a9c361db3ad6f089d46071010f397188426ba75194eb4826c99742"
+      },
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/build/code/src/product/contracts.js",
+        "bytes": 882,
+        "sha256": "7439f5c6ceff2ac4632252b36c4c5e5062e1ca33146c9e7ae4c81f50c597cbe8"
+      },
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js",
+        "bytes": 84252,
+        "sha256": "1e0a5d8362d1c19c42a1ff5105748a6359a9637a8eadc0d81c234c76e56c6d09"
+      },
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.js",
+        "bytes": 43490,
+        "sha256": "d9fa0e845cebab874442b966c277b7d44c8f13d4aea1869b38bf57d531ce2888"
+      },
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_ports.js",
+        "bytes": 84151,
+        "sha256": "ead0e9b222e05cb306c18724476a94d5082ea2a4bafc7bef0bb37bef090924af"
+      },
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/build/code/src/abg/environment_admission.js",
+        "bytes": 42380,
+        "sha256": "24cf577a101499c712f3e2bdd95ea9aa36adc0620f45d780eec4d4a34f94d842"
+      },
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/build/code/src/public/installed_definition_call_transport.js",
+        "bytes": 16129,
+        "sha256": "4ffc13a76ec9576b9ca247e0b48df0707ba42dcfcf9216a04a175b8df131caa6"
+      },
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/build/code/src/owner_bindings/run_invocation.js",
+        "bytes": 62707,
+        "sha256": "19f7d52b0522df4550eb0316c04f5ae81df85765d7daaf3568f6b801b7eb4d62"
+      },
+      {
+        "path": "/private/tmp/abg-rc13-composed-final-04/build_tenants/abiogenesis/typescript/contracts/public-functions/adapter-projection.json",
+        "bytes": 50649,
+        "sha256": "3288556d12117d7fd41b801e4707694d1eefd8ba17c317d020dd47ed92c60429"
+      }
+    ]
+  },
+  "campaign": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/CAMPAIGN_CLOCK.json",
+    "bytes": 743,
+    "sha256": "92ab95ac102291d48fde6471cd487031b4a82064eb60491e9f5ca5f25536ff28"
+  },
+  "campaignId": "T292-RC13-CFINAL-COMPOSED-01"
+}

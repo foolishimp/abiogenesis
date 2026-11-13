@@ -1,0 +1,149 @@
+{
+  "kind": "rc9_source_artifact_evidence_map",
+  "source": {
+    "subject": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "inventory": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "baseTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "fileModes": {
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts": "100644",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts": "100644",
+      "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts": "100644",
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts": "100644",
+      "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts": "100644",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts": "100644",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "100644",
+      "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md": "100644",
+      "build_tenants/abiogenesis/typescript/package-lock.json": "100644",
+      "build_tenants/abiogenesis/typescript/package.json": "100644",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs": "100644",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs": "100644"
+    },
+    "deletedPaths": [],
+    "expectedChangedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+    ],
+    "expectedNewPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+    ],
+    "cumulativeSourceCoverageDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "nativeTestedArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "testedManifest": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+    },
+    "testedStageRoot": "/private/tmp/abg-r9-owner-native-003/stage-01/work",
+    "nativeTestedArchiveSourceRelation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 4087,
+      "sha256": "50697a33ab3761d513cd5363e99a049bb6424d58114cf0fcbc7c90c92e7e7cc8"
+    },
+    "finalMetadataAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    }
+  },
+  "acceptance": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "focusedAndReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "broadClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_ACCEPTANCE_008.json",
+      "bytes": 6029,
+      "sha256": "eca7fb55aa0ace53770abb5012a246fcbd71002d2263090f57ba8df8319a5857"
+    },
+    "referenceAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_REFERENCE_ACCEPTANCE_007.json",
+      "bytes": 6336,
+      "sha256": "4c8bc5fb42d98e1073a4cedf89dada5faf5fa2e6dcf090b64cc79b60f99c2f68"
+    }
+  },
+  "checkpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1187,
+    "sha256": "f0870b39939c6aa279f4886ff79a20a49c880bbe7ac8a39636e3383ac1c03610"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/candidate/RESULT.json",
+    "bytes": 782,
+    "sha256": "a0bf12fc4c9d4e8e430c780df3432f620d737962de65fa2c9ad7359c89e24a05"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1274,
+    "sha256": "a89501cd7f7a8ade2bb50ac29d4af2fa25118858933ba3fffd0abc2ed1ea89e3"
+  },
+  "exactTestedArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+    "bytes": 831,
+    "sha256": "c130049c2da5eca6f70604236ab7463201d8bc3dde275f0f32e229146e3119ef"
+  },
+  "independentPackagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/reviews/packaging-008/REVIEW.json",
+    "bytes": 23288,
+    "sha256": "7c8f6dacb09f328cc837f0963c1abb9539da279466e90f66e114c4d3f5501978"
+  },
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.9",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.9",
+    "manifestDigest": "sha256:780036b1be89caa6e4086c8181111c7c264fa4d7bc1aab033daf886a659351c5",
+    "productContentDigest": "sha256:b3a3df1f7d59d56414c9fea0d025d48e1b8bdbc27f0b84b8b74a5128a6bcc80c",
+    "sourceCommit": "e30ac16b4a9406c43d054f45bad864746352dad6",
+    "artifactDigest": "sha256:c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "qualified": false,
+  "limits": [
+    "Exact RC9 checkpointe30ac16b4/treeff9a852c, source25121e78/1340 and tested archivec01e6cfe reproduced byte/member equal. Metadata is already9; rewriteIdentity=false; no rebuild or identity bridge during installation.",
+    "Root adopted limited no-block only for the exact installed current-profile scripted F_P path. Eight historical capsules remain OPEN with original evidence/triggers and actual RC9 causal rationale in final RESIDUALS. Configured unsupported GC03 is excluded; no RC8 acceptance transfer.",
+    "O3 retained installed-verification reuse was withdrawn. Original physical verification remains; performance follow-up OPEN. Missing duplicate/foreign/rollback probes get no credit; actual producer construction total is uninstrumented.",
+    "W2 successor closure and source/build/unit/reference/bounded201-file proof retain exact subjects and limits.12cold/S7/full15/human remain OPEN. No real-provider, general reliability/speed or qualification claim.",
+    "Historical native/M5/OWN/007 failures and007missing final resource/escaped uncertainty remain. Sampled bounds and observed CHILD_CLOSED are not universal physical assurance.",
+    "Preserve main/C7/C8 heads/index and dirty contents and all C9 source/progress/untracked paths. The actual closed packaging review and separate Root install admission are pinned; this binding is Root-selected for one exact installation.",
+    "Use unchanged build-bound paths/tools/bounds: fresh no-clobber RC9 release/install only after activation, Product verify/lock/install and all-member/checksum checks, then installed-owner content/export/empty-read/actual-close smoke. No native/provider workflow.",
+    "20-minute install and15-minute installed-owner ceilings,4GiB reserve,8GiB heap and64MiB output remain. First failure stops and preserves partial custody; no automatic retry/extension/overwrite/cleanup.",
+    "Actual installed standing belongs only to FINAL_INSTALL_VERIFICATION.json. No push/tag/merge/publication/global selector or qualification."
+  ]
+}

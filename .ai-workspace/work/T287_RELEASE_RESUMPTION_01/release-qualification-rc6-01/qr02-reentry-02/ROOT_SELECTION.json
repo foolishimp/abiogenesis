@@ -1,0 +1,72 @@
+{
+  "kind": "root_qr02_current_owner_reentry_preparation",
+  "at": "2026-11-06T01:26:10.991176+00:00",
+  "status": "READ_ONLY_READINESS_NO_NATIVE_ACTIVATION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17 unchanged",
+    "slice": "F11/F15 QR02 truthful surviving contributor attribution through existing external record owners",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "basis": "stdo://releases/v3.0.4/",
+    "outcome": "Make the previously selected finite provenance correspondence increment concrete on the actual post-D5 existing owner interfaces, preserving unknown attribution and shared material."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "standing": "Source is frozen but held for the separate two-file D5 legacy correction. Use it only for bounded interface readiness, never acceptance. Any changed shared interface must be reacquired from the eventual successor before implementation.",
+  "inputs": {
+    "nextIncrement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_NEXT_INCREMENT.json",
+      "bytes": 15827,
+      "sha256": "4f618b6cad0a0972b45b784c4b912209e9a939e67c869b7090e84e6d01f65e32"
+    },
+    "sourceResolution": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_SOURCE_ROOT_DISPOSITION.json",
+      "bytes": 2110,
+      "sha256": "9ecb421ac5d9bcc2d2360dca5205930e9ab95533d97ecfba83f58392777fe4c8"
+    },
+    "originalSources": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_D5_SOURCE_RESULT.json",
+      "bytes": 20561,
+      "sha256": "eeb520bfd1598adef50ffef7fa80323b1158d6741938255c17b1d963dd491233"
+    },
+    "materials": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr02-materials-01/MATERIAL_MANIFEST.json",
+      "bytes": 60791,
+      "sha256": "335e012a3697fa895e9eeae22c542031728e86c5a73baf5b8420d8142f7ae49d"
+    },
+    "materialReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr02-materials-01/PREPARATION_RETURN.json",
+      "bytes": 4693,
+      "sha256": "ed015a808745d66908c73e781f17f15b010fe0cb489440b92166def050a36c3f"
+    },
+    "reviewDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 7145,
+      "sha256": "c8d82498e5b54141bf74f48006f7e9cd4932bae00c6cc5ff9cf5c48223955b12"
+    }
+  },
+  "questions": [
+    "Does the named original D5 grant/author/closure and RP2 record meet existing external-arm documentary requirements for these two declared contributors? Original source location is already closed; do not reopen or add a universal historical native-invocation requirement.",
+    "How do the actual frozen contracts, external-arm validator, provenance producer and cold consumer carry a compact chain to current material using existing refs/digests/spans without copying bodies or inventing a second history owner?",
+    "What exact finite HOW/contract/code/test delta and nearest positive/negative discriminators are required for the one real provenance.mjs member case? Retain unknown earlier inherited contributors and semantic-survival limits; a positive structural correspondence is not paid eligibility."
+  ],
+  "readScope": [
+    "Frozen subject Product/requirements/frame and relevant D4/D5 HOW, provenance.mjs, validator qualification/contracts, abg qualification_proof, affected scope test and called existing helper owners",
+    "Exactly the named22 historical materials and original source-resolution reports; no broad history census",
+    "Exact installed STDO3.0.4 work skill and owning standards needed for readiness"
+  ],
+  "permittedEffects": "Only create READINESS.md and READINESS.json under this directory. Hash selected frozen inputs, reuse accepted custody facts; no need to scan/hash all404 again. No source or control edits elsewhere, tests/build, runtime/provider/network/auth/Git mutation.",
+  "stops": [
+    "A deciding material source outside named scope is absent; name exact missing relation and return without inventing it",
+    "A new Product law/runtime/store/framework is needed; return for Root"
+  ],
+  "return": "Closed contributing architecture/readiness result to Root, with exact interface pins, finite write territory, data-reuse plan, explicit insufficiencies and nearest falsifiers. No implementation or independent acceptance. No delegation."
+}

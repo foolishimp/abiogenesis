@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 795.0215830000088,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "actual parent effect is conserved by workflow foldback; downstream projection remains prospective",
+      "file": "test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_PARENT_FOLDBACK_ROOT unset; requires the retained parent foldback scratch root",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-008/events/085-t287-generic-job-parent-foldback.jsonl",
+    "bytes": 919,
+    "sha256": "6e41fde82f61a0153d78bedaa9a1abd4d892d2d38e251f9b3b3f0c95ebbe5706"
+  },
+  "commandReceipt": "commands/085-t287-generic-job-parent-foldback.result.json",
+  "workspace": "/private/tmp/abg-r8c-008/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

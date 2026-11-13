@@ -1,0 +1,38 @@
+{
+  "status": "UNBOUND_PREPARATION_ONLY",
+  "activation": null,
+  "controlManifest": null,
+  "finalSourceSubject": null,
+  "finalSourceInventory": null,
+  "candidateAcceptance": null,
+  "completedStageReport": null,
+  "sourceDigest": null,
+  "packageRoot": null,
+  "productManifest": null,
+  "helperPins": null,
+  "owners": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_OWNER_PINS.json",
+    "bytes": 7242,
+    "sha256": "9fc9d03660b4f24fcb5ba0b419a17df6bdd610952421ee86c8e88698d0f98356"
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001",
+  "tempRoot": "/private/tmp/abg-r7p",
+  "bootstrapInstallHost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/bootstrap-install",
+  "proposedBounds": {
+    "packMs": 120000,
+    "installMs": 600000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  },
+  "boundsSelectedByRoot": null,
+  "futureArchive": null,
+  "futureInstallation": null,
+  "measurementActivation": null,
+  "measurementBounds": null,
+  "limits": [
+    "Exactly one pack and one isolated Product-owner bootstrap installation; preserve failed/incomplete allocation, no retry or cleanup.",
+    "Reuse final accepted S5 compile/generation/lifecycle receipts; no build or package identity changes.",
+    "No release directory, immutable install, selector, source checkout or campaign runtime is touched.",
+    "P2 measurement preparation remains unchanged; its fixture performs its own ordinary disposable install from this archive and records setup cost."
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "status": "PREPARED_RC10_PROVISIONAL_PACK_INSTALL",
+  "id": "RC10-PROVISIONAL-ARTIFACT-02",
+  "sourceIdentity": {
+    "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292778,
+      "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+    }
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292778,
+    "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+  },
+  "completedStage": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/RESULT.json",
+    "bytes": 986,
+    "sha256": "ae5cf7e38f13a03e1f27eb90aa3f26c9c78be29243b8cc9d5298ee62fa4f2045"
+  },
+  "stageManifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266232,
+    "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+  },
+  "inputClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/INPUT_CLOSURE.json",
+    "bytes": 2422,
+    "sha256": "0c40680fcf405511949ceda44fcdbab18e28a52c5ec5814449be7191e0e147c6"
+  },
+  "measurementTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/MEASUREMENT_TEMPLATE.json",
+    "bytes": 8772,
+    "sha256": "8bf3f4f2f30fa9df3b31a628a18cb094a19ae170947b454cf78c652ba7ba2107"
+  },
+  "packageRoot": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript",
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02",
+  "tempRoot": "/private/tmp/abg-rc10-measurement-bootstrap-002",
+  "installHost": "/private/tmp/abg-rc10-measurement-bootstrap-002/host",
+  "runner": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "bytes": 42204,
+    "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/prepare-bootstrap.mjs",
+    "bytes": 10812,
+    "sha256": "07f0f4af0726d2e1f728c77fbf79b74943f15e47d4388c654da2615ab80e8613"
+  },
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "npmCli": {
+    "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "bytes": 54,
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+  },
+  "ownerPins": [
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/product/index.js",
+      "bytes": 13810,
+      "sha256": "26771ef341c8d0d1b927118a9a73556cb93df7cd248dc4f5b187e50a395c4799"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+      "bytes": 47778,
+      "sha256": "40fbc6b08924988c1b442cbbc5302c97a72c4bb0acc75a88db5392453c98ffb4"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "bytes": 211242,
+      "sha256": "148035dd74a83aa96e76a05c9883b635ba3fbfa1fc8698c7aab04eee6e7b5638"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.js",
+      "bytes": 54689,
+      "sha256": "09c584fb01021d2eb56516b933f77f64d31358a9e3f0bec3217fb7a67ecd387d"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/calculus/execution_basis_record.js",
+      "bytes": 6168,
+      "sha256": "1e7b949a0551c1caa9759a0a151b20e1cafde93a33ec6aef6eb36330507990fe"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/owner_bindings/run_invocation.js",
+      "bytes": 99552,
+      "sha256": "f116d5e571e567281a01b7c1e3840cc3ee8af616783f753a447001009e3b8e75"
+    }
+  ],
+  "bounds": {
+    "hostMs": 600000,
+    "packMs": 120000,
+    "installMs": 480000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "freeReserveBytes": 4294967296,
+    "nodeHeapMiB": 8192
+  },
+  "provisional": true,
+  "qualified": false,
+  "providerCalls": 0,
+  "completedFocused": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/focused-01/RESULT.json",
+    "bytes": 2272,
+    "sha256": "68176a792986c22b419d8a3baf94f3e95d2a348c431194bbf8257eb1f98bfe70"
+  },
+  "strictFocusedObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/STRICT_FOCUSED_OBSERVATION.json",
+    "bytes": 3466,
+    "sha256": "aeab83667304aef7dd15ebe07c3ec96622aaba60f321da175d2a4b3ad80b45c5"
+  }
+}

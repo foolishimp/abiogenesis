@@ -1,0 +1,173 @@
+{
+  "kind": "q23_operator_preparation_return",
+  "status": "FROZEN_REVIEWABLE_PACKET_RETURNED_TO_ROOT",
+  "at": "2026-11-05T15:57:49.734410+00:00",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "outcome": "Existing F11/F15 independence claims use actual configured identity through current ABG owners; unknown or ineligible required assessment cannot launch or become green.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Named mutable candidate at 1f62c0095e6196b089071bb72e88217792edf6ff; M Root selections are current coordination authority; C GOALS/T287 historical labels do not choose work.",
+      "tool": "Existing immutable installed RC6 and maintained operator-client; exact STDO3.0.4 definition and direct immutable skill routes.",
+      "runtime": "Actual fixture-proof-02 close; ABG alone admits and dispatches later native work. Operator packet is not runtime evidence."
+    },
+    "prohibitions": [
+      "No new Product WHAT, control plane, registry, journal or generic provider migration",
+      "No QR02 historical reconstruction or invented production positive eligibility",
+      "No operator candidate algorithm/test implementation, preflight, provider, commit, release or global selector change"
+    ]
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "packet": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/SOURCE_BEFORE.json",
+      "bytes": 70175,
+      "sha256": "8eddcdbb875eca26b3f7133e8278c0aafbf14012a0a71a28b4ffab679c582d03"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/NATIVE_GRANT.json",
+      "bytes": 33151,
+      "sha256": "9f529297f949c082158b505f8fabc86c3acf6c935fec52cb90ec03fad4aaa9a4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/NATIVE_TASK.json",
+      "bytes": 42385,
+      "sha256": "74bb62225006fec0980c4456cdfb67b78cefa7cd3d6e5b6a54f6c6b50ca0c914"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/C2_RECIPE.json",
+      "bytes": 37005,
+      "sha256": "a2b9140a86a7dba6f5f66a29dcccc9e641158432790c7028c597cda047985917"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/workload.json",
+      "bytes": 92204,
+      "sha256": "b60d8a72d2e4577e4daaf624e78f444ac3ff41aaeb4b5a167b72f1f12a504677"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/prepare-r1.mjs",
+      "bytes": 8948,
+      "sha256": "bf8fca184dd56e901ed228648699532afe727e135cb18ef10f09433b9ba9e5af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/PROVIDER_PROFILE.json",
+      "bytes": 1852,
+      "sha256": "b1f43f49973420a8059f0e583fa3a3cce9a7bc09f0879a31d02ab172965ff6a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/claude-provider.sh",
+      "bytes": 239,
+      "sha256": "dde239ee37cc238609bf8f481b4e8d2978d689836178c6fce706def15dc11b63"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/RUNTIME_BINDINGS.json",
+      "bytes": 3212,
+      "sha256": "993a8897ed5da7372490ae7b7cd82e5ae7491dbcf28f1ebd71c8620a43e589b2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/EXPECTED_FUTURE_FILES.json",
+      "bytes": 173,
+      "sha256": "f608b360379768b35e914c4d784ebf539f0254dcc26cc833922ca6973ac1cd14"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/STAGING_MANIFEST.json",
+      "bytes": 6466,
+      "sha256": "91ca7aa86d601dc660ee66046142267aac6c70731950010db3ca2502bb508140"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/freeze-source.mjs",
+      "bytes": 8503,
+      "sha256": "32cc45e5ee93ca8bc7849c20b333a2bc4572318a4c2c76ef6f5936211407be8e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/observe-progress.py",
+      "bytes": 4827,
+      "sha256": "0237722d4567ffabb7574ba0c222ba27afb6c26ca54db699fd3490ad9e05836b"
+    }
+  ],
+  "selectionPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_SELECTION.json",
+      "bytes": 7544,
+      "sha256": "dd2fd4b091990e326740b06849321542f9bdb6a85ed23fa8ed92d6ad1503bd7e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_SCOPE_CLARIFICATION.json",
+      "bytes": 1397,
+      "sha256": "22bb0fd012df55c925623c256118596ce5e38d0c345da986fa7b8c0136d73647"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_POLICY_HOW_SELECTION.json",
+      "bytes": 3891,
+      "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/METHOD_VERIFICATION.json",
+      "bytes": 1368,
+      "sha256": "1f9b60d56d52c6ca935d28439c9e081fbf67c6841d33f9c4b398dbff09d8a652"
+    }
+  ],
+  "counts": {
+    "protectedSourceFiles": 314,
+    "compileInputFiles": 290,
+    "sourceBytes": 8501723,
+    "selectedPaths": 333,
+    "mutableProductPaths": 17,
+    "stagedInputCandidates": 16,
+    "commands": 6,
+    "testModules": 6
+  },
+  "verification": {
+    "sourcePins": 314,
+    "trackedSourceUnchanged": true,
+    "JSONAndReferences": "pass",
+    "nodeSyntaxFiles": 5,
+    "shellSyntax": "pass",
+    "pythonSyntax": "pass",
+    "testsRun": 0,
+    "buildsRun": 0,
+    "providerCalls": 0,
+    "preflightsRun": 0,
+    "nativeAdmissions": 0,
+    "setupRuns": 0,
+    "writesOutsideControlDirectory": 0
+  },
+  "remainingRootActions": [
+    "Review and admit exact grant/dependency roots and finite temporary effects; retain provider/runtime bounds.",
+    "Stage exactly STAGING_MANIFEST input bytes into C and create selected CLI/test temporary roots if admitted; no complete repository copy.",
+    "Run prepare-r1.mjs with NODE_OPTIONS=--max-old-space-size=8192 against actual proof-02 close, then inspect actual C2 budget, initial projection fit and current physical prefix.",
+    "Root creates/pins final DISPATCH_MANIFEST and runs dispatch.mjs once only after successful admission/preflight.",
+    "Use passive observer/freeze patterns, independent MAX source review and actual final close/fresh readbacks to determine bounded acceptance."
+  ],
+  "genuineMissingAuthorityOrSourcePrerequisite": null,
+  "limits": [
+    "No actual preflight or future task fit has been claimed; existing native owners check actual per-call limits.",
+    "maxContextFiles512 is a payload selector for333 actual paths; retained16MiB context/1MiB prompt and provider/runtime limits remain.",
+    "Original.sources contains immutable controls/WHAT only. Complete compile protection uses native context/Testing selected paths; existing renderers carry locator metadata rather than eagerly quoting all source bodies.",
+    "Dependency lock/entry pins and immutable RC6 seed pins are precise inputs, not a newly certified whole dependency inventory. Canonical generation checks bundled correspondence.",
+    "General host tools remain behaviorally scoped; no OS sandbox or native UAT cross-family independence claim.",
+    "Actual paid positive Q23/F11 and QR02/QR03 remain outside this bounded component acceptance."
+  ],
+  "assemblyScript": "assemble-packet.py records operator assembly mechanics only; Root launch uses prepare-r1.mjs, not the assembly script.",
+  "c2ScriptPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/source-correspondence.mjs",
+      "bytes": 2375,
+      "sha256": "7610714960baa2b0ab618af6d5664a2a002c329fed3e3a1a209322a8b07f2ca9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/c2-proof.mjs",
+      "bytes": 3330,
+      "sha256": "0d08e420afdb8259f6b4d6a0edc6a2fe7b8692da811c7a6334a4dd81d938213e"
+    }
+  ]
+}

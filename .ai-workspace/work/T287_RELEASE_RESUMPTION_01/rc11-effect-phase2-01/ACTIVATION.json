@@ -1,0 +1,47 @@
+{
+  "id": "PHASE2-PREPARATION-01",
+  "status": "ROOT_SELECTED_PREPARATION_ONLY",
+  "recordedAt": "2026-11-09T23:46:30.057661+00:00",
+  "role": "Separately activated Writer/operator; Root remains Executive",
+  "ownerInstruction": "User continue activates preparation of the next planned Phase2 lifetime/command slice.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#executive-writer-and-reviewer-binding",
+  "subject": {
+    "root": "/private/tmp/abg-rc11-foundation-20261110-01",
+    "branch": "codex/rc11-foundation-correction",
+    "commit": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+    "tree": "3bc9e2e3c36f29646dfd2c7a46006c33054ccbe0"
+  },
+  "skill": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "bytes": 13369,
+    "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+  },
+  "definition": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/stdo_abiogenesis.json",
+    "bytes": 3136,
+    "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+  },
+  "framePin": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "bytes": 27131,
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "basis": {
+    "basis": "stdo://releases/v3.0.4/",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4"
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01"
+  ],
+  "operations": "Read/pin current source, exact RC10 builder/archive/install and existing accepted returns/protections; inventory reusable native and test/build routes; prep records only.",
+  "plannedScope": "Shared lifetime plus runCommand; other consumers receive compatibility proof rather than refactors. Exact source/design/proof scope awaits Root conjunction of separate agents.",
+  "held": "No source/tracking/Git edits, runtime allocation/provider dispatch/build/tests/repack/install/release/selector. No call or runtime identity invented.",
+  "hostBoundary": "Resumed context with shared unrestricted filesystem; no clean context or technical isolation claim.",
+  "stops": "Stale or dirty subject, conflicting authority, changed builder/basis, missing supported native path or unexpected effects; return to Root.",
+  "returnConsumer": "/root"
+}

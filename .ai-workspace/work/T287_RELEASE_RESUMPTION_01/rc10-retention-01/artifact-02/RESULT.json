@@ -1,0 +1,33 @@
+{
+  "status": "PROVISIONAL_ARCHIVE_AND_INSTALL_COMPLETE_MEASUREMENT_HELD",
+  "sourceIdentity": {
+    "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292778,
+      "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+    }
+  },
+  "packCount": 1,
+  "installCount": 1,
+  "compileExecuted": false,
+  "generationExecuted": false,
+  "releaseCut": false,
+  "qualified": false,
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "measurementBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/MEASUREMENT_BINDING.PRE_ADMISSION.json",
+    "bytes": 11563,
+    "sha256": "a162b004989be8c39a591c7a002268b663d9408bd9ca5621bac27a4c09ea7805"
+  },
+  "wallMs": 64143.242458,
+  "budget": {
+    "logicalBytes": 121301339,
+    "quota": false
+  }
+}

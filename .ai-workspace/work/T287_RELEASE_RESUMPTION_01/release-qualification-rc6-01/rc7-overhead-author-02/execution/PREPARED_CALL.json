@@ -1,0 +1,86 @@
+{
+  "status": "PREPARED_NOT_DISPATCHED",
+  "programRef": "program://abiogenesis/worksite/native-work@5",
+  "startRef": "start://abiogenesis/worksite/native-work@5",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "heldSourceSnapshotSha256": "1237b28d89dbd4e2da393d26f0e098d0e781d155431a9659a1e575f618dc493a",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "contextDigest": "sha256:598ba0e0b0195f79e107a34b0ebc4de7abfd6745d0fafc8790b3fb7e7864f5a8",
+  "observedEntries": 473,
+  "selectedFiles": 473,
+  "commands": 0,
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7b"
+    },
+    {
+      "name": "LANG",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  ],
+  "eventPrefix": {
+    "coordinateDigest": "sha256:5a540432e4bdeacfeec25462215529e4ae22c8569f6f83b0936de13ae67309df",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:4ab7e037f9ebcedaf4a5a2c7ecfca613b2e74e2c6ece16bc7efdba5d47af192e",
+    "prefixLength": 1178736411,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "inputCanonicalDigest": "sha256:7c62c9231f35aa33819dfff5bdbd353bcd0dd8cfaa2117c3e69892ce34fb791e",
+  "callCanonicalDigest": "sha256:b8da5956bd0ecd81b5adedcfab493ba1301d98fad6baaeafacecd494825daab8",
+  "callFileSha256": "ebbcac1752ea719f3775e20bbd8473cf2d0db6e9a91ffb80e6485cd004c76c35",
+  "workloadSha256": "1479d93ee0dc715e8a50a38d7f48d5d6e16d03729b96147a5602f5267f885fee",
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7b",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "BASH_DEFAULT_TIMEOUT_MS": "2700000",
+    "BASH_MAX_TIMEOUT_MS": "2700000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1",
+    "TMPPREFIX": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7b/zsh",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7b/npm-cache",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-02/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-02/npm-global.npmrc"
+  },
+  "capacity": {
+    "kind": "actual_existing_native_order_render_measurement",
+    "renderedNativeOrderBytes": 49466,
+    "maxPromptBytes": 1048576,
+    "reserveBytes": 131072,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Actual owner work-order text, not complete transport/instruction assembly. Existing dispatch owners apply actual remaining guards.",
+      "No selector is part of the selected one-node native author Program."
+    ]
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Existing one-node NativeWork Program; author receives fresh CLI context with preserved current source baseline and Root-selected R1-task/R2 completion and bounded review corrections. Separate clean C2/UAT remains unperformed."
+}

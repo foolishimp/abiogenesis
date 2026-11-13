@@ -1,0 +1,66 @@
+{
+  "kind": "t287_release_qualification_resumption",
+  "at": "2026-11-05T07:35:02.243230+00:00",
+  "roleTransition": "Executive -> separately bound coordination/operator Writer",
+  "ownerInstruction": "ok continue, following the five remaining 5.0 feature-closure areas and local RC6 installation",
+  "admission": "Existing exact owner continuation selects remaining 5.0 qualification work under T-287; this record binds that selection, not a new approval round.",
+  "productFrame": {
+    "goal": "GOAL-035",
+    "families": "F01-F07,F09-F11,F13-F17; fifteen selected 5.0 families",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    }
+  },
+  "baseline": {
+    "commit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "tree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+    "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "installedProduct": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/HANDOFF.md",
+      "bytes": 3551,
+      "sha256": "feca45b69462ff345d5446b4e30a160c8d7b30f2a5f45659410808bf87472d53"
+    }
+  },
+  "targetTruth": "Finite current-candidate feature/scenario/evidence matrix, only demonstrated blocker repairs through one native coding Worker, supported installed lifecycle and exact qualification through existing owners, then return the exact candidate for reserved human acceptance/publication.",
+  "firstPhase": "Reconcile current coverage, audit native qualification readiness and N9-RETAINED-FIXTURE-01, establish isolated source worktree and maintained RC6 SDK campaign bindings.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01",
+    "/Users/jim/src/apps/abiogenesis-5-release-qualification",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "permittedEffects": [
+    "Coordination records, bounded review requests and status projections with preimages",
+    "Isolated successor worktree from RC6 and campaign-local operator controls",
+    "Read-only frozen-source/evidence reviews",
+    "Existing installed SDK setup/preflight and separately bound native tasks after required inputs and resource limits are established"
+  ],
+  "roleBoundary": "Root Executive evaluates and coordinates; separately bound operator Writer handles mechanical setup/controls/status. Substantive code/test/HOW edits belong to one ABG native coding Worker at a time, normally xhigh. Independent frozen-subject reviewers use max.",
+  "reuseLaw": "Keep accepted subjects and failed attempts exact. Reuse evidence only within applicable subject/basis/scope/provenance and record invalidated joins. Do not repeat completed qualification merely to create a new identifier.",
+  "exclusions": [
+    "No 5.1 features, dynamic graph generation, full original Data Mapper prerequisite, broad optional optimization or new runtime/controller",
+    "No Product/requirement meaning changes without owning re-entry",
+    "No alteration of immutable releases or unrelated dirty/untracked work",
+    "No push, merge, tag, publication, global selector or stable-release acceptance",
+    "No unbounded or unpriced wholesale F11 provider dispatch"
+  ],
+  "stops": [
+    "Missing material prospective witness/oracle/independence/resource binding before its dependent execution",
+    "Unexpected source/evidence mismatch",
+    "Owner refusal or uncertain effect requiring triage",
+    "Material Product/authority change outside the admitted goal"
+  ],
+  "return": "Root conjoins closed bounded results and advances dependency-ready work; publication and actual human acceptance remain reserved."
+}

@@ -1,0 +1,106 @@
+{
+  "status": "MAINTAINED_CANDIDATE_BASIS_REFRESH_BOUND",
+  "recordedUtc": "2026-11-07T05:21:15.325303+00:00",
+  "executive": "/root",
+  "operator": "/root/rc8_operator",
+  "rootDisposition": "One execution004 continuation is selected once exact controls and joins hold; no extra GO. Existing refresh owner supplies missing derived setup, not an automatic retry.",
+  "rootTriage": {
+    "classification": "EXTERNAL_CANDIDATE_SELECTION_STALE",
+    "productGuardCorrect": true,
+    "originalFixture": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
+    },
+    "staleIdentity": "5.0.0-rc.4 / artifact sha256:f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+    "reason": "Historical fixture format validated without selecting current candidate. Most installed helpers normalize actual packed artifacts, so the stale external R1 basis was not exposed until its direct comparison.",
+    "effectAuthority": "Derived test-data only; primary source/fixture, Product guards and mutation negatives are unchanged."
+  },
+  "owner": {
+    "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/scripts/refresh-candidate-basis.mjs",
+    "bytes": 1914,
+    "sha256": "61114eb2c8e984924c2346c44d9b01dc2eaa1eed4a4cd40817fe80ccb6728d00"
+  },
+  "fixedExternalArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "fixedVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/verification.json",
+    "bytes": 15797778,
+    "sha256": "eb6ffc33d1742448dc88e9ff653ccb3e1c90c5abda67877605de14a8b64f4f6a"
+  },
+  "expectedSixFieldIdentity": {
+    "artifactDigest": "sha256:a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "productContentDigest": "sha256:5dd1e8165ec9fb25dceec68c6f81e79afd8b94debddbce77a15f02ab2928d6cb",
+    "manifestDigest": "sha256:0fc9fc5e92cb8bfbfc064f18e50324358f19d418ea508d41d6a5f3e69547da3b",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.8",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.8"
+  },
+  "changes": [
+    "Run maintained refresh-candidate-basis.mjs once through existing commandRecorder/file-host before the test loop",
+    "Assert owner-produced archive equals fixed accepted bootstrap bytes/digest and all six fields equal its verified identity",
+    "Substitute only this fixture row in derived input checks; isolated copies reuse exact refreshed bytes without another refresh",
+    "Primary final checks remain original frozen inventory",
+    "Versioned allocations and13 additional exact whole-file credits only"
+  ],
+  "predecessorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_003.json",
+    "bytes": 7364,
+    "sha256": "49f0707c3b94f578f0c89e8dd74210d43b7d2de048fb64364f781fb25e437b95"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-004.mjs",
+    "bytes": 24935,
+    "sha256": "564c487f2e5536a250439ea75617bbddbe22983ce42ca0baa5d8eba970ee8835"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_005.json",
+    "bytes": 62943,
+    "sha256": "b82d8d94a921053b7a5a8436b20327b4989b6e23c92dc221937991af8afe662e"
+  },
+  "syntax": {
+    "command": "node --check close-proof.corrected-004.mjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  "bind": {
+    "invocations": 1,
+    "exitCode": 0,
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-005/BOUND_INVENTORY.json",
+      "bytes": 1738981,
+      "sha256": "ef7af9f8da59a4b3b196061f6f2d2504c6a92cdb7258e1d64e10a2aa95374bf2"
+    },
+    "onlyChangedFields": [
+      "at",
+      "config",
+      "counts",
+      "focusedCoverage"
+    ],
+    "stageRows": 2131,
+    "dependencyRows": 4576,
+    "allOriginalRowsUnchanged": true,
+    "stageDigest": "d5976daaa2fd294fe703e10a325a3c60a76e391fb6c1f37ac9b46823aa30303d",
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8"
+  },
+  "credits": {
+    "newFiles": 13,
+    "newPasses": 163,
+    "newSkips": 6,
+    "previousFiles": 19,
+    "totalFiles": 32,
+    "totalPasses": 249,
+    "totalSkips": 57,
+    "scheduled": 176,
+    "verified": "Actual successful command/host/reporter receipts and exact frozen test bytes; no filtered/failing command credited. Root reviewed these13files as unaffected by the explicit candidate-basis transformation."
+  },
+  "testsExecutedInPreparation": 0,
+  "sourceEdits": false,
+  "git": false,
+  "dependencyVersionsChanged": false,
+  "network": false,
+  "providerCallsSelected": 0
+}

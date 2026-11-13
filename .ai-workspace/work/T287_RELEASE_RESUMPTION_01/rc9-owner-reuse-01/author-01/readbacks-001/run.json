@@ -1,0 +1,78 @@
+{
+  "status": "EXACT_CLOSED_READ_SUBJECT_PINNED_BEFORE_CALL",
+  "startedUtc": "2026-11-08T06:49:54.117Z",
+  "authority": "Root selected fresh result/replay from actual native close; existing read owners only",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/BINDING.json",
+    "bytes": 9615,
+    "sha256": "268322e4bd0437fce8a5b6898fff36154fcf43adc444734ea0bd95239ceecfd5"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/PREPARED.json",
+    "bytes": 5403,
+    "sha256": "335b96de0f7be0633ddb35aa8500c336a4ef9cb75cc765abe0620e97f76af59e"
+  },
+  "close": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resource-close.json",
+    "bytes": 2292,
+    "sha256": "dd6ddd472a0ff3ab606ceab4c1a6512dd1f5c1fa7e8ac1bcb095fee93803088a"
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 1499927,
+    "sha256": "11a9dc9b38eb79c60176518d675200bcc2f85dd91e66fb527e37281e1e13f0f6"
+  },
+  "acquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/abg-acquisition.json",
+    "bytes": 16525457,
+    "sha256": "0f77facd002f0acc8e0cb59ffa11231a25e5ebb2ca37a3867d2a9ff4019f0dc9"
+  },
+  "run": {
+    "ref": "run://abiogenesis/f7b6fac18ceb4d4fa52502680b99bb7b8799cbc1e94721243b52576b19b78a51",
+    "digest": "sha256:1a3a5a4184beb934980e0663d948decbb4561205f614c970bb6f6ec4c1fbcbe5"
+  },
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 21938126,
+    "prefixDigest": "sha256:4cb10e505bba8cfd750ffb477857a124ab8a9ffe66b9f94953ba24651f6381ea",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 714208439,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:6867daf05cd6b080460a762288c5fda3e295da368de53766034bae918eb6dcfb"
+  },
+  "physicalIdentity": {
+    "device": 16777231,
+    "inode": 714208439,
+    "byteCount": 21938126,
+    "digest": "sha256:4cb10e505bba8cfd750ffb477857a124ab8a9ffe66b9f94953ba24651f6381ea"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "sourceHelpers": {
+    "public-setup.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39883,
+      "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+    },
+    "runner.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    "consumer.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    "scenarios.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  },
+  "providerDispatch": false,
+  "sourceAcceptance": false
+}

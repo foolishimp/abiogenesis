@@ -1,0 +1,137 @@
+{
+  "kind": "bounded_independent_frozen_operator_code_review",
+  "reviewId": "H04-CODE-CONTROLS-001",
+  "createdUtc": "2026-11-06T18:18:10.150219+00:00",
+  "status": "CLOSED_NO_REMAINING_CONCRETE_CODE_BLOCKER_WITH_SELECTED_CORRECTION",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "dispositionOwner": "/root",
+  "productFrame": "Unchanged ABIogenesis 5.0 fixed fifteen-family scope, GOAL035/T287, selected installed/read STDO3.0.4 with empty composition and the accepted ABI5 reference frame. ABG retains runtime/admission authority; RC6 installed builder, RC7 prospective source.",
+  "scope": "Four frozen operator scripts and their exact diffs; one selected pre-admission helper correction. No Product/source re-review, new implementation framework or execution.",
+  "originalCodePinManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/CODE_CONTROL_PINS.json",
+    "bytes": 3238,
+    "sha256": "0e1546a88ad737f390e94b0d45056adbd79590c14180a9a5c602dc6b27b42b92"
+  },
+  "originalPinsVerified": 10,
+  "originalCodeAndDiffPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-stage.mjs",
+      "bytes": 6899,
+      "sha256": "50be9ccf2701d32a543432cb80129acfa84e6f80ce1d1287d7aa8c22a2e5ed61"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-lanes.mjs",
+      "bytes": 10545,
+      "sha256": "14f326791175750c72fe85825ef0305d022bcc7ccf0eaa359182190551de3d56"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/prepare-and-dispatch.mjs",
+      "bytes": 19678,
+      "sha256": "bb4637bdbaf0770951f521fa7280ccc2ebc63a57e005dab9ffcddeb5975c01bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/launch-owner-script.mjs",
+      "bytes": 2388,
+      "sha256": "e334554dc18b8efd4f80cccd47398af8d8253e26d902f948225034b29595706a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/STAGE_ADAPTATION.diff",
+      "bytes": 15703,
+      "sha256": "1597f2dcc5f8eed38a4973b9ba9012cc3ad848b25494a40846be075669911ca6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/LANE_ADAPTATION.diff",
+      "bytes": 8394,
+      "sha256": "2a98584cb15673b954068a480cb7d0045b257f71252288cec887b6ab63c3f997"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/prepare-and-dispatch.mjs.diff",
+      "bytes": 9962,
+      "sha256": "7279eaf468575aef8e96ac84a5511255eacdb21fe61bda2baf98ba08034adc97"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/launch-owner-script.mjs.diff",
+      "bytes": 3117,
+      "sha256": "797ba2ec3a042ccffd2d43d1af8d1031f7e7810f769badf617d4b0af1b699d16"
+    }
+  ],
+  "rootArchitectureSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 8291,
+    "sha256": "cc20cf0f68cda24c53afcf79c992db65ebfc886da2bf5fefdbb1ee0acb27a466"
+  },
+  "payloadBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+    "bytes": 1466472,
+    "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+  },
+  "selectedCorrection": {
+    "helper": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/prior-author-lanes.mjs",
+      "bytes": 10602,
+      "sha256": "ff80e482e7a5fb801ef49997a0ff390ea70f7cb796f5ea16807b592cc0cd7bca"
+    },
+    "diff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/LANE_SUCCESS_CORRECTION.diff",
+      "bytes": 2219,
+      "sha256": "db1790d088433eef1cdba5dd9e1adf5d372084f7fbb1bf095fd6ff5ede607554"
+    },
+    "bindingRequirement": "Final Root metadata must select the successor as the same logical prior-author-lanes.mjs input. That final metadata was outside this code-only review."
+  },
+  "findings": [
+    {
+      "id": "H04-CONTROL-STOP-001",
+      "classification": "Finite proof-allocation control gap",
+      "severity": "S2",
+      "status": "RESOLVED_IN_SELECTED_FROZEN_SUCCESSOR",
+      "originalRefs": [
+        "inputs/prior-author-lanes.mjs:56-60",
+        "inputs/prior-author-lanes.mjs:98"
+      ],
+      "trigger": "After fixed-route and held-session passed, an assessment-guards failure still permitted native-workspace-owner; a native-workspace-owner failure still permitted caller. Exact order alone did not require every predecessor to pass.",
+      "probability": "Deterministic conditional on such a later regression and another helper invocation; no actual H04 execution was observed.",
+      "harm": "Permitted extra lane allocation/effects after the selected return-to-Root failure boundary. It did not itself grant Product acceptance or weaken runtime authority.",
+      "existingControls": "Each lane retained its own failure summary and finite bounds, and final Root conjunction still required all selected proof. Those controls did not enforce stopping before the next allocation.",
+      "minimumRepair": "Reuse the helper terminal-success predicate for every already allocated predecessor and require its stageSourceDigest to match, before output allocation.",
+      "verifiedCorrection": "The pinned successor factors the complete terminal condition into passed, uses it for terminal exit, and rejects any failed or differently sourced predecessor before mkdir. The original helper and code manifest remain unchanged.",
+      "repairScope": "One existing operator helper predicate/preflight; no Product edit, new lane, retry or additional test."
+    }
+  ],
+  "conservedRelations": [
+    {
+      "refs": [
+        "inputs/prior-author-stage.mjs:14-28"
+      ],
+      "conclusion": "Pins original completed build, manifest, 5325-member inventory and immutable RC6 shared/digests plus canonical-json dependency. Compares exact declared manifest membership including graph/manifest, excludes both writable caller/test paths from payload, and uses the existing digest owner for content identity."
+    },
+    {
+      "refs": [
+        "inputs/prior-author-stage.mjs:29-46"
+      ],
+      "conclusion": "Checks dependency pins and 449 unchanged source inputs, creates one fresh 451-source stage/freeze, copies offline dependencies and exact declared payload members with byte/mode checks, then rechecks destination/source payload and source rows. Reused compile/generate/lifecycle entries explicitly say reused:true and executed:false with original receipt pointers; no old command is presented as newly executed."
+    },
+    {
+      "refs": [
+        "pre-admission-correction-001/prior-author-lanes.mjs:24-72",
+        "pre-admission-correction-001/prior-author-lanes.mjs:95-99"
+      ],
+      "conclusion": "One stage/five once-only lanes, existing allocation accounting and selectors, all-prior success plus exact fixed/held prerequisites, matching source and preallocation validation remain. Frozen code consumes metadata bounds; Root owns final 600/600/300/300/300 and allowed historical-skip selection. Authored held-session case is unchanged by these controls."
+    },
+    {
+      "refs": [
+        "prepare-and-dispatch.mjs:12-48",
+        "prepare-and-dispatch.mjs:69-128",
+        "launch-owner-script.mjs:9-20"
+      ],
+      "conclusion": "Host validates exact dispatch/admission/predecessor-close/source bindings, refuses occupied actual runtime output slots before owner acquisition, and separately preflights launcher command receipts/streams. The existing same-resource call, completion validation and actual-prefix close/abandon lifetime is preserved; no prior close is substituted."
+    }
+  ],
+  "neededRemedy": "No remaining concrete code defect identified after the selected correction. Root must bind the corrected helper and final metadata before launch.",
+  "historyPreserved": "H03 source/actual close, original failed stage and generation timeout, completed build receipts, fixed-route coordinate/body counterexample, and H04 original code pins are not rewritten.",
+  "limits": [
+    "Final JSON/grant/bounds/admission metadata was being materialized separately and was not reviewed as frozen by this code review; Root retains that conjunction.",
+    "No stage creation, payload copy, compile, generation, lifecycle command, proof lane, runtime acquisition or provider call was executed by Reviewer.",
+    "Payload copying, helper failure behavior and native host cleanup were assessed statically; future observed receipts remain necessary.",
+    "This review does not accept the future two-file source correction, installed route, release or measured performance, and is not formal F11 J qualification."
+  ]
+}

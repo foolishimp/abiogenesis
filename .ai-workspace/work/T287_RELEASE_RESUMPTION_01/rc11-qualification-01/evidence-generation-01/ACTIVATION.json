@@ -1,0 +1,25 @@
+{
+  "id": "RC11-EVIDENCE-CONTROL-PREP-01",
+  "roleTransition": "/root/rc11_evidence_triage: closed triage Worker/Writer -> external proof-control Writer",
+  "issuer": "/root Executive exact followup assignment",
+  "at": "2026-11-09T06:49:14.376979+00:00",
+  "grant": "Create new control scripts and preparation records only within evidence-generation-01; no Product/candidate writes, runtime/provider/tests/build/network/Git or cleanup execution.",
+  "subject": "RC10 source93a0de75a16c9e4cd29ec561d159b12add4bb3fd/tree27489cb8e62e765cb1aee4b0521fc98cc72a04db at /private/tmp/abg-rc10-retention-20261109",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; Product Definition empty composition; current previously verified basis reused",
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SCOPE.json",
+    "bytes": 7770,
+    "sha256": "96771f46109ffd8fe96316e47a2f7174f4898d58edcbd3998e703def8ce3855f"
+  },
+  "priorReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/triage/evidence-001/REPORT.json",
+    "bytes": 13043,
+    "sha256": "96a02f11e96daf11f2cd2d6fe3c0f43be7420b938e8a0842f036724529164db9"
+  },
+  "priorCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/triage/evidence-001/PRECISION_ADDENDUM.json",
+    "bytes": 725,
+    "sha256": "7cbdf2c854cb02edbc648ee9ea19822f07d589342c5f942a774935c25bdf6a07"
+  },
+  "return": "Prepared concrete controls and exact effects/inputs/limits to Root; stop before any execution. Later invocation requires its own exact Root admission."
+}

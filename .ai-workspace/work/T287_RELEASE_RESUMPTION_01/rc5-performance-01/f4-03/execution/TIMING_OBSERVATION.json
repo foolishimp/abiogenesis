@@ -1,0 +1,86 @@
+{
+  "kind": "actual_native_workflow_timing_observation",
+  "activation": "f4-03",
+  "recordedUtc": "2026-11-03T11:36:13.984844+00:00",
+  "sourceCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "closed": false,
+  "outcome": {
+    "startedUtc": "2026-11-03T11:33:48.014Z",
+    "endedUtc": "2026-11-03T11:36:11.320Z",
+    "wallMs": 143304.705542,
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:5ab1dbc434a06664e6cb167495cbd5154f71f3803dc96539cd1e1d7384c5949b",
+      "ref": "run://abiogenesis/31625d07c595b692fe74b718600b5b9bb5ecf11e56a67f5651917e3ef242b7f5"
+    },
+    "terminal": null,
+    "qualified": false,
+    "meaning": "Native return; independent source review and actual C2/UAT determine bounded acceptance."
+  },
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+  "fromByte": 387507789,
+  "throughCompleteByte": 454895046,
+  "throughOrdinal": 21233,
+  "sdkSetupMs": 27849.5,
+  "artifactVerificationMs": 18897.741833,
+  "dispatchToInitialSelectorProcessMs": null,
+  "dispatchToNativeWorkerProcessMs": null,
+  "nativeTaskAdmissionToWorkerProcessMs": null,
+  "nativeResultToC2ProcessMs": null,
+  "processes": [],
+  "events": [
+    {
+      "ordinal": 21192,
+      "eventRef": "event://abiogenesis/6db41acdd7dc5fe3848083e5208a5376d535872978c2be816566642cb5718ac3",
+      "time": "2026-11-03T11:35:08.066Z",
+      "kind": "c_call_result_admitted",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "runId": "run://abiogenesis/31625d07c595b692fe74b718600b5b9bb5ecf11e56a67f5651917e3ef242b7f5",
+      "pid": null,
+      "processRef": null,
+      "resultRef": "result://abiogenesis/d212cb854defe4dcf1c61ced3fdb9085066619b9f4d1dace74828095d29750b8",
+      "valueKind": "governance_work_state",
+      "offset": 388116441,
+      "rowBytes": 2356,
+      "rowSha256": "55c4f1eea6b85cbd8612975cf5434decd370e7c13c1fff907ec2431cc9a49620"
+    },
+    {
+      "ordinal": 21212,
+      "eventRef": "event://abiogenesis/63be59f4137151d94cb0e85f485c98684d7bd2550fb38745e8dade3f498a982f",
+      "time": "2026-11-03T11:35:16.354Z",
+      "kind": "c_call_result_admitted",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/31625d07c595b692fe74b718600b5b9bb5ecf11e56a67f5651917e3ef242b7f5",
+      "pid": null,
+      "processRef": null,
+      "resultRef": "result://abiogenesis/9c572e544aa7121b2e8c1b497eff29d4a4fa95e03e7c0ca31e77e730bc5c14e1",
+      "valueKind": "framed_synthesis_task",
+      "offset": 388186438,
+      "rowBytes": 66627696,
+      "rowSha256": "590f65c8b0b3c68e602d3e563001e43205fa5ca18b14c86f3ca6cf9c6569dda6"
+    },
+    {
+      "ordinal": 21227,
+      "eventRef": "event://abiogenesis/26e922ff2c6e9fbc5c90d73d545ae501b5768a09dc9dc9d5881fb3f0485afb05",
+      "time": "2026-11-03T11:35:25.501Z",
+      "kind": "c_call_result_admitted",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/31625d07c595b692fe74b718600b5b9bb5ecf11e56a67f5651917e3ef242b7f5",
+      "pid": null,
+      "processRef": null,
+      "resultRef": "result://abiogenesis/6b6ba26f370e8edc892a47a4384dd3dc838f1b15ac699aac1173795600ec725b",
+      "valueKind": "governance_failure",
+      "offset": 454867053,
+      "rowBytes": 4563,
+      "rowSha256": "1eefb61035daf508b7833f2213e35e4bfab0e80394593388487b51cc77d94ff2"
+    }
+  ],
+  "limits": [
+    "Physical-envelope timestamp projection only; not runtime admission/replay or acceptance proof.",
+    "Process duration includes native tools and model work. No provider-only compute or causal speedup is inferred.",
+    "Initial launch includes cold history, input and runtime work; differing histories and inputs prevent causal comparison.",
+    "Between separately selected coding tasks includes Root evaluation, failed proof, input repair and preparation; report separately from in-Run transition delay."
+  ]
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "recovery",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final1/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 109911,
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 1,
+    "failing": [],
+    "stdoutSha256": "60401fe5225ee6d8d25418b30d262f9b6fbe04410b7b0f61e16c22bea36a7092",
+    "stdoutBytes": 6780,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

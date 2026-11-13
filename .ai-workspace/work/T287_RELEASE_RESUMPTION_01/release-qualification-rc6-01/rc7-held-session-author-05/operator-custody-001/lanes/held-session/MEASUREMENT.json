@@ -1,0 +1,119 @@
+{
+  "kind": "selected_existing_held_session_lane_measurement",
+  "createdUtc": "2026-11-06T19:04:12.715998+00:00",
+  "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+  "tap": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-lanes-held-session/held-session.stdout.tap",
+    "bytes": 2444,
+    "sha256": "265bb17895788dbb63197d20caf1411d6c3070fc3c29e9144ddb62248affd944",
+    "line": 8
+  },
+  "label": "RC7_HS02_MEASUREMENT",
+  "diagnostic": {
+    "phases": [
+      {
+        "name": "acquisition",
+        "ms": 95.9,
+        "rss": 3141140480,
+        "work": {
+          "historyDecodes": 1,
+          "decodedRows": 34,
+          "historyBytesRead": 3290298,
+          "storeReopens": 1,
+          "coldHistoryReads": 0,
+          "bodyReads": 0,
+          "bodyBytesRead": 0
+        }
+      },
+      {
+        "name": "warm_calls",
+        "ms": 3144.9,
+        "rss": 3422552064,
+        "work": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 96,
+          "bodyBytesRead": 3500127
+        },
+        "calls": 2
+      },
+      {
+        "name": "warm_reads",
+        "ms": 519.5,
+        "rss": 3436756992,
+        "work": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 0,
+          "bodyBytesRead": 0
+        },
+        "reads": 2
+      },
+      {
+        "name": "selected_cold_proof",
+        "ms": 3010.7,
+        "rss": 3214295040,
+        "work": {
+          "historyDecodes": 2,
+          "decodedRows": 192,
+          "historyBytesRead": 7000254,
+          "storeReopens": 0,
+          "coldHistoryReads": 2,
+          "bodyReads": 192,
+          "bodyBytesRead": 7000254
+        },
+        "processes": 2,
+        "note": "cold work runs in child CLI processes; this process counts only its own"
+      }
+    ],
+    "refusals": [
+      {
+        "label": "stale",
+        "outcomeKind": "installed_definition_call_transport_refusal",
+        "code": null
+      },
+      {
+        "label": "copied",
+        "outcomeKind": "installed_definition_call_transport_refusal",
+        "code": null
+      },
+      {
+        "label": "foreign",
+        "outcomeKind": "installed_definition_call_transport_refusal",
+        "code": null
+      },
+      {
+        "label": "closed",
+        "outcomeKind": "installed_definition_call_transport_refusal",
+        "code": null
+      }
+    ],
+    "initial": {
+      "reopens": 1,
+      "decodes": 1,
+      "decodedRows": 34,
+      "historyBytesRead": 3290298
+    },
+    "prefix": {
+      "bytes": 3500127,
+      "coordinateDigest": "sha256:9fffa53c20c3eb8b4ed89db8db707b2bcbf1b439c404974b1c012dc7f0510fd0"
+    },
+    "resultDigest": "sha256:6849dbf4b83b4243420f43969d6b1fe30772cd056754224e8278eb3a90859ada",
+    "replayDigest": "sha256:30ce33330466a6ef2d34edaa95d2cf45d499e74db9f2300daac87ff2cc4822fc",
+    "totalMs": 47541,
+    "limit": "Smallest installed F_D fixture in one test process; not the installed large-log S4 growth result and no performance claim."
+  },
+  "interpretationLimits": [
+    "Counters are the authored diagnostic from this actual H05 TAP; no extra test/runtime/readback performed.",
+    "Acquisition: one decode/reopen. Two warm calls and two held reads add zero history decode/reopen/history bytes; warm calls still report96 body reads/3500127 body bytes.",
+    "Selected cold proof reports this process counters only; child CLI instrumentation is excluded as the authored note states. Phase wall times must not be converted into complete child-work counts.",
+    "RSS fields are phase samples, not aggregate parent-plus-child peak RSS.",
+    "Small installed F_D fixture only. H05 lane48743ms versus historical H01 fixture260138ms is an unmatched-run comparison and establishes no speedup."
+  ]
+}

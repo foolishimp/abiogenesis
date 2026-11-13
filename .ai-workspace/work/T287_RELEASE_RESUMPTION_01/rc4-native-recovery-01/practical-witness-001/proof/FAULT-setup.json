@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-02T07:55:52.884Z",
+  "name": "TypeError",
+  "message": "Cannot read properties of undefined (reading 'startsWith')",
+  "meaning": "Actual fault retained; no automatic retry, fabricated state, stale handoff or acceptance."
+}

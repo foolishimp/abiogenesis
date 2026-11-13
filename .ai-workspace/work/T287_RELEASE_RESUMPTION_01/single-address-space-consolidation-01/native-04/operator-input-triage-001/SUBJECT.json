@@ -1,0 +1,41 @@
+{
+  "recordedUtc": "2026-11-03T20:57:17.750017+00:00",
+  "purpose": "Read-only multi-frame input-closure triage of two actual C2 harness ENOENT failures",
+  "candidateSubject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/SUBJECT.json",
+  "candidateSubjectSha256": "2cf127e6fac782b900b8891fd0f7eb562f3970b47cbd753b5a4dc2c04954e208",
+  "actualC2Summary": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/ACTUAL_C2_SUMMARY.json",
+  "actualC2SummarySha256": "278b6a67a51cbd002ba1c431dece402a52525e8a6bc55b56f987ab6bc52b0ebf",
+  "actualFailureLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/actual-c2-001/maintained-setup-harness.stdout.log",
+  "actualFailureLogSha256": "89d212ad41c5ac18b14093588b50d37c3251541c29cfc663b0efe15db20ecd94",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/operator-input-triage-001/files/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "bytes": 1812,
+      "sha256": "1c6e6da5dc3ab79243318cf85f821fff1caed7bac0d86ed152aa62faa7a2aa62",
+      "sameAsF49": true
+    },
+    {
+      "path": "consolidation-inputs/native-04/C2_SELECTED_INPUTS.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/operator-input-triage-001/files/consolidation-inputs/native-04/C2_SELECTED_INPUTS.json",
+      "bytes": 74804,
+      "sha256": "59e054b9c460fff81f68f6c1f318974899e8fe3f6265cdfc42eae9f5f97467a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/check-c2-literal-imports.mjs",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/operator-input-triage-001/check-c2-literal-imports.mjs",
+      "bytes": 3174,
+      "sha256": "723f2542a58ffd0a9c21da386c2038e4bcb0e87558435375c40a7b7d34d0f769",
+      "standing": "Operator code only; prepare05 remains draft"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-05.py",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/operator-input-triage-001/prepare-native-05.py",
+      "bytes": 22131,
+      "sha256": "406a2b289b9ea21ee9432c873f3fe5253f3ddc271ad7e79eac6e95a3b10528de",
+      "standing": "Operator code only; prepare05 remains draft"
+    }
+  ],
+  "candidateUntouched": true,
+  "limits": "No Product/test repair; no repeated actual C2 or old qualification"
+}

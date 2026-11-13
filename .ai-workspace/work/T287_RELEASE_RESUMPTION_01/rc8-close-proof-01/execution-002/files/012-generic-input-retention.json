@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/generic-input-retention.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 665.2883330000022,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 4,
+    "failed": 0,
+    "passed": 4,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 4,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/events/012-generic-input-retention.jsonl",
+    "bytes": 1643,
+    "sha256": "b7cb92a18d0ff38187fd138c64ac1e64ba58545a2cb6f2d7e5e9461329984387"
+  },
+  "commandReceipt": "commands/012-generic-input-retention.result.json",
+  "workspace": "/private/tmp/abg-r8c-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

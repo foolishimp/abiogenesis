@@ -1,0 +1,44 @@
+{
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "maxPromptBytes": 1048576,
+  "checks": [],
+  "id": "T287-RC8-AUTHOR07-HISTORICAL-PROFILE-FIXTURE",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "outcome": "Repair only historical profile construction in the first two consolidation cases, preserve every substantive assertion, and prove those two cases through existing owners against exact retained history.",
+  "readRoots": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures",
+    "build_tenants/abiogenesis/typescript/code/src"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "qualification-scratch/rc8-reference-preservation-01/author-07"
+  ],
+  "instructions": [
+    "Use installed STDO3.0.4 stdo-work and coordinated handoff under the unchanged project frame, fixed15families/GOAL035/T287/empty composition. This task executes only after Root admits its exact prepared native call; no other provider or delegation.",
+    "Read the adopted HIST-001 capsule /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/historical-oracles-001/REVIEW.json SHAddd9a106b33dd0ea9588fda3de271525b13963f153eb42352f68c576d8d09f12 and adjacent README, accepted owning HOW10.10 E-G, then the first two cases of build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs. Exact frozen source lines66-67 and143/146/160 are the causal sites. Necessary code/src transitive owner/support reads are authorized. No broad rediscovery is required.",
+    "Base is accepted A6 source 6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200,1339rows; exact Product archive a178e960 unchanged. Read historical inputs by reference only: /Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json SHA04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee and MEASURED_BASELINE.json SHA774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06. The read-only log is /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl,586361364bytes/SHA532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c. Do not copy the log into task context or alter/import/restamp it.",
+    "Write ONLY the consolidation test file plus your progress/handoff subtree. Repair the historical fixture-profile construction shared by exactly its first two cases. Select the measured historical eventContractDigest and explicitly bind its coordinate to the resource log hash and bytes. The full file and each physical prefix cut retain their actual device/inode/length/hash, with coordinateDigest recomputed through existing digest owner. Never label historical bytes as current profile. Preserve all context equality, sibling/negative/refusal/work-counter assertions and every other case. No Product/shared/helper/HOW changes, profile migration, guard weakening or assertion deletion. Any later counterexample or larger scope: preserve and return; do not extend repair.",
+    "After the bounded edit run /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof.mjs freeze ONCE. Existing proof owner reuses exact A6 READY compiled/dependency/config/archive bytes and cumulative earlier test overlays, applying only this new test increment. Zero build/generation. Publish FREEZE_NOTICE immediately under qualification-scratch/rc8-reference-preservation-01/author-07; no edits after freeze so Root can review concurrently.",
+    "Run ONLY /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof.mjs test historical ONCE. This one command positively selects the first two affected case names and binds ABI5_CONSOLIDATION_INPUTS to exact proof-10; expected2passes. Remaining cases are filtered and receive no whole-file credit. Command600000ms,16MiBoutput,8GiBheap; native15min absolute/5min inactivity, inherited grace; existing4GiBowned/reserve. Stop first red/incomplete/input/resource mismatch, retain output and return without retry. Whole-file broad proof remains separate.",
+    "Write concise intake/freeze/HANDOFF under qualification-scratch/rc8-reference-preservation-01/author-07, reporting exact source delta, filtered counts and limitations. Preserve all prior failure evidence and complete-file receipts at their original identities. No source outside grant, new tests, auxiliary proof/build, network/npm install, Git/cut/push/global selector/cleanup, second provider or reviewer activation."
+  ]
+}

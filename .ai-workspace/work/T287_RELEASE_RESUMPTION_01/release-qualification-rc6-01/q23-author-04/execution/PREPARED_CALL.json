@@ -1,0 +1,80 @@
+{
+  "status": "PREPARED_NOT_DISPATCHED",
+  "programRef": "program://abiogenesis/worksite/native-work@5",
+  "startRef": "start://abiogenesis/worksite/native-work@5",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "heldSourceSnapshotSha256": "7a86850eab9445e1a90f98ecee705373f445f9a2baeefc2b7c8de6030eee64ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "contextDigest": "sha256:02143315687a0c93f398f6dc54c219c38bfaeff393e0cc8e251b7dca9cc6bda3",
+  "observedEntries": 341,
+  "selectedFiles": 341,
+  "commands": 0,
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/private/tmp/abg-rc5"
+    },
+    {
+      "name": "LANG",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  ],
+  "eventPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 230062987,
+    "prefixDigest": "sha256:c01478a8feb1cd8e848dcd787a78b162be71ee70fbfc6114e253918a6115080f",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 701759869,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:b9099ece62359b32a56d5283f595d6a80c9814a17ace353afc186ae36a4e5265"
+  },
+  "inputCanonicalDigest": "sha256:04da95f16c6e7e5e14cecfe634a9f03eb3a462dcc35d6e761b306e54665020e7",
+  "callCanonicalDigest": "sha256:50a8a5843d43dbd2578f4933947a0434ffdad34dc2b18bc47e0a6ea3a3ad7277",
+  "callFileSha256": "7432e32201995aae396e29f5dd841e0ed3ce2e7b7a6683e5efa3de93c91ca6c0",
+  "workloadSha256": "f3109de5c0ecbc2e70a9fc1a01166d05b0b993e0a50f3720cc335c4acfe9c513",
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-rc5",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "BASH_DEFAULT_TIMEOUT_MS": "7200000",
+    "BASH_MAX_TIMEOUT_MS": "7200000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "capacity": {
+    "kind": "actual_existing_native_order_render_measurement",
+    "renderedNativeOrderBytes": 39083,
+    "maxPromptBytes": 1048576,
+    "reserveBytes": 131072,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Actual owner work-order text, not complete transport/instruction assembly. Existing dispatch owners apply actual remaining guards.",
+      "No selector is part of the selected one-node native author Program."
+    ]
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Existing one-node NativeWork Program; only author receives resumed CLI environment. Separate clean C2/UAT remains unperformed."
+}

@@ -1,0 +1,54 @@
+{
+  "status": "SOURCE_AND_BUILT_ARTIFACT_CONSERVED_AFTER_ALL_SELECTED_PROOF",
+  "utc": "2026-11-09T04:49:07.590840+00:00",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+    "bytes": 293103,
+    "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+  },
+  "stageFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292778,
+    "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+  },
+  "sourceRows": 1334,
+  "sourceCopiesCompared": 3,
+  "sourceFileComparisons": 4002,
+  "compiledInputRowsCompared": 693,
+  "packageMembersStillMatchArchive": 5325,
+  "packagePayloadBytes": 71764126,
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "nativeReadOnlyControlsVerified": 7,
+  "manifestConserved": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1855,
+    "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+  },
+  "heads": {
+    "/Users/jim/src/apps/abiogenesis": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "/private/tmp/abg-rc10-retention-20261109": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299"
+  },
+  "trackingFrozenPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 817015,
+      "sha256": "4c57b8606b481c2777b055a4245a1a7c49013595b368460d5828721b804a9372"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 168282,
+      "sha256": "4f04d84f6de75aa6f23c52199b08b643ad6c8a2c21e8d0692c63386ee9a9d2e1"
+    }
+  ],
+  "gitOptionalLocks": 0,
+  "mainTrackedStatus": [
+    " M .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    " M specification/GOALS.md"
+  ],
+  "standing": "Read-only checkpoint conservation; no claim of absence of transient or unobserved off-scope writes. Main tracking unchanged by this check."
+}

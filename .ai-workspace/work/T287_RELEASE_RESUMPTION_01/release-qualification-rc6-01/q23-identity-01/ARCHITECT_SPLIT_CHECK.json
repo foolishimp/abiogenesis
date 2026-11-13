@@ -1,0 +1,96 @@
+{
+  "productFrame": "ABIogenesis 5.0 / GOAL-035 / T-287; fixed F01-F07,F09-F11,F13-F17. Q23 is the existing F04/F10/F11/F15 configured-identity and qualification-owner cone. Product/requirements own independence meaning; ABG admits runtime evidence; transport supplies configured facts. No family-policy exception, taxonomy inference, new dispatcher or broad F11 claim.",
+  "kind": "closed_q23_architectural_split_consistency_check",
+  "role": "Contributing architect; no independent-assessment claim.",
+  "result": "indeterminate",
+  "architectureConclusion": "The Q23/QR02 split is coherent. Q23 can implement one canonical binding, the existing owner gate and conditional mechanism/negative proof while external prior correspondence remains unknown. The stronger claim that an eligible concrete native-provenance pair is already supplied by current policy is unsupported.",
+  "intake": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_SELECTION.json",
+    "bytes": 7544,
+    "sha256": "dd2fd4b091990e326740b06849321542f9bdb6a85ed23fa8ed92d6ad1503bd7e",
+    "allSixAuthorityByteAndDigestChecks": true
+  },
+  "subject": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "tree": "ff447cb7c9cf04c2af9cc784ef3ff0e1892ab702",
+    "trackedClean": true,
+    "deltaFromEarlierSubject": "Only test_env/tests/t287-native-semantic-revision.test.mjs; selected identity owners unchanged."
+  },
+  "selectedBasis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "priorProposalSha256": "7ec6f271253664b7a571d636ef65fddcf77015ed06795238b382368d91165876",
+    "rootDispositionSha256": "fe0ac1db2499a2ec73456d50a9a8f57df4cf70ac23c1ccbc8ec375882f7b9497"
+  },
+  "nativeProvenance": {
+    "sufficientPriorShape": "A completed, admitted C1 candidate-producing occurrence before the assessment, with its exact Result, transport binding, replacement bytes/target scope and current selected subject correspondence. Resolve its configured identity through that producer's binding; compare it to the prepared assessor binding under the published claim policy.",
+    "existingOwner": "abg/qualification_proof.ts:647-678, particularly native_construction:653-678, already joins producerForResult, successful C1/advance, actual bundle bytes and exact scope, and probabilistic transport.",
+    "boundedHow": "Factor/reuse that native producer relation against the already available admitted task/provenance before assessment. Its current function parameter is a J wrapper, but the native arm does not need judgment.raw.attributions. Do not manufacture a placeholder J to call it.",
+    "qr02Separation": "External attribution at validator/qualification.ts:861-865 depends on assessed attribution. Preserve unknown when no sufficient prior correspondence exists. A native-only fixture does not need QR02 history reconstruction and cannot close it."
+  },
+  "exactPriorPolicy": {
+    "canBind": [
+      "REQ-P-SELF-CONFORMANCE-007A:82-88 and REQ-P-QUAL-064A:364-371: independent applicability/sufficiency is mandatory; labels are insufficient.",
+      "T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md:35,57-59: published role binds allowed actual actor/profile and source authority; native authors are actual producing occurrences.",
+      "STDO3.0.4 EVALUATION.md:246-260: authorship/evidence conditions; same-family default is non-independent; family independence is declared.",
+      "QUALIFICATION_ROLE_POLICY at validator/qualification_contracts.ts:104-120, checked against published declaration hash in abg/qualification_proof.ts:323-328, is the existing owner through which any selected correspondence must be bound."
+    ],
+    "notPresent": "No concrete selected profile-to-family correspondence or positive independent pair is contained in that current policy. It names role/actor refs, worker/renderer/materialization binding, authority and two requirement-source refs. Those references establish the obligation, not the missing positive family fact.",
+    "priorDisposition": "ROOT_IDENTITY_DISPOSITION accepts the structural seam expressly without adopting positive eligibility or missing family facts. ROOT_SELECTION preserves that limit and the same-family default. The older question naming possible families is not an adopted answer.",
+    "exactAnswer": "There is no already established concrete eligible family/profile pair in the inspected prior sources to bind as the positive premise. The available prior policy supplies the independence obligation and default refusal."
+  },
+  "fixtureBoundary": {
+    "conditionalComponentProof": "A controlled fixture may explicitly model a sufficient, prior, owner-bound policy relation and native producer history, and test that the existing path preserves/uses those premises. Artificial symbols are test premises, not a real-model taxonomy or evidence of production eligibility. Bind any such premise before assessor launch and use the canonical published-role/proof-owner path; do not introduce a production caller-policy override or bypass to make the fixture pass.",
+    "limitation": "That is conditional mechanism proof. It cannot be reported as proof that current production policy has selected an eligible actual author/assessor pair. If the requested positive means a genuinely eligible concrete pair under current published policy, its prerequisite remains missing.",
+    "existingTestEvidence": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-qualification-conservation.test.mjs",
+        "lines": "1;51-60",
+        "meaning": "Explicit controlled transport conservation, not independent semantic assessment; its external fixture activation disclaims semantic independence."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+        "lines": "45;143-148",
+        "meaning": "Native-provenance placeholder and synthetic component attribution premises; not a prior admitted eligible author/family declaration."
+      }
+    ],
+    "finiteDiscriminator": "Given an expressly scoped conditional policy premise, retain one actual prior native C1 producer and one assessment through the existing owner path; cold projection recovers both identities from their bindings. Nearest negatives: same declared family despite renamed role/model; unknown family/profile; effective-model mismatch; missing/foreign producer or scope; and forged binding/ref. Every required unknown/prohibited case stops before dependent provider execution and cannot replay green."
+  },
+  "familyCorrespondenceOwnership": {
+    "owner": "Existing Product-owned published qualification role policy: QUALIFICATION_ROLE_POLICY, validator/qualification_contracts.ts:110-120; authorityRef actor-capability://abiogenesis/qualification/product-owner@5. Accepted D4/D5 HOW:35,57-59 selects that owner, backed by REQ-P-SELF-CONFORMANCE and REQ-P-QUAL.",
+    "smallestReentry": "Declare and source-bind the concrete selected profiles' family correspondence and applicable pair relation at this existing qualification policy/accepted HOW owner, then realize it in the same canonical published contract and publication binding. This is bounded policy/HOW declaration under the existing independent-judgment outcome, not inherently a new Product WHAT outcome or a universal taxonomy.",
+    "operatorBoundary": "Root/operator may select actual actors/profiles under that declaration and bind their effective configuration. Actor/model environment settings cannot author the family declaration or turn unknown into eligible.",
+    "governingChangeBoundary": "An exception to same-family non-independence or changed acceptance meaning requires its governing claim-policy re-entry; neither is selected here. Repeating the existing default requires no exception.",
+    "nextStep": "Implement the selected Q23 identity/projection/refusal cone now with conditional component proof. Retain concrete positive production eligibility as an explicit pending policy/selection dependency. It can open when the exact pair's authoritative correspondence and the available actual transport route match; this is not a permanent unavailability conclusion."
+  },
+  "unavoidablePrerequisite": {
+    "condition": "For an unconditional positive eligibility claim, the governing role owner must supply the exact selected profile identities and source-grounded family/independence relation for that pair before invocation. Only the relevant pair is needed; no universal taxonomy or registry is required.",
+    "splitEffect": "This limits positive acceptance; it does not make the Q23/QR02 architecture split incoherent and does not require importing external reconstruction into Q23.",
+    "lawfulContinuation": "Keep bounded Q23 implementation and unknown/negative behavior selected. Label any prospective synthetic eligible fixture as conditional mechanism proof. Retain actual concrete positive eligibility as pending until an existing authoritative declaration is supplied or the owning policy is lawfully selected. Do not silently treat test premises as that selection."
+  },
+  "evidenceRoutes": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "lines": "104-139"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "lines": "495-511;861-865"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "lines": "323-328;647-680"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "lines": "35-61"
+    },
+    {
+      "path": "stdo://releases/v3.0.4/standards/EVALUATION.md",
+      "lines": "246-260"
+    }
+  ],
+  "effects": "Read-only named controls/current owner and bounded local-test inspection; wrote only ARCHITECT_SPLIT_CHECK.json and .md. No code/HOW/test edits, build/test/native/provider execution, private provider content or broad F11 audit.",
+  "closed": true
+}

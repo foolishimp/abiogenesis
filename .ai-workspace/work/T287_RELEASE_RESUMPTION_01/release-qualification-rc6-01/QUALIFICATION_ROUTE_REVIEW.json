@@ -1,0 +1,349 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "goal": "GOAL-035",
+    "work": "T-287 RC6-based 5.0 qualification resumption",
+    "families": "F01-F07,F09-F11,F13-F17; fifteen selected families",
+    "slice": "F11/F15 existing native qualification owners and F17/S06 prospective witness entry",
+    "outcome": "An exact installed prospective pre-RC subject receives complete source-grounded, independently attributed assessment and authenticated verification/behavioral evidence; sole AF22 conserves it. A distinct installed_rc qualification and actual human acceptance follow the owning S07 lifecycle.",
+    "authoritySplit": {
+      "immutableDefinitions": [
+        "Product/requirements",
+        "Program/GraphFunction",
+        "QualificationLawBasis",
+        "qualification catalog",
+        "assessment plan and source inventory"
+      ],
+      "derivedTools": [
+        "catalog/index",
+        "scope/material construction",
+        "test driver",
+        "cost projection"
+      ],
+      "observations": [
+        "source hashes",
+        "historical run summaries",
+        "C2/J/F11/AF22 evidence"
+      ],
+      "runtimeAuthority": "GTL declares; HoG selects/traverses; existing effect owners act; ABG alone admits; Event Calculus/replay reconstructs.",
+      "decisionAuthority": "Root Executive conjoins this diagnostic review; publication and actual human acceptance remain reserved."
+    },
+    "prohibitions": [
+      "No new runtime/controller/reducer/catalog authority",
+      "No historical green promoted to a changed subject",
+      "No invented human attribution or acknowledgment",
+      "No full original Data Mapper prerequisite for ABI 5.0",
+      "No 5.1 feature expansion"
+    ]
+  },
+  "activation": {
+    "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REQUEST.json",
+    "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "role": "Independent MAX Reviewer",
+    "actor": "/root/rc6_qualification_route",
+    "at": "2026-11-05T07:45:29Z",
+    "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "host": "General filesystem tools; behavioral read/write bounds, no sandbox-isolation or new clean-family claim.",
+    "independence": "This activation did not author or repair the frozen subject. This bounded source/route diagnostic is not a release-grade native F11 judgment; model-family independence from historical contributors is not claimed.",
+    "writes": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.md"
+    ],
+    "effectsPerformed": [
+      "Read-only source/control/metadata inspection",
+      "Read-only STDO manager verification",
+      "Hash correspondence of control inputs and pinned scenario assets",
+      "The two granted review records"
+    ],
+    "effectsNotPerformed": [
+      "Product/code/test edits",
+      "Builds/tests",
+      "Provider calls",
+      "Native runs",
+      "Installations",
+      "Raw provider thinking/text/tool-result/stdout acquisition",
+      "Bulk event-log or scratch-tree scans"
+    ]
+  },
+  "basis": {
+    "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "memberSetSha256": "20e9d378f261992e62dd473ef8572b11eb9bec281149ac0ccc754b91c9073466",
+    "verification": {
+      "definition": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "frame": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "controlPreimagesVerified": [
+      "definition",
+      "product",
+      "handoff",
+      "ROOT_ACTIVATION"
+    ],
+    "selectedMethodMembers": {
+      "ACTIVATION.md": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "EVALUATION.md": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485",
+      "frames/bootstrap.md": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "frames/FRAME_INPUTS.json": "3a33acd708e75802c1609e9ce0d1e75dad9bcff2533b5ecb24b5c9659e18b303"
+    }
+  },
+  "subject": {
+    "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "commit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "tree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+    "trackedStatus": "clean on acquisition",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "installedProduct": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant",
+    "installEvidenceLimit": "Installed identity is bound by the verified request/handoff, not independently reinstalled or payload-verified by this review."
+  },
+  "claim": "Existing frozen RC6 owners, driver, materials and selections are sufficient for immediate release-grade native F11/sole-AF22 dispatch.",
+  "result": "falsified",
+  "conclusion": "Do not dispatch the full qualification plan yet. The existing route is identifiable and the real witness/oracle selections already exist, but current attribution and preparation bindings are insufficient.",
+  "severityScale": "Project S0-S4, ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:370-380; no priority assigned.",
+  "findings": [
+    {
+      "id": "QR-01",
+      "severity": "S1",
+      "title": "Q23 assessor identity correspondence is still absent",
+      "evidence": [
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts:647",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts:717",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts:238",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts:13",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/Q23-proposal.md"
+      ],
+      "counterexample": "External construction authors resolve to actor-identity:// values; resolveQualificationAssessments compares them with judgment.source.actorRef, an actor:// role reference. Native construction also returns actor refs. A renamed role can therefore appear distinct without an established actual identity.",
+      "violatedRelation": "Product F11; SELF-CONFORMANCE-007A/010; D4/D5 design section 3 requires actual admitted actor/profile identity correspondence and author independence, not a caller label.",
+      "causalAssessment": "The actual per-invocation transport/lineage exists, but its judgment projection lacks an admitted canonical actor identity. Searching current code/src found actorIdentityRef only in qualification provenance/attribution contracts and their consumers.",
+      "triggerProbability": "Certain on the external-construction compare; actual false qualification is not observed.",
+      "realizedHarm": "No incorrect admitted RC6 qualification or publication was observed; release-grade independence cannot be established.",
+      "blastRadius": "Required F11 author/peer independence and dependent AF22/release eligibility; unrelated not_required behavior is outside this finding.",
+      "containment": "Withhold dependent paid independence assessment and qualification credit. Preserve old missing-identity records as unknown.",
+      "boundedRepair": "Owning HOW binds actual identity to the existing per-invocation transport/lineage and its effective configuration, then existing projectors compare identities. Reuse the existing transport body/digest and lineage; no duplicate identity service or runtime is indicated.",
+      "ownerInformationNeeded": "The adopted identity-correspondence binding and actual eligible assessor arrangement for the selected current scopes. The old proposal is a recommendation, not an adopted field/schema decision.",
+      "repairComplexity": "Bounded but crosses transport construction, admission/replay and qualification consumers.",
+      "regressionRisk": "Material if applied to all transports or old records indiscriminately; retain unrelated behavior and historical unknowns.",
+      "confidence": "high",
+      "triage": "complete"
+    },
+    {
+      "id": "QR-02",
+      "severity": "S2",
+      "title": "The test provenance selection does not establish the relevant contributor set",
+      "evidence": [
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs:37",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs:192",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs:211",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts:849",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts:866"
+      ],
+      "counterexample": "taskProvenance assigns each member only to provenance.last. identity(message) assigns commits with no Co-Authored-By trailer to product-owner; the six latest tenant preservation commits, including RC6 and RC5, have no such trailer. That is not evidence that a human authored their native-produced changes.",
+      "violatedRelation": "The existing D4/D5 attribution and independence law requires source-grounded relevant construction attribution.",
+      "causalAssessment": "qualification.ts already unions supplied chain scopes and checks complete selected-member coverage. No missing generic contributor-union Product mechanism is alleged. The gap is the driver's selection and attribution inputs: omitted surviving contributors cannot be recovered by the existing union check, and historical postimages conflict with current material when naively added.",
+      "triggerProbability": "The no-trailer fallback and last-chain selection apply to the current preservation ancestry. Which earlier contributions survive requires source-grounded selection.",
+      "realizedHarm": "No incorrect admitted qualification observed. A current complete authorship/assessor exclusion set is unavailable from this driver alone.",
+      "blastRadius": "Affected external-construction assessment scopes and their independent reviewer allocation.",
+      "containment": "Use attributable original native producers or sufficient original external construction/grant/preimage/delta/closure records under the existing arms; do not infer authorship from the preservation commit.",
+      "boundedRepair": "Select the relevant contributor set at the existing attribution owner and project it faithfully in the existing driver. Preserve actual source/producer correspondence and do not indiscriminately union every historical editor.",
+      "ownerInformationNeeded": "Exact current contributor records and attribution correspondence per assessment scope; any semantic ambiguity about surviving contributions returns to the existing attribution HOW owner.",
+      "repairComplexity": "Bounded evidence mapping and driver/owner correspondence repair; no new ledger or generic union mechanism.",
+      "regressionRisk": "Old records or correct present scopes could be misrepresented if attribution is rewritten or all history is treated as current authorship.",
+      "confidence": "high",
+      "triage": "complete"
+    },
+    {
+      "id": "QR-03",
+      "severity": "S2",
+      "title": "The retained qualification helper is bound to RC1, not the requested successor",
+      "evidence": [
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/build-resources.mjs:23",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/build-resources.mjs:29",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/tenant-manifest.json",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/uat/candidate-fd38e8227/operator-config.qualification.json"
+      ],
+      "counterexample": "PROSPECTIVE_RELEASE_FIELDS is RC1/ordinal1 and installedExports rejects every package version other than 5.0.0-rc.1. Retained tenant manifest is RC1; 237 of 1191 retained inventory members differ from RC6. The retained operator config names fd38e8227/pack550b48cc.",
+      "violatedRelation": "QUAL-057A/C/D exact prospective source/artifact/law/material relation.",
+      "causalAssessment": "This is stale test/operator preparation. prepare reconstructs inventory dynamically; retained preparation is not a current freeze. No missing Product qualification mechanism is inferred.",
+      "triggerProbability": "Certain if the unchanged helper is pointed at RC6.",
+      "realizedHarm": "No dispatch attempted by this review; unchanged helper cannot prepare the selected package.",
+      "blastRadius": "Existing exact-candidate qualification preparation and subsequent driver modes.",
+      "containment": "Keep historical preparation immutable; rebind through existing build-resources and driver owners on an isolated successor.",
+      "boundedRepair": "Replace inherited RC1 assumptions with the selected exact prospective candidate using existing contracts, regenerate run-independent resources and recipe, and bind the installed resource/install/WorkspaceBinding through existing prepare.",
+      "ownerInformationNeeded": "Exact eventual prospective RC identity/ordinal and frozen release-claim bytes, plus source/artifact/install coordinate of the selected candidate. Current RC6 is an unqualified local baseline, not retroactive pre-RC authorization.",
+      "repairComplexity": "Small-to-moderate preparation migration, dependent on the settled final subject.",
+      "regressionRisk": "Cross-subject evidence or retroauthorization if old artifacts are overwritten or relabeled.",
+      "confidence": "high",
+      "triage": "complete"
+    }
+  ],
+  "existingRoute": {
+    "launcher": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/run-exact-candidate-qualification.sh",
+    "driver": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+    "resourceBuilder": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/build-resources.mjs",
+    "nativeDispatch": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs#dispatchLive",
+    "syntax": [
+      "sh test_env/support/run-exact-candidate-qualification.sh prepare --config FILE --dependencies DIR",
+      "sh test_env/support/run-exact-candidate-qualification.sh helper-realize --config FILE --archive PREPARED",
+      "sh test_env/support/run-exact-candidate-qualification.sh execution-material --config FILE --archive PREPARED --helper HELPER_ARCHIVE",
+      "sh test_env/support/run-exact-candidate-qualification.sh live --dry --config FILE --archive PREPARED --execution EXECUTION_ARCHIVE",
+      "sh test_env/support/run-exact-candidate-qualification.sh live --config FILE --archive PREPARED --execution EXECUTION_ARCHIVE --cap-usd N",
+      "sh test_env/support/run-exact-candidate-qualification.sh cold-reads --config FILE --archive ARCHIVE"
+    ],
+    "syntaxStanding": "Existing syntax only; not an executable activation, and prepare performs installation effects.",
+    "order": "Observed C2 -> plan over authenticated Result/material -> declared assess@5 slots -> applicable owner rulings -> self-conformance@5 -> sole exact-candidate@5 -> fresh reads.",
+    "owners": [
+      "code/src/validator/qualification_contracts.ts: domain contracts",
+      "code/src/validator/qualification.ts: construction/material/attribution and reducer meaning",
+      "code/src/validator/self_conformance.ts: complete F11 evaluation",
+      "code/src/abg/qualification_proof.ts: actual native occurrence/evidence/currentness joins",
+      "code/src/implementation/qualification.ts and self_conformance.ts: declared leaf realization",
+      "code/src/gtl/self_conformance.ts: published GraphFunctions/Programs"
+    ],
+    "preconditions": [
+      "Settled exact prospective subject/law/catalog/inventory/claim and installed correspondence.",
+      "Current recipe: protected source inputs, commands, predicates, writes, dependencies and generated comparison; actual native C2 Result; required selected skips/todos remain incomplete.",
+      "Source-grounded finite coverage; actual current behavioral evidence plus seven F11 seeds in their proper subjects; independent sufficiency judgments.",
+      "Actual contributor and assessor identity/authority/independence bindings before paid dependent assessment.",
+      "Current measured complete plan and technical/resource limits, provider readiness and actual transport routing.",
+      "Original evidence frontiers/declarations available; no copied event history substituted as the admitted source."
+    ],
+    "conditionalLimit": "dispatchLive stops awaiting_owner_rulings when attribution is insufficient; its own comment says response-to-ruling-selection continuation is not authored. Sufficient existing attribution requires no extra O. Do not add general 5.1 human response/resume to solve this condition.",
+    "providerLimit": "Current UAT configuration/workerEnvironment is Claude-only. A Codex assessor is not enabled merely by selecting its name; separately establish existing transport routing if selected."
+  },
+  "witnessEntry": {
+    "selected": true,
+    "selectionAuthority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md:393",
+    "retainedRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md:5146",
+    "cases": [
+      "basic-cli",
+      "js-tenant-test",
+      "js-sdlc-bootstrap",
+      "rust-cli",
+      "rust-service",
+      "parallel-js"
+    ],
+    "fixtureRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+    "manifest": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+    "manifestSha256": "666afea3643b5fcb8cf226d61bfa2022e249ad28620246e7c93387f1d9cca843",
+    "pins": "All seven manifest rows' acquisitionDigests verified; five assets each for the six selected cases, seven for data-mapper-full.",
+    "oracle": "Each source.original.txt/request.json/oracle.json/obligations.json plus independent-oracle.mjs; exact acquired snapshots retained by scenarios.mjs before dispatch.",
+    "publicEntry": "scripts/sandbox-uat.mjs prepare/run --config FILE --case KEY (or --all only under the selected scope); generic installed default-library composition.",
+    "previousEvidence": "D3 recorded six passes on fd38e8227/pack550b48cc with independent UAT and fresh reads. This review used the accepted record, not excluded raw provider/event material.",
+    "sufficiency": "The old missing-specification/oracle question was answered by the sixth amendment. Do not request a replacement witness or weaken its oracle. Rebind unchanged selections prospectively to the successor candidate, actual worker/assessor configuration and current resources.",
+    "actualCurrentAssessment": "Not established. A historical role labeled independent does not establish current STDO3.0.4 family/identity independence; actual eligible assessment bindings remain necessary.",
+    "dataMapper": "Available as a separately owned upper-bound case; excluded from D3. Its old later-D6 scheduling wording cannot make full original Data Mapper an ABI5 prerequisite against current Product."
+  },
+  "currentVersusHistorical": [
+    {
+      "item": "STDO runtime qualification basis",
+      "standing": "Already staged at 3.0.4",
+      "evidence": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+      "currentLawBasis": "qualification-law://abiogenesis/a8246cd14a26c7ff7746172b91bfeb4fefe3b37d0a208931fcd354eb8d4955b8",
+      "limit": "Not a native F11 result; do not repeat the completed method migration."
+    },
+    {
+      "item": "Compact material and plan matching",
+      "standing": "Existing implementation retained",
+      "limit": "Old 8MB C2-envelope problem and quadratic plan check are not freshly demonstrated blockers."
+    },
+    {
+      "item": "Two-request material repair",
+      "standing": "Bounded historical proof exists",
+      "evidence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/material-repair-01/measurements.json",
+      "values": "142324 and 645308 rendered bytes; unchanged 5831 criteria on its old source/3.0.2 context",
+      "limit": "No full RC6 plan fit, semantic sufficiency, whole-host context or current price claim."
+    },
+    {
+      "item": "32 oversized / 447 slots / USD605.88",
+      "standing": "Historical RP2 structural projection only",
+      "limit": "Not current counts or cost; do not rerun the old full plan just to reproduce them."
+    },
+    {
+      "item": "Coverage",
+      "standing": "Current catalog has 16 claims and 65 behaviors; seven added RP2 carriers have bounded evidence",
+      "limit": "No complete current-candidate behavioral qualification. Old bare-event/start evidence is not full consequence execution. N9 remains a separately owned prerequisite wherever its suffix is selected."
+    },
+    {
+      "item": "Public typed stop and performance",
+      "standing": "Historical blanket labels insufficient",
+      "limit": "Later repairs/RC6 owner consolidation must be consumed on their exact claims; this review has not re-proved all public/runtime paths."
+    }
+  ],
+  "costProjection": {
+    "ready": false,
+    "existingTools": [
+      "test_env/qualification/assessment-plan.mjs:projectAssessment",
+      "test_env/qualification/time-projection.mjs:projectTime",
+      "exact-candidate-qualification.mjs:dryRun/liveRun"
+    ],
+    "oldAssumptions": "PRICE uses USD5/25 per million and four bytes/token; old D3 latency fit and $60 constant are historical planning inputs, not current price/usage observations.",
+    "existingResourceDirection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/NEXT_ACTIVATION_LIMITS.md",
+    "direction": "2026-11-01 owner permits authorized R&D to exceed old monetary caps while tracking costs. This does not activate providers; current ROOT_ACTIVATION forbids unbounded or unpriced wholesale F11.",
+    "missing": [
+      "Settled current subject/material/criterion plan",
+      "Current contributor/assessor allocation and supported model/transport",
+      "Complete measured rendered requests plus schema/host context or supported upper bound and selected output reserve",
+      "Current price basis/usage accounting and declared technical/time/retry resources",
+      "Concrete priced dispatch scope bound by Root under existing owner direction"
+    ],
+    "nextMeasurement": "After input/identity readiness, use existing bounded discriminators/projection to price one lawful native assessment steel thread; no universal full-plan render or paid probe before those prerequisites."
+  },
+  "prospectiveSubjectAndReuse": [
+    "Freeze a successor exact source/tree, prospective Product identity and release-claim before qualification; material/evidence outputs remain external and acyclic.",
+    "A repair changes qualifying bytes and requires the applicable higher RC/release owner selection; this local RC6 cannot be retroactively relabeled as an authorized qualified release.",
+    "Reuse evidence only for exact supported predicates after checking subject, law, scope, actual producers, authority, independence and invalidators. Different install/WorkspaceBinding can be lawful only through the declared original-producer resource join with identical immutable subject/law/claim.",
+    "Retain accepted D2/D3 and proof10 evidence at original subjects; changed RC6 native behavior is not established by those old labels. Same artifact/subtree reuse is governed by the sixth amendment and current Product requirements.",
+    "Authenticate selected original store/frontier, declaration, input, Result/J/C/evidence and fresh result/replay through existing owners; no event transplantation or invented chronology.",
+    "Keep pre_rc_candidate and installed_rc distinct; no human-acceptance/new-final-cut subject; publication and actual human acceptance remain reserved."
+  ],
+  "smallestLawfulNextAction": {
+    "owner": "Root Executive",
+    "action": "Conjoin this review with the current feature/evidence and N9 results. Select one bounded existing-owner readiness increment: settle Q23's identity correspondence and current contributor evidence mapping, carry the existing witness/oracles unchanged, and repair the existing qualification driver/resource bindings for the eventual prospective candidate. Then perform the earliest bounded native discriminator under an exact separate operator/Worker grant before a full F11 campaign.",
+    "missingOwnerInformation": [
+      "Q23 actual identity binding/adopted HOW and eligible assessor allocation",
+      "Relevant actual contributor/source record correspondence",
+      "Settled prospective candidate/claim/RC identity when final qualification is selected",
+      "Current measured material/resource/cost projection and exact operator dispatch binding"
+    ],
+    "alreadyAvailable": [
+      "Owner continuation/admission",
+      "Fixed fifteen-family Product outcome",
+      "Real witness specifications and independent oracle selections",
+      "Existing native qualification owners/driver",
+      "Existing R&D resource direction"
+    ],
+    "notRequired": "No renewed generic request to supply a real witness or oracle, no blanket full Data Mapper run, no new qualification schema/mechanism, no second reducer, and no reviewer activation of a Worker.",
+    "authorityLimit": "This recommendation is a closed review return; it does not activate, accept, publish or mutate the candidate."
+  },
+  "unperformedCoverage": [
+    "No actual RC6/successor provider or C2/J/F11/AF22 dispatch",
+    "No full plan rendering or measured current cost",
+    "No fresh installed result/replay proof",
+    "No actual native assessment of seven seeded subjects",
+    "No complete fifteen-family/scenario qualification",
+    "No release/publication/human acceptance"
+  ],
+  "uncertainty": [
+    "Current ready independent assessor identities and contributor correspondence are unresolved.",
+    "Current complete material fit and semantic grouping sufficiency are unresolved.",
+    "Existing driver imports deep installed owners; this route audit does not certify those as independent Public-only UAT.",
+    "Complete external evidence inventory outside the bounded named routes was not searched."
+  ],
+  "invalidation": [
+    "Changed source/qualifying artifact, governing Product/method/requirement/HOW or control grant",
+    "New exact attributed construction/assessment evidence or current resource plan",
+    "Observed contrary driver/runtime behavior or declared evidence supersession"
+  ],
+  "return": {
+    "consumer": "/root",
+    "closed": true,
+    "nextWorkActivated": false
+  }
+}

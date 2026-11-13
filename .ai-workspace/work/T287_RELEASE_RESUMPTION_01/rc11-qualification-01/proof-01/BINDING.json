@@ -1,0 +1,17 @@
+{
+  "status": "FROZEN_C11_PROOF_SUBJECT",
+  "proofRoot": "/private/tmp/abg-rc11-proof-20261109-01",
+  "frozenSourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/frozen-source",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+    "bytes": 298978,
+    "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+  },
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "nativeFailedWorkflowReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/RETURN.json",
+    "bytes": 10143,
+    "sha256": "6202205241d2c3690242658558f98a3ef5a1e6d8e1dc8c08ef7b61b95b553dce"
+  },
+  "standing": "Actual partial source after failed native workflow; finite mechanical proof is the next completeness discriminator, not source acceptance."
+}

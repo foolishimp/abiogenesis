@@ -1,0 +1,153 @@
+{
+  "status": "PARTIAL",
+  "source": {
+    "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292744,
+      "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+    }
+  },
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028335,
+    "sha256": "bff1a5214f198f5f133c8643f653dc3cb55022622009c23070e779f0ec2dadec"
+  },
+  "perCall": [
+    {
+      "i": 0,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 825.1040839999987,
+      "callMs": 3312.1222080000007,
+      "invocationRef": "invocation://abiogenesis/c29a45acabcb9d2651b5f40f709b07d29983c564ce31e5110fe57a08d617e70b",
+      "run": {
+        "ref": "run://abiogenesis/049336ec3234ba7ffedbf67953e6278e3ba1a8cdf2b111468910c6be370d0c70",
+        "digest": "sha256:7d924989c2fe08330289059d8a5ea9e159e7b9a8102d7bcc81fe0d3de38da2ca"
+      },
+      "basisRef": "execution-basis://abiogenesis/edbc007c863ec8e9727f9dfd26982dddf6b121cd49e8996b69d1b2669d813b8f",
+      "terminalIdentityDigest": "sha256:422569c5cb697f240f0c80abade9e262eddf98e9cc80e93f1890757593878be8",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 87,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 18,
+          "bodyDigests": 18
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 91,
+          "bodyBytesRead": 68249528
+        }
+      },
+      "eventBytesBefore": 3178662,
+      "eventBytesAfter": 4781933
+    }
+  ],
+  "historical": [],
+  "readbacks": [],
+  "heap": [
+    {
+      "point": "before_calls",
+      "rss": 2555707392,
+      "heapUsed": 234702856,
+      "external": 22762833,
+      "arrayBuffers": 20082812
+    }
+  ],
+  "budgets": [
+    {
+      "label": "before_calls",
+      "logicalBytes": 92732046,
+      "limit": 1073741824,
+      "quota": false
+    }
+  ],
+  "qualified": false,
+  "providerCallsSelected": 0,
+  "setup": {
+    "wallMs": 47218.337792,
+    "accounting": {
+      "wallMs": {
+        "bootstrap_owner_loading_and_candidate_preparation": 346.44249999999994,
+        "provisioning_verify_artifact": 23440.928625,
+        "provisioning_install": 21044.598917,
+        "provisioning_installed_content_check": 694.3426670000044,
+        "provisioning_additional_products": 0.0028750000055879354,
+        "installed_owner_loading": 331.46712500000285,
+        "environment_install_and_workspace_admission": 878.8908329999977,
+        "execution_preparation_publication_program_and_catalog": 476.184957999998
+      }
+    },
+    "installedRoot": "/private/tmp/abg-rc10-retention-measurement-001/tmp/abi5-root-env-TPNBSW/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.10/72227ad4b85756e6309bd9a3eba19c953e883da93ad1dbe192dc15c05fa48900/5638bf491393eb1d6c20f9d9814a906fe97aab01185a5c3790ccc081c599d1bb",
+    "artifactDigest": "sha256:bff1a5214f198f5f133c8643f653dc3cb55022622009c23070e779f0ec2dadec",
+    "productContentDigest": "sha256:72227ad4b85756e6309bd9a3eba19c953e883da93ad1dbe192dc15c05fa48900",
+    "manifestDigest": "sha256:e48adc78f9442f0af39210a7d3f754a94e605e8cb0fa6e1320acdadac5644d4a"
+  },
+  "fixturePins": [
+    {
+      "path": "/private/tmp/abg-rc10-retention-measurement-001/tmp/abi5-root-env-TPNBSW/workspace/context-1MiB.txt",
+      "bytes": 1048576,
+      "sha256": "4e29ad18ab9f42d7c233500771a39d7c852b200baf328fd00fbbe3fecea1eb56"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-measurement-001/tmp/abi5-root-env-TPNBSW/workspace/context-4MiB.txt",
+      "bytes": 4194304,
+      "sha256": "5947c00ce4da5eac3e8b3731df34e42a2d7b7e88bdb7bd93b8152afcedaa2f92"
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: first actual call at each input size needs the in-flight identity/work witness\n    at oneCall (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs:85:120)\n    at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs:96:12)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+  "abandonedOnFailure": true,
+  "eventLog": {
+    "identity": {
+      "device": 16777231,
+      "inode": 719036863,
+      "byteCount": 4781933,
+      "digest": "sha256:432cceaad650b9fcbe0ed213df59bf043f4013e6eb61ec08b648eaa0c78ebe7d"
+    },
+    "compressed": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/runtime.events.jsonl.gz",
+      "bytes": 794043,
+      "sha256": "a126f0677a7fbf1ec214bd4c44b02688131eb90238bd9c0c75393ffaea48f1e0"
+    },
+    "originalPath": "/private/tmp/abg-rc10-retention-measurement-001/tmp/abi5-root-env-TPNBSW/runtime/events.jsonl"
+  },
+  "totalWallMs": 51636.74175,
+  "actualPhysicalClose": false,
+  "limits": [
+    "Logical canonical raw-input bytes are owner gauges, not allocated heap; active maxima are sampled observations, not a high-water bound.",
+    "Only compact identities/counters are retained across calls; heap is natural parent process memory after call-object scope return, without forced GC. No blanket heap bound, speedup or provider-productivity claim.",
+    "Historical checks are two first-call basis sentinels initially and after calls9/19/29/39/49. Final read parity is first/last Run result and bounded replay, not whole-history qualification.",
+    "Active sampling opens no retention handles and serializes no event history. Missing active samples or zero-only retention cannot count as active-reuse proof.",
+    "Scripted actor, exact candidate archive and fresh runtime only. Source/fixture/helper roots read-only except fixture-owned temporary worksite.",
+    "Aggregate scratch is monitored between calls, not an OS quota; overshoot between checks remains possible. Failure or timeout preserves actual records and has no automatic retry."
+  ]
+}

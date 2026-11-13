@@ -1,0 +1,29 @@
+{
+  "kind": "d5_native_author_launch_timing",
+  "at": "2026-11-05T21:49:46.346239+00:00",
+  "setupReused": true,
+  "setupMs": null,
+  "preflightMs": 38617.62162530795,
+  "hostLaunchToOwnerDispatchMs": 34284.450999999994,
+  "dispatchToNativeWorkerMs": 38913.0,
+  "selectorMs": null,
+  "selectorStanding": "No selector in the selected direct NativeWork Program",
+  "previousProofHostCloseToDispatchMs": 765230.539,
+  "nativeStart": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 95449,
+    "eventId": "event://abiogenesis/1ac9baa1927f4dfd718a4172d40abfcf8050092065464499389a1bc7ee3f74b7",
+    "eventTime": "2026-11-05T21:48:02.757Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/1a1804d5f1f46e0e47cd6f52397daac409030769591efe12c53fb304d0be51a2",
+    "offset": 600563795,
+    "rowBytes": 1812,
+    "rowSha256": "b67f53fb829394f038ba32cd06b9773f805ec586d929076d309048a6c385ca0d",
+    "processRef": "process://abiogenesis/0bb84efb67024d3371095bef58983ae5e1dab77a0b52fe4e744134280ebfadfc",
+    "pid": 50521
+  },
+  "limits": [
+    "Between-task wall includes Root exact UAT triage, corrected future budget/context, source/close checks and controls; not runtime launch latency.",
+    "No completed D5 workflow performance or source acceptance yet."
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "status": "ROOT_ACCEPTED_A_LOCAL_CHECKPOINT_COMPLETE_B_UNACTIVATED",
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4061,
+    "sha256": "a6a1b16d59f112078793743265a72308b2f59b3978db9dde68ca3b40fe8df6ea"
+  },
+  "branch": "codex/rc11-foundation-correction",
+  "commit": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+  "tree": "3be0362585865f52e231b84d87824c229fc6323d",
+  "parent": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+  "title": "refactor: separate owned process transitions from host effects",
+  "paths": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "stagedCheck": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/STAGED_CHECK.json",
+    "bytes": 2154,
+    "sha256": "dbef81718f3ab078167844360eaf5374e63550c4851be554617b3d0ea3776742"
+  },
+  "checkpointSourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/CHECKPOINT_SOURCE_INVENTORY.json",
+    "bytes": 295782,
+    "sha256": "ce1b3debd80d153e878d6b52a6ce8fa5c7d6963cf2dd2738078dddf37e0028dd"
+  },
+  "sourceDigest": "1b8bb6c426e339e22ef5c1ab07b453d6ecfe52092c07e79dd0fb1852dee077b6",
+  "testedSourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+  "postProofDocumentDelta": {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "before": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 23439,
+      "sha256": "fc6332312ec96172d95e4543566bc1242a314b0feaa90dd7bf18b37fbe4fb9d8"
+    },
+    "after": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 21129,
+      "sha256": "31957341c3efa5aa47f6ab8fc660dae5bb19640d205a1d0822b2249dc2f54427"
+    },
+    "diff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/DOCUMENTARY_DELTA.diff",
+      "bytes": 14717,
+      "sha256": "cded184c2e4a34c7580f72088f604c0f463a96ab8a3254747f3c2d9e13e4776d"
+    }
+  },
+  "codeTestBytesExact": true,
+  "compiled582RowsExact": true,
+  "tracking": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 191021,
+        "sha256": "62b85b8aadc12f3d016a0d8a1507e5e579c9622ceaf9dc2d9c72a7c04e361de4"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 193382,
+        "sha256": "d89dc35bbe5fb3eca8a05cc69f78014365e81832f2d6bc537742863570c033d8"
+      },
+      "priorBodyPreserved": true,
+      "prefixBytes": 2361
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 842656,
+        "sha256": "1af5587188d37424f5d2940603feffaef455ed2e49072555d1aee09401b42cf3"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 845017,
+        "sha256": "bf11dcf4410b05a257de4074a7c502cb919b33c1805d1d63cc2d29428005a49d"
+      },
+      "priorBodyPreserved": true,
+      "prefixBytes": 2361
+    }
+  ],
+  "mainHead": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+  "mainIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29373151,
+    "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+  },
+  "deliveredC11Head": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "deliveredC11Index": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+    "bytes": 29654632,
+    "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+  },
+  "candidateIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+    "bytes": 29655224,
+    "sha256": "bc07c7f9439cea13cbeb210beffb330ed9fc0950afa63c4d755741bc858c39eb"
+  },
+  "candidateTrackedStatus": "clean",
+  "candidateStagedStatus": "empty",
+  "untracked": {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/CHECKPOINT_UNTRACKED_BEFORE.bin",
+      "bytes": 58458,
+      "sha256": "f54649d55a3dd1fcdd2b94d878397b9b7d4f5eaf0ba89d83840a603bea3df737"
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/CHECKPOINT_UNTRACKED_AFTER.bin",
+      "bytes": 58382,
+      "sha256": "3d874c9b6b3070706b23ae3cd0d1b849d842f1abd7d5d7502157422b938bb2a9"
+    },
+    "beforeCount": 705,
+    "afterCount": 704,
+    "onlyRemovedFromUntracked": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "remainingPreserved": true
+  },
+  "RC10PinUnchanged": true,
+  "workspaceManifestUnchanged": true,
+  "compilerTestPackageEffects": "None",
+  "scope": "Only selective F index/commit plus authorized plan/main tracking writes. No main commit, merge/rebase/push/tag/release/install or B activation. FullPhase2/installed/5.0/S7 and both deferred capsules remain open."
+}

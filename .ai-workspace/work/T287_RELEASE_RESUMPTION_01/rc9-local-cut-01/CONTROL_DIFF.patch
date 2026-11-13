@@ -1,0 +1,164 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs
+@@ -1,4 +1,4 @@
+-// RC8 adaptation of the accepted RC7 cut sequence. Prepared only until exact Root phase binding.
++// RC9 version/path adaptation of RC8 corrected002. Prepared only until exact Root phase binding.
+ // No Product implementation, qualification, M coordination writes or automatic retry.
+ import assert from 'node:assert/strict';
+ import {constants} from 'node:fs';
+@@ -9,7 +9,7 @@
+ // Canonical command custody and toolchain remain referenced existing owners.
+ const here=dirname(fileURLToPath(import.meta.url));
+ const T='build_tenants/abiogenesis/typescript';
+-const VERSION='5.0.0-rc.8';
++const VERSION='5.0.0-rc.9';
+ const hex=b=>createHash('sha256').update(b).digest('hex');
+ async function pin(path){const s=await lstat(path);assert(s.isFile()&&!s.isSymbolicLink(),path);const b=await readFile(path);return {path,bytes:b.length,sha256:hex(b)};}
+ async function checked(r){assert(r&&isAbsolute(r.path)&&Number.isSafeInteger(r.bytes)&&/^[a-f0-9]{64}$/.test(r.sha256),'unbound/invalid file pin');assert.deepEqual(await pin(r.path),r);return readFile(r.path);}
+@@ -17,10 +17,11 @@
+ async function absent(p){try{await lstat(p);throw Error('preserved allocation/collision: '+p);}catch(e){if(e.code!=='ENOENT')throw e;}}
+ function rel(p){assert(typeof p==='string'&&p&&!isAbsolute(p)&&!p.includes('\\')&&!p.split('/').some(x=>!x||x==='.'||x==='..'||x==='.git'),p);return p;}
+ async function safeTarget(root,p){rel(p);let at=root;for(const part of p.split('/').slice(0,-1)){at=join(at,part);try{const s=await lstat(at);assert(s.isDirectory()&&!s.isSymbolicLink(),at);}catch(e){if(e.code!=='ENOENT')throw e;await mkdir(at);}}const dest=join(root,p);try{const s=await lstat(dest);assert(s.isFile()&&!s.isSymbolicLink(),dest);}catch(e){if(e.code!=='ENOENT')throw e;}return dest;}
+-assert.equal(process.argv.length,5,'usage: node run-local-cut.corrected-002.mjs build|install ROOT_BINDINGS.json SHA256_HEX');
++assert.equal(process.argv.length,5,'usage: node run-local-cut.mjs build|install ROOT_BINDINGS.json SHA256_HEX');
+ const [phase,input,inputSha]=process.argv.slice(2);assert(['build','install'].includes(phase));
+ const raw=await readFile(resolve(input));assert.equal(hex(raw),inputSha);const b=JSON.parse(raw);
+-assert.equal(b.status,phase==='build'?'ROOT_SELECTED_LOCAL_RC8_BUILD_ONLY':'ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY','future binding/activation still unbound');
++assert.equal(b.status,phase==='build'?'ROOT_SELECTED_LOCAL_RC9_BUILD_ONLY':'ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY','future binding/activation still unbound');
++assert.equal(b.executionEnabled,true,'execution is held');
+ await checked(b.activation);
+ const prep=await jsonPin(b.preparationManifest);assert.equal(prep.status,'PREPARED_UNBOUND_NO_EXECUTION');assert.equal(prep.controlRevision,'exact-source-selection-and-archive-inputs-002');
+ for(const p of prep.files)await checked(p);
+@@ -41,7 +42,7 @@
+ async function reserve(){const s=await statfs(p.repository);assert(s.bavail*s.bsize>=4294967296,'4 GiB free-space reserve: stop, preserve custody, no retry');return s.bavail*s.bsize;}
+ async function openCommands(root){const command=commandRecorder(root,{environment:env,maxOutputBytes:build.maxOutputBytes});return async(label,exe,args,cwd=W,kind='git')=>{await reserve();const r=await command(label,exe,args,{cwd,environment:env,timeoutMs:build.boundsMs[kind]});assert(!r.timedOut&&!r.truncated&&!r.failure&&r.exitCode===0&&r.signal===null,'command failed; retained original receipt: '+label);await reserve();return r;};}
+ const gitArgs=(root,args)=>['-C',root,'-c','core.hooksPath=/dev/null',...args];
+-async function preserved(run,label){const out=[];for(const [name,root] of [['main',p.repository],['rc7',p.preservedCut]]){const head=(await run(label+'-'+name+'-head',tool('git'),gitArgs(root,['rev-parse','HEAD']),root)).stdout.trim();const i=(await run(label+'-'+name+'-index',tool('git'),gitArgs(root,['rev-parse','--git-path','index']),root)).stdout.trim();out.push({root,head,index:await pin(resolve(root,i))});}return out;}
++async function preserved(run,label){const out=[];for(const [name,root] of [['main',p.repository],['rc7',p.preservedCut],['rc8',p.preservedBuilderCut]]){const head=(await run(label+'-'+name+'-head',tool('git'),gitArgs(root,['rev-parse','HEAD']),root)).stdout.trim();const i=(await run(label+'-'+name+'-index',tool('git'),gitArgs(root,['rev-parse','--git-path','index']),root)).stdout.trim();out.push({root,head,index:await pin(resolve(root,i))});}return out;}
+ async function sourceRows(){await checked(build.source.subject);const observed=await jsonPin(build.source.inventory);const inv={...observed,files:observed.files??observed.rows?.map(r=>({relativePath:r.path,sourceSnapshot:join(observed.source,r.path),bytes:r.bytes,sha256:r.sha256}))};assert(Array.isArray(inv.files)&&inv.files.length>0);if(observed.sourceDigest!==undefined)assert.equal(observed.sourceDigest,build.source.sourceDigest);assert(/^[a-f0-9]{40}$/.test(build.source.baseCommit)&&/^[a-f0-9]{40}$/.test(build.source.baseTree));assert(build.source.fileModes&&typeof build.source.fileModes==='object');assert(Array.isArray(build.source.deletedPaths));await checked(build.source.cumulativeSourceCoverageDisposition);const seen=new Set();for(const r of inv.files){rel(r.relativePath);assert(!seen.has(r.relativePath));seen.add(r.relativePath);await checked({path:r.sourceSnapshot,bytes:r.bytes,sha256:r.sha256});}for(const [name,mode] of Object.entries(build.source.fileModes)){assert(seen.has(name));assert(['100644','100755'].includes(mode));}for(const r of build.source.deletedPaths){rel(r.relativePath);assert(!seen.has(r.relativePath));assert(/^[a-f0-9]{64}$/.test(r.beforeSha256));}return inv.files;}
+ async function conserve(rows,root,identity){for(const r of rows){const q=await pin(join(root,r.relativePath));const expected=identity?.find(x=>x.relativePath===r.relativePath)?.after;assert.equal(q.sha256,expected?.sha256??r.sha256,r.relativePath);assert.equal(q.bytes,expected?.bytes??r.bytes,r.relativePath);}for(const r of build.source.deletedPaths)await absent(join(root,r.relativePath));}
+ async function checkBuildInputs(){
+@@ -72,7 +73,7 @@
+ 
+ if(phase==='build'){
+   await checkBuildInputs();const rows=await sourceRows();
+-  // Reuse C8. Its source must already equal the accepted frozen input; never overwrite an author workspace from a stale stage.
++  // Reuse C9. Its source must already equal the accepted frozen input; never overwrite an author workspace from a stale stage.
+   assert.equal(await realpath(W),W);await conserve(rows,W);
+   for(const q of [O,p.temp,p.releaseRoot,p.installHost])await absent(q);
+   const pkg=JSON.parse(await readFile(join(W,T,'package.json'),'utf8')),lock=JSON.parse(await readFile(join(W,T,'package-lock.json'),'utf8'));
+@@ -97,26 +98,26 @@
+     const ownedSource=new Set(rows.map(r=>r.relativePath));for(const path of selected){assert(ownedSource.has(path)||build.source.deletedPaths.some(r=>r.relativePath===path),'selected delta outside accepted inventory/deletions: '+path);if(expectedNew.includes(path))assert(ownedSource.has(path),'new source lacks frozen byte custody: '+path);}
+     const excludedUntrackedPaths=untracked.filter(path=>!selectedSet.has(path)).sort();
+     const identity=[];const candidate={archive:build.source.nativeTestedArchive,manifest:build.source.testedManifest};
+-    await save(O,'SOURCE_PREPARED.json',{status:'ACCEPTED_FROZEN_BYTES_MATCH_EXISTING_C8',sourceSubject:build.source.subject,sourceInventory:build.source.inventory,sourceCount:rows.length,selectedDelta:selected,expectedNewPaths:expectedNew,excludedUntrackedPaths,excludedUntrackedStanding:'Preserved operator/progress or other non-selected paths; path list only, no source membership or content acquisition.',identityChanges:identity,acceptedEvidence:build.acceptance});
+-    await save(O,'candidate/RESULT.json',{phase:'candidate',status:'BUILT',root:build.source.testedStageRoot,...candidate,standing:'Retained exact tested rc.8 archive. No metadata mutation or identity-bridge allowance.'});
++    await save(O,'SOURCE_PREPARED.json',{status:'ACCEPTED_FROZEN_BYTES_MATCH_EXISTING_C9',sourceSubject:build.source.subject,sourceInventory:build.source.inventory,sourceCount:rows.length,selectedDelta:selected,expectedNewPaths:expectedNew,excludedUntrackedPaths,excludedUntrackedStanding:'Preserved operator/progress or other non-selected paths; path list only, no source membership or content acquisition.',identityChanges:identity,acceptedEvidence:build.acceptance});
++    await save(O,'candidate/RESULT.json',{phase:'candidate',status:'BUILT',root:build.source.testedStageRoot,...candidate,standing:'Retained exact tested rc.9 archive. No metadata mutation or identity-bridge allowance.'});
+     await run('source-stage',tool('git'),gitArgs(W,['add','--',...selected]));assert.deepEqual((await run('source-staged-paths',tool('git'),gitArgs(W,['diff','--cached','--name-only','-z']))).stdout.split('\0').filter(Boolean).sort(),selected,'staged source must equal exact selection');await run('source-whitespace',tool('git'),gitArgs(W,['diff','--cached','--check']));
+-    await run('source-checkpoint',tool('git'),gitArgs(W,['-c','commit.gpgsign=false','commit','-m','Checkpoint accepted RC8 reference-preservation source']));
++    await run('source-checkpoint',tool('git'),gitArgs(W,['-c','commit.gpgsign=false','commit','-m','Checkpoint accepted RC9 owner-reuse source']));
+     for(const [label,args]of [['tracked-clean',['diff','--quiet']],['index-clean',['diff','--cached','--quiet']]])await run(label,tool('git'),gitArgs(W,args));
+     const sourceCommit=(await run('checkpoint-head',tool('git'),gitArgs(W,['rev-parse','HEAD']))).stdout.trim(),sourceTree=(await run('checkpoint-tree',tool('git'),gitArgs(W,['rev-parse','HEAD^{tree}']))).stdout.trim();
+-    await save(O,'SOURCE_CHECKPOINT.json',{kind:'rc8_local_source_checkpoint',sourceCommit,sourceTree,branch:p.branch,worktree:W,baseCommit:build.source.baseCommit,subject:build.source.subject,inventory:build.source.inventory,archive:candidate.archive,sourceCount:rows.length,identityChanges:identity,standing:'Exact accepted frozen overlay checkpoint. Local unqualified; install unexecuted.'});
++    await save(O,'SOURCE_CHECKPOINT.json',{kind:'rc9_local_source_checkpoint',sourceCommit,sourceTree,branch:p.branch,worktree:W,baseCommit:build.source.baseCommit,subject:build.source.subject,inventory:build.source.inventory,archive:candidate.archive,sourceCount:rows.length,identityChanges:identity,standing:'Exact accepted frozen overlay checkpoint. Local unqualified; install unexecuted.'});
+     const reproRoot=join(p.temp,'reproduction');await absent(reproRoot);await mkdir(reproRoot);const sourceArchive=join(O,'reproduction-source.tar');
+     await run('reproduction-source-archive',tool('git'),gitArgs(W,['archive','--format=tar','--output='+sourceArchive,sourceCommit,T,'specification','stdo_abiogenesis.json','AGENTS.md','CLAUDE.md']));await run('reproduction-source-extract',tool('tar'),['-xf',sourceArchive,'-C',reproRoot],reproRoot);
+     await checkReproductionInputs(rows,reproRoot,sourceCommit);
+     const reproduction=await compilePack(run,'reproduction',reproRoot);assert.equal(reproduction.archive.bytes,candidate.archive.bytes);assert.equal(reproduction.archive.sha256,candidate.archive.sha256,'clean reproduction differs from exact tested archive');
+     assert.equal(reproduction.manifest.sha256,candidate.manifest.sha256);await save(O,'reproduction/RESULT.json',{phase:'reproduction',status:'BYTE_EQUAL',sourceCommit,root:reproRoot,sourceArchive:await pin(sourceArchive),expectedArchive:candidate.archive,...reproduction});
+     await run('exact-tested-artifact-members',tool('python'),[join(here,'exact-artifact-correspondence.py'),candidate.archive.path,reproduction.archive.path,join(O,'EXACT_TESTED_ARTIFACT.json')],W,'inventory');
+-    const code="import assert from 'node:assert/strict';import{readFile}from'node:fs/promises';import{pathToFileURL}from'node:url';const t=process.argv[1];const p=await import(pathToFileURL(t+'/build/code/src/product/index.js'));for(const k of ['verifyProduct','constructResolvedProductLock','installProduct','isProductInstallCandidate','installedProductContentMatches','sha256Canonical'])assert.equal(typeof p[k],'function',k);assert.equal(p.ABI5_PACKAGE_VERSION,'5.0.0-rc.8');const m=JSON.parse(await readFile(t+'/product-toolchain-manifest.json','utf8'));console.log(JSON.stringify({packageName:m.packageName,packageVersion:m.packageVersion,productId:m.productId,manifestDigest:p.sha256Canonical(m),productContentDigest:m.productContentDigest}));";
++    const code="import assert from 'node:assert/strict';import{readFile}from'node:fs/promises';import{pathToFileURL}from'node:url';const t=process.argv[1];const p=await import(pathToFileURL(t+'/build/code/src/product/index.js'));for(const k of ['verifyProduct','constructResolvedProductLock','installProduct','isProductInstallCandidate','installedProductContentMatches','sha256Canonical'])assert.equal(typeof p[k],'function',k);assert.equal(p.ABI5_PACKAGE_VERSION,'5.0.0-rc.9');const m=JSON.parse(await readFile(t+'/product-toolchain-manifest.json','utf8'));console.log(JSON.stringify({packageName:m.packageName,packageVersion:m.packageVersion,productId:m.productId,manifestDigest:p.sha256Canonical(m),productContentDigest:m.productContentDigest}));";
+     const ident=JSON.parse((await run('built-product-identity',tool('node'),['--input-type=module','-e',code,join(reproRoot,T)],W,'inventory')).stdout);assert.equal(ident.packageVersion,VERSION);assert.equal(ident.productId,'product://abiogenesis/typescript-tenant@'+VERSION);assert.equal(ident.packageName,'@abiogenesis/typescript-tenant');
+     await save(O,'INSTALL_INPUTS_PENDING.json',{status:'REVIEW_AND_ROOT_INSTALL_BINDING_REQUIRED',worksiteRoot:W,sourceTree,expected:{...ident,sourceCommit,artifactDigest:'sha256:'+candidate.archive.sha256},archive:candidate.archive,archiveMembers:JSON.parse(await readFile(join(O,'EXACT_TESTED_ARTIFACT.json'),'utf8')).members,releaseRoot:p.releaseRoot,installHost:p.installHost,installPath:env.PATH,tools:own.tools,qualified:false,published:false});
+     await sourceRows();await conserve(rows,W);assert.deepEqual(await preserved(run,'after'),preservedBefore);result.status='BUILD_AND_BYTE_EQUAL_REPRODUCTION_COMPLETE_INSTALL_UNBOUND';result.sourceCheckpoint=await pin(join(O,'SOURCE_CHECKPOINT.json'));result.candidate=await pin(join(O,'candidate/RESULT.json'));result.reproduction=await pin(join(O,'reproduction/RESULT.json'));
+   }catch(e){result.error=String(e);throw e;}finally{result.endedUtc=new Date().toISOString();await save(O,'BUILD_RESULT.json',result);console.log(JSON.stringify(result));}
+ }else{
+-  assert.equal(build.status,'ROOT_SELECTED_LOCAL_RC8_BUILD_ONLY');await checked(build.activation);await checkBuildInputs();const rows=await sourceRows();
++  assert.equal(build.status,'ROOT_SELECTED_LOCAL_RC9_BUILD_ONLY');await checked(build.activation);await checkBuildInputs();const rows=await sourceRows();
+   const checkpoint=await jsonPin(b.sourceCheckpoint),candidate=await jsonPin(b.candidate),reproduction=await jsonPin(b.reproduction),correspondence=await jsonPin(b.exactTestedArtifact),review=await jsonPin(b.independentPackagingReview);
+   assert.equal(correspondence.status,'BYTE_EQUAL');assert.deepEqual(correspondence.changedMembers,[]);assert.equal(correspondence.identityBridgeAllowance,false);
+   assert.deepEqual(candidate.archive,build.source.nativeTestedArchive);assert.deepEqual(correspondence.testedArchive,candidate.archive);assert.deepEqual(correspondence.reproductionArchive,reproduction.archive);
+@@ -130,13 +131,13 @@
+     const before=await preserved(run,'before');assert.equal((await run('source-head',tool('git'),gitArgs(W,['rev-parse','HEAD']))).stdout.trim(),checkpoint.sourceCommit);for(const [n,args] of [['source-clean',['diff','--quiet']],['index-clean',['diff','--cached','--quiet']]])await run(n,tool('git'),gitArgs(W,args));
+     assert.equal(b.installInputs.path,join(O,'INSTALL_INPUTS_PENDING.json'));const pending=await jsonPin(b.installInputs);assert.deepEqual(pending.archive,candidate.archive);assert.equal(pending.expected.sourceCommit,checkpoint.sourceCommit);assert.equal(pending.archiveMembers,correspondence.members);
+     for(const [name,key] of [['BOUNDED_CANDIDATE_CLAIM.md','boundedClaim'],['RESIDUALS.md','residuals'],['ROOT_AUTHORITY.md','rootAuthority']])await writeFile(join(out,name),await checked(b[key]),{flag:'wx'});
+-    const mapping={kind:'rc8_source_artifact_evidence_map',source:build.source,acceptance:build.acceptance,checkpoint:b.sourceCheckpoint,candidate:b.candidate,reproduction:b.reproduction,exactTestedArtifact:b.exactTestedArtifact,independentPackagingReview:b.independentPackagingReview,expected:pending.expected,archive:candidate.archive,qualified:false,limits:b.limits};await save(out,'SOURCE_ARTIFACT_EVIDENCE_MAP.json',mapping);
+-    const files=[b.activation,b.buildBindings,b.sourceCheckpoint,b.candidate,b.reproduction,b.exactTestedArtifact,b.installInputs,b.independentPackagingReview,await pin(join(here,'install-local-rc8.mjs')),...await Promise.all(['BOUNDED_CANDIDATE_CLAIM.md','RESIDUALS.md','ROOT_AUTHORITY.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json'].map(n=>pin(join(out,n))))];
+-    const inputManifest={...pending,status:'ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY',files,claim:b.claim,limits:b.limits,effectGrant:['Fresh local RC8 release custody and exact Product-owner installation','All-member byte correspondence and fresh installed-owner check'],failurePolicy:'Preserve failure, partial allocation and original receipts. No automatic retry/overwrite/cleanup.'};await save(out,'INPUT_MANIFEST.json',inputManifest);const mp=await pin(join(out,'INPUT_MANIFEST.json'));
+-    await run('owner-install',tool('node'),[join(here,'install-local-rc8.mjs'),mp.path,mp.sha256],W,'install');
++    const mapping={kind:'rc9_source_artifact_evidence_map',source:build.source,acceptance:build.acceptance,checkpoint:b.sourceCheckpoint,candidate:b.candidate,reproduction:b.reproduction,exactTestedArtifact:b.exactTestedArtifact,independentPackagingReview:b.independentPackagingReview,expected:pending.expected,archive:candidate.archive,qualified:false,limits:b.limits};await save(out,'SOURCE_ARTIFACT_EVIDENCE_MAP.json',mapping);
++    const files=[b.activation,b.buildBindings,b.sourceCheckpoint,b.candidate,b.reproduction,b.exactTestedArtifact,b.installInputs,b.independentPackagingReview,await pin(join(here,'install-local-rc9.mjs')),...await Promise.all(['BOUNDED_CANDIDATE_CLAIM.md','RESIDUALS.md','ROOT_AUTHORITY.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json'].map(n=>pin(join(out,n))))];
++    const inputManifest={...pending,status:'ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY',files,claim:b.claim,limits:b.limits,effectGrant:['Fresh local RC9 release custody and exact Product-owner installation','All-member byte correspondence and fresh installed-owner check'],failurePolicy:'Preserve failure, partial allocation and original receipts. No automatic retry/overwrite/cleanup.'};await save(out,'INPUT_MANIFEST.json',inputManifest);const mp=await pin(join(out,'INPUT_MANIFEST.json'));
++    await run('owner-install',tool('node'),[join(here,'install-local-rc9.mjs'),mp.path,mp.sha256],W,'install');
+     const fresh=await run('fresh-installed-owner-smoke',tool('node'),[join(here,'installed-owner-smoke.mjs'),p.releaseRoot,join(p.temp,'installed-smoke'),join(out,'INSTALLED_OWNER_SMOKE.json'),own.directSmokeOwner.path],W,'installedOwner');const installedOwner=JSON.parse(fresh.stdout);assert.equal(installedOwner.status,'DIRECT_INSTALLED_OWNER_SMOKE_CLOSED');assert.equal(installedOwner.nativeTransportInvoked,false);
+     const cut=JSON.parse(await readFile(join(p.releaseRoot,'LOCAL_CUT_RECORD.json'),'utf8')),payload=JSON.parse(await readFile(join(p.releaseRoot,'payload-correspondence.json'),'utf8'));assert.equal(cut.status,'local_cut_and_owner_install_completed');assert.deepEqual(cut.source,inputManifest.expected);assert.equal(cut.sourceTree,checkpoint.sourceTree);assert.equal(cut.selectedInputManifestSha256,mp.sha256);for(const k of ['published','qualified','tagsCreated','selectorChanged'])assert.equal(cut[k],false);assert.equal(cut.providerCalls,0);assert.equal(cut.nativeRuns,0);assert.equal(payload.members,correspondence.members);assert.equal(payload.inventory.length,correspondence.members);assert.equal(cut.members,correspondence.members);
+     const checks=[];for(const line of (await readFile(join(p.releaseRoot,'SHA256SUMS'),'utf8')).trim().split('\n')){const [digest,name]=line.split('  ');rel(name);const r=await pin(join(p.releaseRoot,name));assert.equal(r.sha256,digest);checks.push(r);}
+-    await conserve(rows,W,checkpoint.identityChanges);await sourceRows();assert.deepEqual(await preserved(run,'after'),before);await save(O,'FINAL_INSTALL_VERIFICATION.json',{kind:'rc8_final_local_install_verification',status:'LOCAL_RC8_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED',sourceCommit:checkpoint.sourceCommit,sourceTree:checkpoint.sourceTree,cutRecord:await pin(join(p.releaseRoot,'LOCAL_CUT_RECORD.json')),selectedManifest:mp,checksums:checks,payloadMembers:payload.members,payloadInventoryDigest:payload.inventoryDigest,installedOwnerRead:installedOwner,installedOwnerReadWallMs:fresh.wallMs,review:b.independentPackagingReview,reproduction:b.reproduction,sourceAcceptance:build.acceptance,exactInstalledFunctionalProof:await pin(join(out,'INSTALLED_OWNER_SMOKE.json')),nativeWorkflowClaim:false,exactShippedArchiveLifecycleProof:build.acceptance.referenceAfter,published:false,qualified:false,globalSelectorChanged:false});result.status='LOCAL_RC8_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED';result.verification=await pin(join(O,'FINAL_INSTALL_VERIFICATION.json'));
++    await conserve(rows,W,checkpoint.identityChanges);await sourceRows();assert.deepEqual(await preserved(run,'after'),before);await save(O,'FINAL_INSTALL_VERIFICATION.json',{kind:'rc9_final_local_install_verification',status:'LOCAL_RC9_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED',sourceCommit:checkpoint.sourceCommit,sourceTree:checkpoint.sourceTree,cutRecord:await pin(join(p.releaseRoot,'LOCAL_CUT_RECORD.json')),selectedManifest:mp,checksums:checks,payloadMembers:payload.members,payloadInventoryDigest:payload.inventoryDigest,installedOwnerRead:installedOwner,installedOwnerReadWallMs:fresh.wallMs,review:b.independentPackagingReview,reproduction:b.reproduction,sourceAcceptance:build.acceptance,exactInstalledFunctionalProof:await pin(join(out,'INSTALLED_OWNER_SMOKE.json')),nativeWorkflowClaim:false,exactShippedArchiveLifecycleProof:build.acceptance.referenceAfter,published:false,qualified:false,globalSelectorChanged:false});result.status='LOCAL_RC9_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED';result.verification=await pin(join(O,'FINAL_INSTALL_VERIFICATION.json'));
+   }catch(e){result.error=String(e);throw e;}finally{result.endedUtc=new Date().toISOString();await save(out,'RESULT.json',result);console.log(JSON.stringify(result));}
+ }
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-local-rc8.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-local-rc9.mjs
+@@ -12,7 +12,7 @@
+ const hex=b=>createHash('sha256').update(b).digest('hex');
+ async function checked(row){assert((await lstat(row.path)).isFile(),row.path);const b=await readFile(row.path);assert.equal(b.length,row.bytes,row.path);assert.equal(hex(b),row.sha256,row.path);return b;}
+ async function absent(path){try{await lstat(path);throw Error('no-clobber collision: '+path);}catch(e){if(e.code!=='ENOENT')throw e;}}
+-assert.equal(process.argv.length,4,'usage: node install-local-rc8.mjs INPUT_MANIFEST_PATH INPUT_MANIFEST_SHA256_HEX');
++assert.equal(process.argv.length,4,'usage: node install-local-rc9.mjs INPUT_MANIFEST_PATH INPUT_MANIFEST_SHA256_HEX');
+ const raw=await readFile(inputPath);assert.equal(hex(raw),process.argv[3]);const m=JSON.parse(raw);
+ assert.equal(m.status,'ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY');
+ for(const row of m.files)await checked(row);
+@@ -21,7 +21,7 @@
+ // The unchanged Product owner invokes `npm` and tar through PATH; select the pinned tools.
+ assert.equal(m.installPath,'/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin');
+ process.env.PATH=m.installPath;
+-const e=m.expected;assert.equal(e.packageVersion,'5.0.0-rc.8');assert.equal(e.productId,'product://abiogenesis/typescript-tenant@5.0.0-rc.8');for(const k of ['artifactDigest','manifestDigest','productContentDigest'])assert.match(e[k],/^sha256:[0-9a-f]{64}$/u);assert.match(e.sourceCommit,/^[0-9a-f]{40}$/u);assert.match(m.sourceTree,/^[0-9a-f]{40}$/u);assert(Number.isSafeInteger(m.archiveMembers)&&m.archiveMembers>0);const archive=await checked(m.archive);
++const e=m.expected;assert.equal(e.packageVersion,'5.0.0-rc.9');assert.equal(e.productId,'product://abiogenesis/typescript-tenant@5.0.0-rc.9');for(const k of ['artifactDigest','manifestDigest','productContentDigest'])assert.match(e[k],/^sha256:[0-9a-f]{64}$/u);assert.match(e.sourceCommit,/^[0-9a-f]{40}$/u);assert.match(m.sourceTree,/^[0-9a-f]{40}$/u);assert(Number.isSafeInteger(m.archiveMembers)&&m.archiveMembers>0);const archive=await checked(m.archive);
+ assert.equal(execFileSync('/usr/bin/git',['-C',m.worksiteRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),e.sourceCommit);
+ for(const args of [['diff','--quiet'],['diff','--cached','--quiet']])execFileSync('/usr/bin/git',['-C',m.worksiteRoot,...args]);
+ await absent(m.releaseRoot);await absent(m.installHost);
+@@ -32,7 +32,7 @@
+ // Effects start only after the exact packet/tools/source/archive and both absences pass.
+ await mkdir(m.releaseRoot,{mode:0o700});
+ const save=(name,value)=>writeFile(join(m.releaseRoot,name),JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+-const retainedArchive=join(m.releaseRoot,'abiogenesis-typescript-tenant-5.0.0-rc.8.tgz');
++const retainedArchive=join(m.releaseRoot,'abiogenesis-typescript-tenant-5.0.0-rc.9.tgz');
+ await writeFile(retainedArchive,archive,{flag:'wx'});assert((await readFile(retainedArchive)).equals(archive));
+ for(const name of ['BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json','ROOT_AUTHORITY.md','RESIDUALS.md','INPUT_MANIFEST.json'])
+   await copyFile(join(dir,name),join(m.releaseRoot,name),constants.COPYFILE_EXCL);
+@@ -70,7 +70,7 @@
+   limits:m.limits,
+   installedCli:join(installed.installedRoot,'build/code/src/public/cli.js')});
+ const checksums=[];
+-for(const name of ['abiogenesis-typescript-tenant-5.0.0-rc.8.tgz','BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json',
++for(const name of ['abiogenesis-typescript-tenant-5.0.0-rc.9.tgz','BOUNDED_CANDIDATE_CLAIM.md','SOURCE_ARTIFACT_EVIDENCE_MAP.json',
+   'ROOT_AUTHORITY.md','RESIDUALS.md','INPUT_MANIFEST.json','verification.json','resolved-lock.json','installation.json',
+   'payload-correspondence.json','LOCAL_CUT_RECORD.json'])checksums.push(hex(await readFile(join(m.releaseRoot,name)))+'  '+name);
+ await writeFile(join(m.releaseRoot,'SHA256SUMS'),checksums.join('\n')+'\n',{flag:'wx'});
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/installed-owner-smoke.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/installed-owner-smoke.mjs
+@@ -10,10 +10,10 @@
+ await absent(scratch);await absent(output);
+ const installed=JSON.parse(await readFile(join(release,'installation.json'),'utf8'));
+ const cut=JSON.parse(await readFile(join(release,'LOCAL_CUT_RECORD.json'),'utf8'));
+-assert.equal(installed.installedRoot,cut.installedRoot);assert.equal(cut.source.packageVersion,'5.0.0-rc.8');
++assert.equal(installed.installedRoot,cut.installedRoot);assert.equal(cut.source.packageVersion,'5.0.0-rc.9');
+ const {loadRetainedInstalledRuntime}=await import(pathToFileURL(ownerPath).href);
+ const runtime=await loadRetainedInstalledRuntime(installed.installedRoot),{product,abg,public:publicApi}=runtime;
+-assert.equal(product.ABI5_PACKAGE_VERSION,'5.0.0-rc.8');assert.equal(product.ABI5_PRODUCT_ID,'product://abiogenesis/typescript-tenant@5.0.0-rc.8');
++assert.equal(product.ABI5_PACKAGE_VERSION,'5.0.0-rc.9');assert.equal(product.ABI5_PRODUCT_ID,'product://abiogenesis/typescript-tenant@5.0.0-rc.9');
+ for(const name of ['constructInstalledPublicDefinitionCall','runInstalledDefinitionCallWithResource'])assert.equal(typeof publicApi[name],'function',name);
+ assert(publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.length>0);
+ const request={artifactPath:cut.archive,artifactRef:pathToFileURL(cut.archive).href,
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/exact-artifact-correspondence.py
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/exact-artifact-correspondence.py
+@@ -14,6 +14,6 @@
+ assert new_pin['bytes']==old_pin['bytes'] and new_pin['sha256']==old_pin['sha256'],'tested/reproduced archive bytes differ'
+ new,old=members(new_path),members(old_path)
+ assert new==old,'tested/reproduced member bytes differ'
+-record={'kind':'exact_tested_rc8_artifact_correspondence','status':'BYTE_EQUAL','testedArchive':new_pin,'reproductionArchive':old_pin,'sameMemberSet':True,'members':len(new),'unchangedMembers':len(new),'changedMembers':[],'identityBridgeAllowance':False,'qualified':False}
++record={'kind':'exact_tested_rc9_artifact_correspondence','status':'BYTE_EQUAL','testedArchive':new_pin,'reproductionArchive':old_pin,'sameMemberSet':True,'members':len(new),'unchangedMembers':len(new),'changedMembers':[],'identityBridgeAllowance':False,'qualified':False}
+ with Path(output).open('x') as f:f.write(json.dumps(record,indent=2)+'\n')
+ print(json.dumps({'members':len(new),'status':'BYTE_EQUAL','identityBridgeAllowance':False}))

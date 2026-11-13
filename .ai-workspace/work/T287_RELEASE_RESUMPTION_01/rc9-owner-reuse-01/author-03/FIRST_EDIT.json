@@ -1,0 +1,14 @@
+{
+  "observedAt": "2026-11-08T17:17:48.282679+00:00",
+  "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+  "sha256": "65b9c1f3111184785923f152b96c9c69f7e6ead2b0435741af2ec968f2ce0d65",
+  "changed": true,
+  "bytes": 21523,
+  "mtime": "2026-11-08T17:17:24.709421+00:00",
+  "progressFiles": [
+    "PROGRESS.md"
+  ],
+  "progressTail": "# RC9-REPAIR-03 author-03 progress\n\nActor: one Claude Opus 5.5 Worker (Writer activation under RC9-NATIVE-03). No delegation.\n\n## Intake (2026-11-08T17:07Z)\n\n- Controls verified by sha256: ROOT_SCOPE b71b1be5, TASK 12c1e88f, ROOT_PACKET 76ede7c8,\n  BINDING 6e47b6ad (per ROOT_ADMISSION), ROOT_ADMISSION 40637bc1 (per FOCUSED_BINDING).\n- Installed STDO 3.0.4 `stdo-work` read; COORDINATED_HANDOFF Receive/Control Intake/Review Flow applied.\n- Product basis: `stdo_abiogenesis.json` basis `stdo://releases/v3.0.4/` manifest 102817a3, empty composition.\n- Frame basis: ABI5_PROJECT_REFERENCE_FRAME_BASIS (direct Writer entry; F-END-TO-END-INTERFACE-INTEGRATION\n  evidence localization for the prefix seam).\n- Change class: `realization_refactor` (test-only). Product, requirements, both HOWs, metadata, package/lock,\n  unit script are unchanged.\n- Write territory: the one test file plus this directory.\n- Test preimage sha256 13f550627da9b42a344f09a228d30c5f575a54f70306bb17fd48dcad8b2987e2 (18044 B).\n\n## Failing-before (read-only evidence)\n\n`/private/tmp/abg-r9-owner-native-002/unit-01/events.jsonl` ordinal 75: OWN-01 fails at test line 102,\n`runtimeEventBodiesAtPrefix(selection.prefix)` -> `runtimeEventsFromValidatedPrefix` TypeError\n\"Event Calculus requires a nominal validated immutable event prefix\". Environment and the three held Runs\npassed; nothing after line 101 ever executed.\n\n## Owner reads (material callees)\n\nevent_prefix.ts (owned/validated/cold selection, historical cuts, indexedRuntimeEvents),\nruntime_derivation.ts (selectionScope lineage territory), runtime_history.ts (selection, cut, extends,\nmaterialize), event_store.ts (projectOwnedRuntimeHistoryAtDurablePrefix, DurableHistoryDerivation,\nselectHeldEventStoreDurablePrefix, cold profile schedule), execution_basis_record.ts + shared/select\n(row law legs and counters), definition_event_resource.ts (selection/completion/close), worker_transport.ts +\ntransport_contracts.ts (plan fields, planOwned, args/env), install_product.ts (content verification counters),\nexecution_resolution.ts + installed_module.ts + semantics.ts (first-consumer path), shared/immutable.ts,\nsupport/root-installed-environment.mjs and registered-graph-selection.mjs.\n\n## Progress\n\n- 17:30Z intake + owner analysis complete; editing the one test file.\n",
+  "proofRootExists": false,
+  "nativeClosed": false
+}

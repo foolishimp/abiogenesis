@@ -1,0 +1,200 @@
+{
+  "productFrame": "ABIogenesis 5.0 / GOAL-035 / T-287; F01-F07,F09-F11,F13-F17. QR02 supplies truthful surviving-contributor inputs to existing F11/F15 owners. STDO3.0.4 remains selected. No new registry, event stream/controller, fabricated historical author event, wholesale ancestry union or universal acknowledgment.",
+  "kind": "closed_qr02_next_increment_readiness",
+  "role": "Contributing architect/source-record readiness; no independent acceptance.",
+  "result": "indeterminate",
+  "conclusion": "A bounded external-provenance HOW/contract/driver correction is concrete and separable after Q23. The actual historical example supports positive byte correspondence and truthful incomplete attribution. Complete original authorship, semantic contribution survival and production pre-paid eligibility remain open.",
+  "intake": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_READINESS_REQUEST.json",
+    "bytes": 2920,
+    "sha256": "0b30dbbe2b9663cd69131befdc9bb76d8ec1f0c1b7d03cb177d12b617370e349"
+  },
+  "source": {
+    "repository": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "frozenCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "acquisition": "All shared code/design/test reads used git show/git diff at pinned revisions. No moving Q23 owner deltas inspected."
+  },
+  "reused": {
+    "provenanceReviewSha256": "163d0a6484dab2b9f1f53a3519a95429479dcbb58affe894b8c75a765d08f574",
+    "rootSupplementSha256": "f223f1fa69ffcfad814b1d24c7c6b877923afa0bf48b82cd0680e12745500f92",
+    "rootPolicySelectionSha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9",
+    "preservedCorrections": "The supplement located the original T290 C2 record and native06 selected model. Do not reopen those location questions. Neither record is needed to expand this one external member example; neither retrospectively authenticates all contributors."
+  },
+  "example": {
+    "member": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "standing": "Actual retained Git byte history with two declared contributor branches. RP-2 writer is supported by its original activation/return; D5's Claude author label is commit metadata pending original grant/closure sufficiency. This is not a completed two-author attribution judgment.",
+    "preimagesAndPostimages": [
+      {
+        "role": "D5 preimage",
+        "commit": "56015068371277c8efed53f0f40d1e53bdee79ea",
+        "blob": "6f7fd64fdcf1ea69c0476bc0b527dfdfd0b455e9",
+        "bytes": 9198,
+        "sha256": "ae0223723f5c86ae3d421af8b45d44992fa3a732d1f36e8ba869347bdf907a8d"
+      },
+      {
+        "role": "D5 postimage",
+        "commit": "92498a2d29eca294d851557753cbda2fe047c357",
+        "blob": "739b72e2dd3e7cb34f16fd678b9907e744951ad8",
+        "bytes": 19439,
+        "sha256": "7cc2df35df8b187b2380a0f28fbaab765f39575aa89d007444c4546839309332"
+      },
+      {
+        "role": "RP-2 preimage",
+        "commit": "08ace99187eaa7a2a35b4e1629095df7ba7d9cca",
+        "blob": "739b72e2dd3e7cb34f16fd678b9907e744951ad8",
+        "bytes": 19439,
+        "sha256": "7cc2df35df8b187b2380a0f28fbaab765f39575aa89d007444c4546839309332"
+      },
+      {
+        "role": "RP-2 postimage",
+        "commit": "f8396e6bc5edcba290e4b8dae23af4d2015e271d",
+        "blob": "07092d232a895cf2ec11f5cbeede9799f9c8308f",
+        "bytes": 19594,
+        "sha256": "364c615d339fe85d187d3f0fd792715da9ee0f127587fb20eb9d27b17aebdf5c"
+      },
+      {
+        "role": "Selected current",
+        "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "blob": "07092d232a895cf2ec11f5cbeede9799f9c8308f",
+        "bytes": 19594,
+        "sha256": "364c615d339fe85d187d3f0fd792715da9ee0f127587fb20eb9d27b17aebdf5c"
+      }
+    ],
+    "deltas": {
+      "command": "git diff --no-ext-diff --no-textconv --no-renames --no-color --full-index --unified=3 <from> <to> -- build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+      "d5": {
+        "from": "56015068371277c8efed53f0f40d1e53bdee79ea",
+        "to": "92498a2d29eca294d851557753cbda2fe047c357",
+        "bytes": 25674,
+        "sha256": "581d3d357f5d1988aa9b494508d7219e2e20eabf7713ab2fe3178af4f3598434"
+      },
+      "rp2": {
+        "from": "08ace99187eaa7a2a35b4e1629095df7ba7d9cca",
+        "to": "f8396e6bc5edcba290e4b8dae23af4d2015e271d",
+        "bytes": 1950,
+        "sha256": "2d9b66c4130495662f7476810dc220237005caea58ff2d646c37e21c11de91d7",
+        "meaning": "Adds the Codex gpt-6-astra identity row and accepts 100755 alongside 100644; no other changes to this member."
+      }
+    },
+    "retainedD5Block": {
+      "meaning": "Complete closureManifest function and following separator, added in D5 and absent from D5 preimage.",
+      "bytes": 655,
+      "sha256": "9412367c518a3ab1facdeb8263885ce3e6efc425ca87055f6ff29d36d2ebd19d",
+      "d5AndRP2Preimage": {
+        "startByte": 6083,
+        "endByte": 6738,
+        "lines": "85-96"
+      },
+      "rp2AndSelectedCurrent": {
+        "startByte": 6238,
+        "endByte": 6893,
+        "lines": "86-97"
+      },
+      "occurrenceCountPerPostimage": 1
+    },
+    "exactRelation": "D5 postimage equals RP-2 preimage; RP-2 postimage equals selected current bytes. The unchanged D5 block survives with a 155-byte offset shift. This is a concrete finite byte-survival witness, not a complete semantic-survival census.",
+    "attributionSources": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/activation-and-return.md",
+        "sha256": "d2f7b97d1a9c6100995deee6d5d8cbef2cc8d8f1f1c557ad0abeef93a36bfa96",
+        "lines": "3-9;23-25",
+        "meaning": "Original RP-2 grant explicitly includes truthful Codex gpt-6-astra attribution; Worker return binds base and implementation."
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/README.md",
+        "sha256": "ecd856504391af4bb989746c23c9a3239461b3913fe0659ed2122b6e84b1bf37",
+        "lines": "3;67;75",
+        "meaning": "RP-2 writer and limits; neighboring Opus Reviewer is not this writer."
+      },
+      {
+        "gitCommit": "92498a2d29eca294d851557753cbda2fe047c357",
+        "meaning": "Commit describes D5-c changes and declares Co-Authored-By Claude Opus 5.5. This alone does not establish the original author/grant or all inherited contributors."
+      }
+    ]
+  },
+  "selectedNextIncrement": {
+    "changeClass": "Smallest existing-owner HOW/contract correction and realization refactor under unchanged Product independent-judgment requirements; no Product repricing or new provenance arm/service.",
+    "target": "For a selected current member, retain authentic original postimages and the finite connecting transformations, select relevant contributor claims with their support, and verify terminal correspondence to the frozen member. Do not replace historical postimages with current bytes.",
+    "causalCone": [
+      "Original activation/grant and closure records plus exact Git preimage/delta/postimage are supplied immutable evidence.",
+      "Existing provenance.mjs selects the bounded per-member contributing chains and necessary connecting changes. Its last map may still establish terminal currency; it must not decide the complete author set.",
+      "Existing external-construction contract carries one compact historical-to-current correspondence using references to existing chain/change/material entries and existing byte/span coordinates. Distinguish connecting transformations from claims that an author's contribution remains relevant.",
+      "Existing Validator verifies every original patch/manifest, continuity from each referenced postimage to the next preimage, exact terminal current bytes and supported retention spans. It preserves the existing scope union and source-grounded attribution/survival judgment; byte survival alone is not semantic sufficiency.",
+      "Existing qualification_proof consumes the resulting supported contributor identities through Q23's established identity/policy owner. Unknown provenance remains unknown before dependent paid work; no future J establishes its own eligibility."
+    ],
+    "exactCurrentMismatch": "provenance.mjs:193-216 selects only the last chain. qualification.ts:851-853 rejects an earlier historical postimage against current material, even if its bytes survive. Removing that equality without a verified connecting path would admit stale attribution. qualification.ts:866-873 already unions scopes; no missing generic union mechanism.",
+    "boundedRepresentation": "One correspondence within the existing external arm is enough: selected current-member coordinate, ordered references to existing changes/original chains, and the selected contributor claims/evidence spans. Exact field names and helper factoring remain Worker HOW. Unsupported merge/nonliteral semantic correspondence stays unknown in this increment rather than expanding into a general ancestry engine."
+  },
+  "minimumTerritory": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "scope": "External construction paragraph/acceptance relation in section3; distinguish authentic history, terminal currentness and semantic survival."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+      "scope": "identity selection at51-57; last/current versus contributor selection at190-234; retain shared record references and real grant/closure sources. No-trailer becomes unknown, never human-owner attribution."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "scope": "Canonical external construction relation at128-141; reference form already derives at179-182. Avoid parallel schemas."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "scope": "Existing record/context/renderer and attribution checker; preserve patch/manifest/span checks and existing union."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "scope": "Consume supported relevant contributor set and prior source sufficiency through Q23 successor owner; preserve acknowledgment/independence boundaries."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "scope": "Extend existing embedded/reference attribution tests at174-208 for the finite survival relation and driver selection."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/qualification-provenance-survival.json",
+      "scope": "Proposed one bounded shared fixture, if needed by the Worker: exact retained blobs/deltas once, refs/spans and truthful source standing. This filename is a proposal for the later exact grant, not a write here."
+    }
+  ],
+  "proofDependency": {
+    "positive": "The real example's two-step member correspondence and retained D5 block are accepted structurally without falsifying old postimages; contributor selection retains D5 and RP-2 claims. D5 attribution remains insufficient until original source/grant evidence is sufficient. This truthful incomplete outcome is part of the positive structural discriminator, not a qualified assessment.",
+    "nearestNegatives": [
+      "Missing/wrong connecting preimage, changed delta or wrong terminal digest rejects.",
+      "Drop the D5 contributor while full-member scope union still covers the file: source-grounded survival completeness must not become satisfied merely from union coverage.",
+      "Claim a removed/replaced contribution survives without supporting byte/semantic evidence: unknown/falsified rather than automatic historical union.",
+      "No trailer, preservation commit or renamed actor label: no human/independent identity inferred.",
+      "Forged/crossed retained span or original grant/closure identity: reject or insufficient at its existing owner.",
+      "Embedded and resource-referenced forms yield the same correspondence/attribution standing; changed bodies under declared coordinates still refuse."
+    ],
+    "q23Conjunction": "Root's bounded two-profile policy now declares Claude Opus5.5/Anthropic Claude and Codex gpt-6-astra/OpenAI GPT. It does not establish historical authorship. If both contributors are confirmed for this member, either of those same-family assessors has a contributor-family conflict under the selected default. With the D5 source unresolved the result is unknown. Do not turn this example into an eligible paid-assessment claim or broaden this increment to a third provider.",
+    "execution": "No tests executed or proposed full F11. After Q23 closes, reacquire only its final touched owner interfaces before the separate native grant; retain the frozen historical blobs as the test witness."
+  },
+  "reuseAndCost": {
+    "rawUniqueMemberBytes": 48231,
+    "rawUniqueDeltaBytes": 27624,
+    "rawTotalBeforeGrantAndClosureRecords": 75855,
+    "calculation": "Three unique blobs:9198+19439+19594; two canonical diffs:25674+1950. D5 postimage and RP-2 preimage are the same body; RP-2 postimage and current material are the same body.",
+    "mechanism": "Existing recordSet/recordsByRef and QualificationResources material selections keep bodies once. The correspondence and retained spans carry refs/digests/ranges only. Existing qualificationConstructionContext already strips body base64 for projection and uses source spans.",
+    "limits": "This is a raw retained-input bound for one member, not rendered prompt size, token count, provider price or a whole-resource generation estimate. Original grant/closure records remain additional shared referenced inputs.",
+    "forbiddenGrowth": "No whole-file body on every Result/J/CCall, duplicate actor identity, new registry/event stream, all-commit union or retrospective author events."
+  },
+  "missingDependencies": [
+    {
+      "owner": "Original D5 construction source owner / Root evidence selection",
+      "need": "Exact original D5 activation/grant/closure sufficient to establish the metadata-declared Claude writer and its scope, plus source-grounded relevance of that contribution. No complete earlier-contributor census is claimed."
+    },
+    {
+      "owner": "Existing qualification attribution owner",
+      "need": "Prior sufficient attribution and survival correspondence before required paid assessment. The assessment's future raw attribution is not that prior source."
+    },
+    {
+      "owner": "Actual authorized source/Product owner, only if evidence remains insufficient",
+      "need": "Any acknowledgment must be an actual scoped act about the exact candidate, record-set, identities and scope under the existing ruling relation. Do not fabricate it, require it universally, use it to repair invalid byte continuity, waive independence or expand 5.1 response/resume."
+    },
+    {
+      "owner": "Root after Q23 return",
+      "need": "Select this one external-arm HOW/contract/driver increment against Q23's final owner surface. Q23 implementation correctness and full QR02 closure were not inspected or claimed."
+    }
+  ],
+  "effects": "Read-only pinned source/record inspection and hashes; wrote only QR02_NEXT_INCREMENT.json/.md. No code/HOW/test edits, tests/build/providers/native/preflight/commits or private provider reasoning/text/tool_result reads.",
+  "return": "Closed readiness result to Root. Source-record readiness is not full reconstruction, attribution acceptance or release qualification."
+}

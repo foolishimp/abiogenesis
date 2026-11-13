@@ -1,0 +1,71 @@
+{
+  "id": "PHASE2-A-R2-PROOF-01",
+  "status": "ROOT_ADMITTED_PHASE2_A_R2_PROOF",
+  "recordedAt": "2026-11-10T02:17:50.834799+00:00",
+  "readySha256": "e3d9353af8d19a77b8eddb270a7654d37b2b450e46f30842e27d9fd9237479c7",
+  "bindingSha256": "b0d47aefd05dff97421ee5c53574d80233866a1bd095a0271ed7ab7153ab9190",
+  "commandIds": [
+    "r1-probe",
+    "r2-immediate",
+    "baseline-signal",
+    "owned-lifetime"
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/READY.json",
+      "bytes": 5702,
+      "sha256": "e3d9353af8d19a77b8eddb270a7654d37b2b450e46f30842e27d9fd9237479c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/BINDING.json",
+      "bytes": 13091,
+      "sha256": "b0d47aefd05dff97421ee5c53574d80233866a1bd095a0271ed7ab7153ab9190"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/CONTROLS.json",
+      "bytes": 10975,
+      "sha256": "257703ec5d7c8d582ba8135f3d684543abf5c648429887e655de9c55d97ccb3c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/run.py",
+      "bytes": 8762,
+      "sha256": "a1e398e4b25b55fe4f6ea90a74fb5f3c7fe43e1c38131e468531fc6eeb760ddd"
+    }
+  ],
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-freeze.json",
+    "bytes": 295850,
+    "sha256": "06dac8db990b326559fedef24968e95ec7ad80da89778a1f51ddc0bb3ae55cf4"
+  },
+  "sourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/COMPILED_SCRATCH_INVENTORY.json",
+    "bytes": 107618,
+    "sha256": "2b92e21c27b9905f4b7da1bef75079229132ce2f18ee52230b1c906db1188d86"
+  },
+  "compiledRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 64163,
+    "sha256": "b062a80c0e757ecaeb966ab971edee7a45ee4c1a75e838ab8688716584f7c88b"
+  },
+  "independentSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/ASSESSMENT.md",
+    "bytes": 5153,
+    "sha256": "fd0042dbe190aa0957907aaa38ab475de53cea2304d753966360d9c0e0d55987"
+  },
+  "rootDecision": "Root read exact READY/binding/controls/full driver and staging/test/packageRoot relation; scoped independent source assessment satisfied. One selected four-member campaign only. All current candidate members must pass; exact complete expected baseline assertion red remains comparison evidence, not pass, with raw location/message retained for later conjunction. First unexpected failure stops. Preserve8physical diagnostics,12-combination unchanged handback, complete TAP/counts, outputs/closure/postguards.",
+  "capsSeconds": [
+    10,
+    10,
+    30,
+    300
+  ],
+  "campaignSeconds": 450,
+  "exclusions": [
+    "source/tracking/Git changes",
+    "compile/build",
+    "other proof",
+    "advanced-clock probe",
+    "automatic retry"
+  ]
+}

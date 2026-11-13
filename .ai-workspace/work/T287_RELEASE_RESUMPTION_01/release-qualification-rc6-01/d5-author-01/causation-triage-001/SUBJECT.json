@@ -1,0 +1,87 @@
+{
+  "kind": "bounded_intermediate_causation_failure_subject",
+  "at": "2026-11-05T22:31:34.613112+00:00",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "files": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 214920,
+        "sha256": "8d75f892fd73811ced3f2f6392e86487d4b862eb273509ccc1a0407169b3a3ad"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 214920,
+        "sha256": "8d75f892fd73811ced3f2f6392e86487d4b862eb273509ccc1a0407169b3a3ad"
+      }
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "bytes": 10724,
+        "sha256": "830a42927e739f732e610f5a57daf6f941b4cd5ffcc0aeddf7906cab8183f7a0"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "bytes": 10724,
+        "sha256": "830a42927e739f732e610f5a57daf6f941b4cd5ffcc0aeddf7906cab8183f7a0"
+      }
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        "bytes": 88005,
+        "sha256": "4dc4968664b8592b09cf6a9cd35e56b3bb0ae426fa6046cb36ba78b31908a22d"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        "bytes": 88005,
+        "sha256": "4dc4968664b8592b09cf6a9cd35e56b3bb0ae426fa6046cb36ba78b31908a22d"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3-stage.json",
+        "bytes": 75539,
+        "sha256": "b582a2a4cb8ab2636891585292b1e5ce389b8f16399c2838ed194549ec168fe6"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/evidence/d5a-s3-stage.json",
+        "bytes": 75539,
+        "sha256": "b582a2a4cb8ab2636891585292b1e5ce389b8f16399c2838ed194549ec168fe6"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3-lanes/summary.json",
+        "bytes": 2666,
+        "sha256": "3ff8ab9e48fab7a7b015f62470ee199f2fbce051b8df78af53766d840e3deb7f"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/evidence/summary.json",
+        "bytes": 2666,
+        "sha256": "3ff8ab9e48fab7a7b015f62470ee199f2fbce051b8df78af53766d840e3deb7f"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3-lanes/d5-lifecycle-profile.stdout.tap",
+        "bytes": 24583,
+        "sha256": "b61b8c5d838166f152845df41dc465267fbcf75e4666728083b16e51aa8aed45"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/evidence/d5-lifecycle-profile.stdout.tap",
+        "bytes": 24583,
+        "sha256": "b61b8c5d838166f152845df41dc465267fbcf75e4666728083b16e51aa8aed45"
+      }
+    }
+  ],
+  "standing": "Exact intermediate stage3 source and test failure only. Live D5 author remains active; no candidate acceptance or new coding authority."
+}

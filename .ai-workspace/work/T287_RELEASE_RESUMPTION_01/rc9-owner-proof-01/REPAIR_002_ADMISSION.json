@@ -1,0 +1,42 @@
+{
+  "id": "RC9-PROOF-REPAIR-02",
+  "status": "ADMITTED_CONTROL_REPAIR_ONLY",
+  "at": "2026-11-08T06:53:30.978421+00:00",
+  "actor": "/root/rc9_proof_triage",
+  "roleTransition": {
+    "from": "read-only Proof-Control triage RC9-PROOF-TRIAGE-02",
+    "to": "external Proof-Control Writer"
+  },
+  "admittingAuthority": "/root Executive",
+  "decisionEvidence": "ROOT RC9-PROOF-REPAIR-02 ACCEPT bounded control repair after closed triage. New focused-proof-002.mjs and FOCUSED_BINDING.PREPARATION.002.json plus repair/admission/check records only; preserve author01 script/template and failed/runtime evidence. One tiny disposable same-npm-route reporter discriminator with one intentional pass and one intentional fail is authorized; no Product proof or native execution.",
+  "basis": {
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": []
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01",
+  "selectedNewScratch": "/private/tmp/abg-r9-owner-native-002",
+  "nativeScratchAllocated": false,
+  "candidateBaseline": {
+    "path": "/private/tmp/abg-r9-owner-native-001/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "528a04c0c171c56affaa1a2f9ba2b66413b7d6007d92bbbe092143a726938c49"
+  },
+  "candidateSourceDigest": "6aacc0e5b7bda528bac527e16551789bb5da43e7aeb7d3408ebde994a9e822ff",
+  "candidateSourceRows": 1340,
+  "effectsPermitted": [
+    "new successor control/held binding and repair records",
+    "one disposable control reporter discriminator via exact Node/npm route",
+    "syntax/JSON/pin checks"
+  ],
+  "effectsExcluded": [
+    "Product source/test/Git changes",
+    "candidate build or unit execution",
+    "native/provider dispatch",
+    "native runtime/proof scratch allocation",
+    "prior admitted controls/evidence mutation"
+  ],
+  "consumer": "/root",
+  "stop": "After corrected controls, retained discriminator evidence and closed return; actual native proof remains HELD"
+}

@@ -1,0 +1,22 @@
+{
+  "kind": "bounded_native_correction_measurement_selection",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 8523,
+    "sha256": "e4e99717b58f6406cd149a2c9c7b40cfd028fceccdfe204518ef8f1aa9b8d8c6"
+  },
+  "retainedHS02": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-hs02-once.summary.json",
+    "bytes": 4542,
+    "sha256": "b419f2c2df01c148434dd6763b154adefa7f720b06018c8e01c7a3eacb79d6c0"
+  },
+  "retainScope": "Preserve H04 partial route and prior accepted HS02 evidence; selected five-lane proof is not a benchmark or speedup comparison.",
+  "newMeasurements": [
+    "One source freeze and complete Product reuse; record original build receipts as reused and copy/setup separately.",
+    "Fixed-route600s followed by existing HS02 lane600s (authored280s), assessment/native-workspace/caller300s each; preserve original failures and actual selected counts.",
+    "Separate setup/reuse/native/testing/readback/coordination timings; no whole runtime performance claim.",
+    "Retain positive Testing/UAT and held/fresh diagnostic before deferred exact oracle checks; immediate full-prefix and actor-log invariants stay mandatory."
+  ],
+  "unchangedBuilderColdReads": 0,
+  "limits": "No new whole campaign qualification; S4-growth/S6 and remaining release gates remain."
+}

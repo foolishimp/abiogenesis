@@ -1,0 +1,54 @@
+{
+  "kind": "pure_existing_owner_budget_projection",
+  "at": "2026-11-05T21:41:04.315Z",
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 1631750,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 1636750
+  },
+  "limits": {
+    "absoluteTimeoutMs": 7200000,
+    "inactivityTimeoutMs": 1800000
+  },
+  "fits": true,
+  "providerCalls": 0,
+  "runAdmissions": 0,
+  "priorUnboundProjection": {
+    "ambientLimits": {
+      "absoluteTimeoutMs": 3600000,
+      "inactivityTimeoutMs": 60000
+    },
+    "fits": false,
+    "meaning": "The first pure check omitted the selected workerEnvironment and read the owner default 60000ms inactivity. It is not a native preflight failure or the selected profile."
+  },
+  "limitsOfClaim": [
+    "Existing owner-derived budget under selected runtime environment only; no preflight or runtime dispatch.",
+    "Later proof profile must preserve a sufficient actual bound; total required budget1636750ms is below the current1800000ms inactivity limit."
+  ]
+}

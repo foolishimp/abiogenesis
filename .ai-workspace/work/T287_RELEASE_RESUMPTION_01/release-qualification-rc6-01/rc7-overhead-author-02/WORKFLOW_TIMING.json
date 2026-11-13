@@ -1,0 +1,122 @@
+{
+  "kind": "separate_native_workflow_phase_observation",
+  "recordedUtc": "2026-11-06T06:40:27.074507+00:00",
+  "builder": "immutable installed RC6",
+  "subject": "B actual native Run, prospective RC7 source",
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/HOST_RESULT.json",
+    "bytes": 153,
+    "sha256": "0a3bc09698459cebc4c49945229eae14aaaf3006b8d5e0cf3798dc13954668c9"
+  },
+  "setup": "reused, unmeasured",
+  "preflightMs": 80419.42783305421,
+  "hostStartupMs": 315147.533,
+  "dispatchToNativeActorMs": 169783.0,
+  "nativeWorkMs": 2866506.0,
+  "nativeExitToHostExitMs": 25158.234,
+  "hostWallMs": 3376593.045916874,
+  "readbackWallMs": {
+    "run_result": 455047.711584,
+    "run_replay": 188114.874375
+  },
+  "readbackPhases": {
+    "run_result": [
+      {
+        "phase": "physical_prefix_checked",
+        "at": "2026-11-06T06:17:59.883Z",
+        "offsetMs": 1059.161959,
+        "memory": {
+          "rss": 189775872,
+          "heapTotal": 117161984,
+          "heapUsed": 55289976,
+          "external": 3280916,
+          "arrayBuffers": 862541
+        }
+      },
+      {
+        "phase": "cold_installed_read",
+        "at": "2026-11-06T06:19:30.212Z",
+        "offsetMs": 91387.77995899999,
+        "memory": {
+          "rss": 6690947072,
+          "heapTotal": 5414879232,
+          "heapUsed": 5172101192,
+          "external": 104349257,
+          "arrayBuffers": 101906209
+        }
+      },
+      {
+        "phase": "cold_read_returned",
+        "at": "2026-11-06T06:25:32.802Z",
+        "offsetMs": 453974.56891699997,
+        "memory": {
+          "rss": 3541663744,
+          "heapTotal": 2974187520,
+          "heapUsed": 2815011936,
+          "external": 38121053,
+          "arrayBuffers": 35676269
+        }
+      }
+    ],
+    "run_replay": [
+      {
+        "phase": "physical_prefix_checked",
+        "at": "2026-11-06T06:30:26.498Z",
+        "offsetMs": 1223.206458,
+        "memory": {
+          "rss": 187301888,
+          "heapTotal": 111427584,
+          "heapUsed": 42766816,
+          "external": 3262132,
+          "arrayBuffers": 843757
+        }
+      },
+      {
+        "phase": "cold_installed_read",
+        "at": "2026-11-06T06:31:59.531Z",
+        "offsetMs": 94255.178292,
+        "memory": {
+          "rss": 5761417216,
+          "heapTotal": 5443715072,
+          "heapUsed": 5152760160,
+          "external": 104349257,
+          "arrayBuffers": 101906209
+        }
+      },
+      {
+        "phase": "cold_read_returned",
+        "at": "2026-11-06T06:33:32.270Z",
+        "offsetMs": 186993.780208,
+        "memory": {
+          "rss": 3653517312,
+          "heapTotal": 3150725120,
+          "heapUsed": 2816574424,
+          "external": 38120642,
+          "arrayBuffers": 35675858
+        }
+      }
+    ]
+  },
+  "betweenTaskObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/BETWEEN_TASK_OBSERVATION.json",
+    "bytes": 5762,
+    "sha256": "35be2fb68cbe4dcd3d89c2d1a29fc510294e77a387386379d0aa700ffb78add1"
+  },
+  "nativeProviderTerminalMetadata": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "num_turns": 233,
+    "duration_ms": 2856745,
+    "duration_api_ms": 2005108,
+    "total_cost_usd": 17.843680200000005,
+    "stop_reason": "tool_use",
+    "session_id": "806cab60-1595-487c-857b-eb7b1c42329f"
+  },
+  "redFlags": [
+    "run_result took455.048s versus run_replay188.115s at the identical prefix; both exact terminals match. Difference lies mainly in the cold-entry/return phase, not parent preparation. Internal CPU/GC/I/O attribution is unmeasured.",
+    "run_result pre-CLI memory checkpoint RSS6.691GB/heapUsed5.172GB is a checkpoint, not a peak.",
+    "No matched RC7 speedup claim; these timings remain actual RC6 driving revised source."
+  ],
+  "limits": "Wall intervals and provider counters are not CPU attribution. Source fixture/component passes are not full release qualification."
+}

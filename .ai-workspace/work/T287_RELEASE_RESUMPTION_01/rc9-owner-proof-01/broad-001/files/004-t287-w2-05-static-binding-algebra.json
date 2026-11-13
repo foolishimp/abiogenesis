@@ -1,0 +1,68 @@
+{
+  "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 878.0945839999767,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 5,
+    "failed": 0,
+    "passed": 3,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0,
+    "topLevel": 5,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "preparation resolution retains its established native link and raw lock refusals",
+      "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_PREPARATION_RESOLVE_CALL unset; requires the retained preparation resolve call",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "native detachment retains only actual immutable verifier bodies and detaches raw copies",
+      "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_PREPARATION_RESOLVE_CALL unset; requires the retained preparation resolve call",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/004-t287-w2-05-static-binding-algebra.jsonl",
+    "bytes": 2121,
+    "sha256": "710eecfc35c7567dc2793f7e47e1ad081a7576d5a1b2b168978a2564bd8fc8e0"
+  },
+  "commandReceipt": "commands/004-t287-w2-05-static-binding-algebra.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

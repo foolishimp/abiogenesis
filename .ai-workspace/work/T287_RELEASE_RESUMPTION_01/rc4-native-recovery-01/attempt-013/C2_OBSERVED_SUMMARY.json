@@ -1,0 +1,289 @@
+{
+  "helper_result_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/worksite-command-execution/f3e91d1ede2f3baef2cca7a3de85d1df1c1243191fe8a686dbaea7dfc1e88d6f/a34013a61d6778f4a08fd4b96af8c1638df18c2aebd3e2aae02be6f4089b49a3/result.json",
+  "artifactRef": "worksite-command-helper-artifact://abiogenesis/b4158a70d5a8248510fb5801d29ef656d06bcc1cf39242604a83982440fae291",
+  "artifactDigest": "sha256:b4158a70d5a8248510fb5801d29ef656d06bcc1cf39242604a83982440fae291",
+  "disposition": "success",
+  "commands": [
+    {
+      "ordinal": 0,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/fixture-current-measurement",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "stream_totals": [
+        "\u2139 tests 3",
+        "\u2139 suites 0",
+        "\u2139 pass 2",
+        "\u2139 fail 1",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 duration_ms 1381.965583"
+      ],
+      "errors": ""
+    },
+    {
+      "ordinal": 1,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/source-correspondence",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "stream_totals": [],
+      "errors": ""
+    },
+    {
+      "ordinal": 2,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "stream_totals": [],
+      "errors": ""
+    },
+    {
+      "ordinal": 3,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "stream_totals": [],
+      "errors": ""
+    },
+    {
+      "ordinal": 4,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/build",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "stream_totals": [],
+      "errors": ""
+    },
+    {
+      "ordinal": 5,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/package",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "stream_totals": [],
+      "errors": ""
+    },
+    {
+      "ordinal": 6,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "stream_totals": [
+        "\u2139 tests 61",
+        "\u2139 suites 0",
+        "\u2139 pass 56",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 5",
+        "\u2139 duration_ms 35541.9775"
+      ],
+      "errors": ""
+    },
+    {
+      "ordinal": 7,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "stream_totals": [
+        "\u2139 tests 66",
+        "\u2139 suites 0",
+        "\u2139 pass 63",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 3",
+        "\u2139 duration_ms 186316.735541"
+      ],
+      "errors": ""
+    },
+    {
+      "ordinal": 8,
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "stream_totals": [
+        "\u2139 tests 2",
+        "\u2139 suites 0",
+        "\u2139 pass 2",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 duration_ms 64870.374167"
+      ],
+      "errors": ""
+    }
+  ],
+  "predicateComparisons": [
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/fixture-current-measurement-exit",
+      "observedValue": 0,
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/fixture-current-measurement"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/source-correspondence-exit",
+      "observedValue": 0,
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/source-correspondence"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/toolchain-exit",
+      "observedValue": 0,
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/toolchain"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/contract-seeds-exit",
+      "observedValue": 0,
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/contract-seeds"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/build-exit",
+      "observedValue": 0,
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/build"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/package-exit",
+      "observedValue": 0,
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/package"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests-exit",
+      "observedValue": 0,
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests-exit",
+      "observedValue": 0,
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests-pass",
+      "observedValue": 63,
+      "declaration": {
+        "greaterThanOrEqual": 1,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests-pass",
+      "observedValue": 2,
+      "declaration": {
+        "greaterThanOrEqual": 1,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain-exit",
+      "observedValue": 0,
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain"
+      },
+      "comparison_satisfied": true
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain-pass",
+      "observedValue": 56,
+      "declaration": {
+        "greaterThanOrEqual": 1,
+        "validationCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain"
+      },
+      "comparison_satisfied": true
+    }
+  ],
+  "productDelta": [],
+  "candidate_artifacts": [
+    {
+      "after": {
+        "byteLength": 10956375,
+        "digest": "sha256:44a31c41b3ca080c4fd615037ce3a2c13ba573a2629d783f96b537b434669934",
+        "kind": "worksite_path_observation",
+        "nodeKind": "file",
+        "relativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+        "schemaVersion": "5.0.0",
+        "symlinkTarget": null
+      },
+      "before": null,
+      "changeKind": "created",
+      "kind": "worksite_path_delta",
+      "matchedTerritoryRef": "worksite-command-write-territory://abiogenesis/c1b49553ce817e61d5d60af5ccc02add93ea6fbf66710bb92e4ddd28bef91856",
+      "ordinal": 1,
+      "relativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "after": {
+        "byteLength": 11658976,
+        "digest": "sha256:88eaa03695217c4979eb575a1b98cc030c990842bb2a5279e1fc210a314528a0",
+        "kind": "worksite_path_observation",
+        "nodeKind": "file",
+        "relativePath": "build_tenants/abiogenesis/typescript/artifacts/self-consistent-substitution-abiogenesis-typescript-tenant.tgz",
+        "schemaVersion": "5.0.0",
+        "symlinkTarget": null
+      },
+      "before": null,
+      "changeKind": "created",
+      "kind": "worksite_path_delta",
+      "matchedTerritoryRef": "worksite-command-write-territory://abiogenesis/c1b49553ce817e61d5d60af5ccc02add93ea6fbf66710bb92e4ddd28bef91856",
+      "ordinal": 2,
+      "relativePath": "build_tenants/abiogenesis/typescript/artifacts/self-consistent-substitution-abiogenesis-typescript-tenant.tgz",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "after": {
+        "byteLength": 11658950,
+        "digest": "sha256:f0d6778dfb27f1ed8f5be723a6519e303c25a9a421c0021866ebf19a98a9b6b6",
+        "kind": "worksite_path_observation",
+        "nodeKind": "file",
+        "relativePath": "build_tenants/abiogenesis/typescript/artifacts/tampered-abiogenesis-typescript-tenant.tgz",
+        "schemaVersion": "5.0.0",
+        "symlinkTarget": null
+      },
+      "before": null,
+      "changeKind": "created",
+      "kind": "worksite_path_delta",
+      "matchedTerritoryRef": "worksite-command-write-territory://abiogenesis/c1b49553ce817e61d5d60af5ccc02add93ea6fbf66710bb92e4ddd28bef91856",
+      "ordinal": 3,
+      "relativePath": "build_tenants/abiogenesis/typescript/artifacts/tampered-abiogenesis-typescript-tenant.tgz",
+      "schemaVersion": "5.0.0"
+    }
+  ],
+  "evidence_limit": "Physical helper observations and exact declaration comparisons; not UAT acceptance."
+}

@@ -1,0 +1,126 @@
+{
+  "kind": "frozen_operator_control_review_subject",
+  "recordedUtc": "2026-11-03T21:26:41.806704+00:00",
+  "basis": "T-287 GOAL-035 STDO3.0.4",
+  "scope": "Finite native05 input/grant/proof correction only; no successor Product acceptance",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/NATIVE_GRANT.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/00-NATIVE_GRANT.json",
+      "bytes": 17944,
+      "sha256": "18c581d7e8b805027a7e43a52f2057a13775ad19b8ca88ee57804c7a8741488a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/PROVIDER_PROFILE.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/01-PROVIDER_PROFILE.json",
+      "bytes": 1579,
+      "sha256": "478ac122cecc4386becb7bb4066a9412ed8294da1ba693c374e5b41da26c2dac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/SOURCE_BEFORE.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/02-SOURCE_BEFORE.json",
+      "bytes": 50126,
+      "sha256": "ea6d4cd9c1bc7627b58b471614e13ddd639ab28e8a38dfea98a9d0a6930366c9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/PACKET_PREPARATION_COMPLETE.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/03-PACKET_PREPARATION_COMPLETE.json",
+      "bytes": 1334,
+      "sha256": "4c4c5be4fdb0d584e8ded02e485868319f643e55eb22f56a3d093cb1ef767dcf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/task.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/04-task.md",
+      "bytes": 6783,
+      "sha256": "82bd80dc31a279bbd28dc6a4d3bbaf55065c6b565b77c32f4758ae709be551c8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/workload.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/05-workload.json",
+      "bytes": 225895,
+      "sha256": "0513e2155a65a0ff1e6f2068c791a47f036f27ae6243f98d703b5508fa356fbc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/prepare.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/06-prepare.mjs",
+      "bytes": 7149,
+      "sha256": "0c78da4f285c33847911e8525d65d7c16771017629c17ad9605e389465251f35"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/dispatch.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/07-dispatch.mjs",
+      "bytes": 5194,
+      "sha256": "1ba56bee61652cdfe3ead6fc6d383bef2f5d055118560b2c2821b1fb2243ad68"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/c2-proof.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/08-c2-proof.mjs",
+      "bytes": 3427,
+      "sha256": "1b3cbcbcd2f146bde3912c544bacf28bba0f507bbffdd7310e8a7405f2b5f902"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/selector-size-preflight.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/09-selector-size-preflight.mjs",
+      "bytes": 2446,
+      "sha256": "9499293e88d66d4b88c1f3b6cf71759f2221970e072a8d62d020d62f70dc2e5a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/C2_LITERAL_IMPORT_CLOSURE.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/10-C2_LITERAL_IMPORT_CLOSURE.json",
+      "bytes": 9057,
+      "sha256": "8a2631c32d9101933172a375a4429d5e310badf2637831f1ee159d96f32235ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/C2_INPUTS.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/11-C2_INPUTS.json",
+      "bytes": 17967,
+      "sha256": "08c82a9164714441f0b3eb13ca6073d58d826d80cf017a43dc9a9e8768161f06"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/C2_SELECTED_INPUTS.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/12-C2_SELECTED_INPUTS.json",
+      "bytes": 76876,
+      "sha256": "0a4973f5847cdec819cf7f87d1080fb0c489cb230abc39a0f432fb3858e350a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/INPUT_SUFFICIENCY.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/13-INPUT_SUFFICIENCY.json",
+      "bytes": 2345,
+      "sha256": "9ac994b2f7644d5a7a9a1c0912043b704338227ddf6ac701b3948b2d4daf6caf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/NEXT_PROOF_EXTERNAL_INPUTS.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/14-NEXT_PROOF_EXTERNAL_INPUTS.json",
+      "bytes": 17613,
+      "sha256": "162f0a6fe698fe65019c0b40bfaeac4556d72503a825649b92871d81038a1864"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/NEXT_ADDITIONAL_PROOF_INPUTS.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/15-NEXT_ADDITIONAL_PROOF_INPUTS.json",
+      "bytes": 1975,
+      "sha256": "6dd8cf03bd5e2d16f1740334080c1cdb7542d6d382f9d95724dae2857a0c060b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/PRIOR_ACTIVATION_CONJUNCTION.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/16-PRIOR_ACTIVATION_CONJUNCTION.json",
+      "bytes": 18041,
+      "sha256": "b888d3f1bc0fd760fe5281c1393acfdb489bd63b8670186457bc588f72335ed2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_05.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/17-ROOT_REENTRY_SELECTION_05.md",
+      "bytes": 14377,
+      "sha256": "c5bce4f4de77254a78061cc10caa35569d7aeb489a7110c36d03f94a82a42a46"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/18-config.example.json",
+      "bytes": 1812,
+      "sha256": "1c6e6da5dc3ab79243318cf85f821fff1caed7bac0d86ed152aa62faa7a2aa62"
+    }
+  ],
+  "priorClosedConjunction": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/ROOT_CONJUNCTION.json",
+  "originalScope": "R1-R7 C1-C5 unchanged",
+  "effects": "Read-only review; only separate review output records permitted",
+  "preflight": "Running concurrently, not yet part of this frozen subject; Root must verify exact final prepared-call before admission"
+}

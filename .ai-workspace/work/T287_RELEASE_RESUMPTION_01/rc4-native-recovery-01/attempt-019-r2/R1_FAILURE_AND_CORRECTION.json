@@ -1,0 +1,33 @@
+{
+  "originalPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/CALL_PREPARATION_BINDING.json",
+      "bytes": 50504,
+      "sha256": "e9be364375385f0a8f2c1ec7309ff5ae662864cd5af8351d1c0b1f08adc91801"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/PACKET_MANIFEST.json",
+      "bytes": 9572,
+      "sha256": "f5d163ca0f79e41d5ff92f95bd91030fd3f1caf8dc8dcca9d0dd54d3443b5ae5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/PREPARATION_FAILURE.json",
+      "bytes": 436,
+      "sha256": "df57d0eb00adf20db57ce7912b8c96b07c06accf4fd2a7415431e383310d4c50"
+    }
+  ],
+  "cause": "Copied operator allowedAbsentRoots was empty while three declared future scratch outputs were legitimately absent; installed preparation stopped before call/Run/provider. Product context/refusal behavior is not defective.",
+  "correction": "Derive exactly return.json/readiness.json/notes.md from existing scratchWriteRoots and assert actual missing readRoots equal that set; tmp exists. No placeholders or missing Product source allowed.",
+  "unchanged": [
+    "Exact source1100/tree d5d",
+    "Exact workload/profile/nine materialized inputs/helper/commands",
+    "Genuine closed018 resource",
+    "Grant/source semantics"
+  ],
+  "pureProofInherited": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/ROOT_REPORTED_PURE_READINESS.json",
+    "bytes": 1073,
+    "sha256": "7f99dfe91f7220f330c52926ec00646ccb5d3a7f785388de333a08ffc9ae711d"
+  },
+  "pureRerun": false
+}

@@ -1,0 +1,91 @@
+{
+  "status": "UNACCEPTED_HC1_PARTIAL_CUSTODY",
+  "createdUtc": "2026-11-02T17:47:15.804602+00:00",
+  "commit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+  "tree": "e669e2a903de1893a38271b4010a785cc840333e",
+  "parent": "5331e3ae707fa258fec14bf7b9f7ede76f805fe3",
+  "branch": "codex/rc4-native-recovery",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-002/SUBJECT.json",
+    "sha256": "f476e54fb9a42e0b6e394f7f6876b0ef518e0cbf3574bde835ff2dbd6d3982c0"
+  },
+  "files": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "sha256": "cba443c792849187cc5f1636a8c24ea01c4b21be2e998a7db4b751549ceca617",
+      "gitBlob": "b696b4b1811376dd21be908791208436123769ee"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "sha256": "d4f49ef4e14512d315b7fda23fc3855b961c934bd4599734b3b9fa6873b5d689",
+      "gitBlob": "e5cbc63e894d5522d100b108dc0e54fce47b077c"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts",
+      "sha256": "9c74c1bf3f40150c46c16ea5cd08a73c408c0fb230423e6af7778f62b90997d1",
+      "gitBlob": "e300de812742f7d7e19265a25e4abf04ec79049f"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "sha256": "4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225",
+      "gitBlob": "1b4d283d464dd94c94a1ab8a3fc46b9eca9af4cf"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "sha256": "ee11e047ef37b0af4af9de1326e8942d2a38a604ade3aafd1008526b4d03175f",
+      "gitBlob": "d01d7ebb36c42a8fe1a6eee2592b260328af1098"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "sha256": "843730b78f5da8db57b1204c94710abe4e6636f5c02fb661cb59117c4922c7df",
+      "gitBlob": "f8abc4bb1f830cc25590c624cf40212976fb6d49"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+      "sha256": "5ec09d66f74c578d23d28fbc44b23e0035c2a5c27e0a5a99a42d4b613b8e00df",
+      "gitBlob": "d4686e7ca673f6ec512b5ffec8652b5b85377594"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "sha256": "18adbdd06dfa39b67da1eddf50d3d47e452dbb37aeab82ea9bad6e0d784e3ace",
+      "gitBlob": "14de7915c4bb8cc76259cbe9603af8255611fcf9"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "sha256": "bf2e4bd675af961d3a0e4f089aa0ebcbc1780a13fb8c658f35ed36f716355553",
+      "gitBlob": "4843af353afe1eb038af939b4320a5c3d99e2ecc"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+      "sha256": "af2d2df1abbe12335c8541454b14772cfaa3358a9ddb991f6accdf76bee37c1e",
+      "gitBlob": "1e632f5b4edc8dc1579831e8792f51c31a46de93"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "1f6b17f98fdf32252751e5cb012c4f3adfb865aec52a3adddf170b73d31f9245",
+      "gitBlob": "f1340357875b2c9112c79cd6401282621c009512"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json",
+      "sha256": "208a0f142f3bb522b167db19b0f2de10081f663bcfce6bbb653c3182df28d389",
+      "gitBlob": "3c6bac6abd2d6d6f77f2f3a2f51aa7c9c9e98a0b"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+      "sha256": "dbe62f2acd7b750bc0fc2cd19360e586d4a67dc81470f83b558e016ad0280c82",
+      "gitBlob": "a3a26ec52c2015cf4f422ed14e1aaf2df1e4c8bf"
+    }
+  ],
+  "trackedClean": true,
+  "quiescence": {
+    "RootConfirmedSession91053Exit": 0,
+    "checkedAbsentPids": [
+      30003,
+      96961,
+      87346
+    ],
+    "ownPassiveObserverExecSession16552": "already exited0 before preservation; no live owned observer to signal"
+  },
+  "standing": "First C2 red, strict packed/224-slot independent proof, admitted same-Run one-file repair, unchanged bound4 stop and genuine blocked fresh reads conjoined by Root; no second C2/UAT or acceptance. HC2+three bounded HC1 residuals and practical005 remain.",
+  "preservation": "Only13 Product/proof paths committed. No scratch/evidence/generated/dependency paths staged; all untracked data preserved."
+}

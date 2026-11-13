@@ -1,0 +1,296 @@
+{
+  "status": "IDENTIFIED_UNIT_DESCENDANTS_ABSENT_NO_FURTHER_INTERVENTION",
+  "observedUtc": "2026-11-10T03:53:09.401308+00:00",
+  "census": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/UNIT_DESCENDANT_CENSUS.json",
+    "bytes": 8728,
+    "sha256": "4ed7c97343ac3bd0b003dd44d9d2684b28b494125415e45e8a315c7ebee94dc4"
+  },
+  "censusSourcePins": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--progress-lease--71846.json",
+      "bytes": 15268,
+      "sha256": "e8e43e23b6e5c82780e69679a74ea898754fe9b098faf9a4717b20d62fbf63a0"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--post-timeout-output--71846.json",
+      "bytes": 5816,
+      "sha256": "f53b41344f02518e033bf6e11a474e3e178607e2c973041da9a82bbb20e96fc5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--resistant-worker--71846.json",
+      "bytes": 27634,
+      "sha256": "79ad1b7efaf7bd1310fe180ed6b8c947ad7a1810ce1c45869b34a284a66a1c55"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-command-normal--71846.json",
+      "bytes": 1699,
+      "sha256": "06ac1828ee0eebaf81673fd0d86ecaa11fa69bb9f4fb9943e1dc340101ca408d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-normal--71846.json",
+      "bytes": 4869,
+      "sha256": "015653ce2ad0ddfef272ca19899b9dde898c836664b7eb70cb794b6e3b64e905"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--unacknowledged-output--71846.json",
+      "bytes": 33717,
+      "sha256": "37a43d9cd255203cab0ddd15084b99a831a537288c7e7185fc3083886058c969"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-TERM--71846.json",
+      "bytes": 4930,
+      "sha256": "0aea62e666d316dce033b1531f49039f492bd27cb03b75f0faf9a7906d8b919b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-TERM-descendant.json",
+      "bytes": 26,
+      "sha256": "7114adcd0b5b33dd780b713a3cec294720d13392de169b1b0a105515c22d905d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-TERM-leader.json",
+      "bytes": 13,
+      "sha256": "085b725255c40cfe9d236fa73d030375faaa6d41a95be3e9c4173a1187874f12"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-normal-descendant.json",
+      "bytes": 26,
+      "sha256": "5928ce1c46375b3b9d9d8d7fef7e33925ffc34c5cdeff17adab37f53c5bc7543"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-TERM-leader.json",
+      "bytes": 13,
+      "sha256": "46f2ee1503046a4df6e5cd4c6b39428b0e20c361c2f97c1667a87abed349e37f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-normal-leader.json",
+      "bytes": 13,
+      "sha256": "1aaa77eb61a594f1646c340988e2a304a8575cdadbf8c4bbc4757889c31dc1b4"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-TERM-descendant.json",
+      "bytes": 26,
+      "sha256": "48e7e8667998912e4e31711ed793e26ac8018abd152d55b990be260ba61185bc"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-normal-leader.json",
+      "bytes": 13,
+      "sha256": "3b748010ba168fffa941952b928a73216efbee14afb570d8ac5acdfc3c33d883"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-normal-descendant.json",
+      "bytes": 26,
+      "sha256": "adfdd05922a76f152905fd799377b5ba89ccfc6b01c281a03774400994771a0b"
+    }
+  ],
+  "identifiedPhysicalPids": 10,
+  "allIdentifiedDirectAndSameNumberGroupsAbsent": true,
+  "exactQCommandMatches": [],
+  "cwdCensus": {
+    "argv": [
+      "/usr/sbin/lsof",
+      "-nP",
+      "-d",
+      "cwd",
+      "-Fpn"
+    ],
+    "exitCode": 0,
+    "matchingCampaignCwds": [],
+    "stderr": "",
+    "scope": "Read-only current visible cwd census; no inference about erased or unobserved historical children."
+  },
+  "partialUnit": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/stdout.log",
+      "bytes": 173637,
+      "sha256": "f357db345cb28a2869f2c45f24affc1bf1e57b89b651a1381ee26a5092c91508"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "receipt": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/RETURN.json",
+      "bytes": 1441,
+      "sha256": "078b5b457773a1c4f0671bd3f9dc849ba4a245531293476f5620486876139d7c"
+    },
+    "evidenceFiles": [
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-absolute--71846.json",
+        "bytes": 2884,
+        "sha256": "40d316bc8473ba2e8ddf4c46cdac4969055bf7006d622dabdc1b20f6b5789708"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-coalesced--71846.json",
+        "bytes": 2866,
+        "sha256": "093e7c400c12b7cba96e7aa8d7b4124206c843dad05454030c116893322e109c"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-coalescedSplit--71846.json",
+        "bytes": 2961,
+        "sha256": "665d250c717200ffd6a670ec8dab0402f258739087f8c7364023ff0c7851d094"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-eachByte--71846.json",
+        "bytes": 3215,
+        "sha256": "0e10ea99d894ffcc230cb6ed0d24a771ee9bacdb2c1597b3a66d7e27cbd1e530"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-intact--71846.json",
+        "bytes": 2873,
+        "sha256": "1e227219ec1da516e4140579da3efbd476eae4ac693abfbf842429be0fa7e6b2"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-missing--71846.json",
+        "bytes": 2804,
+        "sha256": "b8e2d3788dbcd4f411a9a7250db04b5463ff29a3c3169444c57c65fa98fc569f"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split1--71846.json",
+        "bytes": 2913,
+        "sha256": "83188516dbc2117dd5f232f5fce664d06f7767bfe432082402f5d883e9936f05"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split2--71846.json",
+        "bytes": 2913,
+        "sha256": "f8c660e075fd7d95c0a93343abfe3837082882d6b3059cd3313c4005bb68a4fd"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split3--71846.json",
+        "bytes": 2913,
+        "sha256": "c2ae76d84065e8f8bba32b26a2d0897bcf5d7264b04cf681b811f306cee1f3ef"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split4--71846.json",
+        "bytes": 2913,
+        "sha256": "762fbba11a6b8f63628c0f3f9f6dce2c3d3a66a21d0134ace6cc20b5b37d03f1"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split5--71846.json",
+        "bytes": 2913,
+        "sha256": "315bb635a96e1ffebddea195cb9c8296b8cb78659f2a4ef73ebcfdce715ce6e0"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split6--71846.json",
+        "bytes": 2913,
+        "sha256": "2aea33c6fbc110326aea73bdda15477875d464e66faa8a17cd82da3912b02db5"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split7--71846.json",
+        "bytes": 2913,
+        "sha256": "a0f95600aae66b56ec440c82681fe6be59555389c59d551c16e034f4a31c9824"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split8--71846.json",
+        "bytes": 2913,
+        "sha256": "732864e51f667785665b80478bf2bf23ff773799685346987201c59241c07cf2"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-unterminated--71846.json",
+        "bytes": 2931,
+        "sha256": "19368394d93434d6e95baae1296efb61430d7b5ba3d9b48db5c3f56fb2b369a9"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-drive-rejected--71846.json",
+        "bytes": 1548,
+        "sha256": "34994cf638c2f60e9d933f029473fb0af7daa4765d7f5845d99638874e8e1028"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-false-ack--71846.json",
+        "bytes": 2809,
+        "sha256": "1e128cfb40c520ee045d72132a48e3e357f0fe9cac0cb893f25b23240ae97a61"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-partition-fourScheduled--71846.json",
+        "bytes": 3043,
+        "sha256": "e810280f76c660cd13369ecbd689fed305b1a636bb73fc4fc35f0dd22d55abfa"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-partition-oneCoalesced--71846.json",
+        "bytes": 2915,
+        "sha256": "70207d2c3a064bea59a86e480d08d0fea9ad4a2fecf65b72f4cb271996ead0f1"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-partition-recordByRecord--71846.json",
+        "bytes": 3210,
+        "sha256": "309435ae4846d46aeb50f1f91070efefe4d9b61ad60b5d1329bfc27369fc0649"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-partition-splitEachByte--71846.json",
+        "bytes": 6319,
+        "sha256": "bf32221dea59bdbd82583c20f83838965d5b0d9f1d8202ba012cdc6313e0e0f7"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-post-exit--71846.json",
+        "bytes": 2544,
+        "sha256": "dfe180983a5cadfd6a259c61166ccd9cdb147212c5f7bc8672e212632395884b"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-true-ack--71846.json",
+        "bytes": 2673,
+        "sha256": "1c86d5ddb32c8a95c0c8bdbcca06e2b8c4162f4fea1d4c355a89c07280ad44e6"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-command-normal--71846.json",
+        "bytes": 1699,
+        "sha256": "06ac1828ee0eebaf81673fd0d86ecaa11fa69bb9f4fb9943e1dc340101ca408d"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-TERM--71846.json",
+        "bytes": 4930,
+        "sha256": "0aea62e666d316dce033b1531f49039f492bd27cb03b75f0faf9a7906d8b919b"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-normal--71846.json",
+        "bytes": 4869,
+        "sha256": "015653ce2ad0ddfef272ca19899b9dde898c836664b7eb70cb794b6e3b64e905"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--post-timeout-output--71846.json",
+        "bytes": 5816,
+        "sha256": "f53b41344f02518e033bf6e11a474e3e178607e2c973041da9a82bbb20e96fc5"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--progress-lease--71846.json",
+        "bytes": 15268,
+        "sha256": "e8e43e23b6e5c82780e69679a74ea898754fe9b098faf9a4717b20d62fbf63a0"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--resistant-worker--71846.json",
+        "bytes": 27634,
+        "sha256": "79ad1b7efaf7bd1310fe180ed6b8c947ad7a1810ce1c45869b34a284a66a1c55"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--unacknowledged-output--71846.json",
+        "bytes": 33717,
+        "sha256": "37a43d9cd255203cab0ddd15084b99a831a537288c7e7185fc3083886058c969"
+      }
+    ],
+    "complete": false
+  },
+  "interventions": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/OPERATOR_STOP.json",
+      "bytes": 4980,
+      "sha256": "1bbd08993c36be7d463e9931f1451ee901d68281cca33b1f0f9036c233750d38"
+    }
+  ],
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/POSTGUARDS.json",
+    "bytes": 2200,
+    "sha256": "cfd4e99e0eae39b86f9ed22e3ba96a4ea12d0a79a22baa5b28d78586ef29b158"
+  },
+  "campaignReturn": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/CAMPAIGN_RETURN.json",
+    "bytes": 627,
+    "sha256": "4065828b594449838fa857f1a6c37a2e50cddd0d6f7e50d3d2c61ed0cdd7661d"
+  },
+  "executionReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/EXECUTION_RETURN.json",
+    "bytes": 7937,
+    "sha256": "615c6c3f8b150bf74ee09b66e9e9b4d6356c4ebe122745aafe3b4c876aa4fb21"
+  },
+  "additionalCleanupPerformed": false,
+  "standing": "Known actual descendants and current Q command/cwd matches checked. No universal all-host/all-unobserved descendant absence claim."
+}

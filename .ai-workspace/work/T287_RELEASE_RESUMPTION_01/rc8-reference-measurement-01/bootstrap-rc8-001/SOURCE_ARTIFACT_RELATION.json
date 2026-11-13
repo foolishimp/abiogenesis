@@ -1,0 +1,52 @@
+{
+  "kind": "accepted_frozen_overlay_to_exact_rc8_test_artifact",
+  "sourceIdentity": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "completedStage": {
+    "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/RESULT.json",
+    "bytes": 848,
+    "sha256": "838905e62db6a10282a24617d4e3002369327f2d899afb1a9e5e1d16eb6bb4b1"
+  },
+  "packageRoot": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript",
+  "stageManifest": {
+    "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "installation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/installation.json",
+    "bytes": 4231675,
+    "sha256": "97e861d1a0955873ff6f43265ab6f633e371a7179f7048f3db6dfc5299ba8d77"
+  },
+  "ownerContentCheck": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/OWNER_CONTENT_CHECK.json",
+    "bytes": 529,
+    "sha256": "991a34739103ced07081d6aeb0752f691bb340738292a9f1c1e1bd304ffd7cb6"
+  },
+  "frozenRowsRechecked": 1338,
+  "identityEdited": false,
+  "releaseCut": false,
+  "qualified": false
+}

@@ -1,0 +1,84 @@
+{
+  "status": "ROOT_ADMITTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "at": "2026-11-08T21:52:46.257Z",
+  "decisionOwner": "/root Executive",
+  "recordedBy": "/root/rc9_operator",
+  "rootDecisionVerbatim": "Root read CLOSED independent packaging REVIEW.json23288B SHA7c8f6dacb09f328cc837f0963c1abb9539da279466e90f66e114c4d3f5501978 at CUT9/reviews/packaging-008; verdictsatisfied,0findings; exactcommit e30ac16b4a9406c43d054f45bad864746352dad6/treeff9a852c6670884c35f67934e9f49443199b723f/source25121/archivec01. Root ADOPTS packaging readiness, conjoined with build3881f100/finalclaim6f0a162e. Root also read full heldinstall eb9276e7 and accepts its exact currentpins/limits.\nROOT ACTUAL INSTALL ACTIVATION NOW SELECTED under same exact STDO3.0.4 ABI5/T287 bounded local-unqualified frame. Record actual Rootinstalladmission binding this decision+review+heldbinding and existing source/build/claim pins. Make active installbinding from held008 changing status ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY, executionEnabledtrue, activationactualpin, independentPackagingReviewactual7c8 pin, and strictly phase-standing/dependency narration (including obsolete 'thisbindingheld' wording) only. Do not change artifact/source/build/claimdoc/tool/path/bounds/falsepublished-qualified-selector flags. Run unchanged run-local-cut.mjs install once using exact pinnedNode/actualconfigSHA.\nSelected effects only: fresh no-clobber /Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9 and /Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9 via existing Product verify/lock/install/content owners, exact testedarchive c01/11029525B custody and all5325membercorrespondence, new CUT9 actual-001/install-001 and existingtemp installed-smoke, fresh installed exports/emptyread/actualclose smoke. No rebuild/metadatarewrite/identitybridge; no native/provider workflow, source/Git mutation, push/tag/merge/publication/globalselector/qualification. Preserve RC8pin/install/archive/main/C7/C8heads/indexand unrelatedC9source/progress. Existing20mininstall/15minsmoke ceilings,4GiBreserve/8GiBheap/64MiBoutput. Firstpreflight/command/correspondence/owner/read/close/conservationfailure stops and preservespartialcustody, no automaticretry/overwrite/cleanup. Hold tracking/index-refreshingGit until installationpreservation comparisonclosed. Return actualstart/session promptly, then closed finalverification/source/tree/archive/member/installcontent/ownerread-close/preservation pins. Stop after selected successfulinstallorfirstfailure; finalRootdeliverydisposition/tracking remains subsequent.",
+  "rootDecisionSha256": "581ccccb46052b0d27a2cecd6a5feb4e1d775987936f449fb289b8f61a58e913",
+  "heldBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/INSTALL_BINDINGS.actual008.held-001.json",
+    "bytes": 6208,
+    "sha256": "eb9276e704ea5eefa5392ff5464ac1942ba304681b03abc31f4c742ecba2dc81"
+  },
+  "independentPackagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/reviews/packaging-008/REVIEW.json",
+    "bytes": 23288,
+    "sha256": "7c8f6dacb09f328cc837f0963c1abb9539da279466e90f66e114c4d3f5501978"
+  },
+  "closedBuild": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/OPERATOR_RETURN.json",
+    "bytes": 7733,
+    "sha256": "3881f100db3f57d81e84e75bd6f6e7c933ed58316f68cc2662a42c9786e9af01"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+    "bytes": 27954,
+    "sha256": "bac74938257736015dc6c71f26dcd0a40e79115ea8bc82f9e2ff9aa04e5e3425"
+  },
+  "phase": "install",
+  "runAttempts": 1,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "stop": "Stop after the one selected successful install or first failure; preserve partial custody without automatic retry, overwrite or cleanup. Final Root delivery disposition and tracking remain subsequent.",
+  "buildBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/ROOT_BUILD_BINDINGS.json",
+    "bytes": 26455,
+    "sha256": "fe16d77b2de8a38276ec613fac9d877add9932e5478cf18a2a54b54f7af2528c"
+  },
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1187,
+    "sha256": "f0870b39939c6aa279f4886ff79a20a49c880bbe7ac8a39636e3383ac1c03610"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/candidate/RESULT.json",
+    "bytes": 782,
+    "sha256": "a0bf12fc4c9d4e8e430c780df3432f620d737962de65fa2c9ad7359c89e24a05"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1274,
+    "sha256": "a89501cd7f7a8ade2bb50ac29d4af2fa25118858933ba3fffd0abc2ed1ea89e3"
+  },
+  "exactTestedArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+    "bytes": 831,
+    "sha256": "c130049c2da5eca6f70604236ab7463201d8bc3dde275f0f32e229146e3119ef"
+  },
+  "installInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+    "bytes": 2744,
+    "sha256": "afe7f0f945dcc8384b9bf846efa1ccbf4df23adf3a24549b9c44a7aa268ddc49"
+  },
+  "boundedClaim": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/BOUNDED_CANDIDATE_CLAIM.md",
+    "bytes": 3505,
+    "sha256": "e82e74f10d1c764440baef622a7f6857005fd2da72cbdc67636e95d241df6dbf"
+  },
+  "residuals": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/RESIDUALS.md",
+    "bytes": 15882,
+    "sha256": "a17c7d2b8a31e1da9f658a575495617f8862b5c73ad4758a0c9c52d7c5922c4a"
+  },
+  "rootAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/ROOT_AUTHORITY.md",
+    "bytes": 2171,
+    "sha256": "26906fa93fe72c9ce595663d688ee35c2e96c0bd9e9f10ea13e575856b4cbdb3"
+  },
+  "finalClaimDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/ROOT_FINAL_CLAIM_DISPOSITION_008.json",
+    "bytes": 5907,
+    "sha256": "6f0a162eba375fce79c37df58b9602fb5f45067eb6c84c4ee5a96199c608a1a8"
+  }
+}

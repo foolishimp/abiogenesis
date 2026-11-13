@@ -1,0 +1,407 @@
+{
+  "kind": "independent_bounded_A_source_proof_conjunction",
+  "status": "SATISFIED_BOUNDED_A_ROOT_ACCEPTANCE_SEPARATE",
+  "reviewer": "rc11_packaging_assurance",
+  "independence": "Resumed-context nonauthor; closed source assessment reused; no clean-context claim.",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/FINAL_CONJUNCTION.md",
+    "bytes": 5981,
+    "sha256": "9f2704e332c600879f0f0b611a2b435a9e513ca83fc8d89751febc68c161b103"
+  },
+  "sourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-freeze.json",
+    "bytes": 295850,
+    "sha256": "06dac8db990b326559fedef24968e95ec7ad80da89778a1f51ddc0bb3ae55cf4"
+  },
+  "sourceAssessment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/ASSESSMENT.md",
+    "bytes": 5153,
+    "sha256": "fd0042dbe190aa0957907aaa38ab475de53cea2304d753966360d9c0e0d55987"
+  },
+  "sourceAssessmentEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/EVIDENCE.json",
+    "bytes": 6723,
+    "sha256": "9cc8579f9fd9b458ca07b9b9a7c88f5ba1890c7535dcbef286f8ecbfaa51516a"
+  },
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/READY.json",
+      "bytes": 5702,
+      "sha256": "e3d9353af8d19a77b8eddb270a7654d37b2b450e46f30842e27d9fd9237479c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/BINDING.json",
+      "bytes": 13091,
+      "sha256": "b0d47aefd05dff97421ee5c53574d80233866a1bd095a0271ed7ab7153ab9190"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/CONTROLS.json",
+      "bytes": 10975,
+      "sha256": "257703ec5d7c8d582ba8135f3d684543abf5c648429887e655de9c55d97ccb3c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/run.py",
+      "bytes": 8762,
+      "sha256": "a1e398e4b25b55fe4f6ea90a74fb5f3c7fe43e1c38131e468531fc6eeb760ddd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/STATIC_PREFLIGHT.json",
+      "bytes": 4946,
+      "sha256": "9615fd448916f7678a722d5536f4ad90746dcb840d9a31530716ca9c407ac5f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_EXECUTION_ADMISSION.json",
+      "bytes": 3468,
+      "sha256": "22b9575bf4520e80b6ed4dfa7a43c15b483dbcf12db3a62830375a0efebc972a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/RETURN.json",
+      "bytes": 1673,
+      "sha256": "58acaa6d47f52bbc06cf9c142b3d51796be09c616ef450322bee0e97858e35f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/OPERATOR_RETURN.json",
+      "bytes": 4933,
+      "sha256": "bdcfc0fcc2042271e75328b11a486f567e1bd78a6ec0ae7ca19d40afebeeed0f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/PHYSICAL_CLOSURE.json",
+      "bytes": 14284,
+      "sha256": "200cfbebd1ff8f4410856db8253cbd8a4fb6cd0be0110b3455edbae9a4d28149"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/DEFERRED_ROOT_DISPOSITION.json",
+      "bytes": 2543,
+      "sha256": "52a4d987ec67f638cc42c1439489ad69ab40977bf06fdb281b54404dd8ca1048"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/SCRATCH_COMPILE_RELATION.json",
+      "bytes": 64163,
+      "sha256": "b062a80c0e757ecaeb966ab971edee7a45ee4c1a75e838ab8688716584f7c88b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/COMPILED_SCRATCH_INVENTORY.json",
+      "bytes": 107618,
+      "sha256": "2b92e21c27b9905f4b7da1bef75079229132ce2f18ee52230b1c906db1188d86"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/NATIVE_CHECKS.json",
+      "bytes": 11415,
+      "sha256": "c949a8ec94752181c42b19594d1642d4f4df464209251ef16293badd252969f9"
+    }
+  ],
+  "modulePins": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 10055,
+      "sha256": "5f3cc53f6bfc5fe116e3c6c119ff8a65d45a095d964b45af1da6df15d233a743"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src/shared/owned_process_state.js",
+      "bytes": 9132,
+      "sha256": "0688546fa4e395b300bc4a267e1e1f733dafe87f2a1b571ece899096901a1972"
+    }
+  ],
+  "baselineModulePins": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    }
+  ],
+  "fixturePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/probe-reentry.mjs",
+      "bytes": 4720,
+      "sha256": "904f5bfc90e1ebbb0092530de564c8fda16f5fa1d609d5929ebc2c14f1ca00e4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/immediate-probe.mjs",
+      "bytes": 5496,
+      "sha256": "0b618f9f7a8339db87ed72d9e7ee5e9813c53cebd2e8570ad7eaeb2465679ff0"
+    }
+  ],
+  "stagedFiles": [
+    {
+      "relativePath": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 72946,
+        "sha256": "222afb37b5bf1f7f18005dddc555ba5aa0fc133a00be04fe99f39b5f23796a84"
+      }
+    },
+    {
+      "relativePath": "test_env/support/t287-publication-observer.mjs",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+        "bytes": 8589,
+        "sha256": "9cbe06469224c20e3f58792a1791b9886b72b3876812787330be098ddd878d9e"
+      }
+    },
+    {
+      "relativePath": "package.json",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10105,
+        "sha256": "02789c3812e488e53e7a6fe9bd3affd0d39144cd5e69b68adf48c7a7f1f6b9d1"
+      }
+    }
+  ],
+  "independentVerification": {
+    "sourceRowsEachFrozenAndCurrent": 1345,
+    "currentCompiledRows": 582,
+    "baselineCompiledRows": 996,
+    "compileInputRows": 293,
+    "dependencyRowsIncludingLinks": 4576,
+    "mismatches": 0,
+    "argvEnvironmentEqualControls": true,
+    "rawTapCountsNamesEqualReceipts": true,
+    "retainedEightPhysicalFilesEqualDecodedTap": true,
+    "physicalIdentityReadinessClosureCorrespondence": true,
+    "handbackBlockByteEqualPhase1": true,
+    "handbackCombinations": 12,
+    "processObservation": "Consumed closed physical absence receipts; no new process probe by reviewer."
+  },
+  "commands": [
+    {
+      "id": "r1-probe",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/r1-probe.RETURN.json",
+        "bytes": 1607,
+        "sha256": "0d32f90eb2404fa1fd0e70f6d61e130ee21210ef0a066599241b3dfdeaa0cf7e"
+      },
+      "stdout": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r1-probe/stdout.log",
+        "bytes": 51,
+        "sha256": "e5302ba982b8e493c39eb4d7569e24093cdee5117a5ba416b2de820a353290ed"
+      },
+      "stderr": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r1-probe/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 0,
+      "wallSeconds": 0.05383945900000009,
+      "status": "PASSED",
+      "groupAbsent": true,
+      "cleanupNeeded": false,
+      "signals": [],
+      "limitCause": null,
+      "observation": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r1-probe/observation/OBSERVATION.json",
+        "bytes": 2979,
+        "sha256": "e6a810de3cb06d22d09a04fbcfb3597aa7b905dedc648df1fc0e9f54bb4bb86a"
+      }
+    },
+    {
+      "id": "r2-immediate",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/r2-immediate.RETURN.json",
+        "bytes": 1631,
+        "sha256": "84bb3fddc69b0c7f583592e14b001bdf59974c8bb40a9a609f14e90b94d60c22"
+      },
+      "stdout": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r2-immediate/stdout.log",
+        "bytes": 78,
+        "sha256": "cdc8ea3611835b63930bd535d105897aac5f9e2c6ace5b7a53abdd00f23aa5ce"
+      },
+      "stderr": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r2-immediate/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 0,
+      "wallSeconds": 0.055053291999999976,
+      "status": "PASSED",
+      "groupAbsent": true,
+      "cleanupNeeded": false,
+      "signals": [],
+      "limitCause": null,
+      "observation": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r2-immediate/observation/OBSERVATION.json",
+        "bytes": 11884,
+        "sha256": "cc8804928b04cae6a9f871803c504e7ad688864e654314468ded361d09c896e4"
+      }
+    },
+    {
+      "id": "baseline-signal",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/baseline-signal.RETURN.json",
+        "bytes": 1699,
+        "sha256": "393b19438c5b587cadc857cc5695217f18857f7943f6859ef80515f7315d4bfc"
+      },
+      "stdout": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/baseline-signal/stdout.log",
+        "bytes": 1251,
+        "sha256": "d7c86e8fbce3d1bde4637d86745b834594d83057712bb5b7d282bb025669d2b9"
+      },
+      "stderr": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/baseline-signal/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 1,
+      "wallSeconds": 0.2320501669999997,
+      "status": "BASELINE_COMPARISON_RETAINED",
+      "groupAbsent": true,
+      "cleanupNeeded": false,
+      "signals": [],
+      "limitCause": null,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "names": [
+        "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows"
+      ]
+    },
+    {
+      "id": "owned-lifetime",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/owned-lifetime.RETURN.json",
+        "bytes": 124206,
+        "sha256": "51ed135444308e011b7fa986cc6d51491b747b87aa91a768dd2356d940bf0cf2"
+      },
+      "stdout": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/stdout.log",
+        "bytes": 50004,
+        "sha256": "b7e77470333d2f92910e8fd765e2f66a8716ffba81704b3d5a9508d1131b83a2"
+      },
+      "stderr": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 0,
+      "wallSeconds": 12.325371916,
+      "status": "PASSED",
+      "groupAbsent": true,
+      "cleanupNeeded": false,
+      "signals": [],
+      "limitCause": null,
+      "counts": {
+        "tests": 28,
+        "pass": 28,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "names": [
+        "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+        "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+        "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+        "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+        "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+        "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+        "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+        "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+        "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+        "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+        "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+        "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+        "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+        "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+        "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+        "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+        "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+        "controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result",
+        "controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result",
+        "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+        "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+        "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+        "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+        "physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed",
+        "physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize",
+        "physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result",
+        "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+        "physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded"
+      ]
+    }
+  ],
+  "physicalEvidence": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-command--81699.json",
+      "bytes": 2459,
+      "sha256": "6c5e28e3f3e9a467f1d3bb661b811bab5b8067c0d041a2a0b7a0b60859c94e31"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-http--81699.json",
+      "bytes": 1980,
+      "sha256": "b62d3e780958a1b19efd86d0028034cc92c6dde684c982d85fca10c3169f413c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-worker--81699.json",
+      "bytes": 3582,
+      "sha256": "a7fd138e77d1943d9b1f2c367c8d2cc5c014dceb93c0926138a9d923f0b7e14f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-invalid--81699.json",
+      "bytes": 1931,
+      "sha256": "39d0f080431ae7e2ad569137cd937c7dc4aa7cae975420e45744e3efe074bb8e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-missing--81699.json",
+      "bytes": 1823,
+      "sha256": "73b465c0c7190be53d4d6a3f88d264b33c79c4d15951be8b022ca3adfcf4fbe7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-owner-error--81699.json",
+      "bytes": 4072,
+      "sha256": "38b43228faf2806afa4f1719750727c2fa2cbcbcbaa78e4e9abbb392488847c6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-request-failure--81699.json",
+      "bytes": 2013,
+      "sha256": "3af87ec41b8411a01c87b0d45cea86ecc26d2b3d7137407fbeb4913ab9ba6599"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-response--81699.json",
+      "bytes": 2106,
+      "sha256": "7e626b3a954429950aab8ba9e74e7838df39002a741eaf2c72e7acd26d376eb8"
+    }
+  ],
+  "campaignSeconds": 16.471993333,
+  "campaignCapSeconds": 450,
+  "proofVerdicts": {
+    "R1": "SATISFIED selected entered-probe census/current-fact/seal relation",
+    "R2": "SATISFIED selected immediate-intent and200ms bound at fixed-clock reentry; not absence",
+    "baselineSignal": "EXPECTED_ASSERTION_RED_RETAINED; suffix unexecuted",
+    "wholeLifetime": "28/28/0skip exact current population"
+  },
+  "deferred": {
+    "id": "RC11-LIFETIME-REENTRANT-BOUND-001",
+    "disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/DEFERRED_ROOT_DISPOSITION.json",
+      "bytes": 2543,
+      "sha256": "52a4d987ec67f638cc42c1439489ad69ab40977bf06fdb281b54404dd8ca1048"
+    },
+    "standing": "Unexecuted inherited advancing-clock hypothesis; required assurance before future reentrant binding or broader original-request bound claim."
+  },
+  "accounting": {
+    "bridgeLines": 265,
+    "stateLines": 241,
+    "totalLines": 506,
+    "totalBytes": 25413,
+    "deltaFromPreALines": 208,
+    "deltaFromPreABytes": 12780,
+    "meaning": "Consolidation only; no net deletion/performance claim."
+  },
+  "limitations": [
+    "Root owns acceptance; B and joint Phase2 acceptance remain open.",
+    "No installed C2, full-unit, whole5.0, release, performance or reliability qualification.",
+    "Original native failures and R1/R2 reds remain preserved.",
+    "Six historical unit skips and synthetic pending-descriptor limit outside this proof remain.",
+    "Controlled probe signals and children have no OS-child/physical-absence credit.",
+    "Private helper/worker adapters provide component evidence only."
+  ],
+  "reviewerEffects": [
+    "Read/hash/parse only outside report territory.",
+    "Created FINAL_CONJUNCTION.md and FINAL_CONJUNCTION.json only."
+  ]
+}

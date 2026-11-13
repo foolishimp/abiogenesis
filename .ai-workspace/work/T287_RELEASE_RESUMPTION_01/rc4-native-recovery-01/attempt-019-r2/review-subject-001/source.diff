@@ -1,0 +1,47 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts b/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts
+index 27a86f127..27b9b6b53 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts
+@@ -7,9 +7,9 @@ import type { CompleteDefinitionContractCoordinateMap } from "../shared/public_f
+ import type { ReferenceDigest } from "../shared/public_invocation.js";
+ import type { ProductInstall, ResolvedProductLock } from "./environment.js";
+ 
+-export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-rc.3";
++export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-rc.4";
+ export const ABI5_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
+-export const ABI5_PACKAGE_VERSION = "5.0.0-rc.3";
++export const ABI5_PACKAGE_VERSION = "5.0.0-rc.4";
+ 
+ export type ProductDeclaredDependency = {
+   readonly kind: "requires";
+diff --git a/build_tenants/abiogenesis/typescript/package-lock.json b/build_tenants/abiogenesis/typescript/package-lock.json
+index db77a086b..218ac8a81 100644
+--- a/build_tenants/abiogenesis/typescript/package-lock.json
++++ b/build_tenants/abiogenesis/typescript/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "@abiogenesis/typescript-tenant",
+-  "version": "5.0.0-rc.3",
++  "version": "5.0.0-rc.4",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "@abiogenesis/typescript-tenant",
+-      "version": "5.0.0-rc.3",
++      "version": "5.0.0-rc.4",
+       "bundleDependencies": [
+         "@valibot/to-json-schema",
+         "effect",
+diff --git a/build_tenants/abiogenesis/typescript/package.json b/build_tenants/abiogenesis/typescript/package.json
+index f9e26733b..c94c2f924 100644
+--- a/build_tenants/abiogenesis/typescript/package.json
++++ b/build_tenants/abiogenesis/typescript/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "@abiogenesis/typescript-tenant",
+-  "version": "5.0.0-rc.3",
++  "version": "5.0.0-rc.4",
+   "description": "ABIogenesis 5 direct-GTL TypeScript product",
+   "private": true,
+   "type": "module",

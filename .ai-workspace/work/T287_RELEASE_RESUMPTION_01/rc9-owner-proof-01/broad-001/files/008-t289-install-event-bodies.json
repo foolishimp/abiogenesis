@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t289-install-event-bodies.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 55542.41374999995,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 4,
+    "failed": 0,
+    "passed": 4,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 4,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/008-t289-install-event-bodies.jsonl",
+    "bytes": 1646,
+    "sha256": "3a873dd50a151d20857f9d9cd5593f8ba8a62524c90d48173a9d7b5294526fdb"
+  },
+  "commandReceipt": "commands/008-t289-install-event-bodies.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

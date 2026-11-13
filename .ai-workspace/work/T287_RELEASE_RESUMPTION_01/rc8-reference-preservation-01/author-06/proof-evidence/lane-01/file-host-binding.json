@@ -1,0 +1,31 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "--test-reporter-destination=stdout",
+    "--test-reporter=/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+    "--test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/events.jsonl",
+    "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs"
+  ],
+  "cwd": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript",
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence",
+  "scratchRoot": "/private/tmp/abg-r8-a06-kr_0tqzz/p",
+  "resourceRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/resources.json",
+  "bounds": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "focusedWholeFileInvocations": 1,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 600000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000
+  }
+}

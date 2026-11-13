@@ -1,0 +1,109 @@
+{
+  "status": "ROOT_SELECTED_RC8_AFTER_BOOTSTRAP",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_BOOTSTRAP_ADMISSION_001.json",
+    "bytes": 3387,
+    "sha256": "bd04c6f21d47a5590a00a90c9ce8204638ba950e49063607fcff5e04d052498e"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/AFTER_BOOTSTRAP_MANIFEST_001.json",
+    "bytes": 2707,
+    "sha256": "d550aea0243fdc4624449b2f9568196ca02e3b33eb0137b2bd9041081af1e51d"
+  },
+  "sourceIdentity": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "completedStage": {
+    "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/RESULT.json",
+    "bytes": 848,
+    "sha256": "838905e62db6a10282a24617d4e3002369327f2d899afb1a9e5e1d16eb6bb4b1"
+  },
+  "stageManifest": {
+    "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+  },
+  "packageRoot": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript",
+  "candidateOwnerPins": [
+    {
+      "relativePath": "build/code/src/product/index.js",
+      "bytes": 13810,
+      "sha256": "26771ef341c8d0d1b927118a9a73556cb93df7cd248dc4f5b187e50a395c4799"
+    },
+    {
+      "relativePath": "build/code/src/product/environment.js",
+      "bytes": 36486,
+      "sha256": "f80a1d9dc08d612268bdeea1c2977f2d3d46f2850c8bcff0dac0b6e93e2430b5"
+    },
+    {
+      "relativePath": "build/code/src/product/declaration_exports.js",
+      "bytes": 113258,
+      "sha256": "99223223752a1a90c1ef3bac02b44840e4664792a89507de3458761770b8456a"
+    },
+    {
+      "relativePath": "build/code/src/product/verify_product.js",
+      "bytes": 88460,
+      "sha256": "2d9ccf376ee3d33fcc6a48f6a52d7172f85e317e157ca761cd0aa69725a017cb"
+    },
+    {
+      "relativePath": "build/code/src/product/install_product.js",
+      "bytes": 18110,
+      "sha256": "a07c1b9db467b039efe8ebdaae6586c7d88d28d7e798c3ba7c4f8308bbe1a2f1"
+    }
+  ],
+  "ownerReferences": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/OWNER_REFERENCES.json",
+    "bytes": 2465,
+    "sha256": "f3099fbc32b8d6b83c6dcd909ca31f2d230d623af80dc15985843762a7c24e0f"
+  },
+  "tools": [
+    {
+      "name": "node",
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    }
+  ],
+  "afterBindingsTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC8_AFTER_004.bindings.template.json",
+    "bytes": 4780,
+    "sha256": "a25cad8e67fceb809eae0904dc208f563944398f86ffc084b3551afe1d3b1361"
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001",
+  "tempRoot": "/private/tmp/abg-r8m-rc8-bootstrap-001",
+  "installHost": "/private/tmp/abg-r8m-rc8-bootstrap-001/host",
+  "bounds": {
+    "hostMs": 600000,
+    "packMs": 120000,
+    "installMs": 480000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "freeReserveBytes": 4294967296,
+    "nodeHeapMiB": 8192
+  },
+  "executionStanding": "Preparation only. Root selected route in principle; actual source acceptance and exact binding readback required before effects. Pack once from this already-built stage; no compile/generation, metadata rewrite, final install or provider call. All failure/partial allocation preserved; no automatic retry."
+}

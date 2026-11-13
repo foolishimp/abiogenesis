@@ -1,0 +1,48 @@
+{
+  "status": "PASSED_EXECUTION_HELD",
+  "actualGuardResult": {
+    "sourceRows": 1345,
+    "compiledRows": 998,
+    "archiveMembers": 5329,
+    "typedRawJoin": {
+      "typed": "sha256:7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+      "raw": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+      "payloadEqual": true
+    },
+    "sourceBuildDependencyArchiveInstallProtectionExact": true
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/BINDING.json",
+    "bytes": 14125,
+    "sha256": "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/CONTROLS.json",
+    "bytes": 21010,
+    "sha256": "71b21d2b528482397ce2e9fcaf1ad6d8703c20deacc54bf1ca7e908adab767aa"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py",
+    "bytes": 17434,
+    "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+  },
+  "sourceReview": "Root to bind separately; no acceptance inferred",
+  "unitPopulation": {
+    "expected": 102,
+    "pass": 96,
+    "skipped": 6,
+    "m5Names": 39,
+    "m5EvidenceIds": 34,
+    "originalNineFiles": true
+  },
+  "outputRootAbsent": true,
+  "stagingCompleteNoBuild": true,
+  "ProductTestExecution": false,
+  "limits": {
+    "unitSeconds": 1800,
+    "campaignSeconds": 2400,
+    "reserveSeconds": 15,
+    "maxOutputBytes": 104857600
+  },
+  "pythonBytecodeWritesDisabled": true
+}

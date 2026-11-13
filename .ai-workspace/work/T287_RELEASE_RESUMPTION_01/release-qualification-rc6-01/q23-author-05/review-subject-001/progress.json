@@ -1,0 +1,19 @@
+{
+  "kind": "q23_author_05_progress",
+  "status": "bounded_construction_complete_returned",
+  "at": "2026-11-06",
+  "steps": [
+    "Read CONTINUATION_BASIS, PRIOR_AUTHOR_FEEDBACK, CURRENT_PARTIAL_DIFF (sha256 f9b74765..., equal to the worktree diff at start), ROOT_SELECTION, ROOT_POLICY_HOW_SELECTION, ROOT_SCOPE_CLARIFICATION, METHOD_ACCESS and stdo-work SKILL.md, rubric, NATIVE_GRANT, C2_INPUTS, DEPENDENCY_SOURCE_SELECTION, IDENTITY_DESIGN_REENTRY and ROOT_IDENTITY_DISPOSITION.",
+    "Adapted the prior-author helpers into tmp/stage.mjs and tmp/lanes.mjs: q23-author-05 paths, TMPDIR /private/tmp/abg-q23e, no support supplement because the closure already contains it.",
+    "b0 (unchanged partial): compile 0, generate 0, transport 23/23, qualification 35/35.",
+    "Checked the owner path: same leaf/actor predecessor prefix (hog/ccall_lifecycle opened.successorPrefix), qualificationHash = sha256Canonical, the gate is placed after plan preparation and before the binding transaction, standalone dispatch refuses, and not_required assessment input is never admitted.",
+    "Found F1/R1: the current event-contract profile digest changes; returned to Root as a dependency.",
+    "Added 3 m5 tests: identity derivation and unknowns, owned prepared selection with a real process, and the event-store binding guard.",
+    "Added 1 scopes test: the real actor_process gate with a physical provider-start instrument, positive control, 13 required negatives and 2 ordinary controls.",
+    "b1 test-code failures fixed (see return.json). Mutation check: a disabled gate is detected.",
+    "HOW re-entry in sections 2, 3, 6 and 7.",
+    "b2 final full restage: compile 0, generate 0, transport 26/26, qualification 36/36, zero skips.",
+    "Wrote return.json and readiness.json."
+  ],
+  "next": "Stop. Root freezes the candidate, decides R1, and conjoins independent MAX review, native C2/UAT and fresh close/result/replay."
+}

@@ -1,0 +1,195 @@
+{
+  "unitGroup": 87600,
+  "unitGroupAbsent": true,
+  "driverGroup": 87550,
+  "driverGroupAbsent": true,
+  "identifiedPhysicalRecords": [
+    {
+      "pid": 87677,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--resistant-worker--87629.json",
+          "field": ".fixture.ready(decoded).pid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 88196,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--post-timeout-output--87629.json",
+          "field": ".fixture.ready(decoded).pid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 88368,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-normal--87629.json",
+          "field": ".startedPid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-normal--87629.json",
+          "field": ".leaderRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-normal--87629.json",
+          "field": ".readyRecord(decoded).ppid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 88369,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-normal--87629.json",
+          "field": ".readyRecord(decoded).pid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 88371,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-TERM--87629.json",
+          "field": ".startedPid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-TERM--87629.json",
+          "field": ".leaderRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-TERM--87629.json",
+          "field": ".readyRecord(decoded).ppid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 88374,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-TERM--87629.json",
+          "field": ".readyRecord(decoded).pid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 88693,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-normal--87629.json",
+          "field": ".leaderRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-normal--87629.json",
+          "field": ".readyRecord(decoded).ppid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 88694,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-normal--87629.json",
+          "field": ".readyRecord(decoded).pid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 88695,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-TERM--87629.json",
+          "field": ".leaderRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-TERM--87629.json",
+          "field": ".readyRecord(decoded).ppid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 88696,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-TERM--87629.json",
+          "field": ".readyRecord(decoded).pid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 89033,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-http-normal--87629.json",
+          "field": ".leaderRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-http-normal--87629.json",
+          "field": ".readyRecord(decoded).ppid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 89034,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-http-normal--87629.json",
+          "field": ".readyRecord(decoded).pid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 89035,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--post-exit-output--87629.json",
+          "field": ".fixture.ready(decoded).ppid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 89036,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--post-exit-output--87629.json",
+          "field": ".fixture.ready(decoded).pid"
+        }
+      ],
+      "directPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    }
+  ],
+  "currentQCommandMatches": [],
+  "currentQCwdMatches": [],
+  "cwdCensusExit": 0,
+  "externalInterventions": [],
+  "standing": "Actual identified/currently visible processes only; same-number groups are observations, not invented ownership or universal erased-descendant absence."
+}

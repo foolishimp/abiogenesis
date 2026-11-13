@@ -1,0 +1,38 @@
+{
+  "stage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/stage",
+  "tenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/stage/build_tenants/abiogenesis/typescript",
+  "sourceCount": 397,
+  "sourceDigest": "f74c9abcdc2e9463c1ce8d13b3b60cd657db6e366fd2b09c4c57de512c6f527b",
+  "resources": 50,
+  "addedHarness": 1,
+  "copyCount": 448,
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "resourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/proof-resource-preparation-001/RESOURCE_MANIFEST.json",
+    "bytes": 60869,
+    "sha256": "cfe6bccd52ae7873a0fdebefdf2e9c9a080a3ff1e891b2dc42befbff508de6d4"
+  },
+  "harness": {
+    "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/inputs/harness.test.mjs",
+    "bytes": 96545,
+    "sha256": "3d336f70e8b21349fd0768a1abed407debcc6d0edf6dffa5c570b6bdc6b80efd",
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 96545,
+      "sha256": "3d336f70e8b21349fd0768a1abed407debcc6d0edf6dffa5c570b6bdc6b80efd"
+    },
+    "trackedAtSourceHead": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "authority": "Root explicitly added the maintained harness as read-only proof source; no Product edit"
+  },
+  "setupMs": 1638.670834,
+  "dependencies": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/DEPENDENCY_SOURCE_SELECTION.json",
+    "bytes": 5798,
+    "sha256": "c70ea6a7cfcf91f152792141919c16ae48edc6f7024329561e75a586c726870a"
+  }
+}

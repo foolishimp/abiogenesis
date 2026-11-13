@@ -1,0 +1,255 @@
+{
+  "status": "BOUNDED_REMAINDER_COMPLETE_WITH_DEFERRED",
+  "at": "2026-11-07T15:29:01.735789+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_025.json",
+    "bytes": 3952,
+    "sha256": "cfbf828e11886068e3b45cfa538b99733c046ea15e851bb7ae6a191f01f43b04"
+  },
+  "preparationReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_RETURN_025.json",
+    "bytes": 4861,
+    "sha256": "886115e0e1a24b45d7f6d5ec7bbb9ec57adfbe19bdf99302edb829a4b99cec75"
+  },
+  "receipts": {
+    "EXECUTION_STARTED.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "a208e630404bf06de53118583286253c92cedcd8e5951215fe87869b378ef343"
+    },
+    "CANDIDATE_BASIS_REFRESH.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/CANDIDATE_BASIS_REFRESH.json",
+      "bytes": 3150,
+      "sha256": "b6737825cc7156d0fbfc0d5e352b83d80a8b1fb596445da334fc5c959559f2ba"
+    },
+    "PACKAGE_LAYOUT_READBACK.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/PACKAGE_LAYOUT_READBACK.json",
+      "bytes": 629,
+      "sha256": "edcbc6d944e0d441fffb1f25cc31a3001b18a4fe92fcfe6aa631b59c053a0067"
+    },
+    "SUMMARY.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/SUMMARY.json",
+      "bytes": 8327230,
+      "sha256": "eb75b384b2371c12147746bd5ee1eff4650bd42afc5b8d0f0764e5bf41e19999"
+    }
+  },
+  "newWholeFileEvidence": [
+    {
+      "file": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+      "counts": {
+        "tests": 7,
+        "failed": 0,
+        "passed": 7,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 7,
+        "suites": 0
+      },
+      "wallMs": 3294.422290999999,
+      "fileReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/files/205-witness-run-stopped-definition-binding.json",
+        "bytes": 1192,
+        "sha256": "546a0503e93e90fcfbd33348d226c5dba942aa02002841aeeba51afc6f5a6c5a"
+      },
+      "commandReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/commands/205-witness-run-stopped-definition-binding.result.json",
+        "bytes": 1524,
+        "sha256": "158db303ad701850945e37075e6878ef344c3c03e5142a07befd21e651509911"
+      },
+      "reporter": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/events/205-witness-run-stopped-definition-binding.jsonl",
+        "bytes": 2616,
+        "sha256": "31acd3c5d84091a22aa33f2b0133e6e1f1271ca833d6b363bd9e17086f6e7ecb"
+      },
+      "testSha256": "a8201916bcb5892c04de594bf48136624d0b2bee36eb1e526cd3155ae03e568b",
+      "isolatedBuildEffect": false,
+      "isolatedWorkspace": null,
+      "sourceEffects": []
+    },
+    {
+      "file": "test_env/uat/harness.test.mjs",
+      "counts": {
+        "tests": 33,
+        "failed": 0,
+        "passed": 33,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 27,
+        "suites": 0
+      },
+      "wallMs": 71095.358292,
+      "fileReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/files/206-harness.json",
+        "bytes": 7278578,
+        "sha256": "30af41dc58f13f6d9d12f6621cb44e89916d1cb7555a72f6851d08ef0f8c7c06"
+      },
+      "commandReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/commands/206-harness.result.json",
+        "bytes": 1428,
+        "sha256": "572f8d87eb1f70072e9283de4a7ed0b2d60738bb064928edbddb209cf1e54466"
+      },
+      "reporter": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/events/206-harness.jsonl",
+        "bytes": 9115,
+        "sha256": "83b094cc367c44680941c336a7b929aa3abdf37cbb0301b1579369c7492fc501"
+      },
+      "testSha256": "17557b8cc6d3dbc8ff8e8ec79586b39b8411035032890f8518ae259eba0a0673",
+      "isolatedBuildEffect": false,
+      "isolatedWorkspace": null,
+      "sourceEffects": []
+    },
+    {
+      "file": "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+      "counts": {
+        "tests": 2,
+        "failed": 0,
+        "passed": 2,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 2,
+        "suites": 0
+      },
+      "wallMs": 124172.339917,
+      "fileReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/files/207-t287-w2-05-generator-package-reproducibility.json",
+        "bytes": 1443,
+        "sha256": "0d7ec54f38a3b280cbd64f0dfc68b752f0f88a474bb96acb1e1e4c26fd5c3cd2"
+      },
+      "commandReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/commands/207-t287-w2-05-generator-package-reproducibility.result.json",
+        "bytes": 1540,
+        "sha256": "e5473aa774178636e087b6c39fd8c75c4da7e4d2567ac29036429636b5eadabc"
+      },
+      "reporter": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/events/207-t287-w2-05-generator-package-reproducibility.jsonl",
+        "bytes": 1102,
+        "sha256": "f33faaa2caf376400ee942f4522685441056f3a01c784a79f8c0988fdc800edb"
+      },
+      "testSha256": "ef66e9c77c4d5b529a9e40d4bc5477404a3210a376a2b43e5fed3068577a37d6",
+      "isolatedBuildEffect": true,
+      "isolatedWorkspace": "/private/tmp/abg-r8c-025/x206",
+      "sourceEffects": []
+    },
+    {
+      "file": "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "wallMs": 35992.45629200002,
+      "fileReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/files/208-t287-w2-05-release-snapshot-definition-bindings.json",
+        "bytes": 976,
+        "sha256": "3b9de1dafeec504ed66649bf4db7675e53e3c62d137623506072d45bdd26fb57"
+      },
+      "commandReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/commands/208-t287-w2-05-release-snapshot-definition-bindings.result.json",
+        "bytes": 1553,
+        "sha256": "fb538da9786b47071c10643ee83695e40d91fe41aec7a529b548330ca0376b8d"
+      },
+      "reporter": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-025/events/208-t287-w2-05-release-snapshot-definition-bindings.jsonl",
+        "bytes": 842,
+        "sha256": "cd9ef06d5d8338bf62f078066e5357b72ec9cad333774a2e38094b700b8c5d01"
+      },
+      "testSha256": "a0984ff7f82cb0ac57175e7fa858e8b928e469704f3a25326ccb38868df7717f",
+      "isolatedBuildEffect": true,
+      "isolatedWorkspace": "/private/tmp/abg-r8c-025/x207",
+      "sourceEffects": []
+    }
+  ],
+  "isolatedBuildCustody": [],
+  "retainedLedger": {
+    "previousWholeCredits": 188,
+    "previousActualPassed": 943,
+    "previousHistoricalSkipped": 227,
+    "allPreviousCreditObjectsRetained": true,
+    "newCompleteWholeFiles": 4,
+    "newActualPasses": 43,
+    "newHistoricalSkips": 0,
+    "wholeFilesAfterJoin": 192,
+    "actualPassesAfterJoin": 986,
+    "historicalSkipsAfterJoin": 227,
+    "inventoriedFiles": 208,
+    "unvisitedScheduledFiles": 0,
+    "schedulingDeferredFilePopulations": 16,
+    "deferredFiles": [
+      "test_env/tests/t287-governed-context.test.mjs",
+      "test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "test_env/tests/t287-registered-graph-selection.test.mjs",
+      "test_env/tests/t287-required-operation-bindings.test.mjs",
+      "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+      "test_env/tests/t287-selected-action-authority.test.mjs",
+      "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "test_env/tests/witness-reprice-definition-binding.test.mjs"
+    ],
+    "separateWholeAndCaseWiseProofsNotRestamped": true,
+    "witnessRepriceFailureCredit": false
+  },
+  "conservation": {
+    "primaryPreserved": true,
+    "externalInputsPreserved": true,
+    "stageDigest": "860a77f27357793b982d1943b6f8aff1dda3fce523d88c15d7ac43c56f36b26d",
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "externalInputDigest": "04c98f99415488f1b18605899b2789fe4d3ba6f2adf4c8b5803f63e6daa1ecd9",
+    "sourceEffects": [],
+    "isolatedBuildEffectFiles": 2,
+    "successfulDerivedCopyCleanupByExistingDriver": true,
+    "generalCleanup": false,
+    "providerCallsSelected": 0,
+    "wholeReleaseQualified": false
+  },
+  "custody": {
+    "hostPid": 85942,
+    "sessionId": 56233,
+    "exitCode": 0,
+    "hostObservedAbsent": true,
+    "allFourCommandsExitZeroNoSignalTimeoutTruncation": true,
+    "allReportersEnded": true,
+    "manualSignal": false,
+    "limit": "Existing known-process custody; no universal escaped-descendant absence claim."
+  },
+  "timing": {
+    "invokedAt": "2026-11-07T15:23:42.519Z",
+    "materializedAt": "2026-11-07T15:23:44.942Z",
+    "invocationToMaterializedMs": 2423,
+    "candidateRefreshMs": 4554.0259590000005,
+    "sumFileCommandMs": 234554.57679200004,
+    "driverWallMs": 255180,
+    "summaryAt": "2026-11-07T15:27:58.527Z",
+    "prior024StopToInvocationMs": 369142,
+    "betweenRoundMeaning": "Root review/control preparation/admission; not native Worker launch.",
+    "returnAt": "2026-11-07T15:29:01.735789+00:00",
+    "limit": "Observed proof custody durations; no Product speedup or unique host-cause inference."
+  },
+  "standing": "All independent scheduled files now complete. Sixteen scheduling populations require separate accepted proofs/case-wise conjunctions or durable Root residuals; witness-reprice causal repair/disposition remains pending. No whole-release/broad-green claim, no automatic next execution. A12 control preparation only; CUT8 held."
+}

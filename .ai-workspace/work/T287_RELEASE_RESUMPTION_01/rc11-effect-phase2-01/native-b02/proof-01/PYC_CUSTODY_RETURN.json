@@ -1,0 +1,40 @@
+{
+  "id": "PHASE2-B02-PYC-CUSTODY-01",
+  "RootDecision": "Archive exact identified one-link regular cache, verify bytes, revalidate original then unlink only it; rmdir only if empty. No recursive cleanup or mtime restoration claim. Proof preparation resumes after custody.",
+  "original": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/__pycache__/unit.cpython-311.pyc",
+    "bytes": 45233,
+    "sha256": "cdd68376cdd9c1e877ea8d6f8449aea32af83f425216609928c9e40d7ba8935f"
+  },
+  "originalStat": {
+    "st_dev": 16777231,
+    "st_ino": 720898855,
+    "st_mode": 33188,
+    "st_nlink": 1,
+    "st_size": 45233,
+    "st_mtime_ns": 1794285507403908021,
+    "st_ctime_ns": 1794285507403978564
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/deviation-custody/unit.cpython-311.pyc",
+    "bytes": 45233,
+    "sha256": "cdd68376cdd9c1e877ea8d6f8449aea32af83f425216609928c9e40d7ba8935f"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PYC_DEVIATION_REVIEW.md",
+    "bytes": 2526,
+    "sha256": "81dd4a7aea19e1fff203600796c7255c95d55e69af879fb6216f22ec222d1ff6"
+  },
+  "deviation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/CONTROL_IMPORT_DEVIATION.json",
+    "bytes": 832,
+    "sha256": "45824bb5d978b0d6331912f6daeb1bdce38d21e174fa15bec1c0065dfd11e943"
+  },
+  "archiveByteEquality": true,
+  "originalFileAbsent": true,
+  "emptyDirectoryRemoved": true,
+  "oldControlAndProtectedPinsExact": 39,
+  "noOtherCleanup": true,
+  "directoryMtimesRestored": false,
+  "pythonBytecodeWritesDisabled": true
+}

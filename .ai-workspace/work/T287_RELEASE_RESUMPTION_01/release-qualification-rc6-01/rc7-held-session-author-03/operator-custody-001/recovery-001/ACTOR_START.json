@@ -1,0 +1,34 @@
+{
+  "kind": "actual_native_actor_start_metadata",
+  "observedUtc": "2026-11-06T17:04:11.753740+00:00",
+  "source": {
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "offset": 2086379141,
+    "bytes": 1840,
+    "sha256": "90d232b11dd2ed2f5bfb1abafa01e59c0604be2309a1602b8b4c81789e0f1513"
+  },
+  "metadata": {
+    "kind": "actor_process_started",
+    "eventId": "event://abiogenesis/5991de61d2281cf3c61a8b503d171c32504726d0273d2778215b5445ecfa6fb1",
+    "eventTime": "2026-11-06T16:59:12.840Z",
+    "admissionOrdinal": 282232,
+    "runId": "run://abiogenesis/b793e5082c70e04d15e84092b02c66d89d9ac26a99c411018950aaba92023506",
+    "basisId": "execution-basis://abiogenesis/8e8e708f4952da296f0d0300dfe2d9cd5b2125b0e9f0f489e35573320c055e46",
+    "aggregateId": "process://abiogenesis/a8024e0e985d30f23215bfdceb7f7192bbd32119f082f0bb6e4f3b8364ebd27e",
+    "aggregateType": "process",
+    "scopeClass": "run",
+    "payloadDigest": "sha256:afc36100cb509cc2059658db47c28477d7a6b30ad5196779aac479781a3ecdb5",
+    "payload": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/d4c6e923144be7690b8c13a86d5db007a4262733a29a2a22b42da0379c654494",
+      "cCallRef": "c-call:sha256:76e1e8047869aae5e88f09df9ee124b8d044340e017cc346e254a9c1c156793a",
+      "processId": 84871,
+      "processRef": "process://abiogenesis/a8024e0e985d30f23215bfdceb7f7192bbd32119f082f0bb6e4f3b8364ebd27e"
+    }
+  },
+  "hostStartedUtc": "2026-11-06T16:47:42.126Z",
+  "hostPid": 77268,
+  "hostToActorMs": 690714.0,
+  "preparedToActorMs": 22324.020207999973,
+  "nativeAbsoluteCapUtc": "2026-11-06T18:29:12.840000+00:00",
+  "standing": "Actual event-envelope timing and identity only. No private provider payload; no source/proof acceptance, performance improvement or cause attribution."
+}

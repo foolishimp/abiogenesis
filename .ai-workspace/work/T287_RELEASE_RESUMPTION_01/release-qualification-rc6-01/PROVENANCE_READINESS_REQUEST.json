@@ -1,0 +1,78 @@
+{
+  "kind": "bounded_provenance_readiness_evaluation_request",
+  "recordedUtc": "2026-11-05T08:04:41.107281+00:00",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_QUALIFICATION_PLAN.json",
+    "bytes": 6440,
+    "sha256": "f6c318797e831d6a0cedaa1143ca3f0aef4c227ec1274143af9f0ba333e4e04b"
+  },
+  "finding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+    "bytes": 28638,
+    "sha256": "085c993048138ee929c07cd3be709e867fa51c3d0b0fe9bcf77497b1b8bc1c69"
+  },
+  "role": "Read-only source/provenance evaluator; no candidate authorship, no qualification judgment",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "purpose": "Resolve QR02 existing-owner attribution correspondence for one finite representative scope before selecting a native driver repair; avoid a second contributor mechanism.",
+  "subject": {
+    "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "paths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs"
+    ]
+  },
+  "readRoutes": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/AGENTS.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/PRODUCT.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/product/REQ-P-QUAL.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01",
+    "Exact upstream commit metadata/diffs for the three selected paths and original pointed-to activation/grant/source bridge/construction closure records in T287_RELEASE_RESUMPTION_01 or commentary. Follow specific pointers only, no bulk history scans.",
+    "Selected installed STDO3.0.4 work/review skills and their directly referenced governing standards via manager."
+  ],
+  "permittedEffects": [
+    "Read exact selected sources/metadata",
+    "Write only D/PROVENANCE_READINESS_REVIEW.json and .md"
+  ],
+  "forbidden": [
+    "source/test/HOW edits",
+    "providers/native dispatch",
+    "builds/tests/preparation",
+    "raw provider private thinking/text/tool-result/stdout",
+    "bulk raw events/scratch/archive acquisition",
+    "authorship inferred from role/commit committer or absence of trailer",
+    "new contributor union/registry/ledger",
+    "claiming comprehensive whole-inventory attribution from three files"
+  ],
+  "questions": [
+    "Which authentic original producer or external-construction records already establish relevant current contributions for these exact three members?",
+    "What can existing native/external construction arms express faithfully, and where does current historical postimage validation prevent a lawful present-source join?",
+    "What is the smallest concrete driver/owning-HOW correction if needed? Distinguish factual byte conservation from semantic survival and retain unknowns.",
+    "Which model/family attribution is actually recorded, and which remains unknown? Do not invent model-family equivalence from string names."
+  ],
+  "stop": "Return a bounded ready/proposed/unknown result once one representative causal correspondence is established or its precise missing evidence identified. No exhaustive ancestry/perfection search.",
+  "return": {
+    "consumer": "Root Executive",
+    "outputs": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/PROVENANCE_READINESS_REVIEW.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/PROVENANCE_READINESS_REVIEW.md"
+    ],
+    "activationPower": false,
+    "qualificationCredit": false
+  },
+  "hostDisclosure": "General filesystem host with behavioral access exclusions; no sandbox or clean-model-family claim."
+}

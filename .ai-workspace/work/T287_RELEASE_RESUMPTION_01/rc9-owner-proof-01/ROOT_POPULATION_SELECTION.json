@@ -1,0 +1,16 @@
+{
+  "authority": "/root Executive",
+  "decision": "SELECT_PREPARATION_POPULATION_EXECUTION_HELD",
+  "evidence": "Root message: Root accepts import-cone conclusion: RC9 shared-owner changes do not permit inheriting RC8 broad credits. Select planned201 population (prior208 minus8 explicitly heldresidual files +newregression, subject exact finalreconciliation), fullW2 included first. Use exact-frozen-RC9 receipts to avoidduplicatecommands only where subject/buildinputs trulyagree. Caps remain proposed600s/file4hcampaign, individual knownprereqs/bounds concretebeforeexec; no autoextension. Reassess8 no-blockrationales for narrowed scope (no crossresolutioninstallcache; finalcontractfreeze notactorlifecyclechange), retain9historicalcapsules unchanged plus successordispositionrecord. Continue preparation; no execution until actualcandidate/artifactbound.",
+  "affectedFrame": "Proof/Integration",
+  "population": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/COMMAND_POPULATION.json",
+    "bytes": 153107,
+    "sha256": "75d60af67dc34124466b9570a1d5902c08796977032a1b2e753ab7c5dd127d6f"
+  },
+  "importCone": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/IMPORT_CONE.json",
+    "bytes": 79009,
+    "sha256": "224f05c846a17890b12a800412b1779051c5748656508afeccedcc914b9f1eea"
+  }
+}

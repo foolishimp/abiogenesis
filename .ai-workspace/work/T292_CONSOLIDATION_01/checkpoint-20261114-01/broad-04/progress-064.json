@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-default-library-recoverable-failure.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 5,
+    "pass": 5,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/064-t287-default-library-recoverable-failure.test/process.json",
+    "bytes": 1135,
+    "sha256": "80af0f08558010423e51cd1f0c17bce2c0a469627ecce4fe46caa18d3326b61a"
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "file": "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 53835.78299999982,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/167-t287-rp2-behavior-carriers.jsonl",
+    "bytes": 814,
+    "sha256": "bf155269245c07df4a0dd37dcc36a6a2516217bdabc366f702830601b6755148"
+  },
+  "commandReceipt": "commands/167-t287-rp2-behavior-carriers.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-events.json",
+      "kind": "file",
+      "bytes": 119939,
+      "sha256": "ead8701d3275f2e66b06c65fff2f45b0cdbab83cff664a923512eff9db2dd42d",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-receipt.json",
+      "kind": "file",
+      "bytes": 15932,
+      "sha256": "0e6f68e8778e7bc090ea28262faf9057b50babddbf0cf3f3ce1c7b63f916f3b6",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-run_replay.json",
+      "kind": "file",
+      "bytes": 7779,
+      "sha256": "418f14cfd6ef76ad02792aa8593bcf816330bbae8391b56d2b9268d55136b1ee",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-run_result.json",
+      "kind": "file",
+      "bytes": 8199,
+      "sha256": "4760a39243ed49eb5ea82a37b3dcb3aa82a0b7145fa4880874e9be3ce26239f8",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/handoff.json",
+      "kind": "file",
+      "bytes": 1182,
+      "sha256": "9aaf40935304f0fc1a9d945e4fa3c677b98f0ee0fcd9e098a63a1fd632e1a2d4",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/missing-asset.json",
+      "kind": "file",
+      "bytes": 3698,
+      "sha256": "f40953fa02172e269da43684918dfb79e82d98575553bf3baa5f50c6dae1ccfa",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/result.json",
+      "kind": "file",
+      "bytes": 213,
+      "sha256": "8c14a7c71c9f87846d1586ce83fdec5db319199d6dd64a1e1feefc1be6bf1624",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/setup.json",
+      "kind": "file",
+      "bytes": 13197,
+      "sha256": "c5fa3aa973515114ecf2e4ad2a28eed1edaaa4b8664c2c314df7924d49b9f64d",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-events.json",
+      "kind": "file",
+      "bytes": 121128,
+      "sha256": "db4d26d39cd9b7ef1d0c8782af9908132017f7b1106f1bdbef3a0cdf6a9b2db7",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-receipt.json",
+      "kind": "file",
+      "bytes": 16065,
+      "sha256": "fc5e45fa5916de835f86f1e67a9e5a34fb669d47d7eaba1b993fd5c638356c07",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-run_replay.json",
+      "kind": "file",
+      "bytes": 7914,
+      "sha256": "f48063861460de596a56b6247daaf7102063efc12736dff5f0c1e71cb52ea6ff",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-run_result.json",
+      "kind": "file",
+      "bytes": 8335,
+      "sha256": "2a3fc9a5299ddc9a0829425e7d596a22d0a4ba648b070e869025792f41a0b2fb",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

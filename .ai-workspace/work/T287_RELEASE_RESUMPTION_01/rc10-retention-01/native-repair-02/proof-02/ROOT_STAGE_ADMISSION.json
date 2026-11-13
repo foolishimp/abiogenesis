@@ -1,0 +1,28 @@
+{
+  "id": "RC10-REPAIR-PROOF-02-STAGE",
+  "status": "ROOT_ADMITTED_RC10_FROZEN_PROOF",
+  "mode": "stage",
+  "recordedUtc": "2026-11-09T04:25:39.281230+00:00",
+  "owner": "/root Executive",
+  "proofBindingSha256": "dc928c30149b86b971305d442cdded381dc23f071ac7d0dc9b344daaecdaf901",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+      "bytes": 293103,
+      "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NATIVE_CUSTODY.json",
+      "bytes": 6813,
+      "sha256": "f97d6e4487f773979fe36b5eea9d8ba44ee12bf7aa5f44cf59abae5b75cd7b96"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/frozen-proof.mjs",
+      "bytes": 15645,
+      "sha256": "e7de3cec3058cdfc22da52b7cd047a9a98d4d796426fde9d14c1d7bcac0ac689"
+    }
+  ],
+  "ownerInstruction": "Root RC10-REPAIR-PROOF-02 admits one stage build on exact successor/freeze/custody/stagebinding/revieweddriver pins. Execute once600s/8192MiB/16MiB/4GiBreserve/4GiBowned. Iff every stage command succeeds, source remains exact and BUILT receipt binds same digest, one focused LIFE-01 run600s is also admitted via separate exact successor binding and external focused admission. No source edits/retry. Return actual strict first-call count; workload50 remains separate.",
+  "noAutomaticRetry": true
+}

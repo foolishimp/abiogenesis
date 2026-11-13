@@ -1,0 +1,155 @@
+{
+  "kind": "root_h06_assessment_fixture_selection",
+  "status": "ROOT_SELECTED_NATIVE_ONE_FIELD_FIXTURE_CORRECTION",
+  "createdUtc": "2026-11-06T19:17:06.962391+00:00",
+  "productFrame": {
+    "method": "installed STDO3.0.4",
+    "product": "ABIogenesis5.0 fixed fifteen-family scope",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "composition": [],
+    "runtimeAuthority": "ABG",
+    "installedBuilder": "5.0.0-rc.6",
+    "classification": "existing HOW realization correction; no new Product outcome, authority, public contract or runtime entity"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_AFTER.json",
+    "bytes": 563015,
+    "sha256": "2a385829927eac2ba13be072d7deab71949ab9db56bc6fb2797bd786398aa519"
+  },
+  "actualFinalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 8447,
+    "sha256": "d7e7d2ea776e756bd466ec2afc7f38c8cc1581eb2f1e6c79a60a9b3381722714"
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8045,
+    "sha256": "d3c8fc06ce2b305c089257a0b9524650c69512e2d029d2995ca36d47420a90a9"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "62d6acfaa2d31add120ecafb37cac00c473c1a5a62b46852d18373268356d1f5"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5439,
+    "sha256": "229dad7dfaef6df2ff2a1b005ef4f7df38416ad3a221c79a18fe57a1c9c36e7a"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/reviews/stage-001/REVIEW.json",
+    "bytes": 8507,
+    "sha256": "5fe2377f5eef5cea1cb7591d3c427387c5499506a0f418f60d858948066c4343"
+  },
+  "counterexample": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/reviews/assessment-guard-triage-001/REVIEW.json",
+    "bytes": 19247,
+    "sha256": "bee3ec529a5ed426f4018d4a128f324a496bcd42719df9a72d61554cb9d27f15"
+  },
+  "proofInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/post-return-controls/actual-001/PROOF_INVENTORY.json",
+    "bytes": 14969,
+    "sha256": "c43d922fa28baf554cf6db62c98ed95a568fc650c458a54d5389e86804d085de"
+  },
+  "reusedProductPayload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+    "bytes": 1466472,
+    "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+  },
+  "completedBuildReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+    "bytes": 102337,
+    "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+  },
+  "rootCause": {
+    "origin": "The undeclared negative assessment fixture changed schema.$id and resultContract.contractRef but retained the admitted schemaAsset.contractId.",
+    "observed": "nativeWorkspaceAssessmentSchema(undeclared) correctly returned null before the intended missing-declaration dispatch check; first three subcases passed and later four were not reached.",
+    "ownerRelation": "Existing native_workspace_assessment.ts requires schema.$id === resultContract.contractRef === schemaAsset.contractId.",
+    "causalCone": "Independent review covered all eight subcases and the exact native-workspace-owner/caller shared-contract fixtures; no second stale expectation was established.",
+    "whyMissed": "Earlier setup/integration failures prevented this affected lane. H03 repaired the normal fixture but omitted the derived undeclared variant; H05 deliberately changed only the prior refusal oracle.",
+    "ProductDefectEstablished": false
+  },
+  "selectedRepair": {
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "implementation": "In the existing local undeclared assessment fixture, also set schemaAsset.contractId to undeclaredRef, preserving its other schemaAsset members. No other semantic change.",
+    "proof": "Keep the existing positive schema well-formedness assertion, subsequent exact missing-declaration null refusal, all eight subcases, and all event/actor/no-effect checks.",
+    "forbidden": [
+      "Product/public-contract/guard changes",
+      "public-setup/HOW/helper changes",
+      "changes to previously passing fixed-route or held-session cases or their dependency closures",
+      "new tests/fixtures/sessions/workflows/resources/frameworks",
+      "dropping or weakening assertions",
+      "broad or glob searches beyond exact selected source paths"
+    ]
+  },
+  "nativeExecution": {
+    "oneCodingWorker": true,
+    "reasoning": "xhigh",
+    "maxTurns": 320,
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 1800000,
+    "hostTimeoutMs": 10800000,
+    "memoryLimitMiB": 8192,
+    "automaticRetries": 0,
+    "sourceRows": 451,
+    "stages": 1,
+    "lanes": [
+      {
+        "id": "assessment-guards",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "native-workspace-owner",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "caller",
+        "timeoutMs": 300000
+      }
+    ],
+    "stop": "Any unexpected Product/architecture failure, unsafe reuse, source/scope mismatch or out-of-scope repair returns to Root; no retry.",
+    "protectedRows": 450
+  },
+  "proofOrder": {
+    "first": "Complete the existing eight-subcase assessment-guards case.",
+    "remaining": "Then run the two previously unallocated native-workspace-owner and caller lanes, serially and once each.",
+    "allowedHistoricalSkip": "admitted pure consumer evaluates a native task as data without physical authority",
+    "newTests": "No new test is selected; correct and execute the existing affected case and named consumers."
+  },
+  "buildEvidenceReuse": {
+    "selection": "Reference the existing H04 inventory and completed H03 Product build. One isolated451-source stage; all450 non-writable sources unchanged from the actual H05 baseline.",
+    "payloadMembers": 5325,
+    "owner": "Existing pinned RC6 shared/digests and canonical_json",
+    "noCompileGenerationLifecycleReexecution": true,
+    "explicitReuseRequired": true,
+    "preserveOldStagesAndFailures": true
+  },
+  "readScope": "Exact named fixture and owner/consumer paths in closed review bee3ec52, within the451-source inventory. No broad glob/Grep or outside test exploration. Preserve H04 read-scope disclosure and all historical failures.",
+  "acceptanceBoundary": "Root conjoins actual H06 source/native.after/stage/live/close, independent frozen one-field review, three selected lanes and still-applicable original H05 fixed-route/held-session proofs before full HS01/02 acceptance or HS03 activation.",
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "retainedPassedEvidence": {
+    "fixedRoute": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/fixed-route/summary.json",
+      "bytes": 2207,
+      "sha256": "7a663214febb66f14bb77cb581d505adcd0b7a80535775650bd7d582796c7174"
+    },
+    "heldSession": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/summary.json",
+      "bytes": 1676,
+      "sha256": "3651fc18f0d9982e0a170aad6a6aee7c133115f524ee0981f06107ab104d1e8f"
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+      "bytes": 4046,
+      "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+    },
+    "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "reuseCondition": "All Product/SDK/caller/helper and fixed-route/held-session test closures remain unchanged. Independent frozen one-field diff review establishes applicability; retain original H05 identifiers and do not relabel these as H06 executions. Any affected closure change returns to Root before further execution."
+  }
+}

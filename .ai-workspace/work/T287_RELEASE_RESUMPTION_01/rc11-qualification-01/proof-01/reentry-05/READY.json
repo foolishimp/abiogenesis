@@ -1,0 +1,26 @@
+{
+  "status": "R6_F04A_PREFLIGHT_PASSED_ROOT_EXECUTION_ADMITTED",
+  "utc": "2026-11-09T09:38:52.714475+00:00",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/BINDING.json",
+    "bytes": 5568,
+    "sha256": "8b684197a40c53601ba715afa53d281d5aad1736771e5f95a5df35aaf50dd3cf"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/continuation.py",
+    "bytes": 10569,
+    "sha256": "0b3f6f9d02422a73254050c86b39517504a0e7464ba0ae7d8196f88525635f89"
+  },
+  "commands": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/COMMANDS.json",
+    "bytes": 551,
+    "sha256": "76f6b1f847deaeae84c1f556c60f637db1435767bb82bcf23469172340b4210f"
+  },
+  "sourceRows": 1340,
+  "compiledRows": 996,
+  "retainedGuardsPassed": true,
+  "environmentUnchanged": true,
+  "absoluteSecondsEach": 900,
+  "runnerSyntaxChecked": true,
+  "originalUnitRedAndPackHoldPreserved": true
+}

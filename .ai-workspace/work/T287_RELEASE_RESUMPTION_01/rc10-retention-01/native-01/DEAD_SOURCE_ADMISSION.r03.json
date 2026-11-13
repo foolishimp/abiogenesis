@@ -1,0 +1,359 @@
+{
+  "id": "RC10-DEAD-02",
+  "status": "ROOT_FINAL_SOURCE_SCOPE_SELECTED_EXECUTION_HELD",
+  "recordedAt": "2026-11-09T02:59:46.545617+00:00",
+  "decisionOwner": "/root",
+  "recordedBy": "/root/rc10_operator",
+  "decisionVerbatim": "Final dead-code consolidation RC10-DEAD-02, before runtime: Root adopts FOLLOWUP1ecf1f1d's14 D functions in addition to8 from RESULT6856fd5a. Add exact listed source files/symbols only. Two semantic_revision native realization functions remain LIVE: gtl/semantic_revision_publication.ts computes namedSymbol, descriptors preserve it and leaf_invocation_port module[admittedResolution.namedSymbol] invokes them. Do not delete them.\nRoot resolves sole U as realization_refactor with owning HOW synchronization: updatePublicRunProjectionAuthority is an unused non-barrel forwarding helper. Product/package/API do not require this private JS name; existing constructPublicRunProjectionAuthority already constructs exact immutable authorities from complete input/close pair, and parse remains. Delete updatePublicRunProjectionAuthority from code/src/public/run_projection_authority.ts and revise only the relevant lifecycle Update/Transition cell in design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md near2485: a changed actual close pair requires a new immutable authority constructed from that pair and the same source Run/Product basis; it does not mutate prior authority or confer append/execution power. Preserve identity/refusal laws and all public type/constructor/parser behavior; do not assert an unexecuted read path produces it. Root inspected body and exact HOW row; this removes a redundant callable name, not required capability. No Product/requirements change.\nThus23 selected declarations across17 source files, plus one exact HOW cell, alongside core lifetime repair. Same rule: if core genuinely consumes a helper naturally, reuse/report instead of rename/delete/reimplement. Remove adjacent exclusively descriptive comments and newly unused imports/private local declarations ONLY when their entire consumer set was those deleted helpers; reference proof must be retained. No ancillary registry/store deletion or unsupported public/dynamic-contract change. No whole files deleted. 14D exactnames/paths from FOLLOWUP should be captured/pinned mechanically against current source before mutation; codegen uses original normal route.\nRequired lifetime test remains. Extra tests for low-impact dead wrapper removal are unnecessary: use compiler/import/calculus/lifecycle/manifest/native-locator/public export gates and existing affected runtime/read/contract tests. Keep native1800s/300s/200turns and separate frozen proof; no script/dependency changes beyond exactRC10identity.",
+  "originalEightAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEAD_SOURCE_ADMISSION.r02.json",
+    "bytes": 7078,
+    "sha256": "8bb2bdc4b961560c69b33fdba700a4c2132f7d86411e23ac10291df8ea1cfcb1"
+  },
+  "originalReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/dead-code-triage/RESULT.md",
+    "bytes": 13901,
+    "sha256": "6856fd5a5c013e75f6360ca02435309b220f352f5380f6207a76c6df49c969ec"
+  },
+  "followupReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/dead-code-triage/FOLLOWUP.md",
+    "bytes": 2986,
+    "sha256": "1ecf1f1d2af5ceadc0f0ab3c03411e76de0b3787e1d58e5ccff2cf31cbe3582e"
+  },
+  "selectedDeclarations": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "symbol": "projectHeldRuntimeEventsAtDurablePrefix",
+      "firstLine": 2326,
+      "lastLine": 2330,
+      "bytes": 207,
+      "sha256": "9d6540d76bddfabf85b22a716ecaadfc6c808d400dc43485a4204a5f26866d66",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 225695,
+        "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "symbol": "isEventStoreAdmissionOpen",
+      "firstLine": 2773,
+      "lastLine": 2776,
+      "bytes": 176,
+      "sha256": "af5599b98abe4a05547d151568e557f4fd953d38a43bdb94bd417ecbe227f52e",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 225695,
+        "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "symbol": "runtimeEventProfileSourceFromValidatedPrefix",
+      "firstLine": 381,
+      "lastLine": 384,
+      "bytes": 204,
+      "sha256": "a30d2efd24ecf344dce53eb6d5240761586aa26c5180cc50b7deb55d3cba2264",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "bytes": 64754,
+        "sha256": "cfe2ce70db4935aac785bc92c24fa3634bd8e14ff38476fb612afe4cc12f512b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "symbol": "runtimeHistoryPayload",
+      "firstLine": 541,
+      "lastLine": 545,
+      "bytes": 254,
+      "sha256": "d13de94363b397bd0d8eb1f5b009ac5930c6cad9cae86a974d788fd57573839b",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "bytes": 44501,
+        "sha256": "58bfd6ef4d02b60dd3159a8485846561d48cb94fef01003584d26d21777d9217"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "symbol": "projectGraphCallSourceAtDurablePrefix",
+      "firstLine": 962,
+      "lastLine": 972,
+      "bytes": 610,
+      "sha256": "d5891b4134a914fe6a9fb859162409f50841dbbd4401ab2c5fe7c06591f3e8f9",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "bytes": 92881,
+        "sha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "symbol": "projectGapReadAtValidatedPrefix",
+      "firstLine": 1504,
+      "lastLine": 1518,
+      "bytes": 970,
+      "sha256": "421353d1b141d27931a336c034fc569ad84facaf69e05f926becb356f3f6ed74",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "bytes": 92881,
+        "sha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "symbol": "resultWithEvidence",
+      "firstLine": 414,
+      "lastLine": 421,
+      "bytes": 211,
+      "sha256": "8bd6409ed3e2be803114859d7b0d0cc6c419c1f23649bb364539ef3a3dff2c05",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+        "bytes": 26029,
+        "sha256": "add45e14c6b77eb342ab4858cee7cbc43204553b9b2a8b8c5a159a853cb53814"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "symbol": "contractSchemaEntries",
+      "firstLine": 669,
+      "lastLine": 681,
+      "bytes": 417,
+      "sha256": "ae5d7a0d705fa380ed3bdd88a7f46adbd6fdafeec341136171a9baaafe35cb29",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+        "bytes": 26029,
+        "sha256": "add45e14c6b77eb342ab4858cee7cbc43204553b9b2a8b8c5a159a853cb53814"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "symbol": "isPublicationValidation",
+      "firstLine": 556,
+      "lastLine": 558,
+      "bytes": 112,
+      "sha256": "a71b7e0979f411af912277e43e6139d4ab2e064b7aff71e073d9d51a4d6b01b5",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+        "bytes": 83926,
+        "sha256": "e81f929f893f5f1132df12a2c70eb49e263cfb089835f13550b9b85360cf1f1f"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "symbol": "matchesExactOperationDefinitionCoordinate",
+      "firstLine": 44,
+      "lastLine": 52,
+      "bytes": 386,
+      "sha256": "c572e374aab490ec5671d0cbbee67677c0df9adb6dfb16d6127df46d5ccb3096",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+        "bytes": 3906,
+        "sha256": "feddd8026512d7691bddac801acf6fbeddbe9cbf460b701629ca13be4a8b50ea"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "symbol": "semanticJobAssessmentDomain",
+      "firstLine": 595,
+      "lastLine": 598,
+      "bytes": 269,
+      "sha256": "7dc58190488161eb9194faf5f4b4085f11c8b238603985fe6afec4b611abbf71",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+        "bytes": 96630,
+        "sha256": "e3bbdcccc525f000821533dd316c7362fc437b64ad0c3dd028e331f3d4776bb6"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "symbol": "hasAdmittedInvocation",
+      "firstLine": 806,
+      "lastLine": 814,
+      "bytes": 218,
+      "sha256": "ccbb9e4c1140e07362a73a9f1d8a3c455bff7419913f0373af31a89e9eb86bc5",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+        "bytes": 77864,
+        "sha256": "5e5aacf55c3d62992eacad661e7de998a9dfc7930e3486cc4077f7a7e39e8425"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "symbol": "admitPlannedCCallRuntimeFailureClose",
+      "firstLine": 3521,
+      "lastLine": 3587,
+      "bytes": 2510,
+      "sha256": "0a48249037416df5a210a64f636768b7f670262cb5ebdf7652e6b26f34c068cb",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301329,
+        "sha256": "e3d837eb473ecb9ceb272451b485f22e24693337cd32cf2eaca8bc2373bb022c"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "symbol": "rehydratePendingInteraction",
+      "firstLine": 5136,
+      "lastLine": 5180,
+      "bytes": 1494,
+      "sha256": "2f7c69069f9807c487599fa342871590448e3907170db24f2f63784eedcbd5a5",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301329,
+        "sha256": "e3d837eb473ecb9ceb272451b485f22e24693337cd32cf2eaca8bc2373bb022c"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "symbol": "admitPlannedPendingInteraction",
+      "firstLine": 7560,
+      "lastLine": 7564,
+      "bytes": 495,
+      "sha256": "a0a1f427a0a907a2e89dd0be3c676122510f0aab29dbe9c9bec43b7b5955f129",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301329,
+        "sha256": "e3d837eb473ecb9ceb272451b485f22e24693337cd32cf2eaca8bc2373bb022c"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "symbol": "projectQualificationConstructionAuthors",
+      "firstLine": 690,
+      "lastLine": 693,
+      "bytes": 356,
+      "sha256": "a43fd8cab330e4c7c16fe63ac42f999bcef4ff5b7f6bf690674a5e2adc5dd0b4",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "bytes": 102327,
+        "sha256": "ac63c79c77c57a36278fd45126aeadb4d1955d2f84699d05db3bfc7f04bdff6e"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+      "symbol": "updatePublicGapAuthority",
+      "firstLine": 154,
+      "lastLine": 168,
+      "bytes": 342,
+      "sha256": "a4b4cfb583eeccf252f46985d2153161a8b70afdd42e8b5c8063198f099fc80f",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+        "bytes": 7786,
+        "sha256": "98c3d08d1276b6d492ae34d9147c8aef0ed9c63bcf8cd9ccac0a58fd55bd1ac2"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+      "symbol": "parsePublicGapAuthority",
+      "firstLine": 170,
+      "lastLine": 254,
+      "bytes": 3334,
+      "sha256": "5398649aac5514b2a58a6133279c4bd685473905616e7028ebf4968b70373b8a",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+        "bytes": 7786,
+        "sha256": "98c3d08d1276b6d492ae34d9147c8aef0ed9c63bcf8cd9ccac0a58fd55bd1ac2"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/traversal_failure.ts",
+      "symbol": "isGraphTraversalEntryRefusal",
+      "firstLine": 16,
+      "lastLine": 22,
+      "bytes": 254,
+      "sha256": "94cd7c5d83e35f67e927ccc01814684c6a9b086e8b5da3ac2e275e1cdfbb3211",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/hog/traversal_failure.ts",
+        "bytes": 2945,
+        "sha256": "3de355c6198ef6afbcd9d7cfdc86eb7afdbc0cd61dbd61748c39a8dd0330b066"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/traversal_completion.ts",
+      "symbol": "projectBlockedRetryTraversalCompletion",
+      "firstLine": 168,
+      "lastLine": 175,
+      "bytes": 309,
+      "sha256": "7647ebbf8ed001e74474f5b2dea0ad1815daee31bb23935f216b1dbac114f838",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/hog/traversal_completion.ts",
+        "bytes": 6747,
+        "sha256": "098b41de5cb5875455028afce4b2de6d0fdb73e224e39d12f004923ef2951591"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "symbol": "isAdmittedLeafInvocationResolution",
+      "firstLine": 861,
+      "lastLine": 870,
+      "bytes": 300,
+      "sha256": "0bd55cbc0bc0ac7ea0b7859d85d64183a0a5d8773c51c0f47af780379dfeb05a",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 84866,
+        "sha256": "e5a6448c5896225d47645a8458ffc25f2ea1d6fccdffa182163363eb6ad34846"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "symbol": "constructHistoricalStdoRunEnvironmentDeclaration",
+      "firstLine": 80,
+      "lastLine": 83,
+      "bytes": 294,
+      "sha256": "553636917b91a156ef1feb2bede39aaa6d34c540082536c6c1c2c8e39be2517d",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "bytes": 25571,
+        "sha256": "ec246b14d7ca6e336af237e2c4724486b364943d2b441152cbd0aa2477ad2bb1"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+      "symbol": "updatePublicRunProjectionAuthority",
+      "firstLine": 117,
+      "lastLine": 131,
+      "bytes": 382,
+      "sha256": "49da1b964a1f7b7290387d10638edce96fd58c0740d41c5fb46dda5a2f4ba563",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+        "bytes": 6613,
+        "sha256": "d676ac5a7fa0565523a61d6b2b2cc0bd8499c4d4f6409181b742369fc8e4c363"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    }
+  ],
+  "howCell": {
+    "path": "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "filePreimage": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+      "bytes": 307701,
+      "sha256": "c6a21eb892be6511147454aac0cc6b71ebfa9d749e4f2802e52880ed75b7329f"
+    },
+    "rowBytes": 798,
+    "rowSha256": "a1323e05452dea493f4c2faa8087207f8601458e16a85232f35aa2ba8b68b063",
+    "onlyChangedCell": "Update/Transition cell for Public run projection authority",
+    "oldCell": "`updatePublicRunProjectionAuthority` after a read; only the reopen prefix changes",
+    "requiredMeaning": "A changed actual close pair requires a new immutable authority constructed from that pair and the same source Run/Product basis; prior authority is immutable and no append/execution power is conferred. Do not claim an unexecuted read path produces it."
+  },
+  "liveExclusions": [
+    "realizeSemanticRevisionNativeConstruction",
+    "realizeSemanticRevisionNativeExecution"
+  ],
+  "conjunctionGuard": "Baseline deadness is not a deletion quota. If the admitted lifetime repair naturally needs one of these existing helpers, reuse it and report its new real consumer rather than delete/reimplement it under another name. No artificial caller added to retain dead code; otherwise exact eight deletions stand.",
+  "wholeFileDeletionGranted": false,
+  "nativeRuntimeAdmission": false
+}

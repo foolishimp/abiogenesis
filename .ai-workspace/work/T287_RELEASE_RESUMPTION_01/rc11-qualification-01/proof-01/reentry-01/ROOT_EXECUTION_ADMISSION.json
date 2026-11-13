@@ -1,0 +1,52 @@
+{
+  "status": "ROOT_ADMITTED_RC11_PROOF_CONTINUATION",
+  "utc": "2026-11-09T08:39:04.397195+00:00",
+  "bindingSha256": "14fb6652b98b3ee88374ea63cdd976f117d0c0d54eb0d8d55d0ac206fc14a781",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/BINDING.json",
+      "bytes": 4378,
+      "sha256": "14fb6652b98b3ee88374ea63cdd976f117d0c0d54eb0d8d55d0ac206fc14a781"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMMANDS.json",
+      "bytes": 1803,
+      "sha256": "93fe2a6cfd7b21b90774bc0e55fa2798609839d7982380c6a98de047031390d2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+      "bytes": 182855,
+      "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/lint-recipe.json",
+      "bytes": 1096,
+      "sha256": "97a42280851e51b4ae7dec1145ce6749f7507ee07d4b8538b3689496c18a663a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/continuation.py",
+      "bytes": 10130,
+      "sha256": "62e9095f5ab9ef25a29699644b14db61efb12fe1d26fe8e5ff68b42804282793"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/PREFLIGHT.json",
+      "bytes": 1730,
+      "sha256": "1ccb3930d9ba96f2c97bd8463ef9a8cef590d869593f8e77de58d8ef9fbc8d76"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/STATIC_CHECK.json",
+      "bytes": 2913,
+      "sha256": "df8402e91471e7ad41bfe8f330fe86f7f553b9bc0923f863bf4d4db65ef99f98"
+    }
+  ],
+  "commandIds": [
+    "lint",
+    "native-assessment",
+    "selected-action",
+    "owned-lifetime",
+    "unit",
+    "r6",
+    "f04a"
+  ],
+  "rootDecision": "Root independently read exactlintscript andfailure. Jointtriage: unchangedProduct/directHoG/ABG boundaries; lint is deterministic source syntax/data tool, notruntimeowner. Control supplied npm run lint without owner-required JSONrecipe argv[2], so readFile(undefined) failsbeforeanysourcecheck. This is proof invocation realization_refactor, noCandidate/Productdefect. Priorpreflightread commandname/script equality butmissedrequiredargument. Root selects exactcontrolrepair andresume remainingproof fromretainedsuccessfulbuild, notnewauthor/rebuild. New Writer grant ONLY P11/proof-01/reentry-01 controls/recipe/admission/receipts and newcreate-once continuationoutput inside /private/tmp/abg-rc11-proof-20261109-01; preserveoriginalproof01/HALT/commands/compiledwork/source/main. Reuse actual existingproofwork and preflight its1340source rows againstfrozen source, acceptingonlyrecorded build-derivedcontract/manifest deltas exactlyequalbuild/lint receipts; capturecompiledbuild/contracts/manifestinventory beforecontinuation forsubsequent packagingcorrespondence. No restaging orrecompilefirst. Create minimal owner-shaped JSONrecipe {lint:{files:[...]}} for6changed.mjs (helper,leaf,loader,3tests) +package.json/package-lock.json+2fixture.json; paths tenantrelative, kinds mjs/json. Use existing unchanged npm lint with explicit recipepath argument (or direct exactscriptwiththatargument, record route), notnewlintsemantics. MetadataTS alreadybuildchecked, README nocodecredit. Fresh continuation7commands: correctedlint then sixunexecutedselected3/unit/R6/F04A exactlypriorargs/timebounds/env/deps/guards, wholefilecounts/skips and12controlled+8physicaldiagnostic obligationsunchanged. Existingfirstbuildreceipt7e864972...730fa conjoinedlater; oldlintfailure641d975d...c6e retained, notoverwritten. You may prepare/syntaxcheck continuationcontrols; CONDITIONALLY ADMITTED to execute one continuation once above exactpreflights pass. Record Rootcontrolre-entry/admission withactualcontrolhashes. Reuseboundedcommandexecution/groupcleanup/logcapture recipe, no generalizedframework ornewtests. Stopfirstnewfailure, preserveallactualoutputs, noautopatch/retry/extension. Rootalreadyselectsthisinputrepair; noadditionalreadinesshandshake needed. Report majorresults promptly. No source/installation/Git/nativeprovider effects orqualificationclaim."
+}

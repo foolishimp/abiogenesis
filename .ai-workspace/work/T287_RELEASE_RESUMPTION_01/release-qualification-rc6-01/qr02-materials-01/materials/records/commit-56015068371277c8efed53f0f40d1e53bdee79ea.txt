@@ -1,0 +1,8 @@
+tree 01a2937ce8f1d1338eacf4c379e0298b4ad8ad09
+parent ac6dc9d7903e087dbc9eb58bf0841ab6c79cb877
+author Dimitar Popov <jimpopov@gmail.com> 1793218024 +1100
+committer Dimitar Popov <jimpopov@gmail.com> 1793218024 +1100
+
+D5-b accepted in part (no verdict: the projection stop; the attribution gate; the coverage catalog's eight unevidenced behaviors); D5-c activated without a provider: the inherited chain, the re-packed projection, the real execution material, the dispatch path; the sibling qualification operator configuration; the ticket's status lines repaired (603404b68 had spliced the next-work text into the activation line and dropped the activation-status line)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>

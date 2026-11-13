@@ -1,0 +1,14 @@
+{
+  "status": "READS_RETAINED",
+  "outcomes": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/reads/read-outcomes.json",
+    "bytes": 10660,
+    "sha256": "f27b8662ca6f294a0d9d78b26ac51fb8859063c3094dfefb70951c34c53803f6"
+  },
+  "finalOperatorResumeWritten": true,
+  "eventLogUnchanged": true,
+  "installedUnchanged": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "acceptance": false
+}

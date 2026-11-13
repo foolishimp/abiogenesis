@@ -1,0 +1,154 @@
+diff --git a/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs b/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
+index f04c6c7fd..6b39c2592 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
+@@ -1,7 +1,7 @@
+ import assert from 'node:assert/strict';
+ import { access, lstat, mkdir, mkdtemp, readFile, readdir, realpath, rename, rm, stat, symlink, writeFile } from 'node:fs/promises';
+ import fs from 'node:fs';
+-import { syncBuiltinESMExports } from 'node:module';
++import { createRequire, syncBuiltinESMExports } from 'node:module';
+ import { tmpdir } from 'node:os';
+ import { dirname, join } from 'node:path';
+ import { fileURLToPath, pathToFileURL } from 'node:url';
+@@ -796,10 +796,16 @@ test('Admitted failed and blocked Runs retain both fresh reads and unchanged eve
+ });
+ 
+ // Provider-free default setup over the fresh packed candidate. Pass-through
+-// observers count the owners' genuine heavy entries without replacing them: a
+-// cold verifier reads its artifact inside verifyProduct, and every declaration
+-// closure or native link TypeScript program reads the bundled default library
+-// once. A PATH wrapper records the environment the installation npm receives.
++// observers record the owners' genuine heavy entries without replacing them: a
++// cold verifier reads its artifact inside verifyProduct, and each fresh full
++// TypeScript program a declaration closure or native link constructs reads the
++// bundled default-library root once. A positive cold re-verification after the
++// compiler is warm, through the same installed verifier and fs instance, shows
++// that read still occurs, so the setup claim is bounded to fresh full program
++// construction on this successful fixed nonempty declaration path. The reads
++// count neither every verifier invocation nor all declaration work, and zero
++// does not exclude preliminary parsing. A PATH wrapper records the environment
++// the installation npm receives; only PATH and TMPDIR are scoped in-process.
+ test('Maintained setup retains actual owner verification through ten native calls and preserves configured environment',async t=>{
+   const tenantRoot=fileURLToPath(new URL('../../',import.meta.url)),basis=await readCandidateBasis(tenantRoot);
+   const packagePath=join(tenantRoot,'artifacts',basis.packageName.replace(/^@/u,'').replace('/','-')+'-'+basis.packageVersion+'.tgz');
+@@ -842,6 +848,7 @@ test('Maintained setup retains actual owner verification through ten native call
+   enter('bootstrap-acquisition');
+   assert.equal((await command('acquire-bootstrap','/usr/bin/tar',['-xzf',packagePath,'--strip-components=1','-C',bootstrapRoot])).exitCode,0);
+   const instanceRoot=await realpath(bootstrapRoot),toolchainRoot=join(instanceRoot,'build/toolchain')+'/';
++  const compilerKey=join(toolchainRoot,'typescript.cjs'),requireCache=createRequire(import.meta.url).cache;
+ 
+   const entries=[];
+   const stack=()=>{const limit=Error.stackTraceLimit;Error.stackTraceLimit=Infinity;try{return new Error().stack??'';}finally{Error.stackTraceLimit=limit;}};
+@@ -861,7 +868,7 @@ test('Maintained setup retains actual owner verification through ten native call
+     return original.readFileSync.call(this,path,...rest);
+   };
+   syncBuiltinESMExports();
+-  let runtime,native,caller,setup;const observed=new Map();
++  let runtime,native,caller,setup,compiler,warm;const observed=new Map();
+   try {
+     enter('installed-module-load');
+     runtime=await installedModules(bootstrapRoot);
+@@ -880,6 +887,14 @@ test('Maintained setup retains actual owner verification through ten native call
+     enter('restoration-control');
+     await assert.rejects(populateSandbox(caller),error=>error.code==='EEXIST');
+     assert.deepEqual({PATH:process.env.PATH,TMPDIR:process.env.TMPDIR},ambient,'ambient PATH/TMPDIR return after refusal');
++    // Positive control after warm-up, outside the serial setup interval: the
++    // same installed verifier and fs instance re-verify the fixed core request
++    // cold, with no owned value supplied.
++    compiler=requireCache[compilerKey];
++    assert.ok(compiler?.loaded,'the bundled compiler is already loaded before the control');
++    enter('warm-control');
++    warm=await verifyArtifact(runtime,{artifactPath:packagePath,manifest,expectedArtifactDigest:basis.artifactDigest},record,'warm-control');
++    enter('observation-end');
+   }finally {
+     fs.promises.readFile=original.readFile;fs.readFileSync=original.readFileSync;syncBuiltinESMExports();
+   }
+@@ -962,24 +977,53 @@ test('Maintained setup retains actual owner verification through ten native call
+   assert.equal((await lstat(join(setupTmp,'abiogenesis-event-store-locks-v5'))).isDirectory(),true);
+ 
+   // Heavy owner entries by Product and phase, all in the one installed instance.
++  // The complete serial setup interval (every phase before 'complete') is
++  // counted apart from the warm control; no heavy entry lies outside both.
+   const productOf=path=>path===packagePath?'core':path===observed.get('product-verify-1').call.resources.packedArtifact.artifactPath?'consumer':'other';
+   const heavy=entries.filter(row=>row.owner!==null);
+   assert.ok(heavy.every(row=>row.sameInstance),'heavy owner work runs in the installed setup module instance');
+   assert.equal(entries.filter(row=>row.kind==='type-program'&&row.owner===null).length,0);
+-  const verifiers=heavy.filter(row=>row.kind==='verifier').map(row=>({product:productOf(row.path),phase:row.phase}));
++  const setupPhases=phases.slice(0,phases.findIndex(row=>row.name==='complete')).map(row=>row.name);
++  const setupHeavy=heavy.filter(row=>setupPhases.includes(row.phase)),controlEntries=entries.filter(row=>row.phase==='warm-control');
++  assert.equal(heavy.length,setupHeavy.length+controlEntries.filter(row=>row.owner!==null).length,
++    'every heavy entry lies in the complete serial setup interval or the separate warm control');
++  const verifiers=setupHeavy.filter(row=>row.kind==='verifier').map(row=>({product:productOf(row.path),phase:row.phase}));
+   assert.deepEqual(verifiers,[{product:'core',phase:'core-initial-verification'},{product:'consumer',phase:'consumer-verification'}]);
+-  const programs=heavy.filter(row=>row.kind==='type-program').map(row=>({owner:row.owner,phase:row.phase}));
++  const programs=setupHeavy.filter(row=>row.kind==='type-program').map(row=>({owner:row.owner,phase:row.phase}));
+   const closurePrograms=programs.filter(row=>row.owner==='resolveNativeDeclarationClosures');
+   assert.equal(closurePrograms.filter(row=>row.phase==='core-initial-verification').length,1,'core declaration closure once');
+   assert.ok(closurePrograms.every(row=>['core-initial-verification','consumer-verification'].includes(row.phase)));
+   assert.ok(programs.filter(row=>row.owner==='linkNativeContractSet').length<=1);
+-  assert.equal(programs.filter(row=>labels.includes(row.phase)).length,0,'unchanged owned values cause no further declaration programs');
++  assert.equal(programs.filter(row=>labels.includes(row.phase)).length,0,'no fresh full TypeScript program construction in the ten call phases');
+   assert.ok(programs.every(row=>['core-initial-verification','consumer-verification','after:product-verify-1'].includes(row.phase)),
+-    'only first verification of each Product and the first product-set lock link build TypeScript programs');
++    'fresh full TypeScript programs occur only at first verification of each Product and the first product-set lock link');
++
++  // Warm positive control: one genuine cold re-verification of the fixed
++  // nonempty core declaration input after setup warmed the compiler.
++  assert.equal(requireCache[compilerKey],compiler,'the control runs in the same loaded bundled compiler');
++  assert.notEqual(warm.verified,native.verified,'the control is a fresh verifier result, not the owned setup value');
++  assert.deepEqual(warm.request,native.request,'the control uses the same fixed core request');
++  assert.equal(warm.verified.verificationDigest,native.verified.verificationDigest);
++  assert.equal(product.selectOwnedProductVerification(warm.request,warm.verified),warm.verified,'the same installed verifier owns the control result');
++  const declarations=warm.verified.nativeDeclarationEvidence;
++  assert.ok(declarations.contracts.length>0&&declarations.closures.length>0,'the fixed native declaration input is nonempty');
++  const shape=rows=>rows.map(({kind,owner,sameInstance})=>({kind,owner,sameInstance}));
++  assert.deepEqual(shape(controlEntries),[{kind:'verifier',owner:'verifyProduct',sameInstance:true},
++    {kind:'type-program',owner:'resolveNativeDeclarationClosures',sameInstance:true}],'cold re-verification after warm-up reads the artifact and the default library once');
++  assert.deepEqual(shape(controlEntries),shape(entries.filter(row=>row.phase==='core-initial-verification')),'warm-up does not hide the fresh program read');
++  assert.equal(controlEntries[0].path,packagePath);
++  const controlRecord=environmentAtRecord.find(row=>row.path==='warm-control-acquisition.json');
++  assert.deepEqual({PATH:controlRecord.PATH,TMPDIR:controlRecord.TMPDIR},ambient,'the control runs under the ambient values of the first verification');
+ 
+   const timing=phases.filter(row=>row.endMs!==null).map(row=>({phase:row.name,wallMs:Math.round((row.endMs-row.startMs)*10)/10}));
+   const counts={};for(const row of [...verifiers.map(x=>({...x,kind:'verifier'})),...programs.map(x=>({product:x.phase==='core-initial-verification'?'core':x.phase==='consumer-verification'?'consumer':'product-set',phase:x.phase,kind:x.owner}))])
+     counts[row.product+'/'+row.phase+'/'+row.kind]=(counts[row.product+'/'+row.phase+'/'+row.kind]??0)+1;
++  const controlCounts={};for(const row of controlEntries) {
++    const key='core/warm-control/'+(row.kind==='verifier'?'verifier':row.owner);controlCounts[key]=(controlCounts[key]??0)+1;
++  }
++  const setupStart=phases.find(row=>row.name==='installed-module-load').startMs,setupEnd=phases.find(row=>row.name==='complete').startMs;
++  const control=phases.find(row=>row.name==='warm-control'),wall=ms=>Math.round(ms*10)/10;
++  assert.ok(setupEnd<=control.startMs,'the warm control starts after the complete serial setup interval');
+   const resolved=observed.get('product-resolve');
+   const proof={kind:'maintained_setup_owner_reuse_proof',schemaVersion:'5.0.0',support:'support://abiogenesis/rc4/maintained-setup-owner-reuse',
+     package:{path:packagePath,artifactDigest:basis.artifactDigest,manifestDigest:basis.manifestDigest,productContentDigest:basis.productContentDigest},
+@@ -987,15 +1031,25 @@ test('Maintained setup retains actual owner verification through ten native call
+       ({label,acquisitionKind,outcomeKind,exitCode,invocationRef,closeDigest,wallMs:Math.round(wallMs*10)/10})),
+     closes:closes.map(row=>({label:row.label,acquisition:row.acquisition,prefixDigest:hash(row.prefix)})),finalEventCount:events.length,
+     installs:setup.installations.map(install=>({productId:install.productId,installId:install.installId,contentMatches:true})),
+-    heavyEntries:counts,phases:timing,environment:{configuredKeys:['PATH','TMPDIR'],installationNpmCalls:npmCalls.length,lockNamespaceUnderConfiguredTmp:true,
+-      restoredAfterSuccess:true,restoredAfterFailure:true},setupCliChildren:0,setupJsonlRequests:0,
++    heavyEntries:counts,phases:timing,
++    setupInterval:{fromPhase:'installed-module-load',toPhase:setupPhases.at(-1),wallMs:wall(setupEnd-setupStart),heavyEntries:counts},
++    warmControl:{phase:'warm-control',owner:'ProductVerificationPort.verify (verifyProductArtifact -> verifyProduct)',product:'core',
++      request:'the fixed core verification request, no owned verified value',verificationDigest:warm.verified.verificationDigest,
++      nativeContracts:declarations.contracts.length,declarationClosures:declarations.closures.length,wallMs:wall(control.endMs-control.startMs),heavyEntries:controlCounts},
++    librarySentinel:{claim:'Each fresh full TypeScript program constructed by resolveNativeDeclarationClosures or linkNativeContractSet on this successful '+
++      'fixed nonempty declaration path reads the installed bundled lib.*.full.d.ts default-library root once; the warm control shows the read persists after compiler warm-up.',
++      limits:['It does not count every verifier invocation or all declaration work.',
++        'Zero reads in a phase exclude only fresh full program construction there, not preliminary parsing.']},
++    environment:{configuredKeys:['PATH','TMPDIR'],installationNpmCalls:npmCalls.length,lockNamespaceUnderConfiguredTmp:true,
++      restoredAfterSuccess:true,restoredAfterFailure:true,ambientInProcessKeys:inheritedKeys,fullEnvironmentEquivalence:false},setupCliChildren:0,setupJsonlRequests:0,
+     resolveCall:{invocationRef:resolved.call.invocation.invocationRef,invocationDigest:resolved.call.invocation.invocationDigest},
+-    limits:'Provider-free setup proof only: measured phases of this run; no lifecycle, pilot, history or whole-qualification claim.'};
++    limits:'Provider-free setup proof only: measured phases of this run; library reads bound only fresh full TypeScript program construction on this path; '+
++      'only PATH and TMPDIR are scoped in-process, other configured environment keys stay ambient; no full environment equivalence, lifecycle, pilot, history or whole-qualification claim.'};
+   await exclusiveRecord(root,'maintained-setup-proof.json',proof);
+   // Test-only evidence for the existing raw controls; never re-ingested by setup.
+   const evidence=join(tenantRoot,'artifacts/setup020');await mkdir(evidence,{recursive:true});
+   await writeFile(join(evidence,'preparation-resolve-call.json'),JSON.stringify(resolved.call)+'\n',{flag:'wx'});
+   await writeFile(join(evidence,'preparation-resolve-receipt.json'),JSON.stringify(resolved.outcome)+'\n',{flag:'wx'});
+   await writeFile(join(evidence,'maintained-setup-proof.json'),JSON.stringify(proof,null,2)+'\n',{flag:'wx'});
+-  t.diagnostic(JSON.stringify({heavyEntries:counts,phases:timing}));
++  t.diagnostic(JSON.stringify({heavyEntries:counts,warmControl:controlCounts,phases:timing}));
+ });

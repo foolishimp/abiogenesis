@@ -1,0 +1,99 @@
+{
+  "checks": [
+    {
+      "ordinalZeroBased": 12,
+      "tool": {
+        "line": 2187,
+        "id": "toolu_01Uoxj8P9c8ePW4GZqTULpTR",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && S=qualification-scratch/rc11-effect-phase2-01/native-02 && mkdir -p $S/tenant && cp build_tenants/abiogenesis/typescript/package.json $S/tenant/package.json && ln -sfn /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules $S/tenant/node_modules && ls -la $S/tenant && T0=$(date +%s); perl -e 'alarm 240; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js -p /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/tsconfig.json --outDir /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src --incremental false > $S/compile-01.log 2>&1; echo \"exit=$? secs=$(( $(date +%s)-T0 ))\"; head -40 $S/compile-01.log",
+          "description": "Prepare scratch tenant and compile into it",
+          "timeout": 300000
+        },
+        "result": {
+          "line": 2191,
+          "isError": false,
+          "canonicalBytes": 378,
+          "sha256": "54f150ef0e4d248a007e6fe8ff7a5c53f13b728d4259a459b8552f3b3f3480ef"
+        }
+      },
+      "actualOutput": {
+        "line": 2191,
+        "isError": false,
+        "content": "total 24\ndrwxr-xr-x  4 jim  wheel    128 Nov 10 11:51 .\ndrwx------  7 jim  wheel    224 Nov 10 11:51 ..\nlrwxr-xr-x  1 jim  wheel     94 Nov 10 11:51 node_modules -> /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules\n-rw-r--r--  1 jim  wheel  10105 Nov 10 11:51 package.json\nexit=0 secs=8"
+      },
+      "scope": "Native admitted cheap selfcheck only"
+    },
+    {
+      "ordinalZeroBased": 13,
+      "tool": {
+        "line": 2284,
+        "id": "toolu_01TbNfVUsC6aNaAbEGHSczZ5",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02 && T0=$(date +%s); env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 '--test-name-pattern=^controlled (timing|lifetime):' test_env/tests/t287-owned-process-lifetime.test.mjs > $S/controlled-01.tap 2>&1; echo \"exit=$? secs=$(( $(date +%s)-T0 ))\"; grep -E \"^(not )?ok|^# (tests|pass|fail|skipped|cancelled)\" $S/controlled-01.tap | grep -v \"# SKIP\" | head -30",
+          "description": "Run controlled timing/lifetime selector on scratch owner",
+          "timeout": 90000
+        },
+        "result": {
+          "line": 2288,
+          "isError": false,
+          "canonicalBytes": 1200,
+          "sha256": "45b41e835d68b082e2579f06455df83326c798c26ecbe7508cfe33755cc1d61a"
+        }
+      },
+      "actualOutput": {
+        "line": 2288,
+        "isError": false,
+        "content": "exit=0 secs=1\nok 1 - controlled timing: host boundaries, finite huge and fractional delays never become early actions\nok 2 - controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing\nok 3 - controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit\nok 4 - controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure\nok 5 - controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection\nok 6 - controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct\nok 7 - controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close\nok 8 - controlled lifetime: callback errors stop ordinary observations and retain the first error\nok 9 - controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct\nok 10 - controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds\n# tests 10\n# pass 10\n# fail 0\n# cancelled 0\n# skipped 0"
+      },
+      "scope": "Native admitted cheap selfcheck only"
+    },
+    {
+      "ordinalZeroBased": 15,
+      "tool": {
+        "line": 2805,
+        "id": "toolu_01Dy4VSgGvSJicbereB9AV72",
+        "name": "Bash",
+        "input": {
+          "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02 && T0=$(date +%s); env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 '--test-name-pattern=^controlled (timing|lifetime):' test_env/tests/t287-owned-process-lifetime.test.mjs > $S/controlled-02.tap 2>&1; echo \"exit=$? secs=$(( $(date +%s)-T0 ))\"; grep -E \"^(not )?ok|^# (tests|pass|fail|skipped|cancelled)\" $S/controlled-02.tap | head -30; grep -n -A25 \"^not ok\" $S/controlled-02.tap | head -60",
+          "description": "Run controlled selector with new cases on scratch owner",
+          "timeout": 90000
+        },
+        "result": {
+          "line": 2809,
+          "isError": false,
+          "canonicalBytes": 1557,
+          "sha256": "478eed3bf3b21aec6f9f43693318359a18dfcb9c3e7109256cd9fff3ada01d6b"
+        }
+      },
+      "actualOutput": {
+        "line": 2809,
+        "isError": false,
+        "content": "exit=0 secs=0\nok 1 - controlled timing: host boundaries, finite huge and fractional delays never become early actions\nok 2 - controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing\nok 3 - controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit\nok 4 - controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure\nok 5 - controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection\nok 6 - controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct\nok 7 - controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close\nok 8 - controlled lifetime: callback errors stop ordinary observations and retain the first error\nok 9 - controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct\nok 10 - controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes\nok 11 - controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows\nok 12 - controlled lifetime: first error and disposal faults are recorded before the one completion publication\nok 13 - controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds\n# tests 13\n# pass 13\n# fail 0\n# cancelled 0\n# skipped 0"
+      },
+      "scope": "Native admitted cheap selfcheck only"
+    }
+  ],
+  "receipts": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/compile-01.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/controlled-01.tap",
+      "bytes": 2818,
+      "sha256": "6b1369ccf3b8af1995792a73a4965f634e24ec082f1fb1f0f79f6af35c9b97f6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/controlled-02.tap",
+      "bytes": 3686,
+      "sha256": "d59a4317118b302e50410c542d8c3569dd2c247403fefdd8273332226427a922"
+    }
+  ],
+  "population": "10baseline then13final controlled timing/lifetime cases, allpass0fail0skip. Fullfile/physical/helper/worker not executed.",
+  "firstRed": null,
+  "compilerInputOrder": "Source state Write ordinal10 and lifetime replacement11 precede compile12. Only test additions14 and plan correction18 follow; no further production writes observed. Fullsourcecustody exact."
+}

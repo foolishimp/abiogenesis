@@ -1,0 +1,76 @@
+{
+  "file": "test_env/tests/integration-shared-seams.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 607.5129169999855,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "shared R10 Catalog verifier preserves exact supplied environment and narrowed View on the integrated owner",
+      "file": "test_env/tests/integration-shared-seams.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/attempt-01/program-ready-16.json (sha256:2147862a16f8)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/032-integration-shared-seams.jsonl",
+    "bytes": 1267,
+    "sha256": "81abcc95e03c78c6201e13facc7bf08adfd4191bda08b0234a4bd106e8559034"
+  },
+  "commandReceipt": "commands/032-integration-shared-seams.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-non-root-alias-selection.json",
+      "kind": "file",
+      "bytes": 2473,
+      "sha256": "2d05bbba082de4d05d49e63db981238217f09d7cd122c6250c66a0ebce7b40ca",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r7.json",
+      "kind": "file",
+      "bytes": 3331,
+      "sha256": "dbedb7617512eccd43442fec156907b2015c8145b340e54882c3d698ab99cd95",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r8.json",
+      "kind": "file",
+      "bytes": 2444,
+      "sha256": "1ae7c42e56208dc7d2ec3626519cd70ec0decee06581a3f3c996a31936c7f6db",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

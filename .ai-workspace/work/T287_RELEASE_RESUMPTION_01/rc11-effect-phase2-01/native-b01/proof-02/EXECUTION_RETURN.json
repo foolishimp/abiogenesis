@@ -1,0 +1,121 @@
+{
+  "status": "UNIT_COMPLETE_RED_HELD_FOR_MULTIFRAME_TRIAGE",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "campaign": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/CAMPAIGN_RETURN.json",
+    "bytes": 616,
+    "sha256": "c4f38179c70e037d2951f11f0a39d6f1b68941de994a8ec683c9271a4b51cb6e"
+  },
+  "unitCommand": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/COMMAND_RETURN.json",
+    "bytes": 1329,
+    "sha256": "e63c070d1a72c13de3c3ccfd0313167d97a29917a69cfe75f723e33c83d4ae49"
+  },
+  "unitFailure": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/UNIT_RETURN.json",
+    "bytes": 1078,
+    "sha256": "e8e25683a1b751395b248fb340d36ad7845e84c5faf0e4ac8d666329d5744cc8"
+  },
+  "halt": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/HALT.json",
+    "bytes": 2848,
+    "sha256": "b891687f09145c69ef1d670746330b216630a3398f35c47f8a0f0be882b95b57"
+  },
+  "population": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ACTUAL_POPULATION.json",
+    "bytes": 35356,
+    "sha256": "3130b1307dd238eec7fdbaf1096ea430fefb9d6f2624e383ee3b19256b857534"
+  },
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/POSTGUARDS.json",
+    "bytes": 719,
+    "sha256": "eff60e8cbcecbc3e570e5e664953e311ebb487cbf45df663a88ac68fe602ab54"
+  },
+  "physicalClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/PHYSICAL_CLOSURE.json",
+    "bytes": 6913,
+    "sha256": "187f394532e7ec8b4fb2e1e205b3b942a51696370f950e8afd1c1c4ae7538782"
+  },
+  "counts": {
+    "tests": 102,
+    "pass": 95,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0
+  },
+  "failedCase": {
+    "result": "not ok",
+    "ordinal": 62,
+    "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+    "skip": false
+  },
+  "failedEvidence": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-http-normal--87629.json",
+    "bytes": 1128,
+    "sha256": "da28348aebff578cfe586f6c6371d3f2ea58a5049d4f1f1975afbd29ff1e6bf6"
+  },
+  "observedPremise": {
+    "caseId": "owned-group-http-normal",
+    "bounds": {
+      "timeoutMs": 10705,
+      "absoluteTimeoutMs": 11505,
+      "requestMs": 10505,
+      "graceMs": 150
+    },
+    "settledMs": 215.6620830000029,
+    "leaderRecord": "{\"pid\":89033}",
+    "readyRecord": "{\"pid\":89034,\"ppid\":89033}",
+    "signals": [
+      "SIGTERM",
+      "SIGKILL"
+    ],
+    "groupPresent": false,
+    "descendantPresent": false,
+    "failure": null,
+    "observation": {
+      "request": null,
+      "portFile": {
+        "relativePath": "http-normal.port",
+        "port": null,
+        "state": "absent",
+        "issue": "process_exited_before_port",
+        "byteLength": null,
+        "digest": null
+      },
+      "response": null,
+      "process": {
+        "exitStatus": 0,
+        "processSignal": null,
+        "timedOut": false,
+        "signalSequence": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "terminationConfirmed": true,
+        "stdout": {
+          "kind": "worksite_observed_stream",
+          "schemaVersion": "5.0.0",
+          "encoding": "base64",
+          "payload": "cmVhZHkK",
+          "byteLength": 6,
+          "digest": "sha256:ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+        },
+        "stderr": {
+          "kind": "worksite_observed_stream",
+          "schemaVersion": "5.0.0",
+          "encoding": "base64",
+          "payload": "",
+          "byteLength": 0,
+          "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  },
+  "m5EvidenceMissing": [
+    "owned-group-http-TERM"
+  ],
+  "classification": "Unclassified pending Product/Design/Proof triage; no source fix, fixture explanation or repeat selected.",
+  "sourceBuildArtifactDependencyProtectionConserved": true,
+  "additionalEffects": false
+}

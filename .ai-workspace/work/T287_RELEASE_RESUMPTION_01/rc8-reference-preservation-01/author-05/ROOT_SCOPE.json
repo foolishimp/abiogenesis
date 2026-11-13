@@ -1,0 +1,121 @@
+{
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "id": "T287-RC8-AUTHOR05-FIXTURE-PREREQUISITE-COMPLETION",
+  "recordedUtc": "2026-11-07T07:21:30.382602+00:00",
+  "authority": "Executive /root author05 final selection and closed review conjunction; owner prepare then one dispatch authorized without further GO; existing user approval unchanged",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "sourcePreimageDigest": "f83837d581e02cc4a3fa4be8aa41dfe9d0722ea1be81df1b05de95ed25edaa0f",
+  "sourcePreimageFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/source-freeze.json",
+    "bytes": 296419,
+    "sha256": "b82455e8336bacc858f4d1384712631d953f4e84da0a19959e8602a26280dcd8"
+  },
+  "acceptedProductSourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+  "productArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-004/REVIEW.json",
+    "bytes": 25224,
+    "sha256": "f106c14c9138f4d3bc50ceeac46646851ef70a6a0604a2a8622f0cad10cd4c8a"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-004/README.md",
+    "bytes": 4339,
+    "sha256": "1c67058f53fbf9494850c1e3cf10a3876e930a159608ffd903f71fa3074d4ebf"
+  },
+  "actualPriorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/runtime-001/resource-close.json",
+    "bytes": 2305,
+    "sha256": "a986010d429a38468db99dadd6c198c74772247477077393ed6c783d29189e88"
+  },
+  "priorReadback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/readbacks-001/RESULT.json",
+    "bytes": 6629,
+    "sha256": "e7d63e2a1ebb045ad3b8a50617140d8a9d31fbe0c558090824479159c8187c99"
+  },
+  "priorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/OPERATOR_RETURN.json",
+    "bytes": 17483,
+    "sha256": "5b1e9e28f23fb2172b4afa28c6361c7e6c1e76059428101cfe15927e03d52a6c"
+  },
+  "rootConjunction": {
+    "finding": "One remaining S2 fixture-prereparation defect, no demonstrated Product runtime defect",
+    "origin": "F04 supplies an empty recorder plus a bare fibre, omitting exact basis_admitted, c_call_opened and complete leaf/F_P fibre. Actor-level contextAtActor hid missing producer prerequisites; the real window projector correctly returns null.",
+    "selectedCorrection": "Seed F04 from retained real execution-basis records and coherent canonical occurrence/opened/fibre facts; use actual projectActorLivenessContext preflight/current recorder and retire the divergent contextAtActor/projector stand-in. Keep both ActorProcess and window owner on the same real projector/prefix.",
+    "sibling": "Native-work fixture already declares/preflights prerequisites but remains unrun; preserve it and prove whole file.",
+    "processCorrection": "A4 artificially omitted transitive owning files. Author05 read scope includes the owner-library code/src tree and needed actual imports. Preserve A4 three-line runtime_liveness_contracts grep disclosure; no additional user permission required."
+  },
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs"
+  ],
+  "readOnlyOwnerLibraryRoot": "build_tenants/abiogenesis/typescript/code/src",
+  "priorityOwnerReads": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/retry_progress.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts"
+  ],
+  "selectedExternalReadReferences": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-004/REVIEW.json",
+      "bytes": 25224,
+      "sha256": "f106c14c9138f4d3bc50ceeac46646851ef70a6a0604a2a8622f0cad10cd4c8a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-004/README.md",
+      "bytes": 4339,
+      "sha256": "1c67058f53fbf9494850c1e3cf10a3876e930a159608ffd903f71fa3074d4ebf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/author-04/HANDOFF.md",
+      "bytes": 9193,
+      "sha256": "2a429c9acad6140a0d004f28b243d74a42565d48b642a66a6ed969eee8cae367"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/OPERATOR_RETURN.json",
+      "bytes": 17483,
+      "sha256": "5b1e9e28f23fb2172b4afa28c6361c7e6c1e76059428101cfe15927e03d52a6c"
+    }
+  ],
+  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-05",
+  "budgets": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "focusedWholeFileInvocations": 2,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000
+  },
+  "prohibited": [
+    "No Product/HOW/runtime algorithms or guard/effect change",
+    "No handcrafted probe contracts, new context mock, copied algorithm or generic protocol",
+    "No assertion/mode removal or legacy switch",
+    "No second codingWorker, retry after red, completed broad rerun, build/generator, Git/cut/push/selector/cleanup"
+  ],
+  "permissions": {
+    "ownerPrepare": true,
+    "oneNativeDispatchWhenCanonicalReady": true,
+    "furtherRootGoRequired": false,
+    "sourceCodingByOperator": false,
+    "broadExecution": false
+  }
+}

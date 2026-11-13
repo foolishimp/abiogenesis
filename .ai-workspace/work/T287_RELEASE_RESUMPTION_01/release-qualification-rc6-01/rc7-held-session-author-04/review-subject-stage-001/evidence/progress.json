@@ -1,0 +1,48 @@
+{
+  "kind": "h04_native_author_progress",
+  "updatedUtc": "2026-11-06T18:29:00.861Z",
+  "status": "SOURCE_FROZEN_PAYLOAD_REUSE_IN_PROGRESS_PROOF_PENDING",
+  "edits": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "beforeBytes": 39862,
+      "beforeSha256": "a36bb612733a3fd39802413868f1f6c55ac757207788cfdd94b4f6247e0b7dcc",
+      "afterBytes": 39883,
+      "afterSha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34",
+      "change": "line333 programBinding.productRoot reads the already projected body state.environment.workspaceBinding.roots.productRoot instead of the {ref,digest} coordinate state.binding"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "beforeBytes": 370774,
+      "beforeSha256": "2825568c61d32e7bb6291119fafd140917b205f101a2a9bf3b708e030e5c59cd",
+      "afterBytes": 370990,
+      "afterSha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650",
+      "change": "line2537 W is the projected body caller.state.environment.workspaceBinding (2542-2543 root assertions unchanged, now over the body); line2552 replaces the roots read on the recorded coordinate with two coordinate assertions: setup-identity.workspaceBinding equals the admitted coordinate caller.state.binding, and equals {ref:W.bindingId,digest:W.bindingDigest}"
+    }
+  ],
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-source-freeze.json",
+    "bytes": 96811,
+    "sha256": "47b44fa41ed01cffc9e920725ab8a6aabf56fe67f24ed0c461e6f1337aa0c08d",
+    "label": "hs4-stage-01",
+    "sourceCount": 451,
+    "sourceDigest": "4cc3964124aa8424db8d67d2f992c4a9f8624fd0a88913f09dba478199551956",
+    "stage": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01",
+    "editedRows": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "bytes": 39883,
+        "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 370990,
+        "sha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650"
+      }
+    ],
+    "meaning": "Frozen 451-row H04 subject published before payload copy completion and before any lane, for parallel independent frozen review."
+  },
+  "stage": null,
+  "lanes": [],
+  "accepted": false
+}

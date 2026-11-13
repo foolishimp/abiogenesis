@@ -1,0 +1,114 @@
+{
+  "id": "RC10-SOURCE-01-F1-PREPARATION-001",
+  "status": "closed",
+  "recordedAt": "2026-11-09T03:41:06.219731+00:00",
+  "actor": "/root/rc10_source_review",
+  "role": "Reviewer",
+  "consumer": "/root Executive",
+  "skill": "exact installed STDO v3.0.4 stdo-review, recipient; existing verified intake reused",
+  "productFrame": "ABIogenesis 5.0 fixed fifteen families; T-287 RC10 disposable execution-basis retention in existing owners. GTL declares, HoG traverses, owners perform effects, ABG admits, replay reconstructs. Basis retention/gauges are deterministic computation/evidence, not runtime authority. This follow-up assesses only whether external measurement can falsify F1 on the selected native start path. No Product, public API, hostile-host, global heap, provider/UAT or release claim is added.",
+  "basis": {
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame_sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "prior_review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/reviews/source-001/REVIEW.json",
+      "bytes": 21604,
+      "sha256": "dd327d8eb701033b2b8b0da293960a5716cf7326813d743675f5cf4fb7cb3cd8"
+    },
+    "root_disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/ROOT_REVIEW_DISPOSITION.001.json",
+      "bytes": 1400,
+      "sha256": "02775086f55dee33d80c57df430f150b78e1a2f6304f5357e0772724cf3257b0"
+    }
+  },
+  "subject": {
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/READY.PREPARATION.001.json",
+      "bytes": 2308,
+      "sha256": "9a63f30ede78d2d1dfdda4a25ddd1265a5461d5071d7673558870f83cae4089c"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/BINDING.HELD.001.json",
+      "bytes": 7189,
+      "sha256": "9e6a94451de072ea2a084bdcba38a0e420ac92417571c61a27fd0b9bfd40a5d1"
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+      "bytes": 18586,
+      "sha256": "6ee572a47ba4fef8ac35ef0a8130415e306986da8aa306675ec2149b2cf44663"
+    },
+    "host": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/run-measurement.mjs",
+      "bytes": 6877,
+      "sha256": "232618be9344c8e1b17c6e2fe4da5ac45e98ffb77904c201bd8b4f7b0b9e17d3"
+    },
+    "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+    "artifact_install_relation": "unbound/null; no execution admission"
+  },
+  "claim": "Prepared adapter can detect absent actual run-owner retention, observe active same-row identity/work reuse, and measure post-return release on the selected 50-call 1/4 MiB native workload without artificially opening retention.",
+  "verdict": "satisfied",
+  "standing": "Suitable preparation within the stated path/population; F1 remains OPEN until valid bound execution evidence is consumed. No operational success inferred.",
+  "findings": [],
+  "triage": "not_applicable",
+  "priority": "not_applicable to this no-finding preparation result; original F1 priority/disposition remains Root-owned",
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+      "lines": "32-48,55-58",
+      "judgment": "Exact archive bootstrap path creates a real installed environment and acquired held resource; public constructInstalledStartCall and runInstalledDefinitionCallWithResource drive native-work. File bodies are physically observed through observeWorksiteContext and admitted task construction."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+      "lines": "60-77",
+      "judgment": "Positive openHandles, retainedRows and historyBasisBodies must exist BEFORE observation reads. The witness selects exact current held owner metadata and matching actual invocation. It opens no handle, mutates no retention cache directly, and constructs no event/prefix authority."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+      "lines": "66-75,85-87",
+      "judgment": "One basis row is selected under the declared simple fixture. Both first and second reads must do zero rowAdmissions/bodyDigests; strict reference identity, invocation match, terminal producer basis match and unchanged gauges are required. Removing genuine owner acquisition prevents all positive gates; zero-after can no longer pass vacuously."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+      "lines": "40-42,52-58,80-99",
+      "judgment": "50 sequential actual calls alternate 1 MiB and 4 MiB context files, 25 each. All calls require positive sampled retention and zero after completion; first pair require the detailed identity/work witness. Logical retained payload maxima equal the full constructed task canonical bytes, distinguished from file byte count."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+      "lines": "90-107,111-121",
+      "judgment": "First-two basis digests are rechecked after later call groups; historical reads must leave zero gauges. First/last warm result and bounded replay are compared with cold installed CLI reads after actual close and unchanged event-resource identity. Body/call/result values are not accumulated across calls; natural parent heap samples remain observations, not GC or memory guarantees."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/run-measurement.mjs",
+      "lines": "8-24,27-34",
+      "judgment": "Held status refuses before allocation. Future execution needs separately pinned Root admission and bound archive/install/source relation. Launcher pins Node, runner, reporter, actor, helpers and controls; uses absent-only scratch/output, explicit limits, offline/script-disabled package environment, complete one-case reporter and 50-call/close accounting; failures do not retry."
+    }
+  ],
+  "counterexample_analysis": {
+    "original_F1_mutation": "Omitting production retainBasisLifetime integrations yields no positive gauges before observer reads. The witness remains absent and active maxima assertion fails. This is source reasoning; mutation was not executed.",
+    "observer_cold_warm": "If the matching row were not already cached, the first read increases rowAdmissions/bodyDigests and fails the combined zero-work assertion. Reading twice cannot silently warm the row and then claim reuse.",
+    "missing_sample": "A missed 20 ms sampling window fails the test. Timing may create false negatives/incompleteness but cannot produce a passing zero-only witness.",
+    "other_invocation": "Current-call matching metadata, prior ZERO, exact basis relation to terminal producer and unchanged logical gauges prevent substituting the historical sentinel as the active witness under the simple one-basis fixture."
+  },
+  "helper_inspection": "All declared runner/reporter/scriptedActor/helper pins independently matched. Frozen-artifact helper branch consumes archive and installed bootstrap, avoiding fallback npm pack. Scripted actor checks and reads exactly one 1/4 MiB file and emits the existing short report. Runner command execution is bounded and terminates its process group; existing controls are not a technical filesystem isolation claim.",
+  "limits": [
+    "No tests, syntax checks, build, install, native/provider invocation or measurement executed by this Reviewer.",
+    "Archive, installation identity, actual source-to-compiled-artifact relation and Root execution admission are not yet bound. A future relation record matching identities is not by itself proof of those identities; Root must consume its exact supporting evidence before reliance.",
+    "Only the native start/runInvocationOwner path receives actual in-flight evidence; three continuation entry families, real overlap, rollback, malformed/duplicate/foreign rows, failure/interruption and held-gap exits remain outside this execution population.",
+    "Positive gauges are sampled; maxima are not high-water bounds. First two calls get full same-row identity/work witness, other calls get positive gauges and completion release.",
+    "Cold read parity is first/last Run result and bounded replay, not every historical Run or full history qualification. Historical sentinels are the first two basis rows.",
+    "Natural heap includes ordinary allocation and observer effects; no forced GC, reclamation bound, speedup or provider-productivity inference is supported. Aggregate scratch checks are observations between calls, not a hard quota.",
+    "F2 HOW successor and exact compiled-input transfer relation are pending and separate. This preparation result does not amend or close the original review."
+  ],
+  "unsafe_coupling": "No blocker found in the selected proof seam. Genuine owner production precedes observer cache reads; no artificial handle, fixture-authored event, raw RuntimeEventPrefix cast, retained full output array or forced-GC dependency was found.",
+  "invalidation": [
+    "Measurement/host/helper/control byte change",
+    "Changed source or eventual artifact/install/compiled-input relation",
+    "Different operation family, graph shape or evidence population",
+    "Actual execution shows missing positive witness, gauge growth, nonzero repeated row work, historical reminting, wrong source identity or failed close/read parity"
+  ],
+  "owning_reentry": "Return to Root for exact artifact binding, execution admission and later evidence consumption. No continuation or repair activated.",
+  "effects": "Only new measurement-preparation-001.json and .md under reviews/source-001; original report preserved."
+}

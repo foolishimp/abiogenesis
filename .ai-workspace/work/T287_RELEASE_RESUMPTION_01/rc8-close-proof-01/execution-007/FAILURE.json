@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-07T07:56:50.223Z",
+  "failure": "Error: FIRST_TEST_RED_OR_INCOMPLETE: test_env/tests/t287-framework-handoff-types.test.mjs\n    at run (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-007.mjs:229:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-007.mjs:257:3",
+  "retainedScratch": "/private/tmp/abg-r8c-007",
+  "autoRetry": false
+}

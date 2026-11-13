@@ -1,0 +1,197 @@
+{
+  "kind": "actual_s3_session_costs",
+  "createdUtc": "2026-11-06T23:44:50.135175+00:00",
+  "sources": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/commands/sdk-native-host.request.json",
+      "bytes": 1873,
+      "sha256": "fe587d255ef834e9756787e2f52e33b42984bd760af935c0abdb7a2ae9dbf8c3"
+    },
+    "hostPreparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/HOST_PREPARATION_STARTED.json",
+      "bytes": 200,
+      "sha256": "ad0c61db1239f2f8fc4bb70ef5b4af4bd06d3802fa91715100af368a6d292bb9"
+    },
+    "phaseReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/PREPARATION_PHASES.json",
+      "bytes": 3580,
+      "sha256": "d6947220fecc417e25df8437642e5e447cc2678cbbdcdfa9899714aeb04c6364"
+    },
+    "actualActorStart": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/ACTOR_START.json",
+      "bytes": 2070,
+      "sha256": "207d6fb7f149e0565c23e8f2f57e8a274353534c2f703050aee7fb9cce8bafcb"
+    },
+    "outcomeSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/outcome-summary.json",
+      "bytes": 824,
+      "sha256": "380128248f86bd4756061b80651c2b96291a28d72f30130d524d42be293eccfc"
+    },
+    "resourceClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/resource-close.json",
+      "bytes": 2308,
+      "sha256": "a3eb80a805bf9b72de77fcd0ae9c315c3e7252065beac3311533c5e63b2fd479"
+    },
+    "proofInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/PROOF_INVENTORY.json",
+      "bytes": 31098,
+      "sha256": "35d3a1ecaa3629c5d7a956fd551c17ec492d1463ff988a9c55467f2b3fafcc83"
+    },
+    "bootstrapOrder": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/BOOTSTRAP_ORDERING_001.json",
+      "bytes": 2752,
+      "sha256": "3196d62a7dfb82b2032cf9528ddeec53aa2b166988d1c6f0c7773baa084c8581"
+    }
+  },
+  "requestUtc": "2026-11-06T23:10:28.597Z",
+  "hostStartedUtc": "2026-11-06T23:10:29.640Z",
+  "actorStartedUtc": "2026-11-06T23:12:54.942Z",
+  "ownerEndedUtc": "2026-11-06T23:44:02.784Z",
+  "requestToHostMs": 1043.0,
+  "setupPhasesMs": {
+    "identityMs": 1142.092375,
+    "acquisitionMs": 57690.666334,
+    "environmentMs": 78072.95204100003,
+    "callConstructionMs": 1877.669041999994,
+    "totalPreparedMs": 138783.37979200002
+  },
+  "marksMs": {
+    "beforeRunIdentityMs": 1142.092375,
+    "acquiredMs": 58832.758709,
+    "environmentMs": 136905.71075000003,
+    "preparedMs": 138783.37979200002
+  },
+  "hostToActorMs": 145302.0,
+  "preparedToActorMs": 6518.620207999978,
+  "actorToOwnerSummaryEndMs": 1867842.0,
+  "nativeActualWorkOnlyMs": null,
+  "sdkReturnToPhysicalCloseMs": null,
+  "timingPartitionLimit": "No separate exact actor-completion/SDK-return/physical-close timestamps were observed. Actor-to-owner-end includes native work/testing plus completion/return/close; it is not pure native work duration.",
+  "stages": [
+    {
+      "label": "sw3-stage-01",
+      "mode": "after",
+      "sourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+      "sourceFreeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/source-freeze.json",
+        "bytes": 96810,
+        "sha256": "86c14252b414e6b3a600c16a2c112178f97bcae2e0ac2938c1714e046e1f1b37"
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/stage.json",
+        "bytes": 97762,
+        "sha256": "27c2c400baf15dd1a4c754fed7df0bfbd22f6af13f6ff7473a084904cabc7340"
+      },
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/SUBJECT.json",
+        "bytes": 281811,
+        "sha256": "e1dd758611d6ededf884109a4f589caf43a5f5504f230715b7bdf0b6869286f7"
+      },
+      "sameAll451AsActualNativeAfter": true,
+      "setupMs": 1846,
+      "phases": {
+        "compile": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 7333,
+          "error": null
+        },
+        "generate": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 22317,
+          "error": null
+        },
+        "lifecycle": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 583,
+          "error": null
+        }
+      }
+    }
+  ],
+  "laneDurationsMs": {
+    "sw3-stage-01/stdout-differential": 9957,
+    "sw3-stage-01/scope-ordering": 1230,
+    "sw3-stage-01/timeout-interruption": 3736,
+    "sw3-stage-01/archive-integrity": 1674,
+    "sw3-stage-01/legacy-replay": 9378,
+    "sw3-stage-01/native-caller": 501
+  },
+  "nestedTimingLimit": "Stage/lane times occur inside actor-to-owner-end and must not be added to it.",
+  "bootstrapObservation": {
+    "initialProgress": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/handoffs/progress-48fcffc5c4ba.json",
+      "bytes": 690,
+      "sha256": "48fcffc5c4baf6dfe9ae251e18ab7b1bce5f6c8eb9270ed1f74d504f272db9f4"
+    },
+    "ordering": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/BOOTSTRAP_ORDERING_001.json",
+      "bytes": 2752,
+      "sha256": "3196d62a7dfb82b2032cf9528ddeec53aa2b166988d1c6f0c7773baa084c8581"
+    },
+    "finalDisclosure": {
+      "initialProgress": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/handoffs/progress-48fcffc5c4ba.json",
+        "bytes": 690,
+        "sha256": "48fcffc5c4baf6dfe9ae251e18ab7b1bce5f6c8eb9270ed1f74d504f272db9f4"
+      },
+      "readFirstProgress": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/handoffs/progress-4e24b3ed2cc9.json",
+        "bytes": 2247,
+        "sha256": "4e24b3ed2cc90aa307d7d02385080a83492f4982fbeca5aaa44c7f56b5510a9f"
+      },
+      "standing": "Authored read-first receipt and permitted path/time metadata are retained with their coverage limits. Authored clocks are claims, not observed request times. No whole-procedure or no-outside-effects assurance.",
+      "finalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/handoffs/return.json",
+        "bytes": 11244,
+        "sha256": "f968a1605e6f1e9017e8eaf6f0f15ac8cc2acc5781f3777708121732fc6ab8ac"
+      },
+      "authoredDisclosures": [
+        "HOW 10.10 (E-F cold window adoption, E-G exact profiles, section 11 RecoveryRequired transition) was amended in the same session after the first owner edits had begun, not strictly before all dependent implementation.",
+        "Auxiliary pre-stage checks ran in a copy at /private/tmp/abg-sw3/check (declared test temp root), with node_modules symlinked read-only to the rc2-dogfood-01 toolchain; it was removed after the stage. A profile-reconstruction script and a falsifier backup (actor_process.js.orig, check-copy JS only) were also kept there and removed afterwards.",
+        "The actor-successor falsifier (adoption of decision.successorPrefix removed) ran against compiled JS in the check copy, not the worksite. It failed as required, and the original was restored before the copy was deleted.",
+        "tsc --noEmit ran against the worksite tsconfig (no emit, no build info).",
+        "The RC6 historical case imports the installed RC6 packaged event_store.js read-only, in process, to write a temporary RC6 store. Installed files were not modified or copied.",
+        "No packaged S2 writer is selected. The S2 historical case writes S2 rows through a declared test stand-in for the row-identity formula (exact 3bcc stamp, canonical payload digest, eventId over the stamped envelope), then decodes them with the current cold decoder.",
+        "The retained-historical case's old assertion counting stdout probes (retained+1) was never reached at S2 because of its first digest assertion. It omitted the startup coverage probe and now asserts the exact coverage/activity sequence."
+      ],
+      "authoredResiduals": [
+        "Only W can be written by the native liveness writers (frame clock, frame/CCall liveness, probe append, threshold). RC6/S2 stores are cold-readable and fold under their own tables, but they take no native continuation. This is intended (no old-P native continuation); Root should confirm.",
+        "Initial-origin recovery still requires the W profile.",
+        "Cold window validation runs in readRuntimeEventsAtDurablePrefix and decodeRuntimeHistoryDescriptor (reopen, recover, both direct readers). validateHistoricalEvents (the bare byte decoder shared with event_log.persistEventLog) does no archive reads.",
+        "Unchanged in-scope paths: runtime_liveness_contracts.ts, event_prefix.ts, public/binding/owner_contract_source_set.ts, gtl/worksite_command_execution.ts, t287-native-workspace-work.test.mjs, r10-private-owner-harness.mjs.",
+        "Root owns acceptance, installed S4/S6 and release gates. No acceptance is claimed."
+      ],
+      "authoredTemporaryEffects": [
+        "/private/tmp/abg-sw3 (check copy removed; locks dir empty; node-compile-cache/npm-cache left as runtime cache)",
+        "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp"
+      ]
+    },
+    "limit": "Authored timestamps and tool/path request metadata retained separately; unknown Bash purposes do not yield preparation durations or complete procedure assurance."
+  },
+  "betweenTaskOperator": {
+    "predecessorOwnerEndedUtc": "2026-11-06T22:28:12.539Z",
+    "hostStartedUtc": "2026-11-06T23:10:29.640Z",
+    "ms": 2537101,
+    "classification": "Between-task/operator interval; not RC7 native runtime performance."
+  },
+  "ownerWallMs": 2013177.1515000002,
+  "rootObservedHost": {
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 2014414.393375,
+    "started": "2026-11-06T23:10:28.597Z",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/commands/sdk-native-host.result.json",
+      "bytes": 2348,
+      "sha256": "e984735697ef5a9adb021f499da15db5bad3b6f8a669253331d8d8dcfbb0eb6f"
+    },
+    "standing": "Actual maintained commandRecorder host-exit receipt; Root session was not polled by custody."
+  },
+  "noMatchedSpeedupClaim": true
+}

@@ -1,0 +1,141 @@
+{
+  "status": "RETAINED_TIMING_SUFFICIENCY_REVIEW_NO_EXECUTION",
+  "at": "2026-11-07T11:14:34.064932+00:00",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-001.mjs",
+    "bytes": 27888,
+    "sha256": "c563c22709857bfa915bf00b3c3bb537ff97358aaccb502664ae3efeb0c32633"
+  },
+  "unchangedLimitsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 600000,
+    "installedOwner": 60000
+  },
+  "observations": [
+    {
+      "kind": "git",
+      "limitMs": 120000,
+      "observedWallMs": 977.0492920000033,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/commands/source-stage.result.json",
+        "bytes": 40457,
+        "sha256": "8c80f523267ee4dd9d6487562cf2c424e38346b9f7f4178a2a716e9288b8f90d"
+      },
+      "standing": "Earlier RC7 checkpoint staging, not a current-host upper bound."
+    },
+    {
+      "kind": "dependencies",
+      "limitMs": 120000,
+      "observedWallMs": 496.38141700000415,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/commands/reproduction-dependencies.result.json",
+        "bytes": 1190,
+        "sha256": "7abe96d0f1896b1f08be39e318d7cd6b105365e38da609ba267ce96729cfd6e5"
+      },
+      "standing": "Earlier exact dependency-copy owner, not a current-host upper bound."
+    },
+    {
+      "kind": "compile",
+      "limitMs": 240000,
+      "observedWallMs": 9448.063041000001,
+      "receipt": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/commands/compile.result.json",
+        "bytes": 1130,
+        "sha256": "ddefb4d0d69f5aa77b75d65430ad93b035cd6ef0b849cf5bba46ed3ddc88c278"
+      },
+      "standing": "Accepted RC8 stage04 build; no later recompile selected."
+    },
+    {
+      "kind": "generate",
+      "limitMs": 600000,
+      "observedWallMs": 23501.455584000003,
+      "receipt": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/commands/generate.result.json",
+        "bytes": 1108,
+        "sha256": "284bb1f63441390d7193bb466821373c627519dbac2d64a587d87121dcf96d17"
+      },
+      "standing": "Accepted RC8 stage04 canonical generation; no later generation selected."
+    },
+    {
+      "kind": "pack",
+      "limitMs": 120000,
+      "observedWallMs": 4026.644541,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/commands/pack-once.result.json",
+        "bytes": 1222,
+        "sha256": "44b8b2e805811debeb1ec53b3b87c26ff3449d89c69b9f13829ce7485381674e"
+      },
+      "standing": "Exact accepted RC8 archive pack."
+    },
+    {
+      "kind": "pack-related-current-setup",
+      "limitMs": 120000,
+      "observedWallMs": 38099.100875,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/commands/setup-refresh-candidate-basis.result.json",
+        "bytes": 1474,
+        "sha256": "fe4b349a7eeb745db606bc8e265622405bced2f7367dfd7b99bd48f8428b30e1"
+      },
+      "standing": "Recent maintained candidate refresh includes pack/verification and fixture write; not isolated pack."
+    },
+    {
+      "kind": "inventory",
+      "limitMs": 120000,
+      "observedWallMs": 558.5308749999967,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/commands/artifact-identity-bridge.result.json",
+        "bytes": 1711,
+        "sha256": "f9823670f4b34c1db77a2ffacd25d61f5e792dba98289e10a4a08fba310b2de3"
+      },
+      "standing": "Earlier RC7 payload inventory analogue; RC8 exact-byte script has not executed."
+    },
+    {
+      "kind": "install",
+      "limitMs": 600000,
+      "observedWallMs": 28836.616208,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/commands/verify-lock-install-once.result.json",
+        "bytes": 1434,
+        "sha256": "e35fc90d97938424ffb848f1005b049ba3fc83182e8c41a8da3508636e3b47ca"
+      },
+      "standing": "Exact RC8 disposable bootstrap verify/lock/install/content checks; earlier host state."
+    },
+    {
+      "kind": "installedOwner",
+      "limitMs": 60000,
+      "observedWallMs": 815.5838749999966,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/install-001/commands/fresh-installed-owner.result.json",
+        "bytes": 1765,
+        "sha256": "00e4739ad9f366d3a1f87f8d72cb026310d7b4105ed794dad100a202c234fe73"
+      },
+      "standing": "Earlier RC7 smoke analogue; current RC8 smoke includes verification and content checks."
+    }
+  ],
+  "currentVerificationObservation": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/runtime-001/PREPARED.json",
+      "bytes": 6170,
+      "sha256": "7ad1a9791366c4f6470593d65cf2f5044fb95de9ab7487292624c1c498403deb"
+    },
+    "phase": "artifactVerified",
+    "wallMs": 291862.19441700005,
+    "standing": "Installed RC7 maintained verifyArtifact performs ProductVerificationPort.verify plus acquisition receipt, after runtime imports and before resource acquisition. This is not an isolated verifyProduct microbenchmark."
+  },
+  "credibleMismatch": {
+    "kind": "installedOwner",
+    "limitMs": 60000,
+    "comparisonMs": 291862.19441700005,
+    "reason": "The prospective RC8 direct-installed smoke calls verifyProduct and installedProductContentMatches before empty-resource read/close. A recent corresponding artifact-verification phase exceeded the smoke cap by 4.86x; historical 0.816s smoke is insufficient assurance for current costs. Root budget disposition required before execution."
+  },
+  "otherBounds": "No retained corresponding successful command demonstrates another cap violation. Older compile/generate/Git/dependency/inventory timings do not establish current-host guarantees; setup/readback totals are not interchangeable with those operations. Install600s exceeds the observed291.862s verification phase but remaining work is not separately measured on the current host.",
+  "enclosingBudget": "Existing cut driver bounds individual commands only; no outer native-Worker deadline encloses this Operator route. Any future enclosing host budget must accommodate serial phases and verification/custody overhead; no total workflow guarantee or new timer is inferred.",
+  "limitsChanged": false,
+  "timingRuns": 0,
+  "functionalControlsChanged": false
+}

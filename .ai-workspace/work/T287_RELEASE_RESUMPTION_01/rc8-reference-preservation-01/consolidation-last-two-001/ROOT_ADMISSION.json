@@ -1,0 +1,56 @@
+{
+  "status": "ROOT_ADMITTED_FILTERED_CONSOLIDATION_CASES",
+  "at": "2026-11-07T10:39:08.522939+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "bindingSha256": "51a4e20d83b9331c30d890224e5c337b0f7a81e7045bf4c70d8d760f0905dd54",
+  "coordinateProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/coordinates-001/RESULT.json",
+    "bytes": 870,
+    "sha256": "1fd5cc47b8cb2c000a3474015f6882c395cfc4fa36b34027b03eed4a3f05f40e"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-last-two-001/run.mjs",
+      "bytes": 9587,
+      "sha256": "a0865cd6931497fe7922d2aa2cc48638acda9adea7418b3fc66dec5609f3db2f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-last-two-001/PREPARATION.json",
+      "bytes": 2975,
+      "sha256": "3b580dc649a19b789fc97d5a01e8cc062759d9afefa6e87957b49615adc0c691"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-last-two-001/RECIPE_DIFF.patch",
+      "bytes": 8779,
+      "sha256": "f033de788b56004d54ebbca71849dd6e5848f704cab7ea18ad1703fc6d3ebffa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/sas-timeout-002/REVIEW.json",
+      "bytes": 17734,
+      "sha256": "aa795159f828488487fd02bdc82392718cbfa2203d270fa8e705537ff8c75930"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/OPERATOR_RETURN_REENTRY_003.json",
+      "bytes": 8655,
+      "sha256": "2b736982f6d72e0d859f938b22ddc0f09b3ec1cc6570abfa3374217e9cedc11d"
+    }
+  ],
+  "disposition": "Root read closed timeout triage and actual case7/outer timeout plus full exact controls; admits one external proof of only the two remaining historical cases on frozen A8 source.",
+  "coverage": {
+    "expectedPassed": 2,
+    "expectedReportedSkipped": 0,
+    "excludedNoCoverage": 10,
+    "wholeFile": false,
+    "aggregateSatisfied": false
+  },
+  "bounds": {
+    "originalPerCaseTimeoutMs": 600000,
+    "commandTimeoutMs": 1800000,
+    "outputBytes": 16777216,
+    "heapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296
+  },
+  "standing": "No rerun of cases1-6/7 or other completed lanes. Same A8 source/archive/input/tool/dependency bytes; zero builds/providers/sourcechanges/cleanup. Stop red/incomplete/bound, no retry. RC8-SAS-WHOLE-PROOF remains an explicit unqualified-cut residual; no whole/stable claim or relabeling of failed A8 native Run."
+}

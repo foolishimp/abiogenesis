@@ -1,0 +1,84 @@
+{
+  "recordedUtc": "2026-11-03T23:24:43.036506+00:00",
+  "kind": "root_final_source_review_custody_conjunction",
+  "finalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/review-subject-001/SUBJECT.json",
+    "sha256": "509603ed3f8f1a1c1e71a6a37b7e4769f869094924618d687c81516c97321ab4"
+  },
+  "nativeResultRef": "result://abiogenesis/95f6ae44d96e1cf4884a8ec5239ce7f44bab12ab877d416ddafd50d773f1a530",
+  "afterObservationRef": "worksite-context-observation://abiogenesis/fb91747333a77354117ab1e231bbd89e8f9dd3febcaffa0e395a0d4aa1575abc",
+  "afterObservationDigest": "sha256:fb91747333a77354117ab1e231bbd89e8f9dd3febcaffa0e395a0d4aa1575abc",
+  "sourceFileCount": 117,
+  "incrementFromNative04": 34,
+  "cumulativeChangedFromF49": 84,
+  "comparisons": [
+    {
+      "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-code-review-001/SUBJECT.json",
+      "sha256": "c641a25e2c3bebf72eec86158b9a22e6ca0f9bcae23d49ea8ce108c2b5056729",
+      "matched": 112,
+      "changed": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+          "prior": "d1dff3b446c30d0a575a915bfaff0d7940071355822a8e71688bdf6b715bef88",
+          "final": "5173d59042e89399c35a092363c1722e1a67f6aec6fd4011b7d5f3cf8ab961ce"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+          "prior": "659e498c72ec413bb0d94ee066601f05a263207a693105787438c69ab7750093",
+          "final": "cbe17a4e483a2f4ddb6ed0fe0d9b38979a1becc80429ecb2d33c42e9259d45c9"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+          "prior": "d5ab42a4f91970f328e9b15bea532dee86def237c6b7709a31a00165799cace7",
+          "final": "44fa23a3288ec3ab756c57ece114acfd34fda4902944b04ab27be62cd2813dfc"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+          "prior": "42fda030d2fded5ab7b369e195776c0bdfdd97d00a1a72ff93d28c972a98e698",
+          "final": "4ec5ecc1aba27aaba522dffef69776c8fd8afcb79fda17cc6ce7245e30a448d3"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs",
+          "prior": "274d00933bbf54fb17b6f3fe3a62926a2101521bf955c972ac007e795efa4355",
+          "final": "379a3434a504128e2e8e16e44e0bf1d61d924158af4f323c4860535629637f43"
+        }
+      ]
+    },
+    {
+      "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/SUBJECT.json",
+      "sha256": "e31947dac73ce9624984a83d36be187cdf896d6ce6568094b2f0694dc59eeeb9",
+      "matched": 116,
+      "changed": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+          "prior": "ea7ec41f4aa4d58aafdf139ff5e93c42507014846810c68946ff8215582de01d",
+          "final": "4ec5ecc1aba27aaba522dffef69776c8fd8afcb79fda17cc6ce7245e30a448d3"
+        }
+      ]
+    }
+  ],
+  "finalF09MatchesSeparateReview": true,
+  "reviews": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_INTERIM_CODE_REVIEW.json",
+      "sha256": "7b92835342855fd2ec03611e74f50c00db8de6cc1870134bdb0bff8f3b34170a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/QUALIFICATION_DOMAIN_REVIEW.json",
+      "sha256": "69fcc312115554cb6d52aadd4630144609070f6aa8d9af5666d436e993af05fe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_INTERIM_PROOF_REVIEW.json",
+      "sha256": "a2ca95c15d8cc643466a2fc83a4bc193217a981ab5b77c8b113d618cd5972e00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_F09_PROOF_DELTA_REVIEW.json",
+      "sha256": "1c657d368ca2cffb44bfed2f3a209c428a48507541d7db18ce10aa166749837a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_FIXTURE_ROUTE_TRIAGE.json",
+      "sha256": "fd3e9dd6eaee1ee99d990dda18fb610c7b8cdf8c94952ee274065e4a7cfc8432"
+    }
+  ],
+  "standing": "Exact final native source matches the reviewed code/proof population except the separately reviewed F09 delta; retained bounded judgments remain applicable. N5-CODE-01 and N5-PROOF-01 remain open. Fixture discriminators and original C1-C5/R1-R7 remain incomplete. No actual C2 or acceptance credit."
+}

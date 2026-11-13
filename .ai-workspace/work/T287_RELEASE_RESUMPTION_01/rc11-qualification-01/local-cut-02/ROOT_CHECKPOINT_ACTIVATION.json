@@ -1,0 +1,65 @@
+{
+  "status": "ROOT_ADMITTED_RC11_SELECTIVE_CHECKPOINT_AND_REPRODUCTION",
+  "role": "separate Writer/Mechanical activation",
+  "rootGrant": "Execute ONE selective local source commit and ONE clean git-archive reproduction using unchanged driver8e986791 after exact preflight. Stage only14 selected paths on codex/rc11-qualification at93a0de75/tree27489cb8, preserve excluded untracked paths and main/index/RC10/tracking. Same pinned dependencies and absent-only RC10 contract seeds, source wins. Require byte-equal full archives/manifests and member correspondence; stop on first failure/drift/mismatch, no repair/repack/retry. New cut receipts/temp reproduction and C11 index/commit effects only. No install/publish/merge/push/tag/selector change.",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9481,
+    "sha256": "fbe6ec76f782ae2926f6d27bdd21c8f5ddec2ff5ca4b3463359ddc49610e091e"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/run-checkpoint-reproduction.mjs",
+    "bytes": 22779,
+    "sha256": "8e98679164a5fa27ad8289e9a504ea801fc3031d4597bfc9dee3796931c30df7"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/PREPARATION_MANIFEST.json",
+    "bytes": 1742,
+    "sha256": "8b8458c532e5b0e4fccd2fe470d8e52311db4fcfdbd17eda823f3c9f164902ea"
+  },
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/SOURCE_SELECTION.json",
+    "bytes": 3025,
+    "sha256": "6a61df0b17f3522422e142dfb997aebfcb2a3951994146822f05ac4bc1fed743"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "tracking": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/TRACKING_RETURN.json",
+    "bytes": 2453,
+    "sha256": "c256157f218c55b80cb47b1136582267dcb9494254c2890fcb1c8e956fea1958"
+  },
+  "preservationPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 176302,
+      "sha256": "c7f0586b208c001e35c54a2db1571d858140f9cc06d1ff14711f72766923b94a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 827077,
+      "sha256": "f2bd87d7d29c02d80a5c18fa5782b6de3d07abb42833999efda4ff6e64d9bf19"
+    }
+  ],
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "attempts": 1,
+  "installAdmitted": false,
+  "qualified": false
+}

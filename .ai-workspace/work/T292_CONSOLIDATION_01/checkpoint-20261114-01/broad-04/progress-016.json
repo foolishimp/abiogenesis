@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 18,
+    "pass": 18,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/016-m5-event-calculus-runtime.test/process.json",
+    "bytes": 1088,
+    "sha256": "0ce91348ab9a1b5dc05de98c3551f63b95b76d9624bc5810c6f2690b48862cda"
+  }
+}

@@ -1,0 +1,18 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/claude-provider.sh
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/claude-provider.sh
+@@ -1,10 +1,10 @@
+ #!/bin/sh
+-TMPDIR=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs5
+-TMPPREFIX=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs5/zsh
+-NPM_CONFIG_CACHE=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs5/npm-cache
++TMPDIR=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs6
++TMPPREFIX=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs6/zsh
++NPM_CONFIG_CACHE=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs6/npm-cache
+ NPM_CONFIG_UPDATE_NOTIFIER=false
+ NPM_CONFIG_OFFLINE=true
+-NPM_CONFIG_USERCONFIG=/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-05/npm-user.npmrc
+-NPM_CONFIG_GLOBALCONFIG=/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-05/npm-global.npmrc
++NPM_CONFIG_USERCONFIG=/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-06/npm-user.npmrc
++NPM_CONFIG_GLOBALCONFIG=/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-06/npm-global.npmrc
+ export TMPDIR TMPPREFIX NPM_CONFIG_CACHE NPM_CONFIG_UPDATE_NOTIFIER NPM_CONFIG_OFFLINE NPM_CONFIG_USERCONFIG NPM_CONFIG_GLOBALCONFIG
+ exec /Users/jim/.local/share/claude/versions/2.1.306 "$@"

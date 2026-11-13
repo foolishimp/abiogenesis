@@ -1,0 +1,916 @@
+{
+  "selectedStdoutDifferentialDiagnostics": [
+    {
+      "loadedMs": 141,
+      "decisions": {
+        "actor_process_started": 24,
+        "actor_process_exited": 24,
+        "actor_invocation_failed": 3,
+        "actor_process_timeout_observed": 1,
+        "actor_process_signal_requested": 1
+      },
+      "perScope": [
+        {
+          "scope": 0,
+          "parser": "claude_stream_json",
+          "chunks": 950,
+          "qualifying": 946,
+          "results": 1,
+          "bytes": 399312,
+          "spanMs": 82831,
+          "windows": 3,
+          "maxWindowChunks": 480,
+          "timeout": null
+        },
+        {
+          "scope": 1,
+          "parser": "claude_stream_json",
+          "chunks": 3762,
+          "qualifying": 3706,
+          "results": 1,
+          "bytes": 3445736,
+          "spanMs": 833870,
+          "windows": 25,
+          "maxWindowChunks": 440,
+          "timeout": null
+        },
+        {
+          "scope": 2,
+          "parser": "claude_stream_json",
+          "chunks": 813,
+          "qualifying": 811,
+          "results": 1,
+          "bytes": 319261,
+          "spanMs": 144026,
+          "windows": 3,
+          "maxWindowChunks": 554,
+          "timeout": null
+        },
+        {
+          "scope": 3,
+          "parser": "claude_stream_json",
+          "chunks": 134,
+          "qualifying": 131,
+          "results": 1,
+          "bytes": 62887,
+          "spanMs": 36423,
+          "windows": 2,
+          "maxWindowChunks": 71,
+          "timeout": null
+        },
+        {
+          "scope": 4,
+          "parser": "claude_stream_json",
+          "chunks": 454,
+          "qualifying": 452,
+          "results": 1,
+          "bytes": 179109,
+          "spanMs": 42902,
+          "windows": 2,
+          "maxWindowChunks": 237,
+          "timeout": null
+        },
+        {
+          "scope": 5,
+          "parser": "claude_stream_json",
+          "chunks": 149,
+          "qualifying": 146,
+          "results": 1,
+          "bytes": 64343,
+          "spanMs": 34295,
+          "windows": 2,
+          "maxWindowChunks": 79,
+          "timeout": null
+        },
+        {
+          "scope": 6,
+          "parser": "claude_stream_json",
+          "chunks": 620,
+          "qualifying": 618,
+          "results": 1,
+          "bytes": 235726,
+          "spanMs": 56462,
+          "windows": 2,
+          "maxWindowChunks": 506,
+          "timeout": null
+        },
+        {
+          "scope": 7,
+          "parser": "claude_stream_json",
+          "chunks": 1102,
+          "qualifying": 1078,
+          "results": 1,
+          "bytes": 1116354,
+          "spanMs": 316078,
+          "windows": 11,
+          "maxWindowChunks": 277,
+          "timeout": null
+        },
+        {
+          "scope": 8,
+          "parser": "claude_stream_json",
+          "chunks": 695,
+          "qualifying": 693,
+          "results": 1,
+          "bytes": 275208,
+          "spanMs": 62586,
+          "windows": 3,
+          "maxWindowChunks": 569,
+          "timeout": null
+        },
+        {
+          "scope": 9,
+          "parser": "claude_stream_json",
+          "chunks": 4893,
+          "qualifying": 4810,
+          "results": 0,
+          "bytes": 5872883,
+          "spanMs": 1456253,
+          "windows": 44,
+          "maxWindowChunks": 410,
+          "timeout": null
+        },
+        {
+          "scope": 10,
+          "parser": "claude_stream_json",
+          "chunks": 1370,
+          "qualifying": 1368,
+          "results": 1,
+          "bytes": 523142,
+          "spanMs": 97159,
+          "windows": 4,
+          "maxWindowChunks": 583,
+          "timeout": null
+        },
+        {
+          "scope": 11,
+          "parser": "claude_stream_json",
+          "chunks": 13540,
+          "qualifying": 13411,
+          "results": 0,
+          "bytes": 11022047,
+          "spanMs": 3590707,
+          "windows": 108,
+          "maxWindowChunks": 600,
+          "timeout": "absolute"
+        },
+        {
+          "scope": 12,
+          "parser": "claude_stream_json",
+          "chunks": 1,
+          "qualifying": 0,
+          "results": 0,
+          "bytes": 801,
+          "spanMs": 0,
+          "windows": 1,
+          "maxWindowChunks": 1,
+          "timeout": null
+        },
+        {
+          "scope": 13,
+          "parser": "claude_stream_json",
+          "chunks": 8371,
+          "qualifying": 8338,
+          "results": 1,
+          "bytes": 5447799,
+          "spanMs": 1423276,
+          "windows": 44,
+          "maxWindowChunks": 598,
+          "timeout": null
+        },
+        {
+          "scope": 14,
+          "parser": "claude_stream_json",
+          "chunks": 515,
+          "qualifying": 513,
+          "results": 1,
+          "bytes": 207241,
+          "spanMs": 49845,
+          "windows": 2,
+          "maxWindowChunks": 366,
+          "timeout": null
+        },
+        {
+          "scope": 15,
+          "parser": "claude_stream_json",
+          "chunks": 149,
+          "qualifying": 146,
+          "results": 1,
+          "bytes": 66833,
+          "spanMs": 78870,
+          "windows": 3,
+          "maxWindowChunks": 72,
+          "timeout": null
+        },
+        {
+          "scope": 16,
+          "parser": "claude_stream_json",
+          "chunks": 578,
+          "qualifying": 576,
+          "results": 1,
+          "bytes": 226075,
+          "spanMs": 51632,
+          "windows": 2,
+          "maxWindowChunks": 407,
+          "timeout": null
+        },
+        {
+          "scope": 17,
+          "parser": "claude_stream_json",
+          "chunks": 7198,
+          "qualifying": 7162,
+          "results": 1,
+          "bytes": 6606792,
+          "spanMs": 1317027,
+          "windows": 41,
+          "maxWindowChunks": 600,
+          "timeout": null
+        },
+        {
+          "scope": 18,
+          "parser": "claude_stream_json",
+          "chunks": 706,
+          "qualifying": 704,
+          "results": 1,
+          "bytes": 360408,
+          "spanMs": 164985,
+          "windows": 6,
+          "maxWindowChunks": 298,
+          "timeout": null
+        },
+        {
+          "scope": 19,
+          "parser": "claude_stream_json",
+          "chunks": 86,
+          "qualifying": 83,
+          "results": 1,
+          "bytes": 65585,
+          "spanMs": 79964,
+          "windows": 3,
+          "maxWindowChunks": 40,
+          "timeout": null
+        },
+        {
+          "scope": 20,
+          "parser": "claude_stream_json",
+          "chunks": 831,
+          "qualifying": 828,
+          "results": 1,
+          "bytes": 446488,
+          "spanMs": 222510,
+          "windows": 8,
+          "maxWindowChunks": 386,
+          "timeout": null
+        },
+        {
+          "scope": 21,
+          "parser": "claude_stream_json",
+          "chunks": 12314,
+          "qualifying": 12225,
+          "results": 1,
+          "bytes": 11445151,
+          "spanMs": 2680749,
+          "windows": 83,
+          "maxWindowChunks": 599,
+          "timeout": null
+        },
+        {
+          "scope": 22,
+          "parser": "claude_stream_json",
+          "chunks": 20682,
+          "qualifying": 20561,
+          "results": 1,
+          "bytes": 16010905,
+          "spanMs": 6075167,
+          "windows": 178,
+          "maxWindowChunks": 600,
+          "timeout": null
+        },
+        {
+          "scope": 23,
+          "parser": "claude_stream_json",
+          "chunks": 4585,
+          "qualifying": 4560,
+          "results": 1,
+          "bytes": 4008412,
+          "spanMs": 786887,
+          "windows": 25,
+          "maxWindowChunks": 591,
+          "timeout": null
+        }
+      ]
+    },
+    {
+      "setupMs": 83,
+      "rows": 64,
+      "transactions": 123,
+      "admissionMsPerTransaction": 5.056,
+      "projectionMsPerRead": 0.519
+    },
+    {
+      "replay": {
+        "scope": 0,
+        "chunks": 911,
+        "received": 904,
+        "noise": 2,
+        "bytes": 350043,
+        "windows": [
+          {
+            "chunks": 357,
+            "closure": "interval"
+          },
+          {
+            "chunks": 479,
+            "closure": "interval"
+          },
+          {
+            "chunks": 68,
+            "closure": "drain"
+          }
+        ],
+        "minimumSpanMs": 65000,
+        "ms": 1298
+      }
+    },
+    {
+      "decisions": {
+        "windows": 606,
+        "rows": 606,
+        "probes": 816,
+        "flushes": 24,
+        "discriminating": 23,
+        "ms": 7234,
+        "perScope": [
+          [
+            0,
+            3,
+            "not_reached"
+          ],
+          [
+            1,
+            25,
+            "not_reached"
+          ],
+          [
+            2,
+            3,
+            "not_reached"
+          ],
+          [
+            3,
+            2,
+            "not_reached"
+          ],
+          [
+            4,
+            2,
+            "not_reached"
+          ],
+          [
+            5,
+            2,
+            "not_reached"
+          ],
+          [
+            6,
+            2,
+            "not_reached"
+          ],
+          [
+            7,
+            11,
+            "not_reached"
+          ],
+          [
+            8,
+            3,
+            "not_reached"
+          ],
+          [
+            9,
+            44,
+            "not_reached"
+          ],
+          [
+            10,
+            4,
+            "not_reached"
+          ],
+          [
+            11,
+            108,
+            "absolute"
+          ],
+          [
+            12,
+            1,
+            "not_reached"
+          ],
+          [
+            13,
+            44,
+            "not_reached"
+          ],
+          [
+            14,
+            2,
+            "not_reached"
+          ],
+          [
+            15,
+            3,
+            "not_reached"
+          ],
+          [
+            16,
+            2,
+            "not_reached"
+          ],
+          [
+            17,
+            41,
+            "not_reached"
+          ],
+          [
+            18,
+            6,
+            "not_reached"
+          ],
+          [
+            19,
+            3,
+            "not_reached"
+          ],
+          [
+            20,
+            8,
+            "not_reached"
+          ],
+          [
+            21,
+            83,
+            "not_reached"
+          ],
+          [
+            22,
+            178,
+            "not_reached"
+          ],
+          [
+            23,
+            25,
+            "not_reached"
+          ]
+        ]
+      }
+    }
+  ],
+  "diagnosticLimits": "Test-only metadata derivation and controlled transport fixture. Recorded clocks/decisions only; no inferred missing observations, matched native speedup, installed growth qualification or new event authority.",
+  "kind": "actual_s3_author_proof_inventory",
+  "status": "FINAL_LANES_COMPLETE_ROOT_CONJUNCTION_PENDING",
+  "createdUtc": "2026-11-06T23:44:50.135175+00:00",
+  "sourceCount": 451,
+  "finalSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+  "finalMatchingStage": {
+    "label": "sw3-stage-01",
+    "mode": "after",
+    "sourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/source-freeze.json",
+      "bytes": 96810,
+      "sha256": "86c14252b414e6b3a600c16a2c112178f97bcae2e0ac2938c1714e046e1f1b37"
+    },
+    "stageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/stage.json",
+      "bytes": 97762,
+      "sha256": "27c2c400baf15dd1a4c754fed7df0bfbd22f6af13f6ff7473a084904cabc7340"
+    },
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/SUBJECT.json",
+      "bytes": 281811,
+      "sha256": "e1dd758611d6ededf884109a4f589caf43a5f5504f230715b7bdf0b6869286f7"
+    },
+    "sameAll451AsActualNativeAfter": true,
+    "setupMs": 1846,
+    "phases": {
+      "compile": {
+        "exitCode": 0,
+        "signal": null,
+        "ms": 7333,
+        "error": null
+      },
+      "generate": {
+        "exitCode": 0,
+        "signal": null,
+        "ms": 22317,
+        "error": null
+      },
+      "lifecycle": {
+        "exitCode": 0,
+        "signal": null,
+        "ms": 583,
+        "error": null
+      }
+    }
+  },
+  "stages": [
+    {
+      "label": "sw3-stage-01",
+      "mode": "after",
+      "sourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+      "sourceFreeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/source-freeze.json",
+        "bytes": 96810,
+        "sha256": "86c14252b414e6b3a600c16a2c112178f97bcae2e0ac2938c1714e046e1f1b37"
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/stage.json",
+        "bytes": 97762,
+        "sha256": "27c2c400baf15dd1a4c754fed7df0bfbd22f6af13f6ff7473a084904cabc7340"
+      },
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/SUBJECT.json",
+        "bytes": 281811,
+        "sha256": "e1dd758611d6ededf884109a4f589caf43a5f5504f230715b7bdf0b6869286f7"
+      },
+      "sameAll451AsActualNativeAfter": true,
+      "setupMs": 1846,
+      "phases": {
+        "compile": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 7333,
+          "error": null
+        },
+        "generate": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 22317,
+          "error": null
+        },
+        "lifecycle": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 583,
+          "error": null
+        }
+      }
+    }
+  ],
+  "stagesConsumed": 1,
+  "maxStages": 2,
+  "laneInvocationsConsumed": 6,
+  "completedLaneReceipts": 6,
+  "maxLaneInvocations": 6,
+  "reservations": [
+    {
+      "kind": "stage",
+      "stage": "sw3-stage-01",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01",
+      "sourceFreezePresent": true,
+      "stageReportPresent": true
+    },
+    {
+      "kind": "lane",
+      "stage": "sw3-stage-01",
+      "id": "stdout-differential",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-stdout-differential",
+      "summaryPresent": true
+    },
+    {
+      "kind": "lane",
+      "stage": "sw3-stage-01",
+      "id": "scope-ordering",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-scope-ordering",
+      "summaryPresent": true
+    },
+    {
+      "kind": "lane",
+      "stage": "sw3-stage-01",
+      "id": "timeout-interruption",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-timeout-interruption",
+      "summaryPresent": true
+    },
+    {
+      "kind": "lane",
+      "stage": "sw3-stage-01",
+      "id": "archive-integrity",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-archive-integrity",
+      "summaryPresent": true
+    },
+    {
+      "kind": "lane",
+      "stage": "sw3-stage-01",
+      "id": "legacy-replay",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-legacy-replay",
+      "summaryPresent": true
+    },
+    {
+      "kind": "lane",
+      "stage": "sw3-stage-01",
+      "id": "native-caller",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-native-caller",
+      "summaryPresent": true
+    }
+  ],
+  "duplicateLaneIds": [],
+  "executedLanes": [
+    {
+      "id": "stdout-differential",
+      "stage": "sw3-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/stdout-differential/summary.json",
+        "bytes": 1509,
+        "sha256": "2e235e04e9ed3fbe7821984e2c24b8d7ad43e8643fcb62289a340af0bf01bbea"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/stdout-differential/stdout.tap",
+        "bytes": 6127,
+        "sha256": "2fe6478fe38b824bf3a34c0932fa7576f47985c722d5e0ad335fed1f8b1be98a"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-stdout-differential/stdout-differential.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sameFinalSource": true,
+      "result": {
+        "mode": "after",
+        "setupMs": 84,
+        "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 9957,
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "requiredActivePass": true,
+        "failing": [],
+        "skippedNames": []
+      }
+    },
+    {
+      "id": "scope-ordering",
+      "stage": "sw3-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/scope-ordering/summary.json",
+        "bytes": 1739,
+        "sha256": "8a925229cf3727fbcc6e38093d656750369f0b760751380a5f597c38df4d2c33"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/scope-ordering/stdout.tap",
+        "bytes": 1565,
+        "sha256": "387beef9d2ce7098f7a5864282821971867cc3d893612d77e71e98ab1e86c42f"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-scope-ordering/scope-ordering.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sameFinalSource": true,
+      "result": {
+        "mode": "after",
+        "setupMs": 72,
+        "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 1230,
+        "tests": 3,
+        "pass": 3,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "requiredActivePass": true,
+        "failing": [],
+        "skippedNames": []
+      }
+    },
+    {
+      "id": "timeout-interruption",
+      "stage": "sw3-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/timeout-interruption/summary.json",
+        "bytes": 2131,
+        "sha256": "d97c5895b499477f4ea9b3af1abc34472ae6f09672bfe9f41f042360afae81b3"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/timeout-interruption/stdout.tap",
+        "bytes": 2550,
+        "sha256": "f63b2ff075c42b868b21f1ae1265d17d164dbec069db8423840d81beafe471b8"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-timeout-interruption/timeout-interruption.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sameFinalSource": true,
+      "result": {
+        "mode": "after",
+        "setupMs": 67,
+        "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 3736,
+        "tests": 9,
+        "pass": 9,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "requiredActivePass": true,
+        "failing": [],
+        "skippedNames": []
+      }
+    },
+    {
+      "id": "archive-integrity",
+      "stage": "sw3-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/archive-integrity/summary.json",
+        "bytes": 2145,
+        "sha256": "8e7cc8e121247fad569485e0a66dcc18341744847e71b9127aba48bbfc8d6312"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/archive-integrity/stdout.tap",
+        "bytes": 2587,
+        "sha256": "4b3280342e2943dc2f7293edef1abfea8928e47200ec806c9385d8222fb80114"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-archive-integrity/archive-integrity.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sameFinalSource": true,
+      "result": {
+        "mode": "after",
+        "setupMs": 66,
+        "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 1674,
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "requiredActivePass": true,
+        "failing": [],
+        "skippedNames": []
+      }
+    },
+    {
+      "id": "legacy-replay",
+      "stage": "sw3-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/legacy-replay/summary.json",
+        "bytes": 2316,
+        "sha256": "de1488444fb6906953fc43734808a7277b376cd158a469eaa6e00b7d6656dbcf"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/legacy-replay/stdout.tap",
+        "bytes": 3017,
+        "sha256": "fb63b6085b982d0e5686bdb63e403248ee9d4eb24f62e4b35a3f0d62e49ac7ee"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-legacy-replay/legacy-replay.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sameFinalSource": true,
+      "result": {
+        "mode": "after",
+        "setupMs": 66,
+        "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 9378,
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "requiredActivePass": true,
+        "failing": [],
+        "skippedNames": []
+      }
+    },
+    {
+      "id": "native-caller",
+      "stage": "sw3-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/native-caller/summary.json",
+        "bytes": 1887,
+        "sha256": "25e4b708100dce749b8e757539c1341e1feef4e62baef7232e7f4d7b3b518403"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/native-caller/stdout.tap",
+        "bytes": 1930,
+        "sha256": "a456e2bc1b78a5e0f08ff4bb432fdae8cb47c66f41b2e944e623267b11a1f8f9"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-lanes-native-caller/native-caller.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sameFinalSource": true,
+      "result": {
+        "mode": "after",
+        "setupMs": 69,
+        "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 501,
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "requiredActivePass": true,
+        "failing": [],
+        "skippedNames": []
+      }
+    }
+  ],
+  "unexecutedSelectedLanes": [],
+  "unallocatedSelectedLanes": [],
+  "allSixFinalLanesPassedSameFinalSource": true,
+  "recordedLaneBudgetStanding": "Counts concern the selected stage/lane owner receipts only. Author-disclosed auxiliary checks are retained separately for Root procedural disposition; these counts do not assert that no other checks occurred.",
+  "beforeCadenceCounterexample": {
+    "heldSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/summary.json",
+      "bytes": 1508,
+      "sha256": "b2b210c971ede687abe790b4a7689a1e684d4b536f69bba32e70b515777c4e18"
+    },
+    "heldTap": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/stdout.tap",
+      "bytes": 6157,
+      "sha256": "ab1cb3bf77d06f0bb3813e2512ff7561466402fd7b2ecc40f0ee57d377c4468e"
+    },
+    "actualReferences": 911,
+    "expectedClosedWindows": 3,
+    "laterAssertionsReached": false
+  },
+  "handoffs": [
+    {
+      "relativePath": "qualification-scratch/rc7-stdout-window-author-03/progress.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/progress.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/handoffs/progress.json",
+        "bytes": 5508,
+        "sha256": "75d85a82e2a292ecf24cbc5309d875ef99562cbab7a40551e9b63c4ed4ae335d"
+      },
+      "beforeState": "absent",
+      "afterState": "file",
+      "afterEntryIndex": 461
+    },
+    {
+      "relativePath": "qualification-scratch/rc7-stdout-window-author-03/readiness.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/readiness.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/handoffs/readiness.json",
+        "bytes": 723,
+        "sha256": "7aa8eadd3a54c5688e00df69ff771fd5d136334ce6b8d8f0781538d1abc80a2b"
+      },
+      "beforeState": "absent",
+      "afterState": "file",
+      "afterEntryIndex": 462
+    },
+    {
+      "relativePath": "qualification-scratch/rc7-stdout-window-author-03/return.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/return.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/handoffs/return.json",
+        "bytes": 11244,
+        "sha256": "f968a1605e6f1e9017e8eaf6f0f15ac8cc2acc5781f3777708121732fc6ab8ac"
+      },
+      "beforeState": "absent",
+      "afterState": "file",
+      "afterEntryIndex": 463
+    }
+  ],
+  "qualified": false,
+  "accepted": false,
+  "limits": [
+    "Operator custody is not Product/source acceptance, formal F11 J, whole qualification, release or performance evidence.",
+    "Baseline stdout-before cadence red is retained separately. Its later assertions were not reached; it does not prove final window, decision or successor behavior.",
+    "Historical-prefix metadata covers recorded qualifying clocks and decisions; absent noise capture clocks or structured turn boundaries cannot be reconstructed or fabricated.",
+    "Controlled protocol cases and every selected final lane must actually execute against the same final source; missing, failed or unrun lanes receive no credit.",
+    "Authored bootstrap/read-first coverage and any final procedure disclosures remain preserved. Path/time/status metadata does not establish comprehensive reading or no-outside-effects compliance; non-lane checks receive no lane proof credit.",
+    "Only selected tool-use/status metadata was observed; unknown Bash purposes remain unknown. No provider reasoning, narrative, tool-result contents, raw actor stderr or credentials were acquired.",
+    "Actual SDK completion and one genuine close are retained by original resume reference; no repeated campaign cold drain or separate physical Result-row decode was performed.",
+    "Root retains final review conjunction, applicability, procedural disposition, source acceptance and release decisions."
+  ]
+}

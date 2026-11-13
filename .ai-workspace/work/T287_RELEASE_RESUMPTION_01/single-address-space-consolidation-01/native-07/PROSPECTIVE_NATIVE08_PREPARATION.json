@@ -1,0 +1,39 @@
+{
+  "recordedUtc": "2026-11-04T05:31:58.804312+00:00",
+  "status": "PROSPECTIVE_OPERATOR_PREPARATION_ONLY",
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/PROSPECTIVE_NATIVE08_TASK.md",
+    "bytes": 5088,
+    "sha256": "c65040272e9ea6c9e64648b351f39ac4e05d49dddad3a958e525c5a07c8404cf"
+  },
+  "preparationScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-08-r1.py",
+    "bytes": 19132,
+    "sha256": "bf4c009c52479b6131e850e9b56aba44cf08eda9584af5a528e91dc7491a9025"
+  },
+  "wrapperTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native08-c2-proof-template.mjs",
+    "bytes": 8089,
+    "sha256": "fbd0f8119a9c40e09cde7a47f5531691a59172e419779a79958bc03aaba0906a"
+  },
+  "reusePreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/prepare-native08-reuse.py",
+    "bytes": 7030,
+    "sha256": "5c4610a224ae8249737593107be4428862f47a5b7fe4c10ca0b6e9222eb02376"
+  },
+  "effects": "Draft control/task/evidence scripts only; no Product/test edit or in-flight input mutation",
+  "native08Prepared": false,
+  "native08Admitted": false,
+  "futureGates": [
+    "Read actual native07 UAT/fresh final close",
+    "Conjoin any new findings before selecting re-entry",
+    "Actual dependency custody, installed-owner preflight and final-control review"
+  ],
+  "proposedNewLanes": [
+    "single-address-space-whole-path minimum10 no skips",
+    "shared-owner-declaration-regressions minimum31 no skips",
+    "current-intent-complete-pair minimum1 no skips"
+  ],
+  "retainedLanes": "Eight native06 plus two native07, only with original execution provenance and exact unchanged dependency/package guards",
+  "originalOutcomeAccepted": false
+}

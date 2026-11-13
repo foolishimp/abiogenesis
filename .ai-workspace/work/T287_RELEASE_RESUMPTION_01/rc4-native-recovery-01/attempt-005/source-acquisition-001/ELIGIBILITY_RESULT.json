@@ -1,0 +1,12 @@
+{
+  "status": "OWNER_DERIVED_RETAINED_SOURCE_AVAILABLE_FOR_ROOT_REVIEW",
+  "basisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+  "missingFact": null,
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "originalTaskUnchanged": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "pendingFrontierRecovery": false,
+  "R2Closure": false,
+  "dispatchSelected": false
+}

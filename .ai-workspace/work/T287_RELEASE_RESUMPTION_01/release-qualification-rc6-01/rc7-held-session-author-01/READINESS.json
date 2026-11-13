@@ -1,0 +1,192 @@
+{
+  "kind": "held_session_native_author_operator_preparation",
+  "status": "PREPARED_NOT_STAGED_NOT_DISPATCHED",
+  "preparedAt": "2026-11-06T11:54:06.530363+00:00",
+  "role": "Root-bound operator/control Writer; no Product authoring or independent review of these controls",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "version": "ABIogenesis5.0",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "runtimeOwner": "ABG alone",
+    "programLanguage": "GTL alone",
+    "shells": "SDK/CLI thin transport",
+    "builder": "immutable installed RC6",
+    "candidate": "prospective RC7",
+    "scope": "HS01 held-resource realization_refactor; no Product outcome change; observable assertion/completion contracts require canonical regeneration."
+  },
+  "buildAuthority": {
+    "userInstruction": "ok build the RC7 according to this design applying any corrections",
+    "mainCommit": "ba79858dec9021a9f5201e9644eade67aa289f59",
+    "designRevision": "f0d4c644b30aaef77d7039be1dfcbfc6c4a9b908",
+    "design": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261106T041246Z_DESIGN_HELD_GRAPH_INTERFACE/README.md",
+      "bytes": 46833,
+      "sha256": "f6e3f15fd5388349e61f99ccd0e90f6018413e8cf6a36c306456f02b94acff48"
+    },
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261106T111255Z_REVIEW_RC7_HELD_SESSION_PLAN/README.md",
+      "bytes": 11719,
+      "sha256": "2001f20de7c3de9d54e47cda9670787b8175f6f7921193582d9d4d64c03d6ac3"
+    },
+    "standing": "User authorized build; Root separately bound this operator Writer for preparation, not Product editing or dispatch. Root final selected task/grant admission remains required."
+  },
+  "prerequisite": {
+    "status": "F2_NATIVE_REPAIR_RUNNING_HS01_EXACT_BINDINGS_PENDING",
+    "FBoundedEvidence": {
+      "SUBJECT": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/review-subject-001/SUBJECT.json",
+        "bytes": 18126,
+        "sha256": "6ac0839037dd7e61c2f0efaa3700d5d1067bb7ca63a6e5758de982361bc681cc"
+      },
+      "SOURCE_AFTER": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/SOURCE_AFTER.json",
+        "bytes": 498560,
+        "sha256": "1cf6f5123700b283298b2e922b68b7ed7a375b9b58691af28390e7518c256e79"
+      },
+      "FINAL_RUNTIME_CLOSE": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/FINAL_RUNTIME_CLOSE.json",
+        "bytes": 9267,
+        "sha256": "a76d3fa989c53dd6dcadcd77a9433804a12364976fd9f28229117a80065d95fb"
+      },
+      "ROOT_REVIEW_DISPOSITION": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/ROOT_REVIEW_DISPOSITION.json",
+        "bytes": 8972,
+        "sha256": "17438e94cecd3c7c433ed6a52ae2b1239d6c88d4a6ff678dcee0b1e13431bddd"
+      }
+    },
+    "F2DispatchManifestSha256": "defa450c221371aff11ce6a005b45f5089e767e31687978d1956df1d8945f42e",
+    "operativeF2Source": null,
+    "operativeF2Close": null,
+    "rootAdmission": null,
+    "limits": "F actual SDK/full typed cold reads are closed and source is bounded partial under F-FIXED-SOURCE-001. No F2 source, acceptance, return or HS01 dispatch is assumed."
+  },
+  "populations": {
+    "referenceSourcePaths": 450,
+    "referenceSourceBodyBytes": 12255245,
+    "compileTypeScriptSourceCount": 290,
+    "permittedWritePaths": 27,
+    "plannedNativeControls": 19,
+    "plannedAbsentHandoffs": 3,
+    "plannedContextEntries": 472,
+    "readFirstPaths": 28,
+    "preparedNativeInputTemplateBytes": 206145,
+    "finalMaterializedContextBytes": null,
+    "maxContextFiles": 512,
+    "maxContextBytes": 16777216,
+    "baselineBodyNotInNativeContext": true,
+    "renderedOrderEstimate": {
+      "standing": "Planning estimate only; actual owner render remains Root preflight",
+      "estimatedRangeBytes": [
+        45000,
+        90000
+      ],
+      "basis": "Actual F same-owner native order was42811bytes; HS01 adds finite instructions/read-first/write roots while retaining similarly-sized source metadata. No source bodies or baseline inventory are inlined into these operator instructions.",
+      "actualRenderBytes": null,
+      "promptCapBytes": 1048576,
+      "ownerReserveBytes": 131072,
+      "referenceFActualRender": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/NATIVE_CAPACITY_PREFLIGHT.json",
+        "bytes": 458,
+        "sha256": "6b108478d23872f491876e889f107c7422c16fab89ca3c750a81cf2eb38de717"
+      }
+    }
+  },
+  "writePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-public-definition-call.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "referenceSourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/SOURCE_SELECTION.reference.json",
+    "bytes": 276607,
+    "sha256": "607f67c09ececd64fc6c09cd28f2408b1261ccf7d8a5093043a43c7615e7f179"
+  },
+  "nativeGrantTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/NATIVE_GRANT.template.json",
+    "bytes": 49743,
+    "sha256": "7fc0961be3da92b6de35ade5601d77e754353fe3b7917c783f59768c91ee520d"
+  },
+  "profileTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/PROVIDER_PROFILE.template.json",
+    "bytes": 2799,
+    "sha256": "45afeb6b50b0ac5fed94aa477fefcb6da6f0cf76534c55788638d79f27d620ea"
+  },
+  "feedback": {
+    "maxStages": 4,
+    "maxInvocations": 8,
+    "perLaneTimeoutMs": 300000,
+    "concurrency": 1,
+    "laneIds": [
+      "held-session-before",
+      "held-session-measured",
+      "held-session-final",
+      "read-owner",
+      "caller",
+      "fixed-route",
+      "cold-resume",
+      "body-conservation"
+    ],
+    "allocation": "Before expected counterexample; intermediate measured held session before deletion; final held session after justified deletion/no-deletion; five finite affected lanes on identical final source. No retries/whole-suite commands.",
+    "stageFreeze": "Create-only source/HOW snapshot and source-freeze receipt emitted before build/test. Native publishes its coordinates through progress.json so Root can review exact stage while testing continues."
+  },
+  "sdkReuse": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/prepare-and-dispatch.mjs",
+      "bytes": 19179,
+      "sha256": "81667e293774f6b871e85af17108a073765c079fb984e7fac99f6edc79dfd16c"
+    },
+    "relation": "One existing owner SDK host keeps the same resource/caller/environment/input/call through preflight and invocation. Preparation records stable owner-issued coordinates/digests and phase/capacity scalars only. Actual owner outcome/SDK receipt/completion successor are persisted, original outer resource closed exactly once; failures/recovery remain genuine. Host exits before Root-selected cold readbacks.",
+    "checker": "Future exact admitted maintained exported checker/operator routes null until F2; no copied checker.",
+    "wrapper": "0755 with retained executable availability/X_OK preflight; no provider/auth executed now.",
+    "coldProof": "Immutable RC6 author call is not HS02. Future native candidate proof separately exercises actual installed multi-call plus both held reads, same-boundary full cold equality and exact counters."
+  },
+  "riskAndCost": "Bounded shared read-resource contract/caller migration with cold/currentness/recovery regressions possible. Canonical regeneration, exact C2 pins, measured pre-deletion proof, finite cold/body/caller lanes and max frozen review contain the risk. No broad S2/S7 deletion, no S5, no timing claim.",
+  "remainingRootSteps": [
+    "Dispose actual F2 frozen source, real admission proof and actual successor close/full-read conjunction; bind SOURCE_BEFORE/sourceCommit/inherited dirty/new paths and exact maintained checker routes.",
+    "Materialize the prepared templates/19 inputs with exact operative pins, preserve three absent handoffs and short temp effects, finalize Root selection/dependency/admission and exact dispatch manifest.",
+    "Run the existing one-process mechanical owner preflight and launch one native Worker; review its exact stage while testing, conjoin final frozen source/HOW and actual outputs, then select installed proof/cold readbacks."
+  ],
+  "staticChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/STATIC_CHECKS.json",
+    "bytes": 3199,
+    "sha256": "f71043a49dd190890633ae54b35c45e9924fceb0c783c63ddba97ea1741c4465"
+  },
+  "ticketUpdate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/TICKET_UPDATE.json",
+    "bytes": 955,
+    "sha256": "b37ca20d78be33a19a03d1ca22db3fcc7bef6c93ad4713a033982616bf9cca5c"
+  },
+  "limits": [
+    "No Product/HOW/test changes, C source/input/scratch staging, SDK/runtime acquisition, provider/credential/network calls, build/test run, Git/release effects or additional agent.",
+    "All F2 source/close/checker/admission bindings remain null. Source names/reference pins do not imply new acceptance.",
+    "Observation-only exact counters are selected; source-only static preparation establishes no performance or release claim.",
+    "Q2/Q3 decisions remain pending Root before later HS03; S3 withdrawn and S6 conditional Product reprice. S4 and remaining release gates preserved."
+  ]
+}

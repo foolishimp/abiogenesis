@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-06T16:34:45.813Z",
+  "errors": [
+    {
+      "phase": "mechanical-preparation",
+      "name": "Error",
+      "message": "EEXIST: file already exists, open '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/NATIVE_CAPACITY_PREFLIGHT.json'",
+      "observation": null
+    }
+  ],
+  "invoked": false,
+  "actualOutcomeFile": null,
+  "actualCloseReceiptFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/resource-close.json",
+  "meaning": "Actual failures retained independently; no old close transplant or automatic retry."
+}

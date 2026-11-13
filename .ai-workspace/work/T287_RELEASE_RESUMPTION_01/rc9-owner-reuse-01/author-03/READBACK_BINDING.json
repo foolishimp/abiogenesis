@@ -1,0 +1,37 @@
+{
+  "status": "ROOT_SELECTED_ACTUAL_CLOSED_FRESH_READBACKS",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/ROOT_ADMISSION.json",
+    "bytes": 4659,
+    "sha256": "40637bc1696b82f47a4890c1673bd12b847cdf0f7409261f6201f788f64eec6e"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/BINDING.json",
+    "bytes": 9996,
+    "sha256": "6e47b6ad4d772080bde671e3a171a2156cac10cfe13ed1cdd037d152daad2721"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/PREPARED.json",
+    "bytes": 6268,
+    "sha256": "187ca805a16848aae7f677550853692999c0d88796d6a9223bd12d4f055aad3f"
+  },
+  "closed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/resource-close.json",
+    "bytes": 2302,
+    "sha256": "3ed579e927f7f53bdda1edf449fc23b3a009136352eb1c267832be50050367c0"
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 140344,
+    "sha256": "f0d49b8a3740af4972fa21378e202f3a2628d0de9340d8801f9df792904190a4"
+  },
+  "acquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/abg-acquisition.json",
+    "bytes": 16525457,
+    "sha256": "0f77facd002f0acc8e0cb59ffa11231a25e5ebb2ca37a3867d2a9ff4019f0dc9"
+  },
+  "readbackRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/readbacks-001",
+  "expectedSdkDisposition": "runtime_failed",
+  "expectedTerminalPresence": "absent",
+  "controlAdaptation": "Maintained freshReadbacks already supports absent-result refusals. Control success-only postcondition replaced before its first execution to record actual runtime_failed/absent-terminal outcomes without claiming a successful Result."
+}

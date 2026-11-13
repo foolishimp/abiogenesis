@@ -1,0 +1,122 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "recordedUtc": "2026-11-07T05:21:15.328845+00:00",
+  "executive": "/root",
+  "recorder": "/root/rc8_operator",
+  "rootDisposition": "Root selects one execution004 continuation after maintained candidate-basis correction. Exact source/test receipt joins and versioned controls hold. No extra GO is required; one owner refresh and fixed archive/six-field checks gate tests. Stop any red/incomplete/resource limit; preserve001\u2013003.",
+  "configSha256": "b82d8d94a921053b7a5a8436b20327b4989b6e23c92dc221937991af8afe662e",
+  "inventorySha256": "ef7af9f8da59a4b3b196061f6f2d2504c6a92cdb7258e1d64e10a2aa95374bf2",
+  "frozenStageReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+  "preparationManifestSha256": "a826c3c0803c373fbd57329212338ccdbea72fe10d65c2604aae7b22fee100e6",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_005.json",
+    "bytes": 62943,
+    "sha256": "b82d8d94a921053b7a5a8436b20327b4989b6e23c92dc221937991af8afe662e"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-005/BOUND_INVENTORY.json",
+    "bytes": 1738981,
+    "sha256": "ef7af9f8da59a4b3b196061f6f2d2504c6a92cdb7258e1d64e10a2aa95374bf2"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_004.json",
+    "bytes": 3354,
+    "sha256": "a826c3c0803c373fbd57329212338ccdbea72fe10d65c2604aae7b22fee100e6"
+  },
+  "controlCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CONTROL_CORRECTION_004.json",
+    "bytes": 5362,
+    "sha256": "72f691fcbaaad14e4e991d1d5aafef9631673498073f9befd82395f0591084f6"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "measurementAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_MEASUREMENT_ACCEPTANCE_004.json",
+    "bytes": 5739,
+    "sha256": "e4e961ab00b4c4c2cffebd95609fecab0c9b06dc32705f10bd5e3606692d4c86"
+  },
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+  "composition": [],
+  "families": 15,
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "selectedEffects": {
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004",
+    "scratchRoot": "/private/tmp/abg-r8c-004",
+    "candidateBasisRefresh": {
+      "owner": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/scripts/refresh-candidate-basis.mjs",
+        "bytes": 1914,
+        "sha256": "61114eb2c8e984924c2346c44d9b01dc2eaa1eed4a4cd40817fe80ccb6728d00"
+      },
+      "originalFixture": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+        "bytes": 515,
+        "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
+      },
+      "verification": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/verification.json",
+        "bytes": 15797778,
+        "sha256": "eb6ffc33d1742448dc88e9ff653ccb3e1c90c5abda67877605de14a8b64f4f6a"
+      },
+      "archive": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+        "bytes": 11027562,
+        "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+      },
+      "archiveFileName": "abiogenesis-typescript-tenant-5.0.0-rc.8.tgz"
+    },
+    "refreshCount": 1,
+    "onlyDerivedFixtureSubstitution": "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "scheduledFiles": 176,
+    "wholeFileCredits": 32,
+    "creditedPasses": 249,
+    "creditedSkips": 57,
+    "isolatedCopiesReuseRefreshedBytes": true,
+    "primaryStageWrites": 0,
+    "sourceEdits": false,
+    "git": false,
+    "dependencyVersionChanges": false,
+    "network": false,
+    "providerCallsSelected": 0,
+    "automaticRetry": false
+  },
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "fileTimeoutMs": {
+    "test_env/tests/t287-governed-context.test.mjs": 2100000,
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs": 3600000,
+    "test_env/tests/t289-install-event-bodies.test.mjs": 1200000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000
+  },
+  "freeBytesAtAdmission": 6824194048,
+  "qualification": false
+}

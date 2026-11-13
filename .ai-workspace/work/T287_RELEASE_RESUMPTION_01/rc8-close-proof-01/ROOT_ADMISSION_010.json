@@ -1,0 +1,40 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "at": "2026-11-07T08:30:08.699537+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "configSha256": "791dd91a0a5a8a74ba62646beaf6ad0d8a2e2d09147e787aa3b35f02d1480716",
+  "inventorySha256": "98a7c849883f08fb1a41b1cc2b87033b2158b0924b75e6130733981bbbc11151",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "a0271e3755f8b40d976d9e7cb940e6380cfa9a9d218c98befd11a48f612ce0bb",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_010.json",
+    "bytes": 8336,
+    "sha256": "a0271e3755f8b40d976d9e7cb940e6380cfa9a9d218c98befd11a48f612ce0bb"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-010.mjs",
+    "bytes": 32783,
+    "sha256": "bb584817b89822b7b9798b9a528f9f247d8738b4f42155f82a88c0cb6e2b5b3b"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "rootDisposition": "Root read exact diff/preparation and selects one remainder continuation against immutable A6 stage while sole coding Worker author07 operates separately in C8.114scheduled,92retained whole credits,2exact deferred files uncredited. Successful remainder is explicitly incomplete broad closure.",
+  "deferredFiles": [
+    "test_env/tests/t287-governed-context.test.mjs",
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "counts": {
+    "wholeCredits": 92,
+    "passed": 525,
+    "skipped": 122,
+    "scheduled": 114,
+    "deferredNoCoverage": 2
+  },
+  "effects": "Existing proof owners and bounds. Stop first unexpected red/incomplete/resource/input drift. No retry, source changes, providers, Git, cut or cleanup beyond already selected successful isolated-copy custody."
+}

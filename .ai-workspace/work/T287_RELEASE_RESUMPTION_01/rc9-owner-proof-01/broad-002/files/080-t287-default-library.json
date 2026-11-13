@@ -1,0 +1,81 @@
+{
+  "file": "test_env/tests/t287-default-library.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 299368.344208,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 37,
+    "failed": 0,
+    "passed": 34,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 37,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 16,
+      "type": "case",
+      "passed": true,
+      "name": "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "nesting": 0,
+      "testNumber": 16,
+      "suite": false,
+      "skip": "ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 17,
+      "type": "case",
+      "passed": true,
+      "name": "native observation facts preserve captured history through preparation admission and complete assembly",
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "nesting": 0,
+      "testNumber": 17,
+      "suite": false,
+      "skip": "ABI5_NATIVE_OBSERVATION_CAPTURE unset; requires the captured native observation fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 33,
+      "type": "case",
+      "passed": true,
+      "name": "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "nesting": 0,
+      "testNumber": 33,
+      "suite": false,
+      "skip": "ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/080-t287-default-library.jsonl",
+    "bytes": 11908,
+    "sha256": "7253d3b5c114362875534e4f735e201e00574212df848136337bee55c55482f7"
+  },
+  "commandReceipt": "commands/080-t287-default-library.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

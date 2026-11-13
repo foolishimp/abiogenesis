@@ -1,0 +1,8 @@
+{
+  "status": "PREPARING_FINAL_REVIEW_PIN_PENDING",
+  "at": "2026-11-07T08:41:55.052652+00:00",
+  "scratchRoot": "/private/tmp/abg-r8-a08-95yy1lti",
+  "base": "author07 accepted b2ca1a75 and actual close78f735ab",
+  "scope": "Two test files; four historical cases then whole coordinate file; zero builds,15min xhigh. No dispatch selected.",
+  "remaining": "Pin the closing causal review, then finalize task/binding and prepare held canonical call."
+}

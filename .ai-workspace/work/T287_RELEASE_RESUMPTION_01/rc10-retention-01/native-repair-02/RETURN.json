@@ -1,0 +1,44 @@
+{
+  "status": "NATIVE_REPAIR_COMPLETED_CLOSED_FROZEN_EXTERNAL_PROOF_READY",
+  "recordedUtc": "2026-11-09T04:24:58.521693+00:00",
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NATIVE_CUSTODY.json",
+    "bytes": 6813,
+    "sha256": "f97d6e4487f773979fe36b5eea9d8ba44ee12bf7aa5f44cf59abae5b75cd7b96"
+  },
+  "nativeReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NATIVE_REPORT.json",
+    "bytes": 6947,
+    "sha256": "37a3b68fde6e67e9c38a4013dd71ccd481a416a605e4ee8e2f261fee293e8f96"
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+    "bytes": 293103,
+    "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "nativeSummary": {
+    "sdkExit": 0,
+    "disposition": "completed",
+    "actualPhysicalClose": true,
+    "freshResultReplayTerminalMatch": true,
+    "providerTurns": 39,
+    "providerDurationMs": 382968,
+    "providerCostUsd": 2.3285332,
+    "changedSourcePaths": 3,
+    "otherSourceRowsConserved": 1331,
+    "observedAfterFilesConserved": 22
+  },
+  "proofReady": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/READY.json",
+    "bytes": 3085,
+    "sha256": "f7fbe7bb88c5954f4f1582af66e4e1c3e53acd51ef3c1aa210c0c565d87af41c"
+  },
+  "measurementReady": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/READY.json",
+    "bytes": 2473,
+    "sha256": "ee8a22bb7f47d417053bd3e4f58fab528eadf9424c79dc60d110e50cd8525918"
+  },
+  "unexecuted": "External successor build/focused/unit, new artifact/install and corrected50-call witness. Full qualification and previous residuals remain open.",
+  "stop": "Native editing ended. No source acceptance or additional execution without Root conjunction."
+}

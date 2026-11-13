@@ -1,0 +1,30 @@
+--- author-07/readbacks.mjs
++++ author-08/readbacks.mjs
+@@ -8,7 +8,7 @@
+ const load=async(path,expected)=>{const bytes=await readFile(path);if(expected)assert.equal(sha(bytes),expected);return {value:JSON.parse(bytes),pin:{path,bytes:bytes.length,sha256:sha(bytes)}};};
+-const binding=await load(join(dir,'BINDING.json'),'89bcde5f7779916f08c17948c5fda9ef24493068b4414e28a8ad807a2d9d022c');
++const binding=await load(join(dir,'BINDING.json'),'d0f7e6b1ed31b782ea58ba9ab3d14a670968b15a84e6beafbe3f0fd99775d1b2');
+ const base=await load(binding.value.baseControls.path,binding.value.baseControls.sha256),b={...base.value,...binding.value};
+-const prepared=await load(join(b.runtimeRoot,'PREPARED.json'),'0f186a00586f0de9667625a4ee891eb45969d29b5cd1624cfdefa26b03c96b05');
+-const closed=await load(join(b.runtimeRoot,'resource-close.json'),'78f735ab9b3a86655f9da5b81bb033c75c29ac3be4b0c00dd1fb01f4c77d275b');
+-const outcome=await load(join(b.runtimeRoot,'calls/lifecycle-start.outcome.json'),'a6121516630821a9a1e8b5d49a9db7b37b529fdd9168059fa02a620684f55731');
++const prepared=await load(join(b.runtimeRoot,'PREPARED.json'),'9ab0560a6395e4a9a0db0b43bfdd7f6ce276f2db53acf0bd443c99b083a61cde');
++const closed=await load(join(b.runtimeRoot,'resource-close.json'),'2320c892bb0d6d276e18cb67360710527196ff32c9cd21422aa419b682ac4b9a');
++const outcome=await load(join(b.runtimeRoot,'calls/lifecycle-start.outcome.json'),'4ba0a8b728f8d9a79a19d0646f1a37722e2d19ba8e2b5a766fa7f1a11d8b1615');
+ const acquisition=await load(join(b.runtimeRoot,'abg-acquisition.json'));
+@@ -22,3 +22,3 @@
+ const caller=owner.publicCaller({root,runtime,native,record,command:runner.commandRecorder(root,{environment,timeoutMs:b.proofTimeoutMs}),
+-  config:{runId:'rc8-reference-preservation-01-author07-fresh-readbacks',nodePath:process.execPath,setupEnvironment:environment}});
++  config:{runId:'rc8-reference-preservation-01-author08-fresh-readbacks',nodePath:process.execPath,setupEnvironment:environment}});
+ caller.state.binding=prepared.value.workspaceBinding;caller.state.closeHandoff=closed.value.closeHandoff;caller.installedRoot=prepared.value.installedRoot;
+@@ -33,6 +33,7 @@
+   const terminal=outcome.value.receipt.ownerOutput.value.terminalResult;
+-  for(const read of reads)assert.deepEqual(read.projection?.terminalResult,terminal,'Full typed terminal differs from actual SDK');
++  assert.equal(terminal,null);assert.equal(outcome.value.receipt.ownerOutput.value.disposition,'runtime_failed');
++  for(const read of reads)assert.equal(read.projection?.terminalResult??null,null,'Fresh read invents an absent terminal');
+   const observations=runner.freshReadbackRecord(reads,runtime.product.sha256Canonical);
+-  assert.equal(observations.length,2);assert(observations.every(r=>r.outcomeKind==='result'));assert.equal(observations.find(r=>r.memberKey==='run_replay').status,'closed');
+-  const result={status:'READBACKS_PASSED_UNCHANGED_PREFIX',startedUtc,completedUtc:new Date().toISOString(),wallMs:performance.now()-started,observations,physicalIdentity:after,prefixUnchanged:true,fullTypedTerminalsEqualActualSdk:true,actualSdkOwnerOutputDigest:runtime.product.sha256Canonical(outcome.value.receipt.ownerOutput),fullTypedTerminalDigest:runtime.product.sha256Canonical(terminal),sourceAccepted:false,qualified:false};
++  assert.equal(observations.length,2);assert(observations.every(r=>['result','refusal'].includes(r.outcomeKind)));assert(observations.every(r=>r.terminal===null));
++  const result={status:'READBACKS_PASSED_ABSENT_TERMINAL_UNCHANGED_PREFIX',startedUtc,completedUtc:new Date().toISOString(),wallMs:performance.now()-started,observations,physicalIdentity:after,prefixUnchanged:true,typedTerminalAbsentInActualSdkAndBothReads:true,actualSdkDisposition:outcome.value.receipt.ownerOutput.value.disposition,actualSdkOwnerOutputDigest:runtime.product.sha256Canonical(outcome.value.receipt.ownerOutput),fullTypedTerminalDigest:runtime.product.sha256Canonical(terminal),sourceAccepted:false,qualified:false};
+   await record('RESULT.json',result);console.log(JSON.stringify({status:result.status,wallMs:result.wallMs,observations:observations.map(r=>({memberKey:r.memberKey,outcomeKind:r.outcomeKind,status:r.status})),root}));

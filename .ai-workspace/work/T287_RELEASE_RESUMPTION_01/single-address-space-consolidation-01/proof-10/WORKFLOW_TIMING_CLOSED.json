@@ -1,0 +1,88 @@
+{
+  "kind": "closed_proof_only_workflow_timing",
+  "recordedUtc": "2026-11-04T15:48:29.197972+00:00",
+  "builderCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "activation": "T287_TARGETED_INTERFACE_PROOF_10",
+  "source": "Actual host/preflight records and admitted physical event metadata; no provider private reasoning.",
+  "setup": {
+    "reused": true,
+    "newSetupChargedMs": 0,
+    "retainedSdkSetupMs": 28938.979459,
+    "retainedArtifactVerificationMs": 19748.530083,
+    "currentProviderFreePreflightMs": 125487.50591697171
+  },
+  "rootBetweenActivations": {
+    "priorFinalCloseToHostLaunchMs": 2069494.025,
+    "includes": "Root triage, finalization, provider-free preflight, independent control review and admission; not in-Run handoff latency."
+  },
+  "launch": {
+    "hostLaunchToDispatcherMs": 63610.332,
+    "dispatcherToInitialSelectorMs": 557651.0,
+    "dispatcherToTestingActorMs": 1150478.0,
+    "nativeCodingWorkers": 0
+  },
+  "betweenTasks": {
+    "initialSelectorResultToTestingActorMs": 511281.0,
+    "testingResultToNextSelectorMs": 232756.0,
+    "postTestSelectorResultToUatActorMs": 489329.0,
+    "testingResultToUatActorMs": 818173.0
+  },
+  "execution": {
+    "initialSelectorActorMs": 65594.0,
+    "testingActorMs": 584636.0,
+    "selectedTestLaneMs": 497369.56016700005,
+    "postTestSelectorActorMs": 77861.0,
+    "uatActorMs": 344457.0,
+    "providerActorCount": 4,
+    "perSandboxCommandWallTime": "Not emitted by the retained helper command records; no per-command timing inferred."
+  },
+  "closure": {
+    "uatResultToRunClosedMs": 210955.0,
+    "runClosedToLifecycleReturnMs": 153663.0,
+    "lifecycleReturnToFreshCloseSavedMs": 921423.484,
+    "lifecycleWallMs": 3271674.8433749997,
+    "hostTotalMs": 4256865.853334311
+  },
+  "eventBytes": {
+    "before": 837277102,
+    "after": 896846621,
+    "added": 59569519
+  },
+  "limits": [
+    "These timings belong to installed RC5 orchestrating proof-only work on the frozen successor source; no native coding stage ran.",
+    "They do not measure a full workflow running the refactored source, establish a matched RC4/RC5 speedup, or close broader performance work.",
+    "Wall intervals are not CPU attribution; current focused owner counters have a separate exact proof."
+  ],
+  "records": {
+    "PREFLIGHT_PROCESS_RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/PREFLIGHT_PROCESS_RESULT.json",
+      "bytes": 198,
+      "sha256": "c04ea773854b54da1489f632dfb2f1e33a18fea231c5d8b0cbc433691f9fec6e"
+    },
+    "execution/HOST_PROCESS_LAUNCH.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/execution/HOST_PROCESS_LAUNCH.json",
+      "bytes": 532,
+      "sha256": "a4a585d2a0c3a174547e30b2a52a090663ef59cdb813924f44af457daac1a2fa"
+    },
+    "execution/HOST_PROCESS_EXIT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/execution/HOST_PROCESS_EXIT.json",
+      "bytes": 153,
+      "sha256": "702f54268c00ab33c370a3bbfe7ef26cf47c79a78365c0f0fc12e93b58deeac7"
+    },
+    "execution/STARTED.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/execution/STARTED.json",
+      "bytes": 1065,
+      "sha256": "d61ebaacd0c3876cec321ec4ddd8f93e734746cb735b738ed49f3b3784d6d87e"
+    },
+    "execution/TIMING_OBSERVATION_ENVELOPES.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/execution/TIMING_OBSERVATION_ENVELOPES.json",
+      "bytes": 350659,
+      "sha256": "73a091e43ffb9e408186405225f938345ade0840b9ff02476e36c4b8597d77a0"
+    },
+    "ACTUAL_FINAL_CLOSE_COORDINATES.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/ACTUAL_FINAL_CLOSE_COORDINATES.json",
+      "bytes": 2600,
+      "sha256": "0bb74a978ac0147af38af71bbbdb3933dbe362c94dcefb67cb74490d03a1b669"
+    }
+  }
+}

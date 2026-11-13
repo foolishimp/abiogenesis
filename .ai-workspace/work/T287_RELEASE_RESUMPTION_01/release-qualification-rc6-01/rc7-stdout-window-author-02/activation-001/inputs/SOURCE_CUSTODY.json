@@ -1,0 +1,36 @@
+{
+  "kind": "native_author_exact_source_custody",
+  "status": "ROOT_SELECTED_PARTIAL_WORKING_BASIS",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/SOURCE_BEFORE.json",
+    "bytes": 279039,
+    "sha256": "1985c7746d0999a989a5d9a1f2eae09fba0f7b4171067127408b5e95717c7cf8"
+  },
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 11876,
+    "sha256": "8b155cbaa167dc2eaf2b0d515f448d3728ccdc6ce2cb771d4a03b95e3669eac1"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_AFTER.json",
+    "bytes": 559922,
+    "sha256": "c65b3703473186207d4787ec0998e6120099f41661b112d3ea0b55760e87e814"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 8713,
+    "sha256": "edd5815442f6c27c0bbcd3946204da4e4e1b4f209fd8e30c97aae202213b350b"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8546,
+    "sha256": "0d084ff96cc77d612f0accc75aa8ade031271505d6f3335ee7b5d62ac8440933"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/after-run-resume.json",
+    "bytes": 72498693,
+    "sha256": "f77ae5b6fa0e291c5e700abb5e634959939d360de279a04d02b992e6c711d699"
+  },
+  "sourceCount": 451,
+  "standing": "Post-failure observed source; no NativeResult/native.after exists. Root final review/build disposition remains pending."
+}

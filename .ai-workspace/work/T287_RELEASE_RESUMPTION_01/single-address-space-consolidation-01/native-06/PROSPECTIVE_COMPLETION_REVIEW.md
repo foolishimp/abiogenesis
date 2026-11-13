@@ -1,0 +1,32 @@
+Product Frame: ABIogenesis5 / fixed fifteen families / GOAL-035 / T-287; original R1–R7/C1–C5 remains governing. Source Definition and immutable installed RC5 builder/runtime are STDO3.0.4, manifest `102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b`, empty companions. This independent nonauthor review uses the retained exact installed stdo-review basis. Root alone selects, admits and accepts.
+
+Reviewed prospective control: `NATIVE07_PROSPECTIVE_SELECTION.md`, 8939 bytes, SHA256 `58df0c8cef387c33be8734a1e54345f41df9133d4c78511f949832d1b1d3f809`. **Satisfied within this prospective control scope; no material control discrepancy found.** This is neither dispatch authority nor acceptance of source, tests, Native06/07 or the original whole outcome.
+
+The draft preserves the three findings and their distinct repair relations. Lines50–57 target N6-R1-PROOF-01's missing actual query on validation forks and applicable successive cuts, with full expected values and real prefix identity. Lines59–83 retain current positives/orphan/mixed controls, select the concrete current-intent producer and genuine second Run identified in the closed pair triage, and distinguish lawful duplicate lookup from the raw validated-history ambiguity control. Lines74–83 correctly leave F_H positivity unresolved, select only the existing response-commit relation with genuine prerequisites, and prohibit a new current Public F_H-resume binding. The retained selected-action/resume lower-owner controls keep their limited standing. Passing the new current-intent case does not silently enlarge those controls' claims.
+
+Lines85–102 lawfully replace the overbroad N6-R1-PROOF-02 metric claim with a conditional source-derived member-reference accounting. I verified allocation triage SHA256 `f869d000fc1977cc94684d7bf2aecb2f07640627bebf80966868ea55559129f3`, its four exact source pins, and frozen author return SHA256 `da660fb70a04e7b0603cddb4c0439f502f6e026a7f2ecd5dd6ceca5d6320d938`. Its counters remain author observations, not independently executed measurements or actual C2 credit.
+
+For the exact one-flat-base/one-candidate fork shape, let V=14 inherited predicate visits. At most V references enter filter results, at most V inherited references enter merges, and at most V own references enter merges because each fork-own queried bucket has length at most one and a merge requires a nonempty inherited result. Thus <=3V=42 filter/merge reference writes. The fixed runtime_activity_probe_observed kind can add to byKind and at most one observation bucket: <=2F=8 memberships for F=4 forks, giving <=50 index-plus-layered member-reference writes. Fresh's699 measured add calls each perform a member push. This accounts for that previously omitted vector-element category on the same fixture. Warmed base membership is bounded by V, not by forkIndexRows4. Source: calculus/liveness.ts:374–395,421–454,479–499,572–577; SAS:145–187 and196–211; actual validation route runtime_liveness.ts:187–195.
+
+The separate <=620 array-creation-expression bound is also consistent with the declared premises: each base-bearing call has one recursive flat-base entry, so2L<=Q607 and L<=303; fallback count U<=L and merge count M<=V14, hence L+U+M<=620, plus at most8 own bucket arrays. This is not a measured heap-object count, a byte bound, or evidence of fewer array objects than fresh. It excludes callers' output collections, fold/maps/sets, numeric/sample vectors, capacity growth and other allocation. No CPU or workflow speed direction follows. Draft95–102 preserves those limits and authorizes no Product optimization. A changed bucket writer, candidate kind/count, nested base, source anchor/counter interval or visit count invalidates the dependent constants; recompute rather than reuse them.
+
+The proof/HOW correction must keep `(index additions, inherited predicate visits)` as separate units and the derived reference-write category explicit. The original4+14 inequality is not total work. The draft says this at90–93 and preserves array objects/bytes/CPU/whole-workflow unknowns at95–102; no correction to the prospective text is needed. N6-R1-PROOF-02 is not automatically withdrawn by this control review.
+
+The admission/reuse boundaries are adequate: lines3–6,27–32 and140–142 wait for genuine Native06 close and Root conjunction/preflight, identify C2 figures as an interim observation, and preserve the failed minimum/no-skip lane. Lines117–131 limit the new write path, require changed claims without skips, verify source correspondence and allow passing-lane reuse only with unchanged source/dependency causality. Lines104–107 and133–136 retain every original rubric row and require actual C2/UAT/fresh closure. Final packet, exact future assertions and eventual execution remain unreviewed; a passing prospective review supplies none of those results.
+
+No Product/test/control edits, tests/builds, providers, native contact or moving candidate reads occurred. Only this report pair was written. Earlier findings, negative receipts and accepted bounded evidence remain unchanged. Shared-family/non-authorship limits apply.
+
+Exact retained evidence hashes:
+
+- `native-06/review-subject-001/SUBJECT.json`: `8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670`.
+- `native-06/INDEPENDENT_INTERIM_R1_PAIR_PROOF_REVIEW.json`: `4fc3d7903cbe03b4c14c4f76d85c8c6efb5d98d3a37a2f5e9662071b6802d5a3`.
+- `native-06/REMAINING_PAIR_PROOF_TRIAGE.json`: `438023f25c87627b91182bd7ac870a2955e9810adfbde7b782608faa0743a98f`.
+- `native-06/existing-pair-producer-fixtures-001/SUBJECT.json`: `d5699b7d1b53a3968c9e8afd83f9e9436a1bdf53c1c02dabe12161b33e256312`.
+- `native-06/existing-duplicate-owner-proof-001/SUBJECT.json`: `9c4cfd04cc68dbd0ec3e79d2224179cac7524d305d82217e08c9ce836126c02a`.
+
+Exact source hashes used for the bound:
+
+- `build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts`: `5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7`.
+- `build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts`: `649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97`.
+- `build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs`: `9407605058cce466f6efe2d2e4b11bf0198e77cfacbc9fef109070ff4ec41cb3`.
+- `build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs`: `ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4`.

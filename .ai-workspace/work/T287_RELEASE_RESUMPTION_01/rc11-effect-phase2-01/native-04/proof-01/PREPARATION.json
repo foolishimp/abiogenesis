@@ -1,0 +1,93 @@
+{
+  "status": "PROSPECTIVE_R2_PROOF_SKELETON_NOT_EXECUTION_ADMISSION",
+  "rootSelection": "PHASE2-A-R2-PROOF-PREP-01",
+  "sourceAndCompiledBindings": null,
+  "standing": "No moving source read/freeze/copy or owner import/execution in this preparation. Final names/provenance/READY only after actual native close and exact freeze.",
+  "fixtures": [
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/probe-reentry.mjs",
+        "bytes": 4720,
+        "sha256": "904f5bfc90e1ebbb0092530de564c8fda16f5fa1d609d5929ebc2c14f1ca00e4"
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/probe-reentry.mjs",
+        "bytes": 4720,
+        "sha256": "904f5bfc90e1ebbb0092530de564c8fda16f5fa1d609d5929ebc2c14f1ca00e4"
+      },
+      "byteIdentical": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/immediate-probe.mjs",
+        "bytes": 5496,
+        "sha256": "0b618f9f7a8339db87ed72d9e7ee5e9813c53cebd2e8570ad7eaeb2465679ff0"
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/immediate-probe.mjs",
+        "bytes": 5496,
+        "sha256": "0b618f9f7a8339db87ed72d9e7ee5e9813c53cebd2e8570ad7eaeb2465679ff0"
+      },
+      "byteIdentical": true
+    }
+  ],
+  "reuse": {
+    "probeDriver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/run.py",
+      "bytes": 6076,
+      "sha256": "fc5046716566405fb5e35f7c0997c81dd2328d02cabb99ca9d94462ffd8f9e09"
+    },
+    "tapDriver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.r02.py",
+      "bytes": 15445,
+      "sha256": "1fa3405b6170235857c8f23433e45f267ff0b9fd7e3f4747690bda22f4021290"
+    }
+  },
+  "sequence": [
+    {
+      "id": "r1-probe",
+      "fixture": "probe-reentry.mjs",
+      "owner": "future repaired actual scratch owner",
+      "capSeconds": 10
+    },
+    {
+      "id": "r2-immediate",
+      "fixture": "immediate-probe.mjs",
+      "owner": "same future repaired actual scratch owner",
+      "capSeconds": 10
+    },
+    {
+      "id": "baseline-signal",
+      "exactCase": "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+      "owner": "exact original baseline module b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f",
+      "capSeconds": 30
+    },
+    {
+      "id": "whole-lifetime",
+      "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "owner": "same future repaired scratch owner via ABI5_OWNED_PROCESS_PACKAGE_ROOT",
+      "capSeconds": 300
+    }
+  ],
+  "globalCapSeconds": 450,
+  "prospectiveOutputBytes": 104857600,
+  "smallProbeOutputBytes": 1048576,
+  "policy": "Sequential once, stop first unexpected failure/incomplete/drift. Preserve raw observations before assertions, stdout/stderr/results and owned runner group closure. Cleanup only owned groups and any need for forced cleanup is a failure. No duplicate current signal case; it is contained in whole lifetime.",
+  "compiledReuse": "Reuse native compiler only with exact source/compiler argv/full emitted inventory provenance; no redundant compile by default.",
+  "excluded": [
+    "B",
+    "m5",
+    "unit",
+    "installed",
+    "provider",
+    "source edits",
+    "proof execution"
+  ],
+  "unbound": [
+    "closed native04 source freeze",
+    "compiler/input/output relation",
+    "final literal test population and diagnostics",
+    "fresh private proof staging paths",
+    "exact command/binding/admission"
+  ]
+}

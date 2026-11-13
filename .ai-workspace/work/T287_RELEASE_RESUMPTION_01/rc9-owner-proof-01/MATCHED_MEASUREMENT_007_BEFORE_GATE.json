@@ -1,0 +1,38 @@
+{
+  "ProductFrame": "Same Root-admitted RC9 matched measurement Proof frame; acceptance remains Root-owned.",
+  "status": "BEFORE_COMPLETE_AFTER_CONDITION_SATISFIED",
+  "at": "2026-11-08T19:12:33.850298+00:00",
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/before-rc8-001/HOST_SUMMARY.json",
+    "bytes": 373,
+    "sha256": "2d578984f260e8facf085199fba061c4a7413743ed223934a2091e84bf72ce63"
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/before-rc8-001/MEASUREMENT.json",
+    "bytes": 70765,
+    "sha256": "1b649fa9f9aecb89c44e3ed55feb854ba96ea24598a3b47d2e0b8524a39023e1"
+  },
+  "close": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/before-rc8-001/ACTUAL_CLOSE.json",
+    "bytes": 2076,
+    "sha256": "f6dc9021b6dce46ce17da7c059e08100d0ab263b113a67a780cc7b0193096b8b"
+  },
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/before-rc8-001/commands/matched-reference.result.json",
+    "bytes": 1415,
+    "sha256": "26e149c173fd1a178177d7c714c995f76e502182dc6846eea2e7b46f6fac2083"
+  },
+  "observed": {
+    "hostExitCode": 0,
+    "hostWallMs": 44928.024000000005,
+    "matchedCalls": 2,
+    "heldReadIdentityEqualities": 4,
+    "freshFullTerminalAndOwnerOutputEqualities": 4,
+    "unchangedPrefix": true,
+    "actualCloseAtFinalPrefix": true,
+    "maxObservedAggregateBytes": 101147673,
+    "aggregateBoundBytes": 1073741824,
+    "resourceAndFailureChecks": true
+  },
+  "standing": "Actual receipt conjunction permits the already-admitted single after subject; n1 observation, no speedup/qualification claim."
+}

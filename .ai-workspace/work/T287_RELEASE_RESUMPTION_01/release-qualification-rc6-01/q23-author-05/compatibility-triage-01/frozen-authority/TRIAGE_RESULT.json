@@ -1,0 +1,303 @@
+{
+  "productFrame": {
+    "fixedFamilies": "F01-F07,F09-F11,F13-F17; fifteen selected ABIogenesis 5.0 families",
+    "waveAndSlice": "GOAL-035/T287; Q23 configured assessor identity for F11/F15, with affected F10 replay/profile boundary",
+    "outcome": "Configured identity must retain declared ordinary behavior and historical evidence on its actual basis; determine applicable compatibility before selecting a correction.",
+    "sourceAuthority": "Exact Product/requirements and accepted HOW at 1f62c0095e6196b089071bb72e88217792edf6ff, plus frozen N02 controls and Root request. Older HOW fixed16 labels do not replace the current fixed15 release selection.",
+    "toolAuthority": "Read-only Git object and frozen-file acquisition; tools expose source facts and do not grant compatibility, qualification or migration.",
+    "runtimeAuthority": "ABG alone admits events and replay truth. Original RC6 events and failures remain on original installed owners and physical coordinates; fresh successor state requires its own owner-issued store and admissions.",
+    "classification": "Frozen owner-contract change and evidence applicability, not a new runtime entity/authority.",
+    "basis": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+    },
+    "prohibitions": [
+      "No moving Q23 source inspection or active-author interference.",
+      "No Product edits, tests, provider/native calls, Git mutations or private provider histories.",
+      "No universal compatibility assumption, restamping, unknown-profile fallback, registry, generic migration, parallel store authority or qualification claim."
+    ]
+  },
+  "kind": "bounded_profile_change_applicability_triage",
+  "status": "closed",
+  "at": "2026-11-05T19:44:21.635595+00:00",
+  "role": "Read-only architect/evaluator; not independent candidate acceptance",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/REQUEST.json",
+    "bytes": 3691,
+    "sha256": "afb9eba2ca4186457d7fbdb47bdfb0956f83010e50a71ec11ea1428e0cc62b6a"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/SUBJECT.json",
+    "bytes": 174679,
+    "sha256": "9c59c4d96ecf0ce3980a7cd6ee611539f3ff9a2de6f3654bc2cc876b24942e34"
+  },
+  "observation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/AUTHOR_PROGRESS_OBSERVED.json",
+    "bytes": 1383,
+    "sha256": "dfcf0199240f91daee2792898c9ee86ac38246b744e0c95953ebdb1908afd8cb"
+  },
+  "baselineCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "rootActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "verdict": "satisfied_for_applicability_question_only",
+  "conclusion": "Direct successor decoding of RC6-stamped current-profile history is not an applicable automatic obligation of this bounded Q23 increment. Preserve original RC6 history through its immutable original owners; a successor uses a fresh store. A new event-profile cut nevertheless activates the existing D5 payload-retirement obligation, which remains open at the prospective RC7 profile boundary.",
+  "findings": [
+    {
+      "id": "CT01",
+      "title": "Unknown predecessor-current digest is the selected fail-closed compatibility boundary, not by itself a Q23 defect",
+      "applicability": "Direct RC6-current-P to successor-current-P replay/append is not automatically required. Exact historical replay remains required on its original supported executable and basis; a selected same-store/cross-profile continuation claim would need its own lawful supported relation.",
+      "normativeSupport": [
+        "PRODUCT 590-603 requires exact causal/runtime preservation and deterministic published replay; 985-992 explicitly preserves historical Runs/evidence on original bases and does not migrate prior Runs.",
+        "EVENTS-001/002/003/010/024/027/028/029 require append-only, replayable, exact versioned native truth; they do not promise every future executable accepts every past profile.",
+        "Native event-contract HOW sections2-5 selects exactly immutable L plus one current P and only L-to-P, prohibits unknown-profile fallback/transitive compatibility and requires original byte/profile identity.",
+        "Later STDO run-environment pilot HOW 469-486 explicitly retains the original p4 replay executable, uses fresh p5 and requires unknown old-current digests to refuse; it does not qualify p4-to-p5 in-place migration."
+      ],
+      "originatingRelation": "Frozen event_store.ts:1090 adds configuredIdentity to currentBindingVariants.allowedPayloadKeys. The full current payload table is in the canonical descriptor preimage (event_store baseline1176-1182; event_contract_profiles157-175). This changes the current digest, even though the field is optional.",
+      "downstreamSymptom": "isKnownRootEventContractDigest recognizes only immutable L and the newly recomputed current digest. Historical reconstruction requires the exact current stamp and supports only L-to-current ancestry. The old RC6 P digest sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537 is therefore rejected by this successor rather than relabeled.",
+      "notCauses": [
+        "Provider model availability, tests passing/failing, and CLI-session continuity do not select event-profile compatibility.",
+        "The ordinary RC6 builder running the current author does not become this successor merely by compiling successor source."
+      ],
+      "impact": "An attempted successor reopen/append of RC6-current history fails closed; no old bytes are altered. Original-owner replay and a fresh successor store remain the selected lawful paths. A future production-positive Q23 path that needs native predecessor history must bind a supported original-owner/evidence relation; physical retention alone is not native cross-store source lineage.",
+      "requiredCorrection": "No registry, predecessor-P parser extension or P-to-P migration is required for the selected retention/fresh-store path. Before cutting the successor, bind its actual current descriptor/digest and declared profile identity through the existing profile HOW/catalog/package owners; do not publish an unpriced compatibility promise.",
+      "confidence": "high for source-level applicability and causal chain; no runtime replay or new digest computation performed",
+      "severity": "No Product defect is assigned to the deliberate unsupported-profile refusal. Selecting an in-place path without a supported relation would block that path.",
+      "repairCost": "No compatibility code change for the selected path. Preserve the old executable/resources and use existing successor create/install/bind owners when separately activated."
+    },
+    {
+      "id": "CT02",
+      "title": "A successor root-profile cut activates the existing D5 retirement obligation",
+      "applicability": "Common computational library HOW section10.2 D5, line621, explicitly ties retiring derivable lifecycle payload copies to the next root event-contract profile change. The configuredIdentity descriptor change meets that condition. This is an existing selected obligation, not a new compatibility demand.",
+      "normativeSupport": [
+        "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:621 says terminationConfirmed is temporarily retained and retirement is an obligation of the next root event-contract profile change; exitObserved, timedOut and signalSequence follow where the fold derives them.",
+        "Same HOW 603-610 names current Event Calculus, actor-process, replay/runtime-liveness and shared-process realization owners; retirement does not create a new runtime or registry."
+      ],
+      "draftVsCut": "The frozen N02 subject is an unaccepted component draft. This finding neither interrupts its ongoing author nor turns that draft into a released/current profile. Retaining configuredIdentity in an accepted/cut prospective RC7 profile requires explicit D5 closure at that boundary or a lawful owning HOW re-entry; a new digest or a green component test does not silently waive D5.",
+      "rootDispositionReceived": "Root will preserve RC6 compatibility through original owners plus a fresh successor store and explicitly carry the triggered D5 obligation to the prospective RC7 event-profile boundary. This report records that disposition, does not implement or close it, and activates no additional Worker.",
+      "smallestExistingOwnerCone": [
+        "Existing event_contract_profiles.ts descriptor identity and event_store.ts current payload contracts/stamp validation.",
+        "Existing actor_process.ts emission of the affected lifecycle copies and the already selected process-result carriers where D5 applies.",
+        "Existing abg/calculus/rules.ts actor_process_lifecycle/copy-disagreement rule (188-219); preserve derived fluent ownership and original-profile replay.",
+        "Existing replay.ts/runtime_liveness.ts consumers only where the owned retirement changes their input; do not add a second derivation or expand into a broad retirement census."
+      ],
+      "nearestExistingProof": [
+        "m5-event-store-reopen.test.mjs:1045 onward exact durable reopen/no-restamp and 480-515 crossed profile/coordinate refusal; existing history-reader conservation at1634 onward.",
+        "t287-calculus-fold.test.mjs:226-236 sole lifecycle-rule producer discriminator.",
+        "t287-lifecycle-failure-carrier.test.mjs:197,405-408 current lifecycle-copy agreement/disagreement assertions. These are existing owner routes for affected proof, not newly written or executed tests.",
+        "Existing m5-worker-transport.test.mjs and Q23 owner tests remain the selected configured-identity/ordinary-call component proof; they do not alone close an event-profile release cut."
+      ],
+      "confidence": "high for activation condition; finite retirement implementation and exact installed proof remain unperformed",
+      "severity": "Open prospective profile-boundary obligation; no claim that an unreleased partial draft is already a defective released profile.",
+      "costAndRisk": "Bounded existing-owner profile/payload work with meaningful lifecycle/replay regression risk. A generic compatibility registry or migration would add unrelated authority and cost without addressing D5."
+    }
+  ],
+  "carrierTradeoff": {
+    "selectedContract": "Frozen ROOT_SELECTION targetTruth and IDENTITY_DESIGN_REENTRY.design select one identity-bearing actor_transport_binding_admitted member. Reuse existing agent/command/args/plan/contract/environment digests; result and judgment consumers resolve existing binding references. Legacy absence remains unknown.",
+    "whySimpleDeletionIsNotEquivalent": "The frozen identity is derived from final arguments and the captured sanitized environment (worker_transport793; transport_contracts178-220). The durable existing binding has final args and an environment digest, not the complete captured environment. Re-parsing argv alone cannot prove absence of an environment conflict and must not turn historical absent identity into established identity.",
+    "recommendation": "Do not remove the field solely to evade the profile trigger or infer new positive identity from old payloads. Retain the selected one-binding design unless its owner explicitly proves an equivalent existing-fact projection with the same unknown/environment/legacy semantics. This pass neither authorizes nor designs such an alternative.",
+    "remainingClaimLimit": "Configured selection is not remote provider attestation, historical authorship reconstruction, independence acceptance or positive paid F11 qualification."
+  },
+  "nearestLawfulPath": [
+    "Continue the existing native author grant under immutable RC6; this triage performs no intervention.",
+    "Preserve RC6 events, genuine closes, failed histories, original executable and original scope. Replay with those original owners when their historical claims are used.",
+    "Keep component source/test progress separate from acceptance of a new event-contract profile. Carry the exact D5 obligation in the prospective RC7 boundary controls.",
+    "When Root separately selects a successor installation, use the existing fresh-store owner and ordinary install/bind/admission. Do not copy/restamp RC6 history into new genesis or claim source lineage from a physical snapshot.",
+    "Close only the selected component/profile claims supported by actual source freeze and later owner proof; QR02 and real production-positive Q23/F11 remain separately bound."
+  ],
+  "uncertainties": [
+    "Full candidate current digest was not independently computed; the changed canonical descriptor proves a changed digest under the selected hash contract, and AUTHOR_PROGRESS_OBSERVED reports prefix sha256:1c881564.",
+    "Original RC6 replay availability on the actual future retained resource was not dynamically checked; preservation is Root selection and must remain physically supportable.",
+    "No current moving author edits, b0 compiled output or private provider history was acquired.",
+    "No claim that an actual paid positive Q23 path can consume old RC6 native sources under the new profile; required source/attribution joins remain independently applicable.",
+    "No new-test plan, full D5 retirement census or generic migration design was produced."
+  ],
+  "evidence": {
+    "baseline": [
+      {
+        "id": "product",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+        "lines": "590-603;815-834;985-992;1269-1276;1655-1662",
+        "use": "Replay and original runtime causality; historical bases remain exact; no automatic migration or duplicate authority."
+      },
+      {
+        "id": "requirements",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+        "bytes": 16630,
+        "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+        "lines": "16-20;34-44;62;68-83",
+        "use": "EVENTS-001/002/003/010/013/014/024/027/028/029: append-only exact runtime truth and versioned event census, not universal successor decoding."
+      },
+      {
+        "id": "profile_how",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        "bytes": 21291,
+        "sha256": "8dd2fa84d4705009959572386817077797adcb54d76239b9c4fb628e4e6dd029",
+        "lines": "sections1-5,7",
+        "use": "Exactly L/current P and one L-to-P transition; immutable original validation, no unknown fallback or inferred transitive compatibility."
+      },
+      {
+        "id": "p5_how",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "bytes": 86253,
+        "sha256": "2883a6df78ac9c632b22bd6ce395e95dddea553ef885c0292aa8e6b666663098",
+        "lines": "469-486;488-497",
+        "use": "Explicit original p4 replay executable plus fresh p5; unknown old-current digests refuse; no in-place migration qualification."
+      },
+      {
+        "id": "d5_how",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 145655,
+        "sha256": "a9a69cdf6657e90581d3cfe5482668872bb7bc7b572a4b3ac97d628c414248f9",
+        "lines": "601-621",
+        "use": "Retirement ownership and D5 trigger at the next root event-contract profile change."
+      },
+      {
+        "id": "descriptor_owner",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "bytes": 10724,
+        "sha256": "830a42927e739f732e610f5a57daf6f941b4cd5ffcc0aeddf7906cab8183f7a0",
+        "lines": "8-16;157-176",
+        "use": "L constant; current p5 profile reference; descriptor digest covers the exact payload table."
+      },
+      {
+        "id": "event_owner",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 213856,
+        "sha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c",
+        "lines": "1072-1089;1176-1184;2745-2753;3471-3475;3726-3737;3831-3864;3875-3892",
+        "use": "Exactly two known digests; original stamp schedule; one L-to-current ancestry relation."
+      },
+      {
+        "id": "reopen_proof",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        "bytes": 84957,
+        "sha256": "ff28021b9a3b9acffe947ba146ce5ceaffb67fdf13a494de62a995c415e1a68a",
+        "lines": "480-515;1045 onward;1634 onward",
+        "use": "Existing same-profile reopen, crossed-coordinate refusal, retained-byte/history reader discriminators; inspected source only, not executed."
+      },
+      {
+        "id": "d5_rule",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+        "bytes": 11299,
+        "sha256": "c0fc878a39d1e54b940851cd384fe5146e975cedb8a8097f9c596f592dab6342",
+        "lines": "188-219",
+        "use": "Direct symbol locations only: copy disagreement and actor_process_lifecycle owner."
+      },
+      {
+        "id": "d5_proof",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "bytes": 27824,
+        "sha256": "22aade8295f93cbea4f8e64bb313464fbeca24cabe79c00925f80ccaa4315a8c",
+        "lines": "197;405-408",
+        "use": "Direct symbol locations only: lifecycle copy-disagreement assertions."
+      },
+      {
+        "id": "fold_proof",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "bytes": 80836,
+        "sha256": "c62071e4afc2f938ba9d84f67071686c8c2286ec1efcbd1d61a16ead7d7051f2",
+        "lines": "226-236",
+        "use": "Direct symbol locations only: sole actor_process_lifecycle producer discriminator."
+      }
+    ],
+    "frozen": [
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 82336,
+        "sha256": "94908ca0c4900dcf7be787f207dafe87be9288f0da1b75c88b9cfb5cec33679b",
+        "matchesSubject": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "bytes": 10724,
+        "sha256": "830a42927e739f732e610f5a57daf6f941b4cd5ffcc0aeddf7906cab8183f7a0",
+        "matchesSubject": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 214382,
+        "sha256": "c7dc17fdc2139343d20217646e3df0d7a2254b3057394e67151041692d5e3f70",
+        "matchesSubject": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "bytes": 22383,
+        "sha256": "4081e74e9bcb33cb493328fbe7c54ff57ea26a1571f66958a839824e926947cf",
+        "matchesSubject": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 37000,
+        "sha256": "2f19a31bf833e9b651b0077ac5de1d8d21dc2b488e663b1893f228c317a77f26",
+        "matchesSubject": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 75189,
+        "sha256": "6154a4c78c53bea2b048f5689168ddb2347ef7f611f7a67f2df0f6d69227da17",
+        "matchesSubject": true
+      },
+      {
+        "sourcePath": "qualification-inputs/q23-identity-02/IDENTITY_DESIGN_REENTRY.json",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/files/qualification-inputs/q23-identity-02/IDENTITY_DESIGN_REENTRY.json",
+        "bytes": 20929,
+        "sha256": "7ec6f271253664b7a571d636ef65fddcf77015ed06795238b382368d91165876",
+        "matchesSubject": true
+      },
+      {
+        "sourcePath": "qualification-inputs/q23-identity-02/ROOT_POLICY_HOW_SELECTION.json",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/files/qualification-inputs/q23-identity-02/ROOT_POLICY_HOW_SELECTION.json",
+        "bytes": 3891,
+        "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9",
+        "matchesSubject": true
+      },
+      {
+        "sourcePath": "qualification-inputs/q23-identity-02/ROOT_SELECTION.json",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/files/qualification-inputs/q23-identity-02/ROOT_SELECTION.json",
+        "bytes": 8486,
+        "sha256": "0378fd25947f07c02f8ea959434793ef6daea050dd238a28afff3e9852e02dab",
+        "matchesSubject": true
+      }
+    ]
+  },
+  "effects": {
+    "writes": [
+      "RESULT.json",
+      "RESULT.md"
+    ],
+    "ProductWrites": 0,
+    "runtimeWrites": 0,
+    "tests": 0,
+    "providers": 0,
+    "GitChanges": 0
+  },
+  "invalidation": [
+    "A new exact Product/requirements/HOW selection explicitly requires RC6-P to successor-P direct replay/append.",
+    "Root selects an actual native-history consumer whose required predecessor proof cannot lawfully be retained through original owners.",
+    "Frozen profile/identity bytes or the selected D5 law change.",
+    "Original RC6 executable/resources are unavailable or historical data is mutated."
+  ],
+  "return": "Root Executive owns final acceptance, source scope, prospective RC7 profile boundary and evidence sequencing. Closed bounded result; no further activation."
+}

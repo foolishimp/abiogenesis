@@ -1,0 +1,29 @@
+[
+  {
+    "root": "/Users/jim/src/apps/abiogenesis",
+    "head": "1344547c94dc0684af0cd83260438c41245a6f8a",
+    "index": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29351456,
+      "sha256": "8bd12d36d10649bb57f221d749c81c7802e972ac35cb331101c886d6b4c081a3"
+    }
+  },
+  {
+    "root": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+    "head": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "index": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc7-local-cut/index",
+      "bytes": 29466923,
+      "sha256": "829c687c31d81f2e3ab5167d217b34717d561ea79f7e58ef12d6f9e77bf5c1ae"
+    }
+  },
+  {
+    "root": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+    "head": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "index": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc8-reference-preservation/index",
+      "bytes": 29467371,
+      "sha256": "920fbeb629ac5f9799682bfad14bba766f8084039cfcd3e827eb8eb9ab2ae404"
+    }
+  }
+]

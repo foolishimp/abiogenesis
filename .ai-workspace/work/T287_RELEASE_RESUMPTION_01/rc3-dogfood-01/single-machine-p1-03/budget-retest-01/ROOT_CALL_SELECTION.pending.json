@@ -1,0 +1,31 @@
+{
+  "assessmentInputs": null,
+  "builderInstalledRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "builderRuntimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001",
+  "c2SelectedPaths": 963,
+  "eventPrefix": null,
+  "grant": null,
+  "newSourceBasis": "none",
+  "observations": [],
+  "priorClosure": null,
+  "priorConstruction": null,
+  "priorFrozenManifest": {
+    "bytes": 2300090,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/PREPARATION_MANIFEST.json",
+    "sha256": "324a96e0183eba68705c8e3589da79db9d9a2ab991234d63c629ec8a3efe6852"
+  },
+  "providerDispatch": false,
+  "readRootCount": 970,
+  "recursionBound": 3,
+  "rootAuthority": null,
+  "runId": "single-machine-p1-03-budget-retest-01",
+  "setupResume": null,
+  "sourceBaseline": null,
+  "sourceCensusSha256": null,
+  "sourceCommit": null,
+  "status": "PENDING_ACTUAL_FRESH_SETUP_AND_CLOSED_SOURCE_REVIEW",
+  "synthesis": null,
+  "workloadSha256": null,
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-machine-p1",
+  "writePathCount": 0
+}

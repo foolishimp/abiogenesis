@@ -1,0 +1,94 @@
+{
+  "file": "test_env/tests/t287-public-terminal-projection.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1899.9241249999031,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 4,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 4,
+    "todo": 0,
+    "topLevel": 4,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "actual closed retry-completion history yields exact Run truth, Result and replay without new execution",
+      "file": "test_env/tests/t287-public-terminal-projection.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_S02_PROJECTION_FIXTURE unset; requires the exact frozen S02 episode fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "terminal producer join refuses missing progress, foreign producer/scope and unrelated causal paths",
+      "file": "test_env/tests/t287-public-terminal-projection.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_S02_PROJECTION_FIXTURE unset; requires the exact frozen S02 episode fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "workspace replay fixed Definition uses its exact owner projection identity in held and cold reads",
+      "file": "test_env/tests/t287-public-terminal-projection.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_S02_PROJECTION_FIXTURE unset; requires the exact frozen S02 episode fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "Run-truth refusal conserves the caught terminal cause through existing Public evidenceRefs",
+      "file": "test_env/tests/t287-public-terminal-projection.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_S02_PROJECTION_FIXTURE unset; requires the exact frozen S02 episode fixture",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/142-t287-public-terminal-projection.jsonl",
+    "bytes": 2015,
+    "sha256": "2bf01c8aaddab67581820c126577411a68db3d814c407039537d452bd0210aad"
+  },
+  "commandReceipt": "commands/142-t287-public-terminal-projection.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

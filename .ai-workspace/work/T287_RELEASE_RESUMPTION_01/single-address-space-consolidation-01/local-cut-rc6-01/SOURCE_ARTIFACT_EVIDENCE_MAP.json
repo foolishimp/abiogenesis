@@ -1,0 +1,144 @@
+{
+  "kind": "rc6_source_artifact_evidence_map",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "sourceTree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.6",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+    "manifestDigest": "sha256:404905f00e9d79bd7cc1da592a492b19443b809d3b81c12ec8af9af947c2a64a",
+    "productContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "bytes": 10988465,
+    "sha256": "e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4"
+  },
+  "archiveMembers": 5325,
+  "artifactIdentityBridge": {
+    "kind": "native_proof_artifact_to_rc6_bridge",
+    "nativeArtifact": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/actual-c2-001/candidate-package.tgz",
+      "bytes": 10988328,
+      "sha256": "e0a84d336073fffb59696ebdedf0f5bd9224d4857d8124cd1400646819dfdf66"
+    },
+    "rc6Artifact": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+      "bytes": 10988465,
+      "sha256": "e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4"
+    },
+    "sameMemberSet": true,
+    "members": 5325,
+    "unchangedMembers": 5319,
+    "changedMembers": [
+      {
+        "path": "package/build/code/src/product/builtin_semantics.d.ts",
+        "beforeSha256": "7ed710c44708dff69997449476f5a685b98b3826d7f5b09eb024b7937f489500",
+        "afterSha256": "ad95a042fccd82e67ad77ad4b1ff85640d20027cc7606b9b811ce05e393765d0",
+        "beforeBytes": 11545,
+        "afterBytes": 11545,
+        "classification": "two existing Product/package identity constants or their existing inferred declaration"
+      },
+      {
+        "path": "package/build/code/src/product/contracts.d.ts",
+        "beforeSha256": "15a83baa544e38d26aea7bf51a7484d6881627f9c17ce190fa37bed73ed15859",
+        "afterSha256": "06f55cb153b089b7cce6a2cb25c1ff541c68688556d2d5af4f3a07fa239e11c4",
+        "beforeBytes": 13303,
+        "afterBytes": 13303,
+        "classification": "two existing Product/package identity constants or their existing inferred declaration"
+      },
+      {
+        "path": "package/build/code/src/product/contracts.js",
+        "beforeSha256": "09d721d0564c78ff0002adf9428c5f7b0ee245b47787a30daf601e20aef65908",
+        "afterSha256": "1949314ec3ad66af243a23417a5114a0408a3b410064497ae056dacc58476953",
+        "beforeBytes": 880,
+        "afterBytes": 880,
+        "classification": "two existing Product/package identity constants or their existing inferred declaration"
+      },
+      {
+        "path": "package/contracts/capabilities/capability-definition-graph.json",
+        "beforeSha256": "3c83a163fa1e573af080ef6775594cef0079f6f37fb2d5ac2eb27178fe21658f",
+        "afterSha256": "293152d6a6bbeadaf489d44b521d7f429b63c4edd5ec99027d52390d19dd3e91",
+        "beforeBytes": 197474,
+        "afterBytes": 197474,
+        "classification": "existing generated identity/schema/qualification projection"
+      },
+      {
+        "path": "package/package.json",
+        "beforeSha256": "be7fab6a3b53a38d1ccf693679f72969fad06597dbded76fe5143ecde34e1ade",
+        "afterSha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da",
+        "beforeBytes": 10003,
+        "afterBytes": 10003,
+        "classification": "package identity only"
+      },
+      {
+        "path": "package/product-toolchain-manifest.json",
+        "beforeSha256": "fc077c82a38ceee4f658bc028e64c95eb8cea546894aa92fed5f2f5da886eec2",
+        "afterSha256": "b18114a29e8aaa207f5f3d04849d6da1a72d0c1d05e5841ee66db12fa52a22cc",
+        "beforeBytes": 3265439,
+        "afterBytes": 3265439,
+        "classification": "existing generated identity/schema/qualification projection"
+      }
+    ],
+    "meaning": "All compiled implementation bytes are identical except the two existing Product/package identity constants. Generated projections are reviewed separately; native proof remains on its original artifact."
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/WRITER_ACTIVATION.json",
+      "bytes": 3887,
+      "sha256": "3676d710be85db541522aa0c1d898b49225e636cd16d976664679a3fa2d7d078"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/SOURCE_PREPARED.json",
+      "bytes": 8130,
+      "sha256": "9b11ace9ab84bfe599b29aed9d3d21948318db3b0a7b68785446b7a47bf50436"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/SOURCE_CHECKPOINT.json",
+      "bytes": 1177,
+      "sha256": "ae3da23b13755a8b1640459f0178bb5a73c53e44d7f518a6a84d275d89cd2ff5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/ARTIFACT_IDENTITY_BRIDGE.json",
+      "bytes": 3370,
+      "sha256": "da399a114c85a4014261c4944ecdf76d9dcbe0c953362ce9809a7b19735e20e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/RESULT.json",
+      "bytes": 4636,
+      "sha256": "fed19aa795597d30542d0812f8185911897f432e5bd8be504ec2fa6e6995ada0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/RESULT.json",
+      "bytes": 7699,
+      "sha256": "d32cc03c62479730635f5c56aad01d654313c30ecfaf45595d73c826f027b4fc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/INDEPENDENT_LOCAL_CUT_REVIEW.json",
+      "bytes": 18281,
+      "sha256": "84666f1abf65b43a6ce4fa358047fd3461d611a21a966f9302d48cad4f2b2f61"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/INDEX.json",
+      "bytes": 10099,
+      "sha256": "ee58e3a10ee9c9386921ae8fe6479c83fd86ba5718d1b58d120774d82a4166bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/proof-10/ROOT_CONJUNCTION.json",
+      "bytes": 13939,
+      "sha256": "4d74f116ae022fae56d517ebda3bda4b3032a62bf7e7d992ad7f53c1c7122313"
+    }
+  ],
+  "limits": [
+    "Bounded IR01/IR02 T1-T5 acceptance is retained from proof10; no native Run or RC5-labelled proof artifact is relabelled as an RC6 qualification result.",
+    "Actual09 remains77pass/8fail/75skip. Proof10 actual12/0/0 closes only its whole-path missing-baseline gap; revision4/1/2 and consumer59/0/73, old floor and excluded arms retain their standing.",
+    "N9-RETAINED-FIXTURE-01 remains open before dependent D2 or qualification claims; broader R1-R7/C1-C5 and full new-source workflow performance are open.",
+    "Initial cold authentication, launch and between-task latency are not declared eliminated. Proof10 timings describe installed RC5 orchestration.",
+    "Same-family independent review; no clean-family, fifteen-family, F11/sole AF22, GC03 or complete S01/S02/S03/S06 qualification.",
+    "Local source branch remains unmerged/unpushed. No tag, publication, global selector or stable-release acceptance.",
+    "Product S07 qualification/release remains prospective; this local preview cannot retroactively authorize a published cut. All earlier cuts and failures remain preserved."
+  ],
+  "qualification": false
+}

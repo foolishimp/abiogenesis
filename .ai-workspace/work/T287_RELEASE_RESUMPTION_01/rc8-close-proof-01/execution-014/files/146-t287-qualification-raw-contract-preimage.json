@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 13616.99358400004,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "qualification F_P publication supplies the exact raw owner to real singleton and mixed native preimage verification",
+      "file": "test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_QUAL_RAW_COORDINATES, ABI5_QUAL_RAW_INPUT_PACKET, ABI5_QUAL_RAW_REQUEST, ABI5_QUAL_RAW_BODY, ABI5_QUAL_RAW_BASELINE_TENANT unset; requires explicit frozen qualification and failed-Runtime preimages; no current installation is inferred",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/events/146-t287-qualification-raw-contract-preimage.jsonl",
+    "bytes": 1100,
+    "sha256": "206b3d28ad0c7a1c252b9f9f57ceae80e3eaca401056c8dede9c322b16da93da"
+  },
+  "commandReceipt": "commands/146-t287-qualification-raw-contract-preimage.result.json",
+  "workspace": "/private/tmp/abg-r8c-014/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

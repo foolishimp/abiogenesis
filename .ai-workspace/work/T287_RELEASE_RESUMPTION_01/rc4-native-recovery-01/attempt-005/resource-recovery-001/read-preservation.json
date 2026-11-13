@@ -1,0 +1,16 @@
+{
+  "currentLog": {
+    "device": 16777231,
+    "inode": 673308256,
+    "bytes": 314517064,
+    "sha256": "5b2307b5b808ee20a5dc0f7f2769dafd5964d79214adadc998756d78bdf5be21"
+  },
+  "installed": {
+    "nativeMembers": 5321,
+    "otherMembers": 7,
+    "unchanged": true
+  },
+  "lockAbsent": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

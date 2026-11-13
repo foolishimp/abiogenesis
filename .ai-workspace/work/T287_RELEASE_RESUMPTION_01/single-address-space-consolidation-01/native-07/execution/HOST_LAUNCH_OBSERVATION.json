@@ -1,0 +1,10 @@
+{
+  "recordedUtc": "2026-11-04T03:47:07.842900+00:00",
+  "kind": "operator_host_process_start_observation",
+  "pid": 70111,
+  "execSessionId": 16773,
+  "processStartUtc": "2026-11-04T03:45:52+00:00",
+  "source": "OS ps lstart for exact dispatcher command and admitted manifest64290dd3",
+  "precision": "whole second",
+  "standing": "Host launch/pre-dispatch validation timing only; actual STARTED and native process events remain separate."
+}

@@ -1,0 +1,81 @@
+{
+  "id": "PHASE1-EXTERNAL-PROOF-01",
+  "status": "ROOT_ADMITTED_PHASE1_PROOF",
+  "utc": "2026-11-09T18:28:36.351283+00:00",
+  "rootDecision": "One exact six-command sequence on frozen native03 subject with source assurance conjoined. Stop first failure/incomplete/drift; no retry, repair, rebuild or omitted command.",
+  "bindingSha256": "e3b91f2103182daffca5a85381cbf9358f563cc2f6c6901c4496a681570ecf46",
+  "controlsSha256": "5f09730a45ea2a3220e070feb4ac81f642e762f6810261c220aa9bc56a5bd2ff",
+  "readySha256": "3abcd0b37215b22978dd5ca63cbf4f9400171cbcd370d94d662b5ef243fdf48b",
+  "driverSha256": "1fa3405b6170235857c8f23433e45f267ff0b9fd7e3f4747690bda22f4021290",
+  "commandIds": [
+    "lint",
+    "build",
+    "deterministic",
+    "owned-lifetime",
+    "m5",
+    "unit"
+  ],
+  "sourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/source-freeze.json",
+    "bytes": 295022,
+    "sha256": "9ff5a44dcaca743e51be2313c21e503a437b57f036162a0f8cc2e37d4df20ae3"
+  },
+  "proofRoot": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01",
+  "allocationClarification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-plan/ALLOCATION_02.md",
+    "bytes": 1190,
+    "sha256": "4b9ebac15a10bbe1f66e017ac6c34eb1463d2bbaaa41bbd35639ba8969a8b4f3"
+  },
+  "sourceReview": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_RECHECK_NATIVE03.md",
+      "bytes": 5794,
+      "sha256": "e566805c7ef120516c759d0ff242566673d73f0aca529f69d79f618160883847"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_RECHECK_NATIVE03.json",
+      "bytes": 2338,
+      "sha256": "e9622dc9b2ec24731ab56964f1a83968f774e6203d3acc572fab2111f57383ed"
+    }
+  ],
+  "commandCapsSeconds": [
+    120,
+    600,
+    60,
+    300,
+    600,
+    1800
+  ],
+  "campaignMaximumSeconds": 4200,
+  "maxOutputBytes": 104857600,
+  "syntheticNegativeLimit": "Deliberate controlled rejected-drive fixture retains a pending synthetic owner and descriptor until bounded test process exit; no physical close claim.",
+  "preservation": "No author/main/tracking/source/Git/install/pin changes; no provider. All prior red and failed native/source evidence retained.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.r02.py",
+      "bytes": 15445,
+      "sha256": "1fa3405b6170235857c8f23433e45f267ff0b9fd7e3f4747690bda22f4021290"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/BINDING.json",
+      "bytes": 5251,
+      "sha256": "e3b91f2103182daffca5a85381cbf9358f563cc2f6c6901c4496a681570ecf46"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/CONTROLS.json",
+      "bytes": 28145,
+      "sha256": "5f09730a45ea2a3220e070feb4ac81f642e762f6810261c220aa9bc56a5bd2ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/READY.json",
+      "bytes": 5125,
+      "sha256": "3abcd0b37215b22978dd5ca63cbf4f9400171cbcd370d94d662b5ef243fdf48b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-plan/ALLOCATION_02.md",
+      "bytes": 1190,
+      "sha256": "4b9ebac15a10bbe1f66e017ac6c34eb1463d2bbaaa41bbd35639ba8969a8b4f3"
+    }
+  ]
+}

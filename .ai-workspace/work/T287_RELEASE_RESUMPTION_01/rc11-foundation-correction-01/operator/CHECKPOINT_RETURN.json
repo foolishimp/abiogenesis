@@ -1,0 +1,125 @@
+{
+  "status": "ACCEPTED_PRINCIPLE_AND_PLAN_LOCALLY_CHECKPOINTED_IMPLEMENTATION_UNSTARTED",
+  "rootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/ROOT_DISPOSITION.json",
+    "bytes": 5314,
+    "sha256": "2e0ea26f515aa930a7cf740493e73f96e1a6a9e5f879aa43a390f8f72315df70"
+  },
+  "trackingReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/CHECKPOINT_TRACKING.json",
+    "bytes": 2345,
+    "sha256": "2956c01a3ccf37c0ba6ce4de1fee014303fea5f6f8e523a3d1425cfc74b14f7c"
+  },
+  "stagedCheck": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/STAGED_CHECK.json",
+    "bytes": 6763,
+    "sha256": "f60df44e728b3cfb5537831e364b3a96fd7d0abb933449e53b7876793c8421da"
+  },
+  "sourceRoot": "/private/tmp/abg-rc11-foundation-20261110-01",
+  "branch": "codex/rc11-foundation-correction",
+  "parent": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "commit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+  "tree": "e7c0998717c1d641fa5d7777d2145453ff111a05",
+  "selectedPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "specification/GOALS.md",
+    "specification/PRODUCT.md",
+    "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md"
+  ],
+  "pathCount": 16,
+  "trackedClean": true,
+  "excludedUntrackedCount": 581,
+  "excludedUntrackedTopLevel": [
+    ".foundation-generation"
+  ],
+  "excludedInfrastructure": [
+    "successor node_modules",
+    "successor build",
+    ".foundation-generation",
+    "main operator controls/evidence"
+  ],
+  "commitOutput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/commit.stdout",
+    "bytes": 277,
+    "sha256": "75437876ca0ee4b5a3c6a41760d7d58a9ee01ed32ad7d9b5a638e920a08ecdfe"
+  },
+  "successorIndexBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+    "bytes": 29654624,
+    "sha256": "d54e6de36c16a0f4dec19ea1bcd3650c79a85abca98d9f10ec88bf20aa0c1880"
+  },
+  "successorIndexAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+    "bytes": 29654776,
+    "sha256": "7ef4f3d6ff1367062f2848b6ba22a91a32078bac81aedc860a0898ae1da46f01"
+  },
+  "mainAndDeliveredGuardsConserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/config",
+      "bytes": 3394,
+      "sha256": "60caaf703e24da50190aec332fb9d77204049d8594079b57dd3a42d051daf7d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 7591,
+      "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 14965,
+      "sha256": "5d6c3ec6d2094a041e25d5515347f83be0d5bc6694fc12e552089b66b34cf121"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10105,
+      "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266232,
+      "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10105,
+      "sha256": "02789c3812e488e53e7a6fe9bd3affd0d39144cd5e69b68adf48c7a7f1f6b9d1"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266309,
+      "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+    }
+  ],
+  "mainIndexConserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "noProductionOrTestSourceChanges": true,
+  "noRepeatedTests": true,
+  "noNativeRuntime": true,
+  "noMergePushTagInstallSelectorEffect": true,
+  "standing": "Both bug debts and qualification remain open. Future plan is not execution authorization. Stop after local checkpoint."
+}

@@ -1,0 +1,55 @@
+{
+  "id": "RC11-REPRICE-01",
+  "utc": "2026-11-09T06:50:35.257629+00:00",
+  "status": "RC11_AUTHOR01_CLOSED_NO_SOURCE_CHANGE_CURRENT_EVIDENCE_PREPARING",
+  "owner": "Root Executive",
+  "writer": "/root/rc10_operator",
+  "priorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/RETURN.json",
+    "bytes": 6964,
+    "sha256": "70ec4ba74bb5872617dacb052b588b07b413b1a956d1b89185693e54f69a2378"
+  },
+  "actualFailure": {
+    "absoluteTimeoutMs": 900000,
+    "failureClass": "transport_failure",
+    "toolCallCount": 74,
+    "apiRetryCount": 0,
+    "finalOutput": "",
+    "nativeAssessment": "absent",
+    "signalRequested": "SIGTERM",
+    "processStatus": 143,
+    "afterObservationPresent": true,
+    "changedPaths": [],
+    "observationFailure": null,
+    "terminalResult": null,
+    "physicalClose": "actual",
+    "freshReplay": "failed",
+    "freshResult": "refusal"
+  },
+  "rootDisposition": "Execution-scope/sequencing failure: no Product, runtime or source defect demonstrated. The one source task required constructing two complex evidence generators before concrete premises existed. Preserve the original subject, grant and failure.",
+  "selectedSequence": [
+    "Obtain the two genuine fixture populations externally using fixed installed RC10 existing owners/helpers; separate evidence-generation Writer prepares controls first, no runtime yet.",
+    "Stage exactly the four actual fixture files only under a future concrete grant.",
+    "Then use a separately admitted native author for fast consumers/loader/README, physical-test controls and exact RC11 metadata, with actual fixture manifests/IDs already available."
+  ],
+  "generatorStanding": "No checked-in full generator implementation is required for these capsules. External construction controls and receipts remain retained evidence; fixture README pins the concrete actual route. Model-free generation is not live-provider evidence.",
+  "currentAuthority": "Bookkeeping only now: this decision and concise current GOALS/T287 prefixes, preserving prior bodies and main index. No paid native preparation/dispatch, generator launch, source edits, final RC11 freeze, qualification or acceptance.",
+  "readScopeStanding": "Original bounded read deviation remains preserved with the sole grep-matched path already listed; no full read-scope conformity claim.",
+  "conservationBeforeBookkeeping": {
+    "sourceBaseline": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/SOURCE_INVENTORY.json",
+      "bytes": 292691,
+      "sha256": "e25d162544a1779ecdbdbe4fe99a7fbe4ead1589341a34096c136af90fade90d"
+    },
+    "sourceRowsConfirmedUnchanged": 1334,
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "newAuthorAndGeneratedFilesAbsent": true,
+    "mainIndex": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    "builderPinsConserved": true
+  },
+  "nextOwner": "Root conjoins concrete external controls and admissions; paid author remains held until actual fixtures."
+}

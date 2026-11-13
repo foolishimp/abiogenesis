@@ -1,0 +1,61 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.mjs",
+        "bytes": 23510,
+        "sha256": "d4e3a56f22046bcd237f5a66ee694001f6616f0b00e17b44ff6ba9a836d1500d"
+      }
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-local-rc8.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-local-rc8.mjs",
+        "bytes": 7172,
+        "sha256": "af384db8543ae85f8604c7d0913bd8449d458ee579d538f7677112f889be11f1"
+      }
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/installed-owner-smoke.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/installed-owner-smoke.mjs",
+        "bytes": 4375,
+        "sha256": "eb2e0c2059e3b9d2b097d6f6021771761b0990682f8c25d6681786ef3fd40793"
+      }
+    },
+    {
+      "command": "Python compile(source, filename, exec), without execution or pycache",
+      "exitCode": 0,
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/exact-artifact-correspondence.py",
+        "bytes": 1321,
+        "sha256": "435727108d64bb956cbe2542143cc9278d7c2fdc8276fe837ea3dd333ab747e2"
+      }
+    }
+  ],
+  "installerNonVersionBytesConserved": true,
+  "existingOwnerPinsVerified": true,
+  "executionPerformed": false
+}

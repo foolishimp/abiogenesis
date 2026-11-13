@@ -1,0 +1,322 @@
+{
+  "kind": "governance_work_state",
+  "schemaVersion": "5.0.0",
+  "original": {
+    "taskRef": "task://amendment-witness/req-order-approval@5",
+    "task": "Build the requested change to the order desk specification into the existing system.\nRecord intake triage in work/intake-triage.md and the impact assessment in design/impact-assessment.md.\nChange only the realization and tests the trace in specification/PRODUCT.md gives the amended requirement. Every other requirement keeps its behaviour, files and tests.\nThe work closes only when acceptance and every required review are satisfied for the current files.\n\nRequested change: Raise the order total that needs manager approval from 5,000 to 10,000.\n\nAmended requirement (specification/requirements/REQ-ORDER-APPROVAL.md):\n\n# REQ-ORDER-APPROVAL: Manager approval for large orders\n\nAn order whose total is above 10,000 requires manager approval. An order\nwhose total is 10,000 or less does not. The total is the amount the customer\npays after any discount under REQ-ORDER-DISCOUNT.\n\n## Examples\n\n| Order lines | Total | Manager approval |\n|---|---|---|\n| 1 × 7,500.00 | 7,500.00 | no |\n| 1 × 10,000.00 | 10,000.00 | no |\n| 1 × 10,000.01 | 10,000.01 | yes |\n| 10 × 1,040.00 | 9,880.00 | no |\n",
+    "sources": [
+      {
+        "path": "review/acceptance-rubric.md",
+        "digest": "sha256:cd478fa2e71f634e24050f1b0ec201015bf427b970168e840940468868360e31"
+      },
+      {
+        "path": "review/assessment-result.schema.json",
+        "digest": "sha256:6a9e109bb15f403b5fe7ee050e8cf0c9b0c1eafdd00695adc462233a796c82b6"
+      },
+      {
+        "path": "review/impact-rubric.md",
+        "digest": "sha256:0ed209d6902a93568ba03d426df7fcd7b8e69b152d709aa9b25a650d4a37e464"
+      },
+      {
+        "path": "review/preservation-rubric.md",
+        "digest": "sha256:e62c8e7144bcd42767835795288bd11e604653eb33b005fd7693aa2c6884ae53"
+      },
+      {
+        "path": "specification/INTENT.md",
+        "digest": "sha256:bc77700e56cc9965f3552902ede1d52ad4377cca91762b7d3a00f041313e334d"
+      },
+      {
+        "path": "specification/PRODUCT.md",
+        "digest": "sha256:fe4bf6384a9cac263ef46cbf903e5538dbff3d1a9802beb5d72ef1647d71c1aa"
+      },
+      {
+        "path": "specification/requirements/REQ-ORDER-APPROVAL.md",
+        "digest": "sha256:34959e80dc2a9c0f780a6931675777ae1570386403e2e74a70ffd04eacf85fd5"
+      },
+      {
+        "path": "specification/requirements/REQ-ORDER-DISCOUNT.md",
+        "digest": "sha256:40ec1568bfe4186aa428faf413c1dd23d9f08daf1440408bfdb099bcb6df3a0f"
+      },
+      {
+        "path": "src/discount.mjs",
+        "digest": "sha256:f1dfad26bf9c2fc8db31ae2be2970af04616423a6afa79a63e69fccb21975797"
+      },
+      {
+        "path": "test/discount.test.mjs",
+        "digest": "sha256:36cce52aa01d37d240e022d40952ca7afb8f0362f6a00b996867cf12386f2470"
+      }
+    ],
+    "requiredSupportRefs": [
+      "support://amendment-witness/amended-requirement-realized@5"
+    ],
+    "authorityRefs": [
+      "authority://amendment-witness/specification-amendment@5"
+    ],
+    "readRoots": [
+      "design/impact-assessment.md",
+      "review/acceptance-rubric.md",
+      "review/assessment-result.schema.json",
+      "review/impact-rubric.md",
+      "review/preservation-rubric.md",
+      "specification/INTENT.md",
+      "specification/PRODUCT.md",
+      "specification/requirements/REQ-ORDER-APPROVAL.md",
+      "specification/requirements/REQ-ORDER-DISCOUNT.md",
+      "src/approval.mjs",
+      "src/discount.mjs",
+      "src/order.mjs",
+      "test/approval.test.mjs",
+      "test/discount.test.mjs",
+      "work/intake-triage.md"
+    ],
+    "maxContextFiles": 64,
+    "maxContextBytes": 131072,
+    "maxPromptBytes": 131072,
+    "workOrders": {
+      "induction": {
+        "outcome": "Record the intake triage of the requested specification change in work/intake-triage.md.",
+        "instructions": [
+          "Classify the change with one STDO change class (stdo://releases/v3.0.4/standards/SPEC_METHOD.md#change-classes) and name its re-entry point (stdo://releases/v3.0.4/standards/SPEC_METHOD.md#universal-intake-triage).",
+          "Name the amended requirement, the surfaces the trace gives it, and the surfaces the change must leave unchanged.",
+          "Write these lines: Change class:, Re-entry:, Amended requirement:, Affected surfaces:, Preserved surfaces:, Open questions:.",
+          "Do not change the specification, the review rubrics or any realization file."
+        ],
+        "readFirst": [
+          "specification/INTENT.md",
+          "specification/PRODUCT.md",
+          "specification/requirements/REQ-ORDER-APPROVAL.md"
+        ],
+        "writeRoots": [
+          "work/intake-triage.md"
+        ],
+        "checks": []
+      },
+      "design": {
+        "outcome": "Assess the design impact of the amended requirement and write it to design/impact-assessment.md.",
+        "instructions": [
+          "Read work/intake-triage.md when it exists.",
+          "Affected surfaces are every file the trace gives the amended requirement. Preserved surfaces are every other requirement file and every file traced only to other requirements. Shared surfaces are realization files traced to the amended requirement and another requirement.",
+          "Write these lines: Change class:, Amended requirement:, Affected surfaces:, Preserved surfaces:, Shared surfaces:, Tests to change:, Design change:.",
+          "Do not change the specification, the review rubrics or any realization file."
+        ],
+        "readFirst": [
+          "specification/PRODUCT.md",
+          "specification/requirements/REQ-ORDER-APPROVAL.md",
+          "src/approval.mjs",
+          "src/order.mjs",
+          "test/approval.test.mjs"
+        ],
+        "writeRoots": [
+          "design/impact-assessment.md"
+        ],
+        "checks": []
+      },
+      "construction": {
+        "outcome": "Change the realization traced to the amended requirement so the system meets the amended text and every example in it, and keep every other requirement's behaviour.",
+        "instructions": [
+          "Read design/impact-assessment.md and work/intake-triage.md when they exist.",
+          "Update the tests the trace gives the amended requirement so they cover the amended rule at its boundary and every example.",
+          "A shared realization file keeps every example of every other requirement true.",
+          "When an admitted review is adverse, correct the criteria it lists as unresolved."
+        ],
+        "readFirst": [
+          "specification/requirements/REQ-ORDER-APPROVAL.md",
+          "specification/PRODUCT.md",
+          "src/approval.mjs",
+          "src/order.mjs",
+          "test/approval.test.mjs"
+        ],
+        "writeRoots": [
+          "src/approval.mjs",
+          "src/order.mjs",
+          "test/approval.test.mjs"
+        ],
+        "checks": []
+      },
+      "testing": {
+        "outcome": "Run the declared test plan on the current files.",
+        "instructions": [
+          "Record every command result, including failures."
+        ],
+        "readFirst": [
+          "test/approval.test.mjs",
+          "test/discount.test.mjs"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "uat": {
+        "outcome": "Independently assess that the system realizes the whole amended requirement, including every example, on the current files and the current Testing result.",
+        "instructions": [
+          "Return every failed or unevaluable criterion identifier in unresolvedCriteria."
+        ],
+        "readFirst": [
+          "review/acceptance-rubric.md"
+        ],
+        "writeRoots": [],
+        "checks": []
+      }
+    },
+    "testing": {
+      "selectedPaths": [
+        "src/approval.mjs",
+        "src/discount.mjs",
+        "src/order.mjs",
+        "test/approval.test.mjs",
+        "test/discount.test.mjs"
+      ],
+      "commands": [
+        {
+          "commandId": "command://amendment-witness/tests@5",
+          "executable": "node",
+          "args": [
+            "--test",
+            "test/approval.test.mjs",
+            "test/discount.test.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 20000,
+          "terminationGraceMs": 2000,
+          "expectedReports": []
+        }
+      ],
+      "outcomePredicates": [
+        {
+          "predicateId": "predicate://amendment-witness/tests-exit-zero@5",
+          "predicateKind": "process_exit",
+          "declaration": {
+            "validationCommandId": "command://amendment-witness/tests@5",
+            "equals": 0
+          }
+        }
+      ],
+      "allowedWriteTerritories": []
+    },
+    "assessment": {
+      "sources": [
+        "specification/requirements/REQ-ORDER-APPROVAL.md",
+        "specification/PRODUCT.md",
+        "src/order.mjs",
+        "test/approval.test.mjs"
+      ],
+      "candidatePath": "src/approval.mjs",
+      "rubricPath": "review/acceptance-rubric.md",
+      "resultContract": {
+        "contractRef": "contract://default-library-witness/assessment@5",
+        "contractVersion": "5.0.0",
+        "contractKind": "output",
+        "valueKind": "consumer_outcome_assessment"
+      },
+      "schemaAsset": {
+        "productId": "product://default-library-witness/consumer@5",
+        "contractId": "contract://default-library-witness/assessment@5",
+        "bytesBase64": "eyIkaWQiOiJjb250cmFjdDovL2RlZmF1bHQtbGlicmFyeS13aXRuZXNzL2Fzc2Vzc21lbnRANSIsInR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInJlcXVpcmVkIjpbImtpbmQiLCJkaXNwb3NpdGlvbiIsInJlYXNvbiIsInVucmVzb2x2ZWRDcml0ZXJpYSJdLCJwcm9wZXJ0aWVzIjp7ImtpbmQiOnsiY29uc3QiOiJjb25zdW1lcl9vdXRjb21lX2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyJ9LCJ1bnJlc29sdmVkQ3JpdGVyaWEiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsidHlwZSI6InN0cmluZyJ9fX19Cg=="
+      },
+      "verdictField": "disposition",
+      "satisfiedValue": "satisfied"
+    },
+    "reviews": [
+      {
+        "reviewRef": "review://amendment-witness/impact@5",
+        "frame": "Impact review frame. Evaluation family: Design impact of a requirement change. Subject: The impact assessment the impact-assessment stage writes for this Run (design/impact-assessment.md), at its current bytes. Basis: The Run's worksite after the amendment: the amended requirement and the traceability table of specification/PRODUCT.md. Authority: the amended requirement text; stdo://releases/v3.0.4/standards/SPEC_METHOD.md#universal-intake-triage; stdo://releases/v3.0.4/standards/SPEC_METHOD.md#change-classes; stdo://releases/v3.0.4/standards/FOUNDATIONS.md#change-impact-and-evidence-reuse; stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit. Admissible evidence: The assessment text, the amended requirement and the trace, read at their current bytes. Excluded: Realization correctness, test results, wording quality and acceptance of the amendment. Capability: A read-only assessor that did not write the subject; it edits nothing. Result: One closed result under stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md#rf-012-closed-results: satisfied, unmet (falsified) or indeterminate, with every failed or unevaluable criterion identifier. Return: Returns to the parent Run. It is a declared prerequisite of construction and a required review for parent completion. It does not accept the amendment.",
+        "required": true,
+        "order": {
+          "outcome": "Assess the impact assessment under the impact frame and the impact rubric.",
+          "instructions": [
+            "Return every failed or unevaluable criterion identifier in unresolvedCriteria.",
+            "Applicability: Never for a requirement amendment: a wording-only change still records that no design surface changes."
+          ],
+          "readFirst": [
+            "review/impact-rubric.md"
+          ],
+          "writeRoots": [],
+          "checks": []
+        },
+        "assessment": {
+          "sources": [
+            "specification/requirements/REQ-ORDER-APPROVAL.md",
+            "specification/PRODUCT.md"
+          ],
+          "candidatePath": "design/impact-assessment.md",
+          "rubricPath": "review/impact-rubric.md",
+          "resultContract": {
+            "contractRef": "contract://default-library-witness/assessment@5",
+            "contractVersion": "5.0.0",
+            "contractKind": "output",
+            "valueKind": "consumer_outcome_assessment"
+          },
+          "schemaAsset": {
+            "productId": "product://default-library-witness/consumer@5",
+            "contractId": "contract://default-library-witness/assessment@5",
+            "bytesBase64": "eyIkaWQiOiJjb250cmFjdDovL2RlZmF1bHQtbGlicmFyeS13aXRuZXNzL2Fzc2Vzc21lbnRANSIsInR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInJlcXVpcmVkIjpbImtpbmQiLCJkaXNwb3NpdGlvbiIsInJlYXNvbiIsInVucmVzb2x2ZWRDcml0ZXJpYSJdLCJwcm9wZXJ0aWVzIjp7ImtpbmQiOnsiY29uc3QiOiJjb25zdW1lcl9vdXRjb21lX2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyJ9LCJ1bnJlc29sdmVkQ3JpdGVyaWEiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsidHlwZSI6InN0cmluZyJ9fX19Cg=="
+          },
+          "verdictField": "disposition",
+          "satisfiedValue": "satisfied"
+        }
+      },
+      {
+        "reviewRef": "review://amendment-witness/preservation@5",
+        "frame": "Preservation review frame. Evaluation family: Preservation of obligations the amendment does not authorize changing. Subject: The realization file the amended requirement shares with other requirements, at the bytes the latest construction left. Basis: The Run's worksite after the amendment: the requirements the amendment does not change, the files and tests traced only to them, and the trace. Authority: the unchanged requirements and their examples; stdo://releases/v3.0.4/standards/FOUNDATIONS.md#preservation-through-construction; stdo://releases/v3.0.4/standards/SPEC_METHOD.md#change-classes; stdo://releases/v3.0.4/standards/EVALUATION.md#3-independent-assessment; stdo://releases/v3.0.4/standards/ASSURANCE.md#11-assurance-subject-acquisition-and-evaluation. Admissible evidence: The candidate's current bytes, the unchanged requirements' examples evaluated through the system, and the declared source digests. Excluded: Whether the amended rule is met (acceptance owns that), style and test-suite completeness. Capability: A read-only assessor that did not write the subject; it edits nothing. Result: One closed result under stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md#rf-012-closed-results: satisfied, unmet (falsified) or indeterminate, with every failed or unevaluable criterion identifier. Return: Returns to the parent Run. It is a declared prerequisite of UAT and a required review for parent completion. It does not accept the amendment.",
+        "required": true,
+        "order": {
+          "outcome": "Assess the shared realization under the preservation frame and the preservation rubric.",
+          "instructions": [
+            "Return every failed or unevaluable criterion identifier in unresolvedCriteria.",
+            "Applicability: When the amendment leaves the requirement's examples unchanged it changes only wording: no realization changes, so nothing needs preserving."
+          ],
+          "readFirst": [
+            "review/preservation-rubric.md"
+          ],
+          "writeRoots": [],
+          "checks": []
+        },
+        "assessment": {
+          "sources": [
+            "specification/requirements/REQ-ORDER-DISCOUNT.md",
+            "src/discount.mjs",
+            "test/discount.test.mjs",
+            "specification/PRODUCT.md"
+          ],
+          "candidatePath": "src/order.mjs",
+          "rubricPath": "review/preservation-rubric.md",
+          "resultContract": {
+            "contractRef": "contract://default-library-witness/assessment@5",
+            "contractVersion": "5.0.0",
+            "contractKind": "output",
+            "valueKind": "consumer_outcome_assessment"
+          },
+          "schemaAsset": {
+            "productId": "product://default-library-witness/consumer@5",
+            "contractId": "contract://default-library-witness/assessment@5",
+            "bytesBase64": "eyIkaWQiOiJjb250cmFjdDovL2RlZmF1bHQtbGlicmFyeS13aXRuZXNzL2Fzc2Vzc21lbnRANSIsInR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInJlcXVpcmVkIjpbImtpbmQiLCJkaXNwb3NpdGlvbiIsInJlYXNvbiIsInVucmVzb2x2ZWRDcml0ZXJpYSJdLCJwcm9wZXJ0aWVzIjp7ImtpbmQiOnsiY29uc3QiOiJjb25zdW1lcl9vdXRjb21lX2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyJ9LCJ1bnJlc29sdmVkQ3JpdGVyaWEiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsidHlwZSI6InN0cmluZyJ9fX19Cg=="
+          },
+          "verdictField": "disposition",
+          "satisfiedValue": "satisfied"
+        }
+      }
+    ]
+  },
+  "synthesis": null,
+  "observations": [],
+  "unresolvedSupportRefs": [
+    "support://amendment-witness/amended-requirement-realized@5"
+  ],
+  "terminal": false,
+  "reviewStanding": [
+    {
+      "reviewRef": "review://amendment-witness/impact@5",
+      "required": true,
+      "resultRef": null,
+      "satisfied": false,
+      "current": false
+    },
+    {
+      "reviewRef": "review://amendment-witness/preservation@5",
+      "required": true,
+      "resultRef": null,
+      "satisfied": false,
+      "current": false
+    }
+  ]
+}

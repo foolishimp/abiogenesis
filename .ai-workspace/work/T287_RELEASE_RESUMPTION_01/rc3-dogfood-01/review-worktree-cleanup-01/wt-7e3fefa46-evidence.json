@@ -1,0 +1,2614 @@
+{
+  "areas": {
+    "build_tenants/abiogenesis/typescript/test_env/evidence": [
+      {
+        "bytes": 2473,
+        "path": "abi5-non-root-alias-selection.json",
+        "sha256": "fa57269d383e418f55f35d8587b702bfdba8e564f044ba81bc6cc1af9dbf40fe",
+        "type": "file"
+      },
+      {
+        "bytes": 16289803,
+        "path": "abi5-root-r1.json",
+        "sha256": "e7b27ac23e2dc991b122f3e12671f0636139ecc6baf05b3e387ae0d8cd5afee7",
+        "type": "file"
+      },
+      {
+        "bytes": 20698831,
+        "path": "abi5-root-r2.json",
+        "sha256": "201ad54158eddb07bf395435b8850c350ff7825601786d349919028bbaba12a8",
+        "type": "file"
+      },
+      {
+        "bytes": 2489,
+        "path": "abi5-root-r3.json",
+        "sha256": "eed738145e77c5dbd104611105ef0b1085668fdcd2a69468c88ce34fbac5615f",
+        "type": "file"
+      },
+      {
+        "bytes": 2650,
+        "path": "abi5-root-r6.json",
+        "sha256": "60ad658e5d68181acdc66a53e9a139895890cba21e96236d82b3756f25c8b844",
+        "type": "file"
+      },
+      {
+        "bytes": 3331,
+        "path": "abi5-root-r7.json",
+        "sha256": "6cb9e117aa1fe5910ccb718273e5010cae7e6d809f1f6ea657fdf0721f9daec3",
+        "type": "file"
+      },
+      {
+        "bytes": 2444,
+        "path": "abi5-root-r8.json",
+        "sha256": "fa1fc4b572d4e8089d0d1b66721aa19455233e012b2312b1e3ebcbf1b58df7a1",
+        "type": "file"
+      },
+      {
+        "bytes": 8973,
+        "path": "t287-w2-05-generator-package.json",
+        "sha256": "8d15144f8a6febf81e050939a42f667303b0a5229e115821591a1dfea69f4e41",
+        "type": "file"
+      }
+    ],
+    "build_tenants/abiogenesis/typescript/test_env/test_runs": [
+      {
+        "bytes": 37,
+        "path": "sandbox-uat-units/archive-negative/2026-10-28T21-08-59-085Z-db669e79-433d-46c4-bcd7-22189e378592/identity.json",
+        "sha256": "ee1a4fc2e139a076bfe41ed7a606bea7f4c10851cbdf59a8df6ab1d818ff2b7b",
+        "type": "file"
+      },
+      {
+        "bytes": 598,
+        "path": "sandbox-uat-units/archive-negative/2026-10-28T21-08-59-085Z-db669e79-433d-46c4-bcd7-22189e378592/commands/actual-failure.request.json",
+        "sha256": "43185521a49f108b25c136c58fbd2683d43cb72b8df22be13b9789c728f56cc5",
+        "type": "file"
+      },
+      {
+        "bytes": 784,
+        "path": "sandbox-uat-units/archive-negative/2026-10-28T21-08-59-085Z-db669e79-433d-46c4-bcd7-22189e378592/commands/actual-failure.result.json",
+        "sha256": "f26ddb5fa9c76dbb3b3fdf101ef6f61198105ccd6c47132c13fa0ce8a979c1bf",
+        "type": "file"
+      },
+      {
+        "bytes": 14,
+        "path": "sandbox-uat-units/archive-negative/2026-10-28T21-08-59-085Z-db669e79-433d-46c4-bcd7-22189e378592/commands/actual-failure.stderr",
+        "sha256": "6effb7e47263b349b2a06a7adf87ed0ebaf2a4f0c7bf03b4fcc6f315f1ee5095",
+        "type": "file"
+      },
+      {
+        "bytes": 12,
+        "path": "sandbox-uat-units/archive-negative/2026-10-28T21-08-59-085Z-db669e79-433d-46c4-bcd7-22189e378592/commands/actual-failure.stdout",
+        "sha256": "de31838eb8ed3ad9fbc901e4da06e8946a6534afc257810baaab15e63686c2bf",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/test-execution-plan.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/generated/hello-world.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 4916,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/source/basic-cli/obligations.json",
+        "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+        "type": "file"
+      },
+      {
+        "bytes": 1112,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/source/basic-cli/oracle.json",
+        "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+        "type": "file"
+      },
+      {
+        "bytes": 4325,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/source/basic-cli/source.original.txt",
+        "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/specification/project-conformance.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/test/component/hello-cli.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-basic-cli/2026-10-28T21-08-58-979Z-013121a8-aeb1-4fa8-a0c6-0b5c224cffd7/test/uat/hello-cli.uat.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/package.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/test-execution-plan.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 5794,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/source/js-sdlc-bootstrap/obligations.json",
+        "sha256": "2b923205ce74efe77187ce1525e1b2a6ed08e773f4d57dc1b5a7e078b2e43947",
+        "type": "file"
+      },
+      {
+        "bytes": 1890,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/source/js-sdlc-bootstrap/oracle.json",
+        "sha256": "a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f",
+        "type": "file"
+      },
+      {
+        "bytes": 6120,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/source/js-sdlc-bootstrap/source.original.txt",
+        "sha256": "c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/specification/project-conformance.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/src/hello.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/test/component/hello.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-sdlc-bootstrap/2026-10-28T21-08-58-989Z-6fc01138-6a6d-4b6c-a666-16d4df961124/test/uat/hello.uat.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/package.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/test-execution-plan.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 4252,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/source/js-tenant-test/obligations.json",
+        "sha256": "28c0f522f6050076c3b94b2f2d98464f5cd0d70ba77309053ec640f3d1274544",
+        "type": "file"
+      },
+      {
+        "bytes": 1782,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/source/js-tenant-test/oracle.json",
+        "sha256": "55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e",
+        "type": "file"
+      },
+      {
+        "bytes": 3655,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/source/js-tenant-test/source.original.txt",
+        "sha256": "3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/specification/project-conformance.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/src/hello.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/test/component/hello.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-js-tenant-test/2026-10-28T21-08-58-984Z-a8bc0de3-739e-417f-89ac-cb02d9d6b8ca/test/uat/hello.uat.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/package.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/test-execution-plan.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 4827,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/source/parallel-js/obligations.json",
+        "sha256": "34921c07256d35ea54b6a006bde5d5041b6f4fc760c75ef090f31365a8e5fb06",
+        "type": "file"
+      },
+      {
+        "bytes": 2335,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/source/parallel-js/oracle.json",
+        "sha256": "82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c",
+        "type": "file"
+      },
+      {
+        "bytes": 4285,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/source/parallel-js/source.original.txt",
+        "sha256": "d8cc8105e4d16eea10fa8f908656a2c82e5690fc145cfb91e70ed00f84aa6053",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/specification/project-conformance.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/src/hello.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/src/index.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/src/world.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/test/component/parallel-branches.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-parallel-js/2026-10-28T21-08-59-003Z-04e97d4c-b6c2-490b-95a0-592bc1d67dbe/test/uat/parallel-fanin.uat.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 386,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/outside-report.xml",
+        "sha256": "d6aa7ceaa3f3acfb85cf1d3a91a28cef368212916816da8202ac3e639f9fc2c9",
+        "type": "file"
+      },
+      {
+        "bytes": 416,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/green/build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "sha256": "fba84cfc8901986f0ec01ecdb74305b87f4c137f512b5129b70272b0564f5daa",
+        "type": "file"
+      },
+      {
+        "bytes": 401,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/green/build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "sha256": "29ed95acdf65e802dd7a3f3663a098c7b0a0db2ac6902315df68da656339a867",
+        "type": "file"
+      },
+      {
+        "bytes": 411,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/green/build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "sha256": "7746d3eb155071c9825581fc3981515525fc8c796bd9bf7bd11f79408fe629d4",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/green/build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "sha256": "b5116ab3b0437a51709371e97e6cbee122b7f6eff73a9a9bcafe4419148aa064",
+        "type": "file"
+      },
+      {
+        "bytes": 386,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/green/build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "sha256": "d6aa7ceaa3f3acfb85cf1d3a91a28cef368212916816da8202ac3e639f9fc2c9",
+        "type": "file"
+      },
+      {
+        "bytes": 396,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/green/build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "sha256": "3e29a49a1a6641b4b923b211adb435ed21493863cb889eb0d34d0732f86fb323",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/green/build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "sha256": "895ff0608569626c3f72874382ff7464363d418eff70476aebfcf2d0479601ce",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/green/build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "sha256": "61712762afae4f7c55fa5dc785516c71706dec193680e6df5226cdeac41822e5",
+        "type": "file"
+      },
+      {
+        "bytes": 5754,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/depth-proof-map.json",
+        "sha256": "195af81fbdebe4b28a1e442c79eab7eca42f284887f4a6836439444db6d62069",
+        "type": "file"
+      },
+      {
+        "bytes": 11,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/mutation-outcomes.json",
+        "sha256": "1633902c6cbba5e7770dbed172df754a25078bb76efe1f23474edc87f1a47655",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/test-execution-result.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/archive/test-run-archive.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 57,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/build.sbt",
+        "sha256": "92208a6081d0eb2289d6b8c9a30000e3a7be83215a3b3eecc6852bfdf3726f01",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 19,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/project/build.properties",
+        "sha256": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/build_tenants/scala_spark/project/plugins.sbt",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/design/component-code-surface.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/design/feature-decomposition.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/design/module-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/proof/component-realization-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/proof/component-test-execution-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/proof/repaired-component-test-execution-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/release/release-depth-parity.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/release/release-preparation.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/repair/component-repair-application.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/repair/component-repair-schedule.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 50978,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/source/data-mapper-full/obligations.json",
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "type": "file"
+      },
+      {
+        "bytes": 16774,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/source/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "type": "file"
+      },
+      {
+        "bytes": 41158,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/source/data-mapper-full/source.original.txt",
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "type": "file"
+      },
+      {
+        "bytes": 3713,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/source/data-mapper-full/supporting-constants.original.txt",
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/specification/goals.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/specification/intent.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/specification/product.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/specification/requirements.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/specification/scenario.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/specification/testcase-authority.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-656Z-33cd744c-99f1-4f61-b7a3-b9dbdfe90a6c/worksite/specification/uat-testcases.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 416,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/green/build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "sha256": "fba84cfc8901986f0ec01ecdb74305b87f4c137f512b5129b70272b0564f5daa",
+        "type": "file"
+      },
+      {
+        "bytes": 401,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/green/build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "sha256": "29ed95acdf65e802dd7a3f3663a098c7b0a0db2ac6902315df68da656339a867",
+        "type": "file"
+      },
+      {
+        "bytes": 411,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/green/build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "sha256": "7746d3eb155071c9825581fc3981515525fc8c796bd9bf7bd11f79408fe629d4",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/green/build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "sha256": "b5116ab3b0437a51709371e97e6cbee122b7f6eff73a9a9bcafe4419148aa064",
+        "type": "file"
+      },
+      {
+        "bytes": 386,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/green/build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "sha256": "d6aa7ceaa3f3acfb85cf1d3a91a28cef368212916816da8202ac3e639f9fc2c9",
+        "type": "file"
+      },
+      {
+        "bytes": 396,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/green/build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "sha256": "3e29a49a1a6641b4b923b211adb435ed21493863cb889eb0d34d0732f86fb323",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/green/build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "sha256": "895ff0608569626c3f72874382ff7464363d418eff70476aebfcf2d0479601ce",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/green/build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "sha256": "61712762afae4f7c55fa5dc785516c71706dec193680e6df5226cdeac41822e5",
+        "type": "file"
+      },
+      {
+        "bytes": 416,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/red/build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "sha256": "fba84cfc8901986f0ec01ecdb74305b87f4c137f512b5129b70272b0564f5daa",
+        "type": "file"
+      },
+      {
+        "bytes": 401,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/red/build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "sha256": "29ed95acdf65e802dd7a3f3663a098c7b0a0db2ac6902315df68da656339a867",
+        "type": "file"
+      },
+      {
+        "bytes": 411,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/red/build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "sha256": "7746d3eb155071c9825581fc3981515525fc8c796bd9bf7bd11f79408fe629d4",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/red/build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "sha256": "b5116ab3b0437a51709371e97e6cbee122b7f6eff73a9a9bcafe4419148aa064",
+        "type": "file"
+      },
+      {
+        "bytes": 423,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/red/build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "sha256": "7051145645e015bde6c15dd37252ef3b320c30a8c3c65cf0da489191d8caa77a",
+        "type": "file"
+      },
+      {
+        "bytes": 396,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/red/build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "sha256": "3e29a49a1a6641b4b923b211adb435ed21493863cb889eb0d34d0732f86fb323",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/red/build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "sha256": "895ff0608569626c3f72874382ff7464363d418eff70476aebfcf2d0479601ce",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/red/build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "sha256": "61712762afae4f7c55fa5dc785516c71706dec193680e6df5226cdeac41822e5",
+        "type": "file"
+      },
+      {
+        "bytes": 5754,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/depth-proof-map.json",
+        "sha256": "195af81fbdebe4b28a1e442c79eab7eca42f284887f4a6836439444db6d62069",
+        "type": "file"
+      },
+      {
+        "bytes": 11,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/mutation-outcomes.json",
+        "sha256": "1633902c6cbba5e7770dbed172df754a25078bb76efe1f23474edc87f1a47655",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/test-execution-result.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/archive/test-run-archive.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 57,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/build.sbt",
+        "sha256": "92208a6081d0eb2289d6b8c9a30000e3a7be83215a3b3eecc6852bfdf3726f01",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 416,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "sha256": "fba84cfc8901986f0ec01ecdb74305b87f4c137f512b5129b70272b0564f5daa",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 401,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "sha256": "29ed95acdf65e802dd7a3f3663a098c7b0a0db2ac6902315df68da656339a867",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 411,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "sha256": "7746d3eb155071c9825581fc3981515525fc8c796bd9bf7bd11f79408fe629d4",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "sha256": "b5116ab3b0437a51709371e97e6cbee122b7f6eff73a9a9bcafe4419148aa064",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 386,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "sha256": "d6aa7ceaa3f3acfb85cf1d3a91a28cef368212916816da8202ac3e639f9fc2c9",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 396,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "sha256": "3e29a49a1a6641b4b923b211adb435ed21493863cb889eb0d34d0732f86fb323",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "sha256": "895ff0608569626c3f72874382ff7464363d418eff70476aebfcf2d0479601ce",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "sha256": "61712762afae4f7c55fa5dc785516c71706dec193680e6df5226cdeac41822e5",
+        "type": "file"
+      },
+      {
+        "bytes": 19,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/project/build.properties",
+        "sha256": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/build_tenants/scala_spark/project/plugins.sbt",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/design/component-code-surface.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/design/feature-decomposition.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/design/module-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/proof/component-realization-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/proof/component-test-execution-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/proof/repaired-component-test-execution-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/release/release-depth-parity.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/release/release-preparation.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/repair/component-repair-application.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/repair/component-repair-schedule.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 50978,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/source/data-mapper-full/obligations.json",
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "type": "file"
+      },
+      {
+        "bytes": 16774,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/source/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "type": "file"
+      },
+      {
+        "bytes": 41158,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/source/data-mapper-full/source.original.txt",
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "type": "file"
+      },
+      {
+        "bytes": 3713,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/source/data-mapper-full/supporting-constants.original.txt",
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/specification/goals.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/specification/intent.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/specification/product.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/specification/requirements.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/specification/scenario.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/specification/testcase-authority.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-745Z-19495a6c-02ac-4e68-9891-67b6399c1cfc/worksite/specification/uat-testcases.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 416,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/current/build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "sha256": "fba84cfc8901986f0ec01ecdb74305b87f4c137f512b5129b70272b0564f5daa",
+        "type": "file"
+      },
+      {
+        "bytes": 401,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/current/build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "sha256": "29ed95acdf65e802dd7a3f3663a098c7b0a0db2ac6902315df68da656339a867",
+        "type": "file"
+      },
+      {
+        "bytes": 411,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/current/build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "sha256": "7746d3eb155071c9825581fc3981515525fc8c796bd9bf7bd11f79408fe629d4",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/current/build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "sha256": "b5116ab3b0437a51709371e97e6cbee122b7f6eff73a9a9bcafe4419148aa064",
+        "type": "file"
+      },
+      {
+        "bytes": 386,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/current/build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "sha256": "d6aa7ceaa3f3acfb85cf1d3a91a28cef368212916816da8202ac3e639f9fc2c9",
+        "type": "file"
+      },
+      {
+        "bytes": 396,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/current/build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "sha256": "3e29a49a1a6641b4b923b211adb435ed21493863cb889eb0d34d0732f86fb323",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/current/build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "sha256": "895ff0608569626c3f72874382ff7464363d418eff70476aebfcf2d0479601ce",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/current/build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "sha256": "61712762afae4f7c55fa5dc785516c71706dec193680e6df5226cdeac41822e5",
+        "type": "file"
+      },
+      {
+        "bytes": 416,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/older-green/build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "sha256": "fba84cfc8901986f0ec01ecdb74305b87f4c137f512b5129b70272b0564f5daa",
+        "type": "file"
+      },
+      {
+        "bytes": 401,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/older-green/build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "sha256": "29ed95acdf65e802dd7a3f3663a098c7b0a0db2ac6902315df68da656339a867",
+        "type": "file"
+      },
+      {
+        "bytes": 411,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/older-green/build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "sha256": "7746d3eb155071c9825581fc3981515525fc8c796bd9bf7bd11f79408fe629d4",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/older-green/build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "sha256": "b5116ab3b0437a51709371e97e6cbee122b7f6eff73a9a9bcafe4419148aa064",
+        "type": "file"
+      },
+      {
+        "bytes": 386,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/older-green/build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "sha256": "d6aa7ceaa3f3acfb85cf1d3a91a28cef368212916816da8202ac3e639f9fc2c9",
+        "type": "file"
+      },
+      {
+        "bytes": 396,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/older-green/build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "sha256": "3e29a49a1a6641b4b923b211adb435ed21493863cb889eb0d34d0732f86fb323",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/older-green/build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "sha256": "895ff0608569626c3f72874382ff7464363d418eff70476aebfcf2d0479601ce",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/older-green/build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "sha256": "61712762afae4f7c55fa5dc785516c71706dec193680e6df5226cdeac41822e5",
+        "type": "file"
+      },
+      {
+        "bytes": 5754,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/depth-proof-map.json",
+        "sha256": "195af81fbdebe4b28a1e442c79eab7eca42f284887f4a6836439444db6d62069",
+        "type": "file"
+      },
+      {
+        "bytes": 11,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/mutation-outcomes.json",
+        "sha256": "1633902c6cbba5e7770dbed172df754a25078bb76efe1f23474edc87f1a47655",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/test-execution-result.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/archive/test-run-archive.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 57,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/build.sbt",
+        "sha256": "92208a6081d0eb2289d6b8c9a30000e3a7be83215a3b3eecc6852bfdf3726f01",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 19,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/project/build.properties",
+        "sha256": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/build_tenants/scala_spark/project/plugins.sbt",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/design/component-code-surface.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/design/feature-decomposition.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/design/module-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/proof/component-realization-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/proof/component-test-execution-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/proof/repaired-component-test-execution-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/release/release-depth-parity.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/release/release-preparation.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/repair/component-repair-application.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/repair/component-repair-schedule.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 50978,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/source/data-mapper-full/obligations.json",
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "type": "file"
+      },
+      {
+        "bytes": 16774,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/source/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "type": "file"
+      },
+      {
+        "bytes": 41158,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/source/data-mapper-full/source.original.txt",
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "type": "file"
+      },
+      {
+        "bytes": 3713,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/source/data-mapper-full/supporting-constants.original.txt",
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/specification/goals.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/specification/intent.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/specification/product.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/specification/requirements.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/specification/scenario.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/specification/testcase-authority.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-807Z-09c4c11f-3065-45de-a9e5-d633d2532115/worksite/specification/uat-testcases.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 416,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/baseline/build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "sha256": "fba84cfc8901986f0ec01ecdb74305b87f4c137f512b5129b70272b0564f5daa",
+        "type": "file"
+      },
+      {
+        "bytes": 401,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/baseline/build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "sha256": "29ed95acdf65e802dd7a3f3663a098c7b0a0db2ac6902315df68da656339a867",
+        "type": "file"
+      },
+      {
+        "bytes": 411,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/baseline/build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "sha256": "7746d3eb155071c9825581fc3981515525fc8c796bd9bf7bd11f79408fe629d4",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/baseline/build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "sha256": "b5116ab3b0437a51709371e97e6cbee122b7f6eff73a9a9bcafe4419148aa064",
+        "type": "file"
+      },
+      {
+        "bytes": 386,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/baseline/build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "sha256": "d6aa7ceaa3f3acfb85cf1d3a91a28cef368212916816da8202ac3e639f9fc2c9",
+        "type": "file"
+      },
+      {
+        "bytes": 396,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/baseline/build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "sha256": "3e29a49a1a6641b4b923b211adb435ed21493863cb889eb0d34d0732f86fb323",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/baseline/build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "sha256": "895ff0608569626c3f72874382ff7464363d418eff70476aebfcf2d0479601ce",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/baseline/build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "sha256": "61712762afae4f7c55fa5dc785516c71706dec193680e6df5226cdeac41822e5",
+        "type": "file"
+      },
+      {
+        "bytes": 502,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/mutant/build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "sha256": "f350830c7526fccb95c479c57dd7b1150d518d6d8bd158cc8f4c01f5b2c67bdb",
+        "type": "file"
+      },
+      {
+        "bytes": 487,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/mutant/build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "sha256": "30c581066d6a616bcf4965d4114c3f652129e33b95c68299c7a8def2883aa11d",
+        "type": "file"
+      },
+      {
+        "bytes": 497,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/mutant/build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "sha256": "8b054f48d62be52f48e905bc495fa13d24d10995cf90c3782d9728808ec2ea2c",
+        "type": "file"
+      },
+      {
+        "bytes": 492,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/mutant/build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "sha256": "91d15ada3dfc61a8ca55fa236e1a5d2fd88d5db351cde1ecd601ae86e4f6f12c",
+        "type": "file"
+      },
+      {
+        "bytes": 482,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/mutant/build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "sha256": "03b0297f4722544d32c6276f505650dcef8f7cbcd50361a1516bac78e01e2fe2",
+        "type": "file"
+      },
+      {
+        "bytes": 492,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/mutant/build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "sha256": "da8d2bbd0cb6764a0567657145c2c8a313c015b325a02da34130b31c8d288139",
+        "type": "file"
+      },
+      {
+        "bytes": 492,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/mutant/build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "sha256": "204bcb7955fc4b0ff1d06716df5be4552cc40ff4425d7b8dd944733f8e2071ec",
+        "type": "file"
+      },
+      {
+        "bytes": 416,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/restored/build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "sha256": "fba84cfc8901986f0ec01ecdb74305b87f4c137f512b5129b70272b0564f5daa",
+        "type": "file"
+      },
+      {
+        "bytes": 401,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/restored/build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "sha256": "29ed95acdf65e802dd7a3f3663a098c7b0a0db2ac6902315df68da656339a867",
+        "type": "file"
+      },
+      {
+        "bytes": 411,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/restored/build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "sha256": "7746d3eb155071c9825581fc3981515525fc8c796bd9bf7bd11f79408fe629d4",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/restored/build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "sha256": "b5116ab3b0437a51709371e97e6cbee122b7f6eff73a9a9bcafe4419148aa064",
+        "type": "file"
+      },
+      {
+        "bytes": 386,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/restored/build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "sha256": "d6aa7ceaa3f3acfb85cf1d3a91a28cef368212916816da8202ac3e639f9fc2c9",
+        "type": "file"
+      },
+      {
+        "bytes": 396,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/restored/build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "sha256": "3e29a49a1a6641b4b923b211adb435ed21493863cb889eb0d34d0732f86fb323",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/restored/build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "sha256": "895ff0608569626c3f72874382ff7464363d418eff70476aebfcf2d0479601ce",
+        "type": "file"
+      },
+      {
+        "bytes": 406,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/restored/build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "sha256": "61712762afae4f7c55fa5dc785516c71706dec193680e6df5226cdeac41822e5",
+        "type": "file"
+      },
+      {
+        "bytes": 472,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/unrelated/build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "sha256": "483d6b6a0907b68a8da8dd0d54cd06f8d6d41920011a12d109c5af6a61e982c2",
+        "type": "file"
+      },
+      {
+        "bytes": 5754,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/depth-proof-map.json",
+        "sha256": "195af81fbdebe4b28a1e442c79eab7eca42f284887f4a6836439444db6d62069",
+        "type": "file"
+      },
+      {
+        "bytes": 17304,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/mutation-outcomes.json",
+        "sha256": "1d6d20e670a832418cfd4a888969d57e2356fc637f98c93dfd716ddfecc3ef40",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/test-execution-result.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/archive/test-run-archive.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 57,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/build.sbt",
+        "sha256": "92208a6081d0eb2289d6b8c9a30000e3a7be83215a3b3eecc6852bfdf3726f01",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 19,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/project/build.properties",
+        "sha256": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/build_tenants/scala_spark/project/plugins.sbt",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/design/component-code-surface.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/design/feature-decomposition.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/design/module-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/proof/component-realization-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/proof/component-test-execution-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/proof/repaired-component-test-execution-qualification.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/release/release-depth-parity.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/release/release-preparation.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/repair/component-repair-application.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/repair/component-repair-schedule.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 50978,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/source/data-mapper-full/obligations.json",
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "type": "file"
+      },
+      {
+        "bytes": 16774,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/source/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "type": "file"
+      },
+      {
+        "bytes": 41158,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/source/data-mapper-full/source.original.txt",
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "type": "file"
+      },
+      {
+        "bytes": 3713,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/source/data-mapper-full/supporting-constants.original.txt",
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/specification/goals.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/specification/intent.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/specification/product.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/specification/requirements.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/specification/scenario.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/specification/testcase-authority.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-report-consumer/2026-10-28T21-08-58-930Z-3652f5d4-36d2-42c1-9114-91b13ab4926d/worksite/specification/uat-testcases.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/Cargo.toml",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/test-execution-plan.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 4378,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/source/rust-cli/obligations.json",
+        "sha256": "a741af9e5fe435b761be1cb081e559e82b35ceb3ea3d38039749ccdcdd98421a",
+        "type": "file"
+      },
+      {
+        "bytes": 1877,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/source/rust-cli/oracle.json",
+        "sha256": "fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e",
+        "type": "file"
+      },
+      {
+        "bytes": 3816,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/source/rust-cli/source.original.txt",
+        "sha256": "d6f2ffff4e3ae4889be374367208a575664eb9b094c442d7ca303ebaa9ad6a81",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/specification/project-conformance.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/src/main.rs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/test/component/rust-cli.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-cli/2026-10-28T21-08-58-994Z-578d8673-b53c-4f9b-99b9-c199a74c3816/test/uat/rust-cli.uat.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/test-execution-plan.json",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/design/implementation-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/design/test-design.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 4696,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/source/rust-service/obligations.json",
+        "sha256": "13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91",
+        "type": "file"
+      },
+      {
+        "bytes": 1966,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/source/rust-service/oracle.json",
+        "sha256": "eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+        "type": "file"
+      },
+      {
+        "bytes": 4175,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/source/rust-service/source.original.txt",
+        "sha256": "a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/specification/project-conformance.md",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/src/service.rs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/test/component/rust-service.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 38,
+        "path": "sandbox-uat-units/controlled-rust-service/2026-10-28T21-08-58-999Z-ea82f7b3-6bed-4c09-92c0-9fb46dae8138/test/uat/rust-service.uat.test.mjs",
+        "sha256": "04c9970c5021c8f0f6c5eeb21cd4df1daf43db6e1e24cdda9d2fcb6264372680",
+        "type": "file"
+      },
+      {
+        "bytes": 2311,
+        "path": "sandbox-uat-units/optional-actor-bounds/2026-10-28T21-08-59-037Z-f2bf4027-e1d5-44f1-91d6-debf18794ed2/invalid-0.json",
+        "sha256": "94a01cadcbeef93e72f0db842d5a9a348cae5cb9957e6f4b12d542b0e003df88",
+        "type": "file"
+      },
+      {
+        "bytes": 2313,
+        "path": "sandbox-uat-units/optional-actor-bounds/2026-10-28T21-08-59-037Z-f2bf4027-e1d5-44f1-91d6-debf18794ed2/invalid-1.json",
+        "sha256": "d3e138521f482c7f83862f1cb1d675836e17d97c54f1ad767b6e2ad5736a99ca",
+        "type": "file"
+      },
+      {
+        "bytes": 2315,
+        "path": "sandbox-uat-units/optional-actor-bounds/2026-10-28T21-08-59-037Z-f2bf4027-e1d5-44f1-91d6-debf18794ed2/invalid-2.json",
+        "sha256": "0a1db7fe3751a380f67f856a3b360b63059dc6a8e2d1c99d7e6f7e143e6be8ef",
+        "type": "file"
+      },
+      {
+        "bytes": 2318,
+        "path": "sandbox-uat-units/optional-actor-bounds/2026-10-28T21-08-59-037Z-f2bf4027-e1d5-44f1-91d6-debf18794ed2/invalid-3.json",
+        "sha256": "d73b63216bf2d8978b2289207ee86de2695af821da53b43ab4deaa9abe9ef944",
+        "type": "file"
+      },
+      {
+        "bytes": 2298,
+        "path": "sandbox-uat-units/optional-actor-bounds/2026-10-28T21-08-59-037Z-f2bf4027-e1d5-44f1-91d6-debf18794ed2/valid-0.json",
+        "sha256": "bdf3afae9b0bc36d5924280e7043bc4ee67113b71925da504950af18b252a83e",
+        "type": "file"
+      },
+      {
+        "bytes": 2313,
+        "path": "sandbox-uat-units/optional-actor-bounds/2026-10-28T21-08-59-037Z-f2bf4027-e1d5-44f1-91d6-debf18794ed2/valid-1.json",
+        "sha256": "a2074af498fec284a0e64e8b2052b02b1a724d002066dabd1408fd1a3c006bf5",
+        "type": "file"
+      },
+      {
+        "bytes": 2318,
+        "path": "sandbox-uat-units/optional-actor-bounds/2026-10-28T21-08-59-037Z-f2bf4027-e1d5-44f1-91d6-debf18794ed2/valid-2.json",
+        "sha256": "2117d93f80dd6eaf784812341e9a0117a49b31aaa4667ba3c0565bfe7e7c70e2",
+        "type": "file"
+      },
+      {
+        "bytes": 2333,
+        "path": "sandbox-uat-units/optional-actor-bounds/2026-10-28T21-08-59-037Z-f2bf4027-e1d5-44f1-91d6-debf18794ed2/valid-3.json",
+        "sha256": "3602304918825119e4f9becb94f6da0d8ca9a8c3e43b87bd61c6112f0fb69fb5",
+        "type": "file"
+      },
+      {
+        "bytes": 2245,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/absent.config.json",
+        "sha256": "df61ed84a8b4d23fe177b788cf2bb614369e4acc58765337c2a3005188dc5b4f",
+        "type": "file"
+      },
+      {
+        "bytes": 2266,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/blank.config.json",
+        "sha256": "05f4a6b8c676297b32f5e992bb082379660c7a27c698c46ae71c4a45b03bd296",
+        "type": "file"
+      },
+      {
+        "bytes": 104,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/ambient/independent-oracle.mjs",
+        "sha256": "ea85255ec554c6bf9dc9f38ef708539fbd9daf01badde2f5683cf8ac5dc7de24",
+        "type": "file"
+      },
+      {
+        "bytes": 3,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/ambient/scenarios.json",
+        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "type": "file"
+      },
+      {
+        "bytes": 4916,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/ambient/basic-cli/obligations.json",
+        "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+        "type": "file"
+      },
+      {
+        "bytes": 1086,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/ambient/basic-cli/oracle.json",
+        "sha256": "0c3805f85d068abb1d0f24f10ae5c296b35c708ac68e3a91b34ef995d9626370",
+        "type": "file"
+      },
+      {
+        "bytes": 23299,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/ambient/basic-cli/request.json",
+        "sha256": "340c8a331d41d4b0160131be7ba700ab2833d9a3ea10ae62df4febce40e50219",
+        "type": "file"
+      },
+      {
+        "bytes": 4325,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/ambient/basic-cli/source.original.txt",
+        "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+        "type": "file"
+      },
+      {
+        "bytes": 26966,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/oracle-inputs/independent-oracle.mjs",
+        "sha256": "a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
+        "type": "file"
+      },
+      {
+        "bytes": 34763,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/oracle-inputs/scenarios.json",
+        "sha256": "666afea3643b5fcb8cf226d61bfa2022e249ad28620246e7c93387f1d9cca843",
+        "type": "file"
+      },
+      {
+        "bytes": 4916,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/oracle-inputs/basic-cli/obligations.json",
+        "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+        "type": "file"
+      },
+      {
+        "bytes": 1086,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/oracle-inputs/basic-cli/oracle.json",
+        "sha256": "0c3805f85d068abb1d0f24f10ae5c296b35c708ac68e3a91b34ef995d9626370",
+        "type": "file"
+      },
+      {
+        "bytes": 23299,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/oracle-inputs/basic-cli/request.json",
+        "sha256": "340c8a331d41d4b0160131be7ba700ab2833d9a3ea10ae62df4febce40e50219",
+        "type": "file"
+      },
+      {
+        "bytes": 4325,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/oracle-inputs/basic-cli/source.original.txt",
+        "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+        "type": "file"
+      },
+      {
+        "bytes": 4916,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/worksite/source/basic-cli/obligations.json",
+        "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+        "type": "file"
+      },
+      {
+        "bytes": 1112,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/worksite/source/basic-cli/oracle.json",
+        "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+        "type": "file"
+      },
+      {
+        "bytes": 4325,
+        "path": "sandbox-uat-units/oracle-drift/2026-10-28T21-08-59-111Z-682863a8-c0fc-4d40-99b1-1966c9b4144f/worksite/source/basic-cli/source.original.txt",
+        "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+        "type": "file"
+      },
+      {
+        "bytes": 1687,
+        "path": "sandbox-uat-units/oracle-event-prefix/2026-10-28T21-08-58-608Z-1d669deb-40c2-405c-b70c-778b06bb83cb/events.jsonl",
+        "sha256": "5ce15eb070692e38d7d8b6510641c6f83280c7b1487caca35a62dee1f57135b2",
+        "type": "file"
+      },
+      {
+        "bytes": 792,
+        "path": "sandbox-uat-units/oracle-event-prefix/2026-10-28T21-08-58-608Z-1d669deb-40c2-405c-b70c-778b06bb83cb/runtime-event-prefix.json",
+        "sha256": "7e04656b23e439ee592760ec41f843de5072f9450b04dac21f737336a0b2b1d0",
+        "type": "file"
+      },
+      {
+        "bytes": 1687,
+        "path": "sandbox-uat-units/oracle-event-prefix/2026-10-28T21-08-58-635Z-bf3933d9-718f-4328-9fef-43751c2abe3e/events.jsonl",
+        "sha256": "5ce15eb070692e38d7d8b6510641c6f83280c7b1487caca35a62dee1f57135b2",
+        "type": "file"
+      },
+      {
+        "bytes": 1687,
+        "path": "sandbox-uat-units/oracle-event-prefix/2026-10-28T21-08-59-011Z-205f3662-71af-4603-86fb-a7756ca52c88/events.jsonl",
+        "sha256": "5ce15eb070692e38d7d8b6510641c6f83280c7b1487caca35a62dee1f57135b2",
+        "type": "file"
+      },
+      {
+        "bytes": 7441,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/freeze.json",
+        "sha256": "1b20efa65b7eabf78b372ca490325d72189531c69eeb9614b46d3a822109466d",
+        "type": "file"
+      },
+      {
+        "bytes": 875,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/observation.json",
+        "sha256": "aef334af3248bac7e581ed196e6496969eaa7e77b8b956d91101232f9ec3c64d",
+        "type": "file"
+      },
+      {
+        "bytes": 67,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/design/feature-decomposition.md",
+        "sha256": "d0428677dee1cc9152c4a83159a034007b86f27c0dd0e147ddb904f9aae70b9c",
+        "type": "file"
+      },
+      {
+        "bytes": 59,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/design/module-design.md",
+        "sha256": "718b902853639f39072ab8776e97d71d501fc3ba6daf75cf70325e70af3d68f2",
+        "type": "file"
+      },
+      {
+        "bytes": 50978,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/source/data-mapper-full/obligations.json",
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "type": "file"
+      },
+      {
+        "bytes": 16774,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/source/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "type": "file"
+      },
+      {
+        "bytes": 41158,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/source/data-mapper-full/source.original.txt",
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "type": "file"
+      },
+      {
+        "bytes": 3713,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/source/data-mapper-full/supporting-constants.original.txt",
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "type": "file"
+      },
+      {
+        "bytes": 58,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/specification/goals.md",
+        "sha256": "319414d98485e4edf2f05d2ae923b3ad6875967d95a20e5f275588f555c0442a",
+        "type": "file"
+      },
+      {
+        "bytes": 59,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/specification/intent.md",
+        "sha256": "94479a70bf683d84b9135c9735607da17e6549ba9ffc86f5001b4aff61e13969",
+        "type": "file"
+      },
+      {
+        "bytes": 60,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/specification/product.md",
+        "sha256": "40a143d141524ecfc0bdc46555c6bf14c2e7aa6bb668c41134231d738f3474de",
+        "type": "file"
+      },
+      {
+        "bytes": 65,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/specification/requirements.md",
+        "sha256": "9ec0807c24f20a830202b535ec178a1c2b1e7721049e6afb00fbccb4a990ab3e",
+        "type": "file"
+      },
+      {
+        "bytes": 61,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/specification/scenario.md",
+        "sha256": "849ad0ed6279ea46d12742d167e00267565db31271ce265b2e0c6260d449252a",
+        "type": "file"
+      },
+      {
+        "bytes": 71,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/specification/testcase-authority.md",
+        "sha256": "5e3f8ac712b0ec3b148cd269b7ed47d2e1593236197d418e4888a37731e8d56b",
+        "type": "file"
+      },
+      {
+        "bytes": 66,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/fresh/specification/uat-testcases.md",
+        "sha256": "a20a6dfa593fa725b144b735558d634bb5e8d114e3645b8ae65f1d12d177c1f2",
+        "type": "file"
+      },
+      {
+        "bytes": 343,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/SEALED.json",
+        "sha256": "cff7599c26885fccdae608d7c796a4dd3f2282f78ac645c432fc6b6d5ca77c1c",
+        "type": "file"
+      },
+      {
+        "bytes": 6228,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/run.json",
+        "sha256": "96e85dc8423c80bb7bef2abda00804fed4e059be1ac813f4301ec68147d23c2d",
+        "type": "file"
+      },
+      {
+        "bytes": 75228,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/workload-source.json",
+        "sha256": "7153a51d8607b941b765aa679bd58701e82c848fbd706eb40f9ec9f03700fc2b",
+        "type": "file"
+      },
+      {
+        "bytes": 56,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/resources/events/runtime.events.jsonl",
+        "sha256": "a4a4523a04c3dd3bed3772e7e6d23d8bd59434dd025ddb868a2e8ce6a833a54f",
+        "type": "file"
+      },
+      {
+        "bytes": 67,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/design/feature-decomposition.md",
+        "sha256": "d0428677dee1cc9152c4a83159a034007b86f27c0dd0e147ddb904f9aae70b9c",
+        "type": "file"
+      },
+      {
+        "bytes": 59,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/design/module-design.md",
+        "sha256": "718b902853639f39072ab8776e97d71d501fc3ba6daf75cf70325e70af3d68f2",
+        "type": "file"
+      },
+      {
+        "bytes": 50978,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/source/data-mapper-full/obligations.json",
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "type": "file"
+      },
+      {
+        "bytes": 16774,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/source/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "type": "file"
+      },
+      {
+        "bytes": 41158,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/source/data-mapper-full/source.original.txt",
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "type": "file"
+      },
+      {
+        "bytes": 3713,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/source/data-mapper-full/supporting-constants.original.txt",
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "type": "file"
+      },
+      {
+        "bytes": 58,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/specification/goals.md",
+        "sha256": "319414d98485e4edf2f05d2ae923b3ad6875967d95a20e5f275588f555c0442a",
+        "type": "file"
+      },
+      {
+        "bytes": 59,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/specification/intent.md",
+        "sha256": "94479a70bf683d84b9135c9735607da17e6549ba9ffc86f5001b4aff61e13969",
+        "type": "file"
+      },
+      {
+        "bytes": 60,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/specification/product.md",
+        "sha256": "40a143d141524ecfc0bdc46555c6bf14c2e7aa6bb668c41134231d738f3474de",
+        "type": "file"
+      },
+      {
+        "bytes": 65,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/specification/requirements.md",
+        "sha256": "9ec0807c24f20a830202b535ec178a1c2b1e7721049e6afb00fbccb4a990ab3e",
+        "type": "file"
+      },
+      {
+        "bytes": 61,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/specification/scenario.md",
+        "sha256": "849ad0ed6279ea46d12742d167e00267565db31271ce265b2e0c6260d449252a",
+        "type": "file"
+      },
+      {
+        "bytes": 71,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/specification/testcase-authority.md",
+        "sha256": "5e3f8ac712b0ec3b148cd269b7ed47d2e1593236197d418e4888a37731e8d56b",
+        "type": "file"
+      },
+      {
+        "bytes": 66,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-043Z-fd8301f2-15d7-4551-a2b8-0706141b1632/old/sandbox/worksite/specification/uat-testcases.md",
+        "sha256": "a20a6dfa593fa725b144b735558d634bb5e8d114e3645b8ae65f1d12d177c1f2",
+        "type": "file"
+      },
+      {
+        "bytes": 7441,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/freeze.json",
+        "sha256": "aecb2419ab35533d679410dd95c84de4f9d3ed31f80bf6bd059dd87cef129a62",
+        "type": "file"
+      },
+      {
+        "bytes": 875,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/observation.json",
+        "sha256": "2bd811b24c6c3c63f7c57a15a4840aedbc7002f5bb3270812dff64b141cb30ba",
+        "type": "file"
+      },
+      {
+        "bytes": 59,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/outside",
+        "sha256": "94479a70bf683d84b9135c9735607da17e6549ba9ffc86f5001b4aff61e13969",
+        "type": "file"
+      },
+      {
+        "bytes": 50978,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/fresh/source/data-mapper-full/obligations.json",
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "type": "file"
+      },
+      {
+        "bytes": 16774,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/fresh/source/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "type": "file"
+      },
+      {
+        "bytes": 41158,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/fresh/source/data-mapper-full/source.original.txt",
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "type": "file"
+      },
+      {
+        "bytes": 3713,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/fresh/source/data-mapper-full/supporting-constants.original.txt",
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "type": "file"
+      },
+      {
+        "bytes": 27,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/fresh/specification/intent.md",
+        "sha256": "591e05c85ddef967fbdd1081cd9cb629d9712ed122d57528b95977d2fce9e71c",
+        "type": "file"
+      },
+      {
+        "bytes": 343,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/SEALED.json",
+        "sha256": "0c7595ed4679c7f8deba87562d6024db46e59f19a1273fefc898a23fcceabcd1",
+        "type": "file"
+      },
+      {
+        "bytes": 6228,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/run.json",
+        "sha256": "96e85dc8423c80bb7bef2abda00804fed4e059be1ac813f4301ec68147d23c2d",
+        "type": "file"
+      },
+      {
+        "bytes": 75228,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/workload-source.json",
+        "sha256": "7153a51d8607b941b765aa679bd58701e82c848fbd706eb40f9ec9f03700fc2b",
+        "type": "file"
+      },
+      {
+        "bytes": 56,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/resources/events/runtime.events.jsonl",
+        "sha256": "a4a4523a04c3dd3bed3772e7e6d23d8bd59434dd025ddb868a2e8ce6a833a54f",
+        "type": "file"
+      },
+      {
+        "bytes": 67,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/design/feature-decomposition.md",
+        "sha256": "d0428677dee1cc9152c4a83159a034007b86f27c0dd0e147ddb904f9aae70b9c",
+        "type": "file"
+      },
+      {
+        "bytes": 59,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/design/module-design.md",
+        "sha256": "718b902853639f39072ab8776e97d71d501fc3ba6daf75cf70325e70af3d68f2",
+        "type": "file"
+      },
+      {
+        "bytes": 50978,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/source/data-mapper-full/obligations.json",
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "type": "file"
+      },
+      {
+        "bytes": 16774,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/source/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "type": "file"
+      },
+      {
+        "bytes": 41158,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/source/data-mapper-full/source.original.txt",
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "type": "file"
+      },
+      {
+        "bytes": 3713,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/source/data-mapper-full/supporting-constants.original.txt",
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "type": "file"
+      },
+      {
+        "bytes": 58,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/specification/goals.md",
+        "sha256": "319414d98485e4edf2f05d2ae923b3ad6875967d95a20e5f275588f555c0442a",
+        "type": "file"
+      },
+      {
+        "bytes": 59,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/specification/intent.md",
+        "sha256": "94479a70bf683d84b9135c9735607da17e6549ba9ffc86f5001b4aff61e13969",
+        "type": "file"
+      },
+      {
+        "bytes": 60,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/specification/product.md",
+        "sha256": "40a143d141524ecfc0bdc46555c6bf14c2e7aa6bb668c41134231d738f3474de",
+        "type": "file"
+      },
+      {
+        "bytes": 65,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/specification/requirements.md",
+        "sha256": "9ec0807c24f20a830202b535ec178a1c2b1e7721049e6afb00fbccb4a990ab3e",
+        "type": "file"
+      },
+      {
+        "bytes": 61,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/specification/scenario.md",
+        "sha256": "849ad0ed6279ea46d12742d167e00267565db31271ce265b2e0c6260d449252a",
+        "type": "file"
+      },
+      {
+        "bytes": 71,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/specification/testcase-authority.md",
+        "sha256": "5e3f8ac712b0ec3b148cd269b7ed47d2e1593236197d418e4888a37731e8d56b",
+        "type": "file"
+      },
+      {
+        "bytes": 66,
+        "path": "sandbox-uat-units/supplied-work/2026-10-28T21-08-59-067Z-cbfeac21-2844-483b-bd8b-7e8c27446723/old/sandbox/worksite/specification/uat-testcases.md",
+        "sha256": "a20a6dfa593fa725b144b735558d634bb5e8d114e3645b8ae65f1d12d177c1f2",
+        "type": "file"
+      }
+    ]
+  },
+  "head": "7e3fefa46676cf6a5afdc29f677b9cb2c2e87fdc",
+  "worktree": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/suite/wt-7e3fefa46"
+}

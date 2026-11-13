@@ -1,0 +1,146 @@
+{
+  "id": "RC11-EVIDENCE-02-RETURN",
+  "status": "selected_action_generated_native_assessment_failed_return_to_Root",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/ROOT_ADMISSION_02.json",
+    "bytes": 1931,
+    "sha256": "d871e3f7711d573acd7ccccb02d00a42bef5f19b95f54dff3874def3255ff20b"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/IMMEDIATE_PREFLIGHT_02.json",
+    "bytes": 1644,
+    "sha256": "48da10e46518c93048ad0b9e1c3883c7d43adb20a12f5f50c9b75faa589c3819"
+  },
+  "conditionalNativeGate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/SELECTED_SUCCESS_NATIVE_GATE.json",
+    "bytes": 1946,
+    "sha256": "6627a1975a5c6d74e71afa5a3b592e02864d377f45e71baa688283dd353f6102"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/CONTROLS.json",
+    "bytes": 11915,
+    "sha256": "fb206acb5fcd9921b981cd9ec7f5d908177e906f08c1745acbbd15d0c075d182"
+  },
+  "allSourceControlAndViewGuardsConserved": true,
+  "selectedAction": {
+    "status": "current_owner_snapshot_pending_Root_review",
+    "runId": "run://abiogenesis/5c3cf5883d52a61ffce85796ca244f37bd2cc3911b7325db8f657e69912dc206",
+    "eventCount": 216,
+    "profile": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+    "originalPrefix": {
+      "file": "events.jsonl.gz",
+      "bytes": 4023353,
+      "sha256": "1b56eedb4718e9638e68cec8775314e03571dd6aed90486c5510ceaeb25a575d",
+      "compressedBytes": 823504,
+      "compressedSha256": "b86084dc4a61fc84f0231e20d76b9d91c236ed7a7fa34b7436ed489d8ab21f4d"
+    },
+    "snapshot": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/events.jsonl.gz",
+        "bytes": 823504,
+        "sha256": "b86084dc4a61fc84f0231e20d76b9d91c236ed7a7fa34b7436ed489d8ab21f4d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/fixture.json",
+        "bytes": 11153,
+        "sha256": "1712be167cf4ef6cb97bf9e8f11271afed44bdeb4e9e012dbc12341e433b6743"
+      }
+    ],
+    "receipts": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/LAUNCH.json",
+        "bytes": 1069,
+        "sha256": "d23cd315104dea0938759259e88bf72cbce14f2758bc5cd42d036a114b74a5c9"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/HOST_TERMINATION.json",
+        "bytes": 168,
+        "sha256": "7b81b5d1b0ed4fc2492470f4c9da07e4d64ac6a1d8566c1f7130f49ce901d36c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/interruption.json",
+        "bytes": 27523,
+        "sha256": "12828e16dd6cd220d223acfad92f68ec0224898893bad96053ffd5a3155cf85c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/initial-origin.json",
+        "bytes": 424,
+        "sha256": "3025c509f399ea16fe35f8cd48828873a9d14d008a857d673347e032d6cb6b25"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/recovery-selection.json",
+        "bytes": 1139,
+        "sha256": "6ff3e9e4829fd0f0fe34e4ac9de192e7e622f5616bb7897982540f5115fb304c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/recovery.json",
+        "bytes": 1535,
+        "sha256": "c86a17d75bc2531ba914b7c827d4d63e3c3bacc101e453dcc1e0678a57605ae5"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/GENERATION.json",
+        "bytes": 1127,
+        "sha256": "82d6f98cd3749a4058d0121c147821884756f487c0ac13b88e4e726af14642fb"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/RETURN.json",
+        "bytes": 751,
+        "sha256": "0ebff2334eee0ed322d591a8195113672929cab0fd2a9cd1e62a5553988876ee"
+      }
+    ],
+    "physicalOriginalBytesEqual": true,
+    "actualContinuationStatus": "open",
+    "actorEventCounts": {},
+    "scope": "Exact internal installed RC10 selected-action population, second open occurrence; recovery/close and physical read verified by controller. Optional physical third test unselected; no candidate staging or acceptance."
+  },
+  "nativeAssessment": {
+    "status": "failed_before_execution_environment_returned",
+    "failure": "static_validation_refusal at implementation_resolution: exact declaration/package/contract identity not preserved",
+    "subjectDigest": "sha256:50ed851166b117fc22e5478e4a4c7e41be84722337f97db4e29e3962158f2726",
+    "receipts": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/LAUNCH.json",
+        "bytes": 1133,
+        "sha256": "8bbcb5d503378648c27d9ebfebedb442b8b0f7a07574536fb0231cb838bcd1ae"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/HOST_TERMINATION.json",
+        "bytes": 153,
+        "sha256": "aebcced535f1cae807c4202d068da4914f20a0d377a3519024df0d692dc66e80"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/FAILURE.json",
+        "bytes": 1816,
+        "sha256": "1e6cf61759500041d87a14693b53c779d47be7ed1f51fa27f5d98e2b81aabb73"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/CONTROL_FAILURE.json",
+        "bytes": 628,
+        "sha256": "34685f8452ae3ad121b88dfed6c06b8527aa83ccbae4e64aa81c82d30ae510ac"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/stderr.log",
+        "bytes": 1430,
+        "sha256": "dd6b7528bd98ca3eef20d86aa52bd79642388f745a383d1a36f13070e286a113"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "physicalObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/NATIVE_FAILURE_PHYSICAL_OBSERVATION.json",
+      "bytes": 2142,
+      "sha256": "3042dcb1cca4b0b87d87ec5732addfe1bebcccf6cef45c8459dd7aba504e557e"
+    },
+    "snapshot": null,
+    "ownerCloseOrRecovery": false,
+    "standing": "Stopped; current abandoned lock and five setup-admission rows retained. No transport/actor/completion result or whole-Run retry claim. No automatic retry, recovery, cleanup or source repair."
+  },
+  "paidProviderCalls": 0,
+  "candidateStaging": false,
+  "sourceOrProductChanges": false,
+  "additionalAttempts": false,
+  "return": "Root triage of native implementation-resolution failure; separately review usable selected-action snapshot and closure receipts before staging."
+}

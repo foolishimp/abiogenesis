@@ -1,0 +1,91 @@
+{
+  "createdUtc": "2026-11-02T10:00:46.961894+00:00",
+  "checks": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "dispatch.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "prepare-native-call.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "setup-state.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python compile",
+        "freeze-dispatch.py"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python compile",
+        "operator-preflight.py"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python compile",
+        "readiness.py"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "sh",
+        "-n",
+        "claude-provider.sh"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "positive": {
+    "status": "OPERATOR_FILE_ONLY_CHECKED",
+    "runtimeCalls": 0,
+    "ProductTestsBuilds": 0,
+    "sourceWriteIntersection": [],
+    "invariantSources": 17,
+    "manualSourceWritePaths": 5,
+    "generatedOutputWriteRoots": 2,
+    "scratchRoots": 1,
+    "readRoots": 982,
+    "selectedC2Paths": 967,
+    "commands": 9,
+    "predicates": 12,
+    "requiredExecutionBudgetMs": 4267250,
+    "selectedEntriesIncludingPlannedInputsAndAbsentScratch": 1251,
+    "selectedRawBytesIncludingPlannedInputs": 42190441,
+    "generatedEntriesIncludingRoot": 270,
+    "generatedRawBytes": 12227434,
+    "contextCapBytes": 268435456,
+    "contextCapEntries": 10000,
+    "issues": [],
+    "plannedInputs": 0,
+    "materialized": true,
+    "priorScratchSelected": false,
+    "limit": "Filesystem size/read-root prediction only; no admitted context or future-peak guarantee. Root installed preflight must validate actual prepared input/absence/symlink/freshness. New scratch must exist before installed observation; bounded disposable fixture teardown remains native work."
+  },
+  "negative": {
+    "negativeControl": "scratch source/write overlap refused",
+    "runtimeCalls": 0
+  },
+  "ProductRuntimeProviderBuildTestCalls": 0,
+  "metadataCorrection": "changeClass realization_refactor; exact read-only B prompt/output/typed receipt/owner-resolution references added, no source/effect/proof change",
+  "recheckedUtc": "2026-11-02T10:06:08.324721+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "activation": "T287_RC5_F4_02",
+  "admittedUtc": "2026-11-03T10:33:50.998859+00:00",
+  "roleTransition": "Executive actual failure triangulation and exact existing-owner feasibility decision -> bounded Root operator Writer",
+  "userAuthority": "Owner approved boundedRC5 scope; exact F4-01/REENTRY_TRIAGE plus source custody53ac and independent fixture feasibility",
+  "operationGrant": "Invoke prepared installedRC4 fresh start for one continuation Construction, unchanged C2 Testing, native UAT and genuine fresh reads; passive custody and status. No manual Product coding.",
+  "sourceCommit": "53acfe7c6a51e0b0a1d354fbc79ef3d391cb7573",
+  "sourceTree": "bd8af2c00d5ef3e1340fb5351c8b6543ad47d2e0",
+  "nativeContractDigest": "sha256:ec2dad5c5aee61bba8b274bc88165f4b6b24b9c876ebd4d49a24d8bb7e4eb5fc",
+  "workloadDigest": "sha256:b719b443ea78f896422e6d53c1fc64e9f34148178fb9a36b65933f032269f00b",
+  "preparedCall": "sha256:f237e38621bc10a2f8a0ca7072160a80dae92c0e9a17f3fef0b003af18517ea4",
+  "contextDigest": "sha256:a23aa0639be1b50caca5a00cc19e87e9c78f87ea1404f8b1ead47974bb5bc423",
+  "nativeRuntimeAdmission": "Existing installed Public/ABG owner on dispatch",
+  "maxTurns": 256,
+  "C2RecipeChanged": false,
+  "reviewBaseCommit": "9f3f22b0f733718bee88d5ca1cc306ed0446797a",
+  "review": "Frozen complete F4 delta requires independent max review alongside C2; feasibility review does not accept implementation",
+  "exclusions": [
+    "Product/requirements/Public schema changes",
+    "unselected owners, cold-history rewrite and new store/service/controller",
+    "GC03 host rewrite or full qualification",
+    "canonical generated/build/package/install writes",
+    "old histories/releases, push/tag/global selector"
+  ]
+}

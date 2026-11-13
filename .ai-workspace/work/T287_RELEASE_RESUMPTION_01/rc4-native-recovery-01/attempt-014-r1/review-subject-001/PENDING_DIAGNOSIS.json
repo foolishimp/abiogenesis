@@ -1,0 +1,11 @@
+{
+  "standing": "UNENDORSED_NATIVE_UAT_SOURCE_DIAGNOSIS_PENDING_INDEPENDENT_REPRODUCTION",
+  "claim": "New positive W-outside-R fixture supplies five workerRequest fields, while existing port readiness requires eleven; UAT attributes closed_leaf_owner_receipt to malformed preparation, not production W-outside-R refusal. No independent reproduction by this Writer.",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/fp-0b1e1588dcf7f9d6-output.txt",
+    "bytes": 7429,
+    "sha256": "58d39e7c843b29417958761f3bb237a1d3fdf494d5e77ae574febb1ce29cf642"
+  },
+  "timeout": "Affected command exit124/timedOut true is not pass; budget exhaustion versus a recursive hang remains unresolved. Required recursive/canonical pending proof not established by timeout.",
+  "acceptance": false
+}

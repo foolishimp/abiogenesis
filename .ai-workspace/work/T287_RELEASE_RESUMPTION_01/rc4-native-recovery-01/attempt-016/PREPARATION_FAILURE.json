@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-02T18:16:05.389Z",
+  "name": "TypeError",
+  "message": "governance input requires complete original source, scope and declared work contracts",
+  "observation": null,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Preparation refused; no fallback, stale handoff or automatic retry."
+}

@@ -1,0 +1,89 @@
+{
+  "standing": "LIVE_OBSERVATION_NOT_FINAL_RECEIPT",
+  "observedUtc": "2026-11-07T14:50:28.919734+00:00",
+  "roots": [
+    {
+      "path": "/private/tmp/abg-r8c-023/t/abi5-root-env-oqgngA",
+      "birthUtc": "2026-11-07T14:50:18.926987+00:00",
+      "mtimeUtc": "2026-11-07T14:50:18.929750+00:00",
+      "members": [
+        "artifacts"
+      ]
+    }
+  ],
+  "npmLogs": [
+    {
+      "path": "/private/tmp/abg-r8c-023/n/_logs/2026-11-07T14_44_16_400Z-debug-0.log",
+      "bytes": 1181,
+      "sha256": "8cb09376b1f64fd098c4d334d208f2c4c20bbebcb736b15fa2c99959bbb0285f",
+      "birthUtc": "2026-11-07T14:44:16.580334+00:00",
+      "mtimeUtc": "2026-11-07T14:44:29.688354+00:00",
+      "selectedLines": [
+        "7 verbose title npm pack",
+        "8 verbose argv \"pack\" \"--ignore-scripts\" \"--json\" \"--pack-destination\" \"/private/tmp/abg-r8c-023/t/abi5-root-env-ZIsEdK/artifacts\"",
+        "14 verbose cwd /private/tmp/abg-r8c-023/w/build_tenants/abiogenesis/typescript",
+        "18 verbose exit 0",
+        "19 info ok"
+      ]
+    },
+    {
+      "path": "/private/tmp/abg-r8c-023/n/_logs/2026-11-07T14_46_24_582Z-debug-0.log",
+      "bytes": 1854,
+      "sha256": "603e22e3856b76cd1842ef40d54ef20a71cba36d8bcc9a4980e32f06a30f0c9d",
+      "birthUtc": "2026-11-07T14:46:24.725484+00:00",
+      "mtimeUtc": "2026-11-07T14:46:34.923043+00:00",
+      "selectedLines": [
+        "7 verbose title npm install /private/tmp/abg-r8c-023/t/abi5-root-env-ZIsEdK/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+        "8 verbose argv \"install\" \"--bin-links\" \"false\" \"--ignore-scripts\" \"--no-audit\" \"--no-fund\" \"--offline\" \"--package-lock\" \"true\" \"/private/tmp/abg-r8c-023/t/abi5-root-env-ZIsEdK/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz\"",
+        "19 verbose cwd /private/tmp/abg-r8c-023/t/abi5-root-env-ZIsEdK/consumer",
+        "23 verbose exit 0",
+        "24 info ok"
+      ]
+    },
+    {
+      "path": "/private/tmp/abg-r8c-023/n/_logs/2026-11-07T14_47_17_440Z-debug-0.log",
+      "bytes": 1181,
+      "sha256": "f6b7135f2679dff21b7c5c7e87b121c88bf24eb414bd7c89f54d3300cdeefea7",
+      "birthUtc": "2026-11-07T14:47:17.560441+00:00",
+      "mtimeUtc": "2026-11-07T14:47:28.192429+00:00",
+      "selectedLines": [
+        "7 verbose title npm pack",
+        "8 verbose argv \"pack\" \"--ignore-scripts\" \"--json\" \"--pack-destination\" \"/private/tmp/abg-r8c-023/t/abi5-root-env-o1PM9J/artifacts\"",
+        "14 verbose cwd /private/tmp/abg-r8c-023/w/build_tenants/abiogenesis/typescript",
+        "18 verbose exit 0",
+        "19 info ok"
+      ]
+    },
+    {
+      "path": "/private/tmp/abg-r8c-023/n/_logs/2026-11-07T14_49_21_257Z-debug-0.log",
+      "bytes": 1854,
+      "sha256": "e5e2c65eacc7a93d660b05db9d4f3afb151981500d19d329d98ec1026c168055",
+      "birthUtc": "2026-11-07T14:49:21.404572+00:00",
+      "mtimeUtc": "2026-11-07T14:49:30.871021+00:00",
+      "selectedLines": [
+        "7 verbose title npm install /private/tmp/abg-r8c-023/t/abi5-root-env-o1PM9J/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+        "8 verbose argv \"install\" \"--bin-links\" \"false\" \"--ignore-scripts\" \"--no-audit\" \"--no-fund\" \"--offline\" \"--package-lock\" \"true\" \"/private/tmp/abg-r8c-023/t/abi5-root-env-o1PM9J/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz\"",
+        "19 verbose cwd /private/tmp/abg-r8c-023/t/abi5-root-env-o1PM9J/consumer",
+        "23 verbose exit 0",
+        "24 info ok"
+      ]
+    },
+    {
+      "path": "/private/tmp/abg-r8c-023/n/_logs/2026-11-07T14_50_19_350Z-debug-0.log",
+      "bytes": 997,
+      "sha256": "2ce1ddc5890fc10c77390de1dd029ca5b08687bc667320e0745e5cb0519e9e4a",
+      "birthUtc": "2026-11-07T14:50:19.541995+00:00",
+      "mtimeUtc": "2026-11-07T14:50:19.908088+00:00",
+      "selectedLines": [
+        "7 verbose title npm pack",
+        "8 verbose argv \"pack\" \"--ignore-scripts\" \"--json\" \"--pack-destination\" \"/private/tmp/abg-r8c-023/t/abi5-root-env-oqgngA/artifacts\""
+      ]
+    }
+  ],
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/events/193-t287-worksite-command-execution.jsonl",
+    "bytes": 2963,
+    "sha256": "0a55e50dfa68cde4229624d163ad0eb42efd20b1a6a8e9cbe4dc331c0f168544",
+    "text": "{\"ordinal\":0,\"type\":\"begin\",\"format\":\"node-test-events-jsonl@1\",\"nodeVersion\":\"v24.7.0\"}\n{\"ordinal\":1,\"type\":\"case\",\"passed\":true,\"name\":\"C2 explicit zero write territory preserves array, report and HTTP port authorization\",\"file\":\"test_env/tests/t287-worksite-command-execution.test.mjs\",\"nesting\":0,\"testNumber\":1,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":null}\n{\"ordinal\":2,\"type\":\"case\",\"passed\":true,\"name\":\"C2 finite host timer schema and constructor share bounds without changing grace\",\"file\":\"test_env/tests/t287-worksite-command-execution.test.mjs\",\"nesting\":0,\"testNumber\":2,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":null}\n{\"ordinal\":3,\"type\":\"case\",\"passed\":true,\"name\":\"C2 RC2 diagnostic duplicate command identity is refused with an identity cause\",\"file\":\"test_env/tests/t287-worksite-command-execution.test.mjs\",\"nesting\":0,\"testNumber\":3,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":null}\n{\"ordinal\":4,\"type\":\"case\",\"passed\":true,\"name\":\"C2 RC2 diagnostic protected subject inside an allowed write territory is refused with an overlap cause\",\"file\":\"test_env/tests/t287-worksite-command-execution.test.mjs\",\"nesting\":0,\"testNumber\":4,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":null}\n{\"ordinal\":5,\"type\":\"case\",\"passed\":false,\"name\":\"T-287 C2 compact acknowledgment preserves installed large-log observation and replay\",\"file\":\"test_env/tests/t287-worksite-command-execution.test.mjs\",\"nesting\":0,\"testNumber\":5,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":{\"name\":\"Error\",\"message\":\"test timed out after 180000ms\",\"stack\":\"Error [ERR_TEST_FAILURE]: test timed out after 180000ms\",\"code\":\"ERR_TEST_FAILURE\",\"failureType\":\"testTimeoutFailure\",\"cause\":{\"name\":\"Error\",\"message\":\"test timed out after 180000ms\",\"stack\":null,\"code\":null,\"failureType\":null,\"cause\":null}}}\n{\"ordinal\":6,\"type\":\"case\",\"passed\":false,\"name\":\"T-287 C2 helper failure after launch reaches result admission with its subject inline\",\"file\":\"test_env/tests/t287-worksite-command-execution.test.mjs\",\"nesting\":0,\"testNumber\":6,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":{\"name\":\"Error\",\"message\":\"test timed out after 180000ms\",\"stack\":\"Error [ERR_TEST_FAILURE]: test timed out after 180000ms\",\"code\":\"ERR_TEST_FAILURE\",\"failureType\":\"testTimeoutFailure\",\"cause\":{\"name\":\"Error\",\"message\":\"test timed out after 180000ms\",\"stack\":null,\"code\":null,\"failureType\":null,\"cause\":null}}}\n{\"ordinal\":7,\"type\":\"case\",\"passed\":true,\"name\":\"C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries\",\"file\":\"test_env/tests/t287-worksite-command-execution.test.mjs\",\"nesting\":0,\"testNumber\":7,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":null}\n{\"ordinal\":8,\"type\":\"case\",\"passed\":true,\"name\":\"C2 helper failure subject is bound to the next undone operation of the completed prefix\",\"file\":\"test_env/tests/t287-worksite-command-execution.test.mjs\",\"nesting\":0,\"testNumber\":8,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":null}\n"
+  }
+}

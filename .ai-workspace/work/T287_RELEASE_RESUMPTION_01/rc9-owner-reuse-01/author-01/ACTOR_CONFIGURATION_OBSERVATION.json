@@ -1,0 +1,13 @@
+{
+  "observedAt": "2026-11-08T06:29:47.176321+00:00",
+  "processId": 47322,
+  "hostProcessId": 45470,
+  "processObserved": true,
+  "selectedArguments": {
+    "--model": "claude-opus-5-5",
+    "--effort": "xhigh",
+    "--max-turns": "200",
+    "--permission-mode": "bypassPermissions"
+  },
+  "limit": "Actual process argument observation only; not independent provider telemetry."
+}

@@ -1,0 +1,37 @@
+{
+  "id": "RC11-LIFETIME-OBS-LATE-001",
+  "findingId": "LIFE-OBS-001",
+  "status": "OPEN_PROPOSED_FOR_ROOT_DEFERRAL",
+  "severity": "S3",
+  "priority": "not_assigned_reviewer_has_no_disposition_authority",
+  "owner": "Root for disposition/registration; existing lifetime test owner for any separately activated repair",
+  "frame": "Proof plus Owner/Effect observation boundary under ABI5_PROJECT_REFERENCE_FRAME_BASIS and local atlas 5.3.1-5.3.2",
+  "exactSubject": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "sha256": "a1f9e3888392d2f063967bc468b1ddc47fd7f3df5db70681efc18a477ad23458",
+    "lines": "555-575",
+    "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c"
+  },
+  "evidence": "SOURCE_RESULT.md LIFE-OBS-001 and frozen observePublication: only the outer while checks stopped/deadline; per-probe await continuation records and advances without rechecking.",
+  "finiteCounterexample": [
+    "The first publication read begins before owner return and setup deadline.",
+    "The owner returns while that read is pending; stopObserving sets stopped.",
+    "The read resolves non-null; its continuation records the late row, then may start the next probe.",
+    "If all pending probes resolve, end is complete despite observations after owner return or setup cutoff."
+  ],
+  "impactedBoundary": "Strict diagnostic active/deadline stop guarantee only; the physical owner clocks, result/error and capture/absence oracles are unchanged.",
+  "noBlockRationale": "In the retained exact run all eight physical primary rows are present; every actual publication row is after spawn and before owner return and its setup cutoff. All eighteen cases pass with no skips, all five HTTP outcomes and three capture outcomes hold, actual group absence is preserved. Missing-mode port is explicitly absent. No universal callback-deadline guarantee is claimed.",
+  "dependentBoundary": "Future physical-readiness evidence from this helper if it relies on end=complete alone; does not gate this exact supported component run under its checked timestamps.",
+  "lawfulReentry": "realization_refactor limited to the test-owned observation helper, if selected",
+  "activationTriggers": [
+    "A future row is observed at or after ownerReturnMs or setup cutoff and is used as timely readiness.",
+    "A required readiness observation is missing or ambiguous on a future selected run.",
+    "The observation helper changes materially.",
+    "A stronger claim of guaranteed stop at owner return/setup deadline is selected."
+  ],
+  "closureFalsifier": "A finite scheduling counterexample must no longer allow a post-stop/deadline value to be classified as timely/complete or a subsequent probe to begin after that boundary. Any retained late result must remain explicitly late, with original owner results/errors preserved.",
+  "closureEvidence": "Exact successor source identity and independent evidence over the finite in-flight-read/owner-return and in-flight-read/setup-deadline interleavings, plus conservation of the selected physical oracles. No Product timer change or controlled-block modification is indicated.",
+  "workaround": "Assess each actual publication timestamp against spawn, ownerReturnMs and its 5000/10005 setup cutoff. Retain missing or late readiness as missing/late; do not consume end=complete alone.",
+  "boundedRepairScopeCost": "One diagnostic helper in one test file; small local implementation cost and diagnostic-handback regression surface. No runtime/HOW/Public change.",
+  "uncertainty": "The counterexample is source-established and was not executed by this Reviewer; its frequency on ordinary hosts is not measured. This run did not exercise it."
+}

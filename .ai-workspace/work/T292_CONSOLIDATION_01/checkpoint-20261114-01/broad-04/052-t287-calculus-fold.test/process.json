@@ -1,0 +1,32 @@
+{
+  "label": "052-t287-calculus-fold.test",
+  "started": "2026-11-13T11:11:25.829157+00:00",
+  "ended": "2026-11-13T11:11:41.671862+00:00",
+  "wallMs": 15843,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/052-t287-calculus-fold.test/stdout.raw",
+      "bytes": 19103,
+      "sha256": "b10ea3bbc358ad5dcb478b2ac8d59a14dcfbc59deaa0d9f4e92a47372a430b3b"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/052-t287-calculus-fold.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 3,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

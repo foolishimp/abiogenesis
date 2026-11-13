@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/probe-reentry.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/r1-probe.BINDING.json",
+    "ea5e11090f5e3788f9cadd37b74894487549f148ae10b43be9556f4459c93556",
+    "candidate"
+  ],
+  "pid": 81654,
+  "pgid": 81654,
+  "capSeconds": 10,
+  "preflight": {
+    "passed": true,
+    "sourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+    "sourceRows": 1345,
+    "compiledRows": 582,
+    "baselineCompiledRows": 996,
+    "stagedInputsVerified": true
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "USER": "jim",
+    "LOGNAME": "jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "NODE_OPTIONS": "",
+    "NODE_PATH": "",
+    "NODE_DISABLE_COMPILE_CACHE": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "TMPDIR": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r1-probe/tmp",
+    "ABI5_TEST_EVIDENCE_DIR": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r1-probe/evidence",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r1-probe/tmp/npm-cache"
+  }
+}

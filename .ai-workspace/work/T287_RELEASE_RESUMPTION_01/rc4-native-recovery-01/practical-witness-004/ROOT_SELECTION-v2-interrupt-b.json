@@ -1,0 +1,16 @@
+{
+  "status": "ROOT_SELECTED_ONE_SHOT_INTERRUPT_B",
+  "operator": "Root",
+  "decidedUtc": "2026-11-02T09:26:54.689023+00:00",
+  "bindingSha256": "1f68439e4039ed6a7ed43b66728ec20a80085a621140f02be0e788bfdb78c5c2",
+  "allowedStages": [
+    "interrupt-b"
+  ],
+  "callSha256": "bb792507d2017736d7c1b02414b02d8a7f90c431318a89121dfee22798313ed2",
+  "ordinaryBranchReceiptSha256": "405ae25dfa9face79b493fd5652f39b7d16dd0995aa516500203f008966c457f",
+  "basis": [
+    "Root independently read/hash-checked current/after owner context identity40334f1d743d429a6f797c008d8c8c21f89538f6452829a34e5d0d9e4393cd12; ordinary Testing branch applicable",
+    "Root reviewed actual B: same Program, direct asset target, own authority, admitted A118bb/c99d source, exact one-Construction input and owner-resource prerequisites"
+  ],
+  "decision": "Root selects exactly one interrupt-b stage on this actual prepared call. No Writer execution, future continuation, resource recovery, automatic retry or witness acceptance is selected."
+}

@@ -1,0 +1,51 @@
+{
+  "kind": "root_h04_bounded_caller_fix_disposition",
+  "status": "BOUNDED_CALLER_FIX_RETAINED_FULL_ROUTE_OPEN",
+  "createdUtc": "2026-11-06T18:44:13.050176+00:00",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/SOURCE_AFTER.json",
+    "bytes": 563090,
+    "sha256": "b92dc5ad604ad49fa1751baa4b0b4e6c34675741ec60189cc2b9bb0002e5ed25"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8788,
+    "sha256": "e43d763b6fd7f453f065a8d1c44f47108a8371410f3649b93344ac07c3fa120c"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/reviews/stage-001/REVIEW.json",
+    "bytes": 11383,
+    "sha256": "3281cd86b119a9f60b6e1b5cebd5b6c7837db854ce4f290db332050470f1e2e2"
+  },
+  "counterexample": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/reviews/refusal-oracle-001/REVIEW.json",
+    "bytes": 15206,
+    "sha256": "02d21f72bb1d38b723e86df619eeec70100294cf06dc60677c6949af61276be6"
+  },
+  "proofInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/post-return-controls/actual-001/PROOF_INVENTORY.json",
+    "bytes": 10444,
+    "sha256": "3f2d8f0a161af4abf28c9d194bdfd1e7424482ce22a3e218e882bcba35f967f5"
+  },
+  "boundedCallerCorrectionAccepted": true,
+  "facts": [
+    "All three coordinate/body misuses corrected in exactly two files; no new refresh/reopen/body serialization/helper/guard change.",
+    "Actual Testing and its admitted state Result assertions completed before the negative oracle failed.",
+    "451 source/18controls/3handoffs/85pins agree;5325Productpayload members reused exactly; compile/generate/lifecycle were not executed again."
+  ],
+  "remaining": [
+    "Crossed-input oracle is wrong; stale-after-UAT oracle has a second statically established mismatch.",
+    "UAT/readbacks and four later lanes remain unproved."
+  ],
+  "evidencePrecision": "Filtered diagnostic.events=[] is not zero-total-append proof; compare complete prefix/event delta and actors.",
+  "methodLimits": [
+    "Preserve stale SOURCE_AUTHORED_STAGE_PENDING readiness.",
+    "Worker disclosed readonly Grep over unselected continuation.mjs and unspecified other tests; extent unresolved. No full no-outside-effects claim.",
+    "These limits remain recorded; exact selected-source custody and reviewed correction support only this bounded caller repair."
+  ],
+  "next": "H05 exact one-test-file refusal oracle correction",
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

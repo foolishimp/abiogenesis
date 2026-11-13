@@ -1,0 +1,107 @@
+{
+  "kind": "root_release_qualification_conjunction_and_dependency_selection",
+  "recordedUtc": "2026-11-05T08:01:37.959194+00:00",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "reviews": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/FEATURE_COVERAGE_REVIEW.json",
+      "bytes": 92121,
+      "sha256": "0c5f3b5913dff1a3735d0a363ae9f726c3c1f747b60dbf277abc538a6687bf1c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+      "bytes": 28638,
+      "sha256": "085c993048138ee929c07cd3be709e867fa51c3d0b0fe9bcf77497b1b8bc1c69"
+    }
+  ],
+  "baseline": {
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "sourceTree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+    "builderVersion": "5.0.0-rc.6",
+    "method": "stdo://releases/v3.0.4/"
+  },
+  "conclusion": "Fifteen feature mechanisms are materially present; whole-product qualification remains indeterminate. Current evidence does not demonstrate new missing feature families. Select only demonstrated prerequisite repairs and uncovered or invalidated required scenario relations.",
+  "dispositions": [
+    {
+      "id": "N9-RETAINED-FIXTURE-01",
+      "state": "selected_dependency_ready",
+      "owner": "existing semantic-revision component fixture",
+      "triage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/FIXTURE_TRIAGE.json",
+        "bytes": 3051,
+        "sha256": "022dfbb1e946412a5f11788bb424506580bb4475196f34a07dbb1fc471a0a630"
+      },
+      "scope": "Test premise against current owned durable-prefix reader; preserve meaningful assertions, historical two skips and prior 4/1/2 result. No Product/HOW edit by operator.",
+      "next": "One xhigh native coding Worker after fresh installed setup and exact protected C2 preflight."
+    },
+    {
+      "id": "QR-01",
+      "state": "selected_next_readiness_increment",
+      "owner": "existing per-invocation transport, admitted result lineage and qualification proof",
+      "scope": "Actual actor identity correspondence from effective configured invocation through existing binding/digest/lineage and native proof. No identity service, duplicate transport contract or source-blind role-name independence. Preserve historical unknown and unrelated not_required behavior.",
+      "next": "Resolve exact existing identity granularity and owning HOW, then bounded native implementation and nearest causal discriminator before complete F11."
+    },
+    {
+      "id": "QR-02",
+      "state": "selected_successor_provenance_readiness",
+      "owner": "existing qualification provenance and attribution owners",
+      "scope": "Faithful relevant surviving contributor set from authentic original producers or existing external construction records; no human authorship inferred from preservation commits. Scope union is already implemented.",
+      "next": "Bind actual current source/contributor correspondence and assess sufficient existing arm; no indiscriminate history union."
+    },
+    {
+      "id": "QR-03",
+      "state": "selected_after_prospective_subject_settled",
+      "owner": "existing qualification resource helper and exact-candidate driver",
+      "scope": "Remove RC1-only assumptions through existing contracts, preserve old records, bind successor source/material/claim/resources.",
+      "next": "Select higher prospective RC if qualifying bytes change, freeze exact subject, rebuild resources through existing preparation owners."
+    }
+  ],
+  "scenarioWork": [
+    {
+      "id": "S01",
+      "next": "Reuse package/install proof; close missing independent external-program and fresh-read relation on exact prospective subject."
+    },
+    {
+      "id": "S02",
+      "next": "Finite 65-behavior coverage-to-existing-execution map; exercise only missing or invalidated positive/negative paths."
+    },
+    {
+      "id": "S03",
+      "next": "After N9, installed correction/completion and truthful no-next-step relation; retain bounded pending-recovery evidence."
+    },
+    {
+      "id": "S06",
+      "next": "Reuse existing selected six-case witness/oracle inputs and accepted D3 within its same-pack limits; assess affected joins and only missing revision/choice/foldback discriminators. No new-law claim and no automatic all-six/DataMapper rerun."
+    },
+    {
+      "id": "S07",
+      "next": "Existing pre-RC F11/sole AF22 before prospective immutable RC; installed-RC qualification, then return unchanged bytes for reserved actual human acceptance/publication."
+    }
+  ],
+  "evidencePreservation": "Keep accepted D2/D3, RC4 practical witness, RC5, native06/07/08/09 and proof10 under original exact predicates/producers/limits. No count relabeling, skip promotion or blanket qualification inheritance.",
+  "excludedRework": [
+    "STDO3.0.4 migration already complete",
+    "generic contributor scope-union mechanism already implemented",
+    "replacement witness/oracle request",
+    "completed RC6 packaging/install qualification repetition",
+    "full original Data Mapper prerequisite",
+    "5.1 functions and general human response/resume",
+    "unpriced or unbounded wholesale F11 dispatch"
+  ],
+  "resourceDecision": "Current exact material fit, eligible assessor arrangement, transport and cost still need binding before a priced finite native F11 discriminator. Historical $605.88/447/32 values are not current estimates. Existing owner R&D authority persists.",
+  "timing": "Record checkout/preparation, installed artifact acquisition, maintained SDK setup, preflight/task launch, native LLM, deterministic C2, readback and between-task intervals separately. Whole installed RC6 native-workflow performance is unmeasured.",
+  "reserved": [
+    "push",
+    "merge",
+    "tag",
+    "publication",
+    "global selector change",
+    "stable release claim",
+    "actual human acceptance"
+  ],
+  "return": "Root conjoins each frozen native return with proportionate independent review while preserving conflicts; continue remaining dependency-ready authorized work."
+}

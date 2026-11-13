@@ -1,0 +1,62 @@
+{
+  "RootSelection": null,
+  "fixture": {
+    "claim": "same logical fixture and declared owner workload; not historical B11 log equality",
+    "definition": null,
+    "logicalOracleSha256": null,
+    "memberCount": 965,
+    "sha256": null
+  },
+  "kind": "post_candidate_matched_installed_prefix_measurement_selection",
+  "limits": [
+    "PENDING never runnable; no unfinished candidate imports",
+    "Case reports route actual admitted fixture prefixes; independent owner/source join required",
+    "Do not substitute historical B11 closed prefix for a matched965case",
+    "Reader only measures selected closed-prefix acquisition/project; owner fixture execution metrics are separate"
+  ],
+  "new": {
+    "additionalDependencyPins": null,
+    "artifact": null,
+    "caseReport": null,
+    "eventFile": null,
+    "eventStoreModule": null,
+    "installedFilePins": null,
+    "installedRoot": null,
+    "prefix": null
+  },
+  "node": {
+    "bytes": 86104016,
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "old": {
+    "additionalDependencyPins": null,
+    "artifact": {
+      "bytes": 10936961,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+      "sha256": "0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c"
+    },
+    "caseReport": null,
+    "eventFile": null,
+    "eventStoreModule": {
+      "bytes": 196501,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b11-004/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "sha256": "ac8397814aefb939c445488a8a9fd1582247b0f00e5921494a62f0f389fd15da"
+    },
+    "installedFilePins": null,
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b11-004/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "prefix": null
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/post-proof/prefix-measurement-001",
+  "reader": {
+    "bytes": 2094,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/post-proof/measure-prefix.mjs",
+    "sha256": "287115894281eab47c700409c3f7516922d500bb0962a7774bcf4d951d199c1d"
+  },
+  "runner": {
+    "bytes": 4325,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/post-proof/run-prefix-comparison.py",
+    "sha256": "c53c13385656241d56423cbb266bc5143a2b8a99c8ca9b5744b3c9fc06a81db7"
+  },
+  "status": "PENDING_ACTUAL_CANDIDATE_FIXTURE_CASES_AND_ROOT_SELECTION"
+}

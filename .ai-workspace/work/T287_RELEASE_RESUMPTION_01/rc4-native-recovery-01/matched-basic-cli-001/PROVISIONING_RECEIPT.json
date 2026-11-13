@@ -1,0 +1,187 @@
+{
+  "status": "ROOT_SELECTED_FILE_ONLY_DIRECT_INPUT_PROVISIONED",
+  "operator": "Writer under Root selection",
+  "recordedAt": "2026-11-03T00:18:35.292060+00:00",
+  "initiallyAbsent": true,
+  "parentBefore": {
+    "path": "/private/tmp",
+    "device": 16777231,
+    "inode": 465412483
+  },
+  "directoryIdentities": [
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001",
+      "canonical": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001",
+      "device": 16777231,
+      "inode": 682555826,
+      "uid": 501,
+      "mode": "0o700"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source",
+      "canonical": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source",
+      "device": 16777231,
+      "inode": 682555827,
+      "uid": 501,
+      "mode": "0o755"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source/basic-cli",
+      "canonical": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source/basic-cli",
+      "device": 16777231,
+      "inode": 682555828,
+      "uid": 501,
+      "mode": "0o755"
+    }
+  ],
+  "files": [
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source/basic-cli/obligations.json",
+      "bytes": 4916,
+      "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source/basic-cli/oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source/basic-cli/source.original.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    }
+  ],
+  "expectedInitialInputs": [
+    {
+      "path": "source/basic-cli/source.original.txt",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+        "bytes": 4325,
+        "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+      }
+    },
+    {
+      "path": "source/basic-cli/obligations.json",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+        "bytes": 4916,
+        "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+      }
+    },
+    {
+      "path": "source/basic-cli/oracle.json",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+        "bytes": 1112,
+        "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+      }
+    }
+  ],
+  "fileCount": 3,
+  "solvedOutputs": 0,
+  "repositoryOrMethodFilesAdded": false,
+  "symlinks": 0,
+  "reviewedPacket": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/PREPARATION_MANIFEST.json",
+    "bytes": 3006,
+    "sha256": "fb0fcd6a8cc6a1d71523edff73d0fd7d50266e054573460f3288c69141139d03"
+  },
+  "commandProfile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/DIRECT_CONFIG.DRAFT.json",
+    "bytes": 3608,
+    "sha256": "f6523d9845ee1fec86da7fc25e6863c840264ae96bec41d29955dd723fb0fac9"
+  },
+  "prompt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/DIRECT_PROMPT.txt",
+    "bytes": 1579,
+    "sha256": "28c1abd66a532ea166202387a08e9745e28edaf2936c5117f81830414e7a2db1"
+  },
+  "entrypoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/direct-run.mjs",
+    "bytes": 3153,
+    "sha256": "ebc20993dd3eca883e2cf7bde71ac823edade9528e988c964a0ea8e387a57fab"
+  },
+  "runnerAndCallerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/scripts/sandbox-uat.mjs",
+      "bytes": 182,
+      "sha256": "9a88014f68f50ee592190b00d14f3b58ba5f744ec794cd017ce9e0b6a4fc1576"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 36084,
+      "sha256": "a09343856e9fd6571b0947993679f6724aac3af123eec12d6ff93e57daa716ce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 25076,
+      "sha256": "26c38cf79f253c2d293e6960c0f52f24d6115177f0281efcef970ce587eab8b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "tools": [
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    }
+  ],
+  "command": [
+    "/Users/jim/.local/share/claude/versions/2.1.306",
+    "-p",
+    "<EXACT_DIRECT_PROMPT_ARGUMENT>",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--permission-mode",
+    "bypassPermissions",
+    "--tools",
+    "Read,Edit,Write,Glob,Grep,Bash",
+    "--model",
+    "claude-opus-5-5",
+    "--max-turns",
+    "96",
+    "--effort",
+    "xhigh"
+  ],
+  "rootCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/direct-run.mjs",
+    "f6523d9845ee1fec86da7fc25e6863c840264ae96bec41d29955dd723fb0fac9"
+  ],
+  "additionalDefaultSourceDisclosure": {
+    "basis": "Root independent lookup and actual pinned CLI help",
+    "globalEnabledPlugin": "spec@specification_stack",
+    "installedVersion": "2.5.0-rc.6",
+    "manifestSurface": "claude-skills/refresh only; Root found no hooks/CLAUDE/settings files in plugin",
+    "flag": "--disable-slash-commands",
+    "actualHelpMeaning": "Disable all skills and commands",
+    "presentInNativeAndDirectArgv": true,
+    "treatment": "Potential method source explicitly disclosed; skills/commands disabled in both arms. Global defaults are not claimed empty. No global settings changed."
+  },
+  "profileLimits": "Same selected model/effort/toolset/96turns/90min absolute; ABG idle watchdog and multi-role outer budget differ and remain disclosed in reviewed PLAN. No comparative claim before actual matched evidence.",
+  "providerCalls": 0,
+  "RuntimeCalls": 0
+}

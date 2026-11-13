@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 6,
+    "pass": 6,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/001-a5-f02-canonical-gtl-identity.test/process.json",
+    "bytes": 1099,
+    "sha256": "17f54ef9be187b54d81133ebf92106bc26e9ca15bf777803e5fff0cdf7a122fa"
+  }
+}

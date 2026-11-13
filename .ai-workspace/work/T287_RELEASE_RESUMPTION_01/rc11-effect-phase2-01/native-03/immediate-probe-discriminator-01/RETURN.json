@@ -1,0 +1,23 @@
+{
+  "status": "TWO_CONTROLLED_RUNS_RETAINED",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 2705,
+    "sha256": "c75c86a0cb203494096aaa719ff5ce111d34f440d05239a8a8a505d4d5215e08"
+  },
+  "receipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/baseline.RETURN.json",
+      "bytes": 1881,
+      "sha256": "3197b1674a152f8f479e1e27eca5e5afb7c26147f2969eb30e655a35d719f797"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/candidate.RETURN.json",
+      "bytes": 1887,
+      "sha256": "05e11ce79c15eb0f19e4a22f229a3e0192014f661304ab1f159dfafedcd02e02"
+    }
+  ],
+  "campaignSeconds": 0.8776803747750819,
+  "halt": null,
+  "standing": "Exactly one baseline and one candidate observation attempt. Assertion failure is retained evidence; no retry or source repair. Controlled host only, no OS child/installed proof."
+}

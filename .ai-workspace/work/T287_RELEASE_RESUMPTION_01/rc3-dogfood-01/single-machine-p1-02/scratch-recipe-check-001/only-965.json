@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=965-member native context carriage",
+    "test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "cwd": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-02-965-yiytl4rx",
+  "exitStatus": 0,
+  "label": "only-965",
+  "outputs": [
+    {
+      "bytes": 1150,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/scratch-recipe-check-001/only-965.stdout.txt",
+      "sha256": "200ee0af9fb6a0ff957450df2c35da5c5cda5308e8220b660ac0bbed6b6ebc7c"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/scratch-recipe-check-001/only-965.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "wallSeconds": 2.9895189590752125
+}

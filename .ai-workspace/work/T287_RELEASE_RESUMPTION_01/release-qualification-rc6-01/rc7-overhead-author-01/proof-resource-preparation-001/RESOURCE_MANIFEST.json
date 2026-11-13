@@ -1,0 +1,1014 @@
+{
+  "kind": "bounded_existing_test_resource_preparation",
+  "status": "PREPARED_NOT_STAGED_NO_PROOF_EXECUTED",
+  "recordedUtc": "2026-11-06T04:19:10.133012+00:00",
+  "productFrame": {
+    "basisUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "basis": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "stdoRelease": "stdo://releases/v3.0.4/",
+    "stdoManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "scope": "Affected consumer test-resource relation only; no Product review, repair, acceptance, qualification or release claim."
+  },
+  "authority": {
+    "rootActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "rootControlAdmission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_CONTROL_ADMISSION.json",
+      "bytes": 6803,
+      "sha256": "b7d93c37fdf71ded45a35c8f6fb7c1d9220bc3eaffbbff5077c2f251cd20e823"
+    },
+    "task": "Root assigned finite read-only preparation; Root follow-up explicitly selected s6-witness-contract.md and config.example.json and closed scope at these 50 known added files."
+  },
+  "sourceObservation": {
+    "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "head": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "standing": "Current existing resource bytes observed only. Active native Product source remains mutable. These pins do not bind a returned frozen candidate. Root must bind that candidate and compare resource/consumer associations before proof."
+  },
+  "evidence": {
+    "triage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/AUTHOR_FEEDBACK_TRIAGE_001.json",
+      "bytes": 8793,
+      "sha256": "b4cc139ca720d2a6f14a11a033de563af562083a05fb9a5ad81f88d1061a74a8"
+    },
+    "authorSourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/SOURCE_BEFORE.json",
+      "bytes": 215422,
+      "sha256": "05b4059600a96f515a4aa4f68e3975b85c3dc45d4652ca892dac3683eb22ae7e"
+    },
+    "c2Inputs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/C2_INPUTS.json",
+      "bytes": 46321,
+      "sha256": "cac76ac014beb8375f7a7b156bf6a553545c9f3f28ab524b4be1b8b4e9b3c2d7"
+    },
+    "failedFirstConsumerOutput": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-01/tmp/rc7a-after-01-lanes-consumers/consumers.stdout.tap",
+      "bytes": 65789,
+      "sha256": "de103cf22366ed9e170dbc439458458b0e6f225094e4be9ff4a2964c86d02e0a"
+    },
+    "failedFirstStageReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-01/tmp/rc7a-after-01-stage.json",
+      "bytes": 85027,
+      "sha256": "9a79753035aca32fc9fd5b8fbc4210c01f05127d926e82094e8540ea26a9059c"
+    }
+  },
+  "selectedLane": {
+    "id": "consumers",
+    "files": [
+      "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "test_env/tests/t287-native-semantic-job.test.mjs",
+      "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "test_env/tests/t287-default-library.test.mjs",
+      "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "test_env/tests/t287-observed-worksite-command.test.mjs",
+      "test_env/tests/t287-worksite-construction.test.mjs",
+      "test_env/tests/t287-qualification-carrier-resource.test.mjs"
+    ],
+    "timeoutMs": 300000,
+    "minimumTests": 1,
+    "requiredActivePrefixes": [],
+    "allowedHistoricalSkippedTests": [
+      "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+      "native observation facts preserve captured history through preparation admission and complete assembly",
+      "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes"
+    ],
+    "inactiveHistoricalStanding": "Only these existing explicitly unbound historical cases may be skipped; skips remain reported and cannot satisfy new active RC7 proof.",
+    "sourceDeclaredTestCalls": 75,
+    "applicability": "Affected consumer relations; otherwise cite exact unchanged evidence, without claiming a rerun"
+  },
+  "differenceFromAuthor397": {
+    "baselineCount": 397,
+    "baselineMatchesC2ProtectedSourceSelection": true,
+    "resourceAdditionsCount": 50,
+    "resourceAdditionsBytes": 535474,
+    "overlapCount": 0,
+    "removedPaths": [],
+    "replacedPaths": [],
+    "unionSourceAndResourceCount": 447,
+    "meaning": "447 is a prospective 397-source plus 50-resource stage selection, not a change to native source acquisition, the Root-final20 controls, the 85 permitted Product paths, or the three handoffs. Baseline pins remain identified by SOURCE_BEFORE; actual after Product bytes require returned-source binding."
+  },
+  "groups": [
+    {
+      "rootOrFile": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "count": 13,
+      "bytes": 18944
+    },
+    {
+      "rootOrFile": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "count": 34,
+      "bytes": 505672
+    },
+    {
+      "rootOrFile": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "count": 1,
+      "bytes": 3390
+    },
+    {
+      "rootOrFile": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-witness-contract.md",
+      "count": 1,
+      "bytes": 5656
+    },
+    {
+      "rootOrFile": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "count": 1,
+      "bytes": 1812
+    }
+  ],
+  "resources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/README.md",
+      "bytes": 1195,
+      "sha256": "19126c510544b3442d7361131f2709f79494d6608a2c147cf119cc77c5263f2c",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/README.md",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/README.md",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/implementation-design.md",
+      "bytes": 639,
+      "sha256": "b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/implementation-design.md",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/implementation-design.md",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/test-design.md",
+      "bytes": 684,
+      "sha256": "617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/test-design.md",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/test-design.md",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/generated/hello-world.mjs",
+      "bytes": 29,
+      "sha256": "647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/generated/hello-world.mjs",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/generated/hello-world.mjs",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/basic-cli.oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/basic-cli.oracle.json",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/basic-cli.oracle.json",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/original-basic-cli.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/original-basic-cli.txt",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/original-basic-cli.txt",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/witness-contract.md",
+      "bytes": 1674,
+      "sha256": "29e669318aa0c9dc2fceca23f8caf22b01e475cd3f918070f980c70ac00355b3",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/witness-contract.md",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/witness-contract.md",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/specification/project-conformance.md",
+      "bytes": 751,
+      "sha256": "9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/specification/project-conformance.md",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/specification/project-conformance.md",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test-execution-plan.json",
+      "bytes": 268,
+      "sha256": "e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test-execution-plan.json",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test-execution-plan.json",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/component/hello-cli.test.mjs",
+      "bytes": 369,
+      "sha256": "8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/component/hello-cli.test.mjs",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/component/hello-cli.test.mjs",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+      "bytes": 371,
+      "sha256": "5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      "bytes": 5835,
+      "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/supplied-work-contract.md",
+      "bytes": 1692,
+      "sha256": "35264dc6830838f7037ea97acf7131b3396342a88604730bd5cf290a350a697d",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/supplied-work-contract.md",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/supplied-work-contract.md",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-witness-contract.md",
+      "bytes": 5656,
+      "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+      "relativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-witness-contract.md",
+      "stageRelativePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-witness-contract.md",
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-witness-contract.md",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "bytes": 3390,
+      "sha256": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "group": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/README.md",
+      "bytes": 4028,
+      "sha256": "8fe134f0301fad2a78a29f08f14d480d9f91b47ddee58d58e51e681a2dcedbba",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/README.md",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/README.md",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/acquisition.json",
+      "bytes": 10623,
+      "sha256": "21708625a73fd08101f5902a6e34cb361cc50e972ddd212033352bcc4bd6f3e9",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/acquisition.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/acquisition.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+      "bytes": 4916,
+      "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/request.json",
+      "bytes": 23299,
+      "sha256": "340c8a331d41d4b0160131be7ba700ab2833d9a3ea10ae62df4febce40e50219",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/request.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/request.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/obligations.json",
+      "bytes": 50978,
+      "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/obligations.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/obligations.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/observable-contract.original.json",
+      "bytes": 21201,
+      "sha256": "2c268e449c296e74ef4abf0ea309b65a0b7303f017b4c05692dc5d86e6a7a0e1",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/observable-contract.original.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/observable-contract.original.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/oracle.json",
+      "bytes": 16774,
+      "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/oracle.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/oracle.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "bytes": 79624,
+      "sha256": "98ff95bacad49f1d6b8e8e1d1e3689dd36328461205654ec6f218f9e8e1e593a",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/source.original.txt",
+      "bytes": 41158,
+      "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/source.original.txt",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/source.original.txt",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/supporting-constants.original.txt",
+      "bytes": 3713,
+      "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/supporting-constants.original.txt",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/supporting-constants.original.txt",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "bytes": 26966,
+      "sha256": "a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/obligations.json",
+      "bytes": 5794,
+      "sha256": "2b923205ce74efe77187ce1525e1b2a6ed08e773f4d57dc1b5a7e078b2e43947",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/obligations.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/obligations.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/oracle.json",
+      "bytes": 1890,
+      "sha256": "a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/oracle.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/oracle.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/request.json",
+      "bytes": 26985,
+      "sha256": "3eb6ebb6eea2015d7dd736f25130906bc840c91fa342dffde2315f6c236bb2c3",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/request.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/request.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/source.original.txt",
+      "bytes": 6120,
+      "sha256": "c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/source.original.txt",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/source.original.txt",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/obligations.json",
+      "bytes": 4252,
+      "sha256": "28c0f522f6050076c3b94b2f2d98464f5cd0d70ba77309053ec640f3d1274544",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/obligations.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/obligations.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/oracle.json",
+      "bytes": 1782,
+      "sha256": "55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/oracle.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/oracle.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/request.json",
+      "bytes": 23616,
+      "sha256": "9d66f966547e6ac2d3eb352c0f6e11038fb69dbc8e828fde5591ab70ac4a0f24",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/request.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/request.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/source.original.txt",
+      "bytes": 3655,
+      "sha256": "3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/source.original.txt",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/source.original.txt",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/obligations.json",
+      "bytes": 4827,
+      "sha256": "34921c07256d35ea54b6a006bde5d5041b6f4fc760c75ef090f31365a8e5fb06",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/obligations.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/obligations.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/oracle.json",
+      "bytes": 2335,
+      "sha256": "82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/oracle.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/oracle.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/request.json",
+      "bytes": 26038,
+      "sha256": "766a1b4c954770d1eb0af90253dc674efdbc8fdea03acac8fab4f34ee594dbc8",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/request.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/request.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/source.original.txt",
+      "bytes": 4285,
+      "sha256": "d8cc8105e4d16eea10fa8f908656a2c82e5690fc145cfb91e70ed00f84aa6053",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/source.original.txt",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/source.original.txt",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/obligations.json",
+      "bytes": 4378,
+      "sha256": "a741af9e5fe435b761be1cb081e559e82b35ceb3ea3d38039749ccdcdd98421a",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/obligations.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/obligations.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/oracle.json",
+      "bytes": 1877,
+      "sha256": "fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/oracle.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/oracle.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/request.json",
+      "bytes": 24816,
+      "sha256": "942e7711b2c8eae21595a52a14e31440732aa3e0b305e7ebb8cf25f170656d5b",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/request.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/request.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/source.original.txt",
+      "bytes": 3816,
+      "sha256": "d6f2ffff4e3ae4889be374367208a575664eb9b094c442d7ca303ebaa9ad6a81",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/source.original.txt",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/source.original.txt",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/obligations.json",
+      "bytes": 4696,
+      "sha256": "13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/obligations.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/obligations.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/oracle.json",
+      "bytes": 1966,
+      "sha256": "eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/oracle.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/oracle.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/request.json",
+      "bytes": 24889,
+      "sha256": "65e243411e01718018dc8054d3d8cf19c0990a5d14387dcdbc562c9a1bc87116",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/request.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/request.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/source.original.txt",
+      "bytes": 4175,
+      "sha256": "a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/source.original.txt",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/source.original.txt",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "bytes": 34763,
+      "sha256": "666afea3643b5fcb8cf226d61bfa2022e249ad28620246e7c93387f1d9cca843",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "bytes": 1812,
+      "sha256": "1c6e6da5dc3ab79243318cf85f821fff1caed7bac0d86ed152aa62faa7a2aa62",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "group": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "standing": "existing_tracked_test_resource",
+      "author397Member": false
+    }
+  ],
+  "testResourceAssociations": [
+    {
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "consumers": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "lines": [
+            64,
+            65,
+            184,
+            338,
+            339,
+            340,
+            1746,
+            1769,
+            1923,
+            1941
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+          "lines": [
+            16,
+            19
+          ]
+        }
+      ],
+      "readOwnerReferences": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+          "lines": [
+            51,
+            52,
+            53,
+            54
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library-fulfillment.mjs",
+          "lines": [
+            7,
+            17,
+            19
+          ]
+        }
+      ],
+      "relation": "Original repository-relative witness root is resolved from the unchanged test URL. selection.json and seed/ are read/copied. All 13 tracked members of the explicitly selected tree are pinned, including README and supplied-work-contract; this is not a claim that every member is read by each test."
+    },
+    {
+      "group": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+      "consumers": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "lines": [
+            1186,
+            1187,
+            1188,
+            1303,
+            1304,
+            1305,
+            1440,
+            1441,
+            1442
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+          "lines": [
+            45,
+            48,
+            49
+          ]
+        }
+      ],
+      "readOwnerReferences": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+          "lines": [
+            18,
+            19,
+            20,
+            23,
+            28,
+            39,
+            43,
+            45,
+            48,
+            49
+          ]
+        }
+      ],
+      "relation": "loadScenarios reads the seven-case manifest. Selected consumers acquire rust-cli and data-mapper-full and their declared acquisition assets. All 34 tracked members of the explicitly selected fixture tree are pinned; remaining cases and README are included as the bounded existing tree, not claimed executed."
+    },
+    {
+      "group": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "consumers": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+          "lines": [
+            7,
+            8
+          ]
+        }
+      ],
+      "readOwnerReferences": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+          "lines": [
+            8,
+            10,
+            96,
+            97,
+            98,
+            99,
+            103,
+            104
+          ]
+        }
+      ],
+      "relation": "Existing helper resolves this exact repository-relative worker and launches it for fresh retained projections. Worker has only Node builtin static imports and four dynamic imports below actual installedPackageRoot. No extra missing local import dependency is exposed; five generated owner sources including process lifetime are already in author397."
+    },
+    {
+      "group": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-witness-contract.md",
+      "consumers": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+          "lines": [
+            16,
+            19
+          ]
+        }
+      ],
+      "readOwnerReferences": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library-fulfillment.mjs",
+          "lines": [
+            17,
+            20
+          ]
+        }
+      ],
+      "relation": "Concrete next read after seed restoration; caseContractPath replaces source/witness-contract.md in the disposable test fixture. Existing tracked resource, explicitly selected by Root follow-up. No Product source change."
+    },
+    {
+      "group": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "consumers": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+          "lines": [
+            51,
+            52
+          ]
+        }
+      ],
+      "relation": "Concrete next read after scenario acquisition; existing example.toolchains is passed to constructWorkloadInput. Existing tracked resource, explicitly selected by Root follow-up. This file is fixture input; no toolchain command was executed."
+    }
+  ],
+  "associationSourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 290041,
+      "sha256": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "author397Member": true,
+      "authorBeforeSha256": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+      "matchesAuthorBefore": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "bytes": 48203,
+      "sha256": "b3fb9ceae5918fadeaffd9012f9d97723fc056d2512ac1e9b6000e7b9ca05bd4",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "author397Member": true,
+      "authorBeforeSha256": "b3fb9ceae5918fadeaffd9012f9d97723fc056d2512ac1e9b6000e7b9ca05bd4",
+      "matchesAuthorBefore": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "bytes": 29125,
+      "sha256": "883e9af8d3bb83fc7831b0031cfeec0baa270442ac472ab8701e039f20f6add5",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "author397Member": true,
+      "authorBeforeSha256": "883e9af8d3bb83fc7831b0031cfeec0baa270442ac472ab8701e039f20f6add5",
+      "matchesAuthorBefore": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "bytes": 42549,
+      "sha256": "200f4a94e0fd84296f35816f663e747830c1690375daa986d51cfaa3c0c2d51e",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "author397Member": true,
+      "authorBeforeSha256": "200f4a94e0fd84296f35816f663e747830c1690375daa986d51cfaa3c0c2d51e",
+      "matchesAuthorBefore": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "bytes": 7324,
+      "sha256": "d615fa0bd09282c0e79d9850afb808290e0d35f24407f4528f598e520eec3155",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "author397Member": true,
+      "authorBeforeSha256": "d615fa0bd09282c0e79d9850afb808290e0d35f24407f4528f598e520eec3155",
+      "matchesAuthorBefore": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/default-library-fulfillment.mjs",
+      "bytes": 8912,
+      "sha256": "33036a01200ce7782657113bc2730bcd8ecffaba5d8283361cd6e943bbfbaf18",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/default-library-fulfillment.mjs",
+      "author397Member": true,
+      "authorBeforeSha256": "33036a01200ce7782657113bc2730bcd8ecffaba5d8283361cd6e943bbfbaf18",
+      "matchesAuthorBefore": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9594,
+      "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "author397Member": true,
+      "authorBeforeSha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a",
+      "matchesAuthorBefore": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "author397Member": true,
+      "authorBeforeSha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "matchesAuthorBefore": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "author397Member": true,
+      "authorBeforeSha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "matchesAuthorBefore": true
+    }
+  ],
+  "workerInstalledImportDependencies": [
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "author397Member": true,
+      "authorBeforeBytes": 21565,
+      "authorBeforeSha256": "ded48ff44daab08cc8841dd454155dd736efc8c81fb7a7a147df52ce8ddd3304",
+      "generatedInstalledPath": "build/code/src/abg/index.js",
+      "reference": "worker:12-15",
+      "standing": "already-selected Product source; existing stage compilation/package owner supplies generated installed module; no supplemental Product source selected"
+    },
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "author397Member": true,
+      "authorBeforeBytes": 25817,
+      "authorBeforeSha256": "722efdc516c910083b216121843c46ad3d2a4c1975d7e14615b94e30b2c40952",
+      "generatedInstalledPath": "build/code/src/product/index.js",
+      "reference": "worker:16-19",
+      "standing": "already-selected Product source; existing stage compilation/package owner supplies generated installed module; no supplemental Product source selected"
+    },
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "author397Member": true,
+      "authorBeforeBytes": 114749,
+      "authorBeforeSha256": "8b8cdd35d0298469424d7226d0fb58a125b64cd6556eddfc7ff716c0aea372ea",
+      "generatedInstalledPath": "build/code/src/abg/replay.js",
+      "reference": "worker:23",
+      "standing": "already-selected Product source; existing stage compilation/package owner supplies generated installed module; no supplemental Product source selected"
+    },
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "author397Member": true,
+      "authorBeforeBytes": 61840,
+      "authorBeforeSha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "generatedInstalledPath": "build/code/src/abg/event_prefix.js",
+      "reference": "worker:24",
+      "standing": "already-selected Product source; existing stage compilation/package owner supplies generated installed module; no supplemental Product source selected"
+    },
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "author397Member": true,
+      "authorBeforeBytes": 12633,
+      "authorBeforeSha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+      "generatedInstalledPath": "build/code/src/shared/owned_process_lifetime.js",
+      "reference": "fresh-process-runtime-proof.mjs:96-99",
+      "standing": "already-selected Product source; existing stage compilation/package owner supplies generated installed module; no supplemental Product source selected"
+    }
+  ],
+  "readOnlyMetadataChecks": {
+    "witnessSelectionSeedPinsMatched": 10,
+    "selectedScenarioAcquisitionPinsMatched": [
+      {
+        "case": "rust-cli",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/source.original.txt"
+      },
+      {
+        "case": "rust-cli",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/obligations.json"
+      },
+      {
+        "case": "rust-cli",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/oracle.json"
+      },
+      {
+        "case": "rust-cli",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/request.json"
+      },
+      {
+        "case": "rust-cli",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs"
+      },
+      {
+        "case": "data-mapper-full",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/source.original.txt"
+      },
+      {
+        "case": "data-mapper-full",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/supporting-constants.original.txt"
+      },
+      {
+        "case": "data-mapper-full",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/observable-contract.original.json"
+      },
+      {
+        "case": "data-mapper-full",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/obligations.json"
+      },
+      {
+        "case": "data-mapper-full",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/oracle.json"
+      },
+      {
+        "case": "data-mapper-full",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json"
+      },
+      {
+        "case": "data-mapper-full",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs"
+      }
+    ],
+    "resourceRegularFiles": 50,
+    "allResourcesAbsentFromAuthor397": true,
+    "trackedInventoryMethod": "git ls-files -z only within the two named fixture roots; HEAD cat-file existence for the three individually named files. No untracked inventory."
+  },
+  "existingStagingRoute": {
+    "stageOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/prior-author-stage.mjs",
+      "bytes": 5151,
+      "sha256": "6202653655dfa611781ab2afe5e93b7a24464afca78f9487a9dc1126f4868f72"
+    },
+    "laneOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/prior-author-lanes.mjs",
+      "bytes": 4865,
+      "sha256": "dbea00c8b22f7686ae553aa77d79e47a0792ad4eb93583fac2b4cc5c3210ab3b"
+    },
+    "freshStageLocation": "C/qualification-scratch/rc7-overhead-author-01/tmp/<fresh-label>",
+    "reuse": "Existing stage creates one fresh repository-shaped stage and copies explicit selected files to identical relative paths (stage owner lines20,25-32), then uses the selected offline toolchain/RC6 contract seed. Existing lane owner accepts exact lane consumers and uses the same staged tenant. Required 50 resources can be copied once into that same fresh stage at stageRelativePath before this lane without changing tests. No new controller or route is required.",
+    "requiredOperatorBinding": "Root must bind actual returned frozen candidate and these resource pins in the affected proof stage. The current stage owner has no resource-overlay input and guards protectedSourcePaths with baseline membership (lines25-29); blindly appending 50 paths to that active list would fail. Use the existing finite file-copy operation under the subsequent proof-control binding, separately from author397 source custody. Do not modify or rerun active author controls.",
+    "writesPerformed": "None to source, stage, active controls, installed RC6 or runtime. Preparation files only.",
+    "testChangesRequiredForTheseMissingReads": false
+  },
+  "preservedFirstRun": {
+    "counts": {
+      "tests": 77,
+      "pass": 38,
+      "fail": 29,
+      "cancelled": 0,
+      "skipped": 10
+    },
+    "failureClasses": {
+      "operator_missing_stage_resource": 28,
+      "unresolved_assertion": 1
+    },
+    "standing": "Preserve actual failed first run unchanged. Twenty-eight observed missing-resource failures are distinct from the one unresolved native-c2-instruction-assembly assertion. Restoration does not establish that any failure passes."
+  },
+  "finiteReentry": [
+    "Root receives and binds actual frozen author candidate and named final feedback; recheck these 50 resource pins and selected consumer read associations against that candidate.",
+    "Use a fresh existing proof stage with the frozen source selection plus the explicit 50-resource copy at identical relative paths; retain the original failed stage and outputs.",
+    "Run only Root-selected affected proof through existing test owners and original bounds; retain resulting actual success/refusal/failure. This preparation executes none of it."
+  ],
+  "limits": [
+    "No corrected tests, builds, generator, provider, CLI, SDK or runtime calls were performed. No credentials read.",
+    "No native context, permission envelope, active control, Product file, source location, installed RC6, runtime or existing evidence was changed.",
+    "Static file/read/import inspection and metadata hashes support path readiness only. Complete runtime resource sufficiency remains unresolved until affected proof on the frozen candidate.",
+    "The one assert(assembly) failure remains with its native Product author; this resource preparation neither diagnoses nor repairs it.",
+    "No blanket feedback/archive inventory, broad untracked inventory, new library, controller, public mode, helper framework, source relocation, retry or timeout increase."
+  ]
+}

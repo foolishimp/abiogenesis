@@ -1,0 +1,56 @@
+{
+  "status": "STATIC_CONTROLS_CONCRETE_NO_ALLOCATION",
+  "recordedAt": "2026-11-08T06:22:48.768083+00:00",
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/TASK.json",
+    "bytes": 13263,
+    "sha256": "f4f6905a6d858dfff8c92b757204979ad2581f2fb1e05bbc53c1483be45b6ce3"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/BINDING.json",
+    "bytes": 9615,
+    "sha256": "268322e4bd0437fce8a5b6898fff36154fcf43adc444734ea0bd95239ceecfd5"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/host.mjs",
+    "bytes": 12117,
+    "sha256": "594b1bef94f170c0bc7eb3188d651366aea1f07249a1c7148322d798eb32a7ae"
+  },
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SCOPE.json",
+    "bytes": 11953,
+    "sha256": "0af265d93d50fc2fb6f63d33ca8405f731685fa0525df00138ca69dc98845af6"
+  },
+  "readRoots": 31,
+  "readFirst": 16,
+  "uniqueReadFirst": 16,
+  "observedReadFiles": 470,
+  "observedReadBytes": 11495335,
+  "sourceWritePaths": 17,
+  "newSourceFile": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+  "limits": {
+    "nativeAbsoluteMs": 1800000,
+    "inactivityMs": 300000,
+    "maxTurns": 200,
+    "stageMs": 600000,
+    "unitMs": 900000
+  },
+  "proofBindingProduction": "After actual PREPARED-bound Root admission, host copies exact final proof template with17 source paths, actual admission pin and fixed future hostSTARTED path; recipe hashes actual STARTED bytes at use. Host records STARTED before SDK invocation. No child-start claim.",
+  "setupMetadata": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/.abiogenesis/workspace-manifest.json",
+  "sourcePreimageChecked": "All1339 rows before setup and after setup; checked again before dispatch by prepared host.",
+  "runtimeAllocated": false,
+  "providerDispatched": false,
+  "testsRun": false,
+  "setupCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/host.mjs",
+    "268322e4bd0437fce8a5b6898fff36154fcf43adc444734ea0bd95239ceecfd5"
+  ],
+  "constructionFeedback": {
+    "scratchRoot": "/private/tmp/abg-r9-a01-001/author-checks",
+    "maxCompileInvocations": 2,
+    "perInvocationMs": 120000,
+    "standing": "Pre-freeze construction feedback only; included within native1800000ms. Existing pinned dependency-only copies; never alter original dependencies or any immutable builder."
+  },
+  "syntaxCheck": "node --check author-01/host.mjs passed; no execution"
+}

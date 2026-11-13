@@ -1,0 +1,77 @@
+{
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "activation": null,
+  "executionEnabled": false,
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 3194,
+    "sha256": "ef706217b8a134a2bd7c363357bca168c9291cb60f4890f1975698f39ab7e796"
+  },
+  "builder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "source": {
+    "subject": null,
+    "inventory": null,
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "baseTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "sourceDigest": null,
+    "fileModes": null,
+    "deletedPaths": null,
+    "expectedChangedPaths": null,
+    "expectedNewPaths": null,
+    "cumulativeSourceCoverageDisposition": null,
+    "nativeTestedArchive": null,
+    "testedManifest": null,
+    "testedStageRoot": null,
+    "nativeTestedArchiveSourceRelation": null,
+    "finalMetadataAcceptance": null
+  },
+  "acceptance": {
+    "source": null,
+    "focusedAndReview": null,
+    "broadClose": null,
+    "referenceAfter": null
+  },
+  "metadata": {
+    "toVersion": "5.0.0-rc.9",
+    "rewriteIdentity": false
+  },
+  "paths": {
+    "repository": "/Users/jim/src/apps/abiogenesis",
+    "preservedCut": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+    "preservedBuilderCut": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+    "worktree": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+    "branch": "codex/rc9-owner-reuse",
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001",
+    "temp": "/private/tmp/abg-r9c-cut",
+    "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9"
+  },
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "maxOutputBytes": 67108864,
+  "nodeHeapMiB": 8192,
+  "limits": [
+    "Only exact Root-accepted final source and tested RC9 archive may be cut; metadata must already exist in native frozen source, rewriteIdentity=false.",
+    "Same prepared-resolution install-verification carriage only; no cross-resolution/event-session cache or zero-install-read-per-new-call claim.",
+    "Eight other historical RC8 residuals remain OPEN; F4 three-identifier W2 closure awaits exact proof and Root disposition. Twelve cold residuals, S7, fixed15/full5.0 and human gates remain open.",
+    "Focused/unit/broad/measurement/native evidence retain actual subject and exclusions; no whole-broad green, qualification or inferred speedup claim.",
+    "Preserve main/RC7/RC8 heads, indexes and their existing dirty/untracked contents by no writes there; before/after head/index verification is bounded evidence, not exhaustive byte re-audit of unrelated work. C9 stage/commit is restricted to the final accepted selected paths; all other untracked/progress paths remain untouched.",
+    "Independent exact packaging review follows completed checkpoint and byte-equal reproduction; separate Root install admission precedes immutable release/install custody.",
+    "Actual installation standing belongs solely to FINAL_INSTALL_VERIFICATION.json and its receipts. Earlier source/proof claims and source-artifact map do not assert future installation.",
+    "20-minute install and 15-minute installed-owner ceilings retained; failure preserves receipts and partial allocations, with no automatic retry/extension/cleanup.",
+    "No push, tag, merge, publication, global selector, qualification claim or new native/provider execution from cut controls."
+  ],
+  "executionStanding": "Held preparation. Actual final native metadata/source/proof conjunction, immutable candidate archive and separate exact Root build selection are required."
+}

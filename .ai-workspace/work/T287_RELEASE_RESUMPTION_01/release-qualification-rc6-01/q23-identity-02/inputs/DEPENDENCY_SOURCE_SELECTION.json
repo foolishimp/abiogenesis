@@ -1,0 +1,86 @@
+{
+  "kind": "operator_selected_existing_offline_build_inputs",
+  "status": "ROOT_REVIEW_REQUIRED_BEFORE_DISPATCH",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "outcome": "Existing F11/F15 independence claims use actual configured identity through current ABG owners; unknown or ineligible required assessment cannot launch or become green.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Named mutable candidate at 1f62c0095e6196b089071bb72e88217792edf6ff; M Root selections are current coordination authority; C GOALS/T287 historical labels do not choose work.",
+      "tool": "Existing immutable installed RC6 and maintained operator-client; exact STDO3.0.4 definition and direct immutable skill routes.",
+      "runtime": "Actual q23-identity-01 failed close; ABG alone admits and dispatches later native work. Operator packet is not runtime evidence."
+    },
+    "prohibitions": [
+      "No new Product WHAT, control plane, registry, journal or generic provider migration",
+      "No QR02 historical reconstruction or invented production positive eligibility",
+      "No operator candidate algorithm/test implementation, preflight, provider, commit, release or global selector change"
+    ]
+  },
+  "toolchainRoot": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+  "toolchainEntryPins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/.package-lock.json",
+      "bytes": 7232,
+      "sha256": "a1794bd45aaf7c95b74cf346123594372f153787e5592dc549e4da3e72ea1a3e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/typescript/bin/tsc",
+      "bytes": 45,
+      "sha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/typescript/package.json",
+      "bytes": 3620,
+      "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/@types/node/package.json",
+      "bytes": 4509,
+      "sha256": "89cb280743d8e75899ce6848e2d6502b47b0409e403a7fbc956a2d0aec9cb182"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/undici-types/package.json",
+      "bytes": 1193,
+      "sha256": "3235a70e0936b193bd993a1f48221f2ada41bc5ae48eb84735f5aa83c30236e5"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/valibot/package.json",
+      "bytes": 1914,
+      "sha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb"
+    }
+  ],
+  "contractSeedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts",
+  "contractSeedPins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10003,
+      "sha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3265439,
+      "sha256": "b18114a29e8aaa207f5f3d04849d6da1a72d0c1d05e5841ee66db12fa52a22cc"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/authority-inputs.json",
+      "bytes": 27912,
+      "sha256": "dc2a5b62856e7619c5cecbb54525e4812374c0c4e4f7ccf48d36e391a7d8cd1a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/rule-catalog.json",
+      "bytes": 1770456,
+      "sha256": "785d9194baca2817e65b7f9f333716d0f8bd1c8e7b7d1da134be94f6bc179583"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/law-basis.json",
+      "bytes": 28320,
+      "sha256": "5e9be0a0a6b980ef07ebfc683f6415a0f9a38f362199ea3f7c6095446d214424"
+    }
+  ],
+  "precedent": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/workload.json",
+  "meaning": "Reuse exact existing offline compiler/dependency root and immutable global RC6 contract seed. Candidate code is compiled in C2 sandbox; installed RC6 executable build is not copied as candidate code. Root binds these concrete dependency roots before dispatch. Entry/lock pins do not independently attest every dependency member; the canonical generator validates bundled dependency correspondence. No npm install or network."
+}

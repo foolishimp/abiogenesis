@@ -1,0 +1,499 @@
+{
+  "status": "ONE_ADMITTED_BUILD_COMPLETED_COMMAND_AND_PRESERVATION_READBACK",
+  "at": "2026-11-07T22:45:09.615941+00:00",
+  "sessionId": 36780,
+  "sessionExitCode": 0,
+  "driverStartedUtc": "2026-11-07T22:42:32.994Z",
+  "driverEndedUtc": "2026-11-07T22:43:11.642Z",
+  "attempts": 1,
+  "buildResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/BUILD_RESULT.json",
+    "bytes": 1308,
+    "sha256": "5c1b562874f4d8a5b64b0aedda84c64629197f2652024f582f6a0589d42dffce"
+  },
+  "commands": [
+    {
+      "name": "after-main-head.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/after-main-head.result.json",
+        "bytes": 1095,
+        "sha256": "e147d10bf980d2f158884d70ee55a879fb0469090f6f0f0bc57019a8df41be3b"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 14.044667000001937,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "after-main-index.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/after-main-index.result.json",
+        "bytes": 1116,
+        "sha256": "297efb86cbfee49934ae90f9e39addf8f14bf54b9492415fe7281d7a370de723"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 13.149208000002545,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "after-rc7-head.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/after-rc7-head.result.json",
+        "bytes": 1120,
+        "sha256": "38f5fe3d9736863911ba96964cf55234086d3c8fd088c54bd247f7d95122f0e6"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 14.29200000000128,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "after-rc7-index.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/after-rc7-index.result.json",
+        "bytes": 1142,
+        "sha256": "df9a32b47b5345368c119cfc09178419837a93656873dcdf55575dd84fe2674d"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 13.142041999999492,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "before-main-head.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/before-main-head.result.json",
+        "bytes": 1097,
+        "sha256": "270f3ad962415630ca8150c625a4d2c4dbdc81e7b7b4b2b34c5e8c043b9ca062"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 16.567958999999973,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "before-main-index.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/before-main-index.result.json",
+        "bytes": 1118,
+        "sha256": "5d3cb73dbe24a47627c515534e3618a0efd0c9963e87574e479cae0730b2c0d5"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 15.721249999999998,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "before-rc7-head.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/before-rc7-head.result.json",
+        "bytes": 1123,
+        "sha256": "dab6cf73e522f179691cd2930774dfc99293db526e31a8407b19191653b2478e"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 14.848957999999982,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "before-rc7-index.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/before-rc7-index.result.json",
+        "bytes": 1144,
+        "sha256": "44d26f160aae847e69c9569585359aa8554b0584e7b475250a00593c4cb491e3"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 13.166667000000018,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "built-product-identity.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/built-product-identity.result.json",
+        "bytes": 1886,
+        "sha256": "f3dbd217db22427f40e21a6d5b35c740d046cfc263cdbfb0edc75a845563000f"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 381.5224999999991,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "checkpoint-head.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/checkpoint-head.result.json",
+        "bytes": 1149,
+        "sha256": "06de9e08ae43d53425774af5dd747737871811e6551e995907f77efabfbdffe5"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 13.798708000000033,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "checkpoint-tree.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/checkpoint-tree.result.json",
+        "bytes": 1155,
+        "sha256": "65bb896f452e55af90044534609f9950fecb81c872c1318c7bed4b93418198bf"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 14.54608300000018,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "exact-tested-artifact-members.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/exact-tested-artifact-members.result.json",
+        "bytes": 1630,
+        "sha256": "7f0b46ab9f87913e723ad6b7d231374f680ab58af8087ba43cb4a0a59551cfe3"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 588.1751670000012,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "existing-source-branch.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/existing-source-branch.result.json",
+        "bytes": 1169,
+        "sha256": "148fc195e6af94fc21ed144a5c033a6e7a52624fa84a73c9ff2a2ec8d62549ad"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 12.52108300000009,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "existing-source-head.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/existing-source-head.result.json",
+        "bytes": 1159,
+        "sha256": "52bfd153f40a81b67d0c42e2239d369f1a0c394e136c4562006b51f7ec37986f"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 12.885499999999922,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "existing-source-tree.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/existing-source-tree.result.json",
+        "bytes": 1166,
+        "sha256": "f56820be297e6698808da5d88386f7505a1dbdbdd98db68ce8044a834b314bad"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 18.108542000000057,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "index-before-stage.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/index-before-stage.result.json",
+        "bytes": 1172,
+        "sha256": "385097a4e6d64beed23391d283ac827954eb9265c2999baa31b8c04a39b6e5fc"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 25.480542000000014,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "index-clean.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/index-clean.result.json",
+        "bytes": 1154,
+        "sha256": "5732aba320896b51ac5aa07847b1db51eb2641f54ebae4dc315a9a9042212f7b"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 24.736249999999927,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "reproduction-compile.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/reproduction-compile.result.json",
+        "bytes": 1100,
+        "sha256": "8656ba9e25145504d203cc1b2700f80503080593dbd18d0f753ef80dc1f479f7"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 8043.271917,
+      "timeoutMs": 240000
+    },
+    {
+      "name": "reproduction-dependencies.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/reproduction-dependencies.result.json",
+        "bytes": 1197,
+        "sha256": "dea16d5832a303c625bfdea7d2873dd7e59c3ef3464045b7a29033ae7e57b948"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 619.9709159999998,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "reproduction-generate.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/reproduction-generate.result.json",
+        "bytes": 1078,
+        "sha256": "e21835d16d62a1c268c2f513b752971ffd556f9b5186e4fc2247695777fc55ad"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 23617.845333,
+      "timeoutMs": 600000
+    },
+    {
+      "name": "reproduction-pack.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/reproduction-pack.result.json",
+        "bytes": 1127,
+        "sha256": "a68ec240db08912ec4026f609e416547d599d8857f511737aafee2d03d274eaa"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 3725.943333999996,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "reproduction-source-archive.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/reproduction-source-archive.result.json",
+        "bytes": 1500,
+        "sha256": "79f2db5e67700ec659abc4125e3878072f72448b6a859d18b31d0791f55d6078"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 406.82962499999985,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "reproduction-source-extract.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/reproduction-source-extract.result.json",
+        "bytes": 1199,
+        "sha256": "a994a804121cdff849fac419b13124415b589cb9f12049760bf89d04d2b07b2d"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 141.742125,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "source-changed.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/source-changed.result.json",
+        "bytes": 1173,
+        "sha256": "975881171c113c7c0a10ec20bdae076b67e0156767778dca1c73ed059b44ce9d"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 34.191041999999925,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "source-checkpoint.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/source-checkpoint.result.json",
+        "bytes": 1248,
+        "sha256": "292124b0cdaab0beda656a8e2760dca1de3204f1956a4fb4c2cb528d6291d250"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 137.11920800000007,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "source-stage.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/source-stage.result.json",
+        "bytes": 3555,
+        "sha256": "b575ee13bd2c312013288889050cce0c0f5584ebcce19605b87ac352706b6aea"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 154.10445900000002,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "source-staged-paths.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/source-staged-paths.result.json",
+        "bytes": 1187,
+        "sha256": "5d978621276a87ad06faec4428e5f053bd4b2079ca92b2b5096cb2d7e1c2d775"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 29.826915999999983,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "source-untracked.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/source-untracked.result.json",
+        "bytes": 1191,
+        "sha256": "62bf9b4e725bb5047d36d18211d94a13895776f1f1a97021010974fb65c3b40f"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 39.58445799999993,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "source-whitespace.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/source-whitespace.result.json",
+        "bytes": 1165,
+        "sha256": "7443759c0bd1111e146a67eb096b9ae57de4e100e6956c3331068da42442341c"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 36.94749999999999,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "tracked-clean.result.json",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/commands/tracked-clean.result.json",
+        "bytes": 1141,
+        "sha256": "c44b0de5303f467af2c29efec733ff301ef492796487c1348aac6932ae0b51fa"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 29.39679200000012,
+      "timeoutMs": 120000
+    }
+  ],
+  "allCommandStreamsMatchRecordedBytesAndDigests": true,
+  "preservationBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/PRESERVED_BEFORE.json",
+    "bytes": 655,
+    "sha256": "55c121ebceabffcc2e5e4d249afc6d5d1b9285756bf7221903c9949b81680830"
+  },
+  "mainAndRc7HeadsAndIndexesPreserved": true,
+  "preservedSubjects": [
+    {
+      "root": "/Users/jim/src/apps/abiogenesis",
+      "head": "92bbc6d85031536a1ec5ec0a0e4b03dcae2cc414",
+      "index": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29351221,
+        "sha256": "1ba9accd1f3d3934531d7c482c784cd9a94de698d8c0ee8ecbec45427e0f8057"
+      }
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+      "head": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+      "index": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc7-local-cut/index",
+        "bytes": 29466923,
+        "sha256": "829c687c31d81f2e3ab5167d217b34717d561ea79f7e58ef12d6f9e77bf5c1ae"
+      }
+    }
+  ],
+  "sourceTrackedAndIndexCleanAtDriverCheck": true,
+  "sourcePrepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/SOURCE_PREPARED.json",
+    "bytes": 9111,
+    "sha256": "245b541c7257a1d01d7abd6ff04e235cfd0037742d4ef01449670f843b7eeb78"
+  },
+  "exactSelectedPaths": 27,
+  "unselectedUntrackedPathsRetainedByDriver": "Preserved operator/progress or other non-selected paths; path list only, no source membership or content acquisition.",
+  "finalSourceAndImmutableSnapshotConservation": "Existing corrected002 repeated sourceRows/conserve before successful return.",
+  "resourceCeilings": {
+    "boundsMs": {
+      "git": 120000,
+      "dependencies": 120000,
+      "compile": 240000,
+      "generate": 600000,
+      "pack": 120000,
+      "inventory": 120000,
+      "install": 1200000,
+      "installedOwner": 900000
+    },
+    "maxOutputBytes": 67108864,
+    "nodeHeapMiB": 8192,
+    "freeSpaceReserveBytes": 4294967296,
+    "reserveCheckedBeforeAndAfterEachCommand": true
+  },
+  "installLocationsAbsent": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8",
+      "absent": true
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8",
+      "absent": true
+    }
+  ],
+  "scopeLimit": "Known command/session closure and exact preserved-byte evidence only; no universal descendant-absence claim. No SDK/provider/native Run or install was invoked."
+}

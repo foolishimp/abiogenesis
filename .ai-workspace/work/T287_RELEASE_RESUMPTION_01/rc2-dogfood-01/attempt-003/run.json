@@ -1,0 +1,6 @@
+{
+  "runId": "rc2-dogfood-01-attempt-003",
+  "priorAttempt": "attempt-002",
+  "relation": "new Run, same task; 60 provider turns at unchanged $5 per-process budget; no inherited completion credit",
+  "at": "2026-10-30T12:42:54.742Z"
+}

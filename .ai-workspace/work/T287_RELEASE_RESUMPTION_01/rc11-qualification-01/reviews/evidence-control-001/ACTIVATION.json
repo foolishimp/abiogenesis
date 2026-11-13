@@ -1,0 +1,36 @@
+{
+  "id": "RC11-EVIDENCE-CONTROL-REVIEW-001",
+  "role": "Reviewer",
+  "actor": "/root/rc11_evidence_review",
+  "issuerAndReturn": "/root Executive",
+  "grant": "Root followup: independent static review of exact external controls; read current controls/source/evidence and execute nonmutating stdo status verification; write only new activation and REVIEW under this directory. No Product imports, runtime, tests, provider, build, network, Git, candidate repairs or activation of others.",
+  "subject": {
+    "readySha256": "360fbf1f6ab1b4f8f722fe7f6cbb61377cdcfec51749423fa612473bbae74461",
+    "controlsSha256": "b2b1c849907cb6d7dc555b79e00f5e012958119fb832ff00ddc166954514b8b9",
+    "rootRepriceSha256": "596ee32800d6173c5dcb5224d6deb688533905c77bd564252a04b79b23c351e9",
+    "nativeHostSha256": "e97056e7f1ab539db1a991af43cee4cdc339420bbabfec9587efabd8d561ba68",
+    "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd"
+  },
+  "basis": {
+    "definition": "urn:stdo:product-definition:abiogenesis",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verification": "stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify: installed true, valid true, failures empty",
+    "composition": [],
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "productFrame": "Fixed fifteen 5.0 families; GOAL-035/T-287 selected F03/F04/F07/F10 proof slice. Exact Product outcome is genuine malformed probabilistic refusal/retry and retained pending-selection evidence. GTL definitions are immutable; installed owners perform effects and ABG admits runtime truth; replay derives historical state. Fixtures, scripts, logs and projections cannot mint runtime truth, restamp events, create a rival runtime or acquire present physical authority. No F15/S7/full Product qualification or acceptance follows.",
+  "classification": "External workspace-transformation and runtime-driving controls producing observation/evidence; compressed snapshots are retained evidence, decoder/projections are derived tools.",
+  "plannedClaims": [
+    "Native control preserves exact installed owner causality, authored result_text fixture input and authentic malformed output assessment/retry.",
+    "Expected native identities derive from owner admission rather than the failure projector under test.",
+    "Snapshots preserve original physical prefixes and exact decoder/profile relation.",
+    "Selected-action controls require matching host death, exact recovery and close before historical seed production.",
+    "Declared effects and failure records preserve bounded ownership and uncertainty."
+  ],
+  "exclusions": ["Actual generated snapshot correctness", "Future fast-test source", "Physical lifetime test review", "Provider or runtime execution", "Acceptance and disposition"],
+  "independence": "Separate reviewer from control author; prior triage is an input hypothesis, not adopted verdict. Product expectations were acquired before control source exposure.",
+  "severityScale": "Project S0 highest through S4 lowest; indeterminate and not_applicable preserved.",
+  "invalidation": "Material subject/input change, changed basis, or declared revising runtime/evidence observation."
+}

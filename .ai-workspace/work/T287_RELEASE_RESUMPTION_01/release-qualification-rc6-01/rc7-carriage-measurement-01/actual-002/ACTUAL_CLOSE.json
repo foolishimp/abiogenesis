@@ -1,0 +1,45 @@
+{
+  "kind": "abg_event_resource_receipt",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "reopen",
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-r7m2/tmp/abi5-root-env-z19Ryq/runtime/events.jsonl",
+    "prefixLength": 3177837,
+    "prefixDigest": "sha256:2482ca45d20fe26764ec79f29888357ed8f95222f053afee0f2e4b7c8865b4c5",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 708777829,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:0b508b3f91083ab2b51955cda02d88c65c4ce560fae390b45943bb68f06a9f7b"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-r7m2/tmp/abi5-root-env-z19Ryq/runtime/events.jsonl",
+      "prefixLength": 10558539,
+      "prefixDigest": "sha256:a87e4b35ce9e36d1d12cfdec0a1308542792e8ac74388373683b854f5764edce",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 708777829,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:e2a3537eb4023bc9c980f9b03d5cde663ffc4914e9df94a7514fb599804ce414"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/private/tmp/abg-r7m2/tmp/abi5-root-env-z19Ryq/runtime/events.jsonl",
+      "device": 16777231,
+      "inode": 708777829,
+      "eventLogDigest": "sha256:a87e4b35ce9e36d1d12cfdec0a1308542792e8ac74388373683b854f5764edce",
+      "durableByteLength": 10558539,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+      "authorityDigest": "sha256:bc06c071731fe0944b9944bb10cf53badd7f49b5e87ed6af17b9ff8a276a1f02"
+    }
+  },
+  "receiptDigest": "sha256:f8903aff367153dfab840ffec60cfaa8d39bb7bd7cbb223cf8019a9963771c72"
+}

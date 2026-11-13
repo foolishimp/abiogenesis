@@ -1,0 +1,98 @@
+{
+  "kind": "operator_control_writer_continuation_return",
+  "status": "PREPARED_NOT_DISPATCHED",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREPARATION_MANIFEST.json",
+    "bytes": 31538,
+    "sha256": "cf0cee6f4787253bc429dadabdd00c4c622446df89eb07279bc173ca7fe779f3"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/SOURCE_BEFORE.json",
+    "bytes": 396203,
+    "sha256": "1237b28d89dbd4e2da393d26f0e098d0e781d155431a9659a1e575f618dc493a"
+  },
+  "affectedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/AFFECTED_PROOF_BINDING.json",
+    "bytes": 4749,
+    "sha256": "42bb431177337520bb200ca4d33326b85f61daf9e2dceab528602f55cfbf537b"
+  },
+  "runtimeBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/RUNTIME_BINDINGS.json",
+    "bytes": 5136,
+    "sha256": "bd46af98db59783867ef92ad95f8310c47e6309dc860abfbfd69970d5d15f699"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/NATIVE_GRANT.json",
+    "bytes": 246255,
+    "sha256": "1fb4ef0ca7312f4e51ee8e859bb9598b5301edefc03f13d36c76e34417679f7f"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/workload.json",
+    "bytes": 97201,
+    "sha256": "cdc8871b0444220c9087d558038f3fa9c2cbb002a2b4c65f71709cce5f2a6755"
+  },
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PROVIDER_PROFILE.json",
+    "bytes": 2774,
+    "sha256": "aa0ca65f2eb00e42fc8c49d2bf85f05030e156e93b97c110e14966ab1a6a9ded"
+  },
+  "staging": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/STAGING_MANIFEST.json",
+    "bytes": 10638,
+    "sha256": "fe56dd1062d04ae927d5de1c8ab148ade9d0510e84580ca9007cae9d7d13a118"
+  },
+  "staticChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/STATIC_CHECKS.json",
+    "bytes": 2104,
+    "sha256": "52cdeaed4d53dc676063928d987987b3323534c3ab5ccb4b7c4243404b87358e"
+  },
+  "preparationTiming": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREPARATION_TIMING.json",
+    "bytes": 392,
+    "sha256": "d5fb8b52fb4fff209c850c4eb1a8a7ebd2f7eb35ad06b2724930fbec0f797167"
+  },
+  "counts": {
+    "sourceRows": 449,
+    "A_admitted_after_source": 397,
+    "readonlyResourceRows": 51,
+    "freshHarness": 1,
+    "oldAAfterInventoryIncludingControls": 417,
+    "ProductWritePaths": 86,
+    "contextPaths": 472,
+    "controlFiles": 20,
+    "physicalBodyBytes": 12519752,
+    "orderEstimateBytes": 51547
+  },
+  "actualResumeReusedByReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/after-run-resume.json",
+    "bytes": 72497347,
+    "sha256": "8cd7aa806aa2cbe96ce095201a25e22f764e93b24f24d75b49666ae0397d082a"
+  },
+  "actualPrefixBytes": 1178736411,
+  "boundedExecution": {
+    "oneWorker": true,
+    "model": "Claude Opus5.5",
+    "effort": "xhigh",
+    "turns": 320,
+    "absoluteMs": 5400000,
+    "inactivityMs": 1800000,
+    "hostMs": 10800000,
+    "heapMiB": 8192,
+    "stages": 4,
+    "laneInvocations": 12,
+    "automaticRetry": false
+  },
+  "remainingRootSteps": [
+    "Admit exact current packet and write the existing ROOT_CONTROL_ADMISSION/RUNTIME_BINDINGS admission fields; preserve preimages of subsequent binding updates.",
+    "Stage the20 exact input files and declared scratch/short temps only after admission; npm user/global inputs are distinct empty files.",
+    "Run existing owner preparation/capacity and one admitted native dispatch; no broad feedback front-load.",
+    "After actual return, retain receipt/resume, exit host, then Root owns source freeze, full-terminal cold reads, review and actual affected installed/D5 proof."
+  ],
+  "materialPreparationRelationUnresolved": null,
+  "nonClosure": [
+    "R1-task/R2 and three review corrections are native work still to execute.",
+    "Twelve exact historical/F11 cases, including seven F11 carriers, remain unbound/uncovered. New body/input/recorder discriminators cannot use their skip allowances.",
+    "Existing declared-testing cold companion route remains pattern-only and excluded from commands.",
+    "No actual owner preflight, Product build/test, provider dispatch, C staging, source edit, independent acceptance or timing savings claim."
+  ]
+}

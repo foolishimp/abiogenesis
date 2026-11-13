@@ -1,0 +1,40 @@
+{
+  "status": "PLAN_ONLY_NO_FROZEN_PROOF_EXECUTION",
+  "nativeModes": {
+    "buildMs": 600000,
+    "optionalFocusedMs": 600000,
+    "files": [
+      "test_env/tests/t287-held-basis-lifetime.test.mjs"
+    ]
+  },
+  "externalModes": {
+    "ordinaryUnitMs": 900000,
+    "ordinaryScriptUnchanged": true,
+    "held50CallHostMs": 900000,
+    "coldReadMs": 120000,
+    "scriptedActorAbsoluteMs": 60000,
+    "scriptedActorInactivityMs": 30000,
+    "aggregateMeasurementBytes": 1073741824,
+    "nodeHeapMiB": 8192,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864
+  },
+  "knownPerFileOverridesMs": {
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000,
+    "test_env/tests/t287-c0-post-publication-failure.test.mjs": 2100000
+  },
+  "overrideSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_008_RUN_ADMISSION.json",
+    "bytes": 4438,
+    "sha256": "8ac8605bbe66512b07428704fb236651055de73b493cd2afec9930e0d6ffe956"
+  },
+  "measurementDependency": "Exact new observation symbols and frozen implementation are unavailable before native construction; bind the 50-call executable only after actual returned source. Fifty-call mode is not native author execution and currently has no admission.",
+  "measurementOracle": "Both owner-retaining gauges release each completed operation; preserve active work/identity, historical/cold equality without repopulation, overlap/generation/failure semantics. Logical canonical payload bytes, heap separate; compact per-call records and finite historical sentinels.",
+  "capsules": "Related cache-boundary tests do not close four historical capsules. O3 unchanged."
+}

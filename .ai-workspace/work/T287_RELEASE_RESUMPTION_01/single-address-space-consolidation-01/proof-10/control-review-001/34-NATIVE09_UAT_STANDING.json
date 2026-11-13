@@ -1,0 +1,54 @@
+{
+  "recordedUtc": "2026-11-04T13:50:10.792Z",
+  "status": "NATIVE_UAT_NOT_SELECTED",
+  "assessment": null,
+  "nativeActorLaunched": false,
+  "assessmentTaskObserved": false,
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/outcome-summary.json",
+    "bytes": 537,
+    "sha256": "e2211e63d55d616cd935e2560b309045ed612a9ec8489fe2fc03063dd783edfe",
+    "disposition": "blocked",
+    "run": {
+      "digest": "sha256:f9b164b2eda231112cff6d0701873c5d9548f03263dedafc372c2532b4ab7817",
+      "ref": "run://abiogenesis/8151fe0a681158cbe0edc14139cee1dc877e592f278a5e78509364457a968c88"
+    },
+    "terminal": null
+  },
+  "actualGap": {
+    "eventId": "event://abiogenesis/2db495199052be0b90e9e335a2c4ccf02753676a881567e22b68e57f42839d2e",
+    "eventOrdinal": 63413,
+    "eventTime": "2026-11-04T13:39:48.338Z",
+    "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+    "runId": "run://abiogenesis/8151fe0a681158cbe0edc14139cee1dc877e592f278a5e78509364457a968c88",
+    "resultRef": "result://abiogenesis/2406d078977400d8e6abdb264e0efb1972fcabb9c6dc6033fad6cac022374997",
+    "resultDigest": "sha256:2406d078977400d8e6abdb264e0efb1972fcabb9c6dc6033fad6cac022374997",
+    "payloadDigest": "sha256:8aeef7130df3d555afe73c24efb67eed1bc5e4c931b0e7221335bf765ac40e33",
+    "offset": 837229393,
+    "rowBytes": 3562,
+    "rowSha256": "feefa95e4f4c9d476301e703b3fad0d5d79eeb54c0a6cf9a006e58cd55b3174c",
+    "value": {
+      "disposition": "gap",
+      "evidenceRefs": [
+        "task://abiogenesis/t287/single-address-space/native-09",
+        "worksite-context-observation://abiogenesis/cc31692ac2218d405ab2d14c2cc01cd1921a17cee7de98a568d00d9cef62ee9b",
+        "result://abiogenesis/69e2fb9c36419a12ca2ec0871d2738b2a4cb3430b2b9be33393c815ee579c7d5",
+        "result://abiogenesis/b362feed31460282e47b00cd04b1e0eb647c3baae60022b9990257ac777a5d98",
+        "result://abiogenesis/3fa006c3ce87eb6c2bb6c4482c01ec289918600bca4eac60378ba6faf3777cc9"
+      ],
+      "kind": "registered_graph_choice",
+      "missingSupportRefs": [
+        "support://abiogenesis/t287/targeted-interface-refactor/ir01-ir02@09"
+      ],
+      "reason": "No member can lawfully advance this mapping now.\n- Testing has executed and recorded its failures. Rerunning the same plan against the same inputs would only repeat them, and running until green is excluded.\n- Construction cannot write consolidation-inputs or change lane floors. Rerunning it would discard valid frozen work, and no observation shows a regression caused by the candidate.\n- UAT would assess T4 without a nativeTestProof pin and with a C2 known to fail on inputs. The required input repair would invalidate that verdict, so this is premature.\n\nThe prior judgment's revision condition applies: affected-proof exits nonzero for reasons consistent with the missing native-09 MEASURED_BASELINE.json and the floors, and the revision and consumer counts match the Worker's reported preimage. The three gaps therefore return to Root for input and floor re-entry. Fresh Testing, then UAT, remain the planned continuation.",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "observation": {
+    "fromByte": 755445926,
+    "throughByte": 837277102,
+    "throughOrdinal": 63426,
+    "method": "Installed decoder over actual complete rows; no assessment task, actor start or Result in this closed invocation suffix."
+  },
+  "standing": "Actual blocked native outcome and admitted gap preserved. No native UAT assessment, semantic rejection or acceptance is inferred; fresh close remains separately captured."
+}

@@ -1,0 +1,34 @@
+{
+  "id": "RC11-EVIDENCE-CONTROL-PREP-02",
+  "role": "External proof-control Writer; preparation only",
+  "at": "2026-11-09T07:07:18.198442+00:00",
+  "issuer": "/root Executive new exact task plus explicit13th package.json grant",
+  "purpose": "Restore original RC10 helper package/import topology in isolated execution view; preserve execution01 and all original bytes.",
+  "authority": {
+    "rootScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SCOPE.json",
+      "bytes": 7770,
+      "sha256": "96771f46109ffd8fe96316e47a2f7174f4898d58edcbd3998e703def8ce3855f"
+    },
+    "rootReprice": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_REPRICE_01.json",
+      "bytes": 3254,
+      "sha256": "596ee32800d6173c5dcb5224d6deb688533905c77bd564252a04b79b23c351e9"
+    },
+    "failedAttempt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/raw/selected-action/CONTROL_FAILURE.json",
+      "bytes": 593,
+      "sha256": "8aa8b5956380229cba6caa72d7981053d300363f35147cd88ab69320cdb18a07"
+    },
+    "failedStderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/raw/selected-action/stderr.log",
+      "bytes": 1058,
+      "sha256": "8d307ddc94642eac7d387979d2fb997df5d101a7facc421ea120c1307e532e6f"
+    }
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02",
+  "readOnly": "Fixed RC10 source, all existing Product/candidate/install/build/dependency bytes and all01 records.",
+  "allowed": "Copy exact13 source files, copy4scripts, create view build and node_modules symlinks to pinned install, static resolution/syntax/byte verification, successor controls and reports.",
+  "excluded": "No Product imports/execution, tests, fixture packaging, runtime/provider/network, candidate writes, staging, retry or acceptance.",
+  "return": "Closed READY2 to Root before execution."
+}

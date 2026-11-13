@@ -1,0 +1,154 @@
+{
+  "allInsideGrant": true,
+  "captured": {
+    "CONSTRUCTION_COMPILERS.raw.jsonl": {
+      "bytes": 22716,
+      "sha256": "efdf11b2595a176a165a7a2778766b85db48ba351731f6e4aff03dcf6ccdf7b5"
+    },
+    "CONSTRUCTION_INCREMENTAL.patch": {
+      "bytes": 111472,
+      "sha256": "bcbadca2d79b481934f9ae35a9be182cbc4f93498216fc297b081f5641f607eb"
+    },
+    "CONSTRUCTION_STRUCTURED.raw.jsonl": {
+      "bytes": 15290,
+      "sha256": "9d29e116317adc0f89ea07c2c2a4cf74b779862caba471af77dcf5031116eba4"
+    },
+    "CONSTRUCTION_TERMINAL.raw.jsonl": {
+      "bytes": 16085,
+      "sha256": "9b7bb20b1b020de1541bf13ad07b7cd7f31ebaecd3d430b6610183f57c10bda9"
+    }
+  },
+  "changedCount": 21,
+  "fullStream": {
+    "bytes": 8175302,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/fp-a7c2e98d573eed09-stdout.log",
+    "sha256": "0671cfffa529eb74e664ed5f143b324299b0d5508ba8fe6f671a03ea5861b613"
+  },
+  "grantPaths": 46,
+  "kind": "single_machine_p1_construction_provider_return_custody",
+  "limits": [
+    "No C2, native Result admission or UAT implied.",
+    "Actor removed disposable scratch directories; compiler outputs are retained as raw tool-result events.",
+    "No Product source was edited by this operator."
+  ],
+  "localSourceArchive": {
+    "bytes": 1423360,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/construction-source.local.tar",
+    "sha256": "9e840e8c1f87eed2a0d3ed9b282740d529f4a715c42e7f6d9465cd9c3974630d"
+  },
+  "providerTerminal": {
+    "numTurns": 179,
+    "reportedCostUsd": 16.039311000000005,
+    "subtype": "success"
+  },
+  "rows": [
+    {
+      "bytes": 47208,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "256373b03534d39930b69056623f5946f404865a52f8fcdf10f42d2524e224ac"
+    },
+    {
+      "bytes": 57842,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "sha256": "eb527b9a5a8649d9f35e5f7270273d1d79f91619901073633f19577a5a986a68"
+    },
+    {
+      "bytes": 120502,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "3f78db27edb607b0ed2405e106abeb43c96a09df9b2b3fd4ec9eab974070274a"
+    },
+    {
+      "bytes": 37092,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "sha256": "23c0fd11ff940739553be628fce48627dc049659acc1f609d186f54e0db2a51a"
+    },
+    {
+      "bytes": 43473,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "sha256": "a0ba80a5744cc70309bcd39d7d008b6f015f104744036c0df0f9b81623532942"
+    },
+    {
+      "bytes": 56749,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "sha256": "9f31ae048962ea6f84fcea7e661e9dc01f4a0f5f2e07d4a4736226c00d2be79d"
+    },
+    {
+      "bytes": 96806,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "sha256": "ae296cd0d5fd5d7221854937f1ee0eae835a6c2d7c6de36ccf01e59bf52e3c72"
+    },
+    {
+      "bytes": 7018,
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "sha256": "5ac2af8837e88feaddc073b35ac90e830a5ba2b7399586194f45cb7eafa874fa"
+    },
+    {
+      "bytes": 36411,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "7177148ab49e3ce1a8cd35f2cf5f6bb49c52465ac7907708ec27835ec037aa36"
+    },
+    {
+      "bytes": 23018,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+      "sha256": "6b5aff7dc2e95462af389d06d10868013211636b24271e3464c6a29c9d8ca693"
+    },
+    {
+      "bytes": 21332,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "sha256": "d0b8f6ce763f9511bd2c3dded9ad05238909ff1b2f39cd206e44c554043d21ca"
+    },
+    {
+      "bytes": 96061,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "sha256": "8b3cbb16cc2c07af50b180e5cb29442c465719fa04ae887ecee501c3d10bb753"
+    },
+    {
+      "bytes": 143027,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "6766194e77012654f660814674842ec372e63bc6020df3ffc3110debb2bf5db1"
+    },
+    {
+      "bytes": 92553,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "sha256": "4e4a5e5a5fa515f15276213bf94c054b24424b0015671db1eccd25692fce369b"
+    },
+    {
+      "bytes": 48707,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "sha256": "21982a24dc289e5abd375f009cb6d628f390f916e35daed251cf27a8989fa85b"
+    },
+    {
+      "bytes": 19137,
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "sha256": "a9594ae35df45aee492255f0ef9e7bfb8725927440b9a1f8303a3e6f52a585a2"
+    },
+    {
+      "bytes": 24748,
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "2c5c6369f97263a8ea1f5f0540a909666e04fc1fa39dd7af699c6c6e6ba1a40a"
+    },
+    {
+      "bytes": 71603,
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "518b7f78cfb2f38dd0fbab5cfc50e52fee907cefc6ca3996894a39980e7962ad"
+    },
+    {
+      "bytes": 212367,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "b0309476da10eb52f343f8d43d95aea3572cb082cd4b5fd7b0d30411bde56649"
+    },
+    {
+      "bytes": 56725,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "sha256": "821b5e08ea33365bb304674650399f98701236797c881ca7a8f2d499676680ec"
+    },
+    {
+      "bytes": 91894,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "4f4dce1d67b3962cbb3f9cd0463be9ea51dde4d61961a081322d528daba558a7"
+    }
+  ],
+  "runRef": "run://abiogenesis/300105eb93014e324c59343cc10b4008f7b6326e7d5019a0857702f59c1c1c18",
+  "sourceHead": "97406077c9a91e18e9425c3df55c6cd80f4c2073",
+  "standing": "provider structured partial Work only; native admission and C2 pending"
+}

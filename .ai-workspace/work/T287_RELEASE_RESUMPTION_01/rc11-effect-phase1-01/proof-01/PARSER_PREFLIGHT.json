@@ -1,0 +1,25 @@
+{
+  "status": "MECHANICAL_PARSER_PRECHECK_PASSED_ON_PRESERVED_BYTES_NO_TEST_RUN",
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.py",
+    "bytes": 14729,
+    "sha256": "a6bb52160490dc497c4dd70bf94e7eba7768591747ed8f5ee3557e896981a55f"
+  },
+  "historicalInput": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-02/owned-lifetime/stdout.log",
+    "bytes": 21558,
+    "sha256": "12721b5d5a910263c4a0f8a61dcaa6cbd0139a75ca7a3dcb4e1d1fa16f989263"
+  },
+  "counts": {
+    "tests": 18,
+    "pass": 18,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "names": 18,
+  "decodedDiagnostics": 13,
+  "method": "Same exact single TAP backslash/hash unescape with mandatory roundtrip, then JSON parse; five HTTP and three capture summary diagnostics verified on retained historical bytes. No new test or runtime owner executed.",
+  "frozenSuccessorBinding": "HELD"
+}

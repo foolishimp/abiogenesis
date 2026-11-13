@@ -1,0 +1,93 @@
+{
+  "status": "PREPARED_FULL_CORRECTION_CARRIERS_FILE_NO_EXECUTION",
+  "at": "2026-11-07T12:28:39.031790+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/ROOT_PREPARATION.json",
+    "bytes": 3046,
+    "sha256": "24fe073337b3c5e23560a27093c7372acc47b4af4364979f15d20551d3549df2"
+  },
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/run.mjs",
+    "bytes": 8153,
+    "sha256": "cb747b9c9fe7762704ad3fb9618c5833f9d492b729d12f6bcd09d4c9fdd53d70"
+  },
+  "recipeDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/RECIPE_DIFF.patch",
+    "bytes": 5521,
+    "sha256": "5dc6205dd0467ed96e74dfd045353fa8224c1914cfbd0c181d746eefe246c9ea"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/BINDING.json",
+    "bytes": 7975,
+    "sha256": "a722ab60d762a731e1cf5a050989875a07b65d0a97a7425fe34cb58ed5dbc3b6"
+  },
+  "bindingDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/BINDING_DIFF.patch",
+    "bytes": 9177,
+    "sha256": "d0dee2a90e5a15a09255f4aeed939327b28e4a34a15cd913ff2bbdfbc7c07814"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/rp2-correction-timeout-017/REVIEW.json",
+    "bytes": 15868,
+    "sha256": "dd46bac88e189b8d61f43115398c73ee08591bedfbd4f78e7d5413b6e25cc516"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 7205,
+    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/source-freeze.json",
+    "bytes": 295552,
+    "sha256": "422808c5850d72cb0533fa7ddba6864c757f9b23eeba756466f4157f20cd7879"
+  },
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/READY.json",
+    "bytes": 572407,
+    "sha256": "0380ef49e60c0331d03bc2cb5d975b30f4fa775a357c71a5c0f99246cbb1401a"
+  },
+  "testSourceRow": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-rp2-correction-carriers.test.mjs",
+    "bytes": 5612,
+    "sha256": "8980e3c7e8f0dddf542219aed644d9fc12449baefe912004285d985dec2b0618"
+  },
+  "artifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "priorStoppedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_017.json",
+    "bytes": 13201,
+    "sha256": "0b67ad05bc49ff1b6b45283922fe02630982e4a27dd0ee6b0960fb0b94372616"
+  },
+  "comparatorAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/ROOT_PROOF_ACCEPTANCE.json",
+    "bytes": 5538,
+    "sha256": "7c1f566e0ce754acaba86a5c71e499099c207effd4a94ff54d4628196c239bc8"
+  },
+  "wholeFile": true,
+  "topLevelTests": 1,
+  "modes": [
+    "inspect_runtime_archive",
+    "escalate"
+  ],
+  "coldReplays": 2,
+  "commandTimeoutMs": 1800000,
+  "operatingBudgetStanding": "1200s setup+300s both Run/replay pairs+300s margin; finite assumption, not guarantee. All other existing owner bounds unchanged.",
+  "syntaxPassed": true,
+  "outputAndScratchAbsent": true,
+  "testsExecuted": 0,
+  "sourceEdits": 0,
+  "providerCalls": 0,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/run.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/BINDING.json",
+    "a722ab60d762a731e1cf5a050989875a07b65d0a97a7425fe34cb58ed5dbc3b6",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/ROOT_ADMISSION.json",
+    "<exact future Root admission SHA256>"
+  ]
+}

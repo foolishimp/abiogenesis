@@ -1,0 +1,54 @@
+{
+  "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+    "testSha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Actual023 retained6partial component passes and2original180000ms inner timeouts, followed by Root-scoped SIGTERM. No reporter end/whole count; four later registered cases have no outcome. Root selected existing configured positive proof, pending execution; negative-variant assurance disposition remains separately recorded. Scheduling only, zero new whole/pass credit; C1 stays scheduled unchanged.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json",
+        "bytes": 13134,
+        "sha256": "9191ae6376601e9e91562936363e070d0a2bf0c00c57e60565c177a9b01dd207"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/files/193-t287-worksite-command-execution.json",
+        "bytes": 1037,
+        "sha256": "43812cca630de3b50ca1063b2a84d04ad26e3a69f776dc1bc2854da4c644f46b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/commands/193-t287-worksite-command-execution.result.json",
+        "bytes": 1508,
+        "sha256": "56c9f95bfd2991d5693d918d133ae0a6f1e7b8ce6e5c58bddc876e3cb37d7b26"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/commands/193-t287-worksite-command-execution.stdout",
+        "bytes": 2468,
+        "sha256": "8c76eba291bfa8330fcd7457090cbc0e0a964e0730c5776dca61c3e45e2a6c12"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/events/193-t287-worksite-command-execution.jsonl",
+        "bytes": 2963,
+        "sha256": "0a55e50dfa68cde4229624d163ad0eb42efd20b1a6a8e9cbe4dc331c0f168544"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/FAILURE.json",
+        "bytes": 612,
+        "sha256": "d9a633daaa69f5954218fc98458d734b9b936145dd392bfec2318299b323a12b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/observations/c2-root-stop-001/PRE_STOP.json",
+        "bytes": 7985,
+        "sha256": "6d68b789bef95c14b71fc3291832d5ba91e9de134f58d20aa8c9367bff55dd0e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/observations/c2-root-stop-001/STOP_SENT.json",
+        "bytes": 961,
+        "sha256": "187f4d1ac21bcdb4a61723da3b7f3242a4194419317126fcfada63c38df1273c"
+      }
+    ],
+    "capsule": "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET",
+    "successorStanding": "Root selected scheduling exclusion only; see RESIDUAL_REASSESSMENT.json, no closure or inherited semantic no-block"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "RC11-LIFETIME-REENTRANT-BOUND-001",
+  "status": "DEFERRED_UNEXECUTED_SOURCE_HYPOTHESIS",
+  "owner": "Root",
+  "frames": [
+    "Owner",
+    "Effect",
+    "Proof"
+  ],
+  "rootDisposition": "Root conjoined Design: pre-A lifetime251\u2013257 and current state151\u2013156 share the reset. R2 did not introduce it. Ordinary nodeHost.probeGroup calls process.kill(-pid,0), no owner callback; all3production callers use it. No new execution/repair is selected.",
+  "evidence": {
+    "workerReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/WORKER_REPORT.json",
+      "bytes": 6145,
+      "sha256": "5ba6cddfd86c4ba4ac1989f52773732a68438fda278d90a367df447eda473c29"
+    },
+    "preA": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    "currentState": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 13755,
+      "sha256": "235fc19c3469c7d62f61834ae29f7bbba4b2e3866876af193ebbf44d35af3b01"
+    },
+    "currentBridge": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11658,
+      "sha256": "fbb571cc96fa60b4a7000c61063b060c7fcb14c11bed8ed96c40cbfe4bfa9e6f"
+    }
+  },
+  "nonblockRationale": "Unchanged relation plus ordinary host has no synchronous reentry. This is not a waiver of universal bound qualification.",
+  "trigger": "Before adopting a reentrant probe binding or claiming original-request bounds over arbitrary injected hosts.",
+  "closure": "Controlled advancing-clock reentry shows original cleanup start retained and deadlines never extended (immediate may tighten), with counts/stale-result/seal laws preserved.",
+  "execution": "None for this hypothesis. Current four-member proof scope unchanged.",
+  "tracking": "Recorded after guarded campaign closed; main/candidate tracking not changed. Carry into eventual A/B qualification limits and next authorized tracking prefix."
+}

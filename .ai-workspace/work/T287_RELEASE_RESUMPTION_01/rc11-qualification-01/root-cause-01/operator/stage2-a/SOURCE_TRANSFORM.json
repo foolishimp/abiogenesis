@@ -1,0 +1,27 @@
+{
+  "original": {
+    "path": "/private/tmp/abg-rc11-root-cause-20261110-01/test_env/tests/m5-worker-transport.cause.test.mjs",
+    "bytes": 123975,
+    "sha256": "455ed58983eb64ee3901f8a70ab824f1710746a2eba4d6e17e2f9e9c9c407a25"
+  },
+  "unmodifiedCandidate": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "bytes": 114763,
+    "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+  },
+  "derivative": {
+    "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/test_env/tests/m5-worker-transport.delay.test.mjs",
+    "bytes": 124332,
+    "sha256": "c95e19ce5f22f06d5f7f06db06706be81ab74a9b9e80e5a9edc4e19b7ba3a7ad"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/SOURCE_TRANSFORM.diff",
+    "bytes": 13699,
+    "sha256": "35996c96387453dd3c6c2862d93437dcb5013e9bef329a1b5dac3c3a32712237"
+  },
+  "readonlyLinks": {
+    "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/build": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/build",
+    "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/test_env/support": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/support"
+  },
+  "intentionalChange": "Exactly600ms await before original semantic body in five individual worker scripts and HTTP-normal leader only. Original clocks, assertions, other grouped modes and callbacks unchanged. Diagnostic counterfactual only; no historical-equivalence or proposed-repair claim."
+}

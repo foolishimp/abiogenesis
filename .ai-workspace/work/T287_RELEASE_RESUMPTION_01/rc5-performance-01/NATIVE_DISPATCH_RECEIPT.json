@@ -1,0 +1,14 @@
+{
+  "recordedUtc": "2026-11-03T08:33:05.389404+00:00",
+  "rootToolSession": 91104,
+  "rootProcess": 6799,
+  "runId": "run://abiogenesis/796bca9419e65951237070f34d970bda48b38b7c59a9fcd246d6236d44b142c6",
+  "nativeWorkerProcess": 7627,
+  "nativeWorkerEvent": 1211,
+  "sourceFrozenPreimage": "3e2304de7dbad73b85dbf27e94c54766202f1583",
+  "manifestSha256": "b78a201cbfa2a0d84c8b82ca2997b4488418770db56d50b625f3703f6a812eed",
+  "authority": "method-01/ROOT_ADMISSION.json",
+  "status": "NATIVE_CONSTRUCTION_RUNNING",
+  "acceptance": false,
+  "sourceWorktreeUnchangedByOperatorDuringRun": true
+}

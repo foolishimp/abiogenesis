@@ -1,0 +1,46 @@
+{
+  "base": "65f311e735c1297b9982117eb73fb6a32999cc02",
+  "branch": "codex/rc11-foundation-correction",
+  "paths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "specification/GOALS.md"
+  ],
+  "stagedBlobMatchesWorkingFiles": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "bytes": 60372,
+      "sha256": "77d9f61e3605a2a3d2050e22ec8961f34c8f11d12a9cee9e79f37454437e9879"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 203108,
+      "sha256": "62742b6c222ad698b022b6c00672541a5d701c92dc367191afc41bf0c1fc8f46"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 12980,
+      "sha256": "3c0820e1959dfbd1ac73e857036aa347475643d597096dbb921faae2ad41d574"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+      "bytes": 169150,
+      "sha256": "4ea9c08995b2424c90b0376092fcda989e9458c74634648f6bb3cae2df968a78"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 818865,
+      "sha256": "f046291f4a4330a0b5db33a999c7c6aa4ac1758b4e5ce8649af996aa800dc643"
+    }
+  ],
+  "diffCheckPassed": true,
+  "unexpectedStagedPaths": [],
+  "sixTestedFilesConserved": true,
+  "hookPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/HOOK_PREFLIGHT_CONTROL.json",
+    "bytes": 1721,
+    "sha256": "e01555511a8d8ab656cdee5f799249a21bca363e11cc0095aa52d87449833a92"
+  }
+}

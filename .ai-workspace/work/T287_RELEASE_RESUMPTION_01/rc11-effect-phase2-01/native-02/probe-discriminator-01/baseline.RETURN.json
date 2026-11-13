@@ -1,0 +1,67 @@
+{
+  "mode": "baseline",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/probe-reentry.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/BINDING.json",
+    "00745d4c29fad7a2df6c31a3ed59578c8c8705e8a1b7028f866aae8d6d9551c0",
+    "baseline"
+  ],
+  "pid": 21375,
+  "pgid": 21375,
+  "exitCode": 1,
+  "wallSeconds": 0.1886083330027759,
+  "limitCause": null,
+  "signals": [],
+  "groupAbsent": true,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/baseline.stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/baseline.stderr.log",
+    "bytes": 470,
+    "sha256": "8e8c9c392df484210793800412442c0f53c2b4fe38dba1fec0b6eb1f3649b079"
+  },
+  "observation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-baseline-001/OBSERVATION.json",
+    "bytes": 2931,
+    "sha256": "7db4f706c63a52d5e5e94e73a71328c17598a93b3ef33597dae365b7270e59d6"
+  },
+  "intendedObservationsRetained": true,
+  "status": "CONTROLLED_OBSERVATION_RETAINED",
+  "postguards": {
+    "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+    "sourceRows": 1345,
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+      "bytes": 296057,
+      "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+    },
+    "preservationGuards": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/PRESERVATION_GUARDS.json",
+      "bytes": 3317,
+      "sha256": "6913ad226439cd28b7f8b534a46881da5d92678245e27b7cd57770f063d70608"
+    },
+    "modulePins": [
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 9891,
+        "sha256": "563448e7dc2f8e9a053ba8ac1dd49baf884e021cf301c7a352ace1ee7d33e897"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_state.js",
+        "bytes": 8361,
+        "sha256": "4d3863302d3a141dff2154ca1edc438dbc854985dfd8094617de885999e38880"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 11604,
+        "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+      }
+    ],
+    "passed": true
+  },
+  "resultMeaning": "Exit1 from retained oracle is a counterexample, not runtimeinstallation/OSchildproof."
+}

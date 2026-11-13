@@ -1,0 +1,67 @@
+{
+  "kind": "root_dependency_ready_fixed_route_operator_materialization_selection",
+  "at": "2026-11-06T07:56:11.192627+00:00",
+  "status": "MATERIALIZATION_AUTHORIZED_NATIVE_DISPATCH_REQUIRES_ROOT_FINAL_BINDINGS",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "selectedExistingIncrement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/ROOT_FIXED_PROOF_DISPOSITION.json",
+    "bytes": 3886,
+    "sha256": "ccb6b9060049213605af4f8327347a95349bb8d8ce0af21e19fe59eb3a05cddc"
+  },
+  "closedPrerequisite": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5900,
+    "sha256": "13f510c096e71153e3f5609aeb32dc39014e3b467b4b45ddda517515ebc57088"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5095,
+    "sha256": "9d2aeda376716644e5cf092627de40c4175f81c50e37b2ad9945b16e14fced02"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SOURCE_AFTER.json",
+    "bytes": 274182,
+    "sha256": "40cd08685c5598c48f2acb06872eb861a544180949ef3a242b317f02393f823e"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "productFrame": "Unchanged fixed15 ABIogenesis5.0 / GOAL-035 / T-287 under immutable STDO3.0.4. RC6 remains immutable builder; prospective RC7 fixed Testing/UAT owner route only.",
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "preparedSourceControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/preparation-reconciliation-001/MANIFEST.json",
+    "bytes": 23014,
+    "sha256": "56e1997c16234b0ee8aa7353c10f29737362d898b1763d684bec122ab3c01198"
+  },
+  "operativeSdkHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-002/MANIFEST.json",
+    "bytes": 6056,
+    "sha256": "d74445cc93ea12d758085a6fc5c99b78bac7a3742412be74c1a2b9e29028b246"
+  },
+  "operativeSdkHostInheritance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-001/MANIFEST.json",
+    "bytes": 16022,
+    "sha256": "fabc68e66e2f390bad08b4575e5bf7915e2d294b9d42700171c0927a08e90600"
+  },
+  "operatorRole": "Separate operator Writer may materialize exact source/control custody, frozen maintained runner/public-setup/consumer/scenarios modules, task inputs/workload and prepared single-host SDK scripts under this task and its declared qualification-inputs/scratch/temp roots. Root retains final control admission and one-native-worker launch. No Product/HOW/test edits by operator.",
+  "materializationRules": [
+    "Use all449 actual accepted N source references plus only the already-selected Default Governance HOW dependency, for450 source names. Preserve55 inherited tracked changes and2 new Product paths. No broad rediscovery.",
+    "Use the exact N exported checker unchanged through frozen maintained operator module copies; existing library implementation only, no duplicated checker or live capability serialization.",
+    "Use actual N successor close/resume; no older close fallback or runtime acquisition during preparation. Preserve genuine SDK outcome/receipt/completion and one outer actual close.",
+    "Apply the proven positive skip/name filters. Keep3stage/4lane ceilings, short temps and distinct empty npm configs. Reuse N existing finite allocation logic where applicable to enforce these already-selected bounds; no new counter/store.",
+    "Check regular-file identity and executable permission for wrapper/provider before any launch; do not execute provider or read credentials while preparing.",
+    "Retain original prepared001/002/reconciliation and all failures, final new controls separately pinned. Future Root admission remains null; no hidden retry, global selector, release or source acceptance inferred."
+  ],
+  "nextNativeRole": "One ABG native Claude Opus5.5 xhigh Worker after Root final admission, independent max frozen review alongside affected testing.",
+  "qualificationsReserved": true,
+  "published": false,
+  "selectorChanged": false
+}

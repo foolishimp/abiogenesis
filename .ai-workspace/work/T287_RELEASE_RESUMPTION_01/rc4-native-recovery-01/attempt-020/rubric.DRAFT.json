@@ -1,0 +1,31 @@
+{
+  "kind": "rc4_setup_owner_reuse_acceptance_rubric",
+  "criteria": [
+    {
+      "id": "SETUP-1",
+      "criterion": "Normal maintained setup uses one installed SDK module and actual constructed owner values; old setup JSONL/child CLI/stdout parser bodies removed, no mode/fallback. Cold lifecycle/recovery/fresh reads remain explicit and callable."
+    },
+    {
+      "id": "SETUP-2",
+      "criterion": "Provider-free real default populateSandbox executes ten actual setup operations and two genuine Product installs, conserving exact closes, owner request/value correspondence, physical content, configured PATH/TMPDIR and dry guards. Heavy declaration verification counted once per genuinely new core/consumer Product, no additional work from unchanged owner-established values. No replacement of observed behavior or unearned authority."
+    },
+    {
+      "id": "SETUP-3",
+      "criterion": "Entire affected harness and required new case execute; selected raw/copied/foreign/changed-request/malformed/acquisition/stale-physical and cold read controls preserve actual owner semantics. Valid raw inputs may pass only through genuine cold verification. Required cases cannot skip or succeed with zero tests."
+    },
+    {
+      "id": "SETUP-4",
+      "criterion": "All ten C2 commands exit0, exact source correspondence/full payload delta and current provider-free installed smoke pass. Six identity-derived package members explained; other executable/declaration/schema bytes remain conserved. No canonical generated writes/adoption claimed."
+    },
+    {
+      "id": "SETUP-5",
+      "criterion": "Actual phase/count/environment evidence supports bounded removed duplication without claiming full pipeline improvement, history repair, paid pilot parity, whole qualification or release. Report actual limits and any named missing relation."
+    }
+  ],
+  "excluded": [
+    "History projection/cache/runtime redesign",
+    "Paid pilot or recovery rerun",
+    "Full5.0qualification/publication/global selector",
+    "Unselected Product API/schema changes"
+  ]
+}

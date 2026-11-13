@@ -1,0 +1,129 @@
+{
+  "kind": "non_executable_governance_original_projection",
+  "status": "PENDING_REQUIRED_BINDINGS_NOT_AN_ADMISSIBLE_WORKLOAD",
+  "meaning": "These are existing original-state field projections, not a governance_work_state, admitted task, previous Result or runtime input. Do not pass this record to dispatch. Root must finalize actual command/support/read/source pins and dispositions first.",
+  "fields": {
+    "taskRef": "task://abiogenesis/t287/single-address-space/proof-10",
+    "task": "Verify and independently assess the existing targeted IR-01/IR-02 native09 refactor only; no construction or source change. Preserve original targeted T1-T5 and current exact candidate.",
+    "requiredSupportRefs": [
+      "support://abiogenesis/t287/targeted-interface-refactor/ir01-ir02@09"
+    ],
+    "authorityRefs": [
+      "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_REENTRY_10.md",
+      "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md"
+    ],
+    "maxContextFiles": 10000,
+    "maxContextBytes": 268435456,
+    "maxPromptBytes": 1048576,
+    "workOrders": {
+      "testing": {
+        "outcome": "Execute only the missing12-case whole-path proof against the exact unchanged native09 candidate, with retained baseline input present.",
+        "instructions": [
+          "Proof-only: use current observed files with subjectEvidenceRef=null. No native coding order, Product/test/HOW effects or fabricated author/producer state.",
+          "Only the finalized Root-selected existing whole-path module executes. Preserve every actual failure, skip, signal, missing tally, unmet minimum and proof-artifact failure. Prior executed lanes retain their original execution/provenance only under Root disposition and exact guards."
+        ],
+        "readFirst": [
+          "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_REENTRY_10.md",
+          "consolidation-inputs/proof-10/TASK.md",
+          "consolidation-inputs/native-09/ROOT_TARGETED_REFACTOR_09.md",
+          "consolidation-inputs/native-09/targeted-rubric.json",
+          "consolidation-scratch/native-09/return.json",
+          "consolidation-scratch/native-09/readiness.json"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "uat": {
+        "outcome": "Complete only targeted IR-01/IR-02 existing-owner migration and four-wrapper/consumer retirement, preserving behavior with focused work discrimination and no added functionality.",
+        "instructions": [
+          "Independently assess the unchanged targeted09 candidate against original targeted-rubric T1-T5, actual current proof10 C2 and Root-disposed bounded actual09 evidence. No source or test repair.",
+          "Read the exact authenticated command stdout c2Report.path/bytes/sha256, then its nativeTestProof.path/bytes/sha256. Verify those bytes and contents. Do not assume assessor snapshotRoot/worksiteDelta access, infer archive siblings, or use cleanup-prone producerPath.",
+          "Preserve actual09 failed/excluded evidence explicitly; historical evidence is not newly executed. Future post-UAT fresh/close/Root conjunction remains a Root exit obligation outside native unresolvedCriteria. Wider programme obligations remain outside this proof-only scope."
+        ],
+        "readFirst": [
+          "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_REENTRY_10.md",
+          "consolidation-inputs/proof-10/TASK.md",
+          "consolidation-inputs/native-09/ROOT_TARGETED_REFACTOR_09.md",
+          "consolidation-inputs/native-09/targeted-rubric.json",
+          "consolidation-scratch/native-09/return.json",
+          "consolidation-scratch/native-09/readiness.json"
+        ],
+        "writeRoots": [],
+        "checks": []
+      }
+    },
+    "assessment": {
+      "candidatePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "rubricPath": "consolidation-inputs/native-09/targeted-rubric.json",
+      "sources": [
+        "stdo_abiogenesis.json",
+        "AGENTS.md",
+        "specification/PRODUCT.md",
+        "specification/INTENT.md",
+        "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "consolidation-inputs/native-09/ROOT_TARGETED_REFACTOR_09.md",
+        "consolidation-inputs/native-09/AFFECTED_INTERFACE_CONE.json",
+        "consolidation-inputs/native-09/IR_PREIMAGES.json",
+        "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_REENTRY_10.md",
+        "consolidation-inputs/proof-10/TASK.md",
+        "consolidation-scratch/native-09/return.json",
+        "consolidation-scratch/native-09/readiness.json"
+      ],
+      "assessmentContractBinding": "Reuse exact operator-client/consumer.mjs assessmentSelection at Root finalization; do not embed stale historical candidate/rubric/digests."
+    }
+  },
+  "selectedNextRelation": {
+    "purpose": "testing",
+    "subjectEvidenceRef": null,
+    "reason": "Actual currently observed files; no construction/native-work observation is injected."
+  },
+  "proposedLane": {
+    "id": "single-address-space-whole-path",
+    "files": [
+      "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "timeoutMs": 1200000,
+    "minimumPasses": 12,
+    "requireNoSkips": true
+  },
+  "unresolvedOwnerFields": [
+    "sources (add exact finalized Root controls/evidence eligible for current roles)",
+    "readRoots (complete exact selected current/support/control inputs)",
+    "testing.selectedPaths (current source160 plus finalized test/build/support/input cone)",
+    "testing.commands",
+    "testing.outcomePredicates",
+    "testing.allowedWriteTerritories"
+  ],
+  "missingBindings": [
+    {
+      "binding": "actual_native09_c2",
+      "needed": "Root-supplied actual helper Result/custody, per-command status/streams/predicates, actual snapshot/output identities, current source correspondence and retained package/build support. Whole C2 success is not presumed."
+    },
+    {
+      "binding": "actual_native09_uat_and_close",
+      "needed": "Genuine09 outcome, actual invocation close, fresh run_result/run_replay and exact after-run-resume; do not substitute08 or fabricate terminal state."
+    },
+    {
+      "binding": "independent_targeted_review",
+      "needed": "Exact closed independent source/caller-retirement and candidate/preimage evidence review tied to38933d subject; preliminary observations are not final dispositions."
+    },
+    {
+      "binding": "root_proof_only_disposition",
+      "needed": "Root-selected bounded credit/exclusions and actual09 failures/skips including revision1fail/exit1 and unmet floors. Do not lower floors or call those failures fixed."
+    },
+    {
+      "binding": "final_test_support_selection",
+      "needed": "Exact existing-owner current-file selection for actual09 compiled build/package/offline dependencies and dynamic fixture inputs, with actual source/package/dependency guards. No author scratch build is promoted to actual C2."
+    },
+    {
+      "binding": "final_installed_owner_preflight",
+      "needed": "Root-authorized finalized context observation, input/state/command configuration, budget, all-phase capacity/current assessment basis and prepared-call pins, then separate dispatch admission. None executed here."
+    }
+  ],
+  "prohibitions": [
+    "No construction/design/induction/specification workOrders",
+    "No previous synthesis or observation injected",
+    "No expected future native handoff files",
+    "No weakened minima, expected-failure waiver or false inherited execution credit"
+  ]
+}

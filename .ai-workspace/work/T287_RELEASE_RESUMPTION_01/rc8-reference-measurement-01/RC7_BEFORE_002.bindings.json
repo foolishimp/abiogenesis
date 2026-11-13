@@ -1,0 +1,113 @@
+{
+  "status": "PREPARED_MATCHED_REFERENCE_MEASUREMENT",
+  "subject": {
+    "label": "RC7-before",
+    "phase": "before",
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b"
+  },
+  "candidateArchive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+    "bytes": 11022180,
+    "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+  },
+  "installRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant",
+  "bootstrapInstallHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7",
+  "installReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+    "bytes": 6144,
+    "sha256": "16a6eed152ba10f3acb4aa34bb2752d52ffb0d3d2d5bb0913e504f4d54cb4f73"
+  },
+  "cutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/LOCAL_CUT_RECORD.json",
+    "bytes": 2204,
+    "sha256": "fae6e5faf214c2b8cac0c5adbb015c906e09817d788a6031383c33cffe022396"
+  },
+  "installIdentityPins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10003,
+      "sha256": "535f08828c79bbd48602dffb886a56409f1927d2fb7be686734c126b9da70278"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "bytes": 13810,
+      "sha256": "26771ef341c8d0d1b927118a9a73556cb93df7cd248dc4f5b187e50a395c4799"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/index.js",
+      "bytes": 7224,
+      "sha256": "4fc5fa0f9ae71c5b253da4f21e2814613d373bae72124e83cf0cdc7350dcf1dd"
+    }
+  ],
+  "packageRoot": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript",
+  "helperPins": [
+    {
+      "relativePath": "test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "relativePath": "test_env/support/candidate-basis.mjs",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+    },
+    {
+      "relativePath": "test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "relativePath": "test_env/support/registered-graph-selection.mjs",
+      "bytes": 19702,
+      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+    },
+    {
+      "relativePath": "test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "relativePath": "test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": 9876,
+      "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4"
+    },
+    {
+      "relativePath": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
+    }
+  ],
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002",
+  "tempRoot": "/private/tmp/abg-r8m-rc7-before-002",
+  "node": {
+    "configuredPath": "/opt/homebrew/bin/node",
+    "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "contextBodyBytes": [
+    1048576,
+    4194304
+  ],
+  "bounds": {
+    "hostMs": 600000,
+    "coldReadMs": 120000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "aggregateBytes": 1073741824,
+    "nodeHeapMiB": 8192
+  },
+  "additionalCounterSources": [],
+  "cpuProfileCall": null,
+  "scriptedActorOnly": true,
+  "qualification": false,
+  "executionStanding": "Prepared only. Root separately admits execution after the first real RC7 Worker launch; this file is not admission."
+}

@@ -1,0 +1,35 @@
+{
+  "kind": "single_machine_p1_model_free_preflight",
+  "status": "prepared_not_dispatched",
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "workloadSha256": "6ea6fc072d7593132392106d330da3e49d366b4d51ad324689f1a1c11d85375b",
+  "priorAfterRunSha256": "64e4867d32a91d3e7d314f5741306b2615f36df3214ba481c6c3b1b6acd93c64",
+  "priorEvent": {
+    "bytes": 3195999,
+    "sha256": "439f729be53937d6105806ceffd3d32b0e604c439f553116fa027cb21992421f",
+    "coordinateDigest": "sha256:25da459afeb0af8cacd7afb6a72a037bd2efd5a94f36667a50e88b2c8ab13c23",
+    "unchanged": true
+  },
+  "selectedPaths": 963,
+  "present": 970,
+  "absent": 0,
+  "actualObservedEntries": 970,
+  "contextDigest": "sha256:ad12931c598ec88d292f4a7f07f7c92e6a6c554d110cc01466e08d54911b7ec6",
+  "commandCount": 9,
+  "requiredExecutionBudgetMs": 2767250,
+  "candidateTimeoutLimits": {
+    "inactivityTimeoutMs": 3600000,
+    "absoluteTimeoutMs": 5400000
+  },
+  "controlledSelector": {
+    "classification": "actual installed RC3 renderer, current real observed Context, controlled owner/role premises; no native P1 admission",
+    "promptBytes": 423476,
+    "promptBound": 1048576,
+    "resultKind": "native_instruction_assembly"
+  },
+  "limits": [
+    "No native P1 Run or owner assembly admission created",
+    "Post-Construction C2 must observe exact new sources",
+    "Only predictive initial rendering; later content and history can change size"
+  ]
+}

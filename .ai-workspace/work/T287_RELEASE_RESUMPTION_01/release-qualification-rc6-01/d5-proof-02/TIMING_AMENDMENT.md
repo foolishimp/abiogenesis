@@ -1,0 +1,9 @@
+Product Frame: unchanged ABIogenesis 5 fifteen families F01–F07, F09–F11, F13–F17; GOAL-035/T287 F10 affected D5 proof with F04/F11 preservation. Product/HOW owns scope, existing RC6 owners govern execution, and ABG alone admits runtime truth. This amendment adds operator observation only; source, close and admission remain unbound.
+
+Prepare/dispatch now record bounded monotonic phase durations with UTC anchors in one exclusive timing artifact per script. Prepare separates control/source hashes, owner loading, governance/budget construction, installed-content verification, prefix reads, worksite observation, projection/configuration, lifecycle-call construction and selected output persistence. Dispatch separates owner loading, environment refresh, observation, call checks, lifecycle invocation, output persistence, fresh readbacks and final resume persistence.
+
+Existing command-recorder `started`/`wallMs` and result counters remain the subprocess evidence. They overlap script intervals and must not be added as disjoint durations. Verification inside `invokeLifecycle` remains inside that existing helper interval; static imports and host startup precede module-body timing. No payload or environment value is recorded.
+
+Both syntax checks passed. Removing the delimited timing annotations reproduces each preserved original script byte-for-byte. Original calls, operands, guards, environment, owner sequence and exception handlers remain intact. Timing-write failure is caught without replacing the original outcome, and existing timing artifacts are never overwritten. Hard termination or static import failure may leave no timing artifact.
+
+Original scripts and the unchanged closed return are retained under `timing-preimages-001`. Root must use the amended script hashes in later admission. Neither script was executed; no active author, Product source, profile, recipe or runtime state changed.

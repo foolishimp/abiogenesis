@@ -1,0 +1,134 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/prepare-and-dispatch.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/prepare-and-dispatch.mjs
+@@ -49,7 +49,7 @@
+ const {installedModules,publicCaller}=await import(pathToFileURL(binding.operatorPublicSetup.path));
+ const {exclusiveRecord,workerEnvironment,checkInstalledIdentity}=await import(pathToFileURL(binding.operatorRunner.path));
+ assert.equal(typeof checkInstalledIdentity,'function','Selected maintained checker export unavailable');
+-const config={...retained.config,processTimeoutMs:profile.outerTimeoutMs,sourceCommit:grant.sourceCommit,runId:'release-qualification-rc7-stdout-window-author-02',provider:profile.provider,toolchainEnvironment:profile.runtimeEnvironment};
++const config={...retained.config,processTimeoutMs:profile.outerTimeoutMs,sourceCommit:grant.sourceCommit,runId:'release-qualification-rc7-stdout-window-author-03',provider:profile.provider,toolchainEnvironment:profile.runtimeEnvironment};
+ assert(getHeapStatistics().heap_size_limit>=8192*1024*1024);const environment=workerEnvironment(config);
+ for(const k of Object.keys(process.env))if(/CLAUDE|ANTHROPIC|OPENAI|AZURE_OPENAI|PROVIDER/iu.test(k)||['HOME','PATH','TMPDIR','LANG','LC_ALL','NPM_CONFIG_CACHE'].includes(k))delete process.env[k];Object.assign(process.env,environment);
+ const runtime=await installedModules(retained.installedRoot),{product,abg,api}=runtime;
+@@ -79,7 +79,7 @@
+ const context=await product.observeWorksiteContext({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,protectedInstallRoots:env.productInstalls.map(i=>i.installedRoot),readRoots:w.readRoots,maxFiles:w.maxContextFiles,maxBytes:w.maxContextBytes});assert.equal(context.kind,'worksite_context_observation');
+ const entries=new Map(context.entries.map(e=>[e.relativePath,e])),future=new Set(grant.expectedFutureFiles);for(const p of w.testing.selectedPaths)assert.equal(entries.get(p)?.state,future.has(p)?'absent':'file',p);for(const s of w.sources)assert.equal(entries.get(s.path)?.digest,s.digest,s.path);
+ await record('run.json',{kind:'existing_native_author_program_preparation',sourceCommit:grant.sourceCommit,sourceBasis:'none',providerCalls:0,RunAdmissions:0,programRef:product.NATIVE_WORKSPACE_WORK_IDS.programRef});
+-let input;const ids=product.NATIVE_WORKSPACE_WORK_IDS,order=w.workOrders.construction,ns='abiogenesis/t287/rc7-stdout-window-author-02';
++let input;const ids=product.NATIVE_WORKSPACE_WORK_IDS,order=w.workOrders.construction,ns='abiogenesis/t287/rc7-stdout-window-author-03';
+ const constructed=await api.constructInstalledStartCall({selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},programRef:ids.programRef,catalog:caller.state.catalog,catalogView:caller.state.catalogView,applications:[],admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(env.artifactTruth,i),actorRef:caller.actorRef,
+  input:{factory:({workspaceBinding,grants})=>{assert.equal(grants.length,1);input=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:order.outcome,instructions:order.instructions,readFirst:order.readFirst,writeRoots:order.writeRoots,checks:order.checks});assert(product.isNativeWorkspaceWorkTask(input));assert.equal(input.assessment,undefined);return input;}},inputValueRef:'value://'+ns+'/input',source:{kind:'none'},eventResource:entry,envelope:{definitionContractCoordinates:retained.native.verified.definitionContractCoordinates,requestRef:'request://'+ns+'/start',correlationRef:'correlation://'+ns,eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'ROOT_CONTROL_ADMISSION.json')).href]}});
+ assert.equal(constructed?.kind,'installed_start_call','Start constructor returned '+String(constructed?.kind??'missing')+(typeof constructed?.code==='string'?' / '+constructed.code:''));const call=constructed.call;assert.strictEqual(call.resources.eventResource,entry,'Keep the actual acquired selection in the actual call');
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/inputs/prior-author-stage.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/inputs/prior-author-stage.mjs
+@@ -1,4 +1,4 @@
+-// Author-check staging for rc7-stdout-window-author-02, adapted from the supplied prior-author-stage.mjs:
++// Author-check staging for rc7-stdout-window-author-03, adapted from the supplied prior-author-stage.mjs:
+ // copies only the selected C2 protected source closure (which now includes the
+ // test-support modules), the named offline toolchain and the immutable RC6 contract
+ // seed into this tmp root, then compiles and runs the canonical generator.
+@@ -11,13 +11,13 @@
+ if(mode!=='after')throw Error('Only successor after stages are selected; retained before proof must not run again');
+ if (!/^[a-z0-9-]+$/.test(label ?? '')) throw new Error('usage: node stage.mjs <label>');
+ const worksite = '/Users/jim/src/apps/abiogenesis-rc6-local-cut';
+-const tmp = join(worksite, 'qualification-scratch/rc7-stdout-window-author-02/tmp');
++const tmp = join(worksite, 'qualification-scratch/rc7-stdout-window-author-03/tmp');
+ const stage = join(tmp, label), tenantRel = 'build_tenants/abiogenesis/typescript', tenant = join(stage, tenantRel);
+-const inputs = JSON.parse(await readFile(join(worksite, 'qualification-inputs/rc7-stdout-window-author-02/C2_INPUTS.json'), 'utf8'));
+-const deps = JSON.parse(await readFile(join(worksite, 'qualification-inputs/rc7-stdout-window-author-02/DEPENDENCY_SOURCE_SELECTION.json'), 'utf8'));
++const inputs = JSON.parse(await readFile(join(worksite, 'qualification-inputs/rc7-stdout-window-author-03/C2_INPUTS.json'), 'utf8'));
++const deps = JSON.parse(await readFile(join(worksite, 'qualification-inputs/rc7-stdout-window-author-03/DEPENDENCY_SOURCE_SELECTION.json'), 'utf8'));
+ const sha = b => createHash('sha256').update(b).digest('hex');
+ const setupStarted=Date.now();
+-const bounds=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-02/COMMAND_BOUNDS.json'),'utf8'));
++const bounds=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-03/COMMAND_BOUNDS.json'),'utf8'));
+ if(bounds.maxStages!==2||bounds.maxLaneInvocations!==6||bounds.concurrency!==1)throw Error('Selected finite bounds differ');
+ if(!bounds.stageLabels.includes(label))throw Error('Only two selected stage labels are permitted');
+ await mkdir(tmp,{recursive:true});
+@@ -32,7 +32,7 @@
+ if(label!==bounds.stageLabels[allocatedStages.length])throw Error('Stage labels must be allocated serially in selected order');
+ await mkdir(stage); // Create-only reservation; retained even if setup/build fails.
+ 
+-const custody=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-02/SOURCE_CUSTODY.json'),'utf8'));
++const custody=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-03/SOURCE_CUSTODY.json'),'utf8'));
+ const baselineBytes=await readFile(custody.sourceBefore.path);
+ if(baselineBytes.length!==custody.sourceBefore.bytes||sha(baselineBytes)!==custody.sourceBefore.sha256)throw Error('Root-bound source custody differs');
+ const baseline=JSON.parse(baselineBytes);
+@@ -59,7 +59,7 @@
+ }
+ await cp(deps.toolchainRoot, join(tenant, 'node_modules'), { recursive: true, verbatimSymlinks: true });
+ await cp(deps.contractSeedRoot, join(tenant, 'contracts'), { recursive: true });
+-const environment = { ...process.env, NPM_CONFIG_UPDATE_NOTIFIER: 'false', NPM_CONFIG_OFFLINE: 'true', NPM_CONFIG_USERCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-02/npm-user.npmrc', NPM_CONFIG_GLOBALCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-02/npm-global.npmrc', TMPDIR: '/private/tmp/abg-sw2', TMPPREFIX: '/private/tmp/abg-sw2/zsh', NPM_CONFIG_CACHE: '/private/tmp/abg-sw2/npm-cache' };
++const environment = { ...process.env, NPM_CONFIG_UPDATE_NOTIFIER: 'false', NPM_CONFIG_OFFLINE: 'true', NPM_CONFIG_USERCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-03/npm-user.npmrc', NPM_CONFIG_GLOBALCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-03/npm-global.npmrc', TMPDIR: '/private/tmp/abg-sw3', TMPPREFIX: '/private/tmp/abg-sw3/zsh', NPM_CONFIG_CACHE: '/private/tmp/abg-sw3/npm-cache' };
+ for (const key of Object.keys(environment)) if (['ABI5_EVIDENCE_ROOT', 'ABI5_RESULT_LINEAGE_BASELINE', 'ABI5_RESULT_LINEAGE_REPORT', 'ABG_WORKSITE_BUILD_ROOT'].includes(key) || key.startsWith('ABI5_F11_') || key.startsWith('ABI5_WAVE1_FROZEN_ARTIFACT_')) delete environment[key];
+ for(const key of Object.keys(environment))if(/CLAUDE|ANTHROPIC|OPENAI|AZURE_OPENAI|PROVIDER/iu.test(key)||key.startsWith('ABG_TS_')||key.startsWith('ABI5_'))delete environment[key];
+ for(const path of [environment.NPM_CONFIG_USERCONFIG,environment.NPM_CONFIG_GLOBALCONFIG])if((await readFile(path)).length!==0)throw Error('Selected empty npm config differs');
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/inputs/prior-author-lanes.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/inputs/prior-author-lanes.mjs
+@@ -1,5 +1,5 @@
+-// Author-check lane runner for rc7-stdout-window-author-02, adapted from the supplied prior-author-lanes.mjs:
+-// the selected finite lanes over one staged tenant. Test temp is /private/tmp/abg-sw2.
++// Author-check lane runner for rc7-stdout-window-author-03, adapted from the supplied prior-author-lanes.mjs:
++// the selected finite lanes over one staged tenant. Test temp is /private/tmp/abg-sw3.
+ import { mkdir, readFile, writeFile, readdir, lstat } from 'node:fs/promises';
+ import { createHash } from 'node:crypto';
+ import { join } from 'node:path';
+@@ -9,11 +9,11 @@
+ if (!/^[a-z0-9-]+$/.test(label ?? '') || !/^[a-z0-9-]+$/.test(only ?? '')) throw new Error('usage: node lanes.mjs <successful-stage-label> <exact-lane-id>');
+ const setupStarted=Date.now();
+ const worksite = '/Users/jim/src/apps/abiogenesis-rc6-local-cut';
+-const tmp = join(worksite, 'qualification-scratch/rc7-stdout-window-author-02/tmp');
++const tmp = join(worksite, 'qualification-scratch/rc7-stdout-window-author-03/tmp');
+ const tenant = join(tmp, label, 'build_tenants/abiogenesis/typescript');
+-const inputs = JSON.parse(await readFile(join(worksite, 'qualification-inputs/rc7-stdout-window-author-02/C2_INPUTS.json'), 'utf8'));
++const inputs = JSON.parse(await readFile(join(worksite, 'qualification-inputs/rc7-stdout-window-author-03/C2_INPUTS.json'), 'utf8'));
+ const sha = b => createHash('sha256').update(b).digest('hex');
+-const environment = { ...process.env, TMPDIR: '/private/tmp/abg-sw2', TMPPREFIX: '/private/tmp/abg-sw2/zsh', NPM_CONFIG_CACHE: '/private/tmp/abg-sw2/npm-cache', NPM_CONFIG_UPDATE_NOTIFIER: 'false', NPM_CONFIG_OFFLINE: 'true', NPM_CONFIG_USERCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-02/npm-user.npmrc', NPM_CONFIG_GLOBALCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-02/npm-global.npmrc' };
++const environment = { ...process.env, TMPDIR: '/private/tmp/abg-sw3', TMPPREFIX: '/private/tmp/abg-sw3/zsh', NPM_CONFIG_CACHE: '/private/tmp/abg-sw3/npm-cache', NPM_CONFIG_UPDATE_NOTIFIER: 'false', NPM_CONFIG_OFFLINE: 'true', NPM_CONFIG_USERCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-03/npm-user.npmrc', NPM_CONFIG_GLOBALCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-03/npm-global.npmrc' };
+ for (const key of Object.keys(environment)) {
+   if (['ABI5_EVIDENCE_ROOT', 'ABI5_RESULT_LINEAGE_BASELINE', 'ABI5_RESULT_LINEAGE_REPORT'].includes(key) || key.startsWith('ABI5_F11_')) delete environment[key];
+ }
+@@ -21,7 +21,7 @@
+ // No D4/S01 raw acquisition; the one historical metadata oracle is pinned below for differential lanes only.
+ for(const key of Object.keys(environment))if(/CLAUDE|ANTHROPIC|OPENAI|AZURE_OPENAI|PROVIDER/iu.test(key)||key.startsWith('ABG_TS_')||key.startsWith('ABI5_'))delete environment[key];
+ for(const path of [environment.NPM_CONFIG_USERCONFIG,environment.NPM_CONFIG_GLOBALCONFIG])if((await readFile(path)).length!==0)throw Error('Selected empty npm configuration differs');
+-const bounds=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-02/COMMAND_BOUNDS.json'),'utf8'));
++const bounds=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-03/COMMAND_BOUNDS.json'),'utf8'));
+ if(bounds.maxStages!==2||bounds.maxLaneInvocations!==6||bounds.concurrency!==1||!bounds.stageLabels.includes(label)||!bounds.laneIds.includes(only))throw Error('Unselected stage/lane/bounds');
+ const priorNames=await readdir(tmp);
+ const allocatedStages=bounds.stageLabels.filter(id=>priorNames.includes(id)||priorNames.includes(id+'-stage.json'));
+@@ -36,7 +36,7 @@
+ const stageReport=JSON.parse(await readFile(join(tmp,label+'-stage.json'),'utf8'));
+ if(stageReport.label!==label||stageReport.sourceCount!==inputs.protectedSourcePaths.length||[stageReport.compile,stageReport.generate,stageReport.lifecycle].some(r=>!r||r.exitCode!==0||r.signal!==null||r.error!==null))throw Error('Stage compile/generation/guard incomplete');
+ if(stageReport.sources.length!==inputs.protectedSourcePaths.length||new Set(stageReport.sources.map(f=>f.path)).size!==inputs.protectedSourcePaths.length)throw Error('Stage source selection incomplete');
+-const custody=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-02/SOURCE_CUSTODY.json'),'utf8'));
++const custody=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-03/SOURCE_CUSTODY.json'),'utf8'));
+ const baselineBytes=await readFile(custody.sourceBefore.path);if(baselineBytes.length!==custody.sourceBefore.bytes||sha(baselineBytes)!==custody.sourceBefore.sha256)throw Error('Baseline pin differs');
+ const baseline=new Map(JSON.parse(baselineBytes).files.map(f=>[f.relativePath,f]));
+ for(const f of stageReport.sources){
+@@ -76,7 +76,7 @@
+ const args = ['--experimental-vm-modules', '--test', '--test-concurrency=1', '--test-reporter=tap', ...(lane.testNamePattern === undefined ? [] : ['--test-name-pattern', lane.testNamePattern]), ...(lane.testSkipPattern === undefined ? [] : ['--test-skip-pattern', lane.testSkipPattern]), ...lane.files];
+ const laneEnvironment={...environment};
+ if(lane.metadataOracle===true){
+- const external=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-02/EXTERNAL_READ_INPUTS.json'),'utf8'));
++ const external=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-stdout-window-author-03/EXTERNAL_READ_INPUTS.json'),'utf8'));
+  if(external.files.length!==1)throw Error('Exactly one selected historical metadata oracle required');
+  const pin=external.files[0],bytes=await readFile(pin.path);
+  if(bytes.length!==pin.bytes||sha(bytes)!==pin.sha256)throw Error('Historical metadata oracle pin differs');
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/claude-provider.sh
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/claude-provider.sh
+@@ -1,10 +1,10 @@
+ #!/bin/sh
+-TMPDIR=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw2
+-TMPPREFIX=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw2/zsh
+-NPM_CONFIG_CACHE=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw2/npm-cache
++TMPDIR=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw3
++TMPPREFIX=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw3/zsh
++NPM_CONFIG_CACHE=/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw3/npm-cache
+ NPM_CONFIG_UPDATE_NOTIFIER=false
+ NPM_CONFIG_OFFLINE=true
+-NPM_CONFIG_USERCONFIG=/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-02/npm-user.npmrc
+-NPM_CONFIG_GLOBALCONFIG=/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-02/npm-global.npmrc
++NPM_CONFIG_USERCONFIG=/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-03/npm-user.npmrc
++NPM_CONFIG_GLOBALCONFIG=/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-03/npm-global.npmrc
+ export TMPDIR TMPPREFIX NPM_CONFIG_CACHE NPM_CONFIG_UPDATE_NOTIFIER NPM_CONFIG_OFFLINE NPM_CONFIG_USERCONFIG NPM_CONFIG_GLOBALCONFIG
+ exec /Users/jim/.local/share/claude/versions/2.1.306 "$@"

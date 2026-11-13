@@ -1,0 +1,32 @@
+{
+  "predecessorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/BINDING.json",
+    "bytes": 20570,
+    "sha256": "eff4c339e3d8e252b347e7a68810feeeee8d2c9da730dc5860859ad0deee0d1a"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/BINDING.json",
+    "bytes": 21810,
+    "sha256": "e7ce51aad78d4c3e89293d1f2a2f7c3f83ffcd433e8abf64b32690052e19f7f5"
+  },
+  "unchangedHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/host.mjs",
+    "bytes": 15522,
+    "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+  },
+  "unchangedValidator": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/transport-preflight.mjs",
+    "bytes": 1458,
+    "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+  },
+  "changes": [
+    "Fresh native-b02 runtime/host/prospective native scratch; supported Public open unchanged",
+    "Current closed B1345 rows97e05ec3 replaces pre-B subject; same parent e134103a",
+    "One existing m5 target; HTTP-normal/premise only, all production/other tests/plans read-only",
+    "node --check only; no compile/controlled test permissions",
+    "Compact inline scope/triage; existing source context; new controls only under campaign, no candidate input staging",
+    "Same1800/180/100 Opus5.5 xhigh and direct Node PTY; no identity allocated"
+  ],
+  "protection": "No main/source/index/HEAD/dependency/build/artifact/prior evidence changes.",
+  "standing": "Setup/provider held; no actual call/prefix/catalog identity invented."
+}

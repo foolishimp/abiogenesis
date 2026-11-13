@@ -1,0 +1,184 @@
+{
+  "kind": "d5_author_02_readiness",
+  "schemaVersion": "1",
+  "at": "2026-11-06T01:02:13Z",
+  "worker": "claude (single fresh native coding Worker, d5-author-02)",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "outcome": "Complete the already selected D5 retirement through one typed existing-owner projection and authentic affected proof; no new feature or competing runtime.",
+  "claims": {
+    "sourceAcceptance": false,
+    "qualificationAcceptance": false,
+    "releaseAcceptance": false,
+    "profileCut": false,
+    "graphContinuationChosen": false
+  },
+  "readyForRootReview": true,
+  "mechanicalReadiness": {
+    "freshFinalStages": [
+      "d5b-final1",
+      "d5b-final2"
+    ],
+    "sourceDigest": "f7d7594f66362312755f1d3c8740f0aca1129cd89f7352e9dd26c07a8d136233",
+    "worksiteMatchesFreeze": true,
+    "tenModuleTotals": {
+      "tests": 113,
+      "pass": 113,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "lanesWithinCaps": true,
+    "recoveryPositiveFinal1": true,
+    "causalNegativesRefused": true,
+    "copiesAbsent": {
+      "artifactEvent": [],
+      "evidenceEvent": [],
+      "failedEvent": [],
+      "transportArchive": []
+    }
+  },
+  "freeze": {
+    "trackedChangedPaths": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 82590,
+        "sha256": "0b6b24fa15c24ec6adc19a72414887896042ee3fac006166eb04f7215f1e5744"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301318,
+        "sha256": "7a4f8d738d3838990a196e9bd6f9c3d10d7e69ff55f15e19b0808f44ad1fc82b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 215016,
+        "sha256": "01c82b88e65e12b367b9683241407bcc7707531679963c04a580855bcfa1df71"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "bytes": 102336,
+        "sha256": "f2b072bc0103239ce9c98f7950fe73cc5d309b307362d7f5fbf8836df4c0a503"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "bytes": 26359,
+        "sha256": "136957305e752f6a7ff93f9b4ee50bca08cffe11873c9f9b708b9d15f9b0008b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 37162,
+        "sha256": "352e98b9faf3713166b3a39271ba472c62b40b67546a8443df1681f119c5aab9"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        "bytes": 41323,
+        "sha256": "67bd0ad5cf6cc596205640a7956106ea4a9e7e0321909950c6146eb0477511b9"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 83701,
+        "sha256": "6b91dcbd8327b922a6c563685fa3aa1346ea3e5fdda56015bef8a66eec93753b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "bytes": 79234,
+        "sha256": "1f7a1590b36022d705edddb373107d473b2d38181601974f723736b038beeda4"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+        "bytes": 42257,
+        "sha256": "e96f3f83600db08d3145b468895de887d375d764e8ae4f0929e886207383e4cd"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 149148,
+        "sha256": "ed53e9d2e9de35e8aba62e9ff7a844d7fe3ef5e52934b7be820726756c36a735"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+        "bytes": 56751,
+        "sha256": "7111962d25274e47041ed268bcbe13a74ca41a993c03e27cbaa207d7a736242c"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        "bytes": 22350,
+        "sha256": "5fd66737b877301cad2ac3f3c3605a68ba9ee83fc01f4d8be56359b7cdddc4fb"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+        "bytes": 27727,
+        "sha256": "50b42a57ac2b89ac5149d21df5e6bfc4f5e3626dff12e58d5a198e26c4792478"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        "bytes": 92546,
+        "sha256": "d836d4c97208021b12f6c847eecfd54a928fb6b4e6627c26ba41d278bda1d3de"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 96693,
+        "sha256": "aff4484204b9309acd2abef27c296b6b0a1fb89aa66c4661f88d540a04b83657"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "bytes": 83542,
+        "sha256": "149f8a0d42d23d23b0158a6b6791bcd9e191b80be0f4e89dd2302442aa5b6196"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "bytes": 41635,
+        "sha256": "9a7b2be3cb7ddd91769b7010df5aadc3ee76c7d2542174ff8001cb1dbe64ed00"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+        "bytes": 98486,
+        "sha256": "e1bbcfacc0d30d934489d44aac4dfbd1db48923bdbfed504f58739a22303b638"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+        "bytes": 10082,
+        "sha256": "dc0c6cc0738c017ad816e23df19515f4d5918a9a4e410bff1d162450f3b695e4"
+      }
+    ],
+    "newProductFiles": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+        "bytes": 45491,
+        "sha256": "89e7bd962abd65668d49b89a97763162694e84f107564f47baf575966de6feca"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+        "bytes": 13367,
+        "sha256": "0e52cd4540a95e17877019beb656034aac0d0fa9e046f25e822a4ef24ad0b7b1"
+      }
+    ],
+    "handoffsExcluded": [
+      "qualification-scratch/d5-author-02/return.json",
+      "qualification-scratch/d5-author-02/readiness.json",
+      "qualification-scratch/d5-author-02/progress.json"
+    ]
+  },
+  "profile": {
+    "ref": "abg.event-contract.root/p5-run-environment-role-context@1",
+    "baselineCurrentDigest": "sha256:c4799f157883b5bb1439585ff65dbfdeaea4edcac34818817a7815878432fa02",
+    "finalCurrentDigest": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0",
+    "legacyDigest": "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c",
+    "finalComputedFromBuild": "In-memory import of d5b-final2 build: ROOT_EVENT_CONTRACT_DIGEST equals finalCurrentDigest; ROOT_CURRENT_EVENT_PROFILE_REF unchanged; LEGACY digest unchanged.",
+    "generatedPublication": "d5b-final2 generate wrote contracts/schemas/native-runtime-observation.json carrying finalCurrentDigest (stage-generated, not a worksite file)."
+  },
+  "capsuleResidual": {
+    "id": "D5-P6-N1-UNCONFIRMED-01",
+    "status": "explicit residual, not exercised",
+    "statement": "No genuine current-profile physical unconfirmed-termination attempt with full assessed ancestry was produced or manufactured. Lower-owner refusal remains: the CCall lifecycle projection returns null for an unconfirmed boundary (no actor terminal; t287-lifecycle-failure-carrier), and recovery requires the actor terminal to equal the selected failed terminal and actor_process_terminated. The capsule's full-chain physical negative stays open."
+  },
+  "openForRoot": [
+    "No genuine current-profile physical unconfirmed-termination attempt with full assessed ancestry was produced or manufactured. Lower-owner refusal remains: the CCall lifecycle projection returns null for an unconfirmed boundary (no actor terminal; t287-lifecycle-failure-carrier), and recovery requires the actor terminal to equal the selected failed terminal and actor_process_terminated. The capsule's full-chain physical negative stays open.",
+    "Recovery lane margin: 109.2-109.9s against the 120s cap (D5 test internal timeout 117s).",
+    "M2 discriminator premises: native verification preimage of the assessment and the L artifact placement are explicit test premises, not a physical provider run.",
+    "CT02 profile acceptance, any successor ref and the RC7 cut remain open; the p5 ref now names a descriptor whose D differs from the predecessor current D.",
+    "Stale out-of-scope line reference in t287-st1 test comment; worksite tracked generated native contract not regenerated."
+  ],
+  "note": "Mechanical readiness only; no acceptance is claimed."
+}

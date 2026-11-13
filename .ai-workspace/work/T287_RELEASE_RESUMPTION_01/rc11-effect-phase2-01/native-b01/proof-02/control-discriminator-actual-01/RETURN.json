@@ -1,0 +1,75 @@
+{
+  "status": "PASSED",
+  "argv": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator.py"
+  ],
+  "pid": 81594,
+  "pgid": 81594,
+  "exitCode": 0,
+  "wallSeconds": 0.05486729182302952,
+  "reason": null,
+  "signals": [],
+  "groupAbsent": true,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator-actual-01/stdout.log",
+    "bytes": 1895,
+    "sha256": "b48b5141a4975abfeb2e9a0176df42eedc498f5ab97b4662186b7036bfcca51f"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator-actual-01/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "actual": {
+    "status": "PASSED",
+    "checks": [
+      "matching typed/raw digest accepted",
+      "malformed/mismatching digest rejected",
+      "malformed/mismatching digest rejected",
+      "malformed/mismatching digest rejected",
+      "malformed/mismatching digest rejected",
+      "malformed/mismatching digest rejected",
+      "malformed/mismatching digest rejected",
+      "malformed/mismatching digest rejected",
+      "actual failure-presence path records empty AssertionError and prevents next effect",
+      "actual aggregate gate blocks failed/missing/incorrect result population",
+      "actual aggregate gate blocks failed/missing/incorrect result population",
+      "actual aggregate gate blocks failed/missing/incorrect result population",
+      "actual aggregate gate blocks failed/missing/incorrect result population",
+      "actual aggregate gate blocks failed/missing/incorrect result population",
+      "one exact explicit success admitted"
+    ],
+    "count": 15,
+    "actualControllerFunctions": [
+      "validated_digest_join",
+      "run_required_step",
+      "require_complete_success"
+    ],
+    "noProductImport": true,
+    "noTestOrChildWorkload": true,
+    "emptyFailureRecord": {
+      "id": "unit",
+      "status": "FAILED_OR_INCOMPLETE",
+      "failurePresent": true,
+      "failure": {
+        "class": "builtins.AssertionError",
+        "message": "",
+        "repr": "AssertionError()",
+        "traceback": "Traceback (most recent call last):\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/unit.py\", line 113, in run_required_step\n    details=action();row={'id':step_id,'status':'PASSED','failurePresent':False,'failure':None,'details':details}\n            ^^^^^^^^\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator.py\", line 13, in empty_failure\n    def empty_failure():raise AssertionError()\n                        ^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+      },
+      "details": null
+    }
+  },
+  "controller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/unit.py",
+    "bytes": 17434,
+    "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/DISCRIMINATOR_ADMISSION.json",
+    "bytes": 1108,
+    "sha256": "d1fc832d1f730a31e903c28ff8ec16d2cd6babdf6a29b72606e23d00876aacd1"
+  },
+  "ProductImportsTestsWorkloads": false
+}

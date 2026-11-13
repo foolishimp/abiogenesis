@@ -1,0 +1,28 @@
+{
+  "kind": "hc1_bounded_acceptance_rubric",
+  "criteria": [
+    {
+      "id": "H1",
+      "criterion": "Owner-derived56 declared/47 callable/9 unavailable exact construction/receipt type closure; no permissive fallback or duplicate map."
+    },
+    {
+      "id": "H2",
+      "criterion": "Strict positive and expected-negative source/packed.d.ts evidence for operation/member/request/resources, conditional slots, read/continue variants; actual raw absence/refusal and null/fault/nonterminal conservation."
+    },
+    {
+      "id": "H3",
+      "criterion": "Runtime canonical owner slot schema bytes unchanged;014 fixture consumes actual NativeInstructionAssembly.request and complete existing protected-root positives/negatives pass."
+    },
+    {
+      "id": "H4",
+      "criterion": "Selected independent C2 lanes terminate and pass; exact source/archive correspondence and UAT assess this HC1 code/result, no required-case skips."
+    }
+  ],
+  "excluded": [
+    "HC2 population/caller migration closure",
+    "fresh005 real-provider proof",
+    "S7",
+    "whole qualification/release",
+    "empirical speed claims"
+  ]
+}

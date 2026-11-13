@@ -1,0 +1,11 @@
+{
+  "status": "ROOT_SELECTED_ZERO_PROVIDER_STAGE",
+  "operator": "Root",
+  "selectedAt": "2026-11-02T23:55:47.481627+00:00",
+  "bindingSha256": "be5a291b2390e1a5fed5c0a2ddcb008f097ea0fcdddaf19d21a1810c5335d92b",
+  "allowedStages": [
+    "read-a"
+  ],
+  "callSha256": null,
+  "decision": "Root selects zero-provider read-a, sequentially after each preceding selected stage succeeds, on actual A Run bd963a4f/native Result e7750232/after c54c59fb and genuine a.resume SHA3d8930e844d3108c4700c5c0e769b3448db1d1a9228ecc79c2a88c829508180d. Existing owners derive latest eligibility and actual reads/preparation; no paid B, interruption, recovery or retry selected."
+}

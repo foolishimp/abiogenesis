@@ -1,0 +1,22 @@
+{
+  "areas": [
+    "build_tenants/abiogenesis/typescript/build",
+    "build_tenants/abiogenesis/typescript/node_modules",
+    "build_tenants/abiogenesis/typescript/test_env/evidence",
+    "build_tenants/abiogenesis/typescript/test_env/test_runs"
+  ],
+  "authority": "Root explicit F9 selection; exactly five named detached suite worktrees, no force",
+  "device": 16777231,
+  "historicalPathReference": "F9 reviewer README cites the five original scratchpad/suite paths as a grouped path; this mapping preserves their new custody",
+  "ignoredPolicy": "all four entire ignored roots preserved with exclusive same-volume rename",
+  "lfs": "37 entries/36 OIDs per HEAD; shared LFS object paths verified present; full object-content rehash not performed",
+  "partialFailure": "stop immediately; completed moves remain in preserved/ and no forced cleanup or automatic rollback",
+  "refs": "each HEAD is an ancestor of refs/heads/main at precheck",
+  "targets": {
+    "wt-7da76d7d7": "7da76d7d7d70614080f475dc39f5d0e6161ef653",
+    "wt-7e3fefa46": "7e3fefa46676cf6a5afdc29f677b9cb2c2e87fdc",
+    "wt-8db237d2a": "8db237d2a379e39be100f4fd7f0cd9f7e02525ac",
+    "wt-92498a2d2": "92498a2d29eca294d851557753cbda2fe047c357",
+    "wt-ddc1b091c": "ddc1b091cd201f803e8a9f235c1a9a7c52f831fc"
+  }
+}

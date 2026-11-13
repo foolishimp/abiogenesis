@@ -1,0 +1,18 @@
+{
+  "id": "shared-owner-declaration-regressions",
+  "files": [
+    "test_env/tests/t287-calculus-fold.test.mjs",
+    "test_env/tests/t289-install-event-bodies.test.mjs",
+    "test_env/tests/r4-catalog-admission.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 31,
+  "fail": 0,
+  "skipped": 0,
+  "wallMs": 57719.83750000002,
+  "stdoutSha256": "1e5672135a02c746c2eeb963bca0a185c2d408cca747b9f2e9d72660c64d7888",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

@@ -1,0 +1,21 @@
+--- CLOSE_BINDINGS_022.json
++++ CLOSE_BINDINGS_023.json
+@@ -90,7 +90,7 @@
+       "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+     }
+   ],
+-  "bindingRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-022",
++  "bindingRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-023",
+   "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021",
+   "scratchRoot": "/private/tmp/abg-r8c-021",
+   "bounds": {
+@@ -113,7 +113,8 @@
+     "test_env/uat/harness.test.mjs": 1200000,
+     "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+     "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000,
+-    "test_env/tests/t287-c0-post-publication-failure.test.mjs": 2100000
++    "test_env/tests/t287-c0-post-publication-failure.test.mjs": 2100000,
++    "test_env/tests/t287-worksite-command-execution.test.mjs": 1200000
+   },
+   "focusedCoverage": [
+     {

@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-08T18:32:44.912Z",
+  "fileHostPid": 11146,
+  "testRunnerPid": 11147,
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--cpu-prof",
+    "--cpu-prof-dir=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/profiles",
+    "--cpu-prof-interval=10000",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+  ],
+  "cwd": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript"
+}

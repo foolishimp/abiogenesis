@@ -1,0 +1,100 @@
+{
+  "id": "RC10-INTEGRATION-REPAIR-02-READY",
+  "status": "READY_FOR_ROOT_SETUP_ADMISSION_NATIVE_DISPATCH_HELD",
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/ROOT_SCOPE.json",
+    "bytes": 6945,
+    "sha256": "2e73c0e378a8d91d87ce066c77fb3411d74f9751bfcd5aaa843d01796e802b56"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/TASK.json",
+    "bytes": 5716,
+    "sha256": "13619b2660ef478717696dfc654afa41de99ddde887d9beefa0f93f10d7e1fb4"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/BINDING.PREPARATION.json",
+    "bytes": 14453,
+    "sha256": "4ee5c0c3bee7404dddf0c959fcec00ea0de149f7bc065fcece74ec0f277092d8"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/host.mjs",
+    "bytes": 15341,
+    "sha256": "bc37b1d25c4f77122a967473a76fc8685c5173a7ebe071422641bd06e889d401"
+  },
+  "hostDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/HOST_DELTA.patch",
+    "bytes": 5344,
+    "sha256": "ee0c232c1ee9a035813f5a88a94bcf69f0ac0a742a8601fa05cef5b220dfb598"
+  },
+  "transportPreflightModule": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/transport-preflight.mjs",
+    "bytes": 1319,
+    "sha256": "65ba305d4494785db96e188f2e2ce7f2022704761ff749b65e356c3594571da6"
+  },
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/TRANSPORT_PREFLIGHT.json",
+    "bytes": 1070,
+    "sha256": "db718d10b6c59cd8e508d66bc4ac21e3b59bdf1f83f0611d05ff876b1a65028d"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/CONTROL_CHECKS.json",
+    "bytes": 2046,
+    "sha256": "b8409c11331ae6287920a183a561298d9bf52d4af50138aeacb0225485d2a4ff"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/SOURCE_INVENTORY.json",
+    "bytes": 292209,
+    "sha256": "f03711b3306f3d212bbe8c3cb8c02d90e34f38082a044412ebf5880934380d65"
+  },
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "sourceRows": 1334,
+  "sourceBytes": 38184937,
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+    "qualification-scratch/rc10-retention-01/repair-02"
+  ],
+  "context": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/CONTEXT_MEASUREMENT.json",
+    "bytes": 5638,
+    "sha256": "4572a6ce88856f3ff03361070e9445e1454eddd605163e28e99f17efdbc36377"
+  },
+  "contextFiles": 22,
+  "contextMemberBytes": 884760,
+  "instructionUtf8Bytes": 2600,
+  "renderedPromptBytes": "Pending actual installed renderer during setup, before dispatch.",
+  "proofBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NO_NATIVE_PROOF.json",
+    "bytes": 318,
+    "sha256": "f57cc2a61e8bad3c48cd540dfab89f437f53a5086145160229a4b790fa263f0a"
+  },
+  "manifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1855,
+    "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+  },
+  "model": "claude-opus-5-5",
+  "effort": "xhigh",
+  "nativeAbsoluteTimeoutMs": 900000,
+  "nativeInactivityTimeoutMs": 180000,
+  "nativeMaxTurns": 100,
+  "setupBudgetMs": 900000,
+  "setupCommandTimeoutMs": 900000,
+  "reserveBytes": 4294967296,
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/runtime-001",
+  "hostScratch": "/private/tmp/abg-rc10-native-repair-02",
+  "nativeScratch": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/repair-02",
+  "launchArgv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/host.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/BINDING.PREPARATION.json",
+    "4ee5c0c3bee7404dddf0c959fcec00ea0de149f7bc065fcece74ec0f277092d8",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/ROOT_SETUP_ADMISSION.json",
+    "<exact admission sha256 supplied only after Root admission>"
+  ],
+  "launchTty": true,
+  "nextBoundary": "Actual PREPARED same live caller for separate native admission; no setup or provider action by this preparation.",
+  "laterProof": "After actual close new successor freeze then external proof-02 build/focused/unit; no old artifact reuse. Measurement-02 artifact fields remain unbound."
+}

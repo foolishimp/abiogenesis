@@ -1,0 +1,83 @@
+{
+  "kind": "accepted_frozen_overlay_to_exact_rc9_test_artifact",
+  "sourceIdentity": {
+    "label": "RC9-after",
+    "phase": "after",
+    "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceTree": null,
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+    "bytes": 11455,
+    "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+  },
+  "completedStage": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+    "bytes": 929,
+    "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+  },
+  "packageRoot": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+  "stageManifest": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "installation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/installation.json",
+    "bytes": 4231675,
+    "sha256": "327cebf91c092b13c77cf5ae3b409d9c41a20938f5193f16807c84bc2c0adc5e"
+  },
+  "ownerContentCheck": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/OWNER_CONTENT_CHECK.json",
+    "bytes": 529,
+    "sha256": "94ac9cb36b0831748b1b205383edb556f00dfe946f38160b4ed0651f0ee067be"
+  },
+  "completedUnit": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/RESULT.json",
+    "bytes": 9382,
+    "sha256": "3a500ece3a4e8331ce1d33242f4a56658c0355dace659516a22629a5eb93a934"
+  },
+  "externalUnitBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_BINDING.BOUND.json",
+    "bytes": 53314,
+    "sha256": "249994d0e730c41e39e2a606874e1660d67ff8ee98449cc14ff1f05326f5b7f3"
+  },
+  "externalUnitAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_FULL_UNIT_007_EXECUTION_ADMISSION.json",
+    "bytes": 4537,
+    "sha256": "ebb84fb83f5008d7e880ba905bba3142de4553d4aa0f5d9bc66b19c8667d9942"
+  },
+  "stageBuildBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/FOCUSED_BINDING.json",
+    "bytes": 6099,
+    "sha256": "41a940ec27dea02e987abec26545379f440c399a91a5a1055c62738ea5d453b1"
+  },
+  "buildInputs": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/BUILD_INPUTS.json",
+    "bytes": 658,
+    "sha256": "c42d1febdcdab91abab2550b6337d63ec17be1310a8d5cb8e37693518224d232"
+  },
+  "packageLayout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/PACKAGE_LAYOUT.json",
+    "bytes": 646681,
+    "sha256": "fcb24855a92a50f52c09905a99b9c9b4191980419c0c6e2280364b83a3febef8"
+  },
+  "frozenRowsRechecked": 1340,
+  "identityEdited": false,
+  "releaseCut": false,
+  "qualified": false
+}

@@ -1,0 +1,67 @@
+{
+  "kind": "native_proof_artifact_to_rc6_bridge",
+  "nativeArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/actual-c2-001/candidate-package.tgz",
+    "bytes": 10988328,
+    "sha256": "e0a84d336073fffb59696ebdedf0f5bd9224d4857d8124cd1400646819dfdf66"
+  },
+  "rc6Artifact": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "bytes": 10988465,
+    "sha256": "e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4"
+  },
+  "sameMemberSet": true,
+  "members": 5325,
+  "unchangedMembers": 5319,
+  "changedMembers": [
+    {
+      "path": "package/build/code/src/product/builtin_semantics.d.ts",
+      "beforeSha256": "7ed710c44708dff69997449476f5a685b98b3826d7f5b09eb024b7937f489500",
+      "afterSha256": "ad95a042fccd82e67ad77ad4b1ff85640d20027cc7606b9b811ce05e393765d0",
+      "beforeBytes": 11545,
+      "afterBytes": 11545,
+      "classification": "two existing Product/package identity constants or their existing inferred declaration"
+    },
+    {
+      "path": "package/build/code/src/product/contracts.d.ts",
+      "beforeSha256": "15a83baa544e38d26aea7bf51a7484d6881627f9c17ce190fa37bed73ed15859",
+      "afterSha256": "06f55cb153b089b7cce6a2cb25c1ff541c68688556d2d5af4f3a07fa239e11c4",
+      "beforeBytes": 13303,
+      "afterBytes": 13303,
+      "classification": "two existing Product/package identity constants or their existing inferred declaration"
+    },
+    {
+      "path": "package/build/code/src/product/contracts.js",
+      "beforeSha256": "09d721d0564c78ff0002adf9428c5f7b0ee245b47787a30daf601e20aef65908",
+      "afterSha256": "1949314ec3ad66af243a23417a5114a0408a3b410064497ae056dacc58476953",
+      "beforeBytes": 880,
+      "afterBytes": 880,
+      "classification": "two existing Product/package identity constants or their existing inferred declaration"
+    },
+    {
+      "path": "package/contracts/capabilities/capability-definition-graph.json",
+      "beforeSha256": "3c83a163fa1e573af080ef6775594cef0079f6f37fb2d5ac2eb27178fe21658f",
+      "afterSha256": "293152d6a6bbeadaf489d44b521d7f429b63c4edd5ec99027d52390d19dd3e91",
+      "beforeBytes": 197474,
+      "afterBytes": 197474,
+      "classification": "existing generated identity/schema/qualification projection"
+    },
+    {
+      "path": "package/package.json",
+      "beforeSha256": "be7fab6a3b53a38d1ccf693679f72969fad06597dbded76fe5143ecde34e1ade",
+      "afterSha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da",
+      "beforeBytes": 10003,
+      "afterBytes": 10003,
+      "classification": "package identity only"
+    },
+    {
+      "path": "package/product-toolchain-manifest.json",
+      "beforeSha256": "fc077c82a38ceee4f658bc028e64c95eb8cea546894aa92fed5f2f5da886eec2",
+      "afterSha256": "b18114a29e8aaa207f5f3d04849d6da1a72d0c1d05e5841ee66db12fa52a22cc",
+      "beforeBytes": 3265439,
+      "afterBytes": 3265439,
+      "classification": "existing generated identity/schema/qualification projection"
+    }
+  ],
+  "meaning": "All compiled implementation bytes are identical except the two existing Product/package identity constants. Generated projections are reviewed separately; native proof remains on its original artifact."
+}

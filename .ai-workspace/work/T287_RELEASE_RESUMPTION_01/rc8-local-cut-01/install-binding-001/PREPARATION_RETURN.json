@@ -1,0 +1,61 @@
+{
+  "status": "REVIEWED_INSTALL_CONTROLS_FROZEN_ROOT_SELECTION_REQUIRED",
+  "at": "2026-11-07T22:50:03.010904+00:00",
+  "actor": "/root/rc8_cut_preparation",
+  "consumer": "/root",
+  "result": "satisfied",
+  "predicate": "Mechanical held install binding from actual reviewed build and frozen claims only.",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/INSTALL_BINDINGS.prepared.json",
+    "bytes": 5491,
+    "sha256": "f1f1f936920ad6084cf0e085e4cd790b072f057a352c8286576aa8de3f8c0837"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/reviews/packaging-001/REVIEW.json",
+    "bytes": 23777,
+    "sha256": "dabaf2e7f0aec43a338084924cf92fa75818f2c7b24cdf5f26fc0e2d2fef408a"
+  },
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+  "documents": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/INSTALL_BINDINGS.prepared.json",
+      "bytes": 5491,
+      "sha256": "f1f1f936920ad6084cf0e085e4cd790b072f057a352c8286576aa8de3f8c0837"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/LAUNCH_PROPOSAL.json",
+      "bytes": 2330,
+      "sha256": "393df97124ffe75e764bd689dd1ed33eaa231c042e058c8ab0a531f9b484d571"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/STATIC_CHECKS.json",
+      "bytes": 2331,
+      "sha256": "036abfbe43ef5a190f2227851f81f3cbb44d1b7c7f8b91c1a3c4b1c380be08d2"
+    }
+  ],
+  "verified": {
+    "requiredInputPins": 11,
+    "reviewAndClaimPinsMatch": true,
+    "outputAbsences": 5,
+    "emptyEnvironmentConfigs": 2,
+    "mismatches": 0
+  },
+  "boundLimits": "192/986/227 broad; four separate whole proofs, three case-wise acceptances and nine OPEN residuals; configured C2 positive separate; all inherited limits preserved through exact build binding.",
+  "remaining": "Separate exact Root install selection/admission; no further preparation gap found.",
+  "activation": null,
+  "executionEnabled": false,
+  "effects": {
+    "writesOnly": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001",
+    "install": 0,
+    "resources": 0,
+    "git": 0,
+    "source": 0,
+    "tests": 0,
+    "provider": 0,
+    "sdk": 0,
+    "cleanup": 0,
+    "driverHelperOrClaimChanges": 0
+  },
+  "returnBoundary": "Frozen; stop."
+}

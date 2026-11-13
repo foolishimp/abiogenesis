@@ -1,0 +1,98 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedUtc": "2026-11-07T07:44:27.729542+00:00",
+  "authority": "Root author06 exact mechanical selection and closed review concurrence: one actual prepared dispatch authorized without further GO.",
+  "bindingSha256": "53e1a7951aebadb292cb3eb9bbdfa2efe71e5aac7abc9a02b98206689167b076",
+  "preparedSha256": "c0bf0af7bba2a0bffba0ad113fb8776a1f6957ecf8adf2f5468360401a28eb74",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/runtime-001/PREPARED.json",
+    "bytes": 6164,
+    "sha256": "c0bf0af7bba2a0bffba0ad113fb8776a1f6957ecf8adf2f5468360401a28eb74"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SCOPE.json",
+      "bytes": 7865,
+      "sha256": "3d8b7b5e2752d25c150482f9f6cfcc56ac69f52dbeaa869d02de9a5e6e3f1d0e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/TASK.json",
+      "bytes": 5674,
+      "sha256": "c347d2dec6d7c9c9357cf6cfed0441959ca5b8ec3d07e6bfa8a3edb4c47b104b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/PREPARATION.json",
+      "bytes": 8742,
+      "sha256": "5ae3732f9e4c8c0154291a31ac79ed7ea7217c8312ca81d7bab9fa116e866d79"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/BINDING.json",
+      "bytes": 4783,
+      "sha256": "53e1a7951aebadb292cb3eb9bbdfa2efe71e5aac7abc9a02b98206689167b076"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/host.mjs",
+      "bytes": 12242,
+      "sha256": "b2f1053cf45921f37595efb976963aea478fad64f3ec10a1fecdd8a8dfa22dde"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof.mjs",
+      "bytes": 10589,
+      "sha256": "a6ee7de6f40d690bf5293618190405090b90c4260a0823c03500080ad441c2df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-005/REVIEW.json",
+      "bytes": 23499,
+      "sha256": "5cf2d75c072f8b0d00bbacc57acca7418b4f83931866af02d852adb71043da2c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-005/README.md",
+      "bytes": 3740,
+      "sha256": "a4ea8470171ccf92ded01659fb10e57bcf481afe70339aa0bf885fa659fb88d1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/CONTROL_FREEZE.json",
+      "bytes": 1927,
+      "sha256": "b1378c50af6bfaa2c6f8f53820eeeb647b118cfbcfba4ba395d91f8a6881932f"
+    }
+  ],
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SCOPE.json",
+    "bytes": 7865,
+    "sha256": "3d8b7b5e2752d25c150482f9f6cfcc56ac69f52dbeaa869d02de9a5e6e3f1d0e"
+  },
+  "budgets": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "focusedWholeFileInvocations": 1,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 600000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000
+  },
+  "host": {
+    "pid": 91306,
+    "sessionId": 85798,
+    "sameHeldCall": true,
+    "additionalPreparation": false
+  },
+  "provider": {
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "supportedByPinnedProviderLocalHelp": true
+  },
+  "rootConjunction": {
+    "finding": "One S3 unshipped setup identity-copy defect; prior S2 producer prerequisites repaired with 45 passes and 1 historical skip. No Product runtime or archive finding.",
+    "origin": "F04 initial prefix loop JSON-roundtrips and deep-freezes the already immutable event returned by runtimeEventAtPrefixIndex. Own rows array provides isolation; no event body mutation or byte boundary.",
+    "selectedCorrection": "Only replace initial loop body with rows.push(prefixes.runtimeEventAtPrefixIndex(basis.prefix, index)); and correct adjacent copies comment. Preserve intentional cold replay roundtrip and all algorithms/assertions.",
+    "reuse": "A5 native-workspace 43 passes/1 skip retained by exact unchanged test/helper/compiled/dependency/archive correspondence; original 79 broad whole-file credits retained."
+  },
+  "providerCallsAuthorized": 1,
+  "sourceAccepted": false,
+  "qualified": false
+}

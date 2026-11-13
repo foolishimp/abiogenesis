@@ -1,0 +1,47 @@
+--- validated-how-open-02/host.mjs
++++ native-repair-02/host.mjs
+@@ -1,5 +1,6 @@
+ // RC10: maintained fresh setup through immutable pinned RC9 Public owners. Separate setup and native admission.
+ import assert from 'node:assert/strict';
++import {validateTransport} from './transport-preflight.mjs';
+ import {createHash} from 'node:crypto';
+ import {execFileSync} from 'node:child_process';
+ import {readFile,mkdir,statfs} from 'node:fs/promises';
+@@ -26,6 +27,7 @@
+ const source=JSON.parse(await pinned(binding.sourceInventory));
+ const checkSource=async()=>{assert.equal(execFileSync('/usr/bin/git',['-C',binding.sourceRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),binding.sourceCommit);for(const control of binding.readOnlyInputPins)await pinned(control);for(const row of source.rows){const actual=await readFile(join(binding.sourceRoot,row.path));assert.equal(actual.length,row.bytes,row.path);assert.equal(sha(actual),row.sha256,row.path);}return source.rows.length;};
+ await checkSource();
++const transportPreflight=await validateTransport(binding);
+ const setupOwner=await import(pathToFileURL(binding.sourceHelpers['public-setup.mjs'].path));
+ const runner=await import(pathToFileURL(binding.sourceHelpers['runner.mjs'].path));
+ await mkdir(binding.scratchRoot,{mode:0o700});
+@@ -42,10 +44,11 @@
+ let caller,setup,call,input,outcome=null,launched=false,failure=null,actualClose=null,readbackFailure=null;
+ try{
+   await record('run.json',{kind:'rc10_operator_held_setup',startedUtc,pid:process.pid,bindingSha256,sourceCommit:binding.sourceCommit,providerCalls:0});
++  await record('TRANSPORT_PREFLIGHT.json',transportPreflight);
+   const native=await setupOwner.verifyArtifact(runtime,{artifactPath:binding.archive.path,manifest,expectedArtifactDigest:'sha256:'+binding.archive.sha256},record,'abg');mark('artifactVerified');
+   caller=setupOwner.publicCaller({root:binding.runtimeRoot,runtime,native,config,record,actorRef:'actor://abiogenesis/operator/codex-root',
+     command:runner.commandRecorder(binding.runtimeRoot,{environment:binding.environment,timeoutMs:binding.proofTimeoutMs})});
+-  // RC10-HOW-OPEN-02: actual Public open of the original admitted manifest.
++  // RC10-INTEGRATION-REPAIR-02: actual Public open of the original admitted manifest.
+   const manifestBytes=await pinned(binding.workspaceOpenManifest),existingManifest=JSON.parse(manifestBytes);
+   assert.equal(existingManifest.canonicalRoot,binding.sourceRoot);assert.equal(existingManifest.bindingRef,null);
+   const expectedAuthority={ref:existingManifest.authorityBasis.authorityRef,digest:existingManifest.authorityBasis.authorityDigest};
+@@ -91,7 +94,7 @@
+     installedRoot:caller.installedRoot,workspaceBinding:caller.state.binding,setupProgramBinding:caller.state.programBinding,
+     nativeSelection:{programRef:ids.programRef,startRef:ids.startRef,programDigest:product.sha256Canonical(nativeProgram),viewDigest:product.sha256Canonical(nativeView)},
+     invocationRef:call.invocation.invocationRef,invocationDigest:call.invocation.invocationDigest,heldPrefix:entry.prefix,
+-    context:{digest:context.observationDigest,entries:context.entries.length,fileMembers:context.entries.filter(e=>e.state==='file').length,sourceBytes:context.entries.reduce((sum,e)=>sum+(e.state==='file'?e.byteLength:0),0),canonicalBytes:Buffer.byteLength(product.canonicalJson(context))},renderedBytes,renderedMeasurementScope:'Exact installed native work-order text; provider/system scaffolding is not measured.',phases,freeBytes:await free(),providerCalls:0,RunAdmissions:0,
++    context:{digest:context.observationDigest,entries:context.entries.length,fileMembers:context.entries.filter(e=>e.state==='file').length,sourceBytes:context.entries.reduce((sum,e)=>sum+(e.state==='file'?e.byteLength:0),0),canonicalBytes:Buffer.byteLength(product.canonicalJson(context))},transportPreflight,renderedBytes,renderedMeasurementScope:'Exact installed native work-order text; provider/system scaffolding is not measured.',phases,freeBytes:await free(),providerCalls:0,RunAdmissions:0,
+     meaning:'Actual setup owners and canonical native call constructed. Same live owner resource, environment, Catalog and call retained in this process. No serialized resume or call is re-ingested; native Program execution is unproved until Root admits and the actual SDK returns.'};
+   await record('PREPARED.json',prepared);const preparedBytes=await readFile(join(binding.runtimeRoot,'PREPARED.json')),preparedSha256=sha(preparedBytes);
+   console.log(JSON.stringify({status:prepared.status,pid:process.pid,preparedPath:join(binding.runtimeRoot,'PREPARED.json'),preparedSha256,wallMs:performance.now()-start,providerCalls:0}));
+@@ -102,6 +105,7 @@
+   const admission=JSON.parse(await pinned(admissionPin));assert.equal(admission.status,'ROOT_ADMITTED_NATIVE_DISPATCH');
+   assert.equal(admission.bindingSha256,bindingSha256);assert.equal(admission.preparedSha256,preparedSha256);
+   for(const p of admission.files??[])await pinned(p);await checkSource();
++  await validateTransport(binding);
+   abg.assertAcquiredAbgEventResourceSelectionCurrent(entry);assert((await free())>binding.reserveBytes);
+   // The immutable in-scope proof binding is already observed; native admission names its exact digest.
+   assert.equal(admission.proofBindingSha256,binding.focusedProofTemplate.sha256);

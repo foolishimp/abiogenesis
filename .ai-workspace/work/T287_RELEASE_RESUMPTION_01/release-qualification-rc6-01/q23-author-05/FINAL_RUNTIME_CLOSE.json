@@ -1,0 +1,64 @@
+{
+  "kind": "q23_native_author_actual_close",
+  "at": "2026-11-05T19:48:05.375271+00:00",
+  "status": "COMPLETED_SOURCE_RETURN_FROZEN_UNACCEPTED",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "run": {
+    "digest": "sha256:d85beee772d7e517797bcc02337badbf219bfc5220e8738bbdda7a4dc6f01b78",
+    "ref": "run://abiogenesis/9f572249753fc495b6cbef7d0125945119608f125512dd5ee60f68210e30f33c"
+  },
+  "result": {
+    "digest": "sha256:3d8ed6167e91545cfa65ef12d0e10356afd09489c37acba85ee72265db6e58b6",
+    "ref": "result://abiogenesis/3d8ed6167e91545cfa65ef12d0e10356afd09489c37acba85ee72265db6e58b6"
+  },
+  "replay": {
+    "digest": "sha256:1ee3165eb41bcf7bca88156856fef1d74e6f15d23d34ab5b38a4ba9a81bb15d3",
+    "ref": "replay://abiogenesis/1ee3165eb41bcf7bca88156856fef1d74e6f15d23d34ab5b38a4ba9a81bb15d3"
+  },
+  "terminalValueDigest": "sha256:e483f878a1daac0f74b3ec4b45ec2cbc13c8c3823e9dbb997e5c73901c5a14cd",
+  "freshTerminalEqual": true,
+  "freshReplayStatus": "closed",
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/after-run-resume.json",
+    "bytes": 72489356,
+    "sha256": "a351f85061cfc8d2df57430fec2698a26e26167b7a807e5a745a67a6d3f38b35"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:ef10114d4c301193fc62b6cc5e98af8453f7026710d3f6d8ffc931e4180ae261",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:6e14704317aafc094345b2d6d79b889fe5fc3c7ae284987c2504697b6d5b7010",
+    "prefixLength": 401189394,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "allFrozenLiveMembersEqual": 339,
+  "authorStageSourceMatches": 318,
+  "authorChecks": {
+    "compileExit": 0,
+    "generateExit": 0,
+    "tests": 62,
+    "pass": 62,
+    "fail": 0,
+    "skip": 0
+  },
+  "profileDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/ROOT_PROFILE_DISPOSITION.json",
+    "bytes": 3110,
+    "sha256": "59b29a543a0df68313dc1ed48ea3cfdb42fc37196a827fffaac6a39a396e2f11"
+  },
+  "limits": [
+    "Actual author source return only, not C2/UAT or independent acceptance.",
+    "Historical failures/intermediate checks unchanged.",
+    "Q23 production-positive, QR02, triggered D5/profile cut, full qualification and release remain open."
+  ],
+  "operatorProjectionCorrection": "Earlier diagnostic treated fresh-reads array as mapping and overprinted source snapshot bodies before raising AttributeError. Corrected projection uses exact run_result/run_replay members, compares complete values in memory and emits only explicit coordinates; no Product/runtime mutation."
+}

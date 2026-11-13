@@ -1,0 +1,11 @@
+--- measurement-01/run-measurement.mjs
++++ measurement-02/run-measurement.mjs
+@@ -16,7 +16,7 @@
+ const frozen=JSON.parse(await checked(b.subject.sourceFreeze));assert.equal(frozen.sourceDigest,b.subject.sourceDigest);await checked(b.candidateArchive);await checked(b.installReceipt);for(const p of b.installIdentityPins)await checked(p);
+ const relation=JSON.parse(await checked(b.sourceArtifactRelation));assert.deepEqual(relation.sourceIdentity,b.subject);assert.deepEqual(relation.archive,b.candidateArchive);assert.deepEqual(relation.installation,b.installReceipt);assert.equal(relation.identityEdited,false);
+ assert.equal(b.installRoot,join(b.bootstrapInstallHost,'node_modules/@abiogenesis/typescript-tenant'));assert.equal(JSON.parse(await readFile(join(b.installRoot,'package.json'),'utf8')).version,'5.0.0-rc.10');
+-assert.equal(b.outputRoot,join(here,'actual-001'));assert.equal(b.tempRoot,'/private/tmp/abg-rc10-retention-measurement-001');
++assert.equal(b.outputRoot,join(here,'actual-001'));assert.equal(b.tempRoot,'/private/tmp/abg-rc10-retention-measurement-002');
+ for(const p of [b.outputRoot,b.tempRoot]){try{await lstat(p);throw Error('preserve existing allocation: '+p);}catch(e){if(e.code!=='ENOENT')throw e;}}
+ const fs=await statfs(here);assert(Number(fs.bavail)*Number(fs.bsize)>K.reserveBytes);
+ const {commandRecorder,exclusiveRecord}=await import(pathToFileURL(b.runner.path));await mkdir(b.outputRoot,{mode:0o700});await mkdir(b.tempRoot,{mode:0o700});await mkdir(join(b.tempRoot,'tmp'));for(const n of ['npm-user.npmrc','npm-global.npmrc'])await writeFile(join(b.tempRoot,n),'',{flag:'wx'});

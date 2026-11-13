@@ -1,0 +1,42 @@
+{
+  "status": "PREPARED_CONTROLS_NO_RUNTIME_OR_PROVIDER_YET",
+  "at": "2026-11-07T08:44:25.689809+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/ROOT_SCOPE.json",
+      "bytes": 4703,
+      "sha256": "3bdbfd378de073045939cb2455448e9d0e5b905040a8550a66066cab1e387241"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/PREPARATION.json",
+      "bytes": 7581,
+      "sha256": "62a65d58cd6118de00b93c4865d7380c90d371a5a354a163331ba2a827003a6c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/TASK.json",
+      "bytes": 6911,
+      "sha256": "cf541e69796013e161e541497ec692e769df4bc2da1ac54b09f682bebbb71785"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/host.mjs",
+      "bytes": 12242,
+      "sha256": "c4db3703eca666c867c18893392cbeca25470dfde9a7ec5e2e7cebb86e4342f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof.mjs",
+      "bytes": 11499,
+      "sha256": "62c546bd928e207b010ed3f0808756aaad7e3974f17a254acab5a7387c41ccdb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/BINDING.json",
+      "bytes": 5279,
+      "sha256": "d0f7e6b1ed31b782ea58ba9ab3d14a670968b15a84e6beafbe3f0fd99775d1b2"
+    }
+  ],
+  "syntaxChecks": "host and proof node --check passed",
+  "providerDispatch": false,
+  "rootConcreteAdmissionRequired": true,
+  "actualOwnerPreparationPending": true,
+  "scratchRoot": "/private/tmp/abg-r8-a08-95yy1lti",
+  "deltaFromAuthor07": "Genuine A7 source/close/READY, exact two-test write grant and adopted plan; four-case positive filter then whole coordinate file, expected4/11passes. Existing host closure and compiled-input reuse conserved."
+}

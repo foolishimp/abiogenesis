@@ -1,0 +1,57 @@
+{
+  "status": "CONTROLS_READY_STATIC_PREFLIGHT_PENDING",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+    "bytes": 296057,
+    "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+  },
+  "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+  "sourceRows": 1345,
+  "reports": {
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-review/ASSESSMENT.md",
+      "bytes": 8027,
+      "sha256": "17ec6ffc730c4ebe27cc7e972739b810766fa8bc520a3c0c7e4ce7c5d0706c54"
+    },
+    "design": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-triage-design/ASSESSMENT.md",
+      "bytes": 7465,
+      "sha256": "46155a87d5b32671b25a6cf01ff30f8ab35cd0b335099c3c0cf66197ca3e1a21"
+    },
+    "executedDesign": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-triage-design/EXECUTED_EVIDENCE_01.md",
+      "bytes": 4158,
+      "sha256": "ff4849936ed0b28004212cc018bb31e80567c2b029f667f3ece051c0548416bd"
+    },
+    "executedProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-review/PROBE_EVIDENCE.md",
+      "bytes": 3371,
+      "sha256": "2fe847eb71baf7f19d40eda5e9f4685e4b29de63cddb9ad22b1c347e1b9a28af"
+    },
+    "bothRunReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/RETURN.json",
+      "bytes": 2813,
+      "sha256": "567cb2ee4b2cafa7b38bd380c8524616910ddb5a9214a52e45163ee0fd4ccbbd"
+    },
+    "candidateObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-candidate-001/OBSERVATION.json",
+      "bytes": 2980,
+      "sha256": "0f3d6150b9570ec1fa8195ab3a01b6a2b0cad264fe3e03be6f046c1378b101be"
+    },
+    "baselineObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-baseline-001/OBSERVATION.json",
+      "bytes": 2931,
+      "sha256": "7db4f706c63a52d5e5e94e73a71328c17598a93b3ef33597dae365b7270e59d6"
+    }
+  },
+  "context": {
+    "files": 18,
+    "sourceMemberBytes": 176714,
+    "instructionUtf8Bytes": 4028,
+    "sourceContentsInlined": false,
+    "renderedBytes": "Only actual future PREPARED can measure installed renderer."
+  },
+  "hostByteIdentical": true,
+  "sourcePreserved": true,
+  "setupProviderHeld": true
+}

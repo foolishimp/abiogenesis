@@ -1,0 +1,82 @@
+{
+  "status": "PREPARED_IN_SAME_HOST",
+  "programRef": "program://abiogenesis/worksite/native-work@5",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SOURCE_BEFORE.json",
+    "bytes": 273167,
+    "sha256": "dd60fc6d8488c5bf3d38c5be6ed26aa94a15682d58b7edb1e958a773e6653268"
+  },
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "contextDigest": "sha256:b64ca5657fa923aedc37db83d2534c0aa28059dc44c8a0c3344a23c2463e6503",
+  "observedEntries": 469,
+  "selectedFiles": 469,
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7c"
+    },
+    {
+      "name": "LANG",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  ],
+  "eventPrefix": {
+    "coordinateDigest": "sha256:e049b06fd6e261505e59a2f61a7586cf30d5eb526963d1fb2a6366d9c0a34e8c",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:db37cbf52f9b40c03da0446d71cb4da9e281aa17c5a1af7c6d355fb72d66023b",
+    "prefixLength": 1326572300,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "inputCanonicalDigest": "sha256:8098bccb06a4c224b0c8df7adc1ec0d47fe245cf14e6d9fb0b02c2dcb6be8426",
+  "callCanonicalDigest": "sha256:f06b93fb06be806faf5cbfcce8161e843ab072c2ba11fb8b08fcba96312a1d65",
+  "capacity": {
+    "kind": "actual_existing_native_order_render_measurement",
+    "renderedNativeOrderBytes": 43041,
+    "maxPromptBytes": 1048576,
+    "reserveBytes": 131072,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Existing native order text; full transport/instruction assembly retains existing guards."
+    ]
+  },
+  "phaseMs": {
+    "control-pin-verification": 6.534417000000001,
+    "resume-config-parse": 342.34220899999997,
+    "source-control-verification": 110.61783300000002,
+    "installed-modules": 424.523542,
+    "caller-refresh": 83592.022875,
+    "prefix-identity": 750.8799169999984,
+    "context-observation": 249.84949999999662,
+    "construct-call": 1687.7428749999963,
+    "capacity-canonical-digest": 191.13729199999943,
+    "prefix-preservation": 742.0758329999953
+  },
+  "retainedResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/after-run-resume.json",
+    "bytes": 72497977,
+    "sha256": "34102b8ee052c13c9ea6238d55fe02c1d0a5722a1596f43b5bd43b4b0594f13a"
+  },
+  "meaning": "Metadata only. Input, call, caller and environment remain the same live objects; no intermediate resume or prepared-call body copy/reparse."
+}

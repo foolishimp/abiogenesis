@@ -1,0 +1,97 @@
+{
+  "reviewId": "H06-CODE-CONTROLS-001",
+  "status": "closed",
+  "createdAt": "2026-11-06T19:23:22.593224+00:00",
+  "productFrame": {
+    "product": "ABIogenesis 5.0 fixed fifteen feature families",
+    "goal": "GOAL-035 / T-287",
+    "method": "STDO 3.0.4",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "boundary": "Existing ABG/Product owners, immutable RC6 builder and prospective RC7. Controls-only review; no new runtime authority or Product correction."
+  },
+  "verdict": "no_open_concrete_blocker_in_corrected_selected_control_delta",
+  "scope": "Proportional H05-to-H06 code-control delta and the exact host-status successor correction. Reuse already reviewed unchanged H05 controls; final metadata, admission and dispatch remain Root-owned.",
+  "subject": {
+    "rootSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json",
+      "bytes": 9291,
+      "sha256": "d3b7b87fab998bca08bc8572ddea2c34e4342378d30981c6a4b033416c3bc258"
+    },
+    "originalCodePins": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/CODE_CONTROL_PINS.json",
+      "bytes": 10091,
+      "sha256": "f84943e6e224ff472d750061fb74f1fe0db8c772080f2652784341b63c51b455"
+    },
+    "finalCodePins": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/CODE_CONTROL_PINS_FINAL.json",
+      "bytes": 2310,
+      "sha256": "f098ed8219e94cb7744e0c7ae87c53f559ca06a715d903e6cef0b1c011dd4604"
+    },
+    "correction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/HOST_STATUS_CORRECTION.json",
+      "bytes": 3099,
+      "sha256": "330e7f86c10da6d17f631c1d4dca54482be694c32eb6c32ec7bbe6d610099bc6"
+    },
+    "selectedFiles": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/prior-author-stage.mjs",
+        "bytes": 6891,
+        "sha256": "ddde69ffc1421672735701d7d6344898ae0cd3973b26ba0a95227548561c49dd"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/prior-author-lanes.mjs",
+        "bytes": 10474,
+        "sha256": "5ee692a49a9ad68eacff16deb5cf682f42f8e356144b0c043063cace7dcfd15c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/prepare-and-dispatch.corrected.mjs",
+        "bytes": 19675,
+        "sha256": "fed2ff089d7f6e35fb08da5f855ce2b384e69938296f9930ce2bdc0429936a27"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/launch-owner-script.corrected.mjs",
+        "bytes": 2398,
+        "sha256": "6ee174e71b11fc16a678e546a15be4da3cbeeb928e09074289f08f0d6e22ea49"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/claude-provider.sh",
+        "bytes": 731,
+        "sha256": "fa66e1a4d40811c2ae6433b4a1fe2cc070310cbdfe23609cf050f487eb5125a4"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "H06-CONTROL-001",
+      "severity": "S2",
+      "status": "resolved_in_selected_successor_before_activation",
+      "trigger": "Original frozen host line31 expected ROOT_SELECTED_NATIVE_ONE_TEST_ORACLE_CORRECTION while grant.selection is the H06 architecture with ROOT_SELECTED_NATIVE_ONE_FIELD_FIXTURE_CORRECTION.",
+      "probability": "Deterministic for the intended exact binding.",
+      "harm": "Host assertion would stop before SDK/resource acquisition, preventing the selected native correction from starting.",
+      "failClosedControl": "Exact selection status/pin check refused; no runtime authority widening or Product effect was possible.",
+      "repairCost": "One status literal, the stale predecessor comment and launcher routing to the separately retained successor.",
+      "resolution": "Corrected host fed2ff08 accepts only the actual H06 status; corrected launcher6ee174e7 selects that successor filename. Exact diffs and original host/launcher/code pins are preserved. No alias or guard removal."
+    }
+  ],
+  "checkedRelations": [
+    "Twenty-three original code/diff/authority/predecessor/payload/evidence pins checked; selected successor/preimage/diff pins also checked. Five original-to-H06 actual code differences and the two successor differences were inspected.",
+    "One isolated stage,451 source rows/one mutable existing test/450 protected rows; stage and lane caps are1/3 with serial order supplied by selected bounds. The remaining lane order is assessment-guards, native-workspace-owner, caller.",
+    "Complete passed predicate is unchanged and owns terminal exit plus every prior lane prerequisite, including matching stageSourceDigest, active required tests, failures/skips/cancellation/todo and process error/signal. Failed or incomplete allocations consume the cap; no repeat lane or automatic retry.",
+    "Selected lane/bound checks and prior-source/pass checks occur before output mkdir. Fresh H06 stage, input, scratch, command/Run and provider temporary namespaces replace H05 names.",
+    "The full5325-member payload is still checked through the existing pinned immutable RC6 digest owner. Prior H03 compile/generation/lifecycle receipts remain explicit historical reuse; no new build commands were introduced.",
+    "The two H05 integration prerequisites are removed as H06 executions. Their original source digest and exact receipts are carried under retainedPredecessorEvidence, with integrationEvidenceReused:false and an explicit Root-owned unchanged-closure applicability condition. No H05 receipt is relabelled as an H06 execution.",
+    "Host retains actual-output-slot absence checks before acquisition, exact actual predecessor close/resume/source and admission joins, same call/lifetime and installed-identity checks. Launcher retains create-only receipt preflight and inherited process supervision; wrapper mode is0755.",
+    "Root native90-minute/inactivity30-minute/320-turn/3-hour-host/8-GiB selection is unchanged; three remaining lanes are300seconds each. Final metadata must bind these selected values and exact H05 source/close/resume."
+  ],
+  "residuals": [
+    "Final metadata field conjunction, Root control admission and dispatch are pending and outside this code-delta verdict. The corrected host and corrected launcher, rather than their retained preimages, must be selected.",
+    "Reuse of the eight H05 passes remains conditional on the future frozen one-field source review establishing unchanged fixed-route/held-session code and shared dependency closure. This review neither establishes that future source fact nor grants acceptance.",
+    "The H05 assessment failure and two unallocated lanes remain historical facts. All three H06 proof lanes and final native custody are future.",
+    "No Product source, guard, HOW, fixture or prepared control was edited by this reviewer. No tests, builds, execution, providers, runtime acquisition or private actor material were used; only these create-only review artifacts were written.",
+    "This same-family controls review is not formal ABI5 F11 J, source acceptance, release qualification or installed performance proof."
+  ]
+}

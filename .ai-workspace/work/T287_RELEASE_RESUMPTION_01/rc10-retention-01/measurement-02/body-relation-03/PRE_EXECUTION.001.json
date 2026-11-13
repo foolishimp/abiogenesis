@@ -1,0 +1,28 @@
+{
+  "status": "PINS_INSTALL_EQUALITY_CAPACITY_VERIFIED",
+  "utc": "2026-11-09T04:34:51.081011+00:00",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/MEASUREMENT_BINDING.PRE_ADMISSION.json",
+    "bytes": 11563,
+    "sha256": "a162b004989be8c39a591c7a002268b663d9408bd9ca5621bac27a4c09ea7805"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "installRoot": "/private/tmp/abg-rc10-measurement-bootstrap-002/host/node_modules/@abiogenesis/typescript-tenant",
+  "matchingFiles": 5325,
+  "payloadBytes": 71764126,
+  "observedPageBytes": {
+    "Pages free": 6538887168,
+    "Pages inactive": 43382489088,
+    "Pages speculative": 166248448
+  },
+  "freeDiskBytes": 388607590400,
+  "independentScratch": {
+    "measurement": "/private/tmp/abg-rc10-retention-measurement-002",
+    "proof": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof"
+  },
+  "standing": "At most one unit-or-affected process overlaps isolatedmeasurement. Capacity observed,not reserved."
+}

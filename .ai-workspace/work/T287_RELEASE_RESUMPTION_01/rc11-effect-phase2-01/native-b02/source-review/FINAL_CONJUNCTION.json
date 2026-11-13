@@ -1,0 +1,778 @@
+{
+  "productFrame": "Product Frame: the fixed fifteen ABI5 outcome families, direct GTL.TypeScript/HoG and ABG-only admitted runtime truth remain governing. T287 Phase2 selects the shared owned-lifetime transition plus scoped command/private-helper-main realization and its integration proof. Under installed STDO3.0.4, empty composition and the retained six-frame/interface-integration basis, physical execution/resource ownership and observation/evidence remain distinct from ABG semantic authority. No second runtime, private event authority, hidden policy or adapter-created admission is authorized. This is resumed-context, nonauthor Owner/Effect/Proof assurance; no clean-context claim.",
+  "status": "SATISFIED_BOUNDED_PHASE2_A_B_SOURCE_PROOF_PENDING_ROOT_DISPOSITION",
+  "verdict": "satisfied",
+  "findings": [],
+  "triage": "not_applicable",
+  "recommendation": "Root may accept/checkpoint the exact selected bounded Phase2 A+B subject; no new proof or repair selected by reviewer.",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-review/FINAL_CONJUNCTION.md",
+    "bytes": 7623,
+    "sha256": "3abb615287e8ef325b0983bfe6f744c70383544d916b8f69cc526a9c6e2b28ac"
+  },
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "resumedContext": true,
+  "sourceAuthor": false,
+  "frameRoutes": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "references": {
+    "A_root_acceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+      "bytes": 4061,
+      "sha256": "a6a1b16d59f112078793743265a72308b2f59b3978db9dde68ca3b40fe8df6ea"
+    },
+    "A_conjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/FINAL_CONJUNCTION.md",
+      "bytes": 5981,
+      "sha256": "9f2704e332c600879f0f0b611a2b435a9e513ca83fc8d89751febc68c161b103"
+    },
+    "B_source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/ASSESSMENT.md",
+      "bytes": 9652,
+      "sha256": "aed4625a9ae365ac807a85824078d565598fb12e814c3c3fb8ec5a67fa9f9e77"
+    },
+    "B_retained_acceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+      "bytes": 2281,
+      "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+    },
+    "B_retained_reconciliation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/RETAINED_PROOF_RECONCILIATION.md",
+      "bytes": 8312,
+      "sha256": "287f19413a8f3d13c5ea4d3e13806373982df6f663853cb03583aaba26b900e3"
+    },
+    "B_retained_reconciliation_evidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/RETAINED_PROOF_RECONCILIATION.json",
+      "bytes": 45504,
+      "sha256": "35199f17baccb4373d51d5d09a0450b809294a7bef890d3e05bdd8385f3359ce"
+    },
+    "B02_source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-review/ASSESSMENT.md",
+      "bytes": 5567,
+      "sha256": "da69bf664d086070df58a3a5fc147d2d795f4687dd6cb22bad5ef9ac5d5fb134"
+    },
+    "B02_source_evidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-review/EVIDENCE.json",
+      "bytes": 10471,
+      "sha256": "73c08bff8e0790cfdd0c9cc32e79ac3536d82c9b6724315269768d4c9b7c9fd7"
+    },
+    "source_inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+      "bytes": 295433,
+      "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+    },
+    "conservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+      "bytes": 6141,
+      "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/READY.json",
+      "bytes": 20752,
+      "sha256": "4a4efef760649ad5fe26e146c88141cee3de2d6789824c3f8408986e1c8f2079"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/BINDING.json",
+      "bytes": 14125,
+      "sha256": "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a"
+    },
+    "controls": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/CONTROLS.json",
+      "bytes": 21010,
+      "sha256": "71b21d2b528482397ce2e9fcaf1ad6d8703c20deacc54bf1ca7e908adab767aa"
+    },
+    "driver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py",
+      "bytes": 17434,
+      "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+    },
+    "admission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_EXECUTION_ADMISSION.json",
+      "bytes": 3515,
+      "sha256": "95e44862c5000fa0dab4cc19245df55d83e286b58b5a923f27cf3b504815141a"
+    },
+    "campaign": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/CAMPAIGN_RETURN.json",
+      "bytes": 803,
+      "sha256": "257d747bbb4b3db3ae9e7346a33957b43c228216dfb860a238968c1f6dd2e974"
+    },
+    "command": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/COMMAND_RETURN.json",
+      "bytes": 1329,
+      "sha256": "82ca582d8ff932d6fefdfc64718c9cea4f73e545b0301614945ec3f430f836d6"
+    },
+    "unit": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/UNIT_RETURN.json",
+      "bytes": 502148,
+      "sha256": "26788f385c6994442727d5ef6899a23025713fdacb601d1a7eb2ec196ad2097e"
+    },
+    "final": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/FINAL_RETURN.json",
+      "bytes": 526054,
+      "sha256": "ed678ce29eabb944dff1504f7624729ea01c8e4619203ad14415e59ea3cfe155"
+    },
+    "stdout": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/stdout.log",
+      "bytes": 221512,
+      "sha256": "f5d609dd5ab05eecfe94c80fb4e867228c5aa50126feed9c03c113e1be8ac816"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "launch": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/LAUNCH.json",
+      "bytes": 1935,
+      "sha256": "11c3c9436119322df6c17ef0b10839070c97f14b862a378c4d300e6e0a6a961e"
+    },
+    "environment": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/ENVIRONMENT.json",
+      "bytes": 1342,
+      "sha256": "ebe3a2ba55f25b51595335354734de16127f14216c8e479922c3b061f2b551e5"
+    },
+    "command_postguards": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/POSTGUARDS.json",
+      "bytes": 353,
+      "sha256": "0ffdcbad9221209cfa11684ffdc354f39861928ece6d0ce0cdc081516bdc3149"
+    },
+    "operator_postguards": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/POSTGUARDS.json",
+      "bytes": 712,
+      "sha256": "d42b052fff905b1f53d15113b58b0d0724ec13106fe0dcf69bdf02b971a1ac94"
+    },
+    "physical_closure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PHYSICAL_CLOSURE.json",
+      "bytes": 8292,
+      "sha256": "5f3b05b6bd2262bc5158da1e1c2e1b6372af5898222164a64d055320667046e1"
+    },
+    "operator_return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/EXECUTION_RETURN.json",
+      "bytes": 9302,
+      "sha256": "6e8e323d39103eaa71bc33df08f3a6a59f70eac5651f6919a61d743e39872ff0"
+    },
+    "unit02_red": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/EXECUTION_RETURN.json",
+      "bytes": 4247,
+      "sha256": "c9adc0cb0e19bd79fae9b81485051b50b646f4cffe523a9afda9699d6268beac"
+    },
+    "original_failed_campaign": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/EXECUTION_RETURN.json",
+      "bytes": 7937,
+      "sha256": "615c6c3f8b150bf74ee09b66e9e9b4d6356c4ebe122745aafe3b4c876aa4fb21"
+    },
+    "cache_custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PYC_CUSTODY_RETURN.json",
+      "bytes": 1878,
+      "sha256": "229bd45d0f22e24e131d9d4429afe10b560aad47998e9b47e411ccf1aa0c742d"
+    },
+    "native_custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/SOURCE_CUSTODY.json",
+      "bytes": 8554,
+      "sha256": "e181e0f732e951109277c7354e330a410f11b53cb3ed4540d13e1e70d9be786a"
+    }
+  },
+  "unit": {
+    "counts": {
+      "tests": 102,
+      "pass": 96,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 6,
+      "todo": 0
+    },
+    "names": [
+      "native whole-Program validator accepts exactly prepare plus nested C2, with no historical call rights",
+      "native validator rejects crossed raw/output and child closure; exact declaration owner refuses extra calls",
+      "closed Product carriers preserve all controlled supplied source observations; no fabricated cover qualifies native currentness",
+      "explicit zero write territory survives C1 and forward cold carrier round-trip without adding rights",
+      "missing reordered duplicate changed or crossed retained members refuse at real Product constructor",
+      "a sparse retained bindingCoverEventRefs throws at the real Product constructor; the dense control constructs",
+      "the forward constructors admit their three array inputs at ingress: a one-hole vector throws; the dense controls validate and round-trip",
+      "real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm",
+      "raw namespaces, attempt/task/artifact and actor/tool mismatches remain refused",
+      "step and terminal predicates preserve honest command failure but reject incomplete or crossed final carriers",
+      "synthetic current native lookup maps all controlled retained C0 owners only under exact witness",
+      "synthetic cover wrong direction, scope, missing member and unrelated origin refuse in unchanged native owners",
+      "synthetic workflow alias does not add a C0 owner; distinct same-value producer is ambiguity",
+      "synthetic later cross-W post-publication failure invalidates the old subject alias without fabricating O1",
+      "synthetic current-prefix consumption refuses another exact producer, unresolved admission and ignores unrelated scope",
+      "canonical native entry and occurrence owners refuse same-Run transfer, standalone task, foreign GF and missing native basis",
+      "M5 GTL exposes exactly seven direct C constructors",
+      "M5 C.compose is canonical, flat, and identity-eliding",
+      "M5 GraphFunction composition preserves exact left and right identity",
+      "M5 GraphFunction promotion preserves topology and semantic truth",
+      "M5 native constructors refuse invalid batch, retry, and F_H realization",
+      "M5 native GTL constructs all ten graph relations with derived identities",
+      "M5 same-object relation is one validator-owned canonical identity witness",
+      "M5 closure validation distinguishes run and child GraphCall scope",
+      "M5 whole-program validation admits exact recursion law and refuses its substitutes",
+      "M5 whole-program validation binds gate law to published Rule and Evaluator declarations",
+      "M5 fan-out materialization derives one exact task per admitted input member",
+      "M5 fan-out and fan-in outer contracts equal their declared vectors",
+      "M5 native GraphFunction composition materializes source GTL without a second executable carrier",
+      "M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL",
+      "M5 whole-program validation refuses forged or widened graph-edge declarations",
+      "M5 raw admission and validator reject invented or contradictory C data",
+      "M4 independently authored data fixture remains one valid direct C.of Program",
+      "M5 whole-root validation keeps F_H interaction keys out of executable resolution",
+      "M5 resolves and independently validates the complete executable root set",
+      "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "TD-14: Rule.config is admitted at its parse; an unsafe integer or a lone surrogate is refused",
+      "M5 B-001 preserves lane-owned Claude execution posture",
+      "M5 native report keeps its original host schema presentation",
+      "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+      "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+      "M5 B-001 bounds append arguments for all four transport contracts",
+      "M5 B-001 gives agent-specific sandbox binding precedence",
+      "M5 transport identity changes with parser and prompt-delivery semantics",
+      "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+      "M5 Bash tool identity ignores only optional string description metadata",
+      "M5 B-001 rejects tool activity only in the closed-prompt lane",
+      "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+      "M5 selected result text cannot admit a valid file without its final carrier",
+      "M5 actual owner, controlled clock: a true acknowledgement renews inactivity and the timeout cutoff excludes later semantic bytes",
+      "M5 actual owner, controlled clock: a false acknowledgement never renews inactivity",
+      "M5 actual owner, controlled clock: continuous true acknowledgements never renew the absolute deadline",
+      "M5 actual owner, controlled clock: descendant bytes after direct exit reach the closed-capture branch and stay outside raw and semantic output",
+      "M5 actual owner, controlled clock: identical ordered progress gives one outcome under split and coalesced capture",
+      "M5 actual owner, controlled clock: the progress completion instant is the capture that completes the ordered record under every split, and incomplete completion has none",
+      "M5 actual owner, controlled clock: a rejected drive retains its available trace without awaiting the pending owner and rethrows the identical failure",
+      "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "M5 ABG transport renews its inactivity lease only from observed progress",
+      "M5 ABG transport does not renew from unacknowledged output",
+      "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+      "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+      "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+      "TD-11: the incremental tool projection equals the head projection at every cut",
+      "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+      "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+      "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+      "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+      "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+      "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+      "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+      "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+      "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+      "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization",
+      "RC9 OWN-01: owner folds over immutable rows and bytes are reused within their territory; changed, copied, earlier and cold inputs keep their checks and refusals",
+      "ordinary native runtime declaration passes the existing raw/Program owner",
+      "native source joins and cloned judgment retain their actual assessment; no owning adapter",
+      "caller-editable qualification owner views cannot mutate retained input authority; warm and cold agree",
+      "declared wrong value computes red; foreign law, changed installed subject, stale frontier and result substitute refuse",
+      "same-valued duplicate witness after assessment invalidates current consumption; supplied prefix substitution refuses",
+      "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation",
+      "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+      "native revision complete publication admits unique carriers and retains the exact factory graph",
+      "native revision installed descriptor loader discovers every declared leaf through module exports",
+      "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+      "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring",
+      "atomic_call: actual assessment owner remains evidence; no duplicate result leaf",
+      "flat_composition: actual assessment owner remains evidence; no duplicate result leaf",
+      "edge_program: actual assessment owner remains evidence; no duplicate result leaf",
+      "flat_composition: finite declaration passes actual raw/Program validation",
+      "edge_program: finite declaration passes actual raw/Program validation",
+      "same final value does not hide a missing first step, wrong composition or foreign Result",
+      "order, value chain, declared coverage and intermediate expectations remain material",
+      "edge: the same final value cannot replace declared kind, role order or intermediate provenance",
+      "edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red",
+      "RC8 REF-01: constructed canonical calls and setup Catalog/view reach the run owner by reference from the first call; canonical outputs, refusals and copies keep their admission"
+    ],
+    "skippedNames": [
+      "M5 resolves and independently validates the complete executable root set",
+      "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings"
+    ],
+    "m5Names": [
+      "M5 B-001 preserves lane-owned Claude execution posture",
+      "M5 native report keeps its original host schema presentation",
+      "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+      "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+      "M5 B-001 bounds append arguments for all four transport contracts",
+      "M5 B-001 gives agent-specific sandbox binding precedence",
+      "M5 transport identity changes with parser and prompt-delivery semantics",
+      "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+      "M5 Bash tool identity ignores only optional string description metadata",
+      "M5 B-001 rejects tool activity only in the closed-prompt lane",
+      "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+      "M5 selected result text cannot admit a valid file without its final carrier",
+      "M5 actual owner, controlled clock: a true acknowledgement renews inactivity and the timeout cutoff excludes later semantic bytes",
+      "M5 actual owner, controlled clock: a false acknowledgement never renews inactivity",
+      "M5 actual owner, controlled clock: continuous true acknowledgements never renew the absolute deadline",
+      "M5 actual owner, controlled clock: descendant bytes after direct exit reach the closed-capture branch and stay outside raw and semantic output",
+      "M5 actual owner, controlled clock: identical ordered progress gives one outcome under split and coalesced capture",
+      "M5 actual owner, controlled clock: the progress completion instant is the capture that completes the ordered record under every split, and incomplete completion has none",
+      "M5 actual owner, controlled clock: a rejected drive retains its available trace without awaiting the pending owner and rethrows the identical failure",
+      "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "M5 ABG transport renews its inactivity lease only from observed progress",
+      "M5 ABG transport does not renew from unacknowledged output",
+      "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+      "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+      "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+      "TD-11: the incremental tool projection equals the head projection at every cut",
+      "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+      "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+      "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+      "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+      "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+      "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+      "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+      "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+      "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+      "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization"
+    ],
+    "evidenceCaseIds": [
+      "controlled-absolute",
+      "controlled-completion-coalesced",
+      "controlled-completion-coalescedSplit",
+      "controlled-completion-eachByte",
+      "controlled-completion-intact",
+      "controlled-completion-missing",
+      "controlled-completion-split1",
+      "controlled-completion-split2",
+      "controlled-completion-split3",
+      "controlled-completion-split4",
+      "controlled-completion-split5",
+      "controlled-completion-split6",
+      "controlled-completion-split7",
+      "controlled-completion-split8",
+      "controlled-completion-unterminated",
+      "controlled-drive-rejected",
+      "controlled-false-ack",
+      "controlled-partition-fourScheduled",
+      "controlled-partition-oneCoalesced",
+      "controlled-partition-recordByRecord",
+      "controlled-partition-splitEachByte",
+      "controlled-post-exit",
+      "controlled-true-ack",
+      "owned-group-command-TERM",
+      "owned-group-command-normal",
+      "owned-group-http-TERM",
+      "owned-group-http-normal",
+      "owned-group-worker-TERM",
+      "owned-group-worker-normal",
+      "post-exit-output",
+      "post-timeout-output",
+      "progress-lease",
+      "resistant-worker",
+      "unacknowledged-output"
+    ],
+    "evidencePins": [
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-absolute--23627.json",
+        "bytes": 2879,
+        "sha256": "a89f98cae5266dfa827dd1de24d8308f16cb7d6e2e9a08208f31e25be5d0b7d0"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-coalesced--23627.json",
+        "bytes": 2861,
+        "sha256": "ad23d30c1ae33a7cb17b4c5d537dc670fa13bdbfe9f2742221b826433d5d0463"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-coalescedSplit--23627.json",
+        "bytes": 2956,
+        "sha256": "6e9f284f4db8e4706ab187e97dc475a330f9f9d4a6e23d6e915d4dd1dfeeb5fd"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-eachByte--23627.json",
+        "bytes": 3210,
+        "sha256": "2dbb6891bdb3e14443580182d854c59231304043729ae8e9d569efe09da2c6ac"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-intact--23627.json",
+        "bytes": 2868,
+        "sha256": "f134e276b0fbe3bb6d7c41c207eb96e8f58c43e35e51612bc599ac58b2f2f446"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-missing--23627.json",
+        "bytes": 2799,
+        "sha256": "4b3603ff91098bcad41e031746ba72fda743e942f65fc58c5b99b648c423356d"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-split1--23627.json",
+        "bytes": 2908,
+        "sha256": "b20d37b6f9dfd2c14110dd7f1c17c016f3155ba1a7d5d67744061758b2bdfae9"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-split2--23627.json",
+        "bytes": 2908,
+        "sha256": "f276f09779a8e0914d34cac2a3a7e19f5dfc02754ef6eee445df06043a3d7367"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-split3--23627.json",
+        "bytes": 2908,
+        "sha256": "a3d369db0315dd265a1b7c5a45d7215482e41a41214fe846561d2b26a446dd71"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-split4--23627.json",
+        "bytes": 2908,
+        "sha256": "be061daaacfb635b784d03da653b7cff45e43ca665d83dd70670ed37978d8869"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-split5--23627.json",
+        "bytes": 2908,
+        "sha256": "4dde56f88c91a29813e96e26381d5bfbdb370d6b499f9fcc49a8d9306fde3297"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-split6--23627.json",
+        "bytes": 2908,
+        "sha256": "62c19a9ccbdf295c94a0d1ff34948147f231d6e81058de67c8bd640b960636a7"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-split7--23627.json",
+        "bytes": 2908,
+        "sha256": "21fdfebb9906fa6237c9957a541f327ffe561fb532e886e533b34a7077688d03"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-split8--23627.json",
+        "bytes": 2908,
+        "sha256": "12d12e98e97eb0c9247740ecc5f10ba4611896e0b3704e08e79789978d0715d9"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-completion-unterminated--23627.json",
+        "bytes": 2926,
+        "sha256": "067a9e473d4ae9b039bfe89e7c7e36ecb209b30b16f2c4388cd6a95e99c91120"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-drive-rejected--23627.json",
+        "bytes": 1563,
+        "sha256": "7a39eec86e4d94d0d29da8d62771c6c4448d8b7db7b61c9c0ca8335090c8fa61"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-false-ack--23627.json",
+        "bytes": 2804,
+        "sha256": "ac5dc7928875b989173d037f8eaddaf80be524d97a21890cb1e900641e17e2ff"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-partition-fourScheduled--23627.json",
+        "bytes": 3038,
+        "sha256": "1bcc2e1fd857ca9e349c059f62ece5562de5388f182ffedb234edeb18c31af05"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-partition-oneCoalesced--23627.json",
+        "bytes": 2910,
+        "sha256": "ba3959fe894cc6c3750da6498209f9c12993d43eddd80f9abe63bf3029bb9807"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-partition-recordByRecord--23627.json",
+        "bytes": 3205,
+        "sha256": "16d320791328042bc4693682ac520e5b4b7606a3e4e063bb0541737b829495fd"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-partition-splitEachByte--23627.json",
+        "bytes": 6314,
+        "sha256": "27a417422ccee1375ad95318220164d72d240e5ca6cb9402fcf1974f292d39b2"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-post-exit--23627.json",
+        "bytes": 2539,
+        "sha256": "356f210346eb221295a33c6b8e52f1e2f109695b07785ca1b4f727bcb424f943"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--controlled-true-ack--23627.json",
+        "bytes": 2668,
+        "sha256": "9adc518668b7200be7d72209ffb446fa5a75c4cbee4a35c183e90f2ceed5c1e9"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-command-TERM--23627.json",
+        "bytes": 1698,
+        "sha256": "b1f6624521462e59a27876bb343e4a42e21228e4b4bcd576069bd8454b59ced9"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-command-normal--23627.json",
+        "bytes": 1698,
+        "sha256": "2022dd985e3faa9009d030beae248b8eabb30982ddaba43b89c644813445f21d"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-http-TERM--23627.json",
+        "bytes": 1245,
+        "sha256": "7d554ba27b9755d1cd07588bb475f9bf074880f0f8a8d9fac2e429878d1ce68c"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-http-normal--23627.json",
+        "bytes": 1623,
+        "sha256": "198aa9983d35d574f49e9296919e51437f74e7ab4bd0bd9be7baea53f107ed19"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-worker-TERM--23627.json",
+        "bytes": 4917,
+        "sha256": "0f88c557be94ed306cbb5521b6c3a64772083cfb4f3bf5c97511e77d6ab8603e"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-worker-normal--23627.json",
+        "bytes": 4857,
+        "sha256": "d0caf8eecdd81c8030c9ceaa218bd0c2daae5d72042c28663d471357c7331450"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--post-exit-output--23627.json",
+        "bytes": 5442,
+        "sha256": "364d91ff2710332405d12ca2dc114e7353b1cb909d4016a1d2513a947f0e1292"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--post-timeout-output--23627.json",
+        "bytes": 5805,
+        "sha256": "a869b834bee43ee761b6867b006f7ce8fc64ddfd4883ed81697600b2656f5f74"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--progress-lease--23627.json",
+        "bytes": 15252,
+        "sha256": "b18d5eab35f63433f95f9ff1daae3894c2f1676de753c3240a11af552d96bdc4"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--resistant-worker--23627.json",
+        "bytes": 27669,
+        "sha256": "ec3f466e3c1d2860d40a05f1ed9476613428e59629cc5c9d114e91a8b8b63b94"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--unacknowledged-output--23627.json",
+        "bytes": 33922,
+        "sha256": "f2ea40aecc35c577bbb5336734c6bc57fbc3d9fb67d3054963c9008143a469ee"
+      }
+    ],
+    "rawDiagnosticFileEquality": true,
+    "allSixGroupRows": [
+      {
+        "caseId": "owned-group-command-TERM",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-command-TERM--23627.json",
+          "bytes": 1698,
+          "sha256": "b1f6624521462e59a27876bb343e4a42e21228e4b4bcd576069bd8454b59ced9"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-command-normal",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-command-normal--23627.json",
+          "bytes": 1698,
+          "sha256": "2022dd985e3faa9009d030beae248b8eabb30982ddaba43b89c644813445f21d"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-http-TERM",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-http-TERM--23627.json",
+          "bytes": 1245,
+          "sha256": "7d554ba27b9755d1cd07588bb475f9bf074880f0f8a8d9fac2e429878d1ce68c"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-http-normal",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-http-normal--23627.json",
+          "bytes": 1623,
+          "sha256": "198aa9983d35d574f49e9296919e51437f74e7ab4bd0bd9be7baea53f107ed19"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-worker-TERM",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-worker-TERM--23627.json",
+          "bytes": 4917,
+          "sha256": "0f88c557be94ed306cbb5521b6c3a64772083cfb4f3bf5c97511e77d6ab8603e"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      },
+      {
+        "caseId": "owned-group-worker-normal",
+        "evidence": {
+          "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-worker-normal--23627.json",
+          "bytes": 4857,
+          "sha256": "d0caf8eecdd81c8030c9ceaa218bd0c2daae5d72042c28663d471357c7331450"
+        },
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "groupPresent": false,
+        "descendantPresent": false,
+        "failure": null
+      }
+    ],
+    "httpNormal": {
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/unit/evidence/m5-worker-transport--owned-group-http-normal--23627.json",
+        "bytes": 1623,
+        "sha256": "198aa9983d35d574f49e9296919e51437f74e7ab4bd0bd9be7baea53f107ed19"
+      },
+      "fixture": [
+        {
+          "event": "port-published",
+          "port": 63145
+        },
+        {
+          "event": "request-received",
+          "method": "GET",
+          "url": "/",
+          "localPort": 63145
+        },
+        {
+          "event": "response-write-attempt",
+          "bytes": 11
+        },
+        {
+          "event": "response-finished"
+        },
+        {
+          "event": "exit-intention",
+          "status": 0
+        }
+      ],
+      "port": {
+        "relativePath": "http-normal.port",
+        "port": 63145,
+        "state": "observed",
+        "issue": null,
+        "byteLength": 5,
+        "digest": "sha256:0a0330b6cc6ac56e67075cb3f6de00b3ef03c518da330ab09666a22da31ac861"
+      },
+      "request": {
+        "hostname": "127.0.0.1",
+        "port": 63145,
+        "method": "GET",
+        "path": "/",
+        "timeoutMs": 10505
+      },
+      "response": {
+        "status": 200,
+        "body": "actual-http",
+        "bodyDigest": "sha256:e5ab4333bf8dcadb488fa653be055c239888ce705142af82536e39db927c44d0",
+        "byteLength": 11
+      },
+      "exitStatus": 0,
+      "timedOut": false,
+      "signals": [
+        "SIGTERM",
+        "SIGKILL"
+      ],
+      "groupPresent": false,
+      "descendantPresent": false
+    },
+    "elapsed": {
+      "commandSeconds": 151.25906941713765,
+      "campaignSeconds": 155.69187820795923
+    },
+    "noExternalCleanupSignalsOrLimits": true
+  },
+  "independentConservation": {
+    "sourceRows": 1345,
+    "sourceRoots": [
+      "frozen",
+      "live",
+      "staged"
+    ],
+    "workGeneratedDeltas": 2,
+    "compiledRows": 998,
+    "dependencyRowsEach": 4576,
+    "dependencyMetadataRowsEach": 500,
+    "npmRows": 2326,
+    "archiveMembers": 5329,
+    "archivePayloadBytes": 71868011,
+    "bootstrapExact": true,
+    "preservationPins": 13,
+    "allExact": true,
+    "gitHeadObservation": "closed operator postguards; no reviewer Git execution",
+    "A_bridgeStateBytesExact": true
+  },
+  "physicalRecheck": {
+    "observedUtc": "2026-11-10T04:56:37.779341+00:00",
+    "pidProvenanceExact": true,
+    "absentDirectPidsAndSameNumberGroups": [
+      23654,
+      24071,
+      24197,
+      24198,
+      24199,
+      24200,
+      24586,
+      24587,
+      24588,
+      24589,
+      24861,
+      24862,
+      24877,
+      24878,
+      25265,
+      25266
+    ],
+    "absentOwnedDriverUnitGroups": [
+      23575,
+      23599
+    ],
+    "cleanupPerformed": false,
+    "limit": "Identified physical subjects only, not universal descendant absence or invented same-number group ownership."
+  },
+  "coverageAccounting": "M5 39 and six group rows are subsets of this one unit102; B6 overlaps retained lifetime34. No added aggregate distinct-test count. Accepted A and retained B results remain separate.",
+  "preservedLimits": [
+    "six exact historical skips",
+    "RC11-LIFETIME-REENTRANT-BOUND-001",
+    "RC11-OWNER-FACT-REUSE-PROOF-001",
+    "finite synthetic pending-descriptor fixture",
+    "constructor/refused-input domain",
+    "bounded combined-Cause diagnostic seam",
+    "private adapter/module-origin scope",
+    "metadata-bound packaging; no cross-environment reproducibility",
+    "request-before-exit scope; no universal response delivery/atomic port publication",
+    "native timeouts/reds and unauthorized read-only Git deviation",
+    "operator cache deviation archived and removed",
+    "original campaign failure/unauthorized continuation and unit02 red preserved",
+    "no whole5.0/S7/installed qualification/release/install/performance/net-deletion claim"
+  ],
+  "reviewerEffects": [
+    "read/hash",
+    "presence-only probes",
+    "two report writes"
+  ],
+  "reviewerProductExecution": false,
+  "reviewerRepair": false,
+  "qualification": false,
+  "invalidation": "Changed source, bound input, authority or selected proof population requires Root re-entry for affected relation."
+}

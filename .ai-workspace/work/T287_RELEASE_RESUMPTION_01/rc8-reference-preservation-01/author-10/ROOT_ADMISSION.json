@@ -1,0 +1,61 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "at": "2026-11-07T10:33:08.611952+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "bindingSha256": "515454ce00f04ff846ec89aeb61053e7c15b3727ece804628bc78886da70a2a0",
+  "preparedSha256": "7ad1a9791366c4f6470593d65cf2f5044fb95de9ab7487292624c1c498403deb",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/runtime-001/PREPARED.json",
+    "bytes": 6170,
+    "sha256": "7ad1a9791366c4f6470593d65cf2f5044fb95de9ab7487292624c1c498403deb"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/CONTROL_FREEZE.json",
+      "bytes": 3192,
+      "sha256": "9f79bf927b34523822f3ca4b7bbce357fb110bea03f6938e6e7559393ba6a6bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/PREPARATION.json",
+      "bytes": 8154,
+      "sha256": "0723feeced1303f42a0b9b84b195ce8a6955d20f8b118d3bba72ce4749731db0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SCOPE.json",
+      "bytes": 5681,
+      "sha256": "47cc041d88ab63eabe3ee626d769cdd11e5d4c48ad35405758e74d3b830cff63"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/TASK.json",
+      "bytes": 6443,
+      "sha256": "a841aa2e6759ce1bb51b2661046b82ef698d0e97f2507a7cce76d93966f5d60f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/host.mjs",
+      "bytes": 12242,
+      "sha256": "18ef2690651d61f1db06611e550f103165df3e1db59824794ea944d120023c21"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof.mjs",
+      "bytes": 10756,
+      "sha256": "3621498d181971d2b199a43cb61acedbdfac2667802c01b1e72232abc8be72b6"
+    }
+  ],
+  "priorSourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 3382,
+    "sha256": "5adb7f3484eee3463effd152a96abf2a6d01fb22253f8a0c0b7eece7a2b97991"
+  },
+  "disposition": "Root read exact controls/diffs/full PREPARED and admits one A10 lifecycle call on existing held PID99050/PTY74896. Genuine A9 close and source match; no reprepare or second native Worker.",
+  "scope": "Only t287-owned-process-lifetime.test.mjs plus author10 progress: prepared archive premise and pre-assertion diagnostics, all original timers/oracles/assertions retained. One freeze, one whole18-case proof, zero builds.",
+  "bounds": {
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "proofCommands": 1,
+    "proofTimeoutMs": 600000,
+    "expectedPassed": 18,
+    "expectedSkipped": 0
+  },
+  "standing": "Stop first red/incomplete/bound/expanded scope; no automatic repair/retry, Product edits, provider duplication, Git/cut/install/selectors/cleanup. A8 failed Run and pending cumulative SAS proof remain separate."
+}

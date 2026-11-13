@@ -1,0 +1,150 @@
+{
+  "status": "BOUNDED_SOURCE_INPUT_CENSUS_PREPARATION_ONLY",
+  "recordedUtc": "2026-11-07T08:07:58.746273+00:00",
+  "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "inputInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-008/BOUND_INVENTORY.json",
+    "bytes": 1832991,
+    "sha256": "5e267b568e8f27534690cb2c7ea31eff1b3a3e05afbf058aa616a10413c548b8"
+  },
+  "stoppedExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_007.json",
+    "bytes": 11764,
+    "sha256": "066be65ba0227e11b6c66fe489399af237319cc06fdba5a6fc634eade071de57"
+  },
+  "remainingSelection": "Inventory208files minus81 previously bound whole-file credits minus execution007 frontier-handoff complete file; failed HC1 remains included.",
+  "remainingFiles": 126,
+  "remainingFileListSha256": "fb48eed44d9a9277685c2ea962d63e6cd273809b11cb55f23e6601b4aa6f8e47",
+  "reachableLocalMjsSupportFixtureFiles": 72,
+  "filesWithEnvironmentReferences": 105,
+  "distinctLiteralEnvironmentNames": 223,
+  "method": "Read-only search of exact remaining tests and their relative local .mjs import closure for process.env, required assertions, external file reads and guards; inspected unconditional consumers and conditional/default branches. No proof execution, no new harness, no optional-lane activation.",
+  "mandatoryExternalInputsFound": [
+    {
+      "testFile": "test_env/tests/t287-framework-handoff-types.test.mjs",
+      "environmentVariable": "ABI5_HC1_BASELINE_PACKAGE_PATH",
+      "archive": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc4-hc1-baseline-014/b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db.tgz",
+        "bytes": 10957749,
+        "sha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db"
+      },
+      "testSource": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+        "bytes": 23654,
+        "sha256": "a3850322cc233c9bb8821ba99bbe92eee4b9cb31923d354798a465eb701d23b3"
+      },
+      "carrier": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/REVIEW_RECEIPT.json",
+        "bytes": 10907,
+        "sha256": "63582ec5044f3f0ba291b3abcbd33546c6f4be48e68d7e9d0ace85c23f1fbb56"
+      },
+      "standing": "Root selected this exact existing historical archive by read-only path, no copy/substitution. All original per-slot schema assertions remain; intentional schema drift is not waived."
+    },
+    {
+      "testFile": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "environmentVariable": "ABI5_CONSOLIDATION_INPUTS",
+      "root": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10",
+      "resources": {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json",
+        "bytes": 6147,
+        "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+      },
+      "baseline": {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+        "bytes": 5575,
+        "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+      },
+      "eventLog": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+        "bytes": 586361364,
+        "sha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c"
+      },
+      "testSource": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "bytes": 123504,
+        "sha256": "87b241a825aa1a4c9050e89e9f1f05a44d603baf542daacfb58243faef07f2ae"
+      },
+      "supportSource": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+        "bytes": 29332,
+        "sha256": "5ae58446ee3139f81d1503864d2e404c0aaa18c807f1d203cfeff2639cca74e7"
+      },
+      "existingSelectionCarrier": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+        "bytes": 2492,
+        "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+      },
+      "standing": "Required unconditional historical read-only resource/context input. Existing current-owner equality/performance assertions remain. No event import/relabel/reopen/append, baseline replacement or old package equivalence claim. Root concrete input selection pending."
+    }
+  ],
+  "otherInputStanding": [
+    {
+      "class": "optional historical/evidence inputs",
+      "examples": [
+        "ABI5_EVIDENCE_ROOT",
+        "ABI5_PREFIX_REUSE_OBSERVATIONS",
+        "ABI5_GENERIC_JOB_* retained roots",
+        "ABI5_RETAINED_CONSUMER_CONFIG",
+        "ABI5_ENV_* pilot roots"
+      ],
+      "evidence": [
+        "support/evidence-root.mjs:19-32 returns absent/skip without root",
+        "support/stdo-environment-pilot.mjs:164-166 returns pilot skip",
+        "tests/t287-retained-installed-consumer.test.mjs:11-17 gates before reading"
+      ],
+      "selection": "remain unset; explicit skips retain their standing"
+    },
+    {
+      "class": "provider or integration opt-ins",
+      "examples": [
+        "ABI5_T287_C1_LIVE",
+        "ABI5_GENERIC_JOB_FULL_NATIVE",
+        "ABI5_GENERIC_JOB_CORRECTION_NATIVE",
+        "ABI5_NATIVE_SELECTION_LIVE",
+        "ABI5_RECURSIVE_SELECTION_LIVE",
+        "ABI5_STEEL03_RUN_LIVE",
+        "ABI5_STEEL04_RUN_LIVE",
+        "ABI5_FRAME_EXECUTION_GRANT"
+      ],
+      "selection": "not enabled; current explicit provider-disabled environment remains"
+    },
+    {
+      "class": "local defaults and output overrides",
+      "examples": [
+        "ABG_FRAMEWORK_HANDOFF_* candidate overrides",
+        "ABI5_GTL_GRAPH_OWNER_CORE",
+        "ABI5_CONTEXT_PROOF_ROOT",
+        "ABI5_INSTALL_BODY_PROOF_ROOT",
+        "ABI5_UAT_UNIT_ROOT"
+      ],
+      "evidence": [
+        "framework-handoff-types:126-138 defaults to fresh npm pack of derived tenant",
+        "management-context:326-330 owns local temporary fixture by default",
+        "root-installed-environment:30-42 defaults to ordinary setup when all frozen selectors absent"
+      ],
+      "selection": "existing derived tree/short scratch and fixed tool/dependency inventory; no extra external input"
+    },
+    {
+      "class": "controlled or negative inputs",
+      "examples": [
+        "ABG_TS_CLAUDE_COMMAND and timeout variables set/restored by controlled fixtures",
+        "ABG_GOVERNED_CONTEXT_* generated actor script channels",
+        "ABI5_WAVE1_FROZEN_ARTIFACT_PATH/HOST/SHA256 absence in selected-action:223"
+      ],
+      "selection": "do not globally enable or normalize; preserve test-owned negative/controlled semantics"
+    }
+  ],
+  "additionalMandatoryExternalInputsFound": false,
+  "limits": "This is a bounded source-input census, not execution success or an all-library audit. Existing tracked/generated fixture trees and tool/dependency inputs are already frozen by the bound inventory. Optional evidence remains missing coverage; tests may reveal semantic or compatibility failures after the exact required inputs are supplied.",
+  "effects": {
+    "testsExecuted": 0,
+    "sourceWrites": 0,
+    "providerCalls": 0,
+    "externalCopies": 0
+  }
+}

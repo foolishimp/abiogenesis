@@ -1,0 +1,7 @@
+{
+  "kind": "operator_public_reads_only",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "manifestSha256": "221e45698a149a55d1ab390980518689864a57af76e607d928efa2eb8b62d9b3",
+  "RunAdmissions": 0,
+  "providerCalls": 0
+}

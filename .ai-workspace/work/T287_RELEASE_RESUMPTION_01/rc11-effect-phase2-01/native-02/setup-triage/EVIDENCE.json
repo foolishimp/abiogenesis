@@ -1,0 +1,78 @@
+{
+  "kind": "independent_setup_stdin_control_triage",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "standing": "confirmed bounded control-only cause; no native dispatch; successor admission reserved to Root",
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/READY.r02.json",
+      "bytes": 7654,
+      "sha256": "43c9c52aea5d58f69c77c2e4f38bc67b685f07a4f81139de224e60a0db562244"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/BINDING.r02.json",
+      "bytes": 19443,
+      "sha256": "94c63e2a3034b0c5db668da725cbd0960cf40eab6cce2452a50aac7690c4142b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/PRESERVATION_GUARDS.json",
+      "bytes": 3317,
+      "sha256": "6913ad226439cd28b7f8b534a46881da5d92678245e27b7cd57770f063d70608"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/SETUP_RETURN.json",
+      "bytes": 4058,
+      "sha256": "d2ba93e6980d5171b15b2fe195f74784a674b5a2d9d6029bab9bd16dedb5fed7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/host.mjs",
+      "bytes": 15522,
+      "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/LAUNCH.json",
+      "bytes": 944,
+      "sha256": "227752358d0f1bd76d57096197a00d7dbc5f27114742fbfe385c0d2312e99db2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/runtime-001/PREPARED.json",
+      "bytes": 6764,
+      "sha256": "92ebc682e8dd7bea3c6caa0fdecea3b63ac8018629dfe706468088bd1394d1b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/runtime-001/FAILURE.json",
+      "bytes": 1375,
+      "sha256": "38656383fdae13a65d47d2d57aee11f128c26a9f4882185e217d66904c3728db"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/runtime-001/FINAL.json",
+      "bytes": 1743,
+      "sha256": "4f72833fbf7a0ad2787176fb1781367d50d07dd2f8acb525ea9df9b8f579d2b2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/runtime-001/resource-close.json",
+      "bytes": 2299,
+      "sha256": "95931a5d3dee87e7ba95f7827371ced8c60593f9c39c43d71da400d26424d9de"
+    }
+  ],
+  "actualLaunchControl": "python3 - <<'PY'\nimport json,os\np='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/LAUNCH.json'\na=json.load(open(p))['argv'];os.environ['GIT_OPTIONAL_LOCKS']='0';os.execv(a[0],a)\nPY",
+  "relations": {
+    "prepared_held_prefix_equals_physical_close_prefix": true,
+    "STARTED_absent": true,
+    "NATIVE_RETURN_absent": true,
+    "lifecycle_start_request_absent": true,
+    "provider_calls_recorded": 0,
+    "run_admissions_recorded": 0,
+    "source_rows_preserved_operator_record": 1344,
+    "source_digest_operator_record": "64afc834b8442a42b42663ecca5514e33832edc531e9f01f03c9eacb4b67098b",
+    "host_exit_operator_record": 1,
+    "pid_absent_operator_record": true
+  },
+  "causal_basis": "Recorded heredoc Python launcher consumes inherited fd 0; exec retains it; host EOF gate rejects before dispatch. No fd trace or reviewer reproduction.",
+  "minimum_repair": "Fresh sibling setup allocation; same Node/host/task/source; direct exec or python -c retaining PTY stdin; fresh exact PREPARED-bound admission; no old resource reuse.",
+  "no_product_or_git_execution": true,
+  "assessment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-triage/ASSESSMENT.md",
+    "bytes": 2770,
+    "sha256": "a8dfddf5279a86c2f68fa639e89d7452a10c727e0f17d585d59492cc7b5036bf"
+  }
+}

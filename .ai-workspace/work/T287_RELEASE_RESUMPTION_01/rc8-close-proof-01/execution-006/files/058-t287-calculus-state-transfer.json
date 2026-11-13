@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 260545.03749999998,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 8,
+    "failed": 0,
+    "passed": 8,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/events/058-t287-calculus-state-transfer.jsonl",
+    "bytes": 2237,
+    "sha256": "b05c2edd11badaf226a1ae64c4475efde471bf82a554c34c08f40f280305f781"
+  },
+  "commandReceipt": "commands/058-t287-calculus-state-transfer.result.json",
+  "workspace": "/private/tmp/abg-r8c-006/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

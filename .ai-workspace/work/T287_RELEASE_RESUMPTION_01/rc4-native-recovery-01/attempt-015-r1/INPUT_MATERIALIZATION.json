@@ -1,0 +1,85 @@
+{
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 237,
+        "sha256": "887e3eb89f2967a5b36f989b45466fc17e19db22a6fc3a2319d8f77d21adac30"
+      },
+      "target": "rc4-operator-inputs/native-recovery-15/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 237,
+      "sha256": "887e3eb89f2967a5b36f989b45466fc17e19db22a6fc3a2319d8f77d21adac30"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/task.DRAFT.md",
+        "bytes": 5166,
+        "sha256": "1cdf3ec83ece904abecae80952b4b6334ba00442e57ddd9c1a0a09094e755ff2"
+      },
+      "target": "rc4-operator-inputs/native-recovery-15/task.DRAFT.md",
+      "bytes": 5166,
+      "sha256": "1cdf3ec83ece904abecae80952b4b6334ba00442e57ddd9c1a0a09094e755ff2"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/rubric.DRAFT.json",
+        "bytes": 1126,
+        "sha256": "64d7e70a0a14e6d2b78a95cccdb31c82528accf15194ac686230da8feb7ec19f"
+      },
+      "target": "rc4-operator-inputs/native-recovery-15/rubric.DRAFT.json",
+      "bytes": 1126,
+      "sha256": "64d7e70a0a14e6d2b78a95cccdb31c82528accf15194ac686230da8feb7ec19f"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/NATIVE_GRANT.DRAFT.json",
+        "bytes": 24543,
+        "sha256": "903e7d22e0a44e9061be637cc4616ec57f60713049f538b0bb50d49a9a899036"
+      },
+      "target": "rc4-operator-inputs/native-recovery-15/NATIVE_GRANT.DRAFT.json",
+      "bytes": 24543,
+      "sha256": "903e7d22e0a44e9061be637cc4616ec57f60713049f538b0bb50d49a9a899036"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 379,
+        "sha256": "4d1e4455d4653dc19f9fba5e692a4d05668773d4606289df684e0b32d7912565"
+      },
+      "target": "rc4-operator-inputs/native-recovery-15/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 379,
+      "sha256": "4d1e4455d4653dc19f9fba5e692a4d05668773d4606289df684e0b32d7912565"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 1478,
+        "sha256": "ef3ac4b684110d7c5b0b78f8eb766ac565cc950f8516cfc1371091f7763273c7"
+      },
+      "target": "rc4-operator-inputs/native-recovery-15-r1/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 1478,
+      "sha256": "ef3ac4b684110d7c5b0b78f8eb766ac565cc950f8516cfc1371091f7763273c7"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015/readiness.py",
+        "bytes": 2570,
+        "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-15/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/readiness-inputs.json",
+        "bytes": 94168,
+        "sha256": "842543e2bb8fe0086b3a31a2487b1cc223396e97249c7ff63393361299a206c5"
+      },
+      "target": "rc4-operator-inputs/native-recovery-15-r1/readiness-inputs.json",
+      "bytes": 94168,
+      "sha256": "842543e2bb8fe0086b3a31a2487b1cc223396e97249c7ff63393361299a206c5"
+    }
+  ],
+  "meaning": "Only baseline locator and its readiness-root reference materialized in successor; other six immutable015 inputs reused."
+}

@@ -1,0 +1,1220 @@
+{
+  "at": "2026-11-08T17:37:19.100340+00:00",
+  "priorFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+  },
+  "currentFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "changedSourceRows": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+  ],
+  "unchangedSourceRows": 1339,
+  "materialIdentities": [
+    {
+      "relativePath": "test_env/tests/m5-worker-transport.test.mjs",
+      "prior": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 114763,
+        "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+      },
+      "current": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 114763,
+        "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+      },
+      "equal": true
+    },
+    {
+      "relativePath": "build/code/src/abg/worker_transport.js",
+      "prior": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+        "bytes": 43447,
+        "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+      },
+      "current": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+        "bytes": 43447,
+        "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+      },
+      "equal": true
+    },
+    {
+      "relativePath": "build/code/src/shared/owned_process_lifetime.js",
+      "prior": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 11604,
+        "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+      },
+      "current": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 11604,
+        "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+      },
+      "equal": true
+    },
+    {
+      "relativePath": "build/code/src/implementation/worksite_command_helper.js",
+      "prior": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js",
+        "bytes": 65333,
+        "sha256": "5f595d27a2731657a783055571f72554256f273876189a46dad97bd01879a241"
+      },
+      "current": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js",
+        "bytes": 65333,
+        "sha256": "5f595d27a2731657a783055571f72554256f273876189a46dad97bd01879a241"
+      },
+      "equal": true
+    },
+    {
+      "relativePath": "package.json",
+      "prior": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/work/build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10104,
+        "sha256": "b512d5c008500dcf8d2cbc70f174b1ed6186259aece7af982fc1427cf492d61a"
+      },
+      "current": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10104,
+        "sha256": "b512d5c008500dcf8d2cbc70f174b1ed6186259aece7af982fc1427cf492d61a"
+      },
+      "equal": true
+    },
+    {
+      "relativePath": "scripts/node-test-evidence-reporter.mjs",
+      "prior": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/work/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+        "bytes": 1514,
+        "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+      },
+      "current": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+        "bytes": 1514,
+        "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+      },
+      "equal": true
+    }
+  ],
+  "configuration": [
+    {
+      "name": "REPORTER_CONFIGURATION.json",
+      "prior": {
+        "path": "/private/tmp/abg-r9-owner-native-002/unit-01/REPORTER_CONFIGURATION.json",
+        "bytes": 2248,
+        "sha256": "84a5c42a0425a28240513ee3c6f9481ba68a2b7f7cab28d661245ee83c80fcd4"
+      },
+      "current": {
+        "path": "/private/tmp/abg-r9-owner-native-003/unit-01/REPORTER_CONFIGURATION.json",
+        "bytes": 2248,
+        "sha256": "b43cc6ad38e1fb3c53c75f5970e4859fc8e5c9434bda91510aecdf37a245ae15"
+      },
+      "differencesAfterExactProofRootNormalization": {}
+    },
+    {
+      "name": "commands/unit.request.json",
+      "prior": {
+        "path": "/private/tmp/abg-r9-owner-native-002/unit-01/commands/unit.request.json",
+        "bytes": 674,
+        "sha256": "d9393345054bbf03c7fbf9b3b663721f7e46d6b6156462d0383f28635051976c"
+      },
+      "current": {
+        "path": "/private/tmp/abg-r9-owner-native-003/unit-01/commands/unit.request.json",
+        "bytes": 674,
+        "sha256": "a916f6bda4d0d88487fd24d5b2710d893ca5983cdda6fd9493742121526891ad"
+      },
+      "differencesAfterExactProofRootNormalization": {
+        "started": {
+          "prior": "2026-11-08T07:11:58.678Z",
+          "current": "2026-11-08T17:29:49.919Z"
+        }
+      }
+    }
+  ],
+  "environments": [
+    {
+      "root": "/private/tmp/abg-r9-owner-native-002",
+      "binding": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/FOCUSED_BINDING.json",
+        "bytes": 6639,
+        "sha256": "27017b25dd79a2ed40d8f59166db0d8d2d2afceca071e1ac00ac45859acb6830"
+      },
+      "environment": {
+        "HOME": "/Users/jim",
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8",
+        "CI": "1",
+        "TMPDIR": "/private/tmp/abg-r9-owner-native-002/tmp",
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "npm_config_offline": "true",
+        "npm_config_ignore_scripts": "true",
+        "npm_config_update_notifier": "false",
+        "npm_config_audit": "false",
+        "npm_config_fund": "false",
+        "npm_config_cache": "/private/tmp/abg-r9-owner-native-002/npm-cache",
+        "npm_config_userconfig": "/private/tmp/abg-r9-owner-native-002/npm-user.npmrc",
+        "npm_config_globalconfig": "/private/tmp/abg-r9-owner-native-002/npm-global.npmrc"
+      }
+    },
+    {
+      "root": "/private/tmp/abg-r9-owner-native-003",
+      "binding": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/FOCUSED_BINDING.json",
+        "bytes": 6099,
+        "sha256": "41a940ec27dea02e987abec26545379f440c399a91a5a1055c62738ea5d453b1"
+      },
+      "environment": {
+        "HOME": "/Users/jim",
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8",
+        "CI": "1",
+        "TMPDIR": "/private/tmp/abg-r9-owner-native-003/tmp",
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "npm_config_offline": "true",
+        "npm_config_ignore_scripts": "true",
+        "npm_config_update_notifier": "false",
+        "npm_config_audit": "false",
+        "npm_config_fund": "false",
+        "npm_config_cache": "/private/tmp/abg-r9-owner-native-003/npm-cache",
+        "npm_config_userconfig": "/private/tmp/abg-r9-owner-native-003/npm-user.npmrc",
+        "npm_config_globalconfig": "/private/tmp/abg-r9-owner-native-003/npm-global.npmrc"
+      }
+    }
+  ],
+  "environmentsEqualAfterProofRootNormalization": true,
+  "priorReporter": {
+    "path": "/private/tmp/abg-r9-owner-native-002/unit-01/events.jsonl",
+    "bytes": 31338,
+    "sha256": "5e1b0f36649f89192dc76bf14206f5d06a587a8408777a3d6aecc954e965037a"
+  },
+  "currentReporterObservedPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/unit003-events-observed-prefix.jsonl",
+    "bytes": 25010,
+    "sha256": "f478816a617fe96d4e5c7275e3f5e915881553cd3e3c9707bd5d16da62640086"
+  },
+  "currentPrefixOrigin": {
+    "path": "/private/tmp/abg-r9-owner-native-003/unit-01/events.jsonl",
+    "observedBytes": 25010,
+    "standing": "Immutable copied complete-line prefix from still-running lane; not a final reporter pin."
+  },
+  "priorM5": [
+    {
+      "ordinal": 42,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 preserves lane-owned Claude execution posture",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 39,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 43,
+      "type": "case",
+      "passed": true,
+      "name": "M5 native report keeps its original host schema presentation",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 40,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 44,
+      "type": "case",
+      "passed": true,
+      "name": "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 41,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 45,
+      "type": "case",
+      "passed": true,
+      "name": "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 42,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 46,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 bounds append arguments for all four transport contracts",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 43,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 47,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 gives agent-specific sandbox binding precedence",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 44,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 48,
+      "type": "case",
+      "passed": true,
+      "name": "M5 transport identity changes with parser and prompt-delivery semantics",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 45,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 49,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 46,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 50,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Bash tool identity ignores only optional string description metadata",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 47,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 51,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 rejects tool activity only in the closed-prompt lane",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 48,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 52,
+      "type": "case",
+      "passed": true,
+      "name": "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 49,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 53,
+      "type": "case",
+      "passed": true,
+      "name": "M5 selected result text cannot admit a valid file without its final carrier",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 50,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 54,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 51,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 55,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 52,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 56,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport does not renew from unacknowledged output",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 53,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 57,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 54,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 58,
+      "type": "case",
+      "passed": true,
+      "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 55,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 59,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 56,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 60,
+      "type": "case",
+      "passed": true,
+      "name": "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 57,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 61,
+      "type": "case",
+      "passed": true,
+      "name": "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 58,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 62,
+      "type": "case",
+      "passed": true,
+      "name": "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 59,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 63,
+      "type": "case",
+      "passed": true,
+      "name": "TD-11: the incremental tool projection equals the head projection at every cut",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 60,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 64,
+      "type": "case",
+      "passed": true,
+      "name": "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 61,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 65,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 62,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 66,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 63,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 67,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 64,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 68,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 65,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 69,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 66,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 70,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 67,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 71,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 68,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 72,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 69,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 73,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 70,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 74,
+      "type": "summary",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "counts": {
+        "tests": 32,
+        "failed": 0,
+        "passed": 32,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 32,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 11639.087417
+    }
+  ],
+  "currentM5": [
+    {
+      "ordinal": 42,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 preserves lane-owned Claude execution posture",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 39,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 43,
+      "type": "case",
+      "passed": true,
+      "name": "M5 native report keeps its original host schema presentation",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 40,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 44,
+      "type": "case",
+      "passed": true,
+      "name": "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 41,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 45,
+      "type": "case",
+      "passed": true,
+      "name": "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 42,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 46,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 bounds append arguments for all four transport contracts",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 43,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 47,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 gives agent-specific sandbox binding precedence",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 44,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 48,
+      "type": "case",
+      "passed": true,
+      "name": "M5 transport identity changes with parser and prompt-delivery semantics",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 45,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 49,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 46,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 50,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Bash tool identity ignores only optional string description metadata",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 47,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 51,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 rejects tool activity only in the closed-prompt lane",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 48,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 52,
+      "type": "case",
+      "passed": true,
+      "name": "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 49,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 53,
+      "type": "case",
+      "passed": true,
+      "name": "M5 selected result text cannot admit a valid file without its final carrier",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 50,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 54,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 51,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 55,
+      "type": "case",
+      "passed": false,
+      "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 52,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nfalse !== true\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:802:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "ordinal": 56,
+      "type": "case",
+      "passed": false,
+      "name": "M5 ABG transport does not renew from unacknowledged output",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 53,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nfalse !== true\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:843:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "ordinal": 57,
+      "type": "case",
+      "passed": false,
+      "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 54,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+        "stack": "Error [ERR_TEST_FAILURE]: The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+          "stack": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:888:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "ordinal": 58,
+      "type": "case",
+      "passed": false,
+      "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 55,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\n124 !== 0\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\n124 !== 0\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\n124 !== 0\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n124 !== 0\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:944:14)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "ordinal": 59,
+      "type": "case",
+      "passed": false,
+      "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 56,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\nnull !== 47\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nnull !== 47\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\nnull !== 47\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nnull !== 47\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:1023:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "ordinal": 60,
+      "type": "case",
+      "passed": true,
+      "name": "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 57,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 61,
+      "type": "case",
+      "passed": true,
+      "name": "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 58,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 62,
+      "type": "case",
+      "passed": true,
+      "name": "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 59,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 63,
+      "type": "case",
+      "passed": true,
+      "name": "TD-11: the incremental tool projection equals the head projection at every cut",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 60,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 64,
+      "type": "case",
+      "passed": true,
+      "name": "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 61,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 65,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 62,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 66,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 63,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 67,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 64,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 68,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 65,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 69,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 66,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 70,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 67,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 71,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 68,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 72,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 69,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 73,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 70,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 74,
+      "type": "summary",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "counts": {
+        "tests": 32,
+        "failed": 5,
+        "passed": 27,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 32,
+        "suites": 0
+      },
+      "success": false,
+      "durationMs": 66862.626041
+    }
+  ],
+  "priorTimingsFromStdout": [
+    "\u2714 M5 ABG transport renews its inactivity lease only from observed progress (295.837958ms)",
+    "\u2714 M5 ABG transport does not renew from unacknowledged output (156.4845ms)",
+    "\u2714 M5 ABG transport excludes semantic output emitted after its timeout boundary (162.660625ms)",
+    "\u2714 owned process groups retain descendant cleanup after normal and TERM leader exits (3324.984792ms)",
+    "\u2714 M5 ABG transport excludes descendant output emitted after direct-process exit (102.691084ms)"
+  ],
+  "currentTimingsFromFinalStdout": null,
+  "priorStdout": {
+    "path": "/private/tmp/abg-r9-owner-native-002/unit-01/commands/unit.stdout",
+    "bytes": 23683,
+    "sha256": "277edc69f6c6a330fcc696df6dc374fe222bfce6bd4e6cd88907527c45ca9ce7"
+  },
+  "currentStdout": null,
+  "priorCurrentFileDurations": [
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "priorMs": 288.497542,
+      "currentMs": 7051.361291
+    },
+    {
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "priorMs": 55.143292,
+      "currentMs": 889.107167
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "priorMs": 435.77625,
+      "currentMs": 4541.688208
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "priorMs": 11639.087417,
+      "currentMs": 66862.626041
+    }
+  ],
+  "remainingRelevantScratchNames": {
+    "abg-r9-owner-native-002": [],
+    "abg-r9-owner-native-003": []
+  },
+  "currentResult": null,
+  "currentHalt": null,
+  "sourceRoutes": {
+    "test": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 114763,
+      "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+    },
+    "transport": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 50429,
+      "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067"
+    },
+    "command": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 68872,
+      "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+    }
+  },
+  "nodeExecutionModel": {
+    "url": "https://nodejs.org/download/release/v24.7.0/docs/api/test.html#test-runner-execution-model",
+    "retrieved": "2026-11-09 Australia/Sydney",
+    "meaning": "Process isolation is default; each test file runs in a separate child process, with maximum child concurrency controlled by --test-concurrency. Actual lane sets1 and no isolation/global-setup/preload override."
+  },
+  "hostLoadContext": {
+    "source": "Root supplied observation, not independently sampled by this triage",
+    "loadApprox": [
+      23,
+      26
+    ],
+    "logicalCPUs": 16,
+    "memoryFreeApproxPercent": 65,
+    "standing": "Context only; load averages do not establish child dispatch, event-loop delay or a particular timeout cause."
+  }
+}

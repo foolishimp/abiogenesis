@@ -1,0 +1,20 @@
+{
+  "id": "RC10-PROVISIONAL-ARTIFACT-01",
+  "status": "ROOT_ADMITTED_RC10_PROVISIONAL_PACK_INSTALL",
+  "utc": "2026-11-09T03:49:47.847809+00:00",
+  "bindingSha256": "5f550d776c59e68d6a832bde610d6800568a6b300168d621644c2f0726fecb76",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/BOOTSTRAP_BINDING.001.json",
+    "bytes": 5557,
+    "sha256": "5f550d776c59e68d6a832bde610d6800568a6b300168d621644c2f0726fecb76"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/prepare-bootstrap.mjs",
+    "bytes": 10321,
+    "sha256": "1d350d2188a708a83a0dee600d0d6e74709d0aa84452a340748a97da151ed8e0"
+  },
+  "grant": "One provisional npm pack --ignore-scripts --offline --json from exact already-built stage-01,120s/16MiB/4GiBreserve; then existing exact candidate Product verify/lock/install owner route in explicit temporary host. No source/build/identity edits or rebuild. Archive/receipts only P10/artifact-01. No global release/install/pin. Return any issue before dependent measurement.",
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "noMeasurementDispatch": true,
+  "finalSuccessorRelation": "Pending exact native HOW correction and custody; provisional artifact independent because package/TS inputs exclude Design."
+}

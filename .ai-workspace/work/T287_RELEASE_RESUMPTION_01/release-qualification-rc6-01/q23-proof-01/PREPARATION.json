@@ -1,0 +1,17 @@
+{
+  "kind": "bounded_proof_only_operator_preparation",
+  "at": "2026-11-05T19:21:24.627872+00:00",
+  "status": "PREPARED_NOT_SOURCE_BOUND_NOT_DISPATCHED",
+  "sourceExpected": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+  "route": "Existing fixture-proof-02/default-library testing+uat, source:none. Restore already-admitted consumer binding/catalog/view while retaining latest actual close. No coding order, generated prior observations or old close.",
+  "recipe": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/C2_RECIPE.json",
+  "scope": "Current-candidate compile/generate and six selected test modules; same Q1-Q7 rubric. Technical review may run alongside; final Root conjunction remains withheld.",
+  "effects": "Only this control directory before source freeze. No provider, native call, Product change or evidence acceptance.",
+  "preconditions": [
+    "Actual native successful source return and three handoffs",
+    "All frozen source bytes still match live worksite",
+    "Actual closed author Run/fresh readback inspected",
+    "Exact consumer owner binding/current prefix constructor check",
+    "Root exact proof grant and dispatch manifest"
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "status": "PROOF_PREPARATION_ONLY",
+  "at": "2026-11-07T03:34:57.360235+00:00",
+  "activation": "/root/rc7_reference_ticket_writer",
+  "role": "Separate bounded Operator/Writer; return consumer /root",
+  "authority": "Root new separate Operator proof-preparation activation plus its explicit two dedicated writable build-effect copies disposition. Execution is not admitted until exact frozen RC8 stage. No Product judgment, code/Git/provider/immutable effects.",
+  "grant": {
+    "writeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+    "additionalWrite": "measurement CURRENT_HANDOFF.md routing correction only",
+    "fixtureAllocationPerformed": false,
+    "suiteExecuted": false,
+    "testsExecuted": 0
+  },
+  "changeIntent": "Prepare evidence custody and scheduling for existing broad-close files; Product/HOW meaning and test predicates unchanged.",
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "composition": [],
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verification": {
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "families": 15
+  },
+  "host": {
+    "boundary": "Ordinary packet-only sub-agent, inherited instructions and supplied prior work context, shared filesystem/unrestricted tools; procedural scope, not an enforced acquisition sandbox. No independent assurance claim."
+  },
+  "baseline": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "tenantRoot": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript",
+    "testFiles": 206,
+    "allTestDirectoryMjs": 211,
+    "harnessFiles": 1,
+    "expectedNewOwnedCallTest": "would make 207 plus harness; exact final inventory controls",
+    "selectedOwnerPins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10003,
+        "sha256": "535f08828c79bbd48602dffb886a56409f1927d2fb7be686734c126b9da70278"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+        "bytes": 1514,
+        "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 42751,
+        "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+        "bytes": 2031,
+        "sha256": "92f9faa3ec401fd80309b17f546a79354ae36b1869780c55fa5332110171a9d2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/support/isolated-compiled-copy.mjs",
+        "bytes": 1089,
+        "sha256": "115ca576b41c1d0850ae4913d86430b8f861b7641cb823afa60f1a71c342cfbd"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+        "bytes": 15179,
+        "sha256": "ef66e9c77c4d5b529a9e40d4bc5477404a3210a376a2b43e5fed3068577a37d6"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+        "bytes": 5151,
+        "sha256": "a0984ff7f82cb0ac57175e7fa858e8b928e469704f3a25326ccb38868df7717f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+        "bytes": 98227,
+        "sha256": "17557b8cc6d3dbc8ff8e8ec79586b39b8411035032890f8518ae259eba0a0673"
+      }
+    ]
+  },
+  "resourceObservation": {
+    "freeBytes": 11061714944,
+    "reserveBytes": 4294967296,
+    "proposedOwnedLimitBytes": 4294967296,
+    "hardQuota": false
+  },
+  "providerSelection": "No live opt-in or credentials inherited. Tests use existing controlled actors. Selected PATH exposes pinned node/npm/python3 plus system tools, no provider CLI directory. Unselected provider command points to an absent owned path; unexpected dispatch fails and stops.",
+  "residuals": [
+    "Exact frozen stage, dependency root, whole-file focused credits and execution binding pending.",
+    "Broad-close execution and findings disposition remain pending.",
+    "Native author, matched RC8-after/profile, cut/install/exact-installed functional proof and broader qualification gates remain separate."
+  ]
+}

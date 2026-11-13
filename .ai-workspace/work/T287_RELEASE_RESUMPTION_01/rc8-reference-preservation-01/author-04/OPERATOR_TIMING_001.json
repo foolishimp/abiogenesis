@@ -1,0 +1,96 @@
+{
+  "status": "OBSERVED_AUTHOR04_PRE_EDIT_TIMING",
+  "standing": "Read-only diagnosis from existing actor archive metadata. Product/native failure is not inferred; source remained unchanged at the last monitoring read.",
+  "initialTiming": {
+    "observedUtc": "2026-11-07T07:06:05.410386+00:00",
+    "actorElapsedSeconds": 907.843,
+    "toolUseCounts": {
+      "Bash": 33,
+      "Read": 21,
+      "Grep": 2
+    },
+    "toolRequests": 56,
+    "toolResults": 56,
+    "matchedTimestampPairs": 56,
+    "pendingOrUnmatchedRequests": 0,
+    "toolResultErrorFlags": 2,
+    "topLevelErrorFlags": 0,
+    "completedToolIntervalUnionSeconds": 8.013,
+    "toolDurationSecondsByName": {
+      "Bash": {
+        "count": 33,
+        "sum": 3.338,
+        "median": 0.034,
+        "max": 0.916
+      },
+      "Read": {
+        "count": 21,
+        "sum": 4.634,
+        "median": 0.299,
+        "max": 0.502
+      },
+      "Grep": {
+        "count": 2,
+        "sum": 0.041,
+        "median": 0.0205,
+        "max": 0.022
+      }
+    },
+    "longestBetweenToolIntervalsSeconds": [
+      258.272,
+      97.697,
+      63.13,
+      56.648,
+      54.248
+    ],
+    "latestCompletedToolUtc": "2026-11-07T07:05:56.033Z",
+    "archivePrefixBytesRead": 3393209,
+    "archivePrefixSha256": "58fad7fe75d08105cfaace9f5fb7f3769031bbeea891df699add82090a5ef5fb",
+    "limits": [
+      "Provider-archive tool-use/result timestamp differences, not independent command receipts.",
+      "Time outside matched tool intervals may include model work, streaming, provider queues and host coordination; no separate causal attribution measured.",
+      "No arguments, output or reasoning disclosed."
+    ]
+  },
+  "toolErrorClassification": {
+    "observedUtc": "2026-11-07T07:08:07.896686+00:00",
+    "archivePrefixBytesRead": 3967112,
+    "archivePrefixSha256": "3477e74620633b28bd84a73ebc5f6064601eb290503ac80bcf37551ee967a5f8",
+    "errorResults": [
+      {
+        "tool": "Bash",
+        "requestUtc": "2026-11-07T06:54:31.444Z",
+        "resultUtc": "2026-11-07T06:54:31.537Z",
+        "mechanicalCategory": "missing_file",
+        "exitCodeExposed": 1,
+        "laterSameTargetSuccessfulCalls": 0,
+        "firstLaterSuccessfulCall": null,
+        "recoveryStanding": "No later successful same-target call observed in this snapshot."
+      },
+      {
+        "tool": "Read",
+        "requestUtc": "2026-11-07T07:01:39.467Z",
+        "resultUtc": "2026-11-07T07:01:39.773Z",
+        "mechanicalCategory": "read_output_token_limit",
+        "exitCodeExposed": null,
+        "laterSameTargetSuccessfulCalls": 3,
+        "firstLaterSuccessfulCall": {
+          "startedUtc": "2026-11-07T07:01:40.608Z",
+          "completedUtc": "2026-11-07T07:01:41.101Z",
+          "boundedReadRange": true
+        },
+        "recoveryStanding": "A later successful same-target call is observed; no argument/output content is disclosed."
+      }
+    ],
+    "categoryRecurrence": {
+      "missing_file": 1,
+      "read_output_token_limit": 1
+    },
+    "standing": "Tool error flags and timestamp observations only; no Product assertion or runtime failure inferred."
+  },
+  "limits": [
+    "No tool arguments, output or reasoning retained in this record.",
+    "A corrected call may use a different command; absence of an exact same-target success does not establish continuing blockage.",
+    "Actual SDK outcome, physical close and final source/proof remain pending."
+  ]
+}

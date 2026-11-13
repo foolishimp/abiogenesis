@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "git",
+    "-C",
+    "/private/tmp/abg-rc11-foundation-20261110-01",
+    "commit",
+    "-m",
+    "test(t287): align owner-chain oracle with foundation principle"
+  ],
+  "exitCode": 0,
+  "stdout": "[codex/rc11-foundation-correction ed17ab148] test(t287): align owner-chain oracle with foundation principle\n 5 files changed, 45 insertions(+), 40 deletions(-)\n",
+  "stderr": ""
+}

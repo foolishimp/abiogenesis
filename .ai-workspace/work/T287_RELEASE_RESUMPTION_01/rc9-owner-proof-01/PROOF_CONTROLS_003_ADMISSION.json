@@ -1,0 +1,19 @@
+{
+  "id": "RC9-PROOF-CONTROLS-003",
+  "status": "ROOT_SELECTED_PREPARATION_ONLY",
+  "at": "2026-11-08T17:11:17.735526+00:00",
+  "role": "separate external Proof-Control Writer",
+  "authority": "Root accepted CONTINUATION_AFTER_FOCUSED_003.json1048dc11 and selected narrow RC9 bootstrap plus held successor bindings.",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01",
+  "effects": "New control files only. No source/metadata/old-control edits, build/test/pack/runtime/native/provider execution. Future source003/archive/receipt pins remain null.",
+  "continuation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/CONTINUATION_AFTER_FOCUSED_003.json",
+    "bytes": 10691,
+    "sha256": "1048dc114d21c6da71270339d472eb55ce9f45fac26316e751b2cd36e04f8368"
+  },
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PROOF_SCOPE_002.json",
+    "bytes": 9982,
+    "sha256": "26ab250198e3e2973113688d580d0443f23c82a9910d7eace6352db646e17ffc"
+  }
+}

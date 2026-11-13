@@ -1,0 +1,42 @@
+{
+  "kind": "actual_native_actor_start_metadata",
+  "actorEvent": {
+    "offset": 2702635575,
+    "bytes": 1828,
+    "sha256": "aa202503b52f645bca969cd094cc03413065a159a47b4009614bf9c05ce2b5d1",
+    "envelope": {
+      "kind": "actor_process_started",
+      "eventId": "event://abiogenesis/a6d17490b60553fce23843907e550d303b3eda36a31029ec49ba08e889370ff6",
+      "eventTime": "2026-11-06T22:14:07.275Z",
+      "admissionOrdinal": 343961,
+      "runId": "run://abiogenesis/d15a0e80ef7d002e6ab188eb41d83331d085b9b961e6549b9f439f499d07c6be",
+      "basisId": "execution-basis://abiogenesis/684445ec2620517c5270f672a20277c6365c92218c7456a2feaf023729eb197f",
+      "aggregateId": "process://abiogenesis/8be89d5b600f97e8bb96a10e379cd596e7620b72e7584c8d7c1ccd14e05647c7",
+      "aggregateType": "process",
+      "scopeClass": "run",
+      "payloadDigest": "sha256:b5363a0aa0ed35649eafe0ff30188b96dc233a36bd8020052ccb2920cbfa2fd0"
+    },
+    "actor": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/994b2615242d578d2c96d81d3973c3dd6f7f37df286e80db33fafc1665892b5e",
+      "cCallRef": "c-call:sha256:602a476903c1f83ae110764bff25505a130590a36e4fa73eafa793fd33f7b8a9",
+      "processId": 39586,
+      "processRef": "process://abiogenesis/8be89d5b600f97e8bb96a10e379cd596e7620b72e7584c8d7c1ccd14e05647c7"
+    },
+    "payloadFieldNames": [
+      "actorInvocationRef",
+      "cCallRef",
+      "processId",
+      "processRef"
+    ]
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/operator-custody-001/ACTOR_SUFFIX_001.json",
+    "bytes": 2698,
+    "sha256": "c9fd2a21761e6071459aea83f5fac92fc4605e4d5395ad5fb63e47c09990f516"
+  },
+  "hostStartedUtc": "2026-11-06T22:11:45.439Z",
+  "hostToActorMs": 141836.0,
+  "preparedToActorMs": 6152.503333000001,
+  "nativeAbsoluteCapUtc": "2026-11-06T23:14:07.275000+00:00",
+  "timingLimit": "Prepared-to-actor derives from host UTC plus host monotonic preparation mark; SDK STARTED is not actor start."
+}

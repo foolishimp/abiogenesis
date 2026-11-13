@@ -1,0 +1,29 @@
+{
+  "startedUtc": "2026-11-06T07:04:30.387Z",
+  "endedUtc": "2026-11-06T07:06:05.448Z",
+  "phaseMs": {
+    "control-pin-verification": 6.534417000000001,
+    "resume-config-parse": 342.34220899999997,
+    "source-control-verification": 110.61783300000002,
+    "installed-modules": 424.523542,
+    "caller-refresh": 83592.022875,
+    "prefix-identity": 750.8799169999984,
+    "context-observation": 249.84949999999662,
+    "construct-call": 1687.7428749999963,
+    "capacity-canonical-digest": 191.13729199999943,
+    "prefix-preservation": 742.0758329999953,
+    "moduleBodyToStartedMs": 88101.958
+  },
+  "invocationWallMs": 94319.97350000001,
+  "exitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "runtime_failed",
+  "run": {
+    "digest": "sha256:71310acace00e52f51ac0ce392a419487242a7404af70f72b46fb2fdf0c203eb",
+    "ref": "run://abiogenesis/f81456702a82e0139b4c36132c2773141be9b86b78071a43ca12436d87924d63"
+  },
+  "terminalPresent": false,
+  "actualExecutionFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/execution.json",
+  "readbacks": "pending_root_selection",
+  "qualified": false
+}

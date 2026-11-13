@@ -1,0 +1,82 @@
+{
+  "status": "ROOT_ADMITTED_REFERENCE_MEASUREMENT",
+  "admittedAt": "2026-11-07T03:12:46.512364+00:00",
+  "issuer": "/root",
+  "actor": "/root/rc7_reference_ticket_writer",
+  "role": "separate Writer then Operator for one RC7 before measurement",
+  "decision": "Root selected the already-reviewed operator default-start correction and explicitly authorizes one corrected baseline invocation now after exact diff/pin readback; return on new failure, no automatic retry.",
+  "bindingsSha256": "5d1176b2e91655eba2fcafb3414e6f4f079c1600aa83bf7b01b99d295c3c4e18",
+  "preparationManifestSha256": "cc942f112405aa577c0e87896fdce2feaab84422b817925b69a4daa0821ea279",
+  "firstRc7WorkerLaunchObserved": true,
+  "nativeLaunchEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/NATIVE_STARTED_002.json",
+    "bytes": 3221,
+    "sha256": "a1b2649d2f15b0b042ca1cdb7cc8b991e609ceec9f11fae9e417976d13e87f8e"
+  },
+  "nativeActor": {
+    "startedUtc": "2026-11-07T03:04:41.867Z",
+    "pid": 39752,
+    "runRef": "run://abiogenesis/0526a286827851182b39b6bc2df9007e588ec2b972854d6248e924f84b8afd77"
+  },
+  "basis": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "goal": "GOAL-035",
+    "families": 15
+  },
+  "subject": {
+    "label": "RC7-before",
+    "phase": "before",
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b"
+  },
+  "candidateArchive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+    "bytes": 11022180,
+    "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+  },
+  "installRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant",
+  "bounds": {
+    "hostMs": 600000,
+    "coldReadMs": 120000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "aggregateBytes": 1073741824,
+    "nodeHeapMiB": 8192
+  },
+  "cpuProfileCall": null,
+  "selectedInvocations": 1,
+  "limitedClaim": "Corrected operator fixture measurement only; no Product defect/regression claim. Two scripted contexts and exact phase/close/read parity evidence if actually reached; no after run or whole qualification.",
+  "measurementLimits": [
+    "Root reports the RC8 native coding Worker active on the same host; possible contention must accompany timing interpretation.",
+    "Actual initial native launch was observed before this measurement.",
+    "Aggregate 1 GiB is a phase-boundary monitored operational stop, not a filesystem hard quota; overshoot is possible."
+  ],
+  "excludedEffects": [
+    "after measurement",
+    "Product/source/ticket/GOALS/Git writes",
+    "immutable install or selector writes",
+    "historical deletion"
+  ],
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/TRIAGE_002.json",
+    "bytes": 5480,
+    "sha256": "236d50f6cd008c8049b5445f81d71b4d78b80909f92a3bf49da636209b04aab7"
+  },
+  "predecessorAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_ADMISSION.json",
+    "bytes": 3081,
+    "sha256": "1f774e558e807cdc18b38878b602b9ea2599a32d8bb8b61d09985a5feff6d112"
+  },
+  "priorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/FAILURE.json",
+    "bytes": 723,
+    "sha256": "76b58403005f33dccc9c3fa992eb34a3b23f513ec7862e30d7ae13697bc9bf64"
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002",
+  "tempRoot": "/private/tmp/abg-r8m-rc7-before-002"
+}

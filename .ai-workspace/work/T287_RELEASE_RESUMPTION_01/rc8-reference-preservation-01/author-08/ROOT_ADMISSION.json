@@ -1,0 +1,59 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "at": "2026-11-07T08:51:04.074911+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "bindingSha256": "d0f7e6b1ed31b782ea58ba9ab3d14a670968b15a84e6beafbe3f0fd99775d1b2",
+  "preparedSha256": "9ab0560a6395e4a9a0db0b43bfdd7f6ce276f2db53acf0bd443c99b083a61cde",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001/PREPARED.json",
+    "bytes": 6154,
+    "sha256": "9ab0560a6395e4a9a0db0b43bfdd7f6ce276f2db53acf0bd443c99b083a61cde"
+  },
+  "controlFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/CONTROL_FREEZE.json",
+    "bytes": 2167,
+    "sha256": "0bac94c6115c547b2e38d9c9b1cd8e5f68a72439e3bcae933815f3fb7ef46d8f"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/ROOT_SCOPE.json",
+      "bytes": 4703,
+      "sha256": "3bdbfd378de073045939cb2455448e9d0e5b905040a8550a66066cab1e387241"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/PREPARATION.json",
+      "bytes": 7581,
+      "sha256": "62a65d58cd6118de00b93c4865d7380c90d371a5a354a163331ba2a827003a6c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/TASK.json",
+      "bytes": 6911,
+      "sha256": "cf541e69796013e161e541497ec692e769df4bc2da1ac54b09f682bebbb71785"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/host.mjs",
+      "bytes": 12242,
+      "sha256": "c4db3703eca666c867c18893392cbeca25470dfde9a7ec5e2e7cebb86e4342f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof.mjs",
+      "bytes": 11499,
+      "sha256": "62c546bd928e207b010ed3f0808756aaad7e3974f17a254acab5a7387c41ccdb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/BINDING.json",
+      "bytes": 5279,
+      "sha256": "d0f7e6b1ed31b782ea58ba9ab3d14a670968b15a84e6beafbe3f0fd99775d1b2"
+    }
+  ],
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL035",
+  "rootDisposition": "Root read complete A8 controls/host/proof and actual PREPARED; admits exactly this held PTY71971/PID34351 call from genuine A7 close/prefix. No new resource or setup.",
+  "effects": "One native Opus5.5 xhigh Worker15min absolute/5min inactivity; exactly two selected test files plus own progress, one freeze/zero builds; four filtered historical cases then whole11-case coordinate file,600s each. Stop unexpected red/refusal/expanded scope; no retry or extra Product/Git/cut effects.",
+  "sourceAccepted": false,
+  "qualified": false
+}

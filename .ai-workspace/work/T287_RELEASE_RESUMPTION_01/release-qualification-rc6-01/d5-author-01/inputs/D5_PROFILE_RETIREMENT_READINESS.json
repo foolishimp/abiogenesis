@@ -1,0 +1,431 @@
+{
+  "productFrame": {
+    "fixedFamilies": "F01-F07,F09-F11,F13-F17; fifteen ABIogenesis 5.0 families",
+    "waveAndSlice": "GOAL-035/T287; F10 lifecycle truth and prospective RC7 profile boundary following Q23 F11/F15 identity",
+    "outcome": "Retire only redundant lifecycle copies while preserving physical observations, primary admitted facts, deterministic replay and exact historical profile standing.",
+    "sourceAuthority": "Exact frozen q23-author-05 subject plus 1f62 Product/common-library/profile HOW and directly named T287/T290 decisions; Root profile disposition selects the boundary.",
+    "toolAuthority": "Read-only source/metadata/Git-object inspection; tooling is not an owner grant or runtime proof.",
+    "runtimeAuthority": "ABG owns primary event admission and profile identity; the fold owns lifecycle truth. OS/helper observations and artifacts remain evidence, not a second lifecycle authority.",
+    "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "classification": "Proposed existing-owner workspace transformation and evidence plan; no activation or acceptance.",
+    "prohibitions": [
+      "No moving source, private histories, Product/code/test writes, provider/native calls, Git changes or dispatch.",
+      "No blanket name deletion, new registry/store/controller, generic migration, lineage transplant or independent acceptance claim."
+    ]
+  },
+  "kind": "d5_profile_retirement_readiness",
+  "status": "closed",
+  "at": "2026-11-05T20:10:14.841143+00:00",
+  "readiness": "READY_FOR_ROOT_BOUNDED_SCOPE_SELECTION; not a launch grant or implementation acceptance",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_PROFILE_RETIREMENT_READINESS_REQUEST.json",
+    "bytes": 2455,
+    "sha256": "c6b99d545990625e2a908d23012d26a4649093512125e0dde264485fdb1002bf"
+  },
+  "disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/ROOT_PROFILE_DISPOSITION.json",
+    "bytes": 3110,
+    "sha256": "59b29a543a0df68313dc1ed48ea3cfdb42fc37196a827fffaac6a39a396e2f11"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "baselineCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "reusedTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/RESULT.json",
+    "bytes": 24413,
+    "sha256": "c8e823ce100c35e347e9c4a1f46c6e47f6c00e90f40ccdf852f1a635fbec9265"
+  },
+  "activeObligation": {
+    "status": "OPEN_BEFORE_PROSPECTIVE_RC7_PROFILE_ACCEPTANCE",
+    "trigger": "Q23 configuredIdentity changes the current canonical event-contract descriptor; D5 is due at the next profile cut.",
+    "closureCheck": "Exact common-library HOW621 and T2875512-5522/5551-5552/5617 retain the obligation. The directly named later T290 record contains no matching copy/profile retirement closure; general library closure does not override the specific deferral. Root profile disposition explicitly activates it. Frozen source still persists the copies. No superseding accepted closure was found within these exact named records; no whole-history claim is made.",
+    "draftVsCut": "Current Q23 component source/proof does not accept a successor event profile. Root must conjoin D5 closure before prospective RC7 profile/package acceptance or explicitly re-enter its owning HOW. This readiness result closes neither."
+  },
+  "fieldDerivations": [
+    {
+      "field": "terminationConfirmed",
+      "ABGDerivation": "runtimeFluentHoldsAtPrefix(prefix, actor_process_terminated(processRef)); rules.ts:134-149 establishes it only from actor_process_exited after admitted start. Spawn failure is terminal but is not actor_process_terminated.",
+      "physicalMeaning": "hasConfirmedOwnedProcessBoundary(OwnedProcessFacts), scope absence plus direct exit, before ABG admission; preserve this observation and classifier."
+    },
+    {
+      "field": "exitObserved",
+      "ABGDerivation": "Use the existing admitted process-terminal/lifecycle relation for the selected artifact/evidence domain; c_call.ts:6748-6749 already checks the copy against actor_process_terminated.",
+      "physicalMeaning": "OwnedProcessFacts.directExit !== null; a direct exit with an unresolved descendant scope is not confirmed termination. Do not globally replace this physical field with a termination fluent."
+    },
+    {
+      "field": "timedOut",
+      "ABGDerivation": "Exact actor/process timeout event presence with the current unique timeout/class/limit joins (c_call.ts:2026-2041,2072-2074; replay.ts:2437-2442).",
+      "physicalMeaning": "The process owner records the actual deadline observation; timeoutClass and owned observations remain available before admission."
+    },
+    {
+      "field": "signalSequence",
+      "ABGDerivation": "Ordered actor_process_signal_requested primary events for the exact invocation/process (c_call.ts:2042-2046,2075; replay.ts:2443-2446), preserving admitted order and signal facts.",
+      "physicalMeaning": "Keep actual OS/helper requested signals where they are physical evidence; do not erase those primary events or helper result fields."
+    }
+  ],
+  "producerCarrierConsumerMap": [
+    {
+      "id": "M1",
+      "carrier": "Primary actor process events",
+      "producer": "actor_process.ts:1512-1565",
+      "contract": "event_store existing timeout/signal/exited/spawn_failed/termination_unconfirmed arms",
+      "consumer": "calculus/rules.ts:126-181; replay and lifecycle readers",
+      "disposition": "PRESERVE",
+      "reason": "These are the admitted facts from which D5 copies are derived, not copies to retire."
+    },
+    {
+      "id": "M2",
+      "carrier": "actor_result_artifact_observed current-profile payload",
+      "producer": "actor_process.ts:1358-1405 repeats all four target fields",
+      "contract": "event_store.ts:1148-1152 currently extends immutable L actor-observation keys",
+      "consumer": "ActorProcessObservation/validateActorProcessCarrierPair; CCall projection and recovery",
+      "disposition": "RETIRE_CURRENT_DURABLE_COPIES",
+      "requiredChange": "Omit the four fields from new current-profile admitted payloads. Adapt the existing owner projection/guards so needed API values are derived from the authenticated cut; do not substitute caller flags. Keep original L payload decoding exact."
+    },
+    {
+      "id": "M3",
+      "carrier": "probabilistic_transport c_call_evidenced current-profile payload and candidate/projection chain",
+      "producer": "c_call.ts:3931-3934 and6848-6851",
+      "contract": "event_store.ts:1164-1169; c_call typed candidate/projection/guards579-582,721-724,1855-1872,6740-6751",
+      "consumer": "c_call failure/source reconstruction1985-2130",
+      "disposition": "RETIRE_CURRENT_DURABLE_COPIES_AND_REJOIN_READERS",
+      "requiredChange": "Stop requiring/persisting repeated values for new profile evidence; preserve unique source/binding/artifact/digest/ordinal/timeout/signal/failure-class joins. Derived output/API fields may remain where useful, sourced from existing admitted events/fluents."
+    },
+    {
+      "id": "M4",
+      "carrier": "Digest-bound worker_transport_result_candidate archive",
+      "producer": "worker_transport.ts:633-675 persists timedOut, exitObserved, terminationConfirmed alongside timeoutClass/processFacts; no signalSequence member in this body",
+      "contract": "Existing transport result/artifact owner and artifact digest joined by actor/call owners",
+      "consumer": "worksite_construction_recovery.ts:249-285; transport source checks",
+      "disposition": "RETIRE_REDUNDANT_SERIALIZED_COPIES_WITH_EXPLICIT_PHYSICAL_BOUNDARY",
+      "requiredChange": "Reconcile D5 result-artifact retirement at this existing serialization seam. Preserve immutable OwnedProcessFacts encoding, actual status/signal/timeoutClass and live ProcessObservation semantics. Do not delete physical in-memory observations or change the worker/helper failure classifier merely to remove durable repeats. The existing module owns any necessary difference between live result and serialized artifact; no new store/framework."
+    },
+    {
+      "id": "M5",
+      "carrier": "Original L contract and historical copy-disagreement diagnostic",
+      "producer": "Retained original owners and immutable legacy table",
+      "contract": "event_store.ts:294,661-732; event_contract_profiles L",
+      "consumer": "rules.ts:184-197 currently returns NO_EFFECT when copy absent and checks old copied fields when present",
+      "disposition": "PRESERVE",
+      "requiredChange": "No global deletion of legacy keys or copy checker. Current-profile key refusal is owned by event_store; the existing absent-copy no-op permits the new profile while retaining legacy diagnostic semantics."
+    },
+    {
+      "id": "M6",
+      "carrier": "Replay/lifecycle public projection fields",
+      "producer": "replay.ts:2431-2451 already derives timeout/signal/termination from facts",
+      "contract": "Existing projection contract",
+      "consumer": "Status/readback and current lifecycle owners",
+      "disposition": "PRESERVE_DERIVED_PROJECTION",
+      "requiredChange": "A projection field is not a stored semantic copy. Keep output meaning and one fold; no second derivation or field-name sweep."
+    },
+    {
+      "id": "M7",
+      "carrier": "Physical process/command/HTTP-helper observations and admitted helper result/failure subjects",
+      "producer": "shared/owned_process_lifetime.ts; shared/process; worker_transport ProcessObservation; implementation/worksite_command_helper.ts",
+      "contract": "Common-library HOW4.6 and9.1/9.3 item4; helper processes have no actor-process fluents",
+      "consumer": "Physical supervision/classification and helper result projection",
+      "disposition": "PRESERVE",
+      "requiredChange": "Retain directExit/scopeAbsence, actual timeout/signal observations, cleanup uncertainty and helper processFacts/result fields. These are not recoverable by pretending the helper has an ABG actor-process episode."
+    },
+    {
+      "id": "M8",
+      "carrier": "Preserved-construction recovery",
+      "producer": "Actual old/native source and bound transport artifact",
+      "contract": "worksite_construction_recovery.ts:53-68,249-285",
+      "consumer": "Existing recovery owner",
+      "disposition": "ADAPT_ONLY_AFFECTED_CURRENT_SOURCE_JOINS",
+      "requiredChange": "Replace dependence on retired current-archive booleans with existing exact lifecycle/primary event and processFacts checks, preserving status0/no-signal/no-output/no-tool/byte-digest/producer-order checks. Do not relax historical pre-processFacts behavior or admit RC6-current P under successor code."
+    }
+  ],
+  "proposedNativeScope": {
+    "target": "One coherent D5 current-profile retirement increment on the exact Q23 successor; retain Q23 identity/gate semantics and historical boundaries.",
+    "coreCodeWritePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts"
+    ],
+    "howWritePaths": [
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md"
+    ],
+    "testWritePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs"
+    ],
+    "conditionalMechanicalPath": {
+      "path": "build_tenants/abiogenesis/typescript/scripts/check-lifecycle-boundary.mjs",
+      "condition": "Only if an existing exact recovery-artifact exception text changes as a necessary consequence; preserve the same narrow owner/reason. No widened process-owner allow-list, fluent set or disabled check."
+    },
+    "readOnlyPreservedOwners": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "build_tenants/abiogenesis/typescript/code/src/shared/process/",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts"
+    ],
+    "generatedOutputs": "Use the existing generation/build helpers for exact descriptor/catalog/manifest artifacts in the candidate build territory. No edit to immutable RC6 installation or historical profile files. Root binds the exact source closure and generated outputs before proof.",
+    "extensionStop": "A demonstrated material consumer outside this finite cone returns to Root with the exact join; it does not authorize a broad lifecycle/helper rewrite. No new callable, Public operation, event kind or profile registry."
+  },
+  "profilePolicy": {
+    "current": "Implement the Q23 identity addition and D5 retirement in one final successor current descriptor before the prospective cut; publish its actual computed digest and selected profile identity. Do not treat the intermediate component draft digest as a separately accepted profile.",
+    "legacyL": "Keep the exact L payload table/digest and original validation. Override the two current payload arms; never remove keys from shared legacy definitions to make new current payloads smaller. Preserve historical copy-disagreement behavior.",
+    "RC6CurrentP": "Retain immutable RC6 executable/events/closes and authentic original replay; successor refuses unsupported RC6-current digest. Use a fresh successor store through existing native owners.",
+    "historicalEvidence": "No restamping, same-store claim for copied logs, retroactive identity assignment or automatic native lineage across fresh stores."
+  },
+  "minimalProof": [
+    {
+      "id": "P1",
+      "claim": "Current durable carriers omit all four event copies and three transport-archive copies, with identical derived lifecycle/failure classifications on the lawful domains.",
+      "existingRoutes": [
+        "m5-worker-transport.test.mjs physical process/archive cases; frozen Q23 identity cases",
+        "t287-lifecycle-failure-carrier.test.mjs worker spawn-failure165 and unresolved-cleanup257"
+      ],
+      "nearestNegative": "A retired field reinserted in a current event refuses; missing/foreign terminal, timeout, signal or artifact relation does not become valid by absence of a copy. Preserve negative identity pre-dispatch cases."
+    },
+    {
+      "id": "P2",
+      "claim": "One lifecycle producer; current no-copy events fold cold/warm/forked identically, and original supported legacy copied events retain original diagnostic meaning.",
+      "existingRoutes": [
+        "t287-calculus-fold.test.mjs72,112,226-236,447,462",
+        "t287-lifecycle-failure-carrier.test.mjs383-408"
+      ],
+      "nearestNegative": "Legacy disagreeing copy still produces its historical diagnostic without authoring lifecycle truth; a current copy is rejected by contract, not silently ignored."
+    },
+    {
+      "id": "P3",
+      "claim": "Physical/helper behavior is preserved, especially direct exit versus full-scope termination and failure after launch.",
+      "existingRoutes": [
+        "m5-worker-transport.test.mjs timeout/grace/descendant/EPIPE cases",
+        "t287-lifecycle-failure-carrier.test.mjs helper298,337"
+      ],
+      "nearestNegative": "Unresolved descendants cannot become terminated; helper command/HTTP observations remain present and attributable. No helper actor-process fluents are invented."
+    },
+    {
+      "id": "P4",
+      "claim": "Current fresh store closes/reopens with exact new profile; L remains exact; unsupported predecessor-current remains refused; cold source/result/replay joins survive copy retirement.",
+      "existingRoutes": [
+        "m5-event-store-reopen.test.mjs480-515,1045 onward,1634 onward",
+        "existing C2/installed fresh result/replay owners under a later Root packet"
+      ],
+      "nearestNegative": "Wrong profile, changed archive digest, stale/foreign close, invented source history or altered primary event must refuse. Do not run successor code on RC6-current history as a positive."
+    },
+    {
+      "id": "P5",
+      "claim": "Affected preserved-construction source consumer succeeds/fails on its exact previous conditions after durable copy removal.",
+      "existingRoutes": [
+        "worksite_construction_recovery.ts249-285 owner",
+        "t287-c2a-fp-source-contract.test.mjs144/223 is the nearest verified carrier-contract seam, not established complete recovery coverage"
+      ],
+      "materialLimit": "No dedicated test importing worksite_construction_recovery was located by the bounded exact-HEAD query. Root/Worker must bind one meaningful existing-owner recovery fixture or return this exact proof gap before claiming end-to-end retirement; do not invent historical source. This is a finite additional discriminator, not a history census."
+    }
+  ],
+  "checksForFuturePacket": [
+    "Existing TypeScript build and canonical contract generation for the changed source closure.",
+    "Existing lifecycle/import guards, retaining their owner boundaries.",
+    "Only the named affected suites/discriminators and exact current-profile installed proof; no provider call is needed for this readiness result.",
+    "The actual future native packet must pin Root task/grant, fresh source preimage and territories, C2 helper/output parents, expected outcomes, cost/time limits and actual latest close."
+  ],
+  "limitations": [
+    "This is source-derived readiness, not a completed retirement design implementation or proof.",
+    "Final live-versus-serialized transport carrier shaping is a bounded existing worker_transport owner choice. The Worker must preserve physical observations while satisfying D5 artifact retirement, rather than deleting names globally.",
+    "Source family/ancestor proof and paid Q23 eligibility remain separately governed.",
+    "No new tests were written or run; no provider, build, native dispatch or Git mutation occurred."
+  ],
+  "evidence": {
+    "frozenOwnerPins": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 82336,
+        "sha256": "94908ca0c4900dcf7be787f207dafe87be9288f0da1b75c88b9cfb5cec33679b",
+        "matchesSubject": true,
+        "lines": "102-142;235-263;361-550;1332-1411;1512-1565",
+        "role": "Observation contract/guards; repeated artifact-event body; primary timeout/signal/terminal emitters."
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 296901,
+        "sha256": "cf7151bf17b124577c67e279c1a487723607431814c374364b7059ea9c364a59",
+        "matchesSubject": true,
+        "lines": "579-582;721-724;1855-1872;1985-2081;2115-2130;3920-3942;6740-6751;6848-6851",
+        "role": "Evidence carrier, cold joins/failure projection, candidate construction and evidence emission."
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 214382,
+        "sha256": "c7dc17fdc2139343d20217646e3df0d7a2254b3057394e67151041692d5e3f70",
+        "matchesSubject": true,
+        "lines": "290-301;661-732;1148-1173;1178-1186",
+        "role": "Exact immutable L payloads and current-profile overrides; descriptor hashing."
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 37000,
+        "sha256": "2f19a31bf833e9b651b0077ac5de1d8d21dc2b488e663b1893f228c317a77f26",
+        "matchesSubject": true,
+        "lines": "97-100;137-140;473-484;633-675",
+        "role": "Physical observations and digest-bound transport artifact are distinct seams despite shared current fields."
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        "bytes": 39664,
+        "sha256": "209968ba13beeb5160d6bb51a65bca5431f4e2f94497f3c8f7130624ad776c60",
+        "matchesSubject": true,
+        "lines": "53-68;249-285",
+        "role": "Recovery verifies exact admitted lifecycle and bound artifact, but still requires repeated booleans."
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "bytes": 10724,
+        "sha256": "830a42927e739f732e610f5a57daf6f941b4cd5ffcc0aeddf7906cab8183f7a0",
+        "matchesSubject": true,
+        "lines": "8-16;157-175",
+        "role": "Exact L/current profile coordinates and canonical descriptor."
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+        "bytes": 11299,
+        "sha256": "c0fc878a39d1e54b940851cd384fe5146e975cedb8a8097f9c596f592dab6342",
+        "matchesSubject": true,
+        "lines": "113-219",
+        "role": "Sole actor-process lifecycle derivation and absent-copy no-op; retain historical mismatch behavior."
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+        "bytes": 114749,
+        "sha256": "8b8cdd35d0298469424d7226d0fb58a125b64cd6556eddfc7ff716c0aea372ea",
+        "matchesSubject": true,
+        "lines": "254-258;322;2431-2451",
+        "role": "Public replay already derives timeout, signal order and termination; fields need not be deleted from projections."
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 29515,
+        "sha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+        "matchesSubject": true,
+        "lines": "lifecycle reader",
+        "role": "No occurrence of the four target copy names; retain existing fluent reader."
+      }
+    ],
+    "baselineAuthorityAndProofPins": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 145655,
+        "sha256": "a9a69cdf6657e90581d3cfe5482668872bb7bc7b572a4b3ac97d628c414248f9",
+        "lines": "201-215;221-230;538-544;601-621;672",
+        "role": "Active D5 law and explicit physical/helper/derived-state distinction."
+      },
+      {
+        "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 675711,
+        "sha256": "49c039222f071b4ffe665ecdfaab65363325b5b3f7e4640828c2ca4f2fb8a32d",
+        "lines": "5512-5522;5551-5552;5617-5620",
+        "role": "Named owner decision explicitly retains deferred D5; D8 separately preserves pre-processFacts artifacts."
+      },
+      {
+        "path": ".ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 89902,
+        "sha256": "6f61b05c00b29283a9add21fdf46356fa5efdcc3f414242b202afa1cdb3059a0",
+        "lines": "named later closure/debt record",
+        "role": "Targeted search found no terminationConfirmed/payload-copy/root-profile retirement closure; general library closure does not supersede D5."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 21291,
+        "sha256": "8dd2fa84d4705009959572386817077797adcb54d76239b9c4fb628e4e6dd029",
+        "lines": "sections2-5",
+        "role": "Exact original L and current profile behavior; no generic registry or migration."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 86253,
+        "sha256": "2883a6df78ac9c632b22bd6ce395e95dddea553ef885c0292aa8e6b666663098",
+        "lines": "469-486",
+        "role": "Retained original executable plus fresh successor store; unsupported predecessor-current digest refuses."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/scripts/check-lifecycle-boundary.mjs",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 10007,
+        "sha256": "9d5f5ce8a4b9f82a42d7da4a034af4885b554f3d631ded09582fbc8064054351",
+        "lines": "1-68",
+        "role": "Primary lifecycle reader/physical-owner boundary and exact recovery-artifact exception; preserve enforcement."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 53308,
+        "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f",
+        "lines": "79;168",
+        "role": "Existing generated descriptor publication owner; no new generation mechanism."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 27824,
+        "sha256": "22aade8295f93cbea4f8e64bb313464fbeca24cabe79c00925f80ccaa4315a8c",
+        "lines": "165;257;298;337;383-408",
+        "role": "Worker/helper positive and failure routes plus historical copy-disagreement test."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 80836,
+        "sha256": "c62071e4afc2f938ba9d84f67071686c8c2286ec1efcbd1d61a16ead7d7051f2",
+        "lines": "72;112;226-236;447;462",
+        "role": "Cold/warm/forked fold and sole lifecycle producer proof."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 84957,
+        "sha256": "ff28021b9a3b9acffe947ba146ce5ceaffb67fdf13a494de62a995c415e1a68a",
+        "lines": "480-515;1045 onward;1634 onward",
+        "role": "Exact reopen, profile/physical mismatch and history-reader conservation proof."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+        "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+        "bytes": 15892,
+        "sha256": "9ffdc51f90561375bdf228cf48f6bc8e2a187bb7079ea1db0a2a267093216c03",
+        "lines": "144;223",
+        "role": "Existing actor-carrier source contract seam; source pointer only, not complete recovery coverage."
+      }
+    ]
+  },
+  "effects": {
+    "writes": [
+      "D5_PROFILE_RETIREMENT_READINESS.json",
+      "D5_PROFILE_RETIREMENT_READINESS.md"
+    ],
+    "ProductWrites": 0,
+    "tests": 0,
+    "providers": 0,
+    "GitChanges": 0,
+    "dispatches": 0
+  },
+  "return": "Closed contributing readiness to Root. Root selects any exact native follow-up and later conjoins source review/C2/UAT/profile proof. No activation by this report."
+}

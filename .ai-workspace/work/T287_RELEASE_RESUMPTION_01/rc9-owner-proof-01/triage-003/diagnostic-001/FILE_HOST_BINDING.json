@@ -1,0 +1,22 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "test_env/tests/m5-worker-transport.test.mjs"
+  ],
+  "cwd": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001",
+  "scratchRoot": "/private/tmp/abg-r9-m5-diagnostic-001",
+  "resourceRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/RESOURCES.json",
+  "bounds": {
+    "timeoutMs": 180000,
+    "outputBytes": 16777216,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192,
+    "ancestryProbeMs": 2000
+  }
+}

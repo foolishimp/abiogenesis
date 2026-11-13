@@ -1,0 +1,146 @@
+{
+  "commit": "e30ac16b4a9406c43d054f45bad864746352dad6",
+  "tree": "ff9a852c6670884c35f67934e9f49443199b723f",
+  "parent": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "branch": "codex/rc9-owner-reuse",
+  "selectedDelta": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "oldMode": "000000",
+      "mode": "100644",
+      "status": "A"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "oldMode": "100644",
+      "mode": "100644",
+      "status": "M"
+    }
+  ],
+  "freeze": {
+    "pin": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "rows": 1340,
+    "uniqueRows": 1340,
+    "allCheckpointBlobMatches": 1340,
+    "allFrozenSnapshotMatches": 1340,
+    "allC9Matches": 1340,
+    "sourceToBuiltDifferences": [
+      "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    ]
+  },
+  "sourceArchive": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/reproduction-source.tar",
+      "bytes": 39198720,
+      "sha256": "b6cd0a11a55147c0c5e515a8bee444109789e197e83621e6d621b99af8be5219"
+    },
+    "paxComment": "e30ac16b4a9406c43d054f45bad864746352dad6",
+    "regularMembers": 1326,
+    "allGitBlobMatches": 1326,
+    "frozenRowsIncluded": 1326,
+    "frozenRowsOutsideDeclaredArchive": 14,
+    "buildOrDependenciesPresent": false
+  },
+  "canonicalInputs": 115,
+  "packaging": {
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "reproductionArchive": {
+      "path": "/private/tmp/abg-r9c-cut/reproduction/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "members": 5325,
+    "unchangedMembers": 5325,
+    "changedMembers": [],
+    "allTestedStageMatches": 5325,
+    "allReproductionMatches": 5325,
+    "manifest": {
+      "path": "/private/tmp/abg-r9c-cut/reproduction/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+    },
+    "productRelativeLocators": 5323,
+    "computedProductContentDigest": "sha256:b3a3df1f7d59d56414c9fea0d025d48e1b8bdbc27f0b84b8b74a5128a6bcc80c",
+    "canonicalManifestDigest": "sha256:780036b1be89caa6e4086c8181111c7c264fa4d7bc1aab033daf886a659351c5",
+    "graphAssetDigest": "sha256:36ed8dd2cf8b7aff048f6f090430fb0fb46e92737f82ea4c136acd79b8bef1b1",
+    "identityBridgeAllowance": false
+  },
+  "commandCustody": {
+    "results": 34,
+    "allExit0NoSignalFailureTimeoutTruncation": true,
+    "allStdoutStderrPinsMatch": true
+  },
+  "releaseInstallAbsent": {
+    "releaseRoot": true,
+    "installHost": true
+  }
+}

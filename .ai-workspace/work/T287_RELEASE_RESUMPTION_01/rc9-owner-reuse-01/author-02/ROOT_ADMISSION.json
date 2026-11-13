@@ -1,0 +1,79 @@
+{
+  "id": "RC9-NATIVE-02",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedAt": "2026-11-08T07:04:05.160766+00:00",
+  "decisionOwner": "/root Executive",
+  "recordedBy": "/root/rc9_operator",
+  "decisionVerbatim": "ROOT RC9-NATIVE-02 ACCEPT exacthelddispatch: PREPARED6254B f00e9382436ba0e44dbb2037865175d4ef03b11e8ecb4839741e1cf3cbc6699c independentlyread; binding294d0d53/scope5d0f6f01/TASK1253168b/host62174e1f. ActualRC8Program1eead3f1/viewc8a65ec8, invocationcaf08987; actualclosedprefix21,938,126B/4cb10e50/device16777231/inode714208439, source1340rows6aacc conserved;519contextentries/12,855Brendered;0provider/Runbeforedecision. Authorizeone8pathrepair+metadata call withinselectedbounds andactualfinallyclose. PersistexactROOT_ADMISSION.json(statusROOT_ADMITTED_NATIVE_DISPATCH,binding/preparedfullSHA,materialpins), sendpin immediately to EXISTINGsession23154/PID71304; noadditionalRootroundtrip. Reviewedproof002bindingproductionincluded. Monitoractualstart/freeze/proof/close; freshreadbacksfromactualclose once, no autoretry. ReturnanynewcounterexampleRoot.",
+  "bindingSha256": "294d0d53881ba9e924382fffd911d2c646d204edb8190e9d94fc140b27b0faae",
+  "preparedSha256": "f00e9382436ba0e44dbb2037865175d4ef03b11e8ecb4839741e1cf3cbc6699c",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_SCOPE.json",
+      "bytes": 3663,
+      "sha256": "5d0f6f010854447821bc28d65d6bf98f62872fb1511d03bca96f7e927599bb9d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/TASK.json",
+      "bytes": 11863,
+      "sha256": "1253168b96f8c40a63e25dd0f26c4ef791c9c5e41d781e8ce57f3e3563f3ba9e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/BINDING.json",
+      "bytes": 10156,
+      "sha256": "294d0d53881ba9e924382fffd911d2c646d204edb8190e9d94fc140b27b0faae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/host.mjs",
+      "bytes": 13586,
+      "sha256": "62174e1f216e004590b27928b7cdd30a01ffd8584e0d7cc572d27299c02547be"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/PREPARATION.json",
+      "bytes": 2053,
+      "sha256": "e1e83d6ee32dc03bb6e74832cbab5c7d4b49fe0ae9887bedfc395ff061aa3502"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_SETUP_ADMISSION.json",
+      "bytes": 2515,
+      "sha256": "1595cee4a0f42d0e3541b3f0a0f582ee793f235f7bea7c0accebbab306875724"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-002.mjs",
+      "bytes": 13305,
+      "sha256": "93187b4943f22cb4d601341962faa617a3b8a551b7b733187784f594c39c9170"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FOCUSED_BINDING.PREPARATION.002.json",
+      "bytes": 5758,
+      "sha256": "9c8322a919101bec5b6fe54e89695b997f44f4618ec1dc0845fc6c8c33bfd99d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/DEPENDENCY_INVENTORY.json",
+      "bytes": 901113,
+      "sha256": "83f5dc434970315c06f1f1cde41d4877eaafae0099a5224ee76369cf49042084"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_CONTRACT_SEED_INVENTORY.json",
+      "bytes": 41787,
+      "sha256": "4a2b911260e5a5e2ded42c19a007943c23973aeb3712af26acbc3ef8c3d19379"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PROOF_SCOPE_002.json",
+      "bytes": 9982,
+      "sha256": "26ab250198e3e2973113688d580d0443f23c82a9910d7eace6352db646e17ffc"
+    }
+  ],
+  "sessionId": 23154,
+  "pid": 71304
+}

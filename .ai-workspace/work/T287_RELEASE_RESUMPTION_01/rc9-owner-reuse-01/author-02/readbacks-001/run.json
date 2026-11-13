@@ -1,0 +1,78 @@
+{
+  "status": "EXACT_CLOSED_READ_SUBJECT_PINNED_BEFORE_CALL",
+  "startedUtc": "2026-11-08T07:17:53.929Z",
+  "authority": "Root selected fresh result/replay from actual native close; existing read owners only",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/BINDING.json",
+    "bytes": 10156,
+    "sha256": "294d0d53881ba9e924382fffd911d2c646d204edb8190e9d94fc140b27b0faae"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/PREPARED.json",
+    "bytes": 6254,
+    "sha256": "f00e9382436ba0e44dbb2037865175d4ef03b11e8ecb4839741e1cf3cbc6699c"
+  },
+  "close": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/resource-close.json",
+    "bytes": 2302,
+    "sha256": "3bc16115da46e7e0e5976edb00b7b5c60d26462f665f14030122823d63aaf738"
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 1172327,
+    "sha256": "ceb59fe8c16d8d24606a3e0cbe02d6677acd37baa2a1e1a3b9af41d25bb0e7b5"
+  },
+  "acquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/abg-acquisition.json",
+    "bytes": 16525457,
+    "sha256": "0f77facd002f0acc8e0cb59ffa11231a25e5ebb2ca37a3867d2a9ff4019f0dc9"
+  },
+  "run": {
+    "ref": "run://abiogenesis/fb1276451a54687192a1a6251bb9fa995d75a2e844cfa107cf6b4ac256e99e25",
+    "digest": "sha256:5adde845bcdf841295e08b9621fbedea7c6a255789862509422e196871148319"
+  },
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 39712384,
+    "prefixDigest": "sha256:406419ed9a4cc9663f7bb10af74933bff1eb83aa89b04dded4b604840df8b04a",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 714208439,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:72f501d1e8b0d32e549c982209c048a73026c4b6d2f637f4e3d970f5971bcdd6"
+  },
+  "physicalIdentity": {
+    "device": 16777231,
+    "inode": 714208439,
+    "byteCount": 39712384,
+    "digest": "sha256:406419ed9a4cc9663f7bb10af74933bff1eb83aa89b04dded4b604840df8b04a"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "sourceHelpers": {
+    "public-setup.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39883,
+      "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+    },
+    "runner.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    "consumer.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    "scenarios.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  },
+  "providerDispatch": false,
+  "sourceAcceptance": false
+}

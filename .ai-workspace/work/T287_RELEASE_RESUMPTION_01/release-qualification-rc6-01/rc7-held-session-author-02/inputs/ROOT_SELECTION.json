@@ -1,0 +1,132 @@
+{
+  "kind": "root_rc7_native_author_selection",
+  "status": "ROOT_SELECTED_HELD_SESSION_AUTHOR_INCREMENT",
+  "selectedTask": "rc7-held-session-author-02",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "architectureSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 9639,
+    "sha256": "5bd1530ddfe7df8a8db61f351f50233c2ac54d84107d5b652e0367283785312f"
+  },
+  "programEnvironmentTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/PROGRAM_ENVIRONMENT_TRIAGE.json",
+    "bytes": 6234,
+    "sha256": "52309666c19fb4ab06127b3d34370111ba832f43b4d6dc3ddb8b22046727625b"
+  },
+  "independentProgramJoinStanding": "Root relayed max evaluator confirmation: use existing programDeclarationClosure publications only for whole-Program role validation; no material counterexample. Source/design support, not execution proof.",
+  "productFrame": "Unchanged fixed fifteen-feature ABIogenesis5.0 / GOAL-035 / T287. ABG alone owns runtime admission; static Program/declaration/implementation authority, pure projections and thin SDK/CLI remain.",
+  "method": "STDO3.0.4",
+  "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "composition": [],
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_BEFORE.json",
+    "bytes": 240899,
+    "sha256": "8e9b7cb1a62cf40d3a7262baa1b274b6276fac254cc0e1e80326b3558b16ff56"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/SOURCE_AFTER.json",
+    "bytes": 510126,
+    "sha256": "692a29f93a48d755f973cee94d73f3952c7920e1d54f710e4e6c30f6a812efdc"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 30936,
+    "sha256": "7472605835633a071ab803a9e697581ed998c829a3ed83dd252cf26709b650b6"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 7500,
+    "sha256": "c1a3d77c74c716e4b5413067aed917560318b1239c2244e6f2356ae8ba3ac20f"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8825,
+    "sha256": "87de60b343daddd37b9b2aa085c9fe8d2ba0eb56a1c0925d64eae57eeb9eca70"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/execution/after-run-resume.json",
+    "bytes": 72498720,
+    "sha256": "210d24c9c839d8cae6c2dddd78c1ff5cd37abc0e4e7e8c58633f6b344722da5a"
+  },
+  "scope": [
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts"
+  ],
+  "conditionalScope": {
+    "path": "code/src/product/execution_resolution.ts",
+    "onlyFor": "Typed carriage of the existing admitted environment if required. No Catalog membership, execution resolution, dependency authority or refusal weakening."
+  },
+  "classification": "Bounded design_reframe for inner assessment dependency, plus existing maintained-runner integration correction; no Product or requirement change.",
+  "resourceBounds": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "stageAndLaneBounds": {
+    "stages": 2,
+    "maxLaneInvocations": 6,
+    "serial": true
+  },
+  "proofTiming": {
+    "status": "ROOT_SELECTED_FINITE_BOUNDS",
+    "primaryLaneMs": 600000,
+    "authoredIntegratedTestMs": 540000,
+    "otherLaneMs": 300000,
+    "basis": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/PROGRAM_ENVIRONMENT_TRIAGE.json",
+      "bytes": 6234,
+      "sha256": "52309666c19fb4ab06127b3d34370111ba832f43b4d6dc3ddb8b22046727625b"
+    },
+    "observedPriorRefusalMs": 286825,
+    "estimateStanding": "Prospective bounded allowance for newly exercised two Runs/actors plus maintained warm/cold readbacks after an observed286.825s pre-execution refusal. Not an observed positive-path duration or speedup claim. No automatic timeout retry."
+  },
+  "proofReuse": {
+    "postAuthorDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_POST_PROOF_DISPOSITION.json",
+      "bytes": 12677,
+      "sha256": "be2821a3e6e1e89fa1083598b2555702786936786ef5f41eb03862bd3254261a"
+    },
+    "hs02": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-hs02-once.summary.json",
+      "bytes": 4542,
+      "sha256": "b419f2c2df01c148434dd6763b154adefa7f720b06018c8e01c7a3eacb79d6c0"
+    },
+    "fixedCase": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-fixed-admission-once.summary.json",
+      "bytes": 2370,
+      "sha256": "40243c5f7b5e0ee9e648097514fe19620f5f6b746dd35e8930a46bb5cbe9fd4d"
+    },
+    "standing": "Reuse the exact scoped HS02 pass only for unchanged affected owners. It does not prove maintained caller, assessment selection, Program environment or later changed source."
+  },
+  "future": {
+    "rootControlAdmission": null,
+    "dispatchManifest": null,
+    "nativeLaunch": null,
+    "accepted": false,
+    "qualified": false,
+    "published": false
+  }
+}

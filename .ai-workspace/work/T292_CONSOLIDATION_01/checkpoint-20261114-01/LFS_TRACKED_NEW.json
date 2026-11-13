@@ -1,0 +1,791 @@
+{
+  "thresholdBytes": 52428800,
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/environment.json",
+      "bytes": 52611008
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-002/diagnostic-01-after-run-resume.json",
+      "bytes": 60948809
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-003/diagnostic-01-after-run-resume.json",
+      "bytes": 60949163
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-004/diagnostic-02-after-run-resume.json",
+      "bytes": 60949511
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-005/diagnostic-03-after-run-resume.json",
+      "bytes": 60949861
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-006/diagnostic-04-after-run-resume.json",
+      "bytes": 60950211
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-007/assessment-intake-01-after-run-resume.json",
+      "bytes": 60950561
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-008/fixture-repair-01-after-run-resume.json",
+      "bytes": 60950911
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-009/artifact-reconciliation-009-full.json",
+      "bytes": 96311901
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-009/candidate-rc2-01-after-run-resume.json",
+      "bytes": 60951261
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/diagnostic-01-after-run-resume.json",
+      "bytes": 60948457
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/operator-resume-material.json",
+      "bytes": 73449608
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/task.json",
+      "bytes": 78509491
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/bd6088e9314d5b2830993ecc31ceeda25a7bcc7fa2b021278b71ef07babb797e/7258a65e61a0dc1f89c41ee511121702332fff6dcf17263fc181865f538f0432/task.json",
+      "bytes": 76977163
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/e800400653fe6dafb44ade9e93af95b56d9ca7d0dc29d6df350d5affb3f3ff02/c62b87eaa34a5728d6bd8ef616af1b37cb8d331bb70d532d3bf5d6a77ae4699c/task.json",
+      "bytes": 97140131
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/ec4e650e91586cc30ec23570b8bd3459924fdf50f670e8b5527b3dbde6a0f6e6/7febaa086bbe7d90bcdb365b988ff5b3eb31f7692256d9ad92ca6de8791c442e/task.json",
+      "bytes": 76949282
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-011/retained-runtime.json",
+      "bytes": 73353884
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/operator-resume-material.json",
+      "bytes": 73449608
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/worksite-command-execution/5ef35a3d98191cde4badd5c7ba38e856c0771c3a5fe5d96bfbd7f5c0a31c5f03/f93bc5c02013c38501b7cd8304c51cf4edec6903902d4cc3b76875bac1ec9e03/task.json",
+      "bytes": 111736243
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/operator-resume-material.json",
+      "bytes": 73451053
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/worksite-command-execution/e1d42323c72c154c0c9ddb3a6d59e237629b76fd14194167f2079f527e06c2cb/fafa41d54cea85cfc03354774c712d4cb4571a450aecf4e866c524737380126c/task.json",
+      "bytes": 119063114
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/operator-resume-material.json",
+      "bytes": 73451062
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-004/operator-resume-material.json",
+      "bytes": 73343901
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-005/operator-resume-material.json",
+      "bytes": 73371717
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-005/resources/archives/worksite-command-execution/61ed9667fad5a311b47b08dbb2d3e0673ebd25d2c1bd9509cdf6a2ce81e51b4f/eebe6060f96695f1657503318dfa081ef10e405990ac9845ae2b0f148d093063/task.json",
+      "bytes": 119515871
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/operator-resume-material.json",
+      "bytes": 73371717
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/task.json",
+      "bytes": 119448294
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/after-run-resume.json",
+      "bytes": 60949821
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/operator-resume-material.json",
+      "bytes": 73451705
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/worksite-command-execution/51717170187809060e33cb0af9a7a0d87c0446a4f7661b396c2ac113879d4751/e98da6bc6b049353e1efc9c642358d502b0363b23ca48c0525a62b69cf26f3c8/task.json",
+      "bytes": 120512831
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/worksite-command-execution/d6588659ad08b977845675cfdc0d08284567e7014030d70ef0b6d3b1bd6b6493/ac2bc83ecafaa391c70f600bbb02a6ff84a56d7e3214adf04e3842dcea45fbd8/task.json",
+      "bytes": 120137893
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/after-run-resume.json",
+      "bytes": 60950181
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/attempt-001/after-run-resume.json",
+      "bytes": 60851967
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/runtime-001/operator-resume-material.json",
+      "bytes": 73346192
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/operator-resume-material.json",
+      "bytes": 73360529
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/operator-resume-material.json",
+      "bytes": 73360527
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b10-003/operator-resume-material.json",
+      "bytes": 73360530
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b11-004/operator-resume-material.json",
+      "bytes": 73360530
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-001/after-run-resume.json",
+      "bytes": 60953069
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-002/execution/after-run-resume.json",
+      "bytes": 60953427
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/execution/after-run-resume.json",
+      "bytes": 60953779
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/execution/after-run-resume.json",
+      "bytes": 60954164
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/public-read-operator-resume.json",
+      "bytes": 99884807
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/recovered-operator-resume.json",
+      "bytes": 73460655
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/source-acquisition-001/public-read-operator-resume.json",
+      "bytes": 99885171
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/execution/after-run-resume.json",
+      "bytes": 99886218
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/public-read-operator-resume.json",
+      "bytes": 99886582
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-002/fresh-context.json",
+      "bytes": 56700604
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-003/fresh-context.json",
+      "bytes": 56700604
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-008/execution/after-run-resume.json",
+      "bytes": 99887631
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-008/execution/execution.json",
+      "bytes": 63272334
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-008/execution/prepared-call.json",
+      "bytes": 61533182
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-009/execution/after-run-resume.json",
+      "bytes": 99888680
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/execution/after-run-resume.json",
+      "bytes": 99889729
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-011/execution/after-run-resume.json",
+      "bytes": 99890781
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/execution/after-run-resume.json",
+      "bytes": 99891830
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/execution/after-run-resume.json",
+      "bytes": 99889123
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/execution/after-run-resume.json",
+      "bytes": 99890175
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/execution/after-run-resume.json",
+      "bytes": 99891224
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/resource-recovery-001/recovered-operator-resume.json",
+      "bytes": 73461245
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/execution/after-run-resume.json",
+      "bytes": 99885376
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/execution/after-run-resume.json",
+      "bytes": 99886424
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r2/execution/after-run-resume.json",
+      "bytes": 99887476
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/execution/after-run-resume.json",
+      "bytes": 99888522
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/execution/after-run-resume.json",
+      "bytes": 99889570
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/a.resume.json",
+      "bytes": 91173550
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/setup.resume.json",
+      "bytes": 91173550
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/baseline.json",
+      "bytes": 86007554
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/operator-resume-material.json",
+      "bytes": 73464475
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/operator-resume-material.json",
+      "bytes": 73464952
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/operator-resume-material.json",
+      "bytes": 73465082
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/execution/after-run-resume.json",
+      "bytes": 99460277
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/execution/resume.json",
+      "bytes": 99459228
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/execution/after-run-resume.json",
+      "bytes": 99461326
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/execution/resume.json",
+      "bytes": 99460277
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/execution/after-run-resume.json",
+      "bytes": 99463429
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/execution/resume.json",
+      "bytes": 99462381
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/OBSERVED_FAILED_SELECTOR_TASK.json",
+      "bytes": 66625703
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/execution/after-run-resume.json",
+      "bytes": 99462375
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/execution/resume.json",
+      "bytes": 99461326
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01-r2/execution/after-run-resume.json",
+      "bytes": 99459242
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01-r2/execution/resume.json",
+      "bytes": 99458191
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01/execution/after-run-resume.json",
+      "bytes": 99458185
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01/execution/resume.json",
+      "bytes": 73034139
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/operator-resume-material.json",
+      "bytes": 73033534
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/after-run-resume.json",
+      "bytes": 72493736
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/execution.json",
+      "bytes": 196267184
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/fresh-reads.json",
+      "bytes": 164341963
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/prepared-call.json",
+      "bytes": 56538114
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/resume.json",
+      "bytes": 72492688
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/after-run-resume.json",
+      "bytes": 72494784
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/calls/lifecycle-start.outcome.json",
+      "bytes": 52817043
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/execution.json",
+      "bytes": 215509931
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/fresh-reads.json",
+      "bytes": 173600103
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/prepared-call.json",
+      "bytes": 57988760
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/resume.json",
+      "bytes": 72493736
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/after-run-resume.json",
+      "bytes": 72495832
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/execution.json",
+      "bytes": 198486895
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/fresh-reads.json",
+      "bytes": 177677375
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/prepared-call.json",
+      "bytes": 58774648
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/resume.json",
+      "bytes": 72494782
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/execution/resume.json",
+      "bytes": 72673898
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/after-run-resume.json",
+      "bytes": 72684562
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/after-run-resume.json",
+      "bytes": 72660008
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/resume.json",
+      "bytes": 72658887
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/preparation-r2/resume.json",
+      "bytes": 72658887
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/execution/after-run-resume.json",
+      "bytes": 72661062
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/execution/resume.json",
+      "bytes": 72660014
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/after-binding-resume.json",
+      "bytes": 72486815
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/after-run-resume.json",
+      "bytes": 72663606
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/execution.json",
+      "bytes": 53952056
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/prepared-call.json",
+      "bytes": 53274954
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/resume.json",
+      "bytes": 72663257
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/after-run-resume.json",
+      "bytes": 72488402
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/execution.json",
+      "bytes": 53800367
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/prepared-call.json",
+      "bytes": 53100621
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/resume.json",
+      "bytes": 72487353
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/after-run-resume.json",
+      "bytes": 72489356
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/execution.json",
+      "bytes": 173762658
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/fresh-reads.json",
+      "bytes": 145324307
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/prepared-call.json",
+      "bytes": 53367117
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/resume.json",
+      "bytes": 72488308
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/after-run-resume.json",
+      "bytes": 72491453
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/execution.json",
+      "bytes": 179172193
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/fresh-reads.json",
+      "bytes": 152897579
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/prepared-call.json",
+      "bytes": 54633835
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/resume.json",
+      "bytes": 72490405
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/after-run-resume.json",
+      "bytes": 72662117
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/resume.json",
+      "bytes": 72661066
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/after-run-resume.json",
+      "bytes": 72663166
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/resume.json",
+      "bytes": 72662117
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/after-run-resume.json",
+      "bytes": 72668372
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/resume.json",
+      "bytes": 72667323
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/after-run-resume.json",
+      "bytes": 72670663
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/resume.json",
+      "bytes": 72669614
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/execution/after-run-resume.json",
+      "bytes": 72498685
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/execution/execution.json",
+      "bytes": 55691731
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/execution/after-run-resume.json",
+      "bytes": 72498682
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/execution/execution.json",
+      "bytes": 53319024
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/execution/after-run-resume.json",
+      "bytes": 72498720
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/execution/execution.json",
+      "bytes": 53092920
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/after-run-resume.json",
+      "bytes": 72498689
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/execution.json",
+      "bytes": 55221131
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/after-run-resume.json",
+      "bytes": 72498702
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/after-run-resume.json",
+      "bytes": 72498689
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/execution/after-run-resume.json",
+      "bytes": 72498689
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/after-run-resume.json",
+      "bytes": 72498689
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/after-run-resume.json",
+      "bytes": 72498689
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/execution.json",
+      "bytes": 53182410
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/after-run-resume.json",
+      "bytes": 72497347
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/calls/lifecycle-start.request.jsonl",
+      "bytes": 53906893
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/execution.json",
+      "bytes": 215694883
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/prepared-call.json",
+      "bytes": 61413362
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/resume.json",
+      "bytes": 72496999
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/after-run-resume.json",
+      "bytes": 72497977
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/calls/lifecycle-start.outcome.json",
+      "bytes": 55789124
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/calls/lifecycle-start.request.jsonl",
+      "bytes": 55637479
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/commands/lifecycle-start.result.json",
+      "bytes": 54680083
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/commands/lifecycle-start.stdout",
+      "bytes": 54473096
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/execution.json",
+      "bytes": 230278463
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/prepared-call.json",
+      "bytes": 63163022
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/resume.json",
+      "bytes": 72497629
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/after-run-resume.json",
+      "bytes": 72498676
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/calls/lifecycle-start.request.jsonl",
+      "bytes": 55001750
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/execution.json",
+      "bytes": 219308288
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/after-run-resume.json",
+      "bytes": 72498325
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/calls/lifecycle-start.request.jsonl",
+      "bytes": 54997901
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/execution.json",
+      "bytes": 63216844
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/after-run-resume.json",
+      "bytes": 72498693
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/execution/after-run-resume.json",
+      "bytes": 72498693
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/execution/execution.json",
+      "bytes": 54332614
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/after-run-resume.json",
+      "bytes": 72498693
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/execution.json",
+      "bytes": 56876503
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/operator-resume-material.json",
+      "bytes": 72658275
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-01/execution/after-run-resume.json",
+      "bytes": 99579561
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-01/execution/resume.json",
+      "bytes": 73155013
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/execution/after-run-resume.json",
+      "bytes": 99580615
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/execution/resume.json",
+      "bytes": 99579562
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/execution/after-run-resume.json",
+      "bytes": 99581664
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/execution/resume.json",
+      "bytes": 99580615
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/execution/after-run-resume.json",
+      "bytes": 99582713
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/execution/resume.json",
+      "bytes": 99581664
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/execution/after-run-resume.json",
+      "bytes": 99583762
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/execution/resume.json",
+      "bytes": 99582713
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/after-run-resume.json",
+      "bytes": 99584811
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/resume.json",
+      "bytes": 99583762
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/after-run-resume.json",
+      "bytes": 73163274
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/resume.json",
+      "bytes": 99584811
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/readback-recovery-001/INPUT.json",
+      "bytes": 74679015
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/after-run-resume.json",
+      "bytes": 73164323
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/resume.json",
+      "bytes": 73163274
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/after-run-resume.json",
+      "bytes": 73165372
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/resume.json",
+      "bytes": 73164323
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/execution/after-run-resume.json",
+      "bytes": 73166418
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/execution/resume.json",
+      "bytes": 73165370
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/operator-resume-material.json",
+      "bytes": 73154403
+    }
+  ],
+  "sourceBytes": 16498265729,
+  "scope": "new outstanding files only; no history rewrite or push"
+}

@@ -1,0 +1,8 @@
+{
+  "sourceBasisRef": "execution-basis://abiogenesis/bde961fe67b31a02f3665230c816cb1fad0d30881d34942c548c51bca0774f62",
+  "resultEventRef": "event://abiogenesis/f737c485835bdfb2202a9445d25e2934619c33fef1fc5d801d22fbbef12b8bff",
+  "resultRef": "result://abiogenesis/0dbf0d3bc826245b7b290aed0b6b419b71d88bb3fef81d33c2faa52e423005c2",
+  "resultDigest": "sha256:0dbf0d3bc826245b7b290aed0b6b419b71d88bb3fef81d33c2faa52e423005c2",
+  "graphCallRef": "graph-call://abiogenesis/bb8fdb701f17bad107e96149969f05e404ecdc9c796fb0058e17b9f26d6580e0",
+  "sourceClosedEventRef": "event://abiogenesis/d31bfa56aa237230c1a5c0b18ee57e290e0670aa1c33f779f83cbf577eb2ebaf"
+}

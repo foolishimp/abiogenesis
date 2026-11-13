@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1911.8235839996487,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "qualification F_P proof delivery preserves the actual prepared request and exact owner arguments",
+      "file": "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_F11_FP_ASSESSMENT_PACKET or ABI5_F11_FP_BASELINE_TENANT unset; requires the prepared F_P assessment packet and baseline tenant",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/146-t287-qualification-fp-proof-delivery.jsonl",
+    "bytes": 966,
+    "sha256": "e149a8af6de4ba5a20ff612017d62a2f66952a0d6c5fc1b2992bcccf80c93338"
+  },
+  "commandReceipt": "commands/146-t287-qualification-fp-proof-delivery.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

@@ -1,0 +1,38 @@
+{
+  "status": "RUNNER_PREPARED_AWAITING_NATIVE_CLOSE_FREEZE_AND_ROOT_PROOF_ADMISSION",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/frozen-proof.mjs",
+    "bytes": 15645,
+    "sha256": "e7de3cec3058cdfc22da52b7cd047a9a98d4d796426fde9d14c1d7bcac0ac689"
+  },
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/DRIVER_DELTA.patch",
+    "bytes": 8002,
+    "sha256": "bbe11c466c64de129d3882f4f938488f2f5ad4cfa45988d9a62131d98fb49d7f"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/BINDING.HELD.json",
+    "bytes": 6502,
+    "sha256": "c27faff072d17718d0a164b3d519909e9c9c5428fd3d5cadb2dcb0e572988ed0"
+  },
+  "preservedDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/frozen-proof.unit-r02.mjs",
+    "bytes": 15201,
+    "sha256": "6856997d9e8fdbcf6b937da0709d38c5c2f7ce7d07765b6813cb86d5ecd45355"
+  },
+  "changes": "External CLI admission required for every mode; exact closed custody/successor freeze required; physical source input is that frozen source, every row matched; new proof-02 allocation. Existing compiler/generator/import/lifecycle/calculus and structured focused/unit reporter path retained.",
+  "limits": {
+    "stageMs": 600000,
+    "focusedMs": 600000,
+    "unitMs": 900000,
+    "heapMiB": 8192,
+    "outputBytes": 16777216,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296
+  },
+  "focusedFiles": [
+    "test_env/tests/t287-held-basis-lifetime.test.mjs"
+  ],
+  "unitPopulation": "Original maintained9-file test:unit remains unchanged and separately admitted.",
+  "executed": "Only Node --check on control driver. No source, build, test, stage, artifact or runtime action."
+}

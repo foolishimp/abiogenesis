@@ -1,0 +1,193 @@
+{
+  "at": "2026-11-05T09:30:12.859266+00:00",
+  "kind": "unchanged_source_after_native_final_close",
+  "snapshot": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/SOURCE_BEFORE.json",
+    "bytes": 6210,
+    "sha256": "b504f5c34b404b0ab8f4da66809499877144a025fd7d37141205b0fd86cb4f59"
+  },
+  "count": 30,
+  "allEqual": true,
+  "files": [
+    {
+      "relativePath": "AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84",
+      "equal": true
+    },
+    {
+      "relativePath": "CLAUDE.md",
+      "bytes": 6306,
+      "sha256": "6c2f604416499412902f5696953f5a059a88f5a5a348b1b39e58108819ec1940",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 61840,
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 95835,
+      "sha256": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10003,
+      "sha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+      "bytes": 7677,
+      "sha256": "cba6471264602fd95e465b2079809ac4a03c2b7b261ed79e687a3855b12b9793",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "bytes": 21165,
+      "sha256": "f95df8511a4d56148a80bac009ea41bceeb17907f59488bd6b24a39281d6fd59",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "bytes": 25759,
+      "sha256": "b633d1f69ef4f24d521e056206f0fb6f7b6467444d06dc64a9f9a23f69f98627",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "bytes": 9459,
+      "sha256": "3fa8fa8ffea19a187f727d64f6da3940e8def6ab3dadad0e055c0c45848ec0b3",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+      "bytes": 2031,
+      "sha256": "92f9faa3ec401fd80309b17f546a79354ae36b1869780c55fa5332110171a9d2",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "bytes": 3319,
+      "sha256": "85f0228f77adc6407390cdf50c51ca254b979e716b95123cb6daa35547685c7e",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "bytes": 4889,
+      "sha256": "a47f67cc01a55d363358a69a768f202e94cbca627b3f3fd6918a5a949425c051",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "bytes": 22133,
+      "sha256": "d56f24818f0dcf41469f643534f914b460fa7df096dcfe7ff3896861092fe814",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "bytes": 9623,
+      "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0",
+      "equal": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 67553,
+      "sha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-01/C2_INPUTS.json",
+      "bytes": 1889,
+      "sha256": "d4c519693c53ece5d098f290a16fd71fdce6323f67bcf3f4f7f6c3056b549f55",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+      "bytes": 3000,
+      "sha256": "ec354c90745999cb897f807e48496936be117c000b70bfae0001d02eab55a373",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+      "bytes": 891,
+      "sha256": "1ff95564606e6119be08acd15a53eca65d685511f06acfe9884026b4881de5c3",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-01/c2-proof.mjs",
+      "bytes": 2474,
+      "sha256": "37f8ee15ebd5ea2dfca58edb26f73175034ebb7776c2fc066e5be91a9e20decb",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-01/rubric.json",
+      "bytes": 1237,
+      "sha256": "55c7d409c89cca2f2715b948b6f9320a188fa958da5dfd248ae6f57cda2b8c5a",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 28642,
+      "sha256": "9a8fd82261cc8854d809857c7865cec1c2b6f4929c0ebd86f6743a4eaf5c1aa3",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.md",
+      "bytes": 8627,
+      "sha256": "09435ce81b03d8a7a228bf4055520a5e933aef9f4d72ad3a053e7363f7211cab",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-proof-02/PROOF_ONLY_GRANT.json",
+      "bytes": 4870,
+      "sha256": "5d0bc022218ddac223ded05cd05a0ae30ee37709a6981a672d598531a24f5e29",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-proof-02/ROOT_FAILURE_TRIAGE.json",
+      "bytes": 10440,
+      "sha256": "6f844b501da56a06443811a554c3004be82221828a0fb1674496ad2ad15feacc",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-inputs/fixture-proof-02/TASK.md",
+      "bytes": 2567,
+      "sha256": "b0918c077b537d02c6de34a0f49b208e02da0990797adefb33e7d17e2aa79937",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-scratch/fixture-01/readiness.json",
+      "bytes": 3365,
+      "sha256": "cd1a4f2fdd54aaf054e61ba4343e564a5f35c1e764856a78d5743acc1da16f2d",
+      "equal": true
+    },
+    {
+      "relativePath": "qualification-scratch/fixture-01/return.json",
+      "bytes": 20672,
+      "sha256": "d1f881e522f6ccb476813980bdc5e827d009d410653bc0bd2b578a9b61a7aad8",
+      "equal": true
+    },
+    {
+      "relativePath": "specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "equal": true
+    },
+    {
+      "relativePath": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+      "equal": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-freeze.json",
+    "bytes": 295947,
+    "sha256": "954c2609173832ea9942c7317c4216f138e98543fab1f533e7d0a46fe4aa2c4f"
+  },
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "sourceRows": 1345,
+  "sourceCommit": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+  "files": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11658,
+      "sha256": "fbb571cc96fa60b4a7000c61063b060c7fcb14c11bed8ed96c40cbfe4bfa9e6f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 13490,
+      "sha256": "6af5f671477c20c98e3893f67957dd93d69ea674935e3c2426eb12a7ccf2d0e3"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 69020,
+      "sha256": "bde24cca3b0e10d2589790a0847725b303070b993a26fb5ac2e9102a76787736"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 20144,
+      "sha256": "71414a3f69934ba6ccb3f1050ec58cb1e6dd2d44e546c5f9eda8acab8b048892"
+    }
+  ],
+  "operatorVerifiedAllFrozenRows": true,
+  "compiledPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/COMPILED_SCRATCH_INVENTORY.json",
+    "bytes": 106060,
+    "sha256": "79e47225c535955d22bf8c012b4b7954f4daf6ca9d43826d0fd39391d1c14e65"
+  },
+  "compiledRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 63651,
+    "sha256": "95385ee5db886ae717600a430baf01e050160aa67b7684b403ac0c63e0ca1ce0"
+  },
+  "meaning": "Four author targets pinned before dispatch; actor need not scan full inventory. Predecessor compiled bytes are evidence only; selfchecks require fresh native04 scratch output."
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "rc7_held_session_author_progress",
+  "task": "rc7-held-session-author-01",
+  "updatedUtc": "2026-11-06T13:22:06.355Z",
+  "phase": "STAGE_01_BEFORE_SOURCE_FROZEN_BUILD_PENDING",
+  "freezeReceipts": [
+    {
+      "label": "hs1-stage-01",
+      "mode": "before",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-01-source-freeze.json",
+      "bytes": 96590,
+      "sha256": "7d775a14e6be83b1b8882aa9174ddcf618a2accd754a49061400b13ec371f4a9",
+      "sourceDigest": "5b48091aba36f04f328a89fd21050e82038002a221f0392e781448c590ace87f",
+      "sourceCount": 450,
+      "status": "SOURCE_FROZEN_BUILD_AND_FEEDBACK_PENDING"
+    }
+  ],
+  "lanes": [],
+  "notes": [
+    "Before stage: baseline Product/runner/public-setup with current HS02 and maintained-caller fixed-admission tests.",
+    "Stage stdout/stderr were redirected to scratch-root stage-01.out/.err (outside the declared tmp/ path); disclosed."
+  ]
+}

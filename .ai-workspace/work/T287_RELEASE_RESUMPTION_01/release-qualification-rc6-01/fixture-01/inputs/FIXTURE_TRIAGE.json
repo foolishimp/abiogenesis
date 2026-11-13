@@ -1,0 +1,36 @@
+{
+  "kind": "N9_RETAINED_FIXTURE_01_current_triage",
+  "at": "2026-11-05T07:51:00.173914+00:00",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "priorDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ROOT_SOURCE_AND_EVIDENCE_DISPOSITION.json",
+    "bytes": 7829,
+    "sha256": "7b0abbf652915973c95682da42327baf2a477cb895372fad933e07df31476311"
+  },
+  "test": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "bytes": 66912,
+    "sha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19"
+  },
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "bytes": 95835,
+    "sha256": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205"
+  },
+  "observedFailure": "Retained actual09 and preimage/candidate both4pass/1fail/2skip, first-test intake_projection_exception rather than native_revision_cause_absent. No new run is claimed.",
+  "originatingRelation": "Component harness still stubs Event Store readRuntimeEventsAtDurablePrefix while current intake consumes event_prefix.readOwnedRuntimeEventPrefixAtDurablePrefix; its admitted-prefix premise is not supplied at the current owner port.",
+  "downstreamEffect": "Intake catches failed real read of file:///component/no-journal before intended absence/refusal and later correction assertions execute.",
+  "frames": {
+    "Product": "No Product behavior or error weakening selected; D2/qualification claims depending on the later assertions are withheld.",
+    "DesignReuse": "Use the existing canonical owned-prefix reader and component harness premises; no replacement production interface or parallel reader.",
+    "Proof": "Repair test premise at its current owner boundary; preserve meaningful existing first-test assertions and historical gated cases.",
+    "Identity": "RC6 executable source is byte-conserved from accepted native subject except version constants; the test failure predates the targeted refactor."
+  },
+  "selection": "Activate existing registered debt for its current qualification trigger. A bounded native test-only repair is dependency-ready.",
+  "writeScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "Existing shared test support only if the owner-defined fixture already resides there; otherwise stop for Root scope extension"
+  ],
+  "closure": "Existing first-test assertions and the full seven-test lane execute with current-contract premises; record actual pass/fail/skips. Historical two gated tests stay explicit. No broad suite/native qualification credit.",
+  "stop": "New Product behavior counterexample or required production/HOW change returns for Root triage; do not hide it with mocks, change expected errors, lower coverage or add skips."
+}

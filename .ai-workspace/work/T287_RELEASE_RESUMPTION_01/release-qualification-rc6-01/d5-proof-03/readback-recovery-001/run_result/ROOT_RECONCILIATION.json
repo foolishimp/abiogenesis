@@ -1,0 +1,63 @@
+{
+  "kind": "root_completed_read_refusal_reconciliation",
+  "at": "2026-11-06T03:14:58.878351+00:00",
+  "status": "EXPECTED_ABSENT_RESULT_CONFIRMED_WITHOUT_RERUN",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/run_result/calls/run_result.outcome.json",
+    "bytes": 3344,
+    "sha256": "cb3746458958d474f931d2d8ec6c8b5b02ec8e255b9ef10e4ab5d13837c8069f"
+  },
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/run_result/commands/run_result.result.json",
+    "bytes": 3818,
+    "sha256": "27230924ca55bb271dd7315c321f81ce7ba83b2ad05156da07e1af855f29287a"
+  },
+  "originalHelperFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/run_result/FAILURE.json",
+    "bytes": 1393,
+    "sha256": "2e97cf24c39092dd8ee3cbfe10f3b446eea5b22223d77c53c3d45c0e48e908d9"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/CONTROL_PREDICATE_TRIAGE.json",
+    "bytes": 2529,
+    "sha256": "54e1ad805a2b4d8fd3a99a2e273d7f3d01393405ede0bb7293c3fa05f61989ab"
+  },
+  "actualOwnerExitCode": 1,
+  "outcomeKind": "refusal",
+  "refusalCode": "not_found",
+  "terminalPresent": false,
+  "physicalPrefixUnchanged": true,
+  "requestedSource": {
+    "digest": "sha256:c3f09e39d01787b33dd16d3d52015a8bc676ee6cd374f4dc0ed1059c018db5a5",
+    "ref": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:56a796f7ca179fb03538d31e77b995157c699c40abc28025837f7d6f2ae335db",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:2fc8a9f8bc56eded06c22d64c9969807cb3dd9498638dc75ab42c18389b7195b",
+      "prefixLength": 1057950101,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 701759869
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:ec26b6a9bca70bb0d3201d0e9a09ddf7928254d22686cf0ce7f429cc82ee369b",
+      "device": 16777231,
+      "durableByteLength": 1057950101,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:2fc8a9f8bc56eded06c22d64c9969807cb3dd9498638dc75ab42c18389b7195b",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "inode": 701759869,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "installedReadMs": 65334.0175,
+  "preparationMs": 66186.210458,
+  "standing": "Read itself completed correctly; operator assertion failure is preserved. Run has no terminal result. No C2/UAT/qualification success inferred."
+}

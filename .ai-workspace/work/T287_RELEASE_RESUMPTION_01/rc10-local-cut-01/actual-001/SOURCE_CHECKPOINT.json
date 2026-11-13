@@ -1,0 +1,26 @@
+{
+  "kind": "rc10_local_source_checkpoint",
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "branch": "codex/rc10-retention",
+  "worktree": "/private/tmp/abg-rc10-retention-20261109",
+  "baseCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/RETURN.json",
+    "bytes": 2205,
+    "sha256": "b937bd3f9c726d7b283f0ef72706e0735a8836bf67173c66635d0c5d7ed1ca6b"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+    "bytes": 293103,
+    "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "sourceCount": 1334,
+  "identityChanges": [],
+  "standing": "Exact accepted frozen overlay checkpoint. Local unqualified; install unexecuted."
+}

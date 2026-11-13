@@ -1,0 +1,48 @@
+{
+  "status": "FROZEN_FOR_SELECTED_OWNER_PREPARATION_AND_ONE_NATIVE_DISPATCH",
+  "recordedUtc": "2026-11-07T06:49:17.896751+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/ROOT_SCOPE.json",
+      "bytes": 4249,
+      "sha256": "5690ef7996f0e4c58969fec1b823630405270cdccdfecbcb0b5445a176e40a71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/TASK.json",
+      "bytes": 8246,
+      "sha256": "804b3b271ec4d5dcd54a369f9d111d2df705d34199e20b25bec12b8e05cda462"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/PREPARATION.json",
+      "bytes": 6492,
+      "sha256": "80b9b043eceaa6c776fef9cddecc2b4dd337d2f9ddcfad8a10764e01bfa8d98c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/BINDING.json",
+      "bytes": 5041,
+      "sha256": "8abb99c2505bf8948f85132d74dd95115a69c9589ed98bc069846deb82acc821"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/host.mjs",
+      "bytes": 12242,
+      "sha256": "3960799b659265c7eb80a67d39db62a9daba66e9b7c5b13af1daff314d48ae3e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof.mjs",
+      "bytes": 10320,
+      "sha256": "0d903a479d2aced207b4078321582be3a3e747dd022f6d366584f911b7557685"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/broad-f04-001/REVIEW.json",
+      "bytes": 26969,
+      "sha256": "f01ec4cb00eb7b8fa3cb77debfcbdd2a2cdb5b715bc41624284b8a8caa5901b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/broad-f04-001/README.md",
+      "bytes": 5455,
+      "sha256": "bfbbf1c63bfd71fe2b70360abc10e50f6a0b87e33a5700c3e7c5b7b0a37a846b"
+    }
+  ],
+  "authority": "Root final explicit scope authorizes canonical owner preparation and one dispatch without further GO; stop if bindings refuse or review contradicts.",
+  "providerDispatchObserved": false
+}

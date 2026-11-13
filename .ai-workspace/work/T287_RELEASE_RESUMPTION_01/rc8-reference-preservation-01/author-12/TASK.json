@@ -1,0 +1,50 @@
+{
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "maxPromptBytes": 1048576,
+  "checks": [],
+  "id": "T287-RC8-AUTHOR12-WITNESS-PROFILE-COORDINATE",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "outcome": "Correct only the two stale profile evidence references in the existing witness profile-reprice fixture; prove the complete unchanged profile case through one exact anchored filter.",
+  "readRoots": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+    "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures",
+    "build_tenants/abiogenesis/typescript/code/src"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+    "qualification-scratch/rc8-reference-preservation-01/author-12"
+  ],
+  "instructions": [
+    "First read the exact control intake /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SCOPE.json and the final CONTROL_FREEZE.json pins for TASK/BINDING/PREPARATION, then apply Receive from /Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md. This A12 realization_refactor retains fixed15/GOAL035/T287/REF01, exact STDO3.0.4 and empty composition. This native actor executes only after the maintained host receives its separate exact Root native admission. One Claude Opus5.5 xhigh coding Worker is the sole source author; no delegation or additional provider calls.",
+    "Preimage is accepted A11 source95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04 /1339rows, cumulative A11READY, and genuine A11 closed192595103B/ccf41d16714b6148491cf842e834764d2c892789f51b3acec3f998f8f82dea39. Read the closed causal capsule /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/witness-reprice-024/REVIEW.json and README.md; A11 ROOT_SOURCE_ACCEPTANCE/OPERATOR_RETURN and broad024/025 returns are read-only evidence. Preserve original024 red, its14 observed passes and all nine durable residuals. Current main GOALS/T287 are pinned in ROOT_SCOPE; C8 source stays at the accepted preimage until this sole edit.",
+    "In build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs, replace ROOT_CURRENT_EVENT_PROFILE_REF with ROOT_WINDOW_EVENT_PROFILE_REF ONLY in profileRequest evidence construction at frozen line226 and the matching missing-evidence removal at frozen line241. Exactly two symbol substitutions in this one file. Preserve all digests, request content including its design_reframe classification, every assertion, all other cases, helpers and native owners. The fixture task is realization_refactor; it does not reclassify the unchanged native reprice request. No event/profile/receipt/guard or Product/HOW/API change.",
+    "Accepted HOW10.10 E-G fixes new exact-L boundaries to current W; old retained RC6/S2 boundaries keep their original profile ref/digest. Read relevant test/support/fixtures and code/src transitive owner imports only as needed. No owner-tree bulk copy, serialized Catalog/lock/graph reuse, runtime history reconstruction or unrelated investigation. These are instructed boundaries; no sandbox-enforced information exclusion is claimed.",
+    "After the two-reference edit, freeze exactly once with /opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof.mjs freeze. Write FREEZE_NOTICE immediately under qualification-scratch/rc8-reference-preservation-01/author-12; Root owns any review activation. The declared proof control may write only its named A12 proof-evidence and /private/tmp/abg-r8-a12-001/p scratch; do not edit those controls. Reuse exact cumulative A11 compiled/dependency/config/archive inputs. Zero builds/generation/repack; no source edit after freeze.",
+    "Run exactly /opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof.mjs test witness-profile once. The exact anchored filter is ^Public profile reprice retains the exact L-to-P boundary and standalone cold content checks$. Require1pass/0reportedskips; the other14 cases are excluded and receive no new credit. Execute the complete existing positive receipt, cold content/boundary checks, wrong-reason and missing-evidence refusals, repeated-upgrade refusal, unchanged-byte/close and work-bound assertions through final witness_profile_boundary diagnostic. Preserve complete command/reporter/result bytes. A corrected valid-input failure or weakened negative returns to its existing owner: no repair/retry/timeout extension or scope expansion.",
+    "Native bounds1800000ms absolute/300000ms inactivity; one native call. Proof600000ms/16MiB output/8GiB heap/4GiB reserve and owned-growth bounds unchanged. Write HANDOFF.md in own progress territory with exact one-file/two-reference delta, freeze/proof pins and limits. No Git/cut/install/global selector/cleanup. Root alone accepts and may conjoin the14 original024 passes with one new complete-case pass; no new whole-file, broad-green, installed L-to-W or release qualification claim."
+  ]
+}

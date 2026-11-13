@@ -1,0 +1,71 @@
+{
+  "kind": "root_accepted_rc10_source_artifact_conjunction",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+    "bytes": 293103,
+    "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+  },
+  "stageSourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292778,
+    "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "manifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266232,
+    "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+  },
+  "archiveMembers": 5325,
+  "originalOperatorRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 2891,
+    "sha256": "4fee5659101505a05b23efce242369730e09cf951b61ce870a56c437fdae2367"
+  },
+  "nativeRepair": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/RETURN.json",
+    "bytes": 2205,
+    "sha256": "b937bd3f9c726d7b283f0ef72706e0735a8836bf67173c66635d0c5d7ed1ca6b"
+  },
+  "build": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/RESULT.json",
+    "bytes": 986,
+    "sha256": "ae5cf7e38f13a03e1f27eb90aa3f26c9c78be29243b8cc9d5298ee62fa4f2045"
+  },
+  "buildInputs": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/BUILD_INPUTS.json",
+    "bytes": 624,
+    "sha256": "4e0da2c18d40ac5855531a741d40f2f10a328edc965233ce1cb079e6c69ab985"
+  },
+  "focused": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/focused-01/RESULT.json",
+    "bytes": 2272,
+    "sha256": "68176a792986c22b419d8a3baf94f3e95d2a348c431194bbf8257eb1f98bfe70"
+  },
+  "unit": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/unit-01/RESULT.json",
+    "bytes": 6777,
+    "sha256": "8ad8cc41bf49b86c92079f9105078cc1d01016013067672a0b17a3333cdb4624"
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/RETURN.001.json",
+    "bytes": 11074,
+    "sha256": "4cb43518f92a3fd94e02688bcf9dc1b7e4684f823b2170999efce598d6e395a3"
+  },
+  "acceptedClaims": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/ROOT_BOUNDED_ACCEPTANCE.001.json",
+    "bytes": 16300,
+    "sha256": "d215ce348375621f00bc69b51d95e037a8aa275c4472a54e23d4ad979de836b9"
+  },
+  "identityEdited": false,
+  "sourceRowsEqualAcrossNativeAndStage": 1334,
+  "affectedAcceptance": null,
+  "releaseCut": false,
+  "qualified": false,
+  "standing": "Joins existing exact evidence; normalizes sourceIdentity.sourceDigest to sourceDigest for the preserved local-cut driver. No archive/evidence rewrite and no execution admission."
+}

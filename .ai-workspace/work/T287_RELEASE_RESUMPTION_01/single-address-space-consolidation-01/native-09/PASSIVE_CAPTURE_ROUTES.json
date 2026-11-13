@@ -1,0 +1,29 @@
+{
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+  "kind": "Root operator passive custody routes",
+  "effects": "Read actual already-admitted outputs and copy exact evidence; no runtime calls/source/control mutation",
+  "executed": false,
+  "routes": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/capture-c2.mjs",
+      "sourceSha256": "cb4f854b871c704d7e58243c808285125b10076938b5c185831f362036694537",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/capture-c2.mjs",
+      "sha256": "cb4f854b871c704d7e58243c808285125b10076938b5c185831f362036694537",
+      "adaptation": "None; existing activation-relative reader"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/capture-assessment.mjs",
+      "sourceSha256": "e4f961249f36119639bc5fa4b9cf485a5819b3cbbabcec031270f7030c773ae0",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/capture-assessment.mjs",
+      "sha256": "e4f961249f36119639bc5fa4b9cf485a5819b3cbbabcec031270f7030c773ae0",
+      "adaptation": "None; existing activation-relative reader"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/capture-final-close.py",
+      "sourceSha256": "396df651361d67f6551a7c78ba2a564f217eb077363ffa07f4069c74769f3ed2",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/capture-final-close.py",
+      "sha256": "8e236aeffcde81e4c3c29f8aa6356bda311b7de4040295c59d8ad5e36ea9a571",
+      "adaptation": "Only current handoff namespace09"
+    }
+  ]
+}

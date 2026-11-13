@@ -1,0 +1,126 @@
+{
+  "kind": "q23_author_05_bounded_construction_return",
+  "status": "candidate_returned_unaccepted",
+  "claim": "Bounded author construction only. No acceptance, independent review, C2, UAT, production Q23/F11 eligibility, QR02 closure or release claim.",
+  "worker": "One ABG-native coding Worker, Claude Opus 5.5 (claude-opus-5-5), fresh context, xhigh; same family as the Q23-02 author of the code owners. Not an independent actor.",
+  "method": "STDO 3.0.4 stdo-work SKILL.md read through METHOD_ACCESS pluginRoot. Receive path: the packet's admitted grant is consumed as the execution contract. Change class: existing-owner HOW re-entry plus bounded realization under unchanged Product WHAT.",
+  "source": {
+    "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "branch": "codex/t287-5-release-qualification",
+    "inputPartialDiffSha256": "f9b7476574029bcac261e51867f0e4ae4d4112cc6c1ebbcd287d975643cfca58",
+    "inputPartialDiffMatchedWorktreeAtStart": true,
+    "finalWorktreeDiffSha256": "bd187b1533f04e5a963bb0612ef7e1eb1e32c917f9feab385d9c9652988d24b1",
+    "finalDiffStat": "13 files changed, 1007 insertions(+), 71 deletions(-)"
+  },
+  "changedPaths": [
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts", "bytes": 82336, "sha256": "94908ca0c4900dcf7be787f207dafe87be9288f0da1b75c88b9cfb5cec33679b", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts", "bytes": 296901, "sha256": "cf7151bf17b124577c67e279c1a487723607431814c374364b7059ea9c364a59", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts", "bytes": 214382, "sha256": "c7dc17fdc2139343d20217646e3df0d7a2254b3057394e67151041692d5e3f70", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts", "bytes": 101638, "sha256": "eadea0767a720a6dae113153a142d98a7dbfd4f482c46b4a34339c064f46e35d", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts", "bytes": 22383, "sha256": "4081e74e9bcb33cb493328fbe7c54ff57ea26a1571f66958a839824e926947cf", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts", "bytes": 37000, "sha256": "2f19a31bf833e9b651b0077ac5de1d8d21dc2b488e663b1893f228c317a77f26", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts", "bytes": 83701, "sha256": "6b91dcbd8327b922a6c563685fa3aa1346ea3e5fdda56015bef8a66eec93753b", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts", "bytes": 78920, "sha256": "436ea942a5da2f4c9fd89f4c576f968500c398097c9b00fd520f8577e3ecca22", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts", "bytes": 42257, "sha256": "e96f3f83600db08d3145b468895de887d375d764e8ae4f0929e886207383e4cd", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs", "bytes": 27727, "sha256": "50b42a57ac2b89ac5149d21df5e6bfc4f5e3626dff12e58d5a198e26c4792478", "origin": "Q23-02 partial, unchanged by this Worker"},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs", "bytes": 90781, "sha256": "879368cf595e31599399c135df4a131b11ca42fe4ea211abb5137454fb953a6f", "origin": "Q23-02 partial (import lines only) + this Worker: three Q23 tests and their imports"},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs", "bytes": 82877, "sha256": "d039e94c714169cac9321afdd0471aa29c5ef01469f9742a1427c30d56251bb3", "origin": "Q23-02 partial (three Q23 tests) + this Worker: actor_process gate test, its helpers and imports"},
+    {"path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md", "bytes": 54194, "sha256": "0bbbd4c8e96e6aacca5c9a961100ecac60a211efae94f9a94276223c095fc32d", "origin": "this Worker: section 2 correction and two-profile declaration, section 3 Q23 subsection, section 6 owner note, section 7 discriminator row"}
+  ],
+  "unchangedGrantPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+  ],
+  "sourceRelation": "All 318 C2 protectedSourcePaths were staged in each author stage. b2 sourceDigest 2e6b853f0c522a6f413fb04a17c608be47c636976e1329de1507cb6026538ab3 records path/bytes/sha256 of each staged input, including the 13 changed paths above. The other 305 are protected unchanged inputs at 1f62c0095.",
+  "howReentry": {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "sections": [
+      "2: corrects the earlier claim that no generic transport change is required; declares exactly the two-profile closed QUALIFICATION_ROLE_POLICY.actorProfiles and familyRelation",
+      "3: 'Configured assessor identity and pre-invocation eligibility (Q23)', items 1-7 plus production limits",
+      "6: names the identity seam in transport_contracts, worker_transport, actor_process, event_store and c_call",
+      "7: Q23 discriminator row"
+    ]
+  },
+  "criteria": [
+    {"id": "Q1", "result": "component_evidence", "evidence": [
+      "m5 'M5 Q23 configured identity is the one exact model selection ...': derivation from the final arguments; 13 unknown cases; closed guard; correspondence positives and 9 negatives",
+      "m5 'M5 Q23 a prepared plan executes its own bound selection ...': a real process receives exactly the bound arguments and captured environment after the caller contract, append arguments, environment object and process.env all changed; re-preparing the changed inputs is ambiguous",
+      "m5 'M5 Q23 the current binding contract records one corresponding identity ...': the real emitted event_store guard admits a corresponding identity or absence, refuses five mismatches, and the legacy profile refuses the member",
+      "scopes 'Q23 actor_process gates ...': the real actor_process records the plan identity once in the binding; it equals the derivation of the bound arguments and the c_call projection reads it back"]},
+    {"id": "Q2", "result": "component_evidence", "evidence": [
+      "scopes 'Q23 one native history ...': the J carries only binding coordinates, one binding, and cold readback is equal",
+      "scopes 'Q23 J readback refuses legacy, mismatched, same-family, substituted, crossed and digest-changed bindings, warm and cold'",
+      "The process/artifact/terminal joins of projectAdmittedActorTransport are fixture premises in these J readback tests; the binding/start identity join is the real c_call projectTransportBindingSelection"]},
+    {"id": "Q3", "result": "component_evidence", "evidence": [
+      "qualification_contracts.ts holds exactly two actorProfiles and familyRelation; validator resolves by exact agent+model only",
+      "scopes 'Q23 one native history ...' refuses: another Anthropic model, a prefixed name, the other family's model on the wrong agent, the declared model on the wrong agent, an undeclared GPT model, and same family as the author"]},
+    {"id": "Q4", "result": "component_evidence", "evidence": [
+      "scopes 'Q23 actor_process gates ...': 13 required negatives through the real actor_process refuse with the exact reason, no transaction and zero real provider starts. The positive control starts the real provider once with the bound selection. Two ordinary non-assessment dispatches, with and without a model, start once each.",
+      "Mutation check (author only, in tmp/b1): bypassing the gate in the compiled actor_process.js makes this test fail at its first negative; the staged file was restored, sha256 830574138f71d7e1e291a3e70ae0baf4e81867a42008ca46a66dedd4b436bd71",
+      "scopes 'Q23 authors, provenance, peers and owner connection refuse before dispatch ...': 12 operation-level refusals plus an admitted cross-family peer positive"]},
+    {"id": "Q5", "result": "component_evidence_with_explicit_premises", "evidence": [
+      "nativeHistory: an eligible native history through the canonical owners under the exact declared profile premises, with nearest negatives and cold reconstruction",
+      "Premises are listed under fixturePremises; nothing is presented as physical admission or production eligibility"]},
+    {"id": "Q6", "result": "author_check_green", "evidence": [
+      "b2: compile 0, canonical generation 0, transport 26/26 and qualification 36/36, with zero fail/skipped/cancelled/todo",
+      "All pre-existing tests are retained unweakened: transport 23 and qualification 32. The +3 partial Q23 tests are kept; this Worker added 4 tests."]},
+    {"id": "Q7", "result": "author_assertion_pending_review", "evidence": [
+      "Writes were limited to the grant paths and qualification-scratch/q23-author-05",
+      "Contributor union, external attribution reconstruction and QR02 are unchanged: external provenance remains unknown before dispatch",
+      "No new Product WHAT, controller, registry, store or event stream",
+      "Residual R1 is a current event-profile digest change that Root must decide"]}
+  ],
+  "fixturePremises": [
+    "nativeJoinFixture lower owners: durable prefix acquisition, execution basis, invocation admission, workspace environment, declaration closure, CCall carrier/state. Events are synthetic and are never written to a store.",
+    "projectAdmittedTransportEvidenceSelection premise: the process/artifact/terminal joins of each cited transport are admitted. Binding/start rows are selected from the synthetic array, and the real c_call projectTransportBindingSelection decides the identity join.",
+    "isWorksiteCandidateBundle answers only for the supplied synthetic candidate bundle (the native producer's C1 result).",
+    "Synthetic bindings use the real binding body digest/ref form with a synthetic transportPlanDigest.",
+    "The native author with gpt-6-astra (codex) is synthetic. The current native actor route constructs only claude transports, so no such production author occurrence exists.",
+    "actorGate premises: hasAdmittedWorkspaceBinding true; invocation admission rehydrates without RunEnvironment; the event prefix is the fixture array; current-profile premise (ROOT_EVENT_CONTRACT_DIGEST is set to the fixture store's contract digest; the legacy case omits it); store transactions and liveness/probe/threshold admission are recorded in memory; isQualificationAssessorEligibility is the fixture owner instance's own.",
+    "The provider is a local /bin/sh script that appends its argv to a marker file. No paid provider ran."
+  ],
+  "authorChecks": {
+    "helpers": [
+      {"path": "qualification-scratch/q23-author-05/tmp/stage.mjs", "bytes": 3168, "sha256": "4cba228d4f3d783e10fc8955a069f56204ae6ecd40bc3385b5c3e7b958d7f4f9", "adaptedFrom": "qualification-inputs/q23-author-05/prior-author-stage.mjs"},
+      {"path": "qualification-scratch/q23-author-05/tmp/lanes.mjs", "bytes": 2897, "sha256": "2ebd5323d13e97c10f4ff96f2a56b167d086226a16389d8ef876819f28eccf4c", "adaptedFrom": "qualification-inputs/q23-author-05/prior-author-lanes.mjs"}
+    ],
+    "runs": [
+      {"label": "b0", "subject": "unchanged preserved partial", "sourceDigest": "2abc61044ffbfd0f3f1533806094389347c0300ffa132304ee203d94bd824eca", "compile": 0, "generate": 0, "transport": "23/23", "qualification": "35/35", "skips": 0, "summarySha256": "8ce4540386a8beaf228e1a03a8ca403a22cda776e095999ba0775eb054302b0b"},
+      {"label": "b1", "subject": "intermediate", "sourceDigest": "31f8d7079d56b9a909bc0abbf95c620f9e2638585bdb1de9dfaa5b0980c187df", "compile": 0, "generate": 0,
+       "observedFailures": [
+         "transport 25/26: 'another prompt delivery' negative was a wrong test expectation (stdin relabel of a Claude binding does not change its selection); replaced by the codex argv->stdin case",
+         "qualification 35/36: privateOwner 'Duplicate export of invokeActorProcess' (test harness use)",
+         "qualification 35/36: expected argumentIndex from a different composition (actual plan adds --json-schema first); now compared with the derivation of the bound arguments",
+         "qualification 35/36: second ordinary control reused the same attempt archive label, and the transport correctly refused with EEXIST; distinct ordinary implementation refs now give distinct archives"],
+       "finalAfterTestOnlyRefresh": "transport 26/26, qualification 36/36", "summarySha256": "e7394d8f4f62bba470cd031be396ae1e38114c813d7dd6db466352f37ee47fea", "qualificationRerunSummarySha256": "1c684693bca34af41e1e446c8cda6f35216e2c3beaaa84de3f7673153646f16b"},
+      {"label": "b2", "subject": "final candidate, full restage", "command": "node qualification-scratch/q23-author-05/tmp/stage.mjs b2 && node qualification-scratch/q23-author-05/tmp/lanes.mjs b2",
+       "sourceDigest": "2e6b853f0c522a6f413fb04a17c608be47c636976e1329de1507cb6026538ab3", "stageReportSha256": "98ca68ee4bac67f81a2e4adabca07acd80a23b51d4a64ae7df20bc7d38525a31",
+       "compile": {"exitCode": 0, "ms": 7157}, "generate": {"exitCode": 0, "ms": 21621},
+       "lanes": [
+         {"id": "transport", "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/m5-worker-transport.test.mjs", "exitCode": 0, "tests": 26, "pass": 26, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0, "minimumTests": 23, "stdoutSha256": "572ff01d5f9c8a084d02e0d44a7edd8c1692767247df38f0a94e05fde71f1ec3"},
+         {"id": "qualification", "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/t287-result-evidence-lineage-projection.test.mjs test_env/tests/t287-qualification-producer-context.test.mjs test_env/tests/t287-qualification-contraction.test.mjs test_env/tests/t287-qualification-scopes.test.mjs", "exitCode": 0, "tests": 36, "pass": 36, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0, "minimumTests": 35, "stdoutSha256": "71810187aca0f3b604bf6eaaf8b9f347dfd191353ebe393cb93af4ddf847528c"}],
+       "summarySha256": "e26945fb22f5b8bd5999d45e43dd151454b757ff33dc6f125ec16ebf3fc9e3cd"}
+    ],
+    "preservedPriorOutcomes": "A1 generation failure, A2 qualification 24/32 (8 failing), A3 23+32 green (PRIOR_AUTHOR_FEEDBACK). Older scratch roots were not modified.",
+    "testTemp": "TMPDIR=/private/tmp/abg-q23e; the gate tests remove their mkdtemp roots after each run"
+  },
+  "residuals": [
+    {"id": "R1", "severity": "material_root_decision", "fact": "Adding configuredIdentity to the current actor_transport_binding_admitted payload contract changes the derived current event-contract profile. ROOT_EVENT_CONTRACT_DIGEST moves from sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537 (published as currentEventContractDigest by the RC6 install contract seed, and recomputed from this candidate's table without the member) to sha256:1c8815645a20857b86e895cd463f9ea569035ed6c8fcf392ae9f7ef639c0e1ba. The generated contracts/schemas/native-runtime-observation.json changes with it.", "consequence": "isKnownRootEventContractDigest accepts only legacy and the new digest, so this candidate cannot read stores stamped with the RC6/1f62c0095 current profile.", "dependency": "Retaining a predecessor current profile needs event_store.ts plus owners outside the grant that compare ROOT_EVENT_CONTRACT_DIGEST: calculus/liveness.ts, calculus/rules.ts, calculus/axioms.ts, calculus/fold.ts, runtime_liveness.ts, runtime_history.ts, retry.ts, witness_definition_bindings.ts, index.ts. Not attempted. Root decides between accepting the successor profile and a separately granted retention re-entry."},
+    {"id": "R2", "severity": "unknown", "fact": "Only the six selected modules ran. Tests outside them that use persisted current-profile stores or pinned profile digests (for example retained fixtures refreshed at 1f62c0095) were not run and may fail under R1."},
+    {"id": "R3", "severity": "dependency_bound", "fact": "Production positive eligibility is not established. The native actor route constructs only claude transports, so actual native authors and assessors share Anthropic Claude and the decision is ineligible. External provenance is unknown before dispatch pending QR02. A prior acknowledged owner ruling is not joined pre-dispatch."},
+    {"id": "R4", "severity": "limit", "fact": "The identity is configured selection only. It does not observe provider-side routing or alias resolution, subagent models, or a value of an unrelated option that happens to be selector-shaped (grammar treats every token as a potential option). Unknown/fail-closed except where such a value would be the only selector."},
+    {"id": "R5", "severity": "limit", "fact": "Each peer is compared with admitted peer occurrences at its own dispatch prefix. The first-dispatched peer has no admitted peer to compare against, and the full pairwise relation is checked at replay. A started peer without admitted transport evidence is unknown, so concurrent peers fail closed."},
+    {"id": "R6", "severity": "limit", "fact": "The actor gate positive control ends in a post-start refusal because no rawResultOwner premise is supplied. It asserts only gate, binding and physical-start facts, not a completed actor receipt."},
+    {"id": "R7", "severity": "process", "fact": "No independent frozen-source review, native C2, UAT or fresh close/result/replay was performed. Author checks are not C2 acceptance."}
+  ],
+  "disclosures": [
+    "Mutation check: temporarily edited the compiled build/code/src/abg/actor_process.js inside qualification-scratch/q23-author-05/tmp/b1 and restored it; the backup was written to and removed from /private/tmp/abg-q23e.",
+    "An early discovery command (grep -l and wc -l over test_env/tests/*.mjs and support/*.mjs) scanned test files outside the named readable scope. Only file names and line counts were output, and no bodies were used.",
+    "The RC6 install contract seed (contracts/schemas/native-runtime-observation.json, the DEPENDENCY_SOURCE_SELECTION contractSeedRoot) was grepped read-only for currentEventContractDigest.",
+    "The staged b0/b1/b2 trees under qualification-scratch/q23-author-05/tmp contain a copy of the selected closure, the offline toolchain and the RC6 contract seed. This is not a full repository copy.",
+    "No network, npm install, commit, provider, nested native Worker or edit outside the grant."
+  ]
+}

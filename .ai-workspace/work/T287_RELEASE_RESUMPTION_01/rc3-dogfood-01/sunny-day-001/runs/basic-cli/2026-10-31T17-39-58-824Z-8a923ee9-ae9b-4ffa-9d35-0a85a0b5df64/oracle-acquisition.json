@@ -1,0 +1,38 @@
+{
+  "kind": "sandbox_uat_oracle_snapshot",
+  "scenarioKey": "basic-cli",
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64/oracle-inputs",
+  "manifest": {
+    "path": "scenarios.json",
+    "digest": "sha256:666afea3643b5fcb8cf226d61bfa2022e249ad28620246e7c93387f1d9cca843",
+    "byteCount": 34763
+  },
+  "assets": [
+    {
+      "path": "basic-cli/source.original.txt",
+      "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "byteCount": 4325
+    },
+    {
+      "path": "basic-cli/obligations.json",
+      "digest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+      "byteCount": 4916
+    },
+    {
+      "path": "basic-cli/oracle.json",
+      "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "byteCount": 1112
+    },
+    {
+      "path": "basic-cli/request.json",
+      "digest": "sha256:340c8a331d41d4b0160131be7ba700ab2833d9a3ea10ae62df4febce40e50219",
+      "byteCount": 23299
+    },
+    {
+      "path": "independent-oracle.mjs",
+      "digest": "sha256:a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
+      "byteCount": 26966
+    }
+  ],
+  "oracleModule": "independent-oracle.mjs"
+}

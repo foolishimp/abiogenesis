@@ -1,0 +1,64 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "PROPOSED_RESOURCES_EXACT_ROOT_LANES_UNBOUND",
+  "readCommands": [
+    "Exact future SOURCE_BEFORE, named controls, pinned historical metadata external oracle, installed STDO3.0.4/direct references and offline toolchain/seed only; no private provider/archive/auth content or broad scans.",
+    "Read-only rg and git diff/status/rev-parse/show on the admitted selected source; no Git mutation."
+  ],
+  "writeCommands": [
+    "Only exact existing owner/HOW/test paths selected by future Root grant; that set is presently unbound. No Product effect authorized by this preparation.",
+    "Proposed short runtime/provider temp C/tmpsw3 and test /private/tmp/abg-sw3; distinct npm user/global configs. Existing directories preserved."
+  ],
+  "stageLabels": [
+    "sw3-stage-01",
+    "sw3-stage-02"
+  ],
+  "maxStages": 2,
+  "maxLaneInvocations": 6,
+  "concurrency": 1,
+  "laneIds": null,
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-stdout-window-author-03/prior-author-stage.mjs",
+        "<next-fresh-selected-label>",
+        "after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 2,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 600000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-stdout-window-author-03/prior-author-lanes.mjs",
+        "<successful-frozen-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": null,
+      "maxLaneInvocations": 6,
+      "perLaneTimeoutMs": 300000,
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 3600000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "invocationAllocation": null,
+  "allocationLaw": "Proposed two create-only AFTER stages and six once-only focused lanes, serial; no baseline rerun. Stop on test failure; failed/incomplete allocations count. Exact lane names, files, patterns and active predicates remain unbound.",
+  "missingResources": "Exact Root compatibility relation, added owner write/read paths, lane selectors and predicates, and source/proof disposition are pending.",
+  "freezeBeforeFeedback": "Stage sources and HOW are create-only snapshots with source-freeze receipt before build/testing. Publish that exact path/digest through progress.json immediately; Root may issue max frozen review while native lanes continue. Final native.after must match final staged source/HOW.",
+  "resourceSelection": null
+}

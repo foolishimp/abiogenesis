@@ -1,0 +1,32 @@
+{
+  "label": "lint-imports",
+  "started": "2026-11-13T10:12:08.703681+00:00",
+  "ended": "2026-11-13T10:12:10.006105+00:00",
+  "wallMs": 1304,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/lint-imports/stdout.raw",
+      "bytes": 155,
+      "sha256": "540a3485409e3dc5004de3282cba3885124fbb6394e60126af194e61918853c8"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/lint-imports/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 1,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

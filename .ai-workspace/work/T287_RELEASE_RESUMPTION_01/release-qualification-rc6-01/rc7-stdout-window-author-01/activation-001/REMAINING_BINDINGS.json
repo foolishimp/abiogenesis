@@ -1,0 +1,71 @@
+{
+  "kind": "minimal_existing_s5_actual_binding_fields",
+  "status": "UNBOUND_H05_ACCEPTANCE_REQUIRED",
+  "dependencyStop": "H05 assessment-guards failed after fixed-route/held-session passed; accepted H05 source/Root disposition unavailable pending triage. No dispatch, earlier predecessor or relaxed gate.",
+  "source": {
+    "SOURCE_BEFORE.json": [
+      "/sourceCommit",
+      "/sourceSubject",
+      "/sourceDisposition",
+      "/files (451 exact actual H05 returned rows with immutable sourceSnapshot references)"
+    ],
+    "inputs/C2_INPUTS.json": [
+      "/sourceCommit"
+    ],
+    "inputs/SOURCE_CUSTODY.json": [
+      "/sourceBefore",
+      "/sourceCommit",
+      "/frozenSubject",
+      "/sourceAfter",
+      "/sourceDisposition",
+      "/actualClose",
+      "/actualResume"
+    ]
+  },
+  "RootSelection": [
+    "ROOT_DEPENDENCY_READY_SELECTION.json actual accepted H05 source/stage/native.after/live, independent review, proof/HS01/HS02 conservation, close/resume",
+    "ROOT_SELECTION.json status ROOT_SELECTED_STDOUT_WINDOW_AUTHOR_INCREMENT and exact actual source/predecessor/dependency references",
+    "ROOT_SELECTION.json /selectedTaskControls/selection must pin actual materialized inputs/HS03_SELECTION.json; commandBounds/codeControls remain the frozen pins."
+  ],
+  "grant": {
+    "NATIVE_GRANT.json": [
+      "/status",
+      "/selection",
+      "/sourceCommit",
+      "/branch",
+      "/inheritedNewProductPaths",
+      "/sourceBefore",
+      "/sourceDisposition",
+      "/dependencyReadySelection",
+      "/actualClose",
+      "/actualResume"
+    ],
+    "rootAdmissionRef": "Keep null in antecedent grant; actual Root admission is separately supplied by staged ROOT_CONTROL_ADMISSION and runtime to avoid digest cycle."
+  },
+  "proofSelection": {
+    "inputs/HS03_SELECTION.json": "Fill actual H05/HS01/HS02 source/Root disposition/measurement/close/resume operative prerequisites; keep /operativePrerequisites/RootAdmission null as antecedent metadata. Separate staged admission is authoritative."
+  },
+  "runtime": {
+    "RUNTIME_BINDINGS.json": [
+      "/status ROOT_ADMITTED_NATIVE_DISPATCH",
+      "/sourceCommit",
+      "/resume",
+      "/actualClosePrefix",
+      "/actualClose",
+      "/rootControlAdmission",
+      "/frozenSubject",
+      "/selection",
+      "/sourceAfter",
+      "/sourceBefore",
+      "/rootFinalSourceDisposition"
+    ],
+    "operators": "Known unchanged owner/checker pins already bound in template; retain binding/catalog/catalogView overlay and genuine latest successor."
+  },
+  "contextAndDispatch": [
+    "PROVIDER_PROFILE.json byte copy from template; selected wrapper remains shared original with0755 preflight.",
+    "workload.json sources digests for451 accepted source rows+20 final control bytes; use actual activation ROOT_SELECTION authority URI and existing474 read paths.",
+    "Create ROOT_CONTROL_ADMISSION.json after selection/grant/antecedent controls. Record20 actual staged pins, then pin final runtime/workload in execution/DISPATCH_MANIFEST.json; never include manifest itself/future actual outputs."
+  ],
+  "noSourceCopies": "Use existing frozen sourceSnapshot references; do not duplicate source bodies, Product inventories or46.7MB oracle.",
+  "futureActualOutputSlots": "Must remain absent until the unchanged host owns them, including execution/NATIVE_CAPACITY_PREFLIGHT.json."
+}

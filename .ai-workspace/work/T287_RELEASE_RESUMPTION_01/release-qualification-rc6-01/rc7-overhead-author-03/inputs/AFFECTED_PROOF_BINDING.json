@@ -1,0 +1,254 @@
+{
+  "kind": "exact_predecessor_failure_and_reproof_selection",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 779397,
+    "sha256": "31c092b1cb8dd767d1178ebba26c4b66651ebe1de032ab401ba6683faa67093b"
+  },
+  "actualRuntimeClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 11973,
+    "sha256": "07c9b3d953198a2e4f3d86a623074f88c29cb829871e8bc18d06f0a342f87be4"
+  },
+  "rootReviewDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 6623,
+    "sha256": "c613378b2fa10f72d89a546c7b1bd8b792af5cf674b0a4d486fd0b7bd98eb5f3"
+  },
+  "closedSourceReviews": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/reviews/result-current-input-001/REVIEW.json",
+      "bytes": 51904,
+      "sha256": "c78ac2c3f82c17392d36ed745f1d3588fa6fdcb4d8b95ba912b3b3579b444206"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/reviews/body-custody-runner-001/REVIEW.json",
+      "bytes": 28524,
+      "sha256": "b24ced9bb6b60923798296b7985f065207c7cc8191838f4c560ac441855dc1d3"
+    }
+  ],
+  "authorFeedbackPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/AUTHOR_FEEDBACK_PINS.json",
+    "bytes": 17816,
+    "sha256": "09abd470398eaaba739eff2230d3c2355e0b88102baa1c97e930eb5a42ba3334"
+  },
+  "sourceRowsMatchedByRoot": 449,
+  "finalSourceDigest": "c5986d3bdc3620f2e621318b11def7f8bc39f59115eebafe15738335b35e1d9a",
+  "finalLanes": [
+    {
+      "stage": "o7b-after-04",
+      "lane": "carriage",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-carriage/summary-carriage.json",
+        "bytes": 2383,
+        "sha256": "e526da765befd23a21c1541326a7f38cf9ecb09195d8429893a4f1ab02295fe8"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-carriage/carriage.stdout.tap",
+        "bytes": 33480,
+        "sha256": "a50bd1347c0d8080eac115d9f4529656fd43e3db13555fecef05b5cb069b4ada"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-carriage/carriage.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "tests": 94,
+        "pass": 86,
+        "fail": 1,
+        "skipped": 7,
+        "cancelled": 0,
+        "todo": 0,
+        "ms": 19665,
+        "exitCode": 1
+      },
+      "failing": [
+        "native publication agrees with actual generated artifact manifest identity"
+      ],
+      "skippedNames": [
+        "RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction",
+        "actual native author fold consumes its admitted retained pair; crossed basis and input refuse",
+        "actual historical pre-result occurrence authenticates with unchanged source and all current physical context",
+        "actual closed child survives blocked parent without acquiring closed-Run source authority",
+        "actual source rejects absent child, foreign provenance, changed context and uncovered authority",
+        "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset",
+        "admitted pure consumer evaluates a native task as data without physical authority"
+      ]
+    },
+    {
+      "stage": "o7b-after-04",
+      "lane": "runner",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-runner/summary-runner.json",
+        "bytes": 1097,
+        "sha256": "09c1855222b8a63792bd70a3b8ec765faae3c5817e13e698d11ab7886c2ba19d"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-runner/runner.stdout.tap",
+        "bytes": 9417,
+        "sha256": "0ad63b54be714018d90ff68bb25359753d5ff2db5978030c2a24eab5c1cf5697"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-runner/runner.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "tests": 33,
+        "pass": 32,
+        "fail": 1,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "ms": 19432,
+        "exitCode": 1
+      },
+      "failing": [
+        "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+      ],
+      "skippedNames": []
+    },
+    {
+      "stage": "o7b-after-04",
+      "lane": "consumers",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-consumers/summary-consumers.json",
+        "bytes": 3523,
+        "sha256": "6482e8ba246dedadd891b921a96bcf751843390589ca82385607a0f7549a8daa"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-consumers/consumers.stdout.tap",
+        "bytes": 36689,
+        "sha256": "3d23e26f7de3492524bd823e95bf7204e7203eadef6f1d09db774f4cb12c79d9"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-consumers/consumers.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "tests": 77,
+        "pass": 60,
+        "fail": 5,
+        "skipped": 12,
+        "cancelled": 0,
+        "todo": 0,
+        "ms": 97796,
+        "exitCode": 1
+      },
+      "failing": [
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+        "T-287 C1 remains singular inside the C3 composite publication",
+        "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+        "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+      ],
+      "skippedNames": [
+        "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+        "native observation facts preserve captured history through preparation admission and complete assembly",
+        "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+        "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+        "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+        "closed resource forms retain nonempty group arrays and actual old embedded identities",
+        "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+        "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+        "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+        "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+        "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+        "full F11 input and scope output keep compact identities and whole-scope blocked findings"
+      ]
+    },
+    {
+      "stage": "o7b-after-04",
+      "lane": "cold-resume",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-cold-resume/summary-cold-resume.json",
+        "bytes": 1466,
+        "sha256": "07e9a55dc94d27ca4e93166e472d1f341b77a603b3cb0cb5794852763dc3affd"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-cold-resume/cold-resume.stdout.tap",
+        "bytes": 3115,
+        "sha256": "a8df2302af0b11036f2a407f9e4e2531c2879639b47f9e5cea8351158fcbe0b9"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-cold-resume/cold-resume.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "tests": 2,
+        "pass": 0,
+        "fail": 2,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "ms": 29220,
+        "exitCode": 1
+      },
+      "failing": [
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+      ],
+      "skippedNames": []
+    }
+  ],
+  "uniqueRequiredCases": 7,
+  "duplicateFailedInvocations": 2,
+  "newSelectedLanes": [
+    {
+      "id": "publication",
+      "files": [
+        "test_env/tests/t287-native-workspace-work.test.mjs"
+      ],
+      "selectedTestNames": [
+        "native publication agrees with actual generated artifact manifest identity"
+      ],
+      "testNamePattern": "^(?:native publication agrees with actual generated artifact manifest identity)$",
+      "timeoutMs": 300000
+    },
+    {
+      "id": "c1-consumers",
+      "files": [
+        "test_env/tests/t287-worksite-construction.test.mjs"
+      ],
+      "selectedTestNames": [
+        "T-287 C1 remains singular inside the C3 composite publication",
+        "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+        "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+      ],
+      "testNamePattern": "^(?:T-287 C1 remains singular inside the C3 composite publication|T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay|T-287 C1 retains an exact partial prefix when a later C0 member refuses)$",
+      "timeoutMs": 300000
+    },
+    {
+      "id": "cold-resume",
+      "files": [
+        "test_env/tests/t287-default-library.test.mjs"
+      ],
+      "selectedTestNames": [
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+      ],
+      "testNamePattern": "^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$",
+      "timeoutMs": 300000
+    },
+    {
+      "id": "runner",
+      "files": [
+        "test_env/uat/harness.test.mjs"
+      ],
+      "selectedTestNames": [
+        "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+      ],
+      "testNamePattern": "^(?:Maintained setup retains actual owner verification through ten native calls and preserves configured environment)$",
+      "timeoutMs": 300000
+    }
+  ],
+  "standing": "Exact author feedback and actual closed native source. Preserve failures, duplicate cold invocations and19 uncovered historical cases. The C1 cases are regressions; the two actual cold cases decide the native parent/child/cursor and cross-Run composition relation. Reuse other178 final passing observations only for unchanged relations. No qualification/whole objective claim.",
+  "historicalTwoCaseProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/TWO_CASE_CLOSURE.json",
+    "bytes": 5471,
+    "sha256": "12bff14a2ec8b0526c7f6415ca6a89da3ca080d391a19c3c7c92af833a02e42b"
+  }
+}

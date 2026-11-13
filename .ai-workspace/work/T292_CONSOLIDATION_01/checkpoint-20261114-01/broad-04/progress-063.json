@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-default-library-prerequisites.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/063-t287-default-library-prerequisites.test/process.json",
+    "bytes": 1114,
+    "sha256": "bed971ab41af834d0b9970814cdff076cd980cc94ee8486c553a82fc817dceef"
+  }
+}

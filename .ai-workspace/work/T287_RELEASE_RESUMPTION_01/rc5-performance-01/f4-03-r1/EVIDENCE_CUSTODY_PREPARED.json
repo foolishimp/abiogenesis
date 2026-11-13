@@ -1,0 +1,10 @@
+{
+  "status": "PREPARED_FOR_LOCAL_SOURCE_CHECKPOINT",
+  "directory": "/Users/jim/src/apps/abiogenesis-rc5-performance/.ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01",
+  "indexSha256": "1f2ff7e1c33c30efd7037fa9fb24591ae6781680aeddb3798667febab4c6c833",
+  "operatorInputFiles": 750,
+  "campaignFiles": 604,
+  "originalEventLogSha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+  "originalEventLogBytes": 586361364,
+  "archiveBytes": 244752740
+}

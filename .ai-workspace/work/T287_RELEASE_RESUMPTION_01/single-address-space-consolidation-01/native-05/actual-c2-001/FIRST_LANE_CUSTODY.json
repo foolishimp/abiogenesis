@@ -1,0 +1,40 @@
+{
+  "recordedUtc": "2026-11-03T23:40:46.166231+00:00",
+  "standing": "Actual completed first C2 lane and retained producer proof; whole C2/native close still pending, no whole acceptance.",
+  "helperProducer": {
+    "attemptRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8/1f076d43d0cda78fa77baaf7f448b10d324467ec46e458078c2bd12f1bfbd848",
+    "attemptDigest": "sha256:1f076d43d0cda78fa77baaf7f448b10d324467ec46e458078c2bd12f1bfbd848",
+    "attemptRef": "worksite-command-attempt://abiogenesis/a140800a83bf2112a8bfa0ffb15f4b55fb1e1f2f3612873c0be555b6eb506cfd",
+    "taskRef": "worksite-command-execution-task://abiogenesis/0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8",
+    "taskDigest": "sha256:0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8",
+    "taskManifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8/1f076d43d0cda78fa77baaf7f448b10d324467ec46e458078c2bd12f1bfbd848/task.json",
+    "taskManifestDigest": "sha256:44b6845e76b79f2f7623953bb3a704df2d503ba64ebe2e63475fbf07fe34159f",
+    "launchManifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8/1f076d43d0cda78fa77baaf7f448b10d324467ec46e458078c2bd12f1bfbd848/launch.json",
+    "launchManifestDigest": "sha256:fed95422fa43917bee50731d227c4eea4bd1b1a1f94e1b54bdcf54abeedc4f19"
+  },
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8/1f076d43d0cda78fa77baaf7f448b10d324467ec46e458078c2bd12f1bfbd848/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-05/single-address-space-whole-path.stdout.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/actual-c2-001/single-address-space-whole-path.stdout.log",
+      "bytes": 36149,
+      "sha256": "a45f86ea579e4280880d7bd9973e7e300e9b638537ca0968d11a9258cf0615d8"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8/1f076d43d0cda78fa77baaf7f448b10d324467ec46e458078c2bd12f1bfbd848/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-05/single-address-space-whole-path.stderr.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/actual-c2-001/single-address-space-whole-path.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0b2139636ce927aaea0dea255760ff497c4a00cf8228c15babbe48042d371ca8/1f076d43d0cda78fa77baaf7f448b10d324467ec46e458078c2bd12f1bfbd848/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-05/single-address-space-proof.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/actual-c2-001/single-address-space-proof.json",
+      "bytes": 109614,
+      "sha256": "02c6743ea939646e280b0a40210bb86d61e62c98541590ad92c907f9beedc22d"
+    }
+  ],
+  "tally": {
+    "pass": 7,
+    "fail": 0,
+    "skipped": 0
+  }
+}

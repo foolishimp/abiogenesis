@@ -1,0 +1,66 @@
+--- native-b01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
++++ native-b02/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
+@@ -1217,8 +1217,9 @@
+ 
+ // Leader plus descendant: two cold Nodes and the leader's 5ms readiness poll,
+ // then the original 700ms launch/inactivity, 1500ms absolute and 500ms request
+-// margins. Normal leaders exit after readiness; TERM leaders wait for the
+-// owner's timeout, which must follow that readiness.
++// margins. Normal leaders exit after readiness, HTTP-normal only after serving
++// the owner's actual request; TERM leaders wait for the owner's timeout, which
++// must follow that readiness.
+ const M5_GROUP = { timeoutMs: M5_GROUP_SETUP_MS + 700, absoluteTimeoutMs: M5_GROUP_SETUP_MS + 1500,
+   requestMs: M5_GROUP_SETUP_MS + 500, graceMs: 150 };
+ test('owned process groups retain descendant cleanup after normal and TERM leader exits', {
+@@ -1250,7 +1251,14 @@
+     const label = `${owner}-${mode}`, ready = join(scratch, `${label}-descendant.json`), leaderFile = join(scratch, `${label}-leader.json`);
+     const descendant = join(scratch, `${label}-descendant.mjs`), leader = join(scratch, `${label}-leader.mjs`);
+     await writeFile(descendant, `import {writeFileSync} from 'node:fs';\nprocess.on('SIGTERM',()=>{});\nwriteFileSync(${JSON.stringify(ready)},JSON.stringify({pid:process.pid,ppid:process.ppid}));\nsetInterval(()=>{},1000);\n`);
+-    await writeFile(leader, `import {spawn} from 'node:child_process';\nimport {existsSync,writeFileSync} from 'node:fs';\nwriteFileSync(${JSON.stringify(leaderFile)},JSON.stringify({pid:process.pid}));\nconst child=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:'ignore'});child.unref();\nconst wait=setInterval(()=>{if(!existsSync(${JSON.stringify(ready)}))return;clearInterval(wait);process.stdout.write('ready\\n');${owner === 'http' ? `writeFileSync(${JSON.stringify(join(scratch, `${label}.port`))},'1');` : ''}${mode === 'normal' ? 'process.exit(0);' : 'setInterval(()=>{},1000);'}},5);\n`);
++    // HTTP-normal binds loopback port zero, publishes it and exits normally only
++    // once the owner's actual request has been served, so port observation
++    // causally precedes that exit. Its log separates publication, request,
++    // response write attempt/finish and exit intention from the owner's status.
++    const httpNormal = owner === 'http' && mode === 'normal', fixtureLog = join(scratch, `${label}-fixture.jsonl`);
++    const leaderTail = httpNormal ? `const fixture=(event,extra={})=>appendFileSync(${JSON.stringify(fixtureLog)},JSON.stringify({event,...extra})+'\\n');const body='actual-http';const server=http.createServer((q,r)=>{fixture('request-received',{method:q.method,url:q.url,localPort:q.socket.localPort});r.setHeader('Connection','close');r.once('finish',()=>{fixture('response-finished');server.close(()=>{fixture('exit-intention',{status:0});process.exit(0);});});fixture('response-write-attempt',{bytes:Buffer.byteLength(body)});r.end(body);});server.listen(0,'127.0.0.1',()=>{const port=server.address().port;writeFileSync(process.argv[2],String(port),{flag:'wx'});fixture('port-published',{port});});`
++      : `${owner === 'http' ? `writeFileSync(${JSON.stringify(join(scratch, `${label}.port`))},'1');` : ''}${mode === 'normal' ? 'process.exit(0);' : 'setInterval(()=>{},1000);'}`;
++    await writeFile(leader, `import {spawn} from 'node:child_process';\nimport {${httpNormal ? 'appendFileSync,' : ''}existsSync,writeFileSync} from 'node:fs';\n${httpNormal ? "import http from 'node:http';\n" : ''}writeFileSync(${JSON.stringify(leaderFile)},JSON.stringify({pid:process.pid}));\nconst child=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:'ignore'});child.unref();\nconst wait=setInterval(()=>{if(!existsSync(${JSON.stringify(ready)}))return;clearInterval(wait);process.stdout.write('ready\\n');${leaderTail}},5);\n`);
+     let leaderPid = null, startedPid = null;
+     const workerSignals = [];
+     t.after(async () => { if (leaderPid === null) {
+@@ -1280,22 +1288,34 @@
+     const publishedLeader = typeof leaderRecord === 'string' ? JSON.parse(leaderRecord).pid : null;
+     leaderPid = startedPid ?? publishedLeader;
+     const child = typeof readyRecord === 'string' ? JSON.parse(readyRecord) : null;
++    const fixture = httpNormal ? m5Events(await m5Optional(fixtureLog)) : null;
+     const result = owner === 'http' ? settled.result?.process ?? null : settled.result;
+     const signals = owner === 'worker' ? workerSignals : result?.signalSequence ?? null;
+     const groupPresent = leaderPid === null ? null : alive(-leaderPid), descendantPresent = child === null ? null : alive(child.pid);
+     retainEvidence(t, 'm5-worker-transport', `owned-group-${label}`, { bounds: M5_GROUP, settledMs: settled.settledMs, startedPid,
+       leaderRecord, readyRecord, signals, groupPresent, descendantPresent, failure: failureFact(settled.failure), observation: settled.result,
+-      artifacts: owner === 'worker' ? await m5Artifacts(join(scratch, 'archives'), label) : null });
++      ...(httpNormal ? { fixture } : {}), artifacts: owner === 'worker' ? await m5Artifacts(join(scratch, 'archives'), label) : null });
+     if (settled.threw) throw settled.failure;
+     assert.notEqual(publishedLeader, null, `${label}: leader body ran`);
+     if (owner === 'worker') assert.equal(publishedLeader, startedPid, `${label}: published leader is the spawned owned child`);
+     assert.notEqual(child, null, `${label}: descendant body ran before leader readiness`);
++    if (httpNormal) {
++      // Premise: the leader received a request on its published port and
++      // finished that response before intending its normal exit.
++      assert.deepEqual(Array.isArray(fixture) ? fixture.map(row => row.event) : fixture, ['port-published', 'request-received',
++        'response-write-attempt', 'response-finished', 'exit-intention'], `${label}: actual request preceded normal leader exit`);
++      assert.deepEqual([fixture[1].method, fixture[1].url, fixture[1].localPort], ['GET', '/', fixture[0].port],
++        `${label}: the declared request reached the published port`);
++    }
+     if (owner === 'worker') {
+       assert.equal(result.exitObserved, true);
+       assert.equal(result.status, mode === 'normal' ? 0 : null);
+       assert.equal(result.signal, mode === 'normal' ? null : 'SIGTERM');
+     } else {
+       if (owner === 'http') assert.equal(settled.result.portFile.state, 'observed', `${label}: port published within the request window`);
++      // The owner's own observation and request carry the leader's published port.
++      if (httpNormal) assert.deepEqual([settled.result.portFile.port, settled.result.request?.port], [fixture[0].port, fixture[0].port],
++        `${label}: owner requested the port it observed`);
+       assert.equal(result.exitStatus, mode === 'normal' ? 0 : 124);
+       assert.equal(result.processSignal, mode === 'normal' ? null : 'SIGTERM');
+     }

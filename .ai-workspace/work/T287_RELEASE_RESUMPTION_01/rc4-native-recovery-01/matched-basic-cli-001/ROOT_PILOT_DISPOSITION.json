@@ -1,0 +1,33 @@
+{
+  "status": "ROOT_ACCEPTED_SINGLE_MATCHED_APPLICATION_INSTRUMENTATION_PILOT",
+  "recordedAt": "2026-11-03T00:44:10.937978+00:00",
+  "operator": "Root",
+  "direct": {
+    "custodySha256": "4fa7871e67f5a63dc3a597587712a97cf96dfab1474b72735d61bcc56047eee6",
+    "externalSha256": "1423064c19cb687ab70f43557427700fa743f20ee961084b8b03ef07556a8d4c",
+    "reportedUSD": 0.7862238,
+    "providerHostOperationMs": 175318.798333
+  },
+  "abg": {
+    "constructionSha256": "84935cbc5a05e1e6ff91338ec3f6d044e93a8b3808e31980cae8e51ca678cfee",
+    "finalCustodySha256": "59feaefb26562022cdd93278b59513c05369055b1c3da6c4b7d90610e703d2d4",
+    "externalSha256": "9de1452723702fe01fe7e63882f56eca99e1776341cd6673cfbb01e9623038be",
+    "summarySha256": "4de4e8a402c83b1f873e95016864fcdff674519794aa66b30301dc509b849589",
+    "reportedUSD": 2.4162906,
+    "calls": 6,
+    "runnerMetadataThroughSealMs": 847720,
+    "beforeLifecycleMs": 283579,
+    "lifecycleHostMs": 536696.639583,
+    "afterLifecycleThroughSealMs": 27444.36
+  },
+  "applicationAcceptance": "Both exact application outputs accepted by Root with independent content review and identical external commands: exact14-byte stdout/empty stderr/exit0 and2pass0fail0cancel0skip. ABG additionally has native C2/UAT,14criteria oracle and fresh closed equal terminal.",
+  "comparisonLimits": [
+    "One direct-first instrumentation pilot, not generalized parity/speedup/causal proof.",
+    "Direct measured provider-host operation; ABG runner metadata-to-seal includes cold setup/readbacks. Full operator/provisioning boundaries are not symmetric.",
+    "All ABG provider roles counted; provider reports are not billing.",
+    "Executive/Writer/reviewer tokens/cost and preparation gaps remain unpriced; no percentage gain inferred.",
+    "Forced-interruption005 excluded from uninterrupted denominator."
+  ],
+  "reviewOverlap": "Direct independent review overlapped ABG build; ABG immutable Construction content review overlapped native UAT, then exact final delta/common external streams were conjoined. This is project delivery overlap; current native Program unchanged.",
+  "next": "Finish bounded019 identity packet; Root reviews and selects any native dispatch separately. No repeated pilot/recovery/optimization wave."
+}

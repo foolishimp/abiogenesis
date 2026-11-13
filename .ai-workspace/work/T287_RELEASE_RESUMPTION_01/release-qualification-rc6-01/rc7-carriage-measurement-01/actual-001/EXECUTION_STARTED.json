@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-07T00:07:06.828Z",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_MEASUREMENT_BINDINGS_001.json",
+    "bytes": 5392,
+    "sha256": "02454fc1f36c865dbcea69100917a09185b7041bfe4296ad2076ec8483684d95"
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r7m/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-r7m/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-r7m/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-r7m/npm-cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "ABG_TS_CLAUDE_COMMAND": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/scripted-readonly-actor.mjs",
+    "ABG_TS_FP_TIMEOUT_MS": "30000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "60000",
+    "ABG_TS_FP_TERMINATION_GRACE_MS": "2000",
+    "ABI5_S4_BINDINGS": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_MEASUREMENT_BINDINGS_001.json",
+    "ABI5_S4_BINDINGS_SHA256": "02454fc1f36c865dbcea69100917a09185b7041bfe4296ad2076ec8483684d95"
+  },
+  "bounds": {
+    "hostMs": 900000,
+    "coldReadMs": 300000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  }
+}

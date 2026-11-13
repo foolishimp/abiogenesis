@@ -1,0 +1,147 @@
+{
+  "kind": "native_author_affected_proof_inventory",
+  "status": "PROOF_INCOMPLETE_FAILURES_PRESERVED",
+  "createdUtc": "2026-11-06T14:02:31.427437+00:00",
+  "stageCount": 4,
+  "stageCap": 4,
+  "laneInvocations": 2,
+  "laneCap": 8,
+  "stages": [
+    {
+      "label": "hs1-stage-01",
+      "sourceSubject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-001/SUBJECT.json",
+        "bytes": 258786,
+        "sha256": "ced5d392546ebec4352a107215162f20267a4e32ad31e606a5406ac6b0ebddc6"
+      },
+      "build": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-001/BUILD.json",
+        "bytes": 2163,
+        "sha256": "54f92cdf6d87c4d741cbaa9ba7627e11b267fde41d352ca762fcf31325b14170"
+      },
+      "outcome": "GENERATION_TIMEOUT"
+    },
+    {
+      "label": "hs1-stage-02",
+      "sourceSubject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-002/SUBJECT.json",
+        "bytes": 259532,
+        "sha256": "7697aef139f20749a687e33fc5a333f2caccdf0e3545d4c409b8cb05f74b6d01"
+      },
+      "build": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-002/BUILD.json",
+        "bytes": 2259,
+        "sha256": "1208843959392575daeab856fb8d76c86d39ebd3766a485243fa292e8a8b341a"
+      },
+      "outcome": "BUILD_PASSED"
+    },
+    {
+      "label": "hs1-stage-03",
+      "sourceSubject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-001/SUBJECT.json",
+        "bytes": 274008,
+        "sha256": "04bf02b9607e53ac1bcc065eaf4cd9dff77d321fb41abd5e189f98475c10ccc6"
+      },
+      "build": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/after-stage-003/BUILD.json",
+        "bytes": 2024,
+        "sha256": "45fbccc85a3dc03237207c83ee849c5f3596f6acf074efda45e5dc49cd3622ca"
+      },
+      "outcome": "BUILD_PASSED"
+    },
+    {
+      "label": "hs1-stage-04",
+      "sourceSubject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-002/SUBJECT.json",
+        "bytes": 296146,
+        "sha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741"
+      },
+      "build": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-002/evidence/hs1-stage-04-stage.json",
+        "bytes": 97605,
+        "sha256": "9761816ef334d08004125782074fec993662a87ded6142b6739e8a2ec50c51ee"
+      },
+      "outcome": "BUILD_PASSED"
+    }
+  ],
+  "lanes": [
+    {
+      "id": "held-session-before",
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-002/BEFORE_LANE.json",
+        "bytes": 5118,
+        "sha256": "769866681e8e692a349019af0a6af1f35f98d4680b96b9f533c95c7650e731a6"
+      },
+      "tests": 2,
+      "pass": 0,
+      "fail": 2,
+      "skip": 0,
+      "cancel": 0,
+      "ms": 251117
+    },
+    {
+      "id": "held-session-measured",
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/after-stage-003/MEASURED_LANE.json",
+        "bytes": 5658,
+        "sha256": "aa151d39df4a3c642b506eec140190d5b13fead1d4cd83fff73e9f50c19b3b1b"
+      },
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "skip": 0,
+      "cancel": 0,
+      "ms": 218339
+    }
+  ],
+  "notRun": [
+    "held-session-final",
+    "read-owner",
+    "caller",
+    "fixed-route",
+    "cold-resume",
+    "body-conservation"
+  ],
+  "notRunStanding": "Dependency gates correctly remain unsatisfied after measured red; no remaining lane execution or pass inferred.",
+  "finalStageSourceEqualsActualNativeAfterAndLive": true,
+  "readiness": {
+    "kind": "rc7_held_session_author_readiness",
+    "task": "rc7-held-session-author-01",
+    "worker": "native Opus 5.5 (claude-opus-5-5)",
+    "basis": "stdo://releases/v3.0.4/",
+    "createdUtc": "2026-11-06T13:51:49.502Z",
+    "ready": false,
+    "mechanical": {
+      "finalStageCompile": true,
+      "finalStageGenerate": true,
+      "finalStageLifecycleGuard": true,
+      "c2PinMatches": true,
+      "worksiteEqualsFinalFreeze": true,
+      "allChangedPathsInGrant": true
+    },
+    "blocking": [
+      "held-session-measured red (test defect); held-session-final and five final lanes not eligible",
+      "no genuine HS02 before red",
+      "maintained-caller fixed admission not executed on candidate source",
+      "warm/cold equality, close, refusals and recovery not observed"
+    ],
+    "finalSourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522"
+  },
+  "controlDeviation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/deviation-001/DEVIATION.json",
+    "bytes": 2546,
+    "sha256": "a70d816121661647f164a8958d145e4a6fc8a33d38cd0812471a6147b8bc7360"
+  },
+  "authorDisclosures": [
+    "stage-01 stdout/stderr were redirected to scratch-root stage-01.out/.err, outside the declared tmp/ path; later logs went under tmp/log-*.",
+    "node --check parse checks ran in memory on edited .mjs files; no other build/test outside the stage/lane owners.",
+    "hs1-stage-01 generation exceeded its 180 s bound on the unchanged baseline source under host load from unrelated processes; hs1-stage-02 reallocated the before discriminator within the four-stage cap."
+  ],
+  "limits": [
+    "No genuine HS02 baseline red.",
+    "Final corrected test has no final-lane execution; complete warm/cold value, producer, projection-basis, refusals, close and recovery remain unproved.",
+    "Actual candidate maintained-caller fixed admission remains unexecuted.",
+    "Root classified first generation timeout cause unresolved, host contention plausible; author causal wording is not adopted.",
+    "No whole qualification, performance or source acceptance claim."
+  ]
+}

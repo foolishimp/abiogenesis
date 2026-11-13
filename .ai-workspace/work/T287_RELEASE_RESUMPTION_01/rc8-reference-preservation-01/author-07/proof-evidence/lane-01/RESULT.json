@@ -1,0 +1,48 @@
+{
+  "status": "PASSED",
+  "lane": "historical",
+  "file": "t287-single-address-space-consolidation.test.mjs",
+  "sourceDigest": "b2ca1a756b264c1ee13e3bca9ba324d8d499619a28f97874d8fafde6d82ad146",
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/events.jsonl",
+    "bytes": 1274,
+    "sha256": "d70bce5fcd0f01fab229331525e5893921b889a87b9e34d756a8d4e3cc82e13d"
+  },
+  "wholeFile": false,
+  "namePattern": "^(?:retained RC5 history:|liveness candidate validation forks its admitted base:)",
+  "historicalInputs": {
+    "root": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10",
+    "resources": {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json",
+      "bytes": 6147,
+      "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+    },
+    "baseline": {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+      "bytes": 5575,
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+    },
+    "eventLog": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+      "bytes": 586361364,
+      "sha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c"
+    }
+  },
+  "wallMs": 54428.705667,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "primaryPreserved": true,
+  "buildInvocations": 0
+}

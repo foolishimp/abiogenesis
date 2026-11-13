@@ -1,0 +1,15 @@
+{
+  "kind": "root_prior_author_failure_observation",
+  "at": "2026-11-05T17:54:21.149893+00:00",
+  "standing": "Original a1-stage.json is now absent at its previously observed path; no byte-identical copy or hash of that whole original report is claimed. Values below were directly observed by Root from that report before disappearance and retained in tool output.",
+  "sourcePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-02/tmp/a1-stage.json",
+  "sourceCount": 318,
+  "sourceDigest": "c9bbf3cf848e56c2f8e9d127334eaea231e70cde6d91569c6f974bf9bed59205",
+  "compileExitCode": 0,
+  "generateExitCode": 1,
+  "generateMs": 29097,
+  "error": "packed native declaration closure is invalid",
+  "errorRoute": "scripts/generate-product-manifest.mjs:583",
+  "firstPassingSuccessor": "a2-stage.json",
+  "limits": "Cause/disposition must be supplied by native author handoff; no inferred Product defect or exact failed source reconstruction."
+}

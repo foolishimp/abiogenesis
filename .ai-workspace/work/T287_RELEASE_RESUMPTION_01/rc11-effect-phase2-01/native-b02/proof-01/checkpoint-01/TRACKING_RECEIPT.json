@@ -1,0 +1,52 @@
+{
+  "status": "APPROVED_PREFIX_APPLIED_AFTER_ACTUAL_COMMIT",
+  "actualCommit": "b7cf409fc74eca639525fccbea52e666be7743d4",
+  "approvedPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/MAIN_STATUS_PREFIX.proposed.r02.md",
+    "bytes": 1425,
+    "sha256": "c0864b14c732b348781431b7823c4f89615b7df9deee0e81fb9dba9ac173a075"
+  },
+  "finalizedPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-01/FINALIZED_MAIN_PREFIX.md",
+    "bytes": 1469,
+    "sha256": "15fc3f64d2755a46b56a82fb299d9953198436b3b2798373b6c180cf7c878d77"
+  },
+  "soleSubstitution": {
+    "before": "local checkpoint pending.",
+    "after": "local checkpoint `b7cf409fc74eca639525fccbea52e666be7743d4` complete."
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 196005,
+        "sha256": "edcbdf8affddfa6918dada6fd1a79409144e9240cb0d5139ed863b69015ed6ff"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 197474,
+        "sha256": "be5ce1f10610921f684479f3365b05ff027deea9e8198ba1a50275eda0d6a7e7"
+      },
+      "prefixBytes": 1469,
+      "priorSuffixByteEqual": true,
+      "stagedOrCommitted": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 847640,
+        "sha256": "9c4a973baa5d0218a56e00457b6a79c2c15b69738c64b813484b7958bb9be15c"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 849109,
+        "sha256": "dae25367bc204a6c150ef85546ed0218213676aa7daece0a2b14f35d56876b43"
+      },
+      "prefixBytes": 1469,
+      "priorSuffixByteEqual": true,
+      "stagedOrCommitted": false
+    }
+  ]
+}

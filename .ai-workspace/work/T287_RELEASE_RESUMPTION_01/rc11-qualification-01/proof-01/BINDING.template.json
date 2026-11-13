@@ -1,0 +1,12 @@
+{
+  "status": "UNBOUND_NOT_EXECUTABLE",
+  "proofRoot": "/private/tmp/abg-rc11-proof-20261109-01",
+  "frozenSourceRoot": null,
+  "sourceInventory": {
+    "path": null,
+    "bytes": null,
+    "sha256": null
+  },
+  "sourceDigest": null,
+  "format": "Final source inventory must contain ordered rows exactly{path,bytes,sha256}, sourceDigest and every selected source/newfixture file; no symlink/source-inventory substitution. Root sets status FROZEN_C11_PROOF_SUBJECT only after actual freeze."
+}

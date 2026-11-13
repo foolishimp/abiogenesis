@@ -1,0 +1,58 @@
+{
+  "status": "UNBOUND_PREPARATION_ONLY",
+  "activation": null,
+  "preparationManifest": null,
+  "source": {
+    "subject": null,
+    "inventory": null,
+    "baseCommit": null,
+    "baseTree": null,
+    "fileModes": null,
+    "deletedPaths": null,
+    "cumulativeSourceCoverageDisposition": null,
+    "nativeTestedArchive": null,
+    "nativeTestedArchiveSourceRelation": null,
+    "nativeArchiveUnavailableDisposition": null
+  },
+  "acceptance": {
+    "source": null,
+    "hs01": null,
+    "hs02": null,
+    "hs03": null,
+    "s4GrowthAndS6Disposition": null
+  },
+  "metadata": {
+    "fromVersion": "5.0.0-rc.6",
+    "toVersion": "5.0.0-rc.7",
+    "releaseClaim": null,
+    "releaseClaimPreimageSha256": null
+  },
+  "paths": {
+    "repository": "/Users/jim/src/apps/abiogenesis",
+    "preservedCut": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "worktree": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+    "branch": "codex/rc7-local-cut",
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001",
+    "temp": "/private/tmp/abg-r7c",
+    "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7"
+  },
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 180000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 600000,
+    "installedOwner": 60000
+  },
+  "maxOutputBytes": 67108864,
+  "nodeHeapMiB": 8192,
+  "limits": [
+    "No full qualification claim or completed qualification rerun.",
+    "No publication, push, merge, tag, global selector or immutable-cut mutation.",
+    "No source implementation: only exact frozen overlay and three identity files plus release claim in isolated worktree.",
+    "No automatic retries, cleanup, overwrite of failed allocations or widened bounds."
+  ]
+}

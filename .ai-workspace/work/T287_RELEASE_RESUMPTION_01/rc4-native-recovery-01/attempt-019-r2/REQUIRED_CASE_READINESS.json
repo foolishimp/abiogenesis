@@ -1,0 +1,12 @@
+{
+  "status": "EXACT_EXISTING_CASE_SELECTED",
+  "path": "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+  "name": "Hello World is an external minimal GTL program through installed Public execution and fresh reads",
+  "requiredSkipAllowed": false,
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+    "bytes": 1831,
+    "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77"
+  },
+  "actualExecutionPending": true
+}

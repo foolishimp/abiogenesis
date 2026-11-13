@@ -1,0 +1,47 @@
+{
+  "id": "RC10-HOW-01",
+  "owner": "Root",
+  "status": "PREPARE_ONLY_AWAITING_SETUP_AND_NATIVE_ADMISSIONS",
+  "decision": "F2/P2 precise HOW evidence correction before acceptance. One native RC9 task, Opus5.5 xhigh,300s/60turns. No behavior/test/HOW contract change.",
+  "productDefinition": {
+    "path": "stdo_abiogenesis.json",
+    "id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": []
+  },
+  "frame": {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292744,
+    "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+  },
+  "onlySourceWrite": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+  "exactReplacement": {
+    "old": "handles, historical reads that mint nothing, rollback and close disposal, and a",
+    "new": "handles, historical reads that mint nothing, physical close disposal, and a",
+    "appendAfter": "separately selected fifty-call workload mode.",
+    "sentence": "Actual rollback disposal is unproved by this test.",
+    "before": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 201692,
+      "sha256": "03c52118eb52197502aeeccfa374f1a006023b76461fa358ef1796a4905e2216"
+    },
+    "expectedAfter": {
+      "bytes": 201739,
+      "sha256": "1969d63beb6c7e43a083ca3f4a1c0a7251532bb25a844b24066a5d81283b35a8"
+    }
+  },
+  "sourceInvariant": "All1334 existing rows conserved except this exact prose delta. No new source, tests, identity, code, dependency, generation or build changes.",
+  "operatorEffectsProposed": [
+    "fresh actual RC9 Public setup through unchanged host, no old runtime identity",
+    "immutable copied controls at qualification-inputs/rc10-retention-01/how-01",
+    "fresh host scratch /private/tmp/abg-rc10-how-01 and runtime under this control directory",
+    "native scratch /private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/how-01",
+    "post-return operator physical successor freeze and exact native-after correspondence; no rebuilding by habit"
+  ],
+  "admissionStanding": "Root has selected edit semantics; this packet does not allocate runtime or authorize provider dispatch. Native TASK projects its post-admission recipient grant separately."
+}

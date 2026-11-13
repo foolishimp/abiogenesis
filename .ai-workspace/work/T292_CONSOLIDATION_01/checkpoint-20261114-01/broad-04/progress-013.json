@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/installed-language-smoke.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/013-installed-language-smoke.test/process.json",
+    "bytes": 1086,
+    "sha256": "e65030a611bbf933a739367e09bdb89f459b6fbefe6c42be78a002f50ce73427"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "recordedUtc": "2026-11-05T08:18:46.639738+00:00",
+  "failure": "Operator template assumed .claude/skills/stdo-work/SKILL.md existed in fresh cut source; assertion refused before workload/preflight/native construction.",
+  "cause": "Prior worksite-local untracked skill copies were incorrectly presumed in successor checkout. Current tracked AGENTS.md and CLAUDE.md explicitly select direct reading of verified immutable STDO3.0.4 plugin path.",
+  "effects": "Task-input controls staged; profile/wrapper/scratch selected; no source/test/HOW edit, preflight, provider or native Run.",
+  "reentry": "Use existing direct-file method route with exact immutable external read grant; do not install/copy a second local plugin. Preserve original profile."
+}

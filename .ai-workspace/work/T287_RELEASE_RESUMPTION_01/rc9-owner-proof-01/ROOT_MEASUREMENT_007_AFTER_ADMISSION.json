@@ -1,0 +1,51 @@
+{
+  "ProductFrame": "STDO3.0.4 ABI5 Product/T287; separate Proof execution under Root bounded source/build/unit/artifact conjunction. O3 retains physical verification, performance follow-up OPEN.",
+  "status": "ROOT_ADMITTED_RC9_REFERENCE_MEASUREMENT",
+  "recordedAt": "2026-11-08T19:10:47.185855+00:00",
+  "rootSelection": "RC9-MATCHED-MEASUREMENT-007",
+  "bindingsSha256": "bccaf4ea59312e1e85dae049b625ded0789e55e1cbebf840ebfa8bb7718aed21",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.bootstrap007.bound-001.json",
+    "bytes": 11226,
+    "sha256": "bccaf4ea59312e1e85dae049b625ded0789e55e1cbebf840ebfa8bb7718aed21"
+  },
+  "heldPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.bootstrap007.held-001.json",
+    "bytes": 11266,
+    "sha256": "25e90f7949a5c192f2dd2da6b070337a4d0f172b7bef2ab663bafb719974dba3"
+  },
+  "preparationManifestSha256": "d179449a1ef0e9b33abd55ceba1021cf98744db223366b9fbf71837b2a2b8d74",
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-measurement.mjs",
+    "bytes": 6962,
+    "sha256": "83d6225d141524577895ae67f5a8416e13744f8a8c1c554f96884b718fa27c15"
+  },
+  "fixture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/measurement.test.mjs",
+    "bytes": 24719,
+    "sha256": "00a3da00a6e58f67d22a22d48e2daeb86347fbe6754c40c6b60780b7814d3773"
+  },
+  "sequence": {
+    "phase": "after",
+    "afterCondition": "RC8-before actual complete successful close, held/fresh parity and resource success before RC9-after may execute",
+    "attempts": 1,
+    "automaticRetry": false
+  },
+  "bounds": {
+    "hostMs": 900000,
+    "coldReadMs": 120000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "aggregateBytes": 1073741824,
+    "nodeHeapMiB": 8192
+  },
+  "scope": "Existing unchanged two unprofiled 1MiB/4MiB calls per subject and 4 held+4 fresh parity each; RC9-only separate4MiB profile. Ordinary existing disposable fixture lifecycle and ABG close/abandon authorized in fresh scratch; no added historical/external cleanup. No native/provider/rebuild/Git/global selector/release effect.",
+  "bootstrapReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_007_RETURN.json",
+    "bytes": 13582,
+    "sha256": "3314ead967b444b723e922318777e6edb9d98268b09541c35281830a931ed311"
+  },
+  "qualification": false
+}

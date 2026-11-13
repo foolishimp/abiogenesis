@@ -1,0 +1,30 @@
+{
+  "kind": "root_operator_budget_triage_disposition",
+  "atUtc": "2026-10-31T07:32:15.700133+00:00",
+  "publicCliPid": 41432,
+  "action": "SIGCONT for existing deterministic recursion-bound closure",
+  "knownIncrementUsd": "10.7288078",
+  "historicalPlusKnownUsd": "46.3959266",
+  "additionalProviderCallsAuthorized": 0,
+  "reason": "Admitted consumer recursion bound4; UAT belongs to attempt3, reentry attempt4 meets bound before another child selector. Preserve actual native indeterminate and expected blocked Run; do not manufacture terminal success.",
+  "reviewDisposition": {
+    "confirmedCoreFixes": [
+      "original UAT outcome conserved",
+      "complete bounded UTF8 diagnostics"
+    ],
+    "requiredNextABGRepairs": [
+      "portable embedded4616byte witness in existing test",
+      "require both matching stream metadata fields for complete true"
+    ],
+    "existingEvidenceGaps": [
+      "snapshot correspondence independently verified",
+      "design edit order is in actual actor trace",
+      "historical Run009 custody remains separate"
+    ],
+    "unmeasuredOutsideMandatoryA": [
+      "cross-version RC2-under-RC3 replay",
+      "captured18/51history fit"
+    ]
+  },
+  "operatorControl": "Live process continued after operator suspension; no event-log recovery or admitted pause claimed"
+}

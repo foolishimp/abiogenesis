@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/062-t287-default-library-fulfillment.test/process.json",
+    "bytes": 1108,
+    "sha256": "7790029cfbf7e4b379c86324ba8603d3d3d723c16a7a5ae27539906ad31acb1f"
+  }
+}

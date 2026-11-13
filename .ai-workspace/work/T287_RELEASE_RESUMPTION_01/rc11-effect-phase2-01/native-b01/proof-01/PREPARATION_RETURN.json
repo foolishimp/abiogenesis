@@ -1,0 +1,73 @@
+{
+  "status": "READY_EXECUTION_HELD",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/READY.json",
+    "bytes": 9126,
+    "sha256": "7c6f4c4d02c3bec73cec55377badaacf78a4253f248b65ebb4ac0f8c1513c7a2"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/BINDING.json",
+    "bytes": 9473,
+    "sha256": "bfc7f0337d8e22e2678f590a80d5ae5f0c6cbabc29232154a6f773a6577fd0fd"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/CONTROLS.json",
+    "bytes": 32767,
+    "sha256": "9b2572369df3c10dddf589c419b95c4ef3de77e8133533cc9840bfe9711bbfc1"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/proof.py",
+    "bytes": 24914,
+    "sha256": "862517533438aaeb5cd09d87b56ebc6d5ce02b147074e8ae49f509456c8acca6"
+  },
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "sourceRows": 1345,
+  "stagingAndExecutionPerformed": false,
+  "prospectiveRootAbsent": true,
+  "sourceAndGitUnchanged": true,
+  "tracking": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 196005,
+      "sha256": "edcbdf8affddfa6918dada6fd1a79409144e9240cb0d5139ed863b69015ed6ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 847640,
+      "sha256": "9c4a973baa5d0218a56e00457b6a79c2c15b69738c64b813484b7958bb9be15c"
+    }
+  ],
+  "preservedIndices": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29373151,
+      "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+      "bytes": 29655224,
+      "sha256": "bc07c7f9439cea13cbeb210beffb330ed9fc0950afa63c4d755741bc858c39eb"
+    }
+  ],
+  "heads": {
+    "/Users/jim/src/apps/abiogenesis": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+    "/private/tmp/abg-rc11-foundation-20261110-01": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+    "/private/tmp/abg-rc11-qualification-20261109": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 2449,
+    "sha256": "bbfd304252d72b41522476ca0dcbe04f94a1b8578007e0b852674bfc62d388c2"
+  },
+  "limits": [
+    "No new source qualification or proof acceptance.",
+    "Six exact unit skips and both deferred capsules remain open.",
+    "No separate M5 invocation or per-file 600s claim.",
+    "Future artifact/bootstrap/config identities are actual generated outputs, not placeholders promoted as evidence."
+  ]
+}

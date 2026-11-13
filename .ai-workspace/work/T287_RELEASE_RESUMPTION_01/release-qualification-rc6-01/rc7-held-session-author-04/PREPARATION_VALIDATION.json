@@ -1,0 +1,146 @@
+{
+  "kind": "bounded_h04_operator_preparation_validation",
+  "status": "STATIC_AND_SYNTAX_PASSED_NO_EFFECT",
+  "at": "2026-11-06T18:20:10.233194+00:00",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/SOURCE_BEFORE.json",
+    "bytes": 233308,
+    "sha256": "ecbb6b1f4ff3e896601a2f4d3c2e3bd230ef2786ef44833b9fcccce2b3d89adb"
+  },
+  "sourceReferenceRows": 451,
+  "sourceBodyCopies": 0,
+  "sourceReferenceRelation": "Exact relativePath/bytes/sha256/sourceSnapshot equality to actual H03 SOURCE_AFTER; Root live recheck remains final admission.",
+  "payloadBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+    "bytes": 1466472,
+    "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+  },
+  "payloadMembership": 5325,
+  "productContentMembers": 5323,
+  "payloadPreparationRelation": "Finite manifest-selected byte hashes, canonical row digest compared to actual completed manifest; native stage calls the same pinned existing owner before/after copying. No module/runtime invocation performed during preparation.",
+  "nativeControls": 18,
+  "preparedControls": 17,
+  "futureAdmissionControls": 1,
+  "contextEntries": 472,
+  "writableSourcePaths": 2,
+  "stageAllocations": 1,
+  "laneAllocations": 5,
+  "laneCeilingsMs": [
+    600000,
+    600000,
+    300000,
+    300000,
+    300000
+  ],
+  "authoredTimeoutsMs": {
+    "fixedRoute": 540000,
+    "heldSession": 280000
+  },
+  "onlyAllowedHistoricalSkip": "admitted pure consumer evaluates a native task as data without physical authority",
+  "originalCodePinsUnchanged": true,
+  "selectedLaneControl": {
+    "canonicalNativeRelativePath": "qualification-inputs/rc7-held-session-author-04/prior-author-lanes.mjs",
+    "preparedSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/prior-author-lanes.mjs",
+      "bytes": 10602,
+      "sha256": "ff80e482e7a5fb801ef49997a0ff390ea70f7cb796f5ea16807b592cc0cd7bca"
+    },
+    "correction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/CORRECTION.json",
+      "bytes": 2757,
+      "sha256": "9ba8e3b6df5b1b4e7c09e66c381eb83cbcc72fd5b65abb63f8de263a0c25e297"
+    },
+    "originalRetained": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-lanes.mjs",
+      "bytes": 10545,
+      "sha256": "14f326791175750c72fe85825ef0305d022bcc7ccf0eaa359182190551de3d56"
+    }
+  },
+  "syntax": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-stage.mjs",
+        "bytes": 6899,
+        "sha256": "50be9ccf2701d32a543432cb80129acfa84e6f80ce1d1287d7aa8c22a2e5ed61"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-stage.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-lanes.mjs",
+        "bytes": 10545,
+        "sha256": "14f326791175750c72fe85825ef0305d022bcc7ccf0eaa359182190551de3d56"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-lanes.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/prior-author-lanes.mjs",
+        "bytes": 10602,
+        "sha256": "ff80e482e7a5fb801ef49997a0ff390ea70f7cb796f5ea16807b592cc0cd7bca"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/prior-author-lanes.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/prepare-and-dispatch.mjs",
+        "bytes": 19678,
+        "sha256": "bb4637bdbaf0770951f521fa7280ccc2ebc63a57e005dab9ffcddeb5975c01bb"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/prepare-and-dispatch.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/launch-owner-script.mjs",
+        "bytes": 2388,
+        "sha256": "e334554dc18b8efd4f80cccd47398af8d8253e26d902f948225034b29595706a"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/launch-owner-script.mjs"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "providerWrapperSyntaxExitCode": 0,
+  "providerWrapperMode": "0755",
+  "jsonParsed": 27,
+  "distinctEmptyNpmConfigs": true,
+  "actualOutputSlotsAbsent": true,
+  "futureRootAdmission": null,
+  "executed": {
+    "runtime": false,
+    "provider": false,
+    "build": false,
+    "test": false,
+    "stage": false,
+    "gitMutation": false,
+    "sourceEdit": false
+  },
+  "limitations": [
+    "Syntax/static checks do not execute source staging or proof.",
+    "Full Product membership/body verification runs again before/after future stage copy.",
+    "Independent review disposition and final Root admission/dispatch remain Root-owned."
+  ]
+}

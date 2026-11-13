@@ -1,0 +1,13 @@
+{
+  "kind": "bounded_current_ticket_status_update",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+  "beforeBytes": 727518,
+  "beforeSha256": "293679628dc4699a4337a85e416ae9cccc9d256cd541812e3afdb9e2bb07d5c8",
+  "afterBytes": 727999,
+  "afterSha256": "263e42fc3561618a9f702342168517b9bd2a245503a8d43f11de99a79a64446b",
+  "changedLines": [
+    3,
+    68
+  ],
+  "scope": "Current progress prefix/status only; all historical chronology and HS plan rows preserved; no implementation activation."
+}

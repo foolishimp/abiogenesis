@@ -1,0 +1,86 @@
+{
+  "status": "PREPARED_OPERATOR_INPUTS",
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 274,
+        "sha256": "d16b7c131d4621ce1c6abbd8b8073b3b0945ccbd6d3fc69641bbee18bcf7c5e4"
+      },
+      "target": "rc4-operator-inputs/native-recovery-13/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 274,
+      "sha256": "d16b7c131d4621ce1c6abbd8b8073b3b0945ccbd6d3fc69641bbee18bcf7c5e4"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/task.DRAFT.md",
+        "bytes": 7169,
+        "sha256": "b84e19bfaf593bf1aeb01e4c270b07a748e4aa2db155449e538888505eb81fc6"
+      },
+      "target": "rc4-operator-inputs/native-recovery-13/task.DRAFT.md",
+      "bytes": 7169,
+      "sha256": "b84e19bfaf593bf1aeb01e4c270b07a748e4aa2db155449e538888505eb81fc6"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/rubric.DRAFT.json",
+        "bytes": 2261,
+        "sha256": "1f4ca8d97473b5a9cba24b8de003c9978fc1861a3d89147f49ec1352f7f60621"
+      },
+      "target": "rc4-operator-inputs/native-recovery-13/rubric.DRAFT.json",
+      "bytes": 2261,
+      "sha256": "1f4ca8d97473b5a9cba24b8de003c9978fc1861a3d89147f49ec1352f7f60621"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/NATIVE_GRANT.DRAFT.json",
+        "bytes": 9036,
+        "sha256": "7379138a42ec7c1ca50b8c5d6d44901bd5ec4e4e9fbb630e221af907c405c490"
+      },
+      "target": "rc4-operator-inputs/native-recovery-13/NATIVE_GRANT.DRAFT.json",
+      "bytes": 9036,
+      "sha256": "7379138a42ec7c1ca50b8c5d6d44901bd5ec4e4e9fbb630e221af907c405c490"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 450,
+        "sha256": "5520026b5f473a07285797630413ee45c5def8a161ed7c16e38a8160c998ae5d"
+      },
+      "target": "rc4-operator-inputs/native-recovery-13/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 450,
+      "sha256": "5520026b5f473a07285797630413ee45c5def8a161ed7c16e38a8160c998ae5d"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 5429,
+        "sha256": "db9f32a30c213c6e668bacedfa5677c7be7c419463991a8056d45a3bb2cffc7d"
+      },
+      "target": "rc4-operator-inputs/native-recovery-13/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 5429,
+      "sha256": "db9f32a30c213c6e668bacedfa5677c7be7c419463991a8056d45a3bb2cffc7d"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/readiness.py",
+        "bytes": 2570,
+        "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-13/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/readiness-inputs.json",
+        "bytes": 92358,
+        "sha256": "85505014b417ac5454737494b7f627b4d528e8ea7c64f03a83b21c26954fe86f"
+      },
+      "target": "rc4-operator-inputs/native-recovery-13/readiness-inputs.json",
+      "bytes": 92358,
+      "sha256": "85505014b417ac5454737494b7f627b4d528e8ea7c64f03a83b21c26954fe86f"
+    }
+  ],
+  "meaning": "Compact task/acceptedowner routes/priorlookup pins; no oldscratch/fullhistory materialized."
+}

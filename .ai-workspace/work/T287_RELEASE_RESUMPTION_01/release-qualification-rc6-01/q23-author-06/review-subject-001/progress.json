@@ -1,0 +1,12 @@
+{
+  "kind": "q23_author_06_progress",
+  "status": "returned",
+  "steps": [
+    {"step": "control_intake", "state": "done", "note": "Read TASK, ROOT_SELECTION, ROOT_FAILURE_TRIAGE, ROOT_REVIEW_DISPOSITION, NATIVE_GRANT, CLOSED_REVIEW, rubric and policy selection, plus the stdo-work skill route from METHOD_ACCESS. HEAD 1f62c009, tree ff447cb7; all 13 frozen paths hash-equal to the frozen subject."},
+    {"step": "source_repair", "state": "done", "note": "Q1: closed operand/flag arity in transport_contracts MODEL_SELECTION and modelSelectionFromArguments. Q4: per-declared-slot peer facts in qualification_proof (dispatch and replay); the Validator refuses required_peer_missing for any missing declared slot. HOW section 3 Q23 items 1, 5, 6, 7 and production limits updated."},
+    {"step": "tests", "state": "done", "note": "m5-worker-transport: one new Q23 operand/arity test plus event-store admission assertions. t287-qualification-scopes: per-slot peer premises in nativeHistory; owner, Validator and actual actor_process gate cases for Q4; owner and gate cases for Q1."},
+    {"step": "author_checks", "state": "done", "note": "repair-01 (superseded intermediate) and repair-02 (final bytes): compile 0, generate 0, transport 27/27, qualification 36/36, zero fail/skip/cancel/todo. No baseline, broad suite, live provider or C2/UAT."},
+    {"step": "handoffs", "state": "done", "note": "return.json, readiness.json and progress.json written. Stopped at the return boundary; Root freezes, reviews and admits C2/UAT separately."}
+  ],
+  "disclosures": ["R5 npm update-notifier network GET during repair-01", "R6 tmpq23f caches", "R7 zsh heredoc transient files"]
+}

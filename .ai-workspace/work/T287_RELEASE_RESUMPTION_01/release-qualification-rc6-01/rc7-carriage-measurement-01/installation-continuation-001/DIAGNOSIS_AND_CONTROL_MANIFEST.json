@@ -1,0 +1,262 @@
+{
+  "kind": "s4_existing_owner_install_continuation_preparation",
+  "status": "PREPARED_NOT_ADMITTED_NOT_EXECUTED",
+  "createdUtc": "2026-11-07T00:02:26.291166+00:00",
+  "RootTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_ARTIFACT_BASIS_TRIAGE_001.json",
+    "bytes": 3470,
+    "sha256": "904f275b66d6a225a7747429497ba6efe41ab2c932bd4c9e4a81463272364600"
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "ProductFrame": "ABIogenesis fixed15/GOAL035/T287/STDO3.0.4 composition[]; bounded accepted S3 source, immutable RC6 builder; isolated artifact only",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/continue-test-artifact.mjs",
+      "bytes": 11812,
+      "sha256": "afbf75453b45090ad909741e59fa2d3f4cf860c60772fecf7b5bc63f589a3cff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/install-retained-artifact.mjs",
+      "bytes": 4516,
+      "sha256": "36752211801e6145fc1ebc4af852a130d362b59cd643590004767edccc4fb617"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/OPERATOR_ADAPTATION.diff",
+      "bytes": 28242,
+      "sha256": "f7498ff7c3601686e5495b98d915dc035075686a616fdff8c78b94de1b9a56cd"
+    }
+  ],
+  "originalControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_CONTROL_MANIFEST.json",
+      "bytes": 5228,
+      "sha256": "e7fb9a5d01fce0226a548752963bf8a5917111f6ebe0403ba8e2ba556afae24b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_OWNER_PINS.json",
+      "bytes": 7242,
+      "sha256": "9fc9d03660b4f24fcb5ba0b419a17df6bdd610952421ee86c8e88698d0f98356"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/prepare-test-artifact.mjs",
+      "bytes": 9699,
+      "sha256": "6736f1b6c4700daa6bc11c8863b3eb7c3d33de952f4776cb0badb2ee11ab9308"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/install-test-artifact.mjs",
+      "bytes": 3511,
+      "sha256": "0786437a3e0f275fd2bfebf66c9c2e65479acb1c515ce857be5ed1f516cd1a22"
+    }
+  ],
+  "retainedInputs": {
+    "priorBindings": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_ARTIFACT_BINDINGS_001.json",
+      "bytes": 5556,
+      "sha256": "96964389f30b653cd038da245829c213fe6ca85570f543f84560aced19b854c2"
+    },
+    "sourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 10863,
+      "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+      "bytes": 11021939,
+      "sha256": "ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693"
+    },
+    "verification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/verification.json",
+      "bytes": 15797364,
+      "sha256": "ce518cb867f6ceb6612afd9510f8b18ca3f0f95eaa6a247e3358a9cefee4a549"
+    },
+    "refusedLock": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/resolved-lock.json",
+      "bytes": 218,
+      "sha256": "da516723f516f49380f8b7330b2a14d29e6ec99ec7ffd041a24c651b7e526d6c"
+    },
+    "failedAttempt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/SUMMARY.json",
+      "bytes": 1426,
+      "sha256": "03776698a2c74ea05c8c737570d036aa051186f8790e0575f2b97cb2859f8969"
+    },
+    "failedCommand": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/commands/verify-install-once.result.json",
+      "bytes": 1513,
+      "sha256": "7f29bdbb56b701b2e8e6358496610877af259cf20a69ac786f4634b87689b595"
+    }
+  },
+  "diagnosis": {
+    "classification": "Operator selected the wrong existing Product execution basis; fail-closed refusal before installProduct was called. No Product source defect established.",
+    "executingOldProductContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+    "selectedProductContentDigest": "sha256:863b31d9c4ff047ea629558a2edf08cf848b19da6ec7e2d1eebd2fc55f90fc11",
+    "actualRefusal": {
+      "kind": "environment_refusal",
+      "schemaVersion": "5.0.0",
+      "disposition": "refused",
+      "code": "incompatible_dependency",
+      "message": "selected ABIogenesis Product does not match the installed compiler basis"
+    },
+    "ownerLaw": [
+      {
+        "owner": "product/environment.js",
+        "lines": "197-253,278-280",
+        "relation": "constructResolvedProductLock supplies installedToolchainProductContentDigest to resolution and link; copied retained verification gets full structural/declaration checking."
+      },
+      {
+        "owner": "product/declaration_exports.js",
+        "lines": "192-198,1354-1357",
+        "relation": "Executing Product manifest content digest must equal the selected ABIogenesis Product digest; mismatch refuses incompatible_dependency."
+      },
+      {
+        "owner": "product/verify_product.js",
+        "lines": "18-44",
+        "relation": "WeakMap custody belongs to actual same-instance verification. Persisted/foreign copies retain structural admission only."
+      },
+      {
+        "owner": "product/install_product.js",
+        "lines": "207-237",
+        "relation": "Public installation verifies resolved-lock membership, reauthenticates current archive bytes for a non-owned receipt and compares the complete verification carrier."
+      }
+    ],
+    "compiledOwnerComparisons": [
+      {
+        "relativePath": "build/code/src/product/index.js",
+        "immutableRc6": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+          "bytes": 13690,
+          "sha256": "163f1e44620fa7049ff97f6973fca01ef5e205846945e15188511571b28e2f0d"
+        },
+        "selectedStage": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/index.js",
+          "bytes": 13810,
+          "sha256": "26771ef341c8d0d1b927118a9a73556cb93df7cd248dc4f5b187e50a395c4799"
+        },
+        "sameBytes": false
+      },
+      {
+        "relativePath": "build/code/src/product/environment.js",
+        "immutableRc6": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/environment.js",
+          "bytes": 36486,
+          "sha256": "f80a1d9dc08d612268bdeea1c2977f2d3d46f2850c8bcff0dac0b6e93e2430b5"
+        },
+        "selectedStage": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/environment.js",
+          "bytes": 36486,
+          "sha256": "f80a1d9dc08d612268bdeea1c2977f2d3d46f2850c8bcff0dac0b6e93e2430b5"
+        },
+        "sameBytes": true
+      },
+      {
+        "relativePath": "build/code/src/product/declaration_exports.js",
+        "immutableRc6": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/declaration_exports.js",
+          "bytes": 113258,
+          "sha256": "99223223752a1a90c1ef3bac02b44840e4664792a89507de3458761770b8456a"
+        },
+        "selectedStage": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/declaration_exports.js",
+          "bytes": 113258,
+          "sha256": "99223223752a1a90c1ef3bac02b44840e4664792a89507de3458761770b8456a"
+        },
+        "sameBytes": true
+      },
+      {
+        "relativePath": "build/code/src/product/verify_product.js",
+        "immutableRc6": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/verify_product.js",
+          "bytes": 88460,
+          "sha256": "2d9ccf376ee3d33fcc6a48f6a52d7172f85e317e157ca761cd0aa69725a017cb"
+        },
+        "selectedStage": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/verify_product.js",
+          "bytes": 88460,
+          "sha256": "2d9ccf376ee3d33fcc6a48f6a52d7172f85e317e157ca761cd0aa69725a017cb"
+        },
+        "sameBytes": true
+      },
+      {
+        "relativePath": "build/code/src/product/install_product.js",
+        "immutableRc6": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/install_product.js",
+          "bytes": 18110,
+          "sha256": "a07c1b9db467b039efe8ebdaae6586c7d88d28d7e798c3ba7c4f8308bbe1a2f1"
+        },
+        "selectedStage": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+          "bytes": 18110,
+          "sha256": "a07c1b9db467b039efe8ebdaae6586c7d88d28d7e798c3ba7c4f8308bbe1a2f1"
+        },
+        "sameBytes": true
+      }
+    ],
+    "originalSummaryCountLimit": "bootstrapInstallCount1 counts the adapter attempt; the failed lock assertion precedes installProduct, and original bootstrap-install path is absent."
+  },
+  "supportedCorrection": {
+    "reuse": "Original successful pack and retained verified receipt by reference. No explicit repeat verifyProduct, pack, compile or generation.",
+    "bootstrap": "Pin archive, use existing canonical recorder/pinned tar list/extract into a fresh private output; compare exact manifest and deciding Product module bytes with selected stage before import. All candidate dependencies come from that verified archive.",
+    "ownerSequence": "Import exact extracted Product index; constructResolvedProductLock([retainedVerification]); public installProduct; isProductInstallCandidate; installedProductContentMatches.",
+    "mandatoryInstallReauthentication": "installProduct retains its existing current-byte verifyProduct when old WeakMap custody is absent. This is not an optional duplicate verifier and is not bypassed.",
+    "close": "Emit actual lock/install/content receipts, same existing SOURCE_ARTIFACT_RELATION and preparation-002 measurement-binding shape; measurement remains unadmitted.",
+    "failure": "Preserve original artifact-001 and all new partial outputs, stop on first failed step, no cleanup/retry."
+  },
+  "maintainedPrecedent": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "bytes": 42751,
+    "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+  },
+  "cutCounterpart": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/install-local-rc7.mjs",
+      "bytes": 7172,
+      "sha256": "360cfa677fa19df87a13b71e2d8a93e8a2b37001603aa392ff52b69b78166999"
+    },
+    "lines": "35-54",
+    "sameDefect": false,
+    "relation": "Already extracts the exact selected retained archive, imports its Product index, then performs verify/lock/install from that single candidate basis. No correction selected here."
+  },
+  "futurePaths": {
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002",
+    "tempRoot": "/private/tmp/abg-r7p2",
+    "bootstrapInstallHost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/bootstrap-install"
+  },
+  "proposedBounds": {
+    "extractMs": 120000,
+    "installMs": 600000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  },
+  "syntaxChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/continue-test-artifact.mjs",
+      "command": "/opt/homebrew/bin/node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/install-retained-artifact.mjs",
+      "command": "/opt/homebrew/bin/node --check",
+      "exitCode": 0
+    }
+  ],
+  "preparationEffects": [
+    "New scoped operator controls/diff and metadata only",
+    "Two parser-only checks",
+    "Finite exact owner/receipt/source pin reads"
+  ],
+  "notPerformed": [
+    "Product/source/test/Git changes",
+    "pack/extraction/import/verification/lock/install/measurement/runtime execution",
+    "credential/provider/network acquisition"
+  ],
+  "RootPending": [
+    "Proportional delta review",
+    "Actual continuation activation and finite bound selection",
+    "Actual execution through unchanged commandRecorder"
+  ],
+  "qualified": false,
+  "accepted": false
+}

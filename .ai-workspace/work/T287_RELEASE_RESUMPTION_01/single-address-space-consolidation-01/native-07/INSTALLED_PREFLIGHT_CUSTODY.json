@@ -1,0 +1,49 @@
+{
+  "recordedUtc": "2026-11-04T03:45:48.790082+00:00",
+  "status": "INSTALLED_PREFLIGHT_AND_FINAL_CONTROL_REVIEW_CONJOINED",
+  "preparedCall": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/PREPARED_CALL.json",
+    "bytes": 4933,
+    "sha256": "5b1bef2914f5444cea89504db81a5886331f40a2a2be8a5cddf75a5ad9d7b06d"
+  },
+  "actualCall": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/prepared-call.json",
+    "bytes": 30042148,
+    "sha256": "0f2254ddf6dc16699903168be92aba0c648a1d5addf472785e08f878024ee6b8"
+  },
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/input.json",
+    "bytes": 222009,
+    "sha256": "9ee9bb831e5b471efdc80ac21792156453867e62d8e331b6da70489ff1295245"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/SOURCE_BEFORE.json",
+    "bytes": 54555,
+    "sha256": "2728cfda99cadd80bd38ebe1da75d69ab27cb546959ea6582b1822e0c93f7526"
+  },
+  "predecessorActualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/after-run-resume.json",
+    "bytes": 99584811,
+    "sha256": "2e8c3683018a6a9b0600c6b07518270255fad4106089cfd11778451985165e18"
+  },
+  "finalControlReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/FINAL_CONTROL_REVIEW.json",
+    "bytes": 9369,
+    "sha256": "402a48bbd6b62c60c8c15eb3d42a648360a3cfaf74e42d0ca9a878f015a93de7"
+  },
+  "initialCapacity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/SELECTOR_CAPACITY_PREFLIGHT_R1.json",
+    "bytes": 1168,
+    "sha256": "0b3807df68e6198679595df332f3f122394da7c6b6e831f5feffaaed09ffea16"
+  },
+  "downstreamCapacity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/DOWNSTREAM_CAPACITY_PREFLIGHT.json",
+    "bytes": 1604,
+    "sha256": "4ab8a93dca3b8cb4f1247c96cd9ada7d8ee353d96be76fd1e9e962d1c1c42ba9"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "historicalPrefixPreservedByPreflight": true,
+  "RootSourceEdits": false,
+  "standing": "Actual installed constructors/context/package content/budget and call population passed. Predictive capacity remains predictive; no future result or acceptance."
+}

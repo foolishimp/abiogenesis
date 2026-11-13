@@ -1,0 +1,163 @@
+{
+  "kind": "bounded_independent_operator_setup_review",
+  "status": "closed_no_remaining_concrete_setup_blocker_on_corrected001",
+  "createdUtc": "2026-11-07T00:02:29.706540+00:00",
+  "productFrame": {
+    "product": "ABIogenesis5.0 fixed fifteen feature families",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "STDO3.0.4",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "boundary": "Mechanical fresh-worktree/pack/install preparation only; unchanged Product guards and sole ABG runtime authority. No Product source acceptance or release qualification."
+  },
+  "subject": {
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/PREPARATION_MANIFEST.corrected-001.json",
+      "bytes": 6617,
+      "sha256": "4c5f150a586d0ede40d107427ee563cac616a600e8f5b68384f2abd2c1e20ecc"
+    },
+    "runner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/run-local-cut.corrected-001.mjs",
+      "bytes": 25612,
+      "sha256": "b7a23fb5c64ae49d06852e26923931f7ce6928ce4c2e410899c904f6a67e18e5"
+    },
+    "correction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/SETUP_CORRECTION.corrected-001.json",
+      "bytes": 3445,
+      "sha256": "c5b2ee30e4d58a1ed775ad3c5ab8660ab5e1a65203341f1f5cc7fb58a0c509b6"
+    },
+    "predecessor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/PREPARATION_MANIFEST.json",
+      "bytes": 5605,
+      "sha256": "d5103764e35eafae6f92b48264610f373b4e2e8ff56c821a47742db72b7d41c8"
+    },
+    "baselineRunner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/run-local-cut.mjs",
+      "bytes": 25084,
+      "sha256": "c79196ca7f25db1c4c758a034512e7124d74d3b2adb6bacc4a3d45bc65d5750a"
+    },
+    "preservedInitialManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/PREPARATION_MANIFEST.json",
+      "bytes": 6511,
+      "sha256": "cbcac9437a551ffb2fc54db3c833c1eda61ac43f0c5f893ba176c212d1e6c517"
+    },
+    "preservedInitialRunner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/run-local-cut.mjs",
+      "bytes": 25589,
+      "sha256": "0b291c1d1f1e7299ed190264faf87c49db3fcfb974eb2144a9182a07ee35ca3d"
+    },
+    "preservedInitialCorrection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/SETUP_CORRECTION.json",
+      "bytes": 2630,
+      "sha256": "9c10b6f0fdf608fd36a5cd406f5243db9737dfbaab303c80bac02386438b17f7"
+    }
+  },
+  "verification": [
+    "Verified exact original and corrected manifest/runner/correction pins; all14 files in corrected manifest match declared bytes/SHA.",
+    "Read the full runner delta against preparation004 and the one-line sparse selection correction against original005. Unchanged build/install controls were not re-audited.",
+    "Confirmed five roots match the existing explicit git archive clean-reproduction roots. Compared the actual451-row source inventory names;14 selected fixtures lie outside those five roots and are included by the corrected exact-path list. Selected names need no Gitignore glob escaping.",
+    "Confirmed manifest entrypoint and selectedCorrection route to the corrected runner/record.",
+    "Reviewed Git primary documentation for non-cone pattern selection, worktree-specific configuration and git add sparse restrictions. No Git/setup/build/test/install command executed."
+  ],
+  "baseObservation": {
+    "baseCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "trackedBlobs": 129325,
+    "trackedBytes": 46537318596,
+    "aiWorkspaceTrackedBytes": 46439011988,
+    "availableBytesObserved": 6746017792,
+    "method": "Read-only git ls-tree -rlz exact base, aggregate blob sizes; no untracked census or history decode."
+  },
+  "findings": [
+    {
+      "id": "RC7-SETUP-005-001",
+      "severity": "S2",
+      "status": "corrected_in_selected_corrected001",
+      "trigger": "Following original005 PREPARATION_MANIFEST.entrypoint selects the preparation004 runner, despite005 files pinning a sparse runner.",
+      "harm": "The intended allocation correction is bypassed or inconsistent authority is followed; original full checkout can materialize the recorded46.537GB tree.",
+      "probability": "Deterministic manifest routing mismatch; actual execution was not attempted.",
+      "control": "Root admission remained unbound and the original packet is preserved.",
+      "minimumRepair": "Bind the corrected005 runner as entrypoint and selected correction consistently.",
+      "verifiedResolution": "Corrected manifest selects and pins run-local-cut.corrected-001.mjs and SETUP_CORRECTION.corrected-001.json."
+    },
+    {
+      "id": "RC7-SETUP-005-002",
+      "severity": "S2",
+      "status": "corrected_in_selected_corrected001",
+      "trigger": "Initial five-pattern sparse setup excludes14 source-overlay fixtures under .ai-workspace, but unchanged source-stage later passes every selected row to git add without --sparse.",
+      "harm": "Selected source staging is not supported by the sparse set; preparation may fail after candidate build instead of creating the exact checkpoint.",
+      "probability": "All14 path exclusions are exact in the selected451 inventory. Git documents refusal of updates outside the sparse specification without explicit allowance; no execution was used to characterize local Git behavior further.",
+      "control": "The explicit stage path set and command-recorder failure predicate stop the cut on failure; no install automatically follows.",
+      "minimumRepair": "Include exact selected overlay paths in the fresh sparse set, without selecting broad historical directories.",
+      "verifiedResolution": "Corrected command adds ...rows.map(r => \"/\" + r.relativePath); all451 admitted paths are included and unrelated history remains excluded."
+    }
+  ],
+  "setupSufficiency": {
+    "selectedCommands": [
+      "git -C repository worktree add --no-checkout -b declaredBranch declaredFreshW exactBaseCommit",
+      "git -C W sparse-checkout set --no-cone fiveReproductionPatterns plusEveryExactSelectedRelativePath",
+      "git -C W read-tree -mu HEAD"
+    ],
+    "relation": "No full worktree population precedes sparse selection. The complete base tree stays in Git; read-tree populates only selected paths in the fresh W/index. Required tenant/specification/control roots are present and the explicit overlay paths can be staged. Exact frozen copies, file modes, conservation checks, generated-only delta guard and checkpoint/reproduction behavior are unchanged.",
+    "selectedPatterns": [
+      "/AGENTS.md",
+      "/CLAUDE.md",
+      "/stdo_abiogenesis.json",
+      "/specification/",
+      "/build_tenants/abiogenesis/typescript/"
+    ],
+    "overlayPathCount": 451,
+    "outsideRootPaths": [
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/README.md",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/implementation-design.md",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/test-design.md",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/generated/hello-world.mjs",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/basic-cli.oracle.json",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/original-basic-cli.txt",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/witness-contract.md",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/specification/project-conformance.md",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test-execution-plan.json",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/component/hello-cli.test.mjs",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/supplied-work-contract.md",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-witness-contract.md"
+    ],
+    "sourceInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/SUBJECT.json",
+      "bytes": 281811,
+      "sha256": "e1dd758611d6ededf884109a4f589caf43a5f5504f230715b7bdf0b6869286f7"
+    },
+    "rootConfirmedIgnoreAttributeJoin": {
+      "standing": "Root independently read exact base1f62c0095; Reviewer did not read moving root/tenant files or execute Git.",
+      "tenantIgnore": "build_tenants/abiogenesis/typescript/.gitignore is inside the selected tenant root and contains artifacts/, build/, node_modules/, product-toolchain-manifest.json, test_env/evidence/*.json, test_env/uat/runs/. It supplies the unchanged post-build untracked guard exclusions.",
+      "attributes": "Root .gitattributes only selects historical LFS evidence outside the451 paths; no selected tenant/fixture path is affected.",
+      "disposition": "No additional root expansion selected."
+    }
+  },
+  "conservation": {
+    "existingWorktrees": "New sparse/population commands target declared fresh W only. Existing M/C HEAD/index pin checks remain before and after; no checkout/reset/clean/index command is directed at M/C.",
+    "gitMetadataTruth": "Normal Git worktree registration/new branch and, if needed, the documented worktreeConfig upgrade affect Git-owned shared metadata. This is not a claim that shared repository metadata is byte-unchanged; sparse settings are worktree-specific and existing worktree contents/HEAD/index are not selected for mutation.",
+    "preflight": "Fresh W/output/temp/release/install paths are checked absent before allocations, and the new branch absence/exact base tree check remain.",
+    "release": "Immutable existing releases, no selector/push/tag/merge and separate install admission are unchanged.",
+    "source": "Sparse selection does not delete omitted paths from the base tree or restamp source. The exact451 overlay/mechanical identity checks remain authoritative.",
+    "scope": "No change to timeout/output caps, canonical command owners, build/pack/reproduction/install identity or failure retention."
+  },
+  "documentation": [
+    {
+      "url": "https://git-scm.com/docs/git-add",
+      "claim": "git add ordinarily refuses updates outside sparse-checkout selection unless --sparse is used."
+    },
+    {
+      "url": "https://git-scm.com/docs/git-sparse-checkout",
+      "claim": "set accepts Gitignore-style patterns with --no-cone and maintains worktree-specific sparse configuration; it may upgrade repository worktreeConfig."
+    }
+  ],
+  "limits": [
+    "This is a read-only setup-control delta review. No cut, syntax check, Git command, worktree creation, build, pack, install or Product runtime execution by Reviewer. Root reported the corrected syntax check separately.",
+    "Disk amounts are the retained preparation observation, not a new available-space measurement or full future allocation guarantee.",
+    "Byte-identical clean reproduction, source checkpoint, actual artifact identity and same-byte install remain future execution/review evidence under existing controls.",
+    "Final Root admission/activation remains unbound. No new speculative gate or Product repair is prescribed."
+  ],
+  "effects": "Only create-only reviews/setup-001/REVIEW.json and README.md; original005 and corrected001 controls remain untouched."
+}

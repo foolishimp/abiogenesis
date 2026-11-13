@@ -1,0 +1,56 @@
+{
+  "id": "RC10-INTEGRATION-REPAIR-02-NATIVE",
+  "status": "TASK_FOR_EXACT_NATIVE_ADMISSION",
+  "outcome": "Repair admitted-invocation basis retention binding, synchronize owning HOW, and add fixture-specific integrated reuse regression assertions.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "qualification-inputs/rc10-retention-01/repair-02"
+  ],
+  "maxContextFiles": 40,
+  "maxContextBytes": 2097152,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc10-retention-01/repair-02/ROOT_SCOPE.json",
+    "qualification-inputs/rc10-retention-01/repair-02/REVIEW_ADDENDUM.md",
+    "qualification-inputs/rc10-retention-01/repair-02/FAILURE_HANDOFF.001.json",
+    "qualification-inputs/rc10-retention-01/repair-02/STDO_STDO_WORK_SKILL.md",
+    "AGENTS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+    "qualification-scratch/rc10-retention-01/repair-02"
+  ],
+  "checks": [
+    "Read back the exact three-file diff and preserve the three continuation holds, existing scope/finalizers/disposal and all other source.",
+    "Syntax-check only the edited .mjs with the pinned Node --check; no execution of tests, build, generation, packing, install or nested provider.",
+    "Return actual edits and performed mechanical checks. No passing semantic-proof or rollback-test claim; external frozen proof follows separately."
+  ],
+  "instructions": [
+    "You are the admitted bounded native Writer after the exact Root native admission. Apply installed STDO 3.0.4 stdo-work. ROOT_SCOPE preserves the Operator preparation instruction as history; your admitted implementation authority is the substantive three-file scope projected here.",
+    "Write the owning HOW clarification before implementation: start retention is acquired for the actual admitted execution invocation and its returned current successor, distinct from the Public request identity. Existing invocation scope lifetime and three continuation holds stay unchanged. In the Proof paragraph replace the unsupported rollback-and-close claim with physical close disposal, and state explicitly that actual rollback disposal is unproved by this test.",
+    "In run_invocation.ts remove the early retainBasisLifetime(entryPrefix, call.invocation.invocationRef). Immediately after the successful invocation_admission_receipt branch and const admission = admitted.admission, acquire yield* retainBasisLifetime(admitted.successorPrefix, admission.invocationRef) before graph/basis construction. Preserve all existing failure returns and scope finalization.",
+    "In t287-held-basis-lifetime.test.mjs use the genuine existing single-root/single-deterministic-leaf fixture. Measure basis row work immediately around only the actual runInstalledDefinitionCallWithResource call, excluding constructor and metadata observer work. Assert the delta exactly {rowAdmissions:1, bodyDigests:1}. Independently use owned selection scalar metadata to assert exactly one new basis and zero retention after the call. Keep this integrated assertion before any manual-handle probes; no manual handle can establish it. This expected count is fixture-specific, not a global invocation bound. Never relax the assertion to accept a failure; return the actual evidence.",
+    "Preserve all 23 helper deletions, metadata and other source. No new global/cache/alias/identity authority, retention handle implementation or broad discovery. Inputs and dependencies are read-only; temporary files go only in the granted scratch.",
+    "Author edits and mechanical source checks only: no build, tests, runtime, package/install, Git effects, or provider nesting. Pinned Node --check is permitted for the .mjs; do not run it as a test. The current node_modules link and immutable RC9 install remain unwritable.",
+    "Return after this bounded repair and stop source edits. Operator will inspect actual SDK outcome, physical close and fresh readback, then freeze a successor for separately admitted external build/focused/unit proof. Do not author or claim that proof yourself."
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "kind": "operator_control_staging_manifest",
+  "status": "PREPARED_NOT_STAGED_ACTUAL_PREDECESSOR_BOUND_ROOT_ADMISSION_PENDING",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/C2_INPUTS.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/C2_INPUTS.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/C2_INPUTS.json",
+      "bytes": 46321,
+      "sha256": "cac76ac014beb8375f7a7b156bf6a553545c9f3f28ab524b4be1b8b4e9b3c2d7"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/CARRIAGE_READINESS.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/CARRIAGE_READINESS.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/CARRIAGE_READINESS.json",
+      "bytes": 41694,
+      "sha256": "d47ca75373cc08f1890c656f5326d2dd14af4d75dd8632c7e2da620fbc948034"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/COMMAND_BOUNDS.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/COMMAND_BOUNDS.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/COMMAND_BOUNDS.json",
+      "bytes": 2636,
+      "sha256": "eb6a439a33d1c5ffb0cf6dbb7349801a2e866a2765390c853e44171c0978bba5"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/DEPENDENCY_SOURCE_SELECTION.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/DEPENDENCY_SOURCE_SELECTION.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/DEPENDENCY_SOURCE_SELECTION.json",
+      "bytes": 5798,
+      "sha256": "c70ea6a7cfcf91f152792141919c16ae48edc6f7024329561e75a586c726870a"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/EXTERNAL_READ_INPUTS.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/EXTERNAL_READ_INPUTS.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/EXTERNAL_READ_INPUTS.json",
+      "bytes": 1670,
+      "sha256": "4a0a4a7d8d658b4794edb14e1d6e199feb5b11c1ddae43960d724d1df7155163"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/LATENCY_READINESS.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/LATENCY_READINESS.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/LATENCY_READINESS.json",
+      "bytes": 45287,
+      "sha256": "7e59cfef5068ed1c89c4aa23f47b58ad8e44097667ce752a22c4fe08f5b68cc5"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/LOGICAL_BOUNDARY.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/LOGICAL_BOUNDARY.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/LOGICAL_BOUNDARY.json",
+      "bytes": 16232,
+      "sha256": "628b5345fc1e1556d087e2e30fa52c58fb7ef9518da483cf4363b99cee7cb0d6"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/MEASUREMENT_PLAN.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/MEASUREMENT_PLAN.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/MEASUREMENT_PLAN.json",
+      "bytes": 5198,
+      "sha256": "3ee4c44eb8e15a021c56c05b65009c1c1180cdc945c6bf3f28ae3327cc4d7ebb"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/METHOD_ACCESS.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/METHOD_ACCESS.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/METHOD_ACCESS.json",
+      "bytes": 939,
+      "sha256": "6343d7c3c3a8eb0553e9b1452ae36cc70209c222cdde0edf502e102ba0c88d84"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/NATIVE_GRANT.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/NATIVE_GRANT.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/NATIVE_GRANT.json",
+      "bytes": 202680,
+      "sha256": "67a35ea31b6338ad32ef1941ed4ed09993dfefc781a52c08b96aec58449b4137"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/ROOT_ACTIVATION.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/ROOT_ACTIVATION.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/ROOT_PROOF_DISPOSITION.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/ROOT_PROOF_DISPOSITION.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/ROOT_PROOF_DISPOSITION.json",
+      "bytes": 4553,
+      "sha256": "1b64c3bd79db0be44dd44994e36cdcbce87203a1ae389295017103d933b328c6"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/ROOT_RESOURCE_BINDING.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/ROOT_RESOURCE_BINDING.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/ROOT_RESOURCE_BINDING.json",
+      "bytes": 1589,
+      "sha256": "1928fa8568daba8e412a0612e1eaff5f7bd1a19b323abeb910308a253ff9d2f8"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/ROOT_SELECTION.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/ROOT_SELECTION.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/ROOT_SELECTION.json",
+      "bytes": 7288,
+      "sha256": "aa3d11eedf7bf44271a825b05466d1a7bc8556377064562b1d14f6a309be9b9a"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/SAME_PROCESS_REUSE.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/SAME_PROCESS_REUSE.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/SAME_PROCESS_REUSE.json",
+      "bytes": 21979,
+      "sha256": "2d3abaf7e738a7f81596e3ecea77c3e3a3d17a4c53f18a8e0d87d9c07e1425fd"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/SOURCE_CUSTODY.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/SOURCE_CUSTODY.json",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/SOURCE_CUSTODY.json",
+      "bytes": 28805,
+      "sha256": "7f4a44a6cc72dee2e7a852d4d052b893a2a75fd3be10bb9bc15f2852a6d83252"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/TASK.md",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/TASK.md",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/TASK.md",
+      "bytes": 9877,
+      "sha256": "e913512df7d6f63f699aace104a3b37bec6b71814070690acb32de2e9ccbe093"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/prior-author-lanes.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/prior-author-lanes.mjs",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/prior-author-lanes.mjs",
+      "bytes": 5197,
+      "sha256": "fab6f33062bbfce90a6ccb728167554f6134a43c4a86df9532f38878cacefab0"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/inputs/prior-author-stage.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/prior-author-stage.mjs",
+      "relativePath": "qualification-inputs/rc7-overhead-author-01/prior-author-stage.mjs",
+      "bytes": 5400,
+      "sha256": "85287ca7ddd1cd14ac8f73c20fdeb8ca7056f0464d873ce429c4571e76364e6c"
+    }
+  ],
+  "meaning": "Concrete source-only packet; exact current recovered close is pinned but no runtime/preflight/dispatch occurred. Root may stage these exact source-local controls, bind exact post-return read controls and admit execution. No Product or scratch handoff was written."
+}

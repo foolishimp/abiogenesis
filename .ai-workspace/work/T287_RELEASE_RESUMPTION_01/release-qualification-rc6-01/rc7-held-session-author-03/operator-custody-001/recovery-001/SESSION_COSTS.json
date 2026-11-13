@@ -1,0 +1,194 @@
+{
+  "kind": "operator_recovery_session_cost_consolidation",
+  "createdUtc": "2026-11-06T17:43:35.197015+00:00",
+  "task": "rc7-held-session-author-03",
+  "status": "TIMING_CONSOLIDATED_PARTIAL_SOURCE_STANDING_UNCHANGED",
+  "inputs": {
+    "recoveryRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/commands/sdk-native-host-recovery-001.request.json",
+      "bytes": 1854,
+      "sha256": "dc1071997d5b49009dcc27a6d977ec2466d745e30c2a39eff384256e33d05fcf"
+    },
+    "recoveryCommandResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/commands/sdk-native-host-recovery-001.result.json",
+      "bytes": 2355,
+      "sha256": "89eba4d8c5657481ae73c800ec5a9a776d71554c86b416340a6e05166b2ad6be"
+    },
+    "recoveryHostMarker": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/HOST_PREPARATION_STARTED.json",
+      "bytes": 200,
+      "sha256": "8de02d0b8b5027f70cd9aeb27b20fa45c286ae7eaa6ba25efeae672b4403ebaf"
+    },
+    "preparationPhases": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/PREPARATION_PHASES.json",
+      "bytes": 3439,
+      "sha256": "d376dc0baea9175064b467781a0cee2bd536794bd814599c034fc4551e2b8363"
+    },
+    "actorStart": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/ACTOR_START.json",
+      "bytes": 1896,
+      "sha256": "ebe1f439c1aeadf6f31267702b317b36981c4c30d462452a7c3d8db1b9f48a90"
+    },
+    "recoveryOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/outcome-summary.json",
+      "bytes": 811,
+      "sha256": "be96492f77da08158a4445136ea3a1058927c269e741e86d25b7b407891a9de4"
+    },
+    "actualResourceClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/resource-close.json",
+      "bytes": 2308,
+      "sha256": "6f53cd3f33e036ae98b8f8595d9ada7a8727e67dd6b3c0ab681283a59d55035a"
+    },
+    "finalCustodyClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8372,
+      "sha256": "7fa76990041e5b6dec07fc719ac86305b029eaba063602055a17b3a8905c86a3"
+    },
+    "authorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/handoffs/return-001.json",
+      "bytes": 9601,
+      "sha256": "234fff4ea3157eacc22df4b62aaf17906d1839290e10cc54d77a982d37e89c81"
+    },
+    "authorEarlyProgress": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/handoffs/progress-001.json",
+      "bytes": 832,
+      "sha256": "bd5b78fddcf0c8f3bfbe0adfb5ba9cefc5f6c5fafc10685daebe692f05a62ab5"
+    },
+    "stageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/stage-001/stage.json",
+      "bytes": 97531,
+      "sha256": "9ad0946d9c442075add5a0d6bc216f70981ef80471eb8b3858ce1c2e3aff312b"
+    },
+    "stageOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/inputs/prior-author-stage.mjs",
+      "bytes": 8318,
+      "sha256": "0017cf6798a85a0415103de9cb17f4ccd55c48305510fd52b9b13f215f794867"
+    },
+    "failedRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/commands/sdk-native-host.request.json",
+      "bytes": 1841,
+      "sha256": "991ad12ae40ea8308147c0ecb72bb4bcd82a466520874e0a0ef9abe5ab4274f9"
+    },
+    "failedCommandResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/commands/sdk-native-host.result.json",
+      "bytes": 2315,
+      "sha256": "edadac4a14e498780dde2d1141edbc8b60774265b38cc98d4a80e9f5a3a18713"
+    },
+    "failedFinalClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/failed-preparation-001/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8335,
+      "sha256": "5ba039f83ec4da0c6299eca407961cbf709e7ab6c57223a5e558d46d427cda52"
+    },
+    "coordinationMarks": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/ROOT_COORDINATION_MARKS.json",
+      "bytes": 2659,
+      "sha256": "9eae118dce6bb4f3c23ece55534a413bd4a8b3c496c2f9201dc5722481bf24f5"
+    },
+    "failedPreparationSamplePhase": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/ROOT_PREPARATION_SAMPLE_PHASE.json",
+      "bytes": 1592,
+      "sha256": "194adcbd79ffcbd73ab6ce7cfbe5944fc28a61e5dcb304916010c21afcaaa53c"
+    }
+  },
+  "recovery": {
+    "requestStartedUtc": "2026-11-06T16:47:37.055Z",
+    "hostStartedUtc": "2026-11-06T16:47:42.126Z",
+    "actorStartedUtc": "2026-11-06T16:59:12.840Z",
+    "hostSummaryEndedUtc": "2026-11-06T17:34:05.459Z",
+    "requestToHostMs": 5071.0,
+    "identityMs": 8177.685583,
+    "acquisitionAfterIdentityMs": 340488.690625,
+    "environmentAfterAcquisitionMs": 316964.942667,
+    "callConstructionAfterEnvironmentMs": 2758.66091700003,
+    "preparedAtCumulativeMs": 668389.979792,
+    "preparedToActorDerivedMs": 22324.020207999973,
+    "hostToActorUtcMs": 690714.0,
+    "actorToHostSummaryEndUtcMs": 2092619.0,
+    "hostOwnerMonotonicWallMs": 2783319.718833,
+    "commandRecorderMonotonicWallMs": 2790130.957208,
+    "commandEndDerivedFromRequestUtcAndMonotonicWall": "2026-11-06T17:34:07.185957+00:00",
+    "hostSummaryEndToDerivedCommandEndMs": 1726.957,
+    "sdkReturnInstantUtc": null,
+    "actorToExactSdkReturnMs": null,
+    "sdkReturnToPhysicalCloseMs": null,
+    "physicalCloseInstantUtc": null,
+    "physicalCloseToHostEndMs": null,
+    "actorToAuthorReturnReceiptAppearanceBoundMs": {
+      "lowerExclusive": 1912288.145,
+      "upperInclusive": 1924777.9
+    },
+    "authorReturnReceiptAppearanceToCloseReceiptAppearanceBoundMs": {
+      "lowerExclusive": 125388.421,
+      "upperInclusive": 176680.376
+    },
+    "firstReturnReceiptObservationToHostSummaryEndMs": 167841.1,
+    "firstCloseReceiptObservationToHostSummaryEndMs": 3650.479,
+    "actualSdkResult": "exit0/result/completed; outer command exit0; resource close and final source custody conserved"
+  },
+  "receiptObservations": {
+    "authorReturnAbsentAt": "2026-11-06T17:31:05.128145+00:00",
+    "authorReturnFirstPresentAt": "2026-11-06T17:31:17.617900+00:00",
+    "resourceCloseAbsentAt": "2026-11-06T17:33:23.006321+00:00",
+    "resourceCloseFirstPresentAt": "2026-11-06T17:34:01.808521+00:00",
+    "rootObservedHostExitAt": "2026-11-06T17:34:22Z",
+    "provenance": "Already-held bounded file-watcher tool responses and Root session43614 exit message. Presence times bound receipt appearance, not the exact internal operation instant."
+  },
+  "stage": {
+    "setupMs": 40841,
+    "setupIncludes": "source staging/freezing, dependency verification/copy and temporary environment preparation",
+    "compile": {
+      "ms": 116576,
+      "boundMs": 240000,
+      "exitCode": 0
+    },
+    "generation": {
+      "ms": 180074,
+      "boundMs": 180000,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "status": "GENERATION_TIMEOUT"
+    },
+    "lifecycle": {
+      "ms": null,
+      "boundMs": 60000,
+      "status": "NOT_RUN"
+    },
+    "laneInvocations": 0,
+    "stageCount": 1,
+    "sumOfMeasuredStagePhasesMs": 337491,
+    "clock": "Stage helper Date.now differences; no separately recorded UTC phase-start timestamps. Build durations overlap the actor interval and are not additional serial top-level costs."
+  },
+  "originalFailedPreparation": {
+    "status": "EEXIST actual-capacity receipt slot collided with retained prepared estimate; no SDK invocation, Run or actor",
+    "requestStartedUtc": "2026-11-06T16:27:09.161Z",
+    "hostStartedUtc": "2026-11-06T16:27:18.008Z",
+    "hostSummaryEndedUtc": "2026-11-06T16:34:45.830Z",
+    "requestToHostMs": 8847.0,
+    "identityMs": 11395.603333000001,
+    "acquisitionAfterIdentityMs": 293235.21866700007,
+    "environmentAfterAcquisitionMs": 121341.00491699995,
+    "afterEnvironmentThroughFailureCleanupCloseMs": 21880.953000000038,
+    "callConstructionCompleteMs": null,
+    "hostOwnerMonotonicWallMs": 447852.77991700004,
+    "commandRecorderMonotonicWallMs": 457897.731625,
+    "sampleLimit": "The retained one-second sample belongs to environment/caller.refresh(entry.prefix); it does not allocate the complete phase or prove a performance cause."
+  },
+  "betweenTaskOperatorIntervals": {
+    "H02HostCloseSummaryToH03FirstHostMs": 3020003.0,
+    "failedHostCloseSummaryToRecoveryHostMs": 776296.0,
+    "standing": "Between-task proof/diagnosis/review/control/recovery intervals. Close landmarks are host completion summaries after close, not separately timestamped physical-close instants. These are not RC7 native runtime performance."
+  },
+  "preservedErroneousAuthorTimestamps": {
+    "earlyProgressUpdatedUtc": "2026-11-07T00:00:00Z",
+    "returnReturnedUtc": "2026-11-07T04:31:00Z",
+    "standing": "Retained exactly in original pinned handoffs; excluded from actual chronology."
+  },
+  "limits": [
+    "No event/archive rescan or private payload inspection; only already-held metadata and owner receipts used.",
+    "UTC differences and monotonic durations are retained separately. Derived prepared-to-actor and outer-end values combine these landmarks and are not an assertion of perfectly synchronized clock sums.",
+    "The authored return handoff is not the actual provider process exit or SDK-return timestamp. Exact actor-to-SDK-return and SDK-return-to-close intervals remain unmeasured.",
+    "Receipt appearance bounds concern file presence. They do not supply an exact internal resource-close instant.",
+    "Generation timeout cause remains unresolved. No CPU/load causal allocation, matched speedup, or RC7 installed runtime performance claim.",
+    "Final custody and partial source standing are unchanged: compilation passed, generation timed out, lifecycle unrun, zero lanes, no acceptance or qualification."
+  ]
+}

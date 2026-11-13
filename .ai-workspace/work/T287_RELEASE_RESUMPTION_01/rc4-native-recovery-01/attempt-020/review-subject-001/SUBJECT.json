@@ -1,0 +1,102 @@
+{
+  "status": "PHYSICAL_PARTIAL_REVIEW_SUBJECT_NOT_SUCCESSFUL_NATIVE_AFTER",
+  "capturedAt": "2026-11-03T02:46:37.053634+00:00",
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "sourceCommit": "45554d0be9b2b01d3b90867137c55bacb5a5f9da",
+  "sourceTree": "0461e4d60afdc31c2a6a02c08021e9f7a2bd5210",
+  "nativeFailureResultRef": "result://abiogenesis/0be090284536f52d7f588f759c8e239c6a61171a32a0ac756d7cc302a452d7b5",
+  "eventOrdinal": 35433,
+  "eventTime": "2026-11-03T02:43:33.533Z",
+  "eventOffset": 749121608,
+  "eventRowBytes": 930322,
+  "eventRowSha256": "206f32b01634cc3e565bb487a990967150ad07669dc829cf21b27989332e654d",
+  "failureClass": "post_work_observation_failed",
+  "observationFailure": {
+    "code": "symlink_forbidden",
+    "disposition": "refused",
+    "kind": "worksite_effect_refusal",
+    "lastObservation": null,
+    "message": "worksite context cannot follow a symlink",
+    "schemaVersion": "5.0.0",
+    "substrateCode": null
+  },
+  "after": null,
+  "changedPaths": null,
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "bytes": 19452,
+      "sha256": "2743c8b76f597d1425e79e60b1e212e5821456e04ebc2d16259ac09e829ad5be",
+      "preimageSha256": "04093bd312d84e54dec0b098f3d3a4ff0afb61a8619b7133b7e9a118a4892cf3",
+      "admittedAfterEntry": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "bytes": 43212,
+      "sha256": "3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f",
+      "preimageSha256": "798a34c0d2e59720be334fa278ae99ea12f193e22ff9e1892bc49872b3abc2da",
+      "admittedAfterEntry": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 88077,
+      "sha256": "22359424fc1e75323fc0d0b746def0179cf1c2d7fadf21272bb4775ddf1040d7",
+      "preimageSha256": "170946abe010e3a053ae7ced60f184feb95b0c6738226439878dc0945de9e08b",
+      "admittedAfterEntry": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 26465,
+      "sha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec",
+      "preimageSha256": "26c38cf79f253c2d293e6960c0f52f24d6115177f0281efcef970ce587eab8b5",
+      "admittedAfterEntry": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 37818,
+      "sha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c",
+      "preimageSha256": "a09343856e9fd6571b0947993679f6724aac3af123eec12d6ff93e57daa716ce",
+      "admittedAfterEntry": null
+    }
+  ],
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/source.diff",
+    "bytes": 44713,
+    "sha256": "9560a972460cac66c08a0b7e6ef1b204c6f0e5ce2e3a9f62db4569b3b9c4eae8"
+  },
+  "outsideScopeDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/outside-scope.diff",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "authorEvidence": [
+    {
+      "sourcePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-ac407ced5c6db43f-output.txt",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/author/fp-ac407ced5c6db43f-output.txt",
+      "bytes": 4220,
+      "sha256": "5477f5bdd62dfbbe7f083fc4fc3d48ea93f33565376233ad118d2a0b50512d00"
+    },
+    {
+      "sourcePath": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-20/return.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/author/return.json",
+      "bytes": 9983,
+      "sha256": "cc39029771f41054f4fa10b6fcfaeb5355dd7c81fadb2bb1c72d011eb43c06ad"
+    }
+  ],
+  "sourceHashesBeforeAfterEqual": true,
+  "indexEmpty": true,
+  "codingActor63848AbsentBeforeAndAfter": true,
+  "passiveCursorBefore": 750160699,
+  "passiveCursorAfter": 750160699,
+  "limits": [
+    "Five physical changed source files only; no successful native after/source-observation correspondence exists.",
+    "No C2/UAT acceptance, source commit, cleanup, or mutation.",
+    "Declared same-Run consequence remains Runtime-owned; any later source requires distinct custody.",
+    "Preliminary library-read sentinel review is bounded to fresh full TypeScript program construction for a successful fixed nonempty declaration path; not total verifier/declaration work, and zero excludes neither preliminary parsing nor owner revalidation. Actual candidate test remains unreviewed."
+  ]
+}

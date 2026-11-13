@@ -1,0 +1,87 @@
+{
+  "kind": "intermediate_native_feedback_observation",
+  "recordedUtc": "2026-11-06T05:54:07.216903+00:00",
+  "status": "AUTHOR_CORRECTION_ACTIVE_NO_SOURCE_ACCEPTANCE",
+  "scope": "Actual named native feedback stages, not final snapshot or installed qualification",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-before-01-stage.json",
+      "bytes": 97095,
+      "sha256": "925e2bcba9cc3bb73e115fb235722ca86c7525fc6bda0113a6ea41d6e60ea2a9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-stage.json",
+      "bytes": 97468,
+      "sha256": "e2fa93a67aaa49bb7526d42a2ceb7b0655ed148f54bbd1af6e63fc43d2aaeb82"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-before-01-lanes-carriage/summary-carriage.json",
+      "bytes": 1992,
+      "sha256": "c659e86a1f193d5ab82e4116d3d00d7b0181a4351a3e678cf996f26783b58da1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-01-lanes-carriage/summary-carriage.json",
+      "bytes": 3390,
+      "sha256": "8bbc4a99b86d47a3f8d61e3832927a92b06b522a2fcdb7c9c33c033d5f66517b"
+    }
+  ],
+  "before": {
+    "sourceCount": 449,
+    "sourceDigest": "dee46feceb2254a3bbaaf66f3139e7f83b72f434c935ab6036fa552acff1e88b",
+    "compile": 0,
+    "generate": 0,
+    "lifecycleGuard": 0,
+    "carriage": {
+      "pass": 61,
+      "fail": 2,
+      "skipped": 6,
+      "cancelled": 0,
+      "ms": 4834,
+      "failing": [
+        "test_env/tests/t287-event-body-encoding.test.mjs",
+        "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+      ]
+    }
+  },
+  "after": {
+    "sourceCount": 449,
+    "sourceDigest": "0c21353927593dc05d20cf660f2093a6bc280688834cf083a1a5f36329ad4f46",
+    "compileExitCode": 0,
+    "generateExitCode": 1,
+    "generationError": "C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js",
+    "lifecycleGuard": null,
+    "carriage": {
+      "pass": 73,
+      "fail": 14,
+      "skipped": 7,
+      "cancelled": 0,
+      "ms": 19551,
+      "failing": [
+        "RC7 complete carriage: the admitted basis is the only task and unchanged-body holder; the Result births only changed bytes",
+        "reference preparation resolves exact dependencies in leaf and builtin fallbacks",
+        "cold admitted preparation consumes Result/J without declaration resolution or history reread",
+        "inline request and task identities remain unchanged through cold admitted consumption",
+        "library prepare-testing reuses the invoking private operation and its actual F_D origin",
+        "library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards",
+        "fresh inline context joins a member-carried source after by physical identity, with no inherited carriage",
+        "unknown exact and subtree",
+        "unknown whole root",
+        "known exact change within wider scope",
+        "unknown native after-state retires only potentially writable C0 facts",
+        "observed partial failure retires touched C0 facts but preserves unchanged and absent paths",
+        "native publication agrees with actual generated artifact manifest identity",
+        "typed read-only assessment retains F_P source and exact observed basis, not a work report"
+      ],
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": false
+    }
+  },
+  "triage": {
+    "originatingRelation": "The generator refuses C2 context member versus actual packaged source correspondence on the changed worksite command execution owner; exact source cause is still with the active native author.",
+    "downstream": "The publication test ENOENT for product-toolchain-manifest.json follows the failed generation; it is not another missing admitted fixture. Other retained-input/unknown-effect/assessment assertions remain unresolved.",
+    "proof": "Required-name presence/pass alone does not close the lane while14 cases fail. The before lane also has a module-load failure and cannot be promoted to complete semantic baseline coverage.",
+    "skipStanding": "The captured RC5 route plus6 historical reacquisition cases are unexercised. Lane helper reports historicalSkipsDeclared:false; Root must preserve this control/evidence limit, not grant pass credit or silently edit active controls.",
+    "authority": "Worker may correct the already selected shared-owner migration within its86-file/four-stage/twelve-lane limits. No extra authority, blind retry, budget increase, guard weakening or Root source patch selected."
+  },
+  "next": "Await exact author correction/frozen return; conjoin source review and actual affected proof. All first failures remain retained."
+}

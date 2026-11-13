@@ -1,0 +1,114 @@
+{
+  "kind": "allowlisted_native_tool_use_and_method_order_observation",
+  "observedUtc": "2026-11-06T22:29:56.546208+00:00",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-669923d93710d0c4-stdout.log",
+  "device": 16777231,
+  "inode": 708684233,
+  "suffixStart": 3469991,
+  "suffixEnd": 3545708,
+  "suffixBytes": 75717,
+  "suffixSha256": "42797a8ccea5cee246c3f940500eeae45bd8349961fd6b2287a6342294d64df9",
+  "completeRows": 171,
+  "totalCompleteRows": 7158,
+  "uniqueCompleteToolUses": 67,
+  "toolNameCounts": {
+    "Bash": 66,
+    "StructuredOutput": 1
+  },
+  "newToolUses": [
+    {
+      "name": "StructuredOutput",
+      "timestamp": "2026-11-06T22:27:54.215Z",
+      "toolUseRef": "toolu_01W9CnxtjcHJcQLWKxJrQTsp",
+      "archiveLine": 7153,
+      "byteOffset": 3521996,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    }
+  ],
+  "statusMetadataCoverageStart": 0,
+  "newToolResultMetadata": [
+    {
+      "tool_use_id": "toolu_01W9CnxtjcHJcQLWKxJrQTsp",
+      "timestamp": "2026-11-06T22:27:54.217Z"
+    }
+  ],
+  "cumulativeToolResultMetadataCount": 67,
+  "firstSelectedMethodPathTool": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T22:14:52.405Z",
+    "toolUseRef": "toolu_01PLqosQjQDE6cufe8iXgqWi",
+    "archiveLine": 500,
+    "byteOffset": 352350,
+    "path": null,
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": null,
+    "selectedReadFirstPathMentions": [
+      "qualification-inputs/rc7-stdout-window-author-02/METHOD_ACCESS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_CONTROL_ADMISSION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_DEPENDENCY_READY_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/HS03_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/TASK.md",
+      "qualification-inputs/rc7-stdout-window-author-02/NATIVE_GRANT.json",
+      "qualification-inputs/rc7-stdout-window-author-02/SOURCE_CUSTODY.json",
+      "qualification-inputs/rc7-stdout-window-author-02/COMMAND_BOUNDS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/MEASUREMENT_PLAN.json",
+      "AGENTS.md",
+      "stdo_abiogenesis.json"
+    ],
+    "selectedMethodPathPresence": [
+      "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md"
+    ],
+    "selectedMethodManagerCommandPresence": true,
+    "selectedStageExecutionSyntaxPresent": false,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": false
+  },
+  "firstSelectedProductEditTool": null,
+  "firstSelectedBuildOrLaneSyntax": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T22:24:00.503Z",
+    "toolUseRef": "toolu_01RS65Xf8iiTXCK6yF7iVAXp",
+    "archiveLine": 5145,
+    "byteOffset": 2669389,
+    "path": null,
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": null,
+    "selectedReadFirstPathMentions": [],
+    "selectedMethodPathPresence": [],
+    "selectedMethodManagerCommandPresence": false,
+    "selectedStageExecutionSyntaxPresent": true,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": false
+  },
+  "latestToolUse": {
+    "name": "StructuredOutput",
+    "timestamp": "2026-11-06T22:27:54.215Z",
+    "toolUseRef": "toolu_01W9CnxtjcHJcQLWKxJrQTsp",
+    "archiveLine": 7153,
+    "byteOffset": 3521996,
+    "path": null,
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": null,
+    "selectedReadFirstPathMentions": [],
+    "selectedMethodPathPresence": [],
+    "selectedMethodManagerCommandPresence": false,
+    "selectedStageExecutionSyntaxPresent": false,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": false
+  },
+  "limits": [
+    "Only complete assistant tool-use name/id/path, envelope clock and exact selected method/read-first/stage-lane presence are projected. No thinking, narrative, tool-result body, raw command text, stderr or credentials surfaced. Forward-only explicit tool-result status fields are projected under Root extension.",
+    "Read/tool metadata shows requested access, not successful content interpretation or complete method compliance. Selected command presence does not itself prove successful verification.",
+    "Bash command contents are not retained; unclassified Bash may include operations not identifiable from these allowed metadata. Absence of direct Edit/build metadata is not a universal no-effect proof.",
+    "No old campaign event decode or untracked census. The current actor archive is read incrementally from its prior exact byte cursor."
+  ]
+}

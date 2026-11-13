@@ -1,0 +1,96 @@
+{
+  "status": "PREPARATION_COMPLETE_EXECUTION_HELD",
+  "nativeFocused": {
+    "script": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof.mjs",
+      "bytes": 9699,
+      "sha256": "6071eab6a360e4def955e651df6fe81090ab371f05c6cda733241b8b895171cc"
+    },
+    "template": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FOCUSED_BINDING.PREPARATION.json",
+      "bytes": 4680,
+      "sha256": "884bf0faf069bf7146366ed4917612f27045748b804b2e44f59368e282b34315"
+    },
+    "successorAdmittedBindingOwner": "/root/rc9_operator in rc9-owner-reuse-01",
+    "unresolved": [
+      "native exact write territory",
+      "actual native admission record",
+      "prospective exact STARTED route; bytes acquired only when present"
+    ],
+    "proofBudget": {
+      "stages": 1,
+      "stageMs": 600000,
+      "unitInvocations": 1,
+      "unitMs": 900000
+    }
+  },
+  "measurement": {
+    "script": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-measurement.mjs",
+      "bytes": 6962,
+      "sha256": "83d6225d141524577895ae67f5a8416e13744f8a8c1c554f96884b718fa27c15"
+    },
+    "fixture": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/measurement.test.mjs",
+      "bytes": 24719,
+      "sha256": "00a3da00a6e58f67d22a22d48e2daeb86347fbe6754c40c6b60780b7814d3773"
+    },
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_BEFORE.bindings.preparation.json",
+      "bytes": 5660,
+      "sha256": "b33b1d811473e20515faa6081fcbedd33172a21eb8ba36f1a3294fd98e08b9ba"
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.bindings.preparation.json",
+      "bytes": 3364,
+      "sha256": "27ca8bb9c390ea31ea71880b5005eaac1e5302e1e4ae5ea3d759c23bf13a4a18"
+    },
+    "unresolved": [
+      "actual final RC9 freeze",
+      "RC9 version/archive/source-artifact relation and exact installed scratch receipt",
+      "actual after counter API/member pins",
+      "900s subject allocation and 120s per cold-read confirmation",
+      "matching final source-helper pins and all preparation pins",
+      "Root measurement admission"
+    ]
+  },
+  "broad": {
+    "script": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+      "bytes": 32816,
+      "sha256": "2e8e4155be73606d1009b629019b9966470225890a785c78105c6b6a80ba383e"
+    },
+    "fileHost": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    },
+    "template": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.PREPARATION.json",
+      "bytes": 40354,
+      "sha256": "4e7c19020737c8e3db01a8e89d5d5ebfbaef535a3c5dbd86660cbda1d50e7ca0"
+    },
+    "unresolved": [
+      "actual final frozen build/source/dependency inventory",
+      "archive verification and candidate refresh owner relation",
+      "exact final 209-file inventory including 201 selected files",
+      "actual npm package-member counts",
+      "per-file prerequisite/current historical oracle pins and inner timeout feasibility",
+      "same-candidate whole-file receipts if any",
+      "Root bind/run admission; proposed 4h overall and600s/file remain bounded caps"
+    ]
+  },
+  "productIdentity": "Immutable RC8 a178e960 remains builder/baseline; native focused source preserves rc.8 metadata. No future RC9 package digest/version-edit acceptance invented. A later authorized cut operation must establish true successor version and reprove affected artifact claims.",
+  "performed": {
+    "sourceMutation": false,
+    "gitMutation": false,
+    "runtimeAllocation": false,
+    "scratchAllocation": false,
+    "build": false,
+    "test": false,
+    "benchmark": false,
+    "provider": false,
+    "syntaxChecksOnly": true
+  },
+  "recordingRole": "External Proof-Control Writer; no independent source assessment"
+}

@@ -1,0 +1,27 @@
+{
+  "phase": "before-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/7bdb0d0a1059c83c8890c1ef76c6b232eab34393702d9efbdd6407c09a5d7fda/d2bfb316303400c77adc7fe40f13eeb1704d9d16d25e40b8a85a20686ce7c859",
+      "admissionEventRef": "event://abiogenesis/97ea4592e163c8bfcbffc744cf1605268d204e80a598c92d3de1bd9d4b426441",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:d4c3b041d1852b87022defb73dbba82740d79ed2c2f890629e5eddd8cc50e2e1",
+      "productContentDigest": "sha256:7bdb0d0a1059c83c8890c1ef76c6b232eab34393702d9efbdd6407c09a5d7fda",
+      "manifestDigest": "sha256:1298c8106a02cbf2498bdba776a55c89772ab83477fcbe5d44976d32c4cf88e7",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/9fe6fe0589ff57efaee4d234f61262336bbb2177e4467ee2ba89c34c95957648/d2bfb316303400c77adc7fe40f13eeb1704d9d16d25e40b8a85a20686ce7c859",
+      "admissionEventRef": "event://abiogenesis/97597688d54679c83aca521dd2ac47dce05461781da6d36421bc2513f1485121",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:755955c6a32669ca88478e3fafb6b70a25960e549e561eef95f8cd00dd92fb0a",
+      "productContentDigest": "sha256:9fe6fe0589ff57efaee4d234f61262336bbb2177e4467ee2ba89c34c95957648",
+      "manifestDigest": "sha256:a6349b9950b840d0fb38fe771ed99b2599df2224232cfe218e481f6c20bbd2fa",
+      "contentMatches": true
+    }
+  ]
+}

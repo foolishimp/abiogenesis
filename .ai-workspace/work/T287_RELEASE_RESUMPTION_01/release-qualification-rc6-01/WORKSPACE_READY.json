@@ -1,0 +1,9 @@
+{
+  "startedUtc": "2026-11-05T07:36:30.852836+00:00",
+  "endedUtc": "2026-11-05T07:39:00.836528+00:00",
+  "wallMs": 149985.75641587377,
+  "exit": 128,
+  "path": "/Users/jim/src/apps/abiogenesis-5-release-qualification",
+  "basis": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "role": "bounded operator Writer"
+}

@@ -1,0 +1,77 @@
+{
+  "status": "PREPARED_REGISTERED_SELECTION_WHOLE_PROOF_NO_EXECUTION",
+  "at": "2026-11-07T11:28:40.421428+00:00",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/ROOT_PREPARATION.json",
+    "bytes": 3854,
+    "sha256": "c345394d4ee4124db6acd173bcb068f5bdeed1dd9612985300fdef0e65350be0"
+  },
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/run.mjs",
+    "bytes": 8147,
+    "sha256": "d45b4322ec1089e83ede2b8f0a540844f1b4ec772f13f1b99a8ab5363d688246"
+  },
+  "recipeDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/RECIPE_DIFF.patch",
+    "bytes": 7426,
+    "sha256": "d985bcdcc8bd53e5dbc121c6ff831c74ff196c6e949abf71def2d5375efb7607"
+  },
+  "predecessorRecipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-003.mjs",
+    "bytes": 9290,
+    "sha256": "c66493aa3d20640b4af59d74750c3e5eb26656d04b09f76ca260328f4463af5c"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/BINDING.json",
+    "bytes": 7773,
+    "sha256": "6925cef6df88ac18c3b2eccda73d4697e44495ff8e26a5d46a761094a9e998e2"
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/source-freeze.json",
+    "bytes": 295542,
+    "sha256": "e2db4c2e9356da0d97d6277567504650078a8bf1d5b7085dfaee63a4dbae5007"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 4408,
+    "sha256": "d9adadd2558622cb8f60a20055509a160dd0e4a96f204bce368f19e809663922"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/registered-selection-timeout-015/REVIEW.json",
+    "bytes": 14762,
+    "sha256": "cb0753e3a28e4c76b34d86606d9665e350f136256096faf17eaa669641c372bf"
+  },
+  "syntaxCheck": {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/run.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "scope": "Existing standalone composition, fixed registered-selection tuple and prior-broad failure/root-review prerequisites. Reuse current candidate fixture without refresh/repack. Historical consolidation-only oracle check/env removed; existing selection-evidence path configured under own output, repeatOnly unset. Materialization/dependency/custody/command/reporting algorithm unchanged.",
+  "counts": {
+    "topLevelTests": 1,
+    "scenarios": 7,
+    "freshReads": 4
+  },
+  "budgetMs": 1800000,
+  "operatingEstimateMs": 1441444.5617540004,
+  "marginMs": 358555.4382459996,
+  "guaranteedBound": false,
+  "buildInvocations": 0,
+  "providerCalls": 0,
+  "executionAdmitted": false,
+  "allocationsAbsent": true,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/run.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/BINDING.json",
+    "6925cef6df88ac18c3b2eccda73d4697e44495ff8e26a5d46a761094a9e998e2",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/ROOT_ADMISSION.json",
+    "<exact future Root admission SHA256>"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "rc4_native_recovery_workspace_import_authority",
+  "status": "ROOT_AUTHORIZED_FRESH_IMPORTED_WORKSPACE",
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "sourceTree": "a013136818170f69609b2211665815e1a328e242",
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "authorizedActorRef": "actor://abiogenesis/operator/codex-root",
+  "authorityMode": "trusted_developer",
+  "createPolicy": "imported",
+  "preservationPolicy": "preserve_all_existing",
+  "operation": "Existing supported imported workspace creation plus new setup Product install/binding/catalog/conformance for native authoring on exact source",
+  "basis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/ROOT_NATIVE_ADMISSION.json",
+    "bytes": 3000,
+    "sha256": "d0d6aa77bcbe33deee08dcff41c2c40730c7a363d8a2f0c11ecab794e1926f69"
+  },
+  "sourceGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/NATIVE_GRANT.json",
+    "bytes": 35731,
+    "sha256": "22b9bbe34825e82588514cdff09da41d185147ccd85f23623bcf85da4743fb16"
+  },
+  "protected": [
+    "/Users/jim/src/apps/abiogenesis-single-machine-p1",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3",
+    "all prior Run/evidence bytes"
+  ],
+  "noOutcomeClaim": "This is setup operation authority, not native admission/result, qualification, or release."
+}

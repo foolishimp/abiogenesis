@@ -1,0 +1,618 @@
+{
+  "kind": "independent_b_phase2_proof_preparation",
+  "status": "READY_FOR_FROZEN_BINDING_NO_EXECUTION",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/b-preparation-01/PREPARATION.md",
+    "bytes": 8589,
+    "sha256": "d17c8f2f39ebda8bc76023341062b23658bf7874c5a8324a5b197455f13347c3"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "method": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verification": "read-only stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify: installed=true, valid=true, failures=[]",
+    "composition": []
+  },
+  "independence": "Resumed-context nonauthor; no moving B source acquisition, source authorship or repair.",
+  "baseline": {
+    "commit": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+    "tree": "3be0362585865f52e231b84d87824c229fc6323d",
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/CHECKPOINT_SOURCE_INVENTORY.json",
+      "bytes": 295782,
+      "sha256": "ce1b3debd80d153e878d6b52a6ce8fa5c7d6963cf2dd2738078dddf37e0028dd"
+    },
+    "sourceDigest": "1b8bb6c426e339e22ef5c1ab07b453d6ecfe52092c07e79dd0fb1852dee077b6",
+    "rows": 1345
+  },
+  "actualCandidate": {
+    "nativeOutcome": null,
+    "sourceFreeze": null,
+    "sourceDigest": null,
+    "sourceRows": null,
+    "sourceReview": null,
+    "buildReceipt": null,
+    "compiledInventory": null,
+    "dependencyMetadata": null,
+    "archive": null,
+    "archiveMembers": null,
+    "bootstrap": null,
+    "configuredProofConfig": null,
+    "controls": null,
+    "ready": null,
+    "rootAdmission": null
+  },
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-01/PREPARATION.json",
+      "bytes": 5133,
+      "sha256": "af63ec64fc530564c4ba8b0a4bb0822ad8f0aa6c8953616aab567abe65fe47fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/CONFIGURED_PROOF_ROUTE.md",
+      "bytes": 8442,
+      "sha256": "677b9f5d5f53ad22f1201f44aba7c09dc7d905f5e5d3c55cd4b96fab3cffa39f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/CONFIGURED_PROOF_ROUTE.json",
+      "bytes": 6571,
+      "sha256": "685978adc3804b1c818ee29952c21200532afe3ad382cb928655a400fa3ae6a9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/ROOT_SCOPE.json",
+      "bytes": 7636,
+      "sha256": "f5576800c635a6bb6347e4a4169e9206d875e858752a3ffa522ef40c6d595927"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/TASK.json",
+      "bytes": 9723,
+      "sha256": "9ad6bd2ae841cfb915044834ac67877635b47ec52034d0cdb7d06c281f62b984"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/CONTROLLED_CENSUS.json",
+      "bytes": 7061,
+      "sha256": "657c905d6df2c41fb12af99340a1ba25dda3c60ce4a6aac434c22c1683550f22"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/FINAL_CONJUNCTION.md",
+      "bytes": 5981,
+      "sha256": "9f2704e332c600879f0f0b611a2b435a9e513ca83fc8d89751febc68c161b103"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+      "bytes": 4061,
+      "sha256": "a6a1b16d59f112078793743265a72308b2f59b3978db9dde68ca3b40fe8df6ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/PACK_CONTROLS.json",
+      "bytes": 5982,
+      "sha256": "bc1a6cf37809b716819821c62a80542989f10119236f15aff2c6a4dbbb8f65fe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/CONTROLS.json",
+      "bytes": 4952,
+      "sha256": "d0f4e4b3e923d4fdef86a7e1fe17790ffddee6e9a8b48f47ce19920ea06385cc"
+    }
+  ],
+  "reusableControls": {
+    "stageCompileCommandRecorder": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.r02.py",
+      "bytes": 15445,
+      "sha256": "1fa3405b6170235857c8f23433e45f267ff0b9fd7e3f4747690bda22f4021290"
+    },
+    "sourceDependencyNpmAndReporterControls": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/CONTROLS.json",
+      "bytes": 28145,
+      "sha256": "5f09730a45ea2a3220e070feb4ac81f642e762f6810261c220aa9bc56a5bd2ff"
+    },
+    "canonicalArchiveInstallComparison": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/proof.py",
+      "bytes": 19052,
+      "sha256": "10f167d0a051fd41a175526e680c6fd7f6759bf9a342cebc7df1ba16379d6d5c"
+    },
+    "packFromRetainedCompiledTree": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/candidate-pack.py",
+      "bytes": 8852,
+      "sha256": "dc02d51288ffe24fbbd38b8a7b455d7af254339309718b2eb1d0d6b5a3fbae4e"
+    }
+  },
+  "priorConfiguredRoutePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/PROOF_CONFIG.json",
+      "bytes": 1262,
+      "sha256": "cdd10b76fa9397b455fd4ff0053acd2e87be4f4b9a0482b0c8dde17fef30454d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/BINDING.json",
+      "bytes": 15328,
+      "sha256": "699dfbe58ffc35d56bf32c582c6da307871896245fb53e2d2c38fe350e26c31c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/run.mjs",
+      "bytes": 10436,
+      "sha256": "470f79316350362919fc3a16d47b80809e5a76a5ded98ee87420746f45051c4d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_ADMISSION.json",
+      "bytes": 4315,
+      "sha256": "0945c12282db47bd88a487ed4c02d0f946d670de1c666ea8614b06030392b313"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_PROOF_ACCEPTANCE.json",
+      "bytes": 6648,
+      "sha256": "39720ed81751230af6736335ed3be35a49510586a5e674f9b19c51d111de4a4f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/RESULT.json",
+      "bytes": 1514,
+      "sha256": "71c3eb4f0c29e933e50a73bf4f058f0b9f464dab41ed3441b51795df1ace7135"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/commands/test.request.json",
+      "bytes": 1022,
+      "sha256": "db6497ba505f4e69f67157ef01d6d90ed68b6836af732d5939c562a228261ded"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/commands/test.result.json",
+      "bytes": 1474,
+      "sha256": "84bbb99291ae99f2998791f378cb080c062160476db793c5cda2f9bab53814c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/file-host-binding.json",
+      "bytes": 1447,
+      "sha256": "cab04da980b9b61a822f30a2e7c621747d76c8cffe80b703d359a767576086f4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    }
+  ],
+  "frozenABaselineProofSources": [
+    {
+      "relativePath": "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "baselinePin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "bytes": 108721,
+        "sha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf"
+      },
+      "successorPin": null
+    },
+    {
+      "relativePath": "test_env/support/fresh-process-runtime-proof.mjs",
+      "baselinePin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+        "bytes": 9594,
+        "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a"
+      },
+      "successorPin": null
+    },
+    {
+      "relativePath": "test_env/support/root-installed-environment.mjs",
+      "baselinePin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 42787,
+        "sha256": "de52e0b3114318420ce56d83dff9de3ac2f8c3ed431b0f0a965dd9acad9b1436"
+      },
+      "successorPin": null
+    },
+    {
+      "relativePath": "test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "baselinePin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+        "bytes": 3390,
+        "sha256": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3"
+      },
+      "successorPin": null
+    },
+    {
+      "relativePath": "test_env/support/installed-public-definition-call.mjs",
+      "baselinePin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/support/installed-public-definition-call.mjs",
+        "bytes": 99,
+        "sha256": "e17e8fe15cc061708ae0a69520e5b46195549762f9ca2c7f8ed2f2d086cea633"
+      },
+      "successorPin": null
+    },
+    {
+      "relativePath": "test_env/support/candidate-basis.mjs",
+      "baselinePin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+        "bytes": 1177,
+        "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+      },
+      "successorPin": null
+    },
+    {
+      "relativePath": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "baselinePin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+        "bytes": 515,
+        "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
+      },
+      "successorPin": null
+    },
+    {
+      "relativePath": "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "baselinePin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "bytes": 53258,
+        "sha256": "8bff42467575b20f9cdfa1792ebd7ac6b462b11c753303a66d0523b93f901cac"
+      },
+      "successorPin": null
+    },
+    {
+      "relativePath": "scripts/node-test-evidence-reporter.mjs",
+      "baselinePin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+        "bytes": 1514,
+        "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+      },
+      "successorPin": null
+    }
+  ],
+  "identityInventories": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    "npmCli": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    "npmInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/NPM_INVENTORY.json",
+      "bytes": 467075,
+      "sha256": "b597b11aaf3b313e3bc93bb67242c69331cd9ee4e246f0a9f39cdc24f3384e7c"
+    },
+    "dependencyInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+      "bytes": 901147,
+      "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+    },
+    "contractSeedInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/CONTRACT_SEED_INVENTORY.json",
+      "bytes": 41794,
+      "sha256": "17aa6d466007ec56173587205f9ad0a7d458b3bdfc272ed5b8a9fb7dde750636"
+    },
+    "builderPin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 7591,
+      "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+    },
+    "archive": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+      "bytes": 11028443,
+      "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+    }
+  },
+  "routes": [
+    {
+      "id": "stage",
+      "capSeconds": 600,
+      "route": "Existing Phase1 source/dependency staging; fresh create-once source/work/tmp, no execution before exact freeze and Root admission.",
+      "postcondition": "Frozen source conserved; declared dependency content/link/metadata identical; exact actual seeds; explicit environment and protection baseline."
+    },
+    {
+      "id": "lint",
+      "capSeconds": 120,
+      "args": [
+        "scripts/lint-verification.mjs",
+        "<successor LINT_RECIPE.json>"
+      ],
+      "postcondition": "Exact recipe/source relation passes; changed mjs syntax prerequisites recorded."
+    },
+    {
+      "id": "build",
+      "capSeconds": 600,
+      "kind": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "scriptExpected": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
+      "postcondition": "One full normal build+generator, complete actual build/contracts/manifest inventory and retained source delta. No old compiled substitution."
+    },
+    {
+      "id": "helper-prerequisite",
+      "capSeconds": 60,
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-name-pattern=^(?:helper\\ route:\\ the\\ classifier\\ reports\\ spawn\\ failure\\ as\\ confirmed\\ and\\ unresolved\\ cleanup\\ with\\ processFacts|helper\\ route:\\ an\\ error\\ after\\ launch\\ with\\ unresolved\\ cleanup\\ throws\\ the\\ command\\ failure\\ with\\ processFacts)$",
+        "test_env/tests/t287-lifecycle-failure-carrier.test.mjs"
+      ],
+      "expectedNames": [
+        "helper route: the classifier reports spawn failure as confirmed and unresolved cleanup with processFacts",
+        "helper route: an error after launch with unresolved cleanup throws the command failure with processFacts"
+      ],
+      "expectedTests": 2,
+      "expectedSkipped": 0,
+      "innerCaseSeconds": 20,
+      "meaning": "First actual helper launch/no-child plus real-child controlled-unknown refusal; second frozen-facts/fake-child handoff. Neither claims installed Public proof."
+    },
+    {
+      "id": "b-selected",
+      "capSeconds": 60,
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-name-pattern=^(?:controlled\\ B\\ command:\\ partial\\ setup\\ failures\\ settle\\ before\\ disposal|controlled\\ B\\ command:\\ interruption\\ settles\\ before\\ capture\\ disposal|controlled\\ B\\ command:\\ primary\\ use\\ and\\ cleanup\\-only\\ failures\\ retain\\ exact\\ outcomes|controlled\\ B\\ helper:\\ raw\\ failures\\ survive\\ actual\\ lifts\\ and\\ host\\ projection|controlled\\ B\\ helper:\\ command\\ failure\\ reaches\\ artifact\\ and\\ drained\\ acknowledgment|controlled\\ B\\ helper:\\ later\\ publication\\ path\\ and\\ acknowledgment\\ failures\\ retain\\ precedence)$",
+        "test_env/tests/t287-owned-process-lifetime.test.mjs"
+      ],
+      "expectedNames": [
+        "controlled B command: partial setup failures settle before disposal",
+        "controlled B command: interruption settles before capture disposal",
+        "controlled B command: primary use and cleanup-only failures retain exact outcomes",
+        "controlled B helper: raw failures survive actual lifts and host projection",
+        "controlled B helper: command failure reaches artifact and drained acknowledgment",
+        "controlled B helper: later publication path and acknowledgment failures retain precedence"
+      ],
+      "expectedTests": 6,
+      "expectedSkipped": 0,
+      "meaning": "Only six new actual-owner B cases before installed composition; freeze must establish full premises and exact names."
+    },
+    {
+      "id": "pack",
+      "capSeconds": 120,
+      "kind": "npm",
+      "args": [
+        "pack",
+        "--ignore-scripts",
+        "--offline",
+        "--json",
+        "--pack-destination",
+        "<new artifacts root>"
+      ],
+      "maxOutputBytes": 16777216,
+      "postcondition": "New complete archive from same tested normal-build tree; all member bytes, safety, package/manifest identities and full emitted inventory correspondence."
+    },
+    {
+      "id": "bootstrap",
+      "capSeconds": 180,
+      "kind": "npm",
+      "args": [
+        "install",
+        "--ignore-scripts",
+        "--offline",
+        "--no-audit",
+        "--no-fund",
+        "<new exact archive>"
+      ],
+      "postcondition": "Fresh local proof bootstrap; canonical path-sorted complete installed payload equals new archive. No old bootstrap reuse."
+    },
+    {
+      "id": "configured-c2-positive",
+      "capSeconds": 900,
+      "namePattern": "^T-287 C2 compact acknowledgment preserves installed large-log observation and replay$",
+      "testFile": "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "expectedTests": 1,
+      "expectedSkipped": 0,
+      "excludedCases": 11,
+      "caseCapSeconds": 600,
+      "actorInactivitySeconds": 60,
+      "actorAbsoluteSeconds": 90,
+      "replaySeconds": 30,
+      "replayShutdownGraceSeconds": 1,
+      "maxOutputBytes": 16777216,
+      "heapMiB": 8192,
+      "route": "Retained configured run.mjs + commandRecorder/file-host; explicit TAP and exact existing event reporter.",
+      "postcondition": "Current archive verify/install/lock, actual command/helper artifact+drained-ack/parent relation, installed large-log result and fresh replay, real close receipts and unchanged input guards."
+    },
+    {
+      "id": "owned-lifetime",
+      "capSeconds": 300,
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "test_env/tests/t287-owned-process-lifetime.test.mjs"
+      ],
+      "prospectiveTests": 34,
+      "expectedSkipped": 0,
+      "postcondition": "All28 preserved cases plus6 selected additions if freeze matches; finite handback loop, physical identity/readiness/capture/absence and new B obligations."
+    },
+    {
+      "id": "m5",
+      "capSeconds": 600,
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "prospectiveTests": 39,
+      "expectedSkipped": 0,
+      "postcondition": "Complete existing M5 name population and retained physical/controlled diagnostics; adapter correspondence checked after freeze."
+    },
+    {
+      "id": "unit",
+      "capSeconds": 1800,
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+        "test_env/tests/t287-owned-call-reference.test.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-native-runtime-gate.test.mjs",
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/forward-command-owners.test.mjs",
+        "test_env/tests/t287-native-semantic-revision.test.mjs"
+      ],
+      "expectedPackageScript": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-held-owner-fold-reuse.test.mjs test_env/tests/t287-owned-call-reference.test.mjs test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+      "prospectiveTests": 102,
+      "prospectivePasses": 96,
+      "expectedSkipped": 6,
+      "expectedSkippedNames": [
+        "M5 resolves and independently validates the complete executable root set",
+        "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+        "M5 F_H-only roots produce one valid empty executable-resolution set",
+        "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+        "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+        "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings"
+      ],
+      "postcondition": "Exact original nine files and six declared skip reasons; complete TAP and ordinary OWN/REF/M5 diagnostics, no opt-in expansion."
+    }
+  ],
+  "bounds": {
+    "sumPerStepCapsSeconds": 5340,
+    "suggestedCampaignCapSeconds": 6000,
+    "status": "PROPOSED_ROOT_SELECTION_REQUIRED",
+    "remainingTimeRule": "Every admitted step uses min(its cap, remaining campaign budget less cleanup/closure reserve).",
+    "deadlineOwnerPending": true,
+    "enforcementCaveat": "Old C2 overallMs metadata is not a timer; old staging cap is checked after copy. Bind actual enclosing deadline and owned child-group closure in successor controls before claiming enforced global ceiling.",
+    "reserveBytes": 4294967296,
+    "defaultCombinedOutputBytes": 104857600,
+    "configuredOwnedBytes": 4294967296,
+    "configuredDiskPollMs": 10000,
+    "configuredDiskLimitIsQuota": false
+  },
+  "historySamples": [
+    {
+      "id": "lint",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/lint/RETURN.json",
+        "bytes": 1210,
+        "sha256": "7ffb1b8c84ca5a468c0752e11d4f2552bf574027fdd0a0800977484cb3a2b9fb"
+      },
+      "wallSeconds": 0.22371225012466311,
+      "counts": null,
+      "standing": "Historical single sample, not successor duration or proof guarantee."
+    },
+    {
+      "id": "build",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/build/RETURN.json",
+        "bytes": 1123,
+        "sha256": "797468fea65a73e297f4279478f8ff74a20ae806136baab30f0d09e8d77ec07d"
+      },
+      "wallSeconds": 31.075017749797553,
+      "counts": null,
+      "standing": "Historical single sample, not successor duration or proof guarantee."
+    },
+    {
+      "id": "owned-lifetime",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/RETURN.json",
+        "bytes": 119374,
+        "sha256": "76cddabbb9f1eb4e8329c972e1cbb8d59c71a00f03290c19c95c1b839bc1cb49"
+      },
+      "wallSeconds": 12.349862500093877,
+      "counts": {
+        "tests": 18,
+        "pass": 18,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "standing": "Historical single sample, not successor duration or proof guarantee."
+    },
+    {
+      "id": "m5",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/m5/RETURN.json",
+        "bytes": 472297,
+        "sha256": "26f55b3efd4d5bd08bc687a210df1930d88178072a841a950e9c3b5fcff9596d"
+      },
+      "wallSeconds": 62.5285304998979,
+      "counts": {
+        "tests": 39,
+        "pass": 39,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "standing": "Historical single sample, not successor duration or proof guarantee."
+    },
+    {
+      "id": "unit",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/RETURN.json",
+        "bytes": 483807,
+        "sha256": "dac6936fdc6c722a8579608f329d02666e6696ecd60467ae892e3c2cdbe2cd13"
+      },
+      "wallSeconds": 156.86010695900768,
+      "counts": {
+        "tests": 102,
+        "pass": 96,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 6,
+        "todo": 0
+      },
+      "standing": "Historical single sample, not successor duration or proof guarantee."
+    },
+    {
+      "id": "configured-c2-positive",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/commands/test.result.json",
+        "bytes": 1474,
+        "sha256": "84bbb99291ae99f2998791f378cb080c062160476db793c5cda2f9bab53814c3"
+      },
+      "wallMs": 85257.564458,
+      "standing": "Historical single sample only."
+    }
+  ],
+  "requiredRebindings": [
+    "Original native01 source selection -> accepted A checkpoint and actual B frozen source.",
+    "Obsolete controlled baseline/censuses -> exact B names, preserved old assertions and new obligations.",
+    "No-rebuild oracle relation -> actual new normal B build receipt.",
+    "Old archive/bootstrap -> new candidate archive and one fresh local bootstrap.",
+    "RC8 support/config/fixture-identity controls -> actual frozen support and packed_artifact-derived six fields.",
+    "Metadata-only overall cap and post-copy staging timer -> explicit actual deadline/physical-close owner."
+  ],
+  "guards": [
+    "Freeze inventory and permitted delta; unchanged A bridge/state/HTTP bodies/worker/schema/runner boundaries.",
+    "Source wins and exact applied seeds, no seed-count inference.",
+    "Full dependency and npm content/link census; copied directory/hidden-lock metadata plus same freshness disposition before generator and pack.",
+    "Complete actual build/contracts/manifest inventory; exact generated delta retained only in work.",
+    "Safe unique archive member names and all actual payload bytes; complete emitted rows present.",
+    "Canonical POSIX path order for complete bootstrap equality; no old artifact/install substitution.",
+    "Exact tests/support/reporter/replay/config paths and hashes; minimal env, offline npm, no provider/optional optins.",
+    "Protected main/index/tracking/builders/delivered RC11 pinned immediately before admitted proof, with closed postguards."
+  ],
+  "stopPolicy": "First integration failure or premise/guard/count/skip/timeout/output/closure mismatch stops dependent stages, retains exact failure and actually run suffix evidence; no retry or scope/budget extension.",
+  "returnRelation": [
+    "Exact source subject and independent source result",
+    "Fresh normal build and full input/output custody",
+    "Candidate archive complete member correspondence",
+    "Fresh bootstrap complete correspondence",
+    "Each command actual argv/env/timing/raw logs/TAP/evidence/limits/process-group closure",
+    "Configured original artifact/drained ack/parent outcome and fresh replay/close evidence",
+    "Full final guards and explicit passed/failed/excluded/unexecuted claims for Root conjunction"
+  ],
+  "exclusions": [
+    "Moving B source review",
+    "Product/test/build/install/provider/Git effects during preparation",
+    "Standalone A R1/R2/baseline experiment repetition",
+    "Blanket installed negatives or whole C2 file",
+    "Broad qualification/dependency upgrade/later HTTP-worker refactors"
+  ],
+  "preservedLimits": [
+    "Six historical unit skips",
+    "Synthetic pending-descriptor fixture limit",
+    "RC11-OWNER-FACT-REUSE-PROOF-001",
+    "RC11-LIFETIME-REENTRANT-BOUND-001",
+    "All earlier failed attempts and unexecuted suffixes",
+    "No fullPhase2/installed/release/whole5.0 or performance acceptance"
+  ]
+}

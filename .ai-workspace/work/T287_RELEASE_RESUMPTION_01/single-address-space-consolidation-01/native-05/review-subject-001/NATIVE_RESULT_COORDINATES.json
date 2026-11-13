@@ -1,0 +1,7 @@
+{
+  "eventOrdinal": 42383,
+  "resultRef": "result://abiogenesis/95f6ae44d96e1cf4884a8ec5239ce7f44bab12ab877d416ddafd50d773f1a530",
+  "resultDigest": "sha256:95f6ae44d96e1cf4884a8ec5239ce7f44bab12ab877d416ddafd50d773f1a530",
+  "afterObservationRef": "worksite-context-observation://abiogenesis/fb91747333a77354117ab1e231bbd89e8f9dd3febcaffa0e395a0d4aa1575abc",
+  "afterObservationDigest": "sha256:fb91747333a77354117ab1e231bbd89e8f9dd3febcaffa0e395a0d4aa1575abc"
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "isolated_source_reproduction",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "sourceArchiveSha256": "491768db9bd8529bfe0bd61b2877c6805c7d4e183d7f81d11fccf7eee5af1434",
+  "scratch": "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv",
+  "role": "Root operator Writer isolated reproducibility discriminator under approved RC5 scope; no canonical mutation, provider, native Run or qualification suite",
+  "startedUtc": "2026-11-03T13:05:57.487779+00:00",
+  "status": "RUNNING"
+}

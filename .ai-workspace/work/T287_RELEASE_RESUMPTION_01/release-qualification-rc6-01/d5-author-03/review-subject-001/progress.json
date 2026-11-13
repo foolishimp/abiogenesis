@@ -1,0 +1,37 @@
+{
+  "kind": "d5_author03_n3_progress",
+  "schemaVersion": "1",
+  "at": "2026-11-06T01:55:00Z",
+  "worker": "claude (single fresh native coding Worker, d5-author-03; Opus 5.5)",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "outcome": "Preserve lawful exact-L cold judgment while keeping the current copy-free shared projection and all existing owner admission boundaries.",
+  "claims": {
+    "sourceAcceptance": false,
+    "qualificationAcceptance": false,
+    "releaseAcceptance": false,
+    "profileCut": false,
+    "graphContinuationChosen": false
+  },
+  "phase": "COMPLETE_STOPPED_AFTER_HANDOFFS",
+  "baseline": "Live qualification_proof.ts f2b072bc... and all 372 C2 closure members equal d5b-final2 (sourceDigest f7d7594f...); no drift.",
+  "steps": [
+    { "at": "2026-11-06T01:47:25Z", "step": "Copied supplied helpers to tmp/stage.mjs and tmp/lanes.mjs (byte-identical: 62885ca3..., 6412f007...)." },
+    { "step": "Test-only fixture correction: unstamped L in fullCarrier, exact ROOT_EVENT_CONTRACT_DIGEST in admitJudgment, placed-envelope assertions, L positive before refusals. Reader frozen." },
+    { "step": "Stage d5c-before1 (c9287a37...): compile/generate/guard 0. M2 probe 0/1, failing 'an L artifact keeps its full preimage' (null). Whole scopes module 23/24, only M2 failing." },
+    { "step": "Reader repair: stamp-presence predicate at qualification_proof.ts:622; removed unused LEGACY import." },
+    { "step": "Stage d5c-helper1 (2255db30...) with admitJudgment stamp temporarily reverted: scopes 22/24, both Q23 readback positives failing. Live test restored to b7bbdb76..." },
+    { "step": "Stage d5c-final1 (7e8bb3b0...): compile/generate/guard 0; 372/372 staged = live; only the two granted paths differ from d5b-final2; native-runtime-observation.json unchanged (ae38fb37...)." },
+    { "step": "M2 probe on d5c-final1: 1/1 pass." },
+    { "step": "lanes.mjs d5c-final1 qualification: 37/37 pass, 0 fail/skipped/cancelled/todo, stderr empty; names equal the N2 lane set." },
+    { "step": "Wrote return.json, readiness.json and this progress.json; stopped." }
+  ],
+  "final": {
+    "stage": "d5c-final1",
+    "sourceDigest": "7e8bb3b085517a18a4c6c6cba0d4ae3a54b1738ce3089bd8da6f3ab70e1793dd",
+    "qualificationLane": "37/37",
+    "capsule": "D5-P6-N1-UNCONFIRMED-01 open"
+  },
+  "returnRef": "qualification-scratch/d5-author-03/return.json",
+  "readinessRef": "qualification-scratch/d5-author-03/readiness.json"
+}

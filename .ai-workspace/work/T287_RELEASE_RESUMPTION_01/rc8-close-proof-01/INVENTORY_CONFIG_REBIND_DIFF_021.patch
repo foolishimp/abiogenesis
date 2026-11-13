@@ -1,0 +1,24 @@
+--- binding-022/BOUND_INVENTORY.json
++++ binding-023/BOUND_INVENTORY.json
+@@ -2,9 +2,9 @@
+   "status": "BOUND_NOT_EXECUTION_ADMITTED",
+   "at": "2026-11-07T13:42:04.229Z",
+   "config": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_022.json",
+-    "bytes": 414994,
+-    "sha256": "5a9012724e6363968f883a767c4dbfa63982d977e140a8a588ba3246759d4775"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_023.json",
++    "bytes": 415066,
++    "sha256": "b89db2dd87aac3433fea87855c097cbe3d8598582c035b04bb9027493f856711"
+   },
+   "subject": {
+     "sourceCommit": null,
+@@ -55992,7 +55992,7 @@
+     {
+       "file": "test_env/tests/t287-owned-native-proof.test.mjs",
+       "line": 89,
+-      "source": "test('20–24 MB native carrier: preparation -> Result clone -> judgment/foldback -> C2 conserves proof and current invalidators', {skip:!inputPath&&'ABI5_OWNED_PROOF_NATIVE_REQUEST unset; requires the 20–24 MB native carrier request'},async t=>{"
++      "source": "test('20\u201324 MB native carrier: preparation -> Result clone -> judgment/foldback -> C2 conserves proof and current invalidators', {skip:!inputPath&&'ABI5_OWNED_PROOF_NATIVE_REQUEST unset; requires the 20\u201324 MB native carrier request'},async t=>{"
+     },
+     {
+       "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",

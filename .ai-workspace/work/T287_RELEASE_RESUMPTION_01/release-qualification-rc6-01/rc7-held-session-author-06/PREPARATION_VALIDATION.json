@@ -1,0 +1,154 @@
+{
+  "kind": "h06_bounded_preparation_validation",
+  "at": "2026-11-06T19:23:33.157459+00:00",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 9291,
+    "sha256": "d3b7b87fab998bca08bc8572ddea2c34e4342378d30981c6a4b033416c3bc258"
+  },
+  "codeControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/CODE_CONTROL_PINS_FINAL.json",
+    "bytes": 2310,
+    "sha256": "f098ed8219e94cb7744e0c7ae87c53f559ca06a715d903e6cef0b1c011dd4604"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_BEFORE.json",
+    "bytes": 233286,
+    "sha256": "822c7268e1acdf9e1615f0811b8fa35e7656d11c952c656439674794ce156c9d"
+  },
+  "finiteReferencedPinsVerified": 88,
+  "pinMismatches": 0,
+  "syntax": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/prior-author-stage.mjs",
+        "bytes": 6891,
+        "sha256": "ddde69ffc1421672735701d7d6344898ae0cd3973b26ba0a95227548561c49dd"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/prior-author-lanes.mjs",
+        "bytes": 10474,
+        "sha256": "5ee692a49a9ad68eacff16deb5cf682f42f8e356144b0c043063cace7dcfd15c"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/prepare-and-dispatch.mjs",
+        "bytes": 19673,
+        "sha256": "fcc998c014e7c2f5563429dc117226f43e216396f547c7d819e266f4f3f79dd5"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/launch-owner-script.mjs",
+        "bytes": 2388,
+        "sha256": "e334554dc18b8efd4f80cccd47398af8d8253e26d902f948225034b29595706a"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/claude-provider.sh",
+        "bytes": 731,
+        "sha256": "fa66e1a4d40811c2ae6433b4a1fe2cc070310cbdfe23609cf050f487eb5125a4"
+      },
+      "exitCode": 0
+    }
+  ],
+  "correctedSyntax": [
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/prepare-and-dispatch.mjs",
+        "bytes": 19673,
+        "sha256": "fcc998c014e7c2f5563429dc117226f43e216396f547c7d819e266f4f3f79dd5"
+      },
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/prepare-and-dispatch.corrected.mjs",
+        "bytes": 19675,
+        "sha256": "fed2ff089d7f6e35fb08da5f855ce2b384e69938296f9930ce2bdc0429936a27"
+      },
+      "diff": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/prepare-and-dispatch.corrected.mjs.diff",
+        "bytes": 2014,
+        "sha256": "11c83f8cc76e568486aea317860db1598cb6c89293b5720df6b53e7a057cc562"
+      },
+      "syntaxExitCode": 0
+    },
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/launch-owner-script.mjs",
+        "bytes": 2388,
+        "sha256": "e334554dc18b8efd4f80cccd47398af8d8253e26d902f948225034b29595706a"
+      },
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/launch-owner-script.corrected.mjs",
+        "bytes": 2398,
+        "sha256": "6ee174e71b11fc16a678e546a15be4da3cbeeb928e09074289f08f0d6e22ea49"
+      },
+      "diff": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/launch-owner-script.corrected.mjs.diff",
+        "bytes": 1445,
+        "sha256": "6ddc979c47d2ab46d3a1f2766cc83d9173fc4f599ae33e5492abea5b4c9ad12d"
+      },
+      "syntaxExitCode": 0
+    }
+  ],
+  "checks": {
+    "source451Protected450Write1": true,
+    "sameThreeExistingLaneDefinitions": true,
+    "oneStageThreeOnceOnlyLanes": true,
+    "completePriorPassedPredicateUnchanged": true,
+    "allPreviousAllocatedFailuresStop": true,
+    "passedH05ProofConditionalReferenceOnly": true,
+    "payload5325AndBuildEvidenceSharedReferences": true,
+    "genuineH05CloseResumeBound": true,
+    "grantAndRuntimeAuthorityExactH06Selection": true,
+    "preAdmissionRuntimeEquality": true,
+    "controls18Context472": true,
+    "onlyFinalAdmissionWorkloadDigestNull": true,
+    "sourceBodiesCopied": false,
+    "payloadInventoryCopied": false,
+    "wrapperMode": "0755",
+    "freshAbsentPaths": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/commands",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_CONTROL_ADMISSION.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/workload.json",
+      "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-06",
+      "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-06",
+      "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs6",
+      "/private/tmp/abg-hs6"
+    ],
+    "ticketNewLinksResolve": true
+  },
+  "retainedPassedEvidence": {
+    "fixedRoute": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/fixed-route/summary.json",
+      "bytes": 2207,
+      "sha256": "7a663214febb66f14bb77cb581d505adcd0b7a80535775650bd7d582796c7174"
+    },
+    "heldSession": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/summary.json",
+      "bytes": 1676,
+      "sha256": "3651fc18f0d9982e0a170aad6a6aee7c133115f524ee0981f06107ab104d1e8f"
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+      "bytes": 4046,
+      "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+    },
+    "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "reuseCondition": "All Product/SDK/caller/helper and fixed-route/held-session test closures remain unchanged. Independent frozen one-field diff review establishes applicability; retain original H05 identifiers and do not relabel these as H06 executions. Any affected closure change returns to Root before further execution."
+  },
+  "effectsExecuted": false,
+  "limitations": [
+    "Root final live source/HEAD/index and provider byte/mode checks remain admission obligations.",
+    "Source acceptance depends on genuine H06 after/stage/live/close, independent exact one-field review and actual three-lane results, with unchanged closure of original eight H05 passes.",
+    "No installed release/qualification or S5 activation claim."
+  ]
+}

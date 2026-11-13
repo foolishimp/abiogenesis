@@ -1,0 +1,204 @@
+{
+  "status": "PARTIAL",
+  "contexts": [
+    1048576,
+    4194304
+  ],
+  "candidateArchive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+    "bytes": 11022180,
+    "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+  },
+  "subject": {
+    "label": "RC7-before",
+    "phase": "before",
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b"
+  },
+  "helperRoot": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript",
+  "phases": [
+    {
+      "name": "installed_fixture_setup",
+      "wallMs": 26395.369584,
+      "startMemory": {
+        "rss": 185958400,
+        "heapUsed": 68907088,
+        "external": 2707769,
+        "arrayBuffers": 48261
+      },
+      "endMemory": {
+        "rss": 2801844224,
+        "heapUsed": 366208224,
+        "external": 3279835,
+        "arrayBuffers": 624537
+      },
+      "memoryDelta": {
+        "rss": 2615885824,
+        "heapUsed": 297301136,
+        "external": 572066,
+        "arrayBuffers": 576276
+      },
+      "work": null,
+      "counters": {}
+    },
+    {
+      "name": "fixture_bytes",
+      "wallMs": 3.2472910000033153,
+      "startMemory": {
+        "rss": 2763882496,
+        "heapUsed": 310018720,
+        "external": 4677398,
+        "arrayBuffers": 2022100
+      },
+      "endMemory": {
+        "rss": 2768076800,
+        "heapUsed": 310111320,
+        "external": 15168358,
+        "arrayBuffers": 12513060
+      },
+      "memoryDelta": {
+        "rss": 4194304,
+        "heapUsed": 92600,
+        "external": 10490960,
+        "arrayBuffers": 10490960
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {}
+    },
+    {
+      "name": "held_acquisition",
+      "wallMs": 95.89266599999974,
+      "startMemory": {
+        "rss": 2768076800,
+        "heapUsed": 310654880,
+        "external": 15168958,
+        "arrayBuffers": 12513660
+      },
+      "endMemory": {
+        "rss": 2774450176,
+        "heapUsed": 290396432,
+        "external": 9638411,
+        "arrayBuffers": 6983113
+      },
+      "memoryDelta": {
+        "rss": 6373376,
+        "heapUsed": -20258448,
+        "external": -5530547,
+        "arrayBuffers": -5530547
+      },
+      "work": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177949,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {}
+    }
+  ],
+  "cases": [],
+  "budgetObservations": [
+    {
+      "label": "after_setup",
+      "logicalBytes": 87461573,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_construct_1MiB",
+      "logicalBytes": 92705649,
+      "bound": 1073741824,
+      "quota": false
+    }
+  ],
+  "counterAvailability": [
+    {
+      "name": "runtimeHistoryWork",
+      "available": true
+    }
+  ],
+  "cpuProfileCall": null,
+  "qualified": false,
+  "setupAccounting": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 399.518458,
+      "provisioning_verify_artifact": 20982.694042,
+      "provisioning_install": 2913.3432500000017,
+      "provisioning_installed_content_check": 596.0174160000024,
+      "provisioning_additional_products": 0.00225000000136788,
+      "installed_owner_loading": 283.8232080000016,
+      "environment_install_and_workspace_admission": 778.3372920000002,
+      "execution_preparation_publication_program_and_catalog": 436.8392500000009
+    }
+  },
+  "installedRoot": "/private/tmp/abg-r8m-rc7-before-001/tmp/abi5-root-env-p7RuSD/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "installCandidate": {
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.7/8c66c6ff87bdf00c23fdd141447205660e0a50210a1193eadb0753a178bbd37c/89b9bac213d7d0a5e015433c68f7824fb6c0a62994cc1cfeac8979118c4f2299",
+    "installedRoot": "/private/tmp/abg-r8m-rc7-before-001/tmp/abi5-root-env-p7RuSD/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1",
+    "productContentDigest": "sha256:8c66c6ff87bdf00c23fdd141447205660e0a50210a1193eadb0753a178bbd37c",
+    "manifestDigest": "sha256:cc96a3d25120d5a5a5ff944251e0616bd5260ada08e99df3f038a06f37ee385c"
+  },
+  "fixtureSourcePins": [
+    {
+      "path": "/private/tmp/abg-r8m-rc7-before-001/tmp/abi5-root-env-p7RuSD/workspace/context-1MiB.txt",
+      "bytes": 1048576,
+      "sha256": "4e29ad18ab9f42d7c233500771a39d7c852b200baf328fd00fbbe3fecea1eb56"
+    },
+    {
+      "path": "/private/tmp/abg-r8m-rc7-before-001/tmp/abi5-root-env-p7RuSD/workspace/context-4MiB.txt",
+      "bytes": 4194304,
+      "sha256": "5947c00ce4da5eac3e8b3731df34e42a2d7b7e88bdb7bd93b8152afcedaa2f92"
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: {\"kind\":\"product_run_invocation_preparation_refusal\",\"memberKey\":\"start\",\"ownerOutput\":{\"outcomeKind\":\"refusal\",\"value\":{\"code\":\"invalid_target\",\"issuePaths\":[\"/program\"],\"evidenceRefs\":[]}}}\n+ actual - expected\n\n+ 'product_run_invocation_preparation_refusal'\n- 'installed_start_call'\n\n    at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement.test.mjs:59:14)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+  "abandonedOnFailure": true,
+  "partialEventLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/runtime.events.jsonl.gz",
+    "bytes": 767334,
+    "sha256": "66b408132adf9e88707b115000b996503a7f68280e35d479cb9ad07fb5babf84",
+    "physicalBytes": 3177949,
+    "physicalSha256": "40d196d398d27df63675fa4a9b8ccca1099074306dfeb49dc94cd8dcdbd91d21"
+  },
+  "totalWallMs": 26809.474792,
+  "nodeResourceUsage": {
+    "userCPUTime": 30896765,
+    "systemCPUTime": 1201107,
+    "maxRSS": 2767040,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 246678,
+    "majorPageFault": 84,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 2,
+    "ipcReceived": 1,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 1908,
+    "involuntaryContextSwitches": 173643
+  },
+  "measuredPhaseWallMs": 26494.509541000003,
+  "unassignedFixtureSerializationOrOtherMs": 314.9652509999978,
+  "limits": [
+    "Scripted actor; no provider/coding productivity, causal clone allocation, speedup or release qualification claim.",
+    "Construction, calls, operator serialization, setup, custody and cold CLI phases stay separate; RSS includes retained allocations and GC effects.",
+    "Memory and counters describe this parent; child peak memory is not measured. Missing optional work counters remain unavailable, never inferred zero.",
+    "Both matched calls are unprofiled. One optional after-only third 4 MiB call is separately profiled; its timing/counters are excluded from the matched pair. Actual close includes its successor; cold parity is scoped to the pair at that final prefix.",
+    "Budget checks occur at phase boundaries outside timed calls; aggregate 1 GiB is a monitored operational stop, not a filesystem quota, and may overshoot between checks.",
+    "Raw CLI requests live only in fixture-owned scratch and are cleaned by its existing hook; retained digests and actual cold outcomes/streams preserve the observed check.",
+    "Fixture setup materializes the already-packed artifact into disposable scratch through existing owners; immutable bootstrap install is not written.",
+    "Only two full run_result cold equalities are exercised here; historical raw CLI/replay proof retains its original scope."
+  ]
+}

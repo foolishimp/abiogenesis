@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/d2-workflow-step.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 8,
+    "pass": 8,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/009-d2-workflow-step.test/process.json",
+    "bytes": 1060,
+    "sha256": "1f7357ce5aa11141e8c428cc24c98c450b3de532dc319fdf32f180e881d6d885"
+  }
+}

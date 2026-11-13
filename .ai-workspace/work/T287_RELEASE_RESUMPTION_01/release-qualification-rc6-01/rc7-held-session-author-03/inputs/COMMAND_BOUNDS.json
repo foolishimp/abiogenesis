@@ -1,0 +1,143 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "ROOT_SELECTED_FINITE_COMMANDS_PREPARATION_ONLY",
+  "readCommands": [
+    "Exact451 selected source/control names; frozen reviewer/Root triage references and installed STDO3.0.4 skills. No broad history, provider narrative or credential scans.",
+    "Read-only rg/git diff/status/rev-parse on selected source; no Git mutation."
+  ],
+  "writeCommands": [
+    "Only five existing caller/test/HOW paths, three handoffs and scratch/tmp; no Product code/guard edits or new source files.",
+    "Short provider temp /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs3 and test temp /private/tmp/abg-hs3; distinct empty npm configs. Preserve existing contents."
+  ],
+  "stageLabels": [
+    "hs3-stage-01",
+    "hs3-stage-02"
+  ],
+  "maxStages": 2,
+  "maxLaneInvocations": 8,
+  "concurrency": 1,
+  "laneIds": [
+    "fixed-route",
+    "assessment-guards",
+    "native-workspace-owner",
+    "caller",
+    "fixed-route-correction",
+    "assessment-guards-correction",
+    "native-workspace-owner-correction",
+    "caller-correction"
+  ],
+  "laneTimeouts": {
+    "fixed-route": 600000,
+    "assessment-guards": 300000,
+    "native-workspace-owner": 300000,
+    "caller": 300000,
+    "fixed-route-correction": 600000,
+    "assessment-guards-correction": 300000,
+    "native-workspace-owner-correction": 300000,
+    "caller-correction": 300000
+  },
+  "authoredIntegratedTestTimeoutMs": 540000,
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-03/prior-author-stage.mjs",
+        "<next-selected-label>",
+        "after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 2,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 180000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-03/prior-author-lanes.mjs",
+        "<successful-frozen-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "fixed-route",
+        "assessment-guards",
+        "native-workspace-owner",
+        "caller",
+        "fixed-route-correction",
+        "assessment-guards-correction",
+        "native-workspace-owner-correction",
+        "caller-correction"
+      ],
+      "maxLaneInvocations": 8,
+      "laneTimeouts": {
+        "fixed-route": 600000,
+        "assessment-guards": 300000,
+        "native-workspace-owner": 300000,
+        "caller": 300000,
+        "fixed-route-correction": 600000,
+        "assessment-guards-correction": 300000,
+        "native-workspace-owner-correction": 300000,
+        "caller-correction": 300000
+      },
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "invocationAllocation": [
+    {
+      "lane": "fixed-route",
+      "maximum": 1,
+      "phase": "primary_final_source"
+    },
+    {
+      "lane": "assessment-guards",
+      "maximum": 1,
+      "phase": "primary_final_source"
+    },
+    {
+      "lane": "native-workspace-owner",
+      "maximum": 1,
+      "phase": "primary_final_source"
+    },
+    {
+      "lane": "caller",
+      "maximum": 1,
+      "phase": "primary_final_source"
+    },
+    {
+      "lane": "fixed-route-correction",
+      "maximum": 1,
+      "phase": "conditional_localized_correction"
+    },
+    {
+      "lane": "assessment-guards-correction",
+      "maximum": 1,
+      "phase": "conditional_localized_correction"
+    },
+    {
+      "lane": "native-workspace-owner-correction",
+      "maximum": 1,
+      "phase": "conditional_localized_correction"
+    },
+    {
+      "lane": "caller-correction",
+      "maximum": 1,
+      "phase": "conditional_localized_correction"
+    }
+  ],
+  "allocationLaw": "No baseline. Stage01 freezes complete correction before canonical build; fixed-route first, then assessment-guards/native-workspace-owner/caller. Stage02 only after recorded localized in-scope failure/correction. New Product/architecture failure or resource insufficiency returns Root. No identical retry/automatic all-lane replay. Failed/incomplete reservations count. Validate safe integer/exact lane timeout and selection prerequisites BEFORE output allocation.",
+  "missingResources": "All451 source rows inherited from actual H02, including native HOW. SINGLE_START is a separate pinned read only. Only the named retained-root historical case remains unbound; no material invented.",
+  "freezeBeforeFeedback": "Publish source-freeze before build/feedback and pin it in progress immediately for concurrent max review. Final source/HOW/native.after match required.",
+  "partitionStanding": "Positive exact selectors, no negative-lookahead filters. Primary600s/authored540s prospective bound selected by Root; other lanes300s. No test timeout increase outside this selection."
+}

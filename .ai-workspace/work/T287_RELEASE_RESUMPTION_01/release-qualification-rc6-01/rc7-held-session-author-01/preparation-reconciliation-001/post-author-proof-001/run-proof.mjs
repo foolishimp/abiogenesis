@@ -1,0 +1,51 @@
+// Two exact Root-selected post-author commands; unchanged canonical supervision.
+import assert from 'node:assert/strict';
+import {readFile,mkdir,lstat} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {dirname,join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {commandRecorder,exclusiveRecord} from '../../../rc7-fixed-proof-author-01/operator-client/runner.mjs';
+const root=dirname(fileURLToPath(import.meta.url));
+const [manifestDigest,admissionPath,admissionDigest]=process.argv.slice(2);
+assert(/^[a-f0-9]{64}$/.test(manifestDigest??'')&&/^[a-f0-9]{64}$/.test(admissionDigest??''));
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const checked=async p=>{const b=await readFile(p.path);assert.equal(b.length,p.bytes,p.path);assert.equal(sha(b),p.sha256,p.path);return b;};
+const pin=async path=>{const b=await readFile(path);return {path,bytes:b.length,sha256:sha(b)};};
+const readDigest=async(path,digest)=>{const b=await readFile(path);assert.equal(sha(b),digest,path);return JSON.parse(b);};
+const manifest=await readDigest(join(root,'MANIFEST.json'),manifestDigest);
+for(const p of manifest.files)await checked(p);
+const admission=await readDigest(admissionPath,admissionDigest);
+assert.equal(admission.status,'ROOT_ADMITTED_POST_AUTHOR_TWO_CASE_PROOF');assert.equal(admission.manifestSha256,manifestDigest);
+assert.equal(admission.subjectSha256,'4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741');
+const selection=JSON.parse(await checked(manifest.selection));
+assert.deepEqual(selection.commands.map(x=>x.label),['operator-hs02-once','operator-fixed-admission-once']);assert.equal(selection.budget.laneAllocations,2);
+for(const c of selection.commands){assert.equal(c.executable,'/usr/bin/time');assert.equal(c.laneTimeoutMs,300000);assert.equal(c.maxOutputBytes,67108864);assert.equal(c.cwd,join(selection.stage,'build_tenants/abiogenesis/typescript'));assert(!c.args.includes('--test-skip-pattern'));}
+assert.deepEqual(selection.commands.map(x=>x.authoredTestTimeoutMs),[280000,290000]);
+for(const p of [...selection.dependencyPins,...selection.operatorOwnerPins,...selection.toolPins,...selection.npmConfigPins,selection.generatedManifest])await checked(p);
+for(const p of selection.npmConfigPins)assert.equal(p.bytes,0);
+const subject=JSON.parse(await checked(selection.subject)),stage=JSON.parse(await checked(selection.stageReport));
+assert.equal(stage.sourceDigest,selection.sourceDigest);assert.equal(sha(Buffer.from(JSON.stringify(stage.sources))),selection.sourceDigest);assert.equal(subject.files.length,450);
+const verifySource=async()=>{for(const row of subject.files){const p={path:join(selection.stage,row.relativePath),bytes:row.bytes,sha256:row.sha256};const st=await lstat(p.path);assert(st.isFile()&&!st.isSymbolicLink(),p.path);await checked(p);}await checked(selection.generatedManifest);return {sourceDigest:selection.sourceDigest,sourceRows:450,generatedManifest:selection.generatedManifest,matched:true};};
+const record=(name,value)=>exclusiveRecord(root,name,value);
+await record('EXECUTION_STARTED.json',{at:new Date().toISOString(),pid:process.pid,admission:{path:admissionPath,sha256:admissionDigest},manifestSha256:manifestDigest,automaticRetries:0});
+const before=await verifySource();await record('SOURCE_BEFORE_EXECUTION.json',before);
+await mkdir(selection.environment.TMPDIR,{recursive:true});
+const command=commandRecorder(root,{environment:selection.environment,timeoutMs:300000,maxOutputBytes:67108864});
+const results=[];
+for(const c of selection.commands){
+ await verifySource();
+ const r=await command(c.label,c.executable,c.args,{cwd:c.cwd,environment:selection.environment,timeoutMs:c.laneTimeoutMs});
+ const tally=k=>{const m=[...r.stdout.matchAll(new RegExp('^# '+k+' (\\d+)$','gm'))].at(-1);return m?Number(m[1]):null;};
+ const counts=Object.fromEntries(['tests','pass','fail','cancelled','skipped','todo'].map(k=>[k,tally(k)]));
+ const names=[...r.stdout.matchAll(/^(?:ok|not ok) \d+ - (.+)$/gm)].map(m=>m[1]);
+ const diagnostics=r.stdout.split('\n').filter(l=>l.includes('RC7_HS02_MEASUREMENT')||l.startsWith('# {'));
+ const rss=/^\s*(\d+)\s+maximum resident set size\s*$/m.exec(r.stderr);
+ const unsafe=r.timedOut||r.truncated||r.failure!==null||r.signal!==null||/heap out of memory|FATAL ERROR|\bENOMEM\b|\bENOSPC\b/i.test(r.stderr+'\n'+r.stdout);
+ const selectedPass=!unsafe&&r.exitCode===0&&counts.tests===1&&counts.pass===1&&counts.fail===0&&counts.cancelled===0&&counts.skipped===0&&counts.todo===0&&names.length===1&&names[0]===c.testName;
+ const entry={label:c.label,testName:c.testName,counts,selectedNames:names,selectedPass,processExitCode:r.exitCode,signal:r.signal,failure:r.failure,timedOut:r.timedOut,truncated:r.truncated,wallMs:r.wallMs,maximumResidentSetSizeBytes:rss?Number(rss[1]):null,rssOwner:'/usr/bin/time -l, macOS maximum resident set size',diagnosticLines:diagnostics,commandReceipt:await pin(join(root,'commands',c.label+'.result.json')),stdout:await pin(join(root,'commands',c.label+'.stdout')),stderr:await pin(join(root,'commands',c.label+'.stderr')),sourceAfter:await verifySource(),unsafeExecution:unsafe};
+ await record(c.label+'.summary.json',entry);results.push(entry);console.log(JSON.stringify({label:c.label,counts,selectedPass,wallMs:r.wallMs,maximumResidentSetSizeBytes:entry.maximumResidentSetSizeBytes,unsafeExecution:unsafe}));
+ if(unsafe)break;
+}
+const after=await verifySource();await record('SOURCE_AFTER_EXECUTION.json',after);
+await record('SUMMARY.json',{status:results.length===2&&results.every(r=>r.selectedPass)?'TWO_SELECTED_CASES_PASSED':results.some(r=>r.unsafeExecution)?'STOPPED_HOST_OR_RESOURCE_FAILURE':'SELECTED_PROOF_HAS_FAILURE',subject:selection.subject,sourceDigest:selection.sourceDigest,admission:{path:admissionPath,sha256:admissionDigest},completedLanes:results.length,maximumLanes:2,results,sourceBefore:before,sourceAfter:after,originalAuthorLedgerUnchanged:true,ProductAccepted:false,runnerRegressionClosed:false,qualified:false});
+if(results.length!==2||results.some(r=>!r.selectedPass))process.exitCode=1;

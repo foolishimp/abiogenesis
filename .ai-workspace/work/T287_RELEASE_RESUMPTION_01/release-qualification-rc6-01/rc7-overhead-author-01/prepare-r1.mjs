@@ -1,0 +1,61 @@
+import {getHeapStatistics} from 'node:v8';
+import assert from 'node:assert/strict';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {join,dirname} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {installedModules,publicCaller} from '../operator-client/public-setup.mjs';
+import {exclusiveRecord,workerEnvironment} from '../operator-client/runner.mjs';
+const dir=dirname(fileURLToPath(import.meta.url)),D=dirname(dir),json=async p=>JSON.parse(await readFile(p,'utf8')),hash=b=>createHash('sha256').update(b).digest('hex');
+const binding=await json(join(dir,'RUNTIME_BINDINGS.json'));
+assert.equal(binding.status,'ROOT_ADMITTED_FOR_PREPARATION','Root final admission is unbound');
+assert(binding.rootControlAdmission?.path&&binding.rootControlAdmission?.sha256&&Number.isSafeInteger(binding.rootControlAdmission?.bytes),'Root must pin exact admission before preparation');
+const admissionBytes=await readFile(binding.rootControlAdmission.path);assert.equal(hash(admissionBytes),binding.rootControlAdmission.sha256);assert.equal(admissionBytes.length,binding.rootControlAdmission.bytes);
+assert.equal(binding.rootControlAdmission.path,join(dir,'ROOT_CONTROL_ADMISSION.json'));
+assert(binding.resume?.path&&binding.resume?.sha256&&binding.actualClosePrefix,'Actual predecessor close unbound');
+const actualCloseBytes=await readFile(binding.actualClose.path);assert.equal(hash(actualCloseBytes),binding.actualClose.sha256);assert.equal(actualCloseBytes.length,binding.actualClose.bytes);
+assert.deepEqual(JSON.parse(actualCloseBytes).prefix,binding.actualClosePrefix);
+const retained=await json(binding.resume.path),profile=await json(join(dir,'PROVIDER_PROFILE.json')),w=await json(join(dir,'workload.json')),grant=await json(join(dir,'NATIVE_GRANT.json'));
+// Root's new exact selection supersedes the prior two-file review conjunction.
+const pinnedJson=async pin=>{assert(pin?.path&&pin?.sha256&&Number.isSafeInteger(pin?.bytes),'Required control pin missing');const b=await readFile(pin.path);assert.equal(b.length,pin.bytes,pin.path);assert.equal(hash(b),pin.sha256,pin.path);return JSON.parse(b);};
+const selected=await pinnedJson(grant.selection);assert.equal(selected.status,'ADMITTED_CONTROL_PREPARATION_NATIVE_DISPATCH_REQUIRES_ACTUAL_RUNTIME_RECOVERY');
+const admitted=JSON.parse(admissionBytes);assert.deepEqual(admitted.selection,grant.selection);assert.deepEqual(admitted.actualClose,binding.actualClose);assert.deepEqual(admitted.sourceBefore,await (async()=>{const path=join(dir,'SOURCE_BEFORE.json'),b=await readFile(path);return {path,bytes:b.length,sha256:hash(b)};})());
+assert.deepEqual(binding.bindingOverlayFields,['binding','catalog','catalogView'],'Only the maintained native-author binding/catalog overlay is permitted; actual current close is retained');
+assert.deepEqual(Object.keys(w.workOrders),['construction']);assert(Array.isArray(w.workOrders.construction.instructions));
+assert(w.workOrders.construction.instructions.length>0&&w.workOrders.construction.instructions.every(s=>typeof s==='string'&&s.trim().length>1),'Instructions must remain complete strings');
+assert.equal(new Set(w.workOrders.construction.readFirst).size,w.workOrders.construction.readFirst.length);
+assert(w.workOrders.construction.readFirst.every(p=>w.readRoots.includes(p)));
+assert.deepEqual(w.workOrders.construction.writeRoots,grant.nativeWriteRoots);assert.equal(grant.newFilesExpectedAfterConstruction.length,0);
+const authorBindingBytes=await readFile(binding.retainedAuthorBinding.path);assert.equal(hash(authorBindingBytes),binding.retainedAuthorBinding.sha256);assert.equal(authorBindingBytes.length,binding.retainedAuthorBinding.bytes);
+const authorBinding=JSON.parse(authorBindingBytes);assert.equal(authorBinding.installedRoot,retained.installedRoot);assert.deepEqual(authorBinding.workspaceAuthority,retained.workspaceAuthority);
+const actualLatestClose=structuredClone(retained.state.closeHandoff);
+for(const key of binding.bindingOverlayFields){assert(['binding','catalog','catalogView'].includes(key));retained.state[key]=authorBinding.state[key];}
+assert.deepEqual(retained.state.closeHandoff,actualLatestClose);assert.equal(retained.state.environment,null);
+const work=retained.workspaceAuthority.canonicalRoot;assert.equal(work,grant.worksiteRoot);assert.equal(hash(await readFile(binding.resume.path)),binding.resume.sha256);assert.deepEqual(retained.state.closeHandoff.prefix,binding.actualClosePrefix);assert.equal(retained.state.resource,null);assert.equal(retained.state.selection,null);
+assert.equal(execFileSync('/usr/bin/git',['-C',work,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),grant.sourceCommit);execFileSync('/usr/bin/git',['-C',work,'diff','--cached','--quiet']);
+for(const f of (await json(join(dir,'SOURCE_BEFORE.json'))).files){const b=await readFile(join(work,f.relativePath));assert.equal(hash(b),f.sha256,f.relativePath);assert.equal(b.length,f.bytes,f.relativePath);}
+const config={...retained.config,processTimeoutMs:profile.outerTimeoutMs,sourceCommit:grant.sourceCommit,runId:'release-qualification-rc7-overhead-author-01',provider:profile.provider,toolchainEnvironment:profile.runtimeEnvironment};
+assert(getHeapStatistics().heap_size_limit>=8192*1024*1024);const environment=workerEnvironment(config);
+for(const k of Object.keys(process.env))if(/CLAUDE|ANTHROPIC|OPENAI|AZURE_OPENAI|PROVIDER/iu.test(k)||['HOME','PATH','TMPDIR','LANG','LC_ALL','NPM_CONFIG_CACHE'].includes(k))delete process.env[k];Object.assign(process.env,environment);
+const runtime=await installedModules(retained.installedRoot),{product,abg,api}=runtime;
+const nativeOwner=await import(pathToFileURL(join(retained.installedRoot,'build/code/src/product/native_workspace_work.js'))),actor=await import(pathToFileURL(join(retained.installedRoot,'build/code/src/abg/actor_process.js')));
+await mkdir(join(dir,'execution'));const record=(p,v,raw=false)=>exclusiveRecord(join(dir,'execution'),p,v,raw);
+const caller=publicCaller({root:join(dir,'execution'),runtime,native:retained.native,config,record,command:()=>{throw Error('No execution during preparation')},actorRef:'actor://abiogenesis/operator/codex-root'});
+Object.assign(caller.state,retained.state);caller.installedRoot=retained.installedRoot;caller.workspaceAuthority=retained.workspaceAuthority;
+const env=caller.refresh();assert.equal(env.workspaceBinding.roots.productRoot,retained.installedRoot,'Root Program requires its exact owner install as Product root');for(const install of env.productInstalls)assert(await product.installedProductContentMatches(install));
+// This direct-native path retains its one caller and exact acquired environment.
+// A separate same-process caller, if selected later, must consume refresh(env.prefix).
+const log=fileURLToPath(binding.actualClosePrefix.eventLogRef),logBytes=await readFile(log);assert.equal(logBytes.length,binding.actualClosePrefix.prefixLength);assert.equal('sha256:'+hash(logBytes),binding.actualClosePrefix.prefixDigest);
+const context=await product.observeWorksiteContext({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,protectedInstallRoots:env.productInstalls.map(i=>i.installedRoot),readRoots:w.readRoots,maxFiles:w.maxContextFiles,maxBytes:w.maxContextBytes});assert.equal(context.kind,'worksite_context_observation');
+const entries=new Map(context.entries.map(e=>[e.relativePath,e])),future=new Set(grant.expectedFutureFiles);for(const p of w.testing.selectedPaths)assert.equal(entries.get(p)?.state,future.has(p)?'absent':'file',p);for(const s of w.sources)assert.equal(entries.get(s.path)?.digest,s.digest,s.path);
+await record('run.json',{kind:'existing_native_author_program_preparation',sourceCommit:grant.sourceCommit,sourceBasis:'none',providerCalls:0,RunAdmissions:0,programRef:product.NATIVE_WORKSPACE_WORK_IDS.programRef});
+let input;const ids=product.NATIVE_WORKSPACE_WORK_IDS,order=w.workOrders.construction,ns='abiogenesis/t287/rc7-overhead-author-01';
+const constructed=await api.constructInstalledStartCall({selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},programRef:ids.programRef,catalog:caller.state.catalog,catalogView:caller.state.catalogView,applications:[],admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(env.artifactTruth,i),actorRef:caller.actorRef,
+ input:{factory:({workspaceBinding,grants})=>{assert.equal(grants.length,1);input=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:order.outcome,instructions:order.instructions,readFirst:order.readFirst,writeRoots:order.writeRoots,checks:order.checks});assert(product.isNativeWorkspaceWorkTask(input));assert.equal(input.assessment,undefined);return input;}},inputValueRef:'value://'+ns+'/input',source:{kind:'none'},eventResource:caller.reopen(),envelope:{definitionContractCoordinates:retained.native.verified.definitionContractCoordinates,requestRef:'request://'+ns+'/start',correlationRef:'correlation://'+ns,eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'ROOT_CONTROL_ADMISSION.json')).href]}});
+assert.equal(constructed.kind,'installed_start_call',JSON.stringify(constructed));const call=constructed.call;
+const renderedBytes=Buffer.byteLength(nativeOwner.renderNativeWorkspaceWorkOrder(input)),reserveBytes=131072;assert(renderedBytes+reserveBytes<w.maxPromptBytes,'Native work order exceeds selected prompt budget');
+const capacity={kind:'actual_existing_native_order_render_measurement',renderedNativeOrderBytes:renderedBytes,maxPromptBytes:w.maxPromptBytes,reserveBytes,fitsWithReserve:true,providerCalls:0,RunAdmissions:0,limits:['Actual owner work-order text, not complete transport/instruction assembly. Existing dispatch owners apply actual remaining guards.','No selector is part of the selected one-node native author Program.']};await writeFile(join(dir,'NATIVE_CAPACITY_PREFLIGHT.json'),JSON.stringify(capacity,null,2)+'\n',{flag:'wx'});
+await record('input.json',input);await record('prepared-call.json',call);assert.equal(hash(await readFile(log)),hash(logBytes),'Preparation changed event prefix');
+const prepared={status:'PREPARED_NOT_DISPATCHED',programRef:ids.programRef,startRef:ids.startRef,sourceCommit:grant.sourceCommit,heldSourceSnapshotSha256:hash(await readFile(join(dir,'SOURCE_BEFORE.json'))),worksite:work,installedRoot:retained.installedRoot,contextDigest:context.observationDigest,observedEntries:context.entries.length,selectedFiles:w.testing.selectedPaths.length,commands:0,ambientEnvironment:actor.selectedWorksiteCommandAmbientEnvironment(),eventPrefix:caller.state.closeHandoff.prefix,inputCanonicalDigest:product.sha256Canonical(input),callCanonicalDigest:product.sha256Canonical(call),callFileSha256:hash(await readFile(join(dir,'execution/prepared-call.json'))),workloadSha256:hash(await readFile(join(dir,'workload.json'))),runtimeEnvironment:profile.runtimeEnvironment,capacity,providerCalls:0,RunAdmissions:0,meaning:'Existing one-node NativeWork Program; author receives fresh CLI context with preserved current source baseline and Root-selected complete logical-owner consolidation controls. Separate clean C2/UAT remains unperformed.'};
+await record('PREPARED_CALL.json',prepared);await record('resume.json',{...retained,config});console.log(JSON.stringify({status:prepared.status,programRef:ids.programRef,selectedFiles:prepared.selectedFiles,contextDigest:prepared.contextDigest,renderedNativeOrderBytes:renderedBytes,callCanonicalDigest:prepared.callCanonicalDigest}));

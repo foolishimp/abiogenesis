@@ -1,0 +1,7 @@
+{
+  "marker": "RC9_OWN01_OBSERVATIONS ",
+  "lines": [],
+  "observations": null,
+  "failure": "AssertionError [ERR_ASSERTION]: one final OWN diagnostic required\n\n0 !== 1\n",
+  "standing": "Existing final test diagnostic; no counter reinterpretation or additional acceptance claim."
+}

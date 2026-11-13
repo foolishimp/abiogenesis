@@ -1,0 +1,8 @@
+{
+  "kind": "actual_native_metadata_observation_source",
+  "eventOrdinal": 77470,
+  "transportBindingRef": "transport-binding://abiogenesis/59c1662ffe87339cd34a70c07d117b59a12c3bf41413d149767cc0f3d3559c7e",
+  "transportBindingDigest": "sha256:59c1662ffe87339cd34a70c07d117b59a12c3bf41413d149767cc0f3d3559c7e",
+  "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-355a0a0e2270c2a4-stdout.log",
+  "limits": "Read only allowlisted tool_use metadata and terminal counters; no raw reasoning/narrative/tool_result orstderr."
+}

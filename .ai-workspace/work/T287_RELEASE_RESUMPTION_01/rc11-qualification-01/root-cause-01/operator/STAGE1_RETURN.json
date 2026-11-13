@@ -1,0 +1,823 @@
+{
+  "status": "STAGE1_DIAGNOSTIC_FROZEN",
+  "utc": "2026-11-09T16:10:04.547665+00:00",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/READY.json",
+    "bytes": 2342,
+    "sha256": "850884de028befc98070e2f235a020e45b51a0fcd002697a9366988189450b52"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3746,
+    "sha256": "60fb7c0288151fa35392ec1e1375c96aa4c708f9a5068b6298e504d55880ac96"
+  },
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/PLAN.json",
+    "bytes": 2977,
+    "sha256": "1bae993918f7fa7b8788df251f2b29bd6f5db61c262a16f86d535d2778dff07f"
+  },
+  "transform": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/SOURCE_TRANSFORM.json",
+    "bytes": 2058,
+    "sha256": "1b368396cacfbeefa8686719480de3c82d295b866c2b611b93195348e0c87c2a"
+  },
+  "exactDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/SOURCE_TRANSFORM.diff",
+    "bytes": 12213,
+    "sha256": "0be1df9b01f327f975cc0760203d29bb032e6d0082d7e2d7511d330390b299af"
+  },
+  "runReceipt": {
+    "path": "/private/tmp/abg-rc11-root-cause-20261110-01/run-01/six-case-diagnostic/RETURN.json",
+    "bytes": 5448,
+    "sha256": "df3ba2dc8cf6fa6c71b182159bf40b4b7087b3d4660edbce8f820f1ad056fe3c"
+  },
+  "finalRunnerReceipt": {
+    "path": "/private/tmp/abg-rc11-root-cause-20261110-01/run-01/FINAL_RETURN.json",
+    "bytes": 1234,
+    "sha256": "ad7bfdb560011ff5ff74442783f9618d4b6162483ef8ca2be104401487d91503"
+  },
+  "tap": {
+    "tests": 6,
+    "pass": 6,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "wallSeconds": 5.253993833000001,
+  "exitCode": 0,
+  "groupAbsent": true,
+  "outerCleanupNeeded": false,
+  "ownerRecords": [
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/command-TERM/record.json",
+      "bytes": 17200,
+      "sha256": "eb1ee62acfcbc33810cddf30757d62cbf4298cb74dbf5cceeb866c2bdc1e462c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/command-normal/record.json",
+      "bytes": 14890,
+      "sha256": "bfed806d8be14a76817d9b59580652124ab2877b5fa6ddacd56ef0aaff6ceda2"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/http-TERM/record.json",
+      "bytes": 22077,
+      "sha256": "5134adfb330476a0f73241ca596dec33afa2c2b7e4c410f50ae145cb882cf92e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/http-normal/record.json",
+      "bytes": 19350,
+      "sha256": "a3cde00b86739018b917199e68153678342d797872a960d3e54b1df45e3da5c3"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/post-exit-output/record.json",
+      "bytes": 15078,
+      "sha256": "21ae95dedf0d15595c17adf7c187bb2833006481aa9f0bce238c2b842fa5336f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/post-timeout-output/record.json",
+      "bytes": 9803,
+      "sha256": "70f0fc35a06f33c04987e7b28b97484902e04d88375728549570b331b0ea993f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/progress-worker/record.json",
+      "bytes": 9723,
+      "sha256": "61731ee1c7383ba35872c5cc72ad6fa367848ff714301ebb3cde902c11d0e8a5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/resistant-worker/record.json",
+      "bytes": 12561,
+      "sha256": "e7162123b475d51e92b6aeebcf5fc78695b267c6b3d2990df439e411d17becf6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/unadmitted-progress-worker/record.json",
+      "bytes": 10082,
+      "sha256": "f5a76d17a5f02d83af052ccedfabcebc90d0cc663a9cbfcc200a3204ba2a88cb"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/worker-TERM/record.json",
+      "bytes": 15841,
+      "sha256": "a35c9bdfc8c1670c9b76d18649b46d9016a1f60273e69dfab2c462ba78bf1b2c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/worker-normal/record.json",
+      "bytes": 11189,
+      "sha256": "bf0f269aeb4893bf5575a9287fa440d9109db42aea2614ceb97013cb3500fc0c"
+    }
+  ],
+  "workerSidecars": [
+    {
+      "role": "command-TERM-descendant.mjs",
+      "pid": 77834,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 12.035792,
+      "eventCount": 5,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/command-TERM-descendant.mjs.jsonl",
+        "bytes": 1106,
+        "sha256": "61e6c1879a139b914a23629fe687db9115dd5a9fa9d9f2e33093f8f8a62d0acc"
+      }
+    },
+    {
+      "role": "command-TERM-leader.mjs",
+      "pid": 77833,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 13.190999999999999,
+      "eventCount": 12,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/command-TERM-leader.mjs.jsonl",
+        "bytes": 2646,
+        "sha256": "5eea94f9c9c4e1d21245a72ae3b30189f8e1bf973624310d55f18beefd819647"
+      }
+    },
+    {
+      "role": "command-normal-descendant.mjs",
+      "pid": 77832,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 10.826584,
+      "eventCount": 5,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/command-normal-descendant.mjs.jsonl",
+        "bytes": 1109,
+        "sha256": "1dfabf371b3f1bf121e58f9a686c45458cc879810805e64e058dcdf9c0cf1b67"
+      }
+    },
+    {
+      "role": "command-normal-leader.mjs",
+      "pid": 77831,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 14.395,
+      "eventCount": 13,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/command-normal-leader.mjs.jsonl",
+        "bytes": 2795,
+        "sha256": "1c25c1d088b48b1d78efcd10a767ad0eb6055de0d021c4b89098b2f8b4636bcc"
+      }
+    },
+    {
+      "role": "http-TERM-descendant.mjs",
+      "pid": 77845,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 12.099292,
+      "eventCount": 5,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/http-TERM-descendant.mjs.jsonl",
+        "bytes": 1087,
+        "sha256": "18906ee2fb60f007fec54adfbb643b6160fead65fed4bb6b4829ddf9da39e2ed"
+      }
+    },
+    {
+      "role": "http-TERM-leader.mjs",
+      "pid": 77844,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 13.687209000000001,
+      "eventCount": 14,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/http-TERM-leader.mjs.jsonl",
+        "bytes": 3129,
+        "sha256": "c9cb9cd7862c5c68c6d012e6432bf957ec00ecdab38d1fe0827ab933375b3789"
+      }
+    },
+    {
+      "role": "http-normal-descendant.mjs",
+      "pid": 77843,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 12.414208,
+      "eventCount": 5,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/http-normal-descendant.mjs.jsonl",
+        "bytes": 1096,
+        "sha256": "9116aca2f754a49aa70bd8ca916d043838007c606222d9054afc8156caca08c2"
+      }
+    },
+    {
+      "role": "http-normal-leader.mjs",
+      "pid": 77842,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 13.352833,
+      "eventCount": 15,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/http-normal-leader.mjs.jsonl",
+        "bytes": 3292,
+        "sha256": "8560e38e09af0c75c5d3585870998d3e10422969ea3cc16da7a34aab3c4852b1"
+      }
+    },
+    {
+      "role": "post-exit-descendant.mjs",
+      "pid": 77861,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 10.585667,
+      "eventCount": 2,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/post-exit-descendant.mjs.jsonl",
+        "bytes": 334,
+        "sha256": "d9c59b6ccb18d1b279cc24da1f1476c7672e242aba43cc12f816ff918f3494ec"
+      }
+    },
+    {
+      "role": "post-exit-worker.mjs",
+      "pid": 77860,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 12.7255,
+      "eventCount": 6,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/post-exit-worker.mjs.jsonl",
+        "bytes": 1138,
+        "sha256": "9bcbdf906e16ae3b4c130f7c18f1dc86fd3b904413cee5e969979b92f0ab69ea"
+      }
+    },
+    {
+      "role": "post-timeout-worker.mjs",
+      "pid": 77809,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 11.271457999999999,
+      "eventCount": 9,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/post-timeout-worker.mjs.jsonl",
+        "bytes": 1835,
+        "sha256": "c85d3be340c178b564fbd8ee6622d641ab6dba0b4d98e6cda769b573b45cde1f"
+      }
+    },
+    {
+      "role": "progress-worker.mjs",
+      "pid": 77806,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 12.691792,
+      "eventCount": 27,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/progress-worker.mjs.jsonl",
+        "bytes": 5919,
+        "sha256": "7e90a950db7eddd27da936c6624a86b2b7dfb51f7216cf493bb8b624e472518e"
+      }
+    },
+    {
+      "role": "resistant-worker.mjs",
+      "pid": 77805,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 9.82675,
+      "eventCount": 56,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/resistant-worker.mjs.jsonl",
+        "bytes": 12742,
+        "sha256": "6ebace48ed5a960d037db835565e1081a7b0a79a51f418d909128fb62c991c6e"
+      }
+    },
+    {
+      "role": "unadmitted-progress-worker.mjs",
+      "pid": 77807,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 12.879083,
+      "eventCount": 16,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/unadmitted-progress-worker.mjs.jsonl",
+        "bytes": 3699,
+        "sha256": "be2c10fae1f77750302cbacf4204caebf5156b173a45cd7dd3821af0d8853129"
+      }
+    },
+    {
+      "role": "worker-TERM-descendant.mjs",
+      "pid": 77815,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 11.498541,
+      "eventCount": 5,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/worker-TERM-descendant.mjs.jsonl",
+        "bytes": 1099,
+        "sha256": "a71072a3b22c5862e8647fd972d795700af66a3d3db8125bff68f4c774053f19"
+      }
+    },
+    {
+      "role": "worker-TERM-leader.mjs",
+      "pid": 77814,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 12.454208,
+      "eventCount": 12,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/worker-TERM-leader.mjs.jsonl",
+        "bytes": 2633,
+        "sha256": "8ddfd2bd2595baad065ba3fb43aafd1574c0d2c66982e43597959bca826c2d4d"
+      }
+    },
+    {
+      "role": "worker-normal-descendant.mjs",
+      "pid": 77812,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 13.056583999999999,
+      "eventCount": 5,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/worker-normal-descendant.mjs.jsonl",
+        "bytes": 1106,
+        "sha256": "95db8e3ebb10482f9b9b5a6a8158bbffae51ab3b0c398aae6b42572e0beee123"
+      }
+    },
+    {
+      "role": "worker-normal-leader.mjs",
+      "pid": 77811,
+      "bodyEntryObserved": true,
+      "bodyEntryProcessUptimeMs": 11.306125,
+      "eventCount": 14,
+      "currentlyAbsent": true,
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/worker-normal-leader.mjs.jsonl",
+        "bytes": 2974,
+        "sha256": "45ae800d615b2bbddbfd02ba6f11b5fd9330d26302ef25dafa3a42c5111a039a"
+      }
+    }
+  ],
+  "fixtureSources": [
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/command-TERM-descendant.mjs.instrumented",
+      "bytes": 3726,
+      "sha256": "26451bb9b4441f4554d6855eb3de921d1d3c58d0a9fcba631f160c38971c6dc3"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/command-TERM-descendant.mjs.original",
+      "bytes": 267,
+      "sha256": "4dffd988289bb1de031e3b55f8a385c2b6c08eab13df5e7b91f01044b27ae6ca"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/command-TERM-leader.mjs.instrumented",
+      "bytes": 4110,
+      "sha256": "8261f42538511a60a06420e56d952c0a41b7eec9d1debc7052a05261afc50a6b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/command-TERM-leader.mjs.original",
+      "bytes": 653,
+      "sha256": "cfb602ef060016cefa5098be30f676c0da0cfd64475a19df3bb498b5bae22ca5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/command-normal-descendant.mjs.instrumented",
+      "bytes": 3732,
+      "sha256": "6eacc10cc05006266da540d9d2133d551ec6b46f0ae3ce2fbd9fd743b02211e3"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/command-normal-descendant.mjs.original",
+      "bytes": 269,
+      "sha256": "4da9515fbc7193eef13e16efdc8da5bb545a2c52ab5a8a4a8bcfa3614e73e814"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/command-normal-leader.mjs.instrumented",
+      "bytes": 4111,
+      "sha256": "fe85bded17b2a944cc8636260661390289a7342d54cfa14c13457df2aa86e6f3"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/command-normal-leader.mjs.original",
+      "bytes": 650,
+      "sha256": "68253c1cd786f78bd1d7e1b896cae6b101fc36e56189858abb0dda865d015646"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/http-TERM-descendant.mjs.instrumented",
+      "bytes": 3717,
+      "sha256": "9c15f79350cde73908c91456d02621da422b8f0343bfdc3c5bb51a0f5fdb8908"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/http-TERM-descendant.mjs.original",
+      "bytes": 264,
+      "sha256": "5f12362cfc552ae9c9e9a808793d3a76804e58ed6f5227a5aadf38591955d7c1"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/http-TERM-leader.mjs.instrumented",
+      "bytes": 4211,
+      "sha256": "3dc10249f30106533edbdef0c8f854667879793ab3537c8d4793aa52c4115996"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/http-TERM-leader.mjs.original",
+      "bytes": 753,
+      "sha256": "7d49d46568e6cc972ee73a87db1ee3d5273f9b9110050b2a748ce0cd4d72858c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/http-normal-descendant.mjs.instrumented",
+      "bytes": 3723,
+      "sha256": "30a7ecc0b8215aaf369c115ad2e7e7ba0a89c0be730bd6301e4d8d7ad75a584e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/http-normal-descendant.mjs.original",
+      "bytes": 266,
+      "sha256": "c9d557a46a2118c22f34ce8c67f14440e895c0997d14bc0091b516071b57625d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/http-normal-leader.mjs.instrumented",
+      "bytes": 4214,
+      "sha256": "be96119cded8e2a502b9777e67d547bcd1a014ff624ab34e9d621fa5351009a6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/http-normal-leader.mjs.original",
+      "bytes": 752,
+      "sha256": "07869f15fef5c9716631b50760342cabb69bbc542ae5a34eae9c16b3a94841c8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/post-exit-descendant.mjs.instrumented",
+      "bytes": 3721,
+      "sha256": "b957e5905e4eb632f3161f1fe083221816a4c53c2808d2ea5f0db42c359ff32e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/post-exit-descendant.mjs.original",
+      "bytes": 275,
+      "sha256": "f54fbe8d1883e4303612ab5998717cc2f0876dbed2ecd5b676ec18427bc8d62e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/post-exit-worker.mjs.instrumented",
+      "bytes": 3760,
+      "sha256": "e4efa27856ad8dc08ce43f9512b1e0a9a015817fdd66d369bf8f33d1f7123ac4"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/post-exit-worker.mjs.original",
+      "bytes": 316,
+      "sha256": "187ba9d30ecbfbb00faf3de5dfcb00f04706da1460fbfd1733b6345a1c5e92e8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/post-timeout-worker.mjs.instrumented",
+      "bytes": 3757,
+      "sha256": "a60274f4eae1c431cac264a01cf3f60391a2c8c94c966231a4880603f17a4717"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/post-timeout-worker.mjs.original",
+      "bytes": 313,
+      "sha256": "76214d40f6258baf9b3ba0cb28c44c8089944ff7828fb70036393396fbf810d5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/progress-worker.mjs.instrumented",
+      "bytes": 3740,
+      "sha256": "950d7e6bd0731c358ce55c3daeb6ebc2ba549ed071f6eeb15f37cbea6666891c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/progress-worker.mjs.original",
+      "bytes": 304,
+      "sha256": "6b09a5235d5f04a5b64c993628949822f0a9ff9b3a0ed9dcde473919749c08cb"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/resistant-worker.mjs.instrumented",
+      "bytes": 3590,
+      "sha256": "80862da71f516ecedf31712873f527a58f1d9c4d2c2fbdecb8c222922ec03c79"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/resistant-worker.mjs.original",
+      "bytes": 152,
+      "sha256": "a0672576535ad5756c7541da4119a624039d8895c048e7f7f2b1dc9517326170"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/unadmitted-progress-worker.mjs.instrumented",
+      "bytes": 3539,
+      "sha256": "f6c2e27a6edffc0c5e9122d7ea83cd0f8d2db36ae6eb20d13a038c9a36f12cf3"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/unadmitted-progress-worker.mjs.original",
+      "bytes": 81,
+      "sha256": "034eaab7022a0adce41dec2af605660d092403941745e4e8f714ed30b5bb268f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/worker-TERM-descendant.mjs.instrumented",
+      "bytes": 3723,
+      "sha256": "0f1ffb7eb327a9093297ae389fcd76ccc7807d7dccc4b34a081f2cda7020a811"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/worker-TERM-descendant.mjs.original",
+      "bytes": 266,
+      "sha256": "d739ea113a2c001964c4623e686867bdd11795c3a0b825cfcc9bf197e4180b5f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/worker-TERM-leader.mjs.instrumented",
+      "bytes": 4105,
+      "sha256": "6c32e0abceb7bd6c7aa93526b2cfffde6e86d29e107d896d873e392ac7bf4815"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/worker-TERM-leader.mjs.original",
+      "bytes": 650,
+      "sha256": "8ab398798e25c964fa23992aeec42eb18ac96078101218805998b77610141b33"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/worker-normal-descendant.mjs.instrumented",
+      "bytes": 3729,
+      "sha256": "69c0b906cdf0778a1f0b58eb4ec228517504b17049b953c161c1145a179f8063"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/worker-normal-descendant.mjs.original",
+      "bytes": 268,
+      "sha256": "7a3bfc8c98e0902c2952f4cb53584f07f28b166e1159f7669f8a4ca2ff74c0bc"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/worker-normal-leader.mjs.instrumented",
+      "bytes": 4106,
+      "sha256": "19c811132b60e164e4de53ee2724140724e7e730c27195572ce0299a022bd7ac"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/fixture-sources/worker-normal-leader.mjs.original",
+      "bytes": 647,
+      "sha256": "fa299c104881cefb3542c4dca8bdf51806583db8919415a4b8b97ecd98707081"
+    }
+  ],
+  "causalJoins": [
+    {
+      "label": "resistant-worker",
+      "record": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/resistant-worker/record.json",
+        "bytes": 12561,
+        "sha256": "e7162123b475d51e92b6aeebcf5fc78695b267c6b3d2990df439e411d17becf6"
+      },
+      "workerSidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/resistant-worker.mjs.jsonl",
+        "bytes": 12742,
+        "sha256": "6ebace48ed5a960d037db835565e1081a7b0a79a51f418d909128fb62c991c6e"
+      },
+      "workerPid": 77805,
+      "parentStartedPid": 77805,
+      "writeIntentCount": 18,
+      "writeCallsReturnedCount": 17,
+      "returnedWriteBytesEqualParentRawStdout": true,
+      "parentStdoutCallbacks": 17,
+      "firstStdoutAtParentMs": 53.731375000000014,
+      "originalAckValues": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parentTimeoutObservations": [
+        {
+          "atMs": 353.9822500000001,
+          "class": "absolute"
+        }
+      ],
+      "parentSignalRequests": [
+        {
+          "atMs": 354.123125,
+          "signal": "SIGTERM"
+        },
+        {
+          "atMs": 431.47487500000005,
+          "signal": "SIGKILL"
+        }
+      ],
+      "result": {
+        "status": null,
+        "signal": "SIGKILL",
+        "timedOut": true,
+        "timeoutClass": "absolute",
+        "failureClass": "transport_failure",
+        "terminationConfirmed": true,
+        "finalOutput": "started\nstill-running\nstill-running\nstill-running\nstill-running\nstill-running\nstill-running\nstill-running\nstill-running\nstill-running\nstill-running\nstill-running\nstill-running\nstill-running\n"
+      }
+    },
+    {
+      "label": "progress-worker",
+      "record": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/progress-worker/record.json",
+        "bytes": 9723,
+        "sha256": "61731ee1c7383ba35872c5cc72ad6fa367848ff714301ebb3cde902c11d0e8a5"
+      },
+      "workerSidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/progress-worker.mjs.jsonl",
+        "bytes": 5919,
+        "sha256": "7e90a950db7eddd27da936c6624a86b2b7dfb51f7216cf493bb8b624e472518e"
+      },
+      "workerPid": 77806,
+      "parentStartedPid": 77806,
+      "writeIntentCount": 8,
+      "writeCallsReturnedCount": 8,
+      "returnedWriteBytesEqualParentRawStdout": true,
+      "parentStdoutCallbacks": 8,
+      "firstStdoutAtParentMs": 45.55625000000009,
+      "originalAckValues": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parentTimeoutObservations": [],
+      "parentSignalRequests": [],
+      "result": {
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "timeoutClass": null,
+        "failureClass": null,
+        "terminationConfirmed": true,
+        "finalOutput": "progress-0\nprogress-1\nprogress-2\nprogress-3\nprogress-4\nprogress-5\nprogress-6\ncomplete\n"
+      }
+    },
+    {
+      "label": "unadmitted-progress-worker",
+      "record": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/unadmitted-progress-worker/record.json",
+        "bytes": 10082,
+        "sha256": "f5a76d17a5f02d83af052ccedfabcebc90d0cc663a9cbfcc200a3204ba2a88cb"
+      },
+      "workerSidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/unadmitted-progress-worker.mjs.jsonl",
+        "bytes": 3699,
+        "sha256": "be2c10fae1f77750302cbacf4204caebf5156b173a45cd7dd3821af0d8853129"
+      },
+      "workerPid": 77807,
+      "parentStartedPid": 77807,
+      "writeIntentCount": 5,
+      "writeCallsReturnedCount": 4,
+      "returnedWriteBytesEqualParentRawStdout": true,
+      "parentStdoutCallbacks": 4,
+      "firstStdoutAtParentMs": 69.22754200000008,
+      "originalAckValues": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "parentTimeoutObservations": [
+        {
+          "atMs": 153.77758399999993,
+          "class": "inactivity"
+        }
+      ],
+      "parentSignalRequests": [
+        {
+          "atMs": 153.80558399999995,
+          "signal": "SIGTERM"
+        }
+      ],
+      "result": {
+        "status": null,
+        "signal": "SIGTERM",
+        "timedOut": true,
+        "timeoutClass": "inactivity",
+        "failureClass": "transport_failure",
+        "terminationConfirmed": true,
+        "finalOutput": "unadmitted\nunadmitted\nunadmitted\nunadmitted\n"
+      }
+    },
+    {
+      "label": "post-timeout-output",
+      "record": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/post-timeout-output/record.json",
+        "bytes": 9803,
+        "sha256": "70f0fc35a06f33c04987e7b28b97484902e04d88375728549570b331b0ea993f"
+      },
+      "workerSidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/post-timeout-worker.mjs.jsonl",
+        "bytes": 1835,
+        "sha256": "c85d3be340c178b564fbd8ee6622d641ab6dba0b4d98e6cda769b573b45cde1f"
+      },
+      "workerPid": 77809,
+      "parentStartedPid": 77809,
+      "writeIntentCount": 1,
+      "writeCallsReturnedCount": 1,
+      "returnedWriteBytesEqualParentRawStdout": true,
+      "parentStdoutCallbacks": 1,
+      "firstStdoutAtParentMs": 165.23295899999994,
+      "originalAckValues": [
+        null
+      ],
+      "parentTimeoutObservations": [
+        {
+          "atMs": 153.20291699999984,
+          "class": "inactivity"
+        }
+      ],
+      "parentSignalRequests": [
+        {
+          "atMs": 153.24320899999998,
+          "signal": "SIGTERM"
+        }
+      ],
+      "result": {
+        "status": 0,
+        "signal": null,
+        "timedOut": true,
+        "timeoutClass": "inactivity",
+        "failureClass": "transport_failure",
+        "terminationConfirmed": true,
+        "finalOutput": ""
+      }
+    },
+    {
+      "label": "post-exit-output",
+      "record": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/records/post-exit-output/record.json",
+        "bytes": 15078,
+        "sha256": "21ae95dedf0d15595c17adf7c187bb2833006481aa9f0bce238c2b842fa5336f"
+      },
+      "workerSidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/sidecars/post-exit-worker.mjs.jsonl",
+        "bytes": 1138,
+        "sha256": "9bcbdf906e16ae3b4c130f7c18f1dc86fd3b904413cee5e969979b92f0ab69ea"
+      },
+      "workerPid": 77860,
+      "parentStartedPid": 77860,
+      "writeIntentCount": 0,
+      "writeCallsReturnedCount": 0,
+      "returnedWriteBytesEqualParentRawStdout": true,
+      "parentStdoutCallbacks": 0,
+      "firstStdoutAtParentMs": null,
+      "originalAckValues": [],
+      "parentTimeoutObservations": [],
+      "parentSignalRequests": [
+        {
+          "atMs": 120.39991699999973,
+          "signal": "SIGTERM"
+        }
+      ],
+      "result": {
+        "status": 47,
+        "signal": null,
+        "timedOut": false,
+        "timeoutClass": null,
+        "failureClass": "transport_failure",
+        "terminationConfirmed": true,
+        "finalOutput": ""
+      }
+    }
+  ],
+  "findings": [
+    "All six original assertions pass in this one observed sample; all11 owner calls and18 actor bodies were observed. No unchanged repeat is needed or selected.",
+    "Force fixture installed and entered its existing SIGTERM handler; acknowledged captures preceded actual absolute timeout and SIGKILL.",
+    "Progress fixture emitted all seven numbered progress records plus complete; eight parent callbacks acknowledged true; same raw output returned successfully. This sample does not falsify the callback-count criterion.",
+    "Unacknowledged fixture had four parent captures returning false; inactivity timeout occurred. A fifth pre-write intent has no write-return marker and is not credited as emitted output.",
+    "Post-timeout fixture installed/entered its SIGTERM handler, attempted and completed the111-byte late transcript, then intended exit0. Parent observed the late raw bytes after its timeout callback while semantic finalOutput remained empty.",
+    "HTTP-normal published leader, descendant and port metadata; retained full process result status0/no timeout, TERM thenKILL cleanup, confirmed absence. All six grouped modes completed.",
+    "Direct-exit leader intended47 and parent observed47 without timeout. Descendant entered and installed225ms timer, but no timer-fire/write attempt was recorded before group termination. Thus this sample supports cleanup; its no-output assertion did not exercise exclusion of actually produced descendant bytes.",
+    "Every completed/returned stdout write in the five individual fixtures matches parent raw stdout bytes in this sample; pre-write intent alone is not delivery.",
+    "Historical failed actor facts remain erased; no historical startup/load/capture cause is proved by this green diagnostic."
+  ],
+  "instrumentationLimits": [
+    "Fresh relocated compile cache and synchronous fsync sidecars perturb startup/timing; original lease policy/timeouts remain unchanged.",
+    "Child local sequence/time is not equated with parent clock. Parent callbacks are observations, not exact timer-arm/signal-delivery times.",
+    "For descendant-spawn-return rows the pid field denotes the returned child PID; body-entry pid identifies the emitting process.",
+    "Missing marker is not proof of nonexecution; write callback is not proof of parent capture."
+  ],
+  "preservation": {
+    "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+    "compiledInventoryDigest": "16497c6763f0cb07a2227cb0ce6de2445e14044b94c6542d0523adbd1ad18d7c",
+    "protectionPins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29372910,
+        "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+        "bytes": 7591,
+        "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 177987,
+        "sha256": "c0a8a9ed43787dd075a46f23a9d090add6f30164369ca51e415e01053d5613cb"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 828718,
+        "sha256": "17465ae63c2967b22cee48611af7f92d143aba496790fbef1d6ae820e304bd15"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_FINAL_DISPOSITION.json",
+        "bytes": 14965,
+        "sha256": "5d6c3ec6d2094a041e25d5515347f83be0d5bc6694fc12e552089b66b34cf121"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/RETURN.json",
+        "bytes": 7365,
+        "sha256": "c7e0bb71d555452725729a656539d67d1bccccb8a5e2fe3c661b4eab7d47e92a"
+      }
+    ],
+    "productSourceChanged": false,
+    "oldEvidenceChanged": false
+  },
+  "historicalUnitStillRed": true,
+  "followupStanding": "Root separately admitted fixed stage2 counterexamples; none executed in this stage1 receipt."
+}

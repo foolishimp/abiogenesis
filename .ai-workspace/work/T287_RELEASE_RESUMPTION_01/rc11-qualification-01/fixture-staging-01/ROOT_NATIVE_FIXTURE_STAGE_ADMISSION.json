@@ -1,0 +1,25 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE04_EXACT_TWO_FILE_STAGING",
+  "owner": "Root Executive",
+  "utc": "2026-11-09T08:01:06.359814+00:00",
+  "basis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/FINAL_RETURN.json",
+    "bytes": 7638,
+    "sha256": "20c4a39693ac445923e5426096af46f17e60ac772bfdd4c979d4ac19ba8fb82d"
+  },
+  "effect": "Create once exact native04 generated pair in C11; preserve all originals/selected02/main/index/builders. Authentic bounded component input, not test result/qualification. Two actual scripted actors, rejected malformed output, blocked/run_stopped completion; no three-actor or retry-exhaustion claim.",
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/generated/native-assessment/events.jsonl.gz",
+      "bytes": 779443,
+      "sha256": "66162a9332dcabf7410d630551cdf12b4b272c70aa02d777f879a165a7fa8a2e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/generated/native-assessment/fixture.json",
+      "bytes": 8208,
+      "sha256": "2c3330b69ca39febeb0e01760a4b6f7bb1af1758b8b33f2dcc54eeb017e1ecb6"
+    }
+  ],
+  "destination": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment",
+  "setupAndNativeDispatch": false
+}

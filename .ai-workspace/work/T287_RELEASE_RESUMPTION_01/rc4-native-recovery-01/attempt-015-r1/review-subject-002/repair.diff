@@ -1,0 +1,103 @@
+--- subject001/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs
++++ subject002/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs
+@@ -93,6 +93,31 @@
+ function extract(archive, into) {
+   fs.mkdirSync(into, {recursive: true});
+   execFileSync('tar', ['-xzf', archive, '-C', into]);
++  return path.join(into, 'package');
++}
++
++/** Fail closed on the declared C2 baseline input; returns the exact hashed bytes. */
++function baselineArchiveBytes() {
++  const archive = process.env.ABI5_HC1_BASELINE_PACKAGE_PATH;
++  assert.ok(typeof archive === 'string' && archive.length > 0,
++    'ABI5_HC1_BASELINE_PACKAGE_PATH must name the exact014 baseline package (.tgz); schema identity is not assumed');
++  let stat, bytes;
++  try { stat = fs.lstatSync(archive); } catch (error) {
++    assert.fail(`ABI5_HC1_BASELINE_PACKAGE_PATH is unreadable (${error.code}): ${archive}; schema identity is not assumed`);
++  }
++  assert.ok(stat.isFile(), `ABI5_HC1_BASELINE_PACKAGE_PATH is not a regular file: ${archive}; schema identity is not assumed`);
++  try { bytes = fs.readFileSync(archive); } catch (error) {
++    assert.fail(`ABI5_HC1_BASELINE_PACKAGE_PATH is unreadable (${error.code}): ${archive}; schema identity is not assumed`);
++  }
++  assert.equal(createHash('sha256').update(bytes).digest('hex'), BASELINE_SHA256,
++    `ABI5_HC1_BASELINE_PACKAGE_PATH is not the exact014 baseline: ${archive}; schema identity is not assumed`);
++  return bytes;
++}
++
++/** Extracts exactly the verified bytes, not a second read of the path. */
++function extractBytes(bytes, into) {
++  fs.mkdirSync(into, {recursive: true});
++  execFileSync('tar', ['-xzf', '-', '-C', into], {input: bytes, maxBuffer: 1 << 26});
+   return path.join(into, 'package');
+ }
+ 
+@@ -255,33 +280,52 @@
+ });
+ 
+ test('per-slot owner schemas equal the exact014 baseline archive', async t => {
+-  const archive = process.env.ABG_HC1_BASELINE_ARCHIVE;
+-  assert.ok(archive, 'ABG_HC1_BASELINE_ARCHIVE must name the exact014 baseline archive; schema identity is not assumed');
+-  assert.equal(createHash('sha256').update(fs.readFileSync(archive)).digest('hex'), BASELINE_SHA256);
+-  const baseline = await loadPackage(extract(path.resolve(archive), scratch(t, 'abg-hc1-baseline-')));
++  const baseline = await loadPackage(extractBytes(baselineArchiveBytes(), scratch(t, 'abg-hc1-baseline-')));
+   const candidate = await loadPackage(candidatePackage(t));
+-  const slotRows = pkg => {
++  // One row per declared member and slot: the canonical strict JSON projection
++  // of the owner slot schema and the owner contract identity bound to it.
++  const unprojected = [];
++  const slotRows = (pkg, side) => {
+     const rows = new Map();
+     for (const definition of pkg.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions) {
++      const {operationId, memberKey} = definition.definitionKey;
+       for (const slot of SLOTS) {
+         const contract = definition[`${slot}Contract`];
+         const assetSlot = slot === 'nonTerminal' ? 'non_terminal' : slot;
+         const asset = pkg.public.PUBLIC_PROJECTION_PAYLOADS.operationSchemaAssets.find(row =>
+-          row.operationId === definition.definitionKey.operationId && row.slot === assetSlot);
+-        rows.set(`${keyOf(definition)} ${slot}`, canonical(contract === null ? null : {
+-          projectedSchema: asset.content.$defs[definition.definitionKey.memberKey],
+-          contractId: contract.contractId, contractVersion: contract.contractVersion, source: contract.source,
+-          ownerAuthorityRef: contract.ownerAuthorityRef, ownerAuthorityDigest: contract.ownerAuthorityDigest,
+-          nativeSchemaIdentity: contract.nativeSchemaIdentity}));
++          row.operationId === operationId && row.slot === assetSlot);
++        let fields = null;
++        if (contract !== null) {
++          const {schema: _runtimeSchema, ...identity} = contract;
++          const projected = Object.hasOwn(asset?.content?.$defs ?? {}, memberKey);
++          if (!projected) unprojected.push({side, operationId, memberKey, slot});
++          fields = {...identity, projectedSchema: projected ? asset.content.$defs[memberKey] : null};
++        }
++        rows.set(`${operationId}#${memberKey} ${slot}`, {operationId, memberKey, slot,
++          fields: fields === null ? null : Object.fromEntries(Object.keys(fields).map(key => [key, canonical(fields[key])]))});
+       }
+     }
+     return rows;
+   };
+-  const expected = slotRows(baseline), actual = slotRows(candidate);
++  const expected = slotRows(baseline, 'baseline'), actual = slotRows(candidate, 'candidate');
+   assert.equal(expected.size, 56 * SLOTS.length);
+-  assert.deepEqual([...actual.keys()].sort(), [...expected.keys()].sort());
+-  const changed = [...expected].filter(([key, value]) => actual.get(key) !== value).map(([key]) => key);
+-  assert.deepEqual(changed, [], 'runtime owner schema bytes and meanings are unchanged');
+-  t.diagnostic(JSON.stringify({kind: 'hc1_baseline_schema_identity', slots: expected.size, baselineSha256: BASELINE_SHA256,
++  assert.deepEqual(unprojected, [], 'every owner slot contract has its canonical projected schema');
++  const drift = [];
++  for (const key of [...new Set([...expected.keys(), ...actual.keys()])].sort()) {
++    const before = expected.get(key), after = actual.get(key), row = before ?? after;
++    const location = {operationId: row.operationId, memberKey: row.memberKey, slot: row.slot};
++    if (before === undefined || after === undefined) {
++      drift.push({...location, change: before === undefined ? 'slot_added' : 'slot_removed'});
++    } else if ((before.fields === null) !== (after.fields === null)) {
++      drift.push({...location, change: before.fields === null ? 'contract_added' : 'contract_removed'});
++    } else if (before.fields !== null) {
++      const names = [...new Set([...Object.keys(before.fields), ...Object.keys(after.fields)])].sort();
++      const changed = names.filter(name => before.fields[name] !== after.fields[name]);
++      if (changed.length > 0) drift.push({...location, change: 'contract_changed', fields: changed});
++    }
++  }
++  assert.deepEqual(drift, [], `runtime owner slot schemas drift from exact014: ${JSON.stringify(drift)}`);
++  t.diagnostic(JSON.stringify({kind: 'hc1_baseline_schema_identity', slots: expected.size,
++    contracts: [...expected.values()].filter(row => row.fields !== null).length, baselineSha256: BASELINE_SHA256,
+     familyDigestEqual: baseline.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.familyDigest === candidate.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.familyDigest}));
+ });

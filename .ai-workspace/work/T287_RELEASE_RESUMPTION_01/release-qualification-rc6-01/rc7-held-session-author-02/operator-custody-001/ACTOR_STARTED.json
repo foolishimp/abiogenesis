@@ -1,0 +1,27 @@
+{
+  "kind": "native_actor_start_observation",
+  "status": "ACTUAL_ACTOR_STARTED",
+  "recordedUtc": "2026-11-06T15:07:14.782905+00:00",
+  "observationOwner": "Root bounded suffix scan; no event/provider body acquisition by this Writer",
+  "eventKind": "actor_process_started",
+  "eventId": "31f8f77e4b967ae6a602b642c83ffe9db35e8269bd709fcfdcbb87592e328b70",
+  "startedUtc": "2026-11-06T14:49:45.951Z",
+  "pid": 88822,
+  "runId": "4cbc5a3992edb226abb21485b13adea444df2b9bc51264f81995e45a8bcdecf1",
+  "processId": "d7e207a069c35ad5c8be70952a2b97b772ce448828043e4050428d460038e2a0",
+  "cCallId": "97f638518add4700dd7bb8e648bda80d5c9dc1de807cadbcb178282639b678ab",
+  "rootScan": {
+    "startOffset": 1910935493,
+    "bytesRead": 38058194,
+    "rowsRead": 1376,
+    "output": "allowlisted process envelope only",
+    "fullHistoryScan": false
+  },
+  "timing": {
+    "hostToActorMs": 482346.0,
+    "preparedToActorMs": 26039.88937499997,
+    "nativeAbsoluteCapUtc": "2026-11-06T16:19:45.951Z",
+    "standing": "Actual phase separation only; no matched speedup or source qualification."
+  },
+  "controlDisposition": "Root keeps actor active, preserves original controls, and prepares only a separate later operator helper correction. Watch selected HOW/source and first frozen stage; do not invoke the known refusing lane."
+}

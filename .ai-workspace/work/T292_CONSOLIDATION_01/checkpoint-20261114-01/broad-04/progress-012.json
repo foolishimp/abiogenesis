@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/hog-operator-support.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/012-hog-operator-support.test/process.json",
+    "bytes": 1071,
+    "sha256": "28ee1b1cc3876e2ccb145c80200c38d12a84cbc70361e24e02993b31fbb3caae"
+  }
+}

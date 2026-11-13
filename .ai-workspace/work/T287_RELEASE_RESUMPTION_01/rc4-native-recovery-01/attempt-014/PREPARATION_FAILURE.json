@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-02T13:21:13.743Z",
+  "name": "AssertionError",
+  "message": "Current worksite observation refused\n+ actual - expected\n\n+ 'worksite_effect_refusal'\n- 'worksite_context_observation'\n            ^\n",
+  "observation": null,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Preparation refused; no fallback, stale handoff or automatic retry."
+}

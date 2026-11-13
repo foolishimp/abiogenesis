@@ -1,0 +1,54 @@
+{
+  "productFrame": {
+    "families": "F01-F07,F09-F11,F13-F17",
+    "goal": "GOAL-035 / T-287",
+    "slice": "N9 retained component fixture, existing native Testing/UAT closure",
+    "basis": "stdo://releases/v3.0.4/",
+    "authority": "Product/requirements own meaning; current installed owners admit runtime truth; Root operator controls declare sandbox effects; replay projects actual history.",
+    "classification": "Operator test recipe and deterministic evidence; no Product/requirements/HOW change or runtime authority added."
+  },
+  "kind": "root_proof_only_dispatch_review",
+  "at": "2026-11-05T09:18:07.695030+00:00",
+  "result": "satisfied_for_exact_control_dispatch",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/PROOF_ONLY_GRANT.json",
+    "bytes": 4870,
+    "sha256": "5d0bc022218ddac223ded05cd05a0ae30ee37709a6981a672d598531a24f5e29"
+  },
+  "routeReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/RECOVERY_ROUTE_REVIEW.json",
+    "bytes": 36295,
+    "sha256": "5b7cdae5fb99fb3f3a90cc9e28717c3d1867e224fd5985f71d06ad26e6c75893"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/PREFLIGHT_PROCESS_RESULT.json",
+    "bytes": 411,
+    "sha256": "2c342aa76a4f791e6397f9c99ef533ea0722fc4f7e871e3e9a3166c2fa6e4ae2"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/execution/PREPARED_CALL.json",
+    "bytes": 4309,
+    "sha256": "2673f0e923d8183174efb3096cc7e42ee79bbf099f0d221a8c7091e5da2244ae"
+  },
+  "relations": {
+    "sourceNone": true,
+    "actualFailedClose": true,
+    "exactFrozenSource": true,
+    "onlyTestingUat": true,
+    "noSourceWriteRoots": true,
+    "initialObservationsEmpty": true,
+    "initialSynthesisNull": true,
+    "futureFiles": 0,
+    "commands": 4,
+    "outputParentGranted": true,
+    "initialProjectionBytes": 150042,
+    "preparedCallFileBytes": 29417612
+  },
+  "claim": "Controls are dependency-ready for one explicit proof-only Run. Native selector/C2/UAT/closure must actually occur; no future acceptance inferred.",
+  "limits": [
+    "Physical frozen-source reuse only; no invocation retained-source recovery claim",
+    "Initial projection is not complete future native prompt sizing",
+    "This UAT is not formal F11 family-independence qualification"
+  ],
+  "providerScope": "Same bounded profile, no coding Worker, no automatic retry"
+}

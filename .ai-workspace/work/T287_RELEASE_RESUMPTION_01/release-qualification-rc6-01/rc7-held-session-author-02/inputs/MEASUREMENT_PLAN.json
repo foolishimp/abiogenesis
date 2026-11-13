@@ -1,0 +1,17 @@
+{
+  "kind": "bounded_native_correction_measurement_selection",
+  "status": "PROSPECTIVE_FINITE_PROOF",
+  "retainedHS02": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-hs02-once.summary.json",
+    "bytes": 4542,
+    "sha256": "b419f2c2df01c148434dd6763b154adefa7f720b06018c8e01c7a3eacb79d6c0"
+  },
+  "retainScope": "Only unchanged affected owners and exact small fixture; no automatic HS02 repeat or speedup claim.",
+  "newMeasurements": [
+    "Actual maintained fixed Testing/UAT and held/cold terminal agreement timing with600s lane/540s authored case.",
+    "Each finite guard/caller lane duration, final source digest and actual failure if any.",
+    "Setup/acquisition, Worker launch, native work/testing, return/close and between-task delay separate."
+  ],
+  "unchangedBuilderColdReads": 0,
+  "limits": "Post-author cold16.577s is bounded context, not a same-case estimate; integrated600/540 allowance is prospective Root selection."
+}

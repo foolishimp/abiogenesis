@@ -1,0 +1,26 @@
+{
+  "provenance": "Reconstructed initialOrigin from exact setup source createNewEmptyAppendSink request at lines356-360 and current file coordinates; not a captured creation receipt.",
+  "selection": {
+    "initialOrigin": {
+      "newResourceRequest": {
+        "kind": "new_empty_append_sink_request",
+        "schemaVersion": "5.0.0",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/tmp/abi5-root-env-c1Y6ZD/runtime/events.jsonl"
+      },
+      "device": 16777231,
+      "inode": 719753506
+    },
+    "ownerPid": 23372,
+    "expectedCurrent": {
+      "byteLength": 3210242,
+      "digest": "sha256:4d88f0bbde1cb70f28ab7d499bf18d23d2f22cf08d2dcfe2b6cee347faaa2dc6"
+    },
+    "abandonedLock": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/tmp/abiogenesis-event-store-locks-v5/16777231-719753506.lock",
+      "device": 16777231,
+      "inode": 719753508,
+      "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NzE5NzUzNTA2LCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6MjMzNzIsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+      "digest": "sha256:64315e4156ebe900799cde4ebc130d80c44f43238afb1d7798dc4ae2349d7b87"
+    }
+  }
+}

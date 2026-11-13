@@ -1,0 +1,19 @@
+{
+  "status": "ROOT_ADMITTED_SETUP_PREFLIGHT_ONLY",
+  "operator": "Root",
+  "decidedUtc": "2026-11-02T08:19:57.373126+00:00",
+  "bindingSha256": "aa5a17dd9f8f1408d7752cc0e180e0019ee441461686c24aa01bc8a74b2dfb17",
+  "packetSha256": "b13de70f7297ee34a667f535887ce62f1270f3c711bfb94ab8aff84518d9b48f",
+  "witnessSha256": "9efd8c43cc9dac80e854817743dd955db85e0866cc563e801d8151978a4f770d",
+  "allowedStages": [
+    "setup"
+  ],
+  "callSha256": null,
+  "basis": [
+    "Existing T287 and campaign ROOT_SELECTION",
+    "Root independent44 packet pin/5321 candidate member verification and exact002-to003 delta review",
+    "A direct next/default; predeclared B asset and B-specific authority/resources within one immutable Program",
+    "Non-dispatched B preview uses genuine initial input/source:none; actual retained B requires later observed eligible A state"
+  ],
+  "decision": "Root selects setup/preflight and call construction only. No other stage, provider or Run admission is selected. Actual prepared calls require separate Root review/selection. Preserve001/002 and current Product scope; no automatic retry, interface redesign or acceptance follows."
+}

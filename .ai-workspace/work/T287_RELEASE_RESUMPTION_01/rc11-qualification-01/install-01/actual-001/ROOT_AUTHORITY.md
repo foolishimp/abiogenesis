@@ -1,0 +1,2 @@
+Root installation admission {"path":"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/ROOT_EXECUTION_ADMISSION.json","bytes":4675,"sha256":"b2b96c4260d1661142ee554080a26dd7d4e7bc142e723fa9514d4ea3667a1004"}
+Independent packaging review {"path":"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/packaging-assurance-001/REVIEW.json","bytes":22938,"sha256":"1d7a3c58efad7f196c6618186646ab695f4eb810170a07d301d8f5090119268f"}

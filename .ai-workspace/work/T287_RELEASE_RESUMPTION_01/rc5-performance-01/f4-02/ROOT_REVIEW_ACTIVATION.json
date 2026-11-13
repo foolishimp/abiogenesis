@@ -1,0 +1,14 @@
+{
+  "roleTransition": "Executive frozen-subject selection -> bounded Root evidence/status Writer",
+  "at": "2026-11-03T11:14:17.437722+00:00",
+  "authority": "Owner approved RC5 and f4-02/ROOT_ADMISSION.json passive custody/status",
+  "frame": "ABIogenesis5 GOAL035/T287 bounded RC5 private durable representation",
+  "nativeResultRef": "result://abiogenesis/4accfc2ff24ed5231e50bee7e5150fc7297a10f43675e3ed1ee9d6a0cccc1996",
+  "nativeEventOrdinal": 20018,
+  "subjectSha256": "e82e3e6391a9f16199b684b0b553564ed09bdfdfc45107accda3bdb45d959fb8",
+  "reviewer": "/root/rc5_method_review",
+  "reviewerEffort": "max retained reviewer activation",
+  "reviewScope": "Exact aggregate F4 from9f3 to frozen10files; read-only source evaluation; no Product writes or tests",
+  "effects": "Preserve Worker returns, record status/reviewer activation and passive evidence; no acceptance or install",
+  "return": "Root conjunction with C2/native UAT/fresh reads"
+}

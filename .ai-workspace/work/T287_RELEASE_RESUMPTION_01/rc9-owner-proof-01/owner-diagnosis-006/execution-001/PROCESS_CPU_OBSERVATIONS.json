@@ -1,0 +1,49 @@
+{
+  "probeCount": 6,
+  "retainedBytes": 17378,
+  "records": [
+    {
+      "point": "before",
+      "at": "2026-11-08T18:32:44.836Z",
+      "probeWallMs": 39.906875,
+      "failure": null,
+      "receipt": "ancestry-before.json"
+    },
+    {
+      "point": "during-001",
+      "at": "2026-11-08T18:32:45.879Z",
+      "probeWallMs": 42.000332999999955,
+      "failure": null,
+      "receipt": "ancestry-during-001.json"
+    },
+    {
+      "point": "during-002",
+      "at": "2026-11-08T18:32:54.879Z",
+      "probeWallMs": 41.86175000000003,
+      "failure": null,
+      "receipt": "ancestry-during-002.json"
+    },
+    {
+      "point": "during-003",
+      "at": "2026-11-08T18:33:04.881Z",
+      "probeWallMs": 43.05112499999814,
+      "failure": null,
+      "receipt": "ancestry-during-003.json"
+    },
+    {
+      "point": "during-004",
+      "at": "2026-11-08T18:33:14.883Z",
+      "probeWallMs": 43.877832999998645,
+      "failure": null,
+      "receipt": "ancestry-during-004.json"
+    },
+    {
+      "point": "after",
+      "at": "2026-11-08T18:33:23.744Z",
+      "probeWallMs": 39.22699999999895,
+      "failure": null,
+      "receipt": "ancestry-after.json"
+    }
+  ],
+  "standing": "Use each retained per-process CPU delta with actual elapsed interval; no aggregate saturation or wait-cause inference. No detached-descendant absence claim."
+}

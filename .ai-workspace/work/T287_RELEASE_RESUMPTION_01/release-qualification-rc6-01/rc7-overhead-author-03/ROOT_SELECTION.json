@@ -1,0 +1,53 @@
+{
+  "kind": "bounded_native_known_reentry_preparation_selection",
+  "at": "2026-11-06T06:21:13.470431+00:00",
+  "status": "PREPARATION_ONLY_DEPENDENT_ON_B_CLOSED_READBACKS_AND_FROZEN_REVIEWS",
+  "purpose": "Complete B packaging-coordinate dependency and expose its existing trusted checker for the already-supported ordinary SDK route, preserving the completed carriage source.",
+  "rootActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_REENTRY_TRIAGE.json",
+    "bytes": 7324,
+    "sha256": "a756a5c5d0fd47bc69bbadcb6649f24c4451004a675422315e1daece60a808ac"
+  },
+  "entrySubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 779397,
+    "sha256": "31c092b1cb8dd767d1178ebba26c4b66651ebe1de032ab401ba6683faa67093b"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "productFrame": "Fixed15 ABIogenesis5.0, GOAL035/T287, STDO3.0.4/composition[]; unchanged Product WHAT; existing GTL declaration/runner/HOW owners only. ABG retains runtime truth and the installed RC6 builder is immutable.",
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+  ],
+  "sourceNames": "Use exact B449 baseline names at actual B after bytes; no future source byte pin is inferred from A or prior stages. Old21 B controls are evidence, not successor source.",
+  "work": [
+    "Update only existing C2 member and source span coordinates from the actual final compiled Product file. Renderer text is unchanged; retain actual original span digest.",
+    "Export existing checkInstalledIdentity unchanged, through its existing maintained runner. No new checker, transport mode, controller or helper framework.",
+    "Reconcile the existing Common Computational Capability Library HOW residual with actual implementation and proof standing. No completion claim before affected proof."
+  ],
+  "controlPreparation": [
+    "Reuse the reconciled known resource set, distinct npm configs and short temps. Correct Node exclusion with exact positive --test-skip-pattern, proven by the retained control probe.",
+    "Keep next mechanical prepare/preflight and invocation in the SAME host with the same caller/environment/constructed reopen-based call; invoke existing cold invokeLifecycle for this bridge because the checker export is not admitted yet. Record phase timings and actual CLI receipt/close without fabrication.",
+    "Subsequent ordinary author operation may use the supported one-acquired-resource SDK sequence after this export is admitted. A borrowed selection cannot be substituted into an already populated reopen call.",
+    "Retain actual source/result/close evidence. B cold reads stay selected. Propose narrow future proof sequencing and current bounds explicitly; do not inherit every cold qualification discriminator into every ordinary task.",
+    "Account finite stage/lane allocations from existing selected receipt/scratch owners before starting another command; no new Product runtime state/store/gate."
+  ],
+  "proof": "Reuse B final unaffected passing relations. Reprove the unique manifest-dependent failures after genuine generation/guard, retain cold cases as a separate exact lane. Derive exact case list from frozen B handoff and actual final summaries; no repeat of passed cases without a changed relation. Existing fixed Testing/UAT change remains a later selected increment.",
+  "futureUnbound": {
+    "actualClosedReadbacks": null,
+    "closedSourceReviews": null,
+    "rootFinalSourceDisposition": null,
+    "sourceBefore": null,
+    "runtimeClose": null,
+    "runtimeResume": null,
+    "rootControlAdmission": null
+  },
+  "permittedPreparationEffects": "D/rc7-overhead-author-03 control templates/records only. No C/source/staging/runtime/provider/credential/build/test/installation/Git mutation. Syntax checks of prepared scripts and bounded stdlib control semantics only.",
+  "return": "Closed prepared controls and concrete missing materials to Root; no auto-dispatch."
+}

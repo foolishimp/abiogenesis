@@ -1,0 +1,22 @@
+{
+  "id": "PHASE2-B02-UNIT-PREP-01",
+  "status": "PREPARATION_ONLY_EXECUTION_HELD",
+  "RootDecision": "Prepare ONE original9-file unit using byte-identical prior unit.py; same1800s/2400s/15sreserve and102/96/6,39M5/34IDs. Copy2 immutable Q1 source/work/build/deps into fresh stage preserving metadata. Do not read/freeze/overlay moving source. Only after actual one-file freeze may frozen m5 overlay both fresh copies, conserve1344rows/998outputs/deps, bind new source and production-proof relation. No build/pack/bootstrap/C2/lifetime/group/M5/unit or provider execution. Actual execution awaits source review and exact Root admission.",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py",
+    "bytes": 17434,
+    "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+  },
+  "oldBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/BINDING.json",
+    "bytes": 10420,
+    "sha256": "b61368b7b505cc42fe04650e22819c68e0bf0a9a255045a8c1024b37df360755"
+  },
+  "oldControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/CONTROLS.json",
+    "bytes": 21010,
+    "sha256": "fc1a51fafd6eeb5dc4928441945ed9d6a762a14a5672c67acb145edbb3be1980"
+  },
+  "stageRoot": "/private/tmp/abg-rc11-effect-phase2-b-unit-stage-20261110-03",
+  "prospectiveProofRoot": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03"
+}

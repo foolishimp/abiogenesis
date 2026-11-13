@@ -1,0 +1,119 @@
+{
+  "kind": "bounded_external_proof_completed_stages_review",
+  "recordedAt": "2026-11-09T18:37:04.200619+00:00",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "verdict": "satisfied_for_completed_stages",
+  "overallVerdict": "pending_unit_and_campaign_close",
+  "newFindings": [],
+  "sourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+  "sourceRowsVerifiedAtThreeRoots": 1344,
+  "compiledRowsVerified": 996,
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_RECHECK_NATIVE03.md",
+    "bytes": 5794,
+    "sha256": "e566805c7ef120516c759d0ff242566673d73f0aca529f69d79f618160883847"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/BINDING.json",
+    "bytes": 5251,
+    "sha256": "e3b91f2103182daffca5a85381cbf9358f563cc2f6c6901c4496a681570ecf46"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/CONTROLS.json",
+    "bytes": 28145,
+    "sha256": "5f09730a45ea2a3220e070feb4ac81f642e762f6810261c220aa9bc56a5bd2ff"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3842,
+    "sha256": "ac0d360ac7fe7e52a2ac999fa9207f330990d3755ee1e5e646e744c7336e7a02"
+  },
+  "population": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/POPULATION.json",
+    "bytes": 30180,
+    "sha256": "3b2acbd6d3f28a18e036d0f2a4159da1e7f1c0f0c8f7d6e047dd41ee97f8a5e0"
+  },
+  "compiledInventory": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182705,
+    "sha256": "3db4a581d6d81128f477de20b3e9591ce462e0be11dacb27f101fca2a34f2f35"
+  },
+  "completedReceipts": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/lint/RETURN.json",
+      "bytes": 1210,
+      "sha256": "7ffb1b8c84ca5a468c0752e11d4f2552bf574027fdd0a0800977484cb3a2b9fb"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/build/RETURN.json",
+      "bytes": 1123,
+      "sha256": "797468fea65a73e297f4279478f8ff74a20ae806136baab30f0d09e8d77ec07d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/deterministic/RETURN.json",
+      "bytes": 203218,
+      "sha256": "7ea7151da6fe417e9a02e2578de9207edac1039ecbd4429e541bf65e475e19e8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/owned-lifetime/RETURN.json",
+      "bytes": 119374,
+      "sha256": "76cddabbb9f1eb4e8329c972e1cbb8d59c71a00f03290c19c95c1b839bc1cb49"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/m5/RETURN.json",
+      "bytes": 472297,
+      "sha256": "26f55b3efd4d5bd08bc687a210df1930d88178072a841a950e9c3b5fcff9596d"
+    }
+  ],
+  "counts": {
+    "deterministic": {
+      "tests": 29,
+      "pass": 29,
+      "skip": 0,
+      "pairedEvidence": 23
+    },
+    "owned-lifetime": {
+      "tests": 18,
+      "pass": 18,
+      "skip": 0,
+      "pairedEvidence": 8
+    },
+    "m5": {
+      "tests": 39,
+      "pass": 39,
+      "skip": 0,
+      "pairedEvidence": 34
+    }
+  },
+  "checks": {
+    "literalNamesMatchFrozenSource": true,
+    "argvMatchesControls": true,
+    "allReferencedLogAndEvidencePinsVerified": true,
+    "decodedWitnessesEqualEvidenceFiles": true,
+    "embeddedArchiveMemberHashesVerified": 35,
+    "dependencyRowsVerified": 4576,
+    "npmRowsVerified": 2326,
+    "preservationPinsVerified": 8,
+    "externalCleanupRequired": false
+  },
+  "pending": [
+    "exact original nine-file unit receipt and six explicit skip dispositions",
+    "campaign final return and final conservation",
+    "Root conjunction and acceptance"
+  ],
+  "limits": [
+    "resumed-context nonauthor, no clean-context claim",
+    "selected finite proof only, overlapping populations",
+    "synthetic rejected-drive owner/descriptor pending until bounded process exit",
+    "physical post-exit write attempted and received EPIPE; delivered post-exit bytes exercised separately in controlled actual owner",
+    "no arbitrary external I/O cancellation claim",
+    "historical reds and failed native02 preserved",
+    "no qualification/release/install claim"
+  ],
+  "reviewerExecutedProductCodeOrTests": false,
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/PROOF_COMPLETED_STAGES_01.md",
+    "bytes": 9759,
+    "sha256": "6ae1bd84e16f0d9cfbff4658fc5ede226d389ff357affbf4f15f17d6c7566249"
+  }
+}

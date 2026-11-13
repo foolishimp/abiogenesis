@@ -1,0 +1,88 @@
+{
+  "id": "RC11-SCOPE-01",
+  "writerActivation": "RC11-NATIVE-PREP-02",
+  "status": "ROOT_SELECTED_SOURCE_AND_FRESH_SETUP_PROVIDER_HELD",
+  "rootDecision": "Root conjoins closed reports and selects RC11-SCOPE-01. Product frame fixed fifteen/F03/F04/F07/F10/T287; ABG sole admitted runtime truth; projection evidence does not acquire current-store authority. Original failures are invalid historical profile premises and physical fixture readiness envelope, no established runtime algorithm defect. Reentry realization_refactor (proof owners) plus prospective RC11 metadata. Source scope: exact three named tests; NEW test_env/support/t287-current-owner-evidence.mjs and test_env/fixtures/t287-current-owner/README.md; package.json/package-lock.json/code/src/product/contracts.ts RC10->RC11 version ONLY. All paths under T. Four generated fixture files under t287-current-owner/{native-assessment,selected-action}/{events.jsonl.gz,fixture.json} reserved for later external generation/staging, not placeholders or invented provenance. Existing production/HOW/fixturehelpers unchanged. New generator may use sourceTransform on separately built fixture before manifest to set result_text; no runtime patch. Ordinary loader may import current compiled read-only decoding/projection owners; generator-only modules lazy, no generation on test import. One compressed original fullprefix/Run, current validateHistoricalEvents then nominalprefix, independently fixed malformed oracle/owner-derived IDs, never projector-under-test expected minting. Explicit thirdcase physical gate remains separate.\nPhysical exact prospective grants: S5000; S2=10005; HTTP five modes L5600/R5300/g120; capture worker inactivity11005/absolute12005/g150; command L11005/g150; HTTP L11005/R10305/g150; derived top-level62s/51s. Controlled clocks/all12loopcombos unchanged. Parent monotonic attributable readiness diagnostics; unchanged five HTTP plus three capture plus escapedpipe/original error/output/absence oracles. No adaptive retries/skips or Product clock change. Separate RC10 retainedbasis gaps remain open; no instrumentation/populations now. Other capsules/O3/full5.0 unselected.\nWriter/Operator RC11-NATIVE-PREP-02: record disposition, concise main tracking prefix preserving prior bodies/index, concrete task/context/binding/admission preparation. One source-only native author through installedRC10, Claude Opus5.5 xhigh, max100turns, absolute900000/inactivity180000ms, strictpreflight. No build/fixture/runtime tests inside author; syntax/source mechanical readback allowed. Author preserves original source and reports writes; no selfacceptance. Context exact material routes/closed results/needed owners, not fullproject. External generator/proof/staging later; final freeze after generatedinputs. Native may read exact installed API references.\nOperator may prepare controls and one fresh imported Public setup on exact worktree using host fbaf2602 after immutable guards and transport preflight. Includes setup-owned workspace/runtime metadata and genuine setup admissions; provider dispatch remains held. Record setup admission before execution; return PREPARED same owned resource/live process; failure returns without retry. No sourcecommit/install/push/selector effects beyond maintained setup-owned artifact installation.\nGenerator invocation contract must allow each population independently once (native-assessment vs selected-action), exact pinned builder/archive, separate raw evidence output and generated fixture output. Do not run inside author; Operator reviews produced interface before external admission. Existing bounded owner setup/finalizer mechanics; no new control schema/runtime. Compact reports.",
+  "userInstruction": "ok pin RC10 - and work on RC11, lets go with the 3 you suggested",
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts"
+  ],
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "reports": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/triage/evidence-001/REPORT.json",
+      "bytes": 13043,
+      "sha256": "96a02f11e96daf11f2cd2d6fe3c0f43be7420b938e8a0842f036724529164db9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/triage/evidence-001/REPORT.md",
+      "bytes": 14159,
+      "sha256": "5181c8e1409a1e6c8a74e0031faf713a08edcf4e51611b0baf29ef607049b8c5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/triage/evidence-001/PRECISION_ADDENDUM.json",
+      "bytes": 725,
+      "sha256": "7cbdf2c854cb02edbc648ee9ea19822f07d589342c5f942a774935c25bdf6a07"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/triage/lifetime-001/RESULT.md",
+      "bytes": 15165,
+      "sha256": "567932b666bc282ff5b979abc772d3adf12ab95393629fb7eb719a4c34bf2330"
+    }
+  ],
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "stdo": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "nativeSkill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    }
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/SOURCE_INVENTORY.json",
+    "bytes": 292691,
+    "sha256": "e25d162544a1779ecdbdbe4fe99a7fbe4ead1589341a34096c136af90fade90d"
+  },
+  "controlTerritory": {
+    "immutableInputs": "qualification-inputs/rc11-qualification-01/native-01",
+    "nativeScratch": "qualification-scratch/rc11-qualification-01/native-01",
+    "operatorControls": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01"
+  },
+  "nativeModel": "claude-opus-5-5",
+  "nativeEffort": "xhigh",
+  "nativeLimits": {
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "setupLimits": {
+    "absoluteTimeoutMs": 900000,
+    "perCommandTimeoutMs": 300000,
+    "reserveBytes": 4294967296
+  },
+  "runtimeAllocated": false
+}

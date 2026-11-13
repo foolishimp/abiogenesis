@@ -1,0 +1,81 @@
+{
+  "file": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 9366.559666000074,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 10,
+    "failed": 0,
+    "passed": 7,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 10,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 8,
+      "type": "case",
+      "passed": true,
+      "name": "actual closed child survives blocked parent without acquiring closed-Run source authority",
+      "file": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "nesting": 0,
+      "testNumber": 8,
+      "suite": false,
+      "skip": "ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 9,
+      "type": "case",
+      "passed": true,
+      "name": "actual source rejects absent child, foreign provenance, changed context and uncovered authority",
+      "file": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "nesting": 0,
+      "testNumber": 9,
+      "suite": false,
+      "skip": "ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 10,
+      "type": "case",
+      "passed": true,
+      "name": "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset",
+      "file": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "nesting": 0,
+      "testNumber": 10,
+      "suite": false,
+      "skip": "ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/events/123-t287-native-work-reacquisition.jsonl",
+    "bytes": 3697,
+    "sha256": "d5085e528d0df06a673ac179a00570c607a6c42d436eb1d887455f82cf36ee23"
+  },
+  "commandReceipt": "commands/123-t287-native-work-reacquisition.result.json",
+  "workspace": "/private/tmp/abg-r8c-012/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

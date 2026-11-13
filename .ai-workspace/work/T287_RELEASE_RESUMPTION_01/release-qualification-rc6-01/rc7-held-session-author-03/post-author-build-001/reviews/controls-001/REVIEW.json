@@ -1,0 +1,100 @@
+{
+  "kind": "bounded_independent_operator_controls_review",
+  "reviewId": "H03-POST-AUTHOR-CONTROLS-001",
+  "createdUtc": "2026-11-06T17:46:37.093775+00:00",
+  "status": "CLOSED_NO_CONCRETE_CONTROL_BLOCKER_ESTABLISHED",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "dispositionOwner": "/root",
+  "productFrame": "Unchanged ABIogenesis 5.0 fixed fifteen-family scope, GOAL035/T287, selected installed/read STDO3.0.4 and empty composition; accepted ABI5 project reference frame. ABG remains runtime/admission owner. RC6 installed builder; RC7 prospective source.",
+  "scope": "Prepared additive mechanical build/proof controls on already reviewed H03 source. No renewed Product/source audit, new coder or Product repair.",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/MANIFEST.json",
+    "bytes": 25435,
+    "sha256": "1e776dc0a74c2203a1ecbb9cefaa58a03ecd7ad97e5127bd87bc458389985d5b"
+  },
+  "manifestPinsIndependentlyVerified": 47,
+  "reviewedControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/run-build.mjs",
+      "bytes": 7027,
+      "sha256": "86228dc838f2fdadb45f9130184714000ac2a3b16a5e5e0712685d8be846f334"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/run-proof.mjs",
+      "bytes": 6904,
+      "sha256": "195a92dbb7782505092c493b9a79c9215c9e0dce42fcce4c0e003d623092eefa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/prior-author-lanes.completed-build.mjs",
+      "bytes": 11395,
+      "sha256": "28726995113ca266fad206bc7c703d5dbcd21fe4efeba8638c40856df57e2764"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/HELPER.diff",
+      "bytes": 1558,
+      "sha256": "e5a8e792883a781e653000fa59a66f3139a05d11bfcb83f3248e8e7ba8f43468"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/PROOF_ADAPTATION.diff",
+      "bytes": 8092,
+      "sha256": "0720a61346cee660f3a60988288b9e1cdaafd0f56350db4675a63e49e9e81982"
+    }
+  ],
+  "sourceBinding": {
+    "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+    "sourceAfterSha256": "91d1bf35da77f4fb7edb425ea5d7b94a736f60ae192e730cf36d6771418f22fe",
+    "finalSubjectSha256": "5cdc2465bb214215b7a7bd99e2f1adccab2302c04f9bae01f617b9198426babe",
+    "finalCloseSha256": "7fa76990041e5b6dec07fc719ac86305b029eaba063602055a17b3a8905c86a3",
+    "rootDispositionSha256": "e7a2371f26980efe6e2b78375f0eb793b10479a9b2111c83ad278a62ff9cba90",
+    "inventoryRows": 1031,
+    "sourceRows": 451,
+    "compiledJavaScriptRows": 290,
+    "compiledDeclarationRows": 290
+  },
+  "findings": [],
+  "conservedControls": [
+    {
+      "refs": [
+        "run-build.mjs:16-31",
+        "run-proof.mjs:15-50"
+      ],
+      "conclusion": "Exact manifest/admission digests and source/close/disposition facts precede command effects. New build/proof directories must be absent, and proof preflights all four primary lane allocations. The actual immutable source/compiled inventory and original controls are checked before/after commands; mismatches stop execution."
+    },
+    {
+      "refs": [
+        "run-build.mjs:28-49",
+        "HELPER.diff"
+      ],
+      "conclusion": "Original failed report and retained partial-output preimages remain unchanged. Canonical generation writes only its existing staged derived outputs. A new completion report expressly retains the original compile evidence and separately names new generation/lifecycle receipts. The helper changes exactly one report-read path; the failed report is not overwritten or relabelled."
+    },
+    {
+      "refs": [
+        "run-build.mjs:34-50",
+        "run-proof.mjs:53-69",
+        "prior-author-lanes.completed-build.mjs:24-106"
+      ],
+      "conclusion": "One generator at 600 seconds, then lifecycle at 60 seconds; later separately admitted four primary lanes at 600/300/300/300 seconds, with 20-second outer margins. Serial execution stops on first failed command/lane. Existing two-stage/eight-lane accounting, finite positive filters, source equality, fixed-route prerequisite, declared skip controls and no-retry allocation remain."
+    },
+    {
+      "refs": [
+        "rc7-fixed-proof-author-01/operator-client/runner.mjs:49-74"
+      ],
+      "conclusion": "Existing command recorder starts a process group, sends group SIGTERM on timeout/output overflow and schedules SIGKILL after two seconds, then retains original stdout/stderr bytes and command metadata. This review does not dynamically qualify descendant cleanup."
+    },
+    {
+      "refs": [
+        "run-build.mjs:38-49",
+        "run-proof.mjs:60-69"
+      ],
+      "conclusion": "Wall time, CPU time and RSS remain separate reported observations. Composite evidence identifies reused compilation; neither script promotes success to Product acceptance, qualification or installed performance."
+    }
+  ],
+  "neededRemedy": "None identified within the selected control scope. Root retains final admission and launch.",
+  "limits": [
+    "No command execution, generation, lifecycle check, test, runtime/provider call or Product mutation was performed by Reviewer.",
+    "Prepared control behavior is source-reviewed; future command success, artifact equality and process cleanup remain unobserved.",
+    "The original 180.074-second generation timeout remains historical failure evidence with unresolved cause.",
+    "Manifest future build/proof admissions and actual completed build report were unbound at review; launch requires Root admission.",
+    "This ordinary same-family controls review is not formal F11 J qualification, source acceptance, release qualification or measured speedup."
+  ]
+}

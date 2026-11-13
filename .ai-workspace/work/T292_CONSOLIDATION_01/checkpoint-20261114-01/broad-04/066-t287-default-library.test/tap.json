@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "counts": {
+    "tests": 35,
+    "pass": 34,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 31 - one installed Public default-library invocation reuses observed files, corrects actual work and independently closes # SKIP ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation",
+    "# todo 0"
+  ]
+}

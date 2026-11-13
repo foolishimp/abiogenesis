@@ -1,0 +1,27 @@
+{
+  "phase": "before-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/434a317b1bd4c4c348ca74a9685d10609b6d3b3de45252544da4c245d9fcd08b/2fd6437e96df6c92c23b91a67bb9a7178d9a471b54616851c71561ee48315d60",
+      "admissionEventRef": "event://abiogenesis/5e8b8a551696486913d37b065ee82c02d7d6af48dc4d4ecd15187e8e849766a9",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:9b6440795b600ce822b54ec35c468d35af6fdd07a251f5c0bdb6c1d3ccfc253d",
+      "productContentDigest": "sha256:434a317b1bd4c4c348ca74a9685d10609b6d3b3de45252544da4c245d9fcd08b",
+      "manifestDigest": "sha256:fbb50339c5cc59e4a6225323feb1ac1f555cbc2d94f65a7c94b4bc5728fd9c65",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/c065cdb2f132679de756c4820425f6dca7a4e1179c0cf9610d84d3be445a1372/2fd6437e96df6c92c23b91a67bb9a7178d9a471b54616851c71561ee48315d60",
+      "admissionEventRef": "event://abiogenesis/073592e5392bc46c65ebcdf2753ca3443f624ab0d20310e00b8d6e544de21787",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:1ddded0e45e2ba552edf863c688db7972ec0d4f9e020fefb2081378888249c4f",
+      "productContentDigest": "sha256:c065cdb2f132679de756c4820425f6dca7a4e1179c0cf9610d84d3be445a1372",
+      "manifestDigest": "sha256:7703cbb58f007f4f62a20c3f81f723039e00401c9612663b6dde915dc4b672c3",
+      "contentMatches": true
+    }
+  ]
+}

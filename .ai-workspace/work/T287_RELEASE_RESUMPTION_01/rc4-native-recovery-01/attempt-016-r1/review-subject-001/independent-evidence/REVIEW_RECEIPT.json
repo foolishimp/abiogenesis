@@ -1,0 +1,362 @@
+{
+  "kind": "rc4_hc2_independent_factory_chain_review_receipt",
+  "status": "CONFIRMED_SELECTED_TYPED_CHAIN_BLOCKER_NO_RUNTIME_REGRESSION_INFERRED_NO_ACCEPTANCE",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/SUBJECT.json",
+    "bytes": 45009,
+    "sha256": "1d232ff1a8a576ac558a58c3b6123329e1fdebb456a1041e1f3d1d2772fac06d"
+  },
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/C2_PROVISIONAL_CUSTODY.json",
+    "sha256": "5e31d8770bb0500eacac97e6e320f8cdb2ee0bbf252d676f85f08fd2c013ef80"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10970115,
+    "sha256": "6698e6379503595426bcb599c21109f77aa5029344889709ca82bfc890ab0607"
+  },
+  "candidateStatus": "provisional physical exact packed artifact; final C2 admission pending",
+  "compiler": {
+    "version": "5.9.2",
+    "librarySha256": "e5f1f6b3e82228a89873cc7b941b2465185e839c0692860f83e3e63e53f94c2b",
+    "source": "Exact local compiler copied from previous selected HC1 isolated probe; no package installation/network"
+  },
+  "setup": {
+    "scratch": "/private/tmp/rc4-016-independent-review-uki2gn2f",
+    "operations": [
+      "verify exact subject/custody/archive pins",
+      "copy archive and extract under isolated scratch only",
+      "copy existing TypeScript compiler and Node type definitions into scratch",
+      "write ambient typed consumer, package metadata and strict noEmit configuration"
+    ],
+    "productOrRuntimeEffects": false
+  },
+  "commands": [
+    {
+      "name": "initial-probe",
+      "command": [
+        "/opt/homebrew/bin/node",
+        "/private/tmp/rc4-016-independent-review-uki2gn2f/compiler/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer",
+      "exitStatus": 2,
+      "durationMs": 3610,
+      "limitation": "Two probe-only annotation mistakes; not the authoritative positive control. Retained unchanged."
+    },
+    {
+      "name": "validated-factory-chain",
+      "command": [
+        "/opt/homebrew/bin/node",
+        "/private/tmp/rc4-016-independent-review-uki2gn2f/compiler/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false",
+        "-p",
+        "tsconfig.validated.json"
+      ],
+      "cwd": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer",
+      "exitStatus": 2,
+      "durationMs": 3483,
+      "limitation": "Initial probe used a nonexistent member key field and string instead of Sha256Digest; both probe-only mistakes corrected. Original probe and output retained. No candidate source changes."
+    }
+  ],
+  "findings": {
+    "positiveControl": "Original exact typed envelope constructor, member/resource/receipt assignments and transport call compile without diagnostics (lines32-42).",
+    "newFactories": [
+      {
+        "factory": "constructInstalledStartCall",
+        "transportLine": 50,
+        "memberLine": 48,
+        "resourceLine": 49,
+        "receiptLine": 52
+      },
+      {
+        "factory": "constructInstalledPendingCall",
+        "transportLine": 64,
+        "memberLine": 62,
+        "resourceLine": 63,
+        "receiptLine": 66
+      },
+      {
+        "factory": "constructInstalledRunReadCall",
+        "transportLine": 77,
+        "memberLine": 75,
+        "resourceLine": 76,
+        "receiptLine": 79
+      }
+    ],
+    "diagnostics": "Exactly12 diagnostics on new factory paths:3 TS2345 candidate not assignable to parameter never;9 TS2322 member/resource/receipt inference widened. No diagnostics on input arguments or original constructor positive control.",
+    "sourceCause": "constructEnvelope384-406 erases keys/request/slots/resources, and three factory successful call fields455/502/553 use unparameterized InstalledPublicDefinitionCall. Pending owner request/slots2063-2064 and read owner request671 are also broad records.",
+    "requestInference": "Unparameterized InstalledPublicDefinitionCall indexes the whole selection request union (public file124-132); static source verified, no independent request assignment assertion added.",
+    "smallestRepair": "Keep existing transport guard; carry existing finite selected owner/member/request/slot/resource types through owner population and Public envelope/factory outputs. Extend existing installed packed compiler proof with factory-to-transport chains; no new constructor hierarchy, authority brand or schema."
+  },
+  "preservation": {
+    "subjectSha256": "1d232ff1a8a576ac558a58c3b6123329e1fdebb456a1041e1f3d1d2772fac06d",
+    "archiveSha256AfterProbe": "6698e6379503595426bcb599c21109f77aa5029344889709ca82bfc890ab0607",
+    "archiveMatches": true,
+    "sourceChecks": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "actual": "4d4e4abe57e2c48fcffd6ee5c7473e8464ff9f6a746a14f2680b3cacbb1d2d13",
+        "expected": "4d4e4abe57e2c48fcffd6ee5c7473e8464ff9f6a746a14f2680b3cacbb1d2d13",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+        "actual": "ac9f99052dff54dc2fb7c331ffebe405c44c9673dbf871b02f4e1abdc24aba8f",
+        "expected": "ac9f99052dff54dc2fb7c331ffebe405c44c9673dbf871b02f4e1abdc24aba8f",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+        "actual": "4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225",
+        "expected": "4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+        "actual": "722efdc516c910083b216121843c46ad3d2a4c1975d7e14615b94e30b2c40952",
+        "expected": "722efdc516c910083b216121843c46ad3d2a4c1975d7e14615b94e30b2c40952",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "actual": "1fa80852b71a1530b2d2232c449104032bcabe4fddf312d7e1ab0a7c8e22d819",
+        "expected": "1fa80852b71a1530b2d2232c449104032bcabe4fddf312d7e1ab0a7c8e22d819",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+        "actual": "c6683babc1900ce6bdd203f1ed535b19899685ca089ed8e0bea8e28693b6801f",
+        "expected": "c6683babc1900ce6bdd203f1ed535b19899685ca089ed8e0bea8e28693b6801f",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "actual": "7e280a39ea57094d52c9daff5bed18f4d4d8de20fe5785b48b2a3041189c753b",
+        "expected": "7e280a39ea57094d52c9daff5bed18f4d4d8de20fe5785b48b2a3041189c753b",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+        "actual": "adc4269c43e3b3320dabaa7838fbba138901ba26bb69538d25162ec5d7288424",
+        "expected": "adc4269c43e3b3320dabaa7838fbba138901ba26bb69538d25162ec5d7288424",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "actual": "8e1949302adf2ad28af53d9ef65b070a13df75bb25e9fa1b4f4cd750eb209738",
+        "expected": "8e1949302adf2ad28af53d9ef65b070a13df75bb25e9fa1b4f4cd750eb209738",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+        "actual": "25b3f84c27987c6368c2b857f6b2263d584ba087db1c35f4734edda00913184c",
+        "expected": "25b3f84c27987c6368c2b857f6b2263d584ba087db1c35f4734edda00913184c",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "actual": "5e0b45c35d9db3ca8ecd57d792a386dcb762a08303fe69558081f86ae579535f",
+        "expected": "5e0b45c35d9db3ca8ecd57d792a386dcb762a08303fe69558081f86ae579535f",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+        "actual": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9",
+        "expected": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "actual": "729336931f3708a0f9432da21d102f1a5f714614a06bc229f40384a89189710f",
+        "expected": "729336931f3708a0f9432da21d102f1a5f714614a06bc229f40384a89189710f",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+        "actual": "a2d7b810f84bc2746d142fc9f5d2e8cba1ecc1f26c26f6a8f2e5921e195ba696",
+        "expected": "a2d7b810f84bc2746d142fc9f5d2e8cba1ecc1f26c26f6a8f2e5921e195ba696",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "actual": "e19d6f4461e58e7fa13c5fd76064a78c466fb2fed5e09b3ce6509b95834081aa",
+        "expected": "e19d6f4461e58e7fa13c5fd76064a78c466fb2fed5e09b3ce6509b95834081aa",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+        "actual": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a",
+        "expected": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+        "actual": "e4198842253a06c015f3d398a4417d9341ad0276be29e5f0195ecde059ec092d",
+        "expected": "e4198842253a06c015f3d398a4417d9341ad0276be29e5f0195ecde059ec092d",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-readback.mjs",
+        "actual": "8305db5a8d7d4c94dd153a97b8aad91d662b3ffbc35ff9a6cff6e02e20e01f75",
+        "expected": "8305db5a8d7d4c94dd153a97b8aad91d662b3ffbc35ff9a6cff6e02e20e01f75",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+        "actual": "5afc97ceb6f3691a6a47cb2ff670b074c6d36c885d3121a5fe051e7aface972d",
+        "expected": "5afc97ceb6f3691a6a47cb2ff670b074c6d36c885d3121a5fe051e7aface972d",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+        "actual": "f4d8cf0253eb696b4839b4158718c21a0cee616f549c1c58658d2dca3f7a6510",
+        "expected": "f4d8cf0253eb696b4839b4158718c21a0cee616f549c1c58658d2dca3f7a6510",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+        "actual": "3f613effe18146e6662308196f1b0379d90bd541c3f21afcf5b949ea178d1b9f",
+        "expected": "3f613effe18146e6662308196f1b0379d90bd541c3f21afcf5b949ea178d1b9f",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "actual": "e1e05838a31d19806f33bd7350e9eeb42e08a86287b3c82702f547152c979ccd",
+        "expected": "e1e05838a31d19806f33bd7350e9eeb42e08a86287b3c82702f547152c979ccd",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "actual": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+        "expected": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs",
+        "actual": "237a410369b8c5c5e97753798eb2257ddf72b409446301f54eb6a4cc344b2bae",
+        "expected": "237a410369b8c5c5e97753798eb2257ddf72b409446301f54eb6a4cc344b2bae",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs",
+        "actual": "7fa74e1d7c13885b3cf93c4765ecd9cdc2027f49423bc9dee628f3c0b675c48d",
+        "expected": "7fa74e1d7c13885b3cf93c4765ecd9cdc2027f49423bc9dee628f3c0b675c48d",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+        "actual": "6a5c9cfab5a045b8ef8f2ba0e4ea21fe4a21b8136e9b2ca491545390e352308e",
+        "expected": "6a5c9cfab5a045b8ef8f2ba0e4ea21fe4a21b8136e9b2ca491545390e352308e",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+        "actual": "f670586a45532ee59d7279eb55fd5a3fc3f133d51c3d9efc8ca0fdec5676c8dc",
+        "expected": "f670586a45532ee59d7279eb55fd5a3fc3f133d51c3d9efc8ca0fdec5676c8dc",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+        "actual": "6c312e7b28c0df8bd49a9e400e102457bc3c9b2df9c912e117d8580b067b0e02",
+        "expected": "6c312e7b28c0df8bd49a9e400e102457bc3c9b2df9c912e117d8580b067b0e02",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs",
+        "actual": "e5b74ce25b5823952917fd3e58b3f2aafefb225729746ba0ec49acb88d0c44f1",
+        "expected": "e5b74ce25b5823952917fd3e58b3f2aafefb225729746ba0ec49acb88d0c44f1",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+        "actual": "7699dbe918b2f28780cc336e093bd438508760b6a0981287fa9b21412c95d6e5",
+        "expected": "7699dbe918b2f28780cc336e093bd438508760b6a0981287fa9b21412c95d6e5",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+        "actual": "91d57f2b789571878ff16386dd74bee23cb396aac40754f171487d0a193dfed5",
+        "expected": "91d57f2b789571878ff16386dd74bee23cb396aac40754f171487d0a193dfed5",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "actual": "8437ce56edf3b80a82f58178ca28835dcd3b16a368eeb1c9bad97b259dad5a49",
+        "expected": "8437ce56edf3b80a82f58178ca28835dcd3b16a368eeb1c9bad97b259dad5a49",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "actual": "2139db5ab0e13694b074e9a9abfdffca912eba7b008fed5925a918ba7af1b592",
+        "expected": "2139db5ab0e13694b074e9a9abfdffca912eba7b008fed5925a918ba7af1b592",
+        "matches": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json",
+        "actual": "ce9030575778da61e790e13b63b98f3cb39ce3b05de9f3514c2f78deddd093b9",
+        "expected": "ce9030575778da61e790e13b63b98f3cb39ce3b05de9f3514c2f78deddd093b9",
+        "matches": true
+      }
+    ]
+  },
+  "evidenceFiles": [
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/MANIFEST.json",
+      "bytes": 2661,
+      "sha256": "2d1a36adaab2f5a867c42478cdcf4ae3b51048bfa2c63d5db54b6fa172319707"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/validated-result.json",
+      "bytes": 1227,
+      "sha256": "3a9af66209de646b912944efdce4b4255674fedaf1534414d9ff0b476b2182f6"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/factory-chain.log",
+      "bytes": 5441,
+      "sha256": "9130a327eb75fea3a4bc0fae632e2df261932df0a4d69ec812f44be8839d35ad"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/factory-chain-validated.log",
+      "bytes": 5703,
+      "sha256": "56090f402f27d5b401f8bb5c0f4b13a453d1ffa51142bab1f7712b914c72eb83"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer/factory-chain.ts",
+      "bytes": 4069,
+      "sha256": "c2b5bc9db7ac6288e8a4e0435589f5f00b6e5a6d4c43289fe379f12cbcc4a429"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer/factory-chain-validated.ts",
+      "bytes": 4228,
+      "sha256": "0b931e3c992a4f32703351e641cd8c0f3bd46140a217262214c8d4d738f357ac"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer/tsconfig.json",
+      "bytes": 612,
+      "sha256": "653bcd5b6f4bdd2a5593535a98210abe12d49fa539b8fa7f6cff7d5b5bdade8c"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer/tsconfig.validated.json",
+      "bytes": 622,
+      "sha256": "4fc4ff06dc8ebc65892204e9c95d2761e7250bfae79ad07b86c6184f64ec9fd5"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer/package.json",
+      "bytes": 33,
+      "sha256": "89c47db7851f89caec72da4f215ebc21cf1e294aeef3b45d2583562d846ab035"
+    }
+  ],
+  "limits": [
+    "No code repair, repository/Git mutation, native runtime invocation, provider or installed owner runtime dispatch.",
+    "Compiler-only probe of selected physical artifact; final C2 admission and verdict pending.",
+    "Supported runtime evidence must come from actual C2, not this compiler result.",
+    "Legacy pilot remains explicitly unqualified; no full qualification or real-provider005 credit."
+  ]
+}

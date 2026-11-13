@@ -1,0 +1,125 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "ROOT_SELECTED_FINITE_COMMANDS_PREPARATION_ONLY",
+  "readCommands": [
+    "Exact451 selected source/control names; frozen reviewer/Root triage references and installed STDO3.0.4 skills. No broad history, provider narrative or credential scans.",
+    "Read-only rg/git diff/status/rev-parse on selected source; no Git mutation."
+  ],
+  "writeCommands": [
+    "Only17 named existing paths; product/execution_resolution.ts only for typed admitted-environment carriage. Three handoffs and scratch/tmp only; no source outside grant.",
+    "Short provider temp /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs2 and test temp /private/tmp/abg-hs2; distinct empty npm user/global configs. Preserve existing contents."
+  ],
+  "stageLabels": [
+    "hs2-stage-01",
+    "hs2-stage-02"
+  ],
+  "maxStages": 2,
+  "maxLaneInvocations": 6,
+  "concurrency": 1,
+  "laneIds": [
+    "fixed-route",
+    "assessment-guards",
+    "caller",
+    "fixed-route-correction",
+    "assessment-guards-correction",
+    "caller-correction"
+  ],
+  "laneTimeouts": {
+    "fixed-route": 600000,
+    "assessment-guards": 300000,
+    "caller": 300000,
+    "fixed-route-correction": 600000,
+    "assessment-guards-correction": 300000,
+    "caller-correction": 300000
+  },
+  "authoredIntegratedTestTimeoutMs": 540000,
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-02/prior-author-stage.mjs",
+        "<next-selected-label>",
+        "after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 2,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 180000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-02/prior-author-lanes.mjs",
+        "<successful-frozen-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "fixed-route",
+        "assessment-guards",
+        "caller",
+        "fixed-route-correction",
+        "assessment-guards-correction",
+        "caller-correction"
+      ],
+      "maxLaneInvocations": 6,
+      "laneTimeouts": {
+        "fixed-route": 600000,
+        "assessment-guards": 300000,
+        "caller": 300000,
+        "fixed-route-correction": 600000,
+        "assessment-guards-correction": 300000,
+        "caller-correction": 300000
+      },
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "invocationAllocation": [
+    {
+      "lane": "fixed-route",
+      "maximum": 1,
+      "phase": "primary_final_source"
+    },
+    {
+      "lane": "assessment-guards",
+      "maximum": 1,
+      "phase": "primary_final_source"
+    },
+    {
+      "lane": "caller",
+      "maximum": 1,
+      "phase": "primary_final_source"
+    },
+    {
+      "lane": "fixed-route-correction",
+      "maximum": 1,
+      "phase": "conditional_localized_correction"
+    },
+    {
+      "lane": "assessment-guards-correction",
+      "maximum": 1,
+      "phase": "conditional_localized_correction"
+    },
+    {
+      "lane": "caller-correction",
+      "maximum": 1,
+      "phase": "conditional_localized_correction"
+    }
+  ],
+  "allocationLaw": "No new before/measured baseline lane. Stage01 freezes the complete selected correction, then actual fixed integration first. Guard/caller lanes follow a passing integration. Stage02 is conditional only on recorded localized in-scope failure and correction; new integration/authority failures or resource insufficiency return to Root. No automatic replay of all lanes or identical retry. Reused proof requires explicit unaffected-owner/source relation. Failed/incomplete reservations count.",
+  "missingResources": "Inherited450 resources plus fresh native HOW451 are exact. Historical HS01 missing baseline import and timeout remain, with no retrospective baseline credit.",
+  "freezeBeforeFeedback": "Publish source-freeze before build/feedback and pin it in progress immediately for concurrent max review. Final source/HOW/native.after match required.",
+  "partitionStanding": "Positive exact selectors, no negative-lookahead filters. Primary600s/authored540s prospective bound selected by Root; other lanes300s. No test timeout increase outside this selection."
+}

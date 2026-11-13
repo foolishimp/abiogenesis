@@ -1,0 +1,41 @@
+{
+  "kind": "bounded_existing_owner_measurement_selection",
+  "status": "HS02_ACTUAL_MEASUREMENTS_PENDING",
+  "counterLocations": [
+    "decodeRuntimeHistoryDescriptor",
+    "reopenEventStore",
+    "readOwnedRuntimeHistoryAtDurablePrefix cold branch"
+  ],
+  "method": "Observation-only exact test-mode counters in existing owner/test-support seams, including branch distinction; no CPU-profile-only inference, new event authority, public instrumentation mode or framework.",
+  "phases": [
+    "setup/acquisition",
+    "worker launch",
+    "native work/testing",
+    "warm calls",
+    "warm reads",
+    "selected cold readback",
+    "between-task/Root delay"
+  ],
+  "record": [
+    "exact candidate source/install/contract identity",
+    "prefix and selectors for each warm/cold comparison",
+    "actual full value/producer/projection-basis equality",
+    "acquisition/decode/reopen/cold-branch counts",
+    "folded rows",
+    "physical bytes read",
+    "RSS",
+    "phase wall times",
+    "read no-append and unchanged prefix",
+    "completion successor and one actual outer close",
+    "refusal/cleanup/interruption recovery"
+  ],
+  "assertion": "One session acquisition; zero additional full history decode/reopen on warm calls and both held reads. Exact same-boundary full cold agreement and existing guards. No speedup inferred from source or dissimilar phases.",
+  "threeDiscriminators": [
+    "genuine baseline counterexample",
+    "measured held session before deletion",
+    "final same-source held session after justified deletion/no-deletion"
+  ],
+  "s4Standing": "Preserve existing bounded installed byte-growth measurement; neither unit fixture bytes nor F one-call RC6 marks replace that gate.",
+  "forecast": "Under30s is unproved.",
+  "deletionPredicate": "Exact cold/recovery/body/historical-cut/provenance consumers are conserved or migrated. Zero warm cold-count alone does not prove unreachable source."
+}

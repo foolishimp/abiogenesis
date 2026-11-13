@@ -1,0 +1,15 @@
+{
+  "startedUtc": "2026-11-04T03:46:35.331Z",
+  "endedUtc": "2026-11-04T05:32:52.291Z",
+  "wallMs": 6376956.667541999,
+  "exitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "runtime_failed",
+  "run": {
+    "digest": "sha256:7a44f42efc73644b4d1b8c9f5384dfabccbf5a32abd1f552413ae70dee0a6576",
+    "ref": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d"
+  },
+  "terminal": null,
+  "qualified": false,
+  "meaning": "Native return; independent source review and actual C2/UAT determine bounded acceptance."
+}

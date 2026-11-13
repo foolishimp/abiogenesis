@@ -1,0 +1,92 @@
+{
+  "status": "READ_ONLY_CAPABILITY_ACQUISITION_NO_PRODUCT_EXECUTION",
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "localHelp": {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--help"
+    ],
+    "exitCode": 0,
+    "observedCapabilities": [
+      "--cpu-prof starts V8 profiling at startup and writes before exit",
+      "--cpu-prof-dir directs output",
+      "--cpu-prof-interval uses microseconds; default1000",
+      "--cpu-prof-name exists"
+    ],
+    "standing": "Help was read first. No test or profiler executed."
+  },
+  "nodeManual": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/share/man/man1/node.1",
+    "bytes": 28359,
+    "sha256": "e63d8670e0acd89ef2b182b2234cd91af41515baa7bb9d7de86197898a096790"
+  },
+  "nodeManualLines": {
+    "profile": [
+      101,
+      124
+    ],
+    "NODE_OPTIONS": [
+      770,
+      776
+    ]
+  },
+  "ps": {
+    "path": "/bin/ps",
+    "bytes": 170432,
+    "sha256": "16d273739778797145fd22cba76113d2aaa99c759313d56ef87ed56a16bca083"
+  },
+  "psManual": {
+    "path": "/usr/share/man/man1/ps.1",
+    "bytes": 18590,
+    "sha256": "fbddf023ce4960c7e6eadebcfb7f0badf0ab6c3f59b2b97c2807d3f67a85142d"
+  },
+  "psManualLines": {
+    "etime": [
+      445,
+      446
+    ],
+    "time": [
+      540,
+      542
+    ],
+    "comm": [
+      439,
+      440
+    ],
+    "cpuDefinition": [
+      92,
+      94
+    ]
+  },
+  "versionSpecificPrimarySources": [
+    {
+      "url": "https://nodejs.org/download/release/v24.7.0/docs/api/test.html#child-process-option-inheritance",
+      "finding": "Default isolated test-file processes inherit Node options except the documented test/watch/config/reporter exclusions; cpu-prof options are not excluded."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nodejs/node/v24.7.0/lib/internal/test_runner/runner.js",
+      "finding": "kFilterArgs/kFilterArgValues and getRunArgs preserve profiler options; runTestFile spawns process.execPath with those arguments and the child test context."
+    },
+    {
+      "url": "https://nodejs.org/download/release/v24.7.0/docs/api/cli.html#--cpu-prof",
+      "finding": "Default output filename includes timestamp, process ID, thread ID and sequence. Leave name unset to avoid collision; writing occurs before process exit."
+    }
+  ],
+  "existingProfiler": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/measurement.test.mjs",
+      "bytes": 24719,
+      "sha256": "00a3da00a6e58f67d22a22d48e2daeb86347fbe6754c40c6b60780b7814d3773"
+    },
+    "lines": [
+      24,
+      25
+    ],
+    "finding": "Uses inspector.Session in the measuring process around a chosen call. Reusing that injection here would alter the unchanged test or add a preload. Prefer documented CLI profiler flags for this diagnostic; existing command/file-host/reporter owners remain."
+  },
+  "scopeLimit": "This verifies documented option propagation to the isolated test process, not arbitrary fixture subprocesses or all threads. Actual profile PID/TID files must be matched to observed ownership. A killed process may leave no usable profile."
+}

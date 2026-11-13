@@ -1,0 +1,26 @@
+{
+  "status": "ACTUAL_ROOT_BOUND_BOOTSTRAP_007",
+  "boundBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_BINDINGS.actual003.bound-007.json",
+    "bytes": 11485,
+    "sha256": "d121de891d68079f327e7c2914c0457eb58cbe14dc2360d0e1e3298ee0d0806d"
+  },
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BOOTSTRAP_007_EXECUTION_ACTIVATION.json",
+    "bytes": 3631,
+    "sha256": "d4fe28b713e0195e5a3e409214a9a4d6483def67e3ca51bbb333557f9de9a13e"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+    "bytes": 11455,
+    "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+  },
+  "transformation": "Only status/sourceAcceptance/activation changed from exact reviewed held binding; all other fields unchanged.",
+  "firstCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-007.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_BINDINGS.actual003.bound-007.json",
+    "d121de891d68079f327e7c2914c0457eb58cbe14dc2360d0e1e3298ee0d0806d"
+  ],
+  "executionStanding": "Root admitted once; execution starts next. No inferred artifact/broad/cut acceptance."
+}

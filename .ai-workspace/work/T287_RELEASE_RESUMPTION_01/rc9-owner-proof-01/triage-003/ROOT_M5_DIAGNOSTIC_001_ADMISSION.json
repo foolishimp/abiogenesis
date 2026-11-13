@@ -1,0 +1,42 @@
+{
+  "status": "ROOT_ADMITTED_RC9_M5_DIAGNOSTIC",
+  "id": "RC9-M5-DIAGNOSTIC-001",
+  "recordedAt": "2026-11-08T17:46:05.370692+00:00",
+  "admittingAuthority": "/root Executive",
+  "bindingSha256": "d5582ae5f0db6dc756263b48a36aa4d88c361e1a0d7212a1851b610425fe819d",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/M5_DIAGNOSTIC_BINDING.BOUND.001.json",
+    "bytes": 10521,
+    "sha256": "d5582ae5f0db6dc756263b48a36aa4d88c361e1a0d7212a1851b610425fe819d"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/run-m5-diagnostic-001.mjs",
+    "bytes": 9769,
+    "sha256": "04226f8707f113c7fdef85d99fe19fed1ed5ce2465ed6bd527ab42fdd6033fb3"
+  },
+  "formerProofProcessesStopped": true,
+  "formerProofStopChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/TIMEOUT_CLOSE_OBSERVATION.json",
+      "bytes": 1297,
+      "sha256": "3d923057d4f8eb82605fc862838577cfbb82528a292b1c400083046393fa2abb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_DESCENDANT_CWD_CHECK.json",
+      "bytes": 216,
+      "sha256": "7d8f6af81d18533d9dfa7af57db5f3bd59611894cd71601c73f2272fc77fe3a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_PROCESS_OWNERSHIP_FINAL.json",
+      "bytes": 494,
+      "sha256": "351ede55b8353d3f29fa6b39d524ed9ad58eedffca3e07092ad90f64b13240dd"
+    }
+  ],
+  "completedFailedStateReadback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/readbacks-001/RESULT.json",
+    "bytes": 1877,
+    "sha256": "b2c339d67d9d5e614446ff7722104d19c81b315b59cead8bcdbd0880b679b4d2"
+  },
+  "authorization": "Root explicitly admitted deriving this one BOUND binding from reviewed held12481c53 with strongest actual stop/readback pins and executing reviewed script04226f87 ONCE immediately. No additional approval round trip required.",
+  "limits": "One complete unchanged32-case M5 on BUILT003;180s outer,16MiB output,4GiB reserve/owned cap, original inner deadlines/assertions. Actual load observed; no quiet-host claim. Stop after failure/incomplete, no retry/extension/source/native/provider/build/pack/cleanup. Source/proof acceptance separate; original unit incomplete."
+}

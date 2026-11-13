@@ -1,0 +1,32 @@
+{
+  "label": "042-steel-basic-cli-public.test",
+  "started": "2026-11-13T10:46:12.514350+00:00",
+  "ended": "2026-11-13T10:51:32.505225+00:00",
+  "wallMs": 319989,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/042-steel-basic-cli-public.test/stdout.raw",
+      "bytes": 558,
+      "sha256": "494f48f4e492d8a96e2b212d6ffbd72e787b3e6f31156c26835d4a9361838aba"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/042-steel-basic-cli-public.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 21,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

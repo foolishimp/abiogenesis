@@ -1,0 +1,128 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedUtc": "2026-11-07T03:56:00.005387+00:00",
+  "activation": "Separate Operator Writer activation from explicit Executive /root admission; record controls and dispatch one held author-02 call only",
+  "bindingSha256": "f9c99141b86ea3901eca44bea8767786f500d4d654a79638cf3e616cf99bcd06",
+  "preparedSha256": "fb063ccbf42269a0df1ea71b45e182a7d314230c1550aac0760f1b6648829c4b",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/BINDING.json",
+      "bytes": 3616,
+      "sha256": "f9c99141b86ea3901eca44bea8767786f500d4d654a79638cf3e616cf99bcd06"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/runtime-001/PREPARED.json",
+      "bytes": 6155,
+      "sha256": "fb063ccbf42269a0df1ea71b45e182a7d314230c1550aac0760f1b6648829c4b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/ROOT_SCOPE.json",
+      "bytes": 6774,
+      "sha256": "ce0ddb1af07e4759affdfc7ff901fb21bae1b0ae10ca552c7f217af43bfb0cbb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/TASK.json",
+      "bytes": 11827,
+      "sha256": "ac69cb3e3e15d10a07790b6677d90127dcae4bf0a322a3ef1f24ac9c67d129c9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/host.mjs",
+      "bytes": 12242,
+      "sha256": "5c95825b6873b784337bd75b9f10193876505ded549d0fc408346951029a7267"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/proof.mjs",
+      "bytes": 7053,
+      "sha256": "137a37075dadb9fb0455886227fdbfdd64d1f9efd39e4b869ce006b2927c6c46"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/PREPARATION.json",
+      "bytes": 4508,
+      "sha256": "f3afdc84146103d8059b793662b5ba893162dca593268fc194bcb5312ffe0bbc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/CONTROL_FREEZE.json",
+      "bytes": 1608,
+      "sha256": "8c28bfb707a9cfa3640d1d942b9055018911a80c6d0336968ff5188d53da330c"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source-freeze.json",
+      "bytes": 293771,
+      "sha256": "0b387280632b2bb43220a867c6d8563b9153f43a1783e510f5721f989523e022"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/resource-close.json",
+      "bytes": 2304,
+      "sha256": "469e6ab2f2bc0818a8e8c9629a242fd885e6e0ea46fde66d6360d583294ead73"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-001/REVIEW.json",
+      "bytes": 32984,
+      "sha256": "0e236b5cc3e1b9e6c4e93a8da9840dee45478fee2366b55461c23b6fe94fad16"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-001/README.md",
+      "bytes": 9468,
+      "sha256": "dab882ed949ab7b3659b0a7bf6ecfce957bdc43ca3f36d50318b3832adac0c16"
+    }
+  ],
+  "rootDisposition": "Root read exact PREPARED/BINDING/ROOT_SCOPE/TASK/proof and admits this one existing held call; no re-prepare or new resource. Stage02 remains withheld. TwoS2 corrective outcome is canonical schema output/default/IJSON refusal conservation plus first-post-setup existing-owner reference reuse without full Catalog/view tree passes.",
+  "scope": {
+    "sourceWritePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts"
+    ],
+    "conditionalPathLimits": {
+      "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts": "Only if necessary to compose or forward existing owner resource facts.",
+      "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts": "TYPE DECLARATION ONLY if required for unchanged three binder contracts."
+    },
+    "progressRoot": "qualification-scratch/rc8-reference-preservation-01/author-02",
+    "method": "STDO3.0.4, empty composition, unchanged ABI5 project frame and existing REF-01 grant",
+    "native": "One Claude Opus5.5 xhigh native Worker",
+    "absoluteTimeoutMs": 3600000,
+    "sourceStages": [
+      "stage-03",
+      "stage-04"
+    ],
+    "serialFocusedInvocations": 8,
+    "perInvocationMs": 600000,
+    "reserveBytes": 4294967296
+  },
+  "readback": {
+    "sourceRowsVerified": 1338,
+    "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+    "physicalLogBytes": 29300126,
+    "physicalLogSha256": "04d44238a28b53aaff7bb0c5bf91f10e09fd21cf8cbbe3b60b5a158df5559da9",
+    "physicalLogDevice": 16777231,
+    "physicalLogInode": 708868359,
+    "heldHostPid": 70581,
+    "ptySession": 81650,
+    "ownerCurrentness": "Existing held host asserts acquired selection current after consuming this pin and before dispatch; Operator readback is physical evidence, not runtime authority."
+  },
+  "timing": {
+    "functionalPrepareMs": 20890.962292,
+    "hostPrepareMs": 21631.553459,
+    "preparedToAdmissionRecordMs": 268606.387,
+    "dispatchToActorStartMs": "pending actual actor start"
+  },
+  "sourceAccepted": false,
+  "qualified": false,
+  "cutInstall": false,
+  "additionalDispatch": false
+}

@@ -1,0 +1,51 @@
+{
+  "kind": "bounded_runtime_failure_projection",
+  "rows": [
+    {
+      "kind": "c_call_result_admitted",
+      "ordinal": 77434,
+      "eventTime": "2026-11-05T19:56:58.695Z",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "eventRef": "event://abiogenesis/a7f70e0c484794a1d3b994fe3020ad0a8b2ebe7cbfa0e81a752428aae871c3bf",
+      "payloadKeys": [
+        "cCallRef",
+        "contractRef",
+        "evidenceRefs",
+        "resultClass",
+        "resultDigest",
+        "resultRef",
+        "value",
+        "valueDigest",
+        "valueKind"
+      ],
+      "fields": {},
+      "value": {
+        "diagnosticRef": "<data diagnostic retained; not printed>",
+        "failureClass": "implementation_exception",
+        "kind": "governance_failure"
+      }
+    },
+    {
+      "kind": "runtime_failure_observed",
+      "ordinal": 77457,
+      "eventTime": "2026-11-05T19:57:03.375Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "eventRef": "event://abiogenesis/3ecfa4972f3690aa2ace2b9183897264e72ee896b5aad03d8219e8d8fd59fb00",
+      "payloadKeys": [
+        "basisId",
+        "diagnosticRef",
+        "failureDigest",
+        "failureRef",
+        "frameId",
+        "graphCallId",
+        "runId",
+        "stage",
+        "subjectDigest"
+      ],
+      "fields": {
+        "diagnosticRef": "<data diagnostic retained; not printed>"
+      }
+    }
+  ],
+  "limits": "Actual decoded admitted events, explicit failure fields only. No private provider content or inferred UAT result."
+}

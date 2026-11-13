@@ -1,0 +1,19 @@
+{
+  "kind": "q23_proof_launch_and_between_task_timing",
+  "at": "2026-11-05T21:24:14.346958+00:00",
+  "setupReused": true,
+  "setupMs": null,
+  "proof02FailedPreflightMs": 613.4453327395022,
+  "proof03SuccessfulPreflightMs": 68866.1327501759,
+  "hostLaunchToOwnerDispatchMs": 31840.73,
+  "dispatchToInitialSelectorMs": 36110.0,
+  "previousAuthorHostCloseToProofDispatchMs": 797260.173,
+  "previousAuthorHostClose": "2026-11-05T21:07:55.540827+00:00",
+  "dispatchStart": "2026-11-05T21:21:12.801Z",
+  "sourceReview": "completed bounded recheck during preparation",
+  "limits": [
+    "Between-task wall includes Root source/runtime readback, review, effect disposition, control staging and a corrected failed preflight; it is not runtime launch latency.",
+    "Setup was reused, so no new setup-performance measurement.",
+    "No successful complete native-workflow comparison yet."
+  ]
+}

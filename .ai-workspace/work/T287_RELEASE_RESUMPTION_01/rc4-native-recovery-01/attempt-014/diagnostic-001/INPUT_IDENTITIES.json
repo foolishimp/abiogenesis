@@ -1,0 +1,48 @@
+{
+  "bindingDigest": "6ab7cf5c7fedddfb77fbdeb56cdd56bcdcb98da1b0a0f427494fd327375b4734",
+  "sourceCommit": "16d245c1e30119c4f8bbadce06c63d857a576ee4",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "authority": {
+    "authorityBasisDigest": "sha256:17ea08a899e5c1fbae0dc6bb163832794aebcbe9c328ce0d557dc0521529444f",
+    "authorityBasisId": "workspace-authority://abiogenesis/17ea08a899e5c1fbae0dc6bb163832794aebcbe9c328ce0d557dc0521529444f",
+    "authorityManifestDigest": "sha256:7ac0693a6a3a33b2d2a0abc1373baa4c8d9678eb0436189be7a5b561de6edba6",
+    "authorityManifestRef": "authority://abi5-tests/sandbox-uat/rc4-native-runtime002/workspace",
+    "authorityMode": "trusted_developer",
+    "authorizedActorRef": "actor://abiogenesis/operator/codex-root",
+    "canonicalRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/a2ece07b7e1bfd8fce56e3103208c501f51b74208a071956c4e6eee928f2651c"
+  },
+  "binding": {
+    "bindingId": "workspace-binding://abiogenesis/b3fdb91c760a6238ea1abd901e498448a9b6d7f30b405c0a34b971a82461df08",
+    "bindingDigest": "sha256:b3fdb91c760a6238ea1abd901e498448a9b6d7f30b405c0a34b971a82461df08",
+    "roots": {
+      "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives",
+      "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/events",
+      "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/projections",
+      "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/runtime",
+      "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/sandbox/installed/abg"
+    }
+  },
+  "protectedInstallRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat"
+  ],
+  "readRootCount": 983,
+  "readRootsDigest": "sha256:e4ae431524b713d3226cf14cfce6b59514c2baa3c1e037945961ab7cb92264e9",
+  "maxFiles": 10000,
+  "maxBytes": 268435456,
+  "eventPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/events/runtime.events.jsonl",
+    "bytes": 154857182,
+    "sha256": "461efc602414628c9de0c884cfc558dbe4d693186be1225ed1ff200ca24a8405",
+    "device": 16777231,
+    "inode": 680756193,
+    "coordinateDigest": "sha256:0d82bce0fd268fa93f97f367a0bb61f827c629ce60185abd9822b34b1a631e03"
+  },
+  "RuntimeTMPDIR": "/private/tmp/abiogenesis-rc4-runtime-01",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

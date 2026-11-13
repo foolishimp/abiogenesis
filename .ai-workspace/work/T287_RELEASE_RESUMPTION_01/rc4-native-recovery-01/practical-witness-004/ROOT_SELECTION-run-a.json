@@ -1,0 +1,16 @@
+{
+  "status": "ROOT_SELECTED_ONE_SHOT_A",
+  "operator": "Root",
+  "decidedUtc": "2026-11-02T08:51:29.234899+00:00",
+  "bindingSha256": "99887015c5a8aeee75544d10de0341049b1c44298141c4864831ffb037ac3a7d",
+  "allowedStages": [
+    "run-a"
+  ],
+  "callSha256": "05128d967f2d51ebcedf024fccedad25e7b6dd0203048deb04ca6bc1a90836e2",
+  "basis": [
+    "Root setup6860 exit0; actual installed A and non-dispatched initial B preview prepared",
+    "Same Program; direct next to A and asset handle to B; exact own authorities/resources, genuine close handoff, source:none",
+    "Root inspected pinned candidate/source and exact A call"
+  ],
+  "decision": "Root selects this one real-provider A stage only. Successful Construction and eligible retained state are observed prerequisites, not assumed outcomes. No other stage, automatic retry or acceptance is selected."
+}

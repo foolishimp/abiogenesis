@@ -1,0 +1,41 @@
+{
+  "status": "ACTUAL_NATIVE_C2_SUCCESS_ADMITTED_UAT_PENDING",
+  "observedUtc": "2026-11-02T23:23:12.909701+00:00",
+  "resultRef": "result://abiogenesis/a778ac5c7bcbc53775ec559e501769955fae9ad94e923625b4be78a2619faf53",
+  "resultDigest": "sha256:a778ac5c7bcbc53775ec559e501769955fae9ad94e923625b4be78a2619faf53",
+  "observationRef": "worksite-command-execution-observation://abiogenesis/abe56fe7ba45539ab69abc107efba5a950a4b49e7749d5e63c7df15c41799e0c",
+  "observationDigest": "sha256:abe56fe7ba45539ab69abc107efba5a950a4b49e7749d5e63c7df15c41799e0c",
+  "admissionOrdinal": 28597,
+  "eventTime": "2026-11-02T23:22:00.850Z",
+  "physicalEvent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+    "offset": 510533695,
+    "bytes": 25192106,
+    "sha256": "1eeda27fc68060a15e19b02b50b54ba899200f83744bf01a34acc0e528a30a81"
+  },
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/C2_OBSERVED_SUMMARY.json",
+    "bytes": 20600,
+    "sha256": "985fc49c263f78b586caaa4cbe24e1271b9565a3f5651dceca274a6cec8074d9"
+  },
+  "helperResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/result.json",
+    "bytes": 22733506,
+    "sha256": "cb85a705e870bc2ae6061b0b099454e36bebe90248c15f314a38ce7be611141d"
+  },
+  "admittedHelperArtifactDigest": "sha256:2484a24f701fe6f5eddc41f18b6a9901a25d844cf4453f23298ca41ffb439660",
+  "actualCommandAndPredicateValuesEqualHelper": true,
+  "all12ExitZeroNoTimeout": true,
+  "all12PredicatesSatisfied": true,
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10971372,
+    "sha256": "4589f5c5174cb84ba37f4efecd15f52f6437fa696d117aeff58b84bd5f8363ac"
+  },
+  "sourceCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/C2_SOURCE_CORRESPONDENCE.jsonl",
+    "bytes": 36070,
+    "sha256": "c6d18624fd26102058e93bf690cd85ec20d38400a1b272601154d4a5de517d2f"
+  },
+  "limit": "Native C2 success admitted; Testing fold/UAT/Run terminal and Root acceptance remain separate."
+}

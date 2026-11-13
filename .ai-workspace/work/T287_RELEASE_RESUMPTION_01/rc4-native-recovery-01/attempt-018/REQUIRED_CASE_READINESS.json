@@ -1,0 +1,75 @@
+{
+  "status": "FILE_ONLY_REQUIRED_CASE_AND_DEPENDENCY_READY",
+  "harnessPath": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+  "requiredNames": [
+    "Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner",
+    "Native refusal without an admitted Run is preserved before any refresh, reopen or read",
+    "Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes",
+    "Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse"
+  ],
+  "pattern": "^(?:Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner|Native refusal without an admitted Run is preserved before any refresh, reopen or read|Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes|Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse)$",
+  "selectedCaseCount": 4,
+  "requiredSkipAllowed": false,
+  "timeoutMs": 300000,
+  "ownerBudgetStatus": "PURE_SELECTED_RUNTIME003_OWNER_PASS",
+  "proofScope": "Only affected four guards; unrelated harness cases excluded. Final exact file/match and whole owner budget readiness after actual source return.",
+  "requiredExecutionBudgetMs": 4448000,
+  "startFixtureReadiness": {
+    "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+    "fixtureAndDependencies": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/developer-mini-product.mjs",
+        "sha256": "9c1aaa148aee8a1403db0f068fc47afa16a147c0be7d27c1bd74ddc7c9f4b39a",
+        "bytes": 13419,
+        "readSelected": true,
+        "C2Selected": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/contracts/greeting.schema.json",
+        "sha256": "3d5f2ae1763570a5402ce08afa72f29ca5c6be6b89901f8f47b52c92837ef7e3",
+        "bytes": 897,
+        "readSelected": true,
+        "C2Selected": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/contracts/public-contract-catalog.schema.json",
+        "sha256": "3eecd2367ee52e69014d77740083502e4f2235571343172030a3994311bd344c",
+        "bytes": 88,
+        "readSelected": true,
+        "C2Selected": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/package.json",
+        "sha256": "a18c589b450d0a79cb75f3b6a3e94397d68a6e1dbbaeab42404c854d6808f995",
+        "bytes": 375,
+        "readSelected": true,
+        "C2Selected": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/src/index.ts",
+        "sha256": "fdba0916cdb70d1064f98dd0f0d1ed821cf1f762d5ffb4f346809f7deb55296b",
+        "bytes": 190503,
+        "readSelected": true,
+        "C2Selected": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/tsconfig.json",
+        "sha256": "7d01aa9e9d4f252b284be1430bb8bd14d100dfa7dc72817beb688a0c5810daa6",
+        "bytes": 311,
+        "readSelected": true,
+        "C2Selected": true
+      }
+    ],
+    "standing": "Existing exact fixture and tracked source dependencies already selected in016 readRoots/C2selectedPaths; no new write grant. Final source import/materialization readiness remains before freeze."
+  },
+  "boundedAdditionalProofs": {
+    "A": "Existing ST1 unchanged developer-mini-product fixture, one installed setup; graph_function START via qualification.startCall(programRef,graphFunctionRef), asset START through shipped factory with predeclared greetingAssetHandle. No raw target patch or post-admission asset.",
+    "B": "Existing selected recursive cold case: pending wrongRun and childGraphCall read with actual declarationProof/omitted proof, exact owner causes/zero events. Root GraphCall cannot prove missing child history.",
+    "C": "Share existing private continuation lookup/status/parentbasis/resolution-argument/contract-policy-grant population between constructor/admission while each independently rechecks; no cache or broad owner replacement."
+  },
+  "harnessPin": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "bytes": 68209,
+    "sha256": "170946abe010e3a053ae7ced60f184feb95b0c6738226439878dc0945de9e08b"
+  }
+}

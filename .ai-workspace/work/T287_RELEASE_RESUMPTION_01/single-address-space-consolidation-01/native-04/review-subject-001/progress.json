@@ -1,0 +1,83 @@
+{
+ "kind": "native_04_progress",
+ "milestones": [
+  {
+   "utc": "2026-11-03T19:49:06Z",
+   "event": "start; control intake read"
+  },
+  {
+   "utc": "2026-11-03T19:52:30Z",
+   "event": "stdo status --verify installed=true valid=true failures=[] manifest 102817a3; held subject cf84f95d 89/89 worksite files equal"
+  },
+  {
+   "utc": "2026-11-03T19:56:00Z",
+   "event": "worksite_command_forward 69/189/219 and worksite_construction_recovery 215/322 migrated; tsc --noEmit exit 0 (tmp04/tc-3.log)"
+  },
+  {
+   "utc": "2026-11-03T19:57:41Z",
+   "event": "witness_admission_operation 1127 and witness_definition_bindings 156/308 migrated; witness-reprice oracles reconciled to HOW64/66 classification"
+  },
+  {
+   "utc": "2026-11-03T19:58:43Z",
+   "event": "retry 638/3597 migrated; tsc exit 0 (tmp04/tc-6.log)"
+  },
+  {
+   "utc": "2026-11-03T20:01:00Z",
+   "event": "qualification_proof migration blocked: out-of-grant test_env/support/malformed-gtl-native-fixture.mjs links qualification_proof against array-carrier synthetic modules; planPendingInteractionAdmission deleted; projectRuntimeTruthAtDurablePrefix retained with demonstrated fresh-process proof consumer (out-of-grant harness)"
+  },
+  {
+   "utc": "2026-11-03T20:04:59Z",
+   "event": "tmp04/w scratch from C2_SELECTED_INPUTS (861 files incl. 3 disclosed unselected owner tests); tsc exit0; manifest gen-1 failed (symlinked node_modules outside package root), replaced with offline toolchain copy"
+  },
+  {
+   "utc": "2026-11-03T20:05:19Z",
+   "event": "gen-2 failed: packed native declaration closure invalid; cause: exported forward/recovery results inferred @internal OwnedRuntimeEventPrefix (stripInternal)"
+  },
+  {
+   "utc": "2026-11-03T20:09:02Z",
+   "event": "exported forward/recovery results no longer expose owner prefix (private helpers forwardSourceAt/preservedResultOwner); tsc/gen exit0; dts errors equal held baseline (4)"
+  },
+  {
+   "utc": "2026-11-03T20:09:18Z",
+   "event": "witness-1: 18/4 fail; second cold acquisition at witness admission readOwned(requireCurrent) and wrong selectedBytes oracle"
+  },
+  {
+   "utc": "2026-11-03T20:12:39Z",
+   "event": "witness admission uses assertHeld + selectRuntimeEventPrefixFromStore (held currentness, no re-acquisition); witness-3: 21/1"
+  },
+  {
+   "utc": "2026-11-03T20:13:19Z",
+   "event": "witness-4: 22/0/0 after removing incorrect material-body bytes oracle (basis_admitted body is a required selected body)"
+  },
+  {
+   "utc": "2026-11-03T20:13:36Z",
+   "event": "owners-2 (m5-retry, t287-retry-run-prefix, forward-command-owners/contracts, d1-preserved): 24/0/4 skip (3 need undeclared ABI5_S02_RETRY_FIXTURE, 1 ABI5_EVIDENCE_ROOT)"
+  },
+  {
+   "utc": "2026-11-03T20:18:59Z",
+   "event": "forward-1 (t287-worksite-command-execution + runtime-failure-diagnostic): 32/1; case26 scratch gap runtime-retained-projections-worker.mjs not selected"
+  },
+  {
+   "utc": "2026-11-03T20:20:08Z",
+   "event": "forward-2 case26 after copying that worker: 1/0"
+  },
+  {
+   "utc": "2026-11-03T20:20:59Z",
+   "event": "HOW \u00a710.4 runtime-history row updated (migrated owners, S3 distinction, planPendingInteractionAdmission removed, retention reason)"
+  },
+  {
+   "utc": "2026-11-03T20:24:10Z",
+   "event": "lineage probe (tmp04/p instrumented scratch build) 1/0: 25 validation-prefix liveness reconstructions per invocation (new_key scopes), +576 prior-run bodies per prior invocation; 3 global public-op walks read every unrelated body once per invocation"
+  },
+  {
+   "utc": "2026-11-03T20:27:04Z",
+   "event": "closed-owner acquisition-kind discriminator added to installed case; sas-disc-1 1/0"
+  },
+  {
+   "utc": "2026-11-03T20:31:34Z",
+   "event": "sas-2 whole-path lane on final test bytes 4/0/0; return.json and readiness.json written (ready=false)"
+  }
+ ],
+ "finalSourceStanding": "worksite bytes hashed in return.json sources; scratch code/src equal (rsync --checksum no changes)",
+ "stoppedEditing": "2026-11-03T20:31:50Z"
+}

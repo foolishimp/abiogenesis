@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-03T13:01:41.773528+00:00",
+  "roleTransition": "Executive bounded conjunction -> Root evidence custody Writer",
+  "grant": "Exact copies and content-checked archives of operator inputs, acceptance and failed/green evidence; closed event log byte copy; local source checkpoint follows separately",
+  "exclusions": [
+    "No Product source authoring",
+    "No old evidence mutation",
+    "No portable reopen-authority claim",
+    "No publication/global selector or qualification"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "status": "PREPARED_BOUND_ROOT_CONDITIONAL_EXECUTION_SELECTED",
+  "at": "2026-11-07T05:00:56.070366+00:00",
+  "activation": "/root/rc8_operator",
+  "consumer": "/root",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_002.json",
+    "bytes": 2373,
+    "sha256": "9cd917e62f77726551b11d6c96d8ddbeab60af11125d3d7b608ac8529300ef5a"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-003.mjs",
+      "bytes": 21577,
+      "sha256": "17b5aa254998ff8f5b42e03bfb14c5d55a74f73586aa8b0598f94b204896a759"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_004.json",
+      "bytes": 38501,
+      "sha256": "7fd7b04d7d6e7f5e4b110335f53540b69f33bde9c3f30c82646499dee4cd0198"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CONTROL_CORRECTION_003.json",
+      "bytes": 3836,
+      "sha256": "d6c5f6efa391fe34e4c0c0b7bae36e948d43696013e96566ef1df8d1ecf02adf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_BASIS.json",
+      "bytes": 5584,
+      "sha256": "5e6bb661ed9ccbe0e2c6c3a202e30d8b8b38659cdbfb7bea3ca73c86e6d632b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/FOCUSED_CREDIT_DISPOSITION_001.json",
+      "bytes": 10973,
+      "sha256": "2172f11ff8958044fac0326fd09ecd46d7215bf7e0adaa7f9618c244138813b3"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/package.json",
+      "bytes": 2792,
+      "sha256": "de931013323716d4bcbb452f3be68b7d86fcc7f65a4534f329141616744d6f8d"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/index.js",
+      "bytes": 273,
+      "sha256": "da8c11620eada2c05b7c3466df0abebc42d278bef3b5bb3b135c6c63d85f60d2"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/package.json",
+      "bytes": 1421,
+      "sha256": "b2afa7f4ab048813b9bac37d4a06176037fb11254dc2671c647d2f1a3ff672a2"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/lib/index.js",
+      "bytes": 15879,
+      "sha256": "e77f7128b7f6a0b5f6a4e5e52de4ada0c3fdaad1542c98957185576ae1d99e35"
+    }
+  ],
+  "boundInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-004/BOUND_INVENTORY.json",
+    "bytes": 1715906,
+    "sha256": "071bddc9b04faef1d384c1f20121cb38a87796fdc1ccb6447b2bca002538396b"
+  },
+  "testsExecuted": 0,
+  "fixturesAllocated": false,
+  "executionSelection": "Root instruction authorizes one run after exact control/credit conditions hold; npm physical-layout equality gates the test loop."
+}

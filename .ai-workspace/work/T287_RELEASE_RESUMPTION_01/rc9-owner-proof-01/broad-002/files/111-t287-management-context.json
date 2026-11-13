@@ -1,0 +1,68 @@
+{
+  "file": "test_env/tests/t287-management-context.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1623.9000420002267,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 14,
+    "failed": 0,
+    "passed": 12,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0,
+    "topLevel": 14,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 13,
+      "type": "case",
+      "passed": true,
+      "name": "Public-start exact positive and schema-valid crossed input coordinate use the existing preparation owner",
+      "file": "test_env/tests/t287-management-context.test.mjs",
+      "nesting": 0,
+      "testNumber": 13,
+      "suite": false,
+      "skip": "ABI5_CONTEXT_PUBLIC_PROOF is not '1'; selects the installed Public-start proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 14,
+      "type": "case",
+      "passed": true,
+      "name": "exact released a_c validation and emitted-map equality are structural access, not frame application",
+      "file": "test_env/tests/t287-management-context.test.mjs",
+      "nesting": 0,
+      "testNumber": 14,
+      "suite": false,
+      "skip": "ABI5_CONTEXT_STDO_CONFIGURATION unset; requires the released a_c run-environment configuration directory",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/111-t287-management-context.jsonl",
+    "bytes": 4670,
+    "sha256": "dccfd8d775bf69a312efe2d140616509779c5d5985da767e15bc52394f28179c"
+  },
+  "commandReceipt": "commands/111-t287-management-context.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

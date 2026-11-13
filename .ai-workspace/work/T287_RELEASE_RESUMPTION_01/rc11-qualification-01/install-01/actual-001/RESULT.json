@@ -1,0 +1,12 @@
+{
+  "status": "LOCAL_RC11_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED",
+  "qualified": false,
+  "published": false,
+  "startedUtc": "2026-11-09T10:35:09.608Z",
+  "verification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+    "bytes": 8558,
+    "sha256": "499944cba2e73c51815ec69da8ce4e783cf4b09b8e785eadd579d4ae928dc8c5"
+  },
+  "endedUtc": "2026-11-09T10:35:57.308Z"
+}

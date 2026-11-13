@@ -1,0 +1,576 @@
+{
+  "kind": "Effect3.22.1 API-only single invocation",
+  "node": "v24.7.0",
+  "pid": 35146,
+  "result": {
+    "halt": null
+  },
+  "observations": [
+    {
+      "name": "mixed-cause-baseline",
+      "checks": {
+        "squashSelectsTypedSecondary": true,
+        "loneUndefinedPreserved": true
+      }
+    },
+    {
+      "name": "naive-catchAll",
+      "order": [
+        "acquired",
+        "use-exit",
+        "cleanup"
+      ],
+      "cleanupCount": 1,
+      "catchCount": 0,
+      "useExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Fail",
+          "value": {
+            "type": "object",
+            "samePrimary": true,
+            "sameCleanup": false,
+            "description": "Error:primary-naive"
+          }
+        }
+      },
+      "finalExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Sequential",
+          "left": {
+            "tag": "Die",
+            "value": {
+              "type": "object",
+              "samePrimary": true,
+              "sameCleanup": false,
+              "description": "Error:primary-naive"
+            }
+          },
+          "right": {
+            "tag": "Die",
+            "value": {
+              "type": "object",
+              "samePrimary": false,
+              "sameCleanup": true,
+              "description": "Error:cleanup-naive-catchAll"
+            }
+          }
+        }
+      },
+      "checks": {
+        "failed": true,
+        "typedCatchBypassed": true,
+        "cleanupRanOnce": true
+      }
+    },
+    {
+      "name": "selected-worksite",
+      "order": [
+        "acquired",
+        "use-exit",
+        "cleanup",
+        "scope-closed",
+        "selected",
+        "typed-catch"
+      ],
+      "cleanupCount": 1,
+      "catchCount": 1,
+      "useExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Fail",
+          "value": {
+            "type": "object",
+            "samePrimary": true,
+            "sameCleanup": false,
+            "description": "Error:original-worksite"
+          }
+        }
+      },
+      "closedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Sequential",
+          "left": {
+            "tag": "Fail",
+            "value": {
+              "type": "object",
+              "samePrimary": true,
+              "sameCleanup": false,
+              "description": "Error:original-worksite"
+            }
+          },
+          "right": {
+            "tag": "Die",
+            "value": {
+              "type": "object",
+              "samePrimary": false,
+              "sameCleanup": true,
+              "description": "Error:cleanup-selected-worksite"
+            }
+          }
+        }
+      },
+      "selectedFrom": "use",
+      "selectedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Fail",
+          "value": {
+            "type": "object",
+            "samePrimary": true,
+            "sameCleanup": false,
+            "description": "Error:original-worksite"
+          }
+        }
+      },
+      "finalExit": {
+        "tag": "Success",
+        "value": {
+          "type": "string",
+          "samePrimary": false,
+          "sameCleanup": false,
+          "description": "recovered-worksite-like"
+        }
+      },
+      "catchValue": {
+        "type": "object",
+        "samePrimary": true,
+        "sameCleanup": false,
+        "description": "Error:original-worksite"
+      },
+      "checks": {
+        "cleanupRanOnce": true,
+        "selectionAfterCleanup": true,
+        "recovered": true,
+        "samePrimaryCaught": true,
+        "primarySelected": true
+      }
+    },
+    {
+      "name": "selected-undefined",
+      "order": [
+        "acquired",
+        "use-exit",
+        "cleanup",
+        "scope-closed",
+        "selected",
+        "typed-catch"
+      ],
+      "cleanupCount": 1,
+      "catchCount": 1,
+      "useExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Fail",
+          "value": {
+            "type": "undefined",
+            "samePrimary": true,
+            "sameCleanup": false,
+            "description": "undefined"
+          }
+        }
+      },
+      "closedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Sequential",
+          "left": {
+            "tag": "Fail",
+            "value": {
+              "type": "undefined",
+              "samePrimary": true,
+              "sameCleanup": false,
+              "description": "undefined"
+            }
+          },
+          "right": {
+            "tag": "Die",
+            "value": {
+              "type": "object",
+              "samePrimary": false,
+              "sameCleanup": true,
+              "description": "Error:cleanup-selected-undefined"
+            }
+          }
+        }
+      },
+      "selectedFrom": "use",
+      "selectedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Fail",
+          "value": {
+            "type": "undefined",
+            "samePrimary": true,
+            "sameCleanup": false,
+            "description": "undefined"
+          }
+        }
+      },
+      "finalExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Fail",
+          "value": {
+            "type": "undefined",
+            "samePrimary": true,
+            "sameCleanup": false,
+            "description": "undefined"
+          }
+        }
+      },
+      "catchValue": {
+        "type": "undefined",
+        "samePrimary": true,
+        "sameCleanup": false,
+        "description": "undefined"
+      },
+      "checks": {
+        "cleanupRanOnce": true,
+        "selectionAfterCleanup": true,
+        "samePrimaryFailure": true,
+        "failurePresence": true,
+        "primarySelected": true
+      }
+    },
+    {
+      "name": "selected-primitive",
+      "order": [
+        "acquired",
+        "use-exit",
+        "cleanup",
+        "scope-closed",
+        "selected",
+        "typed-catch"
+      ],
+      "cleanupCount": 1,
+      "catchCount": 1,
+      "useExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Fail",
+          "value": {
+            "type": "string",
+            "samePrimary": true,
+            "sameCleanup": false,
+            "description": "raw-primary"
+          }
+        }
+      },
+      "closedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Sequential",
+          "left": {
+            "tag": "Fail",
+            "value": {
+              "type": "string",
+              "samePrimary": true,
+              "sameCleanup": false,
+              "description": "raw-primary"
+            }
+          },
+          "right": {
+            "tag": "Die",
+            "value": {
+              "type": "object",
+              "samePrimary": false,
+              "sameCleanup": true,
+              "description": "Error:cleanup-selected-primitive"
+            }
+          }
+        }
+      },
+      "selectedFrom": "use",
+      "selectedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Fail",
+          "value": {
+            "type": "string",
+            "samePrimary": true,
+            "sameCleanup": false,
+            "description": "raw-primary"
+          }
+        }
+      },
+      "finalExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Fail",
+          "value": {
+            "type": "string",
+            "samePrimary": true,
+            "sameCleanup": false,
+            "description": "raw-primary"
+          }
+        }
+      },
+      "catchValue": {
+        "type": "string",
+        "samePrimary": true,
+        "sameCleanup": false,
+        "description": "raw-primary"
+      },
+      "checks": {
+        "cleanupRanOnce": true,
+        "selectionAfterCleanup": true,
+        "samePrimaryFailure": true,
+        "failurePresence": true,
+        "primarySelected": true
+      }
+    },
+    {
+      "name": "selected-success-cleanup",
+      "order": [
+        "acquired",
+        "use-exit",
+        "cleanup",
+        "scope-closed",
+        "selected"
+      ],
+      "cleanupCount": 1,
+      "catchCount": 0,
+      "useExit": {
+        "tag": "Success",
+        "value": {
+          "type": "string",
+          "samePrimary": false,
+          "sameCleanup": false,
+          "description": "use-ok"
+        }
+      },
+      "closedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Die",
+          "value": {
+            "type": "object",
+            "samePrimary": false,
+            "sameCleanup": true,
+            "description": "Error:cleanup-selected-success-cleanup"
+          }
+        }
+      },
+      "selectedFrom": "closed",
+      "selectedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Die",
+          "value": {
+            "type": "object",
+            "samePrimary": false,
+            "sameCleanup": true,
+            "description": "Error:cleanup-selected-success-cleanup"
+          }
+        }
+      },
+      "finalExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Die",
+          "value": {
+            "type": "object",
+            "samePrimary": false,
+            "sameCleanup": true,
+            "description": "Error:cleanup-selected-success-cleanup"
+          }
+        }
+      },
+      "checks": {
+        "cleanupRanOnce": true,
+        "selectionAfterCleanup": true,
+        "cleanupFailed": true,
+        "noTypedCatch": true,
+        "closedSelected": true
+      }
+    },
+    {
+      "name": "selected-live-interruption",
+      "order": [
+        "acquired",
+        "body-live",
+        "interrupt-request",
+        "use-exit",
+        "cleanup",
+        "scope-closed",
+        "selected",
+        "interrupt-return"
+      ],
+      "cleanupCount": 1,
+      "catchCount": 0,
+      "useExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Sequential",
+          "left": {
+            "tag": "Sequential",
+            "left": {
+              "tag": "Empty"
+            },
+            "right": {
+              "tag": "Interrupt"
+            }
+          },
+          "right": {
+            "tag": "Sequential",
+            "left": {
+              "tag": "Empty"
+            },
+            "right": {
+              "tag": "Interrupt"
+            }
+          }
+        }
+      },
+      "closedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Sequential",
+          "left": {
+            "tag": "Sequential",
+            "left": {
+              "tag": "Sequential",
+              "left": {
+                "tag": "Sequential",
+                "left": {
+                  "tag": "Sequential",
+                  "left": {
+                    "tag": "Sequential",
+                    "left": {
+                      "tag": "Empty"
+                    },
+                    "right": {
+                      "tag": "Interrupt"
+                    }
+                  },
+                  "right": {
+                    "tag": "Sequential",
+                    "left": {
+                      "tag": "Empty"
+                    },
+                    "right": {
+                      "tag": "Interrupt"
+                    }
+                  }
+                },
+                "right": {
+                  "tag": "Sequential",
+                  "left": {
+                    "tag": "Empty"
+                  },
+                  "right": {
+                    "tag": "Interrupt"
+                  }
+                }
+              },
+              "right": {
+                "tag": "Sequential",
+                "left": {
+                  "tag": "Empty"
+                },
+                "right": {
+                  "tag": "Interrupt"
+                }
+              }
+            },
+            "right": {
+              "tag": "Die",
+              "value": {
+                "type": "object",
+                "samePrimary": false,
+                "sameCleanup": true,
+                "description": "Error:cleanup-selected-live-interruption"
+              }
+            }
+          },
+          "right": {
+            "tag": "Sequential",
+            "left": {
+              "tag": "Empty"
+            },
+            "right": {
+              "tag": "Interrupt"
+            }
+          }
+        }
+      },
+      "selectedFrom": "use",
+      "selectedExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Sequential",
+          "left": {
+            "tag": "Sequential",
+            "left": {
+              "tag": "Empty"
+            },
+            "right": {
+              "tag": "Interrupt"
+            }
+          },
+          "right": {
+            "tag": "Sequential",
+            "left": {
+              "tag": "Empty"
+            },
+            "right": {
+              "tag": "Interrupt"
+            }
+          }
+        }
+      },
+      "finalExit": {
+        "tag": "Failure",
+        "cause": {
+          "tag": "Sequential",
+          "left": {
+            "tag": "Sequential",
+            "left": {
+              "tag": "Sequential",
+              "left": {
+                "tag": "Empty"
+              },
+              "right": {
+                "tag": "Interrupt"
+              }
+            },
+            "right": {
+              "tag": "Sequential",
+              "left": {
+                "tag": "Empty"
+              },
+              "right": {
+                "tag": "Interrupt"
+              }
+            }
+          },
+          "right": {
+            "tag": "Sequential",
+            "left": {
+              "tag": "Empty"
+            },
+            "right": {
+              "tag": "Interrupt"
+            }
+          }
+        }
+      },
+      "checks": {
+        "failureRemains": true,
+        "interruptionPreserved": true,
+        "cleanupRanOnce": true,
+        "cleanupBeforeHandback": true,
+        "primarySelected": true,
+        "combinedCleanupFailureRetained": true
+      }
+    }
+  ],
+  "claimLimits": [
+    "No Product imports or implementation",
+    "No OS child or signal created by fixture",
+    "No D15 artifact, physical absence or installed proof credit"
+  ]
+}

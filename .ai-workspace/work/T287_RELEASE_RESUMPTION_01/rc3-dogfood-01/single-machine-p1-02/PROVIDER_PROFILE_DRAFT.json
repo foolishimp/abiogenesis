@@ -1,0 +1,53 @@
+{
+  "absoluteTimeoutMs": 5400000,
+  "automaticRetry": false,
+  "bashDefaultTimeoutMs": 2400000,
+  "bashMaxTimeoutMs": 2400000,
+  "constructorEvidence": [
+    "operator-client/runner.mjs finite() and configuration() require positive safe-integer maxTurns and timeout fields and workerEnvironment renders --max-turns plus selected effort",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts resolveAbsoluteTimeoutMs requires a safe integer strictly greater than inactivity timeout"
+  ],
+  "effort": "xhigh",
+  "executableBytesReverified": true,
+  "executables": {
+    "claude": {
+      "bytes": 272984176,
+      "configuredPath": "/Users/jim/.local/bin/claude",
+      "realPath": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b",
+      "version": "2.1.306 (Claude Code)"
+    },
+    "node": {
+      "bytes": 86104016,
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "bytes": 54,
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    }
+  },
+  "inactivityTimeoutMs": 2400000,
+  "inheritCredentialEnvironmentNames": [
+    "CLAUDE_CODE_OAUTH_TOKEN"
+  ],
+  "kind": "single_machine_p1_prospective_provider_profile",
+  "limits": [
+    "240-turn and selected 90-minute settings have not been exercised for this run.",
+    "Owner timeout is a configured threshold, not proven wall-clock containment.",
+    "No automatic aggregate cost cap or unknown-charge-as-zero claim.",
+    "New task, native C2 closure and actual Root-dispatched call remain pending."
+  ],
+  "maxBudgetUsdPerProcess": null,
+  "maxTurnsPerProcess": 240,
+  "model": "claude-opus-5-5",
+  "outerPublicTimeoutMs": 10800000,
+  "providerCallsPerformed": 0,
+  "selectionAuthority": "Root single-machine P1 delegation, no new spending cap",
+  "status": "ROOT_SELECTED_CONFIGURATION_NOT_ACTIVATED"
+}

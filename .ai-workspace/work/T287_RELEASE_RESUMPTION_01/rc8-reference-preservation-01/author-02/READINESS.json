@@ -1,0 +1,44 @@
+{
+  "status": "CONTROLS_PREPARED_FINAL_SCOPE_PENDING_NO_SETUP_NO_DISPATCH",
+  "recordedUtc": "2026-11-07T03:47:40.921169+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/PREPARATION.json",
+      "bytes": 4508,
+      "sha256": "f3afdc84146103d8059b793662b5ba893162dca593268fc194bcb5312ffe0bbc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/host.mjs",
+      "bytes": 12052,
+      "sha256": "4d8d2d39415c49c2a5a3d65cff136e63f38a6fe25a071a672259a4056d39aac6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/proof.mjs",
+      "bytes": 7053,
+      "sha256": "137a37075dadb9fb0455886227fdbfdd64d1f9efd39e4b869ce006b2927c6c46"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/TASK.DRAFT.json",
+      "bytes": 6667,
+      "sha256": "81c76c8940b73e1531da8c5f24f3be49f05e724df7b2f20c1507a37e6a6ed3f8"
+    }
+  ],
+  "syntaxChecks": {
+    "host.mjs": "node --check exit0",
+    "proof.mjs": "node --check exit0"
+  },
+  "functionalPreparation": "not run; Root currently authorized compact controls only pending final review conjunction/source grant",
+  "runtimeResource": "no acquisition by this activation",
+  "newProviderCalls": 0,
+  "newSourceBuilds": 0,
+  "newFocusedTests": 0,
+  "productWrites": 0,
+  "freeBytes": 11135975424,
+  "remainingBinding": [
+    "Exact Root closed-review findings and source/HOW/test grant",
+    "Final task and Root-bound successor configuration, including8-invocation allowance",
+    "Root may then select retained owner preparation; exact PREPARED readback before one dispatch admission"
+  ],
+  "intendedInvocation": "/opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 host.mjs <final-BINDING-sha256>",
+  "hostContext": "fresh native task packet; same declared Claude Opus5.5 xhigh route; shared filesystem tools with procedural scope, not an enforced filesystem exclusion or independence claim"
+}

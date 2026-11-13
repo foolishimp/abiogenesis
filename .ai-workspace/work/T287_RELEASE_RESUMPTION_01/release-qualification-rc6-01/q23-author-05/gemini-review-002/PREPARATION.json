@@ -1,0 +1,19 @@
+{
+  "status": "ROOT_SELECTED_EXISTING_VERTEX_AUTH_REENTRY",
+  "priorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/ROOT_FAILURE_TRIAGE.json",
+    "bytes": 2709,
+    "sha256": "cd0a50a67ec4e9a9f880080c3dc8ef247949eb4d9f8d99cb7a2aaee0e62f9149"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "auth": "vertex-ai",
+  "project": "gemini-cli-poc",
+  "location": "global",
+  "operatorCredentialContentsRead": false,
+  "providerCalls": 0,
+  "globalChanges": 0
+}

@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 694.4515420000025,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 3,
+    "failed": 0,
+    "passed": 3,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 3,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-010/events/092-t287-gtl-language-corpus.jsonl",
+    "bytes": 1363,
+    "sha256": "94f2554827d413b6275f3be6cf0f97e21919df0f1d6a9090e838d93d15ce23a3"
+  },
+  "commandReceipt": "commands/092-t287-gtl-language-corpus.result.json",
+  "workspace": "/private/tmp/abg-r8c-010/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

@@ -1,0 +1,68 @@
+{
+  "status": "PREPARED_FINAL_A11_SOURCE_BROAD_CONJUNCTION_PENDING_NO_EXECUTION",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/ROOT_CUT8_FINAL_BINDING_PREPARATION_003.json",
+    "bytes": 2245,
+    "sha256": "cb6ef1942246444910430cdefa12a035a13314664df2c3c6f6d28c8c09a849ac"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 7205,
+    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+  },
+  "sourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_FINAL_SOURCE_INVENTORY_003.json",
+    "bytes": 541696,
+    "sha256": "b07fc4536774a536878e43c961cdf319e11ddec58c2d51d560e3f0ab46e0c3dc"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_BUILD_BINDINGS_FINAL_SOURCE_004.prepared.json",
+    "bytes": 28473,
+    "sha256": "4dc591acbc265410804ec5fa4c1745147d907a0163ff68e9e49fd81fb8a34e49"
+  },
+  "bindingDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/BINDING_DIFF_FINAL_SOURCE_004.patch",
+    "bytes": 17421,
+    "sha256": "ea418fa75a3ee949ae8404b4555db6c51796436c60315217e783f9c6a5702f26"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "bytes": 27890,
+    "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_002.json",
+    "bytes": 4182,
+    "sha256": "64e5c7a9bb4092fdc9334e9f78898e5cdd401d58059f2098c9a7f68a87c1ef39"
+  },
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "verification": {
+    "currentC8RowsMatchFreeze": 1339,
+    "immutableInventoryRowsMatchFreeze": 1339,
+    "trackedSelectedPaths": 23,
+    "newSelectedPaths": 3,
+    "totalSelectedPaths": 26,
+    "changedRowsFromPriorInventory": 1,
+    "unchangedRowsFromPriorInventory": 1338,
+    "cumulativeUnshippedChangesFromStage04": 8,
+    "sourceEdits": 0,
+    "gitMutations": 0,
+    "builds": 0,
+    "archiveUnchanged": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "standing": "Source accepted only within retained bounded claims; five residual capsules remain OPEN. Exact original compiled/dependency/archive and corrected002 control budgets retained. broadClose:null/executionEnabled:false; no checkpoint/build/cut/install. Final Writer claims must bind current final facts and absolute outside-evidence links before installation."
+}

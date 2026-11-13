@@ -1,0 +1,36 @@
+{
+  "kind": "actual_native_actor_start_metadata",
+  "actorEvent": {
+    "offset": 2390713067,
+    "bytes": 1840,
+    "sha256": "a60b87defc49543dd41a1555c0aea9a4877e68d256e3137be4ccf8dbf93b172a",
+    "envelope": {
+      "kind": "actor_process_started",
+      "eventId": "event://abiogenesis/33cef79382e2d6244b91e5f64e2d5ec6bc0b4067e4b9463957c93db4d9435401",
+      "eventTime": "2026-11-06T19:29:01.886Z",
+      "admissionOrdinal": 298538,
+      "runId": "run://abiogenesis/925caebd0e48e085207334d7096c7bf376778022e34ce9d22d1e804001cd4204",
+      "basisId": "execution-basis://abiogenesis/fa19d332ace46b7acd74d9e86e6f12dd7d8d391d32103f86483a11d1cae623c1",
+      "aggregateId": "process://abiogenesis/699929c2e790e189271d186fa978daa79de7a963b6329814559aa574e5854cae",
+      "aggregateType": "process",
+      "scopeClass": "run",
+      "payloadDigest": "sha256:567415a7b876e8d77afea77769b83af0213e26e8fdfb07194ecca9677e4ff6ba"
+    },
+    "actor": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/f0ba7153975a517e79fda2a9cc3d0e63f3ed94591c0b2ade776d139909341788",
+      "cCallRef": "c-call:sha256:2b8c2cd13fee25d95fa72979b25080683bf45f9bd6e07b3e73e59a99962d13f1",
+      "processId": 98013,
+      "processRef": "process://abiogenesis/699929c2e790e189271d186fa978daa79de7a963b6329814559aa574e5854cae"
+    }
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/operator-custody-001/ACTOR_SUFFIX_001.json",
+    "bytes": 2576,
+    "sha256": "e894fbe2a2ee78980798f3999d1d8a3e11050b7523a2a68e3ad731b9eaf91d3b"
+  },
+  "hostStartedUtc": "2026-11-06T19:26:55.563Z",
+  "hostToActorMs": 126323.0,
+  "preparedToActorMs": 6248.794958999992,
+  "nativeAbsoluteCapUtc": "2026-11-06T20:59:01.886000+00:00",
+  "timingLimit": "prepared-to-actor derives from host UTC plus host monotonic preparation mark; no SDK STARTED marker is treated as actor start."
+}

@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/run-install.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/INSTALL_BINDING.json",
+    "e9c9aa71a96eb6063a55764a4d368d1983e074048489374eeacbea2dee1feb7b"
+  ],
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/READY.json",
+    "bytes": 5172,
+    "sha256": "237dc83d6d80f71269f56eab33ea7136cc84c4718229b6d7d997479f7dfe51f4"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/INSTALL_BINDING.json",
+    "bytes": 12577,
+    "sha256": "e9c9aa71a96eb6063a55764a4d368d1983e074048489374eeacbea2dee1feb7b"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 4675,
+    "sha256": "b2b96c4260d1661142ee554080a26dd7d4e7bc142e723fa9514d4ea3667a1004"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/PREFLIGHT.json",
+    "bytes": 6656,
+    "sha256": "763d34033b772ef6b8e43bb88c6b7c142d0089d14105f0a5899dffe0944c11a8"
+  }
+}

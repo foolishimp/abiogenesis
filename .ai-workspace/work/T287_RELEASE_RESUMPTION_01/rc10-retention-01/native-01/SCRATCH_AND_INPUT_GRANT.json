@@ -1,0 +1,8 @@
+{
+  "id": "RC10-NATIVE-SCRATCH-01",
+  "decisionOwner": "/root",
+  "decisionVerbatim": "Granted RC10-NATIVE-SCRATCH-01 under existing selected build/proof authorization: native writeRoots additionally includes exact worksite-relative qualification-scratch/rc10-retention-01/proof-01 (all freeze/build/focused files and test TMPDIR/cache outputs confined there). This is disposable W outside commissioned observed R, supported by native_workspace_work.ts45-46; no Product/source expansion or extra proof. Bind separate physical inventory/hashes for its frozen stage and actual receipts; unobserved never implies proven absence of off-scope writes. Read/write driver outputs, temp and package caches must all match this grant; shared node_modules and RC9 install remain read-only. Source-only native then external build is unnecessary if lawful driver works.\nAlso ensure mandatory TASK Root/triage/control reads and FOCUSED_BINDING_PIN are actually available in declared read territory; prefer immutable copied controls at qualification-inputs/rc10-retention-01 included in readRoots/readFirst, with its exact pins outside source mutation. An external absolute pin/driver instruction alone must not silently widen Worker scope. Preserve approved external tool/dependency authority explicitly. Return compact receipt of exact additional scratch/input paths, full driver descendant write paths and limits. Still no execution until ready freeze.",
+  "readOnlyInputTerritory": "qualification-inputs/rc10-retention-01",
+  "nativeDisposableWriteTerritory": "qualification-scratch/rc10-retention-01/proof-01",
+  "observedWriteAbsenceClaim": false
+}

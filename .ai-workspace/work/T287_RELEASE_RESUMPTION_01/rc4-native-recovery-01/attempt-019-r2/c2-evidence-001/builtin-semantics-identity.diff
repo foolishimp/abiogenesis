@@ -1,0 +1,47 @@
+--- 4589/package/build/code/src/product/builtin_semantics.d.ts
++++ f59c/package/build/code/src/product/builtin_semantics.d.ts
+@@ -8,7 +8,7 @@
+     schemaVersion: "5.0.0";
+     bindingRef: "product-semantics://abiogenesis/conformance@5";
+     packageName: "@abiogenesis/typescript-tenant";
+-    packageVersion: "5.0.0-rc.3";
++    packageVersion: "5.0.0-rc.4";
+     admitInput: typeof admitInput;
+     evaluateInteractionResponse(basis: Parameters<ProductSemanticsProvider["evaluateInteractionResponse"]>[0], responseCandidate: unknown): Readonly<Record<string, JsonValue>> | null;
+     validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>>;
+@@ -43,7 +43,7 @@
+     kind: "product_semantics_provider";
+     schemaVersion: "5.0.0";
+     packageName: "@abiogenesis/typescript-tenant";
+-    packageVersion: "5.0.0-rc.3";
++    packageVersion: "5.0.0-rc.4";
+     admitInput: typeof admitInput;
+     evaluateInteractionResponse: (basis: Parameters<ProductSemanticsProvider["evaluateInteractionResponse"]>[0], responseCandidate: unknown) => Readonly<Record<string, JsonValue>> | null;
+     validateContractValue: (valueKind: string, value: unknown) => value is Readonly<Record<string, JsonValue>>;
+@@ -73,7 +73,7 @@
+     kind: "product_semantics_provider";
+     schemaVersion: "5.0.0";
+     packageName: "@abiogenesis/typescript-tenant";
+-    packageVersion: "5.0.0-rc.3";
++    packageVersion: "5.0.0-rc.4";
+     admitInput: typeof admitInput;
+     evaluateInteractionResponse: (basis: Parameters<ProductSemanticsProvider["evaluateInteractionResponse"]>[0], responseCandidate: unknown) => Readonly<Record<string, JsonValue>> | null;
+     validateContractValue: (valueKind: string, value: unknown) => value is Readonly<Record<string, JsonValue>>;
+@@ -104,7 +104,7 @@
+     kind: "product_semantics_provider";
+     schemaVersion: "5.0.0";
+     packageName: "@abiogenesis/typescript-tenant";
+-    packageVersion: "5.0.0-rc.3";
++    packageVersion: "5.0.0-rc.4";
+     admitInput: typeof admitInput;
+     evaluateInteractionResponse: (basis: Parameters<ProductSemanticsProvider["evaluateInteractionResponse"]>[0], responseCandidate: unknown) => Readonly<Record<string, JsonValue>> | null;
+     validateContractValue: (valueKind: string, value: unknown) => value is Readonly<Record<string, JsonValue>>;
+@@ -144,7 +144,7 @@
+     schemaVersion: "5.0.0";
+     bindingRef: "product-semantics://abiogenesis/system@5";
+     packageName: "@abiogenesis/typescript-tenant";
+-    packageVersion: "5.0.0-rc.3";
++    packageVersion: "5.0.0-rc.4";
+     publicResultProjectionKinds: readonly ["result", "ticket.consensus"];
+     admitInput: typeof admitSystemInput;
+     evaluateInteractionResponse(basis: Parameters<ProductSemanticsProvider["evaluateInteractionResponse"]>[0], responseCandidate: unknown): Readonly<Record<string, JsonValue>> | Readonly<import("../gtl/consensus.js").ConsensusEscalationDecision> | null;

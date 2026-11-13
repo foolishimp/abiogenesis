@@ -1,0 +1,6 @@
+{
+  "runId": "rc2-dogfood-01-attempt-004",
+  "priorAttempt": "attempt-003",
+  "relation": "new Run, diagnostic-02 task; bounded context-pin and generated-output grants, corrected testing environment and flags; no inherited completion credit",
+  "at": "2026-10-30T13:03:54.326Z"
+}

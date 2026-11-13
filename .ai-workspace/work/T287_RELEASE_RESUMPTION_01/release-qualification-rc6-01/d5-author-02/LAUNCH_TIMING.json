@@ -1,0 +1,39 @@
+{
+  "kind": "actual_launch_intervals_not_full_workflow_benchmark",
+  "recordedUtc": "2026-11-05T23:28:51.699828+00:00",
+  "setupReused": true,
+  "setupExecutedMs": null,
+  "preflight": {
+    "startedUtc": "2026-11-05T23:19:14.200673+00:00",
+    "endedUtc": "2026-11-05T23:20:00.654570+00:00",
+    "wallMs": 46454.21799970791,
+    "exitCode": 0
+  },
+  "hostStartedUtc": "2026-11-05T23:20:58.009634+00:00",
+  "dispatchStartedUtc": "2026-11-05T23:21:40.481Z",
+  "nativeStartedUtc": "2026-11-05T23:22:27.163Z",
+  "hostStartupToDispatchMs": 42471.366,
+  "dispatchToNativeWorkerMs": 46682.0,
+  "priorAuthorHostCloseUtc": "2026-11-05T22:39:12.693844+00:00",
+  "priorHostCloseToCurrentHostLaunchMs": 2505315.79,
+  "betweenTaskIntervalMeaning": "Includes Root triage, additional material preparation, controls, preflight and operator audit; not a runtime-only latency.",
+  "nativeProcess": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 120030,
+    "eventId": "event://abiogenesis/ee04ed29461538046dbe2abfa31a2d7e3a33d22eff2bfe2468ccb2f0ecf058b0",
+    "eventTime": "2026-11-05T23:22:27.163Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/b56cbd17c80c1bee4e769a27271dc38f96362d252743df06b12a3ebef7d1face",
+    "offset": 745254482,
+    "rowBytes": 1813,
+    "rowSha256": "37250b87577dbb189abf56c9a250371ac492a043fc3b93f563d1a359f24c7b19",
+    "processRef": "process://abiogenesis/62402eb3a4739abd823aec0452a6913a2fdf45aa0d2f66b64eaf75f33c58940f",
+    "pid": 16407
+  },
+  "currentRun": "run://abiogenesis/b56cbd17c80c1bee4e769a27271dc38f96362d252743df06b12a3ebef7d1face",
+  "limits": [
+    "Active Run; no final runtime close or source acceptance.",
+    "Setup was reused, not measured as zero cost.",
+    "Rendered work order is not the full transport payload."
+  ]
+}

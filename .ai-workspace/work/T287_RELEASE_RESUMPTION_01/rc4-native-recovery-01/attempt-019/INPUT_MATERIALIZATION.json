@@ -1,0 +1,95 @@
+{
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 367,
+        "sha256": "72a8a20d660935e0b0534b72057025ce50e2ab0c17125d5db66ccff16a4de29d"
+      },
+      "target": "rc4-operator-inputs/native-recovery-19/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 367,
+      "sha256": "72a8a20d660935e0b0534b72057025ce50e2ab0c17125d5db66ccff16a4de29d"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019/task.DRAFT.md",
+        "bytes": 2182,
+        "sha256": "6bcbe93da2c6a2e86b9b5ba3590b21ebbc2d986ef79e02da22257029f6d3b332"
+      },
+      "target": "rc4-operator-inputs/native-recovery-19/task.DRAFT.md",
+      "bytes": 2182,
+      "sha256": "6bcbe93da2c6a2e86b9b5ba3590b21ebbc2d986ef79e02da22257029f6d3b332"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019/rubric.DRAFT.json",
+        "bytes": 1169,
+        "sha256": "ed01c6e3cad17c76dd2334186c92a89cb7b1468561bc42d4391cecf77ba6da55"
+      },
+      "target": "rc4-operator-inputs/native-recovery-19/rubric.DRAFT.json",
+      "bytes": 1169,
+      "sha256": "ed01c6e3cad17c76dd2334186c92a89cb7b1468561bc42d4391cecf77ba6da55"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019/NATIVE_GRANT.DRAFT.json",
+        "bytes": 4357,
+        "sha256": "ebe8cb43c1c7494db4c121bcbd20fe1ff9f3b0427a4ed3c16a399a32e9a6c677"
+      },
+      "target": "rc4-operator-inputs/native-recovery-19/NATIVE_GRANT.DRAFT.json",
+      "bytes": 4357,
+      "sha256": "ebe8cb43c1c7494db4c121bcbd20fe1ff9f3b0427a4ed3c16a399a32e9a6c677"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 571,
+        "sha256": "da3399084c2d633b6665987e6bcc53957b3ae6379234bff56186dce3c1c37e51"
+      },
+      "target": "rc4-operator-inputs/native-recovery-19/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 571,
+      "sha256": "da3399084c2d633b6665987e6bcc53957b3ae6379234bff56186dce3c1c37e51"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 1570,
+        "sha256": "d2b3c76316e34f38af64f978864ca877e8b9aa98f6dd9c0fb25ef70ce84ce1d7"
+      },
+      "target": "rc4-operator-inputs/native-recovery-19/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 1570,
+      "sha256": "d2b3c76316e34f38af64f978864ca877e8b9aa98f6dd9c0fb25ef70ce84ce1d7"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019/readiness.py",
+        "bytes": 2570,
+        "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-19/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019/readiness-inputs.json",
+        "bytes": 92973,
+        "sha256": "e75a963ac4fcce54ac8fed85d70620a9a10399fc994fb2675cd772189357c216"
+      },
+      "target": "rc4-operator-inputs/native-recovery-19/readiness-inputs.json",
+      "bytes": 92973,
+      "sha256": "e75a963ac4fcce54ac8fed85d70620a9a10399fc994fb2675cd772189357c216"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019/identity-and-smoke.mjs",
+        "bytes": 5194,
+        "sha256": "f1e9c6813d32971aec0df6446170deebacadf279e55339a37eded2b6248b404f"
+      },
+      "target": "rc4-operator-inputs/native-recovery-19/identity-and-smoke.mjs",
+      "bytes": 5194,
+      "sha256": "f1e9c6813d32971aec0df6446170deebacadf279e55339a37eded2b6248b404f"
+    }
+  ],
+  "meaning": "One exact mapping supplies current sources/readRoots/selectedPaths; no independent namespace rewriting."
+}

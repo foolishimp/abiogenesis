@@ -1,0 +1,38 @@
+{
+  "kind": "executive_native_turn_limit_recurrence_triage",
+  "recordedUtc": "2026-11-03T15:43:43.063140+00:00",
+  "originalOutcomeUnchanged": true,
+  "failure": {
+    "configuredMaxTurns": 256,
+    "reportedTurns": 257,
+    "providerSubtype": "error_max_turns",
+    "providerWallMs": 4917745,
+    "actorProcessMs": 4926775,
+    "nativeReportedCostUsd": 22.493458999999987,
+    "nativeFailureResult": "result://abiogenesis/e06cc474355c2239de0d3811b4936b3e234917713da42fad0999ff8520861a94",
+    "eventOrdinal": 10106,
+    "runDisposition": "runtime_failed",
+    "transportExitCode": 0,
+    "freshResult": "not_found",
+    "freshReplay": "failed",
+    "terminal": null
+  },
+  "originatingRelation": "The operator-selected finite turn budget was exhausted before source handoff construction. Native process failure is not a source correctness verdict.",
+  "recurrence": "Earlier f4-01 stopped at128 configured turns. Raising the number to256 did not connect the limit to this larger coherent census/construction/proof workload or reserve its completion. Root owns this selection error.",
+  "frames": {
+    "ProductRequirement": "Original complete affected-path outcome and one ABG event stream remain unchanged; no release or qualification.",
+    "Design": "Existing owner adoption and retirement remain the code obligation; source review determines remaining gaps. No new architecture selected by a host limit.",
+    "Integration": "No successful native-work observation, actual C2 or UAT exists; neither passing author checks nor transport exit0 supplies them.",
+    "IdentityEffect": "All33 granted files match the admitted failure after-observation;24 changed files and old preimages are frozen. Author handoff files are genuinely absent.",
+    "Proof": "Final author feedback47/0/16, installed2/0/0, new4/0/0 is retained separately from future actual C2 and independent review. First measurement red and absent-RC4-archive harness red remain preserved.",
+    "WorkDecision": "Review the exact held candidate, then select only residual repair/reporting and actual C2/UAT. Do not repeat implementation or completed checks without an affected change; carry every R1-R7 row and prior evidence."
+  },
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-01/review-subject-001/SUBJECT.json",
+    "sha256": "6302095ec9826d892f620e805cd6336082265721fe8660147299ff4d8bd8ab29",
+    "afterObservationDigest": "sha256:8f9e3f2644906fdaa9b6c1e6c2a20f3fda97b747f8d8cff212d8fef107476dd8"
+  },
+  "prospectiveControl": "Use a scope-appropriate larger finite native turn budget for the next exact activation, explicitly carry remaining work and closure obligations, and retain available factual progress on interruption. Do not change the failed run or silently retry. Exact next grant awaits review disposition.",
+  "review": "Independent max rc5_method_review active on frozen subject.",
+  "role": "Executive disposition recorded through separately activated operator/evidence Writer"
+}

@@ -1,0 +1,329 @@
+{
+  "id": "RC10-SOURCE-01",
+  "status": "closed",
+  "recordedAt": "2026-11-09T03:25:46.545721+00:00",
+  "role": "Reviewer",
+  "actor": "/root/rc10_source_review",
+  "consumer": "/root Executive",
+  "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+  "productFrame": {
+    "product": "ABIogenesis 5.0 fixed fifteen-family Product",
+    "active_wave": "GOAL-035 / T-287, Root-selected RC10 lifetime and 23-declaration deletion increment",
+    "selected_families": [
+      "A5-F03",
+      "A5-F05",
+      "A5-F06",
+      "A5-F10",
+      "A5-F11",
+      "A5-F15"
+    ],
+    "outcome": "Conserve direct admitted GTL execution and ABG/replay semantics while contracting disposable deterministic retention in existing owner scopes and deleting selected unreachable helpers.",
+    "classifications": {
+      "basis_admitted": "runtime admission fact",
+      "execution_basis_record and decoded body retention": "disposable deterministic computation",
+      "gauges": "observation/evidence",
+      "Public projections": "pure projections",
+      "operation scope": "existing physical/computational lifetime, not a new semantic lifecycle"
+    },
+    "authority_split": "Current Product/requirements and STDO 3.0.4 govern source; immutable installed RC9 authored prospective RC10; GTL declares, HoG traverses, existing owners perform effects, ABG admits, replay reconstructs.",
+    "prohibitions": [
+      "No rival runtime, registry, event writer or closure authority",
+      "No Public/SDK controller or new public type/API",
+      "No hostile-workstation requirement",
+      "No global heap/GC guarantee",
+      "No claim that source review establishes qualification, native UAT or release"
+    ]
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "verification": {
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "owners": [
+      "ACTIVATION sections 2,3,7",
+      "EVALUATION sections 3,4,5",
+      "EXECUTIVE_BASELINE Reviewer, Technical triage, section 19",
+      "Product Definition/Tool/Runtime authority, Compression boundary, fifteen families, explicit exclusions",
+      "REQ-R-ABG3-EVENTS-001/002/006/018/024/027",
+      "REQ-R-ABG3-INTERPRET-002/008/009/010/011/013"
+    ],
+    "verified_members": [
+      {
+        "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+        "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+      },
+      {
+        "uri": "stdo://releases/v3.0.4/standards/EVALUATION.md",
+        "sha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485"
+      },
+      {
+        "uri": "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md",
+        "sha256": "ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff"
+      },
+      {
+        "uri": "stdo://releases/v3.0.4/standards/FOUNDATIONS.md",
+        "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e"
+      },
+      {
+        "uri": "stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md",
+        "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64"
+      },
+      {
+        "uri": "stdo://releases/v3.0.4/standards/TICKETS.md",
+        "sha256": "86fefd277ab513b3f22d8e827967d18c4a7ee41558a6daf896c9ad60c9240e67"
+      }
+    ]
+  },
+  "subject": {
+    "freeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292744,
+      "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+    },
+    "source": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source",
+    "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+    "baseline": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "verified_rows": 1334,
+    "row_mismatches": [],
+    "changed_files": 27,
+    "build_receipt": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/RESULT.json",
+      "bytes": 981,
+      "sha256": "f1ef5cab56be6249461fa1cc51ed4cfbe2353bb06c250f8a31d9fbab1525ab50"
+    }
+  },
+  "control": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/ROOT_SCOPE.r03.json",
+      "bytes": 8711,
+      "sha256": "98234fd5febda14077d855ae45b1540e4c14502c198768ae23d15eb74252e613"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/TASK.r04.json",
+      "bytes": 17916,
+      "sha256": "e117eb230cc7041fce72f9ad5ae118ecc82ce859f214a2e4c6536f0c0c0a65f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/ROOT_NATIVE_ADMISSION.json",
+      "bytes": 3755,
+      "sha256": "cc59d332c6519551320cec9a0267ea1ee48d3272345ee91c1b4338eabfdac7c1"
+    }
+  ],
+  "independence": {
+    "authored_candidate": false,
+    "authored_triage": false,
+    "candidate_author": "native Claude Opus 5.5 xhigh",
+    "context": "fresh packet-only recipient; Product frame recorded before candidate implementation",
+    "host": "Unrestricted shared filesystem/tools; no technical read isolation claimed",
+    "hypotheses": "Root and triage observations treated as inputs, not prescribed conclusions"
+  },
+  "scope": "Whole frozen changed source/HOW/test/metadata delta and material producer-consumer lifetime/deletion interactions. Static read-only analysis; report writes only.",
+  "exclusions": [
+    "No Product/test/design/source edits",
+    "No tests, builds, Product/native/provider execution",
+    "No Git mutation",
+    "No new agents",
+    "No O3 physical-verification repair",
+    "No whole-Product audit/qualification/release/disposition"
+  ],
+  "claim": "Candidate source realizes the selected deterministic owner lifetime contraction and 23 safe deletions; authored proof faithfully supports its stated bounded population.",
+  "verdict": "falsified",
+  "verdict_reason": "Two proof/evidence findings; no supported implementation or deletion counterexample found in this bounded static review.",
+  "predicate_results": [
+    {
+      "id": "source_lifetime",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "scope": "Static implementation/authority analysis only; not executed operational satisfaction"
+    },
+    {
+      "id": "deletion_contract_metadata",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "scope": "Static exact-delta, consumer/barrel/finite export/native binding review; generated runtime proof remains separate"
+    },
+    {
+      "id": "authored_proof_sufficiency_and_accuracy",
+      "verdict": "falsified",
+      "findings": [
+        "RC10-SOURCE-01-F1",
+        "RC10-SOURCE-01-F2"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "RC10-SOURCE-01-F1",
+      "severity": "S2",
+      "kind": "proof_defect",
+      "title": "The lifetime test does not falsify missing retention integration in real run operations",
+      "affected_claim": "Genuine active run operations preserve checked-record identity and work reuse while completed operations release both owner roots.",
+      "violated_property": "Selected TASK.r04 requires genuine owner construction and active identity/work reuse; Product REQ-R-ABG3-INTERPRET-013 and STDO EVALUATION section 3 keep component evidence distinct from integrated behavior.",
+      "observation": "Three actual completed installed calls assert only zero after completion. Positive row retention, identity reuse and overlap are tested by manually calling retainExecutionBasisLifetime after those calls completed. No assertion sees a positive retained row/body while a real run owner is in flight. The body-root positive assertion also permits zero historyBasisBodies.",
+      "counterexample": "Static mutation thought experiment, NOT executed: omit the four yield* retainBasisLifetime calls in runInvocationOwner/runCurrentIntentOwner/runSelectedActionOwner/runPendingExecutionOwner. Completed calls still leave all gauges at ZERO, and every positive/manual probe still opens its own handles. These assertions therefore do not reject loss of the production integration and its active reuse. Actual execution under that mutation remains unperformed.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+          "bytes": 13528,
+          "sha256": "79a37415c9ec9740157e43752a0891b3ceacac5544090a7f3200021f0778296b",
+          "lines": "57-68, 85-124, 137-144"
+        },
+        {
+          "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+          "bytes": 109576,
+          "sha256": "660f8cec4965c01ad3c16bf0e99d41bf1b911c8969cd44ed5e35070ad1a6ef2f",
+          "lines": "1272, 1958, 2036, 2115"
+        }
+      ],
+      "causal_assessment": "The test substitutes direct helper acquisition for the owner acquisition at the positive observation seam. Zero-only postconditions cannot distinguish successful acquisition-and-release from no acquisition.",
+      "confidence": "The assertion dependency is directly visible in source; no numerical likelihood or mutation pass is claimed.",
+      "blast_radius": "Proof of active reuse for all four owner entry families; does not establish a defect in their current source or ordinary output semantics. Completed-call release observations retain their bounded meaning.",
+      "workaround_or_containment": "Keep active integrated reuse unproved until an independently authorized frozen proof observes positive gauges and repeated-row identity/work inside an actual owner operation, then zero at exit. Existing external proof can supply this evidence without changing Product source.",
+      "repair_complexity": "Bounded proof instrumentation/fixture work; exact cost indeterminate until the existing leaf/owner observation seam is selected. No runtime redesign is evidenced.",
+      "regression_risk": "Proof-only external observation is low runtime risk; introducing fixture-authored invocation or event truth would invalidate the intended evidence.",
+      "dependencies": [
+        "Actual admitted installed run and its acquired successor selection",
+        "An observation during execution, not after it",
+        "Both retaining-owner gauges and row work counters"
+      ],
+      "residual_uncertainty": "No actual mutation or in-flight operation observation executed by this Reviewer; pending external proof may resolve the integrated evidence gap.",
+      "owning_reentry": "Root Executive proof selection on this exact frozen candidate; source repair is not inferred.",
+      "priority": "unassigned_by_reviewer",
+      "disposition": "reserved_to_Root",
+      "triage": "complete"
+    },
+    {
+      "id": "RC10-SOURCE-01-F2",
+      "severity": "S3",
+      "kind": "evidence_description_defect",
+      "title": "Owning HOW falsely says the new test drives rollback disposal",
+      "affected_claim": "The HOW Proof paragraph accurately describes the authored evidence population.",
+      "violated_property": "STDO EVALUATION section 4 requires explicit unperformed coverage; the Root grant requires truthful proof descriptions.",
+      "observation": "Library HOW says t287-held-basis-lifetime.test.mjs drives rollback and close disposal. The test never performs a failed append or RuntimeHistory.truncate and explicitly reports rollback as unproved.",
+      "counterexample": "Read the full 175-line test: close is driven, but no rollback call/failure exists; diagnostic lines 140-143 explicitly names rollback disposal as unproved.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+          "bytes": 201692,
+          "sha256": "03c52118eb52197502aeeccfa374f1a006023b76461fa358ef1796a4905e2216",
+          "lines": "1148-1152"
+        },
+        {
+          "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+          "bytes": 13528,
+          "sha256": "79a37415c9ec9740157e43752a0891b3ceacac5544090a7f3200021f0778296b",
+          "lines": "137-144"
+        }
+      ],
+      "causal_assessment": "The HOW lists planned rollback coverage as delivered coverage. Test diagnostics preserve the actual limit.",
+      "confidence": "Direct contradiction between exact source documents; no probabilistic confidence estimate.",
+      "blast_radius": "Evidence interpretation for rollback disposal only. Runtime rollback code has explicit disposal; this finding does not falsify that implementation.",
+      "workaround_or_containment": "Root may retain an explicit erratum/narrowed evidence interpretation and obtain the missing exact rollback proof; any source wording correction belongs to a separately admitted new candidate.",
+      "repair_complexity": "One evidence sentence, or a bounded real rollback proof; no implementation repair inferred.",
+      "regression_risk": "Low for prose correction; actual failed-append proof must preserve frozen subject and isolate its disposable resource.",
+      "dependencies": [
+        "Exact rollback event-store owner and its generation invalidation"
+      ],
+      "residual_uncertainty": "Actual rollback disposal remains unexecuted in this review.",
+      "owning_reentry": "Root Executive evidence disposition; owning HOW Writer only if source correction selected.",
+      "priority": "unassigned_by_reviewer",
+      "disposition": "reserved_to_Root",
+      "triage": "complete"
+    }
+  ],
+  "causal_trace": [
+    "Root admission execution_basis.ts:2080-2156 places admitted invocationRef and complete rawInputValue in basis_admitted; child :2623 inherits invocationRef; continuation :2757-2794 retains original source body.",
+    "Execution-basis projection preserves full output, raw admission/digests and final identity checks. Per-cut exact match/cardinality occurs before cache lookup (calculus/execution_basis_record.ts:104-160). Refusals remain cold.",
+    "Owned event-prefix authentication reaches actual store RuntimeHistory; copied/raw/validation prefixes cannot reuse checked-row retention. retainExecutionBasisLifetime resolves only active exact coordinate ownership.",
+    "RuntimeHistory checked-row facts key generation plus eventId/ordinal under invocation holds; committed decoded basis bodies are retained only for that held invocation. Logical byte metrics are computed at insertion; observations sum recorded counts rather than serializing rows.",
+    "All four run owner entry families use Effect.scoped/acquireRelease. Start holds the called invocation; three continuation families hold prepared/original invocation after source selection. Children share the existing admitted invocation relation.",
+    "Finalizers release on result/refusal/failure/defect/interruption/nonterminal exits without semantic closure. Borrowed completion preserves physical session while scoped release removes retention. Physical close/abandon clears all handles and roots; epoch invalidates old releases.",
+    "Transaction rollback calls RuntimeHistory.truncate, clearing roots and invalidating selection generation; append I/O catch also disposes holds. Ordinary later reads cannot open handles; caller-owned materialized/results are outside the guarantee.",
+    "Reference-counted holds preserve other active invocation entries and same-invocation overlapping handles. A continuation can retain multiple historical/child basis rows while active; no rows<=invocations or global heap bound is claimed."
+  ],
+  "deletions": {
+    "selected": 23,
+    "removed": 23,
+    "files": 17,
+    "symbols": [
+      "projectHeldRuntimeEventsAtDurablePrefix",
+      "isEventStoreAdmissionOpen",
+      "runtimeEventProfileSourceFromValidatedPrefix",
+      "runtimeHistoryPayload",
+      "projectGraphCallSourceAtDurablePrefix",
+      "projectGapReadAtValidatedPrefix",
+      "resultWithEvidence",
+      "contractSchemaEntries",
+      "isPublicationValidation",
+      "matchesExactOperationDefinitionCoordinate",
+      "semanticJobAssessmentDomain",
+      "hasAdmittedInvocation",
+      "admitPlannedCCallRuntimeFailureClose",
+      "rehydratePendingInteraction",
+      "admitPlannedPendingInteraction",
+      "projectQualificationConstructionAuthors",
+      "updatePublicGapAuthority",
+      "parsePublicGapAuthority",
+      "updatePublicRunProjectionAuthority",
+      "isGraphTraversalEntryRefusal",
+      "projectBlockedRetryTraversalCompletion",
+      "isAdmittedLeafInvocationResolution",
+      "constructHistoricalStdoRunEnvironmentDeclaration"
+    ],
+    "retained_dynamic": [
+      "realizeSemanticRevisionNativeConstruction",
+      "realizeSemanticRevisionNativeExecution"
+    ],
+    "evidence": "Read every deletion diff against baseline. Independently scanned frozen source, tests, support, scripts, JSON and design for remaining names; none. No wildcard barrel route to the deleted module exports found. Finite package exports and generator nativeTypedLocator preserve explicit named-symbol closure. Semantic-revision GTL computes namedSymbol and leaf_invocation_port:1681 loads module[admittedResolution.namedSymbol]; both live implementations unchanged. Underlying used owners and full public types stay. M05 single lifecycle cell now describes immutable constructor successor from actual close pair and same Run/Product basis.",
+    "metadata": "package.json/package-lock.json/code/src/product/contracts.ts changes are exact 5.0.0-rc.9 -> 5.0.0-rc.10 only; no scripts/dependencies changed."
+  },
+  "evidence_limits": {
+    "build": "Pinned RESULT.json reports BUILT and compile/generate/imports/lifecycle/calculus exit 0; not independently rerun and not semantic acceptance.",
+    "focused": "Root supplied focused-pass observation; this review independently assessed test source, not a fully verified focused receipt.",
+    "proof_falsifiers": "Authored functional case can expose failed disposal after actual completed calls, historical reminting, manual hold isolation and close release. It cannot establish actual in-flight integration or all exit/rollback/continuation paths. workload50 alternates tiny inputs and ~4096 chars, not MiB sizes."
+  },
+  "unperformed_coverage": [
+    "Execute independent frozen ordinary tests",
+    "Real in-flight overlapping operation gauges and identity/work reuse",
+    "Actual refusal/runtime failure/defect/interruption/held-gap exits",
+    "Actual failed-append rollback and stale-handle/generation proof",
+    "Continuation reacquisition",
+    "Duplicate matching basis rows and foreign held-store counterexamples",
+    "Selected 50-call MiB workload with both owner gauges/work/heap observations",
+    "Native after-observation/physical close and fresh result/replay",
+    "Whole 5.0 qualification, independent native UAT, installation and release"
+  ],
+  "adjacent_observations": [
+    {
+      "observation": "O3 installed physical verification remains unchanged/open.",
+      "triage": "not_applicable"
+    },
+    {
+      "observation": "No direct heap-reclamation conclusion follows from zero gauges; caller-held values and other event families remain outside the selected lifetime claim.",
+      "triage": "not_applicable"
+    }
+  ],
+  "residual_uncertainty": "Static review finds no implementation counterexample but cannot establish operational runtime/performance behavior. Pending external proof may satisfy missing evidence on this exact subject. No excluded hostile-host threat or broader child eviction requirement is imported.",
+  "invalidation": [
+    "Material input change, including new counterexample or changed exact candidate/evidence population",
+    "Changed Product/STDO/frame/claim/actor-capability basis",
+    "Declared revising observation: actual owner operation retains rows after exit, misses active reuse, historical read remints retention, rollback/close fails disposal, deletion loses a supported consumer or dynamic/native contract"
+  ],
+  "owning_reentry": "Return to /root Executive for unchanged severity, priority/disposition and any separately authorized proof or correction; Reviewer stops.",
+  "effects": "Created only REVIEW.json and README.md under the exact report territory; no repair or next-work activation."
+}

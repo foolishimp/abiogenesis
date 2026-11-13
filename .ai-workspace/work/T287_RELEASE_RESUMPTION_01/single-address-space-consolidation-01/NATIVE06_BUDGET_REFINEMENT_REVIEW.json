@@ -1,0 +1,123 @@
+{
+  "recordedUtc": "2026-11-03T23:58:57.454988+00:00",
+  "kind": "independent_native06_budget_refinement_review",
+  "productFrame": "ABIogenesis5 / GOAL-035 / T-287 / exact installed STDO3.0.4; source Definition and immutable RC5 builder unchanged; original R1-R7/C1-C5; Root owns admission",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-budget-refinement-001/SUBJECT.json",
+    "bytes": 2103,
+    "sha256": "6fd8af52a7bcb049db8a53d6990c81931dada26ccfff6675b08bb03ab8a6d6c7"
+  },
+  "verifiedFiles": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-06-r1.py",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-budget-refinement-001/prepare-native-06-r1.py",
+      "bytes": 18811,
+      "sha256": "318b467ff1a2ce1ed406e847e05296161bddbca04b2e24b57b060c9b931744f9"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/NATIVE06_BUDGET_REFINEMENT_01.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-budget-refinement-001/NATIVE06_BUDGET_REFINEMENT_01.json",
+      "bytes": 1306,
+      "sha256": "62ef662bb616a67510ac0aa9f18dd636a6cf9e881f40179557dd6bc400158d38"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/NATIVE06_INSTALLED_BUDGET_PROJECTION.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-budget-refinement-001/NATIVE06_INSTALLED_BUDGET_PROJECTION.json",
+      "bytes": 1477,
+      "sha256": "605737d4f480c1abfc77cba513286011c7c2b42d944b693e256c83a774c250fe"
+    }
+  ],
+  "previousGenerator": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/prepare-native-06.py",
+    "bytes": 18500,
+    "sha256": "26e192f750310a018c1c78670e1848a170ef7a83dd84a716fc30edc9eaaf9fac"
+  },
+  "exactDeltaVerified": "Four added lines only: native inactivity from Root conjunction into grant, same cap into provider profile, and Root helper cap as decimal strings in BASH_DEFAULT_TIMEOUT_MS/BASH_MAX_TIMEOUT_MS.",
+  "verdict": "satisfied_for_the_exact_bounded_budget_propagation; no material counterexample found",
+  "findings": [],
+  "numericRelations": {
+    "requiredExecutionBudgetMs": 6676750,
+    "inactivityTimeoutMs": 7200000,
+    "helperShellTimeoutMs": 7200000,
+    "absoluteTimeoutMs": 9000000,
+    "outerTimeoutMs": 18000000,
+    "strictInactivityMarginMs": 523250,
+    "strictAbsoluteMarginMs": 2323250,
+    "actorAbsoluteUnchanged": true,
+    "proofCommandTimeoutMs": 6000000,
+    "replayLaneTimeoutMs": 2700000,
+    "meaning": "Caps, not ETA or automatic retry."
+  },
+  "budgetEvidence": {
+    "recordedUtc": "2026-11-03T23:57:19.388Z",
+    "kind": "exact_installed_budget_projection_before_full_preflight",
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "budget": {
+      "rule": {
+        "aggregation": "sum",
+        "commandFields": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "httpResponseFields": {
+          "launch": [
+            "timeoutMs",
+            "terminationGraceMs",
+            "terminationGraceMs"
+          ],
+          "request": [
+            "timeoutMs"
+          ]
+        },
+        "perOperationDrain": {
+          "field": "terminationGraceMs",
+          "maximumMs": 250,
+          "operation": "minimum"
+        },
+        "ownerAllowanceMs": 5000,
+        "limitComparison": "required_budget_strictly_less_than_each_limit",
+        "limitOrdering": "absolute_strictly_greater_than_inactivity"
+      },
+      "commandBudgetMs": 6671750,
+      "httpProbeBudgetMs": 0,
+      "requiredExecutionBudgetMs": 6676750
+    },
+    "limits": {
+      "absoluteTimeoutMs": 9000000,
+      "inactivityTimeoutMs": 7200000
+    },
+    "fits": true,
+    "helperShellTimeoutMs": 7200000,
+    "outerTimeoutMs": 18000000,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limitsMeaning": "Operational caps, not expected latency; no automatic retry. Final complete packet preflight remains required."
+  },
+  "priorFindingPreserved": {
+    "id": "N6-CTRL-01",
+    "standing": "Original finding and preimage retained; exact one-line corrected template remains governing reviewed refinement",
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-refinement-001/SUBJECT.json",
+      "bytes": 953,
+      "sha256": "faa82859205538cf964e2a6496ca931eea36e61e79863d64f0e7fdaf65a5a003"
+    },
+    "templateSha256": "97630dbbdfa0b61f40f7375b3ce8ac6ea82a268b394002cf5bab0c9bf9553390",
+    "thisDeltaDoesNotChangeTemplate": true
+  },
+  "retainedBoundaryJudgments": [
+    "Existing held-source/genuine-close/Root-selection gating is unchanged.",
+    "No Product/test source, predicate, fixture closure, dependency selection or source authority changed by these four lines.",
+    "The frozen projection uses the stated actual workerEnvironment and records zero provider calls/admissions; the first wrong-environment diagnostic is retained, not counted as Product failure or current credit.",
+    "Numerical inequality fits the installed owner rule: required strictly less than each cap and absolute strictly greater than inactivity.",
+    "Prior reviewed draft/control limitations remain; budgets are selected prospectively, not a final packet/preflight/admission result."
+  ],
+  "limits": [
+    "No execution of preparation, projection, tests, builds or providers; only frozen evidence arithmetic/static delta checked.",
+    "Final Root conjunction must carry these exact values and genuine native05 close; final dependencies/source pins and installed full packet/capacity/prepared-call preflight remain Root-owned.",
+    "Changed later bytes or final dependencies invalidate affected judgment.",
+    "Only campaign-root NATIVE06_BUDGET_REFINEMENT_REVIEW.md/json written.",
+    "No Product/source rereview, new controls, architecture, ETA or acceptance claim."
+  ],
+  "memoryBasis": "MEMORY.md:179-183; bounded evidence/current authority separation"
+}

@@ -1,0 +1,90 @@
+{
+  "status": "ACTUAL_SETUP_PREPARED_SAME_LIVE_OWNER_NATIVE_HELD",
+  "recordedAt": "2026-11-09T03:04:03.691602+00:00",
+  "sessionId": 46946,
+  "pid": 43282,
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/runtime-001/PREPARED.json",
+    "bytes": 5598,
+    "sha256": "18582e76b20ab8e17912a13bbd0f7bf05c110283b0a85977cfb8534c8e58944c"
+  },
+  "bindingSha256": "5337e5e9acfa787c6a5cdda51a882a28baf518dcb63047ac1140fc35d356d9ce",
+  "context": {
+    "digest": "sha256:853caf99bd385bd13aa72bfa0a7e57a7ba8d3c02f640fae6cf861f9666ba87fa",
+    "entries": 349,
+    "fileMembers": 310,
+    "sourceBytes": 9108628,
+    "canonicalBytes": 12249366
+  },
+  "renderedBytes": 18715,
+  "renderedMeasurementScope": "Exact installed native work-order text; provider/system scaffolding is not measured.",
+  "sourceRows": 1333,
+  "invocationRef": "invocation://abiogenesis/5055abcb9de4f166461cc024cabc1bc904bd99ae4e4a3419073d723389f3b486",
+  "invocationDigest": "sha256:5055abcb9de4f166461cc024cabc1bc904bd99ae4e4a3419073d723389f3b486",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3187475,
+    "prefixDigest": "sha256:6b2ba3d56c84c8afb89ba017e3c0b4ed0f55802d2fbbb0f889b914da46aac5c0",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 718814516,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:9c3209e763261a4d0bdb65bf40252e16aec1bd59603a3883bce4c8517980fca5"
+  },
+  "freeBytes": 390094262272,
+  "phases": {
+    "artifactVerified": {
+      "utc": "2026-11-09T03:03:23.107Z",
+      "elapsedMs": 18205.590083,
+      "memory": {
+        "rss": 2510454784,
+        "heapTotal": 1789722624,
+        "heapUsed": 1635666144,
+        "external": 254393083,
+        "arrayBuffers": 251963940
+      }
+    },
+    "setupHeld": {
+      "utc": "2026-11-09T03:03:44.688Z",
+      "elapsedMs": 39786.755541,
+      "memory": {
+        "rss": 3011706880,
+        "heapTotal": 544636928,
+        "heapUsed": 413626064,
+        "external": 28094559,
+        "arrayBuffers": 25667502
+      }
+    },
+    "contextObserved": {
+      "utc": "2026-11-09T03:03:44.772Z",
+      "elapsedMs": 39870.182916,
+      "memory": {
+        "rss": 2855518208,
+        "heapTotal": 278659072,
+        "heapUsed": 132193472,
+        "external": 27139423,
+        "arrayBuffers": 22309302
+      }
+    },
+    "nativeCallConstructed": {
+      "utc": "2026-11-09T03:03:45.912Z",
+      "elapsedMs": 41010.316666,
+      "memory": {
+        "rss": 2891218944,
+        "heapTotal": 328744960,
+        "heapUsed": 251389472,
+        "external": 7379464,
+        "arrayBuffers": 1347811
+      }
+    }
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "sourceEdits": false,
+  "proofExecuted": false,
+  "next": "Root native admission bound to this exact PREPARED and proof binding0f173c29, supplied to the same held PTY; no caller recreation."
+}

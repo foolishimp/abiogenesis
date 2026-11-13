@@ -1,0 +1,112 @@
+{
+  "status": "BOUNDED_ONE_OBSERVATION_PER_PATH_NOT_CAUSAL_BENCHMARK",
+  "recordedAt": "2026-11-03T03:37:30.781036+00:00",
+  "historicalArchive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e",
+  "currentProof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/c2-provisional/maintained-setup-proof.json",
+  "currentProofSha256": "67858a11a077885df857ae509af6c46d183c7f1ac71a962d5e3bae99dd7acb56",
+  "rows": [
+    {
+      "label": "workspace-create",
+      "historicalCliWallMs": 19213.867416999998,
+      "currentSdkWallMs": 69.9,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/workspace-create.result.json",
+      "historicalReceiptSha256": "67d2b619f5c4a6d1e27cfe939ff7d312a0df9ffbcca2346668a79ae24cd1a8fc",
+      "historicalStarted": "2026-11-03T00:27:36.455Z",
+      "currentInvocationRef": "invocation://abiogenesis/fd857fd9df56f9618ae86346ebde5b24dbac3d0f36d57f642fc1185e91c15b41"
+    },
+    {
+      "label": "product-verify-0",
+      "historicalCliWallMs": 38044.759208999996,
+      "currentSdkWallMs": 203.7,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/product-verify-0.result.json",
+      "historicalReceiptSha256": "c239c5c9746ff063a553c59e63ca3ec9d1294eee73b9fe805fbff60bfa3fdd84",
+      "historicalStarted": "2026-11-03T00:27:56.261Z",
+      "currentInvocationRef": "invocation://abiogenesis/1420f160b852edb0ee2e149f396e080d92f67f2e5c818cbdee645cc0c03e1894"
+    },
+    {
+      "label": "product-verify-1",
+      "historicalCliWallMs": 19432.309957999998,
+      "currentSdkWallMs": 65.4,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/product-verify-1.result.json",
+      "historicalReceiptSha256": "c0c6eb1ebbfb7cf64e8b285e3d9cad0ce706b5992215b87eec66702f7c0a4e43",
+      "historicalStarted": "2026-11-03T00:28:34.460Z",
+      "currentInvocationRef": "invocation://abiogenesis/7233934f60423389596fa0fde706f1451e729cf1cd73ba1d553cd55e5d58bebc"
+    },
+    {
+      "label": "product-resolve",
+      "historicalCliWallMs": 23610.74095800001,
+      "currentSdkWallMs": 284.8,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/product-resolve.result.json",
+      "historicalReceiptSha256": "cc6756e0d7f0ec8992fa271a281485c2ec2a70126e15e504fdfe52343d78089f",
+      "historicalStarted": "2026-11-03T00:28:57.964Z",
+      "currentInvocationRef": "invocation://abiogenesis/a7f9ffe0f288d34a24b515c89d8b854f4bd255659f4c53c1b61a293d5a32262a"
+    },
+    {
+      "label": "product-install-0",
+      "historicalCliWallMs": 41311.10187499999,
+      "currentSdkWallMs": 5399.9,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/product-install-0.result.json",
+      "historicalReceiptSha256": "b7723734b4216004f23570aea973cee14f9050bd2c13bcfe1e5cbc889731c87c",
+      "historicalStarted": "2026-11-03T00:29:21.905Z",
+      "currentInvocationRef": "invocation://abiogenesis/26ba6d899ca31e1a9ce6c341e1306fd157e94b9b1d62ffdbed51b850bf0b2b3e"
+    },
+    {
+      "label": "product-install-1",
+      "historicalCliWallMs": 21910.028625000006,
+      "currentSdkWallMs": 3212.3,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/product-install-1.result.json",
+      "historicalReceiptSha256": "5ba7e4d29fbc8816668806fdfee8a67601b30764fdd19a3334b7dfffa9b7bb36",
+      "historicalStarted": "2026-11-03T00:30:03.671Z",
+      "currentInvocationRef": "invocation://abiogenesis/9929300cbeeca772978c6910f0d4dcb52062a135b788cf85497f55e92c87a338"
+    },
+    {
+      "label": "workspace-bind",
+      "historicalCliWallMs": 20671.236000000004,
+      "currentSdkWallMs": 1431.2,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/workspace-bind.result.json",
+      "historicalReceiptSha256": "63d8ec87d45265c3d19a3a4593e232edbc43fdb7e61968466b7317137763e4ae",
+      "historicalStarted": "2026-11-03T00:30:26.096Z",
+      "currentInvocationRef": "invocation://abiogenesis/8ccea880c8335c5fd2c92a0ebf95d42be1417a2b800f53d5886639d93a2e0290"
+    },
+    {
+      "label": "catalog-admit",
+      "historicalCliWallMs": 24845.944667000003,
+      "currentSdkWallMs": 5498.7,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/catalog-admit.result.json",
+      "historicalReceiptSha256": "8a501713ef1515031b4c323bb9153980d8da4d77093431705dcf7e00e0c10184",
+      "historicalStarted": "2026-11-03T00:30:48.087Z",
+      "currentInvocationRef": "invocation://abiogenesis/2c6b325c25771f1ef8cd85df4be03128a9a68ed2206f9248cb3225a54ec331ed"
+    },
+    {
+      "label": "catalog-view",
+      "historicalCliWallMs": 21044.670790999982,
+      "currentSdkWallMs": 1565.1,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/catalog-view.result.json",
+      "historicalReceiptSha256": "58251779eb8861c7fe353568c03eed5401223753c70a2cf2ed3ecd9e1bfe1090",
+      "historicalStarted": "2026-11-03T00:31:14.162Z",
+      "currentInvocationRef": "invocation://abiogenesis/18667bb6c24a0da2813ca8c6141a8cb4208e1b0adb0098de8f0fc8f92ae5b2be"
+    },
+    {
+      "label": "program-conformance",
+      "historicalCliWallMs": 21438.533708000003,
+      "currentSdkWallMs": 1878.4,
+      "historicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/commands/program-conformance.result.json",
+      "historicalReceiptSha256": "11304dde2121e0c8586f798f7825f2a3c5e5f214c8a65e2984659424103dcaf4",
+      "historicalStarted": "2026-11-03T00:31:36.096Z",
+      "currentInvocationRef": "invocation://abiogenesis/a890bde3613f2ee3af3ff5befae5947fd30ede72f735c33960e64d7062ef14e4"
+    }
+  ],
+  "historicalTenCliCallsSumMs": 251523.193208,
+  "currentTenSdkCallsSumMs": 19609.4,
+  "currentSetupIntervalMs": 48157.5,
+  "currentSeparateWarmControlMs": 18768.2,
+  "historicalRunnerToLifecycleMs": 283579,
+  "limits": [
+    "One observed historical CLI composition and one instrumented current provider-free setup, not randomized or repeated comparison.",
+    "Labels match; transport/capture boundaries differ: historical command recorder includes child startup/JSONL/raw ingress; current SDK call timer surrounds in-process transport.",
+    "Current complete setup interval includes initial core verification, consumer preparation, inter-call authorization and checks; ten call sum does not. Historical runner-to-lifecycle includes broader setup/preflight/operator preparation.",
+    "Current package RC4 f59c; historical package RC3 4589. Identity derivatives and maintained setup/test code differ; no universal, end-to-end parity, causal percentage or guaranteed savings claim.",
+    "Warm control and restoration control are separate from setup interval. Other configured keys remain ambient; no full environment equivalence.",
+    "Current full helper C2 result/UAT remains pending at recording."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "status": "PROVISIONAL_PHYSICAL_C2_ARTIFACTS_NO_FINAL_HELPER_RESULT",
+  "recordedAt": "2026-11-03T03:35:38.626220+00:00",
+  "taskRef": "worksite-command-execution-task://abiogenesis/4a2daf8632291a4993b91da5a968386bd45023cf05e329bb27ffcc2b5fdda532",
+  "pins": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/4a2daf8632291a4993b91da5a968386bd45023cf05e329bb27ffcc2b5fdda532/1a5584640f404fbc8462e9018310f73c0a0cbe7e423243516af1083b15d45359/launch.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/c2-provisional/launch.json",
+      "bytes": 3092,
+      "sha256": "3813806b373d812516c0ea0f99461e31c74b8bd6b35e65c3e72ccda9f64d80ed"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/4a2daf8632291a4993b91da5a968386bd45023cf05e329bb27ffcc2b5fdda532/1a5584640f404fbc8462e9018310f73c0a0cbe7e423243516af1083b15d45359/sandbox/build_tenants/abiogenesis/typescript/artifacts/setup020/maintained-setup-proof.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/c2-provisional/maintained-setup-proof.json",
+      "bytes": 10985,
+      "sha256": "67858a11a077885df857ae509af6c46d183c7f1ac71a962d5e3bae99dd7acb56"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/4a2daf8632291a4993b91da5a968386bd45023cf05e329bb27ffcc2b5fdda532/1a5584640f404fbc8462e9018310f73c0a0cbe7e423243516af1083b15d45359/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+      "bytes": 10971457,
+      "sha256": "f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70"
+    }
+  ],
+  "limit": "Setup proof is actual producer-written file. Final helper command exits, admitted C2 Result, UAT and acceptance remain pending."
+}

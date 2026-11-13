@@ -1,0 +1,23 @@
+{
+  "recordedUtc": "2026-11-03T17:48:05.508869+00:00",
+  "kind": "operator_custody_reader_input_triage",
+  "failure": {
+    "command": "node native-02/freeze-source.mjs",
+    "exitCode": 1,
+    "error": "TypeError: durable body reference lacks its exact earlier consumed Result",
+    "toolChunk": "7bed9e"
+  },
+  "exactSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/freeze-source.mjs",
+    "sha256": "a7b1186a303ada20b4b1fb7a5b5db1fdf62cd15a8c79be156641a3a93b1668ab"
+  },
+  "cause": "Operator diagnostic called maintained decodeEventBody without its existing EarlierAdmittedEvents argument. The completed native path now contains retained-route references; prior failed native-01 did not exercise this codec arm. This is operator reader input omission, not a Product defect.",
+  "frames": {
+    "identity": "Native Result18360 remains admitted; no runtime bytes or stamps changed.",
+    "integration": "Existing codec contract requires exact earlier Result envelope/body; missing fourth input correctly refused.",
+    "effect": "Failure happened while reading before creating a frozen subject; no Product or runtime effect.",
+    "proof": "Root custody is not runtime admission. Supply the existing exact earlier-event reader while preserving inline body ownership; rerun only custody and verify after-observation hashes."
+  },
+  "selectedCorrection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/freeze-source-r1.mjs",
+  "standing": "Original failed script and error retained; no Product/test repair or qualification retry"
+}

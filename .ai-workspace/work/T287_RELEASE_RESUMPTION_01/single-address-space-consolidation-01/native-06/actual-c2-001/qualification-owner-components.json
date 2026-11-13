@@ -1,0 +1,22 @@
+{
+  "id": "qualification-owner-components",
+  "files": [
+    "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+    "test_env/tests/t287-native-runtime-gate.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-qual056-material.test.mjs",
+    "test_env/tests/t287-qualification-contraction.test.mjs",
+    "test_env/tests/t287-qualification-producer-context.test.mjs",
+    "test_env/tests/t287-release-acceptance.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 43,
+  "fail": 0,
+  "skipped": 1,
+  "wallMs": 17077.846791999997,
+  "stdoutSha256": "34f47ea437546fc3ae676931eb67c799ef64819b08a724caf24a83445150ac1a",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

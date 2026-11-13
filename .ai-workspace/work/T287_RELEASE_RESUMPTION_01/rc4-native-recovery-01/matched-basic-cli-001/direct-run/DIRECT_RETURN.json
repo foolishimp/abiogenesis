@@ -1,0 +1,9 @@
+{
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 175318.79833299998,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "externalAcceptance": "PENDING independent exact CLI/node:test/content checks; host exit is not acceptance"
+}

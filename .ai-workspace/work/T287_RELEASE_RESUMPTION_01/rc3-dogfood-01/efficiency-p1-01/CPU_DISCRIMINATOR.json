@@ -1,0 +1,66 @@
+{
+  "recordBytes": 124233329,
+  "recordSha256": "ec97d13f1c27bbaa451e3cc7626db84c1397c6f0b498c053f741a94cef0a7b32",
+  "verifiedValueDigest": "sha256:59cb4d36feb3e814b8d82013e89d4655f679bc19cc990e7ecc491651812bceb5",
+  "projectionBytes": 698211,
+  "entriesPerContext": 965,
+  "samples": [
+    {
+      "label": "read_exact_event",
+      "wallMs": 11.437915999999998,
+      "cpuMs": 13.293,
+      "value": 124233329
+    },
+    {
+      "label": "raw_sha256",
+      "wallMs": 39.161624999999994,
+      "cpuMs": 39.136,
+      "value": "ec97d13f1c27bbaa451e3cc7626db84c1397c6f0b498c053f741a94cef0a7b32"
+    },
+    {
+      "label": "decode_utf8",
+      "wallMs": 63.62362500000002,
+      "cpuMs": 63.533
+    },
+    {
+      "label": "JSON_parse",
+      "wallMs": 93.98808300000002,
+      "cpuMs": 97.847
+    },
+    {
+      "label": "installed_sha256Canonical_full_1",
+      "wallMs": 224.623834,
+      "cpuMs": 232.034
+    },
+    {
+      "label": "installed_sha256Canonical_full_2",
+      "wallMs": 224.32674999999995,
+      "cpuMs": 228.653
+    },
+    {
+      "label": "projection_JSON_stringify",
+      "wallMs": 0.9191670000000158,
+      "cpuMs": 0.919
+    },
+    {
+      "label": "projection_JSON_parse",
+      "wallMs": 0.6601660000000038,
+      "cpuMs": 0.659
+    },
+    {
+      "label": "installed_sha256Canonical_projection_1",
+      "wallMs": 6.540708999999993,
+      "cpuMs": 6.956
+    },
+    {
+      "label": "installed_sha256Canonical_projection_2",
+      "wallMs": 6.093209000000002,
+      "cpuMs": 6.089
+    }
+  ],
+  "limits": [
+    "single local warm-cache diagnostic, not production profiling",
+    "projection omits source bytes, is not schema-equivalent and cannot replace admitted result",
+    "no claim of end-to-end speedup or attribution of all waiting time"
+  ]
+}

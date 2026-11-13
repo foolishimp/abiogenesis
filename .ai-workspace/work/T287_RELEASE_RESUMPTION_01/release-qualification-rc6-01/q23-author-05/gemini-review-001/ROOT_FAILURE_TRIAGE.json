@@ -1,0 +1,52 @@
+{
+  "kind": "root_independent_review_auth_failure_triage",
+  "at": "2026-11-05T19:54:00.505995+00:00",
+  "failure": {
+    "run": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/HOST_RESULT.json",
+      "bytes": 896,
+      "sha256": "b2493277104e6a8da36fef55cddbbfa62813a3d44aae871635e82496cb217934"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/REVIEW.stderr",
+      "bytes": 1232,
+      "sha256": "e1b61474ee4223774662acbdd2182cd1d7f9ba0e9c9adc3bff2b3a2016afb24d"
+    },
+    "reason": "IneligibleTierError / UNSUPPORTED_CLIENT for Gemini Code Assist individual account; CLI also reports untrusted workspace.",
+    "finalResponseBytes": 0,
+    "sourceUnchanged": true,
+    "acceptedReview": false
+  },
+  "frames": [
+    {
+      "frame": "service/authentication",
+      "finding": "Code Assist individual auth endpoint rejects this installed client. No candidate review was returned. Existing Google Cloud ADC and configured project provide a different documented native CLI auth path; access/entitlement still unverified."
+    },
+    {
+      "frame": "source/effects",
+      "finding": "Exact frozen source unchanged. Bind per-run trust to exact frozen directory without relaxing deny-all/allow-four tool policy or changing global settings."
+    },
+    {
+      "frame": "independence",
+      "finding": "No model response or verified actual model from refused attempt, so no independence/acceptance credit."
+    }
+  ],
+  "selectedReentry": {
+    "route": "Same installed GeminiCLI0.42.0, vertex-ai auth via existing ADC, project gemini-cli-poc, global region, same3.1Pro/high/read-only controls and exact frozen candidate. New per-run home.",
+    "credentialPath": "/Users/jim/.config/gcloud/application_default_credentials.json",
+    "operatorCredentialContentsRead": false,
+    "newAccount": false,
+    "newApiKey": false,
+    "globalChanges": false,
+    "automaticRetry": false,
+    "documentation": [
+      "https://geminicli.com/docs/get-started/authentication/",
+      "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/3-1-pro?hl=en"
+    ]
+  },
+  "stops": [
+    "Auth/model/tool-policy failure returns to Root; no automatic fallback or retry.",
+    "No service enablement, billing, permissions, cloud resources or account login."
+  ],
+  "operatorPreparationCorrection": "Initial shell process could not start because new per-run working directory did not yet exist. No effects; create controls from existing parent before launching."
+}

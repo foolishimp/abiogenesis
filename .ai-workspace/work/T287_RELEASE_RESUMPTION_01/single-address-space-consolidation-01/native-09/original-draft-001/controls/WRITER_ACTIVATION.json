@@ -1,0 +1,33 @@
+{
+  "recordedUtc": "2026-11-04T10:36:32.429137+00:00",
+  "role": "Separately activated operator/evidence Writer, formerly independent Reviewer",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_09.md",
+    "bytes": 9478,
+    "sha256": "9a4321873b6638cef5f6a3fad907a2b7240e29ad3b7ca6279af94905ad3146ff"
+  },
+  "closedPredecessorConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/ROOT_CONJUNCTION.json",
+    "bytes": 11303,
+    "sha256": "16613c500832f38aa692710fea57a21f303cb0cd96812f8534afd2c91132e18a"
+  },
+  "basisVerification": {
+    "definition": "/Users/jim/src/apps/abiogenesis-single-address-space/stdo_abiogenesis.json",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "entry": "Installed304 stdo-work sufficient direct Writer branch; Root owns downstream native issue/admission",
+  "effects": [
+    "Exact controls/source-custody and finite inputs under native-09; prepare-native-09.py; new declared scratch"
+  ],
+  "exclusions": [
+    "No Product/test/HOW edit, prior input/report/log/status/Git mutation or cleanup",
+    "No installed prepare/dispatch/provider/runtime admission or test/build execution"
+  ],
+  "independence": "This Writer is not independent assurance of these authored controls. Prior reconciliation remains immutable.",
+  "host": "Unrestricted host and inherited history; declared read/effect scopes are not universal filesystem confinement"
+}

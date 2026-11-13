@@ -1,0 +1,99 @@
+{
+  "kind": "root_rc7_native_author_selection",
+  "status": "ROOT_SELECTED_HELD_SESSION_AUTHOR_INCREMENT",
+  "selectedTask": "rc7-held-session-author-03",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "architectureSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 7741,
+    "sha256": "2fe46b95de9428e86f421759ddad6dac7ed064bef9ac9180feebf7f530309c98"
+  },
+  "productFrame": "Unchanged fixed fifteen-feature ABIogenesis5.0 / GOAL-035 / T287; empty composition. RC6 remains installed builder; no RC7 cut or release.",
+  "method": "STDO3.0.4",
+  "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "composition": [],
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+    "bytes": 240531,
+    "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_AFTER.json",
+    "bytes": 557347,
+    "sha256": "515dd6b7d33208e4fa5fed02f7d15ebac853eefc7467c9da6c856e7f29fe3006"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 21202,
+    "sha256": "992114afa496028fa54c046051806e68381fc0cc076412eb05dbb40224d5ac64"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5681,
+    "sha256": "056516a52d383b7837ea32cf82342ba49187acd818406fcddbf776ed05061e6e"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10421,
+    "sha256": "7ddb9f2f715158677c4c11564b3996d43e13131d0cc9efb3524a3baef28ad494"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "342134fd5e693bc9f483bb71c9f2fddd10a67ec8390a01025c6e48074cfaf3aa"
+  },
+  "scope": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+  ],
+  "conditionalScope": null,
+  "classification": "realization_refactor; bounded caller binding and retained fixture migration, no Product/admission-law reframe",
+  "resourceBounds": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "stageAndLaneBounds": {
+    "stages": 2,
+    "lanes": 8
+  },
+  "proofTiming": {
+    "fixedRouteLaneMs": 600000,
+    "authoredFixedCaseMs": 540000,
+    "otherLanesMs": 300000,
+    "standing": "Root-selected finite limits; earlier blocked86.852s is not completed-route timing or speedup evidence."
+  },
+  "proofReuse": {
+    "historicalCrossedRootRefusal": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/SUMMARY.json",
+      "bytes": 948,
+      "sha256": "0303c6c97dcdbfac1945b347f2d3205b71f9a541a03b0d4e2be9ad7b3df8b482"
+    },
+    "retainedHS02": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/operator-hs02-once.summary.json",
+      "bytes": 4542,
+      "sha256": "b419f2c2df01c148434dd6763b154adefa7f720b06018c8e01c7a3eacb79d6c0"
+    },
+    "standing": "Retain exact source/scenario limits; no automatic reruns or new-source credit."
+  },
+  "future": {
+    "rootControlAdmission": null,
+    "dispatch": null,
+    "actualReturn": null,
+    "independentReview": null,
+    "acceptance": null,
+    "stdoutWindowActivation": null,
+    "releaseCut": null
+  }
+}

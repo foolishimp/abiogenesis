@@ -1,0 +1,1393 @@
+{
+  "samples": [
+    {
+      "point": "before",
+      "at": "2026-11-08T18:48:48.382Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.53271484375,
+        4.34716796875,
+        6.31787109375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19795214336,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:49.422Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.53271484375,
+        4.34716796875,
+        6.31787109375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19178012672,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:50.424Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.53271484375,
+        4.34716796875,
+        6.31787109375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19300990976,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:51.425Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.40966796875,
+        4.32470703125,
+        6.29833984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19281264640,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:52.427Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.40966796875,
+        4.32470703125,
+        6.29833984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18990448640,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:53.429Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.40966796875,
+        4.32470703125,
+        6.29833984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18995412992,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:54.431Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.40966796875,
+        4.32470703125,
+        6.29833984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19138461696,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:55.434Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.40966796875,
+        4.32470703125,
+        6.29833984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19208814592,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:56.436Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        5.17724609375,
+        4.48486328125,
+        6.34326171875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19234275328,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:57.439Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        5.17724609375,
+        4.48486328125,
+        6.34326171875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19221331968,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:58.441Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        5.17724609375,
+        4.48486328125,
+        6.34326171875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19170164736,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:48:59.444Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        5.17724609375,
+        4.48486328125,
+        6.34326171875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19209797632,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:00.446Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        5.17724609375,
+        4.48486328125,
+        6.34326171875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18972278784,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:01.450Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.92236328125,
+        4.443359375,
+        6.3173828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19027066880,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:02.451Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.92236328125,
+        4.443359375,
+        6.3173828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19229671424,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:03.452Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.92236328125,
+        4.443359375,
+        6.3173828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19230146560,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:04.454Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.92236328125,
+        4.443359375,
+        6.3173828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18936446976,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:05.455Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.92236328125,
+        4.443359375,
+        6.3173828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18894520320,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:06.456Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.68798828125,
+        4.40234375,
+        6.2919921875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18988515328,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:07.457Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.68798828125,
+        4.40234375,
+        6.2919921875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18493571072,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:08.459Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.68798828125,
+        4.40234375,
+        6.2919921875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18420367360,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:09.462Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.68798828125,
+        4.40234375,
+        6.2919921875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18156912640,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:10.463Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.68798828125,
+        4.40234375,
+        6.2919921875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17613307904,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:11.465Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.79296875,
+        4.4287109375,
+        6.2900390625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17471389696,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:12.465Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.79296875,
+        4.4287109375,
+        6.2900390625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17485398016,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:13.468Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.79296875,
+        4.4287109375,
+        6.2900390625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17464377344,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:14.470Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.79296875,
+        4.4287109375,
+        6.2900390625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17144692736,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:15.472Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.79296875,
+        4.4287109375,
+        6.2900390625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17124032512,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:16.474Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.64892578125,
+        4.40478515625,
+        6.2705078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17124818944,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:17.475Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.64892578125,
+        4.40478515625,
+        6.2705078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17068064768,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:18.477Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.64892578125,
+        4.40478515625,
+        6.2705078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17064886272,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:19.479Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.64892578125,
+        4.40478515625,
+        6.2705078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16795303936,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:20.481Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.64892578125,
+        4.40478515625,
+        6.2705078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16921247744,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:21.484Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.6767578125,
+        4.41455078125,
+        6.2626953125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16987848704,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:22.485Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.6767578125,
+        4.41455078125,
+        6.2626953125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16783589376,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:23.487Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.6767578125,
+        4.41455078125,
+        6.2626953125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16856645632,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:24.489Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.6767578125,
+        4.41455078125,
+        6.2626953125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16658890752,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:25.491Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.6767578125,
+        4.41455078125,
+        6.2626953125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16326574080,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:26.493Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.70263671875,
+        4.423828125,
+        6.2548828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16135815168,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:27.495Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.70263671875,
+        4.423828125,
+        6.2548828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15862415360,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:28.494Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.70263671875,
+        4.423828125,
+        6.2548828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15925526528,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:29.496Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.70263671875,
+        4.423828125,
+        6.2548828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15795650560,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:30.497Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.70263671875,
+        4.423828125,
+        6.2548828125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16189456384,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:31.499Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.56591796875,
+        4.39990234375,
+        6.2353515625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16118579200,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:32.501Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.56591796875,
+        4.39990234375,
+        6.2353515625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15923757056,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:33.502Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.56591796875,
+        4.39990234375,
+        6.2353515625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16060907520,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:34.503Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.56591796875,
+        4.39990234375,
+        6.2353515625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15995895808,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:35.506Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.56591796875,
+        4.39990234375,
+        6.2353515625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15946121216,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:36.508Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.4404296875,
+        4.37646484375,
+        6.21630859375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15567044608,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:37.509Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.4404296875,
+        4.37646484375,
+        6.21630859375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15618637824,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:38.509Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.4404296875,
+        4.37646484375,
+        6.21630859375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15484157952,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:39.511Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.4404296875,
+        4.37646484375,
+        6.21630859375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15295758336,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:40.513Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.4404296875,
+        4.37646484375,
+        6.21630859375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18840092672,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:41.516Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.24462890625,
+        4.3369140625,
+        6.19140625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19044483072,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:42.518Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.24462890625,
+        4.3369140625,
+        6.19140625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18988351488,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:43.520Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.24462890625,
+        4.3369140625,
+        6.19140625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18873679872,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:44.522Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.24462890625,
+        4.3369140625,
+        6.19140625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18967625728,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:45.524Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.24462890625,
+        4.3369140625,
+        6.19140625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19069517824,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:46.526Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.224609375,
+        4.3310546875,
+        6.17822265625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19104759808,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:47.528Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.224609375,
+        4.3310546875,
+        6.17822265625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19060785152,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:48.530Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.224609375,
+        4.3310546875,
+        6.17822265625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19095126016,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:49.532Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.224609375,
+        4.3310546875,
+        6.17822265625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19326402560,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:50.533Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.224609375,
+        4.3310546875,
+        6.17822265625
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18691686400,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:51.535Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.28662109375,
+        4.341796875,
+        6.1708984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18676547584,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:52.537Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.28662109375,
+        4.341796875,
+        6.1708984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 18554863616,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:53.539Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.28662109375,
+        4.341796875,
+        6.1708984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17968906240,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:54.541Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.28662109375,
+        4.341796875,
+        6.1708984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17789894656,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:55.543Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.28662109375,
+        4.341796875,
+        6.1708984375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17795317760,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:56.545Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.10302734375,
+        4.302734375,
+        6.14599609375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17804754944,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:57.547Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.10302734375,
+        4.302734375,
+        6.14599609375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17760141312,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:58.549Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.10302734375,
+        4.302734375,
+        6.14599609375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17750065152,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:49:59.551Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.10302734375,
+        4.302734375,
+        6.14599609375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17735467008,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:00.552Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        4.10302734375,
+        4.302734375,
+        6.14599609375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17597775872,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:01.553Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.9345703125,
+        4.26416015625,
+        6.12158203125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17634312192,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:02.555Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.9345703125,
+        4.26416015625,
+        6.12158203125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17637605376,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:03.557Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.9345703125,
+        4.26416015625,
+        6.12158203125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17615405056,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:04.559Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.9345703125,
+        4.26416015625,
+        6.12158203125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17564155904,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:05.561Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.9345703125,
+        4.26416015625,
+        6.12158203125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17511596032,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:06.564Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.779296875,
+        4.2265625,
+        6.09716796875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17488805888,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:07.566Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.779296875,
+        4.2265625,
+        6.09716796875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 17518051328,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:08.568Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.779296875,
+        4.2265625,
+        6.09716796875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16704339968,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:09.569Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.779296875,
+        4.2265625,
+        6.09716796875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16545857536,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:10.571Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.779296875,
+        4.2265625,
+        6.09716796875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 16280305664,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:11.573Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.716796875,
+        4.2060546875,
+        6.07861328125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15520579584,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:12.575Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.716796875,
+        4.2060546875,
+        6.07861328125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15262253056,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:13.576Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.716796875,
+        4.2060546875,
+        6.07861328125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15229501440,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:14.576Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.716796875,
+        4.2060546875,
+        6.07861328125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15806218240,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:15.576Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.716796875,
+        4.2060546875,
+        6.07861328125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15556706304,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:16.576Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.8994140625,
+        4.2353515625,
+        6.078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15711895552,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:17.579Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.8994140625,
+        4.2353515625,
+        6.078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15631384576,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:18.579Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.8994140625,
+        4.2353515625,
+        6.078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15725068288,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:19.581Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.8994140625,
+        4.2353515625,
+        6.078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15494807552,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:20.582Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        3.8994140625,
+        4.2353515625,
+        6.078125
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15386001408,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:21.584Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        7.0302734375,
+        4.87841796875,
+        6.29443359375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15369650176,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:22.586Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        7.0302734375,
+        4.87841796875,
+        6.29443359375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15526395904,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:23.588Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        7.0302734375,
+        4.87841796875,
+        6.29443359375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15465676800,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:24.591Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        7.0302734375,
+        4.87841796875,
+        6.29443359375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15513927680,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "during",
+      "at": "2026-11-08T18:50:25.591Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        7.0302734375,
+        4.87841796875,
+        6.29443359375
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 15459844096,
+      "memoryTotalBytes": 137438953472
+    },
+    {
+      "point": "after",
+      "at": "2026-11-08T18:50:26.153Z",
+      "pid": 21294,
+      "ppid": 27586,
+      "loadAverage": [
+        6.78759765625,
+        4.86376953125,
+        6.28076171875
+      ],
+      "logicalCPUs": 16,
+      "memoryFreeBytes": 19175424000,
+      "memoryTotalBytes": 137438953472
+    }
+  ],
+  "ancestryFailure": null,
+  "postAncestryFailure": null,
+  "quietHostClaim": false
+}

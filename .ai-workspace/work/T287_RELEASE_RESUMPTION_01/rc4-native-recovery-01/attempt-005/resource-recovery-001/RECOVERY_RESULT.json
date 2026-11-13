@@ -1,0 +1,25 @@
+{
+  "status": "RECOVERED_EVENT_RESOURCE_ONLY",
+  "at": "2026-11-01T17:41:23.735Z",
+  "ownerResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/maintenance-result.json",
+    "bytes": 1465,
+    "sha256": "aa32ab01280d74273e5e50335d96f4072ca0a4a4274fbb77f6c8bd80a327e9ec"
+  },
+  "handoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/recovered-close-handoff.json",
+    "bytes": 1338,
+    "sha256": "e4cc06cdf5ac1e0a5ad495eb1b541c7e93e78926ed90952e6bd05a576a237f30"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/recovered-operator-resume.json",
+    "bytes": 73460655,
+    "sha256": "cecb82be54e9abacd551ab0350fcde1c52332f7e7098d286e56937ca2ecd9e64"
+  },
+  "validatedEventCount": 25008,
+  "eventLogUnchanged": true,
+  "installedUnchanged": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "acceptance": false
+}

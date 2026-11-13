@@ -1,0 +1,36 @@
+{
+  "kind": "root_attributed_final_file_only_install_verification",
+  "recordedUtc": "2026-11-03T13:28:17.612897+00:00",
+  "observedUtc": "2026-11-03T13:15:17.578872+00:00",
+  "status": "INDEPENDENT_FILE_ONLY_VERIFICATION_PASSED",
+  "actualToolResult": {
+    "execSession": 66532,
+    "completionChunk": "26eec9",
+    "exitCode": 0
+  },
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "tree": "6b40c56409c7e8990028644048b4aaad1b9ae027",
+  "archiveSha256": "4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+  "members": 5325,
+  "payloadBytes": 71757122,
+  "allPinnedFilesEqual": true,
+  "allReleaseChecksumsEqual": true,
+  "allInstalledPayloadsEqual": true,
+  "trackedSourceCleanAtVerification": true,
+  "verificationDisposition": "verified",
+  "installationDisposition": "materialized",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.5/node_modules/@abiogenesis/typescript-tenant",
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.5",
+  "localCutRecordSha256": "f204fd40b64104f483181dd049e658725a699a9d9736fbd6fdc63d1c6e262578",
+  "releaseSha256SumsSha256": "f2260985f43f3170bff7eb345415293dceb4849abf4ed4fc5df3ad8954b5e6ba",
+  "providerCalls": 0,
+  "nativeRuns": 0,
+  "tests": 0,
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false,
+  "limits": [
+    "File-only verification adds no native-work qualification.",
+    "Install session33152 was no longer available at resumed observation; completed durable owner receipts, not an invented exit transcript, establish completion."
+  ]
+}

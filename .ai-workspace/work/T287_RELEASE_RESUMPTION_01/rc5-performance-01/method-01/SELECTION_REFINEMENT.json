@@ -1,0 +1,9 @@
+{
+  "status": "DRAFT_REFINED_BEFORE_OWNER_PREFLIGHT",
+  "selectedFiles": 981,
+  "readRoots": 983,
+  "bytes": 66883744,
+  "reason": "Bound selected source to actual affected build/test dependencies and keep generated targets outside C2 protected source set. Full tracked successor checkout remains preserved.",
+  "providerCalls": 0,
+  "nativeRunAdmissions": 0
+}

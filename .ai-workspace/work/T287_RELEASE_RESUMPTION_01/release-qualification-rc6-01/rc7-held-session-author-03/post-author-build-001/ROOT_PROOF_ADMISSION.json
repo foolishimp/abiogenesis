@@ -1,0 +1,81 @@
+{
+  "kind": "root_operator_primary_proof_admission",
+  "status": "ROOT_ADMITTED_H03_FOUR_PRIMARY_POST_AUTHOR_LANES",
+  "createdUtc": "2026-11-06T17:53:31.323944+00:00",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/MANIFEST.json",
+    "bytes": 25435,
+    "sha256": "1e776dc0a74c2203a1ecbb9cefaa58a03ecd7ad97e5127bd87bc458389985d5b"
+  },
+  "manifestSha256": "1e776dc0a74c2203a1ecbb9cefaa58a03ecd7ad97e5127bd87bc458389985d5b",
+  "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+  "rootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5616,
+    "sha256": "e7a2371f26980efe6e2b78375f0eb793b10479a9b2111c83ad278a62ff9cba90"
+  },
+  "controlReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/reviews/controls-001/REVIEW.json",
+    "bytes": 6328,
+    "sha256": "63337d76c9ca149ffd973cd4830c17e1bb31e3554d7034549b4a82f2890085f0"
+  },
+  "completedBuildReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+    "bytes": 102337,
+    "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+  },
+  "buildSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/SUMMARY.json",
+    "bytes": 4084,
+    "sha256": "10364df1188c668e6bd4406bd0a7c6c69a16db4ef915df8d4513b9fb20689007"
+  },
+  "actualSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_AFTER.json",
+    "bytes": 563481,
+    "sha256": "91d1bf35da77f4fb7edb425ea5d7b94a736f60ae192e730cf36d6771418f22fe"
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8372,
+    "sha256": "7fa76990041e5b6dec07fc719ac86305b029eaba063602055a17b3a8905c86a3"
+  },
+  "selectedLanes": [
+    {
+      "id": "fixed-route",
+      "timeoutMs": 600000,
+      "outerCommandTimeoutMs": 620000
+    },
+    {
+      "id": "assessment-guards",
+      "timeoutMs": 300000,
+      "outerCommandTimeoutMs": 320000
+    },
+    {
+      "id": "native-workspace-owner",
+      "timeoutMs": 300000,
+      "outerCommandTimeoutMs": 320000
+    },
+    {
+      "id": "caller",
+      "timeoutMs": 300000,
+      "outerCommandTimeoutMs": 320000
+    }
+  ],
+  "conditions": {
+    "sourceWrites": false,
+    "automaticRetries": 0,
+    "stopOnFirstFailure": true,
+    "originalFailedReportPreserved": true,
+    "nativeStageAndLaneHistoryUnchanged": true,
+    "requiredActualIntegrationFirst": true,
+    "allowedHistoricalSkip": "admitted pure consumer evaluates a native task as data without physical authority"
+  },
+  "limits": [
+    "Original generator timeout and unassigned slowdown remain recorded.",
+    "This selects only the four unconsumed primary lanes on the same source; it does not accept Product or activate HS03."
+  ],
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

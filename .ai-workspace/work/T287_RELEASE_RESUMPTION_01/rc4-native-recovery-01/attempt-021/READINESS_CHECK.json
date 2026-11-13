@@ -1,0 +1,11 @@
+{
+  "status": "FILE_ONLY_READY",
+  "sourceCommit": "72eea8f0cd384e7eaeb64ff1ba47b0a3ac2858d4",
+  "selectedEntriesIncludingRoot": 746,
+  "selectedRawBytes": 23472865,
+  "maxContextFiles": 10000,
+  "maxContextBytes": 268435456,
+  "sourceHashesMatched": 17,
+  "issues": [],
+  "meaning": "Readiness evidence only; no ABI admission, runtime/test/build/provider call. Actual Runtime observation remains authoritative."
+}

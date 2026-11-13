@@ -1,0 +1,42 @@
+{
+  "status": "PREPARED_CONTROLS_NO_RUNTIME_OR_PROVIDER_YET",
+  "at": "2026-11-07T08:23:22.803343+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/ROOT_SCOPE.json",
+      "bytes": 5357,
+      "sha256": "f3a2b7bd63edc20a2d2b8d643ae39547f721ff6c49907b4ce889df730560e28f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/PREPARATION.json",
+      "bytes": 8403,
+      "sha256": "6c8cd70820defaca0334684528f3962232abf6581a594f740a59f5be8f13c35a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/TASK.json",
+      "bytes": 5894,
+      "sha256": "b7423a580b187e64a59b7d7bbfac6c699babd1d4bd15a585ea9c865df93021cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/host.mjs",
+      "bytes": 12242,
+      "sha256": "f44286f0f701d08783ef9111b0e1d753bbbf6ddab6718d1fc8126369b7645c0a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof.mjs",
+      "bytes": 11246,
+      "sha256": "02e0ab875c65b53f3a8d9ae33d1dff83edb7ca3935ab8c4fcac6baa9fc22480a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/BINDING.json",
+      "bytes": 4975,
+      "sha256": "89bcde5f7779916f08c17948c5fda9ef24493068b4414e28a8ad807a2d9d022c"
+    }
+  ],
+  "syntaxChecks": "host and proof node --check passed",
+  "providerDispatch": false,
+  "rootConcreteAdmissionRequired": true,
+  "actualOwnerPreparationPending": true,
+  "scratchRoot": "/private/tmp/abg-r8-a07-7j_yf4yf",
+  "deltaFromAuthor06": "Actual A6 close/source/READY; one consolidation test target;15min xhigh; one two-case positive-filter proof with pinned proof-10 records. Host composition unchanged except request references. Cumulative compiled/dependency/archive reuse conserved."
+}

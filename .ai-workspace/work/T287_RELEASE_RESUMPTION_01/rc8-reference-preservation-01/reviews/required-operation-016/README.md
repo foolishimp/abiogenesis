@@ -1,0 +1,11 @@
+Product Frame: ABIogenesis fixed fifteen families, GOAL-035/T-287/RC8 REF-01, STDO 3.0.4 and empty composition. This review concerns an explicitly unqualified local cut. ABG retains admission/replay authority; Root retains disposition and acceptance.
+
+**S3 — stale component fixture, not an observed Product regression.** The last O1(A) test overrides `projectExactPrefixArtifactTruth` at line 491, while the real materialization owner imports/calls `projectOwnedPrefixArtifactTruth` at lines 24/384. Its linker retains that real export. The intentionally nominal prefix then fails coordinate validation at `event_store.ts:3644`, before any log open or artifact ingress. Line 530 observes zero calls; the malformed-body branch never runs. Test and causal owners match RC7, broad A6 and selected A10 bytes.
+
+The smallest repair is one callback-local override-name change. Preserve the supplied empty-truth premise and every positive/body/refusal assertion. No Product guard, owner API, helper, prefix or resource-receipt change is justified. The positive component oracle concerns the ingress call/body, not successful completion of a real held store. The downstream nominal-resource limit must remain explicit.
+
+Broad016 actually closed with nine reported passes and one failure, no timeout. Its installed context/configuration result/refusal cases exercised real event/resource/file behavior; they do not replace the missing I-JSON ingress negative. Preserve all original receipts.
+
+Root’s selected focused re-entry is proportionate: the changed export exists only in this private SyntheticModule; no shared namespace or preceding case changes. Conjoin the nine unchanged reported passes with a new passing final-case receipt, with exact frozen correspondence. Do not claim a new whole-file run or restamp A6. A whole-file rerun would add confidence (previously 589.832 seconds), but no specific cross-case dependency makes it mandatory for this correction. The proposed fix remains unexecuted at this review.
+
+`REVIEW.json` binds the exact source, authorities, actual red, bounded repair, proof conditions and limits. Reviewer performed no tests or repairs; Root owns subsequent selection and acceptance.

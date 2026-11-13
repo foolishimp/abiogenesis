@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:a92733e0b7d202d38d8aef6d8ff2539860b9875918d101c1319557f51213635b",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-34-15-413Z-73ecc497-fcc6-41cd-ad03-fcb3c3bbd061/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:5c9d9f9ed2e0a11152cffeeac28a2c3b267c787d2f4819daca51d7d7bb57b06e",
+    "prefixLength": 3196769,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 667660981
+    }
+  },
+  "reopenAuthority": {
+    "authorityDigest": "sha256:6dda125f349fca0a28ae0f14087308112b6d7b8fb8f4662fd870b853796004fa",
+    "device": 16777231,
+    "durableByteLength": 3196769,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "eventLogDigest": "sha256:5c9d9f9ed2e0a11152cffeeac28a2c3b267c787d2f4819daca51d7d7bb57b06e",
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-34-15-413Z-73ecc497-fcc6-41cd-ad03-fcb3c3bbd061/resources/events/runtime.events.jsonl",
+    "inode": 667660981,
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0"
+  }
+}

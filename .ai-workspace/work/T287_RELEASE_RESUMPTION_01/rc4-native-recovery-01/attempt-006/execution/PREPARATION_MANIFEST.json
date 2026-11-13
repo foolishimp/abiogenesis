@@ -1,0 +1,139 @@
+{
+  "kind": "rc4_retained_work_frozen_dispatch",
+  "status": "PREPARED_NOT_DISPATCHED",
+  "sourceBasis": "admitted_source_result",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "authority": "Root separately bound preparation under current owner point-one mandate; actual preflight/dispatch not selected by this artifact",
+  "callPreparationBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/CALL_PREPARATION_BINDING.json",
+    "bytes": 142216,
+    "sha256": "7223f5bb66c21d8ed7c38d81cd54141f0cc6c34fcc754e2973f1af2b6628a45d"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/CALL_PREPARATION_BINDING.json",
+      "bytes": 142216,
+      "sha256": "7223f5bb66c21d8ed7c38d81cd54141f0cc6c34fcc754e2973f1af2b6628a45d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/ROOT_ADMISSION.json",
+      "bytes": 1420,
+      "sha256": "1a60e3f39353dcb16b464bc100cd13fd2fcbb6868a7178a371bfd4bfd1c8f189"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/model-free-preflight.json",
+      "bytes": 4061,
+      "sha256": "b93e4aed92e2559db492ce107c149804bf182349f47626b97e1318a26ab844d6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/dispatch.mjs",
+      "bytes": 6011,
+      "sha256": "048db28aa8335f453c330fd35dd04121c2631080db93ce1af24c7d234d13c2f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/freeze-dispatch.py",
+      "bytes": 3503,
+      "sha256": "56e589aa3e9b70f00d8341f18f1a90cf401308cc6520f6defa94b3d47149708a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/setup-state.mjs",
+      "bytes": 5950,
+      "sha256": "2b8b78ebb0f91d4552fa30033d6a60ddf831bd790f4e0c52d16dc1a567d270f9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/operator-preflight.py",
+      "bytes": 6590,
+      "sha256": "2e9878848daf2199afebe37a1708abc8ca9feacd05835f90f09fe4b44d2c4cdf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/claude-provider.sh",
+      "bytes": 425,
+      "sha256": "ffdae1599e071061c117df573be8a75d6df53e2a5b1ded469d3784910f19c686"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/execution/run.json",
+      "bytes": 272,
+      "sha256": "9da6d7af838e9a1e3426fa694bafdfaf80c968a3c5058ff7260680099c71a3f9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/execution/input.json",
+      "bytes": 306828,
+      "sha256": "4ff089120aa368cff75735656f0dae6fe33ea7f3e944c21cdef4be7c9f3a07e3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/execution/prepared-call.json",
+      "bytes": 30624938,
+      "sha256": "f6744ea096ba23c1feb1480de789514e6811e1b280ca5ab27bb3adb4ece0d14e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/execution/PREPARED_CALL.json",
+      "bytes": 1727,
+      "sha256": "3ac9882ca613652d59b35454f2db2a1eaff1f7ac01c771443ccb467a2948351f"
+    }
+  ],
+  "eventPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 314517064,
+    "sha256": "5b2307b5b808ee20a5dc0f7f2769dafd5964d79214adadc998756d78bdf5be21",
+    "device": 16777231,
+    "inode": 673308256,
+    "coordinateDigest": "sha256:c02e79759e6c82d298cf68a17683e9b21c9fd87ee612b5e8fe381e0f6565e6bf"
+  },
+  "callCanonicalDigest": "sha256:a0c6105eed8fe41100cb3450408f5cf5cf774a580f00dbbff2da00b797849d65",
+  "inputCanonicalDigest": "sha256:66a0a92076a26a452a2bdbc29609012672c1909fdf763fdd4f2654377a0f5d6a",
+  "contextDigest": "sha256:5777411a7e7cff6b645e8e9b5ae96eae4fe4d21ebdcc17c3c921648c9170f8a6",
+  "sourceWritePaths": 52,
+  "generatedOutputWriteRoots": 2,
+  "scratchWriteRoots": 1,
+  "c2SelectedPaths": 966,
+  "readRoots": 978,
+  "focusedFiles": 18,
+  "commands": 9,
+  "requiredExecutionBudgetMs": 4267250,
+  "actualPromptBytes": 707676,
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/PROVIDER_PROFILE.json",
+    "bytes": 3255,
+    "sha256": "9f612b25fb81acce3ffda6172689905ca4c4d9e3b1b9b2ce24538953ac28a753"
+  },
+  "actualAfterRunResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/source-acquisition-001/public-read-operator-resume.json",
+    "bytes": 99885171,
+    "sha256": "c6168af5f87dcc4c6d9a9e099d9103c25430b2731644c2b7a4ebb44df83aaa29"
+  },
+  "sourceResultBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/source-acquisition-001/source-result-basis.json",
+    "bytes": 314873,
+    "sha256": "1e22dd4fbd21396a27ece9f18965f6eb6ac90797ffc4dbfccc55065112b3477d"
+  },
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/private/tmp/abiogenesis-rc4-runtime-01"
+    },
+    {
+      "name": "LANG",
+      "value": "C.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "C.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0X67Y0x:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0wbuDmp:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.165.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0q1V18U:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.164.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0DTH1zz:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0sKXW4o:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0Xt8qH8:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0hiQE8Z:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0cX0Ug4:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0b7sntn:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0dSRd60:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+    }
+  ],
+  "qualification": false,
+  "release": false,
+  "automaticRetry": false,
+  "limits": [
+    "Root-only one-shot dispatch",
+    "Native source/model-free evidence distinct from later required installed native interruption witness",
+    "Fresh retained work; no exact pending-frontier/R2 closure or older builder fallback"
+  ]
+}

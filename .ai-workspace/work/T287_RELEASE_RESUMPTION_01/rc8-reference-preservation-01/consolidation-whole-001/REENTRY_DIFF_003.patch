@@ -1,0 +1,11 @@
+--- run.reentry-002.mjs
++++ run.reentry-003.mjs
+@@ -22,7 +22,7 @@
+ assert.equal(failedSdk.receipt.ownerOutput.value.disposition,'runtime_failed');assert.equal(failedSdk.receipt.ownerOutput.value.result,null);assert.equal(failedSdk.receipt.ownerOutput.value.terminalResult,null);
+ if(!coordinates){assert.equal(admission.coordinateProof.path,c.coordinateResultPath);const prior=JSON.parse(await checked(admission.coordinateProof));assert.equal(prior.status,'PASSED');assert.equal(prior.sourceDigest,c.sourceDigest);assert.equal(prior.counts.passed,11);assert.equal(prior.wholeFile,true);}
+ const freeze=JSON.parse(await checked(c.sourceFreeze)),ready=JSON.parse(await checked(c.ready)),inventory=JSON.parse(await checked(c.inventory));
+-assert.equal(freeze.sourceDigest,c.sourceDigest);assert.equal(ready.sourceDigest,c.sourceDigest);await checked(c.artifact);await checked(c.runner);await checked(c.fileHost);for(const p of c.toolPins)await checked(p);
++assert.equal(freeze.sourceDigest,c.sourceDigest);assert.equal(ready.sourceDigest,c.sourceDigest);await checked(c.artifact);await checked(c.runner);await checked(c.fileHost);for(const p of c.toolPins)await checked({path:p.path,bytes:p.bytes,sha256:p.sha256});
+ const resources=JSON.parse(await checked(c.historicalInputs.resources)),baseline=JSON.parse(await checked(c.historicalInputs.baseline));
+ assert.equal(resources.eventLogPath,c.historicalInputs.eventLog.path);assert.equal(resources.eventLogBytes,c.historicalInputs.eventLog.bytes);assert.equal(resources.eventLogSha256,c.historicalInputs.eventLog.sha256);
+ assert.equal(baseline.coordinate.prefixLength,resources.eventLogBytes);assert.equal(baseline.coordinate.prefixDigest,'sha256:'+resources.eventLogSha256);assert.equal((await lstat(resources.eventLogPath)).size,resources.eventLogBytes);

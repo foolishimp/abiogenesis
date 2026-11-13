@@ -1,0 +1,144 @@
+{
+  "kind": "bounded_stdout_window_successor_preparation",
+  "status": "PREPARED_NOT_ADMITTED",
+  "createdUtc": "2026-11-06T21:45:46.567898+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; fixed fifteen ABIogenesis5.0 families",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "boundary": "ABG sole runtime/admission; GTL sole Program language; SDK/CLI thin shells; immutable RC6 builder/prospective RC7. No new controller,store,parser,protocol,cache or event authority."
+  },
+  "selectedMethod": {
+    "access": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01/METHOD_ACCESS.json",
+      "bytes": 939,
+      "sha256": "6343d7c3c3a8eb0553e9b1452ae36cc70209c222cdde0edf502e102ba0c88d84"
+    },
+    "entrypoint": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    }
+  },
+  "knownSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/SOURCE_BEFORE.json",
+    "bytes": 278734,
+    "sha256": "2dd9ad00ba550a5ee8eaad68b7faa079a13bc0fb75d76b9f18ccfba3cc4e5519"
+  },
+  "actualPredecessorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8546,
+    "sha256": "0d084ff96cc77d612f0accc75aa8ade031271505d6f3335ee7b5d62ac8440933"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/after-run-resume.json",
+    "bytes": 72498693,
+    "sha256": "f77ae5b6fa0e291c5e700abb5e634959939d360de279a04d02b992e6c711d699"
+  },
+  "retainedBefore": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/summary.json",
+      "bytes": 1508,
+      "sha256": "b2b210c971ede687abe790b4a7689a1e684d4b536f69bba32e70b515777c4e18"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/stdout.tap",
+      "bytes": 6157,
+      "sha256": "ab1cb3bf77d06f0bb3813e2512ff7561466402fd7b2ecc40f0ee57d377c4468e"
+    },
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-sw1-stage-01/REVIEW.json",
+      "bytes": 7711,
+      "sha256": "9c2aec81de47d1a72b8fd366b66d7d4e5afcda4e9527497e751854372a27dd8c"
+    },
+    "sourceDigest": "5d51fb333507b2e38183f40c96101358c426c2fa7b49bcb7dc31589e085d063a",
+    "standing": "One genuine cadence red911 versus3, later assertions unreached. Preserved historical before evidence; no successor invocation or qualification credit."
+  },
+  "knownRequiredNativeWork": [
+    "Author missing exact mandatory timeout/interruption and archive-integrity tests through existing named test owners.",
+    "Preserve every structured boundary position within one captured chunk and segment-local qualifying/noise classification through the existing classifier/transport; no new parser/framework.",
+    "Apply only further precise Root-selected final-source-review/compiler/generator corrections within the17 existing-path ceiling.",
+    "Mark only the actor-internal nextNativeProcessStreamOrdinal helper @internal so stripInternal omits its declaration with internal RuntimeEventPrefix. Do not publish RuntimeEventPrefix, weaken the packed-declaration guard or assume an owner_contract_source_set change."
+  ],
+  "proposedWriteCeiling": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs"
+  ],
+  "proposedResources": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 3600000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "proposedStages": [
+    "sw2-stage-01",
+    "sw2-stage-02"
+  ],
+  "proposedLanes": [
+    "stdout-differential",
+    "scope-ordering",
+    "timeout-interruption",
+    "archive-integrity",
+    "legacy-replay",
+    "native-caller"
+  ],
+  "futureBindings": {
+    "finalSourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-final-001/REVIEW.json",
+      "bytes": 26134,
+      "sha256": "3212eab2eb4cfab51562d87ab6bdde529391c148251a28fec85989dd8b456f68"
+    },
+    "operatorSw1Stage02BuildOutcome": {
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02-stage.json",
+        "bytes": 98048,
+        "sha256": "f93450ebe9044325d964cc6dea99e417b8044b68c941717eeaa59ba5418a9f78"
+      },
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-author-build-001/build/SUMMARY.json",
+        "bytes": 1611,
+        "sha256": "fa0b2083aba4bdcd8aa654e6d4d114ba7a6ddae14e6d13357dc85d1a11aff113"
+      },
+      "standing": "Operator-only original stage02: compile0/7206ms; generator1/9023ms packed native declaration closure invalid; lifecycle not run, no lanes. All451 source rows unchanged. No guard waiver or source acceptance."
+    },
+    "rootSourceDisposition": null,
+    "finalRepairSelection": null,
+    "nativeGrant": null,
+    "rootControlAdmission": null,
+    "dispatchManifest": null,
+    "actualExecution": null,
+    "reviewBuildAddendum": null
+  },
+  "operatorStage02Selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-author-build-001/ROOT_BUILD_SELECTION.json",
+    "bytes": 8263,
+    "sha256": "e777e47b477bf0d3debe4a88bbf65fb4c0459ae49b5efeefb017c018ff581f4f"
+  },
+  "noCStagingOrRuntime": true
+}

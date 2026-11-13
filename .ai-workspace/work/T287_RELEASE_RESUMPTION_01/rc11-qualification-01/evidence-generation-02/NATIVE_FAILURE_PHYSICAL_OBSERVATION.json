@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-09T07:19:03.354085+00:00",
+  "scope": "Read-only failed-attempt physical observation; raw JSON parsing only, no Product replay/decoder or owner recovery performed.",
+  "scratch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/tmp/abi5-root-env-c1Y6ZD",
+  "eventLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/tmp/abi5-root-env-c1Y6ZD/runtime/events.jsonl",
+    "bytes": 3210242,
+    "sha256": "4d88f0bbde1cb70f28ab7d499bf18d23d2f22cf08d2dcfe2b6cee347faaa2dc6"
+  },
+  "eventLogDevice": 16777231,
+  "eventLogInode": 719753506,
+  "eventKinds": {
+    "public_operation_artifact_admitted": 3,
+    "public_operation_admitted": 1,
+    "invocation_admitted": 1
+  },
+  "eventCount": 5,
+  "lastOrdinal": 5,
+  "lastEventRef": "event://abiogenesis/0afe98d0a36e7451402f9f8da76fc41a01fb8d5e6240e861c11aa7c5359c7206",
+  "profileDigests": [
+    "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+  ],
+  "lock": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/tmp/abiogenesis-event-store-locks-v5/16777231-719753506.lock",
+    "bytes": 124,
+    "sha256": "64315e4156ebe900799cde4ebc130d80c44f43238afb1d7798dc4ae2349d7b87"
+  },
+  "lockFields": {
+    "device": 16777231,
+    "inode": 719753506,
+    "kind": "abiogenesis_event_store_append_lock",
+    "ownerPid": 23372,
+    "schemaVersion": "5.0.0"
+  },
+  "exactHostPidAlive": false,
+  "selectedHostPidAlive": false,
+  "actorRows": [],
+  "cCallRows": [],
+  "completionReceiptExists": false,
+  "closeHandoffExists": false,
+  "nativeSnapshotExists": false,
+  "standing": "Store lock remains; no environment returned, no owner close/recovery receipt. No traversal, C-call, actor start/exit/terminal/termination rows in retained five-row history. This is not a universal descendant-absence or runtime closure claim. Preserve for Root triage."
+}

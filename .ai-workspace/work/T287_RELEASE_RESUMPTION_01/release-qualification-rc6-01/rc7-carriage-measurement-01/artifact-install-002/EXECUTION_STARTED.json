@@ -1,0 +1,40 @@
+{
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/ROOT_BINDINGS_001.json",
+    "bytes": 4355,
+    "sha256": "68061ce11c08c76ec74d8fda9e8e7505947c1c473a5407278aa05b583fa46840"
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r7p2/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "NPM_CONFIG_USERCONFIG": "/private/tmp/abg-r7p2/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/private/tmp/abg-r7p2/npm-global.npmrc",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-r7p2/npm-cache",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_IGNORE_SCRIPTS": "true",
+    "NPM_CONFIG_AUDIT": "false",
+    "NPM_CONFIG_FUND": "false",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false"
+  },
+  "bounds": {
+    "extractMs": 120000,
+    "installMs": 600000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  },
+  "priorBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_ARTIFACT_BINDINGS_001.json",
+    "bytes": 5556,
+    "sha256": "96964389f30b653cd038da245829c213fe6ca85570f543f84560aced19b854c2"
+  },
+  "priorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/SUMMARY.json",
+    "bytes": 1426,
+    "sha256": "03776698a2c74ea05c8c737570d036aa051186f8790e0575f2b97cb2859f8969"
+  }
+}

@@ -1,0 +1,17 @@
+# HS03 conditional operator preparation
+
+**DEPENDENCY_PREPARED_NOT_STAGED_NOT_DISPATCHED.** Root selected Q2/Q3 and the finite preparation scope. Actual HS01/HS02 source, installed proof/measurements, disposition and close remain future bindings. No Product/source edit or HS03 native activation occurred.
+
+Q2 closes a window at an existing structured turn boundary or maximum30seconds on the actor clock, whichever applies first. Q3 selects one stdout observation per window and actual archive fsync before reference. Progress classification is unchanged; last qualifying activity is separate from byte/flush times. Native HOW must first resolve one central scope-owned drain's recursion and enclosing transaction relation.
+
+The deciding extra owner is `worker_transport.ts`, which writes archive bytes before the actor callback without fsync at that seam. Shared `event_store.ts` liveness ingress alone is also too late: `admitRuntimeThreshold` may derive and return not-reached before it calls that ingress. Both sites must reuse the same central flush relation. Proof covers all four existing producers, two interleaved scopes and unchanged lastActivity/decision semantics.
+
+The exact historical d5-author-03 close supplies1016286093bytes/170487rows, prefix SHA256`9e62b2f99cc16de07ec9ff3804ade2f61db007c951cbda6d9a141fa505982e00`. The verified metadata projection retains84498stdout,85006probe and53process/decision rows.83866stdout rows have qualifying activity probes;632 do not. Absent probes do not establish noise. Missing structured turn boundaries and exact nonqualifying actor capture clocks remain missing. Recorded chronology supports a bounded differential; focused protocol cases supply known timestamps/classification. Actual archive integrity is separately tested. No original observations are fabricated.
+
+The46,684,229-byte metadata is referenced once as an external test oracle, outside native context/stages. It contains no provider narrative, raw task/Result, tool_result, stderr or credential bodies; no1GB log copy or second event authority was created. Exact event/profile history remains unchanged.
+
+The prepared scope has17 existing write paths,450 reference source rows/290 TypeScript sources and20 planned inputs+3handoffs=473 context entries. Four stage/seven serial300-second invocations select before differential, final actual-stream differential, scope ordering, timeout/interruption, archive integrity, historical replay and affected native caller. Six final lanes share exact frozen source. Stages publish source/HOW freeze receipts before build/feedback for concurrent max review. No broad campaign, retry or timeout increase is selected.
+
+Actual F SDK/checker/launcher/stage/lane controls are reused through the closed HS01 packet, preserving live objects in memory and genuine completion/one outer close. A narrow pinned metadata input is added only to the two differential lanes. Root still binds exact accepted HS01 source/measurements, genuine close/resume and maintained checker, materializes/admit controls, then selects one native launch. No duplicate immutable-RC6 cold drain is imposed; HS02's actual candidate warm/cold proof remains required.
+
+Syntax/static relations passed. Preparation only read the explicitly selected historical prefix and frozen source; no runtime acquisition, provider/auth/network, C staging, Product build/test or Git/release effect occurred. S4, remaining release gates, S3 withdrawal and conditional S6 repricing are preserved. No performance or acceptance claim follows.

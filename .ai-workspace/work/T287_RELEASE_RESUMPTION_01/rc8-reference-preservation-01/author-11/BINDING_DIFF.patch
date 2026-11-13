@@ -1,0 +1,116 @@
+--- author-10/BINDING.json
++++ author-11/BINDING.json
+@@ -1,5 +1,5 @@
+ {
+-  "id": "T287-RC8-AUTHOR10-OWNED-LIFETIME-FIXTURE",
++  "id": "T287-RC8-AUTHOR11-O1-COMPONENT-PREMISE",
+   "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+   "baseControls": {
+     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+@@ -7,39 +7,39 @@
+     "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+   },
+   "preparation": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/PREPARATION.json",
+-    "bytes": 8154,
+-    "sha256": "0723feeced1303f42a0b9b84b195ce8a6955d20f8b118d3bba72ce4749731db0"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/PREPARATION.json",
++    "bytes": 7299,
++    "sha256": "10d491d1e7483ce99453844ff9d8c0cb60605130d62cbd78bd6b4c5abfb6145c"
+   },
+   "scopeGrant": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SCOPE.json",
+-    "bytes": 5681,
+-    "sha256": "47cc041d88ab63eabe3ee626d769cdd11e5d4c48ad35405758e74d3b830cff63"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SCOPE.json",
++    "bytes": 5575,
++    "sha256": "4383c2cb32444b8f1d17c1b46197e5eba10b559c74a77a77a25d18978f2b2b0c"
+   },
+   "task": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/TASK.json",
+-    "bytes": 6443,
+-    "sha256": "a841aa2e6759ce1bb51b2661046b82ef698d0e97f2507a7cce76d93966f5d60f"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/TASK.json",
++    "bytes": 5287,
++    "sha256": "eff444d271d53121f8e9497dc701433f0cce3a1a9dfe62d1c4c040d24c3044b6"
+   },
+   "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+   "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+-  "sourceDigest": "d521558b06efbec82eae02a5405a3bb3ac494842be24e700a5ec61548a9eec35",
++  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+   "sourceWritePaths": [
+-    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
++    "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs"
+   ],
+-  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/runtime-001",
+-  "proofRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence",
+-  "proofScratchRoot": "/private/tmp/abg-r8-a10-o7l27nv6/p",
++  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001",
++  "proofRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence",
++  "proofScratchRoot": "/private/tmp/abg-r8-a11-001/p",
+   "environment": {
+     "HOME": "/Users/jim",
+     "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+     "LANG": "en_US.UTF-8",
+     "LC_ALL": "en_US.UTF-8",
+-    "TMPDIR": "/private/tmp/abg-r8-a10-o7l27nv6/tmp",
+-    "TMPPREFIX": "/private/tmp/abg-r8-a10-o7l27nv6/tmp/zsh",
++    "TMPDIR": "/private/tmp/abg-r8-a11-001/tmp",
++    "TMPPREFIX": "/private/tmp/abg-r8-a11-001/tmp/zsh",
+     "NODE_OPTIONS": "--max-old-space-size=8192",
+     "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+-    "NPM_CONFIG_CACHE": "/private/tmp/abg-r8-a10-o7l27nv6/npm-cache",
++    "NPM_CONFIG_CACHE": "/private/tmp/abg-r8-a11-001/npm-cache",
+     "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+     "NPM_CONFIG_OFFLINE": "true",
+     "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/npm-user.npmrc",
+@@ -78,34 +78,36 @@
+     "reserveBytes": 4294967296,
+     "maxOwnedBytes": 4294967296,
+     "pollMs": 10000,
+-    "focusedNameFilteredInvocations": 0,
+-    "focusedWholeFileInvocations": 1
++    "focusedNameFilteredInvocations": 1,
++    "focusedWholeFileInvocations": 0
+   },
+   "lanes": {
+-    "lifetime": {
++    "materialization-o1": {
+       "files": [
+-        "t287-owned-process-lifetime.test.mjs"
++        "t287-required-operation-bindings.test.mjs"
+       ],
+-      "wholeFile": true,
+-      "expectedPassed": 18,
+-      "expectedSkipped": 0
++      "namePattern": "^O1 \\(A\\): the materialization binding refuses an artifact body outside I-JSON before the artifact ingress$",
++      "wholeFile": false,
++      "expectedPassed": 1,
++      "expectedSkipped": 0,
++      "excludedUnchangedCases": 9
+     }
+   },
+   "controlFiles": [
+     {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/host.mjs",
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/host.mjs",
+       "bytes": 12242,
+-      "sha256": "18ef2690651d61f1db06611e550f103165df3e1db59824794ea944d120023c21"
++      "sha256": "ab2e3601532519e6a5b8ceff7cf2434cc2d7ccbc8659255782e5dc9778eb9709"
+     },
+     {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof.mjs",
+-      "bytes": 10756,
+-      "sha256": "3621498d181971d2b199a43cb61acedbdfac2667802c01b1e72232abc8be72b6"
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs",
++      "bytes": 10763,
++      "sha256": "c2f7225fbf3f790d2bf139774b89763febbe8017ef4c2deba17f7a7a75186bcf"
+     }
+   ],
+   "providerDispatch": false,
+   "rootOneDispatchAuthorization": false,
+   "sourceAccepted": false,
+   "qualified": false,
+-  "meaning": "Preparation only from completed A9 actual close; bounded accepted A9 increment and pending cumulative A8 SAS standing remain distinct. One file/one whole proof/one freeze/zero builds. Root concrete dispatch admission required."
++  "meaning": "Root-selected one-key O1 fixture correction; one maintained-owner preparation from actual A10 close, held for separate dispatch admission. One filtered test/one freeze/zero builds; no whole-file restamp or Product change."
+ }

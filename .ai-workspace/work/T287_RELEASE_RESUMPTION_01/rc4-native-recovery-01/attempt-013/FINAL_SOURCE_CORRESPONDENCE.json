@@ -1,0 +1,98 @@
+{
+  "observed_at": "2026-11-02T13:01:45.062352+00:00",
+  "basis": "Exact thirteen C2 source-correspondence paths, file bytes only; no Git or Product API",
+  "all_match": true,
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "expected_sha256": "473c76ab37376ba3d00de076859b01947236a3da97c6773b2b961ca571453397",
+      "actual_sha256": "473c76ab37376ba3d00de076859b01947236a3da97c6773b2b961ca571453397",
+      "bytes": 73973,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "expected_sha256": "85607f0b6a7f69bcf431c89907e17c7302702679a5d655ee72d16cf95e71dd61",
+      "actual_sha256": "85607f0b6a7f69bcf431c89907e17c7302702679a5d655ee72d16cf95e71dd61",
+      "bytes": 126311,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "expected_sha256": "d15240c6715423feb7a7a30501e795b014c4abea4884edd1445cf61c6e5fcda6",
+      "actual_sha256": "d15240c6715423feb7a7a30501e795b014c4abea4884edd1445cf61c6e5fcda6",
+      "bytes": 13850,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "expected_sha256": "32fa5b7a0e8589604fabe4d9fba8ff380e78d1118768f059993956f7942de648",
+      "actual_sha256": "32fa5b7a0e8589604fabe4d9fba8ff380e78d1118768f059993956f7942de648",
+      "bytes": 21248,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "expected_sha256": "a74b4b064bc02691012bb770a2fd67c778f96dd077b611b4c361ba8959560292",
+      "actual_sha256": "a74b4b064bc02691012bb770a2fd67c778f96dd077b611b4c361ba8959560292",
+      "bytes": 21411,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "expected_sha256": "eb217586d2ab1804933ae796aae418978f6cbf0eb859601b63b2e5fe8ebc85e7",
+      "actual_sha256": "eb217586d2ab1804933ae796aae418978f6cbf0eb859601b63b2e5fe8ebc85e7",
+      "bytes": 28788,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "expected_sha256": "abb839843a59a3aa4503d4d894dfe5b3f23b17480e56acb843e52e80e0d7181d",
+      "actual_sha256": "abb839843a59a3aa4503d4d894dfe5b3f23b17480e56acb843e52e80e0d7181d",
+      "bytes": 17974,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "expected_sha256": "6e6f377de479e5cb5fec195e88888f5651d66482ef306e858161f54a35b593be",
+      "actual_sha256": "6e6f377de479e5cb5fec195e88888f5651d66482ef306e858161f54a35b593be",
+      "bytes": 28722,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "expected_sha256": "d073b1e04c98a34f0f0e31d24ef30439fa7f877269b5d67d71fa2b719722724f",
+      "actual_sha256": "d073b1e04c98a34f0f0e31d24ef30439fa7f877269b5d67d71fa2b719722724f",
+      "bytes": 274089,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "expected_sha256": "fafb8eb47d56a3c3534dfb046b9aea9d3fc9d59754fd9e1bf1c26f0eb7d37921",
+      "actual_sha256": "fafb8eb47d56a3c3534dfb046b9aea9d3fc9d59754fd9e1bf1c26f0eb7d37921",
+      "bytes": 14920,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "expected_sha256": "853c62cc2a819d44cca08f0157d29e87ee034306f9badc2e56732f9c0081f8eb",
+      "actual_sha256": "853c62cc2a819d44cca08f0157d29e87ee034306f9badc2e56732f9c0081f8eb",
+      "bytes": 130546,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "expected_sha256": "0729c45e37923ecd574f7920ee00319596faa8213386c79b45ff374c67f28a78",
+      "actual_sha256": "0729c45e37923ecd574f7920ee00319596faa8213386c79b45ff374c67f28a78",
+      "bytes": 97667,
+      "matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "expected_sha256": "f640c217afa7f094e8e312a3a80ec22fe6fc51ac77be354d6e49cc93cfbe48df",
+      "actual_sha256": "f640c217afa7f094e8e312a3a80ec22fe6fc51ac77be354d6e49cc93cfbe48df",
+      "bytes": 42208,
+      "matches": true
+    }
+  ]
+}

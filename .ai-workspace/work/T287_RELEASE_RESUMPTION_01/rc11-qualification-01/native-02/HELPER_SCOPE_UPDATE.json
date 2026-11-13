@@ -1,0 +1,23 @@
+{
+  "status": "PREPARATION_UPDATE_ONLY_NINTH_AUTHOR_PATH",
+  "utc": "2026-11-09T07:28:51.628997+00:00",
+  "owner": "Root Executive",
+  "rootDecision": "Actual C.retry(one F_P leaf,3) enters legacy validation through row-count-only helper predicate, although legacy validator requires node.term itself executable C leaf. Add exactly rootRows.length === 1 && gtl.isExecutableCLeaf(node.term), preserving complete validated set-only path for composite terms and every existing guard. External Writer prepares execution view03 with only this delta and a conditionally admitted native fixture Run. Selected-action02 actual216-event snapshot is banked; failed native02 store was separately recovered/closed with unchanged five events per Root update. No source edits/runtime/final binding now.",
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/native-setup-002/REVIEW.md",
+    "bytes": 9376,
+    "sha256": "282baa43c72cd8a1d7c206376f9caa9fe3f719045e6e95db84497c575d550e2a"
+  },
+  "additionalAuthorPath": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+  "helperPreimage": {
+    "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "bytes": 42751,
+    "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+  },
+  "exactLineDelta": {
+    "before": "  const resolutionCandidate = rootRows.length === 1",
+    "after": "  const resolutionCandidate = rootRows.length === 1 && gtl.isExecutableCLeaf(node.term)"
+  },
+  "constraints": "Future native author receives actual fixtures plus exact proofed helper preimage/delta; no setup API rediscovery, validator bypass, GTL unwrapping, fake validation or extra source scope. Same data-first repricing. No current GOALS microstatus.",
+  "pending": "Actual external03 outcome/helper postimage proof and exact future staging/source inventory; no outcome assumed from static triage."
+}

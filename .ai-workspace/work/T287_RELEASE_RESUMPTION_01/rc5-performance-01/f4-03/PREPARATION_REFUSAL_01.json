@@ -1,0 +1,18 @@
+{
+  "kind": "operator_preparation_refusal",
+  "at": "2026-11-03T11:31:17.435939+00:00",
+  "owner": "installed RC4 constructGovernanceWorkState/governanceAssessmentRolesDistinct",
+  "error": "governance input requires complete original source, scope and declared work contracts",
+  "origin": "Root added held HOW file to original invariant sources and copied that list into assessment sources, duplicating candidatePath; assessment source/candidate/rubric roles must be distinct",
+  "rejectedWorkloadSha256": "457665b63fdffbde0f3db30fe00c5217fa13d5930adeac9b6305b05880f4ec8b",
+  "overlap": [
+    "build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md"
+  ],
+  "effects": {
+    "executionDirectoryCreated": false,
+    "RunAdmissions": 0,
+    "providerCalls": 0,
+    "ProductWrites": 0
+  },
+  "reentry": "Operator input repair only: preserve original immutable source pin, exclude candidate/rubric from assessment sources; repeat owner preflight, not execution"
+}

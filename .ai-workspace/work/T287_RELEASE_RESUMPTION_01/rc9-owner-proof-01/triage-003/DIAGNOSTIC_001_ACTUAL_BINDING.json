@@ -1,0 +1,30 @@
+{
+  "status": "BOUND_AND_ROOT_EXECUTION_ADMITTED_NOT_YET_STARTED",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/run-m5-diagnostic-001.mjs",
+    "bytes": 9769,
+    "sha256": "04226f8707f113c7fdef85d99fe19fed1ed5ce2465ed6bd527ab42fdd6033fb3"
+  },
+  "reviewedHeldBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/M5_DIAGNOSTIC_BINDING.HELD.json",
+    "bytes": 9956,
+    "sha256": "12481c53f55399d69a82a2720b2ee9700029b6eb103af9a10f3ce287299ebded"
+  },
+  "actualBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/M5_DIAGNOSTIC_BINDING.BOUND.001.json",
+    "bytes": 10521,
+    "sha256": "d5582ae5f0db6dc756263b48a36aa4d88c361e1a0d7212a1851b610425fe819d"
+  },
+  "actualAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/ROOT_M5_DIAGNOSTIC_001_ADMISSION.json",
+    "bytes": 2582,
+    "sha256": "57307c80426fa272ae6798ab65da530abad82e8340f86992419d51bfb7a06bb1"
+  },
+  "bindingChanges": [
+    "status HELD_RC9_M5_DIAGNOSTIC to BOUND_RC9_M5_DIAGNOSTIC",
+    "append actual strongest stop pin",
+    "add actual completed failed-state readback pin"
+  ],
+  "commandUnchanged": true,
+  "boundsUnchanged": true
+}

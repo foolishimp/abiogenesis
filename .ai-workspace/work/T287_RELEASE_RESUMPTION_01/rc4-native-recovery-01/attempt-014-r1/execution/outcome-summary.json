@@ -1,0 +1,14 @@
+{
+  "ended": "2026-11-02T14:42:14.313Z",
+  "exitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "blocked",
+  "run": {
+    "digest": "sha256:436fd7e3baaaafc4e56d3408ba1eda7d477fca040c1841c383298596effae8a8",
+    "ref": "run://abiogenesis/14cff803c6ee16c108f8141d74a2cb9c1b11d368d01d24613394c5962553f143"
+  },
+  "terminal": null,
+  "qualification": false,
+  "R2Closure": false,
+  "meaning": "Fresh native development; actual Testing/UAT and R1–R5 evidence determine outcome. No recovery or qualification credit follows merely from dispatch."
+}

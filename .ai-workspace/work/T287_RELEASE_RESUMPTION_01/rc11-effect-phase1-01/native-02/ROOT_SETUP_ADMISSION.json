@@ -1,0 +1,54 @@
+{
+  "id": "PHASE1-SETUP-02",
+  "status": "ROOT_ADMITTED_PHASE1_SETUP",
+  "basis": "Existing Root PHASE1-IMPLEMENTATION-01 plus routine control/path correction clause; actual constructor shape correction and supported existing-workspace open route preserve scope. No paid actor.",
+  "bindingSha256": "66b2ce15c22c4c41117c996e7e9dac44e04241524a370c4def942299cbb18272",
+  "scopeSha256": "b7339f2b7304b9fb8bc75ecc945ed1aff6091b4e02b56a75f5bfda53647ad1bd",
+  "grantsFreshPublicSetup": true,
+  "providerDispatch": false,
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/READY.json",
+    "bytes": 3428,
+    "sha256": "811930ac16b77ba4d35dc31d866f58b6bcb0af2542dcf8933996b399d8402ad5"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/host.mjs",
+      "bytes": 15410,
+      "sha256": "1b8173d71d932a9ad93ed280ee22e331dc9e9d17e4543b2480aa24f5e2794172"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+      "bytes": 11028443,
+      "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+      "bytes": 1839,
+      "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/CONTROL_REENTRY.json",
+      "bytes": 2734,
+      "sha256": "05a5adf6357fb23e437221decf456da81e19a7de8f83c42b278a2466db28382e"
+    }
+  ],
+  "setupBudgetMs": 900000,
+  "setupPerCommandMs": 300000,
+  "reserveBytes": 4294967296
+}

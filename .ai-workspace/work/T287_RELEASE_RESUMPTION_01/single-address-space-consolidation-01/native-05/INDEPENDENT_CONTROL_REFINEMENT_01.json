@@ -1,0 +1,121 @@
+{
+  "recordedUtc": "2026-11-03T21:32:39.442618+00:00",
+  "kind": "independent_bounded_control_refinement_addendum",
+  "productFrame": "ABIogenesis5 / GOAL-035 / T-287 / STDO3.0.4; original R1-R7/C1-C5 unchanged; Root sole acceptance owner",
+  "parentSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/control-review-001/SUBJECT.json",
+    "bytes": 9420,
+    "sha256": "89b35dfe5dfc481cced7b7d22092c228b6640704efa28ccabfea509b11054359"
+  },
+  "parentReports": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_CONTROL_REVIEW.md",
+      "bytes": 5349,
+      "sha256": "72861030b9f972b880dfbfd60e984a83ab8cac1fe93585f6e8d336042a5df825"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_CONTROL_REVIEW.json",
+      "bytes": 25839,
+      "sha256": "e3743266239af4ec321c93bf7450a2d33aee13cc8aedf932170c281304a737c7"
+    }
+  ],
+  "refinementSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/PACKET_REFINEMENT_01.json",
+    "bytes": 4392,
+    "sha256": "9c6b555c4d4a61dc5a57addbf3f5f32ba6e685481bfcccc62ea525ac17f55820"
+  },
+  "refinedControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/workload-r1.json",
+      "bytes": 225405,
+      "sha256": "8f56decb001b76131ebab9dca7783e7f36853afeb7c4127c5d39959e0ee2dc0b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/prepare-r1.mjs",
+      "bytes": 7158,
+      "sha256": "dd28975ae533da491193b78a8219b74067fa3b4a6d2ef51ce46f1f870e78a1c1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/dispatch-r1.mjs",
+      "bytes": 5197,
+      "sha256": "e832a00e925cb62269c2a1049bde1f921ff18eb692b86b27edd67ef32c8f3379"
+    }
+  ],
+  "failedPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/PREFLIGHT_TIMING.json",
+    "bytes": 283,
+    "sha256": "e1a0bccdb3d8c265168ae10de9ed4ae97fd3b2e450b6e82bfcdc08d06fecbc75"
+  },
+  "failedCapacity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/SELECTOR_CAPACITY_PREFLIGHT.json",
+    "bytes": 1171,
+    "sha256": "8455d9edfbaeac72c473d8fc2dadff804fd7789bef9eea25373b00e3eeeae250"
+  },
+  "newCapacity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/SELECTOR_CAPACITY_PREFLIGHT_R1.json",
+    "bytes": 1168,
+    "sha256": "76caf424d746834e21fce8900847e157ba0b028e2428045b8b120e516c0faa05"
+  },
+  "verdict": "satisfied_for_exact_additive_operator_refinement",
+  "findings": [],
+  "verifiedDelta": {
+    "sourceRows": "43 to41; exactly two inventory rows removed",
+    "assessmentSourceRows": "Exactly same two path rows removed",
+    "removedInventoryPins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/C2_SELECTED_INPUTS.json",
+        "bytes": 76876,
+        "sha256": "0a4973f5847cdec819cf7f87d1080fb0c489cb230abc39a0f432fb3858e350a7"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/HELD_SOURCE_AND_EVIDENCE.json",
+        "bytes": 32596,
+        "sha256": "f7b3095004a4a2786ae82287dcece462434187825c6cb55e6d4d1dabfe79d8a5"
+      }
+    ],
+    "allOtherWorkloadValuesUnchanged": true,
+    "selectedReadAndTestingPaths": 884,
+    "bothInventoriesRemainInReadFirstForAllSixRoles": true,
+    "inventoriesPhysicalBytesMatchPins": true,
+    "grant117AndSourceTestInputsUnchanged": true,
+    "prepareChanges": [
+      "Read workload-r1.json",
+      "Write distinct SELECTOR_CAPACITY_PREFLIGHT_R1.json, preserving failed record",
+      "Bind refined workload hash in PREPARED_CALL"
+    ],
+    "dispatchChanges": [
+      "Read workload-r1.json; existing manifest/file/context/prepared-call checks unchanged"
+    ],
+    "originalFrozen19FilesUnchanged": true
+  },
+  "capacityObserved": {
+    "kind": "predictive_selector_capacity",
+    "installedRendererSha256": "3ba9e751bf3b2ca805ebafbd4678d96fffb9aff2055e301e7b78a70b483b518a",
+    "historicalOtherSections": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/fp-0141c53486056a96-prompt.txt",
+      "sha256": "6b9ec2ce3cccc5fb165fd72b6e81208eaafc3b7513d70421c8ea1fd9000a5a54"
+    },
+    "currentContextDigest": "sha256:233869a9bcd54fe088b56873505a38126f1299f1509b61b0d87d80c0da6b51d8",
+    "currentInputDigest": "sha256:0244348937cb0ce21c7f8e1d2cdf54f3eb6908e4d80e2bb20fe2a03af23b3e1d",
+    "sourceCount": 41,
+    "taskProjectionBytes": 890515,
+    "promptBytes": 911812,
+    "promptBound": 1048576,
+    "reserveBytes": 65536,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Actual installed owner task projection and renderer format; other sections are exact prior RC4 selector sections with controlled historical bindings.",
+      "Predictive operator check with64KiB reserve, not native assembly/admission or a proof of all future role contexts. Runtime owners remain authoritative."
+    ]
+  },
+  "retainedLimits": [
+    "Predictive task projection with exact historical other sections remains the declared bound; no proof of future role contexts or provider success.",
+    "Final exact prepared-call/context/manifest verification and dispatch admission remain Root-owned and are not accepted by this addendum.",
+    "No Product source, runtime owner, prompt cap, grant, assertion, lane, external fixture or required outcome changed.",
+    "Closed native04 source review and failures retained; actual successor source/C2/UAT/fresh outcomes remain open.",
+    "Root clarified the three unlaned granted regression files are gated historical routes; selected new discriminators are in scheduled owner-continuation, ordered-reconstruction, SAS, retry, r5, continuation-causation, cross-cut and corrected R4. No skip earns new credit."
+  ],
+  "effects": "Read-only delta/pin review; no tests, builds, providers or Product/test writes. Only this separate addendum pair written under Root follow-up."
+}

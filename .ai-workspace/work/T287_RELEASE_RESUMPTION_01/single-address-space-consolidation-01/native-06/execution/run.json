@@ -1,0 +1,8 @@
+{
+  "kind": "single_address_space_native_preparation",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "heldSourceSnapshotSha256": "975f08d4c729f5ad14d40efa5665db329f9156592c813fd076847784a7abc093",
+  "sourceBasis": "none",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

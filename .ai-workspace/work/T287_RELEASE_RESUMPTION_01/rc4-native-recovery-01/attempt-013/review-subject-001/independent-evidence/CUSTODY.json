@@ -1,0 +1,36 @@
+{
+  "status": "INDEPENDENT_EVIDENCE_CUSTODY_ONLY",
+  "capturedUtc": "2026-11-02T13:04:14.338042+00:00",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/review-subject-001/SUBJECT.json",
+    "bytes": 19100,
+    "sha256": "c67b578cde6e827344821e0db7cab1b231c7b30ac30530d3fa21df42fd40c2a7"
+  },
+  "files": [
+    {
+      "source": {
+        "path": "/private/tmp/rc4-013-independent-review-3u7c87t_/fulfillment-hook.log",
+        "bytes": 1495,
+        "sha256": "018c73f00d2dc8913c5525df6b823da00fd10bf5a2d9816409fe19a424e6cbe9"
+      },
+      "custody": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/review-subject-001/independent-evidence/fulfillment-hook.log",
+        "bytes": 1495,
+        "sha256": "018c73f00d2dc8913c5525df6b823da00fd10bf5a2d9816409fe19a424e6cbe9"
+      }
+    },
+    {
+      "source": {
+        "path": "/private/tmp/rc4-013-independent-review-3u7c87t_/COPY_MANIFEST.json",
+        "bytes": 2694387,
+        "sha256": "9c5b09542cf25e071a30c40028a051c8bf5a218d9b967a60adf8ccb109be1971"
+      },
+      "custody": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/review-subject-001/independent-evidence/COPY_MANIFEST.json",
+        "bytes": 2694387,
+        "sha256": "9c5b09542cf25e071a30c40028a051c8bf5a218d9b967a60adf8ccb109be1971"
+      }
+    }
+  ],
+  "attribution": "Independent reviewer executed the selected-profile fixture against exact candidate; copied log records unknown_dependency. Writer ran no test. No dependency/tenant/tmp tree copied. Final independent review is pending; protected W-root finding is Root/reviewer reported, not independently exercised by Writer."
+}

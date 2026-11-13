@@ -1,0 +1,30 @@
+{
+  "kind": "targeted09_current_scope_and_preimage",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+    "bytes": 6177,
+    "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/review-subject-001/SUBJECT.json",
+    "sha256": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0"
+  },
+  "closedPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/ROOT_CONJUNCTION.json",
+    "bytes": 11303,
+    "sha256": "16613c500832f38aa692710fea57a21f303cb0cd96812f8534afd2c91132e18a"
+  },
+  "historicalStanding": "Native08 bounded RAW proof/source/C2 retained; UAT indeterminate/fresh blocked/no terminal. These are predecessor facts, not current targeted failure or programme completion gates.",
+  "selected": "IR-01 three cuts; IR-02 seven calls/two authenticators/two complete wrappers and necessary existing tests/support/HOW.",
+  "widerWork": "Original R1-R7/C1-C5/map/rubric preserved as outstanding historical context outside this activation, not inline current instructions or native closure gates.",
+  "rootExit": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ROOT_EXIT_OBLIGATIONS.json",
+    "bytes": 781,
+    "sha256": "7b1c97c25c10f2e4f138085a79fba82763d8efd02bfc6d4255baa8a8366c4ad1"
+  },
+  "sourceBeforeUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/SOURCE_BEFORE.json",
+    "bytes": 71946,
+    "sha256": "6e2f16c51ecf043a1f15b35895b863b911ec9951f90d58596d296bb92e02c00b"
+  }
+}

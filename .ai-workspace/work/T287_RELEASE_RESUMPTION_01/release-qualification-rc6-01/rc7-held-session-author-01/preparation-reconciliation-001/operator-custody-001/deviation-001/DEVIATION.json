@@ -1,0 +1,46 @@
+{
+  "kind": "bounded_control_scope_deviation",
+  "id": "HS01-STAGE01-REDIRECTION-001",
+  "status": "PRESERVED_NOT_AUTHORIZED_ROOT_COMPLIANCE",
+  "createdUtc": "2026-11-06T13:26:44.145457+00:00",
+  "disclosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/progress-001.json",
+    "bytes": 989,
+    "sha256": "c0943994e741e443206a64617ba89e6474bd988963901bbfc34dac6b94f3163f"
+  },
+  "logs": [
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/stage-01.out",
+        "bytes": 704,
+        "sha256": "37da55a53a91734f572377ad0237ec7b97e7aa80b589fe30ab30494043210322"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/deviation-001/stage-01.out",
+        "bytes": 704,
+        "sha256": "37da55a53a91734f572377ad0237ec7b97e7aa80b589fe30ab30494043210322"
+      },
+      "stableDuringCapture": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/stage-01.err",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/deviation-001/stage-01.err",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stableDuringCapture": true
+    }
+  ],
+  "classification": "Author explicitly redirected stage stdout/stderr to scratch root rather than the declared tmp subtree. This is a bounded control-scope deviation, not a Product defect.",
+  "rootDisposition": "Root selects no rerun or source rollback for this deviation; preserve original grant and logs. Later off-root redirects, if any, remain separate.",
+  "limits": [
+    "No full no-outside-effects claim may be made in final custody.",
+    "Exact source/stage/proof equality may close independently of this control deviation.",
+    "Only byte counts/hashes and stable file metadata were used; raw output content was not reviewed."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "kind": "root_ticket_status_projection",
+  "at": "2026-11-07T00:00:32.252809+00:00",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+  "preimage": {
+    "bytes": 726545,
+    "sha256": "48151fe02deeed45f1e76aab33148ae9a14e42f3303abfb4a23bbb2d718aa4ba",
+    "selectedLines": {
+      "3": "Current progress, 2026-11-06T23:54:58.973570+00:00: **RC7_HS03_BOUNDED_ACCEPTED_INSTALLED_GROWTH_STARTED**. [Root S3 adoption](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json)9d1de838 accepts exact451-row source0b71ee7e/sourceDigest38024edd, successful build and all6focused lanes33pass/0fail/0skip, independent reviewa92a2cc8 and genuine completed close3116500e. Final native interval23:12:54.942Z\u201323:44:02.784Z; setup138.783s, launch6.519s and prior coordination42m17.101s remain distinct. The18-file delta closes durable window/cold archive validation, exact profile, actual actor-successor and timeout proof gaps. Procedure departures and bounded historical-proof premises remain disclosed. H06 HS01/small HS02 acceptance and all failures are retained. The isolated installed S4 growth artifact is running once under binding96964389; conditional S6 and reproducible local RC7 cut/install follow. No full performance, qualification, publication or selector claim.",
+      "68": "- current_activation_status: HS03_BOUNDED_ACCEPTED_S4_ARTIFACT_RUNNING (S3 source0b71ee7e/reviewa92a2cc8/Root9d1de838; native Worker completed and closed; Root isolated artifact session41419)",
+      "70": "- current_next_work: [RC7 held-session plan](#rc7-held-session-plan): complete isolated same-source installed S4 growth measurement and Root S6 disposition, then reproducible local RC7 cut/install. Reuse the accepted successful stage and original focused proof; preserve all failures and procedure limits."
+    }
+  },
+  "after": {
+    "bytes": 727052,
+    "sha256": "8fa1dc06ac06233d0a54b673249bbe43eac6ecc0d3b23f64754ca1703a020d3d",
+    "selectedLines": {
+      "3": "Current progress, 2026-11-06T23:54:58.973570+00:00: **RC7_HS03_ACCEPTED_S4_OPERATOR_BASIS_CORRECTION**. [Root S3 adoption](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json)9d1de838 accepts exact451-row source0b71ee7e/sourceDigest38024edd, successful build and all6focused lanes33pass/0fail/0skip, independent reviewa92a2cc8 and genuine completed close3116500e. Final native interval23:12:54.942Z\u201323:44:02.784Z; setup138.783s, launch6.519s and prior coordination42m17.101s remain distinct. The18-file delta closes durable window/cold archive validation, exact profile, actual actor-successor and timeout proof gaps. Procedure departures and bounded historical-proof premises remain disclosed. H06 HS01/small HS02 acceptance and all failures are retained. The isolated artifact packedff38a306 and verified successfully; immutable RC6 lock construction correctly refused the changed compiler basis before installation. [Root triage](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_ARTIFACT_BASIS_TRIAGE_001.json)904f275b selects the existing same-candidate bootstrap owner path, preserving the refusal and reusing the archive. Measurement remains unrun. Conditional S6 and reproducible local RC7 cut/install follow. No full performance, qualification, publication or selector claim.",
+      "68": "- current_activation_status: HS03_BOUNDED_ACCEPTED_S4_OPERATOR_CORRECTION (S3 source0b71ee7e/reviewa92a2cc8/Root9d1de838; no active native Worker. Artifact41419 closed with retained lock-basis refusal before install; Root triage904f275b selects a separately bound continuation.)",
+      "70": "- current_next_work: [RC7 held-session plan](#rc7-held-session-plan): finish existing same-candidate bootstrap owner correction, run isolated installed S4 growth/S6 disposition, then reproducible local RC7 cut/install using narrow new-worktree materialization. Source/build/33focusedpasses stay accepted; no completed proof rerun or historical evidence cleanup."
+    }
+  },
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_ARTIFACT_BASIS_TRIAGE_001.json",
+  "scope": "Three current status lines; original source acceptance and failed receipts retained."
+}

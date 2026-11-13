@@ -1,0 +1,10 @@
+{
+  "status": "CONTROL_PREPARATION_CALL_SHAPE_ERROR",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/prepare.py",
+    "bytes": 20261,
+    "sha256": "45941e5feb5d1e7efe8d6948bd33528d7a783e9303c989d4a9b36cfde82cd8f5"
+  },
+  "error": "TypeError: retained_guards() takes 0 positional arguments but 2 were given",
+  "effects": "ROOT_SCOPE.json written; no source/runtime/test/provider effect; reuse actual controller globals for read-only guards."
+}

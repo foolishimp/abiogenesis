@@ -1,0 +1,8 @@
+{
+  "kind": "bounded_q23_current_candidate_proof_only_preparation",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "heldSourceSnapshotSha256": "3d8c6ecac6009c13e5135025d6449b0baaca366f5a581b6ef04afddbb20f3f02",
+  "sourceBasis": "none",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

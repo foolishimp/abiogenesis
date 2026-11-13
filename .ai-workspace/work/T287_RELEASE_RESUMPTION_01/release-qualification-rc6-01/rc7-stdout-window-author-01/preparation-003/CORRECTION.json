@@ -1,0 +1,112 @@
+{
+  "kind": "bounded_actual_output_slot_preparation_correction",
+  "status": "PREPARATION_ONLY_NOT_ACTIVATED",
+  "createdUtc": "2026-11-06T17:15:44.212180+00:00",
+  "predecessorManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/PREPARATION_MANIFEST.json",
+    "bytes": 38841,
+    "sha256": "60310873aac7d8443f6dc3969c13ecb267f6e0960a9f722d05d57e25c2bbe07e"
+  },
+  "triggerOwnerReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/prepare-and-dispatch.recovery-001.mjs",
+    "bytes": 19777,
+    "sha256": "962ac785340d9dcd45174b29a2aefc322428adb4ce4f861836456a465404807b"
+  },
+  "finding": "S5 inherited host only prechecked HOST_PREPARATION_STARTED; root-level actual capacity receipt was created after acquisition. Neither root nor execution capacity output nor dispatch manifest existed at this inspection; no occupied estimate is asserted for S5.",
+  "changes": [
+    "Actual capacity receipt is execution/NATIVE_CAPACITY_PREFLIGHT.json; any operator estimate must use a distinct estimate filename and must never precreate an actual output slot.",
+    "All15 host actual output slots are checked absent before resume parse, installedModules and acquisition. Input execution/DISPATCH_MANIFEST.json is intentionally not an output.",
+    "All4 canonical sdk-native-host command receipt slots are checked absent before child execution; canonical commandRecorder unchanged."
+  ],
+  "actualOutputSlots": [
+    "HOST_PREPARATION_STARTED.json",
+    "provider-availability.json",
+    "installed-content-before-run.json",
+    "run.json",
+    "NATIVE_CAPACITY_PREFLIGHT.json",
+    "PREPARED_CALL.json",
+    "STARTED.json",
+    "execution.json",
+    "installed-content-after-run.json",
+    "resource-close.json",
+    "after-run-resume.json",
+    "READBACKS_PENDING.json",
+    "RECOVERY_REQUIRED.json",
+    "DISPATCH_FAILURE.json",
+    "outcome-summary.json"
+  ],
+  "replacements": [
+    {
+      "relativePath": "prepare-and-dispatch.mjs",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/prepare-and-dispatch.mjs",
+        "bytes": 19182,
+        "sha256": "9116ad83f24bbd7827fa7dd641f8244f434742ff962dca81c8c06c6fee483668"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-003/prepare-and-dispatch.mjs",
+        "bytes": 19666,
+        "sha256": "7ae4d14404c11792c7f8f8894200c18aa0ae345322182bad4d414c091d8a34fc"
+      }
+    },
+    {
+      "relativePath": "launch-owner-script.mjs",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/launch-owner-script.mjs",
+        "bytes": 2148,
+        "sha256": "b74850904d806cc43d598e5ca87070dd61a7a947ca8961045b311a51b50bab68"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-003/launch-owner-script.mjs",
+        "bytes": 2527,
+        "sha256": "26cf022c696712d652b9a59538185629693df3f5c7260f511e0ace3d30dd0413"
+      }
+    }
+  ],
+  "populations": {
+    "sourceNames": 451,
+    "nativeInputs": 20,
+    "presentSourceAndControlPaths": 471,
+    "futureHandoffs": 3,
+    "plannedContextEntries": 474,
+    "productWritePaths": 17,
+    "stages": 4,
+    "lanes": 7
+  },
+  "futureBindings": {
+    "acceptedH03Subject": null,
+    "acceptedH03SourceAfter": null,
+    "H03RootDisposition": null,
+    "actualH03Close": null,
+    "actualH03Resume": null,
+    "RootAdmission": null
+  },
+  "growthInspection": {
+    "entrypoint": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/run-measurement.mjs",
+      "bytes": 5079,
+      "sha256": "313ab6a4c679c460205fd3aa09d089d6662da63403d9c4c0f78f9da2d955e562"
+    },
+    "result": "No same-class defect: complete output/temp roots must be absent before allocation and command execution; no estimate occupies a future actual slot. No change.",
+    "preCutArchiveRelation": "Unchanged; future isolated built/test archive and source acceptance remain unbound."
+  },
+  "cutInspection": {
+    "predecessorManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/PREPARATION_MANIFEST.json",
+      "bytes": 3714,
+      "sha256": "5866706673b233f00976fea12c96e7e5a15054addd8f42f0abcc7a30adb28855"
+    },
+    "correctedEntrypoint": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/run-local-cut.mjs",
+      "bytes": 25084,
+      "sha256": "a4cca4be8dd7030c9d25b189fd1e39d664ecb3ffd6b66399f4a1d85e72ba208e"
+    },
+    "result": "Build output roots and install release/install roots already fail early. Install phase final verification sits outside its new install-001 directory and was checked only by final exclusiveRecord; add it to existing early absence list.",
+    "diff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/CORRECTION.diff",
+      "bytes": 2764,
+      "sha256": "8574564a66a8baecfa79ede87d503699712f7fc1572c7dd88d2f80e1f0fabeee"
+    }
+  },
+  "preservation": "All prior manifests/files are preserved. No future actual output placeholders, C/source edits, staging, runtime/provider, build/test/pack/install/Git/release/selector effects."
+}

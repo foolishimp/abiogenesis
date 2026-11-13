@@ -1,0 +1,103 @@
+{
+  "kind": "passive_intermediate_author_feedback_custody",
+  "at": "2026-11-05T22:19:47.660876+00:00",
+  "nativeRun": "run://abiogenesis/1a1804d5f1f46e0e47cd6f52397daac409030769591efe12c53fb304d0be51a2",
+  "files": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s1-stage.json",
+        "bytes": 75539,
+        "sha256": "e3855d42536c20e748d6c6cdacbb5f8efb52695e74064879f456b772b1973d57"
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/author-feedback-s1/d5a-s1-stage.json",
+        "bytes": 75539,
+        "sha256": "e3855d42536c20e748d6c6cdacbb5f8efb52695e74064879f456b772b1973d57"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s1-lanes/summary.json",
+        "bytes": 2765,
+        "sha256": "386a9d1f05cc523b0b92e215e25cf7e85ccefb662efdc17b5ee8dbdb73589bd3"
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/author-feedback-s1/summary.json",
+        "bytes": 2765,
+        "sha256": "386a9d1f05cc523b0b92e215e25cf7e85ccefb662efdc17b5ee8dbdb73589bd3"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s1-lanes/transport.stdout.tap",
+        "bytes": 7945,
+        "sha256": "b4865097c9d7f45912b2c67bd5aaa2bda623e8022898877fee237100d6b7258d"
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/author-feedback-s1/transport.stdout.tap",
+        "bytes": 7945,
+        "sha256": "b4865097c9d7f45912b2c67bd5aaa2bda623e8022898877fee237100d6b7258d"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s1-lanes/qualification.stdout.tap",
+        "bytes": 14999,
+        "sha256": "9525bef02ad41dd82cf931f7ce9c1a88479cfc0a3f4097b3414e74f7e940a8cc"
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/author-feedback-s1/qualification.stdout.tap",
+        "bytes": 14999,
+        "sha256": "9525bef02ad41dd82cf931f7ce9c1a88479cfc0a3f4097b3414e74f7e940a8cc"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s1-lanes/d5-lifecycle-profile.stdout.tap",
+        "bytes": 25430,
+        "sha256": "1243e008d9c7a5fe97a662fd8644ce0f5f1bdc927aa17d83bc65009ff0eb3718"
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/author-feedback-s1/d5-lifecycle-profile.stdout.tap",
+        "bytes": 25430,
+        "sha256": "1243e008d9c7a5fe97a662fd8644ce0f5f1bdc927aa17d83bc65009ff0eb3718"
+      }
+    }
+  ],
+  "lanes": [
+    {
+      "id": "transport",
+      "exitCode": 0,
+      "tests": 27,
+      "pass": 27,
+      "fail": 0,
+      "skipped": 0,
+      "ms": 8922,
+      "failing": []
+    },
+    {
+      "id": "qualification",
+      "exitCode": 0,
+      "tests": 36,
+      "pass": 36,
+      "fail": 0,
+      "skipped": 0,
+      "ms": 6729,
+      "failing": []
+    },
+    {
+      "id": "d5-lifecycle-profile",
+      "exitCode": 1,
+      "tests": 47,
+      "pass": 45,
+      "fail": 2,
+      "skipped": 0,
+      "ms": 57155,
+      "failing": [
+        "owned causation lookup grows with causal references in live admission and cold reconstruction",
+        "D5 fold: copy-free current evidence derives no copy diagnostic; an L copy keeps its check"
+      ]
+    }
+  ],
+  "standing": "First local author stage only. Two real assertion failures retained; cause and repair remain Worker work. Not actual native C2, source freeze, UAT or acceptance."
+}

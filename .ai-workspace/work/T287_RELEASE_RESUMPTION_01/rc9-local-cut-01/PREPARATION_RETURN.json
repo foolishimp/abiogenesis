@@ -1,0 +1,149 @@
+{
+  "id": "RC9-CUT-PREP-01",
+  "status": "PREPARATION_COMPLETE_EXECUTION_HELD",
+  "recordedAt": "2026-11-08T06:39:37.208614+00:00",
+  "actor": "/root/rc8_cut_preparation",
+  "consumer": "/root",
+  "result": "Complete held RC9 cut control adaptation; final actual subject/evidence and Root phase selections unresolved. No effect beyond this preparation directory.",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/INTAKE.json",
+    "bytes": 4992,
+    "sha256": "f4f93a3025221b08d211099a9505b093968b057354e7a31b1e05524e6709333d"
+  },
+  "files": {
+    "PREPARATION_MANIFEST.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/PREPARATION_MANIFEST.json",
+      "bytes": 3194,
+      "sha256": "ef706217b8a134a2bd7c363357bca168c9291cb60f4890f1975698f39ab7e796"
+    },
+    "BUILD_BINDINGS.prepared.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/BUILD_BINDINGS.prepared.json",
+      "bytes": 4177,
+      "sha256": "9fd1ba76ade39177d79e2766d1d737e00074a65f77c7af84ce85be9347b2ab45"
+    },
+    "INSTALL_BINDINGS.prepared.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/INSTALL_BINDINGS.prepared.json",
+      "bytes": 2643,
+      "sha256": "0e3530cfc3ec186152a9788bfd1e22f3264d3925c3dbc5cc40c146eecd159192"
+    },
+    "LAUNCH_PLAN.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/LAUNCH_PLAN.json",
+      "bytes": 4131,
+      "sha256": "875b2a8ea530af501483e2066816ded4366e2ef317a426ff205ab46fa835d31d"
+    },
+    "VERSION_ROUTE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/VERSION_ROUTE.json",
+      "bytes": 4067,
+      "sha256": "3e532ef79c55bbb47f29460ce6f5c178a23f1b1abbd27253ae0b9f6ffcfc0a1e"
+    },
+    "OWNER_AND_TOOL_PINS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/OWNER_AND_TOOL_PINS.json",
+      "bytes": 5585,
+      "sha256": "10fec0edb91cf9c774c9635fd615b30c845a0370f24cef49d19bf87279c6f677"
+    },
+    "run-local-cut.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+      "bytes": 27954,
+      "sha256": "bac74938257736015dc6c71f26dcd0a40e79115ea8bc82f9e2ff9aa04e5e3425"
+    },
+    "CONTROL_DIFF.patch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/CONTROL_DIFF.patch",
+      "bytes": 30136,
+      "sha256": "134710e34fc2707b209ff3f5e8ab98cc79c29c7385a64d9b01c0723659af172d"
+    },
+    "STATIC_CHECKS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/STATIC_CHECKS.json",
+      "bytes": 1861,
+      "sha256": "9b41ef1e8ab19a59143ea510aed382bbae69b0df12dda026493916a6c501300d"
+    }
+  },
+  "basis": "STDO3.0.4 / 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; empty composition; fixed15/GOAL-035/T287/REF-01",
+  "builder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "sourceBase": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+    "branch": "codex/rc9-owner-reuse",
+    "commit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "tree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "standing": "Accepted checkout base only. Active native worktree was not inspected as a frozen final candidate."
+  },
+  "versionFinding": "No packaging version override exists in current owner. Root selected a separate native metadata successor after author01: package.json version; package-lock root and packages[empty].version; contracts.ts Product ID and package version. Cut never patches source or staged identity.",
+  "minimalControlDelta": [
+    "Target version/status/record labels and prospective roots become RC9.",
+    "Add immutable RC8 worktree head/index preservation beside main/RC7.",
+    "Use byte-identical retained consumer helper from C8; generic command recorder and dependency-only toolchain stay pinned existing owners.",
+    "Add explicit executionEnabled=true check alongside pre-existing exact status/admission guards.",
+    "Keep canonical compile/generate/pack, tested archive and all-member equality, no-clobber Product install, checksum checks and narrow actual installed smoke."
+  ],
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "observedRc8WallMs": {
+    "build": 38648,
+    "installIncludingSmoke": 68329
+  },
+  "resourceControls": {
+    "nodeHeapMiB": 8192,
+    "maxOutputBytes": 67108864,
+    "freeSpaceReserveBytes": 4294967296,
+    "offlineDependencies": true,
+    "automaticRetry": false
+  },
+  "prospectiveLocations": {
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001",
+    "temp": "/private/tmp/abg-r9c-cut",
+    "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9"
+  },
+  "mandatoryInputs": [
+    "Closed author01 source/proof/readback result and independently reviewed exact core subject.",
+    "Actual native metadata successor, exact three-file delta/preimage, final source freeze/inventory/digest/modes and actual selected changed/new paths; metadata/source conjunction by Root.",
+    "Measured final RC9 scratch archive and manifest with exact source-artifact relation; full W2 exact-archive, RC8-before/RC9-after measurements/profile/fresh reads, actual broad result and Root acceptance/conjunction retaining all limits.",
+    "Phase-neutral final bounded claim/residual/Root authority documents with actual evidence pins.",
+    "Concrete Root build admission after fully bound held proposal; actual checkpoint/clean reproduction/artifact equality receipts.",
+    "Independent satisfied packaging review of actual checkpoint/tree/archive/reproduction/final claims and separate Root install selection."
+  ],
+  "minimalNextOperations": [
+    "Complete native metadata after author01, freeze final source, then bind actual artifact/proof/Root source conjunction. Core review may proceed independently on its frozen predecessor; version-only delta gets narrow conjunction.",
+    "Fill successor held build binding and exact launch hash; Root selects one checkpoint and clean reproduction. No candidate rebuild is performed by this control: it consumes the already measured exact archive.",
+    "After actual build, freeze claims around completed receipts, obtain independent packaging review, and bind a separate held installation proposal.",
+    "After exact Root install selection, existing Product verify/resolved-lock/install owner writes fresh immutable release/install; all-member/checksum checks and fresh installed content/export/empty-read/close receipt establish final installation."
+  ],
+  "limits": [
+    "Only exact Root-accepted final source and tested RC9 archive may be cut; metadata must already exist in native frozen source, rewriteIdentity=false.",
+    "Same prepared-resolution install-verification carriage only; no cross-resolution/event-session cache or zero-install-read-per-new-call claim.",
+    "Eight other historical RC8 residuals remain OPEN; F4 three-identifier W2 closure awaits exact proof and Root disposition. Twelve cold residuals, S7, fixed15/full5.0 and human gates remain open.",
+    "Focused/unit/broad/measurement/native evidence retain actual subject and exclusions; no whole-broad green, qualification or inferred speedup claim.",
+    "Preserve main/RC7/RC8 heads, indexes and their existing dirty/untracked contents by no writes there; before/after head/index verification is bounded evidence, not exhaustive byte re-audit of unrelated work. C9 stage/commit is restricted to the final accepted selected paths; all other untracked/progress paths remain untouched.",
+    "Independent exact packaging review follows completed checkpoint and byte-equal reproduction; separate Root install admission precedes immutable release/install custody.",
+    "Actual installation standing belongs solely to FINAL_INSTALL_VERIFICATION.json and its receipts. Earlier source/proof claims and source-artifact map do not assert future installation.",
+    "20-minute install and 15-minute installed-owner ceilings retained; failure preserves receipts and partial allocations, with no automatic retry/extension/cleanup.",
+    "No push, tag, merge, publication, global selector, qualification claim or new native/provider execution from cut controls."
+  ],
+  "executionEnabled": false,
+  "activation": null,
+  "actualSourceAcceptance": null,
+  "actualMeasuredArchive": null,
+  "actualPackagingReview": null,
+  "actualInstallation": null,
+  "effects": {
+    "newControlsOnly": true,
+    "sourceEdits": false,
+    "gitEffects": false,
+    "runtimeAllocation": false,
+    "providerNativeCalls": 0,
+    "testsBuildPackInstall": false,
+    "cleanup": false
+  },
+  "stop": "Returned to Root. No automatic continuation."
+}

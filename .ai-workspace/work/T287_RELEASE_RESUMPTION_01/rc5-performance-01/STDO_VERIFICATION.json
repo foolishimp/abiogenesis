@@ -1,0 +1,23 @@
+{
+  "definition": "/Users/jim/src/apps/abiogenesis-rc5-performance/stdo_abiogenesis.json",
+  "definition_id": "urn:stdo:product-definition:abiogenesis",
+  "basis": "stdo://releases/v3.0.4/",
+  "cut": "v3.0.4",
+  "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4",
+  "installed": true,
+  "valid": true,
+  "failures": [],
+  "release": {
+    "commit": "16bc30d215915a4b7b3ed2f13e52e14510ae1c9d",
+    "cut": "v3.0.4",
+    "profile": "stable-v1",
+    "project_release_namespace": "specification_methodology",
+    "project_subtree_root": "specification_methodology/v3",
+    "project_subtree_tree": "6088e505bcd87ca4ccd501ae57564b938783d9ad",
+    "qualified_ref": "refs/tags/specification_methodology/v3.0.4",
+    "standards_tree": "1b8bcbf60f9011c309244c7513b13e5dd3b68115",
+    "tag_object": "e7bc3083bfb87ff6756a361cb14740dd9a9fedcd",
+    "tree": "ae32eb45c44e70499a18ecbf22c1d790d11da9bf"
+  }
+}

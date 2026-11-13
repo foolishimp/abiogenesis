@@ -1,0 +1,47 @@
+{
+  "at": "2026-11-07T03:07:15.723Z",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC7_BEFORE.bindings.json",
+    "bytes": 4862,
+    "sha256": "8aafcb62cfcfabaf5e35f3beaa25f8676931a2d4f858bb122f5143705e68b5a6"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_ADMISSION.json",
+    "bytes": 3081,
+    "sha256": "1f774e558e807cdc18b38878b602b9ea2599a32d8bb8b61d09985a5feff6d112"
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r8m-rc7-before-001/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-r8m-rc7-before-001/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-r8m-rc7-before-001/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-r8m-rc7-before-001/npm-cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "ABG_TS_CLAUDE_COMMAND": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/scripted-readonly-actor.mjs",
+    "ABG_TS_FP_TIMEOUT_MS": "30000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "60000",
+    "ABG_TS_FP_TERMINATION_GRACE_MS": "2000",
+    "ABI5_REFERENCE_BINDINGS": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC7_BEFORE.bindings.json",
+    "ABI5_REFERENCE_BINDINGS_SHA256": "8aafcb62cfcfabaf5e35f3beaa25f8676931a2d4f858bb122f5143705e68b5a6"
+  },
+  "bounds": {
+    "hostMs": 600000,
+    "coldReadMs": 120000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "aggregateBytes": 1073741824,
+    "nodeHeapMiB": 8192
+  },
+  "aggregateEnforcement": "Monitored phase-boundary operational stop; not a quota; overshoot possible between checks.",
+  "providerCallsSelected": 0
+}

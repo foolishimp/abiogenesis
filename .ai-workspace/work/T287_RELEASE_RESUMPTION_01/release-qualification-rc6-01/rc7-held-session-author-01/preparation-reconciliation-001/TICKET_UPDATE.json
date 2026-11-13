@@ -1,0 +1,23 @@
+{
+  "kind": "root_authorized_current_plan_correction",
+  "authority": "Root adopts F2 partial and selects F2-PROGRAM-001 correction inside HS01 with30paths/4stages/8lanes.",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 708487,
+    "sha256": "0a9ad19e59c230aa8e62b2950540afa2fd1c01ae010145e1c9c6a4e3231f65b7"
+  },
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/TICKET_BEFORE.md",
+    "bytes": 708487,
+    "sha256": "0a9ad19e59c230aa8e62b2950540afa2fd1c01ae010145e1c9c6a4e3231f65b7"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 708640,
+    "sha256": "565cdbb5794c5be39b4dc195655e8ec3a4fd42b65f2605b17a4749c0a8cddba2"
+  },
+  "scope": "Current plan lead and held-session current standing only; all earlier evidence and prior closed packets preserved.",
+  "ProductChanges": false,
+  "dispatched": false
+}

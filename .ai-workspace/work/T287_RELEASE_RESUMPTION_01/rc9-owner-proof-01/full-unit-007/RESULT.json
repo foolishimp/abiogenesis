@@ -1,0 +1,219 @@
+{
+  "status": "PASSED",
+  "scope": "FRESH_EXTERNAL_NORMAL_NINE_FILE_UNIT",
+  "bindingSha256": "249994d0e730c41e39e2a606874e1660d67ff8ee98449cc14ff1f05326f5b7f3",
+  "executionAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_FULL_UNIT_007_EXECUTION_ADMISSION.json",
+    "sha256": "ebb84fb83f5008d7e880ba905bba3142de4553d4aa0f5d9bc66b19c8667d9942"
+  },
+  "stageBuildBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/FOCUSED_BINDING.json",
+    "bytes": 6099,
+    "sha256": "41a940ec27dea02e987abec26545379f440c399a91a5a1055c62738ea5d453b1"
+  },
+  "buildBindingSha256": "41a940ec27dea02e987abec26545379f440c399a91a5a1055c62738ea5d453b1",
+  "completedStage": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+    "bytes": 929,
+    "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "stageManifest": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+  },
+  "buildInputs": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/BUILD_INPUTS.json",
+    "bytes": 658,
+    "sha256": "c42d1febdcdab91abab2550b6337d63ec17be1310a8d5cb8e37693518224d232"
+  },
+  "unitScript": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-held-owner-fold-reuse.test.mjs test_env/tests/t287-owned-call-reference.test.mjs test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+  "unitScriptSha256": "8c19e51ab6428ca149558e00bb4bab778953d6681a72a5db1abad6147b1fe0df",
+  "requiredUnitTests": [
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs"
+  ],
+  "counts": {
+    "tests": 95,
+    "failed": 0,
+    "passed": 89,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0,
+    "topLevel": 95,
+    "suites": 0
+  },
+  "testFiles": [
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs",
+    "test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-native-runtime-gate.test.mjs",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/forward-command-contracts.test.mjs",
+    "test_env/tests/forward-command-owners.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "observedFiles": [
+    "test_env/tests/forward-command-contracts.test.mjs",
+    "test_env/tests/forward-command-owners.test.mjs",
+    "test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-native-runtime-gate.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs"
+  ],
+  "missingFiles": [],
+  "requiredCases": [
+    {
+      "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "passed": true
+    },
+    {
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "passed": true
+    }
+  ],
+  "skipMatches": true,
+  "filePopulationMatches": true,
+  "casePopulationMatches": true,
+  "fileSummariesComplete": true,
+  "ordinalsComplete": true,
+  "normalNineFileUnitPassed": true,
+  "skips": [
+    {
+      "ordinal": 37,
+      "type": "case",
+      "passed": true,
+      "name": "M5 resolves and independently validates the complete executable root set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 35,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 38,
+      "type": "case",
+      "passed": true,
+      "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 36,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 39,
+      "type": "case",
+      "passed": true,
+      "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 37,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 82,
+      "type": "case",
+      "passed": true,
+      "name": "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "nesting": 0,
+      "testNumber": 77,
+      "suite": false,
+      "skip": "ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 88,
+      "type": "case",
+      "passed": true,
+      "name": "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 82,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 89,
+      "type": "case",
+      "passed": true,
+      "name": "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 83,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "reporterComplete": true,
+  "summarySuccess": true,
+  "parseFailure": null,
+  "diagnosticFailure": null,
+  "requiredDiagnostics": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/REQUIRED_DIAGNOSTICS.json",
+    "bytes": 19922,
+    "sha256": "8b588fabb7851d6f5b4edddb8322be2e267e8fed91fbbf0d7e2ce0877706ee5d"
+  },
+  "caseCoverage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/CASE_COVERAGE.json",
+    "bytes": 61496,
+    "sha256": "b8cb4b6e977418d0b3787c52ca99ec00746c5a47ea1f68031f4108cedeafbcdb"
+  },
+  "reporterConfiguration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/REPORTER_CONFIGURATION.json",
+    "bytes": 2400,
+    "sha256": "2cb400e1906e5def82359b4abc9c2f861ab62c5b2ca3f7b5b14da8abc3f05c57"
+  },
+  "fileHostBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/FILE_HOST_BINDING.json",
+    "bytes": 811,
+    "sha256": "e09d3d7e9b395fbef7823886d1d3e98761340216b3c5d3c6c3b85d7cef7bf490"
+  },
+  "command": {
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 97732.113208,
+    "receipt": "commands/unit.result.json"
+  },
+  "commandFailure": null,
+  "resourceFailure": null,
+  "conservationFailure": null,
+  "ancestryFailure": null,
+  "postAncestryFailure": null,
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/events.jsonl",
+    "bytes": 30097,
+    "sha256": "cda6e50dfa8cf576bba04eb751eaa2b62f303edfdb3fb15a7423ac6d8df7bdbd"
+  },
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "profiling": false,
+  "wholeLane": true,
+  "originalUnitStanding": "HISTORICAL_FAILED/INCOMPLETE_PRESERVED",
+  "sourceAcceptance": false,
+  "standing": "Actual fresh ordinary npm unit result under a new external admission. Historical build binding supplies stage provenance only. Original failed attempts remain preserved; no automatic retry, source/broad/cut acceptance or packaging activation."
+}

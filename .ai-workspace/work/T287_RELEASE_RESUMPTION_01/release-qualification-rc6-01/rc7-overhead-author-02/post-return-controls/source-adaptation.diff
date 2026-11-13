@@ -1,0 +1,129 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/bind-and-freeze.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/bind-and-freeze.mjs
+@@ -25,11 +25,14 @@
+ const jsonPointer=(value,pointer)=>{assert(pointer===''||pointer.startsWith('/'));return pointer===''?value:pointer.slice(1).split('/').reduce((v,k)=>v?.[k.replace(/~1/gu,'/').replace(/~0/gu,'~')],value);};
+ await record('STARTED.json',{at:new Date().toISOString(),pid:process.pid,inputSha256:process.argv[3],automaticRetry:false,role:'Post-host operator custody, not Product acceptance'});
+ try{
+- const admission=await pinnedJson(input.admission);assert.equal(input.admission.sha256,'b7d93c37fdf71ded45a35c8f6fb7c1d9220bc3eaffbbff5077c2f251cd20e823');
+- const final=await pinnedJson(input.finalBindings);assert.equal(input.finalBindings.sha256,'5a8f09e8f8ee03c8dfe55f6af8e1531ded9d8f08947326d474975367e1d96fd2');
+- assert.deepEqual(final.admission,input.admission);assert.equal(final.staged.length,20);
++ const admission=await pinnedJson(input.admission);assert.equal(input.admission.sha256,'135e58a7843574160121fd3bc5610562df3508b87f149d558931daed2a7fc3ac');
++ const final=await pinnedJson(input.finalBindings);assert.equal(input.finalBindings.sha256,'57dcb5faaf106919abe6df4a06155afc384a2da3a1e8846149b75ca45a11a3cb');
++ assert.deepEqual(final.admission,input.admission);assert.equal(final.staged.length,21);
+  const grant=await pinnedJson(final.grant),before=await pinnedJson(admission.sourceBefore),workload=await pinnedJson(final.workload);
+- assert.equal(before.files.length,397);assert.equal(grant.productWritePaths.length,85);assert.equal(grant.handoffFiles.length,3);assert.equal(grant.inheritedNewProductPaths.length,2);
++ assert.equal(before.files.length,449);assert.equal(grant.productWritePaths.length,86);assert.equal(grant.handoffFiles.length,3);assert.equal(grant.inheritedNewProductPaths.length,2);
++ assert.equal(before.inheritedTrackedChangedPaths.length,34);assert.equal(before.inheritedUntrackedPaths.length,2);
++ assert.deepEqual([...before.inheritedNewProductPaths].sort(),[...grant.inheritedNewProductPaths].sort());
++ assert.equal(workload.testing.selectedPaths.length,473);assert.equal(grant.sourceAcquisitionPaths.length,473);
+  const host=await pinnedJson(input.hostResult),launch=await pinnedJson(input.hostLaunch);
+  assert.equal(input.hostResult.path,join(author,'HOST_RESULT.json'));assert.equal(input.hostLaunch.path,join(author,'HOST_LAUNCH.json'));
+  assert(Number.isInteger(host.exitCode)&&Number.isFinite(Date.parse(host.endedUtc)),'Actual host exit is missing');
+@@ -61,7 +64,7 @@
+   limits:['One cold process per pending member; same actual close; no refresh, lifecycle, provider, retry or heap increase.','Full owner output remains at the existing calls/<member>.outcome.json artifact.','Metadata is a reference projection of the actual receipt, not runtime admission.']};
+  assert.equal(readInput.config.setupEnvironment.NODE_OPTIONS,'--max-old-space-size=8192');
+  assert(Number.isSafeInteger(input.readTimeoutMs)&&input.readTimeoutMs>0&&input.readTimeoutMs<=600000);
+- assert(Number.isSafeInteger(input.readHostTimeoutMs)&&input.readHostTimeoutMs>input.readTimeoutMs&&input.readHostTimeoutMs<=admission.effectGrant.budgets.hostMs);
++ assert(Number.isSafeInteger(input.readHostTimeoutMs)&&input.readHostTimeoutMs>input.readTimeoutMs&&input.readHostTimeoutMs<=900000&&input.readHostTimeoutMs<=admission.effectGrant.budgets.hostMs);
+  assert(Number.isSafeInteger(input.maxOutputBytes)&&input.maxOutputBytes>0&&input.maxOutputBytes<=536870912);
+  resumed=null;
+  if(terminal!==null){
+@@ -112,7 +115,7 @@
+   if(!grant.productWritePaths.includes(file.relativePath))await samePin({path:join(grant.worksiteRoot,file.relativePath),bytes:file.bytes,sha256:file.sha256});}
+  const selected=workload.testing.selectedPaths.filter(path=>!grant.handoffFiles.includes(path));
+  const expectedPaths=[...held.keys(),...final.staged.map(pin=>relative(grant.worksiteRoot,pin.path))];
+- assert.deepEqual([...new Set(selected)].sort(),[...new Set(expectedPaths)].sort());assert.equal(selected.length,417);
++ assert.deepEqual([...new Set(selected)].sort(),[...new Set(expectedPaths)].sort());assert.equal(selected.length,470);
+  const frozen=join(root,'review-subject-001');await mkdir(frozen);const files=[];
+  for(const path of selected){
+   assert(inside(grant.worksiteRoot,resolve(grant.worksiteRoot,path)));const source=join(grant.worksiteRoot,path),b=await readFile(source),entry=after.get(path);
+@@ -151,7 +154,7 @@
+   nativeResult:terminal?.result??null,nativeValueDigest:terminal?.valueDigest??null,physicalResult:coordinates,
+   afterObservationRef:authenticatedAfter?native.after.observationRef:null,afterObservationDigest:authenticatedAfter?native.after.observationDigest:null,
+   trackedChangedPaths:currentDiff,changedPaths:files.filter(file=>file.changed).map(file=>file.path),incrementChangedPaths:files.filter(file=>file.changedFromHeld).map(file=>file.path),
+-  files,handoffs,authorFeedback:feedback,diff:await filePin(diffPath),rootFinalBindings:input.finalBindings,stagedControlCount:20,baselineCount:397,permittedProductPathCount:85,
++  files,handoffs,authorFeedback:feedback,diff:await filePin(diffPath),rootFinalBindings:input.finalBindings,stagedControlCount:21,baselineCount:449,permittedProductPathCount:86,
+   limits:['Custody only; no Product acceptance, author success, independent review, C2/UAT or qualification inferred.','Null/missing native after preserves physical partial custody without admission credit.','Held source preimages remain at their exact pinned existing snapshots; Git preimages and the two inherited untracked files are preserved.','No recursive feedback/archive inventory; only Root-selected handoff-named files are retained.']};
+  const subjectPath=join(frozen,'SUBJECT.json');await writeFile(subjectPath,JSON.stringify(subject,null,2)+'\n',{flag:'wx'});
+  readInput.sourceCustody=await filePin(subjectPath);
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/read-one.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/read-one.mjs
+@@ -35,7 +35,7 @@
+  const constructed=runtime.api.constructInstalledRunReadCall({memberKey:member,workspaceBinding:input.binding,sourceRef:input.run.ref,
+   selector:member==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'},eventResource:caller.reopen(),
+   envelope:{definitionContractCoordinates:input.native.verified.definitionContractCoordinates,
+-   requestRef:'request://abi5-tests/sandbox-uat/'+input.config.runId+'/rc7-overhead-author-01-post-return/'+member,
++   requestRef:'request://abi5-tests/sandbox-uat/'+input.config.runId+'/rc7-overhead-author-02-post-return/'+member,
+    correlationRef:'correlation://abi5-tests/sandbox-uat/'+input.config.runId,eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(input.provenancePath).href]}});
+  assert.equal(constructed.kind,'installed_run_read_call');assert.deepEqual(constructed.population.source,input.run);
+  mark('cold_installed_read');
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/launch-read.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/launch-read.mjs
+@@ -8,7 +8,7 @@
+ const [path,expected,member]=process.argv.slice(2),inputPath=resolve(path),bytes=await readFile(inputPath);
+ assert.equal(createHash('sha256').update(bytes).digest('hex'),expected);const input=JSON.parse(bytes);
+ assert(['run_result','run_replay'].includes(member)&&input.members.includes(member));assert.equal(input.heapMiB,8192);
+-assert(Number.isSafeInteger(input.hostTimeoutMs)&&input.hostTimeoutMs>input.timeoutMs&&input.hostTimeoutMs<=10800000);
++assert(Number.isSafeInteger(input.hostTimeoutMs)&&input.hostTimeoutMs>input.timeoutMs&&input.hostTimeoutMs<=900000);
+ const root=join(dirname(inputPath),member+'-host');await mkdir(root);
+ const command=commandRecorder(root,{environment:input.config.setupEnvironment,timeoutMs:input.hostTimeoutMs,maxOutputBytes:1048576});
+ const observed=await command(member+'-host',input.config.nodePath,['--max-old-space-size=8192',join(dirname(fileURLToPath(import.meta.url)),'read-one.mjs'),inputPath,expected,member]);
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/BINDINGS.template.json
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/BINDINGS.template.json
+@@ -1,43 +1,43 @@
+ {
+-  "authorRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01",
++  "authorRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02",
+   "outputName": "actual-001",
+   "admission": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_CONTROL_ADMISSION.json",
+-    "bytes": 6803,
+-    "sha256": "b7d93c37fdf71ded45a35c8f6fb7c1d9220bc3eaffbbff5077c2f251cd20e823"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_CONTROL_ADMISSION.json",
++    "bytes": 7417,
++    "sha256": "135e58a7843574160121fd3bc5610562df3508b87f149d558931daed2a7fc3ac"
+   },
+   "finalBindings": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_FINAL_BINDINGS.json",
+-    "bytes": 6931,
+-    "sha256": "5a8f09e8f8ee03c8dfe55f6af8e1531ded9d8f08947326d474975367e1d96fd2"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_FINAL_BINDINGS.json",
++    "bytes": 6585,
++    "sha256": "57dcb5faaf106919abe6df4a06155afc384a2da3a1e8846149b75ca45a11a3cb"
+   },
+   "hostResult": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/HOST_RESULT.json",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/HOST_RESULT.json",
+     "bytes": null,
+     "sha256": null
+   },
+   "hostLaunch": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/HOST_LAUNCH.json",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/HOST_LAUNCH.json",
+     "bytes": null,
+     "sha256": null
+   },
+   "execution": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/execution.json",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/execution.json",
+     "bytes": null,
+     "sha256": null
+   },
+   "resume": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/after-run-resume.json",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/after-run-resume.json",
+     "bytes": null,
+     "sha256": null
+   },
+   "pending": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/READBACKS_PENDING.json",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/READBACKS_PENDING.json",
+     "bytes": null,
+     "sha256": null
+   },
+   "timing": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/TIMING_OBSERVATION_ENVELOPES.json",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/TIMING_OBSERVATION_ENVELOPES.json",
+     "bytes": null,
+     "sha256": null
+   },

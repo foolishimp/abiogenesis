@@ -1,0 +1,38 @@
+{
+  "kind": "prospective_operator_control_review",
+  "recordedUtc": "2026-11-03T23:40:01.878439+00:00",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-06.py",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/prepare-native-06.py",
+      "bytes": 18500,
+      "sha256": "26e192f750310a018c1c78670e1848a170ef7a83dd84a716fc30edc9eaaf9fac"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-c2-proof-template.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/native06-c2-proof-template.mjs",
+      "bytes": 4410,
+      "sha256": "3e37afc1a9b0a35a40e6fed05a4f5521b95f5725f21c13a2bdfbcaa6b4aab191"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/c2-proof.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/native05-c2-proof.mjs",
+      "bytes": 3427,
+      "sha256": "1b3cbcbcd2f146bde3912c544bacf28bba0f507bbffdd7310e8a7405f2b5f902"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/NATIVE06_PREPARATION_PLAN.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/NATIVE06_PREPARATION_PLAN.json",
+      "bytes": 7023,
+      "sha256": "8491bf2163fe51a4fde4f38e5e8c81e3f6371964ef7df1a7646ef4d3ed8784fe"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/REPLAY_LANE_BUDGET_OBSERVATION_001.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/REPLAY_LANE_BUDGET_OBSERVATION_001.json",
+      "bytes": 1457,
+      "sha256": "68088df6ce0965524fd2a7bcb63a3da3ca0bca24d9138a05c696ec1d1dc9de86"
+    }
+  ],
+  "scope": "C2 independent-lane result retention/final failure equivalence and preparation source/close/input boundaries; final Root conjunction/budgets/source pins and installed preflight remain pending, not absence findings.",
+  "standing": "Draft only; not executed, admitted or dispatched; no Product/test source edits."
+}

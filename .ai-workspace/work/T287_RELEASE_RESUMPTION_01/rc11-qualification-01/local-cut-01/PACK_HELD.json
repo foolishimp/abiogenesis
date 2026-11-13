@@ -1,0 +1,26 @@
+{
+  "status": "PACK_CONDITION_NOT_MET_UNIT_FAILED",
+  "proofReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/RETURN.json",
+    "bytes": 10855,
+    "sha256": "39b278807ba09acfee766d8b0062970d2faf267c48f0392f25409d5cd5f42948"
+  },
+  "unitReceipt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-03/unit/RETURN.json",
+    "bytes": 2621,
+    "sha256": "46d3a6b984a1d08a8b7405c3c47f7a014630d3bad3ffa41ceb59ef943171be4d"
+  },
+  "candidateControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-01/CANDIDATE_PACK_CONTROLS.json",
+    "bytes": 5038,
+    "sha256": "ea571e6f7073a0b563b3394dfa5d2a76bf46dfb90a0235d5b430263cf6cb344d"
+  },
+  "candidateDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-01/candidate-pack.py",
+    "bytes": 10322,
+    "sha256": "439c2a28f2982e4151236e9f9daedbb05847edfd6be2614e078f22d750e01df1"
+  },
+  "candidateOutputAbsent": true,
+  "R6F04AUnexecuted": true,
+  "standing": "No candidate archive/commit/reproduction/install effect. Preserve all prepared controls and tested build for Root disposition."
+}

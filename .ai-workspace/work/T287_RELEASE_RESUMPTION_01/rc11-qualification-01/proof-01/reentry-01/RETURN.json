@@ -1,0 +1,78 @@
+{
+  "status": "CONTINUATION01_HALTED_REPORTER_EXPECTATION_MISMATCH",
+  "utc": "2026-11-09T08:40:33.704029+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 4618,
+    "sha256": "eec16460de4d437d175d1f5a40df59687ffc69cf5e154ab86baa715f6983d036"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/BINDING.json",
+    "bytes": 4378,
+    "sha256": "14fb6652b98b3ee88374ea63cdd976f117d0c0d54eb0d8d55d0ac206fc14a781"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/continuation.py",
+    "bytes": 10130,
+    "sha256": "62e9095f5ab9ef25a29699644b14db61efb12fe1d26fe8e5ff68b42804282793"
+  },
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182855,
+    "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+  },
+  "lintReceipt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-01/lint/RETURN.json",
+    "bytes": 2176,
+    "sha256": "3d743e35a7c8f5003617751a593753978a74c2a1324f17980b4b2b79ad0b3537"
+  },
+  "nativeAssessmentReceipt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-01/native-assessment/RETURN.json",
+    "bytes": 2152,
+    "sha256": "5efc15c7479874162a15af2d84d597ccf9d6136bb820c5ea47a79189723c3da3"
+  },
+  "nativeAssessmentStdout": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-01/native-assessment/stdout.log",
+    "bytes": 547,
+    "sha256": "b7fa1f6e6928bb23abe3b25ec301fed854e9eea772a019d25c0d9cab3a009e92"
+  },
+  "halt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-01/HALT.json",
+    "bytes": 186,
+    "sha256": "802aff0e53cd17d025f69b0746972169c10109d1749e076b1cefa22dbf2f6140"
+  },
+  "actualObservation": {
+    "exitCode": 0,
+    "groupAbsent": true,
+    "signals": [],
+    "specCounts": {
+      "tests": 4,
+      "suites": 0,
+      "pass": 4,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "namedPassedCases": [
+      "\u2714 CCall failure projection conserves the authenticated malformed-result assessment (39.031625ms)",
+      "\u2714 CCall failure projection refuses foreign producer, assessment and artifact correspondence (181.557833ms)",
+      "\u2714 historical absent-assessment classification and ordinary failure classes retain their meaning (0.11075ms)",
+      "\u2714 actor transport authentication is available before candidate association and refuses crossed facts (1.092208ms)"
+    ],
+    "parserFailure": "incomplete TAP framing",
+    "meaning": "Four actual cases report passed with exit0. Existing runner required TAP although command did not select --test-reporter=tap. Original failure receipt remains unchanged; Root must conjoin observed evidence and select any continuation."
+  },
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "compiledInventoryDigest": "16497c6763f0cb07a2227cb0ce6de2445e14044b94c6542d0523adbd1ad18d7c",
+  "unexecuted": [
+    "selected-action",
+    "owned-lifetime",
+    "unit",
+    "r6",
+    "f04a"
+  ],
+  "noRerunOrSourceRepair": true,
+  "noPhysicalDiagnosticPopulationExecuted": true,
+  "standing": "Build/lint and actual native case output retained. No completed full proof sequence, source acceptance, package or qualification."
+}

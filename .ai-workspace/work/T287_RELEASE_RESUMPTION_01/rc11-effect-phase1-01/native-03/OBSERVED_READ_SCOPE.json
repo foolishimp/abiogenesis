@@ -1,0 +1,45 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/runtime-001/resources/archives/fp-d8ac04b3fb176c0a-stdout.log",
+    "bytes": 1767736,
+    "sha256": "15840e784f07ffbbd1f53f8db0c98a982b4b87f5a4792ffcc6478bca80b3d314"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/TASK.json",
+    "bytes": 6234,
+    "sha256": "9453c8954f40337c682715f6d3717b426bdb5d3afefdb35bf1e896c59d707b99"
+  },
+  "records": [
+    {
+      "ordinal": 7,
+      "rawLine": 497,
+      "id": "toolu_01TXgcz1J9n4U76rEjB8jUgE",
+      "name": "Bash",
+      "input": {
+        "command": "wc -l build/code/src/abg/worker_transport.js && grep -n \"setTimeout\\|setInterval\\|createWriteStream\\|openSync\\|open(\\|writeFile\\|mkdir\\|onProcessStarted\\|export async function runWorkerTransport\\|export function runWorkerTransport\" build/code/src/abg/worker_transport.js | head -40",
+        "description": "Check owner for real timers or open file handles"
+      },
+      "result": {
+        "rawLine": 501,
+        "content": "     934 build/code/src/abg/worker_transport.js\n2:import { appendFileSync, closeSync, fstatSync, fsyncSync, openSync, writeSync } from \"node:fs\";\n3:import { mkdir, readFile, realpath, writeFile } from \"node:fs/promises\";\n284:        archiveDescriptor = openSync(input.stdoutPath, \"r+\");\n312:        onSpawn: (pid) => input.observer?.onProcessStarted?.(pid),\n608:        await mkdir(input.archiveRoot, { recursive: true });\n635:        await writeFile(paths.prompt, promptBytes, { flag: \"wx\" });\n636:        await writeFile(paths.stdout, \"\", { flag: \"wx\" });\n637:        await writeFile(paths.stderr, \"\", { flag: \"wx\" });\n721:        await writeFile(paths.output, outputBytes);\n758:        await writeFile(paths.transport, transportBytes);\n931:export async function runWorkerTransport(input) {",
+        "isError": false
+      }
+    },
+    {
+      "ordinal": 8,
+      "rawLine": 528,
+      "id": "toolu_01Bd2v8cTHg8QgCmjr8WARvt",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 270,300p build/code/src/abg/worker_transport.js && grep -n \"closeSync\\|archiveDescriptor\" build/code/src/abg/worker_transport.js | head",
+        "description": "Inspect owner archive descriptor lifecycle"
+      },
+      "result": {
+        "rawLine": 532,
+        "content": "    let launchError = null;\n    let resultBearingStdout = null;\n    let captureOpen = true;\n    const inactivityTimer = createMonotonicDeadline();\n    const absoluteTimer = createMonotonicDeadline();\n    const windowTimer = createMonotonicDeadline();\n    const clearLeaseTimers = () => { inactivityTimer.cancel(); absoluteTimer.cancel(); windowTimer.cancel(); };\n    const snapshotResultBearingStdout = () => { resultBearingStdout ??= stdout; };\n    const classifyStdoutChunk = input.observer?.classifyStdoutChunk;\n    // E-A: one archive descriptor; each chunk is written at the running length,\n    // which is its archive offset. A write or fsync failure is sticky.\n    let archiveDescriptor;\n    let archiveLength;\n    try {\n        archiveDescriptor = openSync(input.stdoutPath, \"r+\");\n        archiveLength = fstatSync(archiveDescriptor).size;\n    }\n    catch (error) {\n        return refuseBeforeLaunch(error, input.observer);\n    }\n    let archiveFailure = null;\n    let archiveOpen = true;\n    const closeArchive = () => { if (archiveOpen) {\n        archiveOpen = false;\n        closeSync(archiveDescriptor);\n    } };\n    let pendingWindow = null;\n    let windowsDrained = false;\n    let child;\n    try {\n        if (classifyStdoutChunk !== undefined)\n2:import { appendFileSync, closeSync, fstatSync, fsyncSync, openSync, writeSync } from \"node:fs\";\n281:    let archiveDescriptor;\n284:        archiveDescriptor = openSync(input.stdoutPath, \"r+\");\n285:        archiveLength = fstatSync(archiveDescriptor).size;\n294:        closeSync(archiveDescriptor);\n380:                const count = writeSync(archiveDescriptor, bytes, written, bytes.length - written, archiveLength + written);\n395:            fsyncSync(archiveDescriptor);",
+        "isError": false
+      }
+    }
+  ],
+  "standing": "Manual compiled-owner inspection is recorded in addition to task-listed context. The exact compiled closure is pinned and the external readonly evaluation closure is declared; no blanket full read-scope conformance or filesystem isolation claim."
+}

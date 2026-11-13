@@ -1,0 +1,327 @@
+{
+  "status": "HELD_PREPARED_NO_NATIVE_DISPATCH",
+  "recordedAt": "2026-11-08T06:27:15.182115+00:00",
+  "actor": "/root/rc9_operator",
+  "consumer": "/root Executive",
+  "sessionId": 6081,
+  "pid": 45470,
+  "setupAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/ROOT_SETUP_ADMISSION.json",
+    "bytes": 2026,
+    "sha256": "d0d75420133df3f3f3c02557f7bceabd69f5aaba0faae46ed9d1467209ec5105"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/BINDING.json",
+    "bytes": 9615,
+    "sha256": "268322e4bd0437fce8a5b6898fff36154fcf43adc444734ea0bd95239ceecfd5"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/TASK.json",
+    "bytes": 13263,
+    "sha256": "f4f6905a6d858dfff8c92b757204979ad2581f2fb1e05bbc53c1483be45b6ce3"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/host.mjs",
+    "bytes": 12117,
+    "sha256": "594b1bef94f170c0bc7eb3188d651366aea1f07249a1c7148322d798eb32a7ae"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/PREPARED.json",
+    "bytes": 5403,
+    "sha256": "335b96de0f7be0633ddb35aa8500c336a4ef9cb75cc765abe0620e97f76af59e"
+  },
+  "setupIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/setup-identity.json",
+    "bytes": 9493429,
+    "sha256": "63779e064c6cce78c1fec7bd920e29d264dfcc001f6b71a3a7b7e40c1cdf1caf"
+  },
+  "workspaceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/.abiogenesis/workspace-manifest.json",
+    "bytes": 1836,
+    "sha256": "4783ad06a04d57809eedee04789a0afcec9a2b7ff3c2eb39d456508b4972922c"
+  },
+  "actualRunRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/run.json",
+    "bytes": 271,
+    "sha256": "66369fefd73f1e8b75060d32916ed9c962945de704b90ceb4a3affbd460ff8ab"
+  },
+  "actualSetupCalls": [
+    {
+      "file": "catalog-admit.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/catalog-admit.outcome.json",
+        "bytes": 176942,
+        "sha256": "b1e9a78291a94cd1519a02d7e13f56a12398e5348ffad439bb10cd83730907a9"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    },
+    {
+      "file": "catalog-view.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/catalog-view.outcome.json",
+        "bytes": 2275,
+        "sha256": "8664cad04d3966e8a88c514809d15dd7d27b0169e846bb740e7969c8f90b2977"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    },
+    {
+      "file": "product-install-0.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/product-install-0.outcome.json",
+        "bytes": 6090,
+        "sha256": "3e9c9d7701e072e7cbbb7c3630099743d87ccf050ed6095c50621540469c4ba5"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    },
+    {
+      "file": "product-install-1.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/product-install-1.outcome.json",
+        "bytes": 6135,
+        "sha256": "f3985ca83a3184ed52ea66f91d134e4dace96f2be3e2254ed296c27317d93e84"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    },
+    {
+      "file": "product-resolve.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/product-resolve.outcome.json",
+        "bytes": 5354,
+        "sha256": "d36768901f171d2afc56d6a741aa7b201c3dcb5811b1bdb89bc635b884658cf5"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    },
+    {
+      "file": "product-verify-0.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/product-verify-0.outcome.json",
+        "bytes": 257175,
+        "sha256": "da48676670f512bc5dc90bef4a0f4dc680e4633a3318f2ac19ac28b1f63e0eff"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    },
+    {
+      "file": "product-verify-1.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/product-verify-1.outcome.json",
+        "bytes": 2104,
+        "sha256": "96c89ece0a43721da97f6357451e2b80695b1618a714b800b827022696d30535"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    },
+    {
+      "file": "program-conformance.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/program-conformance.outcome.json",
+        "bytes": 2468,
+        "sha256": "16d47a07e3991bfdd6f3bac39eaa3ef9fb9975f0344b2a6a1fe7c6b53091a7cb"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    },
+    {
+      "file": "workspace-bind.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/workspace-bind.outcome.json",
+        "bytes": 6872,
+        "sha256": "4147258c58dc61f2ab0aae255b3c1a379fbef497e877bbb9b58602795c20f725"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    },
+    {
+      "file": "workspace-create.outcome.json",
+      "outcomeKind": "installed_definition_call_transport_result",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/workspace-create.outcome.json",
+        "bytes": 2206,
+        "sha256": "8ea4f41d3a87090f3f8c63e8d96f7b89f1fc37f515f0923ee1f72764b7c79482"
+      },
+      "receiptKind": "definition_host_receipt",
+      "exitCode": 0,
+      "failure": null,
+      "ownerOutputKeys": [
+        "outcomeKind",
+        "value"
+      ],
+      "ownerOutcome": "result"
+    }
+  ],
+  "freshSetup": {
+    "installedProducts": 2,
+    "resolvedLockKind": "resolved_product_lock",
+    "workspaceBinding": {
+      "ref": "workspace-binding://abiogenesis/354ad15807ce388059ce4c73dcbaf7def21d689a54577f7fab7f3a0d6acc6cbf",
+      "digest": "sha256:354ad15807ce388059ce4c73dcbaf7def21d689a54577f7fab7f3a0d6acc6cbf"
+    },
+    "setupProgramBinding": {
+      "selection": "library",
+      "programRef": "program://abiogenesis/default-library/default@5",
+      "catalogProgramDigest": "sha256:ed4f7469cbdc8178ac6fc8bc10d1ad9357ff778e93ec460a1654f2f7b6bd8427",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationSemanticDigest": "sha256:c137ada61d8ed97c8e8985bf1fd81dc544dc05068e288c0b2400673389fa81bf",
+      "owner": {
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.8",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.8/5dd1e8165ec9fb25dceec68c6f81e79afd8b94debddbce77a15f02ab2928d6cb/a59d70e6f006702546b6934d5f00d8b03a1023589c17414c1022155fdae7a32d",
+        "admissionEventRef": "event://abiogenesis/11d29fa3a61ccd12c71c8abb73a774cee5ad3b82353aface2eb780bd79ea30be",
+        "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+      },
+      "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "nativeSelection": {
+      "programRef": "program://abiogenesis/worksite/native-work@5",
+      "startRef": "start://abiogenesis/worksite/native-work@5",
+      "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+      "viewDigest": "sha256:c8a65ec8f1395500696c54d96afde014d3e1dffdc9665aba8202f0c937087d67"
+    },
+    "invocationRef": "invocation://abiogenesis/233ade1c1825ed11543de3195ac5e5993cf84b3a13182f86cbe737cff6891751",
+    "invocationDigest": "sha256:233ade1c1825ed11543de3195ac5e5993cf84b3a13182f86cbe737cff6891751",
+    "heldPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 3187518,
+      "prefixDigest": "sha256:06e448e8e36a547ee8c69fb73bcc3d2d32ae8b92c8afca15973f3e35e2f3687d",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 714208439,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:27e4803579278709f23eb61fc2ca8ed0a0175b176b48ccbb4da9519a1486e3fb"
+    }
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/SOURCE_INVENTORY.json",
+    "bytes": 293897,
+    "sha256": "81127b9136bcdacc0c39cba61539bc8638b435d7d5ea6679ce8cd45a635e62fa"
+  },
+  "sourceRowsChecked": 1339,
+  "observedContext": {
+    "digest": "sha256:824512f6e14e9391c637121acf5623eaa59e5642ea07fd698e5d104cbbddfe0d",
+    "entries": 518
+  },
+  "renderedPromptBytes": 14200,
+  "phases": {
+    "artifactVerified": {
+      "utc": "2026-11-08T06:25:38.233Z",
+      "elapsedMs": 19911.653707999998,
+      "memory": {
+        "rss": 2517614592,
+        "heapTotal": 1793409024,
+        "heapUsed": 1641273208,
+        "external": 254362979,
+        "arrayBuffers": 251933836
+      }
+    },
+    "setupHeld": {
+      "utc": "2026-11-08T06:26:39.300Z",
+      "elapsedMs": 80978.77791599999,
+      "memory": {
+        "rss": 3304243200,
+        "heapTotal": 2525396992,
+        "heapUsed": 2371033512,
+        "external": 48522084,
+        "arrayBuffers": 46093906
+      }
+    },
+    "contextObserved": {
+      "utc": "2026-11-08T06:26:39.448Z",
+      "elapsedMs": 81126.4605,
+      "memory": {
+        "rss": 2951413760,
+        "heapTotal": 574734336,
+        "heapUsed": 158752888,
+        "external": 52731478,
+        "arrayBuffers": 50304421
+      }
+    },
+    "nativeCallConstructed": {
+      "utc": "2026-11-08T06:26:41.235Z",
+      "elapsedMs": 82913.64745799999,
+      "memory": {
+        "rss": 2804613120,
+        "heapTotal": 315310080,
+        "heapUsed": 210904240,
+        "external": 2569431,
+        "arrayBuffers": 142374
+      }
+    }
+  },
+  "actualSetupWallMs": 82914.864666,
+  "providerCalls": 0,
+  "nativeRunAdmissions": 0,
+  "sourceEdits": false,
+  "ownerResource": "Open and held in this same actual process. No close/reopen is selected.",
+  "nextBoundary": "Root supplies exact PREPARED-bound native dispatch admission pin through session6081 stdin. No provider dispatch has occurred at this observation.",
+  "qualified": false
+}

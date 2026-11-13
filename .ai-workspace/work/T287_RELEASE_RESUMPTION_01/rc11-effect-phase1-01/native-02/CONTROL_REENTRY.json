@@ -1,0 +1,46 @@
+{
+  "status": "ADMITTED_ROUTINE_CONTROL_REENTRY",
+  "rootBasis": "PHASE1-IMPLEMENTATION-01 explicitly continues routine control/path fixes without revoking source/setup authority; paid dispatch still held.",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/runtime-001/FAILURE.json",
+    "bytes": 1104,
+    "sha256": "a0b222cc02d24443b8c824fd105e705eb810503352d886b59fb153f4caac7b54"
+  },
+  "final": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/runtime-001/FINAL.json",
+    "bytes": 1469,
+    "sha256": "edd1fbc8495e08108b66d549c36be9ffd446e7ec527aed522e67cb7f30704572"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/runtime-001/resource-close.json",
+    "bytes": 2299,
+    "sha256": "3044f5f72739f5825d99e8bd61227e98fea78b29cfa73346a7bc2bfc1d7379bd"
+  },
+  "cause": "TASK.instructions was a string; exact installed constructor requires array of nonempty strings. Fix that carrier only; source outcomes unchanged.",
+  "contract": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+    "bytes": 22870,
+    "sha256": "fc58ed982728c9fb40811c2f5bc44faae35ca25e119de1f3aaf1295b3f2b693c"
+  },
+  "taskPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/TASK.json",
+    "bytes": 9921,
+    "sha256": "21ecfddf911c4c269ec4f2200892b55b65211bc9cefd044af1bb5c505895a966"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/TASK.json",
+    "bytes": 9931,
+    "sha256": "65893baa04766ab8cc95c390390b0a0342565afb3144f2a98c5b9dea6f3d3efc"
+  },
+  "workspaceManifest": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+    "bytes": 1839,
+    "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+  },
+  "expectedAuthority": {
+    "ref": "workspace-authority://abiogenesis/fe7f77c405df0f13608ba22338e898817dc0d14e40ac0c29274a2f5e3edbe43b",
+    "digest": "sha256:fe7f77c405df0f13608ba22338e898817dc0d14e40ac0c29274a2f5e3edbe43b"
+  },
+  "route": "Actual Public open.open of existing unbound manifest; new runtime/caller/resource, no create.imported repetition or old Run identity.",
+  "preservation": "All inventoried source rows unchanged after failed setup; provider0/nativeRun0; physical close recorded."
+}

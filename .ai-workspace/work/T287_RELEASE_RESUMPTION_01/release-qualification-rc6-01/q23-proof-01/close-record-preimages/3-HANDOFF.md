@@ -1,0 +1,3 @@
+# Q23 proof-only invocation
+
+Started 2026-11-05T19:52:22.668285+00:00, PID72466; exact manifest 942390b84d6bfc1a08eff343da9ece82856b9335f7c93c315a781a027f752e45. Author source frozen at /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json. Six C2 commands and Q1-Q7 UAT through existing consumer Program, latest actual author close plus retained consumer binding/catalog/view. Preflight53.683s; setup reused. No coding Worker. Independent review remains open after preserved external auth refusal. No qualification or release claim.

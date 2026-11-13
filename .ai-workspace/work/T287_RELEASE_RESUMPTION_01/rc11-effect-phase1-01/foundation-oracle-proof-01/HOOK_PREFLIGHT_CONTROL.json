@@ -1,0 +1,28 @@
+{
+  "failure": "Initial overbroad no-executable-hook assumption refused before git add or commit. Existing repository has standard Git LFS hooks.",
+  "sameScopeCorrection": "Retain normal repository post-commit hook; no pre-commit/prepare-commit-msg/commit-msg hooks exist. Selected five paths have no filter. No hook/config bypass or mutation. Continue already authorized selective commit.",
+  "hooks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/hooks/post-checkout",
+      "bytes": 360,
+      "sha256": "8d606e58cce98604696a4abcf3ae1ebde6f9f31ac72bb0d44e2444cc39f26030"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/hooks/post-commit",
+      "bytes": 356,
+      "sha256": "f3eb4d1f62924c09d481a0563a84b158c66eb2feb3431cfdb3e6760aab4d661d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/hooks/post-merge",
+      "bytes": 354,
+      "sha256": "cecb594e8fa65831654fc95e96db9f1249e09c52810c6fbb2b428280aac22158"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/hooks/pre-push",
+      "bytes": 350,
+      "sha256": "a52d0510d0f8c75e27852156ec6f7791f0d8ed65fc58fcc368dd1de0a60a1d74"
+    }
+  ],
+  "selectedFilterAttributes": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs: filter: unspecified\nbuild_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md: filter: unspecified\nbuild_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md: filter: unspecified\nspecification/GOALS.md: filter: unspecified\n.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md: filter: unspecified\n",
+  "preFailureIndexConserved": true
+}

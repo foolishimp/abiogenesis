@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-json-value-definition.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 432.27545799999643,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/events/100-t287-json-value-definition.jsonl",
+    "bytes": 834,
+    "sha256": "e314b3e40e3523710e6f24ec68acef887c58af5f96f0ce67688055f6ded8256b"
+  },
+  "commandReceipt": "commands/100-t287-json-value-definition.result.json",
+  "workspace": "/private/tmp/abg-r8c-011/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

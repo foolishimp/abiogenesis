@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-03T12:56:32.515628+00:00",
+  "roleTransition": "Executive accepted bounded candidate -> Root source-custody and release-metadata Writer",
+  "sourcePreimageCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "nativeSubjectSha256": "6dcb7b4dd0eb84b8d5706c3e50a3cf3576796f0bc77418fcd3ee68ee85e6dbee",
+  "c2ResultRef": "result://abiogenesis/a2a62ff6976dd579012ee6e1e036516eb3bf8c27018114d205f699e9222bd567",
+  "grant": [
+    "Copy exactly2 accepted C2-generated files to their canonical paths",
+    "Refresh only current GOALS/T287 and unshipped release-claim status, including UAT nonblocking stale claim",
+    "Preserve exact before/after metadata bytes and declare Root authorship",
+    "Commit exactly3 native repair files,2 generated files,3 Root metadata files and verified evidence directory after custody preparation"
+  ],
+  "nativeFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+  ],
+  "generatedFiles": [
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+  ],
+  "rootMetadataFiles": [
+    "specification/GOALS.md",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/release-claim.md"
+  ],
+  "evidenceDirectory": ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01",
+  "exclusions": [
+    "No Product runtime/test code authoring by Root",
+    "No changed package identity or dependency",
+    "No immutable RC4 or prior evidence mutation",
+    "No push, merge, tag, global selector or whole qualification"
+  ],
+  "reproof": "Runtime/test bytes remain the accepted native subject; metadata is unshipped status only. Isolated final-source build/pack must reproduce exact C2 archive before local cut."
+}

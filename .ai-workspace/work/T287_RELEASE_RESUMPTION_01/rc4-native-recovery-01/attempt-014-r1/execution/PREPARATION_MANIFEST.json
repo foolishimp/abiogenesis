@@ -1,0 +1,134 @@
+{
+  "kind": "rc4_fresh_native_frozen_dispatch",
+  "status": "PREPARED_NOT_DISPATCHED",
+  "sourceBasis": "none",
+  "sourceCommit": "16d245c1e30119c4f8bbadce06c63d857a576ee4",
+  "authority": "Root selects014-r1 zero-provider preparation revision only: stable unique caller roots and retained typed owner refusal. Exact014 semantic task/grant/source/scratch unchanged; actual installed preflight awaits Root admission.",
+  "callPreparationBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/CALL_PREPARATION_BINDING.json",
+    "bytes": 76195,
+    "sha256": "fd611eb418853a473579739e57e823927a6f146c2578c39ee4bace55280a2beb"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/CALL_PREPARATION_BINDING.json",
+      "bytes": 76195,
+      "sha256": "fd611eb418853a473579739e57e823927a6f146c2578c39ee4bace55280a2beb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/ROOT_ADMISSION.json",
+      "bytes": 825,
+      "sha256": "d07fe2d52f20171026d7c95f75fa045c7b668a2c34ff78240f313304fb1213b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/model-free-preflight.json",
+      "bytes": 3933,
+      "sha256": "8bdea96cacf63e45c6d238f64d78e1226cd887231f2d9efcfd26c510a69f48b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/dispatch.mjs",
+      "bytes": 5946,
+      "sha256": "21ddae8aa815721e3f1ac3cea1fbf0b9067c9a857339e44567968d14da0b0940"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/freeze-dispatch.py",
+      "bytes": 3512,
+      "sha256": "f04a5ad3e90523fb34a46a40f6c27aab628ce8203ce0e9772c1d0ef40a0593ca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/setup-state.mjs",
+      "bytes": 5969,
+      "sha256": "445060d5a83300b9c54d69828241a0986f6a18c979fa73d9da36c2c42306767e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/operator-preflight.py",
+      "bytes": 7575,
+      "sha256": "c590948e6e87e60e562ada22235d8be69995a44f4cf42e1a6c830dcf6df76e4b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/claude-provider.sh",
+      "bytes": 393,
+      "sha256": "5bc27c639e010417d73455f21ee971f1dfbfaa869523b503b4de67ab43e3dae3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/execution/run.json",
+      "bytes": 254,
+      "sha256": "8c1d0856fb57fc0dea5f9fde83dedabbb0ff6208bf0ee7037dd1304619fd9066"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/execution/input.json",
+      "bytes": 257596,
+      "sha256": "49e7c5288c0670b6b7dfbdca6723e66fd7ff1970b26e06d3cc4a0e427234ed48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/execution/prepared-call.json",
+      "bytes": 30187577,
+      "sha256": "a6b680229a356fd3c1f83d67d47a05ede15a4ae0cb3a5b4936ce912e811a3fc8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/execution/PREPARED_CALL.json",
+      "bytes": 1600,
+      "sha256": "783cd58541b43adc94a9a45be3a8727b1e3fcfe1857e39f8db287b69e38df556"
+    }
+  ],
+  "eventPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/events/runtime.events.jsonl",
+    "bytes": 154857182,
+    "sha256": "461efc602414628c9de0c884cfc558dbe4d693186be1225ed1ff200ca24a8405",
+    "device": 16777231,
+    "inode": 680756193,
+    "coordinateDigest": "sha256:0d82bce0fd268fa93f97f367a0bb61f827c629ce60185abd9822b34b1a631e03"
+  },
+  "callCanonicalDigest": "sha256:2fbe140c78ec138aed6253ad9a4c8738fe1e8492670a62abfc7cd431b53b5bff",
+  "inputCanonicalDigest": "sha256:ad1aa9e830f17150608c0b0cdfaa0d6fb18b3821ac0e3973b54727ce12d4efe8",
+  "contextDigest": "sha256:4cae51dcdc0263a79c5b91f2e9127a2c419e29cd3628134b428ff6361c656b51",
+  "sourceWritePaths": 9,
+  "generatedOutputWriteRoots": 0,
+  "scratchWriteRoots": 4,
+  "c2SelectedPaths": 967,
+  "readRoots": 982,
+  "focusedFiles": 7,
+  "commands": 9,
+  "requiredExecutionBudgetMs": 4267250,
+  "actualPromptBytes": 757378,
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/PROVIDER_PROFILE.json",
+    "bytes": 3436,
+    "sha256": "1f801588e4a18875310a3d8c440e802b95f49741bb588dbe223c602aea400cb6"
+  },
+  "actualAfterRunResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/execution/after-run-resume.json",
+    "bytes": 99889123,
+    "sha256": "dc820778a4cce15e99e38e80f2ed712f694a7ce166e4e808fd7f6b8204e9a3c1"
+  },
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/private/tmp/abiogenesis-rc4-runtime-01"
+    },
+    {
+      "name": "LANG",
+      "value": "C.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "C.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0X67Y0x:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0wbuDmp:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.165.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0q1V18U:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.164.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0DTH1zz:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0sKXW4o:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0Xt8qH8:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0hiQE8Z:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0cX0Ug4:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0b7sntn:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0dSRd60:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+    }
+  ],
+  "qualification": false,
+  "release": false,
+  "automaticRetry": false,
+  "limits": [
+    "Root-only one-shot dispatch",
+    "Native source/model-free evidence distinct from later required installed native interruption witness",
+    "Bounded protected-write/fixture/canonical consumer repair; real-provider005 and release remain separate"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "kind": "native_stage_build_custody",
+  "observedUtc": "2026-11-06T15:35:36.791845+00:00",
+  "status": "BUILD_PASSED_LANES_BLOCKED_BY_HS2_CONTROL_001",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/SUBJECT.json",
+    "bytes": 272692,
+    "sha256": "4e51195fb89bd95e51a65806e6f985c5843cc375bf1f42450941b6262fb7b187"
+  },
+  "stageReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/evidence/hs2-stage-01-stage.json",
+    "bytes": 97757,
+    "sha256": "e91a116e3706599ec51e7f24fe03e80c2ade7a0531694411510e9249da5dd5d4"
+  },
+  "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+  "sourceCount": 451,
+  "setupMs": 1600,
+  "build": {
+    "compile": {
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 7628
+    },
+    "generate": {
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 22604
+    },
+    "lifecycle": {
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 610
+    }
+  },
+  "progress": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/progress-002.json",
+    "bytes": 6291,
+    "sha256": "58a9dedda7dd88abc49cd9bd3303b2af94c7982a4287c8fdd8a244ce714a5736"
+  },
+  "controlFinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/CONTROL_FINDING_001.json",
+    "bytes": 2328,
+    "sha256": "889272b023ddc5eb756956b73e1c7e3f3b8da8c74b6c4f4a38d08b252e1e1dc0"
+  },
+  "separateCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-control-correction-001/CORRECTION.json",
+    "bytes": 4445,
+    "sha256": "65592fdee95b1cc1a2174c05ad07523ab1d265ed793aba9413002051c53ec82a"
+  },
+  "completedLanesObserved": 0,
+  "standing": "Build only. No affected test or route pass, source acceptance, actual SDK return, or close inferred. Root owns separate post-author operator proof."
+}

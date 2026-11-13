@@ -1,0 +1,77 @@
+{
+  "status": "PASSED",
+  "results": [
+    {
+      "id": "dependency-copy",
+      "argv": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/stage-dependencies.py",
+        "copy",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/DEPENDENCY_METADATA.successor.json",
+        "734ebfef33db3e7029d5ed3e15bb6e3d2d18c54ea126cd3f195a383051d773c9",
+        "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules"
+      ],
+      "timeoutSeconds": 120,
+      "exitCode": 0,
+      "elapsedSeconds": 1.1960692922584713,
+      "groupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/dependency-copy.stdout",
+        "bytes": 316,
+        "sha256": "64a95250e60feec605495ff0ae4448a9c9dae0bf927059c04c0dbe5b8cc6d0a2"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/dependency-copy.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "product-manifest-02",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "exitCode": 0,
+      "elapsedSeconds": 22.065216957591474,
+      "groupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/product-manifest-02.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/product-manifest-02.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "qualification-law-02",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=1",
+        "test_env/tests/t287-qualification-law.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "exitCode": 0,
+      "elapsedSeconds": 0.5046116667799652,
+      "groupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/qualification-law-02.stdout",
+        "bytes": 3585,
+        "sha256": "2704f97e07ebeb71239806060980b53ec123e2c36752482a743174ccb339cb23"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/qualification-law-02.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "claim": "definition readiness only; no positive qualification/release"
+}

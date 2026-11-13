@@ -1,0 +1,64 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "configSha256": "98a9e72551a2614034ffc91c333780e671c38e42edd7451c5302b58b72abddc3",
+  "inventorySha256": "596aeccd9ccb662f36571f32661b81b9d007127d06bf6c8824d4a912868331f6",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "dd35e928a543692963f02a801a35421112463296a0eff9d582e7b5095567811b",
+  "at": "2026-11-07T15:14:23.086136+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "fixedScope": "fixed15 / GOAL035 / T287 / REF01 / STDO3.0.4; empty composition",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_024.json",
+      "bytes": 8512,
+      "sha256": "dd35e928a543692963f02a801a35421112463296a0eff9d582e7b5095567811b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-024.mjs",
+      "bytes": 36685,
+      "sha256": "453dd8e34d6e3bea30f9e330502d72ffb3671d0c4483e790ef8d49d0c1b0a5d0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_026.json",
+      "bytes": 459103,
+      "sha256": "98a9e72551a2614034ffc91c333780e671c38e42edd7451c5302b58b72abddc3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-026/BOUND_INVENTORY.json",
+      "bytes": 2128948,
+      "sha256": "596aeccd9ccb662f36571f32661b81b9d007127d06bf6c8824d4a912868331f6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_024.patch",
+      "bytes": 4752,
+      "sha256": "58c0877d5e82dbd1491a7188f6bb7ed9eac5a055ecc9448783d72d6eddfa97f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CONFIG_DIFF_024.patch",
+      "bytes": 5723,
+      "sha256": "2ed165dce3cbf79cd52442072e8c98b244389bd583b082acabc000e3190c9266"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json",
+      "bytes": 13134,
+      "sha256": "9191ae6376601e9e91562936363e070d0a2bf0c00c57e60565c177a9b01dd207"
+    }
+  ],
+  "rootSelection": "Root read complete driver diff58c0877d and decoded config/inventory relations and exact controls. Configured C2 positive command has physically closed exit0; Root admits one independent broad024 execution while its static proof conjunction closes.",
+  "effects": "Only BC/execution-024, /private/tmp/abg-r8c-024 and existing controlled proof records/owners. Fifteen remaining files including C1 with unchanged timers. One heavy proof, no providers/source/Git/cut/general cleanup.",
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 178,
+    "passed": 919,
+    "skipped": 211,
+    "scheduled": 15,
+    "deferredNoCoverage": 15
+  },
+  "preservation": "All178 whole credits and14 predecessor deferrals exact; only C2 scheduling deferral, version/allocation/standing. No new whole credit from six023 partial components or configured positive. Original two inner timeouts and Root scoped SIGTERM preserved. Source/dependencies/oracles/bounds unchanged.",
+  "stopRule": "First red/incomplete/input/resource/deadline stops; no automatic retry, repair or extension. Existing two isolated test-build and successful-derived-copy cleanup grants only. CUT8 held.",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+    "bytes": 295568,
+    "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+  }
+}

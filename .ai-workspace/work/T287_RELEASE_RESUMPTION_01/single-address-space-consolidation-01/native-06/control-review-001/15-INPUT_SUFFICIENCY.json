@@ -1,0 +1,46 @@
+{
+  "kind": "task_input_sufficiency_and_baggage_disposition",
+  "groups": {
+    "method-and-current-control": {
+      "files": 199,
+      "bytes": 2137685
+    },
+    "compiler-and-runtime-source": {
+      "files": 290,
+      "bytes": 7914958
+    },
+    "affected-tests-and-fixtures": {
+      "files": 203,
+      "bytes": 4026559
+    },
+    "contract-seeds": {
+      "files": 202,
+      "bytes": 9025518
+    }
+  },
+  "futureFiles": [
+    "consolidation-scratch/native-06/return.json",
+    "consolidation-scratch/native-06/readiness.json",
+    "consolidation-scratch/native-06/progress.json"
+  ],
+  "omittedFromOrdinaryContext": [
+    "Prior11MB compiled RC5 archive; use immutable installed baseline resource",
+    "Prior7.4MB C2 event and7.2MB helper result; their accepted evidence remains at pinned RC5 custody",
+    "Prior3.1MB captured codec sample; unrelated to this caller migration",
+    "Whole586MB runtime log; explicit read-only diagnostic resource by path/hash, not embedded task context",
+    "Historical .ai-workspace tree and broad digest searches"
+  ],
+  "preserved": "Original outcome, complete causal map, exact owner/code/current input/rubric and necessary build/test seeds remain. Required external evidence is explicit; no semantic truncation claim.",
+  "note": "The declared read set is sufficient for build/proof; permission to read the causal cone is broader and is not an instruction to serialize all reachable files.",
+  "continuation": "Exact native05 source and closed current reviews/triages; original full scope; current fixture producer routes and finite file guide.",
+  "literalModuleClosure": {
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/C2_LITERAL_IMPORT_CLOSURE.json",
+      "bytes": 9139,
+      "sha256": "4c5060ff6ca143d22090aded631a124f2211bd2436dff809809c8526b0faf1ac"
+    },
+    "addedPaths": [],
+    "scope": "Literal imports plus explicit current fixture/producer data and actual C2."
+  },
+  "groupCountScope": "Current existing selected files excluding this self-describing input and three future native handoffs; PACKET_PREPARATION_COMPLETE includes every existing selected file."
+}

@@ -1,0 +1,139 @@
+{
+  "status": "ROOT_ACCEPTED_ST2AE_CASEWISE_PROOF",
+  "at": "2026-11-07T13:52:45.868700+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "goal": "GOAL035",
+  "ticket": "T-287",
+  "scope": "RC8 REF01",
+  "rootDisposition": "Root read exact source/reviewd9bf, original020 passed-case reporter, filtered RESULT/reporter/full command and Operator return. Accept all intended two-case assertions as separately proved through exact unchanged four-source/helper and Product/archive correspondence. This is case-wise acceptance, not a new whole-file execution or broad-ledger restamp.",
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/st2a-e-timeout-020/REVIEW.json",
+    "bytes": 12607,
+    "sha256": "d9bf534b4f491b689574205682c6ac7754e65ae9f45b7e282862b9d6df29c80d"
+  },
+  "correspondenceBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/BINDING.json",
+    "bytes": 11104,
+    "sha256": "0a4b8b5d2829525c0233700cc4f2fd89a8fcf297291d752512d133406b8f57d1"
+  },
+  "unchangedSourceRows": [
+    {
+      "relativePath": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "bytes": 10056,
+      "sha256": "a8cc28369dc70e05ab229ef5c8bc489e4669d3faddea601c60908b7c2b2eeef6"
+    },
+    {
+      "relativePath": "test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "relativePath": "test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "bytes": 5516,
+      "sha256": "b98662b050796206dac7aec5131ab44edb07ca4d8f2cfe334859b0a27d7ee938"
+    },
+    {
+      "relativePath": "test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    }
+  ],
+  "artifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "firstCase": {
+    "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "name": "ST-2A-E projects one exact immutable workspace environment without append",
+    "actualPassedCase": true,
+    "reportedCaseDurationMs": 599196.256042,
+    "evidence": {
+      "fileReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/files/176-t287-st2a-e-exact-prefix-workspace-environment.json",
+        "bytes": 1080,
+        "sha256": "80552f3e182416b3273a98a2c2830eed738ee95130a17add5e5aba3cb43664ec"
+      },
+      "command": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/commands/176-t287-st2a-e-exact-prefix-workspace-environment.result.json",
+        "bytes": 1550,
+        "sha256": "8e16191fd9e3cd1dd0de58a45a69ac425a150f5e54aada072372737f9d8fafd2"
+      },
+      "reporter": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/events/176-t287-st2a-e-exact-prefix-workspace-environment.jsonl",
+        "bytes": 374,
+        "sha256": "d20b520576d4baecc328ee415e49433f9cf6df5cf77dd5d15b82155dfe1a312d"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/commands/176-t287-st2a-e-exact-prefix-workspace-environment.stdout",
+        "bytes": 237,
+        "sha256": "da9c08faffb0219707596faac1766e9d8211f922f857d69222d81a50c05d6862"
+      }
+    },
+    "originalCommandTimedOut": true,
+    "originalCommandCapMs": 600000,
+    "standing": "Original A6 case and full-command timeout retained exactly. Existing test after-hook removed first scratch; no persistent raw first-log or Run receipt claim."
+  },
+  "secondCase": {
+    "sourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "sourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 7205,
+      "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+    },
+    "namePattern": "^RC7 prefix reuse: run-read population decodes a deserialized prefix once and keeps refusals$",
+    "counts": {
+      "tests": 1,
+      "failed": 0,
+      "passed": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 1,
+      "suites": 0
+    },
+    "commandWallMs": 179029.296125,
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/actual-001/RESULT.json",
+      "bytes": 1044,
+      "sha256": "6609ca468bbfe7cb55b5d789e7ef31d1a74ae3e859783abf2bfad89bf626f7f5"
+    },
+    "reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/actual-001/events.jsonl",
+      "bytes": 861,
+      "sha256": "a6500db72ad74268bd14884d3bb448410e12b13cbbb0958fa3a6a10aee593dd6"
+    },
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/actual-001/commands/test.result.json",
+      "bytes": 1441,
+      "sha256": "bfaf5774f9fcfca6cea3e41a0bf278ded33c91f802519389f87f8acc5f4a57f7"
+    },
+    "physicalCommandClosed": true,
+    "exitCode": 0,
+    "fullReporterEnd": true,
+    "wholeFile": false,
+    "excludedCases": 1
+  },
+  "operatorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/OPERATOR_RETURN.json",
+    "bytes": 7942,
+    "sha256": "39213cf361d96cb1eeb52f2e7140f26cec1089d79298ae9c4be83522a1c2ef53"
+  },
+  "wholeFileRun": false,
+  "newBroadWholeFileCredit": 0,
+  "broadLedger": {
+    "wholeFiles": 165,
+    "passed": 865,
+    "skipped": 201,
+    "unchanged": true
+  },
+  "conservation": {
+    "sourceAndDependenciesPreserved": true,
+    "sourceMutations": 0,
+    "providerCalls": 0,
+    "buildInvocations": 0
+  },
+  "limits": "Six existing assurance residuals remain unchanged; no new debt from this closed case-wise relation. No broader release qualification, source repair, extra verification, retry, cut/install or budget extension selected. Broad021 remains prepared and unexecuted pending Root budget disposition."
+}

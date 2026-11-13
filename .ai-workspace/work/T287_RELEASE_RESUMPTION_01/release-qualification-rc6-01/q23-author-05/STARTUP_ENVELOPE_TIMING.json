@@ -1,0 +1,196 @@
+{
+  "kind": "actual_physical_startup_envelope_measurement",
+  "at": "2026-11-05T19:27:24.323902+00:00",
+  "fromPrefix": {
+    "coordinateDigest": "sha256:86171ea4036daaa2675ba1a200bb1d1d21b649a3dabaa417fe89efe00486f38e",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:c6170eb6e40204442b133cda090a673a90dcd561fe3c715d5720e59db1ed8b85",
+    "prefixLength": 289726205,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "throughActorStart": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 57907,
+    "eventTime": "2026-11-05T19:18:00.902Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/9f572249753fc495b6cbef7d0125945119608f125512dd5ee60f68210e30f33c",
+    "offset": 313915275,
+    "bytes": 1813,
+    "sha256": "9da6f9c80f22215b40c723ebdf54f843a841ac60876bdc573f6ce6526ec5831b"
+  },
+  "totalRows": 15,
+  "physicalBytes": 24190883,
+  "byKind": {
+    "public_operation_admitted": {
+      "rows": 1,
+      "physicalBytes": 4261
+    },
+    "invocation_admitted": {
+      "rows": 1,
+      "physicalBytes": 10143
+    },
+    "implementation_admitted": {
+      "rows": 1,
+      "physicalBytes": 6247
+    },
+    "basis_admitted": {
+      "rows": 1,
+      "physicalBytes": 12029564
+    },
+    "run_segment_opened": {
+      "rows": 1,
+      "physicalBytes": 2332
+    },
+    "graph_call_opened": {
+      "rows": 1,
+      "physicalBytes": 2241
+    },
+    "frame_opened": {
+      "rows": 1,
+      "physicalBytes": 2519
+    },
+    "runtime_activity_probe_observed": {
+      "rows": 2,
+      "physicalBytes": 7330
+    },
+    "traversal_cursor_entered": {
+      "rows": 1,
+      "physicalBytes": 3049
+    },
+    "c_call_opened": {
+      "rows": 1,
+      "physicalBytes": 2559
+    },
+    "c_call_fibre_selected": {
+      "rows": 1,
+      "physicalBytes": 2184
+    },
+    "actor_transport_binding_admitted": {
+      "rows": 1,
+      "physicalBytes": 12114115
+    },
+    "actor_invocation_started": {
+      "rows": 1,
+      "physicalBytes": 2526
+    },
+    "actor_process_started": {
+      "rows": 1,
+      "physicalBytes": 1813
+    }
+  },
+  "largestRows": [
+    {
+      "kind": "actor_transport_binding_admitted",
+      "admissionOrdinal": 57905,
+      "eventTime": "2026-11-05T19:18:00.774Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/9f572249753fc495b6cbef7d0125945119608f125512dd5ee60f68210e30f33c",
+      "offset": 301798634,
+      "bytes": 12114115,
+      "sha256": "742c34107838c556e87b740154311f010dfc01ec5ef82a61274a9e6af7001bc2"
+    },
+    {
+      "kind": "basis_admitted",
+      "admissionOrdinal": 57896,
+      "eventTime": "2026-11-05T19:17:57.835Z",
+      "graphFunctionRef": null,
+      "runId": null,
+      "offset": 289746856,
+      "bytes": 12029564,
+      "sha256": "9a2fd7a8075aabd5757508e3a435914849a042faf918fb5d5f5ef3f7510635dc"
+    },
+    {
+      "kind": "invocation_admitted",
+      "admissionOrdinal": 57894,
+      "eventTime": "2026-11-05T19:17:57.826Z",
+      "graphFunctionRef": null,
+      "runId": null,
+      "offset": 289730466,
+      "bytes": 10143,
+      "sha256": "1ee0536285c52930a276fa37f018d7762f666af99f4a30ff0c3227ed169e417b"
+    },
+    {
+      "kind": "implementation_admitted",
+      "admissionOrdinal": 57895,
+      "eventTime": "2026-11-05T19:17:57.835Z",
+      "graphFunctionRef": null,
+      "runId": null,
+      "offset": 289740609,
+      "bytes": 6247,
+      "sha256": "b2f7a930c0928ee52d7e73591f965bbb2d7108de0229ff50120ad760601c828a"
+    },
+    {
+      "kind": "public_operation_admitted",
+      "admissionOrdinal": 57893,
+      "eventTime": "2026-11-05T19:17:57.826Z",
+      "graphFunctionRef": null,
+      "runId": null,
+      "offset": 289726205,
+      "bytes": 4261,
+      "sha256": "a05db9bdbd0b41217fb18b387f26be7bc2f1c04c87efb0cb6ac3796f32d2e1eb"
+    },
+    {
+      "kind": "runtime_activity_probe_observed",
+      "admissionOrdinal": 57904,
+      "eventTime": "2026-11-05T19:17:59.173Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/9f572249753fc495b6cbef7d0125945119608f125512dd5ee60f68210e30f33c",
+      "offset": 301794912,
+      "bytes": 3722,
+      "sha256": "7dc30f89a36348aea8bf1de0aedd6442fe31917262b22fea897ea39bb98ef7a6"
+    },
+    {
+      "kind": "runtime_activity_probe_observed",
+      "admissionOrdinal": 57900,
+      "eventTime": "2026-11-05T19:17:58.338Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/9f572249753fc495b6cbef7d0125945119608f125512dd5ee60f68210e30f33c",
+      "offset": 301783512,
+      "bytes": 3608,
+      "sha256": "430e146cf46907b88220382ac4670eada23aa6ffd8a8409edd39d4194b7707b6"
+    },
+    {
+      "kind": "traversal_cursor_entered",
+      "admissionOrdinal": 57901,
+      "eventTime": "2026-11-05T19:17:59.076Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/9f572249753fc495b6cbef7d0125945119608f125512dd5ee60f68210e30f33c",
+      "offset": 301787120,
+      "bytes": 3049,
+      "sha256": "8dc7f81189270d090ff99beddc3dbc64867ed43f947a666345547ae41be137bf"
+    }
+  ],
+  "timingEvents": [
+    {
+      "kind": "actor_transport_binding_admitted",
+      "admissionOrdinal": 57905,
+      "eventTime": "2026-11-05T19:18:00.774Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/9f572249753fc495b6cbef7d0125945119608f125512dd5ee60f68210e30f33c",
+      "offset": 301798634,
+      "bytes": 12114115,
+      "sha256": "742c34107838c556e87b740154311f010dfc01ec5ef82a61274a9e6af7001bc2"
+    },
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 57907,
+      "eventTime": "2026-11-05T19:18:00.902Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/9f572249753fc495b6cbef7d0125945119608f125512dd5ee60f68210e30f33c",
+      "offset": 313915275,
+      "bytes": 1813,
+      "sha256": "9da6f9c80f22215b40c723ebdf54f843a841ac60876bdc573f6ce6526ec5831b"
+    }
+  ],
+  "limits": [
+    "Physical log bytes and recorded event times only, not runtime acceptance, heap/CPU work or causal attribution.",
+    "No provider content inspected; this startup interval ends at the first native actor start.",
+    "Existing immutable RC6 builder; no current-scope Product optimization selected by this measurement."
+  ]
+}

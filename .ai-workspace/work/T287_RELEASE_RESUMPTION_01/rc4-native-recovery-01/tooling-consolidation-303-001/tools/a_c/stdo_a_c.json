@@ -1,0 +1,124 @@
+{
+  "$schema": "stdo://releases/v2.5.1-rc.2/standards/schemas/product-definition.schema.json",
+  "kind": "stdo.product-definition",
+  "product": {
+    "definition_id": "urn:stdo:product-definition:a-c-implementations",
+    "name": "Axiomatic Calculus Implementations",
+    "source_project": "./",
+    "bounded_context": {
+      "id": "urn:a-c-implementations:bounded-context:realization",
+      "definition": "./specification/PRODUCT.md#product-boundary"
+    }
+  },
+  "constitution": {
+    "stdo": {
+      "source": {
+        "repository": "https://github.com/foolishimp/specification_methodology.git"
+      },
+      "selector": "stdo://channels/2.5.1",
+      "basis": {
+        "uri": "stdo://releases/v2.5.1-rc.2/",
+        "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+      }
+    },
+    "additional_authorities": [
+      "./specification/INTENT.md",
+      "./specification/PRODUCT.md"
+    ],
+    "entrypoints": [
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/authority_compressions/stdo_bootstrap.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/SPEC_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/AXIOMATIC_CALCULUS.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/REFERENCE_FRAME_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/additional_authorities/0",
+        "uri": "./specification/INTENT.md"
+      },
+      {
+        "basis": "#/constitution/additional_authorities/1",
+        "uri": "./specification/PRODUCT.md"
+      }
+    ],
+    "agent_bootstrap": {
+      "entrypoint": "#/constitution/entrypoints/0",
+      "targets": ["./AGENTS.md", "./CLAUDE.md"]
+    }
+  },
+  "local_constitution": {
+    "axioms": [],
+    "overrides": [],
+    "disambiguations": []
+  },
+  "reference_frame_bases": [
+    {
+      "uri": "./specification/REFERENCE_FRAME_BASIS.md#project-frame-basis",
+      "authority": [
+        "./specification/PRODUCT.md#product-disposition-authority",
+        "./.ai-workspace/tickets/active/T-001-graphify-realization.md#owner-instruction",
+        "./.ai-workspace/tickets/active/T-007-executive-lifecycle-tooling.md#owner-instruction",
+        "./.ai-workspace/tickets/active/T-008-fd-tenant-implementation.md#owner-instruction",
+        "./.ai-workspace/tickets/active/T-011-lean-formalisation.md#owner-instruction",
+        "./.ai-workspace/tickets/active/T-012-reusable-formal-gate.md#owner-instruction",
+        "./.ai-workspace/tickets/active/T-013-practical-formal-gate.md#owner-instruction",
+        "./.ai-workspace/tickets/active/T-015-user-project-product.md#owner-instruction",
+        "./.ai-workspace/tickets/active/T-016-project-build-entry.md#owner-instruction"
+      ],
+      "applies_to": ["urn:stdo:product-definition:a-c-implementations"]
+    }
+  ],
+  "what": {
+    "intent": "./specification/INTENT.md",
+    "product": "./specification/PRODUCT.md",
+    "specification": ["./specification/requirements/"]
+  },
+  "how": {
+    "common": ["./build_tenants/README.md"],
+    "build_tenants": [
+      {
+        "id": "urn:a-c-implementations:build-tenant:graphify",
+        "root": "./build_tenants/graphify/",
+        "design": ["./build_tenants/graphify/design/"],
+        "implementation": [
+          "./build_tenants/graphify/code/",
+          "./build_tenants/graphify/test_env/"
+        ]
+      },
+      {
+        "id": "urn:a-c-implementations:build-tenant:lean",
+        "root": "./build_tenants/lean/",
+        "design": ["./build_tenants/lean/design/"],
+        "implementation": [
+          "./build_tenants/lean/AC/",
+          "./build_tenants/lean/scripts/",
+          "./build_tenants/lean/tests/",
+          "./build_tenants/lean/fixtures/"
+        ]
+      }
+    ]
+  },
+  "ticketing": {
+    "goals": "./specification/GOALS.md",
+    "tickets": {
+      "root": "./.ai-workspace/tickets/",
+      "lanes": {
+        "backlog": "./.ai-workspace/tickets/backlog/",
+        "active": "./.ai-workspace/tickets/active/",
+        "completed": "./.ai-workspace/tickets/completed/"
+      }
+    },
+    "comments": {"root": "./.ai-workspace/comments/"}
+  },
+  "composition": []
+}

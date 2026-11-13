@@ -1,0 +1,88 @@
+{
+  "kind": "root_selected_stdout_window_author_increment",
+  "status": "UNBOUND_H05_ACCEPTANCE_AND_ROOT_SELECTION_PENDING",
+  "requiredAdmittedStatus": "ROOT_SELECTED_STDOUT_WINDOW_AUTHOR_INCREMENT",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "version": "ABIogenesis5.0",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "runtimeOwner": "ABG alone",
+    "programLanguage": "GTL alone",
+    "shells": "SDK/CLI thin transport",
+    "builder": "immutable installed RC6",
+    "candidate": "prospective RC7",
+    "scope": "HS03 bounded design_reframe for stdout windows and central pre-decision flush; E1-E4 and all Product outcomes conserved; historical contract/replay and canonical generation required."
+  },
+  "selectedTaskControls": {
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/HS03_SELECTION.template.json",
+      "bytes": 3989,
+      "sha256": "cc3dd5e76ad1146f792cca710578261955822987e95feee874cd0a8238c4ebd0"
+    },
+    "commandBounds": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/COMMAND_BOUNDS.json",
+      "bytes": 4334,
+      "sha256": "2144b1e61a06bc8f709920335ce01772475077d7e99a0f52034a8a52a3b7c7ed"
+    },
+    "codeControls": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/CODE_CONTROL_PINS.json",
+      "bytes": 3175,
+      "sha256": "c9027ecab09a751db9a41d583b5eb605252378445c5e7f06e6a4a3563a2380b0"
+    }
+  },
+  "sourceBefore": null,
+  "sourceSubject": null,
+  "sourceAfter": null,
+  "sourceDisposition": null,
+  "actualClose": null,
+  "actualResume": null,
+  "dependencyReadySelection": null,
+  "sourceRows": 451,
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs"
+  ],
+  "stageAndLaneBounds": {
+    "stages": 4,
+    "lanes": 7,
+    "compileTimeoutMs": 240000,
+    "generateTimeoutMs": 600000,
+    "guardTimeoutMs": 60000
+  },
+  "resourceBounds": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "meaning": "Prepared existing Root selection carrier; final Root binding requires actual H05 accepted source and genuine successor, never current running metadata or earlier close."
+}

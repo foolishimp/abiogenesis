@@ -1,0 +1,48 @@
+{
+  "status": "PREPARED_NOT_BOUND_NOT_EXECUTION_ADMITTED",
+  "at": "2026-11-07T03:38:18.741938+00:00",
+  "activation": "/root/rc7_reference_ticket_writer",
+  "consumer": "/root",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.mjs",
+      "bytes": 20061,
+      "sha256": "44bda4222432dc388e3ff963f9a2ab8ce13803d7b473569df7304b085cc0fcc0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS.template.json",
+      "bytes": 5037,
+      "sha256": "850715e56aba99462dc275b4cbd359e7f88844708caff989b209882179fbc586"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PLAN.md",
+      "bytes": 6066,
+      "sha256": "4096d167ac65353fefda8857defbebd5957f9b279f6bb92830bfa870b59bd6a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_BASIS.json",
+      "bytes": 5584,
+      "sha256": "5e6bb661ed9ccbe0e2c6c3a202e30d8b8b38659cdbfb7bea3ca73c86e6d632b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/SYNTAX_CHECKS.json",
+      "bytes": 1336,
+      "sha256": "093518dfa023273a1d09cdf833c717eaebbb91d06cb1264356395941464f38ce"
+    }
+  ],
+  "stageBinding": null,
+  "testsExecuted": 0,
+  "fixturesAllocated": false,
+  "resourceAssumption": {
+    "freeBytesNow": 11030417408,
+    "reserveBytes": 4294967296,
+    "ownedLimitBytes": 4294967296,
+    "monitoredNotQuota": true
+  },
+  "remaining": "Root binds final frozen RC8 stage/dependencies/focused coverage, then separately admits exact execution. Source review and qualification remain open."
+}

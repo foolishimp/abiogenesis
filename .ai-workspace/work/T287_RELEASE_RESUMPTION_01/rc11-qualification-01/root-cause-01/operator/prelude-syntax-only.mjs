@@ -1,0 +1,17 @@
+import {openSync as __dOpen,writeSync as __dWrite,fsyncSync as __dSync,writeFileSync as __dWriteFile} from 'node:fs';
+import {createHash as __dHash} from 'node:crypto';
+const __dOrigin=process.hrtime.bigint();let __dFd=null,__dSeq=0;
+try{__dFd=__dOpen("/private/tmp/abg-rc11-root-cause-20261110-01/syntax-only-never-created.jsonl",'ax');}catch{}
+function __dMark(kind,details={}){try{if(__dFd!==null){const row={seq:++__dSeq,kind,pid:process.pid,ppid:process.ppid,role:"syntax-only",localNs:String(process.hrtime.bigint()-__dOrigin),processUptimeSeconds:process.uptime(),...details};__dWrite(__dFd,JSON.stringify(row)+'\n');__dSync(__dFd);}}catch{}}
+function __dError(e){return {name:e?.name,message:e?.message,code:e?.code,stack:e?.stack};}
+function __dBytes(chunk,encoding){const b=Buffer.isBuffer(chunk)?chunk:Buffer.from(chunk,typeof encoding==='string'?encoding:undefined);return {bytes:b.length,sha256:__dHash('sha256').update(b).digest('hex'),base64:b.toString('base64')};}
+__dMark('body-entry');
+const __dOn=process.on;
+process.on=function(name,fn){if(name!=='SIGTERM')return Reflect.apply(__dOn,this,arguments);const wrapped=function(...a){__dMark('existing-handler-entry',{signal:name});try{return Reflect.apply(fn,this,a);}catch(e){__dMark('existing-handler-error',{signal:name,error:__dError(e)});throw e;}};const result=Reflect.apply(__dOn,this,[name,wrapped]);__dMark('existing-handler-installed',{signal:name});return result;};
+Reflect.apply(__dOn,process,['exit',code=>__dMark('ordinary-exit-hook',{code})]);
+const __dExit=process.exit;process.exit=function(code){__dMark('exit-intent',{code});return Reflect.apply(__dExit,this,arguments);};
+for(const name of ['setTimeout','setInterval']){const original=globalThis[name];let id=0;globalThis[name]=function(callback,delay,...rest){const timer=++id;const wrapped=typeof callback==='function'?function(...a){__dMark('timer-fire',{timer,name,delay});try{return Reflect.apply(callback,this,a);}catch(e){__dMark('timer-callback-error',{timer,name,error:__dError(e)});throw e;}}:callback;const value=Reflect.apply(original,this,[wrapped,delay,...rest]);__dMark('timer-installed',{timer,name,delay});return value;};}
+for(const [streamName,stream] of [['stdout',process.stdout],['stderr',process.stderr]]){const original=stream.write;let id=0;stream.write=function(...a){const write=++id;let data;try{data=__dBytes(a[0],a[1]);}catch(e){data={captureError:__dError(e)};}__dMark('write-attempt',{stream:streamName,write,...data});const at=a.findIndex((x,i)=>i>0&&typeof x==='function');if(at!==-1){const cb=a[at];a[at]=function(...args){__dMark('write-callback',{stream:streamName,write,error:args[0]?__dError(args[0]):null});try{return Reflect.apply(cb,this,args);}catch(e){__dMark('write-callback-error',{stream:streamName,write,error:__dError(e)});throw e;}};}try{const result=Reflect.apply(original,this,a);__dMark('write-return',{stream:streamName,write,returnValue:result,callbackPresent:at!==-1});return result;}catch(e){__dMark('write-error',{stream:streamName,write,error:__dError(e)});throw e;}};}
+function __diagPublishedWrite(...a){const value=__dWriteFile(...a);let data;try{data=__dBytes(a[1]);}catch(e){data={captureError:__dError(e)};}__dMark('file-publication',{path:String(a[0]),...data});return value;}
+function __diagSpawn(...a){const value=spawn(...a);__dMark('descendant-spawn-return',{pid:value.pid??null,command:a[0],args:a[1]});return value;}
+

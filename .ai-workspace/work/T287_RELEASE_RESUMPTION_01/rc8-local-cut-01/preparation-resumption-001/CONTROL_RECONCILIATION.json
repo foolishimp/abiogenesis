@@ -1,0 +1,113 @@
+{
+  "status": "EXISTING_CORRECTED002_PATH_RECONCILED_NO_EXECUTION",
+  "at": "2026-11-07T22:18:07.382440+00:00",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "bytes": 27890,
+    "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_002.json",
+    "bytes": 4182,
+    "sha256": "64e5c7a9bb4092fdc9334e9f78898e5cdd401d58059f2098c9a7f68a87c1ef39"
+  },
+  "ownerPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/OWNER_AND_TOOL_PINS.json",
+    "bytes": 5505,
+    "sha256": "82ce0aa1a62e7bac61fe2c633ce83f7c1c36a384b7adf3d9003f2190c01426f1"
+  },
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "phases": [
+    {
+      "phase": "final preparation",
+      "requires": [
+        "Root-accepted actual A12 source/proof/review/native-close/readback conjunction",
+        "Final source inventory in files[{relativePath,sourceSnapshot,bytes,sha256}] form; actual changed/new paths and modes",
+        "Root final broad/source acceptance preserving all16 population standings and nine residuals",
+        "Fresh separate execution activation/binding with exact controls and current delivery pins"
+      ],
+      "currentStatus": "PENDING_A12_AND_ROOT_CONJUNCTION"
+    },
+    {
+      "phase": "build",
+      "command": "/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs build <ROOT_FINAL_BUILD_BINDINGS.json> <EXACT_BINDING_SHA256>",
+      "expectedOutputs": [
+        "SOURCE_PREPARED.json",
+        "SOURCE_CHECKPOINT.json",
+        "REPRODUCTION_INPUTS_VERIFIED.json",
+        "candidate/RESULT.json",
+        "reproduction/RESULT.json",
+        "EXACT_TESTED_ARTIFACT.json",
+        "INSTALL_INPUTS_PENDING.json",
+        "BUILD_RESULT.json"
+      ],
+      "evidencePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001",
+      "realization": "Check every source snapshot and live C8 row; require base HEAD/tree/branch and empty index; preserve main/RC7 heads/index; git-add exact changed paths; checkpoint; git archive exact tenant/spec/definition/agent inputs; clean compile/generate/npm pack; assert archive bytes/hash, manifest and every payload member equal tested archive. No source overlay replacement."
+    },
+    {
+      "phase": "packaging review",
+      "requires": [
+        "Exact completed sourceCommit/sourceTree and byte-equal reproduction/artifact receipts",
+        "Independent verdict:satisfied naming exact commit/tree",
+        "Final reviewed claim/residual/authority document pins"
+      ],
+      "currentStatus": "AFTER_BUILD"
+    },
+    {
+      "phase": "install",
+      "command": "/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs install <ROOT_FINAL_INSTALL_BINDINGS.json> <EXACT_BINDING_SHA256>",
+      "expectedControlFields": [
+        "activation",
+        "preparationManifest",
+        "buildBindings",
+        "sourceCheckpoint",
+        "candidate",
+        "reproduction",
+        "exactTestedArtifact",
+        "independentPackagingReview",
+        "installInputs",
+        "boundedClaim",
+        "residuals",
+        "rootAuthority",
+        "claim",
+        "limits",
+        "published:false",
+        "qualified:false",
+        "selectorChanged:false"
+      ],
+      "expectedOutputs": [
+        "install-001/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+        "install-001/INPUT_MANIFEST.json",
+        "releaseRoot/verification.json",
+        "releaseRoot/resolved-lock.json",
+        "releaseRoot/installation.json",
+        "releaseRoot/payload-correspondence.json",
+        "releaseRoot/LOCAL_CUT_RECORD.json",
+        "releaseRoot/SHA256SUMS",
+        "install-001/INSTALLED_OWNER_SMOKE.json",
+        "FINAL_INSTALL_VERIFICATION.json"
+      ],
+      "realization": "Exact prior build/commit/tree/candidate/reproduction/member correspondence and independent review checked before allocation; existing Product verify/resolved-lock/install and all-member payload equality; actual installed exports/verification/empty-resource read/close; final receipt after smoke. No global selector/provider/native workflow."
+    }
+  ],
+  "materialReconciliation": [
+    "Old source004 binding descriptions still say25paths/five residuals/broad018; prepared-claims002 saysseven residuals. Historical files preserved; successor drafts use nine capsules and broad025192/986/227 plus16 separate populations.",
+    "Corrected001 templates retained by corrected002 manifest still show older budgets and control prose. Use the existing source004 concrete budgets20m/15m and corrected002 driver/manifest; do not instantiate stale template values blindly.",
+    "Driver writes source/artifact map before install and final verification after smoke. Successor claim text now names these distinct evidence stages; no driver modification needed."
+  ],
+  "realPreparationGaps": [
+    "A12 exact final source/proof/review and Root acceptance unavailable; final source inventory/changed paths cannot yet be frozen.",
+    "Root final broad/source conjunction unavailable; acceptance.broadClose remains null and execution disabled."
+  ],
+  "ownerPathOrBudgetDefectFound": false,
+  "executionEnabled": false
+}

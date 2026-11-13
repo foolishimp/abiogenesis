@@ -1,0 +1,99 @@
+{
+  "status": "SYNTAX_AND_FINITE_STATIC_CHECKS_PASSED",
+  "syntax": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/prepare-and-dispatch.mjs",
+        "bytes": 19155,
+        "sha256": "8c0947b59a26995f78c5f7e4610834968f50163e5c3466bed4e82761e11ba8ab"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/prepare-and-dispatch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/launch-owner-script.mjs",
+        "bytes": 2148,
+        "sha256": "b74850904d806cc43d598e5ca87070dd61a7a947ca8961045b311a51b50bab68"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/launch-owner-script.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/inputs/prior-author-stage.mjs",
+        "bytes": 7662,
+        "sha256": "4128ff44bc2f999ac7ae5737d5833593a9b8017097916997f0bd969b45a97d19"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/inputs/prior-author-stage.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/inputs/prior-author-lanes.mjs",
+        "bytes": 9357,
+        "sha256": "aae6586f894880fdce67ce21e4a147dacc5ed0a6efac5e95018933a0754d8d6d"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/inputs/prior-author-lanes.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/claude-provider.sh",
+        "bytes": 726,
+        "sha256": "3913b9017dcbabc8888e711bc0f04f2225010adb6a64b3d9481a9b3fe32f1fb7"
+      },
+      "argv": [
+        "/bin/sh",
+        "-n",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/claude-provider.sh"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "sourceF450Equal": true,
+  "fiveRootSelectedWritePathsEqual": true,
+  "inheritedTrackedChanges": 58,
+  "inheritedNewProductFiles": 2,
+  "contextCount": 471,
+  "stageCeiling": 3,
+  "laneCeiling": 5,
+  "plannedLaneInvocations": 4,
+  "positiveSelectorsOnly": true,
+  "distinctEmptyNpmConfigs": true,
+  "wrapperMode": "0755",
+  "actualFSourceCloseAndPartialDispositionBound": true,
+  "frozenExistingOperatorPinsVerified": true,
+  "RootNativeAdmission": null,
+  "runtimeAcquisitions": 0,
+  "providerCalls": 0,
+  "builds": 0,
+  "tests": 0,
+  "CStagingWrites": 0
+}

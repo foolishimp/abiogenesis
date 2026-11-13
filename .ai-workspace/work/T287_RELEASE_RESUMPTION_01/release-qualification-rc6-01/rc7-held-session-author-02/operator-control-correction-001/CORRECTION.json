@@ -1,0 +1,100 @@
+{
+  "kind": "operator_control_correction",
+  "id": "HS2-CONTROL-001",
+  "status": "PREPARED_NOT_EXECUTED_ACTIVE_INPUTS_UNCHANGED",
+  "createdUtc": "2026-11-06T15:07:14.781019+00:00",
+  "authority": "Root explicit control triage; separate later operator execution only",
+  "finding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/CONTROL_FINDING_001.json",
+    "bytes": 2328,
+    "sha256": "889272b023ddc5eb756956b73e1c7e3f3b8da8c74b6c4f4a38d08b252e1e1dc0"
+  },
+  "originalHelper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/inputs/prior-author-lanes.mjs",
+    "bytes": 10971,
+    "sha256": "211bb0e2f91cf6210adf7ce64b23cf0fc4f64bb1f10aea00795baa7541e16dc2"
+  },
+  "originalAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 7541,
+    "sha256": "6f392e084cfa0c2419cef9288904e9ddbde4e7669d02898d8eacbacadcc7fd5d"
+  },
+  "originalDispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/DISPATCH_MANIFEST.json",
+    "bytes": 28323,
+    "sha256": "4893e817408aea1e5356525ae94e307916f02055c1dd2138cf972cc4973e5fbd"
+  },
+  "correctedHelper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-control-correction-001/prior-author-lanes.mjs",
+    "bytes": 11032,
+    "sha256": "a1ec9ae1d1fcf4c2f7a06e934fcca74e58a41f7dc194b42ac8c2ec03a69f1081"
+  },
+  "exactDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-control-correction-001/CHANGE.patch",
+    "bytes": 1086,
+    "sha256": "97e66f2694f586e098e08ac2ea62a7ec7e7b787a5f7e0ed7ef674122f9246b6c"
+  },
+  "changedLines": [
+    81
+  ],
+  "canonicalCommandBounds": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/inputs/COMMAND_BOUNDS.json",
+    "bytes": 4570,
+    "sha256": "195c06b45e4a853e272dd86b9f57dcf693471ea7b0b3b16342dcee7f62c9dfb5"
+  },
+  "laneInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/inputs/C2_INPUTS.json",
+    "bytes": 47655,
+    "sha256": "7808e4f75ac2253ac2a50826ff02f5157c6e39155966e447da865b1b3be5f04e"
+  },
+  "laneValues": [
+    {
+      "laneId": "fixed-route",
+      "configuredMs": 600000,
+      "canonicalBoundMs": 600000,
+      "safeIntegerAndExactEquality": true
+    },
+    {
+      "laneId": "assessment-guards",
+      "configuredMs": 300000,
+      "canonicalBoundMs": 300000,
+      "safeIntegerAndExactEquality": true
+    },
+    {
+      "laneId": "caller",
+      "configuredMs": 300000,
+      "canonicalBoundMs": 300000,
+      "safeIntegerAndExactEquality": true
+    },
+    {
+      "laneId": "fixed-route-correction",
+      "configuredMs": 600000,
+      "canonicalBoundMs": 600000,
+      "safeIntegerAndExactEquality": true
+    },
+    {
+      "laneId": "assessment-guards-correction",
+      "configuredMs": 300000,
+      "canonicalBoundMs": 300000,
+      "safeIntegerAndExactEquality": true
+    },
+    {
+      "laneId": "caller-correction",
+      "configuredMs": 300000,
+      "canonicalBoundMs": 300000,
+      "safeIntegerAndExactEquality": true
+    }
+  ],
+  "verification": {
+    "singleExactGuardReplacement": true,
+    "allOtherTextIdentical": true,
+    "nodeSyntaxCheckExitCode": 0,
+    "helperInvoked": false,
+    "testOrRuntimeInvoked": false
+  },
+  "standing": [
+    "Safe-integer plus exact canonical per-lane equality replaces the stale300000 literal. The selected600/300 budgets themselves do not change.",
+    "All original helper/admission/context bytes remain untouched. No C input or Product/source edit, no actor abort/relaunch, no stage/lane consumed.",
+    "Root must separately bind any post-author/operator execution against an actual frozen built candidate. This correction is not inserted into the active native grant."
+  ]
+}

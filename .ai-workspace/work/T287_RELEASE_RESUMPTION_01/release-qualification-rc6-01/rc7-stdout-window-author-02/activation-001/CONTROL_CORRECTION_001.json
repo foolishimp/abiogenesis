@@ -1,0 +1,56 @@
+{
+  "kind": "bounded_operator_control_prose_correction",
+  "createdUtc": "2026-11-06T21:59:06.216796+00:00",
+  "authority": "Root relayed independent control review; correct two stale prohibition strings only.",
+  "unchangedClosedPreparation": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/PREPARATION_MANIFEST.json",
+  "before": {
+    "NATIVE_GRANT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/preimages/control-prose-001/NATIVE_GRANT.json",
+      "bytes": 54577,
+      "sha256": "48cca43c409db06302321f30c610f9460b2664e22c096bf5832a901a6c3fe94b"
+    },
+    "STAGING_MANIFEST.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/preimages/control-prose-001/STAGING_MANIFEST.json",
+      "bytes": 11348,
+      "sha256": "2dda3037732ea78bec8c06b845b8ae7cfc0c603a459d65220cc8fdb93f9c1a4f"
+    },
+    "workload.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/preimages/control-prose-001/workload.json",
+      "bytes": 185738,
+      "sha256": "eab8d639adcae372139f175470a96cef4cf9c0feea78e3369919b43a2a492e14"
+    }
+  },
+  "after": {
+    "NATIVE_GRANT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/NATIVE_GRANT.json",
+      "bytes": 54870,
+      "sha256": "f7b040f911fc0548d90e3268086e04a3411c1e8f6fb58b4ac8491f45992d50a8"
+    },
+    "STAGING_MANIFEST.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/STAGING_MANIFEST.json",
+      "bytes": 11348,
+      "sha256": "02ddb1d94f25e9bc990409d61fa23b5e7d1b7f96b1d22cb32dbc5685f8a83284"
+    },
+    "workload.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/workload.json",
+      "bytes": 185738,
+      "sha256": "428484d0cbffcf8c7a076272eef54ae2c73332f8cd11352033d8beae71a286bd"
+    }
+  },
+  "oldProhibitions": {
+    "0": "No HS03 source edit or native activation before Root accepts H05 returned source and binds its genuine close, retaining selected HS01/HS02 proof/measurements.",
+    "4": "Only four create-only stages and seven serial300-second lane invocations, including failures/incompleteness; no retry or broad suite."
+  },
+  "newProhibitions": {
+    "0": "No native/provider activation before exact final Root control admission and capacity decision. The selected working basis is the actual S5 physical451-row partial source and genuine failed-run close/original resume bound by Root disposition edd58154. NativeResult/native.after remain absent; prior H06 acceptance is retained only by reference.",
+    "4": "No more than two successor AFTER stages and six final lane invocations, one each selected final lane. Never allocate stdout-before again. Failed/incomplete reservations count; no automatic retry, extra stage/lane or timeout/budget extension."
+  },
+  "unchanged": [
+    "Executable controls",
+    "Structured2stage/6lane/60min bounds",
+    "451 source selection and17-write ceiling",
+    "Actual S5 close/resume",
+    "Root admission/dispatch pending"
+  ],
+  "ProductOrRuntimeEffects": false
+}

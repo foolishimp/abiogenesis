@@ -1,0 +1,87 @@
+{
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "id": "T287-RC8-AUTHOR09-NATIVE-WORKSITE-FIXTURE",
+  "at": "2026-11-07T09:32:46.859366+00:00",
+  "authority": "Root selected one-file fixture maintenance and concrete held preparation; one native dispatch requires Root admission. Existing user approval unchanged.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL035",
+  "sourcePreimageDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+  "sourcePreimageFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/source-freeze.json",
+    "bytes": 296040,
+    "sha256": "efba6bea8f3d0e1b0695772c18bdd731652b0f0652a2a878619b2445c073fc50"
+  },
+  "sourcePreimageStanding": "Root explicitly selects reviewed physical A8 source86711 as preimage. A8 source acceptance pending; its native Run runtime_failed. A7 bounded acceptance is historical, not the current preimage acceptance.",
+  "lastBoundedAcceptedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 4172,
+    "sha256": "67f8c15d6ff37486d63cc61f35d4a082e1bd7b83ac71adeda866b9a0ffac3ea7"
+  },
+  "actualPriorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "2320c892bb0d6d276e18cb67360710527196ff32c9cd21422aa419b682ac4b9a"
+  },
+  "priorFailedSdk": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 45728,
+    "sha256": "4ba0a8b728f8d9a79a19d0646f1a37722e2d19ba8e2b5a766fa7f1a11d8b1615"
+  },
+  "productArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/native-worksite-012-plan/REVIEW.json",
+    "bytes": 16184,
+    "sha256": "72de32fe9e25518734040a1a6e018dfd418e582c360a8dc1bae96de3c43d4140"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/native-worksite-012-plan/README.md",
+    "bytes": 2528,
+    "sha256": "47abda759b3f7fba594648f45a8099f500914864d08b2616e7f6c003732d671b"
+  },
+  "reviewTerminologyDisposition": "Review subject field and one README phrase say acceptedA8 imprecisely; explicit final review steering and this Root grant govern: source-only reviewed physical preimage, native failed, acceptance pending. Review bytes preserved.",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/PREPARATION.json",
+    "bytes": 6954,
+    "sha256": "bbe67934bf794ef2aaa66e6c7575b69e8a39da897d527544a7e26cfadfdc7124"
+  },
+  "rootConjunction": "HOW R1 prospective native Result carries inputDigest, no task. Test fixture discards original task then reads source.task before C2 construction. Correct complete seven-case cone in one file by carrying the actual original task explicitly and resolving retained Result tasks through existing ABG basis/source projectors. Preserve every currentness/source/negative oracle; no current C2 sunny-day refusal may be dismissed as fixture drift.",
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs"
+  ],
+  "readOnlyOwnerLibraryRoot": "build_tenants/abiogenesis/typescript/code/src",
+  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-09",
+  "budgets": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "focusedNameFilteredInvocations": 0,
+    "focusedWholeFileInvocations": 1
+  },
+  "permissions": {
+    "ownerPrepare": true,
+    "providerDispatch": false,
+    "furtherRootAdmissionRequired": true,
+    "sourceCodingByOperator": false
+  },
+  "prohibited": [
+    "No Product/HOW/helper/config/dependency/baseline changes or new owner API",
+    "No task embedding into compact Result, digest-equal substitution, guard bypass, added skip or optional input enablement",
+    "No extra proof/build/provider/reviewer/Git/cut/push/selector/cleanup; stop first unexpected red, larger scope or bound"
+  ]
+}

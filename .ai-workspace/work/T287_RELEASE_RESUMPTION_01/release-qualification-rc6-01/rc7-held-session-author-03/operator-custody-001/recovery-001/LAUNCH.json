@@ -1,0 +1,55 @@
+{
+  "kind": "operator_native_host_recovery_launch_observation",
+  "status": "RECOVERY_HOST_PREPARING_NATIVE_CALL_UNCONSUMED",
+  "observedUtc": "2026-11-06T16:49:42.270217+00:00",
+  "rootSession": 43614,
+  "hostPid": 77268,
+  "hostStartedUtc": "2026-11-06T16:47:42.126Z",
+  "dispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/DISPATCH_MANIFEST.json",
+    "bytes": 30565,
+    "sha256": "a4ee5765c0c171de3354e1246dde58218d509f1116cf29effe8cfcce650e7631"
+  },
+  "recoveryAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_CONTROL_ADMISSION.recovery-001.json",
+    "bytes": 8553,
+    "sha256": "8e1e28180ce1bc7b172a5008159b13a7ff7fe4d02e4e70b17404a072d88e8817"
+  },
+  "operatorRecoverySelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-recovery-001/ROOT_SELECTION.json",
+    "bytes": 3828,
+    "sha256": "e223a7e9ec4597f9eed766cfb25c2bbefaad2a844d8db6359fd3f01ae20552a5"
+  },
+  "immediateActualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/failed-preparation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8335,
+    "sha256": "5ba039f83ec4da0c6299eca407961cbf709e7ab6c57223a5e558d46d427cda52"
+  },
+  "immediateActualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "daaa3b3868d7e9e1461c0f081584a012d6aa674f6a171579882f01803480142f"
+  },
+  "originalDispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/DISPATCH_MANIFEST.json",
+    "bytes": 26101,
+    "sha256": "716f8e346cdba46d2a35e410ea3d44503e36eb93aa4dac44dbaaf702c2388860"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+    "bytes": 240531,
+    "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+  },
+  "nativeScopeUnchanged": true,
+  "sourceCount": 451,
+  "stagedControls": 18,
+  "dispatchPins": 79,
+  "contextEntries": 472,
+  "actualActorStart": null,
+  "actualFutureReturn": null,
+  "standing": [
+    "Original estimate and failed attempt remain immutable; actual capacity belongs inside execution-recovery-001.",
+    "Same unconsumed five-path coding scope; no SDK/native Run/actor inferred before actual receipt.",
+    "Root owns host session exit. No source/control/ticket changes, runtime acquisition/provider call or cold campaign drain by custody Writer."
+  ]
+}

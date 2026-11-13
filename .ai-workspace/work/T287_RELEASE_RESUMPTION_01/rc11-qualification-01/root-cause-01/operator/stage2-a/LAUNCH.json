@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/diagnostic.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/BINDING.json",
+    "25f5b9ee3f9269c5ec4b9f0f53404ec0a6d4ea9fcc68b3e89110fc1ffd7c43c7",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/ROOT_EXECUTION_ADMISSION.json",
+    "6001989de47cae8a0decca7892fc7a4e6ad640d3fd0ac8fc276e03dd9378977b"
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "recordedUtc": "2026-11-07T05:00:56.074037+00:00",
+  "executive": "/root",
+  "recorder": "/root/rc8_operator",
+  "rootDisposition": "Root execution003 selection authorizes this single bounded continuation after the diagnosed physical npm layout correction and exact 19-file credit join; no extra GO required. Existing npm packlist equality must hold before tests; stop first red/incomplete/resource limit. Preserve001/002; no automatic retry.",
+  "configSha256": "7fd7b04d7d6e7f5e4b110335f53540b69f33bde9c3f30c82646499dee4cd0198",
+  "inventorySha256": "071bddc9b04faef1d384c1f20121cb38a87796fdc1ccb6447b2bca002538396b",
+  "frozenStageReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+  "preparationManifestSha256": "9f7ca78778ed2b72b6f6208163bb2a010997362b495487714b181b693727ad3c",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_004.json",
+    "bytes": 38501,
+    "sha256": "7fd7b04d7d6e7f5e4b110335f53540b69f33bde9c3f30c82646499dee4cd0198"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-004/BOUND_INVENTORY.json",
+    "bytes": 1715906,
+    "sha256": "071bddc9b04faef1d384c1f20121cb38a87796fdc1ccb6447b2bca002538396b"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_003.json",
+    "bytes": 3343,
+    "sha256": "9f7ca78778ed2b72b6f6208163bb2a010997362b495487714b181b693727ad3c"
+  },
+  "controlCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CONTROL_CORRECTION_003.json",
+    "bytes": 3836,
+    "sha256": "d6c5f6efa391fe34e4c0c0b7bae36e948d43696013e96566ef1df8d1ecf02adf"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "rootMeasurementAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_MEASUREMENT_ACCEPTANCE_004.json",
+    "bytes": 5739,
+    "sha256": "e4e961ab00b4c4c2cffebd95609fecab0c9b06dc32705f10bd5e3606692d4c86"
+  },
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "selectedEffects": {
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-003",
+    "scratchRoot": "/private/tmp/abg-r8c-003",
+    "scheduledFiles": 189,
+    "wholeFileCredits": 19,
+    "creditPasses": 86,
+    "creditSkips": 51,
+    "physicalDependencyCopies": "Inside each derived package tenant/node_modules; common plus two isolated build test workspaces allocated serially.",
+    "cleanup": "Only successful isolated build copies after evidence custody, as frozen driver states.",
+    "sourceEdits": false,
+    "git": false,
+    "dependencyInstall": false,
+    "network": false,
+    "providerCallsSelected": 0,
+    "automaticRetry": false
+  },
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "fileTimeoutMs": {
+    "test_env/tests/t287-governed-context.test.mjs": 2100000,
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs": 3600000,
+    "test_env/tests/t289-install-event-bodies.test.mjs": 1200000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000
+  },
+  "preflightTwoCopyBytes": 247528492,
+  "freeBytesAtAdmission": 7931027456,
+  "qualification": false
+}

@@ -1,0 +1,63 @@
+{
+  "productFrame": {
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "goal": "GOAL-035/T-287",
+    "slice": "F11/F15 truthful surviving-contributor attribution / QR02 finite historical member",
+    "outcome": "Supply exact original materials, transitions and source records while preserving attribution uncertainty and avoiding duplicated bodies.",
+    "sourceAuthority": "Three named closed QR02 reports and original pinned D5/RP2 records; later D5 source resolution closes only the documentary location/support gap.",
+    "toolAuthority": "Named immutable Git-object/diff reads and exact original-record file acquisition; file hashes/spans are custody, not new native authority or contributor judgment.",
+    "runtimeAuthority": "No runtime action, source admission, assessment or acknowledgment. D5 remains sole active native coder; final source/runtime bindings unbound.",
+    "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "prohibitions": [
+      "No source/code/schema/test edits, new registry/store, history census, provider/network/runtime/build or worksite staging.",
+      "No moving source or private provider/auth/history reads; no fabricated author events or future J/acknowledgment that manufactures missing prior attribution."
+    ]
+  },
+  "status": "PREPARED_HISTORICAL_MATERIALS_ONLY",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr02-materials-01/MATERIAL_MANIFEST.json",
+    "bytes": 60791,
+    "sha256": "335e012a3697fa895e9eeae22c542031728e86c5a73baf5b8420d8142f7ae49d"
+  },
+  "counts": {
+    "uniqueMemberBlobs": 3,
+    "uniqueDiffs": 2,
+    "originalD5CommitObjects": 4,
+    "uniqueD5SourceSpanBodies": 8,
+    "originalRP2RecordBodies": 2,
+    "closedResolutionRecords": 3,
+    "allPhysicalMaterials": 22
+  },
+  "bytes": {
+    "memberBodies": 48231,
+    "diffBodies": 27624,
+    "memberPlusDiff": 75855,
+    "originalRecordsAndResolutions": 83486,
+    "allPhysicalMaterials": 159341
+  },
+  "exactReuse": [
+    "D5 postimage = RP2 preimage: shared739b72e2 body",
+    "RP2 postimage = historical selected1f62: shared07092d23 body",
+    "655-byte closureManifest block uses spans of those bodies, with155-byte offset shift; no repeated body",
+    "D5 activation5578-5580 is referenced inside retained5560-5580 body; no duplicated subspan"
+  ],
+  "documentaryDisposition": "Accept documentary location/support of original D5 grant, declared Opus5.5 writer, exact implementation and bounded Executive closure. Reuse these original sources for the selected QR02 external-arm increment after Q23. The original-source location gap is closed.",
+  "preservedUncertainty": [
+    "Existing attribution owner must judge source-grounded semantic survival and completeness; a connecting change or byte-preserved block is not a full contributor census.",
+    "Earlier contributors to the9198-byte preimage/inherited tree remain outside this packet and unknown.",
+    "Existing external-arm owner judges documentary sufficiency; no new universal historical native-invocation requirement is added.",
+    "Required pre-paid qualification needs sufficient prior attribution and Q23 policy/identity conditions. If Claude and Codex contributor claims are sufficient, either declared family conflicts with its surviving own-family contribution; this is not an eligible paid-assessment claim.",
+    "Actual post-D5 source and runtime close must be supplied by Root before a later bounded increment. No future J/acknowledgment can bootstrap missing prior authorship or waive independence."
+  ],
+  "sourceAndRuntimeBindings": {
+    "currentSource": null,
+    "futurePostD5Source": null,
+    "runtime": null,
+    "currentSubjectInventory": null,
+    "nativeActivation": null
+  },
+  "representationLimit": "No Product contract/schema/provenance value built. All materials use existing pin/ref/digest/span records; original whole-source Git identities retained for excerpt authentication.",
+  "validation": "Read-only exact byte/hash checks; canonical two diffs; named four commit-object parents; all selected original record spans; identical-body reuse and single retained-block occurrence. No Product tests or runtime execution.",
+  "effects": "Only these finite material copies, manifest and preparation return inside qr02-materials-01; no code/test/schema/runtime/provider/Git changes or worksite staging.",
+  "nextConsumer": "Root selects a later exact post-D5 candidate and bounded existing-owner native increment. This packet neither starts it nor changes the sole active D5 coding Worker."
+}

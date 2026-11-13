@@ -1,0 +1,72 @@
+{
+  "kind": "rc6_driven_rc7_launch_phase_observation",
+  "recordedUtc": "2026-11-06T05:24:21.875458+00:00",
+  "status": "ACTUAL_NATIVE_STARTED_WORK_PENDING",
+  "builder": "immutable installed ABIogenesis5.0.0-rc.6",
+  "sourceSuccessor": "prospective RC7",
+  "hostLaunch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/HOST_LAUNCH.json",
+    "bytes": 278,
+    "sha256": "f24c2aeed37393a8ac9a8fa6d4657d87b518807d747e46a7540077261a3b7b91"
+  },
+  "dispatchStart": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/STARTED.json",
+    "bytes": 1053,
+    "sha256": "432874128a3fe97b3cffe7ef011284421140bde9cdcfef4b1bb48100ee68d99b"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREFLIGHT_RESULT.json",
+    "bytes": 153,
+    "sha256": "657b8b3f5396bcfa2daa959362ce42f0423133c67ef3079773ff1ca97430881b"
+  },
+  "nativeActorStart": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 188935,
+    "eventId": "event://abiogenesis/cf9c38088287f07e7e441c171a2f1b17246c55a762507baad9f8fbf4f9a1cf34",
+    "eventTime": "2026-11-06T05:19:52.640Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9",
+    "offset": 1212700848,
+    "rowBytes": 1823,
+    "rowSha256": "d9450f989ba270817a6686ed2a658cf09ca553c070bbff9f3c6fc290dd5afd2d",
+    "processRef": "process://abiogenesis/419ba07f7606f4d754857f58fc8fcc6f31186b9fd6850fc052ae5d6afbf6d6ac",
+    "pid": 73671
+  },
+  "run": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9",
+  "phasesMs": {
+    "setup": null,
+    "preflight": 80419.42783305421,
+    "preflightEndToHostLaunchOperatorGap": 151874.695,
+    "hostLaunchToDispatch": 315147.533,
+    "dispatchToNativeActor": 169783.0,
+    "hostLaunchToNativeActor": 484930.53300000005,
+    "nativeWork": null,
+    "postReturn": null,
+    "betweenNativeTasks": null
+  },
+  "redFlag": {
+    "id": "RC7-B-RC6-STARTUP-001",
+    "observation": "Host launch to dispatch was315.148s versus65.457s on the prior native task; workloads/resource sizes and concurrent work differ, so no causal regression or speedup is established.",
+    "knownPreStartWork": [
+      "exact dispatch-manifest byte verification",
+      "resume parse and installed module loading",
+      "publicCaller.refresh through existing installed owner",
+      "473-path context observation",
+      "prepared-call parse and canonical digest"
+    ],
+    "cause": "Not localized within the pre-start interval; no per-step timestamps exist there.",
+    "ownerRoutes": [
+      "rc7-overhead-author-02/dispatch.mjs",
+      "operator-client/public-setup.mjs publicCaller.refresh",
+      "installed RC6 materializeCurrentInvocationEnvironment",
+      "selected RC7 existing prefix and carriage owners"
+    ],
+    "decision": "Preserve exact observation; do not repeat launch or mutate RC6. Use candidate owner changes and matched successor measurements to test the explanation."
+  },
+  "limits": [
+    "Wall-clock intervals are not CPU attribution.",
+    "Setup reused; no new setup measurement.",
+    "Operator gap is not between-task runtime latency.",
+    "Active native source is not frozen or accepted; no RC7 performance claim."
+  ]
+}

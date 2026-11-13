@@ -1,0 +1,379 @@
+{
+  "kind": "closed_original_d5_construction_source_resolution",
+  "status": "original_documentary_support_resolved",
+  "role": "Contributing read-only evidence researcher; no independent source acceptance or native qualification",
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "goal": "GOAL-035/T-287/F11-F15",
+    "scope": "Original D5-c grant/writer/closure for one provenance.mjs transition; no attribution redesign"
+  },
+  "intake": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_D5_SOURCE_REQUEST.json",
+    "bytes": 2702,
+    "sha256": "bc0ae41732394a8fde3b1371543680c294485f66dab3027db85976f185ac28a0"
+  },
+  "reused": {
+    "qr02NextIncrement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_NEXT_INCREMENT.json",
+      "sha256": "4f618b6cad0a0972b45b784c4b912209e9a939e67c869b7090e84e6d01f65e32"
+    },
+    "provenanceReadinessReviewSha256": "163d0a6484dab2b9f1f53a3519a95429479dcbb58affe894b8c75a765d08f574",
+    "rootProvenanceSupplementSha256": "f223f1fa69ffcfad814b1d24c7c6b877923afa0bf48b82cd0680e12745500f92"
+  },
+  "exactSubject": {
+    "member": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "from": "56015068371277c8efed53f0f40d1e53bdee79ea",
+    "to": "92498a2d29eca294d851557753cbda2fe047c357",
+    "currentFrozen": "1f62c0095e6196b089071bb72e88217792edf6ff"
+  },
+  "conclusion": "The original D5-c activation, scoped grant, Opus 5.5 Worker return and Executive closure are now located and pinned. The prior QR02 original-source location gap is resolved at documentary level. The writer declaration is supported by original work records, not only a Co-Authored-By trailer. This does not complete inherited-contributor attribution, semantic-survival sufficiency, or production assessment eligibility.",
+  "originalChain": {
+    "activation": "56015068371277c8efed53f0f40d1e53bdee79ea",
+    "implementation": "92498a2d29eca294d851557753cbda2fe047c357",
+    "workerRecord": "e1a041fd99cf80fd02d7f9900fda859144b7b0de",
+    "executiveClosure": "d152f45bc428000d1fbb6e64cb9f320f778e0eb8",
+    "relation": "Each successive commit is the direct child of the previous one; implementation parent equals the requested preimage."
+  },
+  "sourcePins": {
+    "commits": {
+      "56015068371277c8efed53f0f40d1e53bdee79ea": {
+        "parents": [
+          "ac6dc9d7903e087dbc9eb58bf0841ab6c79cb877"
+        ],
+        "authorDate": "2026-10-29 07:07:04 +1100",
+        "subject": "D5-b accepted in part (no verdict: the projection stop; the attribution gate; the coverage catalog's eight unevidenced behaviors); D5-c activated without a provider: the inherited chain, the re-packed projection, the real execution material, the dispatch path; the sibling qualification operator configuration; the ticket's status lines repaired (603404b68 had spliced the next-work text into the activation line and dropped the activation-status line)",
+        "commitObjectBytes": 727,
+        "commitObjectSha256": "073a20c77e2d29826fc9f4b92288b2adb59dd4404dae51611e267890165b19ee"
+      },
+      "92498a2d29eca294d851557753cbda2fe047c357": {
+        "parents": [
+          "56015068371277c8efed53f0f40d1e53bdee79ea"
+        ],
+        "authorDate": "2026-10-29 09:49:46 +1100",
+        "subject": "D5-c (test territory): the inherited-base chain, the rule role packed per surface part, the real execution material, the dispatch path with its dry mode",
+        "commitObjectBytes": 1648,
+        "commitObjectSha256": "fcc93e282b24acddede0d70019a6a10861363a17941d6251676756c07adb489e"
+      },
+      "e1a041fd99cf80fd02d7f9900fda859144b7b0de": {
+        "parents": [
+          "92498a2d29eca294d851557753cbda2fe047c357"
+        ],
+        "authorDate": "2026-10-29 11:42:45 +1100",
+        "subject": "D5-c: the native qualification made dispatch-ready without a provider call (projection 520.21 USD, 409 calls; execution material 7,528,927 bytes; eight behaviors analysed)",
+        "commitObjectBytes": 1044,
+        "commitObjectSha256": "4d2e6c1bd937e4a077cbe8202fd176cf78de7915567b1fa88688a2e74f2cc62b"
+      },
+      "d152f45bc428000d1fbb6e64cb9f320f778e0eb8": {
+        "parents": [
+          "e1a041fd99cf80fd02d7f9900fda859144b7b0de"
+        ],
+        "authorDate": "2026-10-29 11:46:39 +1100",
+        "subject": "D5-c accepted: the native qualification is not dispatchable on the candidate for six Product findings (the execution material renders the whole C2 Result; the quadratic plan check; the independence check never matches; complement slots without a lawful partition; sequential provider calls; the coverage catalog claims an unrealized behavior); Phase D stopped for the owner's decisions Q19 to Q22",
+        "commitObjectBytes": 671,
+        "commitObjectSha256": "dfacde2bc31dbc5281cf1897641eab7f16a7b76cd7edbe48bb69d0a9de60b1a0"
+      }
+    },
+    "activation": {
+      "commit": "56015068371277c8efed53f0f40d1e53bdee79ea",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md",
+      "blob": "90a1ac57b7f1a186e177e3f239bf6ccac05c188b",
+      "bytes": 929142,
+      "sha256": "dc3863d51bfc28219d7a436158d3875a93f2cf257fbcfaa405df4b5d05e057b1",
+      "spans": [
+        {
+          "startLine": 5560,
+          "endLine": 5580,
+          "startByte": 922067,
+          "endByte": 929142,
+          "bytes": 7075,
+          "sha256": "f472920250e8e90ae400083d55e2e0eb8fc172070ba2afa2a323a9b9d06c82cc"
+        },
+        {
+          "startLine": 5578,
+          "endLine": 5580,
+          "startByte": 927669,
+          "endByte": 929142,
+          "bytes": 1473,
+          "sha256": "8785ff15af7c593cb08cecb3401f514e213b2571c69958a40df5d5c0b263ac86"
+        }
+      ]
+    },
+    "workerReturn": {
+      "commit": "e1a041fd99cf80fd02d7f9900fda859144b7b0de",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md",
+      "blob": "1e3c30415599b5d96b22d99e2b328d4482c59b0b",
+      "bytes": 942095,
+      "sha256": "637abe3c6193ac710fb0812f589f892cb43c93ddf6d20ca2b0f7f042ba981f84",
+      "spans": [
+        {
+          "startLine": 5582,
+          "endLine": 5597,
+          "startByte": 929143,
+          "endByte": 930293,
+          "bytes": 1150,
+          "sha256": "80d2e5078a3eba59ee8db34059778ec533ab439cc958c2a7546924ce8783c610"
+        },
+        {
+          "startLine": 5632,
+          "endLine": 5646,
+          "startByte": 931995,
+          "endByte": 933079,
+          "bytes": 1084,
+          "sha256": "d80b0d5d24a3ea24835320a8991aca2c9aa2a50f9c571e823e161a0c414f55fe"
+        },
+        {
+          "startLine": 5771,
+          "endLine": 5779,
+          "startByte": 941560,
+          "endByte": 942095,
+          "bytes": 535,
+          "sha256": "b40b984a01a1481b9eb2aa1c176fdea7bd2a0a04df32da74236a2c264343c352"
+        }
+      ]
+    },
+    "executiveClosure": {
+      "commit": "d152f45bc428000d1fbb6e64cb9f320f778e0eb8",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md",
+      "blob": "94ded55c57e619ef23878379eac35c32d38d7955",
+      "bytes": 949243,
+      "sha256": "5cd6fe8b9c9e9f0332f01d8e9693bb65807a6d9ca68b7f65494b8ae0218b29e3",
+      "spans": [
+        {
+          "startLine": 5781,
+          "endLine": 5783,
+          "startByte": 942096,
+          "endByte": 943464,
+          "bytes": 1368,
+          "sha256": "76169415e0a5f34f1b6a03d673a513d82d99067244d1c834dda9d2840699c6d1"
+        },
+        {
+          "startLine": 5805,
+          "endLine": 5807,
+          "startByte": 948838,
+          "endByte": 949243,
+          "bytes": 405,
+          "sha256": "ebcf444ebb14c1fe006c91ba82f7d4d554ac6076c2d63c392422364357705049"
+        }
+      ]
+    },
+    "workerReadme": {
+      "commit": "e1a041fd99cf80fd02d7f9900fda859144b7b0de",
+      "path": ".ai-workspace/comments/claude/20261029T003734Z_D5C_DISPATCH_READY/README.md",
+      "blob": "e08d4d5b80d56e53acd05d682dc2eda62f77e01d",
+      "bytes": 17494,
+      "sha256": "213a71c9ce809b007f6b5e00249c4a5d16b852b76a30deacf9ff60d1c51d3f23",
+      "spans": [
+        {
+          "startLine": 1,
+          "endLine": 9,
+          "startByte": 0,
+          "endByte": 807,
+          "bytes": 807,
+          "sha256": "e5ec575b4be8861ecd614350d5348008acc090aaf96cab0e95a4eedf1a042609"
+        }
+      ]
+    },
+    "provenanceRecord": {
+      "commit": "e1a041fd99cf80fd02d7f9900fda859144b7b0de",
+      "path": ".ai-workspace/comments/claude/20261029T003734Z_D5C_DISPATCH_READY/provenance.json",
+      "blob": "19a006db5162f527f47020749027fdc1f77dab06",
+      "bytes": 13950,
+      "sha256": "31afc57b649e81c285e288c9d73b6a816799d550741296cad1b32b44bedf9625",
+      "spans": [
+        {
+          "startLine": 379,
+          "endLine": 391,
+          "startByte": 11116,
+          "endByte": 11505,
+          "bytes": 389,
+          "sha256": "98f7135b69abdfedb13c0ac888f0014398e0f149ca02ca35ae891810c213b5c2"
+        }
+      ]
+    },
+    "selectedGeneratedChain": {
+      "index": 23,
+      "kind": "commit",
+      "commit": "92498a2d29eca294d851557753cbda2fe047c357",
+      "parent": "56015068371277c8efed53f0f40d1e53bdee79ea",
+      "authorRef": "actor://abiogenesis/t287/worker",
+      "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+      "postimageMembers": 10,
+      "deleted": 0,
+      "records": 21,
+      "recordBytes": 3299338,
+      "status": "grounded",
+      "ms": 14
+    },
+    "memberPins": [
+      {
+        "commit": "56015068371277c8efed53f0f40d1e53bdee79ea",
+        "path": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+        "blob": "6f7fd64fdcf1ea69c0476bc0b527dfdfd0b455e9",
+        "bytes": 9198,
+        "sha256": "ae0223723f5c86ae3d421af8b45d44992fa3a732d1f36e8ba869347bdf907a8d",
+        "spans": []
+      },
+      {
+        "commit": "92498a2d29eca294d851557753cbda2fe047c357",
+        "path": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+        "blob": "739b72e2dd3e7cb34f16fd678b9907e744951ad8",
+        "bytes": 19439,
+        "sha256": "7cc2df35df8b187b2380a0f28fbaab765f39575aa89d007444c4546839309332",
+        "spans": []
+      }
+    ],
+    "g6Correction": {
+      "source": {
+        "commit": "56015068371277c8efed53f0f40d1e53bdee79ea",
+        "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md",
+        "blob": "90a1ac57b7f1a186e177e3f239bf6ccac05c188b",
+        "bytes": 929142,
+        "sha256": "dc3863d51bfc28219d7a436158d3875a93f2cf257fbcfaa405df4b5d05e057b1",
+        "spans": [
+          {
+            "startLine": 5550,
+            "endLine": 5550,
+            "startByte": 919362,
+            "endByte": 920898,
+            "bytes": 1536,
+            "sha256": "2c3bd3268c42b6971ccec22eaa822c8911a19c2df8192126f923334fc8dfed88"
+          }
+        ]
+      },
+      "line": 5550,
+      "text": "**G-6, accepted: the batch carrier corrected; the twelve true gaps are a Product finding.** `t287-worksite-branch-construction` carries no batch case; `batch` and `C.batch` are carried by `t287-calculus-state-transfer`'s subtests. The twelve rows without an executing carrier are, through the roster's claims, eight behaviors of four published coverage claims (`contracts/qualification/coverage.json`, evidence role `execution_evidence`): `traversal/consequence/graph_span_reentry` and `ticket_traversal`; `traversal/disposition/re_enter`, `yield_continuation`, `inspect_runtime_archive`, `escalate`; `traversal/public/targeting_a_published_asset`; `shape-preserving-fibre-substitution`. By name, realization exists for `re_enter` (16 code files), `escalate` (5), `yield_continuation` (2), `inspect_runtime_archive` (3) and `graph_span_reentry` (2); none for `targeting_a_published_asset` and `ticket_traversal`; fibre substitution is structural (m5). The only lane naming two of them, `t287-selected-action`, skips without `ABI5_SELECTED_ACTION_EVIDENCE_ROOT`. Under the fold, the coverage role's criteria need execution evidence from the recipe's run, so F11 cannot be green while a published claim's behavior has no executing carrier in the vector. Owner question 19 (Product contract class): either the carriers are authored in the test territory (for realized behaviors that need neither provider nor human response) or the claims change (a contract edit, a higher cut). D5-c delivers the per-behavior analysis the decision needs."
+    }
+  },
+  "supportedPremises": [
+    {
+      "id": "D5-S01",
+      "premise": "Prospective activation and permitted file scope",
+      "evidence": [
+        "activation:5560-5580",
+        "activation:5578-5580"
+      ],
+      "support": "Activation is present in the exact preimage commit. Item1 selects the inherited-base chain; the grant permits the driver/test_env/support and test_env/qualification/**, which includes this member. It excludes lanes, code, contracts, design, specification, scripts, package, fixtures and operator-config changes."
+    },
+    {
+      "id": "D5-S02",
+      "premise": "Original declared writer/model",
+      "evidence": [
+        "activation:5580",
+        "workerReturn:5582",
+        "workerReadme:3-6"
+      ],
+      "support": "The grant requires an Opus 5.5 Worker return. That original return and the original README identify the D5-c Worker as Opus 5.5 and bind it to the exact implementation. Recorded model label: Claude Opus 5.5. This is documentary authorship support."
+    },
+    {
+      "id": "D5-S03",
+      "premise": "Exact base, implementation and return closure",
+      "evidence": [
+        "workerReturn:5582-5597",
+        "commits"
+      ],
+      "support": "Return names base560150683 and implementation92498a2d, ten files inside the grant, parent equal to base and no intervening main commit before the record. Git direct-parent relations agree."
+    },
+    {
+      "id": "D5-S04",
+      "premise": "Recorded qualification identity projection",
+      "evidence": [
+        "provenanceRecord:379-391",
+        "selectedGeneratedChain"
+      ],
+      "support": "Original provenance summary chain23 binds 92498a2d to parent560150683, actor://abiogenesis/t287/worker and actor-identity://anthropic/claude-opus-5.5. It reports ten postimage members and grounded. This generated declaration supports correspondence to the same recorded writer; it does not independently authenticate model execution."
+    },
+    {
+      "id": "D5-S05",
+      "premise": "Historical Executive acceptance and exact limits",
+      "evidence": [
+        "executiveClosure:5781-5783",
+        "executiveClosure:5805-5807"
+      ],
+      "support": "Executive accepts the D5-c work on these exact commits, verifies the scope, and explicitly retains not-dispatch-ready, no qualification-provider call, no admitted C2 execution-material proof, stopped full dry loop and extrapolated time model. This is acceptance of the bounded package, not an F11/AF22 or release verdict."
+    },
+    {
+      "id": "D5-S06",
+      "premise": "Original member bytes",
+      "evidence": [
+        "memberPins",
+        "QR02_NEXT_INCREMENT.example"
+      ],
+      "support": "Exact preimage is9198 bytes/SHAae0223723f5c86ae3d421af8b45d44992fa3a732d1f36e8ba869347bdf907a8d; postimage19439 bytes/SHA7cc2df35df8b187b2380a0f28fbaab765f39575aa89d007444c4546839309332. These match the closed QR02 example. Its already-recorded 655-byte closureManifest survival witness remains unchanged; RP2/current survival was not re-audited."
+    }
+  ],
+  "writerIdentity": {
+    "recordedWriter": "Claude Opus 5.5, D5-c Worker",
+    "documentaryAuthorRef": "actor://abiogenesis/t287/worker",
+    "documentaryActorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+    "configuredProviderModelOrInvocation": null,
+    "provenanceOfLabel": "Original activation/Worker return/README plus generated provenance summary; commit trailer is corroborating metadata only.",
+    "limits": "No actual authoring-provider invocation or native author/transport occurrence was acquired. The source is an external construction record. No model-family taxonomy, operator authorship or independent-assessor status is inferred."
+  },
+  "remainingPremises": [
+    {
+      "premise": "Complete earlier contributors to the9198-byte preimage or inherited tree",
+      "standing": "Not established by these records and outside this one-transition pass."
+    },
+    {
+      "premise": "Complete source-grounded relevance/semantic survival of every contributor",
+      "standing": "Closed QR02 byte correspondence remains; complete semantic attribution requires the existing attribution owner. Documentary source location does not replace that judgment."
+    },
+    {
+      "premise": "Historical native author invocation/effective configured transport",
+      "standing": "Not supplied or authenticated by this documentary return. No new native evidence requirement is invented for the external arm; its existing owner judges source sufficiency."
+    },
+    {
+      "premise": "Current production eligibility and independence",
+      "standing": "Not decided here. Root's selected policy/Q23 and the existing qualification proof owner remain authoritative; no future assessment bootstraps its own eligibility."
+    }
+  ],
+  "lawfulNextOwner": {
+    "root": "Conjoin these original pinned records with the closed QR02 representative. No new owner input is needed merely to locate the original D5 grant/return/acceptance.",
+    "realization": "The already-selected existing external-construction/attribution owner may bind these record refs to the authentic D5 change and closed historical-to-current correspondence. This return selects no new representation or repair.",
+    "ifStillInsufficient": "Preserve the exact missing premise as unknown at the existing attribution owner. Any existing acknowledgment route belongs to an actual authorized source/Product owner, scoped to the exact subject and records; never manufacture it or treat it as an independence waiver."
+  },
+  "addendumG6": {
+    "kind": "correction_to_prior_mechanical_S02_routing_only",
+    "preciseSource": {
+      "commit": "56015068371277c8efed53f0f40d1e53bdee79ea",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md",
+      "blob": "90a1ac57b7f1a186e177e3f239bf6ccac05c188b",
+      "bytes": 929142,
+      "sha256": "dc3863d51bfc28219d7a436158d3875a93f2cf257fbcfaa405df4b5d05e057b1",
+      "spans": [
+        {
+          "startLine": 5550,
+          "endLine": 5550,
+          "startByte": 919362,
+          "endByte": 920898,
+          "bytes": 1536,
+          "sha256": "2c3bd3268c42b6971ccec22eaa822c8911a19c2df8192126f923334fc8dfed88"
+        }
+      ]
+    },
+    "correctLine": 5550,
+    "correctRule": "The original D5-b Executive G-6 at phase_d.md:5550 says t287-worksite-branch-construction carries no batch case; batch and C.batch are carried by t287-calculus-state-transfer subtests.",
+    "affectedPriorRows": [
+      "S02_EXISTING_EVIDENCE_MAP.json row B19 traversal/structural/batch",
+      "S02_EXISTING_EVIDENCE_MAP.json row B56 C.batch"
+    ],
+    "correction": "Disregard branch-construction and its N06 replay-lane citation as batch evidence in those two rows. Keep the independently located isolated calculus8/8 route and its exact source equality. This correction adds no missing batch feature or execution.",
+    "standing": "Prior map files were not edited. Root records disposition. The earlier message's line5552 was a locator typo; the verified pinned line is5550.",
+    "historicalScope": "G-6's then-current eight-behavior gaps remain historical; later RP2 carriers and5.1 reservation are unchanged."
+  },
+  "effects": {
+    "sourceEdits": 0,
+    "ProductWrites": 0,
+    "tests": 0,
+    "providers": 0,
+    "GitChanges": 0,
+    "movingQ23Reads": 0,
+    "privateProviderStreamReads": 0,
+    "writes": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_D5_SOURCE_RESULT.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_D5_SOURCE_RESULT.md"
+    ]
+  },
+  "acquisition": "One bounded source-location pass, started19:23:14UTC; pinned Git metadata and named original phase_d/README/provenance summaries only. T290/native06/RP2 locations were reused, not reopened. No active native author was dispatched or interrupted.",
+  "return": "Closed to Root. Documentary source support is located; original and current qualification limits remain."
+}

@@ -1,0 +1,37 @@
+{
+  "kind": "bounded_native_fixture_repair_grant",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/FIXTURE_TRIAGE.json",
+    "bytes": 3051,
+    "sha256": "022dfbb1e946412a5f11788bb424506580bb4475196f34a07dbb1fc471a0a630"
+  },
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "branch": "codex/t287-5-release-qualification",
+  "changeClass": "realization_refactor",
+  "reentry": "Existing component fixture premise at current owned-prefix reader port; no Product meaning change",
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "nativeWriteRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "qualification-scratch/fixture-01/return.json",
+    "qualification-scratch/fixture-01/readiness.json",
+    "qualification-scratch/fixture-01/progress.json",
+    "qualification-scratch/fixture-01/tmp"
+  ],
+  "externalTemporaryEffectsProposal": "Only /private/tmp/abg-r6f1 for selected native selfchecks/C2; Root must bind this finite permission before admission. No arbitrary external cleanup.",
+  "sharedSupport": "Relevant premise is local to the test; no shared support write granted. Return to Root if another file must change.",
+  "prohibitions": [
+    "No production/HOW/requirement/interface/controller/runtime edits",
+    "No expected-error weakening, skipped new cases, pass-floor lowering or fabricated admission/journal proof",
+    "No Git/release/install/selector or immutable RC6 mutation",
+    "No broad qualification/F11/provider campaign"
+  ],
+  "return": "One exact changed test plus original lower-owner premises, author feedback hashes/failures/limits, standard three handoffs, then freeze/stop. Root selects independent frozen review and actual C2/UAT/fresh conjunction."
+}

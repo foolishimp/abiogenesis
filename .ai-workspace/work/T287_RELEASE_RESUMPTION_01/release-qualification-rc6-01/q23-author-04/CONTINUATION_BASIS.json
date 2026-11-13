@@ -1,0 +1,45 @@
+{
+  "kind": "actual_q23_author_session_completion_basis",
+  "at": "2026-11-05T18:54:19.133366+00:00",
+  "partial": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/SUBJECT.json",
+    "bytes": 174679,
+    "sha256": "9c59c4d96ecf0ce3980a7cd6ee611539f3ff9a2de6f3654bc2cc876b24942e34"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/ACTUAL_CLOSE.json",
+    "bytes": 2305,
+    "sha256": "e0f87d5807301acc9155a37a63032c285c93ee2aae99adee6a14833ef44c52fc"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/ROOT_FAILURE_TRIAGE.json",
+    "bytes": 5791,
+    "sha256": "c09babf7490a849479fb53ec9e406dd1bbc69dcb748487f9afbd8dd066a1103a"
+  },
+  "existingOwnerRoute": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/NATIVE_AUTHOR_CONTINUATION_ROUTE.json",
+    "bytes": 22751,
+    "sha256": "8718180d620d3d9c2ecb992399180c1cbd7f73211c153bf2812634d78cb9efd8"
+  },
+  "remaining": "Finish and self-check Q1-Q7 tests, update selected HOW, return exact three handoffs. Twelve current files are unaccepted partial. Correct code only as needed within unchanged17-path grant. Preserve every observed failure and test skip/unknown; do not delete prior reports.",
+  "sessionMeaning": "Actual prior author session is resumed and forked by CLI only on the one-node author Program. ABG Run is new/source:none. CLI context is not evidence or event-resource lineage. Root separately binds clean Testing/UAT without resume arguments.",
+  "scopeUpdate": "Current scratch/handoff root is qualification-scratch/q23-author-04. Old roots are historical read-only. Current owner-issued binding names ABI installation as Product root for the existing ABI-owned one-node Program; canonical source root is unchanged. Q23-author-03 started no actor; the last actual author session is still Q23-02.",
+  "resourceSelection": {
+    "maxTurns": 384,
+    "absoluteTimeoutMs": 7200000,
+    "inactivityTimeoutMs": 1800000,
+    "effort": "xhigh",
+    "setupRepeats": 0
+  },
+  "claims": "No acceptance, independent review, native C2/UAT or qualification from prior partial/intermediate tests.",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/BINDING_RESULT.json",
+    "bytes": 823,
+    "sha256": "e6c6c214ff279ad4698a6bfe25de827089921055afbffdce3b74c83ac9157be1"
+  },
+  "refusedActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/RUNTIME_FAILURE_TRIAGE_01.json",
+    "bytes": 3925,
+    "sha256": "74ab5b2277c32688fea3b2dd58161d29f2f2307bc4e1b443cf324a5bf163ef13"
+  }
+}

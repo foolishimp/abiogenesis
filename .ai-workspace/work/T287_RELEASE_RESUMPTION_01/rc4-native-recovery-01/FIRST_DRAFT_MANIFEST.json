@@ -1,0 +1,60 @@
+{
+  "status": "FIRST_DRAFT_REVIEW_BOUNDARY_FRONTIER_OPEN",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/DESIGN_AND_ACTIVATION.md",
+      "bytes": 8991,
+      "sha256": "badc2458baa39d7866104c3c495238f8770df537a3b27c37711383a4adaad1ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/NATIVE_GRANT.DRAFT.json",
+      "bytes": 19997,
+      "sha256": "343359ee6c5df48c48c36d52ec7cf4091dd9703b2cf1ccc0b40a75b7bd3b79ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/CAUSAL_SCOPE.DRAFT.json",
+      "bytes": 10060,
+      "sha256": "825e8507297b6180b5147a00e86a985b49ae299aea68e9118bd74c2971399c79"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/task.DRAFT.md",
+      "bytes": 4467,
+      "sha256": "c064c38677541540dfec14be156893bb2c0254b92d77bf993bd9cf8e81ddd65c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/rubric.DRAFT.json",
+      "bytes": 1911,
+      "sha256": "d4baa7c6edb663d2c0d1dd3f6a7b38da9c5a7fe8d1c4f933817d52eee5983b18"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/CURRENT_T287_SELECTION.md",
+      "bytes": 5897,
+      "sha256": "a5e0316d52975ec17ded346b3575cf1ba5795be370d71507173d7ccd8f28c64e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/setup-config.DRAFT.json",
+      "bytes": 2152,
+      "sha256": "d61d8e6722303b1c22f6aaad7b4d60cc39121c15d8537e383a16e0f55111aa11"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/prepare-rc3-builder.mjs",
+      "bytes": 7200,
+      "sha256": "d916d2998067371aada51c1cec68c1bacef90d9db4c847873252daa278b2d26b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/SETUP_HANDOFF.md",
+      "bytes": 5883,
+      "sha256": "3e2fa696c61b3756c219d46d9e07284d254bf8a656dbe82850428705764cd389"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/PREPARATION_CHECKS.json",
+      "bytes": 5533,
+      "sha256": "26b3aaaf1fea30ee87ddd73bb36220e9eca437829266eae6a75e1a24040c5487"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/OPERATOR_PREPARATION_ACTIVATION.md",
+      "bytes": 1232,
+      "sha256": "b896e8aa9adcd847ca79aff7ec11bb8aa70f40ebb2a62740c8e27392419f39a6"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "kind": "c_call_result_admitted",
+  "admissionOrdinal": 219036,
+  "eventId": "event://abiogenesis/2606b856e3d1b05c4f012141c92982eb1ad69b38e47e938ccb8ab834e9e16fee",
+  "eventTime": "2026-11-06T07:43:40.504Z",
+  "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+  "runId": "run://abiogenesis/4dbcf7d8368c7bfa449c68be5bd443ab224e710b1496116a8b541939007f9ab2",
+  "offset": 1472083210,
+  "rowBytes": 49761835,
+  "rowSha256": "d8746f1612e5b8dade83af4f57840d79b09f7ffde8540200c90a850c4a45494f",
+  "resultRef": "result://abiogenesis/80ee7b2f91eb2ab4c00ecc43f882cf925328b40fc8460f9c6176d354bffef0a0",
+  "valueKind": "native_workspace_work_observation",
+  "result": {
+    "ref": "result://abiogenesis/80ee7b2f91eb2ab4c00ecc43f882cf925328b40fc8460f9c6176d354bffef0a0",
+    "digest": "sha256:80ee7b2f91eb2ab4c00ecc43f882cf925328b40fc8460f9c6176d354bffef0a0"
+  },
+  "valueDigest": "sha256:90c81bb65eba6627b29d228d7668a0d67684f868ae603843f936dc1ef2b2f0f9",
+  "payloadDigest": "sha256:fcbb3ace34ac538f794d353ac1fdbf3d1d2e70f33aeb470649824cad3fc47589",
+  "physicalRow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "offset": 1472083210,
+    "bytes": 49761835,
+    "sha256": "d8746f1612e5b8dade83af4f57840d79b09f7ffde8540200c90a850c4a45494f"
+  },
+  "bodySource": {
+    "kind": "original_owner_receipt_value",
+    "file": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/execution.json",
+      "bytes": 219308288,
+      "sha256": "d5d16add009c27d8f3abd1d5ee4cada75d92986e5d58237d6def53c144725f77"
+    },
+    "pointer": "/receipt/ownerOutput/value/terminalResult/value"
+  },
+  "terminalJoin": true,
+  "ownerKind": "native_workspace_work_observation",
+  "failureClass": null,
+  "diagnosticRef": null,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "qualification-scratch/rc7-overhead-author-03/progress.json",
+    "qualification-scratch/rc7-overhead-author-03/readiness.json",
+    "qualification-scratch/rc7-overhead-author-03/return.json"
+  ]
+}

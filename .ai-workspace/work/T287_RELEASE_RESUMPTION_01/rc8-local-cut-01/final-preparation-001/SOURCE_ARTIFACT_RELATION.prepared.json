@@ -1,0 +1,109 @@
+{
+  "kind": "observed_a12_unshipped_test_overlay_to_retained_exact_archive",
+  "status": "MECHANICAL_CORRESPONDENCE_SATISFIED_ACCEPTANCE_AND_CLEAN_REPRODUCTION_PENDING",
+  "at": "2026-11-07T22:29:06.786126+00:00",
+  "sourceDigest": "60f8e595cfcf1b11f01dd0d46c9030d5042fc3edb076d20993c583e0b6b98e32",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof-evidence/source-freeze.json",
+    "bytes": 295551,
+    "sha256": "bf762d202c262042bd6dc015518c8147ee44848af1cbe98e412761e71468ebe6"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SOURCE_INVENTORY.json",
+    "bytes": 541876,
+    "sha256": "311af9d981a6d5369d8a90fb1c31243bf0452208eefb43d10aa55240bb6c7db2"
+  },
+  "sourceAcceptance": null,
+  "originalProductSourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "originalProductSourceRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 2557,
+    "sha256": "3dfe718500c18a0100544ae9bb4ef4a56d3c6211daff676f4c38145cf585fe7a"
+  },
+  "testedManifest": {
+    "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+  },
+  "productArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "retainedAcceptedPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 7205,
+    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+  },
+  "previousSourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+  "changedFromA11": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs"
+  ],
+  "exactEdit": "Exactly two ROOT_CURRENT_EVENT_PROFILE_REF uses replaced with ROOT_WINDOW_EVENT_PROFILE_REF; all remaining file bytes unchanged.",
+  "sourceRows": 1339,
+  "unchangedA11Rows": 1338,
+  "cumulativeChangesFromOriginalProductSource": [
+    "build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs"
+  ],
+  "unchangedOriginalProductRows": 1330,
+  "allCumulativeChangedPathsUnshipped": true,
+  "archiveMemberCount": 5325,
+  "archiveRehashed": true,
+  "derivedStage": {
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof-evidence/READY.json",
+      "bytes": 572407,
+      "sha256": "53ecba6a149ab38cb18c667ddbbb9064ead85f1a6de7171a66b40fce533dbe21"
+    },
+    "path": "/private/tmp/abg-r8-a12-001/p/w",
+    "rows": 2132,
+    "changedRelativeToA11": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs"
+    ],
+    "allRowsAndExecutableModesRehashed": true,
+    "buildInvocations": 0,
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "dependencyStanding": "Exact retained digest from A12 freeze; no dependency installation or recomputation selected."
+  },
+  "focusedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof-evidence/lane-01/RESULT.json",
+    "bytes": 968,
+    "sha256": "2384db138493cd491661f684b8898b94e7881561c788d2e14042cc1581aed39c"
+  },
+  "focusedReporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof-evidence/lane-01/events.jsonl",
+    "bytes": 832,
+    "sha256": "5729254b5a5573aab15eb849f201aeb85a979009b4468563091570d27c551e58"
+  },
+  "proofStanding": {
+    "passed": 1,
+    "skipped": 0,
+    "wholeFile": false,
+    "casewiseRootAcceptance": null
+  },
+  "requiredFuture": {
+    "sourceReview": null,
+    "actualSdkCloseReadbackConjunction": null,
+    "RootSourceAcceptance": null,
+    "RootBroadConjunction": null,
+    "cleanCheckpointReproduction": null
+  },
+  "limits": [
+    "This records mechanical bytes and retained provenance; it does not accept A12 source or establish a new executable artifact.",
+    "Actual clean checkpoint reproduction must match tested archive/manifest exactly under the existing corrected002 driver.",
+    "All accepted prior proof limits, nine OPEN residuals, twelve cold-read residuals, S7 and broader5.0/human gates remain."
+  ],
+  "executionEnabled": false
+}

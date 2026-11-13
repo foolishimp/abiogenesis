@@ -1,0 +1,294 @@
+--- CLOSE_BINDINGS_024.json
++++ CLOSE_BINDINGS_025.json
+@@ -90,9 +90,9 @@
+       "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+     }
+   ],
+-  "bindingRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-024",
+-  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022",
+-  "scratchRoot": "/private/tmp/abg-r8c-022",
++  "bindingRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-025",
++  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023",
++  "scratchRoot": "/private/tmp/abg-r8c-023",
+   "bounds": {
+     "reserveBytes": 4294967296,
+     "maxOwnedBytes": 4294967296,
+@@ -8342,11 +8342,227 @@
+         "topLevel": 5,
+         "suites": 0
+       }
++    },
++    {
++      "file": "test_env/tests/t287-wave2-definition-coordinate.test.mjs",
++      "wholeFile": true,
++      "success": true,
++      "freezeReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
++      "testSha256": "7ab4c8d1c80d218c31f03c355f8b59420c07d39943e838e8459e5ffb02a72ff2",
++      "evidencePins": [
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/files/188-t287-wave2-definition-coordinate.json",
++          "bytes": 1173,
++          "sha256": "1305ab3040fd3eade449a78b6e998d45c15b58134e7a8fa79c468225830c0086"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/188-t287-wave2-definition-coordinate.request.json",
++          "bytes": 985,
++          "sha256": "05914f1c733dafb6737d5249adee758b45a125da041ab1f686cb518c477ca815"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/188-t287-wave2-definition-coordinate.result.json",
++          "bytes": 1505,
++          "sha256": "0cc0b428719621dd11b32d2a5da11f8d0cb88a76591c79ad28452852a225586e"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/188-t287-wave2-definition-coordinate.stdout",
++          "bytes": 322,
++          "sha256": "e12d7ad40f9e5318d0aa45fc32b76fb2ae09af483eebd74e7df170ce2cbb323f"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/188-t287-wave2-definition-coordinate.stderr",
++          "bytes": 0,
++          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/file-bindings/188-t287-wave2-definition-coordinate.json",
++          "bytes": 1262,
++          "sha256": "e8754a085603b64fe23adc4f68e28b10978d961386c73d5832a60fdbe11e8604"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/events/188-t287-wave2-definition-coordinate.jsonl",
++          "bytes": 802,
++          "sha256": "3dbf0f268838977660f23f131ff3d55f272d6484a00c4074b4c8233ba143f505"
++        }
++      ],
++      "counts": {
++        "tests": 1,
++        "failed": 0,
++        "passed": 1,
++        "cancelled": 0,
++        "skipped": 0,
++        "todo": 0,
++        "topLevel": 1,
++        "suites": 0
++      }
++    },
++    {
++      "file": "test_env/tests/t287-wave2-installed-product-verification.test.mjs",
++      "wholeFile": true,
++      "success": true,
++      "freezeReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
++      "testSha256": "ded91451066319cb25802cf4164ce9cb9e70af30fc16d40dd6ab80874e36a4af",
++      "evidencePins": [
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/files/189-t287-wave2-installed-product-verification.json",
++          "bytes": 1197,
++          "sha256": "05af09c17abf4508805dd1d0f49b908b6977cb31c3a749c2b5f9d71b064f18ef"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/189-t287-wave2-installed-product-verification.request.json",
++          "bytes": 994,
++          "sha256": "d7e327406a4646d74cfabec213c5accd175b6667ee2ff8179945cf659589d231"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/189-t287-wave2-installed-product-verification.result.json",
++          "bytes": 1528,
++          "sha256": "6b0f0321af908ef102eb200f91b0ea5a8da80fa7210d0ae81abdf7f2d2ae71c2"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/189-t287-wave2-installed-product-verification.stdout",
++          "bytes": 626,
++          "sha256": "da761223b9f5001fd1fff05b977a2b759adfef15af4419066214aa1a418b9850"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/189-t287-wave2-installed-product-verification.stderr",
++          "bytes": 0,
++          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/file-bindings/189-t287-wave2-installed-product-verification.json",
++          "bytes": 1289,
++          "sha256": "3317e99de6142a2d488340d85308f92abcf25d3038f7b2a8f8782420f6d64bf6"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/events/189-t287-wave2-installed-product-verification.jsonl",
++          "bytes": 1144,
++          "sha256": "87fc89f36b243973ffa6da818d3a18b9b559b8259164eaf245eae6b4d0050c0d"
++        }
++      ],
++      "counts": {
++        "tests": 2,
++        "failed": 0,
++        "passed": 2,
++        "cancelled": 0,
++        "skipped": 0,
++        "todo": 0,
++        "topLevel": 2,
++        "suites": 0
++      }
++    },
++    {
++      "file": "test_env/tests/t287-wave2-owner-chain.test.mjs",
++      "wholeFile": true,
++      "success": true,
++      "freezeReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
++      "testSha256": "72f71c3738e53e4cba605030ce06a477f09c18240035bd1651a732cbcc278771",
++      "evidencePins": [
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/files/190-t287-wave2-owner-chain.json",
++          "bytes": 1145,
++          "sha256": "492f544e99ba2e4e870a70f3af667c2bfb6da2162985b347a1484cd1ad6652e6"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/190-t287-wave2-owner-chain.request.json",
++          "bytes": 975,
++          "sha256": "cee2312b50f869f8cd7d3bfac25fb5c1797283bff78e713b829a8a1e8b81a950"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/190-t287-wave2-owner-chain.result.json",
++          "bytes": 1476,
++          "sha256": "b878c2a9e00dfae5cdb8586c32b3405b07500b6e6e4b2f31bcce38679120fd75"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/190-t287-wave2-owner-chain.stdout",
++          "bytes": 573,
++          "sha256": "006fc14be8704b0e78cf7fd5cd991a68e2f2f85359e674b3d958bd8bf69e67ec"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/190-t287-wave2-owner-chain.stderr",
++          "bytes": 0,
++          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/file-bindings/190-t287-wave2-owner-chain.json",
++          "bytes": 1232,
++          "sha256": "7db4a5d2626c6d0fb0e732de13a574f486b5edd43be5aff54c67ae218d378952"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/events/190-t287-wave2-owner-chain.jsonl",
++          "bytes": 1062,
++          "sha256": "b9b88752f5cc382f98620f1fee61a2b2be12870631e25881d48cd1a3b75c0eaa"
++        }
++      ],
++      "counts": {
++        "tests": 2,
++        "failed": 0,
++        "passed": 2,
++        "cancelled": 0,
++        "skipped": 0,
++        "todo": 0,
++        "topLevel": 2,
++        "suites": 0
++      }
++    },
++    {
++      "file": "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
++      "wholeFile": true,
++      "success": true,
++      "freezeReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
++      "testSha256": "755ae38f5d5b1bf15287c0b2b3d6e93483bcfd220a23605dd83df0daeb15cceb",
++      "evidencePins": [
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/files/191-t287-wave2-owner-contract-source-set.json",
++          "bytes": 1190,
++          "sha256": "6ae312bc1a6a8f879e668131224f2efafc29da82884b2175fcae4f8c2c1cdc9b"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/191-t287-wave2-owner-contract-source-set.request.json",
++          "bytes": 989,
++          "sha256": "892a3c65eed70b1203f2f562b6890d40fb2e17dc1e2b6b0458b0a8780fd1693c"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/191-t287-wave2-owner-contract-source-set.result.json",
++          "bytes": 1519,
++          "sha256": "b869e4f9f14e4f71bcd251838c270496417b52b3e34020942ffa613aa297db86"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/191-t287-wave2-owner-contract-source-set.stdout",
++          "bytes": 3218,
++          "sha256": "7768ab1b5670fa46655b3b6dbb759128414e3fa006f053194fc24fe2291a02c3"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/191-t287-wave2-owner-contract-source-set.stderr",
++          "bytes": 0,
++          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/file-bindings/191-t287-wave2-owner-contract-source-set.json",
++          "bytes": 1274,
++          "sha256": "3eaa007dfe30b875b56f0a52277134c89bbb29409fb6f90bd6698561297c18d8"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/events/191-t287-wave2-owner-contract-source-set.jsonl",
++          "bytes": 4607,
++          "sha256": "998802012b912899bd59070f84e40b323e1c3ea85a1e916318182259bef33db4"
++        }
++      ],
++      "counts": {
++        "tests": 15,
++        "failed": 0,
++        "passed": 15,
++        "cancelled": 0,
++        "skipped": 0,
++        "todo": 0,
++        "topLevel": 15,
++        "suites": 0
++      }
+     }
+   ],
+   "providerCallsSelected": 0,
+   "qualification": false,
+-  "executionStanding": "Root preparation only:21 independent remaining files;174 accepted whole credits899passes211historical skips, preserving all165 previous credits. Twelve prior scheduling deferrals plus W2-05 pending causal review; zero credit for its failed case. Same A6 source, archive, dependencies, three external inputs, tools, environment, oracles and bounds, including selected worksite-command-execution1200000ms override. Six OPEN residual capsules and separate accepted proofs retain their identities. Concrete Root admission required; no execution during preparation.",
++  "executionStanding": "Root preparation only:16 independent remaining files;178 whole credits919passes211historical skips, preserving all174 previous credits. Thirteen prior scheduling deferrals plus exact failed C3 branch file only; no credit for its two timeout cancellations. C1/C2 remain scheduled under unchanged inner timers and outer overrides. Same A6 source, archive, dependencies, three external inputs, tools, environment, oracles and bounds. Seven OPEN capsules and separate accepted proofs retain original identities. Concrete Root execution admission required.",
+   "candidateBasisRefresh": {
+     "owner": {
+       "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/scripts/refresh-candidate-basis.mjs",
+@@ -8883,6 +9099,49 @@
+           "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/FAILURE.json",
+           "bytes": 619,
+           "sha256": "ba00bbd1f301d16e5982a21c43e9f45b5327c5d0d2f46aefad8b02b93d1a359f"
++        }
++      ]
++    },
++    {
++      "file": "test_env/tests/t287-worksite-branch-construction.test.mjs",
++      "testSha256": "1d395a555ac1917700243b1acd6258b5f1800184ee54395305ec072ef0bab462",
++      "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
++      "reason": "Root causal review worksite-branch-timeout-022 pending after two240000ms inner-case cancellations; original484520.007ms command exit1 was not an outer timeout. Scheduling only; zero whole/pass credit, no final no-block disposition or retry. C1/C2 remain scheduled unchanged.",
++      "evidencePins": [
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_022.json",
++          "bytes": 14281,
++          "sha256": "bf078a7467d74812e957a0ec93a912ff113877fff187e9ed3f72927af442b975"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/files/192-t287-worksite-branch-construction.json",
++          "bytes": 1178,
++          "sha256": "a5963273a77b89ed9db71847bd94f24fb20b5a12bed48cd238953c5efc74bb69"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/192-t287-worksite-branch-construction.result.json",
++          "bytes": 1509,
++          "sha256": "47fbaa70cf7b9a98c20c1a56e17435c70c185a473985332caf24d68fa97fe3b9"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/192-t287-worksite-branch-construction.stdout",
++          "bytes": 1087,
++          "sha256": "79513dc517f4fa62475170d6342cf5c24fa79ad38b9b4d8475a3fd22373147d3"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/events/192-t287-worksite-branch-construction.jsonl",
++          "bytes": 1714,
++          "sha256": "9f9341b297aa7cd6fdd72ec153dfc9e9e61db62bd38a9dc988d7da96618b83e1"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/FAILURE.json",
++          "bytes": 614,
++          "sha256": "1051d606aafc8467a6a3e93815f7f618b1d1e1b35ea5cc8dab0bd32373f06416"
++        },
++        {
++          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/observations/branch-first-red-001/OBSERVATION.json",
++          "bytes": 3204,
++          "sha256": "078dca11948a16a5d1f452e2760721dd4c2c289fd112c16028ff215448ec753e"
+         }
+       ]
+     }

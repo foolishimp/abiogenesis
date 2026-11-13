@@ -1,0 +1,44 @@
+{
+  "status": "ROOT_SELECTED_BASH_MAXIMUM_ALIGNMENT_ONLY",
+  "rootInstruction": "Preserve original READY/BINDING; align actual host/worker BASH_MAX_TIMEOUT_MS to300000 for admitted240s compiler under300000ms Bash. Default180000 may remain; no task/source/native envelope change. Setup/provider held.",
+  "predecessorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/BINDING.json",
+    "bytes": 19443,
+    "sha256": "784805dd55fe8638db1f01813e6ffad12017def1a8de8eeacf16bfd2f05374b1"
+  },
+  "predecessorReady": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/READY.json",
+    "bytes": 7104,
+    "sha256": "407cbee334e5a7a8297d991cd3466304fe9ce211be4b74fc6dae2b16d47155c9"
+  },
+  "successorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/BINDING.r02.json",
+    "bytes": 19443,
+    "sha256": "94c63e2a3034b0c5db668da725cbd0960cf40eab6cce2452a50aac7690c4142b"
+  },
+  "delta": [
+    {
+      "path": "environment.BASH_MAX_TIMEOUT_MS",
+      "before": "180000",
+      "after": "300000",
+      "defaultTimeoutMs": "180000"
+    },
+    {
+      "path": "workerEnvironment.BASH_MAX_TIMEOUT_MS",
+      "before": "180000",
+      "after": "300000",
+      "defaultTimeoutMs": "180000"
+    }
+  ],
+  "onlyTwoFieldsChanged": true,
+  "taskUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/TASK.json",
+    "bytes": 6637,
+    "sha256": "48eb66530603374bafa1bdce154fdbdf6a07e381039d99bc76d009c4c19ef757"
+  },
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/TRANSPORT_PREFLIGHT.r02.json",
+    "bytes": 1072,
+    "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "r6",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "test_env/tests/r6-implementation-resolution.test.mjs"
+    ],
+    "timeoutSeconds": 900
+  },
+  {
+    "id": "f04a",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs"
+    ],
+    "timeoutSeconds": 900
+  }
+]

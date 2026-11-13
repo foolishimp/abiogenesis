@@ -1,0 +1,150 @@
+{
+  "kind": "b06_cross_store_usage_projection",
+  "classification": "Root-selected read-only projection; actual charges may remain unknown",
+  "atUtc": "2026-10-31T15:14:39.306120+00:00",
+  "streams": [
+    {
+      "store": "setup-001",
+      "stream": "fp-0a6e158a20c312e0-stdout.log",
+      "bytes": 240961,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.684452"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-25fe5e4f91079651-stdout.log",
+      "bytes": 4009634,
+      "terminalResultRows": 1,
+      "reportedUsd": "4.9741874"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-28892d06774fc613-stdout.log",
+      "bytes": 437285,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.96198"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-7039f62840e47eb4-stdout.log",
+      "bytes": 397006,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.0387931999999998"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-7e1b1b843f520577-stdout.log",
+      "bytes": 3104381,
+      "terminalResultRows": 1,
+      "reportedUsd": "5.818089399999999"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-91c8dc01ceb1afa5-stdout.log",
+      "bytes": 3278594,
+      "terminalResultRows": 0,
+      "reportedUsd": null
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-95e0c01a4a6ac5c9-stdout.log",
+      "bytes": 1946695,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.9622148000000004"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-96925bcf5960b9f9-stdout.log",
+      "bytes": 254504,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.7854"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-ad5197359cbfc781-stdout.log",
+      "bytes": 270051,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.8684040000000002"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-b35290ed2a921c20-stdout.log",
+      "bytes": 432831,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.074176"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-b75611088e92b2b6-stdout.log",
+      "bytes": 2594313,
+      "terminalResultRows": 1,
+      "reportedUsd": "4.015721399999999"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-b7fe7cfccbbf3cfd-stdout.log",
+      "bytes": 472104,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.448316"
+    },
+    {
+      "store": "setup-001",
+      "stream": "fp-d99f15da2fe9e513-stdout.log",
+      "bytes": 339559,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.3127240000000002"
+    },
+    {
+      "store": "setup-002",
+      "stream": "fp-0b8666dc78d03ebe-stdout.log",
+      "bytes": 1563629,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.2424226"
+    },
+    {
+      "store": "setup-002",
+      "stream": "fp-550cd0b6ca302d95-stdout.log",
+      "bytes": 228179,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.8613840000000001"
+    },
+    {
+      "store": "setup-002",
+      "stream": "fp-5fa064a20b93d284-stdout.log",
+      "bytes": 297333,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.9426800000000002"
+    },
+    {
+      "store": "setup-002",
+      "stream": "fp-fce3c59ebc79ba4e-stdout.log",
+      "bytes": 60656,
+      "terminalResultRows": 1,
+      "reportedUsd": "0.36762439999999996"
+    }
+  ],
+  "reportedTotalUsd": "86.75449579999999886",
+  "unknownB03ReserveUsd": "8",
+  "effectiveConservativeUsd": "94.75449579999999886",
+  "priorOtherUnknown": [],
+  "b06ObservedStreams": 4,
+  "b06UnreportedStreams": [],
+  "startedWithoutObservedStream": false,
+  "activeProcessReserveEachUsd": "2.50",
+  "effectiveWithActiveReservesUsd": "94.75449579999999886",
+  "beforeAnotherProviderIncludingWitnessReserveUsd": "101.25449579999999886",
+  "maximumB06Processes": 3,
+  "witnessReserveUsd": "4",
+  "preWitnessStopUsd": "96",
+  "reviewsUsd": [
+    "90",
+    "94"
+  ],
+  "userAllocationUsd": "100",
+  "rootAction": "NO_FURTHER_PROVIDER",
+  "limits": [
+    "Do not interpret an unknown cost as zero",
+    "Root controls provider transitions; this projection is not an aggregate cap",
+    "Current active process is not automatically stopped by a next-provider decision"
+  ]
+}

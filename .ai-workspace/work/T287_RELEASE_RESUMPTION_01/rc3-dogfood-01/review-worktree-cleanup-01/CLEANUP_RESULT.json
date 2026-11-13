@@ -1,0 +1,102 @@
+{
+  "availableBytesAfter": 303620071424,
+  "availableBytesBefore": 34017075200,
+  "gitRecovery": "Every detached HEAD was verified reachable from refs/heads/main; 37 LFS entries/36 objects per HEAD were present in shared LFS storage (presence only, not full content rehash).",
+  "kind": "f9_review_worktree_cleanup_result",
+  "limits": [
+    "No --force or rm-rf. No other worktree, Product or runtime was mutated.",
+    "Node_modules/build were preserved whole; their reproducibility has not been claimed."
+  ],
+  "observedAvailableIncreaseBytes": 269602996224,
+  "originalReference": "F9 reviewer README names the five old paths as a grouped scratchpad/suite expression; removed receipts map original paths to preserved outputs.",
+  "preservedAreasPerWorktree": [
+    "build",
+    "node_modules",
+    "test_env/evidence",
+    "test_env/test_runs"
+  ],
+  "removedWorktrees": [
+    {
+      "evidenceAndResultNodes": {
+        "build_tenants/abiogenesis/typescript/test_env/evidence": 8,
+        "build_tenants/abiogenesis/typescript/test_env/test_runs": 426
+      },
+      "evidenceManifest": "wt-7da76d7d7-evidence.json",
+      "evidenceManifestSha256": "9c5db2e5f2dafa79b5bc804b3b2c2f1707769934d634d01f3125a7f179bdfe94",
+      "head": "7da76d7d7d70614080f475dc39f5d0e6161ef653",
+      "name": "wt-7da76d7d7",
+      "normalRemoveExit": 0,
+      "originalPath": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/suite/wt-7da76d7d7",
+      "preservedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/review-worktree-cleanup-01/preserved/wt-7da76d7d7",
+      "removalReceiptSha256": "ad82b4eb0736df12fb8acf496f5fa1549194f3c0af14069001b388d8b42d6145"
+    },
+    {
+      "evidenceAndResultNodes": {
+        "build_tenants/abiogenesis/typescript/test_env/evidence": 8,
+        "build_tenants/abiogenesis/typescript/test_env/test_runs": 426
+      },
+      "evidenceManifest": "wt-7e3fefa46-evidence.json",
+      "evidenceManifestSha256": "574d9c772837c42cdef695dc00c96a73d05e5a611a47cf45eca3609ddaaa4ae3",
+      "head": "7e3fefa46676cf6a5afdc29f677b9cb2c2e87fdc",
+      "name": "wt-7e3fefa46",
+      "normalRemoveExit": 0,
+      "originalPath": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/suite/wt-7e3fefa46",
+      "preservedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/review-worktree-cleanup-01/preserved/wt-7e3fefa46",
+      "removalReceiptSha256": "ce1a0e1161dcd2edfa56623542c2a19e076c78c94d83cdee7e7e1c215aff9567"
+    },
+    {
+      "evidenceAndResultNodes": {
+        "build_tenants/abiogenesis/typescript/test_env/evidence": 8,
+        "build_tenants/abiogenesis/typescript/test_env/test_runs": 426
+      },
+      "evidenceManifest": "wt-8db237d2a-evidence.json",
+      "evidenceManifestSha256": "cc0b247121363a2d4d98581ab1d44c04a44a9a57531f4d1708f8df69c6d05b8f",
+      "head": "8db237d2a379e39be100f4fd7f0cd9f7e02525ac",
+      "name": "wt-8db237d2a",
+      "normalRemoveExit": 0,
+      "originalPath": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/suite/wt-8db237d2a",
+      "preservedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/review-worktree-cleanup-01/preserved/wt-8db237d2a",
+      "removalReceiptSha256": "a1e1936aac5c651064371d8a396f5ecb6a7a5eec07a2b3709839b9e5b49fc0d9"
+    },
+    {
+      "evidenceAndResultNodes": {
+        "build_tenants/abiogenesis/typescript/test_env/evidence": 8,
+        "build_tenants/abiogenesis/typescript/test_env/test_runs": 426
+      },
+      "evidenceManifest": "wt-92498a2d2-evidence.json",
+      "evidenceManifestSha256": "a1fef681e876bbf7b2bd2c55efbe66f372142adda4eb24c8fa1902201b1e1951",
+      "head": "92498a2d29eca294d851557753cbda2fe047c357",
+      "name": "wt-92498a2d2",
+      "normalRemoveExit": 0,
+      "originalPath": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/suite/wt-92498a2d2",
+      "preservedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/review-worktree-cleanup-01/preserved/wt-92498a2d2",
+      "removalReceiptSha256": "660c45df11c5fae04a92a9d649d35677b4bf475d13e9ee68fb456d3f4985e2d4"
+    },
+    {
+      "evidenceAndResultNodes": {
+        "build_tenants/abiogenesis/typescript/test_env/evidence": 8,
+        "build_tenants/abiogenesis/typescript/test_env/test_runs": 426
+      },
+      "evidenceManifest": "wt-ddc1b091c-evidence.json",
+      "evidenceManifestSha256": "c7f6bd1a63a34e4f1af2ee2263ac6b41c6dbb9678fd86e00b18c9a2b8155d79b",
+      "head": "ddc1b091cd201f803e8a9f235c1a9a7c52f831fc",
+      "name": "wt-ddc1b091c",
+      "normalRemoveExit": 0,
+      "originalPath": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/suite/wt-ddc1b091c",
+      "preservedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/review-worktree-cleanup-01/preserved/wt-ddc1b091c",
+      "removalReceiptSha256": "ad6e99e95d69018bf5129eef68dadafb5c3899f1ca0c4b282845864372ed1c76"
+    }
+  ],
+  "status": "completed_no_force",
+  "unchangedReviewSubjectsObserved": {
+    "subject": {
+      "head": "97406077c9a91e18e9425c3df55c6cd80f4c2073",
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rc3_review/subject"
+    },
+    "subject2": {
+      "head": "97406077c9a91e18e9425c3df55c6cd80f4c2073",
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rc3_review/subject2"
+    }
+  },
+  "usageCaveat": "Filesystem-wide observed availability change, not a measurement of unique blocks attributable solely to this cleanup; APFS sharing and concurrent activity may affect it."
+}

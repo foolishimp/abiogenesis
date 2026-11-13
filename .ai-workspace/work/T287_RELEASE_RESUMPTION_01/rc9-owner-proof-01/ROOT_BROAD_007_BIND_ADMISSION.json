@@ -1,0 +1,58 @@
+{
+  "ProductFrame": "STDO3.0.4 ABI5 Product/T287; separate Proof execution under Root bounded source/reference conjunction. No independent acceptance by Writer.",
+  "status": "ROOT_ADMITTED_RC9_BROAD_007_BIND_AND_CONDITIONAL_RUN",
+  "at": "2026-11-08T19:19:41.278647+00:00",
+  "rootSelection": "RC9-BROAD-007",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-007.json",
+    "bytes": 47083,
+    "sha256": "a2ba7d6fd3f757329cdcdb95002e684d91dce89ec17e1f9288ee375e456828ee"
+  },
+  "heldPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.held-007.json",
+    "bytes": 47082,
+    "sha256": "302959f8a94b3256a1dd216cdcf63fad223c73609702177e4349008f29d8db57"
+  },
+  "change": "status only",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+    "bytes": 11455,
+    "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+  },
+  "referenceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_REFERENCE_ACCEPTANCE_007.json",
+    "bytes": 6336,
+    "sha256": "4c8bc5fb42d98e1073a4cedf89dada5faf5fa2e6dcf090b64cc79b60f99c2f68"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PREPARATION_MANIFEST.json",
+    "bytes": 5835,
+    "sha256": "d179449a1ef0e9b33abd55ceba1021cf98744db223366b9fbf71837b2a2b8d74"
+  },
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+    "bytes": 32816,
+    "sha256": "2e8e4155be73606d1009b629019b9966470225890a785c78105c6b6a80ba383e"
+  },
+  "fileHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/file-host.mjs",
+    "bytes": 2803,
+    "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+  },
+  "grant": "Execute existing bind once in fresh broad-binding-001. If actual inventory reconciles209 total/201scheduled/eight exactheld/zero credits and existing prerequisite gates pass, record actual config/inventory/freeze/preparation pins in ROOT_ADMITTED_RC9_BROAD_CLOSE and run once immediately. FullW2 first then exactfirstFiles/remainder/build-effect isolations.",
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "scope": "Existing derived common/isolated fixture construction, maintained candidate-basis refresh/pack reproducing exact c01e6cfe archive and six verified fields, ordinary fixture teardown and file-host lifecycle are authorized. Original source/stage/installedRC8/archive fixed; no source/code/control algorithm changes, native/provider/Git/cut/immutableinstall/selector/historicalcleanup. Stop first failure/cancel/timeout/incomplete/resource/source discrepancy; no retry/extension.",
+  "residualStanding": "Eight held files zero coverage; all residual dispositions preserved.",
+  "executionAttempts": {
+    "bind": 1,
+    "run": 1
+  }
+}

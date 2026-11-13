@@ -1,0 +1,49 @@
+{
+  "kind": "rc7_held_session_author_progress",
+  "task": "rc7-held-session-author-01",
+  "updatedUtc": "2026-11-06T13:29:35.480Z",
+  "phase": "STAGE_02_BEFORE_SOURCE_FROZEN_BUILD_PENDING",
+  "freezeReceipts": [
+    {
+      "label": "hs1-stage-01",
+      "mode": "before",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-01-source-freeze.json",
+      "bytes": 96590,
+      "sha256": "7d775a14e6be83b1b8882aa9174ddcf618a2accd754a49061400b13ec371f4a9",
+      "sourceDigest": "5b48091aba36f04f328a89fd21050e82038002a221f0392e781448c590ace87f",
+      "sourceCount": 450,
+      "status": "SOURCE_FROZEN_BUILD_AND_FEEDBACK_PENDING"
+    },
+    {
+      "label": "hs1-stage-02",
+      "mode": "before",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-source-freeze.json",
+      "bytes": 96590,
+      "sha256": "bec208ac07f79a5a9605eec183baa0f2bf1dc2ddd2f1758951a71eca3f88cd34",
+      "sourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd",
+      "sourceCount": 450,
+      "status": "SOURCE_FROZEN_BUILD_AND_FEEDBACK_PENDING"
+    }
+  ],
+  "lanes": [],
+  "notes": [
+    "Before stage: baseline Product/runner/public-setup with current HS02 and maintained-caller fixed-admission tests.",
+    "Stage stdout/stderr were redirected to scratch-root stage-01.out/.err (outside the declared tmp/ path); disclosed.",
+    "hs1-stage-02 re-allocates the mandatory before discriminator within the four-stage cap after stage-01 generation timed out; stage logs are now under tmp/log-stage-*."
+  ],
+  "stages": [
+    {
+      "label": "hs1-stage-01",
+      "mode": "before",
+      "outcome": "GENERATION_TIMEOUT",
+      "compileMs": 74397,
+      "generate": {
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "error": "spawnSync /opt/homebrew/Cellar/node/24.7.0/bin/node ETIMEDOUT",
+        "ms": 180073
+      },
+      "note": "Canonical generator exceeded its 180 s bound on the baseline source under host load (load average ~10-12 from unrelated processes; prior F2 stages took 36 s). Allocation consumed; no lane can use it."
+    }
+  ]
+}

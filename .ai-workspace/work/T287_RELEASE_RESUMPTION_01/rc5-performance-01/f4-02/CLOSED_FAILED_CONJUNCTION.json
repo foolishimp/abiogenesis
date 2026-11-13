@@ -1,0 +1,64 @@
+{
+  "status": "CLOSED_BLOCKED_S2_FIXTURE_REPAIR_SELECTED",
+  "at": "2026-11-03T11:30:18.423382+00:00",
+  "outcome": {
+    "startedUtc": "2026-11-03T10:34:09.556Z",
+    "endedUtc": "2026-11-03T11:22:40.427Z",
+    "wallMs": 2910583.4032920003,
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "disposition": "blocked",
+    "run": {
+      "digest": "sha256:7a3c3ae4f88fcba3a0b0c2972af2d728d1b0ef3d5038ffe2bfe8a4bf8b48c554",
+      "ref": "run://abiogenesis/96a800cd6f22b2ad64e61489d5dc9a850bae9a6d9b6a314738e15246625cc343"
+    },
+    "terminal": null,
+    "qualified": false,
+    "meaning": "Native return; independent source review and actual C2/UAT determine bounded acceptance."
+  },
+  "freshResult": "not_found",
+  "freshReplay": {
+    "fromOrdinal": 0,
+    "kind": "run_replay_projection",
+    "limit": 4096,
+    "replay": {
+      "digest": "sha256:3aedc4cf49e70a7ff20d853e71298b7cea423ec20af399be4963d046a1c46a6c",
+      "ref": "replay://abiogenesis/3aedc4cf49e70a7ff20d853e71298b7cea423ec20af399be4963d046a1c46a6c"
+    },
+    "status": "blocked",
+    "subject": {
+      "digest": "sha256:7a3c3ae4f88fcba3a0b0c2972af2d728d1b0ef3d5038ffe2bfe8a4bf8b48c554",
+      "ref": "run://abiogenesis/96a800cd6f22b2ad64e61489d5dc9a850bae9a6d9b6a314738e15246625cc343"
+    },
+    "terminalResult": null
+  },
+  "actualClosePrefix": {
+    "coordinateDigest": "sha256:535b8fd0e785cfc4c22d6f74273c0f97525256894964679e15a69e78f24226f4",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:2eebced84ab2544d6f4e259a5f41af5c700e536d2d55f26b826ae1b5098bbb9f",
+    "prefixLength": 387507789,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 685202701
+    }
+  },
+  "sourceCustody": {
+    "status": "UNACCEPTED_NATIVE_CANDIDATE_CUSTODY",
+    "sourceCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+    "tree": "c4b60c78533eeff2734c289eccb1b37df982f3b9",
+    "parent": "53acfe7c6a51e0b0a1d354fbc79ef3d391cb7573",
+    "nativeResultRef": "result://abiogenesis/4accfc2ff24ed5231e50bee7e5150fc7297a10f43675e3ed1ee9d6a0cccc1996",
+    "subjectSha256": "e82e3e6391a9f16199b684b0b553564ed09bdfdfc45107accda3bdb45d959fb8",
+    "c2ResultRef": "result://abiogenesis/ed46e43e52c7f02851ac2153ac0c4d610f8163cfe7de86ffa9fe0a0341b3ee70",
+    "sourceFiles": 10,
+    "productSourceAuthoredByRoot": false,
+    "failedInstalledProofPreserved": true,
+    "standing": "Codec/source review has no material finding; installed fixture has S2 constructability defect. No generated adoption, acceptance or release."
+  },
+  "nativeUAT": "Not reached; C2 red led to blocked disposition",
+  "newActivation": "f4-03 pending installed-owner preflight/Root dispatch admission",
+  "claim": "No installed F4 witness, final acceptance, generated adoption or local cut; codec source/component evidence retained"
+}

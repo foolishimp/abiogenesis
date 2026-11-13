@@ -1,0 +1,53 @@
+{
+  "kind": "hc2_worker_return",
+  "status": "partial_unaccepted",
+  "source": {"commit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f", "tree": "e669e2a903de1893a38271b4010a785cc840333e"},
+  "changeClass": "realization_refactor under accepted HC2 HOW (T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md, Canonical operation population)",
+  "ownerPopulation": {
+    "product/run_invocation_operation.ts": "constructRunOperationPolicy, expectedRunOperationAuthoritySlots (shared by runOperationAuthorityMatches; check order unchanged), private constructRunInvocationAuthorityBasis, populateProductRunInvocation (start next|graph_function|asset|declared_start, direct invoke) over ProductExecutionResolutionPort.resolve; policy/grants precede the input factory, which receives the populated grants",
+    "owner_bindings/run_invocation.ts": "three continuation owners use constructRunOperationPolicy; populateRunContinuationAtDurablePrefix (current_intent, pending_execution, selected_action) mirrors owner derivation from the log and returns setup workspaceBinding",
+    "abg/construction_continuation.ts": "projectPendingExecutionUseRequest (replaces the support private open_call fallback)",
+    "abg/project_read_definition_bindings.ts": "expectedRunReadAuthority shared with runReadKernel; populateRunReadAtDurablePrefix for the six run reads; ABG_RUN_READ_MEMBER_KEYS",
+    "product/admission_authority.ts": "constructAdmissionCapabilityData from actual packet/owner/request/resources/slots; supplied ResolvedAdmissionAuthority and approval stay explicit; existing grant constructors unchanged",
+    "public/installed_public_definition_call.ts": "shipped SDK constructInstalledStartCall, constructInstalledPendingCall, constructInstalledRunReadCall over the package's own product/abg/Public family modules with explicit envelope identity; exported from public/index.ts; CLI JSONL transport unchanged",
+    "indexes": "abg/index.ts, product/index.ts, public/index.ts export the above"
+  },
+  "consumersMigrated": {
+    "support/registered-graph-selection.mjs": "start/pending/read now thin wrappers over shipped constructors; private build/.../open_call.js fallback, read mutation hooks and hand slot bodies removed; pending call(identity) canonical, replay(identity, patch) explicit negative",
+    "support/t287-generic-job-intake.mjs": "start via shipped constructor (input factory gets populated grants)",
+    "support/t287-generic-job-readback.mjs": "reads via shipped constructor",
+    "fixtures/t287-management-supervision/fresh-public-read.mjs": "reads via shipped constructor",
+    "support/retained-installed-consumer.mjs": "AdmissionCapabilityData via constructAdmissionCapabilityData",
+    "support/installed-qualification-conservation.mjs": "admission data, graph_function start and fresh reads via owners/shipped constructors",
+    "support/declared-testing-capability.mjs": "admission data, start and reads via owners/shipped constructors",
+    "qualification/dispatch.mjs": "startCall via shipped constructor; rootAuthority policy via constructRunOperationPolicy (kept for observedC2Task grant)",
+    "uat/continuation.mjs": "B start via shipped constructor from B's own intent; A's request no longer spread into B",
+    "uat/public-setup.mjs": "authorizeInstalledOperation admission data via constructAdmissionCapabilityData",
+    "tests/t287-exact-construction-intent.test.mjs": "current_intent via shipped constructor; falsifiers/consumed patch canonical population",
+    "tests/t287-selected-action.test.mjs": "witness admission data via owner; selected_action via shipped constructor; negatives/duplicates patch canonical population",
+    "tests/t287-default-library.test.mjs, tests/t287-recursive-registered-selection.test.mjs": "pending callers await shipped population; start object no longer authority (expectedAuthority assertion only)",
+    "tests/t287-st1-installed-cross-owner-hello.test.mjs": "local start/read population replaced by shipped constructors; falsifiers patch canonical population; extended with shipped direct invoke + all six reads"
+  },
+  "hc1Residuals": {
+    "skipLibCheck": "test_env/tsconfig.framework-handoff.json skipLibCheck:false",
+    "rawUnavailableRefusals": "t287-framework-handoff-types runs all 9 unavailable leaves through runInstalledDefinitionCallTransport (packed proof, not run locally)",
+    "mixedUnionTyping": "per-alternative CandidateAlternativeHolds; positive valid union + 2 mixed-union negatives"
+  },
+  "compilerFeedback": {
+    "canonical": "tsc 5.9.2 --noEmit --incremental false -p tsconfig.json: 0 diagnostics",
+    "declarationEmitProbe": "in-memory declaration emit (discarded): 290 files, 0 diagnostics",
+    "hc1ProofProbe": "in-memory source-mapped proof compile, skipLibCheck false: positive 0 diagnostics; 19/19 negatives fail on their own line with a declared code",
+    "syntax": "node --check on every edited .mjs: pass"
+  },
+  "residuals": [
+    "uat/public-setup.mjs constructLifecycleCall and uat/runner.mjs freshReadbacks keep hand population: out-of-grant uat/harness.test.mjs mocks the superseded owners and api.constructInstalledPublicDefinitionCall; migration needs that test in scope",
+    "qualification/dispatch.mjs rootAuthority still constructs grants/authority via product constructors for observedC2Task",
+    "declared-testing stdoEnvironmentResources (key absent from the strict run resource schema) conserved as an explicit post-construction resource patch",
+    "canonical tenant tsconfig.json skipLibCheck:true outside write grant",
+    "no runtime, packed, CLI, C2 or UAT execution locally (no build/, builds forbidden); ST-1 extension assumes the direct-invoke Run opens a graph_call_opened event"
+  ],
+  "readiness": "rc4-scratch/native-recovery-16/readiness.json FILE_ONLY_READY, 0 issues, 12 source hashes matched",
+  "c2UatReadiness": "candidate for the selected C2 lanes after an independent build/pack; not accepted; UAT harness lane blocked by residual 1",
+  "stdo": "STDO 3.0.2 basis resolved/verified once at entry through the toolchain manager; Worker frame (EXECUTIVE_BASELINE section 9) with declared section 11 specialist context; no other version, cache or mutable methodology source used",
+  "scopeDisclosure": "TMPDIR=rc4-scratch/native-recovery-16/tmp; tsc wrote tmp/node-compile-cache there. No other writes outside granted paths; no install, build, network or generated output."
+}

@@ -1,0 +1,71 @@
+{
+  "status": "CLOSED_RUNTIME_FAILED_UNFINISHED_PARTIAL_PRESERVED",
+  "capturedUtc": "2026-11-02T11:07:39.254476+00:00",
+  "rootReportedClosure": {
+    "session": 95067,
+    "exitCode": 0,
+    "outcome": "runtime_failed",
+    "terminal": null,
+    "freshResult": "not_found",
+    "freshReplay": "failed",
+    "absentPids": [
+      1284,
+      1906,
+      4550,
+      7200
+    ],
+    "nativeC2": false,
+    "nativeUAT": false
+  },
+  "genuineAfterResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/execution/after-run-resume.json",
+    "bytes": 99891830,
+    "sha256": "0b181b6147aab9c47a5d29828f4b29869db4bfe29d1554161ae39563f4181966"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:0447b9016b983aa58a69147674961ad63073417d6711fc798da5c675a1165709",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:1016c69e9b082b39e3441ab30b35018d3fc5db422a1fd5143293c831c4d05b35",
+    "prefixLength": 1086038022,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 673308256
+    }
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/execution/outcome-summary.json",
+    "bytes": 557,
+    "sha256": "9f59f6e122423d832f007a718965a02be44c90f4acb391ac2600f19ffd277a29"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/execution/fresh-reads.json",
+    "bytes": 2396,
+    "sha256": "3017907981ede6a3ba47227a4a58f5af0c5fd14b513ed5312de0bb3fecf74d22"
+  },
+  "priorPendingCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/failure-custody-001/CUSTODY.json",
+    "bytes": 9082,
+    "sha256": "ad194552f758de628ae136e7fb55c732e04a451f34e0e569347ddf76dbfb7d8c"
+  },
+  "checkpoint": {
+    "commit": "6937d30e869c23d819e98be26b136e090ec541d7",
+    "tree": "914ebdee0d897784313dcf2705adf35db09a4cd6",
+    "parent": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+    "solePath": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "blob": "f321e228011126b6938689ad33de29b65c99f1aa",
+    "fileSha256": "e2867ea29d2bbef94f276562a155a00e8cd493c5672dacfcfb258b7e9f046ef1",
+    "binaryDiffSha256": "1ca6dd0cd0e141c53cb6a7e18c15b9463d748dc6bc6f875cc974af355b01d66c",
+    "trackedCleanAfterCommit": true,
+    "title": "chore: partial unfinished attempt012 native import custody",
+    "scope": "Exactly native import-only4insertions/2deletions; no source byte edits, other staging, push, cleanup or acceptance."
+  },
+  "limits": [
+    "96turn operator cap; provider explicit97turn/error_max_turns; no dollar cap",
+    "Post-work symlink_forbidden/after:null; no successful native after observation",
+    "Original pending custody/history preserved; no retry or next packet selected",
+    "Fresh event-resource lookup is read-only operational planning, not recovery proof"
+  ]
+}

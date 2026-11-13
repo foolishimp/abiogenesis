@@ -1,0 +1,1116 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "fixedFamilies": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "activeWork": "GOAL-035 / T-287 release resumption; RC7 builder to prospective RC8; REF-01 constructed-call reference preservation",
+    "selectedOutcome": "Source-003 bounded review of the stage-04 Product input owner handoff: actual canonical constructor payload is established in the existing owner and reaches the real consumer by identity with no further Product input copy. Retain prior normalization, Catalog/view pre-gate reuse, raw admission and currentness/effects.",
+    "classification": "Owner-local identity bookkeeping is deterministic construction / a derived tool. It is not runtime admission authority, a durable registry, an event writer or a lifecycle.",
+    "authoritySplit": "Product/requirements own WHAT; the TypeScript HOW realizes it; exact immutable definitions and reconstructible Catalog/view remain eventless. ABG alone admits runtime truth and events; SDK/CLI remain thin invocation/projection shells.",
+    "prohibitions": [
+      "No new universal trust registry, store, language, runtime, public controller or replacement admission calculus",
+      "No migration of the twelve cold reads or S7 export census deletion",
+      "No whole-5.0 qualification, release, installation or selector claim from this review"
+    ],
+    "composition": [],
+    "operatingModel": "One trusted address space with explicit typed internal owner handoffs and source-established producer preconditions. The adversarial raw public boundary is retained. No hostile-internal-caller authentication, extra registry or defensive re-walk is required by this activation."
+  },
+  "reviewId": "T287-RC8-REF01-SOURCE-003",
+  "recordedUtc": "2026-11-07T04:34:30.288803+00:00",
+  "actor": "/root/rc8_source_review",
+  "role": "Reviewer",
+  "returnTo": "/root",
+  "verdict": "satisfied",
+  "triage": "not_applicable",
+  "findings": [],
+  "claim": "The exact five-file stage-04 correction lawfully composes actual canonical constructor output with the existing Product input owner, closes RC8-SOURCE-003 on the selected first/warm path, and preserves the prior bounded corrections and raw/currentness/effect controls.",
+  "claimLimits": "This is bounded source review with independently reacquired retained owned-call mechanical evidence. It is not full REF-01 performance attribution, every Product/scenario coverage, remaining focused-lane conjunction, installed release acceptance or whole-5.0 qualification.",
+  "independence": {
+    "authoredSuccessor": false,
+    "repairedSuccessor": false,
+    "reviewerExecutedTests": false,
+    "priorRole": "Reviewer/report author for source-001 and source-002; findings and lawful behavior requirements informed Root scope. No Product implementation or HOW artifact was authored by this reviewer.",
+    "reviewerFamily": "OpenAI Codex; MAX requested by Executive",
+    "evidenceConditions": "Prior findings, Worker proposal and Executive operating-model clarification were visible. Exact authority/source bytes and retained lane artifacts independently reacquired. This is the reviewer own source judgment; shared mechanical evidence is not represented as reviewer execution.",
+    "hostBoundary": "No enforced tool-isolation claim. Only selected reads and the two source-003 report writes were performed."
+  },
+  "basis": {
+    "productDefinition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "stdo": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "verification": "stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify: exit 0, installed=true, valid=true, failures=[]; required members resolved through stdo"
+    },
+    "severityScale": "Product frame descending S0-S4; S2 material semantic/authority/causal/proportionality/proof defect with bounded workaround. No priority or promotion disposition is assigned.",
+    "owningRelations": [
+      "PRODUCT.md:811-848 Live State, Recovery And Valid Reuse; 1240-1275 Definition, Tool, Runtime Authority and Compression Boundary; F01/F05/F06/F09/F10 in fixed fifteen-family set",
+      "REQ-P-PUBLIC-CONTRACTS-009/010: exact declared defaults, invocation identity and owning semantic function",
+      "REQ-P-CATALOG-014/017/029/030: exact coherent readiness, exact idempotence, eventless construction and separate ABG runtime truth",
+      "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md: admission family, O-SCHEMA, 10.9 residuals and new 10.11 X1-X6",
+      "T-287 anchors rc7-reference-preservation-follow-up and rc8-reference-preservation-plan; TASK.002 exact grant",
+      "STDO EVALUATION 3/4/5 and ACTIVATION 7; project Reviewer/Executive separation and proportionality"
+    ],
+    "requirements": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+        "bytes": 19406,
+        "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-CATALOG.md",
+        "bytes": 13757,
+        "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+      }
+    ],
+    "scope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SCOPE.json",
+      "bytes": 7102,
+      "sha256": "757afe1a967d7b3f07d23c225beac1a4d75b90811548cad4fabd61781111d098"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/TASK.json",
+      "bytes": 10079,
+      "sha256": "e55a0164fc3592bb2a73f6e23b10acc2f16250409d5a62a2283a2ec6cf724fe7"
+    },
+    "liveReverification": "Independently rehashed Product Definition, Product, project frame and both owning requirement documents: all unchanged from source-002. stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify again returned installed=true, valid=true, failures=[]. Exact installed stdo-review skill/method clauses remain the same verified STDO3.0.4 basis."
+  },
+  "subject": {
+    "sourceRoot": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceDigestIndependentlyRecomputed": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "verifiedMembers": 1338,
+    "memberMismatches": 0,
+    "previousSourceDigest": "b884ca1fe49d31b1fd2d3b6f8ade9c64fba911b83dc37fee069d74453cd4ff81",
+    "previousSourceFreeze": {
+      "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "5805c757c7baca31e4b81b7775c5210d84a87c5a11238360e50f6587f7aebf6a"
+    },
+    "baselineCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "deltaFromStage03": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "bytes": 50287,
+        "sha256": "472cd345cd3e67e32e997361e2b24d2b11d09e7a3ec9726cb6da30d66a2be8db"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "bytes": 29474,
+        "sha256": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 28391,
+        "sha256": "e966a48e9106f41c5bc86ca4f0d3fa093fe33730c58eb83740ed2a13c771cb4e"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 194356,
+        "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+        "bytes": 21885,
+        "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1"
+      }
+    ],
+    "deltaFromRC7": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+        "bytes": 8404,
+        "sha256": "23c99905b12861502910a7260aaac3ab5b081ee11370fbd5a77f5f7ea8ab2363",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 50429,
+        "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "bytes": 108537,
+        "sha256": "8f1d6ac38cfbb76cd479c95ade440f189b5f78d4da46c817a070bce3293e3638",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+        "bytes": 37953,
+        "sha256": "dcff7ac2a79787e89ebc7a3d10de79a0563ee30fa133dc7e5dd74cbe7250a058",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "bytes": 13080,
+        "sha256": "7d068fe8136483682efcb823d26d3031ff01e5c8498302a6c78943d859ac7f56",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "bytes": 47655,
+        "sha256": "0a1fcbf60c8fb132747fbf31f1ce486676b0033c713eed8eaa78d521a6d3aec9",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "bytes": 50287,
+        "sha256": "472cd345cd3e67e32e997361e2b24d2b11d09e7a3ec9726cb6da30d66a2be8db",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "bytes": 29474,
+        "sha256": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+        "bytes": 20232,
+        "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+        "bytes": 7039,
+        "sha256": "fd0624a822044ea73bd2b77ae8492bd6ed95595b98d451e7f0260c1d62fd31d4",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "bytes": 21524,
+        "sha256": "ce38e94f4206edcbf4bbd16c096a5c94df12151a7b51809a6b6bc101b46778a7",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 28391,
+        "sha256": "e966a48e9106f41c5bc86ca4f0d3fa093fe33730c58eb83740ed2a13c771cb4e",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+        "bytes": 5579,
+        "sha256": "6162e59f630388acb4a70e222e33b71ca03fb04c7d8cd20e50b4933e561664ad",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 194356,
+        "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+        "bytes": 8001,
+        "sha256": "305f7494ff2e171720a12f604ddb19c9cfca7cb01a83a1d030c39647c927789d",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10003,
+        "sha256": "a0f72d262f00eabc74f6aaa963972888c3bb15cf703c30f7ad1bec8413e7fd17",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+        "bytes": 1672,
+        "sha256": "942ab51480a843bc0711c71a03bdba9dd2360eb5764c41877c19151008f6cc73",
+        "new": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+        "bytes": 21885,
+        "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+        "new": true
+      }
+    ],
+    "changedCounts": {
+      "fromStage03": 5,
+      "fromRC7": 18,
+      "trackedAgainstRC7": 16,
+      "newAgainstRC7": 2
+    },
+    "outsideGrantedPaths": []
+  },
+  "priorReports": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-001/REVIEW.json",
+      "bytes": 32984,
+      "sha256": "0e236b5cc3e1b9e6c4e93a8da9840dee45478fee2366b55461c23b6fe94fad16"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-002/REVIEW.json",
+      "bytes": 35488,
+      "sha256": "44359f5a2f1fa5fc054ed35af97f529ea15701201fc311fd0d47681b04b0d98d"
+    }
+  ],
+  "priorFindingStanding": [
+    {
+      "id": "RC8-SOURCE-001",
+      "historicalSeverity": "S2",
+      "reviewAssessment": "Prior Catalog/view first-gate issue remains corrected; exact first/warm observations now corroborate setup1 and zero additional work at the declared sites. Historical rejected source and finding remain unchanged."
+    },
+    {
+      "id": "RC8-SOURCE-002",
+      "historicalSeverity": "S2",
+      "reviewAssessment": "Canonical request/default/output/refusal correction preserved; the now-completed focused lane exercises its retained default/transform/non-enumerable cases. Historical rejected source and finding remain unchanged."
+    },
+    {
+      "id": "RC8-SOURCE-003",
+      "historicalSeverity": "S2",
+      "reviewAssessment": "Satisfied for this exact successor source and selected installed first/warm witness: actual canonical payload is transferred to the existing Product input owner and reused with zero extra Product copies. Executive alone decides formal disposition/acceptance."
+    }
+  ],
+  "evaluations": [
+    {
+      "id": "C1",
+      "question": "Does the Product owner establish the actual canonical payload through the selected internal producer relation?",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "assessment": "There is one production call site of establishCanonicalProductInput, in constructInstalledStartCall. It obtains population only by calling Product.populateProductRunInvocation, completes canonical checkedInstalledCall, requires isEstablishedDefinitionCall, and extracts the payload from the same start/invoke path of population.request and call.invocation.request. The owner checks existing admitted membership and a distinct frozen canonical object before adding that exact object to its existing set. Source-established provenance supplies the canonical-output relation; this is not runtime authentication of arbitrary internal callers. No extra registry or walk is introduced.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+          "bytes": 28391,
+          "sha256": "e966a48e9106f41c5bc86ca4f0d3fa093fe33730c58eb83740ed2a13c771cb4e",
+          "lines": [
+            528,
+            588
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "bytes": 29474,
+          "sha256": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe",
+          "lines": [
+            526,
+            546
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+          "bytes": 20232,
+          "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812",
+          "lines": [
+            208,
+            229
+          ]
+        }
+      ],
+      "revisingObservation": "A new call site, changed payload path or producer, bypass of canonical establishment/deep immutability, or new governing operating model."
+    },
+    {
+      "id": "C2",
+      "question": "Does first/warm real Product consumption use the canonical payload without a second Product I-JSON copy?",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "assessment": "The owner records the canonical object before returning the constructed call. Real preparation extracts that same nested request payload; detachedProductInput returns it on owner membership, then semantics.admitInput still executes on that value. The nested-input WeakRef probe observes the actual Product preparation argument. The exact retained owned-call lane passes first and two warm calls with inputCopies=0 and inputReuses=1, with nested/outer receiving-owner equality assertions. This is the selected installed language fixture, not all payloads or an overall performance claim.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "bytes": 29474,
+          "sha256": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe",
+          "lines": [
+            512,
+            578
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+          "bytes": 50287,
+          "sha256": "472cd345cd3e67e32e997361e2b24d2b11d09e7a3ec9726cb6da30d66a2be8db",
+          "lines": [
+            578,
+            638
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+          "bytes": 50287,
+          "sha256": "472cd345cd3e67e32e997361e2b24d2b11d09e7a3ec9726cb6da30d66a2be8db",
+          "lines": [
+            685,
+            708
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 21885,
+          "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+          "lines": [
+            53,
+            90
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.stdout",
+          "bytes": 7530,
+          "sha256": "52ce158069798edbf972a9096e60218b2ddb56613f88f3d1f80df7c75f60c9c5"
+        }
+      ],
+      "revisingObservation": "An exact selected constructor call whose nested Product input differs, misses owner membership or adds an input copy after construction."
+    },
+    {
+      "id": "C3",
+      "question": "Are canonical defaults/digest and raw/foreign admission preserved?",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "assessment": "The new handoff does not change canonical invocation admission or replace any value with a hash-equal/raw object. A call established outside constructInstalledStartCall receives no Product handoff; its actual canonical payload takes one Product admission. The focused test now correctly distinguishes this raw/defaulted path from the ordinary constructor path, retains the canonical fhMode/direct and request-digest checks, and observes one Product copy for copied/raw payloads. It also passes resource transform/default and non-enumerable-refusal comparisons. This is a lawful clarification of producer scope, not a weakening of the ordinary zero-copy exit.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+          "bytes": 28391,
+          "sha256": "e966a48e9106f41c5bc86ca4f0d3fa093fe33730c58eb83740ed2a13c771cb4e",
+          "lines": [
+            565,
+            582
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "bytes": 29474,
+          "sha256": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe",
+          "lines": [
+            538,
+            545
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 21885,
+          "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+          "lines": [
+            93,
+            146
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 21885,
+          "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+          "lines": [
+            174,
+            209
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/RESULT.json",
+          "bytes": 341,
+          "sha256": "6ba4b1d5816d9176cc9c8af46dd34be6794525e8a02cfe9f377fa6cb9d1d2a7a"
+        }
+      ],
+      "revisingObservation": "A raw/copied/changed value acquires the Product fact without the selected constructor relation, or canonical default/output/refusal behavior changes."
+    },
+    {
+      "id": "C4",
+      "question": "Does the prior Catalog/view correction and exact rebox criterion remain intact?",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "assessment": "Catalog owner predicates, their pre-gate binder use and no-cache generic fallback are byte-identical to stage-03. The same owned-call lane reports setup Catalog admissions=1 and view constructions=1 separately from post-setup deltas. First and warm calls add zero Catalog/view admission/construction/comparison or transport detach/reattachment. Frozen rebox preserves exact owned components; a frozen copied Catalog does not acquire owner membership and takes the full path.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+          "bytes": 7039,
+          "sha256": "fd0624a822044ea73bd2b77ae8492bd6ed95595b98d451e7f0260c1d62fd31d4",
+          "lines": [
+            54,
+            90
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+          "bytes": 37953,
+          "sha256": "dcff7ac2a79787e89ebc7a3d10de79a0563ee30fa133dc7e5dd74cbe7250a058",
+          "lines": [
+            400,
+            424
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 21885,
+          "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+          "lines": [
+            42,
+            48
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 21885,
+          "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+          "lines": [
+            147,
+            174
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.stdout",
+          "bytes": 7530,
+          "sha256": "52ce158069798edbf972a9096e60218b2ddb56613f88f3d1f80df7c75f60c9c5"
+        }
+      ],
+      "revisingObservation": "An unchanged setup Catalog/view enters the binder tree gate, or a copy earns owner facts from content/frozen state alone."
+    },
+    {
+      "id": "C5",
+      "question": "Do semantic/currentness/effect and mutable-worker controls remain?",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "assessment": "Product guard execution remains outside the I-JSON reuse branch and occurs on every admission. Existing held-selection/prefix checks, installed-content verification, effect owners and the mutable worker clone path are unchanged by the five-file correction. The passing focused test retains the prepared-plan mutation and shallow-frozen cases. This review does not independently execute the remaining focused lanes or claim complete stale/recovery/effect coverage.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "bytes": 29474,
+          "sha256": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe",
+          "lines": [
+            552,
+            578
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+          "bytes": 21524,
+          "sha256": "ce38e94f4206edcbf4bbd16c096a5c94df12151a7b51809a6b6bc101b46778a7",
+          "lines": [
+            436,
+            478
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+          "bytes": 50429,
+          "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067",
+          "lines": [
+            966,
+            1013
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 21885,
+          "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+          "lines": [
+            210,
+            238
+          ]
+        }
+      ],
+      "revisingObservation": "A changed guard/currentness/effect owner, exact affected regression or mutation of a prepared plan."
+    },
+    {
+      "id": "C6",
+      "question": "Are scope, counters and remaining-work claims truthful?",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "assessment": "Only five allowed paths change from stage-03; 18 paths remain different from RC7, all within grant. The existing three binders/type-only extension are unchanged. Setup absolute counts are now recorded; construction still performs population I-JSON admission, canonical request/invocation schema parsing with payload reconstruction, and an establishment walk. The one callAdmissions count is not a count of every internal copy/walk. Native module/declaration linking and shared gate work remain expressly unmeasured; profile attribution remains separate. No twelve-cold-read migration, S7 deletion or release claim appears.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+          "bytes": 194356,
+          "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659",
+          "lines": [
+            975,
+            1028
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 21885,
+          "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+          "lines": [
+            42,
+            48
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+          "bytes": 20232,
+          "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812",
+          "lines": [
+            453,
+            468
+          ]
+        }
+      ],
+      "revisingObservation": "An ungranted path changes, a counter is generalized beyond its sites, or a broader zero-work/performance/release claim relies on this result."
+    }
+  ],
+  "proof": {
+    "stageResult": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/RESULT.json",
+      "bytes": 848,
+      "sha256": "838905e62db6a10282a24617d4e3002369327f2d899afb1a9e5e1d16eb6bb4b1"
+    },
+    "stageResultInterpretation": "Retained Operator result reports compile/generate/imports/lifecycle/calculus exit 0, bound to exact sourceDigest; independently read/hashed, not reviewer executed.",
+    "ownedCallResult": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/RESULT.json",
+      "bytes": 341,
+      "sha256": "6ba4b1d5816d9176cc9c8af46dd34be6794525e8a02cfe9f377fa6cb9d1d2a7a"
+    },
+    "ownedCallStdout": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.stdout",
+      "bytes": 7530,
+      "sha256": "52ce158069798edbf972a9096e60218b2ddb56613f88f3d1f80df7c75f60c9c5"
+    },
+    "ownedCallStderr": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ownedCallOutcome": {
+      "status": "PASSED",
+      "name": "lane-02",
+      "lane": "owned-call",
+      "stage": "stage-04",
+      "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "wallMs": 45248.671125,
+      "pattern": null
+    },
+    "observations": {
+      "setupAbsolute": {
+        "catalogFullAdmissions": 1,
+        "catalogViewConstructions": 1,
+        "productInputCopies": 0
+      },
+      "observations": [
+        {
+          "identity": "rc8-ref01-0",
+          "construction": {
+            "call": {
+              "callAdmissions": 1,
+              "establishedInvocations": 1,
+              "establishmentWalks": 1,
+              "invocationReuses": 0,
+              "resourceGates": 0,
+              "resourceMemberAdmissions": 0,
+              "resourceMemberReuses": 0
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 0
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 1,
+              "inputReuses": 0
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          },
+          "carried": {
+            "call": {
+              "callAdmissions": 0,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 1,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 5,
+              "resourceMemberReuses": 2,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 1
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 0,
+              "inputReuses": 1
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        },
+        {
+          "identity": "rc8-ref01-1",
+          "construction": {
+            "call": {
+              "callAdmissions": 1,
+              "establishedInvocations": 1,
+              "establishmentWalks": 1,
+              "invocationReuses": 0,
+              "resourceGates": 0,
+              "resourceMemberAdmissions": 0,
+              "resourceMemberReuses": 0,
+              "gated.kind": 0,
+              "gated.schemaVersion": 0,
+              "gated.eventResource": 0,
+              "gated.applications": 0,
+              "gated.source": 0
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 0
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 1,
+              "inputReuses": 0
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          },
+          "carried": {
+            "call": {
+              "callAdmissions": 0,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 1,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 5,
+              "resourceMemberReuses": 2,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 1
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 0,
+              "inputReuses": 1
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        },
+        {
+          "identity": "rc8-ref01-2",
+          "construction": {
+            "call": {
+              "callAdmissions": 1,
+              "establishedInvocations": 1,
+              "establishmentWalks": 1,
+              "invocationReuses": 0,
+              "resourceGates": 0,
+              "resourceMemberAdmissions": 0,
+              "resourceMemberReuses": 0,
+              "gated.kind": 0,
+              "gated.schemaVersion": 0,
+              "gated.eventResource": 0,
+              "gated.applications": 0,
+              "gated.source": 0
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 0
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 1,
+              "inputReuses": 0
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          },
+          "carried": {
+            "call": {
+              "callAdmissions": 0,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 1,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 5,
+              "resourceMemberReuses": 2,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 1
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 0,
+              "inputReuses": 1
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        },
+        {
+          "identity": "rc8-ref01-copied",
+          "carried": {
+            "call": {
+              "callAdmissions": 1,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 0,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 7,
+              "resourceMemberReuses": 0,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1,
+              "gated.catalog": 1,
+              "gated.catalogView": 1
+            },
+            "transport": {
+              "detaches": 1,
+              "verifierReattachments": 0,
+              "establishedCarries": 0
+            },
+            "catalog": {
+              "fullAdmissions": 1,
+              "viewConstructions": 1
+            },
+            "resolution": {
+              "catalogComparisons": 1,
+              "viewComparisons": 1
+            },
+            "input": {
+              "inputCopies": 1,
+              "inputReuses": 0
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        },
+        {
+          "identity": "rc8-ref01-defaulted",
+          "carried": {
+            "call": {
+              "callAdmissions": 0,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 1,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 5,
+              "resourceMemberReuses": 2,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1,
+              "gated.catalog": 0,
+              "gated.catalogView": 0
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 1
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 1,
+              "inputReuses": 0
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        },
+        {
+          "identity": "rc8-ref01-rebox",
+          "carried": {
+            "call": {
+              "callAdmissions": 0,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 1,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 5,
+              "resourceMemberReuses": 2,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1,
+              "gated.catalog": 0,
+              "gated.catalogView": 0
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 1
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 0,
+              "inputReuses": 1
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        },
+        {
+          "identity": "rc8-ref01-fake-catalog",
+          "carried": {
+            "call": {
+              "callAdmissions": 0,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 1,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 6,
+              "resourceMemberReuses": 1,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1,
+              "gated.catalog": 1,
+              "gated.catalogView": 0
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 1
+            },
+            "catalog": {
+              "fullAdmissions": 1,
+              "viewConstructions": 1
+            },
+            "resolution": {
+              "catalogComparisons": 1,
+              "viewComparisons": 1
+            },
+            "input": {
+              "inputCopies": 0,
+              "inputReuses": 1
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        }
+      ],
+      "binderProbe": {
+        "callAdmissions": 0,
+        "establishedInvocations": 0,
+        "establishmentWalks": 0,
+        "invocationReuses": 1,
+        "resourceGates": 1,
+        "resourceMemberAdmissions": 2,
+        "resourceMemberReuses": 1,
+        "gated.kind": 1,
+        "gated.schemaVersion": 0,
+        "gated.eventResource": 0,
+        "gated.applications": 0,
+        "gated.source": 0,
+        "gated.catalog": 0,
+        "gated.catalogView": 0,
+        "gated.t": 1
+      },
+      "shell": {
+        "contractCopies": 1,
+        "schemaCopies": 0,
+        "reuses": 0,
+        "deepFrozenChecks": 1
+      },
+      "deep": {
+        "contractCopies": 0,
+        "schemaCopies": 0,
+        "reuses": 2,
+        "deepFrozenChecks": 1
+      },
+      "limit": "Smallest installed language fixture in one test process; counters observe this process only; no performance claim."
+    },
+    "mechanicalReuse": "The reviewer independently acquired the exact maintained proof result and stdout, checked their stage/source binding, read the frozen assertions and inspected the causal source path. No dynamic test was run by the reviewer.",
+    "scope": "Smallest installed language fixture in one test process, using the actual constructor/transport/binder/Product preparation owner; not an additional native provider workflow or general performance test.",
+    "notPerformed": [
+      "Independent execution of any test by Reviewer",
+      "Remaining binding/catalog/invocation/worker/held lane receipt conjunction",
+      "Matched 1MiB/4MiB after measurements or CPU-profile evaluation",
+      "Physical native module/declaration-link measurement or shared JSON/schema gate census",
+      "Actual native return/fresh result-replay-close conjunction",
+      "Packaging/install acceptance or whole-5.0 qualification"
+    ],
+    "limits": [
+      "The standalone test has one TAP pass containing multiple assertions; this is not a count of separate independently executed cases.",
+      "Setup absolute Catalog admission=1/view construction=1 is observed for this process/fixture, not inferred from zero deltas.",
+      "Construction retains raw admission/schema reconstruction/deep immutability work. The zero claim starts after the ordinary constructor returns for the selected object-valued payloads.",
+      "Directly established raw/defaulted/copied payloads intentionally retain canonical Product admission. Primitive payloads are not owner-recorded objects and retain constant-size admission.",
+      "Transport verifier reattachments do not measure physical native module/declaration linking. No speedup or total-allocation claim follows."
+    ]
+  },
+  "residuals": [
+    {
+      "id": "R1",
+      "owner": "Executive / Operator",
+      "claim": "Remaining focused execution, native return/readback/close and exact-source conjunction",
+      "standing": "Not assessed here; retain exact results at their existing owners."
+    },
+    {
+      "id": "R2",
+      "owner": "Matched measurement/profile Operator",
+      "claim": "1MiB/4MiB matched cost and physical native/shared-gate attribution",
+      "standing": "Outside this review; current counters do not establish these claims."
+    },
+    {
+      "id": "R3",
+      "owner": "Product release/qualification",
+      "claim": "Whole-5.0 qualification and any cut/install/release",
+      "standing": "Not authorized or established by this satisfied bounded review."
+    }
+  ],
+  "recommendation": "No additional source repair is recommended in this selected causal cone. Return this satisfied bounded result for Root to conjoin with actual native return and the remaining selected execution receipts. Preserve all prior frozen sources/failures; maintain the explicit performance and qualification limits.",
+  "priority": "not_applicable",
+  "promotionDisposition": "not_assigned",
+  "sourceAccepted": false,
+  "invalidation": [
+    "Material changes to any cited source, constructor producer/call site, payload path, canonical schema output or selected proof input",
+    "Changed Product/STDO/frame/requirements, trusted-address-space assumption, or reviewer capability/independence",
+    "Exact revising observation named by an evaluation, including new copies, lost canonical semantics, raw admission bypass or changed owner/currentness/effect behavior"
+  ],
+  "artifactEffects": [
+    "reviews/source-003/README.md",
+    "reviews/source-003/REVIEW.json"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "status": "READINESS_DRAFT_ROOT_FINAL_SCOPE_AND_REVIEW_PENDING",
+  "at": "2026-11-07T15:26:41.654900+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "fixedScope": "fixed15 / GOAL035 / T287 / REF01; empty composition",
+  "sourcePreimageDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 7205,
+    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+  },
+  "actualPriorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "e4b341435ebfabe78c83d2c20bf911eeb9afc22ff082fbc0976a03e5ccd77703"
+  },
+  "closedPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 192595103,
+    "prefixDigest": "sha256:ccf41d16714b6148491cf842e834764d2c892789f51b3acec3f998f8f82dea39",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 708868359,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:49a385677c464929c5c939b5eb024a95fa167102878c98b7c41884ee223d00fb"
+  },
+  "priorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/OPERATOR_RETURN.json",
+    "bytes": 10732,
+    "sha256": "ebb79d30a1d5a033341297b66b4ecf8f09bbf4fe5166ec1092b5ae9d8a142af4"
+  },
+  "productArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "prospectiveWritePath": "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+  "prospectiveEdit": "Replace obsolete ROOT_CURRENT_EVENT_PROFILE_REF with ROOT_WINDOW_EVENT_PROFILE_REF only in profileRequest evidence and its corresponding missing-evidence negative removal (frozen lines226,241). Current W digest, all assertions, owners, limits and othercases unchanged. Preliminary Root/reviewer causal selection only; final closed capsule and Root scope required.",
+  "prospectiveProof": {
+    "namePattern": "^Public profile reprice retains the exact L-to-P boundary and standalone cold content checks$",
+    "expectedPassed": 1,
+    "expectedReportedSkipped": 0,
+    "excluded": 14,
+    "wholeFile": false,
+    "prior024PassedCasesConjoinedOnly": 14,
+    "newWholeFileCredit": false,
+    "commandTimeoutMs": 600000
+  },
+  "proposedNativeBudget": {
+    "absoluteTimeoutMs": 1800000,
+    "inactivityTimeoutMs": 300000,
+    "modelRoute": "existing RC7 Claude Opus5.5 xhigh",
+    "basis": "Reuse finite A11 bounds; actual A11 SDK call761.165s included168.347s dispatch-to-actor and8.232s focused command. Actual setup397.419s and11.212s control/import remain separate observed costs, not predicted guarantees. No cap extension/new provider route."
+  },
+  "observedA11TimingMs": {
+    "ownerSetup": 397419.086458,
+    "controlAndImport": 11211.91875,
+    "constructedToDispatch": 114186.0,
+    "dispatchToActor": 168347.0,
+    "sdkCall": 761165.2490409999,
+    "actualCloseAfterSdk": 0.9986250000074506,
+    "priorCloseRecordToDispatch": 4296225.0,
+    "freshReadbacks": 28958.78675,
+    "focusedCommand": 8232.363834
+  },
+  "reuse": {
+    "host": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/host.mjs",
+      "bytes": 12242,
+      "sha256": "ab2e3601532519e6a5b8ceff7cf2434cc2d7ccbc8659255782e5dc9778eb9709"
+    },
+    "proof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs",
+      "bytes": 10763,
+      "sha256": "c2f7225fbf3f790d2bf139774b89763febbe8017ef4c2deba17f7a7a75186bcf"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/BINDING.json",
+      "bytes": 5090,
+      "sha256": "d172b81abff26cd54198429f4ccf965fcca7624f591add59709d1a7859fdb359"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/TASK.json",
+      "bytes": 5287,
+      "sha256": "eff444d271d53121f8e9497dc701433f0cce3a1a9dfe62d1c4c040d24c3044b6"
+    }
+  },
+  "frozenProductRelation": "Test-only overlay of accepted A11; cumulative earlier overlay retained. Existing compiled/dependency/archive inputs reused with exact conservation; zero build/generation/repack.",
+  "effectsSoFar": {
+    "controlDraftOnly": true,
+    "sdkAcquisition": false,
+    "nativeDispatch": false,
+    "sourceEdits": 0,
+    "tests": 0
+  },
+  "standing": "Broad025 is the only active heavy proof and retains priority. No A12 SDK allocation/dispatch or source edit is admitted; final causal capsule and Root selected scope remain pending. Original024 red and nine durable residuals preserved; no no-block claim."
+}

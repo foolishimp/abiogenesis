@@ -1,0 +1,217 @@
+{
+  "kind": "rc7_s4_existing_test_owner_reuse",
+  "historicalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-002/SUBJECT.json",
+    "bytes": 296146,
+    "sha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741"
+  },
+  "finalCandidate": null,
+  "helperRelativePaths": [
+    "test_env/support/root-installed-environment.mjs",
+    "test_env/support/candidate-basis.mjs",
+    "test_env/support/language-smoke-fixture.mjs",
+    "test_env/support/registered-graph-selection.mjs",
+    "test_env/fixtures/language-smoke/program.mjs",
+    "test_env/fixtures/registered-selection-product/index.mjs",
+    "test_env/fixtures/abi5-root-candidate-basis.json"
+  ],
+  "references": [
+    {
+      "relativePath": "test_env/support/root-installed-environment.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 42751,
+        "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "test_env/support/candidate-basis.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+        "bytes": 1177,
+        "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "test_env/support/language-smoke-fixture.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+        "bytes": 7276,
+        "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "test_env/support/registered-graph-selection.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+        "bytes": 19702,
+        "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "test_env/fixtures/language-smoke/program.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+        "bytes": 8359,
+        "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "test_env/fixtures/registered-selection-product/index.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+        "bytes": 9876,
+        "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+        "bytes": 515,
+        "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "code/src/gtl/native_workspace_work.ts",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+        "bytes": 8726,
+        "sha256": "e46879346a2bbf47e0e37e529582a01c1f37c955fc5d9fb9f3a175010813ae25"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "code/src/product/native_workspace_work.ts",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+        "bytes": 27351,
+        "sha256": "eea3f793159d40ea3d29831658ab6d816867233b1adfa4ec91cb6497eaa61f6a"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "code/src/product/native_workspace_work_identity.ts",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work_identity.ts",
+        "bytes": 2175,
+        "sha256": "5295c7980634a861b55cc9dd45757515703351e6c61de121cfa0b732177e325b"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "code/src/product/run_invocation_operation.ts",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "bytes": 48321,
+        "sha256": "028298bf9539c633c080621d863ccb77f50d0bb96fa8ea343b94542cdfe842ad"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "code/src/abg/native_worksite_execution.ts",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+        "bytes": 23428,
+        "sha256": "6460194c1cd022e27b0775657bac504cb19543d6e7d41dc2f77d6f96def5e49c"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "code/src/abg/event_store.ts",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 215977,
+        "sha256": "c1ccb6d04d413f946c87a3586934428c61a319ef9b86f6b2ff225575db4c973e"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "code/src/abg/c_call.ts",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301318,
+        "sha256": "7a4f8d738d3838990a196e9bd6f9c3d10d7e69ff55f15e19b0808f44ad1fc82b"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "code/src/public/installed_public_definition_call.ts",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 27277,
+        "sha256": "d3afab39d2a86ec5aa590ea5445248768896d60636aab7e7dd86da41c92cb52e"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "bytes": 118690,
+        "sha256": "1aefd7d8ae52a2b1cc0ac929ca003966de5980bce5d73a17fb43b94d7d5e9e25"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-002/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "bytes": 20375,
+        "sha256": "78d7ab6648212ff8702f1b3fdc6f8a761d60b6b4a2b6e0e53f915990260dfe65"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    },
+    {
+      "relativePath": "test_env/tests/t287-default-library.test.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 340007,
+        "sha256": "bba57cddf31d255a0dc939d844a20719493cc2bb0e2d90d736c6f376298e1150"
+      },
+      "standing": "Known frozen owner/fixture reference only; final selected candidate bytes remain unbound."
+    }
+  ],
+  "canonicalOperatorOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "acceptedOrRetainedEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 5095,
+      "sha256": "9d2aeda376716644e5cf092627de40c4175f81c50e37b2ad9945b16e14fced02"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_POST_PROOF_DISPOSITION.json",
+      "bytes": 12677,
+      "sha256": "be2821a3e6e1e89fa1083598b2555702786936786ef5f41eb03862bd3254261a"
+    }
+  ],
+  "claims": "S4 component no-copy semantics and bounded HS02 held-resource equality are prior evidence, not the new installed growth measurement. Existing S4 component test has controlled ownership premises; this driver uses ordinary installed admission."
+}

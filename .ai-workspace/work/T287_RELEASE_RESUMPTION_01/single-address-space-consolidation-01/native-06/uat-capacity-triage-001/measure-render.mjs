@@ -1,0 +1,15 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+const installed="/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant";
+const taskPath="/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_UAT_TASK.json";
+const output="/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/uat-capacity-triage-001/render-measurement.json";
+const taskBytes=await readFile(taskPath),task=JSON.parse(taskBytes);
+const native=await import(pathToFileURL(installed+'/build/code/src/product/native_workspace_work.js'));
+const json=await import(pathToFileURL(installed+'/build/code/src/shared/canonical_json.js'));
+const bytes=x=>Buffer.byteLength(typeof x==='string'?x:JSON.stringify(x));
+const sha=x=>createHash('sha256').update(x).digest('hex');
+const prompt=native.renderNativeWorkspaceWorkOrder(task);
+const result={standing:'Exact pure installed task rendering; no assembly authentication, admission, provider or actor',taskSha256:sha(taskBytes),validTask:native.isNativeWorkspaceWorkTask(task),promptBytes:bytes(prompt),promptSha256:sha(prompt),bound:1048576,overBoundWithoutRole:bytes(prompt)-1048576,instructionTextBytes:task.instructions.reduce((s,x)=>s+bytes(x),0),instructions:task.instructions.map((s,index)=>({index,bytes:bytes(s),sha256:sha(s)})),readRootsJsonBytes:bytes(JSON.stringify(task.context.readRoots)),readFirstJsonBytes:bytes(JSON.stringify(task.readFirst)),canonicalTaskBytes:bytes(json.canonicalJson(task)),responseSchemaBytes:bytes(json.canonicalJson(native.nativeWorkspaceWorkResponseSchema(task)))};
+await writeFile(output,JSON.stringify(result,null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify(result));

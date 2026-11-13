@@ -1,0 +1,264 @@
+{
+  "kind": "native_author_actual_source_custody",
+  "status": "ACTUAL_SOURCE_CUSTODY_CLOSED_PARTIAL_PROOF",
+  "createdUtc": "2026-11-06T17:37:20.249997+00:00",
+  "actualExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/execution.json",
+    "bytes": 52397544,
+    "sha256": "a95e567f718bfb22ac17ecac67fccd2a2006c81f517acb82cb4c074ea2729b4e"
+  },
+  "actualReceiptPointer": "/receipt",
+  "nativeAfterPointer": "/receipt/ownerOutput/value/terminalResult/value/after",
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/after-run-resume.json",
+    "bytes": 72498702,
+    "sha256": "521b5f15987a92fdf818503cd62e057758bf3a656f36c7532204624cfa98aceb"
+  },
+  "actualResourceClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "6f53cd3f33e036ae98b8f8595d9ada7a8727e67dd6b3c0ab681283a59d55035a"
+  },
+  "outcomeSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/outcome-summary.json",
+    "bytes": 811,
+    "sha256": "be96492f77da08158a4445136ea3a1058927c269e741e86d25b7b407891a9de4"
+  },
+  "dispatchManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/DISPATCH_MANIFEST.json",
+    "bytes": 30565,
+    "sha256": "a4ee5765c0c171de3354e1246dde58218d509f1116cf29effe8cfcce650e7631"
+  },
+  "finalFrozenStage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/SUBJECT.json",
+    "bytes": 267155,
+    "sha256": "1c0531c2ce628677ccfb7ac4f78ce812ad031d91689f0c23b69fda67102e3447"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+    "bytes": 240531,
+    "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+  },
+  "sourceRows": 451,
+  "stagedControls": 18,
+  "handoffCount": 3,
+  "actualBeforeEntries": 472,
+  "actualAfterEntries": 472,
+  "verifiedDispatchPins": 79,
+  "checks": {
+    "all451NativeBeforeEqualHeldPreimages": true,
+    "all451NativeAfterEqualFinalStageHeldAndLive": true,
+    "all18ControlsNativeBeforeAfterAndLiveEqual": true,
+    "all3HandoffsBeforeAbsentAfterAndLiveEqual": true,
+    "all79DispatchPinsUnchanged": true,
+    "all5SourceChangesWithin5PathGrant": true,
+    "allInheritedDirtyAnd2NewProductPathsPreserved": true,
+    "sdkSuccessorEqualsActualCloseAndOriginalResume": true,
+    "terminalProjectionBasisEqualsCloseCoordinate": true
+  },
+  "physicalPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 2155552487,
+    "prefixDigest": "sha256:6239cb006c09b6131d492872ef25461480eac05e523e62df0cf1985d2b8c36c2",
+    "coordinateDigest": "sha256:526c1f4da23e020932d6d01237520e471ea5aa170e70f5b129d0d8be2621b549",
+    "device": 16777231,
+    "inode": 701759869,
+    "observedFileSize": 2155552487,
+    "exactLengthHashAndIdentityVerified": true,
+    "method": "One binary prefix hash/stat pass; no event decode, runtime acquisition, cold readback or replay."
+  },
+  "terminal": {
+    "kind": "abg_typed_terminal_result",
+    "schemaVersion": "5.0.0",
+    "result": {
+      "ref": "result://abiogenesis/e309d8819ff897fde9e212e186299e14c4e1774b04e81a61457afe070d2c1d4c",
+      "digest": "sha256:e309d8819ff897fde9e212e186299e14c4e1774b04e81a61457afe070d2c1d4c"
+    },
+    "contract": {
+      "ref": "contract://abiogenesis/worksite/native-work/observation@5",
+      "digest": "sha256:e99c9eb1b4838652e97ab3df28b6d9b14d9558ac4ebd0772669f3df44720f152"
+    },
+    "valueKind": "native_workspace_work_observation",
+    "valueDigest": "sha256:a635d07cd1c022a1e41f06edaedca7fc72cb683406df2d9d63fa1ae8f889e438",
+    "producer": {
+      "runRef": "run://abiogenesis/b793e5082c70e04d15e84092b02c66d89d9ac26a99c411018950aaba92023506",
+      "graphCallRef": "graph-call://abiogenesis/e52d4db811ea440990cd419d8f18fe020f715d1cdd615e4c0e539e496c7b8a8b",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/a78910751e68ce4b58af7e32c4241a7272b94be7128c8d26567bc124b85fbd5c",
+      "program": {
+        "ref": "program://abiogenesis/worksite/native-work@5",
+        "digest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f"
+      },
+      "graphFunction": {
+        "ref": "graph-function://abiogenesis/worksite/native-work@5",
+        "digest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+      },
+      "executionBasis": {
+        "ref": "execution-basis://abiogenesis/8e8e708f4952da296f0d0300dfe2d9cd5b2125b0e9f0f489e35573320c055e46",
+        "digest": "sha256:8e8e708f4952da296f0d0300dfe2d9cd5b2125b0e9f0f489e35573320c055e46"
+      },
+      "cCallRef": "c-call:sha256:76e1e8047869aae5e88f09df9ee124b8d044340e017cc346e254a9c1c156793a",
+      "resultAdmissionEventRef": "event://abiogenesis/3d9379b394ebb449c5fccbe5be0607f6eddcc60b2900cf472c1a4fc96a9e94c8",
+      "judgmentRef": "judgment://abiogenesis/89de30d2bbdecabf58f27dfb9fa00d9b520197da1d695a13729c4fa81a425be4",
+      "judgmentAdmissionEventRef": "event://abiogenesis/92d54ee365d1eddaed40b9afd140711d2b37d22c9ea1ff7a3a802701076e5999",
+      "terminalRoute": {
+        "ref": "traversal-route://abiogenesis/5f0e5ebc6f9f4f7b7639bcdf790391b08a9f19aed6bab339522f48caa863d1b2",
+        "digest": "sha256:5f0e5ebc6f9f4f7b7639bcdf790391b08a9f19aed6bab339522f48caa863d1b2"
+      }
+    },
+    "projectionBasis": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "digest": "sha256:526c1f4da23e020932d6d01237520e471ea5aa170e70f5b129d0d8be2621b549"
+    }
+  },
+  "sdk": {
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "disposition": "completed",
+    "run": {
+      "ref": "run://abiogenesis/b793e5082c70e04d15e84092b02c66d89d9ac26a99c411018950aaba92023506",
+      "digest": "sha256:cf41b3d693e953877f7a8dc63d646130ca17453d2efcc3e6545a9c3c61a39dba"
+    }
+  },
+  "currentPreservation": {
+    "trackedModifiedCount": 69,
+    "trackedModifiedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-evidence.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs"
+    ],
+    "newProductPathCount": 2,
+    "newProductPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+    ],
+    "collapsedUntrackedEntries": [
+      ".abiogenesis/",
+      "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+      "qualification-inputs/",
+      "qualification-scratch/",
+      "tmpd5a/",
+      "tmphs2/",
+      "tmpo7b/",
+      "tmpq23/",
+      "tmpq23b/",
+      "tmpq23e/",
+      "tmpq23f/"
+    ],
+    "allInheritedTrackedChangesAndNewProductPathsPreserved": true,
+    "standing": "Bounded selected-source and Git status preservation, not a full no-outside-effects assertion."
+  },
+  "handoffs": [
+    {
+      "relativePath": "qualification-scratch/rc7-held-session-author-03/progress.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/progress.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-return-controls/actual-recovery-001/handoffs/progress.json",
+        "bytes": 3346,
+        "sha256": "ada8b7334896152a495b222016fb387234b0774587fa35b79b600e59372092bd"
+      },
+      "beforeState": "absent",
+      "afterEntryIndex": 459
+    },
+    {
+      "relativePath": "qualification-scratch/rc7-held-session-author-03/readiness.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/readiness.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-return-controls/actual-recovery-001/handoffs/readiness.json",
+        "bytes": 1646,
+        "sha256": "467ce836e1fbda705bb22d13af384c767c7d4c241657ca1f32b854bb1e9bb32b"
+      },
+      "beforeState": "absent",
+      "afterEntryIndex": 460
+    },
+    {
+      "relativePath": "qualification-scratch/rc7-held-session-author-03/return.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/return.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-return-controls/actual-recovery-001/handoffs/return.json",
+        "bytes": 9601,
+        "sha256": "234fff4ea3157eacc22df4b62aaf17906d1839290e10cc54d77a982d37e89c81"
+      },
+      "beforeState": "absent",
+      "afterEntryIndex": 461
+    }
+  ],
+  "proofInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-return-controls/actual-recovery-001/PROOF_INVENTORY.json",
+    "bytes": 4338,
+    "sha256": "cc25e709ff9d64ab350ed7cf442e4e1fa7fd96f3175b43ef403da9846c48d543"
+  },
+  "limits": [
+    "No private provider narrative, reasoning, raw stderr or tool-result content read or retained in these metadata records.",
+    "Actual SDK receipt and existing owner completion/close are retained by reference; no copied live capability or fabricated CLI metadata.",
+    "No separate physical Result-row decode or cold result/replay API acquisition.",
+    "Build generation timed out; lifecycle and all four lanes remain unproved. Independent review and Root disposition remain separate.",
+    "Author handoff UTC literals are retained as written and are not used as actual event chronology."
+  ]
+}

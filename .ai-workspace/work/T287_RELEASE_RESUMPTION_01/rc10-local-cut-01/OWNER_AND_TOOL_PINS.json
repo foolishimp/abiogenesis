@@ -1,0 +1,108 @@
+{
+  "kind": "rc10_local_cut_exact_existing_owner_references",
+  "paths": {
+    "repository": "/Users/jim/src/apps/abiogenesis",
+    "worktree": "/private/tmp/abg-rc10-retention-20261109",
+    "branch": "codex/rc10-retention",
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001",
+    "temp": "/private/tmp/abg-r10c-cut-001",
+    "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10"
+  },
+  "canonicalCommandOwner": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39883,
+      "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "tools": [
+    {
+      "name": "node",
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "name": "tar",
+      "configuredPath": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "bytes": 274448,
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    {
+      "name": "git",
+      "configuredPath": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    },
+    {
+      "name": "cp",
+      "configuredPath": "/bin/cp",
+      "realPath": "/bin/cp",
+      "bytes": 152976,
+      "sha256": "d2b314592c43bb0f2e4ae25d473e7b3e5a24db68c21b175aeeba64001388a1fd"
+    },
+    {
+      "name": "python",
+      "configuredPath": "/usr/bin/python3",
+      "realPath": "/usr/bin/python3",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  ],
+  "dependencyInventory": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "contractSeedInventory": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/RC9_CONTRACT_SEED_INVENTORY.json",
+    "bytes": 41764,
+    "sha256": "67792ac89844645fc02afc4e609fcca19f2a2adce56120e274df4e2822b06e7a"
+  },
+  "directSmokeOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+    "bytes": 10379,
+    "sha256": "5afc97ceb6f3691a6a47cb2ff670b074c6d36c885d3121a5fe051e7aface972d"
+  },
+  "builderArchive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "nativeRepairReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/RETURN.json",
+    "bytes": 2205,
+    "sha256": "b937bd3f9c726d7b283f0ef72706e0735a8836bf67173c66635d0c5d7ed1ca6b"
+  },
+  "proofStageBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/STAGE_BINDING.json",
+    "bytes": 7151,
+    "sha256": "dc928c30149b86b971305d442cdded381dc23f071ac7d0dc9b344daaecdaf901"
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "status": "CLOSED_R2_SOURCE_CUSTODY_RECORDED_UNACCEPTED",
+  "freezeReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/FREEZE_RECEIPT.json",
+    "bytes": 7541,
+    "sha256": "1209b396866fe6c39890935e2a4062cdc84385772ceb7d73f630db94156d2621"
+  },
+  "nativeAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/NATIVE_AFTER_CORRESPONDENCE.json",
+    "bytes": 5815,
+    "sha256": "bcc2b1c43b39c694f778f76b8b7a273880f04ecd72365e50fb6498273ffb9e07"
+  },
+  "toolHistory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/TOOL_HISTORY.json",
+    "bytes": 38333,
+    "sha256": "0163b472efc2cd31195d20dca9c436228b3a1729ae56d79687823c39f70cc0bb"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/NATIVE_CHECKS.json",
+    "bytes": 11415,
+    "sha256": "c949a8ec94752181c42b19594d1642d4f4df464209251ef16293badd252969f9"
+  },
+  "compiledRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 64163,
+    "sha256": "b062a80c0e757ecaeb966ab971edee7a45ee4c1a75e838ab8688716584f7c88b"
+  },
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/COMPILED_SCRATCH_INVENTORY.json",
+    "bytes": 107618,
+    "sha256": "2b92e21c27b9905f4b7da1bef75079229132ce2f18ee52230b1c906db1188d86"
+  },
+  "compiledOwners": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 10055,
+      "sha256": "5f3cc53f6bfc5fe116e3c6c119ff8a65d45a095d964b45af1da6df15d233a743"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src/shared/owned_process_state.js",
+      "bytes": 9132,
+      "sha256": "0688546fa4e395b300bc4a267e1e1f733dafe87f2a1b571ece899096901a1972"
+    }
+  ],
+  "nativeFinal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/runtime-001/FINAL.json",
+    "bytes": 2640,
+    "sha256": "bb0265866b824ea864c9ccbbbb69a6c0cf65f1cc997bb47baf456ba328b07ce2"
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/runtime-001/NATIVE_RETURN.json",
+    "bytes": 2162,
+    "sha256": "c7617dc93087be5c726a238e7bdebb999038d221b1ec9bbf0dad70813ca5c348"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/runtime-001/FRESH_READBACKS.json",
+    "bytes": 6806,
+    "sha256": "fff2a1abb6b1859d4f813d2dd14f6e99000fd089796cf921e062542a0e7a1993"
+  },
+  "workerReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/WORKER_REPORT.json",
+    "bytes": 6145,
+    "sha256": "5ba6cddfd86c4ba4ac1989f52773732a68438fda278d90a367df447eda473c29"
+  },
+  "transport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/runtime-001/resources/archives/fp-5e1768df3a8972fc-transport.json",
+    "bytes": 1999429,
+    "sha256": "07ee04c6ea0e86900cbffd418ba00fee699bf378a9385cb5fe3a3e2dd3056dc7"
+  },
+  "transportSummary": {
+    "status": 0,
+    "signal": null,
+    "disposition": "success",
+    "timeoutClass": null,
+    "failureClass": null,
+    "toolCallCount": 26,
+    "apiRetryCount": 0,
+    "processFacts": {
+      "cleanupDeadlineNs": {
+        "kind": "bigint",
+        "value": "3108292358672833"
+      },
+      "cleanupElapsedMs": 0.297958,
+      "closeObserved": true,
+      "directExit": {
+        "signal": null,
+        "status": 0
+      },
+      "drainExpired": false,
+      "firstError": null,
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "probeCount": 1,
+      "scopeAbsence": "absent",
+      "scopeKind": "posix_process_group",
+      "signalAttempts": 0,
+      "streamsDisposed": true
+    }
+  },
+  "assessmentDisposition": "admitted",
+  "ownerDisposition": "completed",
+  "result": {
+    "ref": "result://abiogenesis/1eb402844e81e3c059a3aa1b03a343fbe19982808a06a2c98c9aad4681821d27",
+    "digest": "sha256:1eb402844e81e3c059a3aa1b03a343fbe19982808a06a2c98c9aad4681821d27"
+  },
+  "sdkIntervalMs": 459503.072833,
+  "actualPhysicalCloseAt": "2026-11-10T02:07:00.207Z",
+  "coldReads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "result",
+      "status": null,
+      "terminal": "sha256:0c2212039cadd97aca37a0f76420c407f7a6c7c3373ee1eefa8cc121f3c313ec"
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "status": "closed",
+      "terminal": "sha256:0c2212039cadd97aca37a0f76420c407f7a6c7c3373ee1eefa8cc121f3c313ec"
+    }
+  ],
+  "processesAbsent": {
+    "64537": true,
+    "66200": true
+  },
+  "actorGroupAbsent": true,
+  "indexObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/INDEX_OBSERVATION.json",
+    "bytes": 2234,
+    "sha256": "52863e29a08fd3702bab6f99afa234193405f9d9844219c961dd84c5deb02f68"
+  },
+  "inputAndPrebuiltPinsExact": true,
+  "aggregatePhysicalSize": {
+    "modules": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+        "lines": 265,
+        "bytes": 11658,
+        "sha256": "fbb571cc96fa60b4a7000c61063b060c7fcb14c11bed8ed96c40cbfe4bfa9e6f"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+        "lines": 241,
+        "bytes": 13755,
+        "sha256": "235fc19c3469c7d62f61834ae29f7bbba4b2e3866876af193ebbf44d35af3b01"
+      }
+    ],
+    "totalLines": 506,
+    "totalBytes": 25413,
+    "preR1Native03": {
+      "lines": 502,
+      "bytes": 25148
+    },
+    "preA": {
+      "lines": 298,
+      "bytes": 12633
+    },
+    "meaning": "Consolidation, not net deletion; includes both bridge and state."
+  },
+  "scopeNotes": [
+    "Native listed metadata for earlier scratch directories and hashed shared source via glob; retained exact commands/output pins, not a complete read-scope conformance claim. No additional source contents were used to expand write authority.",
+    "Actual source changes state/test/plan only; bridge unchanged; all1345 frozen rows conserved otherwise.",
+    "Compiler and20/20 controlled pass are bounded native selfchecks, not external fixture/whole-file/installed or Phase2 acceptance.",
+    "Author disclosed unexecuted advanced-clock nested terminate bound-reset concern; referred to Root without repair or causal claim."
+  ]
+}

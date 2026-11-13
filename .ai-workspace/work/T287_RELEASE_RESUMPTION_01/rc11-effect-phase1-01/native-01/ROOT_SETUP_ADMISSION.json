@@ -1,0 +1,54 @@
+{
+  "id": "PHASE1-SETUP-01",
+  "status": "ROOT_ADMITTED_PHASE1_SETUP",
+  "basis": "Root PHASE1-IMPLEMENTATION-01 explicitly admits fresh setup/held resource preparation now; paid actor held. Subsequent Root message accepts exact four paths and900/180/100 envelope.",
+  "bindingSha256": "a23311096f67881738a022d5869b726053cfa4d23d03b3646f4396efb678554d",
+  "scopeSha256": "b7339f2b7304b9fb8bc75ecc945ed1aff6091b4e02b56a75f5bfda53647ad1bd",
+  "grantsFreshPublicSetup": true,
+  "providerDispatch": false,
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/READY.json",
+    "bytes": 4216,
+    "sha256": "a31342682b1c2a1076737f5a02e64314d979e1dfeed571ef1c6d240053283a2a"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/host.mjs",
+      "bytes": 13807,
+      "sha256": "f4334c52a59d0eb8102768132e9e1032d3e35d9d190ea576b7e9e5d09d533aa0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+      "bytes": 11028443,
+      "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266232,
+      "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10105,
+      "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+    }
+  ],
+  "setupBudgetMs": 900000,
+  "setupPerCommandMs": 300000,
+  "reserveBytes": 4294967296
+}

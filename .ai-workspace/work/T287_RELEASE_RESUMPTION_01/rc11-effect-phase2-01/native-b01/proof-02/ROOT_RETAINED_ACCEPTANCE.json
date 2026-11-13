@@ -1,0 +1,42 @@
+{
+  "id": "PHASE2-B-RETAINED-PROOF-ACCEPTANCE-01",
+  "decisionOwner": "Root",
+  "status": "BOUNDED_RETAINED_OBSERVATIONS_ACCEPTED_UNIT_PENDING",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/RETAINED_PROOF_RECONCILIATION.md",
+    "bytes": 8312,
+    "sha256": "287f19413a8f3d13c5ea4d3e13806373982df6f663853cb03583aaba26b900e3"
+  },
+  "evidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/RETAINED_PROOF_RECONCILIATION.json",
+    "bytes": 45504,
+    "sha256": "35199f17baccb4373d51d5d09a0450b809294a7bef890d3e05bdd8385f3359ce"
+  },
+  "adopted": [
+    "exact1345 source/998 normal build rows",
+    "archive7b16ac56/5329 and bootstrap/actual C2 install equality",
+    "Effect origin and dependency metadata/npm/protection joins",
+    "helper2/B6",
+    "configured C2 one-case artifact/ack/admitted observation/two fresh replays/physical closure",
+    "subsequent whole lifetime34/eight physical witnesses"
+  ],
+  "preservedFailures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/EXECUTION_RETURN.json",
+      "bytes": 7937,
+      "sha256": "615c6c3f8b150bf74ee09b66e9e9b4d6356c4ebe122745aafe3b4c876aa4fb21"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/CLOSURE_RETURN.json",
+      "bytes": 14780,
+      "sha256": "e9719cc79189d763c9bb2a67b398db8496592eeae895e145a8d99ef063df301f"
+    }
+  ],
+  "limits": [
+    "Original C2/controller/campaign FAILED receipts and unauthorized continuation remain unchanged. New read-only evidence adoption is not retrospective work authorization.",
+    "Interrupted unit61 lines/30 evidencefiles gives no whole unit or complete M5 credit.",
+    "Six skips, both deferred capsules, native first red, constructor/diagnostic/adapter limits remain.",
+    "Only one fresh original unit remains for selected A+B conjunction; no full5.0/S7/release qualification."
+  ]
+}

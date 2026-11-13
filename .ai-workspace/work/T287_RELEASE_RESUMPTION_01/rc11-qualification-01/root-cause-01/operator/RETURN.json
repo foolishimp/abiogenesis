@@ -1,0 +1,76 @@
+{
+  "status": "RC11_CAUSE_DIAGNOSTICS_CLOSED_AWAITING_ROOT_PLAN",
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/SUMMARY.md",
+    "bytes": 3297,
+    "sha256": "b3814ad14decba9c5cc7e6cf90afeb74d56fae11d6773f397ccd8d36de289c6c"
+  },
+  "stage1": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/STAGE1_RETURN.json",
+    "bytes": 32689,
+    "sha256": "cd1efd942a0d48d922f0ffe7817267f45fdf1910f611445f45556f9f1675c5d1"
+  },
+  "stage2A": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/RETURN.json",
+    "bytes": 8856,
+    "sha256": "c63ec8e869301187952725931a74b8758cd836d08c29121800dbb68a0ea8fc0a"
+  },
+  "stage2BResult": {
+    "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-b/RESULT.json",
+    "bytes": 5945,
+    "sha256": "9a04c2b0d3e28308efa0abb11de95e07a583c47fddbbdfb959bbf706ce208b3a"
+  },
+  "stage2BReturn": {
+    "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-b/RETURN.json",
+    "bytes": 2725,
+    "sha256": "1a38ccf122aa6d92bc599ef8b8933839f4c63339c86c7ec6563bff681e4a45b2"
+  },
+  "sourceExtraction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/SOURCE_EXTRACTIONS.json",
+    "bytes": 2472,
+    "sha256": "d07e669f45e6bd57a4a161bdb474d350af306d525b0416ccb7d82aff8cdef953"
+  },
+  "stage2BReady": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/READY.json",
+    "bytes": 2154,
+    "sha256": "2c46bd577882e19d05084d17fe7965232bcc61dce229139e3c20a80ff06a1b35"
+  },
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/POSTGUARDS.json",
+    "bytes": 2427,
+    "sha256": "70e1f52ec95baf54f645c00fec5aa07e10a0bc7c0899bb212a67abfe476790b9"
+  },
+  "actualExecutions": {
+    "stage1": {
+      "cases": 6,
+      "pass": 6,
+      "fail": 0,
+      "seconds": 5.253993833
+    },
+    "stage2A": {
+      "cases": 6,
+      "pass": 0,
+      "fail": 6,
+      "seconds": 4.0326527500000005,
+      "expectedCounterexample": true
+    },
+    "stage2B": {
+      "pureOraclePartitions": 5,
+      "controlledInterleavings": 4,
+      "seconds": 0.11812491700000002,
+      "counterexamplesObserved": true
+    }
+  },
+  "causalStanding": {
+    "physicalStartupPrerequisiteCounterexample": "proved sufficient for all six signature types",
+    "chunkCountOracleDependence": "proved by identical-byte pure partitions; no runtime lease claim",
+    "observerStopDeadlineRace": "proved on exact source",
+    "unresolvedProbeStopHandback": "unsettled in bounded observation with no resolution path",
+    "historicalFailureCause": "undetermined because failed actor artifacts were deleted",
+    "currentProductionAlgorithmDefect": "not established by these diagnostics"
+  },
+  "rootNextStep": "Root final plan recording; no additional execution admitted by this return",
+  "historicalUnitAndM5StillRed": true,
+  "debtsRemainOpen": true,
+  "qualified": false
+}

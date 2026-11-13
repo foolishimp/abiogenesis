@@ -1,0 +1,13 @@
+Product Frame: fixed fifteen families / GOAL-035 / T-287 / RC8 REF-01 realization refactor / STDO3.0.4 / empty composition. The selected cut is explicitly unqualified; ABG remains the sole event/profile admission and replay authority.
+
+Closed independent causal review: **S3 fixture mismatch; no RC8 Product regression demonstrated.** Case 14 pairs the current W digest with the old p5 profile evidence ref. The existing native boundary requires the ref and digest of the same profile and rejects the pair before entering its append transaction. HOW 10.10 E-G requires new L boundaries to W; retained RC6/S2 boundaries keep p5. The test, helper and native causal owners are exact RC7 bytes and match the A6 physical source and A11 manifest rows.
+
+Broad024 remains **14 passes / 1 failure**, normal exit 1 in 4.945 seconds, full reporter end. Case 14 stopped at its first assertion; its profile receipt, cold content/boundary checks, wrong-reason and missing-evidence controls, repeated-boundary refusal, unchanged-byte/close checks and work bound remain unexecuted. The other 14 passes retain component standing; Product verification and environment are supplied premises.
+
+The smallest lawful correction changes only two references in this unshipped test to `ROOT_WINDOW_EVENT_PROFILE_REF`: evidence construction at line 226 and missing-evidence removal at line 241. Updating only the positive would disable the intended negative mutation. No digest, event byte, native owner, helper, HOW or archive change is needed.
+
+Recommend one Root-authorized native test increment and one filtered execution of the complete existing profile case, preserving every assertion and the original red. If the sole delta is verified, its actual complete pass can be conjoined with the 14 unchanged cases from 024. No cross-case dependency requiring a whole-file rerun was found; this conjunction must not be called a new whole-file pass. Any remaining valid-input rejection or weakened negative is a new counterexample, not permission to change the owner.
+
+An OPEN legacy-bridge assurance residual could be bounded to this unqualified cut, with closure before enabling or qualifying current L-to-W upgrade. The deterministic fixture error has a two-reference correction and small proof cost, so repair/reproof is more proportionate. Root alone chooses the disposition and accepts the result. This review grants no installed upgrade, broad-green or release qualification.
+
+Exact source, authority, receipt pins, causal lines and proof limits are retained in [REVIEW.json](REVIEW.json). Reviewer ran no tests or Product code and made no source or control changes.

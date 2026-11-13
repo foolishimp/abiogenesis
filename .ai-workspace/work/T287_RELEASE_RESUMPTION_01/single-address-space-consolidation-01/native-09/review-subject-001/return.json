@@ -1,0 +1,742 @@
+{
+ "kind": "native_09_return",
+ "returnedUtc": "2026-11-04T13:04:24Z",
+ "status": "returned",
+ "readiness": {
+  "authorReady": true,
+  "readinessFile": "consolidation-scratch/native-09/readiness.json",
+  "meaning": "Worker-side mechanical readiness of the targeted IR-01/IR-02 increment for freezing. This is not actual C2, independent review, UAT, fresh close or Root acceptance."
+ },
+ "basis": {
+  "productFrame": "ABIogenesis5 GOAL-035/T-287, ROOT_TARGETED_REFACTOR_09, targeted-rubric T1-T5, immutable STDO 3.0.4, empty composition, realization_refactor",
+  "builder": "immutable installed RC5/f49 (source preimage f49e7533ebedff0946383cb0c5380a6ecac7889d)",
+  "preimageSubject": {
+   "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/review-subject-001/SUBJECT.json",
+   "sha256": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0"
+  },
+  "preimageCorrespondence": "Before any edit, consolidation-scratch/native-09/tmp/before-43.json recorded bytes and sha256 for all 43 granted paths. The eight implementation files equal the IR_PREIMAGES pins, so no earlier effect was present.",
+  "before43": {
+   "path": "consolidation-scratch/native-09/tmp/before-43.json",
+   "bytes": 8207,
+   "sha256": "98a0d70dab6afa4fbdfa4ae76f3ab6574f74ebbf3d6213e5780d92b6b10fcdce"
+  },
+  "inputs": {
+   "consolidation-inputs/native-09/TASK.md": {
+    "bytes": 4875,
+    "sha256": "7922e1dc5e8a1823b69c352a7605a1c63e617ca3677f4c0421d0db05ebd2f4ea"
+   },
+   "consolidation-inputs/native-09/ROOT_TARGETED_REFACTOR_09.md": {
+    "bytes": 6177,
+    "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+   },
+   "consolidation-inputs/native-09/ROOT_REENTRY_SELECTION_09.md": {
+    "bytes": 9478,
+    "sha256": "9a4321873b6638cef5f6a3fad907a2b7240e29ad3b7ca6279af94905ad3146ff"
+   },
+   "consolidation-inputs/native-09/NATIVE_GRANT.json": {
+    "bytes": 24976,
+    "sha256": "a89d48742879ae1afbb8f35d78e0807922994c26ebe76ddd80405de151554415"
+   },
+   "consolidation-inputs/native-09/AFFECTED_INTERFACE_CONE.json": {
+    "bytes": 37902,
+    "sha256": "630b5a3c2d324ad61dd4e2f1d4fdf394fe47be2a11a9bc39cb204f7b5cbc3f10"
+   },
+   "consolidation-inputs/native-09/AFFECTED_PROOF_LANES.json": {
+    "bytes": 3842,
+    "sha256": "1537da15bb2ab83bd1831b7c36cdc496990e4b5f87f9233c0e03f09db8b117fe"
+   },
+   "consolidation-inputs/native-09/IR_PREIMAGES.json": {
+    "bytes": 4912,
+    "sha256": "8b7019606ba50693581b7f49ccb7c2c8bd891a70315600e1a9a4f2318a05be09"
+   },
+   "consolidation-inputs/native-09/INTERFACE_RECONCILIATION.json": {
+    "bytes": 49257,
+    "sha256": "27987d384e4b32bc30cdc0b3832071d94dc713dd2491de6983dcc5720e1db07f"
+   },
+   "consolidation-inputs/native-09/targeted-rubric.json": {
+    "bytes": 2867,
+    "sha256": "67abbd06cbb78c8fc2ae3cbdf712b71b63c181fffcea4b2698ce22ef24623926"
+   },
+   "consolidation-inputs/native-09/EXTERNAL_READ_RESOURCES.json": {
+    "bytes": 6147,
+    "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+   },
+   "consolidation-inputs/native-09/C2_INPUTS.json": {
+    "bytes": 19124,
+    "sha256": "c09fcbbf9846b9e3c4a9c4a69baed36eeda223ab8341d40e53ce197df013c068"
+   },
+   "consolidation-inputs/native-09/C2_SELECTED_INPUTS.json": {
+    "bytes": 83219,
+    "sha256": "b95f9068b1df28f5333942e440efc17c87f9e8c7349dc2d892b6c28a14f103bf"
+   },
+   "consolidation-inputs/native-09/c2-proof.mjs": {
+    "bytes": 5980,
+    "sha256": "0ec9d496ba042243b653057241cbec060f83e92ec218334c3cbd312d2505ee1c"
+   },
+   "consolidation-inputs/native-09/SHORT_TEST_SCRATCH.json": {
+    "bytes": 1565,
+    "sha256": "e830aa29dc57c31d781c8f3cc8cafe9d73228233c7f706884bcd7d7ef0fd1391"
+   },
+   "consolidation-inputs/native-09/PREVIOUS_NATIVE_RETURN.json": {
+    "bytes": 27691,
+    "sha256": "f9ee32617837ee125bdf88253e00eb99e32323a01c07e91d457ffc94ecd40f89"
+   },
+   "consolidation-inputs/native-09/INPUT_SUFFICIENCY.json": {
+    "bytes": 15489,
+    "sha256": "11eb8a8b75239645db6c0fdd5bf96132f538b3296870e7a69d7efb18d5777780"
+   },
+   "consolidation-inputs/native-09/TARGETED_PREIMAGE_STANDING.json": {
+    "bytes": 2014,
+    "sha256": "6c892b1b1d9e7e7e83070db79a9306d78732a83333491272cca326e9644b4fb5"
+   },
+   "consolidation-inputs/native-09/ROOT_EXIT_OBLIGATIONS.json": {
+    "bytes": 781,
+    "sha256": "7b1c97c25c10f2e4f138085a79fba82763d8efd02bfc6d4255baa8a8366c4ad1"
+   }
+  }
+ },
+ "changed": [
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+   "before": {
+    "bytes": 126311,
+    "sha256": "85607f0b6a7f69bcf431c89907e17c7302702679a5d655ee72d16cf95e71dd61"
+   },
+   "after": {
+    "bytes": 126341,
+    "sha256": "da1228f3876aca87ba065863bc990e216214f329ddb1e3d773466af08d18ee21"
+   },
+   "change": "IR-02: constructNativeInstructionAssembly (666) calls authenticateOwnedSemanticStageBasis, constructJobInstructionAssembly (792) calls authenticateOwnedSemanticJobBasis, and semanticInstructionResultMatches (1212) calls both owned authenticators. The imports change accordingly."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+   "before": {
+    "bytes": 56749,
+    "sha256": "9f31ae048962ea6f84fcea7e661e9dc01f4a0f5f2e07d4a4736226c00d2be79d"
+   },
+   "after": {
+    "bytes": 56288,
+    "sha256": "d70db3d73cd08a20e1a40b6ecb3483b43d025d449c7a7fba9d53fc9f8f7776ea"
+   },
+   "change": "Retires authenticateSemanticJobBasis (former 667-672, the same adapter body) and drops its now-unused selectValidatedRuntimeEventPrefix import."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+   "before": {
+    "bytes": 96776,
+    "sha256": "e657a900c12f7ceee1152711845518a96cf48ac0b67a5566ec47fa516824190d"
+   },
+   "after": {
+    "bytes": 95835,
+    "sha256": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205"
+   },
+   "change": "IR-01: jobRevisionSubjectAtBasis originCut (447) and revisionEvidenceComponentsAtBasis preparation cut (1005) now call validatedRuntimeEventPrefixBeforeEvent(owner.prefix, <bridge>.event.eventId) instead of selectValidatedRuntimeEventPrefix(Object.freeze(owner.events.filter(e => e.admissionOrdinal < <bridge>.event.admissionOrdinal))). The private cut parameters of revisionWorksiteProjection (714) and revisionPreparationAtBasis (909) widen from ValidatedRuntimeEventPrefix to RuntimeEventPrefix; every reader of the cut already has an internal RuntimeEventPrefix overload. Retires projectJobRevisionSubject and projectRevisionSelectionSubject. Imports drop selectValidatedRuntimeEventPrefix/ValidatedRuntimeEventPrefix, authenticateSemanticStageBasis and authenticateSemanticJobBasis. The doc comments on projectOwnedJobRevisionSubject (394) and projectOwnedRevisionSelectionSubject (1025) are restated factually; the second no longer names a public complete owner."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+   "before": {
+    "bytes": 30974,
+    "sha256": "469c69af61e267864423683454ae40a5f0b2879323f1e6d82d23e32acf0f7ef2"
+   },
+   "after": {
+    "bytes": 30545,
+    "sha256": "f1985ef058a3a4ef1109df8fb048d98ca420a6863cc8c605fea624feda6e16f4"
+   },
+   "change": "Retires authenticateSemanticStageBasis (former 401-406, the materialize-plus-cold-select adapter). The selectValidatedRuntimeEventPrefix import is dropped; ValidatedRuntimeEventPrefix stays as a type import for the public overloads."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+   "before": {
+    "bytes": 74108,
+    "sha256": "ab53666bd5c40d2a8de5f20c925462be9bba9353c39325589f35c771ab1f1f3a"
+   },
+   "after": {
+    "bytes": 74064,
+    "sha256": "2dd3e1754453b211c8650fda8eab469ce8d9ae3bdb0dc989fbd3d7677f06d16f"
+   },
+   "change": "IR-01: projectionFacts (397) cuts with validatedRuntimeEventPrefixBeforeEvent(prefix, result.eventId) instead of selectValidatedRuntimeEventPrefix(Object.freeze(events.filter(e => e.admissionOrdinal < result.admissionOrdinal))). The import swaps selectValidatedRuntimeEventPrefix for validatedRuntimeEventPrefixBeforeEvent. `events` stays in use for coordinateFor."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+   "before": {
+    "bytes": 82821,
+    "sha256": "3ad3fba807e2a22ec31403048ed02a652a4de3fa1b0434a3f531fafbb72f0aa6"
+   },
+   "after": {
+    "bytes": 82841,
+    "sha256": "91dc54b4ddd40b002b30d11bdea0495148205a1c27e0c0ed0f8f4b028ac1cf11"
+   },
+   "change": "IR-02: the semantic authority check (683) calls the owned job/stage authenticators. The imports change accordingly."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+   "before": {
+    "bytes": 14541,
+    "sha256": "09b95472d1bb0e135d158396d36c8de31397713101f89ffb6da077c2b8b2359d"
+   },
+   "after": {
+    "bytes": 14571,
+    "sha256": "3dbb44016a2825bb341ad3d553b2b068a27e0a14a3e8321c36d5ea805ee858b4"
+   },
+   "change": "IR-02: actor (60) and realizeSemanticRevisionSelection (99) call the owned job/stage authenticators. The imports change accordingly. Only owner.role, stage, inputDigest and call are read."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+   "before": {
+    "bytes": 17166,
+    "sha256": "83d689cf1ef8495dc814bf42b8c310e14246cdae24ab79c56477196991a7205c"
+   },
+   "after": {
+    "bytes": 17186,
+    "sha256": "1098ab420c054169f3b723010e9a69a045826332a0ecadd67063f3b737dd10b4"
+   },
+   "change": "IR-02: semanticActor (63) calls the owned job/stage authenticators. The imports change accordingly."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+   "before": {
+    "bytes": 145004,
+    "sha256": "3c412df13f7647ba7c770177b31347f65788680b5e668f9c82cea5a847674312"
+   },
+   "after": {
+    "bytes": 145655,
+    "sha256": "a9a69cdf6657e90581d3cfe5482668872bb7bc7b572a4b3ac97d628c414248f9"
+   },
+   "change": "One factual sentence pair in the Runtime history prefixes row (line 643). The named stage/job assembly, actor, selection and leaf readers borrow the owned authenticators. The four wrappers are retired. The three historical cuts select through validatedRuntimeEventPrefixBeforeEvent. No executed evidence is recorded in the design."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+   "before": {
+    "bytes": 25378,
+    "sha256": "a2418e6bc0f7eedb4c209d1e9eecefa056b13378e38178ed2264cfae9af9b1eb"
+   },
+   "after": {
+    "bytes": 25759,
+    "sha256": "b633d1f69ef4f24d521e056206f0fb6f7b6467444d06dc64a9f9a23f69f98627"
+   },
+   "change": "Fixture consumer. Removes the retired authenticateSemanticStageBasis stub key, keeping the owned key. The lookup-only selectValidatedRuntimeEventPrefix stub, which served only the cuts in worksite_revision/semantic_revision, becomes a validatedRuntimeEventPrefixBeforeEvent premise over the same lookup rows. It keeps the rows before the exact boundary row and refuses an absent boundary."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+   "before": {
+    "bytes": 9495,
+    "sha256": "38a31ced9807ad9c4c70c977b13851eac922774120ba6f3372b9b51e8ea1cf74"
+   },
+   "after": {
+    "bytes": 9459,
+    "sha256": "3fa8fa8ffea19a187f727d64f6da3940e8def6ab3dadad0e055c0c45848ec0b3"
+   },
+   "change": "Fixture consumer. Removes the retired stub key. select() calls projectOwnedRevisionSelectionSubject; the result is only truth-tested, and both stubs returned the same owner."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+   "before": {
+    "bytes": 8677,
+    "sha256": "f8cc208e73274660d9471eca3c7e4cedc36f362f0b78b64a818183488d566851"
+   },
+   "after": {
+    "bytes": 9181,
+    "sha256": "36c984cc22806467e7c2f8e7c349ed320eb641bf99f677a3be4769431f9e5f71"
+   },
+   "change": "Fixture consumer. Removes the retired stub key. The collector context replaces its selectValidatedRuntimeEventPrefix substitute (the only consumer was the cut-2 expression) with a validatedRuntimeEventPrefixBeforeEvent substitute. Over the lookup owner rows before the bridge it records the frozen rows and returns the strict selector over them, so prefixCalls and preparationCalls keep their meaning."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+   "before": {
+    "bytes": 8887,
+    "sha256": "bcd181ec820ab5946a96f59b3eabd92262ec4089a0e1b7378a85149d8c2a6318"
+   },
+   "after": {
+    "bytes": 8846,
+    "sha256": "e7b0d6615f749765dc1a1f36c2c6e4532f9a96d6db69e1c0576784c6634ceb74"
+   },
+   "change": "Fixture consumer. Removes the retired stub key, keeping the owned key."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+   "before": {
+    "bytes": 22123,
+    "sha256": "e4198842253a06c015f3d398a4417d9341ad0276be29e5f0195ecde059ec092d"
+   },
+   "after": {
+    "bytes": 22133,
+    "sha256": "d56f24818f0dcf41469f643534f914b460fa7df096dcfe7ff3896861092fe814"
+   },
+   "change": "Fixture consumer: two calls now authenticateOwnedSemanticJobBasis (positive and foreign-executionBasis null)."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+   "before": {
+    "bytes": 15901,
+    "sha256": "9b853f8e230f29c51bf26c11dc48ce3766f747c334fe2a2cedd4e83428dacca0"
+   },
+   "after": {
+    "bytes": 15906,
+    "sha256": "66ae4ab0e86a8027fdc2af04fdf0cd041969924a3f0a0b616b8da795134a37ee"
+   },
+   "change": "Fixture consumer: authenticateOwnedSemanticJobBasis. Downstream reads are inputValue, prefix, stage, call and inputDigest."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+   "before": {
+    "bytes": 7227,
+    "sha256": "ca324b2294c8447cc6053b3438ad5ce9f6c30955496f41a302a4036bb5d1e4b8"
+   },
+   "after": {
+    "bytes": 7237,
+    "sha256": "1cdca8f351b403f27692916414090c9d07f4f8446b03056c411d9c4214b8bf45"
+   },
+   "change": "Fixture consumer: the retained authentication call and the instruction_assembly component stub key are now authenticateOwnedSemanticStageBasis."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+   "before": {
+    "bytes": 23194,
+    "sha256": "59bbdde5c69e70768136754d9889c2595ae31a31abd4ac4ba9d7437acce23eac"
+   },
+   "after": {
+    "bytes": 23199,
+    "sha256": "208787a16a81dc51f5aa676e129bdd462710952c68a1652ab383bf4a58420fcf"
+   },
+   "change": "Fixture consumer: authenticateOwnedSemanticStageBasis (213)."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+   "before": {
+    "bytes": 27334,
+    "sha256": "605ac3183b0b80a39937199510dcd241edf4c5000754671cabe1673689418d3c"
+   },
+   "after": {
+    "bytes": 27339,
+    "sha256": "70eff7397c922af818841ce76053ff9308df4fe3a52ebb6dc2d882d666b1ec28"
+   },
+   "change": "Fixture consumer: authenticateOwnedSemanticJobBasis (93); only environment.workspaceBinding is read."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+   "before": {
+    "bytes": 31315,
+    "sha256": "794039a82fa815e7bb238cf03549a3946b4d2cfcd2ddd69a4cbb911ded91db49"
+   },
+   "after": {
+    "bytes": 31330,
+    "sha256": "b095f4a838898fcefca99a5c1881eb70844327c51e9b787d4b1b104e82bb99b2"
+   },
+   "change": "Fixture consumer: three projectJobRevisionSubject calls become projectOwnedJobRevisionSubject (62, 128, 175). subject.owner.prefix is the owned prefix, read through internal RuntimeEventPrefix overloads."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+   "before": {
+    "bytes": 43295,
+    "sha256": "a81ca08ec14f036336ed27a11138e8539f1b75808f2c491787f077110fd71ed4"
+   },
+   "after": {
+    "bytes": 43300,
+    "sha256": "50f1cf9a0956da96eef82d06f19e1a3ad4030d26216537a449fa07d1e8cb58e3"
+   },
+   "change": "Fixture consumer: the instruction_assembly component stub key becomes authenticateOwnedSemanticJobBasis (232), the name the module now imports."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+   "before": {
+    "bytes": 14925,
+    "sha256": "b5ab9c0faad5048fd8e9e3e7a39ec08c540a568a56e0b16baaa846dd5aea5686"
+   },
+   "after": {
+    "bytes": 14930,
+    "sha256": "3f872da9d31e01ff088ff5ef328a3aaaa4fd6f1476bf57dec65300874eb81e17"
+   },
+   "change": "Fixture consumer: authenticateOwnedSemanticJobBasis(basis).role (58)."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+   "before": {
+    "bytes": 66844,
+    "sha256": "1decb0f01f9eefec7cf2ea4ce955217ea240da01d7c497d3f87117eec0582f1a"
+   },
+   "after": {
+    "bytes": 66912,
+    "sha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19"
+   },
+   "change": "Fixture consumer: two calls become authenticateOwnedSemanticJobBasis (160, 184). The harness premise selectValidatedRuntimeEventPrefix:()=>prefix (consumed only by the retired job adapter and the two semantic_revision cuts) becomes validatedRuntimeEventPrefixBeforeEvent:()=>prefix, the same component-prefix premise. Its comment says so."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+   "before": {
+    "bytes": 108147,
+    "sha256": "f514341d76b7fea6bed87394f96ccfb30c56517d16c04642fc2f912058a8d113"
+   },
+   "after": {
+    "bytes": 123504,
+    "sha256": "87b241a825aa1a4c9050e89e9f1f05a44d603baf542daacfb58243faef07f2ae"
+   },
+   "change": "Adds the dirname and node:vm imports and the shared helper retainedOwnedPrefix. Adds two focused cases: test 10 historicalCut (line 1207) and test 11 semanticAdapter (line 1263). The final proof-record test now also requires proof.cases.historicalCut and semanticAdapter. The suite has 12 tests. No existing assertion was removed or weakened."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs",
+   "before": {
+    "bytes": 12643,
+    "sha256": "c175f52a5f1804ccb376da57b9eedd732192b9a86b4076706331bed83f742c94"
+   },
+   "after": {
+    "bytes": 12648,
+    "sha256": "8a6b05b9c1b33a961d1b65b107bae4314613a7b795d4e3580c774efa1dea51cf"
+   },
+   "change": "Fixture consumer: the instruction_assembly component stub key becomes authenticateOwnedSemanticStageBasis (84)."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+   "before": {
+    "bytes": 13696,
+    "sha256": "5a715742bfc9b15f87f009af0b415f0f74ebe6e31ad340d8fb867b530737b0b4"
+   },
+   "after": {
+    "bytes": 13701,
+    "sha256": "715c7fade431fa3e49ca42f025b8e0afb4a45a8458e8d054329edd1884d65f20"
+   },
+   "change": "Fixture consumer: authenticateOwnedSemanticStageBasis (54)."
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+   "before": {
+    "bytes": 42213,
+    "sha256": "f4cbf1fed4b4d671c7c7f7e6fc4e378ec1abf22965384d1fc73c385786ada6ef"
+   },
+   "after": {
+    "bytes": 42228,
+    "sha256": "f8b5f1bc6524865cece43bc53fe9684431edd1390bb30f5c18b3e974e2ffd85a"
+   },
+   "change": "Fixture consumer, three component stub keys. ./semantic_revision.js projectJobRevisionSubject becomes projectOwnedJobRevisionSubject (114). instruction_assembly already imported the owned name, so the old key was already inert; the gated test stays skipped. ../abg/semantic_stage.js authenticateSemanticStageBasis becomes authenticateOwnedSemanticStageBasis for leaf_invocation_port (324) and for implementation/semantic_stage+semantic_revision (357)."
+  }
+ ],
+ "unchangedGrantedPaths": [
+  "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/d2-acknowledgment.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-query-reuse.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/d2-bounded-repair.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/d2-historical-design.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/d2-workflow-step.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-child-program.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-intake.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-lifecycle.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-read-dependency.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-predecessor-context.test.mjs"
+ ],
+ "unchangedByThisWorker": "find -newer before-43.json over the worksite (excluding .git and tmp09) lists exactly the 26 changed paths. No other worksite path, canonical build/, artifacts/, node_modules, contracts, generated manifest, package identity, Git state or selector was written.",
+ "migration": {
+  "IR-01": [
+   {
+    "site": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts:447",
+    "function": "jobRevisionSubjectAtBasis (historicalBridge origin cut)",
+    "owner": "validatedRuntimeEventPrefixBeforeEvent(owner.prefix, historicalBridge.event.eventId)"
+   },
+   {
+    "site": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts:1005",
+    "function": "revisionEvidenceComponentsAtBasis (stage-revision preparation cut)",
+    "owner": "validatedRuntimeEventPrefixBeforeEvent(owner.prefix, bridge.event.eventId)"
+   },
+   {
+    "site": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts:397",
+    "function": "projectionFacts (binding-projection cut)",
+    "owner": "validatedRuntimeEventPrefixBeforeEvent(prefix, result.eventId)"
+   }
+  ],
+  "IR-01PrivateTypes": [
+   "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts:714 revisionWorksiteProjection cut?: RuntimeEventPrefix",
+   "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts:909 revisionPreparationAtBasis cut?: RuntimeEventPrefix"
+  ],
+  "IR-01Equivalence": "Old: filter every body of the owner prefix by admissionOrdinal < boundary ordinal, then cold selectValidatedRuntimeEventPrefix. New: the existing cut owner. On a located (owned) prefix it uses rowById(eventId), selection.cut(ordinal-1) and selectLocatedSubset, keeping the owned source and scope. On a validated prefix it uses an id-index lookup, a binary search and constructImmutablePrefix with the receipt source. In every case the boundary event comes from the same prefix: the bridge events are selected over the same basis-authenticated prefix, and the projection results are iterated from runtimeEventBodiesAtPrefix(prefix) or read by id at the same prefix. Every prefix the callers hold is unscoped (authenticated owned assembly prefix, scope all). So values, order, extent, profile and digest are equal, and the boundary is excluded (focused case historicalCut). Exceptions in all three callers are still caught to null, and the source, causation, currentness and physical checks after each cut are unchanged.",
+  "IR-02": [
+   "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts:666",
+   "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts:792",
+   "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts:1212",
+   "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts:683",
+   "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts:60",
+   "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts:99",
+   "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts:63"
+  ],
+  "IR-02Equivalence": "Each retired adapter was {...owned, events: runtimeEventBodiesAtPrefix(owned.prefix).materialize(), prefix: selectValidatedRuntimeEventPrefix(events)}, with a null guard for a runtime_validation_event_prefix. None of the seven callers reads owner.events. Their owner.prefix readers (projectRunEnvironmentRoleEvidenceAtPrefix, indexedRuntimeEvents, semanticJobRootAtPrefix and the other instruction-assembly prefix readers) accept RuntimeEventPrefix. The other owner facts are the same objects. The guard is unreachable: authenticateOwnedNativeInstructionAssemblyBasis takes its prefix from projectOwnedPrefixArtifactTruth, which is always an owned prefix. The focused case semanticAdapter shows equal facts and refusal.",
+  "wrappersRetired": [
+   "authenticateSemanticStageBasis",
+   "authenticateSemanticJobBasis",
+   "projectJobRevisionSubject",
+   "projectRevisionSelectionSubject"
+  ],
+  "consumerAccounting": {
+   "population": "Complete word-boundary census of the exact preimage tree (tmp09/pre, all 43 paths equal before-43.json) across code/, test_env/, design/, scripts/, contracts/ and package.json. 52 references in 23 files; after: 0 in source, tests, support and the compiled build including .d.ts. There are no aliases, re-exports or barrel exports: abg/index.ts exports none of the four, and no `as`/`export {}` form names them. Outside the tenant, git grep finds the names only in .ai-workspace historical evidence text, which is not a consumer.",
+   "source": [
+    {
+     "file": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+     "refs": {
+      "authenticateSemanticStageBasis": 1
+     },
+     "disposition": "definition deleted"
+    },
+    {
+     "file": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+     "refs": {
+      "authenticateSemanticJobBasis": 1
+     },
+     "disposition": "definition deleted"
+    },
+    {
+     "file": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+     "refs": {
+      "authenticateSemanticStageBasis": 2,
+      "authenticateSemanticJobBasis": 2,
+      "projectJobRevisionSubject": 1,
+      "projectRevisionSelectionSubject": 1
+     },
+     "disposition": "imports dropped; both complete-subject wrapper definitions (their only uses of the adapters) deleted"
+    },
+    {
+     "file": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+     "refs": {
+      "authenticateSemanticStageBasis": 3,
+      "authenticateSemanticJobBasis": 3
+     },
+     "disposition": "IR-02 calls 666, 792 and 1212 plus imports migrated to the owned authenticators"
+    },
+    {
+     "file": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+     "refs": {
+      "authenticateSemanticStageBasis": 2,
+      "authenticateSemanticJobBasis": 2
+     },
+     "disposition": "IR-02 call 683 plus imports migrated"
+    },
+    {
+     "file": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+     "refs": {
+      "authenticateSemanticStageBasis": 3,
+      "authenticateSemanticJobBasis": 3
+     },
+     "disposition": "IR-02 calls 60 and 99 plus imports migrated"
+    },
+    {
+     "file": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+     "refs": {
+      "authenticateSemanticStageBasis": 2,
+      "authenticateSemanticJobBasis": 2
+     },
+     "disposition": "IR-02 call 63 plus imports migrated"
+    }
+   ],
+   "testsAndSupport": [
+    {
+     "file": "test_env/support/d2-binding-harness.mjs",
+     "refs": 1,
+     "disposition": "duplicate retired stub key removed"
+    },
+    {
+     "file": "test_env/support/d2-bounded-harness.mjs",
+     "refs": 2,
+     "disposition": "duplicate stub key removed; select() uses projectOwnedRevisionSelectionSubject"
+    },
+    {
+     "file": "test_env/support/d2-evidence-owner-harness.mjs",
+     "refs": 1,
+     "disposition": "duplicate stub key removed"
+    },
+    {
+     "file": "test_env/support/d2-historical-design-harness.mjs",
+     "refs": 1,
+     "disposition": "duplicate stub key removed"
+    },
+    {
+     "file": "test_env/support/t287-generic-job-intake.mjs",
+     "refs": 2,
+     "disposition": "owned job authenticator"
+    },
+    {
+     "file": "test_env/support/t287-generic-job-revision.mjs",
+     "refs": 1,
+     "disposition": "owned job authenticator"
+    },
+    {
+     "file": "test_env/support/t287-predecessor-context.mjs",
+     "refs": 2,
+     "disposition": "owned stage authenticator call and stub key"
+    },
+    {
+     "file": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+     "refs": 1,
+     "disposition": "owned stage authenticator"
+    },
+    {
+     "file": "test_env/tests/t287-generic-job-meaning.test.mjs",
+     "refs": 1,
+     "disposition": "owned job authenticator"
+    },
+    {
+     "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+     "refs": 3,
+     "disposition": "projectOwnedJobRevisionSubject"
+    },
+    {
+     "file": "test_env/tests/t287-management-context.test.mjs",
+     "refs": 1,
+     "disposition": "stub key renamed to the imported owned name"
+    },
+    {
+     "file": "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+     "refs": 1,
+     "disposition": "owned job authenticator"
+    },
+    {
+     "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+     "refs": 2,
+     "disposition": "owned job authenticator"
+    },
+    {
+     "file": "test_env/tests/t287-stdo-environment-citation.test.mjs",
+     "refs": 1,
+     "disposition": "stub key renamed"
+    },
+    {
+     "file": "test_env/tests/t287-stdo-run-environment.test.mjs",
+     "refs": 1,
+     "disposition": "owned stage authenticator"
+    },
+    {
+     "file": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+     "refs": 3,
+     "disposition": "three stub keys renamed to the imported owned names"
+    }
+   ],
+   "cutFixturePremises": "Three existing harness stubs of selectValidatedRuntimeEventPrefix served only the replaced cut (and, in the revision test, the retired job adapter) in the modules they link: d2-binding-harness, d2-evidence-owner-harness and t287-native-semantic-revision. Each now substitutes validatedRuntimeEventPrefixBeforeEvent with the same premise. No other test or support stub of event_prefix links a changed module.",
+   "distinctSupportedConsumer": "None found; there is nothing to report to Root under this item."
+  }
+ },
+ "proof": {
+  "build": "tmp09/w/build_tenants/abiogenesis/typescript is a cp -R copy of the worktree tenant. Its node_modules were copied from the declared offline toolchain (/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules); nothing was installed. node node_modules/typescript/bin/tsc -p tsconfig.json exited 0 with no output (noEmitOnError, strict). node scripts/generate-product-manifest.mjs exited 0. The compiled build and .d.ts carry 0 occurrences of the four retired names. All 43 granted paths in scratch are byte-equal to the worktree.",
+  "preimageTree": "tmp09/pre/w/build_tenants/abiogenesis/typescript is the same copy with the eight IR_PREIMAGES sources and every edited test/support/HOW reverted. All 43 paths equal before-43.json, which also checks that the change list above is complete. It was built the same way and used only for outcome comparison.",
+  "env": "cwd = the scratch tenant. TMPDIR=/private/tmp/abg-n09, NODE_OPTIONS=--max-old-space-size=8192, ABI5_CONSOLIDATION_INPUTS=tmp09/inputs. That directory holds byte copies of consolidation-inputs/native-09/EXTERNAL_READ_RESOURCES.json (04717c70...) and consolidation-inputs/native-08/MEASURED_BASELINE.json (774df745...); see gaps. Command: node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap <lane files>.",
+  "lanes": {
+   "single-address-space-whole-path": {
+    "result": "12 pass / 0 fail / 0 skip (min 12, no skips)",
+    "wallSeconds": 508,
+    "tap": {
+     "path": "tmp09/runs/single-address-space-whole-path.tap",
+     "bytes": 78247,
+     "sha256": "14dd7ff774722dfc01ff64fab460c8ede3e939181f98581228449457e3a74e11"
+    },
+    "stderr": {
+     "path": "tmp09/runs/single-address-space-whole-path.stderr",
+     "bytes": 0,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "proofArtifact": {
+     "path": "tmp09/w/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+     "bytes": 195106,
+     "sha256": "44ab560e6e4d2fd371ab4c8c9229a96cb13eff0351ee6fa503e84cfa5fb45e27"
+    }
+   },
+   "native-semantic-job": {
+    "result": "9 / 0 / 0 (min 9, no skips); per-test outcomes equal the preimage tree",
+    "tap": {
+     "path": "tmp09/runs/native-semantic-job.tap",
+     "bytes": 3026,
+     "sha256": "47abb464fbfaa4ac76d70a5f1ff8b3d88bf8ac359f993f6cefcd2c2a126ba9a6"
+    },
+    "preimageTap": {
+     "path": "tmp09/pre/runs/native-semantic-job.tap",
+     "bytes": 3027,
+     "sha256": "dffe355e33c6c2d296ec1b39a88107bec685c524e3b8956ee705cd9d9f478f87"
+    }
+   },
+   "native-semantic-revision": {
+    "result": "4 pass / 1 fail / 2 skip (min 5 not met). The failure predates this increment: the exact preimage tree gives identical per-test outcomes, failing the same assertion at line 137. The 2 skips are the existing ABI5_EVIDENCE_ROOT gates.",
+    "tap": {
+     "path": "tmp09/runs/native-semantic-revision.tap",
+     "bytes": 4088,
+     "sha256": "97d1fcc2eef622b86bd2efc72a7a5b3520da5ec6db5a90452066e5d96902648b"
+    },
+    "preimageTap": {
+     "path": "tmp09/pre/runs/native-semantic-revision.tap",
+     "bytes": 4098,
+     "sha256": "ce38ada85c770e8489f836820082f4a5a23c8805d2a9d7b3a7ec8853ccd7e4a4"
+    },
+    "failureCause": "Diagnostic on the preimage build only, since restored: nativeIntakeFacts calls the real readOwnedRuntimeEventPrefixAtDurablePrefix on the harness coordinate file:///component/no-journal, which throws ENOENT and becomes intake_projection_exception. The harness stubs only event_store readRuntimeEventsAtDurablePrefix. This is unrelated to IR-01/IR-02 and was not repaired."
+   },
+   "semantic-interface-and-fixture-consumers": {
+    "result": "59 pass / 0 fail / 73 skip (floor 62 not met). Per-test outcomes equal the preimage tree (59/0/73). Every skip is an existing historical gate (unset ABI5_* evidence, predecessor or retained roots).",
+    "wallSeconds": 195,
+    "tap": {
+     "path": "tmp09/runs/semantic-interface-and-fixture-consumers.tap",
+     "bytes": 52675,
+     "sha256": "40b359d06d7c76aa6431ec4aa30a86562aaf46a6381064e620f4d2f166eb33bc"
+    },
+    "preimageTap": {
+     "path": "tmp09/pre/runs/semantic-interface-and-fixture-consumers.tap",
+     "bytes": 52655,
+     "sha256": "1e153b493c78ac31e92a84b5426b7ade39abf5f03f522fc1dc6470edce4cccbe"
+    }
+   }
+  },
+  "focused": {
+   "probe": {
+    "result": "the two new cases alone: 2/0/0",
+    "tap": {
+     "path": "tmp09/runs/sas-focused-probe.tap",
+     "bytes": 7386,
+     "sha256": "09c049359c91977870597859360b59a507c4a97a3688687aa95ceebbb0e65ff6"
+    }
+   },
+   "historicalCut": {
+    "location": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs:1207",
+    "input": "One owned prefix of the complete retained RC5 log (586361364 B, sha256 532079454749d20d...; 25016 events, identity unchanged after the reads). Boundary: the last c_call_result_admitted, ordinal 25002.",
+    "values": "Owner cut and replaced filter: equal extent {25001, 25001}, equal runtimeEventPrefixDigest sha256:0cf36d5e30c5789084867e6fbb6c80753cf36daada68d2ca954179a78abe0ba8, equal profile schedule, equal last event and equal c_call_result index ids. The boundary is absent from both. The owner cut keeps the owned source; the replaced copy is not owned. The owner cut also agrees with the filter on the cold validated arm at the earliest result boundary.",
+    "refusals": "An absent event id and the excluded boundary itself both throw the owner refusal, which the callers catch to null.",
+    "work": "Owner cut: 0 body rows, 0 decodes, 0 bytes, 0 materialize, snapshot, isImmutableRuntimeValue or selectValidatedRuntimeEventPrefix calls, and 1 selectOwnedRuntimeEventPrefix. Replaced filter: 25047 body rows, 24902 decodes, 170460531 watched bytes, 4134611 isImmutableRuntimeValue calls, 1 cold selectValidatedRuntimeEventPrefix and 1 snapshot, about 5.5 s."
+   },
+   "semanticAdapter": {
+    "location": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs:1263",
+    "input": "The same retained owned prefix.",
+    "premise": "The compiled abg/semantic_stage.js is linked as a component. Its lower authenticateOwnedNativeInstructionAssemblyBasis returns this owned prefix with a component execution, call and environment; validSemanticProgramOwners and modulePublicationSemanticDigest are supplied. The stage authenticator and every prefix owner are actual candidate code. The retired adapter body is evaluated verbatim, as in the IR_PREIMAGES semantic_stage.ts and semantic_job.ts sources, over the candidate exports. Only the stage arm is measured; the job wrapper body is identical, and its owned authenticator is covered by the native-semantic-job lane.",
+    "values": "role, stage, inputRef, inputDigest, call, execution, graph, resolution, environment, lifecycle, source and sourcePublication are deepEqual. The owner borrows the exact owned prefix object; the adapter copy has equal extent (25016) and digest. A foreign author locus refuses in both. The compiled stage, job and revision modules export none of the four retired names.",
+    "work": "Owned authentication: 0 body rows, 0 bytes, no materialize, decode, immutability walk or cold select. Retired adapter: 2 materialize, 25079 body rows, 24979 decodes, 506533666 watched bytes, 4138113 isImmutableRuntimeValue calls, 1 cold selectValidatedRuntimeEventPrefix, about 9.5 s."
+   }
+  },
+  "reachability": {
+   "tap": {
+    "path": "tmp09/runs/coverage-regression-lanes.tap",
+    "bytes": 59593,
+    "sha256": "970cbb78261d260f19ea4ad81f7cc9f137f3f5b0c55590d03611f3141ff9b296"
+   },
+   "result": "NODE_V8_COVERAGE=/private/tmp/abg-n09/cov-lanes over the job, revision and 25-file lanes in one run: 72 pass / 1 fail / 75 skip, consistent with the separate runs.",
+   "executedMigratedSites": "instruction_assembly 792 (job arm, count 3); leaf_invocation_port 683 stage arm (count 2); implementation/semantic_revision 60 and 99 stage arms (counts 4 and 2); implementation/semantic_stage 63 stage arm (count 4).",
+   "unexecutedInUngatedLanes": "The three IR-01 cut expressions; instruction_assembly 666 and 1212; and the job arms of leaf_invocation_port 683, implementation/semantic_revision 60/99 and implementation/semantic_stage 63. Their consumers are gated historical D2/D1/predecessor/STDO tests or the pre-existing failing revision case. Adoption rests on complete tracing, the strict type-check, the shared cut-owner and authenticator discriminators above, and the migrated fixture stubs."
+  }
+ },
+ "dispositions": {
+  "T1": "Met on Worker evidence. All 3 cuts and 7 ordinary calls use the existing canonical owners. All 52 references in 23 files are accounted for, plus the 3 cut stub premises. The four wrappers are deleted with no forwarding alias, and no distinct supported consumer exists.",
+  "T2": "Partly evidenced. Build passes. Whole-path is 12/0/0 and job 9/0/0, both with no skips. The focused cases execute. The revision lane is 4/1/2 and the consumer lane 59/0/73: both are below their declared minima and identical to the exact preimage, so the shortfall is not caused by this increment. Historical gates keep their exact reasons and were not activated. See gaps.",
+  "T3": "Met. historicalCut and semanticAdapter compare the replaced and current paths on one input, with equal data, boundary and refusals, and count the removed full-body pass, materialization, immutability walk and cold revalidation. There is no per-site E2E fixture or broad profiling.",
+  "T4": "Not assessable by the Worker, because actual C2 has not run. Frozen-source correspondence is ready: scratch equals the worktree for all 43 paths, and the hashes are above. One concrete C2 input blocker is reported in gaps.",
+  "T5": "Met. No added behavior, public contract or abstraction. Only 26 of the 43 granted paths changed, and no unrelated source, old evidence, release, selector or Git effect occurred."
+ },
+ "residuals": [
+  "Cut boundary identity: the owner resolves the boundary by event identity in the held prefix, where the replaced code compared ordinals. For every prefix the three callers hold (unscoped owned prefix, boundary event from that prefix) the two coincide. A scoped prefix would now keep its scope where the replaced cold validation refused or unscoped it, but no current caller passes one.",
+  "The retired adapters also refused a runtime_validation_event_prefix owner. The owned authenticators never yield one (owned artifact-truth prefix), so no reachable refusal is lost.",
+  "Renamed fixture sites in gated tests, the d2 harness cut premises and the revision-test premise did not execute in this environment; they are migrated by name and premise only."
+ ],
+ "gaps": [
+  "C2 input: consolidation-inputs/native-09 has no MEASURED_BASELINE.json, but c2-proof.mjs sets ABI5_CONSOLIDATION_INPUTS to that directory. consolidationInputs() throws ENOENT there (verified read-only), so at C2 the six whole-path cases that read inputs (retainedHistory, livenessFork, publicOperationClassification, globalRunInvocationPairs, historicalCut, semanticAdapter) and the proof-record test will fail. A byte-identical baseline exists in native-01..08 (5575 B, sha256 774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06). This is Root input custody, outside the write scope.",
+  "native-semantic-revision minimum 5 is unreachable without repairing an unrelated pre-existing failure (test 1, line 137, ENOENT /component/no-journal in nativeIntakeFacts). Outcomes are identical at the exact preimage. Root decision.",
+  "semantic-interface-and-fixture-consumers floor 62 exceeds the 59 executable passes at both preimage and candidate under the selected (unset) historical inputs. Root decision on the floor or inputs.",
+  "test_env/qualification/inventory.json and its recipe pin the HOW at 133955 bytes. It was already stale before this activation (145004 bytes) and is now 145655. Qualification is excluded."
+ ],
+ "disclosures": [
+  "Writes: the 26 changed granted paths; consolidation-scratch/native-09/tmp (before-43.json, write_handoffs.py) and the three handoff files. tmp09 holds: w/ (scratch tenant with build/, copied node_modules, generated contracts/manifest and artifacts/single-address-space-proof.json); pre/ (the exact preimage tree, built); inputs/ (two byte copies); runs/ (TAP/stderr).",
+  "/private/tmp/abg-n09 holds the temporary effects of the selected tests, about 78 entries and 1.2G, including cov-lanes (42 coverage JSON files, 66M). One diagnostic copy, semantic_revision.js.orig, was created there and deleted. The diagnostic patch to tmp09/pre/.../build/code/src/abg/semantic_revision.js was restored from that copy before any later run. Nothing was cleaned up.",
+  "Reads beyond native-09: consolidation-inputs/native-08/MEASURED_BASELINE.json (readable under HISTORICAL_EVIDENCE_ROUTES), the IR_PREIMAGES source files, git show HEAD blobs for the preimage tree, the read-only retained RC5 log (identity verified unchanged by the tests) and the offline toolchain.",
+  "No network, install, publish, commit, push, merge, tag, selector change, subagent or second Worker. No write outside the declared roots is known. Each test or selfcheck process ran with TMPDIR=/private/tmp/abg-n09; whether test subprocesses touch user-level caches outside TMPDIR is not fully known."
+ ]
+}

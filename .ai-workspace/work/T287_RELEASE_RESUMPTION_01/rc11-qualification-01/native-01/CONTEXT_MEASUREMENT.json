@@ -1,0 +1,16 @@
+{
+  "fileMembers": 47,
+  "sourceMemberBytes": 2244565,
+  "absentObservedTargets": [
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md"
+  ],
+  "instructionUtf8Bytes": 7171,
+  "taskJsonBytes": 12893,
+  "renderedBytes": "Measured by actual installed renderer in PREPARED; file content is not embedded by renderer.",
+  "contextCeilings": {
+    "files": 80,
+    "bytes": 8388608,
+    "promptBytes": 1048576
+  }
+}

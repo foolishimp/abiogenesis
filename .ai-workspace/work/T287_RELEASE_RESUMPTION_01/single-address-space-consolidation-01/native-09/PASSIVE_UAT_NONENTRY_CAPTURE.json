@@ -1,0 +1,17 @@
+{
+  "recordedUtc": "2026-11-04T13:49:22.108743+00:00",
+  "kind": "passive_UAT_nonentry_custody",
+  "originalPreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/capture-assessment.mjs",
+    "bytes": 6008,
+    "sha256": "e4f961249f36119639bc5fa4b9cf485a5819b3cbbabcec031270f7030c773ae0"
+  },
+  "captureScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/capture-assessment-closed.mjs",
+    "bytes": 8149,
+    "sha256": "657ad8f872e77ef4f2b6bdae0e4c7c3472c75878e9d3b380a87e670b0df73d5a"
+  },
+  "effect": "When an actual blocked outcome exists and installed decoding finds no assessment task/start/Result, retain its actual admitted gap and UAT non-entry. Do not turn a gap into a semantic UAT verdict.",
+  "status": "Prepared only; no capture executed.",
+  "scope": "Root operator custody only; no source, active control or runtime write."
+}

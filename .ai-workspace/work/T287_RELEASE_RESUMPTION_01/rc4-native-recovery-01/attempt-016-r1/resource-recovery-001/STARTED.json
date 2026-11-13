@@ -1,0 +1,9 @@
+{
+  "operator": "Root",
+  "at": "2026-11-02T21:33:29.538Z",
+  "pid": 68214,
+  "manifestSha256": "67f801dad12d20e8e68811c82e83e708e3ea05d333b92b9b47f5b361c7a30c3e",
+  "sourceCommit": "0a8d330a32d5f577b424394c0424a1cd9abe519b",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

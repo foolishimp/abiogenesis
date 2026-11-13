@@ -1,0 +1,35 @@
+// Root-operated native call construction only; no Public invocation or provider.
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {readFile,mkdir,stat,realpath} from 'node:fs/promises';
+import {join} from 'node:path';
+import {loadReuse} from './reuse-state.mjs';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+const base='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01';
+const dir=join(base,'single-machine-p1-03'),setup=dir,out=join(dir,'attempt-001');
+const {selection,retained:saved}=await loadReuse();
+const sha=b=>createHash('sha256').update(b).digest('hex');
+assert.equal(process.argv.length,3,'usage: node prepare-call.mjs ACTIVATE_SHA256_HEX');
+const ar=await readFile(join(dir,'ACTIVATE_P1.json'));assert.equal(sha(ar),process.argv[2]);const a=JSON.parse(ar);
+assert.equal(a.kind,'single_machine_p1_actual_call_preparation');assert.equal(a.status,'ROOT_SELECTED_PREPARATION');assert.equal(a.sourceBasis,'none');
+for(const row of a.operatorClosure){const b=await readFile(row.path);assert.equal(b.length,row.bytes,row.path);assert.equal(sha(b),row.sha256,row.path)}
+const local=['operator-client/public-setup.mjs','operator-client/runner.mjs','operator-client/consumer.mjs','operator-client/scenarios.mjs'].map(n=>join(base,n));assert(local.every(p=>a.operatorClosure.some(r=>r.path===p)),'operator closure missing');
+const wr=await readFile(join(dir,'workload-v2.json'));assert.equal(sha(wr),a.workloadSha256);const w=JSON.parse(wr);
+const sr=await readFile(selection.priorAfterRunResume.path);assert.equal(sha(sr),a.setupResumeSha256);
+const pr=await readFile(join(dir,'model-free-preflight.json'));assert.equal(sha(pr),a.preflightSha256);const pre=JSON.parse(pr);assert.equal(pre.status,'prepared_not_dispatched');assert.equal(pre.workloadSha256,a.workloadSha256);
+const epath=fileURLToPath(saved.state.closeHandoff.prefix.eventLogRef),eb=await readFile(epath);assert.equal(eb.length,a.initialEventLog.bytes);assert.equal(sha(eb),a.initialEventLog.sha256);assert.equal(saved.state.closeHandoff.prefix.coordinateDigest,a.initialEventLog.coordinateDigest);
+assert.equal(saved.native.request.expectedArtifactDigest,'sha256:0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c');assert.equal(saved.native.request.expectedManifestDigest,'sha256:14d5b7d1379ba17f6f425bbf3766c1b4ff524cfc4b25dbeedc30e64b5d03c700');
+assert.equal(await realpath(saved.installedRoot),saved.installedRoot);
+const {installedModules,publicCaller,constructLifecycleCall}=await import(pathToFileURL(local[0]).href);const {exclusiveRecord}=await import(pathToFileURL(local[1]).href);const {assessmentSelection}=await import(pathToFileURL(local[2]).href);
+const runtime=await installedModules(saved.installedRoot);const manifest=JSON.parse(await readFile(join(saved.installedRoot,'product-toolchain-manifest.json'),'utf8'));assert.equal(runtime.product.sha256Canonical(manifest),saved.native.request.expectedManifestDigest);
+for(const install of saved.setup.installations)assert(await runtime.product.installedProductContentMatches(install),'installed payload changed');
+const input=runtime.product.constructGovernanceWorkState({...w,assessment:{...w.assessment,...assessmentSelection}});assert(runtime.product.isGovernanceWorkState(input));
+assert.deepEqual(input.observations,[]);assert.equal(input.synthesis,null);assert.equal(w.testing.selectedPaths.length,963);assert.equal(w.readRoots.length,selection.readRootCount);assert.equal(w.testing.commands.length,9);assert.equal(w.workOrders.construction.writeRoots.length,10);assert(Object.entries(w.workOrders).every(([k,v])=>k==='construction'||v.writeRoots.length===0));
+await mkdir(out,{mode:0o700});const record=(p,v,raw=false)=>exclusiveRecord(out,p,v,raw);
+const config={...saved.config,runId:'single-machine-p1-03'};const caller=publicCaller({root:out,runtime,native:saved.native,command:()=>{throw Error('unexpected command execution')},record,config,actorRef:'actor://abiogenesis/operator/codex-root'});
+Object.assign(caller.state,saved.state);caller.installedRoot=saved.installedRoot;caller.workspaceAuthority=saved.workspaceAuthority;
+await record('run.json',{kind:'single_machine_p1_prepared_call',activationSha256:sha(ar),workloadSha256:sha(wr),classification:'no Run admission or provider dispatch'});await record('input.json',input);
+const {call}=await constructLifecycleCall(caller,input);assert.equal(call.resources.source.kind,'none');await record('prepared-call.json',call);
+assert.equal(sha(await readFile(epath)),a.initialEventLog.sha256,'preparation changed durable prefix');assert.equal((await stat(epath)).size,a.initialEventLog.bytes);
+const result={kind:'single_machine_p1_prepared_call_binding',status:'prepared_not_admitted',activationSha256:sha(ar),workloadSha256:sha(wr),inputFileSha256:sha(await readFile(join(out,'input.json'))),inputCanonicalDigest:runtime.product.sha256Canonical(input),callFileSha256:sha(await readFile(join(out,'prepared-call.json'))),callCanonicalDigest:runtime.product.sha256Canonical(call),invocationRef:call.invocation.invocationRef,installedRoot:saved.installedRoot,sourceCommit:selection.sourceCommit,eventLogSha256:a.initialEventLog.sha256,eventLogBytes:a.initialEventLog.bytes,limits:['No Run admitted, provider called or event appended','Controlled selector preflight is predictive only']};
+await record('PREPARED_CALL.json',result);console.log(JSON.stringify(result));

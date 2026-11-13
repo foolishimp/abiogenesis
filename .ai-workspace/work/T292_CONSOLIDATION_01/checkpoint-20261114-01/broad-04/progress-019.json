@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-installed-graph-edge.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/019-m5-installed-graph-edge.test/process.json",
+    "bytes": 1083,
+    "sha256": "32a5111f82ce9bcae7cf08b729c2663f17a3ad4f7d1ca4cca0fa973b54411250"
+  }
+}

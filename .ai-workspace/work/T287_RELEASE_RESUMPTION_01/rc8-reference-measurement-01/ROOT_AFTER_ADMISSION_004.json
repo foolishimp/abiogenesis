@@ -1,0 +1,91 @@
+{
+  "status": "ROOT_ADMITTED_REFERENCE_MEASUREMENT",
+  "at": "2026-11-07T04:45:36.204938+00:00",
+  "executive": "/root",
+  "writerOperator": "/root/rc7_reference_ticket_writer",
+  "bindingsSha256": "2493232ba130d3fa6ea5d92612a5609597bc6a504eb9fcc4f168b57cea745392",
+  "firstRc7WorkerLaunchObserved": true,
+  "preparationManifestSha256": "37ab6a4e8e53fdb2a35de18843ce2da1d437acde66b3abb847c4dd19bad82bfc",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/AFTER_BINDINGS.pre-admission.json",
+    "bytes": 7866,
+    "sha256": "2493232ba130d3fa6ea5d92612a5609597bc6a504eb9fcc4f168b57cea745392"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/PREPARATION_MANIFEST_AFTER_004.json",
+    "bytes": 3928,
+    "sha256": "37ab6a4e8e53fdb2a35de18843ce2da1d437acde66b3abb847c4dd19bad82bfc"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "sourceIdentity": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "bootstrapReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/EXECUTION_RETURN_BOOTSTRAP_001.json",
+    "bytes": 5279,
+    "sha256": "cc013e42607ec74faabecca5c09dbb9a136cb5f7c69eaeb4dde6e8a09e0f3589"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 2557,
+    "sha256": "3dfe718500c18a0100544ae9bb4ef4a56d3c6211daff676f4c38145cf585fe7a"
+  },
+  "testedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "actualBootstrapInstallation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/installation.json",
+    "bytes": 4231675,
+    "sha256": "97e861d1a0955873ff6f43265ab6f633e371a7179f7048f3db6dfc5299ba8d77"
+  },
+  "firstRc7NativeLaunch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/NATIVE_STARTED_002.json",
+    "bytes": 3221,
+    "sha256": "a1b2649d2f15b0b042ca1cdb7cc8b991e609ceec9f11fae9e417976d13e87f8e"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "goal": "GOAL-035",
+  "ticket": "T-287",
+  "fixedFamilies": 15,
+  "scope": "One RC8 AFTER family004 REF-01 realization verification: unprofiled1MiB/4MiB pair plus separate third4MiB CPU-profile call; held resource, actual complete outcomes, cold parity and actual close.",
+  "rootDisposition": "Root read actual bootstrap return/source relation/config and wrapper, accepted stage04, and admitted exactly one unchanged family004 execution now under the existing user authorization to move to RC7/buildRC8. All three actual RC7 native Runs returned and physically closed; latest fresh result/replay agrees. No concurrent broad suite or other heavy workload is selected. Stop on first failure; preserve exact receipts/profile/raw counters; no automatic retry.",
+  "bounds": {
+    "hostMs": 600000,
+    "coldReadMs": 120000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "aggregateBytes": 1073741824,
+    "nodeHeapMiB": 8192
+  },
+  "bootstrapBudgetRoots": {
+    "tempRoot": "/private/tmp/abg-r8m-rc8-bootstrap-001",
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001"
+  },
+  "freeBytesBeforeExecution": 9318678528,
+  "maximumExecutions": 1,
+  "automaticRetry": false,
+  "broadExecutionAdmitted": false,
+  "cutExecutionAdmitted": false,
+  "qualified": false
+}

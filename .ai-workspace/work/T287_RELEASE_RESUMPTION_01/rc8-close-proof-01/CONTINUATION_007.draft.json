@@ -1,0 +1,53 @@
+{
+  "status": "PREPARATION_ONLY_NOT_BOUND_OR_EXECUTED",
+  "recordedUtc": "2026-11-07T06:55:59.370235+00:00",
+  "authority": "Root preparation-only continuation007 while author04 runs",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-007.draft.mjs",
+    "bytes": 27389,
+    "sha256": "044679e35280707dbfdfbc24441f7cbd93831c2281bfce73ce4d616891b11910"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_008.draft.json",
+    "bytes": 149660,
+    "sha256": "680d31b73e8b6c49bd9459d2a95d7ccd428f1b5c2763ca32dea6410b08e8d546"
+  },
+  "subjectBase": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "inventoriedWholeFiles": 208,
+  "retainedWholeFileCredits": 79,
+  "retainedPasses": 455,
+  "retainedSkips": 105,
+  "currentlyUncreditedFiles": 129,
+  "correctedTwoFilesUncredited": true,
+  "sourceChanges": "No source or test execution; draft preserves current driver execution loop, physical dependencies, candidate refresh, historical oracle and bounds. Only explicit source-correspondence admission changes.",
+  "pending": [
+    "Exact overlay freeze/digest/READY",
+    "Both complete affected file proofs",
+    "Independent frozen patch review",
+    "Root source correspondence/acceptance",
+    "Concrete final continuation controls and Root execution selection"
+  ],
+  "existingEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_006.json",
+    "bytes": 10768,
+    "sha256": "16c72363ccc260eb06ceae2edd49314fa71f7709039515fb0fc52720f8067ade"
+  },
+  "effects": {
+    "broadExecution": false,
+    "binding": false,
+    "scratchAllocated": false,
+    "source": false,
+    "git": false,
+    "cleanup": false
+  }
+}

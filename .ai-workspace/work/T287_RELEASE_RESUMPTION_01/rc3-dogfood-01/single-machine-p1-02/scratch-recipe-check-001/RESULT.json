@@ -1,0 +1,102 @@
+{
+  "baselineInputs": [
+    "build_tenants/abiogenesis/typescript/code/src",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/tsconfig.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs"
+  ],
+  "canonical46SourcesUnchanged": true,
+  "claims": [
+    "Only compiler emit and selected965case executed",
+    "This is nextauthorhostmechanics/partialsource counterexample, not firstRunC2 or candidate qualification",
+    "No Product edits/provider/Public/newruntimeadmission beyond existing selected test fixture owners",
+    "Scratch retained; no repeat or broader suite selected"
+  ],
+  "commands": [
+    {
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-02-965-yiytl4rx/node_modules/typescript/bin/tsc",
+        "-p",
+        "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-02-965-yiytl4rx/tsconfig.json"
+      ],
+      "cwd": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-02-965-yiytl4rx",
+      "exitStatus": 0,
+      "label": "compile-emit",
+      "outputs": [
+        {
+          "bytes": 0,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/scratch-recipe-check-001/compile-emit.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 0,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/scratch-recipe-check-001/compile-emit.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "wallSeconds": 8.197183959186077
+    },
+    {
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=965-member native context carriage",
+        "test_env/tests/t287-event-body-encoding.test.mjs"
+      ],
+      "cwd": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-02-965-yiytl4rx",
+      "exitStatus": 0,
+      "label": "only-965",
+      "outputs": [
+        {
+          "bytes": 1150,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/scratch-recipe-check-001/only-965.stdout.txt",
+          "sha256": "200ee0af9fb6a0ff957450df2c35da5c5cda5308e8220b660ac0bbed6b6ebc7c"
+        },
+        {
+          "bytes": 0,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/scratch-recipe-check-001/only-965.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "wallSeconds": 2.9895189590752125
+    }
+  ],
+  "compileExit": 0,
+  "copiedDependencyTreeMatched": true,
+  "kind": "p1_02_actual_scratch_recipe_discriminator",
+  "offlineInventory": {
+    "bytes": 425,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/toolchain-census.json",
+    "sha256": "08bd785ff5aa9795b4b042f477d24cf312e0a9f0525f8366bc6f26252bb80030"
+  },
+  "partialArchive": {
+    "bytes": 1423360,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/construction-source.local.tar",
+    "sha256": "9e840e8c1f87eed2a0d3ed9b282740d529f4a715c42e7f6d9465cd9c3974630d"
+  },
+  "partialSourceCustody": {
+    "bytes": 6485,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/CONSTRUCTION_RETURN_CUSTODY.json",
+    "sha256": "0a0d123e579956ab2b71d3e52f62137ef9c4220161e7a6ba2eee7e1397723a95"
+  },
+  "pinnedNode": {
+    "bytes": 86104016,
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "scratchRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-02-965-yiytl4rx",
+  "scratchSourceUnchanged": true,
+  "script": {
+    "bytes": 6507,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/validate-scratch-965.py",
+    "sha256": "23ac3764265ef61db0f63e4a4f034dd9a9dc2cce9f9b722545d377b32de95b2d"
+  },
+  "selected965Exit": 0,
+  "sourceAssembly": "immutable97406077requiredinputs+exact21frozenpartialoverlay; no moving canonical source copied",
+  "sourceCodeTreeDigest": "071e8fbaa6305d9a5980fbc2900726721f9ce545fd203eac5e6d0b1ed5f902b9",
+  "sourceCommit": "97406077c9a91e18e9425c3df55c6cd80f4c2073",
+  "startedUtc": "2026-11-01T03:30:32.164282+00:00"
+}

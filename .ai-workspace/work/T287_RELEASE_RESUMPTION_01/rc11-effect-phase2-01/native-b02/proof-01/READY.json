@@ -1,0 +1,281 @@
+{
+  "status": "B02_SUCCESSOR_UNIT_READY_EXECUTION_HELD",
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+    "bytes": 295433,
+    "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/BINDING.json",
+    "bytes": 14125,
+    "sha256": "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/CONTROLS.json",
+    "bytes": 21010,
+    "sha256": "71b21d2b528482397ce2e9fcaf1ad6d8703c20deacc54bf1ca7e908adab767aa"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py",
+    "bytes": 17434,
+    "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+  },
+  "controlPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/BINDING.json",
+      "bytes": 14125,
+      "sha256": "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/CONTROLS.json",
+      "bytes": 21010,
+      "sha256": "71b21d2b528482397ce2e9fcaf1ad6d8703c20deacc54bf1ca7e908adab767aa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py",
+      "bytes": 17434,
+      "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_PREPARATION_GRANT.json",
+      "bytes": 1612,
+      "sha256": "ea7dafcf0dc2939e323a38123c953df578bbff63947b6ed4eb4dd81f1d2d482b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/STAGE_BASE.json",
+      "bytes": 1280,
+      "sha256": "c7f4d6f8be4314471eca1edf92ad083c18763d6dfb6228d2e101a6d48bfd9e91"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PYC_CUSTODY_RETURN.json",
+      "bytes": 1878,
+      "sha256": "229bd45d0f22e24e131d9d4429afe10b560aad47998e9b47e411ccf1aa0c742d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+      "bytes": 6141,
+      "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PREFLIGHT.json",
+      "bytes": 1731,
+      "sha256": "72379f1d125f0d5240a2e4e2be5d92c4f4f06a8918a2c74a84fb4d32526e053d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/CONTROL_DELTA.json",
+      "bytes": 1555,
+      "sha256": "fe71e38d370469f2e53e5bcb9af95ac8e1c765b0f1b0b81793caa5f5ce613a90"
+    }
+  ],
+  "sourceReview": "HELD_FOR_ROOT_CONJUNCTION",
+  "retrospectiveDisposition": {
+    "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+      "bytes": 6141,
+      "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+    },
+    "predecessorAcceptance": {
+      "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+        "bytes": 2281,
+        "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+      }
+    },
+    "standing": "Proposed exact conserved production relation; new fixture proof not accepted. Root execution admission conjoins this receipt."
+  },
+  "launchArgv": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/BINDING.json",
+    "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_EXECUTION_ADMISSION.json",
+    "<Root admission SHA256>"
+  ],
+  "launchCommand": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/BINDING.json 98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_EXECUTION_ADMISSION.json '<Root admission SHA256>'",
+  "requiredAdmission": {
+    "status": "ROOT_ADMITTED_PHASE2_B_UNIT_CONTINUATION",
+    "bindingSha256": "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a",
+    "readySha256": "actual READY sha256",
+    "commandIds": [
+      "unit"
+    ],
+    "retrospectiveDisposition": {
+      "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+        "bytes": 6141,
+        "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+      },
+      "predecessorAcceptance": {
+        "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+        "receipt": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+          "bytes": 2281,
+          "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+        }
+      },
+      "standing": "Proposed exact conserved production relation; new fixture proof not accepted. Root execution admission conjoins this receipt."
+    }
+  },
+  "proofRoot": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03",
+  "stageRoot": "/private/tmp/abg-rc11-effect-phase2-b-unit-stage-20261110-03",
+  "command": {
+    "id": "unit",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "test_env/tests/t287-owned-call-reference.test.mjs",
+      "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "test_env/tests/t287-native-structural-gates.test.mjs",
+      "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "test_env/tests/m5-worker-transport.test.mjs",
+      "test_env/tests/forward-command-contracts.test.mjs",
+      "test_env/tests/forward-command-owners.test.mjs",
+      "test_env/tests/t287-native-semantic-revision.test.mjs"
+    ],
+    "timeoutSeconds": 1800,
+    "expectedTests": 102,
+    "expectedSkipped": 6,
+    "expectedSkippedNames": [
+      "M5 resolves and independently validates the complete executable root set",
+      "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings"
+    ],
+    "expectedNames": [
+      "native whole-Program validator accepts exactly prepare plus nested C2, with no historical call rights",
+      "native validator rejects crossed raw/output and child closure; exact declaration owner refuses extra calls",
+      "closed Product carriers preserve all controlled supplied source observations; no fabricated cover qualifies native currentness",
+      "explicit zero write territory survives C1 and forward cold carrier round-trip without adding rights",
+      "missing reordered duplicate changed or crossed retained members refuse at real Product constructor",
+      "a sparse retained bindingCoverEventRefs throws at the real Product constructor; the dense control constructs",
+      "the forward constructors admit their three array inputs at ingress: a one-hole vector throws; the dense controls validate and round-trip",
+      "real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm",
+      "raw namespaces, attempt/task/artifact and actor/tool mismatches remain refused",
+      "step and terminal predicates preserve honest command failure but reject incomplete or crossed final carriers",
+      "synthetic current native lookup maps all controlled retained C0 owners only under exact witness",
+      "synthetic cover wrong direction, scope, missing member and unrelated origin refuse in unchanged native owners",
+      "synthetic workflow alias does not add a C0 owner; distinct same-value producer is ambiguity",
+      "synthetic later cross-W post-publication failure invalidates the old subject alias without fabricating O1",
+      "synthetic current-prefix consumption refuses another exact producer, unresolved admission and ignores unrelated scope",
+      "canonical native entry and occurrence owners refuse same-Run transfer, standalone task, foreign GF and missing native basis",
+      "M5 GTL exposes exactly seven direct C constructors",
+      "M5 C.compose is canonical, flat, and identity-eliding",
+      "M5 GraphFunction composition preserves exact left and right identity",
+      "M5 GraphFunction promotion preserves topology and semantic truth",
+      "M5 native constructors refuse invalid batch, retry, and F_H realization",
+      "M5 native GTL constructs all ten graph relations with derived identities",
+      "M5 same-object relation is one validator-owned canonical identity witness",
+      "M5 closure validation distinguishes run and child GraphCall scope",
+      "M5 whole-program validation admits exact recursion law and refuses its substitutes",
+      "M5 whole-program validation binds gate law to published Rule and Evaluator declarations",
+      "M5 fan-out materialization derives one exact task per admitted input member",
+      "M5 fan-out and fan-in outer contracts equal their declared vectors",
+      "M5 native GraphFunction composition materializes source GTL without a second executable carrier",
+      "M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL",
+      "M5 whole-program validation refuses forged or widened graph-edge declarations",
+      "M5 raw admission and validator reject invented or contradictory C data",
+      "M4 independently authored data fixture remains one valid direct C.of Program",
+      "M5 whole-root validation keeps F_H interaction keys out of executable resolution",
+      "M5 resolves and independently validates the complete executable root set",
+      "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "TD-14: Rule.config is admitted at its parse; an unsafe integer or a lone surrogate is refused",
+      "RC9 OWN-01: owner folds over immutable rows and bytes are reused within their territory; changed, copied, earlier and cold inputs keep their checks and refusals",
+      "ordinary native runtime declaration passes the existing raw/Program owner",
+      "native source joins and cloned judgment retain their actual assessment; no owning adapter",
+      "caller-editable qualification owner views cannot mutate retained input authority; warm and cold agree",
+      "declared wrong value computes red; foreign law, changed installed subject, stale frontier and result substitute refuse",
+      "same-valued duplicate witness after assessment invalidates current consumption; supplied prefix substitution refuses",
+      "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation",
+      "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+      "native revision complete publication admits unique carriers and retains the exact factory graph",
+      "native revision installed descriptor loader discovers every declared leaf through module exports",
+      "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+      "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring",
+      "atomic_call: actual assessment owner remains evidence; no duplicate result leaf",
+      "flat_composition: actual assessment owner remains evidence; no duplicate result leaf",
+      "edge_program: actual assessment owner remains evidence; no duplicate result leaf",
+      "flat_composition: finite declaration passes actual raw/Program validation",
+      "edge_program: finite declaration passes actual raw/Program validation",
+      "same final value does not hide a missing first step, wrong composition or foreign Result",
+      "order, value chain, declared coverage and intermediate expectations remain material",
+      "edge: the same final value cannot replace declared kind, role order or intermediate provenance",
+      "edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red",
+      "RC8 REF-01: constructed canonical calls and setup Catalog/view reach the run owner by reference from the first call; canonical outputs, refusals and copies keep their admission",
+      "M5 B-001 preserves lane-owned Claude execution posture",
+      "M5 native report keeps its original host schema presentation",
+      "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+      "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+      "M5 B-001 bounds append arguments for all four transport contracts",
+      "M5 B-001 gives agent-specific sandbox binding precedence",
+      "M5 transport identity changes with parser and prompt-delivery semantics",
+      "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+      "M5 Bash tool identity ignores only optional string description metadata",
+      "M5 B-001 rejects tool activity only in the closed-prompt lane",
+      "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+      "M5 selected result text cannot admit a valid file without its final carrier",
+      "M5 actual owner, controlled clock: a true acknowledgement renews inactivity and the timeout cutoff excludes later semantic bytes",
+      "M5 actual owner, controlled clock: a false acknowledgement never renews inactivity",
+      "M5 actual owner, controlled clock: continuous true acknowledgements never renew the absolute deadline",
+      "M5 actual owner, controlled clock: descendant bytes after direct exit reach the closed-capture branch and stay outside raw and semantic output",
+      "M5 actual owner, controlled clock: identical ordered progress gives one outcome under split and coalesced capture",
+      "M5 actual owner, controlled clock: the progress completion instant is the capture that completes the ordered record under every split, and incomplete completion has none",
+      "M5 actual owner, controlled clock: a rejected drive retains its available trace without awaiting the pending owner and rethrows the identical failure",
+      "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "M5 ABG transport renews its inactivity lease only from observed progress",
+      "M5 ABG transport does not renew from unacknowledged output",
+      "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+      "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+      "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+      "TD-11: the incremental tool projection equals the head projection at every cut",
+      "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+      "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+      "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+      "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+      "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+      "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+      "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+      "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+      "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+      "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization"
+    ]
+  },
+  "environment": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/ENVIRONMENT.json",
+    "bytes": 1408,
+    "sha256": "dfa517118e41feaebace260a81de4108d17db05a0ce294dc39583cf3606f5374"
+  },
+  "limits": {
+    "unitSeconds": 1800,
+    "campaignSeconds": 2400,
+    "reserveSeconds": 15,
+    "maxOutputBytes": 104857600
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+    "bytes": 6141,
+    "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PREFLIGHT.json",
+    "bytes": 1731,
+    "sha256": "72379f1d125f0d5240a2e4e2be5d92c4f4f06a8918a2c74a84fb4d32526e053d"
+  },
+  "standing": "ONE future original unit; full102/96/6,39M5/34IDs including all6 group rows. No unchanged-work repeats or source/runtime/provider effects. Actual execution separately held; no qualification."
+}

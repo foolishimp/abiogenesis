@@ -1,0 +1,66 @@
+{
+  "status": "ACTUAL_COMPLETE32_CASE_DISCRIMINATOR_RED",
+  "stdout": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-04/m5-discriminator/stdout.log",
+    "bytes": 11936,
+    "sha256": "84e98c4765280b749b611a4938fece472d50856cdf0b7d564e95fa3e845a360c"
+  },
+  "counts": {
+    "tests": 32,
+    "pass": 29,
+    "fail": 3,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "failedCases": [
+    {
+      "line": 81,
+      "case": "not ok 14 - M5 ABG transport renews its inactivity lease only from observed progress",
+      "tapBlock": "not ok 14 - M5 ABG transport renews its inactivity lease only from observed progress\n  ---\n  duration_ms: 168.895166\n  type: 'test'\n  location: '/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:757:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    \n    false !== true\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: true\n  actual: false\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:802:10)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\n  ..."
+    },
+    {
+      "line": 103,
+      "case": "not ok 15 - M5 ABG transport does not renew from unacknowledged output",
+      "tapBlock": "not ok 15 - M5 ABG transport does not renew from unacknowledged output\n  ---\n  duration_ms: 202.223041\n  type: 'test'\n  location: '/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:809:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    \n    false !== true\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: true\n  actual: false\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:843:10)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\n  ..."
+    },
+    {
+      "line": 125,
+      "case": "not ok 16 - M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "tapBlock": "not ok 16 - M5 ABG transport excludes semantic output emitted after its timeout boundary\n  ---\n  duration_ms: 215.915667\n  type: 'test'\n  location: '/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:850:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    The input did not match the regular expression /late_worker_output/u. Input:\n    \n    ''\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n  actual: ''\n  operator: 'match'\n  stack: |-\n    TestContext.<anonymous> (file:///private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:888:10)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\n  ..."
+    }
+  ],
+  "originalUnitComparison": [
+    {
+      "name": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "originalUnitPassed": false,
+      "discriminatorPassed": true
+    },
+    {
+      "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+      "originalUnitPassed": false,
+      "discriminatorPassed": false
+    },
+    {
+      "name": "M5 ABG transport does not renew from unacknowledged output",
+      "originalUnitPassed": false,
+      "discriminatorPassed": false
+    },
+    {
+      "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "originalUnitPassed": true,
+      "discriminatorPassed": false
+    },
+    {
+      "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "originalUnitPassed": false,
+      "discriminatorPassed": true
+    },
+    {
+      "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "originalUnitPassed": false,
+      "discriminatorPassed": true
+    }
+  ],
+  "cause": "Not established. Distinct failure pattern with unchanged source/build/settings does not itself identify startup readiness, scheduling, chunk coalescing or Product behavior as cause."
+}

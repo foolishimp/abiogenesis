@@ -1,0 +1,404 @@
+{
+  "recordedUtc": "2026-11-03T23:11:12.798017+00:00",
+  "kind": "independent_interim_native05_proof_test_how_review",
+  "productFrame": {
+    "product": "ABIogenesis5, fixed fifteen families F01-F07/F09-F11/F13-F17",
+    "authority": "GOAL-035 / T-287 / existing full R1-R7 and C1-C5",
+    "method": "Exact installed STDO3.0.4 stdo-review; reused Product/GOALS and closed review basis",
+    "sourceDefinition": "STDO3.0.4",
+    "builderRuntime": "Immutable installed RC5 under STDO3.0.4, not a newly selected release",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "reviewBoundary": "Exact interim changed proof/helper/HOW claims only; source/domain judgments reused, no whole acceptance",
+    "owner": "Root Executive selects work and conjoins actual source/C2/UAT; reviewer is nonauthor, same-family independence limit retained"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/SUBJECT.json",
+    "bytes": 109632,
+    "sha256": "e31947dac73ce9624984a83d36be187cdf896d6ce6568094b2f0694dc59eeeb9"
+  },
+  "custody": {
+    "frozenFilesVerified": 117,
+    "heldPreimageHashesVerified": 117,
+    "changedFromHeld": 34,
+    "changedProofHelperHow": 23,
+    "referencesVerified": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/c2-proof.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/references/c2-proof.mjs",
+        "bytes": 3427,
+        "sha256": "1b3cbcbcd2f146bde3912c544bacf28bba0f507bbffdd7310e8a7405f2b5f902"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/workload-r1.json",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/references/workload-r1.json",
+        "bytes": 225405,
+        "sha256": "8f56decb001b76131ebab9dca7783e7f36853afeb7c4127c5d39959e0ee2dc0b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/ROOT_N5_CODE01_DISPOSITION.json",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/references/ROOT_N5_CODE01_DISPOSITION.json",
+        "bytes": 3914,
+        "sha256": "cfb02b957b0d4a333c2a3b0bb50ada1b821d4181d300e94bbf8562acfe08838b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_INTERIM_CODE_REVIEW.json",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/references/INDEPENDENT_INTERIM_CODE_REVIEW.json",
+        "bytes": 65508,
+        "sha256": "7b92835342855fd2ec03611e74f50c00db8de6cc1870134bdb0bff8f3b34170a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/QUALIFICATION_DOMAIN_REVIEW.json",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/references/QUALIFICATION_DOMAIN_REVIEW.json",
+        "bytes": 10891,
+        "sha256": "69fcc312115554cb6d52aadd4630144609070f6aa8d9af5666d436e993af05fe"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/rubric.json",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/references/rubric.json",
+        "bytes": 1879,
+        "sha256": "987adaade5d582b1a9bf616a38e90e2ae18db7b154aa297459e4c61e973dcae9"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/TASK.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/references/TASK.md",
+        "bytes": 6783,
+        "sha256": "82bd80dc31a279bbd28dc6a4d3bbaf55065c6b565b77c32f4758ae709be551c8"
+      }
+    ],
+    "incrementDiffVerified": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/increment.diff",
+      "bytes": 188797,
+      "sha256": "0b0f1958f2f335b20d8c72a4e0edd3bf3f465b80bda93e5d472f4911c71460e3"
+    },
+    "nativeResult": null,
+    "nativeAfterObservation": null,
+    "standing": "Exact interim local snapshot only; native coding remains active. No acceptance, actual C2 or ready claim."
+  },
+  "verdict": {
+    "changedBoundedClaims": "Retained within listed limits; one selected global-refusal proof row remains partial",
+    "newProofFinding": "N5-PROOF-01",
+    "heldSourceFinding": "N5-CODE-01 unchanged Root-owned disposition",
+    "actualC2FinalReadinessAndWholeOutcome": "Not assessed; pending is not an absence finding"
+  },
+  "findings": [
+    {
+      "id": "N5-PROOF-01",
+      "severity": "S2",
+      "domain": "Selected global-refusal proof completeness; not a demonstrated Product regression",
+      "title": "Mixed-arm/orphan classification probes stop before the changed global owner decisions",
+      "subjectFile": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "sha256": "cbe17a4e483a2f4ddb6ed0fe0d9b38979a1becc80429ecb2d33c42e9259d45c9",
+        "lines": [
+          208,
+          227,
+          229,
+          232,
+          233,
+          234,
+          236,
+          237,
+          238,
+          240,
+          241,
+          242,
+          243,
+          244,
+          245,
+          246,
+          247,
+          248,
+          249,
+          250,
+          254,
+          279,
+          285,
+          303,
+          304,
+          305
+        ]
+      },
+      "trigger": "Using green publicOperationClassification/globalRunInvocationPairs cases as proof that the newly classified F_H/construction/global malformed/duplicate joins conserve their actual refusals and ordering.",
+      "observed": "The retained history has no construction uses (240). Thus229-238 do not exercise construction use joins;242-248 call runtimeHistorySelectorKeys directly on copies and check strings only. They never call the construction/F_H effectful owners for those controls.254-305 exercises a real global Run-invocation orphan, which is useful but a different arm.",
+      "concreteDiscriminationCounterexample": "A classifier that still supplies both requested keys while the construction/F_H consumer omits its mixed-arm/owner-pair refusal would satisfy242-248 unchanged. Likewise a duplicate_outer_invocation consumer fault is not distinguished by this classifier case or the Run-only orphan case. This is a static test-boundary counterexample; no mutant or test was executed.",
+      "affectedOwnerRelations": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+          "lines": "211-244",
+          "contract": "Each construction arm must reach its own projector and null must refuse the entire history."
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+          "lines": "247-263",
+          "contract": "Cross-family duplicate outer invocation retains its typed invalid_history refusal and event ordering."
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+          "lines": "1085-1121",
+          "contract": "Public/owner pair identity, multiplicity and complete coverage remain global."
+        }
+      ],
+      "consequence": "Current tests can demonstrate correct classification membership without demonstrating the selected changed consumers semantic refusal conservation. A green execution of these exact assertions would leave this relation unproved; this is not a finding merely because final C2 has not run.",
+      "preservedProof": "Retain exact class membership, ordered eventId lists, live/cold class parity, missing empty bucket, genuine Run orphan/refusal and foreign-vs-missing tests. Do not discard these useful bounded claims.",
+      "smallestLawfulProof": "Extend an existing component/retained-history proof to invoke the actual affected global owners on a valid baseline and finite supported malformed/mixed-arm/duplicate public-owner pair controls, placed before and after an unrelated selected Run. Assert exact disposition/reason/eventRefs and warm/current versus cold/uncached agreement. Keep supported raw-reader premises explicit or use genuine owned histories; a standalone orphan basis use is not assumed to require refusal without its owning contract. No new source repair follows unless this executable comparison finds a source counterexample.",
+      "cost": "Small-to-medium finite owner-fixture/case work in existing tests; no new framework, generic validator, old installed Thread2, whole qualification or materializing production wrapper.",
+      "confidence": "High that these assertions do not reach those owner branches; no claim of a new production semantic failure.",
+      "priority": "Root-owned",
+      "disposition": "Root-owned; selected proof row remains partial at this interim identity."
+    }
+  ],
+  "retainedClaimsAndCoverage": [
+    {
+      "relation": "Complete output/replay wrapper retirement",
+      "status": "retained_static_claim",
+      "evidence": [
+        "fresh-process-runtime-proof17-32,45-67,194-229",
+        "runtime-retained-projections-worker22-47,59-68,96-105",
+        "held-prefix243-255; all23 changed deltas inspected"
+      ],
+      "judgment": "Direct installed replay/prefix owners normalize authority/runtime prefix through writeRuntimeEventPrefixValue and replay guard through materializeRuntimeReplayGuard. Two actual children, different PIDs, exact reopen/log digest, child close and full semantic output comparisons remain. Child consumes reopened.prefix, not transported coordinate. Existing m5 other request modes remain.",
+      "limits": "No execution performed; complete materialization here is legitimate proof output, not an ordinary-work regression."
+    },
+    {
+      "relation": "Actual consumer migration/census",
+      "status": "retained_static_claim",
+      "evidence": [
+        "All seven dynamic request producer file families and four direct consumer families in changed files; fresh helper and child dispatch",
+        "Frozen117-file text census for projectRuntimeTruthAtDurablePrefix/runtimePrefixFromArtifactTruth"
+      ],
+      "judgment": "No retired runtime-truth wrapper reference remains in frozen test/code files. The sole old artifact accessor call in code/tests is the deliberately retained actual historical package bridge at producer-acquisition112; not a current Product bypass.",
+      "limits": "Census is the exact granted/identified117-file cone, not an exhaustive repository audit."
+    },
+    {
+      "relation": "Liveness authentic predecessor/fork",
+      "status": "retained_static_claim",
+      "evidence": [
+        "SAS131-205",
+        "support/single-address-space-consolidation46-54,94-124",
+        "unchanged COST33 and ordered/installed rollback/currentness controls"
+      ],
+      "judgment": "Same canonical base rows and same candidate list compare forked decisions with new uncached snapshots. Valid/invalid/valid siblings and unchanged base context are asserted. Constructor coverage is honestly diagnostic; module-qualified add counts require fresh reconstruction to index the complete base and fork work to stay candidate-bounded.",
+      "limits": "Existing warmed admitted base is intentional; comparison is ordinary reuse, not cold acquisition speed. No blanket all-counters reduction or all-history speedup claim. Transaction rollback/currentness/cold semantics retain their existing tests; no new executed result supplied here."
+    },
+    {
+      "relation": "Global classification and owner refusals",
+      "status": "partial_at_N5-PROOF-01",
+      "evidence": [
+        "SAS208-305,554-579",
+        "HOW643"
+      ],
+      "judgment": "Exact class predicate and live/cold ordered-eventId parity plus real Run orphan are meaningful. Mixed/orphan key probes do not demonstrate construction/F_H/global duplicate refusal branches.",
+      "limits": "Source code compatibility is separately reviewed; this row does not invent a source defect."
+    },
+    {
+      "relation": "R4 declaration predecessor",
+      "status": "retained_static_claim",
+      "evidence": [
+        "r4-catalog-admission440-506",
+        "unchanged declaration_application273-284"
+      ],
+      "judgment": "Actual Event Store coordinates and existing owned readers enter the actual predecessor site. Each earlier cut gets consistent constructed application resources. Complete-history oracle distinguishes equal/empty/shorter/foreign/copied inputs; altered/reordered files are explicitly physical refusals, not fake logical-digest proof. Closed-owner explicit fresh reads authenticate cold.",
+      "limits": "Catalog/environment/schema/coordinate admission premises are explicitly supplied at364-420; not installed Thread2 or whole declaration qualification. Same-log divergent append history is explicitly unclaimed."
+    },
+    {
+      "relation": "Historical source/module family",
+      "status": "retained_static_claim",
+      "evidence": [
+        "producer-acquisition22-84,99-117,170-205",
+        "malformed-gtl-native-fixture141-165"
+      ],
+      "judgment": "Archive/source-map/original record/hook pins retained; current consumer uses actual original-byte package module URLs and strict historical materializer receipt. Historical projectOwnedPrefixArtifactTruth exists in the pinned archive; old accessor bridge consumes actual historical owner receipt. Currentness advance/truncation/replacement and copied/foreign/cold-authentication assertions remain. Synthetic admission/states remain explicit lower-owner assumptions.",
+      "limits": "Historical rc1 component does not establish current installed owned-route efficiency or N5-CODE-01 invalidation conservation."
+    },
+    {
+      "relation": "Meaningful same-input work measurement",
+      "status": "retained_bounded_method",
+      "evidence": [
+        "SAS54-128,131-205,352-401,484-550",
+        "support measure94-124"
+      ],
+      "judgment": "Cold acquisition separate; exact context/digest/extent and current input equality precede work claims. Replaced expansion still incurs full body/snapshot/immutability work; focused continuation compares the same prefix and checks zero unrelated growth versus the actual replaced expression. Liveness proof uses nonzero fresh-index denominator and candidate-bound index work.",
+      "limits": "Whole invocation slopes are recorded, not bounded at524-526. They need Root final measurements/attribution; this artifact does not prove all R1 cost eliminated. No universal threshold or obsolete materialization required."
+    },
+    {
+      "relation": "Owning HOW correspondence",
+      "status": "retained_with_named_limits",
+      "evidence": [
+        "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN195,643"
+      ],
+      "judgment": "HOW records authentic predecessor/fork, isolated base/sibling lifetime, canonical shared classification with distinct owner joins, pure closed projection versus fresh cold read, retained-vector owner overload, current adapter retirement and complete-output test boundary.",
+      "limits": "Global semantic proof row remains partial; known qualification cache finding remains held. HOW prose alone closes neither."
+    }
+  ],
+  "heldFinding": {
+    "id": "N5-CODE-01",
+    "severity": "S2",
+    "sourceSha256": "c9ea7515696efdc160c59f6faa3f0f28243f20b247b164baea3c64ec3c4f6993",
+    "standing": "Supported by closed code/domain reviews and Root disposition, not duplicated as a new finding",
+    "rootDispositionSha256": "cfb02b957b0d4a333c2a3b0bb50ada1b821d4181d300e94bbf8562acfe08838b",
+    "repair": "Root selected bypass/removal of qualification graph/state shortcuts that skip canonical current-prefix CCall owners; retain immutable material reuse.",
+    "requiredProof": "Genuine owned P warm, same-owner non-worksite invalidating extra fibre at Pprime, warm/current and cold/uncached refusal plus historical P validity and unrelated-extension reuse. The synthetic fixture always-valid state premise cannot prove this relation.",
+    "notDoneByThisReview": "No implementation repair or repeated source/domain audit; later bytes/proof need their own exact comparison."
+  },
+  "changedProofHelperHowFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 142254,
+      "sha256": "5173d59042e89399c35a092363c1722e1a67f6aec6fd4011b7d5f3cf8ab961ce",
+      "heldPreimageSha256": "d1dff3b446c30d0a575a915bfaff0d7940071355822a8e71688bdf6b715bef88"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+      "bytes": 14859,
+      "sha256": "10f5b68598a3206f9a631643bec2314d1515f21a0065e08c6fc370b6bb94a7ea",
+      "heldPreimageSha256": "532ad9a99905a8d9f33a34e4738e2615daaa1ced7a371a8a42eaa5a070e24791"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 64871,
+      "sha256": "cbe17a4e483a2f4ddb6ed0fe0d9b38979a1becc80429ecb2d33c42e9259d45c9",
+      "heldPreimageSha256": "659e498c72ec413bb0d94ee066601f05a263207a693105787438c69ab7750093"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "bytes": 9811,
+      "sha256": "44fa23a3288ec3ab756c57ece114acfd34fda4902944b04ab27be62cd2813dfc",
+      "heldPreimageSha256": "d5ab42a4f91970f328e9b15bea532dee86def237c6b7709a31a00165799cace7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "bytes": 42763,
+      "sha256": "09ec146a4bd4a789f28a11d04b72ea86a936414318dba433eff25848dfa2dadc",
+      "heldPreimageSha256": "679798679dbf0d84ffe00ec6b56ab058a9cdb7acf21d8f96ee571432b6be457d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "bytes": 21136,
+      "sha256": "397b99b3401c13fb6591d55b3a2abab347fd5cc510c43b83b714f6cae29b30cb",
+      "heldPreimageSha256": "8044ba06fe564ded3394debe22ad7e6b6d3ecb48f8075820c1d0738c66558f7f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+      "bytes": 127686,
+      "sha256": "ea7ec41f4aa4d58aafdf139ff5e93c42507014846810c68946ff8215582de01d",
+      "heldPreimageSha256": "ab413ca641cae12384c8eb559d01d809fd6a1cca3a19d6fb73945c20b21076ba"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "bytes": 10133,
+      "sha256": "bc155c423a992e376be7c6fe55ce0043e0172340318103aa298a83e19015d827",
+      "heldPreimageSha256": "ac15324af0b2a7a0c704a622410d14875219c5ade0fdda76f2a81ce7725f29b7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "bytes": 56917,
+      "sha256": "a8f0525caa1b047f304fe87afaa80b51854b5c050b384c8c7098609bab290067",
+      "heldPreimageSha256": "209a3540fc5a23f1395b6ee21bfa30e63a4571b51cfb38f87c18d2fb4e94f478"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs",
+      "bytes": 7887,
+      "sha256": "23afb69fc48c66844b1172858d0bcb9f736fd23ab09a7f4e0e31fc75c8c39429",
+      "heldPreimageSha256": "bff068ad057b36f0892be033d80ab7de73da94b008249c5f9225e496064f216f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+      "bytes": 23414,
+      "sha256": "8f4d2f649bce9bf26d279cfc4ee3f856b32511db9172649ebec87ca5ff89959c",
+      "heldPreimageSha256": "2165a7b8064c4e62bff4f03207b424ff5678b32a2205ace69f85462215a74b2e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+      "bytes": 10892,
+      "sha256": "8928a5cf1e3753517cb9e7b5202e20f7594d82e9bdd044f9a0ae69212e336d81",
+      "heldPreimageSha256": "0cdb83cddc28146bc24306783bbcc945652c29f6ca21b6b8c8a669104c788c36"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+      "bytes": 51446,
+      "sha256": "c18384e6cdc80cd8fcd7cac2108ed29fb10569a62f42c652937e1c85b984ac87",
+      "heldPreimageSha256": "c0b5244560f3e9451a250184b14916f574f57551acfd8667584d5e3c0af7156c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "bytes": 82615,
+      "sha256": "efc165d2f823fe874418aa3ecdf5d5d65b27f18ed047997bb00f3afcd21b9dbf",
+      "heldPreimageSha256": "54b7822bccbb6f810678007304669d356470d4d472dd52f721fd7adc615291df"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "bytes": 28631,
+      "sha256": "1d395a555ac1917700243b1acd6258b5f1800184ee54395305ec072ef0bab462",
+      "heldPreimageSha256": "819643393a4b8458a90ea8ce3331f8a27699c5b39cf955b356a74bfce5c92d5c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 108721,
+      "sha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf",
+      "heldPreimageSha256": "1c02eada9753ef982fc744e6dd8e2b0652c7040b26f60116c9def17b2a636efd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "bytes": 42549,
+      "sha256": "200f4a94e0fd84296f35816f663e747830c1690375daa986d51cfaa3c0c2d51e",
+      "heldPreimageSha256": "8e51f29e39d8957cfd11e636290a4eca7bc458dfb1512e1d490aad513bfb8504"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "bytes": 23084,
+      "sha256": "544b44c5250610fe9c8830b332eda51e9bb943264339701eebca309f17284475",
+      "heldPreimageSha256": "590a2f9110587f57a72e4438d3bb6c45d3847d314a875f4dfefc4731e6c99f62"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9594,
+      "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a",
+      "heldPreimageSha256": "89f440e0e1296b42e00d1aeb970e35ea2edea808d8ba4f9a03d0401da75b95b4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "bytes": 3390,
+      "sha256": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3",
+      "heldPreimageSha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "bytes": 33808,
+      "sha256": "aa1ab8ed6a5cd947f35ffab910e4a840db70592ea4bbeadaf709d5cdcefb9778",
+      "heldPreimageSha256": "37311bb1f6435509549ff0a9410fa39139982c2798541623e76d8cada2db7e87"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs",
+      "bytes": 26303,
+      "sha256": "379a3434a504128e2e8e16e44e0bf1d61d924158af4f323c4860535629637f43",
+      "heldPreimageSha256": "274d00933bbf54fb17b6f3fe3a62926a2101521bf955c972ac007e795efa4355"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "bytes": 23843,
+      "sha256": "b374f43c7b600dbfe07024f092a31c54e5ab019250b4b12d45d5e3ba917e330b",
+      "heldPreimageSha256": "b35acf7c5a419f3db7d43ba5ba9ed629c37bc9ee87fff2afc4492fe2a900c1f4"
+    }
+  ],
+  "referenceReuse": [
+    "Closed native04 source/input/fixture/shared-owner judgments reused for unchanged bytes",
+    "Closed native05 interim code/domain reviews and Root disposition consumed from frozen references"
+  ],
+  "historicalArchiveRead": {
+    "archiveSha256": "dd76783f7fc92873d9d21ca66c7f91f9be0eaad77248954ada99f5e265a04dbe",
+    "member": "package/build/code/src/abg/artifact_truth.js",
+    "memberBytes": 25495,
+    "memberSha256": "749e537b38bc531a5399c9b4d249c200a716376c5e0a04410439b1f186cead3e",
+    "purpose": "Confirm historical projectOwnedPrefixArtifactTruth/runtimePrefixFromArtifactTruth exports and preserve actual module-family boundary; read-only, no execution/extraction writes"
+  },
+  "futureReuse": "Only unchanged final hashes may reuse these proof/source/HOW judgments. Changed tests/helpers/owners need proportional exact-delta review and actual native C2 evidence.",
+  "limits": [
+    "Exact interim frozen subject/reference and identified immutable held evidence reads only; no moving Product reads.",
+    "No test, build, provider, git mutation, Product/test/input-control edit or new agent.",
+    "Only native05 INDEPENDENT_INTERIM_PROOF_REVIEW.md/json written.",
+    "No final native Result/after-observation/C2/UAT/readiness absence is a finding.",
+    "No whole qualification, release/new cut, new framework/cache/store/authority or speculative hardening.",
+    "Review source/domain split maintained; no executed new false qualification or performance speedup claimed."
+  ],
+  "memoryBasis": "MEMORY.md:179-183; bounded evidence/current authority separation"
+}

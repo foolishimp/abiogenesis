@@ -1,0 +1,144 @@
+{
+  "identity": "T287-RC8-OPERATOR-PREP-01",
+  "recordedUtc": "2026-11-07T02:45:38.171473+00:00",
+  "status": "PREPARATION_AUTHORIZED_NATIVE_DISPATCH_NOT_ADMITTED",
+  "roles": [
+    "ROOT_SELECTION",
+    "CAMPAIGN_BINDING",
+    "STATUS",
+    "OPERATOR_ACTIVATION"
+  ],
+  "actor": "/root/rc8_operator",
+  "role": "Operator Writer (bounded Worker activation)",
+  "consumer": "/root",
+  "authority": {
+    "userApproval": "ok move to rc7 build rc8",
+    "provenance": "Exact user approval projected by Executive /root in this Operator grant",
+    "operatorGrant": "Prepare only. Do not launch a native/provider coding Worker until Root returns the exact prepared binding as admitted. Product coding must later run through ABG one native Worker at a time.",
+    "changeIntent": "Prepare immutable installed RC7 as local builder of prospective RC8 REF-01; no Product mutation.",
+    "changeClass": "operator preparation under existing admitted T-287 work selection",
+    "reentry": "existing installed setup and SDK owners",
+    "targetTruth": "fresh W-profile owner runtime and isolated exact RC7-based source available to the later admitted native Worker",
+    "closureLaw": "exact checkout and builder verified; maintained setup/native-work route bound or exact missing owner returned; no Worker dispatch"
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "composition": [],
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "manager": "/Users/jim/.local/bin/stdo",
+    "store": "/Users/jim/Library/Application Support/STDO",
+    "verification": "current manager status --verify returned installed=true, valid=true, failures=[]",
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "ticket": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 737451,
+      "sha256": "e6bfa6e9a3173a47220bab81367de01db5e16de6a9ddaf579a81345238b35c8b"
+    },
+    "ticketSections": [
+      "rc7-reference-preservation-follow-up",
+      "rc8-reference-preservation-plan"
+    ],
+    "families": 15,
+    "goal": "GOAL-035"
+  },
+  "builder": {
+    "version": "5.0.0-rc.7",
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b",
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant",
+    "archive": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+      "bytes": 11022180,
+      "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+    },
+    "manifest": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548"
+    },
+    "handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/HANDOFF.md",
+      "bytes": 6108,
+      "sha256": "2fcd80f5e8ac8440502c45c3ea7f8c2071731bc1007f2f26b98130ae68987ad0"
+    },
+    "finalInstallVerification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+      "bytes": 6144,
+      "sha256": "16a6eed152ba10f3acb4aa34bb2752d52ffb0d3d2d5bb0913e504f4d54cb4f73"
+    },
+    "qualified": false,
+    "published": false
+  },
+  "source": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+    "branch": "codex/rc8-reference-preservation",
+    "base": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "materialization": "exact C7 sparse selection; all tenant, specification, selected tracked fixture trees"
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01",
+    "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+    "new /private/tmp/abg-r8-* root explicitly recorded before use",
+    "Git worktree registration/config for this new worktree only"
+  ],
+  "allowedEffects": [
+    "exclusive campaign controls/status/timing allocations",
+    "new worktree/branch and exact tracked source materialization",
+    "new setup owner runtime/install/workspace effects",
+    "new task/build scratch under selected roots"
+  ],
+  "excludedEffects": [
+    "native Worker dispatch before exact Root admission",
+    "Product/HOW/test edits",
+    "ticket/Goals status writes",
+    "prior source/release/evidence mutation",
+    "global selectors",
+    "push/merge/tag/publication",
+    "cleanup/deletion"
+  ],
+  "host": {
+    "context": "fresh packet-only collaboration context",
+    "inherited": "system/developer instructions",
+    "model": "default inherited model",
+    "filesystem": "unrestricted shared filesystem tools",
+    "boundary": "procedural scope; no enforced exclusion or independence claim",
+    "return": "collaboration /root"
+  },
+  "proposedBudgets": {
+    "setupAbsoluteMs": 600000,
+    "nativeWorkers": 1,
+    "nativeModel": "Claude Opus5.5 xhigh (exact provider binding pending Root)",
+    "nativeAbsoluteMs": 5400000,
+    "nativeInactivityMs": 900000,
+    "workerMaxTurns": 400,
+    "workerMaxBudgetUsd": 180,
+    "heapMiB": 8192,
+    "focusedTestConcurrency": 1,
+    "broaderCloseAbsoluteMs": 3600000,
+    "diskReserveBytes": 4294967296,
+    "qualification": false
+  },
+  "stop": "Return exact prepared binding and readiness to /root; no native dispatch. Setup integration refusal returns for Root owner triage; no automatic retry.",
+  "resultSurface": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/PREPARED.json",
+  "remainingBindings": [
+    "Root exact native author scope and provider envelope",
+    "Root admission of exact prepared binding before any native dispatch"
+  ]
+}

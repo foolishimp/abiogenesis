@@ -1,0 +1,77 @@
+{
+  "status": "ROOT_SELECTED_LOCAL_RC11_INSTALL_ONLY",
+  "role": "mechanical Worker/Writer",
+  "grantsOneInstallation": true,
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/READY.json",
+    "bytes": 5172,
+    "sha256": "237dc83d6d80f71269f56eab33ea7136cc84c4718229b6d7d997479f7dfe51f4"
+  },
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/ACTIVATION.json",
+      "bytes": 1549,
+      "sha256": "9072796523aeebdf11eae8be930cdb0f5fde01e996eedf2fbe7f09fe475f73b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/IDENTITY.json",
+      "bytes": 1948,
+      "sha256": "554c55f3b89c79ccfa5051dbb87423fedd86ea2f02aba6a2586a6faca3ff33cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/OWNER_TOOL_INPUTS.json",
+      "bytes": 4906,
+      "sha256": "468f3c250977e2b44169c4a15d9a17b92ed277d9201a6d51599d3340cc6caf75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/install-local-rc11.mjs",
+      "bytes": 7413,
+      "sha256": "b0c8098e749d8b279a289f071c74d7da4fda27510f4d0c83a3e30924d3c4254f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/installed-owner-smoke.mjs",
+      "bytes": 4909,
+      "sha256": "df3c8f2bf531f275a3d0b98623bfdb4df84e96ec2a650dfa065b7ffae6f2536e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/run-install.mjs",
+      "bytes": 9634,
+      "sha256": "0dc177df82f9aeda7a1df0f66bb6def9a60537af60259d851b16fa8a4d2eca98"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 518,
+      "sha256": "bf29c37d6322bff67d94d208026cd06404ba061906a72899e3e00793fa598c71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/RESIDUALS.md",
+      "bytes": 678,
+      "sha256": "be6eb66395b9f20e21748bca16126dfbb24d76764b0446d149819682aacaa490"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/PREFLIGHT.json",
+      "bytes": 6656,
+      "sha256": "763d34033b772ef6b8e43bb88c6b7c142d0089d14105f0a5899dffe0944c11a8"
+    }
+  ],
+  "packagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/packaging-assurance-001/REVIEW.json",
+    "bytes": 22938,
+    "sha256": "1d7a3c58efad7f196c6618186646ab695f4eb810170a07d301d8f5090119268f"
+  },
+  "packagingMarkdown": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/packaging-assurance-001/REVIEW.md",
+    "bytes": 6539,
+    "sha256": "55c934951ba86dd567ee703d60209a603747da36037f99e99ccec3047a41548e"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "sourceCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "sourceTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "rootDecision": "Root accepts closed independent packaging result for exact f0f5717e candidate and metadata-bound reproduction, preserving original S2 failure,132 extra source-carrier files and all qualification debts. Root separately activates ONE local installation after exact preflights: create-once local release/archive copy; maintained verify -> resolved lock -> install -> stamp/content-check; all5327 members; four module imports/56 Public definitions; fresh empty owner read/actual close in isolated scratch. Installation1200s/owner900s. Preserve source/main/index/tracking/RC10 archive/install/operational pin. No provider,selector,tag,push,publication,qualification,wider tests. Stop first failure/drift/target conflict; no retry/repair/overwrite. Final delivery acceptance/tracking remains Root next conjunction. This supersedes preparation-only hold; no further Root roundtrip needed.",
+  "qualified": false,
+  "published": false
+}

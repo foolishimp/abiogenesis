@@ -1,0 +1,50 @@
+{
+  "id": "PHASE2-B-CHECKPOINT-01",
+  "decisionOwner": "Root Executive",
+  "writer": "rc10_operator",
+  "recordedUtc": "2026-11-10T05:06:10.647266+00:00",
+  "status": "ROOT_ADMITTED_EXACT_SIX_PATH_LOCAL_CHECKPOINT_AND_MAIN_PREFIX",
+  "RootFinalAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4520,
+    "sha256": "2a0935527e62dba1f6aab5c6d709468ed1d971ea85078585d6b66e364a88f3d4"
+  },
+  "approvedProposal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/CHECKPOINT_PLAN.r02.json",
+    "bytes": 8790,
+    "sha256": "b753d09efcbcb0274eb26cd77ba55a73c6325462b953954419b3e0d2862e1190"
+  },
+  "compactDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/PROPOSED_DELTA.r02.md",
+    "bytes": 4476,
+    "sha256": "03a7ae697d472191c15cd74f625830638a66ec0642bc9d5b8f27433aef3c14cb"
+  },
+  "approvedPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.proposed.r02.md",
+    "bytes": 26772,
+    "sha256": "07068863546b610af9b20c6b2d9e5da2884a462e37bb50ac56cc3dfda43a4ebd"
+  },
+  "approvedPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/MAIN_STATUS_PREFIX.proposed.r02.md",
+    "bytes": 1425,
+    "sha256": "c0864b14c732b348781431b7823c4f89615b7df9deee0e81fb9dba9ac173a075"
+  },
+  "parent": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+  "testedSourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "exactPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+  ],
+  "effects": [
+    "Apply only approved Effect-plan bytes; all executable/test/other source exact.",
+    "Stage only the explicit six paths and create one local commit refactor: scope command execution with Effect.",
+    "After actual commit prepend approved main GOALS/T287 prefix, substituting only local checkpoint pending. with local checkpoint `<actual full SHA>` complete.; preserve all previous bytes.",
+    "Record actual commit/tree/parent, source inventory, documentary relation and guards."
+  ],
+  "exclusions": "No source repair, unexpected hooks, broad add, amend, merge, tag, push, tests/build/pack/install/release/pin change or later phase.",
+  "hookControl": "Command-local core.hooksPath=/dev/null for this commit only; existing git-lfs post-commit and repository configuration preserved."
+}

@@ -1,0 +1,73 @@
+{
+  "status": "PREPARATION_ONLY_AWAITING_GENUINE_A9_SOURCE_AND_CLOSE",
+  "at": "2026-11-07T10:02:39.223829+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL035",
+  "rootSelection": "Next bounded A10 test-only increment; do not allocate runtime/bind held resource while A9 active. Exact final A9 source relation and genuine actual close must be bound before owner preparation/admission. No second coding Worker.",
+  "sourcePreimage": null,
+  "actualPriorClose": null,
+  "currentNativePredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/NATIVE_STARTED.json",
+    "bytes": 3682,
+    "sha256": "4c7faabac7d25b54784c88bf762e6d88c7d5baa883b5eb5b592c8dc76bb8b6cc"
+  },
+  "predecessorControlTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/BINDING.json",
+    "bytes": 4896,
+    "sha256": "3d8e1eaf76f17ec2f4b19fa096ae00a7e812ac097417f8c2c8ed3768eea0d656"
+  },
+  "reviews": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-handback-013/REVIEW.json",
+      "bytes": 11213,
+      "sha256": "a19c188666aa1b34043d621f96ab0dfedc2b9ee6dd4fb17818ad62836f760f9f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-http-013/REVIEW.json",
+      "bytes": 26086,
+      "sha256": "d104515cea3dca505c1716e0c6bd382753f4856e9e9ea171ddbd146686526b9d"
+    }
+  ],
+  "writePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-10",
+  "readOnlyOwnerLibraryRoot": "build_tenants/abiogenesis/typescript/code/src",
+  "compiledArchiveConstraint": "Same existing compiled stage/dependencies/Product archivea178e960; zero builds. Final A9 cumulative READY relation and exact source must establish reuse; no older source/close substitution.",
+  "selectedOutcome": [
+    "Repair definite missing prepared archive premise in private runProcess test6 using existing temporary-file/setup/cleanup owners. Keep all12 error/order/scope/observer combinations, controlled child/clock, exact canonical final facts and later finalizationError assertions. Private runProcess resolves facts; do not change oracle to reject EPIPE or suppress promise errors.",
+    "For every one of five physical test15 modes and three test16 owner legs, retain existing owner result/error/status/timeout/stdout/stderr/processFacts plus bounded readiness/PID observations before assertions can discard them. Keep original response/group/capture/cleanup/negative assertions and all skip conditions.",
+    "Keep all current physical timeouts/graces unchanged. This is a diagnostic discriminator, not host-load attribution or a deadline extension. No Product/helper/API/HOW/baseline change, runtime algorithm copy, new harness or fabricated successful premise."
+  ],
+  "proof": {
+    "wholeFile": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "staticCases": 18,
+    "commands": 1,
+    "commandTimeoutMs": 600000,
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "sourceFreezes": 1,
+    "builds": 0,
+    "standing": "Freeze once; independent review alongside whole-file proof. Stop first actual red/bound/expanded scope, retain decisive diagnostics, no repair/retry in frozen turn. Whole-file credit requires actual end/success; historical013 partial15passes/3reds retained."
+  },
+  "preparationEffects": {
+    "controlDraftOnly": true,
+    "scratchAllocated": false,
+    "runtimeAllocated": false,
+    "providerDispatch": false,
+    "sourceEdits": false
+  },
+  "remainingBindings": [
+    "Root-selected exact final A9 frozen/accepted source relation, cumulative READY and source review",
+    "Actual A9 SDK outcome, physical close and truthful fresh readback relation",
+    "Final versioned task/host/proof/binding and held PREPARED; Root concrete one-call admission"
+  ]
+}

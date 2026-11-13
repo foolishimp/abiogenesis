@@ -1,0 +1,125 @@
+{
+  "kind": "root_bounded_caller_and_fixture_selection",
+  "status": "ROOT_SELECTED_REALIZATION_CORRECTION_NOT_NATIVE_ADMISSION",
+  "selectedUtc": "2026-11-06T15:59:09.700803+00:00",
+  "authority": "User: ok build the RC7 according to this design applying any corrections; Root Executive/evaluator/architect, one native xhigh coding Worker, independent frozen max review.",
+  "method": "STDO3.0.4",
+  "frame": "Unchanged fixed fifteen-feature ABIogenesis5.0 / GOAL-035 / T287; empty composition. RC6 remains installed builder; no RC7 cut or release.",
+  "predecessorDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5681,
+    "sha256": "056516a52d383b7837ea32cf82342ba49187acd818406fcddbf776ed05061e6e"
+  },
+  "predecessorSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_AFTER.json",
+    "bytes": 557347,
+    "sha256": "515dd6b7d33208e4fa5fed02f7d15ebac853eefc7467c9da6c856e7f29fe3006"
+  },
+  "predecessorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10421,
+    "sha256": "7ddb9f2f715158677c4c11564b3996d43e13131d0cc9efb3524a3baef28ad494"
+  },
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/SUBJECT.json",
+    "bytes": 272692,
+    "sha256": "4e51195fb89bd95e51a65806e6f985c5843cc375bf1f42450941b6262fb7b187"
+  },
+  "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+  "sourceCount": 451,
+  "additionalPinnedReadOnlyHow": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md",
+    "bytes": 30820,
+    "sha256": "b1290a84e7c44e8a73486923ab254c7c8cedeea2568c018bc9be1b73273f0f36"
+  },
+  "maxSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/reviews/held-stage01-001/REVIEW.json",
+    "bytes": 10579,
+    "sha256": "029493c54b7354aea260184b28890456fb13cdec7d4eba6f715b4abe53d65bd4"
+  },
+  "diagnostic": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/SUMMARY.json",
+    "bytes": 948,
+    "sha256": "0303c6c97dcdbfac1945b347f2d3205b71f9a541a03b0d4e2be9ad7b3df8b482"
+  },
+  "diagnosticLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/runtime.events.jsonl",
+    "bytes": 3807167,
+    "sha256": "780c7b52e02688760caf535ea6ccc579f0ed84659976e230ee30df4a9ea50c58"
+  },
+  "classification": "realization_refactor; bounded caller binding and retained fixture migration, no Product/admission-law reframe",
+  "causalSelection": [
+    "Existing populateInstalledSetup hardcodes consumer Product root, Catalog view, conformance packet and recorded Program identity while fixed wrappers select the library Program.",
+    "The exact Program owner must be selected before workspace binding and work/task/grant construction. The same Program/publication drives Catalog view, conformance packet and identity.",
+    "Use the actual unique admitted installed owner through existing Product/Catalog/setup owners. Keep ordinary consumer-start default. Fixed Testing and UAT share one library-Program binding for their entire lifecycle.",
+    "Preserve exactProgramOwnerInstall and exactChildOwnerInstallations, including W.roots.productRoot equality, static Program/implementation authority and same admitted ProductSet/lock.",
+    "Keep the actual consumer assessment schema with its consumer->ABI requires edge; both installed roots stay protected. Program ownership does not transfer schema ownership.",
+    "Migrate the existing native-workspace-work assessment fixture to actual carried assessment publication and exact admitted owner/lock/resolution facts; preserve ordinary constructor and positive/negative semantics.",
+    "Add concise actual refusal stage/message/coordinates to affected integration assertions so another blocked Run is diagnosable without another execution. No provider narrative/raw task dumping."
+  ],
+  "writePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+  ],
+  "forbidden": [
+    "Any Product code edit or weakened owner/role/currentness/lock guard.",
+    "Second Program/call controller, new store/event stream, arbitrary installed-schema fallback or duplicate owner helper.",
+    "Mid-call rebinding or rewriting retained input/task/grant identities.",
+    "Broad test-framework rewrite, unrelated fixture repair, S5 implementation or wholesale S2 deletion."
+  ],
+  "proofSelection": {
+    "sourceFreezeBeforeBuildAndReview": true,
+    "maxStages": 2,
+    "stageLabels": [
+      "hs3-stage-01",
+      "hs3-stage-02"
+    ],
+    "primaryLanes": [
+      {
+        "id": "fixed-route",
+        "timeoutMs": 600000,
+        "authoredTestTimeoutMs": 540000,
+        "scope": "Existing actual Testing -> admitted state Result -> UAT, maintained held/fresh readbacks and six fixed regressions."
+      },
+      {
+        "id": "assessment-guards",
+        "timeoutMs": 300000,
+        "scope": "Existing exact canonical consumer dependency and refusal/cold preimage case."
+      },
+      {
+        "id": "native-workspace-owner",
+        "timeoutMs": 300000,
+        "scope": "Existing affected t287-native-workspace-work.test.mjs owner/fixture file; no unrelated whole-suite sweep."
+      },
+      {
+        "id": "caller",
+        "timeoutMs": 300000,
+        "scope": "Existing maintained harness.test.mjs caller owner."
+      }
+    ],
+    "maxLaneInvocations": 8,
+    "correctionLanes": "At most one per corresponding primary on stage02 after recorded localized in-scope failure/correction; no automatic replay. New Product/architecture failure returns Root.",
+    "historicalNegativeReuse": "Retained diagnostic establishes crossed Program/root refusal on the same unchanged Product guard. Preserve exact source relationship; no synthetic negative credit.",
+    "helperLaw": "Use safe integer and exact canonical per-lane bound; check all lane/config prerequisites before allocating output.",
+    "noBeforeBaseline": true,
+    "noColdCampaignDrains": true
+  },
+  "ceilings": {
+    "nativeWorkers": 1,
+    "reasoning": "xhigh",
+    "absoluteMs": 5400000,
+    "inactivityMs": 1800000,
+    "providerTurns": 320,
+    "heapMiB": 8192
+  },
+  "actualIndependentCallerReviewPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/reviews/blocked-testing-001/REVIEW.json",
+    "bytes": 9036,
+    "sha256": "06f25f80ac2e5fde9a45e1c0b055131d1704ee2ac878248605be7b8cf1b835ae"
+  },
+  "nativeAdmission": null,
+  "qualification": false
+}

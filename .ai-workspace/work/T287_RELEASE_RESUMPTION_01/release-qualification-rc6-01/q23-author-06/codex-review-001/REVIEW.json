@@ -1,0 +1,434 @@
+{
+  "kind": "q23_six_path_source_recheck",
+  "status": "closed",
+  "result": "satisfied",
+  "triage": "not_applicable",
+  "completedUtc": "2026-11-05T21:20:32.989212+00:00",
+  "productFrame": {
+    "product": "ABIogenesis",
+    "goal": "GOAL-035 / T-287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis 5.0 outcomes",
+    "slice": "Q23 F11/F15 qualification readiness: six-path repair of Q1 option-operand identity and Q4 required peer-slot completeness.",
+    "productOutcome": "Existing required independent assessment consumes truthful configured identity and refuses unknown/ineligible required prerequisites before dependent paid dispatch and before green qualification.",
+    "subjectClass": "Frozen source/HOW/test repair, not runtime authority or accepted release.",
+    "authoritySplit": "Product and requirements own WHAT; selected HOW implements it. Transport observes final configured selection, ABG authenticates admission and native proof, Validator applies the exact published policy. Tools, projections, author summaries and test counts do not supply authority.",
+    "prohibitions": [
+      "No new Product WHAT, store, event stream, registry, controller or provider capability.",
+      "No future J or peer occurrence invented to make its own prerequisite sufficient.",
+      "No third-family policy, provider migration, generic CLI grammar, remote attestation or new production eligibility claim.",
+      "No release/publication/global selector change or alteration of retained RC6 history."
+    ]
+  },
+  "claim": "The six-path frozen repair closes the two predecessor source counterexamples under the unchanged selected Q1/Q4 contract and preserves unaffected prior support within its original scope.",
+  "findings": [],
+  "closedCounterexamples": [
+    {
+      "priorFinding": "Q23-SR-01",
+      "criterion": "Q4",
+      "result": "satisfied",
+      "originalReviewerSeverity": "S2",
+      "rootTriage": "Root retained S2 and selected bounded repair; no P priority is assigned here.",
+      "question": "Can a required declared sharing-peer slot with no occurrence disappear into an eligible observed subset?",
+      "conclusion": "No in the repaired owner path. admittedPeerSelections initializes every declared peer slot, retains all authenticated occurrences under that slot, and returns empty selections for never-opened or opened-but-unstarted slots. Validator still compares observed peer identities, then refuses absent/empty required slots. Dispatch and replay both supply this per-slot shape.",
+      "sourceReasoning": [
+        "peerSlots meaning is unchanged: other same-plan slots sharing a coverage criterion. Unrelated plan slots are not added to the prerequisite.",
+        "The collector can no longer erase a missing slot: bySlot is initialized from the complete required slotRefs and the returned array is mapped from those same refs.",
+        "Known same-family or unresolved admitted occurrences stay ineligible/unknown before the missing-slot check; either result is non-dispatchable. A populated proper subset now yields required_peer_missing.",
+        "The existing nominal call-bound gate and binding/start order are unchanged.",
+        "Replay constructs one entry for each declared peer slot, with its selected J identity or an empty selection. All consumers of the changed decision input in this cone were inspected."
+      ],
+      "testAssessment": "New owner and actual actor-gate assertions cover a never-opened peer, an opened-but-unstarted peer, all-missing peers and one missing among two. The refusal helper checks the exact refusal, unchanged prefix, no binding/start transaction and zero process-start marker entries. Complete conditional peer evidence, author_distinct and ordinary work controls remain. Existing assertions were not removed.",
+      "sunnyDayImpact": "The selected author_distinct/ordinary path is preserved. A fresh peer-required plan now truthfully refuses its first slot until a separately selected owner relation can supply prior authenticated peer evidence. TASK explicitly retains that production route as an open dependency; this repair does not make it constructable.",
+      "support": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+          "sha256": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264",
+          "lines": [
+            731,
+            787
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+          "sha256": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264",
+          "lines": [
+            824,
+            833
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+          "sha256": "1f7a1590b36022d705edddb373107d473b2d38181601974f723736b038beeda4",
+          "lines": [
+            531,
+            569
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+          "sha256": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf",
+          "lines": [
+            586,
+            624
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+          "sha256": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf",
+          "lines": [
+            685,
+            749
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+          "sha256": "b5cf1ecc08df2593214a4e6e9b97d5c4c936bf7513549ee0b77e361db175728a",
+          "lines": [
+            87,
+            99
+          ]
+        }
+      ],
+      "revisingObservation": "A valid required sharing slot omitted from the supplied per-slot population, or a missing slot reaching binding/start under authentic owner input, would falsify this closure."
+    },
+    {
+      "priorFinding": "Q23-SR-02",
+      "criterion": "Q1",
+      "result": "satisfied",
+      "originalReviewerSeverity": "S2",
+      "rootTriage": "Root separately priced the original Q1 trigger/harm as S3 while preserving Reviewer S2; this recheck does not relabel the prior severity or assign P priority.",
+      "question": "Does the supported prompt-option operand alone establish a model, and can consumers accept that false established identity?",
+      "conclusion": "No in the selected supported owner grammar. The scanner consumes the next argument of the declared value-bearing option as data. The original --append-system-prompt / --model=claude-opus-5-5 input now has no model selector and derives unknown. Correspondence and event admission use that corrected derivation, and the actual qualification gate refuses it.",
+      "sourceReasoning": [
+        "Known owner-composed operand options and zero-operand flags are declared privately alongside the existing model grammar; no identity type, family policy, unknown-reason set or event-profile descriptor changed.",
+        "The original inline and separated selector-shaped operand cases remain data. An actual model selector after the consumed operand still establishes its own argument coordinate.",
+        "A selector immediately after an option outside the grammar, or after the -- terminator, remains unknown rather than being assumed to select the model.",
+        "worker_transport preparation, immutable captured selection, c_call correspondence and event_store consumers are unchanged and continue to call the one derivation/correspondence owner."
+      ],
+      "testAssessment": "A new transport test covers operand-only inline/separated forms, forged established-identity correspondence refusal, the actor owner composition with a real selector, ordinary argument controls, and nearby unknown-arity/end-of-options negatives. Added event-store and actual gate assertions cover the original false identity. No test/assertion removal or skip/todo addition was found.",
+      "sunnyDayImpact": "Normal explicit model selection and the selected actor composition remain available. Selector-shaped prompt data alone stays unknown. The review makes no live CLI/provider/default-model assertion.",
+      "support": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+          "sha256": "3ea897beaddc78f9887a0dd1c726565f7e895914e69fc2b5fd8f611fab1be2b1",
+          "lines": [
+            135,
+            206
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+          "sha256": "3ea897beaddc78f9887a0dd1c726565f7e895914e69fc2b5fd8f611fab1be2b1",
+          "lines": [
+            228,
+            239
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+          "sha256": "45c3dd890bb633f1e0bb369a7a5a511380eaa0149c771006c0b2ba0fec687d5c",
+          "lines": [
+            1512,
+            1554
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+          "sha256": "45c3dd890bb633f1e0bb369a7a5a511380eaa0149c771006c0b2ba0fec687d5c",
+          "lines": [
+            1638,
+            1645
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+          "sha256": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf",
+          "lines": [
+            533,
+            542
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+          "sha256": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf",
+          "lines": [
+            710,
+            721
+          ]
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+          "sha256": "b5cf1ecc08df2593214a4e6e9b97d5c4c936bf7513549ee0b77e361db175728a",
+          "lines": [
+            82,
+            99
+          ]
+        }
+      ],
+      "revisingObservation": "A concrete supported owner-composed option/operand shape that still produces a false established model, or a changed CLI/owner arity contract, invalidates this bounded closure."
+    }
+  ],
+  "authority": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/codex-review-001/REVIEW_REQUEST.md",
+      "bytes": 3085,
+      "sha256": "adcd2cad8b24a6762019c7d2a0dc02719ffef0905611a4395ab9ddecc3d8a10a"
+    },
+    "rootSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_SELECTION.json",
+      "bytes": 5010,
+      "sha256": "d1d467d9e4e1f24dbe986eefe70ed701f1525f710cfdc4b1ed6f5067d98f2a12"
+    },
+    "rootDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 3601,
+      "sha256": "492098e914184de1bb9cffe21da2c00e0d2ca11060128e6cd333096539ce4ef5"
+    },
+    "rootFailureTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_FAILURE_TRIAGE.json",
+      "bytes": 7169,
+      "sha256": "fd3e8eaea7821b1d29fe2ba70883efda9c6f1b90a082398c42c06d3d4bb6e211"
+    },
+    "rootActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/qualification-inputs/q23-author-06/TASK.md",
+      "sha256": "baa299d73e081f7e194b2254a1486f02e9f4d726b1bb927ba07dc0f2306d007c"
+    },
+    "rubric": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/qualification-inputs/q23-author-06/rubric.json",
+      "sha256": "1d891e55a5a8149f9dee94062f50fb0f63aadf242bf335362b9a939e7d2d9358"
+    }
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/stdo_abiogenesis.json",
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/specification/PRODUCT.md",
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "qualificationRequirement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/specification/requirements/product/REQ-P-QUAL.md",
+      "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28"
+    },
+    "projectFrame": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "AGENTS": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/AGENTS.md",
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    },
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verification": "Read-only stdo status on the exact frozen Product Definition returned installed=true, valid=true, failures=[], matching definition identity/basis/manifest; manifest bytes and exact skill digest also match.",
+    "reviewSkill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+      "bytes": 8074,
+      "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+    },
+    "productFrameBeforeRepairedCode": true,
+    "composition": []
+  },
+  "subject": {
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+      "bytes": 434234,
+      "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+    },
+    "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "commitMeaning": "Base only; dirty candidate identity is the frozen manifest.",
+    "capturedUtc": "2026-11-05T21:04:56.442Z",
+    "cumulativeDiff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/source.diff",
+      "bytes": 157458,
+      "sha256": "b7c0d7f0ec4e14a93e5b00aaed41dfff84e6a1e50a51554093e64de9c647566a"
+    },
+    "incrementPaths": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "sha256": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264",
+        "heldPredecessorSha256": "eadea0767a720a6dae113153a142d98a7dbfd4f482c46b4a34339c064f46e35d"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "sha256": "3ea897beaddc78f9887a0dd1c726565f7e895914e69fc2b5fd8f611fab1be2b1",
+        "heldPredecessorSha256": "4081e74e9bcb33cb493328fbe7c54ff57ea26a1571f66958a839824e926947cf"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "sha256": "1f7a1590b36022d705edddb373107d473b2d38181601974f723736b038beeda4",
+        "heldPredecessorSha256": "436ea942a5da2f4c9fd89f4c576f968500c398097c9b00fd520f8577e3ecca22"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+        "sha256": "b5cf1ecc08df2593214a4e6e9b97d5c4c936bf7513549ee0b77e361db175728a",
+        "heldPredecessorSha256": "0bbbd4c8e96e6aacca5c9a961100ecac60a211efae94f9a94276223c095fc32d"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "sha256": "45c3dd890bb633f1e0bb369a7a5a511380eaa0149c771006c0b2ba0fec687d5c",
+        "heldPredecessorSha256": "879368cf595e31599399c135df4a131b11ca42fe4ea211abb5137454fb953a6f"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+        "sha256": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf",
+        "heldPredecessorSha256": "d039e94c714169cac9321afdd0471aa29c5ef01469f9742a1427c30d56251bb3"
+      }
+    ],
+    "custody": {
+      "frozenFilesVerified": 364,
+      "availablePreimagesVerified": 318,
+      "mismatches": [],
+      "predecessorCommonFiles": 339,
+      "changedCommonFiles": 6,
+      "heldIncrementHashesMatchExactPreviousSnapshots": true,
+      "otherSevenPredecessorChangedProductFilesIdentical": true,
+      "ProductRequirementPolicyAndMethodInputsUnchanged": true
+    }
+  },
+  "reuse": {
+    "priorReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/codex-review-001/REVIEW.json",
+      "bytes": 37177,
+      "sha256": "14d8cd29a2dcf9bcab9f43c2ef4822aaea6f206a9abaadbb87fc9f3d95e0e135"
+    },
+    "priorSubjectSha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638",
+    "scope": "Reuse unaffected exact Q2/Q3/Q5/Q7 source support and prior exclusions; re-evaluate changed Q1/Q4 owners, direct consumers and both modified tests. The complete13-file review was not repeated.",
+    "oldTests": "The prior62 actual C2 passes remain old-subject evidence only. They are not execution proof of this repair.",
+    "methodRouteCorrection": "The predecessor report method.skillPath string omitted plugins/spec. This report uses the AGENTS-declared installed route; its content SHA256 exactly equals the predecessor skill digest. No governing basis or assessment source changes."
+  },
+  "authorEvidence": {
+    "standing": "Author execution reports independently reacquired and hash/source-correspondence checked; no reviewer test execution and no native C2/UAT conclusion.",
+    "handoffs": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/return.json",
+        "bytes": 22792,
+        "sha256": "0542a719a0c279f819f2fc9016ce4606ddf4f1385d6598eadd647a969ea7f52e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/readiness.json",
+        "bytes": 2690,
+        "sha256": "e84e16338735ac1f1749b1177e56155d159f3b6de894a7ee5fe1f920663bb43c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/progress.json",
+        "bytes": 1673,
+        "sha256": "2c7eb5a9b9d3f3fdfdf812192be6857f5aed65099869a7d34ade9d3af9476c66"
+      }
+    ],
+    "stageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-06/tmp/repair-02-stage.json",
+      "bytes": 71288,
+      "sha256": "c1b88f104b4ff2eba2ac06438b0bd782bc6d2557842a3c79d4119e36eb7a64a0"
+    },
+    "stageCorrespondence": {
+      "sources": 339,
+      "matchingFrozenSources": 339,
+      "mismatches": [],
+      "compileReportedExit": 0,
+      "generateReportedExit": 0
+    },
+    "lanesSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-06/tmp/repair-02-lanes/summary.json",
+      "bytes": 1721,
+      "sha256": "dd1516c5af121138fbe5e3e54e8ac48f36843f0f70431e320f886de3e294d66d"
+    },
+    "tapReports": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-06/tmp/repair-02-lanes/transport.stdout.tap",
+        "bytes": 7943,
+        "sha256": "29dfe49cd423fb65dc8d198a85dae341ebf3c27ab4cab175902e57b444c6242e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-06/tmp/repair-02-lanes/qualification.stdout.tap",
+        "bytes": 15002,
+        "sha256": "5541f5b6f4a60abefbc979a65e2276dac6d715010f69e2351debb9908dc23194"
+      }
+    ],
+    "reportedCounts": {
+      "transport": 27,
+      "qualification": 36,
+      "passed": 63,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "assertionAssessment": "Added semantic assertions inspected, including actual-gate no-start checks and controls. No removed test/assertion lines or added skip/todo in the increment. Counts are not the review oracle."
+  },
+  "residuals": [
+    {
+      "id": "parser_arity",
+      "standing": "retained_boundary_not_new_finding",
+      "source": "return.json#/residuals/1; selected HOW production limits",
+      "assessment": "Options outside the declared owner grammar are assumed to consume at most one operand. A hypothetical unlisted multi-operand option could defeat a universal parser claim. No such supported owner-composed option or concrete causal path was established in the frozen cone. The named supported-operand counterexample and nearby ambiguous forms are repaired. This result is not certification of arbitrary CLI options; no generic grammar/hardening campaign is selected."
+    },
+    {
+      "id": "peer_bootstrap",
+      "standing": "open_production_dependency_explicitly_permitted_by_task",
+      "source": "return.json#/residuals/0; TASK Q4; HOW line96",
+      "assessment": "The first slot of a fresh author_and_peer_distinct plan lacks prior authenticated peer evidence and now refuses. No owner relation in this increment supplies it before the peer start. The selected repair requires truthful refusal, not a new peer-planning or routing mechanism; production-positive peer eligibility remains open."
+    },
+    {
+      "id": "complete_peer_replay",
+      "standing": "unperformed_coverage",
+      "source": "return.json#/residuals/2",
+      "assessment": "No new executed complete multi-peer-plan test through resolveQualificationAssessments is provided. Static inspection confirms replay supplies every required slot in the new shape; existing reported warm/cold single-slot J readback negatives remain. No complete-peer replay execution claim is made."
+    },
+    {
+      "id": "component_premises",
+      "standing": "retained_proof_limit",
+      "source": "return.json#/residuals/3; tests actorGate/nativeHistory comments",
+      "assessment": "The two-peer fixture shares separate criterionRefs with the assessor so each criterion has distinct published actors. Admitted author/peer antecedents and physical/journal/terminal premises remain synthetic. These test the selected owner relation and gate under explicit premises; they do not establish production peer creation, physical admission or a completed successful qualification receipt."
+    },
+    {
+      "id": "remaining_campaign",
+      "standing": "unchanged",
+      "assessment": "QR02 surviving-contributor reconstruction, QR03/actual production cross-family eligibility, D5 profile retirement and release qualification remain outside this repair. RC6 keeps its original executable/history and successor-store disposition. Root separately conjoins actual close and C2/UAT."
+    }
+  ],
+  "adjacentObservations": [
+    {
+      "standing": "author_disclosure_not_independently_audited",
+      "source": "return.json#/residuals/4, /5, /6, /7",
+      "observation": "Author reports an npm update-notifier network GET during repair-01, declared scratch caches, potential transient zsh heredoc files and retained scratch artifacts. No raw provider/npm/auth logs or host-private history were read. These effects are not conferred authorization by this source recheck; Root owns their existing execution-grant triage. Product source custody verified only the six selected increment paths."
+    }
+  ],
+  "independence": {
+    "reviewer": "/root/rc6_fixture_review, OpenAI/Codex",
+    "separateFromCodingAuthor": "Separate reviewer/context and different family from the Claude coding Worker.",
+    "sameFamilyToArchitect": true,
+    "limit": "Same OpenAI family as Root architect. This is not the missing formal different-family acceptance, native J, production eligibility or release proof.",
+    "hostBoundary": "Read scope was behaviorally confined to the exact grant; host filesystem/tool capability was not OS-confined. No clean-room or inaccessible-private-data capability claim is made."
+  },
+  "unperformedCoverage": [
+    "No test, build, generator, provider, native runtime, Git or source mutation was executed by this reviewer; only read-only method verification and source/report hashing were performed.",
+    "No private provider stderr, credentials, reasoning, native-result bodies or Gemini failure directories were read.",
+    "No complete production peer route, exhaustive CLI grammar, live CLI option semantics, multi-peer replay execution, actual C2, UAT or release qualification was independently executed or accepted.",
+    "No new agent, repair or further review cycle was activated."
+  ],
+  "invalidation": [
+    "Changed frozen source, selected Product/requirement/task/policy, affected owner/CLI arity contract, or fixture lower-owner premises.",
+    "A missing required sharing slot reaching binding/start, or a supported option-operand producing a false established model.",
+    "Failure of actual affected C2/UAT or an authenticated source/report mismatch invalidates the affected conjunction without rewriting retained historical evidence."
+  ],
+  "return": {
+    "owner": "Root Executive",
+    "reviewComplete": true,
+    "scopeSatisfied": true,
+    "sourceAcceptanceOrReleaseGranted": false,
+    "nextAction": "Root conjoins this closed source result with separately owned actual close/C2/UAT and outstanding independence. Reviewer stops."
+  }
+}

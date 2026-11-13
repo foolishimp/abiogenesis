@@ -1,0 +1,19 @@
+{
+  "kind": "passive_mutable_source_change_observation",
+  "at": "2026-11-05T23:58:53.294869+00:00",
+  "changes": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "bytes": 44859,
+      "sha256": "4657d4604fb234f42b4db377b1a689c75b6a4b5de68f57a551aebf14357880fa",
+      "new": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+      "bytes": 7232,
+      "sha256": "72096096d64998964c981a978a48602122666f8d92ac117caecb3bafbaa2cbfb",
+      "new": true
+    }
+  ],
+  "limits": "Physical comparison to held predecessor only; source remains mutable and unaccepted until actual native return and freeze."
+}

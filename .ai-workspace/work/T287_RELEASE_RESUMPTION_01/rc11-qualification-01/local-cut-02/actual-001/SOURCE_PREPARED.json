@@ -1,0 +1,83 @@
+{
+  "status": "ACCEPTED_FROZEN_BYTES_MATCH_EXISTING_C11",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/RETURN.json",
+    "bytes": 10143,
+    "sha256": "6202205241d2c3690242658558f98a3ef5a1e6d8e1dc8c08ef7b61b95b553dce"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+    "bytes": 298978,
+    "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+  },
+  "sourceCount": 1340,
+  "selectedDelta": [
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs"
+  ],
+  "expectedNewPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs"
+  ],
+  "excludedUntrackedPaths": [
+    ".abiogenesis/workspace-manifest.json",
+    "build_tenants/abiogenesis/typescript/node_modules",
+    "qualification-inputs/rc11-qualification-01/native-01/APPS_AGENTS.md",
+    "qualification-inputs/rc11-qualification-01/native-01/EVIDENCE_REPORT.json",
+    "qualification-inputs/rc11-qualification-01/native-01/EVIDENCE_REPORT.md",
+    "qualification-inputs/rc11-qualification-01/native-01/EXTERNAL_TOOLS.json",
+    "qualification-inputs/rc11-qualification-01/native-01/LIFETIME_RESULT.md",
+    "qualification-inputs/rc11-qualification-01/native-01/PRECISION_ADDENDUM.json",
+    "qualification-inputs/rc11-qualification-01/native-01/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-qualification-01/native-01/STDO_STDO_WORK_SKILL.md",
+    "qualification-inputs/rc11-qualification-01/native-02/ACTUAL_EVIDENCE_BASIS.json",
+    "qualification-inputs/rc11-qualification-01/native-02/APPS_AGENTS.md",
+    "qualification-inputs/rc11-qualification-01/native-02/EXTERNAL_TOOLS.json",
+    "qualification-inputs/rc11-qualification-01/native-02/LIFETIME_RESULT.md",
+    "qualification-inputs/rc11-qualification-01/native-02/LOADER_CONTRACT.md",
+    "qualification-inputs/rc11-qualification-01/native-02/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-qualification-01/native-02/STDO_STDO_WORK_SKILL.md",
+    "qualification-inputs/rc11-qualification-01/native-02/helper.postimage.mjs",
+    "qualification-inputs/rc11-qualification-01/native-02/leaf.postimage.mjs"
+  ],
+  "excludedUntrackedStanding": "Preserved operator/progress or other non-selected paths; path list only, no source membership or content acquisition.",
+  "identityChanges": [],
+  "acceptedEvidence": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 9481,
+      "sha256": "fbe6ec76f782ae2926f6d27bdd21c8f5ddec2ff5ca4b3463359ddc49610e091e"
+    },
+    "targetedProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 9481,
+      "sha256": "fbe6ec76f782ae2926f6d27bdd21c8f5ddec2ff5ca4b3463359ddc49610e091e"
+    },
+    "unitDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_DEBT_REGISTRATION.json",
+      "bytes": 6136,
+      "sha256": "1e386dfd1a0858a4ae17e6d6ff0220fb68fe827709bda1fc8565a5e819f8cea1"
+    },
+    "remainingProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/RETURN.json",
+      "bytes": 5416,
+      "sha256": "e637941505a491fe365f346e8c368c0849286b81af928a014830a9a68377dc7b"
+    }
+  }
+}

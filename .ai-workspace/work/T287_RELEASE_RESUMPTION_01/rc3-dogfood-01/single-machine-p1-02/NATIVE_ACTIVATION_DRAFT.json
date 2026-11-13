@@ -1,0 +1,260 @@
+{
+  "C2Scope": "Preserve existing nine purposes/current declared source closure; extend sourcecorrespondence53; no new skip/guard bypass; actual closure/source pins after firstRun return",
+  "RootAdmission": null,
+  "TestingCanonicalWrites": [],
+  "UATCanonicalWrites": [],
+  "actualSetupCallManifest": null,
+  "additionalExistingPathsObserved": [
+    {
+      "bytes": 21321,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "sha256": "661bfa3d62331bada881024922fcaea82a465f0f77d0b02275919a42a3096ef6",
+      "standing": "unchanged97406077file observed during firstRun; not nextwhole-source freeze"
+    },
+    {
+      "bytes": 129875,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "sha256": "2811b8363e2fbd3117509f4ef9bfba54b0bb4060bf4003094a357f6c93e5933b",
+      "standing": "unchanged97406077file observed during firstRun; not nextwhole-source freeze"
+    },
+    {
+      "bytes": 2175,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work_identity.ts",
+      "sha256": "5295c7980634a861b55cc9dd45757515703351e6c61de121cfa0b732177e325b",
+      "standing": "unchanged97406077file observed during firstRun; not nextwhole-source freeze"
+    },
+    {
+      "bytes": 29104,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "sha256": "cc8cb70f6155762f808d13cce5f7b914477e862588fe1188191c50112d400dc5",
+      "standing": "unchanged97406077file observed during firstRun; not nextwhole-source freeze"
+    },
+    {
+      "bytes": 49136,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "b79d5265dcf83d76792e3035bb4b76f8082b5bb8edf7320edd6ee524ccf3c609",
+      "standing": "unchanged97406077file observed during firstRun; not nextwhole-source freeze"
+    },
+    {
+      "bytes": 15687,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+      "sha256": "84966692897bd9be54ec2ece0a52b947863a71e3ab933a61aecf9beb3cb9e47f",
+      "standing": "unchanged97406077file observed during firstRun; not nextwhole-source freeze"
+    },
+    {
+      "bytes": 24181,
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "edeb3857b126608f34b041302b591444140797e806a308d87e2aa84b4d590508",
+      "standing": "Root-selected53rd existingowner; unchanged9740 observed, nextsourcefreezepending"
+    }
+  ],
+  "basis": {
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "uri": "stdo://releases/v3.0.2/"
+  },
+  "completionDirection": "Root-selected bounded completion under originalP1 and53-path outerbound; firstRunfullreturn/newbaseline/preimages/actualactivation remainpending",
+  "concreteRuntimeFixtureTriage": {
+    "cause": "mutableevents.slice passedtovalidatedprefixselector; immutabilityguardcorrect",
+    "existingOwnerAPI": "validatedRuntimeEventPrefixBeforeEvent(actualPrefix, changed.event.eventId)",
+    "forbidden": "implicit-tail fallback or weakenguard/dropnegative",
+    "line": 603,
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  },
+  "constructionProductWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-cold-record-decoder.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work_identity.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts"
+  ],
+  "coveredUse": "Existing exact retained-input/invocation-source-use/cover/continuation projections, not callerforeignflags; governancesourceuse is governance-specific; GC03sameRunTesting unchanged",
+  "criteria": [
+    {
+      "criterion": "The selected native selector\u2192Construction\u2192Testing\u2192assessment carriage uses compact context/task/producer/member references, with first bodies retained once at existing actual Result admission. Same body reuse does not change source/observation/actor/Run attribution. No expanded-body transport/route/input copies, new store/event/controller/service, generic CAS or legacy fallback. Retire the superseded copy/re-hash/revalidation paths; do not wrap and preserve them behind a new resolver.",
+      "id": "P1-1"
+    },
+    {
+      "criterion": "Actual-owner deterministic tests prove first-body admission, two or more unchanged handoffs, changed-member invalidation, full selected bytes and typed missing/tampered/foreign/denied/stale/pending references. They count semantic body occurrences/bytes and owner acquisitions, not just compressed file size. Nonempty allowed/denied GC03/correspondence/B10/B11 cases remain meaningful and green; body lookup still obeys current occurrence and grants.",
+      "id": "P1-2"
+    },
+    {
+      "criterion": "A model-free actual-owner 965-member equivalence case (same paths/state/file identities/lengths/content digests and complete bytes, three changed members) covers two or more handoffs without body multiplication. Cold reconstruction and exact-intent replacement-Run continuation use retained history/evidence without original mutable source, do not rerun committed producer work or invent assessment, and match terminal/result/current-input/lineage. New work/effects still reobserve current W. Existing saga/failure/rollback/poison/envelope/refusal gates stay exact. No retrocredit for003.",
+      "id": "P1-3"
+    },
+    {
+      "criterion": "The nine existing C2 purposes/IDs/toolchain/STDO environment are retained; source-correspondence and focused-owner arguments cover the selected finite P1 source/test set. All nine commands pass on the actual current source/build/package/artifact, with meaningful required cases and no bypass or new skip/todo. On one fixed model-free965-member fixture, C2 compares the source-grounded old expanded representation with the actual new-owner compact representation: record serialized bytes, semantic body-occurrence counts, exact reconstructed logical bytes/metadata and owner acquisition counts. Record actual new-owner cold/warm local wall/CPU/RSS measurements with method/cache limitations. Label the old expanded projection as a structural/serialization baseline, not an executed old runtime; do not claim matched old-runtime CPU/RSS/wall or a full end-to-end speedup. Root's later actual matched old/new installed-runtime resource comparison and one live composition are separate post-candidate proof, not native UAT conditions or facts supplied in advance.",
+      "id": "P1-4"
+    }
+  ],
+  "effects": "Operator draft/read verification plus separately Root-authorized scratch compileremit and ONLY965case on frozenarchive+9740; no Product/currenttask/native/Public/provider/Git mutation",
+  "firstRunFinalDisposition": null,
+  "firstRuntimeDiscriminator": {
+    "fixture": "965 entries=960 generated files+5directories,3changed; no historical fixtureenv for this case",
+    "qualification": "Root-authorized exact frozenpartial965body-owner case actually passed with compileremit; not full nativeWork/C2/candidatequalification",
+    "requires": [
+      "emitted build/code/src via ordinary tsc -p tsconfig.json",
+      "tenant package.json/tsconfig.json",
+      "test_env/support/t287-generic-job-worksite.mjs",
+      "exact census-verified offline node_modules",
+      "tenant cwd for cold child relative build imports"
+    ],
+    "testName": "965-member native context carriage is byte-equivalent to the expanded structural baseline without body multiplication",
+    "testPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  },
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "hostScratchGrant": "Fresh owned TMPDIR/current declared source copies/pinned offline tools; ordinary emit/build/focusedtests only there; no network/install/originaldeps/canonicalgenerated writes",
+  "initialState": {
+    "observations": [],
+    "sourceBasis": "none",
+    "synthesis": null
+  },
+  "kind": "single_machine_p1_02_prospective_native_completion",
+  "newAmendmentDraft": {
+    "bytes": 11263,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/AMENDMENT_DRAFT.md",
+    "sha256": "c929543ac9955283cfe8e7cf90b66b9ce6ae73294ce58da34057497fda19b7d7"
+  },
+  "newProductFiles": [],
+  "newSourceBaseline": null,
+  "newTaskDraft": {
+    "bytes": 4236,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/task.md",
+    "sha256": "2d889c1a7ee529921a17ec05412e1cc521e5420d5a3d9b7a96959479283948c4"
+  },
+  "originalAdmittedGrant": {
+    "bytes": 26980,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/NATIVE_GRANT_ADMITTED.json",
+    "sha256": "64ea969d4521c67344ff3ff3b05f0ad353c057631662e119988af40bd32a66bf"
+  },
+  "originalAmendments": [
+    {
+      "bytes": 4904,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/AMENDMENT_01.md",
+      "sha256": "b59c6cb61a7f99cf2ff6eef170821881862b8ae1cae3dd8d2152f15608a0973e"
+    },
+    {
+      "bytes": 4067,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/AMENDMENT_02.md",
+      "sha256": "027480718a2e30a144d9d4084cc2dd893c5486769859f157b0bdd2a03d6e6355"
+    }
+  ],
+  "originalDesign": {
+    "bytes": 18587,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/DESIGN_AND_ACTIVATION.md",
+    "sha256": "1f8ac926fdecc1a1a842f77a6571ef28c97307407e2b0aa901fe774d8b4177f8"
+  },
+  "originalRubric": {
+    "bytes": 3400,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/rubric.json",
+    "sha256": "5137555d3e58ae207b8bef9b8c16d33758f63ee421ae2e2392942dc8d001a3d2"
+  },
+  "outsideOwnerRequestPending": {
+    "RootSelection": "Root explicitlyselectedoneadditionalowner as53rd; preservegeneratorallchecks",
+    "includedInWriteGrant": true,
+    "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "reason": "ActualC2manifestrefusal: stale exactcommandSourceMember digest/bytecount/span/inventory; generator95\u2013108 correct"
+  },
+  "priorPartialAdmission": {
+    "admissionOrdinal": 6181,
+    "reportedEventPrefix": "09240402",
+    "reportedResultPrefix": "f3f2aff9",
+    "resultRef": null,
+    "runRef": "run://abiogenesis/300105eb93014e324c59343cc10b4008f7b6326e7d5019a0857702f59c1c1c18",
+    "status": "Root-reported actual admission; full authenticated coordinate record late-bound"
+  },
+  "priorPartialCustody": {
+    "bytes": 6485,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/CONSTRUCTION_RETURN_CUSTODY.json",
+    "sha256": "0a0d123e579956ab2b71d3e52f62137ef9c4220161e7a6ba2eee7e1397723a95"
+  },
+  "priorTestingFailureIndex": {
+    "bytes": 11115,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/P1_C2_FAILURE_INDEX.json",
+    "sha256": "ad8a7574f2a9f64db38bbc012a506e90b904e2eccf97dadaa0117bb23d94465d"
+  },
+  "priorTestingObserved": {
+    "admissionOrdinal": 7391,
+    "commandExits": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "eventRef": "event://abiogenesis/6519245d63348e96f840a6cd550f25ada3f79e5c35e7c4b656316145f77d6793",
+    "fullCustody": null,
+    "parentFinal": null,
+    "resultRef": "result://abiogenesis/83036136644178d564bedff0c0e5a67c2e6286b624a3bb961632326bdc79f892",
+    "standing": "Actual admitted Testing observation with red command outcomes; not acceptedcandidate"
+  },
+  "profileProposal": {
+    "absoluteTimeoutMs": 5400000,
+    "effort": "xhigh",
+    "inactivityTimeoutMs": 2400000,
+    "maxBudgetUsd": null,
+    "maxTurns": 240,
+    "model": "claude-opus-5-5",
+    "outerTimeoutMs": 10800000,
+    "recursionBound": 4,
+    "selection": "Root-selected resource ceilings; actual input/call/manifest still requires review"
+  },
+  "scratchRecipeActualObservation": {
+    "bytes": 5014,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/scratch-recipe-check-001/RESULT.json",
+    "sha256": "1d6c70ff3649963801d27200e8ba97edbbf192862465519dfa3d411651b815fe"
+  },
+  "status": "DRAFT_PENDING_ROOT_REVIEW_FIRST_RUN_RETURN_AND_SOURCE_FREEZE",
+  "writeOuterBoundCount": 53
+}

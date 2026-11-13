@@ -1,0 +1,51 @@
+{
+  "sourceCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "sourceTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+    "bytes": 298978,
+    "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9481,
+    "sha256": "fbe6ec76f782ae2926f6d27bdd21c8f5ddec2ff5ca4b3463359ddc49610e091e"
+  },
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1254,
+    "sha256": "351ad5ccc49b34d4567ae69accfbdf063abab4d214023d9a09959cfc3bc387c9"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/actual-001/REPRODUCTION_RESULT.json",
+    "bytes": 1694,
+    "sha256": "11bd0773f5dd14f4b0564f351a500ca562ac6ac60d69bc9378e64089a9b64221"
+  },
+  "correspondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/actual-001/EXACT_TESTED_ARTIFACT.json",
+    "bytes": 801,
+    "sha256": "bb37bf1eb947e828b24eb0d18998f91bc8a9edf91fce442a6e1a72896b64b0f1"
+  },
+  "packagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/packaging-assurance-001/REVIEW.json",
+    "bytes": 22938,
+    "sha256": "1d7a3c58efad7f196c6618186646ab695f4eb810170a07d301d8f5090119268f"
+  },
+  "debts": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_DEBT_REGISTRATION.json",
+    "bytes": 6136,
+    "sha256": "1e386dfd1a0858a4ae17e6d6ff0220fb68fe827709bda1fc8565a5e819f8cea1"
+  },
+  "metadataInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/DEPENDENCY_METADATA.json",
+    "bytes": 5242,
+    "sha256": "76e95e5611c5c96c9069ffe231865f35e0abcb2d73e38fae4015a10911922ad1"
+  },
+  "qualified": false,
+  "unitPassed": false
+}

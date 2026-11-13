@@ -1,0 +1,40 @@
+{
+  "id": "RC9-NATIVE-01",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedAt": "2026-11-08T06:27:55.808276+00:00",
+  "decisionOwner": "/root Executive",
+  "recordedBy": "/root/rc9_operator",
+  "decisionVerbatim": "ROOT RC9-NATIVE-01 ACCEPT exact held dispatch: independently read PREPARED5403B SHA335b96de0f7be0633ddb35aa8500c336a4ef9cb75cc765abe0620e97f76af59e; binding268322e4/TASKf4f6905a/host594b1bef/scope0af265d9 remain selected. Actual installed Product5.0.0-rc.8/content5dd1e816, nativeProgram1eead3f1/viewc8a65ec8, invocation233ade1c, heldprefix3187518/digest06e448e8/device16777231/inode714208439;1339sourcepreimages conserved;14,200B renderedtask,518contextentries;0provider/Runbeforethisdecision. Authorize one selected native execution within30min/5minidle/200turns, declared writes/proof and actual finallyclose. Operator may record exact ROOT_ADMISSION.json statusROOT_ADMITTED_NATIVE_DISPATCH with fullbinding+preparedSHA and relevantfilepins, then immediately send its pin to EXISTING session6081/PID45470, no extra Root roundtrip. Host's reviewed admitted focusedbinding production and STARTED route are included. Monitor actualchildstart/Run, bounded output/cost ifreported, realclose and freshreadback; return anyintegrationfailure withoutretry. Keep Root informed; no secondowner/resource/replay ofsetup.",
+  "bindingSha256": "268322e4bd0437fce8a5b6898fff36154fcf43adc444734ea0bd95239ceecfd5",
+  "preparedSha256": "335b96de0f7be0633ddb35aa8500c336a4ef9cb75cc765abe0620e97f76af59e",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/TASK.json",
+      "bytes": 13263,
+      "sha256": "f4f6905a6d858dfff8c92b757204979ad2581f2fb1e05bbc53c1483be45b6ce3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/host.mjs",
+      "bytes": 12117,
+      "sha256": "594b1bef94f170c0bc7eb3188d651366aea1f07249a1c7148322d798eb32a7ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SCOPE.json",
+      "bytes": 11953,
+      "sha256": "0af265d93d50fc2fb6f63d33ca8405f731685fa0525df00138ca69dc98845af6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/ROOT_SETUP_ADMISSION.json",
+      "bytes": 2026,
+      "sha256": "d0d75420133df3f3f3c02557f7bceabd69f5aaba0faae46ed9d1467209ec5105"
+    }
+  ],
+  "sessionId": 6081,
+  "pid": 45470,
+  "limits": {
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "maxTurns": 200
+  },
+  "freshReadbackGrant": "Root selected actual finallyclose and freshreadback; use maintained runner.freshReadbacks against genuine actual successor close only."
+}

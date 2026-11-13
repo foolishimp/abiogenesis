@@ -1,0 +1,706 @@
+{
+  "kind": "bounded_independent_frozen_source_review",
+  "status": "closed_no_material_counterexample_in_selected_delta",
+  "createdUtc": "2026-11-06T23:47:56.371079+00:00",
+  "productFrame": {
+    "product": "ABIogenesis 5.0, unchanged fixed fifteen feature families",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "STDO 3.0.4",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "classification": [
+      "Window range/capture/qualifying-clock fields are observation evidence, not execution authority.",
+      "The exact profile tables are immutable definitions; digest selection and independent capabilities preserve their original interpretation.",
+      "Cold archive validation belongs to the existing filesystem acquisition/adoption owner; warm held reads and pure folding remain free of archive I/O."
+    ],
+    "authority": "ABG sole runtime/admission and existing event/body/archive/effect owners; GTL Program authority; thin SDK/CLI. Immutable installed RC6 builder versus prospective RC7 source. No new runtime, store, controller, stream, parser or cache framework."
+  },
+  "reviewMethod": {
+    "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "skillSha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df",
+    "standing": "Reuses the selected installed/read review method and prior verified frame; independent same-family component review to Root, not formal F11 J."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/SUBJECT.json",
+    "bytes": 281811,
+    "sha256": "e1dd758611d6ededf884109a4f589caf43a5f5504f230715b7bdf0b6869286f7"
+  },
+  "stage": "sw3-stage-01",
+  "sourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+  "sourceRows": 451,
+  "changedRows": 18,
+  "unchangedRows": 433,
+  "changedFiles": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 86153,
+        "sha256": "69a50dbcdc2c60fba90f7e1719f1fb597e6a113758d6d04403da830ed5af3852"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 86579,
+        "sha256": "dd6b49949a460da15069802913f2afc76eeae9b943e3bbb3591955d1c2d2e2fe"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301318,
+        "sha256": "7a4f8d738d3838990a196e9bd6f9c3d10d7e69ff55f15e19b0808f44ad1fc82b"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301329,
+        "sha256": "e3d837eb473ecb9ceb272451b485f22e24693337cd32cf2eaca8bc2373bb022c"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+        "bytes": 75786,
+        "sha256": "e47bb8f6e50171204313a3c3dbff786bf4189143557d6f63153c853fff767d6d"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+        "bytes": 75769,
+        "sha256": "b109f9aa1baf4e3b69daed0651f2e1783f1462a8f14792593bc6fc38e4d75c98"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+        "bytes": 14215,
+        "sha256": "d8cfe4a8de42483a82e58728dc986395fa3f7e70eb9418bd8e040d791f0353dc"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+        "bytes": 14203,
+        "sha256": "74ffb8c9e257df9ff70629f79ebeb9dd69cba826b63a5a71f682c53960027f2c"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+        "bytes": 71127,
+        "sha256": "5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+        "bytes": 71100,
+        "sha256": "3462bbc9951dc1ed2cee87fb86aa59421810791522d1cb9c5bc757ab314606b1"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+        "bytes": 11299,
+        "sha256": "c0fc878a39d1e54b940851cd384fe5146e975cedb8a8097f9c596f592dab6342"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+        "bytes": 11282,
+        "sha256": "1d7742b6ce9c3ec362403d7b8d9d69e28ca2c433ce2ecc037708f1106003dd33"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "bytes": 10724,
+        "sha256": "830a42927e739f732e610f5a57daf6f941b4cd5ffcc0aeddf7906cab8183f7a0"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "bytes": 14485,
+        "sha256": "f242656d220350439cf699d1654ce324cb2d6fb4d80b2567b5ba4bd8a7c89994"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 218662,
+        "sha256": "b7bbcdfb34031a58173b35f307a6b9059c656c75c21517be55539a86a12933ea"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 225695,
+        "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+        "bytes": 222555,
+        "sha256": "42ef88f96981adc827aa40bf3c6d3af3a9af7ef3278a6e958f2aebd513f6a38b"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+        "bytes": 222538,
+        "sha256": "baa43561a69b9fbd29bbc895b28631f70ffddd76de566a5b9566a158f2e2d529"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 34204,
+        "sha256": "d84d5ab75a556ae5d4e58bfa42d8084a7a39c45e3cdc957c1b2817d9379a2940"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 36035,
+        "sha256": "ae56354556070d8a7dd990b2b218b071841e38f4121fceb8fee33cc6de575517"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "bytes": 26359,
+        "sha256": "136957305e752f6a7ff93f9b4ee50bca08cffe11873c9f9b708b9d15f9b0008b"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "bytes": 29112,
+        "sha256": "a550c3c8d0e595f5c2020841018c6842f76df8e5f85a2874c96b688c43c32f5b"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+        "bytes": 21005,
+        "sha256": "7dfe27e457a1b04c677382696524aed744b75c4079132837a78bc2c9ea20b208"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+        "bytes": 21016,
+        "sha256": "76e72281b95fd00e192964ba5beb42ac550e28f78d0cc62e512071e494f61671"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        "bytes": 41323,
+        "sha256": "67bd0ad5cf6cc596205640a7956106ea4a9e7e0321909950c6146eb0477511b9"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        "bytes": 41068,
+        "sha256": "7cce47cd2aafbf08f3c94657442f33ead589ca601b85e70ad932631ad5e55ad7"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 175343,
+        "sha256": "e43002becb6f277247d03dc504e29817139484927ec14dfcef055c02cba29fa8"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 179343,
+        "sha256": "23c405ef250a3512938241119635f838caa46e55d91cdb7cb8501bdd52bd3d26"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        "bytes": 92546,
+        "sha256": "d836d4c97208021b12f6c847eecfd54a928fb6b4e6627c26ba41d278bda1d3de"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        "bytes": 108484,
+        "sha256": "0e5f00b8247f58ae9fcfedc7f65754b6617fca9a28e10191471c3d2c6b47dacc"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 114058,
+        "sha256": "48565c1d13129aafd765db2009ecab210f086f372e2cc3fe655633c5504edd6b"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 114763,
+        "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "bytes": 139787,
+        "sha256": "9e0d582d415f9002ba4060bbdf667dc53b482f8f81fbcf5aff78eb582c825c55"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "bytes": 142461,
+        "sha256": "5d243d6980631afa11d313c8b5bc09b9da7369eda6032bd23704a53fb16eb95b"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "bytes": 41635,
+        "sha256": "9a7b2be3cb7ddd91769b7010df5aadc3ee76c7d2542174ff8001cb1dbe64ed00"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "bytes": 53258,
+        "sha256": "8bff42467575b20f9cdfa1792ebd7ac6b462b11c753303a66d0523b93f901cac"
+      },
+      "withinSelectedWriteTerritory": true
+    }
+  ],
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_SELECTION.json",
+    "bytes": 16456,
+    "sha256": "f3e373cc70b054d20feb343e16ae44090e1867ec63f90a2099a028378a4fb86d"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 10001,
+    "sha256": "7d1143f741f6589ec08485f1a6126c9452a281b269141d2ac495e7cfa9ff2f86"
+  },
+  "dispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/DISPATCH_MANIFEST.json",
+    "bytes": 32097,
+    "sha256": "1a2dcb5c8025d21aae6aa4e107323e73ff764de5005449d4b8f557ebba0c2a5b"
+  },
+  "priorOwnerRouteAddendum": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/reviews/source-stage-sw2-stage-01/OWNER_ROUTE_ADDENDUM.json",
+    "bytes": 36192,
+    "sha256": "f5df2cbfe11c56855ed2377094318bb83ae6516cf0a7ef1c150d7c3d762af281"
+  },
+  "verification": {
+    "changedBodies": "All18 after snapshots and exact18 held preimages independently hash/length verified and their complete deltas read.",
+    "inventory": "All451 stage inventory rows equal final SOURCE_AFTER and the actual build source receipt by exact path/bytes/SHA; frozen final SUBJECT has the same sourceDigest. No repeated live-source census.",
+    "historical": "Three explicitly selected immutable installed RC6 compiled JS files independently hash/length verified. No candidate/installed module execution by Reviewer.",
+    "feedback": "Six summary files and exact original TAP bytes independently pinned; sourceDigest, passes, fail/skip/cancel, active-case predicate and stdout hashes verified.",
+    "scope": "Only frozen candidate bodies, selected authority/receipts and named historical JS pins acquired; no moving C candidate acquisition."
+  },
+  "conclusion": "The coherent18-file change closes the prior selected witness/cold-owner implementation gap and supplies the deciding actor-successor and timeout proof. No material source counterexample was established in this proportional review. It is suitable for Root conjunction of this exact source/build/proof/final custody, subject to the explicit limits below. This review grants no release, installed acceptance, whole procedure compliance or performance claim.",
+  "findings": [],
+  "resolvedRelations": [
+    {
+      "prior": "S2-HS03-WINDOW-WITNESS-001",
+      "standing": "Resolved in the reviewed source with bounded deciding proof.",
+      "owners": [
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+          "sha256": "dd6b49949a460da15069802913f2afc76eeae9b943e3bbb3591955d1c2d2e2fe",
+          "line": 1351
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+          "sha256": "ae56354556070d8a7dd990b2b218b071841e38f4121fceb8fee33cc6de575517",
+          "line": 390
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+          "sha256": "a550c3c8d0e595f5c2020841018c6842f76df8e5f85a2874c96b688c43c32f5b",
+          "line": 590
+        }
+      ],
+      "relation": "Actual actor forwards archive offset, first/last capture clocks and captured qualifying clock from WorkerStdoutWindow. The W stdoutWindow witness persists them with the existing row byteLength and canonical chunkDigest. Staging checks witness shape/order, stdout cumulative offset and agreement with any emitted qualifying probe. After absolute interruption the captured qualifying time is conserved while activity emission stays suppressed.",
+      "boundary": "The selected transport segmentation/fsync/failure behavior is unchanged from S2; the real transport tests continue to decide coalesced boundaries, noise and write/fsync failure. W also retains the old per-chunk variant for existing direct stream owners; actual actor window staging always writes the explicit witness."
+    },
+    {
+      "prior": "S2-HS03-WINDOW-WITNESS-001/E4",
+      "standing": "Resolved at all selected actual cold acquisition siblings.",
+      "owners": [
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb",
+          "line": 2168
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb",
+          "line": 3777
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb",
+          "line": 3844
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+          "sha256": "a550c3c8d0e595f5c2020841018c6842f76df8e5f85a2874c96b688c43c32f5b",
+          "line": 574
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+          "sha256": "7cce47cd2aafbf08f3c94657442f33ead589ca601b85e70ad932631ad5e55ad7",
+          "line": 289
+        }
+      ],
+      "relation": "One owner-local coldStdoutWindowArchive observes decoded W rows, joins admitted binding to invocation and stdout process ranges, validates canonical in-root regular single-link archive paths, reads each referenced range and checks exact length/fatal UTF-8/canonical digest. Offsets are contiguous including preceding direct-stream rows. Its descriptors are closed in finally before adoption/refusal completes. Descriptor decode covers reopen, recovery and direct owned-history read; the byte-array durable-read sibling invokes the same relation before bindRead.",
+      "libraryReuse": "isAdmittedActorArchiveFile and archiveRangeMatchesStreamRow are extracted into existing transport_contracts and reused by specialized worksite construction recovery, whose authorization/full-artifact checks remain. No duplicate parser/store/checker framework.",
+      "pureWarmBoundary": "Bare validateHistoricalEvents remains a pure byte decoder used by persistEventLog, not a filesystem archive acquisition. Warm activeSelection/bindings and pure fold do not call the cold checker. Unknown historical capture clocks are not invented.",
+      "decidingProof": "Three new cases exercise actual reopen, recover and both direct readers with valid W ranges and missing/changed/truncated negatives. They assert unchanged event-log bytes and lock cleanup; the original live archive tests independently cover fsync-before-reference and failure/no-reference. Cold fixtures supply admitted rows and existing archive files; they are not native actor workflow qualification."
+    },
+    {
+      "prior": "Exact historical profile preservation",
+      "standing": "Four exact profiles are classified independently; bounded historical evidence passed.",
+      "owners": [
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+          "sha256": "f242656d220350439cf699d1654ce324cb2d6fb4d80b2567b5ba4bd8a7c89994",
+          "line": 18
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb",
+          "line": 1097
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb",
+          "line": 1193
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+          "sha256": "e3d837eb473ecb9ceb272451b485f22e24693337cd32cf2eaca8bc2373bb022c",
+          "line": 1980
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+          "sha256": "3462bbc9951dc1ed2cee87fb86aa59421810791522d1cb9c5bc757ab314606b1",
+          "line": 67
+        }
+      ],
+      "relation": "Retained L/installedRC6/frozenS2 table constructors must reproduce exact pins at module load; W receives a distinct descriptor. One existing profile owner selects exact tables and separate stamped/lifecycleCopies/nativeLiveness/stdoutWindowWitness/current semantics. Consumers use the row profile instead of !=latest meaning L or all stamped meaning copy-free. Unknown digests refuse.",
+      "scope": "The changed c_call, worksite recovery, rules/fold/axioms/liveness, retry and witness consumers preserve their applicable copied/copy-free/probe/identity joins. Native current-profile admission remains W; old profiles are read-only working premises.",
+      "migration": "Fresh W is the selected working path. Retained witnessed L boundaries keep their original target/ref and byte identities. No P-to-W migration or old-P native continuation was added or claimed.",
+      "proofLimit": "RC6 historical rows are authored by the actual pinned installed writer; S2 uses an explicitly declared row-identity stand-in. These cases cover exact per-chunk rows, identities/cuts, decode and selected prefix/fold behavior plus malformed W/stamp refusal. They do not constitute replay of a full historical terminal/C-call corpus or exhaustive profile qualification."
+    },
+    {
+      "prior": "S2-HS03-ACTOR-PROOF-001",
+      "standing": "Deciding actual actor glue proof is present and passed.",
+      "owners": [
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+          "sha256": "8bff42467575b20f9cdfa1792ebd7ac6b462b11c753303a66d0523b93f901cac",
+          "line": 566
+        },
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+          "sha256": "dd6b49949a460da15069802913f2afc76eeae9b943e3bbb3591955d1c2d2e2fe",
+          "line": 1461
+        }
+      ],
+      "relation": "Existing VM/component access invokes the actual actor owner. Real EventStore, prefix, transaction, flush, threshold and window-staging owners decide the pending qualifying-window/not_reached transition. The next actual onStdoutObserved admission must use the advanced actor-local successor. Removing the assignment prevents that next row, so the assertion is not mirrored mocked success.",
+      "premises": "Transport is a controlled stand-in driving the actual observer; workspace-binding and invocation admission are explicit fixture premises. No provider/native actor workflow claim. Author reports an auxiliary check-copy falsifier, but it is separate from the six selected lane receipts."
+    },
+    {
+      "prior": "S2-HS03-TIMEOUT-FIXTURE-001",
+      "standing": "Resolved by valid fixture parameters; owner guard unchanged.",
+      "owners": [
+        {
+          "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+          "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8",
+          "line": 1895
+        }
+      ],
+      "relation": "The absolute case now uses inactivity400ms/absolute1500ms with qualifying records every30ms, asserts actual absolute interruption after several leases, exact single drain order and final capture/activity conservation. Original5000/500 pretransport refusal remains historical. The9 selected timeout entries are substantive worker-transport cases, without the former empty lifecycle-file completion."
+    }
+  ],
+  "historicalProfilePins": {
+    "L": "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c",
+    "installedRc6": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+    "frozenS2": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0",
+    "W": "Native owner authors one exact successor descriptor; canonical regeneration binds its actual identity."
+  },
+  "historicalCompiledSources": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "bytes": 198998,
+      "sha256": "706acaaa7300686eed4bcfa739347c12261c874adb20b3d354c7a9f195627199"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_contract_profiles.js",
+      "bytes": 9153,
+      "sha256": "bdace2720987c3e7cf7f7a1f94bfc22e56f865a69e20f44ca4352d4349b2bedb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/transport_contracts.js",
+      "bytes": 11516,
+      "sha256": "db506fd86877170e6783463c06ac37027e895d15cb029700a2d772e39a69812b"
+    }
+  ],
+  "build": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/stage.json",
+      "bytes": 97762,
+      "sha256": "27c2c400baf15dd1a4c754fed7df0bfbd22f6af13f6ff7473a084904cabc7340"
+    },
+    "sourceRowsMatch": true,
+    "setupMs": 1846,
+    "reportedPhases": {
+      "compile": {
+        "exitCode": 0,
+        "ms": 7333
+      },
+      "generate": {
+        "exitCode": 0,
+        "ms": 22317
+      },
+      "lifecycle": {
+        "exitCode": 0,
+        "ms": 583
+      }
+    },
+    "standing": "Actual native-owned canonical build; no reproduction by Reviewer."
+  },
+  "selectedProof": {
+    "stageCount": 1,
+    "laneCount": 6,
+    "pass": 33,
+    "fail": 0,
+    "skip": 0,
+    "cancel": 0,
+    "sameSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+    "receipts": [
+      {
+        "lane": "stdout-differential",
+        "pass": 2,
+        "fail": 0,
+        "skip": 0,
+        "cancel": 0,
+        "requiredActivePass": true,
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/stdout-differential/summary.json",
+          "bytes": 1509,
+          "sha256": "2e235e04e9ed3fbe7821984e2c24b8d7ad43e8643fcb62289a340af0bf01bbea"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/stdout-differential/stdout.tap",
+          "bytes": 6127,
+          "sha256": "2fe6478fe38b824bf3a34c0932fa7576f47985c722d5e0ad335fed1f8b1be98a"
+        },
+        "activeCases": [
+          "RC7 HS03 actual-stream: the pinned metadata declares each recorded actor, policy, start and qualifying chronology, and a recorded per-chunk prefix admits through the current owners",
+          "RC7 HS03 actual-stream: recorded chunk cadence closes bounded archive windows in the real transport, and each recorded actor keeps its qualifying lastActivity, decision and durable successor"
+        ],
+        "elapsedMs": 9957,
+        "timingStanding": "Component lane duration only; no native installed speedup inference."
+      },
+      {
+        "lane": "scope-ordering",
+        "pass": 3,
+        "fail": 0,
+        "skip": 0,
+        "cancel": 0,
+        "requiredActivePass": true,
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/scope-ordering/summary.json",
+          "bytes": 1739,
+          "sha256": "8a925229cf3727fbcc6e38093d656750369f0b760751380a5f597c38df4d2c33"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/scope-ordering/stdout.tap",
+          "bytes": 1565,
+          "sha256": "387beef9d2ce7098f7a5864282821971867cc3d893612d77e71e98ab1e86c42f"
+        },
+        "activeCases": [
+          "RC7 HS03 scopes: interleaved actor scopes on one store; frame and CCall producers drain no window, an actor probe and a threshold drain only their own scope, and a refused decision keeps its committed window",
+          "RC7 HS03 scopes: an enclosing transaction owns a flushed window; rollback restores it and commit keeps it, then noise-only and result windows keep exact lastActivity",
+          "RC7 HS03 actor successor: a not_reached decision that commits the pending window returns its durable successor, and the actor admits its next window there"
+        ],
+        "elapsedMs": 1230,
+        "timingStanding": "Component lane duration only; no native installed speedup inference."
+      },
+      {
+        "lane": "timeout-interruption",
+        "pass": 9,
+        "fail": 0,
+        "skip": 0,
+        "cancel": 0,
+        "requiredActivePass": true,
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/timeout-interruption/summary.json",
+          "bytes": 2131,
+          "sha256": "d97c5895b499477f4ea9b3af1abc34472ae6f09672bfe9f41f042360afae81b3"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/timeout-interruption/stdout.tap",
+          "bytes": 2550,
+          "sha256": "f63b2ff075c42b868b21f1ae1265d17d164dbec069db8423840d81beafe471b8"
+        },
+        "activeCases": [
+          "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+          "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization"
+        ],
+        "elapsedMs": 3736,
+        "timingStanding": "Component lane duration only; no native installed speedup inference."
+      },
+      {
+        "lane": "archive-integrity",
+        "pass": 6,
+        "fail": 0,
+        "skip": 0,
+        "cancel": 0,
+        "requiredActivePass": true,
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/archive-integrity/summary.json",
+          "bytes": 2145,
+          "sha256": "8e7cc8e121247fad569485e0a66dcc18341744847e71b9127aba48bbfc8d6312"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/archive-integrity/stdout.tap",
+          "bytes": 2587,
+          "sha256": "4b3280342e2943dc2f7293edef1abfea8928e47200ec806c9385d8222fb80114"
+        },
+        "activeCases": [
+          "RC7 HS03 archive: cold reopen adopts exact W window ranges and refuses missing, changed or truncated archive bytes before any history, with the log unchanged",
+          "RC7 HS03 archive: cold recover validates W window ranges inside its one decode and refuses missing, changed or truncated archive bytes with cleanup",
+          "RC7 HS03 archive: cold read through both direct readers, descriptor and byte-array, validates W window ranges once and refuses missing, changed or truncated bytes",
+          "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+          "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+          "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison"
+        ],
+        "elapsedMs": 1674,
+        "timingStanding": "Component lane duration only; no native installed speedup inference."
+      },
+      {
+        "lane": "legacy-replay",
+        "pass": 7,
+        "fail": 0,
+        "skip": 0,
+        "cancel": 0,
+        "requiredActivePass": true,
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/legacy-replay/summary.json",
+          "bytes": 2316,
+          "sha256": "de1488444fb6906953fc43734808a7277b376cd158a469eaa6e00b7d6656dbcf"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/legacy-replay/stdout.tap",
+          "bytes": 3017,
+          "sha256": "fb63b6085b982d0e5686bdb63e403248ee9d4eb24f62e4b35a3f0d62e49ac7ee"
+        },
+        "activeCases": [
+          "RC7 HS03 historical: RC6 rows authored by the installed RC6 owner keep their exact 5b35 stamp, eventIds and payloads across current cold reopen, read and fold, and refuse a W window row",
+          "RC7 HS03 historical: S2 rows keep their exact 3bcc stamp, eventIds and payloads through the current cold decoder and fold, and an S2 window witness or W stamp is refused",
+          "RC7 HS03 historical: retained per-chunk rows keep their bytes, identities and W profile across cold reopen, and window rows after them add one archive witness under the declared W window variant"
+        ],
+        "elapsedMs": 9378,
+        "timingStanding": "Component lane duration only; no native installed speedup inference."
+      },
+      {
+        "lane": "native-caller",
+        "pass": 6,
+        "fail": 0,
+        "skip": 0,
+        "cancel": 0,
+        "requiredActivePass": true,
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/native-caller/summary.json",
+          "bytes": 1887,
+          "sha256": "25e4b708100dce749b8e757539c1341e1feef4e62baef7232e7f4d7b3b518403"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/lanes/sw3-stage-01/native-caller/stdout.tap",
+          "bytes": 1930,
+          "sha256": "a456e2bc1b78a5e0f08ff4bb432fdae8cb47c66f41b2e944e623267b11a1f8f9"
+        },
+        "activeCases": [
+          "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+        ],
+        "elapsedMs": 501,
+        "timingStanding": "Component lane duration only; no native installed speedup inference."
+      }
+    ],
+    "historicalStanding": "Original baseline semantic red, S5 failed generation, S2 invalid absolute fixture and all prior process disclosures remain preserved. No baseline rerun or timing promotion."
+  },
+  "finalCustody": {
+    "sourceAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/SOURCE_AFTER.json",
+      "bytes": 558369,
+      "sha256": "0b71ee7e97032e627869a34c66e7f0dbb7ba414df321f60704b6c49f78800253"
+    },
+    "actualSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 25157,
+      "sha256": "1a216aa2b1ea9a688765a76d54249426721f5c591eb74e4db966d6649c504da3"
+    },
+    "authoredReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/handoffs/return.json",
+      "bytes": 11244,
+      "sha256": "f968a1605e6f1e9017e8eaf6f0f15ac8cc2acc5781f3777708121732fc6ab8ac"
+    },
+    "standing": "Carriage reports all451 native.before/preimage and native.after/stage/held/live rows equal;18 selected changes only, actual SDK completed and closed. Reviewer independently matched final source metadata to stage/build; full native/control/resource custody remains the carriage/Root conjunction."
+  },
+  "procedureStanding": {
+    "authorDisclosures": [
+      "HOW 10.10 (E-F cold window adoption, E-G exact profiles, section 11 RecoveryRequired transition) was amended in the same session after the first owner edits had begun, not strictly before all dependent implementation.",
+      "Auxiliary pre-stage checks ran in a copy at /private/tmp/abg-sw3/check (declared test temp root), with node_modules symlinked read-only to the rc2-dogfood-01 toolchain; it was removed after the stage. A profile-reconstruction script and a falsifier backup (actor_process.js.orig, check-copy JS only) were also kept there and removed afterwards.",
+      "The actor-successor falsifier (adoption of decision.successorPrefix removed) ran against compiled JS in the check copy, not the worksite. It failed as required, and the original was restored before the copy was deleted.",
+      "tsc --noEmit ran against the worksite tsconfig (no emit, no build info).",
+      "The RC6 historical case imports the installed RC6 packaged event_store.js read-only, in process, to write a temporary RC6 store. Installed files were not modified or copied.",
+      "No packaged S2 writer is selected. The S2 historical case writes S2 rows through a declared test stand-in for the row-identity formula (exact 3bcc stamp, canonical payload digest, eventId over the stamped envelope), then decodes them with the current cold decoder.",
+      "The retained-historical case's old assertion counting stdout probes (retained+1) was never reached at S2 because of its first digest assertion. It omitted the startup coverage probe and now asserts the exact coverage/activity sequence."
+    ],
+    "sourceProofSeparation": "HOW amendment after initial owner edits and auxiliary checks are retained departures. Claimed read-first metadata is not whole-procedure certification; no absence of reads is inferred from metadata omissions. Source/proof adoption and process disposition remain separate Root decisions. Auxiliary check-copy work is not silently added to or hidden inside1stage/6selected lanes."
+  },
+  "residuals": [
+    "Selected component/source proof is not installed RC7 growth/latency evidence, S4/S6 completion, formal J, Product release or publication.",
+    "Historical case premises and actual actor transport/admission stand-ins are explicit; no exhaustive old full-Run/C-call corpus claim.",
+    "Warm archive-I/O absence is established from the call placement and existing owner separation, not a newly run installed measurement.",
+    "No repairs or additional tests are prescribed by this clean bounded review. Any broader installed qualification remains with Root."
+  ],
+  "effects": "Only create-only REVIEW.json and README.md in the granted review directory. No Product/control edits, builds/tests/runtime/provider calls, private provider narrative, external tool-result contents or subagents."
+}

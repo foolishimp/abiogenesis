@@ -1,0 +1,57 @@
+{
+  "kind": "h06_native_author_progress",
+  "task": "rc7-held-session-author-06",
+  "status": "SOURCE_FROZEN_PROOF_PENDING",
+  "updatedUtc": "2026-11-06T19:31:40Z",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01-source-freeze.json",
+    "bytes": 96811,
+    "sha256": "faba234e7d8ced9d6537bd0cc18adaf0c1666bdb036e6136c277aac117c4fd55",
+    "label": "hs6-stage-01",
+    "mode": "after",
+    "sourceCount": 451,
+    "sourceDigest": "a07beb4b5ffe861cc5610ede437e18a4089f9f23b3b9cb6cc0a8d688aeb99b91",
+    "stageRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01"
+  },
+  "frozenDiffAgainstActualH05": {
+    "baseline": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_BEFORE.json",
+      "bytes": 233286,
+      "sha256": "822c7268e1acdf9e1615f0811b8fa35e7656d11c952c656439674794ce156c9d"
+    },
+    "changedRows": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "beforeSha256": "c523337e02a238ea53b4b1011f03491c2981b459d8b16f822f6f46e1f94be5a1",
+        "beforeBytes": 372769,
+        "afterSha256": "af146549b2d6388bf2b39e59f1c8821bb8980da98911af37c089c1111de4bf2b",
+        "afterBytes": 372837,
+        "changedLines": [2767],
+        "change": "undeclared fixture schemaAsset.contractId set to undeclaredRef via {...admitted,schemaAsset:{...admitted.schemaAsset,contractId:undeclaredRef}} passed to the existing withBytes; productId retained, bytesBase64 still supplied by withBytes, $id and resultContract.contractRef unchanged."
+      }
+    ],
+    "unchangedRows": 450
+  },
+  "stage": {
+    "command": "node qualification-inputs/rc7-held-session-author-06/prior-author-stage.mjs hs6-stage-01 after",
+    "invocations": 1,
+    "exitCode": 0,
+    "wallMs": 4139,
+    "setupMs": 4079,
+    "report": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01-stage.json",
+      "bytes": 100720,
+      "sha256": "64fa600f30442a12fd5351271165b36533e55605fe9f848bd42d3fbeaa42cb8a"
+    },
+    "productReuse": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL; 5325 members, 71702388 bytes, productContentDigest sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689; compile/generate/lifecycle reused executed:false from H03 COMPLETED_STAGE_REPORT 5f8b65ec."
+  },
+  "lanes": {
+    "assessment-guards": "pending",
+    "native-workspace-owner": "pending",
+    "caller": "pending"
+  },
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

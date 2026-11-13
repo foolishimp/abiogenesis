@@ -1,0 +1,62 @@
+{
+  "status": "ROOT_ACCEPTED_PHASE2_A_B_LOCALLY_CHECKPOINTED",
+  "RootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-01/ROOT_CHECKPOINT_ADMISSION.json",
+    "bytes": 3338,
+    "sha256": "9822f78a314c58f16e6ba4044d3acd5d4161cd48e9352ae20ee6145d4be9bf7e"
+  },
+  "RootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4520,
+    "sha256": "2a0935527e62dba1f6aab5c6d709468ed1d971ea85078585d6b66e364a88f3d4"
+  },
+  "commit": "b7cf409fc74eca639525fccbea52e666be7743d4",
+  "tree": "0f26a089130ecc58e060698703f0407246463a35",
+  "parent": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+  "branch": "codex/rc11-foundation-correction",
+  "commitMessage": "refactor: scope command execution with Effect",
+  "exactSixPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+  ],
+  "stagedReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-01/STAGED_RECEIPT.json",
+    "bytes": 1881,
+    "sha256": "aa63c8e7efed4cdb26906941b049632c3ddc813f4a016f28a3b1291324d8d4ba"
+  },
+  "commitCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-01/COMMIT_COMMAND.json",
+    "bytes": 383,
+    "sha256": "161724f31e808f12fc56e752746a6fbcd985b2af7970358a03b6c84b4e795b7e"
+  },
+  "testedSourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "checkpointSourceDigest": "4e4a4b04927ce140562576f0ea4b3c0047fffc83441526c040333f78350a7810",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-01/CHECKPOINT_SOURCE_INVENTORY.json",
+    "bytes": 295491,
+    "sha256": "680ccb056539aa19ff8a09ffa2d109444c5cefbaca76bc81abfeb1cad2f6539f"
+  },
+  "documentaryRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-01/DOCUMENTARY_DELTA.json",
+    "bytes": 1212,
+    "sha256": "55171d7ef44c2c6aeeb5eaab2fc47e4ee01b10ee9e843cdfb203c4ac833666e8"
+  },
+  "tracking": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-01/TRACKING_RECEIPT.json",
+    "bytes": 2274,
+    "sha256": "148a1d08c3ab947e21a7cff7786a5d2e785773733376fc47ba884f57efccfcd0"
+  },
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-01/POSTGUARDS.json",
+    "bytes": 1694,
+    "sha256": "f7abf08e37a594854b727e7df17aba82215eb0c763ecd21c9409d6d45b15c9b7"
+  },
+  "currentState": "Candidate tracked clean/staged empty; main HEAD/index unchanged with approved tracking prefixes; installed RC11 and RC10 pin conserved.",
+  "proof": "Existing source/selected proof acceptance only: unit102/96pass/6skips, M5subset39/34IDs/all6groups; conserved earlier relations retain original subjects. No proof repeated.",
+  "limits": "All historical reds/deviations and two capsules remain; no net-deletion/performance/general reliability/full5.0/S7/human/installed qualification. Phases3-4/GC03 unactivated; no merge/push/release/install/pin change.",
+  "furtherEffects": "HELD"
+}

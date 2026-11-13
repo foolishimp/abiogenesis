@@ -1,0 +1,132 @@
+{
+  "status": "BROAD_CLOSE_STOPPED_INCOMPLETE",
+  "at": "2026-11-07T09:25:29.916506+00:00",
+  "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+  "actualStopAt": "2026-11-07T09:14:31.067Z",
+  "wallMs": 1269922,
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/SUMMARY.json",
+    "bytes": 294877,
+    "sha256": "d490608eb3647386ad68d9244950abd82d4fd2eccb466bd8fb941cb105f82d4c"
+  },
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/FAILURE.json",
+    "bytes": 611,
+    "sha256": "dba47536674ba58bfc52bac632a6336ad675a4e0b40ced85474f8e1f15def8f8"
+  },
+  "failedFile": {
+    "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/125-t287-native-worksite-execution.json",
+      "bytes": 2611,
+      "sha256": "ce37e135e7160978ee54917115290cd35812d9d1336a4f0e61039157d97926ee"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/commands/125-t287-native-worksite-execution.stdout",
+      "bytes": 5908,
+      "sha256": "180674cc498449f6ff35146200005afd2df192cd30bc4fe2e1713d899c7f17c7"
+    },
+    "counts": {
+      "tests": 7,
+      "failed": 4,
+      "passed": 0,
+      "cancelled": 0,
+      "skipped": 3,
+      "todo": 0,
+      "topLevel": 7,
+      "suites": 0
+    },
+    "commandMs": 9347.672999999952,
+    "wholeFileCredit": false,
+    "observation": "Four cases fail fixture inputFor line30 reading undefined.workspaceAuthorityBasis. Three optional skip observations remain outside successful whole-file credit; Root causal review pending."
+  },
+  "retainedWholeFileCounts": {
+    "prior": 109,
+    "new": 15,
+    "total": 124,
+    "passed": 727,
+    "skipped": 163
+  },
+  "completedThisExecution": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/110-t287-native-c2-instruction-assembly.json",
+      "bytes": 1182,
+      "sha256": "0ab955104ef49acee469c58d233e42cd6385870e475d8ea81ff12fb5f475b114"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/111-t287-native-event-time.json",
+      "bytes": 2510,
+      "sha256": "bcf8eda80500b7303e0182c07a29f9e3b5538d2957de18d69cc8d1b181d6beca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/112-t287-native-frame-observation.json",
+      "bytes": 4024,
+      "sha256": "fe8ed20fea94475a4b71ce7f0e9d26fd97c15753af42e4c51ec00c2e3d8d233c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/113-t287-native-owner-reuse.json",
+      "bytes": 2767,
+      "sha256": "20a571e7e45c2d17456ac6eeda4309089c41334acd0bc6589b9093a8842f572e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/114-t287-native-registered-selection.json",
+      "bytes": 1635,
+      "sha256": "f64bc4c72ec84c9fc55f6a4c631bebe14546e0826f7e3b32f0a6eb6caefdc45a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/115-t287-native-runtime-gate.json",
+      "bytes": 1643,
+      "sha256": "48b028215d563bcd4ed250e4041edd215b3b729d44dcbd495f5c00d28bebb646"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/116-t287-native-selection-profile-scope.json",
+      "bytes": 1184,
+      "sha256": "eb109cb7e584556dc25e50e2139082b63ce55699d01d02219072fe378729523c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/117-t287-native-semantic-evidence.json",
+      "bytes": 1624,
+      "sha256": "89ef9917d630da0d499f1c707c23ad04ae036ee2e3b20b08ae41ab83a4b33944"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/118-t287-native-semantic-job.json",
+      "bytes": 1150,
+      "sha256": "38a3587dd729fa868d7226f8a539fca294cbe141aae1d6e5833f571f2145e09c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/119-t287-native-semantic-revision.json",
+      "bytes": 2286,
+      "sha256": "dc961273ec299b940dacff68bd1061cf93e59175750ae7a10214739d98bba1c0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/120-t287-native-structural-gates.json",
+      "bytes": 1157,
+      "sha256": "bc1d9ea2c58a8bc92f45a99eb514bdaa1f3a5e2a7dd9760b35ec44cc57918a9b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/121-t287-native-work-currentness-consumers.json",
+      "bytes": 1193,
+      "sha256": "475931bd5548397f9099f1d3097f08bd26884f1dda758f94a7442e0fe119f43b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/122-t287-native-work-reacquisition-normalization.json",
+      "bytes": 1727,
+      "sha256": "a3d06def90d0b9d6d4cae8b058c9f54872c2b42a6bc38108fe9f9df08702b543"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/123-t287-native-work-reacquisition.json",
+      "bytes": 2598,
+      "sha256": "2045ac97689d4322357e28cdeb3baf48ad69f9320938e7d1dfe199c0262083bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/124-t287-native-work-unknown-effect.json",
+      "bytes": 1174,
+      "sha256": "6101686f49a2750fd2b46be0207396ca60ac8e4be35bc2c15a6b6c042296fab0"
+    }
+  ],
+  "countStanding": "All109 earlier credits retained, including three not visited before stop. Failed-file observations and four deferrals add no credit; summary creditedWhole106 only counts visited credits.",
+  "primaryPreserved": true,
+  "providerCalls": 0,
+  "automaticRetry": false,
+  "wholeReleaseQualified": false
+}

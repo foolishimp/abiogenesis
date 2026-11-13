@@ -1,0 +1,31 @@
+{
+  "criteria": [
+    {
+      "criterion": "The selected native selector\u2192Construction\u2192Testing\u2192assessment carriage uses compact context/task/producer/member references, with first bodies retained once at existing actual Result admission. Same body reuse does not change source/observation/actor/Run attribution. No expanded-body transport/route/input copies, new store/event/controller/service, generic CAS or legacy fallback. Retire the superseded copy/re-hash/revalidation paths; do not wrap and preserve them behind a new resolver.",
+      "id": "P1-1"
+    },
+    {
+      "criterion": "Actual-owner deterministic tests prove first-body admission, two or more unchanged handoffs, changed-member invalidation, full selected bytes and typed missing/tampered/foreign/denied/stale/pending references. They count semantic body occurrences/bytes and owner acquisitions, not just compressed file size. Nonempty allowed/denied GC03/correspondence/B10/B11 cases remain meaningful and green; body lookup still obeys current occurrence and grants.",
+      "id": "P1-2"
+    },
+    {
+      "criterion": "A model-free actual-owner 965-member equivalence case (same paths/state/file identities/lengths/content digests and complete bytes, three changed members) covers two or more handoffs without body multiplication. Cold reconstruction and exact-intent replacement-Run continuation use retained history/evidence without original mutable source, do not rerun committed producer work or invent assessment, and match terminal/result/current-input/lineage. New work/effects still reobserve current W. Existing saga/failure/rollback/poison/envelope/refusal gates stay exact. No retrocredit for003.",
+      "id": "P1-3"
+    },
+    {
+      "criterion": "The nine existing C2 purposes/IDs/toolchain/STDO environment are retained; only the source-correspondence member list and focused-owner test list are updated to the selected finite P1 source/test set. All nine C2 commands are green on the actual source/artifact, with meaningful affected new tests, no test bypass or new skip/todo. Record matched structural bytes/operation counts plus cold/warm local timings/CPU/RSS on one fixed model-free workload. Do not claim the full1,274s gap is fixed or an end-to-end speedup without actual matched evidence; later Root live proof is separate from native UAT criteria.",
+      "id": "P1-4"
+    }
+  ],
+  "kind": "single_machine_p1_local_repair_acceptance_basis",
+  "limits": [
+    "Read source/Product grant and exact HOW; all actual admissions and effects remain native-owned."
+  ],
+  "notCriteria": [
+    "Future installed live witness or whole Product qualification",
+    "Future Root inspection as a substitute for native UAT",
+    "Retrospective credit for historical failures"
+  ],
+  "outcome": "Compact owner-authenticated native context and retained handoffs under the unchanged ABI Product and STDO basis.",
+  "status": "ROOT_SELECTED_DRAFT_PENDING_INDEPENDENT_REVIEW"
+}

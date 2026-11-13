@@ -1,0 +1,183 @@
+{
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/CUT8_BUILD_BINDINGS.prepared.json",
+    "bytes": 15047,
+    "sha256": "65bfb8b289dfb7967ecd3e112f3197a15fa575bfb41e26f9b0b0ad063b90534e"
+  },
+  "successor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/CUT8_BUILD_BINDINGS.prepared.json",
+    "bytes": 18977,
+    "sha256": "17bbc86ff194240316d6135282953abfadaf5c94ffa1c7065b4585c2541bac43"
+  },
+  "changes": [
+    {
+      "field": "/acceptance/broadClose",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/ROOT_SOURCE_BROAD_CONJUNCTION.json",
+        "bytes": 51978,
+        "sha256": "2fdc2bd5c58ad400183462c3357768eb513f645d4b86bcb4d85b8823d27958b8"
+      }
+    },
+    {
+      "field": "/acceptance/focusedAndReview",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 26861,
+        "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+      }
+    },
+    {
+      "field": "/acceptance/source",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 26861,
+        "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+      }
+    },
+    {
+      "field": "/executionStanding",
+      "before": "Actual A12 source and focused1pass/0skip are pinned; source/whole/casewise acceptance absent. No checkpoint/build/install. Corrected00220m install/15m installedOwner ceilings unchanged.",
+      "after": "A12 source/casewise proof and final source/broad conjunction accepted only for the unqualified local REF01 cut. Source checkpoint/reproduction and later review/install/smoke remain forthcoming. activation:null; executionEnabled:false."
+    },
+    {
+      "field": "/limits",
+      "before": [
+        "Explicitly unqualified local REF-01 candidate only; nine OPEN residuals, twelve cold-read residuals, S7 and broader5.0/human gates retained.",
+        "Observed A12 source60f8e595/1339rows; actual27 selected paths(24tracked/3new). Source review/SDKclose-readback/Root acceptance and final broad conjunction remain pending; no whole-broad green.",
+        "Use only unchanged run-local-cut.corrected-002.mjs and PREPARATION_MANIFEST_CORRECTED_002.json; preserve20minute/15minute bounds.",
+        "Exact accepted final source checkpoint and clean byte-equal archive reproduction, then independent exact packaging review and separate install admission.",
+        "No push/tag/publication/global selector/qualified claim/cleanup/retry."
+      ],
+      "after": [
+        "Bounded one-file/two-symbol unshipped fixture successor and exact casewise conjunction only; no new whole-file execution or whole-file pass credit.",
+        "The profile case uses injected Product/environment component premises while exercising native store/admission/transaction/close/reopen/cold correspondence; no installed L-to-W bridge proof.",
+        "Original024 red, original source identity and fourteen passing cases remain historical evidence; all prior accepted code, performance and functional proofs retain their exact subjects and limits.",
+        "All nine residual capsules remain OPEN. Existing limited no-block rationales apply only to this same explicitly unqualified local REF01 cut.",
+        "Twelve cold residuals, S7, fixed15/full5.0 and human gates remain open; no whole-broad-green or all-qualification claim.",
+        "Known-PID and exact-log descriptor observations are bounded custody evidence; no blanket physical or detached-descendant absence claim and no quota-enforcement assurance.",
+        "Observed native process model/effort arguments are declared configuration evidence, not provider telemetry assurance. Separate measured timings are retained without a speedup inference.",
+        "Accepted exact source60f8e595/1339 rows/27 selected paths (24 tracked modifications and three new files); checkpoint and byte-equal clean reproduction await separate Root build selection.",
+        "Use unchanged run-local-cut.corrected-002.mjs and PREPARATION_MANIFEST_CORRECTED_002.json; retain 20-minute install and 15-minute installed-owner ceilings.",
+        "Ship only the exact tested archive; preserve unrelated source, existing immutable cuts and original failure evidence.",
+        "Independent exact packaging review and separate Root install admission precede immutable custody and the narrower actual-installed smoke.",
+        "No push, tag, merge, publication, global selector, qualified claim, cleanup or automatic retry."
+      ]
+    },
+    {
+      "field": "/predecessorPreparedBinding/bytes",
+      "before": 12210,
+      "after": 15047
+    },
+    {
+      "field": "/predecessorPreparedBinding/path",
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/preparation-resumption-001/CUT8_BUILD_BINDINGS.prepared.json",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/CUT8_BUILD_BINDINGS.prepared.json"
+    },
+    {
+      "field": "/predecessorPreparedBinding/sha256",
+      "before": "4f708196c09aab4488527ab1fda3dd643c45ccb3857fe52990683a804049a7c5",
+      "after": "65bfb8b289dfb7967ecd3e112f3197a15fa575bfb41e26f9b0b0ad063b90534e"
+    },
+    {
+      "field": "/proofBindings/finalA12FreshReadResult",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/readbacks-001/RESULT.json",
+        "bytes": 6630,
+        "sha256": "26a204b244b9883ad3ba46c3323a7d3b78578e9121763899514e948844ffea9f"
+      }
+    },
+    {
+      "field": "/proofBindings/finalA12SdkCloseReadbacks",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/OPERATOR_RETURN.json",
+        "bytes": 13043,
+        "sha256": "522582d8d73b0837633e073ead1af7012b26b0e4c0f324b93071066762dad3a1"
+      }
+    },
+    {
+      "field": "/proofBindings/finalA12SourceAcceptance",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 26861,
+        "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+      }
+    },
+    {
+      "field": "/proofBindings/finalA12SourceReview",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-012/REVIEW.json",
+        "bytes": 26939,
+        "sha256": "69d03be0390306196b7f59f46135f48dfd0ca7ea2bc6b10a5701c48de9064edd"
+      }
+    },
+    {
+      "field": "/proofBindings/finalRootBroadConjunction",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/ROOT_SOURCE_BROAD_CONJUNCTION.json",
+        "bytes": 51978,
+        "sha256": "2fdc2bd5c58ad400183462c3357768eb513f645d4b86bcb4d85b8823d27958b8"
+      }
+    },
+    {
+      "field": "/proofBindings/retainedPopulationMap/bytes",
+      "before": 34385,
+      "after": 51978
+    },
+    {
+      "field": "/proofBindings/retainedPopulationMap/path",
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/preparation-resumption-001/BROAD_POPULATION_MAP.json",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/ROOT_SOURCE_BROAD_CONJUNCTION.json"
+    },
+    {
+      "field": "/proofBindings/retainedPopulationMap/sha256",
+      "before": "c1e07fbeea5310c13ae9e2618d7de6d2d75d57f95ad36fe9e9e3914239a78fd1",
+      "after": "2fdc2bd5c58ad400183462c3357768eb513f645d4b86bcb4d85b8823d27958b8"
+    },
+    {
+      "field": "/source/cumulativeSourceCoverageDisposition",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 26861,
+        "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+      }
+    },
+    {
+      "field": "/source/finalTestOnlySourceAcceptance",
+      "before": null,
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 26861,
+        "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+      }
+    },
+    {
+      "field": "/source/nativeTestedArchiveSourceRelation/bytes",
+      "before": 6093,
+      "after": 13564
+    },
+    {
+      "field": "/source/nativeTestedArchiveSourceRelation/path",
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SOURCE_ARTIFACT_RELATION.prepared.json",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/SOURCE_ARTIFACT_RELATION.json"
+    },
+    {
+      "field": "/source/nativeTestedArchiveSourceRelation/sha256",
+      "before": "eb10a17e703925b245bf40bbc596e98cd3de7bd1e0da8a2ab88341f7cb69f03e",
+      "after": "0876bdcb97f14949fb68be7e720db89a8fc15cbd72e7765536c6187d01373138"
+    },
+    {
+      "field": "/status",
+      "before": "PREPARED_LOCAL_RC8_A12_SOURCE_REVIEW_CLOSE_ACCEPTANCE_PENDING_NO_EXECUTION",
+      "after": "PREPARED_ACCEPTED_RC8_SOURCE_BROAD_CONJUNCTION_EXECUTION_HELD"
+    }
+  ]
+}

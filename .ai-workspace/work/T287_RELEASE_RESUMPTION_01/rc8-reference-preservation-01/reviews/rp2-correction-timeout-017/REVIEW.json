@@ -1,0 +1,222 @@
+{
+  "productFrame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "selection": "F01-F07,F09-F11,F13-F17 / GOAL-035 / T-287 / RC8 REF-01 / explicitly unqualified local cut",
+    "method": "STDO 3.0.4; manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; empty composition",
+    "authority": "ABG admits event, correction and replay truth. Product owns selected action semantics and installs. The command cap is a Proof/Operator clock, not an ABG correction disposition. Reviewer diagnoses; Root alone selects re-entry or residual and cut acceptance."
+  },
+  "reviewId": "rp2-correction-timeout-017",
+  "at": "2026-11-07T12:24:43.385627+00:00",
+  "role": "Independent MAX read-only Reviewer",
+  "verdict": {
+    "status": "indeterminate",
+    "claim": "The two current scripted child-correction modes preserve their exact stopped dispositions and cold replay.",
+    "observed": "No completed test and no semantic assertion failure. The command exhausted its 600 s budget before any correction Run was created.",
+    "finding": "RP2-017-001",
+    "severity": "S3",
+    "classification": "Proof/setup operating-budget gap; no observed Product semantic counterexample."
+  },
+  "governingRelations": [
+    "EVENTS-001/002 and PROJECTION-011/017: ABG alone admits correction truth; projections/replay preserve it rather than inventing an action.",
+    "ASSURANCE-018/019: unmet outcome cannot close from worker/transport/test/artifact success. The test requires no run_closed and no runtime_failure_observed for either typed correction.",
+    "CONTINUATION release allocation preserves automatic/local correction in 5.0; only native human response/resume is deferred. This test expressly excludes human response and cannot qualify it.",
+    "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md:357,969-973 owns transparent workflow child lineage/foldback; 12.10:2210-2278 owns Product correction candidates, ABG non-progress stop and replay, without a second controller. Its full F_H vertical is broader than this selected scripted-child test."
+  ],
+  "subject": {
+    "broadSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "a6Freeze": {
+      "path": "author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    "currentA11SourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "a11Freeze": {
+      "path": "author-11/proof-evidence/source-freeze.json",
+      "bytes": 295552,
+      "sha256": "422808c5850d72cb0533fa7ddba6864c757f9b23eeba756466f4157f20cd7879"
+    },
+    "rc7": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceRelation": "All six sourcePins were reacquired from stage04 and broad017 and compared byte-for-byte with selected RC7; each matches both A6 and A11 frozen rows. This causal cone has no RC8 source delta.",
+    "archive": {
+      "path": "t/abi5-root-env-y6I1DQ/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "sourcePins": {
+      "test_env/tests/t287-rp2-correction-carriers.test.mjs": {
+        "bytes": 5612,
+        "sha256": "8980e3c7e8f0dddf542219aed644d9fc12449baefe912004285d985dec2b0618"
+      },
+      "test_env/support/root-installed-environment.mjs": {
+        "bytes": 42751,
+        "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+      },
+      "test_env/support/registered-graph-selection.mjs": {
+        "bytes": 19702,
+        "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+      },
+      "test_env/qualification/fixtures/rp2-correction-product.mjs": {
+        "bytes": 4303,
+        "sha256": "9ff2d757c94186565d08e2aad66c2bbac6100dae4566873593617566bfedd517"
+      },
+      "test_env/fixtures/t287-selected-action-product/index.mjs": {
+        "bytes": 17472,
+        "sha256": "199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2"
+      },
+      "code/src/product/install_product.ts": {
+        "bytes": 18597,
+        "sha256": "6587f5a46e752c9c21d2f7328a43e241796d8b855ec4f3791e0b9e169f559ce2"
+      }
+    }
+  },
+  "actualFrontier": {
+    "command": "2026-11-07T12:04:42.626Z + 600453.862375 ms; timedOut=true, SIGTERM, exitCode=null, no truncation. Reporter is begin-only; stdout is the 15-byte TAP header. Zero completed cases, no whole/pass credit.",
+    "evidenceDirectory": "/private/tmp/abg-r8c-017/w/build_tenants/abiogenesis/typescript/test_env/test_runs/rp2/correction-carriers",
+    "evidenceDirectoryState": "Present and empty. setup.json, both mode receipts/events/replays, handoff.json and result.json are absent.",
+    "ownedRoot": "/private/tmp/abg-r8c-017/t/abi5-root-env-y6I1DQ",
+    "rootSelection": "The only abi5-root-env directory born within the exact command interval; created 12:04:51.941627Z. No broad host search.",
+    "runtime": "The helper-declared runtime/events.jsonl path has no runtime directory. No st4-*-request.jsonl exists in this owned root. No actual Run ID, child Frame, correction route or replay request can be attributed to this attempt.",
+    "sourceFrontier": "Test:13-16 is still awaiting setupInstalledRootCatalog. The helper completes primary install/content checks, installs/checks the additional Product at 317-338, loads installed owners at 342-354, then creates the Runtime log at 356-361. The test saves setup.json only at 21, before the correction loop.",
+    "retainedInstallEvidence": [
+      {
+        "phaseMarker": "primary archive pack: exit 0",
+        "logNamedUtc": "2026-11-07T12:04:52.690000+00:00",
+        "lastWriteUtc": "2026-11-07T12:05:52.807929+00:00",
+        "lastWriteOffsetSeconds": 70.181929,
+        "evidence": {
+          "path": "n/_logs/2026-11-07T12_04_52_690Z-debug-0.log",
+          "bytes": 1236,
+          "sha256": "9b3c6cd4c2bc6e1dcb230445b6194e6a2cab475e390c4dc05d4cc447eb2dd714"
+        }
+      },
+      {
+        "phaseMarker": "fixture archive pack: exit 0",
+        "logNamedUtc": "2026-11-07T12:06:10.981000+00:00",
+        "lastWriteUtc": "2026-11-07T12:06:12.551819+00:00",
+        "lastWriteOffsetSeconds": 89.925819,
+        "evidence": {
+          "path": "n/_logs/2026-11-07T12_06_10_981Z-debug-0.log",
+          "bytes": 1203,
+          "sha256": "ad0a3542488310f6b6387b12b7c8f20e96e369491fdc08ccecaf9d322a725059"
+        }
+      },
+      {
+        "phaseMarker": "primary consumer install: exit 0",
+        "logNamedUtc": "2026-11-07T12:12:52.207000+00:00",
+        "lastWriteUtc": "2026-11-07T12:13:57.242826+00:00",
+        "lastWriteOffsetSeconds": 554.616826,
+        "evidence": {
+          "path": "n/_logs/2026-11-07T12_12_52_207Z-debug-0.log",
+          "bytes": 1909,
+          "sha256": "36be1c3d33d3291b3f0f48c572476f62f1df099ec5ea0f6c113570c3125e1fef"
+        }
+      },
+      {
+        "phaseMarker": "additional fixture/dependency install: exit 1, no specific error diagnostic",
+        "logNamedUtc": "2026-11-07T12:14:18.504000+00:00",
+        "lastWriteUtc": "2026-11-07T12:14:42.662221+00:00",
+        "lastWriteOffsetSeconds": 600.036221,
+        "evidence": {
+          "path": "n/_logs/2026-11-07T12_14_18_504Z-debug-0.log",
+          "bytes": 2538,
+          "sha256": "6f69410007344c8f41dec8df6562d565c605f78bec469a246d9d3370de6a48f3"
+        }
+      }
+    ],
+    "deadlineRelation": "Additional-install log last write is 600.036221 s after command start, at the cap, and records exit 1 without a specific install-error diagnostic. Outer timedOut/SIGTERM establishes command interruption. These records do not establish an independent install defect or guarantee installation would succeed with more time.",
+    "timingLimits": "Log-name times and filesystem last-write times are retained phase markers, not instrumented owner entry/exit or CPU/disk measurements. The ~399.655 s interval from fixture pack final log write to primary npm-install log creation contains verification/lock/pre-install work in source order; it does not uniquely attribute cost to one function or host cause."
+  },
+  "multipleFrameRelation": {
+    "declared": "The phase-1 fixture selects its declared consumer action. The base Program has root and child GraphFunctions; root uses workflow.C on the child, whose deterministic producer and consumer return actual result/evidence candidates. The fixture evaluate consumes admitted child evidence, then refresh/finish proposes inspect_runtime_archive or escalate. ABG alone would admit delta/route/stop. The two modes are two serial public starts, with one cold run_replay after each.",
+    "actual": "No Run or Frame opened in this attempt. The npm/install subprocesses are setup work, not additional Executive/Worker runtime frames.",
+    "exclusions": "No provider or human-response execution is selected. The public runtime_failed label for these non-held typed stops is an explicit existing test expectation; the ABG exact disposition and absence of runtime_failure_observed remain the discriminators. No new public-projection defect is inferred here."
+  },
+  "affectedProofCone": [
+    "Both inspect_runtime_archive and escalate execution receipts and admitted correction event assertions are unexecuted.",
+    "Both cold replay results, stopped status and unchanged prefixDigest assertions are unexecuted.",
+    "No run_closed/no interaction_responded assertions and final handoff/result proof are unexecuted.",
+    "Earlier broad017 completed files retain their separate credit. Their behavior-carriers files in the effects inventory are not correction-carriers results."
+  ],
+  "triage": {
+    "triggerProbability": "Certain budget exhaustion in this observed attempt; recurrence probability and underlying throughput cause are not established.",
+    "actualHarm": "No current correction-specific proof is obtained. Setup and operator time were spent. No runtime state corruption, malformed correction admission or current sunny-day failure is observed because invocation never began.",
+    "containment": "No Runtime log or invocation was created; no success/closure credit is assigned. This is not a demonstrated semantic fail-closed outcome. Original timeout and partial installation evidence remain preserved.",
+    "repairScope": "No Product, fixture, helper, guard, API, runtime budget or assertion repair is supported by this observation.",
+    "selectedCutRisk": "Correction is a retained 5.0 relation, so zero coverage cannot be reclassified as deferred human-response scope. A bounded unqualified residual would require Root explicitly naming both unproved modes/replays and closure trigger; whole-5.0 qualification remains blocked by missing proof."
+  },
+  "finiteReentryAssessment": {
+    "recommendation": "One fresh, unchanged whole correction-carriers test under a concrete 1800000 ms command cap, only if Root admits it; no source change, name filtering, lost assertions, automatic retries or inherited success prerequisite.",
+    "measuredComparator": {
+      "result": {
+        "path": "registered-selection-whole-001/actual-001/RESULT.json",
+        "bytes": 872,
+        "sha256": "180a8774cf4524556521bdd1747378a2b7df04c468ad355d3ccf0dbb26192189"
+      },
+      "setup": {
+        "path": "registered-selection-whole-001/actual-001/selection-evidence/setup.json",
+        "bytes": 1464,
+        "sha256": "9c44541ff6457f56c8ff464e8ef9757b95fecb242af7346ab673643a3660650b"
+      },
+      "acceptance": {
+        "path": "registered-selection-whole-001/ROOT_PROOF_ACCEPTANCE.json",
+        "bytes": 5538,
+        "sha256": "7c1f566e0ce754acaba86a5c71e499099c207effd4a94ff54d4628196c239bc8"
+      },
+      "facts": "Same shared root-install and registered-selection helpers and a178 archive completed seven scenarios plus four cold reads in 206459.410375 ms; measured setup-phase sum 175058.951332 ms. The earlier015 completed setup measured 469386.782501 ms, retained in its closed review. These demonstrate a finite completing shared path and timing variation, not these correction-specific assertions."
+    },
+    "budgetAssumptions": {
+      "setupSeconds": 1200,
+      "twoStartAndReplayPairsSeconds": 300,
+      "marginSeconds": 300,
+      "totalSeconds": 1800,
+      "standing": "Operating allocations, not measured bounds or guaranteed sufficiency. Setup allowance is about twice the interrupted command; the untouched correction modes may still expose a genuine semantic defect or another timeout."
+    },
+    "proofCost": "One full unchanged test and its fresh setup; at most the selected 30-minute command plus separately bounded staging/closure overhead. No coding/native author is needed for this proof-only remedy.",
+    "closureFalsifier": "Require one complete passing reporter case, both original mode event/receipt/replay artifacts, exact archive/source bindings, read-only prefix conservation and actual command/owned-resource closure. Any semantic red or incomplete result stops for Root; do not silently increase budget again.",
+    "alternative": "Explicitly retain a temporary unqualified-cut residual if Root declines the bounded proof; it must say zero correction-case credit and require this exact installed pair/replay proof before qualification or an affirmative correction-support claim. Reviewer recommends the finite proof first and does not select disposition."
+  },
+  "evidenceBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+  "evidencePins": {
+    "OPERATOR_RETURN_017.json": {
+      "path": "OPERATOR_RETURN_017.json",
+      "bytes": 13201,
+      "sha256": "0b67ad05bc49ff1b6b45283922fe02630982e4a27dd0ee6b0960fb0b94372616"
+    },
+    "execution-017/SUMMARY.json": {
+      "path": "execution-017/SUMMARY.json",
+      "bytes": 415734,
+      "sha256": "67ce2189e909bf965eedb9b56015ac9b81be8912d5d6ac0149ad3314818d6aa0"
+    },
+    "execution-017/FAILURE.json": {
+      "path": "execution-017/FAILURE.json",
+      "bytes": 609,
+      "sha256": "b3910695794f8bba1d7f9c0de6f4a33004bf2b211df8a310dc746566123bb91e"
+    },
+    "execution-017/files/163-t287-rp2-correction-carriers.json": {
+      "path": "execution-017/files/163-t287-rp2-correction-carriers.json",
+      "bytes": 3940,
+      "sha256": "03d9ca6b1f9ee76634d8872c72c864f4d8aecdff60c0ccc1f3118e68bfe5e26e"
+    },
+    "execution-017/commands/163-t287-rp2-correction-carriers.result.json": {
+      "path": "execution-017/commands/163-t287-rp2-correction-carriers.result.json",
+      "bytes": 1495,
+      "sha256": "937ce537551879c4e84a3c56b1d9c1806c1bc9ad5f244386baaaf53fe72bd216"
+    },
+    "execution-017/events/163-t287-rp2-correction-carriers.jsonl": {
+      "path": "execution-017/events/163-t287-rp2-correction-carriers.jsonl",
+      "bytes": 89,
+      "sha256": "99214721eb7f724e9c91b40977ad5c9c5ac1684293bd9154a68f1b23064e5a65"
+    },
+    "execution-017/commands/163-t287-rp2-correction-carriers.stdout": {
+      "path": "execution-017/commands/163-t287-rp2-correction-carriers.stdout",
+      "bytes": 15,
+      "sha256": "7cb03ab03edf5190a8aa546c78285344395fad3d42d4011cd224f934aef96b3f"
+    }
+  },
+  "howPin": {
+    "bytes": 307701,
+    "sha256": "c6a21eb892be6511147454aac0cc6b71ebfa9d749e4f2802e52880ed75b7329f"
+  },
+  "authorityPinReuse": "Exact Product/Definition/frame and EVENTS/PROJECTION authorities are retained from required-operation-016 review53e69f4c; current continuation/assurance allocation read directly. No authority evolution is selected.",
+  "effects": "Read-only selected source, receipts, helper-declared owned scratch and bounded npm log interval. Writes only this new REVIEW.json/README.md. No tests, module execution, providers, profiling, process actions, cleanup, Git, repair or cut effects."
+}

@@ -1,0 +1,23 @@
+{
+  "file": "test_env/tests/t287-declared-testing-capability.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 5,
+    "pass": 3,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 2 - declared testing preparation keeps prospective criteria and explicit transport modes # SKIP ABG_TS_CLAUDE_COMMAND unset; requires the live claude command",
+    "ok 3 - declared testing live actor allowance preserves defaults and existing transport policy # SKIP ABG_TS_CLAUDE_COMMAND unset; requires the live claude command",
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/061-t287-declared-testing-capability.test/process.json",
+    "bytes": 1109,
+    "sha256": "b7ccf9aef3acb9bd933ac619443347e8769af15b584ad2fdba23a40665583449"
+  }
+}

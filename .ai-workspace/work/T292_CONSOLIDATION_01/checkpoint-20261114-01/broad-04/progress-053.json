@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 8,
+    "pass": 8,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/053-t287-calculus-state-transfer.test/process.json",
+    "bytes": 1100,
+    "sha256": "123cbcf682558329054cfa6267691825fd8dc4abb51067f764ebfe81b24d90b7"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "oldArchive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+  "newArchive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/b891c52a2dbdd1d766dc6f95c2e1b704af3afd2639a3e8a1242fe4cf764b1826/f44b3e61bb5391dbb4b7de2dd0935742d3dc60b4450857f9799bf1dc0d1b6fd7/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+  "member": "package/build/code/src/product/builtin_semantics.d.ts",
+  "oldSha256": "fda495aece24eb6623f82ff8033d68772d5f9cf22cfa181b220601b845a5e535",
+  "newSha256": "daf4573778be38177be227e0b698a344b3af6573d3d9a3a086b1b4dc604e9532",
+  "diffPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r2/c2-evidence-001/builtin-semantics-identity.diff",
+  "diffSha256": "a38256a3b4e1381b467778ce2834f27ebc255b4891d0b311f84f26407ff66827",
+  "exactVersionLiteralReplacementOnly": true,
+  "oldVersionOccurrences": 5,
+  "newVersionOccurrences": 5,
+  "standing": "Read-only byte comparison; active adapter refusal preserved, no reclassification of C2 red."
+}

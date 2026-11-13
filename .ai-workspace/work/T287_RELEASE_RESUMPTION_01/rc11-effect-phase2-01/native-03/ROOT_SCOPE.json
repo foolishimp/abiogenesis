@@ -1,0 +1,93 @@
+{
+  "id": "PHASE2-A-R1-PREP-01",
+  "status": "ROOT_SELECTED_NARROW_R1_PREPARATION_SETUP_PROVIDER_HELD",
+  "actor": "Separately activated Writer/Operator; Root is Executive and sole next-step consumer",
+  "changeClass": "realization_refactor",
+  "ownerInstruction": "User continue; Root selects narrow R1 repair after closed source, Design and executed Proof conjunction. Preparation only in this activation; native setup and provider need exact later Root admissions.",
+  "predecessorScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/ROOT_SCOPE.json",
+    "bytes": 6009,
+    "sha256": "90add4df71732a80fa17f499b1d5e6e87d970d0e0e6503b4086615ebf74b88b7"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+    "bytes": 296057,
+    "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+  },
+  "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+  "sourceRows": 1345,
+  "sourceCommit": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+  "basis": {
+    "basis": "stdo://releases/v3.0.4/",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#executive-writer-and-reviewer-binding",
+  "conjunction": {
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-review/ASSESSMENT.md",
+      "bytes": 8027,
+      "sha256": "17ec6ffc730c4ebe27cc7e972739b810766fa8bc520a3c0c7e4ce7c5d0706c54"
+    },
+    "design": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-triage-design/ASSESSMENT.md",
+      "bytes": 7465,
+      "sha256": "46155a87d5b32671b25a6cf01ff30f8ab35cd0b335099c3c0cf66197ca3e1a21"
+    },
+    "executedDesign": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-triage-design/EXECUTED_EVIDENCE_01.md",
+      "bytes": 4158,
+      "sha256": "ff4849936ed0b28004212cc018bb31e80567c2b029f667f3ece051c0548416bd"
+    },
+    "executedProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-review/PROBE_EVIDENCE.md",
+      "bytes": 3371,
+      "sha256": "2fe847eb71baf7f19d40eda5e9f4685e4b29de63cddb9ad22b1c347e1b9a28af"
+    },
+    "bothRunReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/RETURN.json",
+      "bytes": 2813,
+      "sha256": "567cb2ee4b2cafa7b38bd380c8524616910ddb5a9214a52e45163ee0fd4ccbbd"
+    },
+    "candidateObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-candidate-001/OBSERVATION.json",
+      "bytes": 2980,
+      "sha256": "0f3d6150b9570ec1fa8195ab3a01b6a2b0cad264fe3e03be6f046c1378b101be"
+    },
+    "baselineObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-baseline-001/OBSERVATION.json",
+      "bytes": 2931,
+      "sha256": "7db4f706c63a52d5e5e94e73a71328c17598a93b3ef33597dae365b7270e59d6"
+    }
+  },
+  "causalDisposition": "Candidate A counts probes on return: two assessments entered before nested completion, which seals count1; stale outer present then overwrites current absence. Baseline counts at entry and its first sealed count2 is valid, but stale continuation performs a third probe, TERM and duplicate disposal after sealing. These are distinct mechanisms; baseline invalid post-seal work is not compatibility law.",
+  "targetTruth": "Count actual eligible probe entry before host reentry through pure state; preserve no-child/Windows fast-path assessment meaning. Apply an observation and continuation only while its origin remains current, rejecting stale/sealed before any fact write. Preserve actual counts; never count cancelled tails or decrement begun attempts. Valid disposal/seal continuations must remain.",
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "qualification-scratch/rc11-effect-phase2-01/native-03"
+  ],
+  "constraints": "Four existing source paths only. Preserve original API, bigint deadline law, fresh snapshots/recomputed elapsed, sealed completion, first Error identity and all previous tests. No whole-A redesign, B/helper/main/HTTP/worker/dependency/peer-F1 change. A consolidates; report aggregate bridge+state lines and coordination honestly, not net deletion.",
+  "requiredActualOwnerCases": [
+    "Completed reentry:2 actual probes/count2/absent/0 signals/3 destroys/no timer residue",
+    "Exit-only reentry drains before seal, rejecting stale present while pending",
+    "Still-active immediate strengthening:independent host-call census, no obsolete TERM and unchanged tightened bounds",
+    "Ordinary/throwing assessments and pre-entry cancelled-tail behavior retained"
+  ],
+  "nativeEnvelope": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "selfchecks": "Fresh scratch compiler <=240s, Bash timeout300000ms; actual ^controlled (timing|lifetime): <=60s, Bash90000ms. Preserve first red. No full lifetime/physical/unit/installed or provider nesting.",
+  "effectsNow": "New native03 controls, immutable read inputs, declared scratch directories and main GOALS/T287 current prefixes only. F source, Git/index, accepted releases/installs/pins and prior failures preserved.",
+  "returnRelation": "Return exact READY to Root. No setup/provider/repair until admitted. After future native freeze, same external probe plus whole lifetime must pass before B; full Phase2 acceptance remains joint."
+}

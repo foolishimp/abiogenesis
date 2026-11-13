@@ -1,0 +1,56 @@
+{
+  "kind": "bounded_preparation_static_checks",
+  "status": "PASSED_SYNTAX_AND_CONTROL_PINS_ONLY",
+  "atUtc": "2026-11-06T16:39:31.806634+00:00",
+  "originalFilesVerified": 35,
+  "correctedFilesVerified": 13,
+  "counts": {
+    "sourceNames": 451,
+    "nativeInputs": 20,
+    "presentSourceAndControlPaths": 471,
+    "handoffs": 3,
+    "plannedContextEntries": 474,
+    "productWritePaths": 17,
+    "stages": 4,
+    "serialLaneInvocations": 7
+  },
+  "obligationDelivery": [
+    "TASK.md exact obligation",
+    "MEASUREMENT_PLAN.json exact obligation/howFirst/proof",
+    "HS03_SELECTION.json Q3 exact obligation"
+  ],
+  "lanePreflightBeforeAllocation": [
+    "exact selected lane",
+    "300000ms unchanged bound",
+    "positive filter and RegExp syntax",
+    "selected external metadata length and sha256"
+  ],
+  "unchangedRelations": [
+    "17 Product writes and21 native write roots",
+    "seven lane definitions and filters",
+    "four stages/seven serial lanes",
+    "provider/host ceilings",
+    "original35 file pins and historical oracle body"
+  ],
+  "syntax": {
+    "argv": [
+      "node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/prior-author-lanes.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "checkedFile": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/prior-author-lanes.mjs",
+      "bytes": 10700,
+      "sha256": "66089ef19f70e0a234328655afb5362793a6365d3b0dff9ad561612873ffbfc9"
+    }
+  },
+  "selectedRegexSyntax": {
+    "exitCode": 0,
+    "stdout": "Seven selected lane bounds and positive regex syntax valid\n",
+    "stderr": ""
+  },
+  "effects": "Only preparation-002 files created and syntax/pin checks performed; no lane, test, stage, build, runtime, provider, C/source or Git effects."
+}

@@ -1,0 +1,118 @@
+{
+  "status": "BROAD_CLOSE_STOPPED_FIRST_FILE_MODULE_LOAD_FAILURE",
+  "recordedUtc": "2026-11-07T04:50:20.183695+00:00",
+  "operator": "/root/rc8_operator",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_001.json",
+    "bytes": 6858,
+    "sha256": "753dc628dbf0ff5ed48648683a670b2f735ce192a589a0ae05d39194f9ba6c82"
+  },
+  "actualInvocation": {
+    "count": 1,
+    "sessionId": 51520,
+    "exitCode": 1,
+    "live": false,
+    "pid": null,
+    "pidStanding": "Driver had exited before first scoped process metadata observation; no PID invented.",
+    "executionStarted": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/EXECUTION_STARTED.json",
+      "bytes": 2651,
+      "sha256": "80a2d6fe3552e84205ffc0ef40a880801c1f7fd1435ba766303bd76075609711"
+    },
+    "driverWallMs": 2587,
+    "childStartedUtc": "2026-11-07T04:49:04.308Z",
+    "childWallMs": 488.8509170000002,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false
+  },
+  "observedFailure": {
+    "file": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+    "code": "MODULE_NOT_FOUND",
+    "message": "Cannot find module 'fast-deep-equal'",
+    "firstRequire": "/private/tmp/abg-r8c-001/d/ajv/dist/compile/resolve.js",
+    "classification": "Observed module-load failure before a Product assertion; Root causal triage remains separate.",
+    "automaticRetry": false
+  },
+  "evidence": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/SUMMARY.json",
+      "bytes": 16161,
+      "sha256": "a2db71186c0338956b7251fb47df1c8a00dfd7d381b6a014682f4424dcb743ed"
+    },
+    "failure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/FAILURE.json",
+      "bytes": 610,
+      "sha256": "6fbca2e4084a37bd56154179ab8cb4a2daf397fccef855ba4285e6889e06fb06"
+    },
+    "fileResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/files/001-a5-f02-canonical-gtl-identity.json",
+      "bytes": 921,
+      "sha256": "243272bb99f207ba1cd1c384d9010738c483ac795129aaa12500e81d8d0a8ff6"
+    },
+    "commandRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/commands/001-a5-f02-canonical-gtl-identity.request.json",
+      "bytes": 982,
+      "sha256": "50548aa773d196953ee6865aa5740cad85d739e440c5371d842d4c3692644b26"
+    },
+    "commandResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/commands/001-a5-f02-canonical-gtl-identity.result.json",
+      "bytes": 1497,
+      "sha256": "62420be4664190b2855e2702c65ba3856241cacc6d8fc7800704e0f73ed87bc0"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/commands/001-a5-f02-canonical-gtl-identity.stdout",
+      "bytes": 1943,
+      "sha256": "3c1f9877b259969dbfde2fdfebe1df09fba792a3453e0d650a70e016b04eb832"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/commands/001-a5-f02-canonical-gtl-identity.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/events/001-a5-f02-canonical-gtl-identity.jsonl",
+      "bytes": 761,
+      "sha256": "3624af2419d32933bf19bb9be4b9e0a8bc3ace4da45bae422386c1c125f5f1b5"
+    },
+    "resources": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/resources/001-a5-f02-canonical-gtl-identity.json",
+      "bytes": 463,
+      "sha256": "aaef6e603cf83850c690762b174cdb79e84a9a2c9f1ce78cec878f4632e9f76d"
+    }
+  },
+  "coverage": {
+    "inventoriedFiles": 208,
+    "scheduledFiles": 203,
+    "executedFiles": 1,
+    "passedFilesThisRun": 0,
+    "fileLevelFailures": 1,
+    "remainingScheduledUnrun": 202,
+    "previousWholeFileCredits": 5,
+    "previousCreditedPassedTests": 46,
+    "previousHistoricalSkips": 2,
+    "creditsEnteredByStoppedLoop": 0,
+    "standing": "The five prior exact whole-file credits remain retained in the binding. The stopped loop had not reached them; its 207 pending entries comprise 202 unrun scheduled files plus those five credits."
+  },
+  "custody": {
+    "scratchRoot": "/private/tmp/abg-r8c-001",
+    "scratchRetained": true,
+    "originalStageAndDependenciesPreserved": true,
+    "preservationEvidence": "Frozen driver final verification of both exact input inventories; no extra full inventory repetition by Operator.",
+    "resourceStatus": "CHILD_CLOSED",
+    "maxObservedOwnedBytes": 123769893,
+    "minObservedFreeBytes": 9154162688,
+    "resourceMonitorFailure": null,
+    "resourceLimitsOperationalNotQuota": true,
+    "detachedDescendantAbsenceProven": false
+  },
+  "selectedEffects": {
+    "sourceEdits": false,
+    "git": false,
+    "providerCalls": 0,
+    "retries": 0,
+    "cleanup": false,
+    "newRepairSelected": false
+  },
+  "qualification": false
+}

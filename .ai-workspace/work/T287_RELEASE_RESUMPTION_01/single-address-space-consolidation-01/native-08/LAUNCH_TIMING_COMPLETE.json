@@ -1,0 +1,23 @@
+{
+  "kind": "native08_launch_stage_observation",
+  "hostProcessLaunchedUtc": "2026-11-04T06:37:45.785696+00:00",
+  "nativeDispatchStartedUtc": "2026-11-04T06:38:36.570Z",
+  "hostPreparationBeforeDispatchMs": 50784.304,
+  "previousActualFinalCloseSavedUtc": "2026-11-04T06:03:59.799580+00:00",
+  "rootAfterFinalCloseToDispatchMs": 2076770.42,
+  "setupReused": true,
+  "sdkSetupMs": 28938.979459,
+  "artifactVerificationMs": 19748.530083,
+  "nativeWorkerLaunchMs": 826600.0,
+  "limits": [
+    "Event-derived wall intervals are not CPU attribution.",
+    "Different workloads/history do not establish a matched before/after workflow speedup.",
+    "The current immutable RC5 builder executes this successor task; successor complete native-workflow performance remains unmeasured."
+  ],
+  "nativeWorkerStartedUtc": "2026-11-04T06:52:23.170Z",
+  "dispatchToInitialSelectorMs": 386505.0,
+  "selectorWallMs": 80183.0,
+  "selectorExitToWorkerMs": 359912.0,
+  "workerPid": 93461,
+  "nativeRunRef": "run://abiogenesis/99401be166a6e661abaefe396c5fc033ad529261ccf7342569d0c08529131af3"
+}

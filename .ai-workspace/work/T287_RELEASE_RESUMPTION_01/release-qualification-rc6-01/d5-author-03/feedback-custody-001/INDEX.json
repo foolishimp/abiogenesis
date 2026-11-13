@@ -1,0 +1,147 @@
+{
+  "kind": "passive_exact_author_feedback_custody",
+  "at": "2026-11-06T02:00:20.772577+00:00",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "authorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/return.json",
+    "bytes": 15174,
+    "sha256": "ad025195a31b420f9636702e9679b8b33e72af8fc4714bc75202d7dd2e73e06a"
+  },
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-before1-stage.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-before1-stage.json",
+        "bytes": 78913,
+        "sha256": "f537345ba01087e45224fde39aa78b6568935f93f29a0431c02ceaa64288a894"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-before1-probe-m2/stdout.tap",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-before1-probe-m2/stdout.tap",
+        "bytes": 70620,
+        "sha256": "8c89306656cb488ef7c9cbd67d66f6d99e56390861f2af240d55a56bfa66645b"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-before1-probe-m2/summary.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-before1-probe-m2/summary.json",
+        "bytes": 976,
+        "sha256": "6f0d3c0604a24ac3693341dc7817fffb19cc82a0b5bcfbf8530402cb19cb452f"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-before1-probe-scopes/stdout.tap",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-before1-probe-scopes/stdout.tap",
+        "bytes": 78683,
+        "sha256": "8585cb820fa5033c551157bea3b439acf71d25efed0166118d55bf4dc51a2fc8"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-helper1-stage.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-helper1-stage.json",
+        "bytes": 78913,
+        "sha256": "013792b4c1ff19e583d410f197e74bdab3d815bbf16666c4498bc116423d676c"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-helper1-probe-scopes/stdout.tap",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-helper1-probe-scopes/stdout.tap",
+        "bytes": 79451,
+        "sha256": "690304a04db1f26c462a6dfc77c0e3b0340e339a3411f934ff876cf626fda196"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-final1-probe-m2/stdout.tap",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-final1-probe-m2/stdout.tap",
+        "bytes": 759,
+        "sha256": "ae3777d0803f8125e20c6362a5a6bb3ffb70286fd937be3716d8a4219a8c53dc"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-final1-stage.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-final1-stage.json",
+        "bytes": 78911,
+        "sha256": "feeb79187bab20609db9e96635a987a7200fb5a2188d88dcac577cc1f0f69b42"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-final1-lanes-qualification/qualification.stdout.tap",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-final1-lanes-qualification/qualification.stdout.tap",
+        "bytes": 15451,
+        "sha256": "081ea0fa54e5151f6bfec0631d7777fa9e6bf9dad498bc797aaeaab7397f36e2"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-final1-lanes-qualification/summary-qualification.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/d5c-final1-lanes-qualification/summary-qualification.json",
+        "bytes": 983,
+        "sha256": "8830b5cfb01f1f60a007ff82a54cefd5f1c4d8e29c922349a4fe0ef6347dfd28"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/probe.mjs",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/files/qualification-scratch/d5-author-03/tmp/probe.mjs",
+        "bytes": 3533,
+        "sha256": "dd4dea79db8a737890485b6dda077967a02537b86333498584691efa865f246d"
+      }
+    }
+  ],
+  "stageCorrespondence": [
+    {
+      "role": "failingBefore",
+      "stage": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-before1",
+      "sourceCount": 372,
+      "sourceDigest": "c9287a37036b3bd00116f1b7485f6706c1ac2e1e5d6ffac8b4a0e2368a79b3c3",
+      "verifiedAllPhysicalFiles": true,
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-before1-stage.json",
+        "bytes": 78913,
+        "sha256": "f537345ba01087e45224fde39aa78b6568935f93f29a0431c02ceaa64288a894"
+      }
+    },
+    {
+      "role": "helperPremiseProof",
+      "stage": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-helper1",
+      "sourceCount": 372,
+      "sourceDigest": "2255db30950311764a83d733f475a65dc9955430b98892f53f673818c7d4f7f6",
+      "verifiedAllPhysicalFiles": true,
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-helper1-stage.json",
+        "bytes": 78913,
+        "sha256": "013792b4c1ff19e583d410f197e74bdab3d815bbf16666c4498bc116423d676c"
+      }
+    },
+    {
+      "role": "finalSourceFreeze",
+      "stage": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-final1",
+      "sourceCount": 372,
+      "sourceDigest": "7e8bb3b085517a18a4c6c6cba0d4ae3a54b1738ce3089bd8da6f3ab70e1793dd",
+      "verifiedAllPhysicalFiles": true,
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-03/tmp/d5c-final1-stage.json",
+        "bytes": 78911,
+        "sha256": "feeb79187bab20609db9e96635a987a7200fb5a2188d88dcac577cc1f0f69b42"
+      }
+    }
+  ],
+  "limits": [
+    "Author feedback, not actual installed C2/UAT or source acceptance.",
+    "TAP/stage reports/harness copied exactly; stage source inputs verified in place, never rebuilt or mutated.",
+    "Exact two-file before/final relation and test semantics belong to bounded review."
+  ]
+}

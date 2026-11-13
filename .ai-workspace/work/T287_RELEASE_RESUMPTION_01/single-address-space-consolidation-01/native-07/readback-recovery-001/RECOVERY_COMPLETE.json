@@ -1,0 +1,24 @@
+{
+  "endedUtc": "2026-11-04T06:03:59.807Z",
+  "wallMs": 665136.049917,
+  "unchangedPrefix": {
+    "coordinateDigest": "sha256:ed0f2ce3aec4ca992b1887a678b582866ae846be7c792722cfcde8afacc5c282",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:566def8b3bb94b0805af8e41484bbcb15f50fae2c95a454b7497ece0afe742cc",
+    "prefixLength": 672021993,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 685986968
+    }
+  },
+  "readCount": 2,
+  "finalResumePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/after-run-resume.json",
+  "status": "ACTUAL_READBACK_AND_CONTINUATION_RECOVERED",
+  "originalRuntimeDisposition": "runtime_failed",
+  "nativeWorkRepeated": false,
+  "qualified": false,
+  "accepted": false
+}

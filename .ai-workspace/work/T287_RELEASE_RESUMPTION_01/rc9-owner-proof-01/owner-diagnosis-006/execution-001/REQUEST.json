@@ -1,0 +1,84 @@
+{
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/BINDING.BOUND.json",
+    "sha256": "4523b88efca75d3d58c65903223a5bfb61b630ecbf7267d6f954042b81870e04"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/ROOT_EXECUTION_ADMISSION.json",
+    "sha256": "ae8c3b438ae241ddd314371d3301ab41e65d16125fe2d83d664b695ebf52cf51"
+  },
+  "command": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "--cpu-prof",
+      "--cpu-prof-dir=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/profiles",
+      "--cpu-prof-interval=10000",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+    ],
+    "cwd": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "HOME": "/Users/jim",
+      "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "en_US.UTF-8",
+      "CI": "1",
+      "TMPDIR": "/private/tmp/abg-r9-owner-diagnosis-006/tmp",
+      "NODE_OPTIONS": "--max-old-space-size=8192 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs --test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/events.jsonl",
+      "npm_config_offline": "true",
+      "npm_config_ignore_scripts": "true",
+      "npm_config_update_notifier": "false",
+      "npm_config_audit": "false",
+      "npm_config_fund": "false",
+      "npm_config_cache": "/private/tmp/abg-r9-owner-diagnosis-006/npm-cache",
+      "npm_config_userconfig": "/private/tmp/abg-r9-owner-diagnosis-006/npm-user.npmrc",
+      "npm_config_globalconfig": "/private/tmp/abg-r9-owner-diagnosis-006/npm-global.npmrc"
+    }
+  },
+  "bounds": {
+    "timeoutMs": 600000,
+    "outputBytes": 16777216,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192,
+    "ancestryProbeMs": 10000,
+    "cpuIntervalUs": 10000,
+    "profileBytes": 67108864,
+    "cpuPollMs": 10000,
+    "maxCpuProbes": 64,
+    "cpuRecordBytes": 4194304,
+    "phaseAtMs": 300000,
+    "phaseProbeMs": 10000,
+    "phaseReadBytes": 1048576
+  },
+  "nodeVersion": "v24.7.0",
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "hostPid": 11144,
+  "hostParentPid": 27586,
+  "formerProofStopChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/TIMEOUT_CLOSE_OBSERVATION.json",
+      "bytes": 1297,
+      "sha256": "3d923057d4f8eb82605fc862838577cfbb82528a292b1c400083046393fa2abb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_DESCENDANT_CWD_CHECK.json",
+      "bytes": 216,
+      "sha256": "7d8f6af81d18533d9dfa7af57db5f3bd59611894cd71601c73f2272fc77fe3a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_PROCESS_OWNERSHIP_FINAL.json",
+      "bytes": 494,
+      "sha256": "351ede55b8353d3f29fa6b39d524ed9ad58eedffca3e07092ad90f64b13240dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/OWNERSHIP_CHECK_001.json",
+      "bytes": 4788,
+      "sha256": "ebfdcf7909a5fa870a8fbaed4c10e3cb1adf252fb5a6d8f122b0dc15ea5a8386"
+    }
+  ],
+  "standing": "One diagnostic OWN execution with unchanged assertions and normal disposable fixture effects; original test verdict preserved. No quiet-host assertion, source acceptance or retry."
+}

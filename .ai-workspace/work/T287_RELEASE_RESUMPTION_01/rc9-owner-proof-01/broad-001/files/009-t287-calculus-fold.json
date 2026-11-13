@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-calculus-fold.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 13476.254790999985,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 25,
+    "failed": 0,
+    "passed": 25,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 25,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/009-t287-calculus-fold.jsonl",
+    "bytes": 8328,
+    "sha256": "b059d488330d5907fff1aaf734e2284cb759769d3de5873b5a0e26ec52dc3acf"
+  },
+  "commandReceipt": "commands/009-t287-calculus-fold.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

@@ -1,0 +1,86 @@
+{
+  "recordedUtc": "2026-11-03T20:49:16.425100+00:00",
+  "standing": "Completed actual C2 lane output custody, pending helper/admission/outcome and whole selected scope",
+  "helperProducer": {
+    "attemptRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64",
+    "attemptDigest": "sha256:be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64",
+    "attemptRef": "worksite-command-attempt://abiogenesis/fc3832c1dc87a3bddeb8436c2e4083483a756e1826cc96903bf7d7bd995d61dc",
+    "taskRef": "worksite-command-execution-task://abiogenesis/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1",
+    "taskDigest": "sha256:c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1",
+    "taskManifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64/task.json",
+    "taskManifestDigest": "sha256:0480681d07e77dfc1944912741ec9c65beb45f58bbd7f86c626df86f87c38437",
+    "launchManifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64/launch.json",
+    "launchManifestDigest": "sha256:2387bb430a5c42c3c3865f939a6cba92616606e44cb33520a5267c3b80343455"
+  },
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-04/affected-owner-lanes.stdout.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/actual-c2-001/affected-owner-lanes.stdout.log",
+      "bytes": 55827,
+      "sha256": "a213f90df8de147defa38c7219315eca8ee7c8d251c84d59c6094d53564c2006",
+      "tally": {
+        "pass": 106,
+        "fail": 0,
+        "skipped": 30
+      },
+      "durationMs": 368728.621708,
+      "skips": [
+        "ok 10 - probe and threshold share one entry, retain lineage and conserve exact owner events and refusals # SKIP ABI5_OWNER_HISTORY unset; requires the retained owner event history",
+        "ok 13 - native basis retains one immutable derivation; copied, changed and physically stale inputs revalidate # SKIP ABI5_NATIVE_BASIS_SAMPLE unset; requires the retained native execution-basis sample",
+        "ok 14 - shared continuation constructor admits workspace causes and authenticates pending Run payload after cold reopen # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/final-events.json (sha256:4e96fd895487)",
+        "ok 15 - different-cut native Definition reads keep blocked absence and exact historical child result/replay # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl (sha256:f841bba98385)",
+        "ok 16 - current catalog and historical source permission refuse independently # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl (sha256:f841bba98385)",
+        "ok 17 - historical source digest and child declaration evidence remain necessary # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl (sha256:f841bba98385)",
+        "ok 19 - late child proof preserves only the exact acquired prefix; copies and closed owners reconstruct, changed bytes refuse # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl (sha256:f841bba98385)",
+        "ok 21 - declared testing preparation keeps prospective criteria and explicit transport modes # SKIP ABG_TS_CLAUDE_COMMAND unset; requires the live claude command",
+        "ok 22 - declared testing live actor allowance preserves defaults and existing transport policy # SKIP ABG_TS_CLAUDE_COMMAND unset; requires the live claude command",
+        "ok 24 - declared testing context is bound into the actual consumer lifecycle and shared role policies # SKIP ABI5_TESTING_INPUT_ROOT unset; requires exact selected RC7 companion release-record directory",
+        "ok 26 - declared checker composition uses native owners and independently rederives saved C1/C2 requests # SKIP ABI5_TESTING_INPUT_ROOT unset; requires exact selected RC7 companion release-record directory",
+        "ok 42 - selector planning fits captured eighteen and realistic fifty-one complete owned assemblies # SKIP ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture",
+        "ok 43 - native observation facts preserve captured history through preparation admission and complete assembly # SKIP ABI5_NATIVE_OBSERVATION_CAPTURE unset; requires the captured native observation fixture",
+        "ok 53 - one installed Public default-library invocation reuses observed files, corrects actual work and independently closes # SKIP ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation",
+        "ok 56 - COST33 Event Calculus owner continuation over the exact preimage territory and the CLOSED fixture # SKIP ABI5_EC_OWNER_EVIDENCE, ABI5_EC_OWNER_CLOSED_HISTORY or ABI5_EC_OWNER_CLOSED_SHA256 unset; requires the exact preimage territory and a digest-bound CLOSED JSONL fixture",
+        "ok 58 - T287 retained scope and same-inode byte mutation cannot reuse false truth # SKIP ABI5_PREFIX_EVENT_PATH unset; requires the retained event log",
+        "ok 59 - actual native author fold consumes its admitted retained pair; crossed basis and input refuse # SKIP ABI5_NATIVE_RETAINED_JOB unset; requires the explicit closed retained native job selection",
+        "ok 62 - actual historical reacquisition contracts owner work without changing task or refusals # SKIP ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory",
+        "ok 63 - R10 keeps same-owner exact prefix warm while copies, closed owners and malformed cuts remain cold/refused # SKIP ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory",
+        "ok 64 - execution basis still refuses changed raw input and changed enclosing body # SKIP ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory",
+        "ok 66 - actual historical pre-result occurrence authenticates with unchanged source and all current physical context # SKIP ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT unset; requires the explicit retained continuation root",
+        "ok 74 - actual closed child survives blocked parent without acquiring closed-Run source authority # SKIP ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root",
+        "ok 75 - actual source rejects absent child, foreign provenance, changed context and uncovered authority # SKIP ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root",
+        "ok 76 - later admitted failure invalidates full reacquired context beyond the C2 snapshot subset # SKIP ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root",
+        "ok 80 - ordered owner advances exact suffixes and preserves historical, cold and unrelated-growth outputs # SKIP ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
+        "ok 82 - historical liveness folds conserve full/scoped/reverse reads and declaration refusals # SKIP ABI5_HISTORICAL_LIVENESS_LOG unset; requires the historical liveness event log",
+        "ok 83 - liveness historical-cut intermediates are call-local while authentic current, older, lease and refusal answers agree # SKIP ABI5_LIVENESS_CUT_HISTORY unset; requires the liveness historical-cut history",
+        "ok 84 - 20\u201324 MB native carrier: preparation -> Result clone -> judgment/foldback -> C2 conserves proof and current invalidators # SKIP ABI5_OWNED_PROOF_NATIVE_REQUEST unset; requires the 20\u201324 MB native carrier request",
+        "ok 109 - native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data # SKIP ABI5_NATIVE_D2_SELECTOR_PROMPT unset; requires the retained native D2 selector prompt",
+        "ok 114 - retained native assemblies conserve every canonical part and required-content refusal # SKIP ABI5_D07_PREDECESSOR_SCRATCH unset; requires the retained D07 predecessor scratch"
+      ]
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-04/installed-affected-lane.stderr.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/actual-c2-001/installed-affected-lane.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-04/affected-owner-lanes.stderr.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/actual-c2-001/affected-owner-lanes.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-04/installed-affected-lane.stdout.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/actual-c2-001/installed-affected-lane.stdout.log",
+      "bytes": 629,
+      "sha256": "b09629629c6462adcb7388ba30b470ba6eec34235de18d249d26185e2972bd56",
+      "tally": {
+        "pass": 2,
+        "fail": 0,
+        "skipped": 0
+      },
+      "durationMs": 81702.797583,
+      "skips": []
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "toolUseId": "toolu_016Nt8o5d2K9ZrXiMNpebRgv",
+  "launchPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/ba6c12b18a03bf7e6a04c1885c0a6a79d51b874478293cf1e650f8dd78b16c71/8b19eb22587efb7cab4154f4647d15eb1316d78dd018624255afd39e9c3bca8c/launch.json",
+  "helperModulePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js",
+  "toolCommand": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/ba6c12b18a03bf7e6a04c1885c0a6a79d51b874478293cf1e650f8dd78b16c71/8b19eb22587efb7cab4154f4647d15eb1316d78dd018624255afd39e9c3bca8c/launch.json'",
+  "actorCoordinatesSha256": "79fc8208bff2f85288d0c17b9e43031f771fb437bccd67490cebf630cb3df9fa",
+  "launchSha256": "ffeed374b8b03c2865efac05c511899ad293f9dc6f1dd3c7c4b38dc989237232",
+  "recordedUtc": "2026-11-04T09:28:21.219251+00:00"
+}

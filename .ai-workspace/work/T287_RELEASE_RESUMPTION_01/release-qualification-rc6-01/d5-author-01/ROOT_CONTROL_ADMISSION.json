@@ -1,0 +1,130 @@
+{
+  "kind": "root_d5_native_author_control_admission",
+  "at": "2026-11-05T21:44:59.897698+00:00",
+  "status": "ADMITTED_FOR_ONE_EXISTING_NATIVE_AUTHOR_PREFLIGHT_AND_DISPATCH_IF_OWNERS_PASS",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_SELECTION.json",
+    "bytes": 10325,
+    "sha256": "7c748823ac447064b1dd31d5e42f50680365ca588240e4420c57ccad6663f3c1"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/NATIVE_GRANT.json",
+    "bytes": 41334,
+    "sha256": "4e1659eeb3b1655b39127c7af4fad95814437aba5582d4e135010a23c54087d3"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/PREPARATION_RETURN_BUDGET_02.json",
+    "bytes": 37498,
+    "sha256": "d4566b5293a1a32437ed16b96ee04d5d34d564c3bd1038dd8c552d54d05ca192"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/SOURCE_BEFORE.json",
+    "bytes": 169330,
+    "sha256": "2b90b2c6ffd36263878f1ae5fdab3945b1428f36f1b8ec5d704675216ef89e47"
+  },
+  "stagedInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/STAGING_MANIFEST.json",
+    "bytes": 7033,
+    "sha256": "76cd78fb5bb0100c51cdb4a1daefca7baf0922507b5fa9664ca9faafd94ce0f9"
+  },
+  "runtimeBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/RUNTIME_BINDINGS.json",
+    "bytes": 4162,
+    "sha256": "2fa9f0ab015d42008d5f84406f5bad90719710d52591631b396e69061ba58e7f"
+  },
+  "budgetProjection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/BUDGET_OWNER_PROJECTION.json",
+    "bytes": 1662,
+    "sha256": "c40545b9d9aaa6769859fbad582082847ca4183027b211e839f83bd4e213bd04"
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 384,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 7200000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "sourceFilesVerified": 357,
+  "newStagedControls": 29,
+  "currentSelectedBytes": 10089998,
+  "selectedPathsIncludingFuture": 389,
+  "contextLimit": {
+    "files": 512,
+    "bytes": 16777216
+  },
+  "assetClosure": {
+    "assessmentAssetsDeclared": true,
+    "workOrderReadFirstDeclaredAndUnique": true,
+    "rolesDistinct": true,
+    "actualFutureHandoffsRequired": [
+      "qualification-scratch/d5-author-01/return.json",
+      "qualification-scratch/d5-author-01/readiness.json",
+      "qualification-scratch/d5-author-01/progress.json"
+    ]
+  },
+  "program": "Existing one-node NativeWork Program, source:none, root/fh direct; authentic binding/catalog/view overlay preserves latest genuine proof03 failed close. No setup/selector.",
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/NATIVE_TASK.json",
+      "bytes": 41955,
+      "sha256": "14eed51e76120366bc426170e1b690f6507add2b8936fd615f05a0195b3b51a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/C2_RECIPE.json",
+      "bytes": 43826,
+      "sha256": "54fd7c494d7b772cac04ef47868611a4d93bb4bb3b1e77f46629b55bd9cc9e64"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/PROVIDER_PROFILE.json",
+      "bytes": 2005,
+      "sha256": "7018dfeb455da0a04a78cc7f36d47993538f59bba48dfece7904915c3bde1984"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/claude-provider.sh",
+      "bytes": 419,
+      "sha256": "5d5a994337b8a259ba87ab68a4e5da1446a1b41fecc1902acf9e32df602ab214"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/prepare-r1.mjs",
+      "bytes": 9133,
+      "sha256": "8e8f0031fda402b6846b5581450450aca457408914d9ec2d3dd02dada6e592b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/freeze-source.mjs",
+      "bytes": 9069,
+      "sha256": "47592429e500bc682e0cb413535e6ad5db81068a5db8b46963d7eb8e6a485ba1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/launch-owner-script.py",
+      "bytes": 1866,
+      "sha256": "9b5eb990fb89e489716a8523c7e0853e38d196a99a46f2926eadae89f5e55795"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/workload.json",
+      "bytes": 101120,
+      "sha256": "6828b81a7e73c20aede4da9afb3b466f9dde03be205c2ac71466d80fcbcaea87"
+    }
+  ],
+  "maximumConcurrentCodingWorkers": 1,
+  "automaticRetry": false,
+  "standing": "Q23 remains unaccepted; D5 implementation and every future proof/review/cut remains unclaimed. This selects bounded coding/effects only."
+}

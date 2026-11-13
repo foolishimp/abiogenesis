@@ -1,0 +1,13 @@
+{
+  "kind": "durable_prefix_coordinate",
+  "schemaVersion": "5.0.0",
+  "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+  "prefixLength": 375982132,
+  "prefixDigest": "sha256:ff286a3e62b6fcb2d8f642e9d5fe4576a56e8f82057a6136df0dc4271ff6aa57",
+  "storeIdentity": {
+    "device": 16777231,
+    "inode": 673308256,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+  },
+  "coordinateDigest": "sha256:efbee53c1f7d4d95733859d76422c0dcdd90ce2e416a29930678cb7b1f4296c3"
+}

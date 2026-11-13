@@ -1,0 +1,264 @@
+{
+  "file": "test_env/tests/t288-logical-prefix-digest.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 4088.8624589997344,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "logical prefix hashes conserve cold, copied, foreign, scoped and reverse values without re-encoding an owned history",
+      "file": "test_env/tests/t288-logical-prefix-digest.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_OWNER_HISTORY unset; requires the owner's retained runtime event history",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal",
+      "file": "test_env/tests/t288-logical-prefix-digest.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_OWNER_HISTORY unset; requires the owner's retained runtime event history",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/199-t288-logical-prefix-digest.jsonl",
+    "bytes": 1287,
+    "sha256": "7a2a83d38629c8dea1e4b1c1699bfe5b6b3e5b7a45e9e6e8d07f0f9b1af6a729"
+  },
+  "commandReceipt": "commands/199-t288-logical-prefix-digest.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-events.json",
+      "kind": "file",
+      "bytes": 119939,
+      "sha256": "ead8701d3275f2e66b06c65fff2f45b0cdbab83cff664a923512eff9db2dd42d",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-receipt.json",
+      "kind": "file",
+      "bytes": 15932,
+      "sha256": "0e6f68e8778e7bc090ea28262faf9057b50babddbf0cf3f3ce1c7b63f916f3b6",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-run_replay.json",
+      "kind": "file",
+      "bytes": 7779,
+      "sha256": "418f14cfd6ef76ad02792aa8593bcf816330bbae8391b56d2b9268d55136b1ee",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-run_result.json",
+      "kind": "file",
+      "bytes": 8199,
+      "sha256": "4760a39243ed49eb5ea82a37b3dcb3aa82a0b7145fa4880874e9be3ce26239f8",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/handoff.json",
+      "kind": "file",
+      "bytes": 1182,
+      "sha256": "9aaf40935304f0fc1a9d945e4fa3c677b98f0ee0fcd9e098a63a1fd632e1a2d4",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/missing-asset.json",
+      "kind": "file",
+      "bytes": 3698,
+      "sha256": "f40953fa02172e269da43684918dfb79e82d98575553bf3baa5f50c6dae1ccfa",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/result.json",
+      "kind": "file",
+      "bytes": 213,
+      "sha256": "8c14a7c71c9f87846d1586ce83fdec5db319199d6dd64a1e1feefc1be6bf1624",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/setup.json",
+      "kind": "file",
+      "bytes": 13197,
+      "sha256": "c5fa3aa973515114ecf2e4ad2a28eed1edaaa4b8664c2c314df7924d49b9f64d",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-events.json",
+      "kind": "file",
+      "bytes": 121128,
+      "sha256": "db4d26d39cd9b7ef1d0c8782af9908132017f7b1106f1bdbef3a0cdf6a9b2db7",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-receipt.json",
+      "kind": "file",
+      "bytes": 16065,
+      "sha256": "fc5e45fa5916de835f86f1e67a9e5a34fb669d47d7eaba1b993fd5c638356c07",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-run_replay.json",
+      "kind": "file",
+      "bytes": 7914,
+      "sha256": "f48063861460de596a56b6247daaf7102063efc12736dff5f0c1e71cb52ea6ff",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-run_result.json",
+      "kind": "file",
+      "bytes": 8335,
+      "sha256": "2a3fc9a5299ddc9a0829425e7d596a22d0a4ba648b070e869025792f41a0b2fb",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/correction-carriers/escalate-events.json",
+      "kind": "file",
+      "bytes": 877031,
+      "sha256": "813313f3927e3baa79d08e7f3fb76ba02cedc7bd7f0028d0aa55fcdf4c732508",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/correction-carriers/escalate-receipt.json",
+      "kind": "file",
+      "bytes": 52086,
+      "sha256": "6587f87c37451f429c6feee83a2b6794a1d443c3de3532abcd96d200c38f720e",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/correction-carriers/escalate-replay.json",
+      "kind": "file",
+      "bytes": 4667,
+      "sha256": "138360b6bcca99683613e7fee2901ff2768d21c409ee831683f60b2b4e6b765f",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/correction-carriers/handoff.json",
+      "kind": "file",
+      "bytes": 1182,
+      "sha256": "c0643f913f088bf27e1b1f3a0155e2be7e5014716da03bc5eb1c6a6bf770896d",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/correction-carriers/inspect_runtime_archive-events.json",
+      "kind": "file",
+      "bytes": 880379,
+      "sha256": "f9f8d1e09685147ee713ee146e50366f5d76058dd54dc485640eeeab31ba9781",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/correction-carriers/inspect_runtime_archive-receipt.json",
+      "kind": "file",
+      "bytes": 52101,
+      "sha256": "76ead22988dc200d8afd944d4216ef90602d7b06fb9a6310f928abb9c6e7b581",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/correction-carriers/inspect_runtime_archive-replay.json",
+      "kind": "file",
+      "bytes": 4682,
+      "sha256": "4db8fa91ef39f9bbbe0b5de65a8afb05119e798203f0cb9095b3f448b6082a63",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/correction-carriers/result.json",
+      "kind": "file",
+      "bytes": 143,
+      "sha256": "104b1cbcb7bdcd7683faf26cd101798140df1950a9a9d535c89431b94e06c79b",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/correction-carriers/setup.json",
+      "kind": "file",
+      "bytes": 427,
+      "sha256": "bd396622d4ff6ae18cc8dc9106a2e030960db88b8bfbd1ef262142c3066aabb9",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_D-events.json",
+      "kind": "file",
+      "bytes": 291482,
+      "sha256": "6be3df7509adcb6269be4e909271566ea9fd490802c017549bfc81e67a8c689d",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_D-receipt.json",
+      "kind": "file",
+      "bytes": 26319,
+      "sha256": "9c3102a5e45e2a5cced45e4309dd1c0879c757a5ea7543e86196953358ab372b",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_D-replay.json",
+      "kind": "file",
+      "bytes": 7774,
+      "sha256": "6199926e3ef4c25bce7ba85480e2888dc646c2aa2f3c5ece8d354e75e89e3e95",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_P-events.json",
+      "kind": "file",
+      "bytes": 351448,
+      "sha256": "8f36f6b26e6745c04145ecbe44cd510ef2a2d1e74af298fb8e472aa9cfe5a0bd",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_P-receipt.json",
+      "kind": "file",
+      "bytes": 29380,
+      "sha256": "c14e1311a1a093a69baaf1d053d4fb4bab757ac0e3ff595edca2f93ebf1c8544",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_P-replay.json",
+      "kind": "file",
+      "bytes": 7774,
+      "sha256": "15c9cfe546054d77f6c2605c48e957d396c68c7408f0882304d9cb8a551af944",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/result.json",
+      "kind": "file",
+      "bytes": 24973,
+      "sha256": "b8888002b71a8e8c44d94031998ecc03a45b17ad02c6153af9b72705865405a9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

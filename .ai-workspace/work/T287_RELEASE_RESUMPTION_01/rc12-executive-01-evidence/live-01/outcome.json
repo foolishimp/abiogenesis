@@ -1,0 +1,47 @@
+{
+  "changed": [
+    "design/impact-assessment.md",
+    "src/approval.mjs",
+    "test/approval.test.mjs",
+    "work/intake-triage.md"
+  ],
+  "pairs": [
+    {
+      "purpose": "review",
+      "reviewRef": "review://amendment-witness/impact@5",
+      "assessor": "actor-invocation://abiogenesis/b64b6e1f74aa7a146ec07fe4d9a3fffa06010f69b4eb073e976c4051d161e59c",
+      "producerPurpose": "design",
+      "producer": "actor-invocation://abiogenesis/978b7856dfb1e3b8e5b53d1dd010b99226e3699e97abffe97383201c6daf6121"
+    },
+    {
+      "purpose": "review",
+      "reviewRef": "review://amendment-witness/preservation@5",
+      "assessor": "actor-invocation://abiogenesis/afc9e3176f6ede7fa4496abc4a072af2bea05d7438ca0a205005c5e488a3be3d",
+      "producerPurpose": "construction",
+      "producer": "actor-invocation://abiogenesis/71918228dc24e33de6742320a032bd961b02260f07be81c83b384e22e294c166"
+    },
+    {
+      "purpose": "uat",
+      "reviewRef": null,
+      "assessor": "actor-invocation://abiogenesis/efdcd54f7b9d337b5b31eb8a80fe5a73f2cb681241b6e7ed5c10aaddbb989545",
+      "producerPurpose": "construction",
+      "producer": "actor-invocation://abiogenesis/71918228dc24e33de6742320a032bd961b02260f07be81c83b384e22e294c166"
+    }
+  ],
+  "standing": [
+    {
+      "current": true,
+      "required": true,
+      "resultRef": "result://abiogenesis/98b31430a61cfa5c49737767a93edd797d5012419d15cd62c1d50ba422b5c7aa",
+      "reviewRef": "review://amendment-witness/impact@5",
+      "satisfied": true
+    },
+    {
+      "current": true,
+      "required": true,
+      "resultRef": "result://abiogenesis/72b31123dd9e207d446fc2bf88c5954d900c4d5128037dc8785c57b82c7849c7",
+      "reviewRef": "review://amendment-witness/preservation@5",
+      "satisfied": true
+    }
+  ]
+}

@@ -1,0 +1,557 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5.0 fixed fifteen families F01-F07,F09-F11,F13-F17",
+    "wave": "GOAL-035 / T-287",
+    "featureAndSlice": "N9 retained semantic-revision fixture; existing default-library Testing/UAT and F10 recovery/reuse, prerequisite proof for remaining F11 qualification.",
+    "outcome": "Complete only amended C2 and independent UAT against the already frozen accepted test source, preserving the actual failed Run and original Construction provenance; no new coding Worker.",
+    "classification": "Operator recipe/SDK invocation preparation and observation/evidence over a workspace; no new runtime entity, event writer or Product mechanism.",
+    "authoritySplit": {
+      "source": "Product/requirements and frozen RC6 source e7179b19 govern; candidate test is the separately frozen unchanged b8f223b9 successor. Root controls select proof-only work.",
+      "tool": "Exact STDO3.0.4 and the existing installed RC6 SDK/library own construction/population; operator wrappers are thin adapters.",
+      "runtime": "ABG alone admits events and actual source/CCall/Run relations. Replay projects history; filesystem custody and this review do not manufacture a native source basis."
+    },
+    "prohibitions": [
+      "No Product/test/HOW edit or second Construction/coding Worker.",
+      "No raw event mutation, copied/imported events, invented retained state, preselected native judgment or old setup-close reuse.",
+      "No new runtime/controller/registry/graph-generation mechanism.",
+      "No qualification/release/publication claim. Only these two review outputs may be written; no implementation, preflight, test or provider run in this review."
+    ]
+  },
+  "kind": "bounded_operator_recovery_route_review",
+  "status": "closed",
+  "recordedUtc": "2026-11-05T09:15:27.772205+00:00",
+  "selectedMethod": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "claim": "Identify the smallest lawful existing installed route for proof-only amended C2/UAT after fixture-01 failed, without new Construction, state forgery or historical evidence changes.",
+  "result": "satisfied",
+  "standing": "Static route/control recommendation only; actual proof-02 input, installed preflight, C2/UAT and final close remain unperformed.",
+  "rootSelection": "Root explicitly selected the accepted proof-10 fresh source-none Testing/UAT pattern during this review, accepting physical/source-custody reuse and no native source-basis carryover.",
+  "chosenRoute": "Fresh separately authorized source-none Public start through the existing default-library consumer, using current frozen files and only Testing/UAT orders. Reopen the actual fixture-01 failed close. Immediate Testing uses subjectEvidenceRef=null and the observed-C2 owner; subsequent UAT uses the new actual admitted Testing observation.",
+  "subject": {
+    "baselineCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "candidate": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 67553,
+      "sha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc"
+    },
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "sourceAcceptance": "Root reports independent source review satisfied and bounded source accepted; this audit verifies the candidate hash and does not repeat source review."
+  },
+  "retainedFailure": {
+    "run": {
+      "digest": "sha256:17d6e6118cec3119e6574ef3c11fbc706bda5dfaf0e42eeea2d56415892b1c3a",
+      "ref": "run://abiogenesis/6bda9cbfba8d55b0447a307fcdbe2f060e16800c3d079fac6976bebfcf68d315"
+    },
+    "constructionResultRef": "result://abiogenesis/ae95925f07b9ac9ce4123cccc831a7f05a1fe2f0977611c956ab03299a949960",
+    "constructionRefStanding": "Root-supplied admitted coordinate; failed helper task independently contains sourceNativeWork/native_workspace_work_observation and original actor/CCall provenance. No event-stream reauthentication in this review.",
+    "diagnosticRef": "diagnostic://abiogenesis/worksite/command-execution/helper-territory-mismatch@5",
+    "unmatchedPath": "build_tenants/abiogenesis/typescript/test_env/test_runs",
+    "commands": "All four exited0; reused Root closed triage.",
+    "productDeltaCount": 0,
+    "componentTally": {
+      "tests": 7,
+      "pass": 5,
+      "fail": 0,
+      "skipped": 2
+    },
+    "freshStanding": "run_result not_found; run_replay failed with terminalResult=null. No successful admitted C2 or UAT from fixture-01.",
+    "closeHandoff": {
+      "prefix": {
+        "coordinateDigest": "sha256:4604288fe2cf83f30d4e40985590c183dfdc00987f4c3ea7357e7c37bad8344f",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:8fc1ffe9bb4afb91c450735c74fce68e609b75f2666f9b7c84d66dfd45c8c14d",
+        "prefixLength": 43778059,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+          "inode": 701759869
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:dc62e30cb2a9772d3149d7ac76f3d4fff0c4008a3f6ebaf6c9d045f19e25b8b3",
+        "device": 16777231,
+        "durableByteLength": 43778059,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "eventLogDigest": "sha256:8fc1ffe9bb4afb91c450735c74fce68e609b75f2666f9b7c84d66dfd45c8c14d",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+        "inode": 701759869,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    },
+    "resumeState": {
+      "resource": null,
+      "selection": null,
+      "environment": null
+    },
+    "preserve": "Keep the whole failed Run, original Construction result, helper mismatch and5/0/2 observation at their original provenance. The next Run must not count them as a newly admitted successful Testing result."
+  },
+  "canonicalRoute": [
+    {
+      "step": 1,
+      "symbol": "installedModules / publicCaller / caller.refresh / caller.reopen",
+      "operatorSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+        "lines": [
+          20,
+          101,
+          109,
+          127
+        ]
+      },
+      "use": "Restore retained setup/catalog/binding/native/install identities with the actual after-run state and new proof-02 operator config/archive. State resource/selection stay null and environment is reconstructed from the real failed close. Verify currentness; do not substitute runtime-001 setup close."
+    },
+    {
+      "step": 2,
+      "symbol": "product.constructGovernanceWorkState",
+      "owner": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "line": 84
+      },
+      "use": "Construct a new state from the proof-only original input. Constructor supplies synthesis:null, observations:[], terminal:false and unresolvedSupportRefs from the actual required support. Do not copy or edit a historical GovernanceWorkState."
+    },
+    {
+      "step": 3,
+      "symbol": "api.constructInstalledStartCall",
+      "export": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+        "line": 58
+      },
+      "owner": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "line": 525
+      },
+      "operatorSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+        "line": 303
+      },
+      "use": "Existing consumer Program/start, same installed SDK owner. selection={memberKey:start,target:{kind:next},rootMode:direct,fhMode:direct}; input is fresh state; source={kind:none}; current caller.reopen(); existing runEnvironmentResources factory. Request sourceBasis and resources.source remain none. Fresh Public request/correlation/run config identities; no old invocation relabeling."
+    },
+    {
+      "step": 4,
+      "symbol": "governanceSubjectEvidenceRefs / projectGovernanceTestingTask / constructObservedWorksiteCommandExecutionTask",
+      "owners": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+          "line": 155
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+          "line": 281
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+          "line": 303
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+          "line": 475
+        }
+      ],
+      "export": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+        "line": 596
+      },
+      "use": "Prospectively instruct immediate Testing of existing files; the actual selector must choose the declared Testing GraphFunction with subjectEvidenceRef=null. Empty observations provide no historical subject candidate. Observed branch constructs fresh protected file observations and the corrected command configuration. Never synthesize a selection/result/observation to force this route."
+    },
+    {
+      "step": 5,
+      "symbol": "default-library fold / UAT / parent evaluation",
+      "owners": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+          "line": 318
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+          "line": 155
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+          "line": 37
+        }
+      ],
+      "use": "After actual C2 admission, existing fold adds its observed Testing result. The real next selection may use that new result for read-only UAT. UAT judges unchanged bounded fixture outcome with all original obligations and honest two skips; parent closes only from the actual independent verdict. No native author prerequisite."
+    },
+    {
+      "step": 6,
+      "symbol": "invokeLifecycle / freshReadbacks",
+      "operatorSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+        "lines": [
+          349,
+          261
+        ]
+      },
+      "use": "Existing installed-content checks, CLI transport and actual returned close. Fresh installed run_result/run_replay on the new Run; retain actual latest after-run-resume. No fabricated terminal, automatic retry or old close fallback."
+    }
+  ],
+  "finiteInputChanges": [
+    {
+      "id": "R01",
+      "change": "Create a separate proof-02 control/execution archive and distinct runId/request/correlation identities. Preserve fixture-01 controls and records. Seed caller state from fixture-01/execution/after-run-resume.json, corroborated by FINAL_RUNTIME_CLOSE.json; prefixLength43778059 and prefixDigest8fc1ffe9bb4afb91c450735c74fce68e609b75f2666f9b7c84d66dfd45c8c14d."
+    },
+    {
+      "id": "R02",
+      "change": "Replace the former all-purpose workload with only workOrders.testing and workOrders.uat; both writeRoots empty. Remove construction, induction, specification and design orders. Preserve the complete original bounded fixture outcome, required support, exact accepted candidate, original source handoffs and historical limits in proof-only task/rubric/source custody. No second source author or no-op coding order."
+    },
+    {
+      "id": "R03",
+      "change": "Use Root ROOT_C2_RECIPE_R3 exactly: keep the same four commands, predicates, immutable RC6 build/contracts/node_modules inputs and report child. Change only helper allowedWriteTerritories entry from test_env/test_runs/qualification-fixture-01 to containing test_env/test_runs. This is a new input under current authority; never rewrite the old task or observation."
+    },
+    {
+      "id": "R04",
+      "change": "Snapshot and guard the accepted current candidate and existing original fixture-01 return/readiness/progress bytes. Every selected Testing path must now be an existing file. Proof-02 EXPECTED_FUTURE_FILES is empty; existing original handoffs are not renamed proof-02 author files. Bind corrected recipe/triage/acceptance records in operator input custody where needed; refresh only their real source pins/read scope."
+    },
+    {
+      "id": "R05",
+      "change": "Construct fresh state through product.constructGovernanceWorkState. Do not populate observations, synthesis, historical selectedGraphFunctionRef, subjectEvidenceRef or prior native Result bodies. The actual native selector produces subjectEvidenceRef=null for immediate observed Testing, then selects the actual new C2 result for UAT."
+    },
+    {
+      "id": "R06",
+      "change": "Adapt prepare-r3 guards to the new frozen current source and all-present inputs; retain installed-product checks, exact context/ambient budget/capacity checks, immutable source guard, nonmutation of event resource during preflight and frozen dispatch manifest. Never require the repaired file to match ROOT_SOURCE_BEFORE_R2 or expect original handoffs absent. No preflight is executed by this review."
+    },
+    {
+      "id": "R07",
+      "change": "Keep dispatch source:none assertions, fresh manifest/context equality, installed invokeLifecycle and freshReadbacks. Bind one proof-only native dispatch under Root; actual C2 and UAT must finish and return a genuine new close before any bounded completion claim."
+    }
+  ],
+  "alternativeRoutes": [
+    {
+      "route": "Retained GovernanceWorkState admitted-source replacement Run",
+      "standing": "Implemented, but cannot carry the required recipe amendment.",
+      "owners": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+          "line": 608
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+          "line": 1510
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+          "line": 93
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+          "line": 54
+        }
+      ],
+      "example": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "line": 1972
+      },
+      "reason": "deriveInvocationSourceResultBasisAtPrefix can recognize an eligible successful library state in an inactive failed/stopped Run; the actual native-work result is not automatically that state. At1519\u20131527 ingress requires canonical equality of rawInput.value with the exact retained source state, same declared Program and current authority. Changing original.testing.allowedWriteTerritories violates that check before dependent work. Do not edit copied source state or pretend the failure is pending execution."
+    },
+    {
+      "route": "worksite_command_forward",
+      "standing": "Not suitable for this amended native-work task.",
+      "owners": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts",
+          "line": 149
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+          "line": 97
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+          "line": 130
+        }
+      ],
+      "reason": "Forward reconstructs commands, predicates and allowed territories from originalTask and requires them unchanged. Its source join expects sourceConstructionResult and the legacy construction/prepare relation. Current failed C2 task carries sourceNativeWork instead. No argument in the forward request substitutes a corrected recipe."
+    },
+    {
+      "route": "Explicit native-work reacquisition F_D",
+      "standing": "Existing mechanism; not claimed impossible or missing, but no fully bound current consumer composition established in this one-pass audit. Not selected by Root.",
+      "owners": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+          "line": 348
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+          "line": 366
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+          "line": 78
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+          "line": 286
+        }
+      ],
+      "exports": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+          "line": 590
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/index.ts",
+          "line": 331
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+          "line": 570
+        }
+      ],
+      "reason": "Can carry an exact historical native child, current full context and explicit new command configuration, but requires original declaration/proof coordinates, full unchanged context identity, its own actual F_D occurrence and downstream C2/UAT composition/authority. A caller-made task supplies no admitted occurrence. The current consumer membership/operator start wrapper is not that route; routing through it adds joins unnecessary for the selected proof-only outcome."
+    },
+    {
+      "route": "run.continue pending-execution or selected-action",
+      "standing": "No such current continuation established for this failed closed return.",
+      "owner": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "line": 585
+      },
+      "reason": "SDK reconstructs only actual continuation state at reopened prefix. A failed Run and null terminal are not proof of a pending cursor, selected action or current intent. Do not invent one or perform event-store recovery over a genuinely closed handoff."
+    }
+  ],
+  "reuseBoundary": {
+    "preserved": "Accepted frozen file bytes and original handoffs; original Construction Result and failed Run remain exact historical evidence linked in Root custody. Reuse avoids a second author execution.",
+    "newEvidence": "Observed C2 measures the frozen current files under corrected recipe; actual new Testing admission feeds actual UAT and fresh replay.",
+    "lossOrResidual": "No invocation.sourceBasis=admitted_source_result carryover of result://abiogenesis/ae95925f07b9ac9ce4123cccc831a7f05a1fe2f0977611c956ab03299a949960 into proof-02. No new claim that proof-02 authored the repair or demonstrated the retained native-source recovery arm. Root conjoins physical/source-custody correspondence and original attribution with fresh proof.",
+    "scope": "Bounded N9 fixture proof only; two historical skips remain skips; no whole-D2/F11/RC6 qualification or publication."
+  },
+  "precedent": {
+    "disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+      "bytes": 2492,
+      "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+    },
+    "controlReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/FINAL_CONTROL_REVIEW.json",
+      "bytes": 27931,
+      "sha256": "dc9016ed78938f230b687122f18b85e741d1d3dc885803cd42fc3dce61ba805e"
+    },
+    "workload": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/workload.json",
+      "bytes": 205576,
+      "sha256": "34dd154be96f2a6753490bc16b7aee4d56d9f8ca9828c6ca9c423747b7929006"
+    },
+    "relation": "Accepted earlier proof-10 used only testing/uat orders, fresh synthesis:null/observations:[], sourceBasis:none/resources.source:none, subjectEvidenceRef:null and observed C2, then UAT, with unchanged source and genuine failed predecessor close. Reuse this relation, not its old hashes/results or close handoff."
+  },
+  "installedSourceCheck": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+      "line": 4,
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+        "bytes": 666,
+        "sha256": "64466232bfbe070bf68b23806104e6023d4b379009a43c64646ecf54cf40a504"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_public_definition_call.js",
+      "line": 227,
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_public_definition_call.js",
+        "bytes": 16192,
+        "sha256": "6ef13edb5900fc4f4e72e87245705f173b9ff92534978424106e4c8dd5950146"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "line": 72,
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+        "bytes": 34310,
+        "sha256": "e4090de450b9e80c7de43f3ca16df7cec5de0b43c6e101453e45093a4b5c437a"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+      "line": 326,
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+        "bytes": 44995,
+        "sha256": "d4799e3fe08e53ea47a058abe17ac367f4854f6e39d3bfaede76b89099728400"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_admission.js",
+      "line": 922,
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_admission.js",
+        "bytes": 67150,
+        "sha256": "1b3af0cba4ed12897f882c36af308f88e9f6020fbae601d190e816597ab9d8ba"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "line": 72,
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+        "bytes": 13690,
+        "sha256": "163f1e44620fa7049ff97f6973fca01ef5e205846945e15188511571b28e2f0d"
+      }
+    }
+  ],
+  "evidence": {
+    "rootActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "agents": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "failureTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_FAILURE_TRIAGE.json",
+      "bytes": 10440,
+      "sha256": "6f844b501da56a06443811a554c3004be82221828a0fb1674496ad2ad15feacc"
+    },
+    "correctedRecipe": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_C2_RECIPE_R3.json",
+      "bytes": 7010,
+      "sha256": "6f0dd857753830e8165bcc8fe7e5775d0895cfd55822da0e811819d39d52f1b2"
+    },
+    "finalRuntimeClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 2780,
+      "sha256": "e97b67d540b9bc854ebf8fb488c72ea8b48775f65dd3b6edb6d769d20e330a69"
+    },
+    "afterRunResume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/after-run-resume.json",
+      "bytes": 72660008,
+      "sha256": "ec616ff48620b547405c04cda52e9b1086c16924b0c41694b980abba2c05bb19"
+    },
+    "outcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/outcome-summary.json",
+      "bytes": 543,
+      "sha256": "c0438d54197cf5cdc0638a899ee60e4273fc8a8a6154bac6e95ea1fa3fedae40"
+    },
+    "freshReads": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/fresh-reads.json",
+      "bytes": 2402,
+      "sha256": "f713d76d31ac8f2b9533c29302c4672e49e49f48f538b711f77ad3d8a2708c80"
+    },
+    "failedC2Task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d0e27da6a7e402f63b2e1c6ba96d4b7ed5a7100156941b65f1bde99de985dd88/35917ce7967af2cf733aac107025dcf6e599c0fcc585ee980a887828320ecb10/task.json",
+      "bytes": 271083,
+      "sha256": "d9d681cf633906e053e55a30c7b00e15311358e26a7c07ea3ba3754681804260"
+    },
+    "prepareR3": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/prepare-r3.mjs",
+      "bytes": 8306,
+      "sha256": "a39fec2a287108222055b322d3245caf252ba3d81902ce4b4a632497ca3f70ec"
+    },
+    "dispatch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    },
+    "publicSetup": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    "runner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    },
+    "consumer": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    "proof10Disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+      "bytes": 2492,
+      "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+    },
+    "proof10Controls": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/FINAL_CONTROL_REVIEW.json",
+      "bytes": 27931,
+      "sha256": "dc9016ed78938f230b687122f18b85e741d1d3dc885803cd42fc3dce61ba805e"
+    },
+    "proof10Workload": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/workload.json",
+      "bytes": 205576,
+      "sha256": "34dd154be96f2a6753490bc16b7aee4d56d9f8ca9828c6ca9c423747b7929006"
+    },
+    "governanceContract": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "bytes": 36411,
+      "sha256": "7177148ab49e3ce1a8cd35f2cf5f6bb49c52465ac7907708ec27835ec037aa36"
+    },
+    "governanceOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "bytes": 47365,
+      "sha256": "f98657628c0c21147f84e3d7c854df04014f71eef4a0920c2ac3cb34e66cd15d"
+    },
+    "invocationAdmission": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "bytes": 77248,
+      "sha256": "094cce6fb3c539d56c21df0d46550b788f3fb4442016472d0199950b06d23e16"
+    },
+    "installedStartOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "bytes": 27318,
+      "sha256": "27de3ce5c295b3aaa76b58bb062357763a6109ddf6d55ba9b1844fd75914bd29"
+    },
+    "forwardContract": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts",
+      "bytes": 15277,
+      "sha256": "54d9b18197cec648ca59467db02ac6700ce5cfb96efe87b16393859927eb5d87"
+    },
+    "forwardOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "bytes": 29236,
+      "sha256": "6917be69cee67d6f3383bc7b7f9cce1bee2c338478c394afe89a5512496597b9"
+    },
+    "commandContract": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "bytes": 143027,
+      "sha256": "6766194e77012654f660814674842ec372e63bc6020df3ffc3110debb2bf5db1"
+    },
+    "commandPublication": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "bytes": 24181,
+      "sha256": "2faf93d2def13bc8f8eb9d2759e190994712f575f39b5ef567ec407686c1b22b"
+    }
+  },
+  "uncertainties": [
+    "Proof-02 task/control selection, capacity, source observation, installed population/preflight and execution are still future Root/operator work.",
+    "Native selector choice and UAT result are not precomputed. A refused or different route returns to Root without a coding loop.",
+    "Original Result coordinate is supplied by Root and native-work provenance corroborated in the failed helper task; this audit does not authenticate raw events or claim a new native source join.",
+    "The explicit native reacquisition alternative was inspected only for its applicability requirements, not fully composed or executed."
+  ],
+  "invalidators": [
+    "Candidate bytes, protected inputs, required source/rubric, selected installed identity or owning source rules change.",
+    "Current event resource no longer matches the actual failed close; use only a later genuine owner close if authorized activity intervened.",
+    "Commands/predicates change beyond the selected recipe or an author stage/write grant is reintroduced.",
+    "Current source cannot be frozen/reobserved exactly or the real Testing/UAT route refuses."
+  ],
+  "effects": {
+    "writes": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/RECOVERY_ROUTE_REVIEW.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/RECOVERY_ROUTE_REVIEW.md"
+    ],
+    "otherEffects": "Read-only bounded audit. No build/test/provider, installed preflight/constructor execution, implementation/control edit, new native invocation or event mutation. Large resume/execution records were projected to narrow state/resource/result metadata; no raw provider content or event log was dumped/read for interpretation."
+  },
+  "return": {
+    "consumer": "Root Executive",
+    "closed": true,
+    "activationPower": false,
+    "qualificationCredit": false,
+    "stop": "One causal pass complete; Root binds proof-02 and actual preflight."
+  }
+}

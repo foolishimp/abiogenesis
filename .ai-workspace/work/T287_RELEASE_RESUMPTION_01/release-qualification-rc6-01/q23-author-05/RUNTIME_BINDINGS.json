@@ -1,0 +1,52 @@
+{
+  "kind": "q23_actual_resume_binding",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "builder": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.6",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+    "manifestDigest": "sha256:404905f00e9d79bd7cc1da592a492b19443b809d3b81c12ec8af9af947c2a64a",
+    "productContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.6/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/after-run-resume.json",
+    "bytes": 72488402,
+    "sha256": "2c6e349a238a12df475a290d9d2c9f4836e5084c79ae7ecb37b02bbe830afa52"
+  },
+  "actualClosePrefix": {
+    "coordinateDigest": "sha256:86171ea4036daaa2675ba1a200bb1d1d21b649a3dabaa417fe89efe00486f38e",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:c6170eb6e40204442b133cda090a673a90dcd561fe3c715d5720e59db1ed8b85",
+    "prefixLength": 289726205,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "workspaceAuthority": {
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/138cf07a995e9c93816d32708189b1f4d02373cd187d3b2782a8cb1b7fd21d47",
+    "canonicalRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "authorityMode": "trusted_developer",
+    "authorizedActorRef": "actor://abiogenesis/operator/codex-root",
+    "authorityManifestRef": "authority://abi5-tests/sandbox-uat/release-qualification-rc6-01/workspace",
+    "authorityManifestDigest": "sha256:40ca0e9936a53554a48a198829794ccc02860ade43af92738d2d0e77639c8c05",
+    "authorityBasisId": "workspace-authority://abiogenesis/df2f8d33fffb1ab9c8d28ae86a1dc921b98d5adcae4ca37c2e6a2517a7bbf60d",
+    "authorityBasisDigest": "sha256:df2f8d33fffb1ab9c8d28ae86a1dc921b98d5adcae4ca37c2e6a2517a7bbf60d"
+  },
+  "priorSetupReused": true,
+  "setupRunsAuthorized": 0,
+  "limits": [
+    "Resume actual owned close only; no old setup close or invented state.",
+    "Preparation is not admission/dispatch. Root must confirm current physical prefix and all selected pins."
+  ]
+}

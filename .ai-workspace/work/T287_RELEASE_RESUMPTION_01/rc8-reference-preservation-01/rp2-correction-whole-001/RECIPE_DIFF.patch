@@ -1,0 +1,34 @@
+--- registered-selection-whole-001/run.mjs
++++ rp2-correction-whole-001/run.mjs
+@@ -1,4 +1,4 @@
+-// One unchanged registered-selection whole-file proof through the existing recorder/file host; no source changes.
++// One unchanged correction-carriers whole-file proof through the existing recorder/file host; no source changes.
+ import assert from 'node:assert/strict';
+ import {createHash} from 'node:crypto';
+ import {readFile,writeFile,mkdir,lstat,readlink,copyFile,chmod,symlink,statfs} from 'node:fs/promises';
+@@ -11,12 +11,12 @@
+ const [configPath,configSha,admissionPath,admissionSha]=process.argv.slice(2);
+ const raw=await readFile(configPath);assert.equal(sha(raw),configSha);const c=JSON.parse(raw);
+ const admissionRaw=await readFile(admissionPath);assert.equal(sha(admissionRaw),admissionSha);const admission=JSON.parse(admissionRaw);
+-assert.equal(c.status,'BOUND_FULL_REGISTERED_SELECTION_FILE');assert.equal(admission.status,'ROOT_ADMITTED_FULL_REGISTERED_SELECTION_FILE');assert.equal(admission.bindingSha256,configSha);
++assert.equal(c.status,'BOUND_FULL_CORRECTION_CARRIERS_FILE');assert.equal(admission.status,'ROOT_ADMITTED_FULL_CORRECTION_CARRIERS_FILE');assert.equal(admission.bindingSha256,configSha);
+ for(const p of admission.files??[])await checked(p);
+-assert.equal(c.file,'test_env/tests/t287-registered-graph-selection.test.mjs');assert.equal(c.expectedCases,1);assert.equal(c.commandTimeoutMs,1800000);
++assert.equal(c.file,'test_env/tests/t287-rp2-correction-carriers.test.mjs');assert.equal(c.expectedCases,1);assert.equal(c.commandTimeoutMs,1800000);
+ assert.equal(c.bounds.outputBytes,16777216);assert.equal(c.bounds.nodeHeapMiB,8192);assert.equal(c.bounds.reserveBytes,4294967296);assert.equal(c.bounds.maxOwnedBytes,4294967296);
+-const review=JSON.parse(await checked(c.review));assert.equal(review.verdict.wholeFileWithin600s,'falsified');assert.equal(review.verdict.completedTests,0);assert.equal(review.verdict.semanticAssertionRed,false);assert.equal(admission.reviewSha256,c.review.sha256);
+-const selection=JSON.parse(await checked(c.rootSelection));assert.equal(selection.status,'ROOT_SELECTED_REGISTERED_SELECTION_WHOLE_PROOF_PREPARATION');assert.equal(selection.sourceDigest,c.sourceDigest);assert.deepEqual(selection.review,c.review);await checked(c.sourceAcceptance);await checked(c.priorStoppedReturn);
++const review=JSON.parse(await checked(c.review));assert.equal(review.verdict.status,'indeterminate');assert.equal(review.verdict.finding,'RP2-017-001');assert.equal(review.subject.currentA11SourceDigest,c.sourceDigest);assert.equal(admission.reviewSha256,c.review.sha256);
++const selection=JSON.parse(await checked(c.rootSelection));assert.equal(selection.status,'ROOT_SELECTED_CORRECTION_CARRIERS_WHOLE_PROOF_PREPARATION');assert.equal(selection.sourceDigest,c.sourceDigest);assert.deepEqual(selection.review,c.review);await checked(c.sourceAcceptance);await checked(c.priorStoppedReturn);
+ const freeze=JSON.parse(await checked(c.sourceFreeze)),ready=JSON.parse(await checked(c.ready)),inventory=JSON.parse(await checked(c.inventory));
+ assert.equal(freeze.sourceDigest,c.sourceDigest);assert.equal(ready.sourceDigest,c.sourceDigest);await checked(c.artifact);await checked(c.runner);await checked(c.fileHost);for(const p of c.toolPins)await checked({path:p.path,bytes:p.bytes,sha256:p.sha256});
+ const basisBytes=await checked(c.candidateFixture),basis=JSON.parse(basisBytes),verification=JSON.parse(await checked(c.candidateFixtureReuse.verification));
+@@ -36,7 +36,7 @@
+   for(const p of c.toolPins)await symlink(p.path,join(c.scratchRoot,'b',p.name));for(const n of ['user.npmrc','global.npmrc'])await writeFile(join(c.scratchRoot,n),'',{flag:'wx'});
+   const env={HOME:process.env.HOME,PATH:join(c.scratchRoot,'b')+':/usr/bin:/bin:/usr/sbin:/sbin',LANG:'en_US.UTF-8',LC_ALL:'en_US.UTF-8',CI:'1',TMPDIR:join(c.scratchRoot,'t'),NODE_OPTIONS:'--max-old-space-size=8192',
+     npm_config_userconfig:join(c.scratchRoot,'user.npmrc'),npm_config_globalconfig:join(c.scratchRoot,'global.npmrc'),npm_config_cache:join(c.scratchRoot,'n'),npm_config_offline:'true',npm_config_audit:'false',npm_config_fund:'false',npm_config_update_notifier:'false',
+-    ABG_TS_CLAUDE_COMMAND:join(c.scratchRoot,'UNSELECTED_PROVIDER'),ABG_TS_LIVE_CLAUDE_COMMAND:join(c.scratchRoot,'UNSELECTED_PROVIDER'),ABI5_UAT_UNIT_ROOT:join(tenant,'test_env/test_runs/sandbox-uat-units'),ABI5_SELECTION_EVIDENCE_ROOT:join(c.outputRoot,'selection-evidence')};
++    ABG_TS_CLAUDE_COMMAND:join(c.scratchRoot,'UNSELECTED_PROVIDER'),ABG_TS_LIVE_CLAUDE_COMMAND:join(c.scratchRoot,'UNSELECTED_PROVIDER'),ABI5_UAT_UNIT_ROOT:join(tenant,'test_env/test_runs/sandbox-uat-units'),ABI5_RP2_CORRECTION_EVIDENCE_ROOT:join(c.outputRoot,'correction-evidence')};
+   const events=join(c.outputRoot,'events.jsonl'),args=['--experimental-vm-modules','--test','--test-concurrency=1','--test-reporter=tap','--test-reporter-destination=stdout','--test-reporter='+join(tenant,'scripts/node-test-evidence-reporter.mjs'),'--test-reporter-destination='+events,c.file];
+   await record('EXECUTION_STARTED.json',{at:new Date().toISOString(),pid:process.pid,binding:await pin(configPath),admission:await pin(admissionPath),sourceDigest:c.sourceDigest,file:c.file,wholeFile:true,expectedCases:c.expectedCases,environment:env});
+   await record('file-host-binding.json',{executable:c.node.realPath,args,cwd:tenant,outputRoot:c.outputRoot,scratchRoot:c.scratchRoot,resourceRecord:join(c.outputRoot,'resources.json'),bounds:c.bounds});

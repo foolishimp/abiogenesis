@@ -1,0 +1,52 @@
+{
+  "id": "RC11-NATIVE02-SOURCE-01",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "basis": "Actual Root independently consumed PREPARED and frozen controls, then admitted one source-only native02 dispatch on same live caller. Operator records this prior Root decision; no self-admission.",
+  "bindingSha256": "1b7b321ff7b30d76a5a337a17d71cdfdc8484d36a7cfc043186f92eb8c979bef",
+  "preparedSha256": "597153b6b88fdf38c673a6a2fc49ab27a3443e996298bb8c1aeb8e199be955bf",
+  "taskSha256": "f0d6f92f917efe51cd7ea4a62f3f1e4058aafc8ab4913830e82d80bb6cbccb8f",
+  "scopeSha256": "a2bf2d53c71ec03545800323822a7486859f4be7e96b4b9b892792005204f383",
+  "hostSha256": "8c2a67425d16a3f2ff4a04a93c10cdb45dd7c6d553a1733ca5cf78956d75c16c",
+  "sessionId": 54438,
+  "pid": 63566,
+  "invocationRef": "invocation://abiogenesis/011355fa1e51bdf97090e2e5f44a93e6dd1b44dbbd6b70c28510da66fc724241",
+  "prefixLength": 3188146,
+  "prefixDigest": "sha256:27598851c1b2ab40a8039ad451289e48ea07e9ac0ef176d781273cf93e82fff5",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/ROOT_SCOPE.json",
+      "bytes": 3569,
+      "sha256": "a2bf2d53c71ec03545800323822a7486859f4be7e96b4b9b892792005204f383"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/TASK.json",
+      "bytes": 8876,
+      "sha256": "f0d6f92f917efe51cd7ea4a62f3f1e4058aafc8ab4913830e82d80bb6cbccb8f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/host.mjs",
+      "bytes": 15326,
+      "sha256": "8c2a67425d16a3f2ff4a04a93c10cdb45dd7c6d553a1733ca5cf78956d75c16c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    }
+  ],
+  "limits": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "scope": "Exact ten source paths plus scratch from frozen TASK. Four fixtures readonly. No tests/build/generator/provider nesting. Operator never edits Product source. No retry or envelope extension. Preserve actual outcome/after/tool history/partial work and owner close/fresh readbacks. After SDK return Operator may mechanically freeze exact source including four fixtures for Root proof/review decision; no acceptance claim.",
+  "bookkeepingGrant": "One concise main GOALS/T287 current milestone prefix RC11_NATIVE02_SOURCE_AUTHOR_RUNNING, preserving all prior bytes/main index; receipt in native02.",
+  "utc": "2026-11-09T08:11:30.250010+00:00"
+}

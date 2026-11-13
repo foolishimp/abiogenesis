@@ -1,0 +1,59 @@
+{
+  "actualGitDiffPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs"
+  ],
+  "changedPaths": [],
+  "expectedFirstReturnPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs"
+  ],
+  "kind": "p1_03_second_construction_provider_return",
+  "limitations": [
+    "Provider Return is not yet native Result admission.",
+    "Source equality checked against first Return; native C2 remains timed out."
+  ],
+  "previousCustodySha256": "4f2310b52bc6d27ff1553aceaaecdcc469ce97881699d1f0af71f01abd5d2358",
+  "providerResult": {
+    "durationMs": 3841045,
+    "numTurns": 55,
+    "path": "provider-result.json",
+    "reportedCostUsd": 4.983076000000001,
+    "sha256": "ff5fc492b1d919c4c50818c338058a1f8df477eb32185e2cfa07357d3c4911e0",
+    "subtype": "success"
+  },
+  "skillMdMentionedInToolInputs": [
+    {
+      "id": "toolu_01MYZea81pZsB2xu2LzvgVC5",
+      "tool": "Write"
+    }
+  ],
+  "sourceComparison": "identical to first Return",
+  "stream": {
+    "bytes": 3663940,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/fp-afdea695de83068f-stdout.log",
+    "sha256": "f64c374fa16572266e47614ce7d69519a9f889e004116897ddfcffef71f304d9"
+  },
+  "toolUseCounts": {
+    "Bash": 46,
+    "Read": 6,
+    "StructuredOutput": 1,
+    "Write": 1
+  }
+}

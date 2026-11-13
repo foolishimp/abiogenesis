@@ -1,0 +1,40 @@
+{
+  "recordedUtc": "2026-11-04T00:02:28.263Z",
+  "coordinates": {
+    "kind": "c_call_result_admitted",
+    "admissionOrdinal": 43963,
+    "eventId": "event://abiogenesis/512c520372da797a0751a7a842e9060ad5323562bdc9fa0db500f1c116b753bb",
+    "eventTime": "2026-11-04T00:01:22.609Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "runId": "run://abiogenesis/c4581064ff35c1127d0e65366bc6d662fa29d87bbfbaa874206e954b2782ee73",
+    "offset": 472304966,
+    "rowBytes": 2612157,
+    "rowSha256": "ebdbf1e128bbd077b7fe47effe7cd3c313b394d3cce2afd17cdc996f9873a1f1",
+    "resultRef": "result://abiogenesis/ef0efcdfd05fc31c31980b07848a79728a0934699a8382e334b3e6559eff40ad",
+    "resultDigest": "sha256:ef0efcdfd05fc31c31980b07848a79728a0934699a8382e334b3e6559eff40ad",
+    "valueKind": "native_workspace_work_observation"
+  },
+  "assessment": {
+    "disposition": "unmet",
+    "kind": "sandbox_uat_assessment",
+    "reason": "Subject reacquired independently: candidate design doc sha256 5173d590…61ce and rubric 987adaad…cae9 match the declared basis. I recomputed all 117 sourceHashes rows of consolidation-scratch/native-05/return.json (7de01e76…) in process memory, and every row equals the current worksite. The 34 native05ChangedFiles entries also match. The admitted C2 source-correspondence command only prints hashes and has no comparison predicate. I matched the sampled stdout rows I hold (runtime_liveness 649952f8, calculus/liveness 5b8f8a84, replay 8b8cdd35, retry 4e0c0fdc, runtime-f09-worker 4ec5ecc1, t289 aa1ab8ed, return/readiness/progress, design doc) to the return. I could not compare all 117 stdout rows, so correspondence holds for the worksite but is not proven row-by-row against actual C2 output. C5 is unmet on the admitted actual C2. Command 6 (c2-proof.mjs) exited 1. Whole-path passed 7/0/0 and affected-owner-lanes passed 106/0/30. shared-owner-declaration-regressions returned 29/1/0, and c2-proof halted there, so 8 selected lanes never ran: qualification-owner-components, historical-producer-acquisition, retry-entry-consumers, replay-request-consumers, fresh-process-semantic-values, forward-recovery-contracts, installed-affected-lane and maintained-setup-harness. Of those, the declared requiredCurrentUnskippedClaims cover Retry3, Historical producer3, Both actual fresh child projections, Installed2 and Maintained harness32. The author already reports that the three retry-entry cases fail with contract_mismatch at reopenEventStore, at f49 and on the current source. That lane would therefore fail even if lane 3 were cleared, and it is a concrete missing input/owner relation, not a closure. There is no admitted independent review of the native05 subject and no Root conjunction. The lane-3 failure is in the test \"T289 owner serialization and cold historical/reference reconstruction preserve exact install truth\". It is the strictEqual at t289-install-event-bodies.test.mjs:254, \"successful suffixes retain the established first-install fact\": the values are equal but the identity differs. Static attribution: native05 changed that test only by renaming runtimePrefixFromArtifactTruth to runtimePrefixFromOwnedArtifactTruth at lines 56/67. artifact_truth.ts differs from f49 only by deleting that adapter, and event_prefix.ts is byte-identical to f49. projectArtifactTruth and selectValidatedRuntimeEventPrefix are therefore unchanged. Held native01–04 work did change environment_admission predecessor reads, which sit on this identity path. The author's f49 reproduction (f49-t289-1) is plausible but I did not rerun it. On the evidence, native05 source probably did not cause the red. Native05 exposed it by executing the previously gated case on the declared T288 history. The case is still a selected required-unskipped claim, and fact-identity retention across successful suffixes is itself the single-address-space reuse relation. It stays an open in-scope counterexample, and its pre-existence earns no credit. Skip delta: actual C2 recorded 106/0/30, matching both the declared \"Existing30 optional owner cases\" exclusion and native04. The author's scratch result of 108/0/28 ran under a different environment, the two extra executed cases are unidentified, and they earn no current credit. C1 is unmet. The deleted symbols are absent from current src and tests, apart from the disclosed historical-module bridge in the producer test. The liveness fork follows runtimeEventValidationBase/forkAt, mirroring event_calculus.ts:290–291. Inherited reads are ordinal-filtered, and folds are copied, so isolation looks plausible. However, retry.ts:70 still has an unused readRuntimeEventsAtDurablePrefix import, and the author explicitly does not claim whole consolidation. Further gaps: the null/non-null budget is only partly proven, global duplicate pairs have no physical instance, missing-vs-out-of-scope at the Public level is gated by ABI5_EVIDENCE_ROOT, and historical liveness cases are skipped. C2 is unmet: there is no actual same-input meter from C2. The some() growth is not metered, and the R1 growth probe and relevant/unrelated growth fixture were not rerun. Fork layered() reads allocate per query, and that is unmeasured, so shifted work is not excluded. The task stated that fewer constructors alone cannot close R1. C3 is unmet or unproven. The actual whole-path lane passed, but installed-affected-lane, fresh-process-semantic-values and maintained-setup-harness did not run in actual C2, and fresh result/replay closure did not run. C3 evidence is otherwise scratch-only. C4 is not closed. R1 is partial, R2 is unchanged, R4/R5 operator sufficiency is outside the grant with no evidence that carriage was removed, R6 CPU share is unmeasured, and R7 actual fresh closure is open. In addition, runtime-f09-worker.mjs is a selected input, but its executable consumers (t287-f09-frontier-handoff, t287-r4-aba-retry, runtime-f09.mjs, runtime-f09-product.mjs) are not selected, so actual C2 never exercises the migrated worker. Its changed route-fault model forces configuredDurableLogPath to null inside admitRoute. That redirects the fault to the snapshot route rather than the owned durable route that production uses. The fault meaning has changed, and the change is unreviewed: indeterminate. Scope disclosure: I made no deliberate file writes, temporary files or redirections. All hashing ran in process memory. I read git objects of baseline f49 via git show and git diff, which may be outside the literal declared file list. git diff against the working tree may opportunistically refresh the .git/index stat cache; whether that write occurred is uncertain. No network, installation, test execution or graph work. I grant no admission, acceptance, scope change or continuation.",
+    "unresolvedCriteria": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5"
+    ]
+  },
+  "nativeProvenance": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/9cfb5af4bd26f333d509194dbbc95c631d362596c781b4fca7efdfef2400f8f5",
+    "cCallRef": "c-call:sha256:758c4a11f38564238bf42d46517c4ddf28f3becb4fe07f5b6f26051104cfe079",
+    "executionAuthorityDigest": "sha256:52a1fc57ff809f0cd8005a749bd02c31050c4ddebcc9e42dacd012d3bc3484b1",
+    "executionAuthorityRef": "leaf-execution-authority://abiogenesis/52a1fc57ff809f0cd8005a749bd02c31050c4ddebcc9e42dacd012d3bc3484b1",
+    "promptDigest": "sha256:08da79a32c782f4894b4be790ac3adc3317ad1a417c0e2a19601bf02b5543cc0",
+    "transportBindingDigest": "sha256:0781e2ea80a2d973abfac8c0cb4e4e5c6c8e2accc4545834f59cef0909ced07f",
+    "transportBindingRef": "transport-binding://abiogenesis/0781e2ea80a2d973abfac8c0cb4e4e5c6c8e2accc4545834f59cef0909ced07f",
+    "transportDigest": "sha256:a5cca70c3cd9f3a9ca9981cd098fbe8b783a14de44df1fcd9dc597362218550f"
+  },
+  "standing": "Actual native assessment preserved; Root may separately conjoin bounded evidence corrections. No acceptance inferred."
+}

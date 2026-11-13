@@ -1,0 +1,44 @@
+{
+  "kind": "bounded_ticket_actual_h06_status_projection",
+  "observationUtc": "2026-11-06T19:30:54Z",
+  "ticket": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+  "beforeBytes": 727999,
+  "beforeSha256": "263e42fc3561618a9f702342168517b9bd2a245503a8d43f11de99a79a64446b",
+  "afterBytes": 728734,
+  "afterSha256": "9384be3a78903dfa145080a945cee472b3fbeaff286b576e88bfbec39914b14b",
+  "preimage": {
+    "currentParagraph": "Current progress, 2026-11-06T19:17:06Z: **RC7_H05_CLOSED_PARTIAL_H06_SELECTED**. H05 ended2026-11-06T19:05:10.975Z with actual SDK/host exit0 and [genuine close](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/FINAL_RUNTIME_CLOSE.json)d3c8fc06. [Root partial disposition](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_REVIEW_DISPOSITION.json)229dad7f preserves fixed-route7/7 and held-session1/1; assessment-guards0/1 failed and the final two lanes were unallocated. [Closed fixture review](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/reviews/assessment-guard-triage-001/REVIEW.json)bee3ec52 localizes one missing schemaAsset.contractId alignment, with no Product defect established. [H06 Root selection](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json)d3b7b87f selects that one local test-field correction, one reused Product stage and three once-only300s lanes; the eight H05 passes remain conditional historical evidence. H06 is not admitted or launched; whole HS01/02 and S5 activation remain open. H04's two-file coordinate/body correction is retained under [Root disposition](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/ROOT_REVIEW_DISPOSITION.json)4fb544e7: sourceb92dc5ad/closee43d763b and frozen review3281cd86 agree. Actual Testing completed and its state Result was derived; UAT/readbacks and four later lanes remain unproved because a negative test used the wrong refusal code. [Closed oracle review](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/reviews/refusal-oracle-001/REVIEW.json)02d21f72 identifies the complete four-case map, including a second stale-source mismatch. [H05 Root selection](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_ARCHITECTURE_SELECTION.json)e4e99717 selects one test file, one frozen stage and five finite lanes, with exact5325-member Product build reuse and no compile/generation repetition. Immediate refusal/full-prefix/actor checks remain mandatory; only exact code/path assertions follow the positive UAT/readback discriminator. Filtered diagnostic events are not a full no-append measurement. Historical generation timeout, caller failures, earlier bounded review, stale readiness and disclosed H04 read-scope exception remain preserved. H04 host-to-actor was119.978s; H03 proof end to H04 host was29m24.969s of operator work. These are distinct RC6 invocation/coordination costs, not an RC7 speedup. HS03 batching, installed growth and RC7 cut/install remain pending; no RC7 install, qualification, publication or selector change is claimed.\n",
+    "currentActivationStatus": "- current_activation_status: H05_CLOSED_PARTIAL_H06_FIXTURE_CORRECTION_SELECTED (actual H05 close d3c8fc06 / Root partial disposition229dad7f; fixed7pass+held1pass, assessment0pass/1fail, two lanes unallocated; H06 selectiond3b7b87f, one local test field/one reuse stage/three300s lanes; final admission and launch pending)\n"
+  },
+  "changedLines": [
+    3,
+    68
+  ],
+  "evidence": {
+    "dispatch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/DISPATCH_MANIFEST.json",
+      "bytes": 33080,
+      "sha256": "7d250ddd244620dc6d68c02af912347612a5f12892d9260f5bc6e0a82c54de31"
+    },
+    "admission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_CONTROL_ADMISSION.json",
+      "bytes": 9505,
+      "sha256": "2e878675c3ca4353b3eede9335d06abc0dbb35c7cd22e0970c85ebf7e8039df0"
+    },
+    "preparationPhases": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/operator-custody-001/PREPARATION_PHASES.json",
+      "bytes": 3418,
+      "sha256": "0447709c672ce7c2568328c559afeecf2429788b9fef5ef11e8701f41e9682b9"
+    },
+    "actorStart": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/operator-custody-001/ACTOR_SUFFIX_001.json",
+      "bytes": 2576,
+      "sha256": "e894fbe2a2ee78980798f3999d1d8a3e11050b7523a2a68e3ad731b9eaf91d3b"
+    }
+  },
+  "dispatchFiles": 105,
+  "ticketOutsideDispatchPins": true,
+  "ticketOutside451SourceSelection": true,
+  "linksVerified": true,
+  "standing": "Dated status projection only. Historical paragraph suffix and all HS plan rows unchanged. S5 controls untouched/unactivated; future successor must be actual accepted H06 if passed. No runtime/source/dispatch effect."
+}

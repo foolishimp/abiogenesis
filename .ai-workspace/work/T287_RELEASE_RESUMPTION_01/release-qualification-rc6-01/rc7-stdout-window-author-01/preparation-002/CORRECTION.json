@@ -1,0 +1,231 @@
+{
+  "kind": "hs03_bounded_operator_preparation_correction",
+  "status": "PREPARED_ONLY_NOT_STAGED_NOT_ACTIVATED",
+  "createdUtc": "2026-11-06T16:35:13.993334+00:00",
+  "predecessorManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/PREPARATION_MANIFEST.json",
+    "bytes": 23144,
+    "sha256": "161eb78985e35fe0e33ce3ce0ebaecd677cf3c3340fa8226a5e9378b4f98de0e"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/reviews/preparation-001/REVIEW.json",
+    "bytes": 10521,
+    "sha256": "77a2ebeb80cba24f4d5f22c7bb2fd376aa89b6c6ad9876b8f21200301360c03b"
+  },
+  "obligation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/NONADMITTING_SUCCESSOR_OBLIGATION.json",
+    "bytes": 1593,
+    "sha256": "6489d74427f058bc69908202442c84ddee4d6afcedfc62e45ac91df40bf98acf"
+  },
+  "corrections": [
+    "Deliver the exact durableOnly/pre-decision flush and non-admitting actual successor return/adoption obligation through existing native TASK, MEASUREMENT_PLAN and selected Q3 wording.",
+    "Complete exact lane selection, timeout/positive-regex syntax and required historical metadata pin validation before any temp/output allocation; preserve create-only executed reservations and all existing allocation accounting."
+  ],
+  "knownNameBasis": {
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_SELECTION.json",
+      "bytes": 40921,
+      "sha256": "a30054edef3387724abd56436c776cee5fed60036dfa6bee38bb814373be49f4"
+    },
+    "sourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+      "bytes": 240531,
+      "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+    },
+    "addedNames": [
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md"
+    ],
+    "removedNames": [],
+    "standing": "Names only. Accepted actual H03 returned source/close/disposition remain null."
+  },
+  "populations": {
+    "sourceNames": 451,
+    "nativeInputs": 20,
+    "presentSourceAndControlPaths": 471,
+    "handoffs": 3,
+    "plannedContextEntries": 474,
+    "productWritePaths": 17,
+    "stages": 4,
+    "serialLaneInvocations": 7
+  },
+  "replacements": [
+    {
+      "relativePath": "FUTURE_BINDINGS.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/FUTURE_BINDINGS.json",
+        "bytes": 1716,
+        "sha256": "6afd85eb6e8e16a833ccfe275f937389868f245fd6d5fb64c581717a700303e2"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/FUTURE_BINDINGS.json",
+        "bytes": 2169,
+        "sha256": "797a321f715f200121fd95e0a190346fb95053740a741870ab0d828dd34112e4"
+      }
+    },
+    {
+      "relativePath": "NATIVE_GRANT.template.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/NATIVE_GRANT.template.json",
+        "bytes": 47985,
+        "sha256": "7b67ddd8a241b033c01a28ea528440bf7864f712de232eb8558bd79af76d3953"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/NATIVE_GRANT.template.json",
+        "bytes": 48330,
+        "sha256": "5a512ee3e424add86dd29bc49c5ce9557b1e481a0c22b5c307d31a92d5dd35b1"
+      }
+    },
+    {
+      "relativePath": "PROVIDER_PROFILE.template.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/PROVIDER_PROFILE.template.json",
+        "bytes": 2617,
+        "sha256": "77d05e21b234b33ea0214a30109b5c833f2df74a9eff51bd156b68117fb54ce2"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/PROVIDER_PROFILE.template.json",
+        "bytes": 2639,
+        "sha256": "abbd303543102a4181830c02e65cdd6c636da706dcd10088cd9c8193e72abb28"
+      }
+    },
+    {
+      "relativePath": "RUNTIME_BINDINGS.template.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/RUNTIME_BINDINGS.template.json",
+        "bytes": 3372,
+        "sha256": "71040ee7a8923ef16bb11b3976b75714e1684cf2ebc88efc3a22c7654a0bbd65"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/RUNTIME_BINDINGS.template.json",
+        "bytes": 3389,
+        "sha256": "a20251848bdfaac7ffd7548089007e5df4ab21130f0ba57617369248b018f270"
+      }
+    },
+    {
+      "relativePath": "SOURCE_BEFORE.template.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/SOURCE_BEFORE.template.json",
+        "bytes": 39526,
+        "sha256": "1dfdee104d28ff833ddfddb08f33a27d5dd1f24eb7317283c6c1ab8137698262"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/SOURCE_BEFORE.template.json",
+        "bytes": 39724,
+        "sha256": "afe3473416c23e9c376e6e82524fd53d22034b60dabe480d5d2b94486e1db4d6"
+      }
+    },
+    {
+      "relativePath": "SOURCE_SELECTION.reference.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/SOURCE_SELECTION.reference.json",
+        "bytes": 274668,
+        "sha256": "8d504dc2a0cd154f18bad1dee8b2d2ff6a7c59f029bf66e7c91349742535bb59"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/SOURCE_SELECTION.reference.json",
+        "bytes": 43932,
+        "sha256": "7cf6388101e1feb89c51840ddd3ddf05e66c31461749b717886507dc17484993"
+      }
+    },
+    {
+      "relativePath": "inputs/C2_INPUTS.template.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/C2_INPUTS.template.json",
+        "bytes": 47837,
+        "sha256": "c6d94014ceb794e6c433a82bbf6e38edab2acec0d6b046fb49e766c1595b2896"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/C2_INPUTS.template.json",
+        "bytes": 47928,
+        "sha256": "cdf9bf97bd330b3ea0420323add9b935c30940c82afb0625429e58bc90461367"
+      }
+    },
+    {
+      "relativePath": "inputs/HS03_SELECTION.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/HS03_SELECTION.json",
+        "bytes": 2867,
+        "sha256": "dea1cd67075ffe9213cb6b8751a2a8a6e86b9ed441a4edf2fcfb376a1da68cf6"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/HS03_SELECTION.json",
+        "bytes": 3871,
+        "sha256": "12f6d61f2cf283977d1642e150c5951773b45da7c489da08e52189ecf0d5a88b"
+      }
+    },
+    {
+      "relativePath": "inputs/MEASUREMENT_PLAN.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/MEASUREMENT_PLAN.json",
+        "bytes": 2648,
+        "sha256": "9a858a832480dc31ad17c05a29e9916d9866b168ecf0a36c2f9a46a2152d3c3a"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/MEASUREMENT_PLAN.json",
+        "bytes": 4469,
+        "sha256": "cf485c470db48379af495a9dc89168e8df7c625f9c7c5e6eba3da3a369fa7494"
+      }
+    },
+    {
+      "relativePath": "inputs/SOURCE_CUSTODY.template.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/SOURCE_CUSTODY.template.json",
+        "bytes": 787,
+        "sha256": "e2557fa623acaa240631c76ad5b4f79d2a030bdf68b9f3a746a812a0e484c6fe"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/SOURCE_CUSTODY.template.json",
+        "bytes": 847,
+        "sha256": "27886121cd7e64585c8cd3ba656eb074190ef8363aab2532354d5662e57aabc4"
+      }
+    },
+    {
+      "relativePath": "inputs/TASK.md",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/TASK.md",
+        "bytes": 8715,
+        "sha256": "b7e08bee48b156f9606083b32b01c43ec2585c596f8d76c22da3b56cde6efd5f"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/TASK.md",
+        "bytes": 10164,
+        "sha256": "f9fd03e3c6549c4f0605b065b5112436ab506d396d1f94a5139d6fc7b8b5da88"
+      }
+    },
+    {
+      "relativePath": "inputs/prior-author-lanes.mjs",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/prior-author-lanes.mjs",
+        "bytes": 10409,
+        "sha256": "7f376706300f654960f8c762345400edec2d63c92a853bb9dd37bf709a511b93"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/prior-author-lanes.mjs",
+        "bytes": 10700,
+        "sha256": "66089ef19f70e0a234328655afb5362793a6365d3b0dff9ad561612873ffbfc9"
+      }
+    },
+    {
+      "relativePath": "workload.template.json",
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/workload.template.json",
+        "bytes": 151066,
+        "sha256": "d553f4c2c68797e2d24da077e1d0298911990a71df2dd402a7178852752efec4"
+      },
+      "replacement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/workload.template.json",
+        "bytes": 150831,
+        "sha256": "79a5544aa96d75093c15bcedf7dc6ac589b6476c4a2c8fe0741709f2204f09e2"
+      }
+    }
+  ],
+  "futureBindings": {
+    "acceptedH03Subject": null,
+    "acceptedH03SourceAfter": null,
+    "H03RootDisposition": null,
+    "actualH03Close": null,
+    "actualH03Resume": null,
+    "RootAdmission": null
+  },
+  "preservation": "Original35 listed file pins and separate obligation remain unchanged. Metadata remains referenced once at its original path; no copied46MB oracle or new framework. No native/source/staging/build/test/runtime/provider/credential effects."
+}

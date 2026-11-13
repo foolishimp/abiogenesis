@@ -1,0 +1,39 @@
+{
+  "recordedUtc": "2026-11-04T00:38:16.560375+00:00",
+  "kind": "native06_actual_worker_launch_timing",
+  "dispatchStartedUtc": "2026-11-04T00:28:02.311Z",
+  "priorFinalCloseSavedUtc": "2026-11-04T00:19:37.106145+00:00",
+  "priorOutcomeUtc": "2026-11-04T00:11:35.951Z",
+  "priorOutcomeToFinalCloseSavedMs": 481155.145,
+  "priorOutcomeToDispatchMs": 986360.0,
+  "rootAfterFinalCloseToDispatchMs": 505204.855,
+  "initialSetupReused": true,
+  "initialSdkSetupMs": 28938.979459,
+  "initialArtifactVerificationMs": 19748.530083,
+  "nativeWorkerLaunchMs": 562357.0,
+  "limits": [
+    "Actual immutable RC5 builder launching native06; no successor runtime speedup claim.",
+    "Initial SDK setup was reused; Root between-task work excludes previous fresh closure.",
+    "Selector actor wall and outside-actor wall are separate; no CPU attribution from these intervals."
+  ],
+  "nativeWorkerStartedUtc": "2026-11-04T00:37:24.668Z",
+  "nativeWorkerPid": 46857,
+  "nativeProcessRef": "process://abiogenesis/a5373e17e00f57de400af586df1552bd0393222177861823543f69d89f7eba29",
+  "runRef": "run://abiogenesis/ae4338b56e450fcb8b3f8c934c1b1475eb5be4a6c99332bc45fd0b68cb762495",
+  "dispatchToInitialSelectorMs": 250520.0,
+  "initialSelectorMs": 76789.0,
+  "selectorExitToNativeWorkerMs": 235048.0,
+  "nativeStartCoordinates": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 44776,
+    "eventId": "event://abiogenesis/ff8c77f2557daac8f8651a0267fba8129088c3ad0c58d1b80908694b5803ebc1",
+    "eventTime": "2026-11-04T00:37:24.668Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/ae4338b56e450fcb8b3f8c934c1b1475eb5be4a6c99332bc45fd0b68cb762495",
+    "offset": 520836273,
+    "rowBytes": 1888,
+    "rowSha256": "06197003ad9fd27cac174c693c9fc0132ab5b4f261dc78e2e7b1ce6e6b125b96",
+    "processRef": "process://abiogenesis/a5373e17e00f57de400af586df1552bd0393222177861823543f69d89f7eba29",
+    "pid": 46857
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "file": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 624.5426250000019,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 3,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0,
+    "topLevel": 3,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "D1 native operating-basis projection conserves exact preparation identity",
+      "file": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_D1_NATIVE_PROJECTION_EVIDENCE unset; requires an explicit closed native proof observation record",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "D1 assessor statement domain matches native assembly and preserves strict relation refusals",
+      "file": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_D1_ASSESSOR_DOMAIN_EVIDENCE or ABI5_D1_ASSESSOR_PREDECESSOR_ROOT unset; requires explicit closed native observations and predecessor package",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/075-t287-d1-semantic-stage.jsonl",
+    "bytes": 1562,
+    "sha256": "be5cebed582d723ffa115ee4f384cf840b6fd5d6ef0135f243999a6f329f1980"
+  },
+  "commandReceipt": "commands/075-t287-d1-semantic-stage.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

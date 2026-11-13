@@ -1,0 +1,85 @@
+{
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 269,
+        "sha256": "84a38e511db5c7806b93f2eebf87d1002eea6c325cd1287b673eb48ebb2bc18d"
+      },
+      "target": "rc4-operator-inputs/native-recovery-14/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 269,
+      "sha256": "84a38e511db5c7806b93f2eebf87d1002eea6c325cd1287b673eb48ebb2bc18d"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/task.DRAFT.md",
+        "bytes": 6073,
+        "sha256": "677a516d2116c5bee86c7ada7c4f0f440eab1d6da5b104e82035d53d9d8921ec"
+      },
+      "target": "rc4-operator-inputs/native-recovery-14/task.DRAFT.md",
+      "bytes": 6073,
+      "sha256": "677a516d2116c5bee86c7ada7c4f0f440eab1d6da5b104e82035d53d9d8921ec"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/rubric.DRAFT.json",
+        "bytes": 1775,
+        "sha256": "ea3d62a9f9a956d5e2b4e18876e34cf3c8ea8e75c3e10c5c698b33a6dfde1481"
+      },
+      "target": "rc4-operator-inputs/native-recovery-14/rubric.DRAFT.json",
+      "bytes": 1775,
+      "sha256": "ea3d62a9f9a956d5e2b4e18876e34cf3c8ea8e75c3e10c5c698b33a6dfde1481"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/NATIVE_GRANT.DRAFT.json",
+        "bytes": 7918,
+        "sha256": "c1b1f080ebda4e34d49799cf39335e9f09f4e795b7361afb9f22dcfbf662444f"
+      },
+      "target": "rc4-operator-inputs/native-recovery-14/NATIVE_GRANT.DRAFT.json",
+      "bytes": 7918,
+      "sha256": "c1b1f080ebda4e34d49799cf39335e9f09f4e795b7361afb9f22dcfbf662444f"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 427,
+        "sha256": "0960f6a903d374dd163d820a97747430313fd151e1c3f0aab3d96e7840324ba7"
+      },
+      "target": "rc4-operator-inputs/native-recovery-14/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 427,
+      "sha256": "0960f6a903d374dd163d820a97747430313fd151e1c3f0aab3d96e7840324ba7"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 2611,
+        "sha256": "cb3e68b3396c37f441c2c7cb70e6eba3905510713f9216884c38ac7446dd56d5"
+      },
+      "target": "rc4-operator-inputs/native-recovery-14/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 2611,
+      "sha256": "cb3e68b3396c37f441c2c7cb70e6eba3905510713f9216884c38ac7446dd56d5"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/readiness.py",
+        "bytes": 2570,
+        "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-14/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/readiness-inputs.json",
+        "bytes": 92442,
+        "sha256": "4d1d973f5d3cc34b8e129ebaac972a7225b94762c8131102679180034091aba2"
+      },
+      "target": "rc4-operator-inputs/native-recovery-14/readiness-inputs.json",
+      "bytes": 92442,
+      "sha256": "4d1d973f5d3cc34b8e129ebaac972a7225b94762c8131102679180034091aba2"
+    }
+  ],
+  "meaning": "Exact operator input materialization only; no Product source edits."
+}

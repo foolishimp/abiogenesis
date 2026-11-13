@@ -1,0 +1,47 @@
+{
+  "file": "test_env/tests/integration-shared-seams.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 599.2204580000034,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "shared R10 Catalog verifier preserves exact supplied environment and narrowed View on the integrated owner",
+      "file": "test_env/tests/integration-shared-seams.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/attempt-01/program-ready-16.json (sha256:2147862a16f8)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-003/events/016-integration-shared-seams.jsonl",
+    "bytes": 1267,
+    "sha256": "a854b1297bf0de5102f040e77fff55c5c67011b031017be92c902e06acd450e6"
+  },
+  "commandReceipt": "commands/016-integration-shared-seams.result.json",
+  "workspace": "/private/tmp/abg-r8c-003/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

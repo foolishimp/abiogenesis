@@ -1,0 +1,93 @@
+{
+  "status": "SYNTAX_AND_STRIPPED_TEXT_CHECKS_PASSED",
+  "checks": [
+    {
+      "script": "prepare-r1.mjs",
+      "syntaxExitCode": 0,
+      "instrumentationStrippedTextByteIdentical": true,
+      "strippedSha256": "ad54eb621646194993d94360edd03eed3f0408fbbe12e89d50529a9f3f9e83a3",
+      "insertedTimingBlocks": 30,
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/timing-preimages-001/prepare-r1.mjs",
+        "bytes": 13432,
+        "sha256": "ad54eb621646194993d94360edd03eed3f0408fbbe12e89d50529a9f3f9e83a3"
+      },
+      "amended": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/prepare-r1.mjs",
+        "bytes": 21293,
+        "sha256": "277c441d42354bea5aa255e96fb086d5ceafc065cf533d96cec3c7a3a5669528"
+      }
+    },
+    {
+      "script": "dispatch.mjs",
+      "syntaxExitCode": 0,
+      "instrumentationStrippedTextByteIdentical": true,
+      "strippedSha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822",
+      "insertedTimingBlocks": 21,
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/timing-preimages-001/dispatch.mjs",
+        "bytes": 5558,
+        "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+      },
+      "amended": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/dispatch.mjs",
+        "bytes": 11850,
+        "sha256": "af2bcbc6cd35a451964222dae74f043f7198d5b713ae78bebd8f5a7b0efbfa44"
+      }
+    }
+  ],
+  "preserved": [
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/CONTROL_PREPARATION.json",
+        "bytes": 25517,
+        "sha256": "0e858c1ff159a238f2b0f99d56453f508e3693b93644c3124cdd7640d77f490e"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/timing-preimages-001/CONTROL_PREPARATION.json",
+        "bytes": 25517,
+        "sha256": "0e858c1ff159a238f2b0f99d56453f508e3693b93644c3124cdd7640d77f490e"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/CONTROL_PREPARATION.md",
+        "bytes": 2643,
+        "sha256": "74efcb88e2f01f83413bfea24544b1cab6e16d42bf669d8e1d159eaba7f7157e"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/timing-preimages-001/CONTROL_PREPARATION.md",
+        "bytes": 2643,
+        "sha256": "74efcb88e2f01f83413bfea24544b1cab6e16d42bf669d8e1d159eaba7f7157e"
+      }
+    }
+  ],
+  "unchangedOtherControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/RUNTIME_BINDINGS.json",
+      "bytes": 1046,
+      "sha256": "f028f55182f6e051056a6735e0a44ab5a958b2a1484c6dde006981d3c02657bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/workload.json",
+      "bytes": 96072,
+      "sha256": "16b43895e003d9816d902a723418825a73757593859f04d457388086890c4c7a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/PROVIDER_PROFILE.json",
+      "bytes": 2101,
+      "sha256": "28f4765e2e81542431a55051557658366963e3620471a5d94a9f92def85f27f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/C2_RECIPE.json",
+      "bytes": 45548,
+      "sha256": "1dda60a62f5e18d1d500df46b875b0ceb3d369d63b588e0e41b332d065209729"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/PROOF_ONLY_GRANT.json",
+      "bytes": 9787,
+      "sha256": "86a9000c2a4e3a8c5e40e963330c1ca5b18999c344a3d4f8cdcdd014e00f52f0"
+    }
+  ],
+  "checkCorrection": "The first stripping check used a label regex that omitted underscores and failed to remove those marker blocks. Corrected validation regex accepts the actual label alphabet; no script execution occurred."
+}

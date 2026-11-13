@@ -1,0 +1,7 @@
+{
+  "roleTransition": "Executive approved F4/repricing decision -> Root operator Writer",
+  "authority": "Owner approved RC5 scope; ../method-01-r2/ROOT_REPRICING.json",
+  "scope": "Prepare F4 task/operator inputs, exact maintained dispatch, passive source custody, status records; no Product source coding",
+  "sourceCommit": "9f3f22b0f733718bee88d5ca1cc306ed0446797a",
+  "at": "2026-11-03T09:38:09.174613+00:00"
+}

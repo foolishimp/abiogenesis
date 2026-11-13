@@ -1,0 +1,366 @@
+{
+  "kind": "installed_public_javascript_only_no_execution",
+  "packageVersion": "0.42.0",
+  "files": [
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-34MYV7JD.js",
+      "bytes": 2451,
+      "sha256": "019fd0819c9e85555d6a6fbe468a53f647955dca2b5d629c6a920ef9ca8de6de"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-3IS7GD6D.js",
+      "bytes": 12524,
+      "sha256": "62d55760b33bf5f31531eb4043950349f503df86059c996f65e83886996b5936"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-4SLGT6YD.js",
+      "bytes": 49200,
+      "sha256": "a4622cb6a32bb97b757fa5150484d91bcaab05309367c7eb1e762029ee0bc055"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-5AUYMPVF.js",
+      "bytes": 858,
+      "sha256": "635f72d016fb93f953aaa472754d2d5c43a29838a7158058b0ef7a6690a1f09d"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-5PS3AYFU.js",
+      "bytes": 1183,
+      "sha256": "7163d845e3ddca0d222e60d4dd8b7a1f402f69d720f69c3ed16b89f74b16d515"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-664ZODQF.js",
+      "bytes": 123520,
+      "sha256": "0e5e41b8af7ca2ddd1bc3509c7276559d48a99705d6716b6d45c4c64b4f9168c"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-7C6GGDK6.js",
+      "bytes": 3431,
+      "sha256": "0a8a80642f11bed96ebe4800d61c72cadb2fa08096f48b53c6ef397ab44034ca"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js",
+      "bytes": 14722071,
+      "sha256": "38ea40ff0e78168243378aa05bf188e52bb88fb04886c03f7df462be906238b0"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-BCYBA52D.js",
+      "bytes": 658040,
+      "sha256": "1c34f78ccc8c0707e899e3f3dcef5199c0c61d6b0d028dcd7c6e802c1901cccc"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-CHERUG6W.js",
+      "bytes": 2782011,
+      "sha256": "331ad3b0daae67d780e9c0c629c0d4508a3897216bdf6a59a0c856a2c8e770ab"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-COKAF5GM.js",
+      "bytes": 3803,
+      "sha256": "d47120335a34adb0abe98098ca6c27005a3c7d9aec1f3885bdb1d2fe97767b9a"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-COQP2M4D.js",
+      "bytes": 2782011,
+      "sha256": "08924f9d9e182d15656697d7e0d9969eeaef49f722e5ee1c25734973f817210a"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-CYEIWMZJ.js",
+      "bytes": 49200,
+      "sha256": "20946d9244d4a9951ac4233f1209189561c636fa6fea2a1070db32596254c718"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-DAHVX5MI.js",
+      "bytes": 205715,
+      "sha256": "ad323dcd44fc5b8564417d166a27258a197160334610c951c98e368e82da1f5f"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-DMWX7UP6.js",
+      "bytes": 14747346,
+      "sha256": "fcdd3520209a3e33fe42e534606332ff7628805a5a6e0be773945d2d53d90be5"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-DN4XSYRG.js",
+      "bytes": 14747366,
+      "sha256": "4c762fc02c66b37b8df8a8762836dd63736f89309261edcee073dd80d1f10870"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-ECNYAST2.js",
+      "bytes": 1973376,
+      "sha256": "98b9edcd55258919e217a9fc0dd880e90e06f21208df8e3ba42d989fd9bd2b05"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-EDKX67D6.js",
+      "bytes": 658056,
+      "sha256": "e6d90fed79600ee20c1022804ff3751f0f11e117c391c51c6811c7781c383e34"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-FCAODPNO.js",
+      "bytes": 2782086,
+      "sha256": "5d8ac4575326b8cb62c5872ade402cfcfa9bb42c7fb1b7d673dd40a9d42bd3d5"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-G2VTSEZ6.js",
+      "bytes": 19573,
+      "sha256": "0e576a5615806d8fc1e3d1962727d3beb954e6aa1bbb16177271ac4118b21dbd"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-GA527JB7.js",
+      "bytes": 19547,
+      "sha256": "d0e64506867ab9e387f8b188ab3bd1a440c6754de93cb4f0446966d849cfc07d"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-I7AME6VC.js",
+      "bytes": 19547,
+      "sha256": "25cf69e115b1f7c836278b50646166a7efaf6c3e14c88c1729272575925a121e"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-IUUIT4SU.js",
+      "bytes": 56507,
+      "sha256": "878469f1440495db8e40b033dde88ab96c0ee7d9e40c3deb4cee91dde1c8031a"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-JEW7ZIWE.js",
+      "bytes": 1970519,
+      "sha256": "04843eb536d652934f2f119ba36c753e832530ea98b6cce9c2534e1af9b29bc6"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-KVEAHIIV.js",
+      "bytes": 3431,
+      "sha256": "e2b8d7956ad18218346402c28abffbed7919129477f925c083b0c8cbf0df20ed"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-LATVEETM.js",
+      "bytes": 3803,
+      "sha256": "8ff37f5b4d397301b80c549d3586bad0830becebd967531a680a82bffbb222be"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-NTOPH4WG.js",
+      "bytes": 3803,
+      "sha256": "e387cf82967e96aa329b24e7f324861aededeb3c7f2567238d353884392bec55"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-PUDLNWHE.js",
+      "bytes": 3431,
+      "sha256": "4d6e33ca8dd584cbb47ea8ad834989164254d301d3e3590de547667ead97bc1c"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-QOZSZYL7.js",
+      "bytes": 12524,
+      "sha256": "c50d4a012e409445f43388ec6780a481574d27e23c9e9a5adca92091bdea2802"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-RJTRUG2J.js",
+      "bytes": 39789,
+      "sha256": "d4003c271f32186f0b8928e6e0cc913dbd6d2771d697d88b4dc45fac58afe84d"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-WIXUKOZA.js",
+      "bytes": 49200,
+      "sha256": "cfff040849f321fb01ba921be3b1bb4ecd9de499cde4b3e556f444a0af1ca6bf"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-XUMRUXOT.js",
+      "bytes": 658040,
+      "sha256": "f0b20baa7d5b1e7c1f8dbf9c8a4437e17b44d377e1b751a47d5a255e5905e47e"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-ZNMQA242.js",
+      "bytes": 12524,
+      "sha256": "0cc7719bab7da506fb473e1fa7f98af069791d8fa9bef4d48d768b2bd7c678a5"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/cleanup-3RILFNVM.js",
+      "bytes": 932,
+      "sha256": "b7c89b90d3a7d91df9a3315e3d045b984c8eb394f8f445cbe878dfa4b41b8c36"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/cleanup-SVRKYBR6.js",
+      "bytes": 932,
+      "sha256": "69e789af3362b6966a050e689cf51496d824d90910847cb1943bb9a673fac95e"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/cleanup-XFVHHDVO.js",
+      "bytes": 932,
+      "sha256": "731059cba1eac41b18bc9015227053029032bdd4979524a35f6cf9f22a6646f0"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/core-B5S6HZJT.js",
+      "bytes": 48727,
+      "sha256": "6de61478ed40b6b217f64af5a763d29dd026cf0e7c5784df292e3086070eb484"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/core-FRVSDP2C.js",
+      "bytes": 48727,
+      "sha256": "6f76b1c5317fd22dd8834389985d20be9922d543f33d1fbf520850a3db2a9d9a"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/devtools-36NN55EP.js",
+      "bytes": 695981,
+      "sha256": "1d0852c4063b32dba7b96551e8910a721254138a11b7f31d7d5d36f30d5cd92d"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/devtoolsService-RUEO5PGP.js",
+      "bytes": 28016,
+      "sha256": "819821793e3666a3dbb6125177e02042b0dc190ffcbc116481adfd5f19d4c5aa"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/devtoolsService-TRDGMQLJ.js",
+      "bytes": 28016,
+      "sha256": "d92d3a9985bca8523d22ebd1bb384e5926b05283a30c58cd66fe17cd18f12a54"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/devtoolsService-VM2WTHBX.js",
+      "bytes": 28019,
+      "sha256": "7a922d336585213b075a0c05e97d013d1bba555019ca2103c796c08cbf4ecb09"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/dist-6BN2CJPN.js",
+      "bytes": 48727,
+      "sha256": "d79f6f842d0e6fc09987511f67c561cefb1646e609923eca0fe116c4e09121af"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/dist-T73EYRDX.js",
+      "bytes": 356,
+      "sha256": "283f7e9db311ec5a64de4320f7b7bd1134b71b6f58c5222a4f54e3130616817a"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/events-XB7DADIJ.js",
+      "bytes": 418,
+      "sha256": "1b90bd50579551a76fe585ce872c1d4b1f21dcd6aaf2fb8eaffcdd58b22ae86e"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini-GHUELHBF.js",
+      "bytes": 583113,
+      "sha256": "47fc2e7afe4f08df6501c8f5db9b4b4510db070c45c6b19030b15554a92dad4d"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini-NQPVX5JC.js",
+      "bytes": 583103,
+      "sha256": "ac8555ef85457f0fa5109acca0d54f659ef6d885332ed9e6b10576c23c4d38be"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini-QSTQ2DBG.js",
+      "bytes": 582804,
+      "sha256": "c375ee6b91ac3fcd2a1cc4a850e7a22b2de2b059d82da47468ffe1a6f74687e8"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini.js",
+      "bytes": 5099,
+      "sha256": "dc0f81c4898b93ce79b30baa0dd4f38903ab4c8460d63aa2462446bf253b8866"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/getMachineId-bsd-TXG52NKR.js",
+      "bytes": 1548,
+      "sha256": "3c76433915a83d2a5b81af97acf31e6aa3daed04bc2a05b6f265350062cd6d9f"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/getMachineId-darwin-7OE4DDZ6.js",
+      "bytes": 1555,
+      "sha256": "ca4b59342f8907fb7b5d503460a9092e03ad6bba18582a26366dce9e992be0f8"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/getMachineId-linux-SHIFKOOX.js",
+      "bytes": 1344,
+      "sha256": "a7ab266284714ba47d26b21a0c4aee8e63d56e4b6e481051516965ba6fc4d4d5"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/getMachineId-unsupported-5U5DOEYY.js",
+      "bytes": 1064,
+      "sha256": "0e03fdae844b9d4bf496d97402434d73271896977b6152c0142c137252620325"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/getMachineId-win-6KLLGOI4.js",
+      "bytes": 1722,
+      "sha256": "ac1ae802155b599a7470e4bc3a72b57b257f63d81cd8b37c29685c398ce800eb"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/interactiveCli-453M2IVE.js",
+      "bytes": 1287970,
+      "sha256": "c5a7c5ac7b4b03d82c56b3b7fce60f6355b3b45e8a65e8fa9c2b1725c5ff555c"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/interactiveCli-AG2YWL2O.js",
+      "bytes": 1286966,
+      "sha256": "41815d3cc682d5efa7c9a1ba0a710e85262cf3a84287da0e4281789e06bda87e"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/interactiveCli-MZFG35NB.js",
+      "bytes": 1287970,
+      "sha256": "87064a9d9f4fdd994652af9bc0657b1b9c9cf45a73b237c2f8f7188f8b453b97"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/liteRtServerManager-BXQ6VVWP.js",
+      "bytes": 2106,
+      "sha256": "6796ede287bea6ca9dd68ea566538db44d4734c649b6ae6dcf4fa19b3f210fc3"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/liteRtServerManager-G4Q7OVBX.js",
+      "bytes": 2106,
+      "sha256": "b1f65c84f148b2557061eaaed9c73b029a84d0898a5163427c090a9ed703d013"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/liteRtServerManager-S7WL25VD.js",
+      "bytes": 2106,
+      "sha256": "0b62b91fb72fcc1b66178d5dcac0226b67f52e35289a9395a9707898f6097071"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/memoryDiscovery-FB7MMKTA.js",
+      "bytes": 980,
+      "sha256": "9d2b45b0776538956fda6d1df22558f4d08068bc49821cd5413f6fe1fe307bbd"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/memoryDiscovery-KSYZVCWF.js",
+      "bytes": 980,
+      "sha256": "d64e3339aab1c08e04550b9e5c3b86651be79c9707d00b68a122154830c8b03f"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/multipart-parser-KPBZEGQU.js",
+      "bytes": 11689,
+      "sha256": "067135d6ff18ff970b8ab8f6c8d085cf4ed1cf393ff7eb589378c47cc1baa579"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/oauth2-provider-5UF5WEE2.js",
+      "bytes": 9157,
+      "sha256": "8cabc37d591c6780e1a05a7d8f6e18a75d6314f7785d10754494576637d0b9da"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/oauth2-provider-H7G6RSFW.js",
+      "bytes": 8871,
+      "sha256": "f8876d5815f1114bfc93edbe8348dca593ad0f402deb8dba6b956f3ca45d8b70"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/oauth2-provider-VR4DL6AL.js",
+      "bytes": 9157,
+      "sha256": "35a4afb73ae5e8a54e2ae63fb7e1bc5a385a8865f637d56053c2852c18fff295"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/src-QVCVGIUX.js",
+      "bytes": 46994,
+      "sha256": "ae1350970356b00f6996b78952a19ad9921066dabd1bc2b9f4c7e208c6e0e3ff"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/start-2SKRN43X.js",
+      "bytes": 652,
+      "sha256": "a9d82bd1267c8a7ffb8dacc1da05e7bae0a52edf34a3fa7c37b0fc34af582c66"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/start-CQBSKFYB.js",
+      "bytes": 652,
+      "sha256": "a8fe817850a74d3e0f28307399e24773dd342c55899908d79b07c9f965ec3eae"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/start-NIMXQJYB.js",
+      "bytes": 652,
+      "sha256": "f426c3dc25616b3bdbb0840f9f4fb322ee71564574e447a5c16a0731ee3e372b"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/tree-sitter-XSXMMIUZ.js",
+      "bytes": 274484,
+      "sha256": "52bf2cdbd4625dda007eaa000dee56949238ed7055d5c72a26dc78938b8dff42"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/tree-sitter-bash-LMFXTVOP.js",
+      "bytes": 1841544,
+      "sha256": "8327848fcd92d2f4737422c797749a650fd21261b0c28d6ec7cead86e2276c2d"
+    }
+  ]
+}

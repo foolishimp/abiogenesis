@@ -1,0 +1,79 @@
+{
+  "at": "2026-11-08T18:48:49.461Z",
+  "hostPid": 21294,
+  "rows": [
+    {
+      "pid": 1,
+      "ppid": 0,
+      "pgid": 1,
+      "state": "Ss",
+      "elapsed": "34-16:06:34",
+      "command": "/sbin/launchd"
+    },
+    {
+      "pid": 21294,
+      "ppid": 27586,
+      "pgid": 21294,
+      "state": "Ss",
+      "elapsed": "00:01",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    {
+      "pid": 21296,
+      "ppid": 21294,
+      "pgid": 21296,
+      "state": "Ss",
+      "elapsed": "00:01",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    {
+      "pid": 21297,
+      "ppid": 21296,
+      "pgid": 21296,
+      "state": "S",
+      "elapsed": "00:01",
+      "command": "npm run test:unit"
+    },
+    {
+      "pid": 21310,
+      "ppid": 21297,
+      "pgid": 21296,
+      "state": "S",
+      "elapsed": "00:01",
+      "command": "node"
+    },
+    {
+      "pid": 21312,
+      "ppid": 21310,
+      "pgid": 21296,
+      "state": "R",
+      "elapsed": "00:00",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    {
+      "pid": 21313,
+      "ppid": 21294,
+      "pgid": 21294,
+      "state": "R",
+      "elapsed": "00:00",
+      "command": "/bin/ps"
+    },
+    {
+      "pid": 24512,
+      "ppid": 1,
+      "pgid": 24512,
+      "state": "Ss",
+      "elapsed": "34-15:39:09",
+      "command": "/Users/jim/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-apple-darwin/bin/codex"
+    },
+    {
+      "pid": 27586,
+      "ppid": 24512,
+      "pgid": 27586,
+      "state": "Ss",
+      "elapsed": "02-16:43:03",
+      "command": "/Users/jim/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-apple-darwin/bin/codex"
+    }
+  ],
+  "standing": "Observed host ancestors and descendants only; detached-descendant absence is not proved."
+}

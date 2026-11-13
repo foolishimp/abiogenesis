@@ -1,0 +1,46 @@
+{
+  "status": "ROOT_ADMITTED_RC11_PROOF",
+  "utc": "2026-11-09T08:32:31.833266+00:00",
+  "bindingSha256": "f491f7dd07f122e9061912cbd48700e027c752bdc1ca4230b61326913d07ce8d",
+  "controlsSha256": "e56ad4df8c29ea7226d277a47a91fc9edd3f126126e4c68584fe1cecedfdc6d4",
+  "readySha256": "8d8acb1cb8198fe195f7a55289ae31d76f19682735b3da9f9be464fc450efa85",
+  "commandIds": [
+    "build",
+    "lint",
+    "native-assessment",
+    "selected-action",
+    "owned-lifetime",
+    "unit",
+    "r6",
+    "f04a"
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/READY.json",
+      "bytes": 3129,
+      "sha256": "8d8acb1cb8198fe195f7a55289ae31d76f19682735b3da9f9be464fc450efa85"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/CONTROLS.json",
+      "bytes": 5596,
+      "sha256": "e56ad4df8c29ea7226d277a47a91fc9edd3f126126e4c68584fe1cecedfdc6d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/proof.py",
+      "bytes": 11223,
+      "sha256": "078bbdfb90ee2cf803b998438d50606e505205e7abb20e39e32be95408758b0f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+      "bytes": 298978,
+      "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/RETURN.json",
+      "bytes": 10143,
+      "sha256": "6202205241d2c3690242658558f98a3ef5a1e6d8e1dc8c08ef7b61b95b553dce"
+    }
+  ],
+  "observedFreeBytes": 387030392832,
+  "rootDecision": "Root inspected actual source-freeze SHA45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621 (298978B), cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c/1340rows and newloader/nativeconsumer: finiteproof is next completeness discriminator, not newauthor. TwoindependentReviewers nowread frozen-source. New Worker mechanicalproof activation grants binding and ONE sequential execution of prepared P11/proof-01 READY8d8acb1cb8198fe195f7a55289ae31d76f19682735b3da9f9be464fc450efa85, CONTROLS e56ad4df8c29ea7226d277a47a91fc9edd3f126126e4c68584fe1cecedfdc6d4, proof.py078bbdfb90ee2cf803b998438d50606e505205e7abb20e39e32be95408758b0f. I readrunner/controlsexactly. Bind sourceInventory toactualfreeze and frozenSourceRoot=P11/native-02/frozen-source (notmutableC11), statusFROZEN_C11_PROOF_SUBJECT, newprivate/tmpabg-rc11-proof-20261109-01; recordexactROOTexecutionadmission withthismessage/subject/pins. Permittedeffects newP11/proof-01 binding/admission/receipts andcreateonce privateproof source/work/temp, build/lint/complete3selectedfiles/unit/R6/F04A viapinnedrunner only, ownedlocalprocess/loopbackHTTP/tempABGstores implicitintheexplicit8commands. No paidprovider/sourceedit/C11build/main/Git/install/globalpin effects. Originalfrozen1340sourceguard/14controlledbyteequal/deps/NPM/onlyabsentseeds asprepared. Stopfirstfailure/incomplete/timeout/scopechange, preserveactualreceipts, noautomaticrepair/rerun/extension. No qualificationclaim. Beforeproofexecute closecompact native02failure/deviationreturn (no furtherdiscovery). Then run8commands with<=45spolls, reportmajorresultpromptly. FinalneedactualTAPcounts/skips and8physicaldiagnostics. Do NOTpack/recompileyet; afterproofpass wewill freeze exacttestedbuild+manifest thenpackignore-scripts and provepackagecorrespondence separately toavoidsource/archive mismatch. No newnativecall merelyforreport."
+}

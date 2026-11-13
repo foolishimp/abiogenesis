@@ -1,0 +1,66 @@
+{
+  "kind": "bounded_output_slot_static_checks",
+  "status": "PASSED_SYNTAX_AND_ORDER_CHECKS_ONLY",
+  "createdUtc": "2026-11-06T17:15:44.212180+00:00",
+  "syntax": [
+    {
+      "argv": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-003/prepare-and-dispatch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-003/prepare-and-dispatch.mjs",
+        "bytes": 19666,
+        "sha256": "7ae4d14404c11792c7f8f8894200c18aa0ae345322182bad4d414c091d8a34fc"
+      }
+    },
+    {
+      "argv": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-003/launch-owner-script.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-003/launch-owner-script.mjs",
+        "bytes": 2527,
+        "sha256": "26cf022c696712d652b9a59538185629693df3f5c7260f511e0ace3d30dd0413"
+      }
+    },
+    {
+      "argv": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/run-local-cut.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/run-local-cut.mjs",
+        "bytes": 25084,
+        "sha256": "a4cca4be8dd7030c9d25b189fd1e39d664ecb3ffd6b66399f4a1d85e72ba208e"
+      }
+    }
+  ],
+  "static": [
+    "S5 actual15-slot check before resume parse and acquisition",
+    "S5 actual capacity is under execution output root",
+    "Launcher4 canonical receipt slots checked before command child",
+    "Cut final verification absence before install allocation and owner-install",
+    "Growth fresh output/temp roots before command execution"
+  ],
+  "preservedPins": {
+    "S5Original": 35,
+    "S5Preparation002": 18,
+    "cutPreparation002": 10,
+    "growthPreparation002": 10
+  },
+  "executedRuntimeOrProductCommands": 0
+}

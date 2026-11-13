@@ -1,0 +1,158 @@
+{
+  "kind": "actual_operator_custody_and_selected_proof_report",
+  "status": "CUSTODY_CLOSED_SOURCE_PARTIAL_REAL_ROUTE_BLOCKED",
+  "recordedUtc": "2026-11-06T12:33:42.320177+00:00",
+  "bindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/BINDINGS.json",
+    "bytes": 7155,
+    "sha256": "b641e783583d29397f580d0e4bb7248aee8c328197754cee1a3835290f0057c9"
+  },
+  "binder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/bind-return.mjs",
+    "bytes": 16315,
+    "sha256": "23e53b67955e95d5dca3e431a13a1bfdfff68f5828681ceaedcd2c582a4d9bcd"
+  },
+  "syntaxCheck": {
+    "command": "node --check bind-return.mjs",
+    "exitCode": 0,
+    "scope": "Syntax only; no source/build/test/runtime invocation."
+  },
+  "binderExecution": {
+    "exitCode": 0,
+    "heapMiB": 8192,
+    "runtimeAcquisitions": 0,
+    "eventRowsRead": 1,
+    "bytesReadFromPhysicalEventSpan": 50259352,
+    "actualReceiptJsonParsedOnce": true,
+    "actualResumeJsonParsedOnce": true,
+    "freshColdReads": 0
+  },
+  "close": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/CLOSE.json",
+    "bytes": 5790,
+    "sha256": "a0c7312331eef99815ea21ff81c7d585f8dfdc144f20d170451b58d7d3eb673b"
+  },
+  "physicalNativeResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/NATIVE_RESULT_COORDINATES.json",
+    "bytes": 4248,
+    "sha256": "f7bd83d4fc49775806371fc7ff7bbb88d758fbae6ad6dfbf5947ec0e8b1a2488"
+  },
+  "sourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/SOURCE_CUSTODY.json",
+    "bytes": 516652,
+    "sha256": "d334d14baa145c42d2ea668d073fa868b954e736cc5c90a6fd5642f640be4394"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/SOURCE_AFTER.json",
+    "bytes": 504858,
+    "sha256": "0fee4bdb8486eb84390b1c6d19e4a197c6244b2b366b4c3704359e17e18f9bae"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 18826,
+    "sha256": "fa6db03cfdc19517ba0107a49bcb2e2b83ef82f003b05e9eb82b2da9a8f5e400"
+  },
+  "earlySubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-stage-001/SUBJECT.json",
+    "bytes": 262855,
+    "sha256": "be89fd7c2d333ebc3051cad32c9cd336e7e057629be0be54fc3bbcff9529cfe1"
+  },
+  "proof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-stage-001/PROOF_INVENTORY.json",
+    "bytes": 15493,
+    "sha256": "b3d317d0a83d2a655f424a1779c07a04b7809e437b09e7db1138cffe4f5a997f"
+  },
+  "reproofDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/POST_RETURN_REPROOF_DISPOSITION.json",
+    "bytes": 6294,
+    "sha256": "aa76b732f0d0c08065fbb1a3f4b1073c7ed925bc4c1c5f3daecdc1fc56691e55"
+  },
+  "relations": {
+    "originalFullTypedTerminalOwnerShapeAndDigests": true,
+    "actualTerminalExactPhysicalResultRowAndProducer": true,
+    "genuinePredecessorEntryPrefixMatchesFClosedPrefix": true,
+    "actualSuccessorResumeMatchesF2Close": true,
+    "nativeAfterMatchesFrozenTestedStageAndLiveSource": true,
+    "sourceRows": 450,
+    "stagedControls": 18,
+    "handoffs": 3,
+    "totalMatched": 471,
+    "changedAuthorizedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "inheritedTrackedChangedCount": 58,
+    "finalTrackedChangedCount": 59,
+    "inheritedNewPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+    ],
+    "newSourceBodyCopies": 0,
+    "newHandoffSnapshotCount": 3
+  },
+  "proofCounts": {
+    "before": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "after": {
+      "tests": 9,
+      "pass": 8,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  },
+  "finiteAllocations": {
+    "stages": 2,
+    "stageCap": 3,
+    "lanes": 4,
+    "laneCap": 5,
+    "automaticRetries": 0
+  },
+  "timings": {
+    "sdkHostStartUtc": "2026-11-06T11:52:06.460Z",
+    "sdkHostEndUtc": "2026-11-06T12:25:54.134Z",
+    "sdkHostWallMs": 2027638.951958,
+    "canonicalOuterHostWallMs": 2029073.160375,
+    "cumulativeMarksMs": {
+      "beforeRunIdentityMs": 1591.50525,
+      "acquiredMs": 65365.451916000005,
+      "environmentMs": 123237.186541,
+      "preparedMs": 125884.577625
+    },
+    "separateFrameworkIncrementsMs": {
+      "identityMs": 1591.50525,
+      "acquisitionMs": 63773.946666,
+      "environmentMs": 57871.734625,
+      "constructionPreflightMs": 2647.3910840000026
+    },
+    "nativeStartedUtc": "2026-11-06T11:54:18.734Z",
+    "hostStartToNativeStartMs": 132274,
+    "preparedToNativeStartMs": 6389.422374999995,
+    "firstAuthoredChangeUtc": null,
+    "nativeStartToAfterStageReceiptMs": 1465675.009,
+    "actualNativeExitUtc": null,
+    "resultAdmittedUtc": "2026-11-06T12:25:35.471Z",
+    "selectedStageSetupMs": 3468,
+    "selectedCompileGenerateGuardMs": 90277,
+    "selectedLaneSetupMs": 483,
+    "selectedLaneCommandMs": 380042,
+    "standing": "Single RC6 one-call SDK session datum. Worker analysis/authoring and proof are not framework startup. Stage/lane timing is inside native work. No matched speedup, HS02 held-session or warm-read proof."
+  },
+  "residuals": [
+    "Real Public direct-UAT admission remains unproved; both actual admission lanes fail before invocation_admission at Product population invalid_target /program.",
+    "The new admission test post-population positive/negative/Executive/source assertions were not exercised.",
+    "Root independent review, scope selection and source disposition remain separate.",
+    "Full 5.0 release qualification and human release gates remain open."
+  ],
+  "effects": "Only selected passive custody/metadata reports and three handoff snapshots; preserved original failures, closed artifacts and live source. No provider narrative/auth, source edit, tests/builds, runtime acquire, cold drain or acceptance claim."
+}

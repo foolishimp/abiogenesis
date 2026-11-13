@@ -1,0 +1,33 @@
+[
+  {
+    "id": "admission",
+    "mode": "before",
+    "setupMs": 74,
+    "priorLaneAllocations": 0,
+    "laneAllocationCap": 5,
+    "stageSourceDigest": "f0ecc3474e151bfa15763234866c486722fd1bcc2517c4cd80c93f2e80f607c0",
+    "activeRc7": [],
+    "requiredActivePass": false,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 fixed admission:  test_env/tests/t287-default-library.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "ms": 67261,
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 1,
+    "failing": [
+      "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+    ],
+    "stdoutSha256": "49cb13ca574aa73e7b82ca0e0a65923867ea2cf600341417263c960841dbb502",
+    "stdoutBytes": 1887,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

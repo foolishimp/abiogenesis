@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+const root="/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant";
+const ownerPath=root+'/build/code/src/product/worksite_command_execution.js';
+const ownerSha256="89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c";
+assert.equal(createHash('sha256').update(await readFile(ownerPath)).digest('hex'),ownerSha256);
+const owner=await import(pathToFileURL(ownerPath));
+const testing=JSON.parse(await readFile(new URL('./testing.DRAFT.json',import.meta.url),'utf8'));
+const budget=owner.projectWorksiteCommandExecutionBudget(testing),limits={inactivityTimeoutMs:4500000,absoluteTimeoutMs:5400000};
+assert(owner.worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs,limits));
+console.log(JSON.stringify({kind:'pure_existing_owner_c2_budget_readiness',ownerPath,ownerSha256,budget,limits,fits:true,commands:testing.commands.length,scope:'Pure existing budget owner only; actual whole configuration requires genuine runtime003 authority/ambient; no Runtime/provider/store/build/test effects.'},null,2));

@@ -1,0 +1,128 @@
+{
+  "status": "ROOT_REVIEWED_FINITE_SCOPE_PREPARATION",
+  "sourceCommit": "45554d0be9b2b01d3b90867137c55bacb5a5f9da",
+  "sourceTree": "0461e4d60afdc31c2a6a02c08021e9f7a2bd5210",
+  "preimageIdentity": [
+    "package.json",
+    "package-lock.json",
+    "code/src/product/contracts.ts"
+  ],
+  "readFirst": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts"
+  ],
+  "inheritedEvidenceByReference": [
+    "attempt-019-r2/PARTIAL_CHECKPOINT.json",
+    "attempt-019-r2/C2_OBSERVED_SUMMARY.json",
+    "attempt-019-r2/c2-evidence-001/BUILTIN_SEMANTICS_COMPARISON.json",
+    "STARTUP_RCA_REPORTED_DIAGNOSTICS.json",
+    "practical-witness-005/ROOT_ACCEPTANCE.json"
+  ],
+  "commandsPlan": [
+    {
+      "lane": "source-correspondence",
+      "scope": "Exact six granted paths, current post-Construction source pairs",
+      "timeoutMs": 30000
+    },
+    {
+      "lane": "offline-toolchain",
+      "scope": "Existing C2-only offline copy",
+      "timeoutMs": 60000
+    },
+    {
+      "lane": "contract-seeds",
+      "scope": "Existing exact admitted seed copy",
+      "timeoutMs": 30000
+    },
+    {
+      "lane": "build",
+      "scope": "npm run build once; no author generated writes",
+      "timeoutMs": 480000
+    },
+    {
+      "lane": "package",
+      "scope": "node scripts/refresh-candidate-basis.mjs; actual archive-derived producer basis",
+      "timeoutMs": 60000
+    },
+    {
+      "lane": "identity-inventory",
+      "scope": "Existing thin019 adapter with exact sixth builtin_semantics.d.ts version-only relation; preserve all other member equality",
+      "timeoutMs": 180000
+    },
+    {
+      "lane": "real-setup-and-affected-harness",
+      "file": "test_env/uat/harness.test.mjs",
+      "requiredExistingNames": [
+        "Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse",
+        "Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner",
+        "Native refusal without an admitted Run is preserved before any refresh, reopen or read",
+        "Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes"
+      ],
+      "requiredNewName": "Maintained setup retains actual owner verification through ten native calls and preserves configured environment",
+      "timeoutMs": 600000,
+      "proofInputOutput": "New genuine setup may retain exact resolve call for subsequent raw proof at artifacts/setup020/preparation-resolve-call.json; no fabricated admission or default execution replay.",
+      "scope": "Entire affected harness.test.mjs once:25 existing cases plus required new real setup case",
+      "runEntireFile": true
+    },
+    {
+      "lane": "owner-raw-detachment",
+      "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "requiredNames": [
+        "native transport delegates one complete admission to the real fixed Run owner and conserves refusal ordering",
+        "preparation resolution retains its established native link and raw lock refusals",
+        "native detachment retains only actual immutable verifier bodies and detaches raw copies"
+      ],
+      "environment": {
+        "ABI5_PREPARATION_RESOLVE_CALL": "artifacts/setup020/preparation-resolve-call.json"
+      },
+      "timeoutMs": 300000
+    },
+    {
+      "lane": "physical-and-unreadable-negative",
+      "file": "test_env/tests/t287-wave2-installed-product-verification.test.mjs",
+      "requiredNames": [
+        "W2 Product verification detects stale bytes in an ABG-admitted install",
+        "W2 Product verification walks the artifact bytes once and refuses an unreadable archive at its stage's code"
+      ],
+      "timeoutMs": 300000
+    },
+    {
+      "lane": "installed-language-cold-read",
+      "scope": "Existing identity adapter smoke, exact archive/install/SHA producer fields",
+      "timeoutMs": 180000
+    }
+  ],
+  "requiredAdditionalAssertions": [
+    "Raw copied/foreign verification has no owned-proof fastpath; valid raw copies may succeed after genuine cold verification. Changed requests retain owner checks.",
+    "Malformed envelope/acquisition and stale physical bytes preserve existing cause/no-write",
+    "Qualification default inherits setup path; existing dry guards cannot bypass actual SDK preparation",
+    "Cold continuation remains unchanged; no live provider/pilot required"
+  ],
+  "knownSixPayloadPaths": [
+    "package.json",
+    "build/code/src/product/contracts.js",
+    "build/code/src/product/contracts.d.ts",
+    "build/code/src/product/builtin_semantics.d.ts",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "pendingPreparation": [
+    "Actual Root pure whole configuration and installed predictive call preparation",
+    "Actual native implementation, new setup witness and C2 outcomes"
+  ],
+  "notClaimed": [
+    "Native runtime history reconstruction improvement",
+    "All fresh/cold verification eliminated",
+    "Measured full pipeline savings",
+    "Full qualification or release"
+  ]
+}

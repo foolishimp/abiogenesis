@@ -1,0 +1,8 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "23d5546182514a369dd55781a0ff5f997204372bcecd9536d876c363e0c1930d",
+  "sourceCommit": "6937d30e869c23d819e98be26b136e090ec541d7",
+  "sourceTree": "914ebdee0d897784313dcf2705adf35db09a4cd6",
+  "decision": "Root selection pending: zero-provider installed preflight/call construction for bounded013 realization_refactor,13 manual paths/zero Construction generated writes/small scratch,256turns. Runtime002 genuine setup and fresh source:none. Actual frozen-call review required before one-shot dispatch. No automatic retry, Product acceptance or release."
+}

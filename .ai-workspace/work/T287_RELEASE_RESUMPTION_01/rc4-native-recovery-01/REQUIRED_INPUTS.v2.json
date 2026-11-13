@@ -1,0 +1,92 @@
+{
+  "status": "PROSPECTIVE_REQUIRED_INPUTS_NOT_MATERIALIZED",
+  "binding": "The later workload builder must supply these exact declared sources by supported native input/reference projection. Hashes/routes alone do not claim the Worker has acquired them. No historical source-tree ticket supersedes current authority.",
+  "sources": [
+    {
+      "role": "Source role/authority/effect boundaries",
+      "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/AGENTS.md",
+      "bytes": 11923,
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971"
+    },
+    {
+      "role": "Exact Product Definition/STDO basis",
+      "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28"
+    },
+    {
+      "role": "Existing5.0 recovery/reuse/proportionality and prohibitions, especially810-847",
+      "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/specification/PRODUCT.md",
+      "bytes": 100202,
+      "sha256": "7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85"
+    },
+    {
+      "role": "CONTINUATION-011-016 and replacement-Run identity",
+      "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "bytes": 6297,
+      "sha256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916"
+    },
+    {
+      "role": "POLICY-024 general run.continue contract domain",
+      "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/specification/requirements/product/REQ-P-POLICY.md",
+      "bytes": 34046,
+      "sha256": "e13953bc84a5a41d9d54f7fac4ab3b53142e12a9a35ee8b3fbefb210a6104d98"
+    },
+    {
+      "role": "Applicable Product-owned frame basis",
+      "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "a5598f28da632275333a0102aa27640ef188265f41ff71f8c8f7a05d71f4b8f6"
+    },
+    {
+      "role": "Native context/member/currentness/effect owner",
+      "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "bytes": 26079,
+      "sha256": "cb1c5405e9136128c713c2d3630818821e12a2be0e7f8f5cfd4c17b1527b750f"
+    },
+    {
+      "role": "Existing exact/fresh/selected continuation distinctions; bounded accepted HOW re-entry",
+      "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 47457,
+      "sha256": "d2cf50423579c7548b03cd42c9c0b001dc4e51bf4591d6569df6a8e476bc53dd"
+    },
+    {
+      "role": "Actual current Root structural selection",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/ROOT_SELECTION.md",
+      "bytes": 9909,
+      "sha256": "91ebd3cafa9b88cf5e2f68639d96ce52116dfa6b98b715d67c5af4f41e5ab458"
+    },
+    {
+      "role": "Source-linked live T287 selection",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/CURRENT_T287_SELECTION.v2.md",
+      "bytes": 5866,
+      "sha256": "102c7fe918f8eed1d18794ee572c8ccaa18a056ca28e378743db782ae509fbee"
+    },
+    {
+      "role": "Root-directed operator design/activation",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/DESIGN_AND_ACTIVATION.v2.md",
+      "bytes": 9114,
+      "sha256": "cb1bf5cc69f70646664935686945d4df99d2d8e00dd87d94b2c8c670d50892c3"
+    },
+    {
+      "role": "Native bounded requested work",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/task.v2.DRAFT.md",
+      "bytes": 4969,
+      "sha256": "74b8ecd54bffc046f096f233be41f1e4f70a478f3966782c7018517536c3cd3d"
+    },
+    {
+      "role": "Native UAT criteria excluding future Root installed proof",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/rubric.v2.DRAFT.json",
+      "bytes": 2566,
+      "sha256": "0d081f4d6245df52e8cbf867358b2721daa0bc4c01bede3ed3cd4b4e28c8d9ab"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "artifactBytes": 10942981,
+  "artifactSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+  "c2Admission": {
+    "bytes": 6537800,
+    "eventRef": "event://abiogenesis/27d90bfbacb9eb15c33ba53be5e136eec02501dc79b32cde62933187fac8fe6a",
+    "offset": 52610720,
+    "ordinal": 1243,
+    "resultRef": "result://abiogenesis/685a69f9c1fbad9f7b02b4c14aa3194644844efbdbe29cb481abf540074c592c",
+    "sha256": "c1bdf7e1e8bd2dce0cccdb260e2b5aef5da11c586af7712c0fe0208e1351387b"
+  },
+  "closeEvent": {
+    "bytes": 1488,
+    "eventRef": "event://abiogenesis/33c24b63d7cb890279a1086be8dbfe24686e358a150179c8ea0f3ccd86001e37",
+    "offset": 471944221,
+    "ordinal": 3110,
+    "sha256": "7a25fd03904d5a8d3edb8a95410ac59bce11d6d0ddb9b1930eaa026cc319fb43"
+  },
+  "freshSubjectEquality": true,
+  "freshTerminalEquality": true,
+  "kind": "p1_resource_retest_observed_return_custody",
+  "limits": [
+    "Source review and native admission authentication retained separately.",
+    "Ten focused and six affected skips are not passing coverage.",
+    "Whole-product release or qualification is not asserted."
+  ],
+  "ownerDisposition": "completed",
+  "priorP1ReportedCostUsd": "27.9434632",
+  "priorP3ReportedCostUsd": "22.3216682",
+  "records": {
+    "after-run-resume.json": {
+      "bytes": 60851967,
+      "sha256": "0b45872436ba0399ae3890dd2decd23ea9dabedd971fceccd73c33267e12b030"
+    },
+    "c2-helper-custody/CUSTODY.json": {
+      "bytes": 9010,
+      "sha256": "be4b3b1648ca52f6dee6ba3dc8c9cf1f8a06b9e22b6f844ed19e0bf66ac11317"
+    },
+    "execution.json": {
+      "bytes": 33757827,
+      "sha256": "6e59da4d02dade04ec73e1999c05bdd433994b6faeda9f4f04427c903323d60f"
+    },
+    "fresh-reads.json": {
+      "bytes": 1513659,
+      "sha256": "7f33b252c505c5a7284ecc29b10ffbe791a201eebb972153db6874382c3e85ff"
+    },
+    "outcome-summary.json": {
+      "bytes": 356756,
+      "sha256": "a80974dd27fa92af5c464f1f19beb28166c0c7775bf7cac5131b4eecd1f31bd3"
+    }
+  },
+  "replayStatus": "closed",
+  "reportedProviderCostUsd": "7.858434",
+  "run": {
+    "digest": "sha256:ae6a1e0e357510f1548f6d9640b573aed8dab5999ae122c21567090531dc5edf",
+    "ref": "run://abiogenesis/3c6fe33614606bc0a66263d727c271f9f171aa35c1e245eb646c87188eb250e0"
+  },
+  "scope": "Retest only; Root acceptance and broader qualification are separate.",
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "tenConstructionHashesEqual": true,
+  "terminalResult": {
+    "digest": "sha256:d72cf5982218b577b0a83ceb7dbacff3133cd0ca2f7a08d09cb412c4d481c393",
+    "ref": "result://abiogenesis/d72cf5982218b577b0a83ceb7dbacff3133cd0ca2f7a08d09cb412c4d481c393"
+  },
+  "terminalValueDigest": "sha256:65419d99180f2328adfbfae75c61856d998142b4fa40248cf4b8b6d3f56040d4",
+  "trackedStatus": "clean",
+  "uatAdmission": {
+    "bytes": 118694109,
+    "eventRef": "event://abiogenesis/7544625d6fbfd725ccc18af2e67a84074ab9859d2217583c1f24b30ead79a86d",
+    "offset": 233379964,
+    "ordinal": 3025,
+    "resultRef": "result://abiogenesis/68899b675ded8b75a5ab666514c46a2244d941f404d6c21e386114c08e2dc973",
+    "sha256": "815cf7a8ea0c2565732d8cc57af3b645f34fb926254a3498b0382cde03539b65"
+  }
+}

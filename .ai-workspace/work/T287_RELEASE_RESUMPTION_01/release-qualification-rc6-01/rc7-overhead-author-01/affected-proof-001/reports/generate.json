@@ -1,0 +1,29 @@
+{
+  "label": "generate",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate.request.json",
+    "bytes": 659,
+    "sha256": "55f9d750ea30af53001291f9a04ce144b34f09555b8249dfcbd022e6b12f9f77"
+  },
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate.result.json",
+    "bytes": 1737,
+    "sha256": "bdeeaea06b34942e6afb36a3d8fd6da7e7bca8095d176c5b32b722f16a661502"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate.stdout",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate.stderr",
+    "bytes": 877,
+    "sha256": "afdcb026833bfa898db957726024c2f3bbd2be012fb0a8df3813a27cca4b8ee8"
+  },
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "wallMs": 826.0280419999999
+}

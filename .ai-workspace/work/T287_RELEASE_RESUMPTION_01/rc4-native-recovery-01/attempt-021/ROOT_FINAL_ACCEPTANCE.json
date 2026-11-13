@@ -1,0 +1,92 @@
+{
+  "status": "ROOT_ACCEPTED_BOUNDED_MAINTAINED_SETUP_CONSOLIDATION",
+  "recordedAt": "2026-11-03T04:05:01.888094+00:00",
+  "operator": "Root",
+  "authority": "Explicit Root final conjunction after independent source/delta review, independently verified current C2/setup receipt/UAT and genuine closed terminal/readbacks",
+  "method": "STDO3.0.2",
+  "frame": "ABI5_PROJECT_REFERENCE_FRAME_BASIS Owner/Install/Effect/Proof",
+  "scope": "Existing maintained setup composes canonical installed calls in one module instance, retains exact owner verification values/request joins, deletes ordinary setup JSONL/child CLI path, preserves explicit cold lifecycle/read path and owner authority/currentness/physical checks. Selected warm positive control and bounded sentinel claims completed.",
+  "acceptedSourceBase": "72eea8f0cd384e7eaeb64ff1ba47b0a3ac2858d4",
+  "acceptedHarnessSha256": "d5aeb3b306c370918cd4514cc9dc8e2da5ea7442650e02b29e59c3ab4920622a",
+  "archiveSha256": "f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+  "terminalResultDigest": "sha256:25cbf7114828a551bf9c6df9badc81783af77c96e6005473096a40944ea20fc4",
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/SUBJECT.json",
+      "bytes": 8561,
+      "sha256": "d51de76cfb509fa2135eb6b30caadae3557831af073ce6d439f442a4ac5d9a2a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/repair.diff",
+      "bytes": 14273,
+      "sha256": "df1e475ec7a81befc4a5ea37e89b1de526dc55ae331d936da361bc0625cc7546"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/ROOT_SOURCE_DISPOSITION.json",
+      "bytes": 919,
+      "sha256": "b4e4d58f0e0f1f8a6ae9a0dedbf001d49697ee671bb8078ed38cf16e796c3445"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/C2_OBSERVED_SUMMARY.json",
+      "bytes": 13753,
+      "sha256": "0c3098d1e9c5cf41fd2c1845362b4861be1f6c49e2cc7055d1da1699d4beee7a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/c2-provisional/maintained-setup-proof.json",
+      "bytes": 10985,
+      "sha256": "67858a11a077885df857ae509af6c46d183c7f1ac71a962d5e3bae99dd7acb56"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/SETUP_TIMING_COMPARISON.json",
+      "bytes": 8660,
+      "sha256": "9c29f27927df88ce794b55017a9f7eeb9261fc3f2f42a4f60b0ecff133738464"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/UAT_FOLD_OBSERVED.json",
+      "bytes": 6278,
+      "sha256": "ecf2427f606894c9a71e6d3c3a0a6671ea26bb17977448b7cacd63720585bc1e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/CLOSURE_OBSERVED.json",
+      "bytes": 6641,
+      "sha256": "f11df6102bf21b9562e590b1bf15aed1642380b939835e510aa20f6ae32fa107"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/PROVIDER_MEASUREMENTS.json",
+      "bytes": 7725,
+      "sha256": "6df109d2a3a230c4eb260fe3651b1db3c4ae6a0c7b676e85c0ce2f11f19d2149"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-28b620fcfbf8fd7f-output.txt",
+      "bytes": 5038,
+      "sha256": "2738c685d8baca097fe2140a347890749142ca6014d0ae733e64cdec82dfcf2d"
+    }
+  ],
+  "observedProof": {
+    "c2Commands": 10,
+    "exit0": 10,
+    "testsPassed": 38,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "sourceFilesMatched": 5,
+    "uat": "satisfied/unresolvedCriteria[]",
+    "resultReplayOutcomeTerminalEqual": true,
+    "replayStatus": "closed",
+    "setupCalls": 10,
+    "physicalInstalls": 2,
+    "setupCliChildren": 0,
+    "setupJsonlRequests": 0,
+    "setupIntervalMs": 48157.5,
+    "warmControlSeparateMs": 18768.2
+  },
+  "limits": [
+    "Original019 C2 allowance red and020 post-work symlink failure remain historical failures;021 is successor evidence.",
+    "Library-read sentinel covers fresh full TypeScript program construction on this successful fixed nonempty path, not all verifier calls/declaration work; zero does not exclude preliminary parsing.",
+    "Warm control directly exercises closure owner; link owner uses shared per-call host and post-warm read. Bootstrap acquisition precedes observed setup interval.",
+    "Only PATH/TMPDIR are scoped; other configured keys stay ambient, no full environment-equivalence claim.",
+    "One historical CLI/current SDK observation each with different boundaries/instrumentation; no universal/end-to-end parity or causal percent claim.",
+    "Previously accepted bounded recovery/one matched application pair inherited only through exact conserved payload correspondence. General crash/saga, whole5.0 qualification, release/publication remain open.",
+    "No installation, global selector, push, merge, tag or stable release is authorized by this acceptance record."
+  ]
+}

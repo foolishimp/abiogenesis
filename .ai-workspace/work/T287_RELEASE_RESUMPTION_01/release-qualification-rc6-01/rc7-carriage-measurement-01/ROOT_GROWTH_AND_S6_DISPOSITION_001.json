@@ -1,0 +1,185 @@
+{
+  "kind": "root_installed_s4_growth_hs02_and_s6_disposition",
+  "status": "ROOT_ACCEPTED_BOUNDED_S4_GROWTH_HS02_S6_NOT_ACTIVATED",
+  "at": "2026-11-07T00:14:22.044943+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 10863,
+    "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-002/MEASUREMENT.json",
+    "bytes": 29177,
+    "sha256": "03805bc4183884ad4d23854246ae6edb6fc5ac702d2534db3d1e92502edb2439"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-002/HOST_SUMMARY.json",
+    "bytes": 319,
+    "sha256": "3329c8aab82d8e84e33a45619f85d0cc952ad1ebcf84d44df63472f9bc6fdc09"
+  },
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-002/commands/s4-installed-carriage.result.json",
+    "bytes": 1519,
+    "sha256": "98b28268a1e8c8fb29b2adf124569549431ad92d62857273d202491fc86dcca8"
+  },
+  "tap": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-002/commands/s4-installed-carriage.stdout",
+    "bytes": 1441,
+    "sha256": "e2304eac3538420e431131df26af1ad14344b65db4b0f4935f46352d9449c565"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-002/ACTUAL_CLOSE.json",
+    "bytes": 2034,
+    "sha256": "1be40715191a707db60bbf631bca70b6967b032f625d1ab4b33cb70f6369396a"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 4866,
+    "sha256": "abce5ba8307cca776181bbbe7c11374b372bf33dad00561de33882f12b3de950"
+  },
+  "sourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+  "acceptedClaim": "Two actual installed read-only scripted native-work calls with1MiB/4MiB contexts over one held resource, successful actual completions, unchanged worksite bytes, two full typed terminal/owner-output warm-cold equalities at final P2 and one close. Small original HS02 replay proof remains separately scoped; this measurement adds run_result equalities only.",
+  "observed": {
+    "contexts": [
+      1048576,
+      4194304
+    ],
+    "resultCanonicalBytes": [
+      2617,
+      2617
+    ],
+    "bindingCanonicalBytes": [
+      40208,
+      40210
+    ],
+    "sdkSerializedOutcomeBytes": [
+      16203,
+      16204
+    ],
+    "bodyCopiesPerCase": {
+      "basisTask": 1,
+      "bindingTask": 0,
+      "resultTask": 0,
+      "resultContext": 0
+    },
+    "warmCallHistoryDecodes": 0,
+    "warmCallHistoryReopens": 0,
+    "heldReadHistoryAndBodyWork": 0,
+    "warmCallBodyReadsTotal": 90,
+    "warmCallBodyBytesTotal": 10558539,
+    "physicalLogRows": 90,
+    "physicalLogBytes": 10558539,
+    "bodyWorkInterpretation": "Aggregate warm-call body work equals the final90-row physical log extent; no body-copy growth appears in binding/Result. This bounded observation does not establish every possible future access pattern.",
+    "twoPointGrowth": {
+      "contextBodyDelta": 3145728,
+      "taskCanonicalDelta": 4194304,
+      "taskHolderEventDelta": 4194305,
+      "bindingEventDelta": -17781,
+      "resultEventDelta": 0,
+      "resultCanonicalDelta": 0,
+      "sdkOutcomeSerializedDelta": 1,
+      "eventLogAppendedDelta": 4176510,
+      "note": "Two sizes in one sequential session; shared prefixes/encoding and ordering differ. These observations are not an isolated causal slope, coding benchmark or release qualification."
+    }
+  },
+  "costs": {
+    "totalFixtureMs": 43671.960083,
+    "setupMs": 28248.627207999998,
+    "setupAccounting": {
+      "wallMs": {
+        "bootstrap_owner_loading_and_candidate_preparation": 411.210792,
+        "provisioning_verify_artifact": 21920.154458,
+        "provisioning_install": 3711.419249999999,
+        "provisioning_installed_content_check": 613.6301249999997,
+        "provisioning_additional_products": 0.0027079999999841675,
+        "installed_owner_loading": 296.51829200000066,
+        "environment_install_and_workspace_admission": 833.0606660000012,
+        "execution_preparation_publication_program_and_catalog": 457.2637909999976
+      }
+    },
+    "heldAcquisitionMs": 96.79449999999997,
+    "constructionMs": [
+      839.9210419999981,
+      917.8838340000002
+    ],
+    "scriptedNativeCallMs": [
+      4119.151291999999,
+      4288.565208
+    ],
+    "heldResultReadMs": [
+      340.5135829999999,
+      266.52083400000265
+    ],
+    "coldResultReadMs": [
+      1805.4604160000017,
+      1912.6741249999977
+    ],
+    "coldChildMs": [
+      1133.2999169999966,
+      1193.771458000003
+    ],
+    "parentNodeResourceUsage": {
+      "userCPUTime": 43452752,
+      "systemCPUTime": 3398090,
+      "maxRSS": 3357328,
+      "sharedMemorySize": 0,
+      "unsharedDataSize": 0,
+      "unsharedStackSize": 0,
+      "minorPageFault": 496315,
+      "majorPageFault": 85,
+      "swappedOut": 0,
+      "fsRead": 0,
+      "fsWrite": 0,
+      "ipcSent": 4,
+      "ipcReceived": 7,
+      "signalsCount": 0,
+      "voluntaryContextSwitches": 4371,
+      "involuntaryContextSwitches": 622633
+    }
+  },
+  "S6": {
+    "activated": false,
+    "decision": "Do not change the public result contract in this RC7 cut. Existing S4/held-source design keeps both durable Result and binding independent of context body growth in this measurement; SDK serialization grows1byte across3MiB raw context growth. The conditional trigger is not established.",
+    "reconsideration": "A concrete later workload demonstrating material residual result-contract carriage or another admitted requirement may select new scope; optional serialization alone is insufficient."
+  },
+  "retainedFailures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/SUMMARY.json",
+      "bytes": 1426,
+      "sha256": "03776698a2c74ea05c8c737570d036aa051186f8790e0575f2b97cb2859f8969"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001/MEASUREMENT.json",
+      "bytes": 6591,
+      "sha256": "088cdee7b7d581ae9606837a2e54927356b0359fc008d4316ba2c305ce5bbdbe"
+    }
+  ],
+  "priorEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 9575,
+    "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+  },
+  "limits": [
+    "Scripted actor; no provider, native-coding productivity, general performance or matched-baseline speedup claim.",
+    "The two tasks are read-only: changed-body birth remains covered by accepted S4 evidence, not re-exercised here.",
+    "Task-holder row bytes are actual physical row extents, not an invented allocation of shared encoded body bytes.",
+    "Complete SDK serialization is explicit JSON.stringify measurement; it is not claimed to be mandatory internal runtime serialization.",
+    "Fixture setup includes the maintained helper actual scratch install; original bootstrap remains immutable.",
+    "Two full run_result cold equalities only; HS02 replay equality is reused on its original subject, not relabelled as this measurement.",
+    "S6 remains a Root Product/consumer-contract decision; linear bytes alone do not select redesign.",
+    "Phase RSS and nodeResourceUsage describe the parent process; they exclude cold CLI and actor child peak RSS.",
+    "Fixture-owned temporary installation/worksite is cleaned by its existing test hook; retained physical log and complete outcomes preserve this proof.",
+    "Fresh fixture setup/provisioning28.249s is separate from held acquisition0.097s and warm tasks/reads. It is not an RC6-to-RC7 matched native-coding benchmark.",
+    "Full installed native-workflow performance, parent/child aggregate RSS and cold-history/task-launch coordination cost remain open.",
+    "No stable5.0 qualification, human acceptance, publication, tag or selector change."
+  ],
+  "accepted": true,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

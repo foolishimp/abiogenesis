@@ -1,0 +1,37 @@
+{
+  "file": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+    "testSha256": "8980e3c7e8f0dddf542219aed644d9fc12449baefe912004285d985dec2b0618",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Root causal timeout triage pending; actual017 command exhausted600000ms with begin-only reporter and zero completed tests. Temporary scheduling deferral only; zero test/whole credit, no final residual/no-block disposition and no automatic retry.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_017.json",
+        "bytes": 13201,
+        "sha256": "0b67ad05bc49ff1b6b45283922fe02630982e4a27dd0ee6b0960fb0b94372616"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-017/files/163-t287-rp2-correction-carriers.json",
+        "bytes": 3940,
+        "sha256": "03d9ca6b1f9ee76634d8872c72c864f4d8aecdff60c0ccc1f3118e68bfe5e26e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-017/commands/163-t287-rp2-correction-carriers.result.json",
+        "bytes": 1495,
+        "sha256": "937ce537551879c4e84a3c56b1d9c1806c1bc9ad5f244386baaaf53fe72bd216"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-017/events/163-t287-rp2-correction-carriers.jsonl",
+        "bytes": 89,
+        "sha256": "99214721eb7f724e9c91b40977ad5c9c5ac1684293bd9154a68f1b23064e5a65"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-017/FAILURE.json",
+        "bytes": 609,
+        "sha256": "b3910695794f8bba1d7f9c0de6f4a33004bf2b211df8a310dc746566123bb91e"
+      }
+    ]
+  }
+}

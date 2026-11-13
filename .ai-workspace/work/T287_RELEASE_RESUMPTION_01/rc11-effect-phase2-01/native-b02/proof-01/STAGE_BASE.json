@@ -1,0 +1,27 @@
+{
+  "status": "IMMUTABLE_PREDECESSOR_COPIED_SUCCESSOR_OVERLAY_HELD",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-freeze.json",
+    "bytes": 295988,
+    "sha256": "2ed1b3ab7758905dc0c33702893898130de2758d0b026af20898833d5bebe9eb"
+  },
+  "compiledInventory": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 183894,
+    "sha256": "46693cab5a5a0aa954a339f62b0d4a4dd7cfea38f45e968c924a93a92e43c6c8"
+  },
+  "stageRoot": "/private/tmp/abg-rc11-effect-phase2-b-unit-stage-20261110-03",
+  "donorStage": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/source",
+  "donorWork": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/work",
+  "sourceRows": 1345,
+  "compiledRows": 998,
+  "dependencyRows": 4576,
+  "dependencyMetadataRows": 500,
+  "copy": "shutil.copytree(copy_function=copy2,symlinks=True); metadata preserved",
+  "sourceWorkBuildDependenciesVerified": true,
+  "movingLiveSourceReadOrOverlay": false,
+  "seconds": 1.456353624816984,
+  "prospectiveProofRootAbsent": true,
+  "ProductExecution": false
+}

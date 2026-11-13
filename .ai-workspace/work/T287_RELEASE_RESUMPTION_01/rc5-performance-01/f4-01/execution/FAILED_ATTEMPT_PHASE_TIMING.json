@@ -1,0 +1,19 @@
+{
+  "kind": "failed_native_attempt_phase_timing",
+  "nativeActorFailure": "error_max_turns",
+  "lifecycleCliMs": 2659267.848,
+  "dispatchToActualReceiptMs": 2666933.584584,
+  "receiptToFirstReadLaunchMs": 260404.0,
+  "runResultCliMs": 63874.47287499998,
+  "runReplayCliMs": 22735.734249999747,
+  "betweenReadCallsNonCliMs": 29961.527125000022,
+  "freshResult": "not_found",
+  "freshReplay": "failed",
+  "terminalResult": null,
+  "limits": [
+    "Failed workflow, not successful native benchmark.",
+    "Non-CLI gaps include caller work and record handling; exact internal cause not isolated.",
+    "Parent sample at10:29:30 observed event-loop wait; it does not diagnose earlier caller work.",
+    "No causal speedup or new Product defect inferred."
+  ]
+}

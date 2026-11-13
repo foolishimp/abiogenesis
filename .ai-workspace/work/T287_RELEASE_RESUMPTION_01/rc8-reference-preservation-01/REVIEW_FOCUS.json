@@ -1,0 +1,15 @@
+{
+  "recordedUtc": "2026-11-07T03:17:48.669503+00:00",
+  "authority": "Executive /root instruction for first frozen-review packet",
+  "standing": "retain for Root review selection; no Reviewer activation and no additional Worker instruction",
+  "focus": [
+    "facts keyed to exact owner/schema/packet and actual object, not matching key/digest alone",
+    "schema admission transform/output semantics preserved",
+    "shallow-frozen shell with mutable child",
+    "copied/spread/foreign constructed call takes raw path",
+    "actual receiving run-owner identity rather than mock transport capture",
+    "resource currentness/effect checks still performed",
+    "worker prepared-plan mutable-input test conserved"
+  ],
+  "boundary": "Owner-local immutable-fact reuse is selected and is not new runtime authority; no all-library audit"
+}

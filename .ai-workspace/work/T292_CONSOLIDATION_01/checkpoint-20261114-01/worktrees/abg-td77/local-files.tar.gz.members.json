@@ -1,0 +1,44 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-non-root-alias-selection.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 2473,
+    "sha256": "66c38ac78db7768653f5dc5378cbf2c53df09d3a2729ba6ffce2f01342ea6b8d"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-root-r1.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 15685084,
+    "sha256": "8f23a6b18789cdb6528159285ccb67564e507831ce0873f64b50723827fff3a7"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-root-r2.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 19978685,
+    "sha256": "2e86b316c5102a8d854ae9d2f688fe1fad686dde3a1b2142f9324806e65162fa"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-root-r3.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 2490,
+    "sha256": "b8bc7314a8832279850b35a80dadac401581227fef1bd91dcdf66f3c4245ea50"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-root-r7.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 3331,
+    "sha256": "7df4781f0898764d887fd1ed85335ec04f43b7d6839289ee724b1b5452208869"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/evidence/t287-w2-05-generator-package.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 8974,
+    "sha256": "b76575cbe9b4c3c5e6fde7c5449ee3d072968b80cbfb3a35d7fb4f3662bde67f"
+  }
+]

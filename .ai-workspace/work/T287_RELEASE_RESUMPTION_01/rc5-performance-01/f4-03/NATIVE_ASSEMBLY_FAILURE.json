@@ -1,0 +1,56 @@
+{
+  "recordedUtc": "2026-11-03T11:38:03.459275+00:00",
+  "status": "FAILED_BEFORE_ANY_ACTOR_PROCESS",
+  "actorProcessStarts": 0,
+  "failures": [
+    {
+      "event": {
+        "admissionOrdinal": 21233,
+        "aggregateId": "run://abiogenesis/31625d07c595b692fe74b718600b5b9bb5ecf11e56a67f5651917e3ef242b7f5",
+        "aggregateType": "run",
+        "basisId": "execution-basis://abiogenesis/efe9c0db43d766fe1110c662fd7249688509d048b1872db49b63be7f43f95aac",
+        "causationEventRefs": [
+          "event://abiogenesis/c4b16e96fd84fc910901433b1a226374f7f3d0db7641697233b9168fb8a64182"
+        ],
+        "correlationId": "correlation://abi5-tests/sandbox-uat/rc5-performance-f4-03/hog/recursion/0/foldback/child-failure",
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "eventId": "event://abiogenesis/3bc1cd99a21fa58adcc8799787d00da6c830f5ef105df1a00ced182c7f3e7b68",
+        "eventTime": "2026-11-03T11:35:28.630Z",
+        "frameId": "frame://abiogenesis/0770fc84f19d36d129fce05f756eac3a92ea82ce21dbf6cbb4ca37478f0d6b90",
+        "frameLineageId": "frame-lineage://abiogenesis/cff21e7b442bc2fe2b6eb9a1a51e87e2135e73110b7593966fc503b0ae29f894",
+        "graphCallId": "graph-call://abiogenesis/c7a49364ee89f5aac36ee63543ddbb21e097069e27dd8fc42bdb6a9d9e23ccc3",
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+        "kind": "runtime_failure_observed",
+        "materializationRef": "graph-materialization://abiogenesis/b71e01b826f65a01e3f78f20a2261666d93197887d1308ba5b956c1c955ca3a3",
+        "parentAggregateId": "frame://abiogenesis/0770fc84f19d36d129fce05f756eac3a92ea82ce21dbf6cbb4ca37478f0d6b90",
+        "payload": {
+          "basisId": "execution-basis://abiogenesis/efe9c0db43d766fe1110c662fd7249688509d048b1872db49b63be7f43f95aac",
+          "diagnosticRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22%7B%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22policy%5C%22%3Anull%2C%5C%22role%5C%22%3A%5C%22selector%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22result%3A%2F%2Fabiogenesis%2F9c572e544aa7121b2e8c1b497eff29d4a4fa95e03e7c0ca31e77e730bc5c14e1%5C%22%5D%7D%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20%7B%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22policy%5C%22%3Anull%2C%5C%22role%5C%22%3A%5C%22selector%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22result%3A%2F%2Fabiogenesis%2F9c572e544aa7121b2e8c1b497eff29d4a4fa95e03e7c0ca31e77e730bc5c14e1%5C%22%5D%7D%5Cn%20%20%20%20at%20requireDeclaredNativeInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Frc5-performance-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Finstruction_assembly.js%3A505%3A19)%5Cn%20%20%20%20at%20prepareInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Frc5-performance-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Factor_process.js%3A440%3A23)%5Cn%20%20%20%20at%20selectGovernanceWork%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Frc5-performance-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fdefault_library.js%3A80%3A22)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Frc5-performance-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A540%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+          "failureDigest": "sha256:4f4d1948df0f61378ad08191e3e3ab1e192e7793f4a65dceb275bed9b921efdb",
+          "failureRef": "runtime-failure://abiogenesis/4f4d1948df0f61378ad08191e3e3ab1e192e7793f4a65dceb275bed9b921efdb",
+          "frameId": "frame://abiogenesis/0770fc84f19d36d129fce05f756eac3a92ea82ce21dbf6cbb4ca37478f0d6b90",
+          "graphCallId": "graph-call://abiogenesis/c7a49364ee89f5aac36ee63543ddbb21e097069e27dd8fc42bdb6a9d9e23ccc3",
+          "runId": "run://abiogenesis/31625d07c595b692fe74b718600b5b9bb5ecf11e56a67f5651917e3ef242b7f5",
+          "stage": "route",
+          "subjectDigest": "sha256:0e39c21ce43e14589f45f8b508372f26cf51c23f5b76559a125672224abe54e7"
+        },
+        "payloadDigest": "sha256:c5ad18092d8abd6ac8566cee827beccab9798a49231bc834843dafdf43781166",
+        "runId": "run://abiogenesis/31625d07c595b692fe74b718600b5b9bb5ecf11e56a67f5651917e3ef242b7f5",
+        "scopeClass": "run",
+        "workflowVersion": "5.0.0"
+      },
+      "decodedDiagnostic": {
+        "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+        "errorClass": "TypeError",
+        "errorCode": null,
+        "message": "{\"kind\":\"native_instruction_assembly_refusal\",\"cause\":\"declared_bound_overflow\",\"policy\":null,\"role\":\"selector\",\"unresolvedRefs\":[\"result://abiogenesis/9c572e544aa7121b2e8c1b497eff29d4a4fa95e03e7c0ca31e77e730bc5c14e1\"]}",
+        "messageTruncated": false,
+        "reason": "thrown",
+        "stack": "TypeError: {\"kind\":\"native_instruction_assembly_refusal\",\"cause\":\"declared_bound_overflow\",\"policy\":null,\"role\":\"selector\",\"unresolvedRefs\":[\"result://abiogenesis/9c572e544aa7121b2e8c1b497eff29d4a4fa95e03e7c0ca31e77e730bc5c14e1\"]}\n    at requireDeclaredNativeInstructionAssembly (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js:505:19)\n    at prepareInstructionAssembly (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js:440:23)\n    at selectGovernanceWork (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:80:22)\n    at invokeLeafOwnerBoundary (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:540:32)",
+        "stackTruncated": false,
+        "stage": "preparation"
+      },
+      "physicalRowSha256": "c609af04f0e17e46848f4f966e9b98810618fde097572c07bb1550b06c1ceed1"
+    }
+  ]
+}

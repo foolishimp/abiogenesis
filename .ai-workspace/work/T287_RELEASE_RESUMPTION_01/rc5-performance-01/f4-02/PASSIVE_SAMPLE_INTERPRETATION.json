@@ -1,0 +1,9 @@
+{
+  "recordedUtc": "2026-11-03T11:16:07.170364+00:00",
+  "sample": "POST_NATIVE_CPU_SAMPLE.txt",
+  "processId": 92077,
+  "sampleTimeUtc": "2026-11-03T11:13:33.667Z",
+  "durationSeconds": 2,
+  "observed": "All sampled main-thread stacks were event-loop kevent waits; no hot JavaScript stack was sampled. C2 actor had started at11:13:19.246Z.",
+  "limits": "The earlier high CPU observation preceded this sample. This sample does not diagnose the preceding transition or establish a cold-history bottleneck."
+}

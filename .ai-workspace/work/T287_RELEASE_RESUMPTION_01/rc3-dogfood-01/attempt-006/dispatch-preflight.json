@@ -1,0 +1,11 @@
+{
+  "kind": "retained_actual_preflight_validated_against_unchanged_inputs",
+  "status": "validated",
+  "workloadSha256": "a6aad59d1d5838323b03bdd38416a195d46801c0c77e8e2131956489a51fbc4d",
+  "contextDigest": "sha256:b7f74a887aca170e638016832cf8b30fd310bab5665e31fd498abd0a878578b0",
+  "paths": 945,
+  "limits": [
+    "The successful actual preflight was not rerun",
+    "This is not native B04 admission; the native invocation performs its own owner/currentness checks"
+  ]
+}

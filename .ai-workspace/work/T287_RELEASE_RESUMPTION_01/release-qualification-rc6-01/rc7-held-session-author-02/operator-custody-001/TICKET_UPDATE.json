@@ -1,0 +1,20 @@
+{
+  "kind": "operator_ticket_update",
+  "createdUtc": "2026-11-06T14:45:13.244655+00:00",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/TICKET_BEFORE.md",
+    "bytes": 712972,
+    "sha256": "d89e6476f03afcc16289254749111d104003dc806061f23cef786fc6394e8d6b"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 714810,
+    "sha256": "4c3e433ae6773ed5d945c2f79e0cd21b968e61feab250d6f494bd4849a839dfc"
+  },
+  "launch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/LAUNCH.json",
+    "bytes": 2557,
+    "sha256": "15cd09078138b82271c695bb979c573b55b10a2fff8f42f205756fd9b680fda7"
+  },
+  "effects": "Current ticket and additive custody records only; prepared controls/source/runtime unchanged."
+}

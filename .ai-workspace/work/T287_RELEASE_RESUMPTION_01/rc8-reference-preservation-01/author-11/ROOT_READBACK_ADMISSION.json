@@ -1,0 +1,49 @@
+{
+  "status": "ROOT_ADMITTED_FRESH_RESULT_REPLAY_READBACKS",
+  "at": "2026-11-07T12:20:19.512602+00:00",
+  "authority": "Root read and admitted exactly one execution of the coordinate-only successor script on the genuine A11 completed SDK/closed prefix.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/READBACK_PREPARATION.json",
+    "bytes": 6215,
+    "sha256": "2646a1df5323502fd4c4992dc77b73aa11f1a1ba2082f7e1d2c8fef690a6205e"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/readbacks.mjs",
+    "bytes": 4791,
+    "sha256": "fd1046a4cfedc2d7839902b4174ee08394be3824705e856c81a86c3fb4436aee"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/READBACK_DIFF.patch",
+    "bytes": 3008,
+    "sha256": "a91c809dd56ece862006d14d80663e3dd56ac6821b112e4190b92b57d81ff4b3"
+  },
+  "actualSdk": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 523288,
+    "sha256": "a522b418d4e188f8745f0fd3722a9e58e35ffdc150e1ce4abcb9938d77f414e0"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "e4b341435ebfabe78c83d2c20bf911eeb9afc22ff082fbc0976a03e5ccd77703"
+  },
+  "run": {
+    "ref": "run://abiogenesis/c06be45e2c660d8baecb314cf6e8e2fc7806c3da0b49ca725cf4d7f7a21d38b6",
+    "digest": "sha256:24f40c21fa0e88c4ca3f21cf1d3d096dcdeb23a48145767cb1a91e34b1a2643e"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/required-operation-011-source/REVIEW.json",
+    "bytes": 8001,
+    "sha256": "51979073b0e8209098154856cc55da9a814fe9fe7a57bb65930ebb87567a861c"
+  },
+  "focusedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/lane-01/RESULT.json",
+    "bytes": 985,
+    "sha256": "f23f86b6ccc0320b2ec484802414ea19e2d0b888848531add46a8462706daf58"
+  },
+  "requiredRelation": "Full typed SDK/result/replay equality for the exact actual Run, unchanged physical prefix. Stop any mismatch/refusal/deadline; retain originals, no retry.",
+  "permittedEffects": "Only author-11/readbacks-001 and existing owner cold read acquisition/close; provider0, no source append/native coding/cut.",
+  "providerCalls": 0,
+  "retry": false
+}

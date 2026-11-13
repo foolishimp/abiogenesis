@@ -1,0 +1,56 @@
+{
+  "id": "RC11-SETUP-01",
+  "status": "ROOT_ADMITTED_RC11_SETUP",
+  "basis": "Root RC11-SCOPE-01 / RC11-NATIVE-PREP-02 grants one fresh imported setup on the prepared RC11 worktree after immutable guards and strict transport preflight; provider dispatch remains held. This records that prior actual Root decision, not Operator self-admission.",
+  "bindingSha256": "98ebd56cb07423f7fde5169dc8ec30a26c8e323635913359e0d566710b325a20",
+  "scopeSha256": "96771f46109ffd8fe96316e47a2f7174f4898d58edcbd3998e703def8ce3855f",
+  "grantsFreshPublicSetup": true,
+  "providerDispatch": false,
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/READY.json",
+    "bytes": 4152,
+    "sha256": "65a4853fb9cf4110ccc5c97f4ff90017a9f5b36ce81b4cc2e2ff2eb36f2a7a52"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/host.mjs",
+      "bytes": 13794,
+      "sha256": "fbaf2602e6b371417d04fc46acf09d4524f91b892058b9fdbbc90c6cb5d0c0b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+      "bytes": 11028443,
+      "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266232,
+      "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10105,
+      "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+    }
+  ],
+  "setupBudgetMs": 900000,
+  "setupPerCommandMs": 300000,
+  "reserveBytes": 4294967296,
+  "utc": "2026-11-09T06:27:58.344547+00:00",
+  "nextOwner": "Root consumes actual PREPARED and separately admits provider on same held caller; no automatic dispatch or retry."
+}

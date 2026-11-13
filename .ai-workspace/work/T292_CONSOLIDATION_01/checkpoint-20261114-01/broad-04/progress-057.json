@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 5,
+    "pass": 5,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/057-t287-cross-cut-public-read.test/process.json",
+    "bytes": 1091,
+    "sha256": "732347e2e3491e8d6884f1cc37b6840ed9e2acc61e541bb66cba46ee0eaa59e5"
+  }
+}

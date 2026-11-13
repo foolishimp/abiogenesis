@@ -1,0 +1,124 @@
+{
+  "status": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "executionEnabled": true,
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 4675,
+    "sha256": "b2b96c4260d1661142ee554080a26dd7d4e7bc142e723fa9514d4ea3667a1004"
+  },
+  "worksiteRoot": "/private/tmp/abg-rc11-qualification-20261109",
+  "sourceTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.11",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.11",
+    "productContentDigest": "sha256:ed3cc99b0dc268b2d7eb2cc8da29dcc68127c996e8f805957d74f23d9fcf2381",
+    "manifestDigest": "sha256:feafd6a00103a8e11db2d46b5777eeb5e62382c877aab65b3ada93fcf5afa706",
+    "artifactDigest": "sha256:f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455",
+    "sourceCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "archiveMembers": 5327,
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11",
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11",
+  "installPath": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "tools": [
+    {
+      "name": "node",
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "name": "tar",
+      "configuredPath": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "bytes": 274448,
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    {
+      "name": "git",
+      "configuredPath": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    },
+    {
+      "name": "cp",
+      "configuredPath": "/bin/cp",
+      "realPath": "/bin/cp",
+      "bytes": 152976,
+      "sha256": "d2b314592c43bb0f2e4ae25d473e7b3e5a24db68c21b175aeeba64001388a1fd"
+    },
+    {
+      "name": "python",
+      "configuredPath": "/usr/bin/python3",
+      "realPath": "/usr/bin/python3",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  ],
+  "claim": "Local unqualified RC11 development candidate; actual installation standing belongs only to final receipts.",
+  "limits": [
+    "One create-once release archive copy and existing Product verify/lock/install/content owners; all5327 payload members exact.",
+    "Fresh product/abg/public/validator imports,56 Public function definitions and empty owner read/close only;15 package exports are metadata.",
+    "Delete only fresh closed empty-resource scratch after actual successful close; retain receipts, failed allocations and all old evidence.",
+    "M5 qualification blocker and lifetime observation S3 remain open; native workflow failed, unit red, no dynamic C.retry claim from R6/F04A.",
+    "Metadata-bound reproduction only; first failed cut preserved.",
+    "No source/Git/main/selector/pin/provider/publication/qualification effect. Packaging review and exact Root execution admission required."
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/ROOT_EXECUTION_ADMISSION.json",
+      "bytes": 4675,
+      "sha256": "b2b96c4260d1661142ee554080a26dd7d4e7bc142e723fa9514d4ea3667a1004"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/packaging-assurance-001/REVIEW.json",
+      "bytes": 22938,
+      "sha256": "1d7a3c58efad7f196c6618186646ab695f4eb810170a07d301d8f5090119268f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+      "bytes": 11045484,
+      "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/install-local-rc11.mjs",
+      "bytes": 7413,
+      "sha256": "b0c8098e749d8b279a289f071c74d7da4fda27510f4d0c83a3e30924d3c4254f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/actual-001/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 518,
+      "sha256": "bf29c37d6322bff67d94d208026cd06404ba061906a72899e3e00793fa598c71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/actual-001/RESIDUALS.md",
+      "bytes": 678,
+      "sha256": "be6eb66395b9f20e21748bca16126dfbb24d76764b0446d149819682aacaa490"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/actual-001/ROOT_AUTHORITY.md",
+      "bytes": 543,
+      "sha256": "c70653cd571d59fea56edeb439677ede282d98c33241003fe96542bd04471c16"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/actual-001/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 2682,
+      "sha256": "d4f496e0372cee0ac6f7cc747b20e9018a789cf7a83070a4e2d77d16b76294c6"
+    }
+  ]
+}

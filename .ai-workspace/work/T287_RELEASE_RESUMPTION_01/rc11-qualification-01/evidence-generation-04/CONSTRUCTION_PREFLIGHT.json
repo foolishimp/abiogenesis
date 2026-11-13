@@ -1,0 +1,20 @@
+{
+  "status": "pure_prepared_construction_checks_passed",
+  "priorMutableGuard": false,
+  "repairedDefaultGuard": true,
+  "repairedResultTextGuard": true,
+  "currentSharedDeepFreeze": true,
+  "frozenObjectArrayCount": 10,
+  "requestCanonicalDigest": "sha256:40de79d7e4927cc121f4c109ce689d03d7137ae3340e654617bda6a7121a6e1c",
+  "priorRequestCanonicalDigest": "sha256:40de79d7e4927cc121f4c109ce689d03d7137ae3340e654617bda6a7121a6e1c",
+  "inputCanonicalDigest": "sha256:406b942fc1e702940cac0b06ad2175c80770297d5bf8a981958b24bb92c3bb75",
+  "inputValuesUnchanged": true,
+  "normalPresentationDefaultUnchanged": true,
+  "callbackFunctionSourceUnchanged": true,
+  "callbackOutputsNotModifiedOrFrozenByRepair": true,
+  "exactOwnerGuardSourceSha256": "54717c87e0de54360c8796bee3559c8b38359d31fa0e4970a449317095537e9d",
+  "guardMethod": "Exact pure field-set and prepared guard source slices from pinned installed owner, using its imported shared isRecord/isDeeplyFrozen; owner runtime module not imported or invoked.",
+  "actorProviderOrRuntimeOperations": 0,
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "nodeVersion": "v24.7.0"
+}

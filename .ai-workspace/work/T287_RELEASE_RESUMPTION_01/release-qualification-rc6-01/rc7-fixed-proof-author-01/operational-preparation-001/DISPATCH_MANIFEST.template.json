@@ -1,0 +1,21 @@
+{
+  "status": "TEMPLATE_ONLY_NOT_ADMITTED",
+  "files": null,
+  "sourceSubject": null,
+  "sourceBefore": null,
+  "actualClose": null,
+  "actualResume": null,
+  "maintainedCheckerSource": null,
+  "operatorRunner": null,
+  "rootControlAdmission": null,
+  "entry": "prepare-and-dispatch.mjs",
+  "commandBounds": {
+    "maxStages": 3,
+    "maxLaneInvocations": 4,
+    "laneTimeoutMs": 300000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetry": false
+  },
+  "meaning": "Root materializes exact pins after N closure. The argv digest binds this actual manifest; it must select ROOT_ADMITTED_NATIVE_DISPATCH. It excludes output prepared-call/execution/close records, which do not exist until this one host runs."
+}

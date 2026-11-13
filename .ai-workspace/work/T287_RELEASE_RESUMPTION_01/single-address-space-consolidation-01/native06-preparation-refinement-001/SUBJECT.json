@@ -1,0 +1,14 @@
+{
+  "kind": "operator_predicate_preservation_refinement",
+  "recordedUtc": "2026-11-03T23:42:38.394093+00:00",
+  "priorSubject": "../native06-preparation-review-001/SUBJECT.json",
+  "file": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-c2-proof-template.mjs",
+    "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-refinement-001/native06-c2-proof-template.mjs",
+    "bytes": 4414,
+    "sha256": "97630dbbdfa0b61f40f7375b3ce8ac6ea82a268b394002cf5bab0c9bf9553390"
+  },
+  "change": "Preserve old positive pass>=minimumPasses acceptance test under negation; undefined/NaN minimum therefore remains an unmet predicate. No new schema framework.",
+  "syntax": "node --check passed",
+  "standing": "Draft, unexecuted/unadmitted; original frozen preimage retained."
+}

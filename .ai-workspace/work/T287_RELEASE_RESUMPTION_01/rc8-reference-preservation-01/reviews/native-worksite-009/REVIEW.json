@@ -1,0 +1,170 @@
+{
+  "productFrame": "ABIogenesis5.0 fixed fifteen families F01-F07,F09-F11,F13-F17; GOAL-035/T-287/RC8 REF-01, STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b, empty composition. ABG remains sole admission/event/replay authority; SDK remains thin. This independent Reviewer evaluates the selected frozen fixture successor and exact component proof only.",
+  "frame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "recordedUtc": "2026-11-07T10:09:37.768043+00:00",
+  "claim": "A9 corrects the complete seven-case/13-use compact-native-task fixture cone selected by native-worksite-012-plan72de32fe, preserves original negative/currentness/Run/closure oracles and all non-granted source, and executes the four active cases without claiming the three conditional paths.",
+  "verdict": "satisfied_for_selected_frozen_fixture_delta_and_four_active_component_cases",
+  "findings": [],
+  "triage": "not_applicable",
+  "subject": {
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/source-freeze.json",
+      "bytes": 295548,
+      "sha256": "e0a0c4ebc6b46c45e6f325760307fd30e949f71eee2fb3719cff103734665f9c"
+    },
+    "sourceDigest": "d521558b06efbec82eae02a5405a3bb3ac494842be24e700a5ec61548a9eec35",
+    "rows": 1339,
+    "baseSourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+    "baseFreezeSha256": "efba6bea8f3d0e1b0695772c18bdd731652b0f0652a2a878619b2445c073fc50",
+    "baseStanding": "A8 physical source86711 was source-reviewed239114a2. It was not an accepted successful native Run: runtime_failed and the separate consolidation/SAS acceptance boundary remain. This review does not retrospectively change that standing.",
+    "overlay": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "bytes": 44744,
+      "sha256": "ecc02ba867f4da99e8189f90f3a79c2244eededcd18b312c6d987f89e62f4d42"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/READY.json",
+      "bytes": 572457,
+      "sha256": "9ebf7043d1bd04de0da3f9680942f40ba01ee3ebd1e53fe43631a96a2ede1ac1"
+    }
+  },
+  "authorityAndPlan": {
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "methodSkillSha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df",
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/TASK.json",
+      "bytes": 6287,
+      "sha256": "072998d63c83f59228d05e727d32eaba580deee2d8d55dc41f29700a47bc5190"
+    },
+    "rootScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/ROOT_SCOPE.json",
+      "bytes": 5218,
+      "sha256": "c1ac7d1793b99f4860a38d41c785294a942763a500b68318b0d8d7e94c8e2011"
+    },
+    "controlFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/CONTROL_FREEZE.json",
+      "bytes": 2611,
+      "sha256": "8a80128e16c69c213b671f4be08adb57c8d9ab3f8fe5ea125996ee1a132c645c"
+    },
+    "adoptedCausalPlan": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/native-worksite-012-plan/REVIEW.json",
+      "bytes": 16184,
+      "sha256": "72de32fe9e25518734040a1a6e018dfd418e582c360a8dc1bae96de3c43d4140"
+    }
+  },
+  "owningRelations": [
+    "Accepted Common Library HOW R1 at715: prospective native observations/failures bind inputDigest and omit task/before. Existing Result/basis owners resolve task; retained original values keep original meaning.",
+    "EVENTS-002/003, PUBLIC-CONTRACTS-004 and PROJECTION-001/002 require exact original identity, source/basis correspondence and replay meaning. Same-process original task objects pass by identity; local fixture record construction is a derived test tool, not a new Runtime admission authority."
+  ],
+  "sourceAssessment": {
+    "localIdentity": "fixture56 returns sourceTask:task and inputFor receives that very task. InputFor32 now checks the existing observation/task relation and uses explicit authority/binding/grant. Component assessment preimage, input digests and admitted-basis premises receive sourceTask; compact Result remains unchanged and carries no task. No source.task dereference remains.",
+    "retainedOwner": "Optional retained-log cases239/277 invoke projectNativeWorkspaceWorkResultTaskAtPrefix on the actual selected Result/prefix, require a non-null result and pass that returned task to C2 and foreign-source constructors. The existing owner retains original-contract handling; no log/profile bytes are relabeled.",
+    "counterexamples": "All source-membership, wrong/foreign/stale/parentless, consumer-versus-producer Run, closure, cold-history, immutable prefix and physical currentness assertions remain. Original seven test names and all three skip gates are byte-identical. The one changed original assertion only threads sourceTask into inputFor; its foreign-origin null oracle is unchanged.",
+    "laterWriter": "The active cross-Run counterexample adds a distinct explicit later-writer basis premise with the native task and rawInputDigest, instead of pointing the compact Result at the consumer parent's null input. The existing basis lookup override resolves that exact reference; the stale source must still refuse and the unchanged earlier cut must still admit.",
+    "scope": "Manifest delta contains exactly the selected test file. No Product/HOW/helper/config/package/dependency-source changes, new API, generic cache, guard bypass, restamping or assertion suppression found."
+  },
+  "optionalFailedWriterBasis": {
+    "lines": "test300-324",
+    "lawComparison": "The six excluded wrapper/identity fields at305-306 exactly match calculus/execution_basis_record38-48 and execution_basis2781-2788. writerBasisBody retains the source body, replaces rawInputValue with the Product-constructed writerTask and rawInputDigest with its canonical hash, hashes that body and derives the normal execution-basis URI. The projected basis event carries those same values. This is the existing narrow record-digest law, not an inaccurate schema/digest reinterpretation.",
+    "existingOwners": "writerTask and compact failure use existing Product constructors. projectRuntimeEventFromValidatedHistory constructs the counterexample event; the added assertion calls the existing Result/basis task owner to demand the writer input. The final historical-cut acceptance/latest-cut refusal oracle remains unchanged.",
+    "limit": "This optional case was skipped. Its code matches the checked-record construction law, but this review does not claim that the owner assertion executed. It is a synthetic projection counterexample with inherited authority fields as premises, not an execution of the full effectful continuation/new-writer admission procedure. No actual retained-log compatibility or complete Runtime admission is inferred from the digest calculation."
+  },
+  "correspondence": {
+    "source": "All1339 composed frozen source rows rehashed from stage04 plus exact cumulative overlays; zero mismatches. Source digest independently recomputed asd521558b06efbec82eae02a5405a3bb3ac494842be24e700a5ec61548a9eec35. Exactly one changed row versus A8, no additions/removals.",
+    "prepared": "All2132 READY materialized files rehashed in /private/tmp/abg-r8-a09-x5mx_vsm/p/w; zero mismatches. Exactly the same one test differs from A8 READY. Existing generated outputs/candidate basis are retained prepared inputs, not new source changes.",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "compiledManifest": {
+      "path": "/private/tmp/abg-r8-a09-x5mx_vsm/p/w/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    },
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "buildInvocations": 0,
+    "shipping": "Archive rehash remainsa178 and compiled manifestf743. The previously inspected identical5325-member archive has no test_env members; this change is unshipped."
+  },
+  "execution": {
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/lane-01/RESULT.json",
+      "bytes": 872,
+      "sha256": "95ed63babc9f83a8ceae61c309572dd7436b68302bf027f8afa228347b349c04"
+    },
+    "reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/lane-01/events.jsonl",
+      "bytes": 2828,
+      "sha256": "0b8e75423730081533f8346091d44185abeab20fda9c5b2d6b86af1d5da0b187"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/lane-01/commands/test.stdout",
+      "bytes": 2879,
+      "sha256": "d2c6f93f619019d444f1f4aac89852ada9b067cf2e0b69dd596566489d8c0c63"
+    },
+    "commandReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/lane-01/commands/test.result.json",
+      "bytes": 1449,
+      "sha256": "dc637ff1c80d48b535db379d438840ec8973117a4605d8d928bc872030eb497f"
+    },
+    "counts": {
+      "tests": 7,
+      "failed": 0,
+      "passed": 4,
+      "cancelled": 0,
+      "skipped": 3,
+      "todo": 0,
+      "topLevel": 7,
+      "suites": 0
+    },
+    "wallMs": 723.0781249999999,
+    "exitCode": 0,
+    "timedOut": false,
+    "truncated": false,
+    "wholeFile": true,
+    "activeClaims": [
+      "Changed/unchanged file selection without C1 identity",
+      "Missing/duplicate/crossed/counterfeit source refusal",
+      "Physical currentness refusal before archive publication/native dispatch",
+      "Producer-bound cross-Run source admission and wrong/foreign/stale/parentless refusal"
+    ],
+    "conditionalUnexecuted": [
+      "Long producer-history/Catalog assessment/membership/cold path: ABI5_NATIVE_SOURCE_READY_CATALOG unset",
+      "Actual retained producer source admission: ABG_NATIVE_EXECUTION_RETAINED_LOG unset",
+      "Failed-write-residue after child basis: ABG_NATIVE_EXECUTION_RETAINED_LOG unset"
+    ],
+    "standing": "Four active component cases passed; three optional cases skipped. This is not seven executed successes, native C2 end-to-end proof or pre-existing optional coverage."
+  },
+  "ownerReferencePins": [
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "bytes": 5021,
+      "sha256": "820d94fb106a5f952e8f1752ac785eb105a88d7ad856d6127380b52c3398b5d1"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 130216,
+      "sha256": "c07261feca7ad1d1dbb27e294f42f5891138aca41b1220a5e68769c687a073ca"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "bytes": 23428,
+      "sha256": "6460194c1cd022e27b0775657bac504cb19543d6e7d41dc2f77d6f96def5e49c"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "bytes": 27351,
+      "sha256": "eea3f793159d40ea3d29831658ab6d816867233b1adfa4ec91cb6497eaa61f6a"
+    }
+  ],
+  "limits": [
+    "No independent Reviewer test execution, Product call, provider/process effect or repair.",
+    "All prior012 reds, A8 native failure and separate pending proof boundaries remain.",
+    "Native A9 return, physical close, fresh readbacks, source acceptance, broad proof and local cut remain Root/Operator conjunctions.",
+    "No whole5.0 qualification, release/publication/global-selector or immutable-install claim."
+  ]
+}

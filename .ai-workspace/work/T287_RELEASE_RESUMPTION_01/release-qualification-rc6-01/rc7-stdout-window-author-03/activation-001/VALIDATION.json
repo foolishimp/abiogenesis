@@ -1,0 +1,60 @@
+{
+  "kind": "mechanical_successor_preparation_validation",
+  "startedUtc": "2026-11-06T22:46:56.563342+00:00",
+  "closedUtc": "2026-11-06T22:46:57.263459+00:00",
+  "elapsedMs": 699.977,
+  "sourceRows": 451,
+  "allHeldAndLiveSourceRowsEqual": true,
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "trackedModifiedCount": 70,
+  "knownNewProductCount": 2,
+  "emptyIndex": true,
+  "untrackedCensusExecuted": false,
+  "predecessorPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/SOURCE_AFTER.json",
+      "bytes": 557071,
+      "sha256": "6a11b7193ae07edb1c74d6de969352b464e5d167fd14284ccc71709d25d76cdb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8413,
+      "sha256": "9e9d637edd84e8bf14489c2c4b6904072d64dd449697ad7429368d01a931355a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 12430,
+      "sha256": "12869a0d9af624f69b551dc3ec19d9844779fd2dbe7ad4e5019fc0e0be2b1dca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/execution/after-run-resume.json",
+      "bytes": 72498693,
+      "sha256": "e1d90b7c8dab90b86ea7d85eb929f91e08b92313a5e612011b3809b0df4f9090"
+    }
+  ],
+  "prefixStat": {
+    "prefixLength": 2788574354,
+    "device": 16777231,
+    "inode": 701759869,
+    "priorCloseDigest": "sha256:cd6bb1b82026f1e86f6875b5bf92aa81bfcfa39b0cda58a359a58f16eff7dc18",
+    "newPrefixReadOrHashPerformed": false
+  },
+  "pendingRootFields": {
+    "exactProfileCompatibilityRelation": null,
+    "exactAdditionalOwnerReadAndWritePaths": null,
+    "exactSixLaneFilesPatternsActivePredicatesAndTimeouts": null,
+    "sourceReviewAndRootDisposition": null,
+    "nativeGrantAndWorkloadSelection": null,
+    "RootAdmission": null,
+    "actualDispatch": null
+  },
+  "effects": {
+    "ProductWrites": 0,
+    "CStaging": 0,
+    "runtimeAcquisitions": 0,
+    "providerCalls": 0,
+    "testOrBuildLanes": 0,
+    "GitMutations": 0
+  },
+  "scope": "No admission or dispatch; real future capacity receipt remains absent."
+}

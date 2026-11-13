@@ -1,0 +1,18 @@
+{
+  "kind": "source_custody_selection",
+  "status": "UNBOUND_HS01_HS02_ACCEPTANCE_REQUIRED",
+  "sourceBefore": null,
+  "sourceCommit": null,
+  "frozenSubject": null,
+  "sourceAfter": null,
+  "sourceDisposition": null,
+  "actualClose": null,
+  "actualResume": null,
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/SOURCE_SELECTION.reference.json",
+    "bytes": 274668,
+    "sha256": "8d504dc2a0cd154f18bad1dee8b2d2ff6a7c59f029bf66e7c91349742535bb59"
+  },
+  "sourceCount": 450,
+  "meaning": "F450 reference only. Root binds actual accepted HS01/HS02 source/measurement/disposition and genuine close/resume before HS03 activation. No old close or source promoted."
+}

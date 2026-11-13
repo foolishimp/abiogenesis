@@ -1,0 +1,34 @@
+{
+  "kind": "bounded_stdout_window_differential_selection",
+  "status": "ACTUAL_HS01_SOURCE_AND_HS03_MEASUREMENTS_PENDING",
+  "historicalOracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "required": [
+    "same decision and exact last qualifying activity at supplied recorded decision points",
+    "all four probe producers and threshold not-reached through central owned flush",
+    "two interleaved scopes, mixed/noise and structured turn or30000ms maximum",
+    "actual archive fsync before reference, failed I/O, missing/changed/truncated bytes",
+    "old per-chunk contract/event identity/cut replay and current canonical generated identities",
+    "final partial window, timeout/interruption and enclosing transaction recursion/rollback"
+  ],
+  "measure": [
+    "stdout byte count",
+    "window/stdout/probe rows",
+    "fsync count per enclosing transaction and archive window",
+    "original archive range/digest",
+    "lastActivity at each supplied decision point",
+    "separate setup/launch/native/testing/readback/Root-delay durations"
+  ],
+  "limits": [
+    "Only public mechanical metadata is selected. No provider reasoning/text/tool_result/stderr/auth/credentials or raw Result/task/binding bodies are emitted.",
+    "No structured turn boundaries are invented. Historical stdout eventTime is its admitted wall-clock stamp; exact actor capture elapsedMs is only supplied by corresponding admitted probes. Noise-only chunk actor-clock instants are not inferred from wall time.",
+    "Actual-stream differential may compare recorded qualifying activity and decision points, within supplied clocks/scopes. Synthetic non-private mixed/noise/two-scope/turn-boundary cases separately prove classifier/window scheduling.",
+    "Archive byte integrity and original provider chunk content cannot be reconstructed from this metadata; current-owner archive failure/cold-replay discriminators are separate.",
+    "No runtime acquisition, provider invocation or log mutation. Only the exact closed historical prefix was read while later bytes may exist."
+  ],
+  "thresholdOwnerRelation": "runtime_liveness.ts must use the one central scope flush before deriveRuntimeLiveness and its no-admission not-reached arm; admission-only hook is too late.",
+  "claimBoundary": "No new event authority, historical relabelling, raw-provider fixture, exhaustive campaign or unmeasured speedup claim."
+}

@@ -1,0 +1,42 @@
+{
+  "id": "semantic-interface-and-fixture-consumers",
+  "files": [
+    "test_env/tests/d2-acknowledgment.test.mjs",
+    "test_env/tests/d2-binding-query-reuse.test.mjs",
+    "test_env/tests/d2-binding-transition.test.mjs",
+    "test_env/tests/d2-bounded-repair.test.mjs",
+    "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+    "test_env/tests/d2-historical-design.test.mjs",
+    "test_env/tests/d2-workflow-step.test.mjs",
+    "test_env/tests/t287-c2-child-program.test.mjs",
+    "test_env/tests/t287-d1-semantic-stage.test.mjs",
+    "test_env/tests/t287-generic-job-intake.test.mjs",
+    "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+    "test_env/tests/t287-generic-job-meaning.test.mjs",
+    "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+    "test_env/tests/t287-generic-job-revision.test.mjs",
+    "test_env/tests/t287-management-context.test.mjs",
+    "test_env/tests/t287-management-supervision.test.mjs",
+    "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "test_env/tests/t287-predecessor-context.test.mjs",
+    "test_env/tests/t287-stdo-environment-citation.test.mjs",
+    "test_env/tests/t287-stdo-run-environment.test.mjs",
+    "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 59,
+  "fail": 0,
+  "skipped": 73,
+  "wallMs": 194386.76029199996,
+  "stdoutSha256": "fce94ec203cc0d16f92770525cfc84ed8758795cc741bfab11f40ad6f056171a",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": [
+    "required cases did not execute"
+  ]
+}

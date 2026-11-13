@@ -1,0 +1,34 @@
+{
+  "kind": "operator_source_basis_diagnostic",
+  "status": "PREPARED_FOR_ROOT_EXECUTION_REVIEW",
+  "bindingSha256": "0158dbd132897e31c3deba39382e682d9b2024f98605d5b5156f2bfe2d76a581",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-007/source-basis-diagnostic-001/diagnose.mjs",
+      "bytes": 4262,
+      "sha256": "d7bc111ac9584323b6f36b8ddab393835eb8d8c1c0acb2a2c19928f4809e62ba"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-007/source-basis-diagnostic-001/HANDOFF.md",
+      "bytes": 605,
+      "sha256": "db4e5dfc68661033b7dc5e2e46c3ea5a53d63d55296aebf302f0f472189ccfd5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-007/setup-state.mjs",
+      "bytes": 6484,
+      "sha256": "f3e3b907b6e842adcca56028fa630566ac8b98e8c9865a4e075ba270d2690ad5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-007/CALL_PREPARATION_BINDING.json",
+      "bytes": 198737,
+      "sha256": "0158dbd132897e31c3deba39382e682d9b2024f98605d5b5156f2bfe2d76a581"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-007/ROOT_ADMISSION.json",
+      "bytes": 707,
+      "sha256": "5d4ae189c93e4e282d66617e16176b2832d5419b507037073c37f80e48cf77fb"
+    }
+  ],
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

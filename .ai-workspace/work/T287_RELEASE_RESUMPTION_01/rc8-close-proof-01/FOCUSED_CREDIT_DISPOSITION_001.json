@@ -1,0 +1,281 @@
+{
+  "status": "EXACT_STAGE_FOCUSED_CREDIT_PREPARATION",
+  "at": "2026-11-07T04:37:15.845682+00:00",
+  "activation": "/root/rc7_reference_ticket_writer",
+  "consumer": "/root",
+  "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+  "freezeReceipt": {
+    "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+    "bytes": 293777,
+    "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_001.json",
+    "bytes": 13473,
+    "sha256": "368fe5270e7864efe8771ca6d5d62b11e772f55cdda52170e3649b35576b3501"
+  },
+  "wholeFileCredits": [
+    {
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/RESULT.json",
+          "bytes": 341,
+          "sha256": "6ba4b1d5816d9176cc9c8af46dd34be6794525e8a02cfe9f377fa6cb9d1d2a7a"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.request.json",
+          "bytes": 759,
+          "sha256": "90c3b485b404891b7ec3c5eef52c572d7b739425d0e892df5e5430c476424a46"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.result.json",
+          "bytes": 1211,
+          "sha256": "c17e562f1ddcc1d4b217daca459cc869e11542ccbcbf68577464b09d26f84aa9"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.stdout",
+          "bytes": 7530,
+          "sha256": "52ce158069798edbf972a9096e60218b2ddb56613f88f3d1f80df7c75f60c9c5"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-02/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 1,
+        "passed": 1,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/RESULT.json",
+          "bytes": 343,
+          "sha256": "6792ff9f2a15aed71028f34f7718f7b7373a88a1f0162c574dfe42a6330b2c06"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/commands/test.request.json",
+          "bytes": 767,
+          "sha256": "734a072ed7d9c29fbe3f442062af677de445e8c97158c3a1ff585957af9898fb"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/commands/test.result.json",
+          "bytes": 1224,
+          "sha256": "4bea8478690f88ab2bcf3a1d927951f8a4ab17b23a8982516363fb91f97e5772"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/commands/test.stdout",
+          "bytes": 2349,
+          "sha256": "fe1cfee945d53728ca2a273487db900db79b22e673d41386f64160f4f7a6ad26"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-03/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 5,
+        "passed": 3,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 2,
+        "todo": 0
+      }
+    },
+    {
+      "file": "test_env/tests/r4-catalog-admission.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "379a3434a504128e2e8e16e44e0bf1d61d924158af4f323c4860535629637f43",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/RESULT.json",
+          "bytes": 336,
+          "sha256": "d45e06539cb01d0287f3c7e1982282a752b356137444b96b0606fbbd9fad67e0"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/commands/test.request.json",
+          "bytes": 754,
+          "sha256": "f3f3dd2b1c09c3699bfd5d14266603430c3dd3f0c458a2a03f5dbec60918251c"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/commands/test.result.json",
+          "bytes": 1204,
+          "sha256": "9322114e1b3a71e9328db5c7d69c9bec4725a12e00d3a26d50a44679405fc89f"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/commands/test.stdout",
+          "bytes": 3097,
+          "sha256": "cb05358a39d7485360e5a19ced3e70e541b81f7bdebc86f4f1ec4cd3b0a2bfe6"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-04/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 8,
+        "passed": 8,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "file": "test_env/tests/r5-invocation-admission.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "9db87e6586201f7ac806df00076fd4a289241750c9bb6cf367081b50f613cd94",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/RESULT.json",
+          "bytes": 341,
+          "sha256": "92951975bf5df216c58c2a18acd7490902898be755b692c0dc1a9b9ca7483231"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/commands/test.request.json",
+          "bytes": 757,
+          "sha256": "c32a34206580acb73bbe87e8f30ecfecc1ade4f56743fae149dc0aacfb045720"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/commands/test.result.json",
+          "bytes": 1208,
+          "sha256": "db2255758fdd6dd082fd585b20a0130f56f92b1b9f3073d063a5e5ef3e1577fc"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/commands/test.stdout",
+          "bytes": 592,
+          "sha256": "52a12e650ecff82d5c86205a00a8211458c9e5bae99711030960e3a4a33038aa"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-05/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 2,
+        "passed": 2,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "wholeFile": true,
+      "success": true,
+      "freezeReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+      "testSha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8",
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/RESULT.json",
+          "bytes": 339,
+          "sha256": "8d6e32a229aee97db4be68a4033950d29f891b75c1971c24ef49c0230548c1e6"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/commands/test.request.json",
+          "bytes": 753,
+          "sha256": "ad7dced46747b12075d9c9e09cf1d2326fefa094865aa4373a3ffc6f59bd0fd8"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/commands/test.result.json",
+          "bytes": 1205,
+          "sha256": "c35a6e23ef868bfc67ae899b271dbb9275a2946264e4a83a473d172d64aabf61"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/commands/test.stdout",
+          "bytes": 9819,
+          "sha256": "45006f62b056d62518f0b9540ec97c53aa4cf7eb2686d74f32eea1bce9cd4a36"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-06/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 32,
+        "passed": 32,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    }
+  ],
+  "partialEvidenceNoCredit": [
+    {
+      "file": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "wholeFileCredit": false,
+      "reason": "Actual command used a name filter; its two passing tests are retained partial evidence and this full file remains scheduled.",
+      "pattern": "^(T287 disposable reuse|RC7 HS02:)",
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "evidencePins": [
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-07/RESULT.json",
+          "bytes": 366,
+          "sha256": "3534b90d6250c7843dbc3da0cc44bb5562989cb059beec8fdfb5424acaa3ed6a"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-07/commands/test.request.json",
+          "bytes": 837,
+          "sha256": "7be949cead4abfd0df57be8ba18ff2d695c028097dd707cc9ad9209ad5607920"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-07/commands/test.result.json",
+          "bytes": 1288,
+          "sha256": "90fdce598326721d31532abe6867fe99dbbc7487e41052d2cbdfb122bac0b0a3"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-07/commands/test.stdout",
+          "bytes": 2686,
+          "sha256": "ee5fc3f7cca3044438b320ab495e6431137ce8547b14b47937007e8876586e95"
+        },
+        {
+          "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/lane-07/commands/test.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "creditedCounts": {
+    "files": 5,
+    "tests": 48,
+    "passed": 46,
+    "historicalSkipped": 2,
+    "failed": 0
+  },
+  "remaining": "207 test files plus harness inventoried; only five whole files credited. Full held file remains scheduled. Actual broad execution waits for matched after measurement close and Root exact admission.",
+  "testsExecutedHere": 0
+}

@@ -1,0 +1,30 @@
+{
+  "status": "PASSED",
+  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+  "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+  "wholeFile": true,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/actual-001/events.jsonl",
+    "bytes": 818,
+    "sha256": "93cc53ba661ec0af8de739179a78446846d2558c5a4c6e197ad8be642b7b930d"
+  },
+  "wallMs": 206459.41037499998,
+  "totalMs": 261796.20204099998,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "primaryPreserved": true,
+  "buildInvocations": 0,
+  "providerCalls": 0
+}

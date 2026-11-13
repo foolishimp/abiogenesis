@@ -1,0 +1,14 @@
+{
+  "kind": "root_bounded_fixture_provider_free_preflight",
+  "startedUtc": "2026-11-05T08:19:53.869090+00:00",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/prepare.mjs"
+  ],
+  "controlCompletionSha256": "664047e4125a19a2a0a29d4e1ddc23bacc92f23ae470cfc8402d6510af63974d",
+  "providerCalls": 0,
+  "nativeDispatch": false,
+  "endedUtc": "2026-11-05T08:19:57.830823+00:00",
+  "exitCode": 1,
+  "elapsedMs": 3960.5396669358015
+}

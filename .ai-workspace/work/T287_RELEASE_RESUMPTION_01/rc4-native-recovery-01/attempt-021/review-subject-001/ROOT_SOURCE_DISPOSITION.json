@@ -1,0 +1,11 @@
+{
+  "status": "ROOT_ACCEPTED_SELECTED_SOURCE_CORRECTION_C2_UAT_PENDING",
+  "recordedAt": "2026-11-03T03:29:20.914309+00:00",
+  "operator": "Root",
+  "basis": "Root message after independent max delta review",
+  "subjectSha256": "d51de76cfb509fa2135eb6b30caadae3557831af073ce6d439f442a4ac5d9a2a",
+  "diffSha256": "df1e475ec7a81befc4a5ea37e89b1de526dc55ae331d936da361bc0625cc7546",
+  "nativeResultRef": "result://abiogenesis/8f3edeec63d9e0da6eaef6ac0f1b6179421148bb57b218d5fc1efd48bde622d3",
+  "afterDigest": "sha256:e99913b90452ea8f5c26cfb57db155721205ec30f4147ee6120b4835237c18ad",
+  "decision": "Selected source-level correction accepted: same installed verifier/request warm positive control without owned value, separate setup accounting and bounded claims; prior020 caller/cold/environment review conserved. No new source blocker. Actual candidate C2/UAT/local cut pending; original020 native failure unchanged."
+}

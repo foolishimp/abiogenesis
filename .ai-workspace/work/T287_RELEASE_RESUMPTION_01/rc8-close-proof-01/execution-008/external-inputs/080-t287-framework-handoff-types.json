@@ -1,0 +1,15 @@
+{
+  "testFile": "test_env/tests/t287-framework-handoff-types.test.mjs",
+  "testSource": {
+    "path": "/private/tmp/abg-r8c-008/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+    "bytes": 23654,
+    "sha256": "a3850322cc233c9bb8821ba99bbe92eee4b9cb31923d354798a465eb701d23b3"
+  },
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc4-hc1-baseline-014/b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db.tgz",
+    "bytes": 10957749,
+    "sha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db"
+  },
+  "environmentVariable": "ABI5_HC1_BASELINE_PACKAGE_PATH",
+  "standing": "Root selected this exact existing historical archive by read-only path, no copy/substitution. All original per-slot schema assertions remain; intentional schema drift is not waived."
+}

@@ -1,0 +1,26 @@
+{
+  "status": "DIAGNOSTIC_RUN_COMPLETE_NOT_QUALIFICATION",
+  "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "wallMs": 86427.245917,
+  "captures": [
+    {
+      "source": "/private/tmp/abg-hd1/abi5-rc7-fixed-Xr729w/caller/resources/events/runtime.events.jsonl",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/runtime.events.jsonl",
+      "bytes": 3807167,
+      "sha256": "780c7b52e02688760caf535ea6ccc579f0ed84659976e230ee30df4a9ea50c58",
+      "openedUtc": "2026-11-06T15:49:28.163Z",
+      "device": 16777231,
+      "inode": 708112577,
+      "unlinked": true
+    }
+  ],
+  "watchErrors": [],
+  "sourceRowsUnchanged": 451,
+  "sourceEdits": false,
+  "qualificationClaim": false
+}

@@ -1,0 +1,46 @@
+{
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+    "bytes": 295433,
+    "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+  },
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "sourceRows": 1345,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs"
+  ],
+  "conservedSourceRows": 1344,
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/SOURCE_DELTA.diff",
+    "bytes": 7021,
+    "sha256": "ad47beb9c22b8443c893333fafc8cbbbb9c1b97c326425c9bfb02638734dcac1"
+  },
+  "guardsExact": true,
+  "sourceWriteStop": "SDK returned; actual physical close; host and actor absent",
+  "nativeFinal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/FINAL.json",
+    "bytes": 2628,
+    "sha256": "813c433b9d688436ba9b05ee2c2b912d3f8ae52616a0a5e1e32c2e326704b52b"
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/NATIVE_RETURN.json",
+    "bytes": 2158,
+    "sha256": "ca201325e6cd629fe34d5b81e04d2ec3163ea7aca48064c11cdd44ae5a75e94a"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/FRESH_READBACKS.json",
+    "bytes": 6807,
+    "sha256": "db6a04f11a4b3a3c70c5a88992240de6be7532de7dd14122abf95244b6d43201"
+  },
+  "processesAbsent": [
+    8454,
+    10528
+  ],
+  "actorGroupAbsent": true,
+  "git": {
+    "head": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+    "trackedStatus": " M build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts\n M build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md\n M build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md\n M build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs\n",
+    "stagedPaths": []
+  },
+  "qualified": false
+}

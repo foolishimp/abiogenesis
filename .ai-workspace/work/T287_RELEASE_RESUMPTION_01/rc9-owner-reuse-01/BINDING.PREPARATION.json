@@ -1,0 +1,42 @@
+{
+  "id": "T287-RC9-OWNER-REUSE-PREPARATION-BINDING-01",
+  "status": "PREPARATION_PINNED_NATIVE_SCOPE_HELD",
+  "intake": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/INTAKE.json",
+    "bytes": 4799,
+    "sha256": "59e678e747bc2051a779da756742815309fbb3101a60a6a3a1439376f6805f1c"
+  },
+  "builder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/CHECKOUT.json",
+    "bytes": 1467,
+    "sha256": "28b9d806864d6a67361fc06a474af848cf0dec325f0e6dd085ca79a0926319ff"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/SOURCE_INVENTORY.json",
+    "bytes": 293897,
+    "sha256": "81127b9136bcdacc0c39cba61539bc8638b435d7d5ea6679ce8cd45a635e62fa"
+  },
+  "authorityComparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/AUTHORITY_COMPARISON.json",
+    "bytes": 143606,
+    "sha256": "137728ecd87e172be911a44c0dde45cabc2c949159cbd1f13f9c59944055889c"
+  },
+  "nativeControlReuse": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/NATIVE_CONTROL_REUSE.json",
+    "bytes": 7968,
+    "sha256": "c0fcd1e88e3ad5f49b7cb7f98c0ada03b370afbe98624e450c7a0de92ea820ce"
+  },
+  "proofTriageProjection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_PROOF_TRIAGE_PROJECTION.txt",
+    "bytes": 2703,
+    "sha256": "d606f45bb5700fd1bf6ea8eb5528d5b9cc36327c1645f455b8ce8b33b3628713"
+  },
+  "rootConjunction": "pending",
+  "runtimeAllocation": false,
+  "providerDispatch": false
+}

@@ -1,0 +1,42 @@
+{
+  "file": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+    "testSha256": "a8cc28369dc70e05ab229ef5c8bc489e4669d3faddea601c60908b7c2b2eeef6",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Original020 whole command reached600s after one passing case; summary/end absent. Exact independent second-case proof separately prepared under Root selection. Temporary scheduling deferral only: zero whole-file or added passed tally for partial020; no permanent assurance debt or no-block disposition.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_020.json",
+        "bytes": 13144,
+        "sha256": "235e98d46ede7b62870720820501c33e301a9269b024eba3db04c9ca2357199a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/files/176-t287-st2a-e-exact-prefix-workspace-environment.json",
+        "bytes": 1080,
+        "sha256": "80552f3e182416b3273a98a2c2830eed738ee95130a17add5e5aba3cb43664ec"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/commands/176-t287-st2a-e-exact-prefix-workspace-environment.result.json",
+        "bytes": 1550,
+        "sha256": "8e16191fd9e3cd1dd0de58a45a69ac425a150f5e54aada072372737f9d8fafd2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/commands/176-t287-st2a-e-exact-prefix-workspace-environment.stdout",
+        "bytes": 237,
+        "sha256": "da9c08faffb0219707596faac1766e9d8211f922f857d69222d81a50c05d6862"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/events/176-t287-st2a-e-exact-prefix-workspace-environment.jsonl",
+        "bytes": 374,
+        "sha256": "d20b520576d4baecc328ee415e49433f9cf6df5cf77dd5d15b82155dfe1a312d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-020/FAILURE.json",
+        "bytes": 627,
+        "sha256": "3bf59fb2b0c6777b1335748926a9e6589e55e136466469e367541fac09c9446c"
+      }
+    ]
+  }
+}

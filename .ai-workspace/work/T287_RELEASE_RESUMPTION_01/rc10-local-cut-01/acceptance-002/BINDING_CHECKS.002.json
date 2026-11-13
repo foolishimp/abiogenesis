@@ -1,0 +1,47 @@
+{
+  "status": "STATIC_PIN_AND_CONJUNCTION_CHECKS_PASS_EXECUTION_HELD",
+  "recordedUtc": "2026-11-09T04:51:16.199281+00:00",
+  "preservedPreparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 2837,
+    "sha256": "7113beb67d03d9c4398f89799ad49a355b00116d07fa8ba7f1a297a7a5c13128"
+  },
+  "acceptedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/ROOT_BOUNDED_ACCEPTANCE.002.json",
+    "bytes": 21569,
+    "sha256": "d6d22bbb4757ba931df4d4b1adbf18071773c7ddc31384bd7a5da30e7fb971e9"
+  },
+  "affectedResult": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/affected-01/RESULT.json",
+    "bytes": 4851,
+    "sha256": "65412e60b1982b08587c3f277f1e47c151b130d2fd20a0184aad51cbd0713cc7"
+  },
+  "affectedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/AFFECTED_RETURN.json",
+    "bytes": 5610,
+    "sha256": "9f43f1186a00b4b3616251bd990209f380e49c2b7233ae3bace427bef293d192"
+  },
+  "finalOperatorProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/FINAL_PROOF_RETURN.json",
+    "bytes": 3648,
+    "sha256": "fd51510765631321900683a45cba8c629db6a10a4641f02aa0f19533b9690b2e"
+  },
+  "finalConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/FINAL_CONSERVATION.json",
+    "bytes": 2499,
+    "sha256": "b8d6fb0a0de0595184003eb3c28d341ec8d3a7f5c19de64c64f49d242dd4c897"
+  },
+  "checked": {
+    "all6AffectedFilesComplete": true,
+    "affectedCommandExitZeroNoFailureTimeoutTruncation": true,
+    "sourceDigestsAgree": true,
+    "archivePinsAgree": true,
+    "finalConservationCountsMatch": true,
+    "mainTrackingPinsReacquired": true,
+    "allBuildSourceAndAcceptancePinsBound": true,
+    "driverAndPreparationPreserved": true,
+    "executionEnabled": false,
+    "activation": null
+  },
+  "effects": "New successor preparation files only; read/hash/parse existing evidence. No Product import, source change, Git mutation, test, build, runtime or install."
+}

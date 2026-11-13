@@ -1,0 +1,193 @@
+{
+  "at": "2026-11-06T02:44:44.845Z",
+  "status": "ACTUAL_C2_CAPTURED_WITH_UNSATISFIED_OR_UNKNOWN_CHECKS",
+  "coordinates": {
+    "admissionOrdinal": 173540,
+    "eventId": "event://abiogenesis/08ead8b68ed0fee3f94afcaefec0eeb579f8055a0b059086a614be02b2b9caaa",
+    "eventTime": "2026-11-06T02:44:23.499Z",
+    "runId": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851",
+    "offset": 1044253338,
+    "rowBytes": 5142271,
+    "rowSha256": "84a0a82693479e9372ea40b37fbdfeff955ebd15f694d6fc297645aab5f323a1",
+    "resultRef": "result://abiogenesis/e3cb5030bb2acea90218bf0fed639c26151c383307adfa9a7fc9e4e1fedcb8cb",
+    "resultDigest": "sha256:e3cb5030bb2acea90218bf0fed639c26151c383307adfa9a7fc9e4e1fedcb8cb",
+    "valueKind": "worksite_command_execution_observation"
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d211adaa304bc4d037ed7f32c6d546af2cf653bd15fb478523c53ed3ab85a788/d2717d841a97ca3a7a32ab22208571043576f8959b76f936517e8988bee68c93/result.json",
+    "bytes": 5032416,
+    "sha256": "2343b01949178e3aa84ed77983206df74d062e1dba6ebb430391a74ca6f89d49"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/SOURCE_BEFORE.json",
+    "bytes": 248463,
+    "sha256": "6ba4bc83915cfd2dbe4d507bcce8eec46b8842f3041b0edcc007c8f63209afd9"
+  },
+  "sourceMatches": 420,
+  "sourceCorrespondenceReportedInputs": 407,
+  "sourceCorrespondenceDeclaredInputs": 407,
+  "additionalProtectedInputCount": 13,
+  "declaredReportIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/DECLARED_REPORT_INDEX.json",
+    "bytes": 38469,
+    "sha256": "5aece136e6b350344ab71c24954897285eba4bd4ff795ca2d21a7947949f4095"
+  },
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/source-correspondence",
+      "observed": true,
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/offline-toolchain",
+      "observed": true,
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/contract-seeds",
+      "observed": true,
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/compile",
+      "observed": true,
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/generate",
+      "observed": true,
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/lifecycle-boundary",
+      "observed": true,
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/component-proof",
+      "observed": true,
+      "exitStatus": 1,
+      "terminationConfirmed": true,
+      "timedOut": false
+    }
+  ],
+  "lanes": [
+    {
+      "id": "transport",
+      "tests": 27,
+      "pass": 27,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    {
+      "id": "qualification",
+      "tests": 37,
+      "pass": 37,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    {
+      "id": "d5-lifecycle-profile",
+      "tests": 48,
+      "pass": 48,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    {
+      "id": "recovery",
+      "tests": 1,
+      "pass": 0,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 1,
+      "todo": 0
+    }
+  ],
+  "guard": {
+    "commandId": "command://abiogenesis/qualification/d5-author-02/lifecycle-boundary",
+    "exitStatus": 0,
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/actual-c2-001/lifecycle-boundary.stdout.log",
+      "bytes": 90,
+      "sha256": "0e56cd8c536c9c74c47da96b72ab178932da674ec21c7dbf5a1d86e336fc0f99"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/actual-c2-001/lifecycle-boundary.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "protectedInputCount": 420,
+  "protectedBeforeAfterEqual": true,
+  "productDeltaCount": 0,
+  "unmatchedTerritoryCount": 0,
+  "allowedWriteTerritories": [
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/build"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/contracts"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/node_modules"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/artifacts"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs"
+    },
+    {
+      "pathKind": "file",
+      "relativePath": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    }
+  ],
+  "sourceCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/actual-c2-001/source-correspondence.json",
+    "bytes": 87914,
+    "sha256": "3169a4b6734f52cf02e803ebcb2205c4941b9bb739e46a7b6f89fea78cb12346"
+  },
+  "componentReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/actual-c2-001/component-result.json",
+    "bytes": 7000,
+    "sha256": "7e392e5417fb3c5c6b874eaf1b719d5b89309fad73b1d3a74727a14d0ed22ad9"
+  },
+  "issues": [
+    "command did not complete successfully: command://abiogenesis/qualification/d5-author-02/component-proof",
+    "component predicates not all satisfied",
+    "lane unsuccessful or skipped: recovery"
+  ],
+  "limits": [
+    "Exact snapshot/input correspondence and existing-owner artifact checks only. No whole raw source-bearing event/helper body copied or printed.",
+    "TAP/guard reports are selected finite evidence; semantic recovery assertions still require UAT/review.",
+    "No Q23 acceptance, formal independent assessment or release qualification inferred."
+  ]
+}

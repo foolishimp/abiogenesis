@@ -1,0 +1,35 @@
+{
+  "kind": "metadata_only_actor_start_suffix",
+  "observedUtc": "2026-11-06T18:54:49.014915+00:00",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "startOffset": 2253967206,
+  "endOffset": 2288753858,
+  "bytesRead": 34786652,
+  "completeRows": 272,
+  "processStarts": [
+    {
+      "offset": 2287964562,
+      "bytes": 1840,
+      "sha256": "12a8f6485d9f3ddb67646d7cb77fa0f423fc85faf34b17915081ac6cac7d4892",
+      "metadata": {
+        "kind": "actor_process_started",
+        "eventId": "event://abiogenesis/7a45bc02d95425452f696e1c2cab5aad519ee11342a9151ab586fc8cf5a60e0c",
+        "eventTime": "2026-11-06T18:54:14.208Z",
+        "admissionOrdinal": 292706,
+        "runId": "run://abiogenesis/4cf4fe4a54db9d7d9839a02fbda17a58377fe6aba430eb82a5cd6986c6198f0e",
+        "basisId": "execution-basis://abiogenesis/f02eae64ec259322efb8bae249aee07320fb15787d2ad494c361140cf10698de",
+        "aggregateId": "process://abiogenesis/e8a1770160fef2c6b814928df04b0cbbe803197fe53ca1b64345957e2f5ca830",
+        "aggregateType": "process",
+        "scopeClass": "run",
+        "payloadDigest": "sha256:ddc8780fbd0257ec437604fd48c8f8754dd0d95e2329a7e1b3734c1aff87e507",
+        "payload": {
+          "actorInvocationRef": "actor-invocation://abiogenesis/171f5545f2cbbd04e082fae110fdc47bad5c25fbe888ca5ddac8f1a3a88bb286",
+          "cCallRef": "c-call:sha256:2b778f607f4c6fa49025119976e4c61d8d4b9465ebb38a7501f73639a8928e01",
+          "processId": 68492,
+          "processRef": "process://abiogenesis/e8a1770160fef2c6b814928df04b0cbbe803197fe53ca1b64345957e2f5ca830"
+        }
+      }
+    }
+  ],
+  "privateTextRetained": false
+}

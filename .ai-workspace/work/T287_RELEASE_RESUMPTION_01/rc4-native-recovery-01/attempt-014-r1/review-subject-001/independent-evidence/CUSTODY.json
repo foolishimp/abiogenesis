@@ -1,0 +1,97 @@
+{
+  "kind": "independent_evidence_custody",
+  "recordedUtc": "2026-11-02T14:53:56.571191+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/SUBJECT.json",
+    "bytes": 21174,
+    "sha256": "59a34082855c8db167d2a85575203f04761fadd0bd627bf52308c0fe30e11dcd"
+  },
+  "sourceCommit": "6027d03d94438260b28472e1465fe4dfdc88f1c0",
+  "candidateArchiveSha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db",
+  "copies": [
+    {
+      "original": {
+        "path": "/private/tmp/rc4-014-independent-review-r_vmsxub/MANIFEST.json",
+        "bytes": 14605,
+        "sha256": "1510383e614f6f7db9ffb6ab273d5567fe74874d0ec26092dfd0c1ca038c6077"
+      },
+      "custody": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/independent-evidence/MANIFEST.json",
+        "bytes": 14605,
+        "sha256": "1510383e614f6f7db9ffb6ab273d5567fe74874d0ec26092dfd0c1ca038c6077"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/rc4-014-independent-review-r_vmsxub/recursive-cold-public.log",
+        "bytes": 1100,
+        "sha256": "53b0e13f8f00fceb2a6b74adaf5eb12610bfe08c033d9d182d5729ad00d65ae1"
+      },
+      "custody": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/independent-evidence/recursive-cold-public.log",
+        "bytes": 1100,
+        "sha256": "53b0e13f8f00fceb2a6b74adaf5eb12610bfe08c033d9d182d5729ad00d65ae1"
+      }
+    }
+  ],
+  "alreadyRetainedOriginalC2Streams": [
+    {
+      "reviewerFile": {
+        "path": "/private/tmp/rc4-014-independent-review-r_vmsxub/c2-command-6.stdout.log",
+        "bytes": 15862,
+        "sha256": "7d2ef44ef9f646fda4e6dff06741adddb3db8ba34b2d766aa356a9a3cdd4e601"
+      },
+      "existingCustody": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/C2-command-6-stdout.txt",
+        "bytes": 15862,
+        "sha256": "7d2ef44ef9f646fda4e6dff06741adddb3db8ba34b2d766aa356a9a3cdd4e601"
+      },
+      "byteIdentical": true
+    },
+    {
+      "reviewerFile": {
+        "path": "/private/tmp/rc4-014-independent-review-r_vmsxub/c2-command-6.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "existingCustody": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/C2-command-6-stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "byteIdentical": true
+    },
+    {
+      "reviewerFile": {
+        "path": "/private/tmp/rc4-014-independent-review-r_vmsxub/c2-command-7.stdout.log",
+        "bytes": 14337,
+        "sha256": "4facdbca172fc67aa175d84eace1261409a0e4d5b663e538d21b547606899ae8"
+      },
+      "existingCustody": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/C2-command-7-stdout.txt",
+        "bytes": 14337,
+        "sha256": "4facdbca172fc67aa175d84eace1261409a0e4d5b663e538d21b547606899ae8"
+      },
+      "byteIdentical": true
+    },
+    {
+      "reviewerFile": {
+        "path": "/private/tmp/rc4-014-independent-review-r_vmsxub/c2-command-7.stderr.log",
+        "bytes": 49,
+        "sha256": "3154960decd075ed56867dec48e15e1eca0f810701e871b0c8e67620b32612cc"
+      },
+      "existingCustody": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/C2-command-7-stderr.txt",
+        "bytes": 49,
+        "sha256": "3154960decd075ed56867dec48e15e1eca0f810701e871b0c8e67620b32612cc"
+      },
+      "byteIdentical": true
+    }
+  ],
+  "disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/independent-evidence/ROOT_BOUNDED_DISPOSITION.md",
+    "bytes": 2004,
+    "sha256": "0061d496bfd30aed35431d6ff674cc7038e72f8c9e50d30809b743fd1b441ff6"
+  },
+  "limits": "Only two small files copied; original command6/7 streams already held byte-identically and referenced. No dependencies/sandbox/archive copied; no source/runtime/build/test/provider/Git action by Writer. Original evidence and unaccepted standing preserved."
+}

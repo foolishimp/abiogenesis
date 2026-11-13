@@ -1,0 +1,15 @@
+{
+  "status": "UNBOUND_ACTUAL_D5_NATIVE_SUBJECT",
+  "subject": null,
+  "nativeResultRef": null,
+  "nativeResultDigest": null,
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "authorHandoffs": {
+    "return.json": null,
+    "readiness.json": null,
+    "progress.json": null
+  },
+  "expectedAuthorDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03",
+  "expectedFrozenFiles": 417,
+  "standing": "Template only. Root must bind actual author03 source/Result and all three separate handoffs after exact freeze and review. Earlier N2 return is retained evidence, not the current candidate."
+}

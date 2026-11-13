@@ -1,0 +1,26 @@
+{
+  "status": "UNBOUND_ACTUAL_N3_SOURCE_CLOSE_ADMISSION",
+  "frozenSubject": null,
+  "actualResume": null,
+  "actualClosePrefix": null,
+  "rootControlAdmission": null,
+  "consumerBindingSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/CONSUMER_BINDING_RETAINED.json",
+    "bytes": 28708880,
+    "sha256": "66b6584dff16c8c3f4833650a2c780232d1bd58434aa5e05cb9088d7eae63dad"
+  },
+  "overlayFields": [
+    "binding",
+    "catalog",
+    "catalogView"
+  ],
+  "sourceBasis": "none",
+  "limit": "Actual author03 native Result/SUBJECT/three handoffs, genuine close/resume and Root proof admission are mandatory unbound barriers. Held proof02/author02 state is never substituted.",
+  "expectedAuthorDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03",
+  "actualClose": null,
+  "authorHandoffs": {
+    "return.json": null,
+    "readiness.json": null,
+    "progress.json": null
+  }
+}

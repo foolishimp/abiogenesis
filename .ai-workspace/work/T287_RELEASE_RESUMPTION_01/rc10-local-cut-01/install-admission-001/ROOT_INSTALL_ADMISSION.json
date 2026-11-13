@@ -1,0 +1,89 @@
+{
+  "id": "RC10-LOCAL-INSTALL-001",
+  "status": "ROOT_ADMITTED_ONE_EXISTING_DRIVER_INSTALL_PHASE",
+  "recordedUtc": "2026-11-09T05:05:48.353321+00:00",
+  "decisionOwner": "Root Executive",
+  "recordedBy": "/root/rc10_lifetime_triage as separately activated Writer",
+  "authority": "Direct Root INSTALL ADMISSION RC10-LOCAL-INSTALL-001. Root consumed satisfied independent packaging review72b6984c, conjoined accepted exact source/proof and completed byte-equal reproduction, and admits exactly one preserved-driver install phase.",
+  "heldInstallBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postbuild-001/INSTALL_BINDINGS.001.HELD.json",
+    "bytes": 4763,
+    "sha256": "5ec2644bd9ed9c911c78c5cf6cba7eefab6cba366f73be9a87f04d46f03ae271"
+  },
+  "independentPackagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/reviews/packaging-001/REVIEW.json",
+    "bytes": 22735,
+    "sha256": "72b6984c8f9991a4710de9ffc99d8bc719e806e015b0253e80863fd59f748f45"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/run-local-cut.mjs",
+    "bytes": 30160,
+    "sha256": "9179188b656f119b669880c32081c5ab01629376ea21c5c80c74e393c8d88cf0"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 2837,
+    "sha256": "7113beb67d03d9c4398f89799ad49a355b00116d07fa8ba7f1a297a7a5c13128"
+  },
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1299,
+    "sha256": "2035647542e1975539a719735e4e043a27d3451b321b7bcdbfd85608a7d783b8"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1285,
+    "sha256": "c35bb2135e03576dcf101f2461c3ac7908966eb014a738307d3efcdda6be3ae4"
+  },
+  "exactTestedArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+    "bytes": 832,
+    "sha256": "4f3da3254e97b3d6b5ed6a974c2decd706357727fea606a010e319a4a5ecd47e"
+  },
+  "claim": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postbuild-001/BOUNDED_CANDIDATE_CLAIM.md",
+    "bytes": 2550,
+    "sha256": "bcdb0c4c71bb750e3b66053e9675dea91623178863d1ad0151dc71d48c48678f"
+  },
+  "residuals": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postbuild-001/RESIDUALS.md",
+    "bytes": 2667,
+    "sha256": "611f6dcbd0f33ba18a8c5cad8af57de8c43e52bb0e1e12ac80455cce7869e6c3"
+  },
+  "rootAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postbuild-001/ROOT_AUTHORITY.md",
+    "bytes": 1556,
+    "sha256": "bbc01de2eb6fa7f8a127e1bf7b8091cb4de466d864d51e8202a55e50bc63589f"
+  },
+  "phaseRuns": 1,
+  "effects": [
+    "Record exact Root admission and executable binding successor under CUT",
+    "Execute run-local-cut.mjs install once on exact executable binding",
+    "Fresh local releaseRoot and installHost5.0.0-rc.10 and declared reviewed-driver scratch/output territories only",
+    "Acquire actual Product verification/lock/install, all-member correspondence, checksums, fresh installed-owner read/close and FINAL_INSTALL_VERIFICATION receipts"
+  ],
+  "prohibited": [
+    "rebuild",
+    "new native/provider workflow",
+    "tag",
+    "push",
+    "main merge",
+    "selector change",
+    "qualification/publication",
+    "automatic retry/overwrite/cleanup",
+    "tracking updates or final delivery acceptance claim"
+  ],
+  "preservation": "All frozen source/proof/review/claims and original controls preserved. Main tracked updates frozen until install preservation checks finish; preserve immutable RC9 and source. Existing bounds, byte/tool/dependency guards and no-clobber/no-retry apply.",
+  "failurePolicy": "Stop and preserve original receipts and partial allocations; return to Root without repair/retry.",
+  "returnBoundary": "Root consumes actual completion before final delivery acceptance or tracking changes.",
+  "qualified": false,
+  "published": false
+}

@@ -1,0 +1,102 @@
+{
+  "kind": "bounded_stdlib_control_semantics_observation",
+  "status": "PASS",
+  "at": "2026-11-06T06:50:40.563Z",
+  "node": "v24.7.0",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/inputs/prior-author-stage.mjs",
+      "bytes": 7454,
+      "sha256": "98002f87c380cd3b7ff955c6afa2889542a53162015aa91d31ea93b857a09bda"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/inputs/prior-author-lanes.mjs",
+      "bytes": 8565,
+      "sha256": "d488ad14cdda32d4a6b7c193093c7fe2d63209eeec5b1d9ec7211d181af64469"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/single-host.template.mjs",
+      "bytes": 16176,
+      "sha256": "ab0eb4ef9ce1fd9c5fac28cde513307b7fcd9da06129b86cb5947f5a6563aeaa"
+    }
+  ],
+  "cases": [
+    {
+      "label": "empty",
+      "stages": 0,
+      "lanes": 0,
+      "stageCapReached": false,
+      "laneCapReached": false
+    },
+    {
+      "label": "incomplete-stage-counts",
+      "stages": 1,
+      "lanes": 0,
+      "stageCapReached": false,
+      "laneCapReached": false
+    },
+    {
+      "label": "failed-stage-receipt-counts-once",
+      "stages": 1,
+      "lanes": 0,
+      "stageCapReached": false,
+      "laneCapReached": false
+    },
+    {
+      "label": "stage-receipt-without-directory-still-counts",
+      "stages": 1,
+      "lanes": 0,
+      "stageCapReached": false,
+      "laneCapReached": false
+    },
+    {
+      "label": "two-stage-cap",
+      "stages": 2,
+      "lanes": 0,
+      "stageCapReached": true,
+      "laneCapReached": false
+    },
+    {
+      "label": "incomplete-lane-counts",
+      "stages": 0,
+      "lanes": 1,
+      "stageCapReached": false,
+      "laneCapReached": false
+    },
+    {
+      "label": "six-lane-cap",
+      "stages": 0,
+      "lanes": 6,
+      "stageCapReached": false,
+      "laneCapReached": true
+    }
+  ],
+  "filters": [
+    {
+      "lane": "publication",
+      "exactNames": 1,
+      "overlapWithOtherLanes": 0,
+      "negativePattern": false
+    },
+    {
+      "lane": "c1-consumers",
+      "exactNames": 3,
+      "overlapWithOtherLanes": 0,
+      "negativePattern": false
+    },
+    {
+      "lane": "cold-resume",
+      "exactNames": 2,
+      "overlapWithOtherLanes": 0,
+      "negativePattern": false
+    },
+    {
+      "lane": "runner",
+      "exactNames": 1,
+      "overlapWithOtherLanes": 0,
+      "negativePattern": false
+    }
+  ],
+  "oneParentOwnerCallSites": 1,
+  "meaning": "Pure extracted allocation expressions and regular expressions over synthetic names; static call-site count only. No native module import, filesystem stage, product test, build, provider or runtime execution. This does not attest concurrent actors or end-to-end helper execution."
+}

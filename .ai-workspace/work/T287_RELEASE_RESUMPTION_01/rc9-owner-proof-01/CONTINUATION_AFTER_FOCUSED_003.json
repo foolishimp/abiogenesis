@@ -1,0 +1,142 @@
+{
+  "status": "PROPOSED_CONTINUATION_EXECUTION_HELD",
+  "at": "2026-11-08T17:07:05.640688+00:00",
+  "writerActivation": {
+    "role": "separate external Proof-Control Writer",
+    "authority": "Root continuation under existing RC9 proof grant",
+    "effects": "One successor continuation record in Q9; read existing exact control routes. No Product/source/metadata change, build/test/pack/runtime/native/provider execution."
+  },
+  "ProductFrame": "Fixed fifteen-family ABIogenesis 5.0, GOAL-035/T-287. STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; empty composition. Product/requirements own meaning; tools supply evidence; ABG owns runtime admission/replay. No changed Product outcome or independent source review by this Writer.",
+  "supersedesNarrationOnly": [
+    "README/CURRENT_BINDINGS original native001 routes are historical; consume actual native003 stage and complete unit evidence after they exist.",
+    "Root confirms metadata is already RC9 in the selected final003 source. Check actual package/lock/export/manifest agreement at freeze; do not select another version rewrite or rebuild.",
+    "PROOF_SCOPE_002 controls O3: all former physical-content verification boundaries remain; no once-per-resolution/zero-read/avoided-verification/speedup claim. O3 performance follow-up OPEN."
+  ],
+  "existingControls": {
+    "scope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PROOF_SCOPE_002.json",
+      "bytes": 9982,
+      "sha256": "26ab250198e3e2973113688d580d0443f23c82a9910d7eace6352db646e17ffc"
+    },
+    "focused003": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-003.mjs",
+      "bytes": 13305,
+      "sha256": "74b261f9d3960698edcb9ddcecc3b2cb9121e54fb603b081547c07d37ba56c71"
+    },
+    "bootstrapOwnerRecipe": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/prepare-after-bootstrap-001.mjs",
+      "bytes": 12426,
+      "sha256": "873828fcb68982020d0a5bbd09288899658db21f4eee958be234197de59de84a"
+    },
+    "bootstrapTemplate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/AFTER_BOOTSTRAP_BINDINGS_001.template.json",
+      "bytes": 4183,
+      "sha256": "2f22dab5b081694df717e4e33060381064af1092c90cd16ed8c606dc3ed044f4"
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-measurement.mjs",
+      "bytes": 6962,
+      "sha256": "83d6225d141524577895ae67f5a8416e13744f8a8c1c554f96884b718fa27c15"
+    },
+    "broad": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+      "bytes": 32816,
+      "sha256": "2e8e4155be73606d1009b629019b9966470225890a785c78105c6b6a80ba383e"
+    },
+    "localCutOwnerRecipe": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+      "bytes": 27890,
+      "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+    }
+  },
+  "firstCandidateExecution": {
+    "standing": "NOT EXECUTABLE YET: original bootstrap is RC8-specific; a narrow successor and actual final003 pins/admission are required. The proposed filename below is not an existing executable or a future pin.",
+    "proposedScript": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-001.mjs",
+    "proposedCommand": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-001.mjs",
+      "<actual admitted bootstrap binding>",
+      "<actual binding SHA256>"
+    ],
+    "bindingMustAcquire": [
+      "actual native003 source-freeze pin/digest/row count",
+      "successful stage RESULT and complete unit RESULT/events/command receipts on that same binding",
+      "Root source acceptance/review conjunction",
+      "actual stage packageRoot and generated product-toolchain-manifest",
+      "complete packaged build inputs, exact dependency/seed relation and candidate owner module pins",
+      "exact Node/npm owner pins, common measurement helpers, implemented counter exports",
+      "fresh output/temp/installHost paths and finite Root activation"
+    ],
+    "recipeDelta": [
+      "RC8 status/version/productId/archive filename/output/scratch labels to selected RC9",
+      "1338 row constant to actual final003 row count (expected1340, verify)",
+      "bind final003 stage/work path and base-plus-frozen-overlay identity, not a fabricated new Git commit",
+      "require successful complete unit receipt in addition to existing stage checks",
+      "emit RC9 source-artifact-install relation and actual package member/dependency counts from pack evidence; keep identityEdited=false",
+      "preserve existing pack-once and candidate Product verify/construct-lock/install/content-match owners, custody and resource stops"
+    ],
+    "effectsAfterSeparateAdmission": "One npm pack --ignore-scripts --json --pack-destination <fresh archive directory> from already-built native003 tenant; one bounded disposable verify/lock/install/content-match. No rebuild, generation, version rewrite, immutable install or selector mutation.",
+    "proposedBounds": {
+      "hostMs": 600000,
+      "packMs": 120000,
+      "installMs": 480000,
+      "aggregateBytes": 1073741824,
+      "outputBytes": 16777216,
+      "freeReserveBytes": 4294967296,
+      "nodeHeapMiB": 8192
+    }
+  },
+  "shortestSequence": [
+    {
+      "step": 1,
+      "operation": "Bind actual003 source/stage/unit/acceptance; bootstrap exact scratch RC9 archive and installation using narrow successor of existing recipe. Preserve all source, compiled payload and installation identity correspondence."
+    },
+    {
+      "step": 2,
+      "operation": "Bind and run RC8-before then RC9-after sequentially through unchanged run-measurement.mjs. Same final selected helper/actor/Node recipe on both; RC8 archive a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9. Two unprofiled1MiB/4MiB calls each; four held plus four fresh CLI result/replay reads each; RC9-only separate4MiB profile. Actual close retained.",
+      "command": "<exact-node> run-measurement.mjs <actual bindings> <SHA> <Root admission> <SHA>",
+      "bounds": "900s per subject,120s per cold read; existing60s absolute/30s inactivity actor and16MiB output/64MiB raw-request/1GiB monitored aggregate limits."
+    },
+    {
+      "step": 3,
+      "operation": "Bind final stage and exact archive verification into BROAD successor. Bind final209 inventory with201 selected/eight held, current test/helper/oracle pins, package counts and fresh output/scratch. Candidate refresh owner in derived tree must reproduce exact measured archive and all six verification identity fields.",
+      "command": "<exact-node> close-proof.mjs bind <actual config> <SHA>"
+    },
+    {
+      "step": 4,
+      "operation": "After Root run admission, unchanged broad driver executes complete W2 first, affected files then remainder, with two build-effect tests isolated. W2 is included once in201; no separate W2 lane. Measurement precedes CPU-heavy proof, matching prepared sequence.",
+      "command": "<exact-node> close-proof.mjs run <actual config> <SHA> <bound inventory> <SHA> <Root admission> <SHA>",
+      "bounds": "600s/file,4h overall,4GiB reserve/owned cap,16MiB output,10s monitor; no implicit inner-timeout extension or retry."
+    },
+    {
+      "step": 5,
+      "operation": "Root conjoins exact source/artifact/measurement/W2/broad results and reassesses residuals. Later local-cut reproduction/install is separate: old cut recipe requires source/focused/broad/reference acceptance and an already tested archive, so it cannot bootstrap this first artifact."
+    }
+  ],
+  "concreteGaps": [
+    "No final003 freeze/success receipt exists in this preparation; no future pins supplied.",
+    "Q9 has no RC9 bootstrap successor yet. Existing RC8 bootstrap hardcodes version,1338rows,paths/status and lacks explicit unit-success gate; narrow adaptation required before dispatch.",
+    "After binding packageRoot still points at RC8 source and counter roles have obsolete O3 wording. New before/after bindings must select the same exact helper bytes from final003 or establish recorded equivalence; candidate-basis fixture differences are material.",
+    "Bind additionalCounterSources only to final installed owner exports actually present, with module/member identity. RC8 missing counters remain unavailable; O3 counters are observation-only without zero/one acceptance quota.",
+    "Broad candidateBasisRefresh, materialization roots/dependencies, package-layout counts, inputCensus and current test/oracle correspondence remain unbound. Do not re-inventory historical controls; reconcile only exact final population and required current input routes.",
+    "Default focusedCoverage stays empty: native unit runs before derived candidate-basis refresh, with different command/environment. Reuse any file only after exact subject/build/helpers/fixture/environment and complete per-file receipt equivalence; nine-file unit success alone is insufficient.",
+    "If Root instead requires W2 before measurement, unchanged broad driver cannot pause after W2. That would need a separately admitted finite W2 lane/receipt and later exact credit; it is not selected by this shortest sequence."
+  ],
+  "necessaryNewRecordsOnly": [
+    "This continuation supersedes stale narrative without modifying original pinned files.",
+    "Narrow bootstrap script/template/preparation pins and actual admission after final003 acceptance.",
+    "Fresh before/after measurement bindings plus actual archive/install/source relation and counter claim projection.",
+    "Fresh broad config/inventory/input census and Root admission; keep original201 population selection/eight held and nine historical capsules intact.",
+    "Actual outcome/claim/residual successor disposition; n1 timings separate from task-cycle costs and no O3 optimization claim."
+  ],
+  "execution": {
+    "build": false,
+    "test": false,
+    "pack": false,
+    "runtimeAllocation": false,
+    "provider": false,
+    "sourceEdit": false,
+    "priorControlRewrite": false
+  },
+  "stop": "Return to Root; actual final003 binding and execution selection remain separate."
+}

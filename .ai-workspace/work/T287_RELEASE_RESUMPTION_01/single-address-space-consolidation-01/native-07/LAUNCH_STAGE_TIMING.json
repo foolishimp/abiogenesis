@@ -1,0 +1,26 @@
+{
+  "recordedUtc": "2026-11-04T04:00:22.860805+00:00",
+  "kind": "actual_native07_launch_stage_intervals",
+  "source": "exact physical event envelopes and actual dispatcher STARTED; not CPU attribution",
+  "runRef": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+  "nativeStart": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 50891,
+    "eventId": "event://abiogenesis/2fcca102be67c3d0108f7312f5ffd94b6f271a8621d3f8cdc3f967dd51e9b955",
+    "eventTime": "2026-11-04T03:58:27.115Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+    "offset": 634546916,
+    "rowBytes": 1888,
+    "rowSha256": "bd54672e1e6efffb40926cbf6921653aad524774efbc5227302500cba4eda5c2",
+    "processRef": "process://abiogenesis/92d5e1db99081364e67451e09b3a5beb732dfd16e27e08b6b2c79d5aa5b5f564",
+    "pid": 77817
+  },
+  "dispatchToFirstSelectorMs": 325840.0,
+  "firstSelectorProcessMs": 83003.0,
+  "selectorExitToCodingWorkerMs": 302941.0,
+  "constructionTaskResultToCodingWorkerMs": 269881.0,
+  "dispatchToCodingWorkerMs": 711784.0,
+  "setupReused": true,
+  "noCausalSpeedupClaim": true
+}

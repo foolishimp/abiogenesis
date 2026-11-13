@@ -1,0 +1,13 @@
+{
+  "kind": "interim_f09_fault_model_source",
+  "capturedUtc": "2026-11-03T23:15:39.284021+00:00",
+  "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+  "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-f09-review-001/runtime-f09-worker.mjs",
+  "bytes": 128216,
+  "sha256": "4ec5ecc1aba27aaba522dffef69776c8fd8afcb79fda17cc6ce7245e30a448d3",
+  "authorReturn": "../fixture-reentry-triage-001/author/return.json",
+  "authorReturnedHashEqual": true,
+  "testsAndTapsSubject": "../fixture-reentry-triage-001/SUBJECT.json",
+  "priorProofSubject": "../interim-proof-review-001/SUBJECT.json",
+  "standing": "Exact local interim source; final native Result/after-observation pending. Author TAPs remain author feedback."
+}

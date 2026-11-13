@@ -1,0 +1,58 @@
+{
+  "status": "NATIVE_CONSTRUCTION_RUNNING",
+  "recordedUtc": "2026-11-03T08:27:35.810464+00:00",
+  "sourceCommit": "3e2304de7dbad73b85dbf27e94c54766202f1583",
+  "runId": "run://abiogenesis/796bca9419e65951237070f34d970bda48b38b7c59a9fcd246d6236d44b142c6",
+  "sdkSetupMs": 27849.5,
+  "artifactVerificationMs": 18897.741833,
+  "dispatchToInitialSelectorProcessMs": 9402.0,
+  "selectorProcessToAdmittedResultMs": 58930.0,
+  "nativeTaskAdmissionToWorkerProcessMs": 6065.0,
+  "dispatchToNativeWorkerProcessMs": 79426.0,
+  "admittedSelectorResultToNextWorkerProcessMs": 11094.0,
+  "betweenCompletedCodingTasksMs": null,
+  "events": [
+    {
+      "ordinal": 55,
+      "eventRef": "event://abiogenesis/ab1eebd1e9be9de8c34174d4d9f0cc54bc48d3e8cf35165c82121fd2b3c0129b",
+      "time": "2026-11-03T08:25:33.979Z",
+      "kind": "actor_process_started",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": 6898,
+      "runId": "run://abiogenesis/796bca9419e65951237070f34d970bda48b38b7c59a9fcd246d6236d44b142c6"
+    },
+    {
+      "ordinal": 1146,
+      "eventRef": "event://abiogenesis/567e530c0a499ed3b936563535c691959c8a219c3b9548273200c7874a02000c",
+      "time": "2026-11-03T08:26:32.909Z",
+      "kind": "c_call_result_admitted",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": null,
+      "runId": "run://abiogenesis/796bca9419e65951237070f34d970bda48b38b7c59a9fcd246d6236d44b142c6"
+    },
+    {
+      "ordinal": 1186,
+      "eventRef": "event://abiogenesis/a2b042115d3683a7bbecb44efe2a263295630fa1ffd63dcd3412af146b5244f9",
+      "time": "2026-11-03T08:26:37.938Z",
+      "kind": "c_call_result_admitted",
+      "graph": "graph-function://abiogenesis/default-library/construction@5",
+      "pid": null,
+      "runId": "run://abiogenesis/796bca9419e65951237070f34d970bda48b38b7c59a9fcd246d6236d44b142c6"
+    },
+    {
+      "ordinal": 1211,
+      "eventRef": "event://abiogenesis/9cf99556974fcb5da57821adf31e86d6f91f54a71431287ff4c6bd8c95c96e4e",
+      "time": "2026-11-03T08:26:44.003Z",
+      "kind": "actor_process_started",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "pid": 7627,
+      "runId": "run://abiogenesis/796bca9419e65951237070f34d970bda48b38b7c59a9fcd246d6236d44b142c6"
+    }
+  ],
+  "limits": [
+    "First actual RC4 campaign timings only",
+    "Selector interval includes process work and owner admission; not provider-only compute",
+    "Full native workflow and between coding tasks remain incomplete",
+    "No causal speedup claim"
+  ]
+}

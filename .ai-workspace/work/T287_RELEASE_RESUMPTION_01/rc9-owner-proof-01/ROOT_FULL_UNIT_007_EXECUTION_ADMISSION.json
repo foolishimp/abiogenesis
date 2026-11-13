@@ -1,0 +1,76 @@
+{
+  "status": "ROOT_ADMITTED_RC9_FULL_UNIT",
+  "selection": "RC9-FULL-UNIT-007 EXECUTION ADMITTED",
+  "recordedAt": "2026-11-08T18:48:41.037704+00:00",
+  "bindingSha256": "249994d0e730c41e39e2a606874e1660d67ff8ee98449cc14ff1f05326f5b7f3",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_BINDING.BOUND.json",
+    "bytes": 53314,
+    "sha256": "249994d0e730c41e39e2a606874e1660d67ff8ee98449cc14ff1f05326f5b7f3"
+  },
+  "derivedFrom": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_BINDING.HELD.json",
+    "bytes": 53313,
+    "sha256": "5558ca3865bd4d7135f79ea90736a078543cb2797322b4c40b7a58156c0e2a2a"
+  },
+  "transformation": "Status-only HELD_RC9_FULL_UNIT to BOUND_RC9_FULL_UNIT.",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-full-unit-007.mjs",
+    "bytes": 16338,
+    "sha256": "497f6b8fc054f6020f6b5e38af4e4942867248d954c39c124280b564093ccbd3"
+  },
+  "stageBuildBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/FOCUSED_BINDING.json",
+    "bytes": 6099,
+    "sha256": "41a940ec27dea02e987abec26545379f440c399a91a5a1055c62738ea5d453b1"
+  },
+  "formerProofProcessesStopped": true,
+  "formerProofStopChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/TIMEOUT_CLOSE_OBSERVATION.json",
+      "bytes": 1297,
+      "sha256": "3d923057d4f8eb82605fc862838577cfbb82528a292b1c400083046393fa2abb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_DESCENDANT_CWD_CHECK.json",
+      "bytes": 216,
+      "sha256": "7d8f6af81d18533d9dfa7af57db5f3bd59611894cd71601c73f2272fc77fe3a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_PROCESS_OWNERSHIP_FINAL.json",
+      "bytes": 494,
+      "sha256": "351ede55b8353d3f29fa6b39d524ed9ad58eedffca3e07092ad90f64b13240dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/OWNERSHIP_CHECK_001.json",
+      "bytes": 4788,
+      "sha256": "ebfdcf7909a5fa870a8fbaed4c10e3cb1adf252fb5a6d8f122b0dc15ea5a8386"
+    }
+  ],
+  "currentKnownProcessStopChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/RESOURCES.json",
+      "bytes": 1035,
+      "sha256": "4766a2996dfeee169951fef49632675001512f4b8ecb8c6f264546bf34cc4507"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/commands/own01.result.json",
+      "bytes": 1418,
+      "sha256": "f62bf3cd807a2752cd3732016a515fd0e2d092a288d1988179afa9317304b05b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/ancestry-after.json",
+      "bytes": 2847,
+      "sha256": "0d8fba18fac87e75faf4723e1bfccab46cf811d56efaddab4182d5cf28d2cbca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003-execution-006/REVIEW.json",
+      "bytes": 22303,
+      "sha256": "7531d63429221cff43f96064da863b22d67550ee6b37347b2cf6357e8ca555e2"
+    }
+  ],
+  "RootReview": "Root read complete runner/held binding; verified79 binding and11 preparation references with0mismatches.",
+  "scope": "One fresh ordinary nine-file npm test:unit,95cases/89passes/6exact skips, OWN+REF complete diagnostics. Profiling off;900s outer and unchanged inner assertions/limits,8GiBheap,16MiB commandoutput,4GiB reserve+owned. Normal existing disposable test fixture effects only.",
+  "authority": "This new Root external execution admission authorizes007. Historical native build binding41a940ec is provenance only, not an active execution grant.",
+  "standing": "Preserve all prior reds/timeouts/residuals and unexecuted005; no source/rebuild/native/provider/Git/releasepack/cleanup/retry/extension. Bootstrap proposal remains unimplemented/unactivated pending full result and Root conjunction."
+}

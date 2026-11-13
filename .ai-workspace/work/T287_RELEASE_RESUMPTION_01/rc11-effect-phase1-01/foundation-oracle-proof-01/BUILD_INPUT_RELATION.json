@@ -1,0 +1,133 @@
+{
+  "status": "EXACT_UNCHANGED_COMPILED_AND_PACKAGE_INPUT_RELATION",
+  "subjectInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/source-freeze.json",
+    "bytes": 295048,
+    "sha256": "12d3f6f9517d3b1173351877303fce46f007974c88e8fb0892b85389fbc700e0"
+  },
+  "subjectSourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "buildSourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/source-freeze.json",
+    "bytes": 295022,
+    "sha256": "9ff5a44dcaca743e51be2313c21e503a437b57f036162a0f8cc2e37d4df20ae3"
+  },
+  "buildSourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+  "compiledInventory": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182705,
+    "sha256": "3db4a581d6d81128f477de20b3e9591ce462e0be11dacb27f101fca2a34f2f35"
+  },
+  "documentaryAndTestOnlyDeltas": [
+    {
+      "before": {
+        "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 814716,
+        "sha256": "022a7a38b36737ec284a2354802076346533caad7a8f6c9c2436ac2341aaf02b"
+      },
+      "after": {
+        "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 817325,
+        "sha256": "c6f7e18121d734156055795746d56a276ab973c487f19e9821e7bc49aa63ef8d"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 203094,
+        "sha256": "32c9ab82231f187dba17f552931053781d0434d8e109fd1c5c54a0aa577f4345"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 203108,
+        "sha256": "62742b6c222ad698b022b6c00672541a5d701c92dc367191afc41bf0c1fc8f46"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 11973,
+        "sha256": "3da4e193dc63c958602a5a900677bd5f7602953ce3666da9a9d8fa062f88e969"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 12488,
+        "sha256": "1e74bd81742816ff4ecb7c82606a27bae60cef6889b8dafc4bf827b4e21d49d8"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "bytes": 60790,
+        "sha256": "cec88a1d0f39784b6a981f6ebd720fc5e8ca744dea810d95e757cb4e97f82b84"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "bytes": 60372,
+        "sha256": "77d9f61e3605a2a3d2050e22ec8961f34c8f11d12a9cee9e79f37454437e9879"
+      }
+    },
+    {
+      "before": {
+        "path": "specification/GOALS.md",
+        "bytes": 165916,
+        "sha256": "70f25ef8f760add62b7e0ee4aefaa4dd8061b401762f07eb51b3971cdd350cac"
+      },
+      "after": {
+        "path": "specification/GOALS.md",
+        "bytes": 167610,
+        "sha256": "2eee0e510ece90daf00b6f91a259d57593323a9175f9f9e38ed7c263e4134239"
+      }
+    }
+  ],
+  "typescript": {
+    "config": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "bytes": 604,
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e"
+    },
+    "include": [
+      "code/src/**/*.ts"
+    ],
+    "allProductionInputsUnchanged": true
+  },
+  "package": {
+    "manifest": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266309,
+      "sha256": "53c884303235e4de5d33c1bc58d31bcab77c0e0fad725d48caf73d871f93d3ad"
+    },
+    "package": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10105,
+      "sha256": "02789c3812e488e53e7a6fe9bd3affd0d39144cd5e69b68adf48c7a7f1f6b9d1"
+    },
+    "files": [
+      "build/**",
+      "contracts/**",
+      "product-toolchain-manifest.json"
+    ],
+    "changedPathsOutsideFilesAndImplicitPackageMetadata": true,
+    "fullPayloadEqualityToBeCheckedAgainstActualArchive": true
+  },
+  "generator": {
+    "manifestGenerator": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 53308,
+      "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f"
+    },
+    "qualificationGenerator": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "bytes": 13649,
+      "sha256": "8482aaf2721d21918603e11e16a001d5235abfcbff0a74dbadbcaa87e4621293"
+    },
+    "authorityInputs": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+      "bytes": 27912,
+      "sha256": "f9c6c00ddd87abe1bbaddfb7a9d40b16d0f5f9100746dfa9d4882414a2917423"
+    },
+    "sourceSelection": "stageQualificationAuthorities reads Definition, Intent, Product, requirements and selected STDO; ordinary generation reads only frozen authority-inputs. The changed test/Design/plan/tracking are absent.",
+    "currentDesignTestPlanPathOccurrencesIn996BuiltMembers": 0
+  },
+  "rebuildOrRegenerationRequiredForSelectedDelta": false,
+  "standing": "Reuses exact accepted compiled inputs, not an installed release. A new offline ignore-scripts proof pack must still prove complete actual member correspondence; no file-bytes-only reproducibility claim."
+}

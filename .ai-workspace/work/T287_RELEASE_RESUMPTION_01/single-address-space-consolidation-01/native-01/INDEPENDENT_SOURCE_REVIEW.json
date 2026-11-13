@@ -1,0 +1,103 @@
+{
+  "kind": "independent_frozen_source_review",
+  "reviewer": "/root/rc5_method_review",
+  "effort": "max",
+  "recordedUtc": "2026-11-03T16:02:05.389558+00:00",
+  "subject": "native-01/review-subject-001/SUBJECT.json",
+  "subjectSha256": "6302095ec9826d892f620e805cd6336082265721fe8660147299ff4d8bd8ab29",
+  "baselineCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "verdict": "falsified for complete caller migration and retirement; reviewed migrations have no identified material semantic regression; actual C2/UAT and completed native delivery indeterminate",
+  "productFrame": "Fixed ABIogenesis5 families F01-F07,F09-F11,F13-F17; GOAL035/T287 whole-path common-library consolidation. One ABG history, thin SDK, reusable established facts and preserved admission/currentness/effect boundaries. Source and builder STDO304; realization change only.",
+  "custody": "All33 source files,24 changes, preimages, diff, proof and TAP hashes verified; admitted failure after-observation matches.",
+  "findings": [
+    {
+      "id": "SAS-01",
+      "severity": "S2",
+      "confidence": "high",
+      "relation": "Ordinary traversal and continuation bypass owned history",
+      "sites": [
+        {
+          "path": "code/src/abg/traversal_cursor.ts",
+          "lines": "748-769,832,837",
+          "fact": "Held transaction reads complete event vector, validates prefix, scans and derives another prefix for cursor admission."
+        },
+        {
+          "path": "code/src/hog/graph_execute.ts",
+          "lines": "1128-1133",
+          "fact": "Calls pending construction intent continuation after every successor."
+        },
+        {
+          "path": "code/src/abg/construction_continuation.ts",
+          "lines": "140,1708,2175,2337",
+          "fact": "Expanding reads on no-pending, reentry, selected-action and pending-execution paths with concrete HoG/run consumers."
+        },
+        {
+          "path": "code/src/hog/parent_rehydration.ts",
+          "lines": "243-245; graph_execute884/1048",
+          "fact": "Expands history for parent return reconstruction; preserve real recovery authentication while using owned reader where its lifetime applies."
+        }
+      ],
+      "proofGap": "New installed test invokes producer/consumer atline122 before opening meter at141; later projection counts cannot detect invocation expansions.",
+      "repair": "Use existing owned transaction/durable-prefix selectors and indexes across finite affected relation; preserve domain/cold guards. Meter actual frame admission, traversal completion and continuation under unrelated history growth, with equivalent outcomes/refusals."
+    },
+    {
+      "id": "SAS-02",
+      "severity": "S2",
+      "confidence": "high",
+      "relation": "Obsolete complete-history reacquisition adapter remains exported",
+      "sites": [
+        "code/src/abg/native_work_reacquisition.ts:116-120",
+        "code/src/abg/index.ts:573",
+        "code/src/implementation/contracts.ts:137-138"
+      ],
+      "fact": "Production fallback was removed; no remaining runtime consumer found. Test references do not justify retention.",
+      "repair": "Remove authenticateNativeWorkReacquisition adapter/export/unused proof-operation type and migrate semantic tests, unless a concrete supported complete-output consumer is demonstrated. Preserve distinct nativeWorkReacquisition judgment operation."
+    },
+    {
+      "id": "SAS-03",
+      "severity": "S3",
+      "confidence": "high",
+      "relation": "Maintained setup harness retains obsolete close expectations",
+      "sites": [
+        "test_env/uat/harness.test.mjs:812,903-924",
+        "test_env/uat/public-setup.mjs:160-166"
+      ],
+      "fact": "fb-uat first fails ENOENT on named RC4 archive; subsequent expectations still demand four per-call close handoffs despite borrowed completions.",
+      "repair": "Reconcile lifecycle assertions using honest current artifact identity, preserving older verification/environment checks. Current-artifact new proof does cover ten calls, six borrowed calls, successor chaining, final close, controlled failure cleanup and cold reopen."
+    }
+  ],
+  "supportedCoverage": [
+    "Four liveness store and two transaction callers migrated; extent/envelope queries used.",
+    "Both native assembly consumers use owned facts; expanding assembly adapter/export removed; physical preparation-cut/source checks retained.",
+    "Seven graph-application store and two transaction callers, plus open-call/C-call/continuation/durable-coordinate consumers migrated; SAS01 prevents complete closure.",
+    "Default library and native reacquisition use checked supplied digest while preserving supported direct calls and port/output checks.",
+    "SDK uses existing resource/transport owners and no new store/cache/authority."
+  ],
+  "retainedContracts": [
+    "Explicit complete-mode transition and pending-interaction exports",
+    "Committed F_H response complete-prefix output",
+    "Pure memory fallback and persistence validation",
+    "Real raw/cold acquisition and currentness/foreign/copied/rollback checks",
+    "Mutable-worksite observations"
+  ],
+  "measurementLimits": [
+    "Owned51567041B vs expanded425363929B;0 vs4559844 immutability calls; same context.",
+    "Owned decodes12199 vs11568; selected materializations remain, so fewer decodes/zero materialization would be false.",
+    "Owned measured first warms bodies later used by expansion; bounded avoided work only, no whole-workflow speedup."
+  ],
+  "rowDisposition": {
+    "R1": "SAS01 plus actual invocation timing missing",
+    "R2": "SAS01/SAS02 and missing actual source delivery",
+    "R3": "SAS01",
+    "R4": "Operator input sufficiency remains separate",
+    "R5": "Operator search and current history/limit evidence separate",
+    "R6": "Meaning preserved; reduced liveness reconstruction, not all probe CPU attributed",
+    "R7": "SDK author proof supported; SAS03, cold costs and actual C2/UAT open"
+  },
+  "limits": [
+    "No edits, builds, tests or provider calls by reviewer.",
+    "One initial unpinned routing grep; every relied-on source reacquired frozen or exact f49.",
+    "Independent from construction; same-family coordinator limitation disclosed."
+  ],
+  "rootDisposition": "Preserve held work; select only bounded residual caller/retirement/test repair and missing completion. No rollback, new architecture or whole qualification rerun."
+}

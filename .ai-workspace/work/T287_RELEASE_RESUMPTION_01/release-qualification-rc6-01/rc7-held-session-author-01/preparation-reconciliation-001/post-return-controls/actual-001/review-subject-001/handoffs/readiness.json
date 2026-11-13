@@ -1,0 +1,23 @@
+{
+  "kind": "rc7_held_session_author_readiness",
+  "task": "rc7-held-session-author-01",
+  "worker": "native Opus 5.5 (claude-opus-5-5)",
+  "basis": "stdo://releases/v3.0.4/",
+  "createdUtc": "2026-11-06T13:51:49.502Z",
+  "ready": false,
+  "mechanical": {
+    "finalStageCompile": true,
+    "finalStageGenerate": true,
+    "finalStageLifecycleGuard": true,
+    "c2PinMatches": true,
+    "worksiteEqualsFinalFreeze": true,
+    "allChangedPathsInGrant": true
+  },
+  "blocking": [
+    "held-session-measured red (test defect); held-session-final and five final lanes not eligible",
+    "no genuine HS02 before red",
+    "maintained-caller fixed admission not executed on candidate source",
+    "warm/cold equality, close, refusals and recovery not observed"
+  ],
+  "finalSourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522"
+}

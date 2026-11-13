@@ -1,0 +1,19 @@
+{
+  "kind": "operator_control_generation_failure",
+  "runtimeEvent": false,
+  "toolSession": 38649,
+  "exitCode": 1,
+  "observedError": "AssertionError: consolidation-inputs/native-09/INPUT_SUFFICIENCY.json",
+  "sourceLocation": "prepare-native-09.py:298",
+  "cause": "Final selected-input existence check ran before two control files that the same generator writes in its next stage. Literal closure had no missing module.",
+  "productDefect": false,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "testsBuildsOrInstalledPrepare": false,
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/prepare-native-09.before-input-order-fix.py",
+    "bytes": 36396,
+    "sha256": "a68485031e1f202909e70ab0ac354217dd63f05b8f6e98df3af823afca00dd43"
+  },
+  "correction": "Exclude only the two not-yet-written operator outputs from the earlier check, then verify all selected paths after writing them. Continue only the remaining control stage from preserved generated inputs; no cleanup, native retry or source change."
+}

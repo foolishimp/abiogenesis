@@ -1,0 +1,17 @@
+{
+  "kind": "rc3_a01_usage_projection",
+  "atUtc": "2026-10-31T06:50:26.865998+00:00",
+  "streams": [],
+  "knownReportedIncrementUsd": "0",
+  "historicalReportedNativeUsd": "35.6671188",
+  "historicalPlusKnownUsd": "35.6671188",
+  "unresolvedProcesses": 0,
+  "startedWithoutObservedStream": true,
+  "rootAction": "MONITOR",
+  "limits": [
+    "Root monitors and controls the process; this projection does not enforce a cap",
+    "A running or ambiguous stream is unknown, not zero; proxy and other host charges remain unknown",
+    "Reported amounts are provider telemetry, not verified billed spend",
+    "Raw streams remain in their native archives"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "status": "PASSED_PREPARATION_ONLY",
+  "utc": "2026-11-09T04:12:26.990662+00:00",
+  "pinnedControlOccurrences": 35,
+  "sourceRows": 1334,
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "sourceBytes": 38184937,
+  "readFirstAvailable": true,
+  "runtimeAbsent": true,
+  "scratchAbsent": true,
+  "manifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1855,
+    "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+  },
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/TRANSPORT_PREFLIGHT.json",
+    "bytes": 1070,
+    "sha256": "db718d10b6c59cd8e508d66bc4ac21e3b59bdf1f83f0611d05ff876b1a65028d"
+  },
+  "syntaxChecked": [
+    "host.mjs",
+    "transport-preflight.mjs"
+  ],
+  "tracking": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 814484,
+        "sha256": "1ab8a919b132369033f05040a57de803f55f1ceb7020d8599369dc9e20a0af11"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 815959,
+        "sha256": "5ddff80473a6fb1e55b58fcc9f11d865467b0fe66658a29815c0985dc34479eb"
+      },
+      "preservation": "Previous complete body preserved after new prefix."
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 165729,
+        "sha256": "ff511ee6a030b1246db618871037ce99dfa1060e8e201a288b4cdd0a1734fb99"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 167215,
+        "sha256": "77661b73d623e2d6660b41320f8a7b23bceeccbdda7a9321eef9826571ae6b2c"
+      },
+      "preservation": "Previous complete body preserved after new prefix."
+    }
+  ]
+}

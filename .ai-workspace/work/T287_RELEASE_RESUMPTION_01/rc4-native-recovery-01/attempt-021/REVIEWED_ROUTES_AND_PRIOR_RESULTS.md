@@ -1,0 +1,9 @@
+# Finite reviewed finding and inherited implementation
+
+Root accepted the bounded020 environment/qualification trace: no additional selected-path blocker. The serial populateSandbox wrapper covers PATH/TMPDIR through authorization/finally; explicit cold environment, qualification dry guards and conserved receipt fields remain. Other configured toolchainEnvironment keys stay ambient in-process; no full environment-equivalence claim or repair is selected.
+
+The library-read sentinel covers fresh full TypeScript program construction for this successful fixed nonempty declaration path. It is not total verifier/declaration-work counting; zero does not exclude preliminary parsing. Required discriminator: real positive cold re-verification after compiler warm-up, same actual fs/installed module instance, nonempty declaration roots/default-lib loading, complete isolated serial setup interval. Existing owners: code/src/product/declaration_exports.ts674/1733/2530 and code/src/product/verification_operation.ts35. No replacement behavior or second ownership instance.
+
+020 provider performed obsolete70de setup probes; missing constructAdmissionCapabilityData is an old-interface probe limit, not candidate failure. Do not repeat. Native020 then failed post-work observation because observed scratch contained symlinks; Root removed only the two exact recorded links after quiescence. No successful native after/C2/UAT existed. Preserve five implemented files at72eea8f0; complete the small proof correction and return lawfully.
+
+Immutable references (lookup only): attempt-020/review-subject-001/SUBJECT.json0a780655; source.diff9560a972; PARTIAL_CHECKPOINTdbf3c9b; SYMLINK_CLEANUPb4e295f8; CLOSURE_OBSERVEDf6c073e1; approved COMPLETION_021.DRAFT8615b214. Existing HOW admission/internal-values section and Product anchors remain governing; no new architecture.

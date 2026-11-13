@@ -1,0 +1,66 @@
+{
+  "kind": "root_minimal_fixture_mechanical_control_completion",
+  "recordedUtc": "2026-11-05T08:18:48.322751+00:00",
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/workload.json",
+    "bytes": 29334,
+    "sha256": "cf1014803ef39c9cce7a531e321f86166437dcda65aefcec74ca63e598fee7ba"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_SOURCE_BEFORE.json",
+    "bytes": 9926,
+    "sha256": "d61889e2702219ef8c591d08063de27f456e2aad698e10f1f9dfad68e896b3e8"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_CONTROL_SELECTION.json",
+    "bytes": 3943,
+    "sha256": "56bcb94e9287842ee9349fb0843c0747666dd2d18ea8587546bfcce252bf77b9"
+  },
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/PROVIDER_PROFILE.json",
+    "bytes": 1663,
+    "sha256": "5f099de3572bd21f78abcda2a127f0151f6dd4a5a31ac7f8446af8387edae57f"
+  },
+  "scripts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/prepare.mjs",
+      "bytes": 8297,
+      "sha256": "8fcb9eda2f61c222bace5c9a95362139116f45dbb7c42f55f8931a57ff1d7be1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    }
+  ],
+  "methodAccess": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/METHOD_ACCESS.json",
+    "bytes": 891,
+    "sha256": "1ff95564606e6119be08acd15a53eca65d685511f06acfe9884026b4881de5c3"
+  },
+  "priorOperatorRefusal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/CONTROL_COMPLETION_FAILURE_01.json",
+    "bytes": 755,
+    "sha256": "ab57f7fc775936dd0579a1a46979fd0e254807a5dca212d74efae4ae7d25493b"
+  },
+  "counts": {
+    "selectedPaths": 31,
+    "sourceRefs": 28,
+    "codingWriteFiles": 1,
+    "commands": 4,
+    "historicalTaskBodies": 0
+  },
+  "checks": [
+    "Agent return/file pins verified",
+    "Tracked baseline and index clean before staging",
+    "Original source closure hashes unchanged",
+    "Installed dependency directories present",
+    "Pinned existing CLI binary and credential presence verified",
+    "Three Node syntax checks passed"
+  ],
+  "preflight": "not_run",
+  "nativeDispatch": false,
+  "providerCalls": 0,
+  "tests": 0,
+  "capacityLimit": "Current initial projection measured during preflight; actual complete assembly and future-stage size remain native owner responsibility."
+}

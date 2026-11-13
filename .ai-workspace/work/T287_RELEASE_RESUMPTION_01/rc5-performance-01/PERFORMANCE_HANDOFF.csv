@@ -1,0 +1,15 @@
+phase,fromOrdinal,toOrdinal,startUTC,endUTC,wallMs,rows,physicalBytes,probes
+native_judgment_construction_close_fold,23573,23616,12:08:07.729,12:10:05.441,117712,43,2033001,24
+executive_step_close_root_foldback,23616,23634,12:10:05.441,12:10:43.423,37982,18,58109,9
+root_foldback_to_reentry_route,23634,23635,12:10:43.423,12:12:33.518,110095,1,2958,0
+parent_reentry_selection_prepare_transport,23635,23679,12:12:33.518,12:14:47.347,133829,44,2002079,24
+testing_selector_actor,23679,23731,12:14:47.347,12:17:38.426,171079,52,167623,29
+selector_result_judgment_project_choice,23731,23751,12:17:38.426,12:18:16.280,37854,20,429052,10
+choice_judgment_route_testing_entry,23751,23767,12:18:16.280,12:19:14.488,58208,16,397837,10
+testing_graph_open_to_prepare_call,23767,23771,12:19:14.488,12:19:47.649,33161,4,12143,1
+prepare_testing_to_result,23771,23778,12:19:47.649,12:20:05.349,17700,7,2977641,4
+prepared_result_judgment_child_workflow,23778,23788,12:20:05.349,12:20:32.747,27398,10,35481,7
+c2_child_workflow_to_basis,23788,23793,12:20:32.747,12:21:23.351,50604,5,22074,3
+c2_basis_to_selected_fibre,23793,23799,12:21:23.351,12:21:34.438,11087,6,17177,1
+c2_selected_fibre_to_transport,23799,23801,12:21:34.438,12:22:32.941,58503,2,3070077,1
+transport_to_process_start,23801,23803,12:22:32.941,12:22:33.069,128,2,4521,0

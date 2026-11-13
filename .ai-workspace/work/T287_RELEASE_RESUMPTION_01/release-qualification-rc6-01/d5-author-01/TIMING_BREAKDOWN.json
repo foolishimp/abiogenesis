@@ -1,0 +1,103 @@
+{
+  "kind": "d5_partial_author_workflow_timing",
+  "at": "2026-11-05T22:42:29.884894+00:00",
+  "standing": "Completed native author Run with partial source; no C2/UAT, final source acceptance or successful whole native workflow benchmark.",
+  "inputs": {
+    "launch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/LAUNCH_TIMING.json",
+      "bytes": 1329,
+      "sha256": "3a24a0657ed409a5dad04975ca91cd648c87cf9001ab4e127f6e46182d152618"
+    },
+    "host": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/HOST_RESULT.json",
+      "bytes": 150,
+      "sha256": "2fb16de65cd20be32d215439e1b0646b57b04dd7c83ee730b00dba86bcd71fb3"
+    },
+    "metadata": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/NATIVE_TOOL_METADATA.json",
+      "bytes": 1781,
+      "sha256": "d2f58ef89fba0fed452e3fc9dacf3cab071e4ac4f9ce0b6709afdb6857f57b68"
+    },
+    "physicalEnvelopes": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/TIMING_OBSERVATION_ENVELOPES.json",
+      "bytes": 5943,
+      "sha256": "7a6dfdfeaf6bdee4b701c0b4806a4e71a9a1ba4a72c136c120aba22bc778d0c7"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 4606,
+      "sha256": "d316f1fb0fcf161775c2ae3db38afcc3be386e29e89e8b37cc8dbfecb53eca48"
+    }
+  },
+  "setupReused": true,
+  "setupMs": null,
+  "preflightMs": 38617.62162530795,
+  "hostLaunchToOwnerDispatchMs": 34284.450999999994,
+  "dispatchToNativeWorkerMs": 38913.0,
+  "selectorMs": null,
+  "selectorStanding": "None in direct NativeWork Program",
+  "nativeReportedWallMs": 2679265,
+  "nativeReportedApiMs": 1836077,
+  "nativeReportedTurns": 239,
+  "nativeReportedCostUsd": 16.889028600000003,
+  "ownerOutcomeToFreshHostCloseMs": 365184.844,
+  "hostWallMs": 3143040.100166,
+  "previousTaskHostCloseToDispatchMs": 765230.539,
+  "physicalLogGrowthBytes": 143248757,
+  "largestEventClasses": [
+    {
+      "kind": "runtime_activity_probe_observed",
+      "rows": 12243,
+      "physicalBytes": 51278310,
+      "fractionOfNewBytes": 0.35796687576144204
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "rows": 1,
+      "physicalBytes": 40849082,
+      "fractionOfNewBytes": 0.28516186007812966
+    },
+    {
+      "kind": "actor_process_stdout_observed",
+      "rows": 12314,
+      "physicalBytes": 22620619,
+      "fractionOfNewBytes": 0.15791145049865948
+    },
+    {
+      "kind": "actor_transport_binding_admitted",
+      "rows": 1,
+      "physicalBytes": 13689968,
+      "fractionOfNewBytes": 0.09556779609612948
+    },
+    {
+      "kind": "basis_admitted",
+      "rows": 1,
+      "physicalBytes": 13606515,
+      "fractionOfNewBytes": 0.09498522210562707
+    },
+    {
+      "kind": "actor_invocation_closed",
+      "rows": 1,
+      "physicalBytes": 1073772,
+      "fractionOfNewBytes": 0.007495855618488892
+    }
+  ],
+  "retainedOperatorArtifactBytes": {
+    "execution.json": 196267184,
+    "outcome-summary.json": 41013175,
+    "fresh-reads.json": 164341963,
+    "after-run-resume.json": 72493736
+  },
+  "redFlagObservations": [
+    "12243 activity-probe rows carry51278310 bytes during this one actor Run. Cause/necessity not adjudicated by byte counts.",
+    "One source Result physically carries40849082 bytes; basis and transport binding each carry roughly13.6MB. Prior carriage hotspot remains.",
+    "Fresh owner close/readbacks add over6 minutes after the owner outcome, without another coding Worker. No per-function CPU attribution established.",
+    "Two readiness gaps caused a partial coding return; Root material/scope correction is separate from runtime latency."
+  ],
+  "limits": [
+    "Wall/API/phase counters overlap; do not sum API time on top of native wall time.",
+    "Between-task interval includes Root triage/control/preflight work; not a runtime-only latency metric.",
+    "Event bytes establish volume, not redundancy or causal CPU cost by themselves.",
+    "No new optimization or runtime effect is selected by this timing record."
+  ]
+}

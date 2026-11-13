@@ -1,0 +1,14 @@
+{
+  "log": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 681463484,
+    "bytes": 343947182,
+    "sha256": "fd59afe44981b901a40c5b2ef9b359b952d4cc8b52bcda86041e48ddb7a40ed7"
+  },
+  "sourceCommit": "0a8d330a32d5f577b424394c0424a1cd9abe519b",
+  "eventBytesUnchanged": true,
+  "installedUnchanged": true,
+  "sourceUnchanged": true,
+  "dependenciesUnchanged": true
+}

@@ -1,0 +1,11 @@
+{
+  "status": "ROOT_SELECTED_ZERO_PROVIDER_STAGE",
+  "operator": "Root",
+  "selectedAt": "2026-11-03T00:00:32.166764+00:00",
+  "bindingSha256": "be5a291b2390e1a5fed5c0a2ddcb008f097ea0fcdddaf19d21a1810c5335d92b",
+  "allowedStages": [
+    "prepare-continue"
+  ],
+  "callSha256": null,
+  "decision": "Root selects prepare-continue through existing owners only. Root verified actual B738cb4e3 entered Testing cursor501202f8, no prepare-testing CCall,2863events/current13831280B/f69e1e52 equal retained interruption, exact owner62336/selector62410 absent and no observer fault. Recover only exact origin/abandoned lock/current bytes; prepare-continue follows only successful genuine recovery. No paid continuation, retry or invented handoff selected."
+}

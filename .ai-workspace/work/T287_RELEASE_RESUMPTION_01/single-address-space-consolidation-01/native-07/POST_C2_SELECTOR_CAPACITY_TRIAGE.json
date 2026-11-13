@@ -1,0 +1,1220 @@
+{
+  "kind": "bounded_post_c2_selector_capacity_root_cause_triage",
+  "recordedUtc": "2026-11-04T05:55:39.669Z",
+  "productFrame": {
+    "product": "ABIogenesis5 / GOAL-035 / T-287; fixed fifteen5.0 families; original R1-R7/C1-C5 retained",
+    "method": {
+      "basis": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "composition": []
+    },
+    "builder": {
+      "source": "immutable RC5/f49",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "acquisition": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/resume.json top-level installedRoot metadata only"
+    },
+    "classification": "Operator source/body-carriage and Proof/Runtime integration observation; not Product/test implementation or a new runtime authority",
+    "constraints": [
+      "No prompt-cap increase, criteria weakening, original-obligation loss or Product-law change",
+      "No manufactured future Result, assembly basis, admission or actual UAT",
+      "No provider/tests/builds/runtime admission/native contact/moving Product or control edits; Root alone owns next packet/admission"
+    ]
+  },
+  "result": "falsified",
+  "resultScope": "Current post-C2 selector capacity and sufficiency of the previous phase/basis coverage. Actual typed overflow refusal is conserved, not a newly demonstrated Product implementation defect.",
+  "actualFailure": {
+    "eventId": "event://abiogenesis/c522d3ac07fb591684e7057df09901cdd435b599f572195a2c47f03c8e47f59f",
+    "admissionOrdinal": 55109,
+    "eventTime": "2026-11-04T05:28:45.171Z",
+    "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+    "runId": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+    "resultRef": "result://abiogenesis/e8769753833a17262ce7b60fe1b6b2ddd6f157e4e725d2842df1099d4804f98b",
+    "payloadDigest": "sha256:168eb3cb84c7d762f536f3598b55987a7a992c43705db9e0b02b04d6759df16d",
+    "offset": 671993709,
+    "rowBytes": 4648,
+    "rowSha256": "adef5bc346e237736105d059ab827be2df8da8069eace3cd16a7f2209816baff",
+    "refusal": {
+      "kind": "native_instruction_assembly_refusal",
+      "cause": "declared_bound_overflow",
+      "role": "selector",
+      "unresolvedRefs": [
+        "result://abiogenesis/256346501fa9683fce9c1611d72580157dceea376694b274b5117f8111a072e2"
+      ]
+    },
+    "task": {
+      "recordedUtc": "2026-11-04T05:36:17.666Z",
+      "eventId": "event://abiogenesis/e77d7ddec3ce0faee78e672b742afaf2068bb73eb99c0264a5eff05d93382efe",
+      "eventTime": "2026-11-04T05:28:31.396Z",
+      "admissionOrdinal": 55094,
+      "resultRef": "result://abiogenesis/256346501fa9683fce9c1611d72580157dceea376694b274b5117f8111a072e2",
+      "payloadDigest": "sha256:cf6971890885f20d87e491fc497c0df44bac8d4495f0dd5847318f0a978853e7",
+      "offset": 671110039,
+      "rowBytes": 830463,
+      "rowSha256": "4e580a267590c594691a2f5dec01daa0f3c41967b1e438ecad92614539f486cc",
+      "task": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_POST_C2_SELECTOR_TASK.json",
+        "bytes": 1046417,
+        "sha256": "a9f2f0c0b8dcbdc4de224b675930e9f4c88ec9da15919cb26eb8cc091f3e8bb7"
+      },
+      "standing": "Actual admitted framed task consumed by refused selector preparation; no prompt or actor output fabricated"
+    },
+    "physicalTaskValueEqualsFrozen": true,
+    "taskRowSha256": "4e580a267590c594691a2f5dec01daa0f3c41967b1e438ecad92614539f486cc",
+    "failureRowSha256": "adef5bc346e237736105d059ab827be2df8da8069eace3cd16a7f2209816baff",
+    "nativeUatActorLaunched": false,
+    "finalClose": "Pending at intake; not read, mutated or inferred by this triage"
+  },
+  "actualC2": {
+    "coordinates": {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 55003,
+      "eventId": "event://abiogenesis/beb91b91558723d9a8de1e493fad225ed959aa3ee27df3276d6c7a61f95b50ae",
+      "eventTime": "2026-11-04T05:25:00.279Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "runId": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+      "offset": 661732334,
+      "rowBytes": 8576358,
+      "rowSha256": "12d8d9c3b36e5adde5e12cf836ec24cc65cbff6da4b18231275d2f2578062811",
+      "resultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+      "resultDigest": "sha256:5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+      "valueKind": "worksite_command_execution_observation"
+    },
+    "summaryIdentity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+      "bytes": 17240,
+      "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+    },
+    "status": "ACTUAL_SELECTED_C2_PREDICATES_SATISFIED",
+    "tally": {
+      "pass": 46,
+      "fail": 0,
+      "skipped": 0
+    },
+    "packStdoutBytes": 45,
+    "affectedProofStdoutBytes": 6608,
+    "sourceCorrespondenceStdoutBytes": 22893,
+    "standing": "Actual46pass/0fail/0skip selected C2; no UAT/full-original-outcome acceptance follows"
+  },
+  "findings": [
+    {
+      "id": "N7-CAPACITY-01",
+      "rank": 1,
+      "technicalSeverity": "S2",
+      "classification": "Operator-capacity/integration-proof defect with bounded existing-carrier correction",
+      "origin": "A later selector always embeds full original.sources bodies, all selected-file metadata/testing declaration, admitted observation projection and prior judgment. The packet kept a large historical source baseline; new Testing observation and response domains crossed the bound before UAT could be selected.",
+      "evidence": "Actual post-C2 task998425B; source-supported six-section accounting1055315B; conservative lower bound excluding all1564B execution-binding value1053751B, already5175B over1048576B. Actual bound refusal at55109 corroborates location, not a CPU root cause.",
+      "upstream": "Operator original.sources membership chooses embedded bodies. Four completed native06 JSON reviews and prior return add159519 rendered task bytes compared with keeping the same files/read scopes/assessment refs as reference-only inputs.",
+      "downstream": "No post-C2 selector actor or UAT assessment; selected C2 can be green while governance continuation cannot prepare.",
+      "dependentPaths": "Post-construction/post-C2/post-UAT selector envelopes and original C4/C5 conjunction. Existing source/C2 evidence remains valid at its bounded claims.",
+      "confidence": "High for measured task, actual earlier prompt counts, operator extent and typed failure. Complete failed-envelope count uses explicit same-Run declaration/equal-length binding premises; lower bound omits the entire binding value.",
+      "containment": "Typed assembly refusal before dependent actor; original outcome remains open and Root final decision pending.",
+      "repair": "Change the next operator source selection using existing carriers; preserve exact read access/current decision facts. No Product implementation or cap change.",
+      "repairComplexity": "Small operator control/source-classification change plus finite multi-phase capacity accounting; semantic input sufficiency remains Root judgment.",
+      "regressionRisk": "Moving necessary selector decision material out of an inline-only selector would create a material input gap. Keep complete governing criteria and current decision-bearing facts inline; retain full detailed evidence for construction/assessment reads.",
+      "priority": "Root reserved",
+      "promotionEffect": "Root reserved"
+    },
+    {
+      "id": "N7-CAPACITY-02",
+      "rank": 2,
+      "technicalSeverity": "S2",
+      "classification": "Predictive evidence basis and phase coverage gap",
+      "origin": "Initial preflight reused RC4/STDO3.0.2 role/other sections and measured only the initial task; downstream preflight modeled a UAT assessor, not the intervening later selectors.",
+      "evidence": "Historical role9147B versus actual same-Run STDO3.0.4 role43099B (+33952B), plus response83B =34035B initial underprediction. Prediction949994B versus actual984029B. Initial actual headroom64547B is989B below its65536B allowance. Actual post-construction1002235B leaves46341B; later task/response adds53080B.",
+      "scope": "Both checks explicitly limited their claims, so neither claimed to prove every future role. Their conjunction was nevertheless insufficient for the whole selected run. The prior native06 UAT compact-pack correction worked: actual pack45B/proof6608B; this is a different later-envelope dependency.",
+      "repair": "Final exact current role/choice/binding/response sources and a prospective phase matrix, including both selectors and assessor; never promote historical placeholders/reserve to actual downstream evidence.",
+      "confidence": "High; actual prompt bytes verified against transport-manifest byte digest and actual archive prompt content; no actor output or thinking read.",
+      "containment": "Runtime cap remains authoritative",
+      "priority": "Root reserved",
+      "promotionEffect": "Root reserved"
+    }
+  ],
+  "actualEarlierSelectors": [
+    {
+      "ordinal": 50706,
+      "promptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-de55c2f52278e69c-prompt.txt",
+      "promptBytes": 984029,
+      "promptSha256": "10d6a39fbba6f660608231bdd8557137f4533c678c8b7d60d01ee7b02ae6d3d5",
+      "promptCanonicalDigest": "sha256:11875e0dcfca7b5e86bf3099d2cd44178eecaedb2ab8f295529a80e8f3376de1",
+      "sectionBytes": {
+        "role": 43099,
+        "choices": 5212,
+        "task": 928697,
+        "binding": 1564,
+        "evidence": 21,
+        "response": 5364
+      },
+      "taskBytes": 928697,
+      "otherBytes": 55332
+    },
+    {
+      "ordinal": 54608,
+      "promptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-b1c102d4024f6e56-prompt.txt",
+      "promptBytes": 1002235,
+      "promptSha256": "e0cf778e3a8694cef15e3f841db94dc5cfcf4f8fd2cfe5423734c546277fff79",
+      "promptCanonicalDigest": "sha256:54d1e717e6d20ec2d455021c12a6135d17af40dfafe948909129dd9f3cbe357f",
+      "sectionBytes": {
+        "role": 43099,
+        "choices": 5212,
+        "task": 945873,
+        "binding": 1564,
+        "evidence": 21,
+        "response": 6394
+      },
+      "taskBytes": 945873,
+      "otherBytes": 56362
+    }
+  ],
+  "historicalComparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/fp-0141c53486056a96-prompt.txt",
+    "bytes": 557101,
+    "sha256": "6b9ec2ce3cccc5fb165fd72b6e81208eaafc3b7513d70421c8ea1fd9000a5a54",
+    "sectionBytes": {
+      "role": 9147,
+      "choices": 5212,
+      "task": 535804,
+      "binding": 1564,
+      "evidence": 21,
+      "response": 5281
+    },
+    "otherBytes": 21297
+  },
+  "fixedSectionIdentities": [
+    {
+      "section": "role",
+      "firstSha256": "0dfd1fbacec19eac8912eb2ef279627ff63aadfcaa80aff64e307ff49ecd90da",
+      "lastSha256": "0dfd1fbacec19eac8912eb2ef279627ff63aadfcaa80aff64e307ff49ecd90da",
+      "equal": true
+    },
+    {
+      "section": "choices",
+      "firstSha256": "5f186c9f98f5dc055f2afcda1a53666489a5bd9b64dfaaec7f39fc1ddcadb517",
+      "lastSha256": "5f186c9f98f5dc055f2afcda1a53666489a5bd9b64dfaaec7f39fc1ddcadb517",
+      "equal": true
+    },
+    {
+      "section": "evidence",
+      "firstSha256": "f68805131a5e6e1b39adc1e9c2f2af233c4ad3543a9f7d74c61eab868d50de87",
+      "lastSha256": "f68805131a5e6e1b39adc1e9c2f2af233c4ad3543a9f7d74c61eab868d50de87",
+      "equal": true
+    }
+  ],
+  "failedSelectorAccounting": {
+    "taskBytes": 998425,
+    "sectionBytes": {
+      "role": 43099,
+      "choices": 5212,
+      "task": 998425,
+      "binding": 1564,
+      "evidence": 21,
+      "response": 6922
+    },
+    "wrappersAndSeparatorsBytes": 72,
+    "inferredCompleteBytes": 1055315,
+    "inferredOverflowBytes": 6739,
+    "conservativeLowerBoundExcludingWholeBindingValue": 1053751,
+    "conservativeMinimumOverflowBytes": 5175,
+    "standing": "Actual task projection + actual same-Run role/choices/evidence + actual task-dependent response pure owner. The complete count uses source-supported equal-length execution binding refs from actual failed call. The lower bound excludes all binding-value bytes and already proves overflow; neither is an admitted prompt or fabricated basis."
+  },
+  "taskAccounting": {
+    "taskProjectionBytes": 998425,
+    "taskProjectionSha256": "7821f4ffa9e17fe2ea230176f1266e4c1665a9a02b5dc174ff6a4dc34883d716",
+    "nonOverlappingGroups": [
+      {
+        "name": "worksite",
+        "bytes": 807554
+      },
+      {
+        "name": "testing_declaration",
+        "bytes": 96877
+      },
+      {
+        "name": "work_orders",
+        "bytes": 16893
+      },
+      {
+        "name": "observations",
+        "bytes": 57240
+      },
+      {
+        "name": "prior_judgment",
+        "bytes": 11979
+      },
+      {
+        "name": "all_other_fields_and_task_object_framing",
+        "bytes": 7882
+      }
+    ],
+    "worksite": {
+      "files": 911,
+      "fileVectorBytes": 807143,
+      "metadataOnlyFileVectorBytes": 217309,
+      "inlineSourceBytesAboveMetadata": 589834
+    },
+    "declaredRawSourceBytes": 570031,
+    "declaredSourceCount": 38,
+    "sourceRows": [
+      {
+        "path": "specification/PRODUCT.md",
+        "sourceBytes": 100324,
+        "entryBytes": 102261,
+        "metadataBytes": 185,
+        "removableRenderedBytes": 102076,
+        "contentBytes": 100324,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/PREVIOUS_NATIVE_RETURN.json",
+        "sourceBytes": 68048,
+        "entryBytes": 72166,
+        "metadataBytes": 218,
+        "removableRenderedBytes": 71948,
+        "contentBytes": 68048,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+        "sourceBytes": 26888,
+        "entryBytes": 28430,
+        "metadataBytes": 236,
+        "removableRenderedBytes": 28194,
+        "contentBytes": 26888,
+        "contentIn": null
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "sourceBytes": 27131,
+        "entryBytes": 27846,
+        "metadataBytes": 241,
+        "removableRenderedBytes": 27605,
+        "contentBytes": 27131,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/PRIOR_ACTIVATION_CONJUNCTION.json",
+        "sourceBytes": 21305,
+        "entryBytes": 22877,
+        "metadataBytes": 224,
+        "removableRenderedBytes": 22653,
+        "contentBytes": 21305,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/C2_INPUTS.json",
+        "sourceBytes": 21389,
+        "entryBytes": 22751,
+        "metadataBytes": 205,
+        "removableRenderedBytes": 22546,
+        "contentBytes": 21389,
+        "contentIn": null
+      },
+      {
+        "path": ".claude/references/COORDINATED_HANDOFF.md",
+        "sourceBytes": 22028,
+        "entryBytes": 22622,
+        "metadataBytes": 201,
+        "removableRenderedBytes": 22421,
+        "contentBytes": 22028,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+        "sourceBytes": 20971,
+        "entryBytes": 22109,
+        "metadataBytes": 242,
+        "removableRenderedBytes": 21867,
+        "contentBytes": 20971,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+        "sourceBytes": 20861,
+        "entryBytes": 22057,
+        "metadataBytes": 233,
+        "removableRenderedBytes": 21824,
+        "contentBytes": 20861,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/NATIVE_GRANT.json",
+        "sourceBytes": 17783,
+        "entryBytes": 18693,
+        "metadataBytes": 208,
+        "removableRenderedBytes": 18485,
+        "contentBytes": 17783,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/NEXT_PROOF_EXTERNAL_INPUTS.json",
+        "sourceBytes": 17613,
+        "entryBytes": 18527,
+        "metadataBytes": 222,
+        "removableRenderedBytes": 18305,
+        "contentBytes": 17613,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/PRIOR_ACTUAL_C2_SUMMARY.json",
+        "sourceBytes": 15561,
+        "entryBytes": 16999,
+        "metadataBytes": 219,
+        "removableRenderedBytes": 16780,
+        "contentBytes": 15561,
+        "contentIn": null
+      },
+      {
+        "path": "specification/INTENT.md",
+        "sourceBytes": 16326,
+        "entryBytes": 16870,
+        "metadataBytes": 183,
+        "removableRenderedBytes": 16687,
+        "contentBytes": 16326,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+        "sourceBytes": 14613,
+        "entryBytes": 15542,
+        "metadataBytes": 232,
+        "removableRenderedBytes": 15310,
+        "contentBytes": 14613,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/REMAINING_PAIR_PROOF_TRIAGE.md",
+        "sourceBytes": 13531,
+        "entryBytes": 13837,
+        "metadataBytes": 221,
+        "removableRenderedBytes": 13616,
+        "contentBytes": 13531,
+        "contentIn": null
+      },
+      {
+        "path": ".claude/skills/stdo-work/SKILL.md",
+        "sourceBytes": 13369,
+        "entryBytes": 13825,
+        "metadataBytes": 193,
+        "removableRenderedBytes": 13632,
+        "contentBytes": 13369,
+        "contentIn": null
+      },
+      {
+        "path": "AGENTS.md",
+        "sourceBytes": 12932,
+        "entryBytes": 13342,
+        "metadataBytes": 169,
+        "removableRenderedBytes": 13173,
+        "contentBytes": 12932,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/ROOT_REENTRY_SELECTION_07.md",
+        "sourceBytes": 12312,
+        "entryBytes": 12712,
+        "metadataBytes": 219,
+        "removableRenderedBytes": 12493,
+        "contentBytes": 12312,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/CONTEXT_AND_CAUSAL_MAP.md",
+        "sourceBytes": 11069,
+        "entryBytes": 11464,
+        "metadataBytes": 216,
+        "removableRenderedBytes": 11248,
+        "contentBytes": 11069,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/REMAINING_OWNER_CLASSIFICATION.md",
+        "sourceBytes": 9434,
+        "entryBytes": 9820,
+        "metadataBytes": 223,
+        "removableRenderedBytes": 9597,
+        "contentBytes": 9434,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/UAT_CAPACITY_TRIAGE.md",
+        "sourceBytes": 9512,
+        "entryBytes": 9809,
+        "metadataBytes": 212,
+        "removableRenderedBytes": 9597,
+        "contentBytes": 9512,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/ROOT_TRIAGE_AND_SELECTION.md",
+        "sourceBytes": 7947,
+        "entryBytes": 8322,
+        "metadataBytes": 218,
+        "removableRenderedBytes": 8104,
+        "contentBytes": 7947,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/CENSUS_FOLLOWUP_CLASSIFICATION.md",
+        "sourceBytes": 7871,
+        "entryBytes": 8197,
+        "metadataBytes": 223,
+        "removableRenderedBytes": 7974,
+        "contentBytes": 7871,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/c2-proof.mjs",
+        "sourceBytes": 7744,
+        "entryBytes": 8092,
+        "metadataBytes": 202,
+        "removableRenderedBytes": 7890,
+        "contentBytes": 7744,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/FH_POSITIVE_PREMISE_TRIAGE.md",
+        "sourceBytes": 7226,
+        "entryBytes": 7506,
+        "metadataBytes": 219,
+        "removableRenderedBytes": 7287,
+        "contentBytes": 7226,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/NATIVE_UAT_CLOSED_RESULT.json",
+        "sourceBytes": 6403,
+        "entryBytes": 6947,
+        "metadataBytes": 219,
+        "removableRenderedBytes": 6728,
+        "contentBytes": 6403,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_R1_PAIR_PROOF_REVIEW.md",
+        "sourceBytes": 6569,
+        "entryBytes": 6858,
+        "metadataBytes": 233,
+        "removableRenderedBytes": 6625,
+        "contentBytes": 6569,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/MEASURED_BASELINE.json",
+        "sourceBytes": 5575,
+        "entryBytes": 6299,
+        "metadataBytes": 212,
+        "removableRenderedBytes": 6087,
+        "contentBytes": 5575,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/LAYERED_ALLOCATION_BOUND_TRIAGE.md",
+        "sourceBytes": 5881,
+        "entryBytes": 6164,
+        "metadataBytes": 224,
+        "removableRenderedBytes": 5940,
+        "contentBytes": 5881,
+        "contentIn": null
+      },
+      {
+        "path": ".claude/references/PRODUCT_BASIS.md",
+        "sourceBytes": 3947,
+        "entryBytes": 4250,
+        "metadataBytes": 194,
+        "removableRenderedBytes": 4056,
+        "contentBytes": 3947,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/PERFORMANCE_DETAIL.md",
+        "sourceBytes": 3524,
+        "entryBytes": 3785,
+        "metadataBytes": 211,
+        "removableRenderedBytes": 3574,
+        "contentBytes": 3524,
+        "contentIn": null
+      },
+      {
+        "path": "stdo_abiogenesis.json",
+        "sourceBytes": 3136,
+        "entryBytes": 3675,
+        "metadataBytes": 180,
+        "removableRenderedBytes": 3495,
+        "contentBytes": 3136,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/INPUT_SUFFICIENCY.json",
+        "sourceBytes": 2240,
+        "entryBytes": 2615,
+        "metadataBytes": 212,
+        "removableRenderedBytes": 2403,
+        "contentBytes": 2240,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/NATIVE_C2_CLOSED_RESULT.json",
+        "sourceBytes": 2210,
+        "entryBytes": 2599,
+        "metadataBytes": 218,
+        "removableRenderedBytes": 2381,
+        "contentBytes": 2210,
+        "contentIn": null
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+        "sourceBytes": 1812,
+        "entryBytes": 2262,
+        "metadataBytes": 228,
+        "removableRenderedBytes": 2034,
+        "contentBytes": 1812,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/TASK.md",
+        "sourceBytes": 1962,
+        "entryBytes": 2220,
+        "metadataBytes": 197,
+        "removableRenderedBytes": 2023,
+        "contentBytes": 1962,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/rubric.json",
+        "sourceBytes": 1879,
+        "entryBytes": 2195,
+        "metadataBytes": 201,
+        "removableRenderedBytes": 1994,
+        "contentBytes": 1879,
+        "contentIn": null
+      },
+      {
+        "path": "consolidation-inputs/native-07/EXTERNAL_READ_RESOURCES.json",
+        "sourceBytes": 1105,
+        "entryBytes": 1400,
+        "metadataBytes": 218,
+        "removableRenderedBytes": 1182,
+        "contentBytes": 1105,
+        "contentIn": null
+      }
+    ],
+    "sourceIdentities": [
+      {
+        "path": ".claude/references/COORDINATED_HANDOFF.md",
+        "bytes": 22028,
+        "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00"
+      },
+      {
+        "path": ".claude/references/PRODUCT_BASIS.md",
+        "bytes": 3947,
+        "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"
+      },
+      {
+        "path": ".claude/skills/stdo-work/SKILL.md",
+        "bytes": 13369,
+        "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+      },
+      {
+        "path": "AGENTS.md",
+        "bytes": 12932,
+        "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 27131,
+        "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+        "bytes": 1812,
+        "sha256": "1c6e6da5dc3ab79243318cf85f821fff1caed7bac0d86ed152aa62faa7a2aa62"
+      },
+      {
+        "path": "consolidation-inputs/native-07/C2_INPUTS.json",
+        "bytes": 21389,
+        "sha256": "2e6e5b349ee6a00e2a217a82ec819e56802de1a60350fd10244017e7458461f8"
+      },
+      {
+        "path": "consolidation-inputs/native-07/CENSUS_FOLLOWUP_CLASSIFICATION.md",
+        "bytes": 7871,
+        "sha256": "40346cbd77607b788effd122a9c6d83e778c0424725222633d13d5b1a5224d7d"
+      },
+      {
+        "path": "consolidation-inputs/native-07/CONTEXT_AND_CAUSAL_MAP.md",
+        "bytes": 11069,
+        "sha256": "951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec"
+      },
+      {
+        "path": "consolidation-inputs/native-07/EXTERNAL_READ_RESOURCES.json",
+        "bytes": 1105,
+        "sha256": "5934e0091ba7a7c0e19c740c4c9d90cbf0ed5c95bece381c5ac7764294cf4eac"
+      },
+      {
+        "path": "consolidation-inputs/native-07/FH_POSITIVE_PREMISE_TRIAGE.md",
+        "bytes": 7226,
+        "sha256": "f999cde290d0dfd715e19ab4c9b8659f51c9119b16b0fe090d027fd60183b974"
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+        "bytes": 20861,
+        "sha256": "59ce21490ad62cded338af47597e2188d4d6f021cfa0b91efdedd6b090f7899b"
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+        "bytes": 14613,
+        "sha256": "89c35598884f969c4e626d6045ee0f35814f8cba2f63d0d4b55ca5540eeeb8cf"
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+        "bytes": 26888,
+        "sha256": "248a20394349977a6cd9d6c281404dbb9fe1c15dd8bbe52584f0c1015e542e8b"
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+        "bytes": 20971,
+        "sha256": "d08944f9abb7ed116922310dc9080162077d49647e4d6b7a33e2802c1acd8115"
+      },
+      {
+        "path": "consolidation-inputs/native-07/INDEPENDENT_INTERIM_R1_PAIR_PROOF_REVIEW.md",
+        "bytes": 6569,
+        "sha256": "cc992e60a0cfbb3a340458e93b623428431ee97685d8892e912e29123166a6d2"
+      },
+      {
+        "path": "consolidation-inputs/native-07/INPUT_SUFFICIENCY.json",
+        "bytes": 2240,
+        "sha256": "c2d540e2e65886f81c3d7c9aeaac0c59ee3b26c19d18463569aa038382a74569"
+      },
+      {
+        "path": "consolidation-inputs/native-07/LAYERED_ALLOCATION_BOUND_TRIAGE.md",
+        "bytes": 5881,
+        "sha256": "961d381e7410c99ce9cfb44483e82294bbdd5533d699f7e0806793c974abcdec"
+      },
+      {
+        "path": "consolidation-inputs/native-07/MEASURED_BASELINE.json",
+        "bytes": 5575,
+        "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+      },
+      {
+        "path": "consolidation-inputs/native-07/NATIVE_C2_CLOSED_RESULT.json",
+        "bytes": 2210,
+        "sha256": "a830c8c535518c30e7ca24775976ee0502e0189d5f13a955a5042fab4fa78067"
+      },
+      {
+        "path": "consolidation-inputs/native-07/NATIVE_GRANT.json",
+        "bytes": 17783,
+        "sha256": "d75aca0b77bb8fa54394ecc6c0bed35df0aa4d5f3d63e7d9ef31f0ccac7503a4"
+      },
+      {
+        "path": "consolidation-inputs/native-07/NATIVE_UAT_CLOSED_RESULT.json",
+        "bytes": 6403,
+        "sha256": "e7be64e897614fb2d9f088c14f637991e37123f3e3fb2e93f84b8d44523566b8"
+      },
+      {
+        "path": "consolidation-inputs/native-07/NEXT_PROOF_EXTERNAL_INPUTS.json",
+        "bytes": 17613,
+        "sha256": "162f0a6fe698fe65019c0b40bfaeac4556d72503a825649b92871d81038a1864"
+      },
+      {
+        "path": "consolidation-inputs/native-07/PERFORMANCE_DETAIL.md",
+        "bytes": 3524,
+        "sha256": "93218ff1e5bd4591b71274f36716656d70b795815c7bc8758c99d8f7673e059f"
+      },
+      {
+        "path": "consolidation-inputs/native-07/PREVIOUS_NATIVE_RETURN.json",
+        "bytes": 68048,
+        "sha256": "da660fb70a04e7b0603cddb4c0439f502f6e026a7f2ecd5dd6ceca5d6320d938"
+      },
+      {
+        "path": "consolidation-inputs/native-07/PRIOR_ACTIVATION_CONJUNCTION.json",
+        "bytes": 21305,
+        "sha256": "c42f01a28029f29ff00a9f01800344c5fa64be21121f496061015f5bc1772c27"
+      },
+      {
+        "path": "consolidation-inputs/native-07/PRIOR_ACTUAL_C2_SUMMARY.json",
+        "bytes": 15561,
+        "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+      },
+      {
+        "path": "consolidation-inputs/native-07/REMAINING_OWNER_CLASSIFICATION.md",
+        "bytes": 9434,
+        "sha256": "08835d3d39f6cd7ac1fc7826dab0d1970f2b6d28211a903437366297fb50d84e"
+      },
+      {
+        "path": "consolidation-inputs/native-07/REMAINING_PAIR_PROOF_TRIAGE.md",
+        "bytes": 13531,
+        "sha256": "2878be07fb7a31154feecb8d7da472a760e6881e540c53298711d94ff3ff4d79"
+      },
+      {
+        "path": "consolidation-inputs/native-07/ROOT_REENTRY_SELECTION_07.md",
+        "bytes": 12312,
+        "sha256": "24fb0de17574b992d28fab71009f086f56c346e84effd98e9b7654b4551d6bc2"
+      },
+      {
+        "path": "consolidation-inputs/native-07/ROOT_TRIAGE_AND_SELECTION.md",
+        "bytes": 7947,
+        "sha256": "071176d93d9b20f0d7ecc0db7f9fa0a6fea1f6d432766807b6e6ea6a7831de5d"
+      },
+      {
+        "path": "consolidation-inputs/native-07/TASK.md",
+        "bytes": 1962,
+        "sha256": "f2d57672679a0a8329a49974615065252dcaecc632769ce06ed291499954fa8e"
+      },
+      {
+        "path": "consolidation-inputs/native-07/UAT_CAPACITY_TRIAGE.md",
+        "bytes": 9512,
+        "sha256": "9f7dfd2f7b44c20f262f5e7716e6e2a42484ead4cdec4638f20d83cc1e63105c"
+      },
+      {
+        "path": "consolidation-inputs/native-07/c2-proof.mjs",
+        "bytes": 7744,
+        "sha256": "e5e2fa0c4ce28008051134b893102dc0588da79ec6b91c4ceffccb8bf8250914"
+      },
+      {
+        "path": "consolidation-inputs/native-07/rubric.json",
+        "bytes": 1879,
+        "sha256": "987adaade5d582b1a9bf616a38e90e2ae18db7b154aa297459e4c61e973dcae9"
+      },
+      {
+        "path": "specification/INTENT.md",
+        "bytes": 16326,
+        "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+      },
+      {
+        "path": "specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+      },
+      {
+        "path": "stdo_abiogenesis.json",
+        "bytes": 3136,
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+      }
+    ],
+    "testing": {
+      "totalBytes": 96877,
+      "selectedPathsBytes": 73911,
+      "selectedPaths": 911,
+      "commandsBytes": 20581,
+      "commands": 7
+    },
+    "observationRows": [
+      {
+        "purpose": "construction",
+        "bytes": 6242
+      },
+      {
+        "purpose": "testing",
+        "bytes": 50995
+      }
+    ],
+    "previousReturnFieldBytes": [
+      {
+        "field": "proof",
+        "serializedBytes": 22629
+      },
+      {
+        "field": "sourceHashes",
+        "serializedBytes": 17811
+      },
+      {
+        "field": "census",
+        "serializedBytes": 7022
+      },
+      {
+        "field": "changedFromNative05",
+        "serializedBytes": 2990
+      },
+      {
+        "field": "dispositions",
+        "serializedBytes": 2796
+      },
+      {
+        "field": "scratchCorrespondence",
+        "serializedBytes": 2010
+      },
+      {
+        "field": "disclosures",
+        "serializedBytes": 1635
+      },
+      {
+        "field": "gaps",
+        "serializedBytes": 1191
+      },
+      {
+        "field": "basis",
+        "serializedBytes": 1016
+      },
+      {
+        "field": "rubric",
+        "serializedBytes": 986
+      },
+      {
+        "field": "grantPathsOutsideSubject",
+        "serializedBytes": 669
+      },
+      {
+        "field": "trackedChangedNewSinceSubject",
+        "serializedBytes": 276
+      },
+      {
+        "field": "returnedUtc",
+        "serializedBytes": 20
+      },
+      {
+        "field": "kind",
+        "serializedBytes": 16
+      },
+      {
+        "field": "status",
+        "serializedBytes": 7
+      },
+      {
+        "field": "readiness",
+        "serializedBytes": 5
+      },
+      {
+        "field": "unchangedFromNative05Count",
+        "serializedBytes": 3
+      },
+      {
+        "field": "trackedChangedOutsideGrant",
+        "serializedBytes": 2
+      }
+    ]
+  },
+  "predictiveReferenceOnlyCandidates": [
+    {
+      "name": "completed_native06_review_bodies",
+      "kind": "predictive_source_selection_only_not_future_admission",
+      "referenceOnlyPaths": [
+        "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json"
+      ],
+      "heldUnchanged": "All worksite files/context, readRoots/testing selectedPaths, construction readFirst, assessment sources, requiredSupportRefs, outcome/criteria, observations and prior judgment remain baseline byte values. Only selector-embedded original.sources membership changes.",
+      "taskProjectionBytes": 910915,
+      "savedTaskBytes": 87510,
+      "inferredCompleteSelectorBytes": 967805,
+      "headroomBytes": 80771,
+      "limit": "Source-supported fixed-section and binding-length accounting from actual same-Run selectors. No future native task/assembly/admission/Result is produced."
+    },
+    {
+      "name": "reviews_plus_previous_native06_return",
+      "kind": "predictive_source_selection_only_not_future_admission",
+      "referenceOnlyPaths": [
+        "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+        "consolidation-inputs/native-07/PREVIOUS_NATIVE_RETURN.json"
+      ],
+      "heldUnchanged": "All worksite files/context, readRoots/testing selectedPaths, construction readFirst, assessment sources, requiredSupportRefs, outcome/criteria, observations and prior judgment remain baseline byte values. Only selector-embedded original.sources membership changes.",
+      "taskProjectionBytes": 838906,
+      "savedTaskBytes": 159519,
+      "inferredCompleteSelectorBytes": 895796,
+      "headroomBytes": 152780,
+      "limit": "Source-supported fixed-section and binding-length accounting from actual same-Run selectors. No future native task/assembly/admission/Result is produced."
+    }
+  ],
+  "smallestLawfulCorrection": {
+    "scope": "Next Root-selected operator packet only; no existing inputs or histories modified",
+    "measuredMinimum": "Four completed native06 review JSON bodies removed from selector original.sources membership, while the same complete files remain selected/readable/mandatory for construction/assessment: current-layout task910915B/full accounting967805B/headroom80771B.",
+    "moreUsefulFiniteCandidate": "The same four plus PREVIOUS_NATIVE_RETURN.json: current-layout task838906B/full accounting895796B/headroom152780B. This margin is a counterfactual for the actual baseline, not sufficient evidence for final native08 phase coverage.",
+    "exactPaths": [
+      "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+      "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+      "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+      "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+      "consolidation-inputs/native-07/PREVIOUS_NATIVE_RETURN.json"
+    ],
+    "existingCarriers": {
+      "selectorInline": "original.sources controls declaredSourcePaths and exact body embedding: product/default_library.js263-285,312-324",
+      "readerPaths": "Keep readRoots, testing.selectedPaths and workOrders[*].readFirst; keep independent assessment.sources with context-bound digest selection",
+      "sourceAndNativeRules": "product/default_library.js38-70 does not require assessment.sources==original.sources; abg/default_library.js281-293 independently pins assessment files and appends all selected source/candidate/rubric paths to readFirst",
+      "operatorDraft": "prepare-native-08-r1.py195-202,247-250 currently derives model sources and assessment sources from one broad list. Split the operator source extents using the existing fields; do not re-add every latest completed review body to selector sources."
+    },
+    "preserve": [
+      "Entire original outcome, original R1-R7/C1-C5/criteria and rubric, Product/Intent/method authority and active Root task/selection",
+      "Current exact subject/custody, remaining findings/limits and Root dispositions needed to select the next contribution",
+      "All actual admitted observations, prior judgment, failures and uncertainty; no post-admission rewriting/truncation to force fit",
+      "All full historical evidence as exact readable inputs through existing paths/digests and protected selected closure for consumers that need it",
+      "All911 selected-file/testing plan facts unless a separate causal scope decision changes the proof plan; do not shrink selectedPaths merely for prompt size"
+    ],
+    "semanticCondition": "Selector has no tools/external reads. A reference-only historical file cannot supply a missing selector decision premise. Root current conjunction must itself contain the complete relevant current decisions, residuals and qualifications with exact evidence refs; detailed closed mechanical inventories/review prose remain full mandatory reads for their real consumers. Do not use a lossy substitute for required semantic material.",
+    "historicalBodyClassification": "Four completed source/code/qualification/install reviews and the older return are concrete reference-only candidates. The previous return contains22629B proof and17811B sourceHashes as canonical field values; most are custody/report inventory needed by later readers rather than every selector. Current unresolved FH intake/constraints and all original criteria stay available in the selected active inline control. New native07 completed reviews need the same classification before appending latest bodies in the draft.",
+    "unchangedRuntime": "No generic source resolver/cache/store, rendering reimplementation, Product/schema change or cap increase"
+  },
+  "futureCheckContract": {
+    "beforeNewDispatch": "Freeze final operator inputs and run a finite full-envelope capacity matrix using current installed pure owners and actual current declaration/role material. Do not dispatch based solely on the two old checks or these baseline counterfactuals.",
+    "rows": [
+      {
+        "phase": "initial_selector",
+        "required": "Final exact initial task/context and actual current role/choices/response/binding extents; no unqualified3.0.2 role placeholder"
+      },
+      {
+        "phase": "post_construction_selector",
+        "required": "Labelled diagnostic state using exact final sources, candidate/handoff metadata, actual prior construction observations where applicable and explicit future-output assumptions; include previous judgment and enlarged response domains"
+      },
+      {
+        "phase": "post_C2_selector",
+        "required": "Actual latest admitted C2 producer as baseline, final selected file/command inventory and current-source bodies; include C2 observation and actual response schema owner. Label any future producer/source substitutions"
+      },
+      {
+        "phase": "post_UAT_selector",
+        "required": "Labelled satisfied and adverse/indeterminate UAT observation cases with exact final original obligations and previous judgment; state result-text/domain growth assumptions and unbounded fields rather than claim universal coverage"
+      },
+      {
+        "phase": "UAT_assessor",
+        "required": "Measure the native-work assessor renderer plus actual role context and complete actual available C2 command/predicate producer, candidate/rubric/source scopes and advisory planner material. A diagnostic based on prior task shape is predictive; no actual native07/future UAT task exists at this failure. Once an actual owner-produced task exists, that exact assembly/refusal is authoritative."
+      }
+    ],
+    "perRowRecord": [
+      "source/task/role/owner byte identities and phase/actual-or-predictive label",
+      "All six selector sections or actual assessor prefix+work-order; response schema/domain sizes; full bytes, cap, headroom and reserve assumptions",
+      "Actual Result/provenance and protected byte/digest match for inputs used; never assign a future admitted ref or basis to predictive data",
+      "Required information retained inline versus exact role read inputs, and unresolved sufficiency dependencies",
+      "Recompute on final control/body/selected-file/output-assumption change; record unmeasured cases as unknown"
+    ],
+    "limits": "No finite predictive check guarantees arbitrary unbounded future F_P strings/diagnostics. No new Product threshold or authority is introduced; actual installed assembly cap/refusal remains mandatory. Root chooses adequate selected assumptions/headroom and next admission."
+  },
+  "ownerRoutes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "lines": "38-70,263-332,362-388",
+      "relation": "Distinct input/read source fields, exact source-body embedding, phase-growing observations/judgment/testing schema and actual response domains"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+      "lines": "341-386,393-426,434-468",
+      "relation": "Authenticated current selector context; actual six sections/current binding/role and final byte-bound refusal"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+      "lines": "63-70,229-293",
+      "relation": "Input source byte matching, conserved original task/observations and separate native assessment source/digest/readFirst construction"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js",
+      "lines": "528-544,682-738,763-798",
+      "relation": "Actual request/transport prompt metadata and manifest/archive coordinates"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-size-preflight.mjs",
+      "lines": "9-23",
+      "relation": "Historical RC4 sections plus initial task only and explicit limitations"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/downstream-capacity-preflight.mjs",
+      "lines": "1-55",
+      "relation": "Assessor-only predictive scope; no post-C2 selector"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-08-r1.py",
+      "lines": "195-202,247-250",
+      "relation": "Prospective source/read list coupling to correct before final preparation"
+    }
+  ],
+  "sourceIdentities": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "bytes": 34310,
+      "sha256": "e4090de450b9e80c7de43f3ca16df7cec5de0b43c6e101453e45093a4b5c437a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+      "bytes": 124308,
+      "sha256": "3ba9e751bf3b2ca805ebafbd4678d96fffb9aff2055e301e7b78a70b483b518a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js",
+      "bytes": 7269,
+      "sha256": "a23571a6f20598b5e780485e840fd896cea8c44684ed8ce37cf3372e9bbe0262"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/stdo_environment.js",
+      "bytes": 28334,
+      "sha256": "4276e748cc35086ef2d7dff23fc97ddd236fc61528ebb135dcb9cecf23f0e10a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+      "bytes": 1931,
+      "sha256": "7ab9a42e489f5b0b7f65ddf887cf8afca30cb10013087d81d16dd09acf3d6dee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js",
+      "bytes": 76820,
+      "sha256": "cb112d3b0269756d592b4f70b88ed991263bd6e5c314b73ab1f0628396ada33a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+      "bytes": 44995,
+      "sha256": "d4799e3fe08e53ea47a058abe17ac367f4854f6e39d3bfaede76b89099728400"
+    }
+  ],
+  "inputIdentities": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_POST_C2_SELECTOR_FAILURE.json",
+      "bytes": 3462,
+      "sha256": "c796e8dfa06c079e58f36ba603898fbacc9fd29011ca75036d6c2526f96232ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_POST_C2_SELECTOR_TASK.json",
+      "bytes": 1046417,
+      "sha256": "a9f2f0c0b8dcbdc4de224b675930e9f4c88ec9da15919cb26eb8cc091f3e8bb7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_POST_C2_SELECTOR_TASK_COORDINATES.json",
+      "bytes": 966,
+      "sha256": "cfec292c33241488c583df66707e1f95268cdb9696f0a5d72c67f9a1398c2862"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/POST_C2_SELECTOR_CAPACITY_MEASUREMENT.json",
+      "bytes": 14577,
+      "sha256": "b2bbcad1f8720b42e4e0eab3e23faee2517b7ea513115eb2ee4eaf3fbaac3a43"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/SELECTOR_CAPACITY_PREFLIGHT_R1.json",
+      "bytes": 1168,
+      "sha256": "0b3807df68e6198679595df332f3f122394da7c6b6e831f5feffaaed09ffea16"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/DOWNSTREAM_CAPACITY_PREFLIGHT.json",
+      "bytes": 1604,
+      "sha256": "4ab8a93dca3b8cb4f1247c96cd9ada7d8ee353d96be76fd1e9e962d1c1c42ba9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/PROSPECTIVE_NATIVE08_PREPARATION.json",
+      "bytes": 2030,
+      "sha256": "7ce363e4c18a246e77e4e55e9718409d07fee3d846d1bffc9886f08e5331d1b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+      "bytes": 17240,
+      "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/NATIVE_C2_CLOSED_RESULT.json",
+      "bytes": 2209,
+      "sha256": "08e010d7b31f6ef28ad1ca790fddea8ec3e4b66b84a781752e505e8e5d8e7310"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/C2_HELPER_COORDINATES.json",
+      "bytes": 3691,
+      "sha256": "a8c21a5f45da29fd76d6cb09625fe59016724c616216f10a693aa989fe5c7520"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/workload.json",
+      "bytes": 215356,
+      "sha256": "d66de529701b24fa0ff7f39dcbb64fbfca192159b328b8efa2146efbee212199"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/NATIVE_GRANT.json",
+      "bytes": 17783,
+      "sha256": "d75aca0b77bb8fa54394ecc6c0bed35df0aa4d5f3d63e7d9ef31f0ccac7503a4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-size-preflight.mjs",
+      "bytes": 2446,
+      "sha256": "9499293e88d66d4b88c1f3b6cf71759f2221970e072a8d62d020d62f70dc2e5a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/downstream-capacity-preflight.mjs",
+      "bytes": 4595,
+      "sha256": "1d1d0ea30ed11107cdf72ee6f60a1203cac2dfe666299ebeab8235febadc827d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2/fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667/result.json",
+      "bytes": 6140328,
+      "sha256": "4428fffafefdb46bc7f5ad2ce95f4109591a5b47dae072cae95fa0d173b2eb48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-08-r1.py",
+      "bytes": 19132,
+      "sha256": "bf4c009c52479b6131e850e9b56aba44cf08eda9584af5a528e91dc7491a9025"
+    }
+  ],
+  "diagnosticIdentities": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-capacity-triage/measure-selector.mjs",
+      "bytes": 6978,
+      "sha256": "25530fd815f39f54e4823295db3de7e8609275f1b290b028ab8a8d44024ae509"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-capacity-triage/task-attribution.json",
+      "bytes": 23235,
+      "sha256": "b52a090faf11dca26c84fc0517f5cf29dc8ed0f3aaa9b168eb6494774624188c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-capacity-triage/selector-coordinates.json",
+      "bytes": 24706,
+      "sha256": "b4c18c131afa3c367b08c384772f66284693ebd76c0947b3171b299085811630"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-capacity-triage/recover-selector-assemblies.mjs",
+      "bytes": 2069,
+      "sha256": "1bd46a6fbdf5e23a9d8417fb857eced692fb5281416b322d9b5b861201010f99"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-capacity-triage/actual-selector-assemblies.json",
+      "bytes": 2336525,
+      "sha256": "af4f61ac1767fa98e718be097d9fa7a7354eea0603f8ad4f79b2aa257898684f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-capacity-triage/account-envelope.mjs",
+      "bytes": 5579,
+      "sha256": "758257eec03316094152f471a0f9744adb606b8b2e359fb624333edd49c605af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-capacity-triage/envelope-accounting.json",
+      "bytes": 5996,
+      "sha256": "9ceaf00b843121f0e82b67a84952d4630393f730315740eaedc364e814f092d8"
+    }
+  ],
+  "eventAcquisition": {
+    "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "readThroughByte": 671998357,
+    "selection": "Only this Run selector c-call and actor-start/transport-binding rows, exact consumed task/failure rows and the two provenance-selected prompt files interpreted. Nonmatching event rows were streamed past without interpreting their payload.",
+    "thinking": "No actor output/stdout/stderr or model-thinking source was opened",
+    "selectedTransportRows": [
+      {
+        "bindingEvent": {
+          "eventId": "event://abiogenesis/f5fa2981733ff81e2a1cc1425819701523bec32a8ed05cee387480f833e22ceb",
+          "ordinal": 50705,
+          "offset": 629652358,
+          "rowBytes": 2042166,
+          "rowSha256": "ff540cf98b9c6b8dc1b2ba7374ff55660bfd3050351a7499b9b391d63cb5bad6"
+        },
+        "actorOrdinal": 50706,
+        "actorEventId": "event://abiogenesis/883fe4f62c50c3139a4a10f16c354a76bcc351ffc2c7d3ce3cbe8fe39b4d7748",
+        "promptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-de55c2f52278e69c-prompt.txt",
+        "promptManifest": "sha256:10d6a39fbba6f660608231bdd8557137f4533c678c8b7d60d01ee7b02ae6d3d5"
+      },
+      {
+        "bindingEvent": {
+          "eventId": "event://abiogenesis/d77483e2f890f66e4c802ab7e53bae136374cb5ee060ef5cc227950025568932",
+          "ordinal": 54607,
+          "offset": 649707229,
+          "rowBytes": 2080742,
+          "rowSha256": "9fcd2ed364ec49af661ab3a98d44e6cb93a5a465ffe1636ada0c6cec239b0e72"
+        },
+        "actorOrdinal": 54608,
+        "actorEventId": "event://abiogenesis/4c5738cb89ec28e75fdc4b02f2e936755cc8c2c4dc3071b1545d3190f70a5098",
+        "promptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-b1c102d4024f6e56-prompt.txt",
+        "promptManifest": "sha256:e0cf778e3a8694cef15e3f841db94dc5cfcf4f8fd2cfe5423734c546277fff79"
+      }
+    ]
+  },
+  "limits": [
+    "No new native admission, provider, tests/builds, runtime call/effect, Product/test/control edit, native contact or subagent. Only granted report and diagnostic artifacts produced.",
+    "Actual task/body/prompt metadata and raw source bytes independently verified. The failed selector did not create an admitted prompt, so complete count is explicitly accounting reconstruction; the source-supported lower bound already proves overflow without any binding-value assumption.",
+    "Read-only resume acquisition used top-level installedRoot metadata only, not native reasoning/session content. The active log was bounded at the exact failed-row end, not treated as a final closed log.",
+    "Same-family nonauthor triage on an unrestricted host; no enforced acquisition independence claim.",
+    "Native07 final close, final Root source/evidence acceptance and prospective native08 packet remain pending at intake. No optional Product hardening or broad audit is selected."
+  ],
+  "invalidation": [
+    "Task/selected source bodies or byte/digest custody mismatch invalidates task projection facts.",
+    "Changes to actual role/declarations/current installed owners or future control lists invalidate corresponding envelope/prediction.",
+    "Final successor capacity evidence must be generated over final controls and explicit phase assumptions; no automatic provider/dispatch authorization follows."
+  ],
+  "latestRootSteering": "Root reports a saved actual close and separate final readback recovery under the existing8GB host policy; those were not reacquired or evaluated in this capacity triage. No wider source/dependency audit is selected."
+}

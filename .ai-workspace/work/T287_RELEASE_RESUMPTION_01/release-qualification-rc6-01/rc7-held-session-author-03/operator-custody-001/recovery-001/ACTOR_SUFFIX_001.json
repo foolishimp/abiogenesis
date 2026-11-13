@@ -1,0 +1,29 @@
+{
+  "kind": "metadata_only_suffix_observation",
+  "observedUtc": "2026-11-06T17:03:55.964569+00:00",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "startOffset": 2052404992,
+  "endOffset": 2087965522,
+  "bytesRead": 35560530,
+  "completeRows": 538,
+  "maxBytes": 134217728,
+  "processStarts": [
+    {
+      "offset": 2086379141,
+      "bytes": 1840,
+      "sha256": "90d232b11dd2ed2f5bfb1abafa01e59c0604be2309a1602b8b4c81789e0f1513",
+      "metadata": {
+        "kind": "actor_process_started",
+        "eventId": "event://abiogenesis/5991de61d2281cf3c61a8b503d171c32504726d0273d2778215b5445ecfa6fb1",
+        "runId": "run://abiogenesis/b793e5082c70e04d15e84092b02c66d89d9ac26a99c411018950aaba92023506",
+        "payloadKeys": [
+          "actorInvocationRef",
+          "cCallRef",
+          "processId",
+          "processRef"
+        ]
+      }
+    }
+  ],
+  "limits": "Only event-envelope process-start metadata selected; no private provider/tool output text retained. This suffix is not a runtime acquisition or qualification."
+}

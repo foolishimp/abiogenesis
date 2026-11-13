@@ -1,0 +1,87 @@
+{
+  "status": "PREPARED_CORRECTED_OPERATOR_SUCCESSOR_FOR_ROOT_REVIEW",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/BINDING.json",
+    "bytes": 16621,
+    "sha256": "aa5a17dd9f8f1408d7752cc0e180e0019ee441461686c24aa01bc8a74b2dfb17"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/BINDING.json",
+      "bytes": 16621,
+      "sha256": "aa5a17dd9f8f1408d7752cc0e180e0019ee441461686c24aa01bc8a74b2dfb17"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/CANDIDATE_CUSTODY.json",
+      "bytes": 999459,
+      "sha256": "664a8b8adb049e5caeeef557a168c9f4ca2b270667d3744c22596c80b6675931"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/DEFINITION_ROOTS.json",
+      "bytes": 8407,
+      "sha256": "263f320b8824bd85a73d9b9d12fe31024e03a4de1dc6281d05987ff16c9fb8a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/HANDOFF.md",
+      "bytes": 7263,
+      "sha256": "f57a06f8f03ba0e5b0875c0c226a3657e0ad632145a5149b0d6c056bf9613f44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/HELPER_CUSTODY.json",
+      "bytes": 6899,
+      "sha256": "f5fa6b61c54a8c3cf265a0ef3d3e3276ac760e5a21b33fae88a1e36da16a8d67"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/OPERATOR_CORRECTION.json",
+      "bytes": 3205,
+      "sha256": "8b60abc9b3132e65ce8addddd5f5c2d1136c3daee474dd9e766b8b3d9c13c13b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/ROOT_SELECTION.template.json",
+      "bytes": 362,
+      "sha256": "deede56d04bd1f169d52eedfcd3663d18f0d37d6914a0b7bbf35a96b201c5294"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/claude-provider.sh",
+      "bytes": 592,
+      "sha256": "c87d7f88811e3a24948ee20024bea4f07eac821dc28ba1d9b3a46fa1eafe66b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/entered-testing-host.mjs",
+      "bytes": 1981,
+      "sha256": "03b99e783ebc20f36dd2cb43f83392a7b951cfd65073a1aa24065837969fe642"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/operator.mjs",
+      "bytes": 8345,
+      "sha256": "065d8f5ba06c57802d979191b97e1a12bb4b75add219e338a3350a950b93a40c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/selection.json",
+      "bytes": 5835,
+      "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/verify-files.py",
+      "bytes": 922,
+      "sha256": "36a8718334d9d1f589b9a83ebfe6e307d1e3d82d803c3620f85edcb7d777367c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/witness.mjs",
+      "bytes": 38385,
+      "sha256": "9efd8c43cc9dac80e854817743dd955db85e0866cc563e801d8151978a4f770d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/REGISTERED_SELECTION_ADAPTATION.diff",
+      "bytes": 1596,
+      "sha256": "7dd1281311ace8ffe0546350bf6a233ade2d67d3feaa0ac1f02c9de0ddf479a9"
+    }
+  ],
+  "sourceCommit": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+  "candidateArchiveSha256": "b0451c1be5bbe95c6d7bb24d01eb91eb44527d254872b19d1971d87307c732c7"
+}

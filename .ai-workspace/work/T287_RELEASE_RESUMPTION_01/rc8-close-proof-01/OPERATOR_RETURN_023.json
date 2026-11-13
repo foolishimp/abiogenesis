@@ -1,0 +1,284 @@
+{
+  "status": "BROAD_CLOSE_STOPPED_INCOMPLETE_ROOT_SELECTED_AFTER_INNER_RED",
+  "at": "2026-11-07T14:54:34.802374+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_023.json",
+    "bytes": 4497,
+    "sha256": "a0f6a1539a3a6e53bd10dd651044831e889f6ed268f33a3b6b7810911120372e"
+  },
+  "preparationReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_RETURN_023.json",
+    "bytes": 4742,
+    "sha256": "6894542db2a11c96e74a6ef5f3760d7366cb816977b511fa284ad7e3cc8450ee"
+  },
+  "receipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "5325354c3269a69f4896c56012598963fd9d07b896736748836eee539ed23394"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/CANDIDATE_BASIS_REFRESH.json",
+      "bytes": 3150,
+      "sha256": "e32b29dc7a6f971db9c6659ff3d444b4506442c92796efeaa0726a7f5e5365ad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/external-inputs/selected-action-default-common.json",
+      "bytes": 2057,
+      "sha256": "6a1ec7b8c1c53a5edaf4ea6d3048a3c879f2de86b00aedcb21f143837846de91"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/FAILURE.json",
+      "bytes": 612,
+      "sha256": "d9a633daaa69f5954218fc98458d734b9b936145dd392bfec2318299b323a12b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/SUMMARY.json",
+      "bytes": 510741,
+      "sha256": "2fd548cd15fb1a3386ae34fa7256c6b5ccfdfb42027dba4f3e8f5ab816fd2bdd"
+    }
+  ],
+  "fileEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/files/193-t287-worksite-command-execution.json",
+      "bytes": 1037,
+      "sha256": "43812cca630de3b50ca1063b2a84d04ad26e3a69f776dc1bc2854da4c644f46b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/commands/193-t287-worksite-command-execution.request.json",
+      "bytes": 985,
+      "sha256": "e58153caad029b48c029c689338e8f6fe0fe14c6a95a57cabe8e15074fb84d28"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/commands/193-t287-worksite-command-execution.result.json",
+      "bytes": 1508,
+      "sha256": "56c9f95bfd2991d5693d918d133ae0a6f1e7b8ce6e5c58bddc876e3cb37d7b26"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/commands/193-t287-worksite-command-execution.stdout",
+      "bytes": 2468,
+      "sha256": "8c76eba291bfa8330fcd7457090cbc0e0a964e0730c5776dca61c3e45e2a6c12"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/commands/193-t287-worksite-command-execution.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/file-bindings/193-t287-worksite-command-execution.json",
+      "bytes": 1259,
+      "sha256": "a4465f277b9c7b476129676d32ac3b455b812f0bb5af98ba676e970090b964df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/events/193-t287-worksite-command-execution.jsonl",
+      "bytes": 2963,
+      "sha256": "0a55e50dfa68cde4229624d163ad0eb42efd20b1a6a8e9cbe4dc331c0f168544"
+    }
+  ],
+  "observations": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/observations/c2-first-red-001/OBSERVATION.json",
+      "bytes": 3048,
+      "sha256": "b9c3882106f96622d54694a2a5f2f68c56cb366bae17b21bd27c3d93c88a577e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/observations/c2-root-stop-001/PRE_STOP.json",
+      "bytes": 7985,
+      "sha256": "6d68b789bef95c14b71fc3291832d5ba91e9de134f58d20aa8c9367bff55dd0e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/observations/c2-root-stop-001/STOP_SENT.json",
+      "bytes": 961,
+      "sha256": "187f4d1ac21bcdb4a61723da3b7f3242a4194419317126fcfada63c38df1273c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/observations/c2-root-stop-001/reporter-before-term.jsonl",
+      "bytes": 2963,
+      "sha256": "0a55e50dfa68cde4229624d163ad0eb42efd20b1a6a8e9cbe4dc331c0f168544"
+    }
+  ],
+  "testSource": {
+    "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "bytes": 108721,
+    "sha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf"
+  },
+  "outcome": {
+    "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+    "commandWallMs": 514396.790625,
+    "commandCapMs": 1200000,
+    "exitCode": null,
+    "signal": "SIGTERM",
+    "outerTimedOut": false,
+    "truncated": false,
+    "reporterEndPresent": false,
+    "wholeFileCounts": null,
+    "wholeFileCredit": false,
+    "observedCases": [
+      {
+        "name": "C2 explicit zero write territory preserves array, report and HTTP port authorization",
+        "passed": true,
+        "skip": false,
+        "failureType": null
+      },
+      {
+        "name": "C2 finite host timer schema and constructor share bounds without changing grace",
+        "passed": true,
+        "skip": false,
+        "failureType": null
+      },
+      {
+        "name": "C2 RC2 diagnostic duplicate command identity is refused with an identity cause",
+        "passed": true,
+        "skip": false,
+        "failureType": null
+      },
+      {
+        "name": "C2 RC2 diagnostic protected subject inside an allowed write territory is refused with an overlap cause",
+        "passed": true,
+        "skip": false,
+        "failureType": null
+      },
+      {
+        "name": "T-287 C2 compact acknowledgment preserves installed large-log observation and replay",
+        "passed": false,
+        "skip": false,
+        "failureType": "testTimeoutFailure"
+      },
+      {
+        "name": "T-287 C2 helper failure after launch reaches result admission with its subject inline",
+        "passed": false,
+        "skip": false,
+        "failureType": "testTimeoutFailure"
+      },
+      {
+        "name": "C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries",
+        "passed": true,
+        "skip": false,
+        "failureType": null
+      },
+      {
+        "name": "C2 helper failure subject is bound to the next undone operation of the completed prefix",
+        "passed": true,
+        "skip": false,
+        "failureType": null
+      }
+    ],
+    "partialActualPasses": 6,
+    "originalInnerTimeoutCases": 2,
+    "originalInnerTimeoutMs": 180000,
+    "originalInnerCaseDurationsMs": [
+      181065.472792,
+      181440.678667
+    ],
+    "registeredCasesWithoutOutcome": [
+      "T-287 C2 helper failure http_probe_failed through the installed helper reaches result admission with its subject inline",
+      "T-287 C2 helper failure http_cleanup_unresolved through the installed helper reaches result admission with its subject inline",
+      "T-287 C2 command launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission",
+      "T-287 C2 HTTP launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission"
+    ],
+    "unreportedStanding": "No outcome or coverage. Root interruption must not be relabelled as an original timeout/cancellation. Reporter has no case-start events, so this receipt does not prove which unreported body had begun.",
+    "causalDisposition": "No final C2 repair, debt or reproof disposition selected."
+  },
+  "retainedLedger": {
+    "wholeFiles": 178,
+    "passes": 919,
+    "historicalSkips": 211,
+    "newWholeFiles": 0,
+    "newWholePasses": 0,
+    "newWholeSkips": 0,
+    "partialPassesExcludedFromWholeLedger": 6,
+    "schedulingDeferrals": 14,
+    "scheduledRemainingIncludingFailedFile": 16,
+    "stillUnvisitedOtherFiles": 15,
+    "remainingFiles": [
+      "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+      "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+      "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "test_env/tests/t287-worksite-construction.test.mjs",
+      "test_env/tests/t288-initial-cursor-entry.test.mjs",
+      "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "test_env/tests/t288-logical-prefix-digest.test.mjs",
+      "test_env/tests/t289-install-event-bodies.test.mjs",
+      "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+      "test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+      "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "test_env/tests/w2-steel-single-start-installed.test.mjs",
+      "test_env/tests/w2-steel-single-start.test.mjs",
+      "test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+      "test_env/uat/harness.test.mjs"
+    ],
+    "allPriorCreditsRetained": true,
+    "separateProofsRestamped": false
+  },
+  "conservation": {
+    "primaryPreserved": true,
+    "externalInputsPreserved": true,
+    "externalTestInputDigest": "04c98f99415488f1b18605899b2789fe4d3ba6f2adf4c8b5803f63e6daa1ecd9",
+    "sourceEffects": [],
+    "providerCallsSelected": 0,
+    "wholeReleaseQualified": false,
+    "measuredArchiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "custody": {
+    "driverPid": 60216,
+    "sessionId": 15392,
+    "toolSessionClosedExitCode": 1,
+    "driverPidAbsentAtReturn": true,
+    "selectedFileHostPidAndPgid": 60595,
+    "observedTestRunnerPids": [
+      60596,
+      60597
+    ],
+    "rootSelectedTermAt": "2026-11-07T14:52:47.711164+00:00",
+    "graceMs": 2000,
+    "killSent": false,
+    "selectedGroupAbsentAfterGrace": true,
+    "driverNotSignalled": true,
+    "escapedDetachedDescendantAbsenceProven": false,
+    "resourceRecordPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/resources/193-t287-worksite-command-execution.json",
+    "fileHostResourceRecordExists": false,
+    "retainedScratch": "/private/tmp/abg-r8c-023",
+    "cleanupSelected": false,
+    "autoRetry": false
+  },
+  "timing": {
+    "invokedAt": "2026-11-07T14:43:35.084939Z",
+    "materializedStartAt": "2026-11-07T14:43:44.007Z",
+    "invocationToMaterializedStartMs": 8922.061,
+    "candidateRefreshCommandWallMs": 18924.859125000003,
+    "commandStarted": "2026-11-07T14:44:13.343Z",
+    "commandWallMs": 514396.790625,
+    "rootSelectedTermAt": "2026-11-07T14:52:47.711164+00:00",
+    "driverFirstStopAt": "2026-11-07T14:52:47.920Z",
+    "closedSummaryAt": "2026-11-07T14:52:52.408Z",
+    "driverWallMs": 554628,
+    "prior022StopToInvocationMs": 295306.939,
+    "prior022SummaryToInvocationMs": 291856.939,
+    "standing": "Between rounds is Operator return/control preparation and Root admission, not Worker launch. No host-cause/speedup inference."
+  },
+  "rootFinalJoinNotes": {
+    "eightOpenCapsulesRetained": true,
+    "latestCapsule": {
+      "anchor": "T287#rc8-c3-composition-proof-budget",
+      "bytes": 2796,
+      "sha256": "6969c5563c6a6f9a4e287da3d7258d00bddbc5692fc8ae43469d84bab6bdb9f2",
+      "reviewSha256": "926dd0590b21991a8760a7e3f65e0aa58e31f8b79c9a3a24a58933c848f57e04"
+    },
+    "cutHeld": true,
+    "noC2FinalDisposition": true
+  },
+  "next": "No continuation, source/timer change or retry until Root selection; all prior and partial evidence retained."
+}

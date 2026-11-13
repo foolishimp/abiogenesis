@@ -1,0 +1,64 @@
+{
+  "status": "PARTIAL_UNACCEPTED_CUSTODY_FOR_SETUP_PROOF_REPAIR",
+  "recordedAt": "2026-11-03T02:52:39.503384+00:00",
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "branch": "codex/rc4-native-recovery",
+  "parent": "45554d0be9b2b01d3b90867137c55bacb5a5f9da",
+  "commit": "72eea8f0cd384e7eaeb64ff1ba47b0a3ac2858d4",
+  "tree": "d7754acafb3a67efe3b41c093263225ae9ce968e",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "sha256": "2743c8b76f597d1425e79e60b1e212e5821456e04ebc2d16259ac09e829ad5be",
+      "blob": "52bb6545b801054dadfd05564b9efaefe01fb74e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "sha256": "3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f",
+      "blob": "c2bbe52442a5918785973522718576835ba02937"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "22359424fc1e75323fc0d0b746def0179cf1c2d7fadf21272bb4775ddf1040d7",
+      "blob": "f04c6c7fd23c66b102f4f77b5cf9f4fd2533d958"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec",
+      "blob": "b040d323130c4142c6c50e9a3f767e53ffb85589"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c",
+      "blob": "e676b7d370d20cc1b9071df79626dfd19d8de6f3"
+    }
+  ],
+  "physicalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/SUBJECT.json",
+    "bytes": 6170,
+    "sha256": "0a780655d6adcef335c87a4383261179d7c52c50dc1c9d0d78d97ef88ee522f7"
+  },
+  "sourceDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/source.diff",
+    "bytes": 44713,
+    "sha256": "9560a972460cac66c08a0b7e6ef1b204c6f0e5ce2e3a9f62db4569b3b9c4eae8"
+  },
+  "cleanup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/SYMLINK_CLEANUP.json",
+    "bytes": 2296,
+    "sha256": "b4e295f8bde8bd4852ef5957c1fc3682bf881305c4f743e846c1ce4af3ec9924"
+  },
+  "closure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/CLOSURE_OBSERVED.json",
+    "bytes": 7504,
+    "sha256": "f6c073e188135d3877535943097c0acf402edba8fef8ed886396378b70e673d7"
+  },
+  "exactFivePathsCommitted": true,
+  "indexEmpty": true,
+  "trackedClean": true,
+  "limits": [
+    "Not successful native observation or C2/UAT acceptance.",
+    "No generated/untracked/operator/scratch/dependency/main files committed; no push.",
+    "Runtime003/source scope unchanged except authorized five-file preservation commit."
+  ]
+}

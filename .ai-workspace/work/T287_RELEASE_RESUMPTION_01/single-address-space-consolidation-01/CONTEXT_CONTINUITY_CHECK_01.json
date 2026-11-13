@@ -1,0 +1,64 @@
+{
+  "kind": "post_compaction_control_reacquisition_observation",
+  "recordedUtc": "2026-11-03T14:47:14.244038+00:00",
+  "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-32ab2b36fa2c8225-stdout.log",
+  "results": [
+    {
+      "description": "Read causal map with R rows",
+      "phaseAfterCompactions": 1,
+      "callArchiveOffset": 6386395,
+      "toolUseId": "toolu_018Msw6VAieHCbF9xaAB1SkB",
+      "resultArchiveOffset": 6388651,
+      "isError": false,
+      "contentBytes": 11068,
+      "contentSha256": "ccd5db36d8b3a10be7576d53d4ba1743ba2321ce9e7c0b26cdbdded860df3256",
+      "visibleRowLabels": {
+        "R1": true,
+        "R2": true,
+        "R3": true,
+        "R4": true,
+        "R5": true,
+        "R6": true,
+        "R7": true
+      },
+      "visibleCriterionLabels": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true,
+        "C5": true
+      }
+    },
+    {
+      "description": "Read C2 inputs, proof script, rubric",
+      "phaseAfterCompactions": 1,
+      "callArchiveOffset": 6417296,
+      "toolUseId": "toolu_01YJUT8mDMAw7BSYv3doMb1f",
+      "resultArchiveOffset": 6419795,
+      "isError": false,
+      "contentBytes": 12164,
+      "contentSha256": "e8cbd787582f5a6c901fa2aec6baed96c212c9ff8f1b629216fd641cb13e7ea1",
+      "visibleRowLabels": {
+        "R1": true,
+        "R2": false,
+        "R3": false,
+        "R4": false,
+        "R5": false,
+        "R6": false,
+        "R7": true
+      },
+      "visibleCriterionLabels": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true,
+        "C5": true
+      }
+    }
+  ],
+  "limits": [
+    "Read-tool return and visible labels prove reacquisition, not semantic sufficiency.",
+    "Root and independent review still compare the complete returned caller/row coverage against the pinned original criteria."
+  ],
+  "role": "Root operator/evidence Writer"
+}

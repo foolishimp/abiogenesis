@@ -1,0 +1,1 @@
+Source72eea8f0 is unaccepted partial020 custody, not successful native/C2 proof. Retain implementation; repair only warm positive-control and bounded claim. Prior018/005/matched-pilot acceptance remains bounded and unchanged. Root selects no qualification/environment/history expansion or local cut yet.

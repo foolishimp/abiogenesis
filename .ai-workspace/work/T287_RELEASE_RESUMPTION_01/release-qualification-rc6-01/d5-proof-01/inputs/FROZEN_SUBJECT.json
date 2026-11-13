@@ -1,0 +1,8 @@
+{
+  "status": "UNBOUND",
+  "subject": null,
+  "nativeResultRef": null,
+  "nativeResultDigest": null,
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "standing": "Actual future native freeze only; Root supplies this then repins workload.sources/staging. This placeholder is not an observed candidate."
+}

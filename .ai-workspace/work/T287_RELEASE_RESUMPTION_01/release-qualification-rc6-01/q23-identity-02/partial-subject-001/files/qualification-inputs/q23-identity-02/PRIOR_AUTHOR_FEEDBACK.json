@@ -1,0 +1,191 @@
+{
+  "kind": "preserved_preimage_author_baseline_not_c2",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "summaries": [
+    {
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-lanes/summary.json",
+        "bytes": 2718,
+        "sha256": "68b88322a298c99723dc931976eae3ec325d7f0c1b05aa14d5cdf235033d2721"
+      },
+      "value": [
+        {
+          "id": "transport",
+          "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/m5-worker-transport.test.mjs",
+          "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-01/tmp/baseline/build_tenants/abiogenesis/typescript",
+          "exitCode": 0,
+          "signal": null,
+          "error": null,
+          "ms": 9368,
+          "tests": 23,
+          "pass": 23,
+          "fail": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0,
+          "minimumTests": 23,
+          "failing": [],
+          "stdoutSha256": "d89f7f8021d6937a27ac424bf8f297931d1e73c120eb6d971b99e9bbfd0eb25f",
+          "stdoutBytes": 6650,
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "id": "qualification",
+          "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/t287-result-evidence-lineage-projection.test.mjs test_env/tests/t287-qualification-producer-context.test.mjs test_env/tests/t287-qualification-contraction.test.mjs test_env/tests/t287-qualification-scopes.test.mjs",
+          "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-01/tmp/baseline/build_tenants/abiogenesis/typescript",
+          "exitCode": 1,
+          "signal": null,
+          "error": null,
+          "ms": 2993,
+          "tests": 32,
+          "pass": 24,
+          "fail": 8,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0,
+          "minimumTests": 32,
+          "failing": [
+            "actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused",
+            "green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task",
+            "whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green",
+            "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked",
+            "same candidate in distinct original install/workspace/resource authenticates and conserves original producer material",
+            "candidate law source and genuine runtime coordinates cannot be crossed or replaced by a read wrapper",
+            "original source currentness is rechecked at dispatch while historical authenticated prefix remains replayable",
+            "duplicate aliases and competing successful producers remain refused in their original context"
+          ],
+          "stdoutSha256": "6c15e51c7ba0cc41d4770c5308d2ead8990c1bbd247914aec1111dd966303e5f",
+          "stdoutBytes": 23821,
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-support-lanes/summary.json",
+        "bytes": 1739,
+        "sha256": "7991ae69043b62d2396e1f13f8609a684fca2217cfe19cf33305e8a47af57874"
+      },
+      "value": [
+        {
+          "id": "transport",
+          "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/m5-worker-transport.test.mjs",
+          "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-01/tmp/baseline-support/build_tenants/abiogenesis/typescript",
+          "exitCode": 0,
+          "signal": null,
+          "error": null,
+          "ms": 9181,
+          "tests": 23,
+          "pass": 23,
+          "fail": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0,
+          "minimumTests": 23,
+          "failing": [],
+          "stdoutSha256": "891535dedaef3beef7ba3885443084d5031e8901bb806f039f3ff9fa4d083760",
+          "stdoutBytes": 6644,
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "id": "qualification",
+          "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/t287-result-evidence-lineage-projection.test.mjs test_env/tests/t287-qualification-producer-context.test.mjs test_env/tests/t287-qualification-contraction.test.mjs test_env/tests/t287-qualification-scopes.test.mjs",
+          "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-01/tmp/baseline-support/build_tenants/abiogenesis/typescript",
+          "exitCode": 0,
+          "signal": null,
+          "error": null,
+          "ms": 5433,
+          "tests": 32,
+          "pass": 32,
+          "fail": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0,
+          "minimumTests": 32,
+          "failing": [],
+          "stdoutSha256": "9af890a31a13b66c2dd6f6f789d11892d192b309ab2e2ea684ea11c0fa63d581",
+          "stdoutBytes": 13703,
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "allFeedbackPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-stage.json",
+      "bytes": 66396,
+      "sha256": "4c739693933657a58028fd1e162e484ed590bce1252c0cd2b27099275afb8ab7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-support-stage.json",
+      "bytes": 67637,
+      "sha256": "fc3a1e04ee162b9807938e22a377366862f1b33e9404c99f3a618e2f9db7f2a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-lanes.out",
+      "bytes": 1304,
+      "sha256": "9f9fa0277621a686bbd713e8442e723c41d65e4b8f0e5986424b6e46a3177c75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-support-lanes.out",
+      "bytes": 335,
+      "sha256": "0ab85c284129f03a6ac3b58d3a44773b4d78939c325c8c1b48a844851fb2cb84"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-support-stage.out",
+      "bytes": 225,
+      "sha256": "e74d9120160902a93a07752d2b585304687187e9401a3047b57492c56c7c3418"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-lanes/summary.json",
+      "bytes": 2718,
+      "sha256": "68b88322a298c99723dc931976eae3ec325d7f0c1b05aa14d5cdf235033d2721"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-lanes/qualification.stdout.tap",
+      "bytes": 23821,
+      "sha256": "6c15e51c7ba0cc41d4770c5308d2ead8990c1bbd247914aec1111dd966303e5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-lanes/transport.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-lanes/qualification.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-lanes/transport.stdout.tap",
+      "bytes": 6650,
+      "sha256": "d89f7f8021d6937a27ac424bf8f297931d1e73c120eb6d971b99e9bbfd0eb25f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-support-lanes/summary.json",
+      "bytes": 1739,
+      "sha256": "7991ae69043b62d2396e1f13f8609a684fca2217cfe19cf33305e8a47af57874"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-support-lanes/qualification.stdout.tap",
+      "bytes": 13703,
+      "sha256": "9af890a31a13b66c2dd6f6f789d11892d192b309ab2e2ea684ea11c0fa63d581"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-support-lanes/transport.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-support-lanes/qualification.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/author-feedback/baseline-support-lanes/transport.stdout.tap",
+      "bytes": 6644,
+      "sha256": "891535dedaef3beef7ba3885443084d5031e8901bb806f039f3ff9fa4d083760"
+    }
+  ],
+  "standing": "Initial baseline: transport23 pass and qualification24 pass/8 fail; missing test fixture dependencies. After adding exactly four existing fixture files, transport23 and qualification32 pass, zero skip/fail. Preimage baseline only, predates partial transport_contracts change. Do not repeat this unchanged baseline solely for a new task ID. Current completed source still needs meaningful author checks and actual C2/UAT."
+}

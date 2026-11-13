@@ -1,0 +1,60 @@
+{
+  "kind": "native_02_progress",
+  "standing": "progress record only; not readiness or acceptance",
+  "updated": "2026-11-04T08:00:00Z",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verify": "stdo status --definition stdo_abiogenesis.json --verify: installed=true valid=true failures=[]"
+  },
+  "heldSubject": "all 33 HELD_SOURCE_AND_EVIDENCE file digests matched at start (24 changed, 9 unchanged)",
+  "milestones": [
+    "M0 control intake read: TASK, NATIVE_GRANT, ROOT_REENTRY_SELECTION_02, INDEPENDENT_SOURCE_REVIEW, HELD_SOURCE_AND_EVIDENCE, CONTEXT_AND_CAUSAL_MAP, rubric, C2_INPUTS, EXTERNAL_READ_RESOURCES",
+    "M1 scratch candidate built from held source (tmp/cand; BUILD_EXIT=0)",
+    "M2 SAS-02 source edits: authenticateNativeWorkReacquisition adapter, abg/index export and NativeLeafProofOperations.nativeWorkReacquisition type removed; 13 test call sites migrated to authenticateOwnedNativeWorkReacquisition",
+    "M3 SAS-01 source edits: traversal_cursor admitTraversalFrameCursor (owned transaction history, related: envelope repeat check, authority run scope); construction_continuation no-pending/reentry/selected-action/pending-execution (readOwnedRuntimeEventPrefixAtDurablePrefix) plus Run-open envelope precheck; parent_rehydration (readOwnedRuntimeEventPrefixAtDurablePrefix); graph_execute unchanged (consumes migrated owner)",
+    "M4 scratch build BUILD_EXIT=0; owner lanes 68 tests 48 pass 0 fail 20 env-gated skips; SAS-01 path tests 39/23 pass/1 fail (t287-selected-action-authority: fixture prefix refused by unchanged event_store profile schedule before owner code)/15 skips; selected-action live 1/1 pass",
+    "M5 SAS-03 harness.test.mjs maintained-setup reconciled: fresh npm pack identity from packed bytes + built manifest (rc.5, no persisted rc.4 basis); eventless/borrowed rows, successor->entry chaining, one acquisition, one final close at last successor; verification/environment/npm/heavy-entry/warm-control assertions retained; scratch harness 32/32 pass",
+    "M6 installed meter extended: 3 in-process borrowed graph-edge invocations after 0/32/256 unrelated events; equal traversal kinds and producer/consumer values vs CLI Run; stale/copied/crossed refusals equal at each size; migrated continuation no-pending owner 0 passes/0 walks over unrelated history vs replaced expression 1 pass + 21 walk calls per unrelated event; whole invocation still ~23 body passes per unrelated event in out-of-territory owners (attributed by scratch-only probes)",
+    "M7 census, HOW row, held-baseline same-invocation comparison and scratch C2 orchestration (4/4 lanes pass) complete"
+  ],
+  "findings": {
+    "SAS-01": "named callers migrated; out-of-territory remainder returned to Root",
+    "SAS-02": "resolved",
+    "SAS-03": "resolved",
+    "installedMeter": "resolved; whole-invocation remainder attributed"
+  },
+  "nextStep": "Write return.json and readiness.json; stop editing",
+  "checks": [
+    {
+      "id": "c2-orchestration-scratch",
+      "lanes": {
+        "affected-owner-lanes": "48/0/20",
+        "installed-affected-lane": "2/0/0",
+        "single-address-space-whole-path": "4/0/0",
+        "maintained-setup-harness": "32/0/0"
+      }
+    },
+    {
+      "id": "sas01-paths",
+      "result": "23 pass/1 fail (pre-existing fixture refusal)/15 skips"
+    },
+    {
+      "id": "selected-action-live",
+      "result": "1/1"
+    },
+    {
+      "id": "held-baseline-meter",
+      "result": "fails cursor-admission and continuation assertions as expected"
+    }
+  ],
+  "rows": {
+    "R1": "addressed in source + invocation meter; whole-invocation remainder returned",
+    "R2": "SAS-01/SAS-02 resolved in territory; source delivered",
+    "R3": "SAS-01 resolved in territory",
+    "R4": "separate (operator)",
+    "R5": "separate (operator)",
+    "R6": "retained",
+    "R7": "SAS-03 resolved; actual C2/UAT open"
+  }
+}

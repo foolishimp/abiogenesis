@@ -1,0 +1,632 @@
+{
+  "kind": "startup_payload_shape_counts_only",
+  "events": [
+    {
+      "kind": "actor_transport_binding_admitted",
+      "ordinal": 57905,
+      "physicalBytes": 12114115,
+      "payloadMembers": [
+        {
+          "key": "instructionAssembly",
+          "jsonBytes": 12108196,
+          "type": "dict"
+        },
+        {
+          "key": "paths",
+          "jsonBytes": 908,
+          "type": "dict"
+        },
+        {
+          "key": "livenessBinding",
+          "jsonBytes": 702,
+          "type": "dict"
+        },
+        {
+          "key": "args",
+          "jsonBytes": 503,
+          "type": "list"
+        },
+        {
+          "key": "command",
+          "jsonBytes": 141,
+          "type": "str"
+        },
+        {
+          "key": "archiveRoot",
+          "jsonBytes": 139,
+          "type": "str"
+        },
+        {
+          "key": "transportBindingRef",
+          "jsonBytes": 98,
+          "type": "str"
+        },
+        {
+          "key": "cCallRef",
+          "jsonBytes": 80,
+          "type": "str"
+        },
+        {
+          "key": "environmentDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "environmentPolicyDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "inputDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "promptDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "responseJsonSchemaDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "transportBindingDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "transportContractDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "transportPlanDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "implementationBindingRef",
+          "jsonBytes": 64,
+          "type": "str"
+        },
+        {
+          "key": "implementationRef",
+          "jsonBytes": 56,
+          "type": "str"
+        },
+        {
+          "key": "workerBindingRef",
+          "jsonBytes": 53,
+          "type": "str"
+        },
+        {
+          "key": "cwd",
+          "jsonBytes": 47,
+          "type": "str"
+        },
+        {
+          "key": "actorRef",
+          "jsonBytes": 44,
+          "type": "str"
+        },
+        {
+          "key": "parser",
+          "jsonBytes": 20,
+          "type": "str"
+        },
+        {
+          "key": "lane",
+          "jsonBytes": 17,
+          "type": "str"
+        },
+        {
+          "key": "agentKey",
+          "jsonBytes": 8,
+          "type": "str"
+        },
+        {
+          "key": "absoluteTimeoutMs",
+          "jsonBytes": 7,
+          "type": "int"
+        },
+        {
+          "key": "promptTransport",
+          "jsonBytes": 7,
+          "type": "str"
+        },
+        {
+          "key": "timeoutMs",
+          "jsonBytes": 7,
+          "type": "int"
+        },
+        {
+          "key": "terminationGraceMs",
+          "jsonBytes": 4,
+          "type": "int"
+        },
+        {
+          "key": "dispatchOrdinal",
+          "jsonBytes": 1,
+          "type": "int"
+        }
+      ],
+      "largestObjectMembers": {
+        "instructionAssembly": [
+          {
+            "key": "envelope",
+            "jsonBytes": 12037372,
+            "type": "dict"
+          },
+          {
+            "key": "request",
+            "jsonBytes": 41267,
+            "type": "dict"
+          },
+          {
+            "key": "plan",
+            "jsonBytes": 28111,
+            "type": "dict"
+          },
+          {
+            "key": "manifest",
+            "jsonBytes": 957,
+            "type": "dict"
+          },
+          {
+            "key": "planRef",
+            "jsonBytes": 104,
+            "type": "str"
+          },
+          {
+            "key": "envelopeDigest",
+            "jsonBytes": 73,
+            "type": "str"
+          },
+          {
+            "key": "manifestDigest",
+            "jsonBytes": 73,
+            "type": "str"
+          },
+          {
+            "key": "planDigest",
+            "jsonBytes": 73,
+            "type": "str"
+          },
+          {
+            "key": "kind",
+            "jsonBytes": 29,
+            "type": "str"
+          },
+          {
+            "key": "schemaVersion",
+            "jsonBytes": 7,
+            "type": "str"
+          }
+        ],
+        "paths": [
+          {
+            "key": "transport",
+            "jsonBytes": 174,
+            "type": "str"
+          },
+          {
+            "key": "output",
+            "jsonBytes": 170,
+            "type": "str"
+          },
+          {
+            "key": "prompt",
+            "jsonBytes": 170,
+            "type": "str"
+          },
+          {
+            "key": "stderr",
+            "jsonBytes": 170,
+            "type": "str"
+          },
+          {
+            "key": "stdout",
+            "jsonBytes": 170,
+            "type": "str"
+          }
+        ],
+        "livenessBinding": [
+          {
+            "key": "policy",
+            "jsonBytes": 353,
+            "type": "dict"
+          },
+          {
+            "key": "sources",
+            "jsonBytes": 118,
+            "type": "list"
+          },
+          {
+            "key": "clockOriginRef",
+            "jsonBytes": 94,
+            "type": "str"
+          },
+          {
+            "key": "clockKind",
+            "jsonBytes": 26,
+            "type": "str"
+          },
+          {
+            "key": "kind",
+            "jsonBytes": 26,
+            "type": "str"
+          },
+          {
+            "key": "schemaVersion",
+            "jsonBytes": 7,
+            "type": "str"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "basis_admitted",
+      "ordinal": 57896,
+      "physicalBytes": 12029564,
+      "payloadMembers": [
+        {
+          "key": "rawInputValue",
+          "jsonBytes": 12023846,
+          "type": "dict"
+        },
+        {
+          "key": "catalogViewId",
+          "jsonBytes": 108,
+          "type": "str"
+        },
+        {
+          "key": "catalogBasisRef",
+          "jsonBytes": 103,
+          "type": "str"
+        },
+        {
+          "key": "graphRef",
+          "jsonBytes": 102,
+          "type": "str"
+        },
+        {
+          "key": "invocationAdmissionRef",
+          "jsonBytes": 101,
+          "type": "str"
+        },
+        {
+          "key": "implementationSetRef",
+          "jsonBytes": 99,
+          "type": "str"
+        },
+        {
+          "key": "programValidationRef",
+          "jsonBytes": 99,
+          "type": "str"
+        },
+        {
+          "key": "rootImplementationSetRef",
+          "jsonBytes": 99,
+          "type": "str"
+        },
+        {
+          "key": "localExecutableLeafKeys",
+          "jsonBytes": 98,
+          "type": "list"
+        },
+        {
+          "key": "workspaceBindingId",
+          "jsonBytes": 98,
+          "type": "str"
+        },
+        {
+          "key": "graphValidationRef",
+          "jsonBytes": 97,
+          "type": "str"
+        },
+        {
+          "key": "basisRef",
+          "jsonBytes": 96,
+          "type": "str"
+        },
+        {
+          "key": "interactionSetRef",
+          "jsonBytes": 96,
+          "type": "str"
+        },
+        {
+          "key": "rootInteractionSetRef",
+          "jsonBytes": 96,
+          "type": "str"
+        },
+        {
+          "key": "rawInputAdmissionRef",
+          "jsonBytes": 94,
+          "type": "str"
+        },
+        {
+          "key": "invocationRef",
+          "jsonBytes": 91,
+          "type": "str"
+        },
+        {
+          "key": "basisDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "catalogBasisDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "catalogViewDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "closureContractDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "graphDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "graphFunctionDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "implementationSetDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "interactionSetDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "invocationDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "localImplementationSubsetDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "localInteractionSubsetDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "programDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "rawInputDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "rootImplementationSetDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "rootInteractionSetDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "workspaceBindingDigest",
+          "jsonBytes": 73,
+          "type": "str"
+        },
+        {
+          "key": "resultContractRef",
+          "jsonBytes": 59,
+          "type": "str"
+        },
+        {
+          "key": "transitionContractRef",
+          "jsonBytes": 58,
+          "type": "str"
+        },
+        {
+          "key": "terminalPredicateRef",
+          "jsonBytes": 57,
+          "type": "str"
+        },
+        {
+          "key": "evidenceContractRef",
+          "jsonBytes": 56,
+          "type": "str"
+        },
+        {
+          "key": "judgmentContractRef",
+          "jsonBytes": 56,
+          "type": "str"
+        },
+        {
+          "key": "closureContractRef",
+          "jsonBytes": 55,
+          "type": "str"
+        },
+        {
+          "key": "refusalContractRef",
+          "jsonBytes": 55,
+          "type": "str"
+        },
+        {
+          "key": "rejectionContractRef",
+          "jsonBytes": 55,
+          "type": "str"
+        },
+        {
+          "key": "graphFunctionRef",
+          "jsonBytes": 53,
+          "type": "str"
+        },
+        {
+          "key": "replayProjectionRef",
+          "jsonBytes": 49,
+          "type": "str"
+        },
+        {
+          "key": "programRef",
+          "jsonBytes": 46,
+          "type": "str"
+        },
+        {
+          "key": "entryRef",
+          "jsonBytes": 44,
+          "type": "str"
+        },
+        {
+          "key": "actorRef",
+          "jsonBytes": 41,
+          "type": "str"
+        },
+        {
+          "key": "refusalValueKind",
+          "jsonBytes": 31,
+          "type": "str"
+        },
+        {
+          "key": "terminalKind",
+          "jsonBytes": 11,
+          "type": "str"
+        },
+        {
+          "key": "basisClass",
+          "jsonBytes": 6,
+          "type": "str"
+        },
+        {
+          "key": "actionCatalogDigest",
+          "jsonBytes": 4,
+          "type": "NoneType"
+        },
+        {
+          "key": "actionCatalogRef",
+          "jsonBytes": 4,
+          "type": "NoneType"
+        },
+        {
+          "key": "constructionComposition",
+          "jsonBytes": 4,
+          "type": "NoneType"
+        },
+        {
+          "key": "constructionCompositionDigest",
+          "jsonBytes": 4,
+          "type": "NoneType"
+        },
+        {
+          "key": "constructionCompositionRef",
+          "jsonBytes": 4,
+          "type": "NoneType"
+        },
+        {
+          "key": "implementationResolutionRef",
+          "jsonBytes": 4,
+          "type": "NoneType"
+        },
+        {
+          "key": "parentCCallRef",
+          "jsonBytes": 4,
+          "type": "NoneType"
+        },
+        {
+          "key": "parentExecutionBasisRef",
+          "jsonBytes": 4,
+          "type": "NoneType"
+        },
+        {
+          "key": "parentTraversalScopeRef",
+          "jsonBytes": 4,
+          "type": "NoneType"
+        },
+        {
+          "key": "actionCatalogRows",
+          "jsonBytes": 2,
+          "type": "list"
+        },
+        {
+          "key": "localInteractionLeafKeys",
+          "jsonBytes": 2,
+          "type": "list"
+        }
+      ],
+      "largestObjectMembers": {
+        "rawInputValue": [
+          {
+            "key": "context",
+            "jsonBytes": 12006002,
+            "type": "dict"
+          },
+          {
+            "key": "instructions",
+            "jsonBytes": 8125,
+            "type": "list"
+          },
+          {
+            "key": "capabilityGrant",
+            "jsonBytes": 2639,
+            "type": "dict"
+          },
+          {
+            "key": "workspaceBinding",
+            "jsonBytes": 2131,
+            "type": "dict"
+          },
+          {
+            "key": "readFirst",
+            "jsonBytes": 2112,
+            "type": "list"
+          },
+          {
+            "key": "writeRoots",
+            "jsonBytes": 1601,
+            "type": "list"
+          },
+          {
+            "key": "workspaceAuthorityBasis",
+            "jsonBytes": 744,
+            "type": "dict"
+          },
+          {
+            "key": "outcome",
+            "jsonBytes": 170,
+            "type": "str"
+          },
+          {
+            "key": "checks",
+            "jsonBytes": 120,
+            "type": "list"
+          },
+          {
+            "key": "kind",
+            "jsonBytes": 28,
+            "type": "str"
+          },
+          {
+            "key": "schemaVersion",
+            "jsonBytes": 7,
+            "type": "str"
+          }
+        ]
+      }
+    }
+  ],
+  "limits": "Only key names, types and serialized sizes; no payload values or private provider content. JSON member sizes are diagnostic reserialization, not exact physical subspan counts."
+}

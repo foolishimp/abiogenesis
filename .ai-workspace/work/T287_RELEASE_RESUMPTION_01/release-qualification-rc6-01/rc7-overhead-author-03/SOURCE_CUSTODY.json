@@ -1,0 +1,27 @@
+{
+  "kind": "native_author_frozen_source_custody",
+  "sourceReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SOURCE_REFERENCE.json",
+    "bytes": 232463,
+    "sha256": "9fb2db3d1ebcc9faf9eba7c93f474bfd415601fa1bfbccbc0b34ddd66121c7f8"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SOURCE_BEFORE.json",
+    "bytes": 273167,
+    "sha256": "dd60fc6d8488c5bf3d38c5be6ed26aa94a15682d58b7edb1e958a773e6653268"
+  },
+  "inheritedFacts": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/INHERITED_FACTS.json",
+    "bytes": 15193,
+    "sha256": "070fded5a8875e9eaf74ca7831775901a9fc2dacb34059df806cb2bc97e3ae1a"
+  },
+  "sourceCount": 449,
+  "mutableProductPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "expectedNewProductFiles": [],
+  "meaning": "Root verified all449 live source files against exact B admitted-after references. Held immutable source snapshots are reused as preimages; no source writes occurred."
+}

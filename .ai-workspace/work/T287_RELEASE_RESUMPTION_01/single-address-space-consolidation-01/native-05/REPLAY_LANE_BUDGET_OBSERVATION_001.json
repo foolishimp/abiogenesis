@@ -1,0 +1,27 @@
+{
+  "recordedUtc": "2026-11-03T23:20:08.135645+00:00",
+  "kind": "author_feedback_timing_and_operator_budget_observation",
+  "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp05/runs/replay-consumers-1.tap",
+  "bytes": 30254,
+  "sha256": "870db288f676d294a2ddb66c611530a454944f677846b3531ec1b97c25cc6e03",
+  "fileModifiedUtc": "2026-11-03T23:19:19.141416+00:00",
+  "tally": {
+    "tests": 66,
+    "pass": 57,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 9
+  },
+  "tapDurationMs": 2037167.514917,
+  "currentC2Lane": "replay-request-consumers",
+  "currentC2LaneTimeoutMs": 1500000,
+  "exceedsSelectedLaneByMs": 537167.514917,
+  "currentC2ProofCommandTimeoutMs": 3600000,
+  "disposition": "Preserve current admitted controls. Reprice next C2 lane and enclosing attempt from actual final measurements, dependencies and installed owner limits before admission; do not silently repeat insufficient25min lane or claim current C2 credit.",
+  "preparationFailure": "First Root observation script used datetime.datetime after importing the class; AttributeError before any output file write. Corrected here; no Product/test/runtime effect.",
+  "limits": [
+    "Author scratch execution; independently captured physical feedback, not actual C2.",
+    "Concurrent workload and machine effects are uncontrolled; no Product latency regression or successor speedup inferred.",
+    "TAP duration is test-run wall duration, not CPU attribution."
+  ]
+}

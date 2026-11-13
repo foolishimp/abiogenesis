@@ -1,0 +1,76 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "fixedFifteenFamilies": true,
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "originalOutcome": "R1-R7/C1-C5",
+    "sourceDefinition": "STDO3.0.4",
+    "builderRuntime": "immutable installed RC5/STDO3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "emptyCompanions": true,
+    "rootOwnsSelectionAdmissionAcceptance": true
+  },
+  "recordedUtc": "2026-11-04T02:38:55.030893+00:00",
+  "kind": "exact_prospective_reuse_control_correction_recheck",
+  "role": "independent nonauthor MAX; same-family limits retained",
+  "subjects": {
+    "native07-c2-proof-template-r1.mjs": {
+      "bytes": 7069,
+      "sha256": "ec0a3f69045de0b5dcb749bf03cbd88f9c2b626163e348ab01059cbdc2e5f2bb"
+    },
+    "native07-c2-proof-template-r2.mjs": {
+      "bytes": 7499,
+      "sha256": "0ab896c6a14a76ae981b49aecc449861006d9fe756aa51bc651bd142f025877f"
+    },
+    "NATIVE07_PROSPECTIVE_SELECTION.md": {
+      "bytes": 8939,
+      "sha256": "58df0c8cef387c33be8734a1e54345f41df9133d4c78511f949832d1b1d3f809"
+    },
+    "NATIVE07_PROSPECTIVE_SELECTION_R1.md": {
+      "bytes": 9835,
+      "sha256": "d816af4853287ff1115904e5432055482c32d10fc8d6d5e55c6966326cb807ac"
+    },
+    "native-06/FH_POSITIVE_PREMISE_TRIAGE.json": {
+      "bytes": 25031,
+      "sha256": "21c0b17d83a2cab5404274ecdcb53fd7d685846de54e4cc128df2d3b8d4b8f44"
+    },
+    "native-06/PROSPECTIVE_REUSE_CONTROL_REVIEW.json": {
+      "bytes": 4388,
+      "sha256": "59abb74657e334dea4782091dbccca1e6a177fe4b58524d0169c2bae6f631233"
+    }
+  },
+  "verdict": "N7-CTRL-01 statically corrected; no concrete introduced discrepancy",
+  "findingDisposition": {
+    "id": "N7-CTRL-01",
+    "severity": "S3",
+    "priorFindingPreserved": true,
+    "status": "corrected in exact r2 source; not executed",
+    "newLines": "31-37",
+    "change": "Actual package and scalar size/sha256/sha512 observation saved before byte/integrity correspondence assertions; later duplicate archive write removed",
+    "conservation": "Expected prior metadata assertions, mismatch failure collection, independent new lanes and aggregate predicates unchanged"
+  },
+  "fhParagraph": {
+    "selectionSha256": "d816af4853287ff1115904e5432055482c32d10fc8d6d5e55c6966326cb807ac",
+    "closedTriageSha256": "21c0b17d83a2cab5404274ecdcb53fd7d685846de54e4cc128df2d3b8d4b8f44",
+    "standing": "consistent bounded RAW reader selection, conditional on real seed gates; not a proven positive fixture",
+    "retainedBoundaries": [
+      "fresh immutable closed RAW input, not modified retained admitted history",
+      "actual invocation/basis/Run/pending/open reader gates",
+      "actual pure preparation outputs and exact nonempty six-field fact/priorAdmission",
+      "explicit RAW response grant premise, not current Product authorization",
+      "no current admitted/held commit/Public dispatch/resume/installed qualification claim",
+      "fresh cloned vector is fresh reconstruction, not physical cold reopen",
+      "real gate refusal returned without stubs/forged ownership/new framework"
+    ]
+  },
+  "introducedFindings": [],
+  "limits": [
+    "Static exact correction/text delta only; no broad source rereview or seed construction",
+    "No tests/builds/preparation/providers/native contact/moving candidate reads",
+    "Only report pair written",
+    "Final genuine native06 close/Root conjunction/reuse recipe remains required",
+    "Final unversioned template path must be pinned to reviewed r2 or affected delta reviewed",
+    "No new actual evidence, package correspondence, admission, source/proof acceptance or whole-outcome completion credit"
+  ]
+}

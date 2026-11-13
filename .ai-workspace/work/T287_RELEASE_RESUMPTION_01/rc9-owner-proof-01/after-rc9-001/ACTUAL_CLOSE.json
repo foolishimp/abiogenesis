@@ -1,0 +1,45 @@
+{
+  "kind": "abg_event_resource_receipt",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "reopen",
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-r9m-rc9-after-001/tmp/abi5-root-env-QueKRf/runtime/events.jsonl",
+    "prefixLength": 3177941,
+    "prefixDigest": "sha256:40578f7e284d7d147f10511d500ce33bc1abf6579f882065c24490982696961f",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 714714429,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:769489fb69a716a43916a08eb78be10dc76df56a470ff36932255ad21032516d"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-r9m-rc9-after-001/tmp/abi5-root-env-QueKRf/runtime/events.jsonl",
+      "prefixLength": 10742012,
+      "prefixDigest": "sha256:774a6301681a14473ee0c56061a6ea1d3ffbccfb297fa021dd5904d3d6cf3523",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 714714429,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:fb9da069a2125428ef8343d5540c65b04cd7dcd03a826126b8c134915cb1f32b"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/private/tmp/abg-r9m-rc9-after-001/tmp/abi5-root-env-QueKRf/runtime/events.jsonl",
+      "device": 16777231,
+      "inode": 714714429,
+      "eventLogDigest": "sha256:774a6301681a14473ee0c56061a6ea1d3ffbccfb297fa021dd5904d3d6cf3523",
+      "durableByteLength": 10742012,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+      "authorityDigest": "sha256:27f6def5cf8bfb120b465fd2e1318a5addc5d36998c24940a6149c880af342d1"
+    }
+  },
+  "receiptDigest": "sha256:8cc6aa42f29668945dc9aab5879eb0486ef17a5cbba800e4d82b8377f1666e28"
+}

@@ -1,0 +1,716 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "abg.schema.public-contract-catalog@5",
+  "title": "ABIogenesis Public Contract Catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "catalogId",
+    "catalogVersion",
+    "catalogDigest",
+    "catalogSchemaPath",
+    "catalogSchemaDigest",
+    "rows"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "5.0.0"
+    },
+    "catalogId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "catalogVersion": {
+      "const": "5.0.0"
+    },
+    "catalogDigest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "catalogSchemaPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "catalogSchemaDigest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "contractId",
+          "contractVersion",
+          "contractDigest",
+          "contractKind",
+          "owningProduct",
+          "requirementAuthorityRefs",
+          "capabilityIdentities"
+        ],
+        "properties": {
+          "contractId": {
+            "$ref": "#/$defs/ref"
+          },
+          "contractVersion": {
+            "const": "5.0.0"
+          },
+          "contractDigest": {
+            "$ref": "#/$defs/sha256"
+          },
+          "contractKind": {
+            "enum": [
+              "native_typed_group",
+              "schema_asset",
+              "serialized_native_contract",
+              "vocabulary_asset"
+            ]
+          },
+          "owningProduct": {
+            "$ref": "#/$defs/ref"
+          },
+          "requirementAuthorityRefs": {
+            "$ref": "#/$defs/refs"
+          },
+          "capabilityIdentities": {
+            "$ref": "#/$defs/refs"
+          },
+          "nativeTypedLocator": {
+            "$ref": "#/$defs/nativeTypedLocator"
+          },
+          "assetLocator": {
+            "$ref": "#/$defs/assetLocator"
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "nativeTypedLocator"
+            ]
+          },
+          {
+            "required": [
+              "assetLocator"
+            ]
+          }
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "contractKind": {
+                  "const": "native_typed_group"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "nativeTypedLocator"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "contractKind": {
+                  "enum": [
+                    "schema_asset",
+                    "vocabulary_asset"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "not": {
+                "required": [
+                  "nativeTypedLocator"
+                ]
+              },
+              "required": [
+                "assetLocator"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "contractKind": {
+                  "const": "serialized_native_contract"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "assetLocator",
+                "nativeTypedLocator"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "nativeTypedLocator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packageName",
+        "packageExportPath",
+        "namedSymbol",
+        "declarationPath",
+        "declarationInventory"
+      ],
+      "properties": {
+        "packageName": {
+          "$ref": "#/$defs/ref"
+        },
+        "packageExportPath": {
+          "$ref": "#/$defs/ref"
+        },
+        "namedSymbol": {
+          "$ref": "#/$defs/ref"
+        },
+        "declarationPath": {
+          "$ref": "#/$defs/ref"
+        },
+        "declarationInventory": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "packageExportPath",
+              "declarationPath",
+              "declarationDigest"
+            ],
+            "properties": {
+              "packageExportPath": {
+                "$ref": "#/$defs/ref"
+              },
+              "declarationPath": {
+                "$ref": "#/$defs/ref"
+              },
+              "declarationDigest": {
+                "$ref": "#/$defs/sha256"
+              }
+            }
+          }
+        }
+      }
+    },
+    "assetLocator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "mediaType",
+        "schemaVersion",
+        "contentDigest"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/ref"
+        },
+        "mediaType": {
+          "$ref": "#/$defs/ref"
+        },
+        "schemaVersion": {
+          "$ref": "#/$defs/ref"
+        },
+        "contentDigest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "definitionRef": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "PublicCatalogBindingAttempt": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "extantCatalog": {
+          "type": "object",
+          "properties": {
+            "productId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "productContentDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "catalogId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "catalogVersion": {
+              "const": "5.0.0"
+            },
+            "catalogDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "productId",
+            "productContentDigest",
+            "catalogId",
+            "catalogVersion",
+            "catalogDigest"
+          ],
+          "additionalProperties": false
+        },
+        "family": {
+          "type": "object",
+          "properties": {
+            "requirementAuthorityRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "uniqueItems": true,
+              "minItems": 1
+            },
+            "familyRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "familyVersion": {
+              "const": "5.0.0"
+            },
+            "familyDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "requirementAuthorityRefs",
+            "familyRef",
+            "familyVersion",
+            "familyDigest"
+          ],
+          "additionalProperties": false
+        },
+        "proposalSetRef": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "proposalSetDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "productId": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "productContentDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "attemptRef": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "attemptDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "extantCatalog",
+        "family",
+        "proposalSetRef",
+        "proposalSetDigest",
+        "productId",
+        "productContentDigest",
+        "attemptRef",
+        "attemptDigest"
+      ],
+      "additionalProperties": false
+    },
+    "PublicCatalogBindingRefusal": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "public_catalog_binding_refusal"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "refusalContract": {
+          "type": "object",
+          "properties": {
+            "contractCatalog": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "productContentDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "catalogId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "catalogVersion": {
+                  "const": "5.0.0"
+                },
+                "catalogDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "productId",
+                "productContentDigest",
+                "catalogId",
+                "catalogVersion",
+                "catalogDigest"
+              ],
+              "additionalProperties": false
+            },
+            "flatRow": {
+              "type": "object",
+              "properties": {
+                "contractId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "contractVersion": {
+                  "const": "5.0.0"
+                },
+                "contractDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "contractId",
+                "contractVersion",
+                "contractDigest"
+              ],
+              "additionalProperties": false
+            },
+            "nestedSelector": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "selectorKind": {
+                      "const": "flat_contract"
+                    },
+                    "definitionKey": {
+                      "type": "null"
+                    },
+                    "slot": {
+                      "type": "null"
+                    },
+                    "definitionRef": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "selectorKind",
+                    "definitionKey",
+                    "slot",
+                    "definitionRef"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "selectorKind": {
+                      "const": "operation_definition_slot"
+                    },
+                    "definitionKey": {
+                      "type": "object",
+                      "properties": {
+                        "operationId": {
+                          "type": "string",
+                          "pattern": "\\S"
+                        },
+                        "memberKey": {
+                          "type": "string",
+                          "pattern": "\\S"
+                        }
+                      },
+                      "required": [
+                        "operationId",
+                        "memberKey"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "slot": {
+                      "enum": [
+                        "request",
+                        "result",
+                        "refusal",
+                        "non_terminal"
+                      ],
+                      "type": "string"
+                    },
+                    "definitionRef": {
+                      "type": "string",
+                      "pattern": "^#(?:\\/(?:[^~/]|~[01])*)*$"
+                    }
+                  },
+                  "required": [
+                    "selectorKind",
+                    "definitionKey",
+                    "slot",
+                    "definitionRef"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "selectorKind": {
+                      "const": "schema_definition"
+                    },
+                    "definitionKey": {
+                      "type": "null"
+                    },
+                    "slot": {
+                      "type": "null"
+                    },
+                    "definitionRef": {
+                      "type": "string",
+                      "pattern": "^#(?:\\/(?:[^~/]|~[01])*)*$"
+                    }
+                  },
+                  "required": [
+                    "selectorKind",
+                    "definitionKey",
+                    "slot",
+                    "definitionRef"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "contractCatalog",
+            "flatRow",
+            "nestedSelector"
+          ],
+          "additionalProperties": false
+        },
+        "nativeContractSource": {
+          "type": "object",
+          "properties": {
+            "abstractModule": {
+              "const": "Product.PublicContractPublication"
+            },
+            "exportName": {
+              "const": "PUBLIC_CATALOG_BINDING_CONTRACTS"
+            },
+            "memberPath": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "const": "refusal"
+                }
+              ],
+              "minItems": 1
+            },
+            "sourceModuleDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "memberDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "abstractModule",
+            "exportName",
+            "memberPath",
+            "sourceModuleDigest",
+            "memberDigest"
+          ],
+          "additionalProperties": false
+        },
+        "attempt": {
+          "type": "object",
+          "properties": {
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "extantCatalog": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "productContentDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "catalogId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "catalogVersion": {
+                  "const": "5.0.0"
+                },
+                "catalogDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "productId",
+                "productContentDigest",
+                "catalogId",
+                "catalogVersion",
+                "catalogDigest"
+              ],
+              "additionalProperties": false
+            },
+            "family": {
+              "type": "object",
+              "properties": {
+                "requirementAuthorityRefs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  },
+                  "uniqueItems": true,
+                  "minItems": 1
+                },
+                "familyRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "familyVersion": {
+                  "const": "5.0.0"
+                },
+                "familyDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "requirementAuthorityRefs",
+                "familyRef",
+                "familyVersion",
+                "familyDigest"
+              ],
+              "additionalProperties": false
+            },
+            "proposalSetRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "proposalSetDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "productId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "productContentDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "attemptRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "attemptDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "schemaVersion",
+            "extantCatalog",
+            "family",
+            "proposalSetRef",
+            "proposalSetDigest",
+            "productId",
+            "productContentDigest",
+            "attemptRef",
+            "attemptDigest"
+          ],
+          "additionalProperties": false
+        },
+        "refusalRef": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "refusalDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "failureClass": {
+          "enum": [
+            "forbidden_operation_identity",
+            "duplicate_contract_identity",
+            "missing_projected_identity",
+            "unexpected_projected_identity",
+            "retained_row_changed",
+            "owning_product_mismatch",
+            "unresolved_locator",
+            "content_digest_mismatch"
+          ],
+          "type": "string"
+        },
+        "issuePaths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:\\/(?:[^~/]|~[01])*)*$"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "refusalContract",
+        "nativeContractSource",
+        "attempt",
+        "refusalRef",
+        "refusalDigest",
+        "failureClass",
+        "issuePaths"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

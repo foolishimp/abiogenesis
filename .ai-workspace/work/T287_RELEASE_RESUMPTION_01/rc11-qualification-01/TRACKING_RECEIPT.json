@@ -1,0 +1,45 @@
+{
+  "status": "CURRENT_PREFIX_ONLY_PRIOR_BODIES_PRESERVED",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SELECTION.json",
+    "bytes": 1687,
+    "sha256": "6570f98651c4a4c2df803c2b0a78198bb6b5dbc3f85a753eb29fbf4ce5b9fdf3"
+  },
+  "rows": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 171213,
+        "sha256": "7f5d07d7948f60ea4ea52ff7fd360de772f21d5469e54b2842243673028a95a7"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 172252,
+        "sha256": "8a3dea7885b1d79a6bb142e46e33f77d674fa3e8150f8ad955b3ccd8ef5bef18"
+      },
+      "insertOffset": 21,
+      "insertedBytes": 1039,
+      "allPreviousBytesPreserved": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 819913,
+        "sha256": "22e59caf09559d99a2f8e22e621f19d0bd0ebf9c2940acfc869a17d20513b67c"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 820941,
+        "sha256": "496bb1e1bf6fbf3e243036629818da2f04f7286e1ed1f57e241d1ec268dce054"
+      },
+      "insertOffset": 70,
+      "insertedBytes": 1028,
+      "allPreviousBytesPreserved": true
+    }
+  ],
+  "mainIndexUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  }
+}

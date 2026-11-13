@@ -1,0 +1,44 @@
+{
+  "status": "EXACT_SIX_PATHS",
+  "parent": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+  "paths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "gitBlob": "b0a4ec4acf6593d36ea0fbceafee4e5f3b120ec2",
+      "bytes": 75347,
+      "sha256": "c1b6ded8611016673f5ac6dd020af020e2d9135e7478dc4146070dda284994a6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "gitBlob": "01aa1e26de30a7ed31121c57ad691cf8521ef098",
+      "bytes": 92784,
+      "sha256": "4ae70f3c9a8d36ed6541c8ce52551c27c2e31b6b346795a02c53e6d54021a6cf"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "gitBlob": "3cffcd251fad36a41fce806534df54850cef47b3",
+      "bytes": 147783,
+      "sha256": "ac430f557e3e4eaa9b66f697123ea74675ae5494e149df62f94546fa81d273a4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "gitBlob": "3f80ab6f7d2448efb361df0c5f4c6e9e8fa9b338",
+      "bytes": 53486,
+      "sha256": "4a8b300e5855cf440e7429f958ea7a3501f06f100a358c4f36b4a0f51be1f0ad"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "gitBlob": "131bb2d5c878aaad711034274443f19a0b59a3c0",
+      "bytes": 72343,
+      "sha256": "dc73d27148042d6a4f5c7e7b434b00141d32cceb66e884401c8e482513aa8ce1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "gitBlob": "6707eed97fd99252b800c7cfc205158a2fe28692",
+      "bytes": 26772,
+      "sha256": "07068863546b610af9b20c6b2d9e5da2884a462e37bb50ac56cc3dfda43a4ebd"
+    }
+  ],
+  "diffCheck": "passed",
+  "noExecutableTestDeltaSinceProof": true
+}

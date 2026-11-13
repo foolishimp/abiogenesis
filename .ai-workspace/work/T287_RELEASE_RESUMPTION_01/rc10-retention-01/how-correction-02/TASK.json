@@ -1,0 +1,41 @@
+{
+  "id": "RC10-HOW-NATIVE-02",
+  "status": "TASK_FOR_LATER_EXACT_NATIVE_ADMISSION",
+  "outcome": "Apply the exact F2 evidence-claim correction and return truthful unchanged-scope report.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+    "qualification-inputs/rc10-retention-01/how-02"
+  ],
+  "maxContextFiles": 32,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc10-retention-01/how-02/ROOT_SCOPE.json",
+    "qualification-inputs/rc10-retention-01/how-02/EVIDENCE.json",
+    "qualification-inputs/rc10-retention-01/how-02/STDO_STDO_WORK_SKILL.md",
+    "AGENTS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "qualification-scratch/rc10-retention-01/how-02"
+  ],
+  "checks": [
+    "Verify exact old span occurs once and only selected replacement plus explicit rollback-unproved sentence changes.",
+    "Read back the whole changed Proof paragraph; no compiler, test, build, package or runtime check is selected.",
+    "Return exact changed path and evidence correction; no acceptance or extra proof claim."
+  ],
+  "instructions": [
+    "You are the admitted bounded native Writer. Implement only the exact replacement in ROOT_SCOPE.json and append the specified sentence immediately after the separately selected fifty-call workload sentence.",
+    "Apply exact installed STDO3.0.4 stdo-work methodology; the copied exact installed skill and governing Product/frame are read-only inputs. Classification is P2 evidence correction, no Product/requirements/behavior or lifetime-law change.",
+    "Read only the governing grant and selected HOW/test evidence necessary for this tiny change. Do not rediscover, edit or re-author lifetime implementation or deletion scope.",
+    "No source changes except the single HOW paragraph. No tests, typecheck, build, generation, packing, install, Git effects or provider nesting. No broad discovery.",
+    "Use the granted native scratch for any temporary files; inherited Node/CLI/installed STDO tools are read-only. Do not modify shared dependencies or installed RC9.",
+    "Make the exact edit once, verify its bytes, then return. The Operator freezes the successor after the SDK observation and actual close. No second source edit after your final response."
+  ]
+}

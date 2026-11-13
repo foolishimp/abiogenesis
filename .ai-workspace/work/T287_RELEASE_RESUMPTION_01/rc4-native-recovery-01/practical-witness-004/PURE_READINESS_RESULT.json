@@ -1,0 +1,123 @@
+{
+  "status": "PURE_WHOLE_PROGRAM_AND_ENTRY_READINESS_PASSED",
+  "sourceCommit": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+  "sourceTree": "d136d90f44921b2944579bf89fbac0075052920b",
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10954740,
+    "sha256": "b0451c1be5bbe95c6d7bb24d01eb91eb44527d254872b19d1971d87307c732c7"
+  },
+  "originalDeclaration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/setup-host/abi5-root-env-wz1KCc/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/build/publication.json",
+    "bytes": 31471,
+    "sha256": "9b0cc946c4973717224fd58d4aa5c2a236e30bb3e0857210a14aec170499c3ec"
+  },
+  "retainedLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-003/setup-host/abi5-root-env-wz1KCc/runtime/events.jsonl",
+    "bytes": 3196379,
+    "sha256": "897116a18650b7f412cb8c95351c5085e9f54fbf7043bff7e8cfa1c831492d7e"
+  },
+  "operator": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/operator.mjs",
+    "bytes": 8701,
+    "sha256": "2382e92369189e98334172a5e7e3d9a4bc6b4141c7b0f90a8accb808bb7d1c0d"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/pure-readiness.mjs",
+    "bytes": 7594,
+    "sha256": "1cec586310036fd483ebe182fec0a34d9cf6cdbe048a4fcf7cfdf1330f96e140"
+  },
+  "proposedDeclarationCanonicalDigest": "sha256:c1e559fb34c282f941f2a59b9bd0108f7604e60bc5c719a2d4f152b2989df5e7",
+  "onlySelectedBChange": true,
+  "negative": {
+    "publicationValidation": "publication_validation",
+    "publicationDiagnostics": [],
+    "programValidation": "static_validation_refusal",
+    "programDiagnostics": [
+      {
+        "code": "duplicate_identity",
+        "path": "$.graphFunctions[*].template.nodes[*].term",
+        "message": "duplicate C leaf program locus node://abiogenesis/default-library/parent@5"
+      }
+    ],
+    "counts": {
+      "graphs": 9,
+      "contracts": 93,
+      "bindings": 26
+    },
+    "diagnosticDeclarationUnionDigest": "sha256:e7094dd4d55fb7f915d359d8fda8443c19c103c1c40aa7855a72fc4d96fd83a2",
+    "entries": [
+      {
+        "target": "next",
+        "result": {
+          "kind": "resolved_program_start",
+          "targetKind": "next",
+          "start": {
+            "graphFunctionRef": "graph-function://default-library-witness/executive-a@5",
+            "startRef": "start://default-library-witness/a@5"
+          },
+          "assetRef": null
+        }
+      },
+      {
+        "target": "asset:retained-native-candidate-testing",
+        "result": {
+          "kind": "resolved_program_start",
+          "targetKind": "asset",
+          "start": {
+            "graphFunctionRef": "graph-function://default-library-witness/executive-b@5",
+            "startRef": "start://default-library-witness/b@5"
+          },
+          "assetRef": "asset://default-library-witness/retained-native-candidate-testing@5"
+        }
+      }
+    ]
+  },
+  "positive": {
+    "publicationValidation": "publication_validation",
+    "publicationDiagnostics": [],
+    "programValidation": "program_validation",
+    "programDiagnostics": [],
+    "counts": {
+      "graphs": 9,
+      "contracts": 93,
+      "bindings": 26
+    },
+    "diagnosticDeclarationUnionDigest": "sha256:4c4a612ec9472149a61d9d5a3aeef111b37c77b352775273f3cb216661cd65e7",
+    "entries": [
+      {
+        "target": "next",
+        "result": {
+          "kind": "resolved_program_start",
+          "targetKind": "next",
+          "start": {
+            "graphFunctionRef": "graph-function://default-library-witness/executive-a@5",
+            "startRef": "start://default-library-witness/a@5"
+          },
+          "assetRef": null
+        }
+      },
+      {
+        "target": "asset:retained-native-candidate-testing",
+        "result": {
+          "kind": "resolved_program_start",
+          "targetKind": "asset",
+          "start": {
+            "graphFunctionRef": "graph-function://default-library-witness/executive-b@5",
+            "startRef": "start://default-library-witness/b@5"
+          },
+          "assetRef": "asset://default-library-witness/retained-native-candidate-testing@5"
+        }
+      }
+    ]
+  },
+  "effects": {
+    "PublicCalls": 0,
+    "RuntimeAdmissions": 0,
+    "eventStoreCalls": 0,
+    "providerCalls": 0,
+    "builds": 0,
+    "installs": 0
+  },
+  "limits": "Local diagnostic declaration union, not admitted catalog/closure or installed artifact truth. Actual Root installation/catalog/call preflight remains required; no setup or witness acceptance."
+}

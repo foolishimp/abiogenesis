@@ -1,0 +1,65 @@
+{
+  "status": "PARTIAL_FAILURE_OBSERVATION_NOT_COMMAND_COMPLETION",
+  "observedAt": "2026-11-07T14:48:28.069677+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "liveReporterPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/events/193-t287-worksite-command-execution.jsonl",
+  "frozenReporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/observations/c2-first-red-001/reporter.jsonl",
+    "bytes": 1807,
+    "sha256": "ec84276be9ecb9e11a629989969ad4a6ae1276b4ac760ee9e22163f397372501"
+  },
+  "commandRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/commands/193-t287-worksite-command-execution.request.json",
+    "bytes": 985,
+    "sha256": "e58153caad029b48c029c689338e8f6fe0fe14c6a95a57cabe8e15074fb84d28"
+  },
+  "fileBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/file-bindings/193-t287-worksite-command-execution.json",
+    "bytes": 1259,
+    "sha256": "a4465f277b9c7b476129676d32ac3b455b812f0bb5af98ba676e970090b964df"
+  },
+  "outerSetupReceipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "5325354c3269a69f4896c56012598963fd9d07b896736748836eee539ed23394"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/CANDIDATE_BASIS_REFRESH.json",
+      "bytes": 3150,
+      "sha256": "e32b29dc7a6f971db9c6659ff3d444b4506442c92796efeaa0726a7f5e5365ad"
+    }
+  ],
+  "failedCase": {
+    "ordinal": 5,
+    "type": "case",
+    "passed": false,
+    "name": "T-287 C2 compact acknowledgment preserves installed large-log observation and replay",
+    "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+    "nesting": 0,
+    "testNumber": 5,
+    "suite": false,
+    "skip": false,
+    "todo": false,
+    "error": {
+      "name": "Error",
+      "message": "test timed out after 180000ms",
+      "stack": "Error [ERR_TEST_FAILURE]: test timed out after 180000ms",
+      "code": "ERR_TEST_FAILURE",
+      "failureType": "testTimeoutFailure",
+      "cause": {
+        "name": "Error",
+        "message": "test timed out after 180000ms",
+        "stack": null,
+        "code": null,
+        "failureType": null,
+        "cause": null
+      }
+    }
+  },
+  "partialPassCount": 4,
+  "commandResultExists": false,
+  "reporterEndPresent": false,
+  "wholeFileCredit": false,
+  "standing": "Actual inner180000ms timeout; outer1200000ms remains unchanged. Partial passes are not whole-file credit. No inferred setup frontier, unique cause, source defect, terminal success, manual signal, retry or extension."
+}

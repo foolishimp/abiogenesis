@@ -1,0 +1,20 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/host.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/host.mjs
+@@ -27,7 +27,7 @@
+ assert((await free())>binding.reserveBytes);assert.equal(execFileSync('/usr/bin/git',['-C',binding.sourceRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),binding.sourceCommit);
+ const source=JSON.parse(await pinned(binding.sourceInventory));
+ const checkSource=async()=>{assert.equal(execFileSync('/usr/bin/git',['-C',binding.sourceRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),binding.sourceCommit);for(const control of binding.readOnlyInputPins)await pinned(control);for(const row of source.rows){const actual=await readFile(join(binding.sourceRoot,row.path));assert.equal(actual.length,row.bytes,row.path);assert.equal(sha(actual),row.sha256,row.path);}return source.rows.length;};
+-await checkSource();
++await checkSource();for(const p of binding.prebuiltPins??[])await pinned(p);
+ const setupOwner=await import(pathToFileURL(binding.sourceHelpers['public-setup.mjs'].path));
+ const runner=await import(pathToFileURL(binding.sourceHelpers['runner.mjs'].path));
+ await mkdir(binding.scratchRoot,{mode:0o700});
+@@ -103,7 +103,7 @@
+   assert(admissionPin,'No admission received; close without dispatch');assert.equal(dirname(admissionPin.path),dir);
+   const admission=JSON.parse(await pinned(admissionPin));assert.equal(admission.status,'ROOT_ADMITTED_NATIVE_DISPATCH');
+   assert.equal(admission.bindingSha256,bindingSha256);assert.equal(admission.preparedSha256,preparedSha256);
+-  for(const p of admission.files??[])await pinned(p);await checkSource();await validateTransport(binding);
++  for(const p of admission.files??[])await pinned(p);await checkSource();for(const p of binding.prebuiltPins??[])await pinned(p);await validateTransport(binding);
+   abg.assertAcquiredAbgEventResourceSelectionCurrent(entry);assert((await free())>binding.reserveBytes);
+   // Source-only author admission binds the already observed exact task; external evidence/proof is separately admitted.
+   assert.equal(admission.taskSha256,binding.task.sha256);

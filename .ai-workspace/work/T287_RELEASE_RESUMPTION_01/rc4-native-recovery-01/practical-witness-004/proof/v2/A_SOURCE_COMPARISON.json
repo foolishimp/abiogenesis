@@ -1,0 +1,127 @@
+{
+  "status": "PURE_A_SOURCE_COMPARISON_RETURNED_FOR_ROOT_SELECTION",
+  "at": "2026-11-02T09:08:27.905Z",
+  "baselineSha256": "42c39cbb0af88576996c81c6ea8ac8cfd0a6dcd0797e48d8ebe3101f80845fcb",
+  "transportSha256": "9c64098d5456e2c2569e377a0c36dd646db990cf920ba7e02db40635c5cffeec",
+  "run": {
+    "digest": "sha256:4c6f628f84470723ae9ca942fe610f46989c586c9ad5c870c0e855fa0fef04c8",
+    "ref": "run://abiogenesis/a8ec73dd9eab809c3c609ff94b56ab3212882592e1358a76c681ebb0e6540e4f"
+  },
+  "invocationAdmission": {
+    "digest": "sha256:4cb6c8105420e10b6c8e42a9a65d31efa55894f3dfd12dadfe00725a759fe52f",
+    "ref": "invocation-admission://abiogenesis/4cb6c8105420e10b6c8e42a9a65d31efa55894f3dfd12dadfe00725a759fe52f"
+  },
+  "latestDecodedSuccessfulGovernanceResult": "result://abiogenesis/118bb63c73181a9e89d79b88c42bc0ef8c5e914721c3ced627386bd7b939ab6b",
+  "nativeResult": "result://abiogenesis/3aa1a08af54d821c9c359d7716672249114b92e0dec819ae0ec561d52bab6ee1",
+  "compared": [
+    {
+      "resultRef": "result://abiogenesis/47a3504e9ab0dd16ef8da229b6243a183566829c32b54acc0482b4538b611c7d",
+      "eventId": "event://abiogenesis/0074e7504c459dc84ef73847283e7d26706863acc8d816e1db112f3dfc624660",
+      "ordinal": 1437,
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "resultClass": "success",
+      "resultDigest": "sha256:47a3504e9ab0dd16ef8da229b6243a183566829c32b54acc0482b4538b611c7d",
+      "valueDigest": "sha256:ac104cda67b03dadae1d2519704094d1f534c03a6a931398b8e8d521d6742a42",
+      "kind": "governance_work_state",
+      "terminal": false,
+      "originalTaskConserved": true,
+      "originalDigest": "sha256:30e0084d0308caf24df7cab3917bbf211d81a281d94312f698dd8e99e51f95f3",
+      "constructionObservation": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/0a2cac0b9e43f5c667f7beca0b6c096516b02590b9a6f259c249f2001916d470",
+        "cCallRef": "c-call:sha256:d0fa43d56bf14838e34b65a0271b7b719f8ceba08cb8730f8182195c710e7777",
+        "purpose": "construction",
+        "resultDigest": "sha256:3aa1a08af54d821c9c359d7716672249114b92e0dec819ae0ec561d52bab6ee1",
+        "resultRef": "result://abiogenesis/3aa1a08af54d821c9c359d7716672249114b92e0dec819ae0ec561d52bab6ee1",
+        "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+        "synthesisResultRef": "result://abiogenesis/b25bbcf1a73db02b2aecbc1deaaa08d36396df7f314f4e7ed80440c01db3b75a",
+        "value": {
+          "changedPaths": [
+            "generated/hello-world.mjs"
+          ],
+          "report": {
+            "gaps": [
+              "My command runs are only self-checks, not admitted evidence. Testing must still record its own run of the plan's command, args, status, stdout and stderr.",
+              "No test-execution-result.json or execution-evidence was written, because both are outside my write scope.",
+              "Nobody has independently assessed the user outcome against the original source and oracle on the corrected file yet.",
+              "The parent outcome support://default-library-witness/complete-source-outcome@5 is still unresolved until the separately declared verifying root reevaluates it on current evidence."
+            ],
+            "summary": "The supplied candidate had a real defect, and I fixed it with a one-character edit. The original 29-byte generated/hello-world.mjs (sha256 647697a5…4993) contained `console.log(\"Hello world!\");` with no comma. I ran `node generated/hello-world.mjs` from the project root on Node v24.7.0 and piped stdout to od. It printed the 13 bytes \"Hello world!\\n\" and exited 0. The original source and basic-cli.oracle.json require \"Hello, world!\\n\", so the output was wrong.\n\nThe fix adds the comma: `console.log(\"Hello, world!\");` followed by a newline. The file is now 30 bytes (sha256 fe8f4080…e9ef). Running it again printed exactly the 14 bytes \"Hello, world!\\n\" and exited 0, with no package installation.\n\nAs a self-check I also ran the plan's command, `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`. It exited 0 with tests 2, pass 2, fail 0. These are my own runs, not admitted evidence or independent acceptance.\n\nNo other file was changed. I wrote nothing to disk while checking; all output went through pipes. The empty operator-scratch/tmp directory was already there when I started, so I left it in place."
+          }
+        }
+      },
+      "nativeLineageConserved": true,
+      "ownerEligible": true,
+      "ownerBasis": {
+        "basisRef": "invocation-source-result://abiogenesis/474d1e2066221c0ffbd326163d76df7e97cc4bd0e2dfa0d1b228cc3ffbb5d3f9",
+        "basisDigest": "sha256:474d1e2066221c0ffbd326163d76df7e97cc4bd0e2dfa0d1b228cc3ffbb5d3f9",
+        "sourceResultRef": "result://abiogenesis/47a3504e9ab0dd16ef8da229b6243a183566829c32b54acc0482b4538b611c7d",
+        "sourceResultDigest": "sha256:47a3504e9ab0dd16ef8da229b6243a183566829c32b54acc0482b4538b611c7d",
+        "sourceRunId": "run://abiogenesis/a8ec73dd9eab809c3c609ff94b56ab3212882592e1358a76c681ebb0e6540e4f",
+        "sourceInvocationRef": "invocation://abiogenesis/494d9579e3d5e12f3727ad8c26da7e8a119405b0a0b5813be7102c461af3e3da",
+        "sourceInvocationAdmissionRef": "invocation-admission://abiogenesis/4cb6c8105420e10b6c8e42a9a65d31efa55894f3dfd12dadfe00725a759fe52f",
+        "sourceResultValueDigest": "sha256:ac104cda67b03dadae1d2519704094d1f534c03a6a931398b8e8d521d6742a42"
+      },
+      "latest": false
+    },
+    {
+      "resultRef": "result://abiogenesis/118bb63c73181a9e89d79b88c42bc0ef8c5e914721c3ced627386bd7b939ab6b",
+      "eventId": "event://abiogenesis/f1f3ccb790dfab929cf57db1046fb1a82839c30915ca3306e31b367010165bca",
+      "ordinal": 1478,
+      "graphFunctionRef": "graph-function://default-library-witness/executive-a@5",
+      "resultClass": "success",
+      "resultDigest": "sha256:118bb63c73181a9e89d79b88c42bc0ef8c5e914721c3ced627386bd7b939ab6b",
+      "valueDigest": "sha256:ac104cda67b03dadae1d2519704094d1f534c03a6a931398b8e8d521d6742a42",
+      "kind": "governance_work_state",
+      "terminal": false,
+      "originalTaskConserved": true,
+      "originalDigest": "sha256:30e0084d0308caf24df7cab3917bbf211d81a281d94312f698dd8e99e51f95f3",
+      "constructionObservation": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/0a2cac0b9e43f5c667f7beca0b6c096516b02590b9a6f259c249f2001916d470",
+        "cCallRef": "c-call:sha256:d0fa43d56bf14838e34b65a0271b7b719f8ceba08cb8730f8182195c710e7777",
+        "purpose": "construction",
+        "resultDigest": "sha256:3aa1a08af54d821c9c359d7716672249114b92e0dec819ae0ec561d52bab6ee1",
+        "resultRef": "result://abiogenesis/3aa1a08af54d821c9c359d7716672249114b92e0dec819ae0ec561d52bab6ee1",
+        "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+        "synthesisResultRef": "result://abiogenesis/b25bbcf1a73db02b2aecbc1deaaa08d36396df7f314f4e7ed80440c01db3b75a",
+        "value": {
+          "changedPaths": [
+            "generated/hello-world.mjs"
+          ],
+          "report": {
+            "gaps": [
+              "My command runs are only self-checks, not admitted evidence. Testing must still record its own run of the plan's command, args, status, stdout and stderr.",
+              "No test-execution-result.json or execution-evidence was written, because both are outside my write scope.",
+              "Nobody has independently assessed the user outcome against the original source and oracle on the corrected file yet.",
+              "The parent outcome support://default-library-witness/complete-source-outcome@5 is still unresolved until the separately declared verifying root reevaluates it on current evidence."
+            ],
+            "summary": "The supplied candidate had a real defect, and I fixed it with a one-character edit. The original 29-byte generated/hello-world.mjs (sha256 647697a5…4993) contained `console.log(\"Hello world!\");` with no comma. I ran `node generated/hello-world.mjs` from the project root on Node v24.7.0 and piped stdout to od. It printed the 13 bytes \"Hello world!\\n\" and exited 0. The original source and basic-cli.oracle.json require \"Hello, world!\\n\", so the output was wrong.\n\nThe fix adds the comma: `console.log(\"Hello, world!\");` followed by a newline. The file is now 30 bytes (sha256 fe8f4080…e9ef). Running it again printed exactly the 14 bytes \"Hello, world!\\n\" and exited 0, with no package installation.\n\nAs a self-check I also ran the plan's command, `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`. It exited 0 with tests 2, pass 2, fail 0. These are my own runs, not admitted evidence or independent acceptance.\n\nNo other file was changed. I wrote nothing to disk while checking; all output went through pipes. The empty operator-scratch/tmp directory was already there when I started, so I left it in place."
+          }
+        }
+      },
+      "nativeLineageConserved": true,
+      "ownerEligible": true,
+      "ownerBasis": {
+        "basisRef": "invocation-source-result://abiogenesis/c99d32947cd1dbcea727387f378c8b6a9e4788d1592f8c1ab6eefeaf015b025a",
+        "basisDigest": "sha256:c99d32947cd1dbcea727387f378c8b6a9e4788d1592f8c1ab6eefeaf015b025a",
+        "sourceResultRef": "result://abiogenesis/118bb63c73181a9e89d79b88c42bc0ef8c5e914721c3ced627386bd7b939ab6b",
+        "sourceResultDigest": "sha256:118bb63c73181a9e89d79b88c42bc0ef8c5e914721c3ced627386bd7b939ab6b",
+        "sourceRunId": "run://abiogenesis/a8ec73dd9eab809c3c609ff94b56ab3212882592e1358a76c681ebb0e6540e4f",
+        "sourceInvocationRef": "invocation://abiogenesis/494d9579e3d5e12f3727ad8c26da7e8a119405b0a0b5813be7102c461af3e3da",
+        "sourceInvocationAdmissionRef": "invocation-admission://abiogenesis/4cb6c8105420e10b6c8e42a9a65d31efa55894f3dfd12dadfe00725a759fe52f",
+        "sourceResultValueDigest": "sha256:ac104cda67b03dadae1d2519704094d1f534c03a6a931398b8e8d521d6742a42"
+      },
+      "latest": true
+    }
+  ],
+  "log": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl",
+    "bytes": 8805484,
+    "sha256": "21c9692a1e71272f07a5c5e1bf9becf7cf967bd10fa8c5dfadc9823463cca92d",
+    "unchanged": true
+  },
+  "providerCalls": 0,
+  "PublicCalls": 0,
+  "eventMutations": 0,
+  "selectionChanged": false,
+  "limit": "Decoded owner events and existing source derivation only; Root selects returned candidate separately."
+}

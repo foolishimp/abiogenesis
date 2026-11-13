@@ -1,0 +1,46 @@
+{
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "maxPromptBytes": 1048576,
+  "checks": [],
+  "id": "T287-RC8-AUTHOR09-NATIVE-WORKSITE-FIXTURE",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "outcome": "Repair the complete seven-case native-worksite test fixture cone for compact native Results using explicit original task identity and existing admitted Result/basis task resolvers; prove whole file with four active passes and three unchanged conditional skips.",
+  "readRoots": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures",
+    "build_tenants/abiogenesis/typescript/code/src"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "qualification-scratch/rc8-reference-preservation-01/author-09"
+  ],
+  "instructions": [
+    "Use installed STDO3.0.4 stdo-work/coordinated handoff, unchanged fixed15families/GOAL035/T287/project frame/empty composition. One Claude Opus5.5 xhigh task after Root admits its held call. No second provider/reviewer/delegation.",
+    "Read adopted causal capsule /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/native-worksite-012-plan/REVIEW.json SHA72de32fe9e25518734040a1a6e018dfd418e582c360a8dc1bae96de3c43d4140 and adjacent README; prior actual custody /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/OPERATOR_RETURN.json. Preimage is exact physical A8 source86711/efba6bea,1339rows, reviewed239114a2, NOT source-accepted yet; A8 native Run failed and genuine close is2320c892 at146410800B/fa254d2e. Last bounded A7 acceptance is historical. Existing Product archivea178 unchanged. Review acceptedA8 phrase/subject field is imprecise; its final steering and Root grant supply this distinction. External references and needed code/src transitive imports are read-only authorized; do not copy full log/catalog/graph into context.",
+    "Edit ONLY build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs plus own qualification-scratch/rc8-reference-preservation-01/author-09 progress. Accepted HOW R1 already specifies compact native Result/inputDigest/no task. Keep the local fixture original task as an explicit sourceTask reference; pass it through inputFor, assessment, mocked admitted-basis premises, digest checks and all negative builders. Fix the complete seven-case causal cone, including three conditional paths, not only first line30. No Product/HOW/helper edits.",
+    "For actual retained logs resolve sourceTask from the Result own admitted basis through existing projectNativeWorkspaceWorkSourceAtPrefix or projectNativeWorkspaceWorkResultTaskAtPrefix. Preserve exact original log/profile bytes and use existing constructors. Failed-writer counterexample must use existing native failure construction and coherent matching input/basis, not hand-add task/before to prospective Result. Preserve foreign/wrong/stale/parentless/source-membership/currentness and closure/Run distinctions. No digest-only trust or task re-embedding. If lawful resolution exposes an actual current C2 sunny-day refusal, stop and return it; do not call it fixture drift.",
+    "After bounded edit run /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof.mjs freeze ONCE. Recipe retains cumulative A8 READY test overlays and exact compiled/dependency/config/archive inputs, then applies only this file. Zero builds/generation. Publish FREEZE_NOTICE immediately in qualification-scratch/rc8-reference-preservation-01/author-09; no edits after freeze. Root independently reviews frozen diff alongside proof.",
+    "Run exactly /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof.mjs test worksite once, whole file. Expect four active passes and three existing conditional skips; optional ABI5_NATIVE_SOURCE_READY_CATALOG and ABG_NATIVE_EXECUTION_RETAINED_LOG gates remain unset. Preserve all seven cases and every assertion; conditional paths are source-reviewed only, not executed. Command600000ms/16MiBoutput/8GiBheap,4GiBowned/reserve; native1800000ms absolute/300000ms inactivity/inherited grace. Stop first unexpected red/refusal/incomplete/resource/input mismatch or larger scope; preserve and return without repair/retry or extending bounds.",
+    "Write concise intake, freeze notice and HANDOFF under qualification-scratch/rc8-reference-preservation-01/author-09. Report incremental source delta, exact four-pass/three-skip whole-file receipt, component-premise limits and any counterexample. Preserve all prior failed native/proof/control histories. Broad013 independently verifies immutable A6; full SAS independently verifies frozen A8. Do not rerun either. No network/npm install, outside-source writes, Git/cut/push/global selector/cleanup. Root alone accepts source."
+  ]
+}

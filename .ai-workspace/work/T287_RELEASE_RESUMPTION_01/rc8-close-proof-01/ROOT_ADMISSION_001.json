@@ -1,0 +1,129 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "recordedUtc": "2026-11-07T04:48:53.468567+00:00",
+  "executive": "/root",
+  "recorder": "/root/rc8_operator",
+  "rootDisposition": "GO broad execution now after the matched AFTER/profile physically closed. One corrected driver invocation; stop at first red, incomplete result or resource limit; retain raw evidence and do not retry.",
+  "configSha256": "139ea4dfe2c0e6166734577a66171ca9b248148ebfc874a91a204610126c2156",
+  "inventorySha256": "94a333d31a4d0e72e39371081c2853aca30d1e393d2d594d1c2f50864c6c2b73",
+  "frozenStageReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+  "preparationManifestSha256": "b3f3478fca5760b943647ee0100e30a7bdd5a855286ffcee6f4339979bd968e7",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_002.json",
+    "bytes": 13575,
+    "sha256": "139ea4dfe2c0e6166734577a66171ca9b248148ebfc874a91a204610126c2156"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-002/BOUND_INVENTORY.json",
+    "bytes": 1691127,
+    "sha256": "94a333d31a4d0e72e39371081c2853aca30d1e393d2d594d1c2f50864c6c2b73"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_001.json",
+    "bytes": 2626,
+    "sha256": "b3f3478fca5760b943647ee0100e30a7bdd5a855286ffcee6f4339979bd968e7"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-001.mjs",
+    "bytes": 20119,
+    "sha256": "f43dff68d58a401fe7839aed58f792d9323e1946e5472340c9da1dfc34d216c3"
+  },
+  "fileHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs",
+    "bytes": 2803,
+    "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "authority": {
+    "userApproval": "ok move to rc7 build rc8",
+    "method": "stdo://releases/v3.0.4/",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "families": 15,
+    "goal": "GOAL-035",
+    "ticket": "T-287"
+  },
+  "measurementPhysicalClose": {
+    "hostSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/HOST_SUMMARY.json",
+      "bytes": 373,
+      "sha256": "e7897976e7ac36e2774cf846d059f8661aaa9d5414f2bd182d3115a563252678"
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/MEASUREMENT.json",
+      "bytes": 72231,
+      "sha256": "2d8507c67392ddef69ccfd055b791b52a5aff649250c1fdab90cf2f0f60f7a3b"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/ACTUAL_CLOSE.json",
+      "bytes": 2073,
+      "sha256": "1701f380372f38ad95ba048da5523a8025ef877be2d625189410c42c08f317ce"
+    },
+    "cpuProfile": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/profiles/4MiB-profile.cpuprofile",
+      "bytes": 1444134,
+      "sha256": "d81df2006c64e58f84e15f5f6b08f78ce4546fc7a40e99440801219a25177ae7"
+    },
+    "hostWallMs": 49186.244916999996,
+    "performanceAccepted": false,
+    "standing": "Timing-critical measurement and physical close complete; Root detailed performance disposition remains separate."
+  },
+  "allowedEffects": {
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001",
+    "scratchRoot": "/private/tmp/abg-r8c-001",
+    "tests": "203 scheduled files, serial; five exact final-stage whole-file credits retain 46 passes and two historical skips. Filtered held file remains scheduled.",
+    "isolatedBuildEffects": [
+      "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+      "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs"
+    ],
+    "cleanup": "Only successful derived build-test copies after evidence custody, as frozen driver states. Failed copies and all prior evidence preserved.",
+    "sourceEdits": false,
+    "gitEffects": false,
+    "providerCalls": 0,
+    "authorityChanges": false,
+    "automaticRetry": false
+  },
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "fileTimeoutMs": {
+    "test_env/tests/t287-governed-context.test.mjs": 2100000,
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs": 3600000,
+    "test_env/tests/t289-install-event-bodies.test.mjs": 1200000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000
+  },
+  "qualification": false,
+  "scope": "Bounded broad proof only. Final immutable cut/install and whole5.0 qualification remain separate.",
+  "preparationObservations": [
+    "An initial read-only profile lookup treated its relative path as cwd-relative and returned ENOENT before admission or execution allocation. Resolved against the owning measurement directory; exact supplied profile bytes/SHA match. No broad invocation or retry occurred."
+  ],
+  "freeBytesAtAdmission": 9300770816
+}

@@ -1,0 +1,18 @@
+{
+  "kind": "root_selected_preparation_dependency_correction",
+  "status": "AUTHORITATIVE_PREPARATION_CORRECTION_NO_RUNTIME_EFFECT",
+  "authority": "Root message after HS01 packet closure: F2 bounded source acceptance; actual SDK receipt/completion/close, source/native.after/tested-stage equality and independent review bind. Duplicate immutable-RC6 full cold reads are not an implicit HS01 prerequisite.",
+  "preservedManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/PREPARATION_MANIFEST.json",
+    "bytes": 22367,
+    "sha256": "ca36600982b0fa27687a13d290f6e9bd7855479f4f655fdc3943f2e5dcc4e9ea"
+  },
+  "supersededTemplateClauses": [
+    "FUTURE_BINDINGS.json runtime.required full typed cold conjunction",
+    "RUNTIME_BINDINGS.template.json requiredPredecessor full typed cold conjunction",
+    "READINESS.json remainingRootSteps[0] full-read conjunction"
+  ],
+  "replacement": "Root-disposed actual F2 source and source/native.after/tested-stage equality, actual SDK receipt/completion/close and original successor resume, independent review and Root actual disposition. F full cold result/replay remain unchanged historical builder evidence, never relabelled F2 runtime qualification. All operative pins remain null until that actual conjunction.",
+  "hostImpact": "No SDK sequence or checker/close invariant changes; the host does not require duplicate full cold reads. Root materializes the existing templates under this correction.",
+  "preservedCandidateProof": "HS02 actual installed same-boundary warm/cold full value/producer/projection-basis equality remains required; this correction changes only F2 prerequisite runtime evidence routing."
+}

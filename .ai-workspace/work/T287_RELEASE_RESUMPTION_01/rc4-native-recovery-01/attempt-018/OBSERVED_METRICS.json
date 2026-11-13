@@ -1,0 +1,222 @@
+{
+  "standing": "CLOSED_ACTUAL_PROVIDER_AND_HOST_METRICS",
+  "observedUtc": "2026-11-02T23:51:16.418661+00:00",
+  "providers": [
+    {
+      "actor": "fp-577e01764b6b816e",
+      "role": "initial-selector",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-577e01764b6b816e-stdout.log",
+      "stdoutSha256": "e6f48ee5d4347b6bc6e2f9b9eeb7d6380142769794ea1e4a76340d67a934fca9",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 55660,
+      "duration_api_ms": 43900,
+      "num_turns": 2,
+      "total_cost_usd": 2.9088920000000003,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 354333,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 3711,
+        "output_tokens_details": {
+          "thinking_tokens": 1335
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 354333,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-2e893a818cf27e67",
+      "role": "native-acquisition",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-2e893a818cf27e67-stdout.log",
+      "stdoutSha256": "445f27a0ed923906af826a488b6927f696a4c70c4d1af37158589d4583bf3171",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 217102,
+      "duration_api_ms": 194253,
+      "num_turns": 28,
+      "total_cost_usd": 2.037721,
+      "usage": {
+        "input_tokens": 42,
+        "cache_creation_input_tokens": 147346,
+        "cache_read_input_tokens": 2318725,
+        "output_tokens": 19752,
+        "output_tokens_details": {
+          "thinking_tokens": 6258
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 147346,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-244657ae285308b9",
+      "role": "post-acquisition-selector",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-244657ae285308b9-stdout.log",
+      "stdoutSha256": "e6413f11517c4f39351bca77aed2b89fa637533e3c1596709200d27cd129749c",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 73772,
+      "duration_api_ms": 62019,
+      "num_turns": 2,
+      "total_cost_usd": 2.976528,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 359735,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 4932,
+        "output_tokens_details": {
+          "thinking_tokens": 1461
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 359735,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-a589fa9b50395075",
+      "role": "C2",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-a589fa9b50395075-stdout.log",
+      "stdoutSha256": "2807f4cdb05f01b04da713b5fe1ae8731e4d8208de1f34c71d70961d11b33ccb",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 796888,
+      "duration_api_ms": 15301,
+      "num_turns": 3,
+      "total_cost_usd": 0.3821486,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 44498,
+        "cache_read_input_tokens": 41543,
+        "output_tokens": 892,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 44498,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-bf7fb594d5f5e202",
+      "role": "post-C2-selector",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-bf7fb594d5f5e202-stdout.log",
+      "stdoutSha256": "818e7362876664aa0a565f2517204a1defd162f7d56ebb754f71b69dee109b46",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 84813,
+      "duration_api_ms": 72888,
+      "num_turns": 2,
+      "total_cost_usd": 3.255208,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 390225,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 6670,
+        "output_tokens_details": {
+          "thinking_tokens": 2716
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 390225,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-84e17db0eb8ce31e",
+      "role": "UAT",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-84e17db0eb8ce31e-stdout.log",
+      "stdoutSha256": "b61c238e12a04f9268a286cfc7374d9c0e2c37bb7f05a596c3c89d4969a96dcf",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 743675,
+      "duration_api_ms": 716941,
+      "num_turns": 82,
+      "total_cost_usd": 7.787947400000001,
+      "usage": {
+        "input_tokens": 148,
+        "cache_creation_input_tokens": 383333,
+        "cache_read_input_tokens": 17588334,
+        "output_tokens": 46906,
+        "output_tokens_details": {
+          "thinking_tokens": 26742
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 383333,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    }
+  ],
+  "completedFP": 6,
+  "completedCostUsd": 19.348445,
+  "completedReportedTurns": 119,
+  "activeCostsExcluded": false,
+  "nativeAcquisitionProcessMs": 224018,
+  "limit": "Actual provider reports and host timings; no matched direct-agent baseline or isolated candidate performance/phase attribution.018 orchestrator is operationalRC3; practical005 remains separate.",
+  "hostWallMs": 3103204.324542,
+  "hostExitCode": 0,
+  "hostTimedOut": false,
+  "durableEventBytesBefore": 427935724,
+  "durableEventBytesAfter": 578251344,
+  "durableEventByteDelta": 150315620
+}

@@ -1,0 +1,62 @@
+{
+  "id": "RC10-HOW-OPEN-02",
+  "owner": "Root",
+  "status": "ROOT_ADMITTED_SETUP_REENTRY_NATIVE_HELD",
+  "decision": "F2/P2 precise HOW evidence correction before acceptance. One native RC9 task, Opus5.5 xhigh,300s/60turns. No behavior/test/HOW contract change.",
+  "productDefinition": {
+    "path": "stdo_abiogenesis.json",
+    "id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": []
+  },
+  "frame": {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292744,
+    "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+  },
+  "onlySourceWrite": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+  "exactReplacement": {
+    "old": "handles, historical reads that mint nothing, rollback and close disposal, and a",
+    "new": "handles, historical reads that mint nothing, physical close disposal, and a",
+    "appendAfter": "separately selected fifty-call workload mode.",
+    "sentence": "Actual rollback disposal is unproved by this test.",
+    "before": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 201692,
+      "sha256": "03c52118eb52197502aeeccfa374f1a006023b76461fa358ef1796a4905e2216"
+    },
+    "expectedAfter": {
+      "bytes": 201739,
+      "sha256": "1969d63beb6c7e43a083ca3f4a1c0a7251532bb25a844b24066a5d81283b35a8"
+    }
+  },
+  "sourceInvariant": "All1334 existing rows conserved except this exact prose delta. No new source, tests, identity, code, dependency, generation or build changes.",
+  "operatorEffectsProposed": [
+    "one fresh existing-workspace Public open setup",
+    "new /private/tmp/abg-rc10-how-02 host scratch and this control directory runtime-001",
+    "immutable controls /private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/how-02",
+    "native scratch /private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/how-02",
+    "same exact one-file native correction only after separate actual PREPARED admission"
+  ],
+  "admissionStanding": "Root has selected edit semantics; this packet does not allocate runtime or authorize provider dispatch. Native TASK projects its post-admission recipient grant separately.",
+  "setupDecision": "Use actual Public workspace.open.open on the unchanged existing manifest with exact original expectedAuthority and no supplied actor/binding slots. Require actual unbound disposition and receipt manifest locator/digest. All later setup/author/resource paths unchanged. Preserve failed HOW runtime001; no metadata mutation, source copy, Git effect or rebuild.",
+  "workspaceManifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1855,
+    "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+  },
+  "expectedWorkspaceAuthority": {
+    "ref": "workspace-authority://abiogenesis/a1e5afd77e63f8c6f7ea845ee5a8d4977ef1e7f359957962bfa2be65b438dd9f",
+    "digest": "sha256:a1e5afd77e63f8c6f7ea845ee5a8d4977ef1e7f359957962bfa2be65b438dd9f"
+  },
+  "previousFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/runtime-001/FAILURE.json",
+    "bytes": 2016,
+    "sha256": "dc361997b1f6a501a9c0208fe05c8917632e89dff0f9db2aebb1a774d0263a17"
+  }
+}

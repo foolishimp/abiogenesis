@@ -1,0 +1,34 @@
+{
+  "kind": "rc5_f4_02_readiness",
+  "candidate": "uncommitted worktree delta on 53acfe7c6 (10 paths; digests in return.json)",
+  "readyFor": "C2 recipe rc5-operator-inputs/f4-01/c2-final-proof.mjs: compile, build, pack 5.0.0-rc.5, verify, then selected suites",
+  "c2Assertions": {
+    "packageVersion": "5.0.0-rc.5",
+    "lockVersionAndRoot": "5.0.0-rc.5",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.5",
+    "contractsPreimage": "replaceAll('5.0.0-rc.5','5.0.0-rc.4') equals identity-preimages/contracts.ts (checked in memory)",
+    "packageAndLockPreimage": "only version fields differ (checked in memory)"
+  },
+  "selectedCases": {
+    "t287-event-body-encoding.test.mjs": [
+      "RC5 retained route names its exact already-referenced Result and reconstructs full, selected and descriptor reads",
+      "RC5 retained route distinguishes exact consumed Result membership from same-valued basis and foreign occurrences",
+      "RC5 retained route refuses missing, forward, tampered, mixed and uncommitted sources before exposing history",
+      "RC5 retained route mixes inline, v1 and v3 rows and keeps small, unequal or unavailable sources inline",
+      "RC5 retained route publishes nothing on rollback or failed fsync, poisons on failed restoration and keeps committed same-batch sources",
+      "RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction"
+    ],
+    "m5-installed-graph-edge.test.mjs": [
+      "RC5 retained route carries an installed c_workflow source as a physical reference to its admitted Result"
+    ]
+  },
+  "measureDiagnostic": "# RC5_RETAINED_ROUTE_MEASURE {sample:'captured-route-37961',beforeBytes,afterBytes,netSavedBytes,logicalUnchanged:true}; skipped only when ABG_RC5_ROUTE_SAMPLE_FILE is unset; the JSON contains no '#' or backslash",
+  "localEvidence": {
+    "tscNoEmit": "exit 0",
+    "rc5ComponentCasesInMemory": "6 pass, 0 fail, 0 skipped",
+    "existingCodecSubsetInMemory": "9 pass, 0 fail",
+    "capturedMeasure": "3139020 -> 1678257 bytes, 1460763 saved, logicalUnchanged true",
+    "installedCase": "node --check only; not executed"
+  },
+  "notEvidence": "in-memory transpile runs are Worker feedback only; no C2, installed, UAT or acceptance result exists"
+}

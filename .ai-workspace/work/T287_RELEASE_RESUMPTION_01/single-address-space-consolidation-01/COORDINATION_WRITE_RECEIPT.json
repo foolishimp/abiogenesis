@@ -1,0 +1,44 @@
+{
+  "recordedUtc": "2026-11-03T13:28:17.612897+00:00",
+  "role": "Root operator/evidence Writer under CONTEXT_AND_CAUSAL_MAP.md grant",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "5d6acb8fdbe7dc8bb3ee79fe19037fdc12bcc16bc636569b92ed88c6a1fe4d1c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "sha256": "f199c090d74f76f2faf9add01da50c91fc5454c21e3b19efc412fc36f938312b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/STATUS.json",
+      "sha256": "fe466c8ea38647aa359550a46c8f882c01ec6a3264bb7e984ed198a7786e08ab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/HANDOFF.md",
+      "sha256": "d8644dd632b9effbbd9320e9982cef3f91f98f2b3c078e65b292f75025c00d6f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/FINAL_INSTALL_VERIFICATION.json",
+      "sha256": "de710479eef6758a25fb2ec3874b7aaf79057177f60df8ae9d66c69b64d1a82c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/PERFORMANCE_DETAIL.json",
+      "sha256": "803cec15d5944c0af5aba557d20fce03b775f509b2f852686973a1dbec4c15c5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/PERFORMANCE_DETAIL.md",
+      "sha256": "93218ff1e5bd4591b71274f36716656d70b795815c7bc8758c99d8f7673e059f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/PERFORMANCE_LIFECYCLE.csv",
+      "sha256": "4f06afa2ea033f5a3577e0ed3e6be325b0831d38a1539c2b5adfa7f9e8a9c3a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/PERFORMANCE_HANDOFF.csv",
+      "sha256": "56e0e85441e214477caacd23e577f18d3863e7883f2c3465548001b230f00ec8"
+    }
+  ],
+  "preimages": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages",
+  "sourceOrReleaseMutated": false
+}

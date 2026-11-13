@@ -1,0 +1,215 @@
+{
+  "status": "READ_ONLY_AST_PREIMAGES_PINNED",
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "symbol": "isPublicationValidation",
+      "firstLine": 556,
+      "lastLine": 558,
+      "bytes": 112,
+      "sha256": "a71b7e0979f411af912277e43e6139d4ab2e064b7aff71e073d9d51a4d6b01b5",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+        "bytes": 83926,
+        "sha256": "e81f929f893f5f1132df12a2c70eb49e263cfb089835f13550b9b85360cf1f1f"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "symbol": "matchesExactOperationDefinitionCoordinate",
+      "firstLine": 44,
+      "lastLine": 52,
+      "bytes": 386,
+      "sha256": "c572e374aab490ec5671d0cbbee67677c0df9adb6dfb16d6127df46d5ccb3096",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+        "bytes": 3906,
+        "sha256": "feddd8026512d7691bddac801acf6fbeddbe9cbf460b701629ca13be4a8b50ea"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "symbol": "semanticJobAssessmentDomain",
+      "firstLine": 595,
+      "lastLine": 598,
+      "bytes": 269,
+      "sha256": "7dc58190488161eb9194faf5f4b4085f11c8b238603985fe6afec4b611abbf71",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+        "bytes": 96630,
+        "sha256": "e3bbdcccc525f000821533dd316c7362fc437b64ad0c3dd028e331f3d4776bb6"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "symbol": "hasAdmittedInvocation",
+      "firstLine": 806,
+      "lastLine": 814,
+      "bytes": 218,
+      "sha256": "ccbb9e4c1140e07362a73a9f1d8a3c455bff7419913f0373af31a89e9eb86bc5",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+        "bytes": 77864,
+        "sha256": "5e5aacf55c3d62992eacad661e7de998a9dfc7930e3486cc4077f7a7e39e8425"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "symbol": "admitPlannedCCallRuntimeFailureClose",
+      "firstLine": 3521,
+      "lastLine": 3587,
+      "bytes": 2510,
+      "sha256": "0a48249037416df5a210a64f636768b7f670262cb5ebdf7652e6b26f34c068cb",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301329,
+        "sha256": "e3d837eb473ecb9ceb272451b485f22e24693337cd32cf2eaca8bc2373bb022c"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "symbol": "rehydratePendingInteraction",
+      "firstLine": 5136,
+      "lastLine": 5180,
+      "bytes": 1494,
+      "sha256": "2f7c69069f9807c487599fa342871590448e3907170db24f2f63784eedcbd5a5",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301329,
+        "sha256": "e3d837eb473ecb9ceb272451b485f22e24693337cd32cf2eaca8bc2373bb022c"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "symbol": "admitPlannedPendingInteraction",
+      "firstLine": 7560,
+      "lastLine": 7564,
+      "bytes": 495,
+      "sha256": "a0a1f427a0a907a2e89dd0be3c676122510f0aab29dbe9c9bec43b7b5955f129",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 301329,
+        "sha256": "e3d837eb473ecb9ceb272451b485f22e24693337cd32cf2eaca8bc2373bb022c"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "symbol": "projectQualificationConstructionAuthors",
+      "firstLine": 690,
+      "lastLine": 693,
+      "bytes": 356,
+      "sha256": "a43fd8cab330e4c7c16fe63ac42f999bcef4ff5b7f6bf690674a5e2adc5dd0b4",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "bytes": 102327,
+        "sha256": "ac63c79c77c57a36278fd45126aeadb4d1955d2f84699d05db3bfc7f04bdff6e"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+      "symbol": "updatePublicGapAuthority",
+      "firstLine": 154,
+      "lastLine": 168,
+      "bytes": 342,
+      "sha256": "a4b4cfb583eeccf252f46985d2153161a8b70afdd42e8b5c8063198f099fc80f",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+        "bytes": 7786,
+        "sha256": "98c3d08d1276b6d492ae34d9147c8aef0ed9c63bcf8cd9ccac0a58fd55bd1ac2"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+      "symbol": "parsePublicGapAuthority",
+      "firstLine": 170,
+      "lastLine": 254,
+      "bytes": 3334,
+      "sha256": "5398649aac5514b2a58a6133279c4bd685473905616e7028ebf4968b70373b8a",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+        "bytes": 7786,
+        "sha256": "98c3d08d1276b6d492ae34d9147c8aef0ed9c63bcf8cd9ccac0a58fd55bd1ac2"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/traversal_failure.ts",
+      "symbol": "isGraphTraversalEntryRefusal",
+      "firstLine": 16,
+      "lastLine": 22,
+      "bytes": 254,
+      "sha256": "94cd7c5d83e35f67e927ccc01814684c6a9b086e8b5da3ac2e275e1cdfbb3211",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/hog/traversal_failure.ts",
+        "bytes": 2945,
+        "sha256": "3de355c6198ef6afbcd9d7cfdc86eb7afdbc0cd61dbd61748c39a8dd0330b066"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/traversal_completion.ts",
+      "symbol": "projectBlockedRetryTraversalCompletion",
+      "firstLine": 168,
+      "lastLine": 175,
+      "bytes": 309,
+      "sha256": "7647ebbf8ed001e74474f5b2dea0ad1815daee31bb23935f216b1dbac114f838",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/hog/traversal_completion.ts",
+        "bytes": 6747,
+        "sha256": "098b41de5cb5875455028afce4b2de6d0fdb73e224e39d12f004923ef2951591"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "symbol": "isAdmittedLeafInvocationResolution",
+      "firstLine": 861,
+      "lastLine": 870,
+      "bytes": 300,
+      "sha256": "0bd55cbc0bc0ac7ea0b7859d85d64183a0a5d8773c51c0f47af780379dfeb05a",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 84866,
+        "sha256": "e5a6448c5896225d47645a8458ffc25f2ea1d6fccdffa182163363eb6ad34846"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "symbol": "constructHistoricalStdoRunEnvironmentDeclaration",
+      "firstLine": 80,
+      "lastLine": 83,
+      "bytes": 294,
+      "sha256": "553636917b91a156ef1feb2bede39aaa6d34c540082536c6c1c2c8e39be2517d",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "bytes": 25571,
+        "sha256": "ec246b14d7ca6e336af237e2c4724486b364943d2b441152cbd0aa2477ad2bb1"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+      "symbol": "updatePublicRunProjectionAuthority",
+      "firstLine": 117,
+      "lastLine": 131,
+      "bytes": 382,
+      "sha256": "49da1b964a1f7b7290387d10638edce96fd58c0740d41c5fb46dda5a2f4ba563",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+        "bytes": 6613,
+        "sha256": "d676ac5a7fa0565523a61d6b2b2cc0bd8499c4d4f6409181b742369fc8e4c363"
+      },
+      "method": "TypeScript 5.9.2 AST FunctionDeclaration exact name; getStart through getEnd plus final newline"
+    }
+  ]
+}

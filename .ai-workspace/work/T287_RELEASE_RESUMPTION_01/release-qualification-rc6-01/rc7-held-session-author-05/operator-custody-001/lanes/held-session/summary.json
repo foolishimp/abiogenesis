@@ -1,0 +1,35 @@
+[
+  {
+    "id": "held-session",
+    "mode": "after",
+    "setupMs": 172,
+    "priorLaneAllocations": 1,
+    "laneAllocationCap": 5,
+    "stageSourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "integrationEvidenceSourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "integrationEvidenceReused": false,
+    "activeRc7": [
+      "RC7 HS02: one held acquisition serves warm Runs and held run_result/run_replay without another decode, reopen or append, refuses stale/copied/foreign/closed selections, closes once and equals the cold reads"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 HS02: one held acquisition serves warm Runs and held run_result/run_replay without another decode, reopen or append, refuses stale/copied/foreign/closed selections, closes once and equals the cold reads$ test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 48743,
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 1,
+    "failing": [],
+    "stdoutSha256": "265bb17895788dbb63197d20caf1411d6c3070fc3c29e9144ddb62248affd944",
+    "stdoutBytes": 2444,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

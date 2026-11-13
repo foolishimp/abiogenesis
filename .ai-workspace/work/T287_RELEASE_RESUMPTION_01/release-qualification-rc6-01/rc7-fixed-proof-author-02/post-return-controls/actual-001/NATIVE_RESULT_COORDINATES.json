@@ -1,0 +1,69 @@
+{
+  "eventId": "event://abiogenesis/5970ff74239e8e11da4c5f2606dc47a1ddb2ff8aa13cd6bd550a64cb647948f7",
+  "kind": "c_call_result_admitted",
+  "admissionOrdinal": 254280,
+  "eventTime": "2026-11-06T12:25:35.471Z",
+  "offset": 1747250124,
+  "rowBytes": 50259352,
+  "rowSha256": "1c2ce0802eced633ec5b667fc22ece59cfbe5598147aa0fe71669b88e6c40ec4",
+  "runId": "run://abiogenesis/736cc2314d58500ac5d0a2a8d8b1955452f9fc3e0586976a8945257f9ff73bc0",
+  "resultRef": "result://abiogenesis/84817d060a569d56c185ec7820558b027f34e110b0544178a0dab833c7923242",
+  "resultDigest": "sha256:84817d060a569d56c185ec7820558b027f34e110b0544178a0dab833c7923242",
+  "valueDigest": "sha256:745e9c0a96d29df6faa7d2ecf74d6399bf9984a5146a0b45afd17048b0b81540",
+  "physicalRow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "offset": 1747250124,
+    "bytes": 50259352,
+    "sha256": "1c2ce0802eced633ec5b667fc22ece59cfbe5598147aa0fe71669b88e6c40ec4"
+  },
+  "payloadDigest": "sha256:eab9bd6957b26cac5b8dad0a79ee8f67b1ea6d350a69dc7c69f27059df8cee8c",
+  "bodyReference": null,
+  "producer": {
+    "runRef": "run://abiogenesis/736cc2314d58500ac5d0a2a8d8b1955452f9fc3e0586976a8945257f9ff73bc0",
+    "graphCallRef": "graph-call://abiogenesis/c54bcd688c2dd88376187f14d843b89f11c4f73e0af6dc95c95b855d1e519931",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/af7e8e5c638473b3497861e59bdc8f003d6765cc29730a108880ffd2ad430f22",
+    "program": {
+      "ref": "program://abiogenesis/worksite/native-work@5",
+      "digest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f"
+    },
+    "graphFunction": {
+      "ref": "graph-function://abiogenesis/worksite/native-work@5",
+      "digest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+    },
+    "executionBasis": {
+      "ref": "execution-basis://abiogenesis/7a4eb7715d503785d0e5cefb9fac00086da90ee96774a747f935fb4b57fd7ba3",
+      "digest": "sha256:7a4eb7715d503785d0e5cefb9fac00086da90ee96774a747f935fb4b57fd7ba3"
+    },
+    "cCallRef": "c-call:sha256:07a9967322d45201a9b9729ea39d48fcc69818d0afd918e96395968b830a4677",
+    "resultAdmissionEventRef": "event://abiogenesis/5970ff74239e8e11da4c5f2606dc47a1ddb2ff8aa13cd6bd550a64cb647948f7",
+    "judgmentRef": "judgment://abiogenesis/1dcf8ba8dcfdc335735e55f55128a2ca7cf624df7d5e68bcbe5e007e8542e991",
+    "judgmentAdmissionEventRef": "event://abiogenesis/3b35b7076829f23e39609925f203535636d5e3560d397c784b0de9e59ec5f47d",
+    "terminalRoute": {
+      "ref": "traversal-route://abiogenesis/c30373c5c643cd3c428b0a0ec605ed1519a0873e2970bde0fc8d605e98052777",
+      "digest": "sha256:c30373c5c643cd3c428b0a0ec605ed1519a0873e2970bde0fc8d605e98052777"
+    }
+  },
+  "terminalIdentity": {
+    "terminalDigest": "sha256:0c5c847ba9b484eab840bb035e899d7050d39dd05e512c774f4bbf80a1f748e9",
+    "result": {
+      "ref": "result://abiogenesis/84817d060a569d56c185ec7820558b027f34e110b0544178a0dab833c7923242",
+      "digest": "sha256:84817d060a569d56c185ec7820558b027f34e110b0544178a0dab833c7923242"
+    },
+    "contract": {
+      "ref": "contract://abiogenesis/worksite/native-work/observation@5",
+      "digest": "sha256:e99c9eb1b4838652e97ab3df28b6d9b14d9558ac4ebd0772669f3df44720f152"
+    },
+    "valueKind": "native_workspace_work_observation",
+    "valueDigest": "sha256:745e9c0a96d29df6faa7d2ecf74d6399bf9984a5146a0b45afd17048b0b81540",
+    "producerDigest": "sha256:558479f453d7b243c0add9143d8792e4900ff9543f08daf4b43bf9f885fba075",
+    "valueCanonicalDigest": "sha256:745e9c0a96d29df6faa7d2ecf74d6399bf9984a5146a0b45afd17048b0b81540",
+    "sourcePointer": "/receipt/ownerOutput/value/terminalResult"
+  },
+  "ownerReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/execution/execution.json",
+    "bytes": 53319024,
+    "sha256": "8d7cb7071bddd26de8d1f0c35c0dc56fa1b539edbd4a9edabace685816cee97c"
+  },
+  "ownerValuePointer": "/receipt/ownerOutput/value/terminalResult/value",
+  "standing": "Actual owner receipt and exact physical row agree; no event admission or whole-history decoding."
+}

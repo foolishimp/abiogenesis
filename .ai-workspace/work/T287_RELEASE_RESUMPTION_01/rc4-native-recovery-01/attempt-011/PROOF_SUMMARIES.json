@@ -1,0 +1,207 @@
+{
+  "attribution": "Native010 scripted installed author evidence, not formal C2/UAT or real-native Root witness",
+  "summaries": {
+    "retained-source": {
+      "runA": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+      "runB": "run://abiogenesis/286edd6d0eb805fa856146cab50fabc88197ea233ad97bf342a4691d5116b5d3",
+      "sourceBasisRef": "invocation-source-result://abiogenesis/ca8241f3f807c856f30fc600370c13b8f34294dec237131c149c56eef161a676",
+      "sourceResultRef": "result://abiogenesis/a0e40af3e43f85b1185c6699538d8568272d92c93cb2119fa6dcdb19693aca10",
+      "nativeResultRef": "result://abiogenesis/f641a4d04eac79790607aaf00331986f2c780b6f673819f5f9ac7e25d801a73d",
+      "pendingCursorRef": "traversal-cursor://abiogenesis/c5ddef9cbd6096ea8e4cd115c0092b9bdce109f7be5e3280687f868cb70af80a",
+      "choicesB": [
+        "graph-function://abiogenesis/default-library/testing@5",
+        "graph-function://abiogenesis/default-library/uat@5"
+      ],
+      "actorRolesA": [
+        "select:graph-function://abiogenesis/default-library/construction@5",
+        "native",
+        "select:null"
+      ],
+      "actorRolesB": [
+        "select:graph-function://abiogenesis/default-library/testing@5",
+        "c2",
+        "select:graph-function://abiogenesis/default-library/uat@5",
+        "assess"
+      ],
+      "interruption": {
+        "hook": "test-only native fsync -> owner historical decode -> first durable Testing-wrapper cursor entry",
+        "processId": 27665,
+        "signal": "SIGKILL",
+        "eventCount": 416,
+        "entered": [
+          {
+            "eventId": "event://abiogenesis/558f22c4eeb3daec60e3145398357014cb0677d4df7c75cba1db8fc09e19b115",
+            "cursorRef": "traversal-cursor://abiogenesis/c5ddef9cbd6096ea8e4cd115c0092b9bdce109f7be5e3280687f868cb70af80a"
+          }
+        ],
+        "openedAtInterruption": 0
+      },
+      "lineage": [
+        {
+          "path": "design/implementation-design.md",
+          "digest": "sha256:b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145",
+          "holderEvent": "event://abiogenesis/ef2ada0830277842afb57e253756790cf9ce410392539ae697413dfd675c8e1a",
+          "holderResult": "result://abiogenesis/d472f562334f5558a5211676510ba4552537d67681d0f2ec8e81bae3c2355c49",
+          "holderRun": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+          "memberPath": [
+            "context",
+            "entries",
+            0
+          ]
+        },
+        {
+          "path": "design/test-design.md",
+          "digest": "sha256:617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406",
+          "holderEvent": "event://abiogenesis/ef2ada0830277842afb57e253756790cf9ce410392539ae697413dfd675c8e1a",
+          "holderResult": "result://abiogenesis/d472f562334f5558a5211676510ba4552537d67681d0f2ec8e81bae3c2355c49",
+          "holderRun": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+          "memberPath": [
+            "context",
+            "entries",
+            1
+          ]
+        },
+        {
+          "path": "source/basic-cli.oracle.json",
+          "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+          "holderEvent": "event://abiogenesis/ef2ada0830277842afb57e253756790cf9ce410392539ae697413dfd675c8e1a",
+          "holderResult": "result://abiogenesis/d472f562334f5558a5211676510ba4552537d67681d0f2ec8e81bae3c2355c49",
+          "holderRun": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+          "memberPath": [
+            "context",
+            "entries",
+            3
+          ]
+        },
+        {
+          "path": "source/original-basic-cli.txt",
+          "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+          "holderEvent": "event://abiogenesis/ef2ada0830277842afb57e253756790cf9ce410392539ae697413dfd675c8e1a",
+          "holderResult": "result://abiogenesis/d472f562334f5558a5211676510ba4552537d67681d0f2ec8e81bae3c2355c49",
+          "holderRun": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+          "memberPath": [
+            "context",
+            "entries",
+            4
+          ]
+        },
+        {
+          "path": "source/witness-contract.md",
+          "digest": "sha256:29e669318aa0c9dc2fceca23f8caf22b01e475cd3f918070f980c70ac00355b3",
+          "holderEvent": "event://abiogenesis/ef2ada0830277842afb57e253756790cf9ce410392539ae697413dfd675c8e1a",
+          "holderResult": "result://abiogenesis/d472f562334f5558a5211676510ba4552537d67681d0f2ec8e81bae3c2355c49",
+          "holderRun": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+          "memberPath": [
+            "context",
+            "entries",
+            5
+          ]
+        },
+        {
+          "path": "specification/project-conformance.md",
+          "digest": "sha256:9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81",
+          "holderEvent": "event://abiogenesis/ef2ada0830277842afb57e253756790cf9ce410392539ae697413dfd675c8e1a",
+          "holderResult": "result://abiogenesis/d472f562334f5558a5211676510ba4552537d67681d0f2ec8e81bae3c2355c49",
+          "holderRun": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+          "memberPath": [
+            "context",
+            "entries",
+            6
+          ]
+        },
+        {
+          "path": "test/component/hello-cli.test.mjs",
+          "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+          "holderEvent": "event://abiogenesis/ef2ada0830277842afb57e253756790cf9ce410392539ae697413dfd675c8e1a",
+          "holderResult": "result://abiogenesis/d472f562334f5558a5211676510ba4552537d67681d0f2ec8e81bae3c2355c49",
+          "holderRun": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+          "memberPath": [
+            "context",
+            "entries",
+            8
+          ]
+        },
+        {
+          "path": "test/uat/hello-cli.uat.test.mjs",
+          "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+          "holderEvent": "event://abiogenesis/ef2ada0830277842afb57e253756790cf9ce410392539ae697413dfd675c8e1a",
+          "holderResult": "result://abiogenesis/d472f562334f5558a5211676510ba4552537d67681d0f2ec8e81bae3c2355c49",
+          "holderRun": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+          "memberPath": [
+            "context",
+            "entries",
+            9
+          ]
+        },
+        {
+          "path": "test-execution-plan.json",
+          "digest": "sha256:e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350",
+          "holderEvent": "event://abiogenesis/ef2ada0830277842afb57e253756790cf9ce410392539ae697413dfd675c8e1a",
+          "holderResult": "result://abiogenesis/d472f562334f5558a5211676510ba4552537d67681d0f2ec8e81bae3c2355c49",
+          "holderRun": "run://abiogenesis/bef421b7980fd400d7bcf18b394475f5c8a5906c1e4a86d0582283208c0179af",
+          "memberPath": [
+            "context",
+            "entries",
+            7
+          ]
+        }
+      ],
+      "bornInB": [
+        "generated/hello-world.mjs"
+      ],
+      "promptDigest": "sha256:fb7a7c8c40430d474a982c90e70242b0d8e1b960a673a8fd088091e4a79b7076",
+      "eventsA": 309,
+      "eventsInterrupted": 416,
+      "eventsFinal": 731,
+      "finalLogSha256": "sha256:5ff31a71b72f949a7524208ce94397bd958729f83d36d77e47bec59b70737a94",
+      "resumeWallMs": 29012.639292000007,
+      "hostWallMs": 8586.243292,
+      "proofLimit": "Actual installed default-library topology, Public start and run.continue CLI, ABG/HoG/C2/worksite owners and SIGKILL interruption; the model is a scripted stand-in process. Not a live provider and not Root's installed witness."
+    },
+    "pending-testing": {
+      "runId": "run://abiogenesis/d88f718098300a640406d8982a0bfd441e7eaa5a398453f683ade9e79fd62f35",
+      "continuationRef": "continuation://abiogenesis/2f7e12af92cbe1d99526ab0ddb6cd54c92cbb5378fbc0a21bf7203d082c10ca2",
+      "chain": [
+        "root",
+        "recursion",
+        "workflow"
+      ],
+      "pendingCursorRef": "traversal-cursor://abiogenesis/07084d1bf3aef37bf83fa9ebbd6682799fd711ffdb0b14baaf64f06e32b3f84a",
+      "progressedInputRef": "raw-admission://abiogenesis/1a3770b8d4007aeca363e2851db382d82d932860106b578da9640a4b489c39af",
+      "constructionResultRef": "result://abiogenesis/3cd07fdeaf4418149893fa1b998e9f4f30caf9a5bd028fd62e209d80c26b4e44",
+      "choices": [
+        "graph-function://abiogenesis/default-library/construction@5",
+        "graph-function://abiogenesis/default-library/testing@5",
+        "graph-function://abiogenesis/default-library/uat@5"
+      ],
+      "actorRoles": [
+        "select:graph-function://abiogenesis/default-library/construction@5",
+        "native",
+        "select:graph-function://abiogenesis/default-library/testing@5",
+        "c2",
+        "select:graph-function://abiogenesis/default-library/uat@5",
+        "assess"
+      ],
+      "interruption": {
+        "hook": "test-only native fsync -> owner historical decode -> first durable Testing-wrapper cursor entry",
+        "processId": 26314,
+        "signal": "SIGKILL",
+        "eventCount": 318,
+        "entered": [
+          {
+            "eventId": "event://abiogenesis/ab92d576c11f9d8a1c00556c6c68f5325da644a8a7907142beb0048cb914d633",
+            "cursorRef": "traversal-cursor://abiogenesis/07084d1bf3aef37bf83fa9ebbd6682799fd711ffdb0b14baaf64f06e32b3f84a"
+          }
+        ],
+        "openedAtInterruption": 0
+      },
+      "eventsInterrupted": 318,
+      "eventsFinal": 633,
+      "interruptedPrefixSha256": "sha256:8b97c672feba678c5e2f264d1ec6b42ccd2b9e1a69f78ed0d4a4dda5f3537ac0",
+      "finalLogSha256": "sha256:8e3783aa27c7fbab42c1c66298cebe9e68439d83f06141d6df7c68cacaa88eb4",
+      "resumeWallMs": 28709.563458999997,
+      "hostWallMs": 18034.479790999998,
+      "proofLimit": "Actual installed default-library topology, Public start and run.continue CLI, ABG/HoG/C2/worksite owners and SIGKILL interruption; the model is a scripted stand-in process. Same-Run only: no predecessor-Run R2 recovery, no live provider, no Root installed witness."
+    }
+  }
+}

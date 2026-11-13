@@ -1,0 +1,63 @@
+{
+  "status": "BOUNDED_PRESERVATION_CHECKED_AFTER_SUCCESSFUL_BUILD",
+  "recordedUtc": "2026-11-09T04:55:25.785108+00:00",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/PRESERVED_BEFORE.json",
+    "bytes": 1155,
+    "sha256": "d023f6dae7d102fd04caae4d1158b6c0f40f93a6df85c2b643f3158abacf1b04"
+  },
+  "mainHead": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "mainIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "mainTrackedEditedFiles": [
+    {
+      "relativePath": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 817015,
+      "sha256": "4c57b8606b481c2777b055a4245a1a7c49013595b368460d5828721b804a9372"
+    },
+    {
+      "relativePath": "specification/GOALS.md",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 168282,
+      "sha256": "4f04d84f6de75aa6f23c52199b08b643ad6c8a2c21e8d0692c63386ee9a9d2e1"
+    }
+  ],
+  "immutableRC9Archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "afterCommandReceipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/commands/after-main-head.result.json",
+      "bytes": 1095,
+      "sha256": "bed65802db6d4a0a6e78aff0b4d1862674818444525423109ee943e128b38b74"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/commands/after-main-index.result.json",
+      "bytes": 1116,
+      "sha256": "ef08408cf97185bbd8428a72efcb69eb6375e8ce193d5582797d56d1e358842f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/commands/after-main-tracked-paths.result.json",
+      "bytes": 1137,
+      "sha256": "0a25411dca5b8dfccb9d8ef9f659a4d9ae5e99f35036495c0f213474cd98ce52"
+    }
+  ],
+  "driverFinalComparison": "Successful BUILD_RESULT follows exact before/after preservation comparison, exact source reconservation and RC9 seed checks. Writer additionally re-read main index/tracking/archive hashes without invoking Product or Git.",
+  "candidateNonSourcePaths": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/SOURCE_PREPARED.json",
+      "bytes": 1081736,
+      "sha256": "04d0357334a2be8bbdd39ed4f6a10d51f1a9379746293625b4498e18bf7b9e72"
+    },
+    "excludedUntrackedPathCount": 6757,
+    "standing": "Excluded from staging and preserved by no writes; path inventory is not a complete unrelated-byte audit."
+  },
+  "noReleaseOrInstall": true,
+  "noSelectorTagPushOrMainMerge": true
+}

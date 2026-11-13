@@ -1,0 +1,11 @@
+Product Frame: unchanged fifteen ABIogenesis 5 families F01-F07,F09-F11,F13-F17 / GOAL-035/T287, F10 D5 and affected F11 qualification. Product scope and frozen source, exact STDO3.0.4/tool owners, and ABG runtime truth are distinct. No preparation result grants source, UAT, qualification or release acceptance.
+
+Root selects this operator-control Writer under ROOT_ACTIVATION.json (SHA bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f) and the admitted author03 ROOT_CONTROL_ADMISSION.json (SHA ff855fa4d46025f3107bf45ae1621e388c4ea7d0c0375bd679c146aea3ddbb7f). Write only d5-proof-03. Preserve held d5-proof-02 and every original return. This request records the existing grant; it does not activate proof.
+
+Prepare a bounded proof-only successor using the reviewed seven-command/ten-module C2 recipe, canonical offline generation/guard route, command-ID captures and existing timed prepare/dispatch scripts. Substitute only necessary new proof paths and eventual author03 source/handoff routes. Keep retained N2 evidence/capsule/rubric and Root legacy repair/profile obligations; current candidate and author return must be N3. Expect417 frozen source members and three separate N3 handoffs, subject to actual final freeze verification.
+
+Use source:none with exact physical custody; complete string instruction arrays, unique current readFirst assets, empty Testing/UAT write roots, all113 or justified successor tests, max UAT profile and genuine reports. Compare reused instrumentation/scripts and run syntax/static checks only. No new timing framework, Product scope or source work.
+
+Actual N3 native Result/SUBJECT/three handoffs/final close/resume and Root proof admission remain explicitly unbound. No moving Product reads, staging, scratch creation, owner constructor, preflight, test/build, provider/runtime/network, Git or new delegation effects. Future owner checks must establish actual source and source-to-stage correspondence, generation/guard, prompt/context fit and closed independent review standing before dependent proof.
+
+Return compact concrete controls, mapping/pins, static checks and exact remaining barriers to Root. Root alone binds the actual successor subject and close, admits/stages/preflights, and activates a single proof run. Stop after closed preparation.

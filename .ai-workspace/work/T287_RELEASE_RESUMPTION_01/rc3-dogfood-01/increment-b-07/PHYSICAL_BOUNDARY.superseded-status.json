@@ -1,0 +1,67 @@
+{
+  "kind": "rc3_b07_physical_boundary",
+  "meaning": "Physical baseline captured after actual preflight; context-digest reproduction separately binds all selected files to that observation.",
+  "rows": [
+    {
+      "device": 16777231,
+      "inode": 667144519,
+      "kind": "directory",
+      "path": "/Users/jim/src/apps/abiogenesis-rc3-dogfood"
+    },
+    {
+      "device": 16777231,
+      "inode": 667201838,
+      "kind": "directory",
+      "path": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/.abiogenesis"
+    },
+    {
+      "device": 16777231,
+      "inode": 667201839,
+      "kind": "file",
+      "path": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/.abiogenesis/workspace-manifest.json",
+      "sha256": "94b9c6fb90bd8f257b7a92897ce1d1f4edb27476b6162f2f5713fdfc64c1c268"
+    },
+    {
+      "device": 16777231,
+      "inode": 667783921,
+      "kind": "file",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/events/runtime.events.jsonl"
+    },
+    {
+      "device": 16777231,
+      "inode": 667783739,
+      "kind": "directory",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/events"
+    },
+    {
+      "device": 16777231,
+      "inode": 667813911,
+      "kind": "directory",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/archives"
+    },
+    {
+      "device": 16777231,
+      "inode": 667813909,
+      "kind": "directory",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/runtime"
+    },
+    {
+      "device": 16777231,
+      "inode": 667813910,
+      "kind": "directory",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/projections"
+    },
+    {
+      "device": 16777231,
+      "inode": 667784102,
+      "kind": "directory",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/sandbox/installed/abg"
+    },
+    {
+      "device": 16777231,
+      "inode": 667802041,
+      "kind": "directory",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/sandbox/installed/test-consumer"
+    }
+  ]
+}

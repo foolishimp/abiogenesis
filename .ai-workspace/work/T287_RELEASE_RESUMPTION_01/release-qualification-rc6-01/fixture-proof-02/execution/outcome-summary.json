@@ -1,0 +1,846 @@
+{
+  "startedUtc": "2026-11-05T09:18:28.063Z",
+  "endedUtc": "2026-11-05T09:26:56.225Z",
+  "wallMs": 508147.40004100004,
+  "exitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "completed",
+  "run": {
+    "digest": "sha256:75fdef0691fc948cfa364e2ceabd2d7a5453c281be4c13936f0eb5266b89966a",
+    "ref": "run://abiogenesis/812aad09966e3567acd6d3fcede2a83e7912af6f1ff7cb1e4305464946c2e171"
+  },
+  "terminal": {
+    "contract": {
+      "digest": "sha256:31fcca7cf6e6932a7a340d47d2ec70f7525fa612b3320a65c2f06234486bcdb6",
+      "ref": "contract://abiogenesis/default-library/state@5"
+    },
+    "kind": "abg_typed_terminal_result",
+    "producer": {
+      "cCallRef": "c-call:sha256:977e416f870017ea9b99d5c00953750d6c32dbbb2c91c63326c3cd095e216cb5",
+      "executionBasis": {
+        "digest": "sha256:36a5ad44e5f9e752d83bf06d95e76a6ff880ee633a945e02a511f88304b08640",
+        "ref": "execution-basis://abiogenesis/36a5ad44e5f9e752d83bf06d95e76a6ff880ee633a945e02a511f88304b08640"
+      },
+      "graphCallRef": "graph-call://abiogenesis/52c4ddedbcef96d4e22e3ad3cbade0d66ac335a748ec83ca3ef340d8e2b7c82b",
+      "graphFunction": {
+        "digest": "sha256:8a26fbde16e0321ce958259254f19f567365f459080e035a63051997f8b1fdd0",
+        "ref": "graph-function://abi5-tests/sandbox-uat/executive@5"
+      },
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/a21280daf3c4ddd11aba9490ca98034abd748e771e71ebc059247bb0f6a8f7cb",
+      "judgmentAdmissionEventRef": "event://abiogenesis/5ecec39ae29dee8b11ce29721d74dc68068dfcc3ccc215ee8df2828f0ba95ec1",
+      "judgmentRef": "judgment://abiogenesis/17f2f79e32ef1c76060d638d41b54674ef20bf55e3722063663dcd79b85a73b6",
+      "program": {
+        "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+        "ref": "program://abi5-tests/sandbox-uat/lifecycle@5"
+      },
+      "resultAdmissionEventRef": "event://abiogenesis/8c409bea74c9de8b850fd96b7e8670e48d4cce0ac60920a94fbf082dc5acd160",
+      "runRef": "run://abiogenesis/812aad09966e3567acd6d3fcede2a83e7912af6f1ff7cb1e4305464946c2e171",
+      "terminalRoute": {
+        "digest": "sha256:0de2e144a481efb1d227a97d91dc5497c768bc13e8e0a874fd448178912128f3",
+        "ref": "traversal-route://abiogenesis/0de2e144a481efb1d227a97d91dc5497c768bc13e8e0a874fd448178912128f3"
+      }
+    },
+    "projectionBasis": {
+      "digest": "sha256:ccc54be1d29c2335aac455912bd77bb9727164fc39344b851c8fe4d76e33d60b",
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl"
+    },
+    "result": {
+      "digest": "sha256:1ffd582f14eb17f8db7418e13abb004d15aa26cfa36b5e6b4c2e9d5e25881154",
+      "ref": "result://abiogenesis/1ffd582f14eb17f8db7418e13abb004d15aa26cfa36b5e6b4c2e9d5e25881154"
+    },
+    "schemaVersion": "5.0.0",
+    "value": {
+      "kind": "governance_work_state",
+      "observations": [
+        {
+          "actorInvocationRef": "actor-invocation://abiogenesis/3f790330f72c3168262515cb07845974efd0bd1de63848a6f2b6eb40f659ded8",
+          "cCallRef": "c-call:sha256:fd6e30cdc208915cbdd0563ada9f38d4443488baeec7c89712de9f71e0953ca0",
+          "purpose": "testing",
+          "resultDigest": "sha256:700e84281b0974cd4f30bee33615c788cb2844cfe7d0f5af0e2d9ce0fcc8dd36",
+          "resultRef": "result://abiogenesis/700e84281b0974cd4f30bee33615c788cb2844cfe7d0f5af0e2d9ce0fcc8dd36",
+          "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "synthesisResultRef": "result://abiogenesis/889ca8c0c6fc8456b6480fd938de85f47c217c4dff463af0f4adcf6a36d049a9",
+          "value": {
+            "commandResults": [
+              {
+                "args": [
+                  "-cR",
+                  "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build",
+                  "build"
+                ],
+                "commandId": "command://abiogenesis/qualification/fixture-01/immutable-build",
+                "environment": [
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "HOME",
+                    "schemaVersion": "5.0.0",
+                    "value": "/Users/jim"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "LANG",
+                    "schemaVersion": "5.0.0",
+                    "value": "en_US.UTF-8"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "LC_ALL",
+                    "schemaVersion": "5.0.0",
+                    "value": "en_US.UTF-8"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "NODE_OPTIONS",
+                    "schemaVersion": "5.0.0",
+                    "value": "--max-old-space-size=8192"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "PATH",
+                    "schemaVersion": "5.0.0",
+                    "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "TMPDIR",
+                    "schemaVersion": "5.0.0",
+                    "value": "/private/tmp/abg-r6f1"
+                  }
+                ],
+                "executable": "/bin/cp",
+                "exitStatus": 0,
+                "kind": "worksite_command_result",
+                "observationDigest": "sha256:8237692ad8f736bbf41bd22973b5166a55ce5342bbb6b715245de82e39d19817",
+                "observationRef": "worksite-command-observation://abiogenesis/8237692ad8f736bbf41bd22973b5166a55ce5342bbb6b715245de82e39d19817",
+                "ordinal": 0,
+                "processSignal": null,
+                "relativeCwd": "build_tenants/abiogenesis/typescript",
+                "reportCount": 0,
+                "reports": [],
+                "schemaVersion": "5.0.0",
+                "signalSequence": [],
+                "stderr": {
+                  "byteLength": 0,
+                  "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "encoding": "utf8",
+                  "text": ""
+                },
+                "stdout": {
+                  "byteLength": 0,
+                  "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "encoding": "utf8",
+                  "text": ""
+                },
+                "terminationConfirmed": true,
+                "terminationGraceMs": 5000,
+                "timedOut": false,
+                "timeoutMs": 60000
+              },
+              {
+                "args": [
+                  "-cR",
+                  "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts",
+                  "contracts"
+                ],
+                "commandId": "command://abiogenesis/qualification/fixture-01/immutable-contracts",
+                "environment": [
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "HOME",
+                    "schemaVersion": "5.0.0",
+                    "value": "/Users/jim"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "LANG",
+                    "schemaVersion": "5.0.0",
+                    "value": "en_US.UTF-8"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "LC_ALL",
+                    "schemaVersion": "5.0.0",
+                    "value": "en_US.UTF-8"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "NODE_OPTIONS",
+                    "schemaVersion": "5.0.0",
+                    "value": "--max-old-space-size=8192"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "PATH",
+                    "schemaVersion": "5.0.0",
+                    "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "TMPDIR",
+                    "schemaVersion": "5.0.0",
+                    "value": "/private/tmp/abg-r6f1"
+                  }
+                ],
+                "executable": "/bin/cp",
+                "exitStatus": 0,
+                "kind": "worksite_command_result",
+                "observationDigest": "sha256:aa58fb6194bd98c674e82fab25c2170bfbabb2c68aaacb192e733e8c577d2dd0",
+                "observationRef": "worksite-command-observation://abiogenesis/aa58fb6194bd98c674e82fab25c2170bfbabb2c68aaacb192e733e8c577d2dd0",
+                "ordinal": 1,
+                "processSignal": null,
+                "relativeCwd": "build_tenants/abiogenesis/typescript",
+                "reportCount": 0,
+                "reports": [],
+                "schemaVersion": "5.0.0",
+                "signalSequence": [],
+                "stderr": {
+                  "byteLength": 0,
+                  "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "encoding": "utf8",
+                  "text": ""
+                },
+                "stdout": {
+                  "byteLength": 0,
+                  "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "encoding": "utf8",
+                  "text": ""
+                },
+                "terminationConfirmed": true,
+                "terminationGraceMs": 5000,
+                "timedOut": false,
+                "timeoutMs": 60000
+              },
+              {
+                "args": [
+                  "-cR",
+                  "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/node_modules",
+                  "node_modules"
+                ],
+                "commandId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies",
+                "environment": [
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "HOME",
+                    "schemaVersion": "5.0.0",
+                    "value": "/Users/jim"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "LANG",
+                    "schemaVersion": "5.0.0",
+                    "value": "en_US.UTF-8"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "LC_ALL",
+                    "schemaVersion": "5.0.0",
+                    "value": "en_US.UTF-8"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "NODE_OPTIONS",
+                    "schemaVersion": "5.0.0",
+                    "value": "--max-old-space-size=8192"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "PATH",
+                    "schemaVersion": "5.0.0",
+                    "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "TMPDIR",
+                    "schemaVersion": "5.0.0",
+                    "value": "/private/tmp/abg-r6f1"
+                  }
+                ],
+                "executable": "/bin/cp",
+                "exitStatus": 0,
+                "kind": "worksite_command_result",
+                "observationDigest": "sha256:73b2e33be04a87576b4c8ca58ac4fb31f898f800693e8bf7c615c51dec9aad82",
+                "observationRef": "worksite-command-observation://abiogenesis/73b2e33be04a87576b4c8ca58ac4fb31f898f800693e8bf7c615c51dec9aad82",
+                "ordinal": 2,
+                "processSignal": null,
+                "relativeCwd": "build_tenants/abiogenesis/typescript",
+                "reportCount": 0,
+                "reports": [],
+                "schemaVersion": "5.0.0",
+                "signalSequence": [],
+                "stderr": {
+                  "byteLength": 0,
+                  "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "encoding": "utf8",
+                  "text": ""
+                },
+                "stdout": {
+                  "byteLength": 0,
+                  "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "encoding": "utf8",
+                  "text": ""
+                },
+                "terminationConfirmed": true,
+                "terminationGraceMs": 5000,
+                "timedOut": false,
+                "timeoutMs": 60000
+              },
+              {
+                "args": [
+                  "qualification-inputs/fixture-01/c2-proof.mjs"
+                ],
+                "commandId": "command://abiogenesis/qualification/fixture-01/component-proof",
+                "environment": [
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "HOME",
+                    "schemaVersion": "5.0.0",
+                    "value": "/Users/jim"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "LANG",
+                    "schemaVersion": "5.0.0",
+                    "value": "en_US.UTF-8"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "LC_ALL",
+                    "schemaVersion": "5.0.0",
+                    "value": "en_US.UTF-8"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "NODE_OPTIONS",
+                    "schemaVersion": "5.0.0",
+                    "value": "--max-old-space-size=8192"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "PATH",
+                    "schemaVersion": "5.0.0",
+                    "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+                  },
+                  {
+                    "kind": "worksite_command_environment_entry",
+                    "name": "TMPDIR",
+                    "schemaVersion": "5.0.0",
+                    "value": "/private/tmp/abg-r6f1"
+                  }
+                ],
+                "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                "exitStatus": 0,
+                "kind": "worksite_command_result",
+                "observationDigest": "sha256:a7c6ac351e9649bd54b49139c905f28ea531e33d8fea42a77b69224d3efde8c1",
+                "observationRef": "worksite-command-observation://abiogenesis/a7c6ac351e9649bd54b49139c905f28ea531e33d8fea42a77b69224d3efde8c1",
+                "ordinal": 3,
+                "processSignal": null,
+                "relativeCwd": ".",
+                "reportCount": 0,
+                "reports": [],
+                "schemaVersion": "5.0.0",
+                "signalSequence": [],
+                "stderr": {
+                  "byteLength": 0,
+                  "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "encoding": "utf8",
+                  "text": ""
+                },
+                "stdout": {
+                  "byteLength": 547,
+                  "digest": "sha256:cfacb016f9b7c1c0a6ed01a349f01f4d42efe39be39b67f71e34d766d61114c9",
+                  "encoding": "utf8",
+                  "text": "{\"status\":\"COMPONENT_COMPLETED\",\"report\":{\"path\":\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/56cc37044f07707525db2c1333399224921521175ee5b5295a5ae035513ae0c4/0d0bcb418e70fd150bf1b7c70df6095f5c77387d3330c0f2aaa7fecbb52bd81c/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-fixture-01/component-result.json\",\"bytes\":615,\"sha256\":\"5d74ea295a51867166922264dee18b897f2fe910a486f078bcbec1a0dcbe6c5b\"}}\n"
+                },
+                "terminationConfirmed": true,
+                "terminationGraceMs": 5000,
+                "timedOut": false,
+                "timeoutMs": 660000
+              }
+            ],
+            "predicateObservations": [
+              {
+                "evidence": [
+                  {
+                    "digest": "sha256:8237692ad8f736bbf41bd22973b5166a55ce5342bbb6b715245de82e39d19817",
+                    "kind": "worksite_command_observation_coordinate",
+                    "ref": "worksite-command-observation://abiogenesis/8237692ad8f736bbf41bd22973b5166a55ce5342bbb6b715245de82e39d19817",
+                    "schemaVersion": "5.0.0"
+                  }
+                ],
+                "evidenceRefs": [
+                  "worksite-command-observation://abiogenesis/8237692ad8f736bbf41bd22973b5166a55ce5342bbb6b715245de82e39d19817"
+                ],
+                "kind": "worksite_predicate_observation",
+                "observedValue": 0,
+                "ordinal": 0,
+                "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-build/exit",
+                "predicateKind": "process_exit",
+                "schemaVersion": "5.0.0"
+              },
+              {
+                "evidence": [
+                  {
+                    "digest": "sha256:aa58fb6194bd98c674e82fab25c2170bfbabb2c68aaacb192e733e8c577d2dd0",
+                    "kind": "worksite_command_observation_coordinate",
+                    "ref": "worksite-command-observation://abiogenesis/aa58fb6194bd98c674e82fab25c2170bfbabb2c68aaacb192e733e8c577d2dd0",
+                    "schemaVersion": "5.0.0"
+                  }
+                ],
+                "evidenceRefs": [
+                  "worksite-command-observation://abiogenesis/aa58fb6194bd98c674e82fab25c2170bfbabb2c68aaacb192e733e8c577d2dd0"
+                ],
+                "kind": "worksite_predicate_observation",
+                "observedValue": 0,
+                "ordinal": 1,
+                "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-contracts/exit",
+                "predicateKind": "process_exit",
+                "schemaVersion": "5.0.0"
+              },
+              {
+                "evidence": [
+                  {
+                    "digest": "sha256:73b2e33be04a87576b4c8ca58ac4fb31f898f800693e8bf7c615c51dec9aad82",
+                    "kind": "worksite_command_observation_coordinate",
+                    "ref": "worksite-command-observation://abiogenesis/73b2e33be04a87576b4c8ca58ac4fb31f898f800693e8bf7c615c51dec9aad82",
+                    "schemaVersion": "5.0.0"
+                  }
+                ],
+                "evidenceRefs": [
+                  "worksite-command-observation://abiogenesis/73b2e33be04a87576b4c8ca58ac4fb31f898f800693e8bf7c615c51dec9aad82"
+                ],
+                "kind": "worksite_predicate_observation",
+                "observedValue": 0,
+                "ordinal": 2,
+                "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies/exit",
+                "predicateKind": "process_exit",
+                "schemaVersion": "5.0.0"
+              },
+              {
+                "evidence": [
+                  {
+                    "digest": "sha256:a7c6ac351e9649bd54b49139c905f28ea531e33d8fea42a77b69224d3efde8c1",
+                    "kind": "worksite_command_observation_coordinate",
+                    "ref": "worksite-command-observation://abiogenesis/a7c6ac351e9649bd54b49139c905f28ea531e33d8fea42a77b69224d3efde8c1",
+                    "schemaVersion": "5.0.0"
+                  }
+                ],
+                "evidenceRefs": [
+                  "worksite-command-observation://abiogenesis/a7c6ac351e9649bd54b49139c905f28ea531e33d8fea42a77b69224d3efde8c1"
+                ],
+                "kind": "worksite_predicate_observation",
+                "observedValue": 0,
+                "ordinal": 3,
+                "predicateId": "command://abiogenesis/qualification/fixture-01/component-proof/exit",
+                "predicateKind": "process_exit",
+                "schemaVersion": "5.0.0"
+              }
+            ]
+          }
+        },
+        {
+          "actorInvocationRef": "actor-invocation://abiogenesis/ed18eb5078b9fde20d7eb9983355a3a9ccfa90434e2c707564ee52e9597fed64",
+          "cCallRef": "c-call:sha256:4b1a5e60bf7f456bc8f2de08f4a6aca04a5af1fc2ff881ae441ef209479566dc",
+          "purpose": "uat",
+          "resultDigest": "sha256:e68e2402dcce170d78eff9d5403beb0cde5663d5c36188a2d419dff42b21f957",
+          "resultRef": "result://abiogenesis/e68e2402dcce170d78eff9d5403beb0cde5663d5c36188a2d419dff42b21f957",
+          "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "synthesisResultRef": "result://abiogenesis/5945cb1f45b20207085fea7e680dd673b97c73fff26b0ccdb50d3127ed0d365c",
+          "value": {
+            "disposition": "satisfied",
+            "kind": "sandbox_uat_assessment",
+            "reason": "Independent UAT of the unchanged F1-F4 rubric (rubric.json sha256:55c7d409…5a). Inputs were the frozen candidate, the closed source review and the current C2 Result 700e84…. Basis: stdo status --definition stdo_abiogenesis.json --verify returned installed true, failures [] and manifest 102817a3…5b. Every declared source digest in the assessment basis matched when recomputed. The candidate is 67553 B with sha256 b8f223b9…bbbc, equal to the frozen subject. The current C2 report was read at the exact stdout report.path: 615 B, sha256 5d74ea295a51867166922264dee18b897f2fe910a486f078bcbec1a0dcbe6c5b, as returned. Its contents: exitCode 0, signal null, error null, tests 7, pass 5, fail 0, skipped 2, empty stderr (e3b0…), failures []. Its historicalLimits and claim strings keep the component-only and historical-gate limits. It differs from the failed first Run's report (f44d98…), so it is a fresh execution. F1 satisfied. Candidate lines 121-123 put readOwnedRuntimeEventPrefixAtDurablePrefix into the existing prefixOverrides for './event_prefix.js'. That is the exact export at event_prefix.ts:85, which semantic_revision.ts:196 calls with no options. The override returns the in-memory component prefix only for the declared intake coordinate and throws for any other, so the component never opens a journal. Comments at lines 108-118 state the lookup-only assumption. The run:/related: index premise delegates key membership to the history owner's runtimeHistorySelectorKeys. semantic_revision.ts and event_prefix.ts are byte-unchanged. Limit: the undeclared-coordinate throw branch is never exercised. F2 satisfied. I count 186 assertion call sites independently. Only tests 4 and 5 carry {skip:capturedEnvelopeSkip}. That gate is skip-only while ABI5_EVIDENCE_ROOT is unset, and the C2 command environment did not contain it. The file has no t.skip, todo or subtests, so 7 = 5+0+2 means tests 1, 2, 3, 6 and 7 passed and exactly the two historical gates skipped. Test 1 has no early return, so its pass means every sequential assertion ran: the cause_absent, cause_ambiguous, ancestry, unrelated-Run, judgment-order, tampered-choice, original-root, correction and Evidence checks (lines 145-228). The closed review establishes that test bodies and skip declarations are byte-identical to the preimage. fail 0 means no newly reached failure. F3 satisfied. The closed review establishes the one-file premise/import/comment delta and retirement of the dead override. The current digests of the production owners, support files, fixtures, PRODUCT.md, the frame basis and package.json match the declared and reviewed values. The session-start git status shows only the candidate modified among tracked files. The cp commands only read the immutable install. F4 satisfied. The admitted Result shows exactly four commands. Three /bin/cp -cR commands copy build, contracts and node_modules from the installedRoot named in C2_INPUTS and DEPENDENCY_SOURCE_SELECTION into the tenant cwd. The fourth runs node 24.7.0 on c2-proof.mjs (sha256 37f8ee15…, unchanged), which runs C2_INPUTS.testFile with ABI5_GENERIC_JOB_BUILD_ROOT set to the sandbox tenant and ABI5_EVIDENCE_ROOT deleted. All four exited 0 with termination confirmed, no timeout, empty stderr and 4/4 exit predicates at 0. TMPDIR was /private/tmp/abg-r6f1. Limits kept: (1) I did not observe the raw TAP, the sandbox's copy of the candidate or the staged-tree bytes, because those archive siblings were not granted; tally and skip identity come from the report plus source structure, and RC6 artifact digest e9ffe45c… is reused from setup verification, not recomputed. (2) No whole-tree mutation audit. (3) The fixture's prefix, admission, ancestry, leaf and receipt premises are synthetic, and historical tests 4 and 5 did not run. (4) Historical evidence stays separate and attributed: the first Run's runtime_failed status, its helper refusal of the omitted test_env/test_runs parent, its earlier 5/0/2 tally, and the author's disclosed reads outside the declared list. (5) This is component proof only, with no native journal, correction, whole-D2, F11, fifteen-family or release qualification. Root's fresh reads and final conjunction are outside this result. Actions: read-only reads within the declared scope, the granted exact report read, and the stdo verify control read (any cache it writes is platform-owned). No files were written or edited, and there were no Git, network or repair effects.",
+            "unresolvedCriteria": []
+          }
+        }
+      ],
+      "original": {
+        "assessment": {
+          "candidatePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "resultContract": {
+            "contractKind": "output",
+            "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+            "contractVersion": "5.0.0",
+            "valueKind": "sandbox_uat_assessment"
+          },
+          "rubricPath": "qualification-inputs/fixture-01/rubric.json",
+          "satisfiedValue": "satisfied",
+          "schemaAsset": {
+            "bytesBase64": "eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCIkaWQiOiJjb250cmFjdDovL2FiaTUtdGVzdHMvc2FuZGJveC11YXQvYXNzZXNzbWVudEA1IiwidHlwZSI6Im9iamVjdCIsImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicmVxdWlyZWQiOlsia2luZCIsImRpc3Bvc2l0aW9uIiwicmVhc29uIiwidW5yZXNvbHZlZENyaXRlcmlhIl0sInByb3BlcnRpZXMiOnsia2luZCI6eyJjb25zdCI6InNhbmRib3hfdWF0X2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sInVucmVzb2x2ZWRDcml0ZXJpYSI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoic3RyaW5nIn19fX0K",
+            "contractId": "contract://abi5-tests/sandbox-uat/assessment@5",
+            "productId": "product://abi5-tests/sandbox-uat@5.0.0"
+          },
+          "sources": [
+            "AGENTS.md",
+            "CLAUDE.md",
+            "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+            "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+            "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+            "build_tenants/abiogenesis/typescript/package.json",
+            "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+            "qualification-inputs/fixture-01/C2_INPUTS.json",
+            "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+            "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+            "qualification-inputs/fixture-01/c2-proof.mjs",
+            "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.json",
+            "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.md",
+            "qualification-inputs/fixture-proof-02/PROOF_ONLY_GRANT.json",
+            "qualification-inputs/fixture-proof-02/ROOT_FAILURE_TRIAGE.json",
+            "qualification-inputs/fixture-proof-02/TASK.md",
+            "qualification-scratch/fixture-01/readiness.json",
+            "qualification-scratch/fixture-01/return.json",
+            "specification/PRODUCT.md",
+            "stdo_abiogenesis.json"
+          ],
+          "verdictField": "disposition"
+        },
+        "authorityRefs": [
+          "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+          "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_CONTROL_SELECTION.json"
+        ],
+        "maxContextBytes": 16777216,
+        "maxContextFiles": 128,
+        "maxPromptBytes": 1048576,
+        "readRoots": [
+          "AGENTS.md",
+          "CLAUDE.md",
+          "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+          "build_tenants/abiogenesis/typescript/package.json",
+          "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "qualification-inputs/fixture-01/C2_INPUTS.json",
+          "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+          "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+          "qualification-inputs/fixture-01/c2-proof.mjs",
+          "qualification-inputs/fixture-01/rubric.json",
+          "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.json",
+          "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.md",
+          "qualification-inputs/fixture-proof-02/PROOF_ONLY_GRANT.json",
+          "qualification-inputs/fixture-proof-02/ROOT_FAILURE_TRIAGE.json",
+          "qualification-inputs/fixture-proof-02/TASK.md",
+          "qualification-scratch/fixture-01/readiness.json",
+          "qualification-scratch/fixture-01/return.json",
+          "specification/PRODUCT.md",
+          "stdo_abiogenesis.json"
+        ],
+        "requiredSupportRefs": [
+          "support://abiogenesis/t287/n9-retained-fixture-01"
+        ],
+        "sources": [
+          {
+            "digest": "sha256:b0918c077b537d02c6de34a0f49b208e02da0990797adefb33e7d17e2aa79937",
+            "path": "qualification-inputs/fixture-proof-02/TASK.md"
+          },
+          {
+            "digest": "sha256:5d0bc022218ddac223ded05cd05a0ae30ee37709a6981a672d598531a24f5e29",
+            "path": "qualification-inputs/fixture-proof-02/PROOF_ONLY_GRANT.json"
+          },
+          {
+            "digest": "sha256:6f844b501da56a06443811a554c3004be82221828a0fb1674496ad2ad15feacc",
+            "path": "qualification-inputs/fixture-proof-02/ROOT_FAILURE_TRIAGE.json"
+          },
+          {
+            "digest": "sha256:55c7d409c89cca2f2715b948b6f9320a188fa958da5dfd248ae6f57cda2b8c5a",
+            "path": "qualification-inputs/fixture-01/rubric.json"
+          },
+          {
+            "digest": "sha256:d4c519693c53ece5d098f290a16fd71fdce6323f67bcf3f4f7f6c3056b549f55",
+            "path": "qualification-inputs/fixture-01/C2_INPUTS.json"
+          },
+          {
+            "digest": "sha256:ec354c90745999cb897f807e48496936be117c000b70bfae0001d02eab55a373",
+            "path": "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json"
+          },
+          {
+            "digest": "sha256:1ff95564606e6119be08acd15a53eca65d685511f06acfe9884026b4881de5c3",
+            "path": "qualification-inputs/fixture-01/METHOD_ACCESS.json"
+          },
+          {
+            "digest": "sha256:979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+            "path": "specification/PRODUCT.md"
+          },
+          {
+            "digest": "sha256:b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+            "path": "stdo_abiogenesis.json"
+          }
+        ],
+        "task": "# Fixture proof02: Testing and UAT of unchanged N9 repair\n\nProduct Frame: ABIogenesis5, fixed15families / GOAL-035 / T287 / exact STDO3.0.4. This invocation completes bounded N9-RETAINED-FIXTURE-01 component evidence. Product/requirements and accepted source meaning stay fixed; only the operator report-parent write territory is corrected.\n\nSelect immediate Testing of current observed files with subjectEvidenceRef=null. Only testing and uat work orders exist. Initial observations and synthesis are empty. There is no construction/design/induction/specification work order, no source write, and no prior Result injected as native state. The first Run remains runtime_failed before UAT. Its component commands actually returned4/4exit0 and5pass/0fail/2historical skips, but helper correctly refused the omitted newly created report-parent directory. Original failed Run, source Result and author failures remain historical evidence.\n\nThe frozen candidate SHA256 b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc is unchanged. Root accepted the independent bounded source review: actual owned-prefix reader plus canonical run/related selector premises; all186 assertion sites,7test bodies and2historical gates conserved. Review and author return are reuse evidence with their explicit limits, not a new native execution.\n\nRun exactly the four existing declared commands. They stage build/contracts/node_modules from the verified immutable global RC6 install into the fresh C2 sandbox, then run the existing c2-proof wrapper. The containing test_env/test_runs subtree now includes the output parent. No compile/generate/pack/install and no new tests or changed expectations. Keep ABI5_EVIDENCE_ROOT unset. Only /private/tmp/abg-r6f1 is selected test temp; no raw provider logs or old archive bodies may be acquired.\n\nUAT assesses unchanged F1-F4 rubric against the frozen candidate, closed source review and actual current C2. Read and verify exactly the component-proof stdout report.path/bytes/sha256; it contains the actual seven-test5/0/2 tally. This exact returned report read is granted. Do not guess archive siblings or assume cleanup-prone producer paths. Preserve genuine missing evidence and refusals. Component proof is not native journal/correction/whole-D2 or release qualification.\n\nFuture Root fresh reads and final close/conjunction are separate exit duties, outside native unresolvedCriteria. Any source defect or materially different failure returns to Root without coding or repair. No Git, publication, selector or release effects.\n",
+        "taskRef": "task://abiogenesis/t287/qualification/fixture-proof-02",
+        "testing": {
+          "allowedWriteTerritories": [
+            {
+              "pathKind": "subtree",
+              "relativePath": "build_tenants/abiogenesis/typescript/build"
+            },
+            {
+              "pathKind": "subtree",
+              "relativePath": "build_tenants/abiogenesis/typescript/contracts"
+            },
+            {
+              "pathKind": "subtree",
+              "relativePath": "build_tenants/abiogenesis/typescript/node_modules"
+            },
+            {
+              "pathKind": "subtree",
+              "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs"
+            }
+          ],
+          "commands": [
+            {
+              "args": [
+                "-cR",
+                "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build",
+                "build"
+              ],
+              "commandId": "command://abiogenesis/qualification/fixture-01/immutable-build",
+              "environment": {
+                "NODE_OPTIONS": "--max-old-space-size=8192",
+                "TMPDIR": "/private/tmp/abg-r6f1"
+              },
+              "executable": "/bin/cp",
+              "expectedReports": [],
+              "relativeCwd": "build_tenants/abiogenesis/typescript",
+              "terminationGraceMs": 5000,
+              "timeoutMs": 60000
+            },
+            {
+              "args": [
+                "-cR",
+                "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts",
+                "contracts"
+              ],
+              "commandId": "command://abiogenesis/qualification/fixture-01/immutable-contracts",
+              "environment": {
+                "NODE_OPTIONS": "--max-old-space-size=8192",
+                "TMPDIR": "/private/tmp/abg-r6f1"
+              },
+              "executable": "/bin/cp",
+              "expectedReports": [],
+              "relativeCwd": "build_tenants/abiogenesis/typescript",
+              "terminationGraceMs": 5000,
+              "timeoutMs": 60000
+            },
+            {
+              "args": [
+                "-cR",
+                "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/node_modules",
+                "node_modules"
+              ],
+              "commandId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies",
+              "environment": {
+                "NODE_OPTIONS": "--max-old-space-size=8192",
+                "TMPDIR": "/private/tmp/abg-r6f1"
+              },
+              "executable": "/bin/cp",
+              "expectedReports": [],
+              "relativeCwd": "build_tenants/abiogenesis/typescript",
+              "terminationGraceMs": 5000,
+              "timeoutMs": 60000
+            },
+            {
+              "args": [
+                "qualification-inputs/fixture-01/c2-proof.mjs"
+              ],
+              "commandId": "command://abiogenesis/qualification/fixture-01/component-proof",
+              "environment": {
+                "NODE_OPTIONS": "--max-old-space-size=8192",
+                "TMPDIR": "/private/tmp/abg-r6f1"
+              },
+              "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+              "expectedReports": [],
+              "relativeCwd": ".",
+              "terminationGraceMs": 5000,
+              "timeoutMs": 660000
+            }
+          ],
+          "outcomePredicates": [
+            {
+              "declaration": {
+                "equals": 0,
+                "validationCommandId": "command://abiogenesis/qualification/fixture-01/immutable-build"
+              },
+              "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-build/exit",
+              "predicateKind": "process_exit"
+            },
+            {
+              "declaration": {
+                "equals": 0,
+                "validationCommandId": "command://abiogenesis/qualification/fixture-01/immutable-contracts"
+              },
+              "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-contracts/exit",
+              "predicateKind": "process_exit"
+            },
+            {
+              "declaration": {
+                "equals": 0,
+                "validationCommandId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies"
+              },
+              "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies/exit",
+              "predicateKind": "process_exit"
+            },
+            {
+              "declaration": {
+                "equals": 0,
+                "validationCommandId": "command://abiogenesis/qualification/fixture-01/component-proof"
+              },
+              "predicateId": "command://abiogenesis/qualification/fixture-01/component-proof/exit",
+              "predicateKind": "process_exit"
+            }
+          ],
+          "selectedPaths": [
+            "AGENTS.md",
+            "CLAUDE.md",
+            "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+            "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+            "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+            "build_tenants/abiogenesis/typescript/package.json",
+            "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+            "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+            "qualification-inputs/fixture-01/C2_INPUTS.json",
+            "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+            "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+            "qualification-inputs/fixture-01/c2-proof.mjs",
+            "qualification-inputs/fixture-01/rubric.json",
+            "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.json",
+            "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.md",
+            "qualification-inputs/fixture-proof-02/PROOF_ONLY_GRANT.json",
+            "qualification-inputs/fixture-proof-02/ROOT_FAILURE_TRIAGE.json",
+            "qualification-inputs/fixture-proof-02/TASK.md",
+            "qualification-scratch/fixture-01/readiness.json",
+            "qualification-scratch/fixture-01/return.json",
+            "specification/PRODUCT.md",
+            "stdo_abiogenesis.json"
+          ]
+        },
+        "workOrders": {
+          "testing": {
+            "checks": [],
+            "instructions": [
+              "Select immediate Testing with subjectEvidenceRef=null; only current frozen source and no construction order. Run complete unchanged four-command plan; use actual returned report."
+            ],
+            "outcome": "Prove unchanged N9 fixture through prescribed current C2 and corrected parent territory.",
+            "readFirst": [
+              "qualification-inputs/fixture-proof-02/TASK.md",
+              "qualification-inputs/fixture-proof-02/PROOF_ONLY_GRANT.json",
+              "qualification-inputs/fixture-proof-02/ROOT_FAILURE_TRIAGE.json",
+              "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.md",
+              "qualification-inputs/fixture-01/rubric.json",
+              "qualification-inputs/fixture-01/C2_INPUTS.json",
+              "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+              "qualification-inputs/fixture-01/c2-proof.mjs"
+            ],
+            "writeRoots": []
+          },
+          "uat": {
+            "checks": [],
+            "instructions": [
+              "Read exact authenticated stdout report.path/bytes/sha256 and verify current5/0/2. Preserve all existing limits and failed first Run. Root future fresh reads/conjunction are outside native unresolvedCriteria. No repair or new functionality."
+            ],
+            "outcome": "Assess unchanged F1-F4 bounded fixture rubric using current C2 and closed source review.",
+            "readFirst": [
+              "qualification-inputs/fixture-proof-02/TASK.md",
+              "qualification-inputs/fixture-proof-02/PROOF_ONLY_GRANT.json",
+              "qualification-inputs/fixture-proof-02/ROOT_FAILURE_TRIAGE.json",
+              "qualification-inputs/fixture-proof-02/INDEPENDENT_SOURCE_REVIEW.md",
+              "qualification-inputs/fixture-01/rubric.json",
+              "qualification-inputs/fixture-01/C2_INPUTS.json",
+              "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+              "qualification-inputs/fixture-01/c2-proof.mjs"
+            ],
+            "writeRoots": []
+          }
+        }
+      },
+      "schemaVersion": "5.0.0",
+      "synthesis": {
+        "basis": {
+          "contextRef": "worksite-context-observation://abiogenesis/e5cafc265ea041bfe87deef7763837a13fa5a5fc1c1fba04ff3220674ef5c8bd",
+          "environmentDigest": "sha256:c1b7207cedbf2467285d8152e7430fb2274e43d17b77985b8ecc9d35af7ec06a",
+          "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+          "frameEvidenceDigest": "sha256:fdf7c115ffbcf5cf62fde860103aeeac721851bdcccd15484213fc582d66beaa",
+          "frameRefs": [
+            "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md#control-intake",
+            "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md#evaluate-the-return",
+            "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md#issue",
+            "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md#review-flow-from-the-selected-basis",
+            "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md#product-basis-selection",
+            "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md#stdo-work",
+            "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md#8-derived-executive-frame"
+          ],
+          "inputDigest": "sha256:a85e49abecec59cc71b814e28af306a411a7a58762ffb59cc7efd9d17d0320d0",
+          "inputRef": "result://abiogenesis/3ed0f0603b6028b86a6cabe9b24818cd0b6f7b45607d73881ccc79cbcaddd7ca",
+          "previousResultRef": "result://abiogenesis/889ca8c0c6fc8456b6480fd938de85f47c217c4dff463af0f4adcf6a36d049a9",
+          "taskRef": "task://abiogenesis/t287/qualification/fixture-proof-02"
+        },
+        "judgment": {
+          "contributions": [
+            {
+              "contribution": "Independently assess the unchanged F1–F4 rubric (qualification-inputs/fixture-01/rubric.json) against three inputs: the frozen candidate (sha256 b8f223b9…bbbc, 67553 B), the closed independent source review (INDEPENDENT_SOURCE_REVIEW.json/.md, 186 assertion sites, 7 test bodies and 2 historical gates conserved), and the exact current C2 measurement Result 700e84…. Read only the exact returned component-proof report at the stdout report.path. Verify it is 615 bytes with sha256 5d74ea295a51867166922264dee18b897f2fe910a486f078bcbec1a0dcbe6c5b, then confirm from its contents the actual seven-test tally of 5 pass / 0 fail / 2 existing historical skips. Do not guess archive siblings, assume cleanup-prone producer paths, read raw provider logs or old archive bodies, or set ABI5_EVIDENCE_ROOT. If the report is unavailable or does not match its bytes/digest, record that as missing or contradictory evidence instead of inferring success. Check F4 correspondence: the four commands staged build/contracts/node_modules from the verified immutable RC6 install (artifact sha256:e9ffe45c…) and ran the existing wrapper unchanged. Keep component limits and historical exclusions truthful. Keep the failed first Run (runtime_failed), its helper refusal, the earlier 5/0/2 tally and the acquisition-conformance observation as historical evidence; none of them substitutes for the current C2. Make no edits or repairs and certify nothing from report presence, exit codes or stage counts alone. Return the verdict in the disposition field, with unmet or indeterminate criteria explicit. Any source defect or materially different failure returns to Root. Root's fresh reads, conjunction and native journal, whole-D2 and release qualification stay outside unresolvedCriteria.",
+              "dependsOn": [],
+              "evidenceRefs": [
+                "task://abiogenesis/t287/qualification/fixture-proof-02",
+                "worksite-context-observation://abiogenesis/e5cafc265ea041bfe87deef7763837a13fa5a5fc1c1fba04ff3220674ef5c8bd",
+                "result://abiogenesis/700e84281b0974cd4f30bee33615c788cb2844cfe7d0f5af0e2d9ce0fcc8dd36",
+                "result://abiogenesis/889ca8c0c6fc8456b6480fd938de85f47c217c4dff463af0f4adcf6a36d049a9"
+              ],
+              "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+              "reason": "The task requires native UAT of F1–F4 once a current C2 measurement exists. Testing has now produced that Result (700e84…), with all four declared commands and predicates observed at exit 0 and an authenticated report coordinate returned. It is the exact subject in the UAT subject domain. The C2 measurement is only observation provenance, so an independent assessment is still required before any bounded acceptance can be projected by the parent.",
+              "supportRefs": [
+                "support://abiogenesis/t287/n9-retained-fixture-01"
+              ]
+            }
+          ],
+          "gaps": [],
+          "interpretation": "Proof-only re-entry for the bounded N9-RETAINED-FIXTURE-01 component. Product, requirements, accepted source meaning and the frozen candidate are fixed. The candidate is t287-native-semantic-revision.test.mjs, sha256 b8f223b9…bbbc, 67553 B, and the observed worksite digest still matches. The Testing contribution from the prior judgment (result 889ca8…) has now run and produced the current C2 measurement Result 700e84…. It ran exactly the four declared commands: three /bin/cp stagings from the verified immutable RC6 install, then node qualification-inputs/fixture-01/c2-proof.mjs. Each exited 0 with termination confirmed and no timeout. The three cp commands produced empty stdout and stderr. All four declared exit==0 predicates observed 0. The component-proof stdout (547 B, complete) returned status COMPONENT_COMPLETED with report.path …/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-fixture-01/component-result.json, bytes 615, sha256 5d74ea295a51867166922264dee18b897f2fe910a486f078bcbec1a0dcbe6c5b. That digest differs from the failed first Run's report (f44d98…), as a fresh execution should; the historical report is not a substitute. This Result is a measurement observation and not application acceptance. The planning view does not itself show the seven-test 5/0/2 tally or the helper's territory-delta judgment, so those must come from the granted exact report read and the admitted Result, not be assumed. The historical failed Run, the earlier refusal, the author's acquisition-conformance observation and the closed independent source review keep their attributed scope and stated limits. Induction, Specification, Design and Construction are not applicable: there are no work orders, no source write and no repair mandate. UAT is the remaining native contribution. Root's later fresh reads, close/conjunction and wider D2/release qualification are separate exit duties.",
+          "nextEvidenceRefs": [
+            "task://abiogenesis/t287/qualification/fixture-proof-02",
+            "worksite-context-observation://abiogenesis/e5cafc265ea041bfe87deef7763837a13fa5a5fc1c1fba04ff3220674ef5c8bd",
+            "result://abiogenesis/700e84281b0974cd4f30bee33615c788cb2844cfe7d0f5af0e2d9ce0fcc8dd36",
+            "result://abiogenesis/889ca8c0c6fc8456b6480fd938de85f47c217c4dff463af0f4adcf6a36d049a9"
+          ],
+          "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "nextReason": "The selected Testing run is complete. Current C2 Result 700e84… records the unchanged four-command plan with 4/4 exit 0, 4/4 predicates satisfied and an authenticated component-proof report coordinate (615 B, sha256 5d74ea…). The task assigns UAT as the next and only remaining native contribution. It must check the exact report's 5/0/2 tally and judge F1–F4 independently against the frozen candidate and closed source review. Rerunning Testing would add no information: the frozen candidate and the plan are unchanged. Construction, Design, Specification and Induction have no work order or mandate.",
+          "revisionEvidenceRefs": [
+            "result://abiogenesis/700e84281b0974cd4f30bee33615c788cb2844cfe7d0f5af0e2d9ce0fcc8dd36",
+            "result://abiogenesis/889ca8c0c6fc8456b6480fd938de85f47c217c4dff463af0f4adcf6a36d049a9"
+          ],
+          "revisionReason": "This revises the prior judgment (889ca8…), which selected Testing and held UAT until a current C2 Result existed. That Result now exists (700e84…), with the declared four-command plan observed at exit 0 throughout and the report coordinate returned, so the blocking condition is discharged. The completed Testing contribution is cited as evidence rather than repeated as a member to re-run. The UAT scope is unchanged except that it now binds the exact fresh report digest 5d74ea…, not the historical f44d98….",
+          "subjectEvidenceRef": "result://abiogenesis/700e84281b0974cd4f30bee33615c788cb2844cfe7d0f5af0e2d9ce0fcc8dd36"
+        },
+        "resultDigest": "sha256:5945cb1f45b20207085fea7e680dd673b97c73fff26b0ccdb50d3127ed0d365c",
+        "resultRef": "result://abiogenesis/5945cb1f45b20207085fea7e680dd673b97c73fff26b0ccdb50d3127ed0d365c"
+      },
+      "terminal": true,
+      "unresolvedSupportRefs": []
+    },
+    "valueDigest": "sha256:48af76b62a1c420d002b0e1b105388e3778286ee4404187e9d5676c4feb1e965",
+    "valueKind": "governance_work_state"
+  },
+  "qualified": false,
+  "meaning": "Native return; independent source review and actual C2/UAT determine bounded acceptance."
+}

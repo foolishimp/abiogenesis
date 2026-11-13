@@ -1,0 +1,27 @@
+{
+  "status": "PREPARED_EXACT_TOOL_PIN_PROJECTION_CORRECTION",
+  "at": "2026-11-07T09:22:28.098473+00:00",
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-003.mjs",
+    "bytes": 9290,
+    "sha256": "c66493aa3d20640b4af59d74750c3e5eb26656d04b09f76ca260328f4463af5c"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/REENTRY_DIFF_003.patch",
+    "bytes": 1805,
+    "sha256": "07c9493623061507d3352aecc240bb041e772bf9dddffc18cf0f53a07a4102ca"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/PREPARATION_REENTRY_002.json",
+    "bytes": 2419,
+    "sha256": "18a8691278836a1c0d13c5e2ce22e51c2d8a0f9b1ee834e0a85559023c1d029c"
+  },
+  "preservedFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/COORDINATE_PREFLIGHT_FAILURE_002.json",
+    "bytes": 718,
+    "sha256": "82b1ef7ffe6685b63299ccc44056f72c09769403e894bac1bb9579df3b30e049"
+  },
+  "onlyChange": "Project toolPins to their path/bytes/sha256 integrity triple using existing A8 proof-owner pattern; retain name for executable links.",
+  "allOtherRecipeBytesUnchanged": true,
+  "rootDisposition": "Root selected this exact correction and immediate coordinate proof then conditional SAS. Operator and Root missed the descriptor-shape mismatch; bytes/hash were exact and no allocation/test ran. General checked function and all source/bounds/env/oracles/bindings unchanged."
+}

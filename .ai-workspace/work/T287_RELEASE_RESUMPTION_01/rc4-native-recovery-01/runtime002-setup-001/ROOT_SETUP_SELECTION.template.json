@@ -1,0 +1,11 @@
+{
+  "kind": "rc4_native_recovery_root_setup_selection",
+  "status": "TEMPLATE_NOT_SELECTION",
+  "operator": "Root",
+  "bindingSha256": "ROOT_SELECTS_EXACT_BINDING",
+  "providerDispatch": false,
+  "allowedStages": [
+    "setup"
+  ],
+  "decision": "Root may select ordinary workspace.open plus fresh runtime002 install/bind/catalog/conformance only. No lifecycle/provider/native task, retry, recovery or acceptance; preserve existing workspace manifest and all runtime001 history."
+}

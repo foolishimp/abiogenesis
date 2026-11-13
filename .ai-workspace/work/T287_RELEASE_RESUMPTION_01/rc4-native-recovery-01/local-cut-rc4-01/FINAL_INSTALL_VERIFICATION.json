@@ -1,0 +1,99 @@
+{
+  "status": "BOUNDED_LOCAL_RC4_CUT_AND_OWNER_INSTALL_COMPLETE_FILE_VERIFIED",
+  "recordedAt": "2026-11-03T04:11:05.868142+00:00",
+  "rootToolAttribution": {
+    "session": 79955,
+    "finalChunk": "251333",
+    "exitCode": 0,
+    "reportedStatus": "local_cut_and_owner_install_completed",
+    "rawTerminalCapture": null,
+    "basis": "Root-reported actual tool output, independently conjoined with actual producer files; no raw terminal file invented"
+  },
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.4/node_modules/@abiogenesis/typescript-tenant",
+  "sourceCommit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+  "sourceTree": "6ff1f9c51c6353abfaf01ced28a2f243a7a54d4d",
+  "trackedClean": true,
+  "indexEmpty": true,
+  "adoptedSourceFilesMatchCheckpoint": true,
+  "checksumsFile": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/SHA256SUMS",
+    "bytes": 988,
+    "sha256": "b447504bb5dcdf25b98c895671ce878a5178e05d47891e1803c693d4e27687e9"
+  },
+  "verifiedChecksumEntries": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+      "bytes": 10971457,
+      "sha256": "f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 1444,
+      "sha256": "bbb40c38007fde0a9f330e00098611072fb2db10c4e6561ce627646983ceaabb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 5560,
+      "sha256": "289ad4173b77719ff0bc001d5de2c9f23a91b05b0c04e3c76be849620a4edecd"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/ROOT_AUTHORITY.md",
+      "bytes": 2590,
+      "sha256": "3733ae763e8e5e4a69bc1dc54a87dbfa868003fcb8cebd1f315a85ce9416b6e6"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/RESIDUALS.md",
+      "bytes": 1258,
+      "sha256": "09c37e6d974728d3700024bf6abbb1d98e4e42092822bf9010e20ac1a44aafd2"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/INPUT_MANIFEST.json",
+      "bytes": 11321,
+      "sha256": "392daf56b628641f4070ab330e37c8b584cadbc669f72146fe85e51ecba5658d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/verification.json",
+      "bytes": 15906360,
+      "sha256": "a898374a9c551309a8c5c2350f8d22824a720dd52a11ce858b439cbdc9ecfb91"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/resolved-lock.json",
+      "bytes": 4574927,
+      "sha256": "c583552c5bab8ea6cd0afe45ec9dcfd2741cd4555ef161c245b0c32edfc87dfd"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/installation.json",
+      "bytes": 4242784,
+      "sha256": "ca206876840dce8066dce77651d24da1a0c7581f6cb7d08a8f119d7d729999ec"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/payload-correspondence.json",
+      "bytes": 1034317,
+      "sha256": "07c1fa9fe4b46da0dc3e62f4de33cd8035ec252c4e78f003e32941ff79466bab"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/LOCAL_CUT_RECORD.json",
+      "bytes": 2381,
+      "sha256": "1e93fb578c18d6d936c3384b01b462749888f72504a700b27bce4f4a80ae9038"
+    }
+  ],
+  "actualPayloadCorrespondence": {
+    "members": 5321,
+    "archiveToInstalledByteEqual": true,
+    "ownerInventoryRowsMatched": true,
+    "ownerInventoryDigest": "sha256:f62cda0e99a23b92eee7537450770e0d4ea21755b123bb21730e3916f11b66ca"
+  },
+  "ownerVerifierCheckedPayloadFiles": 5319,
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false,
+  "providerCalls": 0,
+  "nativeRuns": 0,
+  "limits": [
+    "File-only completion verification, not a new Product/Runtime/test invocation.",
+    "Prior019 red and020 failure remain preserved;021 successor proof owns setup completion.",
+    "Cold-history performance, ambient keys beyond PATH/TMPDIR, full qualification and release/publication remain outside this cut; no universal efficiency claim.",
+    "No push, tag, main merge, global-selector change or further activation."
+  ]
+}

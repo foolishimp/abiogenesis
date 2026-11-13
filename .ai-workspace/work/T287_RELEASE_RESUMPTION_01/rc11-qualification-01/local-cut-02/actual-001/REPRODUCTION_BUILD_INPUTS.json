@@ -1,0 +1,15 @@
+{
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "contractSeedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/CONTRACT_SEED_INVENTORY.json",
+    "bytes": 41794,
+    "sha256": "17aa6d466007ec56173587205f9ad0a7d458b3bdfc272ed5b8a9fb7dde750636"
+  },
+  "seededContracts": [],
+  "sourceWins": true,
+  "productRuntimeImportsFromDependencyCheckout": false
+}

@@ -1,0 +1,22 @@
+{
+  "file": "test_env/tests/steel-consumer-declaration.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 0,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 1 - Thread 2: independent data-only declarations through actual installed Public # SKIP ABI5_STEEL02_EVIDENCE_PATH or ABI5_WAVE1_FROZEN_ARTIFACT_PATH unset; requires exact frozen artifact/install and a fresh retained evidence directory",
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/043-steel-consumer-declaration.test/process.json",
+    "bytes": 1089,
+    "sha256": "2281c37012bbc3b87f95219c81c07553767690c452ffdb945776d89bc74d9332"
+  }
+}

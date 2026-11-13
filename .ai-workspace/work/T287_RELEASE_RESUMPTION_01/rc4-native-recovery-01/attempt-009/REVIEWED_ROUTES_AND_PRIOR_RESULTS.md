@@ -1,0 +1,15 @@
+# Reviewed exact365 routes and retained evidence
+
+Root/independent review: native_worksite_execution.ts189–211 permits authenticated cross-Run retained source via hasAdmittedGovernanceSourceUse. invocation_admission.ts634–656 chooses producer invocation/Run only for sourceReacquisition and otherwise combines native Result0dbf with current008 invocation. Carry the authenticated producer coordinates through that existing source-basis owner; preserve consumer parent/admitted preparation/route/currentness/grant. Source unchanged-context coverage is necessary beyond the existing reacquisition-only fixture. Actual008 task prefix577696… at cut26032; preparation26021, C2 refusal26036 and refusal Result26039.
+
+OriginalR2: event_prefix.ts939 unconditional cross-Run guard remains. Reuse authenticated source-use/pending-use and exact selected context/member/committed-holder dependency, not arbitrary ancestry or holder-only source-use. Existing continuation route: construction_continuation pending producer/judgment join; execution_basis admitted operation/replacement root/source Run/bases/cursor; HoG entry/traversal cursor reentry; worksite_input_provenance workflow foldback. Native production GovernanceWorkState follows selected Result/task. current_intent's restricted domain is conserved. Fresh retained work is not exact pending-frontier recovery. Unknown effects/currentness and all native member/body refusals remain authoritative.
+
+Retire unused pendingPreparationsWeakSet at construction_continuation.ts2363/2414 and displaced duplicate pending reconstruction where the existing owner supplies the checked fact. Preserve one HoG machine. Existing history counters may support proportionate targeted native evidence; do not invent telemetry, assume repeated work is measured waste, or claim percentages without matched trials.
+
+Evidence references for Root verification, not LLM body materialization:
+- partial005 checkpoint: attempt-005/PARTIAL_CHECKPOINT.json SHA1be8800a988b0b0c48e979508378e29a4a7aa793e61994bc186e9a7350616e17.
+- scripted run10 summary SHAe4be5b9a034c79035c536763b7f0699a46bc0605585aab9d07a14d0a52240a76;1pass/0fail, scriptedmodel only; no native main C2/UAT/R2 closure.
+- attempt008/execution/outcome-summary.json SHA71881956a7dd3ed2e8b912e8ae60f535b440db53945636a2d1155fd12e6b09df; fresh-reads.json SHA9506e57571675dd7f4cf81ad06bebe43e2b3a588459eb0aa209f4289f37d1476.
+- genuine008 after-run-resume.json SHA822180ea52a030a064854baeaff75c3295bc2759b857658b08099168390ddb9f; prefix451997064/SHAebed1235a406428be46869ff8297d94b4449566858176946730ef9b25617133b, coordinate0c81672230f4d780ba1da5fbd5a978dfa55ac40a1efcad09d1546a90846cf8e1. Full100MBresume/451MBlog stay operator resources, never injected into native task context.
+
+All paths in the causal owner list are already inside the52path grant. Use current exact source and retained compact evidence; no need for broad rediscovery. Native results and actual skill/test execution must be reported separately from these reviewer source findings.

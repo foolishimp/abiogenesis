@@ -1,0 +1,65 @@
+{
+  "kind": "read_only_exact_c2_current_intent_causal_projection",
+  "physicalSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/test_env/evidence/hc2-current-intent/continue-events.jsonl",
+  "sourceSha256": "e0d62b1e222a4d847f8f636d784e71ba3b575c3cea7be9828dd38ae8ad642d29",
+  "admittedOperation": {
+    "ordinal": 122,
+    "eventId": "event://abiogenesis/2327e8b3b0f49ac55ca478d1c835e7592adaa84503020934e36a82cbfe5723da",
+    "operationId": "abg.operation.run.continue",
+    "memberKey": "current_intent"
+  },
+  "stopEvent": {
+    "admissionOrdinal": 166,
+    "aggregateId": "run://abiogenesis/d71ef95f4359c7cd93737515868f19bf6a97af34bfdb756803b718cf08fcef0a",
+    "aggregateType": "run",
+    "basisId": "execution-basis://abiogenesis/5817a1a5da7d6c6af10edebe1825b772aa8d3fa75132d9b50cd7dc5ee0466682",
+    "causationEventRefs": [
+      "event://abiogenesis/ea6e89c90147debf7b99926f1b8a2b31d95c32fe8ca5791209378f2c19ac3f5f"
+    ],
+    "correlationId": "correlation://exact-intent/continue/current-intent/parent/0/workflow/0/completion/transition/route/run-stopped",
+    "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+    "eventId": "event://abiogenesis/6c6aefd8e7d681e92d2aa74a4c5eb96d3bfe3a371cc8d10f6c2f88f4c601ca73",
+    "eventTime": "2026-11-02T19:22:03.106Z",
+    "frameId": "frame://abiogenesis/c7e5e95b6dff68f3ac1213750acb73c8922822c113d1517d0e8cb67fbd0c6168",
+    "graphCallId": "graph-call://abiogenesis/5797eaeb416d3c64a022ca6951ad7d0c7b53e50469bbbb2b231c89afcc4ad93a",
+    "graphFunctionRef": "graph-function://exact-intent/root@5",
+    "kind": "run_stopped",
+    "materializationRef": "graph-materialization://abiogenesis/7c4844359f02e603dbde30f2b8d3e66ec08bb7f8d493de5d2abb3cfbc3974cd7",
+    "parentAggregateId": null,
+    "payload": {
+      "cCallRef": "c-call:sha256:29d0220d3d2aeb9d7a53449a0925b99aac16f99780e7efd13ab6e254435c5b0e",
+      "disposition": "failed",
+      "judgmentRef": "judgment://abiogenesis/933982e45ce4ec97bd2b7a0e87faccb23830b668d8269f42b2930cb6fb248bef",
+      "reasonRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22Error%22%2C%22errorCode%22%3A%22ENOENT%22%2C%22message%22%3A%22ENOENT%3A%20no%20such%20file%20or%20directory%2C%20open%20'test_env%2Fevidence%2Fhc2-current-intent%2Fconsumer-ready.txt'%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22Error%3A%20ENOENT%3A%20no%20such%20file%20or%20directory%2C%20open%20'test_env%2Fevidence%2Fhc2-current-intent%2Fconsumer-ready.txt'%5Cn%20%20%20%20at%20async%20open%20(node%3Ainternal%2Ffs%2Fpromises%3A642%3A25)%5Cn%20%20%20%20at%20async%20readFile%20(node%3Ainternal%2Ffs%2Fpromises%3A1279%3A14)%5Cn%20%20%20%20at%20async%20consumer%20(file%3A%2F%2F%2Fprivate%2Ftmp%2Fabiogenesis-rc4-runtime-01%2Fabi5-root-env-BWuxC0%2Fconsumer-additional-0%2Fnode_modules%2F%40abiogenesis-fixtures%2Fregistered-selection%2Fbuild%2Findex.js%3A26%3A6)%5Cn%20%20%20%20at%20async%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2Fprivate%2Ftmp%2Fabiogenesis-rc4-runtime-01%2Fabi5-root-env-BWuxC0%2Fconsumer%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A540%3A26)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+      "routeRef": "traversal-route://abiogenesis/d0108f48064f4df07df1fa977f5404b0b1fc4f8b3bde54e341dc0572515c8d70"
+    },
+    "payloadDigest": "sha256:40d9c23b5524840fcd9f431388d301cb27906baadc2f24e20f84aeb4f3e964bf",
+    "runId": "run://abiogenesis/d71ef95f4359c7cd93737515868f19bf6a97af34bfdb756803b718cf08fcef0a",
+    "scopeClass": "run",
+    "workflowVersion": "5.0.0"
+  },
+  "decodedDiagnostic": {
+    "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+    "errorClass": "Error",
+    "errorCode": "ENOENT",
+    "message": "ENOENT: no such file or directory, open 'test_env/evidence/hc2-current-intent/consumer-ready.txt'",
+    "messageTruncated": false,
+    "reason": "thrown",
+    "stack": "Error: ENOENT: no such file or directory, open 'test_env/evidence/hc2-current-intent/consumer-ready.txt'\n    at async open (node:internal/fs/promises:642:25)\n    at async readFile (node:internal/fs/promises:1279:14)\n    at async consumer (file:///private/tmp/abiogenesis-rc4-runtime-01/abi5-root-env-BWuxC0/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/build/index.js:26:6)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abiogenesis-rc4-runtime-01/abi5-root-env-BWuxC0/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:540:26)",
+    "stackTruncated": false,
+    "stage": "preparation"
+  },
+  "helperCwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript",
+  "cliCwd": "/private/tmp/abiogenesis-rc4-runtime-01/abi5-root-env-BWuxC0",
+  "proofRootInput": "test_env/evidence/hc2-current-intent",
+  "readyFile": {
+    "underHelperCwdExists": true,
+    "underCliCwdExists": false
+  },
+  "ownerOutput": {
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "continuationKind": "current_intent"
+  },
+  "receiptFailure": null
+}

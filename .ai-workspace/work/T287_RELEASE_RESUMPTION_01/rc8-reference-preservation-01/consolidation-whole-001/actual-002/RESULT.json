@@ -1,0 +1,21 @@
+{
+  "status": "FAILED",
+  "sourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+  "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+  "wholeFile": true,
+  "counts": null,
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/events.jsonl",
+    "bytes": 3010,
+    "sha256": "bfb724fe5c145a33ebb87e211c511e9e8ece60b622b6a77511bd20679535f4e8"
+  },
+  "wallMs": 3600075.445625,
+  "totalMs": 3740257.72575,
+  "exitCode": null,
+  "signal": "SIGTERM",
+  "timedOut": true,
+  "truncated": false,
+  "primaryPreserved": true,
+  "buildInvocations": 0,
+  "providerCalls": 0
+}

@@ -1,0 +1,297 @@
+{
+  "status": "EXACT_SOURCE_TOOLING_ACQUIRED_AND_FINITE_CHECKS_PASSED",
+  "recordedUtc": "2026-11-02T08:55:02.610492+00:00",
+  "authority": "Root separately bound Writer activation; owner conditional consolidate/uplift3.0.3 instruction under existing T287 Owner/Install/Proof frames",
+  "operativeAbiBasis": {
+    "uri": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "changed": false
+  },
+  "distribution": {
+    "repository": "/Users/jim/src/apps/specification_methodology",
+    "tag": "specification_methodology/v3.0.3",
+    "commit": "07bdb34a2d472a3b5e678f60584fd02b24a388f4",
+    "manifestSha256": "f07e6681355023e30ad8cc4c2ebecaa520ee4e75da6e140ef5a160b31082178d",
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/store/releases/v3.0.3"
+  },
+  "toolSource": {
+    "commit": "9c9626ffd20ea88a75ac8143802c13f4f828ec1c",
+    "materializedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/tools",
+    "files": 191,
+    "bytes": 25841956,
+    "pristineAfterChecks": true
+  },
+  "toolEntryPoints": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/store/releases/v3.0.3/standards/tooling/materialize.py",
+      "bytes": 9413,
+      "sha256": "1618537d414f195a08bbbe8cd0148b265158574e0fe31a985eb2799cfe21ad4e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/tools/a_c/build_tenants/graphify/code/ac_project.py",
+      "bytes": 25361,
+      "sha256": "8a87775e937b6f1641c82d650f900d0d0b6808706466ebf0a274c223193ba9c9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/tools/a_c/build_tenants/graphify/code/ac_code.py",
+      "bytes": 44198,
+      "sha256": "1c9a9b14de30f039727708da1c48ce4ba60effdd885b4a62392415c3673e0ed7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/tools/stdo_skills/build_tenants/codex/tests/verify_package.py",
+      "bytes": 7442,
+      "sha256": "c9de23a055beaf88cd354861908010989af9945911850ed9a6e6ead030ec29fe"
+    }
+  ],
+  "distributionInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/store/releases/v3.0.3/standards/tooling/TOOLING.json",
+    "bytes": 55112,
+    "sha256": "88bf8fd9ed0d91f1ae903b17498acd37b662b95f11625c5c5c2812e2cd5d4980"
+  },
+  "sourceArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/store/releases/v3.0.3/standards/tooling/sources.zip",
+    "bytes": 6965054,
+    "sha256": "172eeb57040004365671372294e5c2a42833a0f574224fb66c57cf5a30c5d4e0"
+  },
+  "readOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/store/releases/v3.0.3/standards/tooling/README.md",
+      "bytes": 6772,
+      "sha256": "0ba22a9437e43d4b7f6d544cab35d778b1406dec88f0a345e47f1fd64322add6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/store/releases/v3.0.3/standards/documentation/index.html",
+      "bytes": 2734,
+      "sha256": "4ca5db03783fb8d467f3a91d57613827c214097ad3e2f764953b7c6670e8719d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/tools/a_c/build_tenants/graphify/design/project-build.md",
+      "bytes": 4659,
+      "sha256": "fb4655ddfcca109d449e754b4cfff8acf6c74eee1b6170a81940b29354b7aa02"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/tools/stdo_skills/build_tenants/codex/README.md",
+      "bytes": 5826,
+      "sha256": "5f26ca830785526c5e1790c9f8b0a7813797e2370260b89b3f6b1bf3ed885d15"
+    }
+  ],
+  "codexInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/tools/stdo_skills/build_tenants/codex/inventory.json",
+    "bytes": 2703,
+    "sha256": "aa36b0f9aa7c0d5019ec66bc35fe741c2946b26da89e5c75416683f048303253"
+  },
+  "commandReceipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/01-install.json",
+      "bytes": 687,
+      "sha256": "62bfa540e6943b5337730859aa63c004b0ff0f2543a8e91f564765540e6ad122"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/01-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/01-install.stdout",
+      "bytes": 1047,
+      "sha256": "d1cfc080b510a8206510b300170bd59802156ffb19bf3dfebb209fb98da84d83"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/02-verify.json",
+      "bytes": 616,
+      "sha256": "4c80bdda72316fddb583bfde3705687bd349a3a068c817262b40d9faedf74208"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/02-verify.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/02-verify.stdout",
+      "bytes": 18672,
+      "sha256": "6db6e2d1f4be4f9faf25b4f402834b5f83ac7c2587f2090e5ee9da606c76ed30"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/03-resolve-materializer.json",
+      "bytes": 569,
+      "sha256": "5bd1f4623bcc00d9fd5769638cbb9377e0807ed67f9cee1491b79c7c6c664b39"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/03-resolve-materializer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/03-resolve-materializer.stdout",
+      "bytes": 270,
+      "sha256": "b855a7fbf8e9ff1e6f704f86bd2eefa0d565cc65708ab446d5d566bfb99402d9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/04-tooling-check.json",
+      "bytes": 596,
+      "sha256": "55a53be456041407fc5723a98ad6b9ea5ef3b7a7396fc98ed90b3ea177cf9800"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/04-tooling-check.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/04-tooling-check.stdout",
+      "bytes": 250,
+      "sha256": "19280cbe8d44dc30adfb9dcf59ccca5dcedc35f47572a2dee1c399b47d901cc0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/05-materialize.json",
+      "bytes": 767,
+      "sha256": "57236b6109e68220a73547a41edb92582fa84fe344dc52e35141cf9170d590d9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/05-materialize.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/05-materialize.stdout",
+      "bytes": 362,
+      "sha256": "a7bc901e1786943e9918d540d7de278b29dc4a34dcde0dfa8bf087e4c34fd3a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/06-verify-tree.json",
+      "bytes": 768,
+      "sha256": "7f745f1b62362d0e1c5ceac0c9cbe672a6cc7afd8cea7b0b7bef9aa57ee03400"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/06-verify-tree.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/06-verify-tree.stdout",
+      "bytes": 206,
+      "sha256": "a4b2657897685583b61383cee07102eb7b1bdd432860c266ffc1bb4ee103f776"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/07-project-help.json",
+      "bytes": 585,
+      "sha256": "a77bd238578a8b43a2ac4a8e969f8f2eccd84dc8ce46563f677c40d762dc90e2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/07-project-help.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/07-project-help.stdout",
+      "bytes": 276,
+      "sha256": "7ef5cb77b67f674905dc109caafb25193282ba5a55b983677f5c92b274b7fe71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/08-project-prepare-help.json",
+      "bytes": 600,
+      "sha256": "e4245bb074b0601b6f3237b44c56f9ccc2dc211cd15dde7da7c01840d8111b2b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/08-project-prepare-help.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/08-project-prepare-help.stdout",
+      "bytes": 804,
+      "sha256": "e46b87b426b97f29032a3edbd89188240ed8752e0d0170338209d06f4e2b0eea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/09-code-help.json",
+      "bytes": 582,
+      "sha256": "d55a49fcf96e1c0fe7d44625184ed833017a4af542ef2aa44550ce855aa923b3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/09-code-help.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/09-code-help.stdout",
+      "bytes": 251,
+      "sha256": "a0061caf5149812b10055b622d52d0d8f8e0acb3674e9dc4cce16e554e96a736"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/10-codex-package.json",
+      "bytes": 757,
+      "sha256": "c482167e19021cb320c89e2ceab6db5ebed8a2059197519bb000879beb87a423"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/10-codex-package.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/10-codex-package.stdout",
+      "bytes": 478,
+      "sha256": "9d8e964092e1285d527da4c33aa6d1057bb71f477d5e014bd97e274915964d26"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/11-codex-source-pins.json",
+      "bytes": 922,
+      "sha256": "aa272b17eec20cafc545ee7d198a241d4321af172737b78292656589bad47f00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/11-codex-source-pins.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/11-codex-source-pins.stdout",
+      "bytes": 565,
+      "sha256": "4692c7eca924b4548a7a629477dd34bc5f7e9a79aeb4bd7b7878b119d8a1ff4a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/12-post-interface-verify-tree.json",
+      "bytes": 767,
+      "sha256": "45618d34132c52b1c0c55ac1a8e0fcbfcbddc28be105cdaa92ea2462caf5ab88"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/12-post-interface-verify-tree.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/commands/12-post-interface-verify-tree.stdout",
+      "bytes": 206,
+      "sha256": "a4b2657897685583b61383cee07102eb7b1bdd432860c266ffc1bb4ee103f776"
+    }
+  ],
+  "howUse": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/tooling-consolidation-303-001/HOW_USE.md",
+    "bytes": 3691,
+    "sha256": "245c069a8b0143bcf0ee041b89ea7f01e60bbf68bd65bc5583c0f6eb6545d276"
+  },
+  "checks": {
+    "commandCount": 12,
+    "allExitZero": true,
+    "codexPackageFiles": 14,
+    "localLinks": 22,
+    "explicitSourceRoutesVerified": 13
+  },
+  "residuals": [
+    "No lifecycle3.0.3 qualification or host skill installation",
+    "No full-project representation/Lean/empirical or Runtime acceptance",
+    "Helper consolidation mapped but not implemented; Root selects dependent increment after live proof",
+    "Conditional basis uplift authorized, but Root determined no uplift needed for these reductions; operative3.0.2 unchanged"
+  ],
+  "consolidationDecision": {
+    "methodBasisUplift": "NOT_NEEDED_FOR_IDENTIFIED_REDUCTIONS; retain3.0.2",
+    "customRc4RepresentationEngine": "NONE_FOUND_BY_INDEPENDENT_CENSUS",
+    "implemented": "exact3.0.3 source-tool acquisition and finite checks only",
+    "notImplemented": [
+      "reuse observeWorksiteContext entries; retire redundant readiness scanner/subprocess",
+      "merge assetHandle into existing constructInstalledStartCall; retire maintained fork",
+      "consolidate repeated pending request/slot assembly through existing continuation/input/Public-call owners"
+    ],
+    "nextSteps": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/EXECUTIVE_NEXT_STEPS.md",
+    "dependentSelection": "Root after live practical proof result",
+    "historyPreserved": true,
+    "additionalReleaseGate": false
+  }
+}

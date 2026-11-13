@@ -1,0 +1,52 @@
+{
+  "status": "NATIVE_ACTOR_STARTED",
+  "observedUtc": "2026-11-07T12:07:24.060986+00:00",
+  "hostPid": 54814,
+  "sessionId": 34423,
+  "nativePid": 61340,
+  "runRef": "run://abiogenesis/c06be45e2c660d8baecb314cf6e8e2fc7806c3da0b49ca725cf4d7f7a21d38b6",
+  "actorInvocationRef": "actor-invocation://abiogenesis/f5fa5c3b1f3f07e5acfbe50ab765379d14a745416c6505c62b33ee4c325f7bb2",
+  "actorStartUtc": "2026-11-07T12:06:16.999Z",
+  "dispatchRecordedUtc": "2026-11-07T12:03:28.652Z",
+  "dispatchRecordedToActorMs": 168347.0,
+  "preparedToDispatchMs": 114186.0,
+  "previousNativePhysicalCloseRecordToDispatchMs": 4296225.0,
+  "ownerSetupMs": 397419.086458,
+  "controlAndImportMs": 11211.91875,
+  "actorStartedEvent": {
+    "admissionOrdinal": 4037,
+    "aggregateId": "process://abiogenesis/ca822ba2c50f375778a3e06864b50c57da114672e0d0cc951fac1887b842ae9d",
+    "aggregateType": "process",
+    "basisId": "execution-basis://abiogenesis/b7291bd71394a7768ccab9133725b81fb8c298b1f39d93ea3dcfd3a5991868eb",
+    "causationEventRefs": [
+      "event://abiogenesis/ccfcd0c6519bf2103defe663245b9f63240ed2ba87f98c318ab29200b8541a82"
+    ],
+    "correlationId": "correlation://abiogenesis/t287/rc8-ref01/author-11/hog/leaf/0/actor-process",
+    "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+    "eventId": "event://abiogenesis/46597f41c2c05c319cb3016ec0db351bd67366e1b21df13ea248f31ec22328eb",
+    "eventTime": "2026-11-07T12:06:16.999Z",
+    "frameId": "frame://abiogenesis/96196c136d8db46ad0ecb3698e64ee7d21988f7d983ea92da7bad4ccd8550d22",
+    "graphCallId": "graph-call://abiogenesis/82b37b1bc57b1f9e938099acfcd5f13c254baf2e8c0b3b4afe70339277d735ff",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "kind": "actor_process_started",
+    "materializationRef": "graph-materialization://abiogenesis/49a4166f11aaeb1177a5073eabcf409dbde90c3612e228183e8d4dc2d08b893c",
+    "parentAggregateId": "actor-invocation://abiogenesis/f5fa5c3b1f3f07e5acfbe50ab765379d14a745416c6505c62b33ee4c325f7bb2",
+    "payload": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/f5fa5c3b1f3f07e5acfbe50ab765379d14a745416c6505c62b33ee4c325f7bb2",
+      "cCallRef": "c-call:sha256:1b6a9c6eb84f3860a0d3687b49b94b02c54d35420f67d3ad2cd72b54bababc7b",
+      "processId": 61340,
+      "processRef": "process://abiogenesis/ca822ba2c50f375778a3e06864b50c57da114672e0d0cc951fac1887b842ae9d"
+    },
+    "payloadDigest": "sha256:a062f09ac7413ade93cfdd9cd177aec0042a0580607b9aa712916c05f6a9b287",
+    "runId": "run://abiogenesis/c06be45e2c660d8baecb314cf6e8e2fc7806c3da0b49ca725cf4d7f7a21d38b6",
+    "scopeClass": "run",
+    "workflowVersion": "5.0.0"
+  },
+  "evidenceRead": {
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "offset": 190777555,
+    "bytes": 152665,
+    "scope": "Bounded new event-log tail after actual A10 close; actor-start metadata only."
+  },
+  "standing": "Actual start evidence only; no source/proof/result acceptance."
+}

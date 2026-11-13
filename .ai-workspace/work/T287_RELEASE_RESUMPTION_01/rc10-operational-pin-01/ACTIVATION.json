@@ -1,0 +1,49 @@
+{
+  "id": "RC10-RESUMPTION-PIN-001",
+  "role": "separately activated Writer/Operator",
+  "actor": "/root/rc10_operator",
+  "decisionOwner": "/root Executive",
+  "startedUtc": "2026-11-09T05:41:52.615602+00:00",
+  "userInstruction": "lets keep going with RC10 what remains on the backlog",
+  "rootDecision": "Select installed delivered RC10 as project/work operational builder for continuation. This operational pin selects no implementation slice, runtime, next cut, main merge or qualification.",
+  "effectGrant": "Write only this fresh operational-pin carrier and current-status prefixes in GOALS/T287; preserve existing bodies, RC9 provenance and all source/releases/installs. Read-only archive/install/retained-receipt verification only.",
+  "allowedPaths": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/ACTIVATION.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/RETURN.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/README.md",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "skill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    },
+    "installedBasisValidation": "Consumed Root fresh exact installed STDO3.0.4 validation: valid/no failures; no mutable selector used."
+  },
+  "subject": "RC10 delivered source93a0de75/tree27489cb8, immutable archive1354b327 and its exact installed bytes. Main remainsdd6938dd.",
+  "predecessorPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 6302,
+    "sha256": "cf78adcc3b44737b813c721704470e2ad4674c7dde9631dd7168ff0b724932bb"
+  },
+  "stops": "Mismatch/unsafe/duplicate/symlink returns preserved error to Root; no repair or retry. No Product execution/acquisition/install/build/test/provider, Git write, selector/config or source change.",
+  "returnTo": "/root Executive"
+}

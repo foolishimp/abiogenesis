@@ -1,0 +1,41 @@
+{
+  "kind": "native_author_operator_launch_observation",
+  "status": "HOST_PREPARING_ACTOR_START_NOT_OBSERVED_IN_NAMED_RECEIPTS",
+  "observedUtc": "2026-11-06T16:29:34.973512+00:00",
+  "rootSession": 47574,
+  "hostPid": 63160,
+  "hostStartedUtc": "2026-11-06T16:27:18.008Z",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 6179,
+    "sha256": "f1687c50a378dc09b3652b4b5aa9f0ee07f629bf1167ddccc9206bf090692e56"
+  },
+  "dispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/DISPATCH_MANIFEST.json",
+    "bytes": 26101,
+    "sha256": "716f8e346cdba46d2a35e410ea3d44503e36eb93aa4dac44dbaaf702c2388860"
+  },
+  "hostPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/HOST_PREPARATION_STARTED.json",
+    "bytes": 200,
+    "sha256": "234ebe166fe13576d252fa3075cc047cd168508ff6cc16f1ed596c52b4b09a8f"
+  },
+  "rootCoordinationMarks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/ROOT_COORDINATION_MARKS.json",
+    "bytes": 2659,
+    "sha256": "9eae118dce6bb4f3c23ece55534a413bd4a8b3c496c2f9201dc5722481bf24f5"
+  },
+  "sourceCount": 451,
+  "stagedControls": 18,
+  "sourceControlDigests": 469,
+  "selectedContextEntries": 472,
+  "filePins": 67,
+  "permittedWrites": 5,
+  "actualActorStart": null,
+  "actualFutureReturn": null,
+  "limits": [
+    "One Root launch only; no duplicate launch, active control/source/ticket mutation, runtime acquisition, test/build or cold campaign drain by custody Writer.",
+    "Root retains host session polling/exit. Only selected named receipts and allowlisted event/tool metadata may be inspected; no private provider output.",
+    "Existing Root coordination marks remain historical; actual subsequent preparation/actor phases will be bound separately."
+  ]
+}

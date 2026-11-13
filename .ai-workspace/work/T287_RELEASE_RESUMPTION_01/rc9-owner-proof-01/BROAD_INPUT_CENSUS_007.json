@@ -1,0 +1,280 @@
+{
+  "ProductFrame": "Same STDO3.0.4 ABI5 RC9 bounded proof frame; source-input correspondence only, no proof execution or acceptance.",
+  "status": "CURRENT_INPUT_CORRESPONDENCE_PREPARATION_ONLY",
+  "recordedAt": "2026-11-08T19:17:18.957128+00:00",
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "priorCensus": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/INPUT_CENSUS_008.json",
+    "bytes": 8169,
+    "sha256": "2e5ed0954831d00c421802d83b15732f2dff94259ef3fe55ec70558e0ca9d712"
+  },
+  "comparisonInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-027/BOUND_INVENTORY.json",
+    "bytes": 2158784,
+    "sha256": "6d1e07f11477ac46dd81959c94065d85ddd5432bf1bc862f036c7bfc18e8776f"
+  },
+  "population": {
+    "total": 209,
+    "selected": 201,
+    "held": 8,
+    "focusedCredits": 0
+  },
+  "method": "Reuse exact recorded input classifications and prior materialized-source rows. Compare final frozen test/support/fixture MJS row hashes to prior bound inventory; inspect changed selected input-facing portions and process.env lines. Verify current source pins and exact known oracle test/support routes. No new import-closure framework or proof inventory materialization.",
+  "sourceMjsCorrespondence": {
+    "rows": 321,
+    "unchanged": 313,
+    "changedOrNew": [
+      {
+        "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+        "current": {
+          "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+          "bytes": 21920,
+          "sha256": "e38f745670d43f4c5d7170de1ee4ecc1fcf9949de64972d570cb5f14ebcb4627"
+        },
+        "previousSha256": null,
+        "literalProcessEnvironmentLinesUnchanged": true,
+        "held": false
+      },
+      {
+        "file": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+        "current": {
+          "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+          "bytes": 13915,
+          "sha256": "0eec8e0cacf1d622e5c24573b69f41d918616db563e4ebad59f81fe4b96fa1fd"
+        },
+        "previousSha256": "7934030bf45017bb9d07877981d9a7b80436be52c88686a909c5390539644813",
+        "literalProcessEnvironmentLinesUnchanged": true,
+        "held": false
+      },
+      {
+        "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+        "current": {
+          "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+          "bytes": 44744,
+          "sha256": "ecc02ba867f4da99e8189f90f3a79c2244eededcd18b312c6d987f89e62f4d42"
+        },
+        "previousSha256": "0c30523897fb3b123e0d222f3ac344e682f3a08c46a90442ee36b73058787b19",
+        "literalProcessEnvironmentLinesUnchanged": true,
+        "held": false
+      },
+      {
+        "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "current": {
+          "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "bytes": 45742,
+          "sha256": "59fa9dc768b052149ee036577a23d60a55c1747b75337aebdce61027c20a6918"
+        },
+        "previousSha256": "b0427b38d3b8831ceb0d863eeb2b368f06f35933cfa3701fb3fe10a4f3ab9c5f",
+        "literalProcessEnvironmentLinesUnchanged": true,
+        "held": true
+      },
+      {
+        "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+        "current": {
+          "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+          "bytes": 44662,
+          "sha256": "ec32f3a77116aed86705fbc87c8dcb9470dd43b0018cc806e46de0fb2489ec8d"
+        },
+        "previousSha256": "b4aacfd349c111119d51970aceb92a6ec3f4ce6e21770c87701c5e82eb2bd35c",
+        "literalProcessEnvironmentLinesUnchanged": true,
+        "held": false
+      },
+      {
+        "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "current": {
+          "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+          "bytes": 124657,
+          "sha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314"
+        },
+        "previousSha256": "87b241a825aa1a4c9050e89e9f1f05a44d603baf542daacfb58243faef07f2ae",
+        "literalProcessEnvironmentLinesUnchanged": true,
+        "held": true
+      },
+      {
+        "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "current": {
+          "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+          "bytes": 60790,
+          "sha256": "cec88a1d0f39784b6a981f6ebd720fc5e8ca744dea810d95e757cb4e97f82b84"
+        },
+        "previousSha256": "845f678ae01f67143f16350b7e4dc930aec1bd51b49460526f50c67c81a35fac",
+        "literalProcessEnvironmentLinesUnchanged": true,
+        "held": false
+      },
+      {
+        "file": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "current": {
+          "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+          "bytes": 27190,
+          "sha256": "4cf12953a555534cdbc2b87922e33cb7d9ecbae63117f5f617d3e70db0c2bf6f"
+        },
+        "previousSha256": "25c3756928fb8a568e515538ed38500e8a8bbb8ec695e76fdcc380b3a6a7c37d",
+        "literalProcessEnvironmentLinesUnchanged": true,
+        "held": false
+      }
+    ],
+    "supportMjsChanges": []
+  },
+  "mandatorySelectedOracles": {
+    "HS03": {
+      "testFile": "test_env/tests/t287-calculus-fold.test.mjs",
+      "environmentVariable": "ABI5_HS03_STREAM_METADATA",
+      "metadata": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/metadata.json",
+        "bytes": 46684229,
+        "sha256": "2c9328e4abb8e25f8fbfc7a1e4574e481fb5889bf17bc04108f2571d2d3536b9"
+      },
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+        "bytes": 3196,
+        "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+      },
+      "successorBinding": "Exact final003 test pin; existing read-only historical metadata/manifest retain their exact bytes and role.",
+      "testSource": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "bytes": 142461,
+        "sha256": "5d243d6980631afa11d313c8b5bc09b9da7369eda6032bd23704a53fb16eb95b"
+      }
+    },
+    "HC1": {
+      "testFile": "test_env/tests/t287-framework-handoff-types.test.mjs",
+      "environmentVariable": "ABI5_HC1_BASELINE_PACKAGE_PATH",
+      "archive": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc4-hc1-baseline-014/b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db.tgz",
+        "bytes": 10957749,
+        "sha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db"
+      },
+      "testSource": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+        "bytes": 23654,
+        "sha256": "a3850322cc233c9bb8821ba99bbe92eee4b9cb31923d354798a465eb701d23b3"
+      },
+      "carrier": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/REVIEW_RECEIPT.json",
+        "bytes": 10907,
+        "sha256": "63582ec5044f3f0ba291b3abcbd33546c6f4be48e68d7e9d0ace85c23f1fbb56"
+      },
+      "standing": "Root selected this exact existing historical archive by read-only path, no copy/substitution. All original per-slot schema assertions remain; intentional schema drift is not waived.",
+      "successorBinding": "Exact final003 source pin; historical oracle bytes retained unchanged. Existing read-only oracle selected by the unchanged broad recipe; no historical execution credit."
+    }
+  },
+  "heldOracle": {
+    "testFile": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "environmentVariable": "ABI5_CONSOLIDATION_INPUTS",
+    "root": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10",
+    "resources": {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json",
+      "bytes": 6147,
+      "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+    },
+    "baseline": {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+      "bytes": 5575,
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+    },
+    "eventLog": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+      "bytes": 586361364,
+      "sha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c"
+    },
+    "testSource": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 124657,
+      "sha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314"
+    },
+    "supportSource": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "bytes": 29332,
+      "sha256": "5ae58446ee3139f81d1503864d2e404c0aaa18c807f1d203cfeff2639cca74e7"
+    },
+    "existingSelectionCarrier": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+      "bytes": 2492,
+      "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+    },
+    "standing": "Required unconditional historical read-only resource/context input. Existing current-owner equality/performance assertions remain. No event import/relabel/reopen/append, baseline replacement or old package equivalence claim. Root concrete input selection pending.",
+    "successorBinding": "Exact final003 source pin; historical oracle bytes retained unchanged. File remains one of eight held; oracle not activated."
+  },
+  "selectedActionDefaultInputs": {
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis",
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/selected-action-inputs-018/REVIEW.json",
+      "bytes": 16136,
+      "sha256": "4e185513f2d493db4bfea3d659a419ab3dcb75a59eda78290462cfe038ed5a55"
+    },
+    "provenance": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/freeze.json",
+        "bytes": 33386,
+        "sha256": "243b67d1956cd01c21a26d6725c0e7e66f0d16de3cb70bc0ef3e11feb02a80d9"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/proof-manifest.json",
+        "bytes": 21951,
+        "sha256": "8970e05386811d76354ec8a6a2b5d92776b8b5d45853d96a7bfb5294a927e096"
+      }
+    ],
+    "files": [
+      {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/environment.json",
+        "kind": "file",
+        "bytes": 38680887,
+        "sha256": "36e5184c773b2db277347d2417b49df88d3168dea5665f2780481597326628cb",
+        "executable": false
+      },
+      {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/interrupted-prefix.jsonl",
+        "kind": "file",
+        "bytes": 3319378,
+        "sha256": "450e1cb9e597dd5ccc0a9d9fa00fe423006e81ee26cc7225f7277e2f155063bb",
+        "executable": false
+      },
+      {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/opened.json",
+        "kind": "file",
+        "bytes": 6369,
+        "sha256": "be800c13c44ac5416791fa18f9e65ab8fae6b0eeef081bd641f3219b2363b145",
+        "executable": false
+      }
+    ],
+    "standing": "Separate historical default test inputs, not tracked RC7/source inventory. Preserve exact historical bytes; no physical-store/installed-root selection or optional lanes. Only derived test workspaces receive these files."
+  },
+  "classificationStanding": "Prior optional historical/evidence inputs and live/provider opt-ins stay unset; known default/local output and controlled/negative fixtures unchanged. New OWN uses existing local setup helpers, no process.env reads, inner500000ms. Full201 has no prior whole-file credits; this correspondence is not an exhaustive new consumer audit or promise of semantic success.",
+  "longerExistingInnerLimits": [
+    {
+      "file": "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "declaration": "test(\"installed ordinary job traverses full native semantic, parent, C1, C2 and Evidence owners\", { timeout: 3600000,",
+      "innerMs": 3600000,
+      "outerMs": 600000,
+      "standing": "Existing inner allowance exceeds selected operational outer cap; no extension or success guarantee. Stop first cap/incomplete."
+    },
+    {
+      "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "declaration": "timeout: 7200000, skip: process.env.ABI5_GENERIC_JOB_CORRECTION_NATIVE !== \"1\" && \"ABI5_GENERIC_JOB_CORRECTION_NATIVE is not '1'; selects the native correction run over an actual failed verifier\" }, async () => {",
+      "innerMs": 7200000,
+      "outerMs": 600000,
+      "standing": "Existing inner allowance exceeds selected operational outer cap; no extension or success guarantee. Stop first cap/incomplete."
+    },
+    {
+      "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+      "declaration": "test('T-287 R2-b result.assess through the installed transport: the declared result and an owner refusal', { timeout: 1800000 }, async t => {",
+      "innerMs": 1800000,
+      "outerMs": 600000,
+      "standing": "Existing inner allowance exceeds selected operational outer cap; no extension or success guarantee. Stop first cap/incomplete."
+    },
+    {
+      "file": "test_env/tests/t289-install-event-bodies.test.mjs",
+      "declaration": "const timeout = { timeout: 900_000 };",
+      "innerMs": 900000,
+      "outerMs": 600000,
+      "standing": "Existing inner allowance exceeds selected operational outer cap; no extension or success guarantee. Stop first cap/incomplete."
+    }
+  ],
+  "innerTimeoutStanding": "Preserve all source assertions/deadlines; operational outer600000ms and campaign14400000ms remain unchanged, no automatic extension.",
+  "runtimeEffects": false
+}

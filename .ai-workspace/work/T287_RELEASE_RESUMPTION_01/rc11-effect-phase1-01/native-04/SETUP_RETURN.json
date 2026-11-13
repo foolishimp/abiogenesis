@@ -1,0 +1,84 @@
+{
+  "status": "ACTUAL_FOUNDATION_ORACLE_NATIVE04_PREPARED_DISPATCH_HELD",
+  "utc": "2026-11-09T18:47:54.076602+00:00",
+  "sessionId": 47146,
+  "pid": 16994,
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/runtime-001/PREPARED.json",
+    "bytes": 6771,
+    "sha256": "949d1943451508bf7dae6342181896a756d71c16b366cfa3ee834d400a7eb0f3"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/BINDING.json",
+    "bytes": 19609,
+    "sha256": "806f446cd79df34abbe41c64d58935b3d700f6756dee95435cb339bbc859fec4"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/TASK.json",
+    "bytes": 4509,
+    "sha256": "484600f0c43a3c712f267c12a96f75784de30cba66111677ce6c5fdcd5f90b19"
+  },
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/ROOT_SCOPE.json",
+    "bytes": 3354,
+    "sha256": "e216e396b0b365a4d76acd80a7ebe98ade56c2c8ea826f5a3ea44b9e21bf26be"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/host.mjs",
+    "bytes": 15522,
+    "sha256": "723a94a1973fa2c9c74b3315d295bb75c99bc3f7358109c6c0494f2ce2c821fb"
+  },
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/READY.json",
+    "bytes": 4776,
+    "sha256": "20247e94ac943579b1f43ce625f0ed4d2d3e0753a6eeb334fde326733c904a10"
+  },
+  "setupAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/ROOT_SETUP_ADMISSION.json",
+    "bytes": 7171,
+    "sha256": "0c5722c505a9969916d60c26ff4580ca0a464ea4f6f7891a6e2e442b28101a10"
+  },
+  "invocationRef": "invocation://abiogenesis/4bd5527b3e6108e8f8401662c0928f72cbaf9196672ee44b4045e53f12b9961c",
+  "invocationDigest": "sha256:4bd5527b3e6108e8f8401662c0928f72cbaf9196672ee44b4045e53f12b9961c",
+  "nativeSelection": {
+    "programRef": "program://abiogenesis/worksite/native-work@5",
+    "startRef": "start://abiogenesis/worksite/native-work@5",
+    "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+    "viewDigest": "sha256:3246b54fd6d879edba0de793ba1271177c334622fac1269fca11e267f30280d7"
+  },
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188188,
+    "prefixDigest": "sha256:589ad99a19dd71d8b3c572bdfdcde266896bf09981b57bf3e848fa48241f7f2f",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 720359552,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:f39df5dec7fc08adac8233b1b1a9052e931a1f3d6718a1492b529615c02449a0"
+  },
+  "context": {
+    "digest": "sha256:ff132aacffb990c962b54194c1488875af76fc106a047c2a926b1236fe0ec14a",
+    "entries": 15,
+    "fileMembers": 14,
+    "sourceBytes": 353549,
+    "canonicalBytes": 476878
+  },
+  "renderedBytes": 5723,
+  "renderedMeasurementScope": "Exact installed native work-order text; provider/system scaffolding is not measured.",
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "sourceCommit": "65f311e735c1297b9982117eb73fb6a32999cc02",
+  "sourceDigest": "4f44c044916a3517519f552510d6c548502372fca828af6f3b4607d2093d031b",
+  "sourceRows": 1344,
+  "workspaceOpen": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/runtime-001/WORKSPACE_OPEN.json",
+    "bytes": 1051,
+    "sha256": "07bc1cb5f55cf20287b07892ba5fa057189c2902b220e22099a49d9d7bf67728"
+  },
+  "postguards": "All1344 original source rows, three indices, main tracking, RC10pin/archive and existing unbound manifest reverified; no source change.",
+  "closureStanding": "Live caller/resource held at actual PREPARED; no close attempted before Root dispatch decision.",
+  "next": "Root may bind this exact task/prepared/current held resource for one native dispatch; no provider granted by this return."
+}

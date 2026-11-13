@@ -1,0 +1,41 @@
+{
+  "status": "DISPATCHED_AWAITING_NATIVE_PROGRESS",
+  "recordedAt": "2026-11-01T16:43:12.917340+00:00",
+  "projection": "Separately bound bookkeeping Writer; actual STARTED read from file, dispatch selection and exec-session identity communicated by Root",
+  "operator": "Root",
+  "session": 31474,
+  "started": "2026-11-01T16:40:51.168Z",
+  "pid": 19519,
+  "sourceCommit": "becc45851bf6e794a6411bd8d1f412b4f67cd181",
+  "sourceBasis": "none",
+  "STARTED": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/execution/STARTED.json",
+    "bytes": 5670,
+    "sha256": "a8e1586479ea7e7f2eec0ae06bf4d7a89f2be7d789be4310d567373cca91d309"
+  },
+  "frozenManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/execution/PREPARATION_MANIFEST.json",
+    "bytes": 6041,
+    "sha256": "e21b04abc8ba18662b18761d85e0b47058b457f0bf0e60321c01ed1e6db54233"
+  },
+  "callCanonicalDigest": "sha256:7c6cd91b3223b854205da983825d530065b54bc12cc0f4e960a2436f4c83118e",
+  "contextDigest": "sha256:4432d076249688e226e35892e3f4a705dd5251065af47c582b265d9f278db6bd",
+  "installedPreflight": {
+    "session": 80125,
+    "status": "passed",
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "controlledSelectorBytes": 667023,
+    "promptLimitBytes": 1048576
+  },
+  "RootSelection": "Root reviewed exact frozen generated call and selected one-shot dispatch",
+  "priorDisposition": "Attempt003 partial becc preserved; attempt004 preparation refusal had0Run admissions and0provider cost, with operator overhead recorded separately.",
+  "nativeActorProgress": "not inferred from dispatch receipt",
+  "remaining": [
+    "original predecessor R2",
+    "full campaign R1-R5 conjunction",
+    "actual practical Root installed witness",
+    "qualification/release"
+  ],
+  "acceptance": false
+}

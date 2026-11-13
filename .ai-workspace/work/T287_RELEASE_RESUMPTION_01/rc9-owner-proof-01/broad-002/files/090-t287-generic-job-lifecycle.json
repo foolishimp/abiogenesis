@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1234.4728749999776,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "installed ordinary job traverses full native semantic, parent, C1, C2 and Evidence owners",
+      "file": "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_FULL_NATIVE is not '1'; selects the installed full native job traversal",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/090-t287-generic-job-lifecycle.jsonl",
+    "bytes": 892,
+    "sha256": "37cb47f8b83fd844e35144022ad2909e2a3056b7107d360b2d5ab2cb7d167d90"
+  },
+  "commandReceipt": "commands/090-t287-generic-job-lifecycle.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

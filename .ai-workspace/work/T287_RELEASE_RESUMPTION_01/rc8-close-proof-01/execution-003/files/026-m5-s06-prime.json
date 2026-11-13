@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/m5-s06-prime.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 36130.150333,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 51,
+    "failed": 0,
+    "passed": 51,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 13,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-003/events/026-m5-s06-prime.jsonl",
+    "bytes": 11726,
+    "sha256": "957a0cbcb69b93b9a665677e56f827b0f60f1fc76601b9e5f3302d588366016b"
+  },
+  "commandReceipt": "commands/026-m5-s06-prime.result.json",
+  "workspace": "/private/tmp/abg-r8c-003/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

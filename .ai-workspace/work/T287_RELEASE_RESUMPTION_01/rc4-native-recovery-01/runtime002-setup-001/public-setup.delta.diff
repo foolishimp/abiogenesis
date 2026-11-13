@@ -1,0 +1,45 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/public-setup.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/public-setup.mjs
+@@ -1,7 +1,7 @@
+ import { mkdir, readFile, realpath, writeFile } from 'node:fs/promises';
+ import { dirname, join, resolve } from 'node:path';
+ import { pathToFileURL } from 'node:url';
+-import { IDS, prepareConsumer } from './consumer.mjs';
++import { IDS, prepareConsumer } from '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/consumer.mjs';
+ 
+ const version='5.0.0';
+ const constructors=['constructConsensusModulePublication','constructDefaultGovernanceLibraryModulePublication',
+@@ -129,14 +129,27 @@
+   return {root,runtime,native,config,record,command,state,actorRef,actor,contractCatalog,reopen,refresh,boundSlots,authorize,invoke};
+ }
+ 
+-export async function populateSandbox(caller) {
++export async function populateSandbox(caller, workspaceAcquisition) {
+   const {root,runtime,native,config,record,state,actor,actorRef,authorize,invoke}=caller;
+   const {product,abg,gtl,validator}=runtime, hash=product.sha256Canonical;
+-  const created=await invoke('workspace-create',await authorize(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.imported,
+-    {targetRoot:config.worksiteRoot,createPolicy:'imported',importAuthority:config.importAuthority,preservationPolicy:'preserve_all_existing'},
+-    {kind:'workspace_resource_assertion',schemaVersion:version,targetRoot:config.worksiteRoot,
+-      targetRootDigest:hash({kind:'workspace_target',targetRoot:config.worksiteRoot})},{actor}));
+-  const workspaceManifest=JSON.parse(await readFile(created.receipt.resources.manifest.locator,'utf8'));
++  // Operator acquisition choice only; existing typed workspace owners decide truth.
++  let acquired;
++  const workspaceResources={kind:'workspace_resource_assertion',schemaVersion:version,targetRoot:config.worksiteRoot,
++    targetRootDigest:hash({kind:'workspace_target',targetRoot:config.worksiteRoot})};
++  if(workspaceAcquisition?.kind==='open') {
++    acquired=await invoke('workspace-open',await authorize(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.open.open,
++      {targetRoot:config.worksiteRoot,expectedAuthority:workspaceAcquisition.expectedAuthority},workspaceResources));
++    if(!['unbound','ready'].includes(acquired.receipt.ownerOutput.value.disposition))
++      throw new BoundaryFailure('workspace-open-disposition',acquired.receipt);
++  } else if(workspaceAcquisition?.kind==='imported') {
++    acquired=await invoke('workspace-create',await authorize(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.imported,
++      {targetRoot:config.worksiteRoot,createPolicy:'imported',importAuthority:config.importAuthority,preservationPolicy:'preserve_all_existing'},workspaceResources,{actor}));
++  } else throw new BoundaryFailure('workspace-acquisition-selection',workspaceAcquisition);
++  const manifestResource=acquired.receipt.resources?.manifest;
++  if(!manifestResource?.locator)throw new BoundaryFailure('workspace-manifest-resource',acquired.receipt);
++  const workspaceManifest=JSON.parse(await readFile(manifestResource.locator,'utf8'));
++  if(hash(workspaceManifest)!==manifestResource.valueDigest||workspaceManifest.canonicalRoot!==config.worksiteRoot)
++    throw new BoundaryFailure('workspace-owner-manifest',manifestResource);
+   await record('workspace-manifest.json',workspaceManifest);
+   const fixture=await prepareConsumer({root:join(root,'setup'),product,gtl,verified:native.verified,archivePath:native.request.artifactPath,
+     npm:config.toolchains.npm.executable,recursionBound:config.recursionBound,command:caller.command});

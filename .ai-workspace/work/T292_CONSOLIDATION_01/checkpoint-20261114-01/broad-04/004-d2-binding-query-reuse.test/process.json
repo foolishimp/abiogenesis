@@ -1,0 +1,32 @@
+{
+  "label": "004-d2-binding-query-reuse.test",
+  "started": "2026-11-13T10:12:26.579427+00:00",
+  "ended": "2026-11-13T10:12:29.224934+00:00",
+  "wallMs": 2646,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/004-d2-binding-query-reuse.test/stdout.raw",
+      "bytes": 2091,
+      "sha256": "bfb5adef216fb253eb4f0acfa3deb560dfac0fe1629166b9e41c05eaebb9c40e"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/004-d2-binding-query-reuse.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 2,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

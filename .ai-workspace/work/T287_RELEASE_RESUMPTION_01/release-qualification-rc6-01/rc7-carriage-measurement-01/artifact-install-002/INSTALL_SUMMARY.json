@@ -1,0 +1,16 @@
+{
+  "status": "ISOLATED_BOOTSTRAP_MATERIALIZED",
+  "startedUtc": "2026-11-07T00:06:11.878Z",
+  "retainedVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/verification.json",
+    "bytes": 15797364,
+    "sha256": "ce518cb867f6ceb6612afd9510f8b18ca3f0f95eaa6a247e3358a9cefee4a549"
+  },
+  "explicitVerificationCalls": 0,
+  "productInstallCalled": true,
+  "qualified": false,
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/bootstrap-install/node_modules/@abiogenesis/typescript-tenant",
+  "artifactDigest": "sha256:ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693",
+  "contentMatches": true,
+  "endedUtc": "2026-11-07T00:06:38.114Z"
+}

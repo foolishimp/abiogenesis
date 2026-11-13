@@ -1,0 +1,98 @@
+{
+  "kind": "actual_source_bound_static_resource_note",
+  "knownContextBytes": 10979900,
+  "knownContextFiles": 426,
+  "unboundCurrentN3Handoffs": 0,
+  "mutableCurrentSourceBytesUnresolved": [],
+  "selectedContextPaths": 426,
+  "maxContextFiles": 512,
+  "maxContextBytes": 16777216,
+  "maxPromptBytes": 1048576,
+  "assessmentSources": 70,
+  "candidateAndRubric": 2,
+  "knownAssessmentAssetBytes": 2554858,
+  "knownAssessmentAssetBytesExceedPromptCap": true,
+  "immutableRendererRoute": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+        "bytes": 44995,
+        "sha256": "d4799e3fe08e53ea47a058abe17ac367f4854f6e39d3bfaede76b89099728400"
+      },
+      "lines": [
+        274,
+        280,
+        281,
+        293
+      ],
+      "finding": "Current UAT binds every selected asset from observed context as {path,digest}, and appends all selected assessment assets to readFirst. Its instructions also carry full authenticated Testing command stdout/stderr streams and predicate observations."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_assessment.js",
+        "bytes": 6396,
+        "sha256": "c46085d2409f8aa00d35d4c1aa94b89daf19687c28f02e2a6d966050781ed049"
+      },
+      "lines": [
+        12,
+        17,
+        56,
+        64
+      ],
+      "finding": "Assessment source/candidate/rubric schema contains path and digest only; all are checked against the actual observed context."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+        "bytes": 18062,
+        "sha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443"
+      },
+      "lines": [
+        76,
+        82,
+        96
+      ],
+      "finding": "Assessment renderer emits readFirst/readRoots, assessment basis with path/digest assets, schema identity/schema and instructions; it tells the actor to reacquire full selected source. It does not inline the59 source file bodies."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+        "bytes": 124338,
+        "sha256": "1c8ce10ae0a54979af2384cc8fa7af9c8c5b1498255d967f5655aaa29136bfde"
+      },
+      "lines": [
+        86,
+        98,
+        145,
+        165
+      ],
+      "finding": "Native-work assembly prefixes declared role source/access context, then renderNativeWorkspaceWorkOrder. It carries no second whole task/context body and refuses declared_bound_overflow if actual UTF-8 prompt exceeds the governance Run maxPromptBytes."
+    }
+  ],
+  "selectedSourceBodiesAutomaticallyIncluded": false,
+  "fullProducerCommandStreamsIncluded": true,
+  "assetReferenceArrayBytesAtFixedDigestShape": 11318,
+  "standing": "Final Root-admitted source/control byte total; existing owner prompt/context/budget fit remains required before dispatch.",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "authorHandoffs": {
+    "return.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/return.json",
+      "bytes": 15174,
+      "sha256": "ad025195a31b420f9636702e9679b8b33e72af8fc4714bc75202d7dd2e73e06a"
+    },
+    "readiness.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/readiness.json",
+      "bytes": 3588,
+      "sha256": "3667d4276d37fc97f4e4d8bbfb10339b445f2b13a51a2ecd1dc661ce2156e0a4"
+    },
+    "progress.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/progress.json",
+      "bytes": 2527,
+      "sha256": "e8aa3483085178ccc8ecda89e6d7daf8a30bcf1c5b578853ad12a117fce9fcfb"
+    }
+  }
+}

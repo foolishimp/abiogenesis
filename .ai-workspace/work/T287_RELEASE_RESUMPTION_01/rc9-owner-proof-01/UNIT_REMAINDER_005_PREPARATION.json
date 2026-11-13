@@ -1,0 +1,87 @@
+{
+  "status": "HELD_NOT_EXECUTED",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-unit-remainder-005.mjs",
+    "bytes": 11550,
+    "sha256": "2f94b42678e72fc749a8c5d0abbe429927a66bda3509aa3abb3864bf7062f29f"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/UNIT_REMAINDER_BINDING.HELD.005.json",
+    "bytes": 23126,
+    "sha256": "3edfbe7085c3a3fe8b24730f15eb45a3e954045775b4572506958ce749a08ff6"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/UNIT_REMAINDER_005_DIFF.patch",
+    "bytes": 14119,
+    "sha256": "66edf558bd75407a80fa83e6a8a47c6ed78f06372a08ae7cd4d2810a2df16d1c"
+  },
+  "preparationAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/UNIT_REMAINDER_005_PREPARATION_ADMISSION.json",
+    "bytes": 1083,
+    "sha256": "5435974dbef267c3e3ba12d67787d5922b216338f4fc5dd7206a1a5c49fbab27"
+  },
+  "selectedFiles": [
+    "test_env/tests/t287-owned-call-reference.test.mjs",
+    "test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-native-runtime-gate.test.mjs",
+    "test_env/tests/forward-command-contracts.test.mjs",
+    "test_env/tests/forward-command-owners.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "expectedCases": 62,
+  "expectedNonSkipPassed": 56,
+  "expectedSkips": [
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 resolves and independently validates the complete executable root set",
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false
+    },
+    {
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "name": "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "skip": "ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body",
+      "todo": false
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "name": "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "name": "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false
+    }
+  ],
+  "sourcePopulationUnchanged": true,
+  "currentOwnProofResult": null,
+  "currentOwnProofStoppedReceipt": null,
+  "testOwnedEffects": "REF-01 uses the same root-installed/language disposable fixture pack/install route as OWN with unchanged500s test timeout; other selected files use component/pure or disposable workspace fixtures. Optional external-proof selectors stay unset, retaining six skips. No Product rebuild or provider selected.",
+  "firstCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-unit-remainder-005.mjs",
+    "<actual bound remainder>",
+    "<SHA>",
+    "<Root admission>",
+    "<SHA>"
+  ],
+  "outerMs": 900000,
+  "limits": "Original unit not green. OWN/M5 excluded; bootstrap strict gate and201 broad selection unchanged. Await Root selection after OWN outcome; no automatic execution.",
+  "execution": false
+}

@@ -1,0 +1,1 @@
+Q23 UAT-only recovery is under exact existing-owner readiness review. No runtime binding or dispatch has occurred. Preserve q23-proof-01 C2 (62 passes), failed Run and genuine close; no C2 repeat or Product edit is selected.

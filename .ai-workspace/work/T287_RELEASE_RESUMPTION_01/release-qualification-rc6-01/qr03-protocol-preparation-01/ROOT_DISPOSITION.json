@@ -1,0 +1,29 @@
+{
+  "kind": "root_contributing_protocol_readiness_disposition",
+  "at": "2026-11-05T23:43:30.153647+00:00",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr03-protocol-preparation-01/ROOT_SELECTION.json",
+    "bytes": 5108,
+    "sha256": "62dac8eae942c68f8164868e4104af8e9d279f5e75a865bb020f01abfaa0d1af"
+  },
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr03-protocol-preparation-01/READINESS.json",
+    "bytes": 31601,
+    "sha256": "3dd2c27b325e6bb30c4374c10f8ceb5c9455cc23aeb09a3e77c9333a315f29b6"
+  },
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr03-protocol-preparation-01/READINESS.md",
+    "bytes": 8722,
+    "sha256": "e5cf35ecbd597866c48f0b12d7d0fdbc539fa33a4fb0a59ebe86b8c513d5b83b"
+  },
+  "standing": "CONSUMED_CONDITIONAL_STATIC_READINESS_NO_ROUTE_SELECTED",
+  "materialVerified": {
+    "absolutePinsChecked": 13,
+    "unresolvedMechanicalRoutes": []
+  },
+  "finding": "Installed public Gemini CLI has schema plumbing, stream tool witnesses and policy enforcement. Literal prompt preprocessing, effective configuration custody and model/retry observations remain concrete gaps before any closed_prompt_proof route can be established.",
+  "action": "Retain this finite existing-owner cone for QR03 after actual attribution/profile and credential prerequisites. No source change, provider attempt or native route is selected by this record.",
+  "independence": "Contributing Root-team static preparation only; no independent acceptance, native J or actual provider behavior.",
+  "activeTask": "D5 author02 remains the sole native coding Worker; no source interference.",
+  "scope": "No new provider framework or full native editing parity requirement; preserve QR02 attribution, native qualification lineage and strict family policy."
+}

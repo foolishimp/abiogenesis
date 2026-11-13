@@ -1,0 +1,45 @@
+{
+  "kind": "bounded_qr02_next_increment_readiness",
+  "at": "2026-11-05T16:06:35.802263+00:00",
+  "issuer": "Root Executive under ROOT_ACTIVATION and user go",
+  "role": "Contributing architect/source-record readiness; no independent acceptance claim",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "QR02 truthful surviving-contributor inputs to existing qualification owners",
+    "basis": "STDO3.0.4 exact Definition and frame",
+    "prohibitions": "No new provenance registry/event stream/controller, no retrospective invented author events, no wholesale history union or new acknowledgment requirement"
+  },
+  "subject": {
+    "repository": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "frozenCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "currentWorkingTree": "Native Q23 Worker is editing nine owners; use Git frozen bytes for shared code, do not inspect moving deltas."
+  },
+  "inputs": [
+    "ROOT_ACTIVATION.json",
+    "ROOT_QUALIFICATION_PLAN.json",
+    "PROVENANCE_READINESS_REVIEW.json",
+    "ROOT_PROVENANCE_SUPPLEMENT.json",
+    "QUALIFICATION_ROUTE_REVIEW.json",
+    "q23-identity-01/ROOT_POLICY_HOW_SELECTION.json"
+  ],
+  "boundedQuestion": "Select the smallest coherent QR02 native increment after Q23: connect authentic historical contributor records to surviving current material without last-writer-only or no-trailer-human inference, reuse existing union/canonical correspondence and avoid repeated byte carriage. Reuse the completed provenance audit rather than rerun it. One concrete historical two-author/current-member case suffices to identify needed owner changes and closest negative proof.",
+  "allowedReadRoutes": "Exact referenced controls and their already-cited source records; frozen Git code for provenance.mjs, qualification.ts/contracts, qualification_proof.ts, D4/D5 design and material tests/dependency owners. No broad history scan or full F11/resource regeneration.",
+  "permittedEffects": [
+    "Write QR02_NEXT_INCREMENT.json and QR02_NEXT_INCREMENT.md in this campaign only"
+  ],
+  "requiredReturn": [
+    "Existing owner causal cone and exact change class",
+    "One concrete retained historical example with actual preimage/delta/postimage/surviving-contributor relation and limits",
+    "Minimum native write/test territory and missing policy/source dependencies",
+    "Reuse/cost: which bytes can stay referenced/shared; no new machinery",
+    "Any necessary actual owner attribution ruling remains a precise dependency, not fabricated sufficiency"
+  ],
+  "exclusions": [
+    "No Product/HOW/test/code edits",
+    "No providers, preflight, test/build or commits",
+    "No private provider reasoning/text/tool_result reads",
+    "No claim Q23 current implementation or whole QR02 closure"
+  ],
+  "stop": "Return closed readiness result; Root alone selects next native task after Q23 return."
+}

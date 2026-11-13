@@ -1,0 +1,10 @@
+{
+  "source": {
+    "ref": "graph-call://abiogenesis/bb8fdb701f17bad107e96149969f05e404ecdc9c796fb0058e17b9f26d6580e0",
+    "digest": "sha256:d7153b28702367485ca700c0a485a3017eed46159b07de694f6bf609fbfde630"
+  },
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/f9dc276b1a5f3318c6df127bb88fb731d811a6aee19b99d76b8b7817d1cc11a7",
+    "digest": "sha256:f9dc276b1a5f3318c6df127bb88fb731d811a6aee19b99d76b8b7817d1cc11a7"
+  }
+}

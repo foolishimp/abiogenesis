@@ -1,0 +1,17 @@
+{
+  "startedUtc": "2026-11-06T05:17:02.857Z",
+  "endedUtc": "2026-11-06T06:08:04.055Z",
+  "wallMs": 3061203.287583,
+  "exitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "completed",
+  "run": {
+    "digest": "sha256:6647f0df247870454b7ab337896cc7ff86d8a078f87f0a958e4413040f7e335f",
+    "ref": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9"
+  },
+  "terminalPresent": true,
+  "actualExecutionFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/execution.json",
+  "readbacks": "pending_separate_owner_controls",
+  "qualified": false,
+  "meaning": "Native return; independent source review and actual C2/UAT determine bounded acceptance."
+}

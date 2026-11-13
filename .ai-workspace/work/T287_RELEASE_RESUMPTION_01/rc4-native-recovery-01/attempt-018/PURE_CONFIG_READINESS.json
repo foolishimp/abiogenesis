@@ -1,0 +1,106 @@
+{
+  "status": "PURE_WHOLE_CONFIGURATION_READY",
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "originalAssessmentRefusal": {
+    "name": "TypeError",
+    "message": "governance input requires complete original source, scope and declared work contracts"
+  },
+  "selectedC2SourcePairCount": 978,
+  "selectedC2SourcePairsDigest": "sha256:00828190f33123cd772afd8a769a6c195f42c6c0c3b5f212910942d5a80176a9",
+  "observationDigest": "sha256:5538b6dc9558f285a487bc144908d2b456801ce0d9c8a2eac6aa433259ceca70",
+  "staleNamespaceControls": [
+    {
+      "oldNamespace": "16",
+      "refusal": {
+        "name": "AssertionError",
+        "message": "Selected C2 path missing from actual observed files: rc4-operator-inputs/native-recovery-16/CURRENT_SELECTION.DRAFT.md"
+      }
+    },
+    {
+      "oldNamespace": "17",
+      "refusal": {
+        "name": "AssertionError",
+        "message": "Selected C2 path missing from actual observed files: rc4-operator-inputs/native-recovery-17/CURRENT_SELECTION.DRAFT.md"
+      }
+    }
+  ],
+  "governanceStateKind": "governance_work_state",
+  "governanceStateDigest": "sha256:52d253316e437e7a554999e6ca976bb46ed7dd05b1c3f87621f33d8b639bf351",
+  "completeAssessmentSelectionMerged": true,
+  "authorityDigest": "sha256:932b2ce6ef0bad117105396e36f8f41ae73c42e83460f74f6a8d439d54d54681",
+  "prefix": {
+    "coordinateDigest": "sha256:e84aef5ef53172913c4304846eb50b765ad40a7b1abe0fa05986eb2a561bd794",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:a148ba46c3af015b18962acf1fbf7dbcc0ade749b42366c39c1191e459c38bb8",
+    "prefixLength": 427935724,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 681463484
+    }
+  },
+  "ambient": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/private/tmp/abiogenesis-rc4-runtime-01"
+    },
+    {
+      "name": "LANG",
+      "value": "C.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "C.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0X67Y0x:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0wbuDmp:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.165.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0q1V18U:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.164.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0DTH1zz:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0sKXW4o:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0Xt8qH8:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0hiQE8Z:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0cX0Ug4:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0b7sntn:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0dSRd60:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+    }
+  ],
+  "commandCount": 12,
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 4443000,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 4448000
+  },
+  "limits": {
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 4500000
+  },
+  "prefixUnchanged": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Pure existing constructors on genuine setup facts; actual read-only owner context observation; no Public call or admission."
+}

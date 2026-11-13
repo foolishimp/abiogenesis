@@ -1,0 +1,75 @@
+{
+  "kind": "root_selected_readonly_contributing_protocol_preparation",
+  "at": "2026-11-05T23:30:16.325282+00:00",
+  "productFrame": {
+    "product": "ABIogenesis 5.0 / GOAL-035 / T-287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "purpose": "Prepare the smallest existing-owner native qualification lane for later Root selection; strict author-family independence remains unchanged.",
+    "classification": "Derived tool protocol and observation/evidence mapping; no runtime authority is created."
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "existingClosedReadiness": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR03_PROVIDER_ROUTE_READINESS.json",
+      "bytes": 23566,
+      "sha256": "fb11ed28f67244c4bc97265b62bdd90de3172af2356fd700f4f37e9435c50da2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR03_PROVIDER_ROUTE_READINESS.md",
+      "bytes": 7505,
+      "sha256": "45855c2a4b4960478a13df7234cf66b25082dafdb58ea811bcb1ac50b2bb3c55"
+    }
+  ],
+  "publicInstalledCode": [
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/package.json",
+      "bytes": 707,
+      "sha256": "c16e6c2aa6ae57a88475e791037a28df55a0a446402fc6ac0152ab1fc51ee1bc"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini.js",
+      "bytes": 5099,
+      "sha256": "dc0f81c4898b93ce79b30baa0dd4f38903ab4c8460d63aa2462446bf253b8866"
+    }
+  ],
+  "task": [
+    "Read the closed QR03 report and exact frozen F6 owner cone it already pins. Do not inspect moving D5 source.",
+    "Inspect only the pinned public Gemini CLI 0.42.0 package/bundle source to establish concrete noninteractive request, structured output, tool restriction, tool-use witness, exit/failure and identity-binding capabilities. No CLI execution or provider call.",
+    "Map each required closed_prompt_proof relation to existing ABI transport/actor/proof owners. Identify the smallest lawful adapter changes and existing reusable library code. Do not design full native editing parity or a new provider framework.",
+    "Return a finite feasibility matrix with exact public code locations/hashes, known gaps and unsupported assumptions. Distinguish executable/model configuration from observed provider identity. No profile/model/auth or runtime activation is selected.",
+    "State which facts require a future credentialed provider discriminator. Credentials are pending owner replacement, outside this task. One bounded static pass only."
+  ],
+  "readTerritory": [
+    "This control and closed QR03 source pins",
+    "Frozen F6 source/evidence paths selected in QR03 readiness",
+    "Exact public package.json and bundle/gemini.js listed above",
+    "Exact installed STDO3.0.4 applicable read-only skills and source-development Product/frame authority already selected"
+  ],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr03-protocol-preparation-01/READINESS.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr03-protocol-preparation-01/READINESS.md"
+  ],
+  "prohibitions": [
+    "No Product/HOW/test/Git changes",
+    "No provider, network, CLI execution, test, build, preflight or runtime operation",
+    "No private Gemini home, credentials, ADC, session files or raw diagnostic logs",
+    "No simultaneous coding Worker or assurance claim",
+    "No unknown attribution or independence waived; no specific new profile selected"
+  ],
+  "stop": [
+    "Source pin drift",
+    "Need for private/external inputs to resolve a relation: return unknown instead of acquiring them",
+    "Material scope beyond existing qualification lane"
+  ],
+  "return": "Closed contributing protocol readiness to Root, with limitations and exact source pins; Root alone selects later work."
+}

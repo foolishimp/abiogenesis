@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-event-store-reopen.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 27,
+    "pass": 27,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/017-m5-event-store-reopen.test/process.json",
+    "bytes": 1079,
+    "sha256": "2557684e6f7365d190a30228a0c9626f30f5ebde37987f45c570e04287f66a15"
+  }
+}

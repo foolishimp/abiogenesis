@@ -1,0 +1,326 @@
+{
+  "kind": "bounded_independent_frozen_partial_source_review",
+  "status": "CLOSED_COHERENT_PARTIAL_BASIS_NATIVE_COMPLETION_REQUIRED",
+  "createdUtc": "2026-11-06T21:46:14.402626+00:00",
+  "productFrame": {
+    "product": "ABIogenesis 5.0 unchanged fixed fifteen feature families; GOAL-035 / T-287",
+    "method": "STDO 3.0.4",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "authority": "Existing ABG runtime/admission, GTL Program language, original archive/event/body/effect owners and thin SDK/CLI. Immutable installed RC6 builder versus prospective RC7 source. No new runtime/store/controller/event stream/cache framework or Public expansion."
+  },
+  "methodReviewSkill": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "bytes": 8074,
+    "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df",
+    "standing": "Previously acquired through selected manager and read; reused for this continuing independent Reviewer role."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 11876,
+    "sha256": "8b155cbaa167dc2eaf2b0d515f448d3728ccdc6ce2cb771d4a03b95e3669eac1"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_AFTER.json",
+    "bytes": 559922,
+    "sha256": "c65b3703473186207d4787ec0998e6120099f41661b112d3ea0b55760e87e814"
+  },
+  "sourceCount": 451,
+  "changedCount": 6,
+  "unchangedCount": 445,
+  "changedFiles": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 82590,
+        "sha256": "0b6b24fa15c24ec6adc19a72414887896042ee3fac006166eb04f7215f1e5744"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 86312,
+        "sha256": "9f53567d685291fad5ee96e30d247153d5ccb2871a15ed3890f139891b8fa87c"
+      }
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 215977,
+        "sha256": "c1ccb6d04d413f946c87a3586934428c61a319ef9b86f6b2ff225575db4c973e"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 218662,
+        "sha256": "b7bbcdfb34031a58173b35f307a6b9059c656c75c21517be55539a86a12933ea"
+      }
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 29515,
+        "sha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 34175,
+        "sha256": "a14023071cbb3e70146708f0ed72b42dd061a96aa72d54e8a788b4bea00ff541"
+      }
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 37162,
+        "sha256": "352e98b9faf3713166b3a39271ba472c62b40b67546a8443df1681f119c5aab9"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 45349,
+        "sha256": "1ba9e9aabf52cb30c8cb59b9f4d4156a9847112ed4f83bd33a092f31062b91ab"
+      }
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 165642,
+        "sha256": "20d8ecc674badb488adb22488f176e9695b527bf3ef02996be92497546b4107f"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 173286,
+        "sha256": "ec4b9d17621f639cb455824f110b623a01573cb8a49d32bac026cdc60d77ff85"
+      }
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "bytes": 83542,
+        "sha256": "149f8a0d42d23d23b0158a6b6791bcd9e191b80be0f4e89dd2302442aa5b6196"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "bytes": 139787,
+        "sha256": "9e0d582d415f9002ba4060bbdf667dc53b482f8f81fbcf5aff78eb582c825c55"
+      }
+    }
+  ],
+  "custodyStanding": {
+    "observed": "The supplied final custody binds 451 held/live rows and six selected changes; HEAD/index conservation is retained.",
+    "nativeStanding": "Native round runtime_failed; physical close succeeded. Actual SDK result/terminalResult are null. No NativeResult, native.before/native.after, final stage digest, readiness or return handoff exists. This review does not invent those joins.",
+    "reviewerVerification": "Independently hashed exact SUBJECT/SOURCE_AFTER and every six-file before/after body; read changed source/HOW and test delta plus named frozen consumers. No moving C candidate reads or repeated 451-file audit."
+  },
+  "selectedInputs": {
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/TASK.materialized.md",
+      "bytes": 11619,
+      "sha256": "b966944be274c9d90f96902cb22b4be448b9838ca7e861dbbc103a92e864ed18"
+    },
+    "laneSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/C2_INPUTS.json",
+      "bytes": 47958,
+      "sha256": "d0b0e49000c6620df5e1a321e45dccbfc3c69591dcf64caa30e71e1cba0dc906"
+    },
+    "measurementPlan": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/MEASUREMENT_PLAN.materialized.json",
+      "bytes": 4471,
+      "sha256": "ed0447324e0f52a4c3c331985a10a52042bcf7c4246603a46631921c95ff80bd"
+    }
+  },
+  "reusedEvidence": {
+    "acceptedH06Disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 9575,
+      "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+    },
+    "beforeReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-sw1-stage-01/REVIEW.json",
+      "bytes": 7711,
+      "sha256": "9c2aec81de47d1a72b8fd366b66d7d4e5afcda4e9527497e751854372a27dd8c"
+    },
+    "beforeSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/summary.json",
+      "bytes": 1508,
+      "sha256": "b2b210c971ede687abe790b4a7689a1e684d4b536f69bba32e70b515777c4e18"
+    },
+    "beforeTap": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/stdout.tap",
+      "bytes": 6157,
+      "sha256": "ab1cb3bf77d06f0bb3813e2512ff7561466402fd7b2ecc40f0ee57d377c4468e"
+    },
+    "beforeBuild": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/stages/sw1-stage-01/stage.json",
+      "bytes": 97761,
+      "sha256": "d104a9f37a433fc9fd9e75150d99dbc23cfb4994b80fbe8a0c95f68d8600c45b"
+    }
+  },
+  "conclusion": {
+    "architecture": "The partial implementation conserves the selected owner architecture and is coherent enough for a bounded build. It is not a complete candidate for the selected AFTER proof.",
+    "codingRequired": true,
+    "reason": "A normal coalesced stdout chunk crosses the selected first structured boundary; the mandatory new timeout/archive cases are absent. Root may select one narrow native completion on this frozen basis.",
+    "diagnosticBuild": "Root separately reported diagnostic build selection e777e47b running on this exact source; no result was available at review closure, and Reviewer performed no execution."
+  },
+  "findings": [
+    {
+      "id": "HS03-BOUNDARY-001",
+      "severity": "S2",
+      "classification": "Ordinary structured-stream window-boundary defect",
+      "trigger": "One Node stdout data callback contains two complete assistant/user/result records, or the first completed boundary followed by bytes of the next turn. Pipe coalescing makes this an ordinary supported input shape.",
+      "sourceReferences": [
+        "actor_process.ts:1342-1354",
+        "worker_transport.ts:312-321",
+        "worker_transport.ts:397-401",
+        "worker_transport.ts:568-584",
+        "TASK.materialized.md:11",
+        "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:847-899"
+      ],
+      "violatedRelation": "The first selected structured boundary must close the pending window. The shared classifier counts all completed boundaries, but actor_process reduces the delta to one boolean. worker_transport then adds the entire captured string before closing once. Bytes after the first boundary are included in that window.",
+      "counterexample": "A single captured string containing two complete recognized records increments turnBoundaryCount by two; classifyStdoutChunk returns turnBoundary:true once; observeStdoutWindow appends all bytes and emits one window. With a qualifying first segment and noise-only later segment, copying the aggregate progress flag to both future segments would also falsely renew noise.",
+      "ranking": {
+        "probability": "Ordinary OS pipe coalescing; deterministic from the one-callback source path, not yet executed here.",
+        "harm": "Violates selected cadence and window-count claims and can merge later-turn/noise bytes into the prior window. No demonstrated admission-authority bypass.",
+        "failClosedControl": "Byte/probe validation and final archive comparison remain, but none checks first-boundary partitioning. The recorded-metadata classifier deliberately supplies no historical turn boundaries, so its differential cannot detect this.",
+        "repairCost": "Bounded existing classifier/transport/actor seam plus selected synthetic proof; no new parser, store, controller or lane."
+      },
+      "minimumRemedy": "Retain exact boundary positions/segments from the existing incremental classifier through its existing transport interface. Partition the same archived bytes at each completed boundary, including a boundary followed by a partial next record. Preserve segment-local qualifying/result classification; do not smear a chunk-wide progress boolean over a noise-only segment. Keep original capture clock, byte offsets and legacy per-chunk path.",
+      "decidingProof": "Within the already selected timeout/archive cases, drive the real existing current-profile classifier/transport with coalesced complete records, a boundary plus next-record partial, and qualifying/noise subsegments. Assert ordered byte partition, correct number of closes, exact lastQualifying time and no noise lease renewal. No provider or new proof lane is required."
+    },
+    {
+      "id": "HS03-PROOF-001",
+      "severity": "S2",
+      "classification": "Selected implementation/proof completion gap and premature HOW coverage wording",
+      "trigger": "Proceeding to the selected final timeout-interruption/archive-integrity lanes on the present frozen source.",
+      "sourceReferences": [
+        "inputs/C2_INPUTS.json:lanes[timeout-interruption]",
+        "inputs/C2_INPUTS.json:lanes[archive-integrity]",
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:892-899"
+      ],
+      "observed": "Both selected transport/lifecycle test files are unchanged from the accepted predecessor and contain no RC7 HS03 timeout: or RC7 HS03 archive: case. Only two new scopes cases and one historical case were added after the previously reviewed differential. The HOW nevertheless says timeout/archive cases cover the selected lanes.",
+      "ranking": {
+        "probability": "Certain on the exact frozen files; no test execution needed to establish absence.",
+        "harm": "Required archive/failure/timeout/current-actor successor behavior remains unproved; a build-only continuation cannot complete the selected candidate.",
+        "failClosedControl": "Existing lane minimum counts and requiredActivePrefixes prevent these omissions from being counted green. Original before red and all missing proof remain explicit.",
+        "repairCost": "Finish the already selected cases in existing test owners and correct HOW standing; no all-suite demand or new gate."
+      },
+      "minimumRemedy": "Author the already-required pending-window timeout/interruption and actual actor_process not_reached successor-adoption cases; actual archive range/digest/fsync-before-reference, failed write/fsync, missing/changed/truncated archive and cold/recovery checks; final partial-window drain and owned cleanup. Reuse existing fixture/private-owner access only as needed. Describe proof as authored/unrun until receipts exist.",
+      "decidingProof": "After Root-selected bounded completion/build, run the six still-unconsumed selected final lanes on one exact final digest: stdout-differential, scope-ordering, timeout-interruption, archive-integrity, legacy-replay, native-caller. Preserve the completed BEFORE failure and build rather than repeat or relabel them."
+    }
+  ],
+  "conservedJoins": [
+    {
+      "relation": "Shared ingress and scopes",
+      "references": [
+        "event_store.ts:4162-4191",
+        "event_store.ts:4211-4226",
+        "runtime_liveness.ts:83-110",
+        "runtime_liveness.ts:141-177"
+      ],
+      "assessment": "One store/actor-owned flush capability feeds the common current-profile liveness ingress. Frame and CCall probes retain their distinct non-actor scopes; they do not drain another scope. Same-actor window probes reenter after the pending window has been taken. No duplicated producer-specific flush validators or parallel event authority was added."
+    },
+    {
+      "relation": "Durable threshold and adopted successor",
+      "references": [
+        "runtime_liveness.ts:419-463",
+        "actor_process.ts:1461-1484"
+      ],
+      "assessment": "The flush transaction commits before the separate durableOnly decision transaction. not_reached returns that durable successor; actor_process adopts it on both outcomes. This is the required source join, but the actual actor path has no new executed proof."
+    },
+    {
+      "relation": "Shared probe law and activity",
+      "references": [
+        "runtime_liveness.ts:299-358",
+        "runtime_liveness.ts:361-416",
+        "abg/calculus/liveness.ts:704-768",
+        "actor_process.ts:1342-1368"
+      ],
+      "assessment": "Existing probe checks are shared by durable admission and staged-window admission. Last qualifying capture is distinct from last capture/flush time; noise-only windows emit no activity probe. Result and stdout probes of one row share the existing underlying-observation clock identity. Existing scope, monotonic clock, interruption, terminal and source checks remain."
+    },
+    {
+      "relation": "Archive owner and failure",
+      "references": [
+        "worker_transport.ts:436-459",
+        "worker_transport.ts:505-566",
+        "worker_transport.ts:587-636",
+        "worker_transport.ts:781-787"
+      ],
+      "assessment": "Existing transport owns one descriptor and writes captured bytes before classification. emitWindow fsyncs before its observer reference. Write/fsync failure is sticky and prevents a later callback from publishing that unavailable window. Drain precedes onProcessFinalized, descriptor close follows, and existing final archive comparison remains. These are static observations, not an executed failure proof."
+    },
+    {
+      "relation": "Transaction rollback",
+      "references": [
+        "event_store.ts:4341-4408",
+        "worker_transport.ts:526-566"
+      ],
+      "assessment": "Flush stays inside an existing transaction and returns a restore; rollback runs restores in reverse and commit discards them. Pending state is taken before recursive probe emission. New scopes tests exercise this through a declared stand-in; none has run on the final source."
+    },
+    {
+      "relation": "Historical logical identity and cold archive consumers",
+      "references": [
+        "runtime_liveness.ts:372-416",
+        "actor_process.ts:1427-1434",
+        "actor_process.ts:1632-1650",
+        "abg/worksite_construction_recovery.ts:289-327",
+        "t287-calculus-fold.test.mjs:historical case"
+      ],
+      "assessment": "Current and legacy event-contract source owners are unchanged; window rows retain the existing payload shape/digest semantics and historical bytes are not migrated. Sequential stream ordinals and per-stream lengths allow the existing worksite recovery owner to verify exact archive slices. The new historical test checks retained current-profile per-chunk rows plus appended windows across reopen; its legacy constant assertion alone is not an executed legacy-profile archive proof. Canonical generation/selected historical guards remain required."
+    }
+  ],
+  "namedFrozenConsumers": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 96693,
+      "sha256": "aff4484204b9309acd2abef27c296b6b0a1fb89aa66c4661f88d540a04b83657",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "bytes": 41635,
+      "sha256": "9a7b2be3cb7ddd91769b7010df5aadc3ee76c7d2542174ff8001cb1dbe64ed00",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "bytes": 71127,
+      "sha256": "5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "bytes": 41323,
+      "sha256": "67bd0ad5cf6cc596205640a7956106ea4a9e7e0321909950c6146eb0477511b9",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 26359,
+      "sha256": "136957305e752f6a7ff93f9b4ee50bca08cffe11873c9f9b708b9d15f9b0008b",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "bytes": 24181,
+      "sha256": "527cc1336c4286779d59dd699ff0e8921cb10c665f616e9108251c95b5cf23c2",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/files/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts"
+    }
+  ],
+  "proofStanding": [
+    "Only the baseline build and two-test BEFORE lane have completed: one pass, one genuine cadence failure (911 callbacks versus 3 modeled windows). Later assertions were unreached.",
+    "The final calculus test additions, archive/window metadata checks, 24 synthetic current-owner threshold replays, scopes/rollback cases and historical reopen case are unexecuted.",
+    "The historical mechanical metadata lacks original provider bytes, turn boundaries and noise capture clocks. Synthetic replay does not recover those facts; it is not whole historical stream equivalence.",
+    "No AFTER six-lane success, native source admission, readiness, whole procedure conformity, formal F11 J, installed RC7 performance, speedup or release claim follows. H06 adoption and its failed procedure standing remain historical and bounded; they do not qualify this changed runtime."
+  ],
+  "independenceAndEffects": {
+    "role": "Same-family independent component Reviewer to Root; Root retains disposition, coding selection and proof admission.",
+    "effects": "Read-only frozen source/control/proof acquisition; only these create-only review artifacts written. No Product/control edit, build/test/runtime/provider call, private narrative or raw historical stream read.",
+    "minimumNextScope": "Existing worker_transport/actor_process classifier seam, selected existing transport/lifecycle test owners, and truthful existing HOW; modify event_store/runtime_liveness or other granted files only if the bounded owner proof establishes a concrete dependency. No new architecture or widened suite selected."
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "kind": "closed_independent_frozen_source_component_review",
+  "reviewId": "H02-HELD-STAGE01-001",
+  "status": "CLOSED",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "reasoning": "max, explicitly selected by Root",
+  "productFrame": {
+    "product": "Unchanged fixed fifteen-feature ABIogenesis 5.0 / GOAL-035 / T287",
+    "method": "STDO3.0.4",
+    "composition": [],
+    "referenceFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "boundaries": "ABG retains admission/runtime authority; Program and implementation authority remain static. RC6 remains the immutable installed builder; RC7 remains prospective source."
+  },
+  "skill": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df",
+    "standing": "Previously manager-resolved and read; reused for this review."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/SUBJECT.json",
+    "bytes": 272692,
+    "sha256": "4e51195fb89bd95e51a65806e6f985c5843cc375bf1f42450941b6262fb7b187",
+    "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+    "sourceCount": 451,
+    "verifiedSnapshotCount": 451,
+    "changedFileCount": 12,
+    "verifiedHeldPreimageCount": 12,
+    "changedFiles": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "sha256": "acd899df9ff7a88b03e35b9267f5a9679a3655bbf0074d3d3bdfd74b83d7979f"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+        "sha256": "3eacb4eb92b2069db101644eef4271ea1893b295f2f5a77d5780bcc59b55f9f5"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+        "sha256": "44a17bfec2d28d7926663e28954dd16388e5a9fbcf5281ef5fb4580e4259ffe5"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "e5a6448c5896225d47645a8458ffc25f2ea1d6fccdffa182163363eb6ad34846"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "sha256": "51bae44647ab52cc57c01585dc249af6dbfaf76821ac5a6f27e92e0436bb8159"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+        "sha256": "11bf87e65f408f818544dc5ce0094a190d1f200c219de9b9647ebb581dd73c10"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "sha256": "4ccdb8ad319b9d62f71900d6755f02d55a655973027e07b2766f8ed9e4ed5558"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "sha256": "3a69209681bd754428e7c5420f32d6b165e5dce44dd8a0eaca7356c99984d1e1"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "sha256": "aeec24f5088b3152cef1c3665a73dc00bbb8f360286d28ea2ed226d36983df58"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+        "sha256": "f96e9c8b7cf290a637894a8e46e2e0094b8643c0a979d0d0ba475038020bcef7"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "sha256": "7b6f0b93ef7da1b60d8d858458109fc664ae4a6e587801c84d39934ca6b4c941"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+      }
+    ]
+  },
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_ARCHITECTURE_SELECTION.json",
+      "bytes": 9639,
+      "sha256": "5bd1530ddfe7df8a8db61f351f50233c2ac54d84107d5b652e0367283785312f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/PROGRAM_ENVIRONMENT_TRIAGE.json",
+      "bytes": 6234,
+      "sha256": "52309666c19fb4ab06127b3d34370111ba832f43b4d6dc3ddb8b22046727625b"
+    }
+  ],
+  "evidence": {
+    "frozenReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/return-handoff-001/return.json",
+      "bytes": 10048,
+      "sha256": "385bc1d2ec56b2320c68547cf4aab26d79c06f4bf11d1b766827e3957ae11352",
+      "status": "PARTIAL_SOURCE_FROZEN_BUILD_PASSED_PROOF_LANES_NOT_RUN_HS2_CONTROL_001"
+    },
+    "stageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/evidence/hs2-stage-01-stage.json",
+      "bytes": 97757,
+      "sha256": "e91a116e3706599ec51e7f24fe03e80c2ade7a0531694411510e9249da5dd5d4",
+      "compileExitCode": 0,
+      "generateExitCode": 0,
+      "lifecycleExitCode": 0
+    },
+    "stageInvocations": 1,
+    "proofLaneInvocations": 0
+  },
+  "conclusion": "No ordinary installed-path defect was established in the twelve-file implementation delta. One retained fixture migration defect is confirmed; integration proof remains open.",
+  "findings": [
+    {
+      "id": "H02-FIXTURE-001",
+      "classification": "Confirmed retained component-fixture migration defect; no demonstrated installed runtime defect",
+      "owner": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "refs": [
+        "test_env/tests/t287-native-workspace-work.test.mjs:302-308",
+        "test_env/tests/t287-native-workspace-work.test.mjs:1113-1184",
+        "code/src/abg/instruction_assembly.ts:183-190"
+      ],
+      "trigger": "prepare() supplies no assessmentPublication. For any assessment task, the new assembly requirement returns null and the positive assertion at line308 fails. Its mock owner also lacks resolvedProductLock and resolution; later cases retain former root-publication selection assumptions.",
+      "probability": "Deterministic for those fixture paths, established by source inspection; not executed by Reviewer.",
+      "harm": "Lost component verification, not demonstrated unauthorized execution.",
+      "failClosedControl": "Missing or crossed dependency causes assembly refusal.",
+      "repairCost": "Bounded migration of the existing fixture and affected assertions; Root must select the additional native-author write scope.",
+      "minimumRepair": "Provide the carried publication and matching admitted owner/lock facts; update affected assertions to exercise omission/crossing of that dependency. Do not add a Product fallback or relax guards."
+    }
+  ],
+  "conservedOwnerJoins": [
+    {
+      "refs": [
+        "code/src/product/execution_resolution.ts:429-507",
+        "code/src/product/execution_resolution.ts:1129-1130"
+      ],
+      "relation": "Carries the reconstructed Catalog and its matched admitted installs."
+    },
+    {
+      "refs": [
+        "code/src/implementation/leaf_invocation_port.ts:1135-1148"
+      ],
+      "relation": "Restricts selection to the exact admitted canonical assessment callable/implementation and checks the selected install against artifact truth."
+    },
+    {
+      "refs": [
+        "code/src/product/native_workspace_assessment.ts:124-154"
+      ],
+      "relation": "Joins exact contract, consumer publication binding, install identity, lock row, dependency edge and immutable schema bytes."
+    },
+    {
+      "refs": [
+        "code/src/abg/instruction_assembly.ts:163-190",
+        "code/src/implementation/leaf_invocation_port.ts:1395-1402"
+      ],
+      "relation": "Assembly preserves authenticated input, callable, outer contracts and assessor role, then rechecks the carried dependency against prefix-owned environment evidence. Raw preimage uses the same resolver; ordinary static lookup remains unchanged."
+    },
+    {
+      "refs": [
+        "code/src/product/run_invocation_operation.ts:770-775"
+      ],
+      "relation": "Supplies whole-Program declarations to whole-Program role validation without expanding selected execution authority."
+    },
+    {
+      "refs": [
+        "test_env/uat/runner.mjs:281",
+        "test_env/uat/runner.mjs:309"
+      ],
+      "relation": "Restores the missing abg binding used by maintained terminal checks."
+    }
+  ],
+  "disclosedExposureAssessment": [
+    {
+      "path": "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "refs": "55-97",
+      "assessment": "The disclosed constructor mock exercises ordinary native-report preimage. Missing admittedCatalog alone does not establish a new regression there."
+    },
+    {
+      "path": "test_env/tests/t287-qualification-law.test.mjs",
+      "assessment": "Absent from the451-row frozen subject; author disclosure remains unverified."
+    }
+  ],
+  "limits": [
+    "Actual maintained fixed-route, refusal and cold-equivalence cases have not run.",
+    "CONTROL001 is a separate operator blocker; build success cannot replace those observations.",
+    "Actual final native-after/close correspondence remains Root conjunction.",
+    "Source snapshots and held preimages were reviewed; moving C was not used as candidate source.",
+    "No tests, runtime/provider calls or repairs were performed by Reviewer.",
+    "This is same-family independent component review, not formal release-family J, source acceptance, qualification, release or measured speedup.",
+    "This persistence step creates only the two review artifacts; no additional acquisition or re-review."
+  ],
+  "rootDisposition": null,
+  "accepted": false,
+  "qualified": false,
+  "published": false
+}

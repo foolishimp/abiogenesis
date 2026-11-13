@@ -1,0 +1,54 @@
+{
+  "id": "t287-effect-phase2-native-b01-command",
+  "status": "READY_FOR_ADMITTED_NATIVE_SOURCE_AUTHOR",
+  "outcome": "Scoped Effect command and main composition preserving physical settlement, raw failure identity and D15 artifact/ack precedence.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/tsconfig.json"
+  ],
+  "maxContextFiles": 32,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/SOURCE_SUBJECT.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/B_ERROR_BOUNDARY.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/API_RESULT.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/COMMON_LIBRARY_9_3.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/EXTERNAL_TOOLS.json",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_scope.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "qualification-scratch/rc11-effect-phase2-01/native-b01"
+  ],
+  "checks": [
+    "Fresh scratch compiler <=240s/Bash300000",
+    "Actual-owner lifetime ^controlled selector <=60s/Bash90000; preserve first red and exact census",
+    "Source boundary, readonly A/HTTP guards, aggregate all-file responsibility accounting; no acceptance claim"
+  ],
+  "instructions": [
+    "Implement the admitted B command/main increment on accepted A commit e134103a. Read ROOT_SCOPE, SOURCE_SUBJECT, B_ERROR_BOUNDARY, API_RESULT, COMMON_LIBRARY_9_3 and EXTERNAL_TOOLS first. A's bridge/state and all unrelated production code are read-only. Relevant causal-cone source/API reads are allowed; the addressed list is initial context, not a blanket ban. Do not scan the full inventory or whole Effect source. The Operator verified 1345 source rows. Use exact Effect3.22.1; no dependency, Product, schema, admission, replay or shared runner changes. The setup/dispatch holds in ROOT_SCOPE govern Operator preparation; this source task runs only after actual Root native admission.\n\nMake runCommand return one closed scoped Effect, owning child and lifetime before fallible post-spawn capture, timer or heartbeat acquisition. Setup failure still calls existing lifetime.fail and reaches the existing WorksiteHelperFailure projection. Preserve spawn/no-child mapping, copied buffers/direct-exit capture cut, bounds, heartbeat text/cadence, activeCommand emergency behavior and report gating. A lifetime completion Promise remains the canonical fact publisher. Each later-resource finalizer must cross the same idempotent settlement barrier: request existing finite cleanup if necessary, await that same completion, then dispose/detach. Avoid LIFO waiting before any cleanup request and partial-acquisition leaks. Keep process.exit emergency outside ordinary finalizer guarantees. Optional owned_process_scope.ts is warranted only by an actual shared physical acquisition/settlement responsibility and displaced mechanics; no speculative adopters or generic captured-result/deadline/stream policy. No duplicate supervisor. Algorithm and callable placement are yours within this contract, without a per-helper/API gate.\n\nCompose one helper Effect program; execute it through unchanged runEffectProgram exactly once at main's host boundary and retain top-level await main(). Fallible sync/async lifts use identity catch overloads, preserving Error/object/string/null/false/undefined including synchronous invocation throws. Never infer absence from truthiness or nullish values; lifetime.fail's existing normalization contract remains distinct and unchanged. Read B_ERROR_BOUNDARY for exact Effect Cause/Exit constraints. At command Scope retain actual use Exit before teardown, collect closed Scope Exit, prefer failed use or otherwise closed outcome, and retain combined cleanup Cause for bounded diagnostics/tests. This is command-local selection, not a global first-failure cell; cleanup Die must not bypass the typed WorksiteHelperFailure catch. Interruption remains non-success, settlement completes before disposal, and no unbounded uninterruptible wait is assumed prompt.\n\nKeep main's narrow WorksiteHelperFailure catch at the original loop region (current helper1496-1525). Later after-observation, inventories, artifact publication, path validation and stdout callback-drain failures escape as themselves. If these succeed, artifact publication and actual ack drain precede rethrow of the identical retained WorksiteHelperFailure. Preserve raw host projection for selected Fail/Die values, with presence independent of payload; do not use category-priority squash for mixed primary/cleanup causes or invent an Error for interruption/ambiguous Cause. Current Common Library9.3 D15 governs: update only stale C2 opening/section6 sibling-file/inspector references to this artifact/admission route; do not implement process-failure.json or an inspector.\n\nAdd six small, meaningful actual-owner/table-driven cases in the existing lifetime file using the exact names in CONTROLLED_CENSUS. Cover partial capture AND timeout acquisition failure cleanup; Scope/interruption settlement before disposal, direct-exit capture cutoff and no residue; exact primary use plus secondary release fault and cleanup-only failure; raw Error/object/string/null/false/undefined through actual helper lifts AND actual host projection with separate caught/rejected presence; actual Worksite failure reaching D15 despite secondary cleanup fault, combined Cause retained, artifact then drained ack then identical rethrow; later publication/path/ack failures superseding retained Worksite failure. The API feasibility probe is guidance, not these production-owner tests. No copied reducer/Effect model, generic harness, sleeps or weakened assertions. Preserve all28 existing lifetime cases and m5/carrier assertions. Adapt only necessary private loaders for bare Effect imports, actual Effect-command exposure through the actual host projection for Promise-facing tests, and explicit acquisition readiness instead of the existing one-microtask assumption. Do not change HTTP oneHttpRequest/runHttpProbe bodies or worker transport.\n\nBefore final freeze, make the plan's current B status/design/deletion map truthful. Account across helper and every new module, showing removed responsibilities, all new lines and coordination; moving code or net growth is not net deletion/performance proof. Preserve A acceptance, R1/R2 red history and deferred retained-fact/reentrant-clock capsules. Do not reopen A or claim full Phase2/installed qualification. The optional scope path is absent initially: create it only if justified, report it explicitly; no placeholder and no claim that initial native context observed it.\n\nUse EXTERNAL_TOOLS: fresh scratch compile <=240s under Bash300000ms; then exact ^controlled selector in lifetime file <=60s under Bash90000ms with fresh scratch packageRoot and retained evidence. This selects24 old controlled cases plus6 required additions; four physical cases stay external. Syntax-check changed mjs files is allowed. Compiler diagnostics may be repaired within this one author pass; preserve first red and actual outputs. A new semantic contradiction returns facts, no blind rerun, changed oracle or deadline extension. No whole physical/m5/unit/carrier/installed campaign, pack/generation/install, Git, provider nesting or paid child. Absolute1800s, inactivity180s and100turns are fixed prospectively. Return actual source paths, aggregate coordination/deletion map, exact checks/counts/first red, combined-Cause evidence and gaps; stop source edits at return. Root alone accepts, with full normal-build/helper/configured-C2/lifetime/m5/unit proof external after freeze."
+  ]
+}

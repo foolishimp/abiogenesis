@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-s06-prime.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 51,
+    "pass": 51,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/023-m5-s06-prime.test/process.json",
+    "bytes": 1049,
+    "sha256": "5f941691e880e5182f68fb6a0d94a9a6b7c2eef1df2bb68afeec2423aa2549ce"
+  }
+}

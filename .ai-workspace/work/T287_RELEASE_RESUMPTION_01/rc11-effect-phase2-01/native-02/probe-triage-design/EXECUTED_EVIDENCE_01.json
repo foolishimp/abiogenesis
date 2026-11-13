@@ -1,0 +1,75 @@
+{
+  "kind": "executed-evidence addendum to Design triage",
+  "candidate": {
+    "probes": 2,
+    "disposals": 3,
+    "signals": [],
+    "completionCount": 1,
+    "snapshotCount": 2,
+    "completionAbsence": "absent",
+    "snapshotAbsence": "present"
+  },
+  "baseline": {
+    "probes": 3,
+    "disposals": 6,
+    "signals": [
+      "SIGTERM"
+    ],
+    "completionCount": 2,
+    "snapshotCount": 3,
+    "completionAbsence": "absent",
+    "snapshotAbsence": "absent"
+  },
+  "correction": "Baseline hand-trace omitted complete-to-term stale continuation, extra signal/probe/disposal. Candidate predicted trace confirmed.",
+  "proofLimit": "Controlled actual owner, no OS child proof; first count assertion failed in each run and later assertions did not execute",
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/RETURN.json",
+      "bytes": 2813,
+      "sha256": "567cb2ee4b2cafa7b38bd380c8524616910ddb5a9214a52e45163ee0fd4ccbbd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/candidate.RETURN.json",
+      "bytes": 3352,
+      "sha256": "da4c06b296a9270c46043578c4db331c328f2f64e73fb733396f2364cd94a123"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/baseline.RETURN.json",
+      "bytes": 3346,
+      "sha256": "fa21e9f6f6d9b42ed9aa3fd1ce4c55bfd0160c87c7c4d2f485549cd305ba6157"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-candidate-001/OBSERVATION.json",
+      "bytes": 2980,
+      "sha256": "0f3d6150b9570ec1fa8195ab3a01b6a2b0cad264fe3e03be6f046c1378b101be"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-baseline-001/OBSERVATION.json",
+      "bytes": 2931,
+      "sha256": "7db4f706c63a52d5e5e94e73a71328c17598a93b3ef33597dae365b7270e59d6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/candidate.stderr.log",
+      "bytes": 470,
+      "sha256": "c5ea9b8177da00b437ae45643f0bc64e27a5514de5ccc066ef61fb1686b96f7b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/baseline.stderr.log",
+      "bytes": 470,
+      "sha256": "8e8c9c392df484210793800412442c0f53c2b4fe38dba1fec0b6eb1f3649b079"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-triage-design/ASSESSMENT.md",
+      "bytes": 7465,
+      "sha256": "46155a87d5b32671b25a6cf01ff30f8ab35cd0b335099c3c0cf66197ca3e1a21"
+    }
+  ],
+  "repairContractUnchanged": true,
+  "executedByThisAgent": false,
+  "reportSha256": "ff4849936ed0b28004212cc018bb31e80567c2b029f667f3ece051c0548416bd"
+}

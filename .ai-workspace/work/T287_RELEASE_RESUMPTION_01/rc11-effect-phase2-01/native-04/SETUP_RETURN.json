@@ -1,0 +1,90 @@
+{
+  "status": "ACTUAL_SETUP_PREPARED_PROVIDER_HELD",
+  "recordedAt": "2026-11-10T01:58:40.034994+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/ROOT_SETUP_ADMISSION.json",
+    "bytes": 7042,
+    "sha256": "99d4c3c878155718084e52933e2ff65ca1a4a0d513896a148182a5cc592e6d7e"
+  },
+  "launch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/LAUNCH.json",
+    "bytes": 1075,
+    "sha256": "86536d9f5b43c54bedb73bac189e290bb4352c44ca0984301c8685eaf6cf483a"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/runtime-001/PREPARED.json",
+    "bytes": 6749,
+    "sha256": "ffa1fe99d03030879059ddf1e3a6f60241bd12ca31f47d04076efc9e951e6307"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/BINDING.json",
+    "bytes": 20454,
+    "sha256": "8040cb008ae34aa0b18775e50e138b8bb86d86809a338b1a0afdf2760906a8af"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/TASK.json",
+    "bytes": 6373,
+    "sha256": "665f74f3aecb857fa47307aeb4db943963231b42837a884f29c4f278a48ac573"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/host.mjs",
+    "bytes": 15522,
+    "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+  },
+  "sessionId": 88102,
+  "pid": 64537,
+  "invocationRef": "invocation://abiogenesis/555c2ad7d696415f2914513ef4407a5b127af42156689d7faf7847aeb4fedd09",
+  "invocationDigest": "sha256:555c2ad7d696415f2914513ef4407a5b127af42156689d7faf7847aeb4fedd09",
+  "nativeSelection": {
+    "programRef": "program://abiogenesis/worksite/native-work@5",
+    "startRef": "start://abiogenesis/worksite/native-work@5",
+    "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+    "viewDigest": "sha256:c878386f3c5322a26aa307362d8f9a62963046fabffa8fdd50f52d9dc0d1bae0"
+  },
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/6491d945c6bc12b002c19cd1f43e9de09095a00ec7d8b66880ac2a029836369a",
+    "digest": "sha256:6491d945c6bc12b002c19cd1f43e9de09095a00ec7d8b66880ac2a029836369a"
+  },
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188181,
+    "prefixDigest": "sha256:836f23a4b596668e9e7986fc2eac6bfdc507832aca7ce86aa97b2a7ecfcd0a37",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 720650776,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:14597599213ecea40dff833dc31840cfcf1050e279995e67059b1bb8236a5bbc"
+  },
+  "context": {
+    "digest": "sha256:1e0144aaa9dceef07158224cd05c6411b795881498fca6b2815720c7c449eea0",
+    "entries": 20,
+    "fileMembers": 19,
+    "sourceBytes": 210656,
+    "canonicalBytes": 287871
+  },
+  "renderedBytes": 7563,
+  "renderedMeasurementScope": "Exact installed native work-order text; provider/system scaffolding is not measured.",
+  "setupWallMs": 42323.540583,
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-freeze.json",
+    "bytes": 295947,
+    "sha256": "954c2609173832ea9942c7317c4216f138e98543fab1f533e7d0a46fe4aa2c4f"
+  },
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "sourceRows": 1345,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "postguards": {
+    "sourceRowsExact": true,
+    "allHeadIndexTrackingPinsExact": true,
+    "workspaceManifestExact": true,
+    "readOnlyInputsExact": true,
+    "prebuiltPinsExact": true,
+    "builderPinArchiveExact": true
+  },
+  "closureStanding": "Caller and actual owner resource intentionally remain live at PREPARED. No close or native outcome claimed; only the same held caller can receive later Root admission. No serialized resume or recreated identity.",
+  "next": "Root may conjoin exact PREPARED and separately admit one native call. Provider dispatch remains held; no source edits/build/tests/Git effects."
+}

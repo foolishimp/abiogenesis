@@ -1,0 +1,43 @@
+{
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/REPAIR_002_ADMISSION.json",
+    "bytes": 2138,
+    "sha256": "3df6e9094b02325b9e1e666e81bc136c63fad57c82390f71c22e096ebcd72fea"
+  },
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-002.mjs",
+    "bytes": 13305,
+    "sha256": "93187b4943f22cb4d601341962faa617a3b8a551b7b733187784f594c39c9170"
+  },
+  "parserSourceSha256": "2dadac2d062d5c1740e3add9333f0023cdad9fd2c75c3359fcd6263120169c42",
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "npmCli": {
+    "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "bytes": 54,
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+  },
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/scripts/node-test-evidence-reporter.mjs",
+    "bytes": 1514,
+    "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+  },
+  "command": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "run",
+      "test:unit"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002"
+  },
+  "npmScript": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/control-reporter.test.mjs",
+  "nodeOptions": "--max-old-space-size=8192 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/scripts/node-test-evidence-reporter.mjs --test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/events.jsonl",
+  "structuredDestination": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/events.jsonl",
+  "timeoutMs": 30000,
+  "maxOutputBytes": 1048576,
+  "expected": "Exactly one pass and one intentional failure; exit1 is expected. Pure parser variants test incomplete evidence. No Product credit."
+}

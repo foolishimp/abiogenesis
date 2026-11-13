@@ -1,0 +1,46 @@
+{
+  "at": "2026-11-06T15:07:07.097740+00:00",
+  "checks": [
+    {
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/run-local-cut.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/run-local-cut.mjs",
+        "bytes": 24942,
+        "sha256": "8cd87ba2b62e3fd95900c1f0a8a789beaa8ca5cc20ac930c02d92bd3863b1fc6"
+      }
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/install-local-rc7.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/install-local-rc7.mjs",
+        "bytes": 7172,
+        "sha256": "360cfa677fa19df87a13b71e2d8a93e8a2b37001603aa392ff52b69b78166999"
+      }
+    },
+    {
+      "operation": "Python ast.parse only; no import/execution/pycache",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/artifact-identity-bridge.py",
+        "bytes": 2326,
+        "sha256": "a52d07099f7f0e8d24c936abd8a50ab4888f836045168c7efd3a8652025b2179"
+      },
+      "success": true
+    }
+  ],
+  "jsonParse": true,
+  "execution": "Syntax only. Controls have not been run; no effectful workflow was exercised."
+}

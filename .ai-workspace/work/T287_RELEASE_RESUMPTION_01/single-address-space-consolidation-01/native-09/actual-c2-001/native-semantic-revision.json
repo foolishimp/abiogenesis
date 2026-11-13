@@ -1,0 +1,20 @@
+{
+  "id": "native-semantic-revision",
+  "files": [
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "pass": 4,
+  "fail": 1,
+  "skipped": 2,
+  "wallMs": 754.3289590000059,
+  "stdoutSha256": "6c94afcb0f13f505192c9ffb639874db7d55deb1afe05a2a984bf72abaf094d1",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": [
+    "process did not complete successfully",
+    "failed or absent test tally",
+    "required cases did not execute"
+  ]
+}

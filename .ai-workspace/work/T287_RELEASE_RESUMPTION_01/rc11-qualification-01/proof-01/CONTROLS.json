@@ -1,0 +1,156 @@
+{
+  "id": "RC11-PROOF-CONTROLS-01",
+  "status": "PREPARED_NO_EXECUTION",
+  "proofRoot": "/private/tmp/abg-rc11-proof-20261109-01",
+  "tenantRelative": "build_tenants/abiogenesis/typescript",
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "npmCli": {
+    "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "bytes": 54,
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+  },
+  "npmInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/NPM_INVENTORY.json",
+    "bytes": 467075,
+    "sha256": "b597b11aaf3b313e3bc93bb67242c69331cd9ee4e246f0a9f39cdc24f3384e7c"
+  },
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "contractSeedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/CONTRACT_SEED_INVENTORY.json",
+    "bytes": 41794,
+    "sha256": "17aa6d466007ec56173587205f9ad0a7d458b3bdfc272ed5b8a9fb7dde750636"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "controlledBaseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/CONTROLLED_BASELINE.json",
+    "bytes": 4097,
+    "sha256": "4279c66d0d0f9199065a30f723ea7d7ec72c5814efef4418ef3ee935003ff682"
+  },
+  "commands": [
+    {
+      "id": "build",
+      "kind": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "lint",
+      "kind": "npm",
+      "args": [
+        "run",
+        "lint"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "native-assessment",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-native-assessment-evidence.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 4,
+      "expectedSkipped": 0
+    },
+    {
+      "id": "selected-action",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-selected-action-authority.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 3,
+      "expectedSkipped": 1
+    },
+    {
+      "id": "owned-lifetime",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-owned-process-lifetime.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 18,
+      "expectedSkipped": 0
+    },
+    {
+      "id": "unit",
+      "kind": "npm",
+      "args": [
+        "run",
+        "test:unit"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "id": "r6",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/r6-implementation-resolution.test.mjs"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "id": "f04a",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs"
+      ],
+      "timeoutSeconds": 900
+    }
+  ],
+  "expectedUnitScript": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-held-owner-fold-reuse.test.mjs test_env/tests/t287-owned-call-reference.test.mjs test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+  "expectedBuildScript": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
+  "expectedLintScript": "node scripts/lint-verification.mjs",
+  "stageMaximumSeconds": 600,
+  "signalGraceSeconds": 5,
+  "maxOutputBytes": 104857600,
+  "unsetOptIns": [
+    "ABI5_SELECTED_ACTION_OWNER_SUBJECT",
+    "ABI5_SELECTED_ACTION_SOURCE_BOUND",
+    "ABI5_SELECTED_ACTION_PUBLIC_START",
+    "ABI5_SELECTED_ACTION_FROZEN_FIXTURE_ENV",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_PATH",
+    "ABI5_WAVE1_FROZEN_INSTALL_HOST",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256",
+    "ABI5_EVIDENCE_ROOT",
+    "ABI5_STEEL02_RESOLVER_PROOF_PATH",
+    "ABI5_OWNED_PROOF_DECLARATION",
+    "ABI5_GENERIC_JOB_BUILD_ROOT"
+  ],
+  "environment": "Minimal inheritedHOME/USER/LOGNAME/SHELL/LANG; fixedPATH; no provider/config/root optins; offline npm and private cache/user/globalconfig/TMPDIR; full unset names receipt, no secretvalues."
+}

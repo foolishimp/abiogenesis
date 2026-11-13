@@ -1,0 +1,43 @@
+{
+  "kind": "targeted_interface_refactor_acceptance",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+    "bytes": 6177,
+    "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+  },
+  "scope": "IR-01/IR-02 migration, four-wrapper retirement and necessary existing test/support/HOW only; no added functionality.",
+  "criteria": [
+    {
+      "id": "T1",
+      "criterion": "All three cuts and seven ordinary calls use existing canonical owners. Complete imports/aliases/exports/fixture consumers are accounted for. Four obsolete wrappers are deleted or have a concrete distinct supported consumer reported to Root; no forwarding alias."
+    },
+    {
+      "id": "T2",
+      "criterion": "Build and affected existing tests preserve values, roles, boundary/order, digests/profile, currentness and applicable refusals. Newly added focused cases execute. Historical gates retain honest limits; no functionality is added to activate them."
+    },
+    {
+      "id": "T3",
+      "criterion": "Focused same-input/work evidence distinguishes removed full-history filter/materialization/revalidation from owner reuse while preserving required data/boundaries. Complete source tracing, relevant behavior/refusal tests and a shared-adapter/cut-owner discriminator suffice; no independent E2E fixture/counter per syntax site or broad CPU/allocation/workflow profiling."
+    },
+    {
+      "id": "T4",
+      "criterion": "Available current frozen-source and actual affected-C2 evidence correspond and declared report/proof pins are readable/verified. UAT assesses T1-T3 and T5 at its evidence cut. Concurrent independent review and future post-UAT fresh/close/Root decision are separate Root exit obligations outside native unresolvedCriteria; do not fabricate them."
+    },
+    {
+      "id": "T5",
+      "criterion": "No added functionality, unrelated source change, old-evidence/release/global-selector effects or wider-completion claim. Permission does not mandate an edit; wider work remains outstanding outside this activation."
+    }
+  ],
+  "rootExitObligationsOutsideAssessorCriteria": [
+    "Root conjoins exact frozen return, actual C2 and independent max increment/caller-retirement review",
+    "After UAT Root conjoins actual fresh reads and genuine close",
+    "Root decides bounded targeted acceptance only; wider programme/release/qualification remains separate"
+  ],
+  "excluded": [
+    "Other R1-R7/C1-C5 investigations or completion gates",
+    "Whole-workflow or all CPU/allocation proof",
+    "F_H/retry/qualification/SDK feature work or unrelated proof closure",
+    "Installed successor adoption/cut, release, commit/push/merge/tag/selector",
+    "Inventing missing historical fixture functionality"
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "id": "T287-RC8-REF01-AUTHOR03-ROOT-SCOPE",
+  "recordedUtc": "2026-11-07T04:20:31.154676+00:00",
+  "authority": "Executive /root explicit Root re-entry and clarification; existing user approval ok move to rc7 build rc8",
+  "method": "STDO3.0.4, empty composition, existing ABI5 project reference frame, fixed15families GOAL035/T287; Product and requirements unchanged",
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-002/REVIEW.json",
+    "bytes": 35488,
+    "sha256": "44359f5a2f1fa5fc054ed35af97f529ea15701201fc311fd0d47681b04b0d98d"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-002/README.md",
+    "bytes": 8231,
+    "sha256": "856f1238b67d91b7ad013ab37af60f0fd4bada731e244a605134009d385f5670"
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source-freeze.json",
+    "bytes": 293777,
+    "sha256": "5805c757c7baca31e4b81b7775c5210d84a87c5a11238360e50f6587f7aebf6a"
+  },
+  "sourceDigest": "b884ca1fe49d31b1fd2d3b6f8ade9c64fba911b83dc37fee069d74453cd4ff81",
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/runtime-001/resource-close.json",
+    "bytes": 2305,
+    "sha256": "d62c0b72fa45809c1d06cafc81483206e7d17f341fbdac9b155bdcd2203023a6"
+  },
+  "actualIntegrationRed": {
+    "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/lane-01/commands/test.stdout",
+    "bytes": 2031,
+    "sha256": "e44728b0c890897e0831761e7fdc23e395a229e894b08112f0417e18be0389c0"
+  },
+  "priorOperatorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/OPERATOR_RETURN.json",
+    "bytes": 12455,
+    "sha256": "9cc782e4d408ee48db76f669b1e6ef91104ea47a59bc4f58c2839ebb6914a59b"
+  },
+  "rootMultiFrameConjunction": {
+    "requirements": [
+      "REQ-P-PUBLIC-CONTRACTS-009",
+      "REQ-P-PUBLIC-CONTRACTS-010",
+      "REQ-P-CATALOG-014",
+      "REQ-P-CATALOG-017",
+      "REQ-P-CATALOG-029",
+      "REQ-P-CATALOG-030"
+    ],
+    "disposition": "Adopt RC8-SOURCE-003 S2; stage03 remains withheld. Preserve corrected canonical invocation and Catalog/view pre-gate reuse.",
+    "origin": "Canonical request schema output reconstructs input.value and severs the X2 Product input ownership identity; the real consumer then performs one input-sized copy on every call. Stage02 avoided it only by incorrectly retaining raw invocation.",
+    "consequence": "Certain selected-path work/identity failure; semantic guard/currentness/effects still hold, with no authority bypass demonstrated.",
+    "selectedCorrection": "Existing Product input owner establishes the ACTUAL canonical constructor output at construction. That exact nested value reaches the real consumer without another copy. Amend HOW X1/X2 first.",
+    "ownerRelationClarification": "One trusted address space: a narrow typed internal owner handoff from the actual canonical admission output, composed at the known constructor, is acceptable with explicit preconditions/call sites. No new runtime trust protocol, re-walk, fourth registry or authentication layer protecting trusted owners from one another. Source relation and adversarial RAW boundary are the review subjects."
+  },
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts"
+  ],
+  "conditionalPathLimits": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts": "Only if necessary to compose or forward existing owner resource facts.",
+    "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts": "TYPE DECLARATION ONLY if required for unchanged three binder contracts."
+  },
+  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-03",
+  "requiredDiscriminators": [
+    "First and warm actual nested payload/owner identity and inputCopies0 after construction.",
+    "Canonical/defaulted input, transforms/defaults and non-enumerable refusal remain canonical; copied/fake resources, mutable plan and raw/CLI boundaries remain.",
+    "Record absolute initial Catalog admission count separately; zero additional admissions does not establish setup1.",
+    "Describe constructor raw admission work honestly; post-construction counters cannot erase or imply absence of earlier/unseen work."
+  ],
+  "prohibitedExpansion": [
+    "No arbitrary raw/frozen/digest-equal object registration, hash-equal splice, restoration of raw invocation, test weakening, generic trust cache or shared primitive redesign.",
+    "No shared-json/contract counter extension or native-link instrumentation expansion. CPU profile owns remaining attribution and counter absence remains explicit.",
+    "No broad/profile duplication, additional provider, Git/cut/install/selectors/push."
+  ],
+  "budgets": {
+    "totalSourceStages": 4,
+    "alreadySpentSourceStages": 3,
+    "successorSourceStages": 1,
+    "stageLabels": [
+      "stage-04"
+    ],
+    "alreadySpentSuccessorFocusedInvocations": 1,
+    "remainingSuccessorFocusedInvocations": 7,
+    "serialProof": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 2400000,
+    "reserveBytes": 4294967296
+  },
+  "permissions": {
+    "nativeAuthoringScopeSelected": true,
+    "ownerPrepareToHeldGate": true,
+    "providerDispatch": false,
+    "sourceAccepted": false,
+    "cutInstall": false
+  }
+}

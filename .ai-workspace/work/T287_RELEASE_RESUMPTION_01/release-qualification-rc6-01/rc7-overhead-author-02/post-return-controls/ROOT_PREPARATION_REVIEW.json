@@ -1,0 +1,14 @@
+{
+  "kind": "root_bounded_post_return_preparation_review",
+  "at": "2026-11-06T05:24:21.875458+00:00",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/PREPARATION.json",
+    "bytes": 13011,
+    "sha256": "6d02f20cc6cc87829f7c84e3afdeaea6b0c6ac96029f50c40e1033671dd3619f"
+  },
+  "status": "PREPARATION_ACCEPTED_ACTUAL_RUNTIME_INPUTS_PENDING",
+  "verifiedPins": 23,
+  "delta": "A algorithms reused, exact B identities/counts substituted, read host upper bound900s enforced. Full terminal/physical Result/source-after checks preserved.",
+  "effects": "No invocation; all6 future input pins null. Root binds actual returned host/execution/resume/pending/timing after host exit.",
+  "limits": "Control readiness only, no native source/runtime acceptance."
+}

@@ -1,0 +1,305 @@
+{
+  "kind": "design_input_not_assurance",
+  "date": "2026-11-10",
+  "author": "/root/rc11_source_assurance",
+  "context": "resumed",
+  "basis": "STDO3.0.4; verified existing Definition and atlas; corrected authority review pending",
+  "subject": "C11 e2ba05da572f4a7e68d0629ecc83b9153a15e7c4 production and exact five-file corrected-authority freeze",
+  "scope": "worker transport -> shared owned lifetime -> worksite command/HTTP helper; test observer; exact dependency APIs",
+  "conclusions": {
+    "proved_faults": "test fixture/readiness/chunk/emission premises and observer race/settlement",
+    "historical_production_root_cause": "unproved",
+    "first_steel_thread": "test-owned observePublication",
+    "first_production_thread": "existing lifetime component and runCommand",
+    "future": "HTTP scoped operations, then worker capture/archive if conservation/economics justify"
+  },
+  "preserved": [
+    "ABG truth/policy/order/admission/replay",
+    "GTL/HoG direct execution",
+    "finite huge monotonic arithmetic",
+    "process absence vs cancellation distinction",
+    "original red and diagnostic evidence",
+    "open qualification blocker"
+  ],
+  "no_execution": true,
+  "independence": "future implementation requires distinct reviewer",
+  "evidence": [
+    {
+      "id": "lifetime",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "lines": [
+        29,
+        139,
+        193,
+        230,
+        255,
+        283
+      ],
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "worker",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "lines": [
+        452,
+        503,
+        516,
+        573,
+        646,
+        670
+      ],
+      "bytes": 50429,
+      "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "helper",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "lines": [
+        710,
+        814,
+        842,
+        1057,
+        1119,
+        1191,
+        1230
+      ],
+      "bytes": 68872,
+      "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "host",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+      "lines": [
+        102,
+        113
+      ],
+      "bytes": 5579,
+      "sha256": "6162e59f630388acb4a70e222e33b71ca03fb04c7d8cd20e50b4933e561664ad",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "actor",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "lines": [
+        1461,
+        1509
+      ],
+      "bytes": 86820,
+      "sha256": "4c27e56ad14e6851ce906856e32ac76d4b9ad26103ccd784969c9a963f45247b",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "lifetime_tests",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "lines": [
+        73,
+        126,
+        361,
+        459,
+        514,
+        562,
+        595,
+        648,
+        707,
+        727
+      ],
+      "bytes": 52915,
+      "sha256": "a1f9e3888392d2f063967bc468b1ddc47fd7f3df5db70681efc18a477ad23458",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "m5_tests",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "lines": [
+        700,
+        757,
+        809,
+        850,
+        892,
+        970,
+        1761,
+        1865,
+        1895
+      ],
+      "bytes": 114763,
+      "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "effect",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/src/Effect.ts",
+      "lines": [
+        4971,
+        8935,
+        10295,
+        11696,
+        12407,
+        18932
+      ],
+      "bytes": 935651,
+      "sha256": "9b64194f02a9081e9b3e3aea4e1c7acf485a26575dd6650c59bbb1b9bdc08fa8"
+    },
+    {
+      "id": "queue",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/src/Queue.ts",
+      "lines": [
+        424,
+        529
+      ],
+      "bytes": 20893,
+      "sha256": "402d82e4e954be84118ddfd8f24bcaeac378e9c1dfa5841939c37e790678d18f"
+    },
+    {
+      "id": "stream",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/src/Stream.ts",
+      "lines": [
+        424,
+        488,
+        538
+      ],
+      "bytes": 357032,
+      "sha256": "97e495a0360c5ed73252d90f7951ad9b104c280e2d475928079b7dad82018e49"
+    },
+    {
+      "id": "clock",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/src/internal/clock.ts",
+      "lines": [
+        18,
+        70
+      ],
+      "bytes": 2940,
+      "sha256": "bb2ac63b03868c641209333be785ccc880a78897b3b03067cb26d5eb39fb15c7"
+    },
+    {
+      "id": "test_clock",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/src/TestClock.ts",
+      "lines": [
+        42,
+        122,
+        189
+      ],
+      "bytes": 19512,
+      "sha256": "1511c17172f7ce9c673cddde853d728197e89f79b81b010806fd5ab3827bd462"
+    },
+    {
+      "id": "ref",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/src/Ref.ts",
+      "lines": [
+        69,
+        75,
+        200
+      ],
+      "bytes": 5327,
+      "sha256": "940b3eb0f43edd09a4cac407d2eb28f4cb0d8eed7fbceabcdb9fc9309d3aa41b"
+    },
+    {
+      "id": "deferred",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/src/Deferred.ts",
+      "lines": [
+        88,
+        416
+      ],
+      "bytes": 13851,
+      "sha256": "a876d5a3a4618c0edbf0e03342da06c1ff5fec343a9da7f86ebc85e3d073b050"
+    },
+    {
+      "id": "package",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+      "lines": [
+        1
+      ],
+      "bytes": 40617,
+      "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2"
+    },
+    {
+      "id": "authority_freeze",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/AUTHORITY_COMPONENT_FREEZE.json",
+      "bytes": 1306,
+      "sha256": "dc186d357dcdf29d378ccee136d74caaa6b836474247c9d48ebbc0cf50a05d92"
+    },
+    {
+      "id": "prior_triage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/triage/ASSESSMENT.md",
+      "bytes": 10947,
+      "sha256": "c63758ecbd3a268c164655e49cdc2f2975e0fecece95ab04f4178f220eba5f8e"
+    },
+    {
+      "id": "root_cause",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/review/ASSESSMENT.md",
+      "bytes": 10094,
+      "sha256": "9d28cba4b5adbf4b6290bee28e485138bed198e55f7b17308c4a7c3fd4ab82da"
+    },
+    {
+      "id": "governed_endpoint_and_gc03",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "lines": [
+        348,
+        376,
+        387,
+        432,
+        459,
+        506
+      ],
+      "bytes": 76639,
+      "sha256": "6c328e506f8c7423df5b5cdfdb76efd86a06d0d785557263db71819d14c7ba03",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "governed_client",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/abg/governed_context_client.ts",
+      "lines": [
+        15,
+        19,
+        23
+      ],
+      "bytes": 2960,
+      "sha256": "a181da8b35a5e242325600eed33fae9278219b7ed687bb6e94ad5763a5093691",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "install_adapter",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "lines": [
+        53
+      ],
+      "bytes": 19437,
+      "sha256": "b9b51170e5b835d48f2fcf786858979f8ce4c9b69bdc86be4945cb0ab8003768",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "release_git_adapter",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/release_publication.ts",
+      "lines": [
+        39
+      ],
+      "bytes": 33401,
+      "sha256": "19ec8e6fb5dae9bfc7dbe255b845545f719451474c60f5f589596ee5c45c3861",
+      "matches_accepted_C11": true
+    },
+    {
+      "id": "existing_effect_owners",
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "lines": [
+        1247,
+        1256,
+        1941,
+        2020,
+        2099
+      ],
+      "bytes": 109784,
+      "sha256": "0a28ac029e7ec2cb506ba55bc9723fd4dea0eee32e045cbf6c8692ae32f0ebf2",
+      "matches_accepted_C11": true
+    }
+  ],
+  "addendum": {
+    "scope": "five exact future-candidate seams; no wider census",
+    "prior_assessment_bytes": 11955,
+    "prior_assessment_sha256": "574e6dc86dc19e0a4414c7445318ed9ab3997800e234dffcd11f4ebc3a2c1dc9",
+    "prior_evidence_sha256": "38a85e2cb128ca2d17df25949189ee266128a8dcdcd9f1cf8b42cd51846c1276",
+    "status": "design input; no implementation or causal failure attribution"
+  }
+}

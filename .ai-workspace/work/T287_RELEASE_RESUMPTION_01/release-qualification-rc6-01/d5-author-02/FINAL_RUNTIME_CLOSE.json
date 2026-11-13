@@ -1,0 +1,99 @@
+{
+  "kind": "d5_native_author_actual_close",
+  "at": "2026-11-06T01:14:25.415178+00:00",
+  "status": "COMPLETED_SOURCE_RETURN_FROZEN_REVIEW_C2_UAT_PENDING",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "run": {
+    "digest": "sha256:d8a6bb9dd323965024942f76b15f5760040ddaa410ac59836f2379517d80e532",
+    "ref": "run://abiogenesis/b56cbd17c80c1bee4e769a27271dc38f96362d252743df06b12a3ebef7d1face"
+  },
+  "result": {
+    "digest": "sha256:7a40936609b3ef857aad38fc82b03254c287b770b53388b909eda04ce4d5add6",
+    "ref": "result://abiogenesis/7a40936609b3ef857aad38fc82b03254c287b770b53388b909eda04ce4d5add6"
+  },
+  "replay": {
+    "digest": "sha256:0610c918d00c2e8e9d97d4aded54c2fee0f735fb8a43bde0c5d78bddea114025",
+    "ref": "replay://abiogenesis/0610c918d00c2e8e9d97d4aded54c2fee0f735fb8a43bde0c5d78bddea114025"
+  },
+  "terminalValueDigest": "sha256:dc7477e3bbaa4424899031c2c13f9773a654220e40fe383d4e54329f710ea15d",
+  "freshTerminalEqual": true,
+  "freshReplayStatus": "closed",
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/after-run-resume.json",
+    "bytes": 72494784,
+    "sha256": "bb9d4dd3d7f130c76a546b7f6bc03d2d67058bebaba89e83734090406328cbab"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/fresh-reads.json",
+    "bytes": 173600103,
+    "sha256": "78f3e1ce9766ed6280e346ff9de86bd533c7634b7c15879ac560a6ed79cd92ae"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:f5446f7ed698a31fe3597ea53757d837b0e90776883f02901420c4f5a8e36d49",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:0dfaba1d9e9cad99f57c0e86ee5645c33cd290c92b42b664efba71a5edf7129b",
+    "prefixLength": 914514036,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "physicalPrefixVerified": true,
+  "allFrozenLiveMembersEqual": 404,
+  "authorStageSourceMatches": 372,
+  "authorChecks": {
+    "compileExit": 0,
+    "generateExit": 0,
+    "lifecycleGuardExit": 0,
+    "tests": 113,
+    "pass": 113,
+    "fail": 0,
+    "skip": 0,
+    "stage": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final2-stage.json",
+      "bytes": 78911,
+      "sha256": "19a1b5aaefc5cf87ad388b9444bcf57d4c1a34bcf48f0e9bf6735f4f13afeb3e"
+    },
+    "lanes": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final2-lanes/summary.json",
+      "bytes": 3322,
+      "sha256": "b88ca3e834052f711121ada452489c8ac9a58fa48d46d3d19ecb5b565ac24154"
+    }
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/return.json",
+    "bytes": 44667,
+    "sha256": "0f163d27f452dde406c776f68406a699e72020bd134716038b4591b47ec895f2"
+  },
+  "nativeReadiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/readiness.json",
+    "bytes": 8988,
+    "sha256": "08e8b9bca084fe55f9913af2164b3afb244ada0df8d5af05b5e4b4feef252813"
+  },
+  "remaining": [
+    "No genuine current-profile physical unconfirmed-termination attempt with full assessed ancestry was produced or manufactured. Lower-owner refusal remains: the CCall lifecycle projection returns null for an unconfirmed boundary (no actor terminal; t287-lifecycle-failure-carrier), and recovery requires the actor terminal to equal the selected failed terminal and actor_process_terminated. The capsule's full-chain physical negative stays open.",
+    "Recovery lane margin: 109.2-109.9s against the 120s cap (D5 test internal timeout 117s).",
+    "M2 discriminator premises: native verification preimage of the assessment and the L artifact placement are explicit test premises, not a physical provider run.",
+    "CT02 profile acceptance, any successor ref and the RC7 cut remain open; the p5 ref now names a descriptor whose D differs from the predecessor current D.",
+    "Stale out-of-scope line reference in t287-st1 test comment; worksite tracked generated native contract not regenerated.",
+    "Independent frozen source/proof review and actual affected C2/UAT pending"
+  ],
+  "host": {
+    "startedUtc": "2026-11-05T23:20:58.009634+00:00",
+    "endedUtc": "2026-11-06T01:13:37.355040+00:00",
+    "wallMs": 6759330.471917056,
+    "exitCode": 0
+  },
+  "limits": [
+    "Actual completed native Run and source custody agree. Author checks are not affected C2/UAT or acceptance.",
+    "All intermediate failures and prior accepted evidence retain their exact subjects.",
+    "No Q23 production eligibility, formal independent acceptance, QR02/QR03, qualification or release closure."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "kind": "operator_budget_review_not_native_authority",
+  "atUtc": "2026-10-31T14:49:09.555981+00:00",
+  "selectorStream": "fp-550cd0b6ca302d95-stdout.log",
+  "selectorReportedUsd": "1.861384",
+  "conservativeTotalUsd": "90.2017688",
+  "unknownB03ReserveUsd": "8",
+  "remainingPlannedProcesses": 2,
+  "perProcessLimitUsd": "2.5",
+  "witnessReserveUsd": "4",
+  "plannedWorstCaseIncludingWitnessUsd": "99.2017688",
+  "allocationUsd": "100",
+  "decision": "Continue selected test-first Construction; next selector may choose fixed C2 only if Construction succeeds; no additional Construction or UAT, no automatic retry",
+  "limits": [
+    "Recursion bound limits child selections, not guaranteed choices",
+    "Root monitors actual transitions; no aggregate hard cap is claimed",
+    "Other charges remain unknown"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "c887fb8e3ae2b229b20f0e305d60547c3533e7ec523d4c38d5eb4b697e4458a6",
+  "sourceCommit": "7e914327158b7631d1df40b9ec1b068960013b10",
+  "sourceTree": "c1a6d7d911def21b201700bd61249b1074bc493b",
+  "decision": "Root admits zero-provider installed preflight and call construction only for approved remaining R2/integration/consolidation; exact frozen-call review must precede Root one-shot dispatch; no new topology/current_intent widening, automatic retry, or acceptance.",
+  "packetSha256": "be2281743503e95d9ca3a899e6db72aed5931911c2ac3b745e38b03b78a570ab",
+  "admittedUtc": "2026-11-02T04:27:46.650774Z"
+}

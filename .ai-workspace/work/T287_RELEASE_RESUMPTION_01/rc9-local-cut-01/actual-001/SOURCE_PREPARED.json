@@ -1,0 +1,74 @@
+{
+  "status": "ACCEPTED_FROZEN_BYTES_MATCH_EXISTING_C9",
+  "sourceSubject": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "sourceInventory": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "sourceCount": 1340,
+  "selectedDelta": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+  ],
+  "expectedNewPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+  ],
+  "excludedUntrackedPaths": [
+    ".abiogenesis/workspace-manifest.json",
+    "qualification-scratch/rc9-owner-reuse-01/author-01/HANDOFF.md",
+    "qualification-scratch/rc9-owner-reuse-01/author-01/PROGRESS.log",
+    "qualification-scratch/rc9-owner-reuse-01/author-01/stage.err",
+    "qualification-scratch/rc9-owner-reuse-01/author-01/stage.out",
+    "qualification-scratch/rc9-owner-reuse-01/author-01/unit.err",
+    "qualification-scratch/rc9-owner-reuse-01/author-01/unit.out",
+    "qualification-scratch/rc9-owner-reuse-01/author-02/HANDOFF.md",
+    "qualification-scratch/rc9-owner-reuse-01/author-02/PROGRESS.md",
+    "qualification-scratch/rc9-owner-reuse-01/author-03/DELTA.diff",
+    "qualification-scratch/rc9-owner-reuse-01/author-03/PROGRESS.md",
+    "qualification-scratch/rc9-owner-reuse-01/author-03/stage.err",
+    "qualification-scratch/rc9-owner-reuse-01/author-03/stage.out",
+    "qualification-scratch/rc9-owner-reuse-01/author-03/stage.started",
+    "qualification-scratch/rc9-owner-reuse-01/author-03/unit.err",
+    "qualification-scratch/rc9-owner-reuse-01/author-03/unit.out",
+    "qualification-scratch/rc9-owner-reuse-01/author-03/unit.started"
+  ],
+  "excludedUntrackedStanding": "Preserved operator/progress or other non-selected paths; path list only, no source membership or content acquisition.",
+  "identityChanges": [],
+  "acceptedEvidence": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "focusedAndReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "broadClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_ACCEPTANCE_008.json",
+      "bytes": 6029,
+      "sha256": "eca7fb55aa0ace53770abb5012a246fcbd71002d2263090f57ba8df8319a5857"
+    },
+    "referenceAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_REFERENCE_ACCEPTANCE_007.json",
+      "bytes": 6336,
+      "sha256": "4c8bc5fb42d98e1073a4cedf89dada5faf5fa2e6dcf090b64cc79b60f99c2f68"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "kind": "root_rc7_carriage_completion_selection",
+  "at": "2026-11-06T04:37:55.066186+00:00",
+  "status": "CONTROL_PREPARATION_SELECTED_NATIVE_DISPATCH_REQUIRES_CLOSED_PACKET_AND_ROOT_ADMISSION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "originalOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_SELECTION.json",
+    "bytes": 7288,
+    "sha256": "aa3d11eedf7bf44271a825b05466d1a7bc8556377064562b1d14f6a309be9b9a"
+  },
+  "partialDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 4686,
+    "sha256": "b71d632feb75682fc96c77f296ffd24da6709a0eda8654604a1730e672ed165c"
+  },
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "actualCurrentClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10277,
+    "sha256": "ac9a2e6425ea18490d5b1ee2c5bcfc985a3ecac4bae7b2908571de857ee5848f"
+  },
+  "productFrame": {
+    "method": "stdo://releases/v3.0.4/",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "goal": "GOAL-035 / T-287; unchanged fixed fifteen families",
+    "changeClass": "complete already-selected existing-owner consolidation, with bounded review corrections; unchanged Product WHAT"
+  },
+  "selectedWork": [
+    {
+      "id": "R1-task",
+      "decision": "complete_now",
+      "outcome": "Remove prospective full native Result.task and downstream duplicate embeddings; resolve exact actual current/progressed input through existing CCall/execution/basis owners."
+    },
+    {
+      "id": "R2",
+      "decision": "complete_now",
+      "outcome": "Extend existing admitted-member holder to exact admitted basis input for unchanged after bytes; keep actual after facts, changed/new inline bytes, unknown/failure and currentness/source/authority/effect/independence."
+    },
+    {
+      "id": "PC-001",
+      "decision": "correct_in_same_continuation",
+      "outcome": "Make existing carriage discriminator assert complete selected body ownership and no task/binding/before/unchanged-after copies. Bind real cold coordinate/current-input reconstruction and crossed-coordinate refusal through existing owner fixture, not only a mocked assembly owner."
+    },
+    {
+      "id": "PC-002",
+      "decision": "correct_in_same_continuation",
+      "outcome": "Qualify existing M03 unchanged-digest wording for within-attempt reuse; prospective removal changes envelope identity while original historical owners remain unchanged."
+    },
+    {
+      "id": "RC7-PREFIX-RUNNER-01",
+      "decision": "correct_in_same_continuation",
+      "outcome": "Retain and reference the same original stdout/stderr bytes in existing commandRecorder; keep decoded parser text as a view. Add bounded UTF-8/non-UTF-8 custody assertion in maintained harness."
+    }
+  ],
+  "scope": "Reuse A85 permitted existing Product/HOW/test paths for the actual remaining consumer cone; add only existing test_env/uat/harness.test.mjs for the concrete stream-custody assertion. Names are permission, not mandatory edits. No new Product files or broad cleanup.",
+  "sourceMaterials": "Begin from actual frozen A397 source, exact50 supplementary test resources, tracked maintained harness and existing declared-testing cold owner case. Preserve A417 actual-after provenance separately; new read resources do not acquire retroactive native-after admission.",
+  "nativePolicy": {
+    "oneWorker": true,
+    "provider": "Claude Opus5.5",
+    "effort": "xhigh",
+    "maxTurns": 320,
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 1800000,
+    "hostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetry": false
+  },
+  "feedbackPolicy": {
+    "maxStages": 4,
+    "maxLaneInvocations": 12,
+    "principle": "Complete the coherent R1/R2 consumer migration before spending broad feedback capacity. Use nearest meaningful discriminator and real cold owner case; finish all affected checks on one final exact stage. Preserve first failures. Do not spend repeated lanes on known missing resources or repeat unchanged prefix/legacy checks without causal reason.",
+    "buildBoundsMs": {
+      "compile": 240000,
+      "generate": 180000,
+      "guard": 60000
+    },
+    "laneBoundMs": 300000
+  },
+  "measurement": "Author supplies measurable complete logical/body-retention predicates and a bounded reproducible workload through existing owners. Root owns actual matched installed workload/cold reads and phase timings; no missing campaign access excuses leaving R1/R2 implementation incomplete. No invented speedup or metadata-derived saved-byte claim presented as measurement.",
+  "preparationEffects": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02"
+  ],
+  "futureExecutionEffects": "Only after concrete Root admission: stage exact inputs/scratch in source worksite, existing short per-attempt temp roots, one ABG-native author. Do not mutate current candidate or runtime during preparation.",
+  "stops": "New Product/authority owner beyond selected cone, concrete unresolved integration failure, insufficient source or incompatible actual close: preserve partial evidence and return to Root. Root owns scope; no author-selected deferral of the selected objective.",
+  "nonGoals": [
+    "No new store, serializer, cache, event stream, runtime, controller, universal normalizer or compact Public mode",
+    "No immutable history/release mutation, push/merge/tag/global selector/publication/stable claim",
+    "No blind timeout increase/retry or credential access"
+  ]
+}

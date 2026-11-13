@@ -1,0 +1,76 @@
+{
+  "kind": "actual_same_process_host_preparation_phases",
+  "observedUtc": "2026-11-06T23:13:29.850954+00:00",
+  "hostStartedUtc": "2026-11-06T23:10:29.640Z",
+  "pid": 77924,
+  "receipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/HOST_PREPARATION_STARTED.json",
+      "bytes": 200,
+      "sha256": "ad0c61db1239f2f8fc4bb70ef5b4af4bd06d3802fa91715100af368a6d292bb9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/STARTED.json",
+      "bytes": 887,
+      "sha256": "6cbd7e8e2b9094148b13184351486de95162bf476e85483a800b10b623c9a165"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/PREPARED_CALL.json",
+      "bytes": 3066,
+      "sha256": "cd34d3aaffd5528986f875e7f668a39d4c42d64ff3cfe3ba06395881be41966b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/NATIVE_CAPACITY_PREFLIGHT.json",
+      "bytes": 458,
+      "sha256": "f31c27ccfcab0e84ad9828c23bf9b378346611b8995b10e920d9db4b0e25ad15"
+    }
+  ],
+  "cumulativeMarks": {
+    "beforeRunIdentityMs": 1142.092375,
+    "acquiredMs": 58832.758709,
+    "environmentMs": 136905.71075000003,
+    "preparedMs": 138783.37979200002
+  },
+  "durations": {
+    "identityMs": 1142.092375,
+    "acquisitionMs": 57690.666334,
+    "environmentMs": 78072.95204100003,
+    "callConstructionMs": 1877.669041999994,
+    "totalPreparedMs": 138783.37979200002
+  },
+  "selectedEntryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 2788574354,
+    "prefixDigest": "sha256:cd6bb1b82026f1e86f6875b5bf92aa81bfcfa39b0cda58a359a58f16eff7dc18",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 701759869,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:2a62ce324fa1be80570611cc97457df139060d413dc3678b2a31c27d0227127d"
+  },
+  "contextDigest": "sha256:ba66a71cd5c50fc8d419536ccfc0f90bc8d48b67ab04783c53506a90813632bd",
+  "selectedFiles": 474,
+  "inputCanonicalDigest": "sha256:6ee33a5d257f8bda78668cae4d7c7136435d396feb3f88074872ed4fbdedfab9",
+  "capacity": {
+    "kind": "actual_existing_native_order_render_measurement",
+    "renderedNativeOrderBytes": 53307,
+    "maxPromptBytes": 1048576,
+    "reserveBytes": 131072,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Actual owner work-order text, not complete transport/instruction assembly. Existing dispatch owners apply actual remaining guards.",
+      "No selector is part of the selected one-node native author Program."
+    ]
+  },
+  "precedingOwnerEndUtc": "2026-11-06T22:28:12.539Z",
+  "betweenTaskOperatorMs": 2537101,
+  "limits": [
+    "Same immutable RC6 builder, changing source/history/conditions; no matched speedup or cause inference.",
+    "Actor start comes only from actual actor_process_started envelope, not SDK STARTED."
+  ]
+}

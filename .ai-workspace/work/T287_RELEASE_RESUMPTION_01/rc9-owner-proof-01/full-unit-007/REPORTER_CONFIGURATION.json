@@ -1,0 +1,32 @@
+{
+  "unitScript": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-held-owner-fold-reuse.test.mjs test_env/tests/t287-owned-call-reference.test.mjs test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+  "unitScriptSha256": "8c19e51ab6428ca149558e00bb4bab778953d6681a72a5db1abad6147b1fe0df",
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "run",
+    "test:unit"
+  ],
+  "cwd": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+  "nodeOptions": "--max-old-space-size=8192 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs --test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/events.jsonl",
+  "reporter": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+    "bytes": 1514,
+    "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+  },
+  "structuredDestination": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/events.jsonl",
+  "stdoutReporter": "spec",
+  "population": [
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs",
+    "test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-native-runtime-gate.test.mjs",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/forward-command-contracts.test.mjs",
+    "test_env/tests/forward-command-owners.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "profiling": false,
+  "scope": "Exact ordinary npm run test:unit, original script/order/concurrency/assertions; explicit inherited reporters."
+}

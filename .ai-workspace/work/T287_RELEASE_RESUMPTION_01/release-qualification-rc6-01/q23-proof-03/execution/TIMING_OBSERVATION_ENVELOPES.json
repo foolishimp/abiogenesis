@@ -1,0 +1,425 @@
+{
+  "kind": "incremental_physical_envelope_metadata_timing_observation",
+  "activation": "q23-proof-03",
+  "startedUtc": "2026-11-05T21:21:12.801Z",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "fromByte": 539268763,
+  "throughCompleteByte": 573221934,
+  "counts": {
+    "public_operation_admitted": {
+      "rows": 1,
+      "physicalBytes": 4349
+    },
+    "invocation_admitted": {
+      "rows": 1,
+      "physicalBytes": 439937
+    },
+    "implementation_admitted": {
+      "rows": 1,
+      "physicalBytes": 53553
+    },
+    "basis_admitted": {
+      "rows": 6,
+      "physicalBytes": 310709
+    },
+    "run_segment_opened": {
+      "rows": 1,
+      "physicalBytes": 2359
+    },
+    "graph_call_opened": {
+      "rows": 6,
+      "physicalBytes": 15652
+    },
+    "frame_opened": {
+      "rows": 6,
+      "physicalBytes": 15871
+    },
+    "runtime_activity_probe_observed": {
+      "rows": 1803,
+      "physicalBytes": 7683473
+    },
+    "traversal_cursor_entered": {
+      "rows": 6,
+      "physicalBytes": 18734
+    },
+    "c_call_opened": {
+      "rows": 15,
+      "physicalBytes": 40856
+    },
+    "c_call_fibre_selected": {
+      "rows": 15,
+      "physicalBytes": 34333
+    },
+    "c_call_evidenced": {
+      "rows": 15,
+      "physicalBytes": 49333
+    },
+    "c_call_result_admitted": {
+      "rows": 15,
+      "physicalBytes": 19283712
+    },
+    "c_call_judged": {
+      "rows": 15,
+      "physicalBytes": 34270
+    },
+    "traversal_route_admitted": {
+      "rows": 14,
+      "physicalBytes": 314288
+    },
+    "actor_transport_binding_admitted": {
+      "rows": 3,
+      "physicalBytes": 2350475
+    },
+    "actor_invocation_started": {
+      "rows": 3,
+      "physicalBytes": 7795
+    },
+    "actor_process_started": {
+      "rows": 3,
+      "physicalBytes": 5624
+    },
+    "actor_process_stdout_observed": {
+      "rows": 1623,
+      "physicalBytes": 3063707
+    },
+    "actor_process_exited": {
+      "rows": 3,
+      "physicalBytes": 5366
+    },
+    "actor_result_artifact_observed": {
+      "rows": 3,
+      "physicalBytes": 36525
+    },
+    "actor_invocation_closed": {
+      "rows": 3,
+      "physicalBytes": 148748
+    },
+    "terminal_reached": {
+      "rows": 3,
+      "physicalBytes": 7295
+    },
+    "frame_closed": {
+      "rows": 3,
+      "physicalBytes": 5111
+    },
+    "graph_call_closed": {
+      "rows": 3,
+      "physicalBytes": 5150
+    },
+    "child_foldback_admitted": {
+      "rows": 4,
+      "physicalBytes": 12957
+    },
+    "runtime_failure_observed": {
+      "rows": 1,
+      "physicalBytes": 2989
+    }
+  },
+  "processes": [
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 91911,
+      "eventId": "event://abiogenesis/794abd64eb4c0f20356be8e943f2f9845ee2dedbd4a49110cb118de560a9ea2d",
+      "eventTime": "2026-11-05T21:21:48.911Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 553527023,
+      "rowBytes": 1863,
+      "rowSha256": "abd8f329ef8ebed3a6ce4c4bb9806c2be3d2d533a0e2a7cc0607245a1d04e350",
+      "processRef": "process://abiogenesis/d432056fc2134e7970a5f472963888edd7efc6dcf82517e882e0f69c58582519",
+      "pid": 33406
+    },
+    {
+      "kind": "actor_process_exited",
+      "admissionOrdinal": 93331,
+      "eventId": "event://abiogenesis/b9f47fe45d25504754a1e77d377c7c3ae6e8a507c50ef6b1ae6845579176383c",
+      "eventTime": "2026-11-05T21:24:34.360Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 557921973,
+      "rowBytes": 1777,
+      "rowSha256": "694848a5fc1bff2403dc1d6786effe47cfd0fb67d0a17751f759e0c1ef2619a6",
+      "processRef": "process://abiogenesis/d432056fc2134e7970a5f472963888edd7efc6dcf82517e882e0f69c58582519",
+      "pid": null
+    },
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 93403,
+      "eventId": "event://abiogenesis/4fbe6677650d7f3648d5aa6d973dcb5959873d30c21c9824f77878c8ade6f233",
+      "eventTime": "2026-11-05T21:24:41.950Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 560023508,
+      "rowBytes": 1898,
+      "rowSha256": "9460279bc0c06de4771edf285cb33901e8007a02ab07089c72047f5179340e33",
+      "processRef": "process://abiogenesis/c7ca2392c670ec004a3c6de38904a0c60f9914a745ed2f152f1374a30fc252bc",
+      "pid": 35414
+    },
+    {
+      "kind": "actor_process_exited",
+      "admissionOrdinal": 93582,
+      "eventId": "event://abiogenesis/bb474bcb52a5a6bbf051cbd0d95374458c81faf39eeeec561c79b276d084638d",
+      "eventTime": "2026-11-05T21:26:02.271Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 560592351,
+      "rowBytes": 1812,
+      "rowSha256": "c2c8688579400b74c5a78e0c2ccd6a7f6022e81e7936badeb1c862f4daef44fc",
+      "processRef": "process://abiogenesis/c7ca2392c670ec004a3c6de38904a0c60f9914a745ed2f152f1374a30fc252bc",
+      "pid": null
+    },
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 93695,
+      "eventId": "event://abiogenesis/25995ece5c5cf07a925ad3c8bad4e62fed104fa340a976bd86a866fccf2757f5",
+      "eventTime": "2026-11-05T21:26:28.406Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 567296751,
+      "rowBytes": 1863,
+      "rowSha256": "554ec816a74ca5ea1d45b5d53bd4735a9707c38208b451aadf9c4c2a2d56a9df",
+      "processRef": "process://abiogenesis/2d32d6a4eee433dabe0f9fff4efed117bfa4ed2bd551f602965f9c103c78557b",
+      "pid": 36801
+    },
+    {
+      "kind": "actor_process_exited",
+      "admissionOrdinal": 95364,
+      "eventId": "event://abiogenesis/d09fd153e6960737b5ce6bf182826c07a971a85527148694926c6a5d04813eb0",
+      "eventTime": "2026-11-05T21:30:11.449Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 572461984,
+      "rowBytes": 1777,
+      "rowSha256": "42020e4c9171ab85289ebbddfa1e5b211728ad1a8038848fa35d4e981b90719b",
+      "processRef": "process://abiogenesis/2d32d6a4eee433dabe0f9fff4efed117bfa4ed2bd551f602965f9c103c78557b",
+      "pid": null
+    }
+  ],
+  "results": [
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 91876,
+      "eventId": "event://abiogenesis/7d243821ca372221ae588a838d72a1cd0025e0e4c192fb6eadda30ce1a0ac362",
+      "eventTime": "2026-11-05T21:21:47.002Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 539885219,
+      "rowBytes": 2369,
+      "rowSha256": "f66fa916390c9a6cfeb50701b092a58ee3ff7cf16c70d0855783a78331d5e484",
+      "resultRef": "result://abiogenesis/d9ebfbdc452a4a22d6f1ee9de79f856c97db4bb0a80d5dee952dbeb05347dbbe",
+      "valueKind": "governance_work_state"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 91896,
+      "eventId": "event://abiogenesis/7c1032292c5485fe40ac6547aeded80a67ce05538dab4ceafbe14f5319fff69d",
+      "eventTime": "2026-11-05T21:21:47.639Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 539955498,
+      "rowBytes": 12790155,
+      "rowSha256": "b9dd7c76e33c308923278bd28c5a40e191991d705efbbe28bf85a6b52a5057fc",
+      "resultRef": "result://abiogenesis/645327dd63d3fa66639f4f63d7e4efdd673bc274e1cdf36f14b9f3e0ba258abd",
+      "valueKind": "framed_synthesis_task"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 93338,
+      "eventId": "event://abiogenesis/ef91f9425795dc5925da5c31e73fbb260667d6411ce393047294f3e77af83937",
+      "eventTime": "2026-11-05T21:24:34.517Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 558020219,
+      "rowBytes": 85710,
+      "rowSha256": "58d24b90df71588351c35e816577e683f11dc04501e2f80b8d46fd7f8311afaf",
+      "resultRef": "result://abiogenesis/f24db37e69105139e137b9330300c96b2f60acf87eb294a8a58194684242660b",
+      "valueKind": "framed_synthesis_result"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 93351,
+      "eventId": "event://abiogenesis/65602fb43fc070f0f7ff49480204dbe1f242f40363a3d951c26bb65adf92fd6e",
+      "eventTime": "2026-11-05T21:24:35.322Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 558144630,
+      "rowBytes": 86829,
+      "rowSha256": "0dab3ef4b79827e448736810d9bd3d903f29ee394bb7ecf78d92684bdde4e2d0",
+      "resultRef": "result://abiogenesis/a8906ceadd87f4fb736a5f1e027f7c31dab91f0fe746014c1213112234232f10",
+      "valueKind": "registered_graph_choice"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 93378,
+      "eventId": "event://abiogenesis/1b613c16a0faed653a24aecebea24f2b36ecc4927b15879d053889629bc810dc",
+      "eventTime": "2026-11-05T21:24:38.359Z",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 558491390,
+      "rowBytes": 646265,
+      "rowSha256": "e6137559af9e2689596b437d65cbc15609d26ca9cac2e33e420ac7ff31884d87",
+      "resultRef": "result://abiogenesis/eec799d8b2b0b61db217e1461d88b64e93c77af966f733d601f1d5c2de802374",
+      "valueKind": "worksite_command_execution_task"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 93589,
+      "eventId": "event://abiogenesis/d9f6f5c17f3ac0a918d43d70508914f44b3e971c7a22b438da6d483b954a3ad5",
+      "eventTime": "2026-11-05T21:26:03.684Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 560630027,
+      "rowBytes": 5010224,
+      "rowSha256": "4f5d5e59e0ca6cdd8fec09b94370c6a4f8c181370c2da302b6105de6ba0bfa76",
+      "resultRef": "result://abiogenesis/9b3b4e60d90c54456654f1ad88fefc5aa7544537380b7a5982a72a8a41f9cd57",
+      "valueKind": "worksite_command_execution_observation"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 93602,
+      "eventId": "event://abiogenesis/f49497513d020aa94d18b44d6101405f99412eaf65d26c099beb8c5bad76107d",
+      "eventTime": "2026-11-05T21:26:06.756Z",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 565676820,
+      "rowBytes": 2452,
+      "rowSha256": "581c0b4fedfc11864050deea73d3fc35e525b8cda68d83678bf70c2b2e2d2f8a",
+      "resultRef": "result://abiogenesis/4e22afb6b0bedf3090e00be0456a498f92a77a45e4c6104cf8467c87d636ebbb",
+      "valueKind": "worksite_command_execution_observation"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 93619,
+      "eventId": "event://abiogenesis/59856ee7933bb1669bf1a956e452fe4e35dd14ee3c2c713406d91c43d009c2dc",
+      "eventTime": "2026-11-05T21:26:15.119Z",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 565819336,
+      "rowBytes": 104977,
+      "rowSha256": "f87f3bc76014df2a4e2ae2be2c6b326af2b3526e1bed71770850369d389737b7",
+      "resultRef": "result://abiogenesis/47d2d2c29f8312c8269788e3d9955170838f1bbddd5dd4a39a3f13505b6e6c43",
+      "valueKind": "governance_work_state"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 93636,
+      "eventId": "event://abiogenesis/773a03bf70bd531ebb8ce35c6ff3538f4751d6298e05d83bf1a537a9ae660eea",
+      "eventTime": "2026-11-05T21:26:18.710Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 565976602,
+      "rowBytes": 2403,
+      "rowSha256": "4a813328748d8e77bde001c8d97034869a410163541ec8bc01badd2acbc64903",
+      "resultRef": "result://abiogenesis/47327a7a53a493212631ce0b1f4edf8e7df2e58db52140e1c34ed6c4b6d9e42d",
+      "valueKind": "governance_work_state"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 93660,
+      "eventId": "event://abiogenesis/42062cd9e21e4a904342bc8d578fdf7d15ca2f710cc922819ccaed9743240c74",
+      "eventTime": "2026-11-05T21:26:24.070Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 566053409,
+      "rowBytes": 2377,
+      "rowSha256": "b318ecc134affe719fc13b79fcc9270040adfe6a7ee45acd46a539c64779c233",
+      "resultRef": "result://abiogenesis/fbc84f18eb050c0b4aa4cd4c4d73d57dfc1396392ecafdedb9839736686856f0",
+      "valueKind": "governance_work_state"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 93680,
+      "eventId": "event://abiogenesis/890947ad588a58dd6a9295a32318e5f8caf0dddcb2a576971f8a9958380eb43a",
+      "eventTime": "2026-11-05T21:26:25.977Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 566123696,
+      "rowBytes": 320907,
+      "rowSha256": "942b0acba2c34494522697cb045dcbf921aaa7ce7601c1eac3390a2ff93c36bf",
+      "resultRef": "result://abiogenesis/0fec7ae03221b439c60bedbf6747ffc44c3d12a7c4d7986985f4c9a555cfddc5",
+      "valueKind": "framed_synthesis_task"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 95371,
+      "eventId": "event://abiogenesis/02dfb8d70dd80444b341b4d6a5f763e8b9e8209ee6f6a0e11ab8b4bf677b0165",
+      "eventTime": "2026-11-05T21:30:11.544Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 572572642,
+      "rowBytes": 115830,
+      "rowSha256": "e4dd4fd0eeb46c3ff9c2c200705d6e836859dfe3bed3b332ab79425de8817ca4",
+      "resultRef": "result://abiogenesis/44b857529bdc768ef9013b3a2b67ec720c7230683f2a61c0c4acf39ea991df6b",
+      "valueKind": "framed_synthesis_result"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 95384,
+      "eventId": "event://abiogenesis/808516418ad1bdbc7b80a2a88ce1a29f34f4b918bbca75115d78841d4a1c6e96",
+      "eventTime": "2026-11-05T21:30:14.137Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 572727173,
+      "rowBytes": 107696,
+      "rowSha256": "000dffe887e871bcec87e9a3b1e16b50829618da7aaa409d82ebe61a0114ead7",
+      "resultRef": "result://abiogenesis/6f8f0df2e85c1587031c1150a33bceb3916cc125b6577d115f3218dead9b13a6",
+      "valueKind": "registered_graph_choice"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 95411,
+      "eventId": "event://abiogenesis/874947f4643077ed81a8025d65a550b92a0e9c299cbf949a017145f02f093c36",
+      "eventTime": "2026-11-05T21:30:19.268Z",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 573136154,
+      "rowBytes": 2764,
+      "rowSha256": "576ccfcd7e26b0b8e7e3110808f40548cbda85576ef8b0299199ec3986212b62",
+      "resultRef": "result://abiogenesis/47e64c8cee515b477762c0a3a711f80d0a424db1a4f0b46b9f8d7387cfbf0409",
+      "valueKind": "governance_failure"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 95424,
+      "eventId": "event://abiogenesis/28a809a98c1fda0874a7d8873f464101486881011b1d8c3f8e4ddfa04d073630",
+      "eventTime": "2026-11-05T21:30:21.238Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+      "offset": 573183139,
+      "rowBytes": 2754,
+      "rowSha256": "a4c52274cebeefc415d005a4335084f7ced482aa731a888a41679b8c16698d38",
+      "resultRef": "result://abiogenesis/5b4d7410fbf815feaea4e1ce73426dacd2f87460dd1968b28d17057d82f61116",
+      "valueKind": "governance_failure"
+    }
+  ],
+  "setupReused": true,
+  "sdkSetupMs": null,
+  "artifactVerificationMs": null,
+  "setupProcessEndedUtc": null,
+  "limits": [
+    "Incremental physical envelope metadata, not runtime admission or acceptance.",
+    "No raw provider thinking/text/tool-result/stdout is output or inspected for semantic content.",
+    "Wall intervals are not CPU attribution or matched causal speedup.",
+    "Setup-to-dispatch includes separate Root audit/control/preflight time, not between-task runtime latency."
+  ],
+  "throughOrdinal": 95434,
+  "latestEventTime": "2026-11-05T21:30:24.015Z",
+  "setupToDispatchOperatorPreparationMs": null,
+  "rootBetweenActivationMs": null,
+  "dispatchToInitialSelectorProcessMs": 36110.0,
+  "dispatchToNativeWorkerProcessMs": null,
+  "dispatchToC2ProcessMs": 209149.0,
+  "nativeResultToC2ProcessMs": null,
+  "recordedUtc": "2026-11-05T21:31:06.454538+00:00",
+  "outcomeReturned": true,
+  "closed": false,
+  "outcome": {
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:7ace1ada199a075743e479ce1b8fb4499b1f15f085806d9cb8ef10274cd2cef8",
+      "ref": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497"
+    },
+    "qualified": false
+  }
+}

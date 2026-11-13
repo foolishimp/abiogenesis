@@ -1,0 +1,1904 @@
+{
+  "cases": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "native whole-Program validator accepts exactly prepare plus nested C2, with no historical call rights",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "native validator rejects crossed raw/output and child closure; exact declaration owner refuses extra calls",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "closed Product carriers preserve all controlled supplied source observations; no fabricated cover qualifies native currentness",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "explicit zero write territory survives C1 and forward cold carrier round-trip without adding rights",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "missing reordered duplicate changed or crossed retained members refuse at real Product constructor",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "a sparse retained bindingCoverEventRefs throws at the real Product constructor; the dense control constructs",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 7,
+      "type": "case",
+      "passed": true,
+      "name": "the forward constructors admit their three array inputs at ingress: a one-hole vector throws; the dense controls validate and round-trip",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 7,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 8,
+      "type": "case",
+      "passed": true,
+      "name": "real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 8,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 9,
+      "type": "case",
+      "passed": true,
+      "name": "raw namespaces, attempt/task/artifact and actor/tool mismatches remain refused",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 9,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 10,
+      "type": "case",
+      "passed": true,
+      "name": "step and terminal predicates preserve honest command failure but reject incomplete or crossed final carriers",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 10,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 12,
+      "type": "case",
+      "passed": true,
+      "name": "synthetic current native lookup maps all controlled retained C0 owners only under exact witness",
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "nesting": 0,
+      "testNumber": 11,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 13,
+      "type": "case",
+      "passed": true,
+      "name": "synthetic cover wrong direction, scope, missing member and unrelated origin refuse in unchanged native owners",
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "nesting": 0,
+      "testNumber": 12,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 14,
+      "type": "case",
+      "passed": true,
+      "name": "synthetic workflow alias does not add a C0 owner; distinct same-value producer is ambiguity",
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "nesting": 0,
+      "testNumber": 13,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 15,
+      "type": "case",
+      "passed": true,
+      "name": "synthetic later cross-W post-publication failure invalidates the old subject alias without fabricating O1",
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "nesting": 0,
+      "testNumber": 14,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 16,
+      "type": "case",
+      "passed": true,
+      "name": "synthetic current-prefix consumption refuses another exact producer, unresolved admission and ignores unrelated scope",
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "nesting": 0,
+      "testNumber": 15,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 17,
+      "type": "case",
+      "passed": true,
+      "name": "canonical native entry and occurrence owners refuse same-Run transfer, standalone task, foreign GF and missing native basis",
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "nesting": 0,
+      "testNumber": 16,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 19,
+      "type": "case",
+      "passed": true,
+      "name": "M5 GTL exposes exactly seven direct C constructors",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 17,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 20,
+      "type": "case",
+      "passed": true,
+      "name": "M5 C.compose is canonical, flat, and identity-eliding",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 18,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 21,
+      "type": "case",
+      "passed": true,
+      "name": "M5 GraphFunction composition preserves exact left and right identity",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 19,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 22,
+      "type": "case",
+      "passed": true,
+      "name": "M5 GraphFunction promotion preserves topology and semantic truth",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 20,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 23,
+      "type": "case",
+      "passed": true,
+      "name": "M5 native constructors refuse invalid batch, retry, and F_H realization",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 21,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 24,
+      "type": "case",
+      "passed": true,
+      "name": "M5 native GTL constructs all ten graph relations with derived identities",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 22,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 25,
+      "type": "case",
+      "passed": true,
+      "name": "M5 same-object relation is one validator-owned canonical identity witness",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 23,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 26,
+      "type": "case",
+      "passed": true,
+      "name": "M5 closure validation distinguishes run and child GraphCall scope",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 24,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 27,
+      "type": "case",
+      "passed": true,
+      "name": "M5 whole-program validation admits exact recursion law and refuses its substitutes",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 25,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 28,
+      "type": "case",
+      "passed": true,
+      "name": "M5 whole-program validation binds gate law to published Rule and Evaluator declarations",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 26,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 29,
+      "type": "case",
+      "passed": true,
+      "name": "M5 fan-out materialization derives one exact task per admitted input member",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 27,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 30,
+      "type": "case",
+      "passed": true,
+      "name": "M5 fan-out and fan-in outer contracts equal their declared vectors",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 28,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 31,
+      "type": "case",
+      "passed": true,
+      "name": "M5 native GraphFunction composition materializes source GTL without a second executable carrier",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 29,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 32,
+      "type": "case",
+      "passed": true,
+      "name": "M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 30,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 33,
+      "type": "case",
+      "passed": true,
+      "name": "M5 whole-program validation refuses forged or widened graph-edge declarations",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 31,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 34,
+      "type": "case",
+      "passed": true,
+      "name": "M5 raw admission and validator reject invented or contradictory C data",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 32,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 35,
+      "type": "case",
+      "passed": true,
+      "name": "M4 independently authored data fixture remains one valid direct C.of Program",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 33,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 36,
+      "type": "case",
+      "passed": true,
+      "name": "M5 whole-root validation keeps F_H interaction keys out of executable resolution",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 34,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 37,
+      "type": "case",
+      "passed": true,
+      "name": "M5 resolves and independently validates the complete executable root set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 35,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 38,
+      "type": "case",
+      "passed": true,
+      "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 36,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 39,
+      "type": "case",
+      "passed": true,
+      "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 37,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 40,
+      "type": "case",
+      "passed": true,
+      "name": "TD-14: Rule.config is admitted at its parse; an unsafe integer or a lone surrogate is refused",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 38,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 42,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 preserves lane-owned Claude execution posture",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 39,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 43,
+      "type": "case",
+      "passed": true,
+      "name": "M5 native report keeps its original host schema presentation",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 40,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 44,
+      "type": "case",
+      "passed": true,
+      "name": "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 41,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 45,
+      "type": "case",
+      "passed": true,
+      "name": "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 42,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 46,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 bounds append arguments for all four transport contracts",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 43,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 47,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 gives agent-specific sandbox binding precedence",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 44,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 48,
+      "type": "case",
+      "passed": true,
+      "name": "M5 transport identity changes with parser and prompt-delivery semantics",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 45,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 49,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 46,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 50,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Bash tool identity ignores only optional string description metadata",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 47,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 51,
+      "type": "case",
+      "passed": true,
+      "name": "M5 B-001 rejects tool activity only in the closed-prompt lane",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 48,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 52,
+      "type": "case",
+      "passed": true,
+      "name": "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 49,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 53,
+      "type": "case",
+      "passed": true,
+      "name": "M5 selected result text cannot admit a valid file without its final carrier",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 50,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 54,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 51,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 55,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 52,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 56,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport does not renew from unacknowledged output",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 53,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 57,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 54,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 58,
+      "type": "case",
+      "passed": true,
+      "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 55,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 59,
+      "type": "case",
+      "passed": true,
+      "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 56,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 60,
+      "type": "case",
+      "passed": true,
+      "name": "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 57,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 61,
+      "type": "case",
+      "passed": true,
+      "name": "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 58,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 62,
+      "type": "case",
+      "passed": true,
+      "name": "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 59,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 63,
+      "type": "case",
+      "passed": true,
+      "name": "TD-11: the incremental tool projection equals the head projection at every cut",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 60,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 64,
+      "type": "case",
+      "passed": true,
+      "name": "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 61,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 65,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 62,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 66,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 63,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 67,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 64,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 68,
+      "type": "case",
+      "passed": true,
+      "name": "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 65,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 69,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 66,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 70,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 67,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 71,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 68,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 72,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 69,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 73,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 70,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 75,
+      "type": "case",
+      "passed": true,
+      "name": "RC9 OWN-01: owner folds over immutable rows and bytes are reused within their territory; changed, copied, earlier and cold inputs keep their checks and refusals",
+      "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "nesting": 0,
+      "testNumber": 71,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 77,
+      "type": "case",
+      "passed": true,
+      "name": "ordinary native runtime declaration passes the existing raw/Program owner",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "nesting": 0,
+      "testNumber": 72,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 78,
+      "type": "case",
+      "passed": true,
+      "name": "native source joins and cloned judgment retain their actual assessment; no owning adapter",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "nesting": 0,
+      "testNumber": 73,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 79,
+      "type": "case",
+      "passed": true,
+      "name": "caller-editable qualification owner views cannot mutate retained input authority; warm and cold agree",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "nesting": 0,
+      "testNumber": 74,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 80,
+      "type": "case",
+      "passed": true,
+      "name": "declared wrong value computes red; foreign law, changed installed subject, stale frontier and result substitute refuse",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "nesting": 0,
+      "testNumber": 75,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 81,
+      "type": "case",
+      "passed": true,
+      "name": "same-valued duplicate witness after assessment invalidates current consumption; supplied prefix substitution refuses",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "nesting": 0,
+      "testNumber": 76,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 82,
+      "type": "case",
+      "passed": true,
+      "name": "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "nesting": 0,
+      "testNumber": 77,
+      "suite": false,
+      "skip": "ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 83,
+      "type": "case",
+      "passed": true,
+      "name": "different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "nesting": 0,
+      "testNumber": 78,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 85,
+      "type": "case",
+      "passed": true,
+      "name": "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 79,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 86,
+      "type": "case",
+      "passed": true,
+      "name": "native revision complete publication admits unique carriers and retains the exact factory graph",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 80,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 87,
+      "type": "case",
+      "passed": true,
+      "name": "native revision installed descriptor loader discovers every declared leaf through module exports",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 81,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 88,
+      "type": "case",
+      "passed": true,
+      "name": "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 82,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 89,
+      "type": "case",
+      "passed": true,
+      "name": "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 83,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 90,
+      "type": "case",
+      "passed": true,
+      "name": "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 84,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 91,
+      "type": "case",
+      "passed": true,
+      "name": "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 85,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 93,
+      "type": "case",
+      "passed": true,
+      "name": "atomic_call: actual assessment owner remains evidence; no duplicate result leaf",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "nesting": 0,
+      "testNumber": 86,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 94,
+      "type": "case",
+      "passed": true,
+      "name": "flat_composition: actual assessment owner remains evidence; no duplicate result leaf",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "nesting": 0,
+      "testNumber": 87,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 95,
+      "type": "case",
+      "passed": true,
+      "name": "edge_program: actual assessment owner remains evidence; no duplicate result leaf",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "nesting": 0,
+      "testNumber": 88,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 96,
+      "type": "case",
+      "passed": true,
+      "name": "flat_composition: finite declaration passes actual raw/Program validation",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "nesting": 0,
+      "testNumber": 89,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 97,
+      "type": "case",
+      "passed": true,
+      "name": "edge_program: finite declaration passes actual raw/Program validation",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "nesting": 0,
+      "testNumber": 90,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 98,
+      "type": "case",
+      "passed": true,
+      "name": "same final value does not hide a missing first step, wrong composition or foreign Result",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "nesting": 0,
+      "testNumber": 91,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 99,
+      "type": "case",
+      "passed": true,
+      "name": "order, value chain, declared coverage and intermediate expectations remain material",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "nesting": 0,
+      "testNumber": 92,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 100,
+      "type": "case",
+      "passed": true,
+      "name": "edge: the same final value cannot replace declared kind, role order or intermediate provenance",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "nesting": 0,
+      "testNumber": 93,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 101,
+      "type": "case",
+      "passed": true,
+      "name": "edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "nesting": 0,
+      "testNumber": 94,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 103,
+      "type": "case",
+      "passed": true,
+      "name": "RC8 REF-01: constructed canonical calls and setup Catalog/view reach the run owner by reference from the first call; canonical outputs, refusals and copies keep their admission",
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "nesting": 0,
+      "testNumber": 95,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    }
+  ],
+  "actualCaseOrder": [
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "native whole-Program validator accepts exactly prepare plus nested C2, with no historical call rights",
+      "testNumber": 1
+    },
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "native validator rejects crossed raw/output and child closure; exact declaration owner refuses extra calls",
+      "testNumber": 2
+    },
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "closed Product carriers preserve all controlled supplied source observations; no fabricated cover qualifies native currentness",
+      "testNumber": 3
+    },
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "explicit zero write territory survives C1 and forward cold carrier round-trip without adding rights",
+      "testNumber": 4
+    },
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "missing reordered duplicate changed or crossed retained members refuse at real Product constructor",
+      "testNumber": 5
+    },
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "a sparse retained bindingCoverEventRefs throws at the real Product constructor; the dense control constructs",
+      "testNumber": 6
+    },
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "the forward constructors admit their three array inputs at ingress: a one-hole vector throws; the dense controls validate and round-trip",
+      "testNumber": 7
+    },
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm",
+      "testNumber": 8
+    },
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "raw namespaces, attempt/task/artifact and actor/tool mismatches remain refused",
+      "testNumber": 9
+    },
+    {
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "name": "step and terminal predicates preserve honest command failure but reject incomplete or crossed final carriers",
+      "testNumber": 10
+    },
+    {
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "name": "synthetic current native lookup maps all controlled retained C0 owners only under exact witness",
+      "testNumber": 11
+    },
+    {
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "name": "synthetic cover wrong direction, scope, missing member and unrelated origin refuse in unchanged native owners",
+      "testNumber": 12
+    },
+    {
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "name": "synthetic workflow alias does not add a C0 owner; distinct same-value producer is ambiguity",
+      "testNumber": 13
+    },
+    {
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "name": "synthetic later cross-W post-publication failure invalidates the old subject alias without fabricating O1",
+      "testNumber": 14
+    },
+    {
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "name": "synthetic current-prefix consumption refuses another exact producer, unresolved admission and ignores unrelated scope",
+      "testNumber": 15
+    },
+    {
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "name": "canonical native entry and occurrence owners refuse same-Run transfer, standalone task, foreign GF and missing native basis",
+      "testNumber": 16
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 GTL exposes exactly seven direct C constructors",
+      "testNumber": 17
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 C.compose is canonical, flat, and identity-eliding",
+      "testNumber": 18
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 GraphFunction composition preserves exact left and right identity",
+      "testNumber": 19
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 GraphFunction promotion preserves topology and semantic truth",
+      "testNumber": 20
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 native constructors refuse invalid batch, retry, and F_H realization",
+      "testNumber": 21
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 native GTL constructs all ten graph relations with derived identities",
+      "testNumber": 22
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 same-object relation is one validator-owned canonical identity witness",
+      "testNumber": 23
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 closure validation distinguishes run and child GraphCall scope",
+      "testNumber": 24
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 whole-program validation admits exact recursion law and refuses its substitutes",
+      "testNumber": 25
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 whole-program validation binds gate law to published Rule and Evaluator declarations",
+      "testNumber": 26
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 fan-out materialization derives one exact task per admitted input member",
+      "testNumber": 27
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 fan-out and fan-in outer contracts equal their declared vectors",
+      "testNumber": 28
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 native GraphFunction composition materializes source GTL without a second executable carrier",
+      "testNumber": 29
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL",
+      "testNumber": 30
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 whole-program validation refuses forged or widened graph-edge declarations",
+      "testNumber": 31
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 raw admission and validator reject invented or contradictory C data",
+      "testNumber": 32
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M4 independently authored data fixture remains one valid direct C.of Program",
+      "testNumber": 33
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 whole-root validation keeps F_H interaction keys out of executable resolution",
+      "testNumber": 34
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 resolves and independently validates the complete executable root set",
+      "testNumber": 35
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "testNumber": 36
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "testNumber": 37
+    },
+    {
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "name": "TD-14: Rule.config is admitted at its parse; an unsafe integer or a lone surrogate is refused",
+      "testNumber": 38
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 B-001 preserves lane-owned Claude execution posture",
+      "testNumber": 39
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 native report keeps its original host schema presentation",
+      "testNumber": 40
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+      "testNumber": 41
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+      "testNumber": 42
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 B-001 bounds append arguments for all four transport contracts",
+      "testNumber": 43
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 B-001 gives agent-specific sandbox binding precedence",
+      "testNumber": 44
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 transport identity changes with parser and prompt-delivery semantics",
+      "testNumber": 45
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+      "testNumber": 46
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 Bash tool identity ignores only optional string description metadata",
+      "testNumber": 47
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 B-001 rejects tool activity only in the closed-prompt lane",
+      "testNumber": 48
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+      "testNumber": 49
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 selected result text cannot admit a valid file without its final carrier",
+      "testNumber": 50
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "testNumber": 51
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+      "testNumber": 52
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 ABG transport does not renew from unacknowledged output",
+      "testNumber": 53
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "testNumber": 54
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "testNumber": 55
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "testNumber": 56
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+      "testNumber": 57
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+      "testNumber": 58
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+      "testNumber": 59
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "TD-11: the incremental tool projection equals the head projection at every cut",
+      "testNumber": 60
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+      "testNumber": 61
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+      "testNumber": 62
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+      "testNumber": 63
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+      "testNumber": 64
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+      "testNumber": 65
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+      "testNumber": 66
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+      "testNumber": 67
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+      "testNumber": 68
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+      "testNumber": 69
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "name": "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization",
+      "testNumber": 70
+    },
+    {
+      "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "name": "RC9 OWN-01: owner folds over immutable rows and bytes are reused within their territory; changed, copied, earlier and cold inputs keep their checks and refusals",
+      "testNumber": 71
+    },
+    {
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "name": "ordinary native runtime declaration passes the existing raw/Program owner",
+      "testNumber": 72
+    },
+    {
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "name": "native source joins and cloned judgment retain their actual assessment; no owning adapter",
+      "testNumber": 73
+    },
+    {
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "name": "caller-editable qualification owner views cannot mutate retained input authority; warm and cold agree",
+      "testNumber": 74
+    },
+    {
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "name": "declared wrong value computes red; foreign law, changed installed subject, stale frontier and result substitute refuse",
+      "testNumber": 75
+    },
+    {
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "name": "same-valued duplicate witness after assessment invalidates current consumption; supplied prefix substitution refuses",
+      "testNumber": 76
+    },
+    {
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "name": "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "testNumber": 77
+    },
+    {
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "name": "different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation",
+      "testNumber": 78
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "name": "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+      "testNumber": 79
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "name": "native revision complete publication admits unique carriers and retains the exact factory graph",
+      "testNumber": 80
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "name": "native revision installed descriptor loader discovers every declared leaf through module exports",
+      "testNumber": 81
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "name": "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "testNumber": 82
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "name": "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "testNumber": 83
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "name": "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+      "testNumber": 84
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "name": "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring",
+      "testNumber": 85
+    },
+    {
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "name": "atomic_call: actual assessment owner remains evidence; no duplicate result leaf",
+      "testNumber": 86
+    },
+    {
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "name": "flat_composition: actual assessment owner remains evidence; no duplicate result leaf",
+      "testNumber": 87
+    },
+    {
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "name": "edge_program: actual assessment owner remains evidence; no duplicate result leaf",
+      "testNumber": 88
+    },
+    {
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "name": "flat_composition: finite declaration passes actual raw/Program validation",
+      "testNumber": 89
+    },
+    {
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "name": "edge_program: finite declaration passes actual raw/Program validation",
+      "testNumber": 90
+    },
+    {
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "name": "same final value does not hide a missing first step, wrong composition or foreign Result",
+      "testNumber": 91
+    },
+    {
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "name": "order, value chain, declared coverage and intermediate expectations remain material",
+      "testNumber": 92
+    },
+    {
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "name": "edge: the same final value cannot replace declared kind, role order or intermediate provenance",
+      "testNumber": 93
+    },
+    {
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "name": "edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red",
+      "testNumber": 94
+    },
+    {
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "name": "RC8 REF-01: constructed canonical calls and setup Catalog/view reach the run owner by reference from the first call; canonical outputs, refusals and copies keep their admission",
+      "testNumber": 95
+    }
+  ],
+  "fileSummaries": [
+    {
+      "ordinal": 11,
+      "type": "summary",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "counts": {
+        "tests": 10,
+        "failed": 0,
+        "passed": 10,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 10,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 252.213167
+    },
+    {
+      "ordinal": 18,
+      "type": "summary",
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "counts": {
+        "tests": 6,
+        "failed": 0,
+        "passed": 6,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 6,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 49.163125
+    },
+    {
+      "ordinal": 41,
+      "type": "summary",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "counts": {
+        "tests": 22,
+        "failed": 0,
+        "passed": 19,
+        "cancelled": 0,
+        "skipped": 3,
+        "todo": 0,
+        "topLevel": 22,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 393.219125
+    },
+    {
+      "ordinal": 74,
+      "type": "summary",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "counts": {
+        "tests": 32,
+        "failed": 0,
+        "passed": 32,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 32,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 11441.666625
+    },
+    {
+      "ordinal": 76,
+      "type": "summary",
+      "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 37568.971667
+    },
+    {
+      "ordinal": 84,
+      "type": "summary",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "counts": {
+        "tests": 7,
+        "failed": 0,
+        "passed": 6,
+        "cancelled": 0,
+        "skipped": 1,
+        "todo": 0,
+        "topLevel": 7,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 962.876708
+    },
+    {
+      "ordinal": 92,
+      "type": "summary",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "counts": {
+        "tests": 7,
+        "failed": 0,
+        "passed": 5,
+        "cancelled": 0,
+        "skipped": 2,
+        "todo": 0,
+        "topLevel": 7,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 784.800125
+    },
+    {
+      "ordinal": 102,
+      "type": "summary",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "counts": {
+        "tests": 9,
+        "failed": 0,
+        "passed": 9,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 9,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 2932.179334
+    },
+    {
+      "ordinal": 104,
+      "type": "summary",
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 40099.860542
+    }
+  ],
+  "globalSummary": {
+    "ordinal": 105,
+    "type": "summary",
+    "file": null,
+    "counts": {
+      "tests": 95,
+      "failed": 0,
+      "passed": 89,
+      "cancelled": 0,
+      "skipped": 6,
+      "todo": 0,
+      "topLevel": 95,
+      "suites": 0
+    },
+    "success": true,
+    "durationMs": 97530.749834
+  },
+  "skipMatches": true,
+  "filePopulationMatches": true,
+  "casePopulationMatches": true,
+  "fileSummariesComplete": true,
+  "ordinalsComplete": true,
+  "requiredCases": [
+    {
+      "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "passed": true
+    },
+    {
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "passed": true
+    }
+  ],
+  "standing": "All95 observed case identities and nine file summaries retained; prior002 names/skips are population definitions only, not proof credits."
+}

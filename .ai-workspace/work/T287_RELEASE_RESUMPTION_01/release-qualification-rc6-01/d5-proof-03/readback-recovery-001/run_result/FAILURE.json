@@ -1,0 +1,56 @@
+{
+  "at": "2026-11-06T03:13:01.256Z",
+  "name": "AssertionError",
+  "message": "Expected values to be strictly equal:\n\n1 !== 0\n",
+  "wallMs": 132536.298209,
+  "phases": [
+    {
+      "phase": "input_pins_checked",
+      "at": "2026-11-06T03:10:48.753Z",
+      "offsetMs": 34.030041999999995,
+      "memory": {
+        "rss": 128565248,
+        "heapTotal": 10321920,
+        "heapUsed": 5337784,
+        "external": 75282834,
+        "arrayBuffers": 72974630
+      }
+    },
+    {
+      "phase": "physical_prefix_checked",
+      "at": "2026-11-06T03:10:49.730Z",
+      "offsetMs": 1010.9424170000001,
+      "memory": {
+        "rss": 264503296,
+        "heapTotal": 176439296,
+        "heapUsed": 68958800,
+        "external": 5125717,
+        "arrayBuffers": 2706217
+      }
+    },
+    {
+      "phase": "construct_run_read",
+      "at": "2026-11-06T03:10:49.730Z",
+      "offsetMs": 1011.4595419999999,
+      "memory": {
+        "rss": 264503296,
+        "heapTotal": 176439296,
+        "heapUsed": 69041576,
+        "external": 5125717,
+        "arrayBuffers": 2706217
+      }
+    },
+    {
+      "phase": "cold_installed_read",
+      "at": "2026-11-06T03:11:55.917Z",
+      "offsetMs": 67197.67,
+      "memory": {
+        "rss": 3348135936,
+        "heapTotal": 2691563520,
+        "heapUsed": 2597712096,
+        "external": 24630487,
+        "arrayBuffers": 22186354
+      }
+    }
+  ]
+}

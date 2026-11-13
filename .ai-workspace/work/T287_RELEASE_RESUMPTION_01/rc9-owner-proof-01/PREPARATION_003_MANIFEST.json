@@ -1,0 +1,37 @@
+{
+  "status": "PREPARED_EXECUTION_HELD",
+  "at": "2026-11-08T07:20:01.045661+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PREPARATION_003_ADMISSION.json",
+      "bytes": 1420,
+      "sha256": "b2661eca2543e5954bfaf846953eeb06453d3d7528afb243d0ae6cc9a2165b47"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-003.mjs",
+      "bytes": 13305,
+      "sha256": "74b261f9d3960698edcb9ddcecc3b2cb9121e54fb603b081547c07d37ba56c71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FOCUSED_BINDING.PREPARATION.003.json",
+      "bytes": 5836,
+      "sha256": "00319ae4440a5e32597c550df0a1f49204df5483fc4fe98008b1ac77b6a73224"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PREPARATION_003_SCRIPT_DIFF.patch",
+      "bytes": 1383,
+      "sha256": "ca862496a0044ed7bbd7cc2107e52ed94e5c7444120bbdd50bfd50bc60ec7692"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PREPARATION_003_RESULT.json",
+      "bytes": 7212,
+      "sha256": "171bedf819231569b5dd6563f5b3178c2588712a420daa8763203954ae32d9fe"
+    }
+  ],
+  "preservedRepair002Manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/REPAIR_002_MANIFEST.json",
+    "bytes": 36079,
+    "sha256": "f7ddb34ae794405628f4ce49021eb0d7d01e741361aab33567d3ee866ac3bf47"
+  },
+  "noPriorControlsOrEvidenceChanged": true
+}

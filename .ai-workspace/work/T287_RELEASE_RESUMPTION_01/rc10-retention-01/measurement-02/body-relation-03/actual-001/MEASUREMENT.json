@@ -1,0 +1,3632 @@
+{
+  "status": "FIFTY_CALL_RETENTION_MEASUREMENT_CLOSED",
+  "source": {
+    "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292778,
+      "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+    }
+  },
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "perCall": [
+    {
+      "i": 0,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 851.9383749999979,
+      "callMs": 3020.602791999998,
+      "invocationRef": "invocation://abiogenesis/7e1387d3b27ec64c5016b32269d99c3e196e7261f5b9b63f731ed04343b3e843",
+      "run": {
+        "ref": "run://abiogenesis/1f669dedc99326a56c253c3589980f6284db68b2f0260ee4cadbb84d28c6440a",
+        "digest": "sha256:08e03c7d27a26d636a3ea74babf10dde6bd94672055ee49b6afeaedbd16c205e"
+      },
+      "basisRef": "execution-basis://abiogenesis/b80beb3cde4c60096d13965e70385d9a67cfbb58fcc241aa892040d5751b59ef",
+      "terminalIdentityDigest": "sha256:1e14e66953844b3d624bd6dbdb9dbc67ec42d3b25059e50230c3cb8eda1cf817",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 92,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": {
+        "actualCurrentPrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/runtime/events.jsonl",
+          "prefixLength": 4620375,
+          "prefixDigest": "sha256:7f3791dc9fdb8513f55e326c2827a6126fb2e110b1df7e361f758a46915e7452",
+          "storeIdentity": {
+            "device": 16777231,
+            "inode": 719230306,
+            "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+          },
+          "coordinateDigest": "sha256:37e00e4d346a436988bcaa38e2f32f31820458fe2e96cfbc86005bb5bd88a22e"
+        },
+        "publicRequestInvocationRef": "invocation://abiogenesis/7e1387d3b27ec64c5016b32269d99c3e196e7261f5b9b63f731ed04343b3e843",
+        "admittedInvocationRef": "invocation://abiogenesis/7c1dbffedfaa5b2d23d7ec6f494a11a666ddcaaef436ddb4631dc30f06066924",
+        "invocationAdmissionEventRef": "event://abiogenesis/1d13467e3f78d1046a426161f10cc76fee856dba82f3e3a2a14b0f48325cf5c7",
+        "basisRef": "execution-basis://abiogenesis/b80beb3cde4c60096d13965e70385d9a67cfbb58fcc241aa892040d5751b59ef",
+        "invocationRef": "invocation://abiogenesis/7c1dbffedfaa5b2d23d7ec6f494a11a666ddcaaef436ddb4631dc30f06066924",
+        "admissionEventRef": "event://abiogenesis/465315d28ceb8d33ddb77cd2baafbcb1df05c8bc7ae6e4b62083be143f437722",
+        "admissionOrdinal": 6,
+        "strictIdentity": true,
+        "bothReadWorkDelta": {
+          "rowAdmissions": 0,
+          "bodyDigests": 0
+        },
+        "gauges": {
+          "openHandles": 1,
+          "retainedRows": 1,
+          "retainedPayloadBytes": 1404668,
+          "historyBasisBodies": 1,
+          "historyBasisPayloadBytes": 1404668
+        },
+        "selection": "actual installed owner current metadata; no new retention handle"
+      },
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 46,
+          "bodyBytesRead": 4781947
+        }
+      },
+      "eventBytesBefore": 3178662,
+      "eventBytesAfter": 4781947
+    },
+    {
+      "i": 1,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 853.5291249999937,
+      "callMs": 3128.1838329999955,
+      "invocationRef": "invocation://abiogenesis/cbd7c4d94b33f51936d4b2c61b1fe6b94adc7670107fb14d9fadac4ca88f201b",
+      "run": {
+        "ref": "run://abiogenesis/0b826ea5833a11ca593e30c9abc167d5186c7e7164191e661d9f533a06f09ebd",
+        "digest": "sha256:25a0b9733bf55b1270ea7aae8b43ca1ca6c9406c3068c8b2f91e05926fd40d5e"
+      },
+      "basisRef": "execution-basis://abiogenesis/615e703ecb4d3dae34ca16a0ad3afef2411531f006728a14ac120504b2b3d4f7",
+      "terminalIdentityDigest": "sha256:37b16ce2d0928df3386398f76a360885110c110665841171f5f001464f70ee01",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 91,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": {
+        "actualCurrentPrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/runtime/events.jsonl",
+          "prefixLength": 10417971,
+          "prefixDigest": "sha256:734c787a16220b37feedcca62911062483b40aaa4a9a2ebaa77990e0b269f94b",
+          "storeIdentity": {
+            "device": 16777231,
+            "inode": 719230306,
+            "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+          },
+          "coordinateDigest": "sha256:6c639a9509bbe8928462ad7bf77ddddc815f4863c4fd474d1d3dfa006326dcb5"
+        },
+        "publicRequestInvocationRef": "invocation://abiogenesis/cbd7c4d94b33f51936d4b2c61b1fe6b94adc7670107fb14d9fadac4ca88f201b",
+        "admittedInvocationRef": "invocation://abiogenesis/50d644c2b00dc2b3291953fc67d419e291cd0ab398d1a9e50f12d8e71b4d83ba",
+        "invocationAdmissionEventRef": "event://abiogenesis/7846ea8d9c9d32803c00f7667e109258bb63bee3496fcc262a589ecdee4e823f",
+        "basisRef": "execution-basis://abiogenesis/615e703ecb4d3dae34ca16a0ad3afef2411531f006728a14ac120504b2b3d4f7",
+        "invocationRef": "invocation://abiogenesis/50d644c2b00dc2b3291953fc67d419e291cd0ab398d1a9e50f12d8e71b4d83ba",
+        "admissionEventRef": "event://abiogenesis/daae4886ef6ac767b56d18e5a8b4daedd689751913b9d8c6f3eba7e653270dff",
+        "admissionOrdinal": 50,
+        "strictIdentity": true,
+        "bothReadWorkDelta": {
+          "rowAdmissions": 0,
+          "bodyDigests": 0
+        },
+        "gauges": {
+          "openHandles": 1,
+          "retainedRows": 1,
+          "retainedPayloadBytes": 5598972,
+          "historyBasisBodies": 1,
+          "historyBasisPayloadBytes": 5598972
+        },
+        "selection": "actual installed owner current metadata; no new retention handle"
+      },
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 45,
+          "bodyBytesRead": 7190196
+        }
+      },
+      "eventBytesBefore": 4781947,
+      "eventBytesAfter": 10561752
+    },
+    {
+      "i": 2,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 804.7165840000016,
+      "callMs": 2719.416833000003,
+      "invocationRef": "invocation://abiogenesis/5d58489de6ffa855a8384dbfaf5a26b9541a4336f884722b5f5193f0a5f088be",
+      "run": {
+        "ref": "run://abiogenesis/dba4309f6c6863f140ea8030e854aa1eb87fd59636ce13cdc37095bbfaa01fda",
+        "digest": "sha256:02156bc86ba8456d233f325c55d90c410f41224125968fb697282e6e12d60697"
+      },
+      "basisRef": "execution-basis://abiogenesis/6cf96bfa2e00e7d25729ca06eea73f882e07b8b4f62b01f0d7cbd88fadedb0e0",
+      "terminalIdentityDigest": "sha256:baa3ca9f945690f0be18767b04d3a1798fe75e2d4a40ed88fefb93f57017e73b",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 89,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 50,
+          "bodyBytesRead": 12837890
+        }
+      },
+      "eventBytesBefore": 10561752,
+      "eventBytesAfter": 10742991
+    },
+    {
+      "i": 3,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 853.4466659999962,
+      "callMs": 3311.4272090000013,
+      "invocationRef": "invocation://abiogenesis/c9d4766abc802778d66b315994b1709f21f8ddb8f353147611bb868dd0e666a9",
+      "run": {
+        "ref": "run://abiogenesis/48daf70fa57aa7503471c91371eec2d50e378d0f0cb8c8e674d268bf88770342",
+        "digest": "sha256:4d69f3b4cad99cffaad1788633d0b997d97eea1a8d15295865877887acfedcb7"
+      },
+      "basisRef": "execution-basis://abiogenesis/607488738292e644910208d3d4aefbb3b538c0442f3f369737e915a86f619dd9",
+      "terminalIdentityDigest": "sha256:f8fe1255a54bf0ca1bacecb68059c73c74befe9d5022a95cc102dd445da9606a",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 92,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 53,
+          "bodyBytesRead": 32442036
+        }
+      },
+      "eventBytesBefore": 10742991,
+      "eventBytesAfter": 10924264
+    },
+    {
+      "i": 4,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 787.5857499999984,
+      "callMs": 2758.4403329999914,
+      "invocationRef": "invocation://abiogenesis/6e3a63b503530a7ea977b12c2313595ab304626e7f5e758d62f184b05f330176",
+      "run": {
+        "ref": "run://abiogenesis/8f2f8c36f88d55d4326ded5fc69a0ec1403a22718bd9441d52aa605b5b513c90",
+        "digest": "sha256:4a00270aedf149725d1111a66a5ced91ca04971d484165f1ce8bb928750b3adf"
+      },
+      "basisRef": "execution-basis://abiogenesis/caf2e3ca73dc7a69bd2c6fe4a8f47132d24c505a8d2f3b41e713d7cba8d0e65d",
+      "terminalIdentityDigest": "sha256:0dca5bb9258881b8ef5fd544069ee3237716cf8c73d3e165ebf16e2eb91c44fb",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 87,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 57,
+          "bodyBytesRead": 26886419
+        }
+      },
+      "eventBytesBefore": 10924264,
+      "eventBytesAfter": 11105527
+    },
+    {
+      "i": 5,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 888.697125000006,
+      "callMs": 3515.317791999987,
+      "invocationRef": "invocation://abiogenesis/9f7b1aabb6b58b28efb6388dfb39b2d964844b2ba8b3af7f0134a5601ceea793",
+      "run": {
+        "ref": "run://abiogenesis/919fa1a25662c318470e1ba122b2fb64a162574c604fc72dfb609a55b6dd2838",
+        "digest": "sha256:14b4d207a74d60c3cdb2137114e9e7840d0d8dff5e2e1e4f557b89ba56cab1d3"
+      },
+      "basisRef": "execution-basis://abiogenesis/5153897e9ed40f92f1467f5adccb52d6f602e8a5fbfd160475306f9a380cd472",
+      "terminalIdentityDigest": "sha256:f4add40f679a0751944e4c384ca1dc69d9823eae1bdf3345e69edd06094a6dfb",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 93,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 61,
+          "bodyBytesRead": 46496642
+        }
+      },
+      "eventBytesBefore": 11105527,
+      "eventBytesAfter": 11286789
+    },
+    {
+      "i": 6,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 779.0130419999914,
+      "callMs": 2954.2255000000005,
+      "invocationRef": "invocation://abiogenesis/32be4c4c7f3281eb4d92dc8622522c3f102ad0a783e561ac9aadf91488491b18",
+      "run": {
+        "ref": "run://abiogenesis/190110a39f1cd9764ae1c635b681d355907748e4e056d0fdd1bd7e186ca10455",
+        "digest": "sha256:da2f90fad901d98ba57bee0f1603bc2deee41e57d5a7e77b0c73e0462b6049b2"
+      },
+      "basisRef": "execution-basis://abiogenesis/2e4dc919adf47a7a61ba14cfc40296e47ce7c2dce9b6de0d856d689735250140",
+      "terminalIdentityDigest": "sha256:586edc12fa68c0b13d957d98722f4bd79d2cefe1f899d834a4ab2ca37c26ab30",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 92,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 65,
+          "bodyBytesRead": 40941043
+        }
+      },
+      "eventBytesBefore": 11286789,
+      "eventBytesAfter": 11468058
+    },
+    {
+      "i": 7,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 899.3194170000061,
+      "callMs": 3611.5715839999903,
+      "invocationRef": "invocation://abiogenesis/994199f71726cef009d44912ed4db8e6b946fcf93b87bc096c521d72b7bca103",
+      "run": {
+        "ref": "run://abiogenesis/79c766b00fdd1cc7a3bb8d2e5cd19c691ad0a99590d380343fa9136a0a05c98f",
+        "digest": "sha256:05657dc6b39e46c429a28186593516fb6b2e5e9bddd537e21d77331d4149d31e"
+      },
+      "basisRef": "execution-basis://abiogenesis/264d19be5f801f31f82b7ec1b94dc7631dfce01401994d4ec2b91e0f7cca8662",
+      "terminalIdentityDigest": "sha256:37074ffa0d8e2ec43f844b3d83927fab02fc466931a2f04644100a68213210a2",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 95,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 69,
+          "bodyBytesRead": 60551261
+        }
+      },
+      "eventBytesBefore": 11468058,
+      "eventBytesAfter": 11649321
+    },
+    {
+      "i": 8,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 837.9054159999941,
+      "callMs": 3115.232959000001,
+      "invocationRef": "invocation://abiogenesis/6768e63f2b7bcc399f60e9b2567b1875f7e50b80bf901ea7a64d8201fd3fb736",
+      "run": {
+        "ref": "run://abiogenesis/0709b5e66819987cebae36b207a140f911d813aa5e2b753924b2a3007faeeae2",
+        "digest": "sha256:4dfc81adda1b2c02a5e0434cd3786bb8494e88a429797233c56d32fa0487e3be"
+      },
+      "basisRef": "execution-basis://abiogenesis/8c6c8666810acd4de49c61dbd250c73daa9b1919dc9785680051c72fe40e128a",
+      "terminalIdentityDigest": "sha256:b7d4fb5ab175c09c2be1eaf42eaf8bdce21e2afe2c42df4eb057d8281aef834e",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 94,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 73,
+          "bodyBytesRead": 54995657
+        }
+      },
+      "eventBytesBefore": 11649321,
+      "eventBytesAfter": 11830586
+    },
+    {
+      "i": 9,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 866.0444169999973,
+      "callMs": 3815.8155410000036,
+      "invocationRef": "invocation://abiogenesis/e063d8c4161ee6fa0d6718387dc42f35f2e11e43413dce0f236e15578dedca28",
+      "run": {
+        "ref": "run://abiogenesis/f613600dab664df8a61d53d15e751f6816747ce595bafe36840a2069f78f0aef",
+        "digest": "sha256:e88bfa2fe3b7b14e1b4f26338bc8ea1c8f6734ef35e18c753481c2a15921735a"
+      },
+      "basisRef": "execution-basis://abiogenesis/f07dd3ec20e3130a4a7185725fee46fba0380322b7eb7f394c81d39ba5e93f0d",
+      "terminalIdentityDigest": "sha256:6c39ff3166af106f5a8167220b454ed38d29361106ee391342c318043919129f",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 98,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 77,
+          "bodyBytesRead": 74605884
+        }
+      },
+      "eventBytesBefore": 11830586,
+      "eventBytesAfter": 12011854
+    },
+    {
+      "i": 10,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 835.9659580000007,
+      "callMs": 3242.2011670000065,
+      "invocationRef": "invocation://abiogenesis/151d70baf9fe6a3f95340f2881f3269ade3203369a8b14041612067cc3a460f1",
+      "run": {
+        "ref": "run://abiogenesis/fee2240c1b1703e4c4a61a44a537a384b1937ac29e2e155add5531a57f06fb49",
+        "digest": "sha256:b4096a42ca268be63e6901f91d31b7c5b638a8181f5a6d36d85213d6ff71ced0"
+      },
+      "basisRef": "execution-basis://abiogenesis/b6284a3afba200c10bc9b88f8019aca578c0668efc3e2e101e9356616012c480",
+      "terminalIdentityDigest": "sha256:0bb144043a98a52ef82d9c7abc0b22d0aa035934e86281c1479a09a1fd3fdb58",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 93,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 81,
+          "bodyBytesRead": 69050278
+        }
+      },
+      "eventBytesBefore": 12011854,
+      "eventBytesAfter": 12193122
+    },
+    {
+      "i": 11,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 870.182375000004,
+      "callMs": 3684.7708330000023,
+      "invocationRef": "invocation://abiogenesis/a72e21b99b68ea625193b763b43eba63f2fbfe92cda623b54ccfadb307739859",
+      "run": {
+        "ref": "run://abiogenesis/44ee4cc8039f1fbf1ba761817991a2b936050cd38fc477dae86cc11c58ceef6d",
+        "digest": "sha256:49b9ae5a8e48e81a58b5048885d336e0e1a76a4e856fa2d85f947460d9ce5b2a"
+      },
+      "basisRef": "execution-basis://abiogenesis/83fdc6b9930cb190e9ef4dc84598345d2013157bd635cf5d35e7ad5b05f3bf50",
+      "terminalIdentityDigest": "sha256:dbf7318ef43dc54a1b9976ba338ad7b1691e6c032f8ea9aee4059235b33f41fb",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 86,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 85,
+          "bodyBytesRead": 88660501
+        }
+      },
+      "eventBytesBefore": 12193122,
+      "eventBytesAfter": 12374389
+    },
+    {
+      "i": 12,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 806.6801669999986,
+      "callMs": 3264.986416999993,
+      "invocationRef": "invocation://abiogenesis/61efe8f9853a06a4e0fa97dd96458b9a70cb49a0b15aba2f0aa8f26a86087381",
+      "run": {
+        "ref": "run://abiogenesis/58ca0412f9ceacc665e1431987d30cc82d509855719b4c08b5a7466478245d59",
+        "digest": "sha256:c284619709c565baf0888c59539ab23783edf81635491daf5a881247ea691e59"
+      },
+      "basisRef": "execution-basis://abiogenesis/46e9a80e369046d9b9ce9833da298992d0659dee41391c8a7358f267a8711de2",
+      "terminalIdentityDigest": "sha256:5b5937bf356ab96868e0b4fd0209638a2a084d22b10efee609659d380ed23398",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 92,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 89,
+          "bodyBytesRead": 83104893
+        }
+      },
+      "eventBytesBefore": 12374389,
+      "eventBytesAfter": 12555654
+    },
+    {
+      "i": 13,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 878.4468330000091,
+      "callMs": 3883.042125000007,
+      "invocationRef": "invocation://abiogenesis/d5b78b4dd9a00ebb494aae0e7fb3a766758311203d2e1c0a5f47eb84d18d288e",
+      "run": {
+        "ref": "run://abiogenesis/6ce9d4afca39c0905a0d1dde5f6c0458ba29ad0f83e119d0c3d2372b70157066",
+        "digest": "sha256:66f89928557343c244791fd1a7f7a86598a0d70e0a8c7e0b936ea489deacc8e6"
+      },
+      "basisRef": "execution-basis://abiogenesis/d189fbc2fd1069bb106120be144408c34734b2da7121f874c06c180d57abe35b",
+      "terminalIdentityDigest": "sha256:7d2623ab178529eb7c1150f0a1362158ec4fe3d8ba2bf5a33dcbf2e77cfc76f9",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 88,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 93,
+          "bodyBytesRead": 102715119
+        }
+      },
+      "eventBytesBefore": 12555654,
+      "eventBytesAfter": 12736921
+    },
+    {
+      "i": 14,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 810.1602920000005,
+      "callMs": 3504.579291000002,
+      "invocationRef": "invocation://abiogenesis/f12006323a38e044841bfc02f9bda04e9072c07c5efa70d6071fed8a898049a9",
+      "run": {
+        "ref": "run://abiogenesis/1b41c31b2255fcef7e9d570d6991ee94d50e22152339bd2c473728fcc3f9dc46",
+        "digest": "sha256:abc9b6cbc89ad2b28316b2f3b19f43f7b68d82759446c8a8b05bcb090ad26b79"
+      },
+      "basisRef": "execution-basis://abiogenesis/100eff946d051b12d9b7ebcf805065208f6eecd991155b6dbe152eb2f373e264",
+      "terminalIdentityDigest": "sha256:4df05ec4be66ea444111f635391e202b728bc72f5080ca772cf05f2501f8025f",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 94,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 97,
+          "bodyBytesRead": 97159512
+        }
+      },
+      "eventBytesBefore": 12736921,
+      "eventBytesAfter": 12918187
+    },
+    {
+      "i": 15,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 872.4672920000012,
+      "callMs": 4028.8853339999914,
+      "invocationRef": "invocation://abiogenesis/140b0d55ce4bd656b8fda2bf8fdf56fb66b4446155e7d88e105c92270c235bb6",
+      "run": {
+        "ref": "run://abiogenesis/9762673891c16e46df9816d668323e12df13b5e01e6584e97b7f2506f27109b4",
+        "digest": "sha256:929cbf12ebf3fe0b0d8f1e805c93be7855bb108d4c061c112b757c503299a92c"
+      },
+      "basisRef": "execution-basis://abiogenesis/f8a1e9942a2de6e4167c632c71f413634e0e7168ccba89799a9c3e0cb83def56",
+      "terminalIdentityDigest": "sha256:71ded61818657441d7ad4d8f56152487caf2c68021e6ac580c7ffbac10e242a2",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 90,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 101,
+          "bodyBytesRead": 116769726
+        }
+      },
+      "eventBytesBefore": 12918187,
+      "eventBytesAfter": 13099443
+    },
+    {
+      "i": 16,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 796.8763330000074,
+      "callMs": 3512.3940000000002,
+      "invocationRef": "invocation://abiogenesis/c21b46f101eb40ec85d86c22da474d90a13a2e955137147c38889d21ae3fced1",
+      "run": {
+        "ref": "run://abiogenesis/a18ba5e7fbda37d710d1d4fe80fbb5ee319fb9c7a60e6f490bac15cfe65203ba",
+        "digest": "sha256:d653efd41fdaaee0e5bf953a1ba164bd8b0c1a84ca0522201dd11625d277e94c"
+      },
+      "basisRef": "execution-basis://abiogenesis/105501364e91c572478f3bc23ebd8f89fd0e5e4898fd3f5fb9cdbb41c3991c4a",
+      "terminalIdentityDigest": "sha256:1c56a4cb1be38791d6e080e455724bbe808bd8f7e6ad3b1420834d42d0dfd6cd",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 90,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 105,
+          "bodyBytesRead": 111214133
+        }
+      },
+      "eventBytesBefore": 13099443,
+      "eventBytesAfter": 13280712
+    },
+    {
+      "i": 17,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 833.2154169999994,
+      "callMs": 4132.857667000004,
+      "invocationRef": "invocation://abiogenesis/f68dba6b6de87d0685f3efbc3ef26569e5ad8bbe79b038686704e3ff85689ea4",
+      "run": {
+        "ref": "run://abiogenesis/ad96312c71dcb20c32de8054f3113ee764672bb1fc44b159010b2ef3367f18f6",
+        "digest": "sha256:218b50e5bd12e828f61cd1ffefb43c7a6978ea871fa65ee3aaa1f2fe8f2e2261"
+      },
+      "basisRef": "execution-basis://abiogenesis/0729392c5fbc3f76d008fb93b369dc96ad6f21429da04b60121062eaee74eb7f",
+      "terminalIdentityDigest": "sha256:766c72b45f768bf39905ad4783e301d8fb011cab44ff75a342fb89486e89ffe5",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 87,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 109,
+          "bodyBytesRead": 130824353
+        }
+      },
+      "eventBytesBefore": 13280712,
+      "eventBytesAfter": 13461977
+    },
+    {
+      "i": 18,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 826.3807920000108,
+      "callMs": 3694.988416999986,
+      "invocationRef": "invocation://abiogenesis/e78602a09000c15a4e69705bea37f5fb5ba451ba45ace9ffc87b94ae7e502d9e",
+      "run": {
+        "ref": "run://abiogenesis/d4ecc48eb04237d41d55e2c7b7ea703ea4f5b2c6d4b0aa24a162542d9820f669",
+        "digest": "sha256:d3a5b98e55ac317bbe78581294be83f4ebc4a6eeb41348d4078bd9bbab0a24bc"
+      },
+      "basisRef": "execution-basis://abiogenesis/f426d980d3e09505d55ef6fd6cdfc573b9aa9f5f32242014f5a19fa2d75de817",
+      "terminalIdentityDigest": "sha256:aa7e6d3d44dc03ac9bf2bb923246fcf630abefdae68fe358d5baa634bcc884f7",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 91,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 113,
+          "bodyBytesRead": 125268740
+        }
+      },
+      "eventBytesBefore": 13461977,
+      "eventBytesAfter": 13643235
+    },
+    {
+      "i": 19,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 855.6194160000014,
+      "callMs": 4324.406583000004,
+      "invocationRef": "invocation://abiogenesis/cb3adc2d70ee1a7544aceff3540ea9a62f5ce78f8830f0dd3e051db75ea28612",
+      "run": {
+        "ref": "run://abiogenesis/6a4cc5d318f9a2375af90891aaa96a197c4b035282e53d9a803434175fadc81a",
+        "digest": "sha256:0af757a2a8dfe7b01588337a1769f8f62da15f8fb14b431265b125bdaacb6fab"
+      },
+      "basisRef": "execution-basis://abiogenesis/9150e055dee304a8e244e085aa6a7f58f765429775d9598c506970e84e6bbbe5",
+      "terminalIdentityDigest": "sha256:604c002fc56057f44ac379a3bd268d5c19a2f051c7008699a7c085521e506eb2",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 95,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 117,
+          "bodyBytesRead": 144878969
+        }
+      },
+      "eventBytesBefore": 13643235,
+      "eventBytesAfter": 13824498
+    },
+    {
+      "i": 20,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 901.096749999997,
+      "callMs": 3893.231999999989,
+      "invocationRef": "invocation://abiogenesis/8752c03cc0fb3169539830357d918100ea41b2a485c1d7318ac7c6acb499f4c8",
+      "run": {
+        "ref": "run://abiogenesis/7f7344e0bcbc7cf9e675171196f6dedf7332d1dad2e36d1fcbeb553011c318b4",
+        "digest": "sha256:8309fa41584260bfdd380db96ea33365bc5a81d9fb18ca36f5e46e2517591402"
+      },
+      "basisRef": "execution-basis://abiogenesis/0b8773636d8ca9d127b8b62aa724849024d60e1d33b168a61389b6d8b58524b3",
+      "terminalIdentityDigest": "sha256:f31aaf00db5091755d507ca9c27d9a7ac6bd306bfdc7930ea6d53ae86d9cd0bc",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 96,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 121,
+          "bodyBytesRead": 139323364
+        }
+      },
+      "eventBytesBefore": 13824498,
+      "eventBytesAfter": 14005762
+    },
+    {
+      "i": 21,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 839.666459,
+      "callMs": 4421.355875000008,
+      "invocationRef": "invocation://abiogenesis/ba10de97541dec40346c9591327e107cd2827bb1801b80bd71f11799e3cc1d03",
+      "run": {
+        "ref": "run://abiogenesis/da7c25b88641cd3c11fd87efe14547354922152ca21a62278cc41569435cd44e",
+        "digest": "sha256:c385049278fdc80a8a81078beefcdcc23f90cf46555dd0f322705f6ee616c8e6"
+      },
+      "basisRef": "execution-basis://abiogenesis/e48cb6ab5d5c053a923ef036212d307b4aa506cb57831cd4c7750f7ad05fdb00",
+      "terminalIdentityDigest": "sha256:821ada45459bc3a9b7323ad65079e585436a9dcf57d02315ff25f434a8725bec",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 91,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 125,
+          "bodyBytesRead": 158933589
+        }
+      },
+      "eventBytesBefore": 14005762,
+      "eventBytesAfter": 14187027
+    },
+    {
+      "i": 22,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 822.7039579999982,
+      "callMs": 4035.470708000008,
+      "invocationRef": "invocation://abiogenesis/25e449bc33064446d603827568314f8feaea3ed5d48a440729621cc304b91fff",
+      "run": {
+        "ref": "run://abiogenesis/0dc6df28da09e3fccd7c838ab87f607382670f1e59950995ae0fb906cfe93429",
+        "digest": "sha256:56f7473ade39aa25d7c837cb43962c1a3a354d69ff3025cbbe006314c07b47c0"
+      },
+      "basisRef": "execution-basis://abiogenesis/675062088e4a3bdf2a36144dcb7455373733191eb977b894c45482cb937e14d5",
+      "terminalIdentityDigest": "sha256:7859fa8c093bde370ec9a417c10149969aa6bc23deeb6d40c4ff14bd7b9f3386",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 97,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 129,
+          "bodyBytesRead": 153378000
+        }
+      },
+      "eventBytesBefore": 14187027,
+      "eventBytesAfter": 14368309
+    },
+    {
+      "i": 23,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 892.3535840000259,
+      "callMs": 4832.072082999977,
+      "invocationRef": "invocation://abiogenesis/ee679e08de36e16b513534fa10c022b3322d0841481f8ff43ff458c3d99fd749",
+      "run": {
+        "ref": "run://abiogenesis/7fa6dae3610731a2e2db3efc27a329581ed9cb27ff18b5832d9700466a1a9b9d",
+        "digest": "sha256:c6130f8709ed4169e23f5604a236af77c5eedf482f4b593923355a063a124f67"
+      },
+      "basisRef": "execution-basis://abiogenesis/d11fa7af5ae7235730f78092d3d361c9a7702948d1ed54766b1b60192e1734dd",
+      "terminalIdentityDigest": "sha256:c619ebe1de67bdb9aa21d204986b5b1eb692bd3ceb643b55bbd4aa3f2b460791",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 101,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 133,
+          "bodyBytesRead": 172988258
+        }
+      },
+      "eventBytesBefore": 14368309,
+      "eventBytesAfter": 14549625
+    },
+    {
+      "i": 24,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 818.0283749999944,
+      "callMs": 3971.5664580000157,
+      "invocationRef": "invocation://abiogenesis/ca59fcd0897f3d6411b12af09df9dc97eb660f2c4c9c903bac83da359b785955",
+      "run": {
+        "ref": "run://abiogenesis/bb807794c88bf4a6e618632b19c24b3060ecf2c73b928b2fdf3ef6bea6b87b07",
+        "digest": "sha256:1e4afc2ffc4d1b8e82ce8460b9bb9917b2165c5494d639f0ec45499dfff658ab"
+      },
+      "basisRef": "execution-basis://abiogenesis/e9a15109f268710faa7e2b61bdae31cb4149fca31dac52687008a17f3cc3dc50",
+      "terminalIdentityDigest": "sha256:17b2ca8d42e1502a7960e47b3d9f22c369fb8491be322f34d5fa88a0e1c2fd6a",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 89,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 137,
+          "bodyBytesRead": 167432647
+        }
+      },
+      "eventBytesBefore": 14549625,
+      "eventBytesAfter": 14730935
+    },
+    {
+      "i": 25,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 855.5258749999921,
+      "callMs": 4574.4935410000035,
+      "invocationRef": "invocation://abiogenesis/1cbf1b62c4d662ebd429d816603badbfd1ce83ff27ff4cfb1731743e719f184b",
+      "run": {
+        "ref": "run://abiogenesis/2d80986fdf6c0be76dc07555f023a8cc2489309b74a778563456788f12217b8e",
+        "digest": "sha256:94e406020589330348105ba32da4ae490c000f705d2262f15558713be6372c3b"
+      },
+      "basisRef": "execution-basis://abiogenesis/d99dec4c7d617053b4b3f9cc76a8ec67e703ec5012e9c8d6727f2079fceb247b",
+      "terminalIdentityDigest": "sha256:bfa2148667ae9c84ffcbf4739ec276b57db5a17eb16ab4d6535a1777e52b89ba",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 89,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 141,
+          "bodyBytesRead": 187042866
+        }
+      },
+      "eventBytesBefore": 14730935,
+      "eventBytesAfter": 14912238
+    },
+    {
+      "i": 26,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 805.1198330000043,
+      "callMs": 4059.2047079999757,
+      "invocationRef": "invocation://abiogenesis/c9581bbf263d119ee7f69808718012bc3a4921d0add61f991c2702f63f5318c3",
+      "run": {
+        "ref": "run://abiogenesis/778c9955d95514e03b6eda4833b96c358ebd612509478780c301ad2ef34dae92",
+        "digest": "sha256:4a118af00ee8e226a8b9714a8ffed99a341c650f869546ec0ece8c6e5f590a8a"
+      },
+      "basisRef": "execution-basis://abiogenesis/f6fe8f9e04cb576d4522f3be92c04e3830a383ae99e953603866f1679c3387f1",
+      "terminalIdentityDigest": "sha256:e81791d9935c43c12c8ffcfa9ca2032fb0770e10941cfed0bb82d047a01a2f8b",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 87,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 145,
+          "bodyBytesRead": 181487253
+        }
+      },
+      "eventBytesBefore": 14912238,
+      "eventBytesAfter": 15093532
+    },
+    {
+      "i": 27,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 873.1899170000106,
+      "callMs": 4716.782749999984,
+      "invocationRef": "invocation://abiogenesis/ba4eb1b68108e9d31f895e2c9700001d2ccc095534e11d9e3a83e591745338ef",
+      "run": {
+        "ref": "run://abiogenesis/5c615e8db0bacc69c8851199ba653f1ce7388581d37bad30035e4f79f0735b11",
+        "digest": "sha256:71eaac6a5eb8eced1154289263fc4e755c49d4c20fb317bc1b1f4bf1b9dd60c1"
+      },
+      "basisRef": "execution-basis://abiogenesis/36c4baefd58188eefe42210e4ae2dd9fa562f075cf1eac1145aa60c86dfc809b",
+      "terminalIdentityDigest": "sha256:48c353ad2011abb95cc6cc04aa10c6d89c5040d30c204f80c20dd695e0e60469",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 89,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 149,
+          "bodyBytesRead": 201097499
+        }
+      },
+      "eventBytesBefore": 15093532,
+      "eventBytesAfter": 15274846
+    },
+    {
+      "i": 28,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 798.2756249999802,
+      "callMs": 4211.250166999991,
+      "invocationRef": "invocation://abiogenesis/67137b9905836930f843a9595d81d77e52daad315f0eedb61cc15e5712a0d7a8",
+      "run": {
+        "ref": "run://abiogenesis/9660f25717781aeaed1404bcc5d7bbd0fa6768defadcb981cedf7ce044985ee1",
+        "digest": "sha256:5695fa4ae8fa3273a29ef026e37b9e441c2d76a16e3daae1fdf834a7d891822c"
+      },
+      "basisRef": "execution-basis://abiogenesis/0f6e9a476d3de4cdbe01a6589f1edfffe2404eae2db886915c229aa78e5590cc",
+      "terminalIdentityDigest": "sha256:40fa2486ed81316bb9c9eee08f76d2c06cb653219fab2c43800bf1ac155342e3",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 89,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 153,
+          "bodyBytesRead": 195541892
+        }
+      },
+      "eventBytesBefore": 15274846,
+      "eventBytesAfter": 15456157
+    },
+    {
+      "i": 29,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 841.9090829999768,
+      "callMs": 4908.889125000016,
+      "invocationRef": "invocation://abiogenesis/f658ee5d7d434c94c2620621a6b310e5c7827f6586ef3ea734c8b71d596d150a",
+      "run": {
+        "ref": "run://abiogenesis/4888d6fef887c2ac410fa5508f412305774f2401567d58d77ed2beac5a6a1e61",
+        "digest": "sha256:e644a416629c74b69b7655ec4d3c0c2fd6484b83778a2d051747e3b4e9ec4ab5"
+      },
+      "basisRef": "execution-basis://abiogenesis/d86afc9680b0e55b8b790c7cdd0aab30770001911912ac4f73d68b5e957cd773",
+      "terminalIdentityDigest": "sha256:dc132b2295d6df165a45c5ed3c1a9a4832ce67be8fd698c79982241d563577b7",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 92,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 157,
+          "bodyBytesRead": 215152117
+        }
+      },
+      "eventBytesBefore": 15456157,
+      "eventBytesAfter": 15637467
+    },
+    {
+      "i": 30,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 825.2239580000169,
+      "callMs": 4434.8768329999875,
+      "invocationRef": "invocation://abiogenesis/c6972a51027845bc3ef1d5198b3df9800270bb0be5dcffda7e227af341ffa906",
+      "run": {
+        "ref": "run://abiogenesis/320a0ae857d233d25c37967daa557a79a87c2e05418214bea75c4cc2d00707ea",
+        "digest": "sha256:e267fbd2bd662d96cbe3ea73018a971c1dd30fb47e75c09c5e879314d516e3bf"
+      },
+      "basisRef": "execution-basis://abiogenesis/dfe7251d16ab8d610f28eec00dba547bb7dd13097643ec27cab5deeba47d5dd5",
+      "terminalIdentityDigest": "sha256:6108b46652ef1750e47b70368cfb01be37dcce21983ba084559dae6188bef314",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 91,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 161,
+          "bodyBytesRead": 209596519
+        }
+      },
+      "eventBytesBefore": 15637467,
+      "eventBytesAfter": 15818783
+    },
+    {
+      "i": 31,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 875.5096670000057,
+      "callMs": 5172.180374999996,
+      "invocationRef": "invocation://abiogenesis/d4f0082fdaee7e01f9e9f8b849d8f547d8be191dec2c437657f7b975ab6b9dee",
+      "run": {
+        "ref": "run://abiogenesis/58fadd870cef990e70cfc873b1557c7a615567dc0471242e298784cb0dd6abcf",
+        "digest": "sha256:4d34a40df0866d44df226374f5ec93587d0ce163282b7f8f8d5dd9eb24bb953a"
+      },
+      "basisRef": "execution-basis://abiogenesis/957b7c01871a7f074600e7719469b0596b48d74b896ec4a4c1cd8fb52972bbbe",
+      "terminalIdentityDigest": "sha256:6cdb266ae373859676d40e7a0fbfed2d72bb2d681e7c0017f7107e035b55e2eb",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 97,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 165,
+          "bodyBytesRead": 229206739
+        }
+      },
+      "eventBytesBefore": 15818783,
+      "eventBytesAfter": 16000093
+    },
+    {
+      "i": 32,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 833.8487909999967,
+      "callMs": 4630.931624999997,
+      "invocationRef": "invocation://abiogenesis/913d240d0d209df02bc639ac1d7aad83c70c6a1b6d9370c620e8c02b81efe688",
+      "run": {
+        "ref": "run://abiogenesis/59aec47980baa3f79cd34adc3152429973be18869806b89a413d94f0c6405372",
+        "digest": "sha256:aed921d6cc101fa4a660502a56d2161301ac7154ba23a92537c83d1df851a7d0"
+      },
+      "basisRef": "execution-basis://abiogenesis/04877ed1a7ff18ea45017276df64a56aae46b5371957b096a7f90691a95ae1bb",
+      "terminalIdentityDigest": "sha256:5fad15fd068e229c4061f5d797491921eb9310a24df0b382a5ee26ed3d849d29",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 93,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 169,
+          "bodyBytesRead": 223651136
+        }
+      },
+      "eventBytesBefore": 16000093,
+      "eventBytesAfter": 16181404
+    },
+    {
+      "i": 33,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 872.28125,
+      "callMs": 5314.543416999979,
+      "invocationRef": "invocation://abiogenesis/4843ba7a3232aaa42c28209e8b0b3fb329656ad32687f0ed2a718dbbc438f7c9",
+      "run": {
+        "ref": "run://abiogenesis/c05436c1290724fac2168b385df520e368847e3c1f85e852f68f3fea71180acb",
+        "digest": "sha256:42d78bcfe74d627c75593b2bc90b9276af0a52922bf5488ba3368fa46a2272bf"
+      },
+      "basisRef": "execution-basis://abiogenesis/d767e92554f6771eda7d24df59b0d07320a1526a86578f5cd2920e4ed083f415",
+      "terminalIdentityDigest": "sha256:22982e6ad990ed1ca1683b18bbffde541751238dd175dcf4aa2fc5820ea92a50",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 98,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 173,
+          "bodyBytesRead": 243261355
+        }
+      },
+      "eventBytesBefore": 16181404,
+      "eventBytesAfter": 16362708
+    },
+    {
+      "i": 34,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 968.1831250000105,
+      "callMs": 4820.714166999998,
+      "invocationRef": "invocation://abiogenesis/3ab9edc71a78bbe6892abd07fd3f73bc89d34227c5acfbb0e0c15320b1a1c30c",
+      "run": {
+        "ref": "run://abiogenesis/a3ffcc8de77de6fa5ddbbabfef6fc310aa189d68af4b871ea960e8ee6d0e435f",
+        "digest": "sha256:387cc4bd8d023383e39f24a1c62e03798a911d81cb485a3c6e194b9b7aef7353"
+      },
+      "basisRef": "execution-basis://abiogenesis/611c091c457c790f3a55e89c531d77ca749f77e3d5255c38d84272b768da3ec8",
+      "terminalIdentityDigest": "sha256:c3ff474333fbc4c23c3c03204946741ef0f6ba0d52cdd1884bed6acf6ac19af6",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 99,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 177,
+          "bodyBytesRead": 237705762
+        }
+      },
+      "eventBytesBefore": 16362708,
+      "eventBytesAfter": 16544023
+    },
+    {
+      "i": 35,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 865.8035410000011,
+      "callMs": 5393.747249999986,
+      "invocationRef": "invocation://abiogenesis/8276bc0b87a677c15aa32257cdb8475685c069c014059d92ce7ea4d670127757",
+      "run": {
+        "ref": "run://abiogenesis/4740d25fe8391a9bc70d49cedfab8ca6697c8f2deba579d7e88b28996eb88fa6",
+        "digest": "sha256:be488ba4861c045adf8fe1979c9bfa37662edbf9a22653cb134256afb1a3429f"
+      },
+      "basisRef": "execution-basis://abiogenesis/253bb93c2417f840f7c2f6a6fbe1f44fb074429f3f5870b2645579e53453a9a0",
+      "terminalIdentityDigest": "sha256:1a9125577d4aa581f7891d25eee1a6c0e776cd68110eae5ac80e84282ed77541",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 96,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 181,
+          "bodyBytesRead": 257315976
+        }
+      },
+      "eventBytesBefore": 16544023,
+      "eventBytesAfter": 16725326
+    },
+    {
+      "i": 36,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 841.5885409999755,
+      "callMs": 4857.342457999999,
+      "invocationRef": "invocation://abiogenesis/e44ed69d8bb40d0836d8e9a488d7682e871866339933e282ba059fb0b156c32a",
+      "run": {
+        "ref": "run://abiogenesis/bc92d971a68dc7f23c0819b04a6b4c9c1cf8702338b5602110cb5a68392f1268",
+        "digest": "sha256:6677216484e977c67bd308b09bec031bf13eddcb4a50f985be5d38dacffd6f9e"
+      },
+      "basisRef": "execution-basis://abiogenesis/02cad7227f5c44e645e09d3cdc79775612022274deec9448edf994bbd4557a8f",
+      "terminalIdentityDigest": "sha256:b8716be470c2aa2c89ad5171589e747dcd8145ef76161f1ab81b26fb1a384f58",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 95,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 185,
+          "bodyBytesRead": 251760377
+        }
+      },
+      "eventBytesBefore": 16725326,
+      "eventBytesAfter": 16906634
+    },
+    {
+      "i": 37,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 862.1089169999759,
+      "callMs": 5513.090333,
+      "invocationRef": "invocation://abiogenesis/336b0674bca9c4befad6eca0f6a7a010d87847a5cb6bdcd8b51f41410c3f96c6",
+      "run": {
+        "ref": "run://abiogenesis/8d4b1648f0eac214d62c0400fe936e51b38889250d70ed8cd90886669e55045b",
+        "digest": "sha256:6df598d0deaf5120168f22535f6b8c64989fa043652b823692d5b3569d10a807"
+      },
+      "basisRef": "execution-basis://abiogenesis/0812d23b1efe8a973cbbb810139299fca20c622c756fa5c06be3c15745ffcf85",
+      "terminalIdentityDigest": "sha256:3c4648c239fb3ba2ff5ca14415cec19c33398bd03b395267999e37c909b7a82b",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 94,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 189,
+          "bodyBytesRead": 271370612
+        }
+      },
+      "eventBytesBefore": 16906634,
+      "eventBytesAfter": 17087951
+    },
+    {
+      "i": 38,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 823.2958749999816,
+      "callMs": 4975.3898749999935,
+      "invocationRef": "invocation://abiogenesis/9c26e3afaa429c6aace22901f9d7f5be5b3b4923c793d4af8d2a7fc4dd73261d",
+      "run": {
+        "ref": "run://abiogenesis/9960b3e22ddec823a0480412e56f6d0d5e571f0227efd912c76c1edc58eb037c",
+        "digest": "sha256:578464b9fbbcb273d6cb39e5e66acb3a50b4cc156986b74c2fb51a700fe783bd"
+      },
+      "basisRef": "execution-basis://abiogenesis/fd8016e0bd496f1b79c5936a4401ee5491d32f344a3d7687f1c6545e350f2173",
+      "terminalIdentityDigest": "sha256:1aea66bebed60300bc1058d8d8adfeebe865dd9eff9a58d73ac03aadd899ec86",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 94,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 193,
+          "bodyBytesRead": 265814991
+        }
+      },
+      "eventBytesBefore": 17087951,
+      "eventBytesAfter": 17269251
+    },
+    {
+      "i": 39,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 893.0858750000189,
+      "callMs": 5617.376000000018,
+      "invocationRef": "invocation://abiogenesis/1a65b4e91d8feee57364d4c834023bba4e08ea96584356b538b3502c859817f0",
+      "run": {
+        "ref": "run://abiogenesis/fd5db1b46ec294981bcaafe9c8a415b29a52bdce4c3e2e9df5a304c4ba7d7c8d",
+        "digest": "sha256:c5de05b6734d271695049fdf7525b6b87bbc9812cb78017a8e9ecb0aeb90775a"
+      },
+      "basisRef": "execution-basis://abiogenesis/fe8b3a184b0cdd100184c8b0072ebeb0018e7f573cb8013ee12a3686de297de3",
+      "terminalIdentityDigest": "sha256:1971cde9c8ca77742461bd879e3944c142696d70d43aec8715e63071a06f3f31",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 94,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 197,
+          "bodyBytesRead": 285425215
+        }
+      },
+      "eventBytesBefore": 17269251,
+      "eventBytesAfter": 17450549
+    },
+    {
+      "i": 40,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 828.5999580000062,
+      "callMs": 5048.894084,
+      "invocationRef": "invocation://abiogenesis/60a3796f224781a448ad258016b11fdbda37237ae714fbb5994a3a8735d8c213",
+      "run": {
+        "ref": "run://abiogenesis/0dae4391aa1704c596ed383485d721e3a12c8a387ebc9f770be96bdc02616d0d",
+        "digest": "sha256:0cd3dee4d0385d678c2c308b107880165bb0ed3635c83ecdf445eec24d3d951f"
+      },
+      "basisRef": "execution-basis://abiogenesis/25474bb5a88f2a4d3a0c15eee00ed6125370b8c13d31f6e643f804cbc0af41d2",
+      "terminalIdentityDigest": "sha256:7958a2a9d593321c0ed16a96f4feb819c74dd1fec6235f6e66a910197ae8cfee",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 91,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 201,
+          "bodyBytesRead": 279869619
+        }
+      },
+      "eventBytesBefore": 17450549,
+      "eventBytesAfter": 17631855
+    },
+    {
+      "i": 41,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 879.857416999992,
+      "callMs": 5795.398249999998,
+      "invocationRef": "invocation://abiogenesis/8d835441f9bea6b3a613cd6dd9218e6943a7e45dc1ddc860d32d49715e390db5",
+      "run": {
+        "ref": "run://abiogenesis/75c40a6327db0c0c5de7aa34d154336751ae7bfb3b75877b0622e93562570ee5",
+        "digest": "sha256:d863b488c64d068de93ed9df8e3b892f51f155298ac5115a346db6a6f2f5a6f5"
+      },
+      "basisRef": "execution-basis://abiogenesis/df0a6275e7e8c0def10af9144cda6930bb9d76ff69a98224544e656391117a6b",
+      "terminalIdentityDigest": "sha256:35659c921a61a4cc4460fb03b6d0bd73678e9c4f44ecb67c1fdfd332083d3fa1",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 96,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 205,
+          "bodyBytesRead": 299479841
+        }
+      },
+      "eventBytesBefore": 17631855,
+      "eventBytesAfter": 17813157
+    },
+    {
+      "i": 42,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 868.0486249999958,
+      "callMs": 5327.981957999989,
+      "invocationRef": "invocation://abiogenesis/3bcb69c152fc912a166c95315cc86f1930bf46d925b54d7298178fede10e304e",
+      "run": {
+        "ref": "run://abiogenesis/12d2872bc476b718facaacd64053caa8bee1289b4caa48f54813fe2361b7b1f7",
+        "digest": "sha256:6dd9904f568e604fbeaf04ab5296615e2d398b89e16dc4a51ae6b093e7985886"
+      },
+      "basisRef": "execution-basis://abiogenesis/21cb4d97fedba0c8a14c26e0abdd8b5920630d0190d74e76d34beae9d19b6e70",
+      "terminalIdentityDigest": "sha256:7e7f7681e80fdc82a9df37d04867d148cd970afb4459d7f0665e988f47f9d078",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 96,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 209,
+          "bodyBytesRead": 293924246
+        }
+      },
+      "eventBytesBefore": 17813157,
+      "eventBytesAfter": 17994468
+    },
+    {
+      "i": 43,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 904.8849579999805,
+      "callMs": 6000.162624999997,
+      "invocationRef": "invocation://abiogenesis/da14f1d48e73bc8e416bc380ee3873f997c45b5d0818f46400dfefbf4839e48c",
+      "run": {
+        "ref": "run://abiogenesis/dafd063f865a55608d92df7cbdc8a0b6bcd9aa102d4c4d1bac290c4f9378cd84",
+        "digest": "sha256:4acfffb4b14026a6a183f1556ce45f179bff44a321c31857e3be053680b31354"
+      },
+      "basisRef": "execution-basis://abiogenesis/b3ddfbb7443e977b3916b5491fa7ae80bc0f25b2223d85ed4dd0c605d8cca700",
+      "terminalIdentityDigest": "sha256:3c8d340db1057237875421bda6bc1f30adf68b6e9adb4480c93f0bc2aaf3cf4e",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 101,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 213,
+          "bodyBytesRead": 313534474
+        }
+      },
+      "eventBytesBefore": 17994468,
+      "eventBytesAfter": 18175781
+    },
+    {
+      "i": 44,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 845.337790999969,
+      "callMs": 5442.085250000004,
+      "invocationRef": "invocation://abiogenesis/51a1ec2a598c3aad8a60f0e9cb9a4e2757eb6610affff51274930dcb9e4a0bae",
+      "run": {
+        "ref": "run://abiogenesis/1acea9237b15343466e6e52ee10ba6532623993fcae156752926c4981b746116",
+        "digest": "sha256:15a94c0b2c53915dfc9098ef7a5d03bcc539ae03c482d78771a5efe86a5bde6a"
+      },
+      "basisRef": "execution-basis://abiogenesis/19569b0a44a34385169dc47ddde09e06af6508f48b3c703a5bcec27275c7cfdf",
+      "terminalIdentityDigest": "sha256:1bca7e46788cfeb194a42c81f8798b1a91ca96b99b56aa26efd427c49bd8c62a",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 98,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 217,
+          "bodyBytesRead": 307978864
+        }
+      },
+      "eventBytesBefore": 18175781,
+      "eventBytesAfter": 18357088
+    },
+    {
+      "i": 45,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 872.8469170000171,
+      "callMs": 5918.741708000016,
+      "invocationRef": "invocation://abiogenesis/06aa6904303de1b59ae8f03247dcae0ce2fc737b75680552e7a4ec0d5bcaf958",
+      "run": {
+        "ref": "run://abiogenesis/972736fbb22937867af6959e99cba9cc379c9eda69ee7fbb5901803a25c5ed3e",
+        "digest": "sha256:dcfc5fcc507e4e9ec798a139cafd0f635c148aaa7cce96cc848c14f2aa119b5a"
+      },
+      "basisRef": "execution-basis://abiogenesis/0f3a68031d00413f30ea6fe571154d46659c3eee4722d64feac67c1b6c25317c",
+      "terminalIdentityDigest": "sha256:8ac87008356ac14378ad0ba01d5e7639bd5326df38f057860a56a94da3fe9bf6",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 89,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 221,
+          "bodyBytesRead": 327589096
+        }
+      },
+      "eventBytesBefore": 18357088,
+      "eventBytesAfter": 18538401
+    },
+    {
+      "i": 46,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 787.4214999999967,
+      "callMs": 5536.377332999953,
+      "invocationRef": "invocation://abiogenesis/c679ce461e154123234792dca68e0865fe34dc723fb287f671681455619509c4",
+      "run": {
+        "ref": "run://abiogenesis/d62763dacf37292e39c56808e9f28c94f2f9401bcbcd36be611fe19fbef50a65",
+        "digest": "sha256:59bd8342001172a99a825f6cca3e15334abb0c326a687aae7c04be06f16d0822"
+      },
+      "basisRef": "execution-basis://abiogenesis/5176635e126a6f45aa4a84686db760869a9275af8ede1403484bea8b6122f4cd",
+      "terminalIdentityDigest": "sha256:e9ef186e86a91472dd4b336e0ddbf59e629153f937f44fa1a51721d8e7bcda3f",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 94,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 225,
+          "bodyBytesRead": 322033481
+        }
+      },
+      "eventBytesBefore": 18538401,
+      "eventBytesAfter": 18719703
+    },
+    {
+      "i": 47,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 894.341167000006,
+      "callMs": 6094.6706669999985,
+      "invocationRef": "invocation://abiogenesis/a3a5ff99defef46e1f1c47bb44d5f9535a011b22702c60de1c77548490a85303",
+      "run": {
+        "ref": "run://abiogenesis/a3b5bc7a4d970200e58af3d3107237e47d5b924690b8e68f022a69af1367df27",
+        "digest": "sha256:fe9a3750a8cf2321a6e831daf5f58488d7b7bc83daee8790ffc00f3ff845f01d"
+      },
+      "basisRef": "execution-basis://abiogenesis/a0640e2fbdd37078ca3fd891580589e91bf02958cd3ee4999cc0fafe9d994e28",
+      "terminalIdentityDigest": "sha256:d0661573376453a8c4fe38bb68be3701c8664eb45ce85bee5ea19e3c856aa097",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 90,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 229,
+          "bodyBytesRead": 341643717
+        }
+      },
+      "eventBytesBefore": 18719703,
+      "eventBytesAfter": 18901015
+    },
+    {
+      "i": 48,
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "constructMs": 811.7870830000029,
+      "callMs": 5603.453374999983,
+      "invocationRef": "invocation://abiogenesis/9eca0d74f892a758ff876dfe238b0a8162336f825abffccd9f64bfd85e24ab8a",
+      "run": {
+        "ref": "run://abiogenesis/1ef8dcb814fde738fbca8fa5db5f0f28ce4b47fffcf06f1212218469913abe7d",
+        "digest": "sha256:ae6c914e11e6efeec8a8c6e89b2d0df7b19f2503ef04a4f84b1c7981e26f44f3"
+      },
+      "basisRef": "execution-basis://abiogenesis/4fc75b571f3354ca9ee9dffaa6164ddee705096f35bdf4177d5e62669fbef479",
+      "terminalIdentityDigest": "sha256:f253af52f3d444c8d7b929ead91e51c95f291a9f081f8874f564bff61ab9dfc4",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 92,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 1404668,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 1404668
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 233,
+          "bodyBytesRead": 336088114
+        }
+      },
+      "eventBytesBefore": 18901015,
+      "eventBytesAfter": 19082328
+    },
+    {
+      "i": 49,
+      "contextBodyBytes": 4194304,
+      "taskCanonicalBytes": 5598972,
+      "constructMs": 883.1651670000283,
+      "callMs": 6267.871250000026,
+      "invocationRef": "invocation://abiogenesis/ee56c4765e7c4c716562fad186109a306f9d719b3d33c7d1a4c75d7fc3dbf460",
+      "run": {
+        "ref": "run://abiogenesis/55533bcf258180b7256decf4848bb76d38fa1a779622f6b8418784910fc87261",
+        "digest": "sha256:66c987f138604eb298a3347cb12c62c73bb767e60701fb4fd8127a19018f9b3a"
+      },
+      "basisRef": "execution-basis://abiogenesis/964478cb0bf7102c3ee166edada0208e2912d28da65f21cdcb334ab8a634f96c",
+      "terminalIdentityDigest": "sha256:0f548599af305a5d133bce6235e317a838dca71b8728742b31d3ecd8bf80701f",
+      "retentionBefore": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 93,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 1,
+        "retainedPayloadBytes": 5598972,
+        "historyBasisBodies": 1,
+        "historyBasisPayloadBytes": 5598972
+      },
+      "activeSampleError": null,
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 237,
+          "bodyBytesRead": 355698322
+        }
+      },
+      "eventBytesBefore": 19082328,
+      "eventBytesAfter": 19263623
+    }
+  ],
+  "historical": [
+    {
+      "point": "sentinel_baseline",
+      "sourceCall": 0,
+      "basisRef": "execution-basis://abiogenesis/b80beb3cde4c60096d13965e70385d9a67cfbb58fcc241aa892040d5751b59ef",
+      "recordDigest": "sha256:69ee3dc899332a6a725eda985fbb10e374d2211ca301557e6200ab00ca0e4ca0",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "sentinel_baseline",
+      "sourceCall": 1,
+      "basisRef": "execution-basis://abiogenesis/615e703ecb4d3dae34ca16a0ad3afef2411531f006728a14ac120504b2b3d4f7",
+      "recordDigest": "sha256:ac897a9ba85d6b0113786a38f91717cb1a446845d196b4e0e66f0ce326f8699d",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_9",
+      "sourceCall": 0,
+      "basisRef": "execution-basis://abiogenesis/b80beb3cde4c60096d13965e70385d9a67cfbb58fcc241aa892040d5751b59ef",
+      "recordDigest": "sha256:69ee3dc899332a6a725eda985fbb10e374d2211ca301557e6200ab00ca0e4ca0",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_9",
+      "sourceCall": 1,
+      "basisRef": "execution-basis://abiogenesis/615e703ecb4d3dae34ca16a0ad3afef2411531f006728a14ac120504b2b3d4f7",
+      "recordDigest": "sha256:ac897a9ba85d6b0113786a38f91717cb1a446845d196b4e0e66f0ce326f8699d",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_19",
+      "sourceCall": 0,
+      "basisRef": "execution-basis://abiogenesis/b80beb3cde4c60096d13965e70385d9a67cfbb58fcc241aa892040d5751b59ef",
+      "recordDigest": "sha256:69ee3dc899332a6a725eda985fbb10e374d2211ca301557e6200ab00ca0e4ca0",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_19",
+      "sourceCall": 1,
+      "basisRef": "execution-basis://abiogenesis/615e703ecb4d3dae34ca16a0ad3afef2411531f006728a14ac120504b2b3d4f7",
+      "recordDigest": "sha256:ac897a9ba85d6b0113786a38f91717cb1a446845d196b4e0e66f0ce326f8699d",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_29",
+      "sourceCall": 0,
+      "basisRef": "execution-basis://abiogenesis/b80beb3cde4c60096d13965e70385d9a67cfbb58fcc241aa892040d5751b59ef",
+      "recordDigest": "sha256:69ee3dc899332a6a725eda985fbb10e374d2211ca301557e6200ab00ca0e4ca0",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_29",
+      "sourceCall": 1,
+      "basisRef": "execution-basis://abiogenesis/615e703ecb4d3dae34ca16a0ad3afef2411531f006728a14ac120504b2b3d4f7",
+      "recordDigest": "sha256:ac897a9ba85d6b0113786a38f91717cb1a446845d196b4e0e66f0ce326f8699d",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_39",
+      "sourceCall": 0,
+      "basisRef": "execution-basis://abiogenesis/b80beb3cde4c60096d13965e70385d9a67cfbb58fcc241aa892040d5751b59ef",
+      "recordDigest": "sha256:69ee3dc899332a6a725eda985fbb10e374d2211ca301557e6200ab00ca0e4ca0",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_39",
+      "sourceCall": 1,
+      "basisRef": "execution-basis://abiogenesis/615e703ecb4d3dae34ca16a0ad3afef2411531f006728a14ac120504b2b3d4f7",
+      "recordDigest": "sha256:ac897a9ba85d6b0113786a38f91717cb1a446845d196b4e0e66f0ce326f8699d",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_49",
+      "sourceCall": 0,
+      "basisRef": "execution-basis://abiogenesis/b80beb3cde4c60096d13965e70385d9a67cfbb58fcc241aa892040d5751b59ef",
+      "recordDigest": "sha256:69ee3dc899332a6a725eda985fbb10e374d2211ca301557e6200ab00ca0e4ca0",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    },
+    {
+      "point": "after_call_49",
+      "sourceCall": 1,
+      "basisRef": "execution-basis://abiogenesis/615e703ecb4d3dae34ca16a0ad3afef2411531f006728a14ac120504b2b3d4f7",
+      "recordDigest": "sha256:ac897a9ba85d6b0113786a38f91717cb1a446845d196b4e0e66f0ce326f8699d",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "workDelta": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      }
+    }
+  ],
+  "readbacks": [
+    {
+      "kind": "warm",
+      "key": "0-run_result",
+      "ownerOutputDigest": "sha256:52cc2e1744abb49111e8cf5f19d762153e58de93b7947a707603233479679fb9",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      }
+    },
+    {
+      "kind": "warm",
+      "key": "0-run_replay",
+      "ownerOutputDigest": "sha256:18b75a5d4643267c442bef7bcbb8411c172d737c171403c27ee8a3342460c55a",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      }
+    },
+    {
+      "kind": "warm",
+      "key": "49-run_result",
+      "ownerOutputDigest": "sha256:95c1cadb341af9f076bde3e7b25800e4821ff02e19fe115e489af7ce0f30f2a7",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      }
+    },
+    {
+      "kind": "warm",
+      "key": "49-run_replay",
+      "ownerOutputDigest": "sha256:e317303ef8c97d5ba791033bc5acc0b76c3d1015a33379a071bf21b81abad75f",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      }
+    },
+    {
+      "kind": "cold",
+      "key": "0-run_result",
+      "ownerOutputDigest": "sha256:52cc2e1744abb49111e8cf5f19d762153e58de93b7947a707603233479679fb9",
+      "sameOperationEquality": true,
+      "exitCode": 0
+    },
+    {
+      "kind": "cold",
+      "key": "0-run_replay",
+      "ownerOutputDigest": "sha256:18b75a5d4643267c442bef7bcbb8411c172d737c171403c27ee8a3342460c55a",
+      "sameOperationEquality": true,
+      "exitCode": 0
+    },
+    {
+      "kind": "cold",
+      "key": "49-run_result",
+      "ownerOutputDigest": "sha256:95c1cadb341af9f076bde3e7b25800e4821ff02e19fe115e489af7ce0f30f2a7",
+      "sameOperationEquality": true,
+      "exitCode": 0
+    },
+    {
+      "kind": "cold",
+      "key": "49-run_replay",
+      "ownerOutputDigest": "sha256:e317303ef8c97d5ba791033bc5acc0b76c3d1015a33379a071bf21b81abad75f",
+      "sameOperationEquality": true,
+      "exitCode": 0
+    }
+  ],
+  "heap": [
+    {
+      "point": "before_calls",
+      "rss": 2384527360,
+      "heapUsed": 313373792,
+      "external": 9699473,
+      "arrayBuffers": 7019435
+    },
+    {
+      "point": "after_call_0",
+      "rss": 2393686016,
+      "heapUsed": 254980608,
+      "external": 20061199,
+      "arrayBuffers": 4798185
+    },
+    {
+      "point": "after_call_1",
+      "rss": 2478669824,
+      "heapUsed": 238846200,
+      "external": 48917498,
+      "arrayBuffers": 18275380
+    },
+    {
+      "point": "after_call_2",
+      "rss": 2437955584,
+      "heapUsed": 239077592,
+      "external": 16582635,
+      "arrayBuffers": 1319621
+    },
+    {
+      "point": "after_call_3",
+      "rss": 2410708992,
+      "heapUsed": 169339944,
+      "external": 30840578,
+      "arrayBuffers": 198460
+    },
+    {
+      "point": "after_call_4",
+      "rss": 2529918976,
+      "heapUsed": 308036128,
+      "external": 21260948,
+      "arrayBuffers": 405518
+    },
+    {
+      "point": "after_call_5",
+      "rss": 2472148992,
+      "heapUsed": 213650704,
+      "external": 53186185,
+      "arrayBuffers": 174435
+    },
+    {
+      "point": "after_call_6",
+      "rss": 2564407296,
+      "heapUsed": 333397640,
+      "external": 30028924,
+      "arrayBuffers": 9173494
+    },
+    {
+      "point": "after_call_7",
+      "rss": 2502115328,
+      "heapUsed": 219594064,
+      "external": 47578523,
+      "arrayBuffers": 28121221
+    },
+    {
+      "point": "after_call_8",
+      "rss": 2485796864,
+      "heapUsed": 252103168,
+      "external": 16637280,
+      "arrayBuffers": 1374266
+    },
+    {
+      "point": "after_call_9",
+      "rss": 2557771776,
+      "heapUsed": 272310720,
+      "external": 47578523,
+      "arrayBuffers": 28121221
+    },
+    {
+      "point": "after_call_10",
+      "rss": 2509963264,
+      "heapUsed": 234519928,
+      "external": 19763224,
+      "arrayBuffers": 4500210
+    },
+    {
+      "point": "after_call_11",
+      "rss": 2488565760,
+      "heapUsed": 200264776,
+      "external": 39118499,
+      "arrayBuffers": 8476381
+    },
+    {
+      "point": "after_call_12",
+      "rss": 2549055488,
+      "heapUsed": 275781544,
+      "external": 19237232,
+      "arrayBuffers": 1178010
+    },
+    {
+      "point": "after_call_13",
+      "rss": 2505555968,
+      "heapUsed": 215173592,
+      "external": 33548349,
+      "arrayBuffers": 14091047
+    },
+    {
+      "point": "after_call_14",
+      "rss": 2506571776,
+      "heapUsed": 226700456,
+      "external": 16490503,
+      "arrayBuffers": 1227489
+    },
+    {
+      "point": "after_call_15",
+      "rss": 2570174464,
+      "heapUsed": 334690680,
+      "external": 30844364,
+      "arrayBuffers": 11387062
+    },
+    {
+      "point": "after_call_16",
+      "rss": 2511896576,
+      "heapUsed": 233289776,
+      "external": 19770980,
+      "arrayBuffers": 4507966
+    },
+    {
+      "point": "after_call_17",
+      "rss": 2563440640,
+      "heapUsed": 329601344,
+      "external": 33642819,
+      "arrayBuffers": 3000701
+    },
+    {
+      "point": "after_call_18",
+      "rss": 2510110720,
+      "heapUsed": 232726720,
+      "external": 16310318,
+      "arrayBuffers": 1047304
+    },
+    {
+      "point": "after_call_19",
+      "rss": 2488926208,
+      "heapUsed": 201260360,
+      "external": 33689721,
+      "arrayBuffers": 14058213
+    },
+    {
+      "point": "after_call_20",
+      "rss": 2530672640,
+      "heapUsed": 292554640,
+      "external": 19802770,
+      "arrayBuffers": 4539756
+    },
+    {
+      "point": "after_call_21",
+      "rss": 2527166464,
+      "heapUsed": 233037920,
+      "external": 44757741,
+      "arrayBuffers": 25300439
+    },
+    {
+      "point": "after_call_22",
+      "rss": 2522677248,
+      "heapUsed": 239429544,
+      "external": 16591141,
+      "arrayBuffers": 1328127
+    },
+    {
+      "point": "after_call_23",
+      "rss": 2465234944,
+      "heapUsed": 171336736,
+      "external": 8300525,
+      "arrayBuffers": 28039
+    },
+    {
+      "point": "after_call_24",
+      "rss": 2520743936,
+      "heapUsed": 238509800,
+      "external": 16771229,
+      "arrayBuffers": 1508215
+    },
+    {
+      "point": "after_call_25",
+      "rss": 2573959168,
+      "heapUsed": 337322272,
+      "external": 39247537,
+      "arrayBuffers": 8605419
+    },
+    {
+      "point": "after_call_26",
+      "rss": 2527182848,
+      "heapUsed": 245933256,
+      "external": 24945223,
+      "arrayBuffers": 9682209
+    },
+    {
+      "point": "after_call_27",
+      "rss": 2590277632,
+      "heapUsed": 354525432,
+      "external": 30844381,
+      "arrayBuffers": 11387079
+    },
+    {
+      "point": "after_call_28",
+      "rss": 2540027904,
+      "heapUsed": 260668536,
+      "external": 15370036,
+      "arrayBuffers": 107022
+    },
+    {
+      "point": "after_call_29",
+      "rss": 2497708032,
+      "heapUsed": 207653312,
+      "external": 33689738,
+      "arrayBuffers": 14058213
+    },
+    {
+      "point": "after_call_30",
+      "rss": 2547843072,
+      "heapUsed": 307490672,
+      "external": 19816956,
+      "arrayBuffers": 4553942
+    },
+    {
+      "point": "after_call_31",
+      "rss": 2596339712,
+      "heapUsed": 362458832,
+      "external": 44886775,
+      "arrayBuffers": 25429473
+    },
+    {
+      "point": "after_call_32",
+      "rss": 2530902016,
+      "heapUsed": 253120856,
+      "external": 19701033,
+      "arrayBuffers": 4438019
+    },
+    {
+      "point": "after_call_33",
+      "rss": 2596831232,
+      "heapUsed": 364683872,
+      "external": 30844382,
+      "arrayBuffers": 11387080
+    },
+    {
+      "point": "after_call_34",
+      "rss": 2524512256,
+      "heapUsed": 248206992,
+      "external": 16692653,
+      "arrayBuffers": 1429639
+    },
+    {
+      "point": "after_call_35",
+      "rss": 2602450944,
+      "heapUsed": 370687816,
+      "external": 30844381,
+      "arrayBuffers": 11387079
+    },
+    {
+      "point": "after_call_36",
+      "rss": 2536538112,
+      "heapUsed": 261208512,
+      "external": 19767569,
+      "arrayBuffers": 4504555
+    },
+    {
+      "point": "after_call_37",
+      "rss": 2465792000,
+      "heapUsed": 179956248,
+      "external": 8300525,
+      "arrayBuffers": 28039
+    },
+    {
+      "point": "after_call_38",
+      "rss": 2637840384,
+      "heapUsed": 386769800,
+      "external": 22361282,
+      "arrayBuffers": 1505852
+    },
+    {
+      "point": "after_call_39",
+      "rss": 2498084864,
+      "heapUsed": 213765592,
+      "external": 28087293,
+      "arrayBuffers": 14058213
+    },
+    {
+      "point": "after_call_40",
+      "rss": 2538553344,
+      "heapUsed": 265883664,
+      "external": 17590750,
+      "arrayBuffers": 2327736
+    },
+    {
+      "point": "after_call_41",
+      "rss": 2584936448,
+      "heapUsed": 358213840,
+      "external": 30832158,
+      "arrayBuffers": 11374856
+    },
+    {
+      "point": "after_call_42",
+      "rss": 2487123968,
+      "heapUsed": 205093496,
+      "external": 6910821,
+      "arrayBuffers": 36431
+    },
+    {
+      "point": "after_call_43",
+      "rss": 2496790528,
+      "heapUsed": 201405416,
+      "external": 19493733,
+      "arrayBuffers": 36431
+    },
+    {
+      "point": "after_call_44",
+      "rss": 2490171392,
+      "heapUsed": 194410632,
+      "external": 6910821,
+      "arrayBuffers": 36431
+    },
+    {
+      "point": "after_call_45",
+      "rss": 2506096640,
+      "heapUsed": 208312360,
+      "external": 19493733,
+      "arrayBuffers": 36431
+    },
+    {
+      "point": "after_call_46",
+      "rss": 2492448768,
+      "heapUsed": 195268368,
+      "external": 6910821,
+      "arrayBuffers": 36431
+    },
+    {
+      "point": "after_call_47",
+      "rss": 2503933952,
+      "heapUsed": 207512888,
+      "external": 19493733,
+      "arrayBuffers": 36431
+    },
+    {
+      "point": "after_call_48",
+      "rss": 2499690496,
+      "heapUsed": 202211120,
+      "external": 12515517,
+      "arrayBuffers": 5641127
+    },
+    {
+      "point": "after_call_49",
+      "rss": 2634022912,
+      "heapUsed": 378686720,
+      "external": 37847245,
+      "arrayBuffers": 18389943
+    },
+    {
+      "point": "after_50_calls",
+      "rss": 2523168768,
+      "heapUsed": 254499944,
+      "external": 24394237,
+      "arrayBuffers": 4936935
+    }
+  ],
+  "budgets": [
+    {
+      "label": "before_calls",
+      "logicalBytes": 92732484,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_4",
+      "logicalBytes": 100705915,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_9",
+      "logicalBytes": 101655258,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_14",
+      "logicalBytes": 102604612,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_19",
+      "logicalBytes": 103553951,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_24",
+      "logicalBytes": 104503409,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_29",
+      "logicalBytes": 105452973,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_34",
+      "logicalBytes": 106402549,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_39",
+      "logicalBytes": 107352099,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_44",
+      "logicalBytes": 108301656,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_49",
+      "logicalBytes": 109251221,
+      "limit": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_cold_reads",
+      "logicalBytes": 109382251,
+      "limit": 1073741824,
+      "quota": false
+    }
+  ],
+  "qualified": false,
+  "providerCallsSelected": 0,
+  "setup": {
+    "wallMs": 53166.959167,
+    "accounting": {
+      "wallMs": {
+        "bootstrap_owner_loading_and_candidate_preparation": 340.486542,
+        "provisioning_verify_artifact": 23153.594166000003,
+        "provisioning_install": 27301.326334,
+        "provisioning_installed_content_check": 713.7268330000006,
+        "provisioning_additional_products": 0.0035830000051646493,
+        "installed_owner_loading": 329.0751670000027,
+        "environment_install_and_workspace_admission": 853.3615409999984,
+        "execution_preparation_publication_program_and_catalog": 469.6794579999987
+      }
+    },
+    "installedRoot": "/private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.10/beaaae0e01cf6b059539590f39ad61f849d689193f44b728f26fb59f4266b197/33f058d86bbffbb4b96b5b714ce89795779dacabeed62425ce6dbefc4d7ef14a",
+    "artifactDigest": "sha256:1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9",
+    "productContentDigest": "sha256:beaaae0e01cf6b059539590f39ad61f849d689193f44b728f26fb59f4266b197",
+    "manifestDigest": "sha256:f82536a1c16979e0b51d4cc545521381f17d28dc87a371bc88388ebb899fd171"
+  },
+  "fixturePins": [
+    {
+      "path": "/private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/workspace/context-1MiB.txt",
+      "bytes": 1048576,
+      "sha256": "4e29ad18ab9f42d7c233500771a39d7c852b200baf328fd00fbbe3fecea1eb56"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/workspace/context-4MiB.txt",
+      "bytes": 4194304,
+      "sha256": "5947c00ce4da5eac3e8b3731df34e42a2d7b7e88bdb7bd93b8152afcedaa2f92"
+    }
+  ],
+  "closedPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/runtime/events.jsonl",
+    "prefixLength": 19263623,
+    "prefixDigest": "sha256:0ccf7821342a1e5b39ed6ac6e382b97eb2f11654051fbe562183d86522b64975",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 719230306,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:e911794ff77462c431a4085b71f323eeec57bc82b9b8f756a9fba8ad8a933d3a"
+  },
+  "eventLog": {
+    "identity": {
+      "device": 16777231,
+      "inode": 719230306,
+      "byteCount": 19263623,
+      "digest": "sha256:0ccf7821342a1e5b39ed6ac6e382b97eb2f11654051fbe562183d86522b64975"
+    },
+    "compressed": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/actual-001/runtime.events.jsonl.gz",
+      "bytes": 1762848,
+      "sha256": "b3a1a8707deffe9384cd38901c9532a9ab24690802f1f9b92bcb21f15c622991"
+    },
+    "originalPath": "/private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/runtime/events.jsonl"
+  },
+  "totalWallMs": 432670.837042,
+  "actualPhysicalClose": true,
+  "limits": [
+    "Logical canonical raw-input bytes are owner gauges, not allocated heap; active maxima are sampled observations, not a high-water bound.",
+    "Only compact identities/counters are retained across calls; heap is natural parent process memory after call-object scope return, without forced GC. No blanket heap bound, speedup or provider-productivity claim.",
+    "Historical checks are two first-call basis sentinels initially and after calls9/19/29/39/49. Final read parity is first/last Run result and bounded replay, not whole-history qualification.",
+    "Active sampling opens no retention handles and serializes no event history. Missing active samples or zero-only retention cannot count as active-reuse proof.",
+    "Scripted actor, exact candidate archive and fresh runtime only. Source/fixture/helper roots read-only except fixture-owned temporary worksite.",
+    "Aggregate scratch is monitored between calls, not an OS quota; overshoot between checks remains possible. Failure or timeout preserves actual records and has no automatic retry."
+  ]
+}

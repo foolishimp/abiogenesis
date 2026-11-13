@@ -1,0 +1,32 @@
+{
+  "label": "040-runtime-scope-regressions.test",
+  "started": "2026-11-13T10:45:06.828644+00:00",
+  "ended": "2026-11-13T10:46:11.052536+00:00",
+  "wallMs": 64224,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/040-runtime-scope-regressions.test/stdout.raw",
+      "bytes": 478,
+      "sha256": "e56aff8d11d93f1c060539fd00e0fd708ade796e0d988e2a83b408b98f6b8a5b"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/040-runtime-scope-regressions.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 6,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

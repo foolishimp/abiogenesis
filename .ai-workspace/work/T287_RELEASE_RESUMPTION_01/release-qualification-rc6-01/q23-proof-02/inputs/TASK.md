@@ -1,0 +1,11 @@
+# Q23 current-source component proof
+
+Product Frame: ABIogenesis5 fixed fifteen families, GOAL-035/T-287/F11-F15, exact STDO3.0.4. Prove the returned configured-identity/policy increment against the unchanged Product and selected Q1-Q7 rubric. This is bounded component evidence; actual production independent eligibility, QR02 and full F11/release remain open.
+
+Select immediate Testing of current observed files with subjectEvidenceRef=null. Only testing and uat work orders exist. Initial observations and synthesis are empty; source:none. No construction, design, induction, specification or source writes. The prior author return is source custody, not successful C2 or injected native state. Historical failures and intermediate green results remain separately scoped.
+
+Execute exactly six prescribed commands: current-source correspondence, clone declared offline dependencies, clone immutable contract seeds, compile current TypeScript, canonical Product generation, and the two finite test lanes covering all six selected modules. Do not use installed RC6 executable code as candidate code. Preserve all current test assertions, at least27 transport and36 qualification tests, zero skipped/failed/cancelled/todo. Actual complete population may be higher. Do not repeat a historical baseline or full qualification campaign.
+
+The containing test_env/test_runs subtree is the declared report territory. Use /private/tmp/abg-q23f for test temporary effects. Report source hashes and exact command stdout report.path/bytes/sha256. UAT may read those exact returned reports, not guessed archive siblings or private provider logs. It must inspect the actual assertions and explicit synthetic lower-owner premises for Q1-Q7; counts alone do not establish semantic sufficiency.
+
+Assess the unchanged Q1-Q7 rubric on the exact current source and actual C2. Unknown prior attribution and different-family routing remain unresolved production prerequisites; a component positive cannot establish them. Root independently reviews the frozen source in parallel and conjoins fresh result/replay/final close later. Those Root duties are outside native unresolvedCriteria. Any materially different failure returns to Root without coding or automatic retry. No Git, selector, publication, release or actual human-acceptance action.

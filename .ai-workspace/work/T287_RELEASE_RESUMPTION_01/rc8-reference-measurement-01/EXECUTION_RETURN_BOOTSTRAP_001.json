@@ -1,0 +1,111 @@
+{
+  "status": "ONE_ISOLATED_RC8_BOOTSTRAP_PASSED_AFTER_UNADMITTED",
+  "at": "2026-11-07T04:40:27.656575+00:00",
+  "activation": "/root/rc7_reference_ticket_writer",
+  "consumer": "/root",
+  "bindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_AFTER_BOOTSTRAP_BINDINGS_001.json",
+    "bytes": 4954,
+    "sha256": "f9f285d4f54e0fc17a68f1af69954bbc4a500dcacb50d1f3509a1b2af29c53ea"
+  },
+  "sourceIdentity": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/BOOTSTRAP_SUMMARY.json",
+      "bytes": 2717,
+      "sha256": "52e0a9f69db7ff41fdf58c417ae80086aa9ee14dd1e2b38ef270a49442b1c779"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/verification.json",
+      "bytes": 15797778,
+      "sha256": "eb6ffc33d1742448dc88e9ff653ccb3e1c90c5abda67877605de14a8b64f4f6a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/resolved-lock.json",
+      "bytes": 4562973,
+      "sha256": "d68a668892bb81cfc05d3494698cfe299a5bd957a6fcc914fc72a47126bd5763"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/installation.json",
+      "bytes": 4231675,
+      "sha256": "97e861d1a0955873ff6f43265ab6f633e371a7179f7048f3db6dfc5299ba8d77"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/OWNER_CONTENT_CHECK.json",
+      "bytes": 529,
+      "sha256": "991a34739103ced07081d6aeb0752f691bb340738292a9f1c1e1bd304ffd7cb6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/INSTALL_SUMMARY.json",
+      "bytes": 1414,
+      "sha256": "381bf0c437ccd3379774d3eae138369b63964e87cf408788a1a4a91f1972e2a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 2557,
+      "sha256": "3dfe718500c18a0100544ae9bb4ef4a56d3c6211daff676f4c38145cf585fe7a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/AFTER_BINDINGS.pre-admission.json",
+      "bytes": 7866,
+      "sha256": "2493232ba130d3fa6ea5d92612a5609597bc6a504eb9fcc4f168b57cea745392"
+    }
+  ],
+  "commands": [
+    {
+      "name": "pack-once",
+      "wallMs": 4026.644541,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/commands/pack-once.result.json",
+        "bytes": 1222,
+        "sha256": "44b8b2e805811debeb1ec53b3b87c26ff3449d89c69b9f13829ce7485381674e"
+      }
+    },
+    {
+      "name": "verify-lock-install-once",
+      "wallMs": 28836.616208,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/commands/verify-lock-install-once.result.json",
+        "bytes": 1434,
+        "sha256": "e35fc90d97938424ffb848f1005b049ba3fc83182e8c41a8da3508636e3b47ca"
+      }
+    }
+  ],
+  "actualOwnerOutcomes": {
+    "verification": "verified",
+    "lock": "resolved_product_lock",
+    "installation": "materialized",
+    "contentMatches": true
+  },
+  "installRoot": "/private/tmp/abg-r8m-rc8-bootstrap-001/host/node_modules/@abiogenesis/typescript-tenant",
+  "maxObservedOwnedBytes": 120650289,
+  "minObservedFreeBytes": 9647071232,
+  "bootstrapOnly": true,
+  "measurementExecuted": false,
+  "broadExecuted": false,
+  "finalImmutableCutInstall": false,
+  "qualified": false,
+  "limits": [
+    "Monitored1GiB operational stop, not quota; phase-boundary overshoot possible.",
+    "One pack and one owner install. Candidate archive must be measured then reproduced byte-exactly for final cut.",
+    "Candidate is base plus exact frozen overlay, not the base commit alone."
+  ]
+}

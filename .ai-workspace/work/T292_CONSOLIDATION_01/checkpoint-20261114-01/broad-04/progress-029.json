@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/r2-clean-install.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/029-r2-clean-install.test/process.json",
+    "bytes": 1060,
+    "sha256": "3a65d23da77a9157942aa95501f0e194b67040275f16d53d006054c324792641"
+  }
+}

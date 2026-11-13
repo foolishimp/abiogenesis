@@ -1,0 +1,116 @@
+{
+  "status": "PASSED",
+  "command": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=spec",
+      "--test-reporter-destination=stdout",
+      "--test-reporter=/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+      "--test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/actual-001/events.jsonl",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/measurement.test.mjs"
+    ],
+    "cwd": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript",
+    "started": "2026-11-09T04:34:59.574Z",
+    "environmentKeys": [
+      "ABG_TS_CLAUDE_COMMAND",
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+      "ABG_TS_FP_TERMINATION_GRACE_MS",
+      "ABG_TS_FP_TIMEOUT_MS",
+      "ABI5_RETENTION_BINDING",
+      "ABI5_RETENTION_BINDING_SHA256",
+      "CI",
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "NODE_OPTIONS",
+      "PATH",
+      "TMPDIR",
+      "npm_config_audit",
+      "npm_config_cache",
+      "npm_config_fund",
+      "npm_config_globalconfig",
+      "npm_config_ignore_scripts",
+      "npm_config_offline",
+      "npm_config_userconfig"
+    ],
+    "timeoutMs": 900000,
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 433362.207042,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "stdout": "✔ RC10 exact installed candidate: fifty 1MiB/4MiB native calls release both basis-retaining owners (432835.762917ms)\nℹ RC10_RETENTION {\"status\":\"FIFTY_CALL_RETENTION_MEASUREMENT_CLOSED\",\"calls\":50,\"totalWallMs\":432670.837042,\"actualPhysicalClose\":true}\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 433310.0045\n",
+    "stderr": ""
+  },
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/actual-001/events.jsonl",
+    "bytes": 1090,
+    "sha256": "aef9fee93f2c5fc669b1db21d2574492a7e137f8ea3d1b5577a0724b435444ca",
+    "begin": true,
+    "end": true,
+    "globalSummaries": 1,
+    "summary": {
+      "ordinal": 3,
+      "type": "summary",
+      "file": null,
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 433310.0045
+    },
+    "fileSummaries": [
+      {
+        "ordinal": 2,
+        "type": "summary",
+        "file": "../../../../../../../../../../../../Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/measurement.test.mjs",
+        "counts": {
+          "tests": 1,
+          "failed": 0,
+          "passed": 1,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 1,
+          "suites": 0
+        },
+        "success": true,
+        "durationMs": 432838.079875
+      }
+    ],
+    "cases": [
+      {
+        "ordinal": 1,
+        "type": "case",
+        "passed": true,
+        "name": "RC10 exact installed candidate: fifty 1MiB/4MiB native calls release both basis-retaining owners",
+        "file": "../../../../../../../../../../../../Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/measurement.test.mjs",
+        "nesting": 0,
+        "testNumber": 1,
+        "suite": false,
+        "skip": false,
+        "todo": false,
+        "error": null
+      }
+    ]
+  },
+  "measurement": {
+    "status": "FIFTY_CALL_RETENTION_MEASUREMENT_CLOSED",
+    "calls": 50,
+    "actualPhysicalClose": true
+  },
+  "error": null,
+  "qualified": false,
+  "providerCallsSelected": 0,
+  "standing": "Actual command, complete structured reporter, 50-call accounting and physical close are all required. No retry or source change."
+}

@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1563.438707999885,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "completed native Evidence keeps the exact initial Design/context read origin",
+      "file": "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_GENERIC_JOB_COMPLETED_ROOT unset; requires the completed native Evidence scratch root",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/094-t287-generic-job-read-dependency.jsonl",
+    "bytes": 1180,
+    "sha256": "d1b48b923656e112b7649943fa274b6b0ca0e249bb27fff9bc7ab363541655e4"
+  },
+  "commandReceipt": "commands/094-t287-generic-job-read-dependency.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

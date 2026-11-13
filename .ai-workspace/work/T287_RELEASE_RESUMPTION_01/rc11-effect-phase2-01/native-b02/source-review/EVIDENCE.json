@@ -1,0 +1,169 @@
+{
+  "status": "SATISFIED_SELECTED_SOURCE_EXTERNAL_UNIT_PENDING",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-review/ASSESSMENT.md",
+    "bytes": 5567,
+    "sha256": "da69bf664d086070df58a3a5fc147d2d795f4687dd6cb22bad5ef9ac5d5fb134"
+  },
+  "frameRoutes": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "resumedContext": true,
+  "sourceAuthor": false,
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "sourceRowsRehashed": 1345,
+  "conservedRows": 1344,
+  "changed": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 147783,
+      "sha256": "ac430f557e3e4eaa9b66f697123ea74675ae5494e149df62f94546fa81d273a4"
+    }
+  ],
+  "sourceAndCustody": {
+    "source-freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+      "bytes": 295433,
+      "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+    },
+    "SOURCE_DELTA.diff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/SOURCE_DELTA.diff",
+      "bytes": 7021,
+      "sha256": "ad47beb9c22b8443c893333fafc8cbbbb9c1b97c326425c9bfb02638734dcac1"
+    },
+    "FREEZE_RECEIPT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/FREEZE_RECEIPT.json",
+      "bytes": 2505,
+      "sha256": "4db25133f85819224c1ce1cd23f87ce4bee4556c01e62ee2a5f87542eeef776d"
+    },
+    "ROOT_SCOPE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/ROOT_SCOPE.json",
+      "bytes": 5918,
+      "sha256": "ebc6b485091166c314f22cb93506dcce32f61e81001c7ec52d891a5a5ecec638"
+    },
+    "WORKER_REPORT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/WORKER_REPORT.json",
+      "bytes": 4552,
+      "sha256": "e744f6ecf1a5b0ae23987658c97e84859967e818e4e372612b9b32d3e87ec8e3"
+    },
+    "RETURN.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/RETURN.json",
+      "bytes": 2809,
+      "sha256": "74c45b4eeae7748443f5f37d8f3be233ac6a8edc087039c69ffdd4ba906f9709"
+    },
+    "SOURCE_CUSTODY.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/SOURCE_CUSTODY.json",
+      "bytes": 8554,
+      "sha256": "e181e0f732e951109277c7354e330a410f11b53cb3ed4540d13e1e70d9be786a"
+    },
+    "NATIVE_CHECKS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/NATIVE_CHECKS.json",
+      "bytes": 2484,
+      "sha256": "15e17183d3a4b260c4bbbdb00427a2f5e08afb5a0b62b4d0c4bb57f290853922"
+    },
+    "runtime-001/FINAL.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/FINAL.json",
+      "bytes": 2628,
+      "sha256": "813c433b9d688436ba9b05ee2c2b912d3f8ae52616a0a5e1e32c2e326704b52b"
+    },
+    "runtime-001/FRESH_READBACKS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/FRESH_READBACKS.json",
+      "bytes": 6807,
+      "sha256": "db6a04f11a4b3a3c70c5a88992240de6be7532de7dd14122abf95244b6d43201"
+    }
+  },
+  "sourceChecks": {
+    "sameTopLevelNames": 39,
+    "oldAssertionsRetained": 15,
+    "boundsExact": true,
+    "outsideGroupBlockExact": true,
+    "productionAndOtherSourceExact": true,
+    "nonHTTPNormalBranches": "static inspection preserved; no generated text execution",
+    "requestBeforeNormalExit": "actual handler gates response finish/server close/exit path",
+    "evidenceBeforeAssertions": true,
+    "actualExitNotIntentionOracle": true,
+    "noNewTimeoutSleepRetry": true
+  },
+  "counterexamples": {
+    "selectedBlockingCounterexample": null,
+    "clientDelivery": "response finish not remote receipt; no universal delivery claim",
+    "portFileInterval": "inherited unexecuted hypothesis, no actual noncanonical-port failure; outside selected repair"
+  },
+  "nativeSelfcheck": {
+    "standing": "outer-file syntax only",
+    "exitCode": 0,
+    "status": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.status",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "stdout": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "laterSourceWrites": false,
+    "generatedLeaderRun": false,
+    "actualUnitRun": false
+  },
+  "deviations": {
+    "readOnlyGit": [
+      {
+        "tool": {
+          "line": 36,
+          "id": "toolu_01HAiwgiJvZdDDrkxPuhUimh",
+          "name": "Bash",
+          "input": {
+            "command": "git log --oneline -3 && git status --short && wc -l build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs && cat stdo_abiogenesis.json | head -50",
+            "description": "Show git state and file sizes"
+          },
+          "ordinal": 0,
+          "result": {
+            "line": 50,
+            "isError": false,
+            "contentSha256": "f6e6b6434931c290eb4652b87d850bff8bd94301a33c90061201e511393f24c3"
+          }
+        },
+        "actualOutput": {
+          "line": 50,
+          "isError": false,
+          "content": "e134103a2 refactor: separate owned process transitions from host effects\ned17ab148 test(t287): align owner-chain oracle with foundation principle\n65f311e73 test(t287): repair publication observation and transport proof\n M build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts\n M build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md\n M build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md\n M build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs\n?? .abiogenesis/\n?? .foundation-generation/\n?? qualification-inputs/\n?? qualification-scratch/\n    2297 build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs\n    1321 build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs\n    3618 total\n{\n  \"$schema\": \"stdo://releases/v3.0.4/standards/schemas/product-definition.schema.json\",\n  \"kind\": \"stdo.product-definition\",\n  \"product\": {\n    \"definition_id\": \"urn:stdo:product-definition:abiogenesis\",\n    \"name\": \"ABIogenesis\",\n    \"source_project\": \"./\",\n    \"bounded_context\": null\n  },\n  \"constitution\": {\n    \"stdo\": {\n      \"source\": {\n        \"repository\": \"https://github.com/foolishimp/specification_methodology.git\"\n      },\n      \"selector\": \"stdo://channels/3.0.4\",\n      \"basis\": {\n        \"uri\": \"stdo://releases/v3.0.4/\",\n        \"manifest_sha256\": \"102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b\"\n      }\n    },\n    \"additional_authorities\": [],\n    \"entrypoints\": [\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/frames/bootstrap.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/SPEC_METHOD.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/REFERENCE_FRAME.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/EXECUTIVE_BASELINE.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/ODD.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/IDENTITY.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/RELEASE.md\"\n      }"
+        }
+      }
+    ],
+    "standing": "Author reported read-only git log/status despite no-Git instruction. Exact commands/results retained; all main/F index pins remained exact. No complete action/read-scope conformance claim. No new source authority inferred.",
+    "operatorCacheCustody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PYC_CUSTODY_RETURN.json",
+      "bytes": 1878,
+      "sha256": "229bd45d0f22e24e131d9d4429afe10b560aad47998e9b47e411ccf1aa0c742d"
+    },
+    "retrospectiveAuthorization": false
+  },
+  "remainingProof": {
+    "oneOriginalUnit": true,
+    "tests": 102,
+    "expectedPass": 96,
+    "historicSkips": 6,
+    "M5Names": 39,
+    "M5EvidenceIds": 34,
+    "allSixGroupRows": true,
+    "separateGroupOrM5Required": false,
+    "buildPackC2LifetimeRepeatRequired": false
+  },
+  "preservedLimits": [
+    "all original reds and failed campaigns",
+    "constructor and diagnostic/test-seam source limits",
+    "two deferred capsules",
+    "six historic unit skips",
+    "synthetic pending-descriptor limit",
+    "no full Phase2/release/qualification acceptance"
+  ],
+  "reviewerExecution": false,
+  "reviewerRepair": false
+}

@@ -1,0 +1,40 @@
+{
+  "status": "ROOT_ACCEPTED_SELECTED_ACTION_AND_LIFETIME_BOUNDED_OUTCOMES",
+  "selectedAction": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-02/selected-action/RETURN.json",
+    "bytes": 2640,
+    "sha256": "2653a4b4b0a21f3197f3eacde484e8f3b4d8a2b5da4439d5663b267ee44d637c"
+  },
+  "lifetimeParserFailurePreserved": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-02/owned-lifetime/RETURN.json",
+    "bytes": 2175,
+    "sha256": "8bf1e40136d1aebffca3401395ccb17cd311110c449310f844db1d4ba02c8c65"
+  },
+  "lifetimeStdout": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-02/owned-lifetime/stdout.log",
+    "bytes": 21558,
+    "sha256": "12721b5d5a910263c4a0f8a61dcaa6cbd0139a75ca7a3dcb4e1d1fa16f989263"
+  },
+  "decoding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/LIFETIME_DIAGNOSTIC_DECODING.json",
+    "bytes": 61513,
+    "sha256": "c768e75175be972613c17cec076e589e8ee349787b55c2193025006ed5171b68"
+  },
+  "selectedCounts": {
+    "tests": 3,
+    "pass": 2,
+    "skipped": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "lifetimeCounts": {
+    "tests": 18,
+    "pass": 18,
+    "skipped": 0,
+    "fail": 0,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "rootDisposition": "Root verified complete outcomes, exit0 and absent groups; exact eight diagnostic roundtrips and publication before return/setup cutoff, missing port explicitly unobserved. Accepted bounded test outcomes with original diagnostic-parser failure retained as control defect. No selected-action or lifetime rerun."
+}

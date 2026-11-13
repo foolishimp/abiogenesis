@@ -1,0 +1,7 @@
+{
+  "status": "DRAFT_NOT_ADMITTED",
+  "operator": "Root",
+  "bindingSha256": "dda93f58b496878adc30b0193d75932fe894625db2e8bd7ed4658c22b62b6c95",
+  "sourceCommit": "6dffbc0adbe19c3cae4eba4248173108a1c45477",
+  "decision": "Root supplies exact admission only after final packet review; preparation has not created ROOT_ADMISSION.json"
+}

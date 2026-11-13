@@ -1,0 +1,46 @@
+{
+  "kind": "q23_actual_failed_runtime_close",
+  "at": "2026-11-05T18:17:29.049690+00:00",
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/outcome-summary.json",
+    "bytes": 543,
+    "sha256": "93d13e56ad5bc30aac483fa3c6f056df118fc1a738fdabcb3dbb03df8ebedff0"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/fresh-reads.json",
+    "bytes": 2402,
+    "sha256": "68b88acf613979820d56bb3598dd0c084dec17c4aa3eea1e30b2c195708352cf"
+  },
+  "host": {
+    "startedUtc": "2026-11-05T17:06:50.027154+00:00",
+    "endedUtc": "2026-11-05T18:12:47.306716+00:00",
+    "wallMs": 3957271.5898333117,
+    "exitCode": 0
+  },
+  "run": {
+    "digest": "sha256:e4436e00b2df3a940da5931eab8ae610910ad4548c360b3c35ad06eb09bac772",
+    "ref": "run://abiogenesis/65f2eb90ec504637c26a55c0512599bc161683b3741316f552e320f0e7733e72"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:c690738e724c4f5df41ff33c51bbd616f0640e16cfb443e0033dc03eec12e9d4",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:e021e0a1ddfe0fc7777fad8d375511f6d17e2cc6a2ad34fb99f6070995ea3ce2",
+    "prefixLength": 230041967,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/after-run-resume.json",
+    "bytes": 72663166,
+    "sha256": "e8eaf0a7c603dcc7731d7e886364af13c6052922a89889259181b307630069b3"
+  },
+  "consistency": "Actual runtime_failed, fresh run_result not_found and fresh replay failed/null terminal agree on failure; no successful terminal or C2/UAT inferred.",
+  "sourceUnchangedSincePartialFreeze": true,
+  "closed": true,
+  "qualified": false
+}

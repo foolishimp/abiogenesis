@@ -1,0 +1,32 @@
+{
+  "file": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+  "kind": "executed",
+  "passed": false,
+  "wallMs": 600046.9508329998,
+  "exitCode": null,
+  "signal": "SIGTERM",
+  "timedOut": true,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": null,
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/events/152-t287-recursive-registered-selection.jsonl",
+    "bytes": 968,
+    "sha256": "6aa103a5314a12cea60d9b4b3cc7f1345e237d76452d29e02c1818bb0d7cdc54"
+  },
+  "commandReceipt": "commands/152-t287-recursive-registered-selection.result.json",
+  "workspace": "/private/tmp/abg-r8c-014/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

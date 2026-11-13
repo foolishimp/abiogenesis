@@ -1,0 +1,74 @@
+[
+  {
+    "id": "selected-action",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "test_env/tests/t287-selected-action-authority.test.mjs"
+    ],
+    "timeoutSeconds": 600,
+    "expectedTests": 3,
+    "expectedSkipped": 1
+  },
+  {
+    "id": "owned-lifetime",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "test_env/tests/t287-owned-process-lifetime.test.mjs"
+    ],
+    "timeoutSeconds": 600,
+    "expectedTests": 18,
+    "expectedSkipped": 0
+  },
+  {
+    "id": "unit",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "test_env/tests/t287-owned-call-reference.test.mjs",
+      "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "test_env/tests/t287-native-structural-gates.test.mjs",
+      "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "test_env/tests/m5-worker-transport.test.mjs",
+      "test_env/tests/forward-command-contracts.test.mjs",
+      "test_env/tests/forward-command-owners.test.mjs",
+      "test_env/tests/t287-native-semantic-revision.test.mjs"
+    ],
+    "timeoutSeconds": 900
+  },
+  {
+    "id": "r6",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "test_env/tests/r6-implementation-resolution.test.mjs"
+    ],
+    "timeoutSeconds": 900
+  },
+  {
+    "id": "f04a",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs"
+    ],
+    "timeoutSeconds": 900
+  }
+]

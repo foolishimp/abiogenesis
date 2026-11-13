@@ -1,0 +1,119 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "ROOT_SELECTED_H04_ONE_REUSED_PRODUCT_STAGE_FIVE_LANES",
+  "readCommands": [
+    "Exact451 selected source/control names; frozen reviewer/Root triage references and installed STDO3.0.4 skills. No broad history, provider narrative or credential scans.",
+    "Read-only rg/git diff/status/rev-parse on selected source; no Git mutation."
+  ],
+  "writeCommands": [
+    "Only two Root-selected existing mjs paths, three handoffs and one scratch stage; no Product/HOW/test timeout or control edits.",
+    "Provider temp C/tmphs4 and tests/private/tmp/abg-hs4 with distinct empty npm configs; preserve existing contents."
+  ],
+  "stageLabels": [
+    "hs4-stage-01"
+  ],
+  "maxStages": 1,
+  "maxLaneInvocations": 5,
+  "concurrency": 1,
+  "laneIds": [
+    "fixed-route",
+    "held-session",
+    "assessment-guards",
+    "native-workspace-owner",
+    "caller"
+  ],
+  "laneTimeouts": {
+    "fixed-route": 600000,
+    "held-session": 600000,
+    "assessment-guards": 300000,
+    "native-workspace-owner": 300000,
+    "caller": 300000
+  },
+  "authoredIntegratedTestTimeoutMs": 540000,
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-04/prior-author-stage.mjs",
+        "hs4-stage-01",
+        "after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 1,
+      "meaning": "Freeze451 sources, verify449 read-only inputs and complete5325-member payload with existing owner, copy exact completed Product/dependencies. Reuse original compile/generation/lifecycle evidence; execute none of those commands."
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-04/prior-author-lanes.mjs",
+        "hs4-stage-01",
+        "<exact-next-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "fixed-route",
+        "held-session",
+        "assessment-guards",
+        "native-workspace-owner",
+        "caller"
+      ],
+      "maxLaneInvocations": 5,
+      "laneTimeouts": {
+        "fixed-route": 600000,
+        "held-session": 600000,
+        "assessment-guards": 300000,
+        "native-workspace-owner": 300000,
+        "caller": 300000
+      },
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "invocationAllocation": [
+    {
+      "lane": "fixed-route",
+      "maximum": 1,
+      "order": 1
+    },
+    {
+      "lane": "held-session",
+      "maximum": 1,
+      "order": 2
+    },
+    {
+      "lane": "assessment-guards",
+      "maximum": 1,
+      "order": 3
+    },
+    {
+      "lane": "native-workspace-owner",
+      "maximum": 1,
+      "order": 4
+    },
+    {
+      "lane": "caller",
+      "maximum": 1,
+      "order": 5
+    }
+  ],
+  "allocationLaw": "One create-only source stage; five once-only serial lanes in declared order. Fixed first, existing held-session second. Failed/incomplete reservations count; no correction stage, identical retry or manual additional proof. Any unexpected/out-of-scope failure returns Root.",
+  "missingResources": "451 frozen H03 names and exact full completed Product payload are selected; one named retained-root historical test remains skipped. HS02 authored280s remains unchanged inside600s lane.",
+  "freezeBeforeFeedback": "Publish exact source-freeze before payload copying/proof for parallel independent frozen review. Final native.after/stage/live correspondence required.",
+  "partitionStanding": "Existing positive exact selectors; no negative-lookahead filters, no widened authored test timeout.",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 8291,
+    "sha256": "cc20cf0f68cda24c53afcf79c992db65ebfc886da2bf5fefdbb1ee0acb27a466"
+  },
+  "authoredHeldSessionTestTimeoutMs": 280000
+}

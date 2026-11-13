@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/m5-worker-transport.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 12046.966541000002,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 32,
+    "failed": 0,
+    "passed": 32,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 32,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/011-m5-worker-transport.jsonl",
+    "bytes": 9500,
+    "sha256": "6e2cbe236e1bfe4decd79cfeb62368c03d9e2320e860817583cbc0e96df14ce9"
+  },
+  "commandReceipt": "commands/011-m5-worker-transport.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

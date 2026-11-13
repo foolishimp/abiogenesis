@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-c0-post-publication-failure-owner-admission-close.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 15,
+    "pass": 15,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/047-t287-c0-post-publication-failure-owner-admission-close.test/process.json",
+    "bytes": 1177,
+    "sha256": "25e0b44abbf17a0366a0dbf216255200c7f524c6cc22c6776c7784e407eb5f18"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "phase": "before-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4/092fe53090b7d678e21ec5b50e12b903dcfab502276a0075fbf3dd45ab70e13a",
+      "admissionEventRef": "event://abiogenesis/2c8c80069d7bdf587a0aa182e7bf512c182b60def280a231a1d53d36f6957f08",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+      "productContentDigest": "sha256:c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4",
+      "manifestDigest": "sha256:8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/e5c630ae0f608d0f9fad0b300efa9d1d4f5a831f195eab08a62a9b5efc9b95ea/092fe53090b7d678e21ec5b50e12b903dcfab502276a0075fbf3dd45ab70e13a",
+      "admissionEventRef": "event://abiogenesis/97e349c2e3362544b5ed77484790e628748745f25d7f8d63279fe6d2c72aad07",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:022345700bdc38f8002c8a205d824de0fbb3c3a4b22d534709dbeda42affdbfa",
+      "productContentDigest": "sha256:e5c630ae0f608d0f9fad0b300efa9d1d4f5a831f195eab08a62a9b5efc9b95ea",
+      "manifestDigest": "sha256:d045d3b5c0446e881df4616eea71357b2e75a0a420b520897e737ee4056e3462",
+      "contentMatches": true
+    }
+  ]
+}

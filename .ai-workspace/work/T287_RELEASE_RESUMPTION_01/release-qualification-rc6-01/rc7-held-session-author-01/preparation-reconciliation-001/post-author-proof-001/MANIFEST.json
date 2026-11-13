@@ -1,0 +1,67 @@
+{
+  "kind": "post_author_two_case_proof_manifest",
+  "status": "PREPARED_REQUIRES_ROOT_EXACT_FINAL_ADMISSION",
+  "createdUtc": "2026-11-06T14:06:20.276536+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-002/SUBJECT.json",
+    "bytes": 296146,
+    "sha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741"
+  },
+  "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_OPERATOR_SELECTION.json",
+    "bytes": 12506,
+    "sha256": "c1e34b35f0af7589aef0961da22e4f7e84883f766336d3974b180a7dabecee70"
+  },
+  "entry": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/run-proof.mjs",
+    "bytes": 6109,
+    "sha256": "3cae2e15fab2f233f84ca0a83271a63e3343d74830fde52a1b24f17a0e8b65a7"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_OPERATOR_SELECTION.json",
+      "bytes": 12506,
+      "sha256": "c1e34b35f0af7589aef0961da22e4f7e84883f766336d3974b180a7dabecee70"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/PRECHECK.json",
+      "bytes": 1284,
+      "sha256": "5a436f2195f10f92da51e9845554af33032e64886f09970f09999dad7e3263a5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/run-proof.mjs",
+      "bytes": 6109,
+      "sha256": "3cae2e15fab2f233f84ca0a83271a63e3343d74830fde52a1b24f17a0e8b65a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_ADMISSION.template.json",
+      "bytes": 288,
+      "sha256": "e58d1ba5badcf8c6203a48750a19dc6bfc5d35860d01a174f31d9286c1184128"
+    }
+  ],
+  "checks": {
+    "stageSourceRows": 450,
+    "frozenSnapshotRows": 450,
+    "dependencyPins": 11,
+    "buildAlreadyPassed": true,
+    "syntaxExitCode": 0,
+    "operatorImportResolvesToSelectedFrozenRunner": true,
+    "testsExecuted": 0
+  },
+  "invocation": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/run-proof.mjs",
+      "<this-manifest-sha256>",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_ADMISSION.json",
+      "<actual-root-admission-sha256>"
+    ]
+  },
+  "rootAdmissionRequiredFields": {
+    "status": "ROOT_ADMITTED_POST_AUTHOR_TWO_CASE_PROOF",
+    "manifestSha256": "<this-manifest-sha256>",
+    "subjectSha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741"
+  },
+  "limits": "Separate two-command operator allocation. Preserve original author ledger and consumed gate. Two once-only serial 300s lanes, actual 280s/290s tests, no retry/build/generation/campaign drain/source edits."
+}

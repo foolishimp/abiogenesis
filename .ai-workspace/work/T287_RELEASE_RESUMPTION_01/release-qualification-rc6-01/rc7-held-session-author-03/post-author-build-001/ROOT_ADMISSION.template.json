@@ -1,0 +1,16 @@
+{
+  "kind": "separately_bound_operator_continuation_admission",
+  "status": "UNBOUND_ROOT_BUILD_ADMISSION_REQUIRED",
+  "manifestSha256": null,
+  "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+  "rootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5616,
+    "sha256": "e7a2371f26980efe6e2b78375f0eb793b10479a9b2111c83ad278a62ff9cba90"
+  },
+  "scope": "build600s/guard60s once",
+  "admittedBy": null,
+  "admittedUtc": null,
+  "ProductAccepted": false,
+  "qualified": false
+}

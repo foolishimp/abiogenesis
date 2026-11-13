@@ -1,0 +1,117 @@
+{
+  "status": "UNBOUND_PREPARATION_ONLY",
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": null
+  },
+  "stage": {
+    "root": null,
+    "freezeReceipt": null,
+    "materializationRoots": null,
+    "bindingNote": "Select existing exact frozen stage and its admitted receipt. Supply nonoverlapping stage-relative materialization roots for tenant source/build/tests/contracts/package/controls and the tracked governance fixtures. No mutable source or immutable install mutation. stage must already be built; this driver does not build ordinary lanes."
+  },
+  "dependencies": {
+    "root": null,
+    "bindingNote": "Exact stage-selected pinned dependency root. Bind inventories all members; execution copies once and links only its own dependency copy into its own fixture workspaces."
+  },
+  "node": {
+    "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "toolPins": [
+    {
+      "name": "node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "name": "python3",
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "bytes": 33816,
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa"
+    }
+  ],
+  "ownerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "bindingRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-001",
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001",
+  "scratchRoot": "/private/tmp/abg-r8c-001",
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "fileTimeoutMs": {
+    "test_env/tests/t287-governed-context.test.mjs": 2100000,
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs": 3600000,
+    "test_env/tests/t289-install-event-bodies.test.mjs": 1200000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000
+  },
+  "focusedCoverage": [],
+  "focusedCoverageShape": {
+    "file": "test_env/tests/<whole-file>.test.mjs",
+    "wholeFile": true,
+    "success": true,
+    "freezeReceiptSha256": "<same final stage receipt SHA-256>",
+    "testSha256": "<exact staged test file SHA-256>",
+    "evidencePins": [
+      {
+        "path": "<actual focused evidence>",
+        "bytes": 0,
+        "sha256": "<SHA-256>"
+      }
+    ],
+    "counts": {
+      "passed": 0,
+      "skipped": 0,
+      "failed": 0
+    }
+  },
+  "providerCallsSelected": 0,
+  "qualification": false,
+  "executionStanding": "NOT ADMITTED. Root will bind the exact final frozen RC8 stage, consume bind inventory, and admit that config/inventory explicitly under the existing selected plan. No human approval flow is added."
+}

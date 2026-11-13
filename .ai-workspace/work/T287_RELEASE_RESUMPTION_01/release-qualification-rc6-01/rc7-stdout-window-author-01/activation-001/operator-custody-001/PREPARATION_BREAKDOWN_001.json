@@ -1,0 +1,410 @@
+{
+  "kind": "metadata_only_s5_initial_preparation_breakdown",
+  "createdUtc": "2026-11-06T20:20:10.172270+00:00",
+  "sourceProjectionPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_001.json",
+      "bytes": 26031,
+      "sha256": "7000c4dd49f09c39a2e6c446ab9b13d3124d868f0fbc22b1946b307b6ed8414e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_002.json",
+      "bytes": 5192,
+      "sha256": "bf7523801b8c7593fff4e6f57087f5ebedc444c85c9412773805f1812320316b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_003.json",
+      "bytes": 8022,
+      "sha256": "ab70e24b14f0195416e01d27a98d36ec4c5f81373a597c5d0c743f496fbbd78d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_004.json",
+      "bytes": 5192,
+      "sha256": "176c84b72481155fe6c7931b1a4486fb5ff40260ed92ebeed687b7fb00685d71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_005.json",
+      "bytes": 5192,
+      "sha256": "08b32494a4e578b796da6b776912258e77e705ac4cad05b30f826be2e4dc2203"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_006.json",
+      "bytes": 17909,
+      "sha256": "a2b404988bd60cc80cb5aba53eb71887246994444276bc9ee03d444218ada590"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_007.json",
+      "bytes": 6890,
+      "sha256": "bd2fd96099d2dc7fd890c478ff635de0d5038af2f22571632810889df65d58f6"
+    }
+  ],
+  "sourceStateAtObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/PREPARATION_BREAKDOWN_001_SOURCE_STATE.json",
+    "bytes": 56317,
+    "sha256": "b5ab0ba0a31061b30fd2b9366f3b5e8e37bef77dfd1f44673807a627618b9c32",
+    "originalMutableProjectionStatePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_STATE.json"
+  },
+  "coverage": {
+    "uniqueCompleteToolUses": 90,
+    "toolNameCounts": {
+      "Bash": 82,
+      "Read": 8
+    },
+    "actorStartedUtc": "2026-11-06T20:04:10.098Z",
+    "firstRequestUtc": "2026-11-06T20:04:18.332Z",
+    "lastRequestUtc": "2026-11-06T20:17:41.456Z",
+    "lastProjectionUtc": "2026-11-06T20:17:55.053543+00:00",
+    "selectedSourceMetadataObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/SOURCE_METADATA_002.json",
+      "bytes": 4735,
+      "sha256": "a3294fe2e545105afdb5de5aeb5a9d22297f2d2f82024b34d45bc9b33ba4a4fa"
+    }
+  },
+  "categories": [
+    {
+      "category": "design_or_review_input",
+      "requests": 4,
+      "toolCounts": {
+        "Read": 2,
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:44.307Z",
+      "lastRequestUtc": "2026-11-06T20:05:42.690Z"
+    },
+    {
+      "category": "platform_tool_result_path_only_uninspected",
+      "requests": 1,
+      "toolCounts": {
+        "Read": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:41.429Z",
+      "lastRequestUtc": "2026-11-06T20:04:41.429Z"
+    },
+    {
+      "category": "repository_product_or_method_authority",
+      "requests": 8,
+      "toolCounts": {
+        "Bash": 8
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:39.157Z"
+    },
+    {
+      "category": "selected_method_entry_or_access",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:18.332Z",
+      "lastRequestUtc": "2026-11-06T20:04:19.063Z"
+    },
+    {
+      "category": "selected_operator_authority_or_control",
+      "requests": 9,
+      "toolCounts": {
+        "Bash": 4,
+        "Read": 5
+      },
+      "firstRequestUtc": "2026-11-06T20:04:18.332Z",
+      "lastRequestUtc": "2026-11-06T20:14:29.698Z"
+    },
+    {
+      "category": "selected_product_owner_source",
+      "requests": 1,
+      "toolCounts": {
+        "Bash": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:04:52.720Z"
+    },
+    {
+      "category": "unknown_bash_purpose",
+      "requests": 68,
+      "toolCounts": {
+        "Bash": 68
+      },
+      "firstRequestUtc": "2026-11-06T20:04:25.114Z",
+      "lastRequestUtc": "2026-11-06T20:17:41.456Z"
+    }
+  ],
+  "literalPathRequests": [
+    {
+      "path": "/Users/jim/.claude/projects/-Users-jim-src-apps-abiogenesis-rc6-local-cut/7c94f419-3c48-4889-a133-0f575a865c9f/tool-results/bh3lcb8ao.txt",
+      "requests": 1,
+      "toolCounts": {
+        "Read": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:41.429Z",
+      "lastRequestUtc": "2026-11-06T20:04:41.429Z"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:18.332Z",
+      "lastRequestUtc": "2026-11-06T20:04:19.063Z"
+    },
+    {
+      "path": "AGENTS.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:23.061Z"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "requests": 1,
+      "toolCounts": {
+        "Bash": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:04:52.720Z"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "requests": 1,
+      "toolCounts": {
+        "Bash": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:04:52.720Z"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:42.690Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/EXTERNAL_READ_INPUTS.json",
+      "requests": 1,
+      "toolCounts": {
+        "Bash": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:13:53.682Z",
+      "lastRequestUtc": "2026-11-06T20:13:53.682Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/HELD_SESSION_DESIGN.md",
+      "requests": 1,
+      "toolCounts": {
+        "Read": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:44.307Z",
+      "lastRequestUtc": "2026-11-06T20:04:44.307Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/HELD_SESSION_REVIEW.md",
+      "requests": 1,
+      "toolCounts": {
+        "Read": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:46.501Z",
+      "lastRequestUtc": "2026-11-06T20:04:46.501Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/HS03_SELECTION.json",
+      "requests": 1,
+      "toolCounts": {
+        "Read": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:32.534Z",
+      "lastRequestUtc": "2026-11-06T20:04:32.534Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/METHOD_ACCESS.json",
+      "requests": 1,
+      "toolCounts": {
+        "Bash": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:18.332Z",
+      "lastRequestUtc": "2026-11-06T20:04:18.332Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/NATIVE_GRANT.json",
+      "requests": 1,
+      "toolCounts": {
+        "Bash": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:18.332Z",
+      "lastRequestUtc": "2026-11-06T20:04:18.332Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/ROOT_CONTROL_ADMISSION.json",
+      "requests": 1,
+      "toolCounts": {
+        "Read": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:30.588Z",
+      "lastRequestUtc": "2026-11-06T20:04:30.588Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/ROOT_DEPENDENCY_READY_SELECTION.json",
+      "requests": 1,
+      "toolCounts": {
+        "Read": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:31.253Z",
+      "lastRequestUtc": "2026-11-06T20:04:31.253Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/ROOT_SELECTION.json",
+      "requests": 1,
+      "toolCounts": {
+        "Read": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:31.904Z",
+      "lastRequestUtc": "2026-11-06T20:04:31.904Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/SOURCE_CUSTODY.json",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:14:23.081Z",
+      "lastRequestUtc": "2026-11-06T20:14:29.698Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/TASK.md",
+      "requests": 1,
+      "toolCounts": {
+        "Read": 1
+      },
+      "firstRequestUtc": "2026-11-06T20:04:34.673Z",
+      "lastRequestUtc": "2026-11-06T20:04:34.673Z"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "requests": 5,
+      "toolCounts": {
+        "Bash": 5
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:35.656Z"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:39.157Z"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:38.326Z"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:23.061Z"
+    }
+  ],
+  "repeatedLiteralPaths": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:18.332Z",
+      "lastRequestUtc": "2026-11-06T20:04:19.063Z"
+    },
+    {
+      "path": "AGENTS.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:23.061Z"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:42.690Z"
+    },
+    {
+      "path": "qualification-inputs/rc7-stdout-window-author-01/SOURCE_CUSTODY.json",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:14:23.081Z",
+      "lastRequestUtc": "2026-11-06T20:14:29.698Z"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "requests": 5,
+      "toolCounts": {
+        "Bash": 5
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:35.656Z"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:39.157Z"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:38.326Z"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "requests": 2,
+      "toolCounts": {
+        "Bash": 2
+      },
+      "firstRequestUtc": "2026-11-06T20:04:52.720Z",
+      "lastRequestUtc": "2026-11-06T20:05:23.061Z"
+    }
+  ],
+  "exactMetadataFailureOrRefusalIndicators": {
+    "available": false,
+    "count": null,
+    "standing": "The retained permitted projection selects tool request metadata only; no tool-result or command exit/error/refusal outcome is present. Absence cannot establish success or no failure."
+  },
+  "methodVerificationStanding": "Exact immutable stdo-work entry path was present in first tool request. Selected manager-command presence not observed by this narrow matcher; successful method verification is unconfirmed. No authored bootstrap receipt was present at latest named-file watch.",
+  "limits": [
+    "Categories overlap when one request names multiple selected input classes; do not sum category counts as distinct requests.",
+    "First/last timestamps are request envelope clocks, not command start/end or measured duration. No time-spent allocation by category is justified.",
+    "Literal path occurrence shows requested reference/presence, not successful reading, execution or comprehension. Repeated path mention is not automatically repeated content acquisition.",
+    "Unknown Bash purposes remain unknown; aliases/computed paths and other command bodies were not interpreted.",
+    "Platform tool-result path is metadata only; its contents and command/provider private text were not acquired.",
+    "14-minute/90-tool observation and unchanged selected-source metadata support proportional repricing, not an automatic stall or waste conclusion."
+  ],
+  "preHandoffPinCorrection": "Hold exact sanitized metadata-state bytes before later incremental projection updates; original draft preserved as PREPARATION_BREAKDOWN_001.pre-held-state.json. No source or observation changed."
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "bounded_component_c2_inputs",
+  "testFile": "test_env/tests/t287-native-semantic-revision.test.mjs",
+  "expectedTests": 7,
+  "minimumPasses": 5,
+  "expectedFailures": 0,
+  "expectedHistoricalSkips": 2,
+  "historicalGate": "Existing capturedEnvelopeSkip at two original tests; ABI5_EVIDENCE_ROOT remains unset, no archived body acquisition",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant",
+  "installedArtifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+  "sourceCorrespondencePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/package.json"
+  ],
+  "futureNativeFiles": [
+    "qualification-scratch/fixture-01/return.json",
+    "qualification-scratch/fixture-01/readiness.json",
+    "qualification-scratch/fixture-01/progress.json"
+  ],
+  "claim": "Existing component assertions only; no new native journal/lifecycle/whole-D2 or release credit."
+}

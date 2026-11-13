@@ -1,0 +1,16 @@
+{
+  "status": "ACTUAL_NATIVE_TOOL_OUTCOME_OBSERVED",
+  "interventionReceiptSha256": "85471f8eff21639f8ed98d518e15b024084c08d8fa4d6cea8decdef5c567bdf6",
+  "toolStartUtc": "2026-11-02T22:11:17.726Z",
+  "toolReturnUtc": "2026-11-02T22:19:06.449Z",
+  "elapsedMs": 468723,
+  "stdoutPhysicalOffset": 5307505,
+  "actualVisibleToolResult": "(Bash completed with no output)",
+  "isError": false,
+  "interrupted": false,
+  "stdout": "",
+  "stderr": "",
+  "nextActualCommandUtc": "2026-11-02T22:19:11.885Z",
+  "nextActualCommand": "grep -rln -i \"wrongrun\\|wrong.run\" rc4-operator-inputs rc4-scratch .ai-workspace 2>/dev/null | head; grep -n -i \"wrong\" rc4-operator-inputs/native-recovery-17/*.md | head -20",
+  "limit": "Root signal to inner grep did not surface a failing/interrupted pipeline result. Native independently chose another broader search. No Writer intervention or injected instruction."
+}

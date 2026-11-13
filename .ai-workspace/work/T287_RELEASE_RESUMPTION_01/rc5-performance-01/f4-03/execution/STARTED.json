@@ -1,0 +1,27 @@
+{
+  "startedUtc": "2026-11-03T11:33:48.014Z",
+  "pid": 32656,
+  "sourceCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "manifestSha256": "b358443e031a969cd6b36fc956d84e65215d697be494d9e350a25444fae8edba",
+  "contextDigest": "sha256:162a97c5ba6c6f0db672944a04ee26eaf445564d99c4f1cdbeb25f23094bd4b2",
+  "callCanonicalDigest": "sha256:0d089939ce1616b0e99401145935ec40561f26cbec35e275d93fb8b89ff5011e",
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 256,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "automaticRetry": false,
+  "qualified": false,
+  "role": "Root operator activation; ABG alone dispatches selected native work"
+}

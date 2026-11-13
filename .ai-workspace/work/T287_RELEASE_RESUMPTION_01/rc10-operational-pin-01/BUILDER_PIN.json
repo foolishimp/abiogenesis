@@ -1,0 +1,128 @@
+{
+  "status": "RC10_OPERATIONAL_BUILDER_PINNED_UNQUALIFIED",
+  "startedUtc": "2026-11-09T05:41:52.615602+00:00",
+  "completedUtc": "2026-11-09T05:41:53.390186+00:00",
+  "verificationWallMs": 774.461249820888,
+  "decisionOwner": "/root Executive",
+  "recordedBy": "/root/rc10_operator as separately activated Writer",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/ACTIVATION.json",
+    "bytes": 3309,
+    "sha256": "7adfd20423228eb65ef7113f983b38938d6e696f7de1640a72b2e07a413f679c"
+  },
+  "ownerInstruction": "lets keep going with RC10 what remains on the backlog",
+  "selection": "Root selects installed RC10 as current project/work operational builder for continuation; no backlog implementation or proof campaign selected.",
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "mainHeadUnmerged": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant",
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.10",
+  "version": "5.0.0-rc.10",
+  "productContentDigest": "sha256:beaaae0e01cf6b059539590f39ad61f849d689193f44b728f26fb59f4266b197",
+  "canonicalManifestDigest": "sha256:f82536a1c16979e0b51d4cc545521381f17d28dc87a371bc88388ebb899fd171",
+  "contributionManifestDigest": "sha256:0990970474d1bfbdf0258c0038c398ae6091549c82ad9b81e43eb34156b0395e",
+  "digestProvenance": "Content/canonical/contribution digest meanings are retained exact verified Product owner receipts; package/manifest/archive byte hashes and complete payload equality checked fresh without executing Product.",
+  "productToolchainManifest": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3266232,
+    "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+  },
+  "package": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/package.json",
+    "bytes": 10105,
+    "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+  },
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "archiveToInstalledPayload": {
+    "members": 5325,
+    "directoryMembers": 0,
+    "payloadBytes": 71764126,
+    "memberInventorySha256": "f68eded00f4ed68b67c53507bbeac577e7763eca650e67c8281fb1c89b697e0b",
+    "mismatches": [],
+    "missingFiles": [],
+    "extraFiles": [],
+    "duplicates": [],
+    "unsafeOrLinkedMembers": [],
+    "algorithm": "Fresh read-only comparison of every regular archive member to the exact installed file, rejecting duplicate/unsafe/link/nonregular members and installed symlinks; every installed regular path belongs to the archive. No extraction or Product/runtime execution.",
+    "retainedPayloadCorrespondence": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/payload-correspondence.json",
+      "bytes": 1035177,
+      "sha256": "3abcafc1a1f6f8ae67823496e1b60fb27f9deea1f8897691e0a15f2f85ff704c"
+    }
+  },
+  "retainedOwnerVerification": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/verification.json",
+    "bytes": 15794345,
+    "sha256": "ee3754fdd3c71c1225790ef0845f76f4bdedf50e75b259d09db7645713e9c037"
+  },
+  "retainedResolvedLock": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/resolved-lock.json",
+    "bytes": 4563584,
+    "sha256": "e289ee75aa54a9202b525221bfb9d661416c40bf2e854a67de61eb67badfa538"
+  },
+  "retainedInstallation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/installation.json",
+    "bytes": 4232315,
+    "sha256": "de0a3290f98e99e032642a3304259fa2784d68b21976c1032e6ddac9a90d5633"
+  },
+  "retainedCutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/LOCAL_CUT_RECORD.json",
+    "bytes": 3311,
+    "sha256": "88c7a34bd3696597d7773fbe858d474382ff15e4874c7cde770d3854482d57c4"
+  },
+  "acceptedDeliveryEvidence": {
+    "finalDelivery": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 9637,
+      "sha256": "72cdf775e7878737781b7edd2879bd5c4d2c28b7b525428917d981eaa7e748c3"
+    },
+    "finalInstallVerification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+      "bytes": 9222,
+      "sha256": "1cf59e16087fbc9fdbf2867adff0b20b972ddffacb3c781385b86c1059273719"
+    },
+    "packagingReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/reviews/packaging-001/REVIEW.json",
+      "bytes": 22735,
+      "sha256": "72b6984c8f9991a4710de9ffc99d8bc719e806e015b0253e80863fd59f748f45"
+    },
+    "sourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/ROOT_BOUNDED_ACCEPTANCE.002.json",
+      "bytes": 21569,
+      "sha256": "d6d22bbb4757ba931df4d4b1adbf18071773c7ddc31384bd7a5da30e7fb971e9"
+    },
+    "installedOwnerSmoke": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/INSTALLED_OWNER_SMOKE.json",
+      "bytes": 3101,
+      "sha256": "cb8be3ed8255d0ed7097c49dade514d40328732cd7ddab673072a9105f8269ca"
+    }
+  },
+  "rc10BuildBuilder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 6302,
+    "sha256": "cf78adcc3b44737b813c721704470e2ad4674c7dde9631dd7168ff0b724932bb"
+  },
+  "historicalBuilderStanding": "RC10 was constructed using pinned immutable RC9. That exact RC9 operational pin remains byte-for-byte historical build provenance. RC10 does not build itself by this successor operational selection.",
+  "qualified": false,
+  "published": false,
+  "operationalPinOnly": true,
+  "globalSelectorChanged": false,
+  "installedBytesChanged": false,
+  "releaseBytesChanged": false,
+  "sourceChanged": false,
+  "mainMerged": false,
+  "runtimeAcquired": false,
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "builds": 0,
+  "tests": 0,
+  "futureOwnerRule": "Later selected work must acquire genuine installed RC10 Public owners/resources; never restamp RC9 historical Runs/catalogs/resources. This pin allocates nothing.",
+  "deliveryStanding": "Selected local RC10 delivery remains complete, unqualified and unpublished; GOAL-035/T-287 remain Active and all retained full5.0/S7/human/residual gates remain open under exact final disposition.",
+  "limits": "Operational work-basis selection only. No implementation slice, next cut, new qualification/review round, machine-global selector/config, Git index/commit/merge/tag/push or mutable source/design/package changes."
+}

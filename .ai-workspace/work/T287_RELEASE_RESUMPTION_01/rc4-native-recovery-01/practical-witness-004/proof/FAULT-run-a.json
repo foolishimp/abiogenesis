@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-02T08:54:25.193Z",
+  "name": "AssertionError",
+  "message": "The expression evaluated to a falsy value:\n\n  assert(A)\n",
+  "meaning": "Actual fault retained; no automatic retry, fabricated state, stale handoff or acceptance."
+}

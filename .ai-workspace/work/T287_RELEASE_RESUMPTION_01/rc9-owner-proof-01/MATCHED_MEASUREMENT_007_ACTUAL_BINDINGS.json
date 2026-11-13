@@ -1,0 +1,48 @@
+{
+  "status": "ROOT_ADMITTED_SEQUENTIAL_MATCHED_MEASUREMENT",
+  "subjects": [
+    {
+      "phase": "before",
+      "binding": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_BEFORE.bootstrap007.bound-001.json",
+        "bytes": 6667,
+        "sha256": "f9bfa912bd025e1a3ca199393a11e468bb2be053c857083562e6c04c34e0107c"
+      },
+      "admission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_MEASUREMENT_007_BEFORE_ADMISSION.json",
+        "bytes": 2709,
+        "sha256": "4d459bfeaf9782ce3366d6d99eca4ca3e7ae1ef8b52d68e0ed75e2a5a3bfce97"
+      },
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-measurement.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_BEFORE.bootstrap007.bound-001.json",
+        "f9bfa912bd025e1a3ca199393a11e468bb2be053c857083562e6c04c34e0107c",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_MEASUREMENT_007_BEFORE_ADMISSION.json",
+        "4d459bfeaf9782ce3366d6d99eca4ca3e7ae1ef8b52d68e0ed75e2a5a3bfce97"
+      ]
+    },
+    {
+      "phase": "after",
+      "binding": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.bootstrap007.bound-001.json",
+        "bytes": 11226,
+        "sha256": "bccaf4ea59312e1e85dae049b625ded0789e55e1cbebf840ebfa8bb7718aed21"
+      },
+      "admission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_MEASUREMENT_007_AFTER_ADMISSION.json",
+        "bytes": 2708,
+        "sha256": "deac313021b8c1181b3a53e3ccc439510311d1835840ad13552bde9ea45a499b"
+      },
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-measurement.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.bootstrap007.bound-001.json",
+        "bccaf4ea59312e1e85dae049b625ded0789e55e1cbebf840ebfa8bb7718aed21",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_MEASUREMENT_007_AFTER_ADMISSION.json",
+        "deac313021b8c1181b3a53e3ccc439510311d1835840ad13552bde9ea45a499b"
+      ]
+    }
+  ],
+  "executionStarted": false
+}

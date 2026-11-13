@@ -1,0 +1,154 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "fixedFifteenFamilies": true,
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "outcome": "original R1-R7/C1-C5 and complete affected caller migration",
+    "basis": "exact installed STDO3.0.4",
+    "emptyComposition": true,
+    "builder": "immutable RC5/f49",
+    "rootOwnsConjunctionDispatchAcceptance": true
+  },
+  "recordedUtc": "2026-11-04T05:39:43.190488+00:00",
+  "kind": "prospective_native08_operator_control_review",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/PROSPECTIVE_NATIVE08_PREPARATION.json",
+    "sha256": "7ce363e4c18a246e77e4e55e9718409d07fee3d846d1bffc9886f08e5331d1b1"
+  },
+  "fourVerifiedDraftPins": {
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/PROSPECTIVE_NATIVE08_TASK.md",
+      "bytes": 5088,
+      "sha256": "c65040272e9ea6c9e64648b351f39ac4e05d49dddad3a958e525c5a07c8404cf"
+    },
+    "preparationScript": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-08-r1.py",
+      "bytes": 19132,
+      "sha256": "bf4c009c52479b6131e850e9b56aba44cf08eda9584af5a528e91dc7491a9025"
+    },
+    "wrapperTemplate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native08-c2-proof-template.mjs",
+      "bytes": 8089,
+      "sha256": "fbd0f8119a9c40e09cde7a47f5531691a59172e419779a79958bc03aaba0906a"
+    },
+    "reusePreparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/prepare-native08-reuse.py",
+      "bytes": 7030,
+      "sha256": "5c4610a224ae8249737593107be4428862f47a5b7fe4c10ca0b6e9222eb02376"
+    }
+  },
+  "contextPins": {
+    "FH_COMPLETION_INTAKE_TRIAGE.json": {
+      "bytes": 8392,
+      "sha256": "a92a3fefee3df09c22f851cea52b2d1c2fd8a9114e879f60096502d9300272a7"
+    },
+    "INDEPENDENT_RUNTIME_PROOF_REVIEW.json": {
+      "bytes": 53752,
+      "sha256": "1205fe2ebeb4a7849f5f99eb6781c9d162eea24bf07315625c77ff147f73d3b4"
+    },
+    "ACTUAL_C2_SUMMARY.json": {
+      "bytes": 17240,
+      "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+    },
+    "NATIVE_C2_CLOSED_RESULT.json": {
+      "bytes": 2209,
+      "sha256": "08e010d7b31f6ef28ad1ca790fddea8ec3e4b66b84a781752e505e8e5d8e7310"
+    },
+    "prepare.mjs": {
+      "bytes": 7152,
+      "sha256": "0f24a3cc7bc6d49c7a047b4c78e8a967b6ddbd6f006dc99b8228407f1a5aef03"
+    },
+    "observe-progress.py": {
+      "bytes": 5054,
+      "sha256": "5fd4cd4e2e070df73578bb1d768493db1cbcff35654fee2501c697733893b72e"
+    },
+    "freeze-source.mjs": {
+      "bytes": 8269,
+      "sha256": "55e0176851a1d2efdabe4370aad8d47a6d851603112d4c8b86d53a4f4976c5a0"
+    },
+    "workload.json": {
+      "bytes": 215356,
+      "sha256": "d66de529701b24fa0ff7f39dcbb64fbfca192159b328b8efa2146efbee212199"
+    },
+    "PROVIDER_PROFILE.json": {
+      "bytes": 1588,
+      "sha256": "cfd16c8f5ae3589e957e81737e58eb8904a84940439ffaaf793c9e50f1e2cb00"
+    }
+  },
+  "verdict": "one material draft current-identity correction; no final dynamic admission approval",
+  "findings": [
+    {
+      "id": "N8-CTRL-01",
+      "severity": "S2",
+      "rank": 1,
+      "classification": "operator current-authority/task provenance routing",
+      "source": "prepare-native-08-r1.py",
+      "lines": [
+        60,
+        74,
+        195
+      ],
+      "trigger": "Preparation after genuine native07 close/new conjunction",
+      "problem": "Selection path/current_names still selection07; grant taskId still NATIVE_07, while new task and reuse preparer require08",
+      "affectedOutputs": [
+        "Writer activation authority",
+        "grant.continuation.rootSelection",
+        "grant.taskId",
+        "copied current selection",
+        "workload authorityRefs",
+        "model source/readFirst selection carriage"
+      ],
+      "harm": "Conflicting current authority/task identity can misdirect or waste FH-only continuation; no demonstrated Product write escape",
+      "containment": "construction writeRoots still derive from future narrow conjunction; no dispatch executed",
+      "smallestCorrection": "Change only current selection path, taskId and current_names filename to08; preserve genuine native07 predecessor/history references and unchanged historical selection07 copy; re-pin/recheck generated bindings",
+      "cost": "small operator-only coherent identity correction; no Product/test/code/architecture effect",
+      "repairPerformed": false
+    }
+  ],
+  "retainedClaims": {
+    "adaptation": "current prepare/observer/freezer literal transforms match intended predecessor/run/scratch changes apart from finding",
+    "executionProvenance": "eight native06 executions keep native06 result/summary, native07 revalidation labelled correspondence only; two native07 rows keep native07 result/summary; no new native08 execution credit",
+    "expectedRetainedCredit": {
+      "lanes": 10,
+      "priorPasses": 266,
+      "historicalSkips": 41,
+      "newExecution": false
+    },
+    "guardIntent": "actual protected observation identity + current counterpart, explicit changed/control/handoff exclusions, actual retained archive identity; generation pending genuine close",
+    "wrapper": "r3 archive custody/compact report/full proof/aggregate predicates retained; original per-row execution provenance added",
+    "fhIntake": "existing conditional RAW route and real seed/preparation/fact gates; no current admission/commit/resume/ownership/qualification claim"
+  },
+  "actualC2Context": {
+    "resultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+    "pass": 46,
+    "fail": 0,
+    "skipped": 0,
+    "sourceMatches": 125,
+    "protectedUnchanged": 911,
+    "productDelta": [],
+    "retainedNative06ExecutionReassigned": false
+  },
+  "pendingDynamicChecks": [
+    "Genuine native07 final close/fresh/selector/UAT/source-after-close and new Root08 selection/conjunction",
+    "Actual post-C2 selector overflow/new Root multi-stage capacity intake; no UAT actor or future fit assumed",
+    "Correct/pin current08 authority/task identity and final generated grant/source/readFirst/authorityRefs",
+    "Actual reuse guard/exclusion partition, copied guards selected/readable, original row provenance/applicability, actual archive identity",
+    "Exact retained dependency/data-read cones against three changed paths, including retry/F09 newly retained from native07",
+    "Final three source write paths plus scratch, complete source custody, no Product effects, finite import/data closure",
+    "New lanes whole-path>=10/shared-owner>=31/current-intent>=1, no skips; actual meaningful FH case assertion review",
+    "Wrapper/input/reuse-manifest source pins, failed correspondence remains aggregate failure, finite owner-returned proof access",
+    "Installed-owner initial and downstream multi-stage prompt/budget/prepared-call checks under unchanged limits, then final Root admission"
+  ],
+  "newRootObservationStanding": "Root reports selector declared_bound_overflow at55109 before UAT actor; supplied observation only, no new source/task/failure analysis in this frozen review",
+  "limits": [
+    "No final dispatch approval",
+    "No Product/code/allocation review reopened or source read",
+    "Read only exact four drafts and explicitly permitted metadata/adaptation controls",
+    "No tests/builds/providers/native contact/preparation execution/delegation",
+    "No in-flight or subject mutation; only permitted review pair written",
+    "Future final conjunction/reuse record not required to exist for this prospective review",
+    "Original outcome and all prior failure/evidence scopes preserved",
+    "Same-family/non-authorship/prior-advisory limits retained"
+  ]
+}

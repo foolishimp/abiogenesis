@@ -1,0 +1,81 @@
+{
+  "file": "test_env/tests/t287-native-owner-reuse.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1690.8859170000069,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 3,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 3,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "actual historical reacquisition contracts owner work without changing task or refusals",
+      "file": "test_env/tests/t287-native-owner-reuse.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "R10 keeps same-owner exact prefix warm while copies, closed owners and malformed cuts remain cold/refused",
+      "file": "test_env/tests/t287-native-owner-reuse.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "execution basis still refuses changed raw input and changed enclosing body",
+      "file": "test_env/tests/t287-native-owner-reuse.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/120-t287-native-owner-reuse.jsonl",
+    "bytes": 1850,
+    "sha256": "0ecee5d14804e63c311a71f5f5955d636b4e0a00286af946fbc9bd802644f4d2"
+  },
+  "commandReceipt": "commands/120-t287-native-owner-reuse.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

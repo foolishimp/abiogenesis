@@ -1,0 +1,59 @@
+{
+  "status": "REPORTED_PROVIDER_TELEMETRY_EXTRACTED",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/archives/fp-7eb15337ee86fa21-stdout.log",
+    "bytes": 4004645,
+    "sha256": "0efbe9f41d0c81c48e994836d085472ea47d7a43ea30f4929bfec8463ec304f1"
+  },
+  "results": [
+    {
+      "type": "result",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 1221094,
+      "duration_api_ms": 871619,
+      "num_turns": 102,
+      "total_cost_usd": 5.5274728,
+      "usage": {
+        "input_tokens": 200,
+        "cache_creation_input_tokens": 200966,
+        "cache_read_input_tokens": 11435124,
+        "output_tokens": 81596,
+        "output_tokens_details": {
+          "thinking_tokens": 31398
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 200966,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 200,
+          "outputTokens": 81596,
+          "cacheReadInputTokens": 11435124,
+          "cacheCreationInputTokens": 200966,
+          "webSearchRequests": 0,
+          "costUSD": 5.5274728,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 31398,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "stop_reason": "tool_use"
+    }
+  ],
+  "scope": "Actual Claude CLI result telemetry only; excludes Operator/Executive and external review costs, and is not independent provider billing assurance."
+}

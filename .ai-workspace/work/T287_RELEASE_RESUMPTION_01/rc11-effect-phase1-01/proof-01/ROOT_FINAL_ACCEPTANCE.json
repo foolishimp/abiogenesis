@@ -1,0 +1,107 @@
+{
+  "id": "PHASE1-FINAL-ACCEPTANCE-01",
+  "status": "ROOT_ACCEPTED_BOUNDED_PHASE1_SOURCE_AND_PROOF",
+  "utc": "2026-11-09T18:42:12.067696+00:00",
+  "actor": "/root/rc10_operator as separately activated Writer",
+  "decisionOwner": "/root",
+  "basis": "Exact installed STDO3.0.4 and existing accepted project frame; no authority re-selection",
+  "sourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/source-freeze.json",
+    "bytes": 295022,
+    "sha256": "9ff5a44dcaca743e51be2313c21e503a437b57f036162a0f8cc2e37d4df20ae3"
+  },
+  "conjoinedEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_RECHECK_NATIVE03.md",
+      "bytes": 5794,
+      "sha256": "e566805c7ef120516c759d0ff242566673d73f0aca529f69d79f618160883847"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_RECHECK_NATIVE03.json",
+      "bytes": 2338,
+      "sha256": "e9622dc9b2ec24731ab56964f1a83968f774e6203d3acc572fab2111f57383ed"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/PROOF_FINAL_CONJUNCTION.md",
+      "bytes": 6019,
+      "sha256": "83cad54b442c3c92c0e23b1813edbaa9923b8bf192f959f6d610f7857fee780c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/PROOF_FINAL_CONJUNCTION.json",
+      "bytes": 5315,
+      "sha256": "d86996b89aa1e328816974ab5fde9ce0e7fcf3af8a8cc33c8a2664ac904f482e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/ASSESSMENT.md",
+      "bytes": 6616,
+      "sha256": "b6704ca0ae4efe6c2ac4af9e1a02c5b866a3bb52497bf49e1489ff0503342ed7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/EVIDENCE.json",
+      "bytes": 4014,
+      "sha256": "5d052a6209e89a61ad04941a739585a75df95549f71085a9181e3d01b24cae95"
+    }
+  ],
+  "campaign": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/FINAL_RETURN.json",
+    "bytes": 2384,
+    "sha256": "dd108d63df4222cd9859a07b29fcc287e16e36b198ff4b5d192540ee9a68ff75"
+  },
+  "unit": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/RETURN.json",
+    "bytes": 483807,
+    "sha256": "dac6936fdc6c722a8579608f329d02666e6696ecd60467ae892e3c2cdbe2cd13"
+  },
+  "checkpointPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/CHECKPOINT_PLAN.md",
+    "bytes": 2672,
+    "sha256": "17424aeffe8edaf84e3b56cbee4701743a9bab8130c1a3417f18d6c2f8f93cd0"
+  },
+  "debtDisposition": {
+    "RC11-LIFETIME-OBS-LATE-001": "CLOSED_FOR_EXACT_SUCCESSOR_SOURCE_AND_SELECTED_PROOF",
+    "RC11-M5-TRANSPORT-PROOF-001": "CLOSED_FOR_EXACT_SUCCESSOR_SOURCE_AND_SELECTED_PROOF"
+  },
+  "newActiveFollowup": {
+    "id": "FOUNDATION-ORACLE-001",
+    "status": "ACTIVE_SELECTED_NARROW_PREPARATION",
+    "scope": "W2-05 collection-token oracle and matching Common Computational Capability Library Design \u00a710.12 sentence only; final native source scope still Root-owned",
+    "setup": false,
+    "providerDispatch": false
+  },
+  "effects": {
+    "candidateBranch": "codex/rc11-foundation-correction",
+    "baseCommit": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+    "selectiveCommitPaths": [
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+      "specification/GOALS.md"
+    ],
+    "mainTrackingOnly": [
+      "specification/GOALS.md",
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    ],
+    "fourTestedSourceFilesMustStayExact": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs"
+    ],
+    "postProofDocumentaryPaths": [
+      "specification/GOALS.md",
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+    ]
+  },
+  "preservedLimits": [
+    "Old installed RC11 and all historical red invocations/native02 timeout remain unchanged.",
+    "Six skipped claims and synthetic pending-owner limit remain explicit.",
+    "Native03 success is its own bounded call, not native-workflow qualification.",
+    "Full5.0/S7 and remaining qualification obligations remain open; no later production phase selected.",
+    "No merge, push, install, release or operational pin change."
+  ]
+}

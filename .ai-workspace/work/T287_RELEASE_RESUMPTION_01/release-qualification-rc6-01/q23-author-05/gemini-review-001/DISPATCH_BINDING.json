@@ -1,0 +1,74 @@
+{
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/ROOT_REVIEW_ACTIVATION.json",
+    "bytes": 4623,
+    "sha256": "6fe35fb73b00d02956712abf21205856e67ca611d905c308c1ae30bfb31d1efd"
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/REVIEW_REQUEST.md",
+    "bytes": 24972,
+    "sha256": "09bc08c023e82d375192dc7466ae3b230feb0b0691a2c95152118ce32f546de8"
+  },
+  "config": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/review-settings.json",
+      "bytes": 946,
+      "sha256": "be0457f8855814a6bb2d393d28f5fb210c48b75d69c49cff9cab52e21a37d2e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/read-only.toml",
+      "bytes": 167,
+      "sha256": "ea753989d7271de69535d507768b9905859de9f7e30bfe308cb2e95d9610f36c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/empty-system-defaults.json",
+      "bytes": 3,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/trusted-folders.json",
+      "bytes": 3,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    }
+  ],
+  "argv": [
+    "/opt/homebrew/bin/gemini",
+    "--model",
+    "gemini-3.1-pro-preview",
+    "--approval-mode",
+    "default",
+    "--admin-policy",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/read-only.toml",
+    "--extensions",
+    "none",
+    "--allowed-mcp-server-names",
+    "__root_frozen_review_no_mcp__",
+    "--include-directories",
+    "/Users/jim/Library/Application Support/STDO/releases/v3.0.4",
+    "--include-directories",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/frozen-authority",
+    "--output-format",
+    "json",
+    "--prompt",
+    "Review only the exact frozen subject and governing request supplied on stdin. Use only the four declared read tools, do not modify or delegate, and return the final source-grounded review with unknowns and limits."
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001",
+  "environmentKeys": [
+    "GEMINI_CLI_HOME",
+    "GEMINI_CLI_NO_RELAUNCH",
+    "GEMINI_CLI_SYSTEM_DEFAULTS_PATH",
+    "GEMINI_CLI_SYSTEM_SETTINGS_PATH",
+    "GEMINI_CLI_TRUSTED_FOLDERS_PATH",
+    "GOOGLE_APPLICATION_CREDENTIALS",
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "NODE_OPTIONS",
+    "NO_BROWSER",
+    "PATH",
+    "TERM",
+    "TMPDIR"
+  ],
+  "credentialContentsReadByOperator": false,
+  "automaticRetry": false
+}

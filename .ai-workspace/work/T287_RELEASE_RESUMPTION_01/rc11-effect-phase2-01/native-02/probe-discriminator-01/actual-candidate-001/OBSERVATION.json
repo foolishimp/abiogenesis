@@ -1,0 +1,117 @@
+{
+  "mode": "candidate",
+  "owner": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 9891,
+      "sha256": "563448e7dc2f8e9a053ba8ac1dd49baf884e021cf301c7a352ace1ee7d33e897"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_state.js",
+      "bytes": 8361,
+      "sha256": "4d3863302d3a141dff2154ca1edc438dbc854985dfd8094617de885999e38880"
+    }
+  ],
+  "hostCalls": 2,
+  "trace": [
+    {
+      "kind": "probe_enter",
+      "ordinal": 1,
+      "pid": 321
+    },
+    {
+      "kind": "inject_exit"
+    },
+    {
+      "kind": "probe_enter",
+      "ordinal": 2,
+      "pid": 321
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 2,
+      "absence": "absent"
+    },
+    {
+      "kind": "inject_close"
+    },
+    {
+      "kind": "probe_return",
+      "ordinal": 1,
+      "absence": "present"
+    }
+  ],
+  "signals": [],
+  "disposals": 3,
+  "callError": null,
+  "settledWithinBound": true,
+  "completionSettled": true,
+  "completionFrozen": true,
+  "completionFacts": {
+    "directExit": {
+      "status": 0,
+      "signal": null
+    },
+    "launchFailure": null,
+    "noChildEstablished": false,
+    "scopeKind": "posix_process_group",
+    "scopeAbsence": "absent",
+    "closeObserved": true,
+    "streamsDisposed": true,
+    "drainExpired": false,
+    "firstError": null,
+    "cleanupDeadlineNs": {
+      "kind": "bigint",
+      "value": "300000000"
+    },
+    "cleanupElapsedMs": 0,
+    "probeCount": 1,
+    "signalAttempts": 0
+  },
+  "immediateSnapshot": {
+    "directExit": {
+      "status": 0,
+      "signal": null
+    },
+    "launchFailure": null,
+    "noChildEstablished": false,
+    "scopeKind": "posix_process_group",
+    "scopeAbsence": "present",
+    "closeObserved": true,
+    "streamsDisposed": true,
+    "drainExpired": false,
+    "firstError": null,
+    "cleanupDeadlineNs": {
+      "kind": "bigint",
+      "value": "300000000"
+    },
+    "cleanupElapsedMs": 0,
+    "probeCount": 2,
+    "signalAttempts": 0
+  },
+  "laterSnapshot": {
+    "directExit": {
+      "status": 0,
+      "signal": null
+    },
+    "launchFailure": null,
+    "noChildEstablished": false,
+    "scopeKind": "posix_process_group",
+    "scopeAbsence": "present",
+    "closeObserved": true,
+    "streamsDisposed": true,
+    "drainExpired": false,
+    "firstError": null,
+    "cleanupDeadlineNs": {
+      "kind": "bigint",
+      "value": "300000000"
+    },
+    "cleanupElapsedMs": 25,
+    "probeCount": 2,
+    "signalAttempts": 0
+  },
+  "freshSnapshots": true,
+  "immediateTimerResidue": [],
+  "laterTimerResidue": [],
+  "standing": "Controlled child/clock and real imported owner; no OS child, signal, installed proof or source repair. now advances only for later snapshot; timers are retained, not fired or cleared by fixture."
+}

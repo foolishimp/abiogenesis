@@ -1,0 +1,52 @@
+{
+  "status": "EXACT_HELD_BINDING_COMMAND_FOR_REVIEW_NOT_EXECUTABLE_ADMISSION",
+  "at": "2026-11-07T22:40:02.722554+00:00",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "bytes": 27890,
+    "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/CUT8_BUILD_BINDINGS.prepared.json",
+    "bytes": 18977,
+    "sha256": "17bbc86ff194240316d6135282953abfadaf5c94ffa1c7065b4585c2541bac43"
+  },
+  "commandArgv": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "build",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/CUT8_BUILD_BINDINGS.prepared.json",
+    "17bbc86ff194240316d6135282953abfadaf5c94ffa1c7065b4585c2541bac43"
+  ],
+  "command": "/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs build /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/CUT8_BUILD_BINDINGS.prepared.json 17bbc86ff194240316d6135282953abfadaf5c94ffa1c7065b4585c2541bac43",
+  "executeNow": false,
+  "currentGuardResult": "Driver rejects held status/activation before effects. This exact command is a static proposal only.",
+  "requiredSeparateAdmission": {
+    "status": "ROOT_SELECTED_LOCAL_RC8_BUILD_ONLY",
+    "activation": "Exact separately recorded Root build activation pin",
+    "executionEnabled": true,
+    "finalCommandRule": "Materialize a separate admitted binding from this held subject, record its exact bytes/SHA256, and use its path/digest in argv. No future admission pin is supplied."
+  },
+  "expectedOutputs": [
+    "SOURCE_PREPARED.json",
+    "SOURCE_CHECKPOINT.json",
+    "REPRODUCTION_INPUTS_VERIFIED.json",
+    "candidate/RESULT.json",
+    "reproduction/RESULT.json",
+    "EXACT_TESTED_ARTIFACT.json",
+    "INSTALL_INPUTS_PENDING.json",
+    "BUILD_RESULT.json"
+  ],
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001",
+  "afterBuild": "Exact independent packaging review, then a separate Root install binding; no automatic continuation.",
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  }
+}

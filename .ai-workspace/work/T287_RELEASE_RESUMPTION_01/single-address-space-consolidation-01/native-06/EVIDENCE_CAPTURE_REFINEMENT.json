@@ -1,0 +1,18 @@
+{
+  "recordedUtc": "2026-11-04T02:47:02.149982+00:00",
+  "kind": "operator_evidence_capture_correction",
+  "original": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/capture-c2.mjs",
+    "bytes": 10383,
+    "sha256": "459bd234511a41527718a134129f0ee56ec8fceb40763e92d6459d224bef7776"
+  },
+  "corrected": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/capture-c2-r1.mjs",
+    "bytes": 10488,
+    "sha256": "b97b810781309e8177ab5434bc3050ac6b3a0959cb42113c562f8d52eb280522"
+  },
+  "failure": "Original capture stopped at Actual helper fails installed owner validation before writing evidence outputs.",
+  "cause": "Root selected the legacy sourceConstructionResult C2 guard; actual task carries sourceNativeWork and uses the native C2 arm.",
+  "correction": "Require installed isNativeWorksiteCommandExecutionTask, then existing common isWorksiteExecutionHelperArtifact and native observation guard.",
+  "standing": "Operator capture error only; no Product defect, changed test result or acceptance inferred. Original script and failure retained."
+}

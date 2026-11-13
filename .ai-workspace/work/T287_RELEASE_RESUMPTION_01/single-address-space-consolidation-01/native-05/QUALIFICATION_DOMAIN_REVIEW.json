@@ -1,0 +1,137 @@
+{
+  "kind": "qualification_cache_reader_domain_review",
+  "schemaVersion": "1",
+  "recordedUtc": "2026-11-03T22:58:37.772Z",
+  "standing": "CLOSED_STATIC_DOMAIN_FOLLOWUP_NO_EXECUTION_OR_SOURCE_ACCEPTANCE",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/qualification-domain-001/SUBJECT.json",
+    "sha256": "e012a0cc9a0e2c1c9011e72f76f7c59c9269ac00bdaf8421efdaa26e407d4990",
+    "priorSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-code-review-001/SUBJECT.json",
+      "sha256": "c641a25e2c3bebf72eec86158b9a22e6ca0f9bcae23d49ea8ce108c2b5056729"
+    },
+    "closedConditionalReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_INTERIM_CODE_REVIEW.json",
+      "sha256": "7b92835342855fd2ec03611e74f50c00db8de6cc1870134bdb0bff8f3b34170a"
+    }
+  },
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "STDO3.0.4",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "scope": "Only N5-CODE-01 source-reader domain. Original complete R1-R7/C1-C5 unchanged; no new authority or generic cache design."
+  },
+  "results": [
+    {
+      "claim": "A qualifying held-prefix read can retain the same actual derivation across the suffix",
+      "verdict": "satisfied",
+      "evidence": [
+        "event_store2281-2286 returns the actual held coordinate.",
+        "event_store1730-1737 preserves an exact registered coordinate; unbound copies are detached, not authenticated.",
+        "Successful append2309-2368 binds the successor selection using the SAME state.derivation at2365; it does not invalidate that source.",
+        "readOwnedRuntimeHistory3565-3568 returns the registered active selection. Pure projectOwnedRuntimeHistory3558-3561 uses its known selection.",
+        "qualification_proof818-840 makes current proof.prefix=consumer.predecessorPrefix and binds the actual owned current prefix; it does not require the source lookup to use a fresh raw-array derivation."
+      ]
+    },
+    {
+      "claim": "Mandatory Event Store append or cold validation excludes the extra fibre before qualification",
+      "verdict": "falsified",
+      "evidence": [
+        "admitRuntimeEvent4128-4137 excludes only artifact/profile/liveness special ingress here; a normal fibre candidate proceeds to admitRuntimeEventInternal4160-4178.",
+        "projectRuntimeEventAtContract2430-2501 validates candidate/envelope/contract/causation/profile and computes canonical stamps. It has no CCall open/fibre multiplicity or post-judgment phase census.",
+        "Fibre contract558-574 and kind checks2938-2943/3228-3233 constrain class/regime, not historical fibre count.",
+        "Cold decoding3455-3520 and3698-3753 applies that same projector, profile/stamp/physical checks and codec rules; no CCall phase owner is called."
+      ]
+    },
+    {
+      "claim": "Mandatory Event Calculus/liveness rejects this extra fibre for an ordinary non-C0 producer",
+      "verdict": "falsified",
+      "evidence": [
+        "event_calculus242-250 applies effectOf through applyStep; its fibre dependency branch119-121 invokes worksite-specific support.",
+        "fold.effectOf113-129 invokes only rules whose appliesTo contains the event kind, then its axiom.",
+        "rules200-226 has no rule applying to c_call_fibre_selected. Native liveness rule102-107 applies only to the probe/interruption/timeout kinds214-215.",
+        "axioms196-199/911-920 initiates c_call_fibre_admitted. Its optional worksite selection returns null for a non-C0/non-file-replace fibre via c_call_outcome235-242, and worksiteSelectedOccurrenceDependencies337-338 returns[] before history lookup.",
+        "For a suffix ending at that extra fibre no new liveness event is needed. Earlier liveness observations remain evaluated at their own cuts; this is not a global current CCall phase validation."
+      ]
+    },
+    {
+      "claim": "The unresolved domain premise of N5-CODE-01 holds for the supported internal/source-reader path",
+      "verdict": "satisfied",
+      "effect": "The prior conditional static warm/cold refusal counterexample applies to the interim qualification_proof SHA c9ea7515696efdc160c59f6faa3f0f28243f20b247b164baea3c64ec3c4f6993. N5-CODE-01 remains S2; Root owns priority/disposition and final-byte conjunction."
+    }
+  ],
+  "distinctions": {
+    "publicProduction": "No lawful Public CCall producer is claimed to emit the extra fibre. The normal CCall owner constructs the proper pair/phase.",
+    "internalAdmission": "The existing Event Store owner admits a contract-valid candidate and returns a genuine successor coordinate; no invented receipt, host-file mutation or forged coordinate is needed for the reader-domain witness.",
+    "coldRead": "A copied/unbound coordinate authenticates physical data and creates a fresh source, so that path alone would not show retained shortcut reachability.",
+    "heldRead": "Actual predecessor/successor coordinates remain registered to the same source; qualification current-proof substitution selects that source. A cold read of equivalent current coordinates can therefore exercise the missing actual CCall check."
+  },
+  "staticWitness": [
+    "Start with genuine active durable history containing completed non-C0 producer C and a valid qualification consumer Q; select actual held cut P. Warm source C through resolveQualificationExecutionMaterial with a same-log proof and consumer predecessor P.",
+    "Admit a contract-valid additional c_call_fibre_selected candidate for C using its original Run/Graph/frame/cause fields. The Event Store stamps a distinct event at the next ordinal and registers actual successor Pprime against the same derivation. Leave C opening/Result/judgment unchanged.",
+    "Use the original proof with current consumer.predecessorPrefix=Pprime. proofWithin519-522 permits an earlier same-store proof; current proof828-840 uses the actual current owned prefix. The source C is distinct from consumer Q, so Q currentness/selected-no-evidence checks do not validate C phase.",
+    "RuntimeDerivationScope and RuntimeHistory generation/body identity retention keep known C graph/state identities. qualification_proof158-159 and251 can return before the existing CCall owner checks. nativeState530-532 does not treat the new fibre as evidence or a new producer opening.",
+    "An uncached equivalent current source state reaches c_call.projectAdmittedCCallOutcomeAtPrefix1514-1531 -> projectCCallCarrierPhaseAtPrefix -> projectCCallPhase1031-1038, which refuses fibre.length!=1. Historical P remains valid."
+  ],
+  "remedy": "Remove/bypass qualification shortcut returns that skip current existing exact-basis/CCall owner queries. Use those indexed owners and their refusals/reuse; preserve immutable declaration/material reuse where valid. Do not duplicate phase/invalidation law or add a general cache/store.",
+  "requiredProof": "A bounded actual-source warm P -> actual admitted phase-invalidating suffix -> warm Pprime versus uncached/cold Pprime and historical P discriminator, plus unrelated-extension reuse. This follow-up did not execute it.",
+  "evidence": {
+    "providedFiles": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/qualification-domain-001/event_store.ts",
+        "bytes": 213856,
+        "sha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c",
+        "standing": "Exact f49 unchanged source"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/qualification-domain-001/event_calculus.ts",
+        "bytes": 21789,
+        "sha256": "82e31562919f7463058c23e866ad8710c1bd53826056ba764286ee523b40770f",
+        "standing": "Exact f49 unchanged source"
+      }
+    ],
+    "indispensableAdditionalExactF49Files": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+        "source": "immutable git object f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "bytes": 14215,
+        "sha256": "d8cfe4a8de42483a82e58728dc986395fa3f7e70eb9418bd8e040d791f0353dc"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+        "source": "immutable git object f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "bytes": 73973,
+        "sha256": "473c76ab37376ba3d00de076859b01947236a3da97c6773b2b961ca571453397"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+        "source": "immutable git object f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "bytes": 11299,
+        "sha256": "c0fc878a39d1e54b940851cd384fe5146e975cedb8a8097f9c596f592dab6342"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+        "source": "immutable git object f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "bytes": 91166,
+        "sha256": "2c1b5b28e7cb48498b08a95d67cb9c28d1548c734a71e26f13697f388ac2304a"
+      }
+    ],
+    "sourceBasis": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+    "provenance": "Four indispensable lower owners named to Root, then read from immutable git objects; no moving source. The first three were expressly confirmed by Root; c_call_outcome is the final invoked non-worksite guard."
+  },
+  "limits": [
+    "Static owner/code proof only; no test, build, provider, runtime mutation or Product edits.",
+    "No executed false qualification pass or measured frequency is claimed.",
+    "Original conditional review is preserved; this result supplies its previously unresolved domain premise rather than rewriting it.",
+    "Scope is the exact interim bytes. Native05 remains active; final admitted byte comparison and affected proof remain Root-owned."
+  ],
+  "invalidation": [
+    "Changed qualification shortcuts, reader registration/scope/body identity, append/cold validation, applicable fold rule/axiom or non-worksite guard changes this conclusion.",
+    "An additional mandatory earlier owner that actually refuses this precise non-C0 fibre suffix before the warm source read revises the conclusion; mere schema/physical validation is not such evidence.",
+    "New contrary exact execution evidence or changed Product/method/domain."
+  ]
+}

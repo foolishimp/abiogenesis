@@ -1,0 +1,53 @@
+{
+  "id": "RC10-REPAIR-SETUP-02",
+  "status": "ROOT_ADMITTED_RC10_SETUP",
+  "recordedUtc": "2026-11-09T04:13:03.127852+00:00",
+  "owner": "/root Executive",
+  "bindingSha256": "4ee5c0c3bee7404dddf0c959fcec00ea0de149f7bc065fcece74ec0f277092d8",
+  "scopeSha256": "2e73c0e378a8d91d87ce066c77fb3411d74f9751bfcd5aaa843d01796e802b56",
+  "grantsFreshPublicSetup": true,
+  "providerDispatch": false,
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/READY.json",
+    "bytes": 5541,
+    "sha256": "8b012737bd531527b4c9c167b985f9e7b47bd1081495a7ddfe8b90555dd3984b"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/ROOT_SCOPE.json",
+      "bytes": 6945,
+      "sha256": "2e73c0e378a8d91d87ce066c77fb3411d74f9751bfcd5aaa843d01796e802b56"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/TASK.json",
+      "bytes": 5716,
+      "sha256": "13619b2660ef478717696dfc654afa41de99ddde887d9beefa0f93f10d7e1fb4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/host.mjs",
+      "bytes": 15341,
+      "sha256": "bc37b1d25c4f77122a967473a76fc8685c5173a7ebe071422641bd06e889d401"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/transport-preflight.mjs",
+      "bytes": 1319,
+      "sha256": "65ba305d4494785db96e188f2e2ce7f2022704761ff749b65e356c3594571da6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1070,
+      "sha256": "db718d10b6c59cd8e508d66bc4ac21e3b59bdf1f83f0611d05ff876b1a65028d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NO_NATIVE_PROOF.json",
+      "bytes": 318,
+      "sha256": "f57cc2a61e8bad3c48cd540dfab89f437f53a5086145160229a4b790fa263f0a"
+    }
+  ],
+  "ownerInstruction": "Root admits RC10-REPAIR-SETUP-02 on exact READY8b012737, binding4ee5c0c3, TASK13619b26, hostbc37b1d2. Record admission and launch one fresh setup through validated Public open in declared runtime/scratch. Assert actual unbound manifest and exact source/RC9pins; no provider yet. Return actual PREPARED/live caller for native dispatch. Native scope only agreed3files,900sabsolute180sinactivity100turnsxhigh.",
+  "limits": {
+    "setupMs": 900000,
+    "reserveBytes": 4294967296
+  },
+  "noAutomaticRetry": true
+}

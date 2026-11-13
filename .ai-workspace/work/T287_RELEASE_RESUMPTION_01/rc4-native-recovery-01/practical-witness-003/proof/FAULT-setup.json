@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-02T08:21:10.742Z",
+  "name": "AssertionError",
+  "message": "{\"kind\":\"product_execution_resolution_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"ambiguous\",\"stage\":\"declaration_closure\",\"message\":\"whole-Program declaration inventory failed static validation\"}\n+ actual - expected\n\n+ 'product_execution_resolution_refusal'\n- 'loaded_product_execution_resolution'\n",
+  "meaning": "Actual fault retained; no automatic retry, fabricated state, stale handoff or acceptance."
+}

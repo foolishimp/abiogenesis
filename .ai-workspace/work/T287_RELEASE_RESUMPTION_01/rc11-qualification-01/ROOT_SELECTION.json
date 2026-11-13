@@ -1,0 +1,25 @@
+{
+  "id": "RC11-PREP-01",
+  "status": "RC11_THREE_RESIDUALS_SELECTED_RC10_BUILDER_PINNED",
+  "owner": "/root Executive",
+  "userInstruction": "ok pin RC10 - and work on RC11, lets go with the 3 you suggested",
+  "selected": [
+    "current-owner native-assessment evidence (RC8-NATIVE-ASSESSMENT-PROFILE)",
+    "selected-action evidence (RC8-SELECTED-ACTION-PROFILE)",
+    "lifetime/physical closure (RC8-PHYSICAL-LIFETIME-013 plus retained RC10 lifetime gaps under triage)"
+  ],
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "archiveSha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9",
+  "triage": "Two separate owner triages active; Root conjoins before exact author Product scope.",
+  "excluded": "O3 and unrelated capsules remain unselected; full5.0/human/qualification gates stay open. No public or qualified claim.",
+  "effectGrant": "Fresh RC11 worktree/branch, offline existing dependency link, source baseline/guards and reusable native control preparation; current-status prefixes only in main GOALS/T287 preserving existing bodies. No candidate Product edits, setup/runtime/provider/build/test/install, immutable release/install/global-selector or source-commit/main-index changes.",
+  "nativeModel": "claude-opus-5-5",
+  "nativeEffort": "xhigh",
+  "dispatch": "held pending Root exact scope and runtime admissions"
+}

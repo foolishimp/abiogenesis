@@ -1,0 +1,31 @@
+{
+  "predecessorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/BINDING.json",
+    "bytes": 20454,
+    "sha256": "8040cb008ae34aa0b18775e50e138b8bb86d86809a338b1a0afdf2760906a8af"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/BINDING.json",
+    "bytes": 20570,
+    "sha256": "eff4c339e3d8e252b347e7a68810feeeee8d2c9da730dc5860859ad0deee0d1a"
+  },
+  "hostUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/host.mjs",
+    "bytes": 15522,
+    "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+  },
+  "validatorUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/transport-preflight.mjs",
+    "bytes": 1458,
+    "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+  },
+  "changes": [
+    "Fresh native-b01 runtime-001/host-scratch and qualification inputs/scratch; same supported Public open route",
+    "Accepted A checkpoint source/commit and new scoped B task with six existing targets plus optional absent scope module",
+    "Prospective absolute timeout900000->1800000 in provider AND transportContract; inactivity180000/maxTurns100 unchanged; Bash max300000 in both environments",
+    "Exact lifetime ^controlled selector24 old+6 new prospective cases; scratch compilation; no physical/full proof inside author",
+    "Authorized main prefix only; all candidate source/indices/HEADs preserved"
+  ],
+  "launch": "Direct pinned Node argv, tty:true/login:false. No stdin-consuming wrapper, heredoc, redirection or pipeline.",
+  "standing": "Setup/provider held; no actual call/resource identity exists yet."
+}

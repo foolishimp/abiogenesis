@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/run.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/BINDING.json",
+    "b0d47aefd05dff97421ee5c53574d80233866a1bd095a0271ed7ab7153ab9190",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_EXECUTION_ADMISSION.json",
+    "22b9575bf4520e80b6ed4dfa7a43c15b483dbcf12db3a62830375a0efebc972a"
+  ],
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3468,
+    "sha256": "22b9575bf4520e80b6ed4dfa7a43c15b483dbcf12db3a62830375a0efebc972a"
+  },
+  "commandIds": [
+    "r1-probe",
+    "r2-immediate",
+    "baseline-signal",
+    "owned-lifetime"
+  ]
+}

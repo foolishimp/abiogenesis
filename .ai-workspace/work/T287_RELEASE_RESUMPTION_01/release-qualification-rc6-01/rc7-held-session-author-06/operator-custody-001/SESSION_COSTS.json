@@ -1,0 +1,99 @@
+{
+  "kind": "actual_h06_session_costs",
+  "createdUtc": "2026-11-06T19:41:50.487785+00:00",
+  "sources": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/commands/sdk-native-host.request.json",
+      "bytes": 1851,
+      "sha256": "238baaba44f5b3315aac226cf5cefc6f3abef9de67b33218697ea5f3628e5d6d"
+    },
+    "hostPreparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/HOST_PREPARATION_STARTED.json",
+      "bytes": 200,
+      "sha256": "161a5dff54ff55f3abb49614945c91d15a90f39a260b6abcfa1dea87581a11bd"
+    },
+    "phaseReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/operator-custody-001/PREPARATION_PHASES.json",
+      "bytes": 3418,
+      "sha256": "0447709c672ce7c2568328c559afeecf2429788b9fef5ef11e8701f41e9682b9"
+    },
+    "actualActorStart": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/operator-custody-001/ACTOR_START.json",
+      "bytes": 1958,
+      "sha256": "d536f80f2b641e9c0f743727753d6e211b4eabd0d157e78aa0c52f3369fbfe32"
+    },
+    "outcomeSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/outcome-summary.json",
+      "bytes": 826,
+      "sha256": "6c44c14b063f37f072ca350b949e85457004baf120dd470ce8062984714c87d3"
+    },
+    "resourceClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/resource-close.json",
+      "bytes": 2308,
+      "sha256": "9d998f064746972f8effa9684addf28ab678e3f7b48b4d4c69ff59019d52ba52"
+    },
+    "proofInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/PROOF_INVENTORY.json",
+      "bytes": 15345,
+      "sha256": "5488dc0c162bd73cce17d1847bd7d4674d80baebb5baaaf45f7f0f86e67ed400"
+    }
+  },
+  "requestUtc": "2026-11-06T19:26:54.765Z",
+  "hostStartedUtc": "2026-11-06T19:26:55.563Z",
+  "actorStartedUtc": "2026-11-06T19:29:01.886Z",
+  "ownerEndedUtc": "2026-11-06T19:39:15.357Z",
+  "requestToHostMs": 798.0,
+  "setupPhasesMs": {
+    "identity": 642.8398330000001,
+    "acquisition": 50691.32883300001,
+    "environment": 66854.45999999999,
+    "callConstruction": 1885.5763750000042
+  },
+  "marksMs": {
+    "beforeRunIdentityMs": 642.8398330000001,
+    "acquiredMs": 51334.168666000005,
+    "environmentMs": 118188.628666,
+    "preparedMs": 120074.20504100001
+  },
+  "hostToActorMs": 126323.0,
+  "preparedToActorMs": 6248.794958999992,
+  "actorToOwnerSummaryEndMs": 613471.0,
+  "nativeActualWorkOnlyMs": null,
+  "sdkReturnToPhysicalCloseMs": null,
+  "timingPartitionLimit": "No separate exact actor-completion/SDK-return/physical-close timestamps were observed. Actor-to-owner-end includes native work/testing plus completion/return/close; it is not pure native work duration.",
+  "stageSetupMs": 4079,
+  "laneDurationsMs": {
+    "assessment-guards": 72255,
+    "native-workspace-owner": 1726,
+    "caller": 67199
+  },
+  "laneSetupMs": {
+    "assessment-guards": 64,
+    "native-workspace-owner": 67,
+    "caller": 67
+  },
+  "nestedTimingLimit": "Stage and lane intervals occur inside actor-to-owner-end and must not be added to it.",
+  "betweenTaskOperator": {
+    "predecessorOwnerEndedUtc": "2026-11-06T19:05:10.975Z",
+    "hostStartedUtc": "2026-11-06T19:26:55.563Z",
+    "ms": 1304588.0,
+    "classification": "Between-task/operator interval; not RC7 native runtime performance."
+  },
+  "ownerWallMs": 739685.295458,
+  "rootObservedHost": {
+    "owner": "Root exec session85433",
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 740700.8775419999,
+    "observedUtc": "2026-11-06T19:40:10Z"
+  },
+  "authorTimestampLimit": {
+    "progressUpdatedUtc": "2026-11-06T19:36:30Z",
+    "returnCreatedUtc": "2026-11-06T19:40:00Z",
+    "observations": "Progress19:36:30Z observed19:35:43.961Z; return19:40:00Z observed19:38:35.835Z. These authored future timestamps are preserved but excluded from chronology."
+  },
+  "noMatchedSpeedupClaim": true
+}

@@ -1,0 +1,82 @@
+{
+  "kind": "syntax_only_preparation_receipts",
+  "status": "PASS",
+  "scripts": [
+    {
+      "relativePath": "single-host.template.mjs",
+      "command": [
+        "node",
+        "--check",
+        "single-host.template.mjs"
+      ],
+      "result": {
+        "chunk_id": "7e6782",
+        "wall_time_seconds": 0.000019041,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "relativePath": "launch-host.template.mjs",
+      "command": [
+        "node",
+        "--check",
+        "launch-host.template.mjs"
+      ],
+      "result": {
+        "chunk_id": "01a09c",
+        "wall_time_seconds": 0.000008667,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "relativePath": "inputs/prior-author-stage.mjs",
+      "command": [
+        "node",
+        "--check",
+        "inputs/prior-author-stage.mjs"
+      ],
+      "result": {
+        "chunk_id": "69a277",
+        "wall_time_seconds": 0.000015292,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "relativePath": "inputs/prior-author-lanes.mjs",
+      "command": [
+        "node",
+        "--check",
+        "inputs/prior-author-lanes.mjs"
+      ],
+      "result": {
+        "chunk_id": "b08937",
+        "wall_time_seconds": 0.000006375,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "relativePath": "claude-provider.sh",
+      "command": [
+        "/bin/sh",
+        "-n",
+        "claude-provider.sh"
+      ],
+      "result": {
+        "chunk_id": "aa2e7e",
+        "wall_time_seconds": 0.000008041,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    }
+  ],
+  "meaning": "Syntax checks only; scripts were not imported or executed. No stage, build, test lane, runtime, provider or credential access."
+}

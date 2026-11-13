@@ -1,0 +1,46 @@
+{
+  "status": "CHILD_CLOSED",
+  "samples": [
+    {
+      "at": "2026-11-08T18:32:44.910Z",
+      "freeBytes": 337895788544,
+      "ownedBytes": 9305,
+      "profileBytes": 0
+    },
+    {
+      "at": "2026-11-08T18:32:54.915Z",
+      "freeBytes": 337784098816,
+      "ownedBytes": 95360246,
+      "profileBytes": 0
+    },
+    {
+      "at": "2026-11-08T18:33:04.917Z",
+      "freeBytes": 337783644160,
+      "ownedBytes": 95364461,
+      "profileBytes": 0
+    },
+    {
+      "at": "2026-11-08T18:33:14.919Z",
+      "freeBytes": 337694670848,
+      "ownedBytes": 167172578,
+      "profileBytes": 0
+    },
+    {
+      "at": "2026-11-08T18:33:23.729Z",
+      "freeBytes": 337867223040,
+      "ownedBytes": 28281086,
+      "profileBytes": 15704311
+    }
+  ],
+  "maxOwnedBytes": 167172578,
+  "maxProfileBytes": 15704311,
+  "minFreeBytes": 337694670848,
+  "childOutcome": {
+    "exitCode": 0,
+    "signal": null
+  },
+  "monitorFailure": null,
+  "overshootPossible": true,
+  "quotaEnforced": false,
+  "detachedDescendantAbsenceProven": false
+}

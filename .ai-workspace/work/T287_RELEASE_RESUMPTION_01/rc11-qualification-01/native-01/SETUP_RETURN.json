@@ -1,0 +1,98 @@
+{
+  "status": "ACTUAL_SETUP_PREPARED_HELD_FOR_ROOT_NATIVE_ADMISSION",
+  "utc": "2026-11-09T06:30:13.409684+00:00",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/runtime-001/PREPARED.json",
+    "bytes": 6755,
+    "sha256": "ee211058953540f91db9ade6e76452791790dce03e1472873af17075c3504593"
+  },
+  "rootSetupAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/ROOT_SETUP_ADMISSION.json",
+    "bytes": 2894,
+    "sha256": "cda9f15fddecef13bd6eab0740cfc5dfb588c12c34909255e540c42f0e44e343"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/BINDING.FINAL.json",
+    "bytes": 14595,
+    "sha256": "98ebd56cb07423f7fde5169dc8ec30a26c8e323635913359e0d566710b325a20"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/TASK.FINAL.json",
+    "bytes": 12893,
+    "sha256": "e02abeeff9299f682a86003cff8119582de44ef0be7814d1a0b66148d2e45bbe"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/host.mjs",
+    "bytes": 13794,
+    "sha256": "fbaf2602e6b371417d04fc46acf09d4524f91b892058b9fdbbc90c6cb5d0c0b4"
+  },
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SCOPE.json",
+    "bytes": 7770,
+    "sha256": "96771f46109ffd8fe96316e47a2f7174f4898d58edcbd3998e703def8ce3855f"
+  },
+  "liveCaller": {
+    "sessionId": 57359,
+    "pid": 86072,
+    "sameProcessHeld": true,
+    "physicalClosed": false,
+    "reason": "Awaiting separate exact Root native admission on the same caller; no serialized resume."
+  },
+  "actualInvocationRef": "invocation://abiogenesis/25f5195f85afeb973276346e0f11f6502a19b4e3614309a5bb2959504b919bf5",
+  "actualHeldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188146,
+    "prefixDigest": "sha256:9b68fa8f7ac949198eec9ebcbec0cd81efe565f174f5c82f67698c688f77c0ff",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 719635413,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:df445d44c13f7eda1080ffce4e50730e3d37055257c3d6cd711b7f7d97cc0a1f"
+  },
+  "context": {
+    "digest": "sha256:5c82dc18f9cbbb2b3fccf3714a173c9fc219a53c46f09802e081824a995ed228",
+    "entries": 50,
+    "fileMembers": 47,
+    "sourceBytes": 2244565,
+    "canonicalBytes": 3010048
+  },
+  "renderedBytes": 13832,
+  "renderedScope": "Exact installed native work-order text; provider/system scaffolding is not measured.",
+  "workspaceManifest": {
+    "path": "/private/tmp/abg-rc11-qualification-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1839,
+    "sha256": "f28304c016e7543e6f17c0bb6930f36d4754f8e8d82663bd4c0ea7397564b641"
+  },
+  "setupRuntimeManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/runtime-001/workspace-manifest.json",
+    "bytes": 2012,
+    "sha256": "9a6afc9c974dab4359eacc3b695cf72b0bc1770a8558c9786f2ad2fca5a1f4e2"
+  },
+  "elapsedMs": 42659.973,
+  "sourceFilesConserved": 1334,
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "mainIndexConserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "trackingConserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/TRACKING_SCOPE_RECEIPT.json",
+    "bytes": 1607,
+    "sha256": "404de1928f5a3b4d5509ea69ad53a56661e299ca09e83296c881217754d5a696"
+  },
+  "immutableBuildersConserved": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "nativeLimits": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "nextBoundary": "Root consumes actual PREPARED and separately admits exactly one native invocation or disposes held setup. No source edits, tests/build/generation or provider before that decision."
+}

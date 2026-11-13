@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-09T04:31:27.817435+00:00",
+  "physicalMemoryBytes": 137438953472,
+  "observedPageBytes": {
+    "Pages free": 3937435648,
+    "Pages inactive": 45051641856,
+    "Pages speculative": 174669824
+  },
+  "freeDiskBytes": 388760629248,
+  "selectedConcurrency": "One artifact process with up to one sequential unit-or-affected lane; distinct temp/cache/output. Both read same immutable built tenant; no hooks/build/source writes.",
+  "qualification": "Free/inactive/speculative pages are observed capacity, not reserved memory; declared process/disk bounds still apply."
+}

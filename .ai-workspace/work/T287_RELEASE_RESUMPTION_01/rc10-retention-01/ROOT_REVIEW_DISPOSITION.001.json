@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-09T03:37:57.419975+00:00",
+  "owner": "Root",
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "staticReview": "Lifetime source and all23 deletions satisfy bounded static review; not final acceptance.",
+  "F1": {
+    "priority": "P1",
+    "standing": "OPEN actual in-flight proof defect",
+    "selectedClosure": "External exact installed-candidate50-call1MiB/4MiB adapter. Require actual positive retaining gauges and genuine current-owner same-row strict identity with zero rowAdmissions/bodyDigests across repeated reads, plus zero retained rows/payload and basis bodies after completion/history reads. No artificial handle. Natural heap/RSS only; forced GC excluded from primary measurement."
+  },
+  "F2": {
+    "priority": "P2",
+    "standing": "OPEN inaccurate HOW evidence assertion",
+    "selectedCorrection": "Native RC9 task only: replace handles, historical reads that mint nothing, rollback and close disposal, and a with handles, historical reads that mint nothing, physical close disposal, and a. Append explicit actual rollback disposal is unproved by this test. No behavior/test/HOW contract change.300s/60turns Opus5.5 xhigh; source successor preserves1334 rows except exact prose delta."
+  },
+  "execution": "Measurement and HOW successor are preparation only. Ordinary unit has its separate recorded one-lane admission."
+}

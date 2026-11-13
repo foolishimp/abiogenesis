@@ -1,0 +1,21 @@
+{
+  "status": "ROOT_GRANTED_INSTALL_PREPARATION_ONLY",
+  "rootGrant": "Prepare new install-01 controls for exact original tested f0f5717e archive and e2ba05da/tree1aabb064 at local5.0.0-rc.11, reusing RC10 Product owner verify/lock/install/content/member and retained installed read/close recipe. Bind current guards and successful reproduction; actual packaging review and Root execution admission remain held. No release/install root creation or runtime launch, source/tests/global pin/Git effects.",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9481,
+    "sha256": "fbe6ec76f782ae2926f6d27bdd21c8f5ddec2ff5ca4b3463359ddc49610e091e"
+  },
+  "reproductionReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/RETURN.json",
+    "bytes": 9162,
+    "sha256": "09dfa9e9628a81ac779edf91bb151525a21c49d7dbb21115acc93fb75a9e1816"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "prospectiveTemp": "/private/tmp/abg-rc11-install-20261109-01",
+  "smokeScope": "Imports product/abg/public/validator; assert56 Public function definitions. Fifteen package export paths are packaging metadata, not56 module imports."
+}

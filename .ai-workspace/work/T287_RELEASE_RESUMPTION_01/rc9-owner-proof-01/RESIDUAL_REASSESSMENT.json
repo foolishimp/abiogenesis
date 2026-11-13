@@ -1,0 +1,95 @@
+{
+  "status": "SUCCESSOR_SCOPE_ASSESSMENT_NO_CAPSULE_CLOSURE",
+  "at": "2026-11-08T06:28:53.781298+00:00",
+  "historicalSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/RESIDUALS.md",
+    "bytes": 12832,
+    "sha256": "396b1c7c0ae1f7ac39b9a7d53d54aae7c0e9317997055207d5b8254198a13e00"
+  },
+  "rootSelection": "Root selects eight scheduling exclusions for planned201, requires their no-block rationales reassessed for narrowed RC9 scope, retains all nine historical capsules unchanged. Semantic acceptance and final no-block disposition remain Root-owned.",
+  "subject": "Prospective RC9 owner reuse, final freeze unavailable",
+  "rows": [
+    {
+      "capsule": "RC8-GC03-METHOD-304",
+      "relationToNarrowedScope": "Current 3.0.4 custody/foreign-basis incompatibility remains; configured native witness is not selected. Final contract freezing must occur after the endpoint-specific environment/prompt/argument selection; no cross-endpoint reuse.",
+      "boundedSuccessorEvidenceRequired": "Unconfigured installed scripted path plus native unit model/environment/plan invariance and new final-contract identity assertions.",
+      "reentryTrigger": "Enablement, changed GC03 selection/custody, captured wrong endpoint or environment, or a configured-path claim requires owner re-entry.",
+      "status": "OPEN",
+      "proposedBoundary": "Excluded claim remains open; permits no release/whole-qualification result"
+    },
+    {
+      "capsule": "RC8-NATIVE-ASSESSMENT-PROFILE",
+      "relationToNarrowedScope": "Four golden fixture cases remain unexecuted on old lifecycle premises. No profile support or event meaning changes are selected.",
+      "boundedSuccessorEvidenceRequired": "Current W basis-row authenticity/cardinality/raw/body negatives and existing native runtime/semantic unit cases; this is not replacement credit for four goldens.",
+      "reentryTrigger": "Changed profile/admission law, accepted malformed/crossed/preterminal result, or claim of golden coverage.",
+      "status": "OPEN",
+      "proposedBoundary": "Excluded claim remains open; permits no release/whole-qualification result"
+    },
+    {
+      "capsule": "RC8-SAS-WHOLE-PROOF",
+      "relationToNarrowedScope": "F2 directly intersects SAS recurrence. Prior cases7/8/9 and whole-file completion stay open; no claim of global runtime cost containment.",
+      "boundedSuccessorEvidenceRequired": "New basis/environment owner regression plus exact installed held workload/counters across successors, raw/cold result+replay equality, installed reference test and whole current prefix test.",
+      "reentryTrigger": "Complete SAS/RAW-pair/maintained-setup qualification claim, missing invariant reuse, or stale reconstruction requires selected outstanding-case proof.",
+      "status": "OPEN",
+      "proposedBoundary": "Excluded claim remains open; permits no release/whole-qualification result"
+    },
+    {
+      "capsule": "RC8-PHYSICAL-LIFETIME-013",
+      "relationToNarrowedScope": "Selected final-contract freeze changes value handling after configuration; it does not change process/HTTP lifecycle or cleanup policy. Historical readiness/HTTP-PID proof gaps remain.",
+      "boundedSuccessorEvidenceRequired": "Whole worker-transport unit file on successor, environment/argument stability and real child scripted lifecycle in installed workload.",
+      "reentryTrigger": "Actor lifecycle/termination ownership changes, ordinary-path cleanup failure, or physical HTTP assurance claim reactivates owning proof.",
+      "status": "OPEN",
+      "proposedBoundary": "Excluded claim remains open; permits no release/whole-qualification result"
+    },
+    {
+      "capsule": "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+      "relationToNarrowedScope": "Basis/environment owners are shared, but registered capability choice, recursion/resume topology and four-setup file remain unchanged. Original timeout retains no full recursion credit.",
+      "boundedSuccessorEvidenceRequired": "New successor-prefix/cardinality tests plus current registered-selection/native-currentness population. No inherited full recursion/resume result.",
+      "reentryTrigger": "Recursion/resume correctness claim, wrong lineage, duplicate child use, lost prior work, or changed selection owner requires exact file reproof.",
+      "status": "OPEN",
+      "proposedBoundary": "Excluded claim remains open; permits no release/whole-qualification result"
+    },
+    {
+      "capsule": "RC8-SELECTED-ACTION-PROFILE",
+      "relationToNarrowedScope": "Historical 6c8a prefix incompatibility remains; no restamp or profile expansion. Prefix membership/cardinality still belongs to live event owner, not row-fact cache.",
+      "boundedSuccessorEvidenceRequired": "New duplicate/absent/foreign/successor-basis probes, current selected-action tests in planned population where supported. Two held historical discriminator cases remain open.",
+      "reentryTrigger": "Current-profile rejection, foreign/open occurrence mixup, classifier/selection change, or full selector qualification claim.",
+      "status": "OPEN",
+      "proposedBoundary": "Excluded claim remains open; permits no release/whole-qualification result"
+    },
+    {
+      "capsule": "RC8-C3-COMPOSITION-PROOF-BUDGET",
+      "relationToNarrowedScope": "Same-resolution verification and invariant environment reuse add no C3 topology/effect/branch semantics. Original inner deadlines and incomplete physical absence remain.",
+      "boundedSuccessorEvidenceRequired": "New changed-install/currentness refusals, current native-worksite execution/currentness tests and actual read-only installed session. No complete C3 credit.",
+      "reentryTrigger": "Dependent C3 composition claim or currentness/effect/physical-close defect requires both existing C3 cases on coherent bounds.",
+      "status": "OPEN",
+      "proposedBoundary": "Excluded claim remains open; permits no release/whole-qualification result"
+    },
+    {
+      "capsule": "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET",
+      "relationToNarrowedScope": "Five installed exceptional variants remain open; no command/HTTP behavior or timeout policy changes selected. Prior configured positive stays RC8-scoped.",
+      "boundedSuccessorEvidenceRequired": "Successor component/unit coverage and selected installed native read-only workload. No RC9 whole-C2 or five-negative claim; configured positive on RC9 is separate if later selected.",
+      "reentryTrigger": "Exceptional-current-outcome/C2 qualification claim, lost original error, crossed helper artifact or unresolved cleanup requires exact negative population.",
+      "status": "OPEN",
+      "proposedBoundary": "Excluded claim remains open; permits no release/whole-qualification result"
+    }
+  ],
+  "selectedClosure": {
+    "capsule": "RC8-W2-05-TOKEN-ORACLE",
+    "historicalStatus": "OPEN_UNCHANGED",
+    "successorRequirements": [
+      "Named exact three-declaration allowlist only in definition_binding_mechanics",
+      "Other-file Map bans, all legacy-controller bans and extra declaration detection preserved",
+      "Every dynamic assertion and both export assertions execute",
+      "Complete W2_05_PROOF diagnostic identifies final archive and unchanged two owner events",
+      "Independent affected-source review and Root closure decision"
+    ],
+    "proofOrder": "First broad command, whole case without name filtering"
+  },
+  "otherOpen": [
+    "12 cold residuals",
+    "S7",
+    "fixed fifteen/full 5.0",
+    "human qualification/release gates"
+  ]
+}

@@ -1,0 +1,266 @@
+{
+  "status": "EXACT_OPERATOR_EMPTY_DIRECTORIES_REMOVED",
+  "startedUtc": "2026-11-02T02:01:03.033124+00:00",
+  "operator": "separately bound Writer under explicit Root cleanup grant",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "before": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006/tmp",
+      "device": 16777231,
+      "inode": 677139794,
+      "mode": 493,
+      "members": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006/npm-cache",
+      "device": 16777231,
+      "inode": 677139795,
+      "mode": 493,
+      "members": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006",
+      "device": 16777231,
+      "inode": 677139793,
+      "mode": 493,
+      "members": [
+        "npm-cache",
+        "tmp"
+      ]
+    }
+  ],
+  "existingLeafTmpBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/tmp",
+    "device": 16777231,
+    "inode": 676284045,
+    "mode": 493,
+    "members": []
+  },
+  "parentMembersBefore": [
+    "RECEIPTS.sha256",
+    "build.sh",
+    "evidence",
+    "logs",
+    "provider-006",
+    "runtest.sh",
+    "sync.sh",
+    "tmp"
+  ],
+  "quiescence": {
+    "matchingActorOrRuntimeProcesses": 0,
+    "excludedSelfAndParentPids": [
+      1087,
+      76422
+    ],
+    "runtimeLockAbsent": true
+  },
+  "oldEvidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/historical-resource-schema-check.json",
+      "bytes": 19,
+      "sha256": "ec44fba461daf0a6ca7844e77df5eb3a5910f0e0aaa60b1528b5978f321706b2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/owned-read-coordinate.json",
+      "bytes": 442,
+      "sha256": "4e188c0071ef17b38440b5eea64a3ee7819007c1c206e09d3cbd04c0ade3dd2f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/assembly-coordinate.json",
+      "bytes": 679,
+      "sha256": "0c89c2668af2f49551b3ffad7be62cef10e7a519ef1bb91a84819e0bc7a02665"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/native-source-coordinate.json",
+      "bytes": 651,
+      "sha256": "bebdf36dfecab93f3efd156c50964b99363dfc9edb38b5438c6d452e512cfd23"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/corrected-resource-diagnostic.json",
+      "bytes": 1217,
+      "sha256": "3d0d499c010573d8e4c0fa9d56aaf9493cb921b851de5522f2c0b12b88487069"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/omitted-resource-diagnostic.json",
+      "bytes": 1081,
+      "sha256": "b9451c52cbeeb6f1adc66ad0e10ba75c60cf5061e9023a36ac9dd053534bea4a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/historical-diagnostic-prefix.json",
+      "bytes": 642,
+      "sha256": "e7f9c05902cb4f2286400a6cf094294dbaac757895aeb2625e53ac57fe1b6d10"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/PRESERVATION.json",
+      "bytes": 161,
+      "sha256": "85898201643b158521a4265634998dd59c9e43289ed57b29b6e17d548e883477"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/historical-preflight.mjs",
+      "bytes": 21797,
+      "sha256": "f28d0d4899d493670dd7ed0904cb21da8c70f0f93dc73cd3334fbc2d30218546"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/historical-source.json",
+      "bytes": 29611251,
+      "sha256": "9d3c72edc8f5212a9826b34d1711d9516bb437b0964438070f4cae7e3d66c2a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/STARTED.json",
+      "bytes": 271,
+      "sha256": "4436376d92cc04b9fa0b1a4bf63d1066fdc02e4e816120487098c8cd81616b35"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/public-read-outcome.json",
+      "bytes": 13526381,
+      "sha256": "6a9e8c7f5584be9718622c6e0c793753c34595126ff5616cf28077d710d4f34f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/actual-ambient.json",
+      "bytes": 2558,
+      "sha256": "7023135e9ece36810b98397adf617ee059da2d9ff3ebb1217989034ae4f4efcb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/MANIFEST.json",
+      "bytes": 137970,
+      "sha256": "7c05c13467017384fd403b418829b9a368f61049c8cdb57f495a27c8856a3ad6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/SELECTION.json",
+      "bytes": 24018,
+      "sha256": "7fbc00b05605f3d2cd42e70da86f143f4dd402ea4a49d0ad01d6e7d2c8b5f647"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/historical-source-owner-check.json",
+      "bytes": 751,
+      "sha256": "429438f35516c66298af3f2025816e59ec8fe3488c098958110bb37264c21ac1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/public-read-operator-resume.json",
+      "bytes": 99886582,
+      "sha256": "ba1b8d8157432af87806979afad372ebb385e066a952e1d5bac12f6e119d9065"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/terminal-result.json",
+      "bytes": 12865162,
+      "sha256": "17a257d40652aa8012c9a821f305779d1c4555f868084dcc6d5914510c48accc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/PREFLIGHT_RESULT.json",
+      "bytes": 2241,
+      "sha256": "7c177e77b6884385cd16a4d7ef390ac0249915649e17996f450640a99d2d9732"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/actual-worksite-context.json",
+      "bytes": 917483,
+      "sha256": "b1e2643c11ca1035d77bed0ee192989429d4785e8e84778193762bb55c41ddac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/HANDOFF.md",
+      "bytes": 3538,
+      "sha256": "ddb27e38696f5f0f5099154aa665eb96fa3498692159009e4e06aef58c2bcb51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/read/run.json",
+      "bytes": 188,
+      "sha256": "0d993ecefeb2947d27c53792d51baabf8d2a9d8e081a1852d6f4303ccceeea8e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/read/calls/graph_call_result.outcome.json",
+      "bytes": 13526445,
+      "sha256": "56ea191aba98cd032789306b65e6689ecca2182dd9a8d6f4b4da1e7efb70bbc0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/read/calls/graph_call_result.request.jsonl",
+      "bytes": 22224414,
+      "sha256": "b2080174ba02a7d18b1dd9eb7f9bc548717989fc4cf166bcc44960f309ef8656"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/read/calls/graph_call_result.close.json",
+      "bytes": 1338,
+      "sha256": "102ca05dcc819964713a3a60927fe8fa3c7c7f8a065fb490aaa91d7f900fc70a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/read/commands/graph_call_result.request.json",
+      "bytes": 842,
+      "sha256": "7fbe5878a392efdbb1e3515c1f764dd4742e57e0eb069431939aefa05581abb3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/read/commands/graph_call_result.result.json",
+      "bytes": 12165617,
+      "sha256": "ff88a3ae3fcc56c0691ab23f713b6835e0f3c5bb86eb623371c55145d559f221"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/read/commands/graph_call_result.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/read/commands/graph_call_result.stdout",
+      "bytes": 12018229,
+      "sha256": "89474889dafd72093373beaa333de21daadcb2b78777e23b338570da9267321f"
+    }
+  ],
+  "removed": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006/tmp",
+      "device": 16777231,
+      "inode": 677139794,
+      "mode": 493,
+      "members": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006/npm-cache",
+      "device": 16777231,
+      "inode": 677139795,
+      "mode": 493,
+      "members": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006",
+      "device": 16777231,
+      "inode": 677139793,
+      "mode": 493,
+      "members": [
+        "npm-cache",
+        "tmp"
+      ]
+    }
+  ],
+  "method": "os.rmdir exact empty directories only; no recursive deletion",
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "ProductChanges": 0,
+  "completedUtc": "2026-11-02T02:01:03.117735+00:00",
+  "after": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006/tmp",
+      "absent": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006/npm-cache",
+      "absent": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006",
+      "absent": true
+    }
+  ],
+  "existingLeafTmpAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/tmp",
+    "device": 16777231,
+    "inode": 676284045,
+    "mode": 493,
+    "members": []
+  },
+  "parentMembersAfter": [
+    "RECEIPTS.sha256",
+    "build.sh",
+    "evidence",
+    "logs",
+    "runtest.sh",
+    "sync.sh",
+    "tmp"
+  ],
+  "oldEvidenceUnchanged": true
+}

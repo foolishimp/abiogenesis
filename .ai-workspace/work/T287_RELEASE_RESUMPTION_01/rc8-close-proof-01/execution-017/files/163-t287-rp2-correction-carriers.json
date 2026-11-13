@@ -1,0 +1,116 @@
+{
+  "file": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+  "kind": "executed",
+  "passed": false,
+  "wallMs": 600453.862375,
+  "exitCode": null,
+  "signal": "SIGTERM",
+  "timedOut": true,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": null,
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-017/events/163-t287-rp2-correction-carriers.jsonl",
+    "bytes": 89,
+    "sha256": "99214721eb7f724e9c91b40977ad5c9c5ac1684293bd9154a68f1b23064e5a65"
+  },
+  "commandReceipt": "commands/163-t287-rp2-correction-carriers.result.json",
+  "workspace": "/private/tmp/abg-r8c-017/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-events.json",
+      "kind": "file",
+      "bytes": 119941,
+      "sha256": "f2d7235adfd4d6b1f05cbd4f1806fa3eb758de1c5ac1ed17e0300c300d338a31",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-receipt.json",
+      "kind": "file",
+      "bytes": 15896,
+      "sha256": "fb0b8817ebdeb60e9422b7f2232cd67efa16a244c8f235e96435d0e38d14f051",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-run_replay.json",
+      "kind": "file",
+      "bytes": 7736,
+      "sha256": "6ed5071ad720e0545abbdf2ddbe301db5e5228651881caa488e9148e279505a3",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/asset-run_result.json",
+      "kind": "file",
+      "bytes": 8156,
+      "sha256": "83c49aa518ef28664300516c23e18faa04943e3a30374fa46742a48dfb08be0d",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/handoff.json",
+      "kind": "file",
+      "bytes": 1170,
+      "sha256": "f30618db88c28e99882d89347259cb087b53d454474c14020e13418ba5b6e28c",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/missing-asset.json",
+      "kind": "file",
+      "bytes": 3669,
+      "sha256": "869643cd3289316b2be4eaca64896700adc00352086e612c8bb333039c0d545b",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/result.json",
+      "kind": "file",
+      "bytes": 213,
+      "sha256": "8c14a7c71c9f87846d1586ce83fdec5db319199d6dd64a1e1feefc1be6bf1624",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/setup.json",
+      "kind": "file",
+      "bytes": 13179,
+      "sha256": "b053951070213a3c4f6fb11f1a67f7189ff9630bc24f9cd470928cfe56d15e14",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-events.json",
+      "kind": "file",
+      "bytes": 121127,
+      "sha256": "955296b6ff5fb8318926aa8d8274f9e66cd7f0e14cecf65d2ee4ce775def4328",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-receipt.json",
+      "kind": "file",
+      "bytes": 16030,
+      "sha256": "550b2d25305becbc51d452726f4e9d824a3168872979e01df7721597ec935a51",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-run_replay.json",
+      "kind": "file",
+      "bytes": 7873,
+      "sha256": "3e089543fd24ded7eb66a10a20188377373f4351d46d5271bd614bb7e7b06079",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/behavior-carriers/ticket-run_result.json",
+      "kind": "file",
+      "bytes": 8295,
+      "sha256": "7df88e18b75a77defddc271c8603c2e64991ff36971aa26e8fe2038c53a8dceb",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

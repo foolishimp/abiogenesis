@@ -1,0 +1,45 @@
+{
+  "id": "T287-RC8-AUTHOR06-IMMUTABLE-EVENT-REFERENCE",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "outcome": "Remove only the unnecessary initial-prefix immutable event copy and correct its comment; preserve all behavior and prove the complete F04 file once.",
+  "readRoots": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures",
+    "build_tenants/abiogenesis/typescript/code/src"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "qualification-scratch/rc8-reference-preservation-01/author-06"
+  ],
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "maxPromptBytes": 1048576,
+  "checks": [],
+  "instructions": [
+    "Use installed STDO3.0.4 stdo-work and coordinated handoff, fixed15families/GOAL035/T287/empty composition, exact project frame. Root author06 selection authorizes this one native Claude Opus5.5 high mechanical increment without further GO. Necessary method authority remains; no redesign or renewed causal investigation is needed.",
+    "Read complete A5 handoff /Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/author-05/HANDOFF.md and closed review /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-005/REVIEW.json SHA5cf2d75c072f8b0d00bbacc57acca7418b4f83931866af02d852adb71043da2c, plus adjacent README. These external references and the existing owner code/src tree are expressly read-only authorized. Current preimage A5 source ed403dda50772e778be696c91250d73a54c6abf5b8fea609bc1c8bacfccbc4d0,1339 rows; accepted Product source2b5849ec/archivea178e960 unchanged. Prior S2 is already functionally repaired (45 passes,1 historical skip).",
+    "The complete selected edit is F04 initial prefix loop around line287: replace rows.push(deepFreeze(JSON.parse(JSON.stringify(prefixes.runtimeEventAtPrefixIndex(basis.prefix, index))))); with rows.push(prefixes.runtimeEventAtPrefixIndex(basis.prefix, index)); and update adjacent copies comment to accurate immutable-reference wording. The prefix owner establishes immutable event bodies: read event_prefix.ts178-179,465-490 and the reviewer predicate. Own rows array provides isolation. Do not alter the intentional cold-replay JSON roundtrip later in the file, any assertion/mode/algorithm, helper or native-workspace test. No new mirroring tests.",
+    "Full code/src transitive owner reads remain allowed if necessary, but this is a fully specified one-line/comment correction, not a fresh investigation. Product/HOW/runtime/store/transport/config/dependencies remain unchanged. Preserve all13 F04 modes and exact EPIPE/error identity, real window/probe/liveness algorithms and their coherent current-prefix prerequisites.",
+    "After the edit run /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof.mjs freeze ONCE. This existing owner recipe materializes cumulative A5 READY inputs, including unchanged native-workspace/helper, and applies only the new F04 increment. Zero builds/generation. Publish FREEZE_NOTICE immediately under qualification-scratch/rc8-reference-preservation-01/author-06; no edits after freeze. Root reviews the frozen diff concurrently. All compiled/dependency/config/archive bytes must remain exact.",
+    "Run ONLY /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof.mjs test f04 once. Full file600000ms,16MiB output,8GiB heap,4GiB reserve/owned cap, short scratch/private/tmp/abg-r8-a06-kr_0tqzz/p. Native hardcap10min/inactivity5min, inherited grace. Stop first red/incomplete/input/resource mismatch; retain outputs and return, no repair/retry. Do not rerun native-workspace: its exact unchanged A5 whole-file receipt43passes1historicalskip is carried explicitly, never restamped. No auxiliary tests/builds or completed broad rerun.",
+    "No second provider/reviewer/delegation, network/npm install, Git/cut/push/global selector/cleanup. Preserve all prior failures and79whole broad receipts455passes105skips. Broad007 remains preparation only. Write concise intake/freeze notice/HANDOFF under qualification-scratch/rc8-reference-preservation-01/author-06; report observed source delta, proof results and remaining limitations. Acceptance and further execution remain Root effects."
+  ]
+}

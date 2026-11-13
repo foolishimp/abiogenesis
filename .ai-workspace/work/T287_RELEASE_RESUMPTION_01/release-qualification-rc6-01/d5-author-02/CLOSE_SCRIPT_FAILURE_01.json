@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-06T01:14:24.678598+00:00",
+  "kind": "operator_close_custody_script_error",
+  "scriptSha256": "5fa97dbef8ebb60c01049a1001a73ad05843f3ae9015d0d94887600a807247b9",
+  "error": "KeyError capMs at assertion before record write",
+  "cause": "Root used an author-return enriched field as if present in raw lane summary. Raw summary is valid and has no capMs.",
+  "effects": "Read-only custody checks only; no final close record emitted or runtime/source change.",
+  "correction": "Compare raw lanes against returned pinned records and use their declared caps, retaining raw command and TAP correspondence."
+}

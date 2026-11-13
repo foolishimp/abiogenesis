@@ -1,0 +1,22 @@
+{
+  "status": "EXACT_FROZEN_INPUTS_PRESENT_BEFORE_COMPILE",
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+    "bytes": 293103,
+    "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "sourceRows": 1334,
+  "dependencyInventory": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "contractSeedInventory": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/RC9_CONTRACT_SEED_INVENTORY.json",
+    "bytes": 41764,
+    "sha256": "67792ac89844645fc02afc4e609fcca19f2a2adce56120e274df4e2822b06e7a"
+  },
+  "sourceWins": true
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-c2-core-environment.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/050-t287-c2-core-environment.test/process.json",
+    "bytes": 1084,
+    "sha256": "1aab3cdb4e98b9fc9a1ce9bdee3371e13cf4788aadbb0d3ba22fa6a11c2332e4"
+  }
+}

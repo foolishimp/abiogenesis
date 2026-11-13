@@ -1,0 +1,16 @@
+{
+  "kind": "native08_launch_stage_observation",
+  "hostProcessLaunchedUtc": "2026-11-04T06:37:45.785696+00:00",
+  "nativeDispatchStartedUtc": "2026-11-04T06:38:36.570Z",
+  "hostPreparationBeforeDispatchMs": 50784.304,
+  "previousActualFinalCloseSavedUtc": "2026-11-04T06:03:59.799580+00:00",
+  "rootAfterFinalCloseToDispatchMs": 2076770.42,
+  "setupReused": true,
+  "sdkSetupMs": 28938.979459,
+  "artifactVerificationMs": 19748.530083,
+  "nativeWorkerLaunchMs": null,
+  "limits": [
+    "Host interval includes pinned-file verification, installed owner refresh and context observation; it is distinct from original SDK setup and worker launch.",
+    "Actual Worker start remains unobserved; no elapsed-time speedup inferred."
+  ]
+}

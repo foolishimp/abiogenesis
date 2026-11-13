@@ -1,0 +1,33 @@
+{
+  "status": "ROOT_ADMITTED_FULL_CONSOLIDATION_FILE",
+  "at": "2026-11-07T09:18:39.490754+00:00",
+  "bindingSha256": "1f797674c97ea4a4c81fc413d8d89218c06e5f920f1c1622b11dd08e29f64207",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "rootDisposition": "Root read the exact re-entry recipe, preparation, diff and both bindings and admits one whole coordinate run. Whole SAS may follow only this exact source/whole-file coordinate PASSED with 11 passes. Preserve A8 runtime_failed and partial proof; no source repair, provider, build, cleanup or retry.",
+  "selectedFile": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+  "expectedCases": 11,
+  "commandTimeoutMs": 600000,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-001.mjs",
+      "bytes": 9189,
+      "sha256": "e888139aa2b955716d0cd1f6396413025b9255539d6e84791fd1f2d4c27ad829"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/ROOT_REENTRY_001.json",
+      "bytes": 3462,
+      "sha256": "d437a7374fc31d580a1fd53ccc7b9f70fed47e6480bc1d0bfed8f5f4855048ab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/PREPARATION_REENTRY_001.json",
+      "bytes": 4076,
+      "sha256": "444013fec5e10f16b3837c19f0cb083b8f63d5ff9c6abcdd7089887f1c2e5eb4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/REENTRY_DIFF_001.patch",
+      "bytes": 5919,
+      "sha256": "1be3b209255a32b8ade990e091a72f35ebdacfc401b05b24866003c0dc1d9d56"
+    }
+  ]
+}

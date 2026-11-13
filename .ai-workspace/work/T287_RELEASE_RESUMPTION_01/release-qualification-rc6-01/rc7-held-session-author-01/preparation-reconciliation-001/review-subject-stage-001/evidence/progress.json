@@ -1,0 +1,88 @@
+{
+  "kind": "rc7_held_session_author_progress",
+  "task": "rc7-held-session-author-01",
+  "updatedUtc": "2026-11-06T13:38:30.803Z",
+  "phase": "STAGE_03_AFTER_SOURCE_FROZEN_BUILD_PENDING",
+  "freezeReceipts": [
+    {
+      "label": "hs1-stage-01",
+      "mode": "before",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-01-source-freeze.json",
+      "bytes": 96590,
+      "sha256": "7d775a14e6be83b1b8882aa9174ddcf618a2accd754a49061400b13ec371f4a9",
+      "sourceDigest": "5b48091aba36f04f328a89fd21050e82038002a221f0392e781448c590ace87f",
+      "sourceCount": 450,
+      "status": "SOURCE_FROZEN_BUILD_AND_FEEDBACK_PENDING"
+    },
+    {
+      "label": "hs1-stage-02",
+      "mode": "before",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-source-freeze.json",
+      "bytes": 96590,
+      "sha256": "bec208ac07f79a5a9605eec183baa0f2bf1dc2ddd2f1758951a71eca3f88cd34",
+      "sourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd",
+      "sourceCount": 450,
+      "status": "SOURCE_FROZEN_BUILD_AND_FEEDBACK_PENDING"
+    },
+    {
+      "label": "hs1-stage-03",
+      "mode": "after",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-source-freeze.json",
+      "bytes": 96589,
+      "sha256": "ae7e7c0e9f70f38dcc712743a133785950141bde2e62491f95d3f7030b62f93c",
+      "sourceDigest": "1adb7041ad05452d412b538b68a3c03334aa53c47526711380392f1eba60a2d3",
+      "sourceCount": 450,
+      "status": "SOURCE_FROZEN_BUILD_AND_FEEDBACK_PENDING"
+    }
+  ],
+  "lanes": [
+    {
+      "id": "held-session-before",
+      "stage": "hs1-stage-02",
+      "stageSourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd",
+      "exitCode": 1,
+      "ms": 251117,
+      "tests": 2,
+      "pass": 0,
+      "fail": 2,
+      "failing": [
+        "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+        "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+      ],
+      "summary": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-lanes-held-session-before/summary-held-session-before.json",
+      "discrimination": {
+        "fixedAdmission": "GENUINE: fixed-testing-population refusal invalid_target /program at baseline public-setup constructConsumerRunCall (consumer Program route)",
+        "hs02": "NOT GENUINE: file-level ERR_MODULE_NOT_FOUND for test_env/support/installed-language-test.mjs, which is outside the staged 450-path closure; the HS02 case never ran. HS02 was then moved onto the staged language-smoke fixture for hs1-stage-03. The single before-lane allocation is consumed, so no genuine HS02 baseline red exists."
+      }
+    }
+  ],
+  "notes": [
+    "Before stage: baseline Product/runner/public-setup with current HS02 and maintained-caller fixed-admission tests.",
+    "Stage stdout/stderr were redirected to scratch-root stage-01.out/.err (outside the declared tmp/ path); disclosed.",
+    "hs1-stage-02 re-allocates the mandatory before discriminator within the four-stage cap after stage-01 generation timed out; stage logs are now under tmp/log-stage-*."
+  ],
+  "stages": [
+    {
+      "label": "hs1-stage-01",
+      "mode": "before",
+      "outcome": "GENERATION_TIMEOUT",
+      "compileMs": 74397,
+      "generate": {
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "error": "spawnSync /opt/homebrew/Cellar/node/24.7.0/bin/node ETIMEDOUT",
+        "ms": 180073
+      },
+      "note": "Canonical generator exceeded its 180 s bound on the baseline source under host load (load average ~10-12 from unrelated processes; prior F2 stages took 36 s). Allocation consumed; no lane can use it."
+    },
+    {
+      "label": "hs1-stage-02",
+      "mode": "before",
+      "outcome": "PASSED",
+      "compileMs": 54547,
+      "generateMs": 95967,
+      "lifecycleExit": 0,
+      "sourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd"
+    }
+  ]
+}

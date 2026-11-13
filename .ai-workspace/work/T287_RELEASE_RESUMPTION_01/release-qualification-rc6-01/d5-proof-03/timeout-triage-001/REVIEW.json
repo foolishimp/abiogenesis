@@ -1,0 +1,762 @@
+{
+  "kind": "bounded_failure_localization_review",
+  "reviewId": "D5-PROOF03-C2-TIMEOUT-TRIAGE-001",
+  "reviewedAtUtc": "2026-11-06T03:08:12.959963+00:00",
+  "consumer": "Root Executive/T-287",
+  "status": "CLOSED_CONTRIBUTING_TRIAGE_NO_ACCEPTANCE",
+  "productFrame": {
+    "featureSet": "Unchanged ABIogenesis5.0 familiesF01-F07,F09-F11,F13-F17; F08/F12 remain5.1.",
+    "selection": "GOAL-035/T-287; finish D5 proof for current F10 lifecycle-copy retirement, preserving F04/F11/Q23 joins. RC7 overhead removal remains selected separately.",
+    "outcome": "Preserve a non-null two-target Construction proposal through installed owners after lifecycle-copy retirement and refuse real nonzero/timeout/protocol/digest/ancestry counterexamples. Current source is prospective RC7 built by immutable installed RC6.",
+    "classification": {
+      "ProductProgramContracts": "immutable definitions",
+      "catalogAndControls": "derived tools and declared proof/resource bindings",
+      "processAndArchives": "observation/evidence",
+      "recovery": "read-only projection",
+      "runtime": "HoG traversal and ABG-exclusive admission; replay derives truth"
+    },
+    "authoritySplit": "Current Product/requirements defineWHAT, accepted design and test/proof owners defineHOW, exact installed STDO3.0.4 governs source method, immutable RC6 is builder substrate. Source/evidence/tool outputs do not create runtime truth.",
+    "prohibitions": [
+      "No rival controller/store/event writer",
+      "No artifact-presence rescue of failed transport",
+      "No historical pass promoted to current full population",
+      "No invented runtime close/retry/acceptance",
+      "No source edit or budget waiver"
+    ]
+  },
+  "basis": {
+    "definition": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "actor": {
+    "id": "/root/d5_c2_timeout_triage",
+    "role": "Read-only contributing reviewer",
+    "independence": "No authorship or repair of the frozen native-worker subject; supplied Root timing hypotheses treated as inputs. Same model family as Root; no formal independent J or acceptance of a future repair is claimed.",
+    "hostBoundary": "Filesystem tools technically unrestricted; path/effect exclusions enforced by tool discipline. No credentials or unrelated provider output acquired."
+  },
+  "subject": {
+    "id": "subject",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "evaluations": [
+    {
+      "predicate": "Current actual recovery population completed successfully",
+      "result": "falsified",
+      "support": [
+        "actual_tap",
+        "actual_component",
+        "actual_c2"
+      ]
+    },
+    {
+      "predicate": "Specific computational/environmental cause of the distributed slowdown",
+      "result": "indeterminate",
+      "support": [
+        "phaseDeltas",
+        "sourceCorrespondence",
+        "environmentComparison"
+      ]
+    },
+    {
+      "predicate": "Same frozen recovery test/fixture/root-helper and underlying recovery owner as prior reviewed pass",
+      "result": "satisfied",
+      "support": [
+        "subject",
+        "prior_subject",
+        "test",
+        "fixture",
+        "root_fixture",
+        "recovery_owner"
+      ]
+    },
+    {
+      "predicate": "Recovery semantics regressed or returned false positive in current run",
+      "result": "indeterminate",
+      "note": "No recorded assertion failure; full late population did not execute to a terminal pass. This is not proof of absence of regression."
+    }
+  ],
+  "findings": [
+    {
+      "id": "D5-C2-TIME-001",
+      "severity": "S2",
+      "severityScope": "Material gap in the selected current proof-completion claim; not a finding of defective recovery semantics or Product data loss.",
+      "claimResult": "falsified",
+      "claim": "The current actual C2 completed its entire selected authentic recovery population within the declared test/lane bounds.",
+      "violatedRelation": "Complete setup + source handoff + five serial semantic Runs + all recovery/digest/ancestry oracles + teardown must complete before the selected 117000 ms Node test deadline, while the 120000 ms lane can preserve its terminal report. The first relation failed; the second preserved a diagnosed cancellation.",
+      "evidence": [
+        "actual_tap",
+        "actual_component",
+        "actual_c2",
+        "test",
+        "c2_inputs",
+        "c2_runner"
+      ],
+      "observedTrigger": "One actual native C2 execution reached crossed_session-admit at111357 ms; Node cancelled at117000 ms. No assertion failure was recorded.",
+      "causalAssessment": {
+        "established": "The single 117s timer covers provisioning and the whole serial population; cumulative elapsed reached the cap before crossed_session completion and final ancestry/restoration oracles. No lane/helper deadline fired.",
+        "supportedContribution": "The measured cumulative slowdown is distributed across setup, source/admission and each completed execution interval. It exhausted the 7.2-7.9s historical test margins.",
+        "rootMechanism": "indeterminate: no retained per-phase CPU/I/O/GC/heap/contention telemetry attributes the slowdown to one implementation or environment owner.",
+        "confidence": "High for timer layer, source/evidence identity, measured intervals and missing coverage; low for machine-level cause."
+      },
+      "blastRadius": "Only current recovery-lane completion and its dependent D5 C2/UAT conjunction are unsupported by this counterexample. The112 current passes retain their exact subject/predicate evidence; formal qualification/release remains outside this review.",
+      "realizedHarm": "Incomplete finite proof and additional operator/proof work. No supported false recovery, target write, hidden pass, lost Product data or semantic regression.",
+      "triggerProbability": "One current failure and two prior passes; no frequency estimate or repeatability guarantee.",
+      "containment": "Node cancellation, lane exit1, component failure and actual C2 unsatisfied status preserve fail-closed standing. No count or old pass promotes recovery to success.",
+      "workaround": "Root may select one recovery-only proof re-entry with an explicitly bound existing frozen-artifact provisioning route and original117s/120s deadlines after genuine predecessor close. Savings and successful completion are unproved.",
+      "repairComplexity": "Control/fixture-resource selection and exact artifact correspondence first; no Product algorithm repair supported.",
+      "regressionRisk": "Low if only the existing frozen-artifact control path is selected and all fresh install/admission/oracle behavior stays intact; material if old candidate artifacts, case partitioning, skipped assertions or timeout changes substitute for the claim.",
+      "rabbitHoleRisk": "High for generalized replay/process/cache/constructor redesign without attribution. Do not expand this failure into the separately selected RC7 overhead project.",
+      "priority": "Executive-owned; not assigned",
+      "promotionBoundaryEffect": "Executive-owned; no acceptance or qualification issued"
+    }
+  ],
+  "sourceCorrespondence": {
+    "currentFrozenFilesVerified": 417,
+    "mismatches": [],
+    "commonFrozenChangesFromAuthor02": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+    ],
+    "priorFinal2StageSourcesVerified": 372,
+    "priorFinal2SourceMismatches": [],
+    "currentVersusFinal2StageDifferences": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+    ],
+    "actualProtectedInputs": 420,
+    "actualProtectedBeforeAfterEqual": true,
+    "actualProductDeltaCount": 0,
+    "actualUnmatchedTerritoryCount": 0,
+    "qualificationScope": "Current actual source equality supports reuse of112 predicates; historical artifact differs from current, so prior recovery pass cannot replace missing current completion."
+  },
+  "phaseDeltas": [
+    {
+      "label": "setup",
+      "final1CumulativeMs": 35490,
+      "final2CumulativeMs": 36019,
+      "actualCumulativeMs": 38903,
+      "actualMinusFinal2Ms": 2884,
+      "final1IntervalMs": 35490,
+      "final2IntervalMs": 36019,
+      "actualIntervalMs": 38903,
+      "intervalDeltaVsFinal2Ms": 2884
+    },
+    {
+      "label": "source",
+      "final1CumulativeMs": 38431,
+      "final2CumulativeMs": 38947,
+      "actualCumulativeMs": 42426,
+      "actualMinusFinal2Ms": 3479,
+      "final1IntervalMs": 2941,
+      "final2IntervalMs": 2928,
+      "actualIntervalMs": 3523,
+      "intervalDeltaVsFinal2Ms": 595
+    },
+    {
+      "label": "positive-admit",
+      "final1CumulativeMs": 41964,
+      "final2CumulativeMs": 42487,
+      "actualCumulativeMs": 46424,
+      "actualMinusFinal2Ms": 3937,
+      "final1IntervalMs": 3533,
+      "final2IntervalMs": 3540,
+      "actualIntervalMs": 3998,
+      "intervalDeltaVsFinal2Ms": 458
+    },
+    {
+      "label": "positive",
+      "final1CumulativeMs": 52224,
+      "final2CumulativeMs": 52447,
+      "actualCumulativeMs": 58551,
+      "actualMinusFinal2Ms": 6104,
+      "final1IntervalMs": 10260,
+      "final2IntervalMs": 9960,
+      "actualIntervalMs": 12127,
+      "intervalDeltaVsFinal2Ms": 2167
+    },
+    {
+      "label": "nonzero-admit",
+      "final1CumulativeMs": 55650,
+      "final2CumulativeMs": 55884,
+      "actualCumulativeMs": 62434,
+      "actualMinusFinal2Ms": 6550,
+      "final1IntervalMs": 3426,
+      "final2IntervalMs": 3437,
+      "actualIntervalMs": 3883,
+      "intervalDeltaVsFinal2Ms": 446
+    },
+    {
+      "label": "nonzero",
+      "final1CumulativeMs": 65766,
+      "final2CumulativeMs": 65777,
+      "actualCumulativeMs": 74075,
+      "actualMinusFinal2Ms": 8298,
+      "final1IntervalMs": 10116,
+      "final2IntervalMs": 9893,
+      "actualIntervalMs": 11641,
+      "intervalDeltaVsFinal2Ms": 1748
+    },
+    {
+      "label": "timeout-admit",
+      "final1CumulativeMs": 69113,
+      "final2CumulativeMs": 69140,
+      "actualCumulativeMs": 77534,
+      "actualMinusFinal2Ms": 8394,
+      "final1IntervalMs": 3347,
+      "final2IntervalMs": 3363,
+      "actualIntervalMs": 3459,
+      "intervalDeltaVsFinal2Ms": 96
+    },
+    {
+      "label": "timeout",
+      "final1CumulativeMs": 81694,
+      "final2CumulativeMs": 81582,
+      "actualCumulativeMs": 91700,
+      "actualMinusFinal2Ms": 10118,
+      "final1IntervalMs": 12581,
+      "final2IntervalMs": 12442,
+      "actualIntervalMs": 14166,
+      "intervalDeltaVsFinal2Ms": 1724
+    },
+    {
+      "label": "crossed_id-admit",
+      "final1CumulativeMs": 85070,
+      "final2CumulativeMs": 84933,
+      "actualCumulativeMs": 95565,
+      "actualMinusFinal2Ms": 10632,
+      "final1IntervalMs": 3376,
+      "final2IntervalMs": 3351,
+      "actualIntervalMs": 3865,
+      "intervalDeltaVsFinal2Ms": 514
+    },
+    {
+      "label": "crossed_id",
+      "final1CumulativeMs": 95167,
+      "final2CumulativeMs": 94821,
+      "actualCumulativeMs": 107351,
+      "actualMinusFinal2Ms": 12530,
+      "final1IntervalMs": 10097,
+      "final2IntervalMs": 9888,
+      "actualIntervalMs": 11786,
+      "intervalDeltaVsFinal2Ms": 1898
+    },
+    {
+      "label": "crossed_session-admit",
+      "final1CumulativeMs": 98518,
+      "final2CumulativeMs": 98170,
+      "actualCumulativeMs": 111357,
+      "actualMinusFinal2Ms": 13187,
+      "final1IntervalMs": 3351,
+      "final2IntervalMs": 3349,
+      "actualIntervalMs": 4006,
+      "intervalDeltaVsFinal2Ms": 657
+    }
+  ],
+  "timing": {
+    "final1TestMs": 109782.322416,
+    "final1LaneWallMs": 109911,
+    "final2TestMs": 109072.250667,
+    "final2LaneWallMs": 109235,
+    "testLimitMs": 117000,
+    "laneLimitMs": 120000,
+    "currentReportedTestMs": 117972.340084,
+    "currentReportedFileMs": 118104.438666,
+    "currentLaneExitCode": 1,
+    "currentLaneSignal": null,
+    "currentLaneError": null,
+    "currentHelperCommandTimedOut": false,
+    "currentHelperTerminationConfirmed": true,
+    "currentCrossedSessionAdmitMs": 111357,
+    "remainingAtCrossedSessionAdmitMs": 5643,
+    "currentMinusFinal2AtCrossedSessionAdmitMs": 13187,
+    "counterfactualIfOnlyFinal2TailReusedMs": 122259.250667,
+    "counterfactualIsNotPrediction": true
+  },
+  "coverage": {
+    "retainedCurrentPasses": {
+      "transport": 27,
+      "qualification": 37,
+      "d5-lifecycle-profile": 48
+    },
+    "recovery": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 0,
+      "cancelled": 1,
+      "recordedProgress": [
+        "positive recovery + copy retirement assertions",
+        "stdout and transport tamper/refusal/restoration",
+        "nonzero refusal",
+        "real timeout refusal",
+        "crossed_id refusal",
+        "crossed_session admission"
+      ],
+      "notCompleted": [
+        "crossed_session completion and refusal oracle",
+        "final foreign actor/call/semantic-author/earlier-prefix checks",
+        "final authentic-positive restoration and no-target-change checks",
+        "D5_NEGATIVE_PROOF terminal diagnostics"
+      ],
+      "partialProgressIsNotLanePass": true
+    }
+  },
+  "environmentComparison": {
+    "sameDeclared": [
+      "Node24.7.0 executable lineage",
+      "serial Node test-concurrency1 and same four-lane order in final2/current",
+      "same TMPDIR/private tmp prefix and offline npm-cache settings",
+      "same recovery test117s and lane120s",
+      "same controlled-local transport fixture and five cases",
+      "same current event-contract digest3bcc8488",
+      "new empty fixture store for each test; positive prefix4361222 prior versus4361244 current"
+    ],
+    "different": [
+      "author stage versus installed C2 sandbox path and outer native host participation",
+      "actual C2 explicitly sets NODE_OPTIONS --max-old-space-size=8192 and helper spawns only declared environment; author runner inherits ambient environment, whose heap setting is not retained in its summary",
+      "current package artifact9513cd08/content13631083/manifest409df37b versus prior dc131e3a/content66d258ee/manifestc5ac52ae due changed exact candidate",
+      "actual evidence includes current native outer overhead; final1 recovery-only versus final2/current entire finite lane order"
+    ],
+    "unmeasured": [
+      "CPU scheduling and competing processes",
+      "heap/GC trajectory during C2",
+      "disk/cache/I/O behavior",
+      "pack/extract subphase timings",
+      "complete historical ambient environment",
+      "specific call allocation contribution from the changed qualification_proof module"
+    ],
+    "unsupportedCauses": [
+      "Later host readback OOM caused earlier test cancellation",
+      "outer campaign event-log growth was loaded into this fresh fixture store",
+      "crossed_session protocol defect from admission timing alone",
+      "more tests or a new recovery runtime algorithm caused the slowdown"
+    ]
+  },
+  "whyPriorChecksMissed": [
+    "Prior final1/final2 passed with7.2-7.9s test margin; they explicitly did not establish repeatability. One is recovery-only, final2 uses the same whole-lane sequence.",
+    "Static budget checked840000ms lane sum under900000ms component and broader native bounds; it did not prove actual nested117s execution sufficiency.",
+    "Source hash equality controls identity, not host scheduling/resource state; current candidate package identity differs at two qualification source files.",
+    "Only aggregate setup and coarse lap wall times were retained; no pack/extract or CPU/I/O/GC counters attribute the current delta.",
+    "Existing fixture teardown closes and removes its scratch store/archive; the prior review explicitly bounded this to component feedback. Current TAP and C2 evidence survive, but a fresh cold replay of the deleted inner fixture is unavailable. Qualification archive obligations must not be claimed satisfied by a TAP pass alone."
+  ],
+  "finiteReentry": {
+    "status": "recommendation_only_not_activation",
+    "owner": "Root Executive/T-287 selects a separate authorized Writer for C2 controls; existing Product verify/lock/install and root-installed-environment owners retain runtime/resource meaning.",
+    "class": "Existing proof/resource-binding re-entry; unchanged Product and unchanged recovery source.",
+    "steps": [
+      "Preserve the failed actual C2, all112 passed predicates, current frozen417-file subject, historical final1/final2 feedback and unconfirmed-termination capsule. Await the actual current invocation close; a host exit is not a genuine runtime resume. This review neither reopens nor obtains runtime readback.",
+      "Prepare one recovery-only C2 selection from the exact current subject through the existing native default consumer. Keep test timeout117000ms and lane120000ms. Do not invoke the unmodified all-lane c2-proof.mjs as the recovery selector, since it unconditionally executes all lanes.",
+      "For a concrete changed resource condition, explicitly select existing root-installed-environment.selectedFrozenArtifact via all three declared ABI5_WAVE1_FROZEN_ARTIFACT_PATH, ABI5_WAVE1_FROZEN_ARTIFACT_SHA256 and ABI5_WAVE1_FROZEN_INSTALL_HOST bindings. Obtain the exact current9513cd08 artifact and matching bootstrap install through existing Product owners, or reproduce and verify exact bytes from frozen current source. Never bind immutable builder RC6 or the prior dc131e3a artifact as this current candidate. A missing exact artifact/install relation is a return condition, not authority to substitute.",
+      "The existing route removes repeated npm pack/tar bootstrap from the117s test interval but still verifies the supplied artifact, constructs the lock, materializes and content-checks fresh ABI and both consumer installs, admits a new empty event resource and workspace, and runs the unchanged five-case/oracle population. Retain preparation elapsed separately under its existing enclosing command/native budget; do not hide moved cost. Current c2-proof removes artifact selector variables, so the Writer must declare and Root must admit the alternate recovery control explicitly.",
+      "Before execution, establish finite source/artifact/environment correspondence, process isolation and declared preparation/lane limits. The isolated recovery-only pass is the single allowed discriminator after the resource change, not an automatic retry. Retain exact TAP/phase markers and resulting physical-owner reports under a fresh immutable report path. If it still cancels, stop with that evidence and return to the resource owner; no iterative timeout inflation.",
+      "Conjoin any eventual recovery result with the unchanged112 actual passes by exact subject and affected dependencies, then follow the already selected native UAT and genuine result/replay/close owners. Source acceptance, formal independence, Q23 and release decisions remain separate."
+    ],
+    "fitLimit": "Provisioning pack/extract subphase duration was not recorded for this test. No claim that frozen-artifact selection saves the approximately5.26s necessary under a final2-tail-only counterfactual, or guarantees fitting117s, is made.",
+    "splitBoundary": "Only existing packaging/bootstrap provisioning versus unchanged test execution is proposed. Splitting the five cases or lifting setup into new fixture hooks changes Product test source and requires a new Worker grant, new exact subject and affected proof; it is not authorized or selected here.",
+    "budgetChangeOwner": "The literal117000ms is owned by the test source under its Product test/design grant. The120000ms lane is owned by C2_INPUTS/Root C2 binding. The900000ms component command and enclosing native resource projection are owned by Root workload plus installed helper/budget owners. ACTIVATION Resource limits and REQ-P-QUAL-010/011 require re-entry to each affected owner before a value change; none is recommended now.",
+    "unchangedBudgets": {
+      "testMs": 117000,
+      "laneMs": 120000,
+      "componentCommandMs": 900000
+    },
+    "falsifier": "Any source/protected-input drift, wrong archive/bootstrap identity, substituted owner/Program, skipped/cancelled case, missing final D5_NEGATIVE_PROOF, failed current source correspondence, missing required retained record, or recurrence of the timer returns the affected claim unresolved."
+  },
+  "adjacentObservations": [
+    {
+      "kind": "separate_root_report",
+      "observation": "Root reported actual invocation blocked02:50:23.881Z and later host exit-6/JS heap OOM at02:54:09Z during fresh readback. The current C2 Result was admitted02:44:23.499Z.",
+      "standing": "Root-supplied control information, not independently inspected here; separate latency-review scope and not causal proof for this timeout."
+    }
+  ],
+  "residuals": [
+    "Full current recovery population and dependent UAT/close remain open within this triage.",
+    "Authentic unconfirmed termination D5-P6-N1-UNCONFIRMED-01 retains its existing deferred scope.",
+    "No root-cause attribution to one machine resource or implementation owner.",
+    "Proposed existing frozen-artifact route has not been executed or independently accepted; source/evidence equivalence and fit must be established.",
+    "Immutable RC6 remains unqualified; prospective RC7/Q23/F11/release obligations are not closed."
+  ],
+  "unperformedCoverage": [
+    "No tests/build/preflight/provider/runtime/readback/replay execution",
+    "No credentials, host reasoning or broad raw-event/log scan",
+    "No currentP lifecycle control, restart, termination or source edit",
+    "No new runtime/profile/capacity mechanism",
+    "No whole113 rerun or broader qualification"
+  ],
+  "invalidation": [
+    "Material source, installed artifact, test population, owner, environment, timeout, Product/method or proof-basis changes invalidate affected judgments.",
+    "New retained evidence attributing the slowdown revises the indeterminate causal fields.",
+    "A future repair/new control receives its own exact subject and applicable independent review; this triage cannot accept it."
+  ],
+  "effects": {
+    "writes": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/timeout-triage-001/REVIEW.md",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/timeout-triage-001/REVIEW.json"
+    ],
+    "allOtherEffects": "none; read-only source/hash/method inspection"
+  },
+  "evidence": [
+    {
+      "id": "subject",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+      "bytes": 494547,
+      "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+    },
+    {
+      "id": "actual_c2",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ACTUAL_C2_SUMMARY.json",
+      "bytes": 7161,
+      "sha256": "12514b1a38b1fa7eeceb1de261d74866bf6fc6db3dce4ee323ca1a9956521f70"
+    },
+    {
+      "id": "actual_tap",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/actual-c2-001/recovery.stdout.tap",
+      "bytes": 5364,
+      "sha256": "7949f32978808108a1bf04a8aac7b01e466532f02eef8611dbae86767ba48479"
+    },
+    {
+      "id": "actual_component",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/actual-c2-001/component-result.json",
+      "bytes": 7000,
+      "sha256": "7e392e5417fb3c5c6b874eaf1b719d5b89309fad73b1d3a74727a14d0ed22ad9"
+    },
+    {
+      "id": "correspondence",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/actual-c2-001/source-correspondence.json",
+      "bytes": 87914,
+      "sha256": "3169a4b6734f52cf02e803ebcb2205c4941b9bb739e46a7b6f89fea78cb12346"
+    },
+    {
+      "id": "prior_review",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-review-001/REVIEW.json",
+      "bytes": 33264,
+      "sha256": "6400f8cf2aaaf4cdcb56d738d111222459b7978ae6cc0a47d7ba2e8cd3a068a7"
+    },
+    {
+      "id": "prior_review_text",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-review-001/REVIEW.md",
+      "bytes": 12525,
+      "sha256": "f4b0d3544bcf33b1b09074e5bafa9fb37d3e609ce5a7994595d636fcb44ad5d8"
+    },
+    {
+      "id": "prior_subject",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+      "bytes": 482797,
+      "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+    },
+    {
+      "id": "prior_return",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/return.json",
+      "bytes": 44667,
+      "sha256": "0f163d27f452dde406c776f68406a699e72020bd134716038b4591b47ec895f2",
+      "lines": [
+        677,
+        743
+      ]
+    },
+    {
+      "id": "final1_observation",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-feedback-final1/OBSERVATION.json",
+      "bytes": 2916,
+      "sha256": "ea9966439af9b66ec40d7636fb971186266172324bb464ed7e8adb62d69a220e"
+    },
+    {
+      "id": "final1_summary",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-feedback-final1/summary-recovery.json",
+      "bytes": 754,
+      "sha256": "52d855380f7988a817d8332ddcd8c1eca187611607e74802c6b7345026b03693"
+    },
+    {
+      "id": "final1_tap",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-feedback-final1/recovery.stdout.tap",
+      "bytes": 6780,
+      "sha256": "60401fe5225ee6d8d25418b30d262f9b6fbe04410b7b0f61e16c22bea36a7092"
+    },
+    {
+      "id": "final2_summary",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final2-lanes/summary.json",
+      "bytes": 3322,
+      "sha256": "b88ca3e834052f711121ada452489c8ac9a58fa48d46d3d19ecb5b565ac24154"
+    },
+    {
+      "id": "final2_tap",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final2-lanes/recovery.stdout.tap",
+      "bytes": 6783,
+      "sha256": "e8b214872a01687bd17bc5ff4bacc675243719d896eda4aae144ee84422c5988"
+    },
+    {
+      "id": "final2_stage",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final2-stage.json",
+      "bytes": 78911,
+      "sha256": "19a1b5aaefc5cf87ad388b9444bcf57d4c1a34bcf48f0e9bf6735f4f13afeb3e"
+    },
+    {
+      "id": "test",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+      "bytes": 13367,
+      "sha256": "0e52cd4540a95e17877019beb656034aac0d0fa9e046f25e822a4ef24ad0b7b1",
+      "lines": [
+        54,
+        186
+      ]
+    },
+    {
+      "id": "fixture",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "bytes": 45491,
+      "sha256": "89e7bd962abd65668d49b89a97763162694e84f107564f47baf575966de6feca",
+      "lines": [
+        217,
+        299,
+        368,
+        402,
+        410,
+        550
+      ]
+    },
+    {
+      "id": "root_fixture",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+      "lines": [
+        23,
+        56,
+        168,
+        350
+      ]
+    },
+    {
+      "id": "recovery_owner",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "bytes": 41323,
+      "sha256": "67bd0ad5cf6cc596205640a7956106ea4a9e7e0321909950c6146eb0477511b9",
+      "lines": [
+        172,
+        339
+      ]
+    },
+    {
+      "id": "c2_runner",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/qualification-inputs/d5-author-02/c2-proof.mjs",
+      "bytes": 3963,
+      "sha256": "9cb5bde895aa49cdde27de5c25cf50a1dc880240b37946bc47d0e0dea80a14bd"
+    },
+    {
+      "id": "author_runner",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/qualification-inputs/d5-author-02/prior-author-lanes.mjs",
+      "bytes": 4208,
+      "sha256": "a17f8c1f221644cf70e8da78428c2dedee4193d12d5bbcd64934e46d0aa2e084"
+    },
+    {
+      "id": "c2_inputs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/qualification-inputs/d5-author-02/C2_INPUTS.json",
+      "bytes": 200397,
+      "sha256": "37bb0603849fdbbd4ee4315bdce1858a8f1570c0423696c0788ff4da445fca5f"
+    },
+    {
+      "id": "workload",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/workload.json",
+      "bytes": 95132,
+      "sha256": "153e63429eb586f9c052d7ab543243885f7bdd7a2d5d42a1b2879f85b57ec7a6"
+    },
+    {
+      "id": "recipe",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/C2_RECIPE.json",
+      "bytes": 46501,
+      "sha256": "ca58037c7833d70df3007fbc4b369fa7d90b605c82349c5c7d89220e6953d269"
+    },
+    {
+      "id": "budget",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/BUDGET_STATIC.json",
+      "bytes": 761,
+      "sha256": "bcd2596c3e3a1b8589305632b8d4e2b5c56a23fd10c91868526aa757c8fb2af2"
+    },
+    {
+      "id": "resource_note",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/RESOURCE_NOTE.json",
+      "bytes": 5911,
+      "sha256": "477eb770aff17d41cc86afc9d5be5fc508cdf5771a02e29bbae709cd72239b48"
+    },
+    {
+      "id": "installed_helper",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js",
+      "bytes": 65333,
+      "sha256": "5f595d27a2731657a783055571f72554256f273876189a46dad97bd01879a241",
+      "lines": [
+        613,
+        679
+      ]
+    },
+    {
+      "id": "agents",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    },
+    {
+      "id": "definition",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "id": "goals",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 125986,
+      "sha256": "c036f07cfdf6d4f63d0a65e359c6d5d8fb48c5fad87f443e493c0d27b372a6d2",
+      "lines": [
+        1,
+        24
+      ]
+    },
+    {
+      "id": "ticket",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 687064,
+      "sha256": "98654889523ca9c859a379d95fe31223694e8b5b7f65536f8f41549367bd5221",
+      "lines": [
+        1,
+        25
+      ]
+    },
+    {
+      "id": "product",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "lines": [
+        48,
+        92,
+        811,
+        883,
+        1300,
+        1328,
+        1597,
+        1625
+      ]
+    },
+    {
+      "id": "qualification_requirements",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 36574,
+      "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28",
+      "lines": [
+        38,
+        72,
+        94,
+        127,
+        481,
+        539
+      ]
+    },
+    {
+      "id": "frame_basis",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "lines": [
+        355,
+        384
+      ]
+    },
+    {
+      "id": "manifest",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/manifest.json",
+      "bytes": 18022,
+      "sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+    },
+    {
+      "id": "review_skill",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+      "bytes": 8074,
+      "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+    },
+    {
+      "id": "basis_procedure",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"
+    },
+    {
+      "id": "handoff_procedure",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "lines": [
+        16,
+        48,
+        133,
+        168
+      ]
+    },
+    {
+      "id": "bootstrap",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "lines": [
+        1,
+        111
+      ]
+    },
+    {
+      "id": "assurance",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ASSURANCE.md",
+      "bytes": 87324,
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "lines": [
+        451,
+        480,
+        518,
+        552
+      ]
+    },
+    {
+      "id": "activation",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "lines": [
+        1627,
+        1666
+      ]
+    },
+    {
+      "id": "evaluation",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/EVALUATION.md",
+      "bytes": 91301,
+      "sha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485",
+      "lines": [
+        190,
+        221,
+        262,
+        294,
+        337,
+        363
+      ]
+    },
+    {
+      "id": "executive",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/EXECUTIVE_BASELINE.md",
+      "bytes": 165730,
+      "sha256": "ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff",
+      "lines": [
+        1104,
+        1126
+      ]
+    }
+  ],
+  "memoryUse": {
+    "purpose": "Authority/reuse/proportionality routing only; all report facts reacquired currently.",
+    "references": [
+      "MEMORY.md:575-575",
+      "MEMORY.md:641-641"
+    ]
+  }
+}

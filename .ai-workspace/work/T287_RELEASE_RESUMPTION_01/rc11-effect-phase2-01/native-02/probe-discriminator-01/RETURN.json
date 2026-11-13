@@ -1,0 +1,55 @@
+{
+  "status": "TWO_CONTROLLED_RUNS_RETAINED",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3436,
+    "sha256": "bee89da83a6558aac12e27f5f01a147cb4ae4cdbe1d2b31401b6601973509d9f"
+  },
+  "receipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/candidate.RETURN.json",
+      "bytes": 3352,
+      "sha256": "da4c06b296a9270c46043578c4db331c328f2f64e73fb733396f2364cd94a123"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/baseline.RETURN.json",
+      "bytes": 3346,
+      "sha256": "fa21e9f6f6d9b42ed9aa3fd1ce4c55bfd0160c87c7c4d2f485549cd305ba6157"
+    }
+  ],
+  "campaignSeconds": 0.6750523340888321,
+  "halt": null,
+  "postguards": {
+    "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+    "sourceRows": 1345,
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+      "bytes": 296057,
+      "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+    },
+    "preservationGuards": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/PRESERVATION_GUARDS.json",
+      "bytes": 3317,
+      "sha256": "6913ad226439cd28b7f8b534a46881da5d92678245e27b7cd57770f063d70608"
+    },
+    "modulePins": [
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 9891,
+        "sha256": "563448e7dc2f8e9a053ba8ac1dd49baf884e021cf301c7a352ace1ee7d33e897"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_state.js",
+        "bytes": 8361,
+        "sha256": "4d3863302d3a141dff2154ca1edc438dbc854985dfd8094617de885999e38880"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 11604,
+        "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+      }
+    ],
+    "passed": true
+  },
+  "standing": "Exactly selected controlled actualowner commands. No OS childspawn/signals byfixture, no productionmutation/qualification; oldfailures retained. No repeatedrun."
+}

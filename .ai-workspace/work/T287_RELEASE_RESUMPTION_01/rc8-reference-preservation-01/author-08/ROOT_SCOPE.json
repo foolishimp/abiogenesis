@@ -1,0 +1,81 @@
+{
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "id": "T287-RC8-AUTHOR08-FIXTURE-COMPLETION",
+  "at": "2026-11-07T08:44:25.689809+00:00",
+  "authority": "Root selected and adopted verified two-file plan; preparation authorized, exact held call must be admitted before provider dispatch. Existing user approval unchanged.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL035",
+  "sourcePreimageDigest": "b2ca1a756b264c1ee13e3bca9ba324d8d499619a28f97874d8fafde6d82ad146",
+  "sourcePreimageFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/source-freeze.json",
+    "bytes": 295567,
+    "sha256": "a4ded31e5b6e2601969af0bbc050191da458d6520c1397dbd56850eace7e47c7"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 4172,
+    "sha256": "67f8c15d6ff37486d63cc61f35d4a082e1bd7b83ac71adeda866b9a0ffac3ea7"
+  },
+  "actualPriorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/runtime-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "78f735ab9b3a86655f9da5b81bb033c75c29ac3be4b0c00dd1fb01f4c77d275b"
+  },
+  "productArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/fixture-completion-008-plan/REVIEW.json",
+    "bytes": 22217,
+    "sha256": "700cf20b47116a58a7a9cabb8b4463e207ec7299b5da2f66d065ba38335c4622"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/fixture-completion-008-plan/README.md",
+    "bytes": 2232,
+    "sha256": "63254244f422e02272c63c5636ee55ee2bc2b4f45c0c8b7a8b52381b87353266"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/PREPARATION.json",
+    "bytes": 7581,
+    "sha256": "62a65d58cd6118de00b93c4865d7380c90d371a5a354a163331ba2a827003a6c"
+  },
+  "rootConjunction": "Two fixture-premise corrections, no Product/runtime repair: complete the remaining historical profile causal cone by reusing unchanged retainedProfile at three sites/four cases; model current completeAbgEventResource as an explicit lower-owner reopened completion premise with exact resource/entry-prefix identities, six completions, and failure on unexpected abandonment. Preserve every canonical/refusal/source-lookup/context/work assertion and current-profile fixtures. Earlier two-case grant was incomplete for full causal cone; A7 correctly disclosed later sites without exceeding scope.",
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs"
+  ],
+  "readOnlyOwnerLibraryRoot": "build_tenants/abiogenesis/typescript/code/src",
+  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-08",
+  "budgets": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 900000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "focusedNameFilteredInvocations": 1,
+    "focusedWholeFileInvocations": 1
+  },
+  "permissions": {
+    "ownerPrepare": true,
+    "providerDispatch": false,
+    "furtherRootAdmissionRequired": true,
+    "sourceCodingByOperator": false
+  },
+  "prohibited": [
+    "No Product/HOW/helper/harness/config/dependency changes",
+    "No store or guard weakening, baseline substitution, event restamp/profile migration or physical-close claim from component premise",
+    "No full consolidation/broad proof, first-two-case rerun, extra Worker, retry, Git/cut/push/selector/cleanup; stop unexpected semantics or larger scope"
+  ]
+}

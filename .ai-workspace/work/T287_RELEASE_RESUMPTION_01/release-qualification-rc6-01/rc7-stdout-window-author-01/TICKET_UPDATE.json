@@ -1,0 +1,18 @@
+{
+  "kind": "root_authorized_ticket_plan_update",
+  "authority": "Root selected conditional HS03 Q2/Q3 defaults and finite preparation; user approved design+corrections/build.",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 706873,
+    "sha256": "e37af4e0f7d92bb5c79a44dd5d348b2d040b34f9da070b6af2edd0cf7b0c09b1"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 708487,
+    "sha256": "0a9ad19e59c230aa8e62b2950540afa2fd1c01ae010145e1c9c6a4e3231f65b7"
+  },
+  "scope": "Current lead and held-session HS03 current standing only; original historical remainder preserved. HS01 original packet preserved plus explicit Root dependency correction.",
+  "dispatch": false,
+  "ProductChanges": false
+}

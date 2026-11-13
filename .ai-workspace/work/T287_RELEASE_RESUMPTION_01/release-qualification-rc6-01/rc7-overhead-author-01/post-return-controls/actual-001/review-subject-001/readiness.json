@@ -1,0 +1,52 @@
+{
+  "kind": "rc7_overhead_author_readiness",
+  "task": "rc7-overhead-author-01",
+  "at": "2026-11-06T04:20:41.816Z",
+  "readinessStatus": "AUTHOR_FROZEN_PARTIAL_NOT_REVIEWED",
+  "frozenSubject": {
+    "stage": "rc7a-after-02",
+    "sourceCount": 397,
+    "stageSourceDigest": "f74c9abcdc2e9463c1ce8d13b3b60cd657db6e366fd2b09c4c57de512c6f527b",
+    "worktreeEqualsStage": true,
+    "changedFiles": 15
+  },
+  "returnRef": {
+    "path": "qualification-scratch/rc7-overhead-author-01/return.json",
+    "bytes": 35881,
+    "sha256": "221af383a2cb3245c17fe996df79995a847c932a8de92b678b69602072347456"
+  },
+  "authorChecks": {
+    "compileGenerateGuard": "pass on all three stages",
+    "carriage": "0 fail; RC7 logical carriage pass after, fail before; lane predicate fails only on undeclared env-gated historical skip shared with baseline",
+    "prefix": "0 fail; RC7 prefix reuse pass after, fail before",
+    "consumers": "28 failures identical to baseline staged-closure ENOENTs; no after-only failure",
+    "legacy": "37/37"
+  },
+  "selectedRelations": {
+    "R1_before": "realized",
+    "R1_task": "not_realized",
+    "R2": "not_realized",
+    "R3": "realized",
+    "R4": "realized for realized relations",
+    "R5": "realized",
+    "R6": "realized in canonical runner; operator controls are Root-owned"
+  },
+  "openForRoot": [
+    "R1 task-copy removal and R2 basis-holder extension: complete consumer migration across the named native cone and downstream sourceNativeWork tasks.",
+    "Matched retained-workload whole-carriage measurement and phase timings: needs retained event logs and installed runtime execution outside this grant.",
+    "C2_INPUTS carriage lane allowedHistoricalSkippedTests omits the env-gated RC5 captured-route-37961 measurement test.",
+    "Consumers lane staged closure omits .ai-workspace default-library-witness seed/selection, test_env/fixtures/sandbox-uat and test_env/falsifiers/runtime-retained-projections-worker.mjs (28 tests not exercised before or after).",
+    "uat/harness.test.mjs (runner consumer) not executed; outside lanes and write grant.",
+    "Positive populated run-read request over an admitted Run not exercised by the prefix discriminator.",
+    "Independent proportional review, affected installed D5/recovery proof (117000/120000 ms bounds) and RC7-LAUNCH-02 remain Root-owned."
+  ],
+  "claims": {
+    "independentReview": false,
+    "acceptance": false,
+    "installedProof": false,
+    "qualification": false,
+    "publication": false,
+    "release": false
+  },
+  "returnTo": "Root Executive; stop"
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "preserved_existing_custody",
+  "readOnly": true,
+  "ancestors": "Existing consolidation-inputs/native-08 read roots remain protected/readable; current09 task/selection/conjunction alone select work.",
+  "closedNative08Conjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/ROOT_CONJUNCTION.json",
+    "bytes": 11303,
+    "sha256": "16613c500832f38aa692710fea57a21f303cb0cd96812f8534afd2c91132e18a"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/review-subject-001/SUBJECT.json",
+    "bytes": 173779,
+    "sha256": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0"
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/after-run-resume.json",
+    "bytes": 73164323,
+    "sha256": "70b5885e4941e4e1fc127b6f17568e3640e021f5c775bc15da5a060b13e01406"
+  },
+  "sourceAfterClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/SOURCE_AFTER_FINAL_CLOSE.json",
+    "bytes": 30047,
+    "sha256": "7e011ea97c6b5d61f77cd7caab7ac47b0c289448bf73c539f831c958dcee31c4"
+  },
+  "earlierProofAndReviews": "Follow exact identities in Root conjunction and preserved old controls; do not recopy or requalify all old bodies.",
+  "packageStanding": "Old candidate archives and lane executions remain historical evidence; no new candidate equality asserted."
+}

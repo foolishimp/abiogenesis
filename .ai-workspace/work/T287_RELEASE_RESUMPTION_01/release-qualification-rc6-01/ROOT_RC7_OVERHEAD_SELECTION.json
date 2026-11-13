@@ -1,0 +1,65 @@
+{
+  "kind": "root_rc7_overhead_release_scope_confirmation",
+  "at": "2026-11-06T02:04:29.127506+00:00",
+  "status": "SELECTED_RC7_RELEASE_WORK_NOT_OPTIONAL_DEFERRED_OPTIMIZATION",
+  "ownerInstructions": [
+    "removing overhead and duplication remains part of the RC7 release set",
+    "using RC6 execution to fix RC7 by discovering its bugs while using it to build RC7"
+  ],
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "basis": "stdo://releases/v3.0.4/",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "productFrame": "Unchanged ABIogenesis5 fifteen families/GOAL-035/T287; existing single-address-space consolidation and complete native-workflow performance obligations in prospective RC7. RC6 remains the immutable installed campaign builder.",
+  "scope": [
+    "Use actual RC6 campaign execution to localize defects and overhead, and repair them in RC7 through existing owners.",
+    "Remove redundant full-context and result/binding body carriage while retaining genuine task information, physical facts and deterministic replay through one shared existing library.",
+    "Resolve demonstrated redundant fresh-readback/cold-history and task-launch work; establish actual phase attribution before selecting a speculative rewrite.",
+    "Measure setup, preflight, worker-launch, task work, final readback and between-task costs separately; compare the same workload/inputs where a speedup is claimed."
+  ],
+  "currentEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/TIMING_BREAKDOWN.json",
+      "bytes": 7290,
+      "sha256": "a19d931abfbc09ebfbb72d13f54e6268aaf2c174f56f61665f157d858881c2b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/READBACK_LATENCY_OWNER_OBSERVATION.json",
+      "bytes": 2845,
+      "sha256": "70c4ab3a4ae6fb9ecb30ae4aec6968a5acb738243df2d39bf9a6b179e6c91c65"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/REMAINING_CARRIAGE_OWNER_MAP.json",
+      "bytes": 4101,
+      "sha256": "d441689c99938e9da47a22389fb7d843b6ce19f8d105a65ad9adb87c6a2c0f0a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/RESULT_CARRIAGE_OWNER_OBSERVATION.json",
+      "bytes": 4058,
+      "sha256": "d9b0d75764b58a012398f068d7fb6f21cc76c3099867e9979c77109ffa27ee44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/LAUNCH_TIMING.json",
+      "bytes": 2623,
+      "sha256": "aafd1e5ef8100d4608bf410e7df9da65a671890f46ed9acf2df6c5d3012f4b70"
+    }
+  ],
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "ordering": "Finish current D5 actual close, bounded recheck and affected proof. Prepare the finite overhead owner/consolidation task in parallel; implementation through one ABG-native xhigh coder after current proof and causal intake. QR02 controls may complete preparation but overhead is not postponed beyond RC7.",
+  "triageReturn": "Exact observed repetition/cost -> existing owner and implemented reuse mechanism -> smallest coherent source change -> nearest semantic/refusal/cold-read proof and matched performance discriminator. Keep unknown attribution explicit; no complete-runtime speed claim from partial timers.",
+  "prohibitions": [
+    "No change to immutable RC6/history/accepted evidence; no automatic repeat of completed release qualification.",
+    "No rival serializer, store, event stream, service, runtime or defensive-validation layer.",
+    "No deletion of genuine work information or owner admission/effect/replay relations.",
+    "No source rewrite by Root; no second native coding Worker.",
+    "No push, selector change, publication, stable release claim or inferred human acceptance."
+  ],
+  "standing": "This explicit owner instruction keeps overhead removal in the release set. Earlier records classifying individual observations as unselected repair were recording evidence state, not selecting deferral; this selection supersedes that future-scope implication."
+}

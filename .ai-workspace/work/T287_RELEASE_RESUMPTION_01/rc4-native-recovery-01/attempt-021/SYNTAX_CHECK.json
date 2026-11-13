@@ -1,0 +1,62 @@
+{
+  "status": "SYNTAX_ONLY_PASS",
+  "checks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/budget-readiness.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/dispatch.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/freeze-dispatch.py",
+      "check": "Python compile without output",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/identity-and-smoke.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/operator-preflight.py",
+      "check": "Python compile without output",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/prepare-native-call.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/pure-config-readiness.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/readiness.py",
+      "check": "Python compile without output",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/selected-proof-checks.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/setup-state.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/claude-provider.sh",
+      "check": "sh -n",
+      "exitCode": 0
+    }
+  ],
+  "ProductImports": 0,
+  "RuntimeCalls": 0
+}

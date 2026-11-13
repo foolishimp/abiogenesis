@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-08T18:06:28.197326+00:00",
+  "path": "/private/tmp/abg-r9-owner-external-004/tmp/abi5-root-env-Tgoq9P/runtime/events.jsonl",
+  "standing": "One bounded read-only tail observation of existing test-owned runtime records. No payload retained; no assertion or final proof credit.",
+  "observationFailure": "[Errno 2] No such file or directory: '/private/tmp/abg-r9-owner-external-004/tmp/abi5-root-env-Tgoq9P/runtime/events.jsonl'"
+}

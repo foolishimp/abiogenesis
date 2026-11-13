@@ -1,0 +1,13 @@
+{
+  "ended": "2026-11-01T12:55:55.013Z",
+  "exitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "runtime_failed",
+  "run": {
+    "digest": "sha256:93b962c8aee5da27ae060ac566686f0925945137ec0eb32a022d9be1e2e1fdd9",
+    "ref": "run://abiogenesis/0d2dd7fd032d7167d561d366259bfa713e1e8b3bb5fd7a844192f15561e037da"
+  },
+  "terminal": null,
+  "qualification": false,
+  "pointOneCompletion": "Requires separate Root actual installed interruption witness."
+}

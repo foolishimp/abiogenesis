@@ -1,0 +1,47 @@
+{
+  "status": "READBACKS_RECORDED_UNCHANGED_PREFIX_RUNTIME_FAILED",
+  "startedUtc": "2026-11-08T17:41:39.052Z",
+  "completedUtc": "2026-11-08T17:44:01.579Z",
+  "wallMs": 142522.816375,
+  "observations": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "refusal",
+      "outcome": "calls/run_result.outcome.json",
+      "outcomeDigest": "sha256:1675125e46b13e959ed736b03ae2f776eab5269c4527abf17a3ff599d045d9f0",
+      "source": null,
+      "status": null,
+      "terminal": null
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "outcome": "calls/run_replay.outcome.json",
+      "outcomeDigest": "sha256:30bd5c7989431268eb8b96ca590fd962d6d42168f95314c09f05f9426bfe7c2a",
+      "source": {
+        "digest": "sha256:bd042f6d2030dce39c31533dc58b6dbaecb1dabbd1c30436b5d0709185d2b52c",
+        "ref": "run://abiogenesis/dec8023c2046a90269b15f9d78a3a691c0020db028de6a3cfc2d9c7f0a0691b0"
+      },
+      "status": "failed",
+      "terminal": null
+    }
+  ],
+  "physicalIdentity": {
+    "device": 16777231,
+    "inode": 714208439,
+    "byteCount": 56629020,
+    "digest": "sha256:23fc255354358a24c9b02ef298904912e9afe8c3f94b28a108a25fb28523af98"
+  },
+  "prefixUnchanged": true,
+  "terminalAbsenceAgreesWithActualSdk": true,
+  "actualSdkDisposition": "runtime_failed",
+  "actualSdkResult": null,
+  "actualSdkStop": {
+    "ref": "event://abiogenesis/c0c9ad0b275fda325240ec6cb6083054493e8a43af69cce3a29cf08e4415650b",
+    "digest": "sha256:f998e7f9fecb5c734d0fbd8525a526bbddfcdc541fee1e2dd2551a09cb8e268d"
+  },
+  "actualSdkOwnerOutputDigest": "sha256:a01a810166aadb9ec2076b85bbdf9d650953d825895da5e7ae8ca0d37bbaa413",
+  "standing": "Two genuine closed-prefix reads; truthful absent-result/refusal and replay outcome retained. No successful typed terminal or source/proof acceptance claimed.",
+  "sourceAccepted": false,
+  "qualified": false
+}

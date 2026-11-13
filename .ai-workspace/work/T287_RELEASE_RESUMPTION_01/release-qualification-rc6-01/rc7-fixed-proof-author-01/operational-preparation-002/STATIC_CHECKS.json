@@ -1,0 +1,34 @@
+{
+  "syntax": {
+    "command": "node --check prepare-and-dispatch.template.mjs",
+    "exitCode": 0,
+    "moduleExecuted": false
+  },
+  "closed001PinsUnchanged": 10,
+  "removed": [
+    "prepared-call.json full acquired call write",
+    "prepared-call.json reread/hash",
+    "product.sha256Canonical(call)",
+    "eager JSON.stringify(constructed) assertion message",
+    "second retained resume read for hashing",
+    "long-lived raw author-binding buffer"
+  ],
+  "retained": [
+    "actual call/caller/environment/resource references in one process",
+    "owner-issued invocationRef/invocationDigest/definitionKey",
+    "Product input digest and durable entry prefix",
+    "capacity/context/source/phase metadata",
+    "one actual SDK outcome/receipt",
+    "one actual owner close receipt",
+    "one successor resume with resource/selection/environment cleared"
+  ],
+  "sourceInspection": {
+    "callerAcquireSites": 1,
+    "callerRefreshSites": 1,
+    "callerCloseSites": 1,
+    "sdkInvokeSites": 1,
+    "postReturnRefreshOrHistoryRecapture": false,
+    "reparsedPreparedCall": false
+  },
+  "scope": "Static operator correction only; no runtime/provider/auth/credential/staging/source/build/test effects. Count inspection is not an executed resource/latency proof."
+}

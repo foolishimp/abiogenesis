@@ -1,0 +1,48 @@
+{
+  "status": "ACTUAL_CLOSED_TERMINAL_AND_FRESH_READBACKS_AGREE",
+  "observedAt": "2026-11-02T23:49:30.434870+00:00",
+  "run": {
+    "digest": "sha256:3f072d9c050984cd393e35b8fff3ab1bc37e40e862347e8b7e3aab370e9b0ed1",
+    "ref": "run://abiogenesis/4eab125fab989c4c00b64c7d24783a09c22c7a77572973e509d9b3e6ab4a683c"
+  },
+  "terminalResult": {
+    "digest": "sha256:6ea28c65e6f26b56457853a4c25b2d82b699e264d08967e0aa495ff8c1f30458",
+    "ref": "result://abiogenesis/6ea28c65e6f26b56457853a4c25b2d82b699e264d08967e0aa495ff8c1f30458"
+  },
+  "replay": {
+    "digest": "sha256:016366cb2a4a26ea32b8f388f018ea1a841885e4df19a449ea9b3172236a35ca",
+    "ref": "replay://abiogenesis/016366cb2a4a26ea32b8f388f018ea1a841885e4df19a449ea9b3172236a35ca"
+  },
+  "terminalEquality": true,
+  "replayEquality": true,
+  "runReplayStatus": "closed",
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/execution/outcome-summary.json",
+    "bytes": 348032,
+    "sha256": "fc0689e42dc30f9c90bebf56dfdcf8242063eb6a3ee6ef9b207a297313624bfa"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/execution/fresh-reads.json",
+    "bytes": 1493643,
+    "sha256": "b2cebdc34525fc8412a90edc4b1836ef54503f804ba0c4c09d6b3da2ebf1751f"
+  },
+  "genuineResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/execution/after-run-resume.json",
+    "bytes": 99886424,
+    "sha256": "c187e7cd19fc0220fb357ca5e15bd167ab0b86c2b5635a7921c99fc648a8d26c"
+  },
+  "genuineCurrentPrefix": {
+    "coordinateDigest": "sha256:47de84bc8ad6d78d3dcb523a2d79551a24079f2ba86c3772b5c904cbb5d87ebd",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:a5ebee451ee9a9751b7cb4184ac7dc31f521153cea9d0295265d936da26c4451",
+    "prefixLength": 578251344,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 681463484
+    }
+  },
+  "meaning": "Bounded018 closure; no practical005 recovery, whole qualification, or release credit."
+}

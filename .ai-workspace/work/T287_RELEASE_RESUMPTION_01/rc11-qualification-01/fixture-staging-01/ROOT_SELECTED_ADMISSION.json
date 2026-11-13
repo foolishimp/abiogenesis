@@ -1,0 +1,28 @@
+{
+  "id": "RC11-SELECTED-FIXTURE-STAGE-01",
+  "status": "ROOT_ADMITTED_EXACT_SELECTED_ACTION_TWO_FILE_COPY",
+  "utc": "2026-11-09T07:40:06.444055+00:00",
+  "owner": "Root Executive",
+  "writer": "/root/rc10_operator",
+  "basis": "Root accepts selected-action02 snapshot as authentic bounded component INPUT only, not selector-case success or qualification. Root freshly verified compressed/manifest/decompressed identity, byte equality to actual physical log, genuine recovered/closed handoff and host22102 self-SIGKILL/no timeout/absent owned group.",
+  "sourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/events.jsonl.gz",
+      "bytes": 823504,
+      "sha256": "b86084dc4a61fc84f0231e20d76b9d91c236ed7a7fa34b7436ed489d8ab21f4d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/fixture.json",
+      "bytes": 11153,
+      "sha256": "1712be167cf4ef6cb97bf9e8f11271afed44bdeb4e9e012dbc12341e433b6743"
+    }
+  ],
+  "rawBytes": 4023353,
+  "rawSha256": "1b56eedb4718e9638e68cec8775314e03571dd6aed90486c5510ceaeb25a575d",
+  "eventRows": 216,
+  "eventStanding": "Actual W-profile open second occurrence with no target child per Root accepted execution evidence; local decompression/count here is structural byte verification only.",
+  "effect": "Create once exact two destination files byte-for-byte; no path/JSON/provenance rewriting.",
+  "destinationRoot": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action",
+  "preservation": "All 1334 original source files, other future targets, main index, RC9/RC10 builder and histories. No placeholder/native fixture creation.",
+  "prohibited": "No tests/setup/provider/commit/final freeze or native02 final binding; native fixture remains pending03 failure triage."
+}

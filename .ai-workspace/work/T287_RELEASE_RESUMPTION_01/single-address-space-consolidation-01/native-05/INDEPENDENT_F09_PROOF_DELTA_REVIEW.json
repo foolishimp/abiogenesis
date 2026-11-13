@@ -1,0 +1,179 @@
+{
+  "recordedUtc": "2026-11-03T23:19:55.621613+00:00",
+  "kind": "independent_bounded_f09_proof_delta_review",
+  "productFrame": {
+    "product": "ABIogenesis5; fixed fifteen families F01-F07/F09-F11/F13-F17",
+    "authority": "GOAL-035 / T-287; original R1-R7/C1-C5 unchanged",
+    "method": "Exact installed STDO3.0.4 stdo-review and retained Product frame",
+    "sourceDefinition": "STDO3.0.4",
+    "builderRuntime": "Immutable installed RC5 under STDO3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "boundary": "Exact late F09 proof delta/module family/fault semantics only; no new source or input-scope review",
+    "owner": "Root acceptance and final-byte/C2 conjunction; nonauthor same-family independence limit retained"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-f09-review-001/SUBJECT.json",
+    "bytes": 852,
+    "sha256": "84b3622a0701460b0b8838e2ad2a5c81921600247501ff82063c99a2f8d5732d"
+  },
+  "worker": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-f09-review-001/runtime-f09-worker.mjs",
+    "bytes": 128216,
+    "sha256": "4ec5ecc1aba27aaba522dffef69776c8fd8afcb79fda17cc6ce7245e30a448d3"
+  },
+  "priorWorker": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/files/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+    "bytes": 127686,
+    "sha256": "ea7ec41f4aa4d58aafdf139ff5e93c42507014846810c68946ff8215582de01d"
+  },
+  "fixtureAndFeedbackSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/SUBJECT.json",
+    "bytes": 10627,
+    "sha256": "1e710c87d3f482e8a7b8bbe5967a9311153b6c5a0d24a77c984c665c5857be88"
+  },
+  "allFixtureSubjectPinsVerified": 19,
+  "authorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/return.json",
+    "bytes": 56732,
+    "sha256": "04c367a78fc09aac80732b5e2421ee5bd3c3beef0f0f779ea3ba3fe2372c385b"
+  },
+  "authorReturnedWorkerHashMatches": true,
+  "verdict": "satisfied_for_the_frozen_F09_module_family_and_fault_semantic_delta",
+  "findings": [],
+  "judgments": [
+    {
+      "relation": "Actual module family",
+      "disposition": "satisfied_bounded_static",
+      "workerLines": "1069-1095,1161-1166,1227-1243",
+      "analysis": "The replay owner is imported from environment.installedRoot, alongside retry/CCall/EventStore owners. projectOwnedRuntimeTruthAtDurablePrefix returns authorityPrefix to the same historical installed retry owner; it neither materializes opaque handles nor constructs a receipt from equal JSON. The late delta leaves this already-reviewed module correction intact."
+    },
+    {
+      "relation": "Scoped route fault",
+      "disposition": "satisfied_bounded_static",
+      "workerLines": "1314-1348",
+      "analysis": "Only this store with admitRoute on the stack reports null via its public configuredDurableLogPath accessor. Canonical event_prefix76-78 selects its existing snapshot branch; the existing scoped readAll fault yields empty rows. In actual admitRoute5016-5024/5136, the route event has been staged before observeNativeFrameLiveness; runtime_liveness89-92 then refuses because its admitted producer is absent from the faulted read. This is a deliberate lower-query fault, not a fake route-owner return."
+    },
+    {
+      "relation": "Durable owner/atomic failure",
+      "disposition": "satisfied_bounded_static",
+      "workerLines": "1335-1378",
+      "analysis": "Outer retry prefix reconstruction and assertHeldEventStoreAtDurablePrefix run without admitRoute on stack. The installed route transition executes normally until the frame observation fault. HoG catch rechecks the original durable predecessor and maps rollback to retry_route_refused. Private EventStoreState.durableLogPath/history/descriptor remain unchanged; appendDurablyBatch reads that private state, not the overridden accessor. Rows/digest/physical bytes must equal the captured preimage."
+    },
+    {
+      "relation": "No false success from a disabled ordinary route",
+      "disposition": "satisfied_bounded_static",
+      "workerLines": "1341-1388",
+      "analysis": "Both prototype methods are restored before observations, separate attempt-admission fault and ordinary retry success. Same retry then must resume successfully on normal durable owned path; stale predecessor subsequently refuses without mutation. A skipped route, fake success or retained staged route would violate those assertions."
+    },
+    {
+      "relation": "Unchanged end-to-end F09/R4 oracle",
+      "disposition": "retained",
+      "oracleLines": "runtime-f09.mjs287-328,329-337",
+      "analysis": "Unchanged producerAuthentic requires routeFailureRolledBack and attemptFailureRolledBackRoute along with authentic attempts/progress/failure classes and zero attempt-three facts; full durable-prefix inspection/restart comparisons remain. Separate tests run the normal F09 handoff and A-B-A failure-neighbor relation. The fault case does not prove the durable-owned selector internals by itself; it proves actual retry-owner failure/rollback under a failed lower liveness read, while ordinary success/restart paths retain the durable route."
+    }
+  ],
+  "sourceOwners": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "sha256": "cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "sha256": "8b8cdd35d0298469424d7226d0fb58a125b64cd6556eddfc7ff716c0aea372ea"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/retry_lifecycle.ts",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "bytes": 25137,
+      "sha256": "f6f723d330cd89a9e872deec58a07c847e0081b8b6a529b94ff2983997cac4ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/qualification-domain-001/event_store.ts",
+      "bytes": 213856,
+      "sha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c"
+    }
+  ],
+  "unchangedOracles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+      "sha256": "14102c36ffa9761598fbd12c7774dff7e06edea05477a25cef15309a3d94d2ba",
+      "bytes": 467,
+      "basis": "immutable_f49_unchanged_selected_source"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+      "sha256": "ea517677bea5b6fe4c246f8f95de2e69e7c766dad6c0166ab5371b2783edfbd7",
+      "bytes": 483,
+      "basis": "immutable_f49_unchanged_selected_source"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+      "sha256": "48e43ae17b1b0cd7cf36d47bc71e01729d77cf2962225ceb222d9fba483a8b9d",
+      "bytes": 42234,
+      "basis": "immutable_f49_unchanged_selected_source"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/files/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+      "sha256": "bf86720cb046017715ad345b1cf7e392af914d903e0c04b2c867edf37070f226",
+      "bytes": 25551,
+      "basis": "immutable_f49_unchanged_selected_source"
+    }
+  ],
+  "authorFeedback": {
+    "pins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f09-consumers-3.tap",
+        "bytes": 316,
+        "sha256": "db55c18baacbb2b1d7e1e369fd858a3d7f0042d8d7960e5662786bdfc3646a18"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-reentry-triage-001/author/f09-consumers-4.tap",
+        "bytes": 338,
+        "sha256": "4f82cc38c65169da1550d8e430625b40aa73973e15dc62ca0980fd8f699dab4c"
+      }
+    ],
+    "observations": [
+      {
+        "label": "f09-consumers-3",
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "exit": 0
+      },
+      {
+        "label": "f09-consumers-4",
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "exit": 0
+      }
+    ],
+    "standing": "Completed author scratch feedback only; no actual native C2/current acceptance inferred."
+  },
+  "limits": [
+    "No current Product code or controls changed; null accessor intentionally selects the existing snapshot branch only for the injected fault. This case alone does not establish every durable-owned-selector failure mode.",
+    "No requirement to preserve an obsolete readAll hook as production behavior; selected contract is actual route-owner refusal and atomic durable conservation.",
+    "No tests, builds, providers, moving candidate reads, Product/test/control edits or git mutations.",
+    "Only INDEPENDENT_F09_PROOF_DELTA_REVIEW.md/json written.",
+    "Final native Result/after-observation identity remains pending and is not an absence finding.",
+    "Actual C2 omitted-test/helper scope is assigned separately; not reviewed or changed here.",
+    "Prior N5-PROOF-01 and N5-CODE-01 judgments remain unchanged. Final reuse only for unchanged hashes; Root owns acceptance."
+  ],
+  "memoryBasis": "MEMORY.md:179-183; bounded evidence/current authority separation"
+}

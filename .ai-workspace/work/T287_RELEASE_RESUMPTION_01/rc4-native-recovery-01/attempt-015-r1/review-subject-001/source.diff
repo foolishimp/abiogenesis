@@ -1,0 +1,1841 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts b/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts
+index ac2526422..b696b4b18 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts
+@@ -77,6 +77,22 @@ type AnyReadCallable = ExactDefinitionCallable<
+   AbgProjectReadResourceAssertion,
+   AbgProjectReadResourceReceipt
+ >;
++type ExactReadCallable<TPacket extends AnyReadPacket> = ExactDefinitionCallable<
++  TPacket,
++  AbgProjectReadResourceAssertion,
++  AbgProjectReadResourceReceipt
++>;
++type ExactReadBindings<K extends AbgProjectReadMemberKey> = {
++  readonly [M in K]: ExactReadCallable<(typeof ABG_PROJECT_READ_CONTRACTS)[M]>;
++};
++
++/** Each read callable is constructed over its own packet and projects only
++ * that packet's owner output; the shared body is typed over the packet set. */
++function exactReadCallable<TPacket extends AnyReadPacket>(
++  callable: AnyReadCallable,
++): ExactReadCallable<TPacket> {
++  return callable as unknown as ExactReadCallable<TPacket>;
++}
+ 
+ type RunReadMemberKey = "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay";
+ 
+@@ -570,10 +586,10 @@ export function projectAbgReadOutput(
+ 
+ /** One authority/currentness relation shared by the Run reads and their two
+  * typed GraphCall companions. Declaration evidence reaches the native owner. */
+-function runReadKernel(
+-  packet: AnyReadPacket,
+-): AnyReadCallable {
+-  return (call) => Effect.try({
++function runReadKernel<TPacket extends AnyReadPacket>(
++  packet: TPacket,
++): ExactReadCallable<TPacket> {
++  return exactReadCallable<TPacket>((call) => Effect.try({
+     try: () => {
+       const acquired = acquireAbgEventResource(call.resources.eventResource);
+       if (acquired.kind !== "acquired_abg_event_resource") {
+@@ -746,14 +762,14 @@ function runReadKernel(
+         String(cause),
+       );
+     },
+-  });
++  }));
+ }
+ 
+-function binding(
+-  packet: AnyReadPacket,
++function binding<TPacket extends AnyReadPacket>(
++  packet: TPacket,
+   memberKey: AbgProjectReadMemberKey,
+-): AnyReadCallable {
+-  return (call) => Effect.try({
++): ExactReadCallable<TPacket> {
++  return exactReadCallable<TPacket>((call) => Effect.try({
+     try: (): DefinitionReturn<AnyReadPacket, AbgProjectReadResourceReceipt> => {
+       if (
+         !hasExactKeys(call.resources, ["eventResource", "kind", "schemaVersion"]) ||
+@@ -844,7 +860,7 @@ function binding(
+         String(cause),
+       );
+     },
+-  });
++  }));
+ }
+ 
+ const legacyBindings = Object.fromEntries(
+@@ -856,7 +872,7 @@ const legacyBindings = Object.fromEntries(
+           binding(packet, memberKey as AbgProjectReadMemberKey),
+         ]]
+   ),
+-) as Readonly<Partial<Record<AbgProjectReadMemberKey, AnyReadCallable>>>;
++) as ExactReadBindings<Exclude<AbgProjectReadMemberKey, RunReadMemberKey>>;
+ 
+ const RUN_READ_DEFINITION_BINDINGS = Object.freeze({
+   run_status: bindExactPrefixRead(
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts b/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts
+index 0d629257c..e5cbc63e8 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts
+@@ -62,24 +62,25 @@ function withNativeLiveness<const E extends v.ObjectEntries>(fields: E) {
+   })]);
+ }
+ 
+-function subjectStatusProjectionSchema(
+-  kind: "run_status_projection" | "graph_call_status_projection",
+-) {
+-  const fields = {
++// Each projection helper keeps its member's literal kind and its own
++// additional fields, so every packet type is exactly its runtime schema.
++function subjectStatusProjectionSchema<
++  const K extends "run_status_projection" | "graph_call_status_projection",
++  const E extends v.ObjectEntries,
++>(kind: K, additional: E) {
++  return withNativeLiveness({
+     kind: v.literal(kind),
+     subject: refDigestSchema,
+     status: runtimeStatusSchema,
+     replay: refDigestSchema,
+     activeFluents: refDigestSetSchema,
+-  };
+-  return kind === "run_status_projection"
+-    ? withNativeLiveness({ ...fields, executionBasis: refDigestSchema })
+-    : withNativeLiveness(fields);
++    ...additional,
++  });
+ }
+ 
+-function subjectResultProjectionSchema(
+-  kind: "run_result_projection" | "graph_call_result_projection",
+-) {
++function subjectResultProjectionSchema<
++  const K extends "run_result_projection" | "graph_call_result_projection",
++>(kind: K) {
+   return v.strictObject({
+     kind: v.literal(kind),
+     subject: refDigestSchema,
+@@ -90,7 +91,7 @@ function subjectResultProjectionSchema(
+   });
+ }
+ 
+-function subjectEvidenceProjectionSchema(kind: string) {
++function subjectEvidenceProjectionSchema<const K extends string>(kind: K) {
+   return v.strictObject({
+     kind: v.literal(kind),
+     subject: refDigestSchema,
+@@ -100,22 +101,30 @@ function subjectEvidenceProjectionSchema(kind: string) {
+   });
+ }
+ 
+-function subjectReplayProjectionSchema(kind: string, terminalSummary = false) {
+-  const fields = {
++function subjectReplayProjectionSchema<
++  const K extends string,
++  const E extends v.ObjectEntries,
++>(kind: K, additional: E) {
++  return withNativeLiveness({
+     kind: v.literal(kind),
+     subject: refDigestSchema,
+     replay: refDigestSchema,
+     fromOrdinal: safeNonNegativeIntegerSchema,
+     limit: safePositiveIntegerSchema,
++    ...additional,
++  });
++}
++
++function terminalSummaryFields() {
++  return {
++    status: runtimeStatusSchema,
++    terminalResult: v.nullable(ABG_TYPED_TERMINAL_RESULT_SCHEMA),
+   };
+-  return terminalSummary
+-    ? withNativeLiveness({ ...fields, status: runtimeStatusSchema, terminalResult: v.nullable(ABG_TYPED_TERMINAL_RESULT_SCHEMA) })
+-    : withNativeLiveness(fields);
+ }
+ 
+-function subjectGapProjectionSchema(
+-  kind: "workspace_gap_projection" | "run_gap_projection",
+-) {
++function subjectGapProjectionSchema<
++  const K extends "workspace_gap_projection" | "run_gap_projection",
++>(kind: K) {
+   return withNativeLiveness({
+     kind: v.literal(kind),
+     subject: refDigestSchema,
+@@ -179,36 +188,52 @@ const cCallReplaySelectorSchema = v.strictObject({
+   cCall: refDigestSchema,
+ });
+ 
+-function readRefusal(replay: boolean) {
+-  const common = [
+-    "unknown_source",
+-    "source_kind_mismatch",
+-    "source_digest_mismatch",
+-    "projection_basis_mismatch",
+-    "projection_unsupported",
+-    "not_found",
+-    "not_ready",
+-  ] as const;
+-  return replay
+-    ? refusalSchema([...common, "cursor_invalid", "range_invalid"])
+-    : refusalSchema([...common]);
+-}
++const READ_REFUSAL_COMMON = [
++  "unknown_source",
++  "source_kind_mismatch",
++  "source_digest_mismatch",
++  "projection_basis_mismatch",
++  "projection_unsupported",
++  "not_found",
++  "not_ready",
++] as const;
++
++const readRefusalFactories = {
++  terminal: () => refusalSchema([...READ_REFUSAL_COMMON]),
++  replay: () =>
++    refusalSchema([...READ_REFUSAL_COMMON, "cursor_invalid", "range_invalid"]),
++};
++type ReadRefusal = {
++  readonly [M in keyof typeof readRefusalFactories]: ReturnType<
++    (typeof readRefusalFactories)[M]
++  >;
++};
++const READ_REFUSALS: {
++  readonly [M in keyof ReadRefusal]: () => ReadRefusal[M];
++} = readRefusalFactories;
++type ReadRefusalKey<TReplay extends boolean> = TReplay extends true ? "replay"
++  : "terminal";
+ 
+ function abgReadContract<
+   const TCase extends AbgReadCase,
+   const TSourceKind extends string,
+   const TSelector extends v.GenericSchema,
+   const TProjection extends v.GenericSchema,
++  const TReplay extends boolean = false,
+ >(input: Readonly<{
+   caseKey: TCase;
+   sourceKind: TSourceKind;
+   selector: TSelector;
+   projection: TProjection;
+   abstractModule: string;
+-  replay?: boolean;
++  replay?: TReplay;
+ }>) {
+   const authorityRef =
+     `authority://abiogenesis/project-read/${input.caseKey}@5`;
++  const refusalKey = (input.replay === true ? "replay" : "terminal") as
++    ReadRefusalKey<TReplay>;
++  const refusal: ReadRefusal[ReadRefusalKey<TReplay>] =
++    READ_REFUSALS[refusalKey]();
+   return ownerContractPacket(
+     {
+       operationId: "abg.operation.project.read",
+@@ -233,7 +258,7 @@ function abgReadContract<
+       projectionBasis: refDigestSchema,
+       projection: input.projection,
+     }),
+-    readRefusal(input.replay === true),
++    refusal,
+     null,
+     {
+       abstractModule: input.abstractModule,
+@@ -274,14 +299,16 @@ const runStatus = abgReadContract({
+   caseKey: "run_status",
+   sourceKind: "run",
+   selector: noSelectorSchema,
+-  projection: subjectStatusProjectionSchema("run_status_projection"),
++  projection: subjectStatusProjectionSchema("run_status_projection", {
++    executionBasis: refDigestSchema,
++  }),
+   abstractModule: "ABG.RunProjection",
+ });
+ const graphCallStatus = abgReadContract({
+   caseKey: "graph_call_status",
+   sourceKind: "graph_call",
+   selector: noSelectorSchema,
+-  projection: subjectStatusProjectionSchema("graph_call_status_projection"),
++  projection: subjectStatusProjectionSchema("graph_call_status_projection", {}),
+   abstractModule: "ABG.GraphCallProjection",
+ });
+ const runResult = abgReadContract({
+@@ -339,7 +366,7 @@ const workspaceReplay = abgReadContract({
+   caseKey: "workspace_replay",
+   sourceKind: "workspace_binding",
+   selector: replaySelectorSchema,
+-  projection: subjectReplayProjectionSchema("workspace_replay_projection"),
++  projection: subjectReplayProjectionSchema("workspace_replay_projection", {}),
+   abstractModule: "ABG.WorkspaceProjection",
+   replay: true,
+ });
+@@ -347,7 +374,7 @@ const runReplay = abgReadContract({
+   caseKey: "run_replay",
+   sourceKind: "run",
+   selector: replaySelectorSchema,
+-  projection: subjectReplayProjectionSchema("run_replay_projection", true),
++  projection: subjectReplayProjectionSchema("run_replay_projection", terminalSummaryFields()),
+   abstractModule: "ABG.RunProjection",
+   replay: true,
+ });
+@@ -355,7 +382,7 @@ const graphCallReplay = abgReadContract({
+   caseKey: "graph_call_replay",
+   sourceKind: "graph_call",
+   selector: replaySelectorSchema,
+-  projection: subjectReplayProjectionSchema("graph_call_replay_projection", true),
++  projection: subjectReplayProjectionSchema("graph_call_replay_projection", terminalSummaryFields()),
+   abstractModule: "ABG.GraphCallProjection",
+   replay: true,
+ });
+@@ -363,7 +390,7 @@ const interactionReplay = abgReadContract({
+   caseKey: "interaction_replay",
+   sourceKind: "fh_interaction",
+   selector: replaySelectorSchema,
+-  projection: subjectReplayProjectionSchema("interaction_replay_projection"),
++  projection: subjectReplayProjectionSchema("interaction_replay_projection", {}),
+   abstractModule: "ABG.InteractionProjection",
+   replay: true,
+ });
+@@ -371,7 +398,7 @@ const continuationReplay = abgReadContract({
+   caseKey: "continuation_replay",
+   sourceKind: "continuation",
+   selector: replaySelectorSchema,
+-  projection: subjectReplayProjectionSchema("continuation_replay_projection"),
++  projection: subjectReplayProjectionSchema("continuation_replay_projection", {}),
+   abstractModule: "ABG.ContinuationProjection",
+   replay: true,
+ });
+@@ -379,7 +406,7 @@ const cCallReplay = abgReadContract({
+   caseKey: "c_call_replay",
+   sourceKind: "c_program_atom_receipt",
+   selector: cCallReplaySelectorSchema,
+-  projection: subjectReplayProjectionSchema("c_call_replay_projection"),
++  projection: subjectReplayProjectionSchema("c_call_replay_projection", {}),
+   abstractModule: "ABG.CCallProjection",
+   replay: true,
+ });
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts b/build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts
+index 8e5b017ed..e300de812 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts
+@@ -56,22 +56,20 @@ const runContextSchema = v.strictObject({
+   basis: refDigestSchema,
+ });
+ 
+-function witnessContextSchema(act: WitnessAct) {
+-  if (act === "hygiene-stamp") return workspaceContextSchema;
+-  if (act === "intake") return segmentContextSchema;
+-  if (act === "run-resumed" || act === "run-stopped") {
+-    return runContextSchema;
+-  }
+-  return basisContextSchema;
+-}
+-
+-function witnessSubjectKind(act: WitnessAct) {
+-  if (act === "reprice") return "authority_basis" as const;
+-  if (act === "attest") return "evidence_claim" as const;
+-  if (act === "hygiene-stamp") return "workspace" as const;
+-  if (act === "intake") return "intake_item" as const;
+-  return "run" as const;
+-}
++// Each act owns one subject kind and one context schema, so each packet type
++// carries exactly its own act domain.
++const WITNESS_ACT_DOMAINS = Object.freeze({
++  reprice: { subjectKind: "authority_basis", context: basisContextSchema },
++  attest: { subjectKind: "evidence_claim", context: basisContextSchema },
++  "hygiene-stamp": { subjectKind: "workspace", context: workspaceContextSchema },
++  intake: { subjectKind: "intake_item", context: segmentContextSchema },
++  "run-resumed": { subjectKind: "run", context: runContextSchema },
++  "run-stopped": { subjectKind: "run", context: runContextSchema },
++} as const) satisfies Readonly<Record<WitnessAct, Readonly<{
++  subjectKind: string;
++  context: v.GenericSchema;
++}>>>;
++type WitnessActDomain = typeof WITNESS_ACT_DOMAINS;
+ 
+ const witnessRefusalSchema = refusalSchema([
+   "actor_mismatch",
+@@ -85,7 +83,10 @@ const witnessRefusalSchema = refusalSchema([
+ ]);
+ 
+ function witnessContract<const TAct extends WitnessAct>(act: TAct) {
+-  const subjectKind = witnessSubjectKind(act);
++  const subjectKind: WitnessActDomain[TAct]["subjectKind"] =
++    WITNESS_ACT_DOMAINS[act].subjectKind;
++  const context: WitnessActDomain[TAct]["context"] =
++    WITNESS_ACT_DOMAINS[act].context;
+   const executionScoped =
+     act === "intake" || act === "run-resumed" || act === "run-stopped";
+   return ownerContractPacket(
+@@ -95,7 +96,7 @@ function witnessContract<const TAct extends WitnessAct>(act: TAct) {
+       subject: refDigestSchema,
+       act: v.literal(act),
+       content: witnessContentSchema,
+-      context: witnessContextSchema(act),
++      context,
+       evidence: nonemptyRefDigestSetSchema,
+       provenance: nonemptyRefDigestSetSchema,
+     }),
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts b/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts
+index 9bfb27baa..1b4d283d4 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts
+@@ -35,7 +35,9 @@ import {
+   admitRuntimeContract,
+   publicContractCoordinateSchema,
+   type OwnerContractSourceDeclaration,
++  type OwnerRequestOf,
+ } from "../shared/public_function_contracts.js";
++import type { RUN_OPERATION_CONTRACTS } from "./run_operation_contracts.js";
+ import {
+   selectIntrinsicPublicFunctionDefinition,
+   type IntrinsicPublicFunctionDefinition,
+@@ -194,22 +196,10 @@ export interface InvocationConstructionRefusal {
+   readonly message: string;
+ }
+ 
+-export interface ExactDirectRunInvocationRequest
+-  extends Readonly<Record<string, JsonValue>> {
+-  readonly program: Readonly<{ readonly ref: string; readonly digest: Sha256Digest }>;
+-  readonly catalogHandle: string;
+-  readonly inputContract: Readonly<{
+-    readonly ref: string;
+-    readonly digest: Sha256Digest;
+-  }>;
+-  readonly input: JsonValue;
+-  readonly catalogView: Readonly<{
+-    readonly ref: string;
+-    readonly digest: Sha256Digest;
+-  }>;
+-  readonly allowlist: readonly string[];
+-  readonly sourceBasis: Readonly<Record<string, JsonValue>>;
+-}
++/** The owner request of the direct GraphFunction member. */
++export type ExactDirectRunInvocationRequest =
++  & OwnerRequestOf<typeof RUN_OPERATION_CONTRACTS.invoke.invoke>
++  & Readonly<Record<string, JsonValue>>;
+ 
+ export type ExactDirectRunInvocation = AdmittedPublicInvocation<
+   Readonly<{
+@@ -219,30 +209,10 @@ export type ExactDirectRunInvocation = AdmittedPublicInvocation<
+   ExactDirectRunInvocationRequest
+ >;
+ 
+-export interface ExactStartRunInvocationRequest
+-  extends Readonly<Record<string, JsonValue>> {
+-  readonly program: Readonly<{ readonly ref: string; readonly digest: Sha256Digest }>;
+-  readonly scope: "program";
+-  readonly target: Readonly<Record<string, JsonValue>>;
+-  readonly until: "converged";
+-  readonly catalogView: Readonly<{
+-    readonly ref: string;
+-    readonly digest: Sha256Digest;
+-  }>;
+-  readonly allowlist: readonly string[];
+-  readonly input: Readonly<{
+-    readonly contract: Readonly<{
+-      readonly ref: string;
+-      readonly digest: Sha256Digest;
+-    }>;
+-    readonly valueRef: string;
+-    readonly valueDigest: Sha256Digest;
+-    readonly value: JsonValue;
+-  }>;
+-  readonly fhMode: "direct" | "human-proxy";
+-  readonly rootMode: "direct" | "supervised";
+-  readonly sourceBasis: Readonly<Record<string, JsonValue>>;
+-}
++/** The owner request of the Program start member, defaults applied. */
++export type ExactStartRunInvocationRequest =
++  & OwnerRequestOf<typeof RUN_OPERATION_CONTRACTS.invoke.start>
++  & Readonly<Record<string, JsonValue>>;
+ 
+ export type ExactStartRunInvocation = AdmittedPublicInvocation<
+   Readonly<{
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts b/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts
+index 3a3000d71..d01d7ebb3 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts
+@@ -187,13 +187,13 @@ const continueRefusalSchema = refusalSchema([
+ // execution (registered selection/recursion) with no intent or action field.
+ const CURRENT_EXECUTION_KINDS = ["current_intent", "pending_execution"] as const;
+ 
+-function continueContract<const TMember extends
+-  "current_intent" | "selected_action">(member: TMember) {
+-  const kinds = member === "current_intent" ? CURRENT_EXECUTION_KINDS : [member] as const;
+-  // The unchanged selected_action member keeps its exact single-literal serialization.
+-  const kindSchema = member === "current_intent" ? v.picklist(CURRENT_EXECUTION_KINDS) : v.literal(member);
+-  const request = member === "current_intent"
+-    ? v.union([
++// Each continuation member constructs only its own variant, so the packet type
++// of each member is exactly its runtime schema.
++const continueVariantFactories = {
++  current_intent: () => ({
++    kinds: CURRENT_EXECUTION_KINDS,
++    kindSchema: v.picklist(CURRENT_EXECUTION_KINDS),
++    request: v.union([
+       v.strictObject({
+         run: refDigestSchema,
+         continuation: refDigestSchema,
+@@ -208,8 +208,14 @@ function continueContract<const TMember extends
+         continuationInput: refDigestSchema,
+         expectedBasis: refDigestSchema,
+       }),
+-    ])
+-    : v.strictObject({
++    ]),
++    admittedIntent: v.null(),
++  }),
++  // The unchanged selected_action member keeps its exact single-literal serialization.
++  selected_action: () => ({
++    kinds: ["selected_action"] as const,
++    kindSchema: v.literal("selected_action"),
++    request: v.strictObject({
+       run: refDigestSchema,
+       continuation: refDigestSchema,
+       selectedAction: refDigestSchema,
+@@ -220,14 +226,33 @@ function continueContract<const TMember extends
+           coveringReprice: refDigestSchema,
+         }),
+       ]),
+-    });
++    }),
++    admittedIntent: refDigestSchema,
++  }),
++};
++type ContinueVariant = {
++  readonly [M in keyof typeof continueVariantFactories]: ReturnType<
++    (typeof continueVariantFactories)[M]
++  >;
++};
++const CONTINUE_VARIANTS: {
++  readonly [M in keyof ContinueVariant]: () => ContinueVariant[M];
++} = continueVariantFactories;
++
++function continueContract<const TMember extends
++  "current_intent" | "selected_action">(member: TMember) {
++  const variant = CONTINUE_VARIANTS[member]();
++  // Indexed annotations keep each member's own variant instead of the union.
++  const kinds: ContinueVariant[TMember]["kinds"] = variant.kinds;
++  const kindSchema: ContinueVariant[TMember]["kindSchema"] = variant.kindSchema;
++  const request: ContinueVariant[TMember]["request"] = variant.request;
++  const admittedIntent: ContinueVariant[TMember]["admittedIntent"] =
++    variant.admittedIntent;
+   const result = v.strictObject({
+     continuationKind: kindSchema,
+     run: refDigestSchema,
+     graphCall: v.nullable(refDigestSchema),
+-    admittedIntent: member === "selected_action"
+-      ? refDigestSchema
+-      : v.null(),
++    admittedIntent,
+     successor: refDigestSchema,
+     disposition: v.picklist(["completed", "blocked", "runtime_failed"]),
+     evidence: nonemptyRefDigestSetSchema,
+diff --git a/build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts b/build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts
+index e21302cbd..f8abc4bb1 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts
+@@ -23,10 +23,15 @@ import { deepFreeze } from "../../shared/immutable.js";
+ import {
+   type OwnerContractSourceDeclaration,
+   type OwnerDefinitionMetadata,
++  type OwnerRequestOf,
+   projectStrictJsonSchema,
+   type RuntimeContractSchema,
+ } from "../../shared/public_function_contracts.js";
+ import type { PublicDefinitionKeyLike } from "../../shared/public_invocation.js";
++import type * as Effect from "effect/Effect";
++import type * as AbgOwnerModule from "../../abg/index.js";
++import type * as ProductOwnerModule from "../../product/index.js";
++import type * as ValidatorOwnerModule from "../../validator/index.js";
+ 
+ export const EXACT_OWNER_CONTRACT_KEY_SET_DIGEST =
+   "sha256:61077d017dbbe0bd071f312066d27bc6535a732aa9da00cd543a70506ec24a4f" as const;
+@@ -223,6 +228,160 @@ export const OWNER_CONTRACT_MODULE_SOURCES = Object.freeze([
+   }),
+ ] as const satisfies readonly OwnerContractModuleSource[]);
+ 
++// The native type family is a type projection of the same source relation:
++// each row's contract root supplies the declared packets, and the row's actual
++// package-export binding supplies the callable resource and receipt types at
++// the same member path. No operation, request or resource roster is restated.
++interface InstalledOwnerModuleTypes {
++  readonly "./product": typeof ProductOwnerModule;
++  readonly "./abg": typeof AbgOwnerModule;
++  readonly "./validator": typeof ValidatorOwnerModule;
++}
++
++type OwnerContractModuleSourceRow =
++  (typeof OWNER_CONTRACT_MODULE_SOURCES)[number];
++
++/** Every declaration leaf of one contract root, with its member path. */
++type OwnerContractLeaf<TRoot, TPath extends readonly string[] = readonly []> =
++  TRoot extends OwnerContractSourceDeclaration
++    ? readonly [TPath, TRoot]
++    : TRoot extends object
++    ? {
++      readonly [K in keyof TRoot & string]: OwnerContractLeaf<
++        TRoot[K],
++        readonly [...TPath, K]
++      >;
++    }[keyof TRoot & string]
++    : never;
++
++type ExportMemberAt<TValue, TPath extends readonly string[]> = TPath extends
++  readonly [infer THead extends string, ...infer TRest extends readonly string[]]
++  ? TValue extends object
++    ? THead extends keyof TValue ? ExportMemberAt<TValue[THead], TRest> : undefined
++    : undefined
++  : TValue;
++
++type BindingExportOf<TRow extends OwnerContractModuleSourceRow> =
++  TRow["definitionBindingExportName"] extends
++    keyof InstalledOwnerModuleTypes[TRow["packageExportPath"]]
++    ? InstalledOwnerModuleTypes[TRow["packageExportPath"]][
++      TRow["definitionBindingExportName"]
++    ]
++    : undefined;
++
++/** One actual installed callable: its resource assertion and resource receipt. */
++export interface OwnerCallableDefinitionBinding<TResources, TResourceReceipt> {
++  readonly kind: "callable";
++  readonly resources: TResources;
++  readonly resourceReceipt: TResourceReceipt;
++}
++
++/** A declared member without an installed callable; transport refuses it. */
++export interface OwnerUnavailableDefinitionBinding {
++  readonly kind: "installed_binding_unavailable";
++}
++
++// An absent leaf is unavailable. A present leaf that is not an exact callable
++// for its own packet key is `never`, so the member disappears and the finite
++// family proof fails instead of reclassifying the binding.
++type OwnerDefinitionBindingOf<
++  TCallable,
++  TPacket extends OwnerContractSourceDeclaration,
++> = [TCallable] extends [undefined] ? OwnerUnavailableDefinitionBinding
++  : [TCallable] extends [
++    (call: infer TCall) => Effect.Effect<infer TReturn, infer _TFault, never>,
++  ]
++    ? [TCall, TReturn] extends [
++      Readonly<{
++        invocation: Readonly<{ definitionKey: infer TKey }>;
++        resources: infer TResources;
++      }>,
++      Readonly<{ resources: infer TResourceReceipt }>,
++    ]
++      ? [TKey] extends [TPacket["definitionKey"]]
++        ? [TPacket["definitionKey"]] extends [TKey]
++          ? OwnerCallableDefinitionBinding<TResources, TResourceReceipt>
++        : never
++      : never
++    : never
++  : never;
++
++type OwnerDefinitionMembersOf<TRow extends OwnerContractModuleSourceRow> =
++  OwnerContractLeaf<TRow["contractRoot"]> extends infer TLeaf
++    ? TLeaf extends readonly [
++      infer TPath extends readonly string[],
++      infer TPacket extends OwnerContractSourceDeclaration,
++    ] ? OwnerDefinitionBindingOf<
++        ExportMemberAt<BindingExportOf<TRow>, TPath>,
++        TPacket
++      > extends infer TBinding
++      ? [TBinding] extends [never] ? never
++      : {
++        readonly definitionKey: TPacket["definitionKey"];
++        readonly memberPath: TPath;
++        readonly packageExportPath: TRow["packageExportPath"];
++        readonly definitionBindingExportName:
++          TRow["definitionBindingExportName"];
++        readonly packet: TPacket;
++        readonly binding: TBinding;
++      }
++      : never
++    : never
++    : never;
++
++/** The fifty-six declared packet members with their binding leaves. */
++export type OwnerDefinitionMember = OwnerContractModuleSourceRow extends
++  infer TRow ? TRow extends OwnerContractModuleSourceRow
++    ? OwnerDefinitionMembersOf<TRow>
++  : never
++  : never;
++
++export type OwnerCallableDefinitionMember = Extract<
++  OwnerDefinitionMember,
++  Readonly<{ binding: Readonly<{ kind: "callable" }> }>
++>;
++
++export type OwnerUnavailableDefinitionMember = Extract<
++  OwnerDefinitionMember,
++  Readonly<{ binding: OwnerUnavailableDefinitionBinding }>
++>;
++
++export type OwnerDefinitionKey = OwnerDefinitionMember["definitionKey"];
++
++export type OwnerDefinitionCompositeKey<
++  TMember extends OwnerDefinitionMember = OwnerDefinitionMember,
++> = TMember extends unknown
++  ? `${TMember["definitionKey"]["operationId"]}#${TMember["definitionKey"]["memberKey"]}`
++  : never;
++
++/** The declared member one literal key selects; a widened key selects none. */
++export type OwnerDefinitionMemberOf<K extends PublicDefinitionKeyLike> =
++  string extends K["operationId"] ? never
++    : string extends K["memberKey"] ? never
++    : Extract<
++      OwnerDefinitionMember,
++      Readonly<{
++        definitionKey: Readonly<{
++          operationId: K["operationId"];
++          memberKey: K["memberKey"];
++        }>;
++      }>
++    >;
++
++type RequestVariantKeys<TRequest> = TRequest extends unknown ? keyof TRequest
++  : never;
++
++/** The owner request alias. Strict-object variants of one request union carry
++ * no field of a sibling variant, as their runtime schemas already require. */
++export type OwnerDefinitionRequestOf<TMember extends OwnerDefinitionMember> =
++  OwnerRequestOf<TMember["packet"]> extends infer TRequest
++    ? [RequestVariantKeys<TRequest>] extends [keyof TRequest] ? TRequest
++    : TRequest extends unknown ? TRequest & {
++        readonly [K in Exclude<RequestVariantKeys<OwnerRequestOf<TMember["packet"]>>, keyof TRequest>]?: never;
++      }
++    : never
++    : never;
++
+ export interface ResolvedOwnerContractSource {
+   readonly sourceModulePath: string;
+   readonly sourceModuleDigest: Sha256Digest;
+diff --git a/build_tenants/abiogenesis/typescript/code/src/public/index.ts b/build_tenants/abiogenesis/typescript/code/src/public/index.ts
+index 40b84cc26..d4686e7ca 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/public/index.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/public/index.ts
+@@ -10,10 +10,23 @@ export {
+   runInstalledDefinitionCallTransport,
+   runInstalledDefinitionCallWithResource,
+   type InstalledDefinitionCallAcquisition,
++  type InstalledDefinitionCallCandidateCheck,
+   type InstalledDefinitionCallTransportOutcome,
++  type InstalledDefinitionCallTransportOutcomeOf,
+   type InstalledDefinitionCallTransportRefusal,
+   type InstalledDefinitionCallTransportResult,
+ } from "./installed_definition_call_transport.js";
++export type {
++  OwnerCallableDefinitionBinding,
++  OwnerCallableDefinitionMember,
++  OwnerDefinitionCompositeKey,
++  OwnerDefinitionKey,
++  OwnerDefinitionMember,
++  OwnerDefinitionMemberOf,
++  OwnerDefinitionRequestOf,
++  OwnerUnavailableDefinitionBinding,
++  OwnerUnavailableDefinitionMember,
++} from "./binding/owner_contract_source_set.js";
+ export {
+   PUBLIC_FUNCTION_DEFINITION_FAMILY,
+   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
+@@ -40,5 +53,8 @@ export {
+ } from "./binding/public_function_projections.js";
+ export {
+   constructInstalledPublicDefinitionCall,
++  type InstalledPublicDefinitionCall,
++  type InstalledPublicDefinitionCallEnvironment,
+   type InstalledPublicDefinitionCallInput,
++  type InstalledPublicDefinitionCallSelection,
+ } from "./installed_public_definition_call.js";
+diff --git a/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts b/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts
+index e53573e3c..14de7915c 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts
+@@ -11,10 +11,14 @@ import {
+ } from "../shared/effect_definition.js";
+ import {
+   OWNER_CONTRACT_SOURCES,
++  type OwnerCallableDefinitionMember,
++  type OwnerDefinitionMemberOf,
+ } from "./binding/owner_contract_source_set.js";
+ import type {
+   OwnerContractSourceDeclaration,
++  OwnerRequestOf,
+ } from "../shared/public_function_contracts.js";
++import type { PublicDefinitionKeyLike } from "../shared/public_invocation.js";
+ import { admitExactDefinitionCall } from "./binding/definition_binding_mechanics.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import * as validator from "../validator/index.js";
+@@ -42,17 +46,58 @@ export type InstalledDefinitionCallTransportRefusal = {
+   readonly message: string;
+ };
+ 
+-export type InstalledDefinitionCallTransportResult = {
++export type InstalledDefinitionCallTransportResult<
++  TPacket extends OwnerContractSourceDeclaration =
++    OwnerContractSourceDeclaration,
++  TResourceReceipt = unknown,
++> = {
+   readonly kind: "installed_definition_call_transport_result";
+   readonly schemaVersion: "5.0.0";
+   readonly acquisitionKind: "eventless" | "new" | "reopen" | "acquired";
+-  readonly receipt: DefinitionHostReceipt;
++  readonly receipt: DefinitionHostReceipt<TPacket, TResourceReceipt>;
+ };
+ 
+-export type InstalledDefinitionCallTransportOutcome =
+-  | InstalledDefinitionCallTransportResult
++export type InstalledDefinitionCallTransportOutcome<
++  TPacket extends OwnerContractSourceDeclaration =
++    OwnerContractSourceDeclaration,
++  TResourceReceipt = unknown,
++> =
++  | InstalledDefinitionCallTransportResult<TPacket, TResourceReceipt>
+   | InstalledDefinitionCallTransportRefusal;
+ 
++type CandidateDefinitionMember<C> = C extends Readonly<{
++  invocation: Readonly<{ definitionKey: infer K extends PublicDefinitionKeyLike }>;
++}> ? OwnerDefinitionMemberOf<K>
++  : never;
++
++/** A typed candidate of one declared member must carry that member's own
++ * request and installed callable resources; raw input stays unconstrained. */
++export type InstalledDefinitionCallCandidateCheck<C> =
++  [CandidateDefinitionMember<C>] extends [never] ? unknown
++    : CandidateDefinitionMember<C> extends infer M
++      ? M extends OwnerCallableDefinitionMember
++        ? C extends Readonly<{
++          invocation: Readonly<{ request: OwnerRequestOf<M["packet"]> }>;
++          resources: M["binding"]["resources"];
++        }> ? unknown
++        : never
++      : unknown
++    : never;
++
++/** A typed callable member keeps its owner output and resource receipt; an
++ * unavailable member can only be refused; raw input keeps the raw outcome. */
++export type InstalledDefinitionCallTransportOutcomeOf<C> =
++  [CandidateDefinitionMember<C>] extends [never]
++    ? InstalledDefinitionCallTransportOutcome
++    : CandidateDefinitionMember<C> extends infer M
++      ? M extends OwnerCallableDefinitionMember
++        ? InstalledDefinitionCallTransportOutcome<
++          M["packet"],
++          M["binding"]["resourceReceipt"]
++        >
++      : InstalledDefinitionCallTransportRefusal
++    : never;
++
+ type InstalledModulePath = "./product" | "./abg" | "./validator";
+ type InstalledModule = Readonly<Record<string, unknown>>;
+ type AnyDefinitionCall = DefinitionCall<OwnerContractSourceDeclaration, unknown>;
+@@ -292,7 +337,18 @@ function detachDefinitionCall(original: AnyDefinitionCall): AnyDefinitionCall {
+   return detached;
+ }
+ 
+-export async function runInstalledDefinitionCallTransport(
++/** The selected installed owner and its exact receipt follow the candidate's
++ * own definition key; the raw transport admits every candidate unchanged. */
++export function runInstalledDefinitionCallTransport<C = unknown>(
++  acquisition: InstalledDefinitionCallAcquisition,
++  candidate: C & InstalledDefinitionCallCandidateCheck<C>,
++): Promise<InstalledDefinitionCallTransportOutcomeOf<C>> {
++  return transportInstalledDefinitionCall(acquisition, candidate) as Promise<
++    InstalledDefinitionCallTransportOutcomeOf<C>
++  >;
++}
++
++async function transportInstalledDefinitionCall(
+   acquisition: InstalledDefinitionCallAcquisition,
+   candidate: unknown,
+ ): Promise<InstalledDefinitionCallTransportOutcome> {
+@@ -336,7 +392,17 @@ export async function runInstalledDefinitionCallTransport(
+ 
+ /** Thin native carrier: semantic data is detached, while the exact owner-issued
+  * physical selection survives. The same installed callable admits and executes it. */
+-export async function runInstalledDefinitionCallWithResource(
++export function runInstalledDefinitionCallWithResource<C = unknown>(
++  resource: abg.AcquiredAbgEventResourceSelection,
++  candidate: C & InstalledDefinitionCallCandidateCheck<C>,
++): Promise<InstalledDefinitionCallTransportOutcomeOf<C>> {
++  return transportInstalledDefinitionCallWithResource(
++    resource,
++    candidate,
++  ) as Promise<InstalledDefinitionCallTransportOutcomeOf<C>>;
++}
++
++async function transportInstalledDefinitionCallWithResource(
+   resource: abg.AcquiredAbgEventResourceSelection,
+   candidate: unknown,
+ ): Promise<InstalledDefinitionCallTransportOutcome> {
+diff --git a/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts b/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts
+index 8c0a6a1f9..4843af353 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts
+@@ -11,17 +11,21 @@ import type {
+ } from "./binding/public_function_family.js";
+ import type { PublicProjectionPayloads } from "./binding/public_function_projections.js";
+ import type {
+-  InvocationAuthorityCandidateSlots,
++  AdmittedPublicInvocation,
++  InvocationAuthoritySlotName,
++  InvocationAuthoritySlotsOf,
+   PublicContractCatalogCoordinate,
+   PublicContractCoordinate,
+   PublicContractSlot,
++  PublicDefinitionKeyLike,
+ } from "../shared/public_invocation.js";
++import type {
++  OwnerCallableDefinitionMember,
++  OwnerDefinitionRequestOf,
++} from "./binding/owner_contract_source_set.js";
+ 
+ /** Explicit installed inputs for pure construction; no input is admitted here. */
+-export interface InstalledPublicDefinitionCallInput<
+-  TRequest extends Readonly<Record<string, JsonValue>>,
+-  TResources,
+-> {
++export interface InstalledPublicDefinitionCallEnvironment {
+   readonly product: Readonly<{
+     canonicalJson: (value: JsonValue) => string;
+     sha256Canonical: (value: JsonValue) => Sha256Digest;
+@@ -35,21 +39,96 @@ export interface InstalledPublicDefinitionCallInput<
+   readonly definitionContractCoordinates:
+     CompleteDefinitionContractCoordinateMap | null;
+   readonly contractCatalog: PublicContractCatalogCoordinate;
+-  readonly operationId: string;
+-  readonly memberKey: string;
+-  readonly request: TRequest;
+-  readonly slots: InvocationAuthorityCandidateSlots;
+-  readonly resources: TResources;
+   readonly requestRef: string;
+   readonly correlationRef: string;
+   readonly eventTime: string;
+   readonly provenanceRefs: readonly string[];
+ }
+ 
+-type ConstructionProduct = InstalledPublicDefinitionCallInput<
+-  Readonly<Record<string, JsonValue>>,
+-  unknown
+->["product"];
++type RequiredAuthoritySlotNames<K extends PublicDefinitionKeyLike, R> = {
++  readonly [S in InvocationAuthoritySlotName]:
++    [InvocationAuthoritySlotsOf<K, R>[S]] extends [null] ? never : S;
++}[InvocationAuthoritySlotName];
++
++type SameSlotNames<A, B> = [A] extends [B] ? [B] extends [A] ? true : false
++  : false;
++
++type RequestPropertyVariant<R, P extends keyof R> = R[P] extends infer V
++  ? V extends unknown ? { readonly [Q in keyof R]: Q extends P ? V : R[Q] }
++  : never
++  : never;
++
++// A request property is split only when one of its variants changes the
++// required authority-slot set; other unions stay whole.
++type SlotRelevantRequestKeys<K extends PublicDefinitionKeyLike, R> = {
++  readonly [P in keyof R]-?: RequestPropertyVariant<R, P> extends infer V
++    ? V extends unknown
++      ? SameSlotNames<
++        RequiredAuthoritySlotNames<K, V>,
++        RequiredAuthoritySlotNames<K, R>
++      > extends true ? never
++      : P
++    : never
++    : never;
++}[keyof R];
++
++type LastOfUnion<U> =
++  (U extends unknown ? (value: () => U) => void : never) extends
++    (value: infer I) => void ? I extends () => infer L ? L : never
++    : never;
++
++type SplitRequestAt<R, P> = [P] extends [never] ? R
++  : LastOfUnion<P> extends infer L extends keyof R
++    ? RequestPropertyVariant<R, L> extends infer V
++      ? V extends unknown ? SplitRequestAt<V, Exclude<P, L>> : never
++    : never
++  : never;
++
++/** Concrete request variants distribute before the conditional slot law. */
++type SlotRequestVariants<K extends PublicDefinitionKeyLike, R> = R extends
++  unknown ? SplitRequestAt<R, SlotRelevantRequestKeys<K, R>>
++  : never;
++
++type InstalledPublicDefinitionCallSelectionOf<
++  M extends OwnerCallableDefinitionMember,
++  R,
++> = {
++  readonly operationId: M["definitionKey"]["operationId"];
++  readonly memberKey: M["definitionKey"]["memberKey"];
++  readonly request: R;
++  readonly slots: InvocationAuthoritySlotsOf<M["definitionKey"], R>;
++  readonly resources: M["binding"]["resources"];
++};
++
++/** One callable member, one owner request variant, its exact authority slots
++ * and its installed callable resource assertion. */
++export type InstalledPublicDefinitionCallSelection<
++  M extends OwnerCallableDefinitionMember = OwnerCallableDefinitionMember,
++> = M extends unknown
++  ? SlotRequestVariants<M["definitionKey"], OwnerDefinitionRequestOf<M>> extends
++    infer R ? R extends unknown ? InstalledPublicDefinitionCallSelectionOf<M, R>
++    : never
++  : never
++  : never;
++
++export type InstalledPublicDefinitionCallInput<
++  S extends InstalledPublicDefinitionCallSelection =
++    InstalledPublicDefinitionCallSelection,
++> = InstalledPublicDefinitionCallEnvironment & S;
++
++/** The constructed envelope keeps the selected key, request and resources. */
++export type InstalledPublicDefinitionCall<
++  S extends InstalledPublicDefinitionCallSelection =
++    InstalledPublicDefinitionCallSelection,
++> = Readonly<{
++  invocation: AdmittedPublicInvocation<
++    Readonly<{ operationId: S["operationId"]; memberKey: S["memberKey"] }>,
++    S["request"] & Readonly<Record<string, JsonValue>>
++  >;
++  resources: S["resources"];
++}>;
++
++type ConstructionProduct = InstalledPublicDefinitionCallEnvironment["product"];
+ 
+ function exact<T>(
+   values: readonly T[],
+@@ -120,8 +199,7 @@ function requireSlot({
+  * the invocation, authority, request and resources before any execution.
+  */
+ export function constructInstalledPublicDefinitionCall<
+-  TRequest extends Readonly<Record<string, JsonValue>>,
+-  TResources,
++  S extends InstalledPublicDefinitionCallSelection,
+ >({
+   product,
+   installedPublic,
+@@ -136,7 +214,7 @@ export function constructInstalledPublicDefinitionCall<
+   correlationRef,
+   eventTime,
+   provenanceRefs,
+-}: InstalledPublicDefinitionCallInput<TRequest, TResources>) {
++}: InstalledPublicDefinitionCallInput<S>): InstalledPublicDefinitionCall<S> {
+   if (definitionContractCoordinates === null) {
+     throw new TypeError(
+       "installed Public DefinitionCall requires verified definition coordinates",
+@@ -254,6 +332,8 @@ export function constructInstalledPublicDefinitionCall<
+     provenanceRefs: Object.freeze([...provenanceRefs]),
+   });
+   const invocationDigest = product.sha256Canonical(invocationBody as unknown as JsonValue);
++  // The exact installed selection above is the selected key; request, slots
++  // and resources keep their supplied identity.
+   return Object.freeze({
+     invocation: Object.freeze({
+       ...invocationBody,
+@@ -262,5 +342,5 @@ export function constructInstalledPublicDefinitionCall<
+       invocationDigest,
+     }),
+     resources,
+-  });
++  }) as unknown as InstalledPublicDefinitionCall<S>;
+ }
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+index 96c400cfb..f13403578 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+@@ -27,6 +27,7 @@ import { deriveRuntimeEventCalculusProjection, holdsAt, constructRuntimeFluent }
+ import { ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store.js';
+ import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
+ import { rehydrateAdmittedImplementationSetAtPrefix } from '../../build/code/src/abg/execution_basis.js';
++import { modulePublicationSemanticDigest } from '../../build/code/src/product/publication.js';
+ const product = await loadWorksiteOwner();
+ // Component frontier: the exact-prefix workspace environment is a controlled
+ // premise keyed by each fixture's exact binding and authority prefix. The
+@@ -51,6 +52,28 @@ const realizeNativeWorkspaceWork = await (async () => {
+ })();
+ const ids = native.NATIVE_WORKSPACE_WORK_IDS;
+ const digest = label => product.sha256Canonical({ label });
++// Component frontier: the owned assembly basis is a controlled premise keyed by
++// the exact basis each fixture constructs, and the STDO role read supplies one
++// assessor role and no constructor role. The actual NativeInstructionAssembly
++// producer renders and returns the complete worker request.
++const assemblyOwners = new WeakMap();
++const assessorRole = deepFreeze({frameRefs:['frame://fixture/reviewer'],policy:{policyRef:'policy://fixture/reviewer',text:'Independent assessment',digest:digest('reviewer-policy')},
++  contextPolicy:{policyRef:'policy://fixture/read-only',selectors:['current_worksite','current_candidate','full_source']},sourceContent:[],accessContent:[]});
++const instructionAssembly = await (async () => {
++  const path = resolve(import.meta.dirname, '../../build/code/src/abg/instruction_assembly.js');
++  const module = new SourceTextModule(await fs.readFile(path, 'utf8'), {identifier: path});
++  const premises = {
++    './execution_basis.js': {authenticateOwnedNativeInstructionAssemblyBasis: basis => assemblyOwners.get(basis) ?? null},
++    './stdo_environment.js': {projectRunEnvironmentRoleEvidenceAtPrefix: (...args) => args.at(-1) === 'assessor' ? assessorRole : null},
++  };
++  await module.link(async specifier => {
++    const imported = await import(specifier.startsWith('node:') || !specifier.startsWith('.') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href);
++    const values = {...imported, ...premises[specifier]};
++    return new SyntheticModule(Object.keys(values), function () { for (const [key, value] of Object.entries(values)) this.setExport(key, value); });
++  });
++  await module.evaluate();
++  return module.namespace;
++})();
+ const publication = constructNativeWorkspaceWorkModulePublication({productId:'product://native-owner/test',
+   artifactDigest:digest('artifact'), productContentDigest:digest('content'), productManifestDigest:digest('manifest'),
+   packageName:'@abiogenesis/typescript-tenant', packageVersion:'5.0.0-dev.286'});
+@@ -261,19 +284,39 @@ async function prepare(t, env, realize = true) {
+     implementationRef:row.implementationRef,implementationOwnerRef:row.implementationOwnerProductId,
+     effectUri:ids.effectUri,handlerRef:ids.handlerRef,handlerDigest:native.NATIVE_WORKSPACE_WORK_HANDLER_DIGEST,
+     capabilityGrantRef:env.capabilityGrant.grantRef,capabilityGrantDigest:env.capabilityGrant.grantDigest});
+-  const request={implementationRef:ids.implementationRef,inputDigest:product.sha256Canonical(env.task),transportLane:'worker_executes',
+-    resultContractRef:native.nativeWorkspaceWorkResultContractRef(env.task),responseJsonSchema:native.nativeWorkspaceWorkResponseSchema(env.task),
+-    ...(env.task.assessment===undefined?{}:{responsePresentation:'result_text'})};
++  // The assessor additionally reads its exact schema owner install and the
++  // root graph's declared raw result contract, as the installed Product declares.
++  const a=env.task.assessment;
++  let assemblyPublication=publication,assemblyInstalls=env.productInstalls??[];
++  if(a!==undefined){
++    const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64'),root=publication.graphFunctions[0];
++    await fs.writeFile(join(env.scratch,'native-assessment-schema.json'),schemaBytes);
++    assemblyPublication={...publication,contracts:[...publication.contracts,a.resultContract],graphFunctions:[{...root,
++      declarations:{...root.declarations,'abg.raw_result_contract':a.resultContract.contractRef}},...publication.graphFunctions.slice(1)]};
++    assemblyInstalls=[...assemblyInstalls,{productId:publication.owningProductId,installedRoot:env.scratch,publicContracts:[{
++      contractKind:'schema_asset',contractId:a.schemaAsset.contractId,contractVersion:'5.0.0',owningProduct:publication.owningProductId,
++      contractDigest:product.sha256Bytes(schemaBytes),assetLocator:{path:'native-assessment-schema.json',mediaType:'application/schema+json',contentDigest:product.sha256Bytes(schemaBytes)}}],
++      artifactDigest:assemblyPublication.artifactDigest,productContentDigest:assemblyPublication.productContentDigest,manifestDigest:assemblyPublication.productManifestDigest,
++      contributionManifest:{publicationBindings:[{moduleRef:assemblyPublication.moduleRef,publicationDigest:modulePublicationSemanticDigest(assemblyPublication)}]}}];
++  }
++  const assemblyBasis={publication:assemblyPublication,graphFunction:publication.graphFunctions.find(g=>g.name===graphFunctionRef),
++    executionBasis:authority.executionBasis,cCall:call,predecessorPrefix:authority.predecessorPrefix};
++  assemblyOwners.set(assemblyBasis,{inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:native-work-input',
++    call,execution:authority.executionBasis,program:assemblyPublication.programs[0],events:[],prefix:authority.predecessorPrefix,
++    environment:{kind:'exact_prefix_workspace_environment',productInstalls:assemblyInstalls}});
++  const assembly=instructionAssembly.constructWorksiteNativeInstructionAssembly(assemblyBasis,env.task);
++  assert.equal(assembly?.kind,'native_instruction_assembly','the actual producer assembles the complete native worker request');
++  const request=assembly.request;
+   const occurrence={...call,executionAuthority:authority};
+   environments.set(env.workspaceBinding.bindingId,{prefix:sink.prefix,environment:{kind:'exact_prefix_workspace_environment',
+     workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:env.productInstalls??[]}});
+-  const prepared=realize?await realizeNativeWorkspaceWork(env.task,occurrence,()=>({request})):null;
++  const prepared=realize?await realizeNativeWorkspaceWork(env.task,occurrence,()=>assembly):null;
+   const exchange=(finalOutput,disposition='success')=>({request,observation:{implementationRef:ids.implementationRef,
+     inputDigest:request.inputDigest,transportLane:'worker_executes',actorInvocationRef:'actor-invocation://native-owner/test',
+     transportBindingRef:'transport-binding://native-owner/test',transportBindingDigest:digest('transport-binding'),
+     promptDigest:digest('prompt'),transportDigest:digest('transport'),finalOutput,disposition,
+     failureClass:disposition==='success'?null:'absolute_timeout'}});
+-  return {prepared,exchange,occurrence,request,call};
++  return {prepared,exchange,occurrence,request,call,assembly};
+ }
+ test('native work publishes one ordinary callable effect with run and child closure',()=>{
+   assert.equal(rawAdmitValue(publication,'module_publication','contract://abiogenesis/gtl/module-publication@5').kind,'raw_admitted_value');
+@@ -296,9 +339,9 @@ test('native task conserves read-only scope, admits explicit write roots outside
+ test('owner refuses stale context before assembly/dispatch',async t=>{
+   const env=await fixture(t);const p=await prepare(t,env);
+   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'outside change\n');let calls=0;
+-  await assert.rejects(realizeNativeWorkspaceWork(env.task,p.occurrence,()=>{calls++;return {request:p.request};}),/stale/);
++  await assert.rejects(realizeNativeWorkspaceWork(env.task,p.occurrence,()=>{calls++;return p.assembly;}),/stale/);
+   assert.equal(calls,0);
+-  await assert.rejects(realizeNativeWorkspaceWork(env.task,{...p.occurrence,executionAuthority:null},()=>({request:p.request})),/authority/);
++  await assert.rejects(realizeNativeWorkspaceWork(env.task,{...p.occurrence,executionAuthority:null},()=>p.assembly),/authority/);
+ });
+ test('protected write roots refuse exact, enclosing and inside overlap before assembly/dispatch; R and W outside R stay admitted',async t=>{
+   // Path controls: a declared binding root inside A. Physical controls: an
+@@ -308,7 +351,7 @@ test('protected write roots refuse exact, enclosing and inside overlap before as
+   const attempt=async(writeRoots,setup=async()=>{})=>{
+     const env=await fixture(t,writeRoots,options);await setup(env);
+     const p=await prepare(t,env,false),authority=p.occurrence.executionAuthority;let assemblies=0;
+-    const assemble=()=>{assemblies++;return {request:p.request};};
++    const assemble=()=>{assemblies++;return p.assembly;};
+     const direct=await realizeNativeWorkspaceWork(env.task,p.occurrence,assemble).then(prepared=>({prepared}),error=>({error}));
+     const viaPort=await port.invokeLeafOwnerBoundary({resolution:authority.implementationResolution,value:env.task,inputDigest:product.sha256Canonical(env.task),
+       failureValueKind:'native_workspace_work_failure',verifyAuthority:()=>native.nativeWorkspaceWorkAuthorityMatches(env.task,authority),validateSuccess:native.isNativeWorkspaceWorkObservation,
+@@ -373,7 +416,7 @@ test('admitted-member task context keeps unchanged bodies by reference and birth
+   const p=await prepare(t,{...env,task});
+   // Physical currentness remains the effect owner's fresh observation, also for a member-carried file.
+   await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'outside change\n');
+-  await assert.rejects(realizeNativeWorkspaceWork(task,p.occurrence,()=>({request:p.request})),/stale/);
++  await assert.rejects(realizeNativeWorkspaceWork(task,p.occurrence,()=>p.assembly),/stale/);
+   await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'unchanged\n');
+   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'actual edit\n');
+   const exchange=p.exchange(JSON.stringify({summary:'edited',gaps:[]}));
+@@ -888,8 +931,10 @@ test('typed read-only assessment retains F_P source and exact observed basis, no
+   const wrongFormat=await p.prepared.complete(p.exchange(JSON.stringify({...JSON.parse(verdict()),residuals:['not an email']})));
+   assert.equal(wrongFormat.disposition,'failure');assert.equal(wrongFormat.resultCandidate.failureClass,'result_contract_failure','native completion still applies full format validation');
+   const {responsePresentation,...omittedPresentation}=p.request;
+-  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({request:omittedPresentation})),/assembly differs from its owner contract/);
+-  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({request:{...p.request,responsePresentation:'structured_output'}})),/assembly differs from its owner contract/);
++  // Malformed controls mutate the complete actual request of the actual assembly.
++  assert.equal(Object.keys(p.request).length,12);assert.equal(typeof p.request.prompt,'string');
++  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({...p.assembly,request:omittedPresentation})),/assembly differs from its owner contract/);
++  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({...p.assembly,request:{...p.request,responsePresentation:'structured_output'}})),/assembly differs from its owner contract/);
+   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'changed after assessment\n');
+   const current=await product.observeWorksiteContext(env.read);
+   assert.equal(native.nativeWorkspaceAssessmentMatchesContext(observation,current),false,'changed candidate cannot reuse the verdict');
+@@ -968,7 +1013,7 @@ test('assessment task refuses mutable scope and mismatched source/rubric coordin
+   assert.equal(native.isNativeWorkspaceWorkTask({...env.task,assessment:{...env.task.assessment,
+     sources:[{...env.task.assessment.sources[0],digest:digest('wrong')}]}}),false);
+   const p=await prepare(t,env);await fs.writeFile(join(env.canonicalRoot,'rubric.md'),'changed rubric\n');let assemblies=0;
+-  await assert.rejects(realizeNativeWorkspaceWork(env.task,p.occurrence,()=>{assemblies++;return {request:p.request};}),/stale/);
++  await assert.rejects(realizeNativeWorkspaceWork(env.task,p.occurrence,()=>{assemblies++;return p.assembly;}),/stale/);
+   assert.equal(assemblies,0);
+ });
+ 
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs
+new file mode 100644
+index 000000000..3a47b9289
+--- /dev/null
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs
+@@ -0,0 +1,287 @@
++// T287 HC1 owner-derived native call typing. Real compiler checks of the
++// canonical and packed package declarations, packed-runtime inventory and raw
++// refusals, and a per-slot schema comparison with the exact014 baseline. Not
++// HC2 population, installed Run proof, qualification or release evidence.
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import fs from 'node:fs';
++import os from 'node:os';
++import path from 'node:path';
++import { createHash } from 'node:crypto';
++import { execFileSync } from 'node:child_process';
++import { pathToFileURL } from 'node:url';
++import ts from 'typescript';
++
++const tenant = path.resolve(process.env.ABG_FRAMEWORK_HANDOFF_TENANT_ROOT ?? path.resolve(import.meta.dirname, '../..'));
++const proofPath = path.join(tenant, 'test_env/types/framework-handoff.compile.ts');
++const proofConfigPath = path.join(tenant, 'test_env/tsconfig.framework-handoff.json');
++const BASELINE_SHA256 = 'b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db';
++const PACKAGE_NAME = '@abiogenesis/typescript-tenant';
++const CANONICAL_IMPORTS = /^@abiogenesis\/typescript-tenant\/(public|product|abg|validator)$/;
++const HC1_DECLARATIONS = ['OwnerCallableDefinitionMember', 'OwnerUnavailableDefinitionMember',
++  'InstalledPublicDefinitionCallSelection', 'InstalledDefinitionCallTransportOutcomeOf'];
++const SLOTS = ['request', 'result', 'refusal', 'nonTerminal'];
++
++const proofText = fs.readFileSync(proofPath, 'utf8');
++const proofSource = ts.createSourceFile(proofPath, proofText, ts.ScriptTarget.ES2022, true);
++
++function proofConfig() {
++  const parsed = ts.getParsedCommandLineOfConfigFile(proofConfigPath, {}, {...ts.sys,
++    onUnRecoverableConfigFileDiagnostic: d => { throw new Error(ts.flattenDiagnosticMessageText(d.messageText, '\n')); }});
++  assert.deepEqual(parsed.errors, []);
++  return parsed;
++}
++
++const markers = proofText.split('\n').flatMap((line, index) => {
++  const match = line.match(/\/\/ @ts-expect-error HC1-NEG (\S+) ([\d ]+)$/);
++  return match === null ? [] : [{name: match[1], line: index + 2, codes: match[2].trim().split(/\s+/).map(Number)}];
++});
++
++/** The finite oracle declared once, in the compiled proof itself. */
++function oracle(name) {
++  let values = null;
++  ts.forEachChild(proofSource, node => {
++    if (!ts.isVariableStatement(node)) return;
++    for (const declaration of node.declarationList.declarations) {
++      if (declaration.name.getText() !== name) continue;
++      const array = declaration.initializer.expression;
++      values = array.elements.map(element => element.text);
++    }
++  });
++  assert.ok(values, name);
++  return values;
++}
++
++const format = d => ({code: d.code, file: d.file?.fileName ?? null,
++  line: d.file ? d.file.getLineAndCharacterOfPosition(d.start).line + 1 : null,
++  message: ts.flattenDiagnosticMessageText(d.messageText, '\n').slice(0, 600)});
++
++function compile(rootFile, options, text = null) {
++  const host = ts.createCompilerHost(options);
++  if (text !== null) {
++    const getSourceFile = host.getSourceFile.bind(host), readFile = host.readFile.bind(host);
++    host.getSourceFile = (file, language, ...rest) => path.resolve(file) === rootFile
++      ? ts.createSourceFile(file, text, language, true) : getSourceFile(file, language, ...rest);
++    host.readFile = file => path.resolve(file) === rootFile ? text : readFile(file);
++  }
++  const program = ts.createProgram({rootNames: [rootFile], options, host});
++  const errors = ts.getPreEmitDiagnostics(program).filter(d => d.category === ts.DiagnosticCategory.Error);
++  return {program, errors};
++}
++
++/** Fail closed: an absent or stale (pre-HC1) package proves nothing. */
++function requireHc1Declarations(packageRoot) {
++  const manifest = JSON.parse(fs.readFileSync(path.join(packageRoot, 'package.json'), 'utf8'));
++  const types = path.join(packageRoot, manifest.exports['./public'].types);
++  assert.ok(fs.existsSync(types), `canonical package declarations are absent: ${types}`);
++  const text = fs.readFileSync(types, 'utf8');
++  for (const name of HC1_DECLARATIONS) assert.match(text, new RegExp(`\\b${name}\\b`), `${types} predates HC1: ${name}`);
++  return manifest;
++}
++
++function exportFile(packageRoot, manifest, subpath, condition) {
++  const target = manifest.exports[subpath];
++  return path.join(packageRoot, typeof target === 'string' ? target : target[condition] ?? target.default);
++}
++
++function scratch(t, prefix) {
++  const root = fs.mkdtempSync(path.join(os.tmpdir(), prefix));
++  t.after(() => fs.rmSync(root, {recursive: true, force: true}));
++  return root;
++}
++
++function extract(archive, into) {
++  fs.mkdirSync(into, {recursive: true});
++  execFileSync('tar', ['-xzf', archive, '-C', into]);
++  return path.join(into, 'package');
++}
++
++/** The candidate is an explicit packed archive, an explicit extracted package
++ * root, or a fresh `npm pack --ignore-scripts` of the built tenant. */
++function candidatePackage(t) {
++  if (process.env.ABG_FRAMEWORK_HANDOFF_PACKAGE_ROOT !== undefined) return path.resolve(process.env.ABG_FRAMEWORK_HANDOFF_PACKAGE_ROOT);
++  const root = scratch(t, 'abg-hc1-candidate-');
++  let archive = process.env.ABG_FRAMEWORK_HANDOFF_PACKAGE_ARCHIVE;
++  if (archive === undefined) {
++    requireHc1Declarations(tenant);
++    const [packed] = JSON.parse(execFileSync('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', root],
++      {cwd: tenant, encoding: 'utf8', maxBuffer: 1 << 26}));
++    archive = path.join(root, packed.filename);
++  }
++  return extract(path.resolve(archive), path.join(root, 'extract'));
++}
++
++async function loadPackage(packageRoot) {
++  const manifest = JSON.parse(fs.readFileSync(path.join(packageRoot, 'package.json'), 'utf8'));
++  assert.equal(manifest.name, PACKAGE_NAME);
++  const load = subpath => import(pathToFileURL(exportFile(packageRoot, manifest, subpath, 'import')).href);
++  return {manifest, public: await load('./public'), product: await load('./product'), abg: await load('./abg'), validator: await load('./validator')};
++}
++
++const keyOf = definition => `${definition.definitionKey.operationId}#${definition.definitionKey.memberKey}`;
++const sorted = value => Array.isArray(value) ? value.map(sorted) : value !== null && typeof value === 'object'
++  ? Object.fromEntries(Object.keys(value).sort().map(key => [key, sorted(value[key])])) : value;
++const canonical = value => JSON.stringify(sorted(value));
++
++test('HC1 proof source uses only canonical package imports and no proof-erasing construct', () => {
++  const imports = [];
++  const erasing = [];
++  const visit = node => {
++    if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node) && node.moduleSpecifier) imports.push(node.moduleSpecifier.text);
++    if (ts.isImportTypeNode(node) || ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword) erasing.push('dynamic or type import');
++    if (ts.isAsExpression(node) && node.type.getText() !== 'const') erasing.push(`as ${node.type.getText()}`);
++    if (ts.isTypeAssertionExpression(node) || ts.isNonNullExpression(node)) erasing.push(node.getText());
++    if (node.kind === ts.SyntaxKind.AnyKeyword) erasing.push('any');
++    ts.forEachChild(node, visit);
++  };
++  visit(proofSource);
++  assert.ok(imports.length > 0);
++  for (const specifier of imports) assert.match(specifier, CANONICAL_IMPORTS);
++  assert.deepEqual(erasing, []);
++  assert.doesNotMatch(proofText, /@ts-ignore|@ts-nocheck/);
++  assert.equal(proofText.match(/@ts-expect-error/g).length, markers.length, 'every expected error is a named HC1 negative');
++  assert.equal(new Set(markers.map(m => m.name)).size, markers.length);
++  assert.ok(markers.length >= 17);
++  assert.equal(oracle('DECLARED').length, 56);
++  assert.equal(oracle('UNAVAILABLE').length, 9);
++});
++
++test('canonical no-emit compile of the HC1 proof resolves package declarations and has no diagnostics', () => {
++  requireHc1Declarations(tenant);
++  const config = proofConfig();
++  assert.deepEqual(config.fileNames.map(file => path.resolve(file)), [proofPath]);
++  const {program, errors} = compile(proofPath, config.options);
++  assert.deepEqual(errors.map(format), []);
++  const files = program.getSourceFiles().map(file => path.resolve(file.fileName));
++  assert.equal(files.some(file => file.startsWith(path.join(tenant, 'code/src'))), false, 'no tenant source is compiled');
++  assert.ok(files.includes(path.join(tenant, 'build/code/src/public/index.d.ts')));
++});
++
++test('each HC1 negative fails on its own line for its declared reason', () => {
++  requireHc1Declarations(tenant);
++  const stripped = proofText.replace(/\/\/ @ts-expect-error HC1-NEG/g, '// HC1-NEG');
++  const {errors} = compile(proofPath, proofConfig().options, stripped);
++  const rows = errors.map(format);
++  for (const marker of markers) {
++    const codes = rows.filter(row => row.file !== null && path.resolve(row.file) === proofPath && row.line === marker.line).map(row => row.code);
++    assert.ok(codes.length > 0, `${marker.name} does not fail`);
++    for (const code of codes) assert.ok(marker.codes.includes(code), `${marker.name}: TS${code}`);
++  }
++  assert.deepEqual(rows.filter(row => !markers.some(marker => row.line === marker.line && row.file !== null && path.resolve(row.file) === proofPath)), []);
++});
++
++test('packed consumer compiles the HC1 proof from canonical package declarations only', t => {
++  const packageRoot = candidatePackage(t);
++  const manifest = requireHc1Declarations(packageRoot);
++  const consumer = scratch(t, 'abg-hc1-consumer-');
++  fs.writeFileSync(path.join(consumer, 'package.json'), '{"type":"module","private":true}\n');
++  fs.mkdirSync(path.join(consumer, 'node_modules/@abiogenesis'), {recursive: true});
++  fs.symlinkSync(packageRoot, path.join(consumer, 'node_modules', PACKAGE_NAME), 'dir');
++  const root = path.join(consumer, 'framework-handoff.compile.ts');
++  fs.copyFileSync(proofPath, root);
++  const {program, errors} = compile(root, {...proofConfig().options, preserveSymlinks: true});
++  assert.deepEqual(errors.map(format), []);
++  const files = program.getSourceFiles().map(file => path.resolve(file.fileName));
++  const tenantOwned = [path.join(tenant, 'code'), path.join(tenant, 'build')].map(dir => dir + path.sep);
++  assert.equal(files.some(file => tenantOwned.some(dir => file.startsWith(dir))), false, 'no tenant source or build is compiled');
++  const declarations = files.filter(file => file.startsWith(path.join(consumer, 'node_modules', PACKAGE_NAME, 'build') + path.sep));
++  assert.ok(declarations.length > 0);
++  for (const subpath of ['./public', './product']) {
++    const resolved = ts.resolveModuleName(PACKAGE_NAME + subpath.slice(1), root, {...proofConfig().options, preserveSymlinks: true}, ts.sys).resolvedModule;
++    assert.equal(path.resolve(resolved.resolvedFileName), path.join(consumer, 'node_modules', PACKAGE_NAME, manifest.exports[subpath].types));
++  }
++  t.diagnostic(JSON.stringify({kind: 'hc1_packed_consumer', compilerVersion: ts.version, package: `${manifest.name}@${manifest.version}`,
++    packageDeclarations: declarations.length, negatives: markers.length}));
++});
++
++test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members and its raw refusals', async t => {
++  const pkg = await loadPackage(candidatePackage(t));
++  const definitions = pkg.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions;
++  assert.deepEqual(definitions.map(keyOf).sort(), [...oracle('DECLARED')].sort());
++  const modules = {'./product': pkg.product, './abg': pkg.abg, './validator': pkg.validator};
++  const callable = [], unavailable = [];
++  for (const definition of definitions) {
++    const locator = definition.executionBindingSpecification.callable;
++    assert.equal(locator.packageName, PACKAGE_NAME);
++    // The binding member path is the owner contract-root member path.
++    assert.deepEqual(locator.memberPath, definition.requestContract.source.memberPath, keyOf(definition));
++    let selected = modules[locator.packageExportPath];
++    for (const segment of [locator.namedExport, ...locator.memberPath]) {
++      selected = selected !== null && typeof selected === 'object' && Object.hasOwn(selected, segment) ? selected[segment] : undefined;
++    }
++    (typeof selected === 'function' ? callable : unavailable).push(keyOf(definition));
++    if (typeof selected !== 'function') assert.equal(selected, undefined, keyOf(definition));
++  }
++  assert.equal(callable.length, 47);
++  assert.deepEqual(unavailable.sort(), [...oracle('UNAVAILABLE')].sort());
++
++  // A structurally exact witness attest call reaches its absent binding.
++  const api = pkg.public, hash = pkg.product.sha256Canonical, ref = label => ({ref: label, digest: hash({label})});
++  const definition = definitions.find(row => keyOf(row) === 'abg.operation.witness.admit#attest');
++  const projection = api.PUBLIC_OPERATION_CONTRACT_PROJECTIONS.find(row => row.operationId === definition.definitionKey.operationId)
++    .definitions.find(row => row.definitionKey.memberKey === definition.definitionKey.memberKey);
++  const asset = api.PUBLIC_PROJECTION_PAYLOADS.operationContractAssets.find(row => row.operationId === definition.definitionKey.operationId);
++  const contractCatalog = {productId: 'product://hc1-proof/catalog', productContentDigest: hash('hc1-content'),
++    catalogId: 'catalog://hc1-proof/public', catalogVersion: '5.0.0', catalogDigest: hash('hc1-catalog')};
++  const coordinate = (slot, definitionRef) => ({contractCatalog, flatRow: {contractId: definition.definitionKey.operationId,
++    contractVersion: '5.0.0', contractDigest: asset.contentDigest}, nestedSelector: {selectorKind: 'operation_definition_slot',
++    definitionKey: definition.definitionKey, slot, definitionRef}});
++  const slots = Object.fromEntries(['workspace_binding', 'product_set', 'dependency_lock', 'catalog_scope', 'execution_program',
++    'graph_function', 'input_contract', 'session_policy', 'capability_grants', 'actor', 'transport_steering',
++    'verification_references', 'execution_basis'].map(slot => [slot, null]));
++  Object.assign(slots, {workspace_binding: ref('workspace-binding://hc1'), product_set: [ref('product://hc1')],
++    dependency_lock: ref('lock://hc1'), actor: {actor: ref('actor://hc1'), attribution: ref('attribution://hc1')},
++    capability_grants: {requiredCapabilityRefs: [...definition.capabilityRefs], grants: [ref('grant://hc1')]}});
++  const call = api.constructInstalledPublicDefinitionCall({product: pkg.product, installedPublic: api, contractCatalog,
++    definitionContractCoordinates: {operations: [{operationId: definition.definitionKey.operationId, members: [{memberKey: 'attest',
++      slots: {request: coordinate('request', projection.requestContract.definitionRef), result: coordinate('result', projection.resultContract.definitionRef),
++        refusal: coordinate('refusal', projection.refusalContract.definitionRef), nonTerminal: null}}]}]},
++    operationId: 'abg.operation.witness.admit', memberKey: 'attest',
++    request: {subjectKind: 'evidence_claim', subject: ref('claim://hc1'), act: 'attest',
++      content: {kind: 'typed_reason', contentContract: ref('contract://hc1/reason'), value: {reason: 'hc1'}},
++      context: {kind: 'basis', basis: ref('basis://hc1')}, evidence: [ref('evidence://hc1')], provenance: [ref('provenance://hc1')]},
++    slots, resources: {}, requestRef: 'request://hc1/attest', correlationRef: 'correlation://hc1/attest',
++    eventTime: '2026-11-03T00:00:00.000Z', provenanceRefs: []});
++  const refused = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, call);
++  assert.equal(refused.kind, 'installed_definition_call_transport_refusal', JSON.stringify(refused));
++  assert.equal(refused.code, 'installed_binding_unavailable', refused.message);
++  const unknown = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, {...call,
++    invocation: {...call.invocation, definitionKey: {operationId: 'abg.operation.witness.admit', memberKey: 'absent'}}});
++  assert.equal(unknown.code, 'unknown_definition');
++  assert.equal((await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, null)).code, 'invalid_definition_call');
++  assert.equal((await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, {...call, request: call.invocation.request})).code, 'invalid_definition_call');
++  assert.equal((await api.runInstalledDefinitionCallTransport({kind: 'new', eventLogPath: '/hc1/absent.jsonl'}, call)).code, 'acquisition_mismatch');
++  t.diagnostic(JSON.stringify({kind: 'hc1_packed_runtime_inventory', declared: definitions.length, callable: callable.length, unavailable}));
++});
++
++test('per-slot owner schemas equal the exact014 baseline archive', async t => {
++  const archive = process.env.ABG_HC1_BASELINE_ARCHIVE;
++  assert.ok(archive, 'ABG_HC1_BASELINE_ARCHIVE must name the exact014 baseline archive; schema identity is not assumed');
++  assert.equal(createHash('sha256').update(fs.readFileSync(archive)).digest('hex'), BASELINE_SHA256);
++  const baseline = await loadPackage(extract(path.resolve(archive), scratch(t, 'abg-hc1-baseline-')));
++  const candidate = await loadPackage(candidatePackage(t));
++  const slotRows = pkg => {
++    const rows = new Map();
++    for (const definition of pkg.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions) {
++      for (const slot of SLOTS) {
++        const contract = definition[`${slot}Contract`];
++        const assetSlot = slot === 'nonTerminal' ? 'non_terminal' : slot;
++        const asset = pkg.public.PUBLIC_PROJECTION_PAYLOADS.operationSchemaAssets.find(row =>
++          row.operationId === definition.definitionKey.operationId && row.slot === assetSlot);
++        rows.set(`${keyOf(definition)} ${slot}`, canonical(contract === null ? null : {
++          projectedSchema: asset.content.$defs[definition.definitionKey.memberKey],
++          contractId: contract.contractId, contractVersion: contract.contractVersion, source: contract.source,
++          ownerAuthorityRef: contract.ownerAuthorityRef, ownerAuthorityDigest: contract.ownerAuthorityDigest,
++          nativeSchemaIdentity: contract.nativeSchemaIdentity}));
++      }
++    }
++    return rows;
++  };
++  const expected = slotRows(baseline), actual = slotRows(candidate);
++  assert.equal(expected.size, 56 * SLOTS.length);
++  assert.deepEqual([...actual.keys()].sort(), [...expected.keys()].sort());
++  const changed = [...expected].filter(([key, value]) => actual.get(key) !== value).map(([key]) => key);
++  assert.deepEqual(changed, [], 'runtime owner schema bytes and meanings are unchanged');
++  t.diagnostic(JSON.stringify({kind: 'hc1_baseline_schema_identity', slots: expected.size, baselineSha256: BASELINE_SHA256,
++    familyDigestEqual: baseline.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.familyDigest === candidate.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.familyDigest}));
++});
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json b/build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json
+new file mode 100644
+index 000000000..3c6bac6ab
+--- /dev/null
++++ b/build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json
+@@ -0,0 +1,21 @@
++{
++  "compilerOptions": {
++    "exactOptionalPropertyTypes": true,
++    "forceConsistentCasingInFileNames": true,
++    "incremental": false,
++    "module": "NodeNext",
++    "moduleResolution": "NodeNext",
++    "noEmit": true,
++    "noFallthroughCasesInSwitch": true,
++    "noImplicitOverride": true,
++    "noImplicitReturns": true,
++    "noUncheckedIndexedAccess": true,
++    "skipLibCheck": true,
++    "strict": true,
++    "target": "ES2022",
++    "typeRoots": ["../node_modules/@types"],
++    "types": ["node"],
++    "verbatimModuleSyntax": true
++  },
++  "files": ["types/framework-handoff.compile.ts"]
++}
+diff --git a/build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts b/build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts
+new file mode 100644
+index 000000000..a3a26ec52
+--- /dev/null
++++ b/build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts
+@@ -0,0 +1,329 @@
++// T287 HC1 owner-derived native call typing. Compiler proof only: canonical
++// package declarations, no source or private import, no cast that erases the
++// relation. Each negative is one statement on the line after its marker; the
++// marker names the diagnostic codes that make the case a real refusal.
++import {
++  constructInstalledPublicDefinitionCall,
++  runInstalledDefinitionCallTransport,
++  type InstalledDefinitionCallAcquisition,
++  type InstalledDefinitionCallTransportOutcome,
++  type InstalledDefinitionCallTransportOutcomeOf,
++  type InstalledDefinitionCallTransportRefusal,
++  type InstalledPublicDefinitionCall,
++  type InstalledPublicDefinitionCallEnvironment,
++  type InstalledPublicDefinitionCallSelection,
++  type OwnerCallableDefinitionMember,
++  type OwnerDefinitionCompositeKey,
++  type OwnerDefinitionMember,
++  type OwnerDefinitionRequestOf,
++  type OwnerUnavailableDefinitionMember,
++} from "@abiogenesis/typescript-tenant/public";
++import type {
++  ExactDirectRunInvocationRequest,
++  ExactStartRunInvocationRequest,
++} from "@abiogenesis/typescript-tenant/product";
++
++type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends
++  (<T>() => T extends B ? 1 : 2) ? true : false;
++type Mutual<A, B> = [A] extends [B] ? [B] extends [A] ? true : false : false;
++type IsAny<T> = 0 extends 1 & T ? true : false;
++type IsOpen<T> = IsAny<T> extends true ? true : unknown extends T ? true : false;
++type Assert<T extends true> = T;
++type Distinct<T extends readonly unknown[], Seen = never> = T extends
++  readonly [infer H, ...infer R] ? [H] extends [Seen] ? false : Distinct<R, Seen | H>
++  : true;
++
++// Finite oracle: the declared packet members and the members without an
++// installed callable binding.
++const DECLARED = [
++  "abg.operation.catalog.admit#admit",
++  "abg.operation.catalog.apply#node_type",
++  "abg.operation.catalog.apply#overlay",
++  "abg.operation.catalog.view#allowlist",
++  "abg.operation.conformance.evaluate#gtl_program",
++  "abg.operation.interaction.respond#answer_escalation",
++  "abg.operation.interaction.respond#approve",
++  "abg.operation.interaction.respond#assess",
++  "abg.operation.interaction.respond#reject",
++  "abg.operation.interaction.respond#select",
++  "abg.operation.product.install#install",
++  "abg.operation.product.materialize#configuration",
++  "abg.operation.product.materialize#context_bootstrap",
++  "abg.operation.product.resolve#resolve",
++  "abg.operation.product.verify#verify",
++  "abg.operation.project.read#assessment_evidence",
++  "abg.operation.project.read#c_call_replay",
++  "abg.operation.project.read#catalog_describe",
++  "abg.operation.project.read#catalog_list",
++  "abg.operation.project.read#continuation_replay",
++  "abg.operation.project.read#graph_call_evidence",
++  "abg.operation.project.read#graph_call_replay",
++  "abg.operation.project.read#graph_call_result",
++  "abg.operation.project.read#graph_call_status",
++  "abg.operation.project.read#install_evidence",
++  "abg.operation.project.read#interaction_replay",
++  "abg.operation.project.read#release_evidence",
++  "abg.operation.project.read#result_evidence",
++  "abg.operation.project.read#run_evidence",
++  "abg.operation.project.read#run_gaps",
++  "abg.operation.project.read#run_lawful_actions",
++  "abg.operation.project.read#run_replay",
++  "abg.operation.project.read#run_result",
++  "abg.operation.project.read#run_status",
++  "abg.operation.project.read#ticket_consensus",
++  "abg.operation.project.read#witness_evidence",
++  "abg.operation.project.read#workspace_gaps",
++  "abg.operation.project.read#workspace_replay",
++  "abg.operation.project.read#workspace_status",
++  "abg.operation.release.snapshot#published_rc",
++  "abg.operation.release.snapshot#tapped_release",
++  "abg.operation.result.assess#assess",
++  "abg.operation.run.continue#current_intent",
++  "abg.operation.run.continue#selected_action",
++  "abg.operation.run.invoke#invoke",
++  "abg.operation.run.invoke#start",
++  "abg.operation.witness.admit#attest",
++  "abg.operation.witness.admit#hygiene-stamp",
++  "abg.operation.witness.admit#intake",
++  "abg.operation.witness.admit#reprice",
++  "abg.operation.witness.admit#run-resumed",
++  "abg.operation.witness.admit#run-stopped",
++  "abg.operation.workspace.bind#bind",
++  "abg.operation.workspace.create#clean",
++  "abg.operation.workspace.create#imported",
++  "abg.operation.workspace.open#open",
++] as const;
++const UNAVAILABLE = [
++  "abg.operation.interaction.respond#answer_escalation",
++  "abg.operation.interaction.respond#approve",
++  "abg.operation.interaction.respond#assess",
++  "abg.operation.interaction.respond#reject",
++  "abg.operation.interaction.respond#select",
++  "abg.operation.witness.admit#attest",
++  "abg.operation.witness.admit#hygiene-stamp",
++  "abg.operation.witness.admit#intake",
++  "abg.operation.witness.admit#run-resumed",
++] as const;
++type Declared = (typeof DECLARED)[number];
++type Unavailable = (typeof UNAVAILABLE)[number];
++type CallableKey = OwnerDefinitionCompositeKey<OwnerCallableDefinitionMember>;
++
++export type FamilyProof = [
++  Assert<Equal<(typeof DECLARED)["length"], 56>>,
++  Assert<Distinct<typeof DECLARED>>,
++  Assert<Equal<(typeof UNAVAILABLE)["length"], 9>>,
++  Assert<Distinct<typeof UNAVAILABLE>>,
++  Assert<Equal<Exclude<Unavailable, Declared>, never>>,
++  Assert<Equal<OwnerDefinitionCompositeKey, Declared>>,
++  Assert<Equal<OwnerDefinitionCompositeKey<OwnerUnavailableDefinitionMember>, Unavailable>>,
++  // 56 - 9 = 47 callable members.
++  Assert<Equal<CallableKey, Exclude<Declared, Unavailable>>>,
++  Assert<Equal<OwnerUnavailableDefinitionMember["binding"], { readonly kind: "installed_binding_unavailable" }>>,
++];
++
++type MemberOf<K extends string> = OwnerDefinitionMember extends infer M
++  ? M extends OwnerDefinitionMember ? OwnerDefinitionCompositeKey<M> extends K ? M : never
++  : never
++  : never;
++type CallableMemberOf<K extends CallableKey> = Extract<MemberOf<K>, OwnerCallableDefinitionMember>;
++type SelectionOf<K extends CallableKey> = InstalledPublicDefinitionCallSelection<CallableMemberOf<K>>;
++type CallOf<K extends CallableKey> = SelectionOf<K> extends
++  infer S extends InstalledPublicDefinitionCallSelection ? InstalledPublicDefinitionCall<S> : never;
++type ReceiptOf<K extends CallableKey> = Extract<
++  InstalledDefinitionCallTransportOutcomeOf<CallOf<K>>,
++  { readonly kind: "installed_definition_call_transport_result" }
++>["receipt"];
++
++// Every callable member couples its owner request, its actual callable
++// resource assertion and its exact owner/resource receipt. Each distributed
++// request variant is an owner request; coverage of split members is below.
++type PairHolds<M extends OwnerCallableDefinitionMember> = [
++  Mutual<
++    InstalledDefinitionCallTransportOutcomeOf<
++      InstalledPublicDefinitionCall<InstalledPublicDefinitionCallSelection<M>>
++    >,
++    InstalledDefinitionCallTransportOutcome<M["packet"], M["binding"]["resourceReceipt"]>
++  >,
++  Equal<InstalledPublicDefinitionCallSelection<M>["resources"], M["binding"]["resources"]>,
++  [InstalledPublicDefinitionCallSelection<M>["request"]] extends [OwnerDefinitionRequestOf<M>] ? true : false,
++  IsOpen<M["binding"]["resources"]> extends false ? true : false,
++  IsOpen<M["binding"]["resourceReceipt"]> extends false ? true : false,
++  IsOpen<OwnerDefinitionRequestOf<M>> extends false ? true : false,
++] extends [true, true, true, true, true, true] ? true : false;
++export type PairProof = Assert<Equal<{ readonly [K in CallableKey]: PairHolds<CallableMemberOf<K>> }[CallableKey], true>>;
++
++type StartMember = CallableMemberOf<"abg.operation.run.invoke#start">;
++type DirectMember = CallableMemberOf<"abg.operation.run.invoke#invoke">;
++export type RunAliasProof = [
++  Assert<Mutual<ExactStartRunInvocationRequest, OwnerDefinitionRequestOf<StartMember>>>,
++  Assert<Mutual<ExactDirectRunInvocationRequest, OwnerDefinitionRequestOf<DirectMember>>>,
++];
++
++type StartSelection = SelectionOf<"abg.operation.run.invoke#start">;
++type StartGraph = Extract<StartSelection, { readonly request: { readonly target: { readonly kind: "graph_function" } } }>;
++type StartNext = Extract<StartSelection, { readonly request: { readonly target: { readonly kind: "next" } } }>;
++type VerifySelection = SelectionOf<"abg.operation.product.verify#verify">;
++type VerifyInstalled = Extract<VerifySelection, { readonly request: { readonly targetKind: "installed_artifact" } }>;
++type VerifyPacked = Exclude<VerifySelection, VerifyInstalled>;
++type CurrentSelection = SelectionOf<"abg.operation.run.continue#current_intent">;
++type CurrentIntent = Extract<CurrentSelection, { readonly request: { readonly currentIntent: unknown } }>;
++type PendingExecution = Extract<CurrentSelection, { readonly request: { readonly pendingCursor: unknown } }>;
++type SelectedAction = SelectionOf<"abg.operation.run.continue#selected_action">;
++type RunStopped = SelectionOf<"abg.operation.witness.admit#run-stopped">;
++type Reprice = SelectionOf<"abg.operation.witness.admit#reprice">;
++type RunReplay = SelectionOf<"abg.operation.project.read#run_replay">;
++type CCallReplay = SelectionOf<"abg.operation.project.read#c_call_replay">;
++type RunStatus = SelectionOf<"abg.operation.project.read#run_status">;
++type LawfulActions = SelectionOf<"abg.operation.project.read#run_lawful_actions">;
++type WorkspaceGaps = SelectionOf<"abg.operation.project.read#workspace_gaps">;
++type ProductCatalogList = SelectionOf<"abg.operation.project.read#catalog_list">;
++
++type VerifyMember = CallableMemberOf<"abg.operation.product.verify#verify">;
++// Target-conditional slots follow the distributed request variant, and the
++// distributed variants cover each split owner request.
++export type SlotProof = [
++  Assert<Equal<StartSelection["request"]["target"]["kind"], OwnerDefinitionRequestOf<StartMember>["target"]["kind"]>>,
++  Assert<Equal<VerifySelection["request"]["targetKind"], OwnerDefinitionRequestOf<VerifyMember>["targetKind"]>>,
++  Assert<Equal<[CurrentIntent] extends [never] ? false : [PendingExecution] extends [never] ? false : true, true>>,
++  Assert<IsOpen<StartGraph> extends false ? true : false>,
++  Assert<Equal<StartNext["slots"]["graph_function"], null>>,
++  Assert<Equal<StartGraph["slots"]["graph_function"] extends null ? true : false, false>>,
++  Assert<Equal<VerifyPacked["slots"]["dependency_lock"], null>>,
++  Assert<Equal<VerifyInstalled["slots"]["dependency_lock"] extends null ? true : false, false>>,
++  Assert<Equal<Reprice["slots"]["execution_basis"], null>>,
++  Assert<Equal<RunStopped["slots"]["execution_basis"] extends null ? true : false, false>>,
++];
++
++type ResultValue<K extends CallableKey> = Extract<NonNullable<ReceiptOf<K>["ownerOutput"]>, { readonly outcomeKind: "result" }>["value"];
++// Owner outputs keep each member's own variant.
++export type OutputProof = [
++  Assert<Equal<NonNullable<ReceiptOf<"abg.operation.run.invoke#start">["ownerOutput"]>["outcomeKind"], "result" | "refusal" | "nonterminal">>,
++  Assert<Equal<NonNullable<ReceiptOf<"abg.operation.project.read#run_status">["ownerOutput"]>["outcomeKind"], "result" | "refusal">>,
++  Assert<Equal<ResultValue<"abg.operation.project.read#run_status">["projection"]["kind"], "run_status_projection">>,
++  Assert<Equal<ResultValue<"abg.operation.project.read#graph_call_replay">["projection"]["kind"], "graph_call_replay_projection">>,
++  Assert<Equal<ResultValue<"abg.operation.run.continue#selected_action">["continuationKind"], "selected_action">>,
++  Assert<Equal<ResultValue<"abg.operation.run.continue#current_intent">["admittedIntent"], null>>,
++  Assert<Equal<ResultValue<"abg.operation.run.continue#current_intent">["continuationKind"], "current_intent" | "pending_execution">>,
++  Assert<Equal<ReceiptOf<"abg.operation.run.invoke#start">["exitCode"], 0 | 1 | 3 | 70>>,
++  Assert<Equal<ReceiptOf<"abg.operation.run.invoke#start">["resources"], StartMember["binding"]["resourceReceipt"] | null>>,
++];
++
++// Unavailable members are only refused; raw input keeps the raw outcome and
++// every existing transport refusal code.
++type UnavailableCandidate = { readonly invocation: { readonly definitionKey: { readonly operationId: "abg.operation.witness.admit"; readonly memberKey: "attest" } }; readonly resources: {} };
++export type RefusalProof = [
++  Assert<Equal<InstalledDefinitionCallTransportOutcomeOf<UnavailableCandidate>, InstalledDefinitionCallTransportRefusal>>,
++  Assert<Equal<InstalledDefinitionCallTransportOutcomeOf<unknown>, InstalledDefinitionCallTransportOutcome>>,
++  Assert<Equal<InstalledDefinitionCallTransportRefusal["code"],
++    "invalid_definition_call" | "unknown_definition" | "installed_binding_unavailable" | "acquisition_mismatch">>,
++];
++
++declare const environment: InstalledPublicDefinitionCallEnvironment;
++declare const acquisition: InstalledDefinitionCallAcquisition;
++declare const raw: unknown;
++declare const startGraph: StartGraph;
++declare const startNext: StartNext;
++declare const direct: SelectionOf<"abg.operation.run.invoke#invoke">;
++declare const verifyInstalled: VerifyInstalled;
++declare const verifyPacked: VerifyPacked;
++declare const currentIntent: CurrentIntent;
++declare const pendingExecution: PendingExecution;
++declare const selectedAction: SelectedAction;
++declare const runStopped: RunStopped;
++declare const reprice: Reprice;
++declare const runReplay: RunReplay;
++declare const cCallReplay: CCallReplay;
++declare const runStatus: RunStatus;
++declare const lawfulActions: LawfulActions;
++declare const workspaceGaps: WorkspaceGaps;
++declare const productCatalogList: ProductCatalogList;
++
++export const startCall = constructInstalledPublicDefinitionCall({ ...environment, operationId: "abg.operation.run.invoke", memberKey: "start", request: startGraph.request, slots: startGraph.slots, resources: startGraph.resources });
++export const nextCall = constructInstalledPublicDefinitionCall({ ...environment, operationId: "abg.operation.run.invoke", memberKey: "start", request: startNext.request, slots: startNext.slots, resources: startNext.resources });
++export const directCall = constructInstalledPublicDefinitionCall({ ...environment, ...direct });
++export const verifyCalls = [
++  constructInstalledPublicDefinitionCall({ ...environment, ...verifyInstalled }),
++  constructInstalledPublicDefinitionCall({ ...environment, ...verifyPacked }),
++] as const;
++export const continueCalls = [
++  constructInstalledPublicDefinitionCall({ ...environment, ...currentIntent }),
++  constructInstalledPublicDefinitionCall({ ...environment, ...pendingExecution }),
++  constructInstalledPublicDefinitionCall({ ...environment, ...selectedAction }),
++] as const;
++export const runStoppedCall = constructInstalledPublicDefinitionCall({ ...environment, ...runStopped });
++export const runStatusCall = constructInstalledPublicDefinitionCall({ ...environment, ...runStatus });
++
++export type ConstructionProof = [
++  Assert<Equal<typeof startCall.invocation.definitionKey["memberKey"], "start">>,
++  Assert<Equal<typeof startCall.resources, StartMember["binding"]["resources"]>>,
++  Assert<Equal<typeof startCall.invocation.request["target"]["kind"], "graph_function">>,
++];
++
++export async function typedTransport(): Promise<void> {
++  const outcome = await runInstalledDefinitionCallTransport(acquisition, startCall);
++  if (outcome.kind === "installed_definition_call_transport_refusal") {
++    const code: InstalledDefinitionCallTransportRefusal["code"] = outcome.code;
++    void code;
++    return;
++  }
++  const receipt = outcome.receipt;
++  const key: StartMember["packet"]["definitionKey"] = receipt.definitionKey;
++  const resourceReceipt: StartMember["binding"]["resourceReceipt"] | null = receipt.resources;
++  void key; void resourceReceipt;
++  // Host fault: no owner output; the failure keeps the typed fault or defect.
++  if (receipt.ownerOutput === null) {
++    const failureKind: "typed_execution_fault" | "defect_or_interruption" | undefined = receipt.failure?.failureKind;
++    void failureKind;
++    return;
++  }
++  // Runtime nonterminal stays distinct from result and refusal.
++  if (receipt.ownerOutput.outcomeKind === "nonterminal") return;
++  const read = await runInstalledDefinitionCallTransport(acquisition, runStatusCall);
++  if (read.kind === "installed_definition_call_transport_result") {
++    // @ts-expect-error HC1-NEG terminal-read-has-no-nonterminal 2367
++    if (read.receipt.ownerOutput?.outcomeKind === "nonterminal") return;
++  }
++  const rawOutcome: InstalledDefinitionCallTransportOutcome = await runInstalledDefinitionCallTransport(acquisition, raw);
++  void rawOutcome;
++  for (const call of [...verifyCalls, ...continueCalls, nextCall, directCall, runStoppedCall]) {
++    await runInstalledDefinitionCallTransport(acquisition, call);
++  }
++}
++
++declare const pendingWithoutCursor: Omit<PendingExecution["request"], "pendingCursor">;
++declare const forgedStart: Omit<typeof startCall, "resources"> & { readonly resources: RunStatus["resources"] };
++
++export function negatives(): void {
++  // @ts-expect-error HC1-NEG wrong-key 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, operationId: "abg.operation.run.invoke", memberKey: "resume", request: startGraph.request, slots: startGraph.slots, resources: startGraph.resources });
++  // @ts-expect-error HC1-NEG wrong-member 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, operationId: "abg.operation.run.invoke", memberKey: "invoke", request: startGraph.request, slots: startGraph.slots, resources: startGraph.resources });
++  // @ts-expect-error HC1-NEG wrong-request 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, operationId: "abg.operation.run.invoke", memberKey: "start", request: direct.request, slots: startGraph.slots, resources: startGraph.resources });
++  // @ts-expect-error HC1-NEG wrong-resources 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, operationId: "abg.operation.run.invoke", memberKey: "start", request: startGraph.request, slots: startGraph.slots, resources: runStatus.resources });
++  // @ts-expect-error HC1-NEG start-graph-function-requires-graph-slot 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, operationId: "abg.operation.run.invoke", memberKey: "start", request: startGraph.request, slots: startNext.slots, resources: startGraph.resources });
++  // @ts-expect-error HC1-NEG verify-installed-requires-dependency-lock 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...verifyInstalled, slots: verifyPacked.slots });
++  // @ts-expect-error HC1-NEG run-stopped-requires-execution-basis 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...runStopped, slots: reprice.slots });
++  // @ts-expect-error HC1-NEG c-call-replay-selector-requires-c-call 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...cCallReplay, request: { ...cCallReplay.request, selector: runReplay.request.selector } });
++  // @ts-expect-error HC1-NEG crossed-read-selector 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...lawfulActions, request: { ...lawfulActions.request, selector: workspaceGaps.request.selector } });
++  // @ts-expect-error HC1-NEG crossed-read-resources 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...runStatus, resources: productCatalogList.resources });
++  // @ts-expect-error HC1-NEG current-intent-member-refuses-selected-action 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...currentIntent, request: selectedAction.request });
++  // @ts-expect-error HC1-NEG selected-action-member-refuses-current-intent 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...selectedAction, request: currentIntent.request });
++  // @ts-expect-error HC1-NEG current-intent-and-pending-are-exclusive 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...currentIntent, request: { ...currentIntent.request, pendingCursor: pendingExecution.request.pendingCursor } });
++  // @ts-expect-error HC1-NEG pending-variant-requires-its-cursor 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...pendingExecution, request: pendingWithoutCursor });
++  // @ts-expect-error HC1-NEG unavailable-member-has-no-callable-resources 2322 2345 2769
++  constructInstalledPublicDefinitionCall({ ...environment, ...reprice, memberKey: "attest", request: { ...reprice.request, act: "attest", subjectKind: "evidence_claim" } });
++  // @ts-expect-error HC1-NEG transport-refuses-forged-typed-resources 2345
++  void runInstalledDefinitionCallTransport(acquisition, forgedStart);
++}

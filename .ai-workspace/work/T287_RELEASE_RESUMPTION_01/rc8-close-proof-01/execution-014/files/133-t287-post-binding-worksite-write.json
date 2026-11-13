@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 516628.73533299996,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/events/133-t287-post-binding-worksite-write.jsonl",
+    "bytes": 1114,
+    "sha256": "3c2ba755361b6a10e318903ffe614dda73115c3df91a89d56f1e36e96819a83a"
+  },
+  "commandReceipt": "commands/133-t287-post-binding-worksite-write.result.json",
+  "workspace": "/private/tmp/abg-r8c-014/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

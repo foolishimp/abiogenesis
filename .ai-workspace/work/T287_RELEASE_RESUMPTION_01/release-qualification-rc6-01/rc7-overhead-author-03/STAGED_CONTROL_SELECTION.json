@@ -1,0 +1,30 @@
+{
+  "status": "PROPOSED_NAMES_ROOT_MATERIALIZATION_AND_FINAL_BYTE_PINS_PENDING",
+  "sourceNames": 449,
+  "controlNames": [
+    "ROOT_CONTROL_ADMISSION.json",
+    "ROOT_SELECTION.json",
+    "ROOT_SCOPE_ADDENDUM_01.json",
+    "ROOT_REVIEW_DISPOSITION.json",
+    "TASK.md",
+    "NATIVE_GRANT.json",
+    "SOURCE_CUSTODY.json",
+    "METHOD_ACCESS.json",
+    "COMMAND_BOUNDS.json",
+    "C2_INPUTS.json",
+    "DEPENDENCY_SOURCE_SELECTION.json",
+    "prior-author-stage.mjs",
+    "prior-author-lanes.mjs",
+    "npm-user.npmrc",
+    "npm-global.npmrc",
+    "INHERITED_FACTS.json",
+    "AFFECTED_PROOF_BINDING.json"
+  ],
+  "controlCount": 17,
+  "nonHandoffContextCount": 466,
+  "handoffCount": 3,
+  "totalContextCount": 469,
+  "sourceRelativesAreFrozenB": true,
+  "old21BControlsAreNotSuccessorSource": true,
+  "actualFinalControlPins": null
+}

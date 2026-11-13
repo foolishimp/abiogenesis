@@ -1,0 +1,38 @@
+{
+  "status": "READY_SOURCE_EXTRACTED_PURE_COUNTEREXAMPLES",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/BINDING.final.json",
+    "bytes": 4911,
+    "sha256": "dd33c9e62d88f8e4649e22bfa6ce968e11219d5dcc3798fd8a1b32f79d87c14b"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/counterexamples.ready.mjs",
+    "bytes": 5059,
+    "sha256": "d4a2b3e7808eb1ae6a13e5ab8528f4c42e7c25754377b9db276305b07af3e8e1"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/run-pure.py",
+    "bytes": 3050,
+    "sha256": "c7d2803b7ba0f6210bfcfc6b7321f20fd96ec60a64b771732d7cbdd392ec898a"
+  },
+  "extraction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/SOURCE_EXTRACTIONS.json",
+    "bytes": 2472,
+    "sha256": "d07e669f45e6bd57a4a161bdb474d350af306d525b0416ccb7d82aff8cdef953"
+  },
+  "capSeconds": 30,
+  "syntaxChecked": true,
+  "scope": "Exact progress observer/criterion on same ordered bytes under five callback partitions, including constructed four-capture80ms-gap schedule; exact observePublication under four controlled/deferred interleavings. No executed runtime lease claim, Product repair or private runtime.",
+  "unexecutedControlPreimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/counterexamples.mjs",
+      "bytes": 4571,
+      "sha256": "083abcfe0eb7dd0003f586f3af0dac53a2b6a259a9e09c44ab8a980b15471e04"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/BINDING.json",
+      "bytes": 4899,
+      "sha256": "7dd6fcfb10b7bb383f864ed5ec172e2ef27b584a5f12a5f9a11fad74593dd99c"
+    }
+  ]
+}

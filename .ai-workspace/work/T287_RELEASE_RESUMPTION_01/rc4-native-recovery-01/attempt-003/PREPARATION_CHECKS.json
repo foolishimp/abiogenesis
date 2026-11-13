@@ -1,0 +1,52 @@
+{
+  "status": "FILE_ONLY_CHECKS_PASSED_PREPARED_FOR_ROOT_REVIEW",
+  "checks": [
+    {
+      "status": "operator_contract_checked_no_runtime",
+      "sourceWriteIntersection": [],
+      "invariantSources": 14,
+      "productWritePaths": 52,
+      "scratchWriteRoots": 1,
+      "commands": 9,
+      "requiredExecutionBudgetMs": 4267250,
+      "method": "current Git checkpoint and live files; no workspace snapshot machinery"
+    },
+    {
+      "negativeControl": "source-write overlap refused"
+    },
+    {
+      "offlineDependencyCensus": "verified existing tree; no installation",
+      "result": {
+        "kind": "offline_dependency_tree_census",
+        "root": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+        "entries": 4576,
+        "regularFiles": 4574,
+        "symlinks": 2,
+        "bytes": 58290948,
+        "canonicalInventorySha256": "6aba0391382aae398fe2ddc62536491ed189d45aa1b36d896fe226a09e409049",
+        "meaning": "Exact local offline test dependency preimage, not a Product or native admission"
+      }
+    }
+  ],
+  "syntax": "JavaScript/Python passed without imports",
+  "runtimeImports": 0,
+  "ProductTestsOrBuilds": 0,
+  "providerCalls": 0,
+  "finalPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 150636131,
+    "sha256": "481885a0d7e7944959c914e6a56028437f173a05caa9c40697914b088b182a1c",
+    "device": 16777231,
+    "inode": 673308256,
+    "coordinateDigest": "sha256:f7179edb884c49033be68f9cfb7d72298d2b88dba1e63f36f2b68faa3c902af0"
+  },
+  "sourceWriteIntersection": [],
+  "ProductWritePaths": 52,
+  "scratchWriteRoots": 1,
+  "invariantSources": 14,
+  "C2Purposes": 9,
+  "expectedBudgetMs": 4267250,
+  "maxTurns": 480,
+  "allOtherResourceLimits": "unchanged",
+  "nativeAcceptance": false
+}

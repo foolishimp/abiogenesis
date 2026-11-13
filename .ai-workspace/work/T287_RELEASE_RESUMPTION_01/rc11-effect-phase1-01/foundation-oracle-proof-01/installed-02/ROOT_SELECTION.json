@@ -1,0 +1,25 @@
+{
+  "status": "ROOT_SELECTED_CONTROL_ONLY_PREPARATION_EXECUTION_HELD",
+  "authority": "Root continuation message and independent recomputation: canonical POSIX path ordering makes all5327 archive/install rows equal; preserve failed controls and reuse successful pack/stage/bootstrap.",
+  "delta": "Canonical relative path sort, retained-state/process-absence guards, and one unstarted whole-file command. No Product source change.",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/FAILURE_RETURN.json",
+    "bytes": 2275,
+    "sha256": "502541af5c556f7a72e8039dd7b02d1d7643b169174836210d92a15faaa1c888"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/BOOTSTRAP_ORDER_TRIAGE.json",
+    "bytes": 1874,
+    "sha256": "21b498e30c82f6bce2b4d9129f1219345b9008f0df82334c99af1300cd5a525b"
+  },
+  "commands": [
+    "w2-05"
+  ],
+  "limits": {
+    "wholeFileSeconds": 900,
+    "campaignSeconds": 1500,
+    "outputBytes": 104857600,
+    "reserveBytes": 4294967296
+  },
+  "prohibited": "No execution before Root exact admission; no reinstall/repack/rebuild/retry, source/tracking/Git/release/provider effects."
+}

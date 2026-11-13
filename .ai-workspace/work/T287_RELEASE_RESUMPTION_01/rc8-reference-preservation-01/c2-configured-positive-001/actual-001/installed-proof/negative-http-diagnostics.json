@@ -1,0 +1,17 @@
+[
+  {
+    "proof": "c2-http-process",
+    "pid": 78302,
+    "phase": "started"
+  },
+  {
+    "proof": "c2-http-process",
+    "pid": 78302,
+    "phase": "response-finished"
+  },
+  {
+    "proof": "c2-http-process",
+    "pid": 78302,
+    "phase": "server-closed"
+  }
+]

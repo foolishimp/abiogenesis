@@ -1,0 +1,175 @@
+{
+  "status": "FROZEN_FOUNDATION_AMENDMENT_AWAITING_ROOT_CONJUNCTION",
+  "sourceRoot": "/private/tmp/abg-rc11-foundation-20261110-01",
+  "baseCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "baseTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "branch": "codex/rc11-foundation-correction",
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+    "bytes": 298978,
+    "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+  },
+  "sourceRows": 1340,
+  "sourceDigest": "e5542619d06f6e6cb15353b31f02522513cc677707b0f8dfdb7171743b60910a",
+  "digestMethod": "sha256(JSON.stringify compact ordered rows using path,bytes,sha256 fields), same prior freeze method",
+  "sourceChangedPaths": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "specification/GOALS.md",
+    "specification/PRODUCT.md",
+    "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md"
+  ],
+  "unchangedSourceRows": 1326,
+  "selectedChangedPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "specification/GOALS.md",
+    "specification/PRODUCT.md",
+    "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md"
+  ],
+  "snapshot": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 811038,
+      "sha256": "abf8095852c8c2c0a4034a68c20cf0c5612693dd247b0f234dc1768f6e3e7230",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 13754,
+      "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/AGENTS.md"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 7128,
+      "sha256": "e859444d725a3775f876f0ea121cfb54936cca2d4ac1bdb28b7238c0aa653cec",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/CLAUDE.md"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197956,
+      "sha256": "abb2d91c0aca011b00791b92e04c0b1facf714fa9f2be4ba0cbb39f6553e7683",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+      "bytes": 27912,
+      "sha256": "f9c6c00ddd87abe1bbaddfb7a9d40b16d0f5f9100746dfa9d4882414a2917423",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+      "bytes": 11425,
+      "sha256": "9f2973505984f414cf07d40f560c6cb536a4d5bec7e0c9a352e797613b112c2d",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+      "bytes": 28320,
+      "sha256": "3f317f3188ca41b65874a2d8325e7e2dae828708da791418dd1a9080169ff3ac",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+      "bytes": 1770456,
+      "sha256": "33dd421084fd678f87098265c418f29f8b25e409c6bbfb7b4515c57fe792579f",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+      "bytes": 101285,
+      "sha256": "c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "bytes": 8046,
+      "sha256": "f3b05d8b98c769f595ef8379edac09d1a9d579c6823b4d3e89f813e48c58df0d",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 395917,
+      "sha256": "db267d0b96baf5dbc6c6c4621e133e20365c5dbe1e64c9b274944d04352d3b62",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266309,
+      "sha256": "53c884303235e4de5d33c1bc58d31bcab77c0e0fad725d48caf73d871f93d3ad",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "bytes": 162250,
+      "sha256": "109e726b02022eb3692300ae4741df5c0fc323629d45f72c043d439f8735d1d0",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/specification/GOALS.md"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 101285,
+      "sha256": "c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/specification/PRODUCT.md"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "bytes": 8046,
+      "sha256": "f3b05d8b98c769f595ef8379edac09d1a9d579c6823b4d3e89f813e48c58df0d",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-amendment/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md"
+    }
+  ],
+  "authorityComponentFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/AUTHORITY_COMPONENT_FREEZE.json",
+    "bytes": 1306,
+    "sha256": "dc186d357dcdf29d378ccee136d74caaa6b836474247c9d48ebbc0cf50a05d92"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/AMENDMENT.diff",
+    "bytes": 7043825,
+    "sha256": "83aec49aa84a2d9c3ee7977d7aa651192e4f4d914ee174e134c4c9f8daec9e24"
+  },
+  "compiledPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182855,
+    "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+  },
+  "compiledRows": 996,
+  "compiledChangedPaths": [
+    "contracts/capabilities/capability-definition-graph.json",
+    "contracts/qualification/authority-inputs.json",
+    "contracts/qualification/coverage.json",
+    "contracts/qualification/law-basis.json",
+    "contracts/qualification/rule-catalog.json",
+    "contracts/qualification/sources/PRODUCT.md",
+    "contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+    "product-toolchain-manifest.json"
+  ],
+  "compiledInventoryDigest": "36981db90d30082c5e41389842f3d847d936d418dc6249e8b845434f671742ac",
+  "allOtherCompiledRowsEqual": true,
+  "generatedAuthoritySourceChanges": [
+    "repo://abiogenesis/specification/PRODUCT.md",
+    "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md"
+  ],
+  "mirrorByteEquality": true,
+  "standing": "Product realization-profile text/design amendment and generated immutable definitions only. No production/test source change, new native Run, release or positive qualification."
+}

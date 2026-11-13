@@ -1,0 +1,92 @@
+{
+  "kind": "existing_owner_prompt_source_carriage_localization",
+  "at": "2026-11-06T02:24:20.868Z",
+  "sourceSubjectSha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74",
+  "contextObservationRef": "worksite-context-observation://abiogenesis/4123e63e90227ad4340b94a610726811e5adff7ca4bbf364194d73ceca1d4bf5",
+  "contextObservationDigest": "sha256:4123e63e90227ad4340b94a610726811e5adff7ca4bbf364194d73ceca1d4bf5",
+  "contextEntries": 426,
+  "originalSourceCount": 49,
+  "selectedPrimarySourceCount": 13,
+  "originalProjectionBytes": 1257382,
+  "selectedProjectionBytes": 353677,
+  "reserveBytes": 131072,
+  "maxPromptBytes": 1048576,
+  "selectedFitsWithReserve": true,
+  "selectedPrimarySources": [
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "specification/requirements/product/REQ-P-QUAL.md",
+    "specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+    "qualification-inputs/d5-author-02/rubric.json",
+    "qualification-inputs/d5-author-02/Q23_RUBRIC.json",
+    "qualification-inputs/d5-author-02/D5_P6_UNCONFIRMED_CAPSULE.json",
+    "qualification-inputs/d5-author-03/ROOT_PROFILE_DISPOSITION.json",
+    "qualification-inputs/d5-proof-03/FROZEN_SUBJECT.json",
+    "qualification-inputs/d5-proof-03/PROOF_ONLY_GRANT.json",
+    "qualification-inputs/d5-proof-03/ROOT_UAT_DISPOSITION.json",
+    "qualification-inputs/d5-proof-03/ROOT_FIXTURE_CORRESPONDENCE_NOTE.json",
+    "qualification-inputs/d5-proof-03/TASK.md"
+  ],
+  "retainedAsContextAndAssessmentAssets": [
+    "qualification-inputs/d5-author-02/ROOT_PREPARATION_REQUEST.md",
+    "qualification-inputs/d5-author-02/ROOT_SELECTION.json",
+    "qualification-inputs/d5-author-02/ROOT_ACTIVATION.json",
+    "qualification-inputs/d5-author-02/ROOT_PROFILE_DISPOSITION.json",
+    "qualification-inputs/d5-author-02/PARTIAL_RETURN.json",
+    "qualification-inputs/d5-author-02/PARTIAL_READINESS.json",
+    "qualification-inputs/d5-author-02/M2_READINESS.json",
+    "qualification-inputs/d5-author-02/PROFILE_APPLICABILITY.json",
+    "qualification-inputs/d5-author-02/RECOVERY_BUILD_READINESS.json",
+    "qualification-inputs/d5-author-02/CAUSATION_TRIAGE.json",
+    "qualification-inputs/d5-author-02/ROOT_CAUSATION_DISPOSITION.json",
+    "qualification-inputs/d5-author-02/ROOT_EFFECT_DISPOSITION.json",
+    "qualification-inputs/d5-author-02/CURRENT_SOURCE_DIFF.patch",
+    "qualification-inputs/d5-author-02/ADDITIONAL_SOURCE_SELECTION.json",
+    "qualification-inputs/d5-author-02/METHOD_ACCESS.json",
+    "qualification-inputs/d5-author-02/METHOD_VERIFICATION.json",
+    "qualification-inputs/d5-author-02/ROOT_POLICY_HOW_SELECTION.json",
+    "qualification-inputs/d5-author-02/D5_PROOF_INPUT_READINESS.json",
+    "qualification-inputs/d5-author-02/EXTERNAL_READ_INPUTS.json",
+    "qualification-inputs/d5-author-02/DEPENDENCY_SOURCE_SELECTION.json",
+    "qualification-inputs/d5-author-02/NATIVE_GRANT.json",
+    "qualification-inputs/d5-author-02/TASK.md",
+    "qualification-inputs/d5-author-02/SOURCE_CUSTODY.json",
+    "qualification-inputs/d5-author-02/MATERIAL_AND_C2_SCOPE.json",
+    "qualification-inputs/d5-author-02/C2_INPUTS.json",
+    "qualification-inputs/d5-author-02/source-correspondence.mjs",
+    "qualification-inputs/d5-author-02/c2-proof.mjs",
+    "qualification-inputs/d5-author-02/prior-author-stage.mjs",
+    "qualification-inputs/d5-author-02/prior-author-lanes.mjs",
+    "qualification-inputs/d5-author-03/ROOT_SELECTION.json",
+    "qualification-inputs/d5-author-03/ROOT_REVIEW_DISPOSITION.json",
+    "qualification-inputs/d5-author-03/PROJECTION_REVIEW.json",
+    "qualification-inputs/d5-author-03/TASK.md",
+    "qualification-inputs/d5-author-03/NATIVE_GRANT.json",
+    "qualification-inputs/d5-author-03/SOURCE_CUSTODY.json",
+    "qualification-inputs/d5-proof-03/BASELINE_OBSERVATION.json"
+  ],
+  "preserved": {
+    "readRoots": 426,
+    "protectedSourcePaths": 420,
+    "assessmentSourcePaths": 70,
+    "commands": 7,
+    "allWorkOrdersAndReadFirst": true,
+    "originalCriteriaAndRubrics": true
+  },
+  "ownerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "sha256": "e4090de450b9e80c7de43f3ca16df7cec5de0b43c6e101453e45093a4b5c437a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js",
+      "sha256": "c9f4459c7308c281299ab2d6bff5608ed5ad22c58b0f723d12de5d8b0ed863a2"
+    }
+  ],
+  "effects": "One existing worksite read observation and pure owning projections; no runtime/provider admission, Product edits or replay/qualification. Primary-source selection is a Root proposal until disposition.",
+  "priorProbeError": "First diagnostic imported worksite_effect instead of existing worksite_operations; function lookup failed before observation or runtime. Corrected owner export was resolved through product/index.js, no source change.",
+  "limits": [
+    "Use existing source/context/assessment roles; preserve complete current task/criteria and all declared evidence assets.",
+    "Actual preflight and each full provider assembly still enforce bounds."
+  ]
+}

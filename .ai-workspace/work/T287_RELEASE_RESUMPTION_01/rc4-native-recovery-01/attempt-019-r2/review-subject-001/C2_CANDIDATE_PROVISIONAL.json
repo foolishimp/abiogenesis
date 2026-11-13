@@ -1,0 +1,134 @@
+{
+  "status": "PROVISIONAL_PHYSICAL_C2_CANDIDATE_NOT_ADMITTED_RESULT",
+  "capturedAt": "2026-11-03T01:32:50.945928+00:00",
+  "nativeSubjectSha256": "89e7abe672385edc706037488e32a355237985cf0238450854e1b72a8b1e0be3",
+  "taskDigest": "b891c52a2dbdd1d766dc6f95c2e1b704af3afd2639a3e8a1242fe4cf764b1826",
+  "attempt": "f44b3e61bb5391dbb4b7de2dd0935742d3dc60b4450857f9799bf1dc0d1b6fd7",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/b891c52a2dbdd1d766dc6f95c2e1b704af3afd2639a3e8a1242fe4cf764b1826/f44b3e61bb5391dbb4b7de2dd0935742d3dc60b4450857f9799bf1dc0d1b6fd7/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+      "bytes": 10971457,
+      "sha256": "f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/b891c52a2dbdd1d766dc6f95c2e1b704af3afd2639a3e8a1242fe4cf764b1826/f44b3e61bb5391dbb4b7de2dd0935742d3dc60b4450857f9799bf1dc0d1b6fd7/sandbox/build_tenants/abiogenesis/typescript/artifacts/rc4-payload-delta.json",
+      "bytes": 1997252,
+      "sha256": "48e9807275d31dafb4ab13f7322e3b249e3f65ded9e9456f51e6fe853ad7a6db"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/b891c52a2dbdd1d766dc6f95c2e1b704af3afd2639a3e8a1242fe4cf764b1826/f44b3e61bb5391dbb4b7de2dd0935742d3dc60b4450857f9799bf1dc0d1b6fd7/sandbox/build_tenants/abiogenesis/typescript/artifacts/rc4-verification.json",
+      "bytes": 15906631,
+      "sha256": "679cf8548f30756053f48fa20823580aa676b4365798dbe80bb01ab9ef5809f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/b891c52a2dbdd1d766dc6f95c2e1b704af3afd2639a3e8a1242fe4cf764b1826/f44b3e61bb5391dbb4b7de2dd0935742d3dc60b4450857f9799bf1dc0d1b6fd7/sandbox/build_tenants/abiogenesis/typescript/artifacts/rc4-lock.json",
+      "bytes": 4574927,
+      "sha256": "c583552c5bab8ea6cd0afe45ec9dcfd2741cd4555ef161c245b0c32edfc87dfd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/b891c52a2dbdd1d766dc6f95c2e1b704af3afd2639a3e8a1242fe4cf764b1826/f44b3e61bb5391dbb4b7de2dd0935742d3dc60b4450857f9799bf1dc0d1b6fd7/sandbox/build_tenants/abiogenesis/typescript/artifacts/rc4-installation.json",
+      "bytes": 4243072,
+      "sha256": "c8edebffdde6f76ec3ad141272ff0b04a84e0c18c3b2255556e36d93ab546c24"
+    }
+  ],
+  "candidate": {
+    "kind": "abi5_root_candidate_basis",
+    "schemaVersion": "5.0.0",
+    "artifactDigest": "sha256:f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+    "productContentDigest": "sha256:41c0540f2888495e252e83ff0108455c9077fb1b0bfa35276043cac4bdc6c1ae",
+    "manifestDigest": "sha256:fd3cc983ea7490407ac629a249b9ef42ce77c61cdefc2ad5147d1a02be2c0d6a",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.4",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.4"
+  },
+  "changed": [
+    {
+      "path": "build/code/src/product/builtin_semantics.d.ts",
+      "before": {
+        "path": "build/code/src/product/builtin_semantics.d.ts",
+        "bytes": 11545,
+        "sha256": "fda495aece24eb6623f82ff8033d68772d5f9cf22cfa181b220601b845a5e535"
+      },
+      "after": {
+        "path": "build/code/src/product/builtin_semantics.d.ts",
+        "bytes": 11545,
+        "sha256": "daf4573778be38177be227e0b698a344b3af6573d3d9a3a086b1b4dc604e9532"
+      }
+    },
+    {
+      "path": "build/code/src/product/contracts.d.ts",
+      "before": {
+        "path": "build/code/src/product/contracts.d.ts",
+        "bytes": 13303,
+        "sha256": "c9240aeb243c784e1b4b4338452415a2f31bac75ac3b55f402c6d77221612397"
+      },
+      "after": {
+        "path": "build/code/src/product/contracts.d.ts",
+        "bytes": 13303,
+        "sha256": "a81de5fb8e0cf1938e946598056a7e306f379a3d389177c248829f6e654dbe59"
+      }
+    },
+    {
+      "path": "build/code/src/product/contracts.js",
+      "before": {
+        "path": "build/code/src/product/contracts.js",
+        "bytes": 880,
+        "sha256": "74346e984f5cad75ea09d095b99c930129a2737eaa5b98b306a34a9c03c67127"
+      },
+      "after": {
+        "path": "build/code/src/product/contracts.js",
+        "bytes": 880,
+        "sha256": "40e5793e97a984e727edfff6b667a2db5bb096b968ca5df516bb5fff2200f4a9"
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "aab323253625e74d3e3e8c21837434666b0f066d0cbdd7a1ba74f136cbeef564"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "ad76d9ad9e887dfd330a23265c2f7ed900c6a8079515d1bb2d7b102efe22e087"
+      }
+    },
+    {
+      "path": "package.json",
+      "before": {
+        "path": "package.json",
+        "bytes": 10003,
+        "sha256": "9efb911e450196243dec704592b6d515ba6e877340fd4e1008ee5dcc1c0ff2de"
+      },
+      "after": {
+        "path": "package.json",
+        "bytes": 10003,
+        "sha256": "c5e2d05d145a5fa296b1b4c553231bdbe83b2af65baa75e93074860d8c1bf3d0"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3274041,
+        "sha256": "be46c80d6807ffba6db860110271598ca89f53fdbceed57b83c86d86ec31adf4"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3274041,
+        "sha256": "940efb406b0da172f42a76f502ea0153f260da43b1cf417a1d46bbe6835cffd0"
+      }
+    }
+  ],
+  "permittedPaths": [
+    "package.json",
+    "build/code/src/product/contracts.js",
+    "build/code/src/product/contracts.d.ts",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "candidateInventoryCount": 5321,
+  "baselineInventoryCount": 5321,
+  "limits": "Helper/result/smoke/UAT still pending; producer files are physical evidence, not admission/acceptance."
+}

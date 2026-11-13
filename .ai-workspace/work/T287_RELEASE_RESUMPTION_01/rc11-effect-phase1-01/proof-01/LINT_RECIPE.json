@@ -1,0 +1,22 @@
+{
+  "lint": {
+    "files": [
+      {
+        "path": "test_env/support/t287-publication-observer.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-publication-observer.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-worker-transport.test.mjs",
+        "kind": "mjs"
+      }
+    ]
+  }
+}

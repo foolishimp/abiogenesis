@@ -1,0 +1,37 @@
+{
+  "status": "FINAL_UNIT_NEW_COUNTEREXAMPLE_OBSERVED",
+  "observedAt": "2026-11-08T07:14:47.407139+00:00",
+  "sourceDigest": "41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3",
+  "structuredEventPath": "/private/tmp/abg-r9-owner-native-002/unit-01/events.jsonl",
+  "failedCase": {
+    "ordinal": 75,
+    "type": "case",
+    "passed": false,
+    "name": "RC9 OWN-01: owner folds over immutable rows and bytes are reused within their territory; changed, copied, earlier and cold inputs keep their checks and refusals",
+    "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "nesting": 0,
+    "testNumber": 71,
+    "suite": false,
+    "skip": false,
+    "todo": false,
+    "error": {
+      "name": "Error",
+      "message": "Event Calculus requires a nominal validated immutable event prefix",
+      "stack": "Error [ERR_TEST_FAILURE]: Event Calculus requires a nominal validated immutable event prefix",
+      "code": "ERR_TEST_FAILURE",
+      "failureType": "testCodeFailure",
+      "cause": {
+        "name": "TypeError",
+        "message": "Event Calculus requires a nominal validated immutable event prefix",
+        "stack": "TypeError: Event Calculus requires a nominal validated immutable event prefix\n    at runtimeEventsFromValidatedPrefix (file:///private/tmp/abg-r9-owner-native-002/tmp/abi5-root-env-SlxVhr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js:295:15)\n    at Module.runtimeEventBodiesAtPrefix (file:///private/tmp/abg-r9-owner-native-002/tmp/abi5-root-env-SlxVhr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js:134:88)\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-002/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs:102:56)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+        "code": null,
+        "failureType": null,
+        "cause": null
+      }
+    }
+  },
+  "unitStillRunning": true,
+  "nativeCallClosed": false,
+  "retryPerformed": false,
+  "standing": "Final proof failure returned to Root; preserve frozen subject and allow remaining single unit command to finish. Later assertions are unexecuted; no independent source disposition inferred."
+}

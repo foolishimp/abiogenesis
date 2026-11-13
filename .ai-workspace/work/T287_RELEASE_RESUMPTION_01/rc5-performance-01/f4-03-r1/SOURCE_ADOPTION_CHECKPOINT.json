@@ -1,0 +1,48 @@
+{
+  "status": "CANDIDATE_SOURCE_CHECKPOINT_COMPLETE_LOCAL_CUT_PENDING",
+  "recordedUtc": "2026-11-03T13:04:20.767589+00:00",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "sourceTree": "6b40c56409c7e8990028644048b4aaad1b9ae027",
+  "parent": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "branch": "codex/rc5-performance",
+  "nativeSourceResultRef": "result://abiogenesis/c39dfcf7ed519a1e0aab19121b3862fd57783d67ded22cd05c31012a7512a2de",
+  "c2ResultRef": "result://abiogenesis/a2a62ff6976dd579012ee6e1e036516eb3bf8c27018114d205f699e9222bd567",
+  "artifactDigest": "sha256:4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+  "nativeFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+  ],
+  "generatedFiles": [
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+  ],
+  "rootMetadataFiles": [
+    "specification/GOALS.md",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/release-claim.md"
+  ],
+  "evidenceDirectory": ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01",
+  "committedPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/ACCEPTANCE.json",
+    ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/FINAL_PROOF.json",
+    ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/FINAL_SOURCE_REVIEW.json",
+    ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/INDEX.json",
+    ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/README.md",
+    ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/campaign-evidence.tar.gz",
+    ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/operator-inputs.tar.gz",
+    ".ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/runtime.events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "build_tenants/abiogenesis/typescript/release-claim.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+    "specification/GOALS.md"
+  ],
+  "trackedClean": true,
+  "published": false,
+  "qualified": false,
+  "note": "Root authored status/release metadata only; Product/test changes are exact admitted native bytes. Immutable RC4 and all historical failures remain preserved."
+}

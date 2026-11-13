@@ -1,0 +1,143 @@
+{
+  "task": "PHASE2-B-UNIT-RED-DESIGN-01",
+  "status": "closed design recommendation; Root disposition required",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/design/ASSESSMENT.md",
+    "bytes": 7951,
+    "sha256": "03e014a08539be38ae922ad7f9b84a20db5de5eb96d593d5c80739c2b20257f9"
+  },
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "httpSectionConservation": {
+    "subjects": [
+      "native-01",
+      "native-04",
+      "native-b01"
+    ],
+    "range": "async function runHttpProbe to immediately before async function predicateObservation",
+    "bytes": 7928,
+    "sha256": "e8df4a6e957c6f4b8f46b0df9cc37d89eaf2f62e8e903dc4eb1900d15382e9f2",
+    "equal": true
+  },
+  "lifetimeAToBEqual": true,
+  "stateAToBEqual": true,
+  "fixtureAndOracleConserved": true,
+  "groupTestBDelta": "command host projection and bare-module loader only",
+  "conclusions": {
+    "actualFailure": "HTTP-normal observed-port premise",
+    "supportedOrigin": "fixture publication and parent observation lack causal order before immediate leader exit",
+    "exact25msInterleavingObserved": false,
+    "productFailureEstablished": false,
+    "ABRegressionEstablished": false,
+    "physicalResidueObserved": false,
+    "repairRecommendation": "test-owned actual HTTP request before normal leader exit",
+    "executionPerformed": false
+  },
+  "limits": "No full retrospective proof assessment or source acceptance; operator preflight conservation read as receipt evidence; prior reds/capsules/skips retained",
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-freeze.json",
+      "bytes": 295988,
+      "sha256": "2ed1b3ab7758905dc0c33702893898130de2758d0b026af20898833d5bebe9eb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 145462,
+      "sha256": "f4f9893e30f32ae7a17d242f69997a0c71812ce5084f57e75dc4af5c1cc8d892"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 75347,
+      "sha256": "c1b6ded8611016673f5ac6dd020af020e2d9135e7478dc4146070dda284994a6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11658,
+      "sha256": "fbb571cc96fa60b4a7000c61063b060c7fcb14c11bed8ed96c40cbfe4bfa9e6f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 13755,
+      "sha256": "235fc19c3469c7d62f61834ae29f7bbba4b2e3866876af193ebbf44d35af3b01"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 68872,
+      "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 145250,
+      "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 68872,
+      "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11658,
+      "sha256": "fbb571cc96fa60b4a7000c61063b060c7fcb14c11bed8ed96c40cbfe4bfa9e6f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 13755,
+      "sha256": "235fc19c3469c7d62f61834ae29f7bbba4b2e3866876af193ebbf44d35af3b01"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 145250,
+      "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 92784,
+      "sha256": "4ae70f3c9a8d36ed6541c8ce52551c27c2e31b6b346795a02c53e6d54021a6cf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "bytes": 72343,
+      "sha256": "dc73d27148042d6a4f5c7e7b434b00141d32cceb66e884401c8e482513aa8ce1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 203108,
+      "sha256": "62742b6c222ad698b022b6c00672541a5d701c92dc367191afc41bf0c1fc8f46"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-http-normal--87629.json",
+      "bytes": 1128,
+      "sha256": "da28348aebff578cfe586f6c6371d3f2ea58a5049d4f1f1975afbd29ff1e6bf6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/stdout.log",
+      "bytes": 220444,
+      "sha256": "1d997fad2657e460b312a8c17703cacd8d678a8b07b49cf1c6362d7387e017cc"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/COMMAND_RETURN.json",
+      "bytes": 1329,
+      "sha256": "e63c070d1a72c13de3c3ccfd0313167d97a29917a69cfe75f723e33c83d4ae49"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/UNIT_RETURN.json",
+      "bytes": 1078,
+      "sha256": "e8e25683a1b751395b248fb340d36ad7845e84c5faf0e4ac8d666329d5744cc8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/CAMPAIGN_RETURN.json",
+      "bytes": 616,
+      "sha256": "c4f38179c70e037d2951f11f0a39d6f1b68941de994a8ec683c9271a4b51cb6e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/PREFLIGHT.json",
+      "bytes": 353,
+      "sha256": "0ffdcbad9221209cfa11684ffdc354f39861928ece6d0ce0cdc081516bdc3149"
+    }
+  ]
+}

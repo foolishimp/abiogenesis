@@ -1,0 +1,82 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "at": "2026-11-07T12:58:58.029461+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "goal": "GOAL035",
+  "ticket": "T-287",
+  "scope": "REF01",
+  "configSha256": "ca48c097e549753685350d2a717df536341488ff4c3ca69257ca66bb07dbb23f",
+  "inventorySha256": "23c83ddaf1b42ba1fe92ef1c522ddbb82d99c9db758e7aabc275e17b2fb41819",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "1085e8d0fdb0c0d8b9da07679051ec7e5762ea23b75977eeef1155b3078d13e5",
+  "controls": {
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_019.json",
+      "bytes": 7791,
+      "sha256": "1085e8d0fdb0c0d8b9da07679051ec7e5762ea23b75977eeef1155b3078d13e5"
+    },
+    "driver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-019-003.mjs",
+      "bytes": 36372,
+      "sha256": "b51d348601e813123fe82d3a6d63f19eb80353b478831e97b7b5944be9da08bc"
+    },
+    "diff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_019_FINAL_003.patch",
+      "bytes": 17657,
+      "sha256": "e23a53fa3f23a04953e0bd801592f9a50f095dd521a2bd67bdd06060c9c86d4d"
+    },
+    "normalizationDiff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_NORMALIZATION_DIFF_019_003.patch",
+      "bytes": 1194,
+      "sha256": "2c19beecb7fb708211bda666419fbb04f3c05a254af2ad98dfa9059f49f220e0"
+    },
+    "config": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_020.json",
+      "bytes": 401954,
+      "sha256": "ca48c097e549753685350d2a717df536341488ff4c3ca69257ca66bb07dbb23f"
+    },
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-020/BOUND_INVENTORY.json",
+      "bytes": 2071965,
+      "sha256": "23c83ddaf1b42ba1fe92ef1c522ddbb82d99c9db758e7aabc275e17b2fb41819"
+    }
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/selected-action-inputs-018/REVIEW.json",
+    "bytes": 16136,
+    "sha256": "4e185513f2d493db4bfea3d659a419ab3dcb75a59eda78290462cfe038ed5a55"
+  },
+  "inputCensusAddendum": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/INPUT_CENSUS_ADDENDUM_019.json",
+    "bytes": 4109,
+    "sha256": "d253a76b9bf292b648306dec8d5bdcb6eb847d4851e8fe81aeabb9ea2b7941b6"
+  },
+  "originalBindDiagnostic": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/BIND_DIAGNOSTIC_019.json",
+    "bytes": 2705,
+    "sha256": "6e3329ed04623905199f404d71a59383e7aea2d0005204c9b1be397618730ec1"
+  },
+  "priorStoppedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_018.json",
+    "bytes": 14470,
+    "sha256": "b1daa0dfbe3d8abd7e72346fb5fe893e55b0931aaf41255d808d19757899901a"
+  },
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 162,
+    "passed": 862,
+    "skipped": 199,
+    "scheduled": 36,
+    "deferredNoCoverage": 10
+  },
+  "rootDisposition": "Root read original/full and normalization diffs, census, actual bind diagnostic and preparation; independently verified unchanged source/dependency/test/deferral rows,155 retained credits plus7 actual018 receipts. One exact36-file execution selected, three external historical default inputs only; all ABI5_SELECTED_ACTION_* selectors unset. Preserve018 and Operator preflight failure. Stop first actual red/incomplete/input/resource/deadline; no automatic retry/extension.",
+  "effects": "Fresh execution019 and /private/tmp/abg-r8c-019 through existing owners; no provider/source/Git/cut effects. Only existing two isolated test-build grants and successful derived-copy cleanup remain selected.",
+  "wholeReleaseQualified": false
+}

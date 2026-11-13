@@ -1,0 +1,280 @@
+{
+  "kind": "closed_existing_third_family_capability_readiness",
+  "status": "LOCAL_CAPABILITY_ESTABLISHED_AUTH_AND_EXECUTION_UNVERIFIED",
+  "recordedUtc": "2026-11-05T16:29:55.120840+00:00",
+  "productFrame": {
+    "families": "F01-F07,F09-F11,F13-F17",
+    "goal": "GOAL-035/T287",
+    "slice": "Potential third-family frozen-source review for F11/Q23 where Claude and Codex contributed",
+    "productOutcome": "Truthful required independent review; this result establishes local host capability only.",
+    "sourceAuthority": "Current Root request/selection; no Product source/HOW/test acquisition in this task.",
+    "toolAuthority": "Installed @google/gemini-cli0.42.0 package and its bundled official documentation; exact STDO3.0.4 remains selected.",
+    "runtimeAuthority": "No invocation or result exists for this proposal. Authentication, entitlement, effective runtime identity and independence are not inferred.",
+    "prohibitions": [
+      "No Product coding/evaluation or current Q23 task change",
+      "No model/provider/auth call, home config/credential read, environment value output or global change"
+    ]
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/THIRD_FAMILY_READINESS_REQUEST.json",
+    "sha256": "c5e7bf2b7302266702a8c3747de24f646f556a1c3d7db0968dd4ca2bbf5afaad"
+  },
+  "installed": {
+    "command": "/opt/homebrew/bin/gemini",
+    "resolvedTarget": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini.js",
+    "package": "@google/gemini-cli",
+    "version": "0.42.0"
+  },
+  "model": {
+    "requestedConcreteId": "gemini-3.1-pro-preview",
+    "localSupport": "Visible pro-tier thinking-capable model in installed registry; availability to this account is unknown.",
+    "highestEstablishedReasoning": "HIGH",
+    "explicitSetting": "modelConfigs.customOverrides[{match:{model:\"gemini-3.1-pro-preview\"},modelConfig:{generateContentConfig:{thinkingConfig:{thinkingLevel:\"HIGH\",includeThoughts:false}}}}]",
+    "reasoningCaveat": "Raw3.1 name can inherit chat-base without explicit HIGH; do not rely only on Gemini3 alias default. No xhigh/max level is established in installed enum.",
+    "identityCaveat": "Installed resolution can map unavailable preview to gemini-2.5-pro and custom-tools context to gemini-3.1-pro-preview-customtools. A flag string is not effective runtime identity or provider attestation. Retain configured/effective model metadata and reject an unbound fallback."
+  },
+  "readOnlyBoundary": {
+    "builtInPlanAloneSufficient": false,
+    "reason": "Its installed policies allow plan .md writes, named subagents and noninteractive exit from plan mode.",
+    "proposedTools": [
+      "read_file",
+      "list_directory",
+      "glob",
+      "grep_search"
+    ],
+    "settingsProposal": {
+      "general": {
+        "plan": {
+          "enabled": true
+        }
+      },
+      "model": {
+        "name": "gemini-3.1-pro-preview",
+        "maxSessionTurns": 32
+      },
+      "modelConfigs": {
+        "customOverrides": [
+          {
+            "match": {
+              "model": "gemini-3.1-pro-preview"
+            },
+            "modelConfig": {
+              "generateContentConfig": {
+                "thinkingConfig": {
+                  "thinkingLevel": "HIGH",
+                  "includeThoughts": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "tools": {
+        "core": [
+          "read_file",
+          "list_directory",
+          "glob",
+          "grep_search"
+        ]
+      },
+      "hooksConfig": {
+        "enabled": false
+      },
+      "admin": {
+        "extensions": {
+          "enabled": false
+        },
+        "mcp": {
+          "enabled": false
+        },
+        "skills": {
+          "enabled": false
+        }
+      },
+      "telemetry": {
+        "enabled": false,
+        "logPrompts": false
+      }
+    },
+    "policyProposal": "[[rule]]\ntoolName = \"*\"\ndecision = \"deny\"\npriority = 998\n\n[[rule]]\ntoolName = [\"read_file\", \"list_directory\", \"glob\", \"grep_search\"]\ndecision = \"allow\"\npriority = 999\n",
+    "scope": "Run only from a Root-prepared exact frozen review packet with source/member hashes and selected immutable method references. Native read tools operate within declared workspace/include scope; instructions still constrain which materials are relevant. No shell/write/web/search-provider/subagent/MCP/extension/skill-activation tool is needed.",
+    "limits": [
+      "CLI tool gating is not an OS read sandbox. Ordinary CLI session/cache writes must be directed to dedicated per-run storage outside frozen source.",
+      "The CLI still loads fixed system-admin policy locations; those were not inspected. User policy cannot overrule higher admin policy. Effective tool inventory/policy must satisfy the proposed four-tool boundary before relying on it.",
+      "No policy file or settings file was created by this task; proposals are data in this result."
+    ]
+  },
+  "authentication": {
+    "GEMINI_API_KEY": "absent in Root supplied presence evidence; no value checked",
+    "GOOGLE_API_KEY": "absent in Root supplied presence evidence; no value checked",
+    "oauth": "unknown; no home settings/credentials read",
+    "authStatusCommand": "No non-secret auth-status command established from supplied help/package route",
+    "isolatedHomeImplication": "Per-run GEMINI_CLI_HOME does not automatically carry existing OAuth credentials. Root must select a lawful available authentication route; do not copy/inspect credentials as part of this capability task.",
+    "modelEntitlement": "unknown"
+  },
+  "futureInvocationProposal": {
+    "status": "CONDITIONAL_NOT_DISPATCHED",
+    "cwd": "<ROOT_FROZEN_REVIEW_PACKET>",
+    "environment": {
+      "GEMINI_CLI_HOME": "<CONTROL>/gemini-session-home",
+      "GEMINI_CLI_SYSTEM_SETTINGS_PATH": "<CONTROL>/review-settings.json",
+      "GEMINI_CLI_SYSTEM_DEFAULTS_PATH": "<CONTROL>/empty-system-defaults.json",
+      "GEMINI_CLI_NO_RELAUNCH": "1",
+      "NODE_OPTIONS": "--max-old-space-size=8192"
+    },
+    "argv": [
+      "/opt/homebrew/bin/gemini",
+      "--model",
+      "gemini-3.1-pro-preview",
+      "--approval-mode",
+      "plan",
+      "--policy",
+      "<CONTROL>/read-only.toml",
+      "--extensions",
+      "none",
+      "--output-format",
+      "json",
+      "--prompt",
+      "Review only the exact frozen subject and governing packet supplied on stdin. Reacquire named source with read-only tools. Return the final source-grounded review, unknowns and scope limits. Do not modify files or delegate."
+    ],
+    "stdin": "Exact Root review request, source/member hash manifest and selected method/frame references, supplied via redirected file bytes; no shell interpolation of prompt text.",
+    "output": "Root captures JSON final response/stats/error and only required effective-model/tool metadata. Do not acquire private thinking or raw tool_result streams.",
+    "prerequisites": [
+      "Exact frozen subject and Root review grant exist; current native Worker is not interrupted or changed.",
+      "Root selects authentication and verifies account access without exposing credentials.",
+      "Root binds per-run settings/policy/storage and confirms the effective read-only inventory and actual requested/effective model; unbound fallback is not silently accepted.",
+      "Root establishes actual reviewer non-contribution and applicable independent-review authority. Gemini branding alone does not establish eligibility; current two-profile Q23 Product policy is unchanged."
+    ],
+    "scope": "One direct existing-CLI review proposal, no new dispatcher/service/provider integration or Product qualification acceptance."
+  },
+  "operations": {
+    "providerCalls": 0,
+    "authCalls": 0,
+    "cliInvocations": 0,
+    "ProductReads": 0,
+    "ProductEdits": 0,
+    "homeConfigOrCredentialReads": 0,
+    "globalChanges": 0,
+    "externalWebAcquisition": 0,
+    "writes": [
+      "THIRD_FAMILY_READINESS.json",
+      "THIRD_FAMILY_READINESS.md"
+    ]
+  },
+  "evidence": [
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/package.json",
+      "sha256": "c16e6c2aa6ae57a88475e791037a28df55a0a446402fc6ac0152ab1fc51ee1bc",
+      "lines": [
+        2,
+        3
+      ],
+      "meaning": "Installed package identity0.42.0 and gemini executable binding."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-JEW7ZIWE.js",
+      "sha256": "04843eb536d652934f2f119ba36c753e832530ea98b6cce9c2534e1af9b29bc6",
+      "lines": [
+        26753,
+        26758,
+        41676,
+        41681,
+        42369,
+        42378,
+        43406,
+        43407
+      ],
+      "meaning": "Installed thinking enum exposes LOW/HIGH; configured CLI home and system settings routes; exact3.1 Pro constants."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js",
+      "sha256": "38ea40ff0e78168243378aa05bf188e52bb88fb04886c03f7df462be906238b0",
+      "lines": [
+        301266,
+        301277,
+        301318,
+        301339,
+        318980,
+        318985,
+        319216,
+        319233,
+        319330,
+        319344
+      ],
+      "meaning": "Model config override owner, raw model fallback to chat-base, HIGH Gemini3 alias, supported3.1 model and possible preview/custom-tools remapping."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini-QSTQ2DBG.js",
+      "sha256": "c375ee6b91ac3fcd2a1cc4a850e7a22b2de2b059d82da47468ffe1a6f74687e8",
+      "lines": [
+        8038,
+        8070,
+        8085,
+        8335,
+        8343
+      ],
+      "meaning": "Headless stdin/prompt, policy/plan flags, and plan disabled\u2192default behavior."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/policies/plan.toml",
+      "sha256": "90aec12a30ac4ae187295a405126321f1e9aaa35b24138d48a395682489e4de3",
+      "lines": [
+        64,
+        165
+      ],
+      "meaning": "Built-in plan mode permits named subagents, plan-file writes and noninteractive mode exit; not strict read-only by itself."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/docs/reference/configuration.md",
+      "sha256": "1fe1cae5116c2f6793bb95ad356d3cb34dfb485b7496654662715bd21949604c",
+      "lines": [
+        36,
+        60,
+        751,
+        761,
+        1567,
+        1592,
+        1971,
+        1975,
+        2113,
+        2134,
+        2337,
+        2344,
+        2557,
+        2561
+      ],
+      "meaning": "Per-run settings paths, explicit overrides, core tool allowlist, disabled hooks/extensions/MCP, isolated CLI home, no extensions flag."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/docs/reference/policy-engine.md",
+      "sha256": "4895bc05bccef1a16ab1442c7a9b12ebe61945f0f079e9fca3261cf8b9e2d0f5",
+      "lines": [
+        133,
+        151,
+        223,
+        280
+      ],
+      "meaning": "Higher-priority first-match policy, custom files and user/admin precedence."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/docs/cli/headless.md",
+      "sha256": "42718e00f5acac2ab039091fab282ed9b3d992ae9f49afc64ec7636fbf6fa6ec",
+      "lines": [
+        7,
+        35
+      ],
+      "meaning": "JSON final response/stats/error route; stream-json includes tool payloads and is unnecessary here."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/docs/reference/tools.md",
+      "sha256": "aaed490dbf11e816d1306fbf73f85c255006506f5ddf896038912b3867a5b350",
+      "lines": [
+        80,
+        83,
+        167,
+        170
+      ],
+      "meaning": "Exact four read-only built-ins and their path parameters."
+    }
+  ]
+}

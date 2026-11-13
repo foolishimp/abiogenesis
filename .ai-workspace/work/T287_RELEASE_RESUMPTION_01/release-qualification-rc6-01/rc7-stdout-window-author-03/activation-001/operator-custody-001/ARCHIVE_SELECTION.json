@@ -1,0 +1,14 @@
+{
+  "kind": "selected_current_actor_stdout_archive",
+  "actorStart": "2026-11-06T23:12:54.942Z",
+  "actorEvent": "event://abiogenesis/1ac23564a988a039bf7c0da2d1182bd5ed02b532465c068a7e635a13e35bf85c",
+  "selection": "Single stdout archive born after host and within ten seconds of actual actor boundary; existing worker_transport naming owner. No other archive contents read.",
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-e54265dd6b2ffdee-stdout.log",
+    "bytes": 86498,
+    "birthUtc": "2026-11-06T23:12:54.940117+00:00",
+    "mtimeUtc": "2026-11-06T23:13:29.870188+00:00",
+    "device": 16777231,
+    "inode": 708698631
+  }
+}

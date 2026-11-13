@@ -1,0 +1,43 @@
+{
+  "status": "SOURCE_TRACKED_CLEAN_PARTIAL_UNACCEPTED",
+  "sourceCommit": "72eea8f0cd384e7eaeb64ff1ba47b0a3ac2858d4",
+  "sourceTree": "d7754acafb3a67efe3b41c093263225ae9ce968e",
+  "branch": "codex/rc4-native-recovery",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 26465,
+      "sha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 37818,
+      "sha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 88077,
+      "sha256": "22359424fc1e75323fc0d0b746def0179cf1c2d7fadf21272bb4775ddf1040d7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "bytes": 19452,
+      "sha256": "2743c8b76f597d1425e79e60b1e212e5821456e04ebc2d16259ac09e829ad5be"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+      "bytes": 93155,
+      "sha256": "10ad90958034378544ef830dfa3aa6122721b1aa9ed9d35de6d29d6cac0d4d15"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "bytes": 43212,
+      "sha256": "3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f"
+    }
+  ],
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/PARTIAL_CHECKPOINT.json",
+    "bytes": 3099,
+    "sha256": "dbf3c9b704a8127ed29d5778a7c2608dd41927b7018d5b865c175d8a97e53488"
+  }
+}

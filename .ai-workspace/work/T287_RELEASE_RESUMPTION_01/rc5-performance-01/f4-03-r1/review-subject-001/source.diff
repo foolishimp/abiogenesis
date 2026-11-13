@@ -1,0 +1,144 @@
+diff --git a/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs b/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs
+index 4a72e6a75..26e5626d0 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs
+@@ -15,6 +15,10 @@ export async function runInstalledLanguageTest(context, packageRoot, options = {
+     prepareAdditionalProducts: async basis => [await prepareFixture(basis)],
+     ...(options.programRef === undefined ? {} : { programRef: options.programRef }),
+     ...(options.catalogHandle === undefined ? {} : { graphFunctionRef: options.catalogHandle }),
++    // Canonical ABI publications the selected Program borrows declarations from.
++    ...(options.additionalCorePublicationConstructors === undefined ? {}
++      : { additionalCorePublicationConstructors: options.additionalCorePublicationConstructors }),
++    ...(options.crossPublicationProgram === undefined ? {} : { crossPublicationProgram: options.crossPublicationProgram }),
+   });
+   if (options.allowlist !== undefined) {
+     environment.catalogView = environment.product.narrowGraphFunctionCatalog(environment.catalog, options.allowlist);
+diff --git a/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs b/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
+index 9bd653f6d..5c91232f0 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
+@@ -495,19 +495,28 @@ export async function setupInstalledRootCatalog(
+     selectedProgramRefs.has(program.programRef) &&
+     (program.policies["abg.semantic_lifecycle"] ?? publication.semanticLifecycle?.declarationRef ??
+       publication.semanticJobLifecycle?.declarationRef) !== undefined);
+-  const programValidations = publication.programs
+-    .filter((program) => selectedProgramRefs.has(program.programRef) && !semanticPrograms.includes(program))
+-    .map((program) =>
+-      validator.validateProgram(
+-        rawProgramInput(validator, publicationAdmission, program),
+-      ));
+-  const programValidation = programValidations.find(
+-    (value) => value.programRef === rootProgramRef,
++  // A caller-declared cross-publication root Program references declarations
++  // owned by other admitted publications (for example canonical ABI contracts).
++  // It validates below over its Catalog-resolved declaration closure, never
++  // over its own publication alone.
++  const crossPublicationProgram = options.crossPublicationProgram === true;
++  const locallyValidatedPrograms = publication.programs.filter((program) =>
++    selectedProgramRefs.has(program.programRef) && !semanticPrograms.includes(program) &&
++    !(crossPublicationProgram && program.programRef === rootProgramRef));
++  const programValidations = locallyValidatedPrograms.map((program) =>
++    validator.validateProgram(
++      rawProgramInput(validator, publicationAdmission, program),
++    ));
++  // Pair by Program: a typed refusal carries no programRef.
++  const rootValidationIndex = locallyValidatedPrograms.findIndex(
++    (program) => program.programRef === rootProgramRef,
+   );
++  let programValidation = rootValidationIndex === -1 ? undefined : programValidations[rootValidationIndex];
+   assert.equal(publicationValidation.kind, "publication_validation", JSON.stringify(publicationValidation));
+-  if (!semanticPrograms.some((program) => program.programRef === rootProgramRef))
+-    assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
+-  assert.equal(programValidations.every((value) => value.kind === "program_validation"), true);
++  if (!semanticPrograms.some((program) => program.programRef === rootProgramRef) && !crossPublicationProgram)
++    assert.equal(programValidation?.kind, "program_validation", JSON.stringify(programValidation));
++  assert.equal(programValidations.every((value) => value.kind === "program_validation"), true,
++    JSON.stringify(programValidations.filter((value) => value.kind !== "program_validation")));
+   const catalogInstalledProducts = admittedInstalls.map((install, index) => {
+     const {
+       kind: _kind,
+@@ -561,6 +570,22 @@ export async function setupInstalledRootCatalog(
+     ],
+   );
+   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
++  if (crossPublicationProgram) {
++    // The Product closure owner resolves the Program over the genuine Catalog;
++    // the validator then proves that whole declaration inventory.
++    const declarationClosure = product.resolveProgramDeclarationClosure(catalog, catalogView, rootProgramRef);
++    assert.equal(declarationClosure.kind, "resolved_program_declaration_closure", JSON.stringify(declarationClosure));
++    const closureProgram = declarationClosure.programPublication.programs.find(
++      (program) => program.programRef === rootProgramRef,
++    );
++    const validationInput = product.constructCatalogProgramValidationInput(
++      catalog, catalogView, declarationClosure, closureProgram,
++    );
++    assert.notEqual(validationInput.kind, "raw_admission_refusal", JSON.stringify(validationInput));
++    programValidation = validator.validateProgram(validationInput);
++    assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
++    programValidations.push(programValidation);
++  }
+   accountSetupPhase(options, "execution_preparation_publication_program_and_catalog", phaseStarted);
+ 
+   return {
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs
+index e81e5c220..235a14016 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs
+@@ -83,6 +83,8 @@ function rc5RetainedRouteSource(product) {
+     "leaf.mjs": [
+       ["import {canonicalJson as canonical,sha256Canonical as hash} from '@abiogenesis/typescript-tenant/product';",
+         "import {canonicalJson as canonical,sha256Canonical as hash,isRetainedGraphInput} from '@abiogenesis/typescript-tenant/product';"],
++      // The packaged implementation owner resolves only exported descriptors.
++      ["WORKER_PASS_DESCRIPTOR=descriptor('workerPass');", "WORKER_PASS_DESCRIPTOR=descriptor('workerPass'),RC5_CONSUMER_DESCRIPTOR=descriptor('rc5Consumer');"],
+       ["export const atomic=input=>", "export const rc5Consumer=input=>candidate('rc5Consumer',input,value('data_output',{message:input.source.message}));\nexport const atomic=input=>"],
+       ["function valid(kind,v){", "function valid(kind,v){\n if(kind==='retained_graph_input')return isRetainedGraphInput(v)&&valid('data_input',v.entry)&&valid('data_output',v.source);"],
+       ["const relation=(input,output)=>{", "const relation=(input,output)=>{\n if(input?.kind==='retained_graph_input')return isRetainedGraphInput(input)&&output?.kind==='data_output'&&input.source.message===input.entry.subject.trim()&&output.message===input.source.message;"],
+@@ -99,12 +101,47 @@ test("RC5 retained route carries an installed c_workflow source as a physical re
+     programRef: RC5_IDS.programRef,
+     catalogHandle: RC5_IDS.graphFunctionRef,
+     allowlist: [RC5_IDS.graphFunctionRef],
++    // T is published only by the canonical ABI CommandExecution module.
++    additionalCorePublicationConstructors: ["constructWorksiteCommandExecutionModulePublication"],
++    crossPublicationProgram: true,
+     input,
+     identity: "rc5-retained-route",
+   });
+   assert.equal(proof.receipt.exitCode, 0);
+   assert.equal(proof.receipt.ownerOutput.outcomeKind, "result");
+-  const { events, reads, handoff, environment } = proof;
++  const { events, reads, handoff, environment, resolution } = proof;
++  const { product } = environment;
++  // Owner truth: the Product-resolved closures name T's actual ABI CommandExecution owner.
++  const T = product.RETAINED_GRAPH_INPUT_CONTRACT.contractRef;
++  const [fixture] = environment.additionalProducts;
++  assert.equal(environment.additionalPublications[0].contracts.some(contract => contract.contractRef === T), false);
++  const abiCommandExecution = environment.publications.filter(publication =>
++    publication.owningProductId === environment.verified.productId &&
++    publication.moduleRef === product.WORKSITE_COMMAND_EXECUTION_IDS.moduleRef);
++  assert.equal(abiCommandExecution.length, 1);
++  assert.deepEqual(abiCommandExecution[0].contracts.filter(contract => contract.contractRef === T), [product.RETAINED_GRAPH_INPUT_CONTRACT]);
++  for (const closure of [resolution.programDeclarationClosure, resolution.declarationClosure]) {
++    const owners = closure.contractOwners.filter(owner => owner.declarationRef === T);
++    assert.equal(owners.length, 1, closure.closureScope);
++    assert.deepEqual(owners[0], { declarationKind: "contract", declarationRef: T, productId: environment.verified.productId,
++      installId: environment.admittedInstall.installId, moduleRef: product.WORKSITE_COMMAND_EXECUTION_IDS.moduleRef,
++      publicationDigest: product.modulePublicationSemanticDigest(abiCommandExecution[0]) }, closure.closureScope);
++  }
++  assert.equal(environment.programValidation.programRef, RC5_IDS.programRef);
++  assert.equal(resolution.programValidation.programRef, RC5_IDS.programRef);
++  // The consumer resolves to the fixture's exported packaged descriptor.
++  const consumerRows = resolution.implementationSetCandidate.rows.filter(row => row.namedSymbol === "rc5Consumer");
++  assert.equal(consumerRows.length, 1);
++  const [consumerRow] = consumerRows;
++  assert.equal(consumerRow.implementationOwnerProductId, fixture.basis.productId);
++  assert.equal(consumerRow.inputContractRef, T);
++  assert.equal(consumerRow.outputContractRef, STRUCTURAL_IDS.outputContractRef);
++  const consumerDescriptors = resolution.packagedImplementations.filter(descriptor =>
++    descriptor.descriptorDigest === consumerRow.implementationDescriptorDigest);
++  assert.equal(consumerDescriptors.length, 1);
++  assert.equal(consumerDescriptors[0].namedSymbol, "rc5Consumer");
++  assert.equal(consumerDescriptors[0].packageName, fixture.basis.packageName);
++  assert.equal(consumerDescriptors[0].modulePath, "build/leaf.mjs");
+   const S = { kind: "data_output", schemaVersion: "5.0.0", message: subject };
+   const retained = events.filter(event => event.kind === "traversal_route_admitted" &&
+     event.payload.boundInput?.value?.kind === "retained_graph_input");

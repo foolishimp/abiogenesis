@@ -1,0 +1,28 @@
+{
+  "predecessorReady": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/READY.json",
+    "bytes": 6996,
+    "sha256": "8c6c8799fc7f075f544fc64465a5e87947835993a9059927eed789e5a159570a"
+  },
+  "driverUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py",
+    "bytes": 17434,
+    "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+  },
+  "changedBindingFields": [
+    "source digest/inventory/frozen root -> actual closed one-file successor",
+    "retained stage/work/tenant -> metadata-preserved fresh copy with exact frozen m5 overlay",
+    "controls proofRoot -> absent fresh unit03 output",
+    "retained inputs add actual native/freeze/unit02 red/cache custody/conservation receipts",
+    "retrospectiveDisposition -> explicit unchanged production relation pending Root conjunction",
+    "previousProcessGroups add closed unit02/nativeB02 groups"
+  ],
+  "unchanged": [
+    "controller and actual failure-presence/digest/complete-success functions",
+    "original nine-file argv/flags/env apart from fresh output/tmp/cache/evidence",
+    "102names/six named skips/39M5/34IDs",
+    "normal998outputs/deps/metadata/archive5329/bootstrap",
+    "fixed1800/2400/15s bounds"
+  ],
+  "effects": "Prep copy2 staging and one frozen test overlay only, no Product/test/build/pack execution. Existing Q1/Q2 and all source/index/tracking preserved."
+}

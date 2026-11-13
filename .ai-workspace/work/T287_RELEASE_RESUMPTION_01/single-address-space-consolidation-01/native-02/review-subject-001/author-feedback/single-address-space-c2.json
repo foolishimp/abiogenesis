@@ -1,0 +1,87 @@
+{
+  "kind": "actual_single_address_space_c2_orchestration_result",
+  "lanes": [
+    {
+      "id": "affected-owner-lanes",
+      "files": [
+        "test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+        "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+        "test_env/tests/t287-authenticated-owner-values.test.mjs",
+        "test_env/tests/t287-authenticated-owner-family.test.mjs",
+        "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "test_env/tests/t287-declared-testing-capability.test.mjs",
+        "test_env/tests/t287-default-library.test.mjs",
+        "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "test_env/tests/t287-continuation-causation.test.mjs",
+        "test_env/tests/t287-owned-native-proof.test.mjs",
+        "test_env/tests/t287-native-owner-reuse.test.mjs",
+        "test_env/tests/t288-initial-cursor-entry.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 48,
+      "fail": 0,
+      "skipped": 20,
+      "wallMs": 231134.81733400002,
+      "stdoutSha256": "0dadfacd6b3fe9f57ff1c7e1fdee27e82706d49a761a7910b643e3efde7da967",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "installed-affected-lane",
+      "files": [
+        "test_env/tests/m5-installed-graph-edge.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 86622.39704100002,
+      "stdoutSha256": "8bdb26ed9ad23e7a78a564c6429193d97f30a5aa7e8fad03764fd60c6134f965",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 4,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 220847.18554199993,
+      "stdoutSha256": "7b477bf32eff517b57ed1db81fcd7d5b91b3b8c40b2efc4ce1eeab48da774b67",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "maintained-setup-harness",
+      "files": [
+        "test_env/uat/harness.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 32,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 66748.83141699992,
+      "stdoutSha256": "38b028f9904d815a8635430d5698ccf254b4824e79881a12e57832527e5feb2b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "nativeTestProof": {
+    "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-02/tmp/cand/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+    "bytes": 98198,
+    "sha256": "6734d5155ae50c23b4ce3fdcd735ffd53dc4f7de0b5a0352bd0116e495cb5ea8"
+  },
+  "sourceManifestSha256": "271f20e35332183d3173f0e39f1d5292c13eb54298bd128399bd4d4d8b6ce070",
+  "authority": "Actual tests and native-authored proof retain their own claims; this wrapper only records their exits and artifacts.",
+  "qualified": false,
+  "published": false
+}

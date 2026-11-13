@@ -1,0 +1,33 @@
+{
+  "status": "ROOT_ADMITTED_RC10_FROZEN_PROOF",
+  "id": "RC10-UNIT-01",
+  "utc": "2026-11-09T03:34:41.854982+00:00",
+  "proofBindingSha256": "dc3fa00f5a3803f6cd382367a222e3c80f6d6a448e50ff261eabed12b9a12136",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/UNIT_BINDING.001.json",
+    "bytes": 11687,
+    "sha256": "dc3fa00f5a3803f6cd382367a222e3c80f6d6a448e50ff261eabed12b9a12136"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/frozen-proof.unit-r02.mjs",
+    "bytes": 15201,
+    "sha256": "6856997d9e8fdbcf6b937da0709d38c5c2f7ce7d07765b6813cb86d5ecd45355"
+  },
+  "rootDecision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/ROOT_UNIT_CONTROL_DECISION.json",
+    "bytes": 1393,
+    "sha256": "be6054754e4ee83e1c2e0ee55e4ac3658a800da25f212a0f7ae15ab0b456e3e8"
+  },
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292744,
+    "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+  },
+  "allowedModes": [
+    "unit"
+  ],
+  "allocation": "unit-01",
+  "providerCalls": 0,
+  "qualified": false
+}

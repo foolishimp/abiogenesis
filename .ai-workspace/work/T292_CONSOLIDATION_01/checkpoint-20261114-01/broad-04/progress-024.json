@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 7,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/024-m5-terminal-quiescence-owner.test/process.json",
+    "bytes": 1096,
+    "sha256": "19a33a16c68e247b084b6893594397b224ef79a2da0b087cf955357db155aa05"
+  }
+}

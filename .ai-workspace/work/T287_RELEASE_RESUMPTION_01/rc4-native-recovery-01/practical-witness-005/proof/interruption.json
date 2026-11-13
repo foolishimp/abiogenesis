@@ -1,0 +1,15 @@
+{
+  "hook": "test-only native fsync -> owner historical decode -> first durable Testing-wrapper cursor entry",
+  "processId": 62336,
+  "signal": "SIGKILL",
+  "eventCount": 2863,
+  "entered": [
+    {
+      "eventId": "event://abiogenesis/d9eae5ac38c0f39ece8f9ceab76d939a944b655c6ebfccf5be442aba80840cae",
+      "runId": "run://abiogenesis/738cb4e371bd22e5af782f014e9228e39709273dad6c48e236f29776f666afec",
+      "frameId": "frame://abiogenesis/afbcc3fe2fcec922f8e56b04944943464d3abb0b8d50402d16ff1a279875ab8e",
+      "cursorRef": "traversal-cursor://abiogenesis/501202f84b9c3b850134b2ead579ad7bc8e8997dcc2851da93187334001b12ba"
+    }
+  ],
+  "openedAtInterruption": 0
+}

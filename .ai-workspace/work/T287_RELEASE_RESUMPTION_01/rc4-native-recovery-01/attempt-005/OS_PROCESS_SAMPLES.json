@@ -1,0 +1,35 @@
+{
+  "samples": [
+    {
+      "observed_at": "2026-11-01T17:10:25Z",
+      "observer": "Root passive OS process sample",
+      "processes": [
+        {
+          "pid": 19519,
+          "role": "dispatch",
+          "elapsed": "29:48",
+          "cpu_time": "0:15.96",
+          "rss_kib": 728608,
+          "instant_cpu_percent": 0
+        },
+        {
+          "pid": 19701,
+          "role": "installed_runtime",
+          "elapsed": "29:34",
+          "cpu_time": "13:33.88",
+          "rss_kib": 1712272,
+          "instant_cpu_percent": 0
+        },
+        {
+          "pid": 22470,
+          "role": "native_construction_provider",
+          "elapsed": "25:58",
+          "cpu_time": "0:13.25",
+          "rss_kib": 346688,
+          "instant_cpu_percent": 0.5
+        }
+      ],
+      "limits": "Cumulative process CPU has no function or phase attribution. Instantaneous CPU is not steady load. Not an RC4 runtime performance claim."
+    }
+  ]
+}

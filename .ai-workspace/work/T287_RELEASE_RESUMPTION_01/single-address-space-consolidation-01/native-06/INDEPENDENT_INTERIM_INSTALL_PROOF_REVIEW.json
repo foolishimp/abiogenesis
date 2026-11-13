@@ -1,0 +1,381 @@
+{
+  "kind": "independent_interim_install_proof_review",
+  "recordedUtc": "2026-11-04T01:15:13.189Z",
+  "frame": {
+    "product": "ABIogenesis5",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "originalOutcome": "R1-R7/C1-C5 remains open",
+    "classification": "Test-owned current installed fixture and observation/proof. No new Product authority, law or qualification."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/SUBJECT.json",
+    "sha256": "a6190d8adceb5ad2df67ba9f3d4587388d3865626740b2cb1c8a8acef2077546",
+    "filesVerified": 13,
+    "preimagesVerified": 13,
+    "changedFiles": 1,
+    "nativeResult": null,
+    "standing": "Interim source and author feedback only; final hashes and actual C2 remain required"
+  },
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_06.md",
+      "sha256": "d5ed3bbf5c2c632c8c8ecb43abb364d99275a632bdde5417aabe37f2665baba3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_FIXTURE_ROUTE_TRIAGE.json",
+      "sha256": "fd3e9dd6eaee1ee99d990dda18fb610c7b8cdf8c94952ee274065e4a7cfc8432"
+    }
+  ],
+  "claim": "The changed T289 test migrates stale legacy fixture assumptions to the genuine existing current installed producer and reader owner family, preserving its semantic/reuse/refusal assertions. Shared boundary controls retain their separate scope and proof standing.",
+  "verdict": {
+    "result": "satisfied",
+    "scope": "Static conformance of this exact fixture migration and assertion relation; no concrete weakening or nominal-owner substitution identified.",
+    "findings": [],
+    "triage": "not_applicable",
+    "confidence": "High for the frozen source and owner relation; author TAP is corroborating feedback, not actual C2 or source acceptance."
+  },
+  "producerAndReaderTrace": [
+    {
+      "path": "test_env/tests/t289-install-event-bodies.test.mjs",
+      "lines": "132-158",
+      "relation": "Memoized actual setupInstalledRootCatalog with packed_artifact basis and existing prepareLanguageSmokeFixture additional Product. Select actual env.store first three install/install/bind events and returned candidates, lock, bindingCandidate and workspaceAuthority; do not read or restamp old external history."
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "lines": "275-340;356-435",
+      "relation": "verify actual archives; construct resolved lock; materially install/check exact candidates and installed bytes; load one installedRoot owner family; create actual Event Store, admit both Product installs and workspace binding."
+    },
+    {
+      "path": "test_env/support/language-smoke-fixture.mjs",
+      "lines": "18-30;36-75",
+      "relation": "Existing test-owned authored fixture pack is digest-bound to exact ABI archive and supplies the second verified installed Product. It is not an alternate runtime or authority."
+    },
+    {
+      "path": "test_env/tests/t289-install-event-bodies.test.mjs",
+      "lines": "143-150;165-176;250-278;86-94;313-317;392-395",
+      "relation": "All runtime facts/readers come from env.installedRoot through loadProjectionOwners, including child reader and Product/coordinate helpers. Warm identity uses actual selectRuntimeEventPrefixFromStore; copied/materialized projection is explicitly a separate equal-value computation."
+    },
+    {
+      "path": "test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "lines": "9-25",
+      "relation": "Load actual modules from selected installed root. filePrefix constructs a raw byte/path/inode/digest selector, not an owned receipt; cold projectExactPrefixArtifactTruth authenticates it through the genuine reader."
+    },
+    {
+      "path": "code/src/abg/artifact_truth.ts",
+      "lines": "418-456;615-632;845-889",
+      "relation": "Reference must cite exact earlier embedded lock with matching digest, one cause and exact lock identity/digest. Full candidate is reconstructed from exact lock row. Projection uses its owned scope; exact/raw reader retains cold acquisition and refusal."
+    },
+    {
+      "path": "code/src/abg/environment_admission.ts",
+      "lines": "810-826;914-962;1087-1124;1203-1220",
+      "relation": "Actual admission guards held predecessor and semantic candidates. It compactly emits the first inline lock and later reference, with real causation. Same inputs are replayed into a separate genuine disposable store."
+    }
+  ],
+  "assertionMap": [
+    {
+      "claim": "Current serialization and exact producer correspondence",
+      "current": "T289:153-158,197-203,250-259,279-281",
+      "status": "preserved and made mandatory for current producer",
+      "details": "Two embedded-equal-lock legacy assumption becomes actual first embedded lock plus second exact reference. Both full logical events and physical producer byte prefix are compared. Optional old ABI5_LOCK_REUSE_EXPECTED_EVENTS comparison is replaced by mandatory same-input current producer equality."
+    },
+    {
+      "claim": "Strict warm retained identity",
+      "current": "T289:173-176,193-196,234-237,270-278",
+      "status": "preserved in supported authentic owned domain",
+      "details": "strictEqual remains across successful suffix and refused candidate. Copy has no owner derivation; materialized selection is notStrictEqual yet deeply equal. No conversion of the strict owned assertion to deep equality."
+    },
+    {
+      "claim": "Full cold semantic values and reader provenance",
+      "current": "T289:86-125,282-290,302-319",
+      "status": "preserved",
+      "details": "Fresh child loads same installedRoot and asserts distinct PID, full reconstructed candidate, full resolved lock, artifact digests, hydrated admitted install and workspace environment. Complete live projection equals raw physical cold result. Expected values come from genuine returned candidates/lock/binding, not compact payload or opaque handle JSON."
+    },
+    {
+      "claim": "Candidate delta/full-prefix parity, duplicate and copied predecessor",
+      "current": "T289:177-196",
+      "status": "preserved",
+      "details": "Five delta cases include valid prepared event, duplicate install, wrong ordinal, missing contract stamp and absent cause; complete-prefix validation outcome equality remains. Copied predecessor is rejected as owner-derived input. Positive second install is independently admitted at250-259."
+    },
+    {
+      "claim": "Source/digest/forward/lock/compact-body refusal controls",
+      "current": "T289:208-248",
+      "status": "all12 preserved",
+      "details": "Missing/malformed/wrong-source/forward-source/wrong-source-digest/wrong-lock-id/wrong-lock-digest/mixed-inline-reference/wrong-product/wrong-candidate-id/wrong-root/extra-field. Each refuses before append, keeps durable bytes and event count, retains predecessor identity/projection, and creates an explicitly synthetic cold refusal probe."
+    },
+    {
+      "claim": "Reference chain refusal",
+      "current": "T289:293-306",
+      "status": "preserved",
+      "details": "Cites reference-bearing second event with its actual payload digest. artifact_truth:433-439 requires embeddedLock before downstream uniqueness check, so this chain does not become an authorized source merely because the hydrated lock is equal."
+    },
+    {
+      "claim": "Stale predecessor/eventlessness",
+      "current": "T289:260-269",
+      "status": "preserved",
+      "details": "Admission with actual earlier prefix after second install returns coordinate_refused and leaves file bytes unchanged; fresh held predecessor succeeds."
+    },
+    {
+      "claim": "Rollback and historical prefix conservation",
+      "current": "T289:343-389",
+      "status": "preserved",
+      "details": "Actual Event Store transaction stages an event and derivation then throws. Durable bytes/event count and exact accepted/prior projection values remain; later binding succeeds. This test uses its existing explicit array prior-prefix selector. Genuine owned-generation invalidation is separately checked by shared boundary test424-439."
+    },
+    {
+      "claim": "Different-lock isolation",
+      "current": "T289:392-441",
+      "status": "preserved",
+      "details": "Product-valid isolated new-lock fixture recomputes lock/candidate/invocation identity, requires new embedded lock rather than borrowing prior body, retains first three events/rows and prior prefix truth, and matches warm/cold values."
+    },
+    {
+      "claim": "Physical corruption and source preservation",
+      "current": "T289:318-325",
+      "status": "preserved",
+      "details": "After close, physical byte mutation must yield prefix_digest_mismatch; restore bytes. Producer history hash remains unchanged. This uses raw coordinate cold path and does not impose hostile mutation detection on live authenticated owner reuse."
+    },
+    {
+      "claim": "Raw install eligibility",
+      "current": "T289:447-494",
+      "status": "preserved",
+      "details": "Actual raw admission returns structured artifact_truth_conflict for null productContentDigest, unchanged successor and zero events/bytes. Valid control admits compact body with full semantic candidate/lock projection."
+    },
+    {
+      "claim": "Explicit requireCurrent, copied/foreign resource and owned rollback guard",
+      "current": "shared t287-single-address-space-consolidation.test.mjs:403-439",
+      "status": "separate unchanged owner-boundary proof dependency, not T289-specific execution",
+      "details": "T289 itself has no foreign-coordinate or explicit requireCurrent reader case. The existing shared actual installed boundary fixture exercises stale selection/current coordinate, copied handle/cold coordinate, real foreign resource selection/close refusal and owned generation rollback. These cases are not inferred from T2894pass."
+    }
+  ],
+  "removedLegacyBranches": [
+    {
+      "old": "T289 native05:267-291 mixed historical/new positive projection probe",
+      "new": "T289:279-281 and302-305",
+      "assessment": "Under the migrated current fixture, original and replayed owner events are asserted identical. The former mixed construction would reconstruct that same current history, so its removal does not drop a distinct positive discriminator of this current fixture contract. It supplies no cross-version legacy compatibility credit."
+    },
+    {
+      "old": "Legacy external history path/hash gate and original full-body payload expectations",
+      "new": "Actual current installed producer and logical candidate/lock expectations",
+      "assessment": "Explicit selected stale-fixture migration; legacy histories and failed baseline evidence remain untouched. No claim that old unsupported envelopes are now admitted or that historical release compatibility was newly qualified."
+    }
+  ],
+  "sharedBoundary": {
+    "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-qualification-proof-review-001/SUBJECT.json",
+    "subjectSha256": "19d6ed436cd878b943dca3255ca381846b902ac56393d8cec5d4d675cdbc8f65",
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-qualification-proof-review-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "sha256": "b1b88c078162930e2c6bc7fd665ff3e5c9dfd32b1568f07fa2320b34c95466b8",
+    "readScope": "308-362,379-439 only",
+    "controls403_439ByteEqualNative05": true,
+    "regionSha256": "52f51d9305bb76d07d01389c2a20d6a7256fdb8516d228f2515d747bae0ac648",
+    "native05FileSha256": "cbe17a4e483a2f4ddb6ed0fe0d9b38979a1becc80429ecb2d33c42e9259d45c9",
+    "ownerDependency": "The same actual installed event_prefix/Event Store acquisition and currentness/generation relation underlies T289 owned selection and raw cold read. T289 artifact admission additionally calls assertHeldEventStoreAtDurablePrefix before relying on predecessor facts. Shared guard assertions do not prove a new T289-specific foreign-input execution.",
+    "executionStanding": "Root reports native05 actual whole-path C2 seven passes; this review verified unchanged control source, not that earlier execution receipt. Native06 selected whole-path rerun/final hash must still be conjoined."
+  },
+  "authorFeedback": [
+    {
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/author-feedback/t289-1.tap",
+      "sha256": "ac6414fa4fae5779261363d03375034762090d1f981b1d1202f8ea20d720f57d",
+      "bytes": 2283,
+      "summary": [
+        "ok 1 - T289 owner serialization and cold historical/reference reconstruction preserve exact install truth",
+        "ok 2 - T289 live state recovers after rollback without changing earlier artifact prefixes",
+        "ok 3 - T289 established causal installs and binding admit a new lock without changing prior truth",
+        "ok 4 - T289 raw install eligibility returns its structured refusal without appending",
+        "# tests 4",
+        "# pass 4",
+        "# fail 0",
+        "# skipped 0",
+        "# duration_ms 63870.745625"
+      ],
+      "failures": [],
+      "standing": "Frozen author feedback only; no actual C2 credit; diagnostic probe source/commands are not part of this source review."
+    },
+    {
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/author-feedback/t289-probe.tap",
+      "sha256": "4ff97aeb21707662555e6c3f8972d25c663fa84f29f37fa5e73c17382b6b713e",
+      "bytes": 8715368,
+      "summary": [
+        "not ok 1 - probe",
+        "# tests 1",
+        "# pass 0",
+        "# fail 1",
+        "# skipped 0",
+        "# duration_ms 51140.471084"
+      ],
+      "failures": [
+        {
+          "title": "not ok 1 - probe",
+          "error": [
+            "not ok 1 - probe",
+            "  failureType: 'testCodeFailure'",
+            "  error: |-",
+            "    Expected values to be strictly deep-equal:",
+            "    + actual - expected",
+            "    +   artifactDigest: 'sha256:be85054cc1bfc8115eb91c6dbf6cfe2d2c4cf2d7ba6eb1aa36a89e9a50ccd2ec',",
+            "    -   artifactDigest: 'sha256:091ab10a500eea30f59cc3952c21d181eb9d85277c4b2591556308faa435f0e2',",
+            "    +     graphDigest: 'sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d',",
+            "    -     graphDigest: 'sha256:df5fbb917b8d2d15e1434fa3ebf1d860a22acf112fdcf82585a95c45ad416c71',",
+            "          kind: 'abg_capability_definition_graph',",
+            "    +     rows: [],",
+            "    -     rows: [",
+            "    -       {"
+          ]
+        }
+      ],
+      "standing": "Frozen author feedback only; no actual C2 credit; diagnostic probe source/commands are not part of this source review."
+    },
+    {
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/author-feedback/t289-probe-2.tap",
+      "sha256": "ae499766d551800a9df4f315b96c265694ef86c4177458ebf2c7b11426bc6538",
+      "bytes": 8716769,
+      "summary": [
+        "not ok 1 - probe",
+        "# tests 1",
+        "# pass 0",
+        "# fail 1",
+        "# skipped 0",
+        "# duration_ms 50359.615042"
+      ],
+      "failures": [
+        {
+          "title": "not ok 1 - probe",
+          "error": [
+            "not ok 1 - probe",
+            "  failureType: 'testCodeFailure'",
+            "  error: |-",
+            "    Expected values to be strictly deep-equal:",
+            "    + actual - expected",
+            "    +   artifactDigest: 'sha256:67625f80353845ed075c42d195bb32473e18ac8dcc1d38b109139de8ab0efb05',",
+            "    -   artifactDigest: 'sha256:091ab10a500eea30f59cc3952c21d181eb9d85277c4b2591556308faa435f0e2',",
+            "    +     graphDigest: 'sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d',",
+            "    -     graphDigest: 'sha256:df5fbb917b8d2d15e1434fa3ebf1d860a22acf112fdcf82585a95c45ad416c71',",
+            "          kind: 'abg_capability_definition_graph',",
+            "    +     rows: [],",
+            "    -     rows: [",
+            "    -       {"
+          ]
+        }
+      ],
+      "standing": "Frozen author feedback only; no actual C2 credit; diagnostic probe source/commands are not part of this source review."
+    }
+  ],
+  "feedbackInterpretation": {
+    "final": {
+      "tests": 4,
+      "pass": 4,
+      "fail": 0,
+      "skip": 0,
+      "durationMs": 63870.745625
+    },
+    "earlierProbes": "Both retained diagnostics report1failed deep-equality assertion, with differing artifact/capability-graph values. No giant body printed. Their exact source/call setup is absent, so no further root-cause or Product defect is inferred from those TAPs. They remain preserved independently of the final author feedback."
+  },
+  "reviewedFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "sha256": "af65174bcb7ea1fb37d358650c70b4dd310408a391291c7f2439e22549ee8c36",
+      "bytes": 33658,
+      "preimageSha256": "aa1ab8ed6a5cd947f35ffab910e4a840db70592ea4bbeadaf709d5cdcefb9778"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "sha256": "b106e1de259ec993469a3d320316646eae9490330ec0bcb86fad2be7214dee7f",
+      "bytes": 4556,
+      "preimageSha256": "b106e1de259ec993469a3d320316646eae9490330ec0bcb86fad2be7214dee7f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+      "bytes": 42751,
+      "preimageSha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+      "bytes": 9963,
+      "preimageSha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276,
+      "preimageSha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/developer-mini-product.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/test_env/support/developer-mini-product.mjs",
+      "sha256": "9c1aaa148aee8a1403db0f068fc47afa16a147c0be7d27c1bd74ddc7c9f4b39a",
+      "bytes": 13419,
+      "preimageSha256": "9c1aaa148aee8a1403db0f068fc47afa16a147c0be7d27c1bd74ddc7c9f4b39a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "sha256": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335",
+      "bytes": 42548,
+      "preimageSha256": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "sha256": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb",
+      "bytes": 46702,
+      "preimageSha256": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c",
+      "bytes": 213856,
+      "preimageSha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "bytes": 61840,
+      "preimageSha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "sha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4",
+      "bytes": 44193,
+      "preimageSha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "sha256": "5013543113cd3a2b30c7a22726da885debcf72f54bc812b2632f940e70ac2789",
+      "bytes": 16414,
+      "preimageSha256": "5013543113cd3a2b30c7a22726da885debcf72f54bc812b2632f940e70ac2789"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-install-proof-review-001/files/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "sha256": "dd64d252cc1cd3fe7d8041e188193686da15fb92cdc66f98a8136846cdb0fbe7",
+      "bytes": 43488,
+      "preimageSha256": "dd64d252cc1cd3fe7d8041e188193686da15fb92cdc66f98a8136846cdb0fbe7"
+    }
+  ],
+  "smallestReentry": "No source/test repair is supported by this snapshot. Conjoin final admitted T289/helper/owner hashes with actual affected C2 including the four current T289 cases and the already selected shared boundary lane. Retain failures/skips and actual proof artifacts. No historical qualification rerun, old-history adaptation, new fixture authority or optional hardening follows.",
+  "limits": [
+    "Interim exact source and author feedback only; no native06 Result/after-observation or actual C2 was reviewed.",
+    "No tests, builds, Product runtime/provider calls, native actor contact, moving source reads, or Product/test/control changes occurred. Only the two authorized review evidence outputs were written.",
+    "No whole qualification/release or original R1-R7/C1-C5 completion credit. T289 fixture law is distinct from whole installed qualification and historical cross-version compatibility.",
+    "No independent build-to-TAP-to-final candidate correspondence is established by these source/TAP snapshots alone; Root owns final custody and C2 conjunction.",
+    "Same-family/non-clean-room limitation; reviewer advised the prior fixture route but authored no changed source or test."
+  ],
+  "invalidation": [
+    "Any changed reviewed source/helper/owner byte or final hash mismatch invalidates affected findings until compared.",
+    "Changed producer/module-family/loading, expected candidate/lock derivation, reader currentness/generation/domain or asserted refusal relation revises this judgment.",
+    "Failed actual C2 or contrary executable equality/refusal evidence revises the affected static/proof assessment.",
+    "Omission/skipping of the separate selected shared boundary proof prevents claiming that broader guard conjunction from T289 alone."
+  ]
+}

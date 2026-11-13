@@ -1,0 +1,122 @@
+{
+  "kind": "rc4_native_bounded_repair_attempt_014_grant",
+  "status": "PREPARED_FOR_ROOT_REVIEW",
+  "basis": {
+    "uri": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "sourceCommit": "16d245c1e30119c4f8bbadce06c63d857a576ee4",
+  "sourceTree": "8da4f23ce03482ad294b434322261a2f40e57edd",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "builder": {
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3/node_modules/@abiogenesis/typescript-tenant",
+    "cliRelativePath": "build/code/src/public/cli.js",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "archiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+    "manifestSha256": "8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+    "productContentSha256": "c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4"
+  },
+  "changeClass": "realization_refactor",
+  "Construction": {
+    "productWritePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs"
+    ],
+    "generatedOutputWriteRoots": [],
+    "scratchWriteRoots": [
+      "rc4-scratch/native-recovery-14/return.json",
+      "rc4-scratch/native-recovery-14/readiness.json",
+      "rc4-scratch/native-recovery-14/notes.md",
+      "rc4-scratch/native-recovery-14/tmp"
+    ],
+    "generatedOutputBoundary": "Zero canonical generated/dependency/mirror writes by Construction. Existing nativeC2 owns isolated generation/build/package; actual archive output/adoption reported separately.",
+    "conditionalPath": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "condition": "Only if existing canonical helper cannot express required caller reuse; no meaning expansion"
+    }
+  },
+  "otherRoleCanonicalWritePaths": [],
+  "tooling": {
+    "offlineReadRoot": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "scratchRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-14",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-14/tmp",
+    "readOnlyProof": "reuse existing offline census and verification script",
+    "normalDevelopmentMethods": "Source/HOW edits and ordinary reads; node --check editedMJS and file-only readiness. C2 alone compiles/builds/generates/packages/tests; no actor dependency/test mirror or prebaseline rerun.",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-14/tmp",
+    "environmentBoundary": "All current RC3 writes contained in observedR. Provider-only existingtmp; neutral RuntimeTMP; no RuntimeNPM. Candidate W outsideR proof requires successor installed runtime."
+  },
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 256,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "focusedTimeoutMs": 2700000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null,
+    "maxContextBytes": 268435456
+  },
+  "acceptance": "Only bounded F1 protected-write guard, F2 exact fixture premises,F3 canonical callers and actual C2/UAT/installed provider-free WoutsideR proof; no005/S7/empirical/release gate.",
+  "scopeExclusions": [
+    "No manual path beyond listed9; canonical helper conditional",
+    "No Construction generated/dependency/mirror/build/test writes",
+    "No instruction/currentness owner edits without new Root grant",
+    "No schema/WHAT/failure set/controlplane/automaticretry"
+  ],
+  "checkpointMeaning": "Unaccepted013 custody for repair, not accepted candidate.",
+  "proposedScopeReason": "Root joint disposition F1/F2/F3",
+  "reviewStanding": "Protected W-root regression/omitted fixture confirmed; bounded correction selected, no acceptance",
+  "evidenceBoundary": "011 accepted; practical gap before-evidence. New candidate actual practical proof separate.",
+  "readOnlyPriorEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/ROOT_DISPOSITION.md",
+      "bytes": 3940,
+      "sha256": "d4603387187061b0be00b40dfbd8526aae1a105177de597e76ce4e092ecf6d06"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/PARTIAL_CHECKPOINT.json",
+      "bytes": 8684,
+      "sha256": "d03777d44688964ec8d51f0a99a895f3c31f00b9ccc67fe06c0163a062b05bc8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/review-subject-001/SUBJECT.json",
+      "bytes": 19100,
+      "sha256": "c67b578cde6e827344821e0db7cab1b231c7b30ac30530d3fa21df42fd40c2a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/review-subject-001/independent-evidence/fulfillment-hook.log",
+      "bytes": 1495,
+      "sha256": "018c73f00d2dc8913c5525df6b823da00fd10bf5a2d9816409fe19a424e6cbe9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/review-subject-001/independent-evidence/CUSTODY.json",
+      "bytes": 1870,
+      "sha256": "50794215a70f4c80460d624ccc89a02e9dd0635d9759ac912b4169782adcfcfa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/CONSTRUCTION_OBSERVED_SUMMARY.json",
+      "bytes": 99412,
+      "sha256": "5909c5c1c7930731556290e51548952b274a004cad6063e3fd71f779180aaeaf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/C2_OBSERVED_SUMMARY.json",
+      "bytes": 10234,
+      "sha256": "6ff6d622411ebfdd4966197f307f58cd960141a2e7ab98250c60a7202c617dff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-f9cce0029bb405c3-output.txt",
+      "bytes": 5641,
+      "sha256": "447c11b14fc1a9aba4543aa51f664c031281e129faf1d6058dac02fe884e87c2"
+    }
+  ],
+  "reviewedRoutes": "Existing effect territory/canonical protected policy and native preflight/dispatch; canonical test-support callers",
+  "laterCampaignBoundary": "R1\u2013R5 unchanged; S7 unexecuted, practical real-native witness and empirical/release acceptance remain distinct.",
+  "privateRealizationFreedom": "Ordinary private helper functions/exports/parameters inside granted existing owners may share the same guard; no Product/Public-family/schema/contract meaning change. Canonical support edits remain conditional on actual caller reuse with conserved meaning."
+}

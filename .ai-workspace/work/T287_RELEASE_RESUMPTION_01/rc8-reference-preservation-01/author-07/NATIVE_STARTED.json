@@ -1,0 +1,59 @@
+{
+  "status": "NATIVE_ACTOR_STARTED",
+  "observedUtc": "2026-11-07T08:26:43.582390+00:00",
+  "hostPid": 19812,
+  "sessionId": 44028,
+  "nativePid": 21873,
+  "runRef": "run://abiogenesis/1d28e3213f5107b523d048b6332224c7e77d47f877264595a75b2b4f4f15cdaa",
+  "actorInvocationRef": "actor-invocation://abiogenesis/7d1386f3f1b521777943fa2c9d001652d52bfe682be985e955e654e6c307f290",
+  "actorStartUtc": "2026-11-07T08:26:27.254Z",
+  "dispatchRecordedUtc": "2026-11-07T08:26:16.400Z",
+  "dispatchRecordedToActorMs": 10854.0,
+  "preparedToDispatchMs": 146580.0,
+  "previousNativePhysicalCloseToDispatchMs": 2311610.0,
+  "betweenTaskStanding": "Full A6 close-to-A7 dispatch includes broad continuations, Root triage/review, packet preparation, setup and held gate; not only provider launch.",
+  "actorStartedEvent": {
+    "admissionOrdinal": 2719,
+    "aggregateId": "process://abiogenesis/2025709cb28f0465967737c99f4047899deb0c74ebb40bcdf7bcd8bec55c1694",
+    "aggregateType": "process",
+    "basisId": "execution-basis://abiogenesis/1f5f860ad7ec40bc616f6ff359867980c2e6c295adfdb3f1c57876c15b3ab79f",
+    "causationEventRefs": [
+      "event://abiogenesis/618f36d2721454a947d019006064ac0fefb1a285013caad6b018926cab0f86bf"
+    ],
+    "correlationId": "correlation://abiogenesis/t287/rc8-ref01/author-07/hog/leaf/0/actor-process",
+    "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+    "eventId": "event://abiogenesis/8feaf03b00e3fcda343d571f9b5723d69a1ddd9b5862a1ee2f4e66b5392154fe",
+    "eventTime": "2026-11-07T08:26:27.254Z",
+    "frameId": "frame://abiogenesis/5bbae6d6f5ad6a858bbd9193d64088bf5d183b6bcc4e8331feb97cc4adc2efff",
+    "graphCallId": "graph-call://abiogenesis/2dd5daaf0ebd91cfb37b38228aa39b11968f5affa9e59db48f1f4ddc53ab2902",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "kind": "actor_process_started",
+    "materializationRef": "graph-materialization://abiogenesis/d25ef2e1441d9adbd954bdf2aa513761d9e44d99d01072430b1f24d1d3d63db6",
+    "parentAggregateId": "actor-invocation://abiogenesis/7d1386f3f1b521777943fa2c9d001652d52bfe682be985e955e654e6c307f290",
+    "payload": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/7d1386f3f1b521777943fa2c9d001652d52bfe682be985e955e654e6c307f290",
+      "cCallRef": "c-call:sha256:cfe38cfb05d4149206a94e8f6e305201d97863be2a4a0600541e29f88145fa12",
+      "processId": 21873,
+      "processRef": "process://abiogenesis/2025709cb28f0465967737c99f4047899deb0c74ebb40bcdf7bcd8bec55c1694"
+    },
+    "payloadDigest": "sha256:6553612e990af4241ff9f37ba826e12e01a742c598bf549fc5c99493b0eec2ed",
+    "runId": "run://abiogenesis/1d28e3213f5107b523d048b6332224c7e77d47f877264595a75b2b4f4f15cdaa",
+    "scopeClass": "run",
+    "workflowVersion": "5.0.0"
+  },
+  "evidenceRead": {
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "offset": 129875752,
+    "tailBudgetBytes": 262144,
+    "actualBytesRead": 262144,
+    "fileBytesAtRead": 130137896
+  },
+  "functionalPrepareMs": 26084.393625,
+  "controlAndImportMs": 849.9286669999999,
+  "coldReacquireMs": 1737.0048750000024,
+  "provider": "claude-opus-5-5",
+  "effort": "xhigh",
+  "nativeReturnPending": true,
+  "physicalClosePending": true,
+  "sourceAccepted": false
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/059-t287-d5-authentic-preserved-result.test/process.json",
+    "bytes": 1117,
+    "sha256": "7ca15c26422e4ca061d969e6483a624b7fdebb6b734fff13a18759f28521bd89"
+  }
+}

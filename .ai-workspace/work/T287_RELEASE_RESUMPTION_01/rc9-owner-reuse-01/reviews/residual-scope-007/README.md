@@ -1,0 +1,5 @@
+Conditional limited no-block recommendation: the eight open historical capsules and missing duplicate/foreign/rollback probes establish no concrete defect within the exact installed, current-profile, scripted F_P path already witnessed on RC9 archive c01e6cfe. Each capsule remains OPEN; no RC8 acceptance or unexecuted test credit transfers.
+
+GC03 remains unsupported for its configured 3.0.4 foreign-basis composition and must stay outside this claim. Complete historical-profile/SAS/recursion/HTTP/C2/C3 coverage, producer construction totals, real-provider operation and whole5.0 qualification remain excluded. O3 physical verification reuse was removed; original physical checks remain. W2 is accepted only for the exact RC9 successor.
+
+Required actual broad closure and unchanged archive are conditions, not accomplished facts in this review. Final checkpoint/reproduction/packaging/immutable installation remain separate Root-owned gates. No new source defect or repair proposal; no source, test, process or Git effects. See REVIEW.json for each causal assessment and exact pins.

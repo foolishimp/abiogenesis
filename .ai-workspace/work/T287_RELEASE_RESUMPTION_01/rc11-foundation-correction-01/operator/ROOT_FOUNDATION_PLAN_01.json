@@ -1,0 +1,90 @@
+{
+  "id": "FOUNDATION-PLAN-01",
+  "status": "ROOT_ADMITTED_PLAN_WRITER_ONLY",
+  "recordedUtc": "2026-11-09T17:27:47.828171+00:00",
+  "ownerRequest": "Concrete plan to solve the root causes of the bugs and identify future refactor work.",
+  "decision": "Root adopts functional-plan phased direction with historical uncertainty. Authority closure; test observer and m5 proof repair; shared pure physical state/Effect lifetime and command; HTTP; worker capture/archive last; future GC03 child/socket reuse. No source implementation or native runtime in this turn.",
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/functional-plan/ASSESSMENT.md",
+      "bytes": 16966,
+      "sha256": "063d703efcc9519db1cf47a37115f3ff8b531f1263db7bfcd9c8d05abb0c8540"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/functional-plan/EVIDENCE.json",
+      "bytes": 10184,
+      "sha256": "2c0547da61d5108ff4e3b2b2379b95e05261ff71ddf5b5ef95e997c32ac688a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/AUTHORITY_COMPONENT_FREEZE.json",
+      "bytes": 1306,
+      "sha256": "dc186d357dcdf29d378ccee136d74caaa6b836474247c9d48ebbc0cf50a05d92"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/AMENDMENT_FREEZE.json",
+      "bytes": 11016,
+      "sha256": "74408ce11bf1812cd9d4f29d659daf0e21ae30957faa3e8edd4c02f686cef962"
+    }
+  ],
+  "writeTerritory": [
+    "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/REPAIR_PLAN.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+    "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "preserveFiveAuthorityFiles": true,
+  "previousRepairPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/REPAIR_PLAN.md",
+    "bytes": 6470,
+    "sha256": "2af953ed09ddbe4fb4154756266ae8563960a41535ecf915b0497fd015f9ba70"
+  },
+  "trackingBefore": {
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 179199,
+      "sha256": "94ca7e1343a56ac062558a6ce6eb91c1d5fe696665648096bff26ba9d8087c50"
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 829919,
+      "sha256": "dc7a35e07f4bbbd0ed785fb187097773810df9767fba7f70711d86fcd3fdb246"
+    },
+    "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+      "bytes": 162250,
+      "sha256": "109e726b02022eb3692300ae4741df5c0fc323629d45f72c043d439f8735d1d0"
+    },
+    "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 811038,
+      "sha256": "abf8095852c8c2c0a4034a68c20cf0c5612693dd247b0f234dc1768f6e3e7230"
+    }
+  },
+  "indicesBefore": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+      "bytes": 29654624,
+      "sha256": "d54e6de36c16a0f4dec19ea1bcd3650c79a85abca98d9f10ec88bf20aa0c1880"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    }
+  ],
+  "held": [
+    "implementation",
+    "native setup/provider",
+    "test/build/generation",
+    "commit/merge/push",
+    "release/install/pin changes"
+  ]
+}

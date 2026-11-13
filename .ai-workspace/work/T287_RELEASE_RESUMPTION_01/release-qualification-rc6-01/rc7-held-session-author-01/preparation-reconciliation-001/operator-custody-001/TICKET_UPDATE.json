@@ -1,0 +1,25 @@
+{
+  "kind": "operator_ticket_update",
+  "createdUtc": "2026-11-06T13:00:53.890599+00:00",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/TICKET_BEFORE.md",
+    "bytes": 708640,
+    "sha256": "565cdbb5794c5be39b4dc195655e8ec3a4fd42b65f2605b17a4749c0a8cddba2"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 710565,
+    "sha256": "cf80422d7317cdc7f44e5a79e4bced5448ed95e5273fc9afd93ec918a5998817"
+  },
+  "launch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/LAUNCH.json",
+    "bytes": 2541,
+    "sha256": "93aac7d88eba7a96db6c76ae63e85d4b3a42ef4582202b5aa77a46f55c8e69fc"
+  },
+  "conditionalHS03Obligation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/NONADMITTING_SUCCESSOR_OBLIGATION.json",
+    "bytes": 1593,
+    "sha256": "6489d74427f058bc69908202442c84ddee4d6afcedfc62e45ac91df40bf98acf"
+  },
+  "effects": "Only active T287 status and additive operator custody/future-obligation records; no C source, provider, runtime, build or test effects."
+}

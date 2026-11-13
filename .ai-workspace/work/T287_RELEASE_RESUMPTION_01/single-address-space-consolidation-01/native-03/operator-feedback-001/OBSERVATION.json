@@ -1,0 +1,154 @@
+{
+  "recordedUtc": "2026-11-03T18:44:25.901431+00:00",
+  "authority": "native-03/ROOT_WRITER_ACTIVATION.json",
+  "kind": "retained_author_scratch_input_failures",
+  "tap": {
+    "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand2-lane1.tap",
+    "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/operator-feedback-001/cand2-lane1.tap",
+    "bytes": 462393,
+    "sha256": "3453637663d034850e6eda1dd819b39309036b2de8f57d976f4433c57cbae28b"
+  },
+  "tally": {
+    "pass": 93,
+    "fail": 15,
+    "skipped": 28
+  },
+  "failures": [
+    {
+      "test": "not ok 32 - declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:157:1'",
+        "error: \"ENOENT: no such file or directory, open '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 35 - framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:336:1'",
+        "error: \"ENOENT: no such file or directory, open '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 36 - framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:393:1'",
+        "error: \"ENOENT: no such file or directory, open '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 37 - selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:691:1'",
+        "error: \"ENOENT: no such file or directory, lstat '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 39 - native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:793:1'",
+        "error: \"ENOENT: no such file or directory, lstat '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 40 - worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:895:1'",
+        "error: \"ENOENT: no such file or directory, lstat '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 41 - worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:897:1'",
+        "error: \"ENOENT: no such file or directory, lstat '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 44 - fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:1021:1'",
+        "error: \"ENOENT: no such file or directory, lstat '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 47 - parent conservation joins the pre-Run root basis through exact invocation and root implementation set",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:1394:1'",
+        "error: \"ENOENT: no such file or directory, open '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 48 - one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:1409:1'",
+        "error: \"ENOENT: no such file or directory, open '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 50 - consumer-authored source and scope remain exact application data; no solution is in library",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:1473:1'",
+        "error: \"ENOENT: no such file or directory, open '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 51 - observed child provenance joins the current preparation and rejects crossed or missing causal facts",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:1482:1'",
+        "error: \"ENOENT: no such file or directory, open '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 52 - observed command correspondence conserves explicit input across empty and different process environments",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:1521:1'",
+        "error: \"ENOENT: no such file or directory, lstat '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 54 - default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:1745:1'",
+        "error: \"ENOENT: no such file or directory, open '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json'\"",
+        "code: 'ENOENT'"
+      ]
+    },
+    {
+      "test": "not ok 55 - retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+      "failure": [
+        "location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/cand/test_env/tests/t287-default-library.test.mjs:1922:1'",
+        "error: \"ENOENT: no such file or directory, open '/Users/jim/src/apps/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json'\"",
+        "code: 'ENOENT'"
+      ]
+    }
+  ],
+  "diskFullArchiveRows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-a95e5ce555e70871-stdout.log",
+      "offset": 4870028,
+      "bytes": 2350,
+      "sha256": "3d965a3728b1bd05fe85184ce60e98636855a2d3d8503f1189f8d200241a30b4"
+    }
+  ],
+  "observedRecovery": {
+    "freeGiBAt1843": 31,
+    "rootPid": 89875,
+    "workerPid": 92122,
+    "runtimeEventAppendsObservedAt": "2026-11-03T18:43:01.241Z"
+  },
+  "causalScope": "Author scratch tenant was at the wrong repository-relative depth, then broad commentary-tree copy exhausted disk. Required fixtures must retain their declared paths and bounded input set. No Product defect inferred and no passing credit assigned. Worker owns scratch correction. Actual C2 selected inputs remain immutable.",
+  "standing": "Operator observation; source review, actual C2 and final runtime integrity remain pending."
+}

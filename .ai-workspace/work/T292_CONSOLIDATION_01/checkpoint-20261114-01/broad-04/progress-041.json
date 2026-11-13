@@ -1,0 +1,27 @@
+{
+  "file": "test_env/tests/steel-basic-cli-c2.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 6,
+    "pass": 0,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 1 - C2 Product source predicate accepts the C1 root and rejects reducer or other producer # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 2 - C2 Product source predicate preserves exact source and target workspace joins # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 3 - C2 prompt emits the exact planned semantic Bash input # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 4 - C2 recorded task, plan and observation remain valid at A, B and restored A # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 5 - C2 captures quoted executable paths without consulting later availability # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 6 - C2 rejects executable, command, path and input-identity tampering # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/041-steel-basic-cli-c2.test/process.json",
+    "bytes": 1066,
+    "sha256": "dad868cf31b7c77b2e4d0cc31ecfcdbf030fe935e3305ee149ec7df2e2f92bd0"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "status": "ROOT_SELECTED_ACTUAL_CLOSED_FRESH_READBACKS",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_ADMISSION.json",
+    "bytes": 4512,
+    "sha256": "144dcad775baaeda18f821b50bac788015905f0d037c53560b1c3e30d906be1f"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/BINDING.json",
+    "bytes": 10156,
+    "sha256": "294d0d53881ba9e924382fffd911d2c646d204edb8190e9d94fc140b27b0faae"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/PREPARED.json",
+    "bytes": 6254,
+    "sha256": "f00e9382436ba0e44dbb2037865175d4ef03b11e8ecb4839741e1cf3cbc6699c"
+  },
+  "closed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/resource-close.json",
+    "bytes": 2302,
+    "sha256": "3bc16115da46e7e0e5976edb00b7b5c60d26462f665f14030122823d63aaf738"
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 1172327,
+    "sha256": "ceb59fe8c16d8d24606a3e0cbe02d6677acd37baa2a1e1a3b9af41d25bb0e7b5"
+  },
+  "acquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/abg-acquisition.json",
+    "bytes": 16525457,
+    "sha256": "0f77facd002f0acc8e0cb59ffa11231a25e5ebb2ca37a3867d2a9ff4019f0dc9"
+  },
+  "readbackRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/readbacks-001"
+}

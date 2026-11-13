@@ -1,0 +1,71 @@
+{
+  "status": "SUCCESSOR_PREPARATION_ONLY_SCOPE_AND_DISPATCH_PENDING",
+  "recordedUtc": "2026-11-07T03:44:39.875274+00:00",
+  "authority": "Root successor preparation grant following actual native return, closed resource and stage-02 review; same user approval ok move to rc7 build rc8",
+  "baseControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+    "bytes": 9837,
+    "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source-freeze.json",
+    "bytes": 293771,
+    "sha256": "0b387280632b2bb43220a867c6d8563b9153f43a1783e510f5721f989523e022"
+  },
+  "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+  "sourceRows": 1338,
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/resource-close.json",
+    "bytes": 2304,
+    "sha256": "469e6ab2f2bc0818a8e8c9629a242fd885e6e0ea46fde66d6360d583294ead73"
+  },
+  "priorPreparedCoordinates": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/PREPARED.json",
+    "bytes": 6090,
+    "sha256": "2a5f8be6eb079f13441ed935faa9fa91d1cd02af1c8bc5164305b4c53e682986"
+  },
+  "consumerAcquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/consumer-acquisition.json",
+    "bytes": 10159,
+    "sha256": "5f7d70f56a2aa521b67f9092a47c6953f35fe69415eb89ed56180f702b9b9684"
+  },
+  "catalogBasisDigest": "sha256:dea7a607e5f1aa0709b3f73350c733c3e0ba7c1d8eec35d345494907b798cb79",
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/CHECKOUT.json",
+    "bytes": 979,
+    "sha256": "1029612b57297aabe3c1ce7ada654146e39881af4919a978920b0101b2226f4a"
+  },
+  "sparseSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc8-reference-preservation/info/sparse-checkout",
+    "bytes": 36309,
+    "sha256": "cc5bf156a20e9042817f7c751ecd0d58f9dfea3a752622f833bd30a1142a9e26"
+  },
+  "priorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/OPERATOR_RETURN_003.json",
+    "bytes": 13832,
+    "sha256": "e08c0771823023cf3106fcb0cf77f638302df1e6e2f67a6751a3cc3d33319c38"
+  },
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/runtime-001",
+  "proofRoot": "/private/tmp/abg-r8-uozznezy/author-02-proof",
+  "progressRoot": "qualification-scratch/rc8-reference-preservation-01/author-02",
+  "budgets": {
+    "totalSourceStages": 4,
+    "alreadySpentSourceStages": 2,
+    "successorSourceStages": 2,
+    "stageLabels": [
+      "stage-03",
+      "stage-04"
+    ],
+    "initialFocusedInvocations": 6,
+    "proposedSuccessorFocusedInvocations": 8,
+    "successorLaneAllowanceStatus": "proposal pending final Root scope grant",
+    "serialProof": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 3600000,
+    "reserveBytes": 4294967296
+  },
+  "expectedScopePendingRootReview": "Current 15-file realization, owner_bindings/run_invocation.ts and exact owning Catalog/view predicates if selected. Preserve generic schema output/default/normalization/IJSON/refusal semantics and actual whole-call/raw boundaries; remove first-sight full work for established owner objects. No algorithm selected here.",
+  "setupComposition": "Existing installedModules/verifyArtifact/publicCaller and actual-close reopen -> owner refresh gives resolvedProductLock/productInstalls/workspaceAuthorityBasis -> maintained core/consumer publications -> CatalogOperationPort.admit -> separate native Program catalogView -> canonical task/start constructor. No prior serialized Catalog, lock, installation graph or call is copied/re-ingested.",
+  "preparedEffects": "Exclusively campaign control files and syntax checks only. No setup/resource acquisition, Product edits, tests, package or native dispatch.",
+  "nextGate": "Root final review conjunction and exact HOW/source/test grant before task construction; exact PREPARED readback and Root dispatch admission before provider."
+}

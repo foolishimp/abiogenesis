@@ -1,0 +1,11 @@
+Product Frame: fixed fifteen families, GOAL-035/T-287/RC8 REF-01, STDO3.0.4, empty composition; explicitly unqualified local cut. Frame: `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`. C3 preserves serial C1/C0 ownership, authenticated completion/partial-stop and fresh replay; Node test deadlines create no runtime authority.
+
+**Both cases were cancelled at their240s inner deadlines.** The command exited1 after484.520s with no signal or outer600s timeout. Final totals:0passes,0failures,2cancelled,0skips. There is no whole-case, all-C3 or current sunny-completion credit.
+
+The first case’s retained npm logs show successful pack/install; its scratch was already gone when inspected. Whether its Run began or finished is unknown. The second case passed setup and entered an actual partial C3 Run: captured rows130–132 show a nested C1/C0 file-replace child at14:37:52.948Z. This rules out treating its whole elapsed budget as setup alone. No terminal or replay result was captured before teardown removed both roots. Default fresh-process proof stores no separate retained evidence here. Host/session closure is recorded; escaped-descendant absence remains unproved.
+
+The C3 test, root setup, fresh-proof helper, Product C3 owner and adapter are byte-identical to RC7 and retain the previously checked A6/A11 source relation. No unique host/setup cause, loop or current Product defect is established; shared-code performance remains an uncertainty.
+
+An outer increase alone cannot close this failure. If Root selects reproof, preserve both original cases, assertions and installed owner path while explicitly changing their effective inner allocation.600s per case/1500s outer is a finite candidate, not a proven bound. Closure requires actual terminal/partial results, fresh replay, complete reporters and physical lineage/close observations. Alternatively, Root may register proposed `RC8-C3-COMPOSITION-PROOF-BUDGET` for the unqualified cut, without claiming current C3 closure or release qualification.
+
+C1/C2 share setup exposure and have180s inner timers; they remain unexecuted and scheduled. No preemptive failure or deferral is inferred. Reviewer ran nothing and changed no source or controls. `REVIEW.json` binds final receipts and timestamped captures; Root alone selects disposition.

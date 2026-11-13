@@ -1,0 +1,23 @@
+{
+  "kind": "root_uat_packet_failure_disposition",
+  "at": "2026-11-05T21:43:31.750245+00:00",
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/UAT_CONSTRUCTION_TRIAGE.json",
+    "bytes": 16272,
+    "sha256": "41f575444745ba749c2faca6a360a06f381573c48d40702a987ed210841b154e"
+  },
+  "failedClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 4232,
+    "sha256": "b167846018da7215c64edee479447c2ef653f0e5d0b8b5e75726c043bc6905b1"
+  },
+  "decision": "Continue the already-triggered D5 existing-owner retirement on the exact preserved candidate. Do not repeat63 passes solely to repair UAT. Future changed D5 source gets its declared nine-module affected proof and actual UAT with complete current assessment assets.",
+  "classification": "Root operator preparation copied obsolete assessment selections after moving current context. Existing Product refusal is correct.",
+  "correction": "Future packet selections use only explicitly selected observed/current assets; preserve unique readFirst and disjoint assessment roles. Do not copy old bodies merely to satisfy stale selections.",
+  "standing": "No UAT result or source acceptance; the63 actual C2 passes remain exact.",
+  "nextSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_SELECTION.json",
+    "bytes": 10325,
+    "sha256": "7c748823ac447064b1dd31d5e42f50680365ca588240e4420c57ccad6663f3c1"
+  }
+}

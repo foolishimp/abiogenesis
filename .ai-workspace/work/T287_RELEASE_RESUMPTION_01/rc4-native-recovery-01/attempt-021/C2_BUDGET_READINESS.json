@@ -1,0 +1,13 @@
+{
+  "kind": "file_only_formula_projection_pending_Root_owner_check",
+  "commands": 10,
+  "budget": {
+    "requiredExecutionBudgetMs": 2327500
+  },
+  "limits": {
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000
+  },
+  "fitsArithmetic": true,
+  "actualOwnerCheck": "Root pure-config-readiness.mjs computes existing owner result and compares this exact value; no Writer Product import."
+}

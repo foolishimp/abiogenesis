@@ -1,0 +1,151 @@
+{
+  "kind": "closed_independent_operator_preparation_review",
+  "reviewId": "RC7-S4-PREPARATION-001",
+  "status": "CLOSED",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "reasoning": "max, explicitly selected by Root",
+  "productFrame": {
+    "product": "Unchanged fixed fifteen-feature ABIogenesis 5.0 / GOAL-035 / T287",
+    "method": "STDO3.0.4",
+    "composition": [],
+    "referenceFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "boundary": "Prepared finite S4 measurement controls only. No Product source acceptance, runtime authority, release qualification or S6 decision."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/PREPARATION_MANIFEST.json",
+    "bytes": 2705,
+    "sha256": "0adc029128fe44f13d2c7f3e0b4fd22f2a47d8b4258031a827504da2e25efc2d",
+    "allSevenListedFilesIndependentlyVerified": true
+  },
+  "preCutClarification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/PRE_CUT_ARTIFACT_BINDING.json",
+    "bytes": 1521,
+    "sha256": "8cbfd9eff4cbd2cbbbc910dadf423ae98e184ac405bec3f7c3a74244f5429757",
+    "verified": true,
+    "meaning": "Existing pre-cut isolated test archive and actual materialized bootstrap receipt; no immutable release publication or release-cut dependency."
+  },
+  "selectedControlPins": [
+    {
+      "relativePath": "measurement.test.mjs",
+      "bytes": 20885,
+      "sha256": "27c31276548bee98683ce991e45b7d52d4460f561d2b398cfded442b9da6e30c"
+    },
+    {
+      "relativePath": "run-measurement.mjs",
+      "bytes": 5079,
+      "sha256": "313ab6a4c679c460205fd3aa09d089d6662da63403d9c4c0f78f9da2d955e562"
+    },
+    {
+      "relativePath": "scripted-readonly-actor.mjs",
+      "bytes": 1206,
+      "sha256": "31ed26993381d783a684563bfb3f9307d86da59237f9b1ac7ecbda6705bdc60f"
+    },
+    {
+      "relativePath": "OWNER_REFERENCES.json",
+      "bytes": 14095,
+      "sha256": "ae70beed6b4cd987dae3e93c6e5dfe9bacb2b047f50917379791450ab0586d21"
+    }
+  ],
+  "verdict": "PREPARATION_NOT_READY_ONE_CONCRETE_COMPARISON_BLOCKER",
+  "findings": [
+    {
+      "id": "S4-PREFIX-COMPARISON-001",
+      "classification": "Operator measurement assertion contradicts actual terminal projection-basis contract",
+      "refs": [
+        "preparation-001/measurement.test.mjs:59",
+        "preparation-001/measurement.test.mjs:68",
+        "code/src/abg/project_read_ports.ts:530-539"
+      ],
+      "trigger": "Run1 completes at prefix P1. Run2 appends events and completes at P2. Both held reads and cold reads then use P2, but each complete read terminal is compared to its original Run terminal. The first Run original terminal carries P1.",
+      "violatedRelation": "The terminal projector sets projectionBasis to the actual read packet prefix eventLogRef and coordinateDigest. P1 and P2 differ even when Result, contracts, complete value and producer are unchanged.",
+      "probability": "Deterministic for the first successful Run after a second successful append under the inspected existing owner contract.",
+      "harm": "A valid installed S4 run fails at the first held-read equality before close/cold reads and physical growth accounting can complete. This is a false-negative proof assertion, not a Product defect.",
+      "failClosedControl": "Assertion failure prevents a successful measurement disposition; finally preserves available outcomes and partial log.",
+      "repairCost": "Small operator-test-only comparison correction in an immutable successor preparation.",
+      "minimumRepair": [
+        "Compare original terminal invariant fields separately from projectionBasis; retain full original value and producer comparisons.",
+        "Assert both read terminals projectionBasis names the selected final P2 coordinate.",
+        "Continue requiring complete held-versus-cold terminal equality and complete read owner-output equality at the same P2.",
+        "Preserve preparation-001 and its pins unchanged; Root binds successor controls before activation."
+      ],
+      "notAuthorized": [
+        "No Product changes",
+        "No relaxation of complete warm/cold equality",
+        "No test/runtime execution by Reviewer"
+      ]
+    }
+  ],
+  "conservedAndFeasibleRelations": [
+    {
+      "refs": [
+        "run-measurement.mjs:11-23",
+        "ROOT_BINDINGS.template.json:2-37"
+      ],
+      "relation": "Unbound status and null actual source/archive/acceptance/activation inputs refuse before effects. Root must pin real source-to-archive and materialized bootstrap relations; the operator checks receipt root/archive correspondence."
+    },
+    {
+      "refs": [
+        "measurement.test.mjs:25-41"
+      ],
+      "relation": "Uses the existing installed fixture in frozen-artifact mode with the existing native-work Program, no additional Product or Program, and workspaceProductIndex0 matching the ABI Program owner. Setup has its own close; the measured session acquires one held resource."
+    },
+    {
+      "refs": [
+        "measurement.test.mjs:43-56",
+        "scripted-readonly-actor.mjs:8-18"
+      ],
+      "relation": "Two actual Public native-work starts construct task/grant/context through existing owners for exact 1MiB and4MiB files. Empty writeRoots and the scripted actor short-report protocol preserve read-only task scope. Actor reads the selected file without provider/model calls."
+    },
+    {
+      "refs": [
+        "measurement.test.mjs:57-71"
+      ],
+      "relation": "Held and fresh CLI reads are intended at one final prefix; each completion/close and physical read-only identity is checked. Existing cold-entry and command recorder owners retain full outcomes and original stream bytes."
+    },
+    {
+      "refs": [
+        "measurement.test.mjs:73-90"
+      ],
+      "relation": "Existing event decode, physical-prefix, task reconstruction, execution-basis and transport-selection owners authenticate Result/basis/binding joins. Checks exclude Result task/before, binding basis rawInputValue, complete task/context copies in selected Result/binding surfaces, and require unchanged after entries to reference the admitted basis."
+    },
+    {
+      "refs": [
+        "measurement.test.mjs:75",
+        "measurement.test.mjs:86",
+        "measurement.test.mjs:94-99"
+      ],
+      "relation": "Reports physical event spans separately from canonical sizes and explicit full SDK JSON.stringify sizes. Two-point deltas explicitly retain order/shared-prefix confounding; no causal slope or matched-baseline speedup is inferred."
+    },
+    {
+      "refs": [
+        "run-measurement.mjs:21-32",
+        "measurement.test.mjs:95-99"
+      ],
+      "relation": "One finite host allocation, bounded cold reads, fresh exclusive output/temp roots and no retry. Successful or failed command receipts are retained; available measured outcomes/log survive ordinary test failure. Existing fixture cleanup applies to its disposable install/worksite."
+    }
+  ],
+  "ownerContractEvidence": {
+    "sourceSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/SUBJECT.json",
+      "sha256": "4e51195fb89bd95e51a65806e6f985c5843cc375bf1f42450941b6262fb7b187"
+    },
+    "standing": "Existing frozen owner-contract reference, not the still-unbound final measurement candidate. Helper/operator references were read from OWNER_REFERENCES pins; no moving candidate source was used."
+  },
+  "limits": [
+    "No other concrete blocker established in this bounded controls review; no execution occurred.",
+    "Final source, helper pins, isolated archive/bootstrap receipt, source-to-artifact relation, Root acceptance and finite activation remain unbound.",
+    "The host checks pin bytes and selected status; semantic source acceptance remains Root-owned.",
+    "No pack, install, native actor, runtime acquisition, provider or test process was invoked by Reviewer.",
+    "No new source or artifact acceptance, release qualification, S6 decision, performance or coding-productivity claim.",
+    "Two read-only tasks and two run_result reads; changed-body birth and replay are not newly exercised.",
+    "Selected Result/binding no-copy assertions and row extents are not an exhaustive allocation of shared physical body storage or proof of every carriage surface.",
+    "Timing/counter observations and RSS describe named scopes; parent counters/RSS exclude cold CLI and actor child work/peaks.",
+    "Setup is performed by the existing disposable fixture; complete source/code suitability and resource limits remain empirically unproved.",
+    "Original preparation-001 controls were left unchanged; only this separately granted review was created."
+  ],
+  "executed": false,
+  "sourceAccepted": false,
+  "qualified": false,
+  "published": false,
+  "S6Disposition": null
+}

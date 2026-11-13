@@ -1,0 +1,31 @@
+{
+  "id": "t287-effect-phase2-native-b02-http-fixture",
+  "status": "READY_FOR_ADMITTED_NATIVE_SOURCE_AUTHOR",
+  "outcome": "HTTP-normal fixture establishes actual helper request before normal leader exit, preserving descendant cleanup laws and retained premise evidence.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs"
+  ],
+  "maxContextFiles": 16,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "qualification-scratch/rc11-effect-phase2-01/native-b02"
+  ],
+  "checks": [
+    "Pinned Node --check this mjs only <=60s/Bash90000; retain output/status. No tests/build/pack.",
+    "Only HTTP-normal coordination/premise evidence/assertions changed; other source exact. Report actual delta and external proof gap."
+  ],
+  "instructions": [
+    "Apply PHASE2-B-HTTP-FIXTURE-REENTRY-01 as one test-owned realization repair on frozen source97e05ec3, parent e134103a. The Operator verified all1345 rows. Write only m5-worker-transport.test.mjs and declared native-b02 scratch. Read the group case1218-1311, existing physical HTTP response fixture in t287-owned-process-lifetime.test.mjs1164-1214, and current helper runHttpProbe only as needed. Governing scope is fully projected below; the prep hold belongs to Operator before dispatch, not this admitted source recipient.\n\nRoot conjoins Design03e014a0/Proof6c59445d. Unit02 completed102/95pass/1fail/6historical skips; M5 38/39,33/34 evidenceIDs. HTTP-normal retained ready output, leader/descendant identities, exit0/no timeout, TERM then KILL and confirmed absence, but portFile absent/process_exited_before_port and request/response null. Port publication followed immediately by process.exit(0) did not establish owner observation before exit. Exact poll/write/close scheduling is unknown: do not claim host load, Product/A/B regression or cleanup defect. No production repair selected.\n\nRepair HTTP-normal only: the existing real helper request must causally precede normal leader exit. Use existing lifetime test's loopback bind-to-zero/request-response pattern, not synthetic parent acknowledgment, added sleep or increased timeout. Preserve TERM-ignoring redirected-stdio descendant and true parent identity. Retain actual fixture publication, received helper request and normal-exit facts before assertions and scratch cleanup. Keep original port-observed, normal exit0/no-timeout/TERM-KILL/identity/absence assertions and bounds and all six group rows. Check the real causal premise, not fixture name or port write alone. Fixture-local algorithms/names are yours; no generic harness or parallel execution. Distinguish exit-intention from actual returned exit status and response write-attempt from completion.\n\nHTTP-TERM and worker/command branches, all other M5 tests, production helper/HTTP/lifetime/state/worker code, dependencies, other tests, plans, Product/contracts stay exact. Reuse retainEvidence/failureFact/m5Settle so owner result/error and new premise facts survive assertion short-circuit. Do not weaken assertions, skip/retry, increase bounds, pad sleeps, add post-close production reads or alter the test owner adapter. Original red remains evidence.\n\nOnly execution selfcheck permitted: pinned Node --check this edited mjs file <=60s under Bash90000ms, stdout/stderr/status in native-b02 scratch. No test selector, physical/group/fullM5/unit/lifetime, compiler/build/pack/generation/install, Product execution, Git, provider nesting or paid child. After close/freeze Root selects one external original nine-file unit containing all6 group rows/39M5/34IDs; none runs here. Syntax success is not semantic proof. Stop source edits at return and report exact changed region, premise schema, actual syntax result and gaps. Fixed Opus5.5 xhigh1800s absolute/180s inactivity/100turns; no extension/retry. Root alone accepts. Existing host captures SDK outcome, actual close and fresh result/replay; do not fabricate them.\n\nExact read-only control routes (context addresses source, does not inline it):\nscope: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/ROOT_SCOPE.json\nsubject: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/SOURCE_SUBJECT.json\ntools: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/EXTERNAL_TOOLS.json\nDesign: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/design/ASSESSMENT.md\nProof: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/proof/ASSESSMENT_REVISION_01.md\nred: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/EXECUTION_RETURN.json"
+  ]
+}

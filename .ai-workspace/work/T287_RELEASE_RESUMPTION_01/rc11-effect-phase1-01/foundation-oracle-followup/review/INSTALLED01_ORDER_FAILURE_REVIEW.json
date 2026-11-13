@@ -1,0 +1,89 @@
+{
+  "kind": "foundation_oracle_installed_guard_failure_assurance",
+  "recordedAt": "2026-11-09T19:09:13.871734+00:00",
+  "verdict": "confirmed_control_only_order_defect",
+  "reuseSuitability": "completed bootstrap and retained work suitable; exact immutable test-only continuation pending review/admission",
+  "failureReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/FAILURE_RETURN.json",
+    "bytes": 2275,
+    "sha256": "502541af5c556f7a72e8039dd7b02d1d7643b169174836210d92a15faaa1c888"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/BOOTSTRAP_ORDER_TRIAGE.json",
+    "bytes": 1874,
+    "sha256": "21b498e30c82f6bce2b4d9129f1219345b9008f0df82334c99af1300cd5a525b"
+  },
+  "bootstrapReturn": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/bootstrap/RETURN.json",
+    "bytes": 1400,
+    "sha256": "a82a410efb83b5590be6977cae9d87030e5f51a5a34371d38a626407a4e425c6"
+  },
+  "halt": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/HALT.json",
+    "bytes": 221,
+    "sha256": "8e2787373a25e1440f424b883eafff02d68b721986ae38e476bffd2a53345efd"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/BINDING.json",
+    "bytes": 6829,
+    "sha256": "3218fb52ac3a169b16bf9b48248eb707a253aae2a0a669d6a692a5d44b8ee467"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/proof.py",
+    "bytes": 19380,
+    "sha256": "31e9c90720932e894a28ed13612b2f1750d9d480702dba781dd490c28072e15c"
+  },
+  "stage": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/STAGE.json",
+    "bytes": 1160,
+    "sha256": "8270bf85552442f9886ecd4c4278ae3825c8f96f17261c4bd3cac28df9cc988d"
+  },
+  "compiledInventory": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 183261,
+    "sha256": "04cd7213cb4d3f3d9063943a15385c88c2869eeb1f8eff6d0ac7090ea1a78ab1"
+  },
+  "environment": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/ENVIRONMENT.json",
+    "bytes": 3073,
+    "sha256": "7a94681626d82c75ce69b5735483677c483341290c999cae150a044b0e89b8fb"
+  },
+  "dependencyMetadata": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/DEPENDENCY_METADATA.json",
+    "bytes": 111937,
+    "sha256": "b15a138eb546b64575be2acd605808663ae0e97236d7c6608b12eb0435c586fa"
+  },
+  "independentChecks": {
+    "installedRegularFiles": 5327,
+    "payloadBytes": 71840473,
+    "missing": 0,
+    "extra": 0,
+    "symlinks": 0,
+    "contentLengthDigestMismatches": 0,
+    "rawListEqual": false,
+    "canonicalPathSortedEqual": true,
+    "canonicalRowsetSha256": "b5a5d7eaf0114f3b54a0c30a218c8aed48ea03c51f8931dd493b9b3caf79f781",
+    "firstMismatchIndex": 76,
+    "firstActual": "build/code/src/abg/m03/transport.d.ts",
+    "firstExpected": "build/code/src/abg/m03.d.ts",
+    "sourceRowsAtEachOfFourRoots": 1344,
+    "compiledRowsAtBothRoots": 996,
+    "dependencyCopyRows": 4576,
+    "npmRows": 2326,
+    "preservationPins": 8,
+    "w2TestDirectoryAbsent": true,
+    "finalCampaignReceiptAbsent": true
+  },
+  "originalFailurePreserved": true,
+  "pending": [
+    "exact successor control review",
+    "Root continuation admission",
+    "actual complete installed W2-05 proof"
+  ],
+  "reviewerExecutedProductCodeOrTests": false,
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/INSTALLED01_ORDER_FAILURE_REVIEW.md",
+    "bytes": 4919,
+    "sha256": "35ac07d9d8aea2a95e678bc66cee9a69edf7e17317b89c19407a91100bc94175"
+  }
+}

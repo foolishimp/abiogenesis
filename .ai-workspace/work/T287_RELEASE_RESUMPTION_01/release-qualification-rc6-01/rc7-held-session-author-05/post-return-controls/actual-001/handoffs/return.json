@@ -1,0 +1,179 @@
+{
+  "kind": "native_author_return",
+  "task": "rc7-held-session-author-05",
+  "status": "ORACLE_CONE_CORRECTED_FIXED_AND_HELD_PASSED_ASSESSMENT_LANE_FAILED_RETURN_ROOT",
+  "productFrame": "Unchanged ABIogenesis5.0 fixed fifteen-family scope / GOAL-035 / T-287 / installed STDO3.0.4 / empty composition; changeClass realization_refactor.",
+  "correction": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "before": {
+      "bytes": 370990,
+      "sha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650"
+    },
+    "after": {
+      "bytes": 372769,
+      "sha256": "c523337e02a238ea53b4b1011f03491c2981b459d8b16f822f6f46e1f94be5a1"
+    },
+    "scope": "Only the RC7 fixed admission test body changed: actorLog reader shared by roles; the existing refused helper; four call sites; the summary diagnostic field; the deferred oracle block. No other test, helper, Product, HOW, guard, timeout or fixture changed.",
+    "helper": "refused(label, constructed, expected). For each actual invocation it asserts at once: receipt.exitCode===1, outcomeKind 'refusal', caller.prefix() deep-equal to entry, held-store durable prefix (abg.selectHeldEventStoreDurablePrefix) deep-equal to entry, complete event list at that prefix deep-equal, and raw actor log byte-equal. It retains {code, issuePaths}.",
+    "cases": [
+      {
+        "label": "fixed-testing-over-state",
+        "expected": {
+          "code": "invalid_intent",
+          "issuePaths": [
+            "/invocation_admission"
+          ]
+        },
+        "position": "before UAT",
+        "actual": {
+          "code": "invalid_intent",
+          "issuePaths": [
+            "/invocation_admission"
+          ]
+        }
+      },
+      {
+        "label": "fixed-construction-over-state",
+        "expected": {
+          "code": "invalid_intent",
+          "issuePaths": [
+            "/invocation_admission"
+          ]
+        },
+        "position": "before UAT",
+        "actual": {
+          "code": "invalid_intent",
+          "issuePaths": [
+            "/invocation_admission"
+          ]
+        }
+      },
+      {
+        "label": "fixed-crossed-input",
+        "expected": {
+          "code": "invalid_input",
+          "issuePaths": [
+            "/input"
+          ]
+        },
+        "position": "before UAT",
+        "actual": {
+          "code": "invalid_input",
+          "issuePaths": [
+            "/input"
+          ]
+        }
+      },
+      {
+        "label": "fixed-stale-source",
+        "expected": {
+          "code": "invalid_input",
+          "issuePaths": [
+            "/observation"
+          ]
+        },
+        "position": "after UAT, before close",
+        "actual": {
+          "code": "invalid_input",
+          "issuePaths": [
+            "/observation"
+          ]
+        }
+      }
+    ],
+    "ordering": "Invocation order is unchanged. The positive summary diagnostic, now carrying actual refusal tuples, is emitted after held/fresh readback equality. The deferred block then asserts the exact four-label sequence and, for each case, code equality and issuePaths deepEqual. No union, substring or fallback is used."
+  },
+  "stage": {
+    "command": "node qualification-inputs/rc7-held-session-author-05/prior-author-stage.mjs hs5-stage-01 after",
+    "exitCode": 0,
+    "sourceFreeze": {
+      "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-source-freeze.json",
+      "bytes": 96811,
+      "sha256": "1007214c57046492ade2e9b8ffac7234f12f56ba3039d86d5646e6665c543ff4"
+    },
+    "report": {
+      "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-stage.json",
+      "bytes": 100720,
+      "sha256": "4a68aa0323f37123dc899cf08cdccbc9ab910a6be37ab9a2196cfe1c24eb7607"
+    },
+    "sourceCount": 451,
+    "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "productReuse": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL, 5325 members, 71702388 bytes, productContentDigest sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689, via H04 REUSED_PRODUCT_PAYLOAD reference",
+    "build": "Compile, generate and lifecycle were reused explicitly from the H03 COMPLETED_STAGE_REPORT (sha256 5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581) and not executed.",
+    "setupMs": 4367
+  },
+  "lanes": [
+    {
+      "order": 1,
+      "id": "fixed-route",
+      "exitCode": 0,
+      "ms": 84298,
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "skipped": 0,
+      "requiredActivePass": true,
+      "summary": {
+        "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-lanes-fixed-route/summary-fixed-route.json",
+        "bytes": 2207,
+        "sha256": "7a663214febb66f14bb77cb581d505adcd0b7a80535775650bd7d582796c7174"
+      },
+      "evidence": "Actual installed Testing -> state Result -> UAT completed. Roles were [c2, assess], with 108 Testing events and 106 UAT events. Held and fresh run_result/run_replay agree. All four exact oracles held at runtime."
+    },
+    {
+      "order": 2,
+      "id": "held-session",
+      "exitCode": 0,
+      "ms": 48743,
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "requiredActivePass": true,
+      "summary": {
+        "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-lanes-held-session/summary-held-session.json",
+        "bytes": 1676,
+        "sha256": "3651fc18f0d9982e0a170aad6a6aee7c133115f524ee0981f06107ab104d1e8f"
+      }
+    },
+    {
+      "order": 3,
+      "id": "assessment-guards",
+      "exitCode": 1,
+      "ms": 64430,
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "skipped": 0,
+      "requiredActivePass": false,
+      "summary": {
+        "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-lanes-assessment-guards/summary-assessment-guards.json",
+        "bytes": 1451,
+        "sha256": "9e98a0bd59adc0bf66b85632d827a3bdd03aeeedeafd37467dd8dcfac0866e0b"
+      },
+      "failure": {
+        "test": "RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage",
+        "subcase": "missing or ambiguous exact consumer declaration refuses before assessment dispatch",
+        "at": "test_env/tests/t287-default-library.test.mjs:2768 assert.ok(relation.nativeWorkspaceAssessmentSchema(undeclared)) -> null",
+        "staticCause": "product/native_workspace_assessment.ts:51 (committed at HEAD line 50) requires schema.$id === resultContract.contractRef && schema.$id === schemaAsset.contractId. The subcase's undeclared fixture (withBytes + resultContract override) rewrites $id and contractRef but leaves schemaAsset.contractId at the original id, so its own well-formedness premise cannot hold.",
+        "attribution": "This is an inherited uncommitted subcase that is absent from HEAD and untouched by H05. It sits outside the selected four-case cone. No Product defect is established; the guard stays fail-closed. Subcases 1-3 passed and subcases 5-8 were not reached.",
+        "notRepaired": "This is outside the selected cone. Per the allocation law, the chain stopped and returns to Root without retry."
+      }
+    }
+  ],
+  "notAllocated": [
+    "native-workspace-owner",
+    "caller"
+  ],
+  "custody": {
+    "postRunWorksiteRowsMatchingFreeze": 451,
+    "head": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "trackedModifications": 69,
+    "emptyIndex": true,
+    "newSourcePaths": 2
+  },
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

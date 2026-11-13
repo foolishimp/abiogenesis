@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "0158dbd132897e31c3deba39382e682d9b2024f98605d5b5156f2bfe2d76a581",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "sourceTree": "d3d22391589dcb6fd8d86ed128b0ede69b77348c",
+  "decision": "Root reviewed exact007 operator delta and admits zero-provider installed preflight and call construction. One-shot dispatch remains contingent on actual call/preflight/frozen-manifest review; no new Product scope, automatic retry, pending-frontier/R2 or release acceptance.",
+  "packetSha256": "621544d5428f93c3a9a5201342c7ecf7ec8c5e087af04f7326ca1e44b16c0bca",
+  "admittedUtc": "2026-11-02T02:19:18.090682Z"
+}

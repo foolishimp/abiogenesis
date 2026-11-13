@@ -1,0 +1,237 @@
+{
+  "kind": "native_author_return",
+  "task": "rc7-fixed-proof-author-02",
+  "recordedUtc": "2026-11-06T12:25:17.348249+00:00",
+  "method": "STDO 3.0.4 (manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b) installed stdo-work; Writer under Root coordinated handoff",
+  "changeClass": "realization_refactor with bounded owning HOW amendment",
+  "status": "PARTIAL_REPAIR_REAL_ADMISSION_BLOCKED_AT_PRODUCT_RESOLUTION",
+  "summary": "Shared finite direct relation moved to its Product owner and consumed by the ABG library owner and the invocation_admission retained-state declared-entry clause (fixed UAT arm beside the unchanged Executive profile arm). HOW amended first. New real-route RC7 fixed admission test cannot reach invocation_admission: Product resolution refuses the direct Testing invoke (invalid_target /program) before and after. Existing RC7 fixed proof 6/6 and both cold consumers 2/2 pass on the frozen candidate.",
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "repair": {
+    "product/default_library.ts": "Exports GOVERNANCE_DIRECT_PURPOSES, GovernanceDirectPurpose, GOVERNANCE_DIRECT_WRAPPERS and governanceDirectFixedState (moved, not cloned; imports no ABG module).",
+    "abg/default_library.ts": "Private DIRECT_PURPOSES/DIRECT_WRAPPERS/directFixedState removed; imports the Product relation under the same local names; owner/subjectEvidence/fold logic unchanged.",
+    "abg/invocation_admission.ts": "Retained governance-state arm: declared-entry clause admits the fulfillment profile (unchanged) or fixedUat = invoked GraphFunction.name is the UAT wrapper && rehydrated source invocation graphFunctionRef is the Testing wrapper && governanceDirectFixedState(retained,\"uat\",suppliedBasis). Derived-basis equality, retained value equality, source Program/digest, view/binding or current covered source use checks unchanged.",
+    "design": "RC7 section: owners updated; Route notes the open resolution dependency; new subsection \"Direct-UAT admission handshake \u2014 F2\" with shared relation, declared-entry rule, flowchart and the open resolution dependency.",
+    "test": "Appended \"RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission\": installed packed env, shipped SDK invoke member, scripted actor, real CLI; control start, direct Testing, ABG derivation, Testing/Construction/crossed-input refusals, positive UAT, stale-source refusal."
+  },
+  "evidence": {
+    "progress": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/progress.json",
+      "bytes": 3485,
+      "sha256": "e82b824db3946cf4b4c54f930d690aab8c60c402104ccfd967985aeb7493c65f"
+    },
+    "readiness": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/readiness.json",
+      "bytes": 5355,
+      "sha256": "7bdd2755467ef5569bbeb2202060bffe4bd658e7698d83b3cd7f872d12cdd736"
+    },
+    "stages": [
+      {
+        "label": "f2-stage-01",
+        "mode": "before",
+        "sourceCount": 450,
+        "sourceDigest": "f0ecc3474e151bfa15763234866c486722fd1bcc2517c4cd80c93f2e80f607c0",
+        "receipt": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-stage.json",
+          "bytes": 97387,
+          "sha256": "f04e1c1e353244007e79da3eb539db858480dccd482d5219867dffe71c5e5c65"
+        },
+        "compile": [
+          0,
+          8745
+        ],
+        "generate": [
+          0,
+          36086
+        ],
+        "lifecycle": [
+          0,
+          709
+        ]
+      },
+      {
+        "label": "f2-stage-02",
+        "mode": "after",
+        "sourceCount": 450,
+        "sourceDigest": "5fa9b8924e4af45127e556a2683ae1624fa366cf675ac88b299e216ad37a1282",
+        "receipt": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-stage.json",
+          "bytes": 97407,
+          "sha256": "c1e6fe7c042be6c5cfbda88a5bb0c8fb10b567d40cf3ea5fa4dd19ad9557d5cc"
+        },
+        "compile": [
+          0,
+          8708
+        ],
+        "generate": [
+          0,
+          35325
+        ],
+        "lifecycle": [
+          0,
+          704
+        ]
+      }
+    ],
+    "lanes": [
+      {
+        "stage": "f2-stage-01",
+        "lane": "admission",
+        "mode": "before",
+        "stageSourceDigest": "f0ecc3474e151bfa15763234866c486722fd1bcc2517c4cd80c93f2e80f607c0",
+        "exitCode": 1,
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "skipped": 0,
+        "requiredActivePass": false,
+        "failing": [
+          "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+        ],
+        "ms": 67261,
+        "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 fixed admission:  test_env/tests/t287-default-library.test.mjs",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-lanes-admission/summary-admission.json",
+          "bytes": 1230,
+          "sha256": "89ab8090613bf9280a52e57ad80294072855b2c00f86144f9e384eb820a6a72e"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-lanes-admission/admission.stdout.tap",
+          "bytes": 1887,
+          "sha256": "49cb13ca574aa73e7b82ca0e0a65923867ea2cf600341417263c960841dbb502"
+        }
+      },
+      {
+        "stage": "f2-stage-02",
+        "lane": "admission",
+        "mode": "after",
+        "stageSourceDigest": "5fa9b8924e4af45127e556a2683ae1624fa366cf675ac88b299e216ad37a1282",
+        "exitCode": 1,
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "skipped": 0,
+        "requiredActivePass": false,
+        "failing": [
+          "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+        ],
+        "ms": 68356,
+        "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 fixed admission:  test_env/tests/t287-default-library.test.mjs",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-admission/summary-admission.json",
+          "bytes": 1230,
+          "sha256": "0a5d133afe9318c19b27e8bcd1523ce5a96d31fad2615a1536e70cd2191f6127"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-admission/admission.stdout.tap",
+          "bytes": 1885,
+          "sha256": "7e564033c7d10607cd2c71f6dbd37702ceba0861254c79a0acbf6ec792905694"
+        }
+      },
+      {
+        "stage": "f2-stage-02",
+        "lane": "direct-route-regression",
+        "mode": "after",
+        "stageSourceDigest": "5fa9b8924e4af45127e556a2683ae1624fa366cf675ac88b299e216ad37a1282",
+        "exitCode": 0,
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "skipped": 0,
+        "requiredActivePass": true,
+        "failing": [],
+        "ms": 1257,
+        "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 fixed proof:  test_env/tests/t287-default-library.test.mjs",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-direct-route-regression/summary-direct-route-regression.json",
+          "bytes": 1985,
+          "sha256": "a3f7a0adf9d1636bcef540650f5078689e919d7db55dbe579e91c5f37c8f7520"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-direct-route-regression/direct-route-regression.stdout.tap",
+          "bytes": 2345,
+          "sha256": "03c0770202f1e2f284a41cd7c012400415c62f5ddd79d2f271ec2c113f6e42d7"
+        }
+      },
+      {
+        "stage": "f2-stage-02",
+        "lane": "cold-resume",
+        "mode": "after",
+        "stageSourceDigest": "5fa9b8924e4af45127e556a2683ae1624fa366cf675ac88b299e216ad37a1282",
+        "exitCode": 0,
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "skipped": 0,
+        "requiredActivePass": true,
+        "failing": [],
+        "ms": 243168,
+        "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$ test_env/tests/t287-default-library.test.mjs",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-cold-resume/summary-cold-resume.json",
+          "bytes": 1364,
+          "sha256": "aebe3030e48acca5efc5ad754412bef1056cae275b2844160d9ee3afe60b3e04"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-cold-resume/cold-resume.stdout.tap",
+          "bytes": 9307,
+          "sha256": "ada1b782fdce78a598d29a4569837758be758481edb5431aa660d7db7a4a800c"
+        }
+      }
+    ]
+  },
+  "ownerDependency": {
+    "classification": "Omitted upstream owner dependency: Product execution resolution refuses the selected direct invoke before invocation_admission.",
+    "observed": "Both before (frozen F) and after (candidate) real admission lanes: consumer-Program ordinary start populates; direct Public invoke of the library Testing wrapper under that Program is refused at Product population with invalid_target at /program. invocation_admission is never reached, so neither the before authority_mismatch nor the after admission is observable on the real route.",
+    "observedRefusal": {
+      "stage": "population",
+      "catalogHandle": "graph-function://abiogenesis/default-library/testing@5",
+      "programRef": "program://default-library-witness/witness@5",
+      "ownerOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "invalid_target",
+          "issuePaths": [
+            "/program"
+          ],
+          "evidenceRefs": []
+        }
+      },
+      "constructedKind": "product_run_invocation_preparation_refusal"
+    },
+    "sourceCause": [
+      "code/src/product/run_invocation_operation.ts:603-634 maps invoke to selection {kind:\"direct\",catalogHandle}; resolution refusal at stage catalog -> invalid_target at /program.",
+      "code/src/product/execution_resolution.ts:527-540,616-625 selects the CatalogView row by handle and refuses wrong_owner unless row.programMembershipRefs includes the invoked Program and the Program callableMembership includes the definition.",
+      "code/src/product/catalog.ts:737-760 admits only same-publication programMembershipRefs; rows are built verbatim from contributions.",
+      "code/src/gtl/default_library.ts:310-311 library wrapper rows name only program://abiogenesis/default-library/default@5.",
+      "code/src/abg/invocation_admission.ts:1184-1203 repeats the row membership check (selection_mismatch).",
+      "Static only, not executed: the library Program cannot host the direct invoke either; code/src/product/declaration_closure.ts:548-603 requires a Program-aware Catalog row for its locally published executive-step, which code/src/gtl/default_library.ts:310 does not contribute."
+    ],
+    "neededRootSelection": "One owner change that lets a Program lawfully select the library Testing/UAT wrapper rows for direct invoke, chosen by Root: (a) catalog/execution-resolution membership law for borrowed callable members (product/catalog.ts, product/execution_resolution.ts, abg/invocation_admission.ts row check); or (b) library publication contributions/Program (gtl/default_library.ts) so its own Program closes and hosts the wrappers, plus the caller Program/resources in test_env/uat/public-setup.mjs and this test; or (c) a consumer-owned wrapper row, which would also need GOVERNANCE_DIRECT_WRAPPERS identity reconsidered. All are outside the five-path grant; (a)/(b) touch Product law or the library Program and may be forbidden without Root.",
+    "helperLimitation": "test_env/support/registered-graph-selection.mjs constructInstalledStartCall issues memberKey start only; the test constructs the invoke member through the shipped publicApi.constructInstalledStartCall instead. Not the blocker."
+  },
+  "conserved": [
+    "Executive fulfillment-profile arm unchanged (cold retained-source consumer passes)",
+    "root execution-basis authentication, single producer and fold in abg/default_library.ts unchanged (RC7 fixed proof 6/6)",
+    "generic source admission checks unchanged; no fake supported_fulfillment_profile; no caller-shaped ref consulted as authority"
+  ],
+  "disclosures": [
+    "Read-only access outside the worksite: pinned Root control artifacts under /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ (SOURCE_BEFORE, FINAL_RUNTIME_CLOSE, ROOT_REVIEW_DISPOSITION, closed REVIEW.json) and the installed STDO 3.0.4 skill; digests verified.",
+    "Writes: five granted paths (Edit tool and in-memory python rewrites), progress/readiness/return handoffs, stage/lane outputs under qualification-scratch/rc7-fixed-proof-author-02/tmp via the supplied owners, test temp under /private/tmp/abg-f2 set by those owners. No other files created; auxiliary checks used stdin/pipes only.",
+    "Worksite root holds pre-existing untracked tmpf2/ and other tmp* dirs not created by this Writer.",
+    "Steps of the new admission test after Testing population (C2 run, derivation, refusals, positive UAT, stale refusal) never executed; their assertions are unverified.",
+    "Open-fulfillment refusal is not constructible on the real route (direct Testing owner refuses fulfillment); covered only by the predicate and existing controlled RC7 fixed proof cases."
+  ],
+  "gaps": [
+    "Real Public direct-UAT admission not demonstrated: Product execution resolution refuses the direct Testing invoke (invalid_target /program; wrong_owner per execution_resolution.ts:616-625) before invocation_admission in both before and after lanes, so the genuine before authority_mismatch and the after admission are unobservable.",
+    "Needed Root selection outside the five-path grant: catalog/execution-resolution membership law for borrowed callable members (product/catalog.ts, product/execution_resolution.ts, abg/invocation_admission.ts row check), or library publication contributions/Program (gtl/default_library.ts; executive-step lacks a catalog row so the library Program does not close) plus test_env/uat/public-setup.mjs caller Program; consequently the maintained public-setup fixed route also refuses at fixed-testing-population.",
+    "New admission test remains red and its post-population steps are unexercised; open-fulfillment refusal is not constructible on the real route.",
+    "Root owns independent review, cold closure, source disposition and acceptance; no acceptance claimed."
+  ]
+}

@@ -1,0 +1,7 @@
+# Current repair and refactor plan
+
+Root FOUNDATION-PLAN-01 adopts the [checked-in-ready phased plan](/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md), grounded in the [functional assessment](../functional-plan/ASSESSMENT.md) and [exact evidence](../functional-plan/EVIDENCE.json). It separates established test Proof defects from candidate production refactors: authority closure; observer and m5 repair; shared pure lifetime state/Effect mechanics and command; HTTP resources; worker capture/archive last; later GC03 child/socket reuse.
+
+This supersedes the previous [foundation repair-plan projection](history/REPAIR_PLAN.foundation-basis-01.md) and implementation approach in the [original root-cause plan](../../rc11-qualification-01/root-cause-01/operator/ROOT_CAUSE_AND_PLAN.md), both preserved verbatim. The five authoritative correction files remain frozen pending independent review. Core Effect is pinned at3.22.1; semantic ownership, monotonic deadline arithmetic, physical absence, raw/semantic capture and durability laws remain.
+
+No source implementation, native runtime, test, build, checkpoint or release is activated by this plan. Root conjoins review and the plan, then separately selects the next bounded effect. Historical failure causation remains indeterminate; both qualification debts and other open obligations remain. RC11 stays local/unqualified/unpublished and RC10 remains the operational builder.

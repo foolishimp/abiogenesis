@@ -1,0 +1,18 @@
+{
+  "kind": "root_prompt_carriage_reentry_admission",
+  "status": "ADMITTED_PRIMARY_SOURCE_SELECTION_PREFLIGHT_THEN_EXISTING_TESTING_UAT_IF_OWNERS_PASS",
+  "at": "2026-11-06T02:26:46.920592+00:00",
+  "inherits": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ROOT_CONTROL_ADMISSION_R2.json",
+    "bytes": 1180,
+    "sha256": "e4b69a15c1d65a56b622577e5d2dfba650feb07f1c670188ea85f7d19865c778"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PROMPT_ROOT_TRIAGE.json",
+    "bytes": 6209,
+    "sha256": "6b5590aa2eb5a55272e29c2660f7556b569f09d355862b05c60c1804aa4c3ebb"
+  },
+  "effectAndScope": "All original command/role/source-custody/runtime/profile limits remain; select exact13 primary sources while retaining all426 context and420 protected source/handoff members and70 assessment assets. Update only derived admission/staging/source pins.",
+  "preflightAttempt": 3,
+  "automaticRetry": false
+}

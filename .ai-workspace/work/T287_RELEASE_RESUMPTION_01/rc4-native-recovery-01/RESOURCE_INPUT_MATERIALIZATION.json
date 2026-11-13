@@ -1,0 +1,13 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/RESOURCE_AMENDMENT_01.json",
+    "bytes": 2148,
+    "sha256": "85869e460108942e20d622ed11552cf75f402755d6b2089694c6ca07a398bdce"
+  },
+  "target": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-operator-inputs/native-recovery-01/RESOURCE_AMENDMENT_01.json",
+    "bytes": 2148,
+    "sha256": "85869e460108942e20d622ed11552cf75f402755d6b2089694c6ca07a398bdce"
+  },
+  "standing": "Current prospective resource/test amendment input, no tracked writes or native operation"
+}

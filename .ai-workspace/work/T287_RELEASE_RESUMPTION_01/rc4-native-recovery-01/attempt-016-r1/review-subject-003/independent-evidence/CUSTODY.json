@@ -1,0 +1,44 @@
+{
+  "status": "INDEPENDENT_C3_PACKED_TYPED_CHAIN_BOUNDED_CLOSURE",
+  "createdUtc": "2026-11-02T21:32:55.135673+00:00",
+  "files": [
+    {
+      "source": "/private/tmp/rc4-016-c3-independent-review-hz5nfqhh/REVIEW_RECEIPT.json",
+      "held": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-003/independent-evidence/REVIEW_RECEIPT.json",
+      "bytes": 13824,
+      "sha256": "11d5d9733a8f9fa39e60487c1430b89d37fdfa1ddf434d958dc8e153400ce8b7"
+    },
+    {
+      "source": "/private/tmp/rc4-016-c3-independent-review-hz5nfqhh/validated-result.json",
+      "held": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-003/independent-evidence/validated-result.json",
+      "bytes": 666,
+      "sha256": "27e9557bb2bf70f686e6b0430df2f1ee2bcfd4d5efcc347fe59f4c4c6382aab0"
+    },
+    {
+      "source": "/private/tmp/rc4-016-c3-independent-review-hz5nfqhh/factory-chain-validated.log",
+      "held": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-003/independent-evidence/factory-chain-validated.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/rc4-016-c3-independent-review-hz5nfqhh/consumer/factory-chain-validated.ts",
+      "held": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-003/independent-evidence/consumer/factory-chain-validated.ts",
+      "bytes": 4228,
+      "sha256": "0b931e3c992a4f32703351e641cd8c0f3bd46140a217262214c8d4d738f357ac"
+    },
+    {
+      "source": "/private/tmp/rc4-016-c3-independent-review-hz5nfqhh/consumer/tsconfig.validated.json",
+      "held": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-003/independent-evidence/consumer/tsconfig.validated.json",
+      "bytes": 622,
+      "sha256": "4fc4ff06dc8ebc65892204e9c95d2761e7250bfae79ad07b86c6184f64ec9fd5"
+    },
+    {
+      "source": "/private/tmp/rc4-016-c3-independent-review-hz5nfqhh/consumer/package.json",
+      "held": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-003/independent-evidence/consumer/package.json",
+      "bytes": 33,
+      "sha256": "89c47db7851f89caec72da4f215ebc21cf1e294aeef3b45d2583562d846ab035"
+    }
+  ],
+  "result": "Exact4589 package, unchanged validated probe and old envelope control, TS5.9.2 strict skipLibCheck:false exit0/zero diagnostics3333ms. Root accepts bounded typed-chain closure only.",
+  "limits": "Original red retained. Interrupted third native C2 has no admitted Result; full HC2/UAT/005/qualification unaccepted."
+}

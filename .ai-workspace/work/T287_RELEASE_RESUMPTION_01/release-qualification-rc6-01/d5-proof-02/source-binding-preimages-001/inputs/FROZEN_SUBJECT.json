@@ -1,0 +1,9 @@
+{
+  "status": "UNBOUND",
+  "subject": null,
+  "nativeResultRef": null,
+  "nativeResultDigest": null,
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "standing": "Actual complete author02 freeze and returned handoffs only. Baseline observation8f43 is earlier partial evidence, never a final source substitute. Root binds exact pins and reconciles workload/staging.",
+  "authorHandoffs": null
+}

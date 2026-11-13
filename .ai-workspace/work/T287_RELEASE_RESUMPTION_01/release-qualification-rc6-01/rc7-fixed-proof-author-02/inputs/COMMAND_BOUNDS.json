@@ -1,0 +1,95 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "ROOT_SELECTED_F2_FINITE_PREPARATION",
+  "readCommands": [
+    "Exact future SOURCE_BEFORE files and selected control inputs; installed STDO3.0.4 skill/direct references and pinned offline toolchain/contract seed. No broad tree/history/provider scans.",
+    "Read-only git diff/status/rev-parse/show on the selected future source; rg on the selected source/resource names only."
+  ],
+  "writeCommands": [
+    "Only five Product/HOW/test paths, three handoffs and this task scratch. Stop on any newly required Product/HOW path.",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpf2 runtime/provider temp and /private/tmp/abg-f2 test temp, including named cache/zsh children; preserve existing contents, no cleanup.",
+    "Future selected npm-user.npmrc and npm-global.npmrc are two distinct empty staged controls; no shared /dev/null config roles."
+  ],
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-fixed-proof-author-02/prior-author-stage.mjs",
+        "<fresh-label>",
+        "before|after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 3,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 180000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-fixed-proof-author-02/prior-author-lanes.mjs",
+        "<fresh-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "admission",
+        "direct-route-regression",
+        "cold-resume"
+      ],
+      "maxLaneInvocations": 5,
+      "perLaneTimeoutMs": 300000,
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "missingResources": "All450 F source/resource rows retained; three real-admission support files already selected. Concrete missing source/support returns to Root before launch or proof, no speculative inventory.",
+  "invocationAllocation": [
+    {
+      "stage": "before",
+      "lane": "admission",
+      "maximum": 1,
+      "standing": "Actual owner authority_mismatch counterexample; preserve original red."
+    },
+    {
+      "stage": "after",
+      "lane": "admission",
+      "maximum": 1
+    },
+    {
+      "stage": "after",
+      "lane": "direct-route-regression",
+      "maximum": 1
+    },
+    {
+      "stage": "after",
+      "lane": "cold-resume",
+      "maximum": 1
+    }
+  ],
+  "partitionStanding": "Positive exact selectors only: new RC7 fixed admission tests before/after, existing RC7 fixed proof regression cases, and the exact two cold consumers in a separate300s lane.",
+  "stageLabels": [
+    "f2-stage-01",
+    "f2-stage-02",
+    "f2-stage-03"
+  ],
+  "maxStages": 3,
+  "maxLaneInvocations": 5,
+  "concurrency": 1,
+  "laneIds": [
+    "admission",
+    "direct-route-regression",
+    "cold-resume"
+  ],
+  "allocationLaw": "Existing stage directories/stage receipts/lane output directories count before create-only allocation; failed/incomplete allocations count.3stage/5lane ceilings. Four selected before/after pairs, no duplicate pair/retry. Fifth slot is unused; no extra case without Root selecting its exact affected relation."
+}

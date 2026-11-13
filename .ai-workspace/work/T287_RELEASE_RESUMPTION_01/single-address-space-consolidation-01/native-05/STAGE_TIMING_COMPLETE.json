@@ -1,0 +1,50 @@
+{
+  "recordedUtc": "2026-11-04T00:23:18.362937+00:00",
+  "kind": "actual_native05_complete_stage_timing",
+  "sdkSetupReusedMs": 28938.979459,
+  "initialArtifactVerificationMs": 19748.530083,
+  "dispatchToNativeMs": 392120.0,
+  "nativeWorkerMs": 6122595.0,
+  "nativeResultToC2LaunchMs": 648782.0,
+  "c2ActorMs": 761659.0,
+  "c2ResultToUATLaunchMs": 684545.0,
+  "uatActorMs": 214426.0,
+  "uatResultUtc": "2026-11-04T00:01:22.609Z",
+  "rootBetweenActivationMs": 1143639.0,
+  "limitations": [
+    "Actual immutable RC5 builder workflow, not the uninstalled consolidation successor.",
+    "Different growing histories/workloads do not establish a causal performance comparison.",
+    "Wall intervals are not CPU attribution. CLI times and surrounding wrapper intervals are separate.",
+    "Final close saved time is filesystem observation; dispatcher complete wall is separately retained."
+  ],
+  "outcomeUtc": "2026-11-04T00:11:35.951Z",
+  "outcomeWallMs": 9449178.62575,
+  "actualFinalCloseSavedUtc": "2026-11-04T00:19:37.106145+00:00",
+  "dispatchToFinalCloseSavedMs": 9930449.145000001,
+  "dispatcherReportedCompleteWallMs": 9930336.408667,
+  "outcomeToFinalCloseSavedMs": 481155.145,
+  "freshResultCLI": {
+    "started": "2026-11-04T00:14:06.561Z",
+    "wallMs": 104849.20066699944,
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false
+  },
+  "freshReplayCLI": {
+    "started": "2026-11-04T00:17:50.192Z",
+    "wallMs": 106234.05633299984,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false
+  },
+  "outcomeToFreshResultCLIStartMs": 150610.0,
+  "firstCLIReturnToReplayCLIStartMs": 118781.79933300056,
+  "finalCloseSha256": "96c015d0d6143abe91c4b2e8a796f73ad4e86065c4c9d7d1a78b0fa6daac13fc",
+  "freshStanding": {
+    "result": "not_found",
+    "replay": "blocked",
+    "terminal": null
+  }
+}

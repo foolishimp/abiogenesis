@@ -1,0 +1,29 @@
+{
+  "status": "SECOND_SEARCH_ACTUAL_TOOL_RETURN_AND_BOUNDED_NEXT_CHOICE",
+  "interventionReceiptSha256": "4a2a4de29039f2151ca496fff7953ceba9df82b2f598bd479620307bc22b9a98",
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-af8c6c08dc52ee8a-stdout.log",
+  "physicalOffset": 5322118,
+  "physicalRowBytes": 514,
+  "physicalRowSha256": "ae3c47ac28f3c619b50cfbf3234f980d3d70c5a5aca752565748251d8b49bf16",
+  "toolStartUtc": "2026-11-02T22:19:11.885Z",
+  "toolReturnUtc": "2026-11-02T22:23:09.516Z",
+  "elapsedMs": 237631,
+  "actualToolReturn": {
+    "timestamp": "2026-11-02T22:23:09.516Z",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "content": "Exit code 144",
+          "is_error": true,
+          "tool_use_id": "toolu_01RD57Hi8AnyS23DRrfcFvxg"
+        }
+      ]
+    },
+    "tool_use_result": "Error: Exit code 144"
+  },
+  "nextChoiceUtc": "2026-11-02T22:23:14.108Z",
+  "nextChoice": "Nonrecursive grep of four exact current17 operator-input documents; returned matching selected proof statements at22:23:14.145Z",
+  "limit": "Actual native choice after Root group SIGTERM; no injected findings/instructions or Product/source/profile changes."
+}

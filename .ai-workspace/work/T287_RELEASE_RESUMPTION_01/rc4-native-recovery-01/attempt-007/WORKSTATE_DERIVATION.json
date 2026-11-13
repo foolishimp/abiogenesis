@@ -1,0 +1,82 @@
+{
+  "status": "ORIGINAL_RETAINED_STATE_CONSERVED_ACTUAL_RECHECK_TASK_AVAILABLE_COUNTERFACTUALLY",
+  "rootReportedSession": 4759,
+  "rootReportedExitCode": 0,
+  "eligibility": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/source-acquisition-001/ELIGIBILITY_RESULT.json",
+    "bytes": 444,
+    "sha256": "8d66dfe46e77d644b39f9f0ad59a9954d047c59bf0af737b9b8315b21b65a6e0"
+  },
+  "sourceResultBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/source-acquisition-001/source-result-basis.json",
+    "bytes": 314873,
+    "sha256": "1e22dd4fbd21396a27ece9f18965f6eb6ac90797ffc4dbfccc55065112b3477d"
+  },
+  "publicAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/source-acquisition-001/public-run-projection-authority.json",
+    "bytes": 27566529,
+    "sha256": "c84e18dc1ffa3b8d2f9712286f5a146adee67e1d552669d577f99c33ae3228ca"
+  },
+  "terminal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/source-acquisition-001/terminal-result.json",
+    "bytes": 315131,
+    "sha256": "7edd75d36d53be22030f8f4bf0b6c63cd2ff2c8daf0df9520e6e85680f1497ed"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/source-acquisition-001/public-read-operator-resume.json",
+    "bytes": 99885171,
+    "sha256": "c6168af5f87dcc4c6d9a9e099d9103c25430b2731644c2b7a4ebb44df83aaa29"
+  },
+  "sourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+  "sourceResultRef": "result://abiogenesis/54e0ff40817473b85445c8da4c6774c1293b5041cc3aaa7f1d9e629e08ba8fb9",
+  "sourceResultDigest": "sha256:54e0ff40817473b85445c8da4c6774c1293b5041cc3aaa7f1d9e629e08ba8fb9",
+  "sourceCCallRef": "c-call:sha256:f577a645094ff8b2c4db11efdde2f3d3183e30a294ce76e850c049bb69278305",
+  "valueKind": "governance_work_state",
+  "retainedObservationCount": 1,
+  "originalExactEqualityVerified": true,
+  "workload": "Exact retained value.original, including resolved assessment; no task or source rewritten. New request identity only.",
+  "runtimeSelection": "Existing run.start admitted_source_result; owner rehydrates exact source basis again at current prefix. No fabricated SourceUse.",
+  "noClosure": [
+    "not run.continue",
+    "not exact pending-frontier recovery",
+    "not original predecessor R2 closure",
+    "not whole-campaign qualification/release"
+  ],
+  "providerCallsDuringAcquisition": 0,
+  "RunAdmissionsDuringAcquisition": 0,
+  "latestCurrentResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/public-read-operator-resume.json",
+    "bytes": 99886582,
+    "sha256": "ba1b8d8157432af87806979afad372ebb385e066a952e1d5bac12f6e119d9065"
+  },
+  "historicalSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/historical-source.json",
+    "bytes": 29611251,
+    "sha256": "9d3c72edc8f5212a9826b34d1711d9516bb437b0964438070f4cae7e3d66c2a7"
+  },
+  "recheck003": {
+    "RootSession": 36935,
+    "RootExitCode": 0,
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-003/PREFLIGHT_RESULT.json",
+      "bytes": 2001,
+      "sha256": "fe73a6f6cec4a98240d59b3544dd95efab4caf7ff62a21762aa757e5b3b5d158"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-003/testing-task-diagnostic.json",
+      "bytes": 15008542,
+      "sha256": "a6fdaeffcf528118d4bef6690563e90016885455a33c1d33fd676d2b29b1df5d"
+    },
+    "preservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-003/PRESERVATION.json",
+      "bytes": 161,
+      "sha256": "85898201643b158521a4265634998dd59c9e43289ed57b29b6e17d548e883477"
+    },
+    "identityRestored": true,
+    "reacquisitionEntered": false,
+    "commands": 9,
+    "refusals": [],
+    "meaning": "Pure counterfactual task construction, not native Testing or admitted Result"
+  },
+  "next": "Root must recheck source eligibility and current historical resource through existing owners during007 installed preparation/dispatch; no authority fabricated from the task diagnostic."
+}

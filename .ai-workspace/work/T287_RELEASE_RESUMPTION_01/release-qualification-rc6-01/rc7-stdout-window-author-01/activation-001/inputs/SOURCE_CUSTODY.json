@@ -1,0 +1,43 @@
+{
+  "kind": "source_custody_selection",
+  "status": "ACTUAL_ACCEPTED_HELD_SESSION_SUCCESSOR_BOUND",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_BEFORE.json",
+    "bytes": 274671,
+    "sha256": "e32e8c0815d30893c1281c0b86a7d9153267a154118993dc83f024f7c7c5c5cc"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 8314,
+    "sha256": "30fefcf5e9da5b01135da739ffdae1a153089bcae51f19da72d8258d2840ea82"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_AFTER.json",
+    "bytes": 563047,
+    "sha256": "b4a2fdc723a131caed5bb323157a55416c2ed9974edab7fbe68ff10efa8d8fa1"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 9575,
+    "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 9225,
+    "sha256": "2a9a8b0b475b87551f650c1573ebb842bb952b71fc7b983195a44463d13bafe9"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "969ec498630bf7448ac005399972b59fe8e38b8509d4d63779266e284a354309"
+  },
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_SELECTION.json",
+    "bytes": 45361,
+    "sha256": "c9dd8ad220165485a8f911288619cb562a25873a6ea5149f0f263844ba764754"
+  },
+  "sourceCount": 451,
+  "meaning": "451 actual H06 source rows match native.after, frozen tested stage, immutable snapshots and live source. Root bounded source/functional adoption is actual; historical procedure nonconformance remains disclosed.",
+  "acceptedHeldSessionSuccessor": "H06"
+}

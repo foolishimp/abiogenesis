@@ -1,0 +1,202 @@
+{
+  "status": "PREPARED_NO_EXECUTION",
+  "at": "2026-11-07T15:04:43.273856+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_PREPARATION.json",
+    "bytes": 2859,
+    "sha256": "2d1a56d1944a88adfd9ecb2f9ced730f4ad60e49d33d66cdb58eda9a373bd022"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 7205,
+    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023/REVIEW.json",
+    "bytes": 20463,
+    "sha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/run.mjs",
+      "bytes": 10436,
+      "sha256": "470f79316350362919fc3a16d47b80809e5a76a5ded98ee87420746f45051c4d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/PROOF_CONFIG.json",
+      "bytes": 1262,
+      "sha256": "cdd10b76fa9397b455fd4ff0053acd2e87be4f4b9a0482b0c8dde17fef30454d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/BINDING.json",
+      "bytes": 15328,
+      "sha256": "699dfbe58ffc35d56bf32c582c6da307871896245fb53e2d2c38fe350e26c31c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_PREPARATION.json",
+      "bytes": 2859,
+      "sha256": "2d1a56d1944a88adfd9ecb2f9ced730f4ad60e49d33d66cdb58eda9a373bd022"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/RECIPE_DIFF.patch",
+      "bytes": 11619,
+      "sha256": "5e50a2841426fb977c62b0d1c2f3a1678fcdd27b65436cfe0812194be86a1234"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/BINDING_DIFF.patch",
+      "bytes": 16895,
+      "sha256": "eb6e728fa0b137209e67b1336371fe55c7345e0c2ddf6e6eceb4378f03ca766a"
+    }
+  ],
+  "reusedRecipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/run.mjs",
+    "bytes": 9167,
+    "sha256": "c41a691b306fbe7129597cac36177c4f8ac2a8413a1988f2588583f27934242b"
+  },
+  "ownerRelation": "Existing accepted RC8 bootstrap host supplies exact a178 archive owners. frozenArtifact skips packing/extraction; unchanged setup still verifies, resolves lock and installs its fresh consumer at execution. This is not final Library RC8. Configured case retains phase/Run/observation/replay/physical-close/process-absence evidence. Controlled actor, no live provider.",
+  "inputCorrespondence": [
+    {
+      "relativePath": "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "a6": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "bytes": 108721,
+        "sha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf"
+      },
+      "a11": {
+        "path": "/private/tmp/abg-r8-a11-001/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "bytes": 108721,
+        "sha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf"
+      }
+    },
+    {
+      "relativePath": "test_env/support/fresh-process-runtime-proof.mjs",
+      "a6": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+        "bytes": 9594,
+        "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a"
+      },
+      "a11": {
+        "path": "/private/tmp/abg-r8-a11-001/p/w/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+        "bytes": 9594,
+        "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a"
+      }
+    },
+    {
+      "relativePath": "test_env/support/root-installed-environment.mjs",
+      "a6": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 42751,
+        "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+      },
+      "a11": {
+        "path": "/private/tmp/abg-r8-a11-001/p/w/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 42751,
+        "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+      }
+    },
+    {
+      "relativePath": "test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "a6": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+        "bytes": 3390,
+        "sha256": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3"
+      },
+      "a11": {
+        "path": "/private/tmp/abg-r8-a11-001/p/w/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+        "bytes": 3390,
+        "sha256": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3"
+      }
+    },
+    {
+      "relativePath": "test_env/support/installed-public-definition-call.mjs",
+      "a6": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/support/installed-public-definition-call.mjs",
+        "bytes": 99,
+        "sha256": "e17e8fe15cc061708ae0a69520e5b46195549762f9ca2c7f8ed2f2d086cea633"
+      },
+      "a11": {
+        "path": "/private/tmp/abg-r8-a11-001/p/w/build_tenants/abiogenesis/typescript/test_env/support/installed-public-definition-call.mjs",
+        "bytes": 99,
+        "sha256": "e17e8fe15cc061708ae0a69520e5b46195549762f9ca2c7f8ed2f2d086cea633"
+      }
+    },
+    {
+      "relativePath": "product-toolchain-manifest.json",
+      "a6": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266103,
+        "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+      },
+      "a11": {
+        "path": "/private/tmp/abg-r8-a11-001/p/w/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266103,
+        "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+      }
+    }
+  ],
+  "preparedAbsences": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_ADMISSION.json",
+    "/private/tmp/abg-r8-c2p-001",
+    "/private/tmp/abg-r8-c2p-001/w",
+    "/private/tmp/abg-r8-c2p-001/t",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/installed-proof"
+  ],
+  "syntaxCheckExitCode": 0,
+  "preparationEffects": {
+    "controlFilesOnly": true,
+    "testRuns": 0,
+    "builds": 0,
+    "installs": 0,
+    "ProductImports": 0,
+    "providerCalls": 0
+  },
+  "selection": {
+    "expectedPasses": 1,
+    "expectedReportedSkips": 0,
+    "excludedCases": 11,
+    "wholeFile": false,
+    "sixComponentsRepeated": false,
+    "namePattern": "^T-287 C2 compact acknowledgment preserves installed large-log observation and replay$",
+    "providerCalls": 0
+  },
+  "bounds": {
+    "commandMs": 900000,
+    "resourceCeilingMs": 1800000,
+    "existingInnerCaseMs": 600000,
+    "existingActorInactivityMs": 60000,
+    "existingActorAbsoluteMs": 90000,
+    "existingReplayMs": 30000,
+    "existingReplayGraceMs": 1000
+  },
+  "configuredProofFullSha256": "cdd10b76fa9397b455fd4ff0053acd2e87be4f4b9a0482b0c8dde17fef30454d",
+  "environment": {
+    "ABG_T287_C2_PROOF_CONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/PROOF_CONFIG.json",
+    "NODE_OPTIONS": "",
+    "TMPDIR": "/private/tmp/abg-r8-c2p-001/t",
+    "testNodeHeapArg": "--max-old-space-size=8192",
+    "otherEnvironment": "Existing explicit recorder/file-host environment, no provider selectors inherited."
+  },
+  "historicalEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json",
+    "bytes": 13134,
+    "sha256": "9191ae6376601e9e91562936363e070d0a2bf0c00c57e60565c177a9b01dd207"
+  },
+  "preflightObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/PREPARATION_REVIEW_PIN_SUPERSESSION.json",
+    "bytes": 912,
+    "sha256": "ce4353a0af1bf2fcb4a3ab0f5fc57ae17c4286c5c810ba03ec7c88cf18211c74"
+  },
+  "preparedCommand": "/opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/run.mjs /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/BINDING.json 699dfbe58ffc35d56bf32c582c6da307871896245fb53e2d2c38fe350e26c31c /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_ADMISSION.json ACTUAL_ROOT_ADMISSION_SHA256",
+  "rootAdmissionRequired": {
+    "status": "ROOT_ADMITTED_FILTERED_CONFIGURED_C2_POSITIVE",
+    "bindingSha256": "699dfbe58ffc35d56bf32c582c6da307871896245fb53e2d2c38fe350e26c31c",
+    "reviewSha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907"
+  },
+  "limitations": [
+    "Bootstrap manifest and accepted owner-content record route the installation; preparation did not repeat5325member qualification.",
+    "Fresh canonical work/scratch/evidence parents are materialized only during admitted execution. Test owns its evidence mkdir and fresh consumer.",
+    "No full-file/five-negative/live-provider qualification. Original023timeouts and Root interruption remain distinct."
+  ]
+}

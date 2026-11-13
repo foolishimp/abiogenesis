@@ -1,0 +1,175 @@
+{
+  "kind": "rc7_held_session_author_progress",
+  "task": "rc7-held-session-author-01",
+  "updatedUtc": "2026-11-06T13:51:49.509Z",
+  "phase": "FROZEN_AND_STOPPED",
+  "freezeReceipts": [
+    {
+      "label": "hs1-stage-01",
+      "mode": "before",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-01-source-freeze.json",
+      "bytes": 96590,
+      "sha256": "7d775a14e6be83b1b8882aa9174ddcf618a2accd754a49061400b13ec371f4a9",
+      "sourceDigest": "5b48091aba36f04f328a89fd21050e82038002a221f0392e781448c590ace87f"
+    },
+    {
+      "label": "hs1-stage-02",
+      "mode": "before",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-source-freeze.json",
+      "bytes": 96590,
+      "sha256": "bec208ac07f79a5a9605eec183baa0f2bf1dc2ddd2f1758951a71eca3f88cd34",
+      "sourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd"
+    },
+    {
+      "label": "hs1-stage-03",
+      "mode": "after",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-source-freeze.json",
+      "bytes": 96589,
+      "sha256": "ae7e7c0e9f70f38dcc712743a133785950141bde2e62491f95d3f7030b62f93c",
+      "sourceDigest": "1adb7041ad05452d412b538b68a3c03334aa53c47526711380392f1eba60a2d3"
+    },
+    {
+      "label": "hs1-stage-04",
+      "mode": "after",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04-source-freeze.json",
+      "bytes": 96589,
+      "sha256": "7c8072728547bf714c4e9902a904df6bc3fce6b1de206595946221165eb5da31",
+      "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522"
+    }
+  ],
+  "lanes": [
+    {
+      "id": "held-session-before",
+      "stage": "hs1-stage-02",
+      "exitCode": 1,
+      "tests": 2,
+      "pass": 0,
+      "fail": 2,
+      "ms": 251117,
+      "summary": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-lanes-held-session-before/summary-held-session-before.json"
+    },
+    {
+      "id": "held-session-measured",
+      "stage": "hs1-stage-03",
+      "exitCode": 1,
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "ms": 218339,
+      "summary": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-lanes-held-session-measured/summary-held-session-measured.json"
+    },
+    {
+      "id": "held-session-final",
+      "status": "NOT_RUN",
+      "reason": "prior-author-lanes requires a passing held-session-measured; the measured allocation is consumed and red"
+    },
+    {
+      "id": "read-owner",
+      "status": "NOT_RUN",
+      "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+    },
+    {
+      "id": "caller",
+      "status": "NOT_RUN",
+      "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+    },
+    {
+      "id": "fixed-route",
+      "status": "NOT_RUN",
+      "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+    },
+    {
+      "id": "cold-resume",
+      "status": "NOT_RUN",
+      "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+    },
+    {
+      "id": "body-conservation",
+      "status": "NOT_RUN",
+      "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+    }
+  ],
+  "notes": [
+    "Before stage: baseline Product/runner/public-setup with current HS02 and maintained-caller fixed-admission tests.",
+    "Stage stdout/stderr were redirected to scratch-root stage-01.out/.err (outside the declared tmp/ path); disclosed.",
+    "hs1-stage-02 re-allocates the mandatory before discriminator within the four-stage cap after stage-01 generation timed out; stage logs are now under tmp/log-stage-*.",
+    "held-session-final requires a passing held-session-measured, and the five final lanes require a passing held-session-final, so no further lane is eligible. hs1-stage-04 freezes the corrected final source (HS02 refusal calls populated at the current prefix) for Root review only."
+  ],
+  "stages": [
+    {
+      "label": "hs1-stage-01",
+      "mode": "before",
+      "compile": {
+        "exitCode": 0,
+        "ms": 74397
+      },
+      "generate": {
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "error": "spawnSync /opt/homebrew/Cellar/node/24.7.0/bin/node ETIMEDOUT",
+        "ms": 180073
+      },
+      "lifecycle": null,
+      "sourceDigest": "5b48091aba36f04f328a89fd21050e82038002a221f0392e781448c590ace87f"
+    },
+    {
+      "label": "hs1-stage-02",
+      "mode": "before",
+      "compile": {
+        "exitCode": 0,
+        "ms": 54547
+      },
+      "generate": {
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 95967
+      },
+      "lifecycle": 0,
+      "sourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd"
+    },
+    {
+      "label": "hs1-stage-03",
+      "mode": "after",
+      "compile": {
+        "exitCode": 0,
+        "ms": 69273
+      },
+      "generate": {
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 92205
+      },
+      "lifecycle": 0,
+      "sourceDigest": "1adb7041ad05452d412b538b68a3c03334aa53c47526711380392f1eba60a2d3"
+    },
+    {
+      "label": "hs1-stage-04",
+      "mode": "after",
+      "compile": {
+        "exitCode": 0,
+        "ms": 51926
+      },
+      "generate": {
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 100154
+      },
+      "lifecycle": 0,
+      "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522"
+    }
+  ],
+  "finalSourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/return.json",
+    "bytes": 25549,
+    "sha256": "271a39cc0fdf85536b1a39d745a2897a8c4b9b1a32c50989f2be0db1d5da4c57"
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/readiness.json",
+    "bytes": 852,
+    "sha256": "1bde25c201075b3c39acb0db67eff2c4c6f3e3b231fe82a1dee9b69e36485057"
+  }
+}

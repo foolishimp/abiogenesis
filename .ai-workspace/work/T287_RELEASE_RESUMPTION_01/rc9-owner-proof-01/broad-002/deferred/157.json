@@ -1,0 +1,34 @@
+{
+  "file": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+    "testSha256": "b3dedc5ac34c469bcd3defd33588b26deb9519577d47c13606f3eb312e1aa38f",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Actual014600s command timeout retains3partial passes without whole-file credit; Root recursive014 causal triage pending. Preparation-only deferral, no retry or source repair.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_014.json",
+        "bytes": 6259,
+        "sha256": "0700752b456589a9873b246f01736b4264adf842e47598453230a4e31f11dd92"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/files/152-t287-recursive-registered-selection.json",
+        "bytes": 1051,
+        "sha256": "05ee3a38c2a7ba292f97e50f482dc7d92763e6997462a953072fbccab9fdcaee"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/commands/152-t287-recursive-registered-selection.result.json",
+        "bytes": 1521,
+        "sha256": "dcdd61aa3795917901d76fb917fbb5287a8b75d522bbfc212168665e48441a51"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/commands/152-t287-recursive-registered-selection.stdout",
+        "bytes": 956,
+        "sha256": "29effc209e0f6e4a2be59fc5d10be748733cb6a40ea831ade03368036fc110b6"
+      }
+    ],
+    "capsule": "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+    "successorStanding": "Root selected scheduling exclusion only; see RESIDUAL_REASSESSMENT.json, no closure or inherited semantic no-block"
+  }
+}

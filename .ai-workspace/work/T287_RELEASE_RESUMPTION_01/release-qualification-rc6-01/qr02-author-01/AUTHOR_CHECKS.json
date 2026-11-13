@@ -1,0 +1,55 @@
+{
+  "kind": "finite_qr02_author_feedback_plan",
+  "status": "DRAFT_NO_CHECK_EXECUTED",
+  "nearestBefore": {
+    "task": "Before realization edits, retain a fresh stage of the actual selected successor implementation. Use the real historical two-step material and a QR02 regression that reaches existing last-writer/currentness owners. Retain the meaningful expected failure; missing modules, malformed setup, mere new-field schema rejection or forged owner premises are not the discriminator.",
+    "testNamePrefix": "QR02",
+    "file": "test_env/tests/t287-qualification-scopes.test.mjs",
+    "timeoutMs": 300000
+  },
+  "finalBuildRoutes": [
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "timeoutMs": 240000
+    },
+    {
+      "command": [
+        "node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "timeoutMs": 180000
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-lifecycle-boundary.mjs"
+      ],
+      "timeoutMs": 60000
+    }
+  ],
+  "nearestAfter": {
+    "testNamePrefix": "QR02",
+    "file": "test_env/tests/t287-qualification-scopes.test.mjs",
+    "timeoutMs": 300000
+  },
+  "finalLane": {
+    "id": "qualification",
+    "files": [
+      "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "test_env/tests/t287-qualification-producer-context.test.mjs",
+      "test_env/tests/t287-qualification-contraction.test.mjs",
+      "test_env/tests/t287-qualification-scopes.test.mjs"
+    ],
+    "timeoutMs": 300000,
+    "minimumTests": 37
+  },
+  "sumFinalCommandCapsMs": 1080000,
+  "selectedInactivityMs": 1800000,
+  "interpretation": "The final lane includes QR02 regressions; after one focused passing-after, do not repeat it separately beyond the lane without changed source/failure. Minimum37 is the retained baseline floor, not a target or claimed result. Preserve actual TAP counts, skips, cancellations and failures; no full F11 or unrelated completed RC6 rerun."
+}

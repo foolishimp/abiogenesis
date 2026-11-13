@@ -1,0 +1,202 @@
+{
+  "kind": "allowlisted_native_tool_use_and_method_order_observation",
+  "observedUtc": "2026-11-06T22:24:07.215554+00:00",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-669923d93710d0c4-stdout.log",
+  "device": 16777231,
+  "inode": 708684233,
+  "suffixStart": 2405882,
+  "suffixEnd": 2671976,
+  "suffixBytes": 266094,
+  "suffixSha256": "75b4053e54ceab49cfdf60d918ef69c09cbfc2332287c922db66ab39412edf9b",
+  "completeRows": 570,
+  "totalCompleteRows": 5148,
+  "uniqueCompleteToolUses": 51,
+  "toolNameCounts": {
+    "Bash": 51
+  },
+  "newToolUses": [
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:23:16.019Z",
+      "toolUseRef": "toolu_01EoVj1osfSmhNAd5KN6zxm9",
+      "archiveLine": 4675,
+      "byteOffset": 2464674,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts"
+      ],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:23:18.871Z",
+      "toolUseRef": "toolu_01F2TbJ8CBFJ3pVavzmHKiPw",
+      "archiveLine": 4707,
+      "byteOffset": 2483161,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:23:25.866Z",
+      "toolUseRef": "toolu_01U48KLR1JJ6v8E5QN7KHvPb",
+      "archiveLine": 4751,
+      "byteOffset": 2513146,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:23:55.066Z",
+      "toolUseRef": "toolu_012S8jD9sb2cwcDQqAsMNQGy",
+      "archiveLine": 5103,
+      "byteOffset": 2642530,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [
+        "qualification-inputs/rc7-stdout-window-author-02/EXTERNAL_READ_INPUTS.json",
+        "AGENTS.md",
+        "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+      ],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": false,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T22:24:00.503Z",
+      "toolUseRef": "toolu_01RS65Xf8iiTXCK6yF7iVAXp",
+      "archiveLine": 5145,
+      "byteOffset": 2669389,
+      "path": null,
+      "sensitivePathRedacted": false,
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false,
+      "selectedStageExecutionSyntaxPresent": true,
+      "selectedLaneExecutionSyntaxPresent": false,
+      "selectedProductWriteTool": false
+    }
+  ],
+  "statusMetadataCoverageStart": 0,
+  "newToolResultMetadata": [
+    {
+      "tool_use_id": "toolu_01EoVj1osfSmhNAd5KN6zxm9",
+      "timestamp": "2026-11-06T22:23:16.088Z",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_01F2TbJ8CBFJ3pVavzmHKiPw",
+      "timestamp": "2026-11-06T22:23:18.895Z",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_01U48KLR1JJ6v8E5QN7KHvPb",
+      "timestamp": "2026-11-06T22:23:25.885Z",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_012S8jD9sb2cwcDQqAsMNQGy",
+      "timestamp": "2026-11-06T22:23:55.115Z",
+      "is_error": false
+    }
+  ],
+  "cumulativeToolResultMetadataCount": 50,
+  "firstSelectedMethodPathTool": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T22:14:52.405Z",
+    "toolUseRef": "toolu_01PLqosQjQDE6cufe8iXgqWi",
+    "archiveLine": 500,
+    "byteOffset": 352350,
+    "path": null,
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": null,
+    "selectedReadFirstPathMentions": [
+      "qualification-inputs/rc7-stdout-window-author-02/METHOD_ACCESS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_CONTROL_ADMISSION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_DEPENDENCY_READY_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/HS03_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/TASK.md",
+      "qualification-inputs/rc7-stdout-window-author-02/NATIVE_GRANT.json",
+      "qualification-inputs/rc7-stdout-window-author-02/SOURCE_CUSTODY.json",
+      "qualification-inputs/rc7-stdout-window-author-02/COMMAND_BOUNDS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/MEASUREMENT_PLAN.json",
+      "AGENTS.md",
+      "stdo_abiogenesis.json"
+    ],
+    "selectedMethodPathPresence": [
+      "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md"
+    ],
+    "selectedMethodManagerCommandPresence": true,
+    "selectedStageExecutionSyntaxPresent": false,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": false
+  },
+  "firstSelectedProductEditTool": null,
+  "firstSelectedBuildOrLaneSyntax": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T22:24:00.503Z",
+    "toolUseRef": "toolu_01RS65Xf8iiTXCK6yF7iVAXp",
+    "archiveLine": 5145,
+    "byteOffset": 2669389,
+    "path": null,
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": null,
+    "selectedReadFirstPathMentions": [],
+    "selectedMethodPathPresence": [],
+    "selectedMethodManagerCommandPresence": false,
+    "selectedStageExecutionSyntaxPresent": true,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": false
+  },
+  "latestToolUse": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T22:24:00.503Z",
+    "toolUseRef": "toolu_01RS65Xf8iiTXCK6yF7iVAXp",
+    "archiveLine": 5145,
+    "byteOffset": 2669389,
+    "path": null,
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": null,
+    "selectedReadFirstPathMentions": [],
+    "selectedMethodPathPresence": [],
+    "selectedMethodManagerCommandPresence": false,
+    "selectedStageExecutionSyntaxPresent": true,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": false
+  },
+  "limits": [
+    "Only complete assistant tool-use name/id/path, envelope clock and exact selected method/read-first/stage-lane presence are projected. No thinking, narrative, tool-result body, raw command text, stderr or credentials surfaced. Forward-only explicit tool-result status fields are projected under Root extension.",
+    "Read/tool metadata shows requested access, not successful content interpretation or complete method compliance. Selected command presence does not itself prove successful verification.",
+    "Bash command contents are not retained; unclassified Bash may include operations not identifiable from these allowed metadata. Absence of direct Edit/build metadata is not a universal no-effect proof.",
+    "No old campaign event decode or untracked census. The current actor archive is read incrementally from its prior exact byte cursor."
+  ]
+}

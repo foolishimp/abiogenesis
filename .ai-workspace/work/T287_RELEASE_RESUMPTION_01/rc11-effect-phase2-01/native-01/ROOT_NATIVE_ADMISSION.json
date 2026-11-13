@@ -1,0 +1,118 @@
+{
+  "id": "PHASE2-NATIVE-01",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedAt": "2026-11-10T00:06:01.690148+00:00",
+  "bindingSha256": "f8d8fa4d64d21075c39c3da51cec945a42a4aae55b718d02593f612333e0f9c0",
+  "preparedSha256": "36a7f05e79cb3da87c7e0e8ac95cb485123e46ab018839128af3d9b26fe7827f",
+  "taskSha256": "5df3c12a1de2ee6538eeee51114f1185a229c7a76180ba425921063ab1d6699a",
+  "scopeSha256": "8d45c82e7e9f39628e4063c28902ec89091de37f60137663c530a7a83f708a7f",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/PREPARED.json",
+    "bytes": 6763,
+    "sha256": "36a7f05e79cb3da87c7e0e8ac95cb485123e46ab018839128af3d9b26fe7827f"
+  },
+  "setupReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SETUP_RETURN.json",
+    "bytes": 5964,
+    "sha256": "57014d490dbb58cd9f3286f365b5771f12b76582c157654512e03d81d1bfce65"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/host.mjs",
+    "bytes": 15522,
+    "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+  },
+  "invocationRef": "invocation://abiogenesis/5ab29341805a95d6bdcfe484a6503e5f154cc6e56777474fe966459d1893d433",
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188160,
+    "prefixDigest": "sha256:98eebd16723f19bf9ef422138506bc2fc5585ec4769b7a25fd04428ee55f0b70",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 720499008,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:5a482327f33390f2ce74ec48a0f2a40d1f0163e4b89eebf27a18814db085b37a"
+  },
+  "nativeSelection": {
+    "programRef": "program://abiogenesis/worksite/native-work@5",
+    "startRef": "start://abiogenesis/worksite/native-work@5",
+    "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+    "viewDigest": "sha256:1a4beff68015ad59e3cbfc87508c61553bde41fbbad4f11527cabb613cd4a8ba"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/TASK.json",
+      "bytes": 8487,
+      "sha256": "5df3c12a1de2ee6538eeee51114f1185a229c7a76180ba425921063ab1d6699a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json",
+      "bytes": 5536,
+      "sha256": "8d45c82e7e9f39628e4063c28902ec89091de37f60137663c530a7a83f708a7f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/host.mjs",
+      "bytes": 15522,
+      "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/PRESERVATION_GUARDS.json",
+      "bytes": 3041,
+      "sha256": "dcfb4e5d2a423b0d08cbb5fe39964fb9ab696fe127e201137ead39c743ff3e52"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_INVENTORY.json",
+      "bytes": 294794,
+      "sha256": "e003b09affcd088fd0900d853ca60d7d157696a0a998e86e94f1dbeaa522e69b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-01/DESIGN_ASSESSMENT.md",
+      "bytes": 10454,
+      "sha256": "2076fe346f4345d3f2f1ae5425ea981fe4b6750f92335bc007a5e74dc355f13b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-01/EXACT_SOURCE_ROUTES.json",
+      "bytes": 26805,
+      "sha256": "8d5746ff38c1a50bdbb586bf3f849eeced0f46d0e6548393462e1853497384ef"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-01/EXTERNAL_TOOLS.json",
+      "bytes": 3737,
+      "sha256": "dcf032dd2d74eaa11a4ce8c34f3acaa954e21828846089f1077f3f96d9ef254b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-01/PREBUILT_IDENTITY.json",
+      "bytes": 1347,
+      "sha256": "935adbab5145df29d50f723ec6d3a9174e7c7a400f2df5081346f065ea744f61"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_INTAKE.md",
+      "bytes": 11205,
+      "sha256": "194f5fd553125c1b7ada07d433b853a4970df49ba643956f0026f8023b2893ae"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_SCOPE_CLARIFICATION.md",
+      "bytes": 2441,
+      "sha256": "2b3e1b24d6420ac6550fcbe807e0158fca072e257ea2337932f6e5023989a07b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json",
+      "bytes": 5536,
+      "sha256": "8d45c82e7e9f39628e4063c28902ec89091de37f60137663c530a7a83f708a7f"
+    }
+  ],
+  "rootDecision": "Root consumed actual PREPARED and admits exactly one native invocation through same live PID73828/PTY87809/caller/resource. Exact eight-path source task plus scratch; Opus5.5 xhigh900s absolute180s inactivity100turns.",
+  "limits": {
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "stop": "No extension, automatic retry or successor selection. Capture actual SDK return/physical close/fresh readback, freeze source and return. External proof held."
+}

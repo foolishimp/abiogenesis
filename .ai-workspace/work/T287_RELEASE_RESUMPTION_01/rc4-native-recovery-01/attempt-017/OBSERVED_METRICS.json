@@ -1,0 +1,184 @@
+{
+  "status": "RUN_BLOCKED_FINAL_PROVIDER_METRICS",
+  "observedUtc": "2026-11-02T22:05:42.074253+00:00",
+  "dispatchStartedUtc": "2026-11-02T21:44:52.166Z",
+  "firstSelectorStartedUtc": "2026-11-02T21:46:48.822Z",
+  "nativeConstructionStartedUtc": "2026-11-02T21:49:15.897Z",
+  "dispatchToFirstSelectorMs": 116656,
+  "dispatchToNativeConstructionMs": 263731,
+  "completedProviders": [
+    {
+      "role": "selector",
+      "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-2f010ab3319ed92a-stdout.log",
+      "bytes": 261846,
+      "sha256": "03a1572f60bd9bec1cbbf29e8f32979de28bf771f45a994fbac3f82c7522946b",
+      "totalCostUsd": 2.9259999999999997,
+      "numTurns": 2,
+      "durationMs": 61145,
+      "isError": false,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 354979,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 4308,
+        "output_tokens_details": {
+          "thinking_tokens": 670
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 354979,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "role": "native Construction",
+      "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-af8c6c08dc52ee8a-stdout.log",
+      "bytes": 6979604,
+      "sha256": "29f20f698adbf3f17e301ec096d2d46f2ac537368c2dc1106365995e3746aa3f",
+      "totalCostUsd": 15.153233200000003,
+      "numTurns": 192,
+      "durationMs": 2443164,
+      "isError": false,
+      "usage": {
+        "input_tokens": 354,
+        "cache_creation_input_tokens": 632739,
+        "cache_read_input_tokens": 36039029,
+        "output_tokens": 124969,
+        "output_tokens_details": {
+          "thinking_tokens": 60488
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 632739,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "role": "post-Construction selector",
+      "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-4c17f86eebf1e3b0-stdout.log",
+      "bytes": 339795,
+      "sha256": "9b2c3dc4ceb1ff1fb0ddb930f90c798456f7e20cc11f3a3c7a650a5cb07c9ba9",
+      "totalCostUsd": 3.071664,
+      "numTurns": 2,
+      "durationMs": 102189,
+      "isError": false,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 361377,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 9032,
+        "output_tokens_details": {
+          "thinking_tokens": 5104
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 361377,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    }
+  ],
+  "activeNativeCost": null,
+  "finalCost": 21.150897200000003,
+  "providerCompletionIsNotNativeResult": true,
+  "limits": "Start intervals are observed elapsed arithmetic, not causal runtime overhead or performance comparison. Native Construction, C2, UAT and full cost remain unfinished.",
+  "skillUse": {
+    "standing": "Native author transport evidence, not candidate acceptance",
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/NATIVE_STDOUT_OBSERVATION_001.json",
+    "skillAndFrameReadsObserved": true,
+    "verificationCommand": "stdo status --definition stdo_abiogenesis.json --verify",
+    "verificationResponseUtc": "2026-11-02T21:50:13.260Z",
+    "stdoutPhysicalOffset": 355539,
+    "valid": true,
+    "installed": true,
+    "failures": [],
+    "basis": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "authorToolOverhead": [
+    {
+      "commandStartUtc": "2026-11-02T22:11:17.726Z",
+      "commandEndUtc": "2026-11-02T22:19:06.449Z",
+      "elapsedMs": 468723,
+      "classification": "Broad read-only scratch search, Root-terminated inner grep; not Product-runtime attribution",
+      "outcomeReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/operator-interventions/slow-audit-search-tool-outcome.json"
+    },
+    {
+      "commandStartUtc": "2026-11-02T22:19:11.885Z",
+      "commandEndUtc": "2026-11-02T22:23:09.516Z",
+      "elapsedMs": 237631,
+      "classification": "Second broad search; Root group SIGTERM, actual failure and bounded native next choice",
+      "outcomeReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/operator-interventions/second-search-tool-outcome.json"
+    }
+  ],
+  "authorToolOverheadTotalMs": 706354,
+  "authorCompiler": {
+    "command": "node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json",
+    "version": "5.9.2",
+    "startUtc": "2026-11-02T22:25:43.309Z",
+    "returnUtc": "2026-11-02T22:25:49.613Z",
+    "reportedWallSeconds": 6.232,
+    "exitCode": 0,
+    "stdoutPhysicalOffset": 5893377,
+    "standing": "Author canonical source noEmit feedback, not packed C2 or acceptance"
+  },
+  "nativeConstructionProcessEndUtc": "2026-11-02T22:30:05.344Z",
+  "nativeConstructionProcessElapsedMs": 2449447,
+  "knownCompletedProviderCostUsd": 21.150897200000003,
+  "nativeResultRef": "result://abiogenesis/0dbcfc05446b004cc26aba971444385c5be791c76af5557180764e5b4116bec0",
+  "standing": "Actual host outcome blocked; genuine fresh result not_found/replay blocked; no C2/UAT",
+  "knownCompletedProviderCount": 3,
+  "nativeC2Executed": false,
+  "nativeUATExecuted": false,
+  "hostOutcomeEndedUtc": "2026-11-02T22:34:56.212Z",
+  "hostOutcomeElapsedMs": 3004046,
+  "providerCount": 3,
+  "reportedTurns": 196,
+  "eventPrefixStartBytes": 343947182,
+  "eventPrefixEndBytes": 427935724,
+  "eventByteDelta": 83988542,
+  "artifacts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/execution/outcome-summary.json",
+      "bytes": 550,
+      "sha256": "3c4789f883abd0df496be6e35898292f36781099f0a957d5730ebd93027c3f90"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/execution/fresh-reads.json",
+      "bytes": 2398,
+      "sha256": "53a4fedacc0d5bdc39ad0df54ce2349e834b5acc712af0c3e808e82da9921479"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/execution/after-run-resume.json",
+      "bytes": 99885376,
+      "sha256": "10a2b22bd3cdb2eaa6d4d67c17be1f241dd33633695723bb13ac81c851817a52"
+    }
+  ],
+  "costLimit": "Attempt017 only; no cumulative claim incorporating unfinalized016 metrics. Practical004 separate."
+}

@@ -1,0 +1,131 @@
+{
+  "status": "PREPARED_MATCHED_REFERENCE_MEASUREMENT",
+  "subject": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "candidateArchive": null,
+  "installRoot": null,
+  "bootstrapInstallHost": null,
+  "installReceipt": null,
+  "cutRecord": null,
+  "installIdentityPins": null,
+  "packageRoot": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript",
+  "helperPins": [
+    {
+      "relativePath": "test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "relativePath": "test_env/support/candidate-basis.mjs",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+    },
+    {
+      "relativePath": "test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "relativePath": "test_env/support/registered-graph-selection.mjs",
+      "bytes": 19702,
+      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+    },
+    {
+      "relativePath": "test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "relativePath": "test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": 9876,
+      "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4"
+    },
+    {
+      "relativePath": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
+    }
+  ],
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004",
+  "tempRoot": "/private/tmp/abg-r8m-rc8-after-004",
+  "node": {
+    "configuredPath": "/opt/homebrew/bin/node",
+    "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "contextBodyBytes": [
+    1048576,
+    4194304
+  ],
+  "bounds": {
+    "hostMs": 600000,
+    "coldReadMs": 120000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "aggregateBytes": 1073741824,
+    "nodeHeapMiB": 8192
+  },
+  "additionalCounterSources": [
+    {
+      "name": "call",
+      "module": "public/binding/definition_binding_mechanics",
+      "exportName": "observeDefinitionCallWork",
+      "required": true
+    },
+    {
+      "name": "transport",
+      "module": "public/installed_definition_call_transport",
+      "exportName": "observeDefinitionTransportWork",
+      "required": true
+    },
+    {
+      "name": "catalog",
+      "module": "product/catalog",
+      "exportName": "observeCatalogWork",
+      "required": true
+    },
+    {
+      "name": "resolution",
+      "module": "product/execution_resolution",
+      "exportName": "observeExecutionResolutionWork",
+      "required": true
+    },
+    {
+      "name": "input",
+      "module": "product/semantics",
+      "exportName": "observeProductInputWork",
+      "required": true
+    },
+    {
+      "name": "worker",
+      "module": "abg/worker_transport",
+      "exportName": "observeWorkerTransportCopyWork",
+      "required": true
+    }
+  ],
+  "cpuProfileCall": "4MiB-profile",
+  "scriptedActorOnly": true,
+  "qualification": false,
+  "executionStanding": "Stage04 concrete preparation only; source acceptance, artifact, actual bootstrap receipt and Root admission pending. Source identity is base plus exact frozen overlay. Family004 only adds bootstrap budget and source custody to family003 absolute observations; matched pair and separate profile call unchanged. Execute before broad suite.",
+  "counterObservationMode": "raw_absolute_snapshots_after_setup_and_around_calls",
+  "sourceArtifactRelation": null,
+  "bootstrapBudget": {
+    "tempRoot": "/private/tmp/abg-r8m-rc8-bootstrap-001",
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001"
+  }
+}

@@ -1,0 +1,1912 @@
+{
+  "kind": "rc4_declared_input_materialization",
+  "status": "MATERIALIZED_NOT_NATIVE_DISPATCHED",
+  "admissionSha256": "d0d6aa77bcbe33deee08dcff41c2c40730c7a363d8a2f0c11ecab794e1926f69",
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "historicalClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/B11_C2_961_PREPARATION.json",
+    "bytes": 249339,
+    "sha256": "554172089688e2ba1768856f91d7d3b8a2409a170011fc46da5667282aa3696f"
+  },
+  "historicalClosureReadMethod": "Only existing recorded missing260 rows; no new961 census or tracked predecessor transplantation.",
+  "created": 270,
+  "historicalDependencies": 260,
+  "currentAuthorityInputs": 10,
+  "rows": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/.claude/references/PRODUCT_BASIS.md",
+      "target": ".claude/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/.claude/skills/stdo-work/SKILL.md",
+      "target": ".claude/skills/stdo-work/SKILL.md",
+      "bytes": 11186,
+      "sha256": "3465f25f6357c8186ee325377cd4db97872272a7993f3995ccdf57a4ae8ef76a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/HOW.md",
+      "target": "rc3-operator-inputs/increment-a-01/HOW.md",
+      "bytes": 3172,
+      "sha256": "a009a8a665ee035be72ef6feb5edda03f9968e17421c5d5cac0a4927ee3caf2f",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/capabilities/capability-definition-graph.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "80ec2ee64fba72ef068ac7ed3815587e331f679e308809dce2505f714ee56b3c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/conformance/gtl-language-conformance-corpus.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/conformance/gtl-language-conformance-corpus.json",
+      "bytes": 23189,
+      "sha256": "76fdce484d14ec9d9fc743cded9e330db89f5b1fcdf96ed3607fb801071b96e1",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/default-library/policy.txt",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/default-library/policy.txt",
+      "bytes": 891,
+      "sha256": "abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/default-library/stdo/context.inventory.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/default-library/stdo/context.inventory.json",
+      "bytes": 515,
+      "sha256": "169fb264ebeebb0c41e0b39cb250479287e856312b70a0f7430372ffe942a269",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/default-library/stdo/manifest.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/default-library/stdo/manifest.json",
+      "bytes": 14286,
+      "sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/default-library/stdo/standards/ASSURANCE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/default-library/stdo/standards/ASSURANCE.md",
+      "bytes": 87324,
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+      "bytes": 157336,
+      "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-functions/adapter-projection.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-functions/adapter-projection.json",
+      "bytes": 69025,
+      "sha256": "593a4363b1bbde30ed538658aed2628c4f0cd3a730996b2e471ce5b4f63fab8d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/catalog/admit/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/catalog/admit/operation-contract.json",
+      "bytes": 5941,
+      "sha256": "c022118c8189fe07b4e829fb5ccbd876769befb0c81c73e0851c305b23b14f3d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/catalog/apply/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/catalog/apply/operation-contract.json",
+      "bytes": 10721,
+      "sha256": "f4dc3ad28e84b0711ef9ea688258a5f3399a3717db9c0f24eedfd306d4cbdf34",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/catalog/view/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/catalog/view/operation-contract.json",
+      "bytes": 6053,
+      "sha256": "377a53a01104d73d42d7ee73e1fe9d4a57d28297e6366946c8162285fbae0588",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/conformance/evaluate/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/conformance/evaluate/operation-contract.json",
+      "bytes": 6207,
+      "sha256": "ee685515282773c3cb2c800c5004957d6c28e7d824a0c40ccbc4211b9482ac11",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/interaction/respond/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/interaction/respond/operation-contract.json",
+      "bytes": 30349,
+      "sha256": "d8bbc41624e89eed499d94d4e7de1dbc51ebd803cfc87ca2940d825179c4148b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/product/install/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/product/install/operation-contract.json",
+      "bytes": 5954,
+      "sha256": "ff085e75b2f67dab456ddf48ca45ceb024ecbef4db14426c0c8998c43f836ef7",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/product/materialize/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/product/materialize/operation-contract.json",
+      "bytes": 11023,
+      "sha256": "2f8dfffbff61433adcee28f54150a5392a8129db940e57f1ef457b96312bdc84",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/product/resolve/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/product/resolve/operation-contract.json",
+      "bytes": 6080,
+      "sha256": "393c7131803d2c5904e3cdc225069b3f3caf5077ed69fa8e7e7a35b2910b3343",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/product/verify/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/product/verify/operation-contract.json",
+      "bytes": 5952,
+      "sha256": "31ffc94baf0e57eaa2736b0d8b1d50360a7f5ec0741cd72070ad52136cb8db09",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/project/read/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/project/read/operation-contract.json",
+      "bytes": 114486,
+      "sha256": "2e9442424738757573d46ead494730b066c862b331ca56c9b2ebba161331676b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/release/snapshot/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/release/snapshot/operation-contract.json",
+      "bytes": 11097,
+      "sha256": "02b1e92e9826bf8db3061b244c94055e5a78a9657fa5c996692a2f442c69f97a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/result/assess/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/result/assess/operation-contract.json",
+      "bytes": 6871,
+      "sha256": "e5191353f20297ba27bd7bd96458bb941f7ae98ba40c569d6f4637c56e44babd",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/run/continue/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/run/continue/operation-contract.json",
+      "bytes": 12809,
+      "sha256": "e681a25aa523bc5cfd0de5e3eedc6af8be2f21fcca1e715b8a55e3bfc8862c17",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/run/invoke/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/run/invoke/operation-contract.json",
+      "bytes": 12327,
+      "sha256": "5d17ade444768f2ee5b5226795bc4a33f1ebcb1c44894d63e9c99d978e41fbc7",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/witness/admit/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/witness/admit/operation-contract.json",
+      "bytes": 29041,
+      "sha256": "9dfafea7a95ac9e59a240ca7b4cdc174b7a7b798cdbadeef8e24b6deaccbbd8c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/workspace/bind/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/workspace/bind/operation-contract.json",
+      "bytes": 6006,
+      "sha256": "e1595386f9d09672262aa05368a5daf0cdcf448def8300095a82dbb78d5eb716",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/workspace/create/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/workspace/create/operation-contract.json",
+      "bytes": 10823,
+      "sha256": "d7f3240ad64b6254f8b98f9cc7326da0246c04c4c21c60f00935dc315b8988b0",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/workspace/open/operation-contract.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/public-operations/workspace/open/operation-contract.json",
+      "bytes": 6009,
+      "sha256": "e684c4b88f0492120402d50e06000be50278c0b17dde8f55ec6bf96ffe5224c5",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/authority-inputs.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/authority-inputs.json",
+      "bytes": 27912,
+      "sha256": "2b34def912886b25ea69785ea70c7107244ef239d07821a4caffda8e36c623fb",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/coverage.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/coverage.json",
+      "bytes": 11425,
+      "sha256": "9a9eb1664219558594d31cedc6bf74a8bd72ee4057a6f8263b3b46dabd0eb7a2",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/law-basis.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/law-basis.json",
+      "bytes": 28320,
+      "sha256": "c19fbc123bd142aec7956606c0257335e0c55ddf9ef4dab31c4bbbebbec032a6",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/rule-catalog.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/rule-catalog.json",
+      "bytes": 1767174,
+      "sha256": "f249db3a8b90e6e8475a9331dff8d23fb440044002f2e0e3ce1bcc70435d55ac",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/00-starter.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/00-starter.md",
+      "bytes": 306,
+      "sha256": "bc6fae43aa6fdaf0fd56a6245eefa83b233ed2cac3f9177efe3873b1e5ac7e84",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/AXIOMATIC_CALCULUS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/AXIOMATIC_CALCULUS.md",
+      "bytes": 92360,
+      "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/EXECUTIVE_BASELINE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/EXECUTIVE_BASELINE.md",
+      "bytes": 157336,
+      "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/IDENTITY.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/IDENTITY.md",
+      "bytes": 29087,
+      "sha256": "c70399311010a8835b00d2a887a2451f11f66f631d6217d8df4be41751a59c08",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/INTENT.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/ODD.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/ODD.md",
+      "bytes": 126573,
+      "sha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/PRODUCT.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/PRODUCT.md",
+      "bytes": 100202,
+      "sha256": "7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REFERENCE_FRAME.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REFERENCE_FRAME.md",
+      "bytes": 103687,
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/RELEASE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/RELEASE.md",
+      "bytes": 62982,
+      "sha256": "b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-ASSET-SURFACE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-ASSET-SURFACE.md",
+      "bytes": 4068,
+      "sha256": "eeef3aa0369f7eefb18f79e79e66a727365520800c0c194bfba7fb2ae7db5c25",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-ATTRS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-ATTRS.md",
+      "bytes": 1391,
+      "sha256": "9204569254a620bb78974512df974e16edfece2ea72dff47a07c14e1bd396807",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md",
+      "bytes": 14789,
+      "sha256": "4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-COMPOSE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-COMPOSE.md",
+      "bytes": 2702,
+      "sha256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "bytes": 12477,
+      "sha256": "0c0f325ca423cbec7d7fc97a362f330e7dfb2d90e7024519cc0389c89dac2fcd",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-CONTEXT.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-CONTEXT.md",
+      "bytes": 4522,
+      "sha256": "bdc3f6b3a30813c85eb48603ada692cff34222e67debd2413560aaa39a1af8c4",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "bytes": 7701,
+      "sha256": "9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-EVALUATOR.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-EVALUATOR.md",
+      "bytes": 3326,
+      "sha256": "42036bb55c3aad49e6bc215e02842e1841de3b3a999653182becc6ff28b85069",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-GRAPH.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-GRAPH.md",
+      "bytes": 2507,
+      "sha256": "bd45b6b6d8ccb0b0c349d93427404344c04459c3ac1068877b3779a2c4917f93",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "bytes": 3525,
+      "sha256": "212283db05bab5ecf94f5bd92eb2ff81c478476a62228c07771b3eb865ba4606",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "bytes": 6880,
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-GRAPHVECTOR.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-GRAPHVECTOR.md",
+      "bytes": 7386,
+      "sha256": "a8ae2a4496762081396ec42a514f6d3c422fd7fb0f8227cb6fab0eed4bde0da4",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-HOF.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-HOF.md",
+      "bytes": 5096,
+      "sha256": "8a39633b575ac4cf8b0f9d1ae2f9546cb22ea3e4c858ebd101b6ba9bd60c556c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-HOOKS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-HOOKS.md",
+      "bytes": 6742,
+      "sha256": "fc31e5211472bf6e929fba23288605a5e74af57fac8f469c07dc3c1586c2adc0",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-IDENTITY.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-IDENTITY.md",
+      "bytes": 1605,
+      "sha256": "7235fc6d099971608994cabc98bcd4c5016f8f8b959904ace2e05a5564913249",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-INTERFACE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-INTERFACE.md",
+      "bytes": 1379,
+      "sha256": "e69bcd76af46eca21ee161f9f0128dd7e4cc531debbdbd9c6a346b43fbc4fe2f",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-JOB.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-JOB.md",
+      "bytes": 2019,
+      "sha256": "9e4efc269a0b856810116c70e6b9ed26ed2b61e4ebc4c3f309aaf5a74e5ca40b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "bytes": 19343,
+      "sha256": "d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-LANGUAGE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-LANGUAGE.md",
+      "bytes": 2862,
+      "sha256": "fdf36c5ed1a8272e8a253237c96719f5555d3fe84e38c3086e925815221e4412",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-LAWS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-LAWS.md",
+      "bytes": 9060,
+      "sha256": "8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-MODULE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-MODULE.md",
+      "bytes": 1531,
+      "sha256": "c1b1f7644f59776854103b3f0bfab515e88ed444363b6f81f9bfc4cb83e0d27c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-NODE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-NODE.md",
+      "bytes": 4053,
+      "sha256": "d2e7d99595799498120a0a5b68a06067ed7269c387c4383310e3b59880885054",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-OPERATOR.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-OPERATOR.md",
+      "bytes": 1287,
+      "sha256": "e327338bf8b9a49f1184e838b604eee6e7ff34811685bb609524fec3f9807549",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-RECURSE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-RECURSE.md",
+      "bytes": 1677,
+      "sha256": "448addbc9f1b94f9b19be063c7068a59ed6b1f2d7fa3c222413ee450d371883c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "bytes": 6346,
+      "sha256": "9bf74b1fc99629e8f8b2499bf3f7954ee5077df0c0a76cc7cb372c5e2696c4e1",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-ROLE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-ROLE.md",
+      "bytes": 1429,
+      "sha256": "6ef4b749ba5fa87f0ffabb4d0345b4f4a0c6e81517fb18608309e3d5ec89eb75",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-RULE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-RULE.md",
+      "bytes": 1722,
+      "sha256": "e52d418e515d23a534848000f85900c326bc19a57e03c71708bcf37427b6c2cb",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "bytes": 3930,
+      "sha256": "6d9ed61cbb2042ab58c9d0ec04eafd862af422d5fe4c28164921c69325a2a24c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-SUBSTITUTE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-SUBSTITUTE.md",
+      "bytes": 1531,
+      "sha256": "33519b9b578a792a72b9f059f8dc28b385497d28825e150a566e613b8909703a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-SUBWORK.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-SUBWORK.md",
+      "bytes": 1398,
+      "sha256": "ed4bc476d481b3406d9049087440e7ddd6926c249284a48a51e16fa60d5469de",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-SYNTHESIS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-SYNTHESIS.md",
+      "bytes": 2053,
+      "sha256": "a421c652fa49f71177ebac25b17e9a31a4b1b362ce81fc14f5f44322b24b6000",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "bytes": 5929,
+      "sha256": "f5494e90c534f17280357e03cf5755cf8c78627fd642887d226cb959da138ec0",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-M-GTL3-CAPABILITY.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-M-GTL3-CAPABILITY.md",
+      "bytes": 5954,
+      "sha256": "c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-M-GTL3-MAPPING.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-M-GTL3-MAPPING.md",
+      "bytes": 2212,
+      "sha256": "1060b39e83a2ceee5dd74fb403bd45a7f8d3f1ea071a74f2fa1ba2b81b680822",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "bytes": 5307,
+      "sha256": "a19da2e0ab2d7b5aa705bbd7fd84b8fc858a411d6c023dd4deba6b316959ec0b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-M-GTL3-PROVENANCE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-M-GTL3-PROVENANCE.md",
+      "bytes": 1888,
+      "sha256": "f6015a9a4eb0c34ec8b376de4ad2ccf18c698c1e73f50c81da25f6e8ad8a57c9",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-CATALOG.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-CATALOG.md",
+      "bytes": 13757,
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-CONSENSUS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-CONSENSUS.md",
+      "bytes": 16255,
+      "sha256": "9e16808a05ca078fded2854073d6280c1ae7f3ff173be7354ecb20d76123a52d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-INSTALL.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-INSTALL.md",
+      "bytes": 21741,
+      "sha256": "1882675ef5f4dd33a8dd4ee5d80ff33203d243fb30ec65b125057b7db081b98f",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-POLICY.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-POLICY.md",
+      "bytes": 34046,
+      "sha256": "e13953bc84a5a41d9d54f7fac4ab3b53142e12a9a35ee8b3fbefb210a6104d98",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-PUBLIC-CONTRACTS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-QUAL.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-QUAL.md",
+      "bytes": 36574,
+      "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-SCENARIOS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-SCENARIOS.md",
+      "bytes": 17479,
+      "sha256": "5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-ASSURANCE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-ASSURANCE.md",
+      "bytes": 10341,
+      "sha256": "fe8b38aa68686d3a14dd53db2e9cebc36163a99b16b6ccf76d4c8052a9cbb361",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-BINDING.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-BINDING.md",
+      "bytes": 7870,
+      "sha256": "2a0fc5559673a860c2b7ff16091ba2ba37da3b1fe1337141c2faa639d6ca1e64",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-CCALL.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-CCALL.md",
+      "bytes": 8976,
+      "sha256": "baf81ffdc9948f96a903b2f4af98b4975445d1a9f24f89a657a35b5b95743f9e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+      "bytes": 6297,
+      "sha256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-CONVERGENCE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-CONVERGENCE.md",
+      "bytes": 2695,
+      "sha256": "03aa87426b46e9d58f81cadd926d98973a5c113a603195b0a73eb0586b57f902",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-CORRECTION.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-CORRECTION.md",
+      "bytes": 1164,
+      "sha256": "d1d663f3011c127d85ac73440edb6d9c133c6e88f5f2291ebded68439b8c3edb",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-EVENTS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-EVENTS.md",
+      "bytes": 16630,
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-FN-COMPOSITION.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-FN-COMPOSITION.md",
+      "bytes": 13365,
+      "sha256": "5ff1c91698d5ba71f81bada072ecdc008cf1ef74e216af3b15126e56c7d666b1",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "bytes": 20151,
+      "sha256": "3bbde7990ad1d5e779b75d2f592598f12471e93fed66ba487070c1d4d85aaeb6",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-FRAME.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-FRAME.md",
+      "bytes": 1422,
+      "sha256": "36b200e1fc89e4b0a9c3f922e674c854505090fa911558d1b956b2350e287d51",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-GRAPHCALL.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-GRAPHCALL.md",
+      "bytes": 1546,
+      "sha256": "7dfcdf946e649d846a42e640438598e13f119bfbfec3c2ab0ccf836a7dd9a045",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-HANDLERS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-HANDLERS.md",
+      "bytes": 6120,
+      "sha256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "bytes": 12282,
+      "sha256": "0ed4ec30606484c9430354b4676f4166ca0e19fe338830a3b71bf9947e70222d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-INTERPRET.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-INTERPRET.md",
+      "bytes": 7680,
+      "sha256": "5c2a1cf2de4686deac3ba97863d88483bfa8aab5cd9141cda2f1f7b9dfecf7de",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-ITERATION.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-ITERATION.md",
+      "bytes": 6335,
+      "sha256": "39259a007bbe83cf57b16f042dd83018146d47831e45a767d4c22cb85e810e84",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-JOB-WORKER.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-JOB-WORKER.md",
+      "bytes": 1207,
+      "sha256": "0b2c2105ea5b1808214f282672b2974d0faf43b0872022e0d9a64844bb716f15",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-LEAFTASK.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-LEAFTASK.md",
+      "bytes": 1588,
+      "sha256": "d54227e3c548004f8b80d76efd5d0283f52e5ce2d411c2addc4dce691adb08ce",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-LINEAGE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-LINEAGE.md",
+      "bytes": 1437,
+      "sha256": "968f97fd609aee04fed41160c65991683f0b113a1a3cb0b13898bc0017407fdc",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-PAYLOAD.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-PAYLOAD.md",
+      "bytes": 11203,
+      "sha256": "a10a8edcd84e1e15115b1c66110ab0d66a5a34e61d0e849d4a375752675bf63e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "bytes": 6517,
+      "sha256": "ad3b105c013f74d60bc32a2e4a56ec65e91d25a011ce0722f84a9f7e22947381",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-POLICY.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-POLICY.md",
+      "bytes": 2343,
+      "sha256": "c6e41fb43aaede4a1e28e229bb93e8b8ccbddc48d84372390a1bbdbad5f480f6",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 10959,
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-PROVENANCE.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-PROVENANCE.md",
+      "bytes": 1542,
+      "sha256": "ef0caf7118426de7fcae3cdb1073e721cd770a85a7d7c58dec257f02f011efcb",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "bytes": 21645,
+      "sha256": "372c99dc400cb5f6206ff4e1f9e3b47cc3ce0cf786700e6b2817cb82f97ddf22",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "bytes": 15697,
+      "sha256": "78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-RETRY.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-RETRY.md",
+      "bytes": 3157,
+      "sha256": "4fd1f4798487eb072d8afbe3e9aa8f70fedf425d681ae244eaba9c8874434307",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-RUN.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-RUN.md",
+      "bytes": 2952,
+      "sha256": "c58539026886596543c3ec6c2e6fd010f1220c6031bb68df8fff22e1e6ed50c6",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "bytes": 7453,
+      "sha256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "bytes": 2201,
+      "sha256": "70b1e781d2e91bfaa08785cb4f39d21a3ab588a49ec3150943c18968c7f113b4",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-SELFHOSTING.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-SELFHOSTING.md",
+      "bytes": 4840,
+      "sha256": "edcac76a57069c7d5b0aa2776546c3f404eb6774260f818ddfb99dc715fdfaae",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "bytes": 9837,
+      "sha256": "f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-TRANSPORT.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-TRANSPORT.md",
+      "bytes": 9354,
+      "sha256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-TUNER.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-TUNER.md",
+      "bytes": 7626,
+      "sha256": "fadea8385f24f9f4576406eff83c70eead0586f247661fab57f7dfb602012088",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-WORKER.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/REQ-R-ABG3-WORKER.md",
+      "bytes": 2386,
+      "sha256": "a4c1646e81e1f831cdd663d25347f07280b4602be577e9e0d594a499de4499ea",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/SPEC_METHOD.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/SPEC_METHOD.md",
+      "bytes": 148190,
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/bootstrap.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__README.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__README.md",
+      "bytes": 8953,
+      "sha256": "ec05a42c406507cdb9ec081fb0ce165a548e1c93e6aa5f30903e28b48ccab08b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__abg__README.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__abg__README.md",
+      "bytes": 3144,
+      "sha256": "c3eeb69701836792e0c1f0c355272c968c93400c33555a383de1084a1b92461b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__gtl__README.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__gtl__README.md",
+      "bytes": 3104,
+      "sha256": "be6365c9fd06027f3144ba5fbf18ffaa62ed016474d2a4377c31314af38c7786",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__mapping__README.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__mapping__README.md",
+      "bytes": 515,
+      "sha256": "f51ebafa63c9e49d64ef212851e99879c770d85436a5717b10644993a889b47f",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__product__README.md",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/specification__requirements__product__README.md",
+      "bytes": 1141,
+      "sha256": "e777272a024d69540fec847591ab3f9132a5ab01e456f566adb4ff76be1a43b3",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/stdo_abiogenesis.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/qualification/sources/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/consensus.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/consensus.schema.json",
+      "bytes": 49465,
+      "sha256": "e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/gtl-serialization.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/gtl-serialization.schema.json",
+      "bytes": 183649,
+      "sha256": "c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/native-runtime-observation.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/native-runtime-observation.json",
+      "bytes": 149980,
+      "sha256": "4b655ba6ae4ab9fb1d679d80e77cb73ca6ccdce092123c9ce12b98c354a97ecc",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/native-semantic-assessment.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/native-semantic-assessment.schema.json",
+      "bytes": 1736,
+      "sha256": "90d3300edd3c77c3259ce1ba54684e78c490af5e4f20978dcd38be0dd865519b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/admit/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/admit/refusal.schema.json",
+      "bytes": 725,
+      "sha256": "18d013dca6cdb16183ba799089490caac5d1b53effa81fd6bfe474bfd85d0efb",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/admit/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/admit/request.schema.json",
+      "bytes": 1365,
+      "sha256": "5da0970ea9e6e6ed38f0047f9526a725a9b34910af0ad5e5e7e2410540219478",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/admit/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/admit/result.schema.json",
+      "bytes": 13611,
+      "sha256": "598b7d3de5ed7f1a4bfca387c864e7ad33c78c2047b5aa68704951ac6c59f107",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/apply/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/apply/refusal.schema.json",
+      "bytes": 1386,
+      "sha256": "858d9d250f9afcd2a2164d4e570f710bcee745a33913c2197ab43095d648ab28",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/apply/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/apply/request.schema.json",
+      "bytes": 3545,
+      "sha256": "edba5b2dd033106d15bf18a88a843ded955a80d43184041f7b75bdb6ae926d71",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/apply/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/apply/result.schema.json",
+      "bytes": 2401,
+      "sha256": "da788300113ca3a20558467453b68a4c9a741811a317793888a6d41c3f16781b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/view/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/view/refusal.schema.json",
+      "bytes": 701,
+      "sha256": "baeb940338e7bc97100832daba2fa670cd6752181e21f0e52f3a8a128b18cd52",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/view/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/view/request.schema.json",
+      "bytes": 662,
+      "sha256": "088411083b9e8b1b882b78b787c5d7d3e631e51e80dca2eb57ec428ea4c1c028",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/view/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/catalog/view/result.schema.json",
+      "bytes": 1014,
+      "sha256": "c2622f523c18ea1e50d41f44d2870997fa9d55cefc92fcd1a9b84f96e4d33422",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/conformance/evaluate/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/conformance/evaluate/refusal.schema.json",
+      "bytes": 720,
+      "sha256": "7afa0104f0bbfd458f906616645947d778b2d59780e00898a453826e29dc7158",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/conformance/evaluate/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/conformance/evaluate/request.schema.json",
+      "bytes": 1357,
+      "sha256": "87ab02fa41ca83d246e7f5f0edca44204f68f320a4168b01d9111b82a2c38566",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/conformance/evaluate/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/conformance/evaluate/result.schema.json",
+      "bytes": 2430,
+      "sha256": "5f6788ef35c45aca8af54a3bfae8a269ebe6b60663a51d4acf49fc2dba25b733",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/interaction/respond/non-terminal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/interaction/respond/non-terminal.schema.json",
+      "bytes": 12336,
+      "sha256": "e7d93b87fe0cb90ce2fe359ac4897da19f300ba3b959f93e2c155f2c98089c8b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/interaction/respond/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/interaction/respond/refusal.schema.json",
+      "bytes": 3204,
+      "sha256": "89ab71cd74a77fc087d0a3fb39ce630c593636e2ddcbbd4d377f8dceed21d6db",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/interaction/respond/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/interaction/respond/request.schema.json",
+      "bytes": 7746,
+      "sha256": "6e3f7fb145b4c0bf8d6b54ab39887182d52ccddd72f1c86296eb867d41e85911",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/interaction/respond/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/interaction/respond/result.schema.json",
+      "bytes": 727,
+      "sha256": "82bfe652617a3c2ead8f268cc913696a3ed96c884ae0df5ae7912034ea80560e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/install/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/install/refusal.schema.json",
+      "bytes": 809,
+      "sha256": "d30281cde9f8a6dd4a5e9edab3f1575687fc8ecf2f5ba6c5582a44b48e434446",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/install/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/install/request.schema.json",
+      "bytes": 1417,
+      "sha256": "47e48cd7b12aaed0275c5feb3bc6bb634fd3265d7c900168c5d58822f5c4635d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/install/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/install/result.schema.json",
+      "bytes": 1614,
+      "sha256": "e5bf884bbf5c753b6ddd35d99f0ba46a7791b4444923554328f73dcbb8e96b47",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/materialize/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/materialize/refusal.schema.json",
+      "bytes": 1386,
+      "sha256": "1b4d054341a27d77393fa0d4c0739491ca0e802146254bc88d420e1e97951bed",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/materialize/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/materialize/request.schema.json",
+      "bytes": 2423,
+      "sha256": "e657556aee48619f0aae8c062ef60053a0639f86f0c9a272635b0492bd45773f",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/materialize/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/materialize/result.schema.json",
+      "bytes": 4104,
+      "sha256": "15f2397b6b95f7ca933d0ad0fce024439c2650e0c4791bf9b1000f2687c89b25",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/resolve/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/resolve/refusal.schema.json",
+      "bytes": 699,
+      "sha256": "72b8416be8b507460c603b8d3774cf2ccc37b079b34e8cf6ace8e5ecc6acffbe",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/resolve/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/resolve/request.schema.json",
+      "bytes": 1493,
+      "sha256": "ae837b7e3514f76f2ca75d1a813f61272cc46d1cf0fe70a393440b43d93e3ead",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/resolve/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/resolve/result.schema.json",
+      "bytes": 11803,
+      "sha256": "60e7992334278412dbd821e9edbc58a910c195d6bd39341811727062cd38f092",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/verify/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/verify/refusal.schema.json",
+      "bytes": 821,
+      "sha256": "a5111c906e0ecc9a2342f043c8b00455336ad8cf0c77be6b9aba5b653a5c07a2",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/verify/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/verify/request.schema.json",
+      "bytes": 4896,
+      "sha256": "fcbd3e3d26e9b010ab8d6a8e517c3ed33aac0606c2b4081f028ead6f273727d3",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/verify/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/product/verify/result.schema.json",
+      "bytes": 23435,
+      "sha256": "2f082b0c0cf3d97479f5fc9ab58d6c0143ee69e1bc5852760481cfa133d95055",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/project/read/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/project/read/refusal.schema.json",
+      "bytes": 15032,
+      "sha256": "85affe0a651f7f33b92f067791024a746134ea6ce26f5b423942161377ad2764",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/project/read/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/project/read/request.schema.json",
+      "bytes": 26087,
+      "sha256": "9f7883c39eda0d1c4a2e6a78d9c0fc865745e96844bd898fae4aadb1d8963e4a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/project/read/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/project/read/result.schema.json",
+      "bytes": 144357,
+      "sha256": "2552ba5b8b7c24706620bfce7c334b2ed41c8b1272c1b9e9645671b601d1bcec",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/release/snapshot/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/release/snapshot/refusal.schema.json",
+      "bytes": 5812,
+      "sha256": "d3ac22b01db1951972d52bf1dd0d55ff41f2d449faac759ae47fb20017fdc6d5",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/release/snapshot/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/release/snapshot/request.schema.json",
+      "bytes": 10637,
+      "sha256": "553b03dd35899282f6d729be7510a82b83d170f4e95704a0cb892c275c9435a7",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/release/snapshot/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/release/snapshot/result.schema.json",
+      "bytes": 6922,
+      "sha256": "dded3da7b987fd1ac7948d933616613b6263c7f3dedf0908e07cb6d340943038",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/result/assess/non-terminal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/result/assess/non-terminal.schema.json",
+      "bytes": 1326,
+      "sha256": "9b2a210ba695d3055afbd82e5230aae1b1c5fd1a8cb1c27477db72204b69ad13",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/result/assess/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/result/assess/refusal.schema.json",
+      "bytes": 753,
+      "sha256": "ab0e699f76b03164c3f14fa234fe8a664630751673c78c30547f2a378967e968",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/result/assess/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/result/assess/request.schema.json",
+      "bytes": 4464,
+      "sha256": "50523048c2169bb51dded7fbfd2a30a4254c182658c128b2396e5e1a6c38b87e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/result/assess/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/result/assess/result.schema.json",
+      "bytes": 1308,
+      "sha256": "fbafe193485f9bae8bdcaab8753890a332a7455414bff39fa09e50d3171a36c1",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/continue/non-terminal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/continue/non-terminal.schema.json",
+      "bytes": 2637,
+      "sha256": "9a911b93212cedece4b5d7d571441868af7a9e1e44bba0d54a6a24ef68c6297d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/continue/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/continue/refusal.schema.json",
+      "bytes": 1440,
+      "sha256": "e5a4a6192cc1019ff600dc0156dd3097562e52b4a251651842ac823c1caf2296",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/continue/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/continue/request.schema.json",
+      "bytes": 2796,
+      "sha256": "7ecd9a210f69b264dc9752d2030f0122903763561bc49e6953ae767f8ba98157",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/continue/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/continue/result.schema.json",
+      "bytes": 3416,
+      "sha256": "a5c59f92e5bc3846bb77d0eedb6bd4c58474287e99b6e8baedce434cfcb0381f",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/invoke/non-terminal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/invoke/non-terminal.schema.json",
+      "bytes": 3571,
+      "sha256": "7ecdaa4bd26e648e792e2c2dd53389b4e23eb6e465ace39a88ddbd5ea0323df8",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/invoke/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/invoke/refusal.schema.json",
+      "bytes": 1376,
+      "sha256": "5463ab4468f8b33912edc2e878c36e477a7d0a33ac6defd1af03aaeb44dfd9e8",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/invoke/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/invoke/request.schema.json",
+      "bytes": 5330,
+      "sha256": "8f26a680331fb0b084996d228289fc20d4e5fec99db38a8c86d4165f663b840c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/invoke/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/run/invoke/result.schema.json",
+      "bytes": 10071,
+      "sha256": "c3241e75a87d7cc04424cf871ca7bdf2a2b044820935d546bcab77016a112114",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/witness/admit/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/witness/admit/refusal.schema.json",
+      "bytes": 3760,
+      "sha256": "56b0331cb9e7a883c1b2c5ed2844fa56e6138123bd4000356c30d28a117213e6",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/witness/admit/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/witness/admit/request.schema.json",
+      "bytes": 12922,
+      "sha256": "8868f57a9a925c748c6da0ae95530df1fa9b1e36f2fb7750c5a9dae559dce13c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/witness/admit/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/witness/admit/result.schema.json",
+      "bytes": 5702,
+      "sha256": "d5a08854d6e904703fa3ef1a592f959d1df02ce2998028c15ad566a5e5a260c8",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/bind/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/bind/refusal.schema.json",
+      "bytes": 744,
+      "sha256": "13114562670e8120959019b4542d4da9428d92493aa1a864de50f9814439302e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/bind/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/bind/request.schema.json",
+      "bytes": 1431,
+      "sha256": "b778628d42bb69f69cdc257d4997ea2a5127038525231a42378ea24db0e6e55c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/bind/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/bind/result.schema.json",
+      "bytes": 1681,
+      "sha256": "8e33f250a094bd57cc2b8f238be125d5b2949618f5c5d34bf453a4985083a58a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/create/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/create/refusal.schema.json",
+      "bytes": 1384,
+      "sha256": "7a1cfe145ccd47e14030fa1b17db545971705df13f17e278afb137b99cd1b61d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/create/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/create/request.schema.json",
+      "bytes": 1216,
+      "sha256": "0ffa5b260cdc57af2e1da4c860ac895aa31f836cad63b4091e4cb5ee9519d8e0",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/create/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/create/result.schema.json",
+      "bytes": 2340,
+      "sha256": "d9369d0e218580a1d12c11981a13413867aed4fa42c75e2b7e252be80c2378a7",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/open/refusal.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/open/refusal.schema.json",
+      "bytes": 677,
+      "sha256": "40e5e0523c844f1b4fbaaf84ad865facaf5a9d20e18000f86f11f473bc76d04a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/open/request.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/open/request.schema.json",
+      "bytes": 656,
+      "sha256": "083d439d22f59b431eddc4144e96229eced3b2cf18011c7665362dd7e29e509e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/open/result.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/operations/workspace/open/result.schema.json",
+      "bytes": 1220,
+      "sha256": "59ea5e6de053732025eac0039cb6ec5716c295ba08be43269912802bf9a871ff",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/product-toolchain-manifest.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/product-toolchain-manifest.schema.json",
+      "bytes": 7622,
+      "sha256": "c61e0db09ea7d5b0bf182dd802cdac4ea27abe4899cfc8897c563b2dddc356ca",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/public-contract-catalog.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/public-contract-catalog.schema.json",
+      "bytes": 19274,
+      "sha256": "b8bc5a722f6a216e03cfe0a91bc606a7986c1bee6c2dbbd437f16d7a75af18de",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/public-operation.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/public-operation.schema.json",
+      "bytes": 2867688,
+      "sha256": "13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/schemas/self-conformance.schema.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/schemas/self-conformance.schema.json",
+      "bytes": 1050028,
+      "sha256": "28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/vocabularies/consensus-fh-decision.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/vocabularies/consensus-fh-decision.json",
+      "bytes": 179,
+      "sha256": "8a21a0da4558242013186667e42487373c1584340bbb9b6ccd4abe2a5b9ae809",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/vocabularies/consensus-round-outcome.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/vocabularies/consensus-round-outcome.json",
+      "bytes": 204,
+      "sha256": "1ce4c83aecc57abb7c0b2367d9b3e7b9e9dc0b2bfa9c0e5e1f74ceeb35f7f0c1",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/vocabularies/gtl-program-diagnostic-id.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/vocabularies/gtl-program-diagnostic-id.json",
+      "bytes": 500,
+      "sha256": "d27861fdfc318ceb7abb74249318b66207f2efe382626a9d2dd0e7f56e51c03b",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/vocabularies/review-ruling-kind.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/vocabularies/review-ruling-kind.json",
+      "bytes": 236,
+      "sha256": "5acf0968ee02689ff4ce3fb77deb69e6bfab5a16e5045c0415cb6887342ee738",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/contract-seeds/worksite/command-execution-context.inventory.json",
+      "target": "rc3-operator-inputs/increment-a-01/contract-seeds/worksite/command-execution-context.inventory.json",
+      "bytes": 255,
+      "sha256": "bead22ff02da7b3c98adde814da53d954b148a7974e5177a07408de24a79c151",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/method-custody.json",
+      "target": "rc3-operator-inputs/increment-a-01/method-custody.json",
+      "bytes": 2081,
+      "sha256": "dc6015d3102c8bcbec7c36418288f7b00eacca6ae2907c19e92665592c8839a3",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/retained-stdout-custody.json",
+      "target": "rc3-operator-inputs/increment-a-01/retained-stdout-custody.json",
+      "bytes": 1550,
+      "sha256": "888beff5d875be720bf2fb5244189bbdf44b4d5f5193baf836451e0107951e94",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/retained-stdout.txt",
+      "target": "rc3-operator-inputs/increment-a-01/retained-stdout.txt",
+      "bytes": 4616,
+      "sha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/rubric.json",
+      "target": "rc3-operator-inputs/increment-a-01/rubric.json",
+      "bytes": 1693,
+      "sha256": "dec998782642002b0fb22ed1b038babd497e220d1e43a5b071906b649b5b1b05",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/stdo/manifest.json",
+      "target": "rc3-operator-inputs/increment-a-01/stdo/manifest.json",
+      "bytes": 14286,
+      "sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/stdo/standards/ACTIVATION.md",
+      "target": "rc3-operator-inputs/increment-a-01/stdo/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/stdo/standards/DESIGN_MODULE.md",
+      "target": "rc3-operator-inputs/increment-a-01/stdo/standards/DESIGN_MODULE.md",
+      "bytes": 175366,
+      "sha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/stdo/standards/EVALUATION.md",
+      "target": "rc3-operator-inputs/increment-a-01/stdo/standards/EVALUATION.md",
+      "bytes": 87317,
+      "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/stdo/standards/REFERENCE_FRAME.md",
+      "target": "rc3-operator-inputs/increment-a-01/stdo/standards/REFERENCE_FRAME.md",
+      "bytes": 103687,
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/stdo/standards/SPEC_METHOD.md",
+      "target": "rc3-operator-inputs/increment-a-01/stdo/standards/SPEC_METHOD.md",
+      "bytes": 148190,
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-a-01/task.md",
+      "target": "rc3-operator-inputs/increment-a-01/task.md",
+      "bytes": 3736,
+      "sha256": "21f15071c79101d1f34e25f201fe2c876dd63b94171848408883f69e70f0f986",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/HOW.md",
+      "target": "rc3-operator-inputs/increment-b-01/HOW.md",
+      "bytes": 4453,
+      "sha256": "f2819769484cf6ca61bcf594044817659bd8664e96b8ee1fa40c6be81897f379",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/INVENTORY.json",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/INVENTORY.json",
+      "bytes": 7906,
+      "sha256": "fc6befa45d62acd902665d545fc20f65dc3d435fa242a72aaa4e8986c080c003",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_context_presentation.py",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_context_presentation.py",
+      "bytes": 5949,
+      "sha256": "7ad34e41cbf110b16bfab60252d4f7100b972ebe62ad14c14505e40960c16d15",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_formal_gate.py",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_formal_gate.py",
+      "bytes": 22488,
+      "sha256": "d37de63f2b809e7a02d88d560b29b4900e8cda6217cfbc32e5796f40065659b8",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_graph.py",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_graph.py",
+      "bytes": 49166,
+      "sha256": "2f5de4d600e13904dc8cba3791ebdd83fe6ebb0c339654c86392baf9c2bd3667",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_support.py",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_support.py",
+      "bytes": 21703,
+      "sha256": "f65efad15fd770075650ce0484df5b1cea14612047a82918d35fdc4f870deafa",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_support_composition.py",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_support_composition.py",
+      "bytes": 52468,
+      "sha256": "4afc9ff5ca9c4b68c201dbd24348d02e09d7896d084d5e8666da3138e09f52cc",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_support_core.py",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_support_core.py",
+      "bytes": 245598,
+      "sha256": "34b40d039f7d1e2f36cf01f4c73cf90c760a8b67f21681e9f79543715a9ea4cc",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_support_effects.py",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/code/ac_support_effects.py",
+      "bytes": 100830,
+      "sha256": "5d2f4cd9ef2a450f895dad61a136756e05bc443717644268f66db127dfb684af",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-composition.md",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-composition.md",
+      "bytes": 12961,
+      "sha256": "00a0449a5d2fd75eb091f487ba08377815567d3db42e95a8702063785aa88f07",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-method-stdo-3.0.2.json",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-method-stdo-3.0.2.json",
+      "bytes": 4751,
+      "sha256": "764dcc931f968791df8d26043e5642c4f3cfe915a9e7a16e69c72c6e3af001b4",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-support-host-lookup.md",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-support-host-lookup.md",
+      "bytes": 5207,
+      "sha256": "7ff7384e8a41c87439985c58a1949a8dd205ffbae40cc19a4892fa2b6c5d33ab",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-support-stdo-3.0.2.md",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-support-stdo-3.0.2.md",
+      "bytes": 4873,
+      "sha256": "b5e0a042e1d32451d28c3e029d8f8ef23badb3e14def8317fb16424a9a39bdae",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-support.md",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/a_c/build_tenants/graphify/design/fd-support.md",
+      "bytes": 293789,
+      "sha256": "3f59bf94f2e9846098602de360aed447e1a18a52670e498ebc12af1886fec8f4",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/gc03/release-installation.json",
+      "target": "rc3-operator-inputs/increment-b-01/gc03/release-installation.json",
+      "bytes": 2310,
+      "sha256": "ca0e977a7cdb8c889cc87b70b95eb12d30f83734b4c32f6589a3bac5bbf8a467",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/grant.json",
+      "target": "rc3-operator-inputs/increment-b-01/grant.json",
+      "bytes": 2686,
+      "sha256": "4ac5639ff41d149df16d4838e3b85f99e01233563165a2c0620eb846a5e76b25",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/provider-custody.json",
+      "target": "rc3-operator-inputs/increment-b-01/provider-custody.json",
+      "bytes": 3941,
+      "sha256": "09ba6b5f6881fc6e997047f5437cddb8a13368fb8c970ec8df829f43e6c453b2",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/rubric.json",
+      "target": "rc3-operator-inputs/increment-b-01/rubric.json",
+      "bytes": 5933,
+      "sha256": "2800f0c9f633bba98c3f58ae923af96195ce1b0fa44decdf449548addee103e5",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-01/task.md",
+      "target": "rc3-operator-inputs/increment-b-01/task.md",
+      "bytes": 4184,
+      "sha256": "52a0446d638ad6e1d4ce4acff1f7728bbf6e353a6b3e974f9353783f5e8a9d06",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-04/gc03/a_c/build_tenants/graphify/test_env/test_ac_context_host.py",
+      "target": "rc3-operator-inputs/increment-b-04/gc03/a_c/build_tenants/graphify/test_env/test_ac_context_host.py",
+      "bytes": 18524,
+      "sha256": "f30c4c48f23293c0f36a30e252beb4612780c5fe3fbcc0c6d1c8904ad38eb6f8",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-04/gc03/a_c/build_tenants/graphify/test_env/test_ac_support_core.py",
+      "target": "rc3-operator-inputs/increment-b-04/gc03/a_c/build_tenants/graphify/test_env/test_ac_support_core.py",
+      "bytes": 113644,
+      "sha256": "482531eb8dfa43f44bc5ca4f3d34d5a72c93db4f64bfca6362d943d4dd56174a",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-04/toolchain-census.json",
+      "target": "rc3-operator-inputs/increment-b-04/toolchain-census.json",
+      "bytes": 425,
+      "sha256": "08bd785ff5aa9795b4b042f477d24cf312e0a9f0525f8366bc6f26252bb80030",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-04/toolchain-census.py",
+      "target": "rc3-operator-inputs/increment-b-04/toolchain-census.py",
+      "bytes": 1736,
+      "sha256": "ede46567623c3e8cf6adf9a1a4c359cff071afadfb234cfdb55b036251081024",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/fixture.txt",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/fixture.txt",
+      "bytes": 4616,
+      "sha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/abg-private-policy-member.json",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/abg-private-policy-member.json",
+      "bytes": 1638,
+      "sha256": "4e8f851d762cafd7b8539332bd5b3f3679aebbbd6a451a17d6c411bf976b34e7",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/activation-request.template.json",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/activation-request.template.json",
+      "bytes": 11360,
+      "sha256": "b3803ea9cdcb1f945ff5a3b7d8573a246280a8e714f8ddfafd9e000f6502bf6c",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/gc03-policy.json",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/gc03-policy.json",
+      "bytes": 9594,
+      "sha256": "234716d1c8498b3a180130dc8ec99a18edef58be3d8eb679b8b0413d3b03d3cf",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/host-derivation.json",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/host-derivation.json",
+      "bytes": 3995,
+      "sha256": "59e834fae8746caa80eafea710257d95861f2ae4faceb30cd8f7374f204c6890",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/SOURCE_CUSTODY.json",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/SOURCE_CUSTODY.json",
+      "bytes": 3329,
+      "sha256": "72e20ae8031f06d674692ec1f9dcce63b097ad02fd6a2373387975c02a7c72b9",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/abg/specification/PRODUCT.md",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/abg/specification/PRODUCT.md",
+      "bytes": 100202,
+      "sha256": "7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/abg/stdo_abiogenesis.json",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/abg/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/GC03_DELEGATION.md",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/GC03_DELEGATION.md",
+      "bytes": 903,
+      "sha256": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/OPERATOR.md",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/OPERATOR.md",
+      "bytes": 1623,
+      "sha256": "894892f17553b4c7c7781aacae7e436f92c43365edeb5399b10cfba0f7ddd896",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/fd-support-host-lookup.md",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/fd-support-host-lookup.md",
+      "bytes": 5207,
+      "sha256": "7ff7384e8a41c87439985c58a1949a8dd205ffbae40cc19a4892fa2b6c5d33ab",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/rubric.json",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/rubric.json",
+      "bytes": 1196,
+      "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/task.md",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/task.md",
+      "bytes": 905,
+      "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/ACTIVATION.md",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/AXIOMATIC_CALCULUS.md",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/AXIOMATIC_CALCULUS.md",
+      "bytes": 92360,
+      "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/EVALUATION.md",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/EVALUATION.md",
+      "bytes": 87317,
+      "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/fd-method-stdo-3.0.2.json",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/fd-method-stdo-3.0.2.json",
+      "bytes": 4751,
+      "sha256": "764dcc931f968791df8d26043e5642c4f3cfe915a9e7a16e69c72c6e3af001b4",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/make-activation-template.py",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/make-activation-template.py",
+      "bytes": 4579,
+      "sha256": "500783e1748f7edc9b69e3498db1166c50dfaf9dccf9a512f1d6c4491bccdf98",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/make-gc03-candidate.py",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/make-gc03-candidate.py",
+      "bytes": 8797,
+      "sha256": "fda95daaead1d7df70e9cbb4fc246eb78d0dbebf0f5c02265a43eb4138518f78",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/rubric.json",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/rubric.json",
+      "bytes": 1196,
+      "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/task.md",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/task.md",
+      "bytes": 905,
+      "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-05/declared-gc03/validate-gc03-candidate.py",
+      "target": "rc3-operator-inputs/increment-b-05/declared-gc03/validate-gc03-candidate.py",
+      "bytes": 2908,
+      "sha256": "0a56827a7fd81e3d038bb532b74cd4ac2e0372a6d0d6719785126926a9fef973",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-07/B07_SOURCE_BINDINGS.json",
+      "target": "rc3-operator-inputs/increment-b-07/B07_SOURCE_BINDINGS.json",
+      "bytes": 24793,
+      "sha256": "f836b5593277672609bc7979065895d22c197c1714b25af52be45b16f6f5d27d",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-07/HOW.md",
+      "target": "rc3-operator-inputs/increment-b-07/HOW.md",
+      "bytes": 3887,
+      "sha256": "66f25d9f9e4e2c7b608eeab4b8d7d6c78492fa2b7f472f977b322efe56b7cba9",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-07/NAMED_INTEGRATION_CHECK.json",
+      "target": "rc3-operator-inputs/increment-b-07/NAMED_INTEGRATION_CHECK.json",
+      "bytes": 1142,
+      "sha256": "6ffb2087f1e4fd9ece0436fd5e5f4a2474951385901c09d8de25f0cd19740c5e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-07/rubric.json",
+      "target": "rc3-operator-inputs/increment-b-07/rubric.json",
+      "bytes": 2218,
+      "sha256": "c8409de7aca6a8128312365d7dca9a40f65a19940bc6ff9a6237526765be0c5e",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/rc3-operator-inputs/increment-b-07/task.md",
+      "target": "rc3-operator-inputs/increment-b-07/task.md",
+      "bytes": 5433,
+      "sha256": "7a6a7cc3939ce3cc08dbd263f3b47d9407b68a0a70a16ac40939e7c2488367a2",
+      "role": "unchanged historical dependency/fixture, not current work authority"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/ROOT_SELECTION.md",
+      "target": "rc4-operator-inputs/native-recovery-01/ROOT_SELECTION.md",
+      "bytes": 9909,
+      "sha256": "91ebd3cafa9b88cf5e2f68639d96ce52116dfa6b98b715d67c5af4f41e5ab458",
+      "role": "current admitted task/authority/HOW/rubric input"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/ROOT_NATIVE_ADMISSION.json",
+      "target": "rc4-operator-inputs/native-recovery-01/ROOT_NATIVE_ADMISSION.json",
+      "bytes": 3000,
+      "sha256": "d0d6aa77bcbe33deee08dcff41c2c40730c7a363d8a2f0c11ecab794e1926f69",
+      "role": "current admitted task/authority/HOW/rubric input"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/NATIVE_GRANT.json",
+      "target": "rc4-operator-inputs/native-recovery-01/NATIVE_GRANT.json",
+      "bytes": 35731,
+      "sha256": "22b9bbe34825e82588514cdff09da41d185147ccd85f23623bcf85da4743fb16",
+      "role": "current admitted task/authority/HOW/rubric input"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/NATIVE_GRANT.v2.DRAFT.json",
+      "target": "rc4-operator-inputs/native-recovery-01/NATIVE_GRANT.v2.DRAFT.json",
+      "bytes": 34996,
+      "sha256": "2d569540fa0b33e19c54e18ba03e2fc759197acebf589a965e0883c37bdfdf1f",
+      "role": "current admitted task/authority/HOW/rubric input"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/DESIGN_AND_ACTIVATION.v2.md",
+      "target": "rc4-operator-inputs/native-recovery-01/DESIGN_AND_ACTIVATION.v2.md",
+      "bytes": 9114,
+      "sha256": "cb1bf5cc69f70646664935686945d4df99d2d8e00dd87d94b2c8c670d50892c3",
+      "role": "current admitted task/authority/HOW/rubric input"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/CAUSAL_SCOPE.v2.DRAFT.json",
+      "target": "rc4-operator-inputs/native-recovery-01/CAUSAL_SCOPE.v2.DRAFT.json",
+      "bytes": 25357,
+      "sha256": "3c5161146a1e5473f2d0b27ea44296dd0ae24b27180a9f0037b839e384c6e0a4",
+      "role": "current admitted task/authority/HOW/rubric input"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/CURRENT_T287_SELECTION.v2.md",
+      "target": "rc4-operator-inputs/native-recovery-01/CURRENT_T287_SELECTION.v2.md",
+      "bytes": 5866,
+      "sha256": "102c7fe918f8eed1d18794ee572c8ccaa18a056ca28e378743db782ae509fbee",
+      "role": "current admitted task/authority/HOW/rubric input"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/REQUIRED_INPUTS.v2.json",
+      "target": "rc4-operator-inputs/native-recovery-01/REQUIRED_INPUTS.v2.json",
+      "bytes": 4918,
+      "sha256": "aecf5c3741797821f20ba5e92ff7b340488e3b98c6c14fb80635039665b807e7",
+      "role": "current admitted task/authority/HOW/rubric input"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/task.v2.DRAFT.md",
+      "target": "rc4-operator-inputs/native-recovery-01/task.v2.DRAFT.md",
+      "bytes": 4969,
+      "sha256": "74b8ecd54bffc046f096f233be41f1e4f70a478f3966782c7018517536c3cd3d",
+      "role": "current admitted task/authority/HOW/rubric input"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/rubric.v2.DRAFT.json",
+      "target": "rc4-operator-inputs/native-recovery-01/rubric.v2.DRAFT.json",
+      "bytes": 2566,
+      "sha256": "0d081f4d6245df52e8cbf867358b2721daa0bc4c01bede3ed3cd4b4e28c8d9ab",
+      "role": "current admitted task/authority/HOW/rubric input"
+    }
+  ],
+  "trackedProductWrites": 0,
+  "dependencyInstalls": 0,
+  "ABIImports": 0,
+  "PublicCalls": 0,
+  "providerCalls": 0
+}

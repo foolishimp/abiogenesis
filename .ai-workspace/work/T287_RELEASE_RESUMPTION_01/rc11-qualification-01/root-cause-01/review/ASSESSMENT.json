@@ -1,0 +1,192 @@
+{
+  "status": "CLOSED_RC11_CAUSE_01_ASSESSMENT",
+  "reviewer": "/root/rc11_source_assurance",
+  "basis": {
+    "method": "stdo://releases/v3.0.4/",
+    "manifest": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "freshVerification": "valid; no failures",
+    "composition": [],
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "families": "F01-F07/F09-F11/F13-F17",
+    "wave": "GOAL-035/T-287",
+    "frames": [
+      "Product",
+      "Proof",
+      "Design/Owner/Effect"
+    ],
+    "cleanContextClaim": false
+  },
+  "subject": {
+    "commit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+    "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+    "compiledDigest": "16497c6763f0cb07a2227cb0ce6de2445e14044b94c6542d0523adbd1ad18d7c"
+  },
+  "result": "falsified Proof predicates; historical physical root cause indeterminate; no new runtime Product contradiction established",
+  "findings": [
+    {
+      "id": "M5-PROOF-PREMISES",
+      "severity": "S2",
+      "verdict": "falsified",
+      "claim": "The existing physical assertions establish intended readiness/progress/late-emission premises.",
+      "cause": "Startup competes with initial owner deadlines; tests do not establish prerequisites before interpreting results; early assertions and cleanup erase causal evidence. Stage2A demonstrates a sufficient mechanism, not historical attribution.",
+      "cone": "m5 six selected cases and direct worker/command/HTTP/lifetime owners",
+      "runtimeCause": "indeterminate",
+      "reentry": "test-owner realization_refactor",
+      "closure": "Exact deterministic law checks plus nonvacuous physical prerequisites and retained outcomes on one frozen successor."
+    },
+    {
+      "id": "M5-CHUNK-ORACLE",
+      "severity": "S2",
+      "verdict": "falsified",
+      "claim": "Seven or more stdout callbacks is a valid record-completeness/progress oracle.",
+      "cause": "Callback count varies with stream partition for identical bytes.",
+      "historicalFailureCauseEstablished": false,
+      "closure": "Ordered complete content invariant under split/coalesced chunks, with genuine lease renewal still required."
+    },
+    {
+      "id": "M5-POSTEXIT-VACUITY",
+      "severity": "S2",
+      "verdict": "falsified",
+      "claim": "Stage1 passing post-exit assertion exercises late descendant emission.",
+      "cause": "Owner group cleanup terminates descendant before its225ms emission timer.",
+      "closure": "Witness attempted late emission and its capture exclusion/closed-pipe consequence; deterministic late-data delivery must reach capture boundary."
+    },
+    {
+      "id": "LIFE-OBS-001",
+      "severity": "S3",
+      "verdict": "falsified",
+      "claim": "observePublication cannot credit or advance after stop/deadline and its stop handback is bounded.",
+      "cause": "Only outer loop checks active/deadline; awaited read continuation retains permission and stop waits for that promise.",
+      "reentry": "test observation helper realization_refactor",
+      "closure": "No post-boundary credit/new probe; finite immutable snapshot handback even for unresolved read; late resolution cannot mutate returned snapshot; no false cancellation claim."
+    }
+  ],
+  "sixCaseAttribution": {
+    "resistant": "Delayed body prevents handler/progress; inactivity substitutes for intended absolute termination. Historical prerequisite failure unknown.",
+    "progress": "Delayed body gives no acknowledgements and inactivity; original short durations support early termination. Chunk oracle separately invalid.",
+    "unacknowledged": "False-ack premise established Stage1; absent in diagnostic-01/Stage2A. No wrong renewal demonstrated.",
+    "groups": "HTTP-normal startup/port premise fails before identity read; complete probe result explains Stage2A ENOENT. HTTP-TERM not reached there.",
+    "postTimeout": "Delayed body prevents TERM handler/late write; Stage1 observes late raw bytes excluded semantically.",
+    "postExit": "Stage1 green is vacuous for emission; Stage2A delayed body prevents exit47. Original null status not causally recoverable."
+  },
+  "evidence": {
+    "stage1": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/STAGE1_RETURN.json",
+      "bytes": 32689,
+      "sha256": "cd1efd942a0d48d922f0ffe7817267f45fdf1910f611445f45556f9f1675c5d1"
+    },
+    "stage1Run": {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/run-01/six-case-diagnostic/RETURN.json",
+      "bytes": 5448,
+      "sha256": "df3ba2dc8cf6fa6c71b182159bf40b4b7087b3d4660edbce8f820f1ad056fe3c"
+    },
+    "stage2A": {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/run-01/six-case-delay-counterfactual/RETURN.json",
+      "bytes": 5403,
+      "sha256": "dbe46edf3f4c9ca033077c8cb51dd9a528008f1ec678acad78707085acebfbc3"
+    },
+    "stage2B": {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-b/RESULT.json",
+      "bytes": 5945,
+      "sha256": "9a04c2b0d3e28308efa0abb11de95e07a583c47fddbbdfb959bbf706ce208b3a"
+    },
+    "stage2BRun": {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-b/RETURN.json",
+      "bytes": 2725,
+      "sha256": "1a38ccf122aa6d92bc599ef8b8933839f4c63339c86c7ec6563bff681e4a45b2"
+    },
+    "extractions": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/SOURCE_EXTRACTIONS.json",
+      "bytes": 2472,
+      "sha256": "d07e669f45e6bd57a4a161bdb474d350af306d525b0416ccb7d82aff8cdef953"
+    },
+    "executedCounterexampleScript": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/counterexamples.ready.mjs",
+      "bytes": 5059,
+      "sha256": "d4a2b3e7808eb1ae6a13e5ab8528f4c42e7c25754377b9db276305b07af3e8e1"
+    },
+    "registeredDebts": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_DEBT_REGISTRATION.json",
+      "bytes": 6136,
+      "sha256": "1e386dfd1a0858a4ae17e6d6ff0220fb68fe827709bda1fc8565a5e819f8cea1"
+    },
+    "priorTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/source-assurance-001/UNIT_TRIAGE_01.md",
+      "bytes": 14343,
+      "sha256": "43c28cefc8b3f0485f30bd21df8bd5a03c1af0179d4f95b146fdd9c3b87be141"
+    },
+    "priorAddendum": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/source-assurance-001/DIAGNOSTIC_ADDENDUM_01.md",
+      "bytes": 15567,
+      "sha256": "900a5b5f0348fa42a0576be49bfc5f210a0a8ef54b4fcf0fef896b54c69e412f"
+    }
+  },
+  "checks": {
+    "stage1RecordPins": 11,
+    "stage1RetainedArtifactCopyPins": 267,
+    "stage2ARecordPins": 10,
+    "stage2ARetainedArtifactCopyPins": 207,
+    "extractedTextMatches": 4,
+    "stage2BActualScript": "counterexamples.ready.mjs, not earlier counterexamples.mjs",
+    "sourceEditsByReviewer": false,
+    "productExecutionByReviewer": false
+  },
+  "counts": {
+    "stage1": {
+      "tests": 6,
+      "pass": 6,
+      "fail": 0,
+      "wallSeconds": 5.253993833000001
+    },
+    "stage2A": {
+      "tests": 6,
+      "pass": 0,
+      "fail": 6,
+      "wallSeconds": 4.0326527500000005
+    },
+    "stage2B": {
+      "oraclePartitions": 5,
+      "observerSchedules": 4,
+      "wallSeconds": 0.11812491700000002
+    }
+  },
+  "limits": [
+    "Original actor facts erased; exact historical host/scheduling/capture cause remains indeterminate.",
+    "Fresh TMPDIR/compile cache and synchronous fsync instrumentation are covariates.",
+    "600ms delay is an intentional counterfactual, not historical equivalence.",
+    "Four-capture lease schedule is arithmetic only; no owner execution claim.",
+    "Sidecar write-attempt precedes underlying stream.write; missing return does not prove lost parent capture.",
+    "Child clocks are not equated with parent clocks.",
+    "Stage1/2A returnedAtMs includes artifact-copy work; it is not exact owner settlement.",
+    "Diagnostic design advice disclosed; no independent acceptance of an authored repair."
+  ],
+  "plan": {
+    "owner": "Existing m5 and lifetime test owners under Root grants",
+    "class": "realization_refactor under unchanged law",
+    "files": 2,
+    "steps": [
+      "retain outcome/actor/artifact evidence before assertions and cleanup",
+      "replace chunk oracle and establish physical prerequisites without clock rebase or extra acknowledgement",
+      "deterministic exact owner boundary checks plus workload exceeding initial lease",
+      "repair observer to bounded immutable snapshot with post-await guards and late-continuation isolation",
+      "freeze and independently assess complete affected populations; preserve all prior red evidence"
+    ],
+    "cost": "Localized test-only repair; deterministic checks inexpensive; finite physical proof is dominant. No Product patch currently justified.",
+    "risk": "Weakening oracles or extending a lease beyond workload could mask renewal defects.",
+    "runtimeDefectTrigger": "New actual owner-boundary counterexample requires Design/realization triage before production changes."
+  },
+  "standing": {
+    "originalUnitRedPreserved": true,
+    "unchangedM5RedPreserved": true,
+    "diagnosticsReplaceNeither": true,
+    "debtsRemainOpen": true,
+    "qualified": false,
+    "RootOwnsDisposition": true
+  },
+  "invalidation": [
+    "changed candidate/build/basis",
+    "new material actor facts",
+    "source-to-diagnostic mismatch",
+    "actual runtime authority/capture/renewal/cleanup counterexample"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/r3-workspace-binding.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/030-r3-workspace-binding.test/process.json",
+    "bytes": 1072,
+    "sha256": "d9a0031cee2cac4af88143fec3af7efdf6495a0e3debee355818c2068a19d6ef"
+  }
+}

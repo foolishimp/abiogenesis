@@ -1,0 +1,104 @@
+{
+  "file": "test_env/tests/r9-causal-result-closure.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 69456.79816700006,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/049-r9-causal-result-closure.jsonl",
+    "bytes": 1058,
+    "sha256": "f4dff515c0dd84823f645725e31884d79c8235d3ea78f1c007843dfb5308db85"
+  },
+  "commandReceipt": "commands/049-r9-causal-result-closure.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "artifacts/self-consistent-substitution-abiogenesis-typescript-tenant.tgz",
+      "kind": "file",
+      "bytes": 11733777,
+      "sha256": "a26a8cfbf6262e13e2c511266ae6ba12eb12f9ba8219b3f0c610c2635de636ad",
+      "executable": false
+    },
+    {
+      "path": "artifacts/tampered-abiogenesis-typescript-tenant.tgz",
+      "kind": "file",
+      "bytes": 11733734,
+      "sha256": "c4dec2d28bb66d9f0a52c71bc82b632540858c5b30d01721fb9e895f22ae04e3",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-non-root-alias-selection.json",
+      "kind": "file",
+      "bytes": 2473,
+      "sha256": "2d05bbba082de4d05d49e63db981238217f09d7cd122c6250c66a0ebce7b40ca",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r1.json",
+      "kind": "file",
+      "bytes": 16042802,
+      "sha256": "675fd405ca6954fd0d587bf95d58198d7d75db20ff035375758346658bb7824a",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r2.json",
+      "kind": "file",
+      "bytes": 20440296,
+      "sha256": "09051cabc2f41da9a8c1e36c70edbafec83da7d97788fc2bae2002a54addd198",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r3.json",
+      "kind": "file",
+      "bytes": 2489,
+      "sha256": "b0ff740d9e0d26178d83e31117b7d9926597c7b7537546fae777d984aa1aff98",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r6.json",
+      "kind": "file",
+      "bytes": 2650,
+      "sha256": "dfccd5e76eb19b51d6f6d0049024d819d3d91c7c30b48c3739652b8472370aa5",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r7.json",
+      "kind": "file",
+      "bytes": 3331,
+      "sha256": "dbedb7617512eccd43442fec156907b2015c8145b340e54882c3d698ab99cd95",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r8.json",
+      "kind": "file",
+      "bytes": 2444,
+      "sha256": "1ae7c42e56208dc7d2ec3626519cd70ec0decee06581a3f3c996a31936c7f6db",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

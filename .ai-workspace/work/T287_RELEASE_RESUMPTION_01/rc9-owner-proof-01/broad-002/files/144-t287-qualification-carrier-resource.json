@@ -1,0 +1,133 @@
+{
+  "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 2047.293958000373,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 7,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 7,
+    "todo": 0,
+    "topLevel": 7,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "closed resource forms retain nonempty group arrays and actual old embedded identities",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 7,
+      "type": "case",
+      "passed": true,
+      "name": "full F11 input and scope output keep compact identities and whole-scope blocked findings",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 7,
+      "suite": false,
+      "skip": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/144-t287-qualification-carrier-resource.jsonl",
+    "bytes": 3171,
+    "sha256": "f8b6dc4f2e94eb439985dc588d8ebd8274a84f9b83b24fee9c393443da4e557a"
+  },
+  "commandReceipt": "commands/144-t287-qualification-carrier-resource.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

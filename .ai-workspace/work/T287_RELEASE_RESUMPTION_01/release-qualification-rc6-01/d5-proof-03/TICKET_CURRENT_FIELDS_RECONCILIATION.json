@@ -1,0 +1,22 @@
+{
+  "kind": "root_current_ticket_status_field_reconciliation",
+  "at": "2026-11-06T03:29:05.858067+00:00",
+  "standing": "Current metadata was stale at N9 while dated progress was current. Update only existing current fields to actual retained state; historical sections retained.",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/recovery-status-preimages-001/4-ticket-before-current-field-reconciliation.md",
+    "sha256": "ed80ccb61d150f0811fc203f7e7882297507f8be1eb1969330358b419ab97f0f"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "sha256": "0a33b8f2b0ba998fcb5fc3e18cb08b11e0f1d1bce6859b20b8bc0d4745fa6d89"
+  },
+  "fields": [
+    "updated_at",
+    "current_activation",
+    "current_activation_status",
+    "current_handoff",
+    "current_next_work",
+    "current_runtime_frontier"
+  ],
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/FINAL_RUNTIME_CLOSE.json"
+}

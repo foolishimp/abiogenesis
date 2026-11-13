@@ -1,0 +1,32 @@
+{
+  "label": "018-m5-fresh-process-reconstruction.test",
+  "started": "2026-11-13T10:20:21.909366+00:00",
+  "ended": "2026-11-13T10:21:28.450695+00:00",
+  "wallMs": 66540,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/018-m5-fresh-process-reconstruction.test/stdout.raw",
+      "bytes": 380,
+      "sha256": "4dc44a9153d4e37dc7537160f976d2940f6a85a5c2b076711f0f2c40af4b4356"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/018-m5-fresh-process-reconstruction.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 9,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

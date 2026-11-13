@@ -1,0 +1,71 @@
+{
+  "kind": "actual_author_session_timing",
+  "createdUtc": "2026-11-06T19:10:18.033522+00:00",
+  "task": "rc7-held-session-author-05",
+  "launch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/LAUNCH.json",
+    "bytes": 4628,
+    "sha256": "a189f90ce733d076be0148025c3a501319eceb2903aca6509a2342c7fc945f08"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/PREPARATION_PHASES.json",
+    "bytes": 2578,
+    "sha256": "1fe7277aeed959d97afb6c9879a87506ae72d3c556964c581c5b8f9545ab143d"
+  },
+  "actorStart": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/ACTOR_START.json",
+    "bytes": 1905,
+    "sha256": "add2b6f273d56bd8c45befa0f7ac1fae67de50ddb9098e4d806fdf5f3fdc16fd"
+  },
+  "hostOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/outcome-summary.json",
+    "bytes": 823,
+    "sha256": "d588f68f840fcfc7102b66a8203d298b4144db1de66e9b8e9d14789899310bd4"
+  },
+  "commandReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/commands/sdk-native-host.result.json",
+    "bytes": 2315,
+    "sha256": "69b13eeae76cb8a622e4686c5d1ef8012adfc086db8b43c96667fedc66141445"
+  },
+  "requestToHostMs": 1166.0,
+  "setupDurations": {
+    "identityMs": 1197.447416,
+    "acquisitionAfterIdentityMs": 50670.04175,
+    "environmentAfterAcquisitionMs": 65164.38904200001,
+    "callConstructionAfterEnvironmentMs": 2403.4737920000043,
+    "totalPreparedMs": 119435.35200000001
+  },
+  "hostToActorUtcMs": 125587.0,
+  "preparedToActorDerivedMs": 6151.6479999999865,
+  "actorToHostSummaryEndUtcMs": 656767.0,
+  "startedUtc": "2026-11-06T18:52:08.621Z",
+  "actorStartedUtc": "2026-11-06T18:54:14.208Z",
+  "hostSummaryEndedUtc": "2026-11-06T19:05:10.975Z",
+  "hostOwnerMonotonicWallMs": 782368.4193330001,
+  "commandRecorderMonotonicWallMs": 783840.471083,
+  "RootExitObservedUtc": "2026-11-06T19:06:02Z",
+  "betweenTask": {
+    "H04HostCloseSummaryUtc": "2026-11-06T18:31:48.502Z",
+    "H04CloseSummaryToH05HostMs": 1220119.0,
+    "standing": "Between-task/operator review, oracle correction selection, preparation and admission. Not RC7 native runtime performance."
+  },
+  "reuseStageSetupMs": 4367,
+  "selectedLaneTimesMs": {
+    "fixed-route": 84298,
+    "held-session": 48743,
+    "assessment-guards": 64430
+  },
+  "heldSessionFixtureMeasurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+    "bytes": 4046,
+    "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+  },
+  "exactSdkReturnUtc": null,
+  "exactPhysicalCloseUtc": null,
+  "limits": [
+    "Actor-to-host-end includes native work, lane feedback, return and close; those internal phases are not separately timestamped.",
+    "Stage/lane times sit inside the actor interval and must not be added again to total host elapsed.",
+    "UTC landmarks and monotonic durations are retained separately; derived values are not clock-calibration assertions.",
+    "Erroneous authored handoff timestamps are retained, not used for chronology. No matched speedup or large-log/native performance claim."
+  ]
+}

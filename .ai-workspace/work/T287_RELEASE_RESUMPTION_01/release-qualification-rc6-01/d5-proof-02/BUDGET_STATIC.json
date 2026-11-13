@@ -1,0 +1,18 @@
+{
+  "kind": "deferred_proof_static_budget_reconciliation",
+  "status": "NO_CURRENT_OWNER_PROJECTION_OR_CALL",
+  "commands": 7,
+  "timeoutSumMs": 1560000,
+  "formula": "sum(timeoutMs+2*terminationGraceMs+min(terminationGraceMs,250))+5000",
+  "staticRequiredMs": 1636750,
+  "inactivityMs": 1800000,
+  "componentMs": 900000,
+  "laneSumMs": 840000,
+  "baselineOnlyObservedRecoveryMs": 53578,
+  "finalRecoveryDurationMs": null,
+  "limits": [
+    "No final runtime-derived owner budget, prompt or context projection performed.",
+    "Earlier partial baseline duration is53.578s; final recovery population/duration remains pending.",
+    "Root actual preflight must compute existing owner budget under the final selected environment and validate actual resource limits."
+  ]
+}

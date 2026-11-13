@@ -1,0 +1,42 @@
+{
+  "status": "ROOT_SELECTED_FINAL_CUT8_BINDING_PREPARATION_ONLY",
+  "at": "2026-11-07T11:14:34.064932+00:00",
+  "writer": "/root/rc8_operator",
+  "consumer": "/root",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "authority": "Root accepted A10 bounded archive-premise/diagnostic increment and authorized final CUT8 preparation for25 selected paths/source6c8d. Root separately requested retained timing sufficiency review. User move-to-RC7/build-RC8 authorization remains governing. This activation does not admit checkpoint/build/install.",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 4408,
+    "sha256": "d9adadd2558622cb8f60a20055509a160dd0e4a96f204bce368f19e809663922"
+  },
+  "predecessorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_BUILD_BINDINGS_FINAL_SOURCE_001.prepared.json",
+    "bytes": 20481,
+    "sha256": "6bbaa235ab10b9c211f636f6079a7ab239022394ae4379bced10d33a73de01d9"
+  },
+  "timingSufficiency": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_TIMING_SUFFICIENCY_002.json",
+    "bytes": 7063,
+    "sha256": "0a1b4d7af98055e443d2547cd9e674e455cdc1cadff6417d9cc81c5bfc690a6d"
+  },
+  "selectedNewControls": [
+    "CUT8_FINAL_SOURCE_INVENTORY_002.json",
+    "CUT8_BUILD_BINDINGS_FINAL_SOURCE_002.prepared.json"
+  ],
+  "executionAdmitted": false,
+  "excludedEffects": [
+    "Product/source/test edits",
+    "Git/index/checkpoint",
+    "build/reproduction/pack",
+    "cut/install/selector/push",
+    "provider/native calls",
+    "cleanup"
+  ],
+  "compatibilityDisposition": "Existing explicit files inventory format and unchanged corrected001 driver; immutable source-chain rows only. Original controls and failures remain unchanged."
+}

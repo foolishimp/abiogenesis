@@ -1,0 +1,18 @@
+{
+  "status": "EXACT_GRANTED_FUTURE_SCRATCH_ABSENCE",
+  "missingRoots": [
+    "rc4-scratch/native-recovery-21/return.json",
+    "rc4-scratch/native-recovery-21/readiness.json",
+    "rc4-scratch/native-recovery-21/notes.md"
+  ],
+  "expectedRoots": [
+    "rc4-scratch/native-recovery-21/return.json",
+    "rc4-scratch/native-recovery-21/readiness.json",
+    "rc4-scratch/native-recovery-21/notes.md"
+  ],
+  "noPlaceholders": true,
+  "readRootsCount": 745,
+  "readRootsUnique": 745,
+  "selectedCount": 734,
+  "selectedUnique": 734
+}

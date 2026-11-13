@@ -1,0 +1,6 @@
+[
+  "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+  "consolidation-scratch/native-01/readiness.json",
+  "consolidation-scratch/native-01/return.json"
+]

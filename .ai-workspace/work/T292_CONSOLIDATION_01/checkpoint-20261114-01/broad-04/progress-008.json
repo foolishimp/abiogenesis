@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/d2-historical-design.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 13,
+    "pass": 13,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/008-d2-historical-design.test/process.json",
+    "bytes": 1072,
+    "sha256": "6ecf2fa088c956be143941e9fc5029d305c71571434a9f535cc5f89937a4d53d"
+  }
+}

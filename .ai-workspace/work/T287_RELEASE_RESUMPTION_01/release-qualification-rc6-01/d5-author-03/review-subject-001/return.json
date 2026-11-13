@@ -1,0 +1,144 @@
+{
+  "kind": "d5_author_03_return",
+  "schemaVersion": "1",
+  "at": "2026-11-06T01:55:00Z",
+  "worker": "claude (single fresh native coding Worker, d5-author-03; Opus 5.5)",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "outcome": "Preserve lawful exact-L cold judgment while keeping the current copy-free shared projection and all existing owner admission boundaries.",
+  "finding": "D5-PROJ-001 S2 (projection review c1811a40...): cold J selected the current representation for an unstamped L artifact.",
+  "claims": {
+    "sourceAcceptance": false,
+    "qualificationAcceptance": false,
+    "releaseAcceptance": false,
+    "profileCut": false,
+    "graphContinuationChosen": false
+  },
+  "status": "WORK_COMPLETE_WITH_EXPLICIT_RESIDUALS_NOT_ACCEPTED",
+  "changedPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "before": { "bytes": 102336, "sha256": "f2b072bc0103239ce9c98f7950fe73cc5d309b307362d7f5fbf8836df4c0a503" },
+      "after": { "bytes": 102327, "sha256": "ac63c79c77c57a36278fd45126aeadb4d1955d2f84699d05db3bfc7f04bdff6e" },
+      "change": [
+        "projectQualificationJudgment cold join (line 622): durableActorObservationOfArtifact(artifact.payload, artifact.eventContractDigest !== undefined) replaces the comparison against LEGACY_ROOT_EVENT_CONTRACT_DIGEST. The owned prefix schedule (event_store.ts:3483-3487 and boundary 3520-3524; same schedule at 3738-3748) admits L rows only unstamped and current rows only with exactly ROOT_EVENT_CONTRACT_DIGEST, so stamp presence is exactly the current profile.",
+        "Comment at lines 618-621 states that schedule premise.",
+        "Removed the now-unused N2-added import of LEGACY_ROOT_EVENT_CONTRACT_DIGEST from ./event_contract_profiles.js; the import set equals HEAD's. No new import, guard, port, helper, profile descriptor/ref or abstraction."
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "before": { "bytes": 98486, "sha256": "e1bbcfacc0d30d934489d44aac4dfbd1db48923bdbfed504f58739a22303b638" },
+      "after": { "bytes": 98958, "sha256": "b7bbdb76a75bc7d241432a2e045ef338209629f1ea3d8146791887624921b94f" },
+      "change": [
+        "admitJudgment (frozen 501-509): its copy-free current artifact event now carries eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST through the existing event_store.js import.",
+        "fullCarrier: the L artifact is placed with no stamp (was an explicit LEGACY stamp the real L store forbids); the current artifact keeps the real store's admitted stamp. fullCarrier also returns the placed event.",
+        "M2 test: asserts the placed current artifact carries exactly ROOT_EVENT_CONTRACT_DIGEST and the L artifact carries no stamp; the L full-preimage positive (plus its cold rerun) now runs immediately after the current positive, before the refusals. All prior assertions are retained: unilateral, stale, crossed member, crossed native assessment, reinserted copies, one reinserted copy, current projection read as L, and current-projection digest over an L artifact.",
+        "Dropped the now-unused LEGACY_ROOT_EVENT_CONTRACT_DIGEST name from the test import. Test count unchanged (24 in module)."
+      ]
+    }
+  ],
+  "unchangedOwners": "transport_contracts.ts 13695730..., event_contract_profiles.ts 830a4292..., event_store.ts 01c82b88..., implementation/qualification.ts dc0c6cc0..., implementation/contracts.ts 7da8c71f..., probabilistic_result.ts bc6f1b5e..., actor_process.ts 0b6b24fa..., validator/qualification_contracts.ts e96f3f83..., malformed-gtl-native-fixture.mjs 50b42a57... (all byte-identical to d5b-final2 in d5c-final1).",
+  "failingBefore": {
+    "stage": "qualification-scratch/d5-author-03/tmp/d5c-before1",
+    "stageReport": { "path": "qualification-scratch/d5-author-03/tmp/d5c-before1-stage.json", "bytes": 78913, "sha256": "f537345ba01087e45224fde39aa78b6568935f93f29a0431c02ceaa64288a894" },
+    "sourceDigest": "c9287a37036b3bd00116f1b7485f6706c1ac2e1e5d6ffac8b4a0e2368a79b3c3",
+    "source": "Frozen pre-fix reader qualification_proof.ts f2b072bc... with the corrected test b7bbdb76... (identical to the final test). Differs from d5b-final2 only in the test path.",
+    "build": "compile 0 (7224ms), generate 0 (22139ms), check-lifecycle-boundary 0: 290 modules, 7 allow-listed sites, no offender.",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern=M2 one current durable observation test_env/tests/t287-qualification-scopes.test.mjs (via tmp/probe.mjs, lanes.mjs environment)",
+    "result": { "exitCode": 1, "tests": 1, "pass": 0, "fail": 1, "skipped": 0, "cancelled": 0, "todo": 0, "stderrBytes": 0 },
+    "failingAssertion": "'an L artifact keeps its full preimage' at t287-qualification-scopes.test.mjs:836: actual null, expected the exact L judgment (judgmentDigest sha256:d728a5e7...). failureType testCodeFailure, not an import/setup/timeout failure; the preceding current positives and 'the L artifact carries no stamp' passed.",
+    "tap": { "path": "qualification-scratch/d5-author-03/tmp/d5c-before1-probe-m2/stdout.tap", "bytes": 70620, "sha256": "8c89306656cb488ef7c9cbd67d66f6d99e56390861f2af240d55a56bfa66645b" },
+    "summary": { "path": "qualification-scratch/d5-author-03/tmp/d5c-before1-probe-m2/summary.json", "bytes": 976, "sha256": "6f0d3c0604a24ac3693341dc7817fffb19cc82a0b5bcfbf8530402cb19cb452f" },
+    "moduleControl": {
+      "command": "same probe, whole scopes module, no name pattern",
+      "result": { "exitCode": 1, "tests": 24, "pass": 23, "fail": 1, "skipped": 0, "cancelled": 0, "todo": 0 },
+      "failing": "only the M2 test, same assertion 'an L artifact keeps its full preimage'",
+      "meaning": "The fixture corrections alone keep every other scopes test green under the frozen reader; the M2 failure is the reader's.",
+      "tap": { "path": "qualification-scratch/d5-author-03/tmp/d5c-before1-probe-scopes/stdout.tap", "bytes": 78683, "sha256": "8585cb820fa5033c551157bea3b439acf71d25efed0166118d55bf4dc51a2fc8" }
+    }
+  },
+  "helperPremiseProof": {
+    "stage": "qualification-scratch/d5-author-03/tmp/d5c-helper1",
+    "stageReport": { "path": "qualification-scratch/d5-author-03/tmp/d5c-helper1-stage.json", "bytes": 78913, "sha256": "013792b4c1ff19e583d410f197e74bdab3d815bbf16666c4498bc116423d676c" },
+    "source": "Repaired reader ac63c79c... with the test temporarily reverted only at the admitJudgment stamp (test sha 2113501a...). The live test was restored immediately after staging and re-verified as b7bbdb76...",
+    "build": "compile 0, generate 0, lifecycle guard 0 (no offender).",
+    "result": { "exitCode": 1, "tests": 24, "pass": 22, "fail": 2, "skipped": 0, "cancelled": 0, "todo": 0 },
+    "failing": [
+      "Q23 one native history ... at 'the eligible J reads back'",
+      "Q23 J readback refuses ... at 'a legacy binding without identity: the J itself projects'"
+    ],
+    "meaning": "An unstamped copy-free current premise is read as L by the repaired reader, so the admitJudgment stamp is a required premise correction, not cosmetic.",
+    "tap": { "path": "qualification-scratch/d5-author-03/tmp/d5c-helper1-probe-scopes/stdout.tap", "bytes": 79451, "sha256": "690304a04db1f26c462a6dfc77c0e3b0340e339a3411f934ff876cf626fda196" }
+  },
+  "passingAfter": {
+    "stage": "qualification-scratch/d5-author-03/tmp/d5c-final1",
+    "command": "same M2 probe command as failingBefore",
+    "result": { "exitCode": 0, "tests": 1, "pass": 1, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0, "stderrBytes": 0 },
+    "tap": { "path": "qualification-scratch/d5-author-03/tmp/d5c-final1-probe-m2/stdout.tap", "bytes": 759, "sha256": "ae3777d0803f8125e20c6362a5a6bb3ffb70286fd937be3716d8a4219a8c53dc" },
+    "pairing": "d5c-final1 differs from d5c-before1 only in qualification_proof.ts; the test bytes are identical."
+  },
+  "finalSourceFreeze": {
+    "stage": "qualification-scratch/d5-author-03/tmp/d5c-final1",
+    "stageReport": { "path": "qualification-scratch/d5-author-03/tmp/d5c-final1-stage.json", "bytes": 78911, "sha256": "feeb79187bab20609db9e96635a987a7200fb5a2188d88dcac577cc1f0f69b42" },
+    "sourceCount": 372,
+    "sourceDigest": "7e8bb3b085517a18a4c6c6cba0d4ae3a54b1738ce3089bd8da6f3ab70e1793dd",
+    "liveVsStageReport": "372/372 equal",
+    "liveVsStagedFiles": "372/372 equal",
+    "vsD5bFinal2": "Only the two granted paths differ (d5b-final2 sourceDigest f7d7594f...). The 20 inherited tracked changes and the 2 inherited new Product files are all closure members; the other 370 members are byte-identical.",
+    "worktreeStatus": "git status equals the session-start snapshot: same 20 tracked modifications and same untracked set; no Git operation performed."
+  },
+  "build": {
+    "compile": { "command": "node node_modules/typescript/bin/tsc -p tsconfig.json", "exitCode": 0, "signal": null, "ms": 7299 },
+    "generate": { "command": "node scripts/generate-product-manifest.mjs", "exitCode": 0, "signal": null, "ms": 22287 },
+    "guard": { "command": "node scripts/check-lifecycle-boundary.mjs", "exitCode": 0, "ms": 579, "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender" },
+    "generatedProfileContract": "contracts/schemas/native-runtime-observation.json sha256 ae38fb37e3c59079e1acab2d920fb2d46d867a3150e89029323014288fa36b2c, identical to d5b-final2 and ROOT_PROFILE_DISPOSITION; exact L/P descriptor bytes unchanged.",
+    "generatedDifferences": "Of 202 generated contract files only capabilities/capability-definition-graph.json differs from d5b-final2 (84a42bd8... -> d38134b7...): 310 leaves, all source-content-derived digests (productContentDigest 241, capabilityDefinitionDigest 34, capabilityDefinitionRef 34, graphDigest 1); same keys and 16 rows."
+  },
+  "qualificationLane": {
+    "command": "node qualification-scratch/d5-author-03/tmp/lanes.mjs d5c-final1 qualification",
+    "modules": [
+      "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "test_env/tests/t287-qualification-producer-context.test.mjs",
+      "test_env/tests/t287-qualification-contraction.test.mjs",
+      "test_env/tests/t287-qualification-scopes.test.mjs"
+    ],
+    "result": { "exitCode": 0, "signal": null, "error": null, "ms": 7340, "tests": 37, "pass": 37, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0, "minimumTests": 37 },
+    "names": "The 37 test names equal the retained N2 d5b-final2 qualification TAP set exactly; no added case. No skip/todo directive; only the counter lines mention them.",
+    "environment": "lanes.mjs verified both S01 pins, cleared ambient ABI5_EVIDENCE_ROOT/lineage/F11/build selectors, set ABI5_EVIDENCE_ROOT to the declared readonly root, TMPDIR=/private/tmp/abg-d5c, offline/notifier settings.",
+    "tap": { "path": "qualification-scratch/d5-author-03/tmp/d5c-final1-lanes-qualification/qualification.stdout.tap", "bytes": 15451, "sha256": "081ea0fa54e5151f6bfec0631d7777fa9e6bf9dad498bc797aaeaab7397f36e2" },
+    "stderr": { "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" },
+    "summary": { "path": "qualification-scratch/d5-author-03/tmp/d5c-final1-lanes-qualification/summary-qualification.json", "bytes": 983, "sha256": "8830b5cfb01f1f60a007ff82a54cefd5f1c4d8e29c922349a4fe0ef6347dfd28" }
+  },
+  "preserved": [
+    "Shared pure projection projectDurableActorObservation/durableActorObservationOfArtifact unchanged; the full live carrier and distinct candidate digest owners are unchanged.",
+    "Q23 identity/provenance owners untouched; all Q23 tests pass in the lane.",
+    "L/P descriptor bytes, ROOT_CURRENT_EVENT_PROFILE_REF and both digests unchanged; no stamp or new digest/ref is generated by this repair.",
+    "Old N2 handoffs qualification-scratch/d5-author-02/{return,readiness,progress}.json equal their custody pins (0f163d27..., 08e8b9bc..., 96215b74...). Prior stages, TAP and failures were neither modified nor deleted."
+  ],
+  "notRun": [
+    "Authentic recovery lane and the 113-test ten-module population (excluded by grant; Root C2/UAT follows).",
+    "Installed build, provider/runtime execution, network."
+  ],
+  "capsuleResidual": {
+    "id": "D5-P6-N1-UNCONFIRMED-01",
+    "status": "explicit residual, unchanged and not exercised by this repair",
+    "statement": "No genuine current-profile physical unconfirmed-termination attempt with full assessed ancestry was produced or manufactured. The two-file cold-reader correction does not touch lifecycle or recovery owners."
+  },
+  "disclosures": [
+    "Scratch under qualification-scratch/d5-author-03/tmp: stage.mjs and lanes.mjs (byte-identical copies of the supplied helpers), probe.mjs (author-written, lanes.mjs environment plus one module and optional --test-name-pattern), stages d5c-before1, d5c-helper1, d5c-final1 with stage reports, probe directories and the lane directory. Nothing deleted or overwritten.",
+    "To produce d5c-helper1, the live test was temporarily edited (one line reverted) and restored byte-identically after staging; the final live test is b7bbdb76...",
+    "The helpers' declared test TMPDIR /private/tmp/abg-d5c (named in NATIVE_GRANT externalTemporaryEffectsProposal, existing before this task) received tsc node-compile-cache, npm-cache entries and test stores/locks from staged commands. This is outside the literal write-scope list.",
+    "The platform-created provider scratch tmpd5c (declared TMPPREFIX tmpd5c/zsh) changed its directory mtime during this task, most likely from transient zsh here-document files created and removed by my shell heredocs. Its contents are only the pre-existing empty npm-cache.",
+    "No network, install, provider, credential, Git, Product build/install or global configuration effect. Test actors remain local controlled executables."
+  ],
+  "gaps": [
+    "D5-P6-N1-UNCONFIRMED-01 full-chain physical unconfirmed negative remains open.",
+    "Original 113-pass N2 evidence stays scoped to N2 source; this task reran only the five-module qualification lane (37/37). Root's affected seven-command ten-module C2/UAT on the corrected successor is still required.",
+    "Recovery component/replay limits from the recovery review are unchanged: component teardown removes its log/archive, so retained source/TAP is not independent retained-scenario replay.",
+    "M2 premises remain explicit: the L artifact is placed in fixture history, not admitted by an L store; the presence predicate relies on the real owned-prefix schedule, which the native fixture stubs. No real historical L qualification population was executed.",
+    "Prospective p5/D 3bcc8488... profile selection is Root-bound, not a release cut; RC7 must reacquire the generated contract and computed descriptor from its frozen source. The worksite's tracked generated contracts were not regenerated.",
+    "Production qualification, QR02/QR03, formal F11 J and human release acceptance remain open."
+  ]
+}

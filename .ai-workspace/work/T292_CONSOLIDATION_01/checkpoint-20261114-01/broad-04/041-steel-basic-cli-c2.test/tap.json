@@ -1,0 +1,21 @@
+{
+  "complete": true,
+  "counts": {
+    "tests": 6,
+    "pass": 0,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 1 - C2 Product source predicate accepts the C1 root and rejects reducer or other producer # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 2 - C2 Product source predicate preserves exact source and target workspace joins # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 3 - C2 prompt emits the exact planned semantic Bash input # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 4 - C2 recorded task, plan and observation remain valid at A, B and restored A # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 5 - C2 captures quoted executable paths without consulting later availability # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "ok 6 - C2 rejects executable, command, path and input-identity tampering # SKIP C2 qualification requires explicit ABI5_C2_CARRIER_FIXTURE_PATH",
+    "# todo 0"
+  ]
+}

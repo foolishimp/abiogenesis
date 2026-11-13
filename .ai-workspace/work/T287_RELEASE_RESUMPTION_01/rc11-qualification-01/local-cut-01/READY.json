@@ -1,0 +1,33 @@
+{
+  "status": "CANDIDATE_PACK_PREPARED_CONDITIONAL_EXECUTION",
+  "utc": "2026-11-09T09:02:48.340693+00:00",
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-01/CANDIDATE_PACK_CONTROLS.json",
+    "bytes": 5038,
+    "sha256": "ea571e6f7073a0b563b3394dfa5d2a76bf46dfb90a0235d5b430263cf6cb344d"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-01/candidate-pack.py",
+    "bytes": 10322,
+    "sha256": "439c2a28f2982e4151236e9f9daedbb05847edfd6be2614e078f22d750e01df1"
+  },
+  "driverPythonSyntaxChecked": true,
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-01/SOURCE_SELECTION.json",
+    "bytes": 2808,
+    "sha256": "63e30afbafbe4f37653adfff355eb1744f901ff3005e150a0367342e2dba3a29"
+  },
+  "heldDeliveryRoute": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-01/HELD_DELIVERY_ROUTE.json",
+    "bytes": 3320,
+    "sha256": "482b2563335f140ab4e89c83f37341c2e4d09dde03006e417144d07b4af394c7"
+  },
+  "rootDecision": "Root conditionally authorized one offline ignore-scripts npm pack from tested proof work only after unit/R6/F04A all pass and exact source/compiled guards. Snapshot tested build/contracts/manifest before pack; verify afterward and compare archive members to exact tested tree. No rebuild. Commit/reproduction/install remain held for separate exact acceptance/bindings. No main/Git/install/pin effects.",
+  "unexecuted": [
+    "candidate pack",
+    "source commit",
+    "clean reproduction",
+    "release/install"
+  ],
+  "standing": "Proof is still running. No passing suffix or artifact identity invented."
+}

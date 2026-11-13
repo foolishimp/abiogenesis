@@ -1,0 +1,134 @@
+{
+  "status": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "selectedUtc": "2026-11-05T02:09:46.701271+00:00",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "sourceTree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.6",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+    "manifestDigest": "sha256:404905f00e9d79bd7cc1da592a492b19443b809d3b81c12ec8af9af947c2a64a",
+    "productContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "bytes": 10988465,
+    "sha256": "e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4"
+  },
+  "archiveMembers": 5325,
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.6",
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6",
+  "installPath": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "tools": [
+    {
+      "name": "node",
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "name": "tar",
+      "configuredPath": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "bytes": 274448,
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    }
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/WRITER_ACTIVATION.json",
+      "bytes": 3887,
+      "sha256": "3676d710be85db541522aa0c1d898b49225e636cd16d976664679a3fa2d7d078"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/SOURCE_PREPARED.json",
+      "bytes": 8130,
+      "sha256": "9b11ace9ab84bfe599b29aed9d3d21948318db3b0a7b68785446b7a47bf50436"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/SOURCE_CHECKPOINT.json",
+      "bytes": 1177,
+      "sha256": "ae3da23b13755a8b1640459f0178bb5a73c53e44d7f518a6a84d275d89cd2ff5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/ARTIFACT_IDENTITY_BRIDGE.json",
+      "bytes": 3370,
+      "sha256": "da399a114c85a4014261c4944ecdf76d9dcbe0c953362ce9809a7b19735e20e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/candidate/RESULT.json",
+      "bytes": 4636,
+      "sha256": "fed19aa795597d30542d0812f8185911897f432e5bd8be504ec2fa6e6995ada0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/RESULT.json",
+      "bytes": 7699,
+      "sha256": "d32cc03c62479730635f5c56aad01d654313c30ecfaf45595d73c826f027b4fc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/INDEPENDENT_LOCAL_CUT_REVIEW.json",
+      "bytes": 18281,
+      "sha256": "84666f1abf65b43a6ce4fa358047fd3461d611a21a966f9302d48cad4f2b2f61"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/INDEX.json",
+      "bytes": 10099,
+      "sha256": "ee58e3a10ee9c9386921ae8fe6479c83fd86ba5718d1b58d120774d82a4166bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/proof-10/ROOT_CONJUNCTION.json",
+      "bytes": 13939,
+      "sha256": "4d74f116ae022fae56d517ebda3bda4b3032a62bf7e7d992ad7f53c1c7122313"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/install-local-rc6.mjs",
+      "bytes": 7228,
+      "sha256": "33d99f68f65b206f27b791b2d487afbc1b2ac5c80d20e29f30d1f39dcebced0d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 519,
+      "sha256": "651966790000f92a261b2a6b8937ccd76abcef95e06f995ace3ef2b271421d30"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/RESIDUALS.md",
+      "bytes": 1099,
+      "sha256": "a344b78ae4cadbe2344a115db81da8e17909fd1d24e33289d44f731cdd8df0c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/ROOT_AUTHORITY.md",
+      "bytes": 594,
+      "sha256": "20f33f2070590badbd7fe2f2b0d2df7709b5b7d3339996a951e4d7baabb0a258"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 8256,
+      "sha256": "4011cc77e0111fa816b2c2a604323e92b653299f059e4ea315623bef46245598"
+    }
+  ],
+  "claim": "Local unqualified RC6 development candidate: frozen single-address-space successor, bounded accepted IR01/IR02 refactor, mechanical release identity and reproducible Product-owner installation. No stable release or complete workflow performance claim.",
+  "limits": [
+    "Bounded IR01/IR02 T1-T5 acceptance is retained from proof10; no native Run or RC5-labelled proof artifact is relabelled as an RC6 qualification result.",
+    "Actual09 remains77pass/8fail/75skip. Proof10 actual12/0/0 closes only its whole-path missing-baseline gap; revision4/1/2 and consumer59/0/73, old floor and excluded arms retain their standing.",
+    "N9-RETAINED-FIXTURE-01 remains open before dependent D2 or qualification claims; broader R1-R7/C1-C5 and full new-source workflow performance are open.",
+    "Initial cold authentication, launch and between-task latency are not declared eliminated. Proof10 timings describe installed RC5 orchestration.",
+    "Same-family independent review; no clean-family, fifteen-family, F11/sole AF22, GC03 or complete S01/S02/S03/S06 qualification.",
+    "Local source branch remains unmerged/unpushed. No tag, publication, global selector or stable-release acceptance.",
+    "Product S07 qualification/release remains prospective; this local preview cannot retroactively authorize a published cut. All earlier cuts and failures remain preserved."
+  ],
+  "effectGrant": [
+    "Fresh local release custody and actual Product-owner installation",
+    "Exact all-member byte comparison and receipts"
+  ],
+  "failurePolicy": "Preserve partial allocation and receipts; refuse existing roots; no automatic overwrite/removal/retry."
+}

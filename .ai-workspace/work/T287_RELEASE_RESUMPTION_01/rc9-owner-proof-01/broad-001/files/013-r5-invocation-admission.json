@@ -1,0 +1,48 @@
+{
+  "file": "test_env/tests/r5-invocation-admission.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 71679.40233399998,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/013-r5-invocation-admission.jsonl",
+    "bytes": 1073,
+    "sha256": "1014defe5a3a7e33895f04f05bb5bf3e5df79782b6fc2abf9c51622e7150599a"
+  },
+  "commandReceipt": "commands/013-r5-invocation-admission.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-non-root-alias-selection.json",
+      "kind": "file",
+      "bytes": 2473,
+      "sha256": "2d05bbba082de4d05d49e63db981238217f09d7cd122c6250c66a0ebce7b40ca",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

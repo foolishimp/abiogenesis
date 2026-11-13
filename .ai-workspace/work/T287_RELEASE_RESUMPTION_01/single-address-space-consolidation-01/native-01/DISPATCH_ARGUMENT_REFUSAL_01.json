@@ -1,0 +1,13 @@
+{
+  "recordedUtc": "2026-11-03T13:55:17.668872+00:00",
+  "kind": "operator_pre_dispatch_argument_refusal",
+  "actualToolChunk": "f8ee23",
+  "exitCode": 1,
+  "suppliedDigest": "3ac4cde7743d64e7481416be7f80476679f7586a6c351da3bf9d2f0d3554f4b9d",
+  "actualSelectedManifestDigest": "1b747368ee37525db26b1aa77ccc3fb1cc188226f1a89cac42aae702d354be15",
+  "cause": "Root supplied an incorrect literal digest before consuming the completed manifest tool result. Exact manifest guard refused before any effects.",
+  "RootDisposition": "Invoke the unchanged exact selected manifest with its now-observed actual digest. No automatic retry, semantic packet change or prior-effect uncertainty.",
+  "RunAdmissions": 0,
+  "providerCalls": 0,
+  "nativeActors": 0
+}

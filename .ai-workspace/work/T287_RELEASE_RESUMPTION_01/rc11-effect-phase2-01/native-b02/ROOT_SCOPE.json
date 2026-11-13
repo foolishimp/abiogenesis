@@ -1,0 +1,75 @@
+{
+  "id": "PHASE2-B-HTTP-FIXTURE-REENTRY-01",
+  "status": "ROOT_SELECTED_PREPARATION_SETUP_PROVIDER_HELD",
+  "actor": "Separate Writer/Operator; Root Executive",
+  "changeClass": "realization_refactor",
+  "reentryOwner": "test Proof / fixture causal ordering",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "rootDisposition": "Root conjoins the closed unit-red Design/Proof frames and selects PHASE2-B-HTTP-FIXTURE-REENTRY-01, preparation only. Inherited fixture lacks owner-observation-before-normal-exit; exact poll/write/close interleaving unknown. No Product/A/B regression or cleanup defect established. Unit/M5 stay red; prior bounded source/build/C2/lifetime evidence reusable only with conservation. One genuine pinned-RC10 author may later change only m5 HTTP-normal fixture coordination and associated retained premise evidence/assertions. Real helper request must causally precede normal leader exit, using existing lifetime loopback bind-zero/request-response pattern. Preserve TERM-ignoring redirected-stdio descendant, original port-observed/normal0/no-timeout/TERM-KILL/identity/absence assertions and bounds. Retain publication/actual request/normal-exit facts before assertions. HTTP-TERM, worker/command routes, Product/A/dependencies/other tests/plans exact. No weakening, timeout increase, sleep padding or post-close production read. Author readiness only node --check; no physical/group/M5/unit/build/pack. One full original unit external after freeze, no separate group/M5/C2/lifetime/build/pack repeat. Model claude-opus-5-5 xhigh1800s absolute/180s inactivity/100turns. Operator prepares controls only: no source/Git/tracking/runtime/provider changes. Root exact setup/dispatch admission remains held; stop drift/authority conflict. Source algorithm/names within this outcome belong to author. Root remains Executive and accepting consumer.",
+  "source": {
+    "commit": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-freeze.json",
+      "bytes": 295988,
+      "sha256": "2ed1b3ab7758905dc0c33702893898130de2758d0b026af20898833d5bebe9eb"
+    },
+    "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+    "rows": 1345
+  },
+  "conjunction": {
+    "design": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/design/ASSESSMENT.md",
+      "bytes": 7951,
+      "sha256": "03e014a08539be38ae922ad7f9b84a20db5de5eb96d593d5c80739c2b20257f9"
+    },
+    "designEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/design/EVIDENCE.json",
+      "bytes": 8043,
+      "sha256": "32fd88582267d393f6031d08b58d20c3e74880c067ce37922485e2d4652af27c"
+    },
+    "proof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/proof/ASSESSMENT_REVISION_01.md",
+      "bytes": 6822,
+      "sha256": "6c59445de59e4ffae3d2c10ac5738e3fef2d70a7607a3b91779f96f9d3d75909"
+    },
+    "proofEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/proof/EVIDENCE.json",
+      "bytes": 21670,
+      "sha256": "c76cc352fe9d175ea4b9f0d0fa766ed94e999e49b45fa22903cd28a84fdcfbcb"
+    },
+    "redReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/EXECUTION_RETURN.json",
+      "bytes": 4247,
+      "sha256": "c9adc0cb0e19bd79fae9b81485051b50b646f4cffe523a9afda9699d6268beac"
+    },
+    "redPopulation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ACTUAL_POPULATION.json",
+      "bytes": 35356,
+      "sha256": "3130b1307dd238eec7fdbaf1096ea430fefb9d6f2624e383ee3b19256b857534"
+    },
+    "redClosure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/PHYSICAL_CLOSURE.json",
+      "bytes": 6913,
+      "sha256": "187f394532e7ec8b4fb2e1e205b3b942a51696370f950e8afd1c1c4ae7538782"
+    },
+    "redPostguards": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/POSTGUARDS.json",
+      "bytes": 719,
+      "sha256": "eff60e8cbcecbc3e570e5e664953e311ebb487cbf45df663a88ac68fe602ab54"
+    },
+    "retainedAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+      "bytes": 2281,
+      "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+    }
+  },
+  "futureSourceWriteRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs"
+  ],
+  "futureScratch": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02",
+  "preparationEffects": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02 control files only; no candidate input staging"
+  ],
+  "returnRelation": "READY to Root. Actual setup and one held dispatch separately admitted. Retain SDK outcome, fresh result/replay, actual physical close and one-file frozen successor before external proof.",
+  "limits": "Historical reds/failed controllers, both deferred capsules and six skips remain. No B/full Phase2/qualification acceptance."
+}

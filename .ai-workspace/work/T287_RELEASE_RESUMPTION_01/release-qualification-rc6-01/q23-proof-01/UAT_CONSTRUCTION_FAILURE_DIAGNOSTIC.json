@@ -1,0 +1,8 @@
+{
+  "eventOrdinal": 77434,
+  "diagnostic": {
+    "reason": "thrown",
+    "stage": "implementation_invocation"
+  },
+  "standing": "Exact admitted default-library UAT failure; no assessment actor launched."
+}

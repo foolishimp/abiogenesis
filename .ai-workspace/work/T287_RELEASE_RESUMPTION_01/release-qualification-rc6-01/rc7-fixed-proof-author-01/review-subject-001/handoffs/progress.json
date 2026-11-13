@@ -1,0 +1,31 @@
+{
+  "kind": "rc7_native_author_progress",
+  "schemaVersion": "1",
+  "task": "rc7-fixed-proof-author-01",
+  "state": "frozen_and_stopped",
+  "steps": [
+    { "step": "receive", "detail": "Installed STDO v3.0.4 stdo-work loaded and the basis verified; Root admission, dependency-ready selection, TASK, five-file grant and SOURCE_CUSTODY bound." },
+    { "step": "how_first", "detail": "Amended T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md: RC7 direct wrapper route section plus FS-C01 and DL-I02 sentences; later added the one-binding cover constraint before staging." },
+    { "step": "product_contract", "detail": "product/default_library.ts: nullable observation.synthesisResultRef and directObservationTyped." },
+    { "step": "abg_owner", "detail": "abg/default_library.ts: direct-route authentication and finite state relation in owner(); direct single-producer child relation in subjectEvidence(); unconditional full-original UAT instructions in nativeTask(); selector-free fold guard and nullable ref in projectGovernanceFold()." },
+    { "step": "caller", "detail": "test_env/uat/public-setup.mjs: shared constructConsumerRunCall; constructFixedTestingCall, deriveFixedTestingSource, constructFixedUatCall; constructLifecycleCall behavior unchanged." },
+    { "step": "tests", "detail": "Six 'RC7 fixed proof:' tests in t287-default-library.test.mjs (direct Testing positive and refusals, direct UAT positive and refusals, selected regression, caller)." },
+    { "step": "self_review", "detail": "Found and fixed a block-scoped redeclaration of `selection` in nativeTask before staging (renamed to `advisory`); node --check on the edited .mjs files." },
+    { "step": "stage_before", "at": "2026-11-06T20:42:14+11:00", "label": "o7f-stage-01", "result": "compile/generate/guard pass" },
+    { "step": "lane_before_fixed_route", "at": "2026-11-06T20:42:20+11:00", "result": "exit 1; 25 pass, 5 RC7 route tests fail (counterexample), 3 historical skips" },
+    { "step": "stage_after", "at": "2026-11-06T20:43:57+11:00", "label": "o7f-stage-02", "result": "compile/generate/guard pass" },
+    { "step": "lane_after_fixed_route", "at": "2026-11-06T20:44:03+11:00", "result": "exit 0; 30 pass, 0 fail, 3 historical skips" },
+    { "step": "lane_after_cold_resume", "at": "2026-11-06T20:46:54+11:00", "result": "exit 0; 2/2 pass, 167499 ms" },
+    { "step": "lane_after_caller_regression", "at": "2026-11-06T20:48:06+11:00", "result": "exit 0; 40/40 pass" },
+    { "step": "post_check", "detail": "Static read of the installed admission path found the open owner dependency (abg/invocation_admission.ts:1517-1529, gtl/default_library.ts:72). HOW not edited afterwards, so the frozen candidate equals the tested stage." },
+    { "step": "freeze", "detail": "Handoffs written; stopped. No Git mutation." }
+  ],
+  "allocations": {
+    "stagesUsed": ["o7f-stage-01 (before)", "o7f-stage-02 (after)"],
+    "stagesRemaining": ["o7f-stage-03"],
+    "laneInvocationsUsed": 4,
+    "laneInvocationCap": 4,
+    "retries": 0
+  },
+  "nextOwner": "Root"
+}

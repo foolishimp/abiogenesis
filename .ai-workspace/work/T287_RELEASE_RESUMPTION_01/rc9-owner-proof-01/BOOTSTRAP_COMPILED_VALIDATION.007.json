@@ -1,0 +1,178 @@
+{
+  "status": "ACTUAL_BUILT003_MATERIAL_OWNER_AND_COUNTER_PINS",
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "completedStage": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+    "bytes": 929,
+    "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+  },
+  "stageManifest": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+  },
+  "candidateOwners": [
+    {
+      "relativePath": "build/code/src/product/index.js",
+      "bytes": 13810,
+      "sha256": "26771ef341c8d0d1b927118a9a73556cb93df7cd248dc4f5b187e50a395c4799"
+    },
+    {
+      "relativePath": "build/code/src/product/environment.js",
+      "bytes": 36486,
+      "sha256": "f80a1d9dc08d612268bdeea1c2977f2d3d46f2850c8bcff0dac0b6e93e2430b5"
+    },
+    {
+      "relativePath": "build/code/src/product/declaration_exports.js",
+      "bytes": 113258,
+      "sha256": "99223223752a1a90c1ef3bac02b44840e4664792a89507de3458761770b8456a"
+    },
+    {
+      "relativePath": "build/code/src/product/verify_product.js",
+      "bytes": 88460,
+      "sha256": "2d9ccf376ee3d33fcc6a48f6a52d7172f85e317e157ca761cd0aa69725a017cb"
+    },
+    {
+      "relativePath": "build/code/src/product/install_product.js",
+      "bytes": 18933,
+      "sha256": "e5149ede50dd20490b962732d4795e7e6575e61100a699bacd0bc09571d69248"
+    },
+    {
+      "relativePath": "build/code/src/abg/calculus/execution_basis_record.js",
+      "bytes": 5901,
+      "sha256": "0671c8cf392c0d5bf4734bdef5c91978373e456581595541ac224161bff32918"
+    },
+    {
+      "relativePath": "build/code/src/abg/environment_admission.js",
+      "bytes": 39528,
+      "sha256": "f8b158a69d45c2589abb50c88fb550d5b478fab2f0f1305eef78a7d3a1136932"
+    },
+    {
+      "relativePath": "build/code/src/abg/worker_transport.js",
+      "bytes": 43447,
+      "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+    }
+  ],
+  "counterSources": [
+    {
+      "role": "call",
+      "module": "public/binding/definition_binding_mechanics",
+      "exportName": "observeDefinitionCallWork",
+      "compiled": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/public/binding/definition_binding_mechanics.js",
+        "bytes": 18054,
+        "sha256": "9fa71fb621f432110938c7e2a1f3c1b01f02ea356b2f9cf762d59d7e76d3699c"
+      },
+      "exportNameTextPresent": true,
+      "standing": "Static name presence plus prior007 live OWN/REF observations; no import executed in preparation."
+    },
+    {
+      "role": "transport",
+      "module": "public/installed_definition_call_transport",
+      "exportName": "observeDefinitionTransportWork",
+      "compiled": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/public/installed_definition_call_transport.js",
+        "bytes": 16129,
+        "sha256": "4ffc13a76ec9576b9ca247e0b48df0707ba42dcfcf9216a04a175b8df131caa6"
+      },
+      "exportNameTextPresent": true,
+      "standing": "Static name presence plus prior007 live OWN/REF observations; no import executed in preparation."
+    },
+    {
+      "role": "catalog",
+      "module": "product/catalog",
+      "exportName": "observeCatalogWork",
+      "compiled": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/product/catalog.js",
+        "bytes": 29312,
+        "sha256": "d9325a8f7ed1668e5652f4d779a56c6ed2636a8cb301771d61cf1a3389729ebc"
+      },
+      "exportNameTextPresent": true,
+      "standing": "Static name presence plus prior007 live OWN/REF observations; no import executed in preparation."
+    },
+    {
+      "role": "resolution",
+      "module": "product/execution_resolution",
+      "exportName": "observeExecutionResolutionWork",
+      "compiled": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js",
+        "bytes": 39228,
+        "sha256": "0dd0507248961168b753aba508db9261a9c3cff1f92905c328df8815af766645"
+      },
+      "exportNameTextPresent": true,
+      "standing": "Static name presence plus prior007 live OWN/REF observations; no import executed in preparation."
+    },
+    {
+      "role": "input",
+      "module": "product/semantics",
+      "exportName": "observeProductInputWork",
+      "compiled": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/product/semantics.js",
+        "bytes": 17993,
+        "sha256": "33220f692e59263a370cb458c7ffb1dfacbe16e24a44051a003215dd982a513f"
+      },
+      "exportNameTextPresent": true,
+      "standing": "Static name presence plus prior007 live OWN/REF observations; no import executed in preparation."
+    },
+    {
+      "role": "worker",
+      "module": "abg/worker_transport",
+      "exportName": "observeWorkerTransportCopyWork",
+      "compiled": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+        "bytes": 43447,
+        "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+      },
+      "exportNameTextPresent": true,
+      "standing": "Static name presence plus prior007 live OWN/REF observations; no import executed in preparation."
+    },
+    {
+      "role": "basisRow",
+      "module": "abg/calculus/execution_basis_record",
+      "exportName": "observeExecutionBasisRowWork",
+      "compiled": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/calculus/execution_basis_record.js",
+        "bytes": 5901,
+        "sha256": "0671c8cf392c0d5bf4734bdef5c91978373e456581595541ac224161bff32918"
+      },
+      "exportNameTextPresent": true,
+      "standing": "Static name presence plus prior007 live OWN/REF observations; no import executed in preparation."
+    },
+    {
+      "role": "environment",
+      "module": "abg/environment_admission",
+      "exportName": "observeWorkspaceEnvironmentWork",
+      "compiled": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/environment_admission.js",
+        "bytes": 39528,
+        "sha256": "f8b158a69d45c2589abb50c88fb550d5b478fab2f0f1305eef78a7d3a1136932"
+      },
+      "exportNameTextPresent": true,
+      "standing": "Static name presence plus prior007 live OWN/REF observations; no import executed in preparation."
+    },
+    {
+      "role": "installedContent",
+      "module": "product/install_product",
+      "exportName": "observeInstalledContentWork",
+      "compiled": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+        "bytes": 18933,
+        "sha256": "e5149ede50dd20490b962732d4795e7e6575e61100a699bacd0bc09571d69248"
+      },
+      "exportNameTextPresent": true,
+      "standing": "Static name presence plus prior007 live OWN/REF observations; no import executed in preparation."
+    }
+  ],
+  "priorActualCounterEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/REQUIRED_DIAGNOSTICS.json",
+    "bytes": 19922,
+    "sha256": "8b588fabb7851d6f5b4edddb8322be2e267e8fed91fbbf0d7e2ce0877706ee5d"
+  },
+  "sourceCounterValidation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ACTUAL003_SOURCE_HELPER_VALIDATION_001.json",
+    "bytes": 10154,
+    "sha256": "8ec1de7fe7a3298f776ca90e4473fbed093b4689212e8b17eae269ffc7d56b01"
+  },
+  "performed": "Read/hash only the existing selected owner/counter module routes. No new tree inventory, import/build/test or runtime execution.",
+  "limits": "O3 retains all physical verification. Worker counter observes its existing synthetic plan scope; final native producer total remains unavailable. Baseline absent counters stay unavailable."
+}

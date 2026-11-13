@@ -1,0 +1,14 @@
+{
+  "phase": "build",
+  "startedUtc": "2026-11-09T10:05:57.037Z",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_CHECKPOINT_BINDINGS.json",
+    "bytes": 9579,
+    "sha256": "2388c670d09bbc6b1cbee4812c745899ec1568bcaedd9c1f7fdd8b6e9b71c128"
+  },
+  "status": "FAILED",
+  "qualified": false,
+  "published": false,
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 11028588\n- 11045484\n     ^\n",
+  "endedUtc": "2026-11-09T10:06:35.623Z"
+}

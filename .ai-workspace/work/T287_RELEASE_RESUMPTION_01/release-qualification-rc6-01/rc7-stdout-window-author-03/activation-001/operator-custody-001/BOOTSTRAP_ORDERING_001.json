@@ -1,0 +1,49 @@
+{
+  "kind": "bounded_bootstrap_and_read_first_order_observation",
+  "observedUtc": "2026-11-06T23:19:36.764917+00:00",
+  "initialProgress": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/handoffs/progress-48fcffc5c4ba.json",
+    "bytes": 690,
+    "sha256": "48fcffc5c4baf6dfe9ae251e18ab7b1bce5f6c8eb9270ed1f74d504f272db9f4"
+  },
+  "completedReadFirstAuthoredReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/handoffs/progress-4e24b3ed2cc9.json",
+    "bytes": 2247,
+    "sha256": "4e24b3ed2cc90aa307d7d02385080a83492f4982fbeca5aaa44c7f56b5510a9f"
+  },
+  "authoredCompletionUtc": "2026-11-06T23:18:51.232Z",
+  "firstSelectedMethodPathMetadata": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T23:13:33.398Z",
+    "toolUseRef": "toolu_015ntZ3txEoZD2ZVVzjt9V5w",
+    "archiveLine": 220,
+    "byteOffset": 100987,
+    "path": null,
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": null,
+    "selectedReadFirstPathMentions": [],
+    "selectedMethodPathPresence": [
+      "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md"
+    ],
+    "selectedMethodManagerCommandPresence": false,
+    "selectedStageExecutionSyntaxPresent": false,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": false
+  },
+  "afterReceiptSourceStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/SOURCE_METADATA_004.json",
+    "bytes": 9307,
+    "sha256": "cd614d177017af5e2a941bd7ae4dac261e8a3abbc68e02e4c62de2c28633c8b7"
+  },
+  "selectedStatChangesAtAfterReceiptObservation": 0,
+  "sourcePathsObserved": 25,
+  "coverageLimit": "Authored completed list does not explicitly name Product/requirements/AGENTS or accepted HOW10.9; unlisted Bash purposes remain unknown. This records receipt-before-observed-effects, not whole-procedure compliance or successful interpretation.",
+  "authoredNonLaneCheck": {
+    "method": "in-memory import of pinned RC6 packaged JS; S2 = RC6 table + binding configuredIdentity appended + D5 lifecycle-copy keys removed",
+    "rc6": "sha256:5b35ab53... (module export)",
+    "s2Reconstructed": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0",
+    "tempScript": "/private/tmp/abg-sw3/verify-profiles.mjs (declared test temp root)"
+  },
+  "proofCreditFromNonLaneCheck": false,
+  "noRuntimeIntervention": true
+}

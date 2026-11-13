@@ -1,0 +1,55 @@
+{
+  "kind": "read_only_remaining_owner_triage_subject",
+  "capturedUtc": "2026-11-03T17:17:59.779725+00:00",
+  "basis": "stdo://releases/v3.0.4/",
+  "baselineCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/remaining-owner-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "bytes": 42973,
+      "sha256": "4dfa39eb28bded4e726ccf8f4dbb5a1696a12a7b18aa70d49e403737d59da050",
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/remaining-owner-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 11180,
+      "sha256": "e184445090e1decf30f18f049220f2a9a7a61d2469844da13a5d92aa80811c99",
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/remaining-owner-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 48571,
+      "sha256": "4f6313ec3020f69635b5c4ab080d0cc15c201dfd7c35a7864c3a0b3ce0ff5d1a",
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/remaining-owner-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 115800,
+      "sha256": "7525d988e18f438a2e64374bb3e717d3c4484ec24fbdb4c5347d7de42eaa505d",
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/remaining-owner-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "bytes": 61855,
+      "sha256": "12af7e81f8e38f3e00db38778d4f8fc8b69a9675d448bf9377b5279c47b62dc8",
+      "unchangedFromBaseline": true
+    }
+  ],
+  "diagnosticEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/feedback-observations/20261103T170953Z/meter-a.tap",
+      "sha256": "8358b740317516b49a732880355a4531d9beff6e4a6de17e060a7aaedd1e4629"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/feedback-observations/20261103T170953Z/probe-stacks.log",
+      "sha256": "bd27b73e672aa35e451348df400d8ff337b6a5c07051f05e3c48bdf8cd3d4104"
+    }
+  ],
+  "standing": "Unchanged exact owners plus frozen author diagnostic; not a final native-02 source or acceptance subject. Active worker source excluded.",
+  "purpose": "Classify actual output/consumer needs of remaining complete-history readers and scans, reuse existing owner APIs where equivalent, return smallest complete affected relation to Root."
+}

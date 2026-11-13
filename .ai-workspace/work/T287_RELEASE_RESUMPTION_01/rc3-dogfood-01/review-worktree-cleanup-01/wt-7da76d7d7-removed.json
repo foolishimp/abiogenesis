@@ -1,0 +1,27 @@
+{
+  "evidenceManifest": "wt-7da76d7d7-evidence.json",
+  "head": "7da76d7d7d70614080f475dc39f5d0e6161ef653",
+  "movedAreas": {
+    "build_tenants/abiogenesis/typescript/build": {
+      "device": 16777231,
+      "inode": 649979883
+    },
+    "build_tenants/abiogenesis/typescript/node_modules": {
+      "device": 16777231,
+      "inode": 646896579
+    },
+    "build_tenants/abiogenesis/typescript/test_env/evidence": {
+      "device": 16777231,
+      "inode": 647511943
+    },
+    "build_tenants/abiogenesis/typescript/test_env/test_runs": {
+      "device": 16777231,
+      "inode": 647499730
+    }
+  },
+  "normalGitRemoveExit": 0,
+  "originalPath": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/suite/wt-7da76d7d7",
+  "preservedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/review-worktree-cleanup-01/preserved/wt-7da76d7d7",
+  "reachableFrom": "refs/heads/main",
+  "removedAtUtc": "2026-11-01T05:19:22Z"
+}

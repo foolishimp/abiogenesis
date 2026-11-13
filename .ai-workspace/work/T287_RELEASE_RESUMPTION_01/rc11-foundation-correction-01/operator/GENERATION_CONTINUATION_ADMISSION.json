@@ -1,0 +1,53 @@
+{
+  "status": "ROOT_ADMITTED_REMAINING_SEQUENCE",
+  "rootDisposition": "Existing FOUNDATION-GENERATION-02 grant remains effective; misplaced verification is a control-order error, not revoked authority. Preserve and proceed with exact unlink/copy/manifest/unexecuted test.",
+  "prior": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/ROOT_GENERATION_REENTRY_02.json",
+    "bytes": 3877,
+    "sha256": "0693713aec54247d121e74d071c3ee1d5224c4b318aaab7a3389f3136d0156bc"
+  },
+  "failedOrdering": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/GENERATION_REENTRY_RETURN.json",
+    "bytes": 1331,
+    "sha256": "2942d782b3a3c221fd169a32b47babfa52030beefaf01eeae2fa662b8a546fdf"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/generation-continuation.py",
+    "bytes": 2560,
+    "sha256": "f9e715cd61272786435967f62de27f7a92b7d4fae8a3cacfc8a9f526f592c55c"
+  },
+  "commands": [
+    {
+      "id": "dependency-copy",
+      "argv": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/stage-dependencies.py",
+        "copy",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/DEPENDENCY_METADATA.successor.json",
+        "734ebfef33db3e7029d5ed3e15bb6e3d2d18c54ea126cd3f195a383051d773c9",
+        "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "id": "product-manifest-02",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "qualification-law-02",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=1",
+        "test_env/tests/t287-qualification-law.test.mjs"
+      ],
+      "timeoutSeconds": 600
+    }
+  ]
+}

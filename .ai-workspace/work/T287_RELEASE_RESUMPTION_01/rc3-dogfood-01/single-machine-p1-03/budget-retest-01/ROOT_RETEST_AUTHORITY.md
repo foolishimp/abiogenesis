@@ -1,0 +1,11 @@
+# Root resource-only retest setup selection
+
+The owner authorized the single-machine fix; Root selected a fresh Testing/UAT-only resource retest after actual focused C2 exit124 at600s (other8commands0). Root confirmed the prior Public wrapper and fresh reads closed at2026-11-01T08:05:19.217Z: blocked/null terminal, run_result not_found and replay blocked, actual Rune6ee3d50951b8ff6ef88ba2cf19090e9c24f3387d70b32d9a5e99907b4fc4df5. No success/qualification is inferred.
+
+Root separately authorized Writer to verify identical first/second native ten-source hashes and commit exactly those native changes after closure. The actual preservation checkpoint is `bcb1faf63cfb39bd7ccf7e14b48b133d1163216b`, parent9c4a5c5e; hook returned0. This is not Product authorship by helper, a release or a tag/push. Root inherits bounded N1–N3 source review; original fullP1/native-context-crossRun residuals and failed native verdict remain.
+
+Root selects the existing B11 installed artifact0f776… as trusted bootstrap, existing supported same-canonical-root workspace.open and normal fresh Product/consumer verification/install/bind/catalog/conformance. The new consumer declares only Testing/UAT, bound3; no Construction contribution or canonical Product writes. It starts source:none/observations[]/synthesisnull; actual prior Construction is external fold→native-leaf custody only, never transplanted state. The old physical log remains authoritative for that old Run and unchanged.
+
+Selected resource-only delta: focused20min, derived helper2767250ms, idle/Bash60min, absolute90min, outer3h; all nine command purposes/IDs/argv/env/predicates and eleven focused/affected/artifact tests stay, no new skip or criterion weakening. Unchanged N1–N4 evaluates actual new C2/current artifact; no fabricated sameRun Construction and no future Root live proof in UAT.
+
+This exact selection authorizes provider-free setup only after Root's actual setup review. Root alone invokes all runtime/Public/provider operations and later selects the actual call after separate review. No Coding Worker, retest or source edit is performed by this setup-preparation Writer. The selected STDO3.0.2 manifest f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477 and ABI Project Reference-Frame Basis remain.

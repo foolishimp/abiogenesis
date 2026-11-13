@@ -1,0 +1,289 @@
+{
+  "productFrame": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "selection": "Fixed15 F01-F07,F09-F11,F13-F17 / GOAL035 / T287 / RC8 REF-01 realization refactor; explicitly unqualified local cut",
+    "method": "STDO3.0.4, empty composition, manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Canonical established-object reuse preserves existing C2 source-result/currentness, command/HTTP effects, helper artifact/acknowledgment, ABG admission, lifecycle and replay law. SDK stays thin; no new runtime or controller.",
+    "classification": "Test deadlines and configuration are Proof controls. Captured files are observations. A config effectGrant string does not itself authorize effects; Root selection and existing owners do.",
+    "authorityPinsReused": {
+      "product": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "frame": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "definition": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    }
+  },
+  "reviewId": "WORKSITE-COMMAND-TIMEOUT-023",
+  "recordedUtc": "2026-11-07T15:00:46.635472+00:00",
+  "role": "Independent MAX Reviewer; no execution, authorship or disposition",
+  "verdict": "Six observed component passes, two original180s installed-case timeout outcomes, then Root-selected SIGTERM with incomplete aggregate. Four later installed variants have no reported outcome. No current Product correctness defect or unique performance cause is established. Existing configured positive route supports a narrow unchanged-source proof re-entry; it is not yet selected or passed.",
+  "owningRelations": {
+    "how": "T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN sections1,3,9: C1/C3 source closure, owner-derived source basis and protected-currentness joins; one helper acknowledgment/full artifact/admitted observation; unchanged Product and fresh replay. Current common-lifetime amendment28-65 preserves the exact owned physical facts and original first error, never invents success on failure.",
+    "runtimeBoundary": "Main positive case closes C1 first, derives C2 source/task authority, invokes installed Public C2, then reopens and proves fresh replay. Owner-local artifact/input/currentness negatives remain in the same case. Five exceptional installed variants have their own C1/source setup because one admitted C1 source admits one C2 invocation (test1194-1199).",
+    "proofBoundary": "Original180s timers include cold setup plus C1 and C2 execution/replay. Existing600s configured branch changes the selected proof route and retention, not Product semantics. No requirement establishes a180s Product SLA."
+  },
+  "subject": {
+    "broadSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "acceptedA11SourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "compiledManifestSha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102",
+    "rc7Base": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "correspondence": "Budget021 already matched this test and setup helpers to A6/A11. Freshly read C2 test, both helpers, replay worker, Product/implementation C2 owners and owning HOW all match the RC7 comparison tree exactly. Shared RC8 changes remain transitive dependencies; equal C2 source is not a performance proof."
+  },
+  "actualStop": {
+    "started": "2026-11-07T14:44:13.343Z",
+    "commandWallMs": 514396.790625,
+    "outerCapMs": 1200000,
+    "outerTimedOut": false,
+    "exitCode": null,
+    "signal": "SIGTERM",
+    "rootTermAt": "2026-11-07T14:52:47.711164+00:00",
+    "signalScope": "Proven-owned PGID60595 only; driver60216 not signalled;2s grace; no SIGKILL; observed group absent.",
+    "aggregate": "Reporter contains begin and8 case outcomes only, no summary/end; file counts=null and passed=false. Never assign final aggregate cancellation totals.",
+    "originalInnerTimeouts": [
+      {
+        "case": 5,
+        "name": "T-287 C2 compact acknowledgment preserves installed large-log observation and replay",
+        "innerMs": 180000,
+        "observedDurationMs": 181065.472792
+      },
+      {
+        "case": 6,
+        "name": "T-287 C2 helper failure after launch reaches result admission with its subject inline",
+        "innerMs": 180000,
+        "observedDurationMs": 181440.678667
+      }
+    ],
+    "observedPasses": [
+      {
+        "case": 1,
+        "name": "C2 explicit zero write territory preserves array, report and HTTP port authorization"
+      },
+      {
+        "case": 2,
+        "name": "C2 finite host timer schema and constructor share bounds without changing grace"
+      },
+      {
+        "case": 3,
+        "name": "C2 RC2 diagnostic duplicate command identity is refused with an identity cause"
+      },
+      {
+        "case": 4,
+        "name": "C2 RC2 diagnostic protected subject inside an allowed write territory is refused with an overlap cause"
+      },
+      {
+        "case": 7,
+        "name": "C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries"
+      },
+      {
+        "case": 8,
+        "name": "C2 helper failure subject is bound to the next undone operation of the completed prefix"
+      }
+    ],
+    "laterNoReportedOutcome": [
+      "http_probe_failed",
+      "http_cleanup_unresolved",
+      "command_spawn_enoexec",
+      "http_spawn_enoexec"
+    ],
+    "separation": "Later missing outcomes are unproved after Root interruption, not four inferred inner timeouts or four passed/skipped cases.",
+    "conservation": {
+      "primaryPreserved": true,
+      "externalInputsPreserved": true,
+      "externalTestInputDigest": "04c98f99415488f1b18605899b2789fe4d3ba6f2adf4c8b5803f63e6daa1ecd9",
+      "sourceEffects": [],
+      "providerCallsSelected": 0,
+      "wholeReleaseQualified": false,
+      "measuredArchiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "custody": {
+      "driverPid": 60216,
+      "sessionId": 15392,
+      "toolSessionClosedExitCode": 1,
+      "driverPidAbsentAtReturn": true,
+      "selectedFileHostPidAndPgid": 60595,
+      "observedTestRunnerPids": [
+        60596,
+        60597
+      ],
+      "rootSelectedTermAt": "2026-11-07T14:52:47.711164+00:00",
+      "graceMs": 2000,
+      "killSent": false,
+      "selectedGroupAbsentAfterGrace": true,
+      "driverNotSignalled": true,
+      "escapedDetachedDescendantAbsenceProven": false,
+      "resourceRecordPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/resources/193-t287-worksite-command-execution.json",
+      "fileHostResourceRecordExists": false,
+      "retainedScratch": "/private/tmp/abg-r8c-023",
+      "cleanupSelected": false,
+      "autoRetry": false
+    }
+  },
+  "phaseEvidence": {
+    "capture1At": "2026-11-07T14:50:28.919734+00:00",
+    "firstInstalledCase": "Scratch ZIsEdK absent by first capture. Npm pack exit0, install exit0; install log last write14:46:34.923. No retained Run, C1 completion, C2 dispatch or replay state survives to localize its timeout more precisely.",
+    "secondInstalledCase": "Scratch o1PM9J also absent; pack/install exit0, install log last write14:49:30.871. Its later runtime phase is likewise unknown.",
+    "subsequentSetup": "New scratch oqgngA existed at14:50:18.926987; capture1 saw only artifacts. After Root stop it still existed without runtime/events.jsonl; a later bounded read saw artifacts/bootstrap/consumer and successful pack/install logs. Further setup began, but no specific later case/Run completion is credited.",
+    "limits": "Npm timestamps are filesystem observations, not instrumented setup phase durations. No semantic assertion red, infinite loop, unique CPU/disk/host cause or current C2 unconstructability is proved. Missing logs do not prove that the first two Runs never began."
+  },
+  "finding": {
+    "id": "C2-PROOF-023-01",
+    "severity": "S3",
+    "frame": "Proof/common-clock and retained lifecycle evidence",
+    "trigger": "Default installed main/helper-failure cases reached their180s inner deadlines; current default path removes scratch during test teardown.",
+    "harm": "Current compact acknowledgment/large-log/replay and exceptional installed owner claims lack completed proof. Exact Run frontier is lost for the two timed-out cases.",
+    "failClosed": "Both original timeout outcomes remain red. Scoped Root stop preserves a separate interruption record. No runtime guard, assertion or source was changed; no whole-file coverage is awarded.",
+    "recurrence": "Budget021 correctly separated six180s inner allocations from the1200s outer allowance. This actual result confirms inner pressure for two cases; it does not predict the remaining four.",
+    "scopeAndCost": "No Product repair supported. The existing configured positive route avoids a source/native authoring session and permits one bounded proof. Five distinct installed negative variants require their own later evidence or explicit residual, not substitution by this positive case."
+  },
+  "stopAssessment": "Continuing remaining variants could add independent negative evidence, but could not restore this file\u2019s whole-pass claim. Root-scoped stop/repricing was lawful and proportionate once selected, provided all missing obligations stay explicit. No later failure was predicted and Reviewer sent no signal.",
+  "minimumPositiveProofRoute": {
+    "status": "ROOT_SELECTED_PREPARATION_PENDING_CONTROL_ADMISSION_AND_ACTUAL_PROOF; Reviewer has not approved or created execution controls",
+    "exactNamePattern": "^T-287 C2 compact acknowledgment preserves installed large-log observation and replay$",
+    "entry": "Set ABG_T287_C2_PROOF_CONFIG to a newly frozen control file for selectedInstalledProof (test48-90). Use the existing test runner with the exact positive name filter; do not repeat the six already passed component cases.",
+    "requiredConfigFields": {
+      "effectGrant": "P5_INSTALLED_EXECUTION_GRANTED_BY_EXECUTIVE; backed by explicit Root effect selection",
+      "proofPackageRoot": "Canonical frozen proof package root equal to this test packageRoot",
+      "artifactPath": "Canonical existing exact RC8 archive path, SHA a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "installHost": "Canonical existing exact archive installation host; node_modules/@abiogenesis/typescript-tenant and current matching manifest/content",
+      "scratchParent": "Fresh selected canonical scratch parent; TMPDIR and node:os tmpdir() must equal it",
+      "evidenceRoot": "New absent absolute evidence directory with canonical existing parent; mkdir is create-only",
+      "nodeExecutable": "Exact selected Node real path equal to process.execPath",
+      "testSha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf",
+      "freshSupportSha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a",
+      "setupSupportSha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+      "replayWorkerSha256": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3",
+      "artifactSha256": "Exact archive SHA above, lowercase unprefixed64hex",
+      "hostManifestSha256": "Freshly bind actual product-toolchain-manifest.json bytes; same digest required in selected install and proof package"
+    },
+    "environmentAndFixtures": "NODE_OPTIONS must be empty. Retain exact generated code/contracts, dependencies, normal candidate-basis fixture and setup/replay helpers from the selected frozen subject. Use the existing fresh owned C1->C2 setup; do not reuse an interrupted Runtime prefix or fabricate a source basis. No historical seed or live provider is required.",
+    "bounds": "Existing configured case timer600000ms; route sets actor inactivity60000ms/absolute90000ms and records replay30000ms/grace1000ms. Root may choose an enclosing900000ms command allocation for finalization; this is finite planning, not a proven maximum.",
+    "retainedEvidence": "Configuration/identity; installed environment; C1 source completion/events/process record; task and budget; exact DefinitionCall; Public outcome and C2 events/close; full admitted observation; fresh replay records; owner-local negatives; final summary; cleanup and exact tracked process absence. Preserve failure.json with phase on failure.",
+    "routeDifferences": "Uses installed Product and installed Public constructor, passes frozenArtifact into existing setup and retains scratch instead of invoking deferred deletion hooks. Five installed failure variants are explicitly skipped by configured mode if not name-filtered. It is not a generic timeout override or equivalent whole-file population.",
+    "closure": "Complete one selected case/reporter with all existing assertions and summary, exact artifact/source/content conservation, admitted C2 observation/terminal, fresh replay equality and explicit physical process/close facts. No full-file, five-negative-variant or live-provider credit follows.",
+    "rootRoutedInstallCandidate": {
+      "path": "/private/tmp/abg-r8m-rc8-bootstrap-001/host",
+      "standing": "Root-routed accepted bootstrap installation for Operator preparation; this review does not verify or admit the not-yet-created proof controls. hostManifestSha256 must bind the actual Product manifest, not substitute compiled inventory f743."
+    }
+  },
+  "dispositionRecommendation": "Prefer the supported one-case unchanged-source positive proof as the proportionate next discriminator before claiming current C2 compact-ack/replay success. No observed semantic defect forces Product repair. An explicit unqualified-cut residual for the five distinct installed failure variants is defensible; a residual for the positive case would leave current positive C2 assurance openly unproved, not show it impossible. Root alone selects either disposition.",
+  "proposedResidual": {
+    "id": "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET",
+    "status": "PROPOSED_ONLY_ROOT_SELECTS",
+    "owner": "T287 Executive / C2 proof owner",
+    "population": "Five installed negative variants only: command_cleanup_unresolved has an original180s timeout; http_probe_failed, http_cleanup_unresolved, command_spawn_enoexec and http_spawn_enoexec have no reported outcome. No missing outcome is classified as a timeout.",
+    "activationTrigger": "Before claiming the omitted current C2 path, those exceptional installed outcomes, whole-file/broad-green coverage or dependent release qualification.",
+    "closureFalsifier": "Any wrong acknowledgment/full-artifact/currentness join, lost original error/physical facts, fabricated result, semantic failure, incomplete replay or unresolved owned close prevents closure.",
+    "closureEvidence": "Separately selected exact five-negative population with truthful finite bounds, complete observed outcomes and custody. The configured positive proof cannot substitute for these exceptional outcomes. Preserve original red and Root-stop records; never relabel missing results.",
+    "positivePathSeparateStanding": "Original positive180s timeout remains. Root selected preparation of one unchanged-source configured positive case,900s outer/600s inner. Controls and actual proof remain pending; no new positive or whole-file credit."
+  },
+  "limits": "No current closed C2 proof receipt from another subject was used to replace these outcomes. Historical RC4 pointers were routing only. Reviewer read source/evidence and wrote this capsule/captures only: no Product imports, tests, providers, processes, signals, cleanup, source/control/Git mutations or retry.",
+  "roots": {
+    "M": "/Users/jim/src/apps/abiogenesis",
+    "P": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01",
+    "BC": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+    "S": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source",
+    "RC7": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+    "REVIEW": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023"
+  },
+  "pins": [
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 108721,
+      "sha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9594,
+      "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "bytes": 3390,
+      "sha256": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "bytes": 143487,
+      "sha256": "1f1bcf8484f6ee7f733ea5d68ac9d5c1ca531c4b5b57b1c40314ca0ddb862a17"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "bytes": 39900,
+      "sha256": "21c63203dcf831cc86eefe0f32126f3c1b5a5c9302ac1a183ad6c37c9b28a945"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "bytes": 72393,
+      "sha256": "533480ed2edcfe90f878ab17f2f473af7906bdce2c73178c78c78d0c741dcc2d"
+    },
+    {
+      "ref": "P/reviews/remaining-proof-budget-021/REVIEW.json",
+      "bytes": 16426,
+      "sha256": "f0f6f32dee333e2dd2cdbc6bfc6a00c49ada0061f0adeea9fc74a59352457876"
+    },
+    {
+      "ref": "P/reviews/worksite-branch-timeout-022/REVIEW.json",
+      "bytes": 15806,
+      "sha256": "926dd0590b21991a8760a7e3f65e0aa58e31f8b79c9a3a24a58933c848f57e04"
+    },
+    {
+      "ref": "BC/OPERATOR_RETURN_023.json",
+      "bytes": 13134,
+      "sha256": "9191ae6376601e9e91562936363e070d0a2bf0c00c57e60565c177a9b01dd207"
+    },
+    {
+      "ref": "BC/execution-023/SUMMARY.json",
+      "bytes": 510741,
+      "sha256": "2fd548cd15fb1a3386ae34fa7256c6b5ccfdfb42027dba4f3e8f5ab816fd2bdd"
+    },
+    {
+      "ref": "REVIEW/captures/capture-001.json",
+      "bytes": 7623,
+      "sha256": "da223ff56e036f06cc07aa73becb651848260a21d1a36e9f87518d5f2a240854"
+    },
+    {
+      "ref": "REVIEW/captures/capture-002.json",
+      "bytes": 440,
+      "sha256": "0db27a6ba4f007e06feeb40d3ff9436c2f715ac0f421803d85c1cb1561570a91"
+    },
+    {
+      "ref": "BC/execution-023/commands/193-t287-worksite-command-execution.result.json",
+      "bytes": 1508,
+      "sha256": "56c9f95bfd2991d5693d918d133ae0a6f1e7b8ce6e5c58bddc876e3cb37d7b26"
+    },
+    {
+      "ref": "BC/execution-023/commands/193-t287-worksite-command-execution.stdout",
+      "bytes": 2468,
+      "sha256": "8c76eba291bfa8330fcd7457090cbc0e0a964e0730c5776dca61c3e45e2a6c12"
+    },
+    {
+      "ref": "BC/execution-023/files/193-t287-worksite-command-execution.json",
+      "bytes": 1037,
+      "sha256": "43812cca630de3b50ca1063b2a84d04ad26e3a69f776dc1bc2854da4c644f46b"
+    },
+    {
+      "ref": "BC/execution-023/events/193-t287-worksite-command-execution.jsonl",
+      "bytes": 2963,
+      "sha256": "0a55e50dfa68cde4229624d163ad0eb42efd20b1a6a8e9cbe4dc331c0f168544"
+    },
+    {
+      "ref": "BC/execution-023/observations/c2-first-red-001/OBSERVATION.json",
+      "bytes": 3048,
+      "sha256": "b9c3882106f96622d54694a2a5f2f68c56cb366bae17b21bd27c3d93c88a577e"
+    },
+    {
+      "ref": "BC/execution-023/observations/c2-root-stop-001/PRE_STOP.json",
+      "bytes": 7985,
+      "sha256": "6d68b789bef95c14b71fc3291832d5ba91e9de134f58d20aa8c9367bff55dd0e"
+    },
+    {
+      "ref": "BC/execution-023/observations/c2-root-stop-001/STOP_SENT.json",
+      "bytes": 961,
+      "sha256": "187f4d1ac21bcdb4a61723da3b7f3242a4194419317126fcfada63c38df1273c"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "status": "NATIVE_ACTOR_PROCESS_STARTED",
+  "at": "2026-11-07T22:23:34.879577+00:00",
+  "hostSession": 30149,
+  "hostPid": 38752,
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+  "observedEntryPrefix": 192595103,
+  "observedCompleteThrough": 207125204,
+  "telemetry": [
+    {
+      "offset": 206663305,
+      "lineBytes": 2531,
+      "lineSha256": "33e0780732645704ff178768e8df368192c6478814843b49697a7a0175f2d1a7",
+      "eventId": "event://abiogenesis/4b9c910ba032bcca504dce7d1cf397d83bf9852d1772bb9e4234d0dca67cf214",
+      "kind": "actor_invocation_started",
+      "eventTime": "2026-11-07T22:22:04.798Z",
+      "payloadKeys": [
+        "actorInvocationRef",
+        "actorRef",
+        "cCallRef",
+        "dispatchOrdinal",
+        "implementationRef",
+        "inputDigest",
+        "promptDigest",
+        "requestDigest",
+        "requestRef",
+        "transportBindingDigest",
+        "transportBindingRef",
+        "workerBindingRef"
+      ],
+      "details": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/57b990fbc6345a9952d379bc3bb448f7379dd6b4e8ae9c6e5c2f0ea312533776",
+        "transportBindingRef": "transport-binding://abiogenesis/811c090826443e64aa444983f33e8c099721dea8a4481e4218f1ef5b85db7050"
+      }
+    },
+    {
+      "offset": 206665836,
+      "lineBytes": 1818,
+      "lineSha256": "91d06d3e3f09227ad2a5781983dbc072cdc70b21f54388c4172aec62ae731310",
+      "eventId": "event://abiogenesis/1afdc528ecc3e4549a2e6694850fc988e1d96fb8683433dc50c5791dc4f050ad",
+      "kind": "actor_process_started",
+      "eventTime": "2026-11-07T22:22:04.811Z",
+      "payloadKeys": [
+        "actorInvocationRef",
+        "cCallRef",
+        "processId",
+        "processRef"
+      ],
+      "details": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/57b990fbc6345a9952d379bc3bb448f7379dd6b4e8ae9c6e5c2f0ea312533776",
+        "processId": 40460,
+        "processRef": "process://abiogenesis/7c320b019bdbaf17a28f14882c4be35907d86190c2461b3f29715e23842179a7"
+      }
+    }
+  ],
+  "providerCallCount": "One selected native call; process-start evidence shown",
+  "limits": "Process-start/configured identity telemetry is not a source/proof/result or physical-close claim."
+}

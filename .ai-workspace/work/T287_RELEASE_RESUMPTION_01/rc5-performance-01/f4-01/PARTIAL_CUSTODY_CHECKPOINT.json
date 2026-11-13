@@ -1,0 +1,20 @@
+{
+  "status": "UNACCEPTED_NATIVE_PARTIAL_CUSTODY",
+  "at": "2026-11-03T10:22:55.993101+00:00",
+  "sourceCommit": "53acfe7c6a51e0b0a1d354fbc79ef3d391cb7573",
+  "tree": "bd8af2c00d5ef3e1340fb5351c8b6543ad47d2e0",
+  "parent": "9f3f22b0f733718bee88d5ca1cc306ed0446797a",
+  "nativeResultRef": "result://abiogenesis/b14a33bfafeb3e9f2ee755511552e839503edb5b69d044f8df99bf2a7874b326",
+  "eventOrdinal": 14073,
+  "subjectSha256": "139f821f7e963b3c9f002c3b1adda66f8f989dcf667f8e9349b50941dd5532d1",
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts"
+  ],
+  "bytesChangedByRoot": false,
+  "limits": [
+    "Operator max-turn failure; no completed increment, focused new tests, C2, UAT or candidate acceptance.",
+    "Two Product files preserved exactly; other grant paths unchanged.",
+    "Continuation must complete existing HOW, tests and identity through a native Worker."
+  ]
+}

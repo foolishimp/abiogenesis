@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+  "kind": "executed",
+  "passed": false,
+  "wallMs": 488.8509170000002,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 1,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-001/events/001-a5-f02-canonical-gtl-identity.jsonl",
+    "bytes": 761,
+    "sha256": "3624af2419d32933bf19bb9be4b9e0a8bc3ace4da45bae422386c1c125f5f1b5"
+  },
+  "commandReceipt": "commands/001-a5-f02-canonical-gtl-identity.result.json",
+  "workspace": "/private/tmp/abg-r8c-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

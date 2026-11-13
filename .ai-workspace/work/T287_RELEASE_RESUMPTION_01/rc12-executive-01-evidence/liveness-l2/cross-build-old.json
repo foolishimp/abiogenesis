@@ -1,0 +1,141 @@
+{
+ "label": "old",
+ "root": "/private/tmp/abg-liveness-tmp/abi5-root-env-lyac3h/bootstrap/package",
+ "events": 252,
+ "runs": {
+  "blocked": {
+   "runId": "run://abiogenesis/1a04c011c32fd98a5532c50e047c362314ffd3b1a0ea7ffecee33acdbc84d265",
+   "runtimeStatus": "blocked",
+   "replayDigest": "sha256:5b0b2dfbe75ded385b29ad6094524504c0c261e8adc5c42f52f9a81a52b893e6",
+   "invocations": [
+    {
+     "occurrence": "frame",
+     "ref": "frame://abiogenesis/a866dae9fd5ddc9af43d2ba6027d6e42d7720fc928a8f15a8c4669e7d015dbce",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": true,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "c_call",
+     "ref": "c-call:sha256:86995ead98ac369a4aae859dd1f9091167170fc10efc853ac83c2f2b4338cd39",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": false,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "frame",
+     "ref": "frame://abiogenesis/1226a46d6842ac624a3f5eff61623252ca791a844ed06e360ef9c2e628e13b37",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": true,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "c_call",
+     "ref": "c-call:sha256:acdf1f1d3109ddb8293068b6ebb96e30c2b17e47fdfd741fe1d207b4549c3ed4",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": false,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "c_call",
+     "ref": "c-call:sha256:9da1762afbdbeb9ac1dd9e61ac4df12287f251af2118e6cbd7b3732bfb92430b",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": false,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "frame",
+     "ref": "frame://abiogenesis/3a86e5e43b47df9049627c9cb68cc76d61a394544f53b724c1c299c4a3113a0c",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": true,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "actor",
+     "ref": "actor-invocation://abiogenesis/58b718d8f24806162d5d0d7626eb2a617101e7a2c1eeaebbccdb45a35d6c62d2",
+     "disposition": "continue_waiting",
+     "reason": "admitted_artifact_preserved",
+     "externallyInterrupted": false,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "actor",
+     "ref": "actor-invocation://abiogenesis/6ce203e1a960b9cb7925e885a7b9263ad201e0b2fd503212110b2657c9df01f5",
+     "disposition": "continue_waiting",
+     "reason": "admitted_artifact_preserved",
+     "externallyInterrupted": false,
+     "leaseExpired": false
+    }
+   ]
+  },
+  "hard_cap": {
+   "runId": "run://abiogenesis/37c6df74722d6b6b38464efa02999464f236f53cd6e3d14cf392b14264f6a775",
+   "runtimeStatus": "failed",
+   "replayDigest": "sha256:e01522b705a46a22ca9336fe1f5ad0c672af8ed5c2ee5bd9ce2dfbf07da8c69d",
+   "invocations": [
+    {
+     "occurrence": "frame",
+     "ref": "frame://abiogenesis/7a06e239e48833b265c49295bd4ca81123c241bb92e933219f06124a55ef5a77",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": true,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "c_call",
+     "ref": "c-call:sha256:2f9334b51a9fe07b203ba44604f6c4fb29c6c69104a68241a2786d3d644c4e57",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": false,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "frame",
+     "ref": "frame://abiogenesis/29e34b1a8164fb5accd33d457f23f4cebdfbb068db0c2419ffea24eeffbda7bc",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": true,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "c_call",
+     "ref": "c-call:sha256:400a7be5357459f5addc5c33abd5b85bff934d75f6859a67b67131d21d507ab3",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": false,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "c_call",
+     "ref": "c-call:sha256:010ae9276457e4ca0c6b5af49878fb5c949c2259bde0bd015d8bd9be710d9f05",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": false,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "frame",
+     "ref": "frame://abiogenesis/b53c0c67575e572b941f637f4a616e37d67b9f7a2218dcbd6d54c50eda5691b6",
+     "disposition": "continue_waiting",
+     "reason": "unknown_watchdog_policy",
+     "externallyInterrupted": true,
+     "leaseExpired": false
+    },
+    {
+     "occurrence": "actor",
+     "ref": "actor-invocation://abiogenesis/e72fc4e1f3dda063dbe8329c8e8be990cc25497810e8cc874fc60d3ca08cd607",
+     "disposition": "block",
+     "reason": "admitted_external_interruption",
+     "externallyInterrupted": true,
+     "leaseExpired": true
+    }
+   ]
+  }
+ }
+}

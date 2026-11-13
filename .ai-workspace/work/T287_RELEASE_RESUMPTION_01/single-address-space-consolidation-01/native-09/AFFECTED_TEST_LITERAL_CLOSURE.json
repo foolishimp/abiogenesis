@@ -1,0 +1,244 @@
+{
+  "kind": "c2_literal_module_input_sufficiency",
+  "parserVersion": "5.9.2",
+  "selectedSeedCount": 28,
+  "modulesRead": 65,
+  "added": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/stdo-environment-pilot.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+      "spec": "../support/stdo-environment-pilot.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/stdo-environment-pilot.mjs",
+      "spec": "./root-cli-environment.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "spec": "./candidate-basis.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "spec": "./language-smoke-fixture.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "spec": "../fixtures/language-smoke/program.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "spec": "../support/installed-language-test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "spec": "../support/registered-graph-selection.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "spec": "../support/language-structural-fixture.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "spec": "../fixtures/language-structural/program.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "spec": "../uat/public-setup.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "spec": "../uat/runner.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "spec": "../support/single-address-space-consolidation.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "spec": "./scenarios.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "spec": "./consumer.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "spec": "../fixtures/registered-selection-product/index.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "spec": "./root-installed-environment.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-predecessor-context.test.mjs",
+      "spec": "../support/t287-predecessor-context.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "spec": "../support/t287-generic-job-worksite.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "spec": "../support/t287-native-work-currentness-consumers.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "spec": "../support/forward-observation-carrier.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "spec": "./forward-command-harness.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "spec": "../fixtures/forward-command/input.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "spec": "../support/new-empty-append-sink.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "spec": "../support/t287-generic-job-intake.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "spec": "../support/d2-bounded-harness.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "spec": "../fixtures/native-semantic-revision/declarations.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "spec": "../support/d2-binding-harness.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "spec": "./evidence-root.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "spec": "../support/t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-frame-fixture.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+      "spec": "../support/d2-frame-fixture.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+      "spec": "../fixtures/t287-management-supervision/fresh-public-read.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+      "spec": "../support/t287-generic-job-revision.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-readback.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+      "spec": "../support/t287-generic-job-readback.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-workflow-step.test.mjs",
+      "spec": "../support/d2-workflow-step-harness.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "spec": "./d2-historical-design-harness.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "spec": "../support/d2-evidence-owner-harness.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-static-smoke.mjs",
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-bounded-repair.test.mjs",
+      "spec": "../support/d2-static-smoke.mjs"
+    }
+  ],
+  "missing": [],
+  "generatedImports": [
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/execution_basis.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/invocation_admission.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/invocation_execution_truth.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/native_work_effect.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/native_work_reacquisition.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/native_worksite_execution.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_failure.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness_contracts.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/stdo_environment.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/terminal_result_contracts.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/transport_contracts.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_command_forward.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/gtl/c_algebra.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/gtl/index.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/gtl/native_workspace_work.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/gtl/public_start.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_revision_identity.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/gtl/stdo_run_environment.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_c0.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_command_execution.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/builtin_semantics.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/contracts.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/index.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/invocation.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_assessment.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_work.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/publication.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/stdo_environment.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_effect.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/shared/admit/index.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/shared/digests.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/shared/immutable.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/shared/operation_definition_coordinate.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/shared/value/index.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/validator/index.js"
+  ],
+  "limits": [
+    "Literal relative imports only; dynamic evidence paths and fixtures remain declared inputs and actual C2 obligations.",
+    "Build, contracts and node_modules imports are supplied by declared C2 producers, not canonical generated output."
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "status": "ADMITTED_NATIVE_UAT_UNMET_RUN_ACTIVE",
+  "observedUtc": "2026-11-02T20:26:17.751950+00:00",
+  "output": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-8d33ec001185310c-output.txt",
+    "bytes": 6437,
+    "sha256": "da016a65243ef726994ee52e459a5a9463af978962030478994554176381694a"
+  },
+  "disposition": "unmet",
+  "unresolvedCriteria": [
+    "HC2-1: the shipped constructInstalledStartCall, constructInstalledPendingCall and constructInstalledRunReadCall return an uncoupled InstalledPublicDefinitionCall. The typed transport refuses their outputs statically (TS2345, parameter type never), so 'coupled types' is unmet.",
+    "HC2-1/HC2-4: no C2 lane exercises asset or graph_function start population, so the required evidence 'starts next/declared/asset/direct' is incomplete.",
+    "HC2-2: uat/runner.mjs freshReadbacks and uat/public-setup.mjs constructLifecycleCall keep superseded hand population. Retiring them is blocked by the out-of-grant uat/harness.test.mjs.",
+    "HC2-2: qualification/dispatch.mjs rootAuthority still constructs grants and authority, and declared-testing-capability still patches stdoEnvironmentResources onto the call after construction.",
+    "HC2-2 (indeterminate): the continuation populator repeats the owners' selection and preparation sequence instead of sharing a factored population; whether this is a duplicate composition is unresolved.",
+    "HC2-4/HC2-5 (indeterminate): wrong-Run and missing-historical-dependency negatives through the canonical installed paths are not evidenced.",
+    "Indeterminate: migrated consumers outside the C2 lanes were not executed at runtime: the uat/continuation B start, qualification dispatch startCall, declared-testing, generic-job intake/readback, installed-qualification-conservation and fresh-public-read.",
+    "HC2-3 residual: the tenant tsconfig.json keeps skipLibCheck:true. The criterion is satisfied only under the reading that 'canonical' means the HC1 proof config.",
+    "Excluded and not credited: fresh005 real-provider witness, empirical comparison, S7/whole qualification, release."
+  ],
+  "standing": "Attributed native assessment; Root conjoins scope/disposition. No automatic new work from unmeasured lookup/tenant config caveats. Run closure pending.",
+  "nativeResult": {
+    "resultRef": "result://abiogenesis/3f537f925029766fb9a61a390711fec8e4b30672fd3c222c9afe697e12b409a1",
+    "resultDigest": "sha256:3f537f925029766fb9a61a390711fec8e4b30672fd3c222c9afe697e12b409a1",
+    "ordinal": 17370,
+    "eventTime": "2026-11-02T20:24:43.450Z",
+    "physicalOffset": 290881338,
+    "physicalBytes": 2370316,
+    "rowSha256": "2aa09a2ec6fbc2cdbd4cda306a6b77da493d3139b005cd3153caf150d79d5b8f",
+    "afterObservationDigest": "sha256:f891f0d28d962da56c254e22984043df62a6725f08056c4caa3c2a9fddd8d6ce",
+    "changedPaths": []
+  },
+  "rootDisposition": {
+    "actorSlotClaim": "Disproved attribution: populateProductRunInvocation920 -> constructRunInvocationAuthorityBasis -> constructCapabilityGrant; invocation.ts955\u2013968 throws on actorRef mismatch with policy/binding before slots/call exists; policy uses binding actor568. No inconsistent returned call/support-case bug, deferred debt or extra check selected.",
+    "otherAdditionalClaims": "Coverage and duplicate-composition claims pending narrow max conjoin; no automatic scope expansion."
+  }
+}

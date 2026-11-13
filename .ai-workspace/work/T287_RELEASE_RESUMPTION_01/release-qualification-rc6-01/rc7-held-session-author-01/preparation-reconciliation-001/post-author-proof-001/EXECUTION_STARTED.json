@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-06T14:07:28.806Z",
+  "pid": 61389,
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_ADMISSION.json",
+    "sha256": "0b4b7591cb7d8b3fb6e78707fc6d1c90f834f3f3ec1ace095aa9ab6d0eecb697"
+  },
+  "manifestSha256": "4a9659ac582930a1ef4e566080b8c039180db88606fa8f71fa96366e98ded4f4",
+  "automaticRetries": 0
+}

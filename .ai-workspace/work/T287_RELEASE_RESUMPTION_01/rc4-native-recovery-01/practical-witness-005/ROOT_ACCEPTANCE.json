@@ -1,0 +1,56 @@
+{
+  "status": "ROOT_ACCEPTED_BOUNDED_NATIVE_RETAINED_PENDING_TESTING_RECOVERY_R1_R5",
+  "operator": "Root",
+  "recordedAt": "2026-11-03T00:18:35.289506+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "method": "STDO3.0.2",
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "sourceTree": "d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6",
+  "archiveSha256": "4589f5c5174cb84ba37f4efecd15f52f6437fa696d117aeff58b84bd5f8363ac",
+  "decision": "Root accepts the selected bounded native retained-pending Testing recovery R1\u2013R5 slice, conjoining actual018 C2/UAT, technical and optimization reviews, actual005 real-provider proof and independent max55-pin proof check. No005 rerun.",
+  "established": [
+    "Fresh A native Construction with eligible retained state",
+    "Current B authority distinct from admitted A source",
+    "Deliberate interruption at durable entered Testing before prepare-testing",
+    "Existing-owner resource recovery and fresh same-B pending continuation",
+    "No repeated Construction or initial selector",
+    "Nine exact A-held source bodies in submitted post-Testing prompt",
+    "Current physical identity and one-use pending semantics",
+    "C2/UAT plus terminal/result/replay agreement and empty pending set"
+  ],
+  "proof": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/CUSTODY_FINAL.json",
+      "bytes": 21199,
+      "sha256": "315ecc1d07d224bd228c120c443b1c052cc3eeab12c9ce516a60021ec18f8b2b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/SUMMARY.json",
+      "bytes": 18360,
+      "sha256": "3ef8dd9283d3cd5431c4be68f46128483284e933d6c4d2f6370f0e30520d77e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/PROVIDER_MEASUREMENTS.json",
+      "bytes": 7864,
+      "sha256": "56208cfda2bd968025f09ffb401d5326494e745880ad8269f8598f4a776e0c51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/CLOSURE_OBSERVED.json",
+      "bytes": 2474,
+      "sha256": "0eef5249c70617f2cff1d39d6d73ccdf114c7493c51de66b210b0cf6304cb3d3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/OPTIMIZATION_CHALLENGE_FINAL.json",
+      "bytes": 1874,
+      "sha256": "5ede83578be7bf898d03ee1f42e844bca5b867000dbab360ecfdf4ba4ee8de2d"
+    }
+  ],
+  "limits": [
+    "Deliberate undispatched boundary only; no general crash/saga recovery claim",
+    "Submitted prompt input, not independent model-read receipt",
+    "Whole5.0qualification/release separate",
+    "No efficiency claim; matched pilot remains next",
+    "All prior failures and residual/deferred capsules retained"
+  ],
+  "next": "Matched direct-first uninterrupted basic-cli pilot, then bounded local-cut decision under Root selection; no release inferred."
+}

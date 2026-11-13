@@ -1,0 +1,56 @@
+{
+  "status": "PARTIAL_SOURCE_FROZEN_AFTER_ACTUAL_CLOSE",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/source-freeze.json",
+    "bytes": 295251,
+    "sha256": "9a82a2297b03cec7da18862acca7d12c2625d8f6a85f4d0cf39069de0279e548"
+  },
+  "rowCount": 1344,
+  "changed": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 12980,
+        "sha256": "3c0820e1959dfbd1ac73e857036aa347475643d597096dbb921faae2ad41d574"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 16214,
+        "sha256": "c4580846ef6a09ca26413b691960ecd2e04074cc263e92844b4f18f2a52a451e"
+      }
+    }
+  ],
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_DELTA.diff",
+    "bytes": 9428,
+    "sha256": "d3938a815bc380ee1ebb5562455198aaa43e4373b9485918f5fbd61d731ab692"
+  },
+  "unchangedRows": 1343,
+  "sourceImplementationChanges": 0,
+  "selfchecks": "No syntax/build/test command observed in 34 recorded tool calls; full custody follows.",
+  "outcome": {
+    "absoluteTimeoutMs": 900000,
+    "failureClass": "transport_failure",
+    "status": 143,
+    "toolCallCount": 34,
+    "apiRetryCount": 0,
+    "nativeAssessment": "absent",
+    "finalOutputBytes": 0
+  },
+  "actualPhysicalClose": true,
+  "closedAt": "2026-11-10T00:21:12.141Z",
+  "freshResult": "refusal / no terminal",
+  "freshReplay": "failed",
+  "closeEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/FINAL.json",
+    "bytes": 2653,
+    "sha256": "b0bd585ee20bc3b34591a8f9d59a4eaba8623ef0c0786da0b66c0a3509811f55"
+  },
+  "readbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/FRESH_READBACKS.json",
+    "bytes": 1679,
+    "sha256": "1a3e70c5b9f3260a85355a8dd1aa2c34c0cd921b667f8eb930d41f17c1bde149"
+  },
+  "noAcceptance": true
+}

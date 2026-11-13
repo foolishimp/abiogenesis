@@ -1,0 +1,273 @@
+{
+  "kind": "closed_gemini_auth_storage_capability_addendum",
+  "status": "EXISTING_OAUTH_PATH_AND_ISOLATED_STORAGE_ROUTE_IDENTIFIED_NOT_AUTHENTICATED",
+  "at": "2026-11-05T17:17:18.876201+00:00",
+  "productFrame": {
+    "families": "F01-F07,F09-F11,F13-F17",
+    "goal": "GOAL-035/T287",
+    "slice": "Operator capability for later exact frozen-source F11/Q23 review",
+    "outcome": "A truthful independent-review route; no independence or Product assessment follows from capability.",
+    "sourceAuthority": "Current Root assignment and frozen-review grant still to be bound; moving Product source not inspected.",
+    "toolAuthority": "Installed @google/gemini-cli0.42.0 implementation/docs; exact selected STDO3.0.4 unchanged.",
+    "runtimeAuthority": "No Gemini invocation, authentication attempt or model result in this task.",
+    "prohibitions": [
+      "No Product read/edit or current Q23 continuation change",
+      "No credential-value acquisition/copy, provider/auth call, unrelated home configuration/history read, global write or new wrapper/router"
+    ]
+  },
+  "supersedes": "Prior THIRD_FAMILY_READINESS local admin.extensions/mcp/skills=false proposal is superseded: installed LoadedSettings.computeMergedSettings replaces admin with schema defaults plus remote-admin settings. Those local fields do not establish disablement. Prior OAuth unknown is narrowed to existing file+selected method; validity remains unknown.",
+  "nonSecretObservations": {
+    "command": "/opt/homebrew/bin/gemini",
+    "packageVersion": "0.42.0",
+    "oauthCredentialFile": {
+      "path": "/Users/jim/.gemini/oauth_creds.json",
+      "exists": true,
+      "type": "regular_file",
+      "contentsRead": false
+    },
+    "selectedMethod": {
+      "path": "/Users/jim/.gemini/settings.json",
+      "field": "security.auth.selectedType",
+      "value": "oauth-personal",
+      "otherFieldsReported": false
+    },
+    "systemPolicyDirectory": {
+      "path": "/Library/Application Support/GeminiCli/policies",
+      "exists": false
+    },
+    "environmentPresenceOnly": {
+      "GEMINI_CLI_HOME": false,
+      "GOOGLE_APPLICATION_CREDENTIALS": false,
+      "GEMINI_FORCE_ENCRYPTED_FILE_STORAGE": false
+    }
+  },
+  "leastChangeRoute": {
+    "mechanism": "Normal installed CLI OAuth implementation, without wrapper: fresh GEMINI_CLI_HOME plus GOOGLE_APPLICATION_CREDENTIALS pointing to the existing OAuth file; explicit oauth-personal selection in a per-run system-settings override.",
+    "whyItWorksLocally": "The non-encrypted OAuth reader tries its own Storage credential path first, then the supplied GOOGLE_APPLICATION_CREDENTIALS path. A fresh isolated home has no first credential file, so the native owner can read the existing file itself. Operator does not open/copy its contents.",
+    "writeDestination": "CLI project registry, history, session logs, account metadata, cache and token-refresh cache are under <CONTROL>/gemini-home/.gemini; TMPDIR separately directs OS temporary files.",
+    "credentialSideEffect": "During a future authorized invocation, normal OAuth refresh may write credentials with mode0600 inside the private per-run home. This is native auth behavior, not operator credential copying. Keep that directory outside review artifacts/output.",
+    "normalHomeAlternative": "Leaving GEMINI_CLI_HOME unset reuses OAuth but also writes CLI storage beneath the existing ~/.gemini; no separate general cache/session-root override was established. The supported credential-path fallback is the smaller route."
+  },
+  "precedence": {
+    "settingsOrder": "schema defaults < system defaults < isolated user settings < trusted frozen-packet workspace settings < per-run system settings; CLI model/policy/MCP flags then select their explicit fields.",
+    "arrayBehavior": "tools.core and modelConfigs.customOverrides have no concat/union annotation; later per-run system arrays replace earlier arrays. ModelConfigService adds the selected custom overrides after built-in overrides; the exact-model HIGH override is explicit.",
+    "adminCorrection": "Local admin.* is recomputed from defaults plus remote-admin input and is not used as the isolation control.",
+    "toolPolicy": "Use --admin-policy for the exact deny-all998/allow-four999 file. Current fixed system policy directory is absent. Supplemental admin policy is tier5 and overrides built-in plan write/subagent/exit allowances and user-tier rules. If fixed system .toml policy appears, installed CLI ignores supplemental --admin-policy; rebind rather than silently proceed.",
+    "toolCoreLimit": "Core allowlist enforcement rules exclude plan mode, so tools.core alone is insufficient here. Explicit policy has no mode restriction.",
+    "extensionsMcpHooks": "--extensions none; hooksConfig.enabled=false; isolated settings contain no MCP servers; CLI exact allowlist uses an unconfigured sentinel to exclude other discovered/admin-injected server names. A matching unexpected sentinel or altered tool inventory is a refusal, not assumed confinement."
+  },
+  "proposal": {
+    "status": "FOR_ROOT_BINDING_AFTER_EXACT_FREEZE",
+    "cwd": "<FROZEN_REVIEW_PACKET>",
+    "environmentSet": {
+      "GEMINI_CLI_HOME": "<CONTROL>/gemini-home",
+      "GOOGLE_APPLICATION_CREDENTIALS": "/Users/jim/.gemini/oauth_creds.json",
+      "GEMINI_CLI_SYSTEM_SETTINGS_PATH": "<CONTROL>/review-settings.json",
+      "GEMINI_CLI_SYSTEM_DEFAULTS_PATH": "<CONTROL>/empty-system-defaults.json",
+      "GEMINI_CLI_TRUSTED_FOLDERS_PATH": "<CONTROL>/trusted-folders.json",
+      "GEMINI_CLI_NO_RELAUNCH": "1",
+      "NO_BROWSER": "1",
+      "TMPDIR": "<CONTROL>/tmp",
+      "NODE_OPTIONS": "--max-old-space-size=8192"
+    },
+    "environmentExclude": [
+      "GEMINI_FORCE_ENCRYPTED_FILE_STORAGE",
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY",
+      "GOOGLE_GENAI_USE_VERTEXAI",
+      "GOOGLE_GENAI_USE_GCA",
+      "GOOGLE_CLOUD_ACCESS_TOKEN"
+    ],
+    "settingsFile": {
+      "security": {
+        "auth": {
+          "selectedType": "oauth-personal",
+          "enforcedType": "oauth-personal",
+          "useExternal": false
+        }
+      },
+      "general": {
+        "plan": {
+          "enabled": true,
+          "modelRouting": false
+        }
+      },
+      "model": {
+        "name": "gemini-3.1-pro-preview",
+        "maxSessionTurns": 32
+      },
+      "modelConfigs": {
+        "customOverrides": [
+          {
+            "match": {
+              "model": "gemini-3.1-pro-preview"
+            },
+            "modelConfig": {
+              "generateContentConfig": {
+                "thinkingConfig": {
+                  "thinkingLevel": "HIGH",
+                  "includeThoughts": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "tools": {
+        "core": [
+          "read_file",
+          "list_directory",
+          "glob",
+          "grep_search"
+        ],
+        "allowed": []
+      },
+      "hooksConfig": {
+        "enabled": false
+      },
+      "mcpServers": {},
+      "telemetry": {
+        "enabled": false,
+        "logPrompts": false
+      }
+    },
+    "systemDefaultsFile": {},
+    "policyFile": "[[rule]]\ntoolName = \"*\"\ndecision = \"deny\"\npriority = 998\n\n[[rule]]\ntoolName = [\"read_file\", \"list_directory\", \"glob\", \"grep_search\"]\ndecision = \"allow\"\npriority = 999\n",
+    "argv": [
+      "/opt/homebrew/bin/gemini",
+      "--model",
+      "gemini-3.1-pro-preview",
+      "--approval-mode",
+      "plan",
+      "--admin-policy",
+      "<CONTROL>/read-only.toml",
+      "--extensions",
+      "none",
+      "--allowed-mcp-server-names",
+      "__root_frozen_review_no_mcp__",
+      "--output-format",
+      "json",
+      "--prompt",
+      "Review only the exact frozen subject and governing request supplied on stdin. Use only the four declared read tools, do not modify or delegate, and return the final source-grounded review with unknowns and limits."
+    ],
+    "stdin": "Root-bound exact review request and source/member hash manifest; file-byte redirection, not interpolated shell text.",
+    "output": "Final JSON response/stats/error and required effective-model/tool metadata only; private session/auth cache and raw thinking/tool_result streams excluded."
+  },
+  "unverified": [
+    "Existing token validity/refresh success, account entitlement and server availability; no auth call made.",
+    "Effective model may differ because preview availability/custom-tools routing can remap the requested identifier. Requested3.1/HIGH is configuration, not actual execution or remote attestation.",
+    "Actual loaded four-tool inventory, policy acceptance, hooks/extensions/MCP posture and per-run effects are not executed here.",
+    "Independent reviewer non-contribution and governing eligibility require the exact later Root review grant; current Q23 Product two-profile policy is unchanged."
+  ],
+  "operations": {
+    "CLIInvocations": 0,
+    "providerOrAuthCalls": 0,
+    "credentialContentReadsOrCopies": 0,
+    "ProductReadsOrWrites": 0,
+    "privateHistoryReads": 0,
+    "globalWrites": 0,
+    "onlyWrites": [
+      "GEMINI_AUTH_ROUTE.json",
+      "GEMINI_AUTH_ROUTE.md"
+    ]
+  },
+  "sources": [
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js",
+      "sha256": "38ea40ff0e78168243378aa05bf188e52bb88fb04886c03f7df462be906238b0",
+      "lines": [
+        245420,
+        245457,
+        245462,
+        245499,
+        245790,
+        245809,
+        245850,
+        245860
+      ],
+      "meaning": "OAuth reader tries Storage.getOAuthCredsPath then GOOGLE_APPLICATION_CREDENTIALS; refresh persists under Storage and suppressed-browser noninteractive failure does not start manual login."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-JEW7ZIWE.js",
+      "sha256": "04843eb536d652934f2f119ba36c753e832530ea98b6cce9c2534e1af9b29bc6",
+      "lines": [
+        41676,
+        41681,
+        42301,
+        42307,
+        42378,
+        42399,
+        42414,
+        42415,
+        42440,
+        42448,
+        42466,
+        42475
+      ],
+      "meaning": "GEMINI_CLI_HOME owns .gemini storage; OAuth, account, registry, session/cache/history derive from it. TMPDIR alone does not redirect this storage."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-EDKX67D6.js",
+      "sha256": "e6d90fed79600ee20c1022804ff3751f0f11e117c391c51c6811c7781c383e34",
+      "lines": [
+        15654,
+        15705,
+        16141,
+        16151,
+        16195,
+        16212,
+        13312,
+        13319,
+        13779,
+        13791
+      ],
+      "meaning": "Actual ordered settings merge, array replacement without concat/union annotation, and admin recomputation from defaults/remote settings."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini-QSTQ2DBG.js",
+      "sha256": "c375ee6b91ac3fcd2a1cc4a850e7a22b2de2b059d82da47468ffe1a6f74687e8",
+      "lines": [
+        89,
+        8414,
+        8425,
+        8456,
+        8489,
+        8547,
+        8548,
+        8596,
+        8636,
+        15320,
+        15346
+      ],
+      "meaning": "Current CLI imports this settings owner; explicit policy/MCP flags override settings; NO_BROWSER; selected auth method and enforced type."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js",
+      "sha256": "38ea40ff0e78168243378aa05bf188e52bb88fb04886c03f7df462be906238b0",
+      "lines": [
+        301266,
+        301289,
+        301352,
+        301380,
+        323115,
+        323121,
+        323218,
+        323262,
+        323356,
+        323365,
+        327360,
+        327368
+      ],
+      "meaning": "Custom model overrides merge after built-in overrides; policy tiers and guard; core allowlist policy applies only outside plan; exact MCP allowlist blocks other server names."
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/docs/get-started/authentication.mdx",
+      "sha256": "4d46abe936ea2452cfc1ba67d31e99552853af6c433cd704fc5a95b672a0cda4",
+      "lines": [
+        445,
+        454
+      ],
+      "meaning": "Headless existing cached authentication route is documented."
+    }
+  ]
+}

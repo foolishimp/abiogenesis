@@ -1,0 +1,53 @@
+{
+  "kind": "selected_pre_admission_control_correction",
+  "status": "PREPARED_SYNTAX_CHECKED_NO_EXECUTION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 8291,
+    "sha256": "cc20cf0f68cda24c53afcf79c992db65ebfc886da2bf5fefdbb1ee0acb27a466"
+  },
+  "rootInstruction": "Root explicitly selected the complete existing terminal success predicate for every allocated predecessor and terminal exit; preserve original code controls.",
+  "originalCodeControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/CODE_CONTROL_PINS.json",
+    "bytes": 3238,
+    "sha256": "0e1546a88ad737f390e94b0d45056adbd79590c14180a9a5c602dc6b27b42b92"
+  },
+  "original": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-lanes.mjs",
+    "bytes": 10545,
+    "sha256": "14f326791175750c72fe85825ef0305d022bcc7ccf0eaa359182190551de3d56"
+  },
+  "selectedReplacement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/prior-author-lanes.mjs",
+    "bytes": 10602,
+    "sha256": "ff80e482e7a5fb801ef49997a0ff390ea70f7cb796f5ea16807b592cc0cd7bca"
+  },
+  "exactDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/LANE_SUCCESS_CORRECTION.diff",
+    "bytes": 2219,
+    "sha256": "db1790d088433eef1cdba5dd9e1adf5d372084f7fbb1bf095fd6ff5ede607554"
+  },
+  "canonicalNativeRelativePath": "qualification-inputs/rc7-held-session-author-04/prior-author-lanes.mjs",
+  "changes": [
+    "Reuse one complete existing passed predicate for terminal exit and predecessor admission.",
+    "Require every allocated predecessor to pass on the same stage source before output allocation; preserve failed/incomplete slots."
+  ],
+  "scopeUnchanged": {
+    "sourceFiles": 451,
+    "nativeControls": 18,
+    "futureHandoffs": 3,
+    "contextEntries": 472,
+    "writePaths": 2,
+    "stages": 1,
+    "lanes": 5
+  },
+  "syntax": {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/prior-author-lanes.mjs"
+    ],
+    "exitCode": 0
+  },
+  "runtimeExecuted": false
+}

@@ -1,0 +1,95 @@
+{
+  "status": "FROZEN_CONTROLS_ONLY_PENDING_ROOT_PREPARATION_ADMISSION",
+  "at": "2026-11-07T22:17:40.944160+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/READINESS.draft.json",
+      "bytes": 5714,
+      "sha256": "7c03901b1d27923d14f6f8f1086c186333028837daffd5cc8e6d4a67f94bf396"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/METHOD_BASIS.json",
+      "bytes": 658,
+      "sha256": "00fc7ffef3a749c71d894843f1fb5310b0c7f5685dbf4c70617047e47d5605d1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/STATIC_PREFLIGHT.json",
+      "bytes": 9649,
+      "sha256": "385f7dad375fc4fc0a852e61627573404a9b84f8c25d0684932b7c9f595c9a6f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/STATIC_CHECKS.json",
+      "bytes": 18736,
+      "sha256": "1c05af5e08a6bd7481017cf579440d63887e4ec959491d40d384d903f4248e83"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SCOPE.json",
+      "bytes": 18972,
+      "sha256": "7fdd2b56eea22bcb8ea8396e4fc150a26a91af7a8023c9646ddec89b03db2168"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/PREPARATION.json",
+      "bytes": 7955,
+      "sha256": "665771c91c8da586f53bd1f522c1224a752b7e2c66dcdac3fcee4025f980e7ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/TASK.json",
+      "bytes": 6688,
+      "sha256": "92b4fcedc260f3d46d1c1cf6533ab7d66b6ec71bd13422b30ae0ff75b0862118"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/BINDING.json",
+      "bytes": 6183,
+      "sha256": "6ecba3a1dbf1539c8a94ae27a1a2809794171a84380a770997a690c0cf75f5ef"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/host.mjs",
+      "bytes": 12242,
+      "sha256": "ea4664c63e512366e70dc736bfcb0624a01459100c6063d596001c54c3c08312"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof.mjs",
+      "bytes": 10763,
+      "sha256": "c2f7225fbf3f790d2bf139774b89763febbe8017ef4c2deba17f7a7a75186bcf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/launch.py",
+      "bytes": 1073,
+      "sha256": "1c04f63491c9c9d892b43d8a381b9c3632e34b8da5092fec7e504c56297fdcac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/HOST_DIFF.patch",
+      "bytes": 4064,
+      "sha256": "8fd5cc406ece97e2ede70850052d29431878757faf41b12110d2838cc26a59be"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/PROOF_DIFF.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SCOPE_DIFF.patch",
+      "bytes": 23254,
+      "sha256": "6a8c34d79f7d039f1bf5078fa11dd17b74120976e83dfc2f4a19d72caab5fc14"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/PREPARATION_DIFF.patch",
+      "bytes": 9917,
+      "sha256": "452e14081a2227e14b28d299755729019715f3262a7fa7a47e29d407769557b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/TASK_DIFF.patch",
+      "bytes": 11222,
+      "sha256": "c084a29750a5c154fdc83a6672187d73ae6d995ca493b47f994f6b548b70bff7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/BINDING_DIFF.patch",
+      "bytes": 7792,
+      "sha256": "ca99c753286d4097f412550cc0ce3027212e00236d7038af3d8924803bfc7e2c"
+    }
+  ],
+  "readinessDraftPreserved": true,
+  "sourceAccepted": false,
+  "qualified": false,
+  "effects": "Controls only; no SDK/resource/provider/test/source effects."
+}

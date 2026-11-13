@@ -1,0 +1,50 @@
+{
+  "kind": "source_custody_selection",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/SOURCE_BEFORE.json",
+    "bytes": 272640,
+    "sha256": "d7b898e49d3260fc243dfcd29531c29cd8393fb5b33cb2ff3e571e83249606ac"
+  },
+  "sourceCommit": null,
+  "frozenSubject": null,
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/preparation-reconciliation-001/SOURCE_SELECTION.json",
+    "bytes": 41477,
+    "sha256": "ad7a7f1fb0f5c6d6406739368d307b713378d9ee559b304e3822347d0cb0fe0b"
+  },
+  "currentSourceFiles": null,
+  "sourceBytes": null,
+  "inheritedTrackedChangedPaths": 55,
+  "inheritedNewProductPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+  ],
+  "meaning": "449 accepted N rows plus selected tracked HOW;450 live/source snapshot equality verified. SourceBefore snapshots retained by reference. Root final admission remains pending.",
+  "status": "EXACT_ACCEPTED_N_PLUS_SELECTED_HOW_MATERIALIZED",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/SUBJECT.json",
+    "bytes": 5616,
+    "sha256": "1f6d164d5bda072805daaefebd072d42c0c04b7e903eb62048a4bb5737d9f366"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SOURCE_AFTER.json",
+    "bytes": 274182,
+    "sha256": "40cd08685c5598c48f2acb06872eb861a544180949ef3a242b317f02393f823e"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5095,
+    "sha256": "9d2aeda376716644e5cf092627de40c4175f81c50e37b2ad9945b16e14fced02"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5900,
+    "sha256": "13f510c096e71153e3f5609aeb32dc39014e3b467b4b45ddda517515ebc57088"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/after-run-resume.json",
+    "bytes": 72498676,
+    "sha256": "2c0ce523f6aab1c169ff1478d90d9ed10d78f131d4a3ddd652179eb62cc53dd6"
+  },
+  "sourceCount": 450
+}

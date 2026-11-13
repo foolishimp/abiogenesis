@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 150428.292583,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 4,
+    "failed": 0,
+    "passed": 4,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 4,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/events/177-t287-st2a-g-capability-definition-graph.jsonl",
+    "bytes": 1648,
+    "sha256": "f77c0e3384dccb7da4961d1807e949197fe786b530c4507d18833ad5b256a3b4"
+  },
+  "commandReceipt": "commands/177-t287-st2a-g-capability-definition-graph.result.json",
+  "workspace": "/private/tmp/abg-r8c-021/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

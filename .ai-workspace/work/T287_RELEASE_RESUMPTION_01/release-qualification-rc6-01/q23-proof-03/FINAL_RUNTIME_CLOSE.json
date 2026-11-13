@@ -1,0 +1,83 @@
+{
+  "kind": "q23_actual_native_proof_failed_close",
+  "at": "2026-11-05T21:35:02.001793+00:00",
+  "status": "C2_SATISFIED_UAT_CONSTRUCTION_FAILED_SOURCE_UNACCEPTED",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "run": {
+    "digest": "sha256:7ace1ada199a075743e479ce1b8fb4499b1f15f085806d9cb8ef10274cd2cef8",
+    "ref": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497"
+  },
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/outcome-summary.json",
+    "bytes": 543,
+    "sha256": "fb8f0adf08d25905f5a20cbac2bbf5279fa01e6be90136d5be8392f084a217b9"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/fresh-reads.json",
+    "bytes": 2402,
+    "sha256": "48d8a09f1ca85a6656866293001548bc3677b2d166612b873a307f236960fcd4"
+  },
+  "freshResult": "not_found",
+  "freshReplayStatus": "failed",
+  "freshReplay": {
+    "digest": "sha256:6805f1722091299c7030ba5899703f5c018db8242c7150d1549b9601bd4309ec",
+    "ref": "replay://abiogenesis/6805f1722091299c7030ba5899703f5c018db8242c7150d1549b9601bd4309ec"
+  },
+  "terminal": null,
+  "freshFailureProjectionsConsistent": true,
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/after-run-resume.json",
+    "bytes": 72670663,
+    "sha256": "8d9c19df694447d33ddce20475c516851647007b763703e249aaf2a44f44ba02"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:86edae0a95d3eca25d7303d4df751faea24e67a0e83178d06877609adc42190f",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:202c99af497347eb1b9caae97dcc0add9236526634e42ee50fe1af84fa597d3a",
+    "prefixLength": 573221934,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "allFrozenLiveMembersEqual": 364,
+  "allProofInputMembersEqual": 371,
+  "nativeC2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/ACTUAL_C2_SUMMARY.json",
+    "bytes": 4012,
+    "sha256": "24e6fdedf097e1f3f092dc731066346fa6ad82943a5c52a0d1ee096d00596e14"
+  },
+  "nativeUat": {
+    "status": "NOT_LAUNCHED",
+    "capture": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/NATIVE_UAT_CLOSED_RESULT.json",
+      "bytes": 1010,
+      "sha256": "c658b6989ccb1541f9f421bdca7c21364a68bec30aa02aa3a3a573addaa1dad7"
+    },
+    "constructionFailureResultRef": "result://abiogenesis/47e64c8cee515b477762c0a3a711f80d0a424db1a4f0b46b9f8d7387cfbf0409"
+  },
+  "host": {
+    "startedUtc": "2026-11-05T21:20:40.960270+00:00",
+    "endedUtc": "2026-11-05T21:34:38.613461+00:00",
+    "wallMs": 837742.130417,
+    "exitCode": 0
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/codex-review-001/REVIEW.json",
+    "bytes": 30397,
+    "sha256": "f357978e161011120a58171c8c9d240e815468068a98660566c9b8a803205ea3"
+  },
+  "limits": [
+    "C2 remains valid bounded component evidence despite subsequent Run failure.",
+    "No native UAT, formal independent source acceptance, production eligibility, qualification or release closure.",
+    "Exact recurrent UAT constructor cause is under bounded owner triage; no retry selected.",
+    "Prior successful checks and failures remain scoped to their exact source."
+  ]
+}

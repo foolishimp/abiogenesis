@@ -1,0 +1,59 @@
+{
+  "kind": "q23_proof03_actual_failed_workflow_timing",
+  "at": "2026-11-05T21:37:07.222192+00:00",
+  "run": {
+    "digest": "sha256:7ace1ada199a075743e479ce1b8fb4499b1f15f085806d9cb8ef10274cd2cef8",
+    "ref": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497"
+  },
+  "disposition": "runtime_failed",
+  "setupReused": true,
+  "setupMs": null,
+  "preflightMs": 68866.1327501759,
+  "hostBeforeOwnerDispatchMs": 31840.73,
+  "dispatchToFirstSelectorMs": 36110.0,
+  "processIntervals": [
+    {
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "startedUtc": "2026-11-05T21:21:48.911Z",
+      "endedUtc": "2026-11-05T21:24:34.360Z",
+      "wallMs": 165449.0,
+      "startOrdinal": 91911,
+      "exitOrdinal": 93331
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "startedUtc": "2026-11-05T21:24:41.950Z",
+      "endedUtc": "2026-11-05T21:26:02.271Z",
+      "wallMs": 80321.0,
+      "startOrdinal": 93403,
+      "exitOrdinal": 93582
+    },
+    {
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "startedUtc": "2026-11-05T21:26:28.406Z",
+      "endedUtc": "2026-11-05T21:30:11.449Z",
+      "wallMs": 223043.0,
+      "startOrdinal": 93695,
+      "exitOrdinal": 95364
+    }
+  ],
+  "c2ExitToNextSelectorMs": 26135.0,
+  "nativeOutcomeToFreshHostCloseMs": 252074.461,
+  "nativeInvocationWallMs": 553822.305083,
+  "hostTotalWallMs": 837742.130417,
+  "betweenTaskOperatorWallMs": 797260.173,
+  "sourceChecks": {
+    "commands": 6,
+    "pass": 63,
+    "fail": 0,
+    "skipped": 0,
+    "sourceMatches": 367
+  },
+  "limits": [
+    "Failed UAT construction, no assessor actor or complete successful native-workflow performance measurement.",
+    "Provider effort max applied to this proof route; previous proof01 used xhigh. Changed source/context and effort prevent a matched causal comparison.",
+    "Process wall and physical log intervals do not isolate CPU, provider or serialization cost.",
+    "Existing helper report contains no per-command wall clock fields; do not invent fine-grained command durations from this report.",
+    "All historical timings/failures remain separately scoped."
+  ]
+}

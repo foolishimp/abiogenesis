@@ -1,0 +1,45 @@
+{
+  "id": "PHASE2-B-UNIT-CONTROL-PREP-02",
+  "status": "PREPARATION_ONLY_UNIT_EXECUTION_HELD",
+  "decisionOwner": "Root",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "reports": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/PROOF_CONTROL_FAILURE.md",
+      "bytes": 4379,
+      "sha256": "6c95a766934fb534576f8816e19310d196cffeaf6509cb9173c4c8b9cabe57ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/PROOF_CONTROL_FAILURE.json",
+      "bytes": 4497,
+      "sha256": "67c722f351e449160e3c2a3557b4782ca2fc6795e45495d5a5266bc9c5b068d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-control-triage-01/ASSESSMENT.md",
+      "bytes": 8031,
+      "sha256": "3c6de999d6c88789e748afd8b26031e7f61046ac5ef38b563bcddf1aca113a2d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-control-triage-01/EVIDENCE.json",
+      "bytes": 8614,
+      "sha256": "999cd3907ad96de23bf27105c8145d75cfbb0013d84d090dba06b85734d9476c"
+    }
+  ],
+  "causalDisposition": "Valid tagged producer digest was falsely compared to raw hex; empty diagnostic text failed to carry failure presence into stop; final complete-success gate was latent and not reached. Controls only, no Product repair.",
+  "futureSelection": "One original nine-file unit, 1800s,102/96pass/6 exact skips; complete M5 39 names/34 evidence IDs. Global2400s begins before read-only revalidation and ends after postguards/closure,15s reserve.",
+  "permittedNow": [
+    "new proof-02 controls",
+    "syntax checks",
+    "one <=30s control-only discriminator invoking actual revised functions"
+  ],
+  "held": [
+    "actual unit",
+    "reconciliation adoption",
+    "build",
+    "pack",
+    "install",
+    "C2/lifetime repeat",
+    "source/main/Git writes"
+  ],
+  "retrospectiveEvidenceAdoption": "Pending separate independent read-only reconciliation and Root disposition; original failed statuses immutable."
+}

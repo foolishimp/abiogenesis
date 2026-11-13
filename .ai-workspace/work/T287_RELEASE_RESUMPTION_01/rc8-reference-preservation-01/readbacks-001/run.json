@@ -1,0 +1,78 @@
+{
+  "status": "EXACT_CLOSED_READ_SUBJECT_PINNED_BEFORE_CALL",
+  "startedUtc": "2026-11-07T03:37:37.149Z",
+  "authority": "Root selected fresh result/replay from actual native close; existing read owners only",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+    "bytes": 9837,
+    "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/PREPARED.json",
+    "bytes": 6090,
+    "sha256": "2a5f8be6eb079f13441ed935faa9fa91d1cd02af1c8bc5164305b4c53e682986"
+  },
+  "close": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/resource-close.json",
+    "bytes": 2304,
+    "sha256": "469e6ab2f2bc0818a8e8c9629a242fd885e6e0ea46fde66d6360d583294ead73"
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/calls/lifecycle-start.outcome.json",
+    "bytes": 1647630,
+    "sha256": "3dd78a68391b946907dd578ed21f7b51957d3a826167af3040f26072eab98b51"
+  },
+  "acquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/abg-acquisition.json",
+    "bytes": 16525020,
+    "sha256": "b1b483f41f0deeae681ff6f48008d357d25db6b36a52c5e267a9407c752f7fb7"
+  },
+  "run": {
+    "ref": "run://abiogenesis/0526a286827851182b39b6bc2df9007e588ec2b972854d6248e924f84b8afd77",
+    "digest": "sha256:af4c0d5afd8500110da59dc3eef989d858796e82c99e48a6c15115c4e1692dc7"
+  },
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 29300126,
+    "prefixDigest": "sha256:04d44238a28b53aaff7bb0c5bf91f10e09fd21cf8cbbe3b60b5a158df5559da9",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 708868359,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:2f1eb18513d99f5bba052dc9726a7672910f29580aa7d52f54a1e8d654591c51"
+  },
+  "physicalIdentity": {
+    "device": 16777231,
+    "inode": 708868359,
+    "byteCount": 29300126,
+    "digest": "sha256:04d44238a28b53aaff7bb0c5bf91f10e09fd21cf8cbbe3b60b5a158df5559da9"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "sourceHelpers": {
+    "public-setup.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39883,
+      "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+    },
+    "runner.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    "consumer.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    "scenarios.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  },
+  "providerDispatch": false,
+  "sourceAcceptance": false
+}

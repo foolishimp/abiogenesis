@@ -1,0 +1,50 @@
+{
+  "kind": "bounded_operator_intervention_decision",
+  "status": "PLANNED_CONDITIONAL_NOT_EXECUTED",
+  "recordedUtc": "2026-11-02T05:26:17.002286Z",
+  "decisionOwner": "Root",
+  "recordWriter": "separately bound bookkeeping Writer",
+  "attempt": "010",
+  "attribution": "Root instruction and forwarded Root/monitor process observations; Writer has not inspected or acted on processes.",
+  "subject": {
+    "nativeActorPid": 78619,
+    "shellPid": 9647,
+    "shellParentPid": 78619,
+    "sessionId": 9647,
+    "processGroupId": 9647,
+    "grepPid": 9648,
+    "headPid": 9649,
+    "command": "grep -rln -i 'displaced pending\\|displaced reconstruction\\|pending reconstruction' .ai-workspace build_tenants/abiogenesis/typescript/design rc4-operator-inputs | head -10"
+  },
+  "observations": [
+    {
+      "observer": "Root independent ps check",
+      "observedUtc": "2026-11-02T05:24:51Z",
+      "elapsed": "4m01s",
+      "cpu": "3m59.96s"
+    },
+    {
+      "observer": "passive monitor as forwarded by Root",
+      "observedUtcMinute": "2026-11-02T05:25Z",
+      "elapsed": "4m32s",
+      "cpu": "4m30.64s"
+    }
+  ],
+  "decision": {
+    "condition": "Root re-verifies that the exact same owned process group remains active beyond five minutes and contains only this read-only command.",
+    "executor": "Root only",
+    "actionIfConditionHolds": "Send SIGTERM only to shell process group9647.",
+    "workerVisibility": "Native Bash receives a visible nonzero interruption; Worker chooses whether and how to perform a bounded search.",
+    "noActionByWriter": true
+  },
+  "classification": "Worker delivery-method overhead and operator intervention, not a Product-runtime defect.",
+  "limits": [
+    "Do not terminate provider or Run.",
+    "No Product mutation.",
+    "No hidden result substitution.",
+    "No automatic retry.",
+    "Do not change active native worksite or frozen packet."
+  ],
+  "observedOutcome": null,
+  "outcomeHandling": "Root will supply the observed outcome for a separate follow-up record; this planned record is not execution evidence."
+}

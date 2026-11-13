@@ -1,0 +1,36 @@
+{
+  "status": "ROOT_CAUSE_DISPOSITION_AND_PLAN_RECORDED",
+  "decisionOwner": "Root Executive",
+  "recordedBy": "Separately activated diagnostic Writer /root/rc10_operator",
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/ROOT_CAUSE_AND_PLAN.md",
+    "bytes": 4838,
+    "sha256": "d9a9b7343dd5c66ce7c6eef11bfe18ec921d8b570a450fcc8514619e6d76e88c"
+  },
+  "acceptedOperatorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/RETURN.json",
+    "bytes": 3350,
+    "sha256": "68d668204d11f80248a2a4da42910d72943f0612bfc2757c0684e14c2c7d930b"
+  },
+  "assessment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/review/ASSESSMENT.md",
+    "bytes": 10094,
+    "sha256": "9d28cba4b5adbf4b6290bee28e485138bed198e55f7b17308c4a7c3fd4ab82da"
+  },
+  "assessmentJson": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/review/ASSESSMENT.json",
+    "bytes": 9841,
+    "sha256": "b583d7cb9ea5ffc26ddc4c20d6703cf303b80858dc32376cc49855a3c96bd153"
+  },
+  "diagnosisComplete": true,
+  "sourceActivation": false,
+  "furtherExecution": false,
+  "debtsRemainOpen": true,
+  "qualified": false,
+  "published": false,
+  "permittedWrites": [
+    "ROOT_CAUSE_AND_PLAN.md",
+    "PLAN_RETURN.json"
+  ],
+  "standing": "Root accepted the bounded diagnosis and selected a proposed test-owner realization_refactor plan only. Existing verified basis and conservation receipt reused; no additional diagnostics, processes, Git, tracking, source or selector effects."
+}

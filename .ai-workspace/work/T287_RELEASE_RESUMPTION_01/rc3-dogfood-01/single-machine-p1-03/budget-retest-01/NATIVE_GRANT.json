@@ -1,0 +1,74 @@
+{
+  "Construction": {
+    "enabled": false,
+    "writePaths": []
+  },
+  "Testing": {
+    "canonicalWrites": [],
+    "commands": 9,
+    "focusedFiles": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-cold-record-decoder.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs"
+    ],
+    "focusedTimeoutMs": 1200000,
+    "requiredHelperBudgetMs": 2767250,
+    "selectedPathCount": 963,
+    "sourceCorrespondencePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md"
+    ]
+  },
+  "UAT": {
+    "canonicalWrites": [],
+    "criteriaUnchanged": {
+      "bytes": 1843,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/rubric.json",
+      "sha256": "b460a5b77875c5e7006eece0043cedae0e6d76439fe2b928831b96d33d4b781e"
+    }
+  },
+  "effects": "Only supported setup/operator inputs then native Testing/UAT; no code/criterion/test edits/no fabricated source state",
+  "priorClosure": {
+    "bytes": 3482,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/P3_CLOSED_RUN_CUSTODY.json",
+    "sha256": "081263abaa65250603193f970f7d7f0d5b68b17542257f08da49f17c158d5b01"
+  },
+  "priorConstruction": {
+    "bytes": 3502,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/PRIOR_CONSTRUCTION_ADMISSION.json",
+    "sha256": "e56ca30b480683d69dfe39b946166ef216d9f4d626dbd336db011759c29dc403"
+  },
+  "profile": {
+    "bytes": 2188,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/PROVIDER_PROFILE.json",
+    "sha256": "a1078b3e9e5dde56b081da88825224204877179daa32767357057fe4e57d283a"
+  },
+  "rootAuthority": {
+    "bytes": 2294,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/ROOT_RETEST_AUTHORITY.md",
+    "sha256": "fc0c21b60bd28bf32fbe0ff9a8a26cac7f0093f84947ad13ec99ee1fae7d6613"
+  },
+  "sourceCheckpoint": {
+    "bytes": 4728,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/SOURCE_CHECKPOINT.json",
+    "sha256": "68e6d2dec5fb9c3c6bfa7d605f74e6818d3bc0adee8d815a9ace7d4b489d5d77"
+  },
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "status": "ROOT_SELECTED_RESOURCE_ONLY_QUALIFICATION"
+}

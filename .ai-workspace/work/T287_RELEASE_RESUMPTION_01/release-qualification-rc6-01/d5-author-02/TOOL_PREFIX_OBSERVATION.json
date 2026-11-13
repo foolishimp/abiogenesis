@@ -1,0 +1,19 @@
+{
+  "kind": "allowlisted_shell_tool_prefix_counts_only",
+  "bashToolUses": 72,
+  "uniqueExactCommandDigests": 72,
+  "repeatedExactCommands": 0,
+  "prefixCounts": {
+    "ls": 1,
+    "cat": 13,
+    "python3": 10,
+    "sed": 22,
+    "git": 1,
+    "other_or_compound": 24,
+    "node": 1
+  },
+  "limits": [
+    "No command text, provider narrative, reasoning or tool_result is returned.",
+    "First token is a physical metadata category; no claim of necessity, CPU cost or full shell effects."
+  ]
+}

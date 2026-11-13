@@ -1,0 +1,619 @@
+{
+  "kind": "readonly_owned_history_discriminator",
+  "startedUtc": "2026-11-03T13:24:34.492Z",
+  "packageRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.4/node_modules/@abiogenesis/typescript-tenant",
+  "eventPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+  "sourceCommit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+  "logSha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+  "coordinate": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 586361364,
+    "prefixDigest": "sha256:532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 685202701,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:9f23584e3c16b47430b6665a1c836f97312fd40fd4e81bbb8c3d921bf78465bb"
+  },
+  "limits": [
+    "One captured historical cut; not a native workflow speedup.",
+    "Inspector instrumentation affects absolute durations.",
+    "Cold file acquisition is reported separately from repeated same-address-space projection.",
+    "Measures this history/materialization path, not all CPU causes of observed event silence."
+  ],
+  "measurements": [
+    {
+      "name": "cold_readonly_authentication",
+      "wallMs": 14868.053666,
+      "cpuUserMs": 15169.595,
+      "cpuSystemMs": 600.643,
+      "readCalls": 8985,
+      "readBytes": 666189062,
+      "memoryBefore": {
+        "rss": 281083904,
+        "heapTotal": 172244992,
+        "heapUsed": 33792928,
+        "external": 24658743,
+        "arrayBuffers": 26839
+      },
+      "memoryAfter": {
+        "rss": 1435533312,
+        "heapTotal": 496697344,
+        "heapUsed": 373195544,
+        "external": 42443374,
+        "arrayBuffers": 40038906
+      }
+    },
+    {
+      "name": "owned_prefix_and_liveness",
+      "wallMs": 1631.2758750000012,
+      "cpuUserMs": 1463.993,
+      "cpuSystemMs": 195.797,
+      "readCalls": 12161,
+      "readBytes": 51462677,
+      "memoryBefore": {
+        "rss": 1329119232,
+        "heapTotal": 375144448,
+        "heapUsed": 229958080,
+        "external": 2431323,
+        "arrayBuffers": 26855
+      },
+      "memoryAfter": {
+        "rss": 1380220928,
+        "heapTotal": 432963584,
+        "heapUsed": 340154704,
+        "external": 5007028,
+        "arrayBuffers": 2602560
+      },
+      "cpuProfile": "owned_prefix_and_liveness.cpuprofile",
+      "ownerCalls": [
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "durableIdentity",
+          "count": 24322
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "sameDurableIdentity",
+          "count": 24322
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "hasOnlyRuntimeEventKeys",
+          "count": 12161
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 170254
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 231529
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "assertOwnedRuntimeHistorySelection",
+          "count": 11929
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "readRuntimeHistoryRowBytes",
+          "count": 12161
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 12161
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "selectOwnedRuntimeEventPrefix",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isOwnedRuntimeEventPrefix",
+          "count": 11927
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isLocatedPrefix",
+          "count": 11927
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "locatedReceipt",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "selectLocatedSubset",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventAtPrefix",
+          "count": 11917
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventBodiesAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventEnvelopesAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "",
+          "count": 23801
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventPrefixExtent",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimePrefixComputation",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "validatedRuntimeEventPrefixThroughEvent",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "historicalRuntimeEventPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "scopeKey",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "indexedRuntimeEvents",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness.js",
+          "name": "projectCCallLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "acceptsSelection",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "owner",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "selectionScope",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "sha256Bytes",
+          "count": 12161
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "sha256Canonical",
+          "count": 12161
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "",
+          "count": 2047235
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "isSha256Digest",
+          "count": 71496
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "decodeEventBody",
+          "count": 12161
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get length",
+          "count": 47910
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get generation",
+          "count": 47910
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "row",
+          "count": 47880
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "indexById",
+          "count": 11918
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "indices",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "event",
+          "count": 12163
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "select",
+          "count": 5
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "<instance_members_initializer>",
+          "count": 5
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "RuntimeHistorySelection",
+          "count": 5
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "",
+          "count": 245
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get length",
+          "count": 47856
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "assertCurrentGeneration",
+          "count": 47905
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "includesIndex",
+          "count": 11918
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "row",
+          "count": 23801
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "rowById",
+          "count": 11918
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "eventById",
+          "count": 11917
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "event",
+          "count": 246
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "select",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "selectScope",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "cut",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "materialize",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "",
+          "count": 245
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "is",
+          "count": 11932
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "owner",
+          "count": 11929
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "RuntimeEventBodyView",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "at",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "compareUnicodeCodeUnits",
+          "count": 1714017
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "canonicalJson",
+          "count": 24322
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "",
+          "count": 3958568
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "writeCanonicalJson",
+          "count": 1820003
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "",
+          "count": 1714017
+        },
+        {
+          "file": "build/code/src/shared/immutable.js",
+          "name": "deepFreeze",
+          "count": 782289
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "record",
+          "count": 59580
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "exact",
+          "count": 59580
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 464724
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "ref",
+          "count": 178740
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "elapsed",
+          "count": 35748
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeProbeObservation",
+          "count": 35748
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeThresholdObservation",
+          "count": 23832
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "record",
+          "count": 35718
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "exactOrNull",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "livenessContextFacts",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "deriveActorLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 20
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "deriveCCallLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 94
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 94
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "deriveFrameLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 37
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextForOccurrence",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "RuntimeLivenessReconstruction",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "advance",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 137
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "cut",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextStamp",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 3
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 3
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "context",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextFacts",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "livenessReconstruction",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/admit/record.js",
+          "name": "isRecord",
+          "count": 36483
+        },
+        {
+          "file": "build/code/src/shared/value/equality.js",
+          "name": "canonicalEquals",
+          "count": 12161
+        },
+        {
+          "file": "build/code/src/shared/value/equality.js",
+          "name": "",
+          "count": 937425
+        },
+        {
+          "file": "build/code/src/shared/select/exact_match.js",
+          "name": "exactMatchCardinality",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/shared/select/exact_match.js",
+          "name": "onlyExactMatch",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/shared/select/exact_match.js",
+          "name": "resolveExactMatch",
+          "count": 4
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "ordinal": 23799,
+    "eventRef": "event://abiogenesis/3200aa5c6c89a217bc50388c1cc2b1fb96eaa600dbbc36579bf858ef3f849fee",
+    "cCallRef": "c-call:sha256:91961be974bed3786bb4ccecf4fd9d0d85a8ce52d9532118624834e717e73667",
+    "frameId": "frame://abiogenesis/bb006457fb541cc364bc8baf3fe3365ddf2583e81f0b42b28020266d07474bd8"
+  },
+  "status": "DIAGNOSTIC_FAILED",
+  "error": {
+    "name": "AssertionError",
+    "message": "owned context must exist",
+    "stack": "AssertionError [ERR_ASSERTION]: owned context must exist\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/measure-owned-history.mjs:61:3"
+  },
+  "endedUtc": "2026-11-03T13:24:51.182Z"
+}

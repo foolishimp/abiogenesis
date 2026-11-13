@@ -1,0 +1,30 @@
+{
+  "baseConfig": {
+    "bytes": 2018,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/config.json",
+    "sha256": "c3a3731ded920673d47112112cda1d495205141507f11eedd0fafb0cfddaa327"
+  },
+  "configMaterialized": false,
+  "exactFutureChanges": {
+    "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/runs",
+    "package": {
+      "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+      "sha256": "sha256:70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd"
+    },
+    "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b"
+  },
+  "existingConfigConstructor": {
+    "bytes": 1883,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/prepare-config.py",
+    "sha256": "5b4dc50c46d2305b8d78e712cb111f6de52d5969da2dc40f16e6dd5e0fefaa1c"
+  },
+  "observedSelection": {
+    "bytes": 8232,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/SELECTION.observed-c2.json",
+    "sha256": "2c66e8a04d28d429885fd8ae8c94840b8fb5f3908fb8868b49dddd9eaa42a5cc"
+  },
+  "providerCalls": 0,
+  "publicCalls": 0,
+  "status": "PENDING_NATIVE_ADMISSION_AND_ROOT_FINAL_SELECTION",
+  "unchanged": "six frozen fixtures/oracle, ten readRoots, two commands, ordinary Program, bound12 and provider profile"
+}

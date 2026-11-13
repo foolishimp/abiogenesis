@@ -1,0 +1,63 @@
+{
+  "kind": "root_additive_program_environment_triage",
+  "status": "SELECTED_EXISTING_OWNER_CORRECTION",
+  "at": "2026-11-06T14:20:44.945920+00:00",
+  "parentSelectionSha256": "5bd1530ddfe7df8a8db61f351f50233c2ac54d84107d5b652e0367283785312f",
+  "failure": {
+    "postProofDispositionSha256": "be2821a3e6e1e89fa1083598b2555702786936786ef5f41eb03862bd3254261a",
+    "summarySha256": "40243c5f7b5e0ee9e648097514fe19620f5f6b746dd35e8930a46bb5cbe9fd4d",
+    "case": "Actual maintained direct Testing state Result then direct UAT",
+    "stageSourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+    "observed": "Testing invocation refused invalid_program at /program/runEnvironment and /runEnvironment/cause/unsupported_declaration. Execution resolution receipt, invocation admission, Run and replay are null; event-resource completion preserves entry prefix.",
+    "wallMs": 286825.12299999996,
+    "timeout": false
+  },
+  "sourceCone": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 48321,
+      "sha256": "028298bf9539c633c080621d863ccb77f50d0bb96fa8ea343b94542cdfe842ad",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "bytes": 34639,
+      "sha256": "a2d7b810f84bc2746d142fc9f5d2e8cba1ecc1f26c26f6a8f2e5921e195ba696",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "bytes": 25571,
+      "sha256": "ec246b14d7ca6e336af237e2c4724486b364943d2b441152cbd0aa2477ad2bb1",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "bytes": 46572,
+      "sha256": "729336931f3708a0f9432da21d102f1a5f714614a06bc229f40384a89189710f",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts"
+    }
+  ],
+  "triangulation": {
+    "Product": "The Program owns its complete callable membership and declared native role environment. A selected callable executes only its own admitted dependency/implementation closure. These scopes are distinct.",
+    "Design": "observeRunEnvironment and validRunEnvironmentProgram enforce an exact match between every Program F_P leaf and the declared roles. No role may be fabricated, omitted or bypassed.",
+    "Integration": "run_invocation_operation.ts770 supplies resolution.declarationPublications from the selected execution closure. Direct Testing lacks the native-work publication in that slice, while its library Program declares selector, constructor, assessor and command-executor roles. The validator therefore receives an incomplete Program population.",
+    "ExistingOwner": "LoadedProductExecutionResolution already carries programDeclarationClosure resolved through resolveProgramDeclarationClosure before execution resolution. Its publications are the authenticated whole-Program input required by this validation.",
+    "Proof": "Current observed unsupported_declaration is an upstream composition failure; neither C2 nor UAT execution occurred. Static source trace localizes wrong-scope input as the supported cause; actual repaired direct-route proof must verify it. Earlier consumer Executive start reached a larger execution closure and did not expose the mismatch.",
+    "Residual": "Assessment inner-schema and runner findings remain independently open; correcting environment scope alone closes neither."
+  },
+  "selectedRepair": "Use the existing authenticated whole-Program declaration closure for whole-Program run-environment validation. Keep execution/implementation resolution scoped to the selected callable and preserve every existing environment role, authority, permission and physical binding guard. No new closure algorithm, carrier authority or runtime state.",
+  "additionalAllowedWritePath": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+  "how": "The native Worker records this scope distinction in the already granted owning HOW before implementation.",
+  "requiredProof": "Actual maintained fixed route first, then a focused missing/mismatched Program-role refusal alongside ordinary consumer environment behavior. Reuse canonical validators; do not mirror their implementation in a new test oracle.",
+  "prospectiveProofBudget": {
+    "primaryLaneTimeoutMs": 600000,
+    "primaryAuthoredTestTimeoutMs": 540000,
+    "otherLaneTimeoutMs": 300000,
+    "stageCeiling": 2,
+    "totalLaneInvocationCeiling": 6,
+    "reason": "Observed baseline reaches only pre-execution refusal at286.825s. Corrected primary case adds two real Runs, actual C2 and scripted assessment, plus maintained held/cold readback. A finite540s test with60s outer termination allowance prospectively covers the additional path. This is an estimate for added work, not an observed runtime or permission for automatic timeout retries.",
+    "runtimeTimersChanged": false
+  },
+  "preservation": "All historical controls, failures and accepted bounded HS02 measurements remain unchanged. Product acceptance, qualification and cut remain open."
+}

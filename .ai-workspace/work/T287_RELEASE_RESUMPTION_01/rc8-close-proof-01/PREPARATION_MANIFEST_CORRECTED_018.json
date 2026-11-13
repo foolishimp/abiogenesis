@@ -1,0 +1,106 @@
+{
+  "status": "PREPARED_TENTH_TEMPORARY_DEFERRAL_AND_SIX_CREDITS_NO_EXECUTION",
+  "at": "2026-11-07T12:20:58.049267+00:00",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_017.json",
+    "bytes": 5184,
+    "sha256": "64ab987addce0eb2810d2bc53d746509120e13ec93dd273068d6db150c272e1a"
+  },
+  "stoppedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_017.json",
+    "bytes": 13201,
+    "sha256": "0b67ad05bc49ff1b6b45283922fe02630982e4a27dd0ee6b0960fb0b94372616"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-018.mjs",
+      "bytes": 33246,
+      "sha256": "73df519ac97916be6c06b6ae6bc2f882f700f6dbe9ae8f56738dd443ece65e3a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_019.json",
+      "bytes": 380698,
+      "sha256": "ea7c1e6a836e0d602821810f096cf34ee784afa6625cf9f67b0d690dd4570b52"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_018.patch",
+      "bytes": 4034,
+      "sha256": "0b82fd0948ef2d8e5891ae89973ff8347170177a1f5922a48bfb573585a8f665"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/INPUT_CENSUS_008.json",
+      "bytes": 8169,
+      "sha256": "2e5ed0954831d00c421802d83b15732f2dff94259ef3fe55ec70558e0ca9d712"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 9246,
+      "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_BASIS.json",
+      "bytes": 5584,
+      "sha256": "5e6bb661ed9ccbe0e2c6c3a202e30d8b8b38659cdbfb7bea3ca73c86e6d632b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/FOCUSED_CREDIT_DISPOSITION_001.json",
+      "bytes": 10973,
+      "sha256": "2172f11ff8958044fac0326fd09ecd46d7215bf7e0adaa7f9618c244138813b3"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/package.json",
+      "bytes": 2792,
+      "sha256": "de931013323716d4bcbb452f3be68b7d86fcc7f65a4534f329141616744d6f8d"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/index.js",
+      "bytes": 273,
+      "sha256": "da8c11620eada2c05b7c3466df0abebc42d278bef3b5bb3b135c6c63d85f60d2"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/package.json",
+      "bytes": 1421,
+      "sha256": "b2afa7f4ab048813b9bac37d4a06176037fb11254dc2671c647d2f1a3ff672a2"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/lib/index.js",
+      "bytes": 15879,
+      "sha256": "e77f7128b7f6a0b5f6a4e5e52de4ada0c3fdaad1542c98957185576ae1d99e35"
+    }
+  ],
+  "boundInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-019/BOUND_INVENTORY.json",
+    "bytes": 2051895,
+    "sha256": "355b10d80f6ed7eb26d60a434002e46142b9e00204cc1a39ba4571e8e572bd38"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "delta": "Only driver version filenames and exact correction-carriers scheduling deferral; config adds six actual017 complete-file receipts and new allocation/standing names. All149prior credits and nine prior deferrals preserved. Source/dependency/test/tool/env/oracle/default-bound inputs unchanged.",
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 155,
+    "passed": 828,
+    "skipped": 197,
+    "scheduled": 43,
+    "deferredNoCoverage": 10
+  },
+  "changedInventoryFields": [
+    "at",
+    "config",
+    "counts",
+    "focusedCoverage",
+    "deferredFiles"
+  ],
+  "sourceAndDependencyRowsEqualPredecessor": true,
+  "testsExecutedDuringPreparation": 0,
+  "outputScratchAdmissionAbsent": true,
+  "rootSelection": "Preparation only for43 unvisited files on immutable A6 inputs. correction-carriers is temporarily deferred for017 timeout causal triage with zero test/whole credit and no final residual/no-block disposition. Concrete Root execution admission required."
+}

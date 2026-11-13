@@ -1,0 +1,181 @@
+{
+  "status": "EXACT_TESTED_DEPENDENCY_FRESHNESS_INPUT",
+  "donorRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+  "testedRoot": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/node_modules",
+  "reproductionRoot": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules",
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "hiddenLock": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/node_modules/.package-lock.json",
+    "bytes": 7232,
+    "sha256": "a1794bd45aaf7c95b74cf346123594372f153787e5592dc549e4da3e72ea1a3e"
+  },
+  "relevantRows": [
+    {
+      "path": ".",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978926672387"
+    },
+    {
+      "path": ".package-lock.json",
+      "kind": "file",
+      "mode": 420,
+      "mtimeNs": "1789963978926778390"
+    },
+    {
+      "path": "@standard-schema",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978605852805"
+    },
+    {
+      "path": "@standard-schema/spec",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978689722071"
+    },
+    {
+      "path": "@types",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978605880056"
+    },
+    {
+      "path": "@types/node",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978711625894"
+    },
+    {
+      "path": "@valibot",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978605867138"
+    },
+    {
+      "path": "@valibot/to-json-schema",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978691469831"
+    },
+    {
+      "path": "ajv",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978716692921"
+    },
+    {
+      "path": "ajv-formats",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978690657057"
+    },
+    {
+      "path": "effect",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978875106757"
+    },
+    {
+      "path": "fast-check",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978768572103"
+    },
+    {
+      "path": "fast-deep-equal",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978691045319"
+    },
+    {
+      "path": "fast-uri",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978697410551"
+    },
+    {
+      "path": "json-schema-traverse",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978690646807"
+    },
+    {
+      "path": "jsonc-parser",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978695543204"
+    },
+    {
+      "path": "pure-rand",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978702540538"
+    },
+    {
+      "path": "require-from-string",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978688488534"
+    },
+    {
+      "path": "typescript",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978771316352"
+    },
+    {
+      "path": "undici-types",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978695949716"
+    },
+    {
+      "path": "valibot",
+      "kind": "dir",
+      "mode": 493,
+      "mtimeNs": "1789963978697417843"
+    }
+  ],
+  "npmDateThresholdNs": "1789963978936000000",
+  "relevantDirectories": 20,
+  "donorTestedMetadataEqual": true,
+  "freshnessEligible": true,
+  "npmInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/NPM_INVENTORY.json",
+    "bytes": 467075,
+    "sha256": "b597b11aaf3b313e3bc93bb67242c69331cd9ee4e246f0a9f39cdc24f3384e7c"
+  },
+  "toolSourcePins": [
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/shrinkwrap.js",
+      "bytes": 38053,
+      "sha256": "783828176377372b3641ee41169ce561f5cdcda03d4f10da615b9a0e3a2eb94c"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-actual.js",
+      "bytes": 14873,
+      "sha256": "20c74c9704dc94f656fb8e2f64ff9a89039437e70ad2fb69d13dcead814dcecd"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-virtual.js",
+      "bytes": 9884,
+      "sha256": "7c0cfc479b1d2104ebfdeab437641166f5fb535240be8760b4949f4cecc170eb"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/lib/index.js",
+      "bytes": 15879,
+      "sha256": "e77f7128b7f6a0b5f6a4e5e52de4ada0c3fdaad1542c98957185576ae1d99e35"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/pacote/lib/dir.js",
+      "bytes": 3086,
+      "sha256": "185f5bc3ec548b1a6adfe963e4ed2275159e3654b6ca0d136a45671bf642c0df"
+    }
+  ],
+  "meaning": "Directory and hidden-lock timestamps are consumed build inputs; no lock touching or fabricated freshness. Exact source+file-byte inventory alone does not imply metadata-insensitive reproduction."
+}

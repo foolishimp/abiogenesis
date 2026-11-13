@@ -1,0 +1,8 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "fcd91ccec1018bab3c05597bd46528e0561fc9426cc7f1cd916e7ec4d1706732",
+  "sourceCommit": "72eea8f0cd384e7eaeb64ff1ba47b0a3ac2858d4",
+  "sourceTree": "d7754acafb3a67efe3b41c093263225ae9ce968e",
+  "decision": "TEMPLATE ONLY: Root must select021 installed zero-provider preflight/call preparation for the small proof completion. Actual frozen-call review precedes one-shot dispatch; no local cut or provider dispatch follows from this template."
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "three-case-diagnostic",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "--test-name-pattern=^(?:M5\\ ABG\\ transport\\ renews\\ its\\ inactivity\\ lease\\ only\\ from\\ observed\\ progress|M5\\ ABG\\ transport\\ does\\ not\\ renew\\ from\\ unacknowledged\\ output|M5\\ ABG\\ transport\\ excludes\\ semantic\\ output\\ emitted\\ after\\ its\\ timeout\\ boundary)$",
+      "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/test_env/tests/m5-worker-transport.diagnostic.test.mjs"
+    ],
+    "timeoutSeconds": 300
+  }
+]

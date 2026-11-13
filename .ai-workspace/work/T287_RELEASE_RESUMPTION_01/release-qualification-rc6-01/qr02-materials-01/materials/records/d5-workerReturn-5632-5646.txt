@@ -1,0 +1,15 @@
+**Provenance (item 1).** The run is dry-4, the committed driver at commit 1.
+
+- **Chains.** 24 chains: the inherited base and 23 commits (`51bc5d2d8` exclusive to `92498a2d2` inclusive).
+- **The inherited base.**
+  - Its delta is the empty tree to `51bc5d2d8` over the tenant: 1,170 members, 1,174 records, 66,681,626 bytes.
+  - It was grounded alone in 74.9 s.
+  - `authorRef` is `author://abiogenesis/t287/inherited-base@51bc5d2d8` and `actorIdentityRef` is
+    `actor-identity://abiogenesis/t287/predecessor-construction`.
+  - Its activation is the ticket's Phase C close rows (12, 48, 272, 305, 306, 312).
+- **All chains together.**
+  - 1,520 records, 196,618,944 bytes (262,160,604 as base64). Every chain was grounded alone.
+  - The whole inventory is grounded: 1,191 members, all current.
+  - The heap was 1.37 GB used of a 16.98 GB limit; the set held.
+- **Every slot is valid.** 485 slots are `grounded` (408 in the plan, 77 outside), 0 `insufficient`, 0 `invalid`.
+- **Cross-process check.** The bounded run, a second process, re-derived the record set `7606c3fe…` equal.

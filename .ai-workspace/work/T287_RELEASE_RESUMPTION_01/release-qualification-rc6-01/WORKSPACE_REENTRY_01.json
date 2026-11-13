@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-05T07:47:34.160354+00:00",
+  "kind": "operator_workspace_failure_triage_and_reentry",
+  "roleTransition": "Executive triage -> bounded operator Writer",
+  "priorAttempt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/WORKSPACE_READY.json",
+  "failure": "git worktree add exit128: No space left on device while copying tracked historical commentary evidence, before Product setup/native execution",
+  "observedEffects": "Git automatically removed the failed working directory and registration. The new branch exists at the unchanged RC6 commit. No native admission, provider call or Product source edit.",
+  "originatingRelation": "A whole physical checkout of129325 tracked paths exceeded available storage; this was unnecessary for creating an isolated source history.",
+  "frames": {
+    "workspace": "Immutable source identity and mutable physical worksite are distinct. An existing clean worktree can select a successor branch without copying payloads or old evidence.",
+    "source": "RC6 commit/tree and release/install bytes are unchanged; no source defect or test regression observed.",
+    "evidence": "Exact failed stdout/stderr and timing remain in this carrier; no successful workspace allocation credited to the failed path.",
+    "resource": "17GiB available after Git cleanup; avoid copying historical bodies and bound subsequent campaign material."
+  },
+  "reentry": "Reuse the existing clean physical checkout on the already-created successor branch; preserve codex/rc6-local-cut at the immutable RC6 commit.",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "successorBranch": "codex/t287-5-release-qualification",
+  "supersedesWorkspaceOnly": "/Users/jim/src/apps/abiogenesis-5-release-qualification",
+  "grantExtension": [
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01"
+  ],
+  "constraints": [
+    "No old release/install mutation",
+    "No clean/reset/delete of unrelated or untracked work",
+    "No Product edits while independent frozen-source audits are active",
+    "Substantive repair remains one ABG native coding Worker at a time"
+  ],
+  "authority": "Owner ok continue plus ROOT_ACTIVATION.json; routine workspace technique re-entry, no Product scope change"
+}

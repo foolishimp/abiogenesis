@@ -1,0 +1,64 @@
+{
+  "kind": "actual_invocation_receipt_passive_custody",
+  "at": "2026-11-06T03:04:10.447487+00:00",
+  "status": "ACTUAL_RETURNED_CLOSE_PHYSICAL_PREFIX_MATCHES_READBACK_RECOVERY_PENDING",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/execution/execution.json",
+    "bytes": 33675772,
+    "sha256": "ba4c2302b76598b80a6588994d6d36599c9cd5f9f2d45c6b32c25a64b1b6c070"
+  },
+  "receiptKind": "definition_host_receipt",
+  "receiptExitCode": 0,
+  "receiptDigest": "sha256:7feacdeffaf5ac681304ec13263bc0931c3fbd9d55333714ff1098f873d4f864",
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/execution/outcome-summary.json",
+    "bytes": 537,
+    "sha256": "1b93b1067ba4b7e219e3990fa012168a36653fb14f8e350e51a5dda9871e81d7"
+  },
+  "run": {
+    "digest": "sha256:c3f09e39d01787b33dd16d3d52015a8bc676ee6cd374f4dc0ed1059c018db5a5",
+    "ref": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:56a796f7ca179fb03538d31e77b995157c699c40abc28025837f7d6f2ae335db",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:2fc8a9f8bc56eded06c22d64c9969807cb3dd9498638dc75ab42c18389b7195b",
+      "prefixLength": 1057950101,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 701759869
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:ec26b6a9bca70bb0d3201d0e9a09ddf7928254d22686cf0ce7f429cc82ee369b",
+      "device": 16777231,
+      "durableByteLength": 1057950101,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:2fc8a9f8bc56eded06c22d64c9969807cb3dd9498638dc75ab42c18389b7195b",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "inode": 701759869,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "physicalPrefixVerified": true,
+  "hostFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/HOST_RESULT.json",
+    "bytes": 155,
+    "sha256": "29d3d0930840c7ee51cdc93a4351fbfa12ec7c071730f48b2761b21f2d4804d7"
+  },
+  "nativeUat": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/NATIVE_UAT_CLOSED_RESULT.json",
+    "bytes": 1566,
+    "sha256": "c0de6cae525566658dc08b423b8b5446dc8741e91e6068123a2fcce45912766c"
+  },
+  "limits": [
+    "Passive extraction of actual owner-returned receipt; no new authority/event admission or fabricated predecessor handoff.",
+    "Fresh reads and recoverable resume not yet completed; original host exit-6 retained.",
+    "C2 remains112pass+1timeout; no UAT, source, qualification or release acceptance."
+  ]
+}

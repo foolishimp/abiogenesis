@@ -1,0 +1,63 @@
+{
+  "status": "NATIVE_B02_COMPLETED_FROZEN_EXTERNAL_PROOF_HELD",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+    "bytes": 295433,
+    "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+  },
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "sourceRows": 1345,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs"
+  ],
+  "conservedSourceRows": 1344,
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/SOURCE_CUSTODY.json",
+    "bytes": 8554,
+    "sha256": "e181e0f732e951109277c7354e330a410f11b53cb3ed4540d13e1e70d9be786a"
+  },
+  "workerReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/WORKER_REPORT.json",
+    "bytes": 4552,
+    "sha256": "e744f6ecf1a5b0ae23987658c97e84859967e818e4e372612b9b32d3e87ec8e3"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/NATIVE_CHECKS.json",
+    "bytes": 2484,
+    "sha256": "15e17183d3a4b260c4bbbdb00427a2f5e08afb5a0b62b4d0c4bb57f290853922"
+  },
+  "native": {
+    "ownerDisposition": "completed",
+    "transportDisposition": "success",
+    "transportStatus": 0,
+    "assessment": "admitted",
+    "toolCalls": 19,
+    "apiRetries": 0,
+    "sdkIntervalMs": 320010.103042,
+    "physicalClose": true,
+    "coldReads": [
+      {
+        "memberKey": "run_result",
+        "outcomeKind": "result",
+        "status": null,
+        "terminalValueDigest": "sha256:6d5f14b974ed189442d33e9c74a0ba76afae2268fc3dfb5a3bbb5802a732a7fe"
+      },
+      {
+        "memberKey": "run_replay",
+        "outcomeKind": "result",
+        "status": "closed",
+        "terminalValueDigest": "sha256:6d5f14b974ed189442d33e9c74a0ba76afae2268fc3dfb5a3bbb5802a732a7fe"
+      }
+    ]
+  },
+  "syntaxOnly": true,
+  "conserved": "Other1344rows, production/A/otherfixtures/tests/plans, main/indices/builds/RC10 exact; original red untouched.",
+  "disclosures": [
+    "Read-only Git commands despite task prohibition retained; no index drift.",
+    "Generated leader not run or parsed separately; syntax-only is not physical proof.",
+    "Response finish is not remote receipt; file-publication window disclosure belongs to Root review.",
+    "Operator cache deviation archived then exact-owned removal; no old receipt/controller mutation."
+  ],
+  "next": "Independent frozen-source review and exact unit-only READY/admission; no test/build/pack/release/acceptance effect here.",
+  "qualified": false
+}

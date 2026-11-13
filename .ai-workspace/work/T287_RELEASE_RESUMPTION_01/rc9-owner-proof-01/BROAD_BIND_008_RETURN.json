@@ -1,0 +1,83 @@
+{
+  "ProductFrame": "Same exact STDO3.0.4 ABI5acceptedsource/archive proof frame; Root008bind-only grant.",
+  "status": "BROAD008_BOUND_RUN_NOT_ADMITTED",
+  "at": "2026-11-08T20:20:06.520527+00:00",
+  "bind": {
+    "attempts": 1,
+    "exitCode": 0,
+    "effects": "Only broad-binding-002 inventory written by unchanged bind owner; no test/runtime/scratch materialization.",
+    "config": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-008.json",
+      "bytes": 214131,
+      "sha256": "ec04f94a9eca98ad9a932b12853bbbb74917867a1e5655a9f178463b36a76750"
+    },
+    "admission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_008_BIND_ADMISSION.json",
+      "bytes": 2380,
+      "sha256": "f9e6ff12cfbc269b4d3dc8e57aaab83b988cb782ee097f82703750831fd25a07"
+    },
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-002/BOUND_INVENTORY.json",
+      "bytes": 1867635,
+      "sha256": "b6011697d340324e18654ec91f0fc24cb9b6d01b035469273c806f88338f7b95"
+    },
+    "node": {
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    "owner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+      "bytes": 32816,
+      "sha256": "2e8e4155be73606d1009b629019b9966470225890a785c78105c6b6a80ba383e"
+    }
+  },
+  "counts": {
+    "total": 209,
+    "testFiles": 208,
+    "harnessFiles": 1,
+    "allTestDirectoryMjs": 213,
+    "focusedWholeFiles": 62,
+    "deferredFiles": 8,
+    "scheduledFiles": 139
+  },
+  "digestEquivalenceTo007": {
+    "oldInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-001/BOUND_INVENTORY.json",
+      "bytes": 1701389,
+      "sha256": "e75c167187c939e5c54e5de207d978697829ba953e7fea944dae28ed05d2966d"
+    },
+    "stageDigest": "a3d3b876f57a943331900bf7a8cb311aedba1e4e294f5d470dd5835fa6f00e83",
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "externalInputDigest": "04c98f99415488f1b18605899b2789fe4d3ba6f2adf4c8b5803f63e6daa1ecd9",
+    "equalFields": {
+      "stageRoot": true,
+      "stageFiles": true,
+      "stageDigest": true,
+      "dependencyRoot": true,
+      "dependencyFiles": true,
+      "dependencyDigest": true,
+      "externalTestInputFiles": true,
+      "externalTestInputDigest": true,
+      "subject": true,
+      "freezeReceipt": true,
+      "tests": true,
+      "deferredFiles": true,
+      "buildEffectFiles": true,
+      "skipDeclarations": true,
+      "timeoutDeclarations": true
+    }
+  },
+  "sameSubjectCredits": {
+    "files": 62,
+    "tests": 411,
+    "passed": 329,
+    "skipped": 82,
+    "failed": 0,
+    "partial063": 0,
+    "RC8": 0
+  },
+  "runOutputAndScratchAbsent": true,
+  "runAdmission": null,
+  "remaining": "Root actual run admission tied to new config/inventory/freeze/preparation; no future admission pin invented. All8selected overrides/11695489ms overallbudget unchanged. Missing failed063resource/closure uncertainty preserved; no universal absence claim."
+}

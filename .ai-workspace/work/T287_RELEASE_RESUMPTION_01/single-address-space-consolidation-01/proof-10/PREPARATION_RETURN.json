@@ -1,0 +1,263 @@
+{
+  "kind": "proof_only_operator_preparation_return",
+  "recordedUtc": "2026-11-04T13:31:29.777832+00:00",
+  "status": "PREPARED_PENDING_REQUIRED_BINDINGS_NOT_DISPATCHABLE",
+  "role": "Separately activated operator/evidence Writer; no Product author or assurance role",
+  "admission": {
+    "mechanism": "Exact Root Writer activation plus named ROOT_PROOF_ONLY_REENTRY_10 intake",
+    "authority": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_REENTRY_10.md",
+      "bytes": 4811,
+      "sha256": "f0881c924dce8bbb85b4752cefbada9c03199a021defe17e54a39435493b31d0"
+    },
+    "selectedScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+      "bytes": 6177,
+      "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+    },
+    "permittedWrites": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/**",
+      "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/**"
+    ],
+    "preexistingDestinationCheck": "Both absent before first write; exclusive creation only."
+  },
+  "productFrame": {
+    "product": "ABIogenesis5 fixed15; GOAL-035/T-287; targeted IR01/IR02 T1-T5 only",
+    "sourceDefinition": {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "builder": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "builderIdentity": "Immutable RC5/f49; no install/cut/Product changes"
+  },
+  "methodVerification": {
+    "command": "stdo status --definition /Users/jim/src/apps/abiogenesis-single-address-space/stdo_abiogenesis.json --verify",
+    "observedExitCode": 0,
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "meaning": "Read-only method basis verification executed during this preparation; not installed ABI lifecycle/C2 preflight."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/SUBJECT.json",
+    "bytes": 225298,
+    "sha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13"
+  },
+  "native09": {
+    "resultRef": "result://abiogenesis/69e2fb9c36419a12ca2ec0871d2738b2a4cb3430b2b9be33393c815ee579c7d5",
+    "eventOrdinal": 62721,
+    "eventTime": "2026-11-04T13:04:51.491Z",
+    "afterObservationDigest": "sha256:cc31692ac2218d405ab2d14c2cc01cd1921a17cee7de98a568d00d9cef62ee9b",
+    "sourceFiles": 157,
+    "originalHandoffs": 3,
+    "currentPhysicalAndFrozenMatches": 160
+  },
+  "installedOwnerRoute": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "bytes": 34310,
+      "sha256": "e4090de450b9e80c7de43f3ca16df7cec5de0b43c6e101453e45093a4b5c437a",
+      "relations": [
+        {
+          "lines": "38-48",
+          "relation": "record workOrders permits only testing and uat orders; assessment roles are distinct"
+        },
+        {
+          "lines": "72-78",
+          "relation": "constructGovernanceWorkState creates fresh input, no observations or prior synthesis"
+        },
+        {
+          "lines": "131-151",
+          "relation": "testing evidence domain includes null; immediate testing requires all selected paths to be observed files"
+        },
+        {
+          "lines": "353-388",
+          "relation": "binder and response schema conserve selected-file and subject-evidence prerequisites"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+      "bytes": 44995,
+      "sha256": "d4799e3fe08e53ea47a058abe17ac367f4854f6e39d3bfaede76b89099728400",
+      "relations": [
+        {
+          "lines": "303-326",
+          "relation": "observedGovernanceTaskMatches and projectGovernanceTestingTask select constructObservedWorksiteCommandExecutionTask for null subjectEvidenceRef"
+        },
+        {
+          "lines": "340-376",
+          "relation": "actual child testing observation is folded by admitted result owner; no manually seeded producer"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+      "bytes": 118773,
+      "sha256": "89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c",
+      "relations": [
+        {
+          "lines": "35-55",
+          "relation": "projectWorksiteCommandExecutionBudget and worksiteCommandExecutionBudgetFits decide actual finalized recipe budget"
+        },
+        {
+          "lines": "212-248",
+          "relation": "constructObservedWorksiteCommandExecutionTask requires exact current A/W/direct grant and unique observed file identities"
+        },
+        {
+          "lines": "893-899",
+          "relation": "constructWorksiteCommandConfiguration refuses empty command plans"
+        }
+      ]
+    }
+  ],
+  "existingOperatorRoutes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/operator-client/public-setup.mjs",
+      "bytes": 26465,
+      "sha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/operator-client/runner.mjs",
+      "bytes": 37818,
+      "sha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/prepare.mjs",
+      "bytes": 7439,
+      "sha256": "d06d074b8eacdba1ad570cdf93f7b5bb3b34675ec22caedf101674e1f1a0d119"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/c2-proof.mjs",
+      "bytes": 5980,
+      "sha256": "0ec9d496ba042243b653057241cbec060f83e92ec218334c3cbd312d2505ee1c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/PROVIDER_PROFILE.json",
+      "bytes": 1587,
+      "sha256": "7f59c6cd87cea60c53bff2d5438ced63f03882f596992c73089e92f209fb599f"
+    }
+  ],
+  "defaultRoute": "After actual dependencies and Root selection: finalize only testing+uat original work orders; constructGovernanceWorkState through installed product, use publicCaller with actual09 close/binding and fresh owner environment, then existing constructLifecycleCall/constructInstalledStartCall. Native selector can immediately choose Testing with null subject. Observed C2 constructor owns current file identities; actual child fold supplies UAT subject. No fabricated state/producer.",
+  "directC2Option": {
+    "confirmedLowerOwner": "product/worksite_command_execution.js constructObservedWorksiteCommandExecutionTask",
+    "prerequisites": "Exact current A/W/direct grant and observed-file identities, nonempty command/predicate configuration and admitted execution boundary.",
+    "PublicDirectEntryStanding": "Not established or selected in this preparation. A pure constructor is not by itself Public operation authority. Safe selected default remains existing immediate-Testing governance path; return exact current caller/GraphFunction binding to Root before replacing it."
+  },
+  "newExecutionProposal": {
+    "id": "single-address-space-whole-path",
+    "files": [
+      "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "timeoutMs": 1200000,
+    "minimumPasses": 12,
+    "requireNoSkips": true
+  },
+  "reuseConstraint": "Only Root-validated actual09 build/package/source and per-lane observations may be reused after closed independent review and exact dependency/package guards. Preserve original execution provenance and every failed/skipped/unmet predicate. No new credit or unchanged equality asserted yet.",
+  "missingFinalizationBindings": [
+    {
+      "binding": "actual_native09_c2",
+      "needed": "Root-supplied actual helper Result/custody, per-command status/streams/predicates, actual snapshot/output identities, current source correspondence and retained package/build support. Whole C2 success is not presumed."
+    },
+    {
+      "binding": "actual_native09_uat_and_close",
+      "needed": "Genuine09 outcome, actual invocation close, fresh run_result/run_replay and exact after-run-resume; do not substitute08 or fabricate terminal state."
+    },
+    {
+      "binding": "independent_targeted_review",
+      "needed": "Exact closed independent source/caller-retirement and candidate/preimage evidence review tied to38933d subject; preliminary observations are not final dispositions."
+    },
+    {
+      "binding": "root_proof_only_disposition",
+      "needed": "Root-selected bounded credit/exclusions and actual09 failures/skips including revision1fail/exit1 and unmet floors. Do not lower floors or call those failures fixed."
+    },
+    {
+      "binding": "final_test_support_selection",
+      "needed": "Exact existing-owner current-file selection for actual09 compiled build/package/offline dependencies and dynamic fixture inputs, with actual source/package/dependency guards. No author scratch build is promoted to actual C2."
+    },
+    {
+      "binding": "final_installed_owner_preflight",
+      "needed": "Root-authorized finalized context observation, input/state/command configuration, budget, all-phase capacity/current assessment basis and prepared-call pins, then separate dispatch admission. None executed here."
+    }
+  ],
+  "completedMechanicalValidation": [
+    "Selected STDO definition verified installed/valid with no failures.",
+    "All157 frozen/current/admitted source hashes matched, and3 original current handoffs matched frozen copies.",
+    "Retained baseline5575B exact expected SHA and external-resource metadata6147B expected SHA verified before byte copying.",
+    "Only testing/uat order fragments; both have empty native writeRoots. No construction order or runtime state emitted.",
+    "New input paths remain within authorized proof10 subtree; copied baseline selected/read projection explicit. Existing source-derived short Unix socket layout79B remains below108B.",
+    "No new future source/handoff file is named. No preflight, dispatch or source-preservation success beyond these bounded hashes is claimed."
+  ],
+  "notExecuted": [
+    "Product/test/HOW edits",
+    "tests/builds/npm/provider/native/Run/runtime operations",
+    "ABI installed preflight or capacity/budget projection",
+    "dispatch, fresh readback or actor contact",
+    "Git mutation, cleanup or source installer"
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+      "bytes": 5575,
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json",
+      "bytes": 6147,
+      "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/ROOT_PROOF_ONLY_REENTRY_10.md",
+      "bytes": 4811,
+      "sha256": "f0881c924dce8bbb85b4752cefbada9c03199a021defe17e54a39435493b31d0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/TASK.md",
+      "bytes": 2038,
+      "sha256": "cb343f569e390c3767c43f35d7bc96ee67ffdc9dd1e51f2bf8f6609805bbced0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/SOURCE_BEFORE.json",
+      "bytes": 87392,
+      "sha256": "90d4820b07cc00f3a181dd0670fd67ae459e1cc2ba2c4292148baf326f7595ab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/WORKLOAD_PROJECTION.json",
+      "bytes": 7721,
+      "sha256": "06733b74854cffe5877df6690ed58c2e8f131c1eaf61f6a0097f65a84351f425"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/INPUT_SELECTION.json",
+      "bytes": 5561,
+      "sha256": "7fa83b3255cc1c9973236e47419d0dcf2ce2547f3a0220feaf0b932f0884cf6d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/PREPARATION_RETURN.md",
+      "bytes": 2421,
+      "sha256": "b42625ce540bc9fbf26ee61fe0bdade336e3dd2e5d2185c3b9e0e11c2f2c3dca"
+    }
+  ],
+  "limits": [
+    "This record and WORKLOAD_PROJECTION are non-executable preparation evidence, not a sufficient admitted workload.",
+    "No actual09 C2/UAT/final close/fresh/Root disposition has been invented or consumed.",
+    "No full proof10 selected-file/compiler/dynamic fixture closure or current assessment capacity has been claimed; required actual outputs are pending.",
+    "Preliminary independent review observations remain preliminary; current known real revision failure is preserved.",
+    "No acceptance of targeted refactor, wider programme, qualification or release."
+  ]
+}

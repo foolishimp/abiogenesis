@@ -1,0 +1,13 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/prepare-and-dispatch.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/prepare-and-dispatch.corrected.mjs
+@@ -27,8 +27,8 @@
+ assert.deepEqual(JSON.parse(actualCloseBytes).closeHandoff.prefix,binding.actualClosePrefix);
+ const pinnedJson=async pin=>{assert(pin?.path&&pin?.sha256&&Number.isSafeInteger(pin?.bytes),'Required control pin missing');const b=await readFile(pin.path);assert.equal(b.length,pin.bytes,pin.path);assert.equal(hash(b),pin.sha256,pin.path);return JSON.parse(b);};
+ const retained=await pinnedJson(binding.resume),profile=await json(join(dir,'PROVIDER_PROFILE.json')),w=await json(join(dir,'workload.json')),grant=await json(join(dir,'NATIVE_GRANT.json'));
+-// Root binds the single H06 architecture selection, actual H04 source/close and final admission.
+-const selected=await pinnedJson(grant.selection);assert.equal(selected.status,'ROOT_SELECTED_NATIVE_ONE_TEST_ORACLE_CORRECTION');
++// Root binds the single H06 architecture selection, actual H05 source/close and final admission.
++const selected=await pinnedJson(grant.selection);assert.equal(selected.status,'ROOT_SELECTED_NATIVE_ONE_FIELD_FIXTURE_CORRECTION');
+ const admitted=JSON.parse(admissionBytes);assert.deepEqual(admitted.selection,grant.selection);assert.deepEqual(admitted.actualClose,binding.actualClose);assert.deepEqual(admitted.sourceBefore,await (async()=>{const path=join(dir,'SOURCE_BEFORE.json'),b=await readFile(path);return {path,bytes:b.length,sha256:hash(b)};})());
+ assert.deepEqual(binding.bindingOverlayFields,['binding','catalog','catalogView'],'Only the maintained native-author binding/catalog overlay is permitted; actual current close is retained');
+ assert.deepEqual(Object.keys(w.workOrders),['construction']);assert(Array.isArray(w.workOrders.construction.instructions));

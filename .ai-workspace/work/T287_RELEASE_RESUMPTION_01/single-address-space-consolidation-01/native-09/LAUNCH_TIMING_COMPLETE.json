@@ -1,0 +1,72 @@
+{
+  "kind": "actual_targeted09_public_launch_timing",
+  "recordedUtc": "2026-11-04T11:53:05.364257+00:00",
+  "authority": "ROOT_TARGETED_REFACTOR_09.md",
+  "dispatchManifestSha256": "75ddefab6a4e7ba257114eada1da1500cc4c09cded98e0945330808f0d1eff84",
+  "host": {
+    "pid": 82542,
+    "startedUtc": "2026-11-04T11:35:50.054Z",
+    "heapLimitBytes": 8791261184
+  },
+  "nativeCodingProcess": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 59516,
+    "eventId": "event://abiogenesis/2a187a474b2d73ba70685afe6a185a3d7f8a9eb84e24ee78c564134937782051",
+    "eventTime": "2026-11-04T11:52:16.537Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/8151fe0a681158cbe0edc14139cee1dc877e592f278a5e78509364457a968c88",
+    "offset": 794741060,
+    "rowBytes": 1888,
+    "rowSha256": "bd8f16c0288f0f797739e1f3ed2ccb6f253db215d83e10435f6025e9ad93a4b3",
+    "processRef": "process://abiogenesis/a1e358666d3039c550b2596bb5f3ee7d3d253eb767dfe30224f7056bd264ff60",
+    "pid": 93704
+  },
+  "initialSelectorProcess": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 59358,
+    "eventId": "event://abiogenesis/69cdae42076f112677f680699c76c36fb0238e1db6be3203dbc2229d130afde1",
+    "eventTime": "2026-11-04T11:43:37.844Z",
+    "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+    "runId": "run://abiogenesis/8151fe0a681158cbe0edc14139cee1dc877e592f278a5e78509364457a968c88",
+    "offset": 791895610,
+    "rowBytes": 1859,
+    "rowSha256": "6138c7a2f45660971180cc285b35931f9c05cdfe95dbff5164a9514e4ebb6241",
+    "processRef": "process://abiogenesis/4b0e7f502a85961d87bb425e6de5a33dd1af645ad114f81a5ca38772214909c0",
+    "pid": 88222
+  },
+  "initialSelectorExit": {
+    "kind": "actor_process_exited",
+    "admissionOrdinal": 59444,
+    "eventId": "event://abiogenesis/bf0b3e8307ca47c8e2c918275ea1fa4aed51fa42558ac399292bad9b81e9baf6",
+    "eventTime": "2026-11-04T11:44:54.340Z",
+    "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+    "runId": "run://abiogenesis/8151fe0a681158cbe0edc14139cee1dc877e592f278a5e78509364457a968c88",
+    "offset": 792168613,
+    "rowBytes": 1773,
+    "rowSha256": "f43680b53c672d9e08048e05dbdab19521a58054d6592a9d50b432a114531d2e",
+    "processRef": "process://abiogenesis/4b0e7f502a85961d87bb425e6de5a33dd1af645ad114f81a5ca38772214909c0",
+    "pid": null
+  },
+  "intervalsMs": {
+    "selectedDispatchToHostStarted": 70537.474,
+    "hostDispatchToInitialSelector": 467790.0,
+    "initialSelectorDuration": 76496.0,
+    "selectorExitToNativeCodingProcess": 442197.0,
+    "hostDispatchToNativeCodingProcess": 986483.0,
+    "RootBetweenActivations": 10656636.62
+  },
+  "sourcePrefixLength": 755445926,
+  "observedThroughByte": 794768911,
+  "observedThroughOrdinal": 59522,
+  "setupReused": true,
+  "priorSetupMetricsOnly": {
+    "sdkSetupMs": 28938.979459,
+    "artifactVerificationMs": 19748.530083,
+    "standing": "Inherited initial setup measurements, not current09 setup or launch CPU."
+  },
+  "limits": [
+    "Physical public event envelopes, not runtime acceptance or CPU attribution",
+    "Coding start is distinguished from host dispatch and initial selector; no source return/C2/UAT outcome inferred",
+    "No provider thinking/text inspected; no store acquired or actor contacted"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "candidate": {
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+      "bytes": 296057,
+      "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+    },
+    "scratchCompileRelation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/SCRATCH_COMPILE_RELATION.json",
+      "bytes": 63683,
+      "sha256": "f6a31ed105da856437fe3c349daea7ee434b2d603bd33ee5fb26c39863dd4757"
+    },
+    "scratchInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/COMPILED_SCRATCH_INVENTORY.json",
+      "bytes": 106064,
+      "sha256": "9c3f3259eee428e2ff5f265ffa8f01821238a5143806e149049334d9cdf5fee9"
+    },
+    "checks": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/NATIVE_CHECKS.json",
+      "bytes": 8668,
+      "sha256": "628d07c861ae66cc4a71640a99907c965eb05fa2a2e6c51f56803c4e47f8146f"
+    },
+    "modules": [
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 9891,
+        "sha256": "563448e7dc2f8e9a053ba8ac1dd49baf884e021cf301c7a352ace1ee7d33e897"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_state.js",
+        "bytes": 8361,
+        "sha256": "4d3863302d3a141dff2154ca1edc438dbc854985dfd8094617de885999e38880"
+      }
+    ]
+  },
+  "baseline": {
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/source-freeze.json",
+      "bytes": 295022,
+      "sha256": "9ff5a44dcaca743e51be2313c21e503a437b57f036162a0f8cc2e37d4df20ae3"
+    },
+    "ownerSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    "phase2PreimageSameOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    "compiledInventory": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+      "bytes": 182705,
+      "sha256": "3db4a581d6d81128f477de20b3e9591ce462e0be11dacb27f101fca2a34f2f35"
+    },
+    "actualBuild": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/build/RETURN.json",
+      "bytes": 1123,
+      "sha256": "797468fea65a73e297f4279478f8ff74a20ae806136baab30f0d09e8d77ec07d"
+    },
+    "ownerModule": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    },
+    "relation": "ExactownerTS equals Apreimage; maintained normal build receipt binds that sourceDigest and exact compiled member. Same fixture may be run against it only on explicit admission; no baseline result inferred."
+  }
+}

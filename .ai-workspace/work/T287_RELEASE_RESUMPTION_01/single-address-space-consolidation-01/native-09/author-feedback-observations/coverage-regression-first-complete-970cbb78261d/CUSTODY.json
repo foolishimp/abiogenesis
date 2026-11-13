@@ -1,0 +1,21 @@
+{
+  "kind": "passive_first_complete_named_author_feedback",
+  "observedUtc": "2026-11-04T12:58:57.016835+00:00",
+  "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09/runs/coverage-regression-lanes.tap",
+  "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/author-feedback-observations/coverage-regression-first-complete-970cbb78261d/coverage-regression-lanes.tap",
+  "bytes": 59593,
+  "sha256": "970cbb78261d260f19ea4ad81f7cc9f137f3f5b0c55590d03611f3141ff9b296",
+  "tally": {
+    "pass": 72,
+    "fail": 1,
+    "skipped": 75
+  },
+  "durationMs": 545540.423291,
+  "completeDurationFooter": true,
+  "sourceCoordinates": "Exact Root-named coverage-regression scratch TAP; first complete footer observation by this recorder",
+  "standing": "Author feedback only; not final handoff, actual C2, source judgment or acceptance",
+  "limits": [
+    "No actor contact/investigation/test rerun",
+    "Physical output custody only; no broader scope"
+  ]
+}

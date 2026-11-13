@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "fd611eb418853a473579739e57e823927a6f146c2578c39ee4bace55280a2beb",
+  "sourceCommit": "16d245c1e30119c4f8bbadce06c63d857a576ee4",
+  "sourceTree": "8da4f23ce03482ad294b434322261a2f40e57edd",
+  "decision": "Root independently verified exact014-r1 source, referenced pins and unique caller lists. Admit Root-only actual installed zero-provider preflight and call construction for the bounded014 preparation revision. Original task/grant/source/scratch14/profile scope is conserved. No freeze, dispatch, provider/Run admission, automatic retry or acceptance is selected; old014 remains unchanged.",
+  "createdUtc": "2026-11-02T13:31:48.178934+00:00",
+  "packetSha256": "d03c84066c9429fb22e4650c66eaec44dff6fac7201412063eb663224e1a8697"
+}

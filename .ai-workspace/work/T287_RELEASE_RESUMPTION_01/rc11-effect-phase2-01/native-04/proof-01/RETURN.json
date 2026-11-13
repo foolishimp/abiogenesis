@@ -1,0 +1,33 @@
+{
+  "status": "SELECTED_A_PROOF_RETAINED",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3468,
+    "sha256": "22b9575bf4520e80b6ed4dfa7a43c15b483dbcf12db3a62830375a0efebc972a"
+  },
+  "receipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/r1-probe.RETURN.json",
+      "bytes": 1607,
+      "sha256": "0d32f90eb2404fa1fd0e70f6d61e130ee21210ef0a066599241b3dfdeaa0cf7e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/r2-immediate.RETURN.json",
+      "bytes": 1631,
+      "sha256": "84bb3fddc69b0c7f583592e14b001bdf59974c8bb40a9a609f14e90b94d60c22"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/baseline-signal.RETURN.json",
+      "bytes": 1699,
+      "sha256": "393b19438c5b587cadc857cc5695217f18857f7943f6859ef80515f7315d4bfc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/owned-lifetime.RETURN.json",
+      "bytes": 124206,
+      "sha256": "51ed135444308e011b7fa986cc6d51491b747b87aa91a768dd2356d940bf0cf2"
+    }
+  ],
+  "campaignSeconds": 16.471993333,
+  "halt": null,
+  "standing": "Four selected commands only; baseline comparison separately classified. No installed/full Phase2 acceptance; Root conjoins actual evidence."
+}

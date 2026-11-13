@@ -1,0 +1,53 @@
+{
+  "status": "ONLY_AUTHORIZED_CURRENT_STATUS_PREFIXES_ADDED_PREVIOUS_BODIES_VERBATIM",
+  "recordedUtc": "2026-11-09T05:11:35.949326+00:00",
+  "rootDecision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+    "bytes": 9637,
+    "sha256": "72cdf775e7878737781b7edd2879bd5c4d2c28b7b525428917d981eaa7e748c3"
+  },
+  "currentStatus": "RC10_LOCAL_DELIVERED_UNQUALIFIED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 168282,
+        "sha256": "4f04d84f6de75aa6f23c52199b08b643ad6c8a2c21e8d0692c63386ee9a9d2e1"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 169880,
+        "sha256": "fc62ab8237fa3af53a196f8cb06c06507d7faeeeab216fb534307e6c00d87d28"
+      },
+      "insertOffset": 21,
+      "insertedBytes": 1598,
+      "previousBodyPreservedVerbatim": true,
+      "verification": "Removing exactly the inserted prefix reproduces every original byte, including heading and prior dated statuses."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 817015,
+        "sha256": "4c57b8606b481c2777b055a4245a1a7c49013595b368460d5828721b804a9372"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 818591,
+        "sha256": "71b13c26dd801cfc87ca010262e74e356627aa2d85bc6d3fe8ed40c1f5c9df40"
+      },
+      "insertOffset": 70,
+      "insertedBytes": 1576,
+      "previousBodyPreservedVerbatim": true,
+      "verification": "Removing exactly the inserted prefix reproduces every original byte, including heading and prior dated statuses."
+    }
+  ],
+  "goalsAndTicketRemain": "Active",
+  "mainIndexUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "scope": "Two current-status prefixes only after Root released the freeze. No Git command or mutation, candidate/installed/released byte change, code edit, additional review or test."
+}

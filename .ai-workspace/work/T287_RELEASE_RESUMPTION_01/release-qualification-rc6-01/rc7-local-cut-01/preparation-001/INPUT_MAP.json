@@ -1,0 +1,433 @@
+{
+  "kind": "rc7_local_cut_dependency_command_input_map",
+  "status": "PREPARATION_ONLY_DEPENDENCY_BLOCKED_NO_EFFECT_ACTIVATION",
+  "createdUtc": "2026-11-06T12:50:33.157854+00:00",
+  "authority": "Root operator-only preparation assignment: trace existing RC6 cut/pack/install owners and prepare one finite map; effects confined to rc7-local-cut-01/preparation-001. Root alone activates dependency-ready materialization.",
+  "frame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "product": "ABIogenesis5.0 fixed15 / GOAL-035 / T287",
+    "method": "stdo://releases/v3.0.4/",
+    "methodManifest": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionVerification": {
+      "command": "stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify",
+      "definitionId": "urn:stdo:product-definition:abiogenesis",
+      "installed": true,
+      "valid": true,
+      "failures": [],
+      "composition": []
+    },
+    "productAuthority": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "frameBasis": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "executionClass": "Mechanical isolated identity, packaging and local installation preparation; no Product/runtime authority."
+  },
+  "knownPredecessor": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/SOURCE_AFTER.json",
+      "bytes": 504858,
+      "sha256": "0fee4bdb8486eb84390b1c6d19e4a197c6244b2b366b4c3704359e17e18f9bae"
+    },
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-001/SUBJECT.json",
+      "bytes": 18826,
+      "sha256": "fa6db03cfdc19517ba0107a49bcb2e2b83ef82f003b05e9eb82b2da9a8f5e400"
+    },
+    "RootDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 6407,
+      "sha256": "b6b88cd3eebad2254f73bbbcdf57ab225d50edf167f6393446596ab89f4936fd"
+    },
+    "standing": "Partial F2 reference only, not the future RC7 accepted source.",
+    "baseCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "sourceRows": 450,
+    "trackedDeltaCount": 59,
+    "allTrackedDeltasCoveredByFrozenInventory": true,
+    "newProductPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+    ],
+    "allNewProductPathsCovered": true
+  },
+  "dependencies": [
+    {
+      "id": "HS01",
+      "required": "Corrected held-session S1/necessary S2/touched S7 source and existing library Program/caller correction; actual return/source freeze/affected proof/independent review/Root disposition.",
+      "source": null,
+      "acceptance": null
+    },
+    {
+      "id": "HS02",
+      "required": "Installed actual same-owner session with multiple calls and both held read types; warm/cold complete equality at same prefix/selectors, pure reads and acquisition/decode/resource measurements. Carry any source corrections into final freeze.",
+      "source": null,
+      "proof": null,
+      "acceptance": null
+    },
+    {
+      "id": "HS03",
+      "required": "Bounded stdout/liveness/archive ordering increment, affected differential/interruption proof, frozen source/review and Root disposition.",
+      "source": null,
+      "proof": null,
+      "acceptance": null
+    },
+    {
+      "id": "S6",
+      "required": "Conditional only on installed post-S4 measurements and explicit Product reprice/consumer migration selection. It is not activated by this preparation.",
+      "selected": false,
+      "decision": null
+    }
+  ],
+  "futureBindings": {
+    "finalSourceSubject": null,
+    "finalSourceInventory": null,
+    "finalBaseCommit": null,
+    "finalBaseTree": null,
+    "sourceAcceptance": null,
+    "hs01Close": null,
+    "hs02Evidence": null,
+    "hs03Close": null,
+    "metadataWriteGrant": null,
+    "isolatedWorktree": null,
+    "identitySourceCheckpointCommit": null,
+    "identitySourceCheckpointTree": null,
+    "finalOwnerPins": null,
+    "candidateArchive": null,
+    "archiveMemberCount": null,
+    "manifestDigest": null,
+    "productContentDigest": null,
+    "artifactDigest": null,
+    "reproduction": null,
+    "artifactIdentityBridge": null,
+    "independentPackagingReview": null,
+    "RootBuildInstallAdmission": null,
+    "finiteCommandBounds": null,
+    "actualInstall": null
+  },
+  "identity": {
+    "plannedPackageName": "@abiogenesis/typescript-tenant",
+    "plannedVersion": "5.0.0-rc.7",
+    "plannedProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.7",
+    "observedVersion": "5.0.0-rc.6",
+    "sourceEdits": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "fields": [
+          "version"
+        ]
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+        "fields": [
+          "version",
+          "packages[\"\"].version"
+        ]
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "fields": [
+          "ABI5_PRODUCT_ID",
+          "ABI5_PACKAGE_VERSION"
+        ]
+      }
+    ],
+    "claimSurface": "build_tenants/abiogenesis/typescript/release-claim.md",
+    "unchangedMeaning": [
+      "Dependency versions and integrity entries",
+      "Logical schema/workflow versions",
+      "Accepted substantive source and historical evidence identity"
+    ],
+    "derivedOutputs": "Existing tsc declarations plus contracts/** and product-toolchain-manifest.json from unchanged selected generator. Do not hand-edit generated digests or assume the six-member RC6 identity delta recurs.",
+    "ownerDecision": "Generator/pack/verify/install do not bump source versions. The accepted RC6 prepare-source.py already performs these exact identity edits under its explicit operator Writer metadata grant, including release-claim/evidence. Reuse that bounded mechanical transformation under a fresh Root grant; a new native implementation Worker is not inherently required. Any substantive source/HOW/test change returns to the existing native Worker route.",
+    "currentAuthority": "No identity or source edit is authorized/executed by this map."
+  },
+  "cleanSourceRoute": {
+    "owner": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/prepare-source.py",
+    "steps": [
+      "Root selects the final immutable base commit plus complete frozen overlay and mode/new-path metadata; verify every selected snapshot and that all admitted cumulative source deltas are covered.",
+      "Create a new absent isolated worktree/branch from that exact base using the existing worktree-add route. Operate its index only; preserve C/M HEADs, indexes, dirty/untracked work and active controls.",
+      "Overlay only Root-selected frozen source snapshots, not git diff/working-tree copies from moving C/M. Include the two existing new Product paths and any explicitly selected successor paths.",
+      "Apply the exact metadata-only identity/claim grant in that isolated worktree; preserve accepted source except recorded identity fields.",
+      "Build/package there, record generated delta and finite named evidence references, then create its own source checkpoint through existing freeze-cut owner; no C/M staging or commit.",
+      "Clean reproduction uses git archive from that exact isolated checkpoint into a second absent scratch tree; no build/node_modules residue or source movement."
+    ],
+    "modeLaw": "Preserve base tracked file modes; bind any new or changed executable metadata explicitly. Do not infer executable authority from byte digests.",
+    "historicalHookExclusions": "Do not execute RC6 prepare-source.py verbatim: it hardcodes RC6 roots/pins and updates M GOALS/ticket/status. RC7 adaptation must remove those ungranted coordination writes and bind exact new controls only."
+  },
+  "commands": [
+    {
+      "id": "CUT01",
+      "phase": "isolated source",
+      "owner": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/prepare-source.py",
+      "template": "git -C <M> worktree add -b <new-rc7-local-branch> <absent-isolated-worktree> <final-base-commit>; overlay exact frozen inventory; apply only the bound identity fields/claim",
+      "executed": false
+    },
+    {
+      "id": "CUT02",
+      "phase": "offline toolchain",
+      "owner": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/build-source.py",
+      "template": "cp -cR <pinned-existing-toolchain-node_modules> <isolated-tenant>/node_modules",
+      "condition": "Destination absent; final dependency selection and lock exact; no network/package refresh.",
+      "executed": false
+    },
+    {
+      "id": "CUT03",
+      "phase": "build/generate",
+      "owner": [
+        "build_tenants/abiogenesis/typescript/package.json",
+        "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs"
+      ],
+      "argvTemplates": [
+        [
+          "<pinned-node>",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "tsconfig.json"
+        ],
+        [
+          "<pinned-node>",
+          "scripts/generate-product-manifest.mjs"
+        ]
+      ],
+      "cwd": "<isolated-worktree>/build_tenants/abiogenesis/typescript/",
+      "note": "Generator uses npm pack --dry-run --ignore-scripts --json itself. Keep setup/compile/generation timings distinct.",
+      "executed": false
+    },
+    {
+      "id": "CUT04",
+      "phase": "pack once",
+      "owner": "Existing npm package projection selected by package.json and generator",
+      "argvTemplate": [
+        "<pinned-npm>",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "artifacts"
+      ],
+      "note": "Avoid npm prepack rebuilding a second time. Do not run npm version or scripts that create unsolicited commits/tags.",
+      "executed": false
+    },
+    {
+      "id": "CUT05",
+      "phase": "checkpoint/reproduction/bridge",
+      "owner": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/freeze-cut.py",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/build-source.py"
+      ],
+      "template": "Freeze/checkpoint isolated source only; git archive exact checkpoint; extract into absent clean scratch; same offline dependencies, tsc, generator and pack; compare complete archive digest/length. Compare the exact native-tested artifact to the identity successor when such a matched artifact exists.",
+      "note": "RC6 had 5,325 members and six identity/generated changes; those are historical counts, not RC7 assertions. Root selects review of the actual packaging/claim delta.",
+      "executed": false
+    },
+    {
+      "id": "CUT06",
+      "phase": "local verify/lock/install",
+      "owner": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/install-local-rc6.mjs",
+      "existingOwnerCalls": [
+        "verifyProduct(exact archive plus expected artifact/content/manifest/Product/package identities)",
+        "constructResolvedProductLock([verified])",
+        "installProduct(exact retained archive, absent install host, verified artifact, resolved lock)",
+        "isProductInstallCandidate(installed, lock)",
+        "installedProductContentMatches(installed)"
+      ],
+      "note": "Adapt only concrete RC7 roots/version/input pins; reuse Product owners. Existing installProduct selects npm install --bin-links=false --ignore-scripts --no-audit --no-fund --offline --package-lock=true. Root canonical commandRecorder supervises finite execution; no copied spawn/timeout code.",
+      "executed": false
+    },
+    {
+      "id": "CUT07",
+      "phase": "same-byte installation closure",
+      "owner": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/install-local-rc6.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/close-local-cut.py"
+      ],
+      "template": "Compare every archive payload member with installed bytes; retain actual inventory digest/count and checksum receipts. One fresh process loads the actual installed Product owner and calls installedProductContentMatches; verify selected identities/CLI path and retained archive unchanged.",
+      "executed": false
+    }
+  ],
+  "environment": {
+    "toolSelection": "Pin/resolve actual node, npm, tar and existing offline dependency selection before activation; RC6 tool pins are provenance, not automatically current.",
+    "nodeHeapMiB": 8192,
+    "proposedShortTmpRoot": "/private/tmp/abg-r7c",
+    "npmConfig": "Two distinct empty user/global npm config files; exact paths/hashes bound by Root, never one shared /dev/null path.",
+    "sanitize": "Exclude credentials, provider/external ABI5 selectors and inherited task controls; retain explicit pinned PATH, locale, owned temp and offline toolchain resources.",
+    "commandBounds": "Root binds finite canonical commandRecorder ceilings before activation. RC6 build-source used 600 seconds per command; no inherited timeout increase or automatic retry is authorized here.",
+    "targetPolicy": "Fresh release/install/stage roots; collision/refusal or incomplete attempt is retained and returned, never overwritten, deleted or blindly retried."
+  },
+  "proposedOutputLocations": {
+    "localReleaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7",
+    "absenceChecked": false,
+    "selectionOrPublicationEffects": false
+  },
+  "preservedGates": [
+    "HS01/HS02/HS03 exact dependency closure and current Root conjunction; no conditional S6 activation.",
+    "Remaining D5, QR02 and eligible QR03, S01/S02/S03/S06, F11/sole AF22 and exact-candidate qualification retain their declared standing.",
+    "Product ABG5-S07: qualified pre_rc_candidate authorizes one immutable RC; qualify exact installed_rc; actual human accepts/withholds that same unchanged RC; source-blind post-publication installation remains separate.",
+    "Local unqualified preparation/build/install does not satisfy or retroauthorize those gates. No push, merge, tag, publication, selector or stable acceptance claim.",
+    "Reuse unchanged completed proof by exact source/relation and recorded bridge; any material successor invalidation gets targeted Root re-entry, not automatic whole qualification repetition."
+  ],
+  "stops": [
+    "Unbound final source/acceptance/identity grant or insufficient cumulative frozen overlay",
+    "Unexpected substantive or generated identity delta",
+    "Source/owner/tool/archive/installed identity mismatch",
+    "Existing target or owner refusal",
+    "Reproduction mismatch",
+    "Any needed source repair outside metadata authority"
+  ],
+  "rc6WorkflowEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/HANDOFF.md",
+      "bytes": 3551,
+      "sha256": "feca45b69462ff345d5446b4e30a160c8d7b30f2a5f45659410808bf87472d53"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/WRITER_ACTIVATION.json",
+      "bytes": 3887,
+      "sha256": "3676d710be85db541522aa0c1d898b49225e636cd16d976664679a3fa2d7d078"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/prepare-source.py",
+      "bytes": 12077,
+      "sha256": "c57457665c5c8d0111bba729b84bffd12eb09b86b2807b29925e1835a9741ecb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/build-source.py",
+      "bytes": 3591,
+      "sha256": "eb5680ff4b83683b28f2c2a0bf39aff0a58d47e3faa15941f46a2145a167f380"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/freeze-cut.py",
+      "bytes": 5237,
+      "sha256": "95712bcc30310e022e5213336e69861c0f7c0ee4f4901d839713ebdea652152a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/prepare-install.py",
+      "bytes": 6614,
+      "sha256": "86da79c1e618961fbb3bc0f2e19e2f8c7ecba0bcc2b4c6c4b40156c605348b7c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/install-local-rc6.mjs",
+      "bytes": 7228,
+      "sha256": "33d99f68f65b206f27b791b2d487afbc1b2ac5c80d20e29f30d1f39dcebced0d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/close-local-cut.py",
+      "bytes": 10746,
+      "sha256": "f44c899082d2bce5252b92da942398993cda0dec5ba829ceb386e9c665564e1f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/INPUT_MANIFEST.json",
+      "bytes": 7749,
+      "sha256": "1c0c44ae71e0f17626345d7ede63ab86a0c064e6add75a73038fc06f6b3d9d98"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/FINAL_INSTALL_VERIFICATION.json",
+      "bytes": 4687,
+      "sha256": "fb1e0dd041301aa4fb33ff89af3a645b9d162221d346e92f34dd735e6f8243b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 8256,
+      "sha256": "4011cc77e0111fa816b2c2a604323e92b653299f059e4ea315623bef46245598"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/INDEPENDENT_LOCAL_CUT_REVIEW.json",
+      "bytes": 18281,
+      "sha256": "84666f1abf65b43a6ce4fa358047fd3461d611a21a966f9302d48cad4f2b2f61"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/reproduction/RESULT.json",
+      "bytes": 7699,
+      "sha256": "d32cc03c62479730635f5c56aad01d654313c30ecfaf45595d73c826f027b4fc"
+    }
+  ],
+  "currentFrozenOwnerReferences": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/package.json",
+      "frozenOwner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10003,
+        "sha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da"
+      },
+      "standing": "Current F2 baseline owner only; final HS source owner pin remains unbound."
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "frozenOwner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/package-lock.json",
+        "bytes": 8001,
+        "sha256": "e5f693f2405874936a9831fd33dcdc246a16274679d028cfada2d9465d0496ed"
+      },
+      "standing": "Current F2 baseline owner only; final HS source owner pin remains unbound."
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "frozenOwner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "bytes": 13080,
+        "sha256": "4df18ecb36338172f9dcca8549e105357c5dd4a759b169b5765167f881280688"
+      },
+      "standing": "Current F2 baseline owner only; final HS source owner pin remains unbound."
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "frozenOwner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "bytes": 53308,
+        "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f"
+      },
+      "standing": "Current F2 baseline owner only; final HS source owner pin remains unbound."
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "frozenOwner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+        "bytes": 25939,
+        "sha256": "bc327cd09edefac59b0e678a7feee975e3e8e812d3db954809e26a08be02402e"
+      },
+      "standing": "Current F2 baseline owner only; final HS source owner pin remains unbound."
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+      "frozenOwner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+        "bytes": 92039,
+        "sha256": "bd34c1095ab3109704941cc55968e4a64bc5dae559a41e1252b5e231eaf95688"
+      },
+      "standing": "Current F2 baseline owner only; final HS source owner pin remains unbound."
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "frozenOwner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+        "bytes": 18597,
+        "sha256": "6587f5a46e752c9c21d2f7328a43e241796d8b855ec4f3791e0b9e169f559ce2"
+      },
+      "standing": "Current F2 baseline owner only; final HS source owner pin remains unbound."
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "frozenOwner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+        "bytes": 43488,
+        "sha256": "dd64d252cc1cd3fe7d8041e188193686da15fb92cdc66f98a8136846cdb0fbe7"
+      },
+      "standing": "Current F2 baseline owner only; final HS source owner pin remains unbound."
+    }
+  ],
+  "exclusions": [
+    "No source, HOW, test, index, Git ref/worktree, release, install or selector mutation performed.",
+    "No build, test, pack, install, ABG runtime/provider/native call or new worker.",
+    "No new packaging framework, controller, validator or supervisor."
+  ]
+}

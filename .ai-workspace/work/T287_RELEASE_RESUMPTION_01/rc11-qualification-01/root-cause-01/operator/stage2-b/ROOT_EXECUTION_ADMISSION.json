@@ -1,0 +1,36 @@
+{
+  "status": "ROOT_ADMITTED_RC11_CAUSE_STAGE2_B",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/BINDING.final.json",
+    "bytes": 4911,
+    "sha256": "dd33c9e62d88f8e4649e22bfa6ce968e11219d5dcc3798fd8a1b32f79d87c14b"
+  },
+  "rootDecision": "Root admits one finite source-extracted pure oracle/interleaving script,30s: exact progress observer/criterion with identical ordered records under single/split/coalesced callbacks; exact observePublication + helper under stop/deadline/boundary/unresolved probe. Added four-capture schedule is arithmetic only, never owner-executed claim. No repair implementation or runtime-proof claim.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/READY.json",
+      "bytes": 2154,
+      "sha256": "2c46bd577882e19d05084d17fe7965232bcc61dce229139e3c20a80ff06a1b35"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/BINDING.final.json",
+      "bytes": 4911,
+      "sha256": "dd33c9e62d88f8e4649e22bfa6ce968e11219d5dcc3798fd8a1b32f79d87c14b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/counterexamples.ready.mjs",
+      "bytes": 5059,
+      "sha256": "d4a2b3e7808eb1ae6a13e5ab8528f4c42e7c25754377b9db276305b07af3e8e1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/SOURCE_EXTRACTIONS.json",
+      "bytes": 2472,
+      "sha256": "d07e669f45e6bd57a4a161bdb474d350af306d525b0416ccb7d82aff8cdef953"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-b/run-pure.py",
+      "bytes": 3050,
+      "sha256": "c7d2803b7ba0f6210bfcfc6b7321f20fd96ec60a64b771732d7cbdd392ec898a"
+    }
+  ]
+}

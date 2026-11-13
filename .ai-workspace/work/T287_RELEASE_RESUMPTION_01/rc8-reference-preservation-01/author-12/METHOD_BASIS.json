@@ -1,0 +1,15 @@
+{
+  "basis_uri": "stdo://releases/v3.0.4/",
+  "command": "check",
+  "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+  "definition_id": "urn:stdo:product-definition:abiogenesis",
+  "definition_sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+  "installed": true,
+  "kind": "stdo.skill-source-read",
+  "manager": "/Users/jim/.local/bin/stdo",
+  "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "standing": "verified source projection; no admission or semantic verdict",
+  "status": "checked",
+  "store": "/Users/jim/Library/Application Support/STDO",
+  "valid": true
+}

@@ -1,0 +1,77 @@
+{
+  "status": "OWNER_SOURCE_BASIS_REFRESHED",
+  "coordinates": {
+    "publicAuthorityDigest": "sha256:53465ece37d387a26abbd1f07f34ddcea448d410d8dacae93887905601db85a0",
+    "runtimeInvocationRef": "invocation://abiogenesis/2cf8166549632864bef546b5eba9cd32974b326bcf398febfa6e9f9ef7604540",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/77a8fc72f2740812ddd402a1a57ffcf82dcab581643feb3b19a6d7cde52e2d85",
+    "runId": "run://abiogenesis/ddd6d5f0138c26ba2c98b2e8a8bc1fb2c641da070a0163315d047ae75d604b8c",
+    "resultRef": "result://abiogenesis/54e0ff40817473b85445c8da4c6774c1293b5041cc3aaa7f1d9e629e08ba8fb9"
+  },
+  "currentPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 376089208,
+    "sha256": "6a88860afbab86f75c974a88cf2adafe1eb76f476e296dacd404463bc752c7b7",
+    "device": 16777231,
+    "inode": 673308256,
+    "coordinateDigest": "sha256:6d015b28790780e92275896d460433ffdec6c82f1dce2f05fe3117f6dd5a3979"
+  },
+  "projectedSha256": "cc6eb9d0aeb40ea5a79b6fb81fea372c08c4317e950bab8e0a4935f7ddd5b388",
+  "changedTopLevelFields": [
+    {
+      "field": "basisDigest",
+      "asserted": {
+        "type": "string",
+        "canonicalSha256": "28878c30431b945212e717018962adb1107de3be22f579dfc05944bec3a74e83",
+        "value": "sha256:829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342"
+      },
+      "projected": {
+        "type": "string",
+        "canonicalSha256": "06a7d6add4a066a572043cfac00b884a0ab59ecd0f4112fcfc05468e4c2ea2c5",
+        "value": "sha256:a72696447e4c4adbafb1c728b9e4e1cf43448d5f4431cf3d2ee3dfea1fdbd32c"
+      }
+    },
+    {
+      "field": "basisRef",
+      "asserted": {
+        "type": "string",
+        "canonicalSha256": "c3d5b86b85d73a035a74150b16d609535d9466e526881792d906ff590fc996e9",
+        "value": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342"
+      },
+      "projected": {
+        "type": "string",
+        "canonicalSha256": "4199f5f698361ec691d2978999469c83cb6a689c4116e1ddf29189c3041526e1",
+        "value": "invocation-source-result://abiogenesis/a72696447e4c4adbafb1c728b9e4e1cf43448d5f4431cf3d2ee3dfea1fdbd32c"
+      }
+    },
+    {
+      "field": "sourceReplayDigest",
+      "asserted": {
+        "type": "string",
+        "canonicalSha256": "72da60a1f1dba4d5eb76737f100c3868a49d36079a8428634c6f3478a7777a7d",
+        "value": "sha256:c67e6ffaa3d7a992c925ad8f1117f1dd348ee7b7e93bdac5c698ef243ac99403"
+      },
+      "projected": {
+        "type": "string",
+        "canonicalSha256": "8eebc3e8631b88f9453d9f863967e87ec8681489648b41a6ae004c1e9c01b1c2",
+        "value": "sha256:bc6676162b19970e995089eeebf0cfe8b6e3eb5de950e83eea6889f27aa5fd92"
+      }
+    },
+    {
+      "field": "sourceReplayRef",
+      "asserted": {
+        "type": "string",
+        "canonicalSha256": "cff6e4828679572e630149983548f61253054082ac49aa95b9f9f29e7d4daa64",
+        "value": "replay://abiogenesis/c67e6ffaa3d7a992c925ad8f1117f1dd348ee7b7e93bdac5c698ef243ac99403"
+      },
+      "projected": {
+        "type": "string",
+        "canonicalSha256": "5026280b68453d8f51aee73ae0f9282727031f292b21c85c6eeffaf66bee26a5",
+        "value": "replay://abiogenesis/bc6676162b19970e995089eeebf0cfe8b6e3eb5de950e83eea6889f27aa5fd92"
+      }
+    }
+  ],
+  "sourceResultValueUnchanged": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Read-only existing-owner derivation; no new source authority, admission, recovery or acceptance is inferred."
+}

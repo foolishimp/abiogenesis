@@ -1,0 +1,27 @@
+{
+  "status": "ROOT_OBSERVED_SECOND_READ_ONLY_SEARCH_GROUP_INTERRUPTION",
+  "actor": "Root",
+  "actionUtc": "2026-11-02T22:23:09.510Z",
+  "signal": "SIGTERM",
+  "processGroup": 95881,
+  "verifiedMembers": [
+    95881,
+    95882,
+    95883
+  ],
+  "shellParentNativeActor": 78497,
+  "RootObservedElapsed": "03:58",
+  "nativeToolStartUtc": "2026-11-02T22:19:11.885Z",
+  "toolStartToInterventionMs": 237625,
+  "exactInputReceiptSha256": "5f43b2085b18767c1247f6c1a71959efe28f8c3a18cf50490595c615447be9a5",
+  "configurationContribution": {
+    "BASH_DEFAULT_TIMEOUT_MS": 4500000,
+    "meaning": "Long C2 allowance also applied to author lookup; no explicit tool timeout. Operator profile contribution, not Product-runtime defect."
+  },
+  "nativeToolOutcome": "PENDING_PASSIVE_STREAM",
+  "RunTerminated": false,
+  "providerTerminated": false,
+  "sourceOrInputMutation": false,
+  "profileMutation": false,
+  "automaticFurtherAction": false
+}

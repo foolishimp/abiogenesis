@@ -1,0 +1,113 @@
+{
+  "kind": "root_native_author_review_disposition",
+  "status": "PARTIAL_BUILT_SOURCE_PRESERVED_INTEGRATION_BLOCKED",
+  "disposedUtc": "2026-11-06T15:59:09.700803+00:00",
+  "method": "STDO3.0.4",
+  "productFrame": "Unchanged fixed fifteen-feature ABIogenesis5.0 / GOAL-035 / T287; empty composition. RC6 remains installed builder; no RC7 cut or release.",
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_AFTER.json",
+    "bytes": 557347,
+    "sha256": "515dd6b7d33208e4fa5fed02f7d15ebac853eefc7467c9da6c856e7f29fe3006"
+  },
+  "frozenSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/SUBJECT.json",
+    "bytes": 272692,
+    "sha256": "4e51195fb89bd95e51a65806e6f985c5843cc375bf1f42450941b6262fb7b187"
+  },
+  "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10421,
+    "sha256": "7ddb9f2f715158677c4c11564b3996d43e13131d0cc9efb3524a3baef28ad494"
+  },
+  "independentMaxReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/reviews/held-stage01-001/REVIEW.json",
+    "bytes": 10579,
+    "sha256": "029493c54b7354aea260184b28890456fb13cdec7d4eba6f715b4abe53d65bd4"
+  },
+  "rootConjunction": {
+    "nativeSourceRows": 451,
+    "changedExistingPaths": 12,
+    "permittedExistingPaths": 17,
+    "frozenStageNativeAfterHeldLiveEqual": true,
+    "stagedControlsPreserved": 20,
+    "handoffsPreserved": 3,
+    "dispatchPinsVerifiedByCustody": 72,
+    "rootPostAuthorStageAndLiveRowsVerified": 451,
+    "hostActualExitCode": 0,
+    "sdkResultDisposition": "completed",
+    "physicalCloseSucceeded": true,
+    "nativeStageCount": 1,
+    "nativeLaneCount": 0,
+    "compileGenerateLifecyclePassed": true
+  },
+  "postAuthorProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/post-author-proof-001/SUMMARY.json",
+    "bytes": 4466,
+    "sha256": "35f8270721f683d0855f3a363523bede1da76d5a524456722ea227c9b02d486b"
+  },
+  "diagnostic": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/SUMMARY.json",
+    "bytes": 948,
+    "sha256": "0303c6c97dcdbfac1945b347f2d3205b71f9a541a03b0d4e2be9ad7b3df8b482"
+  },
+  "retainedDiagnosticLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/runtime.events.jsonl",
+    "bytes": 3807167,
+    "sha256": "780c7b52e02688760caf535ea6ccc579f0ed84659976e230ee30df4a9ea50c58"
+  },
+  "proofStanding": {
+    "fixedRoute": {
+      "tests": 7,
+      "pass": 6,
+      "fail": 1,
+      "skipped": 0,
+      "wallMs": 86852.080208,
+      "result": "Actual Testing Run blocked; remaining guard/caller lanes not run."
+    },
+    "separateDiagnostic": {
+      "commands": 1,
+      "wallMs": 86427.245917,
+      "qualificationCredit": false,
+      "retainedEvents": 44,
+      "realProviderCalls": 0,
+      "actualCause": "child_preparation_refused at basis_admission: child owner derivation requires one exact installed root Program owner"
+    }
+  },
+  "findings": [
+    {
+      "id": "HS2-CONTROL-001",
+      "class": "operator_control",
+      "status": "corrected_external_helper_executed_originals_preserved",
+      "effect": "Original Worker correctly returned0prooflanes; separate proof uses exact selected per-lane bounds."
+    },
+    {
+      "id": "H02-FIXTURE-001",
+      "class": "retained_component_fixture",
+      "status": "confirmed_open",
+      "effect": "Existing native-workspace-work assessment fixture omits carried assessmentPublication and admitted owner/lock facts; migrate fixture, preserve Product refusal."
+    },
+    {
+      "id": "H02-SETUP-001",
+      "class": "maintained_caller_realization",
+      "status": "confirmed_open",
+      "effect": "Setup binds consumer Product root while direct fixed Testing selects library Program; existing installed owner guard correctly refuses before actor dispatch."
+    },
+    {
+      "id": "H02-DIAGNOSTIC-001",
+      "class": "proof_observability",
+      "status": "failure_reason_recovered",
+      "effect": "Original failing test deleted scratch receipts; a separately admitted read-only descriptor retained the diagnostic log across normal unlink. Successor assertions must retain concise actual reason."
+    }
+  ],
+  "decision": "Retain the coherent12-path delta as partial source and select one bounded5-path caller/fixture correction. No Product guard relaxation, new API, S5 activation or full acceptance. Actual integrated proof remains required.",
+  "preservation": [
+    "All original source/failed/partial records remain immutable, including original0lane native return.",
+    "Historical H01 small installed held-session proof retains its exact scope; no changed-assessment proof credit inferred.",
+    "No additional cold campaign readbacks, push, tag, selector change, installation, release or qualification claim."
+  ],
+  "acceptedAsRepairBaseline": true,
+  "productAccepted": false,
+  "qualified": false,
+  "published": false
+}

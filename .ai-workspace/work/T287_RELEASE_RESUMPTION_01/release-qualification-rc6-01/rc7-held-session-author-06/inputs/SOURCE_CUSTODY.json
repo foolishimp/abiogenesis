@@ -1,0 +1,41 @@
+{
+  "kind": "source_custody_selection",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_BEFORE.json",
+    "bytes": 233286,
+    "sha256": "822c7268e1acdf9e1615f0811b8fa35e7656d11c952c656439674794ce156c9d"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 8447,
+    "sha256": "d7e7d2ea776e756bd466ec2afc7f38c8cc1581eb2f1e6c79a60a9b3381722714"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_AFTER.json",
+    "bytes": 563015,
+    "sha256": "2a385829927eac2ba13be072d7deab71949ab9db56bc6fb2797bd786398aa519"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5439,
+    "sha256": "229dad7dfaef6df2ff2a1b005ef4f7df38416ad3a221c79a18fe57a1c9c36e7a"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8045,
+    "sha256": "d3c8fc06ce2b305c089257a0b9524650c69512e2d029d2995ca36d47420a90a9"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "62d6acfaa2d31add120ecafb37cac00c473c1a5a62b46852d18373268356d1f5"
+  },
+  "sourceCount": 451,
+  "reusedProductPayload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+    "bytes": 1466472,
+    "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+  },
+  "meaning": "Genuine H05 successor and451 frozen source rows; one local fixture field writable,450 rows protected. No body/payload copies or acceptance inferred."
+}

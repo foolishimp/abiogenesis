@@ -1,0 +1,361 @@
+{
+  "status": "BOUNDED_REAL_PROVIDER_PROOF_OBSERVED_ROOT_CONJUNCTION_PENDING",
+  "observedAt": "2026-11-03T00:11:58.978481+00:00",
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/032de8b31e583eac7c64dd6fd9b338f5d25fbb5c2a9eda12ced6917b28e7e5e5/459bd74ea520820ef2ff0078c93d75598a95c3954317b1c675319cecdab9eca3/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10971372,
+    "sha256": "4589f5c5174cb84ba37f4efecd15f52f6437fa696d117aeff58b84bd5f8363ac"
+  },
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/SUMMARY.json",
+    "bytes": 18360,
+    "sha256": "3ef8dd9283d3cd5431c4be68f46128483284e933d6c4d2f6370f0e30520d77e0"
+  },
+  "proofFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/PROVIDER_MEASUREMENTS.json",
+      "bytes": 7864,
+      "sha256": "56208cfda2bd968025f09ffb401d5326494e745880ad8269f8598f4a776e0c51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/SUMMARY.json",
+      "bytes": 18360,
+      "sha256": "3ef8dd9283d3cd5431c4be68f46128483284e933d6c4d2f6370f0e30520d77e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a-run_replay.request.jsonl",
+      "bytes": 9689,
+      "sha256": "16631fce7a0e5ba693e4317bc80b238cbcfb7837f5d6c704b665b28201e22aad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a-run_replay.resume.json",
+      "bytes": 92876,
+      "sha256": "718af208d635d5afc6eaa79a1e267a37a2c366ce489a457a3303ec7b5053d5b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a-run_replay.transport.json",
+      "bytes": 11325,
+      "sha256": "b7a886752725b0e0958f897018abc1bbc9c918ac6e76b1e4e2a848df9c58f3b3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a-run_result.request.jsonl",
+      "bytes": 9652,
+      "sha256": "166df67791be50285832c08dc1977be3a919b3fc2ac974d340f87dbd65afc1fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a-run_result.resume.json",
+      "bytes": 92876,
+      "sha256": "718af208d635d5afc6eaa79a1e267a37a2c366ce489a457a3303ec7b5053d5b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a-run_result.transport.json",
+      "bytes": 9108,
+      "sha256": "e2390723107ffe8824a03c317b5071f2d249c44230be79fe1606ddfbfa3b48b7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a-source.json",
+      "bytes": 33934,
+      "sha256": "afc10b7e30618c3bda40a2e2f8598b3277df90eada2f7befe406f3f069e5ec68"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a-source.resume.json",
+      "bytes": 92876,
+      "sha256": "718af208d635d5afc6eaa79a1e267a37a2c366ce489a457a3303ec7b5053d5b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a.call.json",
+      "bytes": 28670657,
+      "sha256": "ed738d4daf241ff5b09200caa47705608d923bedb8f984c3648f8dcf61056b57"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a.identity.json",
+      "bytes": 301,
+      "sha256": "426049c56720c3f68a7034d9e1b1ce9b19f872c3f54b5bd849c7bf368e36a442"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a.request.jsonl",
+      "bytes": 21547014,
+      "sha256": "143c9a320078f0f384a9f6dc5a87ca5061d0885a956ae6b3bc0d222eda636dec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a.resume.json",
+      "bytes": 1734,
+      "sha256": "3d8930e844d3108c4700c5c0e769b3448db1d1a9228ecc79c2a88c829508180d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/a.transport.json",
+      "bytes": 789807,
+      "sha256": "23892695c18ded8963a3ecb3b458ae2e6e96a021e6a4b89315369a937c1a6264"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b-context-readiness.json",
+      "bytes": 488,
+      "sha256": "cf51a49f0d170493a421d0c06c15b01c6889468deacb174cfbfcf0838cf292b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b-host-return.json",
+      "bytes": 2279,
+      "sha256": "74e0c5dcf3c21a47e97d649a7eeb7fba4a73274a06d7787c47e1337d66fc6341"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b-prepared.resume.json",
+      "bytes": 93165,
+      "sha256": "66a9a7d4049ca2085119972c8703e7275913ff47483be5bdf9be639b368d356c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b-recovered.resume.json",
+      "bytes": 93826,
+      "sha256": "b4586c413f490f7b922e9b76c2a80d26167d4f6c140895fc40bde20e3f9e44ce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b-resource-recovery.json",
+      "bytes": 1512,
+      "sha256": "fae4e7161747874fc1dc8c64225c423a55a826ca20a968d9c68795d06677e9af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b-start.owner.json",
+      "bytes": 35493421,
+      "sha256": "b55bea224793c4d0ab6e8b5b74478520d7a406da4cfe8c97e0b0a663c2cb31b7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b-structural-preview.json",
+      "bytes": 29331610,
+      "sha256": "c8c30053096511d35e6f3f572d323b3ad9c2a8643e3fe6d0c77d5e3cf09994ca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b.call.json",
+      "bytes": 28733046,
+      "sha256": "bdfce612bb56a0335ad2ff404b2698f1e72e8449136f097ce1da6731c5848263"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b.identity.json",
+      "bytes": 301,
+      "sha256": "3302759aa3a584e8ef9e787164e6923108480198693216f7a63c99f76d717539"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/b.request.jsonl",
+      "bytes": 21598683,
+      "sha256": "5755e12f325f482b28c22f5bda13dcd8752165a27c3c09305b941a24b9a6f1f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/baseline.json",
+      "bytes": 86007554,
+      "sha256": "07cd5f5a1b73389cb2c245072c4c897ef302de0e44d1b30294798c81faf2b4d6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/common-program.json",
+      "bytes": 41430,
+      "sha256": "7d0d5185640886fb04beb13f15bb93c6db6aadb7dfc66499a574f87a877dea84"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/continue-prepared.resume.json",
+      "bytes": 97824,
+      "sha256": "ac81d188a590501832eb5ac7a29ee544b34d7f0ce05a8a480ae9dd6ff438ad91"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/continue.call.json",
+      "bytes": 28663645,
+      "sha256": "f2fec4bd654760975b33b8ff8abd9d3e421fedb69d3ca692ea1fdbcbdaef03cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/continue.identity.json",
+      "bytes": 301,
+      "sha256": "b0ac1b5e6bee8a78f9ee067a670fd757f78a82c523364c55a49bd0cec7ca43e3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/continue.request.jsonl",
+      "bytes": 21541467,
+      "sha256": "77622e69cf7dbb4b7493c72372b44cb6c64268ab27fdb9dd049bac9de07d878f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/continue.resume.json",
+      "bytes": 97824,
+      "sha256": "18de64c180a5345ebcc6b7092edbd36b21d4754dfae530d0e2c76f5408026134"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/continue.transport.json",
+      "bytes": 1217675,
+      "sha256": "a54fc793e4591f21268b678a30e88ccd260c0c8aa03363e4adf63f55dc6818d0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/definition-roots.json",
+      "bytes": 219031,
+      "sha256": "bb69e7ed4be0016d260a889a04422214b1ea6fc7d3da4ddd60af9238e38d8694"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/final-events.jsonl",
+      "bytes": 21014910,
+      "sha256": "5a70d1868ad0b3c0619bee1d20144c1ebf81a6dafc9ddf42d8f75c31b6521b66"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/host-input.json",
+      "bytes": 2372,
+      "sha256": "1b4a44d7350c8defd3f1901d88a1e56abe1e87088400a0b232bbb62d48246792"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/input.json",
+      "bytes": 19380,
+      "sha256": "176dc3c1d5ce164768cb4689c4005ac695b177a8190f30714865c0e63be10111"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/interrupted-prefix.jsonl",
+      "bytes": 13831280,
+      "sha256": "f69e1e5216f55645d62931361436e4380f5b628aa5a564760ac89f52e4746d4e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/interruption.json",
+      "bytes": 668,
+      "sha256": "7cb44735db5136bbfd2ea1dffcac7a5ecc2802213761cdeeafaa2138883e7b83"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/pending-helper-readiness.json",
+      "bytes": 284,
+      "sha256": "396297fc8f7149dcbdca97b31894144fbd5e6108055dfcf6f770a22805bf0906"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/pending-preflight.json",
+      "bytes": 1042,
+      "sha256": "77f61d3ebb35dc625be687950612399831be402c8fbf7a38d43e9eade78744b8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/post-testing-submitted-prompt.txt",
+      "bytes": 55451,
+      "sha256": "7e6fcebd0a91e28ae91392ceee0010d4c2e46ccd444233a0fbac44aa93d661b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/preflight.json",
+      "bytes": 229362,
+      "sha256": "c2217f8bac0a36174c0858d887ce87a89fc4c33436b11bff7db8aaef35cd9b41"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/read-a.resume.json",
+      "bytes": 92876,
+      "sha256": "718af208d635d5afc6eaa79a1e267a37a2c366ce489a457a3303ec7b5053d5b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/read-b.resume.json",
+      "bytes": 97824,
+      "sha256": "18de64c180a5345ebcc6b7092edbd36b21d4754dfae530d0e2c76f5408026134"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/recovery-origin.json",
+      "bytes": 1481,
+      "sha256": "4b2ae66528c56bbcdaff4d341ab213a08aba497cb1c2054ba5ba6b2220071693"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/run_replay.request.jsonl",
+      "bytes": 9693,
+      "sha256": "8131464ad1900cb438be28bc2d1ecb0f30c9b058dce4e9573ce2ac8541303b4c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/run_replay.resume.json",
+      "bytes": 97824,
+      "sha256": "18de64c180a5345ebcc6b7092edbd36b21d4754dfae530d0e2c76f5408026134"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/run_replay.transport.json",
+      "bytes": 107278,
+      "sha256": "b5cab315df973a97f57364bbc5cdda777e6cbcabe12d8806e509a343694bb873"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/run_result.request.jsonl",
+      "bytes": 9656,
+      "sha256": "13206f08e96f1981775d4a3f97b13b992669463c0799b2dd3172ad908e89a824"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/run_result.resume.json",
+      "bytes": 97824,
+      "sha256": "18de64c180a5345ebcc6b7092edbd36b21d4754dfae530d0e2c76f5408026134"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/run_result.transport.json",
+      "bytes": 108056,
+      "sha256": "2c7a3e943859b33c6ae8ec9a30cd7cff32615415f0f5ce91cb3b1cd9862cbdf2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/setup-summary.json",
+      "bytes": 1198,
+      "sha256": "5fc09653bc6981ed3bdde35868c85eb34ac500214e04527c49261c98d2aecd1a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/setup.resume.json",
+      "bytes": 1734,
+      "sha256": "e840d2c4089b4e1be2d6a3f944502bd818143efd7c7cd6eec4a918d1271654db"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/workspace-root-relation.json",
+      "bytes": 668,
+      "sha256": "c758abacc8be3c76d70294971cf0a509a3d9dd4e3abdf91f2d3895637dd86945"
+    }
+  ],
+  "finalBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/BINDING.FINAL.json",
+    "bytes": 28678,
+    "sha256": "be5a291b2390e1a5fed5c0a2ddcb008f097ea0fcdddaf19d21a1810c5335d92b"
+  },
+  "finalPacket": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/PACKET_MANIFEST.FINAL.json",
+    "bytes": 19726,
+    "sha256": "6c13f5675c512cf0835cf90f005be4d24cf98983bf45f86300275436e82abd55"
+  },
+  "finalDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/witness-final.mjs",
+    "bytes": 43107,
+    "sha256": "b96443297f22da249412e68b38f7a13b2a03c7d14429492429dbc3f1764a5207"
+  },
+  "rootSelections": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-acquire-a.json",
+      "bytes": 669,
+      "sha256": "278625275272ccb2e5f20b97c7c994d43c6cb76995d88528766b5cf11a74ec90"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-continue-b.json",
+      "bytes": 801,
+      "sha256": "a7684aa69dcab96fa382e67e96ef3d23b52c46b434c924b4e691ef495eb4841c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-interrupt-b.json",
+      "bytes": 816,
+      "sha256": "d1b7df3fc629c75615eb0eaa5cbecb3059edf2c25feaa4e4c5c5432b05929a1c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-prepare-b.json",
+      "bytes": 669,
+      "sha256": "813228ea1d5840184825aded4d64ffd5e7d3dcb49c184794849d55822d0cdc6e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-prepare-continue.json",
+      "bytes": 749,
+      "sha256": "b70912fb32cd521fd85df53bc8b9167aa15e533ce69cbe07f7749d54587d962a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-proof.json",
+      "bytes": 639,
+      "sha256": "a9ea5ef652a1f780b96fed784260dd9f424d3d2a6554225bfada62fa72d531dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-read-a.json",
+      "bytes": 663,
+      "sha256": "a786cffd01ab6c56b06802ddfb60f57d62dcb98319f8e317685984fc7a97a6bc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-read-b.json",
+      "bytes": 641,
+      "sha256": "50705a01d4e30eb337ec6895f3b0e71b7551d21d65a3cb438fa0b36e79b40a1a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-recover-b.json",
+      "bytes": 766,
+      "sha256": "87b1d8c2a7fec254035100e68d998365e87381bfc3d7b51d46c603894806cbcc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION-final-run-a.json",
+      "bytes": 777,
+      "sha256": "0ac27d112531b1674ba605e82625479ea754bbd6a391bc243ee6b3924ca7164c"
+    }
+  ],
+  "observedClaim": "Fresh A actual native Construction; B exact retained A source use; durable entered-Testing interruption before prepare; existing-owner resource recovery; fresh same-B pending continuation; real C2/post-Testing selector/UAT; nine exact A-held bodies in submitted transport input; no repeated Construction/initial selector; one pending operation, pending empty, terminal/result/replay agreement.",
+  "limits": "Actual Root proof returned success; independent max final proof review and Root acceptance conjunction pending. Submitted transport input is not independent model-read receipt. No matched efficiency/whole qualification/release claim."
+}

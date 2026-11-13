@@ -1,0 +1,74 @@
+{
+  "status": "ACTUAL_COLD_READ_RETAINED",
+  "member": "run_result",
+  "relation": "FULL_TYPED_TERMINAL_EQUAL",
+  "ownerOutput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/run_result/calls/run_result.outcome.json",
+    "bytes": 48438036,
+    "sha256": "6b93bea1b5d1213bd19d0ac631168f3393bf182bf839d5ffb8a6be9c7949dcda"
+  },
+  "sourceExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/execution.json",
+    "bytes": 215694883,
+    "sha256": "0abf50e39e46e0167cc27f571cb0616db30b690e63be5c2dc50c1de4e2babcd0"
+  },
+  "originalOutcome": {
+    "exitCode": 0,
+    "timedOut": false,
+    "truncated": false,
+    "outcomeKind": "result"
+  },
+  "source": {
+    "digest": "sha256:a897a4ea6d2a0310630a24bbe3cee4f486cf90767aadf3c7a9208fe53fa377fa",
+    "ref": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632"
+  },
+  "outcomeKind": "result",
+  "refusalCode": null,
+  "projectionKind": "run_result_projection",
+  "projectionStatus": null,
+  "terminalPresent": true,
+  "terminalDigest": "sha256:48c271abbf47fd76b46e8e0f9bdf19395b57fd2271f40f7f887d6ceb0d28f1b9",
+  "closeDigest": "sha256:b3e4f84de234101c2387eeca2bf78b563678b78ff51507fc5433feff0a28dbfb",
+  "physicalPrefixUnchanged": true,
+  "wallMs": 159359.806959,
+  "phases": [
+    {
+      "phase": "physical_prefix_checked",
+      "at": "2026-11-06T04:25:00.609Z",
+      "offsetMs": 1123.96,
+      "memory": {
+        "rss": 186679296,
+        "heapTotal": 111427584,
+        "heapUsed": 36419720,
+        "external": 2805932,
+        "arrayBuffers": 387557
+      }
+    },
+    {
+      "phase": "cold_installed_read",
+      "at": "2026-11-06T04:26:19.247Z",
+      "offsetMs": 79761.52925,
+      "memory": {
+        "rss": 4814143488,
+        "heapTotal": 4120035328,
+        "heapUsed": 3921242168,
+        "external": 99044325,
+        "arrayBuffers": 96601277
+      }
+    },
+    {
+      "phase": "cold_read_returned",
+      "at": "2026-11-06T04:27:37.777Z",
+      "offsetMs": 158290.687625,
+      "memory": {
+        "rss": 4815470592,
+        "heapTotal": 3322068992,
+        "heapUsed": 2827273928,
+        "external": 196081433,
+        "arrayBuffers": 193636649
+      }
+    }
+  ],
+  "qualified": false,
+  "meaning": "Exact owner-read relation only; source review, affected proof and Root disposition remain separate."
+}

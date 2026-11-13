@@ -1,0 +1,26 @@
+{
+  "kind": "root_d5_author_effect_disposition",
+  "at": "2026-11-05T22:44:34.280718+00:00",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 461262,
+    "sha256": "601d6588e7c8c9f03a5305a378fb3454f815e641003668677b51142b590b096f"
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/return.json",
+    "bytes": 17280,
+    "sha256": "09981772fb4a212adb06454e5681e43f465d88d9a4fd4be006de4c4985f68b5f"
+  },
+  "disclosedAcquisitionException": "Filename-only grep/ls over test_env/tests and test_env/support listed names outside the readable list, and one line of t287-qualification-carrier-resource.test.mjs was displayed during earlier triage; no further use.",
+  "disposition": "Retain as a bounded acquisition-scope breach, not retroactive authorization. No supporting source or runtime truth is accepted solely from that incidental line. Any required omitted fixture/support is freshly selected and pinned in the next lawful owner re-entry.",
+  "declaredScratch": [
+    "Ambient TMPDIR/TMPPREFIX are /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5a[/zsh] (declared provider scratch). Shell heredocs used before and during this work wrote zsh temp files there; the in-worksite tsc --noEmit (run without TMPDIR override) created tmpd5a/node-compile-cache. No other content exists in tmpd5a.",
+    "Probes and lanes wrote only under /private/tmp/abg-d5a (test scratch); the first probe left one empty append-sink fixture directory there (its cleanup was a no-op).",
+    "qualification-scratch/d5-author-01/tmp holds stage.mjs, lanes.mjs, reverse-check.py, three staged trees and their reports; no report was deleted or reused."
+  ],
+  "limits": [
+    "Author reports no additional network/provider/Git/installation effects; selected before/after observations are not complete filesystem/network telemetry.",
+    "No immutable release/source cleanup, proof rerun or broad forensic scan selected solely for these disclosures."
+  ],
+  "laterControls": "Explicit exact input roots, offline notifier/cache/TMPPREFIX remain selected; no new confidentiality or confinement claim."
+}

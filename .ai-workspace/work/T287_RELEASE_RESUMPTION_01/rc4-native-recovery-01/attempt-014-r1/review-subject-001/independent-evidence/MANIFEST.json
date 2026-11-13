@@ -1,0 +1,371 @@
+{
+  "kind": "independent_reviewer_existing_case_reproduction_inputs",
+  "subjectPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/SUBJECT.json",
+  "subjectSha256": "59a34082855c8db167d2a85575203f04761fadd0bd627bf52308c0fe30e11dcd",
+  "helperResultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/worksite-command-execution/067898610b8e81f257d291b8267df784553fef177c781f02c62e86d61270d8cb/ccff8f23a2eb79d93faab33529ccf8fe9679d5d5f3334802c85d9d249deff488/result.json",
+  "helperResultSha256": "b329fec4d309dc95f522c02ce542e59fa205e789079527ad377a0eaa38d653ac",
+  "archiveSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/worksite-command-execution/067898610b8e81f257d291b8267df784553fef177c781f02c62e86d61270d8cb/ccff8f23a2eb79d93faab33529ccf8fe9679d5d5f3334802c85d9d249deff488/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+  "archiveSha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db",
+  "scratch": "/private/tmp/rc4-014-independent-review-r_vmsxub",
+  "frozenInstallHost": "/private/tmp/rc4-014-independent-review-r_vmsxub/frozen-host",
+  "packageRoot": "/private/tmp/rc4-014-independent-review-r_vmsxub/frozen-host/node_modules/@abiogenesis/typescript-tenant",
+  "extractedMembers": 5321,
+  "sourcePins": [
+    {
+      "path": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "9a6ea5ebb1b0ee43ace33d17d779ddb8084ffd66c27cc390f7ebeb50e744e592",
+      "bytes": 65180
+    },
+    {
+      "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "sha256": "5598e208789c869aa09bd2f8d14f9a45f9b1adbbebda4c73f36c1c9b3eea5d73",
+      "bytes": 515
+    },
+    {
+      "path": "test_env/support/root-cli-environment.mjs",
+      "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+      "bytes": 9963
+    },
+    {
+      "path": "test_env/support/t287-generic-job-lifecycle.mjs",
+      "sha256": "d7f5948a0606329857de76771007f9922528440021da7ea95487ebe13d181a3f",
+      "bytes": 17030
+    },
+    {
+      "path": "test_env/support/installed-qualification-conservation.mjs",
+      "sha256": "3e4388d4fbf376d2719600a7768483a537a6939001449e5932359c970bd684c6",
+      "bytes": 43058
+    },
+    {
+      "path": "test_env/support/t287-selected-action-host.mjs",
+      "sha256": "bedcfe2165b3863efb355a2d20d0f998aba1960bcc2fef9bda019e6b15c6f59c",
+      "bytes": 16381
+    },
+    {
+      "path": "test_env/support/forward-owner-lookups.mjs",
+      "sha256": "789e48a81b58f6b32755c1fa668f00345c9fbd08ffbf2865ff7db2e4bb08eadb",
+      "bytes": 12176
+    },
+    {
+      "path": "test_env/support/d2-evidence-owner-harness.mjs",
+      "sha256": "f8cc208e73274660d9471eca3c7e4cedc36f362f0b78b64a818183488d566851",
+      "bytes": 8677
+    },
+    {
+      "path": "test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "a0884d77ac6314ff579dd39a6d453a231a4f38254ce9f4ddbc81be8c4436e7e0",
+      "bytes": 52437
+    },
+    {
+      "path": "test_env/support/t287-native-frame-observation.mjs",
+      "sha256": "819e5c3b5a255e8fd60441fda761633ab8d3888522ae08bc6644e36a4c6470e2",
+      "bytes": 6754
+    },
+    {
+      "path": "test_env/support/installed-language-test.mjs",
+      "sha256": "34d91efdba0602ad47d375fb46a85015eabd7d816a63eba68b3f113559986f95",
+      "bytes": 4500
+    },
+    {
+      "path": "test_env/support/forward-command-harness.mjs",
+      "sha256": "85f0228f77adc6407390cdf50c51ca254b979e716b95123cb6daa35547685c7e",
+      "bytes": 3319
+    },
+    {
+      "path": "test_env/support/default-library.mjs",
+      "sha256": "d615fa0bd09282c0e79d9850afb808290e0d35f24407f4528f598e520eec3155",
+      "bytes": 7324
+    },
+    {
+      "path": "test_env/support/language-test-gtl.mjs",
+      "sha256": "6d6df752d02fc5cacee702dc693febd3e8dce2d073a9842bfff5897992f50f7a",
+      "bytes": 538
+    },
+    {
+      "path": "test_env/support/malformed-gtl-native-fixture.mjs",
+      "sha256": "590a2f9110587f57a72e4438d3bb6c45d3847d314a875f4dfefc4731e6c99f62",
+      "bytes": 22594
+    },
+    {
+      "path": "test_env/support/t287-declaration-closure-symbol-reuse.mjs",
+      "sha256": "7f544027ed0ffd9963f5eea6ac862164633d5047e115d87ec754016b36fe64f1",
+      "bytes": 8413
+    },
+    {
+      "path": "test_env/support/retained-installed-consumer.mjs",
+      "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+      "bytes": 10687
+    },
+    {
+      "path": "test_env/support/stdo3-run-environment.mjs",
+      "sha256": "63d4dbf75197cdc9e85585cfa5409b46afe25e2f8647df05ec62969b97b5ae72",
+      "bytes": 5746
+    },
+    {
+      "path": "test_env/support/default-library-fulfillment.mjs",
+      "sha256": "33036a01200ce7782657113bc2730bcd8ecffaba5d8283361cd6e943bbfbaf18",
+      "bytes": 8912
+    },
+    {
+      "path": "test_env/support/t287-generic-job-worksite.mjs",
+      "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0",
+      "bytes": 9623
+    },
+    {
+      "path": "test_env/support/r10-private-owner-harness.mjs",
+      "sha256": "603feef050dc15e99b59eef38196bcfedd396285033f939cdb21ca24b26d8ec0",
+      "bytes": 1349
+    },
+    {
+      "path": "test_env/support/run-exact-candidate-qualification.sh",
+      "sha256": "4bc8090b204c12411ed1b4cbfe06e3c61af30c7ff01e79e2b2dad0a23c653500",
+      "bytes": 261
+    },
+    {
+      "path": "test_env/support/registered-graph-selection.mjs",
+      "sha256": "bfc31213c58575d2afee4b287bb4a0f5acbba7f65b539daabb49c7a669429761",
+      "bytes": 29526
+    },
+    {
+      "path": "test_env/support/t287-generic-job-intake.mjs",
+      "sha256": "a201ca84a06a7bed61ab16796dfed1221b84723e3dd29d0c597f66c0e9131879",
+      "bytes": 26756
+    },
+    {
+      "path": "test_env/support/multi-candidate-admission-owner.mjs",
+      "sha256": "57f59504f418c2d32cd42cf3b3d2ffecac4cdf8c26ba85bd7018b72ddabcaf32",
+      "bytes": 15368
+    },
+    {
+      "path": "test_env/support/d2-bounded-harness.mjs",
+      "sha256": "38a31ced9807ad9c4c70c977b13851eac922774120ba6f3372b9b51e8ea1cf74",
+      "bytes": 9495
+    },
+    {
+      "path": "test_env/support/isolated-compiled-copy.mjs",
+      "sha256": "115ca576b41c1d0850ae4913d86430b8f861b7641cb823afa60f1a71c342cfbd",
+      "bytes": 1089
+    },
+    {
+      "path": "test_env/support/developer-mini-product.mjs",
+      "sha256": "9c1aaa148aee8a1403db0f068fc47afa16a147c0be7d27c1bd74ddc7c9f4b39a",
+      "bytes": 13419
+    },
+    {
+      "path": "test_env/support/fresh-process-runtime-proof.mjs",
+      "sha256": "89f440e0e1296b42e00d1aeb970e35ea2edea808d8ba4f9a03d0401da75b95b4",
+      "bytes": 8406
+    },
+    {
+      "path": "test_env/support/language-structural-gtl.mjs",
+      "sha256": "ae6ade95ce1e4ac1923fe00c81077982aa924ed3a8a7c6b6f3aba8d898ff04a7",
+      "bytes": 443
+    },
+    {
+      "path": "test_env/support/t287-s03-automatic.mjs",
+      "sha256": "a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+      "bytes": 32193
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "sha256": "75a744779ec76a9f68a836977d0b0553204919b21cf4b3654eb6251d85d63761",
+      "bytes": 40946
+    },
+    {
+      "path": "test_env/support/d2-static-smoke.mjs",
+      "sha256": "57b03a8bed4793cb37d623fd1385a1d418430b9197ba9332eb55d9f0cff5ed35",
+      "bytes": 9237
+    },
+    {
+      "path": "test_env/support/admitted-graph-execution.mjs",
+      "sha256": "652606f810cba7acb9700192811edb1973ebfe856d7dd91c824345db28958e56",
+      "bytes": 2596
+    },
+    {
+      "path": "test_env/support/t287-entry212-reopen-worker.mjs",
+      "sha256": "9d997bff795751550b14dfe1af36fb2316b9fa42c420b33eec056aa32115ab66",
+      "bytes": 1318
+    },
+    {
+      "path": "test_env/support/flavored-catalog-product.mjs",
+      "sha256": "3ad5928407becc9b7e875d1ff062c31ddd0ffa04d68df2e1237a656b42658767",
+      "bytes": 12822
+    },
+    {
+      "path": "test_env/support/neutral-schema-product.mjs",
+      "sha256": "a43903d7f1a52f44cc6d0ee12349bbd2e870715989eab3c8e0f098726f102bc0",
+      "bytes": 23890
+    },
+    {
+      "path": "test_env/support/serial-branch-worksite-program.mjs",
+      "sha256": "0e2b2b292b62a39d784822d4da3e9f05cf6b727409bbf9bff6cf8731e9799e2d",
+      "bytes": 31513
+    },
+    {
+      "path": "test_env/support/d2-binding-harness.mjs",
+      "sha256": "a2418e6bc0f7eedb4c209d1e9eecefa056b13378e38178ed2264cfae9af9b1eb",
+      "bytes": 25378
+    },
+    {
+      "path": "test_env/support/evidence-root.mjs",
+      "sha256": "92f9faa3ec401fd80309b17f546a79354ae36b1869780c55fa5332110171a9d2",
+      "bytes": 2031
+    },
+    {
+      "path": "test_env/support/t287-generic-job-readback.mjs",
+      "sha256": "2d1dd300d132bc769be9801ebdf156a41ed5ea52884f8e66a153d920577dd7e2",
+      "bytes": 6067
+    },
+    {
+      "path": "test_env/support/exact-candidate-qualification.mjs",
+      "sha256": "10ad90958034378544ef830dfa3aa6122721b1aa9ed9d35de6d29d6cac0d4d15",
+      "bytes": 93155
+    },
+    {
+      "path": "test_env/support/d2-workflow-step-harness.mjs",
+      "sha256": "cc3d31bbf5239c58ea0cb8cce4fc7ca81b5faacc89ae661838430c38d4f0df56",
+      "bytes": 10896
+    },
+    {
+      "path": "test_env/support/installed-public-definition-call.mjs",
+      "sha256": "e17e8fe15cc061708ae0a69520e5b46195549762f9ca2c7f8ed2f2d086cea633",
+      "bytes": 99
+    },
+    {
+      "path": "test_env/support/t287-governed-context.mjs",
+      "sha256": "635c2dde9099488b8512ba348f17044a28220d8bd1bee682474a41a45bf9e562",
+      "bytes": 11252
+    },
+    {
+      "path": "test_env/support/witness-reprice-mechanics.mjs",
+      "sha256": "38cb8a13689b744330e1bb6b57bab19911c158d8549bdc063bcbba2889bee205",
+      "bytes": 21154
+    },
+    {
+      "path": "test_env/support/t287-wave2-owner-chain-worker.mjs",
+      "sha256": "cfa305f31537948dfcf31dd1536a9f71f3f6f928be8a897c7ab214cd4740961c",
+      "bytes": 3932
+    },
+    {
+      "path": "test_env/support/t287-native-event-time.mjs",
+      "sha256": "c574d43a8344aa96f7f77af6854ab6ae9f06333bd5efccee4d6bc254c3a4f57d",
+      "bytes": 4691
+    },
+    {
+      "path": "test_env/support/t287-generic-job-revision.mjs",
+      "sha256": "9b853f8e230f29c51bf26c11dc48ce3766f747c334fe2a2cedd4e83428dacca0",
+      "bytes": 15901
+    },
+    {
+      "path": "test_env/support/d1-preserved-result-harness.mjs",
+      "sha256": "98f1994045dbbeda2087b80a6bf569659a89056a4346f3670e77b14792d6d44d",
+      "bytes": 5091
+    },
+    {
+      "path": "test_env/support/t287-st3-fresh-process-read-worker.mjs",
+      "sha256": "c0c16b3fe1920c19f679ed0d03a9d90db3739c4be5d5b2a233cd52e61a3c6e61",
+      "bytes": 1902
+    },
+    {
+      "path": "test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276
+    },
+    {
+      "path": "test_env/support/declared-testing-capability.mjs",
+      "sha256": "fdf7dd2ec567a5fe8f6d1c03f060b0a22f5d1c35b5e69704b644d8af650b98fd",
+      "bytes": 60366
+    },
+    {
+      "path": "test_env/support/new-empty-append-sink.mjs",
+      "sha256": "05b4c66807a5650ec6283901c5ee315c19320d90365cd59a9176e266395bb39b",
+      "bytes": 12780
+    },
+    {
+      "path": "test_env/support/d2-frame-fixture.mjs",
+      "sha256": "376825850bccbd8abf47405f18e624a7a7cf8f8f168476c535b68bb60fb7d197",
+      "bytes": 35165
+    },
+    {
+      "path": "test_env/support/t287-generic-job-parent-audit.mjs",
+      "sha256": "842c59227e565f76eba91f9d194e02798b1e0898f628df212342f0466a68ed85",
+      "bytes": 10244
+    },
+    {
+      "path": "test_env/support/stdo-environment-pilot.mjs",
+      "sha256": "0354612f5df41081bd2ec05b5ff653392f1de44ead4a70685b9370cd413b45b5",
+      "bytes": 35513
+    },
+    {
+      "path": "test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "sha256": "b106e1de259ec993469a3d320316646eae9490330ec0bcb86fad2be7214dee7f",
+      "bytes": 4556
+    },
+    {
+      "path": "test_env/support/single-start-worksite-program.mjs",
+      "sha256": "9041b10aae2624c3a37c17b54603177d47dfefbea5d6c72934111a06b74f396e",
+      "bytes": 23840
+    },
+    {
+      "path": "test_env/support/steel-consumer-resolution.mjs",
+      "sha256": "8c8888dfc0f3075944ec13b17593114c9f0d5e02fcffbf4bed622a105ce4d7f2",
+      "bytes": 2413
+    },
+    {
+      "path": "test_env/support/forward-observation-carrier.mjs",
+      "sha256": "a47f67cc01a55d363358a69a768f202e94cbca627b3f3fd6918a5a949425c051",
+      "bytes": 4889
+    },
+    {
+      "path": "test_env/support/t287-predecessor-context.mjs",
+      "sha256": "ca324b2294c8447cc6053b3438ad5ce9f6c30955496f41a302a4036bb5d1e4b8",
+      "bytes": 7227
+    },
+    {
+      "path": "test_env/support/language-structural-fixture.mjs",
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "bytes": 7076
+    },
+    {
+      "path": "test_env/support/native-runtime-structural-cases.mjs",
+      "sha256": "c5d861e7a829cc78e81814b4db91f679bd961ee95cbffad0845f8e67565dbca4",
+      "bytes": 2626
+    },
+    {
+      "path": "test_env/support/d2-historical-design-harness.mjs",
+      "sha256": "bcd181ec820ab5946a96f59b3eabd92262ec4089a0e1b7378a85149d8c2a6318",
+      "bytes": 8887
+    },
+    {
+      "path": "test_env/support/candidate-basis.mjs",
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd",
+      "bytes": 1177
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/recursive.mjs",
+      "sha256": "3ba21b94902f1d39f42784c30d959b083ac8bd7a9b902915389071495bb90557",
+      "bytes": 13148
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/index.mjs",
+      "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4",
+      "bytes": 9876
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/native.mjs",
+      "sha256": "a0e5f4cca8631a21bdd37fbaabf7a55e14e39303ec81c8893d890f624363a7e7",
+      "bytes": 7982
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/leaf.mjs",
+      "sha256": "9ee35f0cacaacff06581007aa89d7a8814dd873c0ae42a3b848e914090089b87",
+      "bytes": 2704
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/program.mjs",
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "bytes": 8359
+    }
+  ],
+  "scope": "Exact published archive and existing test/support bytes; no source edit, build, repair or provider call."
+}

@@ -1,0 +1,101 @@
+{
+  "api_error_status": null,
+  "duration_api_ms": 996393,
+  "duration_ms": 2057497,
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "fast_mode_state": "off",
+  "first_content_frame_ms": 3178,
+  "is_error": false,
+  "modelUsage": {
+    "claude-opus-5-5": {
+      "cacheCreationInputTokens": 360469,
+      "cacheReadInputTokens": 25787435,
+      "canonicalModel": "claude-opus-5-5",
+      "contextWindow": 1000000,
+      "costBasis": "list",
+      "costUSD": 9.849362999999997,
+      "inputTokens": 216,
+      "maxOutputTokens": 128000,
+      "outputTokens": 90363,
+      "provider": "firstParty",
+      "thinkingTokens": 43936,
+      "webSearchRequests": 0
+    }
+  },
+  "num_turns": 123,
+  "permission_denials": [],
+  "queued_turn_count": 0,
+  "result": "{\"summary\":\"Candidate: uncommitted working-tree edits over 9c4a5c5e136ec564c66d1598fd32161ad4101f24, limited to the ten granted paths (sha256/bytes): product/worksite_command_execution.ts 6766194e\u2026/143027 (byte-identical to the recorded first renderer); abg/native_work_reacquisition.ts 2ea85166\u2026/37094; gtl/worksite_command_execution.ts 2faf93d2\u2026/24181; tests/t287-event-body-encoding 7c3656c7\u2026/57354; tests/t287-native-work-reacquisition b36b41eb\u2026/52744; tests/t287-native-assembly-retained-input fafb8eb4\u2026/14920; abg/instruction_assembly.ts 6c4a0050\u2026/121881; design T287_NATIVE_WORKSPACE_WORK cb1c5405\u2026/26079, T287_W2_R3_C2 533480ed\u2026/72393, M03 190bbc2d\u2026/20174. All ten preimages matched the grant before editing. (a) The Product request owner compares worksiteContextIdentityEntry of the fresh currentContext with the original after entries. (b) inSourceContextCarriage and its unused imports are removed; the request receives the fresh observation unchanged. (c) The unedited build emitted exactly the old pins (118675 B, 9c5716\u2026, span [108590,111022)). The candidate emits 118773 B, 89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c, span [108688,111120); only digest, byteCount, startByte and endByte were reconciled. spanDigest 1fcd7184\u2026 and the policy/inventory/context relations are unchanged; generator lines 95\u2013108 are untouched and pass. (d) The pending leg uses validatedRuntimeEventPrefixBeforeEvent(prefix, changed.event.eventId) with a string ID over the owned immutable earlier cut, asserts the earlier cut still holds the birth body, and asserts the executed cause set equals the seven causes [denied, foreign, malformed, missing, pending, stale, tampered]. Cold reconstruction and the 965-member equivalence are unchanged. (e) The instruction-assembly owner refuses an admitted native_workspace_work_task whose worksite_context_observation fails the current validator with the existing unsupported_selection cause (role, context ref), before role evidence, prompt rendering or transport. No schema, decoder, failure class or migration. New test (real assembly and actor_process preparation; controlled basis/role premises): the pre-P1 identity of the same observation refuses with exactly that cause, prepareInstructionAssembly throws it, invokeActorProcess refuses 'native assembly preparation did not complete', 0 dispatches; the fresh format assembles. New reacquisition test: the Product owner and ABG library preparation accept fresh inline against a member-carried after, the request keeps the fresh context, and both a replaced file identity with the same bytes and changed bytes refuse. (f) The three HOW documents are updated. Commands (owned scratch $TMPDIR/abg-p1-03-fBYyqG, Node 24.7.0, pinned offline rc2-dogfood-01 node_modules copy): tsc on the unedited code, emitted member equal to the old pins; npm run build exit 0 (stderr empty on the final run); node scripts/refresh-candidate-basis.mjs (npm_config_offline=true) exit 0, artifactDigest sha256:70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd, productContentDigest c89cf68f\u2026, manifestDigest 8e2230b5\u2026 (identical after the doc edits); node --experimental-vm-modules --test --test-concurrency=1 over all 11 focused files exit 0: 95 tests, 85 pass, 0 fail, 10 env-gated pre-existing skips (stdout sha256 6e324231\u2026, 46227 B); all 18 cases that failed in the first C2 now pass, including the GC03 and installed-helper cases; affected t287-default-library + t287-native-workspace-work exit 0: 67 tests, 63 pass, 0 fail, 4 skipped; 10 more assembly/reacquisition consumer files: 54 tests, 45 pass, 0 fail, 9 skipped; r1-packed-artifact + r2-clean-install: 2/2 pass; lint:imports, lint:lifecycle, lint:calculus pass. Discrimination: the new assembly and reacquisition tests fail on the unedited build (untyped 'declared native dispatch\u2026' message; 'native reacquisition requires exact retained context\u2026'), and the reacquisition test fails when inSourceContextCarriage is reinstated.\",\"gaps\":[\"The required native Return admission, independent review and the full automatic nine-command C2/UAT have not run. The exact C2 command objects, environments and predicates (B11_C2_961_PREPARATION.json) are outside my readable scope. Locally I approximated build, package, focused, affected and artifact; source-correspondence, fixture-current-measurement, toolchain and contract-seeds were not run. All results are single unrepeated local runs; timings are not evidence.\",\"In the real leaf-port dispatch order, an old-format native input is refused first by the generic isNativeWorkspaceWorkTask check in authority verification (implementation/leaf_invocation_port.ts, not granted), with an untyped authority_verification/refused. The typed unsupported_selection boundary is reached through the assembly and actor-preparation owners. The proof uses a component frontier with controlled basis/role premises, not a real Run or event log. Making the typed refusal come first in the full leaf-port path would need that ungranted owner; returned, not done.\",\"The boundary covers only the native work task. Selector (framed_synthesis_task) and semantic-job Context inputs are unchanged. The selector's existing unknown_dependency refusal for an invalid Context was not separately proven.\",\"Tracked canonical-generated files outside the grant were not written and are now stale against the edited source: contracts/worksite/command-execution-context.inventory.json (still 9c5716\u2026; the build regenerates 89dbe9ba\u2026), product-toolchain-manifest.json, test_env/fixtures/abi5-root-candidate-basis.json, and the whole-qualification test_env/qualification/inventory.json.\",\"Residuals unchanged as selected: pending native contexts whose members name predecessor-Run holders still refuse foreign; cross-Run holder reuse and coordinate/native-identity rewrites are deferred; whole qualification/release and the original full P1 rubric keep their standing.\",\"Possible latent issue, not exercised or changed: in instruction_assembly.ts the revision-selection decision view's contextView over sourceNativeWork.after still requires inline bodies and would throw on a member-carried after unless isCompleted short-circuits it.\",\"lint:evidence could not run meaningfully in the scratch copy (no git checkout; it fails the same way on the unedited copy) and was not run in the worksite. 23 skips across the lanes are pre-existing env-gated retained-evidence cases and were not executed.\",\"test_env/uat/harness.test.mjs has a comment citing C2 HOW lines 776-781. That citation was already stale in the preimage and is now about 796-801; it is outside the grant and has no functional effect.\",\"Disclosed effects: the owned scratch dir $TMPDIR/abg-p1-03-fBYyqG (about 230 MB of build/test copies and logs) is left in place. Tests created and removed their own mkdtemp dirs, and r2 materialized the candidate into a test-owned temp consumer root. No network or dependency install. No worksite writes outside the ten paths. No commit.\"]}",
+  "result_index": 0,
+  "safety_stops": 0,
+  "session_id": "916bec07-a707-4c7f-861b-aa1bc0dc6b39",
+  "stop_reason": "tool_use",
+  "structured_output": {
+    "gaps": [
+      "The required native Return admission, independent review and the full automatic nine-command C2/UAT have not run. The exact C2 command objects, environments and predicates (B11_C2_961_PREPARATION.json) are outside my readable scope. Locally I approximated build, package, focused, affected and artifact; source-correspondence, fixture-current-measurement, toolchain and contract-seeds were not run. All results are single unrepeated local runs; timings are not evidence.",
+      "In the real leaf-port dispatch order, an old-format native input is refused first by the generic isNativeWorkspaceWorkTask check in authority verification (implementation/leaf_invocation_port.ts, not granted), with an untyped authority_verification/refused. The typed unsupported_selection boundary is reached through the assembly and actor-preparation owners. The proof uses a component frontier with controlled basis/role premises, not a real Run or event log. Making the typed refusal come first in the full leaf-port path would need that ungranted owner; returned, not done.",
+      "The boundary covers only the native work task. Selector (framed_synthesis_task) and semantic-job Context inputs are unchanged. The selector's existing unknown_dependency refusal for an invalid Context was not separately proven.",
+      "Tracked canonical-generated files outside the grant were not written and are now stale against the edited source: contracts/worksite/command-execution-context.inventory.json (still 9c5716\u2026; the build regenerates 89dbe9ba\u2026), product-toolchain-manifest.json, test_env/fixtures/abi5-root-candidate-basis.json, and the whole-qualification test_env/qualification/inventory.json.",
+      "Residuals unchanged as selected: pending native contexts whose members name predecessor-Run holders still refuse foreign; cross-Run holder reuse and coordinate/native-identity rewrites are deferred; whole qualification/release and the original full P1 rubric keep their standing.",
+      "Possible latent issue, not exercised or changed: in instruction_assembly.ts the revision-selection decision view's contextView over sourceNativeWork.after still requires inline bodies and would throw on a member-carried after unless isCompleted short-circuits it.",
+      "lint:evidence could not run meaningfully in the scratch copy (no git checkout; it fails the same way on the unedited copy) and was not run in the worksite. 23 skips across the lanes are pre-existing env-gated retained-evidence cases and were not executed.",
+      "test_env/uat/harness.test.mjs has a comment citing C2 HOW lines 776-781. That citation was already stale in the preimage and is now about 796-801; it is outside the grant and has no functional effect.",
+      "Disclosed effects: the owned scratch dir $TMPDIR/abg-p1-03-fBYyqG (about 230 MB of build/test copies and logs) is left in place. Tests created and removed their own mkdtemp dirs, and r2 materialized the candidate into a test-owned temp consumer root. No network or dependency install. No worksite writes outside the ten paths. No commit."
+    ],
+    "summary": "Candidate: uncommitted working-tree edits over 9c4a5c5e136ec564c66d1598fd32161ad4101f24, limited to the ten granted paths (sha256/bytes): product/worksite_command_execution.ts 6766194e\u2026/143027 (byte-identical to the recorded first renderer); abg/native_work_reacquisition.ts 2ea85166\u2026/37094; gtl/worksite_command_execution.ts 2faf93d2\u2026/24181; tests/t287-event-body-encoding 7c3656c7\u2026/57354; tests/t287-native-work-reacquisition b36b41eb\u2026/52744; tests/t287-native-assembly-retained-input fafb8eb4\u2026/14920; abg/instruction_assembly.ts 6c4a0050\u2026/121881; design T287_NATIVE_WORKSPACE_WORK cb1c5405\u2026/26079, T287_W2_R3_C2 533480ed\u2026/72393, M03 190bbc2d\u2026/20174. All ten preimages matched the grant before editing. (a) The Product request owner compares worksiteContextIdentityEntry of the fresh currentContext with the original after entries. (b) inSourceContextCarriage and its unused imports are removed; the request receives the fresh observation unchanged. (c) The unedited build emitted exactly the old pins (118675 B, 9c5716\u2026, span [108590,111022)). The candidate emits 118773 B, 89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c, span [108688,111120); only digest, byteCount, startByte and endByte were reconciled. spanDigest 1fcd7184\u2026 and the policy/inventory/context relations are unchanged; generator lines 95\u2013108 are untouched and pass. (d) The pending leg uses validatedRuntimeEventPrefixBeforeEvent(prefix, changed.event.eventId) with a string ID over the owned immutable earlier cut, asserts the earlier cut still holds the birth body, and asserts the executed cause set equals the seven causes [denied, foreign, malformed, missing, pending, stale, tampered]. Cold reconstruction and the 965-member equivalence are unchanged. (e) The instruction-assembly owner refuses an admitted native_workspace_work_task whose worksite_context_observation fails the current validator with the existing unsupported_selection cause (role, context ref), before role evidence, prompt rendering or transport. No schema, decoder, failure class or migration. New test (real assembly and actor_process preparation; controlled basis/role premises): the pre-P1 identity of the same observation refuses with exactly that cause, prepareInstructionAssembly throws it, invokeActorProcess refuses 'native assembly preparation did not complete', 0 dispatches; the fresh format assembles. New reacquisition test: the Product owner and ABG library preparation accept fresh inline against a member-carried after, the request keeps the fresh context, and both a replaced file identity with the same bytes and changed bytes refuse. (f) The three HOW documents are updated. Commands (owned scratch $TMPDIR/abg-p1-03-fBYyqG, Node 24.7.0, pinned offline rc2-dogfood-01 node_modules copy): tsc on the unedited code, emitted member equal to the old pins; npm run build exit 0 (stderr empty on the final run); node scripts/refresh-candidate-basis.mjs (npm_config_offline=true) exit 0, artifactDigest sha256:70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd, productContentDigest c89cf68f\u2026, manifestDigest 8e2230b5\u2026 (identical after the doc edits); node --experimental-vm-modules --test --test-concurrency=1 over all 11 focused files exit 0: 95 tests, 85 pass, 0 fail, 10 env-gated pre-existing skips (stdout sha256 6e324231\u2026, 46227 B); all 18 cases that failed in the first C2 now pass, including the GC03 and installed-helper cases; affected t287-default-library + t287-native-workspace-work exit 0: 67 tests, 63 pass, 0 fail, 4 skipped; 10 more assembly/reacquisition consumer files: 54 tests, 45 pass, 0 fail, 9 skipped; r1-packed-artifact + r2-clean-install: 2/2 pass; lint:imports, lint:lifecycle, lint:calculus pass. Discrimination: the new assembly and reacquisition tests fail on the unedited build (untyped 'declared native dispatch\u2026' message; 'native reacquisition requires exact retained context\u2026'), and the reacquisition test fails when inSourceContextCarriage is reinstated."
+  },
+  "subagent_stats": {
+    "by_type": {},
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "system": 0,
+      "user": 0
+    },
+    "max_depth": 0,
+    "refused": {
+      "budget": 0,
+      "concurrency_limit": 0,
+      "depth_limit": 0
+    },
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "spawned": 0,
+    "spawned_by_subagents": 0,
+    "started_in_background": 0
+  },
+  "subtype": "success",
+  "terminal_reason": "completed",
+  "time_to_request_ms": 327,
+  "total_cost_usd": 9.849362999999997,
+  "ttft_ms": 3260,
+  "ttft_stream_ms": 3178,
+  "type": "result",
+  "usage": {
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 360469,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "cache_creation_input_tokens": 360469,
+    "cache_read_input_tokens": 25787435,
+    "fallback_credit": null,
+    "inference_geo": "global",
+    "input_tokens": 216,
+    "iterations": [],
+    "output_tokens": 90363,
+    "output_tokens_details": {
+      "thinking_tokens": 43936
+    },
+    "server_tool_use": {
+      "web_fetch_requests": 0,
+      "web_search_requests": 0
+    },
+    "service_tier": "standard",
+    "speed": "standard"
+  },
+  "uuid": "17f1c81c-1efa-4462-951f-b6613a4ade33"
+}

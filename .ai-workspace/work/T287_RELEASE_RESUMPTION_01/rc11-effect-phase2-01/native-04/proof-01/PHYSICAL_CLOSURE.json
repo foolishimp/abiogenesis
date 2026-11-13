@@ -1,0 +1,455 @@
+{
+  "status": "ALL_SELECTED_COMMAND_AND_EIGHT_RETAINED_PHYSICAL_GROUPS_ABSENT",
+  "recordedAt": "2026-11-10T02:19:52.847587+00:00",
+  "commandGroups": [
+    {
+      "id": "r1-probe",
+      "pgid": 81654,
+      "absentNow": true,
+      "driverCleanupNeeded": false
+    },
+    {
+      "id": "r2-immediate",
+      "pgid": 81661,
+      "absentNow": true,
+      "driverCleanupNeeded": false
+    },
+    {
+      "id": "baseline-signal",
+      "pgid": 81682,
+      "absentNow": true,
+      "driverCleanupNeeded": false
+    },
+    {
+      "id": "owned-lifetime",
+      "pgid": 81698,
+      "absentNow": true,
+      "driverCleanupNeeded": false
+    }
+  ],
+  "physical": [
+    {
+      "caseId": "physical-capture-command",
+      "identity": {
+        "pid": 81830,
+        "pgid": 81829
+      },
+      "actualGroupAbsentNow": true,
+      "recordedGroupAbsent": true,
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-command--81699.json",
+        "bytes": 2459,
+        "sha256": "6c5e28e3f3e9a467f1d3bb661b811bab5b8067c0d041a2a0b7a0b60859c94e31"
+      },
+      "readiness": {
+        "end": "complete",
+        "sealedAtMs": 59.593,
+        "setupMs": 10005,
+        "observed": {
+          "identity": {
+            "atMs": 59.418,
+            "value": {
+              "pid": 81830,
+              "pgid": 81829
+            }
+          },
+          "ready": {
+            "atMs": 59.582,
+            "value": 81830
+          }
+        },
+        "unobserved": [],
+        "errors": {
+          "identity": {
+            "atMs": 47.964,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-2W26Yj/command.identity.json'"
+          },
+          "ready": {
+            "atMs": 48.065,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-2W26Yj/command.ready'"
+          }
+        },
+        "attempts": {
+          "identity": 6,
+          "ready": 6
+        },
+        "inFlight": null
+      },
+      "ownerReturn": null
+    },
+    {
+      "caseId": "physical-capture-http",
+      "identity": {
+        "pid": 81834,
+        "pgid": 81832
+      },
+      "actualGroupAbsentNow": true,
+      "recordedGroupAbsent": true,
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-http--81699.json",
+        "bytes": 1980,
+        "sha256": "b62d3e780958a1b19efd86d0028034cc92c6dde684c982d85fca10c3169f413c"
+      },
+      "readiness": {
+        "end": "complete",
+        "sealedAtMs": 49.628,
+        "setupMs": 10005,
+        "observed": {
+          "identity": {
+            "atMs": 49.472,
+            "value": {
+              "pid": 81834,
+              "pgid": 81832
+            }
+          },
+          "ready": {
+            "atMs": 49.616,
+            "value": 81834
+          }
+        },
+        "unobserved": [],
+        "errors": {
+          "identity": {
+            "atMs": 37.674,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-2W26Yj/http.identity.json'"
+          },
+          "ready": {
+            "atMs": 37.78,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-2W26Yj/http.ready'"
+          }
+        },
+        "attempts": {
+          "identity": 5,
+          "ready": 5
+        },
+        "inFlight": null
+      },
+      "ownerReturn": null
+    },
+    {
+      "caseId": "physical-capture-worker",
+      "identity": {
+        "pid": 81827,
+        "pgid": 81826
+      },
+      "actualGroupAbsentNow": true,
+      "recordedGroupAbsent": true,
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-worker--81699.json",
+        "bytes": 3582,
+        "sha256": "a7fd138e77d1943d9b1f2c367c8d2cc5c014dceb93c0926138a9d923f0b7e14f"
+      },
+      "readiness": {
+        "end": "complete",
+        "sealedAtMs": 50.187,
+        "setupMs": 10005,
+        "observed": {
+          "identity": {
+            "atMs": 49.969,
+            "value": {
+              "pid": 81827,
+              "pgid": 81826
+            }
+          },
+          "ready": {
+            "atMs": 50.162,
+            "value": 81827
+          }
+        },
+        "unobserved": [],
+        "errors": {
+          "identity": {
+            "atMs": 38.042,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-2W26Yj/worker.identity.json'"
+          },
+          "ready": {
+            "atMs": 38.125,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-2W26Yj/worker.ready'"
+          }
+        },
+        "attempts": {
+          "identity": 5,
+          "ready": 5
+        },
+        "inFlight": null
+      },
+      "ownerReturn": null
+    },
+    {
+      "caseId": "physical-http-invalid",
+      "identity": {
+        "pid": 81717,
+        "pgid": 81717
+      },
+      "actualGroupAbsentNow": true,
+      "recordedGroupAbsent": true,
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-invalid--81699.json",
+        "bytes": 1931,
+        "sha256": "39d0f080431ae7e2ad569137cd937c7dc4aa7cae975420e45744e3efe074bb8e"
+      },
+      "readiness": {
+        "end": "complete",
+        "sealedAtMs": 37.162,
+        "setupMs": 5000,
+        "observed": {
+          "identity": {
+            "atMs": 36.968,
+            "value": {
+              "pid": 81717,
+              "pgid": 81717
+            }
+          },
+          "port": {
+            "atMs": 37.146,
+            "value": "invalid"
+          }
+        },
+        "unobserved": [],
+        "errors": {
+          "identity": {
+            "atMs": 24.302,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/invalid.pid'"
+          },
+          "port": {
+            "atMs": 24.455,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/invalid.port'"
+          }
+        },
+        "attempts": {
+          "identity": 4,
+          "port": 4
+        },
+        "inFlight": null
+      },
+      "ownerReturn": null
+    },
+    {
+      "caseId": "physical-http-missing",
+      "identity": {
+        "pid": 81719,
+        "pgid": 81719
+      },
+      "actualGroupAbsentNow": true,
+      "recordedGroupAbsent": true,
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-missing--81699.json",
+        "bytes": 1823,
+        "sha256": "73b465c0c7190be53d4d6a3f88d264b33c79c4d15951be8b022ca3adfcf4fbe7"
+      },
+      "readiness": {
+        "end": "setup_deadline",
+        "sealedAtMs": 5002.335,
+        "setupMs": 5000,
+        "observed": {
+          "identity": {
+            "atMs": 45.693,
+            "value": {
+              "pid": 81719,
+              "pgid": 81719
+            }
+          }
+        },
+        "unobserved": [
+          "port"
+        ],
+        "errors": {
+          "identity": {
+            "atMs": 33.208,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/missing.pid'"
+          },
+          "port": {
+            "atMs": 4991.174,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/missing.port'"
+          }
+        },
+        "attempts": {
+          "identity": 5,
+          "port": 419
+        },
+        "inFlight": null
+      },
+      "ownerReturn": null
+    },
+    {
+      "caseId": "physical-http-owner-error",
+      "identity": {
+        "pid": 81824,
+        "pgid": 81824
+      },
+      "actualGroupAbsentNow": true,
+      "recordedGroupAbsent": true,
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-owner-error--81699.json",
+        "bytes": 4072,
+        "sha256": "38b43228faf2806afa4f1719750727c2fa2cbcbcbaa78e4e9abbb392488847c6"
+      },
+      "readiness": {
+        "end": "complete",
+        "sealedAtMs": 49.309,
+        "setupMs": 5000,
+        "observed": {
+          "identity": {
+            "atMs": 49.128,
+            "value": {
+              "pid": 81824,
+              "pgid": 81824
+            }
+          },
+          "port": {
+            "atMs": 49.297,
+            "value": "1"
+          }
+        },
+        "unobserved": [],
+        "errors": {
+          "identity": {
+            "atMs": 38.531,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/owner-error.pid'"
+          },
+          "port": {
+            "atMs": 38.622,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/owner-error.port'"
+          }
+        },
+        "attempts": {
+          "identity": 5,
+          "port": 5
+        },
+        "inFlight": null
+      },
+      "ownerReturn": null
+    },
+    {
+      "caseId": "physical-http-request-failure",
+      "identity": {
+        "pid": 81767,
+        "pgid": 81767
+      },
+      "actualGroupAbsentNow": true,
+      "recordedGroupAbsent": true,
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-request-failure--81699.json",
+        "bytes": 2013,
+        "sha256": "3af87ec41b8411a01c87b0d45cea86ecc26d2b3d7137407fbeb4913ab9ba6599"
+      },
+      "readiness": {
+        "end": "complete",
+        "sealedAtMs": 35.546,
+        "setupMs": 5000,
+        "observed": {
+          "identity": {
+            "atMs": 35.41,
+            "value": {
+              "pid": 81767,
+              "pgid": 81767
+            }
+          },
+          "port": {
+            "atMs": 35.536,
+            "value": "1"
+          }
+        },
+        "unobserved": [],
+        "errors": {
+          "identity": {
+            "atMs": 23.592,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/request-failure.pid'"
+          },
+          "port": {
+            "atMs": 23.698,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/request-failure.port'"
+          }
+        },
+        "attempts": {
+          "identity": 4,
+          "port": 4
+        },
+        "inFlight": null
+      },
+      "ownerReturn": null
+    },
+    {
+      "caseId": "physical-http-response",
+      "identity": {
+        "pid": 81715,
+        "pgid": 81715
+      },
+      "actualGroupAbsentNow": true,
+      "recordedGroupAbsent": true,
+      "evidence": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-response--81699.json",
+        "bytes": 2106,
+        "sha256": "7e626b3a954429950aab8ba9e74e7838df39002a741eaf2c72e7acd26d376eb8"
+      },
+      "readiness": {
+        "end": "complete",
+        "sealedAtMs": 53.697,
+        "setupMs": 5000,
+        "observed": {
+          "identity": {
+            "atMs": 42.345,
+            "value": {
+              "pid": 81715,
+              "pgid": 81715
+            }
+          },
+          "port": {
+            "atMs": 53.641,
+            "value": "59933"
+          }
+        },
+        "unobserved": [],
+        "errors": {
+          "identity": {
+            "atMs": 29.291,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/response.pid'"
+          },
+          "port": {
+            "atMs": 42.544,
+            "name": "Error",
+            "code": "ENOENT",
+            "message": "ENOENT: no such file or directory, open '/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/abi5-lifetime-7n2Deg/response.port'"
+          }
+        },
+        "attempts": {
+          "identity": 4,
+          "port": 5
+        },
+        "inFlight": null
+      },
+      "ownerReturn": null
+    }
+  ],
+  "standing": "Read-only process-group absence observation; no signal or cleanup action. Controlled probe child is synthetic and receives no OS-child credit."
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "root_selected_native_resource_binding",
+  "status": "BOUND_FOR_CONTROL_PREPARATION_EXECUTION_ADMISSION_PENDING",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_SELECTION.json",
+    "bytes": 7288,
+    "sha256": "aa3d11eedf7bf44271a825b05466d1a7bc8556377064562b1d14f6a309be9b9a"
+  },
+  "source": "Root explicit operator Writer instruction in this preparation turn; new task resource selection, not a running-task extension",
+  "instruction": "Resource selection for this materially larger complete migration: 320 turns, 90min absolute, 30min inactivity, 3h host, xhigh, 8GiB, no automatic retry. Prior 96turn/45min was two-file N3 task. This is upfront bounded Root resource choice under existing grant, not runtime budget extension. No shadow test timeout changes.",
+  "providerTurns": 320,
+  "providerAbsoluteTimeoutMs": 5400000,
+  "providerInactivityTimeoutMs": 1800000,
+  "outerHostTimeoutMs": 10800000,
+  "nodeMaxOldSpaceSizeMiB": 8192,
+  "effort": "xhigh",
+  "automaticRetries": 0,
+  "testBudgets": "Unchanged selected stage 240000ms compile/180000ms generator/60000ms guard and 300000ms per lane. Existing 117000/120000ms recovery proof bounds remain with Root future installed proof."
+}

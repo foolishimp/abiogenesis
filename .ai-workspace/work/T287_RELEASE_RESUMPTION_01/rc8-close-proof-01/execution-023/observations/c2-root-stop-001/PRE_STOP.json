@@ -1,0 +1,88 @@
+{
+  "status": "ROOT_SELECTED_SCOPED_C2_STOP_PREIMAGE",
+  "at": "2026-11-07T14:52:47.403793+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "rootSelection": "Stop this proven owned C2 file command only after first actual inner red; preserve original and later observed outcomes separately. TERM, finite2sgrace, escalation only if surviving membership remains proven-owned. No driver/source/other-process action.",
+  "fileBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/file-bindings/193-t287-worksite-command-execution.json",
+    "bytes": 1259,
+    "sha256": "a4465f277b9c7b476129676d32ac3b455b812f0bb5af98ba676e970090b964df"
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/commands/193-t287-worksite-command-execution.request.json",
+    "bytes": 985,
+    "sha256": "e58153caad029b48c029c689338e8f6fe0fe14c6a95a57cabe8e15074fb84d28"
+  },
+  "reporterSnapshot": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/observations/c2-root-stop-001/reporter-before-term.jsonl",
+    "bytes": 2963,
+    "sha256": "0a55e50dfa68cde4229624d163ad0eb42efd20b1a6a8e9cbe4dc331c0f168544"
+  },
+  "driver": {
+    "pid": 60216,
+    "ppid": 29521,
+    "pgid": 60216,
+    "stat": "Ss",
+    "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-023.mjs run /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_025.json ec924fa08fb808a596988fb72ceb900965e90c1e74fac9c0157255e00064e2b8 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-025/BOUND_INVENTORY.json 8c693c5b81066602c45f754793feac54a2c7c42518d8e0ad42babb89337f5948 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_023.json a0f6a1539a3a6e53bd10dd651044831e889f6ed268f33a3b6b7810911120372e"
+  },
+  "groupLeader": {
+    "pid": 60595,
+    "ppid": 60216,
+    "pgid": 60595,
+    "stat": "Ss",
+    "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/file-bindings/193-t287-worksite-command-execution.json a4465f277b9c7b476129676d32ac3b455b812f0bb5af98ba676e970090b964df"
+  },
+  "groupMembers": [
+    {
+      "pid": 60595,
+      "ppid": 60216,
+      "pgid": 60595,
+      "stat": "Ss",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/file-bindings/193-t287-worksite-command-execution.json a4465f277b9c7b476129676d32ac3b455b812f0bb5af98ba676e970090b964df"
+    },
+    {
+      "pid": 60596,
+      "ppid": 60595,
+      "pgid": 60595,
+      "stat": "S",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-reporter-destination=stdout --test-reporter=/private/tmp/abg-r8c-023/w/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs --test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/events/193-t287-worksite-command-execution.jsonl test_env/tests/t287-worksite-command-execution.test.mjs"
+    },
+    {
+      "pid": 60597,
+      "ppid": 60596,
+      "pgid": 60595,
+      "stat": "R",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node --test-concurrency=1 --heap-prof-interval=524288 --max-http-header-size=16384 --stack-trace-limit=10 --report-signal=SIGUSR2 --heapsnapshot-near-heap-limit=0 --tls-cipher-list=TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:DHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA256:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!SRP:!CAMELLIA --watch-kill-signal=SIGTERM --inspect-publish-uid=stderr,http --cpu-prof-interval=1000 --test-coverage-functions=0 --experimental-vm-modules --test-timeout=0 --test-coverage-lines=0 --test-isolation=process --test-coverage-branches=0 --network-family-autoselection-attempt-timeout=250 --use-largepages=off --inspect-port=127.0.0.1:9229 --secure-heap-min=2 --v8-pool-size=4 --node-snapshot --trace-event-file-pattern=node_trace.${rotation}.log --secure-heap=0 test_env/tests/t287-worksite-command-execution.test.mjs"
+    }
+  ],
+  "observedDescendants": [
+    {
+      "pid": 60595,
+      "ppid": 60216,
+      "pgid": 60595,
+      "stat": "Ss",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/file-bindings/193-t287-worksite-command-execution.json a4465f277b9c7b476129676d32ac3b455b812f0bb5af98ba676e970090b964df"
+    },
+    {
+      "pid": 60596,
+      "ppid": 60595,
+      "pgid": 60595,
+      "stat": "S",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-reporter-destination=stdout --test-reporter=/private/tmp/abg-r8c-023/w/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs --test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-023/events/193-t287-worksite-command-execution.jsonl test_env/tests/t287-worksite-command-execution.test.mjs"
+    },
+    {
+      "pid": 60597,
+      "ppid": 60596,
+      "pgid": 60595,
+      "stat": "R",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node --test-concurrency=1 --heap-prof-interval=524288 --max-http-header-size=16384 --stack-trace-limit=10 --report-signal=SIGUSR2 --heapsnapshot-near-heap-limit=0 --tls-cipher-list=TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:DHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA256:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!SRP:!CAMELLIA --watch-kill-signal=SIGTERM --inspect-publish-uid=stderr,http --cpu-prof-interval=1000 --test-coverage-functions=0 --experimental-vm-modules --test-timeout=0 --test-coverage-lines=0 --test-isolation=process --test-coverage-branches=0 --network-family-autoselection-attempt-timeout=250 --use-largepages=off --inspect-port=127.0.0.1:9229 --secure-heap-min=2 --v8-pool-size=4 --node-snapshot --trace-event-file-pattern=node_trace.${rotation}.log --secure-heap=0 test_env/tests/t287-worksite-command-execution.test.mjs"
+    }
+  ],
+  "observedCaseCounts": {
+    "passed": 6,
+    "failedCaseEvents": 2,
+    "skipped": 0
+  },
+  "existingMechanism": "commandRecorder spawns detached group; its stop uses SIGTERM of negative childpid then2000ms SIGKILL. This Root-directed scoped intervention applies the same group signal/grace pattern to the exact proven filehostgroup.",
+  "wholeFileCredit": false
+}

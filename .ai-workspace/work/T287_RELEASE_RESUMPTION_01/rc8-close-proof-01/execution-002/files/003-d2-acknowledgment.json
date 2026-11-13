@@ -1,0 +1,73 @@
+{
+  "file": "test_env/tests/d2-acknowledgment.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 320.23062500000015,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 3,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 3,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "closed raw guards and real constructors accept old/old and revision/revision only",
+      "file": "test_env/tests/d2-acknowledgment.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "acknowledgment refuses wrong task, digest, attempt, artifact and extra fields at the owning seam",
+      "file": "test_env/tests/d2-acknowledgment.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "task, published raw contract, Product routing, schema and constructor select the same closed arm",
+      "file": "test_env/tests/d2-acknowledgment.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/events/003-d2-acknowledgment.jsonl",
+    "bytes": 1849,
+    "sha256": "1780fd44e4e104c7ff9ae1cddddca97951ddc8c01fa7253af6c785f06316988b"
+  },
+  "commandReceipt": "commands/003-d2-acknowledgment.result.json",
+  "workspace": "/private/tmp/abg-r8c-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

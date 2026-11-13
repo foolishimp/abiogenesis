@@ -1,0 +1,169 @@
+{
+  "status": "ROOT_ACCEPTED_RC8_TEST_ONLY_SOURCE_SUCCESSOR",
+  "recordedUtc": "2026-11-07T07:53:34.216054+00:00",
+  "authority": "Executive /root exact author06 final test-only source conjunction and continuation007 selection. Existing user approval unchanged.",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "fixedFamilies": 15,
+  "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+    "bytes": 295568,
+    "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+  },
+  "sourceRows": 1339,
+  "currentSourceRowsMatched": 1339,
+  "rootIndependentCurrentRowMismatches": 0,
+  "sourcePathScope": {
+    "originalAcceptedSourcePaths": 18,
+    "newlyCorrectedUnshippedTestPaths": 3,
+    "meaning": "Original18 includes code, design, package metadata and focused-test/support paths; it is not an all-runtime list.",
+    "gitReadbackFromRc7": {
+      "trackedChanged": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+        "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+        "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+        "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+        "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "build_tenants/abiogenesis/typescript/package-lock.json",
+        "build_tenants/abiogenesis/typescript/package.json",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+      ],
+      "newUntracked": [
+        "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs"
+      ],
+      "total": 21
+    }
+  },
+  "originalSourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "acceptedProductSourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+  "productArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-006/REVIEW.json",
+    "bytes": 11961,
+    "sha256": "95499a3a63994c75f18dc6b1bc4e0d0e0548854f9e4040f7808be17f5419e11c"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-006/README.md",
+    "bytes": 1641,
+    "sha256": "46390ead0f04039c1186978f540f88259f1eb753ff16dc7eba5e15392db0df7d"
+  },
+  "operatorConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/OPERATOR_RETURN.json",
+    "bytes": 18883,
+    "sha256": "123362f9043855899f200712a4c2f8d7ebc0d24202bd5adec295f7d59ff31c3b"
+  },
+  "actualSdk": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/runtime-001/calls/lifecycle-start.outcome.json",
+    "bytes": 528463,
+    "sha256": "170ec109e25e19c12e49385ff5de34f9e04d832982ba749ab5c4d81410434073"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/runtime-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "6b432d9f11f8320edda7f688382a967e44171df3f73254de8eedf74333c7a82b"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/readbacks-001/RESULT.json",
+    "bytes": 6630,
+    "sha256": "df4d7ec08dcbd9792c490e330aeb164c308f2edc281cbeecb68929e37d1b4ca6"
+  },
+  "focused": {
+    "f04": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/RESULT.json",
+      "bytes": 793,
+      "sha256": "b57f0ef2d61fbe4c76cc1b6b5834026fe2ca951b9823cf47d60f290dc2434f8f"
+    },
+    "newF04Counts": {
+      "passed": 2,
+      "skipped": 0
+    },
+    "retainedNativeWorkspace": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/RESULT.json",
+      "bytes": 793,
+      "sha256": "a7ecaa5fcedcd87ba16f2fc09bf4d1fa491ba5c5a91c76eeb3fcecfbdead1162"
+    },
+    "retainedNativeWorkspaceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/source-freeze.json",
+      "bytes": 296028,
+      "sha256": "7f845f6828ecd3255381deab9251047ba860a4e0dfdaccaf5ee6abc0e0c4416b"
+    },
+    "retainedNativeCounts": {
+      "passed": 43,
+      "skipped": 1
+    },
+    "combinedAffectedFiles": {
+      "passed": 45,
+      "skipped": 1
+    },
+    "noRestampingOrNativeWorkspaceRerun": true
+  },
+  "rootConjunction": [
+    "A4 missing producer prerequisites and A5 read-scope process correction remain in dated evidence; A5 closed the S2 functional relation.",
+    "A6 one source-row identity-copy cleanup and adjacent comment satisfy final S3; deliberate cold replay boundary remains.",
+    "Both fixture owners use coherent actual current prefix/projector, real window/probe algorithms, all13 F04 modes and existing native assertions.",
+    "Actual SDK changedPaths exactly F04; full typed terminal readbacks match and115904671B prefix remains unchanged.",
+    "All shipped/build/config/dependency/archive bytes remain equal to accepted Product stage; zero rebuilds."
+  ],
+  "handoffPrecision": {
+    "incorrectGeneralization": "A6 HANDOFF says all12 nonempty windows are265B.",
+    "rawStdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/commands/test.stdout",
+      "bytes": 4448,
+      "sha256": "ae73a6c8f7e16b6e8c65e5d5a533d85c5a5e2cbd36c68282d62cd7d0a3a147b7"
+    },
+    "actual": "invalid273B; other11 nonempty265B; absent stages no window. Raw stdout owns exact values.",
+    "sourceEffectRequired": false
+  },
+  "preservedHistory": [
+    "author04 failed F04 and withheld source",
+    "author05 new copy finding and earlier source/proof evidence",
+    "read-scope process correction and disclosed reads",
+    "all broad executions001-006 and failed/partial receipts"
+  ],
+  "boundedAcceptance": "Final source plus exact affected focused proofs and native actual return/readbacks accepted. Original Product performance/artifact acceptance remains bound to unchanged shipped bytes. No broad completion, cut, install or whole5.0 qualification claim.",
+  "continuationSelected": {
+    "execution": "007",
+    "originalWholeFiles": 79,
+    "originalPassed": 455,
+    "originalSkipped": 105,
+    "nativeWholeFile": 1,
+    "nativePassed": 43,
+    "nativeSkipped": 1,
+    "f04WholeFile": 1,
+    "f04Passed": 2,
+    "f04Skipped": 0,
+    "totalWholeCredits": 81,
+    "totalPassed": 500,
+    "totalSkipped": 106,
+    "scheduled": 127,
+    "totalFiles": 208,
+    "oneSerialExecutionAfterExactDeterministicBindings": true,
+    "furtherGoRequired": false
+  },
+  "qualified": false,
+  "cutOrInstallSelectedHere": false
+}

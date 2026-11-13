@@ -1,0 +1,27 @@
+{
+  "kind": "explicit_read_only_historical_fixture_selection",
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace",
+  "variable": "ABI5_EVIDENCE_ROOT",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl",
+      "bytes": 9304,
+      "sha256": "3d4adcf616337360931993fbd10e42090c989ac24060d56318cd21ea9363f845",
+      "relativePath": "comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl",
+      "regularFile": true,
+      "symlink": false,
+      "acquisition": "Existence/type/byte count/hash only; no historical event/provider content printed or assessed."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/events-01/runtime.events.jsonl",
+      "bytes": 2797774,
+      "sha256": "d2a677a2201dddb5b6f14d82b1c11e5d3cf95e9d369c30742cd750dac198e56c",
+      "relativePath": "comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/events-01/runtime.events.jsonl",
+      "regularFile": true,
+      "symlink": false,
+      "acquisition": "Existence/type/byte count/hash only; no historical event/provider content printed or assessed."
+    }
+  ],
+  "selectionRule": "Clear ambient variable, then set only this exact root. Read exactly these two files; no historical/provider content dump or adjacent history scan.",
+  "claim": "Historical S01 fixture only under exact stamped profile; no transplanted close/current authority or universal successor replay."
+}

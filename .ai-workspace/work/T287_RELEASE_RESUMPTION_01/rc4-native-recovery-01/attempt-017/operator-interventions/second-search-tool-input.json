@@ -1,0 +1,27 @@
+{
+  "status": "SECOND_NATIVE_SEARCH_EXACT_TOOL_INPUT",
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-af8c6c08dc52ee8a-stdout.log",
+  "physicalOffset": 5317336,
+  "physicalRowBytes": 1695,
+  "physicalRowSha256": "3e423bb954671ee41aa9c9c442ef0a54e59eb7a63c6e87d89382b42408593c52",
+  "timestamp": "2026-11-02T22:19:11.885Z",
+  "toolUses": [
+    {
+      "type": "tool_use",
+      "id": "toolu_01RD57Hi8AnyS23DRrfcFvxg",
+      "name": "Bash",
+      "input": {
+        "command": "grep -rln -i \"wrongrun\\|wrong.run\" rc4-operator-inputs rc4-scratch .ai-workspace 2>/dev/null | head; grep -n -i \"wrong\" rc4-operator-inputs/native-recovery-17/*.md | head -20",
+        "description": "Broader search for wrong-run references"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    }
+  ],
+  "explicitTimeoutPresent": false,
+  "explicitBackgroundPresent": false,
+  "returnObserved": false,
+  "asOf": "2026-11-02T22:22:01.790025+00:00",
+  "limit": "Absence of explicit flags is not a claim of effective timeout policy. First cancelled search had masked status; empty result is not successful/no-match proof."
+}

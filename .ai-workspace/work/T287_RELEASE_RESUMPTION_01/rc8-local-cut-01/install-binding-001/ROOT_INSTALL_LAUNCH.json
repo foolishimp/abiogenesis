@@ -1,0 +1,44 @@
+{
+  "status": "BOUND_ROOT_ADMITTED_INSTALL_COMMAND_NOT_YET_LAUNCHED",
+  "at": "2026-11-07T22:51:58.588585+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/ROOT_INSTALL_ADMISSION.json",
+    "bytes": 10103,
+    "sha256": "da67a6ac0b02947a284bbc4c40c0a7d99f33dad292c5d4adaa8bb1cb7ff0edd1"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/ROOT_INSTALL_BINDINGS.json",
+    "bytes": 5813,
+    "sha256": "f9942a31e02472b9b5799879e0fe95881f63151b8bc852755e5f7ceedb07d541"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "bytes": 27890,
+    "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+  },
+  "changedFields": [
+    "/activation",
+    "/executionEnabled",
+    "/limits/7",
+    "/status"
+  ],
+  "allOtherValuesUnchanged": true,
+  "editorialCorrection": {
+    "before": "Accepted exact source60f8e595/1339 rows/27 selected paths (24 tracked modifications and three new files); checkpoint and byte-equal clean reproduction await separate Root build selection.",
+    "after": "Accepted exact source60f8e595/1339 rows/27 selected paths (24 tracked modifications and three new files); checkpoint2019d62e/tree4c8a9240 and byte-equal clean reproduction are completed under BUILD_RESULT5c1b5628; exact packaging reviewdabaf2e7 is satisfied."
+  },
+  "commandArgv": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "install",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/ROOT_INSTALL_BINDINGS.json",
+    "f9942a31e02472b9b5799879e0fe95881f63151b8bc852755e5f7ceedb07d541"
+  ],
+  "command": "/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs install /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/ROOT_INSTALL_BINDINGS.json f9942a31e02472b9b5799879e0fe95881f63151b8bc852755e5f7ceedb07d541",
+  "singleAttempt": true,
+  "limits": {
+    "installMs": 1200000,
+    "installedOwnerMs": 900000
+  },
+  "failurePolicy": "Stop and preserve; no retry/extension/cleanup."
+}

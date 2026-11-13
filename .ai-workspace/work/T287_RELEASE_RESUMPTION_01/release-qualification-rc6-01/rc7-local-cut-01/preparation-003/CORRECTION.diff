@@ -1,0 +1,21 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/run-local-cut.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/run-local-cut.mjs
+@@ -6,7 +6,8 @@
+ import {createHash} from 'node:crypto';
+ import {dirname,join,isAbsolute,resolve,relative} from 'node:path';
+ import {fileURLToPath,pathToFileURL} from 'node:url';
+-const here=dirname(fileURLToPath(import.meta.url));
++// Reuse the unchanged preparation-002 auxiliary owners by reference.
++const here=resolve(dirname(fileURLToPath(import.meta.url)),'../preparation-002');
+ const T='build_tenants/abiogenesis/typescript';
+ const VERSION='5.0.0-rc.7', OLD='5.0.0-rc.6';
+ const identityPaths=[T+'/package.json',T+'/package-lock.json',T+'/code/src/product/contracts.ts'];
+@@ -95,7 +96,7 @@
+   assert.equal(b.sourceCheckpoint.path,join(O,'SOURCE_CHECKPOINT.json'));assert.equal(b.candidate.path,join(O,'candidate/RESULT.json'));assert.equal(b.reproduction.path,join(O,'reproduction/RESULT.json'));assert.equal(b.artifactIdentityBridge.path,join(O,'ARTIFACT_IDENTITY_BRIDGE.json'));
+   assert.equal(candidate.status,'BUILT');assert.equal(reproduction.status,'BYTE_EQUAL');assert.equal(reproduction.sourceCommit,checkpoint.sourceCommit);assert.equal(candidate.archive.sha256,reproduction.archive.sha256);assert.equal(candidate.archive.bytes,reproduction.archive.bytes);assert.deepEqual(checkpoint.subject,build.source.subject);assert.deepEqual(checkpoint.inventory,build.source.inventory);assert.equal(review.verdict,'satisfied');assert.equal(review.sourceCommit,checkpoint.sourceCommit);assert.equal(review.sourceTree,checkpoint.sourceTree);await checked(candidate.archive);await conserve(rows,W,checkpoint.identityChanges);
+   for(const key of ['boundedClaim','residuals','rootAuthority'])await checked(b[key]);for(const key of ['published','qualified','selectorChanged'])assert.equal(b[key],false);
+-  for(const q of [p.releaseRoot,p.installHost,join(O,'install-001')])await absent(q);
++  for(const q of [p.releaseRoot,p.installHost,join(O,'install-001'),join(O,'FINAL_INSTALL_VERIFICATION.json')])await absent(q);
+   const environment=JSON.parse(await readFile(join(O,'ENVIRONMENT.json'),'utf8'));assert.deepEqual(environment.environment,env);for(const r of environment.configs){assert.equal(r.bytes,0);assert.equal(r.sha256,hex(Buffer.alloc(0)));await checked(r);}
+   const out=join(O,'install-001');await mkdir(out);const run=await openCommands(out);const result={phase,startedUtc:new Date().toISOString(),input:{path:resolve(input),bytes:raw.length,sha256:inputSha},status:'FAILED',qualified:false,published:false};
+   try{

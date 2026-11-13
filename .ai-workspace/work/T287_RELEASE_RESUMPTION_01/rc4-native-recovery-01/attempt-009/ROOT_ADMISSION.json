@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "260bce8e8a841bcc81ec3cf185c4b885e7e896e821529f5ed5b6974a664815d5",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "sourceTree": "d3d22391589dcb6fd8d86ed128b0ede69b77348c",
+  "decision": "Root admits zero-provider installed preflight/call construction for fresh ordinary009 remaining point-one R1\u2013R5 package, within existing52 Product paths+2generatedterritories. Independent exact008 diagnosis accepted; no retained-work state injection, Productfeature/scope expansion or guard relaxation. Actual call/frozenmanifest review required before one-shot dispatch; no automatic retry/recovery/release acceptance.",
+  "packetSha256": "0b7a01aa172e9722b45a51f0ae08c5f9f9839e6b507459bcca10be0470a216ad",
+  "admittedUtc": "2026-11-02T02:51:29.847355Z"
+}

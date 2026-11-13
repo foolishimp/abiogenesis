@@ -1,0 +1,166 @@
+{
+  "id": "PHASE2-A-R2-NATIVE-01",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedAt": "2026-11-10T01:59:13.229850+00:00",
+  "bindingSha256": "8040cb008ae34aa0b18775e50e138b8bb86d86809a338b1a0afdf2760906a8af",
+  "preparedSha256": "ffa1fe99d03030879059ddf1e3a6f60241bd12ca31f47d04076efc9e951e6307",
+  "taskSha256": "665f74f3aecb857fa47307aeb4db943963231b42837a884f29c4f278a48ac573",
+  "scopeSha256": "67c3dc46a474b55464d76ac9b32481596cbb73997bdcee9043323abe1d93ae81",
+  "invocationRef": "invocation://abiogenesis/555c2ad7d696415f2914513ef4407a5b127af42156689d7faf7847aeb4fedd09",
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188181,
+    "prefixDigest": "sha256:836f23a4b596668e9e7986fc2eac6bfdc507832aca7ce86aa97b2a7ecfcd0a37",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 720650776,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:14597599213ecea40dff833dc31840cfcf1050e279995e67059b1bb8236a5bbc"
+  },
+  "nativeSelection": {
+    "programRef": "program://abiogenesis/worksite/native-work@5",
+    "startRef": "start://abiogenesis/worksite/native-work@5",
+    "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+    "viewDigest": "sha256:c878386f3c5322a26aa307362d8f9a62963046fabffa8fdd50f52d9dc0d1bae0"
+  },
+  "sessionId": 88102,
+  "pid": 64537,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/host.mjs",
+      "bytes": 15522,
+      "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/TASK.json",
+      "bytes": 6373,
+      "sha256": "665f74f3aecb857fa47307aeb4db943963231b42837a884f29c4f278a48ac573"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/ROOT_SCOPE.json",
+      "bytes": 6087,
+      "sha256": "67c3dc46a474b55464d76ac9b32481596cbb73997bdcee9043323abe1d93ae81"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/PRESERVATION_GUARDS.json",
+      "bytes": 3317,
+      "sha256": "a605b479281190311401385fb44655a5643e35fed2ac175367c8a91d2d5f3668"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+      "bytes": 1839,
+      "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/abg/calculus/index.js",
+      "bytes": 726,
+      "sha256": "3d4a68fb7bc6be06cf88503a7ee1521a0c1b7eb4ca0c07c6fbf662cf607ba440"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/abg/index.js",
+      "bytes": 10592,
+      "sha256": "cd78ae166b61a80ef8afbc1536d28737d140119425513883fc046f6e3fb8dffe"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/gtl/index.js",
+      "bytes": 7224,
+      "sha256": "4fc5fa0f9ae71c5b253da4f21e2814613d373bae72124e83cf0cdc7350dcf1dd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/hog/index.js",
+      "bytes": 843,
+      "sha256": "91b61c7b4d0d9aa19972477199c319d870679d9e75ccf2b56f47a2889356d2f4"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/implementation/index.js",
+      "bytes": 5671,
+      "sha256": "cc6ff98b6b231d2f033c6f5b7e99ec13a0bbe41815154f6faa0969acad32a30b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/index.js",
+      "bytes": 205,
+      "sha256": "582c51727659d3cbb9245e351e3ddaf75da1a81921be129064fb96d522c80358"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/product/index.js",
+      "bytes": 13810,
+      "sha256": "26771ef341c8d0d1b927118a9a73556cb93df7cd248dc4f5b187e50a395c4799"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/public/index.js",
+      "bytes": 666,
+      "sha256": "64466232bfbe070bf68b23806104e6023d4b379009a43c64646ecf54cf40a504"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/shared/admit/index.js",
+      "bytes": 150,
+      "sha256": "2685035f8851f7092626510b741b5f374f594a9e94886826e4711789f827bfc5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/shared/index.js",
+      "bytes": 299,
+      "sha256": "d951e494ff7197f20dab2463ff1b729c813316cc9c969b70d8d9b70dbc9e65b3"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/shared/process/index.js",
+      "bytes": 405,
+      "sha256": "42751e7462d52ec1eb014e1cbf3030912d24a22fb3d9143298b7f75a7bcdef8f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/shared/select/index.js",
+      "bytes": 207,
+      "sha256": "45d56449f67423bd8be4f6b41eaadaffa4d239cf34fb88fec769ea3f9c7af110"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/shared/value/index.js",
+      "bytes": 391,
+      "sha256": "2c544978b92a76390dd8c6cfceaabe368d9141414c97eabeb16730e7f5b76022"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/validator/index.js",
+      "bytes": 1397,
+      "sha256": "ec554004410b9d01dd7ddd569c6b4d7ece256dd855233b4a0d63e4b2335665e0"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+      "bytes": 40617,
+      "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/SETUP_RETURN.json",
+      "bytes": 4608,
+      "sha256": "60809560eebe92498fc83b42e025d1f748a57726dee1d9e0c21b910a6300e89d"
+    }
+  ],
+  "rootDecision": "Root PHASE2-A-R2-NATIVE-01 admits exactly the constructed555c2ad7 call on the same PID64537/PTY88102 after exact setup postguards and retained return. Context19files210656B/canonical287871/rendered7563B accepted. One pinnedRC10 native call, four-path R2 cone plus fresh native04 scratch and specified compiler/controlled checks. Preserve first red, actual completion/failure/replay/physical close and freeze. No retry/extension/Git/other proof or source acceptance.",
+  "limits": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "setupReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/SETUP_RETURN.json",
+    "bytes": 4608,
+    "sha256": "60809560eebe92498fc83b42e025d1f748a57726dee1d9e0c21b910a6300e89d"
+  }
+}

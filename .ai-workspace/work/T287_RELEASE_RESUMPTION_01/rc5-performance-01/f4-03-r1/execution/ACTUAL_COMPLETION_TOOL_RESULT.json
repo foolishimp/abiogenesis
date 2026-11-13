@@ -1,0 +1,13 @@
+{
+  "recordedUtc": "2026-11-03T12:52:11.817304+00:00",
+  "attribution": "Root records actual exec session48381 completion output, chunk2ae7d1, exit0; not a raw terminal-capture claim",
+  "status": "NATIVE_RETURNED_ACTUAL_RESOURCES",
+  "outcomeKind": "result",
+  "run": {
+    "digest": "sha256:5ac362e9af09f31cdb88e01d5618a44bee487f63afb2413340c040d94b5dfeca",
+    "ref": "run://abiogenesis/b1bbae3d868c514ee6173c6a969a7277bee2214431a3c0fec885064f96eb2c26"
+  },
+  "wallMs": 3867732.0399579997,
+  "includes": "Lifecycle invocation, closed receipt, both fresh cold readbacks and final after-run-resume recording",
+  "excludes": "Setup, Root preparation, prior failed attempts, later source adoption/reproduction/install"
+}

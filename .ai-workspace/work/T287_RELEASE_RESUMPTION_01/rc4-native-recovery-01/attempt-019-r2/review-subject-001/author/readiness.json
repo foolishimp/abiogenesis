@@ -1,0 +1,39 @@
+{
+  "kind": "rc4_local_identity_readiness",
+  "meaning": "File-only Writer readiness evidence. No ABI admission, build, pack, install, provider or C2 call. Not acceptance.",
+  "observedAt": "2026-11-03T01:20Z",
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "operatorScript": {
+    "path": "rc4-operator-inputs/native-recovery-19/readiness.py",
+    "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b",
+    "inputs": "rc4-operator-inputs/native-recovery-19/readiness-inputs.json",
+    "inputsSha256": "e75a963ac4fcce54ac8fed85d70620a9a10399fc994fb2675cd772189357c216",
+    "command": "python3 -I rc4-operator-inputs/native-recovery-19/readiness.py rc4-operator-inputs/native-recovery-19/readiness-inputs.json",
+    "exit": 1,
+    "stderr": "KeyError: 'bytes' (readiness.py line 40)",
+    "cause": "readiness-inputs.json sourceFiles rows carry {path, digest:'sha256:<hex>'}; the script reads row['bytes'] and row['sha256']. Operator-owned; not repaired."
+  },
+  "adaptedProjection": {
+    "method": "In-memory python3 -I -B import of the unchanged readiness.inspect(); each sourceFiles row mapped to sha256=<digest hex> and bytes=<current file size>. The digest check is real. The size check is tautological, because no declared size exists. Run after return.json, notes.md and a stub readiness.json existed.",
+    "result": {
+      "status": "FILE_ONLY_READY",
+      "selectedEntriesIncludingRoot": 1250,
+      "selectedRawBytes": 43893374,
+      "maxContextFiles": 10000,
+      "maxContextBytes": 268435456,
+      "sourceHashesMatched": 17,
+      "issues": []
+    },
+    "note": "selectedRawBytes counted the stub readiness.json, not this final file."
+  },
+  "identityReadiness": {
+    "package.json.version": "5.0.0-rc.4",
+    "package-lock.json.version": "5.0.0-rc.4",
+    "package-lock.json.packages[\"\"].version": "5.0.0-rc.4",
+    "contracts.ts.ABI5_PRODUCT_ID": "product://abiogenesis/typescript-tenant@5.0.0-rc.4",
+    "contracts.ts.ABI5_PACKAGE_VERSION": "5.0.0-rc.4",
+    "generatorGuardStaticAgreement": true,
+    "tscNoEmit": { "exit": 0, "version": "5.9.2" }
+  },
+  "c2Ready": "Source identity is in place for C2. C2, UAT and their declared commands have not run."
+}

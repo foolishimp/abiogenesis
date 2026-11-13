@@ -1,0 +1,266 @@
+{
+  "kind": "bounded_operator_post_return_control_preparation",
+  "status": "PREPARED_NOT_EXECUTED_FUTURE_RUNTIME_INPUTS_UNBOUND",
+  "at": "2026-11-06T04:10:24.547896+00:00",
+  "role": "Separately bound operator-control Writer; no Product authoring or independent Product acceptance",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 6803,
+    "sha256": "b7d93c37fdf71ded45a35c8f6fb7c1d9220bc3eaffbbff5077c2f251cd20e823"
+  },
+  "postReturnSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/POST_RETURN_READBACK_SELECTION.json",
+    "bytes": 3699,
+    "sha256": "666b46993ae8bb2d4f417989f8e97e937e6ed1f3814b2e541bd89074f791c051"
+  },
+  "finalControlBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_FINAL_BINDINGS.json",
+    "bytes": 6931,
+    "sha256": "5a8f09e8f8ee03c8dfe55f6af8e1531ded9d8f08947326d474975367e1d96fd2"
+  },
+  "method": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verification": "Exact unchanged selected method was manager-verified in the preceding bound review; work skill acquired directly from that installed basis."
+  },
+  "changeIntent": "Prepare one post-host binding/passive source custody pass and separate capture-once cold run_result/run_replay controls through existing owners.",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/bind-and-freeze.mjs",
+      "bytes": 19366,
+      "sha256": "a5f751ca82289f4757914ac1e8b37263213fb6fef7491628d76f941f6cdc094b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/read-one.mjs",
+      "bytes": 7717,
+      "sha256": "136a4528405040ac461edf23ab2b277f0e59d745a2736a2cc4fb40833bd6c187"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/launch-read.mjs",
+      "bytes": 1756,
+      "sha256": "f45dcdfa43cd4be8d2bd90ec5512699a71dfdfbfca3a1e8207dd8e4756c007bd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/BINDINGS.template.json",
+      "bytes": 2299,
+      "sha256": "f087a19d049967ea4ac524afd42f3a5e73b380c3df7dba25717f8632d2e3be5e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/HANDOFF.md",
+      "bytes": 10000,
+      "sha256": "908ffe36d4d36ed17ad7ccb0daede9fe47f1313cad2a3ada5c9a54e988fd1119"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/source-adaptation.diff",
+      "bytes": 43330,
+      "sha256": "a94f5c11da08647d182b74296c8c96e7229241eba49a001ced8d4fb91807fad7"
+    }
+  ],
+  "adaptations": [
+    "Parse the actual execution.receipt and actual after-run resume once each at post-return binding. Derive exact Run/close/binding/envelope and full typed terminal hashes; cold reads consume only those minimal coordinates and file pins.",
+    "Replace the former complete-history decoding scan with the exact NativeResult row selected by terminal.producer.resultAdmissionEventRef from the actual timing metadata. Read one physical byte span, compare envelope/result/contract/value coordinates, and pin the original span without copying its body.",
+    "Preserve397 baseline descriptors/read-only members,85 permitted Product paths,20 Root-final staged controls,417 non-handoff selected source files and3 handoffs. Keep before-source snapshot references, Git preimages, current binary diff and the2 inherited untracked files.",
+    "Retain selected named feedback only through explicit pointers in an actual handoff. No recursive feedback or archive discovery.",
+    "For an absent/invalid native after observation retain physical partial custody with no admitted-after credit; host failure and original owner disposition stay explicit.",
+    "Replace P3 absent-only checks with installed typed-terminal validation and complete terminal/result/contract/producer/value equality to the original actual receipt; expected not_found is conditional on actual absence only.",
+    "Reuse commandRecorder, invokeColdInstalledEntry, installedModules, publicCaller and physical identity checks unchanged. Capture the actual prefix once, pass that exact owner value through existing APIs, omit refresh and use the normal cold CLI.",
+    "The small fixed launcher delegates host timeout/capture to that same commandRecorder. No spawn, timeout, process, capture or helper framework was forked.",
+    "New summaries reference calls/<member>.outcome.json and original execution pins without new full output/value copies. Legacy recorder stdout/result copies remain explicit retained cost."
+  ],
+  "staticVerification": {
+    "syntaxCommands": [
+      "node --check bind-and-freeze.mjs",
+      "node --check read-one.mjs",
+      "node --check launch-read.mjs"
+    ],
+    "syntaxExitCodes": [
+      0,
+      0,
+      0
+    ],
+    "templateJsonParsed": true,
+    "allSixFutureFilePinsUnbound": true,
+    "rootAdmissionAndFinalBindingPinsUnchanged": true,
+    "baselineDescriptorCount": 397,
+    "finalStagedControlCount": 20,
+    "productWritePathCount": 85,
+    "handoffCount": 3,
+    "sourceSelectionUnionCount": 417,
+    "selectionUnionEqualsBaselinePlusControls": true,
+    "canonicalRecorderReused": true,
+    "noRefreshCall": true,
+    "noWholeHistoryDecodeOrDirectoryWalk": true,
+    "actualOutputDirectoryAbsent": true,
+    "limitations": "Syntax and static checks only; no runtime or SDK function invocation, actual source acquisition, execution compatibility test or future-result validation."
+  },
+  "futureRuntimeInputsUnbound": [
+    "Actual HOST_RESULT and HOST_LAUNCH pin pair after process exit",
+    "Actual execution/execution.json owner receipt pin",
+    "Actual execution/after-run-resume.json pin",
+    "Actual execution/READBACKS_PENDING.json pin",
+    "Closed actual TIMING_OBSERVATION_ENVELOPES.json pin including the selected native Result row",
+    "Actual typed terminal, expected complete-value/producer/result digests, Run, close, binding and envelope are derived only after those pins bind",
+    "Any selected handoff-named feedback files and their exact pins"
+  ],
+  "declaredFutureBounds": {
+    "heapMiB": 8192,
+    "coldCliTimeoutMs": 600000,
+    "readHostTimeoutMs": 900000,
+    "coldCliMaxOutputBytes": 536870912,
+    "hostSummaryMaxOutputBytes": 1048576,
+    "automaticRetry": false,
+    "testTimeoutChanged": false
+  },
+  "effectsPerformed": {
+    "newControlFilesOnly": true,
+    "activeControlEdits": 0,
+    "ProductEdits": 0,
+    "actualSourceCustody": 0,
+    "runtimeOpensOrReads": 0,
+    "sdkCalls": 0,
+    "buildsOrTests": 0,
+    "providerCalls": 0,
+    "credentialAccess": 0,
+    "agentLaunches": 0
+  },
+  "stops": [
+    "Missing genuine close/Run or unresolved actual receipt",
+    "Host PID still exists, including possible PID reuse",
+    "Wrong full typed terminal/producer/value or wrong physical Result row",
+    "Source/read-only/control pin drift or source-after mismatch",
+    "Unexpected refusal, timeout, truncation, missing output or changed physical prefix",
+    "Repeated member/output directory: no overwrite/retry"
+  ],
+  "residuals": [
+    "These controls have not run; actual source/body shape, metadata completeness and installed cold-read compatibility remain for the actual bound return.",
+    "A no-Run actual return produces no pending reads; it is preserved as partial custody.",
+    "Missing genuine close stops before source/read acquisition; no prior close is substituted.",
+    "A failed/partial operator stage leaves its create-only artifacts for Root disposition and never self-retries.",
+    "Independent Product review, affected installed proof, acceptance, qualification and release remain outside this Writer return.",
+    "Existing canonical recorder serialization costs remain unchanged, as directed by Root; this preparation does not claim their retirement.",
+    "Root-reported preliminary stage resource omissions and one assembly assertion are unresolved mutable feedback; final author report/source correspondence must supersede or preserve them explicitly. No active source/control was altered."
+  ],
+  "sourceAdaptationDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/source-adaptation.diff",
+    "bytes": 43330,
+    "sha256": "a94f5c11da08647d182b74296c8c96e7229241eba49a001ced8d4fb91807fad7"
+  },
+  "sourceInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_CONTROL_ADMISSION.json",
+      "bytes": 6803,
+      "sha256": "b7d93c37fdf71ded45a35c8f6fb7c1d9220bc3eaffbbff5077c2f251cd20e823"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/POST_RETURN_READBACK_SELECTION.json",
+      "bytes": 3699,
+      "sha256": "666b46993ae8bb2d4f417989f8e97e937e6ed1f3814b2e541bd89074f791c051"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_FINAL_BINDINGS.json",
+      "bytes": 6931,
+      "sha256": "5a8f09e8f8ee03c8dfe55f6af8e1531ded9d8f08947326d474975367e1d96fd2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/SOURCE_BEFORE.json",
+      "bytes": 215422,
+      "sha256": "05b4059600a96f515a4aa4f68e3975b85c3dc45d4652ca892dac3683eb22ae7e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/NATIVE_GRANT.json",
+      "bytes": 202571,
+      "sha256": "4408907a5f426117821d8bcc5cfc038954cf20b80f624931165013509ff0da93"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/workload.json",
+      "bytes": 87405,
+      "sha256": "1cfc04fad83e76cfa319dc3eb9833f39ae15754c36cf34ae66859f7926de14cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/dispatch.mjs",
+      "bytes": 6191,
+      "sha256": "90a36e9764de4cb0205bca8ac5c1e0fee0b6f4f36c56c608c9bad226b7988e3e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/observe-progress.py",
+      "bytes": 5204,
+      "sha256": "b4f0b6ae5def2c38be65f9efc2a57c79fa0bd28dfe756404cb9edee5a5ffc203"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/freeze-source.mjs",
+      "bytes": 9297,
+      "sha256": "7cd7b17091d10090f9f180652c95e7e2e02ed7dd2e8f2a5a221235022906e666"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/read-one-r2.mjs",
+      "bytes": 5459,
+      "sha256": "c9c63c7fdc5402585d6fdae489e519a179c6c3700eeb08f776fa0307964eb82d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/terminal_result_contracts.js",
+      "bytes": 4476,
+      "sha256": "d33403921f9bb933c0241a0de00e1892272657aa12deec86f8228cbe549eba76"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_body_encoding.js",
+      "bytes": 14291,
+      "sha256": "2358fe1ce79b18d07676c6cc42224770b80e0847fb44d3e626bb0a6b7d4615ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 18062,
+      "sha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    }
+  ],
+  "return": "Root binds concrete future receipt inputs, executes each selected operation once and owns conjunction/disposition. This is operator readiness, not independent acceptance of active native work.",
+  "preliminaryFeedbackContext": {
+    "source": "Root supplied passive observation during active author task; no source/report read or test execution by this Writer",
+    "standing": "Mutable preliminary feedback, not final frozen evidence",
+    "carriage": {
+      "pass": 85,
+      "fail": 0,
+      "skip": 7
+    },
+    "prefix": {
+      "pass": 3,
+      "fail": 0,
+      "skip": 1
+    },
+    "consumers": {
+      "pass": 38,
+      "fail": 29,
+      "skip": 10
+    },
+    "rootLocalization": {
+      "operatorStageResourceOmissions": 28,
+      "omissionGroups": {
+        "framedGovernanceCommentary": 22,
+        "sandboxUat": 4,
+        "runtimeRetainedProjectionsWorker": 2
+      },
+      "separateAssertion": "assert(assembly) in native-c2-instruction-assembly"
+    },
+    "requiredReturnTreatment": "Bind only final selected handoff-named report bytes. Preserve resource omissions separately from observed Product assertion failures; no count-to-regression inference, rerun or report-body expansion."
+  }
+}

@@ -1,0 +1,276 @@
+--- BROAD_BINDINGS.PREPARATION.003.json
++++ BROAD_BINDINGS.actual003.held-007.json
+@@ -4,20 +4,45 @@
+     "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+     "sourceCommit": null,
+     "sourceTree": null,
+-    "sourceDigest": null,
++    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+     "builder": "5.0.0-rc.8",
+     "method": "stdo://releases/v3.0.4/"
+   },
+   "stage": {
+-    "root": null,
+-    "freezeReceipt": null,
+-    "materializationRoots": null,
+-    "completedStage": null,
+-    "bindingNote": "Bind successful final003 source/work/build without rebuilding. Source already selects RC9 metadata; future source/archive receipts remain unresolved."
++    "root": "/private/tmp/abg-r9-owner-native-003/stage-01/work",
++    "freezeReceipt": {
++      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
++      "bytes": 294773,
++      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
++    },
++    "materializationRoots": [
++      "build_tenants/abiogenesis/typescript",
++      "specification",
++      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE",
++      "stdo_abiogenesis.json",
++      "AGENTS.md",
++      "CLAUDE.md"
++    ],
++    "completedStage": {
++      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
++      "bytes": 929,
++      "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
++    },
++    "bindingNote": "Existing successful BUILT003, source25121e78, RC9 metadata; zero rebuild. Separate external007 full-unit success is bounded prerequisite only, focusedCoverage remains empty."
+   },
+   "dependencies": {
+-    "root": null,
+-    "bindingNote": "Exact admitted stage dependency bytes; no Product runtime imported from RC7 checkout"
++    "root": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/node_modules",
++    "bindingNote": "Exact physical final003 stage dependency bytes, already related to pinned4576-row dependency inventory by BUILD_INPUTS. No Product runtime import from dependency checkout. Broad bind will inventory and run will materialize physical copies through existing owners.",
++    "inventory": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/DEPENDENCY_INVENTORY.json",
++      "bytes": 901113,
++      "sha256": "83f5dc434970315c06f1f1cde41d4877eaafae0099a5224ee76369cf49042084"
++    },
++    "buildInputs": {
++      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/BUILD_INPUTS.json",
++      "bytes": 658,
++      "sha256": "c42d1febdcdab91abab2550b6337d63ec17be1310a8d5cb8e37693518224d232"
++    }
+   },
+   "node": {
+     "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+@@ -88,8 +113,31 @@
+   "focusedCoverage": [],
+   "providerCallsSelected": 0,
+   "qualification": false,
+-  "executionStanding": "HELD pending actual final003/source conjunction, exact measured archive/verification, current209 inventory with201 selected and eight held, per-file prerequisites and Root bind/run admission. Full W2 first after matched measurements. No automatic native-unit credit, RC8 credit, retries or timeout extension.",
+-  "candidateBasisRefresh": null,
++  "executionStanding": "HELD actual final003 source/BUILT/dependencies and measured RC9 archive/verification/layout now concrete. Root bind/run admission and actual bound inventory remain required. Preserve209total/201selected/eightheld, fullW2 first, all original bounds/isolations. focusedCoverage empty; no native007/RC8 unit credits; no automatic retry/extension.",
++  "candidateBasisRefresh": {
++    "owner": {
++      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/scripts/refresh-candidate-basis.mjs",
++      "bytes": 1914,
++      "sha256": "61114eb2c8e984924c2346c44d9b01dc2eaa1eed4a4cd40817fe80ccb6728d00"
++    },
++    "originalFixture": {
++      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
++      "bytes": 515,
++      "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
++    },
++    "verification": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/verification.json",
++      "bytes": 15797948,
++      "sha256": "898c979cef4d0ff63f2cb02db22b665b911e3570ee4f95f4eff47d4c77eb5611"
++    },
++    "archive": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
++      "bytes": 11029525,
++      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
++    },
++    "archiveFileName": "abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
++    "inputStanding": "Original final003 source fixture retains historical RC4 identity. Existing refresh owner may run once only after separate Root broad run admission, in derived common tree, and must reproduce the exact measured RC9 archive bytes and all six verified identity fields; primary stage/source remains unchanged."
++  },
+   "hs03MetadataOracle": {
+     "testFile": "test_env/tests/t287-calculus-fold.test.mjs",
+     "environmentVariable": "ABI5_HS03_STREAM_METADATA",
+@@ -103,7 +151,12 @@
+       "bytes": 3196,
+       "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+     },
+-    "successorBinding": "Historical input remains exact read-only; confirm current test/support correspondence before execution."
++    "successorBinding": "Exact final003 test pin; existing read-only historical metadata/manifest retain their exact bytes and role.",
++    "testSource": {
++      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
++      "bytes": 142461,
++      "sha256": "5d243d6980631afa11d313c8b5bc09b9da7369eda6032bd23704a53fb16eb95b"
++    }
+   },
+   "retainedCreditSourceRelation": null,
+   "hc1BaselineOracle": {
+@@ -115,7 +168,7 @@
+       "sha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db"
+     },
+     "testSource": {
+-      "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
++      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+       "bytes": 23654,
+       "sha256": "a3850322cc233c9bb8821ba99bbe92eee4b9cb31923d354798a465eb701d23b3"
+     },
+@@ -125,7 +178,7 @@
+       "sha256": "63582ec5044f3f0ba291b3abcbd33546c6f4be48e68d7e9d0ace85c23f1fbb56"
+     },
+     "standing": "Root selected this exact existing historical archive by read-only path, no copy/substitution. All original per-slot schema assertions remain; intentional schema drift is not waived.",
+-    "successorBinding": "Historical input remains exact read-only; confirm current test/support correspondence before execution."
++    "successorBinding": "Exact final003 source pin; historical oracle bytes retained unchanged. Existing read-only oracle selected by the unchanged broad recipe; no historical execution credit."
+   },
+   "consolidationInputsOracle": {
+     "testFile": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+@@ -147,12 +200,12 @@
+       "sha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c"
+     },
+     "testSource": {
+-      "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+-      "bytes": 123504,
+-      "sha256": "87b241a825aa1a4c9050e89e9f1f05a44d603baf542daacfb58243faef07f2ae"
++      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
++      "bytes": 124657,
++      "sha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314"
+     },
+     "supportSource": {
+-      "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
++      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+       "bytes": 29332,
+       "sha256": "5ae58446ee3139f81d1503864d2e404c0aaa18c807f1d203cfeff2639cca74e7"
+     },
+@@ -162,13 +215,17 @@
+       "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+     },
+     "standing": "Required unconditional historical read-only resource/context input. Existing current-owner equality/performance assertions remain. No event import/relabel/reopen/append, baseline replacement or old package equivalence claim. Root concrete input selection pending.",
+-    "successorBinding": "Historical input remains exact read-only; confirm current test/support correspondence before execution."
+-  },
+-  "inputCensus": null,
++    "successorBinding": "Exact final003 source pin; historical oracle bytes retained unchanged. File remains one of eight held; oracle not activated."
++  },
++  "inputCensus": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_INPUT_CENSUS_007.json",
++    "bytes": 15998,
++    "sha256": "fe155a5e2e6246181bba0b0243b0e3c5eed7f9e2b8e7f9a6a5900d6bc1521cb8"
++  },
+   "deferredFiles": [
+     {
+       "file": "test_env/tests/t287-governed-context.test.mjs",
+-      "testSha256": null,
++      "testSha256": "947813b7e0a9f60ab2adc7a6ae95fa972b3774351d961eb2e4bad48f30417427",
+       "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+       "reason": "Actual execution009 GC03 method/EVALUATION.md custody mismatch awaits separate Root/method disposition.",
+       "evidencePins": [
+@@ -193,7 +250,7 @@
+     },
+     {
+       "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+-      "testSha256": null,
++      "testSha256": "1ddd434b186c73fc9fa37d6579f008071381f7a194d228edfe148e667bfc5289",
+       "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+       "reason": "Actual011 module-initialization event payload refusal awaits Root causal triage; no repair selected.",
+       "evidencePins": [
+@@ -218,7 +275,7 @@
+     },
+     {
+       "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+-      "testSha256": null,
++      "testSha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314",
+       "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+       "reason": "HIST-001 selected author07 correction pending frozen review and final-source whole-file proof.",
+       "evidencePins": [
+@@ -243,7 +300,7 @@
+     },
+     {
+       "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+-      "testSha256": null,
++      "testSha256": "59fa9dc768b052149ee036577a23d60a55c1747b75337aebdce61027c20a6918",
+       "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+       "reason": "Actual013 controlled-handback and physical HTTP owner failures await separate Root review;15partial passes/3reds add no whole-file credit. No repair/disposition selected.",
+       "evidencePins": [
+@@ -268,7 +325,7 @@
+     },
+     {
+       "file": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+-      "testSha256": null,
++      "testSha256": "b3dedc5ac34c469bcd3defd33588b26deb9519577d47c13606f3eb312e1aa38f",
+       "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+       "reason": "Actual014600s command timeout retains3partial passes without whole-file credit; Root recursive014 causal triage pending. Preparation-only deferral, no retry or source repair.",
+       "evidencePins": [
+@@ -298,7 +355,7 @@
+     },
+     {
+       "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+-      "testSha256": null,
++      "testSha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740",
+       "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+       "reason": "Root profile triage pending after019 unknown native profile at top-level initialization. Temporary scheduling only; zero test/whole credit, no permanent assurance deferral or repair selected.",
+       "evidencePins": [
+@@ -338,7 +395,7 @@
+     },
+     {
+       "file": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+-      "testSha256": null,
++      "testSha256": "1d395a555ac1917700243b1acd6258b5f1800184ee54395305ec072ef0bab462",
+       "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+       "reason": "Root causal review worksite-branch-timeout-022 pending after two240000ms inner-case cancellations; original484520.007ms command exit1 was not an outer timeout. Scheduling only; zero whole/pass credit, no final no-block disposition or retry. C1/C2 remain scheduled unchanged.",
+       "evidencePins": [
+@@ -383,7 +440,7 @@
+     },
+     {
+       "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+-      "testSha256": null,
++      "testSha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf",
+       "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+       "reason": "Actual023 retained6partial component passes and2original180000ms inner timeouts, followed by Root-scoped SIGTERM. No reporter end/whole count; four later registered cases have no outcome. Root selected existing configured positive proof, pending execution; negative-variant assurance disposition remains separately recorded. Scheduling only, zero new whole/pass credit; C1 stays scheduled unchanged.",
+       "evidencePins": [
+@@ -705,7 +762,10 @@
+     "test_env/tests/r8-direct-hog-entry.test.mjs",
+     "test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+   ],
+-  "expectedPackageLayout": null,
++  "expectedPackageLayout": {
++    "members": 5325,
++    "dependencies": 4328
++  },
+   "proofScope": {
+     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PROOF_SCOPE_002.json",
+     "bytes": 9982,
+@@ -715,5 +775,39 @@
+     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/CONTINUATION_AFTER_FOCUSED_003.json",
+     "bytes": 10691,
+     "sha256": "1048dc114d21c6da71270339d472eb55ce9f45fac26316e751b2cd36e04f8368"
++  },
++  "continuationEvidence": {
++    "sourceAcceptance": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
++      "bytes": 11455,
++      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
++    },
++    "fullUnit": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/RESULT.json",
++      "bytes": 9382,
++      "sha256": "3a500ece3a4e8331ce1d33242f4a56658c0355dace659516a22629a5eb93a934"
++    },
++    "bootstrapReturn": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_007_RETURN.json",
++      "bytes": 13582,
++      "sha256": "3314ead967b444b723e922318777e6edb9d98268b09541c35281830a931ed311"
++    },
++    "sourceArtifactRelation": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/SOURCE_ARTIFACT_RELATION.json",
++      "bytes": 4087,
++      "sha256": "50697a33ab3761d513cd5363e99a049bb6424d58114cf0fcbc7c90c92e7e7cc8"
++    },
++    "packageLayout": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/PACKAGE_LAYOUT.json",
++      "bytes": 646681,
++      "sha256": "fcb24855a92a50f52c09905a99b9c9b4191980419c0c6e2280364b83a3febef8"
++    },
++    "matchedMeasurementReturn": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/MATCHED_MEASUREMENT_007_RETURN.json",
++      "bytes": 60663,
++      "sha256": "b0939a1e97b3bbb333c477cc7ec31b33d6c8c4cf78326d645411eba4743e2ff3"
++    },
++    "boundInventory": null,
++    "rootRunAdmission": null
+   }
+ }

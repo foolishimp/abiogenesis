@@ -1,0 +1,21 @@
+{
+  "status": "CHILD_CLOSED",
+  "samples": [
+    {
+      "at": "2026-11-07T07:30:08.494Z",
+      "freeBytes": 336016740352,
+      "ownedBytes": 137383237
+    },
+    {
+      "at": "2026-11-07T07:30:10.493Z",
+      "freeBytes": 336016740352,
+      "ownedBytes": 137395948
+    }
+  ],
+  "maxOwnedBytes": 137395948,
+  "minFreeBytes": 336016740352,
+  "monitorFailure": null,
+  "overshootPossible": true,
+  "quotaEnforced": false,
+  "detachedDescendantAbsenceProven": false
+}

@@ -1,0 +1,106 @@
+{
+  "kind": "d5_author_01_return",
+  "schemaVersion": "1",
+  "at": "2026-11-06",
+  "status": "PARTIAL_RETURN_TO_EXECUTIVE",
+  "acceptance": "none claimed; author checks only, not C2, UAT, review or release qualification",
+  "activation": {
+    "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "immutablePinsVerified": 344,
+    "immutablePinMismatches": 0,
+    "sixD5OwnersMatchedReadinessAtActivation": true,
+    "method": "STDO 3.0.4 stdo-work, recipient Worker, one fresh native author"
+  },
+  "outcome": "Retire only selected redundant current-profile lifecycle copies, preserving exact physical/fold/profile/Q23 behavior and meaningful authenticated recovery.",
+  "implemented": {
+    "M3_currentEvidenceCopies": "P c_call_evidenced evidenceClass probabilistic_transport omits terminationConfirmed, exitObserved, timedOut, signalSequence (event_store.ts current arm only; L table unchanged). A reinserted copy matches no contract variant. c_call admitEvidenceUsingTransport writes the four only when the held store profile is not P.",
+    "M3_coldProjection": "c_call projectAdmittedActorTransportLifecycle accepts evidence with all four copies (live candidate, L evidence) or none. With none it requires a P artifact and derives timedOut from the one actor_process_timeout_observed row, signalSequence from ordered actor_process_signal_requested rows, and exitObserved/terminationConfirmed from the actor_process_terminated fluent. A partial set refuses. It checks the retained artifact copies against those values. The stable failure source keeps its members, with derived values when absent.",
+    "M4_transportArchive": "worker_transport archive body (transport.json) omits timedOut, exitObserved, terminationConfirmed; status, signal, timeoutClass and processFacts remain; the live WorkerTransportResult still carries the three.",
+    "recoveryArchiveRead": "worksite_construction_recovery accepts an archive with all three copies (unchanged rule: timedOut false, exitObserved true) or none (requires timeoutClass null and processFacts, plus the existing transportProcessFactsMatchExit and actorProcessTerminated); a partial set refuses. Lines holding the two allow-listed directExit texts are byte-identical.",
+    "M2_artifactCopies": "NOT implemented: actor_result_artifact_observed keeps its four copies under P (see missingPrerequisites.M2)."
+  },
+  "changedPaths": [
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts", "beforeSha256": "cf7151bf17b124577c67e279c1a487723607431814c374364b7059ea9c364a59", "afterSha256": "e9f472b98bde917ee24abeed90fca70439ce8621a23c09f663ef4034b0cde4d6", "afterBytes": 299344},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts", "beforeSha256": "c7dc17fdc2139343d20217646e3df0d7a2254b3057394e67151041692d5e3f70", "afterSha256": "8d75f892fd73811ced3f2f6392e86487d4b862eb273509ccc1a0407169b3a3ad", "afterBytes": 214920},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts", "beforeSha256": "2f19a31bf833e9b651b0077ac5de1d8d21dc2b488e663b1893f228c317a77f26", "afterSha256": "352e98b9faf3713166b3a39271ba472c62b40b67546a8443df1681f119c5aab9", "afterBytes": 37162},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts", "beforeSha256": "209968ba13beeb5160d6bb51a65bca5431f4e2f94497f3c8f7130624ad776c60", "afterSha256": "06afb4725c375d5bce2e28f4415c7f47ceb9e9e8f11422bf5b4400a37a924a82", "afterBytes": 40227},
+    {"path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md", "beforeSha256": "a9a69cdf6657e90581d3cfe5482668872bb7bc7b572a4b3ac97d628c414248f9", "afterSha256": "e3233793d10b6ffdafa41f414821b9fa6a64b9fd9cebba8a612b1b73389594ad", "afterBytes": 147084},
+    {"path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md", "beforeSha256": "8dd2fa84d4705009959572386817077797adcb54d76239b9c4fb628e4e6dd029", "afterSha256": "0a05f75ab566602af154e99044a24760e0ef1fb46a5393ef44ab024ef40d4919", "afterBytes": 21963},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs", "beforeSha256": "45c3dd890bb633f1e0bb369a7a5a511380eaa0149c771006c0b2ba0fec687d5c", "afterSha256": "aff4484204b9309acd2abef27c296b6b0a1fb89aa66c4661f88d540a04b83657", "afterBytes": 96693},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs", "beforeSha256": "22aade8295f93cbea4f8e64bb313464fbeca24cabe79c00925f80ccaa4315a8c", "afterSha256": "2d1bb0cf164a28e931d76155ad7efe084f68edce623519dd22b6cb74ce8d7abc", "afterBytes": 36543},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs", "beforeSha256": "c62071e4afc2f938ba9d84f67071686c8c2286ec1efcbd1d61a16ead7d7051f2", "afterSha256": "149f8a0d42d23d23b0158a6b6791bcd9e191b80be0f4e89dd2302442aa5b6196", "afterBytes": 83542},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs", "beforeSha256": "ff28021b9a3b9acffe947ba146ce5ceaffb67fdf13a494de62a995c415e1a68a", "afterSha256": "4dc4968664b8592b09cf6a9cd35e56b3bb0ae426fa6046cb36ba78b31908a22d", "afterBytes": 88005}
+  ],
+  "beforeHashBasis": "c_call/event_store/worker_transport/worksite_construction_recovery/m5-worker-transport befores were recomputed by inverting this author's exact edits in memory (qualification-scratch/d5-author-01/tmp/reverse-check.py and a node pipe) and equal the activation readings (event_store c7dc17fd, c_call cf7151bf, worker_transport 2f19a31b, recovery 209968ba; transport test equals SOURCE_CUSTODY 45c3dd89). Other befores are HEAD blobs; those paths were clean at activation.",
+  "unchangedSelectedPaths": [
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts", "sha256": "94908ca0c4900dcf7be787f207dafe87be9288f0da1b75c88b9cfb5cec33679b"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts", "sha256": "830a42927e739f732e610f5a57daf6f941b4cd5ffcc0aeddf7906cab8183f7a0"},
+    {"path": "build_tenants/abiogenesis/typescript/scripts/check-lifecycle-boundary.mjs", "sha256": "9d5f5ce8a4b9f82a42d7da4a034af4885b554f3d631ded09582fbc8064054351", "conditionalGuardChange": "none; the recovery-artifact exception text is unchanged and matches"}
+  ],
+  "authorChecks": {
+    "environment": "ambient ABI5_EVIDENCE_ROOT cleared (env -u); NPM_CONFIG_UPDATE_NOTIFIER=false, NPM_CONFIG_OFFLINE=true, NPM_CONFIG_CACHE=/private/tmp/abg-d5a/npm-cache, TMPPREFIX=/private/tmp/abg-d5a/zsh, TMPDIR=/private/tmp/abg-d5a; lanes set ABI5_EVIDENCE_ROOT only from EXTERNAL_READ_INPUTS.root after both pinned files verified",
+    "helpers": {"stage.mjs": "335bd8469680f0b2fa619c7730e9b49c6d7785702463f3b5aa9ed9d16241363f", "lanes.mjs": "82661b48005a6100c691367dbef7d97548151ddcb6f4266f98ccb7d2052bcab9", "copiedUnchangedFrom": "qualification-inputs/d5-author-01/prior-author-{stage,lanes}.mjs"},
+    "final": {
+      "label": "d5a-s3",
+      "stageReport": {"path": "qualification-scratch/d5-author-01/tmp/d5a-s3-stage.json", "sha256": "b582a2a4cb8ab2636891585292b1e5ce389b8f16399c2838ed194549ec168fe6"},
+      "stagedSourceCount": 357,
+      "stagedSourceDigest": "f67bf2a4f99e27b595a24a35c0d14efebefe52009630e29f06cfc59bbc2cddee",
+      "compile": "exit 0",
+      "generate": "exit 0",
+      "lifecycleGuard": "exit 0: check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender",
+      "lanesSummary": {"path": "qualification-scratch/d5-author-01/tmp/d5a-s3-lanes/summary.json", "sha256": "3ff8ab9e48fab7a7b015f62470ee199f2fbce051b8df78af53766d840e3deb7f"},
+      "lanes": [
+        {"id": "transport", "modules": 1, "exitCode": 0, "tests": 27, "pass": 27, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0, "minimumTests": 26, "tapSha256": "a4aff161a5dc8406332e98d14187e29544f1a0dffe3cb5deceacc4cbae01c03a"},
+        {"id": "qualification", "modules": 5, "exitCode": 0, "tests": 36, "pass": 36, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0, "minimumTests": 36, "tapSha256": "7617be2a3671140a6ab1d629d753991f595ca8eceb7addd8c14e038ee73ceecd"},
+        {"id": "d5-lifecycle-profile", "modules": 3, "exitCode": 1, "tests": 48, "pass": 47, "fail": 1, "skipped": 0, "cancelled": 0, "todo": 0, "minimumTests": 3, "tapSha256": "b61b8c5d838166f152845df41dc465267fbcf75e4666728083b16e51aa8aed45",
+          "failing": ["owned causation lookup grows with causal references in live admission and cold reconstruction"]}
+      ],
+      "nineModuleGate": "NOT MET: 1 failure in m5-event-store-reopen, pre-existing and independent of D5 (see preExistingFailure)"
+    },
+    "priorAttemptsRetained": [
+      {"label": "d5a-s1", "stageSha256": "e3855d42536c20e748d6c6cdacbb5f8efb52695e74064879f456b772b1973d57", "lanesSummarySha256": "386a9d1f05cc523b0b92e215e25cf7e85ccefb662efdc17b5ee8dbdb73589bd3", "result": "stage green; transport 27/27, qualification 36/36, d5 45/47: the pre-existing causation failure plus this author's D5 fold test, whose fixture had an unfrozen signalSequence (fixed)"},
+      {"label": "d5a-s2", "stageSha256": "2867a7de7cbc857267329489a45f7a9f5a95cd5e5f52f02ccafddbf3c1ad38fb", "lanesSummarySha256": "8e985c619d16ab8590a64e358da63c594b1a488fe522197ba93bf779b8087a8d", "result": "stage green; transport 27/27, qualification 36/36, d5 46/47: pre-existing causation failure only; d5a-s3 adds the cold-projection component test"}
+    ],
+    "d5Discriminators": [
+      "m5-event-store-reopen 'D5 current probabilistic evidence omits the four lifecycle copies; L and the artifact arm keep them': descriptor arms, then a real fresh P append sink refuses each reinserted copy with 'payload matches no admitted event-contract variant' and admits the copy-free form",
+      "t287-calculus-fold 'D5 fold: copy-free current evidence derives no copy diagnostic; an L copy keeps its check': fold equals project; diagnostic only for a disagreeing L copy",
+      "t287-lifecycle-failure-carrier 'D5: a terminationConfirmed copy that disagrees...' extended with copy-free evidence (no diagnostic)",
+      "t287-lifecycle-failure-carrier spawn-failure case: the real worker transport archive omits the three copies; timeoutClass/processFacts determine them; artifact event copies retained",
+      "t287-lifecycle-failure-carrier 'D5 cold evidence projection...': the real projectAdmittedTransportEvidenceSelection over a synthetic immutable prefix admits copy-free P evidence and agreeing copies, refuses partial copies, artifact copies crossed against the fold, a crossed signal copy, and copy-free evidence over an L artifact; L evidence with copies still admits. Fails at the before-source (copy-free returns null).",
+      "m5-worker-transport real-process B-001 and SIGTERM cases: archive omits the three copies, every other archive member equals the live result, and timeoutClass/directExit/hasConfirmedOwnedProcessBoundary(processFacts) reproduce the live values"
+    ],
+    "exploratory": "one in-worksite tsc --noEmit -p tsconfig.json (exit 0) before staging; two in-process probes over the d5a-s1 staged build locating the causation failure"
+  },
+  "preExistingFailure": {
+    "test": "m5-event-store-reopen.test.mjs:392 'owned causation lookup grows with causal references in live admission and cold reconstruction'",
+    "observed": "live counts unattributed 128 (expected 0); the remaining counts equal expectation",
+    "cause": "event_store.ts appendDurablyBatch `batchEvents.set(event.eventId, event)` (now line 2344; HEAD line 2336, introduced by 53acfe7c6) is a third event-keyed staging map; the test law admits exactly two (stagedBody, stagedEvent). Located by an in-process Map.prototype.set stack probe.",
+    "d5Relation": "independent: this author's event_store hunk is module-load contract-table data only; the test admits workspace public_operation_admitted events.",
+    "disposition": "left unchanged; outside the selected D5 owner cone (no shared event-store or command-helper rewrite; no weakening of an existing law). Owner/Root triage required."
+  },
+  "recoveryProof": {
+    "positive": "NOT ESTABLISHED: no non-null projectPreservedWorksiteProposal was produced",
+    "N1": "not run", "N2": "not run", "N3": "not run",
+    "reason": "N1-N3 are meaningful only beside the authentic positive; an early null from a deficient fixture proves nothing about D5 (D5_RECOVERY_PROOF_READINESS)."
+  },
+  "missingPrerequisites": {
+    "recoveryFixture": "An owner-issued current-profile no_output Construction fixture: a real P store with the admitted semantic assessment premise, success/advance Result/Judgment, design_worksite bridge, worksite_command_preparation parent and the F_P Construction child; local controlled process emitting one StructuredOutput tool_use and its exact ack and no final result; owner-admitted binding/start/process/chunk/exit/artifact/failure/Result/Judgment rows; digest-bound prompt/output/stdout/stderr/transport files; and the five-field selector with the owner-issued historicalPrefix, sourceCCallRef and actorInvocationRef. Within the readable scope the bootstrap reaches only the installed root/execution basis (root-installed-environment.mjs); no readable harness composes the assessed bridge and Construction child. Fake prefixes, literal WorksitePreservedSourceProof or verifyAuthority=>true were not used.",
+    "M2": "Retiring the actor_result_artifact_observed copies needs an owner relation outside this write scope: abg/qualification_proof.ts:618-619 (Q23 J cold join) digests the artifact payload minus cCallRef/requestRef/requestDigest against value.source.observationDigest, which implementation/qualification.ts:62 sets to hash(exchange.observation); implementation/contracts.ts:77-92 ProbabilisticWorkerObservation requires timedOut/exitObserved/terminationConfirmed and implementation/consensus.ts:379,477 consume it. Removing the copies from the live observation breaks compile there; removing them only from the payload breaks the Q23 join. The recovery read of artifact copies (worksite_construction_recovery validateActorProcessCarrierPair, line ~257) therefore also stays."
+  },
+  "limits": {
+    "profile": "The P descriptor changes, so ROOT_EVENT_CONTRACT_DIGEST changes; ROOT_CURRENT_EVENT_PROFILE_REF stays 'abg.event-contract.root/p5-run-environment-role-context@1' (event_contract_profiles.ts unchanged). Naming and cutting the successor profile remain the prospective RC7 cut (ROOT_PROFILE_DISPOSITION CT02). Per CT01, a store stamped with a predecessor P digest is not a known profile for this cut and is not reopened or restamped; no new store, registry or event stream was added.",
+    "L": "LEGACY_ROOT_EVENT_CONTRACTS and its digest check unchanged; the L probabilistic arm still allows the four copies and the fold copy check still applies; the S01 historical case (TD-23 c) ran and passed with the pinned evidence root.",
+    "physical": "ProcessObservation, OwnedProcessFacts, the classifier and the shared process/command-helper code are unchanged; the live transport result, actor observation and artifact event keep all lifecycle values; only the archive body and the P evidence payload omit them.",
+    "Q23": "No Q23 owner or test changed (qualification_proof, transport_contracts, validator/qualification*, implementation/*). The 5-module qualification lane passed 36/36 on d5a-s3. The Q23 J join still sees artifact copies (M2 retained). Q1-Q7 rubric not re-assessed by this author.",
+    "coverage": "Copy-free P evidence with timedOut=true is not exercised positively: a P timeout row needs its native liveness relation (liveness rule refuses otherwise), which the synthetic component premise does not construct; the negative (artifact timedOut against absent timeout rows) is covered. The real admitEvidenceUsingTransport P/L branch and the stable failure source with derived values are typechecked but not executed by the nine modules. The recovery copy-free archive branch is not executed by any test."
+  },
+  "disclosures": [
+    "Filename-only grep/ls over test_env/tests and test_env/support listed names outside the readable list, and one line of t287-qualification-carrier-resource.test.mjs was displayed during earlier triage; no further use.",
+    "Ambient TMPDIR/TMPPREFIX are /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5a[/zsh] (declared provider scratch). Shell heredocs used before and during this work wrote zsh temp files there; the in-worksite tsc --noEmit (run without TMPDIR override) created tmpd5a/node-compile-cache. No other content exists in tmpd5a.",
+    "Probes and lanes wrote only under /private/tmp/abg-d5a (test scratch); the first probe left one empty append-sink fixture directory there (its cleanup was a no-op).",
+    "qualification-scratch/d5-author-01/tmp holds stage.mjs, lanes.mjs, reverse-check.py, three staged trees and their reports; no report was deleted or reused.",
+    "No network, npm install, Git mutation, publication, provider launch or installed-runtime change. Before/after observations cover selected worksite facts only."
+  ],
+  "graphContinuation": "not chosen; returned to the Executive"
+}

@@ -1,0 +1,153 @@
+{
+  "status": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+  "sourceTree": "ff9a852c6670884c35f67934e9f49443199b723f",
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.9",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.9",
+    "manifestDigest": "sha256:780036b1be89caa6e4086c8181111c7c264fa4d7bc1aab033daf886a659351c5",
+    "productContentDigest": "sha256:b3a3df1f7d59d56414c9fea0d025d48e1b8bdbc27f0b84b8b74a5128a6bcc80c",
+    "sourceCommit": "e30ac16b4a9406c43d054f45bad864746352dad6",
+    "artifactDigest": "sha256:c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "archiveMembers": 5325,
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9",
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9",
+  "installPath": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "tools": [
+    {
+      "name": "node",
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "name": "tar",
+      "configuredPath": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "bytes": 274448,
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    {
+      "name": "git",
+      "configuredPath": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    },
+    {
+      "name": "cp",
+      "configuredPath": "/bin/cp",
+      "realPath": "/bin/cp",
+      "bytes": 152976,
+      "sha256": "d2b314592c43bb0f2e4ae25d473e7b3e5a24db68c21b175aeeba64001388a1fd"
+    },
+    {
+      "name": "python",
+      "configuredPath": "/usr/bin/python3",
+      "realPath": "/usr/bin/python3",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  ],
+  "qualified": false,
+  "published": false,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-binding-008/ROOT_INSTALL_ADMISSION.json",
+      "bytes": 6865,
+      "sha256": "593aed1f1405758ed5a71114b8bbf8c9c4efdc0c5c4bb023459c777a55494120"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/ROOT_BUILD_BINDINGS.json",
+      "bytes": 26455,
+      "sha256": "fe16d77b2de8a38276ec613fac9d877add9932e5478cf18a2a54b54f7af2528c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+      "bytes": 1187,
+      "sha256": "f0870b39939c6aa279f4886ff79a20a49c880bbe7ac8a39636e3383ac1c03610"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/candidate/RESULT.json",
+      "bytes": 782,
+      "sha256": "a0bf12fc4c9d4e8e430c780df3432f620d737962de65fa2c9ad7359c89e24a05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/reproduction/RESULT.json",
+      "bytes": 1274,
+      "sha256": "a89501cd7f7a8ade2bb50ac29d4af2fa25118858933ba3fffd0abc2ed1ea89e3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+      "bytes": 831,
+      "sha256": "c130049c2da5eca6f70604236ab7463201d8bc3dde275f0f32e229146e3119ef"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+      "bytes": 2744,
+      "sha256": "afe7f0f945dcc8384b9bf846efa1ccbf4df23adf3a24549b9c44a7aa268ddc49"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/reviews/packaging-008/REVIEW.json",
+      "bytes": 23288,
+      "sha256": "7c8f6dacb09f328cc837f0963c1abb9539da279466e90f66e114c4d3f5501978"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-local-rc9.mjs",
+      "bytes": 7172,
+      "sha256": "e93175f3f58c03a6aef0ec89c3f990d11d333475fcce1744887eb5011b342c48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/install-001/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 3505,
+      "sha256": "e82e74f10d1c764440baef622a7f6857005fd2da72cbdc67636e95d241df6dbf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/install-001/RESIDUALS.md",
+      "bytes": 15882,
+      "sha256": "a17c7d2b8a31e1da9f658a575495617f8862b5c73ad4758a0c9c52d7c5922c4a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/install-001/ROOT_AUTHORITY.md",
+      "bytes": 2171,
+      "sha256": "26906fa93fe72c9ce595663d688ee35c2e96c0bd9e9f10ea13e575856b4cbdb3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/install-001/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 10124,
+      "sha256": "edc07838a29841494923aab96fb8099a8ca6db77c2d5281c2637c34b85744f44"
+    }
+  ],
+  "claim": "Local unqualified RC9 candidate for the exact installed current-profile scripted F_P path demonstrated by accepted source/build/ordinary unit, exact-archive reference/readback/counter/close evidence, W2 and bounded201-file broad conjunction. This does not qualify unsupported or unexecuted paths or assert final immutable delivery. Actual immutable-install standing belongs solely to FINAL_INSTALL_VERIFICATION.json and linked receipts.",
+  "limits": [
+    "Exact RC9 checkpointe30ac16b4/treeff9a852c, source25121e78/1340 and tested archivec01e6cfe reproduced byte/member equal. Metadata is already9; rewriteIdentity=false; no rebuild or identity bridge during installation.",
+    "Root adopted limited no-block only for the exact installed current-profile scripted F_P path. Eight historical capsules remain OPEN with original evidence/triggers and actual RC9 causal rationale in final RESIDUALS. Configured unsupported GC03 is excluded; no RC8 acceptance transfer.",
+    "O3 retained installed-verification reuse was withdrawn. Original physical verification remains; performance follow-up OPEN. Missing duplicate/foreign/rollback probes get no credit; actual producer construction total is uninstrumented.",
+    "W2 successor closure and source/build/unit/reference/bounded201-file proof retain exact subjects and limits.12cold/S7/full15/human remain OPEN. No real-provider, general reliability/speed or qualification claim.",
+    "Historical native/M5/OWN/007 failures and007missing final resource/escaped uncertainty remain. Sampled bounds and observed CHILD_CLOSED are not universal physical assurance.",
+    "Preserve main/C7/C8 heads/index and dirty contents and all C9 source/progress/untracked paths. The actual closed packaging review and separate Root install admission are pinned; this binding is Root-selected for one exact installation.",
+    "Use unchanged build-bound paths/tools/bounds: fresh no-clobber RC9 release/install only after activation, Product verify/lock/install and all-member/checksum checks, then installed-owner content/export/empty-read/actual-close smoke. No native/provider workflow.",
+    "20-minute install and15-minute installed-owner ceilings,4GiB reserve,8GiB heap and64MiB output remain. First failure stops and preserves partial custody; no automatic retry/extension/overwrite/cleanup.",
+    "Actual installed standing belongs only to FINAL_INSTALL_VERIFICATION.json. No push/tag/merge/publication/global selector or qualification."
+  ],
+  "effectGrant": [
+    "Fresh local RC9 release custody and exact Product-owner installation",
+    "All-member byte correspondence and fresh installed-owner check"
+  ],
+  "failurePolicy": "Preserve failure, partial allocation and original receipts. No automatic retry/overwrite/cleanup."
+}

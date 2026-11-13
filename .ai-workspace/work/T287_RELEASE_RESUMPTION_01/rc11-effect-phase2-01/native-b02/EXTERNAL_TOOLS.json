@@ -1,0 +1,48 @@
+{
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "syntaxCheck": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/private/tmp/abg-rc11-foundation-20261110-01",
+    "timeoutMs": 60000,
+    "bashTimeoutMs": 90000,
+    "stdout": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.stdout",
+    "stderr": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.stderr"
+  },
+  "readOnlyExternalControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/ROOT_SCOPE.json",
+      "bytes": 5918,
+      "sha256": "ebc6b485091166c314f22cb93506dcce32f61e81001c7ec52d891a5a5ecec638"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/SOURCE_SUBJECT.json",
+      "bytes": 2654,
+      "sha256": "10d945600b2a91edda4824905ea4175bb3311aa8b7049a8198d15cd9803bd1d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/design/ASSESSMENT.md",
+      "bytes": 7951,
+      "sha256": "03e014a08539be38ae922ad7f9b84a20db5de5eb96d593d5c80739c2b20257f9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/proof/ASSESSMENT_REVISION_01.md",
+      "bytes": 6822,
+      "sha256": "6c59445de59e4ffae3d2c10ac5738e3fef2d70a7607a3b91779f96f9d3d75909"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/EXECUTION_RETURN.json",
+      "bytes": 4247,
+      "sha256": "c9adc0cb0e19bd79fae9b81485051b50b646f4cffe523a9afda9699d6268beac"
+    }
+  ],
+  "prohibited": "No Product imports/execution, test/build/pack/generator/install, provider nesting, Git/tracking writes or compile.",
+  "scratchOnly": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02"
+}

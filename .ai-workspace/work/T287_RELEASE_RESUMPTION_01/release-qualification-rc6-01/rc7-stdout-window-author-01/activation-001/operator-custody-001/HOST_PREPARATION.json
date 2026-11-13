@@ -1,0 +1,14 @@
+{
+  "kind": "actual_s5_host_preparation_observation",
+  "observedUtc": "2026-11-06T20:04:09.784562+00:00",
+  "hostMarker": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/HOST_PREPARATION_STARTED.json",
+    "bytes": 200,
+    "sha256": "2ce6f28df7e0ede89292260430fa023864dda63462ad3e5674d4e1449dbd748b"
+  },
+  "hostStartedUtc": "2026-11-06T20:01:59.357Z",
+  "hostPid": 23948,
+  "predecessorOwnerEndUtc": "2026-11-06T19:39:15.357Z",
+  "betweenTaskOperatorMs": 1364000.0,
+  "standing": "Host preparation only. No actual actor start inferred; between-task interval is operator coordination, not native runtime performance."
+}

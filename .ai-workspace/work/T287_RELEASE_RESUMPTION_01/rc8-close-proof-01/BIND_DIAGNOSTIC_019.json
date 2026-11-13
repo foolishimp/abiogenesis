@@ -1,0 +1,57 @@
+{
+  "status": "OPERATOR_BIND_ASSERTION_FAILED_BEFORE_ALLOCATION",
+  "recordedAt": "2026-11-07T12:56:19.475210+00:00",
+  "originalDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-019.mjs",
+    "bytes": 36360,
+    "sha256": "e75245d7839f3c95c9fe6fe58861783072e360d6b0bf2d50c1da985d96644607"
+  },
+  "originalDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_019.patch",
+    "bytes": 17641,
+    "sha256": "eee2dcc3f44883f2a670d184f977c576e3328065b8c02ef0af23b53745f9d233"
+  },
+  "process": {
+    "pid": 90065,
+    "session": 6467,
+    "exitCode": 1,
+    "actualError": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal",
+    "actual": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/",
+    "expected": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01",
+    "stack": [
+      "selectedActionInputs close-proof.corrected-019.mjs:48:74",
+      "bind close-proof.corrected-019.mjs:81:76",
+      "close-proof.corrected-019.mjs:298:47"
+    ],
+    "observedElapsedSecondsAtEarlierReadOnlySnapshot": 128
+  },
+  "authorizedTerminationAttempt": {
+    "pidAlreadyAbsent": true,
+    "psExitCode": 1,
+    "signalsSent": 0,
+    "standing": "Root authorized terminating only the obsolete read-only bind; process had already naturally exited with the actual assertion."
+  },
+  "rootCorrection": "Normalize both operands through existing path.resolve; no Product/test/provenance/runtime change.",
+  "successorDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-019-003.mjs",
+    "bytes": 36372,
+    "sha256": "b51d348601e813123fe82d3a6d63f19eb80353b478831e97b7b5944be9da08bc"
+  },
+  "exactNormalizationDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_NORMALIZATION_DIFF_019_003.patch",
+    "bytes": 1194,
+    "sha256": "2c19beecb7fb708211bda666419fbb04f3c05a254af2ad98dfa9059f49f220e0"
+  },
+  "intermediateUnusedDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-019-002.mjs",
+    "bytes": 36363,
+    "sha256": "ed2c8d9b4e6d9b222104ab8bff5c391803317085d9aea7d963ccfa486ac48224"
+  },
+  "allocations": {
+    "binding020Exists": false,
+    "execution019Exists": false,
+    "scratch019Exists": false
+  },
+  "testsExecuted": 0,
+  "sourceCopies": 0
+}

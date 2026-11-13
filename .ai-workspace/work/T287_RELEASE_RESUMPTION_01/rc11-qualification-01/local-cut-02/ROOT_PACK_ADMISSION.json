@@ -1,0 +1,87 @@
+{
+  "status": "ROOT_ADMITTED_RC11_BOUNDED_LOCAL_CANDIDATE_PACK",
+  "controlsSha256": "65f28bb5d748b91f3963474b4cf193a6d55cc2c6729f50a35e1f271bd82c8366",
+  "rootGrant": "Root read READY.prepared.json and checkpoint effect sequence. Conditional mechanical pack grant: after F04A passes, reentry-05 fully closes, and granted debt/tracking Writer returns with conserved index/prior bodies, bind exact new receipts/tracking pins and execute ONE candidate pack using candidate-pack.py SHA7019a27d5197d397aef379ac34ee3d81ce41af7425a470b91f3ffc9bc113d8e8. Frozen cfd7ead1/compiled16497c67/selection6a61df0b, same tested tree, pinned tools/deps/env; no rebuild; original offline ignore-scripts argv,120s. Snapshot tested members, compare archive to tested payload and confirm unchanged outputs. Eligibility is bounded local candidate with registered m5 blocker, never unitPassed=true. Artifact only; no acceptance/commit/install. Stop any failed condition.",
+  "qualified": false,
+  "unitPassed": false,
+  "m5QualificationBlockerOpen": true,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/CANDIDATE_PACK_CONTROLS.actual.json",
+      "bytes": 8652,
+      "sha256": "65f28bb5d748b91f3963474b4cf193a6d55cc2c6729f50a35e1f271bd82c8366"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/candidate-pack.py",
+      "bytes": 9130,
+      "sha256": "7019a27d5197d397aef379ac34ee3d81ce41af7425a470b91f3ffc9bc113d8e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/READY.prepared.json",
+      "bytes": 4533,
+      "sha256": "0f99f407a8efc6d26bc8949745a8d1acccca87324a1f26f739cd946b330390ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_DEBT_REGISTRATION.json",
+      "bytes": 6136,
+      "sha256": "1e386dfd1a0858a4ae17e6d6ff0220fb68fe827709bda1fc8565a5e819f8cea1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/TRACKING_RETURN.json",
+      "bytes": 2453,
+      "sha256": "c256157f218c55b80cb47b1136582267dcb9494254c2890fcb1c8e956fea1958"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/RETURN.json",
+      "bytes": 5416,
+      "sha256": "e637941505a491fe365f346e8c368c0849286b81af928a014830a9a68377dc7b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/POSTGUARDS.json",
+      "bytes": 6145,
+      "sha256": "4261e54986917094561d268a267aaf2b22d28e05e3b3cb4df93d8c3465f46a37"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 176302,
+      "sha256": "c7f0586b208c001e35c54a2db1571d858140f9cc06d1ff14711f72766923b94a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 827077,
+      "sha256": "f2bd87d7d29c02d80a5c18fa5782b6de3d07abb42833999efda4ff6e64d9bf19"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-05/r6/RETURN.json",
+      "bytes": 2328,
+      "sha256": "755f0a28c284818f5d68d470ad1d35d909328382789bfda410e21e72b4727ed0"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-05/f04a/RETURN.json",
+      "bytes": 2348,
+      "sha256": "c0f87bfa6e6d7851db445f5743a747bf879e4913e1bd065bf615c3e2d0a937c8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-05/FINAL_RETURN.json",
+      "bytes": 1446,
+      "sha256": "fdfbf6a9d17a3375fcc74d01fe850d4d7c50981bde85e806c1e5f2af4c4e1834"
+    }
+  ],
+  "output": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02",
+  "attempts": 1,
+  "absoluteSeconds": 120,
+  "effects": [
+    "create-once candidate archive/snapshot/receipts in declared private proof output"
+  ],
+  "held": [
+    "source acceptance",
+    "Git checkpoint/reproduction",
+    "release/install",
+    "qualification"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "status": "ROOT_COMPONENT_FROZEN_PENDING_INDEPENDENT_REVIEW",
+  "sourceRoot": "/private/tmp/abg-rc11-foundation-20261110-01",
+  "frozenRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/frozen-authority",
+  "rows": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 13754,
+      "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 7128,
+      "sha256": "e859444d725a3775f876f0ea121cfb54936cca2d4ac1bdb28b7238c0aa653cec"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 101285,
+      "sha256": "c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "bytes": 8046,
+      "sha256": "f3b05d8b98c769f595ef8379edac09d1a9d579c6823b4d3e89f813e48c58df0d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 395917,
+      "sha256": "db267d0b96baf5dbc6c6c4621e133e20365c5dbe1e64c9b274944d04352d3b62"
+    }
+  ],
+  "standing": "Five authoritative documents frozen by Root; no edits without explicit repair selection. Derived generation is separate and ongoing."
+}

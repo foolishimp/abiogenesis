@@ -1,0 +1,94 @@
+{
+  "file": "test_env/tests/t287-management-stream-drain.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 6267.674792000093,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 8,
+    "failed": 0,
+    "passed": 4,
+    "cancelled": 0,
+    "skipped": 4,
+    "todo": 0,
+    "topLevel": 8,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "retained native durable-prefix validation reproduces blocking consumer pressure",
+      "file": "test_env/tests/t287-management-stream-drain.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "T287_STREAM_RETAINED_EVENT_LOG unset; requires the retained native event log",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "fixed 1000ms producer drains intact through actual held append/probe owners (early)",
+      "file": "test_env/tests/t287-management-stream-drain.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": "T287_STREAM_HELD_EVENT_LOG unset; requires the held native event log",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 7,
+      "type": "case",
+      "passed": true,
+      "name": "fixed 1000ms producer drains intact through actual held append/probe owners (late)",
+      "file": "test_env/tests/t287-management-stream-drain.test.mjs",
+      "nesting": 0,
+      "testNumber": 7,
+      "suite": false,
+      "skip": "T287_STREAM_HELD_EVENT_LOG unset; requires the held native event log",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 8,
+      "type": "case",
+      "passed": true,
+      "name": "actual late held owner path keeps incomplete output unadmitted",
+      "file": "test_env/tests/t287-management-stream-drain.test.mjs",
+      "nesting": 0,
+      "testNumber": 8,
+      "suite": false,
+      "skip": "T287_STREAM_HELD_EVENT_LOG unset; requires the held native event log",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/112-t287-management-stream-drain.jsonl",
+    "bytes": 2920,
+    "sha256": "c6f990fdf1ac72589cd5a51cc316cfbccdb3d79eaf7ddb47e32ccf3b6d038522"
+  },
+  "commandReceipt": "commands/112-t287-management-stream-drain.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

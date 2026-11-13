@@ -1,0 +1,48 @@
+{
+  "observedUtc": "2026-11-03T19:41:58.219749+00:00",
+  "scope": "Complete evaluated consolidation successor; existing installed RC5 unchanged; no new cut/install included",
+  "workingRemainingMinutes": [
+    65,
+    100
+  ],
+  "revisedPlanningWindowAEDT": [
+    "2026-11-04 07:45",
+    "2026-11-04 08:20"
+  ],
+  "previousPlanningWindowAEDT": [
+    "2026-11-04 07:30",
+    "2026-11-04 08:15"
+  ],
+  "revisionReason": "Actual C2 output/grant failures add operator packet repair; earlier lower bound no longer credible. Remaining native source is still partial.",
+  "breakdown": [
+    {
+      "work": "Close reviewed partial pass and correct test packet outputs",
+      "minutes": [
+        5,
+        10
+      ]
+    },
+    {
+      "work": "Complete remaining caller migrations and repeated-scan relation",
+      "minutes": [
+        30,
+        45
+      ]
+    },
+    {
+      "work": "Frozen review in parallel with actual affected C2",
+      "minutes": [
+        20,
+        30
+      ]
+    },
+    {
+      "work": "Native UAT, fresh result/replay and Root assessment",
+      "minutes": [
+        10,
+        15
+      ]
+    }
+  ],
+  "assumption": "One more native continuation completes remaining source and proof passes; additional repair cycle is excluded. Estimate communicated at06:40AEDT."
+}

@@ -1,0 +1,72 @@
+{
+  "status": "PROSPECTIVE_ONLY_MOVING_SOURCE_UNBOUND_NO_EXECUTION",
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json",
+    "bytes": 5536,
+    "sha256": "8d45c82e7e9f39628e4063c28902ec89091de37f60137663c530a7a83f708a7f"
+  },
+  "configuredRoute": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/CONFIGURED_PROOF_ROUTE.md",
+      "bytes": 8442,
+      "sha256": "677b9f5d5f53ad22f1201f44aba7c09dc7d905f5e5d3c55cd4b96fab3cffa39f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/CONFIGURED_PROOF_ROUTE.json",
+      "bytes": 6571,
+      "sha256": "685978adc3804b1c818ee29952c21200532afe3ad382cb928655a400fa3ae6a9"
+    }
+  ],
+  "reuse": {
+    "stageCompileCommandRecorder": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.r02.py",
+      "bytes": 15445,
+      "sha256": "1fa3405b6170235857c8f23433e45f267ff0b9fd7e3f4747690bda22f4021290"
+    },
+    "sourceDependencyNpmAndReporterControls": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/CONTROLS.json",
+      "bytes": 28145,
+      "sha256": "5f09730a45ea2a3220e070feb4ac81f642e762f6810261c220aa9bc56a5bd2ff"
+    },
+    "canonicalArchiveInstallComparison": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/proof.py",
+      "bytes": 19052,
+      "sha256": "10f167d0a051fd41a175526e680c6fd7f6759bf9a342cebc7df1ba16379d6d5c"
+    },
+    "packFromRetainedCompiledTree": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/candidate-pack.py",
+      "bytes": 8852,
+      "sha256": "dc02d51288ffe24fbbd38b8a7b455d7af254339309718b2eb1d0d6b5a3fbae4e"
+    }
+  },
+  "order": [
+    {
+      "step": "freeze-and-build",
+      "requirements": "Wait actual native SDK outcome, physical close/readback and exact source inventory. Fresh private source/work/temp, pinned dependencies with copy2 directory/hidden-lock metadata, source wins/no invented seeds, one normal build+manifest; typecheck/syntax prerequisites. Record actual produced complete build/contracts/manifest."
+    },
+    {
+      "step": "earliest-helper",
+      "file": "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "names": [
+        "helper route: the classifier reports spawn failure as confirmed and unresolved cleanup with processFacts",
+        "helper route: an error after launch with unresolved cleanup throws the command failure with processFacts"
+      ],
+      "standing": "Actual frozen-source helper exposure and contract must be reconciled first. First case real child with controlled unknown-scope probe; second frozen-facts/fake-child handoff. No installed Public or general physical-absence credit."
+    },
+    {
+      "step": "single-installed-C2",
+      "name": "T-287 C2 compact acknowledgment preserves installed large-log observation and replay",
+      "binding": "Current tested emitted payload\u2192new archive/member equality\u2192bootstrap equality\u2192ABG_T287_C2_PROOF_CONFIG. Exact test/support/replay/manifest identities, canonical paths and TMPDIR, no old RC8 pins. Maintained packed_artifact setup rederives all six candidate identity fields; source RC4 fixture is shape-only and remains untouched. Root must conjoin this control relation.",
+      "standing": "One configured positive only; its owner-local assertions are included, distinct excluded negative cases remain unproved. No whole C2 population."
+    },
+    {
+      "step": "controlled-and-compatibility",
+      "selection": "Root-selected actual-owner controlled cases, whole lifetime/m5 and original nine-file unit; affected worker/carrier selectors only as bound after freeze. Count actual case names/skips; preserve6 declared unit skips and prior synthetic pending-owner limit."
+    }
+  ],
+  "guards": "Explicit TAP flags; minimal pinned env with NODE_OPTIONS empty where configured route requires it; combined output checked after exit and campaign remaining time enforced. Process cleanup follows existing bounded owner policy and any incomplete physical close returns. Canonical POSIX relative-path ordering for archive/install comparison. Retain each first failure; no automatic repeat or broadening.",
+  "prospectiveBounds": "Unbound pending Root actual frozen proof selection. Existing configured case600s, actor60/90s and fresh replay30s are distinct; prior overallMs metadata did not enforce a wall deadline. Successor outer controller must enforce the selected finite campaign bound.",
+  "sourceBuildArtifactFields": null,
+  "implementedNewRunner": false,
+  "effects": "Preparation record only; no moving source copy/build, tests, pack/bootstrap/runtime or provider."
+}

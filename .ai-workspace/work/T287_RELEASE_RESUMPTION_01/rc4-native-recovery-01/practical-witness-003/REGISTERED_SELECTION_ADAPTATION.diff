@@ -1,0 +1,37 @@
+--- original/registered-graph-selection.mjs
++++ operator-copy/registered-graph-selection.mjs
+@@ -234,6 +234,7 @@
+   programRef,
+   rootMode = "direct",
+   declaredStartRef,
++  assetHandle,
+   inputFactory,
+ }) {
+   const {
+@@ -245,6 +246,8 @@
+     workspaceBinding,
+     additionalProducts: [fixture] = [],
+   } = environment;
++  assert(!(declaredStartRef !== undefined && assetHandle !== undefined), "start and asset selections are mutually exclusive");
++  if (assetHandle !== undefined) assert(typeof assetHandle === "string" && assetHandle.length > 0);
+   const resolution = await product.ProductExecutionResolutionPort.resolve({
+     catalog,
+     catalogView,
+@@ -255,7 +258,7 @@
+     selection: Object.freeze({
+       kind: "start",
+       scope: "program",
+-      target: declaredStartRef ?? "next",
++      target: assetHandle === undefined ? (declaredStartRef ?? "next") : `asset:${assetHandle}`,
+       ...(declaredStartRef === undefined ? {} : { startRef: declaredStartRef }),
+       until: "converged",
+       rootMode,
+@@ -338,7 +341,7 @@
+   const request = Object.freeze({
+     program,
+     scope: "program",
+-    target: declaredStartRef === undefined ? Object.freeze({ kind: "next" }) : Object.freeze({
++    target: assetHandle !== undefined ? Object.freeze({ kind: "asset", handle: assetHandle }) : declaredStartRef === undefined ? Object.freeze({ kind: "next" }) : Object.freeze({
+       kind: "declared_start", start: Object.freeze({
+         ref: resolution.resolvedProgramStart.start.startRef,
+         digest: product.sha256Canonical(resolution.resolvedProgramStart.start),

@@ -1,0 +1,113 @@
+{
+  "kind": "root_review_conjunction",
+  "status": "PARTIAL_SOURCE_PRESERVED_F2_PROGRAM_001_OPEN",
+  "recordedUtc": "2026-11-06T12:34:54.255893+00:00",
+  "authority": "Root Executive instruction adopting closed independent review a59ff6f6872a835f7a093ec2d57f3d8ef8717317e59eed628f34e15a642f4ad8 with actual SDK/native.after/frozen-stage/live-source conjunction; no new implementation activation by this record.",
+  "productFrame": "ABIogenesis5.0 fixed15 / GOAL-035 / T287 / STDO3.0.4 unchanged; existing Program and owner laws.",
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/reviews/admission-stage-001/REVIEW.json",
+    "bytes": 25008,
+    "sha256": "a59ff6f6872a835f7a093ec2d57f3d8ef8717317e59eed628f34e15a642f4ad8"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/reviews/admission-stage-001/README.md",
+    "bytes": 7093,
+    "sha256": "2d8596b93d001584334a76854437e4018a9faffd80e3507dc002aa88ab807966"
+  },
+  "actualSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 18826,
+    "sha256": "fa6db03cfdc19517ba0107a49bcb2e2b83ef82f003b05e9eb82b2da9a8f5e400"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/SOURCE_AFTER.json",
+    "bytes": 504858,
+    "sha256": "0fee4bdb8486eb84390b1c6d19e4a197c6244b2b366b4c3704359e17e18f9bae"
+  },
+  "earlyFrozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-stage-001/SUBJECT.json",
+    "bytes": 262855,
+    "sha256": "be89fd7c2d333ebc3051cad32c9cd336e7e057629be0be54fc3bbcff9529cfe1"
+  },
+  "actualCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/CUSTODY_AND_PROOF.json",
+    "bytes": 7437,
+    "sha256": "e58a41dadd6ca9fab2015ad987d60427b0da1e99982bbe55a6d332a737585589"
+  },
+  "actualRuntimeClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/CLOSE.json",
+    "bytes": 5790,
+    "sha256": "a0c7312331eef99815ea21ff81c7d585f8dfdc144f20d170451b58d7d3eb673b"
+  },
+  "proofInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-stage-001/PROOF_INVENTORY.json",
+    "bytes": 15493,
+    "sha256": "b3d317d0a83d2a655f424a1779c07a04b7809e437b09e7db1138cffe4f5a997f"
+  },
+  "sourceOnlyReproofDecision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/POST_RETURN_REPROOF_DISPOSITION.json",
+    "bytes": 6294,
+    "sha256": "aa76b732f0d0c08065fbb1a3f4b1073c7ed925bc4c1c5f3daecdc1fc56691e55"
+  },
+  "conjunction": {
+    "nativeAfterFrozenTestedLiveSourceEquality": true,
+    "sourceRows": 450,
+    "stagedControlRows": 18,
+    "handoffRows": 3,
+    "matchedRows": 471,
+    "permittedChangedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "sourceStanding": "Preserve the exact F2 partial delta. Independent review found no separate Product defect in that delta; the selected ordinary route remains unconstructible.",
+    "acceptedAsComplete": false
+  },
+  "actualProof": {
+    "before": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "after": {
+      "tests": 9,
+      "pass": 8,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "preservedFailure": "Both actual admission lanes refuse during Product population with invalid_target at /program. Neither reaches invocation_admission; positive direct UAT and downstream negative assertions remain unexercised.",
+    "boundedPasses": "Six direct-route regression cases and two real cold-resume cases passed on the exact frozen candidate.",
+    "stagesUsed": 2,
+    "stageCap": 3,
+    "lanesUsed": 4,
+    "laneCap": 5,
+    "reruns": 0
+  },
+  "adoptedFinding": {
+    "id": "F2-PROGRAM-001",
+    "rootVerifiedRelation": "Canonical wrapper handle is correct. Imported wrapper Catalog Program membership is absent for the consumer Program. The existing library Program also lacks its declared local executive-step contribution.",
+    "controlStanding": "Existing reciprocal Program/Catalog membership and declaration-closure guards correctly refuse. No resolver relaxation or new Program is selected."
+  },
+  "nextRepair": {
+    "ownerIncrement": "Upcoming HS01 maintained caller migration; no separate F3 author.",
+    "selectedRelation": "Complete the existing library contribution closure and select the same existing library Program, exact run environment and binding for both Testing and UAT.",
+    "preserve": [
+      "Existing admission, source/basis, producer, Program/catalog and workspace/currentness checks.",
+      "Original F and F2 evidence, failures and partial source.",
+      "No new Program, resolver relaxation, fake fulfillment classification or controller."
+    ],
+    "activation": "HS01 final exact scope/control admission remains Root-owned; this disposition does not launch or edit."
+  },
+  "coldReadbacksExecuted": false,
+  "coldEvidenceStanding": "Only F closed full typed cold reads are reused as unchanged RC6 builder evidence. No fresh F2 cold/read/replay or runtime qualification claim.",
+  "accepted": false,
+  "qualified": false,
+  "published": false
+}

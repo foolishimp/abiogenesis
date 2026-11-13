@@ -1,0 +1,56 @@
+{
+  "kind": "root_final_ticket_goals_projection",
+  "at": "2026-11-07T00:28:38.120004+00:00",
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+  "changes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimage": {
+        "bytes": 727067,
+        "sha256": "d7a94e18341c30e9fe91515997861ac6fd81a6ea629c42e79e0b531563a6f841",
+        "selectedLines": {
+          "3": "Current progress, 2026-11-07T00:15:07.123303+00:00: **RC7_HELD_SESSION_REFACTOR_ACCEPTED_LOCAL_CUT_BUILD_RUNNING**. S3 Root9d1de838 accepts source0b71ee7e/digest38024edd, build/33focusedpasses and clean independent reviewa92a2cc8 with actual completed close3116500e. [Installed growth/S6 disposition](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_GROWTH_AND_S6_DISPOSITION_001.json)59669f1d accepts actual measurement03805bc4:1MiB/4MiB contexts keep Result2617bytes, SDK outcomes16203/16204bytes; two warm calls perform zero history decode/reopen and both held reads zero history/body work. Full warm/cold typed terminal and owner-output equality holds at P2. S6 is not activated. Original wrong-builder lock refusal and invalid direct/declared-start fixture refusal remain preserved as operator failures. [Local cut binding](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_BUILD_BINDINGS_001.json)7e1e6ee9 now runs once in Root session30337: exact frozen overlay, mechanical rc.7 identity, sparse selected build inputs, canonical build and clean reproduction. Full native-workflow performance and qualification remain open; no installed RC7/release/publication/selector claim yet.",
+          "64": "- updated_at: 2026-11-06",
+          "67": "- current_activation: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_CONTROL_ADMISSION.recovery-001.json (sha256:8e1e28180ce1bc7b172a5008159b13a7ff7fe4d02e4e70b17404a072d88e8817; corrected operator host, unchanged first native scope)",
+          "68": "- current_activation_status: LOCAL_RC7_BUILD_AND_REPRODUCTION_RUNNING (Root session30337; source/HS03 accepted9d1de838 and installed S4/HS02 accepted59669f1d; no active native coding Worker)",
+          "69": "- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/failed-preparation-001/FINAL_RUNTIME_CLOSE.json (sha256:5ba039f83ec4da0c6299eca407961cbf709e7ab6c57223a5e558d46d427cda52; no native/source return)",
+          "70": "- current_next_work: [RC7 held-session plan](#rc7-held-session-plan): complete local RC7 build and byte-equal clean reproduction, independent actual packaging review, then separately bound local installation and payload correspondence. Full5.0 qualification remains separately open; accepted proof is reused and every historical failure retained.",
+          "74": "- current_runtime_frontier: immutable locally installed unqualified RC6 SDK; N source40cd0868 bounded accepted under9d2aeda3; F active at2026-11-06T09:46Z; one invocation then close, no held public-read proof",
+          "209": "| **RC7-HS-06** | Open; release obligations retained | Overhead remains RC7 work. D5, QR02, eligible QR03, S01/S02/S03/S06, F11, exact-candidate qualification and actual human release gates retain their exits; no RC8 switch or implicit release. |"
+        }
+      },
+      "after": {
+        "bytes": 727544,
+        "sha256": "e740af0f3bae31625e92f5fade0b46228aecb524905b694d111da75a4d83b083",
+        "selectedLines": {
+          "3": "Current progress, 2026-11-07T00:28:38.120004+00:00: **RC7_LOCAL_INSTALLED_UNQUALIFIED**. [Root final disposition](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_FINAL_DISPOSITION.json)19e250eb accepts local source27c08ce597b71c383eb3d032b25fa0791646c6c6/tree0bce81973e212db033eba3466f0142919e6e788b, archive2e086133 and all5325 installed payloads. Canonical build/clean reproduction are byte-equal; independent packaging reviewd47424ed and fresh installed-owner content check passed. Latest held-session/HS03 refactor is bounded accepted:33focusedpasses; installed1MiB/4MiB growth keeps Result2617bytes, zero warm history decode/reopen and zero held-read history/body work, fullP2warm/cold equality; conditionalS6notactivated. Build/reproduction71.725s, separate review/binding interval9m42.651s, installation45.123s. Full native-workflow performance and whole5.0 qualification remain open. Historical failures/procedure limits and all dirty/untracked work are preserved; no push/merge/tag/publication/global-selector/stable claim. [Current handoff](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/HANDOFF.md)2fcd80f5 and [task timeline](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/TASK_TIMELINE_001.json)a5698546 own resumption.",
+          "64": "- updated_at: 2026-11-07",
+          "67": "- current_activation: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_INSTALL_BINDINGS_001.json (sha256:3ae4b0ec0f9872f68763aec1b75d0a72817bcd9bfd6c21f730ad98b20e7dcccc; completed local installation, no active native Worker)",
+          "68": "- current_activation_status: RC7_LOCAL_INSTALLED_UNQUALIFIED (source27c08ce597; archive2e086133;5325payloads match; final verification16a6eed1; Root disposition19e250eb)",
+          "69": "- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/HANDOFF.md (sha256:2fcd80f5e8ac8440502c45c3ea7f8c2071731bc1007f2f26b98130ae68987ad0)",
+          "70": "- current_next_work: [RC7 held-session plan](#rc7-held-session-plan): selected refactor/local cut complete; retain exact-candidate5.0 qualification and full installed native-workflow measurement. Use a fresh explicitly bound RC7 W-profile runtime for prospective work, preserve the closed RC6 campaign and reuse applicable accepted evidence. No global selector or unselected old-P migration.",
+          "74": "- current_runtime_frontier: RC7 locally installed/unqualified at /Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant; held-caller/read and stdout-window refactor accepted, installed scripted growth passed through identity bridge. RC6 remains immutable and its native campaign closed; no active campaign or global selector switch.",
+          "209": "| **RC7-HS-06** | Local cut/install complete; release qualification open | [RC7 handoff](../../work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/HANDOFF.md)2fcd80f5 binds source27c08ce597, byte-equal clean reproduction, independent review and all5325installed payload matches. D5,QR02/eligibleQR03,S01/S02/S03/S06,F11/soleAF22,exact-candidate fifteen-family qualification and actual human release gates retain their exits. Full native-workflow performance remains unmeasured; no RC8 switch or stable/publication/selector claim. |"
+        }
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "preimage": {
+        "bytes": 132143,
+        "sha256": "6d8b5e2a08ea2a5d78dd9c0b96e9a11957cac3742026015769c58ee5d8b9cbc9",
+        "selectedLines": {
+          "3": "Current progress, 2026-11-06T08:00:11.713351+00:00: **RC7_BRIDGE_ACCEPTED_FIXED_TESTING_UAT_MATERIALIZING**. The four-path N bridge is bounded accepted under disposition9d2aeda3 and actual close13f510c0. All449 final source rows match actual native.after and tested stage8c93b01a; independent max review4988e11a matches all4 frozen snapshots with no blocking source defect. Build/generation/lifecycle passed;7 exact cases passed with0fail/skip/cancel in1stage/4lanes. The original N no-child EACCES failure remains preserved; its metadata-only correction led to completed native Run4dbcf7d8. RC6 startup was90.565s parent preparation+88.162s dispatch-to-native; native work20m28.795s, with8m39.747s test-lane wall time inside it. These are bounded driver measurements, not RC7 performance qualification. No native Worker is active. Next selected fixed Testing/UAT5-path task is materializing from accepted source40cd0868 using the existing acquired-resource SDK and unchanged exported checker; original shared controls and full-copy correction002 are prepared. Handoff: `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/CURRENT_HANDOFF.md`. No publication/global selector/stable claim. Earlier dated states remain historical."
+        }
+      },
+      "after": {
+        "bytes": 132065,
+        "sha256": "19588f383c63517d52301696bb77aa37509203ef7777110926baa662ac84ddb5",
+        "selectedLines": {
+          "3": "Current progress, 2026-11-07T00:28:38.120004+00:00: **RC7_LOCAL_INSTALLED_UNQUALIFIED**. The selected held-session/stdout refactor is bounded accepted and locally installed as5.0.0-rc.7, source27c08ce597b71c383eb3d032b25fa0791646c6c6, archive2e086133, all5325payloads equal. Build and clean reproduction are byte-identical; independent source/packaging reviews and installed-owner check passed. Latest source proof33pass/0fail/0skip; installed1MiB/4MiB contexts retain2617-byte Results, zero warm history decode/reopen and zero held-read history/body work, with completeP2warm/cold agreement. ConditionalS6notactivated. Full native-workflow performance and exact5.0 qualification remain open; no provider-speedup or stable-release claim. Current [handoff](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/HANDOFF.md) and [Root disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_FINAL_DISPOSITION.json) bind resumption. No active native Worker, push, merge, tag, publication or global selector change. Earlier dated states and original failures/procedure limits remain historical evidence."
+        }
+      }
+    }
+  ],
+  "scope": "Current status metadata and plan closure only; complete selected-line preimages retained; no source/goal/Product meaning change."
+}

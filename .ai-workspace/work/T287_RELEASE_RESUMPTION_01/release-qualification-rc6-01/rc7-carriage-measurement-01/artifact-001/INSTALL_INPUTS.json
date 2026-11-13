@@ -1,0 +1,30 @@
+{
+  "status": "ROOT_SELECTED_ISOLATED_S4_TEST_ARTIFACT",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_ARTIFACT_ACTIVATION_001.json",
+    "bytes": 2135,
+    "sha256": "da2503b43accd69f0d26f389b0e54ca15fcb061d281be74dac9308c6b3e7ec9e"
+  },
+  "owners": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_OWNER_PINS.json",
+    "bytes": 7242,
+    "sha256": "9fc9d03660b4f24fcb5ba0b419a17df6bdd610952421ee86c8e88698d0f98356"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "bytes": 11021939,
+    "sha256": "ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693"
+  },
+  "stageManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "07626f47b6060024b8faec7541ca7068fad0de1ce64162aa1259c9be324aae85"
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001",
+  "installHost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/bootstrap-install",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 10863,
+    "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+  }
+}

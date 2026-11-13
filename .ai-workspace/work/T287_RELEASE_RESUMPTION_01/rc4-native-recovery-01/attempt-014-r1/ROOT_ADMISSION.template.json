@@ -1,0 +1,8 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "fd611eb418853a473579739e57e823927a6f146c2578c39ee4bace55280a2beb",
+  "sourceCommit": "16d245c1e30119c4f8bbadce06c63d857a576ee4",
+  "sourceTree": "8da4f23ce03482ad294b434322261a2f40e57edd",
+  "decision": "Root selection pending: zero-provider installed preflight/call construction for014-r1 caller-duplicate correction; same bounded014 grant/source/profile/scratch. No dispatch, automatic retry or acceptance."
+}

@@ -1,0 +1,119 @@
+{
+  "files": 22,
+  "memberBytes": 884760,
+  "instructionUtf8Bytes": 2600,
+  "taskJsonBytes": 5716,
+  "renderedBytes": "Measured by actual installed work-order renderer during held setup; not allocated yet.",
+  "members": [
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 109576,
+      "sha256": "660f8cec4965c01ad3c16bf0e99d41bf1b911c8969cd44ed5e35070ad1a6ef2f"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 201692,
+      "sha256": "03c52118eb52197502aeeccfa374f1a006023b76461fa358ef1796a4905e2216"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+      "bytes": 13528,
+      "sha256": "79a37415c9ec9740157e43752a0891b3ceacac5544090a7f3200021f0778296b"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "bytes": 52769,
+      "sha256": "4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "bytes": 77610,
+      "sha256": "89aee2eb45c514af1061336b7c7a537892129699a590ef317e902d8b45bf90aa"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 130216,
+      "sha256": "c07261feca7ad1d1dbb27e294f42f5891138aca41b1220a5e68769c687a073ca"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "bytes": 49843,
+      "sha256": "df69e55518f88c01ec98c3edbf5480c4dbc8956693ab44a6e5d63a89a922534d"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "bytes": 7535,
+      "sha256": "79520c76a1f661baf56bbdac7968cad13ff992bc3255ffe4f74e4a0f012eb272"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 65453,
+      "sha256": "75818c123804cd5b945b392c86bb8d203edcb18ecc28dbaa8fc3277bcc7d30dd"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "bytes": 19702,
+      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/APPS_AGENTS.md",
+      "bytes": 8133,
+      "sha256": "abd68d0b412858965e007e44e30a432fa0e388f46a2978226a55ff93f05857f2"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/EXTERNAL_TOOLS.json",
+      "bytes": 792,
+      "sha256": "5f567c9d6907ed22e24f9f142a3ef24c2855ee881e17f24ea378b7f00d228bb6"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/FAILURE_HANDOFF.001.json",
+      "bytes": 12714,
+      "sha256": "60e3f4ff054e5cef0a38709c859bfc131f17b55aea3fbb4ee840f7a4e5040cb3"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/REVIEW_ADDENDUM.json",
+      "bytes": 18507,
+      "sha256": "bebd8440ebdcffebf83e4b9a0e9710df149b22abf729e6d550e8f261b39bcbd9"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/REVIEW_ADDENDUM.md",
+      "bytes": 3150,
+      "sha256": "fd57c1d6ff857289c1d4bad68a23104e37c2f7a9d4dc97d8206494cae1ade9be"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/ROOT_SCOPE.json",
+      "bytes": 6945,
+      "sha256": "2e73c0e378a8d91d87ce066c77fb3411d74f9751bfcd5aaa843d01796e802b56"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/STDO_STDO_WORK_SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "EXISTING_PRODUCT_OWNER_CONTENT_MATCHES",
+  "installedRoot": "/private/tmp/abg-rc10-measurement-bootstrap-001/host/node_modules/@abiogenesis/typescript-tenant",
+  "artifactDigest": "sha256:bff1a5214f198f5f133c8643f653dc3cb55022622009c23070e779f0ec2dadec",
+  "manifestDigest": "sha256:e48adc78f9442f0af39210a7d3f754a94e605e8cb0fa6e1320acdadac5644d4a",
+  "productContentDigest": "sha256:72227ad4b85756e6309bd9a3eba19c953e883da93ad1dbe192dc15c05fa48900",
+  "contentMatches": true,
+  "qualified": false,
+  "provisional": true
+}

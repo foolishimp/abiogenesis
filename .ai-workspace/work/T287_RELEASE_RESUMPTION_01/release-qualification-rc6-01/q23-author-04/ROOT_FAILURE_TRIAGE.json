@@ -1,0 +1,56 @@
+{
+  "kind": "root_author_session_absence_multi_frame_triage",
+  "at": "2026-11-05T19:08:14.016315+00:00",
+  "sourceUnchanged": true,
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/outcome-summary.json",
+    "bytes": 548,
+    "sha256": "6744a383a53296bac8044ce89129db297501ac169d7f17dc92391e2473db1f0e"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/after-run-resume.json",
+    "bytes": 72488402,
+    "sha256": "2c6e349a238a12df475a290d9d2c9f4836e5084c79ae7ecb37b02bbe830afa52"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:86171ea4036daaa2675ba1a200bb1d1d21b649a3dabaa417fe89efe00486f38e",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:c6170eb6e40204442b133cda090a673a90dcd561fe3c715d5720e59db1ed8b85",
+    "prefixLength": 289726205,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "actualTransport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-e912583a80ef1239-transport.json",
+    "bytes": 4105,
+    "sha256": "9697d30fce3ed926f3590ed7ccff0832b39e1a895470e37474c19201e13abc3e"
+  },
+  "failure": "No conversation found with session ID e8c48cf3-9517-4abc-9df3-4566790961d5",
+  "modelTurns": 0,
+  "reportedCostUsd": 0,
+  "frames": [
+    {
+      "frame": "provider configuration and context retention",
+      "finding": "Both the actual Q23-02 and Q23-author-04 transport arguments include --no-session-persistence. An emitted session ID does not establish a resumable stored conversation. Root should have checked the actual flags before selecting resume."
+    },
+    {
+      "frame": "Program and workspace owner route",
+      "finding": "Corrected existing ABI-root binding admitted a real native-work Run and launched its only actor in22598ms with no selector. This validates the bounded route, not CLI session reuse or Product completion."
+    },
+    {
+      "frame": "source and evidence",
+      "finding": "CLI stopped before a model turn/tool use;12-file partial and staged source remained unchanged. Actual failed Run/new close preserved; no C2/UAT."
+    }
+  ],
+  "selectedRecovery": "Use same already-implemented one-node author Program/current ABI binding with normal xhigh profile, no resume/fork args. Carry exact current partial diff and existing architecture/test feedback into the fresh context. Focus remaining HOW/tests/handoffs and necessary corrections;2h absolute/384turns. Do not change immutable transport or build a session service/router.",
+  "limits": [
+    "Root control preparation dominated recovery; not runtime startup.",
+    "Prior CLI conversation unavailable; no continuity or provider success claim.",
+    "Whole qualification and release remain open."
+  ]
+}

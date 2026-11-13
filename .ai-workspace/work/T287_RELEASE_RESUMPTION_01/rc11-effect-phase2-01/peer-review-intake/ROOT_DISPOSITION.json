@@ -1,0 +1,34 @@
+{
+  "status": "ROOT_CONJOINED_PEER_F1_F2_A_UNCHANGED",
+  "basis": {
+    "design": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/ASSESSMENT.md",
+      "bytes": 8984,
+      "sha256": "02e1e491dd7d3f3892cfd9ff29efb0e002d2a89716f9de49c1851a89febd462f"
+    },
+    "designEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/EVIDENCE.json",
+      "bytes": 3956,
+      "sha256": "407ce3a1dae5e88d745159ecb4d56a6c3484196027be50267a5c424b5e619e7f"
+    },
+    "proof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/proof/ASSESSMENT.md",
+      "bytes": 7070,
+      "sha256": "36280c84d46a57ca4c5faa6639a9d99826139a05a04d8d83923e7e89c880422e"
+    },
+    "proofEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/proof/EVIDENCE.json",
+      "bytes": 9644,
+      "sha256": "0e685daa59b730533bca89c8ac2b75333360b7a4e97599a3f2303842bb0ddacf"
+    }
+  },
+  "rootDecision": "A scope unchanged. B remains command-first scoped composition; optional small shared owned_process_scope.ts only for demonstrated physical acquisition/settlement reuse. Each caller retains capture/deadline/result/archive law. One settlement requests finite cleanup then awaits same completion before disposal; no duplicate supervisor. Actual deletion and all-new-file lines/coordination comparison required; Promise coexistence alone not defect.",
+  "deferredCapsule": {
+    "id": "RC11-OWNER-FACT-REUSE-PROOF-001",
+    "status": "OPEN_DEFERRED_TEST_COVERAGE_OBLIGATION",
+    "standing": "Before complete retained-fact/currentness qualification, not A/B blocker while six owner-chain files unchanged.",
+    "closureExpectation": "Real-owner warm-schema-change/canonical-output discriminator plus finite owner/fact/basis/lifetime mapping; actual predicate checks and existing currentness routes. No restored name/Map allowlist. Reacquire affected proof if A/B changes this cone."
+  },
+  "tracking": "Main prefix deferred to next safe tracking boundary; no tracking/input mutation during setup.",
+  "effects": "Disposition record only, no A expansion or additional implementation/proof/runtime."
+}

@@ -1,0 +1,120 @@
+{
+  "file": "test_env/tests/t287-held-prefix.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 829.0512499999895,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 6,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0,
+    "topLevel": 6,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "held Run truth/result/replay equal copied and closed-owner cold projections without history reads",
+      "file": "test_env/tests/t287-held-prefix.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_HELD_PREFIX_NATIVE_FIXTURE unset; requires the held-prefix native fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "only exact known cuts reuse held history; copied, foreign, forward and wrong coordinates retain authentication",
+      "file": "test_env/tests/t287-held-prefix.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_HELD_PREFIX_NATIVE_FIXTURE unset; requires the held-prefix native fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "cold reopen preserves pre-acquisition cuts for ancestry and real R10 projections",
+      "file": "test_env/tests/t287-held-prefix.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_HELD_PREFIX_NATIVE_FIXTURE unset; requires the held-prefix native fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "ordinary leaf judgment receives exact Result successor; cold and held candidates agree",
+      "file": "test_env/tests/t287-held-prefix.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_HELD_PREFIX_NATIVE_FIXTURE unset; requires the held-prefix native fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "ordinary workflow judgment receives exact Result successor; cold and held candidates agree",
+      "file": "test_env/tests/t287-held-prefix.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_HELD_PREFIX_NATIVE_FIXTURE unset; requires the held-prefix native fixture",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "owned result-to-judgment conserves semantic digests without canonicalizing either complete prefix",
+      "file": "test_env/tests/t287-held-prefix.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": "ABI5_OWNED_JUDGMENT_FIXTURE unset; requires the owned judgment fixture",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-010/events/094-t287-held-prefix.jsonl",
+    "bytes": 2614,
+    "sha256": "18e1799fed72559473a8d20dfb275f948dcf7e1afce528e64730c37b65ac3b29"
+  },
+  "commandReceipt": "commands/094-t287-held-prefix.result.json",
+  "workspace": "/private/tmp/abg-r8c-010/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

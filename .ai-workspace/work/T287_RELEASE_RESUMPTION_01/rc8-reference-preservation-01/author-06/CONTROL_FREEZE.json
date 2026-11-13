@@ -1,0 +1,41 @@
+{
+  "status": "PREPARED_CONTROLS_NO_RUNTIME_OR_PROVIDER_YET",
+  "utc": "2026-11-07T07:43:39.167203+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SCOPE.json",
+      "bytes": 7865,
+      "sha256": "3d8b7b5e2752d25c150482f9f6cfcc56ac69f52dbeaa869d02de9a5e6e3f1d0e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/PREPARATION.json",
+      "bytes": 8742,
+      "sha256": "5ae3732f9e4c8c0154291a31ac79ed7ea7217c8312ca81d7bab9fa116e866d79"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/TASK.json",
+      "bytes": 5674,
+      "sha256": "c347d2dec6d7c9c9357cf6cfed0441959ca5b8ec3d07e6bfa8a3edb4c47b104b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/host.mjs",
+      "bytes": 12242,
+      "sha256": "b2f1053cf45921f37595efb976963aea478fad64f3ec10a1fecdd8a8dfa22dde"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof.mjs",
+      "bytes": 10589,
+      "sha256": "a6ee7de6f40d690bf5293618190405090b90c4260a0823c03500080ad441c2df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/BINDING.json",
+      "bytes": 4783,
+      "sha256": "53e1a7951aebadb292cb3eb9bbdfa2efe71e5aac7abc9a02b98206689167b076"
+    }
+  ],
+  "actualOwnerPreparationPending": true,
+  "rootOneDispatchSelected": true,
+  "providerEffort": "high",
+  "syntaxChecks": "host and proof node --check passed",
+  "scratchRoot": "/private/tmp/abg-r8-a06-kr_0tqzz"
+}

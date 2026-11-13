@@ -1,0 +1,211 @@
+{
+  "status": "BROAD_CLOSE_STOPPED_FREE_SPACE_RESERVE",
+  "recordedUtc": "2026-11-07T05:43:01.001868+00:00",
+  "operator": "/root/rc8_operator",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_004.json",
+    "bytes": 6249,
+    "sha256": "d8cf9ce16cb509c542972099fae7754fc06e424b04b2509d8710e0eea4e6f599"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_004.json",
+    "bytes": 3354,
+    "sha256": "a826c3c0803c373fbd57329212338ccdbea72fe10d65c2604aae7b22fee100e6"
+  },
+  "predecessorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_003.json",
+    "bytes": 7364,
+    "sha256": "49f0707c3b94f578f0c89e8dd74210d43b7d2de048fb64364f781fb25e437b95"
+  },
+  "actualInvocation": {
+    "sessionId": 3380,
+    "observedPid": 38502,
+    "exitCode": 1,
+    "liveExecSession": false,
+    "invocationsForSelectedContinuation": 1,
+    "started": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/EXECUTION_STARTED.json",
+      "bytes": 2651,
+      "sha256": "b1c79d318837731eae4666e78ecac5d9e35bd5133f8d98cc30d7621732f45fd1"
+    },
+    "driverWallMs": 1188148,
+    "interruptedChildStartedUtc": "2026-11-07T05:37:27.485Z",
+    "interruptedChildWallMs": 232437.94237499998,
+    "signal": "SIGKILL",
+    "timedOut": false,
+    "truncated": false
+  },
+  "selectedSetup": {
+    "packageLayout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/PACKAGE_LAYOUT_READBACK.json",
+      "bytes": 651,
+      "sha256": "ef62bbd7a0f1b89c8986da785d56863a7c34376476a693c116099e65c5dea3a9"
+    },
+    "candidateBasisRefresh": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/CANDIDATE_BASIS_REFRESH.json",
+      "bytes": 3194,
+      "sha256": "31e834aff63754a574f13cd042a7959992e55669923e00f527d62faa7e3e6fd4"
+    },
+    "refreshInvocations": 1,
+    "originalFixture": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790"
+    },
+    "refreshedFixture": {
+      "path": "/private/tmp/abg-r8c-004/w/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "e3b1fdc435dc6257d4126754814dbf32843bf0a65f8343881f46b4afd1dfa05e"
+    },
+    "allSixFieldsMatchFixedVerifiedRC8": true,
+    "fixedArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "ownerProducedArchive": {
+      "path": "/private/tmp/abg-r8c-004/w/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "derivedStageDigest": "66d42e915193e5b4593aa3fadcb73cc7e52d7588cb1dbe61583d53c0b5494358",
+    "onlySubstitutedInput": "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "primaryFixtureUnchanged": true
+  },
+  "observedStop": {
+    "file": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "classification": "RESOURCE_OPERATIONAL_STOP",
+    "stopPredicate": "freeBytes below4294967296; own-byte threshold not reached in the recorded stop sample",
+    "resourceRecord": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/resources/053-t287-c0-post-publication-failure.json",
+      "bytes": 3002,
+      "sha256": "369b16b0ca659097cc2463d55ebc204fcf0603d88bb9e840fa13fde478662dc8"
+    },
+    "lastThreeSamples": [
+      {
+        "at": "2026-11-07T05:40:57.659Z",
+        "freeBytes": 5617569792,
+        "ownedBytes": 291933808
+      },
+      {
+        "at": "2026-11-07T05:41:07.660Z",
+        "freeBytes": 4922748928,
+        "ownedBytes": 291933808
+      },
+      {
+        "at": "2026-11-07T05:41:17.661Z",
+        "freeBytes": 3441295360,
+        "ownedBytes": 291933808
+      }
+    ],
+    "currentFileMaxObservedOwnedBytes": 367015165,
+    "currentFileMinObservedFreeBytes": 3441295360,
+    "interpretation": "The existing monitor stopped its owned process group and the driver preserved incomplete evidence. No completed assertion failure is recorded for this file. Wider free-space-drop attribution is not established; owned bytes stayed291933808 over the final three samples.",
+    "partialCasePasses": 5,
+    "partialFileCredit": false
+  },
+  "evidence": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/SUMMARY.json",
+      "bytes": 160370,
+      "sha256": "1997458e44d67f80a3144e187324eb792556795c1b92b4597aab85c71f671d1e"
+    },
+    "failure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/FAILURE.json",
+      "bytes": 613,
+      "sha256": "06500291e461ca529c68b282872bdcf599c4d02b8bdaedfc9e5763adf290c0b1"
+    },
+    "fileResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/files/053-t287-c0-post-publication-failure.json",
+      "bytes": 2867,
+      "sha256": "4074c8d5ddd38ef7f56c49e8f62caf8b7de4bc67e2fc1adf666a0ad24c681901"
+    },
+    "commandRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/commands/053-t287-c0-post-publication-failure.request.json",
+      "bytes": 985,
+      "sha256": "6242e8bc7fb1dddf1c8592da60abf338db31115393b6bff32b1875dd7e16b269"
+    },
+    "commandResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/commands/053-t287-c0-post-publication-failure.result.json",
+      "bytes": 1515,
+      "sha256": "81fd29cf1bd59cf0bb60b6f497a72bcfbb8cf45cf63f70c2e7890dbcfbeeed36"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/commands/053-t287-c0-post-publication-failure.stdout",
+      "bytes": 1090,
+      "sha256": "3eb0db336c61ea99700b1e6c2775b6ea18c4a8bdacbd51772e17d57a8b0be2d7"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/commands/053-t287-c0-post-publication-failure.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-004/events/053-t287-c0-post-publication-failure.jsonl",
+      "bytes": 1430,
+      "sha256": "d3467f19ac5f4ed5027308a8522279d9773e0cc58b263a662d1de7842ff30d27"
+    }
+  },
+  "coverage": {
+    "inventoriedFiles": 208,
+    "selectedScheduledFiles": 176,
+    "attemptedFiles": 23,
+    "successfulNewWholeFiles": 22,
+    "incompleteFiles": 1,
+    "remainingScheduledUnrun": 153,
+    "completeFileTestCounts": {
+      "tests": 51,
+      "failed": 0,
+      "passed": 27,
+      "cancelled": 0,
+      "skipped": 24,
+      "todo": 0,
+      "topLevel": 51,
+      "suites": 0
+    },
+    "interruptedFilePartialPassesExcludedFromCompleteCounts": 5,
+    "selectedPriorWholeFileCredits": 32,
+    "selectedPriorPasses": 249,
+    "selectedPriorSkips": 57,
+    "creditsEnteredByLoop": 30,
+    "loopCreditCounts": {
+      "tests": 300,
+      "failed": 0,
+      "passed": 245,
+      "cancelled": 0,
+      "skipped": 55,
+      "todo": 0,
+      "topLevel": 220,
+      "suites": 0
+    },
+    "priorCreditsNotYetEncountered": 2,
+    "standing": "All32 prior credits remain retained. Driver pending155 entries are153 unrun scheduled files plus2 prior credits. Partial cases and all skips remain distinct from whole-file successful coverage."
+  },
+  "custody": {
+    "scratchRoot": "/private/tmp/abg-r8c-004",
+    "executions001Through004Retained": true,
+    "originalStageAndDependenciesPreserved": true,
+    "preservationEvidence": "Existing driver final verification of original frozen inventories.",
+    "resourceRecords": 24,
+    "resourceStatuses": [
+      "CHILD_CLOSED",
+      "RESOURCE_OPERATIONAL_STOP"
+    ],
+    "maxObservedOwnedBytes": 1120706144,
+    "minObservedFreeBytes": 3441295360,
+    "freeBytesAtReturn": 5564895232,
+    "resourceLimitsOperationalNotQuota": true,
+    "detachedDescendantAbsenceProven": false
+  },
+  "selectedEffects": {
+    "sourceEdits": false,
+    "git": false,
+    "dependencyVersionChanges": false,
+    "network": false,
+    "providerCallsSelected": 0,
+    "automaticRetries": 0,
+    "operatorCleanup": false,
+    "furtherExecutionSelected": false
+  },
+  "qualification": false
+}

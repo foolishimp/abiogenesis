@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-07T09:23:04.707422+00:00",
+  "status": "OPERATOR_COMMAND_PATH_TYPO_BEFORE_ADMISSION_READ",
+  "error": "ENOENT; command omitted slash between T287_RELEASE_RESUMPTION_01 and rc8-reference-preservation-01 in admission path only.",
+  "toolWallSeconds": 0.222984541,
+  "exitCode": 1,
+  "recipeLine": 13,
+  "controlsUnchanged": true,
+  "action": "Corrected command path to the exact already-admitted file; only corrected invocation can reach allocation/test; original rejected command preserved in tool output.",
+  "activeSession": 58829
+}

@@ -1,0 +1,206 @@
+{
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "GOAL-035/T287/F10 D5 affected C2/UAT, lawful legacy cold qualification and preserved Q23 Q1-Q7",
+    "outcome": "Retire only redundant current-profile ABG lifecycle copies through existing owners; preserve physical/helper observations, primary facts, deterministic fold/replay and exact historical profile standing.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Exact frozen author03 subject94c038bd and actual native Result fe4ffa3d with417 files and three separate handoffs. Only two selected Product paths differ; frozen source custody is not acceptance. No live tree rehash in source binding.",
+      "tool": "Exact STDO3.0.4 and existing installed RC6/default-consumer/operator-client owners. This Writer prepares controls and passive capture only.",
+      "runtime": "Genuine future author03 final close/resume required. Existing fresh source:none Testing/UAT with exact physical source custody; retained consumer binding/catalog/view only, no old close or invented governance ancestry."
+    },
+    "prohibitions": [
+      "No Product/source edits, coding Worker, staging, preflight, tests/build, provider/runtime/Git/network/credential operation in preparation.",
+      "No current/future candidate or close substitution; no old handoffs added to satisfy stale selectors; no private diagnostics/provider output or terminal source-body printing.",
+      "Native max UAT is component feedback, not formal independent third-family judgment or Q23/release acceptance."
+    ]
+  },
+  "kind": "closed_actual_native_source_binding_return",
+  "status": "SOURCE_BOUND_CLOSE_REVIEW_ROOT_ADMISSION_PENDING",
+  "at": "2026-11-06T02:06:04.591798+00:00",
+  "source": {
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+      "bytes": 494547,
+      "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+    },
+    "nativeResultRef": "result://abiogenesis/fe4ffa3d823a3e00db1dc4f0ffcb71698fd21c5afd312727dafdb8df5f412616",
+    "nativeResultDigest": "sha256:fe4ffa3d823a3e00db1dc4f0ffcb71698fd21c5afd312727dafdb8df5f412616",
+    "nativeCoordinates": {
+      "eventOrdinal": 170477,
+      "eventTime": "2026-11-06T01:56:32.706Z",
+      "eventOffset": 972094312,
+      "eventRowBytes": 44165265,
+      "eventRowSha256": "f73b6fb964086866bf7d779ac3a24880e7909119b6cf0a6f6433b85a22b19a94",
+      "afterObservationRef": "worksite-context-observation://abiogenesis/dd15c56bcb0232d22cb3994fa23bcc9168fdc6d43e859fec06e1ec7fd32134c0",
+      "afterObservationDigest": "sha256:dd15c56bcb0232d22cb3994fa23bcc9168fdc6d43e859fec06e1ec7fd32134c0"
+    },
+    "authorHandoffs": {
+      "return.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/return.json",
+        "bytes": 15174,
+        "sha256": "ad025195a31b420f9636702e9679b8b33e72af8fc4714bc75202d7dd2e73e06a"
+      },
+      "readiness.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/readiness.json",
+        "bytes": 3588,
+        "sha256": "3667d4276d37fc97f4e4d8bbfb10339b445f2b13a51a2ecd1dc661ce2156e0a4"
+      },
+      "progress.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/progress.json",
+        "bytes": 2527,
+        "sha256": "e8aa3483085178ccc8ecda89e6d7daf8a30bcf1c5b578853ad12a117fce9fcfb"
+      }
+    },
+    "incrementChangedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+    ],
+    "candidateStanding": "Observed frozen source only; no source acceptance or actual C2/UAT."
+  },
+  "preservation": {
+    "originalClosedPreparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/CONTROL_PREPARATION.json",
+      "bytes": 21041,
+      "sha256": "ff983c019f6b5000a1a3d9bae0d02f9e5ad2f636f908a22262030cb2eda13d99"
+    },
+    "templatePreimages": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/source-binding-preimages-001/INDEX.json",
+      "bytes": 14390,
+      "sha256": "a689fc96d2287a10dc2f48c5528b29cdd3fa2f04c614ecbaf652b4d57432edf0"
+    },
+    "preimageFiles": 28,
+    "proof02FilesUnchanged": 34,
+    "sevenCommandRecipe": true,
+    "instructionArraysAndReadFirst": true,
+    "timedScriptsAndCapturesByteUnchanged": true,
+    "syntaxChecksRepeated": false
+  },
+  "derivedControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/RUNTIME_BINDINGS.json",
+      "bytes": 2213,
+      "sha256": "56538d0d862000567c4eb2d2f78933b442e1317d28e6a33f66c41ecedee071bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PROOF_ONLY_GRANT.json",
+      "bytes": 15798,
+      "sha256": "e0109163724d8346cccf2e348905699052fff14d2f6abcf6b73e3252c535b902"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/PROOF_ONLY_GRANT.json",
+      "bytes": 15798,
+      "sha256": "e0109163724d8346cccf2e348905699052fff14d2f6abcf6b73e3252c535b902"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/inputs/FROZEN_SUBJECT.json",
+      "bytes": 2697,
+      "sha256": "e3a51dec98fded688fa08b27d70a3b9a1d1b7a1d9f5c09e35c2c39e2cc24c897"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/SOURCE_BEFORE.json",
+      "bytes": 248769,
+      "sha256": "01c775cbbdc7ee1adfeeafce2580a12abb5d9f7a9090d59e7c5810217ce85cda"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/workload.json",
+      "bytes": 101467,
+      "sha256": "c92dba14030466c91b2bc625a2f8804182c944abeaa3b80ce870c4e736b06793"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/C2_RECIPE.json",
+      "bytes": 46501,
+      "sha256": "ca58037c7833d70df3007fbc4b369fa7d90b605c82349c5c7d89220e6953d269"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/DECLARED_REPORT_INDEX.json",
+      "bytes": 38469,
+      "sha256": "5aece136e6b350344ab71c24954897285eba4bd4ff795ca2d21a7947949f4095"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/STAGING_MANIFEST.json",
+      "bytes": 3175,
+      "sha256": "220e20cc386c3f01ade80a15950230c9e3b3c21ac61186cf500af8c424cfbd1e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/RESOURCE_NOTE.json",
+      "bytes": 4984,
+      "sha256": "9e941b191aa953727cc6ddd21e3dde5e9d4b00603650fd8df9ef40abc6b23b16"
+    }
+  ],
+  "sourceBindingChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/SOURCE_BINDING_CHECKS.json",
+    "bytes": 6204,
+    "sha256": "cc2bb6bd779a7d2adb41536d79f35fe9f8a885732f5e7a12939248bb2535b3fb"
+  },
+  "counts": {
+    "frozenFiles": 417,
+    "actualHandoffs": 3,
+    "ownerProtectedFiles": 420,
+    "proofControls": 6,
+    "contextFiles": 426,
+    "helperReportFiles": 407,
+    "additionalN3ControlsAndHandoffs": 13,
+    "compileSupportFiles": 372,
+    "futureC2Tests": 113,
+    "authorQualificationTests": 37
+  },
+  "resource": {
+    "contextFileBytes": 10978511,
+    "assessmentAssetBytes": 2554858,
+    "contextCapBytes": 16777216,
+    "promptCapBytes": 1048576,
+    "ownerPromptMeasured": false,
+    "standing": "Frozen/control byte totals bound. Final Root control changes require repinning; full actual C2 streams and owner prompt/role context fit remain future."
+  },
+  "feedbackCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/INDEX.json",
+    "bytes": 8545,
+    "sha256": "b44f8c64ea32dd7444901539d5b5ea237a655403e828d1a3c95a64bce1b369fd"
+  },
+  "authorEvidenceSummary": {
+    "nearestBefore": "Actual retained corrected-L fixture under frozen old reader:1 selected failure; whole scopes23/24 with only the intended M2 assertion failing.",
+    "nearestAfter": "Paired final stage differs only in reader:1/1; five qualification modules37/37 with unchanged names, no failures/skips/cancelled/todo.",
+    "helperPremise": "Separate preserved helper stage22/24 demonstrates missing current stamp affects two existing Q23 readback positives.",
+    "retainedPopulation": "Full C2 remains113 over ten modules; no broad author rerun or population change.",
+    "generatedProfile": "Native-runtime-observation generated schema ae38fb37... unchanged per Root receipt/author return; exact prospective profile/cut obligations remain separate.",
+    "standing": "Author feedback and Root-retained custody referenced, not repeated or converted into independent review/C2 acceptance."
+  },
+  "pendingFields": {
+    "actualResume": null,
+    "actualClose": null,
+    "actualClosePrefix": null,
+    "reviewDisposition": null,
+    "rootControlAdmission": null
+  },
+  "finalizationSequence": [
+    "Root supplies genuine N3 final close/resume/prefix and closed exact source-review disposition; verify all against this Result/SUBJECT rather than substituting N2.",
+    "Root records exact final proof admission; preserve current binding preimages, update runtime/grant statuses and bind actual pins.",
+    "Repin admitted PROOF_ONLY_GRANT and FROZEN_SUBJECT control bytes, workload source digests, six-input staging manifest and their SOURCE_BEFORE entries; preserve the417+3 actual source/handoff pins unchanged.",
+    "Root stages exact controls, then existing owner preflight verifies all426 current file bytes, actual latest close, source-to-stage, seven-command budget and prompt/context limits.",
+    "Only after owner preflight succeeds, Root binds one-use dispatch; subsequent actual C2 captures keep407 helper rows distinct from all420 protected files, run all113 tests and obtain max UAT."
+  ],
+  "limits": [
+    "Original CONTROL_PREPARATION remains unchanged, and every original template preimage is retained. No close/review/admission was inferred from source return.",
+    "No live tree or stage rehash/tests were repeated; installed owner preflight must verify current bytes.",
+    "N3 L fixture uses declared lower-owner/owned-prefix premises, not an executed historical L qualification population.",
+    "Capsule D5-P6-N1-UNCONFIRMED-01, recovery replay/component limits, QR02/QR03/F11, production eligibility, prospective cut and human release acceptance remain open.",
+    "Native source disclosures about declared temp effects remain in the exact author return for Root disposition; binding is not an effect waiver."
+  ],
+  "effects": {
+    "liveTreeHashes": 0,
+    "stageTests": 0,
+    "ownerConstruction": 0,
+    "preflight": 0,
+    "staging": 0,
+    "builds": 0,
+    "providers": 0,
+    "runtimeWrites": 0,
+    "ProductEdits": 0,
+    "GitEffects": 0
+  },
+  "newMaterialBlockers": []
+}

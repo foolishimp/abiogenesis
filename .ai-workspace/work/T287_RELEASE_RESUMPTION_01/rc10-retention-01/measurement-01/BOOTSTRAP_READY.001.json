@@ -1,0 +1,34 @@
+{
+  "status": "ROOT_ADMITTED_PROVISIONAL_ARTIFACT_READY_ONCE",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/BOOTSTRAP_BINDING.001.json",
+    "bytes": 5557,
+    "sha256": "5f550d776c59e68d6a832bde610d6800568a6b300168d621644c2f0726fecb76"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/ROOT_ARTIFACT_ADMISSION.001.json",
+    "bytes": 1438,
+    "sha256": "07c908bb582802b66084648f590ddff222a5ab4ed10d44a7beb40e9d2a80365c"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/prepare-bootstrap.mjs",
+    "bytes": 10321,
+    "sha256": "1d350d2188a708a83a0dee600d0d6e74709d0aa84452a340748a97da151ed8e0"
+  },
+  "inputClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/INPUT_CLOSURE.json",
+    "bytes": 2688,
+    "sha256": "134a03577b6e4c84e914a5706f2a2d531315ee3c5dea515fcc85681f41e50bdf"
+  },
+  "launchArgv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/prepare-bootstrap.mjs",
+    "pack",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/BOOTSTRAP_BINDING.001.json",
+    "5f550d776c59e68d6a832bde610d6800568a6b300168d621644c2f0726fecb76",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/ROOT_ARTIFACT_ADMISSION.001.json",
+    "07c908bb582802b66084648f590ddff222a5ab4ed10d44a7beb40e9d2a80365c"
+  ],
+  "allMemberEquality": "After actual installation, Operator compares every archive member to temporary install before measurement can be admitted. Product owner verification and content check remain required inside this route.",
+  "releaseCut": false
+}

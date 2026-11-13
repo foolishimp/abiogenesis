@@ -1,0 +1,247 @@
+{
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "GOAL-035/T287/F10 D5 affected C2/UAT and preserved Q23 Q1-Q7",
+    "outcome": "Retire only redundant current-profile ABG lifecycle copies through existing owners; preserve physical/helper observations, primary facts, deterministic fold/replay and exact historical profile standing.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Current admitted author02 controls declare acquisition; the authentic baseline is retained on its exact partial. Final author02 source Result, SUBJECT and three handoffs remain unbound; no moving Product reads.",
+      "tool": "Exact STDO3.0.4 and existing installed RC6/default-consumer/operator-client owners. This Writer prepares controls and passive capture only.",
+      "runtime": "Actual completed author02 final close/resume must be supplied by Root. Existing fresh source:none Testing/UAT route is guarded by complete physical frozen-source custody; no source-binding bypass, old close, injected observations/synthesis or invented native ancestry."
+    },
+    "prohibitions": [
+      "No Product/source edits, coding Worker, staging, preflight, tests/build, provider/runtime/Git/network/credential operation in preparation.",
+      "No current/future candidate or close substitution; no old handoffs added to satisfy stale selectors; no private diagnostics/provider output or terminal source-body printing.",
+      "Native max UAT is component feedback, not formal independent third-family judgment or Q23/release acceptance."
+    ]
+  },
+  "kind": "closed_operator_phase_timing_amendment",
+  "status": "PREPARED_SYNTAX_STATIC_ONLY_NO_EXECUTION",
+  "at": "2026-11-06T00:43:44.367274+00:00",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/ROOT_TIMING_SELECTION.json",
+    "bytes": 3988,
+    "sha256": "5c96c59f3f81b5c68caf629bd21e540dde85395a7520fb6c5c5da2129b0bdfca"
+  },
+  "originalPreparationUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/CONTROL_PREPARATION.json",
+    "bytes": 25517,
+    "sha256": "0e858c1ff159a238f2b0f99d56453f508e3693b93644c3124cdd7640d77f490e"
+  },
+  "originalReadableUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/CONTROL_PREPARATION.md",
+    "bytes": 2643,
+    "sha256": "74efcb88e2f01f83413bfea24544b1cab6e16d42bf669d8e1d159eaba7f7157e"
+  },
+  "preservedOriginals": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/timing-preimages-001/CONTROL_PREPARATION.json",
+      "bytes": 25517,
+      "sha256": "0e858c1ff159a238f2b0f99d56453f508e3693b93644c3124cdd7640d77f490e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/timing-preimages-001/CONTROL_PREPARATION.md",
+      "bytes": 2643,
+      "sha256": "74efcb88e2f01f83413bfea24544b1cab6e16d42bf669d8e1d159eaba7f7157e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/timing-preimages-001/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/timing-preimages-001/prepare-r1.mjs",
+      "bytes": 13432,
+      "sha256": "ad54eb621646194993d94360edd03eed3f0408fbbe12e89d50529a9f3f9e83a3"
+    }
+  ],
+  "amendedScripts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/prepare-r1.mjs",
+      "bytes": 21293,
+      "sha256": "277c441d42354bea5aa255e96fb086d5ceafc065cf533d96cec3c7a3a5669528"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/dispatch.mjs",
+      "bytes": 11850,
+      "sha256": "af2bcbc6cd35a451964222dae74f043f7198d5b713ae78bebd8f5a7b0efbfa44"
+    }
+  ],
+  "staticChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/TIMING_STATIC_CHECKS.json",
+    "bytes": 4693,
+    "sha256": "fa5791f4a0a33d974250436834ca0a569a3920ce868d078b31c700d17b8fa59c"
+  },
+  "existingMetadataReused": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    },
+    "lines": {
+      "commandRecorder": [
+        49,
+        69
+      ],
+      "freshReadbacks": [
+        261,
+        294
+      ],
+      "invokeLifecycle": [
+        349,
+        355
+      ]
+    },
+    "fields": [
+      "started (UTC)",
+      "wallMs (monotonic elapsed)",
+      "exitCode",
+      "signal",
+      "timedOut",
+      "truncated"
+    ],
+    "locations": "Existing execution/commands/<existing-label>.request.json and .result.json. No command recorder, runner or private provider payload changed/read.",
+    "use": "Existing lifecycle and run_result/run_replay command timing remains the subprocess measurement. Script phases complement it and overlap it; they are not summed as disjoint work.",
+    "historicalMotivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/TIMING_BREAKDOWN.json",
+      "bytes": 4405,
+      "sha256": "300aa0d7fcc28230e1ba329b93075a87c79ad259d2ce0da43c0389567632ea41"
+    }
+  },
+  "newArtifacts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/PREPARE_PHASE_TIMING.json",
+      "createdNow": false,
+      "standing": "One future exclusive operator timing artifact, at completion or exception when module body/finally runs."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/DISPATCH_PHASE_TIMING.json",
+      "createdNow": false,
+      "standing": "One future exclusive operator timing artifact, at completion or exception when module body/finally runs."
+    }
+  ],
+  "measurement": {
+    "clock": "performance.now() monotonic elapsed from module-body entry; UTC anchor and per-marker UTC from Date.toISOString(). No Product clock or event authority introduced.",
+    "maximumMarkersPerScript": 64,
+    "overflow": "Records markerOverflow without new failure/acceptance gate.",
+    "preparePhases": [
+      "module_body_entry",
+      "binding_and_admission_pin_checks",
+      "actual_resume_parse_and_close_check",
+      "workload_and_grant_load",
+      "consumer_binding_verify_parse_and_overlay",
+      "source_identity_and_hash_correspondence",
+      "selected_environment_preparation",
+      "installed_owner_loading",
+      "governance_input_construction",
+      "command_and_actor_owner_loading",
+      "existing_budget_projection_and_guard",
+      "dry_caller_setup",
+      "environment_refresh",
+      "installed_content_verification",
+      "physical_prefix_read_and_hash",
+      "worksite_observation",
+      "observed_source_and_assessment_asset_checks",
+      "projection_owner_loading",
+      "initial_projection_and_size_calculation",
+      "capacity_record_persistence",
+      "capacity_guard",
+      "subjects_and_command_configuration",
+      "execution_archive_setup",
+      "recording_caller_setup",
+      "lifecycle_call_construction",
+      "final_prefix_read_and_consistency_check",
+      "preflight_summary_construction"
+    ],
+    "dispatchPhases": [
+      "module_body_entry",
+      "dispatch_manifest_and_pin_checks",
+      "prepared_resume_and_controls_load",
+      "head_credential_presence_and_heap_guards",
+      "selected_environment_preparation",
+      "installed_owner_loading",
+      "recording_caller_setup",
+      "environment_refresh",
+      "worksite_observation",
+      "observed_context_correspondence",
+      "actor_owner_load_and_ambient_guard",
+      "prepared_call_read_and_canonical_guard",
+      "dispatch_start_record_construction",
+      "lifecycle_invocation",
+      "receipt_check_and_outcome_construction",
+      "fresh_readback_selection",
+      "fresh_readbacks"
+    ],
+    "selectedRecordBoundaries": {
+      "prepare": [
+        "run.json",
+        "input.json",
+        "prepared-call.json",
+        "PREPARED_CALL.json",
+        "resume.json"
+      ],
+      "dispatch": [
+        "STARTED.json",
+        "execution.json",
+        "outcome-summary.json",
+        "fresh-reads.json",
+        "after-run-resume.json",
+        "DISPATCH_FAILURE.json"
+      ]
+    },
+    "recordMeaning": "A side-effect-only comma marker runs at the existing record callback entry, after original arguments have evaluated and before the unchanged exclusiveRecord call. It separates large record persistence from lifecycle construction or freshReadbacks without duplicating command recording.",
+    "observationMeaning": "Dispatch adds a comma marker immediately before its existing awaited observeWorksiteContext expression, separating it from caller.refresh while preserving the exact original observation call and result value."
+  },
+  "preservationProof": {
+    "syntaxChecks": 2,
+    "instrumentationStrippedOriginalByteEquality": true,
+    "originalScriptHashes": [
+      "ad54eb621646194993d94360edd03eed3f0408fbbe12e89d50529a9f3f9e83a3",
+      "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    ],
+    "method": "Remove only the explicitly delimited OPERATOR_PHASE_TIMING blocks; both scripts exactly reproduce selected original bytes. Every original statement, owner call/operand, environment mutation, guard, persistence call and original inner exception handler remains unchanged and ordered. The added outer try/finally only emits observation metadata.",
+    "exceptionRule": "Original exceptions propagate through finally unchanged; timing artifact write errors are caught and only a bounded code is printed. Timing does not set exit status or trigger retries. Exclusive wx preserves an existing artifact.",
+    "unchangedControls": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/RUNTIME_BINDINGS.json",
+        "bytes": 1046,
+        "sha256": "f028f55182f6e051056a6735e0a44ab5a958b2a1484c6dde006981d3c02657bb"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/workload.json",
+        "bytes": 96072,
+        "sha256": "16b43895e003d9816d902a723418825a73757593859f04d457388086890c4c7a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/PROVIDER_PROFILE.json",
+        "bytes": 2101,
+        "sha256": "28f4765e2e81542431a55051557658366963e3620471a5d94a9f92def85f27f8"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/C2_RECIPE.json",
+        "bytes": 45548,
+        "sha256": "1dda60a62f5e18d1d500df46b875b0ceb3d369d63b588e0e41b332d065209729"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/PROOF_ONLY_GRANT.json",
+        "bytes": 9787,
+        "sha256": "86a9000c2a4e3a8c5e40e963330c1ca5b18999c344a3d4f8cdcdd014e00f52f0"
+      }
+    ],
+    "validationCorrection": "The first stripping check used a label regex that omitted underscores and failed to remove those marker blocks. Corrected validation regex accepts the actual label alphabet; no script execution occurred."
+  },
+  "limits": [
+    "Static imports complete before module-body entry; host launch/static import time is not attributed by these markers and requires existing external launch evidence.",
+    "Installed owner loading is measured around existing imports; it includes their module evaluation and surrounding bookkeeping, not isolated filesystem/CPU cost.",
+    "invokeLifecycle retains its existing internal before/after installed-content verification. Its total interval and existing subprocess timings are observable; this amendment does not split or infer internal verification durations.",
+    "Phase durations include awaited I/O, scheduling and bookkeeping. Selected record phases begin after argument evaluation. No CPU attribution, causal speedup or automatic red-flag verdict is claimed.",
+    "Fresh readbacks remain one existing helper call with existing per-command metadata; final resume persistence is a separate record boundary.",
+    "Timing artifact serialization/write is outside recorded elapsed duration. Static import failure, hard kill or timing-write failure can leave no new artifact. Existing timing artifacts are never overwritten.",
+    "No payload, private provider path/content, environment value or credential is stored in timing artifacts. No command/provider telemetry is duplicated.",
+    "Actual source/handoff/close/admission barriers remain pending. No owner/call construction, preflight, build/test, provider/runtime or active-author action occurred."
+  ],
+  "rootNext": "Include these two final script pins when binding/admitting the later proof. Original preparation and additive resource return remain preserved. No execution is selected by this amendment."
+}

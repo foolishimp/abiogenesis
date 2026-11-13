@@ -1,0 +1,37 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/host.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/host.mjs
+@@ -12,11 +12,11 @@
+ assert(bindingPath&&bindingDigest&&setupAdmissionPath&&setupAdmissionDigest,'exact binding and setup admission pins required');
+ const bytes=await readFile(bindingPath);assert.equal(sha(bytes),bindingDigest);
+ const setupAdmissionBytes=await readFile(setupAdmissionPath);assert.equal(sha(setupAdmissionBytes),setupAdmissionDigest);
+-const setupAdmission=JSON.parse(setupAdmissionBytes);assert.equal(setupAdmission.status,'ROOT_ADMITTED_RC11_SETUP');assert.equal(setupAdmission.bindingSha256,bindingDigest);
++const setupAdmission=JSON.parse(setupAdmissionBytes);assert.equal(setupAdmission.status,'ROOT_ADMITTED_PHASE1_SETUP');assert.equal(setupAdmission.bindingSha256,bindingDigest);
+ const binding=JSON.parse(bytes),bindingSha256=sha(bytes),start=performance.now(),startedUtc=new Date().toISOString();
+-assert.equal(binding.status,'PREPARED_RC11_NATIVE_EXECUTION_HELD');
++assert.equal(binding.status,'PREPARED_PHASE1_NATIVE_EXECUTION_HELD');
+ assert.equal(setupAdmission.scopeSha256,binding.activation.sha256);
+-assert.equal(binding.sourceRoot,'/private/tmp/abg-rc11-qualification-20261109');
++assert.equal(binding.sourceRoot,'/private/tmp/abg-rc11-foundation-20261110-01');
+ assert.equal(binding.runtimeRoot,join(dir,'runtime-001'));
+ assert(setupAdmission.grantsFreshPublicSetup===true&&setupAdmission.providerDispatch===false,'setup grant must hold native dispatch');
+ Object.assign(process.env,binding.environment);
+@@ -43,7 +43,7 @@
+ const phases={},mark=name=>{phases[name]={utc:new Date().toISOString(),elapsedMs:performance.now()-start,memory:process.memoryUsage()};};
+ let caller,setup,call,input,outcome=null,launched=false,failure=null,actualClose=null,readbackFailure=null;
+ try{
+-  await record('run.json',{kind:'rc11_operator_held_setup',startedUtc,pid:process.pid,bindingSha256,sourceCommit:binding.sourceCommit,providerCalls:0});
++  await record('run.json',{kind:'effect_phase1_operator_held_setup',startedUtc,pid:process.pid,bindingSha256,sourceCommit:binding.sourceCommit,providerCalls:0});
+   const native=await setupOwner.verifyArtifact(runtime,{artifactPath:binding.archive.path,manifest,expectedArtifactDigest:'sha256:'+binding.archive.sha256},record,'abg');mark('artifactVerified');
+   caller=setupOwner.publicCaller({root:binding.runtimeRoot,runtime,native,config,record,actorRef:'actor://abiogenesis/operator/codex-root',
+     command:runner.commandRecorder(binding.runtimeRoot,{environment:binding.environment,timeoutMs:binding.proofTimeoutMs})});
+@@ -67,8 +67,8 @@
+     verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(env.artifactTruth,i),actorRef:caller.actorRef,
+     input:{factory:({workspaceBinding,grants})=>{assert.equal(grants.length,1);input=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,
+       capabilityGrant:grants[0],context,outcome:task.outcome,instructions:task.instructions,readFirst:task.readFirst,writeRoots:task.writeRoots,checks:task.checks});return input;}},
+-    inputValueRef:'value://abiogenesis/t287/rc11-qualification/input',source:{kind:'none'},eventResource:entry,
+-    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://abiogenesis/t287/rc11-qualification/start',correlationRef:'correlation://abiogenesis/t287/rc11-qualification',
++    inputValueRef:'value://abiogenesis/t287/rc11-effect-phase1/input',source:{kind:'none'},eventResource:entry,
++    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://abiogenesis/t287/rc11-effect-phase1/start',correlationRef:'correlation://abiogenesis/t287/rc11-effect-phase1',
+       eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(binding.task.path).href]}});
+   assert.equal(constructed.kind,'installed_start_call','Native start construction: '+constructed.kind+' / '+String(constructed.code??''));call=constructed.call;assert.strictEqual(call.resources.eventResource,entry);
+   const nativeOwner=await import(pathToFileURL(join(binding.bootstrapRoot,'build/code/src/product/native_workspace_work.js')));

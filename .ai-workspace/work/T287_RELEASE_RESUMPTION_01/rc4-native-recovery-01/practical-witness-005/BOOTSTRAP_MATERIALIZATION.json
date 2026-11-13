@@ -1,0 +1,59 @@
+{
+  "status": "PROVISIONAL_C3_FILE_ONLY_BOOTSTRAP_MATERIALIZED_VERIFIED",
+  "observedUtc": "2026-11-02T21:56:25.581897+00:00",
+  "bindingSha256": "18a0e1a327d2dc102427fd3df7ff047f89526cc11606e54bace810dfd51a605f",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/032de8b31e583eac7c64dd6fd9b338f5d25fbb5c2a9eda12ced6917b28e7e5e5/459bd74ea520820ef2ff0078c93d75598a95c3954317b1c675319cecdab9eca3/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10971372,
+    "sha256": "4589f5c5174cb84ba37f4efecd15f52f6437fa696d117aeff58b84bd5f8363ac"
+  },
+  "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/node_modules/@abiogenesis/typescript-tenant",
+  "targetIdentity": {
+    "device": 16777231,
+    "inode": 682182025,
+    "uid": 501
+  },
+  "createdDirectories": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/node_modules",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/node_modules/@abiogenesis",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/node_modules/@abiogenesis/typescript-tenant"
+  ],
+  "before": {
+    "status": "FILE_ONLY_C3_SETUP_PACKET_CHECKED",
+    "packetPins": 43,
+    "archiveMembers": 5321,
+    "bootstrap": "absent",
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "ProductImports": 0,
+    "candidateAccepted": false
+  },
+  "command": [
+    "/usr/bin/tar",
+    "-xzf",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/032de8b31e583eac7c64dd6fd9b338f5d25fbb5c2a9eda12ced6917b28e7e5e5/459bd74ea520820ef2ff0078c93d75598a95c3954317b1c675319cecdab9eca3/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "--strip-components=1",
+    "-C",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/node_modules/@abiogenesis/typescript-tenant"
+  ],
+  "exitCode": 0,
+  "stderr": "",
+  "after": {
+    "status": "FILE_ONLY_C3_SETUP_PACKET_CHECKED",
+    "packetPins": 43,
+    "archiveMembers": 5321,
+    "bootstrap": "existing-verified",
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "ProductImports": 0,
+    "candidateAccepted": false
+  },
+  "exactFileSetCount": 5321,
+  "archiveUnchanged": true,
+  "setupExecutions": 0,
+  "ProductImports": 0,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "candidateAccepted": false,
+  "scope": "Root-selected Writer extraction only; no build/install hooks/global selector/source/native017 effect. Old013 and004 preserved."
+}

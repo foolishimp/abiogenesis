@@ -1,0 +1,17 @@
+{
+  "id": "current-f09-retry-consumers",
+  "files": [
+    "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+    "test_env/tests/t287-r4-aba-retry.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 2,
+  "fail": 0,
+  "skipped": 0,
+  "wallMs": 116304.731042,
+  "stdoutSha256": "58d935cb6f5f640dbcf507a64de1f17ef3615fe36d166aa7cc333c63872c2d00",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

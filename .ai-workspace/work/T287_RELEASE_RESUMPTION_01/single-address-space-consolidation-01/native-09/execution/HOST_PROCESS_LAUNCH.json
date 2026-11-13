@@ -1,0 +1,13 @@
+{
+  "startedUtc": "2026-11-04T11:34:52.718013+00:00",
+  "role": "Root selected targeted native dispatch",
+  "argv": [
+    "node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/dispatch.mjs",
+    "75ddefab6a4e7ba257114eada1da1500cc4c09cded98e0945330808f0d1eff84"
+  ],
+  "manifestSha256": "75ddefab6a4e7ba257114eada1da1500cc4c09cded98e0945330808f0d1eff84",
+  "codingWorkers": 1,
+  "automaticRetry": false
+}

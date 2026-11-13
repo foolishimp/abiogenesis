@@ -1,0 +1,80 @@
+{
+  "recordedUtc": "2026-11-04T02:42:31.521723+00:00",
+  "status": "PROSPECTIVE_ONLY_NOT_ADMITTED",
+  "sourceSelectionSha256": "d816af4853287ff1115904e5432055482c32d10fc8d6d5e55c6966326cb807ac",
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "timeoutMs": 1200000,
+      "minimumPasses": 9,
+      "requireNoSkips": true
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 31,
+      "requireNoSkips": true
+    },
+    {
+      "id": "retry-entry-consumers",
+      "files": [
+        "test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 3,
+      "requireNoSkips": true
+    },
+    {
+      "id": "current-f09-retry-consumers",
+      "files": [
+        "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+        "test_env/tests/t287-r4-aba-retry.test.mjs"
+      ],
+      "timeoutMs": 900000,
+      "minimumPasses": 2,
+      "requireNoSkips": true
+    },
+    {
+      "id": "current-intent-complete-pair",
+      "files": [
+        "test_env/tests/t287-exact-construction-intent.test.mjs"
+      ],
+      "timeoutMs": 900000,
+      "minimumPasses": 1,
+      "requireNoSkips": true
+    }
+  ],
+  "conditionallyRetainPriorLanes": [
+    "affected-owner-lanes",
+    "qualification-owner-components",
+    "historical-producer-acquisition",
+    "replay-request-consumers",
+    "fresh-process-semantic-values",
+    "forward-recovery-contracts",
+    "installed-affected-lane",
+    "maintained-setup-harness"
+  ],
+  "conditions": [
+    "Actual native06 C2 and fresh close must be genuine and complete",
+    "Each reused lane must meet its own original predicates in actual native06 C2",
+    "Current package size and SHA512 integrity must match actual native06 command-5 npm output",
+    "Every declared reused test/helper/fixture/source dependency remains byte-identical",
+    "Changed tests/claims execute without skips; missing or changed dependencies invalidate only affected reuse and return for recipe selection",
+    "Final frozen source and actual C2 source/handoff correspondence remain mandatory"
+  ],
+  "executionCredit": false,
+  "estimatedSelectedProofMinutes": [
+    10,
+    25
+  ],
+  "proofCommandTimeoutMs": 2700000,
+  "timeoutIsNotETA": true
+}

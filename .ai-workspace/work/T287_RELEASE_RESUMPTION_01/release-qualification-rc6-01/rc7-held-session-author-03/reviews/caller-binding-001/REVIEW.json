@@ -1,0 +1,135 @@
+{
+  "kind": "bounded_observed_counterexample_review",
+  "reviewId": "H03-CALLER-BINDING-001",
+  "status": "CLOSED_CONFIRMED_REALIZATION_DEFECT",
+  "createdUtc": "2026-11-06T18:00:10.992647+00:00",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "dispositionOwner": "/root",
+  "productFrame": "Unchanged fixed fifteen-family ABIogenesis 5.0, GOAL035/T287, selected installed/read STDO3.0.4 and empty composition; accepted ABI5 frame. Existing Program/ABG authority and both Product owner guards are unchanged.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/SUBJECT.json",
+    "bytes": 267155,
+    "sha256": "1c0531c2ce628677ccfb7ac4f78ce812ad031d91689f0c23b69fda67102e3447"
+  },
+  "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+  "relevantFrozenInputs": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39862,
+      "sha256": "a36bb612733a3fd39802413868f1f6c55ac757207788cfdd94b4f6247e0b7dcc"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 370774,
+      "sha256": "2825568c61d32e7bb6291119fafd140917b205f101a2a9bf3b708e030e5c59cd"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/environment_operation_contracts.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/environment_operation_contracts.ts",
+      "bytes": 17209,
+      "sha256": "4a0a59689b068e50c531b2996cfb26beefa446da1d837e815f377349b3e788d2"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "bytes": 29617,
+      "sha256": "dc9ae87b51250058e9850a42d78e366c1f0dde0857eb091e9beb99ecdb901764"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "bytes": 46702,
+      "sha256": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb"
+    }
+  ],
+  "observedEvidence": {
+    "operatorSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/proof/fixed-route.summary.json",
+      "bytes": 3345,
+      "sha256": "fa0bc3eb5a295b85ecc408163d41351134c2746b3c18b9b24324f114ea45f543"
+    },
+    "originalTap": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-lanes-fixed-route/fixed-route.stdout.tap",
+      "bytes": 3854,
+      "sha256": "02cc47b4fd8826e893368a5a3de7b150fa211c85cc1013c2e6382119f40ce94d"
+    },
+    "operatorWallMs": 48766.990875,
+    "tests": 7,
+    "pass": 6,
+    "fail": 1,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "failedCase": "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+    "error": "TypeError: Cannot read properties of undefined (reading 'productRoot')",
+    "location": "test_env/uat/public-setup.mjs:333:118",
+    "standing": "Actual completed build followed by this first failed selected lane; later lanes remain unproved. Six controlled component passes do not close the installed route."
+  },
+  "findings": [
+    {
+      "id": "H03-CALLER-BINDING-001",
+      "severity": "S1",
+      "classification": "Caller realization and test representation mismatch; no Product-law reframe",
+      "trigger": "Any successful populateSandbox setup reaching the new unconditional programBinding construction after conformance, for library or ordinary consumer selection.",
+      "probability": "Deterministic for the declared successful bind output; observed on the actual installed fixed route.",
+      "harm": "Maintained setup throws before Testing/UAT invocation and before setup identity is recorded. The ordinary consumer-default setup shares the same new unconditional access.",
+      "control": "Existing Product admission and both owner/root guards remain unchanged. Completed setup owner effects precede the failure; existing finally cleanup closes the held prefix or abandons the resource. This failure does not demonstrate an authority bypass.",
+      "repairCost": "Small, two existing caller/test files; no Product helper/export, new schema/controller or guard change.",
+      "causalJoin": [
+        "product/environment_operation_contracts.ts:449-454 declares result.binding as refDigestSchema, not a WorkspaceBinding body.",
+        "product/environment_definition_bindings.ts:169-172 defines workspaceBindingCoordinate as {ref:binding.bindingId,digest:binding.bindingDigest}; line779 uses it for the actual owner output.",
+        "public-setup.mjs:296 retains that coordinate in state.binding. Existing refresh at128-133 projects authenticated artifact truth plus that coordinate into state.environment.workspaceBinding.",
+        "abg/environment_admission.ts:503-506 consumes the coordinate; lines635-641 return the owned WorkspaceBinding body.",
+        "public-setup.mjs:333 incorrectly treats state.binding as that body. The first roots dereference throws."
+      ],
+      "completeAffectedNewAccesses": [
+        {
+          "path": "test_env/uat/public-setup.mjs",
+          "lines": [
+            333
+          ],
+          "misuse": "state.binding.roots.productRoot in programBinding construction"
+        },
+        {
+          "path": "test_env/tests/t287-default-library.test.mjs",
+          "lines": [
+            2537,
+            2542,
+            2543
+          ],
+          "misuse": "W is assigned caller.state.binding, then W.roots is dereferenced"
+        },
+        {
+          "path": "test_env/tests/t287-default-library.test.mjs",
+          "lines": [
+            2552
+          ],
+          "misuse": "identity.workspaceBinding.roots is read although setup-identity preserves the coordinate at public-setup:336"
+        }
+      ],
+      "minimumLawfulCorrection": [
+        "Use the already projected state.environment.workspaceBinding body for the new root reads in setup and the test. No additional refresh or reopen is necessary.",
+        "Keep state.binding, boundSlots.workspace_binding and setup-identity.workspaceBinding as their existing admitted coordinate.",
+        "Compare the recorded coordinate with the existing admitted coordinate; where asserting the body join, compare ref/digest with body.bindingId/bindingDigest under the existing Product coordinate law. Do not serialize duplicate roots/full body or introduce another coordinate helper.",
+        "Preserve Program selection, view/conformance/identity joins, consumer assessment ownership/lock, retained-source currentness, both Product owner guards and existing negative/readback oracles."
+      ],
+      "boundedExitEvidence": "After Root-selected native correction, the actual maintained fixed-admission case must get through setup and evaluate its existing downstream assertions. Preserve this exact failed lane and independently conjoin corrected source/build/proof; no additional test or execution is authorized by this review."
+    }
+  ],
+  "priorReviewAccountability": "The earlier clean bounded source review missed the required join from the new root reads to the actual workspace.bind output contract. I treated the local binding value as the full body without verifying that declaration. The controlled public-caller test injects programBinding and bypasses populateSandbox; its success cannot detect this setup defect. This is a limitation and error in the prior review, not evidence that the installed contract changed.",
+  "historyPreserved": {
+    "originalSourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/reviews/stage-001/REVIEW.json",
+      "bytes": 12073,
+      "sha256": "3a5e846016b06799ecf9c9ea91184b7dfd0721456dc1b8bac6dd81ea92317a73"
+    },
+    "meaning": "Original clean review is preserved unchanged. This additional observed counterexample narrows its conclusion; Root must not use the earlier conclusion as route closure."
+  },
+  "limits": [
+    "Read-only causal triage plus separately granted review artifact writes only; no Product/source edits, tests, builds, runtime or provider calls.",
+    "No full route acceptance, performance conclusion, release qualification or formal F11 J claim.",
+    "Later independent blockers remain possible because the installed test stopped at setup; this review identifies the complete new coordinate/body misuse cone only."
+  ]
+}

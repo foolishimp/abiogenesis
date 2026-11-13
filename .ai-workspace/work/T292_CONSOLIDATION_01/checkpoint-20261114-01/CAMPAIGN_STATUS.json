@@ -1,0 +1,14 @@
+{
+  "status": "halted",
+  "source": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+  "completedFiles": 68,
+  "pass": 530,
+  "skipped": 14,
+  "failedFile": "069-t287-f04a-probabilistic-result-candidate.test",
+  "failedTests": 2,
+  "failureAt": "2026-11-13T11:38:47.034972+00:00",
+  "triage": "not performed by checkpoint task",
+  "clock": "original campaign expired, not reset",
+  "history": "unperformed",
+  "installation": "unperformed"
+}

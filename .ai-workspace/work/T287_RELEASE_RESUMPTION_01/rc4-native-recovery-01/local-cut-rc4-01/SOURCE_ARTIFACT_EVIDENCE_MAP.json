@@ -1,0 +1,91 @@
+{
+  "status": "ROOT_ACCEPTED_BOUNDED_SUCCESSOR_SOURCE_C2_UAT_CLOSED",
+  "predecessor": {
+    "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+    "tree": "d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6",
+    "archiveSha256": "4589f5c5174cb84ba37f4efecd15f52f6437fa696d117aeff58b84bd5f8363ac"
+  },
+  "inheritedEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_ACCEPTANCE.json",
+      "bytes": 3248,
+      "sha256": "e4f8c7e33c1910a33ef53d2d0f3f4fd135e20cf3862fca234f4ae3befa58f8a4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/OPTIMIZATION_CHALLENGE_FINAL.json",
+      "bytes": 1874,
+      "sha256": "5ede83578be7bf898d03ee1f42e844bca5b867000dbab360ecfdf4ba4ee8de2d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/ROOT_PILOT_DISPOSITION.json",
+      "bytes": 2267,
+      "sha256": "563e84153b1a15abb52d9a850512364d7ee653f330daba0801f25d9840f900f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/CLOSURE_OBSERVED.json",
+      "bytes": 2474,
+      "sha256": "0eef5249c70617f2cff1d39d6d73ccdf114c7493c51de66b210b0cf6304cb3d3"
+    }
+  ],
+  "successor": {
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/4a2daf8632291a4993b91da5a968386bd45023cf05e329bb27ffcc2b5fdda532/1a5584640f404fbc8462e9018310f73c0a0cbe7e423243516af1083b15d45359/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+      "bytes": 10971457,
+      "sha256": "f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70"
+    },
+    "sourceCommit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+    "sourceTree": "6ff1f9c51c6353abfaf01ced28a2f243a7a54d4d",
+    "heldSourceBase": "72eea8f0cd384e7eaeb64ff1ba47b0a3ac2858d4",
+    "sourceSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/SUBJECT.json",
+      "bytes": 8561,
+      "sha256": "d51de76cfb509fa2135eb6b30caadae3557831af073ce6d439f442a4ac5d9a2a"
+    },
+    "adoptionProposal": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/ADOPTION_INVENTORY.DRAFT.json",
+      "bytes": 4444,
+      "sha256": "d2a277dc44ff3ba9032f8a680f16fca439b3cdfdf24e57d7048920d3cf48da34"
+    },
+    "sourceAdoption": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/SOURCE_ADOPTION_CHECKPOINT.json",
+      "bytes": 2699,
+      "sha256": "f565f56ecead19e3428aaabe3da3de9dcd96f7327cd3812f9fd4ca19530c4286"
+    }
+  },
+  "payloadDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/4a2daf8632291a4993b91da5a968386bd45023cf05e329bb27ffcc2b5fdda532/1a5584640f404fbc8462e9018310f73c0a0cbe7e423243516af1083b15d45359/sandbox/build_tenants/abiogenesis/typescript/artifacts/rc4-payload-delta.json",
+    "bytes": 1997305,
+    "sha256": "cb2d10a34c5aaf1d7f4fad10c895c3d4ddbb6fc0f729509c916dab79f54b9b6b"
+  },
+  "currentC2Smoke": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/C2_OBSERVED_SUMMARY.json",
+    "bytes": 13753,
+    "sha256": "0c3098d1e9c5cf41fd2c1845362b4861be1f6c49e2cc7055d1da1699d4beee7a"
+  },
+  "limit": "Do not substitute these predecessor pins for actual successor source/archive/install evidence.",
+  "limits": [
+    "018/005 remain predecessor proofs, inherited only via exact conserved payload relation and current RC4 C2/smoke; old Runs are not relabelled RC4.",
+    "Current setup consumer code is tracked repository tooling outside shipped Product payload, included in exact source commit and proof.",
+    "Actual local install, whole qualification, publication and global selector changes are not inferred."
+  ],
+  "currentAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 5554,
+    "sha256": "258052689a61016e66d872eaad081bd5f340efd568dadf3a570f81e793ecb6c3"
+  },
+  "currentClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/CLOSURE_OBSERVED.json",
+    "bytes": 6641,
+    "sha256": "f11df6102bf21b9562e590b1bf15aed1642380b939835e510aa20f6ae32fa107"
+  },
+  "setupProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/c2-provisional/maintained-setup-proof.json",
+    "bytes": 10985,
+    "sha256": "67858a11a077885df857ae509af6c46d183c7f1ac71a962d5e3bae99dd7acb56"
+  },
+  "setupComparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/SETUP_TIMING_COMPARISON.json",
+    "bytes": 8660,
+    "sha256": "9c29f27927df88ce794b55017a9f7eeb9261fc3f2f42a4f60b0ecff133738464"
+  }
+}

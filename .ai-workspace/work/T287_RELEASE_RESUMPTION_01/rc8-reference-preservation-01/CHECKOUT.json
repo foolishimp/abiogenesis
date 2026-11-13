@@ -1,0 +1,24 @@
+{
+  "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b",
+  "branch": "codex/rc8-reference-preservation",
+  "root": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+  "materializedTrackedFiles": 1336,
+  "materializedBytes": 38022776,
+  "sparseSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc8-reference-preservation/info/sparse-checkout",
+    "bytes": 36309,
+    "sha256": "cc5bf156a20e9042817f7c751ecd0d58f9dfea3a752622f833bd30a1142a9e26"
+  },
+  "selectionOrigin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc7-local-cut/info/sparse-checkout",
+    "bytes": 36309,
+    "sha256": "cc5bf156a20e9042817f7c751ecd0d58f9dfea3a752622f833bd30a1142a9e26"
+  },
+  "trackedStatus": "",
+  "wallMs": 1469.5706251077354,
+  "freeBytesBefore": 12073672704,
+  "freeBytesAfter": 12002258944,
+  "noProductEdits": true,
+  "noNativeDispatch": true
+}

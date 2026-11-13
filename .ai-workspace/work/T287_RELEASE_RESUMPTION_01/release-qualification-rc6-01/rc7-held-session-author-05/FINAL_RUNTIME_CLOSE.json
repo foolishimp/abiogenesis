@@ -1,0 +1,138 @@
+{
+  "kind": "native_author_final_runtime_close",
+  "status": "ACTUAL_SDK_CLOSE_AND_SOURCE_CUSTODY_CLOSED_PARTIAL_PROOF",
+  "createdUtc": "2026-11-06T19:10:18.033522+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 6930,
+    "sha256": "97fc2a5b508955a064b6e98a383ccf0634f28a224d23b1507417b9bb02eb2446"
+  },
+  "actualExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/execution.json",
+    "bytes": 52390900,
+    "sha256": "bbfaae49e2c6839d80c9083c2201a63e85cf1d8fe91d5a8a1ebf1f45000e578b"
+  },
+  "actualReceiptPointer": "/receipt",
+  "actualResourceClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/resource-close.json",
+    "bytes": 2308,
+    "sha256": "adc2d1e83846791d69cb7cde57d3518d01087b11744cca9f62835e6502eb1ae4"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "62d6acfaa2d31add120ecafb37cac00c473c1a5a62b46852d18373268356d1f5"
+  },
+  "outcomeSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/outcome-summary.json",
+    "bytes": 823,
+    "sha256": "d588f68f840fcfc7102b66a8203d298b4144db1de66e9b8e9d14789899310bd4"
+  },
+  "readbacksPending": false,
+  "actualSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_AFTER.json",
+    "bytes": 563015,
+    "sha256": "2a385829927eac2ba13be072d7deab71949ab9db56bc6fb2797bd786398aa519"
+  },
+  "actualSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 8447,
+    "sha256": "d7e7d2ea776e756bd466ec2afc7f38c8cc1581eb2f1e6c79a60a9b3381722714"
+  },
+  "actualSourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/post-return-controls/actual-001/CUSTODY.json",
+    "bytes": 18279,
+    "sha256": "b30e6705265f7a565933691a5e27d45a5875dc8033be4c99df2dfd3d0985b6dd"
+  },
+  "proofInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/post-return-controls/actual-001/PROOF_INVENTORY.json",
+    "bytes": 14969,
+    "sha256": "c43d922fa28baf554cf6db62c98ed95a568fc650c458a54d5389e86804d085de"
+  },
+  "heldSessionMeasurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+    "bytes": 4046,
+    "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 2356670820,
+      "prefixDigest": "sha256:b8c646d73641ac0fb48d28869d0f7f3622e25323a50ebfaa2b3f3079f25061c0",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 701759869,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+      },
+      "coordinateDigest": "sha256:68fbdfbd9417005c4277917d4d3e8881c7d2049e5fd53aab48a005fe1e1ddccf"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "device": 16777231,
+      "inode": 701759869,
+      "eventLogDigest": "sha256:b8c646d73641ac0fb48d28869d0f7f3622e25323a50ebfaa2b3f3079f25061c0",
+      "durableByteLength": 2356670820,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "authorityDigest": "sha256:7c0351f9fc76623b43da4efef70c106d0a8c31c2f6784cc76c4f61abed32a916"
+    }
+  },
+  "physicalPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 2356670820,
+    "prefixDigest": "sha256:b8c646d73641ac0fb48d28869d0f7f3622e25323a50ebfaa2b3f3079f25061c0",
+    "coordinateDigest": "sha256:68fbdfbd9417005c4277917d4d3e8881c7d2049e5fd53aab48a005fe1e1ddccf",
+    "device": 16777231,
+    "inode": 701759869,
+    "observedFileSize": 2356670820,
+    "exactLengthHashAndIdentityVerified": true,
+    "method": "One binary hash/stat pass; no event decode, runtime acquisition, cold readback or replay."
+  },
+  "sdk": {
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "disposition": "completed",
+    "run": {
+      "ref": "run://abiogenesis/4cf4fe4a54db9d7d9839a02fbda17a58377fe6aba430eb82a5cd6986c6198f0e",
+      "digest": "sha256:f5377c75c0e17e242fe153d2d556d044dfa814a4ea0e6204e0c4a68fca729a3a"
+    }
+  },
+  "host": {
+    "owner": "Root actual exec session64819 return observed19:06:02UTC",
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 783840.471083
+  },
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/SESSION_COSTS.json",
+    "bytes": 3739,
+    "sha256": "5260ba49c9bae5f3f893086045982fa71afe2bf0c5fb98e5e2fd45ebb6f2ee76"
+  },
+  "sourceStanding": "451 native.after/stage/held/live rows,18 controls,3 handoffs and92 dispatch pins equal; partial selected proof.",
+  "readbacks": {
+    "selected": false,
+    "executed": false,
+    "standing": "No new whole-campaign cold drains. Actual selected held-session fixture cold proof is retained in its lane measurement."
+  },
+  "qualified": false,
+  "accepted": false,
+  "published": false,
+  "futureStdoutWindowActivation": false,
+  "releaseCut": false,
+  "limits": [
+    "No private provider narrative/reasoning/raw actor stderr/auth or tool-result content retained.",
+    "Actual SDK outcome, completion successor, original resume and actual close retained by reference; no fabricated CLI metadata.",
+    "No separate physical Result-row decode or new whole-campaign cold result/replay drain.",
+    "Fixed-route7/7 and held-session1/1 passed. Assessment guard1/1 failed; native-workspace-owner and caller unallocated. All failures remain actual records.",
+    "Compile/generation/lifecycle historical reused evidence has executed:false. Product payload equality is the stage owner before/after-copy relation; final selected-source custody is451 rows.",
+    "Held diagnostics are from the actual selected small installed F_D fixture. Child CLI counters excluded per authored note; parent RSS is not aggregate peak. No H01-vs-H05 speedup or large-log S4 result claimed.",
+    "H04 stale readiness/read-scope disclosure remains in predecessor records. Current handoff clock literals are preserved; event/owner/observation clocks govern timing.",
+    "Independent source review, Root disposition and acceptance remain separate from custody. No release/qualification or full no-outside-effects claim."
+  ]
+}

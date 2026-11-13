@@ -1,0 +1,127 @@
+{
+  "kind": "minimal_fixed_proof_sdk_control_successor",
+  "status": "PREPARED_NOT_DISPATCHED",
+  "at": "2026-11-06T07:26:52.188019+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "scope": "Root-selected operator control correction only; no Product repair or architectural expansion",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-001/MANIFEST.json",
+    "bytes": 16022,
+    "sha256": "fabc68e66e2f390bad08b4575e5bf7915e2d294b9d42700171c0927a08e90600"
+  },
+  "supersedes": {
+    "host": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-001/prepare-and-dispatch.template.mjs",
+      "bytes": 19242,
+      "sha256": "0254ee73c2f309de9ec3fc68ab28d0b32632ae3f4ed2e99f3183c1da33b0cdcc"
+    },
+    "descriptions": [
+      "prepared-call.json as full-call evidence",
+      "callCanonicalDigest and callFileSha256 metadata",
+      "one evidence serialization of the acquired call"
+    ]
+  },
+  "effectiveReplacement": {
+    "materializedPath": "prepare-and-dispatch.mjs",
+    "template": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-002/prepare-and-dispatch.template.mjs",
+      "bytes": 19166,
+      "sha256": "5d7b7daafa1e48aa941e9cdac690b8f1e67b46ba0280e72e8d997caf08f62ec4"
+    }
+  },
+  "unchangedInheritance": "Every other effective member from operational-preparation-001 and its prior closed reconciliation; no restaging or admission occurs here.",
+  "evidenceContract": {
+    "preparedMetadata": "execution/PREPARED_CALL.json",
+    "preparedMetadataFields": [
+      "programRef",
+      "startRef",
+      "sourceCommit",
+      "heldSourceSnapshotSha256",
+      "worksite",
+      "installedRoot",
+      "contextDigest",
+      "observedEntries",
+      "selectedFiles",
+      "ambientEnvironment",
+      "eventPrefix",
+      "inputCanonicalDigest",
+      "definitionKey",
+      "invocationRef",
+      "invocationDigest",
+      "capacity",
+      "phase scalars in STARTED"
+    ],
+    "noFullCallArtifact": true,
+    "actualSdkOutcome": "execution/execution.json",
+    "receiptPointer": "/receipt",
+    "actualCloseReceipt": "execution/resource-close.json",
+    "closeHandoffPointer": "/closeHandoff",
+    "actualSuccessorResume": "execution/after-run-resume.json",
+    "meaning": "Actual owner outcome/receipt/close are retained data; no fabricated transport fields or substitute digest/canonicalizer."
+  },
+  "copyAndAcquisitionInspection": {
+    "retainedInputResume": "One pinned parse; previous second full file read removed.",
+    "authorBinding": "Existing pinned parse, no separate raw-byte variable. Its required three-field overlay is unchanged.",
+    "successorResume": "One mandatory actual full resume output with live state cleared; no extra resume checkpoint.",
+    "callerAndCall": "Retained by reference, not serialized/copied/canonicalized.",
+    "prefix": "One outer acquire, one initial environment refresh, one SDK call and one outer close site; failure selection uses the held owner. No post-return refresh, raw-log read or cold replay in this host."
+  },
+  "futureBindings": {
+    "NSubject": null,
+    "NSourceBefore": null,
+    "NDisposition": null,
+    "maintainedCheckerSource": null,
+    "operatorRunner": null,
+    "operatorPublicSetup": null,
+    "actualClose": null,
+    "actualResume": null,
+    "retainedAuthorBinding": null,
+    "rootControlAdmission": null,
+    "dispatchManifest": null
+  },
+  "unchangedBounds": {
+    "productWritePaths": 5,
+    "maxStages": 3,
+    "maxLaneInvocations": 4,
+    "laneTimeoutMs": 300000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetry": false
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-002/prepare-and-dispatch.template.mjs",
+      "bytes": 19166,
+      "sha256": "5d7b7daafa1e48aa941e9cdac690b8f1e67b46ba0280e72e8d997caf08f62ec4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-002/CONTROL_DELTA.diff",
+      "bytes": 9825,
+      "sha256": "32a53147a575c2ff2b5818a4860d7f6a458c439738f46e032cb65caa7a7320c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-002/STATIC_CHECKS.json",
+      "bytes": 1267,
+      "sha256": "6b989f734fb3d0250f2407d5afd902d8223498f3d4c681090994c99fcdbb9bc9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-002/HANDOFF.md",
+      "bytes": 1615,
+      "sha256": "9914987ac2bda9cd82e7aac95a780b6f8c1b0b64de4c9123eb6107dd97825ede"
+    }
+  ],
+  "residuals": [
+    "Future actual N source/checker/close/resume/Root admission pins remain null.",
+    "No runtime behavior, cold proof, timing savings or acceptance is inferred from syntax/source inspection."
+  ],
+  "returnRoute": "Root controls intake; no additional design/review loop selected.",
+  "rootTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/ROOT_OPERATIONAL_CONTROL_TRIAGE.json",
+    "bytes": 2462,
+    "sha256": "8863312b7bab53a5624a7e8c91acd36dc8c22e1f511233f8f150241762f84e30"
+  }
+}

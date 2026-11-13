@@ -1,0 +1,18 @@
+{
+  "status": "ROOT_ADMITTED_SETUP_PREFLIGHT_ONLY",
+  "operator": "Root",
+  "decidedUtc": "2026-11-02T08:07:40.473976+00:00",
+  "bindingSha256": "e8091acd4e1d2fc85e7be6bd065bd8084aaffc4f085b95f6719a6f35922d5ae6",
+  "packetSha256": "497db620399cf2ded8c53bf50bad8fedf2021c9227fbcc1fe19f30b4712de5e8",
+  "allowedStages": [
+    "setup"
+  ],
+  "callSha256": null,
+  "basis": [
+    "Existing T287 and campaign ROOT_SELECTION",
+    "Root-selected predeclared A-bound2/B-bound8 ordinary proof route",
+    "Root review of002 exact diff and owner-return types;43 packet pins/5321 candidate members verified",
+    "Bounded operator correction to001 owner-field mismatch;001 packet, selection, fault and setup preserved"
+  ],
+  "decision": "Root admits successor002 setup/preflight and A call construction only on the exact reviewed packet. No provider, Run admission or other stage is selected. Other stages require separate Root selection. This corrects operator owner-field wiring, not Product behavior; no automatic retry or acceptance follows."
+}

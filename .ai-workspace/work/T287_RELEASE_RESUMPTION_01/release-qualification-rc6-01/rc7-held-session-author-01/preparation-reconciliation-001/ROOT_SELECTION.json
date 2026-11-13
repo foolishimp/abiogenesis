@@ -1,0 +1,124 @@
+{
+  "kind": "root_selected_native_increment",
+  "status": "ROOT_SELECTED_HELD_SESSION_AUTHOR_INCREMENT",
+  "authority": {
+    "user": "ok build the RC7 according to this design applying any corrections",
+    "Root": "Root explicitly adopts F2 partial source and selects F2-PROGRAM-001 correction inside HS01; this operator materializes controls, Root alone admits/dispatches.",
+    "activation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    }
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "version": "ABIogenesis5.0",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "runtimeOwner": "ABG alone",
+    "programLanguage": "GTL alone",
+    "shells": "SDK/CLI thin transport",
+    "builder": "immutable installed RC6",
+    "candidate": "prospective RC7",
+    "scope": "HS01 held-resource realization_refactor; no Product outcome change; observable assertion/completion contracts require canonical regeneration."
+  },
+  "preservedPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/PREPARATION_MANIFEST.json",
+    "bytes": 22367,
+    "sha256": "ca36600982b0fa27687a13d290f6e9bd7855479f4f655fdc3943f2e5dcc4e9ea"
+  },
+  "dependencyCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/DEPENDENCY_CORRECTION.json",
+    "bytes": 1768,
+    "sha256": "d528113bbe3dcd4a33d079e75b95877569aecfc0c9a94e5b2a45ea9ead0868e4"
+  },
+  "adoptedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/SOURCE_AFTER.json",
+    "bytes": 504858,
+    "sha256": "0fee4bdb8486eb84390b1c6d19e4a197c6244b2b366b4c3704359e17e18f9bae"
+  },
+  "actualSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 18826,
+    "sha256": "fa6db03cfdc19517ba0107a49bcb2e2b83ef82f003b05e9eb82b2da9a8f5e400"
+  },
+  "rootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 6407,
+    "sha256": "b6b88cd3eebad2254f73bbbcdf57ab225d50edf167f6393446596ab89f4936fd"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10295,
+    "sha256": "9e7f5faa39dd1eaf59ca58dd10610116464107bc243fb8538bf8d360c5f3f07d"
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/reviews/admission-stage-001/REVIEW.json",
+    "bytes": 25008,
+    "sha256": "a59ff6f6872a835f7a093ec2d57f3d8ef8717317e59eed628f34e15a642f4ad8"
+  },
+  "triage": {
+    "id": "F2-PROGRAM-001",
+    "finding": "Canonical wrapper handle is correct. Reciprocal Program/Catalog membership and declaration closure refuse the consumer-Program route. Existing library Program additionally omits its declared local executive-step Catalog contribution.",
+    "lawfulCorrection": "Complete that existing library contribution closure; both fixed Testing and UAT select the same actual existing library Program/digest, exact run environment, permission/workspace binding/catalog, retaining original assessment/C2/source/root/capability guards. Existing resolver law remains unchanged.",
+    "programRef": "program://abiogenesis/default-library/default@5",
+    "digestStanding": "Resolve the actual current Program/digest and selected environment from existing owners after canonical generation, not a fabricated or frozen future digest.",
+    "maintainedCallerProof": "The existing RC7 fixed admission case must execute through maintained caller with real Testing state Result and native C2/assessment owners; negative crossed/stale/other-wrapper oracles must reach intended guards. Six existing controlled direct regressions cannot replace that case.",
+    "limits": "F/F2 all reds remain; partial predicate/admission-arm source safe within closed review but ordinary direct boundary unproved. No new Program/controller or fake fulfillment flag."
+  },
+  "orderedScope": [
+    "HOW first: common held contract plus default-library exact Program/environment/caller relation",
+    "borrowed read contract/owner migration",
+    "held canonical caller including fixed Program/declaration dependency",
+    "intermediate installed exact counters/proof",
+    "justified S2/S7 retirement then final same-source proof"
+  ],
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-public-definition-call.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs"
+  ],
+  "commandBounds": {
+    "stages": 4,
+    "laneInvocations": 8,
+    "perLaneTimeoutMs": 300000,
+    "turns": 320,
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 1800000,
+    "hostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0
+  },
+  "baselineAdaptation": "One held-session-before lane selects new HS02 and existing fixed-admission red in the two existing files with a positive prefix filter. Final fixed-route selects actual admission plus six direct regressions. No extra stage/lane or timeout change.",
+  "authorBuilder": "Original frozen F operator modules and immutable installed RC6 remain the author host. Newly authored candidate public-setup is used only through candidate build/install proof, never silently swapped into RC6 author controls.",
+  "rootFinalAdmission": null
+}

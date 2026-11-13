@@ -1,0 +1,47 @@
+{
+  "id": "RC9-PROOF-PREP-01",
+  "status": "ADMITTED_PREPARATION_ONLY",
+  "at": "2026-11-08T06:18:36.111908+00:00",
+  "actor": "/root/rc9_proof_triage",
+  "roleTransition": {
+    "from": "read-only Proof/Integration triage",
+    "to": "external Proof-Control Writer",
+    "independentSourceAssessment": false
+  },
+  "admittingAuthority": "/root Executive under direct owner instruction use RC8, pin to RC8 and use it to build RC9",
+  "admissionEvidence": "Root NEW_TASK: Root selects explicit role transition from read-only Proof triage to external Proof-Control Writer, admission RC9-PROOF-PREP-01. Own territory only new R/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01. No candidate/source/test/Git/installed mutation, runtime allocation, benchmark/test/provider execution yet.",
+  "basis": {
+    "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "verification": "Prior compact read_basis check installed=true valid=true; same basis retained"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "workAuthority": "GOAL-035/T-287; RC8 to RC9 selected owner reuse",
+  "changeClass": "realization_refactor",
+  "targetTruth": "Prepared bounded proof controls with exact available input pins and future candidate/dispatch held",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01",
+  "readOnlySubject": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "baseTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "futureFreeze": null
+  },
+  "effectsPermitted": [
+    "write new external proof control files",
+    "read material current controls/source/helpers",
+    "read-only syntax and manifest verification of own control files"
+  ],
+  "effectsExcluded": [
+    "source/test/design changes",
+    "Git changes",
+    "runtime/scratch allocation",
+    "build/test/benchmark/provider execution",
+    "installed/release changes"
+  ],
+  "closureLaw": "Return actual control paths/digests, known and unresolved bindings, bounded command population and residual reassessment; stop before execution",
+  "hostBoundary": "Shared unrestricted filesystem; same actor retains prior triage context; no technical exclusion or fresh-review independence claim",
+  "consumer": "/root"
+}

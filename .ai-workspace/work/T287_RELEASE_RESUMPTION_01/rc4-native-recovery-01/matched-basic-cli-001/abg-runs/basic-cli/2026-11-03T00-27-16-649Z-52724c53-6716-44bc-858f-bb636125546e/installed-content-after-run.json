@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/49541638dc2824ef86b58f47289b8d89040cd8f7b237da4656aa016f77c79066/b3b8caad7bbe977842227e621ac44f5ba212fc73bbcfcc1ca7e3da71d0132469",
+      "admissionEventRef": "event://abiogenesis/ceb20437211e726ae1071ed58adaebc88bfbe02ed6ef3369b3e7f2ec68fd982f",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:4589f5c5174cb84ba37f4efecd15f52f6437fa696d117aeff58b84bd5f8363ac",
+      "productContentDigest": "sha256:49541638dc2824ef86b58f47289b8d89040cd8f7b237da4656aa016f77c79066",
+      "manifestDigest": "sha256:8bc7781b743cdef9078445ad000e95b2043a92ad208b5718b5e92a28a53821de",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/5dcadab2213e2775cb31666522a91071a64fd749f94ec7e11b3a61e8046110c5/b3b8caad7bbe977842227e621ac44f5ba212fc73bbcfcc1ca7e3da71d0132469",
+      "admissionEventRef": "event://abiogenesis/ca692841f0bf277fcdc6e49ecd3b3541bc1e3fe89ef35daa64bed1bb18c42470",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:152e10a494b07375a4d59d923e9f699807bba639f785b4f030bc20063714be0d",
+      "productContentDigest": "sha256:5dcadab2213e2775cb31666522a91071a64fd749f94ec7e11b3a61e8046110c5",
+      "manifestDigest": "sha256:e2a19581d97f5fe2d3dd1f2de5ecf85efa79ea5cf09cd379ce075d8f8652ee32",
+      "contentMatches": true
+    }
+  ]
+}

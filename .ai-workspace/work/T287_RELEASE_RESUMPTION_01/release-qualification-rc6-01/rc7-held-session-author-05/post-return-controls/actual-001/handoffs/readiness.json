@@ -1,0 +1,37 @@
+{
+  "kind": "native_author_readiness",
+  "task": "rc7-held-session-author-05",
+  "status": "SOURCE_FROZEN_LANE_CHAIN_STOPPED_RETURN_ROOT",
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "changedFile": {
+    "before": {"bytes": 370990, "sha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650"},
+    "after": {"bytes": 372769, "sha256": "c523337e02a238ea53b4b1011f03491c2981b459d8b16f822f6f46e1f94be5a1"},
+    "syntaxCheck": "node --check passed"
+  },
+  "sourceFreeze": {
+    "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-source-freeze.json",
+    "bytes": 96811,
+    "sha256": "1007214c57046492ade2e9b8ffac7234f12f56ba3039d86d5646e6665c543ff4",
+    "sourceCount": 451,
+    "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "postRunWorksiteRowsMatchingFreeze": 451
+  },
+  "stageReport": {
+    "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-stage.json",
+    "bytes": 100720,
+    "sha256": "4a68aa0323f37123dc899cf08cdccbc9ab910a6be37ab9a2196cfe1c24eb7607"
+  },
+  "preservation": {
+    "head": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "trackedModifications": 69,
+    "emptyIndex": true,
+    "newSourcePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+    ]
+  },
+  "laneAllocations": {"used": 3, "cap": 5, "passed": ["fixed-route", "held-session"], "failed": ["assessment-guards"], "notAllocated": ["native-workspace-owner", "caller"]},
+  "accepted": false
+}

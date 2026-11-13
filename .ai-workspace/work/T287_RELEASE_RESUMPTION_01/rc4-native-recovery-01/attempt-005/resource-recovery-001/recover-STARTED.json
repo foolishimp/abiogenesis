@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-01T17:41:15.555Z",
+  "operator": "Root",
+  "pid": 73105,
+  "mode": "--recover",
+  "manifestSha256": "221e45698a149a55d1ab390980518689864a57af76e607d928efa2eb8b62d9b3",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "currentLog": {
+    "device": 16777231,
+    "inode": 673308256,
+    "bytes": 314517064,
+    "sha256": "5b2307b5b808ee20a5dc0f7f2769dafd5964d79214adadc998756d78bdf5be21"
+  },
+  "quiescence": {
+    "knownPidsAbsent": [
+      19519,
+      19701,
+      22470,
+      57276
+    ],
+    "matchingWorksiteOrInstalledCliProcesses": 0
+  },
+  "runtimeTmp": {
+    "path": "/private/tmp/abiogenesis-rc4-runtime-01",
+    "device": 16777231,
+    "inode": 677101022,
+    "uid": 501,
+    "preparationState": "empty operator-owned canonical directory",
+    "lockPath": "/private/tmp/abiogenesis-rc4-runtime-01/abiogenesis-event-store-locks-v5/16777231-673308256.lock"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

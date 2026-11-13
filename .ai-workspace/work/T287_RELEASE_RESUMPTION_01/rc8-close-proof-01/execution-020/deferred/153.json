@@ -1,0 +1,37 @@
+{
+  "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+    "testSha256": "13ea567a5e3c0bdbb36b413671c0ee72794fe8306737e0019c47edada2eb5c6c",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Root causal triage pending; zero whole/test credit; no final no-block or retry disposition. Temporary scheduling deferral only, not a technical-debt acceptance.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_015.json",
+        "bytes": 6731,
+        "sha256": "1d7e6bc6d6dd7926b0ee4f865d229ff62c1694605e7ed122b0fc7cf44394e39d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/FAILURE.json",
+        "bytes": 612,
+        "sha256": "76aa032784aff0c64fd8bf885027cbbd2d153279a40ed41f30fa674c569ff63f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/files/153-t287-registered-graph-selection.json",
+        "bytes": 1034,
+        "sha256": "929f2a391255099e480fade0eb468b458d21e04d1ecd5d6dfcfe7b4a035cbe93"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/commands/153-t287-registered-graph-selection.result.json",
+        "bytes": 1504,
+        "sha256": "418671d5a19934cb9b627e1c8e509129e9b1fd4e93334352ef26d79fa91b83cc"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-015/commands/153-t287-registered-graph-selection.stdout",
+        "bytes": 63,
+        "sha256": "6eb6b3b13c4aa7171b9e31ead93e8174edb8a68f85e069b04497acfa45116d30"
+      }
+    ]
+  }
+}

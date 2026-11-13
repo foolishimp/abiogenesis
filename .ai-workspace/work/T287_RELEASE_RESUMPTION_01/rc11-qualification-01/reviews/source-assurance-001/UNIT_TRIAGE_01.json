@@ -1,0 +1,106 @@
+{
+  "kind": "closed_unit_failure_triage",
+  "actor": "/root/rc11_source_assurance",
+  "returnedTo": "/root",
+  "utc": "2026-11-09T09:24:34.320494+00:00",
+  "role": "Reviewer; later exact report-only Writer effect",
+  "productFrame": {
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "families": "F01-F07/F09-F11/F13-F17",
+    "stdoBasis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "composition": []
+  },
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "freezeSha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621",
+  "evidence": {
+    "unitFailuresSha256": "c12e111e936a5142b096ad64e071ce1bcb85279cce536950cf584851b62591b5",
+    "unitReturnSha256": "46d3a6b984a1d08a8b7405c3c47f7a014630d3bad3ffa41ceb59ef943171be4d",
+    "stdoutSha256": "0849a76507db09f99e6de444ec0e7f20f194753a151a7b15e4c2936b6d581992",
+    "failedTestSha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8",
+    "workerTransportSha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067",
+    "lifetimeSha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+    "commandHelperSha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+  },
+  "wholeUnitSuccess": {
+    "result": "falsified",
+    "tests": 95,
+    "pass": 84,
+    "fail": 5,
+    "skip": 6,
+    "cancelled": 0,
+    "todo": 0,
+    "exitCode": 1,
+    "outerTimeout": false
+  },
+  "causalEvaluation": {
+    "result": "indeterminate",
+    "triage": "indeterminate",
+    "severity": "indeterminate",
+    "directChangedFixturePathsReached": false,
+    "testAndThreeOwnersEqualRC10AndProof": true,
+    "testConcurrency": 1,
+    "hostLoadEstablished": false,
+    "flakinessEstablished": false,
+    "runtimeRegressionEstablished": false,
+    "cleanupDefectEstablished": false
+  },
+  "supportedObservations": [
+    "Initial inactivity deadline precedes application readiness and renews only from acknowledged capture.",
+    "Case52 counts stdout data chunks, not producer writes; chunk coalescing is a supported alternative proof failure, not established cause here.",
+    "Case53 records zero stdout callbacks before its first failure; intended nonempty unacknowledged-output premise is absent.",
+    "Case55 reaches HTTP-normal only after four serial modes; absent leader-file assertion omits returned primary probe facts; HTTP-TERM not reached.",
+    "Case56 null status does not distinguish signalled exit, missing direct exit or launch failure.",
+    "After hooks remove scratch evidence and current logs omit decisive per-actor facts."
+  ],
+  "attributedOperatorEvidence": {
+    "reacquiredByThisReviewer": false,
+    "compiledMembers": 580,
+    "rc10EqualityExceptions": [
+      "version-only contracts.js",
+      "two declarations"
+    ],
+    "priorRC10Unit": {
+      "tests": 95,
+      "pass": 89,
+      "skip": 6,
+      "wallSeconds": 179.572
+    },
+    "contextDifferences": [
+      "prior npm/spec plus structured reporters versus current direct Node/TAP",
+      "prior NODE_OPTIONS heap8192 versus current empty NODE_OPTIONS"
+    ]
+  },
+  "nextDiscriminator": {
+    "rootAuthorized": true,
+    "m5": "one unchanged whole-file sample, same retained source/build/env,300second outer cap",
+    "then": [
+      "R6,900seconds",
+      "F04A,900seconds"
+    ],
+    "sequentialStopOnFailure": true,
+    "executionByReviewer": false,
+    "passingLimits": [
+      "supports that sample only",
+      "does not erase original whole-unit red",
+      "does not identify cause or establish host load",
+      "does not close chunk-count oracle weakness",
+      "not a complete repeated unit run"
+    ]
+  },
+  "lawfulReentry": "Bounded Proof execution; separately selected instrumentation/oracle repair through exact Proof/realization_refactor Worker; evidence-bound owner Design/runtime or upstream Product re-entry if material.",
+  "effects": {
+    "reportOnly": true,
+    "tests": false,
+    "imports": false,
+    "processLaunches": false,
+    "repairs": false
+  },
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/source-assurance-001/UNIT_TRIAGE_01.md",
+    "bytes": 14343,
+    "sha256": "43c28cefc8b3f0485f30bd21df8bd5a03c1af0179d4f95b146fdd9c3b87be141"
+  }
+}

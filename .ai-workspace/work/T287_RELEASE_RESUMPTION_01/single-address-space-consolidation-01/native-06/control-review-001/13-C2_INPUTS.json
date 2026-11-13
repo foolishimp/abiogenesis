@@ -1,0 +1,316 @@
+{
+  "kind": "single_address_space_operator_c2_inputs",
+  "sourcePreimage": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "timeoutMs": 1200000,
+      "minimumPasses": 7,
+      "requireNoSkips": true
+    },
+    {
+      "id": "affected-owner-lanes",
+      "files": [
+        "test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+        "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+        "test_env/tests/t287-authenticated-owner-values.test.mjs",
+        "test_env/tests/t287-authenticated-owner-family.test.mjs",
+        "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "test_env/tests/t287-declared-testing-capability.test.mjs",
+        "test_env/tests/t287-default-library.test.mjs",
+        "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "test_env/tests/t287-continuation-causation.test.mjs",
+        "test_env/tests/t287-owned-native-proof.test.mjs",
+        "test_env/tests/t287-native-owner-reuse.test.mjs",
+        "test_env/tests/t288-initial-cursor-entry.test.mjs",
+        "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+        "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/t287-cross-cut-public-read.test.mjs",
+        "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "test_env/tests/witness-run-stopped-definition-binding.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 106,
+      "requireNoSkips": false
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 30,
+      "requireNoSkips": true
+    },
+    {
+      "id": "qualification-owner-components",
+      "files": [
+        "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+        "test_env/tests/t287-native-runtime-gate.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 43,
+      "requireNoSkips": false
+    },
+    {
+      "id": "historical-producer-acquisition",
+      "files": [
+        "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 3,
+      "requireNoSkips": true
+    },
+    {
+      "id": "retry-entry-consumers",
+      "files": [
+        "test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 3,
+      "requireNoSkips": true
+    },
+    {
+      "id": "current-f09-retry-consumers",
+      "files": [
+        "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+        "test_env/tests/t287-r4-aba-retry.test.mjs"
+      ],
+      "timeoutMs": 900000,
+      "minimumPasses": 2,
+      "requireNoSkips": true
+    },
+    {
+      "id": "replay-request-consumers",
+      "files": [
+        "test_env/tests/t287-c0-correction-regressions.test.mjs",
+        "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+        "test_env/tests/t287-deferred-application-restoration.test.mjs",
+        "test_env/tests/t287-held-prefix.test.mjs",
+        "test_env/tests/t287-live-worksite-construction.test.mjs",
+        "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+        "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+        "test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "test_env/tests/t287-worksite-command-execution.test.mjs",
+        "test_env/tests/t287-worksite-construction.test.mjs"
+      ],
+      "timeoutMs": 2700000,
+      "minimumPasses": 57,
+      "requireNoSkips": false
+    },
+    {
+      "id": "fresh-process-semantic-values",
+      "files": [
+        "test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 1,
+      "requireNoSkips": true
+    },
+    {
+      "id": "forward-recovery-contracts",
+      "files": [
+        "test_env/tests/forward-command-owners.test.mjs",
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/d1-preserved-result-mechanics.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 3,
+      "requireNoSkips": false
+    },
+    {
+      "id": "installed-affected-lane",
+      "files": [
+        "test_env/tests/m5-installed-graph-edge.test.mjs"
+      ],
+      "timeoutMs": 300000,
+      "minimumPasses": 2,
+      "requireNoSkips": true
+    },
+    {
+      "id": "maintained-setup-harness",
+      "files": [
+        "test_env/uat/harness.test.mjs"
+      ],
+      "timeoutMs": 300000,
+      "minimumPasses": 32,
+      "requireNoSkips": true
+    }
+  ],
+  "sourceCorrespondencePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-family.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-initial-cursor-entry.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/result_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-environment-projection-conservation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-reconstruction-conservation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-cross-cut-public-read.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-malformed-gtl-gate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+    "consolidation-scratch/native-06/return.json",
+    "consolidation-scratch/native-06/readiness.json",
+    "consolidation-scratch/native-06/progress.json"
+  ],
+  "futureNativeFiles": [
+    "consolidation-scratch/native-06/return.json",
+    "consolidation-scratch/native-06/readiness.json",
+    "consolidation-scratch/native-06/progress.json"
+  ],
+  "externalResources": "EXTERNAL_READ_RESOURCES.json",
+  "historyExclusions": "Existing optional native-basis/reacquisition fixture lanes may retain declared skips; new core and installed lanes must have none. No old skipped lane earns current credit.",
+  "fullAcceptance": "Native UAT consumes rubric plus actual commands/proof; Root conjoins independent review and fresh closure.",
+  "testProofRequired": "artifacts/single-address-space-proof.json",
+  "sourceStanding": "Held native05 plus exact native06 after-observation; HEAD is baseline only",
+  "heldSourceSubjectSha256": "509603ed3f8f1a1c1e71a6a37b7e4769f869094924618d687c81516c97321ab4",
+  "additionalExternalResources": [
+    "NEXT_PROOF_EXTERNAL_INPUTS.json",
+    "NEXT_ADDITIONAL_PROOF_INPUTS.json"
+  ],
+  "declaredHistoricalExclusions": [
+    "Existing30 optional owner cases retain their declared inputs/skips and earn no current credit",
+    "Optional ABI5_OWNED_PROOF_DECLARATION retained-body branch remains unselected; ordinary synthetic qualification and three real producer cases execute",
+    "Old installed Thread2 is not activated; focused R4 fixture proves the changed predecessor relation",
+    "One optional historical forward case may retain its prior declared skip; no credit from that branch",
+    "Nine existing replay-request historical/live-provider branches listed below remain unselected; no native provider or old qualification is requested."
+  ],
+  "requiredCurrentUnskippedClaims": [
+    "All new N5-CODE-01/N5-PROOF-01 and liveness/growth changed-claim discriminators",
+    "Whole-path seven existing cases plus new required discriminators",
+    "T289 current producer warm identity, cold semantic/reference/refusal and rollback cases",
+    "Focused R4 predecessor component",
+    "Historical producer three cases",
+    "Current retry three cases and two actual F09 consumers",
+    "Both actual fresh child projections",
+    "Installed two cases",
+    "Maintained harness32 cases"
+  ]
+}

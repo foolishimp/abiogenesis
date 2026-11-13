@@ -1,0 +1,18 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/prior-author-lanes.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/prior-author-lanes.mjs
+@@ -53,7 +53,8 @@
+  if(priorLane===only)throw Error('Selected single lane allocation already consumed; no retry');
+  priorByLane.set(priorLane,JSON.parse(await readFile(join(tmp,name,'summary-'+priorLane+'.json'),'utf8'))[0]);
+ }
+-const passed=r=>r&&r.exitCode===0&&r.fail===0&&r.cancelled===0&&r.todo===0&&r.requiredActivePass&&r.historicalSkipsDeclared;
++const passed=r=>r&&r.exitCode===0&&r.signal===null&&r.error===null&&r.tests!==null&&r.tests>=r.minimumTests&&r.pass+r.skipped===r.tests&&r.fail===0&&(r.skipped===0||r.historicalSkipsDeclared)&&r.requiredActivePass&&r.cancelled===0&&r.todo===0;
++for(const [priorLane,prior] of priorByLane)if(priorLane!=='stdout-before'&&(!passed(prior)||prior.stageSourceDigest!==stageReport.sourceDigest))throw Error('Every prior non-before lane must pass completely on the same final source; stop and return');
+ if(only!=='stdout-before'&&!priorByLane.has('stdout-before'))throw Error('Genuine before discriminator must be retained first');
+ if(!['stdout-before','stdout-differential'].includes(only)){
+  const final=priorByLane.get('stdout-differential');
+@@ -103,4 +104,4 @@
+ console.log(JSON.stringify(lanes.map(({ id, exitCode, ms, tests, pass, fail, skipped, cancelled, todo, failing }) =>
+   ({ id, exitCode, ms, tests, pass, fail, skipped, cancelled, todo, failing })), null, 1));
+ 
+-if (lanes.length === 0 || lanes.some(r => r.exitCode !== 0 || r.signal !== null || r.error !== null || r.tests === null || r.tests < r.minimumTests || r.pass + r.skipped !== r.tests || r.fail !== 0 || (r.skipped !== 0 && !r.historicalSkipsDeclared) || !r.requiredActivePass || r.cancelled !== 0 || r.todo !== 0)) process.exitCode = 1;
++if (lanes.length === 0 || lanes.some(r => !passed(r))) process.exitCode = 1;

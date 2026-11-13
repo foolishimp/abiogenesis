@@ -1,0 +1,345 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "scope": "Independent frozen author-04 test-only delta and actual first focused failure; original Product/requirements/HOW remain unchanged.",
+    "authorityBoundary": "ABG remains sole runtime admission, liveness and event owner. This test helper composes explicitly controlled component premises; it creates no Product/runtime authority or native-store proof."
+  },
+  "kind": "independent_frozen_test_fixture_review",
+  "reviewer": "/root/rc8_source_review",
+  "createdUtc": "2026-11-07T07:17:03.172919+00:00",
+  "verdict": "falsified",
+  "claim": "The bounded three-file correction completes the two component fixtures current-profile stdout premise while preserving their original assertions and actual owner algorithms.",
+  "conclusion": "The source scope and real algorithm reuse are supported, but F04 still lacks prerequisite declaration history. Actual lane-01 fails in the first valid mode before EPIPE; native-workspace is unexecuted. Source acceptance is not established.",
+  "subject": {
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/source-freeze.json",
+      "bytes": 296419,
+      "sha256": "b82455e8336bacc858f4d1384712631d953f4e84da0a19959e8602a26280dcd8"
+    },
+    "sourceDigest": "f83837d581e02cc4a3fa4be8aa41dfe9d0722ea1be81df1b05de95ed25edaa0f",
+    "sourceRows": 1339,
+    "subjectConstruction": "Exact immutable stage-04 base plus the three retained overlay files, not the moving C8 sourceRoot named as provenance.",
+    "baseFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "baseSourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "overlayPins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+        "bytes": 53655,
+        "sha256": "e0115aac93f2a97b1b427527da229c98e0dc826274e05efca5874d14898cde5a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "bytes": 122484,
+        "sha256": "8535191fc1eb555ee34d4dfea33f56c0c32c6514d7d2586d703613c9c9c4458d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs",
+        "bytes": 3700,
+        "sha256": "eb76f26689cd5d47a96f7948f9d78b6707f0fa374eca876b433f02db23e0ce27"
+      }
+    ],
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "evidencePins": {
+    "rootScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/ROOT_SCOPE.json",
+      "bytes": 4249,
+      "sha256": "5690ef7996f0e4c58969fec1b823630405270cdccdfecbcb0b5445a176e40a71"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/TASK.json",
+      "bytes": 8246,
+      "sha256": "804b3b271ec4d5dcd54a369f9d111d2df705d34199e20b25bec12b8e05cda462"
+    },
+    "proofControl": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof.mjs",
+      "bytes": 10320,
+      "sha256": "0d903a479d2aced207b4078321582be3a3e747dd022f6d366584f911b7557685"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/READY.json",
+      "bytes": 572457,
+      "sha256": "b4f27b333f616a93c5694bc8a46ad48133a87e953d13e6788f0d5df13aa79c15"
+    },
+    "halt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/HALT.json",
+      "bytes": 426,
+      "sha256": "9a8fb0451d53d8454889839c73c7383ae917ed34c7637711bd2d51275d7a8ee6"
+    },
+    "f04Result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/lane-01/RESULT.json",
+      "bytes": 800,
+      "sha256": "986959945318329e89cbcae2fac228019afae6152e527d98c42cc86ed6fd97d4"
+    },
+    "f04Command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/lane-01/commands/test.result.json",
+      "bytes": 1450,
+      "sha256": "be36b512a53def983aab0d2573d4538d6501c261dca607e93fae621c2127c063"
+    },
+    "f04Stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/lane-01/commands/test.stdout",
+      "bytes": 6916,
+      "sha256": "370f15cd65b1b4b91080208109abd7f0af62deab3010557217060846c0bc91f5"
+    },
+    "f04Stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/lane-01/commands/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "f04Events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/lane-01/events.jsonl",
+      "bytes": 12099,
+      "sha256": "a33fee9715ce688d919200bdbf7d6fbaca06d5246564265a951afa5f235c4f86"
+    },
+    "priorCausalReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/broad-f04-001/REVIEW.json",
+      "bytes": 26969,
+      "sha256": "f01ec4cb00eb7b8fa3cb77debfcbdd2a2cdb5b715bc41624284b8a8caa5901b5"
+    },
+    "priorSourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 18167,
+      "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+    }
+  },
+  "unchangedOwnerPins": [
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 86579,
+      "sha256": "dd6b49949a460da15069802913f2afc76eeae9b943e3bbb3591955d1c2d2e2fe"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "bytes": 36035,
+      "sha256": "ae56354556070d8a7dd990b2b218b071841e38f4121fceb8fee33cc6de575517"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "bytes": 71100,
+      "sha256": "3462bbc9951dc1ed2cee87fb86aa59421810791522d1cb9c5bc757ab314606b1"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "bytes": 5021,
+      "sha256": "820d94fb106a5f952e8f1752ac785eb105a88d7ad856d6127380b52c3398b5d1"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 64754,
+      "sha256": "cfe2ce70db4935aac785bc92c24fa3634bd8e14ff38476fb612afe4cc12f512b"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 194356,
+      "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+    }
+  ],
+  "basisReuse": {
+    "source": "Prior independently verified STDO3.0.4 Product Definition/requirements/frame and broad-f04-001 exact basis are reused. Full frozen inventory correspondence independently establishes that no governing source changed.",
+    "ProductDefinitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "ProductSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "applicable": "Product A5-F04; REQ-R-ABG3-TRANSPORT-003/004/014/018/029; REQ-R-ABG3-EVENTS-012–015/022/024; owning HOW section 10.10 E-C/E-E; exact Root author-04 scope. No Product/HOW repricing or algorithm repair is selected."
+  },
+  "independence": {
+    "productOrTestAuthor": false,
+    "testOperator": false,
+    "actions": "Read immutable overlay/base, source/control hashes, source diffs and retained execution records. No Product calls, tests, Git effects, providers, source fixes, retry or subagents. Write only this new capsule.",
+    "movingC8Reviewed": false,
+    "haltHandling": "On HALT, preserved the exact red; Root explicitly requested the bounded additional declaration-producer causal analysis. No automatic implementation or execution loop occurred."
+  },
+  "satisfiedSubclaims": [
+    {
+      "claim": "Exact source scope",
+      "evidence": "All 1,339 composite rows independently match their bytes; recomputed sourceDigest matches. Exactly two existing tests changed and one granted helper was added; 1,336 other rows unchanged; no deletion."
+    },
+    {
+      "claim": "Reuse actual algorithms without copied window/probe logic",
+      "evidence": "stdout-component-fixture.mjs:13-22 loads the actual runtime_liveness source in SourceTextModule. Lines58-61 bind its event-store and owned-prefix imports. stageNativeStdoutWindow and its lexical stageRuntimeActivityProbe remain the original owner algorithms. Both test imports pass that actual stage function to ActorProcess."
+    },
+    {
+      "claim": "One controlled transaction and current recorder",
+      "evidence": "Helper:34-55 checks exact fixture-store identity, tracks one active transaction, preserves its durable predecessor/start cut, rejects nested transactions and serves staged/current snapshots. ActorProcess and the linked liveness owner use the same eventStore object. F04 now supplies the real pure-memory prefix route with current recorder rows rather than its stale initial prefix."
+    },
+    {
+      "claim": "Assertions and stream route preserved",
+      "evidence": "Diff preserves the thirteen-mode list, exact retained EPIPE identity, refusal and terminal assertions, actual structured stdout, current ROOT profile, native-workspace local effect/group/conflict/currentness and no-fabrication assertions. No test skip, legacy switch, stdout suppression or expected-error replacement was introduced."
+    },
+    {
+      "claim": "Payload separation",
+      "evidence": "Archive remains 11,027,562 bytes SHA a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9, 5,325 members. Neither test nor the helper is present. All Product, HOW, build/config/dependency source rows remain identical to the accepted baseline."
+    }
+  ],
+  "findings": [
+    {
+      "id": "TEST-FIXTURE-004-F1",
+      "technicalSeverity": "S2",
+      "title": "F04 recorder lacks the declaration prefix required by the real stdout probe owner",
+      "violatedProperty": "The selected component premise must supply the complete existing-owner preconditions for real current-profile window and probe staging; a synthetic context in one importer is not that prefix.",
+      "evidence": [
+        {
+          "file": "overlay/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+          "lines": "223-235,280-305",
+          "fact": "Each mode starts rows = []; its only seeded declaration is c_call_fibre_selected with payload {cCallRef}. It passes environment.executionBasis as a value but records no corresponding basis_admitted and no c_call_opened. contextAtActor still fabricates a minimal context for the ActorProcess import."
+        },
+        {
+          "file": "code/src/abg/actor_process.ts",
+          "lines": "1091-1129,1155-1200",
+          "fact": "The real actor producer supplies the transport binding with its livenessBinding and actor-start event, with exact actor/transport identity and fibre causation. The failure does not mean this producer omitted its binding."
+        },
+        {
+          "file": "code/src/abg/calculus/liveness.ts",
+          "lines": "60-123",
+          "fact": "deriveActorLivenessContext requires one digest-coherent exact basis record, matching CCall opening, complete leaf/F_P selected fibre, and exact actor binding/start linkage. No basis/opening plus the skeletal fibre forces null at lines80-88; its later attempt/scope and clock checks also require complete opening coordinates."
+        },
+        {
+          "file": "code/src/abg/calculus/execution_basis_record.ts",
+          "lines": "51-117",
+          "fact": "The basis projector reads one basis_admitted event with the matching basisId/payload basisRef, raw-input and body digest. Passing an executionBasis object elsewhere cannot satisfy this owner."
+        },
+        {
+          "file": "code/src/abg/runtime_liveness.ts",
+          "lines": "120-123,391-437",
+          "fact": "The real stage function appends the stdout row, then calls its lexical real context projector and refuses a null context/missing declaration before probe staging. ActorProcess contextAtActor override does not alter that lexical relation."
+        },
+        {
+          "file": "proof-evidence/lane-01/commands/test.stdout",
+          "fact": "Actual valid mode records staged stdout window event ordinal5, byteLength265, probes[], then fails exact firstError comparison with TypeError: stdout window probe lacks its admitted declaration. No further finalized mode executes."
+        }
+      ],
+      "causalChain": [
+        "The corrected helper consistently supplies one recorder and transaction premise, so the original unowned-store query error is no longer the observed failure.",
+        "The fixture current recorder nevertheless contains no exact execution-basis event or CCall opening, and its selected-fibre row omits callClass, regime and implementation joins.",
+        "The actual actor adds its binding/start; transport emits the unchanged structured result; the real window algorithm stages one recorder row.",
+        "Real liveness reconstruction reads the actual current recorder and cannot derive the declaration from the missing prerequisites.",
+        "The owner refuses before EPIPE; the real lifetime correctly retains this earlier failure; the unchanged assertion fails."
+      ],
+      "triggerProbability": "Certain on this frozen first valid-mode fixture; directly observed.",
+      "realizedHarm": "The selected correction remains incomplete, the first whole file is red, and neither its remaining twelve modes nor the second complete file provides proof. No shipped runtime regression is established.",
+      "failClosedControls": "The declaration owner refuses unsupported prefix facts, exact firstError assertion exposes the mismatch, proof control writes HALT and does not run native-workspace. Preserve all three.",
+      "blastRadius": "F04 finalizedArtifactCases prerequisite preparation. The sibling native-workspace fixture already supplies/checks basis/opening/fibre prerequisites but has not executed on this overlay; no sibling success or new failure is inferred.",
+      "confidence": "High for exact missing prerequisites and observed failure; successor correction and other modes remain unverified.",
+      "repairComplexity": "Low to moderate bounded test preparation using existing retained basis evidence and existing owner projectors. No Product/HOW/helper-algorithm redesign is justified.",
+      "regressionRisk": "Additional fake contexts/probe contracts or bypassing reconstruction would mask the claim. Seeding inconsistent basis/CCall identities could merely move the failure again.",
+      "workaroundOrContainment": "Keep the failed subject, HALT and incomplete source/broad acceptance. No ignore/skip or expected-error substitution.",
+      "priority": "Not assigned; Executive owns disposition.",
+      "residualUncertainty": "The exact smallest author patch is not written or tested. New later reds must receive their own evidence-based assessment."
+    }
+  ],
+  "smallestCompleteReentry": {
+    "scope": "Test-only prerequisite preparation in the existing granted fixture paths; no automatic activation.",
+    "steps": [
+      "Reuse the exact retained execution-basis evidence already produced by setupInstalledRootExecutionBasis -> admitExecutionBasis (root-installed-environment.mjs:1081-1106) and captured in basis.prefix (F04:119-124). Initialize the component history with the appropriate exact immutable prefix/record evidence, preserving its event identity/ordinal relation, rather than inventing a digest-equal basis object or another context authority.",
+      "Supply a coherent CCall opening and complete leaf/F_P fibre declaration for the same call, basis, run, graph-call and frame. The opening must carry the actual program locus, task/vector/edge coordinates and attempt; the selected fibre must carry callClass leaf, regime F_P and the actual implementationRef/implementationBindingRef. Reuse existing fixture/CCall construction and verify with existing owner projectors; do not invoke a full Runtime steel thread merely to prepare this controlled prefix.",
+      "Let the real ActorProcess continue producing transport-binding and actor-start records. Use the real projectActorLivenessContext over that current prefix before the physical worker launch, as the native-workspace fixture already does. Retire the divergent contextAtActor stand-in for this route; do not fake the next context or probe check. Keep the existing controlled artifact/probe refusal injection and original assertion meanings.",
+      "Keep actual stageNativeStdoutWindow/stageRuntimeActivityProbe, their range/time/digest checks and the shared controlled transaction premise. No new fake-success window/probe implementation or general mock protocol is needed."
+    ],
+    "minimalProof": [
+      "Before transport, the real exact-basis and actor-liveness projectors accept the prepared prefix for the actual selected identities; this catches the complete prerequisite failure before any worker side effect.",
+      "On the next frozen successor, run the entire F04 file once and preserve all thirteen modes plus the second reuse case; require the actual window/probe relation to complete while the original EPIPE/negative/normal/cold assertions remain.",
+      "Run the entire native-workspace file once with its actual local effect, group confirmation, channel conflict, cold currentness and no-fabrication assertions. It remains unexecuted here.",
+      "Rebind exact source/test overlay and unchanged archive correspondence. Preserve execution-006 and author-04 failures. Root owns remaining broad credit/reproof and later package/install conjunction."
+    ],
+    "notRequired": "No Product algorithm repair, universal fixture framework, broad assurance expansion, new native-store/rollback/flush qualification or repeated whole Product source audit."
+  },
+  "focusedEvidence": {
+    "lane01": {
+      "status": "FAILED",
+      "tests": 2,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "wallMs": 37694.926209000005,
+      "exitCode": 1,
+      "timedOut": false,
+      "truncated": false,
+      "buildInvocations": 0,
+      "firstMode": "valid",
+      "stagedRecorderRow": {
+        "ordinal": 5,
+        "byteLength": 265,
+        "probes": []
+      },
+      "rowStanding": "A staged component recorder row before a failing transaction; not a native durable/committed admission claim."
+    },
+    "lane02": "Absent and unexecuted under HALT",
+    "sameNativeContractReuse": "Second top-level case passes; does not repair the first case or establish its thirteen-mode matrix.",
+    "haloExcluded": "Retained HS03/held-store and prior source/measurement successes remain exact separate controls, not a substitute for this failed proof."
+  },
+  "helperLimits": [
+    "This is explicitly a component premise, not a native held-store, rollback, flush or durable-admission test.",
+    "The helper does not enforce the incoming transaction predecessor or rollback staged rows on action failure; those are outside its declared coverage and do not excuse the observed missing prerequisite. No broader transaction proof is credited.",
+    "A staged row left in the recorder after this failure must not be described as a committed window/probe success."
+  ],
+  "triage": {
+    "status": "complete_for_supported_finding",
+    "severityScale": "Existing selected S0–S4 technical scale; S2 is a material bounded proof/integration defect.",
+    "repairSelection": "Root only",
+    "sourceAcceptance": "Not established",
+    "broadAcceptance": "Not established"
+  },
+  "invalidation": [
+    "Any change to the frozen overlay/base/owner bytes, actual proof inputs or selected Product/method/frame requires re-entry.",
+    "A prefix that satisfies all actual declaration-owner prerequisites yet reproduces this failure would revise the causal finding.",
+    "A successor passing both complete files supplies new evidence for that successor only; it does not erase either historical red."
+  ],
+  "returnTo": "/root Executive; stop review work after this frozen result. No repair or execution loop selected by Reviewer.",
+  "processCause": {
+    "standing": "Bounded coordination observation, separate from the Product/runtime finding.",
+    "packetFact": "The exact author-04 TASK readRoots list omits abg/calculus/liveness.ts, abg/retry_progress.ts and abg/runtime_liveness_contracts.ts, although the selected stdout/probe causal closure reaches those existing owner relations.",
+    "workerHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/author-04/HANDOFF.md",
+      "bytes": 9193,
+      "sha256": "2a429c9acad6140a0d004f28b243d74a42565d48b642a66a6ed969eee8cae367"
+    },
+    "verifiedHandoffLines": {
+      "106": "Worker says calculus/liveness.ts was outside packet readable scope and was not read.",
+      "113-114": "Worker requests calculus/liveness and retry_progress reads before deciding missing context-bearing rows.",
+      "130": "Worker discloses a read-only grep that printed three lines of runtime_liveness_contracts outside its list."
+    },
+    "assessment": "The packet bounded away needed transitive owning information, contributing to an incomplete preparation diagnosis. This does not authorize replacing missing owner predicates with mocks or expanding Product scope.",
+    "rootReentry": "Root now selects reference-directed transitive dependency reads within the frozen code/src for the next increment, not bulk context acquisition; seed F04 from existing real basis.prefix evidence plus coherent CCall opening/full fibre and real projector preflight. Keep the helper unchanged unless actual necessity is shown.",
+    "handoffLimit": "Handoff is routing/process evidence, not authority or proof of candidate correctness. No moving C8 Product source was acquired."
+  }
+}

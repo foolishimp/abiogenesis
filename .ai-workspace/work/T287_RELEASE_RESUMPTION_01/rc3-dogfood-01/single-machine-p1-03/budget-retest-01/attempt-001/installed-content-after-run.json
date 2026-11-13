@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/34cfb9f8b401178dd170bac58c8b74f2f57689b2501b5d1d28687622f21de951/db1c822750eebc00468c5c1401e73c0bba0b4305fc711f32521126c91892dffa",
+      "admissionEventRef": "event://abiogenesis/b3912930b13069aa4c6eafbec3d73b55ae08f55a63947b17eb94c01649dab8b1",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c",
+      "productContentDigest": "sha256:34cfb9f8b401178dd170bac58c8b74f2f57689b2501b5d1d28687622f21de951",
+      "manifestDigest": "sha256:14d5b7d1379ba17f6f425bbf3766c1b4ff524cfc4b25dbeedc30e64b5d03c700",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/e92c27426b807e7f5bd75b7530111af9b3abbea5ee72a7771ebd744c9a1504ed/db1c822750eebc00468c5c1401e73c0bba0b4305fc711f32521126c91892dffa",
+      "admissionEventRef": "event://abiogenesis/a9da99ae80dcf9000a94102d221803da62f01d87f09c7284fe02edae57cb5662",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:2b12dc374a00a4169482f6907912842b8014d72900f20a114d40110ef6a473ce",
+      "productContentDigest": "sha256:e92c27426b807e7f5bd75b7530111af9b3abbea5ee72a7771ebd744c9a1504ed",
+      "manifestDigest": "sha256:2554ff7771bfc8e6aca11ddd2c5df05b32958d6832c7d2b81507064dd3273e3a",
+      "contentMatches": true
+    }
+  ]
+}

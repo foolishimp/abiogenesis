@@ -1,0 +1,215 @@
+{
+  "kind": "h06_native_author_return",
+  "task": "rc7-held-session-author-06",
+  "status": "AUTHOR_COMPLETE_ROOT_CONJUNCTION_PENDING",
+  "createdUtc": "2026-11-06T19:40:00Z",
+  "role": "Writer under ROOT_CONTROL_ADMISSION (one native Worker); returns to Root/Executive",
+  "productFrame": {
+    "method": "installed STDO3.0.4 (stdo://releases/v3.0.4/, manifest 102817a3)",
+    "product": "ABIogenesis5.0 fixed fifteen-family scope",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "composition": [],
+    "runtimeAuthority": "ABG",
+    "installedBuilder": "5.0.0-rc.6 (unchanged)",
+    "changeClass": "realization_refactor",
+    "classification": "existing HOW realization correction; no new Product outcome, authority, public contract or runtime entity"
+  },
+  "summary": "Set undeclared.schemaAsset.contractId to undeclaredRef in the existing local undeclared fixture of t287-default-library.test.mjs, line 2767 (one line; productId and the withBytes-supplied bytesBase64 retained). Invoked the stage once: 451 sources frozen (digest a07beb4b), 450 rows byte-equal to actual H05, full 5325-member Product payload byte-equal, compile/generate/lifecycle reused with executed:false. Published the freeze in progress.json before any proof. Ran the three lanes once each, serially: assessment-guards 1/1 with all 8 subcases; native-workspace-owner 43/44 with only the named historical skip; caller 33/33. H05 fixed-route 7/7, held-session 1/1 and its measurement are retained by reference only, conditionally.",
+  "changedPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "beforeSha256": "c523337e02a238ea53b4b1011f03491c2981b459d8b16f822f6f46e1f94be5a1",
+      "beforeBytes": 372769,
+      "afterSha256": "af146549b2d6388bf2b39e59f1c8821bb8980da98911af37c089c1111de4bf2b",
+      "afterBytes": 372837,
+      "lines": [2767],
+      "change": "withBytes(admitted, ...) -> withBytes({...admitted,schemaAsset:{...admitted.schemaAsset,contractId:undeclaredRef}}, ...); no other edit"
+    }
+  ],
+  "handoffPaths": [
+    "qualification-scratch/rc7-held-session-author-06/progress.json",
+    "qualification-scratch/rc7-held-session-author-06/readiness.json",
+    "qualification-scratch/rc7-held-session-author-06/return.json"
+  ],
+  "localChecks": [
+    "diff against frozen H05 snapshot c523337e: exactly one changed line (2767)",
+    "node --check on the edited test file: syntax ok (no writes)",
+    "owner relation confirmed at native_workspace_assessment.ts:51 (schema.$id === resultContract.contractRef === schemaAsset.contractId)",
+    "shared helper support/default-library.mjs:65 schemaAsset members {productId, contractId, bytesBase64}; helper unchanged (d615fa0b)"
+  ],
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01-source-freeze.json",
+    "bytes": 96811,
+    "sha256": "faba234e7d8ced9d6537bd0cc18adaf0c1666bdb036e6136c277aac117c4fd55",
+    "sourceCount": 451,
+    "sourceDigest": "a07beb4b5ffe861cc5610ede437e18a4089f9f23b3b9cb6cc0a8d688aeb99b91",
+    "publishedInProgressBeforeProof": true,
+    "changedRowsVsActualH05": 1,
+    "unchangedRowsVsActualH05": 450,
+    "worksiteMatchesFreezeAfterAllLanes": true
+  },
+  "stage": {
+    "command": "node qualification-inputs/rc7-held-session-author-06/prior-author-stage.mjs hs6-stage-01 after",
+    "invocations": 1,
+    "exitCode": 0,
+    "report": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01-stage.json",
+      "bytes": 100720,
+      "sha256": "64fa600f30442a12fd5351271165b36533e55605fe9f848bd42d3fbeaa42cb8a"
+    },
+    "productReuse": {
+      "status": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL",
+      "members": 5325,
+      "bytes": 71702388,
+      "productContentDigest": "sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+      "manifestSha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a",
+      "graphSha256": "82720d92dad9e7c30749042935e69793d93d99092d2a617a434e3e83da1f1432",
+      "digestOwner": "pinned RC6 shared/digests.js c49125e6 + canonical_json.js 7ab9a42e",
+      "payloadSelection": "REUSED_PRODUCT_PAYLOAD.json 0a4192fc (H04)",
+      "originalBuildReceipts": "H03 COMPLETED_STAGE_REPORT.json 5f8b65ec; compile/generate/lifecycle reused:true executed:false",
+      "noCompileGenerationLifecycleExecuted": true,
+      "noCopiedPayloadInventoryAuthored": true
+    }
+  },
+  "lanes": [
+    {
+      "order": 1,
+      "id": "assessment-guards",
+      "command": "node qualification-inputs/rc7-held-session-author-06/prior-author-lanes.mjs hs6-stage-01 assessment-guards",
+      "invocations": 1,
+      "timeoutMs": 300000,
+      "exitCode": 0, "signal": null, "error": null,
+      "tests": 1, "pass": 1, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0,
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": true,
+      "subcases": [
+        "crossed consumer owner refuses before assessment dispatch",
+        "crossed resolved lock refuses before assessment dispatch",
+        "crossed schema bytes refuse before assessment dispatch",
+        "missing or ambiguous exact consumer declaration refuses before assessment dispatch",
+        "stale task input and unrelated callable refuse before assessment dispatch",
+        "omitted or mismatched whole-Program F_P role refuses without weakening role/permission guards",
+        "ordinary static raw-result contract lookup stays closed",
+        "warm/cold assessment raw-preimage and complete same-boundary read agreement"
+      ],
+      "run": "run://abiogenesis/f55ce86705b56375fee56f5ee59d400f7541127da1f38a22262a86116211cc20",
+      "assessmentResultRef": "result://abiogenesis/f314c5cf9c02a3278416571274c8a0c910f9617105652c7d768d32d3d60eb1b0",
+      "proofLimit": "Installed witness-consumer fixture, one Public start with the scripted stand-in actor; not a live provider or the maintained sandbox caller.",
+      "summary": { "path": "qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01-lanes-assessment-guards/summary-assessment-guards.json", "sha256": "2c8c42e3b8a74940b41e9ebe7b3b6dfe718538ea6c5a2232bfa928cc0f330fcf" },
+      "stdoutTapSha256": "812e729ad2bcc18c8931398dd30d1a8eb9b096b535b896e6e7051f6ebb50609c",
+      "stderrBytes": 0
+    },
+    {
+      "order": 2,
+      "id": "native-workspace-owner",
+      "command": "node qualification-inputs/rc7-held-session-author-06/prior-author-lanes.mjs hs6-stage-01 native-workspace-owner",
+      "invocations": 1,
+      "timeoutMs": 300000,
+      "exitCode": 0, "signal": null, "error": null,
+      "tests": 44, "pass": 43, "fail": 0, "skipped": 1, "cancelled": 0, "todo": 0,
+      "skippedNames": ["admitted pure consumer evaluates a native task as data without physical authority"],
+      "skipReason": "ABI5_NATIVE_WORK_RETAINED_ROOT unset; the existing named historical skip only",
+      "requiredActivePass": true,
+      "activeRc7": ["RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"],
+      "summary": { "path": "qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01-lanes-native-workspace-owner/summary-native-workspace-owner.json", "sha256": "88b7e862c9f3f583e0d2c16819a695a8baa467d2605d483b3759782e21c36b00" },
+      "stdoutTapSha256": "95b7472ebb6134bfb62c20ab7eef03cd038e90d61948b0c9cc535fdf1b8aefed",
+      "stderrBytes": 0
+    },
+    {
+      "order": 3,
+      "id": "caller",
+      "command": "node qualification-inputs/rc7-held-session-author-06/prior-author-lanes.mjs hs6-stage-01 caller",
+      "invocations": 1,
+      "timeoutMs": 300000,
+      "exitCode": 0, "signal": null, "error": null,
+      "tests": 33, "pass": 33, "fail": 0, "skipped": 0, "cancelled": 0, "todo": 0,
+      "requiredActivePass": true,
+      "activeRc7": ["RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view"],
+      "summary": { "path": "qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01-lanes-caller/summary-caller.json", "sha256": "29f3a222386dffc62d7ee3317977091e98d6a3aa607cfb29aad28241b501eac2" },
+      "stdoutTapSha256": "496ff2f03360c120e9cf1fe226ded2c7b5f17868f0d3eeb62264c4654e4427e6",
+      "stderrBytes": 0
+    }
+  ],
+  "sharedPassedPredicate": "Each lane runner verified every prior allocation passed completely on stage source a07beb4b before starting; all three lanes satisfy the predicate. No retry, correction stage or additional proof.",
+  "measurements": {
+    "firstObservedUtc": "2026-11-06T19:30:28Z",
+    "nativeAuthoring": "read and edit completed before 19:31:20Z; session start before the first observed timestamp is not precisely measured",
+    "stage": { "startedUtc": "2026-11-06T19:31:20Z", "wallMs": 4139, "setupMs": 4079 },
+    "assessment-guards": { "startedUtc": "2026-11-06T19:31:52Z", "endedUtc": "2026-11-06T19:33:05Z", "wallMs": 72380, "laneMs": 72255, "setupMs": 64 },
+    "native-workspace-owner": { "startedUtc": "2026-11-06T19:33:16Z", "endedUtc": "2026-11-06T19:33:18Z", "wallMs": 1855, "laneMs": 1726, "setupMs": 67 },
+    "caller": { "startedUtc": "2026-11-06T19:33:30Z", "endedUtc": "2026-11-06T19:34:37Z", "wallMs": 67330, "laneMs": 67199, "setupMs": 67 },
+    "closureAndHandoffs": "19:34:37Z to about 19:40Z, including post-proof read-first completion",
+    "compileGenerationLifecycle": "reused executed:false; no timing",
+    "speedupClaim": null
+  },
+  "retainedConditionalH05Evidence": {
+    "fixedRoute": { "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/fixed-route/summary.json", "bytes": 2207, "sha256": "7a663214febb66f14bb77cb581d505adcd0b7a80535775650bd7d582796c7174", "standing": "H05 7/7 on source 5340ac6d" },
+    "heldSession": { "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/summary.json", "bytes": 1676, "sha256": "3651fc18f0d9982e0a170aad6a6aee7c133115f524ee0981f06107ab104d1e8f", "standing": "H05 1/1 on source 5340ac6d" },
+    "measurement": { "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json", "bytes": 4046, "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee" },
+    "rerun": false,
+    "relabeledAsH06": false,
+    "pinsVerified": true,
+    "applicability": "Conditional on independent frozen one-field review and Root. Author observation: the only changed bytes against H05 are line 2767 of t287-default-library.test.mjs inside the assessment-dependency test body; all 450 other rows are byte-equal."
+  },
+  "preservedHistory": {
+    "h05AssessmentGuardsFailure": { "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/assessment-guards/summary.json", "sha256": "9e98a0bd59adc0bf66b85632d827a3bdd03aeeedeafd37467dd8dcfac0866e0b", "standing": "H05 0/1, exit 1, 64430 ms; retained unchanged" },
+    "h05UnallocatedLanes": "native-workspace-owner and caller were unallocated on H05 source 5340ac6d; that standing is unchanged. The H06 results are on source a07beb4b.",
+    "h04ReadScopeDisclosure": { "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/PRESERVATION.json", "sha256": "e452c6458c890c343c7be06565f07f8023914b7db7e85ff36b0a49c3eb9fcdbf", "standing": "referenced, not read or modified" },
+    "priorStagesAndEvidence": "No prior stage, scratch, release, install or evidence path was written or deleted."
+  },
+  "preservation": {
+    "head": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "trackedModifications": 69,
+    "emptyIndex": true,
+    "inheritedNewProductPaths": 2,
+    "untrackedTopLevelEntries": 13,
+    "untrackedNote": "Preflight recorded 12; the 13th is tmphs6/, the host-declared provider scratch, present before this Worker's first command.",
+    "gitMutation": false,
+    "immutableReleasesTouched": false
+  },
+  "readScope": {
+    "contentRead": [
+      "all 11 qualification-inputs/rc7-held-session-author-06 control files plus C2_INPUTS.json, prior-author-stage.mjs and prior-author-lanes.mjs",
+      "closed review bee3ec52 (assessment-guard-triage-001/REVIEW.json)",
+      "frozen H05 test snapshot c523337e (by diff)",
+      "SOURCE_BEFORE.json 822c7268 (SOURCE_CUSTODY baseline; parsed in-process for the frozen diff)",
+      "t287-default-library.test.mjs lines 2671-2845 plus explicit-filename searches for the case title, assessmentSchema and witnessRef",
+      "native_workspace_assessment.ts 35-105; support/default-library.mjs (explicit-filename search; lines 5-9, 65)",
+      "AGENTS.md, stdo_abiogenesis.json, ABI5_PROJECT_REFERENCE_FRAME_BASIS.md (complete)",
+      "review-cited ranges only: execution_basis.ts 172-223, 247-260; instruction_assembly.ts 163-190; leaf_invocation_port.ts 1137-1148, 1353-1404; gtl/stdo_run_environment.ts 307-316; product/stdo_environment.ts 322-339; T287_NATIVE_WORKSPACE_WORK_DESIGN.md 425-436; t287-native-workspace-work.test.mjs 290-305, 845-889, 940-1003, 1080-1103, 1118-1222; uat/harness.test.mjs 17-18, 403-420, 447-459; uat/consumer.mjs 12-19",
+      "lane TAP/summary outputs under this task's tmp"
+    ],
+    "hashOnly": "all 25 EXTERNAL_READ_INPUTS pins (25/25 match); 12 reviewOwnerPaths compared against frozen pins (11 equal, the writable test differs as intended)",
+    "noGlobOrBroadGrep": true,
+    "disclosures": [
+      "One read-only `git ls-files --others --exclude-standard` listed every untracked file name in the worktree, including other tasks' qualification-inputs and qualification-scratch names. Git status metadata is permitted, but this listing was broader than needed. The host platform persisted that ~21MB name listing to its own tool-results file (/Users/jim/.claude/projects/-Users-jim-src-apps-abiogenesis-rc6-local-cut/31a03389-6a7b-4794-9921-3f44b2da8302/tool-results/bm46tpmjw.txt). No file contents outside the selected inputs were read through it.",
+      "Of the Read-first list, AGENTS.md, stdo_abiogenesis.json, the frame basis and the owner/consumer review ranges were read after the edit and proof, not before. They showed no conflict with the selected repair. The large owner/consumer files were read only at the ranges the closed review cites, not in full.",
+      "The native STDO skill files under METHOD_ACCESS were not loaded. The STDO toolchain manager was not invoked to re-verify the installed basis; ROOT_ARCHITECTURE_SELECTION already fixed the work completely."
+    ]
+  },
+  "temporaryEffects": [
+    "qualification-scratch/rc7-held-session-author-06/tmp (about 476MB: staged 451 sources, copied offline toolchain node_modules and 5325 payload members, three lane output directories), created by the selected stage and lane owners",
+    "qualification-scratch/rc7-held-session-author-06/{progress,readiness,return}.json",
+    "/private/tmp/abg-hs6 (node-compile-cache, npm-cache, abiogenesis-event-store-locks-v5), created by the lane owner as the declared test TMPDIR",
+    "Provider shell temp under tmphs6/ (TMPDIR/TMPPREFIX set by the host); platform-owned"
+  ],
+  "residuals": [
+    "Independent frozen review of the one-field diff is required; this author self-check is not independent assurance.",
+    "Applicability of the retained H05 fixed-route 7/7 and held-session 1/1 evidence to source a07beb4b is undecided; Root decides after independent review.",
+    "Root owns the final source/native.after/stage/live/close conjunction, full HS01/02 acceptance and any HS03 activation.",
+    "assessment-guards uses the scripted stand-in actor, not a live provider.",
+    "native-workspace-owner keeps one unexercised historical case (ABI5_NATIVE_WORK_RETAINED_ROOT unset) with no proof credit."
+  ],
+  "gaps": [
+    "No independent review yet of frozen source a07beb4b.",
+    "Root has not decided whether H05 fixed-route and held-session evidence applies.",
+    "Read-first surfaces were completed after the edit, and large owner files were read only at the ranges the review cites; native STDO skills were not loaded.",
+    "One broad untracked-file name listing (read-only git) exceeded the minimal read scope; disclosed."
+  ],
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "nativeOrRuntimeAcceptanceClaimed": false
+}

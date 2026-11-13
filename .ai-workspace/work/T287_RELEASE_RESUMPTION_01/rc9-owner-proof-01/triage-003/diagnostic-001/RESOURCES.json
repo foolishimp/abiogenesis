@@ -1,0 +1,51 @@
+{
+  "status": "CHILD_CLOSED",
+  "samples": [
+    {
+      "at": "2026-11-08T17:46:15.981Z",
+      "freeBytes": 338090422272,
+      "ownedBytes": 6250
+    },
+    {
+      "at": "2026-11-08T17:46:25.994Z",
+      "freeBytes": 338093051904,
+      "ownedBytes": 21824
+    },
+    {
+      "at": "2026-11-08T17:46:36.147Z",
+      "freeBytes": 338082496512,
+      "ownedBytes": 8409796
+    },
+    {
+      "at": "2026-11-08T17:46:46.140Z",
+      "freeBytes": 338089877504,
+      "ownedBytes": 18731
+    },
+    {
+      "at": "2026-11-08T17:46:56.146Z",
+      "freeBytes": 338089529344,
+      "ownedBytes": 18731
+    },
+    {
+      "at": "2026-11-08T17:47:06.145Z",
+      "freeBytes": 338088275968,
+      "ownedBytes": 18731
+    },
+    {
+      "at": "2026-11-08T17:47:16.147Z",
+      "freeBytes": 338091278336,
+      "ownedBytes": 18731
+    },
+    {
+      "at": "2026-11-08T17:47:23.346Z",
+      "freeBytes": 338089529344,
+      "ownedBytes": 22948
+    }
+  ],
+  "maxOwnedBytes": 8409796,
+  "minFreeBytes": 338082496512,
+  "monitorFailure": null,
+  "overshootPossible": true,
+  "quotaEnforced": false,
+  "detachedDescendantAbsenceProven": false
+}

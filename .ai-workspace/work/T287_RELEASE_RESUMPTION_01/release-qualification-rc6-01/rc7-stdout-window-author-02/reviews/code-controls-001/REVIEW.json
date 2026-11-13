@@ -1,0 +1,184 @@
+{
+  "ProductFrame": "Fixed ABIogenesis 5.0 fifteen families F01-F07,F09-F11,F13-F17; GOAL-035/T287. Prepared controls are derived operator tools. Existing owners perform effects; ABG alone owns runtime admission and truth; SDK/CLI remain thin. This is bounded S5 completion from an unaccepted partial source, with no new parser/store/controller/authority, qualification or release claim.",
+  "kind": "bounded_s5_completion_control_review",
+  "reviewId": "RC7-S5-CODE-CONTROLS-001",
+  "at": "2026-11-06T22:00:06.100542+00:00",
+  "actor": "/root/rc7_growth_control_review",
+  "role": "Reviewer assigned independent max; no candidate authorship or repair",
+  "returnTo": "/root",
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "statusVerification": {
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "ProductSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "severityScale": "ABI S0-S4 descending; Root owns priority and disposition"
+  },
+  "authority": {
+    "rootActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "sourceDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 8713,
+      "sha256": "edd5815442f6c27c0bbcd3946204da4e4e1b4f209fd8e30c97aae202213b350b"
+    },
+    "buildAddendum": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-final-001/BUILD_DECLARATION_ADDENDUM.json",
+      "bytes": 11745,
+      "sha256": "1c27ebfade1323a7e39c7d479c02ad94eb84b8daf4ba4f8df90fa88400b64174"
+    },
+    "artifactWriteGrant": "Root follow-up message binds create-only REVIEW.json and README.md under this directory only."
+  },
+  "subject": {
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/PREPARATION_MANIFEST.json",
+      "bytes": 18412,
+      "sha256": "47f87db8f50f0d7a0968a3028daeb9c4e3a8ede0923491bae3e688dba7fdc917"
+    },
+    "semanticDelta": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/CONTROL_SEMANTIC_DELTA.diff",
+      "bytes": 6618,
+      "sha256": "de537b7d309796b988f172ae47120d7e8142c1d2c96a35a0e5b2c2726a8b0460"
+    },
+    "nativeGrantTemplate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/NATIVE_GRANT.template.json",
+      "bytes": 52476,
+      "sha256": "3544dc6e597a8ad84848eb600939095cb317416c1a30c0677dc4a31786871cc5"
+    },
+    "scripts": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/prepare-and-dispatch.mjs",
+        "bytes": 19668,
+        "sha256": "1e8f1cfc91ccf8c8fd001a05ea4c5c204c2a5f76e5276d8c4c5ae6b39ade4f32"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/launch-owner-script.mjs",
+        "bytes": 2527,
+        "sha256": "26cf022c696712d652b9a59538185629693df3f5c7260f511e0ace3d30dd0413"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/inputs/prior-author-stage.mjs",
+        "bytes": 8324,
+        "sha256": "780e859c847900dd84426298702a482672e5bff43b346349db1787d5c2dd2d13"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/inputs/prior-author-lanes.mjs",
+        "bytes": 11393,
+        "sha256": "b1567c872ddcc08ea484fdd85414ec90b1d5abfeae772fe80187240b0248b7a1"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/claude-provider.sh",
+        "bytes": 733,
+        "sha256": "8b26167bf89041bd7654d314f047160d0a6ef04d11025c700f3eb390a1f72305"
+      }
+    ]
+  },
+  "scope": "Prepared completion packet, exact control-code delta, retained-before/source/close joins, finite namespaces/bounds and metadata consistency. Actual activation materialization, Product implementation and runtime execution are outside this exact subject.",
+  "result": "falsified",
+  "resultMeaning": "The frozen grant template has one S3 prose inconsistency. Executable-control predicates below are satisfied; no concrete code defect making the selected launch path unconstructable was found.",
+  "predicates": [
+    {
+      "claim": "Semantic code delta is limited to the declared adaptation",
+      "result": "satisfied",
+      "evidence": "Independent comparison of all five source/prepared pairs after only rc7-stdout-window-author-01 -> 02, tmpsw1 -> tmpsw2 and abg-sw1 -> sw2 substitutions. Launcher and provider wrapper are identical after that normalization; SDK host differs only in one comment. Remaining stage/lane changes equal the supplied semantic diff."
+    },
+    {
+      "claim": "Retained BEFORE is genuine, exact, and not a successor invocation",
+      "result": "satisfied",
+      "evidence": "prior-author-lanes.mjs:49-65 pins the old summary, checks singleton stdout-before identity and sourceDigest, seeds that historical row without an allocation and preserves the complete success predicate for every new lane. Summary b2b210c9 and TAP ab1cb3bf agree in byte count/hash: 2 tests, 1 pass, 1 fail, no skip/cancel/todo, expected3/actual911. Prior review9c2aec81 limits its claim to cadence; later assertions remain unproved."
+    },
+    {
+      "claim": "Failed-source/actual-close relations and finite source/control population are conserved",
+      "result": "satisfied",
+      "evidence": "All 451 SOURCE_BEFORE rows equal SOURCE_AFTER c65b3703 on relativePath, bytes, SHA-256 and sourceSnapshot; names are unique and equal the C2 protected set. Actual close0d084ff9 and original resume f77ae5b6 pins match; template actualClosePrefix equals that real close. 451 source +20 controls +3 future handoffs =474 unique readRoots; writeRoots and the17-path ceiling agree. NativeResult/native.after remain absent, and generation failure remains historical refusal rather than proof."
+    },
+    {
+      "claim": "Successor allocations, failure exits and resource bindings preserve the selected route",
+      "result": "satisfied",
+      "evidence": "prior-author-stage.mjs:10-33 accepts only AFTER, enforces selected serial labels and counts incomplete allocations. prior-author-lanes.mjs:24-65 caps six once-only lanes, rejects incomplete/prior-failed work, and requires final differential then every lane on the same frozen source. Existing complete TAP predicate and required active prefixes remain. Profile/grant/bounds select320turns,3600000ms absolute,1800000ms inactivity,10800000ms host,8192MiB and one Worker. Existing launcher bounds output to536870912 bytes and uses commandRecorder termination. No baseline lane or retry is added."
+    },
+    {
+      "claim": "The prepared grant prose consistently states the selected allocation",
+      "result": "falsified",
+      "finding": "S5-CONTROL-PROSE-001"
+    }
+  ],
+  "findings": [
+    {
+      "id": "S5-CONTROL-PROSE-001",
+      "severity": "S3",
+      "title": "Inherited grant prose still names four stages and seven lanes",
+      "location": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/NATIVE_GRANT.template.json:596",
+      "pointer": "/prohibitions/4",
+      "counterexample": "The exact template says Only four create-only stages and seven serial300-second lane invocations, while its stageAndLaneBounds is stages2/lanes6, COMMAND_BOUNDS selects2/6, executable guards enforce2/6 and Root disposition edd58154 selects2/6.",
+      "violatedClaim": "One unambiguous Root-selected finite work grant in the prepared completion packet.",
+      "triage": {
+        "class": "complete",
+        "cause": "Stale narrative copied from predecessor grant while structured limits and code were adapted.",
+        "confidence": "high; direct exact-text contradiction",
+        "triggerProbability": "Conditional on carrying the template clause into actual admission; no execution occurred.",
+        "realizedHarm": "None observed. A Worker could plan excess allocations or be distracted by the competing limit.",
+        "blastRadius": "Grant interpretation and bounded author budget only; current stage/lane code rejects excess allocations before their execution.",
+        "containment": "Explicit Root disposition, current task/COMMAND_BOUNDS and executable2/6 guards retain the lawful path and fail closed.",
+        "repairComplexity": "Small metadata-only correction during already-selected actual materialization; preserve template/preimage and update dependent pins.",
+        "regressionRisk": "Low; no control-code or Product change required.",
+        "residualUncertainty": "The actual materialized correction was reported in progress but is not part of this frozen-subject review."
+      },
+      "recommendation": "Reconcile this prose in the actual Root grant under the existing materialization grant. No Product repair, test cycle, broader redesign or additional acceptance gate follows. Root owns the promotion effect."
+    }
+  ],
+  "adjacentObservations": [
+    {
+      "location": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/NATIVE_GRANT.template.json:592",
+      "detail": "The inherited H05 acceptance clause also remains. It is older prerequisite wording, not evidence that current partial S5 source is accepted. Keep the actual grant tied to current Root disposition; no independent claim about historical H05 acceptance was evaluated.",
+      "triage": "not_applicable to executable-code predicate"
+    }
+  ],
+  "mechanicalEvidence": {
+    "initialPinCheck": "37/37 preparation, reuse, authority, predecessor and retained-before pins matched",
+    "staging": "All19 existing prepared staging-source pins matched; the20th is intentionally future Root admission",
+    "ownerPins": "Pinned original operatorRunner/operatorPublicSetup/maintainedCheckerSource all match",
+    "metadataRelations": "451 exact source rows,17 write ceiling,20 controls,3 handoffs,474 context entries; full set equality verified"
+  },
+  "correctiveWorkReported": {
+    "producer": "/root/rc7_carriage_review",
+    "standing": "Message only; not independently verified and not substituted for the original subject",
+    "report": "Root relayed both stale prohibition strings. Writer preserves closed preparation and initial actual preimages, corrects only actual grant prose to partial S5 and2 AFTER/6 lanes, and updates dependent hashes."
+  },
+  "futureBindingLimits": [
+    "Actual Root source/build disposition and precise repairs must be linked into the materialized grant, task and selection; no source acceptance may be inferred.",
+    "Actual staging/control hashes, all451 live source pins, executable availability, fresh output/temp slots and named read access remain final owner preflight obligations.",
+    "Root admission and DISPATCH_MANIFEST remain future. The host rejects absent/unadmitted status and checks exact controls before acquisition. No native capacity receipt is invented.",
+    "Reuse only the actual failed-run close/original resume and declared binding/catalog overlay. Do not transplant an older close or create NativeResult/native.after evidence.",
+    "Two AFTER stages and six final lanes remain the only allocations; real final source/build/proof/close and independent source review are still required by the existing selection."
+  ],
+  "independenceAndLimits": "Fresh separate-actor judgment, no candidate authorship/repair. No cross-model-family or enforced clean-room independence claimed. Host tools are unrestricted; named acquisition restrictions were followed. Prior Product/method source readings reused only after their current hashes and installed status verified.",
+  "notPerformed": [
+    "No tests, parser execution, build/generation, runtime acquisition, provider call, auth/private narrative read, Product/source edit, Git mutation or native dispatch.",
+    "No review of the moving actual activation materialization or re-review of Product source; no claim that S5 repair or proof is complete.",
+    "No repeated BEFORE proof, completed qualification, historical runtime drain or new approval gate."
+  ],
+  "effectsPerformed": [
+    "Read-only control/source-metadata/pin comparisons and stdo status verification.",
+    "Create-only review artifacts at the two Root-bound paths."
+  ],
+  "invalidation": [
+    "Changed subject/control/owner pins or material final grant fields.",
+    "Changed Product/method/frame, capability or independence basis.",
+    "Actual failing owner result, source/close mismatch or counterexample contradicting a reviewed join."
+  ],
+  "return": "Root conjoins the bounded code results, the S3 template finding and the separately materialized actual metadata. This Reviewer activates no Worker and decides no acceptance."
+}

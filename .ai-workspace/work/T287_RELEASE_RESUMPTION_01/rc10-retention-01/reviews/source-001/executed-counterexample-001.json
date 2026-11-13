@@ -1,0 +1,211 @@
+{
+  "id": "RC10-SOURCE-01-EXECUTED-COUNTEREXAMPLE-001",
+  "status": "closed",
+  "recordedAt": "2026-11-09T04:03:53.026882+00:00",
+  "role": "Reviewer",
+  "actor": "/root/rc10_source_review",
+  "consumer": "/root Executive",
+  "operation": "Preserved evidence addendum only; no original report overwrite",
+  "productFrame": "ABIogenesis 5.0 fixed fifteen families; selected T-287 RC10 contraction of disposable basis retention under existing owners, with exact admission identities and active work reuse. GTL declares, Product derives the semantic invocation candidate, ABG admits, HoG executes, replay reconstructs. No new Product outcome, runtime authority or heap guarantee.",
+  "basis": {
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame_sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "composition": [],
+    "owners": "Prior exact installed stdo-review recipient basis remains selected; EVALUATION 3/4 and ACTIVATION 7 require affected judgment revision on material new evidence."
+  },
+  "subject": {
+    "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+    "freeze_sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19",
+    "archive_sha256": "bff1a5214f198f5f133c8643f653dc3cb55022622009c23070e779f0ec2dadec",
+    "unchanged_source": true,
+    "material_source_files_reverified": 6
+  },
+  "prior_records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/reviews/source-001/REVIEW.json",
+      "bytes": 21604,
+      "sha256": "dd327d8eb701033b2b8b0da293960a5716cf7326813d743675f5cf4fb7cb3cd8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/reviews/source-001/measurement-preparation-001.json",
+      "bytes": 10629,
+      "sha256": "6d9c13476d84a124fea96edb9822dadde7c7aefa0631e39406c7dcb3ae9c7635"
+    }
+  ],
+  "verdict": "falsified",
+  "findings": [
+    {
+      "id": "RC10-SOURCE-01-F3",
+      "severity": "S2",
+      "kind": "source_identity_and_active_reuse_defect",
+      "triage": "complete",
+      "title": "Start owner retains the public request identity while basis caches require the distinct admitted invocation identity",
+      "affected_claim": "Existing-owner lifetime contraction preserves active execution-basis identity and avoided work on genuine run operations.",
+      "law": "Unchanged TASK.r04 exact store/generation and selected admitted invocation/basis eligibility; library HOW section 10.12 O1 lifetime and active identity/work reuse; Product exact public/runtime identity and owner separation; REQ-R-ABG3-INTERPRET-002/009/010 and REQ-R-ABG3-EVENTS-002/003/010 preserve declared identity/causal meaning. This is a computational reuse defect, not evidence of rival runtime admission or incorrect final result.",
+      "counterexample": {
+        "public_request_invocation": "invocation://abiogenesis/c29a45acabcb9d2651b5f40f709b07d29983c564ce31e5110fe57a08d617e70b",
+        "admitted_invocation": "invocation://abiogenesis/e97a8b9458695c2f3954b1c9127c050705db682299048a57e2e114b612601087",
+        "basisRef": "execution-basis://abiogenesis/edbc007c863ec8e9727f9dfd26982dddf6b121cd49e8996b69d1b2669d813b8f",
+        "event_mapping": "invocation_admitted ordinal 4 carries invocationRef=admitted and publicRequestInvocationRef=public. basis_admitted ordinal 6 carries invocationRef=admitted.",
+        "observed": "One actual 1 MiB native call completed its semantic result before the proof assertion failed; 87 samples observed max openHandles=1 and max retainedRows/historyBasisBodies=0. RowAdmissions=18 and bodyDigests=18. No in-flight identity witness.",
+        "source_mismatch": "runInvocationOwner opens retainBasisLifetime(entryPrefix, call.invocation.invocationRef) at line 1272 before semantic invocation admission. That key is the Public request ref. Both retaining owners look up the basis payload admitted invocationRef, so the hold cannot authorize retention for this operation."
+      },
+      "causal_trace": [
+        "product/invocation.ts:1213 retains publicRequestInvocationRef separately; :1222-1229 hashes the full candidate body and derives its distinct invocationRef. Both values are string carriers; shared field/URI spelling does not make their coordinates equal.",
+        "run_invocation_operation.ts prepares a PublicInvocationCandidate; owner_bindings/run_invocation.ts:1383-1440 admits prepared.candidate and receives admitted.admission. abg/invocation_admission.ts:1583-1594 preserves candidate invocationRef plus publicRequestInvocationRef.",
+        "owner_bindings/run_invocation.ts:1498-1505 passes that admission into admitExecutionBasis; execution_basis.ts:2085 stores admission.invocationRef in the basis payload.",
+        "RuntimeHistory.retainBasis at :349 records the supplied public identity. event():333-339 tests basis payload identity in #basisHolds; basisRowFact/retainBasisRowFact :366-375 do the same. Neither matches the held public key. Full records remain correct via cold checks, but active retention/work reuse is disabled.",
+        "Actual event metadata and archived compiled owner confirm this concrete chain. The observer positive gate failed before its own mistaken selector ran, so the adapter cannot cause the already observed zero retaining roots."
+      ],
+      "causal_assessment": "Supported source-level identity mismatch corroborated by admitted event mapping and actual gauges/work. The observed single basis row cannot be eligible under the supplied public key. Private map contents were not instrumented; the chosen key is inferred from exact executed source and actual call identity.",
+      "confidence": "Direct source/event evidence; no numerical confidence estimate. No mutation/reproduction was run by Reviewer.",
+      "blast_radius": "All start/invoke paths through shared runInvocationOwner using the distinct semantic invocation candidate are affected. The concrete installed native start is demonstrated. Three continuation owner families use prepared/use invocation identities and are not falsified by this counterexample; they remain operationally unproved.",
+      "effect_on_selected_path": "The simple call returned its expected native observation, but the selected active reuse property failed. Post-return ZERO is vacuous for cached rows/bodies that were never retained. 18 row checks and 68,249,528 physical body bytes read are observed; no general speedup, heap or allocation multiplier is inferred.",
+      "workaround_or_containment": "Cold projection preserves correct output/refusal for this observed call. Retain the candidate as unaccepted for the selected reuse claim and preserve exact failed evidence. No manual observer hold, widened/global cache, identity alias or removal of positive assertions supplies the missing production relation.",
+      "lawful_reentry": "realization_refactor repair under unchanged Product/requirements and selected exact-admitted-identity lifetime HOW. If wording needs clarification, synchronize only the owning start-scope identity description; no new lifetime policy or semantic authority is indicated.",
+      "bounded_repair_scope": "Existing run owner eligibility binding must use the actual identity admitted to basis rows, with the existing scoped release on every exit preserved. Affected proof must independently follow the Public request -> admitted invocation -> basis relation through existing owners/events. This names the violated relation, not an implementation or new activation.",
+      "repair_complexity": "Localized owner binding plus bounded proof/description changes. Exact implementation effort indeterminate; no broad runtime redesign is evidenced.",
+      "regression_risk": "Moving eligibility across admission can affect refusal timing and cleanup; preserve no retention before eligibility, all exit finalizers, same-store generation and historical non-retention. Existing continuation and overlap boundaries must not be weakened.",
+      "dependencies": [
+        "Semantic Product invocation candidate construction",
+        "ABG invocation_admitted mapping and basis admission",
+        "Existing Effect operation scope and RuntimeHistory identity keys",
+        "Correct external in-flight selector"
+      ],
+      "residual_uncertainty": "Only one call executed; no 50-call trend, historical parity, fresh readback or normal close receipt. Continuations/overlap/rollback/exceptional exits remain unperformed. Runtime installed temporary tree was absent at review time; actual run identity is retained in receipts, and archive compiled modules were independently matched to stage build.",
+      "priority": "reserved_to_Root",
+      "disposition": "reserved_to_Root"
+    }
+  ],
+  "judgment_revisions": [
+    {
+      "original": "REVIEW.json predicate source_lifetime=satisfied",
+      "now": "falsified",
+      "reason": "New actual counterexample invalidates its active identity/work-reuse conclusion. Finalizer/source cleanup and deletion observations are not automatically discarded, but cannot establish the conjunction."
+    },
+    {
+      "original": "measurement-preparation-001 suitable preparation",
+      "now": "falsified for actual-identity witness correctness; nonvacuity sensitivity retained",
+      "reason": "measurement.test.mjs:66 selects basis invocationRef using populated.call.invocation.invocationRef, and :74 repeats that false equality. Both compare the public request ref against the admitted semantic identity. Once correct production retention is present, this selector would find no matching row and fail. The branch was not reached in actual-001; it did not produce the observed source failure."
+    },
+    {
+      "original": "F1 S2 proof defect",
+      "now": "OPEN, unchanged severity; closure adapter additionally needs exact owner mapping",
+      "reason": "Original authored test still cannot detect absent production acquisition. New external positive gate correctly caught lack of active retention, but full same-row witness remains unperformed and its identity selector is defective."
+    },
+    {
+      "original": "F2 S3 HOW evidence defect",
+      "now": "unchanged/open",
+      "reason": "No correction evidence evaluated in this bounded addendum."
+    },
+    {
+      "original": "23-deletion/metadata predicate",
+      "now": "bounded prior static satisfaction retained",
+      "reason": "No changed deletion source or counterexample implicates that independent slice; no new deletion review performed."
+    }
+  ],
+  "why_prior_review_missed_it": {
+    "source_review": "I checked that all four owner scopes acquired handles and that basis rows/children used invocationRef, but did not trace the start call through Product candidate construction and ABG invocation admission. I treated identically named string fields with the same URI prefix as the same identity. That omitted producer-to-consumer identity seam made the source_lifetime satisfaction unsupported and wrong. It was my review omission, not missing source access or an unavoidable static-analysis limit.",
+    "preparation_review": "I recognized that positive gauges must precede observer reads, but repeated the same mistaken identity assumption when accepting the matching invocation predicate. I did not verify that populated.call.invocation identifies the Public request while basis metadata identifies the separately derived admitted invocation.",
+    "why_existing_tests_passed": "Authored positive probes opened manual handles using basis-event invocationRef after completed calls. They bypassed the erroneous Public-to-admitted binding; completed-call ZERO assertions were vacuous for production cache roots. Build/type checks accept both as strings and do not prove identity equivalence.",
+    "corrected_assurance_obligation": "Trace the actual typed owner relation and concrete source/destination identity values through construction, admission and consumption; shared field spelling is insufficient. Evidence needed is already in the existing candidate/admission/basis route; no new registry or alternate authority is called for."
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/FAILURE_HANDOFF.001.json",
+      "bytes": 12714,
+      "sha256": "60e3f4ff054e5cef0a38709c859bfc131f17b55aea3fbb4ee840f7a4e5040cb3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/MEASUREMENT.json",
+      "bytes": 7254,
+      "sha256": "b16e57c1b1edad6e85cc8af50016db7eddf9672a89804a3f51a2c6e23718de1f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/HOST_RESULT.json",
+      "bytes": 6881,
+      "sha256": "211a3aa45ad21f2f148f5ce4c736465a935ed580d3f481f301ed76712310bade"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/calls/00-1048576.json",
+      "bytes": 1623,
+      "sha256": "20de2f2fd34f7f433b8535eec75652dc2400aff355c92b45e4acd188aa72a29f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/runtime.events.jsonl.gz",
+      "bytes": 794043,
+      "sha256": "a126f0677a7fbf1ec214bd4c44b02688131eb90238bd9c0c75393ffaea48f1e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 2864,
+      "sha256": "2f1ae77669e3b84857975abeb66a8f4c0480ea9dae639912e58e1e3aa90ec2e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/ARCHIVE_INSTALL_EQUALITY.json",
+      "bytes": 2202,
+      "sha256": "dd30bf578060a261747bc952f96f678071b73944f9fb65ca458b283e67e9bdcd"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "bytes": 52769,
+      "sha256": "4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225",
+      "lines": "1213-1229"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "bytes": 77610,
+      "sha256": "89aee2eb45c514af1061336b7c7a537892129699a590ef317e902d8b45bf90aa",
+      "lines": "1583-1594"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 109576,
+      "sha256": "660f8cec4965c01ad3c16bf0e99d41bf1b911c8969cd44ed5e35070ad1a6ef2f",
+      "lines": "1272,1383-1440,1498-1505"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 130216,
+      "sha256": "c07261feca7ad1d1dbb27e294f42f5891138aca41b1220a5e68769c687a073ca",
+      "lines": "2080-2090"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "bytes": 49843,
+      "sha256": "df69e55518f88c01ec98c3edbf5480c4dbc8956693ab44a6e5d63a89a922534d",
+      "lines": "333-375"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "bytes": 7535,
+      "sha256": "79520c76a1f661baf56bbdac7968cad13ff992bc3255ffe4f74e4a0f012eb272",
+      "lines": "108-118"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+      "bytes": 18586,
+      "sha256": "6ee572a47ba4fef8ac35ef0a8130415e306986da8aa306675ec2149b2cf44663",
+      "lines": "62-75"
+    }
+  ],
+  "verification": "All named failure receipts matched handoff pins. Decompressed event log is 4,781,933 bytes, SHA256 432cceaad650b9fcbe0ed213df59bf043f4013e6eb61ec08b648eaa0c78ebe7d, matching recorded physical identity. Events 4/6 independently parsed for the exact mapping. Six material frozen source files matched freeze rows. Archive hash matched; five relevant compiled modules matched archived package versus frozen-stage build. Actual disposable runtime install was already absent; no direct current install-byte verification claimed.",
+  "unperformed": [
+    "49 remaining workload calls including 4 MiB case",
+    "In-flight positive same-row identity/work proof",
+    "Historical sentinels/readbacks after completed workload",
+    "Normal physical-close receipt and cold parity",
+    "Continuation, overlap, rollback and exceptional exit proof",
+    "Any repair, runtime triage execution, rebuild or retest"
+  ],
+  "limits": "Sampled zeros alone could miss a window; the deterministic source key mismatch plus admitted identity mapping establishes this counterexample. No incorrect semantic terminal result, data loss, retention leak, hostile-host exploit or global heap bound is inferred.",
+  "invalidation": [
+    "Changed source/admission identity/eligibility relation or compiled artifact",
+    "Changed adapter owner-mapping selector",
+    "New exact runtime evidence showing a different causal mapping or disproving this trace"
+  ],
+  "return": "Root owns severity consumption, priority, disposition and next lawful activation; separate runtime triage is not performed here.",
+  "effects": "Only executed-counterexample-001.json and .md created in original review directory. No Product/test/source edits, runtime/native/provider calls, tests/builds, Git effects or new agents."
+}

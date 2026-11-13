@@ -1,0 +1,401 @@
+{
+  "kind": "bounded_independent_review",
+  "reviewId": "T287-RC8-OWNED-LIFETIME-HTTP-013",
+  "at": "2026-11-07T09:53:24.631860+00:00",
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "wave": "GOAL-035/T-287 RC8 REF-01",
+    "outcome": "Preserve established in-process references through declared existing owners; exact process and persistence ingress still admit raw data. This review localizes two physical-test failures; it does not qualify the Product.",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authority": "Product/requirements own meaning; GTL declares, HoG selects, exact owners perform effects, ABG exclusively admits runtime truth, replay projects; this Reviewer evaluates only.",
+    "prohibitions": [
+      "No new runtime authority, private event writer, controller, universal trust cache, admission redesign or Product repair.",
+      "No test/profiling/provider/network/process launch or cleanup; no disposition."
+    ]
+  },
+  "activation": {
+    "actor": "/root/rc8_http_lifetime_review",
+    "consumer": "/root",
+    "role": "Reviewer",
+    "subjectReadOnly": true,
+    "writeGrant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-http-013",
+    "sourceAuthorship": false,
+    "independence": "Separate review actor; exact source and evidence independently reacquired. Supplied hypotheses did not prescribe conclusions. No cross-family assurance claim beyond the exposed actor binding.",
+    "hostBoundary": "Tools expose unrestricted filesystem access; acquisition and effects were confined by the activation. No technical isolation claim.",
+    "excluded": [
+      "Controlled worker handback test 6, assigned separately",
+      "Moving A9 candidate",
+      "Disk diagnosis",
+      "Acceptance, priority, release, repair or cleanup"
+    ]
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "manager": "/Users/jim/.local/bin/stdo",
+    "store": "/Users/jim/Library/Application Support/STDO",
+    "verification": "read_basis.py check: installed=true, valid=true, status=checked; exact selected members resolved and verified by read_basis.py.",
+    "members": {
+      "standards/frames/bootstrap.md": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "standards/EVALUATION.md": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485",
+      "standards/ASSURANCE.md": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "standards/ACTIVATION.md": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+    }
+  },
+  "subject": {
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+    "head": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "a8SourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+    "a8Freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/source-freeze.json",
+      "bytes": 296040,
+      "sha256": "efba6bea8f3d0e1b0695772c18bdd731652b0f0652a2a878619b2445c073fc50"
+    },
+    "broadA6SourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "a6Freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    "preparedStage": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w",
+    "preparedStageDigest": "860a77f27357793b982d1943b6f8aff1dda3fce523d88c15d7ac43c56f36b26d",
+    "runtimeMaterialization": "/private/tmp/abg-r8c-013/w",
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-014/BOUND_INVENTORY.json",
+      "bytes": 1957786,
+      "sha256": "1accbc9e497ec4577bfda89124388d0e00442ad57309a6d6be6a3ca2c80a0c43"
+    },
+    "sourcePins": [
+      {
+        "path": "AGENTS.md",
+        "bytes": 12932,
+        "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+      },
+      {
+        "path": "stdo_abiogenesis.json",
+        "bytes": 3136,
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+      },
+      {
+        "path": "specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+      },
+      {
+        "path": "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
+        "bytes": 9354,
+        "sha256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 27131,
+        "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 194356,
+        "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "bytes": 72393,
+        "sha256": "533480ed2edcfe90f878ab17f2f473af7906bdce2c73178c78c78d0c741dcc2d"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 50429,
+        "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "bytes": 29112,
+        "sha256": "a550c3c8d0e595f5c2020841018c6842f76df8e5f85a2874c96b688c43c32f5b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "bytes": 68872,
+        "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+        "bytes": 12633,
+        "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/process/facts.ts",
+        "bytes": 3599,
+        "sha256": "988efcecc44ec08c05d4533f731a38533104a66061e0dc7cb5f96f55bec4a972"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "bytes": 143487,
+        "sha256": "1f1bcf8484f6ee7f733ea5d68ac9d5c1ca531c4b5b57b1c40314ca0ddb862a17"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 43537,
+        "sha256": "b0427b38d3b8831ceb0d863eeb2b368f06f35933cfa3701fb3fe10a4f3ab9c5f"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 114763,
+        "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "bytes": 108721,
+        "sha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf"
+      },
+      {
+        "path": "specification/requirements/product/REQ-P-QUAL.md",
+        "bytes": 36574,
+        "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28"
+      }
+    ],
+    "runtimePins": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+        "kind": "file",
+        "bytes": 43447,
+        "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159",
+        "executable": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/transport_contracts.js",
+        "kind": "file",
+        "bytes": 22850,
+        "sha256": "96b1b26f8ba3b817643a6fd6759f24f2f0b34a43f18391797dd7abb0871410f9",
+        "executable": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js",
+        "kind": "file",
+        "bytes": 65333,
+        "sha256": "5f595d27a2731657a783055571f72554256f273876189a46dad97bd01879a241",
+        "executable": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+        "kind": "file",
+        "bytes": 11604,
+        "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f",
+        "executable": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/process/facts.js",
+        "kind": "file",
+        "bytes": 2919,
+        "sha256": "a154c15b52cadfaf9b8a9953d2c2571c9d5517618a3185427195777367981c50",
+        "executable": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+        "kind": "file",
+        "bytes": 119249,
+        "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+        "executable": false
+      }
+    ],
+    "identityResult": "Target test, HTTP helper, lifetime and worker transport match A8, A6 stage and broad013 materialization. Runtime JavaScript matches the recorded stage inventory. Test, HTTP helper and shared lifetime are byte-identical to base HEAD. Worker transport REF-01 delta is plan contract/schema ownership, not runProcess timers/capture."
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "b4d8aa383ea412a99188594b854ba4279b2f038d7c05ab5f397543d91630ab37"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/SUMMARY.json",
+      "bytes": 317449,
+      "sha256": "f67d671de4d17f4f0d6e9e91cadd77c65b1e7a271958ec748cd9e2990b92f096"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/file-bindings/131-t287-owned-process-lifetime.json",
+      "bytes": 1247,
+      "sha256": "71064ee802138496afb75ac3eaef733847c5000c9c63531e0280df06ae39bcbc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/commands/131-t287-owned-process-lifetime.stdout",
+      "bytes": 8164,
+      "sha256": "56dc83affb7b717cfb528bd8f18b59d2272456c55164faacc49015b5c2be5938"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/commands/131-t287-owned-process-lifetime.result.json",
+      "bytes": 1486,
+      "sha256": "cc49d6a2ce89d65e65b374d1db4c2a5b03d861305b6f6e6d0c217052f1b3ea29"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/files/131-t287-owned-process-lifetime.json",
+      "bytes": 1158,
+      "sha256": "582101cad174afd22e5eb92925f8f91ac79422def9f29a5019606d35ad056464"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/events/131-t287-owned-process-lifetime.jsonl",
+      "bytes": 8705,
+      "sha256": "97bc2194852f0f97a899b94ed5a282059b9ce40ebf59e047224e0d9bd7c862da"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md",
+      "bytes": 13892,
+      "sha256": "8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec",
+      "standing": "Exact ratified HOW link; source behavior and acceptance remain separate."
+    }
+  ],
+  "environment": {
+    "node": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "path": "/private/tmp/abg-r8c-013/b:/usr/bin:/bin:/usr/sbin:/sbin",
+    "nodeOptions": "--max-old-space-size=8192",
+    "testConcurrency": 1,
+    "fileTimeoutMs": 600000,
+    "providerCallsSelected": 0,
+    "effectiveFixtureChildren": "Both direct owners receive explicit empty environment and absolute process.execPath; they do not inherit the recipe PATH or NODE_OPTIONS. The HTTP PID probe uses absolute /bin/ps; descendant Node uses absolute process.execPath.",
+    "hostSnapshots": "Root supplied load 16.95/16.39/14.41 at 09:36 on 16 logical CPUs and 65% memory free earlier. Neither measures the failed startup interval or establishes cause; no disk attribution."
+  },
+  "results": [
+    {
+      "claim": "These two failures identify an HTTP Product runtime defect or a common unique runtime cause.",
+      "result": "indeterminate",
+      "triage": "indeterminate",
+      "reason": "Only test15 reached the HTTP owner. Test16 stopped in its first worker leg. Missing process observations leave startup/deadline, child failure, and output-observation alternatives unresolved."
+    },
+    {
+      "claim": "The fixture retains enough evidence to localize its failures before cleanup.",
+      "result": "falsified",
+      "finding": "HTTP013-PROOF-01",
+      "severity": "S2",
+      "triage": "complete",
+      "confidence": "High for diagnostic loss and case ordering; indeterminate for physical root cause.",
+      "property": "REQ-P-QUAL-004/005 require distinct diagnosable test failure classes and transport truth; QUAL-017 requires evidence before assertion. QUAL-010/011 bind explicit proportional lower/enclosing bounds. Project integration frame and STDO ASSURANCE section12 require earliest supported causal localization. TRANSPORT002/003/004 preserve substrate distinctions; private component tests are not ABG admission proof.",
+      "counterexamples": [
+        "test15: result/failure is caught, then response.pid read throws at539 before diagnostic at541; all four later HTTP modes unexecuted.",
+        "test16: terminationConfirmed assertion passed, then empty stdout failed at583; worker status/timeoutClass/stderr/processFacts and ready identity are not emitted before the assertion. No per-owner diagnostic was emitted; command/HTTP legs unexecuted.",
+        "scratch() registers unconditional recursive cleanup, so failed fixture and worker archive are removed. The named response scratch is absent on review."
+      ],
+      "triggerProbability": "Observed twice in this file when an early readiness/capture expectation failed; no environmental failure rate estimated.",
+      "realizedHarm": "Broad013 stopped; the two physical claims remain unproved and backend attribution is unavailable. No Product semantic corruption or unconstructable REF-01 sunny-day path is established.",
+      "containment": "Broad driver records red and withholds whole-file credit; lifetime/owner code distinguishes confirmed cleanup, launch failure and unresolved scope. Test16 reached confirmed owned boundary. Test15 actual cleanup outcome was not retained.",
+      "blastRadius": "Direct affected proof population: five HTTP modes and three owner capture legs in one test file; analogous M5 six-case physical startup fixture is a conditional cone, not a new failure.",
+      "repairComplexity": "Low for retaining diagnostics and making fixture preconditions observable within existing tests. A timing-envelope change requires retained startup evidence; Product mechanism redesign is unsupported.",
+      "regressionRisk": "Low for test-only evidence retention; arbitrary timeout/assertion relaxation risks masking a real capture or cleanup defect. No runtime repair recommended from this evidence."
+    }
+  ],
+  "causalTrace": {
+    "test15": {
+      "entry": "t287-owned-process-lifetime.test.mjs:521; helperModule:323 exposes compiled private runHttpProbe; httpInput:446 selects current owner placeholder.",
+      "steps": [
+        "Create confined scratch and response.mjs; its first PID write evaluates synchronous /bin/ps before writeFileSync.",
+        "Pass absolute Node and current {ABI_HTTP_PORT_FILE} placeholder, env=[], launch600ms/grace120ms/request300ms.",
+        "runHttpProbe:1119 checks confined absent port and cwd, substitutes exact path, launches detached owned group.",
+        "At1196-1197 launch and request clocks start together; port discovery and request loop both require requestOpen. Thus port/startup window is min(600,300)=300ms, not600ms.",
+        "No port before that window yields port_file_timeout and bounded termination; a spawn/owner/child failure has a distinct return/throw path.",
+        "Test catches result/error but reads response.pid before recording either; ENOENT at539 is the earliest retained symptom, not evidence of failed HTTP response or false cleanup."
+      ],
+      "alternatives": [
+        "Startup including /bin/ps did not complete before port/request deadline; compatible with576.222375ms total, not proven.",
+        "Child failed before PID publication, or owner failed before/while launch; stderr/error/result was discarded."
+      ],
+      "contractStanding": "Private component seam uses minimal task and env=[]; full Product HTTP declaration additionally requires PATH and predicate/task authority. It intentionally bypasses main/admission. No stale placeholder or changed private input shape found; no Public/installed proof inferred."
+    },
+    "test16": {
+      "entry": "t287-owned-process-lifetime.test.mjs:560; owners iterate worker,command,http.",
+      "steps": [
+        "First worker leader spawns a second Node descendant and waits for descendant ready file before leader-output.",
+        "Explicit generic owner contract expands argv [leader,prompt]; env={} and absolute Node remain valid.",
+        "Worker starts1000ms inactivity and2000ms absolute clocks after spawn, with150ms grace; stdout result capture freezes on direct exit and excludes descendant late output.",
+        "Result returned and terminationConfirmed=true passed at582; stdout was empty at583. No per-owner diagnostic exists in complete TAP.",
+        "Therefore command and HTTP legs were not reached; the failed HTTP-labeled test does not supply HTTP capture counterevidence."
+      ],
+      "alternatives": [
+        "1000ms inactivity fired before two-process readiness.",
+        "Child/descendant exited or failed before leader output.",
+        "Leader output was produced but the owner direct-exit capture boundary failed to observe it. No ready/exit/timeout/stderr evidence chooses among these."
+      ],
+      "durationMs": 1444.92775
+    }
+  },
+  "cone": {
+    "direct": [
+      "test15 response, invalid, missing, request-failure, owner-error",
+      "test16 worker, command, http capture"
+    ],
+    "sharedFixturePattern": [
+      "m5-worker-transport.test.mjs:891 owned process groups: worker/command/http x normal/TERM;700ms launch/worker inactivity,HTTP request500ms,150ms grace."
+    ],
+    "existingLibraryRoute": [
+      "shared/owned_process_lifetime.ts createMonotonicDeadline/createOwnedProcessLifetime",
+      "shared/process/facts.ts canonical classification/encoding",
+      "abg/worker_transport.ts existing transport result and processFacts",
+      "implementation/worksite_command_helper.ts existing command/HTTP observations"
+    ],
+    "conditionalReproofIfProductOwnerChanges": [
+      "Existing controlled timing/lifetime and owner-error cases in lifetime file",
+      "M5 physical group and direct-exit output cases",
+      "t287-worksite-command-execution installed compact acknowledgment/replay, http_probe_failed, http_cleanup_unresolved and HTTP ENOEXEC cases; relevant budget/contract cases"
+    ],
+    "exclusions": "Other HTTP mentions in generic-job/native-semantic/default-library/qual056 tests are static contract/budget/material checks, not the same physical startup fixture. Do not expand a fixture-only change into those paths without a material dependency."
+  },
+  "retainedPositiveEvidence": {
+    "m5": "Author03 lane06 test.stdout SHA45006f62b056d62518f0b9540ec97c53aa4cf7eb2686d74f32eea1bce9cd4a36 and its four companion receipts verified against broad inventory.32/32 passed; process-group case17 passed in3299.802417ms. This is prior exact source evidence, not a current-environment rerun or replacement for test15/16.",
+    "broad013": "15/18 passed, including controlled HTTP first-error case13 and physical direct lifetime14; neither supplies the lost physical observations. Controlled worker test6 is separately owned."
+  },
+  "recommendation": {
+    "status": "Evidence only; Root alone chooses disposition.",
+    "boundedAction": "Return to test owner for existing process/result diagnostic retention before assertions and explicit finite fixture readiness/timing relation, preserving assertions and historical red. Use existing lifetime/result carriers. A whole-file maintenance increment may conjoin the separately established private-runProcess archive-premise correction only through Root disposition. Do not authorize Product lifetime, admission or library redesign from this evidence.",
+    "sunnyDayEffect": "No shown violation of the selected unqualified REF-01 reference-preservation path, and no demonstrated Product authority/category breach. Whole broad/HTTP physical qualification remains open.",
+    "ifDeferred": {
+      "id": "RC8-PHYSICAL-LIFETIME-013",
+      "frame": "Integration/physical lifetime/Proof",
+      "owner": "Root Executive disposition; ABI test owner closure",
+      "status": "proposal only",
+      "noBlockRationale": "Only an explicitly unqualified reference cut; the runtime cause is unresolved, source/archive lifetime bytes predate REF-01, and no selected sunny-day failure has been established. This does not declare runtime correctness or test satisfaction.",
+      "activationTrigger": "Before claiming complete broad/physical owner proof, or when a retained ordinary-path process result shows capture, timeout or cleanup nonconformance.",
+      "reentry": "Unchanged-law test realization/evidence correction; owner HOW/runtime re-entry only if retained observations establish a violated owner relation.",
+      "closureFalsifier": "Any required physical mode still fails or lacks decisive process/readiness evidence; any stdout/late-output, exact response, PID/group or cleanup assertion is weakened.",
+      "closureEvidence": "One exact successor test subject with retained per-case process/readiness diagnostics, all selected modes observed under declared finite controls, required affected proof and unchanged historical broad013 red."
+    }
+  },
+  "unperformed": [
+    "No tests, profiler, provider, socket or Product process launched.",
+    "No new timing measurement, no child/process probe, no cleanup.",
+    "No installed full C2/ABG admission or replay execution.",
+    "No review of separately assigned test6 or moving A9."
+  ],
+  "invalidation": [
+    "Material source/runtime/fixture/contract/environment or authority change",
+    "New retained failure observations selecting a causal alternative",
+    "Changed subject or review capability/independence requirement"
+  ],
+  "overall": "Causal localization indeterminate; fixture-evidence sufficiency falsified. Historical red preserved; no Product regression established and no disposition applied.",
+  "timeoutSemantics": {
+    "sourceFact": "HTTP requestTimer is armed at spawn, at min(launch.timeoutMs, request.timeoutMs); observing() gates port discovery and HTTP requests with requestOpen. The effective test15 startup/port window is300ms. One HTTP request also has its own socket timeout min(request.timeoutMs,500).",
+    "owningHow": "C2 HOW lines795-806 defines launch + request + cleanup as the strict conservative enclosing budget. Lines858-862 require create-only port observation followed by actual request. Neither states that request.timeoutMs begins after port discovery or guarantees launch.timeoutMs of readiness time.",
+    "ratifiedLifetimeHow": "Exact E03 HOW lines39-43 preserve separate capture cuts and held response/port observations. Line59 says no timeout/budget is extended. It supplies no new HTTP clock-origin rule.",
+    "productContract": "Product validPredicateDeclaration lines1150-1178 validates positive request timeout and launch/grace constraints; it does not declare a different clock origin. REQ-P-QUAL010/011 requires explicit proportional layers, without a particular timeout default.",
+    "judgment": "No definite Product timing relation violation is established. Existing start-at-spawn behavior is the concrete maintained owner behavior and is not contradicted by an acquired clock-origin requirement. The enclosing arithmetic sum is an upper bound, not a guarantee of sequential fresh budgets. Claiming guaranteed post-port request time would need owner clarification or a separately selected change. Do not turn this unspecified origin into a Product redesign from these failures.",
+    "limits": "This is a bounded source/law interpretation, not runtime proof that deadline expiry caused the missing PID. Proportionality of300ms/1000ms under the failed host state remains unmeasured."
+  }
+}

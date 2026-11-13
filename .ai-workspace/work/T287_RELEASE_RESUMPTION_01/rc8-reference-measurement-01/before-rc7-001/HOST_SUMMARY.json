@@ -1,0 +1,14 @@
+{
+  "status": "MATCHED_REFERENCE_MEASUREMENT_FAILED",
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 27444.885292000003,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "commandReceipt": "commands/matched-reference.result.json",
+  "measurement": "MEASUREMENT.json",
+  "actualClose": "ACTUAL_CLOSE.json",
+  "qualified": false,
+  "providerCallsSelected": 0
+}

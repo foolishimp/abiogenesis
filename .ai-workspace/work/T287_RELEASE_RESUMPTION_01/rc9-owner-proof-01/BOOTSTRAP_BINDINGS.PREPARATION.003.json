@@ -1,0 +1,92 @@
+{
+  "status": "HELD_RC9_AFTER_BOOTSTRAP",
+  "activation": null,
+  "sourceAcceptance": null,
+  "preparationManifest": null,
+  "sourceIdentity": {
+    "label": "RC9-after",
+    "phase": "after",
+    "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceTree": null,
+    "sourceDigest": null,
+    "sourceFreeze": null,
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "completedStage": null,
+  "stageManifest": null,
+  "packageRoot": null,
+  "candidateOwnerPins": null,
+  "ownerReferences": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWNER_REFERENCES.json",
+    "bytes": 2479,
+    "sha256": "cc8b0f7771967c0a22576566e8e16a108ce02c7c994c7dc56311d9c5286985be"
+  },
+  "tools": [
+    {
+      "name": "node",
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    }
+  ],
+  "afterBindingsTemplate": null,
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-001",
+  "tempRoot": "/private/tmp/abg-r9m-rc9-bootstrap-001",
+  "installHost": "/private/tmp/abg-r9m-rc9-bootstrap-001/host",
+  "bounds": {
+    "hostMs": 600000,
+    "packMs": 120000,
+    "installMs": 480000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "freeReserveBytes": 4294967296,
+    "nodeHeapMiB": 8192
+  },
+  "executionStanding": "HELD: use actual successful003/source conjunction and actual admitted after-template with final source/helper/counter pins. Pack built003 once, no rebuild or metadata rewrite. One disposable Product verify/lock/install/content check. No immutable install/selector/provider. Bounds unchanged; failure preserves allocation and stops without retry.",
+  "expectedSourceRows": 1340,
+  "completedUnit": null,
+  "unitReporter": null,
+  "unitCommandReceipt": null,
+  "buildInputs": null,
+  "counterSourcePins": null,
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901113,
+    "sha256": "83f5dc434970315c06f1f1cde41d4877eaafae0099a5224ee76369cf49042084"
+  },
+  "contractSeedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_CONTRACT_SEED_INVENTORY.json",
+    "bytes": 41787,
+    "sha256": "4a2b911260e5a5e2ded42c19a007943c23973aeb3712af26acbc3ef8c3d19379"
+  },
+  "counterPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/COUNTER_EXPORTS.PREPARATION.003.json",
+    "bytes": 3854,
+    "sha256": "90d461ffc049fa739b6ec12c1f42a0ce5c242ae86d94b80ffde99a84d18be8ad"
+  },
+  "afterPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.bindings.preparation.003.json",
+    "bytes": 5700,
+    "sha256": "713e55dd267666372054b048be0079115da4a55421ae2053f84c6aa556fb7e93"
+  },
+  "candidateOwnerRelativePaths": [
+    "build/code/src/product/index.js",
+    "build/code/src/product/environment.js",
+    "build/code/src/product/declaration_exports.js",
+    "build/code/src/product/verify_product.js",
+    "build/code/src/product/install_product.js",
+    "build/code/src/abg/calculus/execution_basis_record.js",
+    "build/code/src/abg/environment_admission.js",
+    "build/code/src/abg/worker_transport.js"
+  ]
+}

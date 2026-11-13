@@ -1,0 +1,60 @@
+{
+  "at": "2026-11-06T16:14:51.572897+00:00",
+  "checks": [
+    {
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/run-measurement.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/run-measurement.mjs",
+        "bytes": 5079,
+        "sha256": "313ab6a4c679c460205fd3aa09d089d6662da63403d9c4c0f78f9da2d955e562"
+      }
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/measurement.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/measurement.test.mjs",
+        "bytes": 22697,
+        "sha256": "f6aa75e1b31556677cbfb95371fba9dcd3c5b6bb7e0f61b7368c8ab1e94a00d6"
+      }
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/scripted-readonly-actor.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/scripted-readonly-actor.mjs",
+        "bytes": 1206,
+        "sha256": "31ed26993381d783a684563bfb3f9307d86da59237f9b1ac7ecbda6705bdc60f"
+      }
+    }
+  ],
+  "staticCorrectionChecks": {
+    "originalFullTerminalWrongPrefixComparisonsAbsent": true,
+    "bothReadBasisChecksPresent": true,
+    "completeWarmColdTerminalAndOwnerChecksPresent": true
+  },
+  "actorExecutable": true,
+  "actorMode": "0o755",
+  "runtimeCalls": 0,
+  "actualMeasurement": null,
+  "meaning": "Syntax and literal correction checks only; no runtime/proof test executed."
+}

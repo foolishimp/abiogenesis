@@ -1,0 +1,28 @@
+{
+  "status": "ROOT_ADMITTED_FULL_CONSOLIDATION_FILE",
+  "at": "2026-11-07T09:20:10.660363+00:00",
+  "bindingSha256": "1f797674c97ea4a4c81fc413d8d89218c06e5f920f1c1622b11dd08e29f64207",
+  "rootDisposition": "Root selected exact review-verdict literal correction only; execute one whole coordinate file immediately. Existing source, bounds, 11-pass whole-file gate before SAS, first-new-failure stop, and all original evidence conserved. No additional GO required.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-002.mjs",
+      "bytes": 9248,
+      "sha256": "191a43bcf4531b928a854f300bd1851fbf672ae14a20f7aefd055e0bf177c625"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/REENTRY_DIFF_002.patch",
+      "bytes": 1412,
+      "sha256": "270279595e32e36f90b053123103baeae450c16d7ce3cd02a93cd354535ecc6b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/PREPARATION_REENTRY_002.json",
+      "bytes": 2419,
+      "sha256": "18a8691278836a1c0d13c5e2ce22e51c2d8a0f9b1ee834e0a85559023c1d029c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/ROOT_REENTRY_001.json",
+      "bytes": 3462,
+      "sha256": "d437a7374fc31d580a1fd53ccc7b9f70fed47e6480bc1d0bfed8f5f4855048ab"
+    }
+  ]
+}

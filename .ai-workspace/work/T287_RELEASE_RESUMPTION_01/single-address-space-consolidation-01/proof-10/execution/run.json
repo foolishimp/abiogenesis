@@ -1,0 +1,8 @@
+{
+  "kind": "single_address_space_proof_only_preparation",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "heldSourceSnapshotSha256": "90d4820b07cc00f3a181dd0670fd67ae459e1cc2ba2c4292148baf326f7595ab",
+  "sourceBasis": "none",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

@@ -1,0 +1,106 @@
+{
+  "status": "CHILD_CLOSED",
+  "samples": [
+    {
+      "at": "2026-11-07T13:44:10.625Z",
+      "freeBytes": 334782836736,
+      "ownedBytes": 123782810
+    },
+    {
+      "at": "2026-11-07T13:44:20.939Z",
+      "freeBytes": 334772535296,
+      "ownedBytes": 130489914
+    },
+    {
+      "at": "2026-11-07T13:44:30.941Z",
+      "freeBytes": 334663630848,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:44:40.940Z",
+      "freeBytes": 334663847936,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:44:50.942Z",
+      "freeBytes": 334661496832,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:45:00.949Z",
+      "freeBytes": 334665084928,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:45:10.946Z",
+      "freeBytes": 334662148096,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:45:20.948Z",
+      "freeBytes": 334662074368,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:45:30.949Z",
+      "freeBytes": 334660968448,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:45:40.950Z",
+      "freeBytes": 334659981312,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:45:50.952Z",
+      "freeBytes": 334670049280,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:46:00.953Z",
+      "freeBytes": 334667972608,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:46:10.954Z",
+      "freeBytes": 334666833920,
+      "ownedBytes": 219118845
+    },
+    {
+      "at": "2026-11-07T13:46:20.955Z",
+      "freeBytes": 334664589312,
+      "ownedBytes": 219120069
+    },
+    {
+      "at": "2026-11-07T13:46:30.956Z",
+      "freeBytes": 334573592576,
+      "ownedBytes": 290916988
+    },
+    {
+      "at": "2026-11-07T13:46:40.962Z",
+      "freeBytes": 334545256448,
+      "ownedBytes": 347862375
+    },
+    {
+      "at": "2026-11-07T13:46:50.960Z",
+      "freeBytes": 334484213760,
+      "ownedBytes": 365900334
+    },
+    {
+      "at": "2026-11-07T13:47:00.963Z",
+      "freeBytes": 334482808832,
+      "ownedBytes": 365900334
+    },
+    {
+      "at": "2026-11-07T13:47:09.036Z",
+      "freeBytes": 334763597824,
+      "ownedBytes": 136329905
+    }
+  ],
+  "maxOwnedBytes": 365900334,
+  "minFreeBytes": 334482808832,
+  "monitorFailure": null,
+  "overshootPossible": true,
+  "quotaEnforced": false,
+  "detachedDescendantAbsenceProven": false
+}

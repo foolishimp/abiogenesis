@@ -1,0 +1,19 @@
+{
+  "id": "retry-entry-consumers",
+  "files": [
+    "test_env/tests/t287-retry-run-prefix.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 0,
+  "fail": 0,
+  "skipped": 3,
+  "wallMs": 415.87933399993926,
+  "stdoutSha256": "c7a4eac48c46598ddf39fb9f5c3a9bcac7bcc7b6ceac25f68007e3e0bb6bc520",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": [
+    "required cases did not execute",
+    "required unskipped lane did not execute without skips"
+  ]
+}

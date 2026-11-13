@@ -1,0 +1,63 @@
+{
+  "status": "ROOT_ADMITTED_RC9_OWNER_DIAGNOSIS",
+  "admission": "RC9-OWNER-DIAGNOSIS-006 EXECUTION ADMITTED",
+  "recordedAt": "2026-11-08T18:32:35.580595+00:00",
+  "bindingSha256": "4523b88efca75d3d58c65903223a5bfb61b630ecbf7267d6f954042b81870e04",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/BINDING.BOUND.json",
+    "bytes": 23014,
+    "sha256": "4523b88efca75d3d58c65903223a5bfb61b630ecbf7267d6f954042b81870e04"
+  },
+  "derivedFrom": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/BINDING.HELD.json",
+    "bytes": 23013,
+    "sha256": "1bf1cc9ef37d9eada46666c898da7906ba8575118fcd1707e5bf40a075296caa"
+  },
+  "transformation": "status-only: HELD_RC9_OWNER_DIAGNOSIS to BOUND_RC9_OWNER_DIAGNOSIS",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/run-owner-diagnosis-006.mjs",
+    "bytes": 21180,
+    "sha256": "0e715fb99e8ed20b490ed6d7b8340f7abea801f4ded55dd17bf8020b32f89b05"
+  },
+  "fileHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/file-host-006.mjs",
+    "bytes": 3665,
+    "sha256": "09a57a62ce0edbb533b3bd5b238c3c27a9256e74aa6825259908b8e9a8b99134"
+  },
+  "phaseObserver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/phase-tail-006.mjs",
+    "bytes": 3049,
+    "sha256": "f869ff9d3a9094b774df9066cd8fd646eac88ba1dd9ee92d242c0ae99aa5ec99"
+  },
+  "formerProofProcessesStopped": true,
+  "formerProofStopChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/TIMEOUT_CLOSE_OBSERVATION.json",
+      "bytes": 1297,
+      "sha256": "3d923057d4f8eb82605fc862838577cfbb82528a292b1c400083046393fa2abb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_DESCENDANT_CWD_CHECK.json",
+      "bytes": 216,
+      "sha256": "7d8f6af81d18533d9dfa7af57db5f3bd59611894cd71601c73f2272fc77fe3a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_PROCESS_OWNERSHIP_FINAL.json",
+      "bytes": 494,
+      "sha256": "351ede55b8353d3f29fa6b39d524ed9ad58eedffca3e07092ad90f64b13240dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/OWNERSHIP_CHECK_001.json",
+      "bytes": 4788,
+      "sha256": "ebfdcf7909a5fa870a8fbaed4c10e3cb1adf252fb5a6d8f122b0dc15ea5a8386"
+    }
+  ],
+  "formerOwnProofStop": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/OWN004_OWNERSHIP_CHECK.json",
+    "bytes": 4974,
+    "sha256": "8e9a16f6dfda939d0ee6df2d1062670f357d2f1d4c648980616e0d2af5b97528"
+  },
+  "RootReview": "Root read complete runner/file-host/phase-helper/held binding and independently verified73 pinned references with0mismatches. Exact source/stage unchanged.",
+  "scope": "Execute once immediately, unchanged500s inner/600s outer/10ms CPU sampling/64MiB profile collection/16MiB commandoutput/4GiB free+owned/8GiBheap; normal existing fixture effects and assertions. Measured current conditions, no quiet-host claim.",
+  "standing": "Original test verdict and diagnostic completeness stay separate. No source/proof acceptance, source/native/provider/rebuild/releasepack/Git/cleanup/retry/extension. Remainder/bootstrap/broad/cut held."
+}

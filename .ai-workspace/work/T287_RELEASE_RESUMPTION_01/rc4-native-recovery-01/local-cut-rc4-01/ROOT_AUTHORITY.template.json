@@ -1,0 +1,14 @@
+{
+  "status": "TEMPLATE_NOT_SELECTION",
+  "operator": "Root",
+  "decision": "PROPOSED ONLY: after genuine021 closure/quiescence and selected exact source/generated adoption, install exact f59 RC4 archive using existing verify/lock/install/content owners at fresh local roots. No publication, qualification, selector, tag, push or merge.",
+  "inputManifestSha256": null,
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false,
+  "archiveSha256": "f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+  "sourceCommit": null,
+  "sourceTree": null,
+  "nativeClosure": null,
+  "installationReceipt": null
+}

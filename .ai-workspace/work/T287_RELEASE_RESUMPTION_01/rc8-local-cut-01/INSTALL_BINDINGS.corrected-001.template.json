@@ -1,0 +1,27 @@
+{
+  "status": "UNBOUND_PREPARATION_ONLY",
+  "activation": null,
+  "preparationManifest": null,
+  "buildBindings": null,
+  "sourceCheckpoint": null,
+  "candidate": null,
+  "reproduction": null,
+  "exactTestedArtifact": null,
+  "independentPackagingReview": null,
+  "installInputs": null,
+  "boundedClaim": null,
+  "residuals": null,
+  "rootAuthority": null,
+  "claim": "Local unqualified RC8 candidate; direct actual installed-owner smoke only. Full lifecycle/performance is scoped to the exact-shipped-archive installed scratch subject.",
+  "limits": [
+    "Preparation only. Exact final accepted frozen source, actual changed/new paths and acceptance remain unbound.",
+    "Existing C8 must already match the exact frozen source. No stale overlay copy, metadata rewrite or identity bridge.",
+    "Only a separately admitted exact C8 checkpoint and one clean temporary reproduction are prospective.",
+    "Ship the exact already-tested archive; preserve every immutable cut/worktree and existing failed receipt.",
+    "No merge/push/tag/publication/global selector or whole qualification claim. No retry/cleanup on failure.",
+    "Bind PREPARATION_MANIFEST_CORRECTED_001.json and use run-local-cut.corrected-001.mjs; historical original controls are not the execution route."
+  ],
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false
+}

@@ -1,0 +1,19 @@
+{
+  "recordedUtc": "2026-11-04T00:29:31.499464+00:00",
+  "kind": "native06_dispatch_and_between_task_timing",
+  "dispatchStartedUtc": "2026-11-04T00:28:02.311Z",
+  "priorFinalCloseSavedUtc": "2026-11-04T00:19:37.106145+00:00",
+  "priorOutcomeUtc": "2026-11-04T00:11:35.951Z",
+  "priorOutcomeToFinalCloseSavedMs": 481155.145,
+  "priorOutcomeToDispatchMs": 986360.0,
+  "rootAfterFinalCloseToDispatchMs": 505204.855,
+  "initialSetupReused": true,
+  "initialSdkSetupMs": 28938.979459,
+  "initialArtifactVerificationMs": 19748.530083,
+  "nativeWorkerLaunchMs": null,
+  "limits": [
+    "Dispatcher start is not yet native Worker start or Run admission.",
+    "Initial setup is reused; no new setup duration is claimed.",
+    "Between-task Root work excludes prior fresh-close time. Different histories/tasks do not prove a causal speedup."
+  ]
+}

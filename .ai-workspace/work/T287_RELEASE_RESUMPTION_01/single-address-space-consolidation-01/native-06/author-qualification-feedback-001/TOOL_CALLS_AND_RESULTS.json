@@ -1,0 +1,50 @@
+{
+  "calls": [
+    {
+      "id": "toolu_0147wFwQSUEsD1JadPqtSodb",
+      "name": "Bash",
+      "input": {
+        "command": "N5=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/review-subject-001/files/build_tenants/abiogenesis/typescript; R=/Users/jim/src/apps/abiogenesis-single-address-space/tmp06; W=$R/w/build_tenants/abiogenesis/typescript; shasum -a 256 $N5/code/src/abg/qualification_proof.ts; cp $N5/code/src/abg/qualification_proof.ts $W/code/src/abg/qualification_proof.ts && cd $W && TMPDIR=$R/t ./node_modules/.bin/tsc -p tsconfig.json > $R/logs/tsc-n05.log 2>&1; echo tsc $?; TMPDIR=$R/t node scripts/generate-product-manifest.mjs > $R/logs/gen-n05.log 2>&1; echo gen $?; TMPDIR=$R/t NODE_OPTIONS=--max-old-space-size=8192 ABI5_CONSOLIDATION_INPUTS=/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-06 node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern='qualification material at a genuine owned cut' test_env/tests/t287-single-address-space-consolidation.test.mjs > $R/runs/qcut-native05-before.tap 2> $R/runs/qcut-native05-before.err; echo exit $?; grep -E '^(not ok|ok|# (tests|pass|fail))' $R/runs/qcut-native05-before.tap; grep -n -A14 '^not ok' $R/runs/qcut-native05-before.tap | grep -E \"error|!==|location|actual|expected\" | head",
+        "description": "Run new case against native05 qualification bytes",
+        "timeout": 1200000
+      }
+    },
+    {
+      "id": "toolu_018SM9aPotfkeoaEci6PHYVx",
+      "name": "Bash",
+      "input": {
+        "command": "R=/Users/jim/src/apps/abiogenesis-single-address-space/tmp06; W=$R/w/build_tenants/abiogenesis/typescript; cd $W && python3 - <<'EOF'\np='test_env/tests/t287-single-address-space-consolidation.test.mjs'\ns=open(p).read()\nstart=s.index(\"test('qualification material at a genuine owned cut\")\nend=s.index(\"test('maintained SDK setup holds one acquired resource\")\ncase=s[start:end]\nhead=s[:s.index(\"test('retained RC5 history\")]\n# Remove only the reuse-discriminator asserts so the divergence itself is observed.\ncase=case.replace(\"\"\"  assert.ok(ownerCount(warm1, 'projectAdmittedCCallStateAtPrefix') > 0 && ownerCount(warm1, 'projectOpenedCCallCarrierAtPrefix') > 0,\n    'the CCall owners decide the producer at the extended cut');\"\"\",\"\")\ncase=case.replace(\"\"\"  assert.equal(warm2.value, null, 'the warm scope refuses the invalidated producer at the invalidating cut');\"\"\",\n \"\"\"  t.diagnostic('N05_WARM_AT_INVALIDATED_CUT=' + JSON.stringify(warm2.value === null ? null : {evidence: warm2.value.evidence.map(e => e.digest)}));\n  t.diagnostic('N05_COPIED_AT_INVALIDATED_CUT=' + JSON.stringify(copied2.value));\n  assert.equal(warm2.value, null, 'the warm scope refuses the invalidated producer at the invalidating cut');\"\"\")\ncase=case.replace(\"const copied2 = await material\",\"/*moved*/const copied2x = null;\\n  const copied2 = await material\") \nopen('test_env/tests/zz-native05-divergence-probe.test.mjs','w').write(head+case)\nEOF\npython3 - <<'EOF'\n# copied2 must be computed before diagnostic; reorder: place diagnostics after copied2 line.\np='/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/w/build_tenants/abiogenesis/typescript/test_env/tests/zz-native05-divergence-probe.test.mjs'\ns=open(p).read()\ndiag_start=s.index(\"  t.diagnostic('N05_WARM_AT_INVALIDATED_CUT=\")\ndiag_end=s.index(\"  assert.equal(warm2.value, null, 'the warm scope refuses\")\ndiag=s[diag_start:diag_end]\ns=s[:diag_start]+s[diag_end:]\ns=s.replace(\"  assert.equal(warm2.value, null, 'the warm scope refuses\", \"  const copied2 = await material('qualification_material_invalidated_copied', structuredClone(P2), structuredClone(proofResource));\\n\"+diag+\"  assert.equal(warm2.value, null, 'the warm scope refuses\",1)\ns=s.replace(\"/*moved*/const copied2x = null;\\n  const copied2 = await material('qualification_material_invalidated_copied', structuredClone(P2), structuredClone(proofResource));\",\"\")\nopen(p,'w').write(s)\nEOF\ngrep -n \"copied2 =\\|N05_\\|warm scope refuses\" test_env/tests/zz-native05-divergence-probe.test.mjs",
+        "description": "Build scratch-only native05 divergence probe test"
+      }
+    },
+    {
+      "id": "toolu_019WfDu2t8LNbeNzWi7EMgUv",
+      "name": "Bash",
+      "input": {
+        "command": "R=/Users/jim/src/apps/abiogenesis-single-address-space/tmp06; W=$R/w/build_tenants/abiogenesis/typescript; cd $W && TMPDIR=$R/t NODE_OPTIONS=--max-old-space-size=8192 ABI5_CONSOLIDATION_INPUTS=/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-06 node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/zz-native05-divergence-probe.test.mjs > $R/runs/qcut-native05-divergence.tap 2> $R/runs/qcut-native05-divergence.err; echo exit $?; grep -E '^(not ok|ok|# (tests|pass|fail))|N05_' $R/runs/qcut-native05-divergence.tap; grep -n -A14 '^not ok' $R/runs/qcut-native05-divergence.tap | grep -E \"error|location\" | head",
+        "description": "Run native05 divergence probe",
+        "timeout": 1200000
+      }
+    }
+  ],
+  "results": [
+    {
+      "tool_use_id": "toolu_0147wFwQSUEsD1JadPqtSodb",
+      "type": "tool_result",
+      "content": "c9ea7515696efdc160c59f6faa3f0f28243f20b247b164baea3c64ec3c4f6993  /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts\ntsc 0\ngen 0\nexit 1\nnot ok 1 - qualification material at a genuine owned cut: an invalidating producer fibre refuses warm, copied and cold alike; the historical cut stays valid and unrelated growth reuses declarations\n# tests 1\n# pass 0\n# fail 1\n7-  location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs:598:1'\n9-  error: 'the CCall owners decide the producer at the extended cut'\n12-  expected: true\n13-  actual: false",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_018SM9aPotfkeoaEci6PHYVx",
+      "type": "tool_result",
+      "content": "139:  const copied2 = await material('qualification_material_invalidated_copied', structuredClone(P2), structuredClone(proofResource));\n140:  t.diagnostic('N05_WARM_AT_INVALIDATED_CUT=' + JSON.stringify(warm2.value === null ? null : {evidence: warm2.value.evidence.map(e => e.digest)}));\n141:  t.diagnostic('N05_COPIED_AT_INVALIDATED_CUT=' + JSON.stringify(copied2.value));\n142:  assert.equal(warm2.value, null, 'the warm scope refuses the invalidated producer at the invalidating cut');",
+      "is_error": false
+    },
+    {
+      "tool_use_id": "toolu_019WfDu2t8LNbeNzWi7EMgUv",
+      "type": "tool_result",
+      "content": "exit 1\nnot ok 1 - qualification material at a genuine owned cut: an invalidating producer fibre refuses warm, copied and cold alike; the historical cut stays valid and unrelated growth reuses declarations\n# N05_WARM_AT_INVALIDATED_CUT={\"evidence\":[\"sha256:b9fe91019bfdae735e1984a25d86136a75823f1233ee861c2741c6b811204c0e\"]}\n# N05_COPIED_AT_INVALIDATED_CUT=null\n# tests 1\n# pass 0\n# fail 1\n7-  location: '/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/w/build_tenants/abiogenesis/typescript/test_env/tests/zz-native05-divergence-probe.test.mjs:54:1'\n9-  error: |-",
+      "is_error": false
+    }
+  ]
+}

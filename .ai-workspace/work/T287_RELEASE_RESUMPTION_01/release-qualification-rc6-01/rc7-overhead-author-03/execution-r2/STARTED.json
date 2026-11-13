@@ -1,0 +1,41 @@
+{
+  "startedUtc": "2026-11-06T07:21:42.883Z",
+  "pid": 68788,
+  "hostHeapLimitBytes": 8791261184,
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "manifestSha256": "330c43086dc156e4f16656026cb9ad8465c813af77c13036fda1870cabd8c2e8",
+  "contextDigest": "sha256:0cc50ddf87557b22f8645378b0302e8a716a278ff1c7c2f91fa1e8c1df08fb28",
+  "callCanonicalDigest": "sha256:6e2dc1daae6291c2206f7ac19a1d9c9af769034eb87c37cb8a6448eb24d96e0d",
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 320,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 5400000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "phaseMs": {
+    "control-pin-verification": 7.452124999999999,
+    "resume-config-parse": 357.815792,
+    "source-control-verification": 163.14162499999998,
+    "installed-modules": 412.02595800000006,
+    "caller-refresh": 85860.645,
+    "prefix-identity": 809.6676250000019,
+    "context-observation": 254.7206670000014,
+    "construct-call": 1715.7367090000043,
+    "capacity-canonical-digest": 193.6516249999986,
+    "prefix-preservation": 785.7155000000057,
+    "moduleBodyToStartedMs": 90564.78037499999
+  },
+  "automaticRetry": false,
+  "qualified": false,
+  "role": "Root operator activation; ABG alone dispatches selected native work"
+}

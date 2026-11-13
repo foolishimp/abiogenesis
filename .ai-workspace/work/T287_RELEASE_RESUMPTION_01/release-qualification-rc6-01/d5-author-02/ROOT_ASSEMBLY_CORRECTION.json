@@ -1,0 +1,18 @@
+{
+  "kind": "root_local_control_assembly_correction",
+  "at": "2026-11-05T23:18:40.356399+00:00",
+  "cause": "Root assumed launch-owner-script.py was included in the closed packet. It was not; control-manifest assembly stopped before an admission record, binding update, staging, scratch or any preflight/runtime call.",
+  "effectsBeforeStop": "Only grant status/admission reference and derived workload/staging pin edits; all preimages retained.",
+  "correction": "Copy exact existing per-directory launcher unchanged, then finish actual admission. No Product change, provider or native retry.",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/launch-owner-script.py",
+    "bytes": 1866,
+    "sha256": "9b5eb990fb89e489716a8523c7e0853e38d196a99a46f2926eadae89f5e55795"
+  },
+  "copy": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/launch-owner-script.py",
+    "bytes": 1866,
+    "sha256": "9b5eb990fb89e489716a8523c7e0853e38d196a99a46f2926eadae89f5e55795"
+  },
+  "noRuntimeEffect": true
+}

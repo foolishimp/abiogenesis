@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-05T09:31:44.245018+00:00",
+  "status": "LOCAL_ACCEPTED_SOURCE_PRESERVED",
+  "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "tree": "ff447cb7c9cf04c2af9cc784ef3ff0e1892ab702",
+  "parent": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "branch": "codex/t287-5-release-qualification",
+  "paths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "candidateSha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc",
+  "trackedClean": true,
+  "indexEmpty": true,
+  "untrackedPreserved": true,
+  "immutableRc6BranchUnchanged": true,
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false,
+  "conjunctionSha256": "da0b8e89745906b8d674617775fd4cbf1dbe2bb88399128020e4d41bb19542cc"
+}

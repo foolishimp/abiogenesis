@@ -1,0 +1,76 @@
+{
+  "recordedUtc": "2026-11-03T19:56:08.790751+00:00",
+  "kind": "native04_separate_launch_and_operator_latency",
+  "runtime": "Immutable installed5.0.0-rc.5; successor source not running as builder",
+  "setup": {
+    "reused": true,
+    "originalSdkSetupMs": 28938.979459,
+    "originalArtifactVerificationMs": 19748.530083,
+    "newSdkSetupRun": false
+  },
+  "preflight": {
+    "startedUtc": "2026-11-03T19:42:23.619201+00:00",
+    "endedUtc": "2026-11-03T19:42:56.157854+00:00",
+    "wallMs": 32538.638416677713,
+    "exitCode": 0,
+    "kind": "installed_owner_preflight",
+    "setup": "existing maintained SDK setup reused; not a new setup measurement",
+    "providerCalls": 0
+  },
+  "rootBetweenActivationsMs": 905652.0,
+  "rootBetweenMeaning": "Previous outcome receipt to this dispatch, including failed-C2 triage, independent review, conjunction and preparation; not an in-Run handoff.",
+  "dispatchUtc": "2026-11-03T19:43:56.937Z",
+  "selectorStartedUtc": "2026-11-03T19:45:39.480Z",
+  "selectorExitedUtc": "2026-11-03T19:47:14.677Z",
+  "nativeWorkerStartedUtc": "2026-11-03T19:48:54.595Z",
+  "dispatchToSelectorMs": 102543.0,
+  "selectorActorMs": 95197.0,
+  "selectorExitToNativeWorkerMs": 99918.0,
+  "dispatchToNativeWorkerMs": 297658.0,
+  "physicalEvidence": [
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 26909,
+      "eventId": "event://abiogenesis/aae99ba63bf5e3041a406a63baa8e58bc75852f7cc7e55b1152ec2abec7a74da",
+      "eventTime": "2026-11-03T19:45:39.480Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/7d0d16143b6fc2bffd4e4c1daac98e1b5f23ebdaf97d90131fa501d047ab039c",
+      "offset": 267909365,
+      "rowBytes": 1859,
+      "rowSha256": "ed1f3943fdadfa6ce5a95b07b1611af590c11abaf3db90d47aa5d39b8902d725",
+      "processRef": "process://abiogenesis/ee48df201d05fcfada920d3f424d38c34bb023c9eff022ebd037be3a49bee628",
+      "pid": 55309
+    },
+    {
+      "kind": "actor_process_exited",
+      "admissionOrdinal": 27269,
+      "eventId": "event://abiogenesis/8c7eeedd271971abc9faedcec47b425e67666bee23553fff8bc55210c3ca3cd2",
+      "eventTime": "2026-11-03T19:47:14.677Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/7d0d16143b6fc2bffd4e4c1daac98e1b5f23ebdaf97d90131fa501d047ab039c",
+      "offset": 269028078,
+      "rowBytes": 1773,
+      "rowSha256": "9c0546750f33c571039e0b6f27aa36413bab213816b0710c2547c0cb0e7e8939",
+      "processRef": "process://abiogenesis/ee48df201d05fcfada920d3f424d38c34bb023c9eff022ebd037be3a49bee628",
+      "pid": null
+    },
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 27341,
+      "eventId": "event://abiogenesis/7d2dde97318b0e5486881be92314f11ad6e7e79f718fca7d4aa40d4143cdfe2f",
+      "eventTime": "2026-11-03T19:48:54.595Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/7d0d16143b6fc2bffd4e4c1daac98e1b5f23ebdaf97d90131fa501d047ab039c",
+      "offset": 271441541,
+      "rowBytes": 1888,
+      "rowSha256": "5c94642c9343549e30ed612c2c95c27f07471141c6ae9d7e21d031187d9213b1",
+      "processRef": "process://abiogenesis/b05ba59319681a4a02c567462b6564ab12162cb276f009792fb5750daaa68c9d",
+      "pid": 57440
+    }
+  ],
+  "limits": [
+    "Wall intervals are not CPU attribution.",
+    "This history and work packet differ from earlier activations; no causal speedup claim.",
+    "Actual successor work, C2, native UAT and fresh closure are pending."
+  ]
+}

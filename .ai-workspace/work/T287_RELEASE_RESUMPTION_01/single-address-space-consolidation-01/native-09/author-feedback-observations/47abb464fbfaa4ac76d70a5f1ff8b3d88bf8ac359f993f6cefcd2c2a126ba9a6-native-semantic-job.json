@@ -1,0 +1,15 @@
+{
+  "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09/runs/native-semantic-job.tap",
+  "bytes": 3026,
+  "sha256": "47abb464fbfaa4ac76d70a5f1ff8b3d88bf8ac359f993f6cefcd2c2a126ba9a6",
+  "tally": {
+    "tests": 9,
+    "pass": 9,
+    "fail": 0,
+    "skipped": 0
+  },
+  "completeTapFooterObserved": true,
+  "standing": "Author scratch feedback only; not actual C2 or frozen-source acceptance.",
+  "observedUtc": "2026-11-04T12:23:58.473344+00:00",
+  "custody": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/author-feedback-observations/47abb464fbfaa4ac76d70a5f1ff8b3d88bf8ac359f993f6cefcd2c2a126ba9a6-native-semantic-job.tap"
+}

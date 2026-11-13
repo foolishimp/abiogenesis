@@ -1,0 +1,37 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "at": "2026-11-07T09:27:06.145016+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "configSha256": "22bd3a415fc4e25b3dbf3cbcb71e55f1a6df3eed149941e43d1d9a0793d8d71d",
+  "inventorySha256": "1accbc9e497ec4577bfda89124388d0e00442ad57309a6d6be6a3ca2c80a0c43",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "c5fa86f08f18f6aca0a39efe3709ef1c251e248fec2cb77876e68c5f11350300",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_013.json",
+    "bytes": 4920,
+    "sha256": "c5fa86f08f18f6aca0a39efe3709ef1c251e248fec2cb77876e68c5f11350300"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-013.mjs",
+    "bytes": 32958,
+    "sha256": "cadeac5a7ee6a7be54baa9b1921afde4b1934f4740ed11df1b8c9e18cc0c2adb"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "rootDisposition": "Root selected exact independent79-file remainder: fifth deferred native-worksite-execution remains uncredited/pending triage, all208 visible. Fifteen complete012 joins plus all109 prior credits, unchanged A6 physical stage and inputs. Exact predicates passed; one execution authorized, no further GO.",
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 124,
+    "passed": 727,
+    "skipped": 163,
+    "scheduled": 79,
+    "deferredNoCoverage": 5
+  },
+  "effects": "Testing only, same serial owners/time/resource/output bounds. First unexpected red/incomplete/drift/resource stop. No source/tool/env/provider/Git/cut/cleanup changes, no automatic retry."
+}

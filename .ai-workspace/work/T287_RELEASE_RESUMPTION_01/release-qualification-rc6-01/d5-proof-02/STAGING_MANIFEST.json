@@ -1,0 +1,42 @@
+{
+  "kind": "deferred_author02_proof_staging_template",
+  "status": "HELD_FOR_ROOT_SOURCE_REPAIR_NOT_STAGED",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/inputs/FROZEN_SUBJECT.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-02/FROZEN_SUBJECT.json",
+      "relativePath": "qualification-inputs/d5-proof-02/FROZEN_SUBJECT.json",
+      "bytes": 1742,
+      "sha256": "ad476990739f5f40269c0197da1a9bb9f89980036a62d660619e2fcba234a036"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/inputs/PROOF_ONLY_GRANT.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-02/PROOF_ONLY_GRANT.json",
+      "relativePath": "qualification-inputs/d5-proof-02/PROOF_ONLY_GRANT.json",
+      "bytes": 10935,
+      "sha256": "be0e206e8871750fc3476edc8f6cbea48e3a4bf115aeb68bebf76b0fc58bd124"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/inputs/ROOT_UAT_DISPOSITION.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-02/ROOT_UAT_DISPOSITION.json",
+      "relativePath": "qualification-inputs/d5-proof-02/ROOT_UAT_DISPOSITION.json",
+      "bytes": 1686,
+      "sha256": "546717162c7a77849849a55af75b8dc84fce815280b5d274251717b8e09066a8"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/inputs/BASELINE_OBSERVATION.json",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-02/BASELINE_OBSERVATION.json",
+      "relativePath": "qualification-inputs/d5-proof-02/BASELINE_OBSERVATION.json",
+      "bytes": 9674,
+      "sha256": "8f43ab0cdfb9efdd5e18602de250a58c8fa580d57e3e06ef62cf339485f5a15a"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/inputs/TASK.md",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-02/TASK.md",
+      "relativePath": "qualification-inputs/d5-proof-02/TASK.md",
+      "bytes": 3561,
+      "sha256": "7becf10928aa8fb9881af7f5e4124c3b9f4f918aefe17c18dfcfd0c97813c2ee"
+    }
+  ],
+  "bindingRequired": "This exact historical source/close is held for Root source repair. Do not stage or activate. After corrected source and Root selection, rebind source/close/grant/admission and regenerate all invariant control/source/staging pins."
+}

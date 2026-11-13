@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/34cfb9f8b401178dd170bac58c8b74f2f57689b2501b5d1d28687622f21de951/fd718da96ac2955c9f31ff36666903bcf08d9fde8a101038da7083629679028f",
+      "admissionEventRef": "event://abiogenesis/34d1abf4b319511c403dd09eadd7e1a64111daa7c7865edb472a055934373911",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b11-004/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c",
+      "productContentDigest": "sha256:34cfb9f8b401178dd170bac58c8b74f2f57689b2501b5d1d28687622f21de951",
+      "manifestDigest": "sha256:14d5b7d1379ba17f6f425bbf3766c1b4ff524cfc4b25dbeedc30e64b5d03c700",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/8ed511c5fb2a96f848d29e6391d69afdf0ec51a83db4db3251e8b2bca5c64e16/fd718da96ac2955c9f31ff36666903bcf08d9fde8a101038da7083629679028f",
+      "admissionEventRef": "event://abiogenesis/76c04f1d922e0f83a996ebcf061448c1f47ac57694aa4c461f90af9a000f4e0b",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b11-004/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:935ccbdfa2c4748f6a55c1a8e360049de819d5f0f84f09dc69509f67fe5de366",
+      "productContentDigest": "sha256:8ed511c5fb2a96f848d29e6391d69afdf0ec51a83db4db3251e8b2bca5c64e16",
+      "manifestDigest": "sha256:a15224be425793da45e8023b78eb6202c7c2512c8988c1ab8147dbd9575c6e51",
+      "contentMatches": true
+    }
+  ]
+}

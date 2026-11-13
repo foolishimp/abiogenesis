@@ -1,0 +1,17 @@
+{
+  "kind": "root_budget_triage_disposition",
+  "atUtc": "2026-10-31T09:05:47.172832+00:00",
+  "decision": "Resume immutable RC2 to admit honest partial Construction observation and obtain one genuine next selection; allow bounded model-free C2 if selected. Reassess before repeated Construction or paid UAT.",
+  "knownReportedNativeUsd": "60.6580554",
+  "bFamilyReportedUsd": "14.2621288",
+  "bFamilyTargetUsd": "20",
+  "aggregateStopUsd": "90",
+  "acceptedCapability": false,
+  "reason": "Reviewer finds source repair salvageable but production selection remains unimplemented. Honest partial Result may be admitted by unchanged RC2; no source finding justifies fabricating terminal outcome or killing it.",
+  "action": "SIGCONT Public CLI1996",
+  "limits": [
+    "No B-family budget reset",
+    "No release or qualification credit",
+    "Operator suspension/resumption is not admitted ABG pause or replay recovery"
+  ]
+}

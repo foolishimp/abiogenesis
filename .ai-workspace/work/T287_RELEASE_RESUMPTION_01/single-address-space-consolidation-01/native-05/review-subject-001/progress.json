@@ -1,0 +1,64 @@
+{
+ "kind": "native_05_progress",
+ "startedUtc": "2026-11-03T21:40:53Z",
+ "absoluteCapUtc": "2026-11-04T00:10:53Z",
+ "returnReserveFromUtc": "2026-11-04T00:00:53Z",
+ "milestones": [
+  {
+   "utc": "2026-11-03T21:40:53Z",
+   "event": "start; readFirst inputs read"
+  },
+  {
+   "utc": "2026-11-03T21:43:00Z",
+   "event": "stdo status --verify installed=true valid=true failures=[]; worksite equals held native04 (99/99 hashes)"
+  },
+  {
+   "utc": "2026-11-03T21:58:00Z",
+   "event": "R1 liveness fork via runtimeEventValidationBase + identity buckets; R2 shared public-operation selector classification; worksite_revision internal overload; typecheck exit 0"
+  },
+  {
+   "utc": "2026-11-03T22:06:00Z",
+   "event": "qualification carrier -> owned prefix + indexed joins; synthetic fixture stubs; typecheck exit 0"
+  },
+  {
+   "utc": "2026-11-03T22:09:00Z",
+   "event": "producer test bound to checked owner copy; runtimePrefixFromArtifactTruth deleted with 3 test consumers migrated"
+  },
+  {
+   "utc": "2026-11-03T22:11:00Z",
+   "event": "projectRuntimeTruthAtDurablePrefix deleted (replay.ts + abg/index); 11 request consumers + 2 dispatchers migrated; typecheck exit 0"
+  },
+  {
+   "utc": "2026-11-03T22:14:00Z",
+   "event": "qualification consumer kept prefix internal after the generator refused the packed declaration closure (w1 preserved); w2 build tsc/generator exit 0"
+  },
+  {
+   "utc": "2026-11-03T22:27:00Z",
+   "event": "lanes: qual-components, producer 3/3, adapter consumers (T289 red classified at f49), affected-owner 108/0/28, r4 8/8, fresh-process 1/1"
+  },
+  {
+   "utc": "2026-11-03T22:53:00Z",
+   "event": "whole-path-6 6/0/0 with liveness fork and shared classification cases; retry fixture reds classified at f49 (contract_mismatch)"
+  },
+  {
+   "utc": "2026-11-03T22:55:00Z",
+   "event": "global pair and missing/foreign Run discriminator 1/1 on real retained cuts"
+  },
+  {
+   "utc": "2026-11-03T23:01:00Z",
+   "event": "whole-path-7 7/0/0; harness 32/0/0; calculus-fold/forward-recovery/installed-graph-edge 37/0/1"
+  },
+  {
+   "utc": "2026-11-03T23:06:00Z",
+   "event": "f09 worker: native05 module-identity red repaired; masked held route-fault premise repaired; f09 frontier handoff 1/1"
+  },
+  {
+   "utc": "2026-11-03T23:21:57Z",
+   "event": "replay-consumers-1 57/0/9 exit 0"
+  },
+  {
+   "utc": "2026-11-03T23:22:08Z",
+   "event": "handoff written: return.json, readiness.json (partial, not ready)"
+  }
+ ]
+}

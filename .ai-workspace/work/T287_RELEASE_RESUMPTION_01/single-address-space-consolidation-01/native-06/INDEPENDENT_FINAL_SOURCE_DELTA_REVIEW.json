@@ -1,0 +1,276 @@
+{
+  "kind": "independent_final_source_delta_review",
+  "recordedUtc": "2026-11-04T01:45:12.198Z",
+  "frame": {
+    "product": "ABIogenesis5",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "originalOutcome": "R1-R7/C1-C5 remains open",
+    "classification": "Final affected realization/HOW/proof delta under unchanged Product. No new runtime or authority."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/SUBJECT.json",
+    "sha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670",
+    "status": "OBSERVED_NATIVE_SOURCE_FROZEN_C2_PENDING",
+    "grantFileCount": 121,
+    "incrementChangedCount": 10,
+    "cumulativeChangedCount": 87,
+    "nativeResultRef": "result://abiogenesis/1551b466553fb6a2769333a2fd5efaca58788acd3c016a549f73e094b77b252b",
+    "nativeResultDigest": "sha256:1551b466553fb6a2769333a2fd5efaca58788acd3c016a549f73e094b77b252b",
+    "eventOrdinal": 49501,
+    "eventTime": "2026-11-04T01:37:59.445Z",
+    "afterObservationRef": "worksite-context-observation://abiogenesis/8f52940c855e282e919c794ba89f8770636c270461b0b810c9f097e87a834724",
+    "afterObservationDigest": "sha256:8f52940c855e282e919c794ba89f8770636c270461b0b810c9f097e87a834724",
+    "standing": "Actual-admitted source is frozen; actual C2/UAT/whole-outcome conjunction remains pending. This review does not independently reacquire the physical Result row."
+  },
+  "claim": "Only new native06 HOW sentence and qualification-proof/support changes since interim-qualification-proof-review-001, plus exact final byte correspondence for earlier bounded code/install results. Unaffected source and separately reviewed R1/pair evidence are not re-reviewed.",
+  "verdict": {
+    "result": "satisfied",
+    "scope": "No concrete new source/HOW/proof discrepancy identified in this affected final delta. Earlier bounded findings/limits are retained; ready=false and whole-outcome residuals are not closed.",
+    "findings": [],
+    "triage": "not_applicable",
+    "confidence": "High for exact reviewed source/HOW/assertion correspondence; author execution and actual C2 standing remain separate."
+  },
+  "priorResults": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+      "sha256": "89c35598884f969c4e626d6045ee0f35814f8cba2f63d0d4b55ca5540eeeb8cf",
+      "reuse": "All9 reviewed code/context files hash-match final; N5-CODE-01 repair semantics and isolation review retained."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+      "sha256": "248a20394349977a6cd9d6c281404dbb9fe1c15dd8bbe52584f0c1015e542e8b",
+      "reuse": "All6 granted reviewed install files hash-match final; unchanged immutable helper context remains its explicitly frozen baseline. No repeated install source review."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-qualification-proof-review-001/SUBJECT.json",
+      "sha256": "19d6ed436cd878b943dca3255ca381846b902ac56393d8cec5d4d675cdbc8f65",
+      "reuse": "Qualification test/support preimages verified. Only their final changed hunks reassessed; contraction and producer-context fixtures byte-match."
+    }
+  ],
+  "newHOW": {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "sha256": "61fdfd9f68ed4e1b94aa143542d5f7919221f688b140e94fa9b7c52faba2591f",
+    "bytes": 142609,
+    "priorSha256": "5173d59042e89399c35a092363c1722e1a67f6aec6fd4011b7d5f3cf8ab961ce",
+    "lines": "643 (Runtime history prefixes and held event resources table row)",
+    "addedText": "Its derivation scope outlives one cut of the lineage, so a decided graph owner and admitted CCall state are retained only under the exact cut that decided them; a cut not yet asked delegates current truth and refusal to the indexed execution-basis, opened-carrier and admitted-CCall owners, and immutable declaration reconstruction is reused across cuts.",
+    "sourceCorrespondence": [
+      "qualification_proof.ts:99-124 existing private runtimePrefixComputation maps keyed by authenticated cut/ref",
+      "qualification_proof.ts:157-170 exact-cut graph lookup; declaration/reference checks unchanged; miss derives through existing basis/carrier owners",
+      "qualification_proof.ts:209-215 immutable declaration reconstruction retains its proof/environment guards",
+      "qualification_proof.ts:252-266 exact-cut state lookup and canonical admitted-CCall fallback"
+    ],
+    "assessment": "Describes the reviewed final f87040f4 source relation; adds no Product law, receipt authority, phase validator or general dependency mechanism. Count remains a discriminator inside the authentic ordered owner scope, not a global prefix identity."
+  },
+  "qualificationDelta": {
+    "test": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "sha256": "9407605058cce466f6efe2d2e4b11bf0198e77cfacbc9fef109070ff4ec41cb3",
+      "bytes": 87641,
+      "priorSha256": "b1b88c078162930e2c6bc7fd665ff3e5c9dfd32b1568f07fa2320b34c95466b8"
+    },
+    "lines": "690-725",
+    "changedAssertions": [
+      {
+        "lines": "695-698",
+        "change": "Refusal messages replace typography; warm and copied null refusal and actual phase-owner-call assertion remain."
+      },
+      {
+        "lines": "700-704",
+        "change": "Existing historical P and unrelated P1 full material equality remain. New zero admitted-state calls assert deciding-cut reuse for the two previously queried cuts. New copied-route positive declaration reconstruction count rejects interpreting a raw copy as warm owner scope."
+      },
+      {
+        "lines": "706-718",
+        "change": "Existing actual close/reacquire and cold refusal/equal historical material remain. New positive declaration reconstruction count shows cold acquisition performs its reconstruction."
+      }
+    ],
+    "assessment": "Adds discriminators matching the reviewed multiple-cut retention behavior without replacing values/refusals by nominal truth or weakening warm/cold comparison. Zero/positive counts are local checks of this selected reuse/cold contract, not universal Product read thresholds. The original actual source-owner proof setup is unchanged in these hunks."
+  },
+  "supportDelta": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+    "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+    "sha256": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4",
+    "bytes": 11376,
+    "priorSha256": "8b94a7a66d954705d56b86cee49934dd1e3fe8b7bbe6aa1e35db30c4e94e8744",
+    "description": "Extends diagnostic COUNTED keys and exact compiled-source anchor counters for layered rows/queries. Existing qualification state/phase/catalog count names and collection path remain. It introduces no qualification truth/refusal stub.",
+    "scopeLimit": "R1 anchor/allocation interpretation and pair cases are owned by the separately closed method review. No repeated audit or new R1/pair credit in this result."
+  },
+  "finalCorrespondence": {
+    "code": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+        "matched": "interim-code-review-002"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+        "sha256": "42ef88f96981adc827aa40bf3c6d3af3a9af7ef3278a6e958f2aebd513f6a38b",
+        "matched": "interim-code-review-002"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+        "sha256": "51cd9b45a10e5f464c01a4b1a979f4c780ca5360a9b3200e7f5a156b7bdd72c0",
+        "matched": "interim-code-review-002"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+        "matched": "interim-code-review-002"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+        "sha256": "59db62729425cb8c7ed871348cb44e5e9c8cbe283b8e6f35c7bb35f3187e1d31",
+        "matched": "interim-code-review-002"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "sha256": "79788a830ca61f6c31397c85a95f373d3cddc77e0457c6907452d4b70d452422",
+        "matched": "interim-code-review-002"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+        "sha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+        "matched": "interim-code-review-002"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+        "sha256": "51c49b7069a6a56362cfc53e8d7681b855ca8b28af77e9fd49c18defd3f57eff",
+        "matched": "interim-code-review-002"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "sha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4",
+        "matched": "interim-code-review-002"
+      }
+    ],
+    "install": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+        "sha256": "af65174bcb7ea1fb37d358650c70b4dd310408a391291c7f2439e22549ee8c36"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+        "sha256": "b106e1de259ec993469a3d320316646eae9490330ec0bcb86fad2be7214dee7f"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+        "sha256": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+        "sha256": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "sha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4"
+      }
+    ],
+    "unchangedQualificationFixtures": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+        "sha256": "b768ee0976a20b66a8ae204b9452742ed9afca2008f75dc98240bc648f910236",
+        "matchedPriorSubject": "19d6ed436cd878b943dca3255ca381846b902ac56393d8cec5d4d675cdbc8f65"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+        "sha256": "b581f43132bfafe9b11a90af90130d3b1a70fe5c355ba336d595805571963fab",
+        "matchedPriorSubject": "19d6ed436cd878b943dca3255ca381846b902ac56393d8cec5d4d675cdbc8f65"
+      }
+    ],
+    "scopeLimit": "Only these affected correspondence checks and three delta snapshots were acquired; no claim of a repeated121-file independent source audit."
+  },
+  "handoffs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/return.json",
+      "bytes": 68048,
+      "sha256": "da660fb70a04e7b0603cddb4c0439f502f6e026a7f2ecd5dd6ceca5d6320d938",
+      "standing": "Frozen author handoff adjacent to final subject; read for claim scope, not Product authority."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/readiness.json",
+      "bytes": 4294,
+      "sha256": "c46163b32fafc4a392cb62d4d09cb760a2f98bccb1d34ac0ed602006f87eaf51",
+      "standing": "Frozen author handoff adjacent to final subject; read for claim scope, not Product authority."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/progress.json",
+      "bytes": 2276,
+      "sha256": "8b4f434a85c578f93a3028cab93cc6e10c58436b126c49d7bbe72939b5c3a1de",
+      "standing": "Frozen author handoff adjacent to final subject; read for claim scope, not Product authority."
+    }
+  ],
+  "returnedClaim": {
+    "status": "partial",
+    "readiness": false,
+    "readinessReason": "partial return: the retry fixture rebuild and F09 consumer runs are open, N5-PROOF-01 has unexercised branches, and actual C2/UAT/review are outside this Worker",
+    "selectedProgress": {
+      "N5-CODE-01": "done (source + proof)",
+      "N5-PROOF-01": "partial",
+      "R1": "done for budget/growth/layered accounting; allocation bytes not metered",
+      "Retry": "not done",
+      "T289": "done",
+      "retryImport": "done"
+    },
+    "knownGaps": [
+      "Retry: t287-retry-run-prefix is not rebuilt on F09 producers. It still names the S02 rc.1 fixture and refuses before retry assertions; nested depths 1/2, neighbour, foreign, stale, failed-scope and many-match retry controls do not exist on current history. The retry-entry lane (minimum 3, no skips) will fail actual C2.",
+      "F09 consumers (t287-f09-frontier-handoff, t287-r4-aba-retry, runtime-f09/runtime-f09-product) not run in native06; the native05 route-fault adaptation still needs review in the final F09 delta.",
+      "N5-PROOF-01: duplicate_outer_invocation, a valid F_H/construction complete-pair baseline, and growth by a second unrelated Run are not exercised; unrelated growth used a workspace operation.",
+      "R1 allocation: per-query layered work is measured as rows visited and noisy heap deltas, not allocated bytes.",
+      "Qualification per-cut retention grows with the number of distinct cuts asked in one derivation scope; bounded by scope lifetime, not separately metered.",
+      "Scratch design file holds the native05 bytes (design is not consumed by tests); the worktree design HOW carries the native06 sentence.",
+      "Author-run scratch passes are not actual C2, UAT or independent review."
+    ],
+    "assessment": "Consistent with partial source return and pending actual C2. Retry and incomplete N5-PROOF-01 are preserved residuals, not new findings manufactured by this bounded delta review. R1 allocation/retention limits remain explicit."
+  },
+  "feedback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/author-feedback/native-scratch-runs/final2-single-address-space-whole-path.tap",
+    "sha256": "e3031435bc325e8168044c6c2ad13a5542d4b63b14dc30e899156db8360df781",
+    "bytes": 55800,
+    "summary": [
+      "ok 1 - retained RC5 history: the owned prefix of the migrated liveness callers preserves the measured context with fewer event-log bytes, no full snapshot and no immutability walk",
+      "ok 2 - liveness candidate validation forks its admitted base: equal decisions and context, isolated siblings, unchanged base, no per-candidate rebuild",
+      "ok 3 - shared public-operation classification equals the complete class predicates of the retained history, with orphan and mixed-arm facts kept",
+      "ok 4 - global run-invocation pairs stay history-wide on real earlier cuts, and a foreign Run stays distinct from a missing one",
+      "ok 5 - installed producer to consumer: borrowed held history keeps exact values, reuses warm selections as unrelated history grows, refuses stale/copied/foreign/rollback input and reopens cold",
+      "ok 6 - qualification material at a genuine owned cut: an invalidating producer fibre refuses warm, copied and cold alike; the historical cut stays valid and unrelated growth reuses declarations",
+      "ok 7 - complete-pair owners refuse orphan F_H, construction-intent and selected-action operations by stage and admission order, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values",
+      "ok 8 - maintained SDK setup holds one acquired resource, borrows every history call, closes once, owns failure cleanup and reopens cold",
+      "ok 9 - single-address-space proof records every measured case",
+      "# tests 9",
+      "# pass 9",
+      "# fail 0",
+      "# skipped 0",
+      "# duration_ms 441738.278916"
+    ],
+    "standing": "Frozen final author feedback only;9pass/0fail/0skip including qualification-cut case, not actual C2 or source acceptance. No test was executed by this reviewer."
+  },
+  "adjacentObservation": {
+    "scratchHOW": "Author handoffs disclose the scratch design copy remained native05 while the admitted HOW was updated. The design paragraph is not a test input; exact final source/HOW was inspected statically. This is not recast as a Product regression or current executable proof.",
+    "retention": "Earlier incremental review observation stands: retained graph/state entries grow with distinct successful cut/ref queries within the existing scope; not separately metered. No memory/performance closure claimed."
+  },
+  "smallestReentry": "No new Product/test/HOW repair supported by this final delta. Root conjoins actual C2 and independent results, preserves all existing failures/residuals, and owns any continuation needed for the original complete outcome. This result neither defers nor closes Retry, N5-PROOF-01 or original C1-C5.",
+  "limits": [
+    "No tests/builds, runtime/provider calls, moving source reads, native actor contact, Product/test/control changes or repair. Only the two granted final-delta evidence outputs written.",
+    "No repeated review of the unaffected code/install source, R1/pair findings or whole Product. Earlier exact bounded support and its limits remain retained.",
+    "No actual C2/UAT/result/replay/fresh-read/release/qualification conjunction or source acceptance is inferred.",
+    "Final source is tied to supplied authenticated native coordinates and frozen subject; physical Result/after-observation authentication and full121-file custody remain Root evidence, not independently repeated here.",
+    "Same-family/non-authorship independence and prior diagnostic/design advice remain disclosed."
+  ],
+  "invalidation": [
+    "Any changed affected final byte, candidate, HOW or proof predicate requires the applicable bounded comparison before reuse.",
+    "A change to authenticated source/scope/order/generation/currentness or owning CCall refusal relation invalidates dependent code judgments.",
+    "Contrary actual C2 or output/refusal/reuse evidence revises the affected assessment.",
+    "Materially different claim, authority or basis changes this review scope; the partial return cannot be promoted to complete outcome by this result."
+  ]
+}

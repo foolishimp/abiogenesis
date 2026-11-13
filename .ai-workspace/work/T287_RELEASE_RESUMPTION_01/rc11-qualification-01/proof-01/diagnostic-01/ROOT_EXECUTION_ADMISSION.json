@@ -1,0 +1,43 @@
+{
+  "status": "ROOT_ADMITTED_RC11_PROOF_CONTINUATION",
+  "utc": "2026-11-09T09:35:38.925716+00:00",
+  "bindingSha256": "fb68735b8eeac0e52f34cd4c6564f7f6401f28281b52a3e87b1fe52bb3d0cb91",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/BINDING.json",
+      "bytes": 5925,
+      "sha256": "fb68735b8eeac0e52f34cd4c6564f7f6401f28281b52a3e87b1fe52bb3d0cb91"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/COMMANDS.json",
+      "bytes": 645,
+      "sha256": "f00d0c9974a7a36cf1bd72414f75f81b880e743eb162628f8666afc9b1ad3de8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/diagnostic.py",
+      "bytes": 11473,
+      "sha256": "235600f983223a2088f43978f26490a507f59bc2501b81f2637ae825a8959b36"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/READY.json",
+      "bytes": 2293,
+      "sha256": "9da157ed153098b5de5482b6c26f6b5bb9254e8d1c6ac6e4cae7a369b080fd9f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/SOURCE_TRANSFORM.json",
+      "bytes": 1664,
+      "sha256": "2cf464503d197e12813995e890c2c9b66a49a0a60f3388b9e3e595185cbbe8ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/SOURCE_TRANSFORM.diff",
+      "bytes": 5419,
+      "sha256": "e867d5b7afbcd6502198436025b66345d7b4f06af788898d947e56c0b7fa0d40"
+    }
+  ],
+  "commandIds": [
+    "three-case-diagnostic"
+  ],
+  "rootDecision": "Independent review approves this bounded diagnostic route. Root conjoins actual two red invocations with source/Proof/lifecycle review and now grants ONE diagnostic execution after your exact derivative diff and guards preflight, no further Root permission needed. Preserve original three cases, scripts, clocks, assertions, callback acknowledgements/errors; no classifier/native-supervision callbacks. Record callback timestamps as observations (not exact timer arms, worker readiness, signal delivery or direct-exit times). Persist complete result and exact stdout/stderr/transport artifact bytes before original cleanup; archive reads occur only after owner returns. Explicitly serialize BigInt and Error fields. Same current Node/env, exact three-name filter,300 s outer cap, original per-case behavior; no reattempt or source mutation. Write admission and all actual diagnostics only in new diagnostic territory. Diagnostic pass never replaces original unit red. Return findings promptly; R6/F04A still await separate sequencing decision.",
+  "rootDiffConjunction": "Root independently read SOURCE_TRANSFORM.diff: alias plus buffered observational wrapper only; original test bodies and callback return behavior preserved as intended. Bounded diagnostic execution grant stands.",
+  "scope": "Diagnostic-control Worker, not source author. No provider or HTTP test selected; derived capture is an observational intervention, not a baseline pass."
+}

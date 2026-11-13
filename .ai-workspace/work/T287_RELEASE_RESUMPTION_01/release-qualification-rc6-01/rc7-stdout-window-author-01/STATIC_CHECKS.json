@@ -1,0 +1,39 @@
+{
+  "kind": "operator_preparation_syntax_and_relations",
+  "status": "PASS_STATIC_ONLY",
+  "checks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/prepare-and-dispatch.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/launch-owner-script.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/prior-author-stage.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/prior-author-lanes.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/claude-provider.sh",
+      "command": "sh -n",
+      "exitCode": 0,
+      "mode": "0o755"
+    }
+  ],
+  "relations": [
+    "17 permitted existing paths/450 reference names",
+    "473 planned context entries; external metadata excluded",
+    "four stages/seven serial lanes/one before/six same-final-source",
+    "same actual SDK/checker/completion/one-close sequence; future pins null"
+  ],
+  "limits": "No Product build/tests, SDK/runtime acquisition/provider/credential/network, C staging or Git/release effects. Historical metadata projection read the selected old prefix only, not runtime acquisition."
+}

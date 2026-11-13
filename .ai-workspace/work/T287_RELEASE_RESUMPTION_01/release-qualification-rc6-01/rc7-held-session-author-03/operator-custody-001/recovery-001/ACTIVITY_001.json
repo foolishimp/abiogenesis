@@ -1,0 +1,138 @@
+{
+  "kind": "allowlisted_native_activity_observation",
+  "observedUtc": "2026-11-06T17:13:03.108406+00:00",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-13a1d76b3b3fee90-stdout.log",
+  "archivePrefixBytes": 4101468,
+  "archivePrefixSha256": "16d20348ba7451b385848c757ce9837ba1ea6f4fce54e66fc307ec14b52f7104",
+  "device": 16777231,
+  "inode": 708206410,
+  "archiveBirthUtc": "2026-11-06T16:59:12.818842+00:00",
+  "archiveMtimeAtObservationUtc": "2026-11-06T17:13:03.049105+00:00",
+  "completeRows": 5489,
+  "uniqueCompleteToolUses": 96,
+  "toolNameCounts": {
+    "Bash": 76,
+    "Read": 3,
+    "Grep": 4,
+    "Edit": 13
+  },
+  "latestToolUse": {
+    "name": "Edit",
+    "timestamp": "2026-11-06T17:12:56.585Z",
+    "toolUseRef": "toolu_01JVe7FiscNeEFSTkc5hegWr",
+    "archiveLine": 5447,
+    "byteOffset": 4029622,
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+  },
+  "latestPathBearingToolUse": {
+    "name": "Edit",
+    "timestamp": "2026-11-06T17:12:56.585Z",
+    "toolUseRef": "toolu_01JVe7FiscNeEFSTkc5hegWr",
+    "archiveLine": 5447,
+    "byteOffset": 4029622,
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+  },
+  "recentToolUseMetadata": [
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:08.392Z",
+      "toolUseRef": "toolu_01JmTAXW8njfvZbtDe16R2ce",
+      "archiveLine": 4670,
+      "byteOffset": 3321638,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:12.475Z",
+      "toolUseRef": "toolu_01VpPGy8R3mmPFF5gbM9v7op",
+      "archiveLine": 4749,
+      "byteOffset": 3396710,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:14.634Z",
+      "toolUseRef": "toolu_01YYm4MecKSzwfbeDfD7fVDH",
+      "archiveLine": 4791,
+      "byteOffset": 3453995,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:16.386Z",
+      "toolUseRef": "toolu_01WwTMzP7rT7iVrg2o5rL5tM",
+      "archiveLine": 4825,
+      "byteOffset": 3506538,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:22.597Z",
+      "toolUseRef": "toolu_01B4txhq8GE8Ls5biZPEDdNj",
+      "archiveLine": 4894,
+      "byteOffset": 3571400,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:25.696Z",
+      "toolUseRef": "toolu_01CD5xW5xAa33WFUweDNkQ6A",
+      "archiveLine": 4954,
+      "byteOffset": 3634305,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:27.564Z",
+      "toolUseRef": "toolu_01PjgpahsaB4wxnG7LKeBHYb",
+      "archiveLine": 4988,
+      "byteOffset": 3688640,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:34.218Z",
+      "toolUseRef": "toolu_01Smkn6rvPWD63FD3EhhARzM",
+      "archiveLine": 5121,
+      "byteOffset": 3772783,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:40.863Z",
+      "toolUseRef": "toolu_01RmHpAmTyeRLzYX5oc4LJAg",
+      "archiveLine": 5176,
+      "byteOffset": 3843228,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Read",
+      "timestamp": "2026-11-06T17:12:41.792Z",
+      "toolUseRef": "toolu_01NbHTopJXmvonEgQF8LEoFq",
+      "archiveLine": 5194,
+      "byteOffset": 3891057,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:47.656Z",
+      "toolUseRef": "toolu_011VWBkXXYjt25LwCut7TyuC",
+      "archiveLine": 5268,
+      "byteOffset": 3928462,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "name": "Edit",
+      "timestamp": "2026-11-06T17:12:56.585Z",
+      "toolUseRef": "toolu_01JVe7FiscNeEFSTkc5hegWr",
+      "archiveLine": 5447,
+      "byteOffset": 4029622,
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    }
+  ],
+  "standing": [
+    "Only complete assistant tool-use name/id/path and envelope clocks selected. No thinking, narrative, tool-result, stderr, command string or credentials retained.",
+    "Sole fp stdout archive created within the actual actor-start boundary; archive naming selection reused from existing worker transport custody. No new runtime acquisition.",
+    "Counts establish observed activity, not semantic success. Bash operation semantics are uninspected."
+  ]
+}

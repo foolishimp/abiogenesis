@@ -1,0 +1,60 @@
+{
+  "status": "DEBTS_REGISTERED_TRACKING_PREFIXES_WRITTEN_PRIOR_BODIES_AND_INDEX_CONSERVED",
+  "rootDebtRegistration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_DEBT_REGISTRATION.json",
+    "bytes": 6136,
+    "sha256": "1e386dfd1a0858a4ae17e6d6ff0220fb68fe827709bda1fc8565a5e819f8cea1"
+  },
+  "closedProofReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/RETURN.json",
+    "bytes": 5416,
+    "sha256": "e637941505a491fe365f346e8c368c0849286b81af928a014830a9a68377dc7b"
+  },
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "files": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 174988,
+        "sha256": "54d15da51fa74a5a023f7ff0a52858ce84a3de24c933d86fbf04688a5101cf75"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 176302,
+        "sha256": "c7f0586b208c001e35c54a2db1571d858140f9cc06d1ff14711f72766923b94a"
+      },
+      "prefixBytes": 1314,
+      "priorBodyPreservedExactly": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 823644,
+        "sha256": "3de731bcd91ce0258a7c999acb5f8f9435eecc1af23bc1930c8af8bd54073ade"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 827077,
+        "sha256": "f2bd87d7d29c02d80a5c18fa5782b6de3d07abb42833999efda4ff6e64d9bf19"
+      },
+      "prefixBytes": 3433,
+      "priorBodyPreservedExactly": true
+    }
+  ],
+  "mainIndexBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "mainIndexAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "mainHead": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "candidateHead": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "productSourceEdits": false,
+  "gitEffects": false,
+  "qualified": false,
+  "unitPassed": false
+}

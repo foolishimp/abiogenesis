@@ -1,0 +1,36 @@
+{
+  "recordedUtc": "2026-11-04T14:16:29.467168+00:00",
+  "kind": "proof10_passive_custody_routes",
+  "source": "Existing09 captures reused with observed-C2 validators and original09 source/handoff mapping. No runtime/task/model-input change.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/capture-c2.mjs",
+      "bytes": 12600,
+      "sha256": "62608c1c112e0344ae9589d209e97f862322f54f56ce538e506edbf25b1af982"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/capture-assessment.mjs",
+      "bytes": 8149,
+      "sha256": "657ad8f872e77ef4f2b6bdae0e4c7c3472c75878e9d3b380a87e670b0df73d5a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/capture-final-close.py",
+      "bytes": 3838,
+      "sha256": "94e76dce2318f614d5898cd876a9caceedd1801946acc1ec661c9fbcf695e783"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/observe-progress.py",
+      "bytes": 5053,
+      "sha256": "47e4066d43ac625bca31059f2afa5006c0aedd9547005bcc5940de1362715529"
+    }
+  ],
+  "standing": "Prepared only; no provider, invocation, event write or actual capture executed.",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/SUBJECT.json",
+    "bytes": 225298,
+    "sha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13"
+  },
+  "expectedSourceAndHandoffs": 160,
+  "newAuthorHandoffs": 0,
+  "limits": "observe-progress native coding launch remains null by design; pre-existing09 progress file presence carries no proof10 progress credit."
+}

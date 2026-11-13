@@ -1,0 +1,310 @@
+{
+  "RootDisposition": {
+    "bytes": 3417,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/ROOT_DISPOSITION.md",
+    "sha256": "2085be0708734d53cf9ca82f8fb1b581d28453ac286dc701eaf8e82600cec289"
+  },
+  "externalReview": {
+    "bytes": 19531,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261101T043132Z_REVIEW_RC3_SINGLE_MACHINE_P1/README.md",
+    "sha256": "043e99a4f1834dc7b471b2f20874b537298828c3e67ce7bd49a58d3a7a19836e"
+  },
+  "failedC2Index": {
+    "admissionEvent": "event://abiogenesis/6519245d63348e96f840a6cd550f25ada3f79e5c35e7c4b656316145f77d6793",
+    "admissionOrdinal": 7391,
+    "affected": {
+      "fail": 1,
+      "failure": "missing product-toolchain-manifest.json",
+      "pass": 102,
+      "skip": 6,
+      "tests": 109,
+      "todo": 0
+    },
+    "artifactTests": {
+      "fail": 2,
+      "failure": "both report missing abi5-root-candidate-basis.json",
+      "pass": 0,
+      "skip": 0,
+      "tests": 2
+    },
+    "buildFailure": "manifest generator: C2 declared context member differs from packaged Product source build/code/src/product/worksite_command_execution.js",
+    "commands": [
+      {
+        "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/fixture-current-measurement",
+        "exitStatus": 0,
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 4616,
+          "sha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6"
+        },
+        "timedOut": false
+      },
+      {
+        "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/source-correspondence",
+        "exitStatus": 0,
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 6063,
+          "sha256": "9c1e417850710153014e834b9dbe5f4565c6b488482eac92d09de3f268c49ebd"
+        },
+        "timedOut": false
+      },
+      {
+        "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/toolchain",
+        "exitStatus": 0,
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "timedOut": false
+      },
+      {
+        "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/contract-seeds",
+        "exitStatus": 0,
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "timedOut": false
+      },
+      {
+        "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/build",
+        "exitStatus": 1,
+        "stderr": {
+          "bytes": 1069,
+          "sha256": "c00b32e75c2cbc4a933c73f3b84217f321a0c662eff5be6f7a42dee37548d941"
+        },
+        "stdout": {
+          "bytes": 215,
+          "sha256": "4b917a1e8bc682a17f9a5221bd1f465f674b712c01a8d41f58467feb608a92be"
+        },
+        "timedOut": false
+      },
+      {
+        "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/package",
+        "exitStatus": 1,
+        "stderr": {
+          "bytes": 1516,
+          "sha256": "dd03463e45648f44493be5ad1bf6cec0e0f54f93d9ab644550abac288bf18c79"
+        },
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "timedOut": false
+      },
+      {
+        "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain",
+        "exitStatus": 1,
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 81570,
+          "sha256": "a26cd9d5db6f8ab0df562beaf3edd076e616c908affa17d664cb2bb2d67a87a9"
+        },
+        "timedOut": false
+      },
+      {
+        "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests",
+        "exitStatus": 1,
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 21524,
+          "sha256": "5d517be76aee1e986f3f0abd1c5a71505bbf3816292fd1306694f4d4f10009d0"
+        },
+        "timedOut": false
+      },
+      {
+        "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests",
+        "exitStatus": 1,
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 5653,
+          "sha256": "09d83cfa3f572123d39fcefdb97b491f265804a216927ba43a11b231cc0e2e3a"
+        },
+        "timedOut": false
+      }
+    ],
+    "eventLineBytes": 124795753,
+    "eventOffset": 707776121,
+    "focused": {
+      "additionalFailure": "parent compose/batch test reports failure because its seven subtests failed",
+      "classification": "16 named cases report missing candidate-basis; one separate named actual-owner discriminator reports immutable-prefix TypeError; one parent aggregates child failures. This describes observed errors, not proof cases pass after prerequisite repair.",
+      "fail": 18,
+      "namedFailures": [
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "M5 effectful truth rejects forged artifact operation identity before query selection (3788.90025ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "M5 exact owner projections preserve valid facts, conflicts, and whole-prefix masking (0.574583ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "compose (3981.883583ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "batch (3990.118416ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "nested (3984.843917ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "progressed (3971.130292ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "batch_in_batch (3857.056709ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "recovery (3827.7255ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "identity_end (3851.05775ms)"
+        },
+        {
+          "firstReportedError": "TypeError [Error]: runtime event-prefix selection requires one explicit immutable snapshot",
+          "test": "native context bodies are born inline once, referenced by unchanged handoffs and refused unless exactly held (80.095ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "GC03 real owner allowed denied cold tamper (4047.610667ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "T-287 C2 compact acknowledgment preserves installed large-log observation and replay (3892.081167ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "T-287 C2 helper failure after launch reaches result admission with its subject inline (3835.140083ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "T-287 C2 helper failure http_probe_failed through the installed helper reaches result admission with its subject inline (3899.804417ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "T-287 C2 helper failure http_cleanup_unresolved through the installed helper reaches result admission with its subject inline (3812.761625ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "T-287 C2 command launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission (4131.762833ms)"
+        },
+        {
+          "firstReportedError": "ENOENT: typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+          "test": "T-287 C2 HTTP launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission (4034.28525ms)"
+        }
+      ],
+      "pass": 56,
+      "skip": 3,
+      "tests": 77,
+      "todo": 0
+    },
+    "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/f71a3f0f8d529f51e957f80a2884ad1ebd3535d6d67bd4d1bd87143bbd2939a2",
+    "helperBytes": 6101387,
+    "helperPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/worksite-command-execution/d6588659ad08b977845675cfdc0d08284567e7014030d70ef0b6d3b1bd6b6493/ac2bc83ecafaa391c70f600bbb02a6ff84a56d7e3214adf04e3842dcea45fbd8/result.json",
+    "helperSha256": "078bb40d9c59b8f20e31bb59d93c6fc2f8ab8386a941d3e7511ba11aef73e1e6",
+    "kind": "single_machine_p1_admitted_c2_failure_index",
+    "limits": [
+      "Manifest/basis-related failures may hide further defects; their outcome after repair is unknown.",
+      "965 fixture baseline is structural, not an executed old runtime or end-to-end speedup.",
+      "No current Product file was edited by the operator."
+    ],
+    "packageFailure": "missing product-toolchain-manifest.json after build failure",
+    "reportedProviderCostsUsd": {
+      "construction": 16.039311,
+      "selector1": 1.827524,
+      "selector2": 2.04024,
+      "subtotal": 20.2744558,
+      "testingLauncher": 0.3673808
+    },
+    "standing": "native Testing Result admitted; failed C2, no UAT/acceptance implied",
+    "structuralFixture": {
+      "baseline": {
+        "semanticBodyOccurrences": 6720,
+        "serializedValueBytes": 23951312
+      },
+      "baselineLabel": "structural/serialization projection of B11 shapes; not an executed old runtime and no old CPU/RSS/wall",
+      "changed": 3,
+      "cold": {
+        "acquisitions": 2,
+        "cpuSystemUs": 9471,
+        "cpuUserUs": 172295,
+        "maxRSSKiB": 292208,
+        "resolvedBytes": 2400209,
+        "rss": 288047104,
+        "wallMs": 168.13074999999998
+      },
+      "compact": {
+        "physicalLogBytes": 6108430,
+        "semanticBodyOccurrences": 963,
+        "serializedValueBytes": 6092138
+      },
+      "entries": 965,
+      "files": 960,
+      "handoffs": 5,
+      "holderAcquisitions": 2,
+      "kind": "native_context_965_member_carriage",
+      "methodLimits": "single unrepeated local run; OS page cache holds the just-written log for the cold process; cold/warm cover the owner decode/resolve path only, not native Work or C2; no end-to-end speedup claim",
+      "warm": {
+        "acquisitionsAdded": 0,
+        "cpuSystemUs": 99,
+        "cpuUserUs": 21727,
+        "rss": 444416000,
+        "wallMs": 14.871082999999999
+      }
+    },
+    "testingResult": "result://abiogenesis/83036136644178d564bedff0c0e5a67c2e6286b624a3bb961632326bdc79f892"
+  },
+  "firstRenderer": {
+    "bytes": 143027,
+    "currentToFirstPatch": "--- second20-current/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts\n+++ first21-renderer/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts\n@@ -2,7 +2,7 @@\n import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from \"../abg/event_store.js\";\n import { isAbgHistoricalDeclarationProof, isAbgHistoricalDeclarationReference,\n   type AbgHistoricalDeclarationProof, type AbgHistoricalDeclarationReference } from \"../abg/terminal_result_contracts.js\";\n-import { isWorksiteContextObservation, type WorksiteContextObservation } from \"./worksite_effect.js\";\n+import { isWorksiteContextObservation, worksiteContextIdentityEntry, type WorksiteContextObservation } from \"./worksite_effect.js\";\n import { isRecord, hasExactKeys as exactKeys } from \"../shared/admission_predicates.js\";\n import {\n   delimiter as pathDelimiter,\n@@ -375,7 +375,7 @@\n       currentContext.workspaceBindingIdentity !== input.workspaceBinding.bindingId || currentContext.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||\n       currentContext.workspaceAuthorityBasisRef !== input.workspaceAuthorityBasis.authorityBasisId ||\n       currentContext.workspaceAuthorityBasisDigest !== input.workspaceAuthorityBasis.authorityBasisDigest ||\n-      !same(currentContext.entries, original.after.entries) || !same(currentContext.readRoots, original.after.readRoots) ||\n+      !same(currentContext.entries.map(worksiteContextIdentityEntry), original.after.entries.map(worksiteContextIdentityEntry)) || !same(currentContext.readRoots, original.after.readRoots) ||\n       currentContext.maxFiles !== original.after.maxFiles || currentContext.maxBytes !== original.after.maxBytes ||\n       !Array.isArray(input.selectedSources) || input.selectedSources.length === 0 ||\n       new Set(input.selectedSources.map(row => row.relativePath)).size !== input.selectedSources.length ||\n",
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "sha256": "6766194e77012654f660814674842ec372e63bc6020df3ffc3110debb2bf5db1"
+  },
+  "firstSourceCustody": {
+    "bytes": 6485,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/CONSTRUCTION_RETURN_CUSTODY.json",
+    "sha256": "0a0d123e579956ab2b71d3e52f62137ef9c4220161e7a6ba2eee7e1397723a95"
+  },
+  "kind": "p1_03_selected_relation_evidence_draft",
+  "limits": [
+    "Reviewer README reports sparse scratch reproduction; no raw reproduction receipts are published beside it.",
+    "Installed GC03/helper lanes were explicitly not rerun by that review; require actual new C2.",
+    "No Product edit/application of this patch by operator."
+  ],
+  "secondSourceCustody": {
+    "bytes": 6794,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/SECOND_CONSTRUCTION_RETURN_CUSTODY.json",
+    "sha256": "2b9fa334262c6bb9ba64115a3ad15cb19ae49abac34a6f5ce607e28b5d0c663c"
+  },
+  "status": "ROOT_SELECTED_DIAGNOSTIC_INPUT"
+}

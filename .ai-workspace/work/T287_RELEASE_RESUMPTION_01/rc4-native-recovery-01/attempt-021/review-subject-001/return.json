@@ -1,0 +1,67 @@
+{
+  "kind": "rc4_native_recovery_021_construction_return",
+  "sourceCommit": "72eea8f0cd384e7eaeb64ff1ba47b0a3ac2858d4",
+  "sourceTree": "d7754acafb3a67efe3b41c093263225ae9ce968e",
+  "grant": "rc4-operator-inputs/native-recovery-21/NATIVE_GRANT.DRAFT.json",
+  "changeClass": "realization_refactor",
+  "result": "candidate_source_ready_for_c2",
+  "changedPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "beforeSha256": "22359424fc1e75323fc0d0b746def0179cf1c2d7fadf21272bb4775ddf1040d7",
+      "afterSha256": "d5aeb3b306c370918cd4514cc9dc8e2da5ea7442650e02b29e59c3ab4920622a",
+      "afterBytes": 93494,
+      "diffStat": "68 insertions, 14 deletions"
+    }
+  ],
+  "scratchWrites": [
+    "rc4-scratch/native-recovery-21/notes.md",
+    "rc4-scratch/native-recovery-21/readiness.json",
+    "rc4-scratch/native-recovery-21/return.json"
+  ],
+  "unchangedConditional": {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "reason": "The Maintained setup owner reuse HOW section makes no library-read or environment-equivalence claim, so it needs no claim correction."
+  },
+  "heldInvariantVerified": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+  ],
+  "correction": {
+    "case": "Maintained setup retains actual owner verification through ten native calls and preserves configured environment",
+    "warmControl": "After setup and the EEXIST restoration control, with the sentinels still installed, phase warm-control runs the existing verifyArtifact helper. It calls runtime.product.ProductVerificationPort.verify (verifyProductArtifact), then verifyProduct, then resolveNativeDeclarationClosures, on the same fixed core package, manifest and request as core-initial-verification. No verifiedArtifact is supplied, so verification runs cold in the same installed module instance with the same patched node:fs.",
+    "warmCoordinate": "The bundled build/toolchain/typescript.cjs CJS cache entry is loaded before the control, and the same entry remains after it.",
+    "controlAssertions": [
+      "The control result is a fresh object, not native.verified, with the same request and verificationDigest, owned by the same verifier instance.",
+      "nativeDeclarationEvidence.contracts and closures are both nonempty.",
+      "The control observes exactly one verifier read (verifyProduct) and one default-library read (resolveNativeDeclarationClosures), same instance, in the same shape as the cold first verification.",
+      "The control runs under ambient PATH/TMPDIR, like the first verification."
+    ],
+    "setupInterval": "Every phase before 'complete' is counted separately from the control, and every heavy entry lies in one of the two. The existing setup verifier/program assertions now use setup-interval entries only.",
+    "proofFieldsAdded": ["setupInterval", "warmControl", "librarySentinel", "environment.ambientInProcessKeys", "environment.fullEnvironmentEquivalence=false"],
+    "preserved": "Ten receipts, closes and value/request joins; two genuine installs and their physical checks; PATH/TMPDIR restoration after success and after refusal; the npm environment wrapper; phase timings; zero setup CLI children and JSONL; the existing raw/cold negatives; and the artifacts/setup020 preparation-resolve-call.json and sibling receipt writes."
+  },
+  "localFeedback": [
+    {"command": "node --check build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs", "exit": 0},
+    {"command": "in-memory node --input-type=module sentinel probe (node v24.7.0, offline TypeScript 5.9.2 via the read-only toolchain link; package-lock pins 5.9.2; no files written)", "exit": 0,
+     "stdout": "{\"ts\":\"5.9.2\",\"asyncReadsViaEsmNamedImport\":[\"asyncOwner\"],\"preliminaryParseReads\":0,\"coldProgramReads\":1,\"warmProgramReads\":1,\"diagnostics\":[0,0],\"owners\":[\"buildProgram\",\"buildProgram\"],\"files\":[\"lib.es2022.full.d.ts\",\"lib.es2022.full.d.ts\"]}"},
+    {"command": "in-memory node CJS cache probe (no files written)", "exit": 0,
+     "stdout": "{\"sameObject\":true,\"loaded\":true,\"filenameIsKey\":true,\"libDirIsModuleDir\":true}"},
+    {"command": "python3 -I rc4-operator-inputs/native-recovery-21/readiness.py rc4-operator-inputs/native-recovery-21/readiness-inputs.json > rc4-scratch/native-recovery-21/readiness.json", "exit": 0,
+     "status": "FILE_ONLY_READY", "sourceHashesMatched": 17, "issues": []}
+  ],
+  "limits": [
+    "The harness was not executed. No build/ or artifacts/ exists in the worksite, and building, packaging and installing are excluded. The warm control has not been observed on the candidate's bundled typescript.cjs.",
+    "No candidate C2, UAT, acceptance or local-cut result is claimed. The ten existing C2 commands have not run.",
+    "The library-read sentinel bounds only fresh full TypeScript program construction on this successful fixed nonempty declaration path. It does not count every verifier invocation or all declaration work, and zero reads do not exclude preliminary parsing.",
+    "Only PATH and TMPDIR are scoped in-process. Other configured environment keys, including any toolchainEnvironment keys, stay ambient in-process. No full environment equivalence is claimed.",
+    "Readiness is file-only evidence. Runtime observation remains authoritative. readiness.json was an empty file while readiness.py ran (shell redirection), and return.json was absent, which is allowed."
+  ],
+  "outOfGrantRelations": [],
+  "disclosures": [
+    "The probes set TMPDIR to rc4-scratch/native-recovery-21/tmp and wrote nothing there; tmp is empty.",
+    "No symlinks were created. No obsolete 70de setup probe, build, package, dependency install or mirror was run."
+  ]
+}

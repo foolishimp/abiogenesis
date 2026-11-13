@@ -1,0 +1,81 @@
+{
+  "status": "ROOT_SELECTED_MISSING_AFFECTED_CHECK",
+  "recordedUtc": "2026-11-03T09:20:00.645400+00:00",
+  "roleTransition": "Executive evaluates native UAT proof gap -> Root operator Writer diagnostic activation",
+  "authority": "Approved RC5 source/affectedproof scope; no newProducteffect",
+  "subject": "90721c86680f17c1877dc26c9eb93b4243188785",
+  "c2ResultRef": "result://abiogenesis/177a06b017ffd095b0bf01c9b5746ec9d898b9a8b3a2011d15906f3ddef41137",
+  "helperArtifactDigest": "sha256:c7ef7d75ccd67a5ffdc91f196339ce3b634ed2ea180207907e5387a0e8348091",
+  "firstUAT": "indeterminate; omitted noncapture planning test consumes changedrolecontext and131072 bound",
+  "frames": {
+    "ProductRequirement": "Capacity/bounds semantics unchanged; actualselectedscenario pass missing, not assumedfalse.",
+    "Design": "Selector source35598B vs5557B; planning assembly directlyconsumes it.",
+    "Integration": "ESM closure plus witness fixture/consumer source material required.",
+    "Proof": "Name filter selected only2newcases; mechanical2+16passes insufficient for thisaffectedpath.",
+    "EffectIdentity": "Copy exactC2sandbox; add unchangedtrackedfixturebytes. No source/C2evidence mutation. NativeUAT outcome remainsindeterminate regardlessdiagnostic."
+  },
+  "effects": [
+    "copy isolateddiagnostic tree under /private/tmp/abg-rc5/method-gap-01",
+    "run exactly one existingtest; temporaryworksitewrites confinedtoTMP",
+    "retainstdout/stderr/exit/custody underthisdirectory"
+  ],
+  "reentryIfPass": "Root may combine final methodproof with nextselectedF4nativeincrement; reuse18validpasses and sourcesatisfiedreview. HistoricalUATindeterminate remains.",
+  "reentryIfFail": "Exactmethodcause triage before anysourceactivation",
+  "fixtureInputs": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/implementation-design.md",
+      "bytes": 639,
+      "sha256": "b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/test-design.md",
+      "bytes": 684,
+      "sha256": "617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/generated/hello-world.mjs",
+      "bytes": 29,
+      "sha256": "647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/basic-cli.oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/original-basic-cli.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/witness-contract.md",
+      "bytes": 1674,
+      "sha256": "29e669318aa0c9dc2fceca23f8caf22b01e475cd3f918070f980c70ac00355b3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/specification/project-conformance.md",
+      "bytes": 751,
+      "sha256": "9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test-execution-plan.json",
+      "bytes": 268,
+      "sha256": "e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/component/hello-cli.test.mjs",
+      "bytes": 369,
+      "sha256": "8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+      "bytes": 371,
+      "sha256": "5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      "bytes": 5835,
+      "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc"
+    }
+  ]
+}

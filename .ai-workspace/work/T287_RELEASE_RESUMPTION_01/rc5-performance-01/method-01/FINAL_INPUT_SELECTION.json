@@ -1,0 +1,14 @@
+{
+  "status": "READY_FOR_OWNER_PREFLIGHT",
+  "selectedFiles": 976,
+  "readRoots": 978,
+  "selectedBytes": 28228421,
+  "excludedUnneededPresentationToolArchives": [
+    "rc5-operator-inputs/method-01/stdo-3.0.4/standards/documentation/code-explorer/index.html",
+    "rc5-operator-inputs/method-01/stdo-3.0.4/standards/documentation/constraint-explorer/index.html",
+    "rc5-operator-inputs/method-01/stdo-3.0.4/standards/documentation/index.html",
+    "rc5-operator-inputs/method-01/stdo-3.0.4/standards/documentation/proofs/index.html",
+    "rc5-operator-inputs/method-01/stdo-3.0.4/standards/tooling/sources.zip"
+  ],
+  "noNativeDispatch": true
+}

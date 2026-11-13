@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_SELECTION_REQUIRED",
+  "operator": "Root",
+  "bindingSha256": "be5a291b2390e1a5fed5c0a2ddcb008f097ea0fcdddaf19d21a1810c5335d92b",
+  "allowedStages": [
+    "run-a"
+  ],
+  "callSha256": "ed738d4daf241ff5b09200caa47705608d923bedb8f984c3648f8dcf61056b57",
+  "decision": "Template only. Root must separately select exactly one real-provider A call on accepted4589 through preserved005 setup. No B, continuation, recovery or retry selected. Actual successful eligible A Construction remains a prerequisite, not guaranteed by bound2."
+}

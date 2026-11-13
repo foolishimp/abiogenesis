@@ -1,0 +1,295 @@
+{
+  "productFrame": "Unchanged ABIogenesis5 fifteen families/GOAL-035/T287, STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b. Bounded source-backed route supplement only; existing SDK, library, ABG and proof owners retain authority.",
+  "kind": "bounded_same_process_reuse_and_fixed_proof_route_supplement",
+  "at": "2026-11-06T02:51:08.334780+00:00",
+  "status": "CLOSED_RELATIONS_RETURNED",
+  "preservesClosedReadiness": true,
+  "sameProcessReuse": {
+    "result": "satisfied",
+    "claim": "Existing refresh(readSource) can retain the first same-process environment acquisition across the second caller setup.",
+    "measured": {
+      "preflightStatus": "script_completed",
+      "hostExitCode": 0,
+      "hostMs": 135557.70662473515,
+      "moduleBodyMs": 135109.87133300002,
+      "environmentRefreshMs": 61812.121417,
+      "lifecycleCallConstructionMs": 69925.12391700002
+    },
+    "cause": "prepare-r1 line46 explicitly resets retained.state.environment to null. Lines83-87 create dry and acquire env; lines134-135 create caller from retained.state, which still has null environment. constructLifecycleCall then refreshes at public-setup line305 and recaptures/reconstructs the same prefix instead of receiving env.prefix.",
+    "minimumRelation": "After Object.assign(caller.state, retained.state), call caller.refresh(env.prefix) using the exact in-memory dry-refresh coordinate. The following constructLifecycleCall refresh then consumes state.environment.prefix. This uses existing API and existing owner-derived facts; do not JSON-clone or serialize env/prefix.",
+    "authorityPreserved": [
+      "refresh compares retained/current coordinate hashes and falls back to the current coordinate on mismatch",
+      "validateExactPrefixArtifactTruthProjection with requireCurrent:true remains",
+      "WorkspaceBinding/environment relation is still projected by its owner",
+      "Fresh worksite observation, installed-content checks, before/after physical-prefix checks and actual runtime admission/effect boundaries remain",
+      "No same-process receipt survives a process restart by assertion; copied/raw values follow ordinary acquisition"
+    ],
+    "attributionLimit": "69,925.124ms lifecycle construction includes other computations; no executed reuse patch or saved-time attribution. The first refresh is genuinely required cold acquisition in this process.",
+    "nearestFutureDiscriminator": "Same actual prefix and input, compare returned constructed-call semantic coordinates, preserved refusals, currentness and no-prefix-write proof; count history acquisition at existing owner seam before/after and time the same two phases. No such proof was run."
+  },
+  "fixedTestingUatRoute": {
+    "result": "indeterminate",
+    "claim": "The selected source:none fixed component-proof can use an already supported complete direct Testing-to-UAT composition without initial open-choice F_P.",
+    "actualSelectorMs": 334345.0,
+    "actualProcessMetadata": [
+      {
+        "kind": "actor_process_started",
+        "admissionOrdinal": 170539,
+        "eventId": "event://abiogenesis/997c6891573cf6079aa311cfa7376644c51eb6375d50bd077577514690e96b6f",
+        "eventTime": "2026-11-06T02:33:52.774Z",
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "runId": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851",
+        "offset": 1032768686,
+        "rowBytes": 1863,
+        "rowSha256": "419d8968491b9db8fd22af7b32cfa4cfe987278faf956e42014b534cc9525249",
+        "processRef": "process://abiogenesis/0ee95c1c796ced989d4813a0a4d078fc207e298c855eff675b5e4450d27ab435",
+        "pid": 51752
+      },
+      {
+        "kind": "actor_process_exited",
+        "admissionOrdinal": 173286,
+        "eventId": "event://abiogenesis/ff8e18bc2762503764c09adac0507a849de69ecf9e57f93974475b6116398e1a",
+        "eventTime": "2026-11-06T02:39:27.119Z",
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "runId": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851",
+        "offset": 1041263901,
+        "rowBytes": 1777,
+        "rowSha256": "325a5e924190a7089c6a9503a047a87c0d399bfdec539f4144479e151ed78e64",
+        "processRef": "process://abiogenesis/0ee95c1c796ced989d4813a0a4d078fc207e298c855eff675b5e4450d27ab435",
+        "pid": null
+      },
+      {
+        "kind": "actor_process_started",
+        "admissionOrdinal": 173358,
+        "eventId": "event://abiogenesis/e8d2840ccf122e32578fedefa677795d54804153ba3b99e66bedd700ed53e71e",
+        "eventTime": "2026-11-06T02:39:37.198Z",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "runId": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851",
+        "offset": 1043659614,
+        "rowBytes": 1898,
+        "rowSha256": "68d33e77b5a39efc55072bef09d6d3f33e58f51a848a199fb71c4167fa05e007",
+        "processRef": "process://abiogenesis/cf668d8889026f88c4cce2e080af32cd3c86c9589041802bd80b4c6d79e12fc0",
+        "pid": 55719
+      }
+    ],
+    "actualTestingEvidence": [
+      {
+        "kind": "c_call_result_admitted",
+        "admissionOrdinal": 173306,
+        "eventId": "event://abiogenesis/759544224a33bd948ffcac2e994305089d1d11d308e18a67173390edf12381ac",
+        "eventTime": "2026-11-06T02:39:28.589Z",
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "runId": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851",
+        "offset": 1041557643,
+        "rowBytes": 99602,
+        "rowSha256": "96f010e63a785c88665c3639e1ec75d30a77f558e8d54db7e78fdb45b8feffe8",
+        "resultRef": "result://abiogenesis/00236c941cde335d9d1ba1e774c8c1fd1dbea72be51fba4b9ea54b0bd6ac8509",
+        "valueKind": "registered_graph_choice"
+      },
+      {
+        "kind": "c_call_result_admitted",
+        "admissionOrdinal": 173333,
+        "eventId": "event://abiogenesis/1f863afa342313911fb7e2ceee9a7d0c98ffd25cac98a42eed31d397129cf052",
+        "eventTime": "2026-11-06T02:39:32.450Z",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "runId": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851",
+        "offset": 1041942884,
+        "rowBytes": 738320,
+        "rowSha256": "e41840a1ade785d30e8b1a6e4408abc8242dbf04984f7609a0ff9594b8bb72e9",
+        "resultRef": "result://abiogenesis/678dba29d8046fb4ddbaed669b587b21508e8b3d77f6e0d5e8a6dc6a556116f4",
+        "valueKind": "worksite_command_execution_task"
+      }
+    ],
+    "selectionProvenance": "Testing consequence is evidenced by its actual testing GraphFunction task Result at173333 and command actor at173358. No private selector text or provider output was inspected.",
+    "productLaw": "PRODUCT default-library section1093-1111 makes the recursive Executive an explicitly selected replaceable composition and forbids an unconditional role hierarchy. Accepted default-library HOW122-125 says callable coverage is not mandatory calls;145-151 calls the recursive Executive optional. No universal requirement for an initial open-choice selector on an already fixed proof was found in these deciding clauses.",
+    "currentGrant": "PROOF_ONLY_GRANT route selects existing default-library Testing/UAT source:none, forbids injected observations/synthesis, and runtimeEffects expressly names declared Testing/UAT selectors. This active proof is not reselected by the supplement.",
+    "sourceBarriers": [
+      "consumerDeclaration lines35-41 gives the selected consumer Program one declared start at Executive; public-setup constructLifecycleCall chooses start/next at that Program.",
+      "Generic constructInstalledStartCall supports direct GraphFunction invoke, and default-library Testing/UAT are callable members, but default wrapper nodes are prepare -> fixed child -> fold.",
+      "Testing preparation abg/default_library:287-305 accepts observed files with null/absent synthesis subject evidence. However projectGovernanceFold:317-320 rejects synthesis:null and requires the selected next GraphFunction to match. Public invocability alone does not establish direct wrapper completion.",
+      "UAT nativeTask:228-245 calls subjectEvidence:178-196, which requires an admitted selected Result referenced by synthesis and joined to the owning observation/basis/provenance. The fresh current input deliberately has no such observations or synthesis.",
+      "Published lower native assessment Program and typed producer selection exist, but no complete selector-free Testing-to-UAT producer/foldback/closure composition was established from the selected sources."
+    ],
+    "genuineGap": "A direct fixed-proof route needs an existing lawful direct invocation/provenance/fold relation and exact UAT producer ingress that do not pretend an F_P synthesis occurred. That relation is not present in the selected wrapper path. Root may select bounded default-library HOW/realization re-entry if it wants that future route; do not invent state, alternate graph/controller or bypass fold.",
+    "boundedConclusion": "No Product-wide selector mandate; current grant and instantiated library contract require its admitted selection. Removing this selector is not a configuration-only substitution shown safe here. Lower callable capabilities do not prove a composed direct route."
+  },
+  "operationalSdkVsColdProof": {
+    "result": "satisfied",
+    "claim": "Fresh CLI processes per operational step are not universal Product law; acquisition/projection truth and selected cold proof are separate boundaries.",
+    "governingSource": [
+      "PRODUCT811-849 requires reuse of established state across ordinary internal handoffs and retains cold/recovery/historical/invalidation reconstruction",
+      "PRODUCT994-1033 declares SDK the typed projection and CLI a thin shell over the same owners",
+      "REQ-R-ABG3-PROJECTION-002/-025 require incremental/reusable established facts and live/cold equivalence at the same boundary"
+    ],
+    "existingOperationalRoute": "publicCaller.invoke150-172 already uses runInstalledDefinitionCallWithResource for actual borrowed selection or runInstalledDefinitionCallTransport in the same module instance. Both reach the installed callable and preserve semantic admission. No CLI child is required by these APIs.",
+    "limitsOfImmediateSubstitution": [
+      "invokeColdInstalledEntry239-258 is the operator harness selected cold entry, not a Product-wide operational requirement. Preserve the current proof unchanged.",
+      "Exact-prefix read binder currently accepts reopen_abg_event_resource only (source exact_prefix_bindings117-126; installed61). Acquired setup support does not establish borrowed read-family support.",
+      "Ordinary in-process transport with a reopen assertion is available but retains owner reopen/acquisition, so process elimination alone does not remove cold-history work.",
+      "publicCaller.invoke advances borrowed selections, while invokeColdInstalledEntry explicitly updates state.closeHandoff from its receipt. Any operational integration must retain actual receipt/handoff propagation; a blind helper substitution is not established."
+    ],
+    "decision": "Use existing owned context for same-address operational work where supported. Keep required installed/release cold-start/replay discriminators at their selected proof boundaries; do not impose two cold children after every ordinary operation. Any borrowed read contract extension stays with the existing read/resource owners, not a new store/cache/service.",
+    "clarificationOfReadiness": "Earlier READINESS language keeping both fresh reads is scoped to that selected installed proof. It is not a universal task law or a prescription to perform those cold checks at each operational step."
+  },
+  "pins": {
+    "closedReadiness": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/READINESS.md",
+        "bytes": 12894,
+        "sha256": "f4b6da808a7bd810d2ea59a32043b762a7649e33100a606c8e76b4041b8885c4"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/READINESS.json",
+        "bytes": 45287,
+        "sha256": "7e59cfef5068ed1c89c4aa23f47b58ad8e44097667ce752a22c4fe08f5b68cc5"
+      }
+    ],
+    "sourceSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+      "bytes": 494547,
+      "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+    },
+    "operator": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+        "bytes": 29259,
+        "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+        "bytes": 37910,
+        "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/consumer.mjs",
+        "bytes": 11420,
+        "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/prepare-r1.mjs",
+        "bytes": 21293,
+        "sha256": "500058c8aa0984b74eb1dbc858b8f82477ca2877e4c9ccd9977d6297c7b6f02c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PROOF_ONLY_GRANT.json",
+        "bytes": 17213,
+        "sha256": "59c6f9cfbc12e385cd0c022fd8e834157d702c6b7064590ceced9c2792c8c235"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PREPARE_PHASE_TIMING.json",
+        "bytes": 7105,
+        "sha256": "c3820ff41f50b4fb8db15e312ac9cbdc626b8dae5c63206ea8a147e1a460ac61"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/PREFLIGHT_RESULT.json",
+        "bytes": 154,
+        "sha256": "3e69b03ef49a7179a862d3f147f9ac62585587fff72db910b8c7dfd60a3b18cb"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/execution/TIMING_OBSERVATION_ENVELOPES.json",
+        "bytes": 11389,
+        "sha256": "f8710dd3a62815c568e9d11287a2358b25443d49abacbcbd495fa8095d754e9a"
+      }
+    ],
+    "newFrozenSource": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "bytes": 24296,
+        "sha256": "b3c030f8797b4ef7e5e04008b7c323783e840b2e3abb40bd03a97a48c50f7735",
+        "subjectVerified": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "bytes": 47365,
+        "sha256": "f98657628c0c21147f84e3d7c854df04014f71eef4a0920c2ac3cb34e66cd15d",
+        "subjectVerified": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "bytes": 36411,
+        "sha256": "7177148ab49e3ce1a8cd35f2cf5f6bb49c52465ac7907708ec27835ec037aa36",
+        "subjectVerified": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+        "bytes": 7671,
+        "sha256": "a0466006270f103352a86fd0faa4bd531997b7372d4d68e147b8e3975af06e85",
+        "subjectVerified": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+        "bytes": 8726,
+        "sha256": "e46879346a2bbf47e0e37e529582a01c1f37c955fc5d9fb9f3a175010813ae25",
+        "subjectVerified": true
+      }
+    ],
+    "installed": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/default_library.js",
+        "bytes": 24877,
+        "sha256": "816c583266c24fed3b3b7b1839f0fe3e3aa5d6115b4d8753ade122aaea81ab26"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+        "bytes": 44995,
+        "sha256": "d4799e3fe08e53ea47a058abe17ac367f4854f6e39d3bfaede76b89099728400"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+        "bytes": 34310,
+        "sha256": "e4090de450b9e80c7de43f3ca16df7cec5de0b43c6e101453e45093a4b5c437a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_assessment.js",
+        "bytes": 6396,
+        "sha256": "c46085d2409f8aa00d35d4c1aa94b89daf19687c28f02e2a6d966050781ed049"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/native_workspace_work.js",
+        "bytes": 8920,
+        "sha256": "9016d9b38a9c7deab1ee33276340674ee7207e6089bb89e96732154a79b0ba15"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/exact_prefix_bindings.js",
+        "bytes": 5454,
+        "sha256": "1db1f87d9bca9fa25c87525bd47d15c5172db207f3aca2cf2f5ae8e2d90055f6"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_definition_call_transport.js",
+        "bytes": 14437,
+        "sha256": "629c50a1efd367f7693ffda4862d326a6de9e4160c1eabd7bc5ecd5ab4892c8f"
+      }
+    ],
+    "authority": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+        "bytes": 10959,
+        "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "bytes": 82902,
+        "sha256": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8"
+      }
+    ]
+  },
+  "limits": [
+    "Read-only source and allowlisted process/event metadata; no provider narrative/tool_result/raw stderr/auth reads.",
+    "No code/control/test/build/runtime/Git/network/auth effects or delegation. Only this supplement pair written.",
+    "Source-backed relations, not executed before/after proof, speedup, completed P3 lifecycle, C2/UAT acceptance or release qualification.",
+    "Timing envelope is a pin at acquisition and may be updated by the running operator; selected event metadata is retained here with its original physical row coordinates/hashes.",
+    "No search beyond the deciding existing owner chain establishes a universal absence of all possible direct compositions. The concrete selected-path barrier and its owning gap are established."
+  ]
+}

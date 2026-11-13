@@ -1,0 +1,3 @@
+**Deviations, ruled.** The four prepare cycles and two scratch runs before commit 1, the stopped full dry loop, the suite overlap: no consequence; recorded. The time model is an extrapolation; the execution-material size rests on the Worker's source reading and a direct helper measurement, not on an admitted C2; both are stated as such.
+
+**Open owner questions carried:** 15, 16, 17, 18 (non-blocking).

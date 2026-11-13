@@ -1,0 +1,81 @@
+{
+  "status": "CHILD_CLOSED",
+  "samples": [
+    {
+      "at": "2026-11-07T11:31:32.653Z",
+      "freeBytes": 330500665344,
+      "ownedBytes": 123782857
+    },
+    {
+      "at": "2026-11-07T11:31:44.556Z",
+      "freeBytes": 330430558208,
+      "ownedBytes": 123783998
+    },
+    {
+      "at": "2026-11-07T11:32:04.558Z",
+      "freeBytes": 330428096512,
+      "ownedBytes": 132553349
+    },
+    {
+      "at": "2026-11-07T11:32:14.564Z",
+      "freeBytes": 330465382400,
+      "ownedBytes": 145839413
+    },
+    {
+      "at": "2026-11-07T11:32:34.566Z",
+      "freeBytes": 330312581120,
+      "ownedBytes": 219138607
+    },
+    {
+      "at": "2026-11-07T11:33:04.575Z",
+      "freeBytes": 330298392576,
+      "ownedBytes": 219138607
+    },
+    {
+      "at": "2026-11-07T11:33:24.588Z",
+      "freeBytes": 330301198336,
+      "ownedBytes": 219138607
+    },
+    {
+      "at": "2026-11-07T11:33:54.624Z",
+      "freeBytes": 330304024576,
+      "ownedBytes": 219138607
+    },
+    {
+      "at": "2026-11-07T11:34:14.611Z",
+      "freeBytes": 330189291520,
+      "ownedBytes": 219138607
+    },
+    {
+      "at": "2026-11-07T11:34:24.611Z",
+      "freeBytes": 330186874880,
+      "ownedBytes": 219138607
+    },
+    {
+      "at": "2026-11-07T11:34:34.613Z",
+      "freeBytes": 329989062656,
+      "ownedBytes": 386828565
+    },
+    {
+      "at": "2026-11-07T11:34:44.613Z",
+      "freeBytes": 329956270080,
+      "ownedBytes": 408971981
+    },
+    {
+      "at": "2026-11-07T11:34:54.614Z",
+      "freeBytes": 329874771968,
+      "ownedBytes": 493203586
+    },
+    {
+      "at": "2026-11-07T11:34:58.509Z",
+      "freeBytes": 329833607168,
+      "ownedBytes": 518760982
+    }
+  ],
+  "maxOwnedBytes": 518760982,
+  "minFreeBytes": 329833607168,
+  "monitorFailure": null,
+  "overshootPossible": true,
+  "quotaEnforced": false,
+  "detachedDescendantAbsenceProven": false
+}

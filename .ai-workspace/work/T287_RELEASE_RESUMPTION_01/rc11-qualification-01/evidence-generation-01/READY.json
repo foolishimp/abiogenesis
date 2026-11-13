@@ -1,0 +1,85 @@
+{
+  "id": "RC11-EVIDENCE-CONTROL-PREP-01",
+  "status": "PREPARED_NOT_EXECUTED",
+  "at": "2026-11-09T06:54:32.806883+00:00",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/ACTIVATION.json",
+    "bytes": 1775,
+    "sha256": "8120b34769be3f106e5354dbe17ce68cf92fa8073916acc13bb7ff5a78b7fd04"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/CONTROLS.json",
+    "bytes": 6831,
+    "sha256": "b2b1c849907cb6d7dc555b79e00f5e012958119fb832ff00ddc166954514b8b9"
+  },
+  "scripts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/common.mjs",
+      "bytes": 2784,
+      "sha256": "d888e6a5d2a605856452aefc3cc321cfc57366dc0d3721a93a2654f73510d1f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/malformed-actor.mjs",
+      "bytes": 354,
+      "sha256": "11225f275863fd370717968b02104c964bbd222c53f679ab27619854ed5461f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/native-host.mjs",
+      "bytes": 10116,
+      "sha256": "e97056e7f1ab539db1a991af43cee4cdc339420bbabfec9587efabd8d561ba68"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/run.mjs",
+      "bytes": 9052,
+      "sha256": "9f6a8b501f221b9e5b495c52b78ee3f7cf3112c9f4a10dfcaf7dc0af4e9a82cd"
+    }
+  ],
+  "readme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/README.md",
+    "bytes": 6043,
+    "sha256": "59e08ec2c9d6a6e1bbb0b17cfc99d42e1a4a029943d905775b9b9a26b1769d06"
+  },
+  "readback": {
+    "inputCount": 17,
+    "controlCount": 4,
+    "mismatches": []
+  },
+  "syntaxOnly": {
+    "node": "24.7.0",
+    "files": [
+      "run.mjs",
+      "native-host.mjs",
+      "common.mjs",
+      "malformed-actor.mjs"
+    ],
+    "result": "all pass; native duplicate local declaration was corrected before freeze; no imports or runtime execution"
+  },
+  "futureCommand": {
+    "nativeAssessment": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/run.mjs",
+      "native-assessment"
+    ],
+    "selectedAction": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01/run.mjs",
+      "selected-action"
+    ],
+    "requiredEnv": {
+      "RC11_EVIDENCE_ADMISSION": "RC11-EVIDENCE-GENERATION-01-ROOT-ADMITTED"
+    },
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-01"
+  },
+  "effectsDuringPreparation": {
+    "newControlFiles": true,
+    "sourceOrCandidateWrites": 0,
+    "productImports": 0,
+    "runtimeCalls": 0,
+    "builds": 0,
+    "tests": 0,
+    "paidProviderCalls": 0,
+    "network": 0,
+    "gitMutations": 0
+  },
+  "limits": "Source and interface bindings are static. Feasibility, required package-cache contents, setup success, run closure and generated fixture identities remain unobserved. Root admission required before either command; no source or fixture acceptance."
+}

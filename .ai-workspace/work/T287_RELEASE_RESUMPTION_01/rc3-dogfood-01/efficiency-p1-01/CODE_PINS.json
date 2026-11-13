@@ -1,0 +1,51 @@
+{
+  "kind": "b11_efficiency_installed_code_pins",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src",
+  "runtimeArchiveSha256": "36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+  "runtimeManifestDigest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+  "rc2SourceCheckout": "/Users/jim/src/apps/abiogenesis-rc2-dogfood",
+  "rc2SourceCommit": "d1e4527dbbc0b9ca1a929122c62ca225184f3341",
+  "node": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "files": [
+    {
+      "relativePath": "abg/event_store.js",
+      "bytes": 196501,
+      "sha256": "ac8397814aefb939c445488a8a9fd1582247b0f00e5921494a62f0f389fd15da"
+    },
+    {
+      "relativePath": "abg/runtime_history.js",
+      "bytes": 38835,
+      "sha256": "070bc526cf049f473c31f848952d4ff789231c50c9d07b231ba66d36d94a14c9"
+    },
+    {
+      "relativePath": "abg/instruction_assembly.js",
+      "bytes": 117887,
+      "sha256": "c03b00c69e5f15b778f15b9725b9240e8ebdf1480be7d89df8cf32586d71ecce"
+    },
+    {
+      "relativePath": "product/worksite_operations.js",
+      "bytes": 45885,
+      "sha256": "22784ff3f3fbfcb6ccf1a30935a884e8e936155c9a084bfeb8e362c3034cb0f2"
+    },
+    {
+      "relativePath": "product/native_workspace_work.js",
+      "bytes": 17845,
+      "sha256": "2541e210b62a223bd684602c3a7b939f7763bb0017b9f3cd1162ebc0c00cc02b"
+    },
+    {
+      "relativePath": "abg/default_library.js",
+      "bytes": 39648,
+      "sha256": "2ebc8f7d8a4b81545a3553c5e1cf97d570fad9db4ceb62525ada200664cc90f4"
+    },
+    {
+      "relativePath": "shared/digests.js",
+      "bytes": 944,
+      "sha256": "c49125e6657d04f87a844c5456e55dd19ad84df0f2c161998ffe3d97c56e6117"
+    },
+    {
+      "relativePath": "shared/canonical_json.js",
+      "bytes": 1931,
+      "sha256": "7ab9a42e489f5b0b7f65ddf887cf8afca30cb10013087d81d16dd09acf3d6dee"
+    }
+  ]
+}

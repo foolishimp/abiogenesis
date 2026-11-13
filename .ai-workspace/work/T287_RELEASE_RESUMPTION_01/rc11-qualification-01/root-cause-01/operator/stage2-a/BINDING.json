@@ -1,0 +1,174 @@
+{
+  "status": "RETAINED_BUILD_CONTINUATION_READY",
+  "originalBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/BINDING.json",
+    "bytes": 1043,
+    "sha256": "f491f7dd07f122e9061912cbd48700e027c752bdc1ca4230b61326913d07ce8d"
+  },
+  "originalControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/CONTROLS.json",
+    "bytes": 5596,
+    "sha256": "e56ad4df8c29ea7226d277a47a91fc9edd3f126126e4c68584fe1cecedfdc6d4"
+  },
+  "originalRunner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/proof.py",
+    "bytes": 11223,
+    "sha256": "078bbdfb90ee2cf803b998438d50606e505205e7abb20e39e32be95408758b0f"
+  },
+  "originalReady": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/READY.json",
+    "bytes": 3129,
+    "sha256": "8d8acb1cb8198fe195f7a55289ae31d76f19682735b3da9f9be464fc450efa85"
+  },
+  "originalFailure": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/HALT.json",
+    "bytes": 221,
+    "sha256": "62b05ce85a4899251807f84af62e9f7f9201bf273296a5b8417ad4c7c275b9c8"
+  },
+  "originalLint": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/lint/RETURN.json",
+    "bytes": 1963,
+    "sha256": "641d975dc3b7b2350decd5870153f088e6c840dcb8dc15ba1bd6f1da6c338c6e"
+  },
+  "buildReceipt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/build/RETURN.json",
+    "bytes": 1895,
+    "sha256": "7e8649729c090ca6b0e732284dd11726f4df154fd9fc4b279e2a52d6a3b730fa"
+  },
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182855,
+    "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+  },
+  "commands": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/COMMANDS.json",
+    "bytes": 931,
+    "sha256": "889c7dfff1dc769371d99db7aa79c0fc5698fe31bcdf5b630fab7c7b88c1691a"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+    "bytes": 298978,
+    "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+  },
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "frozenSourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/frozen-source",
+  "proofRoot": "/private/tmp/abg-rc11-proof-20261109-01",
+  "continuationOutput": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/run-01",
+  "environment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/ENVIRONMENT.json",
+    "bytes": 1209,
+    "sha256": "e8349474031407f79420f9bb30d93952e01316b2090b9a72c7d7bb9e5d18573b"
+  },
+  "retainedWorkDelta": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "835a595ec0b025ded19a6d11fedf0bb8026d7acb1909911aed1f8d96ec89e24d"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197956,
+        "sha256": "dd1d79bb8843aaba2b83ddf0030bdd7ffe72de88a0e2c60dd90eda9831da5dd8"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266103,
+        "sha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266309,
+        "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+      }
+    }
+  ],
+  "acceptedNativeProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/ROOT_NATIVE_PROOF_ACCEPTANCE.json",
+    "bytes": 924,
+    "sha256": "73dc3d4bd4c5b7d1dfd3433cc0fdb0b3ba4843a3df2a3330615ecf22dfdecb02"
+  },
+  "priorContinuationReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/RETURN.json",
+    "bytes": 7350,
+    "sha256": "be223716ab973c3494408b298f363c65e24b5cd1beef0523a34a2b3f80fcc652"
+  },
+  "acceptedPhysicalProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/ROOT_PASSED_PROOF_ACCEPTANCE.json",
+    "bytes": 1646,
+    "sha256": "e50577076302db84617479a1c536712384c7405534dd24c66458e0073da99bd1"
+  },
+  "closedFailureTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/CLOSED_TRIAGE.json",
+    "bytes": 5731,
+    "sha256": "4aa3f781b7aa17f92ee991731ddc1d610eda8708ff0ddc435f80ca06c14e2214"
+  },
+  "diagnosticTransform": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/SOURCE_TRANSFORM.json",
+    "bytes": 1701,
+    "sha256": "11edd520edfac63d3d0ac7298e1d9d352b27844199c5d7f03050ba7fa1c4e5cd"
+  },
+  "diagnosticRecords": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records",
+  "selectedCaseNames": [
+    "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+    "M5 ABG transport renews its inactivity lease only from observed progress",
+    "M5 ABG transport does not renew from unacknowledged output",
+    "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+    "owned process groups retain descendant cleanup after normal and TERM leader exits",
+    "M5 ABG transport excludes descendant output emitted after direct-process exit"
+  ],
+  "protectionPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 7591,
+      "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 177987,
+      "sha256": "c0a8a9ed43787dd075a46f23a9d090add6f30164369ca51e415e01053d5613cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 828718,
+      "sha256": "17465ae63c2967b22cee48611af7f92d143aba496790fbef1d6ae820e304bd15"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 14965,
+      "sha256": "5d6c3ec6d2094a041e25d5515347f83be0d5bc6694fc12e552089b66b34cf121"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/RETURN.json",
+      "bytes": 7365,
+      "sha256": "c7e0bb71d555452725729a656539d67d1bccccb8a5e2fe3c661b4eab7d47e92a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/STAGE1_RETURN.json",
+      "bytes": 32689,
+      "sha256": "cd1efd942a0d48d922f0ffe7817267f45fdf1910f611445f45556f9f1675c5d1"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/test_env/tests/m5-worker-transport.cause.test.mjs",
+      "bytes": 123975,
+      "sha256": "455ed58983eb64ee3901f8a70ab824f1710746a2eba4d6e17e2f9e9c9c407a25"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/SOURCE_TRANSFORM.diff",
+      "bytes": 12213,
+      "sha256": "0be1df9b01f327f975cc0760203d29bb032e6d0082d7e2d7511d330390b299af"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "status": "OBSERVATION_DIAGNOSTIC_RETURNED",
+  "kind": "worksite_effect_refusal",
+  "ownerOutput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/diagnostic-001/OWNER_OBSERVATION.json",
+    "bytes": 275,
+    "sha256": "e0f91cdfa8b8ebc8986849c0b101266cc51f02b40574820f3048fd3e868a379f"
+  },
+  "sourceCommit": "16d245c1e30119c4f8bbadce06c63d857a576ee4",
+  "eventPrefixUnchanged": true,
+  "installedFilesUnchanged": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "taskConstructed": false,
+  "callConstructed": false,
+  "limit": "Exact current owner observation only; no retry, repair, admission or refusal workaround."
+}

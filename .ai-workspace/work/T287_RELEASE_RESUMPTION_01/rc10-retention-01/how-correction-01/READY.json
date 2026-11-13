@@ -1,0 +1,79 @@
+{
+  "status": "READY_EXACT_HOW_SETUP_AND_NATIVE_ADMISSIONS_HELD",
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/ROOT_SCOPE.json",
+    "bytes": 2789,
+    "sha256": "4ccc10ddff51ad67c21b88a5e032ef7cb79c9b3abef32b9db6ba2271af18c9ac"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/TASK.json",
+    "bytes": 2856,
+    "sha256": "6b7b9af2323ca5c94ab164b6102fdc5898729ef3148eef6615aebef24c015283"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/BINDING.PREPARATION.json",
+    "bytes": 12668,
+    "sha256": "f3cdc9ada321ac05955ac89cb2ccd4b216bb4ec96671ec402c7cac112ca3450e"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/host.mjs",
+    "bytes": 13629,
+    "sha256": "940b1d9d8e75775959bb850e42b54011611f1c7bd1dccd9c08d3ee2a2705a611"
+  },
+  "sameReviewedHostBytes": true,
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 60,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 300000,
+    "absoluteTimeoutMs": 300000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "selectedContext": {
+    "fileMembers": 10,
+    "memberBytes": 285677,
+    "instructionBytes": 1125,
+    "actualInstalledRenderedPromptBytes": "measured by unchanged host only after setup admission"
+  },
+  "sourceRows": 1334,
+  "expectedSingleDelta": {
+    "old": "handles, historical reads that mint nothing, rollback and close disposal, and a",
+    "new": "handles, historical reads that mint nothing, physical close disposal, and a",
+    "appendAfter": "separately selected fifty-call workload mode.",
+    "sentence": "Actual rollback disposal is unproved by this test.",
+    "before": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 201692,
+      "sha256": "03c52118eb52197502aeeccfa374f1a006023b76461fa358ef1796a4905e2216"
+    },
+    "expectedAfter": {
+      "bytes": 201739,
+      "sha256": "1969d63beb6c7e43a083ca3f4a1c0a7251532bb25a844b24066a5d81283b35a8"
+    }
+  },
+  "setupBudgetMs": 900000,
+  "nativeBudgetMs": 300000,
+  "freshRuntime": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/runtime-001",
+  "scratch": {
+    "host": "/private/tmp/abg-rc10-how-01",
+    "native": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/how-01"
+  },
+  "launchArgv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/host.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/BINDING.PREPARATION.json",
+    "f3cdc9ada321ac05955ac89cb2ccd4b216bb4ec96671ec402c7cac112ca3450e",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/ROOT_SETUP_ADMISSION.json",
+    "ROOT_ADMISSION_SHA_NOT_YET_BOUND"
+  ],
+  "postReturn": "Exact1334-row successor freeze; only expected HOW bytes may differ; compiled/package/test input relation checked, no automatic rebuild.",
+  "permanentRegressionGap": "External F1 adapter is retained run-specific evidence. Existing source functional test still lacks actual in-flight native identity/work assertion. Proposed persistent follow-up: adopt the first-size actual-owner witness using scripted native fixture into maintained regression test under a separate source admission; do not treat after-return-zero or this external evidence as permanent source-regression closure."
+}

@@ -1,0 +1,181 @@
+{
+  "kind": "rc6_launch_event_timing_and_duplicate_carriage_triage",
+  "at": "2026-11-06T05:26:53.493363+00:00",
+  "scope": "Passive metadata/data equality from exact physical B entry prefix to native actor start; no runtime acquisition or acceptance",
+  "run": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "physicalRows": [
+    {
+      "ordinal": 188921,
+      "kind": "public_operation_admitted",
+      "eventTime": "2026-11-06T05:19:30.734Z",
+      "eventId": "event://abiogenesis/486cace6fa3be84e61860ecaf2bb39a6980a9ca30caded141ba5d2b80a120de8",
+      "offset": 1178736411,
+      "bytes": 4271,
+      "sha256": "20dd8938057e41c6eabd6e4c6173976ba55400f74cddec9c712f0a6832c730ff"
+    },
+    {
+      "ordinal": 188922,
+      "kind": "invocation_admitted",
+      "eventTime": "2026-11-06T05:19:30.734Z",
+      "eventId": "event://abiogenesis/2c9f9168d79c869fa519485c13fa188180f851df1eda57b63c4583462e6a8962",
+      "offset": 1178740682,
+      "bytes": 10162,
+      "sha256": "d666e1ab4145b527c8b0119b57f63945d60df05577a34f459158b08f4347b192"
+    },
+    {
+      "ordinal": 188923,
+      "kind": "implementation_admitted",
+      "eventTime": "2026-11-06T05:19:30.749Z",
+      "eventId": "event://abiogenesis/16c0821227ad04034a80e07320664b4711a3002ae6515410929179436b8861d4",
+      "offset": 1178750844,
+      "bytes": 6257,
+      "sha256": "17728bf40790a316a42a3e76716752fe02527baf38bd412f512810aa70f1825b"
+    },
+    {
+      "ordinal": 188924,
+      "kind": "basis_admitted",
+      "eventTime": "2026-11-06T05:19:30.749Z",
+      "eventId": "event://abiogenesis/2f00ec7bfa9ff516d507a390fdee24cacaa8479fe1339fd1b986023135a79f99",
+      "offset": 1178757101,
+      "bytes": 16902950,
+      "sha256": "314e72a8f5c3bf73c2a9ff1b08b3b22ad0f38d9083ffabb8eaa0e4993128d868"
+    },
+    {
+      "ordinal": 188925,
+      "kind": "run_segment_opened",
+      "eventTime": "2026-11-06T05:19:33.870Z",
+      "eventId": "event://abiogenesis/3a90137249a5667534677a57a09fd0117348bf3b2ad52e4a70d12d88de7bc191",
+      "offset": 1195660051,
+      "bytes": 2342,
+      "sha256": "ab17f1b1089949557f58197887e29fc93ec9b9b955a72a7dd3aaf643086f2bc9"
+    },
+    {
+      "ordinal": 188926,
+      "kind": "graph_call_opened",
+      "eventTime": "2026-11-06T05:19:33.870Z",
+      "eventId": "event://abiogenesis/9063a90fe04c6db55fb265b583bc0d582dac79e702adb853d3e4f0a73d9c0002",
+      "offset": 1195662393,
+      "bytes": 2251,
+      "sha256": "4670af73ec790c8df73c3852c293bfe97ece22bef971c89d9807c4bf686282bf"
+    },
+    {
+      "ordinal": 188927,
+      "kind": "frame_opened",
+      "eventTime": "2026-11-06T05:19:33.870Z",
+      "eventId": "event://abiogenesis/aa2a2702cb12c6b9ac53ad5eabdaa1fbc7e90c1467d6b1ef5970addc7b014d1a",
+      "offset": 1195664644,
+      "bytes": 2529,
+      "sha256": "121a0e8b1d8429eda8b38e74ad84c30411cc82677485f495b0413c088c20c6a2"
+    },
+    {
+      "ordinal": 188928,
+      "kind": "runtime_activity_probe_observed",
+      "eventTime": "2026-11-06T05:19:33.870Z",
+      "eventId": "event://abiogenesis/e2f2b1fcbde2177b6ee5d5eb2bcce4f88e5f58af697dc05f01ee043397a50dd1",
+      "offset": 1195667173,
+      "bytes": 3618,
+      "sha256": "60e64cc221bb2c1d6fe7780b9d31aee269a592303ae5dc6285e663f13f451d5b"
+    },
+    {
+      "ordinal": 188929,
+      "kind": "traversal_cursor_entered",
+      "eventTime": "2026-11-06T05:19:38.528Z",
+      "eventId": "event://abiogenesis/e84c847c96d5a17d835f7c939e32cb333c6f9ff138abd267aed5f576b7a5fbbd",
+      "offset": 1195670791,
+      "bytes": 3059,
+      "sha256": "1a1b81e66cd7963c3d7b6af0e3a8c57d193091660b99ef9a6ac82f0e1e0b0650"
+    },
+    {
+      "ordinal": 188930,
+      "kind": "c_call_opened",
+      "eventTime": "2026-11-06T05:19:38.954Z",
+      "eventId": "event://abiogenesis/d5d592d6a8b3c00e45abaadfbe569e7d0c21601e3421da62fd9bca171369fecc",
+      "offset": 1195673850,
+      "bytes": 2569,
+      "sha256": "21ce9ffb8be4ca252cc1824ac95db482d24e340de60ff2c6f249934b323557f5"
+    },
+    {
+      "ordinal": 188931,
+      "kind": "c_call_fibre_selected",
+      "eventTime": "2026-11-06T05:19:38.954Z",
+      "eventId": "event://abiogenesis/5cb36bc11e64728a527811b61f99a27696414cfe17221b3fd4880c93bfbd9cf6",
+      "offset": 1195676419,
+      "bytes": 2194,
+      "sha256": "676a499f1ab121e535264674fb679755ed839dca6b38c2c8d58acc0de5500ddb"
+    },
+    {
+      "ordinal": 188932,
+      "kind": "runtime_activity_probe_observed",
+      "eventTime": "2026-11-06T05:19:38.954Z",
+      "eventId": "event://abiogenesis/83d42397062a014cd93f2467d7279805faffe5e8eabcf3c20c45392c25506be0",
+      "offset": 1195678613,
+      "bytes": 3732,
+      "sha256": "c3f76d6483e56ff96a4881799e4afac14b9f984a93e14a01a2ed73c8ec13fb64"
+    },
+    {
+      "ordinal": 188933,
+      "kind": "actor_transport_binding_admitted",
+      "eventTime": "2026-11-06T05:19:51.796Z",
+      "eventId": "event://abiogenesis/932e11ceb55460dfa7a35bcf59e529675cf83b59b8dbcbcd02570b34e31a08e4",
+      "offset": 1195682345,
+      "bytes": 17015967,
+      "sha256": "9ae07a9cca4a48d35c6e27aef0193d1458df1d51c4aa793f6927d9e8db9b1d98"
+    },
+    {
+      "ordinal": 188934,
+      "kind": "actor_invocation_started",
+      "eventTime": "2026-11-06T05:19:51.796Z",
+      "eventId": "event://abiogenesis/234fed5834073f925fcf9d37183b43e3974c2ae04625372809a8a9072d18e12b",
+      "offset": 1212698312,
+      "bytes": 2536,
+      "sha256": "1deb684d5c737def8a30e6b7e20da04e1018840e1511a8cbbd525268ab0503dc"
+    },
+    {
+      "ordinal": 188935,
+      "kind": "actor_process_started",
+      "eventTime": "2026-11-06T05:19:52.640Z",
+      "eventId": "event://abiogenesis/cf9c38088287f07e7e441c171a2f1b17246c55a762507baad9f8fbf4f9a1cf34",
+      "offset": 1212700848,
+      "bytes": 1823,
+      "sha256": "d9450f989ba270817a6686ed2a658cf09ca553c070bbff9f3c6fc290dd5afd2d"
+    }
+  ],
+  "phaseMs": {
+    "dispatchToFirstAdmission": 147877,
+    "firstAdmissionToNativeActor": 21906,
+    "hostLaunchToDispatch": 315147.533
+  },
+  "duplicateCarriage": {
+    "status": "EXACT_SAME_INPUT_OBJECT_AND_OWNER_COORDINATES_IN_TWO_ROWS",
+    "paths": [
+      "basis_admitted.payload.rawInputValue",
+      "actor_transport_binding_admitted.payload.instructionAssembly.envelope.nativeBasis.executionBasis.rawInputValue"
+    ],
+    "basisRef": "execution-basis://abiogenesis/4b87081acde9b1a11b0d328e90064560f6619b77cd76405ccacf8d79deeaa771",
+    "basisDigest": "sha256:4b87081acde9b1a11b0d328e90064560f6619b77cd76405ccacf8d79deeaa771",
+    "rawInputDigest": "sha256:7c62c9231f35aa33819dfff5bdbd353bcd0dd8cfaa2117c3e69892ce34fb791e",
+    "objectEqual": true,
+    "physicalRowsBytes": [
+      16902950,
+      17015967
+    ],
+    "combinedPhysicalRowsBytes": 33918917,
+    "limit": "Rows contain other fields; combined row size is not claimed as duplicate-only bytes."
+  },
+  "frames": {
+    "Product": "ABG retains admission and runtime truth; reuse the existing basis/current CCall input owner without a second store or stream.",
+    "Design": "Selected R1 removal of carried task/current-input copies and existing authenticated prefix propagation target this actual duplicate. A already removes the prospective binding rawInputValue; active B completes Result.task and unchanged-body sharing.",
+    "Integration": "dispatch.mjs refreshes the existing installed environment before STARTED. invokeLifecycle then checks installed content and crosses the existing cold CLI before public_operation_admitted. The entire147877ms interval cannot be attributed solely to admission or verification.",
+    "Identity": "The observed basisRef/basisDigest/rawInputDigest all agree; the native binding repeats the exact same decoded rawInputValue. Existing current-input/attempt/coordinate checks remain required.",
+    "Effect": "Read-only observation of the active log; no runtime reopen, owner replacement, source patch or retry.",
+    "Proof": "This is actual RC6 driver evidence. Candidate owner changes still need frozen review and matched successor proof; no RC7 performance claim."
+  },
+  "whyPriorChecksDidNotCloseThis": "Component passes and identical payload checks establish function/custody, not full native launch phase attribution. No subphase timestamps exist before STARTED or before first admission.",
+  "remainingUnknowns": [
+    "Cause of315147.533ms pre-dispatch interval and147877ms pre-admission interval.",
+    "CPU versus GC versus disk contribution within those intervals.",
+    "Whole-workflow matched RC7 performance and remaining historical-body cold-read costs."
+  ],
+  "decision": "Preserve as current overhead evidence, keep selected existing-owner consolidation, and measure the successor. Do not repeat RC6 qualification or mutate the active task/install."
+}

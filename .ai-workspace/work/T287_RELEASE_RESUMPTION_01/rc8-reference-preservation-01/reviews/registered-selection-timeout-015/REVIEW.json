@@ -1,0 +1,185 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; fixed15 families F01-F07,F09-F11,F13-F17; GOAL-035/T-287; RC8 REF-01 unqualified local cut.",
+    "basis": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "method": "STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; empty composition.",
+    "role": "Independent MAX Reviewer; Root alone admits proof, selects residuals and accepts the cut.",
+    "owners": "GTL declaration and total F_D rule select permitted registered work; ABG admits consequences/events/Frames; HoG executes the fixed child. SDK/CLI remain thin. Proof timing/pins supply custody and operating evidence, not Runtime authority."
+  },
+  "recordedUtc": "2026-11-07T11:26:44.743347+00:00",
+  "subject": {
+    "executedSource": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "executedFreeze": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+    "test": "test_env/tests/t287-registered-graph-selection.test.mjs",
+    "testBytes": 13096,
+    "testSha256": "13ea567a5e3c0bdbb36b413671c0ee72794fe8306737e0019c47edada2eb5c6c",
+    "archive": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "finalSourceRelation": "A10 source6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8 / freezee2db4c2e9356da0d97d6277567504650078a8bf1d5b7085dfaee63a4dbae5007 has identical rows for the seven named inspected files. This is source correspondence, not a new final-source execution claim.",
+    "sourceChecks": [
+      "test_env/tests/t287-registered-graph-selection.test.mjs",
+      "test_env/support/registered-graph-selection.mjs",
+      "test_env/support/root-installed-environment.mjs",
+      "test_env/fixtures/registered-selection-product/index.mjs",
+      "design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "code/src/gtl/registered_selection.ts",
+      "code/src/abg/traversal_route.ts"
+    ],
+    "RC7Relation": "Test, both helpers, fixture and owning selection HOW equal RC7-cut bytes. Shared RC8 Product dependencies still participate; unchanged fixture bytes do not prove performance parity."
+  },
+  "governingRelation": {
+    "Product": "PRODUCT.md:73-108: admitted GTL/program/catalog -> direct HoG/exact owners -> ABG facts/replay -> typed result or truthful noncompletion.",
+    "requirements": "REQ-L-GTL3-SELECTION-BOUNDARY-016..019: declared selection and consequence; explicit evaluator/contracts/criteria; total closed F_D rule versus contextual F_P judgment; only exact permitted preregistered callees, explicit gap and conserved outcome/obligations.",
+    "HOW": "T287_REGISTERED_GRAPH_SELECTION_DESIGN.md:45-164,191-217 (SHA5e4a67b1c108df56ef4dede2d6ae6995d7420b9f1a5f5a70e125728a534e1cc8): one declared application, shared target/input resolution, exact route-bound child input, ordinary workflow foldback; fresh A/B positives and refusal/gap controls retained separately from native suitability and qualification.",
+    "currentOwners": "gtl/registered_selection.ts:28-86 establishes applicability then exact target/digest/contract; abg/traversal_route.ts:3873-3887 and4254-4277 authenticates same-lineage cursor and admitted source/result/input. Test fixture index.mjs:9-29 deliberately authors finite F_D controls; this file invokes no provider.",
+    "REF01Limit": "Fresh installed setup and serialized CLI boundaries are outside the same-process warm identity-reuse claim. Their cost is not evidence of extra warm Catalog admission. No bypass or new cache/authority is justified."
+  },
+  "verdict": {
+    "wholeFileWithin600s": "falsified",
+    "completedTests": 0,
+    "semanticAssertionRed": false,
+    "actualSelectedSunnyDays": "A and B plus four cold reads completed with retained receipts",
+    "ProductHangOrRegression": "not established"
+  },
+  "finding": {
+    "id": "REGISTERED-SELECTION-TIMEOUT-015",
+    "severity": "S3",
+    "title": "The600s whole-file budget expired after proven positives and before the negative/gap population completed.",
+    "trigger": "One test includes one full installed setup, seven serial scenario starts and four cold Public reads. The sixth completed CLI operation and provenance control left about21s; the first negative request was written with about19.3s left.",
+    "harm": "Zero whole/test pass credit. Five negative/gap scenarios and final common-Program/handoff/archive assertions remain unproved. No wrong selection, extra child or changed terminal result appears in the completed positive evidence.",
+    "failClosed": "Final command timedOut=true, SIGTERM, exitCode=null, counts absent; no success summary/end. Guards and assertions were unchanged. Missing negative evidence is not proof of correct refusal, nor proof of a defect.",
+    "causeAndLikelihood": "Observed total operating-budget mismatch, dominated by measured provisioning. Precise CPU/disk/host cause or unique function inside the verification phase is unknown; no paired RC7 performance experiment exists. A future time envelope is an explicit hypothesis, not guaranteed completion.",
+    "repairScopeCost": "A control-only full-file proof attempt is supported by finite measured work. No Product/source/fixture repair, hardening, provider activation or automatic retry is warranted. Technical S3 does not assign Executive priority."
+  },
+  "actualFrontier": {
+    "command": "Started2026-11-07T11:04:52.568Z; wall600115.018333ms. stdout only A completed21150.2ms and B completed18345.1ms; those lines precede readbacks and are not case passes.",
+    "retainedReceipts": "case-A/B have failure=null, ownerOutcome=result, disposition=completed, exact A/B child markers. Each run_result/run_replay receipt has result outcome, identical full prefix/replay/terminal value to its source receipt; both replay statuses are closed. These comparisons were read-only artifact comparisons.",
+    "provenance": "repeat-provenance.json exists after all B assertions: current route recovered despite equal canonical input in earlier Run; damaged current provenance refused. It is explicitly a copied-prefix reader control, not another Public execution.",
+    "firstNegative": "st4-nonpermitted-request.jsonl:20888843B/SHA6f3546c773e71198b7acda582ccb3258fb3cd74043bc926fa47f3b51cc5ff42d; mtime11:14:33.287781Z. No case-nonpermitted receipt or later scenario outputs exist. Request creation does not prove which inner CLI phase ran.",
+    "runtimeLog": {
+      "path": "/private/tmp/abg-r8c-015/t/abi5-root-env-HIIk9K/runtime/events.jsonl",
+      "bytes": 3694237,
+      "sha256": "d70a78aac9baa7dee19affe4b881446b993dba79df0d3929538ea5eed18f71ac",
+      "relation": "Exact size and SHA equal B receipt prefix; no subsequent negative admission is retained. Only last16KiB was read for final-row decoding; full file streamed for hash.",
+      "lastEvent": "ordinal153 run_closed, event://abiogenesis/3e9dcaa4c8b6ff41e2fdfc95fe7079957d06c5d1bdcbb4274d40d4587d242852"
+    },
+    "multipleFrames": "Each75-row positive slice has exactly two graph_call_opened and two frame_opened: declared root plus selected A or B child, one child_foldback_admitted and one run_closed. A Run07b288c9\u2026 and B Runb4f72b7f\u2026 are distinct; child input identity is shared lawfully, while route/basis provenance remains distinct. These Runtime Frames are ordinary workflow ownership, not extra Executive frames, a new selector loop or parallel provider work."
+  },
+  "measuredCost": {
+    "setupMs": 469386.782501,
+    "setupPhasesMs": {
+      "provisioning_pack": 40909.985042,
+      "provisioning_extract": 7007.397875000002,
+      "bootstrap_owner_loading_and_candidate_preparation": 7130.596250000002,
+      "provisioning_verify_artifact": 321764.568542,
+      "provisioning_install": 42182.125,
+      "provisioning_installed_content_check": 6817.7492090000305,
+      "provisioning_additional_products": 26413.448291999986,
+      "installed_owner_loading": 3905.8447499999893,
+      "environment_install_and_workspace_admission": 8517.229249999975,
+      "execution_preparation_publication_program_and_catalog": 4737.838290999993
+    },
+    "completedCliMs": {
+      "case-A.json": 21150.166292000038,
+      "case-B.json": 18345.061624999973,
+      "read-A-run_result.json": 9962.598832999996,
+      "read-A-run_replay.json": 8747.018458000035,
+      "read-B-run_result.json": 8875.236250000075,
+      "read-B-run_replay.json": 10821.083583
+    },
+    "beforeNextRequestMs": 580719.781,
+    "nominalBudgetRemainingMs": 19280.219,
+    "largestPhaseMeaning": "provisioning_verify_artifact321764.569ms wraps main/additional verifyProduct plus resolved-lock construction (root-installed-environment.mjs:274-294). It is a measured phase, not an isolated function profile. Setup totaled469.387s; six completed CLI calls totaled77.901s; intervening construction, I/O and control overhead also consumed the command clock."
+  },
+  "proofPopulation": {
+    "completedEvidence": "Mechanical applicability/declaration controls; A and B actual selected children, input/digest and route identity, parent closure/foldback, four fresh reads, canonical equal-input/current-provenance and tamper checks. All remain partial evidence inside one unfinished test.",
+    "remaining": "nonpermitted, stale definition, wrong contract, wrong input and explicit gap: each must avoid child/foldback/Run closure and terminal result; first four expect runtime_failed, gap blocked. Final one-Program assertion, copied final events.jsonl and final-handoff.json are absent.",
+    "boundaries": "No F_P semantic suitability/native selection, changed-evidence recursion, qualification or release claim. Historical proof is not repriced as current completion."
+  },
+  "recommendation": {
+    "preferred": "Root may select one standalone full-file proof-only attempt at1800000ms on the same exact compiled artifact and a pinned source with this unchanged dependency cone. Preserve the original failure and use fresh evidence/scratch. Keep all seven scenarios, four cold reads, mechanical/provenance/negative assertions; ABI5_SELECTION_REPEAT_ONLY must remain unset. No source change or provider calls.",
+    "budgetBasisMs": {
+      "twoTimesObservedSetup": 938773.565002,
+      "sevenStartsAtTwoTimesSlowestObserved": 296102.32808800053,
+      "fourReadsAtTwoTimesSlowestObserved": 86568.668664,
+      "additionalOverhead": 120000,
+      "total": 1441444.5617540004,
+      "marginWithin1800000": 358555.4382459996
+    },
+    "budgetLimit": "This about1441.4s allocation leaves358.6s inside1800s. Unseen negative-path duration is not mathematically bounded by the observed positives; the2x multipliers and overhead are declared operating assumptions. No automatic extension or repeat. There is no inner case deadline to defeat this command-only change.",
+    "ifResidualChosen": "A durable RC8-REGISTERED-SELECTION-PROOF residual is defensible only as an explicit unqualified REF01 evidence exclusion, preserving five unknown negative/gap outcomes and zero whole-file credit. It is not the default recommendation because the observed selected sunny days complete and one finite proof allocation is supportable.",
+    "closure": "Actual exit0, reporter one test passed with no skips/end present, all seven scenario records, all four reads, final one-Program/handoff/event conservation and unchanged input/source custody. Any unauthorized child, stale/crossed acceptance, missing gap, changed selected input/result or failed required positive is a semantic blocker. Further timeout remains an unresolved cost/proof issue, not automatic residual acceptance.",
+    "disposition": "Root alone selects the attempt, residual or independent continuation of remaining files. Reviewer selected and executed none."
+  },
+  "evidenceBase": "/private/tmp/abg-r8c-015/t/abi5-registered-selection-evidence-7exBEq",
+  "evidencePins": {
+    "setup.json": {
+      "bytes": 1411,
+      "sha256": "a9d74f287435557a00b8175838ddf382786563281b383a28bd44ee8b911c8900"
+    },
+    "mechanical.json": {
+      "bytes": 837,
+      "sha256": "353edd7ab905c2d533fac0973e4e502dc179fa15af1ac848ef203cba617244b4"
+    },
+    "case-A.json": {
+      "bytes": 26270,
+      "sha256": "b9e0f5021ca28d9972e3df0c779656d1f96a94a54e77d5a630b35ac940b18cec"
+    },
+    "case-B.json": {
+      "bytes": 26270,
+      "sha256": "b458652d3369c83096fbfd113cb5c31abd1a67394dc853a56a751bf7dfcfeb30"
+    },
+    "read-A-run_result.json": {
+      "bytes": 8148,
+      "sha256": "9c8c9458dfb254d3c7ea17c3a0c39a3347cee1a21d68e42eb618a7c346a2f4bc"
+    },
+    "read-A-run_replay.json": {
+      "bytes": 7727,
+      "sha256": "324a9249a53eb897053a5fb1f3b34b835b6de02ca69a8da38bdbe8ad59d955c3"
+    },
+    "read-B-run_result.json": {
+      "bytes": 8148,
+      "sha256": "474ac360517b830e4daec9553bfa21bda6c7cea054e76e93206726317ca0ab13"
+    },
+    "read-B-run_replay.json": {
+      "bytes": 7722,
+      "sha256": "ec92bf7e06133ab1095e05f7f73d84258d6502cefe0eed53689cb62b43a2c9bf"
+    },
+    "repeat-provenance.json": {
+      "bytes": 626,
+      "sha256": "f28287618ee0818753f65470495cfc546958c7094e63b80202aeac104617f302"
+    },
+    "events-A.json": {
+      "bytes": 290963,
+      "sha256": "929e570ce95a2523666cf9e2a9f289580e6c39a2a02894fe0eb9d4c15442a247"
+    },
+    "events-B.json": {
+      "bytes": 291043,
+      "sha256": "0575b39fa35076dfa2856b1c9f3a96469229af29887155e5f5e3bf6741274667"
+    }
+  },
+  "controlBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+  "controlPins": {
+    "OPERATOR_RETURN_015.json": {
+      "bytes": 6731,
+      "sha256": "1d7e6bc6d6dd7926b0ee4f865d229ff62c1694605e7ed122b0fc7cf44394e39d"
+    },
+    "execution-015/commands/153-t287-registered-graph-selection.result.json": {
+      "bytes": 1504,
+      "sha256": "418671d5a19934cb9b627e1c8e509129e9b1fd4e93334352ef26d79fa91b83cc"
+    },
+    "execution-015/commands/153-t287-registered-graph-selection.stdout": {
+      "bytes": 63,
+      "sha256": "6eb6b3b13c4aa7171b9e31ead93e8174edb8a68f85e069b04497acfa45116d30"
+    },
+    "execution-015/events/153-t287-registered-graph-selection.jsonl": {
+      "bytes": 89,
+      "sha256": "99214721eb7f724e9c91b40977ad5c9c5ac1684293bd9154a68f1b23064e5a65"
+    }
+  },
+  "authorityPins": {
+    "definition": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "Product": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "frame": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "effects": "Only this new capsule written. Read selected source, authority and retained evidence; no tests, Product calls, provider/process/profile/cleanup/Git effects, source repair, whole-log decode or full inventory verification."
+}

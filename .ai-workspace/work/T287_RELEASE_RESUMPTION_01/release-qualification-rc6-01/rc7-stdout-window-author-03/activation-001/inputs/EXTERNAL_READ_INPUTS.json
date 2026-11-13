@@ -1,0 +1,59 @@
+{
+  "kind": "explicit_external_read_selection",
+  "root": null,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/metadata.json",
+      "bytes": 46684229,
+      "sha256": "2c9328e4abb8e25f8fbfc7a1e4574e481fb5889bf17bc04108f2571d2d3536b9"
+    }
+  ],
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "standing": "Only selected stdout-before/stdout-differential lanes consume this46.7MB metadata file by reference, not native context or stage copying. It is an external test oracle projection, never an admitted event stream. No raw provider/archive/credential bodies are selected.",
+  "historicalRepresentationAuthority": {
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+    "sourceForm": "Actual immutable packaged compiled JavaScript owners; TypeScript source was not packaged and is not claimed.",
+    "owners": [
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "bytes": 198998,
+        "sha256": "706acaaa7300686eed4bcfa739347c12261c874adb20b3d354c7a9f195627199"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_contract_profiles.js",
+        "bytes": 9153,
+        "sha256": "bdace2720987c3e7cf7f7a1f94bfc22e56f865a69e20f44ca4352d4349b2bedb"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/transport_contracts.js",
+        "bytes": 11516,
+        "sha256": "db506fd86877170e6783463c06ac37027e895d15cb029700a2d772e39a69812b"
+      }
+    ],
+    "rootObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 13105,
+      "sha256": "0abeadd4419584f3170b01e02cd3e79741f25666f095d524925f8dcf92acaa61"
+    },
+    "standing": "Read-only historical representation authority; do not modify/copy into current451 sources/restamp old rows or infer semantics from latest digest."
+  },
+  "currentFrozenRepresentation": {
+    "sourceAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/SOURCE_AFTER.json",
+      "bytes": 557071,
+      "sha256": "6a11b7193ae07edb1c74d6de969352b464e5d167fd14284ccc71709d25d76cdb"
+    },
+    "frozenSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 12430,
+      "sha256": "12869a0d9af624f69b551dc3ec19d9844779fd2dbe7ad4e5019fc0e0be2b1dca"
+    },
+    "eventContractDigest": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0"
+  }
+}

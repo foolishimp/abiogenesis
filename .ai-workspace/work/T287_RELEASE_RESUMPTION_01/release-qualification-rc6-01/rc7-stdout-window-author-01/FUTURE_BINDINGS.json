@@ -1,0 +1,32 @@
+{
+  "kind": "native_author_future_binding_requirements",
+  "status": "DEPENDENCY_PREPARED_NOT_STAGED_NOT_DISPATCHED",
+  "HS01HS02": {
+    "subject": null,
+    "sourceAfter": null,
+    "sourceBefore": null,
+    "RootDisposition": null,
+    "measurements": null,
+    "required": "Actual accepted HS01/HS02 source and full same-boundary candidate warm/cold/counter proof, source/native.after/final-stage equality and independent review."
+  },
+  "runtime": {
+    "actualClose": null,
+    "actualResume": null,
+    "prefix": null,
+    "required": "Genuine predecessor SDK receipt/completion/outer close and original resume according to Root actual disposition. No implicit duplicate unchanged-RC6 full drain."
+  },
+  "maintainedCheckerAndHost": null,
+  "RootSelectionAndAdmission": null,
+  "historicalOracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "RootSteps": [
+    "Dispose actual HS01/HS02 then materialize exact source/measurement and genuine runtime bindings.",
+    "Bind maintained checker/operator routes, finalize17-path grant/profile/workload, stage20 inputs/3absent handoffs and exact Root admission/dispatch manifest.",
+    "Run existing mechanical owner preflight and one native Worker only when Root activates HS03; conjoin frozen max review and affected final proof."
+  ],
+  "scope": "Preparation only; no Product/staging/runtime/build/test effects or acceptance.",
+  "requiredRootSelectionStatus": "ROOT_SELECTED_STDOUT_WINDOW_AUTHOR_INCREMENT"
+}

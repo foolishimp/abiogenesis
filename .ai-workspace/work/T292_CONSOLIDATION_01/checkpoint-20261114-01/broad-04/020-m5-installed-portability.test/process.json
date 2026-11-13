@@ -1,0 +1,32 @@
+{
+  "label": "020-m5-installed-portability.test",
+  "started": "2026-11-13T10:23:49.226250+00:00",
+  "ended": "2026-11-13T10:29:09.975356+00:00",
+  "wallMs": 320742,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/020-m5-installed-portability.test/stdout.raw",
+      "bytes": 1971,
+      "sha256": "5b55f39f6c613746e9b662f2528dd34dc4369e8d91a3d581cdb385b5bd9c0c82"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/020-m5-installed-portability.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 52,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

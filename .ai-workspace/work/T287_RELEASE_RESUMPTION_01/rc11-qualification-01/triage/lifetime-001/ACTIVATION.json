@@ -1,0 +1,103 @@
+{
+  "activation": "RC11-LIFETIME-TRIAGE-01",
+  "at": "2026-11-09T06:19:20.625793+00:00",
+  "actor": "/root/rc10_lifetime_triage",
+  "consumer": "/root",
+  "role": "Separate read-only Product/Design/lifetime/Proof triage; Writer for this report only",
+  "authority": "Root activation RC11-LIFETIME-TRIAGE-01 and follow-up narrowing selected capsule to RC8-PHYSICAL-LIFETIME-013; Root owns implementation admission and acceptance",
+  "subject": {
+    "commit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+    "tree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "sourceRoot": "/private/tmp/abg-rc10-retention-20261109"
+  },
+  "basis": {
+    "definition": "urn:stdo:product-definition:abiogenesis",
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "verified": true,
+    "failures": []
+  },
+  "effects": "Static reads and new activation/report files only; no runtime/tests/provider/native/build/Git/source effects",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/triage/lifetime-001",
+  "hostLimit": "Unrestricted filesystem tools; scope is instruction-constrained, not technical isolation",
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 7591,
+      "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-010/REVIEW.json",
+      "bytes": 26564,
+      "sha256": "d911366f66a792dfa24981021d0e430ad7e34b8c74e3fd2ca5a8181abef2b067"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/RESIDUALS.md",
+      "bytes": 15882,
+      "sha256": "a17c7d2b8a31e1da9f658a575495617f8862b5c73ad4758a0c9c52d7c5922c4a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/FINAL_PROOF_RETURN.json",
+      "bytes": 3648,
+      "sha256": "fd51510765631321900683a45cba8c629db6a10a4641f02aa0f19533b9690b2e"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 45742,
+      "sha256": "59fa9dc768b052149ee036577a23d60a55c1747b75337aebdce61027c20a6918"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 68872,
+      "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "bytes": 72393,
+      "sha256": "533480ed2edcfe90f878ab17f2f473af7906bdce2c73178c78c78d0c741dcc2d"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 203094,
+      "sha256": "32c9ab82231f187dba17f552931053781d0434d8e109fd1c5c54a0aa577f4345"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+      "bytes": 15036,
+      "sha256": "0ac57f9af340f1d057ce7147f90d3830bcd6c1313a82eb1441ce46d2aa06c2bf"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "bytes": 49843,
+      "sha256": "df69e55518f88c01ec98c3edbf5480c4dbc8956693ab44a6e5d63a89a922534d"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 109784,
+      "sha256": "0a28ac029e7ec2cb506ba55bc9723fd4dea0eee32e045cbf6c8692ae32f0ebf2"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 225914,
+      "sha256": "08dd6065941ae3f58f4b96ab7f83df0d2a5726bb9e3ef7ba448068026e5598fa"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "bytes": 7535,
+      "sha256": "79520c76a1f661baf56bbdac7968cad13ff992bc3255ffe4f74e4a0f012eb272"
+    }
+  ],
+  "decisionBoundary": "Recommendations only; no capsule acceptance or self-activation"
+}

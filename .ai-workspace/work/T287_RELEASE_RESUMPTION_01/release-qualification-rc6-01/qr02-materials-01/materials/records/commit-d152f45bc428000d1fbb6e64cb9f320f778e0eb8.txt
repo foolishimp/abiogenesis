@@ -1,0 +1,8 @@
+tree ff7477a011a5378cea1cce00a964ebb8cb446f80
+parent e1a041fd99cf80fd02d7f9900fda859144b7b0de
+author Dimitar Popov <jimpopov@gmail.com> 1793234799 +1100
+committer Dimitar Popov <jimpopov@gmail.com> 1793234799 +1100
+
+D5-c accepted: the native qualification is not dispatchable on the candidate for six Product findings (the execution material renders the whole C2 Result; the quadratic plan check; the independence check never matches; complement slots without a lawful partition; sequential provider calls; the coverage catalog claims an unrealized behavior); Phase D stopped for the owner's decisions Q19 to Q22
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>

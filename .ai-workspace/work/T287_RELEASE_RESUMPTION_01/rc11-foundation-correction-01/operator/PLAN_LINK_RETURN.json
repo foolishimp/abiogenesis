@@ -1,0 +1,26 @@
+{
+  "status": "ROOT_ACCEPTED_PLAN_LINK_ROUTING_CORRECTED",
+  "rootInstruction": "Ensure evidence links resolve to main R/.ai-workspace/work rather than absent sparse successor evidence.",
+  "priorAcceptedPlan": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "bytes": 11893,
+    "sha256": "4ca262071c3ca7292d629be91fac398681d4eecd57ac2fc94c3e3a127d488a0a"
+  },
+  "preservedPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/history/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.4ca26207.md",
+    "bytes": 11893,
+    "sha256": "4ca262071c3ca7292d629be91fac398681d4eecd57ac2fc94c3e3a127d488a0a"
+  },
+  "plan": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "bytes": 11973,
+    "sha256": "3da4e193dc63c958602a5a900677bd5f7602953ce3666da9a9d8fa062f88e969"
+  },
+  "onlyDelta": "Four evidence href prefixes resolve to the existing primary repository. Plan words, phase order and authority unchanged.",
+  "clarityReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/CLARITY_RETURN.json",
+    "bytes": 4785,
+    "sha256": "48feb167aa55ea579c0a4e2b9e708150830d3af6f74d9c7e517364ebdc72c087"
+  },
+  "implementationHeld": true
+}

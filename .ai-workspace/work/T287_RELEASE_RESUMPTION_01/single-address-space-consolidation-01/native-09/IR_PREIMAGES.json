@@ -1,0 +1,72 @@
+{
+  "kind": "exact_selected_predecessor_source_inputs",
+  "readOnly": true,
+  "subjectSha256": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+  "files": [
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/instruction_assembly.ts",
+      "bytes": 126311,
+      "sha256": "85607f0b6a7f69bcf431c89907e17c7302702679a5d655ee72d16cf95e71dd61",
+      "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "consumer": "Selected09 predecessor/candidate same-input behavior and work comparison only"
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/semantic_stage.ts",
+      "bytes": 30974,
+      "sha256": "469c69af61e267864423683454ae40a5f0b2879323f1e6d82d23e32acf0f7ef2",
+      "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "consumer": "Selected09 predecessor/candidate same-input behavior and work comparison only"
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/semantic_job.ts",
+      "bytes": 56749,
+      "sha256": "9f31ae048962ea6f84fcea7e661e9dc01f4a0f5f2e07d4a4736226c00d2be79d",
+      "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "consumer": "Selected09 predecessor/candidate same-input behavior and work comparison only"
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/semantic_revision.ts",
+      "bytes": 96776,
+      "sha256": "e657a900c12f7ceee1152711845518a96cf48ac0b67a5566ec47fa516824190d",
+      "origin": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+      "consumer": "Selected09 predecessor/candidate same-input behavior and work comparison only"
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/worksite_revision.ts",
+      "bytes": 74108,
+      "sha256": "ab53666bd5c40d2a8de5f20c925462be9bba9353c39325589f35c771ab1f1f3a",
+      "origin": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+      "consumer": "Selected09 predecessor/candidate same-input behavior and work comparison only"
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/implementation/leaf_invocation_port.ts",
+      "bytes": 82821,
+      "sha256": "3ad3fba807e2a22ec31403048ed02a652a4de3fa1b0434a3f531fafbb72f0aa6",
+      "origin": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+      "consumer": "Selected09 predecessor/candidate same-input behavior and work comparison only"
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/implementation/semantic_revision.ts",
+      "bytes": 14541,
+      "sha256": "09b95472d1bb0e135d158396d36c8de31397713101f89ffb6da077c2b8b2359d",
+      "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "consumer": "Selected09 predecessor/candidate same-input behavior and work comparison only"
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/implementation/semantic_stage.ts",
+      "bytes": 17166,
+      "sha256": "83d689cf1ef8495dc814bf42b8c310e14246cdae24ab79c56477196991a7205c",
+      "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "consumer": "Selected09 predecessor/candidate same-input behavior and work comparison only"
+    }
+  ],
+  "limits": "No old package/current-type identity substitution. Tests may load exact predecessor code with disclosed dependencies/lower-owner premises; preserve full behavior and report the comparison scope."
+}

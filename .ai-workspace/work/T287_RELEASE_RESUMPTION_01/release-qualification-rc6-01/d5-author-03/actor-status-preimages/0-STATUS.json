@@ -1,0 +1,292 @@
+{
+  "baseline": {
+    "commit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "tree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+    "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "installedProduct": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/HANDOFF.md",
+      "bytes": 3551,
+      "sha256": "feca45b69462ff345d5446b4e30a160c8d7b30f2a5f45659410808bf87472d53"
+    }
+  },
+  "activeSourceWorktree": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "activeSourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "activeSourceTree": "ff447cb7c9cf04c2af9cc784ef3ff0e1892ab702",
+  "plan": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_QUALIFICATION_PLAN.json",
+  "setupDisposition": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/SETUP_DISPOSITION.json",
+  "independencePolicy": "Strict STDO3.0.4 same-family default; bounded two-profile declaration selected in existing published qualification-policy HOW. Actual eligibility still requires source/provenance/route correspondence.",
+  "policyHowSelection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_POLICY_HOW_SELECTION.json",
+  "scenarioEvidenceMap": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/S02_EXISTING_EVIDENCE_MAP.json",
+  "originalAttributionSourceResolution": {
+    "status": "D5_DOCUMENTARY_SOURCE_LOCATED_AND_PINNED",
+    "disposition": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_SOURCE_ROOT_DISPOSITION.json",
+    "scope": "One historical transition; full attribution remains open"
+  },
+  "scenarioEvidenceCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_SOURCE_ROOT_DISPOSITION.json",
+    "rows": [
+      "B19",
+      "B56"
+    ],
+    "extraExecutionSelected": false
+  },
+  "currentProfileDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/ROOT_PROFILE_DISPOSITION.json",
+    "bytes": 3595,
+    "sha256": "7d59b01affb25c812f11c3e1f2228bcf56c1aaabec75afdde6ca8564172ac5ea"
+  },
+  "recordedUtc": "2026-11-06T01:44:18.639591+00:00",
+  "status": "D5_LEGACY_REPAIR_DISPATCHED_AWAITING_NATIVE_ACTOR",
+  "currentIncrement": "d5-author-03",
+  "nativeCodingWorkers": 0,
+  "nativeCodingState": "ONE_SELECTED_DISPATCH_PENDING_ACTOR_OBSERVATION",
+  "currentNativeProcess": null,
+  "currentNativeProofProcess": null,
+  "currentSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "currentRun": null,
+  "nativeAuthorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5475,
+    "sha256": "05964a28314c79e70a6ee83e5f5bfc4c2ac2901e2bf1bafa081d6eb13cd1537f"
+  },
+  "nativeTesting": {
+    "previousQ23Candidate": {
+      "pass": 63,
+      "fail": 0,
+      "skipped": 0,
+      "commands": 6,
+      "sourceMatches": 367,
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/ACTUAL_C2_SUMMARY.json",
+        "bytes": 4012,
+        "sha256": "24e6fdedf097e1f3f092dc731066346fa6ad82943a5c52a0d1ee096d00596e14"
+      }
+    },
+    "D5": {
+      "authorPass": 113,
+      "authorFail": 0,
+      "authorSkip": 0,
+      "actualC2": "pending"
+    }
+  },
+  "nativeUat": {
+    "previousQ23": "Failed before assessor because three obsolete author05 handoffs were selected outside current context.",
+    "D5": "Held before launch pending two-file legacy correction; no failed UAT or C2 run."
+  },
+  "freshResultReplay": {
+    "status": "PENDING_ACTIVE_N3",
+    "predecessor": {
+      "status": "equal",
+      "result": {
+        "digest": "sha256:7a40936609b3ef857aad38fc82b03254c287b770b53388b909eda04ce4d5add6",
+        "ref": "result://abiogenesis/7a40936609b3ef857aad38fc82b03254c287b770b53388b909eda04ce4d5add6"
+      },
+      "replay": {
+        "digest": "sha256:0610c918d00c2e8e9d97d4aded54c2fee0f735fb8a43bde0c5d78bddea114025",
+        "ref": "replay://abiogenesis/0610c918d00c2e8e9d97d4aded54c2fee0f735fb8a43bde0c5d78bddea114025"
+      },
+      "sourceAcceptable": false
+    }
+  },
+  "currentClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5475,
+    "sha256": "05964a28314c79e70a6ee83e5f5bfc4c2ac2901e2bf1bafa081d6eb13cd1537f"
+  },
+  "freshClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/after-run-resume.json",
+    "bytes": 72494784,
+    "sha256": "bb9d4dd3d7f130c76a546b7f6bc03d2d67058bebaba89e83734090406328cbab"
+  },
+  "currentCloseStanding": "N2 predecessor close only. N3 dispatch is active; no reopen or second task until actual successor close.",
+  "independentReview": "Closed frozen max reviews: projection falsified with one S2 D5-PROJ-001; recovery satisfied with explicit component limits. Independent from native author, same family as Root; formal independent J remains separate.",
+  "reviewAuthFailureRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-002/REVIEW_FAILURE_REDACTED.json",
+    "bytes": 1864,
+    "sha256": "90f410027a3aed66928210af08625ffafbd0def53aaf8f8c1d959c5d74b908f1"
+  },
+  "pendingOwnerDecision": "Credential revocation/replacement and local ADC reauthentication, or another configured independent reviewer route; existing asynchronous request remains pending.",
+  "d5Readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_PROFILE_RETIREMENT_READINESS.json",
+    "bytes": 30505,
+    "sha256": "b57e3ef562309c85f68fe9e12fba52e03b70d196c139ee4ddd0189f2ff70573b"
+  },
+  "next": "Observe one native repair, preserve real legacy failing-before and corrected37-test qualification lane, freeze exact source for bounded max recheck, then proof03 C2/UAT.",
+  "qualification": false,
+  "publication": false,
+  "handoff": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/HANDOFF.md",
+  "priorStatus": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/dispatch-status-preimages/0-STATUS.json",
+    "bytes": 18126,
+    "sha256": "36dd5361ee18f630b9fba517ad342cb163316b9555009ce677ec78e78af0698e"
+  },
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/TIMING_BREAKDOWN.json",
+    "bytes": 7290,
+    "sha256": "a19d931abfbc09ebfbb72d13f54e6268aaf2c174f56f61665f157d858881c2b9"
+  },
+  "triage": {
+    "M2": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/m2-owner-reentry-001/READINESS.json",
+      "bytes": 40558,
+      "sha256": "d51ebb3313975211c4887d6c2f4a7406eaea244a35bb5c5c34a111b84475c558"
+    },
+    "profilePremise": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/m2-owner-reentry-001/PROFILE_APPLICABILITY.json",
+      "bytes": 15104,
+      "sha256": "b7ee0d3895c91a4aa4131f8c3f0f5ab28c896c3b5ae6a1f883cf411f6c807809"
+    },
+    "recoveryBuild": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/recovery-owner-reentry-001/READINESS.json",
+      "bytes": 58108,
+      "sha256": "19030a67c0a85e83af2d6a7cafda74b18093e157b868f52089ee475efa71e56b"
+    },
+    "causation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/TRIAGE.json",
+      "bytes": 24351,
+      "sha256": "7f27ca61097b174e776a64cc00865d2672f0eb34b41511a8173688883cb082ec"
+    },
+    "causationDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_CAUSATION_DISPOSITION.json",
+      "bytes": 2797,
+      "sha256": "c9f49ea69c69ffde287cda970c7e2e0dd25d9ee4fe1040befe7f412c932c2736"
+    },
+    "physicalResidual": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/D5_P6_UNCONFIRMED_CAPSULE.json",
+      "bytes": 3483,
+      "sha256": "a63523824ed3086c2d896f19138703800eae22ac75819734c8c85f06c22e5ef1"
+    }
+  },
+  "recoveryPreparation": "proof02 preflight failure preserved; proof03 projects disjoint assessment roles and unique readFirst paths.",
+  "currentSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/ROOT_SELECTION.json",
+    "bytes": 7456,
+    "sha256": "8d3e52bce4bf3c69c21e2300ce0804a672d367c474a5caa153330ce6633ea943"
+  },
+  "sourceReview": {
+    "projection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/projection-review-001/REVIEW.json",
+      "bytes": 34305,
+      "sha256": "c1811a40ab78f1d0666a7ea0a36a722f4d2a98d28ca14e63d765c807721ee3f1"
+    },
+    "recovery": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-review-001/REVIEW.json",
+      "bytes": 33264,
+      "sha256": "6400f8cf2aaaf4cdcb56d738d111222459b7978ae6cc0a47d7ba2e8cd3a068a7"
+    }
+  },
+  "reviewDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 7145,
+    "sha256": "c8d82498e5b54141bf74f48006f7e9cd4932bae00c6cc5ff9cf5c48223955b12"
+  },
+  "uatRecoveryReadiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/ROOT_UAT_DISPOSITION.json",
+    "bytes": 1686,
+    "sha256": "546717162c7a77849849a55af75b8dc84fce815280b5d274251717b8e09066a8"
+  },
+  "currentNativeHostProcess": {
+    "startedUtc": "2026-11-06T01:41:30.393094+00:00",
+    "pid": 10217,
+    "mode": "dispatch",
+    "script": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/dispatch.mjs",
+    "automaticRetry": false,
+    "sessionId": 4091
+  },
+  "currentObservedRun": null,
+  "currentLaunch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/STARTED.json",
+    "bytes": 1042,
+    "sha256": "63d6e2f9ba55d3e9001f219924a56d20c7e237c9244bc63265fbf3d9044971c4"
+  },
+  "currentSourceGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/NATIVE_GRANT.json",
+    "bytes": 41236,
+    "sha256": "cbf66e67fb7588e0c1ce26e03fc15ae77d49b9271cf4293f7d7da612e5352d76"
+  },
+  "peerBootstrapReadiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR03_PEER_BOOTSTRAP_READINESS.json",
+    "bytes": 17505,
+    "sha256": "0eb669b778c39f7465f4f1ed26b17f26ba1fcc4f8fd78b1d5f768e97147c111e"
+  },
+  "d5Preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/PREPARATION_RETURN_BUDGET_02.json",
+    "bytes": 37498,
+    "sha256": "d4566b5293a1a32437ed16b96ee04d5d34d564c3bd1038dd8c552d54d05ca192"
+  },
+  "currentSubjectStanding": "Frozen author02 held after confirmed legacy cold-reader false negative. Its113 passes and fresh close remain exact; no acceptance.",
+  "qr02FiniteMaterials": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr02-materials-01/PREPARATION_RETURN.json",
+    "bytes": 4693,
+    "sha256": "ed015a808745d66908c73e781f17f15b010fe0cb489440b92166def050a36c3f"
+  },
+  "qr03ProviderRouteReadiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR03_PROVIDER_ROUTE_READINESS.json",
+    "bytes": 23566,
+    "sha256": "fb11ed28f67244c4bc97265b62bdd90de3172af2356fd700f4f37e9435c50da2"
+  },
+  "nativeQualificationRouteStanding": "Frozen F6 native actor is Claude-only. Shared alternate adapters do not yet provide the selected closed-prompt qualification schema/tool/evidence protocol; external review cannot substitute for native J. No alternate profile/implementation activation selected.",
+  "materialPreparationStanding": "Complete Root-admitted controls, owner preflight passed; one actual native actor observed. No extra review/template controls grant runtime activation.",
+  "nativeSourceProgressObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/baseline-feedback-001/OBSERVATION.json",
+    "sha256": "8f43ab0cdfb9efdd5e18602de250a58c8fa580d57e3e06ef62cf339485f5a15a",
+    "standing": "AUTHENTIC_RECOVERY_BASELINE_REPORTED_PASS_BEFORE_M2"
+  },
+  "d5ProofTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03",
+    "status": "CONTROL_PREPARATION_ONLY_N3_SOURCE_AND_CLOSE_PENDING",
+    "activation": false,
+    "previousHeld": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/SOURCE_BINDING_RETURN.json"
+  },
+  "qr03ProtocolPreparation": {
+    "status": "CONSUMED_CONDITIONAL_STATIC_READINESS_NO_ROUTE_SELECTED",
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr03-protocol-preparation-01/ROOT_DISPOSITION.json",
+      "bytes": 2020,
+      "sha256": "8770fda19fb8ca94f18850308f1224a73136a16814efe6c5e9e364bbe27a77bd"
+    },
+    "limits": "Contributing Root-team static preparation only; no independent acceptance, native J or actual provider behavior."
+  },
+  "remainingCarriageObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/REMAINING_CARRIAGE_OWNER_MAP.json",
+    "sha256": "d441689c99938e9da47a22389fb7d843b6ce19f8d105a65ad9adb87c6a2c0f0a",
+    "standing": "Physical duplicate body and existing owner mapped; no new coding task or automatic release gate."
+  },
+  "operatorInstructionDefect": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/ROOT_INSTRUCTION_DEFECT_DISPOSITION.json",
+    "bytes": 2431,
+    "sha256": "9a678a95364ffb9a12a765c81825b17472bb45547b91cb8126b9148a0ad46b2c"
+  },
+  "intermediateAuthorFeedback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/development-feedback-002/OBSERVATION.json",
+    "sha256": "f719402379274deeefa3263a73fe1bc9183c467de2d60ed10d9b39d82a9817ce",
+    "pass": 45,
+    "fail": 3,
+    "standing": "Intermediate development feedback only; final checks and frozen source pending."
+  },
+  "currentProfileStanding": "Prospective p5 ref / exact D3bcc descriptor selected; unchanged legacy and fresh-store rule. Release/cut acceptance reserved.",
+  "qr02CurrentOwnerReadiness": {
+    "status": "CLOSED_CONTRIBUTING_READINESS_AFTER_SHARED_SUCCESSOR_REBIND",
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr02-reentry-02/READINESS.json",
+      "bytes": 42699,
+      "sha256": "8bf14e581effd0b2e87851293e1092cdffc2baac6447820f5ddd211e0d926902"
+    }
+  },
+  "remainingReadbackLatency": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/READBACK_LATENCY_OWNER_OBSERVATION.json",
+    "bytes": 2845,
+    "sha256": "70c4ab3a4ae6fb9ecb30ae4aec6968a5acb738243df2d39bf9a6b179e6c91c65"
+  },
+  "currentControlAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 9662,
+    "sha256": "ff855fa4d46025f3107bf45ae1621e388c4ea7d0c0375bd679c146aea3ddbb7f"
+  }
+}

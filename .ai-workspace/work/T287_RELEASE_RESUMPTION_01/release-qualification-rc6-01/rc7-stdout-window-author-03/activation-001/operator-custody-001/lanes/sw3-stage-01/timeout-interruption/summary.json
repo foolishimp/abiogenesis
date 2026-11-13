@@ -1,0 +1,34 @@
+[
+  {
+    "id": "timeout-interruption",
+    "mode": "after",
+    "setupMs": 67,
+    "priorLaneAllocations": 2,
+    "laneAllocationCap": 6,
+    "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+    "activeRc7": [
+      "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+      "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:RC7 HS03 timeout:.*|M5\\ ABG\\ transport\\ force\\-terminates\\ a\\ worker\\ that\\ ignores\\ SIGTERM|M5\\ ABG\\ transport\\ renews\\ its\\ inactivity\\ lease\\ only\\ from\\ observed\\ progress|M5\\ ABG\\ transport\\ does\\ not\\ renew\\ from\\ unacknowledged\\ output|M5\\ ABG\\ transport\\ excludes\\ semantic\\ output\\ emitted\\ after\\ its\\ timeout\\ boundary|M5\\ ABG\\ transport\\ excludes\\ descendant\\ output\\ emitted\\ after\\ direct\\-process\\ exit|M5\\ admitted\\ long\\ inactivity,\\ absolute\\ and\\ grace\\ values\\ do\\ not\\ become\\ one\\-millisecond\\ timeouts|M5\\ a\\ finite\\ native\\ wakeup\\ above\\ the\\ host\\ timer\\ domain\\ does\\ not\\ fire\\ before\\ its\\ owner\\ deadline)$ test_env/tests/m5-worker-transport.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 3736,
+    "tests": 9,
+    "pass": 9,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 9,
+    "failing": [],
+    "stdoutSha256": "f63b2ff075c42b868b21f1ae1265d17d164dbec069db8423840d81beafe471b8",
+    "stdoutBytes": 2550,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

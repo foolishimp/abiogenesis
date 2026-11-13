@@ -1,0 +1,7 @@
+{
+  "exitCode": 0,
+  "timedOut": false,
+  "truncated": false,
+  "error": null,
+  "stdout": "{\"status\":\"OBSERVED_NATIVE_SOURCE_FROZEN_READBACK_REVIEW_PROOF_PENDING\",\"readInput\":{\"path\":\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/READ_INPUT.json\",\"bytes\":252606,\"sha256\":\"19dd130de8c14a9544d31ec71c5527e3838f8cd453c88e3265b2d3dc45b2836a\"},\"sourceSubject\":{\"path\":\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/SUBJECT.json\",\"bytes\":779397,\"sha256\":\"31c092b1cb8dd767d1178ebba26c4b66651ebe1de032ab401ba6683faa67093b\"},\"pendingReads\":[\"run_result\",\"run_replay\"]}\n"
+}

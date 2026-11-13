@@ -1,0 +1,69 @@
+{
+  "kind": "root_independent_frozen_fixture_review_request",
+  "recordedUtc": "2026-11-05T08:55:17.095332+00:00",
+  "role": "Independent read-only Reviewer, max effort; no candidate authorship or repair",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_QUALIFICATION_PLAN.json",
+    "bytes": 6440,
+    "sha256": "f6c318797e831d6a0cedaa1143ca3f0aef4c227ec1274143af9f0ba333e4e04b"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/SUBJECT.json",
+    "bytes": 3447,
+    "sha256": "49cd1586df2600490b6d0625562a4ee76374421a57c7b460c9d1645f30f36c9d"
+  },
+  "purpose": "Evaluate only N9-RETAINED-FIXTURE-01 F1-F4: current lower-owner fixture premises, meaningful assertion conservation, P2 run/related selector scope, and proof honesty. Native C2/UAT runs in parallel; do not repeat tests.",
+  "readRoutes": [
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/AGENTS.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/PRODUCT.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/SUBJECT.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/source.diff",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/return.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/readiness.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/progress.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/files",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/preimages",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_SOURCE_BEFORE_R2.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs/rubric.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/NATIVE_TASK.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/NATIVE_GRANT.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/FIXTURE_TRIAGE.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_C2_RECIPE_R2.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/SOURCE_ROLE_SELECTION.json",
+    "Exact test/support imports named by frozen test and SOURCE_BEFORE where needed; no general repository discovery.",
+    "Verified immutable STDO3.0.4 native review skill and directly required references via manager."
+  ],
+  "questions": [
+    "Does the frozen test supply only explicit fixture lower-owner premises while real revision/job logic and all186 existing assertion sites retain their meaning?",
+    "Does P2 use canonical runtimeHistorySelectorKeys for run/related keys faithfully, within the one local prefix-premise repair, without making selection/cause/currentness checks vacuous?",
+    "Are retained two historical skips and missing real journal/native lifecycle proof disclosed honestly? Is any material genuine Product defect established rather than a fixture mismatch?",
+    "Recommend satisfied/falsified/indeterminate for this exact bounded source predicate, with proportional causal severity. Actual native C2/UAT and final fresh result/replay remain Root conjuncts."
+  ],
+  "forbidden": [
+    "editing source/test/HOW",
+    "builds/tests/provider or native calls",
+    "raw provider thinking/text/tool-result/stdout",
+    "bulk event log or scratch/archive reads",
+    "reviewing whole Product or completing qualification",
+    "activation of another actor"
+  ],
+  "writes": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/INDEPENDENT_SOURCE_REVIEW.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/INDEPENDENT_SOURCE_REVIEW.md"
+  ],
+  "return": "Begin with Product Frame:15-family Product/GOAL035/T287/F07-F10 selected component-proof prerequisite, exact outcome, source/tool/runtime authority split and relevant prohibitions. Reacquire frozen subject and source bytes; readonly owners must match e717. Return one closed proportional result, no repair or follow-on activation.",
+  "independenceDisclosure": "Native candidate author is the admitted existing Claude coding Worker. This reviewer has not authored/repaired this subject; declare actual authorship/access limits. No release-grade native F11 credit is inferred.",
+  "host": "General filesystem tools; boundaries are behavioral, not a technical sandbox claim."
+}

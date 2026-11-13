@@ -1,0 +1,24 @@
+{
+  "kind": "root_operator_control_intake_triage",
+  "at": "2026-11-06T07:27:03.683002+00:00",
+  "id": "RC7-FIXED-OPERATOR-LIVE-CALL-COPY-001",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-001/prepare-and-dispatch.template.mjs",
+    "bytes": 19242,
+    "sha256": "0254ee73c2f309de9ec3fc68ab28d0b32632ae3f4ed2e99f3183c1da33b0cdcc"
+  },
+  "standing": "Pre-execution control finding; not an observed Product/runtime failure. Original closed preparation preserved.",
+  "productFrame": "Unchanged fixed15 ABIogenesis5.0 / GOAL-035 / T-287, STDO3.0.4. Existing SDK/resource/checker owners; five-path fixed Testing/UAT source scope unchanged.",
+  "finding": "The prepared SDK host records the full capability-bearing acquired call and rereads it to hash; assert error message also eagerly JSON.stringifies constructed call on success. This adds redundant full-carrier work and attempts a serialization boundary for a live in-process resource.",
+  "frames": {
+    "ProductAndAuthority": "Acquired resource is an owner-issued in-process capability. Observation/control metadata must not become another runtime authority or recreated capability.",
+    "DesignAndIntegration": "One retained caller/environment/acquired selection/constructed call is the selected existing SDK route. Complete intermediate call persistence is unnecessary for invocation and contradicts the selected baggage reduction.",
+    "Identity": "Use existing stable owner-issued coordinates, actual prefix and input digest. Do not invent a canonical representation of the live acquired resource graph.",
+    "EffectAndLifecycle": "No template execution occurred. Correction affects operator evidence formatting only; actual SDK outcome, original resource close/successor and retained resume remain mandatory.",
+    "Proof": "Actual returned owner evidence and physical source/Result/close conjunction support closure. Metadata alone is not qualification, and serialized live capability is not required proof."
+  },
+  "disposition": "local_repair_preparation_only",
+  "writer": "rc7_carriage_review, separately activated operator Writer",
+  "successor": "operational-preparation-002",
+  "scope": "Remove full call record/reread/hash and eager full-call error serialization, preserve original001; keep owner calls/grants/bounds, future admission remains null."
+}

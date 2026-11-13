@@ -1,0 +1,140 @@
+{
+  "kind": "selected_source_stat_only_observation",
+  "observedUtc": "2026-11-06T22:19:00.111766+00:00",
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 49004,
+      "mtimeNs": 1794003522828029676,
+      "mtimeUtc": "2026-11-06T22:18:42.828030+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 86153,
+      "mtimeNs": 1794003522828358681,
+      "mtimeUtc": "2026-11-06T22:18:42.828359+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 218662,
+      "mtimeNs": 1793999378572047612,
+      "mtimeUtc": "2026-11-06T21:09:38.572048+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "bytes": 34204,
+      "mtimeNs": 1794003420184899052,
+      "mtimeUtc": "2026-11-06T22:17:00.184899+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+      "bytes": 22056,
+      "mtimeNs": 1793843791879678488,
+      "mtimeUtc": "2026-11-05T01:56:31.879678+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "bytes": 71127,
+      "mtimeNs": 1793797556779154364,
+      "mtimeUtc": "2026-11-04T13:05:56.779154+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "bytes": 10724,
+      "mtimeNs": 1793843791864753254,
+      "mtimeUtc": "2026-11-05T01:56:31.864753+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 64754,
+      "mtimeNs": 1793943053272793462,
+      "mtimeUtc": "2026-11-06T05:30:53.272794+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 26359,
+      "mtimeNs": 1793923935146927999,
+      "mtimeUtc": "2026-11-06T00:12:15.146928+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "bytes": 26725,
+      "mtimeNs": 1793843791930965501,
+      "mtimeUtc": "2026-11-05T01:56:31.930965+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "bytes": 24181,
+      "mtimeNs": 1793949918678521714,
+      "mtimeUtc": "2026-11-06T07:25:18.678522+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 173286,
+      "mtimeNs": 1794000398711348696,
+      "mtimeUtc": "2026-11-06T21:26:38.711349+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 96693,
+      "mtimeNs": 1793916703669226999,
+      "mtimeUtc": "2026-11-05T22:11:43.669227+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "bytes": 139787,
+      "mtimeNs": 1794000620896896763,
+      "mtimeUtc": "2026-11-06T21:30:20.896897+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "bytes": 92546,
+      "mtimeNs": 1793926278915172999,
+      "mtimeUtc": "2026-11-06T00:51:18.915173+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "bytes": 41635,
+      "mtimeNs": 1793926039447156587,
+      "mtimeUtc": "2026-11-06T00:47:19.447157+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "bytes": 1349,
+      "mtimeNs": 1793843792086616735,
+      "mtimeUtc": "2026-11-05T01:56:32.086617+00:00",
+      "changedFromFirstMetadata": false
+    }
+  ],
+  "stages": [
+    {
+      "label": "sw2-stage-01",
+      "directoryPresent": false,
+      "freezePresent": false,
+      "reportPresent": false
+    },
+    {
+      "label": "sw2-stage-02",
+      "directoryPresent": false,
+      "freezePresent": false,
+      "reportPresent": false
+    }
+  ],
+  "standing": "Metadata only; changed size/mtime does not prove byte change or acceptance."
+}

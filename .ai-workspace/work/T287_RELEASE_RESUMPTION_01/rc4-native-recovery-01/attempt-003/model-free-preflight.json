@@ -1,0 +1,31 @@
+{
+  "kind": "rc4_native_recovery_model_free_preflight",
+  "status": "prepared_not_dispatched",
+  "sourceCommit": "6dffbc0adbe19c3cae4eba4248173108a1c45477",
+  "bindingDigest": "dda93f58b496878adc30b0193d75932fe894625db2e8bd7ed4658c22b62b6c95",
+  "contextDigest": "sha256:244c39e4068e59ef38400077d4a9bf9b5f1eca4f9c04e79da34efb99e34aa69e",
+  "readRoots": 976,
+  "selectedPaths": 966,
+  "commands": 9,
+  "requiredExecutionBudgetMs": 4267250,
+  "limits": {
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000
+  },
+  "controlledSelector": {
+    "classification": "actual installed RC3 renderer/current observed Context/controlled owner-role premises; predictive only",
+    "promptBytes": 611210,
+    "promptBound": 1048576,
+    "resultKind": "native_instruction_assembly"
+  },
+  "eventPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 150636131,
+    "sha256": "481885a0d7e7944959c914e6a56028437f173a05caa9c40697914b088b182a1c",
+    "device": 16777231,
+    "inode": 673308256,
+    "coordinateDigest": "sha256:f7179edb884c49033be68f9cfb7d72298d2b88dba1e63f36f2b68faa3c902af0"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

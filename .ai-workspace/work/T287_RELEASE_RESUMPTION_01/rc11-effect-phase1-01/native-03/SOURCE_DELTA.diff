@@ -1,0 +1,130 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
++++ /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
+@@ -715,6 +715,22 @@
+ const m5Events = text => typeof text === "string" ? text.split("\n").filter(line => line.length > 0).map(line => JSON.parse(line)) : text;
+ // Ordered complete records of one byte sequence, independent of capture chunking.
+ const m5CompleteRecords = text => { assert.equal(text.endsWith("\n"), true, "no partial trailing record"); return text.slice(0, -1).split("\n"); };
++// Progress timing over ordered captures { chunk, at } on one millisecond clock.
++// Completion is the capture at which the ordered bytes first hold the whole
++// "complete" record, however callbacks split or coalesce it; null when no
++// capture completes it. No owner duration or default time stands in for it.
++function m5ProgressTiming(captures, spawnedAt) {
++  let text = "", completeAt = null;
++  for (const { chunk, at } of captures) {
++    const open = text.lastIndexOf("\n") + 1;
++    text += chunk;
++    const end = text.lastIndexOf("\n");
++    if (end >= open && text.slice(open, end).split("\n").includes("complete")) { completeAt = at; break; }
++  }
++  const gaps = captures.slice(1).map((row, index) => row.at - captures[index].at);
++  return { spawnToCompleteCaptureMs: spawnedAt === null || completeAt === null ? null : completeAt - spawnedAt,
++    maxAcknowledgedGapMs: gaps.length === 0 ? null : Math.max(...gaps), callbacks: captures.length };
++}
+ // The owner's settle instant and its original result or thrown value.
+ async function m5Settle(call) {
+   const startedAt = performance.now();
+@@ -797,7 +813,18 @@
+     control.advanceTo(m5Ns(atMs)); control.world.group = "absent"; log.push(`exit:${status}:${signal}`);
+     child.emit("exit", status, signal); child.emit("close", status, signal);
+   };
+-  await drive({ child, control, emit, exit, timeouts, log });
++  try { await drive({ child, control, emit, exit, timeouts, log }); }
++  catch (failure) {
++    // A rejected schedule may never let the owner finish: retain the facts
++    // available now, owner pending or settled, then rethrow the original.
++    const pending = Symbol("pending"), owner = await Promise.race([running, pending]);
++    try {
++      retainEvidence(context, "m5-worker-transport", `controlled-${label}`, { bounds, log, timeouts, acknowledged,
++        signals: control.world.signals, driveFailure: failureFact(failure), owner: owner === pending ? { state: "pending" }
++          : { state: "settled", settledMs: owner.settledMs, failure: failureFact(owner.failure), result: owner.result } });
++    } catch (retention) { context.diagnostic(`controlled-${label} evidence retention failed: ${retention?.message ?? String(retention)}`); }
++    throw failure;
++  }
+   const settled = await running;
+   retainEvidence(context, "m5-worker-transport", `controlled-${label}`, { bounds, log, timeouts, acknowledged,
+     signals: control.world.signals, failure: failureFact(settled.failure), result: settled.result });
+@@ -881,6 +908,72 @@
+       records, disposition: "success", timeoutClass: null, stdout: bytes, finalOutput: bytes }, outcome.name);
+   }
+   assert.deepEqual(outcomes.map(row => row.callbacks), [8, 1, 4, Buffer.byteLength(bytes)], "callback counts differ; the oracle does not");
++});
++
++test("M5 actual owner, controlled clock: the progress completion instant is the capture that completes the ordered record under every split, and incomplete completion has none", async (context) => {
++  const lease = 100, last = "complete\n", records = ["progress-0", "progress-1", "progress-2", "progress-3", "complete"];
++  const bytes = records.map(row => `${row}\n`).join(""), head = [[40, "progress-0\n"], [80, "progress-1\n"], [120, "progress-2\n"]];
++  // Each completing schedule makes the final record whole at 200, after the
++  // initial lease at 100; only intact and coalesced give it one callback.
++  const completing = { intact: [[160, "progress-3\n"], [200, last]], coalesced: [[200, `progress-3\n${last}`]],
++    coalescedSplit: [[160, "progress-3\ncomple"], [200, "te\n"]],
++    ...Object.fromEntries(Array.from({ length: last.length - 1 }, (_, index) =>
++      [`split${index + 1}`, [[160, "progress-3\n"], [180, last.slice(0, index + 1)], [200, last.slice(index + 1)]]])),
++    eachByte: [[160, "progress-3\n"], ...[...last].map((byte, index) => [200 - 2 * (last.length - 1 - index), byte])] };
++  const incomplete = { missing: [[160, "progress-3\n"]], unterminated: [[160, "progress-3\n"], [200, "complete"]] };
++  const observe = async (name, schedule) => {
++    let spawnedAt = null;
++    const run = await m5ControlledRun(context, `completion-${name}`, { timeoutMs: lease, absoluteTimeoutMs: 1_000, graceMs: 50 }, () => true,
++      async ({ control, emit, exit }) => {
++        spawnedAt = Number(control.now()) / 1e6;
++        for (const [at, chunk] of [...head, ...schedule]) emit(at, chunk);
++        exit(220, 0, null);
++      });
++    const captures = run.acknowledged.map(({ chunk, atNs }) => ({ chunk, at: Number(atNs) / 1e6 }));
++    return { run, captures, acknowledged: captures.map(row => row.chunk).join(""), timing: m5ProgressTiming(captures, spawnedAt) };
++  };
++  for (const [name, schedule] of Object.entries(completing)) {
++    const { run, captures, acknowledged, timing } = await observe(name, schedule);
++    assert.equal(acknowledged, bytes, name);
++    assert.deepEqual(m5CompleteRecords(acknowledged), records, name);
++    assert.deepEqual([run.timeouts, run.result.disposition, run.result.timeoutClass, run.result.finalOutput], [[], "success", null, bytes], name);
++    assert.equal(captures.some(row => row.chunk.includes(last)), name === "intact" || name === "coalesced", `${name}: partition premise`);
++    assert.equal(timing.spawnToCompleteCaptureMs, 200, `${name}: the capture that completed the ordered record`);
++    assert.equal(timing.spawnToCompleteCaptureMs > lease, true, `${name}: completion outlasted the initial lease`);
++  }
++  for (const [name, schedule] of Object.entries(incomplete)) {
++    const { run, acknowledged, timing } = await observe(name, schedule);
++    assert.equal(run.timeouts.length, 0, name);
++    assert.equal(acknowledged.includes(last), false, name);
++    assert.equal(timing.spawnToCompleteCaptureMs, null, `${name}: no completion witness`);
++  }
++});
++
++test("M5 actual owner, controlled clock: a rejected drive retains its available trace without awaiting the pending owner and rethrows the identical failure", async (context) => {
++  const retained = [];
++  const observed = { after: hook => context.after(hook), diagnostic: text => { retained.push(text); context.diagnostic(text); } };
++  let thrown = null, handback;
++  const unreturned = new Promise(resolve => { handback = resolve; });
++  const running = m5ControlledRun(observed, "drive-rejected", { timeoutMs: 100, absoluteTimeoutMs: 1_000, graceMs: 50 }, () => true,
++    async ({ control, emit, timeouts }) => {
++      emit(60, "renewing\n"); control.advanceTo(m5Ns(160));
++      // The owner now awaits an exit this schedule never supplies. One
++      // event-loop turn bounds the handback; the rethrow needs none.
++      setImmediate(() => handback({ unreturned: true }));
++      try { assert.deepEqual(timeouts, [], "a contrary expectation after the actual inactivity expiry"); }
++      catch (failure) { thrown = failure; throw failure; }
++    });
++  const outcome = await Promise.race([running.then(result => ({ result }), failure => ({ failure })), unreturned]);
++  assert.equal(thrown instanceof assert.AssertionError, true, "the driver's own assertion rejected");
++  assert.equal(outcome.failure, thrown, "the identical original failure, handed back without awaiting the owner");
++  assert.equal(retained.length, 1, "one evidence record precedes the rethrow");
++  const record = JSON.parse(retained[0].slice("evidence ".length));
++  assert.deepEqual([record.caseId, record.acknowledged, record.timeouts, record.signals, record.owner],
++    ["controlled-drive-rejected", [{ chunk: "renewing\n", atNs: String(m5Ns(60)) }], [{ timeoutClass: "inactivity", atNs: String(m5Ns(160)) }],
++      [{ value: "SIGTERM", atNs: String(m5Ns(160)) }], { state: "pending" }]);
++  assert.deepEqual([record.driveFailure.name, record.driveFailure.message], [thrown.name, thrown.message]);
++  assert.equal(record.log.some(entry => entry.startsWith("exit:")), false, "no exit or close was supplied or claimed");
++  assert.equal(Object.hasOwn(record, "result"), false, "no owner result is fabricated");
+ });
+ 
+ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", { timeout: m5Cap(M5_SETUP_MS + 350 + m5CleanupMs(75)) }, async (context) => {
+@@ -1001,10 +1094,7 @@
+   }));
+   const { result } = settled;
+   const acknowledged = captures.map(row => row.chunk).join("");
+-  const completeAt = captures.find(row => row.chunk.includes("complete\n"))?.at ?? null;
+-  const gaps = captures.slice(1).map((row, index) => row.at - captures[index].at);
+-  const timing = { spawnToCompleteCaptureMs: spawnedAt === null || completeAt === null ? null : completeAt - spawnedAt,
+-    maxAcknowledgedGapMs: gaps.length === 0 ? null : Math.max(...gaps), callbacks: captures.length };
++  const timing = m5ProgressTiming(captures, spawnedAt);
+   retainEvidence(context, "m5-worker-transport", "progress-lease", { bounds: M5_PROGRESS, settledMs: settled.settledMs, timing,
+     acknowledged, failure: failureFact(settled.failure), result, artifacts: await m5Artifacts(join(scratch, "archive"), "progress-worker") });
+   if (settled.threw) throw settled.failure;

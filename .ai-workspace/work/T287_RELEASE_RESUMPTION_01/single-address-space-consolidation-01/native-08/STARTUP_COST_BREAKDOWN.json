@@ -1,0 +1,256 @@
+{
+  "kind": "bounded_rc5_native08_startup_cost_observation",
+  "recordedUtc": "2026-11-04T07:33:04.005136+00:00",
+  "productFrame": "ABI5 GOAL-035/T-287 STDO3.0.4; completed immutable RC5 builder, later consolidation successor separately held. Diagnostic observation only.",
+  "builderSourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "builderArtifactDigest": "sha256:4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+  "runRef": "run://abiogenesis/99401be166a6e661abaefe396c5fc033ad529261ccf7342569d0c08529131af3",
+  "sourceTiming": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/LAUNCH_TIMING_COMPLETE.json",
+    "bytes": 1076,
+    "sha256": "aac755a2f6a45664b8374135cee9c62b4118b622712cb496e0a044fac56d71d2"
+  },
+  "physicalLogSpan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "fromByte": 672021993,
+    "throughByteExclusive": 710020621,
+    "bytes": 37998628,
+    "sha256": "5c6105eff645552569e46dc6acf319104c872217a0cba1014139ffdbe7a04eac",
+    "standing": "Physical byte-range observation, not a newly manufactured durable-prefix authority"
+  },
+  "milestones": [
+    {
+      "name": "dispatch",
+      "time": "2026-11-04T06:38:36.570Z",
+      "event": null
+    },
+    {
+      "name": "firstPublicAdmission",
+      "time": "2026-11-04T06:44:08.767Z",
+      "event": {
+        "ordinal": 55116,
+        "eventTime": "2026-11-04T06:44:08.767Z",
+        "kind": "public_operation_admitted",
+        "graphFunctionRef": null,
+        "offset": 672021993,
+        "bytes": 4345,
+        "sha256": "8a9f4d4841bc28c6704f5945964755f57a5193db7cc75f1c9f617faa3ec11f97"
+      }
+    },
+    {
+      "name": "selectorStart",
+      "time": "2026-11-04T06:45:03.075Z",
+      "event": {
+        "ordinal": 55167,
+        "eventTime": "2026-11-04T06:45:03.075Z",
+        "kind": "actor_process_started",
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "offset": 707145588,
+        "bytes": 1859,
+        "sha256": "6e3f1480fe7d35d579564d6fe1a2498f5cd63d82d853cc92ed452e2329dcde83"
+      }
+    },
+    {
+      "name": "selectorExit",
+      "time": "2026-11-04T06:46:23.258Z",
+      "event": {
+        "ordinal": 55285,
+        "eventTime": "2026-11-04T06:46:23.258Z",
+        "kind": "actor_process_exited",
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "offset": 707517365,
+        "bytes": 1773,
+        "sha256": "67f941e8af3ec5d403559ebbbcd608a4467cfd548fccfe5dcfc49b105867062f"
+      }
+    },
+    {
+      "name": "constructionCallSelected",
+      "time": "2026-11-04T06:47:07.829Z",
+      "event": {
+        "ordinal": 55343,
+        "eventTime": "2026-11-04T06:47:07.829Z",
+        "kind": "c_call_fibre_selected",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+        "offset": 709131807,
+        "bytes": 2381,
+        "sha256": "558cc1935e994111ec137e168ab6b59c4e1531265e50c53498dbf8eb745d014d"
+      }
+    },
+    {
+      "name": "nativeWorkerBasisAdmitted",
+      "time": "2026-11-04T06:50:27.835Z",
+      "event": {
+        "ordinal": 55347,
+        "eventTime": "2026-11-04T06:50:27.835Z",
+        "kind": "basis_admitted",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "offset": 709145870,
+        "bytes": 7996,
+        "sha256": "606df2052814679594e3d36969fe6e042a58dec042bc3a74fdcb0933da0eafc0"
+      }
+    },
+    {
+      "name": "nativeWorkCallSelected",
+      "time": "2026-11-04T06:50:38.933Z",
+      "event": {
+        "ordinal": 55353,
+        "eventTime": "2026-11-04T06:50:38.933Z",
+        "kind": "c_call_fibre_selected",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "offset": 709168715,
+        "bytes": 2259,
+        "sha256": "53c50397af3fe92e5afeed90f2644b0c419c2fc7dc2501c92a96b086a8b3375c"
+      }
+    },
+    {
+      "name": "nativeTransportAdmitted",
+      "time": "2026-11-04T06:52:23.125Z",
+      "event": {
+        "ordinal": 55355,
+        "eventTime": "2026-11-04T06:52:23.125Z",
+        "kind": "actor_transport_binding_admitted",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "offset": 709174772,
+        "bytes": 841360,
+        "sha256": "a69de76a040af75893abe0e5008aefa78564f21a73b4b866bad424450469e5ce"
+      }
+    },
+    {
+      "name": "nativeWorkerProcessStart",
+      "time": "2026-11-04T06:52:23.170Z",
+      "event": {
+        "ordinal": 55357,
+        "eventTime": "2026-11-04T06:52:23.170Z",
+        "kind": "actor_process_started",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "offset": 710018733,
+        "bytes": 1888,
+        "sha256": "cb2dfa6bde9b3880a79a8620ebf73cb26035369ccc24f29121b0caa350983c3d"
+      }
+    }
+  ],
+  "phases": [
+    {
+      "phase": "before first Public operation admission",
+      "start": "dispatch",
+      "end": "firstPublicAdmission",
+      "wallMs": 332197.0
+    },
+    {
+      "phase": "admitted workflow and selector preparation",
+      "start": "firstPublicAdmission",
+      "end": "selectorStart",
+      "wallMs": 54308.0
+    },
+    {
+      "phase": "selector actor",
+      "start": "selectorStart",
+      "end": "selectorExit",
+      "wallMs": 80183.0
+    },
+    {
+      "phase": "selector return to selected construction call",
+      "start": "selectorExit",
+      "end": "constructionCallSelected",
+      "wallMs": 44571.0
+    },
+    {
+      "phase": "construction call to native Worker basis",
+      "start": "constructionCallSelected",
+      "end": "nativeWorkerBasisAdmitted",
+      "wallMs": 200006.0
+    },
+    {
+      "phase": "native basis to selected native-work call",
+      "start": "nativeWorkerBasisAdmitted",
+      "end": "nativeWorkCallSelected",
+      "wallMs": 11098.0
+    },
+    {
+      "phase": "native-work call to admitted actor transport",
+      "start": "nativeWorkCallSelected",
+      "end": "nativeTransportAdmitted",
+      "wallMs": 104192.0
+    },
+    {
+      "phase": "admitted transport to native Worker process",
+      "start": "nativeTransportAdmitted",
+      "end": "nativeWorkerProcessStart",
+      "wallMs": 45.0
+    }
+  ],
+  "dispatchToWorkerMs": 826600.0,
+  "selectorActorMs": 80183.0,
+  "outsideSelectorActorMs": 746417.0,
+  "preAdmissionSubIntervals": {
+    "beforeCliCommandMarkerMs": 1218.0,
+    "cliCommandMarkerToFirstAdmissionMs": 330979.0,
+    "commandRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/commands/lifecycle-start.request.json",
+      "bytes": 1174,
+      "sha256": "d7a29d08b3bd4debf69e8c0adf25960f4534e052ea0c4d54fbe32d48541b9f3c"
+    }
+  },
+  "hostPreparationBeforeDispatchMs": 50784.304,
+  "hostLaunchToWorkerMs": 877384.304,
+  "oneTimeSdkSetup": {
+    "reusedThisActivation": true,
+    "newSetupChargedMs": 0,
+    "historicalSetupMs": 28938.979459,
+    "historicalArtifactVerificationMs": 19748.530083,
+    "meaning": "Artifact verification is part of the earlier setup measurement, not an additional charge to this startup."
+  },
+  "betweenActivationMs": 2076770.42,
+  "sourceComparison": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "rc4Sha256": "870cb44fbd160426e362e409a70acc8541c290fd7bf9c729ed0978154359b984",
+      "rc5Sha256": "870cb44fbd160426e362e409a70acc8541c290fd7bf9c729ed0978154359b984",
+      "rc4EqualsRc5": true,
+      "heldSuccessorSha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+      "successorDiffers": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "rc4Sha256": "2ea8516698f0578bd7eb1882919ba100741eea6fddd2528fa33eccd195ed97e1",
+      "rc5Sha256": "2ea8516698f0578bd7eb1882919ba100741eea6fddd2528fa33eccd195ed97e1",
+      "rc4EqualsRc5": true,
+      "heldSuccessorSha256": "70808821083b7c0d7abe595f05d42188868b631bef441152573658b4d9b7a99c",
+      "successorDiffers": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "rc4Sha256": "12af7e81f8e38f3e00db38778d4f8fc8b69a9675d448bf9377b5279c47b62dc8",
+      "rc5Sha256": "12af7e81f8e38f3e00db38778d4f8fc8b69a9675d448bf9377b5279c47b62dc8",
+      "rc4EqualsRc5": true,
+      "heldSuccessorSha256": "5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7",
+      "successorDiffers": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "rc4Sha256": "2811b8363e2fbd3117509f4ef9bfba54b0bb4060bf4003094a357f6c93e5933b",
+      "rc5Sha256": "2811b8363e2fbd3117509f4ef9bfba54b0bb4060bf4003094a357f6c93e5933b",
+      "rc4EqualsRc5": true,
+      "heldSuccessorSha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+      "successorDiffers": true
+    }
+  ],
+  "codeFindings": [
+    "RC5 runtime_liveness still rebuilds validated prefixes from store.readAll at its production callers; held successor uses the existing selectRuntimeEventPrefixFromStore owner.",
+    "RC5 native_work_reacquisition has two callers of authenticateNativeInstructionAssemblyBasis. That wrapper first calls the owned authenticator, then materializes the complete history and constructs a validated prefix. Held successor calls authenticateOwnedNativeInstructionAssemblyBasis and removes the expanding adapter.",
+    "These four implicated Product source files are byte-identical between RC4 and RC5; the later held successor changes them. RC5 Product code delta from RC4 is event_body_encoding.ts, event_store.ts, gtl/default_library.ts and product/contracts.ts."
+  ],
+  "functionalInterpretation": [
+    "Actual current-state acquisition supports correct resumption/replay and binds the actual execution context.",
+    "Input/install/worksite checks support exact code/input identity and stale/change/refusal detection at their true boundaries.",
+    "The selector delegates a next-step choice; it is not coding work.",
+    "Repeated expansion/reconstruction of an unchanged already-owned value provides no additional semantic guarantee when equivalent consumers can use the existing owner-held value."
+  ],
+  "limits": [
+    "These are event/command boundary wall intervals, not per-function CPU profiles.",
+    "The first332197ms has no newly admitted event until its endpoint; the full internal allocation among file I/O, cold reconstruction, validation and serialization is not measured.",
+    "The3m20s construction and1m44s transport intervals are located exactly, but their individual computation costs are not fully profiled.",
+    "Do not call every millisecond outside the selector verification overhead or removable waste.",
+    "No changes to in-flight controls, actors, Product source, released artifacts or completed proof."
+  ]
+}

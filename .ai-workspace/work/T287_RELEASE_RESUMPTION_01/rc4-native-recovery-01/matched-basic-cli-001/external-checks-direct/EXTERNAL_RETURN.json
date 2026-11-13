@@ -1,0 +1,63 @@
+{
+  "arm": "direct",
+  "worksite": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001",
+  "results": [
+    {
+      "label": "independent-cli",
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 28.430541999999996,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    {
+      "label": "independent-node-tests",
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 107.86808299999998,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    }
+  ],
+  "inputBytesPreserved": true,
+  "artifacts": [
+    {
+      "path": "specification/project-conformance.md",
+      "bytes": 4108,
+      "sha256": "899742f754df0a7d5dbde534a0684a755e0849f8ec56817cdbb6840fa492c9c5"
+    },
+    {
+      "path": "design/implementation-design.md",
+      "bytes": 3246,
+      "sha256": "89becee76466bca3c226b3b1988657741810fbe24b0453a7e94296c8d34988cf"
+    },
+    {
+      "path": "generated/hello-world.mjs",
+      "bytes": 41,
+      "sha256": "28f2a389bcd8996da86d6ca79e0df4d2c17a003a78df09a440fb3aa4ff09f261"
+    },
+    {
+      "path": "design/test-design.md",
+      "bytes": 2803,
+      "sha256": "7aff20353c0c645b54d31ee048edb16633437317cffcff6502d195a06225b9eb"
+    },
+    {
+      "path": "test/component/hello-cli.test.mjs",
+      "bytes": 613,
+      "sha256": "173249e71c5eede38ca706cd0c7dfeacd8300fe167b087b40c06dd643ff22b7c"
+    },
+    {
+      "path": "test/uat/hello-cli.uat.test.mjs",
+      "bytes": 705,
+      "sha256": "337e9ff6a8a2e0508df6210d4e5e12ad413b88ace63c6f26bfe2b66c3aef9125"
+    },
+    {
+      "path": "test-execution-plan.json",
+      "bytes": 482,
+      "sha256": "d99e0af25fe61ec87f5b6b0e413dfd1631765ec3628de4ef1b1894e6bc268583"
+    }
+  ],
+  "assessment": "PENDING independent symmetric content/stdout/test-output judgment; process exit is not acceptance; no admitted event fabricated"
+}

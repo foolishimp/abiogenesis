@@ -1,0 +1,11 @@
+Product Frame: fixed fifteen-family ABIogenesis 5.0, GOAL-035/T-287, STDO 3.0.4 with empty composition. This review covers GC03 fixture/method compatibility on accepted A6 source `6e86c4e4…`, not whole-Product qualification. ABG retains runtime admission, events and publication authority.
+
+S2, GC03-304-001: the configured current-basis GC03 integration is unsupported. Execution009 passed fourteen component cases, then case 15 correctly refused `EVALUATION.md`: current 3.0.4 `b856cf04…` differs from the recipe’s 3.0.2 `478fd21f…`. The whole file remains red.
+
+This is more than a stale test hash. The recipe copies the immutable released 3.0.2 descriptor (`764dcc93…`). Released `ac_support_core.py:374–380` supports only its exact registered profiles; lines 586–592 require this profile’s Product Definition to select 3.0.2/f7f3f824. Replacing the local digest would advance to another lawful refusal under current 3.0.4. A fabricated descriptor, modified installed release, mixed old sources or Definition rollback cannot close the current claim.
+
+The smallest honest disposition is bounded deferral, not a local patch for green. Root selected durable residual **RC8-GC03-METHOD-304**: configured GC03 on current 3.0.4 remains blocked and unaccepted. It does not block the explicitly unqualified reference-preservation cut on the proven unconfigured/default native path. The source and owning HOW make the private policy opt-in. Existing actual native builder return, physical close and fresh readback evidence remain separate; they do not prove this GC03 chain.
+
+Trigger re-entry before enabling/claiming current-basis GC03 or release qualification. Closure needs separately authorized supported GC03 binding/successor, exact ABI adoption, actual allowed/denied/cold/tamper owner proof and the existing native-witness obligations. This is support-binding evolution under the selected method, not a selected STDO law migration. An expressly historical 3.0.2 fixture would prove a different claim.
+
+Preserve the red and all fourteen partial observations; no whole-file, broad-green or whole 5.0 credit. Writer registration is pending, and Root owns the remaining conjunction. Exact pins, source lines, causal triage and registration fields are in [REVIEW.json](REVIEW.json). Reviewer ran no tests and made no source repair.

@@ -1,0 +1,54 @@
+{
+  "kind": "source_only_control_static_checks",
+  "status": "PASS_SOURCE_ONLY_PREPARED_NOT_DISPATCHED",
+  "sourceFiles": 449,
+  "nativeAfterSourceRows": 397,
+  "additionalReadonlyRows": 52,
+  "productWritePaths": 86,
+  "contextPaths": 472,
+  "selectedPhysicalBodyBytes": 12519752,
+  "contextLimit": 16777216,
+  "renderedOrderConservativeEstimateBytes": 51547,
+  "promptReserveBytes": 131072,
+  "promptLimit": 1048576,
+  "sourceBeforeBytes": 396203,
+  "sourceBeforeInContext": false,
+  "syntax": [
+    {
+      "path": "prepare-r1.mjs",
+      "syntax": "valid"
+    },
+    {
+      "path": "dispatch.mjs",
+      "syntax": "valid"
+    },
+    {
+      "path": "inputs/prior-author-stage.mjs",
+      "syntax": "valid"
+    },
+    {
+      "path": "inputs/prior-author-lanes.mjs",
+      "syntax": "valid"
+    }
+  ],
+  "pythonAndShellSyntax": "valid",
+  "originalResumeReferencedNotCopied": true,
+  "npmConfigPathsDistinct": true,
+  "sourceEdits": 0,
+  "runtimePreflightOrDispatch": 0,
+  "testsOrBuilds": 0,
+  "limits": "Source/control/pin/syntax checks only. Root final admission and actual owner preflight/capacity remain pending. No Product build/test, runtime, provider, credential or C staging execution.",
+  "supplementaryFixturePin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/fresh-baseline/build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+    "bytes": 730,
+    "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41"
+  },
+  "laneEnvironmentSyntaxAfterCorrection": "valid",
+  "unboundSkipStanding": "Twelve exact declared historical/F11 cases remain uncovered; new selected discriminators cannot skip.",
+  "affectedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/AFFECTED_PROOF_BINDING.json",
+    "bytes": 4749,
+    "sha256": "42bb431177337520bb200ca4d33326b85f61daf9e2dceab528602f55cfbf537b"
+  },
+  "originalResumeHashVerified": true
+}

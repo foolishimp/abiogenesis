@@ -1,0 +1,35 @@
+{
+  "recordedUtc": "2026-11-04T02:01:35.156420+00:00",
+  "standing": "Actual helper-produced completed first lane, not aggregate C2 or acceptance; every later lane remains independently governed",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0e69bcdee7ab956483b63ee16b426d9cde8d5dd0e2a402a6cc0655f7ae5189e7/0f5b8d3b431f1eee3fd71051ca2ad8909c13c59318586ad127cdeebb900957f9/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-06/single-address-space-whole-path.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/actual-c2-001/single-address-space-whole-path.json",
+      "bytes": 442,
+      "sha256": "8baeea2279d4634c9bd367d37f93517b8402b99560a60b3e2cda1e0861bf525f"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0e69bcdee7ab956483b63ee16b426d9cde8d5dd0e2a402a6cc0655f7ae5189e7/0f5b8d3b431f1eee3fd71051ca2ad8909c13c59318586ad127cdeebb900957f9/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-06/single-address-space-whole-path.stdout.log",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/actual-c2-001/single-address-space-whole-path.stdout.log",
+      "bytes": 55804,
+      "sha256": "ac58e21c17c7c5ce56e70992fd17cfb7bbf31501c5141894d69c8c840aa81a64"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0e69bcdee7ab956483b63ee16b426d9cde8d5dd0e2a402a6cc0655f7ae5189e7/0f5b8d3b431f1eee3fd71051ca2ad8909c13c59318586ad127cdeebb900957f9/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-06/single-address-space-whole-path.stderr.log",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/actual-c2-001/single-address-space-whole-path.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/0e69bcdee7ab956483b63ee16b426d9cde8d5dd0e2a402a6cc0655f7ae5189e7/0f5b8d3b431f1eee3fd71051ca2ad8909c13c59318586ad127cdeebb900957f9/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-06/single-address-space-proof.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/actual-c2-001/single-address-space-proof.json",
+      "bytes": 162318,
+      "sha256": "ea2ff9037e99d787562a7f67cb7742b8ca6310317b3a6ebc687ed8b3228004fc"
+    }
+  ],
+  "sourceCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/actual-c2-001/SOURCE_CORRESPONDENCE_OBSERVED.json",
+    "sha256": "96a33c32a4bc4b55e1a6a158a07a26f16a2aa5d1870587cefc47079703f97e40",
+    "matching": 124
+  }
+}

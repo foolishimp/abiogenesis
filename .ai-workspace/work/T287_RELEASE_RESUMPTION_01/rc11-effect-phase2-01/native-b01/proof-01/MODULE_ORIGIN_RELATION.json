@@ -1,0 +1,17 @@
+{
+  "test": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "bytes": 92784,
+    "sha256": "4ae70f3c9a8d36ed6541c8ce52551c27c2e31b6b346795a02c53e6d54021a6cf"
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/frozen-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "bytes": 75347,
+    "sha256": "c1b6ded8611016673f5ac6dd020af020e2d9135e7478dc4146070dda284994a6"
+  },
+  "normalPackageRoot": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/work/build_tenants/abiogenesis/typescript",
+  "relation": "Tests and compiled helper/shared runner resolve within the same staged tenant/node_modules. No ABI5_OWNED_PROCESS_PACKAGE_ROOT override.",
+  "actualGate": "build.mjs records Node ESM import-condition resolution and realpath for each declared Effect specifier from every parent; distinct URL/origin stops before helper tests.",
+  "executionPerformed": false,
+  "packagedRootLimit": "No private VM adapter is run against bootstrap. Configured C2 uses genuine installed owners."
+}

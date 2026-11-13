@@ -1,0 +1,268 @@
+{
+  "kind": "bounded_product_design_triage",
+  "date": "2026-11-10",
+  "reviewer": "/root/rc11_source_assurance",
+  "context": "resumed; not clean context; proposal only, not candidate acceptance",
+  "subject_commit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "stdo_basis": "stdo://releases/v3.0.4/",
+  "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "definition_id": "urn:stdo:product-definition:abiogenesis",
+  "composition": [],
+  "frames": [
+    "Product",
+    "Design",
+    "Design Component",
+    "Owner",
+    "Effect",
+    "Reuse/Foundation",
+    "Proof"
+  ],
+  "result": {
+    "blanket_ban_needed_to_preserve_owner_authority": "falsified under owner clarification; mechanism use does not establish rival authority",
+    "specific_historical_refactor_failure_caused_by_blacklist": "indeterminate",
+    "candidate_implementation_acceptance": "out_of_frame"
+  },
+  "severity": "S2 design constraint defect; Root owns priority and disposition",
+  "reentry": "owner-authorized Product wording reconciliation and Design correction; then separate bounded test-owner realization",
+  "preserved": [
+    "fixed15 families",
+    "ABG admission and replay authority",
+    "direct GTL/HoG",
+    "single production host runner",
+    "immutable semantic carriers",
+    "policy/ordering/identity/currentness laws",
+    "original root-cause evidence and unit red",
+    "m5 qualification blocker"
+  ],
+  "static_api_enforcement_found": false,
+  "history_limits": "bounded D2 entity-map and introducing commit; no demonstrated blacklist-only rejected implementation or failed-run cause",
+  "excluded": [
+    "code repairs",
+    "Product execution/imports/tests",
+    "Git mutations",
+    "broad session scans",
+    "unrelated historical archive review",
+    "qualification or source acceptance"
+  ],
+  "invalidation": "changed source/basis/owner ruling or newly evidenced exact mechanism misuse/enforcement/causal failure requires re-entry",
+  "future_independence": "distinct reviewer for implementation of proposed pilot",
+  "control_deviation": {
+    "path": "/private/tmp/rc11-triage-stdo-status.json",
+    "sha256": "a3dfda762f781159fcc843f1726ed6c8c0f062a2871db7aab5ba6e1302af6c9b",
+    "bytes": 14715,
+    "scope": "metadata-only verification receipt outside original report-only grant",
+    "disposition": "Root acknowledged preserve; no cleanup"
+  },
+  "evidence": [
+    {
+      "id": "definition",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/stdo_abiogenesis.json",
+      "lines": [
+        1
+      ],
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "id": "product",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/specification/PRODUCT.md",
+      "lines": [
+        81,
+        238,
+        249,
+        254
+      ],
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "id": "constitution",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "lines": [
+        318,
+        2602,
+        3479,
+        3486,
+        3494,
+        3519,
+        3594,
+        3601,
+        3731,
+        3887,
+        3890,
+        4169,
+        4193
+      ],
+      "bytes": 391566,
+      "sha256": "68577ff6afbc8f4e03f4846d3831367c734b418eda3ca60867d1b369288ca681"
+    },
+    {
+      "id": "frame",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "lines": [
+        1,
+        38,
+        90
+      ],
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "id": "requirement",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "lines": [
+        23,
+        25,
+        31,
+        33,
+        35,
+        37,
+        43,
+        45
+      ],
+      "bytes": 7453,
+      "sha256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed"
+    },
+    {
+      "id": "agents",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/AGENTS.md",
+      "lines": [
+        54,
+        135,
+        150
+      ],
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    },
+    {
+      "id": "claude",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/CLAUDE.md",
+      "lines": [
+        34
+      ],
+      "bytes": 6306,
+      "sha256": "6c2f604416499412902f5696953f5a059a88f5a5a348b1b39e58108819ec1940"
+    },
+    {
+      "id": "observer",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "lines": [
+        555,
+        562,
+        614,
+        662
+      ],
+      "bytes": 52915,
+      "sha256": "a1f9e3888392d2f063967bc468b1ddc47fd7f3df5db70681efc18a477ad23458"
+    },
+    {
+      "id": "manifest",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/package.json",
+      "lines": [
+        1
+      ],
+      "bytes": 10105,
+      "sha256": "02789c3812e488e53e7a6fe9bd3affd0d39144cd5e69b68adf48c7a7f1f6b9d1"
+    },
+    {
+      "id": "product_mirror",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+      "lines": [
+        81
+      ],
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "id": "requirement_mirror",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "lines": [
+        35
+      ],
+      "bytes": 7453,
+      "sha256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed"
+    },
+    {
+      "id": "effect_package",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+      "lines": [
+        1
+      ],
+      "bytes": 40617,
+      "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2"
+    },
+    {
+      "id": "effect_primary",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/node_modules/effect/src/Effect.ts",
+      "lines": [
+        8935,
+        11696,
+        12407,
+        18932,
+        19051
+      ],
+      "bytes": 935651,
+      "sha256": "9b64194f02a9081e9b3e3aea4e1c7acf485a26575dd6650c59bbb1b9bdc08fa8"
+    },
+    {
+      "id": "effect_clock_primary",
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/node_modules/effect/src/internal/clock.ts",
+      "lines": [
+        42,
+        59,
+        70
+      ],
+      "bytes": 2940,
+      "sha256": "bb2ac63b03868c641209333be785ccc880a78897b3b03067cb26d5eb39fb15c7"
+    },
+    {
+      "id": "history",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260813T035416Z_MAP_t287_d2_core_evaluator_entities.md",
+      "lines": [
+        330,
+        425
+      ],
+      "bytes": 19278,
+      "sha256": "0d5557c45a5c4e4bbb4e5009adc32da8b394de43f7cc5cc72edca68d7d515b00"
+    },
+    {
+      "id": "prior_cause_report",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/review/ASSESSMENT.md",
+      "lines": [
+        1
+      ],
+      "bytes": 10094,
+      "sha256": "9d28cba4b5adbf4b6290bee28e485138bed198e55f7b17308c4a7c3fd4ab82da"
+    },
+    {
+      "id": "native02_task",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/TASK.json",
+      "lines": [
+        6,
+        49,
+        70
+      ],
+      "bytes": 8876,
+      "sha256": "f0d6f92f917efe51cd7ea4a62f3f1e4058aafc8ab4913830e82d80bb6cbccb8f"
+    },
+    {
+      "id": "ticket",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "lines": [
+        1,
+        1270
+      ],
+      "bytes": 828718,
+      "sha256": "17465ae63c2967b22cee48611af7f92d143aba496790fbef1d6ae820e304bd15"
+    },
+    {
+      "id": "goals",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "lines": [
+        1
+      ],
+      "bytes": 177987,
+      "sha256": "c0a8a9ed43787dd075a46f23a9d090add6f30164369ca51e415e01053d5613cb"
+    }
+  ]
+}

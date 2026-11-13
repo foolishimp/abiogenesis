@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 2015.6958329998888,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "actual historical pre-result occurrence authenticates with unchanged source and all current physical context",
+      "file": "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT unset; requires the explicit retained continuation root",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/128-t287-native-work-reacquisition-normalization.jsonl",
+    "bytes": 1256,
+    "sha256": "acae0ec62612b617d7fcc96a911c1db60a2d1bcb7d3b784f3834e97429a46b73"
+  },
+  "commandReceipt": "commands/128-t287-native-work-reacquisition-normalization.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

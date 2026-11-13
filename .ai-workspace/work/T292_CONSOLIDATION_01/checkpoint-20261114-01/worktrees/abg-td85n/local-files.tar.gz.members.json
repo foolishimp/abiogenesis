@@ -1,0 +1,16 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-root-r2.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 19972697,
+    "sha256": "6405a0539979fb92eedb604fbcab628f8321cd3fec940961f4a484b8130ca575"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-root-r3.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 2490,
+    "sha256": "12f1d68e26cf7a44aa79263f74022f4ec16b167ba3c0b6061d171fd1ac5bc45c"
+  }
+]

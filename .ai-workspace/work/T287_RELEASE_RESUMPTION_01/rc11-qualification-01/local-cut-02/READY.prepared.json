@@ -1,0 +1,94 @@
+{
+  "status": "CONCRETE_CONTROLS_READY_EXECUTION_HELD",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ACTIVATION.json",
+      "bytes": 1800,
+      "sha256": "2c6431aae10f5e3b358493ba448df3b6c04aad4b152575a6de1378bc6c7524c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/CANDIDATE_PACK_CONTROLS.prepared.json",
+      "bytes": 6863,
+      "sha256": "01c4f1fda9f6234834c5e47b62d5c1b32cc5155942d3b12b055e46b8eed07832"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/CHECKPOINT_BINDINGS.prepared.json",
+      "bytes": 6370,
+      "sha256": "ce39326e20197fc096ac8f57af7006b1dae756c7d79e336c663ad36b21767acd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/CHECKPOINT_CONTROL_DELTA.diff",
+      "bytes": 34589,
+      "sha256": "244ba6b177d87585965e881fc54437a1b6b800515017c1543b9a6d7ab69bfbb4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/OWNER_AND_TOOL_PINS.json",
+      "bytes": 4422,
+      "sha256": "c20cd3f5e6d645f7b9a03cb77a1c08055ff9f5f37109f938d13c5ad34327b39e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/PACK_CONTROL_DELTA.diff",
+      "bytes": 6046,
+      "sha256": "22000604544bf30eb43de7f1ff9622b837a29040ce8320f6f887e740395744bd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/PREPARATION_MANIFEST.json",
+      "bytes": 1742,
+      "sha256": "8b8458c532e5b0e4fccd2fe470d8e52311db4fcfdbd17eda823f3c9f164902ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROUTE.md",
+      "bytes": 1402,
+      "sha256": "d2f1d27083aae3e61030ac439c608e79168cda244f5e8b6f909416d7c8521b71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/SOURCE_SELECTION.json",
+      "bytes": 3025,
+      "sha256": "6a61df0b17f3522422e142dfb997aebfcb2a3951994146822f05ac4bc1fed743"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/STATIC_PREFLIGHT.json",
+      "bytes": 1458,
+      "sha256": "2beedb79cf37fd75d16825f01bfa749dab0660b5c3824e668ecdd61cd04cf9a4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/candidate-pack.py",
+      "bytes": 9130,
+      "sha256": "7019a27d5197d397aef379ac34ee3d81ce41af7425a470b91f3ffc9bc113d8e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/exact-artifact-correspondence.py",
+      "bytes": 1322,
+      "sha256": "3089de86f40fad23c68026862ba84c38dd52f19b46c905edf57d9a83491d2c03"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/run-checkpoint-reproduction.mjs",
+      "bytes": 22779,
+      "sha256": "8e98679164a5fa27ad8289e9a504ea801fc3031d4597bfc9dee3796931c30df7"
+    }
+  ],
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "compiledInventoryDigest": "16497c6763f0cb07a2227cb0ce6de2445e14044b94c6542d0523adbd1ad18d7c",
+  "requiredBeforePack": [
+    "actual successful R6/F04A pins and final postguards",
+    "Root durable debt/tracking receipt after proof",
+    "separate exact Root pack admission"
+  ],
+  "requiredBeforeCheckpoint": [
+    "Root exact source/proof acceptance",
+    "tested candidate archive and complete member receipt",
+    "Root checkpoint/reproduction binding"
+  ],
+  "requiredBeforeInstall": [
+    "exact clean reproduction/archive equality",
+    "independent packaging result",
+    "separate Root install admission"
+  ],
+  "preserved": [
+    "local-cut-01 conditional failure",
+    "unit and discriminator red",
+    "diagnostic intervention standing",
+    "source/build/main/index/RC10 operational pin"
+  ],
+  "noExecution": true
+}

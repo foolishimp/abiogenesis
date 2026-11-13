@@ -1,0 +1,887 @@
+{
+  "status": "MATCHED_REFERENCE_MEASUREMENT_CLOSED",
+  "contexts": [
+    1048576,
+    4194304
+  ],
+  "candidateArchive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+    "bytes": 11022180,
+    "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+  },
+  "subject": {
+    "label": "RC7-before",
+    "phase": "before",
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b"
+  },
+  "helperRoot": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript",
+  "phases": [
+    {
+      "name": "installed_fixture_setup",
+      "wallMs": 26058.720250000002,
+      "startMemory": {
+        "rss": 185991168,
+        "heapUsed": 68204216,
+        "external": 2707769,
+        "arrayBuffers": 48261
+      },
+      "endMemory": {
+        "rss": 2802565120,
+        "heapUsed": 412804544,
+        "external": 3270852,
+        "arrayBuffers": 615549
+      },
+      "memoryDelta": {
+        "rss": 2616573952,
+        "heapUsed": 344600328,
+        "external": 563083,
+        "arrayBuffers": 567288
+      },
+      "work": null,
+      "counters": {}
+    },
+    {
+      "name": "fixture_bytes",
+      "wallMs": 3.2634580000012647,
+      "startMemory": {
+        "rss": 2649309184,
+        "heapUsed": 177458856,
+        "external": 3609518,
+        "arrayBuffers": 954215
+      },
+      "endMemory": {
+        "rss": 2649309184,
+        "heapUsed": 177566088,
+        "external": 14100478,
+        "arrayBuffers": 11445175
+      },
+      "memoryDelta": {
+        "rss": 0,
+        "heapUsed": 107232,
+        "external": 10490960,
+        "arrayBuffers": 10490960
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {}
+    },
+    {
+      "name": "held_acquisition",
+      "wallMs": 96.5772500000021,
+      "startMemory": {
+        "rss": 2649309184,
+        "heapUsed": 177737864,
+        "external": 14101078,
+        "arrayBuffers": 11445775
+      },
+      "endMemory": {
+        "rss": 2658877440,
+        "heapUsed": 222535872,
+        "external": 9118131,
+        "arrayBuffers": 6462828
+      },
+      "memoryDelta": {
+        "rss": 9568256,
+        "heapUsed": 44798008,
+        "external": -4982947,
+        "arrayBuffers": -4982947
+      },
+      "work": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177949,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {}
+    },
+    {
+      "name": "construct_1MiB",
+      "wallMs": 807.8303330000017,
+      "startMemory": {
+        "rss": 2663972864,
+        "heapUsed": 199851680,
+        "external": 4157718,
+        "arrayBuffers": 1502415
+      },
+      "endMemory": {
+        "rss": 2984181760,
+        "heapUsed": 327654824,
+        "external": 11127335,
+        "arrayBuffers": 74015
+      },
+      "memoryDelta": {
+        "rss": 320208896,
+        "heapUsed": 127803144,
+        "external": 6969617,
+        "arrayBuffers": -1428400
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {},
+      "profileOnly": false
+    },
+    {
+      "name": "sdk_call_1MiB",
+      "wallMs": 3598.0365420000016,
+      "startMemory": {
+        "rss": 2918268928,
+        "heapUsed": 297828808,
+        "external": 8361822,
+        "arrayBuffers": 1512207
+      },
+      "endMemory": {
+        "rss": 3110813696,
+        "heapUsed": 659532232,
+        "external": 21272936,
+        "arrayBuffers": 442281
+      },
+      "memoryDelta": {
+        "rss": 192544768,
+        "heapUsed": 361703424,
+        "external": 12911114,
+        "arrayBuffers": -1069926
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 46,
+        "bodyBytesRead": 4780987
+      },
+      "counters": {},
+      "profiled": false,
+      "matched": true
+    },
+    {
+      "name": "construct_4MiB",
+      "wallMs": 886.508167,
+      "startMemory": {
+        "rss": 3088187392,
+        "heapUsed": 599510216,
+        "external": 21933130,
+        "arrayBuffers": 1073288
+      },
+      "endMemory": {
+        "rss": 3218735104,
+        "heapUsed": 358970632,
+        "external": 38219572,
+        "arrayBuffers": 564537
+      },
+      "memoryDelta": {
+        "rss": 130547712,
+        "heapUsed": -240539584,
+        "external": 16286442,
+        "arrayBuffers": -508751
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {},
+      "profileOnly": false
+    },
+    {
+      "name": "sdk_call_4MiB",
+      "wallMs": 4075.4180830000005,
+      "startMemory": {
+        "rss": 3127902208,
+        "heapUsed": 304520496,
+        "external": 22856555,
+        "arrayBuffers": 1996737
+      },
+      "endMemory": {
+        "rss": 3286089728,
+        "heapUsed": 418261616,
+        "external": 36411975,
+        "arrayBuffers": 4367341
+      },
+      "memoryDelta": {
+        "rss": 158187520,
+        "heapUsed": 113741120,
+        "external": 13555420,
+        "arrayBuffers": 2370604
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 44,
+        "bodyBytesRead": 5779589
+      },
+      "counters": {},
+      "profiled": false,
+      "matched": true
+    },
+    {
+      "name": "warm_result_1MiB",
+      "wallMs": 331.70458399999916,
+      "startMemory": {
+        "rss": 3172335616,
+        "heapUsed": 287351712,
+        "external": 37840799,
+        "arrayBuffers": 5796165
+      },
+      "endMemory": {
+        "rss": 3163193344,
+        "heapUsed": 245011832,
+        "external": 36274769,
+        "arrayBuffers": 4230135
+      },
+      "memoryDelta": {
+        "rss": -9142272,
+        "heapUsed": -42339880,
+        "external": -1566030,
+        "arrayBuffers": -1566030
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {}
+    },
+    {
+      "name": "warm_result_4MiB",
+      "wallMs": 252.07354199999827,
+      "startMemory": {
+        "rss": 3163193344,
+        "heapUsed": 245259240,
+        "external": 36291911,
+        "arrayBuffers": 4247277
+      },
+      "endMemory": {
+        "rss": 3189473280,
+        "heapUsed": 283543440,
+        "external": 36274769,
+        "arrayBuffers": 4230135
+      },
+      "memoryDelta": {
+        "rss": 26279936,
+        "heapUsed": 38284200,
+        "external": -17142,
+        "arrayBuffers": -17142
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {}
+    },
+    {
+      "name": "outer_close",
+      "wallMs": 0.6214590000017779,
+      "startMemory": {
+        "rss": 3111976960,
+        "heapUsed": 168835456,
+        "external": 9818719,
+        "arrayBuffers": 143717
+      },
+      "endMemory": {
+        "rss": 3111976960,
+        "heapUsed": 168645136,
+        "external": 9819319,
+        "arrayBuffers": 144317
+      },
+      "memoryDelta": {
+        "rss": 0,
+        "heapUsed": -190320,
+        "external": 600,
+        "arrayBuffers": 600
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {}
+    },
+    {
+      "name": "cold_result_1MiB",
+      "wallMs": 1720.6545409999962,
+      "startMemory": {
+        "rss": 3111976960,
+        "heapUsed": 168674256,
+        "external": 9819519,
+        "arrayBuffers": 144517
+      },
+      "endMemory": {
+        "rss": 3137896448,
+        "heapUsed": 207544160,
+        "external": 16866308,
+        "arrayBuffers": 200794
+      },
+      "memoryDelta": {
+        "rss": 25919488,
+        "heapUsed": 38869904,
+        "external": 7046789,
+        "arrayBuffers": 56277
+      },
+      "work": {
+        "historyDecodes": 1,
+        "decodedRows": 90,
+        "historyBytesRead": 10560576,
+        "storeReopens": 0,
+        "coldHistoryReads": 1,
+        "bodyReads": 90,
+        "bodyBytesRead": 10560576
+      },
+      "counters": {},
+      "childWallMs": 1089.5393750000003,
+      "parentCountersExcludeChild": true
+    },
+    {
+      "name": "cold_result_4MiB",
+      "wallMs": 1824.379875000006,
+      "startMemory": {
+        "rss": 3137896448,
+        "heapUsed": 207749336,
+        "external": 16896578,
+        "arrayBuffers": 231064
+      },
+      "endMemory": {
+        "rss": 3164094464,
+        "heapUsed": 246152256,
+        "external": 23873435,
+        "arrayBuffers": 217409
+      },
+      "memoryDelta": {
+        "rss": 26198016,
+        "heapUsed": 38402920,
+        "external": 6976857,
+        "arrayBuffers": -13655
+      },
+      "work": {
+        "historyDecodes": 1,
+        "decodedRows": 90,
+        "historyBytesRead": 10560576,
+        "storeReopens": 0,
+        "coldHistoryReads": 1,
+        "bodyReads": 90,
+        "bodyBytesRead": 10560576
+      },
+      "counters": {},
+      "childWallMs": 1138.0529580000002,
+      "parentCountersExcludeChild": true
+    }
+  ],
+  "cases": [
+    {
+      "label": "1MiB",
+      "contextBodyBytes": 1048576,
+      "contextCanonicalBytes": 1399148,
+      "taskCanonicalBytes": 1404582,
+      "sdkCall": {
+        "kind": "operator_serialization_receipt",
+        "serializedBytes": 23644842,
+        "sha256": "afa589c0639ca6d9929808539a93abcd1263b4f88ab6fba6a1a17e7b198cad1a",
+        "serializationMs": 33.883624999998574,
+        "startMemory": {
+          "rss": 2984181760,
+          "heapUsed": 327659840,
+          "external": 11127335,
+          "arrayBuffers": 74015
+        },
+        "endMemory": {
+          "rss": 2914828288,
+          "heapUsed": 258276064,
+          "external": 6923630,
+          "arrayBuffers": 74015
+        },
+        "payloadRetained": false,
+        "coordinate": {
+          "definitionKey": {
+            "operationId": "abg.operation.run.invoke",
+            "memberKey": "start"
+          },
+          "invocationRef": "invocation://abiogenesis/0ec3a7207e178066339e9dcc171537b4fcb35979060110e97070c32873d0a2b5",
+          "requestRef": "request://abi5-tests/reference-measurement/1MiB"
+        },
+        "standing": "Optional operator serialization outside construction/call measurements; not a clone allocation or required runtime cost."
+      },
+      "sdkOutcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/calls/1MiB.sdk-outcome.json",
+        "bytes": 16246,
+        "sha256": "8716886b8054a5f6a7fa98036ae4b870558086bbd04d566a9303ad5baa2371ca",
+        "serializedBytes": 16245,
+        "serializationMs": 0.05537499999991269,
+        "serializationAndCustodyMs": 0.43400000000110595,
+        "startMemory": {
+          "rss": 3077619712,
+          "heapUsed": 605285064,
+          "external": 22566743,
+          "arrayBuffers": 1736088
+        },
+        "endMemory": {
+          "rss": 3077619712,
+          "heapUsed": 605359824,
+          "external": 22600435,
+          "arrayBuffers": 1769780
+        }
+      },
+      "callWallMs": 3598.0365420000016,
+      "resultCanonicalBytes": 2617,
+      "eventLog": {
+        "beforeBytes": 3177949,
+        "afterBytes": 4780987,
+        "appendedBytes": 1603038
+      },
+      "terminalIdentity": {
+        "result": {
+          "ref": "result://abiogenesis/04d9b7026f28505abd8fef3be68452a7e387f9f0312841ef9be03a36aa7a1cce",
+          "digest": "sha256:04d9b7026f28505abd8fef3be68452a7e387f9f0312841ef9be03a36aa7a1cce"
+        },
+        "producer": {
+          "runRef": "run://abiogenesis/a58718c3aedf82fe7ae4f668baa03d92212c0e65de01ccafe97272cfc8f2f0bf",
+          "graphCallRef": "graph-call://abiogenesis/1fe23ab798777807e644d7790900c3c7d59e7d159d9e23c9f3082268744a7d2a",
+          "invocationAdmissionRef": "invocation-admission://abiogenesis/cf15784dc05bfb9c23c5e6edbacd71371849d89d101cc353b4279c0f3aad4d39",
+          "program": {
+            "ref": "program://abiogenesis/worksite/native-work@5",
+            "digest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f"
+          },
+          "graphFunction": {
+            "ref": "graph-function://abiogenesis/worksite/native-work@5",
+            "digest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+          },
+          "executionBasis": {
+            "ref": "execution-basis://abiogenesis/9d84977c9abc4b4a2879a95fae6447279e305ef04ba0d8df8cbe1d71303c8554",
+            "digest": "sha256:9d84977c9abc4b4a2879a95fae6447279e305ef04ba0d8df8cbe1d71303c8554"
+          },
+          "cCallRef": "c-call:sha256:c3d397aef3f56a6106900b41809e7ff2129e0c974205dc9419f06955f2f4b625",
+          "resultAdmissionEventRef": "event://abiogenesis/a376387b17bb0593c0c4f7d03f029ed1a531b11b3def9e03a821a5b9aa08302f",
+          "judgmentRef": "judgment://abiogenesis/8c12fb6ea38025142212a5eb8c7fc3a6776fa75883d962120cc88911ee6e1663",
+          "judgmentAdmissionEventRef": "event://abiogenesis/452e6a770a4a6a9d1e9a4aa1eb19a3d863c9166a7191f1e7b664e17cb2dfc5be",
+          "terminalRoute": {
+            "ref": "traversal-route://abiogenesis/3a7450a56bde43e399f35fee2ce7ea287dda5537d6bee109fee18061ea9fe429",
+            "digest": "sha256:3a7450a56bde43e399f35fee2ce7ea287dda5537d6bee109fee18061ea9fe429"
+          }
+        },
+        "valueDigest": "sha256:c5a1d1aa721ddaae5665dae8094afc0fc6c45643602a41bca0de5b2f795beb59",
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+          "digest": "sha256:133889bf6d52bbcb4d2679b99aac0c8497cda670fe39436f68696008cefd6a49"
+        }
+      },
+      "warmRead": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/calls/1MiB.warm-run-result.json",
+        "bytes": 7971,
+        "sha256": "2ff105ae0f114ca5c76dbf816ee2c8e0c622bc5d1c0e400df86b9f7373e412f5",
+        "serializedBytes": 7970,
+        "serializationMs": 0.022792000003391877,
+        "serializationAndCustodyMs": 0.4284170000028098,
+        "startMemory": {
+          "rss": 3163193344,
+          "heapUsed": 245015152,
+          "external": 36274769,
+          "arrayBuffers": 4230135
+        },
+        "endMemory": {
+          "rss": 3163193344,
+          "heapUsed": 245069496,
+          "external": 36291911,
+          "arrayBuffers": 4247277
+        },
+        "originalRunIdentityEquality": true,
+        "projectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+          "digest": "sha256:5edf6279338b2433a88c559ce63e27091d0a0f0d404facccad8fcff02fd5f215"
+        },
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+          "digest": "sha256:133889bf6d52bbcb4d2679b99aac0c8497cda670fe39436f68696008cefd6a49"
+        }
+      },
+      "coldRead": {
+        "outcome": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/calls/cold-1MiB.outcome.json",
+          "bytes": 11164,
+          "sha256": "2cea45f0902ed65b6924676f6577b048a72e654b7030e89bb03b204a6a5b977b"
+        },
+        "request": {
+          "path": "/private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/raw-cli-requests/calls/cold-1MiB.request.jsonl",
+          "bytes": 8883,
+          "sha256": "c0dc0c1b4d87bf45bd0f9d5ecfbd96073978316525e0821214b9cb52398dc4f8",
+          "retained": false,
+          "cleanup": "existing fixture hook"
+        },
+        "rawStdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/commands/cold-1MiB.stdout",
+          "bytes": 8423,
+          "sha256": "0b42911183bc18d5beb1cbd3830313e5e54023acf9acab068d2113b0762a1f04"
+        },
+        "originalRunIdentityEquality": true,
+        "projectionBasis": {
+          "digest": "sha256:5edf6279338b2433a88c559ce63e27091d0a0f0d404facccad8fcff02fd5f215",
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl"
+        },
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+          "digest": "sha256:133889bf6d52bbcb4d2679b99aac0c8497cda670fe39436f68696008cefd6a49"
+        },
+        "fullTypedTerminalEquality": true,
+        "fullReadOwnerOutputEquality": true,
+        "terminalComparison": "COMPLETE_WARM_COLD_AT_FINAL_SELECTED_PREFIX",
+        "unchangedPrefix": true
+      }
+    },
+    {
+      "label": "4MiB",
+      "contextBodyBytes": 4194304,
+      "contextCanonicalBytes": 5593452,
+      "taskCanonicalBytes": 5598886,
+      "sdkCall": {
+        "kind": "operator_serialization_receipt",
+        "serializedBytes": 32033450,
+        "sha256": "5f9c4be746995548112e981f7a4769ddc16789f44d0cd51374b94ad26910a630",
+        "serializationMs": 38.981040999999095,
+        "startMemory": {
+          "rss": 3218735104,
+          "heapUsed": 358974048,
+          "external": 38219572,
+          "arrayBuffers": 564537
+        },
+        "endMemory": {
+          "rss": 3124215808,
+          "heapUsed": 264439712,
+          "external": 21424355,
+          "arrayBuffers": 564537
+        },
+        "payloadRetained": false,
+        "coordinate": {
+          "definitionKey": {
+            "operationId": "abg.operation.run.invoke",
+            "memberKey": "start"
+          },
+          "invocationRef": "invocation://abiogenesis/a4352e50ad6d5e75e23461e185d7a94ab330c2196ac5b130a6072ab15d2ee81a",
+          "requestRef": "request://abi5-tests/reference-measurement/4MiB"
+        },
+        "standing": "Optional operator serialization outside construction/call measurements; not a clone allocation or required runtime cost."
+      },
+      "sdkOutcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/calls/4MiB.sdk-outcome.json",
+        "bytes": 16247,
+        "sha256": "c3a00f86ca4eb0dc89e20174e7a22b7a175b250b26e6280a43488034f8d64670",
+        "serializedBytes": 16246,
+        "serializationMs": 0.057667000000947155,
+        "serializationAndCustodyMs": 0.4073329999955604,
+        "startMemory": {
+          "rss": 3144318976,
+          "heapUsed": 258218744,
+          "external": 37707369,
+          "arrayBuffers": 5662735
+        },
+        "endMemory": {
+          "rss": 3144318976,
+          "heapUsed": 258299056,
+          "external": 37741063,
+          "arrayBuffers": 5696429
+        }
+      },
+      "callWallMs": 4075.4180830000005,
+      "resultCanonicalBytes": 2617,
+      "eventLog": {
+        "beforeBytes": 4780987,
+        "afterBytes": 10560576,
+        "appendedBytes": 5779589
+      },
+      "terminalIdentity": {
+        "result": {
+          "ref": "result://abiogenesis/ff3f0298bb21cac416640ef543451e2bd60238a6fbaba1d02f0eb4fa6122885f",
+          "digest": "sha256:ff3f0298bb21cac416640ef543451e2bd60238a6fbaba1d02f0eb4fa6122885f"
+        },
+        "producer": {
+          "runRef": "run://abiogenesis/4be12eb3a5fecd53b37a0c903778ae68cc692c267a3e0230819009a8de616e81",
+          "graphCallRef": "graph-call://abiogenesis/e9acf0edf7f3fa17ffd9ea4e63ab8fabd3e23ab9949f151f7b63552c15c4dd28",
+          "invocationAdmissionRef": "invocation-admission://abiogenesis/94e1bbd20804837e0b81a9d434fad69286a00652e4d9d724d0151e5868cd7424",
+          "program": {
+            "ref": "program://abiogenesis/worksite/native-work@5",
+            "digest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f"
+          },
+          "graphFunction": {
+            "ref": "graph-function://abiogenesis/worksite/native-work@5",
+            "digest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+          },
+          "executionBasis": {
+            "ref": "execution-basis://abiogenesis/2a2347cb14a8a7af464f8f060659cbc3fce4f0acb4cdcee139db65ea1b1fa6c3",
+            "digest": "sha256:2a2347cb14a8a7af464f8f060659cbc3fce4f0acb4cdcee139db65ea1b1fa6c3"
+          },
+          "cCallRef": "c-call:sha256:57bd509b733815cde96b03cfb0274c350648cf55725359168dbf054c41ddff4b",
+          "resultAdmissionEventRef": "event://abiogenesis/2d2652640c85e43657b24e65171953115ecc5973e53b981612b0d62a7f18a334",
+          "judgmentRef": "judgment://abiogenesis/80c2ab5e88a072e68f9a871984ebe4cf25af828dee39c88bc369f7055aa779d2",
+          "judgmentAdmissionEventRef": "event://abiogenesis/fa152bc99ec57e667aaa2d5415102cd7cde79322a1328853bb7a668e510acd7e",
+          "terminalRoute": {
+            "ref": "traversal-route://abiogenesis/5d0606f36e42fa0eaa7059c51c07583e51d1f7f29309a2194ee617afe779ec6f",
+            "digest": "sha256:5d0606f36e42fa0eaa7059c51c07583e51d1f7f29309a2194ee617afe779ec6f"
+          }
+        },
+        "valueDigest": "sha256:a53e4201feb052037fb83c95a2f16cf62fa570ad4d695b1baa493971e8e689a2",
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+          "digest": "sha256:5edf6279338b2433a88c559ce63e27091d0a0f0d404facccad8fcff02fd5f215"
+        }
+      },
+      "warmRead": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/calls/4MiB.warm-run-result.json",
+        "bytes": 7971,
+        "sha256": "f62cf31f8e374ad5887755958f0fdbbaa432332387414d9b215878a498d22b74",
+        "serializedBytes": 7970,
+        "serializationMs": 0.020624999997380655,
+        "serializationAndCustodyMs": 0.8706660000025295,
+        "startMemory": {
+          "rss": 3189473280,
+          "heapUsed": 283547448,
+          "external": 36274769,
+          "arrayBuffers": 4230135
+        },
+        "endMemory": {
+          "rss": 3189473280,
+          "heapUsed": 283603248,
+          "external": 36291911,
+          "arrayBuffers": 4247277
+        },
+        "originalRunIdentityEquality": true,
+        "projectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+          "digest": "sha256:5edf6279338b2433a88c559ce63e27091d0a0f0d404facccad8fcff02fd5f215"
+        },
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+          "digest": "sha256:5edf6279338b2433a88c559ce63e27091d0a0f0d404facccad8fcff02fd5f215"
+        }
+      },
+      "coldRead": {
+        "outcome": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/calls/cold-4MiB.outcome.json",
+          "bytes": 11164,
+          "sha256": "b9db531728fb540ed41be8c40463df395b26b35e8c42fe279aa7d2815f065f73"
+        },
+        "request": {
+          "path": "/private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/raw-cli-requests/calls/cold-4MiB.request.jsonl",
+          "bytes": 8883,
+          "sha256": "197c73e824bbd7fd749e652b587d6344e5928a1514b010abdc2f8e17768d3aaf",
+          "retained": false,
+          "cleanup": "existing fixture hook"
+        },
+        "rawStdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/commands/cold-4MiB.stdout",
+          "bytes": 8423,
+          "sha256": "8e2f32fa735bc3850889fbcc8083a2b40e937e2ae44528b179a52ac78e7d16ad"
+        },
+        "originalRunIdentityEquality": true,
+        "projectionBasis": {
+          "digest": "sha256:5edf6279338b2433a88c559ce63e27091d0a0f0d404facccad8fcff02fd5f215",
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl"
+        },
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+          "digest": "sha256:5edf6279338b2433a88c559ce63e27091d0a0f0d404facccad8fcff02fd5f215"
+        },
+        "fullTypedTerminalEquality": true,
+        "fullReadOwnerOutputEquality": true,
+        "terminalComparison": "COMPLETE_WARM_COLD_AT_FINAL_SELECTED_PREFIX",
+        "unchangedPrefix": true
+      }
+    }
+  ],
+  "budgetObservations": [
+    {
+      "label": "after_setup",
+      "logicalBytes": 87461541,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_construct_1MiB",
+      "logicalBytes": 92705617,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_call_1MiB",
+      "logicalBytes": 92706542,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_1MiB",
+      "logicalBytes": 94316488,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_construct_4MiB",
+      "logicalBytes": 94332734,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_call_4MiB",
+      "logicalBytes": 94333662,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_4MiB",
+      "logicalBytes": 100120159,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_cold_parity",
+      "logicalBytes": 101042389,
+      "bound": 1073741824,
+      "quota": false
+    }
+  ],
+  "counterAvailability": [
+    {
+      "name": "runtimeHistoryWork",
+      "available": true
+    }
+  ],
+  "cpuProfileCall": null,
+  "qualified": false,
+  "setupAccounting": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 306.952292,
+      "provisioning_verify_artifact": 20857.549958,
+      "provisioning_install": 2799.678832999998,
+      "provisioning_installed_content_check": 579.6215000000011,
+      "provisioning_additional_products": 0.0024169999996956903,
+      "installed_owner_loading": 280.63687500000015,
+      "environment_install_and_workspace_admission": 799.841375,
+      "execution_preparation_publication_program_and_catalog": 429.5648749999964
+    }
+  },
+  "installedRoot": "/private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "installCandidate": {
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.7/8c66c6ff87bdf00c23fdd141447205660e0a50210a1193eadb0753a178bbd37c/89b9bac213d7d0a5e015433c68f7824fb6c0a62994cc1cfeac8979118c4f2299",
+    "installedRoot": "/private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1",
+    "productContentDigest": "sha256:8c66c6ff87bdf00c23fdd141447205660e0a50210a1193eadb0753a178bbd37c",
+    "manifestDigest": "sha256:cc96a3d25120d5a5a5ff944251e0616bd5260ada08e99df3f038a06f37ee385c"
+  },
+  "fixtureSourcePins": [
+    {
+      "path": "/private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/workspace/context-1MiB.txt",
+      "bytes": 1048576,
+      "sha256": "4e29ad18ab9f42d7c233500771a39d7c852b200baf328fd00fbbe3fecea1eb56"
+    },
+    {
+      "path": "/private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/workspace/context-4MiB.txt",
+      "bytes": 4194304,
+      "sha256": "5947c00ce4da5eac3e8b3731df34e42a2d7b7e88bdb7bd93b8152afcedaa2f92"
+    }
+  ],
+  "readProjectionBasis": {
+    "ref": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+    "digest": "sha256:5edf6279338b2433a88c559ce63e27091d0a0f0d404facccad8fcff02fd5f215"
+  },
+  "eventLog": {
+    "originalPath": "/private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+    "physicalBytes": 10560576,
+    "physicalSha256": "5860dce15b81e1e38390c3fd8beccf1c95d2a4fac6829d387e58da780cd458e5",
+    "retained": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/runtime.events.jsonl.gz",
+      "bytes": 822541,
+      "sha256": "1942e89319fa5f5cb4217240bac273eebceaa300981489df29f72b6159d03431"
+    },
+    "compression": "gzip",
+    "closedPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-r8m-rc7-before-002/tmp/abi5-root-env-RnXShh/runtime/events.jsonl",
+      "prefixLength": 10560576,
+      "prefixDigest": "sha256:5860dce15b81e1e38390c3fd8beccf1c95d2a4fac6829d387e58da780cd458e5",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 708937779,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:5edf6279338b2433a88c559ce63e27091d0a0f0d404facccad8fcff02fd5f215"
+    },
+    "readOnlyIdentity": {
+      "device": 16777231,
+      "inode": 708937779,
+      "byteCount": 10560576,
+      "digest": "sha256:5860dce15b81e1e38390c3fd8beccf1c95d2a4fac6829d387e58da780cd458e5"
+    }
+  },
+  "twoPointGrowth": {
+    "contextBodyDelta": 3145728,
+    "sdkCallSerializedDelta": 8388608,
+    "resultCanonicalDelta": 0,
+    "sdkOutcomeSerializedDelta": 1,
+    "note": "Two sequential fixture sizes; compare exact before/after subjects and profiling flags, not an isolated causal slope."
+  },
+  "totalWallMs": 40679.414625,
+  "nodeResourceUsage": {
+    "userCPUTime": 41500797,
+    "systemCPUTime": 3479112,
+    "maxRSS": 3315648,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 478996,
+    "majorPageFault": 85,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 4,
+    "ipcReceived": 7,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 394,
+    "involuntaryContextSwitches": 737320
+  },
+  "measuredPhaseWallMs": 39655.788084000014,
+  "unassignedFixtureSerializationOrOtherMs": 1023.6265409999833,
+  "limits": [
+    "Scripted actor; no provider/coding productivity, causal clone allocation, speedup or release qualification claim.",
+    "Construction, calls, operator serialization, setup, custody and cold CLI phases stay separate; RSS includes retained allocations and GC effects.",
+    "Memory and counters describe this parent; child peak memory is not measured. Missing optional work counters remain unavailable, never inferred zero.",
+    "Both matched calls are unprofiled. One optional after-only third 4 MiB call is separately profiled; its timing/counters are excluded from the matched pair. Actual close includes its successor; cold parity is scoped to the pair at that final prefix.",
+    "Budget checks occur at phase boundaries outside timed calls; aggregate 1 GiB is a monitored operational stop, not a filesystem quota, and may overshoot between checks.",
+    "Raw CLI requests live only in fixture-owned scratch and are cleaned by its existing hook; retained digests and actual cold outcomes/streams preserve the observed check.",
+    "Fixture setup materializes the already-packed artifact into disposable scratch through existing owners; immutable bootstrap install is not written.",
+    "Only two full run_result cold equalities are exercised here; historical raw CLI/replay proof retains its original scope."
+  ]
+}

@@ -1,0 +1,11 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/inputs/prior-author-lanes.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/prior-author-lanes.completed-build.mjs
+@@ -33,7 +33,7 @@
+  const laneId=name.slice(name.indexOf('-lanes-')+7);
+  try{await lstat(join(tmp,name,'summary-'+laneId+'.json'));}catch(e){if(e.code==='ENOENT')throw Error('Prior lane allocation incomplete; stop and return');throw e;}
+ }
+-const stageReport=JSON.parse(await readFile(join(tmp,label+'-stage.json'),'utf8'));
++const stageReport=JSON.parse(await readFile("/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",'utf8'));
+ if(stageReport.label!==label||stageReport.sourceCount!==inputs.protectedSourcePaths.length||[stageReport.compile,stageReport.generate,stageReport.lifecycle].some(r=>!r||r.exitCode!==0||r.signal!==null||r.error!==null))throw Error('Stage compile/generation/guard incomplete');
+ if(stageReport.sources.length!==inputs.protectedSourcePaths.length||new Set(stageReport.sources.map(f=>f.path)).size!==inputs.protectedSourcePaths.length)throw Error('Stage source selection incomplete');
+ const custody=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-held-session-author-03/SOURCE_CUSTODY.json'),'utf8'));

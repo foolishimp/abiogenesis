@@ -1,0 +1,29 @@
+--- close-proof.corrected-020.mjs
++++ close-proof.corrected-021.mjs
+@@ -136,7 +136,7 @@
+     assert(row.counts&&Number.isInteger(row.counts.passed)&&Number.isInteger(row.counts.skipped));credited.add(row.file);
+   }
+   const deferred=c.deferredFiles;
+-  assert.deepEqual(deferred.map(r=>r.file).sort(),['test_env/tests/t287-governed-context.test.mjs','test_env/tests/t287-installed-product-coordinate.test.mjs','test_env/tests/t287-native-assessment-evidence.test.mjs','test_env/tests/t287-native-worksite-execution.test.mjs','test_env/tests/t287-owned-process-lifetime.test.mjs','test_env/tests/t287-recursive-registered-selection.test.mjs','test_env/tests/t287-registered-graph-selection.test.mjs','test_env/tests/t287-required-operation-bindings.test.mjs','test_env/tests/t287-rp2-correction-carriers.test.mjs','test_env/tests/t287-selected-action-authority.test.mjs','test_env/tests/t287-single-address-space-consolidation.test.mjs']);
++  assert.deepEqual(deferred.map(r=>r.file).sort(),['test_env/tests/t287-governed-context.test.mjs','test_env/tests/t287-installed-product-coordinate.test.mjs','test_env/tests/t287-native-assessment-evidence.test.mjs','test_env/tests/t287-native-worksite-execution.test.mjs','test_env/tests/t287-owned-process-lifetime.test.mjs','test_env/tests/t287-recursive-registered-selection.test.mjs','test_env/tests/t287-registered-graph-selection.test.mjs','test_env/tests/t287-required-operation-bindings.test.mjs','test_env/tests/t287-rp2-correction-carriers.test.mjs','test_env/tests/t287-selected-action-authority.test.mjs','test_env/tests/t287-single-address-space-consolidation.test.mjs','test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs']);
+   for(const row of deferred){assert(tests.includes(row.file)&&!credited.has(row.file));assert.equal(row.disposition,'SCHEDULING_DEFERRED_NO_COVERAGE');
+     assert.equal(row.testSha256,available.get(join(tenant,row.file)).sha256);assert(row.evidencePins.length);for(const p of row.evidencePins)await checked(p);}
+   await mkdir(c.bindingRoot);
+@@ -154,7 +154,7 @@
+   assert.deepEqual(bound.externalTestInputFiles,externalTestInputFiles);assert.equal(bound.externalTestInputDigest,digestRows(externalTestInputFiles));
+   assert.equal(bound.config.sha256,configPin.sha256);assert.equal(admission.status,'ROOT_ADMITTED_RC8_BROAD_CLOSE');assert.equal(admission.configSha256,configPin.sha256);
+   assert.equal(admission.inventorySha256,inventoryPin.sha256);assert.equal(admission.frozenStageReceiptSha256,c.stage.freezeReceipt.sha256);
+-  const prep=JSON.parse(await readFile(join(here,'PREPARATION_MANIFEST_CORRECTED_020.json'),'utf8'));assert.equal(await hashFile(join(here,'PREPARATION_MANIFEST_CORRECTED_020.json')),admission.preparationManifestSha256);
++  const prep=JSON.parse(await readFile(join(here,'PREPARATION_MANIFEST_CORRECTED_021.json'),'utf8'));assert.equal(await hashFile(join(here,'PREPARATION_MANIFEST_CORRECTED_021.json')),admission.preparationManifestSha256);
+   for(const p of prep.files)await checked(p);
+   assert.equal(bound.stageRoot,c.stage.root);assert.equal(bound.dependencyRoot,c.dependencies.root);await verify(c.stage.root,bound.stageFiles);await verify(c.dependencies.root,bound.dependencyFiles);
+   assert.equal(digestRows(bound.stageFiles),bound.stageDigest);assert.equal(digestRows(bound.dependencyFiles),bound.dependencyDigest);
+@@ -293,7 +293,7 @@
+       'Independent findings, exact-installed proof, measurement/profile and broader 5.0/human gates retain their owners. No source repair or automatic retry.']});
+   console.log(JSON.stringify({status,summary:out}));if(failure)process.exitCode=1;
+ }
+-const [mode,configPath,configSha,...rest]=process.argv.slice(2);assert(['bind','run'].includes(mode),'usage: close-proof.corrected-020.mjs bind CONFIG SHA | run CONFIG SHA INVENTORY SHA ADMISSION SHA');
++const [mode,configPath,configSha,...rest]=process.argv.slice(2);assert(['bind','run'].includes(mode),'usage: close-proof.corrected-021.mjs bind CONFIG SHA | run CONFIG SHA INVENTORY SHA ADMISSION SHA');
+ const c=await loadConfig(resolve(configPath),configSha),configPin=await pin(resolve(configPath));
+ if(mode==='bind'){assert.equal(rest.length,0);await bind(c,configPin);}else{assert.equal(rest.length,4);
+   await run(c,configPin,{...await pin(resolve(rest[0])),sha256:rest[1]},{...await pin(resolve(rest[2])),sha256:rest[3]});}

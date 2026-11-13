@@ -1,0 +1,41 @@
+{
+  "kind": "native_author_future_binding_requirements",
+  "status": "DEPENDENCY_PREPARED_NOT_STAGED_NOT_DISPATCHED",
+  "HS01HS02": {
+    "subject": null,
+    "sourceAfter": null,
+    "sourceBefore": null,
+    "RootDisposition": null,
+    "measurements": null,
+    "required": "Actual accepted HS01/HS02 source and full same-boundary candidate warm/cold/counter proof, source/native.after/final-stage equality and independent review."
+  },
+  "runtime": {
+    "actualClose": null,
+    "actualResume": null,
+    "prefix": null,
+    "required": "Genuine predecessor SDK receipt/completion/outer close and original resume according to Root actual disposition. No implicit duplicate unchanged-RC6 full drain."
+  },
+  "maintainedCheckerAndHost": null,
+  "RootSelectionAndAdmission": null,
+  "historicalOracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "RootSteps": [
+    "Conjoin actual accepted H03 source/disposition/close/resume and conserved HS01/HS02 proof/measurements.",
+    "Materialize the corrected overlay templates, exact451 source rows and20 native controls/3future handoffs (recompute if Root selection changes); verify durableOnly/successor obligation is present in actual admitted TASK and proof inputs.",
+    "Bind exact Root admission/dispatch and unchanged existing host/checker routes; only then activate one HS03 native Worker under four-stage/seven-lane ceilings."
+  ],
+  "scope": "Preparation only; no Product/staging/runtime/build/test effects or acceptance.",
+  "requiredRootSelectionStatus": "ROOT_SELECTED_STDOUT_WINDOW_AUTHOR_INCREMENT",
+  "H03": {
+    "subject": null,
+    "sourceAfter": null,
+    "sourceBefore": null,
+    "RootDisposition": null,
+    "actualClose": null,
+    "actualResume": null,
+    "required": "Actual accepted H03 returned source/testing/native.after equality, independent review and genuine SDK close/resume. Current451 input names are not source acceptance."
+  }
+}

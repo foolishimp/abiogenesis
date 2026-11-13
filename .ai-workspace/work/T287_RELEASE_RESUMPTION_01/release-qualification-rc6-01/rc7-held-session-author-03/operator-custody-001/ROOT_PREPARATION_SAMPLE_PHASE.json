@@ -1,0 +1,26 @@
+{
+  "kind": "root_preparation_sample_phase_attribution",
+  "sample": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/ROOT_PREPARATION_SAMPLE_001.txt",
+    "bytes": 729500,
+    "sha256": "0075a1f352c0b465902899e26d02bd48ca08c8e30611dd4c330dbc0f76eceecb"
+  },
+  "hostOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/outcome-summary.json",
+    "bytes": 633,
+    "sha256": "e3176f02ad6d760af708029d2e516687d63467f3d05035cd733654ae503e8bd0"
+  },
+  "sampleStartedUtc": "2026-11-06T16:32:50.121000+00:00",
+  "elapsedFromHostMarkerMs": 332113.0,
+  "phase": "environment_after_acquisition",
+  "phaseStartMs": 304630.82200000004,
+  "phaseEndMs": 425971.826917,
+  "actualCodeRegion": "caller.refresh(entry.prefix) in unchanged RC6-compatible operator host",
+  "observation": "One-second OS sample includes V8 JSON stringification, copying/UTF8 encoding, sorting, hashing and garbage collection. Raw stack is retained; no provider actor had started.",
+  "limits": [
+    "Single sample, not a whole-phase profile or causal allocation of its121.341seconds.",
+    "Aggregate top-stack counts include idle support threads; they are not a valid main-thread CPU percentage.",
+    "Native/JIT symbols do not identify an exact TypeScript owner or establish how much of the work is necessary.",
+    "This is RC6 builder preparation, not installed RC7 performance."
+  ]
+}

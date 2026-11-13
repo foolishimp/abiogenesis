@@ -1,0 +1,397 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-2e893a818cf27e67-stdout.log",
+  "cursor": 1300803,
+  "events": [
+    {
+      "offset": 18906,
+      "timestamp": "2026-11-02T22:58:57.205Z",
+      "kind": "tool_use",
+      "id": "toolu_012tjRZ5KTgJaDRWLagGmLQh",
+      "name": "Bash",
+      "input": {
+        "command": "git rev-parse HEAD HEAD^{tree} && git status --short | head -20 && ls -la rc4-operator-inputs/native-recovery-18/ rc4-scratch/native-recovery-18/ && cat .claude/references/PRODUCT_BASIS.md && cat .claude/skills/stdo-work/SKILL.md && cat stdo_abiogenesis.json",
+        "description": "Check HEAD, scratch state, basis and skill files"
+      }
+    },
+    {
+      "offset": 76837,
+      "timestamp": "2026-11-02T22:59:05.085Z",
+      "kind": "tool_use",
+      "id": "toolu_01SJ8EgL8KYyWD1V6y9FTMHz",
+      "name": "Bash",
+      "input": {
+        "command": "for f in CURRENT_SELECTION.DRAFT.md task.DRAFT.md rubric.DRAFT.json PARTIAL_DISPOSITION.DRAFT.md REVIEWED_ROUTES_AND_PRIOR_RESULTS.md readiness.py; do echo \"=== $f\"; cat rc4-operator-inputs/native-recovery-18/$f; done; echo \"=== scratch\"; cat rc4-scratch/native-recovery-18/notes.md rc4-scratch/native-recovery-18/readiness.json rc4-scratch/native-recovery-18/return.json; ls -la rc4-scratch/native-recovery-18/tmp",
+        "description": "Read operator inputs and scratch placeholders"
+      }
+    },
+    {
+      "offset": 88043,
+      "timestamp": "2026-11-02T22:59:06.568Z",
+      "kind": "tool_use",
+      "id": "toolu_01KCotq2f18itytM6srZrAnM",
+      "name": "Bash",
+      "input": {
+        "command": "cat rc4-operator-inputs/native-recovery-18/NATIVE_GRANT.DRAFT.json | head -c 16000; echo; python3 -c \"\nimport json;d=json.load(open('rc4-operator-inputs/native-recovery-18/readiness-inputs.json'));print(type(d).__name__, list(d.keys()) if isinstance(d,dict) else len(d))\n\"",
+        "description": "Read native grant and readiness inputs shape"
+      }
+    },
+    {
+      "offset": 176551,
+      "timestamp": "2026-11-02T22:59:24.018Z",
+      "kind": "tool_use",
+      "id": "toolu_01PEaUtRhejaha7ngG7LZbft",
+      "name": "Bash",
+      "input": {
+        "command": "command -v stdo; ls stdo_*.json; timeout 60 stdo status --definition stdo_abiogenesis.json --verify 2>&1 | head -60",
+        "description": "Verify selected STDO Product definition basis",
+        "timeout": 90000
+      }
+    },
+    {
+      "offset": 185869,
+      "timestamp": "2026-11-02T22:59:26.441Z",
+      "kind": "tool_use",
+      "id": "toolu_012t1fZ6nqK1ffJbZPDB2kCf",
+      "name": "Bash",
+      "input": {
+        "command": "stdo status --definition stdo_abiogenesis.json --verify 2>&1 | head -60",
+        "description": "Verify selected STDO Product definition basis",
+        "timeout": 90000
+      }
+    },
+    {
+      "offset": 217124,
+      "timestamp": "2026-11-02T22:59:32.907Z",
+      "kind": "tool_use",
+      "id": "toolu_01A3jm6aTV5FKsyj8iyjQEZR",
+      "name": "Bash",
+      "input": {
+        "command": "stdo status --definition stdo_abiogenesis.json --verify 2>/dev/null | python3 -I -B -c \"\nimport json,sys;d=json.load(sys.stdin)\nprint({k:d[k] for k in d if k not in ('standards','release')})\nm={x['path']:x['sha256'] for x in d['standards']['members']}\nfor p in ['ACTIVATION.md','EXECUTIVE_BASELINE.md','frames/bootstrap.md','REFERENCE_FRAME.md','SPEC_METHOD.md']: print(p, m.get(p))\n\"; B='stdo://releases/v3.0.2/'; for m in manifest.json standards/frames/bootstrap.md standards/ACTIVATION.md standards/EXECUTIVE_BASELINE.md; do stdo resolve \"${B}$m\" 2>&1 | head -5; done",
+        "description": "Check validity and resolve basis members",
+        "timeout": 90000
+      }
+    },
+    {
+      "offset": 236515,
+      "timestamp": "2026-11-02T22:59:36.890Z",
+      "kind": "tool_use",
+      "id": "toolu_015ymjprDpTssr2GVrfeffwt",
+      "name": "Bash",
+      "input": {
+        "command": "R=\"/Users/jim/Library/Application Support/STDO/releases/v3.0.2\"; shasum -a 256 \"$R/manifest.json\" \"$R/standards/frames/bootstrap.md\" \"$R/standards/ACTIVATION.md\" \"$R/standards/EXECUTIVE_BASELINE.md\"; python3 -I -B -c \"\nimport json;m=json.load(open('$R/manifest.json'));print(list(m.keys()))\ns=m.get('standards') or {}\nprint(type(s).__name__)\n\" ; wc -c \"$R/standards/frames/bootstrap.md\"",
+        "description": "Hash resolved basis members against manifest"
+      }
+    },
+    {
+      "offset": 277040,
+      "timestamp": "2026-11-02T22:59:44.994Z",
+      "kind": "tool_use",
+      "id": "toolu_01RpLknuMc1oCdzD5YwAFV2u",
+      "name": "Bash",
+      "input": {
+        "command": "R=\"/Users/jim/Library/Application Support/STDO/releases/v3.0.2\"; python3 -I -B -c \"\nimport json;m=json.load(open('$R/manifest.json'));s=m['standards'];print(list(s.keys())[:10])\nmem=s.get('members') or s.get('files')\nd={x['path']:x['sha256'] for x in mem}\nfor p in ['ACTIVATION.md','EXECUTIVE_BASELINE.md','frames/bootstrap.md']: print(p,d.get(p))\n\"; wc -c AGENTS.md specification/PRODUCT.md specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md specification/requirements/product/REQ-P-POLICY.md build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+        "description": "Check manifest members and read-first file sizes"
+      }
+    },
+    {
+      "offset": 295242,
+      "timestamp": "2026-11-02T22:59:50.722Z",
+      "kind": "tool_use",
+      "id": "toolu_013j7sekdBmqesCF2NEfEDM5",
+      "name": "Read",
+      "input": {
+        "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/AGENTS.md"
+      }
+    },
+    {
+      "offset": 326699,
+      "timestamp": "2026-11-02T22:59:51.474Z",
+      "kind": "tool_use",
+      "id": "toolu_01FPhueQWu5ZurNVE6bcfA8c",
+      "name": "Read",
+      "input": {
+        "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md"
+      }
+    },
+    {
+      "offset": 369737,
+      "timestamp": "2026-11-02T22:59:52.203Z",
+      "kind": "tool_use",
+      "id": "toolu_01C414LCH6QGxM1wt9JDNwvr",
+      "name": "Read",
+      "input": {
+        "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+      }
+    },
+    {
+      "offset": 450263,
+      "timestamp": "2026-11-02T22:59:58.206Z",
+      "kind": "tool_use",
+      "id": "toolu_01CRHVWSeyyrPV6Mwj5sDduN",
+      "name": "Bash",
+      "input": {
+        "command": "cat specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md; for f in specification/PRODUCT.md specification/requirements/product/REQ-P-POLICY.md specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md; do echo \"=== $f\"; grep -n '^#' \"$f\" | head -80; done",
+        "description": "Read continuation req and headings of large authority files"
+      }
+    },
+    {
+      "offset": 492146,
+      "timestamp": "2026-11-02T23:00:03.006Z",
+      "kind": "tool_use",
+      "id": "toolu_01MEFQGwjwptzxMkxvwJrqpM",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 993,1034p specification/PRODUCT.md; echo ----; sed -n 1239,1267p specification/PRODUCT.md; echo ----; sed -n 18,60p specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+        "description": "Read SDK/CLI and authority sections and assembly criteria"
+      }
+    },
+    {
+      "offset": 547690,
+      "timestamp": "2026-11-02T23:00:10.704Z",
+      "kind": "tool_use",
+      "id": "toolu_01H2KVPGVDyAHuhk1bdBK8Bq",
+      "name": "Bash",
+      "input": {
+        "command": "P=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01; for f in attempt-017/PARTIAL_CHECKPOINT.json attempt-017/review-subject-001/SUBJECT.json attempt-017/review-subject-001/native-output.txt attempt-017/review-subject-001/author-return.json attempt-017/execution/outcome-summary.json attempt-017/execution/fresh-reads.json attempt-016-r1/review-subject-003/independent-evidence/REVIEW_RECEIPT.json; do printf '%s %s ' \"$(wc -c < \"$P/$f\" | tr -d ' ')\" \"$f\"; shasum -a 256 \"$P/$f\" | cut -d' ' -f1; done",
+        "description": "Hash-verify listed prior evidence files"
+      }
+    },
+    {
+      "offset": 566606,
+      "timestamp": "2026-11-02T23:00:13.093Z",
+      "kind": "tool_use",
+      "id": "toolu_01KBJfohMrQeZ3zgmc8FrSaz",
+      "name": "Bash",
+      "input": {
+        "command": "git diff --quiet HEAD && echo TRACKED_CLEAN; git cat-file -t 1100bd8f2b84e03ad12479f9841b9bb53408f0db; git rev-parse 1100bd8f2b84e03ad12479f9841b9bb53408f0db^{tree}; git show --stat --format='%H %s' 1100bd8f2 | head -30; git show --stat --format='%H %s' 0a8d330a3 | head -40",
+        "description": "Confirm clean tracked tree and inspect recent commits"
+      }
+    },
+    {
+      "offset": 594177,
+      "timestamp": "2026-11-02T23:00:17.627Z",
+      "kind": "tool_use",
+      "id": "toolu_01DNApBSoQHsm7fk3KRqAxkP",
+      "name": "Bash",
+      "input": {
+        "command": "P=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017; cat $P/review-subject-001/author-return.json; echo; echo ====; cat $P/execution/outcome-summary.json; echo; echo ====; cat $P/review-subject-001/native-output.txt; echo; echo ====; cat $P/PARTIAL_CHECKPOINT.json",
+        "description": "Read compact 017 return, outcome and checkpoint"
+      }
+    },
+    {
+      "offset": 616298,
+      "timestamp": "2026-11-02T23:00:20.677Z",
+      "kind": "tool_use",
+      "id": "toolu_01WYHW21bGMyPCir8BmDzCYW",
+      "name": "Bash",
+      "input": {
+        "command": "P=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017; cat \"$P/execution/outcome-summary.json\"; echo; echo '----'; cat \"$P/review-subject-001/native-output.txt\"; echo; echo '----'; cat \"$P/PARTIAL_CHECKPOINT.json\"",
+        "description": "Read 017 outcome summary, native output, checkpoint"
+      }
+    },
+    {
+      "offset": 698924,
+      "timestamp": "2026-11-02T23:00:30.665Z",
+      "kind": "tool_use",
+      "id": "toolu_01M3a1Cc65xuoi4fJGZteLEC",
+      "name": "Bash",
+      "input": {
+        "command": "python3 -I -B - <<'EOF'\nimport json,hashlib,subprocess\nck=json.load(open('/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/PARTIAL_CHECKPOINT.json'))\nok=0;bad=[]\nfor r in ck['all35CommittedBlobCorrespondence']:\n    b=open(r['path'],'rb').read()\n    blob=subprocess.run(['git','rev-parse','1100bd8f2b84e03ad12479f9841b9bb53408f0db:'+r['path']],capture_output=True,text=True).stdout.strip()\n    if hashlib.sha256(b).hexdigest()==r['sha256'] and len(b)==r['bytes'] and blob==r['blob']: ok+=1\n    else: bad.append(r['path'])\nprint('35-path correspondence ok',ok,'of',len(ck['all35CommittedBlobCorrespondence']),'bad',bad)\ng=json.load(open('rc4-operator-inputs/native-recovery-18/NATIVE_GRANT.DRAFT.json'))\ngp=g['Construction']['productWritePaths']; cp=[r['path'] for r in ck['all35CommittedBlobCorrespondence']]\nprint('grant paths',len(gp),'set-equal to checkpoint',set(gp)==set(cp))\nri=json.load(open('rc4-operator-inputs/native-recovery-18/readiness-inputs.json'))\nprint('worksiteRoot',ri['worksiteRoot'],'sourceCommit',ri['sourceCommit'])\nprint('readRoots',len(ri['readRoots']),'sourceFiles',len(ri['sourceFiles']),'requiredNewFiles',ri['requiredNewFiles'])\nprint('max',ri['maxContextFiles'],ri['maxContextBytes'])\nprint('meaning',ri['meaning'])\nprint([s['path'] for s in ri['sourceFiles']])\nEOF",
+        "description": "Verify 35-path correspondence and readiness inputs"
+      }
+    },
+    {
+      "offset": 741587,
+      "timestamp": "2026-11-02T23:00:46.430Z",
+      "kind": "tool_use",
+      "id": "toolu_01FDRfx3AFv2C4JvWNteNyP3",
+      "name": "Bash",
+      "input": {
+        "command": "python3 -I -B -c \"\nimport json;ri=json.load(open('rc4-operator-inputs/native-recovery-18/readiness-inputs.json'))\nrr=ri['readRoots']\nprint([r for r in rr if r.startswith('rc4-scratch') or 'node_modules' in r or r.startswith('rc4-operator')])\nprint(len(set(rr)))\n\"; ls -la build_tenants/abiogenesis/typescript/ | head -20",
+        "description": "Inspect readiness readRoots for scratch and link entries"
+      }
+    },
+    {
+      "offset": 764846,
+      "timestamp": "2026-11-02T23:00:50.843Z",
+      "kind": "tool_use",
+      "id": "toolu_013xX4nzr8yoPmCNKydqP1Gh",
+      "name": "Bash",
+      "input": {
+        "command": "python3 -I -B rc4-operator-inputs/native-recovery-18/readiness.py rc4-operator-inputs/native-recovery-18/readiness-inputs.json; echo \"exit=$?\"",
+        "description": "Run file-only readiness check to stdout",
+        "timeout": 120000
+      }
+    },
+    {
+      "offset": 787123,
+      "timestamp": "2026-11-02T23:00:55.646Z",
+      "kind": "tool_use",
+      "id": "toolu_011NpHuCjKZqMyny7vJWmcJo",
+      "name": "Grep",
+      "input": {
+        "pattern": "export (async )?function construct(Installed\\w*Call|AdmissionCapabilityData)|constructInstalled(Start|Pending|RunRead)Call",
+        "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src",
+        "output_mode": "content",
+        "head_limit": 40
+      }
+    },
+    {
+      "offset": 805773,
+      "timestamp": "2026-11-02T23:00:57.909Z",
+      "kind": "tool_use",
+      "id": "toolu_01GRJJfRqsLAxeKTK2QCzA86",
+      "name": "Bash",
+      "input": {
+        "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env && grep -c -E 'constructInstalled(Start|Pending|RunRead)Call' uat/public-setup.mjs uat/runner.mjs uat/harness.test.mjs qualification/dispatch.mjs support/declared-testing-capability.mjs tests/t287-st1-installed-cross-owner-hello.test.mjs tests/t287-recursive-registered-selection.test.mjs; echo ---; grep -n -E 'stdoEnvironmentResources|pilotResources' support/declared-testing-capability.mjs | head; echo ---; grep -n -E \"^\\s*(test|it|describe)\\(\" uat/harness.test.mjs | head -40",
+        "description": "Check caller consumption and harness case names"
+      }
+    },
+    {
+      "offset": 1023896,
+      "timestamp": "2026-11-02T23:01:44.757Z",
+      "kind": "tool_use",
+      "id": "toolu_01YHA565kGs5xxNo8c2rATh8",
+      "name": "Write",
+      "input": {
+        "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-18/return.json",
+        "content": "{\n  \"kind\": \"native_writer_return\",\n  \"attempt\": \"018\",\n  \"outcome\": \"support://abiogenesis/rc4/hc2-canonical-owner-population\",\n  \"contribution\": \"existing-candidate acquisition; no code change\",\n  \"selectionRef\": \"result://abiogenesis/6304cc7fd517e682f7c179427e18d6d674e0fd4b6b275943ad62443b94aebb35\",\n  \"sourceBasis\": {\n    \"commit\": \"1100bd8f2b84e03ad12479f9841b9bb53408f0db\",\n    \"tree\": \"d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6\",\n    \"headAtStartAndReturn\": \"1100bd8f2b84e03ad12479f9841b9bb53408f0db\",\n    \"trackedClean\": true\n  },\n  \"changeClass\": \"acquisition_verification (no realization change)\",\n  \"workResult\": \"candidate_ready\",\n  \"workResultMeaning\": \"Existing candidate adopted unchanged with file-only readiness. Not accept. Twelve C2 commands and native UAT have not run.\",\n  \"acceptanceClaimed\": false,\n  \"basisAndSkillUse\": {\n    \"productBasisProcedure\": \".claude/references/PRODUCT_BASIS.md applied: one definition stdo_abiogenesis.json (urn:stdo:product-definition:abiogenesis), empty composition\",\n    \"verification\": \"stdo status --definition stdo_abiogenesis.json --verify: installed true, valid true, failures [], basis stdo://releases/v3.0.2/, manifest_sha256 f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477 (equals definition and on-disk manifest.json sha256)\",\n    \"resolvedMembers\": {\n      \"standards/frames/bootstrap.md\": \"9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502 (hash-verified; not read in full)\",\n      \"standards/ACTIVATION.md\": \"56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d (hash-verified; not read in full)\",\n      \"standards/EXECUTIVE_BASELINE.md\": \"064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a (equals supplied role-context memberDigest; sections 9 and 11 consumed from the supplied spans)\"\n    },\n    \"skill\": \".claude/skills/stdo-work/SKILL.md applied for basis selection, acquisition and work-basis binding. The work basis is the supplied admitted selection plus NATIVE_GRANT.DRAFT.json; no ticket was drafted or created\",\n    \"entry\": \"direct Writer entry under ABI5_PROJECT_REFERENCE_FRAME_BASIS; one context; no Executive, Worker or Reviewer activation\",\n    \"how\": \"T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION (HC1/HC2 sections read in full)\",\n    \"fullReads\": [\"AGENTS.md\", \"ABI5_PROJECT_REFERENCE_FRAME_BASIS.md\", \"T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md\", \"REQ-R-ABG3-CONTINUATION.md\", \"PRODUCT_BASIS.md\", \"stdo-work SKILL.md\", \"stdo_abiogenesis.json\", \"all six rc4-operator-inputs/native-recovery-18 drafts and readiness.py\"],\n    \"partialReads\": [\"PRODUCT.md (headings; SDK And CLI; Definition, Tool, And Runtime Authority)\", \"REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md (criteria 001-018 start)\", \"REQ-P-POLICY.md (headings)\", \"M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md (headings)\", \"T287_NATIVE_WORKSPACE_WORK_DESIGN.md (headings)\"]\n  },\n  \"adoption\": {\n    \"grantPathCorrespondence\": \"35 of 35 NATIVE_GRANT productWritePaths match the attempt-017 PARTIAL_CHECKPOINT blob, sha256 and bytes at 1100bd8; the grant path set equals the checkpoint set\",\n    \"hc2Exports\": \"constructInstalledStartCall/PendingCall/RunReadCall at code/src/public/installed_public_definition_call.ts:525,582,646, exported at code/src/public/index.ts:55-58; constructAdmissionCapabilityData at code/src/product/admission_authority.ts:232\",\n    \"callerConsumption\": \"the seven 017 MJS files reference the canonical factories (uat/public-setup, uat/runner, uat/harness.test, qualification/dispatch, support/declared-testing-capability, ST1 test, recursive test)\",\n    \"legacyPatchRemoved\": \"no stdoEnvironmentResources or pilotResources in support/declared-testing-capability.mjs\",\n    \"requiredHarnessCases\": \"all four rubric titles are present verbatim at test_env/uat/harness.test.mjs:547,652,716,728; not executed\"\n  },\n  \"priorEvidence\": {\n    \"hashVerified\": \"all 7 REVIEWED_ROUTES files match listed bytes and sha256\",\n    \"read\": [\"attempt-017 PARTIAL_CHECKPOINT.json\", \"review-subject-001/author-return.json\", \"review-subject-001/native-output.txt\", \"execution/outcome-summary.json\"],\n    \"hashOnly\": [\"review-subject-001/SUBJECT.json\", \"execution/fresh-reads.json\", \"attempt-016-r1 REVIEW_RECEIPT.json\"],\n    \"standing\": \"017 Run disposition blocked, terminal null; 017 tsc noEmit, node --check and mock probes are bounded author evidence only, not current installed proof\"\n  },\n  \"readiness\": {\n    \"command\": \"python3 -I -B rc4-operator-inputs/native-recovery-18/readiness.py rc4-operator-inputs/native-recovery-18/readiness-inputs.json\",\n    \"status\": \"FILE_ONLY_READY\",\n    \"sourceHashesMatched\": 12,\n    \"issues\": [],\n    \"record\": \"rc4-scratch/native-recovery-18/readiness.json\"\n  },\n  \"changedPaths\": [\n    \"rc4-scratch/native-recovery-18/return.json\",\n    \"rc4-scratch/native-recovery-18/readiness.json\",\n    \"rc4-scratch/native-recovery-18/notes.md\"\n  ],\n  \"nonChanges\": [\n    \"No Product, code, test, fixture, generated, build, dependency or mirror writes\",\n    \"No author build, tsc, test suite, architecture audit or source census\",\n    \"No commit, stash or Git state change\"\n  ],\n  \"disclosures\": [\n    \"Read-only access outside the listed worksite read scope: the seven prior-evidence files under /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/, as REVIEWED_ROUTES_AND_PRIOR_RESULTS.md directs, and the installed STDO v3.0.2 release under ~/Library/Application Support/STDO/releases/v3.0.2 through stdo status/resolve plus direct reads of manifest.json and member hashes\",\n    \"Any cache or log writes made by the stdo CLI during status/resolve are unknown; the CLI is documented as read-only\",\n    \"Python ran with -I -B, so no bytecode was written; readiness stdout was redirected only into readiness.json\"\n  ],\n  \"residuals\": [\n    \"C2: all twelve current commands and predicates (packed/union/all9/schema, canonical starts/continuations/six reads/bootstrap, four anchored harness cases) remain unexecuted and owned by Testing\",\n    \"UAT against the five unchanged HC2 criteria is pending a new admitted NativeResult and current C2\",\n    \"Carried from 017: the child GraphCall read assumes a closed child GraphCall reconstructs under env.catalog/env.catalogView (unexecuted); wrong-run-digest was added alongside wrong-run; startCall ignores the cache that exact-candidate-qualification.mjs passes\",\n    \"Legacy RC7 STDO pilot deferred (T287-HC2-LEGACY-STDO-PILOT-01); fresh005, S7, empirical comparison, whole qualification and release are excluded\",\n    \"The 35-path repair allowance is unused; a bounded repair is allowed only after genuine later C2 counterevidence\"\n  ]\n}\n"
+      }
+    },
+    {
+      "offset": 1112267,
+      "timestamp": "2026-11-02T23:01:54.127Z",
+      "kind": "tool_use",
+      "id": "toolu_01K9z6MGeFKtrjQvdrCbT6uw",
+      "name": "Write",
+      "input": {
+        "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-18/notes.md",
+        "content": "# Native HC2 acquisition notes (attempt 018)\n\nScope: acquire existing candidate 1100bd8f2b84e03ad12479f9841b9bb53408f0db /\ntree d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6 without code change. Not accept.\n\n## Basis and skill actually used\n\n- `stdo status --definition stdo_abiogenesis.json --verify`: installed, valid,\n  no failures; basis `stdo://releases/v3.0.2/`, manifest `f7f3f824\u20264477`\n  matches the definition and the installed manifest.json bytes.\n- Hash-verified members: bootstrap.md `9fb337b2\u2026`, ACTIVATION.md `56109ffa\u2026`,\n  EXECUTIVE_BASELINE.md `064eb55e\u2026` (equals supplied role-context digest).\n  bootstrap.md and ACTIVATION.md were not read in full.\n- PRODUCT_BASIS.md and stdo-work SKILL.md applied. Direct Writer entry under\n  the ABI5 frame basis. Work basis: supplied admitted selection plus\n  NATIVE_GRANT.DRAFT.json. No ticket drafted or created.\n- HOW: T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION, read in full. PRODUCT.md,\n  REQ-P-POLICY, INSTRUCTION-ASSEMBLY, M05_S06 and NATIVE_WORKSPACE_WORK were read\n  partially (headings and the relevant sections).\n\n## Adoption\n\n- HEAD = 1100bd8; tracked tree clean.\n- 35/35 grant paths match the 017 PARTIAL_CHECKPOINT blob/sha256/bytes.\n- HC2 factories exported (`code/src/public/index.ts:55-58`); admission-data\n  owner at `code/src/product/admission_authority.ts:232`.\n- The seven 017 MJS callers reference the canonical factories. The legacy\n  STDO post-call patch is absent.\n- All four requiredHarnessCases titles are at `test_env/uat/harness.test.mjs:547,652,716,728`.\n  None was executed.\n- The seven prior-evidence files match their listed bytes and hashes. Four\n  compact files were read; the large subject was checked by hash only.\n\n## Readiness\n\n`readiness.py readiness-inputs.json` returned FILE_ONLY_READY, with 12/12\nsource hashes matched and no issues. Record: readiness.json.\n\n## Not done / residual\n\n- No build, tsc, tests, audit or census. C2 (twelve commands) and UAT remain\n  pending.\n- Carried 017 residuals: the child GraphCall assumption, the wrong-run-digest\n  addition, startCall cache non-use, and the deferred legacy pilot\n  (T287-HC2-LEGACY-STDO-PILOT-01).\n- Excluded: fresh005, S7, empirical comparison, qualification, release.\n- Read-only access outside the listed read scope: the 017/016 prior-evidence\n  files and the installed STDO release. See return.json `disclosures`.\n"
+      }
+    },
+    {
+      "offset": 1144615,
+      "timestamp": "2026-11-02T23:01:58.574Z",
+      "kind": "tool_use",
+      "id": "toolu_01DbVeBnaWmht6XYYA3eUsJT",
+      "name": "Bash",
+      "input": {
+        "command": "W=/Users/jim/src/apps/abiogenesis-rc4-native-recovery; I=$W/rc4-operator-inputs/native-recovery-18; S=$W/rc4-scratch/native-recovery-18; cd \"$W\" && python3 -I -B \"$I/readiness.py\" \"$I/readiness-inputs.json\" > \"$S/readiness.json\"; echo \"exit=$?\"; python3 -I -B \"$I/readiness.py\" \"$I/readiness-inputs.json\" | cmp - \"$S/readiness.json\" && echo FIXED_POINT; cat \"$S/readiness.json\"; python3 -I -B -c \"import json;json.load(open('$S/return.json'));print('return.json valid JSON')\"; git -C \"$W\" status --short; git -C \"$W\" rev-parse HEAD; ls -la \"$S\" \"$S/tmp\"",
+        "description": "Record readiness, confirm stability and tree state",
+        "timeout": 120000
+      }
+    },
+    {
+      "offset": 1184770,
+      "timestamp": "2026-11-02T23:02:09.385Z",
+      "kind": "tool_use",
+      "id": "toolu_01Q28GWbVvMQp8WQSKa1hnWX",
+      "name": "Bash",
+      "input": {
+        "command": "W=/Users/jim/src/apps/abiogenesis-rc4-native-recovery; I=$W/rc4-operator-inputs/native-recovery-18; S=$W/rc4-scratch/native-recovery-18; cd \"$W\" && out=$(python3 -I -B \"$I/readiness.py\" \"$I/readiness-inputs.json\"); rc=$?; printf '%s\\n' \"$out\" > \"$S/readiness.json\"; echo \"exit=$rc\"; python3 -I -B \"$I/readiness.py\" \"$I/readiness-inputs.json\" | cmp - \"$S/readiness.json\" && echo FIXED_POINT; grep -E '\"(status|selectedRawBytes|sourceHashesMatched)\"' \"$S/readiness.json\"",
+        "description": "Rewrite readiness.json and confirm fixed point",
+        "timeout": 120000
+      }
+    }
+  ],
+  "observedUtc": "2026-11-02T23:04:41.836654+00:00",
+  "result": {
+    "duration_api_ms": 194253,
+    "stop_reason": "tool_use",
+    "session_id": "36729a26-ff03-464e-a095-26c49578e1b2",
+    "total_cost_usd": 2.037721,
+    "usage": {
+      "input_tokens": 42,
+      "cache_creation_input_tokens": 147346,
+      "cache_read_input_tokens": 2318725,
+      "output_tokens": 19752,
+      "output_tokens_details": {
+        "thinking_tokens": 6258
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 147346,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 42,
+        "outputTokens": 19752,
+        "cacheReadInputTokens": 2318725,
+        "cacheCreationInputTokens": 147346,
+        "webSearchRequests": 0,
+        "costUSD": 2.037721,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 6258,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 28,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"summary\":\"I adopted the existing candidate 1100bd8f2b84e03ad12479f9841b9bb53408f0db / tree d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6 unchanged. HEAD is 1100bd8 and the tracked tree is clean. Work result: candidate_ready for this acquisition step only; not accepted.\\n\\nBasis used: `stdo status --definition stdo_abiogenesis.json --verify` reported installed true, valid true and no failures, with basis stdo://releases/v3.0.2/ and manifest f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477. That matches the definition and the installed manifest.json bytes. I resolved three members and checked their hashes: bootstrap.md 9fb337b2\u2026, ACTIVATION.md 56109ffa\u2026 and EXECUTIVE_BASELINE.md 064eb55e\u2026, which equals the digest in the supplied role context.\\n\\nSkill used: I applied PRODUCT_BASIS.md and the stdo-work skill as direct Writer entry under the ABI5 frame basis. The work basis is the supplied admitted selection plus NATIVE_GRANT.DRAFT.json. No ticket and no other role activation. I read T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION in full.\\n\\nAdoption checks:\\n- All 35 grant paths match the 017 PARTIAL_CHECKPOINT blob, sha256 and byte size at 1100bd8.\\n- The HC2 factories are exported at code/src/public/index.ts:55-58, and constructAdmissionCapabilityData is at product/admission_authority.ts:232.\\n- The seven 017 MJS callers use the canonical factories.\\n- The old STDO post-call patch is gone from declared-testing-capability.mjs.\\n- The four required harness case titles appear word for word at test_env/uat/harness.test.mjs:547, 652, 716 and 728. I did not execute them.\\n- All seven prior-evidence files match their listed sizes and hashes. I read the four compact ones; the large ones were checked by hash only.\\n\\nReadiness: readiness.py with readiness-inputs.json returned FILE_ONLY_READY, 12/12 source hashes matched, no issues. A second run produced byte-identical output.\\n\\nFiles changed: rc4-scratch/native-recovery-18/return.json, readiness.json and notes.md only. tmp is empty. I ran no build, tsc, tests, audit or source census, and made no Git change.\",\"gaps\":[\"The twelve current C2 commands and checks have not run. That includes the packed/union/all9/schema proof, the canonical starts, continuations, six reads and bootstrap, and the four anchored harness cases. Testing owns them.\",\"Native UAT against the five unchanged HC2 criteria is still pending. It needs a new admitted NativeResult and the current C2 results.\",\"Open from 017: the child GraphCall read assumes a closed child GraphCall reconstructs under env.catalog/env.catalogView, which has not been run. wrong-run-digest was added alongside wrong-run. startCall ignores the cache that exact-candidate-qualification.mjs passes.\",\"The old RC7 STDO pilot is deferred as T287-HC2-LEGACY-STDO-PILOT-01. fresh005, S7, empirical comparison, whole qualification and release are outside this rubric.\",\"Read only in part: PRODUCT.md, REQ-P-POLICY, REQ-R-ABG3-INSTRUCTION-ASSEMBLY, M05_S06 and T287_NATIVE_WORKSPACE_WORK_DESIGN (headings and relevant sections). bootstrap.md and ACTIVATION.md were hash-checked but not read in full.\",\"Reads outside the listed worksite read scope: the seven prior-evidence files under /Users/jim/src/apps/abiogenesis/.ai-workspace/..., which REVIEWED_ROUTES directs, and the installed STDO v3.0.2 release via stdo status/resolve. Whether the stdo CLI wrote anything to its own cache or logs is unknown.\",\"The 35-path repair allowance was not used. It applies only if a later C2 run produces genuine counterevidence.\"]}",
+    "structured_output": {
+      "summary": "I adopted the existing candidate 1100bd8f2b84e03ad12479f9841b9bb53408f0db / tree d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6 unchanged. HEAD is 1100bd8 and the tracked tree is clean. Work result: candidate_ready for this acquisition step only; not accepted.\n\nBasis used: `stdo status --definition stdo_abiogenesis.json --verify` reported installed true, valid true and no failures, with basis stdo://releases/v3.0.2/ and manifest f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477. That matches the definition and the installed manifest.json bytes. I resolved three members and checked their hashes: bootstrap.md 9fb337b2\u2026, ACTIVATION.md 56109ffa\u2026 and EXECUTIVE_BASELINE.md 064eb55e\u2026, which equals the digest in the supplied role context.\n\nSkill used: I applied PRODUCT_BASIS.md and the stdo-work skill as direct Writer entry under the ABI5 frame basis. The work basis is the supplied admitted selection plus NATIVE_GRANT.DRAFT.json. No ticket and no other role activation. I read T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION in full.\n\nAdoption checks:\n- All 35 grant paths match the 017 PARTIAL_CHECKPOINT blob, sha256 and byte size at 1100bd8.\n- The HC2 factories are exported at code/src/public/index.ts:55-58, and constructAdmissionCapabilityData is at product/admission_authority.ts:232.\n- The seven 017 MJS callers use the canonical factories.\n- The old STDO post-call patch is gone from declared-testing-capability.mjs.\n- The four required harness case titles appear word for word at test_env/uat/harness.test.mjs:547, 652, 716 and 728. I did not execute them.\n- All seven prior-evidence files match their listed sizes and hashes. I read the four compact ones; the large ones were checked by hash only.\n\nReadiness: readiness.py with readiness-inputs.json returned FILE_ONLY_READY, 12/12 source hashes matched, no issues. A second run produced byte-identical output.\n\nFiles changed: rc4-scratch/native-recovery-18/return.json, readiness.json and notes.md only. tmp is empty. I ran no build, tsc, tests, audit or source census, and made no Git change.",
+      "gaps": [
+        "The twelve current C2 commands and checks have not run. That includes the packed/union/all9/schema proof, the canonical starts, continuations, six reads and bootstrap, and the four anchored harness cases. Testing owns them.",
+        "Native UAT against the five unchanged HC2 criteria is still pending. It needs a new admitted NativeResult and the current C2 results.",
+        "Open from 017: the child GraphCall read assumes a closed child GraphCall reconstructs under env.catalog/env.catalogView, which has not been run. wrong-run-digest was added alongside wrong-run. startCall ignores the cache that exact-candidate-qualification.mjs passes.",
+        "The old RC7 STDO pilot is deferred as T287-HC2-LEGACY-STDO-PILOT-01. fresh005, S7, empirical comparison, whole qualification and release are outside this rubric.",
+        "Read only in part: PRODUCT.md, REQ-P-POLICY, REQ-R-ABG3-INSTRUCTION-ASSEMBLY, M05_S06 and T287_NATIVE_WORKSPACE_WORK_DESIGN (headings and relevant sections). bootstrap.md and ACTIVATION.md were hash-checked but not read in full.",
+        "Reads outside the listed worksite read scope: the seven prior-evidence files under /Users/jim/src/apps/abiogenesis/.ai-workspace/..., which REVIEWED_ROUTES directs, and the installed STDO v3.0.2 release via stdo status/resolve. Whether the stdo CLI wrote anything to its own cache or logs is unknown.",
+        "The 35-path repair allowance was not used. It applies only if a later C2 run produces genuine counterevidence."
+      ]
+    },
+    "ttft_ms": 6798,
+    "type": "result",
+    "duration_ms": 217102,
+    "uuid": "9bbf387c-8a18-4b3c-a64c-ef4cd92df169",
+    "ttft_stream_ms": 6646,
+    "time_to_request_ms": 4368,
+    "first_content_frame_ms": 6647,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

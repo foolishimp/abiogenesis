@@ -1,0 +1,335 @@
+{
+ "kind": "native_03_readiness",
+ "recordedUtc": "2026-11-03T19:13:01Z",
+ "ready": false,
+ "reason": "Truthful partial evidence: C1 incomplete (unmigrated readers, witness restore and export decision returned to Root); checks are author feedback, not actual C2.",
+ "candidateHashes": [
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+   "sha256": "sha256:ec6bce207e50187e6d863203496252f882adc192c977c425fe10a87ce27a1563"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+   "sha256": "sha256:694302358bb0adb6590ef4e5d4500d679a0dfbd4827c78b1285737ee0475278b"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+   "sha256": "sha256:7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+   "sha256": "sha256:a341d0ef3898c031c25285ccae67b9a0f7f892bf87e4a49d5748cf8556e39e81"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+   "sha256": "sha256:684851d7c532be091c8243e805fa3c4411a7b913bff0ee27789ff04a5545cc8a"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+   "sha256": "sha256:094cce6fb3c539d56c21df0d46550b788f3fb4442016472d0199950b06d23e16"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+   "sha256": "sha256:e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+   "sha256": "sha256:80921f68c624747865ac3ef685a8cb4c287247d9465181176a3e9d79a76f95b9"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts",
+   "sha256": "sha256:9d37ed9c8d216dd6420d7254571fd555d67d653b367c9d5a25eefefbb42a857a"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+   "sha256": "sha256:ea2df4a553c8fea801277f9b68707ae7cd7ce08bff7c10e3d1552d6d01bfce8c"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+   "sha256": "sha256:e657a900c12f7ceee1152711845518a96cf48ac0b67a5566ec47fa516824190d"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+   "sha256": "sha256:b651177b087583f624ee66b933972060d05622f9a3281bf1887e25face3d5053"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts",
+   "sha256": "sha256:76d38a6b1f7c7a18321a609df9fb17f15be6fd179da4de34884f900c0ad6542c"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+   "sha256": "sha256:3ad3fba807e2a22ec31403048ed02a652a4de3fa1b0434a3f531fafbb72f0aa6"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+   "sha256": "sha256:0b748040414ae9ab6b46d29678a7dee7855db86a2c3f05cde7eb0908e78fb409"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+   "sha256": "sha256:73c27a0ed2d4e65a0317a1c6f5e16e5294248db7077960d273e9213f62052dc0"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts",
+   "sha256": "sha256:27595e7d07b94d7144f66d3264ae8a1b8266838588a568ab74b0f7a454f936e0"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts",
+   "sha256": "sha256:8c3a5e21adcb002d34ba5487d44fe2c8ad34c3f618472781f96bd2524ffce4cf"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+   "sha256": "sha256:d54ace08f6eea2e5c18c058c0e61a485161fbd572548a0a8e9c35d56069f9845"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+   "sha256": "sha256:0487b8b2f1f909adb043722d15ee7018c03b21942ed642cf35960f7bf087e284"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+   "sha256": "sha256:1d7dbc683a541bccc08a4bcd7f7f09140da321d2cf0266b05dc70870ae4389d3"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/product/result_definition_bindings.ts",
+   "sha256": "sha256:80384b0f1fe02452720a0439daceee8868c9c85b69e7d04701f8b34b1f11f40d"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+   "sha256": "sha256:7d267578046f50f08d5724a450633e193470a46eaf1d842330507d87b50b447b"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+   "sha256": "sha256:6925b93db2e0d81508b1b90abeb2813a16004a2395d5f97c16c6d219ee3ee829"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-reconstruction-conservation.test.mjs",
+   "sha256": "sha256:bfeccd64488a0f32f23e905c55e035858e2cf98ab30cfad6d6550e1f99f34854"
+  }
+ ],
+ "criteria": {
+  "C1": "not met: unmigrated complete readers remain (listed); every deletion has migrated consumers; retained paths named with contract and consumer or returned to Root",
+  "C2": "author feedback only: same-input meter 22.996 -> 5.732 passes per unrelated event, refusals equal; actual C2 pending",
+  "C3": "author feedback: installed producer/consumer and maintained SDK setup cases pass on candidate build; actual C2 pending",
+  "C4": "R1-R7 dispositions recorded; R4/R5 outside grant",
+  "C5": "pending actual C2 and independent review"
+ },
+ "checks": {
+  "typecheck": "tmp03/check tsc --noEmit over final code: 0 errors",
+  "build": "tmp03/w tsc build + scripts/generate-product-manifest.mjs over final code and test_env: exit 0 (rebuilt after witness restore 19:03Z)",
+  "finalCandidateLanes": [
+   {
+    "file": "tmp03/wg-lane0.tap",
+    "sha256": "sha256:aac931686b8a4fcdd503b480211790084258aba70613460d3f9f08cd8c331397",
+    "tests": "136",
+    "pass": "108",
+    "fail": "0",
+    "skipped": "28",
+    "notOk": []
+   },
+   {
+    "file": "tmp03/wg-lane1.tap",
+    "sha256": "sha256:df63f7878e3e3a2db763d887cefd99671ff4c664f048c33fad47c243db3300a8",
+    "tests": "2",
+    "pass": "2",
+    "fail": "0",
+    "skipped": "0",
+    "notOk": []
+   },
+   {
+    "file": "tmp03/wg-lane2.tap",
+    "sha256": "sha256:6ec22efc3abc9c4f9df9dbf489c674310a769ff88783ef50d6f19755a7db1b90",
+    "tests": "4",
+    "pass": "3",
+    "fail": "1",
+    "skipped": "0",
+    "notOk": [
+     "single-address-space proof records every measured case"
+    ]
+   },
+   {
+    "file": "tmp03/wg-lane3.tap",
+    "sha256": "sha256:e8eae16009d6ed1e8aba9c123b841e0ed3a1fcb70b4efa8dbb051e65aac9c8cb",
+    "tests": "32",
+    "pass": "32",
+    "fail": "0",
+    "skipped": "0",
+    "notOk": []
+   },
+   {
+    "file": "tmp03/wg2-lane2.tap",
+    "sha256": "sha256:155619dc46d575dcd40c0f2430e9db6e186bcdf98daaaf661b832203514f1590",
+    "tests": "4",
+    "pass": "4",
+    "fail": "0",
+    "skipped": "0",
+    "notOk": []
+   }
+  ],
+  "preRestoreCandidateLanes": [
+   {
+    "file": "tmp03/wf-lane0.tap",
+    "sha256": "sha256:6643d9ae6df5c8bc818454b364dcff1d1f34b3d396193e7ab7079bae743ce8f8",
+    "tests": "136",
+    "pass": "106",
+    "fail": "2",
+    "skipped": "28",
+    "notOk": [
+     "raw Public witness with material history decodes only on acquisition and retains cold correspondence",
+     "Public profile reprice retains the exact L-to-P boundary and standalone cold content checks"
+    ]
+   },
+   {
+    "file": "tmp03/wf-lane1.tap",
+    "sha256": "sha256:68ec7d269c3253d5c63e0b2a675d1d1ee3a3fc06ec49ac5d81bcb599e64b1347",
+    "tests": "2",
+    "pass": "2",
+    "fail": "0",
+    "skipped": "0",
+    "notOk": []
+   },
+   {
+    "file": "tmp03/wf-lane2.tap",
+    "sha256": "sha256:c104bee492da20325fbc649982d11e2c8b6899f39a8e7f819108a1e9fcc9c2ae",
+    "tests": "4",
+    "pass": "4",
+    "fail": "0",
+    "skipped": "0",
+    "notOk": []
+   },
+   {
+    "file": "tmp03/wf-lane3.tap",
+    "sha256": "sha256:03cefc8f6db910376e39d016fb326708089e29e76664c8106eef7c87db00e53c",
+    "tests": "32",
+    "pass": "32",
+    "fail": "0",
+    "skipped": "0",
+    "notOk": []
+   }
+  ],
+  "heldLanes": {
+   "lane0_rerun": {
+    "file": "tmp03/wh2-lane0.tap",
+    "sha256": "sha256:319cfd4f86ed9b0718f1a9f88c7236b62bdafca4a1092cb13737904606350395",
+    "tests": "136",
+    "pass": "108",
+    "fail": "0",
+    "skipped": "28",
+    "notOk": []
+   },
+   "lane0_first": {
+    "file": "tmp03/wh-lane0.tap",
+    "sha256": "sha256:8641c121fdfedb1dab2e9f511a91e8968779506c4b74099acad51addb6145cd3",
+    "tests": "136",
+    "pass": "102",
+    "fail": "6",
+    "skipped": "28",
+    "notOk": [
+     "non-root alias selection admits a distinct catalogHandle for one exact definition",
+     "R5 start admission resolves one exact Product start before its catalog definition",
+     "declared testing fixture aligns with current authority, observation, construction and command owners",
+     "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+     "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+     "ST-2A-E projects one exact immutable workspace environment without append"
+    ]
+   },
+   "lane1": {
+    "file": "tmp03/wh-lane1.tap",
+    "sha256": "sha256:dbae197438a7f155c7f7e9acfa98729d3a3efe8de668ad1db7f708f5a2cdc37e",
+    "tests": "2",
+    "pass": "2",
+    "fail": "0",
+    "skipped": "0",
+    "notOk": []
+   },
+   "lane3": {
+    "file": "tmp03/wh-lane3.tap",
+    "sha256": "sha256:55e73a6f51f62911a35cb8ef8f91f369cad3b6160428fe0b2888ecc7f1e44b00",
+    "tests": "32",
+    "pass": "32",
+    "fail": "0",
+    "skipped": "0",
+    "notOk": []
+   }
+  },
+  "witnessAfterRestore": {
+   "file": "tmp03/cand-witness.tap",
+   "sha256": "sha256:9968b602dff3066903fde55c01dc85bf89058d60f670f9149205ef57cc7734c3",
+   "tests": "22",
+   "pass": "22",
+   "fail": "0",
+   "skipped": "0",
+   "notOk": []
+  },
+  "extraAffected": {
+   "files": [
+    "t287-d1-requirement-handoff",
+    "t287-d1-semantic-stage",
+    "r4-catalog-admission",
+    "t287-common-computational-library",
+    "t287-f04a-probabilistic-result-candidate"
+   ],
+   "candidate": {
+    "file": "w-extra.tap",
+    "sha256": "sha256:fd1d6e482ca124d1c2488a90fd3f0fd396e0039afeff91aa833e8c506b1c2cee",
+    "tests": "34",
+    "pass": "29",
+    "fail": "0",
+    "skipped": "5",
+    "notOk": []
+   },
+   "held": {
+    "file": "wh-extra.tap",
+    "sha256": "sha256:9dc11d2dc8a703bd99f43651a43b729f3d2981720ff119d4a9380ec637ae5915",
+    "tests": "34",
+    "pass": "29",
+    "fail": "0",
+    "skipped": "5",
+    "notOk": []
+   }
+  },
+  "conservationTestLoad": "t287-reconstruction-conservation loads against the candidate build; both cases skip (ABI5_PREFIX_REUSE_OBSERVATIONS unset)",
+  "earlierInvalidRuns": "w-lane0/wh-lane0 overlapped a concurrent manifest rebuild in the same root (t287-cross-cut-public-read parseProductManifest null and related failures); superseded by wf/wg/wh2 runs; wg-lane2 case 4 failed EEXIST on the pre-restore proof artifact left in the same scratch root (artifacts/single-address-space-proof.json, moved to .wf-1900.json), cases 1-3 passed, rerun as wg2-lane2",
+  "exitLog": [
+   "cand exit 0",
+   "held exit 0",
+   "probe exit 1",
+   "probe2 exit 0",
+   "cand2-lane1 exit 1",
+   "cand2-sas exit 0",
+   "cand lane0 exit 1",
+   "wh lane0 exit 1 18:44:59",
+   "w lane0 exit 1 18:49:00",
+   "w extra exit 127 18:52:02",
+   "wh extra exit 127 18:52:02",
+   "wh extra exit 1 18:52:09",
+   "w extra exit 1 18:52:09",
+   "wh lane1 exit 0 18:52:12",
+   "wh lane3 exit 0 18:53:21",
+   "w extra exit 0 18:54:02",
+   "wh extra exit 0 18:54:03",
+   "w lane0 exit 1 18:56:55",
+   "w lane2 exit 0 19:00:26",
+   "w lane1 exit 0 19:01:50",
+   "w lane3 exit 0 19:02:57",
+   "wh lane0 exit 0 19:06:23",
+   "w lane2 exit 1 19:07:25",
+   "w lane1 exit 0 19:08:50",
+   "w lane3 exit 0 19:09:58",
+   "w lane0 exit 0 19:10:03",
+   "w lane2 exit 0 19:11:57"
+  ]
+ },
+ "residuals": [
+  "Unmigrated complete readers: abg/worksite_command_forward.ts:69/189/219; abg/worksite_construction_recovery.ts:215/322; abg/witness_admission_operation.ts (unexamined); abg/retry.ts:638/3597; abg/qualification_proof.ts:139 and its ~25 array consumers; abg/deferred_application.ts:51; abg/traversal_route.ts:5280 (named complete-mode export)",
+  "witness_definition_bindings 156/308 restored to held complete reads after candidate-only witness-reprice failures (reads 323!==324, 3!==4); whether the closed-log tiling read is a contract (T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md:64, outside grant) is returned to Root",
+  "projectRuntimeTruthAtDurablePrefix retained as a published abg/index export with no production consumer (11 out-of-grant tests); removal needs Root (export change + test migration)",
+  "qualification_proof.ts array consumer (~25 .filter uses) still uses projectExactPrefixArtifactTruth/readRuntimeEventsAtDurablePrefix",
+  "Liveness reconstruction prior-invocation growth (~576 body re-reads and ~574 .some scans per invocation)",
+  "GLOBAL public-op payload passes (3 per unrelated public-op event) kept as supported malformed/duplicate/complete-pair obligations",
+  "planPendingInteractionAdmission complete output retained (named export)",
+  "Named meter discriminators not added: outside malformed pair/duplicate, orphan and mixed-arm F_H/construction, selected-Run replay, missing versus out-of-scope; existing lane tests exercise these owners but no discriminator was added to the meter",
+  "declaration_application logical-prefix relation now uses canonical runtimeEventPrefixDigest equality of the through-event cut instead of sameJson element equality: review judgment",
+  "projectOwnedPrefixArtifactTruth borrows only a known owner receipt; closed-owner coordinates are authenticated cold (no claim of warm reuse after close)",
+  "No zero-materialization claim; no actual C2, installed native UAT, full qualification or general speedup claim",
+  "Disclosure: tmp03 copy of the 17G FRAMED_GOVERNANCE comments directory briefly filled the host disk (ENOSPC) before deletion; writes were confined to tmp03; concurrent cand2-lane1 scratch run in that window failed and is not used as evidence"
+ ]
+}

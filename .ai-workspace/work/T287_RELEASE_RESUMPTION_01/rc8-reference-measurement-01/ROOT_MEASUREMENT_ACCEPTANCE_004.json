@@ -1,0 +1,141 @@
+{
+  "status": "ROOT_ACCEPTED_MATCHED_REFERENCE_MEASUREMENT_BOUNDED",
+  "at": "2026-11-07T04:51:19.194606+00:00",
+  "executive": "/root",
+  "writer": "/root/rc7_reference_ticket_writer",
+  "rootDisposition": "Root read AFTER measurement/actual close/fixture full equality assertions and CPU profile; matched phase/counters accepted within selected scope. This record captures that explicit Root ruling, not an additional independent review.",
+  "basis": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "method": "stdo://releases/v3.0.4/",
+    "composition": [],
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "fixedFamilies": 15
+  },
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-002/MEASUREMENT.json",
+    "bytes": 32398,
+    "sha256": "84f23325b265fd68b21ad0dbeac7dae9376b1323ab9663ff52004fa1f3f87be6"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/MEASUREMENT.json",
+    "bytes": 72231,
+    "sha256": "2d8507c67392ddef69ccfd055b791b52a5aff649250c1fdab90cf2f0f60f7a3b"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/ACTUAL_CLOSE.json",
+    "bytes": 2073,
+    "sha256": "1701f380372f38ad95ba048da5523a8025ef877be2d625189410c42c08f317ce"
+  },
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/profiles/4MiB-profile.cpuprofile",
+    "bytes": 1444134,
+    "sha256": "d81df2006c64e58f84e15f5f6b08f78ce4546fc7a40e99440801219a25177ae7"
+  },
+  "exactTestedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "executionReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/EXECUTION_RETURN_AFTER_004.json",
+    "bytes": 27676,
+    "sha256": "df161de3fb3c0c625dc2bdad5b19ec58c79071cf4407d2e91ccbddeb7d380b52"
+  },
+  "scope": "One matched unprofiled1MiB/4MiB pair; separate third4MiB parent CPU profile; exact shipped-archive installed scratch subject; actual held-resource close and complete warm/cold terminal+owner equality at final prefix.",
+  "observations": {
+    "sdkReductionPercent": [
+      16.832742,
+      12.009373
+    ],
+    "constructionIncreasePercent": [
+      3.516451,
+      0.937715
+    ],
+    "callRssDeltaBytes": [
+      {
+        "label": "1MiB",
+        "before": 192544768,
+        "after": 177127424
+      },
+      {
+        "label": "4MiB",
+        "before": 158187520,
+        "after": 205815808
+      }
+    ],
+    "consistentMemoryImprovement": false,
+    "resultCanonicalBytes": [
+      2617,
+      2617
+    ],
+    "absoluteSetupCatalogAdmissions": 1,
+    "absoluteSetupCatalogViewConstructions": 1,
+    "catalogAndViewUnchangedAcrossThreeCalls": true,
+    "perSdkCall": {
+      "transportDetaches": 0,
+      "verifierReattachments": 0,
+      "catalogComparisons": 0,
+      "viewComparisons": 0,
+      "additionalInputCopies": 0,
+      "inputReuses": 1,
+      "workerContractCopies": 1,
+      "workerSchemaCopies": 0
+    },
+    "perNewConstruction": {
+      "inputCopies": 1,
+      "establishmentWalks": 1
+    },
+    "workerDeepFrozenChecksByCall": [
+      1,
+      0,
+      0
+    ],
+    "warmHistoryDecodeReopenColdReadDeltas": 0,
+    "heldReadBodyWork": 0,
+    "fullWarmColdTerminalAndOwnerEquality": true,
+    "actualCloseIncludesProfileSuccessor": true
+  },
+  "profileAssessment": {
+    "assessor": "/root",
+    "envelopeMs": 3853.167,
+    "sampledMs": 3853.125,
+    "samples": 2973,
+    "exclusiveSelfAggregatesMs": {
+      "canonical_json": 821.295,
+      "crypto_hash": 709.874,
+      "equality": 259.086,
+      "json_admit": 142.959,
+      "idle": 888.329,
+      "inspector": 173.958,
+      "gc": 142.206,
+      "fsync": 128.54
+    },
+    "inclusiveTimesOverlapAndMustNotBeAdded": true,
+    "sampleChainResidualSites": [
+      "existing execution_basis_record exact checks",
+      "environment admission and Product install checks",
+      "artifact truth projection",
+      "invocation admission"
+    ],
+    "remainingCostsStanding": "Measured residuals only. No new repair scope or deletion authority.",
+    "parentOnly": true,
+    "separateThirdCall": true,
+    "matchedPairUnprofiled": true
+  },
+  "limits": [
+    "One sample per size/subject, with host and garbage-collection variation; no statistical speedup qualification.",
+    "No consistent memory improvement, clone-allocation attribution, provider productivity or whole-workflow speedup claim.",
+    "Constructor admissions and worker contract copies remain observed; not blanket zero-copy.",
+    "Native relinking claims remain limited to named measured probes and separately accepted focused receipts.",
+    "Cold residuals and S7 remain intact. No deletion authority, broad qualification or final immutable cut/install claim."
+  ],
+  "qualified": false,
+  "newRepairScopeSelected": false,
+  "deletionAuthority": false
+}

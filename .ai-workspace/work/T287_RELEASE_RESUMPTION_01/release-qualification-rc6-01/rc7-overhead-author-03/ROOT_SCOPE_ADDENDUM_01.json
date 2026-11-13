@@ -1,0 +1,47 @@
+{
+  "kind": "root_exact_known_scope_addendum",
+  "at": "2026-11-06T06:34:57.853480+00:00",
+  "status": "PREPARATION_SELECTED_FINAL_REVIEW_AND_B_READBACKS_PENDING",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_SELECTION.json",
+    "bytes": 4740,
+    "sha256": "24eb682953a83305c5765268668bc63b9b9ccfed1d03f9fdc3fa694b25134a5c"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 779397,
+    "sha256": "31c092b1cb8dd767d1178ebba26c4b66651ebe1de032ab401ba6683faa67093b"
+  },
+  "addedSourceWritePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+  "effectiveSourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "sourceNamesCount": 449,
+  "evidence": {
+    "frozenTest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 290877,
+      "sha256": "4fcbd6e2c470d506df9c319a3b7108450f887cef3373cca3813e2f66d97ea138"
+    },
+    "firstRelation": "Lines1823-1831 of the pending Testing cold test still read nativeValue.task for original write roots/context/impact/canonical root. Prospective native Result removes task.",
+    "secondRelation": "Lines2080-2091 of cross-Run retained-source cold test still read N.payload.value.task.context and use task/context Result locators and Result-only holder lookup. Prospective R2 may use exact admitted basis-input holders.",
+    "productRelation": "The actual unchanged native owner requires native task equality with its own child execution-basis rawInputValue; workflow.C creates that child basis from progressed task input. No runtime input-law defect has been demonstrated.",
+    "reviewStanding": "Independent frozen current-input reviewer identified these concrete stale test consumers and is closing its full report; Root separately read/verified the cited snapshot."
+  },
+  "selectedCorrection": "Migrate only these existing cold test consumers/assertions to current existing task/body owners and exact admitted basis-versus-Result holder coordinates. Retain actual parent progression, W-outside-R effect assertions, currentness, pending execution/cold resume, cross-Run original-source authorization, physical body equality and negative controls. Do not add a mock-only surrogate, erase assertions, or add a new fixture/framework.",
+  "proof": "These are the same2 selected cold cases, still one exact positive lane under300s. No new test family. Reuse B other final passing relations only when unchanged by the precise patch.",
+  "ceilings": {
+    "stageAllocations": 2,
+    "laneInvocations": 6,
+    "compileMs": 240000,
+    "generateMs": 180000,
+    "guardMs": 60000,
+    "laneMs": 300000,
+    "concurrentLanes": 1,
+    "automaticRetries": 0
+  },
+  "effectBoundary": "Control preparation only until B closes and Root conjoins reviews. Actual Product/HOW/test writes belong solely to the next ABG-native Worker; no current source or active readback mutation."
+}

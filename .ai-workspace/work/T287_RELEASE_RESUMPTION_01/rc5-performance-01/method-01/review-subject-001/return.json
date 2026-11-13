@@ -1,0 +1,74 @@
+{
+  "kind": "rc5_method_01_writer_return",
+  "taskId": "T287_RC5_METHOD_01",
+  "role": "Writer (stdo-work recipient under NATIVE_GRANT.json); construction and self-review only",
+  "result": "candidate_ready",
+  "acceptance": "not claimed; independent source review, C2 output correspondence, UAT and Root adoption remain with their owners",
+  "basis": {
+    "sourceCommit": "3e2304de7dbad73b85dbf27e94c54766202f1583",
+    "selectedMethod": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "builderRuntimeBasis": "stdo://releases/v3.0.2/ (installed RC4, unchanged)",
+    "changeClass": "realization_refactor; Product, requirements and Public contracts unchanged"
+  },
+  "changedPaths": [
+    {"path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md", "sha256": "48ca205b9d8094425e1451f533cc01b64c0fa43028017324bbbb01fca9cd623b", "change": "new section 'RC5 STDO 3.0.4 successor source and skill selection — 2026-11-03': members, span rule, finite role-to-skill/reference table, exclusions, owners/checks, cost"},
+    {"path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts", "sha256": "b3c030f8797b4ef7e5e04008b7c323783e840b2e3abb40bd03a97a48c50f7735", "change": "DEFAULT_LIBRARY_STDO_SOURCE -> v3.0.4 manifest, six released members (2 standards, 2 skills, 2 references), 13 recomputed complete heading spans; per-role selections extended; same generic declaration/inventory owners"},
+    {"path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs", "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f", "change": "existing default-library finite check: assetPath must equal inventory root + release path (manifest and every member), strict UTF-8 complete-heading span/anchor check added beside the existing membership/byte/span-digest checks; covers plugin and standards members alike"},
+    {"path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md", "sha256": "5b95ac32ef0f4bdf3dace22ae759abfac5a87fa234e164e419db7ad2fbc876a6", "change": "Execution environment: one paragraph recording the completed 3.0.4 default-library declaration migration"},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs", "sha256": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed", "change": "existing role-content case migrated to 3.0.4 and renamed with the 'RC5 STDO 3.0.4' prefix (still matches 'default role content'); new 'RC5 STDO 3.0.4' acquisition case; imports realpath/rename"},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs", "sha256": "99c29aad2003c671fc2b547b6ee61caf175820f125a25640d31540f5515468b5", "change": "comment only: suite is a retained STDO 3.0.2 control, not 3.0.4 proof"},
+    {"path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs", "sha256": "1c3ed38533ae7f31828ea66be173bf19dec30ad8479b8c3a1f39f13c51e7fd42", "change": "comment only: literal legacy keys retainedRC1 (RC4 source, STDO 3.0.2) and selectedRC2 (RC5 candidate, STDO 3.0.4)"},
+    {"path": "rc5-scratch/method-01/return.json", "change": "this report"},
+    {"path": "rc5-scratch/method-01/readiness.json", "change": "short readiness evidence"}
+  ],
+  "declaredSource": {
+    "manifest": {"path": "manifest.json", "assetPath": "contracts/default-library/stdo/manifest.json", "byteCount": 18022},
+    "members": {
+      "executive": {"path": "standards/EXECUTIVE_BASELINE.md", "byteCount": 165730, "digest": "sha256:ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff"},
+      "assurance": {"path": "standards/ASSURANCE.md", "byteCount": 87324, "digest": "sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"},
+      "work-skill": {"path": "plugins/spec/skills/stdo-work/SKILL.md", "byteCount": 13369, "digest": "sha256:9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"},
+      "review-skill": {"path": "plugins/spec/skills/stdo-review/SKILL.md", "byteCount": 8074, "digest": "sha256:b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"},
+      "handoff": {"path": "plugins/spec/references/COORDINATED_HANDOFF.md", "byteCount": 22028, "digest": "sha256:e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00"},
+      "product-basis": {"path": "plugins/spec/references/PRODUCT_BASIS.md", "byteCount": 3947, "digest": "sha256:d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"}
+    },
+    "assetPathRule": "contracts/default-library/stdo/<release path> (the member_inventory@1 record root)",
+    "spanRule": "heading line whose GitHub slug is the first anchor, to the next same-or-higher heading outside fenced code or EOF; consecutive same-level anchors may share one span; skill spans start at H1 and exclude YAML front matter",
+    "spanNote": "Executive §8-§11 bytes identical to 3.0.2 at offsets +4880; ASSURANCE §7-§12 unchanged (34042-63245)"
+  },
+  "roleSourceMap": {
+    "selector": {"leaf": "default-library executive-step select", "retained": ["EXECUTIVE_BASELINE §8 [88956,94513)"], "skill": "stdo-work (selector/issuer) [278,13369)", "references": ["COORDINATED_HANDOFF Control Intake [877,3062)", "Issue [3062,8965)", "Evaluate The Return [11322,13146)", "Review Flow From The Selected Basis [13146,16237)", "PRODUCT_BASIS [0,3947)"], "roleSourceBytes": 35598},
+    "constructor": {"leaf": "native work", "retained": ["EXECUTIVE_BASELINE §9 [94513,97494)", "§11 [102127,114620)"], "skill": "stdo-work (receiving constructor) [278,13369)", "references": ["COORDINATED_HANDOFF Control Intake [877,3062)", "Receive [8965,11322)", "PRODUCT_BASIS [0,3947)"], "roleSourceBytes": 37054},
+    "assessor": {"leaf": "native assessment", "retained": ["EXECUTIVE_BASELINE §10 [97494,102127)", "ASSURANCE §7-§12 [34042,63245)"], "skill": "stdo-review [257,8074)", "references": ["COORDINATED_HANDOFF Control Intake [877,3062)", "Receive [8965,11322)", "Review Flow From The Selected Basis [13146,16237)", "PRODUCT_BASIS [0,3947)"], "roleSourceBytes": 53233},
+    "command_executor": {"leaf": "C2 command execution", "retained": ["EXECUTIVE_BASELINE §9 [94513,97494)", "ASSURANCE §7-§12 [34042,63245)"], "skill": "stdo-work (receiving command executor) [278,13369)", "references": ["COORDINATED_HANDOFF Control Intake [877,3062)", "Receive [8965,11322)", "PRODUCT_BASIS [0,3947)"], "roleSourceBytes": 53764},
+    "notSelected": ["skills/stdo-help", "skills/stdo-status", "skills/stdo-ticket", "claude-skills/refresh", "references/GETTING_STARTED.md", "references/REFRESH.md", "references/HOST_BINDING.md", "COORDINATED_HANDOFF Host Binding / Compact Source Acquisition / Invocation Examples", "scripts/*", "plugin manifests", "LICENSE"],
+    "authority": "skills are role-context source only; no Product meaning, grant, actor, operation, host registration or acceptance; DEFAULT_LIBRARY_POLICY stays the separate capability instruction"
+  },
+  "localChecks": [
+    {"command": "node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit --incremental false (tenant)", "result": "exit 0"},
+    {"command": "node --check on the three changed test files and generate-product-manifest.mjs", "result": "exit 0"},
+    {"command": "stdin node script: parse DEFAULT_LIBRARY_STDO_SOURCE literal and compare with pinned rc5-operator-inputs/method-01/stdo-3.0.4 bytes and manifest rows", "result": "6 members, 13 spans, manifest, assetPath rule all match"},
+    {"command": "stdin node script: generator heading predicates over pinned 3.0.4 spans plus 4 mutations each; retained 3.0.2 Executive spans", "result": "13 complete, 52 mutations refused, 4 retained 3.0.2 spans complete"},
+    {"command": "stdin node --experimental-vm-modules in-memory TS transpile (no emit) running real owners: defaultLibraryRunEnvironment, constructDefaultGovernanceLibraryModulePublication + native/C2, validator.validateProgram, product.observeRunEnvironment on read-only pinned 3.0.4 root, abg projectRunEnvironmentRoleEvidence", "result": "program_validation with 4 F_P leaves; acquisition observed; per-role sourceContent exactly the HOW table; crossed permission access_not_permitted; wrong span identity_mismatch; widened membership identity_mismatch at record; unlisted context member refused; constructStdoRunEnvironmentDeclaration still refuses the generic subset"},
+    {"command": "same loader running t287-default-library.test.mjs with --test-name-pattern='default role content|RC5 STDO 3.0.4'; fs reads of contracts/default-library/stdo served from the pinned 3.0.4 declared members and generated inventory (C2-equivalent staging, in memory)", "result": "tests 2, pass 2, fail 0, skipped 0"},
+    {"command": "falsifier: same run with in-memory selection mutations (assessor stdo-review->stdo-work; constructor receive->issue)", "result": "both mutations: fail 2/2"},
+    {"command": "same loader running t287-stdo3-run-environment.test.mjs (retained 3.0.2 control; uses installed `stdo resolve stdo://releases/v3.0.2/`)", "result": "tests 5, pass 5, fail 0, skipped 0"},
+    {"command": "verbatim generator default-library block (AsyncFunction) over C2-equivalent staged bytes", "result": "exact staged accepted; refused: missing plugin member, altered plugin member, retained 3.0.2 Executive bytes, misplaced assetPath, unlisted member, shifted self-consistent span, wrong anchor, 3.0.2 manifest"}
+  ],
+  "notRun": [
+    "C2 recipe (compile, staging, qualification staging, product generator, selected suites) — owned by C2",
+    "t287-qualification-law.test.mjs — comment-only change; requires C2 build/staging and fixture env",
+    "unselected live/capture/native-recovery cases in t287-default-library.test.mjs (e.g. ABI5_DEFAULT_LIBRARY_LIVE, ABI5_PLANNING_PROJECTION_CAPTURE) — not run",
+    "no build, package, install or generator run on canonical source; no generated contract edited"
+  ],
+  "residualsAndExclusions": [
+    "Local test runs used an in-memory TS transpile and in-memory serving of staged bytes; they are construction feedback, not C2 evidence.",
+    "Canonical contracts/default-library/stdo remain historical 3.0.2. The new generator check refuses them by design until C2 stages the declared 3.0.4 members; generator must run after staging.",
+    "Role source grows per prompt (selector +30041, constructor +21580, command_executor +21580, assessor +19397 bytes). The 131,072-byte selector Run bound is unchanged; a live Run near the bound (e.g. the capture-only 51-observation planning case) may now refuse with declared_bound_overflow. Unverified locally (capture fixture not run).",
+    "Invocation run-environment evidence now carries six member bodies (plus manifest) base64-encoded; event size grows accordingly. F4 codec repair is the separately selected next increment.",
+    "test_env/qualification/{inventory.json, recipe/expected-output-inventory.json} still pin 3.0.2 default-library bytes; they are whole-qualification recipe records outside this grant and outside the selected suites.",
+    "t287-governed-context.test.mjs asserts the packaged manifest equals the Definition-resolved basis manifest; that relation holds only after C2 staging/Root adoption of 3.0.4 contracts.",
+    "Excluded per grant: F4 event codec, GC03 host rewrite, Product/requirement/Public schema change, whole qualification, release/tag/push, immutable history."
+  ],
+  "scratch": "auxiliary files (context.inventory.json, archive/, os/, node-compile-cache/) were confined to rc5-scratch/method-01/tmp (session TMPDIR) and removed; no writes outside the declared write scope"
+}

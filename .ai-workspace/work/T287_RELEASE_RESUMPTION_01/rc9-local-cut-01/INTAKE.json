@@ -1,0 +1,96 @@
+{
+  "id": "RC9-CUT-PREP-01",
+  "status": "ADMITTED_PREPARATION_ONLY",
+  "recordedAt": "2026-11-08T06:38:26.338361+00:00",
+  "actor": "/root/rc8_cut_preparation",
+  "role": "separate RC9 Cut-Preparation Writer/Operator",
+  "consumer": "/root",
+  "userInstruction": "use RC8, pin to RC8 and use it to build RC9",
+  "admission": {
+    "authority": "Product Executive /root under existing user continuation",
+    "decision": "ACCEPT",
+    "evidence": "Parent NEW_TASK RC9-CUT-PREP-01 in this team thread",
+    "selectedText": "Root explicitly admits RC9-CUT-PREP-01 to prepare controls only in new R/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01. No source/Git/runtime/build/install effects now. All mutations limited new rc9-local-cut-01.",
+    "metadataFollowup": "Root accepts version triage and selected prospective native metadata successor via RC8 after author01, exactly package.json/package-lock roots/contracts two constants. No source patch or temporary override allowed."
+  },
+  "frame": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "bytes": 27131,
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "definition": {
+    "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "bytes": 3136,
+    "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+  },
+  "agents": {
+    "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+    "bytes": 12932,
+    "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+  },
+  "method": {
+    "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4"
+  },
+  "composition": [],
+  "scope": [
+    "fixed15",
+    "GOAL-035",
+    "T-287",
+    "REF-01"
+  ],
+  "changeIntent": "Prepare a held exact-source local unqualified RC9 checkpoint, reproduction, review, installation and installed-owner smoke path.",
+  "changeClass": "release preparation under existing outcome; no Product/source realization in this activation",
+  "reentry": "Existing accepted RC8 cut controls and selected RC9 Root scope; native source and metadata owner results are prerequisites.",
+  "targetTruth": "Exact current control/tool pins and prospective roots, with future candidate/proof/acceptance pins null and execution held.",
+  "supersededTruth": "RC8 cut controls alone describe RC8; no RC9 cut controls previously existed.",
+  "closureLaw": "Return prepared controls, actual metadata owner requirement, unresolved actual subjects and minimal next operations; no execution.",
+  "inputs": {
+    "ROOT_SCOPE": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SCOPE.json",
+      "bytes": 11953,
+      "sha256": "0af265d93d50fc2fb6f63d33ca8405f731685fa0525df00138ca69dc98845af6"
+    },
+    "INTAKE": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/INTAKE.json",
+      "bytes": 4799,
+      "sha256": "59e678e747bc2051a779da756742815309fbb3101a60a6a3a1439376f6805f1c"
+    },
+    "BUILDER_PIN": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+      "bytes": 3608,
+      "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+    },
+    "CHECKOUT": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/CHECKOUT.json",
+      "bytes": 1467,
+      "sha256": "28b9d806864d6a67361fc06a474af848cf0dec325f0e6dd085ca79a0926319ff"
+    }
+  },
+  "receivingRoute": "Installed STDO3.0.4 stdo-work Control Intake / Receive; Product Basis verified before mutation. Reuse prior judgments only within exact subject and scope.",
+  "host": "Shared unrestricted filesystem and inherited thread history; no technical read isolation claim. No read of active C9 source as frozen subject.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01"
+  ],
+  "allowedEffects": [
+    "new preparation/control files only",
+    "static syntax checks of those new controls"
+  ],
+  "excludedEffects": [
+    "source or metadata edits",
+    "Git/index/worktree effects",
+    "tests or builds",
+    "artifact creation or repacking",
+    "runtime/SDK/provider/native execution",
+    "installation",
+    "cleanup",
+    "push/tag/merge/publication/global selector/qualification"
+  ],
+  "stop": "Missing actual final source/archive/evidence is an explicit held binding; return to Root. No auto-activation."
+}

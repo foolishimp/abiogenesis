@@ -1,0 +1,46 @@
+{
+  "recordedUtc": "2026-11-03T23:57:19.388Z",
+  "kind": "exact_installed_budget_projection_before_full_preflight",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 6671750,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 6676750
+  },
+  "limits": {
+    "absoluteTimeoutMs": 9000000,
+    "inactivityTimeoutMs": 7200000
+  },
+  "fits": true,
+  "helperShellTimeoutMs": 7200000,
+  "outerTimeoutMs": 18000000,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "limitsMeaning": "Operational caps, not expected latency; no automatic retry. Final complete packet preflight remains required."
+}

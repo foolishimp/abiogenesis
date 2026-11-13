@@ -1,0 +1,49 @@
+{
+  "status": "FROZEN_PREPARATION_CONTROLS_NO_NATIVE_DISPATCH",
+  "at": "2026-11-07T09:32:46.859366+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/PREPARATION.json",
+      "bytes": 6954,
+      "sha256": "bbe67934bf794ef2aaa66e6c7575b69e8a39da897d527544a7e26cfadfdc7124"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/ROOT_SCOPE.json",
+      "bytes": 5218,
+      "sha256": "c1ac7d1793b99f4860a38d41c785294a942763a500b68318b0d8d7e94c8e2011"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/TASK.json",
+      "bytes": 6287,
+      "sha256": "072998d63c83f59228d05e727d32eaba580deee2d8d55dc41f29700a47bc5190"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/host.mjs",
+      "bytes": 12242,
+      "sha256": "73b08c89f75f68a6733f53463eb337f646ed71acf8471c49a68cf8e32510c12b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof.mjs",
+      "bytes": 10756,
+      "sha256": "029199c277563f91aca1f9e6fa737d7bcafce3f05062e7c93cb62d8f53f59b0c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/HOST_DIFF.patch",
+      "bytes": 3848,
+      "sha256": "d5414c1dab62322e1ccfaa2164b9346d66f93ebeaa673a7940d00fa3d7af6be3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/PROOF_DIFF.patch",
+      "bytes": 7010,
+      "sha256": "766aae2ea5d15d112329bbed3ee652a373d718cb9f598664e808a2c93fa3d06d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/BINDING.json",
+      "bytes": 4896,
+      "sha256": "3d8e1eaf76f17ec2f4b19fa096ae00a7e812ac097417f8c2c8ed3768eea0d656"
+    }
+  ],
+  "sourcePreimageDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+  "sourcePreimageStanding": "Root explicitly selects reviewed physical A8 source86711 as preimage. A8 source acceptance pending; its native Run runtime_failed. A7 bounded acceptance is historical, not the current preimage acceptance.",
+  "providerDispatch": false
+}

@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+  "kind": "executed",
+  "passed": false,
+  "wallMs": 30363.469291999994,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 1,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/events/171-t287-selected-action-authority.jsonl",
+    "bytes": 767,
+    "sha256": "c9ffe1058c8b2b2eaea02da5bce56bd6ddb2e16dbc29941d1a686afe3bb095db"
+  },
+  "commandReceipt": "commands/171-t287-selected-action-authority.result.json",
+  "workspace": "/private/tmp/abg-r8c-019/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

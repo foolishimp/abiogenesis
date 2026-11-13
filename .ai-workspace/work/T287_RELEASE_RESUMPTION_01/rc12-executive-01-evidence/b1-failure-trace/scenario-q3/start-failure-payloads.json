@@ -1,0 +1,72 @@
+[
+ {
+  "ord": 164,
+  "kind": "terminal_reached",
+  "gf": "graph-function://abiogenesis/worksite/native-work@5",
+  "aggregateType": "frame",
+  "payload": {
+   "cCallRef": "c-call:sha256:34046976be1b5c62689ee547b53115599a0bd3c716baa65861fee329e5c579bf",
+   "childFrameId": "frame://abiogenesis/3cbb73b3d9316aaa00c1bc11f4fbca19bcf107e3c20aace7cf0a2013f3d4a87b",
+   "childGraphCallId": "graph-call://abiogenesis/7db62bd6d7adfafe5100de3aa9f0cb6944d5a8cccaa18d465de87b3486f5ce98",
+   "closureContractDigest": "sha256:359b7f863925b586108b4e81752ef96e5fb231247106e161ae5aa16b4421da66",
+   "closureContractRef": "contract://abiogenesis/worksite/native-work/child-closure@5",
+   "closureDigest": "sha256:eabf8d5f631dda82d6d6fa22c054c6863ef734c188c0a92ad88eda2f971644aa",
+   "closureRef": "closure://abiogenesis/eabf8d5f631dda82d6d6fa22c054c6863ef734c188c0a92ad88eda2f971644aa",
+   "judgmentRef": "judgment://abiogenesis/59e0892eef772561f9e2cbfd7a2f6aed1a91eaaa96527f9cd448c8b9b816572d",
+   "resultRef": "result://abiogenesis/d38fe9c86ea363c54a5385ab32282baf135849258c3be96f0799d19c14d96d28",
+   "routeRef": "traversal-route://abiogenesis/f1c52242c776483398bf24781e0c7dbfbc0c28eed9b833169b7fc578257ff6b0",
+   "terminalKind": "completed"
+  }
+ },
+ {
+  "ord": 198,
+  "kind": "terminal_reached",
+  "gf": "graph-function://abiogenesis/default-library/construction@5",
+  "aggregateType": "frame",
+  "payload": {
+   "cCallRef": "c-call:sha256:cbc344684d4d1e72f67a41041ddae2404548963fe8e87c8fdfeb3cb18484abbe",
+   "childFrameId": "frame://abiogenesis/5a0c1b49b8a690df46b2896f898aa3b15cebed83e1f45a418134c629667f8a75",
+   "childGraphCallId": "graph-call://abiogenesis/072330320ed7ba56f86d91665aa13ac0e2395c0e04db99d5c341b2802e057ec7",
+   "closureContractDigest": "sha256:d0d93b46adb6990506e360e45c473e0bd8911c2304b03deced78e078eab5446e",
+   "closureContractRef": "contract://abiogenesis/default-library/closure-child@5",
+   "closureDigest": "sha256:3405a7396ece55e48dd08078efb4190d903e3f469f34f885ae6621b3c5b7e4fc",
+   "closureRef": "closure://abiogenesis/3405a7396ece55e48dd08078efb4190d903e3f469f34f885ae6621b3c5b7e4fc",
+   "judgmentRef": "judgment://abiogenesis/6777aec4be4a1bc2312c91b01632b3dfab970fdaaa2f60fe54bab4385a0ececc",
+   "resultRef": "result://abiogenesis/55ffd5bfad368af48e8f4aa3ee40bffbac45de5d599f04cdb8c580b3c391030e",
+   "routeRef": "traversal-route://abiogenesis/486143d1052c2a89c335c97bb7516ef33977b44d7effbfba1c3e15d17b7a75e1",
+   "terminalKind": "completed"
+  }
+ },
+ {
+  "ord": 215,
+  "kind": "terminal_reached",
+  "gf": "graph-function://default-library-witness/executive-step@5",
+  "aggregateType": "frame",
+  "payload": {
+   "cCallRef": "c-call:sha256:c5ab083b7ca28baa2081996ec9add4d14e3fa1ed2c4e27abb4567608b67bfa39",
+   "childFrameId": "frame://abiogenesis/8c51ad2ae110369050b2f90a59a3df28be4bf91b8f289b0f603e49c80bed6f57",
+   "childGraphCallId": "graph-call://abiogenesis/67ec30f0a9905dd063b27f9c7ae4a0b59cb667ed0aba071deeef174ccf6b141e",
+   "closureContractDigest": "sha256:d0d93b46adb6990506e360e45c473e0bd8911c2304b03deced78e078eab5446e",
+   "closureContractRef": "contract://abiogenesis/default-library/closure-child@5",
+   "closureDigest": "sha256:7b8bd684be8e2f171f188105f91f002a2f688d8c867475f289abfe4fb659e51c",
+   "closureRef": "closure://abiogenesis/7b8bd684be8e2f171f188105f91f002a2f688d8c867475f289abfe4fb659e51c",
+   "judgmentRef": "judgment://abiogenesis/3870a999ccd83c76a3e60b6c10adbb574f74c29f6a26e26aefdac0bc7496396f",
+   "resultRef": "result://abiogenesis/18d413106fdaa678cd2c6d6fa6ecc8caf7ebf75a218ecf613ed6b52e3c8b7d20",
+   "routeRef": "traversal-route://abiogenesis/2c71bbc0be2e79a65092632c13fe18c86841b98caf7554002b16cbe1527aaa85",
+   "terminalKind": "completed"
+  }
+ },
+ {
+  "ord": 239,
+  "kind": "run_stopped",
+  "gf": "graph-function://default-library-witness/executive@5",
+  "aggregateType": "run",
+  "payload": {
+   "cCallRef": "c-call:sha256:3e8a59d253c443dbd42fd2ec254269596ed430cc733083b2ddc527ba1fc88411",
+   "disposition": "blocked",
+   "judgmentRef": "judgment://abiogenesis/c81ce9d8819af0e60c679c2352d46de61d25c25f55f863696c9a6d03b1ee82d1",
+   "reasonRef": "reason://abiogenesis/recursion/bound-exhausted@5",
+   "routeRef": "traversal-route://abiogenesis/9cb89c735a0ec902fd3202087d9e6f7b05724e9b45f02ce5d2e84dc60c2ce409"
+  }
+ }
+]

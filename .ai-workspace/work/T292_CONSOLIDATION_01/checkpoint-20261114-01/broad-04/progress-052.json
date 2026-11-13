@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-calculus-fold.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 25,
+    "pass": 25,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/052-t287-calculus-fold.test/process.json",
+    "bytes": 1068,
+    "sha256": "8ab6b7f64e407ab9fc829fdc15edb5c7c0f5bd264ec45d7f5308c090aaf975d7"
+  }
+}

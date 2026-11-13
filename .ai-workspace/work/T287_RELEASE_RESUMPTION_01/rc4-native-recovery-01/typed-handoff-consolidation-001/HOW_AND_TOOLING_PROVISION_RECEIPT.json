@@ -1,0 +1,64 @@
+{
+  "status": "ROOT_SELECTED_HOW_CHECKPOINT_AND_TOOLING_PROVISION_COMPLETED",
+  "recordedUtc": "2026-11-02T15:38:13.415143+00:00",
+  "parentCommit": "6027d03d94438260b28472e1465fe4dfdc88f1c0",
+  "commit": "5331e3ae707fa258fec14bf7b9f7ede76f805fe3",
+  "tree": "8fb09903f1466dd40fc0444e3ab8eb1b4e56f158",
+  "howFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "beforeSha256": "e928ddf8c85f6d49c3db949202bba6bcdf189fb256b3b9da96a6dced8cdd4b18",
+      "afterSha256": "04093bd312d84e54dec0b098f3d3a4ff0afb61a8619b7133b7e9a118a4892cf3",
+      "bytes": 17624
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "beforeSha256": "b263bcefbf80bc2bdb1c8bca118cbe597cc8135e05995ef40e234abe96890a0c",
+      "afterSha256": "eabbe029c6551408b4fe061eebc47f90c2e83a98695dd58d64d354b46d3da57d",
+      "bytes": 172297
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "beforeSha256": "06ec590a6e39fa4aa5ef8f3bf231d464d0de2d1f3fa2d8c8016445e96d77695c",
+      "afterSha256": "3642a5d070359287eed4530147406686268316e65dd6450e3be46301afd5b775",
+      "bytes": 34100
+    }
+  ],
+  "exactThreeOnly": true,
+  "trackedClean": true,
+  "proposal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/typed-handoff-consolidation-001/TOOLING_PROVISION.DRAFT.json",
+    "bytes": 4381,
+    "sha256": "e738a071288b96ed15b8fa647cca075f27fcef738463dad22cb6ed3dcea7c224"
+  },
+  "provision": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/node_modules",
+    "target": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "device": 16777231,
+    "inode": 681367957,
+    "operatorOwned": true,
+    "workerWritable": false,
+    "beforeAbsent": true
+  },
+  "censusBefore": {
+    "kind": "offline_dependency_tree_census",
+    "root": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "entries": 4576,
+    "regularFiles": 4574,
+    "symlinks": 2,
+    "bytes": 58290948,
+    "canonicalInventorySha256": "6aba0391382aae398fe2ddc62536491ed189d45aa1b36d896fe226a09e409049",
+    "meaning": "Exact local offline test dependency preimage, not a Product or native admission"
+  },
+  "censusAfter": {
+    "kind": "offline_dependency_tree_census",
+    "root": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "entries": 4576,
+    "regularFiles": 4574,
+    "symlinks": 2,
+    "bytes": 58290948,
+    "canonicalInventorySha256": "6aba0391382aae398fe2ddc62536491ed189d45aa1b36d896fe226a09e409049",
+    "meaning": "Exact local offline test dependency preimage, not a Product or native admission"
+  },
+  "meaning": "HOW checkpoint and one ordinary read-only dependency link only; no native Product implementation, runtime, provider, install/copy/build or release."
+}

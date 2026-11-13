@@ -1,0 +1,43 @@
+{
+  "kind": "native_author_post_return_custody_close",
+  "status": "SOURCE_AND_ACTUAL_OWNER_CLOSE_CUSTODY_COMPLETE_ACCEPTANCE_WITHHELD",
+  "createdUtc": "2026-11-06T14:02:31.427437+00:00",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/SOURCE_AFTER.json",
+    "bytes": 510126,
+    "sha256": "692a29f93a48d755f973cee94d73f3952c7920e1d54f710e4e6c30f6a812efdc"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 30936,
+    "sha256": "7472605835633a071ab803a9e697581ed998c829a3ed83dd252cf26709b650b6"
+  },
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-return-controls/actual-001/CUSTODY.json",
+    "bytes": 16048,
+    "sha256": "28cfc93e7e4f6772530a34a77e374a9f0838973a9b8d02c7705095e457f8cadb"
+  },
+  "proofInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-return-controls/actual-001/PROOF_INVENTORY.json",
+    "bytes": 7205,
+    "sha256": "660823bff1c392f9a872e5de67d1964802f745ef88e756c8d1eeb9721688b791"
+  },
+  "runtimeClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8825,
+    "sha256": "87de60b343daddd37b9b2aa085c9fe8d2ba0eb56a1c0925d64eae57eeb9eca70"
+  },
+  "residuals": [
+    "held-session-measured red (test defect); held-session-final and five final lanes not eligible",
+    "no genuine HS02 before red",
+    "maintained-caller fixed admission not executed on candidate source",
+    "warm/cold equality, close, refusals and recovery not observed"
+  ],
+  "controlDeviation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/deviation-001/DEVIATION.json",
+    "bytes": 2546,
+    "sha256": "a70d816121661647f164a8958d145e4a6fc8a33d38cd0812471a6147b8bc7360"
+  },
+  "coldReadsExecuted": false,
+  "productAcceptance": false
+}

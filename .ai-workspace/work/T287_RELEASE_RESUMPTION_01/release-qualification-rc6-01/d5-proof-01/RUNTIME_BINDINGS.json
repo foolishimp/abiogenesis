@@ -1,0 +1,21 @@
+{
+  "status": "UNBOUND_AWAITING_ACTUAL_D5_FREEZE_CLOSE_AND_ROOT_ADMISSION",
+  "expectedSubjectPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+  "expectedResumePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/after-run-resume.json",
+  "frozenSubject": null,
+  "actualResume": null,
+  "actualClosePrefix": null,
+  "rootControlAdmission": null,
+  "consumerBindingSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/CONSUMER_BINDING_RETAINED.json",
+    "bytes": 28708880,
+    "sha256": "66b6584dff16c8c3f4833650a2c780232d1bd58434aa5e05cb9088d7eae63dad"
+  },
+  "overlayFields": [
+    "binding",
+    "catalog",
+    "catalogView"
+  ],
+  "sourceBasis": "none",
+  "limit": "Paths are future locators only. No subject/result/close is bound. Root must verify actual author return and final close, then reconcile exact pins/fields."
+}

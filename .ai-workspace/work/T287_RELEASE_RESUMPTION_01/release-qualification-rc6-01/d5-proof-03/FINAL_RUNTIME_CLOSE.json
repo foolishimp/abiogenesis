@@ -1,0 +1,129 @@
+{
+  "kind": "actual_blocked_run_resource_close_and_readback_recovery",
+  "at": "2026-11-06T03:18:11.638313+00:00",
+  "status": "ACTUAL_RESOURCE_CLOSED_BLOCKED_RUN_READBACKS_AGREE_PROOF_UNSATISFIED",
+  "run": {
+    "digest": "sha256:c3f09e39d01787b33dd16d3d52015a8bc676ee6cd374f4dc0ed1059c018db5a5",
+    "ref": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "actualReceiptCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ACTUAL_RECEIPT_CUSTODY.json",
+    "bytes": 3459,
+    "sha256": "99b566c9d745fb42917a5500584bd5407f9f44a37563efe37ee93045019a30af"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/after-run-resume.json",
+    "bytes": 72684562,
+    "sha256": "b6740b2697e2d5b74820bdbf339655c7bbd7c9e76fdfcd8af0242676ef93773e"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/fresh-reads.json",
+    "bytes": 2404,
+    "sha256": "d6934e37abe1a9e47b2ff5575f9efc2d57552d06b94ef42ef668bd1ae4b4d685"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:56a796f7ca179fb03538d31e77b995157c699c40abc28025837f7d6f2ae335db",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:2fc8a9f8bc56eded06c22d64c9969807cb3dd9498638dc75ab42c18389b7195b",
+    "prefixLength": 1057950101,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "physicalPrefixVerified": true,
+  "allFrozenLiveMembersEqual": 417,
+  "handoffMembersEqual": 3,
+  "actualInvocation": {
+    "exitCode": 0,
+    "disposition": "blocked",
+    "terminalPresent": false,
+    "outcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/execution/outcome-summary.json",
+      "bytes": 537,
+      "sha256": "1b93b1067ba4b7e219e3990fa012168a36653fb14f8e350e51a5dda9871e81d7"
+    }
+  },
+  "readback": {
+    "run_result": {
+      "exitCode": 1,
+      "outcomeKind": "refusal",
+      "code": "not_found",
+      "reconciliation": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/run_result/ROOT_RECONCILIATION.json",
+        "bytes": 3429,
+        "sha256": "75184413ff7bbc3d07c77cb9a1a93d6a9b29cff8be7be62796e6766d2bbcf514"
+      }
+    },
+    "run_replay": {
+      "exitCode": 0,
+      "outcomeKind": "result",
+      "status": "blocked",
+      "terminalPresent": false,
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/run_replay/SUMMARY.json",
+        "bytes": 3533,
+        "sha256": "6d74cd0e8949ec28ae7de0cc8d1a800677b21e72ba9ffae5a250e9673ec8050f"
+      }
+    },
+    "terminalAbsenceAgrees": true,
+    "eachPendingReadRunOnce": true,
+    "sameActualClosePreserved": true
+  },
+  "currentC2": {
+    "pass": 112,
+    "cancelled": 1,
+    "recoveryDeadlineMs": 117000,
+    "evidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ACTUAL_C2_SUMMARY.json",
+      "bytes": 7161,
+      "sha256": "12514b1a38b1fa7eeceb1de261d74866bf6fc6db3dce4ee323ca1a9956521f70"
+    }
+  },
+  "nativeUat": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/NATIVE_UAT_CLOSED_RESULT.json",
+    "bytes": 1566,
+    "sha256": "c0de6cae525566658dc08b423b8b5446dc8741e91e6068123a2fcce45912766c"
+  },
+  "hostFailuresPreserved": {
+    "originalHost": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/HOST_RESULT.json",
+      "bytes": 155,
+      "sha256": "29d3d0930840c7ee51cdc93a4351fbfa12ec7c071730f48b2761b21f2d4804d7"
+    },
+    "firstRecoveryHelper": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/run_result.RESULT.json",
+      "bytes": 174,
+      "sha256": "7bec9b141538638f790171bd5980bb5c1ca82c51a28db042fecc61d9b9954e63"
+    },
+    "predicateTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/CONTROL_PREDICATE_TRIAGE.json",
+      "bytes": 2529,
+      "sha256": "54e1ad805a2b4d8fd3a99a2e273d7f3d01393405ede0bb7293c3fa05f61989ab"
+    }
+  },
+  "rootProofDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ROOT_PROOF_DISPOSITION.json",
+    "bytes": 4553,
+    "sha256": "1b64c3bd79db0be44dd44994e36cdcbce87203a1ae389295017103d933b328c6"
+  },
+  "hostMemoryReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/host-memory-triage-001/REVIEW.json",
+    "bytes": 37612,
+    "sha256": "bd8532ff2bad99188064b52af441be24304548c60bbee6efb448d26f9d975029"
+  },
+  "recoveryAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/ROOT_ADMISSION_R2.json",
+    "bytes": 2735,
+    "sha256": "62cf0d069bc2e0cd74981e5fcb3821c88c457fdd278b1f42954ad054b4790e69"
+  },
+  "standing": "Actual resource close is usable for successor binding. Original Run remains blocked without terminal; incomplete D5 recovery/UAT remains open. This is not successful native proof, independent J, qualification or release acceptance."
+}

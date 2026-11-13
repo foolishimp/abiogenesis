@@ -1,0 +1,35 @@
+[
+  {
+    "id": "scope-ordering",
+    "mode": "after",
+    "setupMs": 72,
+    "priorLaneAllocations": 1,
+    "laneAllocationCap": 6,
+    "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+    "activeRc7": [
+      "RC7 HS03 scopes: interleaved actor scopes on one store; frame and CCall producers drain no window, an actor probe and a threshold drain only their own scope, and a refused decision keeps its committed window",
+      "RC7 HS03 scopes: an enclosing transaction owns a flushed window; rollback restores it and commit keeps it, then noise-only and result windows keep exact lastActivity",
+      "RC7 HS03 actor successor: a not_reached decision that commits the pending window returns its durable successor, and the actor admits its next window there"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 HS03 (?:scopes:|actor successor:) test_env/tests/t287-calculus-fold.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 1230,
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 3,
+    "failing": [],
+    "stdoutSha256": "387beef9d2ce7098f7a5864282821971867cc3d893612d77e71e98ab1e86c42f",
+    "stdoutBytes": 1565,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

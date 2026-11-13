@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "f88d5c2413a1b9b29c003a510d317746420d6dd19da8783dac8302796316b3ad",
+  "sourceCommit": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+  "sourceTree": "d136d90f44921b2944579bf89fbac0075052920b",
+  "decision": "Root reviewed exact011 packet, independently verified all448 binding and24 packet pins, source/tree and tracked cleanliness, and admits zero-provider installed preflight/call construction only for bounded fresh acquisition of preserved code and subsequent native C2/UAT. Construction has zero Product/generated writes and scratch-only acquisition,96turns; candidate/source separation, readiness checker and unchanged nine C2 commands/twelve predicates are conserved. Exact frozen-call review remains required before Root one-shot dispatch. No Product edits, new architecture, automatic retry or acceptance is inferred.",
+  "packetSha256": "caa720c7b2d3734d786121db95a5ec7cf02ea7cf8de6834c5a8891fe158b9847",
+  "decidedUtc": "2026-11-02T06:41:55.529079+00:00"
+}

@@ -1,0 +1,59 @@
+{
+  "status": "PREPARED_NO_EXECUTION_PENDING_FOCUSED_AND_REVIEW",
+  "at": "2026-11-07T09:03:04.157743+00:00",
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.mjs",
+    "bytes": 8402,
+    "sha256": "8b4ec9e9342186542cc413fdbae1d1357a41828388eee6172bcb6eb7f8a07af9"
+  },
+  "template": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/BINDING.template.json",
+    "bytes": 6748,
+    "sha256": "601d45cdc03cf7e54d197a87808043be1fa2d26276416ce8ff895ed4f5d99abb"
+  },
+  "existingOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    }
+  ],
+  "subject": {
+    "sourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/source-freeze.json",
+      "bytes": 296040,
+      "sha256": "efba6bea8f3d0e1b0695772c18bdd731652b0f0652a2a878619b2445c073fc50"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/READY.json",
+      "bytes": 572457,
+      "sha256": "d40e3b0e695d6ef2b8529a11cf1b7a75708e167c6287c99679aabf74f19e309b"
+    }
+  },
+  "effect": "One dedicated derived workspace and one full12-case consolidation command through existing commandRecorder/file-host/reporter, including aggregate predicate; zero builds/generation/providers. Existing physical-copy and input-verification composition reused; no generic test selector.",
+  "pendingGates": [
+    "Both A8 focused lane RESULTS passed on this exact source",
+    "Independent A8 review satisfied without blocker",
+    "Final BINDING pins both lane results and exact review; send concrete pins before execution"
+  ],
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 3600000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "commandTimeoutMs": 3600000,
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-001",
+  "scratchRoot": "/private/tmp/abg-r8-sas-001",
+  "wholeFileCreditOnlyAfterCompleteAggregateAndEnd": true,
+  "noCleanupOrRetry": true
+}

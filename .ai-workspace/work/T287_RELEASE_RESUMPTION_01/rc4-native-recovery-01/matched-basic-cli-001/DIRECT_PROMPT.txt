@@ -1,0 +1,14 @@
+Implement the complete basic-cli application described by the three provided source/basic-cli files. Keep those input files unchanged. Produce a minimal Node CLI at generated/hello-world.mjs that runs without package installation and writes exactly "Hello, world!\n" with exit status 0.
+
+Produce genuine, consistent project-conformance, implementation-design and test-design documents; component and UAT node:test files that execute the real CLI and assert its exit status and exact stdout; and test-execution-plan.json naming the real command and pass floor. The permitted output paths are:
+- specification/project-conformance.md
+- design/implementation-design.md
+- generated/hello-world.mjs
+- design/test-design.md
+- test/component/hello-cli.test.mjs
+- test/uat/hello-cli.uat.test.mjs
+- test-execution-plan.json
+
+Implement and verify these outcomes using your ordinary coding tools. Run node generated/hello-world.mjs and node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs. Require at least two passing tests and zero failures; report the commands and their actual results. Do not install packages or modify the input source files.
+
+The supplied historical stage descriptions specify artifact content and coverage, not a mandated agent workflow. Framework-specific admission/evidence language in the source material applies only to the separately measured framework arm; do not fabricate framework events or admitted receipts. Your actual CLI/test outputs and an independent content assessment supply the same external application acceptance checks.

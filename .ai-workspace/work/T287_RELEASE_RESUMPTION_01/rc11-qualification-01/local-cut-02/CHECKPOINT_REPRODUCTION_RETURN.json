@@ -1,0 +1,71 @@
+{
+  "status": "SOURCE_CHECKPOINT_COMPLETE_REPRODUCTION_MISMATCH_STOPPED",
+  "sourceCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "sourceTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1254,
+    "sha256": "351ad5ccc49b34d4567ae69accfbdf063abab4d214023d9a09959cfc3bc387c9"
+  },
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/actual-001/BUILD_RESULT.json",
+    "bytes": 592,
+    "sha256": "0d0e5c8806dcabe235022ae901cbc13d7473b2d29354d55580ebdb400eb434e6"
+  },
+  "comparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/REPRODUCTION_FAILURE_COMPARISON.json",
+    "bytes": 2154,
+    "sha256": "62a76cff700fff8b625e95335b411fb769e1db484439071aa79d79bedb2a4e22"
+  },
+  "mechanicalTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/REPRODUCTION_TRIAGE.json",
+    "bytes": 17383,
+    "sha256": "2a83088fe670e983e759bb699c025b135cc72fc7aacbcef3338c6c58f55902fa"
+  },
+  "candidate": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "reproduction": {
+    "path": "/private/tmp/abg-rc11-cut-20261109-02/reproduction/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11028588,
+    "sha256": "5c82a6296b8a183cc5cebe3f08cff9ac076df4d5ecc108d1ebf219e499206a34"
+  },
+  "manifestBytesEqual": false,
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "sourceRowsConserved": 1340,
+  "selectedCommitPaths": 14,
+  "newPaths": 6,
+  "deletedPaths": 0,
+  "candidateTrackedAndIndexClean": true,
+  "excludedUntrackedPathsConserved": true,
+  "mainAndTrackingPinsConserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 176302,
+      "sha256": "c7f0586b208c001e35c54a2db1571d858140f9cc06d1ff14711f72766923b94a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 827077,
+      "sha256": "f2bd87d7d29c02d80a5c18fa5782b6de3d07abb42833999efda4ff6e64d9bf19"
+    }
+  ],
+  "releaseInstallAbsent": true,
+  "unexecutedSuffix": [
+    "successful archive/member correspondence",
+    "built Product identity read",
+    "install-input preparation",
+    "release/install"
+  ],
+  "retryExecuted": false,
+  "qualified": false,
+  "unitPassed": false,
+  "standing": "Return to Root. First failed source/archive/controls remain preserved; no repair, repack, retry or candidate substitution."
+}

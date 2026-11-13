@@ -1,0 +1,49 @@
+{
+  "kind": "separate_setup_preflight_launch_between_task_wall_timing",
+  "at": "2026-11-06T03:53:36.610248+00:00",
+  "setupReused": true,
+  "newSetupMs": null,
+  "setupStanding": "No new SDKsetup inthisactivation; not zero-costoverall.",
+  "preflight": {
+    "startedUtc": "2026-11-06T03:41:15.774235+00:00",
+    "endedUtc": "2026-11-06T03:42:29.731820+00:00",
+    "wallMs": 73956.8099998869,
+    "exitCode": 0
+  },
+  "hostLaunch": {
+    "startedUtc": "2026-11-06T03:44:25.712779+00:00",
+    "pid": 1608,
+    "mode": "dispatch",
+    "script": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/dispatch.mjs",
+    "automaticRetry": false
+  },
+  "actualDispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/STARTED.json",
+    "bytes": 1052,
+    "sha256": "d553b66b750cfde4aaad0a3698dfff9072abf3aed5086146dcf2b4a9caada039"
+  },
+  "nativeActor": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 175744,
+    "eventId": "event://abiogenesis/1b9164c58cef9c5e7c5c13e10c17644e9547ec6b3824c962a5311af746d240a0",
+    "eventTime": "2026-11-06T03:46:42.021Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632",
+    "offset": 1090174079,
+    "rowBytes": 1822,
+    "rowSha256": "67d30d7719c1e0e4f5d770e19f45a985ba1621d463ae10c441d49b77b3fe1a62",
+    "processRef": "process://abiogenesis/ee69f56adca4fd6f291f81e2b05ccb7c92696fd7c2eeb0a7a4f152fdfed6e76e",
+    "pid": 3109
+  },
+  "hostStartupBeforeDispatchMs": 65457.221000000005,
+  "dispatchToNativeActorMs": 70851.0,
+  "hostLaunchToNativeActorMs": 136308.221,
+  "priorHostEndToCurrentHostLaunchMs": 3016451.8419999997,
+  "priorResourceRecoveryRecordToCurrentHostLaunchMs": 1574074.466,
+  "packetSelectionToPreparedReturnMs": 2180578.102,
+  "limits": [
+    "Rootbetween-task interval includes failuretriage/recovery, source/architecturalcoordination, packetpreparation/admission andpreflight; not runtimeworkerlaunch.",
+    "Intervals overlap; do notsum all.",
+    "Nativeactualwork andpostreturn costs unmeasureduntilcompletion. No CPUattribution ormatchedRC7speedup."
+  ]
+}

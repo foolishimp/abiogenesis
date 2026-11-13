@@ -1,0 +1,11 @@
+{
+  "kind": "native_author_progress",
+  "task": "rc7-held-session-author-05",
+  "status": "SOURCE_AUTHORING",
+  "updatedUtc": "2026-11-07T06:00:00Z",
+  "inputsRead": "All named qualification inputs; pinned H04 refusal-oracle, stage-001 review, root disposition, failed fixed-route summary. Six cited owner sources in the worksite hash-match their pinned frozen reads.",
+  "writePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+  "baselineTestSha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650",
+  "stage": null,
+  "lanes": []
+}

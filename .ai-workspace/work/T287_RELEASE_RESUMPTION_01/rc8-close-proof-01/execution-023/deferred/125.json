@@ -1,0 +1,27 @@
+{
+  "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+    "testSha256": "0c30523897fb3b123e0d222f3ac344e682f3a08c46a90442ee36b73058787b19",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Actual012 four fixture inputFor workspaceAuthorityBasis failures await Root causal review; no repair or pass/skip credit selected.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_012.json",
+        "bytes": 6766,
+        "sha256": "d95c210bce6314295ac5a97d1cbfdd63d5dda6f304d051337d8bc692704ad820"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/125-t287-native-worksite-execution.json",
+        "bytes": 2611,
+        "sha256": "ce37e135e7160978ee54917115290cd35812d9d1336a4f0e61039157d97926ee"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/commands/125-t287-native-worksite-execution.stdout",
+        "bytes": 5908,
+        "sha256": "180674cc498449f6ff35146200005afd2df192cd30bc4fe2e1713d899c7f17c7"
+      }
+    ]
+  }
+}

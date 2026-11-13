@@ -1,0 +1,9 @@
+Product Frame: unchanged ABIogenesis 5.0 fixed fifteen-family scope, GOAL-035/T-287, STDO 3.0.4 and empty composition. The selected frame is `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`. Existing ABG authority and immutable RC6 builder remain the boundary; RC7 is prospective.
+
+Closed verdict: **no concrete blocker in the frozen S5 activation control delta**. Subject `CODE_CONTROL_PINS.json` is 3,175 bytes, SHA-256 `c9027ecab09a751db9a41d583b5eb605252378445c5e7f06e6a4a3563a2380b0`; `CONTROL_DELTA.json` is 6,065 bytes, SHA-256 `cb3e139d32c32e2cd1900717e14a76cf33a3990a5da60d51f0ff4c0b23e5073e`. Exact component pins are retained in REVIEW.json.
+
+The preparation maps preserve the selected durable successor obligation, early allocation validation, host output isolation and generation-only increase to 600 seconds. Activation host scripts are unchanged copies of preparation 003. The lane helper reuses H05's complete pass predicate at both terminal exit and predecessor admission: any failed non-baseline lane or different source digest stops further allocation. The intentional stdout-before red remains the sole exception; its actual semantic adequacy still requires evidence.
+
+Four stages, seven exact once-only lanes, one concurrent lane, 300-second lane bounds and the 90-minute native / 30-minute inactivity / 320-turn / 3-hour host / 8-GiB limits remain. Host actual-output checks precede acquisition, and launcher receipt checks precede child startup. No retry or Product authority widening was found.
+
+H05 acceptance, actual source, close and resume remain future Root bindings. Their intentional null state is not a code defect and is not execution approval. This controls-only review ran no tests, build, runtime, provider or performance probe and changed no source or prepared controls. It is a same-family component review, not formal F11 J or release qualification.

@@ -1,0 +1,551 @@
+{
+  "id": "PHASE2-B-UNIT-RED-PROOF-01",
+  "status": "UNIT_RED_FIXTURE_PREMISE_ORDERING_SUPPORTED_PRODUCTION_REGRESSION_NOT_ESTABLISHED",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/proof/ASSESSMENT.md",
+    "bytes": 6426,
+    "sha256": "58b0a9a4e3374063e92f32ef9aee9c06b05c7e3e12c9ae16696af249ae678d14"
+  },
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "frameRoutes": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "resumedContext": true,
+  "sourceAuthor": false,
+  "operatorRecords": {
+    "READY.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/READY.json",
+      "bytes": 6996,
+      "sha256": "8c6c8799fc7f075f544fc64465a5e87947835993a9059927eed789e5a159570a"
+    },
+    "BINDING.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/BINDING.json",
+      "bytes": 10420,
+      "sha256": "b61368b7b505cc42fe04650e22819c68e0bf0a9a255045a8c1024b37df360755"
+    },
+    "CONTROLS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/CONTROLS.json",
+      "bytes": 21010,
+      "sha256": "fc1a51fafd6eeb5dc4928441945ed9d6a762a14a5672c67acb145edbb3be1980"
+    },
+    "ROOT_EXECUTION_ADMISSION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_EXECUTION_ADMISSION.json",
+      "bytes": 2671,
+      "sha256": "20e40cc5c5c6b11eed0e8d6ec2c76ab36a7ceac434fc4d9614d18857005f64ea"
+    },
+    "unit.py": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/unit.py",
+      "bytes": 17434,
+      "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+    },
+    "EXECUTION_RETURN.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/EXECUTION_RETURN.json",
+      "bytes": 4247,
+      "sha256": "c9adc0cb0e19bd79fae9b81485051b50b646f4cffe523a9afda9699d6268beac"
+    },
+    "ACTUAL_POPULATION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ACTUAL_POPULATION.json",
+      "bytes": 35356,
+      "sha256": "3130b1307dd238eec7fdbaf1096ea430fefb9d6f2624e383ee3b19256b857534"
+    },
+    "POSTGUARDS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/POSTGUARDS.json",
+      "bytes": 719,
+      "sha256": "eff60e8cbcecbc3e570e5e664953e311ebb487cbf45df663a88ac68fe602ab54"
+    },
+    "PHYSICAL_CLOSURE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/PHYSICAL_CLOSURE.json",
+      "bytes": 6913,
+      "sha256": "187f394532e7ec8b4fb2e1e205b3b942a51696370f950e8afd1c1c4ae7538782"
+    }
+  },
+  "actualRecords": {
+    "unit/stdout.log": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/stdout.log",
+      "bytes": 220444,
+      "sha256": "1d997fad2657e460b312a8c17703cacd8d678a8b07b49cf1c6362d7387e017cc"
+    },
+    "unit/stderr.log": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "unit/COMMAND_RETURN.json": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/COMMAND_RETURN.json",
+      "bytes": 1329,
+      "sha256": "e63c070d1a72c13de3c3ccfd0313167d97a29917a69cfe75f723e33c83d4ae49"
+    },
+    "unit/LAUNCH.json": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/LAUNCH.json",
+      "bytes": 1930,
+      "sha256": "f541dee37aa6ac02a502585c0996fabbd66edb1cab7605531771e9b9eed8a7e2"
+    },
+    "UNIT_RETURN.json": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/UNIT_RETURN.json",
+      "bytes": 1078,
+      "sha256": "e8e25683a1b751395b248fb340d36ad7845e84c5faf0e4ac8d666329d5744cc8"
+    },
+    "HALT.json": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/HALT.json",
+      "bytes": 2848,
+      "sha256": "b891687f09145c69ef1d670746330b216630a3398f35c47f8a0f0be882b95b57"
+    },
+    "CAMPAIGN_RETURN.json": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/CAMPAIGN_RETURN.json",
+      "bytes": 616,
+      "sha256": "c4f38179c70e037d2951f11f0a39d6f1b68941de994a8ec683c9271a4b51cb6e"
+    },
+    "unit/evidence/m5-worker-transport--owned-group-http-normal--87629.json": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-http-normal--87629.json",
+      "bytes": 1128,
+      "sha256": "da28348aebff578cfe586f6c6371d3f2ea58a5049d4f1f1975afbd29ff1e6bf6"
+    }
+  },
+  "counts": {
+    "tests": 102,
+    "pass": 95,
+    "fail": 1,
+    "skip": 6,
+    "cancelled": 0,
+    "todo": 0,
+    "m5": 39,
+    "m5Pass": 38,
+    "m5Fail": 1,
+    "evidence": 33,
+    "expectedEvidence": 34
+  },
+  "missing": [
+    "owned-group-http-TERM"
+  ],
+  "unexecuted": [
+    "HTTP-normal assertions after1298",
+    "HTTP-TERM loop row"
+  ],
+  "sourceComparison": {
+    "preimages": [
+      "native-01/frozen-source",
+      "native-04/frozen-source",
+      "native-b01/frozen-source"
+    ],
+    "HTTPBody": {
+      "bytes": 7927,
+      "sha256": "26cb041c02d5dedde69524c6a47647892d25456f301e03d431f085077ea21207"
+    },
+    "fixtureLoop": {
+      "bytes": 5918,
+      "sha256": "cac4bbcdef196c13cb586c8c2c7a5def1e0d46111120a804321922388e93e41d"
+    },
+    "allEqual": true,
+    "sourceRowsRehashed": 1345,
+    "compiledRowsRehashed": 998,
+    "protectionPinsRehashed": 13,
+    "retainedPinsRehashed": 13
+  },
+  "causalLimit": {
+    "exactSchedulingObserved": false,
+    "pairedBaselineExecuted": false,
+    "productionRegressionEstablished": false,
+    "fixtureObservationOrderingEstablished": false,
+    "cleanupFailureEstablished": false
+  },
+  "evidencePinsRehashed": [
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-absolute--87629.json",
+        "bytes": 2879,
+        "sha256": "a36c68f58d8b5198c43ce534a83de9ea4fe09564a65015af09a2bca54fbd39dc"
+      },
+      "caseId": "controlled-absolute",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-coalesced--87629.json",
+        "bytes": 2861,
+        "sha256": "e1456f73b0a5c9054b0a27a23706d976a0fe8f7bde050e9321a5d14c593ff5d0"
+      },
+      "caseId": "controlled-completion-coalesced",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-coalescedSplit--87629.json",
+        "bytes": 2956,
+        "sha256": "b70106db80fe48e6adb97a01e6b74b0074ff0ef1aea73d6f2aa278d8ea479005"
+      },
+      "caseId": "controlled-completion-coalescedSplit",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-eachByte--87629.json",
+        "bytes": 3210,
+        "sha256": "b748e0e49ff836b8f056d10a9ac1e3487ffd8eb256aa35097baacf4ffca2b166"
+      },
+      "caseId": "controlled-completion-eachByte",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-intact--87629.json",
+        "bytes": 2868,
+        "sha256": "e7338c7208accb27ed14f29081dc6e1fc6d140722c1aa9f10cf726180de83eba"
+      },
+      "caseId": "controlled-completion-intact",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-missing--87629.json",
+        "bytes": 2799,
+        "sha256": "a40b9d6b8ae902bc2cd1b85790fbcc452bd698cf0357b69aecdd25ababe0960c"
+      },
+      "caseId": "controlled-completion-missing",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split1--87629.json",
+        "bytes": 2908,
+        "sha256": "b259361a9e01857f5203441687606765db7ca884aa2369fc07f2c1ef9492b024"
+      },
+      "caseId": "controlled-completion-split1",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split2--87629.json",
+        "bytes": 2908,
+        "sha256": "38e916b093178576c4879b7fb4aabe6b1bacbc39cd35cb673c916ac5f5262b16"
+      },
+      "caseId": "controlled-completion-split2",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split3--87629.json",
+        "bytes": 2908,
+        "sha256": "3059efd47ef4bc1a65bd5f01cd013f13938828f5a32ead55cb808b5861bdd3be"
+      },
+      "caseId": "controlled-completion-split3",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split4--87629.json",
+        "bytes": 2908,
+        "sha256": "1f70069eedc22cd672035ce7a11db657ab1c0eb559cb37073e810b2869b66c56"
+      },
+      "caseId": "controlled-completion-split4",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split5--87629.json",
+        "bytes": 2908,
+        "sha256": "9a87f10dbfcd738f8b3b52347ddbd83995e409976693f4dcdb03b2cde308c6d0"
+      },
+      "caseId": "controlled-completion-split5",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split6--87629.json",
+        "bytes": 2908,
+        "sha256": "c3a52ec2db959863443f9794f2714877191792502afe6feb76703f6f46cf698a"
+      },
+      "caseId": "controlled-completion-split6",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split7--87629.json",
+        "bytes": 2908,
+        "sha256": "b309fc52952d5a939013d40f170bfce8d55e264bdb4b05a7a3997c02eaac7c10"
+      },
+      "caseId": "controlled-completion-split7",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split8--87629.json",
+        "bytes": 2908,
+        "sha256": "300d5b7648223116267965f17cbd41d828b10a623f023ff706e5d541b9813994"
+      },
+      "caseId": "controlled-completion-split8",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-unterminated--87629.json",
+        "bytes": 2926,
+        "sha256": "889f4a53caaffb4ba2e3bf2f1d11c8f7dbf9fed4f3a0409b05dcae8975d32203"
+      },
+      "caseId": "controlled-completion-unterminated",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-drive-rejected--87629.json",
+        "bytes": 1548,
+        "sha256": "34994cf638c2f60e9d933f029473fb0af7daa4765d7f5845d99638874e8e1028"
+      },
+      "caseId": "controlled-drive-rejected",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-false-ack--87629.json",
+        "bytes": 2804,
+        "sha256": "93382fd15a5813948c6801e9e258ddbd3b23d82bbe8158f6ca4f8cda7a5c0fc5"
+      },
+      "caseId": "controlled-false-ack",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-partition-fourScheduled--87629.json",
+        "bytes": 3038,
+        "sha256": "fc7d356bd479cc2dc045c97396d6c0d3eabb7eba8e0d7a3fe594610eaf148c43"
+      },
+      "caseId": "controlled-partition-fourScheduled",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-partition-oneCoalesced--87629.json",
+        "bytes": 2910,
+        "sha256": "f8acb529b546d82e00decde5ce22cbeafa04537efa27cfd24f61f45e44fc6558"
+      },
+      "caseId": "controlled-partition-oneCoalesced",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-partition-recordByRecord--87629.json",
+        "bytes": 3205,
+        "sha256": "d98b335603f87a4e48718e2f9af6776fd4c0ba2c1b3443959f442d2286a7245e"
+      },
+      "caseId": "controlled-partition-recordByRecord",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-partition-splitEachByte--87629.json",
+        "bytes": 6314,
+        "sha256": "2ea324ef1c8c158ceda4ee2510b38d775810fc97134c68d8e2fa442e6c4af305"
+      },
+      "caseId": "controlled-partition-splitEachByte",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-post-exit--87629.json",
+        "bytes": 2539,
+        "sha256": "191e8793aa3e71dfcf08e72a3b7927b05b33540284078c3c9437e0d4cd0dac7e"
+      },
+      "caseId": "controlled-post-exit",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-true-ack--87629.json",
+        "bytes": 2668,
+        "sha256": "a7d481d5da986614dec1375f429569ea99716ec69e9a102d8a13aaf6aace522c"
+      },
+      "caseId": "controlled-true-ack",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-TERM--87629.json",
+        "bytes": 1698,
+        "sha256": "ecd4324b5a0c2c0c57bbc31ed16e402f78fb0826ffe5b578651ad8f4b32b26c2"
+      },
+      "caseId": "owned-group-command-TERM",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-normal--87629.json",
+        "bytes": 1697,
+        "sha256": "40b85a0e4a47195c3defa3f77f3bbe0665d34cfcffd3d4d95ca604470e28bab7"
+      },
+      "caseId": "owned-group-command-normal",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-http-normal--87629.json",
+        "bytes": 1128,
+        "sha256": "da28348aebff578cfe586f6c6371d3f2ea58a5049d4f1f1975afbd29ff1e6bf6"
+      },
+      "caseId": "owned-group-http-normal",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-TERM--87629.json",
+        "bytes": 4907,
+        "sha256": "09601b247e15a0fc23c3faaaffc3a982ad6bac365200a4ea008504304533a60e"
+      },
+      "caseId": "owned-group-worker-TERM",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-normal--87629.json",
+        "bytes": 4858,
+        "sha256": "cc42776d93da1ecbbe5666f40f0c5b7c17f8532d5e75e9d479443bdcd3235f85"
+      },
+      "caseId": "owned-group-worker-normal",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--post-exit-output--87629.json",
+        "bytes": 5442,
+        "sha256": "ed11828ddea2eec162d27270b1a8ead446044bec3617f84995f31b73b870a6eb"
+      },
+      "caseId": "post-exit-output",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--post-timeout-output--87629.json",
+        "bytes": 5799,
+        "sha256": "174784fc9920c531d8edd68b6f0b5f0c503032d2dc55493f88c0a1c17b978104"
+      },
+      "caseId": "post-timeout-output",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--progress-lease--87629.json",
+        "bytes": 15245,
+        "sha256": "9004c07e573ac1861f5b03011e81842d7630b92d6212eb2b0a732f9bed06bc32"
+      },
+      "caseId": "progress-lease",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--resistant-worker--87629.json",
+        "bytes": 27860,
+        "sha256": "fd4ce867973fcb8bf65b56f9f16e591fbceb938ce5757a652bc42655b0bdaf08"
+      },
+      "caseId": "resistant-worker",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--unacknowledged-output--87629.json",
+        "bytes": 33812,
+        "sha256": "9060073339f8aa834785b681967c140dbbaa3dc62ecbfade4f124fe55b06f5bd"
+      },
+      "caseId": "unacknowledged-output",
+      "evidence": "m5-worker-transport"
+    }
+  ],
+  "physicalCurrent": {
+    "observedUtc": "2026-11-10T04:20:49.943600+00:00",
+    "rows": [
+      {
+        "pid": 87677,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 88196,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 88368,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 88369,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 88371,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 88374,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 88693,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 88694,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 88695,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 88696,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 89033,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 89034,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 89035,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      },
+      {
+        "pid": 89036,
+        "directAbsent": true,
+        "sameNumberGroupAbsent": true
+      }
+    ],
+    "method": "signal0 observations only",
+    "cleanupPerformed": false,
+    "unknownDescendantAbsenceClaim": false
+  },
+  "reuse": [
+    "unchanged accepted normal build/archive/bootstrap/dependencies",
+    "accepted helper2/B6",
+    "accepted configured C2/replay",
+    "accepted lifetime34"
+  ],
+  "smallestProspectiveReproof": [
+    "one original9-file unit102 with96pass6historic-skips, containing complete six-row group case and full39-M5/34IDs"
+  ],
+  "successorScope": "one existing M5 test file subject to Root/Design; all production/other source and outputs conserved",
+  "notSelected": [
+    "separate group-case command",
+    "production repair",
+    "extra sleep or larger startup bound",
+    "standalone wholeM5",
+    "repeat build/pack/install/C2/lifetime",
+    "reviewer continuation"
+  ],
+  "noWholeUnitOrM5PassClaim": true,
+  "reviewerExecution": false,
+  "reviewerRepair": false,
+  "qualification": false
+}

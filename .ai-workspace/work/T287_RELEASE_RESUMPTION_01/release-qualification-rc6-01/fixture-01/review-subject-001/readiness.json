@@ -1,0 +1,41 @@
+{
+  "kind": "native_fixture_repair_readiness",
+  "fixture": "N9-RETAINED-FIXTURE-01",
+  "recordedUtc": "2026-11-05T08:51:00Z",
+  "status": "CANDIDATE_FROZEN_READY_FOR_ROOT",
+  "workResult": "candidate_ready",
+  "return": { "path": "qualification-scratch/fixture-01/return.json", "bytes": 20672, "sha256": "d1f881e522f6ccb476813980bdc5e827d009d410653bc0bd2b578a9b61a7aad8" },
+  "frozenCandidate": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "bytes": 67553,
+    "sha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc",
+    "preimageSha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "branch": "codex/t287-5-release-qualification"
+  },
+  "mechanicalChecks": [
+    { "check": "STDO basis verified (stdo status --verify)", "result": "pass", "evidence": "installed true, failures [], manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b" },
+    { "check": "Preimage equals triage/HEAD bytes", "result": "pass", "evidence": "sha256:2d575b9b…, 66912 bytes" },
+    { "check": "Failing-before reproduced on staged RC6", "result": "pass", "evidence": "preimage run 7/4/1/2, line 137 intake_projection_exception vs cause_absent" },
+    { "check": "node --check on candidate", "result": "pass" },
+    { "check": "Only granted product path modified", "result": "pass", "evidence": "git status: M test file only; untracked qualification-inputs/, qualification-scratch/, .abiogenesis/ (the latter two predate or are granted)" },
+    { "check": "Assertion conservation", "result": "pass", "evidence": "assert call sites 186 -> 186; no changed diff line contains 'assert'; no skip/floor/expected-error change" },
+    { "check": "Seven tests retained, two historical gates unchanged", "result": "pass" },
+    { "check": "Sandbox source files equal worksite sources", "result": "pass", "evidence": "cmp on all eleven C2_INPUTS sourceCorrespondencePaths after runs" },
+    { "check": "Sandbox build/contracts/node_modules equal immutable RC6", "result": "pass", "evidence": "diff -rq identical before and after runs; tree digest 3a2e063c580bd5b26be5e3fdcceb0d6eeb9eea7950ad982c4065bf01ed928baf (5323 files)" },
+    { "check": "Author self-check on frozen bytes", "result": "pass", "evidence": "candidate-03: tests 7, pass 5, fail 0, skipped 2, cancelled 0, todo 0, exit 0, stderr 0 bytes; TAP sha256:30b9a29f0f758040e45550fa8a5717823aed72eeab3a278ae2e0ef191bb82cd2" },
+    { "check": "First-test assertions executed", "result": "pass", "evidence": "test 1 ok and its terminal t.diagnostic present in candidate-03 TAP" },
+    { "check": "ABI5_EVIDENCE_ROOT unset; no archive acquired", "result": "pass" }
+  ],
+  "notClaimed": [
+    "independent review or acceptance",
+    "Root C2 / Testing (fixed four-command recipe) or UAT over rubric F1-F4",
+    "native actor, provider, command, journal or installed Run evidence",
+    "D2, scenario, fifteen-family, F11 or release qualification; reserved human acceptance"
+  ],
+  "openForRoot": [
+    "Confirm P2 (run:/related: owned index selectors in the same prefixOverrides) is inside the local admitted-prefix premise grant",
+    "Select independent frozen-source review, C2 and UAT under Root's own conjunction"
+  ],
+  "frozen": true
+}

@@ -1,0 +1,22 @@
+{
+  "status": "OPERATOR_REVIEW_VERDICT_ASSERTION_MISMATCH_BEFORE_ALLOCATION",
+  "observedAt": "2026-11-07T09:19:30.816820+00:00",
+  "recipeSha256": "e888139aa2b955716d0cd1f6396413025b9255539d6e84791fd1f2d4c27ad829",
+  "bindingSha256": "1f797674c97ea4a4c81fc413d8d89218c06e5f920f1c1622b11dd08e29f64207",
+  "admissionSha256": "501db92ebd11c2814572eab1a7f137e670b26762af3b28261d2b714ec40cc7c0",
+  "exitCode": 1,
+  "toolWallSeconds": 0.086657291,
+  "error": {
+    "name": "AssertionError",
+    "code": "ERR_ASSERTION",
+    "recipeLine": 19,
+    "expected": "satisfied",
+    "actual": "satisfied_for_bounded_frozen_source_delta; focused_execution_pending"
+  },
+  "outputRootExists": false,
+  "scratchRootExists": false,
+  "testStarted": false,
+  "rootNotified": true,
+  "automaticRetry": false,
+  "meaning": "Pinned source review was read; this Operator exact-verdict assertion rejected before source/dependency materialization, runtime setup or test command. Original recipe, admission and review remain unchanged."
+}

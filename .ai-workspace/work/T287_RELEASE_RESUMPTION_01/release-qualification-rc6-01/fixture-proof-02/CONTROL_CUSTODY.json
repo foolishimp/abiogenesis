@@ -1,0 +1,55 @@
+{
+  "at": "2026-11-05T09:14:01.652973+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/PROOF_ONLY_GRANT.json",
+    "bytes": 4870,
+    "sha256": "5d0bc022218ddac223ded05cd05a0ae30ee37709a6981a672d598531a24f5e29"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/workload.json",
+      "bytes": 17253,
+      "sha256": "9e5c6837271797d7e58265471ecb5b7651f1a87c65d038f579d75e635eebb303"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/SOURCE_BEFORE.json",
+      "bytes": 6210,
+      "sha256": "b504f5c34b404b0ab8f4da66809499877144a025fd7d37141205b0fd86cb4f59"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/EXPECTED_FUTURE_FILES.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/PROVIDER_PROFILE.json",
+      "bytes": 1665,
+      "sha256": "50070145d92f82f758f0d493182e1e9c04e016834912ac1bd3d0c3d94f1588bd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/prepare.mjs",
+      "bytes": 8437,
+      "sha256": "e8eac65e80bc60c6713b7af952779774572dbc6ac2901a714b3945bfb7528860"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    }
+  ],
+  "retainedResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/after-run-resume.json",
+    "bytes": 72660008,
+    "sha256": "ec616ff48620b547405c04cda52e9b1086c16924b0c41694b980abba2c05bb19"
+  },
+  "sourceSnapshot": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/SOURCE_BEFORE.json",
+    "bytes": 6210,
+    "sha256": "b504f5c34b404b0ab8f4da66809499877144a025fd7d37141205b0fd86cb4f59"
+  },
+  "selectedFiles": 30,
+  "originalSources": 9,
+  "commands": 4,
+  "codingOrders": 0,
+  "status": "CONTROL_PREPARED_NOT_PREFLIGHTED_OR_DISPATCHED"
+}

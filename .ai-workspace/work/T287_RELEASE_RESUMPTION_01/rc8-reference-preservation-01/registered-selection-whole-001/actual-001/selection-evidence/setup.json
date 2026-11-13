@@ -1,0 +1,31 @@
+{
+  "scratch": "/private/tmp/abg-r8-selection-001/t/abi5-root-env-Au08Ju",
+  "installedRoots": [
+    "/private/tmp/abg-r8-selection-001/t/abi5-root-env-Au08Ju/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "/private/tmp/abg-r8-selection-001/t/abi5-root-env-Au08Ju/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection"
+  ],
+  "artifactPaths": [
+    "/private/tmp/abg-r8-selection-001/t/abi5-root-env-Au08Ju/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "/private/tmp/abg-r8-selection-001/t/abi5-root-env-Au08Ju/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz"
+  ],
+  "accounting": {
+    "wallMs": {
+      "provisioning_pack": 39226.799583,
+      "provisioning_extract": 6098.124291,
+      "bootstrap_owner_loading_and_candidate_preparation": 6958.221334000002,
+      "provisioning_verify_artifact": 115258.84941600001,
+      "provisioning_install": 2873.8340830000234,
+      "provisioning_installed_content_check": 689.0319999999774,
+      "provisioning_additional_products": 2150.8813329999975,
+      "installed_owner_loading": 312.1641669999808,
+      "environment_install_and_workspace_admission": 1019.6566250000033,
+      "execution_preparation_publication_program_and_catalog": 471.38850000000093
+    },
+    "volumes": {
+      "archiveBytes": 11027562,
+      "archiveUnpackedBytes": 71766842,
+      "archiveMemberCount": 5325,
+      "installedTreeBytes": null
+    }
+  }
+}

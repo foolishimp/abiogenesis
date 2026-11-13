@@ -1,0 +1,53 @@
+{
+  "rootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/ROOT_DISPOSITION.json",
+    "bytes": 5314,
+    "sha256": "2e0ea26f515aa930a7cf740493e73f96e1a6a9e5f879aa43a390f8f72315df70"
+  },
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "beforeBytes": 830898,
+      "beforeSha256": "84d6d3d28e4b2f9a421c26e758e31e12d2249ec74b27c7e55070282ffaf6a011",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 832101,
+        "sha256": "113f155e27b0b21597f327c143b930c61adf5b1c0314de8bf72f06fe8462e2f2"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "beforeBytes": 180178,
+      "beforeSha256": "e4c6c1fdbbcdc03326dd8895bc0d9ee491dda9c2d8795d9e5ea4a87f58b4efed",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 181381,
+        "sha256": "e65666f6cd5685d7722929a1c97068fabcd058ce253bc682d755a227b6be1da2"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "beforeBytes": 811981,
+      "beforeSha256": "42fe4982ca47235648f270b54c01362578ee85d1c74fc147d34561d3a5217cbc",
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 813148,
+        "sha256": "b178a52e36ff055c42fb8d3c1e941157d6ae17789ab4884d8df56a776c9739e3"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+      "beforeBytes": 163187,
+      "beforeSha256": "4bb2b9a64a09148dff85fc523b65d10ab968c701498caf03a6d28af50a6ad15d",
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 164348,
+        "sha256": "97d4b4b70f48e8d7755762982896f337c543ccf7d415d44699c3c103502897e8"
+      },
+      "priorBodyPreserved": true
+    }
+  ]
+}

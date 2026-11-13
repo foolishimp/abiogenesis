@@ -1,0 +1,59 @@
+{
+  "id": "RC11-NATIVE-FIXTURE-03-EXECUTION",
+  "issuer": "/root Executive conditional grant, recorded after mechanical predicates satisfied",
+  "at": "2026-11-09T07:28:54.413244+00:00",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/READY3.json",
+    "bytes": 6469,
+    "sha256": "acdd669d187ca41d8417cf6df8663a6d31ba8b421affac5f1b37f5acae796c47"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/CONTROLS.json",
+    "bytes": 14360,
+    "sha256": "b489596e7abca8651a4f307060ceadbc74ce2aff1e013af73904dda002d9744c"
+  },
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/ACTIVATION.json",
+    "bytes": 4010,
+    "sha256": "074ec866cdad0100f23ea2decaea0861783bd883b24c1a16b4d232a02df83cec"
+  },
+  "admittedCommand": "NODE_OPTIONS='' NODE_PATH='' RC11_EVIDENCE_ADMISSION=RC11-EVIDENCE-GENERATION-03-ROOT-ADMITTED /opt/homebrew/Cellar/node/24.7.0/bin/node run.mjs native-assessment",
+  "conditions": {
+    "fourRuntimeScriptsByteEqual02": true,
+    "onlyExactHelperPredicateCorrection": true,
+    "globalRC10SourceBuildDependenciesConserved": true,
+    "staticSelfResolutionRC10": true,
+    "actual02RecoveryClosed": true,
+    "no03RawOrOutputBeforeInvocation": true,
+    "bankedSelected02Conserved": true
+  },
+  "immediateReadOnlyChecks": [
+    {
+      "args": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/verify_view.py"
+      ],
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/TARGET_VERIFICATION.json",
+        "bytes": 3181,
+        "sha256": "f7974c6b05f481d5d6d1c8ac5c2fa30ff302194abc0c8e6edd4b992963238346"
+      },
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-import-meta-resolve",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/resolve_view.mjs"
+      ],
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/RESOLUTION.json",
+        "bytes": 12430,
+        "sha256": "edd7e4e7183ddd0d77b04764545a17b7082defe730625b442441cc54562b6cc6"
+      },
+      "exitCode": 0
+    }
+  ],
+  "grant": "Exactly one native-assessment03; original limits and external effect territory; any failure stops with physical evidence. No selected rerun or fourth attempt.",
+  "parentAuthority": "RC11-NATIVE-FIXTURE-03 plus final trace282baa43 and recovery31d9d5f1 conjoined byRoot; no new roundtrip required."
+}

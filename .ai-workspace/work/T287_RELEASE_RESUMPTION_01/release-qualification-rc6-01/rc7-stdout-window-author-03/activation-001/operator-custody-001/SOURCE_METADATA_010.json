@@ -1,0 +1,286 @@
+{
+  "kind": "selected_source_stat_only_observation",
+  "observedUtc": "2026-11-06T23:37:28.261128+00:00",
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 49004,
+      "mtimeNs": 1794003522828029676,
+      "mtimeUtc": "2026-11-06T22:18:42.828030+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 86579,
+      "mtimeNs": 1794007462420323058,
+      "mtimeUtc": "2026-11-06T23:24:22.420323+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 225695,
+      "mtimeNs": 1794007653660779173,
+      "mtimeUtc": "2026-11-06T23:27:33.660779+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "bytes": 36035,
+      "mtimeNs": 1794007462419801441,
+      "mtimeUtc": "2026-11-06T23:24:22.419801+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+      "bytes": 22056,
+      "mtimeNs": 1793843791879678488,
+      "mtimeUtc": "2026-11-05T01:56:31.879678+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "bytes": 71100,
+      "mtimeNs": 1794007398343542691,
+      "mtimeUtc": "2026-11-06T23:23:18.343543+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "bytes": 14485,
+      "mtimeNs": 1794007199673205630,
+      "mtimeUtc": "2026-11-06T23:19:59.673206+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 64754,
+      "mtimeNs": 1793943053272793462,
+      "mtimeUtc": "2026-11-06T05:30:53.272794+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 29112,
+      "mtimeNs": 1794007330774216694,
+      "mtimeUtc": "2026-11-06T23:22:10.774217+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "bytes": 26725,
+      "mtimeNs": 1793843791930965501,
+      "mtimeUtc": "2026-11-05T01:56:31.930965+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "bytes": 24181,
+      "mtimeNs": 1793949918678521714,
+      "mtimeUtc": "2026-11-06T07:25:18.678522+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 179343,
+      "mtimeNs": 1794007576507351636,
+      "mtimeUtc": "2026-11-06T23:26:16.507352+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 114763,
+      "mtimeNs": 1794007688858657660,
+      "mtimeUtc": "2026-11-06T23:28:08.858658+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "bytes": 142461,
+      "mtimeNs": 1794008214427398643,
+      "mtimeUtc": "2026-11-06T23:36:54.427399+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "bytes": 102063,
+      "mtimeNs": 1794008118916014682,
+      "mtimeUtc": "2026-11-06T23:35:18.916015+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "bytes": 53258,
+      "mtimeNs": 1794007870742780009,
+      "mtimeUtc": "2026-11-06T23:31:10.742780+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "bytes": 1349,
+      "mtimeNs": 1793843792086616735,
+      "mtimeUtc": "2026-11-05T01:56:32.086617+00:00",
+      "changedFromFirstMetadata": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 301329,
+      "mtimeNs": 1794007364247545733,
+      "mtimeUtc": "2026-11-06T23:22:44.247546+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "bytes": 41068,
+      "mtimeNs": 1794007330774721227,
+      "mtimeUtc": "2026-11-06T23:22:10.774721+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+      "bytes": 11282,
+      "mtimeNs": 1794007398342312211,
+      "mtimeUtc": "2026-11-06T23:23:18.342312+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+      "bytes": 14203,
+      "mtimeNs": 1794007398342579665,
+      "mtimeUtc": "2026-11-06T23:23:18.342580+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "bytes": 75769,
+      "mtimeNs": 1794007398343202363,
+      "mtimeUtc": "2026-11-06T23:23:18.343202+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "bytes": 222538,
+      "mtimeNs": 1794007405725298273,
+      "mtimeUtc": "2026-11-06T23:23:25.725298+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "bytes": 21016,
+      "mtimeNs": 1794007405725556435,
+      "mtimeUtc": "2026-11-06T23:23:25.725556+00:00",
+      "changedFromFirstMetadata": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 121788,
+      "mtimeNs": 1793985445951229811,
+      "mtimeUtc": "2026-11-06T17:17:25.951230+00:00",
+      "changedFromFirstMetadata": false
+    }
+  ],
+  "stages": [
+    {
+      "label": "sw3-stage-01",
+      "directoryPresent": false,
+      "freezePresent": false,
+      "reportPresent": false
+    },
+    {
+      "label": "sw3-stage-02",
+      "directoryPresent": false,
+      "freezePresent": false,
+      "reportPresent": false
+    }
+  ],
+  "lanes": [
+    {
+      "stage": "sw3-stage-01",
+      "lane": "stdout-differential",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-01",
+      "lane": "scope-ordering",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-01",
+      "lane": "timeout-interruption",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-01",
+      "lane": "archive-integrity",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-01",
+      "lane": "legacy-replay",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-01",
+      "lane": "native-caller",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-02",
+      "lane": "stdout-differential",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-02",
+      "lane": "scope-ordering",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-02",
+      "lane": "timeout-interruption",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-02",
+      "lane": "archive-integrity",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-02",
+      "lane": "legacy-replay",
+      "directoryPresent": false,
+      "summaryPresent": false
+    },
+    {
+      "stage": "sw3-stage-02",
+      "lane": "native-caller",
+      "directoryPresent": false,
+      "summaryPresent": false
+    }
+  ],
+  "handoffs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/progress.json",
+      "present": true,
+      "bytes": 2247,
+      "mtimeUtc": "2026-11-06T23:18:51.232882+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/readiness.json",
+      "present": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/return.json",
+      "present": false
+    }
+  ],
+  "standing": "Metadata only; changed size/mtime does not prove byte change or acceptance."
+}

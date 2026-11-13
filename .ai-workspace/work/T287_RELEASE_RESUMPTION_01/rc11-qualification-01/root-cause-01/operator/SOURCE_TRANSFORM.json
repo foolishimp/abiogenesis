@@ -1,0 +1,33 @@
+{
+  "original": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "bytes": 114763,
+    "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+  },
+  "derivative": {
+    "path": "/private/tmp/abg-rc11-root-cause-20261110-01/test_env/tests/m5-worker-transport.cause.test.mjs",
+    "bytes": 123975,
+    "sha256": "455ed58983eb64ee3901f8a70ab824f1710746a2eba4d6e17e2f9e9c9c407a25"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/SOURCE_TRANSFORM.diff",
+    "bytes": 12213,
+    "sha256": "0be1df9b01f327f975cc0760203d29bb032e6d0082d7e2d7511d330390b299af"
+  },
+  "readonlyLinks": {
+    "/private/tmp/abg-rc11-root-cause-20261110-01/build": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/build",
+    "/private/tmp/abg-rc11-root-cause-20261110-01/test_env/support": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/support"
+  },
+  "parentWrapper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/parent-observation.txt",
+    "bytes": 5727,
+    "sha256": "4122a5e0f3323acdbdc39b292608408710c1cdded0c721dbee3d9bca03f809cf"
+  },
+  "childPrelude": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/observation-prelude.txt",
+    "bytes": 3374,
+    "sha256": "74f38b7147f216cf5d432b0ed875828f8d22f90363d08f69cf1bd35aa9c14ba8"
+  },
+  "originalOwnerBytesChanged": false,
+  "originalTestBodyDelta": "Only command/HTTP calls wrapped to retain their whole result before assertions; fs write and worker transport imports aliased. Original assertions, loops, budgets and callbacks retained. Actual generated scripts gain the pinned observational prefix and publication/spawn wrapper calls only."
+}

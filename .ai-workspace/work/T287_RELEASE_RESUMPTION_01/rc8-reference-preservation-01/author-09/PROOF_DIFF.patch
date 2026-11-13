@@ -1,0 +1,57 @@
+--- author-08/proof.mjs
++++ author-09/proof.mjs
+@@ -1,4 +1,4 @@
+-// Test-only successor: freeze the admitted overlay, reuse exact compiled inputs, run the two selected fixture lanes once each.
++// Test-only successor: freeze the admitted overlay, reuse exact compiled inputs, run the one selected whole-file fixture lane once.
+ import assert from 'node:assert/strict';
+ import {createHash} from 'node:crypto';
+ import {readFile,writeFile,mkdir,readdir,lstat,readlink,copyFile,chmod,symlink,statfs} from 'node:fs/promises';
+@@ -27,11 +27,7 @@
+   NODE_OPTIONS:'--max-old-space-size=8192',npm_config_userconfig:join(scratch,'npm-user.npmrc'),npm_config_globalconfig:join(scratch,'npm-global.npmrc'),
+   npm_config_cache:join(scratch,'n'),npm_config_offline:'true',npm_config_audit:'false',npm_config_fund:'false',npm_config_update_notifier:'false',
+   ABG_TS_CLAUDE_COMMAND:join(scratch,'UNSELECTED_PROVIDER'),ABG_TS_LIVE_CLAUDE_COMMAND:join(scratch,'UNSELECTED_PROVIDER'),
+-  ABI5_UAT_UNIT_ROOT:join(tenant,'test_env/test_runs/sandbox-uat-units'),...(lane==='historical'?{ABI5_CONSOLIDATION_INPUTS:prep.historicalInputs.root}:{})};
+-for(const p of [prep.historicalInputs.resources,prep.historicalInputs.baseline])await checked(p);
+-const historicalResources=JSON.parse(await checked(prep.historicalInputs.resources));
+-assert.equal(historicalResources.eventLogPath,prep.historicalInputs.eventLog.path);assert.equal(historicalResources.eventLogBytes,prep.historicalInputs.eventLog.bytes);assert.equal(historicalResources.eventLogSha256,prep.historicalInputs.eventLog.sha256);
+-assert.equal((await lstat(historicalResources.eventLogPath)).size,historicalResources.eventLogBytes);
++  ABI5_UAT_UNIT_ROOT:join(tenant,'test_env/test_runs/sandbox-uat-units')};
+ let allocation=null;
+ try{
+   if(mode==='freeze'){
+@@ -44,7 +40,7 @@
+     for(const rel of b.sourceWritePaths.filter(p=>!original.rows.some(r=>r.path===p))){if(await exists(join(b.sourceRoot,rel))){const p=await pin(join(b.sourceRoot,rel));rows.push({path:rel,bytes:p.bytes,sha256:p.sha256});changed.push(rel);}}
+     // Preserve the predecessor's code-point source-row order for digest correspondence.
+     rows.sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0);
+-    assert.equal(changed.length,2,'Expected exactly the two selected fixture increments');
++    assert.equal(changed.length,1,'Expected exactly the selected one-file fixture increment');
+     for(const rel of changed){const target=join(root,'overlay',rel);await mkdir(dirname(target),{recursive:true});await copyFile(join(b.sourceRoot,rel),target);overlays.push(await pin(target));}
+     const sourceDigest=sha(Buffer.from(JSON.stringify(rows))),freeze={status:'FROZEN_TEST_ONLY_OVERLAY',sourceRoot:b.sourceRoot,baseSourceFreeze:prep.sourceFreeze,
+       baseSource:original.source??original.baseSource,baseSourceDigest:original.sourceDigest,sourceDigest,rows,changedPaths:changed,overlay:overlays,compiledStage:inventory.stageRoot,
+@@ -65,10 +61,10 @@
+       currentCandidateFixture:prep.currentCandidateFixture,productArchive:prep.productArchive,buildInvocations:0,environment:env});
+     console.log(JSON.stringify({status:'EXACT_COMPILED_INPUTS_REUSED',sourceDigest,tenant}));
+   }else{
+-    assert.equal(mode,'test','Use freeze | test historical | test coordinates');assert(Object.hasOwn(b.lanes,lane),'Unknown lane');
++    assert.equal(mode,'test','Use freeze | test worksite');assert(Object.hasOwn(b.lanes,lane),'Unknown lane');
+     const ready=JSON.parse(await readFile(join(root,'READY.json'),'utf8')),freeze=JSON.parse(await readFile(join(root,'source-freeze.json'),'utf8'));
+     await verify(work,ready.derivedStageFiles);await verify(join(tenant,'node_modules'),inventory.dependencyFiles);
+-    const label=lane==='historical'?'lane-01':'lane-02';if(lane==='coordinates')assert.equal(JSON.parse(await readFile(join(root,'lane-01/RESULT.json'),'utf8')).status,'PASSED');
++    const label='lane-01';
+     allocation=join(root,label);await mkdir(allocation);const file=b.lanes[lane].files[0],events=join(allocation,'events.jsonl');
+     const args=['--experimental-vm-modules','--test','--test-concurrency=1','--test-reporter=tap','--test-reporter-destination=stdout',
+       '--test-reporter='+join(tenant,'scripts/node-test-evidence-reporter.mjs'),'--test-reporter-destination='+events,...(b.lanes[lane].namePattern?['--test-name-pattern='+b.lanes[lane].namePattern]:[]),'test_env/tests/'+file];
+@@ -77,11 +73,11 @@
+     const command=commandRecorder(allocation,{environment:env,timeoutMs:600000,maxOutputBytes:bounds.outputBytes});
+     const result=await command('test',process.execPath,[prep.fileHost.path,hostPin.path,hostPin.sha256],{cwd:tenant,environment:env,timeoutMs:600000});
+     const eventPin=await pin(events);assert(eventPin.bytes<=bounds.outputBytes);const evidence=(await readFile(events,'utf8')).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l));
+-    const summary=evidence.filter(r=>r.type==='summary'&&r.file===null).at(-1),passed=result.exitCode===0&&!result.signal&&!result.timedOut&&!result.truncated&&!result.failure&&summary?.success===true&&summary.counts.passed===b.lanes[lane].expectedPassed&&evidence.at(-1)?.type==='end';
++    const summary=evidence.filter(r=>r.type==='summary'&&r.file===null).at(-1),passed=result.exitCode===0&&!result.signal&&!result.timedOut&&!result.truncated&&!result.failure&&summary?.success===true&&summary.counts.passed===b.lanes[lane].expectedPassed&&summary.counts.skipped===b.lanes[lane].expectedSkipped&&evidence.at(-1)?.type==='end';
+     await verify(work,ready.derivedStageFiles);await verify(join(tenant,'node_modules'),inventory.dependencyFiles);await verify(inventory.stageRoot,inventory.stageFiles);await verify(inventory.dependencyRoot,inventory.dependencyFiles);
+     const emittedArchive=join(tenant,'artifacts','abiogenesis-typescript-tenant-5.0.0-rc.8.tgz');if(await exists(emittedArchive)){const actual=await pin(emittedArchive);assert.equal(actual.bytes,prep.productArchive.bytes);assert.equal(actual.sha256,prep.productArchive.sha256);}
+     await exclusiveRecord(allocation,'RESULT.json',{status:passed?'PASSED':'FAILED',lane,file,sourceDigest:freeze.sourceDigest,counts:summary?.counts??null,events:eventPin,
+-      wholeFile:b.lanes[lane].wholeFile,namePattern:b.lanes[lane].namePattern??null,historicalInputs:prep.historicalInputs,wallMs:result.wallMs,exitCode:result.exitCode,signal:result.signal,timedOut:result.timedOut,truncated:result.truncated,primaryPreserved:true,buildInvocations:0});
++      wholeFile:b.lanes[lane].wholeFile,namePattern:b.lanes[lane].namePattern??null,optionalInputsSelected:false,wallMs:result.wallMs,exitCode:result.exitCode,signal:result.signal,timedOut:result.timedOut,truncated:result.truncated,primaryPreserved:true,buildInvocations:0});
+     console.log(JSON.stringify({status:passed?'PASSED':'FAILED',lane,counts:summary?.counts,wallMs:result.wallMs,sourceDigest:freeze.sourceDigest}));
+     assert(passed,'Selected fixture lane failed or incomplete');
+   }

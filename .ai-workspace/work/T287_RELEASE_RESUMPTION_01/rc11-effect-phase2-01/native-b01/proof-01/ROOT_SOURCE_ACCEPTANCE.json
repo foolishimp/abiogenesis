@@ -1,0 +1,45 @@
+{
+  "id": "PHASE2-B-SOURCE-ACCEPTANCE-01",
+  "decisionOwner": "Root",
+  "status": "BOUNDED_SOURCE_CONTRACT_RELATION_SATISFIED_EXTERNAL_EXECUTION_HELD",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-freeze.json",
+    "bytes": 295988,
+    "sha256": "2ed1b3ab7758905dc0c33702893898130de2758d0b026af20898833d5bebe9eb"
+  },
+  "reviews": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/ASSESSMENT.md",
+      "bytes": 9652,
+      "sha256": "aed4625a9ae365ac807a85824078d565598fb12e814c3c3fb8ec5a67fa9f9e77"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/EVIDENCE.json",
+      "bytes": 14662,
+      "sha256": "72b624b20d60cbba35375219ff6a396d7544009f5c880cb8a5851eebfb2169bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/first-red-triage-01/ASSESSMENT.md",
+      "bytes": 8153,
+      "sha256": "357e86b80a50a0e4abd7d0500af3254b7651ed6b38297bd9dd350f4c7558b8ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/first-red-triage-01/EVIDENCE.json",
+      "bytes": 4927,
+      "sha256": "c988f913e3d74c17a32ba0e6b0a9569f520b9efb4cc2a32988388130f6e11399"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/first-red-triage-01/REVISION_01.json",
+      "bytes": 1552,
+      "sha256": "505a3f93d92e7c8b2a5af6ff9774b7d47eb27b732832e74b460bf8afb211626f"
+    }
+  ],
+  "firstRed": "29/30 retained; one-line captured-owner adapter correction restores actual reachability with unchanged owner/assertions.",
+  "limits": [
+    "Use/closed Cause seam is bounded availability, not universal persistent diagnosis.",
+    "Supported default host/Node child construction; invalid-grace throw is inherited and Product-refused.",
+    "No net deletion: B +108 lines, A+B +316; no performance/reliability/installed/fullPhase2 acceptance.",
+    "All external proof and both deferred capsules remain open."
+  ]
+}

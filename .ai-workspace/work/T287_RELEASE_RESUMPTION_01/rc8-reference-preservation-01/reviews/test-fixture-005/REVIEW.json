@@ -1,0 +1,357 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "scope": "Author-05 frozen test successor, original S2 prerequisite repair and preserved complete focused proofs; no whole Runtime audit.",
+    "authorityBoundary": "ABG remains sole runtime admission/event/liveness owner. Test construction and controlled component premises establish no native runtime authority."
+  },
+  "kind": "independent_frozen_test_fixture_review",
+  "reviewer": "/root/rc8_source_review",
+  "createdUtc": "2026-11-07T07:37:55.692347+00:00",
+  "verdict": "falsified",
+  "claim": "The successor completes the missing declaration prerequisites while preserving original tests, actual owner algorithms and the standing same-process identity constraint.",
+  "conclusion": "The previous S2 fixture-prefix defect is functionally repaired and both complete files pass their applicable cases. One new S3 defect remains: the initial F04 setup unnecessarily clones already immutable same-process owner events, contrary to the explicit standing identity constraint. This is unshipped test setup, not a Product runtime or measured-archive performance defect.",
+  "subject": {
+    "sourceDigest": "ed403dda50772e778be696c91250d73a54c6abf5b8fea609bc1c8bacfccbc4d0",
+    "sourceRows": 1339,
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/source-freeze.json",
+      "bytes": 296028,
+      "sha256": "7f845f6828ecd3255381deab9251047ba860a4e0dfdaccaf5ee6abc0e0c4416b"
+    },
+    "preimageDigest": "f83837d581e02cc4a3fa4be8aa41dfe9d0722ea1be81df1b05de95ed25edaa0f",
+    "preimageFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/source-freeze.json",
+      "bytes": 296419,
+      "sha256": "b82455e8336bacc858f4d1384712631d953f4e84da0a19959e8602a26280dcd8"
+    },
+    "acceptedProductSourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "composition": "Original immutable stage-04 source + unchanged author-04 helper + two author-05 overlay tests. Moving C8 is provenance only and was not reviewed.",
+    "materializedWork": "/private/tmp/abg-r8-a05-4f6heblw/p/w",
+    "sourcePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+        "bytes": 55380,
+        "sha256": "1348c189de820855c1905a6de2ca6a7abac73fd45126b9ae94dbad028540a092"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "bytes": 122579,
+        "sha256": "64bd46fa4092e4dd554cd7b2e93002816755d6332906bfb90720d1a8f620d99c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs",
+        "bytes": 3700,
+        "sha256": "eb76f26689cd5d47a96f7948f9d78b6707f0fa374eca876b433f02db23e0ce27"
+      }
+    ],
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "controlPins": {
+    "rootScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/ROOT_SCOPE.json",
+      "bytes": 7090,
+      "sha256": "f83525d69de8b3e1018c42911f29459ad7532934871b88f001a4ce832e1ca8e0"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/TASK.json",
+      "bytes": 8380,
+      "sha256": "8ebdc044e6988da7812e4bc4a167a48217b48d742990cc00e273ca163370dd5f"
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/source-freeze.json",
+      "bytes": 296028,
+      "sha256": "7f845f6828ecd3255381deab9251047ba860a4e0dfdaccaf5ee6abc0e0c4416b"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/READY.json",
+      "bytes": 572457,
+      "sha256": "4da69a9848feb6e17fa8c4c15b45f4208963920a9f104eb22de141cfdbabc455"
+    },
+    "predecessorFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/source-freeze.json",
+      "bytes": 296419,
+      "sha256": "b82455e8336bacc858f4d1384712631d953f4e84da0a19959e8602a26280dcd8"
+    },
+    "predecessorReady": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/READY.json",
+      "bytes": 572457,
+      "sha256": "b4f27b333f616a93c5694bc8a46ad48133a87e953d13e6788f0d5df13aa79c15"
+    },
+    "priorReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-004/REVIEW.json",
+      "bytes": 25224,
+      "sha256": "f106c14c9138f4d3bc50ceeac46646851ef70a6a0604a2a8622f0cad10cd4c8a"
+    },
+    "originalSourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 18167,
+      "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "focusedProofPins": {
+    "lane-01": {
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-01/RESULT.json",
+        "bytes": 791,
+        "sha256": "5f8c37b0ede3cfb78110607c197b1e1d7a06367242484289b936abfd8cdbc43f"
+      },
+      "command": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-01/commands/test.result.json",
+        "bytes": 1442,
+        "sha256": "6bb0241e6ad0c86b57df54a5091ab0a288f46eaeef76436443892ed127dda5ee"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-01/commands/test.stdout",
+        "bytes": 4451,
+        "sha256": "0bef855026f961c4e8d65115450c7797cebfe9cad3690ed6f7567f7fd3a73611"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-01/commands/test.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "reporter": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-01/events.jsonl",
+        "bytes": 1115,
+        "sha256": "14f4e0c1211a69e6ac9b283417c9f43224f0338cc596464c5cf1728746bd41ea"
+      }
+    },
+    "lane-02": {
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/RESULT.json",
+        "bytes": 793,
+        "sha256": "a7ecaa5fcedcd87ba16f2fc09bf4d1fa491ba5c5a91c76eeb3fcecfbdead1162"
+      },
+      "command": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/commands/test.result.json",
+        "bytes": 1442,
+        "sha256": "9ffc8c7f91c93c14315a501ddd6c868cb39c8b26a08bdbb551a13fc5569360e8"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/commands/test.stdout",
+        "bytes": 14801,
+        "sha256": "795797d07970e663292d8bdff4109886f4d3f9e360eb2bdc26d7603db18b6778"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/commands/test.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "reporter": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/events.jsonl",
+        "bytes": 12711,
+        "sha256": "4072b37205b4227a35633cc3bb0b2fc5a1292b63a74d79a6553fde7e4a8ad3f7"
+      }
+    }
+  },
+  "applicableBasis": {
+    "unchanged": "Exact previously verified Product Definition b5720642, Product 979681c2, frame 2c2a3295 and STDO3.0.4 selection remain unchanged in this test-only overlay. Prior test-fixture-004 authority/requirement relations are reused.",
+    "requirements": "Product A5-F04; REQ-R-ABG3-TRANSPORT-003/004/014/018/029; REQ-R-ABG3-EVENTS-012–015/022/024; owning HOW section10.10 E-C/E-E; author-05 scope and source identity rule.",
+    "explicitOwnerConstraint": "Executive current review direction applies the user standing rule: established same-process owner objects pass by identity; copy only at a lawful process/byte boundary. The initial fixture clone is to be distinguished from its existing deliberate cold-replay roundtrip.",
+    "scale": "Existing S0–S4 technical scale; S3 here is a minor localized constraint/construction defect. Severity is not Executive priority or acceptance."
+  },
+  "independence": {
+    "sourceAuthor": false,
+    "testOperator": false,
+    "actions": "Read frozen source/control/proof bytes, compare manifests and source diffs, compute hashes and inspect archive names. No Product imports/calls, tests, repairs, Git/provider effects or subagents. Write only this new review capsule.",
+    "sourceAuditReused": "Original accepted Product algorithms and author-04 helper review are reused after exact byte correspondence, without a whole Runtime audit.",
+    "executionStanding": "Mechanical lane proofs were reacquired, not run by Reviewer. Actual native SDK return/close and fresh readbacks retain Operator/Root ownership and are not independently conjoined by this source review."
+  },
+  "verifiedCorrespondence": {
+    "sourceRowsRehashed": 1339,
+    "sourceDigestIndependentlyRecomputed": true,
+    "sourceByteMismatches": [],
+    "changedFromA4": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "addedFromA4": [],
+    "deletedFromA4": [],
+    "helperUnchanged": {
+      "bytes": 3700,
+      "sha256": "eb76f26689cd5d47a96f7948f9d78b6707f0fa374eca876b433f02db23e0ce27"
+    },
+    "materializedInputRowsRehashed": 2132,
+    "materializedInputMismatches": [],
+    "derivedInputDeltaFromA4": "Only the same two test files; no other row addition/deletion/change.",
+    "buildInvocations": 0,
+    "archiveBytes": 11027562,
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "archiveMembers": 5325,
+    "testAndHelperMembersPresent": false,
+    "ProductAlgorithmSourceChanged": false
+  },
+  "priorFindingAssessment": {
+    "id": "TEST-FIXTURE-004-F1",
+    "originalSeverity": "S2",
+    "originalSubject": "f83837d581e02cc4a3fa4be8aa41dfe9d0722ea1be81df1b05de95ed25edaa0f",
+    "successorAssessment": "Repaired and supported for this exact successor, subject to the separate new identity finding. No historical failed result is rewritten.",
+    "facts": [
+      "F04:283-302 initializes its controlled history from the retained installed basis prefix, verifies ordinal continuity, records coherent c_call_opened and complete leaf/F_P fibre with matching implementation identities, and uses the actual exact-basis projector.",
+      "F04:303-329 retires contextAtActor and handcrafted probe references. ActorProcess, preflight and window owner now share premise.liveness.projectActorLivenessContext, the real function. A failed preflight is retained and rethrown outside the ActorProcess refusal carrier, so it cannot become an unnoticed fixture success.",
+      "The real ActorProcess continues producing the actual transport-binding and actor-start pair. The helper is byte-identical and continues loading actual stageNativeStdoutWindow and lexical stageRuntimeActivityProbe against one shared component transaction/current-prefix premise.",
+      "Native-workspace changes only its projector selection to the same real linked owner used by ActorProcess/window staging; its existing basis/opening/fibre preparation and local-effect assertions remain."
+    ]
+  },
+  "focusedResults": {
+    "f04": {
+      "tests": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "wallMs": 38155.5955,
+      "exitCode": 0,
+      "timedOut": false,
+      "truncated": false,
+      "allThirteenModesReached": [
+        "valid",
+        "invalid",
+        "absent",
+        "unreadable",
+        "conflict",
+        "owner-unavailable",
+        "artifact-refused",
+        "probe-refused",
+        "process-refused",
+        "plan-mismatch",
+        "unknown",
+        "present",
+        "normal"
+      ],
+      "windowObservations": "Twelve modes record one actual component stdout window and activity/artifact_pending probes; absent has no stdout window. Completion diagnostics follow all existing assertions in each mode.",
+      "retainedAssertions": "Exact EPIPE identity, raw/invalid/absent/refused artifact handling, Process confirmation and no terminal on unconfirmed scope, normal terminal/artifact consumption, component cold projection equality, no fabricated CCall result, and second same-native-contract-reuse case."
+    },
+    "nativeWorkspace": {
+      "tests": 44,
+      "passed": 43,
+      "failed": 0,
+      "skipped": 1,
+      "wallMs": 2150.0895,
+      "exitCode": 0,
+      "timedOut": false,
+      "truncated": false,
+      "firstCase": "Actual local process writes the selected target, emits structured stdout, confirms process/group absence, then refuses conflicting output channels. Original exact conflict/currentness/no-fabrication assertions pass.",
+      "window": {
+        "byteLength": 114,
+        "probes": [
+          "activity",
+          "artifact_pending"
+        ]
+      },
+      "skip": {
+        "name": "admitted pure consumer evaluates a native task as data without physical authority",
+        "reason": "ABI5_NATIVE_WORK_RETAINED_ROOT unset; requires the retained installed consumer first-leaf failure",
+        "standing": "Unchanged historical conditional skip, not passed coverage."
+      }
+    },
+    "aggregate": {
+      "passed": 45,
+      "failed": 0,
+      "skipped": 1
+    },
+    "reporterIntegrity": "Both independently hashed reporters end with success:true summaries and end records; raw command receipts exit0 with no timeout/truncation/failure and empty stderr.",
+    "HALT": false
+  },
+  "findings": [
+    {
+      "id": "TEST-FIXTURE-005-F1",
+      "title": "Initial fixture preparation clones already immutable same-process owner events without a boundary need",
+      "technicalSeverity": "S3",
+      "affectedFile": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+        "bytes": 55380,
+        "sha256": "1348c189de820855c1905a6de2ca6a7abac73fd45126b9ae94dbad028540a092"
+      },
+      "line": 287,
+      "violatedProperty": "The explicit user/Executive same-process identity rule requires retaining established immutable owner objects where no raw/process/byte admission or intentional cold reconstruction is selected.",
+      "evidence": [
+        {
+          "file": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+          "lines": "283-288",
+          "fact": "The new initial-prefix loop obtains an event from runtimeEventAtPrefixIndex and then runs JSON.stringify -> JSON.parse -> deepFreeze before pushing it into rows. Event ID strings and bytes may remain equal, but the event/payload objects acquire different references."
+        },
+        {
+          "file": "code/src/abg/event_prefix.ts",
+          "lines": "178-179,465-490",
+          "fact": "runtimeEventAtPrefixIndex returns the selected event object. The validated prefix already requires/establishes an immutable event snapshot and payloads; the owner reader is not a raw mutable ingress."
+        },
+        {
+          "file": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+          "lines": "226-237,283-302,343-378",
+          "fact": "Each mode already owns a new rows array. Preparation appends retained/constructed events; later operations read/filter rows and append new frozen candidates. No mutation of a retained event body requires detaching it."
+        },
+        {
+          "file": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+          "line": 372,
+          "fact": "The later JSON roundtrip explicitly exercises cold reconstruction/projection equality. That existing byte-boundary witness is separate and should remain unchanged."
+        }
+      ],
+      "causalAssessment": "The author prepared the missing prefix by copying every event body although only a distinct container was needed. Deep immutability makes body references safe to share, and no caller mutation, process transfer, byte admission or negative-copy case is selected by the initial loop. There is no evidence-backed isolation need for the new copies.",
+      "triggerProbability": "Certain for each initial F04 prefix preparation on this frozen source.",
+      "realizedHarm": "Unnecessary serialization, cloning and identity loss in unshipped test setup; violation of the explicit construction constraint. No observed functional failure, shipped archive change or effect on the previously accepted archive performance measurement.",
+      "blastRadius": "Only F04 initial per-mode fixture setup and any local owner reuse dependent on those copied references. Native-workspace and the shared helper are unchanged by the needed correction; production consumers do not receive this test file.",
+      "dependentPaths": "Exact basis/projector preparation and subsequent component prefix reads consume the copied objects. The independent cold-replay comparison remains a deliberate copied-value path and is excluded from this finding.",
+      "containment": "All original functional tests pass; no Product code or archive member changed. The issue does not call for weakening guards or expanding Runtime scope.",
+      "repairComplexity": "Very small: retain the actual immutable event reference when adding it to the new fixture rows array. No new registry, schema logic, helper redesign or Product change is needed.",
+      "regressionRisk": "Low because retained events are immutable and the fixture mutates only its own container. Preserve the intentional cold-replay roundtrip and every original assertion.",
+      "confidence": "High on the identity violation and absence of a demonstrated boundary/isolation need. No numeric allocation/time impact was measured.",
+      "workaroundOrContainment": "Root may select the one-line setup correction; this Reviewer performs none.",
+      "remainingProof": "On a changed successor, source identity must be rebound and only the affected F04 whole-file proof needs renewal under Root selection. The exact unchanged native-workspace/helper proof can remain reusable through explicit correspondence; no broad rerun is implied.",
+      "priority": "Not assigned; Executive owns disposition."
+    }
+  ],
+  "triage": {
+    "status": "complete_for_finding",
+    "technicalSeverity": "S3",
+    "previousS2": "Functionally repaired on this successor",
+    "overallClaim": "Falsified only by the new explicit identity-constraint finding",
+    "acceptance": "Root only; not assigned here"
+  },
+  "smallestLawfulReentry": "Retain existing owner event references in the new F04 rows array; leave the later intentional cold-replay roundtrip, helper, Product source and native-workspace assertions unchanged. Freeze that exact narrow successor and obtain the selected affected-file proof. No automatic repair or retry loop is authorized by this review.",
+  "limits": [
+    "These are component proofs: F04 physical/admission premises remain controlled; native-workspace supplies a real local process/file effect with controlled lower admission. Neither becomes an installed native Run, provider, rollback, native held-store or flush proof.",
+    "The historical conditional skip remains open, not passed coverage.",
+    "No full Runtime audit, whole-5.0 qualification, immutable cut/install, publication or global-selector claim.",
+    "Operator SDK return/physical close/fresh readbacks and Root broader source/proof/cut conjunction remain separately owned.",
+    "The new fixture setup clone has no packaged-performance impact because it is unshipped; its own cost was not measured."
+  ],
+  "preservation": "Author-04 HALT/failure and prior causal/source/packaging reports remain untouched. This successor proof does not restamp old evidence.",
+  "invalidation": [
+    "Changed overlay/base/helper/owner bytes or proof inputs invalidate the affected judgment.",
+    "A concrete lawful initial byte/process boundary or mutation requirement would revise the new clone finding; none is present in the selected fixture.",
+    "A changed Product/method/frame/owner constraint, capability envelope or severity basis requires re-entry."
+  ],
+  "returnTo": "/root Executive; source acceptance and subsequent repair/execution/cut decisions remain Root effects."
+}

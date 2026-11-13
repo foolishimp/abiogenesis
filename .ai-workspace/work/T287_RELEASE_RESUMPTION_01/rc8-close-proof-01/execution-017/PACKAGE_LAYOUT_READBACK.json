@@ -1,0 +1,19 @@
+{
+  "owner": "npm Arborist.loadActual + npm-packlist",
+  "expectedRoot": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript",
+  "actualRoot": "/private/tmp/abg-r8c-017/w/build_tenants/abiogenesis/typescript",
+  "expected": {
+    "members": 5325,
+    "dependencies": 4328,
+    "listSha256": "ba31023a5c98ced77926124690c8afb34e618175f92448d026c83d6ee9f3b16b"
+  },
+  "actual": {
+    "members": 5325,
+    "dependencies": 4328,
+    "listSha256": "ba31023a5c98ced77926124690c8afb34e618175f92448d026c83d6ee9f3b16b"
+  },
+  "missing": [],
+  "extra": [],
+  "physicalDependencyDirectory": true,
+  "readOnly": true
+}

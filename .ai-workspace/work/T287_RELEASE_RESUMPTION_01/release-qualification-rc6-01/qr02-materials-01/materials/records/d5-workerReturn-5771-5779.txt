@@ -1,0 +1,9 @@
+**Not verified**
+
+- **The ruling resume path is not authored.** The live mode stops at `awaiting_owner_rulings`. At plan time, 0 slots
+  are insufficient.
+- **The execution-material reconstruction is a source reading.** No admitted C2 Result exists.
+- **The 405 unrun assess admissions rest on the plan's determinism.** That determinism rests on a second process and
+  the smoke cold reads.
+- **The provider time is an extrapolation** (13.7 times).
+- **The inherited-base activation is the ticket's current text** at the matched rows.

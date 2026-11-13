@@ -1,0 +1,35 @@
+{
+  "kind": "root_accumulated_work_counterexample_intake",
+  "observedUtc": "2026-11-03T17:09:53.905242+00:00",
+  "subject": "Active native-02 scratch candidate; not frozen/admitted final source",
+  "evidence": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-02/tmp/meter-a.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/feedback-observations/20261103T170953Z/meter-a.tap",
+      "bytes": 17759,
+      "sha256": "8358b740317516b49a732880355a4531d9beff6e4a6de17e060a7aaedd1e4629"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-02/tmp/meter-probe.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/feedback-observations/20261103T170953Z/meter-probe.tap",
+      "bytes": 17759,
+      "sha256": "731918fb2e0c0c5f419a2aae2cd381432827461cab0093a8a9c97e3f51ffd5fc"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-02/tmp/probe-stacks.log",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/feedback-observations/20261103T170953Z/probe-stacks.log",
+      "bytes": 72563,
+      "sha256": "bd27b73e672aa35e451348df400d8ff337b6a5c07051f05e3c48bdf8cd3d4104"
+    }
+  ],
+  "observedFailure": "Actual invocation test preserves outcomes and refusal results but fails the author predicate that added-body touches should be less than one expansion of added history",
+  "frames": {
+    "Product": "Behavioral equivalence alone does not close the selected efficiency outcome",
+    "Design": "Reuse existing owned facts across the complete path; retained genuine obligations need explicit actual consumers and costs",
+    "Integration": "Meter now encloses invocation rather than only its final projection; remaining cause is being traced through exact callers",
+    "Proof": "Distinguish body visits, physical decodes, full-history expansion and genuinely needed scoped work. The author threshold is not itself Product law; require an honest same-input comparison and supported cause, not a relaxed threshold chosen to turn green",
+    "Effect": "Diagnostic scratch instrumentation is not the candidate. Restore/rebuild exact source and verify its package identity before any candidate proof",
+    "Scope": "If an actual repair is outside the exact Product territory or requires a canonical owner change, return its concrete relation to Root for selected reentry"
+  },
+  "disposition": "Whole-path closure withheld. Preserve current edits and successful unrelated feedback. Await finite caller/cause diagnosis; no new Product repair authority granted by this record."
+}

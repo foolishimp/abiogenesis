@@ -1,0 +1,27 @@
+{
+  "kind": "operator_static_self_check_not_independent_assurance",
+  "result": "passed_for_declared_static_checks",
+  "testsBuilds": 0,
+  "installedPrepare": 0,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "nativeDispatched": false,
+  "checks": [
+    "Python AST and Node --check syntax only",
+    "43 write paths vs157 custody; all nonconstruction roles readonly",
+    "964 unique selected inputs; literal relative module closure has0missing",
+    "20 current inline digests and34 assessment inputs; all exact source extents pins match",
+    "All157 source custody files and125 prior source/handoffs unchanged",
+    "4 nonduplicated lanes28 test modules, minima12/9/5/62; no old execution reuse",
+    "Authenticated stdout c2Report and nativeTestProof exact-pin instructions replace missing observation fields",
+    "Existing8GB host guard, derived environment omitted and genuine prior close pinned"
+  ],
+  "pending": [
+    "Root proportional independent control review",
+    "Actual installed-owner preparation and current-role all-phase capacity/field checks",
+    "Root exact dispatch manifest/admission",
+    "Native source construction, actual focused C2/assessment/fresh closure and independent source review",
+    "Original full R1-R7/C1-C5 Root conjunction"
+  ],
+  "generationFailure": "GENERATION_FAILURE_001.json preserved; one operator-only deferred-output ordering correction and explicit completion, no source/native retry"
+}

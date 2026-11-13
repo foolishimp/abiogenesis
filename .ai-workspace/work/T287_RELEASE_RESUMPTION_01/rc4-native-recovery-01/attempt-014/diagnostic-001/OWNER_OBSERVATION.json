@@ -1,0 +1,9 @@
+{
+  "kind": "worksite_effect_refusal",
+  "schemaVersion": "5.0.0",
+  "disposition": "refused",
+  "code": "invalid_coordinate",
+  "message": "worksite context requires finite explicit limits and exact relative read roots",
+  "lastObservation": null,
+  "substrateCode": null
+}

@@ -1,0 +1,83 @@
+{
+  "ProductFrame": "Same Root RC9-BROAD007 operational triage; raw host observations are evidence, no Product admission or universal isolation claim.",
+  "status": "POINT_IN_TIME_ACCESSIBLE_OWNERSHIP_OBSERVATION",
+  "at": "2026-11-08T20:09:20.406900+00:00",
+  "failedCommand": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/063-t287-c0-post-publication-failure.result.json",
+  "recordedKnownPid": null,
+  "probePid": 75245,
+  "probeAncestry": [
+    1,
+    24512,
+    27586,
+    75245
+  ],
+  "matchCoordinates": [
+    "/private/tmp/abg-r9c-broad-001",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/file-host.mjs"
+  ],
+  "processRows": 1260,
+  "accessibleCwdRecords": 920,
+  "commandMatches": [],
+  "cwdMatches": [],
+  "nonProbeRelatedProcesses": [],
+  "probes": [
+    {
+      "name": "ps",
+      "argv": [
+        "/bin/ps",
+        "-axo",
+        "pid=,ppid=,pgid=,lstart=,etime=,time=,command="
+      ],
+      "startedAt": "2026-11-08T20:09:19.737797+00:00",
+      "wallSeconds": 0.043600667268037796,
+      "timeoutSeconds": 10,
+      "exitCode": 0,
+      "timedOut": false,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-broad-007/ps.stdout",
+        "bytes": 525627,
+        "sha256": "728cea271d33f120c30052b30a0a51c5ccf66f7edd2ca0e9efde3978c8adeaa2"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-broad-007/ps.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "lsof-cwd",
+      "argv": [
+        "/usr/sbin/lsof",
+        "-n",
+        "-P",
+        "-a",
+        "-d",
+        "cwd",
+        "-Fpcfn"
+      ],
+      "startedAt": "2026-11-08T20:09:19.782121+00:00",
+      "wallSeconds": 0.6206497922539711,
+      "timeoutSeconds": 10,
+      "exitCode": 0,
+      "timedOut": false,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-broad-007/lsof-cwd.stdout",
+        "bytes": 44459,
+        "sha256": "ab7712c526fd9fa959d8a38c8fc656050d10ea8828890c3588c337e7c4fe6862"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-broad-007/lsof-cwd.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "limits": [
+    "Point-in-time accessible ps and cwd observations only; no universal detached-descendant absence or technical isolation.",
+    "No prior PID was recorded in failed command/file-host receipts. Exact command/script/derived cwd matches plus descendants are the observed ownership scope.",
+    "Probe ancestry command lines may contain exact coordinates; disclosed separately from non-probe matches.",
+    "No signals to Product/test processes, cleanup, retry, test or source mutation."
+  ]
+}

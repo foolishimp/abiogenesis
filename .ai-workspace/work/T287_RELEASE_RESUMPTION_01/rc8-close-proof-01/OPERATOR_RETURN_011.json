@@ -1,0 +1,307 @@
+{
+  "status": "BROAD_CLOSE_STOPPED_REQUIRES_ROOT_TRIAGE",
+  "at": "2026-11-07T08:45:25.794329+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_011.json",
+    "bytes": 2138,
+    "sha256": "d8ba5925804bfa37961333f056f67967da18f0608cba6e86cc67a9a6a419d8ef"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_011.json",
+    "bytes": 5992,
+    "sha256": "8a24486aafe7f190d3abe46e1df0f5c8c2aa47969950e73db8256036ba7a4e12"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_010.json",
+    "bytes": 10716,
+    "sha256": "5c1ceb68316e0704d5ca17b49ac56aeeb424bc4941ee48638d961f65ce046313"
+  },
+  "execution": {
+    "pid": 30784,
+    "sessionId": 44147,
+    "startedUtc": "2026-11-07T08:39:01.767Z",
+    "stoppedUtc": "2026-11-07T08:43:22.316Z",
+    "wallMs": 262005,
+    "exitCode": 1,
+    "processObservedAbsent": true,
+    "primaryPreserved": true
+  },
+  "stop": {
+    "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "testSourceLines": [
+      561,
+      563,
+      565
+    ],
+    "stage": "module initialization before any test-body pass",
+    "error": "TypeError: runtime event payload matches no admitted event-contract variant",
+    "origin": "assertRuntimeEventContract -> projectRuntimeEventAtContract -> admitRuntimeEvent at test563",
+    "filePartialPassed": 0,
+    "fileFailures": 1,
+    "testChildExitCode": 7,
+    "timedOut": false,
+    "truncated": false,
+    "signal": null,
+    "standing": "New evidence returned to Root without causal repair, waiver or retry."
+  },
+  "counts": {
+    "retainedBefore": 98,
+    "newCompleteWholeFiles": 11,
+    "newCompletePassed": 119,
+    "newCompleteSkipped": 9,
+    "totalCompleteWholeFiles": 109,
+    "totalCompletePassed": 666,
+    "totalCompleteSkipped": 142,
+    "remainingIncludingDeferredAndFailure": 99,
+    "scheduledUncompleted": 96,
+    "deferredNoCoverage": 3,
+    "inventoried": 208
+  },
+  "completedWholeFiles": [
+    {
+      "file": "test_env/tests/t287-installed-qualification-conservation.test.mjs",
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 0,
+        "cancelled": 0,
+        "skipped": 1,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/098-t287-installed-qualification-conservation.json",
+        "bytes": 1793,
+        "sha256": "909b17e3c388baab98224e47fdc03a683008ca81db4f43964a74980c1b6ef30c"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+      "counts": {
+        "tests": 8,
+        "failed": 0,
+        "passed": 8,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 8,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/099-t287-interrupted-event-resource-recovery.json",
+        "bytes": 1198,
+        "sha256": "ffa3cad851e9667dd96eeb289784a853cfad48720f29a075a959bc2f5f3108c6"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-json-value-definition.test.mjs",
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/100-t287-json-value-definition.json",
+        "bytes": 1156,
+        "sha256": "7db76281092cea76e6fae64085f3e3772fe2f4f5d2ba5e9eff9f701224b0d8a4"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "counts": {
+        "tests": 7,
+        "failed": 0,
+        "passed": 7,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 7,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/101-t287-lifecycle-failure-carrier.json",
+        "bytes": 1168,
+        "sha256": "0b7e943d6aabbd7c0895e89881b1cbff43d9480b0d9634d486ec0859c900704a"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-live-worksite-construction.test.mjs",
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 0,
+        "cancelled": 0,
+        "skipped": 1,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/102-t287-live-worksite-construction.json",
+        "bytes": 1635,
+        "sha256": "80145e5d9f8f883187f26baf3af0aff1bd8fd47268e55d9123726a180c9fabdc"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+      "counts": {
+        "tests": 6,
+        "failed": 0,
+        "passed": 6,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 6,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/103-t287-malformed-gtl-gate.json",
+        "bytes": 1148,
+        "sha256": "f4be72eedbe2316b66fb390736c900ac10ce8cd4877e009bbeb988aa3b27981a"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-management-context.test.mjs",
+      "counts": {
+        "tests": 14,
+        "failed": 0,
+        "passed": 12,
+        "cancelled": 0,
+        "skipped": 2,
+        "todo": 0,
+        "topLevel": 14,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/104-t287-management-context.json",
+        "bytes": 2109,
+        "sha256": "563a96b415db13d8cf74ae6ba1ea0c7a9a81b370056af254036255dd68a7e71b"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-management-stream-drain.test.mjs",
+      "counts": {
+        "tests": 8,
+        "failed": 0,
+        "passed": 4,
+        "cancelled": 0,
+        "skipped": 4,
+        "todo": 0,
+        "topLevel": 8,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/105-t287-management-stream-drain.json",
+        "bytes": 2906,
+        "sha256": "55c72196c3c014d2c0bc4e0d98c636e7dacc015fb6f3dd1911d03fd68c26aed2"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-management-supervision.test.mjs",
+      "counts": {
+        "tests": 5,
+        "failed": 0,
+        "passed": 5,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 5,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/106-t287-management-supervision.json",
+        "bytes": 1155,
+        "sha256": "f2f74bca5bcf1a1ce9eb6778e039df9f65e54249092f6ff6cc99bf67fb131398"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+      "counts": {
+        "tests": 75,
+        "failed": 0,
+        "passed": 75,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 75,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/107-t287-multi-candidate-admission.json",
+        "bytes": 1173,
+        "sha256": "ae174c076397594f806a5ee0008c863862ef3dcd32d424f374191b57056e802f"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "counts": {
+        "tests": 2,
+        "failed": 0,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 1,
+        "todo": 0,
+        "topLevel": 2,
+        "suites": 0
+      },
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/108-t287-native-assembly-retained-input.json",
+        "bytes": 1665,
+        "sha256": "05a39ec547c4348241706d5fe02781dad80a50cb980c01921619d905334fe09d"
+      }
+    }
+  ],
+  "deferralsReferencedIn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_012.json",
+    "bytes": 211996,
+    "sha256": "216f31b8c88c0fed8b86417a192f0031f69b8cb5728b642e944d2a1020ced347"
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "cb180461a6d136bfa5d177f5b988d94cd04ea0dc0d6ce0ee47261d838f08fea3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/SUMMARY.json",
+      "bytes": 245482,
+      "sha256": "e9109287023ef3d5a20e5f963ef0dcf62d8446805ee91c473ab7ecbc339cf7e7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/109-t287-native-assessment-evidence.json",
+      "bytes": 1171,
+      "sha256": "bd4ac7517cc4633efabd6ef96d79fc33da5b995cf7af1bdb33f6a6217c681d3d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/commands/109-t287-native-assessment-evidence.result.json",
+      "bytes": 1503,
+      "sha256": "c963483f887afc9b8796666e3ca9808fe4b1ce7226568f3c6cc94851148418d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/commands/109-t287-native-assessment-evidence.stdout",
+      "bytes": 1933,
+      "sha256": "5ac03b537a3aebe0e44ab7cd5ea772a7ee070edf37236c6d80090ccfb7ffa10c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/events/109-t287-native-assessment-evidence.jsonl",
+      "bytes": 767,
+      "sha256": "4d6743a2c29f7b58454ffd2a69ae5edfcb1a586a6c6ea3376dbabe11d876bd32"
+    }
+  ],
+  "preservation": {
+    "sourceWrites": 0,
+    "providerCalls": 0,
+    "gitEffects": 0,
+    "cleanup": false,
+    "automaticRetry": false,
+    "scratchRetained": "/private/tmp/abg-r8c-011",
+    "sourceSubject": "immutable A6 broad stage; A8 held preparation remains separate"
+  },
+  "broadAccepted": false
+}

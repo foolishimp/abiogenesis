@@ -1,0 +1,12 @@
+{
+  "eventOrdinal": 31765,
+  "eventTime": "2026-11-03T01:32:49.951Z",
+  "offset": 668494380,
+  "eventRowBytes": 15193320,
+  "eventRowSha256": "21021f1f9c6d853c132ead45c48c0201c00db575390078799cbc0c37a0da1d74",
+  "resultRef": "result://abiogenesis/4443efd2e110b1ad8e35e743edf466d05d8a5e61dbf2266fe2ed6cb79cc735ff",
+  "valueKind": "worksite_command_execution_observation",
+  "observationRef": "worksite-command-execution-observation://abiogenesis/68b38e328cae5755d12243accfb370fe2ec55e363979558cee0c57308ff49466",
+  "observationDigest": "sha256:68b38e328cae5755d12243accfb370fe2ec55e363979558cee0c57308ff49466",
+  "summarySha256": "4b465f2b9f83ce831f7c45d624f683943f0d1a1b00631ea75b23de8a83acc24d"
+}

@@ -1,0 +1,95 @@
+{
+  "kind": "proof10_prior_uat_non_entry_and_capacity_projection_revision",
+  "recordedUtc": "2026-11-04T13:56:15.449625+00:00",
+  "actualUat": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_UAT_CLOSED_RESULT.json",
+    "bytes": 3678,
+    "sha256": "7ee5260356f05f83e25c2c6289a242f92dfd0c4ff405b21dcf0897035c6ad273"
+  },
+  "newInput": {
+    "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/NATIVE09_UAT_STANDING.json",
+    "bytes": 3678,
+    "sha256": "7ee5260356f05f83e25c2c6289a242f92dfd0c4ff405b21dcf0897035c6ad273"
+  },
+  "revisions": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/CURRENT_SUPPLEMENT_BINDINGS.json",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/preimages/control-revision-002/00-CURRENT_SUPPLEMENT_BINDINGS.json",
+        "bytes": 921,
+        "sha256": "7a37d468df59f94422b035414a5b5023be899c5fa1502c068e2e9c6ee00d6fd6"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/CURRENT_SUPPLEMENT_BINDINGS.json",
+        "bytes": 1214,
+        "sha256": "c65101e3335f7e98d68a3ba235c022be1dc1e7e129d218601a0fb8e048605e14"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/ROOT_FINALIZATION_BINDINGS.example.json",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/preimages/control-revision-002/01-ROOT_FINALIZATION_BINDINGS.example.json",
+        "bytes": 1768,
+        "sha256": "15297d79360616018575b05756493baeefd545367648b30fddd8ada342626922"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/ROOT_FINALIZATION_BINDINGS.example.json",
+        "bytes": 2174,
+        "sha256": "63c4d41e1e682de708fe6368d4025c55433516c3f5fad380640f16cbff82f100"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/finalize.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/preimages/control-revision-002/02-finalize.mjs",
+        "bytes": 7217,
+        "sha256": "0c57d0b52211e5ccf2df3877a69a7238a2ad1c0ca77e9fbcb99d99e1f54ffd85"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/finalize.mjs",
+        "bytes": 7444,
+        "sha256": "1e487525ea9181d113432fed1a6de50709cfb7f98d49adfa7d856393f0c903fc"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/selector-size-preflight.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/preimages/control-revision-002/03-selector-size-preflight.mjs",
+        "bytes": 11962,
+        "sha256": "69f4f73b2e67e290e1077fd5e3310db8a492a8debe1ac2ef0e157c205e5166bf"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/selector-size-preflight.mjs",
+        "bytes": 11964,
+        "sha256": "fc2d894865753bc03f84b178a8885a70eb201a4755b113a770443a285ec911b1"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/SELECTION_PLAN.json",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/preimages/control-revision-002/04-SELECTION_PLAN.json",
+        "bytes": 85148,
+        "sha256": "d214a52c82cd367234bb7206c35bdc6876ae3ef57bf36e55d798e1c977532e8c"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/SELECTION_PLAN.json",
+        "bytes": 85276,
+        "sha256": "f0cbed7e0ab20b613cdf287da581d0da95fd639084130d3ebc34307630b5809e"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/workload.template.json",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/preimages/control-revision-002/05-workload.template.json",
+        "bytes": 32338,
+        "sha256": "b7b8ebf61e5d6103500cc0c67bd5ca2a2dd07108b87e8caaa8d8f331f8c96bef"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/workload.template.json",
+        "bytes": 32767,
+        "sha256": "13873110ff8bf58b56388b2ce44cb5bacbb0e4ac7232a944fffa1928ca850b82"
+      }
+    }
+  ],
+  "meaning": "Actual09 UAT non-entry is accepted as the honest prior standing, never a missing required assessment. Diagnostic post-C2 states use current input scope/unresolved support with untouched historical C2/previous-judgment identities; no runtime state is injected."
+}

@@ -1,0 +1,117 @@
+{
+  "status": "PREPARED_NOT_DISPATCHED",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "heldSourceSnapshotSha256": "3d8c6ecac6009c13e5135025d6449b0baaca366f5a581b6ef04afddbb20f3f02",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "contextDigest": "sha256:bb84cfd1444f2c7ed7f082676df712212f76a847477ca79eb6dcf2983f3beb82",
+  "observedEntries": 346,
+  "selectedFiles": 342,
+  "commands": 6,
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 1561500,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 1566500
+  },
+  "limits": {
+    "absoluteTimeoutMs": 3600000,
+    "inactivityTimeoutMs": 1800000
+  },
+  "selectorCapacity": {
+    "kind": "bounded_current_initial_projection_measurement",
+    "projectionBytes": 285040,
+    "selectedFiles": 342,
+    "sourceCount": 10,
+    "contextBytes": 12099832,
+    "maxPromptBytes": 1048576,
+    "reserveBytes": 131072,
+    "initialProjectionFitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Initial owner task projection only; not complete rendered request or future-stage fit.",
+      "Existing native assembly applies actual prompt limit before each paid invocation.",
+      "No historical task/prompt bodies or invented future producer observations used."
+    ]
+  },
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/private/tmp/abg-rc5"
+    },
+    {
+      "name": "LANG",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  ],
+  "eventPrefix": {
+    "coordinateDigest": "sha256:ef10114d4c301193fc62b6cc5e98af8453f7026710d3f6d8ffc931e4180ae261",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:6e14704317aafc094345b2d6d79b889fe5fc3c7ae284987c2504697b6d5b7010",
+    "prefixLength": 401189394,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "inputCanonicalDigest": "sha256:bb4e121917403c649a858be9608673efe95f159619ef72de57099ddb3e116106",
+  "callCanonicalDigest": "sha256:710b5dea53a968771c6bc3721017696c4e7a892d189c57a828c9739e92bb7414",
+  "callFileSha256": "311da2dd1509d800ed17347b42ea3ea7a9810f357f53d606f53cfcb7cc859278",
+  "workloadSha256": "f8a3d7fd6064ca64d1ba145bcb9091bf3756a0b60d9bf2ad4d787dfa36b71c10",
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-rc5",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "BASH_DEFAULT_TIMEOUT_MS": "7200000",
+    "BASH_MAX_TIMEOUT_MS": "7200000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Existing installed owners and source-none proof-only call. Only Testing/UAT; no coding stage or qualification acceptance."
+}

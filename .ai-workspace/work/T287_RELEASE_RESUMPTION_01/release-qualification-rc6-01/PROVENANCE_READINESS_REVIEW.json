@@ -1,0 +1,370 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0, fixed fifteen feature families; GOAL-035 / T-287",
+    "slice": "F11 construction-provenance readiness for exactly the three selected unchanged RC6 members; independent source/provenance evaluation only.",
+    "productOutcome": "Faithful original-construction and relevant surviving-contributor correspondence for exact-candidate F11 author/assessor independence, preserving the separate sole AF22 qualification verdict and release gates.",
+    "authoritySplit": {
+      "source": "Frozen RC6 e7179b19b50c3b2f918e59425667ed79239e4a68 and its selected Product Definition/Product/requirements govern this source subject; preservation records establish only their stated byte correspondence.",
+      "tool": "Selected immutable STDO3.0.4 governs this review; installed toolchain and preparation owners retain their own authority. This review runs no builder, preparation or provider.",
+      "runtime": "Original ABG admission and the existing producer/proof/transport owners alone establish native runtime truth. Source custody, Git metadata and this closed review do not create or replace admitted events, identity or qualification."
+    },
+    "prohibitions": [
+      "Only the two named review outputs may be written.",
+      "No source/test/HOW edits, builds/tests/preparation, provider/native execution, repair or Worker activation.",
+      "No raw provider/event-stream acquisition, whole-inventory/history audit, inferred human authorship or invented model-family equivalence.",
+      "No parallel contributor union/registry/ledger, qualification credit, acceptance/publication or release claim."
+    ]
+  },
+  "kind": "bounded_provenance_readiness_review",
+  "status": "closed",
+  "recordedUtc": "2026-11-05T08:18:32.388925+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/PROVENANCE_READINESS_REQUEST.json",
+    "bytes": 5456,
+    "sha256": "e485c59ab61e48b82e8b4de64265ef17c45634a3a56e192df5ebf17d3bdf50fe"
+  },
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_QUALIFICATION_PLAN.json",
+    "bytes": 6440,
+    "sha256": "f6c318797e831d6a0cedaa1143ca3f0aef4c227ec1274143af9f0ba333e4e04b"
+  },
+  "priorFinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+    "bytes": 28638,
+    "sha256": "085c993048138ee929c07cd3be709e867fa51c3d0b0fe9bcf77497b1b8bc1c69"
+  },
+  "role": "Independent read-only source/provenance evaluator; no candidate authorship or qualification judgment",
+  "basis": {
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "composition": [],
+    "use": "Same selected review skill/basis verified and read in this reviewer activation; no alternate method or companion authority."
+  },
+  "subject": {
+    "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "commit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "members": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "bytes": 92279,
+        "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+        "bytes": 41016,
+        "sha256": "00788ff65b6ea0de0b7dc68b67d7a89a80300e92aec04bb9246122671e790c2b",
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+        "bytes": 19594,
+        "sha256": "364c615d339fe85d187d3f0fd792715da9ee0f127587fb20eb9d27b17aebdf5c",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs"
+      }
+    ],
+    "selectedPathsCleanAtReturn": true
+  },
+  "claim": "Whether the three selected current RC6 members have sufficient original construction/current-contribution correspondence for a faithful existing-arm provenance driver.",
+  "result": "indeterminate",
+  "conclusion": "One current contribution has a directly recorded original external activation/return and exact postimage; one native contribution has exact retained source/observation correspondence; the contracts grant and the complete relevant contributor/identity relation remain unknown. Current last-chain attribution is insufficient. Return finite readiness and a narrow proposal; do not claim whole-inventory provenance or new qualification.",
+  "readiness": {
+    "ready": [
+      "Reuse RP-2 original activation/return and exact f8396e6 postimage for its two surviving provenance.mjs edits.",
+      "Reuse native06 exact qualification_proof.ts postimage, readiness and Root disposition, conserved into native08/09 and RC6.",
+      "Existing native/external provenance arms, original-record byte reconstruction and scope union already exist."
+    ],
+    "proposed": [
+      "Replace preservation-commit/last-chain-only attribution with source-grounded selection in the existing provenance driver; absent recorded identity stays unknown.",
+      "Settle one finite original-historical-postimage to current-member correspondence in the existing external-attribution HOW/checker before admitting surviving earlier contributions."
+    ],
+    "unknown": [
+      "The complete relevant surviving contributor set for any of the three files.",
+      "Original b8f66ef4/T-290 construction grant/closure and earlier original D5 grants within this read route.",
+      "Native06 original construction producer eligibility and actual per-invocation actor/model identity from the closed records inspected.",
+      "A normalized model-family relation, current eligible assessor arrangement and successful native qualification."
+    ]
+  },
+  "memberMatrix": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "state": "ready_byte_correspondence; native_attribution_incomplete",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "bytes": 92279,
+        "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts"
+      },
+      "originalRecords": [
+        "native06RootSelection",
+        "native06Subject",
+        "native06Readiness",
+        "native06SourcePostimage",
+        "native06BaselinePreimage",
+        "native06RootConjunction",
+        "native06InterimReview"
+      ],
+      "observedOrigin": {
+        "nativeResultRef": "result://abiogenesis/1551b466553fb6a2769333a2fd5efaca58788acd3c016a549f73e094b77b252b",
+        "eventOrdinal": 49501,
+        "eventTime": "2026-11-04T01:37:59.445Z",
+        "sourceRoot": "/Users/jim/src/apps/abiogenesis-single-address-space",
+        "builderBase": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "heldNative05PreimageSha256": "c9ea7515696efdc160c59f6faa3f0f28243f20b247b164baea3c64ec3c4f6993",
+        "baselinePreimageSha256": "8c593d1e9485e7dd0ab6997273630b827f45429a2220370e1cf023af8cce803a"
+      },
+      "factualCorrespondence": "Native06 subject marks changedFromHeld=true and admits an after-entry for exactly 92279 bytes/f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84. The separately retained native06 source bytes hash to that value. Native08 and native09 mark this member unchanged from their held preimages; RC6 SOURCE_BRIDGE and current bytes conserve it. RC6 preservation commit e7179 is not the construction identity.",
+      "whatItEstablishes": "A concrete native06 contribution and exact final-file conservation, corroborated by original partial-return and independent source records. The source is not a new native09 contribution.",
+      "identity": {
+        "recorded": "Native coding Worker and requested xhigh role in ROOT_REENTRY_SELECTION_06; subject records native Result/time/source but no model/actor-binding identity.",
+        "model": null,
+        "family": null,
+        "modelStanding": "unknown from inspected closed records; no inference from builder, path, role, committer or model used elsewhere"
+      },
+      "existingArmFit": "Native arm can be selected only if the existing proof owner resolves an eligible actual WORKSITE_CONSTRUCTION candidate producer with its exact CCall/Result, successful advancing state, matching bundle bytes/scope and transport actor/worker binding. These source-custody records alone do not establish that eligibility. No author event may be fabricated; broader execution-evidence source support is not automatically a construction-producer bridge.",
+      "preservedLimits": "Native06 readiness is false/not_ready and Root calls it a partial successor after genuine native06 failure. Source conservation does not promote that failure, unrelated C2/UAT, complete contributor identity, semantic acceptance or qualification."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "state": "ready_exact_postimage; original_attribution_unknown",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+        "bytes": 41016,
+        "sha256": "00788ff65b6ea0de0b7dc68b67d7a89a80300e92aec04bb9246122671e790c2b",
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts"
+      },
+      "originalMetadata": {
+        "commit": "b8f66ef4b593fd0943b9377a3aa66b0ad3f1a28a",
+        "priorCommit": "2c9878c3b9ab9be1fee4756e4a60f67d0c1f5d10",
+        "declaredTrailer": "Claude Opus 5.5",
+        "pointedRecord": ".ai-workspace/work/T290_DEBT_WAVE_01/phase_c.md, C-2 return; outside the selected T287/commentary route and not acquired"
+      },
+      "factualCorrespondence": "Original b8f66ef4 blob equals current 41016-byte/00788ff65b6ea0de0b7dc68b67d7a89a80300e92aec04bb9246122671e790c2b file. Its exact diff changes only sameQualificationValue parameter types and removes the casts; previous contract/schema bytes remain.",
+      "identity": {
+        "recorded": "Commit message declares Co-Authored-By: Claude Opus 5.5.",
+        "modelStanding": "Declared historical label only; original execution/model/grant correspondence not verified.",
+        "family": null
+      },
+      "existingArmFit": "Original current postimage/preimage/delta are available in exact Git history. A sufficient external construction/grant/closure record may permit the existing external arm; Git committer/trailer alone does not establish its authority or all surviving contributors.",
+      "preciseMissingEvidence": "The original b8f66ef4 C-2 activation/grant and closure establishing author identity and scope, plus any necessary surviving original contribution correspondence. Root has no verified pointer within this route. Stop here rather than audit T-290 ancestry."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+      "state": "ready_representative_external_contribution; inherited_attribution_incomplete",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+        "bytes": 19594,
+        "sha256": "364c615d339fe85d187d3f0fd792715da9ee0f127587fb20eb9d27b17aebdf5c",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs"
+      },
+      "originalRecords": [
+        "rp2ActivationAndReturn",
+        "rp2WorkerReturn"
+      ],
+      "originalMetadata": {
+        "activation": "T287-RP2-CODEX-20261029T130722Z",
+        "base": "08ace99187eaa7a2a35b4e1629095df7ba7d9cca",
+        "implementation": "f8396e6bc5edcba290e4b8dae23af4d2015e271d",
+        "earlierPostimageCommit": "92498a2d29eca294d851557753cbda2fe047c357",
+        "earlierPostimageBytes": 19439,
+        "earlierPostimageSha256": "7cc2df35df8b187b2380a0f28fbaab765f39575aa89d007444c4546839309332"
+      },
+      "factualCorrespondence": "The RP-2 activation explicitly grants truthful Codex gpt-6-astra attribution in test_env/qualification and the Worker return identifies the exact implementation. Its exact Git diff adds the gpt-6-astra identity row and allows mode100755 alongside100644. Original postimage is byte-identical to current RC6 (19594 bytes/364c615d339fe85d187d3f0fd792715da9ee0f127587fb20eb9d27b17aebdf5c).",
+      "survival": "The earlier D5 chain-selection, original-record construction, inherited identities and no-trailer fallback remain in source; these two RP-2 edits did not replace those mechanisms. This establishes a concrete inherited contribution requiring attribution attention. It is not a complete semantic-survival census or proof of every earlier author.",
+      "identity": {
+        "recorded": "Original activation and Worker Return identify Codex / gpt-6-astra; driver encodes actor-identity://openai/gpt-6-astra. Requested effort xhigh is recorded; observed effort telemetry was unavailable. Earlier D5 Git messages declare Claude Opus 5.5.",
+        "modelStanding": "gpt-6-astra is directly recorded external construction attribution, not newly measured provider telemetry. Earlier Opus label is declared metadata pending original-grant sufficiency.",
+        "family": null,
+        "excludedConfusion": "The adjacent Opus5.5 max reviewer is a Reviewer of RP-2, not the RP-2 writer. The name of its review directory does not transfer authorship."
+      },
+      "existingArmFit": "The exact RP-2 current-postimage chain can express that recorded contribution using the existing external arm, provided real original activation/grant/delta/closure and assessor judgment are supplied. It cannot alone establish the retained D5 contributor set. Including the earlier D5 chain unchanged is refused by current selected-material/postimage equality."
+    }
+  ],
+  "existingMechanisms": {
+    "native": {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts:647",
+      "contract": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts:131",
+      "supports": "Multiple actual candidate producers; exact successful/advancing producer CCall/Result/implementation, complete candidate-bundle bytes and actor/worker transport binding; union of actual covered scopes.",
+      "limit": "Exact current-member full-byte match; arbitrary old Result/custody report, renamed actor, stale postimage or mere cross-resource execution evidence cannot stand in for original construction eligibility."
+    },
+    "external": {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts:816",
+      "contract": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts:134",
+      "supports": "Original activation/preimage/delta/closure/body records, digest/length checks, literal delta reconstruction, identity/authority attribution judgment and scope union. Sufficient original source/grant attribution needs no new owner O.",
+      "limit": "The selected-material check at849 requires every included chain carrying that material to have its current digest/path. A superseded historical postimage cannot simply be included as an earlier surviving contribution."
+    },
+    "scopeUnion": {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts:866",
+      "standing": "Already implemented; covered.add(scope) across chains followed by selected subject-member union coverage. No second contributor union/registry/ledger is needed."
+    },
+    "acknowledgment": {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts:679",
+      "standing": "Current F_H acknowledgment can resolve insufficient external attribution when exact requested record-set/identities and actual owner response join. It cannot override invalid byte reconstruction/currentness or waive author/assessor independence. No acknowledgment is requested or activated by this review."
+    },
+    "independence": "QR-01 actual assessor-identity correspondence remains a separate dependency. This review neither implements nor closes it."
+  },
+  "concreteDiscriminator": {
+    "scope": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "currentPostimage": "364c615d339fe85d187d3f0fd792715da9ee0f127587fb20eb9d27b17aebdf5c",
+    "historicalPostimage": "7cc2df35df8b187b2380a0f28fbaab765f39575aa89d007444c4546839309332",
+    "staticOutcome": "With current provenance.mjs in judgment.task.material, the original D5 chain carrying that member has a different digest and is returned invalid at selected-material equality. Adding history without changing owner correspondence fails even if its original patch is valid. Dropping the chain instead omits inherited attribution. This is source inspection, not an executed test.",
+    "smallestProofAfterOwnerDecision": "Use this exact two-transition representative: unchanged original historical bytes/deltas and the RP-2 current postimage, separately establishing surviving relevant D5 and RP-2 attribution. Pair a lawful positive with wrong final digest, missing connecting transition, merely renamed identity and unsupported survival controls. Execute only after existing-owner HOW/contract decision, through authorized native work; none executed here."
+  },
+  "recommendedOwningReentry": [
+    {
+      "order": 1,
+      "owner": "Existing qualification provenance driver and original construction record owners",
+      "action": "Use actual original RP-2 activation/return and native06 source records as the finite starting inputs. Remove the inference that no trailer means human owner. Treat identity or original-grant gaps as explicit incomplete provenance. Do not attribute whole preserved native source to e7179."
+    },
+    {
+      "order": 2,
+      "owner": "Existing native/external construction attribution HOW and validator owner",
+      "action": "Decide the one necessary historical-to-current relation on provenance.mjs: preserve authentic historical postimages and deltas; establish a finite byte correspondence through actual subsequent construction records to the exact selected current member; separately require source-grounded judgment of relevant semantic contribution. Current complete-postimage equality cannot express that relation. Any bounded successor realization belongs in the existing attribution contract/checker/rendering path after that decision, not in a parallel contributor service or a last-commit policy."
+    },
+    {
+      "order": 3,
+      "owner": "Existing native proof and transport identity owners",
+      "action": "For native06, resolve the original construction CCall/Result and effective actor/worker/transport identity through its existing owner. If the native arm cannot lawfully represent that original producer, return the concrete arm mismatch to owning HOW. The current custody bridge must not be relabeled an admitted producer. Keep model/family unknown until recorded; QR-01 proceeds separately."
+    },
+    {
+      "order": 4,
+      "owner": "Root Executive",
+      "action": "Conjoin these readiness limits with QR-01/QR-03. Select only a bounded owner/driver successor once its inputs and required correspondence are clear. Do not dispatch full F11 or reopen accepted unrelated relations from this representative review."
+    }
+  ],
+  "triage": {
+    "finding": "QR-02 confirmed and narrowed",
+    "severity": "S2 under adopted project scale",
+    "trigger": "Current driver takes each member only from provenance.last; a preservation commit has no trailer or a newer small edit supersedes an older contributor postimage.",
+    "realizedHarm": "No incorrect admitted qualification was observed; the inspected driver cannot establish the intended faithful contributor/identity set for this representative.",
+    "controls": "Byte reconstruction/currentness checks fail closed on naive historical-chain addition; native admission and actual identity comparison remain independent required controls.",
+    "repairScope": "Existing provenance selection and one causal historical-to-current correspondence; do not audit every editor, build a registry, redesign constructors or widen this three-member task.",
+    "priorityOwner": "Root Executive; no activation power"
+  },
+  "evidence": {
+    "rc6SourceBridge": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/SOURCE_BRIDGE.json",
+      "bytes": 60375,
+      "sha256": "e392e46703ece22ed47a50ddecc9f86fb7a7c9a5b21ffc2ea0c8b2a1bc22587c"
+    },
+    "rc6Native09Subject": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/native-09/review-subject-001/SUBJECT.json",
+      "bytes": 225298,
+      "sha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13"
+    },
+    "native09Return": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/original-native-09-handoffs/return.json",
+      "bytes": 44419,
+      "sha256": "363dcc99427517a4c9f3fcf5209176783ad8b107a972507402d7e5f37746518c"
+    },
+    "native08Subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/review-subject-001/SUBJECT.json",
+      "bytes": 173779,
+      "sha256": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0"
+    },
+    "native06RootConjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ROOT_CONJUNCTION.json",
+      "bytes": 21305,
+      "sha256": "c42f01a28029f29ff00a9f01800344c5fa64be21121f496061015f5bc1772c27"
+    },
+    "native06Subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/SUBJECT.json",
+      "bytes": 184020,
+      "sha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670"
+    },
+    "native06Readiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/readiness.json",
+      "bytes": 4294,
+      "sha256": "c46163b32fafc4a392cb62d4d09cb760a2f98bccb1d34ac0ed602006f87eaf51"
+    },
+    "native06SourcePostimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 92279,
+      "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84"
+    },
+    "native06BaselinePreimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/preimages/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 89942,
+      "sha256": "8c593d1e9485e7dd0ab6997273630b827f45429a2220370e1cf023af8cce803a"
+    },
+    "native06InterimReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+      "bytes": 20971,
+      "sha256": "d08944f9abb7ed116922310dc9080162077d49647e4d6b7a33e2802c1acd8115"
+    },
+    "native06RootSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_06.md",
+      "bytes": 9764,
+      "sha256": "d5ed3bbf5c2c632c8c8ecb43abb364d99275a632bdde5417aabe37f2665baba3"
+    },
+    "rp2ActivationAndReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/activation-and-return.md",
+      "bytes": 14672,
+      "sha256": "d2f7b97d1a9c6100995deee6d5d8cbef2cc8d8f1f1c557ad0abeef93a36bfa96"
+    },
+    "rp2WorkerReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/README.md",
+      "bytes": 13413,
+      "sha256": "ecd856504391af4bb989746c23c9a3239461b3913fe0659ed2122b6e84b1bf37"
+    },
+    "existingProjection": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 73354,
+      "sha256": "ae6fda8f5b7174b68b606aef631a2a2607fe1a0093b6536f48b8bf94cf2c33c9"
+    },
+    "existingHow": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "bytes": 45510,
+      "sha256": "7f2ef6b22c5e6d7176e08dd2283ba3c09869a7738490090c444022a13ddfa41a"
+    }
+  },
+  "judgmentAndReuse": {
+    "own": "Exact selected file/commit and pinned-source byte comparisons; original RP-2 activation/return correspondence; static native/external arm and postimage checks; narrow readiness/unknown conclusions.",
+    "reused": "Root native06 partial disposition and retained source/after-observation coordinates; prior independent source review as original evidence, not a new execution; current QR-02 and plan selection.",
+    "historical": "RP-2 construction used STDO3.0.2 then; present evaluation uses selected3.0.4. No retroactive method replacement, new acceptance or migration claim. Earlier D5/RP-2/native06 failures and partial statuses remain unchanged."
+  },
+  "unperformedCoverage": [
+    "No original event-stream authentication or raw provider artifact acquisition.",
+    "No build, test, provider/native run, preparation, installation or candidate/source/test/HOW edit.",
+    "No full semantic ancestry/contributor census, whole-inventory attribution, model-family equivalence decision or current eligible-assessor finding.",
+    "No fresh F11/AF22, release qualification, acceptance, publication or Worker activation."
+  ],
+  "accessDisclosure": {
+    "host": "General filesystem host with behavioral access exclusions; no sandbox or clean-model-family claim.",
+    "bounds": "Exact controls, three selected paths and path-limited Git metadata/diffs, original pointed T287/commentary closures and the RC6 custody bridge only. A filename listing of the exact RP-2 commentary directory showed raw/log names; no raw provider streams were opened. Closed review/control records were read as evidence, not instructions. T-290 pointed record and native scratch were not acquired.",
+    "writes": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/PROVENANCE_READINESS_REVIEW.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/PROVENANCE_READINESS_REVIEW.md"
+    ]
+  },
+  "invalidation": [
+    "Any selected member byte change invalidates its current-postimage relation; reassess only affected correspondence.",
+    "Different source/law/authority, corrected original attribution, native producer eligibility or identity facts may change the bounded conclusion.",
+    "A selected historical-to-current HOW/contract decision changes the existing-arm suitability finding and requires its own meaningful discriminator.",
+    "This result cannot be generalized to unreviewed files or used as positive native qualification evidence."
+  ],
+  "return": {
+    "consumer": "Root Executive",
+    "closed": true,
+    "activationPower": false,
+    "qualificationCredit": false,
+    "stopReason": "Finite representative causal correspondence and precise missing evidence established; no exhaustive ancestry search needed."
+  }
+}

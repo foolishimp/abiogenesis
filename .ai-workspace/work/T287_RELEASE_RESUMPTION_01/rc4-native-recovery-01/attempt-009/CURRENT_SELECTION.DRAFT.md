@@ -1,0 +1,3 @@
+# Root selection — attempt009
+
+Prepare one ordinary fresh ABG-native Construction→Testing→UAT run over partial365/tree d3d using immutable installed RC3 and genuine latest008 caller handoff. sourceBasis:none; no old state/authority injection. Complete remaining point-one R1–R5 and reviewed008 C2 producer-coordinate cause within existing52paths plus2owning-generator outputs. Preserve completed365 evidence; retain originalR2, exact recovery, fresh retained work, practical native witness and empirical acceptance as distinct proof obligations. No new Product feature/mechanism or automatic retry. Task/rubric/grant are prepared for exact Root review, not admission or acceptance.

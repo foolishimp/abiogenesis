@@ -1,0 +1,85 @@
+{
+  "status": "ACTUAL_SOURCE002_NAMES_FINAL003_REVALIDATION_HELD",
+  "source002Freeze": {
+    "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+  },
+  "source002Digest": "41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3",
+  "exports": [
+    {
+      "name": "basisRow",
+      "module": "abg/calculus/execution_basis_record",
+      "exportName": "observeExecutionBasisRowWork",
+      "members": [
+        "rowAdmissions",
+        "bodyDigests"
+      ],
+      "meaning": "Actual raw row admissions and basis body digests; observation only.",
+      "source002": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+        "bytes": 7284,
+        "sha256": "0130a31cf8e0da88259d80b484c9c4ae5cfc89521f3c34cb5fa73dc60990604b"
+      },
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "liveProductionMatchesSource002": true
+    },
+    {
+      "name": "environment",
+      "module": "abg/environment_admission",
+      "exportName": "observeWorkspaceEnvironmentWork",
+      "members": [
+        "environmentDerivations"
+      ],
+      "meaning": "Invariant workspace environment bodies actually derived; observation only.",
+      "source002": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+        "bytes": 49151,
+        "sha256": "378f72177dbe490aa45c28ea8e333cc99e2755b39ce210ff0ddbd6c75bdd6ac1"
+      },
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "liveProductionMatchesSource002": true
+    },
+    {
+      "name": "installedContent",
+      "module": "product/install_product",
+      "exportName": "observeInstalledContentWork",
+      "members": [
+        "contentVerifications",
+        "lstats",
+        "lists",
+        "fileHashes",
+        "graphCarrierReads"
+      ],
+      "meaning": "Physical checks performed at all restored boundaries; no zero/one quota or O3 optimization claim.",
+      "source002": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+        "bytes": 19437,
+        "sha256": "b9b51170e5b835d48f2fcf786858979f8ce4c9b69bdc86be4945cb0ab8003768"
+      },
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "liveProductionMatchesSource002": true
+    },
+    {
+      "name": "worker",
+      "module": "abg/worker_transport",
+      "exportName": "observeWorkerTransportCopyWork",
+      "members": [
+        "contractCopies",
+        "schemaCopies",
+        "reuses",
+        "deepFrozenChecks"
+      ],
+      "meaning": "Existing worker plan copy/reuse/deep-frozen-check counts; not a total final-native-contract producer count.",
+      "source002": {
+        "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 50429,
+        "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067"
+      },
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "liveProductionMatchesSource002": true
+    }
+  ],
+  "final003Validation": null,
+  "standing": "Preparation from exact source002 and matching current production bytes. Revalidate each TS source row and compiled/installed module against actual003 before execution; no final pin inferred. RC8 missing counters unavailable. Existing worker counter supports bounded copy observations only. O3 OPEN."
+}

@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4/88db4fd8179a39f7256fef53b752f472a75992e8df488bc5aeb7375466f21f67",
+      "admissionEventRef": "event://abiogenesis/244bd1fb7e2bd45b3982e490df2a9535b4dc3270baf7e6a961361d315d979e80",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+      "productContentDigest": "sha256:c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4",
+      "manifestDigest": "sha256:8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/dde1f2753f26d96eb0ad1edebe50d4da7d0a5ecc06cc87923cc05030446843e0/88db4fd8179a39f7256fef53b752f472a75992e8df488bc5aeb7375466f21f67",
+      "admissionEventRef": "event://abiogenesis/f52b388004469c75892e7d3f7e3f34a510ae84a6ef01309404f7d2cec8050470",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:4def8269f2b5712db5f723674460f22b2615801adf90e59acdd9986e5bebf00a",
+      "productContentDigest": "sha256:dde1f2753f26d96eb0ad1edebe50d4da7d0a5ecc06cc87923cc05030446843e0",
+      "manifestDigest": "sha256:4690b852a335ee2573a3fd673203280468c7674297d555206319db288bcaa562",
+      "contentMatches": true
+    }
+  ]
+}

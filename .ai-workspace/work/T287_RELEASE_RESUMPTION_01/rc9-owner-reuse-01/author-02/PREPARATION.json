@@ -1,0 +1,38 @@
+{
+  "status": "ROOT_SELECTED_CLOSED_RESOURCE_CONTINUATION",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-001/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "528a04c0c171c56affaa1a2f9ba2b66413b7d6007d92bbbe092143a726938c49"
+  },
+  "priorPreparedCoordinates": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/PREPARED.json",
+    "bytes": 5403,
+    "sha256": "335b96de0f7be0633ddb35aa8500c336a4ef9cb75cc765abe0620e97f76af59e"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resource-close.json",
+    "bytes": 2292,
+    "sha256": "dd6ddd472a0ff3ab606ceab4c1a6512dd1f5c1fa7e8ac1bcb095fee93803088a"
+  },
+  "consumerAcquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/consumer-acquisition.json",
+    "bytes": 10156,
+    "sha256": "bb9e47b3fa7390a9db00e8391166e18b30888bd40e20560e5b1a15283a65af71"
+  },
+  "setupIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/setup-identity.json",
+    "bytes": 9493429,
+    "sha256": "63779e064c6cce78c1fec7bd920e29d264dfcc001f6b71a3a7b7e40c1cdf1caf"
+  },
+  "readback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/readbacks-001/RESULT.json",
+    "bytes": 6634,
+    "sha256": "e3a9426cac4c3ade38664c2d7f3b22a389601247c27abedcb4cfc4cbbc166141"
+  },
+  "catalogBasisDigest": "sha256:b5c608a71986ba5120e454c8258f8f0865ac1d6b4334dd43b238cf543683c6bf",
+  "readScopeCoverage": "All eight source write paths exist and are explicitly included in readRoots; author01 new-file observation limitation remains historical.",
+  "preservationPolicy": "preserve_all_existing",
+  "newInstallOrSetupReplay": false,
+  "providerDispatch": false
+}

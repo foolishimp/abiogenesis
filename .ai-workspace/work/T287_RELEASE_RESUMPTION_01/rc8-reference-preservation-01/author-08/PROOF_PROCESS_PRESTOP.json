@@ -1,0 +1,15 @@
+{
+  "status": "READ_ONLY_OWNED_LINEAGE_PRESTOP_OBSERVATION",
+  "at": "2026-11-07T09:08:47.418234+00:00",
+  "rootProvidedOriginalLineage": [
+    38315,
+    41855,
+    41857,
+    41961,
+    41988,
+    41989
+  ],
+  "ps": "",
+  "proofRequestDeadlineUtc": "2026-11-07T09:06:25.221Z",
+  "priorNarrowSearchLimit": "Earlier pgrep checked proof.mjs and scratch work paths only; detached file-host and relative test command may not match those patterns. No global descendant-absence claim."
+}

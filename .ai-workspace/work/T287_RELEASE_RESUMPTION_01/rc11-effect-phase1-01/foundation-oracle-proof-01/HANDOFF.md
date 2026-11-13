@@ -1,0 +1,13 @@
+# Foundation oracle correction handoff
+
+Root accepted `FOUNDATION-ORACLE-001` for the exact two-file source correction and whole installed W2-05 proof. The local checkpoint is **`ed17ab1487bf4934bf12da88e28c3f6cfa76061e`**, tree `3bc9e2e3c36f29646dfd2c7a46006c33054ccbe0`, on `codex/rc11-foundation-correction`, parent `65f311e735c1297b9982117eb73fb6a32999cc02`.
+
+The checkpoint contains exactly the W2-05 test, its matching Common Computational Capability Library Design sentence, and three documentary status paths (plan, GOALS and T-287). All six tested files remain byte-identical; only those three documentary paths differ from the accepted full source inventory. Candidate tracked state is clean. Main HEAD/index, delivered C11, excluded untracked work and RC10 builder pin/archive are conserved. Main has only the authorized GOALS/T287 tracking changes.
+
+[Root acceptance](ROOT_FINAL_ACCEPTANCE.json) and [independent final conjunction](../foundation-oracle-followup/review/FINAL_CONJUNCTION_NATIVE04.md) bind source `002e481a…` to [whole-file proof](installed-02/RETURN.json): **3/3 passed, zero skips/failures**, 73.962 seconds, exit 0, group absent without external cleanup. Actual census is 56 definitions, 11 selected additions, 47 callables and nine remaining definitions; catalog event count stays two. The exact temporary proof archive is `fdbf93de…`, with all 5,327 installed members equal. This is not the older delivered RC11 archive or a release.
+
+[Checkpoint custody](CHECKPOINT_RETURN.json) and [documentary relation](TRACKING_AND_DOCUMENTATION.json) retain the exact paths, pins and protection checks. The [installed-01 comparator failure](installed-01/FAILURE_RETURN.json), native02 timeout, prior red runs and all historical evidence remain unchanged. The continuation reused successful pack/stage/bootstrap/build and ran only the previously unstarted whole file.
+
+Phase1's two debts remain closed only for their accepted successor and selected proof. Six declared unit skips, the synthetic pending-owner limitation, full5.0/S7 and other qualification obligations remain open. Installed old RC11 remains unchanged, local, unqualified and unpublished; RC10 remains the operational builder. No merge, push, release, global installation or selector change occurred.
+
+The [ordered functional plan](/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md) records the next candidates: phase2 physical state/Effect lifetime and command, phase3 HTTP, phase4 worker capture/archive, then GC03 resource reuse. **All remain planned and unactivated.** Further implementation requires Root's next bounded selection; no automatic next step is running.

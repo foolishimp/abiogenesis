@@ -1,0 +1,52 @@
+{
+  "kind": "native_author_future_binding_requirements",
+  "status": "ACTIVATION_ASSEMBLED_H05_ACCEPTANCE_CLOSE_UNBOUND",
+  "HS01HS02": {
+    "subject": null,
+    "sourceAfter": null,
+    "sourceBefore": null,
+    "RootDisposition": null,
+    "measurements": null,
+    "required": "Actual accepted HS01/HS02 source and full same-boundary candidate warm/cold/counter proof, source/native.after/final-stage equality and independent review."
+  },
+  "runtime": {
+    "actualClose": null,
+    "actualResume": null,
+    "prefix": null,
+    "required": "Genuine predecessor SDK receipt/completion/outer close and original resume according to Root actual disposition. No implicit duplicate unchanged-RC6 full drain."
+  },
+  "maintainedCheckerAndHost": {
+    "owners": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/OPERATOR_CLIENT_PINS.json",
+      "bytes": 992,
+      "sha256": "01580c8c3d601ee1b55c915ee2721dd4b0dc42ae309adf6e23688c53d24f6a9e"
+    },
+    "codeControls": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/CODE_CONTROL_PINS.json",
+      "bytes": 3175,
+      "sha256": "c9027ecab09a751db9a41d583b5eb605252378445c5e7f06e6a4a3563a2380b0"
+    }
+  },
+  "RootSelectionAndAdmission": null,
+  "historicalOracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "RootSteps": [
+    "Conjoin actual accepted H05 source/disposition/close/resume and conserved HS01/HS02 proof/measurements.",
+    "Fill the activation-001 templates with actual accepted H05 source451 and exact20controls/3handoffs; verify admitted TASK/proof retain durableOnly/not_reached actual successor obligation and complete non-before predecessor passed law.",
+    "Bind exact Root admission/dispatch and unchanged existing host/checker routes; only then activate one HS03 native Worker under four-stage/seven-lane ceilings."
+  ],
+  "scope": "Preparation only; H05 assessment lane failed after first two lanes passed, per Root report. No acceptance/close bound, no source/staging/runtime/build/test effects or fallback.",
+  "requiredRootSelectionStatus": "ROOT_SELECTED_STDOUT_WINDOW_AUTHOR_INCREMENT",
+  "H05": {
+    "subject": null,
+    "sourceAfter": null,
+    "sourceBefore": null,
+    "RootDisposition": null,
+    "actualClose": null,
+    "actualResume": null,
+    "required": "Actual accepted H05 returned source/testing/native.after equality, independent review and genuine SDK close/resume. Current451 input names are not source acceptance."
+  }
+}

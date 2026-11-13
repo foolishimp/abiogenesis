@@ -1,0 +1,83 @@
+{
+  "kind": "root_q23_failure_multi_frame_triage",
+  "at": "2026-11-05T16:51:35.389168+00:00",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "outcome": "Existing F11/F15 independence claims use actual configured identity through current ABG owners; unknown or ineligible required assessment cannot launch or become green.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Named mutable candidate at 1f62c0095e6196b089071bb72e88217792edf6ff; M Root selections are current coordination authority; C GOALS/T287 historical labels do not choose work.",
+      "tool": "Existing immutable installed RC6 and maintained operator-client; exact STDO3.0.4 definition and direct immutable skill routes.",
+      "runtime": "Actual fixture-proof-02 close; ABG alone admits and dispatches later native work. Operator packet is not runtime evidence."
+    },
+    "prohibitions": [
+      "No new Product WHAT, control plane, registry, journal or generic provider migration",
+      "No QR02 historical reconstruction or invented production positive eligibility",
+      "No operator candidate algorithm/test implementation, preflight, provider, commit, release or global selector change"
+    ]
+  },
+  "failure": "Native worker transport exited at configured maxTurns128; provider terminal error_max_turns num_turns129. Runtime correctly failed with null terminal and preserved the single-file partial effect.",
+  "originatingRelation": "Operator resource envelope did not fit the selected nine-owner HOW/code/test task. Root reused fixture-scale turn cap without sizing author acquisition/construction.",
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/PROVIDER_TERMINAL_METADATA.json",
+      "bytes": 654,
+      "sha256": "41e17f93dee44b3d22a74c705be752712a10717fc0f00d0ded6f01ab3a7751f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/outcome-summary.json",
+      "bytes": 548,
+      "sha256": "6889098b495c1273274152083e30fa79a209749b38624b58afd81baffb0f54c0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/fresh-reads.json",
+      "bytes": 2402,
+      "sha256": "1b922e49ecdf258e61340d209a463ae4eb7b0ffa48034494331f1685fc5f4067"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/SUBJECT.json",
+      "bytes": 156367,
+      "sha256": "a24edd45380fb4dfc373a555f2f8bf6de87fbbf6e2aa42fe5fe35199cdb92bc1"
+    }
+  ],
+  "frames": {
+    "ProductRequirement": "Q23 outcome unchanged and unfulfilled; no new Product defect inferred from turn exhaustion.",
+    "Design": "One transport identity and existing qualification owner direction remains; only unconsumed113-line transport-contract partial exists. No HOW or integration repair complete.",
+    "Integration": "Author baseline exposed4 missing test fixture dependencies in Root C2 closure: initial23/0 transport and24/8 qualification; after adding exact4 existing files,23/0 and32/0. These are author baseline checks, not C2 or Q23 acceptance.",
+    "IdentityAuthority": "Same method/worksite/owner instruction retained; source custody matches actual failure after-observation. No global CLI resume: shared provider profile would also resume selector and UAT, crossing their actor/evidence roles.",
+    "EffectLifecycle": "One native coding process exited; current Run failed and fresh reads agree. No C2 or UAT process; no automatic retry. Partial dirty source preserved.",
+    "Proof": "Prompt/context fit and C2 timeout budget passed, but did not predict native author turn requirements or dynamically referenced test dependencies."
+  },
+  "missedRelations": [
+    "Turn-cap fit was assumed from smaller fixture profile; byte-fit preflight does not establish sufficient construction turns.",
+    "Static dependency selection omitted runtime language-smoke fixture references; native author supplied a failing-before/passing-after counterexample."
+  ],
+  "scopeObservations": [
+    "Author tool metadata includes material out-of-lane test reads; exact literal read-scope conformance is not established. No clean confined-host claim.",
+    "Root diagnostic scalar projection mistakenly included a truncated raw stdout prefix with init/stream metadata and an empty thinking marker; no private reasoning, assistant narrative or tool-result content was used as evidence. Subsequent extraction uses explicit terminal metadata allowlist. No clean/blind Root claim."
+  ],
+  "selectedRecovery": "A fresh existing SDK source-none continuation from the genuine failed close, preserving partial snapshot and author baseline. Increase native maxTurns to384 while retaining xhigh and existing time limits. Include the4 demonstrated fixture dependencies. Reuse task/grant/C2 owners and carry only sufficient closed source/architecture/baseline context; do not implement per-role CLI-session routing or new dispatcher.",
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/after-run-resume.json",
+    "bytes": 72662117,
+    "sha256": "e542d13a74640a9bb9e3524e00138adcdefc92ad93f1a8b13ae113a728a43641"
+  },
+  "currentPrefix": {
+    "coordinateDigest": "sha256:fe6cc3f5e430dff777a536e0b0af3d77986825ec630680f1c0a7fa61abf01056",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9a53c4f45cef2717dda2699a6f5a7829d07a97326e554cb789dac67d63c81a49",
+    "prefixLength": 117932445,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "next": "Bind exact continuation controls and current partial snapshot; actual preflight then one native coding Worker. No source acceptance, Git mutation, publication or completed-proof repetition."
+}

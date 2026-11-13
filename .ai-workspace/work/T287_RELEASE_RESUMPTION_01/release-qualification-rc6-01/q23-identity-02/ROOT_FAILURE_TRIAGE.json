@@ -1,0 +1,87 @@
+{
+  "kind": "root_q23_absolute_limit_multi_frame_triage",
+  "at": "2026-11-05T18:15:13.151563+00:00",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "outcome": "Existing F11/F15 independence claims use actual configured identity through current ABG owners; unknown or ineligible required assessment cannot launch or become green.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "failure": {
+    "actual": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/ACTUAL_NATIVE_FAILURE.json",
+      "bytes": 2343670,
+      "sha256": "6dd5bbe33de0bb6e283ae1bdff6f0b55edc2e1151ce5e15d36bdb8130f43633e"
+    },
+    "termination": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/PROVIDER_TERMINATION_METADATA.json",
+      "bytes": 452,
+      "sha256": "958176605cc058f0d7f3c1153741e68e0590ce8dac83d9b22af7e320392cfa35"
+    },
+    "nativeResultRef": "result://abiogenesis/340dfd9b28c9b586250f4eeafa54f17abba5e5dd86cc2c5f17eb9610d0097d21",
+    "admissionOrdinal": 57817,
+    "outcome": "runtime_failed",
+    "nativeC2": false,
+    "nativeUat": false
+  },
+  "originatingRelation": "Root increased maxTurns after Q23-01 but retained a one-hour absolute author deadline for the nine-owner HOW/code/test increment. The author ran to that exact bound and stopped with unaccepted partial source.",
+  "frames": [
+    {
+      "frame": "Root scope and resource selection",
+      "cause": "Turn allowance384 did not ensure sufficient wall time; the retained absolute3600000ms bound terminated at258 tool calls. Root owns the budget/task-fit error."
+    },
+    {
+      "frame": "Existing owner route and context continuity",
+      "cause": "Default workflow incurred a new selector and cold author acquisition. Global CLI resume was correctly rejected for that multi-role Program, but Root had not yet checked the already-shipped one-node native-work Program that can isolate the author context."
+    },
+    {
+      "frame": "Product runtime and source",
+      "cause": "Runtime enforced the selected bound, observed and retained12 changed paths, and refused completion. No timeout-caused Product defect is inferred. Source/HOW/proof remain incomplete; no acceptance."
+    },
+    {
+      "frame": "Tests and evidence custody",
+      "cause": "Author compile/generation and55 existing tests passed at intermediate a3, after one manifest-closure failure and eight fixture export failures. Later code/test edits are not covered by a3. A1 original report was removed before Root custody; observed facts retained with exact limitation. A2/A3 originals and output copies are now preserved."
+    },
+    {
+      "frame": "Review and qualification",
+      "cause": "No frozen final source, C2/UAT or independent review exists. Prepared Gemini capability has no invocation/qualification standing."
+    }
+  ],
+  "evidence": {
+    "partial": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/SUBJECT.json",
+      "bytes": 174679,
+      "sha256": "9c59c4d96ecf0ce3980a7cd6ee611539f3ff9a2de6f3654bc2cc876b24942e34"
+    },
+    "authorCustody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/observed-author-feedback-001/CUSTODY.json",
+      "bytes": 7706,
+      "sha256": "689af81f7f6a49be0c20b0779abf66188a83591d8aea36c0c1d405756a23ee1a"
+    },
+    "a1Observation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/observed-author-feedback-001/A1_FAILURE_OBSERVATION.json",
+      "bytes": 976,
+      "sha256": "90660b44b4abbd95905bc58b514dba6092c3e81510f8bfb9f024e4c523687594"
+    },
+    "sessionMetadata": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/PROVIDER_SESSION_METADATA.json",
+      "bytes": 166,
+      "sha256": "4e32dba75200ee42ae185b9dafc056f2caf277b326ab458f495536bc20889697"
+    },
+    "timing": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/TIMING.json",
+      "bytes": 1136,
+      "sha256": "266494bffd0e94eb1c3e829876a5f9657e49a767a2b2e14b2e9b1ef4de181f3f"
+    }
+  },
+  "selectedRecoveryDirection": "After genuine close, use the existing one-node native-work Program and existing public installed start-call owner, if the closed capability record confirms the exact route. Continue the actual author session only on that author-only Program; selector/UAT must use separate fresh invocations. Raise absolute author budget for completion, preserve all partial source and author checks, and focus remaining HOW/tests/handoffs without repeating unaffected baseline. No new router/controller/Program implementation.",
+  "dispatchStanding": "Not admitted or executed by this triage. Exact actual close, capability return, source/context and native input owner preflight remain required.",
+  "reserved": [
+    "No Product edits by Root",
+    "No source acceptance or fabricated prior governance state",
+    "No push/merge/tag/publication/global selector/stable claim/actual human acceptance"
+  ]
+}

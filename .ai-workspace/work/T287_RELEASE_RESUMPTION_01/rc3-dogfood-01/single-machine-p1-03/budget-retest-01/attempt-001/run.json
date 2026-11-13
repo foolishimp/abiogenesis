@@ -1,0 +1,6 @@
+{
+  "kind": "single_machine_p1_prepared_call",
+  "activationSha256": "b2c946c29b9c6f787848f7be8b5d2f5013919a02d7aec08ed7cacc6f55e408b4",
+  "workloadSha256": "6ea6fc072d7593132392106d330da3e49d366b4d51ad324689f1a1c11d85375b",
+  "classification": "no Run admission or provider dispatch"
+}

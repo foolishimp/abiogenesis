@@ -1,0 +1,169 @@
+{
+  "kind": "native_fixture_repair_work_return",
+  "fixture": "N9-RETAINED-FIXTURE-01",
+  "recordedUtc": "2026-11-05T08:50:00Z",
+  "actor": {
+    "role": "native coding Worker (one, xhigh)",
+    "model": "claude-opus-5-5",
+    "skill": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md (sha256:9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35)",
+    "references": {
+      "COORDINATED_HANDOFF.md": "sha256:e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "PRODUCT_BASIS.md": "sha256:d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"
+    }
+  },
+  "workResult": "candidate_ready",
+  "workResultMeaning": "An exact frozen candidate and its author self-check are available. This is not accept, not independent review, not C2/Testing/UAT, not D2 or release qualification.",
+  "productBasis": {
+    "requestedScope": "ABIogenesis / GOAL-035 / T-287 component-proof prerequisite repair",
+    "definition": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verification": "stdo status --definition stdo_abiogenesis.json --verify: installed true, failures [], manifest digest matches",
+    "composition": []
+  },
+  "executionContract": {
+    "admission": "Consumed existing Root admission; no new approval round. NATIVE_GRANT.json (worksite copy) + ROOT_CONTROL_SELECTION.json (status ROOT_SELECTED_FOR_PROVIDER_FREE_PREFLIGHT; selectedGrant sha256:7763e2d5b841699b5d5e2e486008a0490f9117bc06cd3235af25d6759f932390; externalTemporaryEffectGrant /private/tmp/abg-r6f1) + DEPENDENCY_SOURCE_SELECTION.json + current admitted selection result://abiogenesis/49d938b7651af1b02af0857fc901dda6ede06c726f8a7678bdc9e7b412f18b8b",
+    "changeClass": "realization_refactor",
+    "reentry": "Existing component fixture premise at current owned-prefix reader port; no Product meaning change",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "branch": "codex/t287-5-release-qualification",
+    "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut"
+  },
+  "subject": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "preimage": { "bytes": 66912, "sha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19", "equals": "git HEAD e7179b19 blob and FIXTURE_TRIAGE.json test preimage" },
+    "candidate": { "bytes": 67553, "sha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc", "frozen": true },
+    "diffNumstat": "11 insertions, 3 deletions; one file",
+    "assertionConservation": "assert call sites HEAD 186, candidate 186; zero changed diff lines contain 'assert'; no expected value, refusal reason, floor, skip or test changed"
+  },
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "qualification-scratch/fixture-01/return.json",
+    "qualification-scratch/fixture-01/readiness.json",
+    "qualification-scratch/fixture-01/progress.json",
+    "qualification-scratch/fixture-01/tmp/** (author self-check sandboxes and run captures)"
+  ],
+  "originatingRelation": "Checkpoint e7179b19 replaced semantic_revision.nativeIntakeFacts' historical read selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(historical)) with event_prefix.readOwnedRuntimeEventPrefixAtDurablePrefix(historical), and in the same checkpoint moved admittedLeaves from a full-prefix scan (runtimeEventsFromValidatedPrefix) to the owned index selectors 'run:<runRef>' and 'related:<cCallRef>'. The harness supplied neither current premise: the real owned reader opened file:///component/no-journal (ENOENT, caught as native_revision_intake_projection_exception), and once that was supplied the index premise returned no Run leaves, so every cause read as absent.",
+  "changedPremise": [
+    {
+      "id": "P1",
+      "owner": "abg/event_prefix.readOwnedRuntimeEventPrefixAtDurablePrefix (current revision-intake historical cut port)",
+      "mechanism": "existing component() SyntheticModule override of './event_prefix.js' (shared prefixOverrides of the job and revision owners)",
+      "premise": "readOwnedRuntimeEventPrefixAtDurablePrefix:c=>{if(hash(c)!==hash(intake.sourcePrefix))throw new Error('component: no durable cut at '+c?.eventLogRef);return prefix;}",
+      "assumption": "Lookup only. The one declared component intake coordinate (intake.sourcePrefix, eventLogRef file:///component/no-journal) denotes the harness's existing component prefix {events}; any other coordinate has no cut and throws, as the real reader throws for an unreadable cut. No journal is opened, no store, cut or prefix is admitted, no requireCurrent/currentness is claimed (the production intake call passes no options).",
+      "justification": "The harness comment already declared 'a historical cut selects that same component prefix'; before e7179b19 this was supplied by selectValidatedRuntimeEventPrefix:()=>prefix plus Event Store readRuntimeEventsAtDurablePrefix:()=>events. The current owner merged those into one event_prefix call, so the same premise moves to that port. Reidentification still runs through the unchanged reidentifyHistoricalDurablePrefixCoordinate premise ((_c,h)=>h), so the lookup receives exactly input.sourcePrefix."
+    },
+    {
+      "id": "P2",
+      "owner": "abg/event_prefix.indexedRuntimeEvents with runtime_history.runtimeHistorySelectorKeys (owned index selectors read by semantic_revision.admittedLeaves)",
+      "mechanism": "same existing indexedRuntimeEvents premise in prefixOverrides; added disjunct only",
+      "premise": "/^(run|related):/.test(key)&&runtimeHistorySelectorKeys(e).includes(key)",
+      "assumption": "For the Run and related-CCall selectors only, the component prefix answers with the history owner's own selector keys computed over the harness's component events (consumed from the exact RC6 runtime_history module; no redeclared key meaning). The existing explicit premises are unchanged: 'invocation:' via rootAdmissions, 'aggregate:c_call:' (harness events carry no aggregateType, so the owner key would be 'aggregate:undefined:<id>') and 'id:'. Other owner keys ('kind:', 'payload:...', 'type:') are deliberately not supplied, so the job owner's previously-empty 'kind:'/'payload:resultRef:' lookups are unchanged.",
+      "justification": "In-memory probe of RC6 runtimeHistorySelectorKeys over harness-shaped c_call_result_admitted/c_call_judged events returns exactly 'run:<runId>' and 'related:<aggregateId>' among its keys. Without P2 the intake never sees the admitted cause or parent, so native_revision_cause_ambiguous and every later intake assertion could not execute (candidate-01 evidence)."
+    },
+    {
+      "id": "P3",
+      "owner": "abg/event_store (retired premise)",
+      "change": "Removed readRuntimeEventsAtDurablePrefix:()=>events from the revision owner's './event_store.js' override.",
+      "justification": "RC6 semantic_revision.js imports only authenticateRuntimePrefixAncestry and reidentifyHistoricalDurablePrefixCoordinate from './event_store.js' (staged build line 32); the old reader premise was dead and superseded by P1. The two consumed Event Store premises are unchanged."
+    },
+    {
+      "id": "C1",
+      "change": "Imported runtimeHistorySelectorKeys alongside the existing RuntimeEventBodyView from the already-loaded 'abg/runtime_history' module; added a six-line premise comment beside the existing prefix-premise comment."
+    }
+  ],
+  "nonChanges": [
+    "No production, support, fixture, HOW, requirement, interface, controller or runtime file changed (git status: only the test file modified; qualification-inputs/, qualification-scratch/ and .abiogenesis/ untracked)",
+    "code/src/abg/semantic_revision.ts sha256:716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205 and code/src/abg/event_prefix.ts sha256:acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40 unchanged",
+    "All seven tests retained with unchanged names, order and bodies; the two capturedEnvelopeSkip gates unchanged; no new skip, todo or floor",
+    "No expected refusal reason changed; native_revision_cause_absent was not replaced with the incidental exception",
+    "Immutable RC6 installation read only; installed STDO release read only; no Git, release, install, selector, tsc, generation, pack or npm-install effect",
+    "c2-proof.mjs not executed (Root Testing owns the fixed C2 recipe in its own output directory)"
+  ],
+  "firstTestAssertionEvidence": {
+    "candidateLines": {
+      "absentCauseRefusal": "145 (native_revision_cause_absent before any cause)",
+      "ambiguousCauseRefusal": "148 (native_revision_cause_ambiguous with duplicate cause)",
+      "ancestryMismatch": "150 (h.ancestry=false yields null)",
+      "uniqueEligibleParentCause": "151 (prepared, construction null)",
+      "unrelatedRun": "154-155 (unrelated Run preserves selection; unrelated Result not reconstructed)",
+      "judgmentEventOrdering": "157-163 (missing judgment -> cause_absent; earlier unmatched judgment retained -> cause_absent; restored -> prepared)",
+      "intakeMatchesAndLimits": "164",
+      "serializedSelectionRequest": "168-187 (original root recovered; Intent/Product/Requirements eligible; construction_repair and future stage refused; request success; tampered choice refused; historical request choice not guessed)",
+      "publicationBindingCurrentness": "188-195 (tampered correction refused; successor Run keeps original root; projection keeps job/assets; wrong projection refused)",
+      "correctionAndEvidence": "196-228 (author/assessor contracts and limits; oversized command refused; construction task write roots; native construction/C2/Evidence success; evidence predicate; Evidence stage fold; old job limits unchanged; crossed snapshot refused; terminal diagnostic)"
+    },
+    "executionProof": "Test 1 passes and emits its final statement's diagnostic ('Native candidate/assessment and current files are component fixtures; ...') in candidate-03 TAP, so every preceding sequential assertion in the test body executed.",
+    "discriminationProof": [
+      "preimage: line 137 (now 145) failed actual native_revision_intake_projection_exception vs expected native_revision_cause_absent",
+      "candidate-01 (P1 only, P2 absent): absent-cause assertion passed, line 145 (now 148) failed actual native_revision_cause_absent vs expected native_revision_cause_ambiguous",
+      "candidate-02/03 (P1+P2+P3): all first-test assertions pass"
+    ]
+  },
+  "authorSelfCheck": {
+    "sandbox": {
+      "candidateRoot": "qualification-scratch/fixture-01/tmp (tenant: tmp/build_tenants/abiogenesis/typescript)",
+      "preimageRoot": "qualification-scratch/fixture-01/tmp/preimage (tenant: tmp/preimage/build_tenants/abiogenesis/typescript)",
+      "sourceFiles": "the eleven C2_INPUTS sourceCorrespondencePaths (ten test/support/fixture files + package.json) copied byte-identically with cp -p from the worksite; post-run cmp identical",
+      "executables": "cp -Rc (APFS clone, no symlinks; source has 0 symlinks) of build, contracts, node_modules from /Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant (DEPENDENCY_SOURCE_SELECTION installedRoot; artifactDigest sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4) into the sandbox tenant's standard locations; RC6 copies never written over test sources",
+      "fidelity": "diff -rq install vs both sandboxes identical before and after runs; 5323 files; sorted file-sha tree digest 3a2e063c580bd5b26be5e3fdcceb0d6eeb9eea7950ad982c4065bf01ed928baf for install and candidate sandbox; install package.json sha256:b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da equals source tenant package.json",
+      "rc6OwnerFiles": {
+        "build/code/src/abg/semantic_revision.js": "sha256:4c2c2b40467d1352bc95c58aeaae0051bdae7326c1d2e93cd084d055dd262acb",
+        "build/code/src/abg/semantic_job.js": "sha256:18ef453168d17189a29dc6b9a3655b222dac7bdbed381aaace8add335d7f44ec",
+        "build/code/src/abg/event_prefix.js": "sha256:ff97005d347e727bd398356fe4c99552d45395598f7ab4fd75f59280850cf260",
+        "build/code/src/abg/runtime_history.js": "sha256:5645659445d015fe6e486840db130169386e97958f9f4eed47f7f0802668526c"
+      }
+    },
+    "command": "cd <sandbox tenant> && env -u ABI5_EVIDENCE_ROOT -u ABG_WORKSITE_BUILD_ROOT TMPDIR=/private/tmp/abg-r6f1/<run> ABI5_GENERIC_JOB_BUILD_ROOT=<sandbox tenant> node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-native-semantic-revision.test.mjs",
+    "node": "/opt/homebrew/bin/node v24.7.0",
+    "inheritedEnvironment": "NODE_OPTIONS=--max-old-space-size=8192 and host ABG_TS_* provider variables inherited unchanged; TMPDIR overridden from provider scratch tmpqf01 to a task-local /private/tmp/abg-r6f1 child; ABI5_EVIDENCE_ROOT and ABG_WORKSITE_BUILD_ROOT unset",
+    "runs": [
+      { "id": "preimage", "subjectSha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19", "tmpdir": "/private/tmp/abg-r6f1/author-preimage", "exit": 1, "tests": 7, "pass": 4, "fail": 1, "skipped": 2, "cancelled": 0, "todo": 0,
+        "failure": "test 1 at line 137:115: expected 'native_revision_cause_absent', actual 'native_revision_intake_projection_exception'",
+        "stdout": { "path": "qualification-scratch/fixture-01/tmp/runs/preimage.stdout.tap", "bytes": 4155, "sha256": "d2fdf90db1bb3dec3d316de9b48999766cbc5503740f84a53d4bc5cedb82bf43" },
+        "stderr": { "path": "qualification-scratch/fixture-01/tmp/runs/preimage.stderr.log", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" } },
+      { "id": "candidate-01", "subject": "P1 only (intermediate, superseded)", "tmpdir": "/private/tmp/abg-r6f1/author-candidate-01", "exit": 1, "tests": 7, "pass": 4, "fail": 1, "skipped": 2, "cancelled": 0, "todo": 0,
+        "failure": "test 1 at line 145:115: expected 'native_revision_cause_ambiguous', actual 'native_revision_cause_absent'",
+        "stdout": { "path": "qualification-scratch/fixture-01/tmp/runs/candidate-01.stdout.tap", "bytes": 4121, "sha256": "22c23982c2979cefe40f6bbccdfb2a3422d548e876c88e0a8038d1d2ab8fa59a" },
+        "stderr": { "path": "qualification-scratch/fixture-01/tmp/runs/candidate-01.stderr.log", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" } },
+      { "id": "candidate-02", "subjectSha256": "6129198a76f0460ec581388913333a659930069d198fd4c4de871d667fbabfbf", "subject": "P1+P2+P3 before layout-only reorder (intermediate, superseded)", "tmpdir": "/private/tmp/abg-r6f1/author-candidate-02", "exit": 0, "tests": 7, "pass": 5, "fail": 0, "skipped": 2, "cancelled": 0, "todo": 0,
+        "stdout": { "path": "qualification-scratch/fixture-01/tmp/runs/candidate-02.stdout.tap", "bytes": 3399, "sha256": "261cbf8e77549e0fee8c36f84fd29aa429f86fa6c0523477a91e91a21d60d8df" },
+        "stderr": { "path": "qualification-scratch/fixture-01/tmp/runs/candidate-02.stderr.log", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" } },
+      { "id": "candidate-03", "subjectSha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc", "subject": "frozen candidate", "tmpdir": "/private/tmp/abg-r6f1/author-candidate-03", "exit": 0, "tests": 7, "pass": 5, "fail": 0, "skipped": 2, "cancelled": 0, "todo": 0,
+        "results": ["ok 1 native D2 serialized public request ... (terminal diagnostic emitted)", "ok 2 complete publication", "ok 3 installed descriptor loader", "ok 4 # SKIP ABI5_EVIDENCE_ROOT unset (captured envelope sha256:6cde4824e591)", "ok 5 # SKIP ABI5_EVIDENCE_ROOT unset (captured envelope sha256:6cde4824e591)", "ok 6 Product author recovery values", "ok 7 Product assessor recovery values"],
+        "stdout": { "path": "qualification-scratch/fixture-01/tmp/runs/candidate-03.stdout.tap", "bytes": 3401, "sha256": "30b9a29f0f758040e45550fa8a5717823aed72eeab3a278ae2e0ef191bb82cd2" },
+        "stderr": { "path": "qualification-scratch/fixture-01/tmp/runs/candidate-03.stderr.log", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" } }
+    ],
+    "operativeResult": "candidate-03: 7 tests / 5 pass / 0 fail / 2 existing historical skips / exit 0 / empty stderr",
+    "skips": "Exactly the two existing capturedEnvelopeSkip gates (tests 4 and 5): ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591). No archived body acquired.",
+    "failures": "None in the frozen candidate run. Preimage and candidate-01 failures recorded above."
+  },
+  "componentLimits": "Component proof only: no native actor, provider, command, journal, installed Run, admission or S06/D2/release qualification is claimed. Historical admission, prefix ancestry, leaf lookup, owned cut, index selectors and command/actor receipts remain supplied lookup doubles as the test's own diagnostic states.",
+  "scopeDisclosures": {
+    "writes": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs (granted)",
+      "qualification-scratch/fixture-01/tmp/{preimage/**,build_tenants/**,runs/**} (granted tmp; includes ~79 MiB APFS clones of RC6 build/contracts/node_modules per sandbox)",
+      "qualification-scratch/fixture-01/{return,readiness,progress}.json (granted)",
+      "/private/tmp/abg-r6f1/{author-preimage,author-candidate-01,author-candidate-02,author-candidate-03} created as task-local TMPDIRs (granted root); worksite fixtures created and removed their own abi5-generic-worksite-fixture-* descendants; the four now-empty directories are left in place (deletion only through existing fixtures)"
+    ],
+    "readsOutsideDeclaredReadableList": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts: grep for reader names and lines 3561-3590 (readOwnedRuntimeHistoryAtDurablePrefix) to confirm the physical-read behaviour",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts: grep for reader names (no match)",
+      "grep across build_tenants/abiogenesis/typescript/test_env/support/** and test_env/fixtures/** for reader names; matching lines of non-listed support files were displayed (e.g. malformed-gtl-native-fixture.mjs, t287-generic-job-*.mjs); none were used as authority",
+      "git show e7179b19 diffs of the in-scope semantic_revision.ts and test file",
+      "staged RC6 copies in my tmp sandbox: in-memory probes of runtime_history.runtimeHistorySelectorKeys and of the real event_prefix.readOwnedRuntimeEventPrefixAtDurablePrefix on the component coordinate (ENOENT), and a grep of semantic_job.js index keys",
+      "read-only listing/find/du/diff of the immutable RC6 installation; stdo status --verify and sha256 of the installed STDO skill/reference files"
+    ],
+    "noOtherEffects": "No network, publish, install, Git, release or selector effect. Platform/runtime caches, if any, are platform-owned."
+  },
+  "residuals": [
+    "Independent frozen-source review, Root C2 (fixed four-command recipe), UAT over rubric F1-F4 and fresh closure are not performed here.",
+    "P2 supplies a second adjacent owned-prefix selector premise (run:/related:) in the same prefixOverrides object, beyond the single reader named in TASK.md. It was required by the same e7179b19 owner refactor for the existing first-test assertions to execute; Root/review should confirm it stays within the 'local admitted-prefix premise' grant.",
+    "The shared prefixOverrides also gives the job-owner component the run:/related: selectors; RC6 semantic_job.js queries 'related:' at two sites. Test 1 passes with it; no separate isolation of which job-owner paths consumed it was performed.",
+    "P1's throw branch for a non-declared coordinate is a guard only; no test exercises it and no assertion was added.",
+    "Tests 4 and 5 use the same harness and therefore receive P1-P3, but stay skipped in this lane; their behaviour with ABI5_EVIDENCE_ROOT present is unverified here.",
+    "C2_RECIPE.json was not in the readable scope; staging followed TASK.md, C2_INPUTS.json and DEPENDENCY_SOURCE_SELECTION.json."
+  ],
+  "stop": "Frozen. Candidate returned to Root; no further edits, review activation or graph continuation by this Worker."
+}

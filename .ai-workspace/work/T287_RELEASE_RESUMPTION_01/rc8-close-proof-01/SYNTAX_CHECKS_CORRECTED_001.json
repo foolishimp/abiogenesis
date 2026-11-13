@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/opt/homebrew/bin/node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-001.mjs"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-001.mjs",
+    "bytes": 20119,
+    "sha256": "f43dff68d58a401fe7839aed58f792d9323e1946e5472340c9da1dfc34d216c3"
+  },
+  "inverseRestoration": {
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.mjs",
+      "bytes": 20061,
+      "sha256": "44bda4222432dc388e3ff963f9a2ab8ce13803d7b473569df7304b085cc0fcc0"
+    },
+    "allNonTargetDriverBytesConserved": true
+  },
+  "testsExecuted": 0
+}

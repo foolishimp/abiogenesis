@@ -1,0 +1,152 @@
+{
+  "kind": "post_timeout_os_metadata_observation",
+  "observedUtc": "2026-11-06T17:31:16.445262+00:00",
+  "limits": [
+    "Observed after the generator timeout; not a profile of the failed command.",
+    "CPU values are OS snapshots, not attribution of whole-phase time.",
+    "No process command arguments, private provider content or environment values were read."
+  ],
+  "topCpu": [
+    {
+      "pid": 26292,
+      "ppid": 1,
+      "elapsed": "01:52:52",
+      "cpuPercentSnapshot": 87.4,
+      "rssKiB": 3478672,
+      "executable": "/Applications/World of Warcraft/_forever_/World of Warcraft.app/Contents/MacOS/World of Warcraft"
+    },
+    {
+      "pid": 595,
+      "ppid": 1,
+      "elapsed": "32-14:45:39",
+      "cpuPercentSnapshot": 41.8,
+      "rssKiB": 398336,
+      "executable": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer"
+    },
+    {
+      "pid": 77268,
+      "ppid": 77252,
+      "elapsed": "43:39",
+      "cpuPercentSnapshot": 37.2,
+      "rssKiB": 4435216,
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    {
+      "pid": 1787,
+      "ppid": 1,
+      "elapsed": "32-14:44:32",
+      "cpuPercentSnapshot": 27.5,
+      "rssKiB": 284176,
+      "executable": "/Applications/iTerm.app/Contents/MacOS/iTerm2"
+    },
+    {
+      "pid": 27398,
+      "ppid": 27355,
+      "elapsed": "08-01:19:47",
+      "cpuPercentSnapshot": 24.1,
+      "rssKiB": 207456,
+      "executable": "/Applications/Firefox.app/Contents/MacOS/gpu-helper.app/Contents/MacOS/Firefox GPU Helper"
+    },
+    {
+      "pid": 27355,
+      "ppid": 1,
+      "elapsed": "08-01:19:50",
+      "cpuPercentSnapshot": 21.5,
+      "rssKiB": 761424,
+      "executable": "/Applications/Firefox.app/Contents/MacOS/firefox"
+    },
+    {
+      "pid": 10234,
+      "ppid": 1,
+      "elapsed": "32-14:40:32",
+      "cpuPercentSnapshot": 21.3,
+      "rssKiB": 519584,
+      "executable": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine"
+    },
+    {
+      "pid": 8687,
+      "ppid": 29521,
+      "elapsed": "00:03",
+      "cpuPercentSnapshot": 20.5,
+      "rssKiB": 19040,
+      "executable": "/Users/jim/.pyenv/versions/3.11.5/bin/python3"
+    },
+    {
+      "pid": 91925,
+      "ppid": 1,
+      "elapsed": "19-20:21:43",
+      "cpuPercentSnapshot": 17.9,
+      "rssKiB": 10256,
+      "executable": "/usr/libexec/audioanalyticsd"
+    },
+    {
+      "pid": 607,
+      "ppid": 1,
+      "elapsed": "32-14:45:39",
+      "cpuPercentSnapshot": 13.6,
+      "rssKiB": 70560,
+      "executable": "/usr/sbin/coreaudiod"
+    },
+    {
+      "pid": 8688,
+      "ppid": 29521,
+      "elapsed": "00:03",
+      "cpuPercentSnapshot": 11.8,
+      "rssKiB": 17728,
+      "executable": "(python3.11)"
+    },
+    {
+      "pid": 12492,
+      "ppid": 1,
+      "elapsed": "02:09:37",
+      "cpuPercentSnapshot": 7.5,
+      "rssKiB": 130984,
+      "executable": "/Applications/Battle.net.app/Contents/MacOS/Battle.net"
+    },
+    {
+      "pid": 22210,
+      "ppid": 27355,
+      "elapsed": "02-02:27:42",
+      "cpuPercentSnapshot": 6.9,
+      "rssKiB": 764240,
+      "executable": "/Applications/Firefox.app/Contents/MacOS/plugin-container.app/Contents/MacOS/plugin-container"
+    },
+    {
+      "pid": 60608,
+      "ppid": 1,
+      "elapsed": "09-02:47:33",
+      "cpuPercentSnapshot": 6.7,
+      "rssKiB": 65648,
+      "executable": "/System/Applications/Calendar.app/Contents/MacOS/Calendar"
+    },
+    {
+      "pid": 10206,
+      "ppid": 10191,
+      "elapsed": "32-14:40:33",
+      "cpuPercentSnapshot": 6.5,
+      "rssKiB": 236368,
+      "executable": "/Applications/Docker.app/Contents/MacOS/com.docker.backend"
+    }
+  ],
+  "builder": [
+    {
+      "pid": 77268,
+      "ppid": 77252,
+      "elapsed": "43:39",
+      "cpuPercentSnapshot": 37.2,
+      "rssKiB": 4435216,
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    {
+      "pid": 84871,
+      "ppid": 77268,
+      "elapsed": "32:04",
+      "cpuPercentSnapshot": 1.4,
+      "rssKiB": 269040,
+      "executable": "/Users/jim/.local/share/claude/versions/2.1.306"
+    }
+  ],
+  "vmStat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    42489.\nPages active:                                2473570.\nPages inactive:                              2447905.\nPages speculative:                             28597.\nPages throttled:                                   0.\nPages wired down:                             802966.\nPages purgeable:                                8766.\n\"Translation faults\":                    32009457168.\nPages copy-on-write:                      1567658865.\nPages zero filled:                       29532901207.\nPages reactivated:                         113837329.\nPages purged:                               71278731.\nFile-backed pages:                           1795780.\nAnonymous pages:                             3154292.\nPages stored in compressor:                  5373701.\nPages occupied by compressor:                2532778.\nDecompressions:                             54578359.\nCompressions:                              243672258.\nPageins:                                   449415274.\nPageouts:                                     832006.\nSwapins:                                       10551.\nSwapouts:                                     254512.\n",
+  "swap": "vm.swapusage: total = 5120.00M  used = 3832.75M  free = 1287.25M  (encrypted)\n",
+  "disk": "Filesystem   1024-blocks       Used Available Capacity  iused     ifree %iused  Mounted on\n/dev/disk3s5  1948455240 1898106920  23612216    99% 26942727 236122160   10%   /System/Volumes/Data\n"
+}

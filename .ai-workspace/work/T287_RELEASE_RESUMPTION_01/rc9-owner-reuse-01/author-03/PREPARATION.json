@@ -1,0 +1,43 @@
+{
+  "status": "ROOT_SELECTED_CLOSED_RESOURCE_CONTINUATION",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+  },
+  "priorPreparedCoordinates": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/PREPARED.json",
+    "bytes": 6254,
+    "sha256": "f00e9382436ba0e44dbb2037865175d4ef03b11e8ecb4839741e1cf3cbc6699c"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/resource-close.json",
+    "bytes": 2302,
+    "sha256": "3bc16115da46e7e0e5976edb00b7b5c60d26462f665f14030122823d63aaf738"
+  },
+  "consumerAcquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/consumer-acquisition.json",
+    "bytes": 10156,
+    "sha256": "bb9e47b3fa7390a9db00e8391166e18b30888bd40e20560e5b1a15283a65af71"
+  },
+  "setupIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/setup-identity.json",
+    "bytes": 9493429,
+    "sha256": "63779e064c6cce78c1fec7bd920e29d264dfcc001f6b71a3a7b7e40c1cdf1caf"
+  },
+  "readback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/readbacks-001/RESULT.json",
+    "bytes": 6627,
+    "sha256": "0b88955d155d80754c6ea4e800c13b34aec34e13bbaf95ed49025e181d32e841"
+  },
+  "catalogBasisDigest": "sha256:b5c608a71986ba5120e454c8258f8f0865ac1d6b4334dd43b238cf543683c6bf",
+  "closedReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-002/REVIEW.json",
+    "bytes": 30834,
+    "sha256": "ff2b2b53e606d8315fa8605c1cba30d5861284512cc4b710a66f06257a3d3786"
+  },
+  "readScopeCoverage": "The existing one-file write path is explicitly present in readRoots; material owner code/support are observed, not historical project commentary.",
+  "preservationPolicy": "preserve_all_existing",
+  "newInstallOrSetupReplay": false,
+  "providerDispatch": false
+}

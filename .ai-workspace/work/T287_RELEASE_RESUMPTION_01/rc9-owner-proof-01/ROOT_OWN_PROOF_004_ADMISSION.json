@@ -1,0 +1,44 @@
+{
+  "status": "ROOT_ADMITTED_RC9_OWN_PROOF",
+  "id": "RC9-OWN-PROOF-004",
+  "recordedAt": "2026-11-08T17:56:15.677715+00:00",
+  "admittingAuthority": "/root Executive",
+  "bindingSha256": "6ad2325368b23d11b06b8c7e0b4130822f7885cf70002beb3479388dbc33a68f",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_BINDING.BOUND.004.json",
+    "bytes": 18308,
+    "sha256": "6ad2325368b23d11b06b8c7e0b4130822f7885cf70002beb3479388dbc33a68f"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-owner-proof-004.mjs",
+    "bytes": 11645,
+    "sha256": "36d9aefd720728908bc8d37e2d9403b875b75e3cde326ea592e43e0c76bbfefa"
+  },
+  "formerProofProcessesStopped": true,
+  "formerProofStopChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/TIMEOUT_CLOSE_OBSERVATION.json",
+      "bytes": 1297,
+      "sha256": "3d923057d4f8eb82605fc862838577cfbb82528a292b1c400083046393fa2abb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_DESCENDANT_CWD_CHECK.json",
+      "bytes": 216,
+      "sha256": "7d8f6af81d18533d9dfa7af57db5f3bd59611894cd71601c73f2272fc77fe3a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_PROCESS_OWNERSHIP_FINAL.json",
+      "bytes": 494,
+      "sha256": "351ede55b8353d3f29fa6b39d524ed9ad58eedffca3e07092ad90f64b13240dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/OWNERSHIP_CHECK_001.json",
+      "bytes": 4788,
+      "sha256": "ebfdcf7909a5fa870a8fbaed4c10e3cb1adf252fb5a6d8f122b0dc15ea5a8386"
+    }
+  ],
+  "authorization": "Root reviewed full060971de diff and helda1d3b37c, independently checked62 pins with0 mismatches; explicitly admitted status-only bound configuration and one immediate execution, no further round trip.",
+  "limits": "One complete unchanged OWN file on BUILT003;500000ms inner deadline,600000ms outer,16MiB output,4GiB free/owned,8GiB heap,10s ancestry. Require1passed case/no skips and full final diagnostic.",
+  "fixtureEffects": "Existing disposable test fixture packs/installations and original test-owned lifecycle/refusal/after-hook effects authorized inside fresh owned scratch. No independent artifact packaging, Product rebuild/identity rewrite, native/provider/Git/source effect, retry, extension or host cleanup.",
+  "standing": "Original unit/M5 reds preserved; source/broad/cut acceptance remains Root-owned. Missing observations remain uncertain; no quiet-host claim."
+}

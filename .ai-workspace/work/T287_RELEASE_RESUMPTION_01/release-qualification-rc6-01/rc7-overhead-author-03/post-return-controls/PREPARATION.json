@@ -1,0 +1,52 @@
+{
+  "kind": "closed_failed_return_operator_custody",
+  "status": "ACTUAL_FAILED_CUSTODY_CLOSED_NO_NATIVE_SUCCESS",
+  "failedClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/FAILED_RUNTIME_CLOSE.json",
+    "bytes": 6592,
+    "sha256": "0936b54d9bb24d43d59af7f3e6c1ca5bd4a80aeb3955a5389d1783866949d483"
+  },
+  "sourceEquality": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/failed-actual-001/SOURCE_EQUALITY.json",
+    "bytes": 104890,
+    "sha256": "c393ac57ba117d860be007946830f1869f325d6ce5be8d328d8fe28ba9923b8b"
+  },
+  "executedControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/capture-failed-return.mjs",
+    "bytes": 10971,
+    "sha256": "d71c2fec17fefb30f5c5d7b4abf1b0675fa1a3822e4a8c6a04a46f08d8e1f8bc"
+  },
+  "commandReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/failed-custody-supervision/commands/failed-custody.result.json",
+    "bytes": 1811,
+    "sha256": "3a14b00160460b008678e40695a5a9b8cc158dbf39a99001521e07984d42fb67"
+  },
+  "sourceAlgorithm": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/bind-and-freeze.mjs",
+    "sha256": "6e9ea6e3409ec0c380aea5bedce374a9a71c8dbfc04d1650073650aa0f8e3deb"
+  },
+  "adaptation": "Exact failed-return subset of existing receipt/prefix-row/source checks. Validate inline native failure with existing installed owner, canonical Result/value/payload digests, before/after equality,449 source plus17 controls and3 observed absences. No whole-log parse or body/source copy. Actual terminal stays null; no synthetic join.",
+  "unusedGeneralPreparation": {
+    "status": "PREPARATION_ONLY_NOT_SELECTED_OR_EXECUTED_DO_NOT_USE_FOR_FAILED_N_OR_R2",
+    "files": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/bind-and-freeze.mjs",
+        "bytes": 20778,
+        "sha256": "d181c45e68dbbaf590e3f1e56f3f76add54768655f50d9c935ab3b4d3a0a9e0e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/BINDINGS.template.json",
+        "bytes": 2817,
+        "sha256": "1bcd539a3505f471ad2f0e3f7cc133ccfab5b2da6fbc1ab469f7a9bb12251b75"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/source-adaptation.diff",
+        "bytes": 15974,
+        "sha256": "ae3faba2f0bc4ec8359d5dcb8b3cb18697ad18aa2f1c3de1f621bcb16cb72e57"
+      }
+    ],
+    "meaning": "Preserved initial general adaptation. Actual failed return uses the separately pinned exact capture above. No generalized reader or second custody execution is selected."
+  },
+  "checks": "Both prepared scripts passed node --check. Actual exact failed capture ran once under unchanged canonical commandRecorder,8GiB/900s/536870912-byte ceiling; exit0, no signal/timeout/truncation,1.341s. No tests/build/launch/executable edit/cold reads.",
+  "next": "Root verifies FAILED_RUNTIME_CLOSE pin and binds its genuine N closeHandoff and actualResume to separately selected R2. No B fallback, automatic retry or source success inferred."
+}

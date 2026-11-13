@@ -1,0 +1,33 @@
+{
+  "authorityBasis": {
+    "authorityDigest": "sha256:df8c66beee1c05e759be82c839d3d0317fefc0ef552667229dc58322d5d0b290",
+    "authorityRef": "workspace-authority://abiogenesis/df8c66beee1c05e759be82c839d3d0317fefc0ef552667229dc58322d5d0b290",
+    "importAuthorityDigest": null,
+    "importAuthorityRef": null,
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "source": "clean_creation"
+  },
+  "authorityMode": "clean",
+  "bindingDigest": null,
+  "bindingRef": null,
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64/sandbox/worksite",
+  "configurationDigest": null,
+  "configurationRef": null,
+  "creationManifestDigest": "sha256:3bbb409a2db025aadb4f4b1b776134dbe4be6b68ce420da7f5b4ce90a97a9741",
+  "creationManifestRef": "workspace-creation://abiogenesis/3bbb409a2db025aadb4f4b1b776134dbe4be6b68ce420da7f5b4ce90a97a9741",
+  "kind": "workspace_manifest",
+  "preservationPolicy": "not_applicable",
+  "preservationState": "not_applicable",
+  "provenance": [
+    {
+      "provenanceDigest": "sha256:3bbb409a2db025aadb4f4b1b776134dbe4be6b68ce420da7f5b4ce90a97a9741",
+      "provenanceRef": "workspace-creation://abiogenesis/3bbb409a2db025aadb4f4b1b776134dbe4be6b68ce420da7f5b4ce90a97a9741"
+    }
+  ],
+  "scaffoldPolicy": "none",
+  "scaffoldState": "no_project_authority",
+  "schemaVersion": "5.0.0",
+  "workspaceDigest": "sha256:ca9d117374097de9089a7657ff6bd020b66b291dbb13aeed74a235963946c9c0",
+  "workspaceRef": "workspace://abiogenesis/ca9d117374097de9089a7657ff6bd020b66b291dbb13aeed74a235963946c9c0"
+}

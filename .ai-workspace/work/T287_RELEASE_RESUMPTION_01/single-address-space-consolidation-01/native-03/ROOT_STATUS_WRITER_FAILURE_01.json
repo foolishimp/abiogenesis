@@ -1,0 +1,9 @@
+{
+  "recordedUtc": "2026-11-03T18:59:31.359479+00:00",
+  "failedToolChunk": "0350a1",
+  "failure": "TypeError: list indices must be integers or slices, not str",
+  "scope": "Root status projection writer treated the existing operatorObservations list as a dict",
+  "effect": "Remaining-work observation and status preimage written; STATUS.json was not written by failed command",
+  "correction": "Branch on existing field shape before assigning; append to existing list",
+  "productOrRuntimeMutation": false
+}

@@ -1,0 +1,21 @@
+{
+  "recordedUtc": "2026-11-04T05:34:52.548Z",
+  "coordinates": {
+    "eventId": "event://abiogenesis/c522d3ac07fb591684e7057df09901cdd435b599f572195a2c47f03c8e47f59f",
+    "admissionOrdinal": 55109,
+    "eventTime": "2026-11-04T05:28:45.171Z",
+    "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+    "runId": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+    "resultRef": "result://abiogenesis/e8769753833a17262ce7b60fe1b6b2ddd6f157e4e725d2842df1099d4804f98b",
+    "payloadDigest": "sha256:168eb3cb84c7d762f536f3598b55987a7a992c43705db9e0b02b04d6759df16d",
+    "offset": 671993709,
+    "rowBytes": 4648,
+    "rowSha256": "adef5bc346e237736105d059ab827be2df8da8069eace3cd16a7f2209816baff"
+  },
+  "value": {
+    "diagnosticRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22%7B%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22policy%5C%22%3Anull%2C%5C%22role%5C%22%3A%5C%22selector%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22result%3A%2F%2Fabiogenesis%2F256346501fa9683fce9c1611d72580157dceea376694b274b5117f8111a072e2%5C%22%5D%7D%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20%7B%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22policy%5C%22%3Anull%2C%5C%22role%5C%22%3A%5C%22selector%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22result%3A%2F%2Fabiogenesis%2F256346501fa9683fce9c1611d72580157dceea376694b274b5117f8111a072e2%5C%22%5D%7D%5Cn%20%20%20%20at%20requireDeclaredNativeInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Fsingle-address-space-consolidation-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Finstruction_assembly.js%3A505%3A19)%5Cn%20%20%20%20at%20prepareInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Fsingle-address-space-consolidation-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Factor_process.js%3A440%3A23)%5Cn%20%20%20%20at%20selectGovernanceWork%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Fsingle-address-space-consolidation-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fdefault_library.js%3A80%3A22)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Fsingle-address-space-consolidation-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A540%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+    "failureClass": "implementation_exception",
+    "kind": "governance_failure",
+    "schemaVersion": "5.0.0"
+  }
+}

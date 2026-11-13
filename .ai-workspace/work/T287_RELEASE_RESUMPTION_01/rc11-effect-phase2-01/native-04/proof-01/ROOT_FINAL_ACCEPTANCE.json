@@ -1,0 +1,71 @@
+{
+  "id": "PHASE2-A-FINAL-ACCEPTANCE-01",
+  "status": "ROOT_ACCEPTED_BOUNDED_A_SOURCE_PHYSICAL_CONTRACT_PRESERVATION",
+  "recordedAt": "2026-11-10T02:32:52.146283+00:00",
+  "actor": "Root Executive disposition recorded by separately activated Writer",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-freeze.json",
+    "bytes": 295850,
+    "sha256": "06dac8db990b326559fedef24968e95ec7ad80da89778a1f51ddc0bb3ae55cf4"
+  },
+  "sourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+  "sourceRows": 1345,
+  "reviews": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/ASSESSMENT.md",
+      "bytes": 5153,
+      "sha256": "fd0042dbe190aa0957907aaa38ab475de53cea2304d753966360d9c0e0d55987"
+    },
+    "conjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/FINAL_CONJUNCTION.md",
+      "bytes": 5981,
+      "sha256": "9f2704e332c600879f0f0b611a2b435a9e513ca83fc8d89751febc68c161b103"
+    },
+    "conjunctionJson": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/FINAL_CONJUNCTION.json",
+      "bytes": 20950,
+      "sha256": "83e7029f01d5fde0ece70274c9ad3962f767faa31b421a87f147d601bab6a9a4"
+    }
+  },
+  "proof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/OPERATOR_RETURN.json",
+    "bytes": 4933,
+    "sha256": "bdcfc0fcc2042271e75328b11a486f567e1bd78a6ec0ae7ca19d40afebeeed0f"
+  },
+  "campaign": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/RETURN.json",
+    "bytes": 1673,
+    "sha256": "58acaa6d47f52bbc06cf9c142b3d51796be09c616ef450322bee0e97858e35f5"
+  },
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/COMPILED_SCRATCH_INVENTORY.json",
+    "bytes": 107618,
+    "sha256": "2b92e21c27b9905f4b7da1bef75079229132ce2f18ee52230b1c906db1188d86"
+  },
+  "accepted": "A construction and selected physical-contract preservation only: exact R1/R2 probes pass, whole lifetime28/28/0skips; baseline signal-before exact assertion remains red.",
+  "limits": [
+    "B and joint Phase2, configured installed C2, installed/5.0/S7 remain open",
+    "No net deletion/performance/reliability claim",
+    "Earlier native failures and R1/R2 reds preserved",
+    "Six earlier unit skips and synthetic pending-owner limit remain",
+    "RC11-OWNER-FACT-REUSE-PROOF-001 remains open deferred coverage",
+    "Inherited clock capsule remains deferred/unexecuted; ordinary host relation only"
+  ],
+  "clockCapsule": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/DEFERRED_ROOT_DISPOSITION.json",
+    "bytes": 2543,
+    "sha256": "52a4d987ec67f638cc42c1439489ad69ab40977bf06fdb281b54404dd8ca1048"
+  },
+  "checkpointGrant": {
+    "branch": "codex/rc11-foundation-correction",
+    "base": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+    "paths": [
+      "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+    ],
+    "documentaryAfterProof": "Candidate plan current status/correspondence only; main GOALS/T287 prefixes/capsule only. Tested code and test bytes conserved.",
+    "excluded": "No main commit/merge/rebase/push/tag/release/install/package/compiler/tests/B activation."
+  }
+}

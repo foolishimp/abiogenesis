@@ -1,0 +1,14 @@
+{
+  "status": "ROOT_CONJOINED_INDEPENDENT_READ_ONLY_DELTA_REVIEW",
+  "recordedUtc": "2026-11-02T19:56:17.739999+00:00",
+  "source": "Root communication reporting independent max delta review; no new tests executed",
+  "subjectSha256": "c6a1f35a5e401fdde4a1a7fe513ac0dfc94f3430a50dd6d996f57d137fe95301",
+  "repairDiffSha256": "b19dbc7320e41a2bb1b0b4b5d594bf8c33244995134892128df0c9d7dbb79b0e",
+  "findings": [
+    "Both exact causal caller fixes confirmed; other32 source files unchanged",
+    "Stale-resource direct/fresh-process acquisition_refused and zero-byte assertions preserved",
+    "Owner GraphCall coordinate checked against durable log",
+    "Absolute proof root preserves initial missing-file frontier"
+  ],
+  "standing": "No additional delta blocker; actual C2 pending. Original reds and typed-chain/live-caller completion blockers remain. Original001 Product/DTS evidence inherited only where byte-identical. No acceptance/qualification."
+}

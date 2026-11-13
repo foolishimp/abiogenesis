@@ -1,0 +1,56 @@
+{
+  "kind": "frozen_rc10_provisional_measurement_artifact",
+  "sourceIdentity": {
+    "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292744,
+      "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+    }
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028335,
+    "sha256": "bff1a5214f198f5f133c8643f653dc3cb55022622009c23070e779f0ec2dadec"
+  },
+  "installation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/installation.json",
+    "bytes": 4232296,
+    "sha256": "30fa6702122bce6d0c0a844c3a8f5a9772a1e99d7bd61cd273be3c52b56a9d22"
+  },
+  "completedStage": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/RESULT.json",
+    "bytes": 981,
+    "sha256": "f1ef5cab56be6249461fa1cc51ed4cfbe2353bb06c250f8a31d9fbab1525ab50"
+  },
+  "completedUnit": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/unit-01/RESULT.json",
+    "bytes": 6772,
+    "sha256": "e7c960dbf82900be111350aee58d14f4cb0edc336b709334a44ebb1cc8669e41"
+  },
+  "inputClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/INPUT_CLOSURE.json",
+    "bytes": 2688,
+    "sha256": "134a03577b6e4c84e914a5706f2a2d531315ee3c5dea515fcc85681f41e50bdf"
+  },
+  "stageManifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266232,
+    "sha256": "07fafff8e5146f33e38dca93845a0e78eb7aaa865bad3d7a5268de75971a1c9c"
+  },
+  "packageLayout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/PACKAGE_LAYOUT.json",
+    "bytes": 646816,
+    "sha256": "951d220802be10a79a0f610526491429707d8a0a8c57ec170043586bc5c93fb9"
+  },
+  "ownerContentCheck": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/OWNER_CONTENT_CHECK.json",
+    "bytes": 538,
+    "sha256": "2c5a3280710b9dc125034f3017b9807faebacc38f322d70ce57dfee9f7a73399"
+  },
+  "identityEdited": false,
+  "releaseCut": false,
+  "qualified": false,
+  "provisional": true
+}

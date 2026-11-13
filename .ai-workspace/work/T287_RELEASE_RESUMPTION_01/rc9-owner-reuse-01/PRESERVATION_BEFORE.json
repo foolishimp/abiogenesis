@@ -1,0 +1,81 @@
+{
+  "recordedAt": "2026-11-08T06:10:52.145614+00:00",
+  "mainHead": "1344547c94dc0684af0cd83260438c41245a6f8a",
+  "mainIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29351456,
+    "sha256": "8bd12d36d10649bb57f221d749c81c7802e972ac35cb331101c886d6b4c081a3"
+  },
+  "trackedDirty": [
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/NEXT_ACTIVATION_LIMITS.md",
+      "bytes": 2333,
+      "sha256": "50b1f502f2bd3a9fe4922391915e37e07ab472fc76b3e292219173cf0e266fbd"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md",
+      "bytes": 4031,
+      "sha256": "d67161759a997b1471691a19dccc33c8ee6b10bf916ee075532086c0ca35d96c"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+      "bytes": 6306,
+      "sha256": "6c2f604416499412902f5696953f5a059a88f5a5a348b1b39e58108819ec1940"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 133955,
+      "sha256": "8475ebb342ae80164a7fd7056a8988456780102254858736c2c3d92e52e997db"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "bytes": 101600,
+      "sha256": "62048c056d4f92c0b32852956408a2ccd76d3bc6cbf59370e6adfe618fa06f45"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 140763,
+      "sha256": "f842d12aff62cd466dd150505691098ff0423c2d961a12ddb8455843303d3f40"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/README.md",
+      "bytes": 9076,
+      "sha256": "a402a3a42606fc389617c800f6578cc1862787f777be986d2f7ed876a7db336c"
+    },
+    {
+      "status": " M",
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    }
+  ],
+  "untracked": "No existing untracked path is modified or removed by this grant; enumeration is not a blanket content-identity claim.",
+  "newCarrier": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01",
+  "timingAnchor": "2026-11-08T06:10:52.145614+00:00",
+  "timingLimit": "Read-only initial control acquisition preceded this durable timer and is not reconstructed."
+}

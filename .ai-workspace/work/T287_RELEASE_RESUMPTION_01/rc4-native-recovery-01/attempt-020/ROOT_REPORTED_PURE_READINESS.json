@@ -1,0 +1,34 @@
+{
+  "kind": "root_reported_pure_owner_configuration_result",
+  "provenance": "Root reported functions write_stdin result; no full stdout artifact was supplied or fabricated.",
+  "session": 1967,
+  "finalChunk": "35ae92",
+  "exitCode": 0,
+  "status": "PURE_WHOLE_CONFIGURATION_READY",
+  "bindingSha256": "9669eec8d9b35c27ed3882924aa371afba49d3b1456aed3109cc1bc1584e5f06",
+  "packetSha256": "e8e0b5a18636e320c34a1af8e812f001b8b06546555f134fcecd44271965b8ca",
+  "selectedPairs": 734,
+  "selectedPairDigest": "sha256:a8dd6caa8cfb2cccf8f7ea39af0874e5f6e70dc45ebeeaeaf4945a99cc955285",
+  "contextDigest": "sha256:0d32928f16c4b9d17fe66956b66a05418a26a57e0f9963890f4e5e301876495f",
+  "stateDigest": "sha256:2062e2bf8a7905da9a55fa1343148c1478911a0c1baa6f793b7461343caff4d4",
+  "authorityDigest": "sha256:932b2ce6ef0bad117105396e36f8f41ae73c42e83460f74f6a8d439d54d54681",
+  "commands": 10,
+  "ownerBudgetMs": 2327500,
+  "limits": {
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000
+  },
+  "originalRoleOverlapRefused": true,
+  "stale18And19NamespacesRefused": true,
+  "prefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+    "bytes": 704518010,
+    "sha256": "9a6ff804dabc33c74bc0eb1605667fad3ba84770e1b7935e250a985ed1fd95db",
+    "device": 16777231,
+    "inode": 681463484,
+    "coordinateDigest": "sha256:cb949707fee8b9a9a40b8f2eae9f92d8dfce4a6b70ca2d708cf006fa38de4738"
+  },
+  "prefixUnchanged": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

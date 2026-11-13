@@ -1,0 +1,54 @@
+{
+  "status": "RC11_REPRICE_RECORDED_TRACKING_PREFIX_ONLY",
+  "decision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_REPRICE_01.json",
+    "bytes": 3254,
+    "sha256": "596ee32800d6173c5dcb5224d6deb688533905c77bd564252a04b79b23c351e9"
+  },
+  "priorFailureUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/RETURN.json",
+    "bytes": 6964,
+    "sha256": "70ec4ba74bb5872617dacb052b588b07b413b1a956d1b89185693e54f69a2378"
+  },
+  "tracking": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 173117,
+        "sha256": "e98029f0e7bb284795b8b4738ff182984f9e8bc31fc345d1b676b5a58c72b242"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 174167,
+        "sha256": "05adccfbdd8ffaeb42cdea28f1434163af3b9fa94223bf170a9dfcdeb9a6e7b6"
+      },
+      "insertOffset": 21,
+      "insertedBytes": 1050,
+      "priorBytesPreserved": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 821795,
+        "sha256": "3180eeeb79b101fcfcf301b4f4d0dd9ee687a25272d73cbbcbc3efba92d2d954"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 822834,
+        "sha256": "c7c3ca4e2fb27b4bcc8961f19c25f72d8198b7642281a96c4aeb204ded868f4f"
+      },
+      "insertOffset": 70,
+      "insertedBytes": 1039,
+      "priorBytesPreserved": true
+    }
+  ],
+  "mainIndexUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "sourceRowsConfirmedUnchanged": 1334,
+  "runtimeEffects": 0,
+  "sourceEdits": 0,
+  "newNativeOrGeneratorAdmission": false
+}

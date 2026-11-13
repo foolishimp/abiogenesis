@@ -1,0 +1,108 @@
+{
+  "status": "workspace-prepared",
+  "providerCalls": 0,
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis-rc2-dogfood",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "operations": [
+    {
+      "label": "workspace-create",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "imported"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/f4e508a6cad333764ea99a5da2b0032a98d0610b1e888205e6b102a5af05a2de"
+    },
+    {
+      "label": "product-verify-0",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/9ce93c23ca66107cb40f6389fb9633e5ce1000d456cdbd8d73360fa6dad24135"
+    },
+    {
+      "label": "product-verify-1",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/c066e2d32bebeb83529a9762c50d41d4b06b36dd1ed4e2ad1ff98e30865796a6"
+    },
+    {
+      "label": "product-resolve",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/5e6a29fe529326f9e04a7968e65e6def0bd677efd6d3f5e06017d124579a6853"
+    },
+    {
+      "label": "product-install-0",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/ddedcdb06488a7737eb87e2ad153b6e498b6c8bad5d9092a51ce62abc8a6bcdf"
+    },
+    {
+      "label": "product-install-1",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/36bb3ecdad215fa24a16f6c0658b86f6529110e0215287174d759c4eceeaf25e"
+    },
+    {
+      "label": "workspace-bind",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/c87b49909822876e00e8c9c25f6eeecccc6878875cb917728e6600ff91aae0f5"
+    },
+    {
+      "label": "catalog-admit",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/f4670354dd69d60cc1c9ee973701012ff0ab06e8ed9970c019e18c1df90946e4"
+    },
+    {
+      "label": "catalog-view",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/e23c33af59031fc1ace2b70d8ee011fe1686709e311c7280b8b973f437e7ab6f"
+    },
+    {
+      "label": "program-conformance",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/7eb69cfd157a7faea63f6c03838bcddd5a01c4e2ac87292741157a5d81087236"
+    }
+  ]
+}

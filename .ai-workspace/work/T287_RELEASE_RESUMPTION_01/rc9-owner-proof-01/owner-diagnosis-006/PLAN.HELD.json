@@ -1,0 +1,205 @@
+{
+  "ProductFrame": "ABIogenesis Product and STDO3.0.4 authority remain unchanged; this is separate external Proof diagnosis preparation. O3 retains every physical check and optimization follow-up remains OPEN. Source/proof/cut disposition remains Root-owned.",
+  "status": "HELD_DIAGNOSIS_PREPARATION_ONLY",
+  "recordedAt": "2026-11-08T18:18:40.501489+00:00",
+  "admission": "Root selected diagnosis preparation only after OWN004 cancellation; no test execution, source repair, retry or idle-window approval is selected.",
+  "question": "Where does unchanged OWN-01 consume elapsed time: which owned process consumes CPU, which owner frames are sampled, and what durable fixture-event extent exists during the run?",
+  "unchangedSubject": {
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "builtStage": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+      "bytes": 929,
+      "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+    },
+    "allExistingMaterialAndHelperPinsFrom": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_BINDING.BOUND.004.json",
+      "bytes": 18308,
+      "sha256": "6ad2325368b23d11b06b8c7e0b4130822f7885cf70002beb3479388dbc33a68f"
+    },
+    "actualRevalidationRequiredBeforeExecution": true
+  },
+  "preservedFailure": {
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_004_RETURN.json",
+      "bytes": 11991,
+      "sha256": "f4630184f802ff77935ea61d54f2398aecbfcbbce689f3f69743813ceb6c15ff"
+    },
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/RESULT.json",
+      "bytes": 1632,
+      "sha256": "9bb38d8500f38114a93c6e7001767bf91d0c82984ab5f299bd2d89a435ebd009"
+    },
+    "reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/events.jsonl",
+      "bytes": 1198,
+      "sha256": "827ad04fcdd046af8f96df1a6696acfcc984d73762150c3b374d7916da053b27"
+    },
+    "phaseAttempt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/PHASE_OBSERVATION_BEFORE_CLOSE.json",
+      "bytes": 449,
+      "sha256": "eccd34bc4cddb0cad36aa16461537718940b95c792260f9b764dcdad7db8187e"
+    },
+    "standing": "500000ms inner cancellation, complete reporter, no final OWN diagnostic; failure mechanism and phase unresolved."
+  },
+  "capabilityEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/CAPABILITY_EVIDENCE.json",
+    "bytes": 3280,
+    "sha256": "157b8145fcd56c0de695c1ab329403f723810df6a6e7951e423964d3210f172a"
+  },
+  "minimalFutureAdaptation": {
+    "base": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-owner-proof-004.mjs",
+      "bytes": 11645,
+      "sha256": "36d9aefd720728908bc8d37e2d9403b875b75e3cde326ea592e43e0c76bbfefa"
+    },
+    "fileHost": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    },
+    "reporter": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+      "bytes": 1514,
+      "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+    },
+    "changes": [
+      "New script/binding/admission/output names only under this diagnosis territory",
+      "Add explicit profiler flags only to the Node test command; leave reporter NODE_OPTIONS shape and test assertions/inner timeout unchanged",
+      "Extend existing external ancestry observation with cumulative process CPU time and start identity",
+      "Schedule one bounded metadata-only fixture-event observation while command remains live",
+      "Retain existing commandRecorder, resource host, reporter completion and final OWN diagnostic gates; record diagnostics separately from proof outcome"
+    ],
+    "newProtocol": false,
+    "scriptMaterialized": false
+  },
+  "proposedCommand": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "--cpu-prof",
+      "--cpu-prof-dir=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/profiles",
+      "--cpu-prof-interval=1000",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+    ],
+    "cwd": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+    "NODE_OPTIONS": "Same max-old-space-size8192/spec+JSONL reporter options as004, with new events.jsonl destination only; no profiler flags in NODE_OPTIONS.",
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001",
+    "ownedTempRoot": "/private/tmp/abg-r9-owner-diagnosis-006",
+    "rootsAllocated": false
+  },
+  "observations": [
+    {
+      "name": "V8 CPU profile",
+      "mechanism": "CLI flags shown in proposedCommand; keep generated PID/TID/sequence filenames. Match profiles to observed test runner and isolated test PID rather than treating parent profile as test work.",
+      "canDistinguish": "Sampled JavaScript/native/GC owner-frame distribution within the actually profiled process; can identify candidate expensive owners and distinguish samples marked idle from owner work.",
+      "cannotDistinguish": "No scheduler attribution, exact blocking reason, complete arbitrary child/thread accounting, or proof assertion credit. Profile samples are not process CPU accounting. Startup-to-exit scope differs from earlier single-call profiles. Profiling overhead may change timing. Missing/incomplete profiles stay unavailable.",
+      "retention": "Profiles remain within the existing4GiB aggregate owned cap, checked by the unchanged operational disk monitor. No separate new profile quota or monitor is proposed. Generated PID/TID/sequence filenames prevent shared fixed-name collision and output stays outside BUILT003."
+    },
+    {
+      "name": "Per-process CPU versus elapsed",
+      "mechanism": {
+        "command": [
+          "/bin/ps",
+          "-axo",
+          "pid=,ppid=,pgid=,lstart=,etime=,time=,state=,comm="
+        ],
+        "schedule": "Before start, then at10s intervals while live, plus one after close; at most61 probes; no overlapping probe, record skipped/gap observations.",
+        "probeTimeoutMs": 10000,
+        "maxRawOutputBytes": 1048576,
+        "retainedAggregateBytes": 4194304,
+        "retention": "Retain owned descendants and host ancestry only; no unrelated command arguments or environment. Track PID+start time to avoid treating a reused PID as the same process.",
+        "comparison": "For same observed identity use delta cumulative time(user+system) / delta monotonic observer elapsed. Retain raw fields, actual acquisition times and intervals; do not substitute ps %cpu or load average."
+      },
+      "canDistinguish": "Observed CPU consumption versus elapsed progression per owned process, including npm/tar/worker descendants if captured; parent waiting can be compared with observed child CPU.",
+      "cannotDistinguish": "Low CPU can mean sleeping, IO, scheduling delay or other waits. Short-lived or detached unknown children can be missed. Summed visible deltas are a lower-bound observed total, not full job accounting. No conclusion from an incomplete probe."
+    },
+    {
+      "name": "One live durable-event extent observation",
+      "mechanism": {
+        "trigger": "Once at command-relative300s if still live; otherwise record not attempted. Actual timer firing time is retained; no guarantee if observer itself is delayed.",
+        "budgetMs": 10000,
+        "directoryDiscovery": "One nonrecursive streaming enumeration of owned TMPDIR, capped128 names. Require exactly one real nonsymlink abi5-root-env-* directory; no broader search or repeated attempt.",
+        "logRelativePath": "runtime/events.jsonl",
+        "readBoundBytes": 1048576,
+        "recordBound": 256,
+        "read": "One descriptor tail read at observed size; retain only complete newline-terminated rows. Discard partial boundary rows. Recognize inline event or the existing event-body reference wrapper and extract only envelope metadata; do not invoke Product decoder/replay or restore payload references.",
+        "retain": [
+          "observed wall/monotonic time",
+          "file size and read offsets",
+          "kind",
+          "eventTime",
+          "admissionOrdinal",
+          "runId when present",
+          "parse/partial/missing status"
+        ],
+        "doNotRetain": "Payloads, source text, context bodies or reconstructed results."
+      },
+      "canDistinguish": "Positive evidence that setup admitted durable events and a lower bound on held-Run progress visible in the sampled window. Event metadata can locate observed run lifecycle boundaries.",
+      "cannotDistinguish": "Missing log does not diagnose setup or cleanup. Tail counts are not whole-history counts. Cold row assertions and later worker/content checks do not necessarily append events; absence of new events cannot separate those phases or prove a stall. Semantic success still requires final case and OWN diagnostic."
+    }
+  ],
+  "processOwnership": {
+    "tree": "Existing external proof host -> commandRecorder-owned process-group file-host -> test-runner Node -> isolated OWN test-file Node -> normal test-owned fixture processes. Observation ps processes belong to the external host and are separately labelled.",
+    "identity": "Bind exact Node/manual/ps and stage pins before any selection; record actual PID/PPID/PGID/start time, command receipt and resulting profile filenames. Future PIDs are unknown, not prefilled.",
+    "stop": "Existing owned command process-group stop behavior only; no signals to unrelated host processes, no detached-child absence guarantee, no cleanup."
+  },
+  "proposedBounds": {
+    "caseInnerMs": 500000,
+    "commandOuterMs": 600000,
+    "commandOutputBytes": 16777216,
+    "minimumFreeDiskBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "nodeHeapMiB": 8192,
+    "diskPollMs": 10000,
+    "ancestryProbeMs": 10000,
+    "phaseObservationMs": 10000,
+    "automaticRetry": false,
+    "extensions": false,
+    "enforcement": "Operational sampled bounds, not a filesystem quota; overshoot possible. Observation failure does not extend the command or weaken assertions."
+  },
+  "hostContext": {
+    "RootReportedAfterTestsClosed": {
+      "top": "Two-sample/n0 probe hit15s bound; no CPU conclusion.",
+      "iostat": "Second one-second interval user19%,system12%,idle69%; load18.15/21.02/19.39; disk0 approximately0MB/s.",
+      "receiptPath": null,
+      "standing": "Root-reported fresh post-test context, not independently pinned here; cannot explain earlier OWN conditions. High load average alone does not establish aggregate CPU saturation."
+    },
+    "idleWindow": "User question unanswered; no execution authorization inferred."
+  },
+  "phaseSourcePins": [
+    {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "bytes": 21920,
+      "sha256": "e38f745670d43f4c5d7170de1ee4ecc1fcf9949de64972d570cb5f14ebcb4627"
+    },
+    {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "bytes": 210963,
+      "sha256": "4ae520c24b86cd203b5079d91164353c1fc4ab546eb3d2c33325698553115ae7"
+    },
+    {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/build/code/src/abg/event_body_encoding.js",
+      "bytes": 14291,
+      "sha256": "2358fe1ce79b18d07676c6cc42224770b80e0847fb44d3e626bb0a6b7d4615ae"
+    }
+  ],
+  "remainingBeforeExecution": [
+    "Root selects any diagnostic execution and its timing; idle-window response is not assumed",
+    "New minimal runner/binding must be materialized and reviewed under a separate selection",
+    "Actual current former-process ownership receipt and full source/stage/helper revalidation",
+    "Bind actual output/temp allocation and Root admission; no future receipt or PID invented"
+  ],
+  "unchangedStanding": "Seven-file remainder held. Original unit/M5/OWN004 receipts immutable. No test/build/pack/native/provider/source/Git changes, cleanup, bootstrap gate or201 broad change."
+}

@@ -1,0 +1,21 @@
+# Targeted interface refactor completed
+
+Root accepts the selected T1-T5 refactor, with the recorded coverage limits, on 2026-11-05 AEDT. No other functionality or further work is selected by this close. [Root conjunction](ROOT_CONJUNCTION.json) is the bounded acceptance record; its SHA256 is `4d74f116ae022fae56d517ebda3bda4b3032a62bf7e7d992ad7f53c1c7122313`.
+
+The worksite is `/Users/jim/src/apps/abiogenesis-single-address-space`, on unchanged HEAD `f49e7533ebedff0946383cb0c5380a6ecac7889d` with the successor changes uncommitted. The frozen native09 source subject is `38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13`. The targeted increment contains eight implementation files, one owning HOW, seven support files and ten tests.
+
+- Three historical cuts now use `validatedRuntimeEventPrefixBeforeEvent`.
+- Seven ordinary call expressions now use the existing owned semantic stage/job authenticators.
+- The two expanding authenticators and two obsolete complete-subject wrappers are deleted; affected imports, fixtures and HOW are consistent.
+
+[Actual C2](ACTUAL_C2_SUMMARY.json) records all seven sandbox commands successful and the existing whole-path lane at **12 passed, 0 failed, 0 skipped**. All 160 source/original-handoff hashes match, all 986 protected inputs are unchanged, and Productdelta is empty. [Independent source review](../native-09/INDEPENDENT_TARGETED_REFACTOR_REVIEW.json) and [completion-evidence review](INDEPENDENT_COMPLETION_REVIEW.json) found no material source or completion finding. [Native UAT](NATIVE_UAT_CLOSED_RESULT.json) is satisfied with no unresolved criteria.
+
+The lifecycle completed on Run `5c4bc7882ac58cb455efc4ec16451884b278c7e4052da91c208ba27096fd5806`. Fresh result/replay agree on terminal Result `fe2936d9ef5d5a7a11fecd292246fc76cffbdadab45090b198bae70afeff091e`, its producer and its value; replay reports closed. The host exited 0. [Final close](ACTUAL_FINAL_CLOSE_COORDINATES.json) is genuine, and [final source conservation](SOURCE_AFTER_FINAL_CLOSE.json) is 160/160.
+
+The [actual focused proof](actual-c2-001/single-address-space-proof.json) uses the same 25,016-event retained history. The owned historical-cut operation reads/decodes zero event bodies; the replaced filter reads 170,460,531 bytes and decodes 24,902 bodies. The owned stage authenticator also reads/decodes zero bodies; the retired adapter reads 506,533,666 bytes, decodes 24,979 bodies and materializes twice. These are bounded component comparisons. Initial cold authentication remains separately measured; several caller arms remain covered by source tracing rather than direct execution. No whole-workflow speedup follows.
+
+[Closed timing](WORKFLOW_TIMING_CLOSED.json) keeps setup, launch, handoffs and closure separate. Existing SDK setup was reused (29 s, including 20 s artifact verification); current preflight took 2 m 5 s. Dispatch to first selector took 9 m 18 s, and dispatch to Testing took 19 m 10 s. Testing actor time was 9 m 45 s, including the 8 m 17 s lane. Testing Result to UAT launch took 13 m 38 s; UAT took 5 m 44 s. Fresh reads/final-close saving after lifecycle return took 15 m 21 s. Total proof-only host time was 70 m 57 s. These costs belong to the installed RC5 builder, not a full workflow running the refactored source. No coding Worker ran in proof10.
+
+Actual09 remains 77/8/75 with null nativeProof, UAT not selected and a blocked close. This successful 12-case execution closes its missing-baseline whole-path gap only. The pre-existing revision fixture remains 4/1/2; its later assertions are unverified and `N9-RETAINED-FIXTURE-01` remains registered in T-287. Consumer59/0/73 and its old floor failure keep their original provenance. No old failure or skipped test is rewritten as passing. [Prior evidence disposition](../native-09/ROOT_SOURCE_AND_EVIDENCE_DISPOSITION.json) retains the details.
+
+The newly built test archive is retained in actual-c2-001; it is not an installed successor or release cut. Immutable installed RC5, all earlier implementation, dirty/untracked work and historical evidence are preserved. Wider R1-R7/C1-C5, new-source workflow performance, successor cut/install and whole-product qualification remain outside this completed activation. No commit, push, merge, tag or global selector change was performed.

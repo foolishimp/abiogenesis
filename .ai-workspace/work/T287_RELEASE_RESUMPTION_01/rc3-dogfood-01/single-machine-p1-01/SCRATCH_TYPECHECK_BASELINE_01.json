@@ -1,0 +1,80 @@
+{
+  "ProductSourceUnchanged": true,
+  "claims": [
+    "Actual baseline compiler recipe only; no native C2 admission or semantic verdict",
+    "Only code/src, package.json, tsconfig.json and exact offline dependencies copied",
+    "No seeds needed by tsconfig include; no dependency installation/build/generated output/test campaign",
+    "Scratch retained for custody; no writes to Product source or dependencies",
+    "Worker must refresh source copies after its edits; this baseline is not its final check"
+  ],
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-typecheck-fqoyvnif/node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "-p",
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-typecheck-fqoyvnif/tsconfig.json"
+  ],
+  "copiedDependencyInventoryMatched": true,
+  "cwd": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-typecheck-fqoyvnif",
+  "exitStatus": 0,
+  "kind": "root_authorized_baseline_scratch_typecheck",
+  "offlineCensus": {
+    "bytes": 1736,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/toolchain-census.py",
+    "sha256": "ede46567623c3e8cf6adf9a1a4c359cff071afadfb234cfdb55b036251081024"
+  },
+  "offlineInventory": {
+    "bytes": 425,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/toolchain-census.json",
+    "sha256": "08bd785ff5aa9795b4b042f477d24cf312e0a9f0525f8366bc6f26252bb80030"
+  },
+  "outputs": [
+    {
+      "bytes": 0,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/SCRATCH_TYPECHECK_BASELINE_01.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/SCRATCH_TYPECHECK_BASELINE_01.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "pinnedNode": {
+    "bytes": 86104016,
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "pinnedPython": {
+    "bytes": 152096,
+    "path": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+    "sha256": "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539"
+  },
+  "scratchRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-p1-typecheck-fqoyvnif",
+  "script": {
+    "bytes": 5235,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/scratch-typecheck.py",
+    "sha256": "157e8202748c1bdc93e85f7ae95ad0bbd9ae32d026d34e4cfef9c17636ed64a4"
+  },
+  "sourceCommit": "97406077c9a91e18e9425c3df55c6cd80f4c2073",
+  "sourceConfigs": [
+    {
+      "bytes": 604,
+      "path": "/Users/jim/src/apps/abiogenesis-single-machine-p1/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e"
+    },
+    {
+      "bytes": 10003,
+      "path": "/Users/jim/src/apps/abiogenesis-single-machine-p1/build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "9efb911e450196243dec704592b6d515ba6e877340fd4e1008ee5dcc1c0ff2de"
+    }
+  ],
+  "sourceTree": {
+    "canonicalDigest": "02afbc1995fa3fece2011e5ba2c54c7575f5622fae56fa94a923f68df19bb2a5",
+    "entries": 290,
+    "root": "/Users/jim/src/apps/abiogenesis-single-machine-p1/build_tenants/abiogenesis/typescript/code/src"
+  },
+  "startedUtc": "2026-11-01T02:33:07.321361+00:00",
+  "wallSeconds": 6.275346083100885,
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-machine-p1"
+}

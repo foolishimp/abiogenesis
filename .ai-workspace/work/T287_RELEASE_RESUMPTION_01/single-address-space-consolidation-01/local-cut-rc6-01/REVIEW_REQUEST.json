@@ -1,0 +1,63 @@
+{
+  "at": "2026-11-05T02:01:26.208860+00:00",
+  "roleTransition": "Bounded operator Writer -> Executive -> independent Reviewer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "purpose": "Proportional review of frozen local RC6 identity/evidence/package bridge and installer controls, not new source implementation review or qualification",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "sourceTree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+  "worktree": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "basis": "stdo://releases/v3.0.4/",
+  "exactInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/WRITER_ACTIVATION.json",
+      "sha256": "3676d710be85db541522aa0c1d898b49225e636cd16d976664679a3fa2d7d078"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/SOURCE_CHECKPOINT.json",
+      "sha256": "ae3da23b13755a8b1640459f0178bb5a73c53e44d7f518a6a84d275d89cd2ff5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/ARTIFACT_IDENTITY_BRIDGE.json",
+      "sha256": "da399a114c85a4014261c4944ecdf76d9dcbe0c953362ce9809a7b19735e20e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/install-local-rc6.mjs",
+      "sha256": "33d99f68f65b206f27b791b2d487afbc1b2ac5c80d20e29f30d1f39dcebced0d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/prepare-install.py",
+      "sha256": "86da79c1e618961fbb3bc0f2e19e2f8c7ecba0bcc2b4c6c4b40156c605348b7c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/FREEZE_PREPARATION_REFUSAL_01.json",
+      "sha256": "de0859adb09038f49b37879e061029e69996673484a1e337142ea5aa4b939c9c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/FREEZE_PREPARATION_REFUSAL_02.json",
+      "sha256": "dee42b2fee45e3e87297cba7b3f8197ccec5a71f13453093019fa1ee543add2a"
+    }
+  ],
+  "readGrant": [
+    "Named controls and source checkpoint, committed source claim and evidence custody",
+    "Exact Product release boundary and selected method review skill",
+    "Existing RC5 installer for adaptation comparison",
+    "Read-only archive/source comparisons; fresh reproduction RESULT.json when available"
+  ],
+  "excluded": [
+    "Provider private thinking/text/tool-result/stdout",
+    "Raw native logs",
+    "Product edits, builds/tests/providers, native Runs, installation, tags or publication"
+  ],
+  "writeGrant": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/INDEPENDENT_LOCAL_CUT_REVIEW.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/INDEPENDENT_LOCAL_CUT_REVIEW.md"
+  ],
+  "criteria": [
+    "Source is exact frozen native source except declared identity changes; compiled artifact difference stays identity/derived projection only",
+    "No unsupported breadth/qualification/performance claim and historical failures remain visible",
+    "Existing Product verify/lock/install owner path and no-clobber scope are conserved",
+    "Source/evidence custody is locally committed and exact"
+  ],
+  "return": "Root Executive; JSON includes verdict satisfied/falsified/indeterminate and sourceCommit, findings and limits; stop after review",
+  "parallelBuild": "Clean source reproduction runs independently; do not launch another."
+}

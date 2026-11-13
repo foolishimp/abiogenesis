@@ -1,0 +1,122 @@
+{
+  "status": "PREPARED_NOT_DISPATCHED",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "heldSourceSnapshotSha256": "7df793a292f20fb70179eb7c18a2ad8f48bb98d642d54042c2156b87adddc533",
+  "worksite": "/Users/jim/src/apps/abiogenesis-single-address-space",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "contextDigest": "sha256:9d0bafbcf716ab4fa831627c07587a72626e2c0143ab8a8ee9a7a5e3382e9c5e",
+  "observedEntries": 815,
+  "selectedFiles": 815,
+  "commands": 7,
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 4121750,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 4126750
+  },
+  "limits": {
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 4500000
+  },
+  "selectorCapacity": {
+    "kind": "predictive_selector_capacity",
+    "installedRendererSha256": "3ba9e751bf3b2ca805ebafbd4678d96fffb9aff2055e301e7b78a70b483b518a",
+    "historicalOtherSections": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/fp-0141c53486056a96-prompt.txt",
+      "sha256": "6b9ec2ce3cccc5fb165fd72b6e81208eaafc3b7513d70421c8ea1fd9000a5a54"
+    },
+    "currentContextDigest": "sha256:9d0bafbcf716ab4fa831627c07587a72626e2c0143ab8a8ee9a7a5e3382e9c5e",
+    "currentInputDigest": "sha256:79da03a2efd23f340adc7cf4ffa3d76f628a125821e683ffdc4fd3e5d7f2d1bb",
+    "sourceCount": 22,
+    "taskProjectionBytes": 587418,
+    "promptBytes": 608715,
+    "promptBound": 1048576,
+    "reserveBytes": 65536,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Actual installed owner task projection and renderer format; other sections are exact prior RC4 selector sections with controlled historical bindings.",
+      "Predictive operator check with64KiB reserve, not native assembly/admission or a proof of all future role contexts. Runtime owners remain authoritative."
+    ]
+  },
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/private/tmp/abg-rc5"
+    },
+    {
+      "name": "LANG",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  ],
+  "eventPrefix": {
+    "coordinateDigest": "sha256:998ebb3be66d3db23e6a1e5f657d92ae7422ff2b07fb1b4af2f55d5a8ce84a0f",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:18187ddc7bd201a8bb67094e42b97897962ef8d0250a7a92c186cb4a68c2fcd2",
+    "prefixLength": 71017647,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 685986968
+    }
+  },
+  "inputCanonicalDigest": "sha256:79da03a2efd23f340adc7cf4ffa3d76f628a125821e683ffdc4fd3e5d7f2d1bb",
+  "callCanonicalDigest": "sha256:0c739bef32d84d351f459c778f8ae9b984598d35f7d247c7edf9bf98bc7d284b",
+  "callFileSha256": "565dc8df4a70e3bc85efaac4994de15d747c46d5721f1b13608809d64c8a9bdb",
+  "workloadSha256": "a4e3ae3ac037db15301847e61371b944541fe83c42c40b3b2ade674f74cac624",
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-rc5",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "BASH_DEFAULT_TIMEOUT_MS": "4500000",
+    "BASH_MAX_TIMEOUT_MS": "4500000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Actual installed constructors/configuration/context and Public start-call population; no native dispatch or candidate acceptance."
+}

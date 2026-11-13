@@ -1,0 +1,116 @@
+{
+  "status": "FROZEN_PHASE1_EXTERNAL_PROOF_READY_ROOT_EXECUTION_HELD",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/BINDING.json",
+    "bytes": 5251,
+    "sha256": "e3b91f2103182daffca5a85381cbf9358f563cc2f6c6901c4496a681570ecf46"
+  },
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.r02.py",
+      "bytes": 15445,
+      "sha256": "1fa3405b6170235857c8f23433e45f267ff0b9fd7e3f4747690bda22f4021290"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/RUNNER_ACCOUNTING_DELTA.diff",
+      "bytes": 3973,
+      "sha256": "d457f7928e1e3561f6463158b609a56f6edb17f3c2102eb91ef5b78d2f0ea0f6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/CONTROLS.json",
+      "bytes": 28145,
+      "sha256": "5f09730a45ea2a3220e070feb4ac81f642e762f6810261c220aa9bc56a5bd2ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/LINT_RECIPE.json",
+      "bytes": 465,
+      "sha256": "97f2c7fc797998bff5649eaee841f67b589c041d13a3cd8f6c6223b3d8ee5dfb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/POPULATION.json",
+      "bytes": 30180,
+      "sha256": "3b2acbd6d3f28a18e036d0f2a4159da1e7f1c0f0c8f7d6e047dd41ee97f8a5e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/FROZEN_CEILINGS.json",
+      "bytes": 1519,
+      "sha256": "8eea2a32316440eb54c2d0ffeef31000e6d066e5f532b0108f27e9c62d8ba54c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/PARSER_PREFLIGHT.json",
+      "bytes": 990,
+      "sha256": "1cdd8b2ec4e7700b65b762677e31a1039715c995105dcdb661c96660f44180ed"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/UNIT_POPULATION_BASELINE.json",
+      "bytes": 13159,
+      "sha256": "24fdd89cc0cda1c63e26fbdb594ca26731077ed71c1248a68a4c04efac37c3a7"
+    }
+  ],
+  "sourceReview": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_RECHECK_NATIVE03.md",
+      "bytes": 5794,
+      "sha256": "e566805c7ef120516c759d0ff242566673d73f0aca529f69d79f618160883847"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_RECHECK_NATIVE03.json",
+      "bytes": 2338,
+      "sha256": "e9622dc9b2ec24731ab56964f1a83968f774e6203d3acc572fab2111f57383ed"
+    }
+  ],
+  "sourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+  "frozenSourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/frozen-source",
+  "commandIds": [
+    "lint",
+    "build",
+    "deterministic",
+    "owned-lifetime",
+    "m5",
+    "unit"
+  ],
+  "expectedCounts": {
+    "deterministic": {
+      "tests": 29,
+      "skips": 0
+    },
+    "lifetime": {
+      "tests": 18,
+      "skips": 0
+    },
+    "m5": {
+      "tests": 39,
+      "skips": 0
+    },
+    "unit": {
+      "tests": 102,
+      "skips": 6
+    }
+  },
+  "launchPrefix": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.r02.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/BINDING.json",
+    "e3b91f2103182daffca5a85381cbf9358f563cc2f6c6901c4496a681570ecf46"
+  ],
+  "admissionTail": [
+    "ROOT_EXECUTION_ADMISSION_PATH",
+    "ROOT_EXECUTION_ADMISSION_SHA256"
+  ],
+  "effects": [
+    "Create-once isolated proof source/work/temp",
+    "metadata-preserving copy of pinned dependencies,0 absent seeds",
+    "lint4files then1normalbuild",
+    "exact deterministic29,full lifetime18,full m539,original9fileunit102 sequential",
+    "local owned process/loopback fixture effects and retained per-command evidence only"
+  ],
+  "stop": "First failure/incomplete/guard change; no retry, source repair, rebuild or continuation without Root disposition.",
+  "noEffects": [
+    "No paid provider",
+    "No main/author source or Git change",
+    "No install/pack/release/global pin"
+  ],
+  "timing": "120/600/60/300/600/1800s commandcaps;600s staging;4200s campaign checked in each poll;5sTERM/1sKILL cleanup containment counts as failure",
+  "output": "100MiB combined command stdout/stderr, checked while running and after final close; final bytes and limiting cause retained",
+  "syntax": "Python compile passed; parser checked against retained exact18-pass lifetime bytes, no test pilot."
+}

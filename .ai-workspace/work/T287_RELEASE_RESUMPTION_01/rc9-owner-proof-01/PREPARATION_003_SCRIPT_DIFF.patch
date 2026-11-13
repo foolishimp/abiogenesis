@@ -1,0 +1,16 @@
+--- focused-proof-002.mjs
++++ focused-proof-003.mjs
+@@ -24,11 +24,11 @@
+ // UNIT_REPORTER_PARSER_END
+ 
+ const [bindingPath,bindingSha,mode,stageName]=process.argv.slice(2);
+-assert(bindingPath&&bindingSha&&['stage','unit'].includes(mode),'usage: node focused-proof-002.mjs ADMITTED_BINDING SHA stage | ADMITTED_BINDING SHA unit stage-01');
++assert(bindingPath&&bindingSha&&['stage','unit'].includes(mode),'usage: node focused-proof-003.mjs ADMITTED_BINDING SHA stage | ADMITTED_BINDING SHA unit stage-01');
+ const raw=await readFile(bindingPath);assert.equal(sha(raw),bindingSha);
+ const b=JSON.parse(raw);assert.equal(b.status,'ROOT_ADMITTED_RC9_NATIVE_FOCUSED_PROOF','preparation is held');
+ assert.equal(b.maxStages,1);assert.equal(b.maxProofInvocations,1);assert.equal(b.stageTimeoutMs,600000);assert.equal(b.unitTimeoutMs,900000);
+-assert.equal(b.proofRoot,'/private/tmp/abg-r9-owner-native-002');
++assert.equal(b.proofRoot,'/private/tmp/abg-r9-owner-native-003');
+ const checked=async pin=>{assert(pin&&typeof pin.path==='string'&&/^[a-f0-9]{64}$/.test(pin.sha256),'unresolved pin');const bytes=await readFile(pin.path);assert.equal(bytes.length,pin.bytes);assert.equal(sha(bytes),pin.sha256);return bytes;};
+ await checked(b.nativeAdmission);
+ assert(typeof b.nativeStartedReceiptPath==='string'&&isAbsolute(b.nativeStartedReceiptPath),'exact native STARTED route required');

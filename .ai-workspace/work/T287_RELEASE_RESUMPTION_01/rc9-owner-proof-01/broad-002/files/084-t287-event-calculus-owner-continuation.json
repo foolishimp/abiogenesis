@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 609.7177919999231,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "COST33 Event Calculus owner continuation over the exact preimage territory and the CLOSED fixture",
+      "file": "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_EC_OWNER_EVIDENCE, ABI5_EC_OWNER_CLOSED_HISTORY or ABI5_EC_OWNER_CLOSED_SHA256 unset; requires the exact preimage territory and a digest-bound CLOSED JSONL fixture",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/084-t287-event-calculus-owner-continuation.jsonl",
+    "bytes": 1008,
+    "sha256": "40e405845dd07a49f1f3ef50b456361154e3f6c0a2e0a17d247ada609b66a3de"
+  },
+  "commandReceipt": "commands/084-t287-event-calculus-owner-continuation.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

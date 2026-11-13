@@ -1,0 +1,41 @@
+{
+  "kind": "root_isolated_artifact_owner_basis_continuation",
+  "status": "ROOT_SELECTED_ISOLATED_S4_TEST_ARTIFACT",
+  "at": "2026-11-07T00:06:03.251797+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_ARTIFACT_BASIS_TRIAGE_001.json",
+    "bytes": 3470,
+    "sha256": "904f275b66d6a225a7747429497ba6efe41ab2c932bd4c9e4a81463272364600"
+  },
+  "controlManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/DIAGNOSIS_AND_CONTROL_MANIFEST.json",
+    "bytes": 15269,
+    "sha256": "c1045e88abd9dbda95c41f8b60f6fa286168046ded6417657cb0102543e2bdeb"
+  },
+  "proposal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/CONTINUATION_BINDINGS.proposal.json",
+    "bytes": 3929,
+    "sha256": "454c4b16aebebbfb057861b6f5a27726c28a486bc77bfa5d59bde7131ece565b"
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/reviews/code-controls-001/REVIEW.json",
+    "bytes": 11354,
+    "sha256": "919b1da59a4c98fb3aeffa8b3e46016d71f20738cb84c92feb5334a994710e73"
+  },
+  "selection": "One finite operator continuation: reuse original packed/verified exact archive, extract into fresh bootstrap, import candidate Product owners, construct lock/install/content-check. Existing installProduct may reauthenticate cross-process verified carrier; no explicit verifier, build, pack or qualification repetition.",
+  "boundsSelectedByRoot": {
+    "extractMs": 120000,
+    "installMs": 600000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002",
+  "tempRoot": "/private/tmp/abg-r7p2",
+  "availableBytes": 6735429632,
+  "preservation": "Original failed allocation and all source/proofs retained; no retry, cleanup, Product edit, immutable release/selector or campaign-runtime change. Measurement remains separately unbound."
+}

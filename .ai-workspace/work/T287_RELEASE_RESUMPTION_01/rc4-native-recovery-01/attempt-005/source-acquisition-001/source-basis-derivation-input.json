@@ -1,0 +1,7 @@
+{
+  "publicAuthorityDigest": "sha256:53465ece37d387a26abbd1f07f34ddcea448d410d8dacae93887905601db85a0",
+  "runtimeInvocationRef": "invocation://abiogenesis/2cf8166549632864bef546b5eba9cd32974b326bcf398febfa6e9f9ef7604540",
+  "invocationAdmissionRef": "invocation-admission://abiogenesis/77a8fc72f2740812ddd402a1a57ffcf82dcab581643feb3b19a6d7cde52e2d85",
+  "runId": "run://abiogenesis/ddd6d5f0138c26ba2c98b2e8a8bc1fb2c641da070a0163315d047ae75d604b8c",
+  "resultRef": "result://abiogenesis/54e0ff40817473b85445c8da4c6774c1293b5041cc3aaa7f1d9e629e08ba8fb9"
+}

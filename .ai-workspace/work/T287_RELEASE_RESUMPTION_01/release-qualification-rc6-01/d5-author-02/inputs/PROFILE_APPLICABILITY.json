@@ -1,0 +1,165 @@
+{
+  "productFrame": {
+    "families": "F01-F07,F09-F11,F13-F17; fixed fifteen ABIogenesis5 families",
+    "goal": "GOAL-035/T287/F10, affected F04/F11 Q23 provenance",
+    "outcome": "Resolve only whether authenticated qualification production already entails the current event-contract profile for the M2 durable-observation digest relation.",
+    "authority": "Product/requirements own WHAT, existing qualification/profile HOW owns realization, exact STDO3.0.4 governs review; tools observe, ABG alone admits runtime truth.",
+    "prohibitions": "No source/HOW/test edits, execution, provider/runtime/Git/staging effects, new serialized profile or port, profile inference from optional fields/model labels, or acceptance claim."
+  },
+  "kind": "d5_m2_qualification_profile_applicability",
+  "status": "CLOSED_CURRENT_P_PRODUCER_PREMISE_PROVED",
+  "result": "satisfied",
+  "at": "2026-11-05T22:50:15.862790+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/m2-owner-reentry-001/PROFILE_APPLICABILITY_REQUEST.md",
+    "bytes": 1252,
+    "sha256": "26b6e1ccec38a49f63d5153027697a8b478a872e7626775c8ad240c3293fb9e8"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 461262,
+    "sha256": "601d6588e7c8c9f03a5305a378fb3454f815e641003668677b51142b590b096f"
+  },
+  "supplements": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/m2-owner-reentry-001/READINESS.json",
+    "bytes": 40558,
+    "sha256": "d51ebb3313975211c4887d6c2f4a7406eaea244a35bb5c5c34a111b84475c558"
+  },
+  "readinessPreserved": true,
+  "claim": "Every qualification assessment completion reached through the frozen authenticated native leaf/actor route follows a current-P dispatch.",
+  "answer": {
+    "provedCurrentConstraint": true,
+    "newOwnerGuardNeeded": false,
+    "newReadInputNeeded": false,
+    "newSerializedProfileOrPortNeeded": false,
+    "scope": "The actual admitted qualification assess-fp production route, not arbitrary direct calls to a TypeScript completion closure, ordinary F_P calls, or retrospective eligibility of every historical J.",
+    "reason": "Non-P actor dispatch supplies a null configured identity to the call-bound qualification owner. A valid prepared qualification task requires independence, so this cannot take the generic not_required branch and is refused before binding/start. HoG invokes qualification completion only after a successful actor effect receipt."
+  },
+  "proofChain": [
+    {
+      "step": 1,
+      "relation": "Actual caller and prefix",
+      "source": "hog/ccall_lifecycle.ts:521-557",
+      "fact": "HoG invokes the admitted leaf port with opened.successorPrefix and invokes its prepared actor using the same store, exact prefix, CCall, occurrence, execution basis, expected input digest and prepared request."
+    },
+    {
+      "step": 2,
+      "relation": "Authenticated qualification context",
+      "source": "implementation/leaf_invocation_port.ts:1600-1619; abg/qualification_proof.ts:307-330,768-796",
+      "fact": "The leaf port admits catalogs from the owner install, binds qualificationOwnerBasis to the actual predecessor prefix and occurrence CCall, resolves the current qualification consumer, and mints eligibility for that exact basis/input. The operation checks request CCall, prefix coordinate digest, input digest and role actor; it reacquires the exact owned prefix/call and cannot be replaced with an arbitrary function."
+    },
+    {
+      "step": 3,
+      "relation": "not_required is not a qualification producer escape",
+      "source": "validator/qualification.ts:570-586,643-664,771-778; validator/qualification_resources.ts:130-135",
+      "fact": "qualificationMaterialMatches requires task.role.independence !== not_required. Embedded isQualificationAssessmentInput calls it. Reference-backed preparation must establish the resolved material and call it too; the canonical resource assessment validates before caching that exact input view. prepareQualificationAssessment calls establishQualificationAssessment before yielding a completion. The port calls this real preparation at :1610-1612; implementation/qualification uses the same preparation through its native owner operation or direct canonical preparation. Therefore the generic decideQualificationDispatchEligibility not_required result is unreachable for a conforming prepared assessment, while its ordinary lower-level meaning remains unchanged."
+    },
+    {
+      "step": 4,
+      "relation": "Exact profile comparison before effects",
+      "source": "abg/actor_process.ts:832-833,1070-1082,1148-1156",
+      "fact": "successorPrefix starts as the supplied predecessor. The actor owner explicitly compares successorPrefix.storeIdentity.eventContractDigest with ROOT_EVENT_CONTRACT_DIGEST. A non-current digest sets configuredIdentity to null. It passes this exact selection to the minted operation before the binding/start transaction. The actual held-store/prefix equality is enforced by assertHeldEventStoreAtDurablePrefix before that transaction; the projection is not a caller label."
+    },
+    {
+      "step": 5,
+      "relation": "Non-current selection refuses",
+      "source": "validator/qualification.ts:504-507,548-568; abg/qualification_proof.ts:784-787; abg/actor_process.ts:1081-1082",
+      "fact": "The admitted task is not waived. resolveQualificationActorProfile sees identity:null and returns unknown(identity_absent), producing unknown(assessor_identity_absent). The actor gate accepts only eligible/not_required, so the non-current branch throws before admitting binding/start. Equality to the exact current digest is a necessary condition, not a sufficient eligibility claim."
+    },
+    {
+      "step": 6,
+      "relation": "Only admitted actor completion reaches producer",
+      "source": "hog/ccall_lifecycle.ts:558-574; implementation/leaf_invocation_port.ts:787-795; implementation/qualification.ts:51-65",
+      "fact": "An actor refusal returns failActorProcessEffect. Only its receipt exchange is passed to the prepared completion and then qualification source construction. The completion additionally checks its exact worker request and successful exchange identities. Thus a successful authenticated new qualification producer has already traversed the current-P-only route."
+    }
+  ],
+  "formalImplication": "authenticated qualification completion => canonical material preparation => independence != not_required; non-P prefix => configuredIdentity=null => unknown assessor => actor refusal before binding/start => no authenticated completion. Therefore authenticated qualification completion => exact current-P digest.",
+  "coldHistoryBoundary": {
+    "existingMeaning": "The production entailment does not rewrite historical artifact bodies or judgment source hashes. The cold J join remains a separate historical projection; its original full-observation preimage is still meaningful for legacy artifacts.",
+    "futureM2Use": "The qualification producer may use the selected common current-P durable projection without adding a profile field, native port or redundant guard. The artifact producer already has the exact profile comparison. Cold proof must retain the L full-preimage arm and select representation through the existing validated event/profile owner relation, not an arbitrary missing-field test or the final mixed-history prefix label.",
+    "eligibilityLimit": "Preserving a legacy J preimage does not establish present Q23 independence. Legacy bindings carry no configured identity; current resolveQualificationAssessments repeats the eligibility relation and can refuse them. CT01 retains original RC6-current history under the immutable original executable; no successor reopen/restamp is selected.",
+    "profileCut": "The unchanged p5 profile ref and changed current descriptor digest remain the earlier CT02 prospective RC7 cut/name obligation. This addendum closes only the producer applicability premise."
+  },
+  "nearestExistingProof": {
+    "source": "test_env/tests/t287-qualification-scopes.test.mjs",
+    "cases": [
+      ":213-214 rejects not_required after reference resource material resolution.",
+      ":238-241 rejects not_required embedded qualification material.",
+      ":620-625 records that a waived assessment is not admitted input and its minted operation returns owner_connection_missing.",
+      ":630-651 explicitly labels the lower owner/prefix/store premises of the actor fixture.",
+      ":692-723 exercises the actual actor gate and requires a non-current-profile binding attempt to return assessor_identity_absent with no binding/start transaction or provider start."
+    ],
+    "standing": "Read as exact retained test source; not executed here. The actor fixture declares its lower-owner profile/store premises and is not full installed historical-profile proof. No new test population is required merely to establish this source implication; the earlier missing full observation/artifact/J discriminator remains."
+  },
+  "limits": [
+    "No observed provider execution or complete D5 proof is claimed.",
+    "Arbitrary direct calls to exported helpers/closures are not native provenance; they do not invalidate this authenticated route implication or justify new anti-fabrication machinery.",
+    "Changing qualification material rules to permit not_required, bypassing canonical preparation or changing the actor/profile gate invalidates this implication and returns to the existing owners.",
+    "The common M2 projection and its affected cold consumers are still unimplemented in this frozen partial. Root owns any next coding selection."
+  ],
+  "sourcePins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "sha256": "527f9d82d91601b75ebfb357c5d17136bdffcbb584dfb450415aab998651f4d9",
+      "lines": "521-574"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "6b91dcbd8327b922a6c563685fa3aa1346ea3e5fdda56015bef8a66eec93753b",
+      "lines": "763-795,1600-1631"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "sha256": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264",
+      "lines": "307-330,768-796,798-838"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "sha256": "1f7a1590b36022d705edddb373107d473b2d38181601974f723736b038beeda4",
+      "lines": "504-568,570-586,643-664,771-778"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_resources.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/validator/qualification_resources.ts",
+      "sha256": "ad5fd9c47222d413d1b053bf59e68402237e88b53b1c23f2890f57b630a39081",
+      "lines": "130-135"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "sha256": "94908ca0c4900dcf7be787f207dafe87be9288f0da1b75c88b9cfb5cec33679b",
+      "lines": "832-833,1070-1082,1148-1156"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "sha256": "dc021e2712cae19e8dfd6be56d33c239105115c483ae6381983f154a70ddff31",
+      "lines": "41-67"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "8d75f892fd73811ced3f2f6392e86487d4b862eb273509ccc1a0407169b3a3ad",
+      "lines": "576-588,1087-1091"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "sha256": "e9f472b98bde917ee24abeed90fca70439ce8621a23c09f663ef4034b0cde4d6",
+      "lines": "1776-1797"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "sha256": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf",
+      "lines": "213-214,238-241,620-625,630-651,692-723"
+    }
+  ],
+  "effects": "Read-only frozen source/control acquisition; wrote only PROFILE_APPLICABILITY.json and PROFILE_APPLICABILITY.md. READINESS.json/md untouched. No code, HOW, test, runtime, provider, Git, staging or profile cut effect.",
+  "independence": "Same-family technical addendum under the existing MAX readiness frame; no independent acceptance or native J.",
+  "return": "Closed to Root. The earlier producer-profile unknown is resolved for the authenticated native route; all other READINESS findings and limits remain. Stop."
+}

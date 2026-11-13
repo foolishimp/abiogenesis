@@ -1,0 +1,16 @@
+{
+  "status": "EXISTING_NATIVE_AUTHOR_BINDING_ADMITTED",
+  "binding": {
+    "ref": "workspace-binding://abiogenesis/bb9e231ff53926ee5f05375edabb032be26d5d5630719823f8ef76f720973f9e",
+    "digest": "sha256:bb9e231ff53926ee5f05375edabb032be26d5d5630719823f8ef76f720973f9e"
+  },
+  "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "catalogBasisDigest": "sha256:2b775727173a9c2a6ad11269697d5bd347641be0e0da9f2eccdc78769c575a24",
+  "catalogViewDigest": "sha256:c03f0c01ffb36a7731fc2c2c6960844c8b7c5a2959fffd154daa3035fae4d59c",
+  "allowlist": [
+    "graph-function://abiogenesis/worksite/native-work@5"
+  ],
+  "providerCalls": 0,
+  "ProductEdits": 0,
+  "setupRepeats": 0
+}

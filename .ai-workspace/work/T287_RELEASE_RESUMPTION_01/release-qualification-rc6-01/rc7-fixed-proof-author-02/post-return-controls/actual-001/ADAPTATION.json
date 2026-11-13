@@ -1,0 +1,30 @@
+{
+  "kind": "existing_F_passive_custody_adaptation",
+  "status": "ACTUAL_RETURN_SELECTED_PHYSICAL_ROW_BINDING_PENDING",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/post-return-controls/actual-001/bind-return.mjs",
+    "bytes": 17291,
+    "sha256": "a3ee75aee2726a8f901eb1e45ef1b94bed6c7ce1d16d071ec0a8a057fe387fe3"
+  },
+  "adaptation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/bind-return.mjs",
+    "bytes": 16315,
+    "sha256": "23e53b67955e95d5dca3e431a13a1bfdfff68f5828681ceaedcd2c582a4d9bcd"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/adaptation.diff",
+    "bytes": 17760,
+    "sha256": "3b146d3db524e3465f104da58d83eb180e69742ea787342c3d3ed863904e06ad"
+  },
+  "changes": [
+    "F2 actual admission/dispatch and 58 inherited tracked paths.",
+    "Shared F maintained pure installed owner modules unchanged.",
+    "Validate actual terminal and exact physical Result using existing owner laws.",
+    "Require actual native.after and live source to equal early frozen 450-file stage; reuse all snapshots by reference.",
+    "Do not prepare or execute automatic F2 cold reads; retain original pending selection and record Root reproof disposition additively."
+  ],
+  "unbound": [
+    "Root-selected physical Result row timing metadata"
+  ],
+  "effects": "Post-return evidence only; no runtime acquisition, provider/auth, Product/HOW/test/source mutation, test/build, retry or new source body copy."
+}

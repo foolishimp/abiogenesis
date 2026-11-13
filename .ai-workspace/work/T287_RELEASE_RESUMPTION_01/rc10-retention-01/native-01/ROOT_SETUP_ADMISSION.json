@@ -1,0 +1,78 @@
+{
+  "id": "RC10-SETUP-01",
+  "status": "ROOT_ADMITTED_RC10_SETUP",
+  "recordedAt": "2026-11-09T03:02:55.350020+00:00",
+  "decisionOwner": "/root",
+  "recordedBy": "/root/rc10_operator",
+  "decisionVerbatim": "Root RC10-SETUP-01 ADMITTED. Consumed READY.r04 53e49d7619a598b605320b0f06953040742f526a77ced8d23b485a8f5a234edd and fresh verified Scope98234fd5, TASKe117eb23, BINDING5337e5e9, host940b1d9d, driver4c9c633f, proofbinding0f173c29. Run precisely READY.r04 launchArgv using this admission, fresh RC9 Public setup/imported sparse worktree and declared scratch; preserve source and immutable RC9 builder. Retain the same live caller/resource through PREPARED and return its actual pin/session for Root native admission. No TASK/source/manifest rewrites after observation. No provider dispatch, Product edits, Git effects or proof/build/test. Setup budget900s with existing per-command controls and4GiB reserve; no automatic retry. Native author1800s is separate.",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/READY.r04.json",
+    "bytes": 15615,
+    "sha256": "53e49d7619a598b605320b0f06953040742f526a77ced8d23b485a8f5a234edd"
+  },
+  "bindingSha256": "5337e5e9acfa787c6a5cdda51a882a28baf518dcb63047ac1140fc35d356d9ce",
+  "scopeSha256": "98234fd5febda14077d855ae45b1540e4c14502c198768ae23d15eb74252e613",
+  "grantsFreshPublicSetup": true,
+  "providerDispatch": false,
+  "setupBudgetMs": 900000,
+  "reserveBytes": 4294967296,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/ROOT_SCOPE.r03.json",
+      "bytes": 8711,
+      "sha256": "98234fd5febda14077d855ae45b1540e4c14502c198768ae23d15eb74252e613"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/TASK.r04.json",
+      "bytes": 17916,
+      "sha256": "e117eb230cc7041fce72f9ad5ae118ecc82ce859f214a2e4c6536f0c0c0a65f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/BINDING.PREPARATION.r04.json",
+      "bytes": 16378,
+      "sha256": "5337e5e9acfa787c6a5cdda51a882a28baf518dcb63047ac1140fc35d356d9ce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/host.mjs",
+      "bytes": 13629,
+      "sha256": "940b1d9d8e75775959bb850e42b54011611f1c7bd1dccd9c08d3ee2a2705a611"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/selection-04/frozen-proof.mjs",
+      "bytes": 14904,
+      "sha256": "4c9c633f7256c13bd22f9f76780cc7682c5d9c6d8fb395a8fc66745137828bf9"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/selection-04/FOCUSED_BINDING.json",
+      "bytes": 10489,
+      "sha256": "0f173c29ec5ecf50edf48e6d1a42706072a599803e7032da4fe6309f0315613a"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/selection-04/FOCUSED_BINDING_PIN.json",
+      "bytes": 228,
+      "sha256": "feed86be7f13a95f73ca696721a32bb5152c58815d10656f244f2472173ca474"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/PRE_FREEZE_TYPECHECK_GRANT.r04.json",
+      "bytes": 3205,
+      "sha256": "1a17a511eb4bfb9764fc02174156bd895a03616c7c5c971262bce62d93c5ddba"
+    }
+  ],
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/runtime-001",
+  "scratchPaths": {
+    "nativeScratchRoot": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01",
+    "providerTmp": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/author-tmp",
+    "providerNpmCache": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/author-npm-cache",
+    "frozenProofRoot": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof",
+    "proofTmp": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/tmp",
+    "proofNpmCache": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/npm-cache",
+    "proofNpmUserConfig": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/npm-user.npmrc",
+    "proofNpmGlobalConfig": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/npm-global.npmrc",
+    "frozenSource": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source",
+    "buildWorkAndCopiedDependencies": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/work",
+    "buildReceipts": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01",
+    "focusedReceipts": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/focused-01",
+    "laterExternalUnitReceipts": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/unit-01"
+  },
+  "stop": "Return actual failure/cleanup; no retry. Hold live PREPARED for Root handoff."
+}

@@ -1,0 +1,147 @@
+{
+  "status": "PREPARED_ROUTES_NO_WORKLOAD",
+  "sourceStatus": "C11author02 and final frozen source binding pending; inspected preauthor routes are context, not frozen acceptance.",
+  "commands": [
+    {
+      "id": "build",
+      "kind": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "lint",
+      "kind": "npm",
+      "args": [
+        "run",
+        "lint"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "native-assessment",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-native-assessment-evidence.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 4,
+      "expectedSkipped": 0
+    },
+    {
+      "id": "selected-action",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-selected-action-authority.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 3,
+      "expectedSkipped": 1
+    },
+    {
+      "id": "owned-lifetime",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-owned-process-lifetime.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 18,
+      "expectedSkipped": 0
+    },
+    {
+      "id": "unit",
+      "kind": "npm",
+      "args": [
+        "run",
+        "test:unit"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "id": "r6",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/r6-implementation-resolution.test.mjs"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "id": "f04a",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs"
+      ],
+      "timeoutSeconds": 900
+    }
+  ],
+  "unitScript": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-held-owner-fold-reuse.test.mjs test_env/tests/t287-owned-call-reference.test.mjs test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+  "unitFiles": [
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs",
+    "test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-native-runtime-gate.test.mjs",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/forward-command-contracts.test.mjs",
+    "test_env/tests/forward-command-owners.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "routes": {
+    "threeSelected": "Whole named files; native4, selector2pass+existingphysicalskip, lifetime18; no name filters. Snapshot loader source pending final author.",
+    "unit": "Existing ninefile package script; no201file expansion. Root-installed deterministic helpers and explicit fake process transport; no unselected paid provider route identified.",
+    "r6": "One exact F_D packaged leaf resolution, contract and public-package boundary checks using existing installed setup; default source pack/install route, no actor dispatch.",
+    "f04a": "Whole result-candidate file; real owner component logic with controlled child-process/VM premises; no paid actor.",
+    "lifetime": "Mandatory local real processes/loopbackHTTP; retain5HTTP and3capture JSON diagnostics.14controlled cases exact pinned source;2x3x2 handback population established by unchanged loop and completecase pass, not new diagnostics."
+  },
+  "unsetOptIns": [
+    "ABI5_SELECTED_ACTION_OWNER_SUBJECT",
+    "ABI5_SELECTED_ACTION_SOURCE_BOUND",
+    "ABI5_SELECTED_ACTION_PUBLIC_START",
+    "ABI5_SELECTED_ACTION_FROZEN_FIXTURE_ENV",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_PATH",
+    "ABI5_WAVE1_FROZEN_INSTALL_HOST",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256",
+    "ABI5_EVIDENCE_ROOT",
+    "ABI5_STEEL02_RESOLVER_PROOF_PATH",
+    "ABI5_OWNED_PROOF_DECLARATION",
+    "ABI5_GENERIC_JOB_BUILD_ROOT"
+  ],
+  "skipStanding": "Only source-declared optional historical/physical lanes stay skipped when their opt-in is absent. Record every skip; no mandatorycase suppression. Platform is macOS, so lifetime POSIX cases remain mandatory.",
+  "futureExecutionEffects": "Private/tmp proof source/work/tmp and build artifacts/contracts/manifests plus normal fixture pack/install effects therein; source checkout/pinneddeps/npm/RC10immutableinputs read-only.",
+  "toolchain": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    "npmCli": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    "npmVersion": "11.5.1",
+    "dependencyRowsVerified": 4576
+  },
+  "proofRunnerSyntax": "Python AST parse only; no Productimports/build/tests/runtime executed.",
+  "blockedApplicability": [
+    "Exact final frozen source inventory/digest and separate Root execution admission are not supplied yet. Final changed test routes must match the frozen binding."
+  ],
+  "otherBlockers": []
+}

@@ -1,0 +1,109 @@
+{
+  "id": "T287-RC8-AUTHOR07-HISTORICAL-PROFILE-FIXTURE",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "baseControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+    "bytes": 9837,
+    "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/PREPARATION.json",
+    "bytes": 8403,
+    "sha256": "6c8cd70820defaca0334684528f3962232abf6581a594f740a59f5be8f13c35a"
+  },
+  "scopeGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/ROOT_SCOPE.json",
+    "bytes": 5357,
+    "sha256": "f3a2b7bd63edc20a2d2b8d643ae39547f721ff6c49907b4ce889df730560e28f"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/TASK.json",
+    "bytes": 5894,
+    "sha256": "b7423a580b187e64a59b7d7bbfac6c699babd1d4bd15a585ea9c865df93021cd"
+  },
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+  "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/runtime-001",
+  "proofRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence",
+  "proofScratchRoot": "/private/tmp/abg-r8-a07-7j_yf4yf/p",
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-r8-a07-7j_yf4yf/tmp",
+    "TMPPREFIX": "/private/tmp/abg-r8-a07-7j_yf4yf/tmp/zsh",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-r8-a07-7j_yf4yf/npm-cache",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/npm-global.npmrc",
+    "BASH_DEFAULT_TIMEOUT_MS": "600000",
+    "BASH_MAX_TIMEOUT_MS": "600000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 400,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 300000,
+    "absoluteTimeoutMs": 900000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "reserveBytes": 4294967296,
+  "proofTimeoutMs": 600000,
+  "proofBounds": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 900000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "focusedNameFilteredInvocations": 1
+  },
+  "lanes": {
+    "historical": {
+      "files": [
+        "t287-single-address-space-consolidation.test.mjs"
+      ],
+      "namePattern": "^(?:retained RC5 history:|liveness candidate validation forks its admitted base:)",
+      "wholeFile": false
+    }
+  },
+  "controlFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/host.mjs",
+      "bytes": 12242,
+      "sha256": "f44286f0f701d08783ef9111b0e1d753bbbf6ddab6718d1fc8126369b7645c0a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof.mjs",
+      "bytes": 11246,
+      "sha256": "02e0ab875c65b53f3a8d9ae33d1dff83edb7ca3935ab8c4fcac6baa9fc22480a"
+    }
+  ],
+  "providerDispatch": false,
+  "rootOneDispatchAuthorization": false,
+  "sourceAccepted": false,
+  "qualified": false,
+  "meaning": "Preparation-only A6 actual-close successor; one unshipped historical profile fixture correction, two filtered cases, exact A6 compiled/dependency/archive reuse, zero builds. Root must admit concrete prepared binding before dispatch."
+}

@@ -1,0 +1,45 @@
+{
+  "role": "operator/evidence Writer",
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/ROOT_WRITER_ACTIVATION.json",
+  "updates": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T161207Z/STATUS.json",
+        "bytes": 11097,
+        "sha256": "bc6c3770172521d2227397312ba1d3dce34a92c8232e768d52c7e2e56db975f0"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json",
+        "bytes": 11639,
+        "sha256": "79b6c99b1199379a6cb9110bd70b34a2d35a025fed1b6bd6977f90dc60bef989"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T161207Z/GOALS.md",
+        "bytes": 112879,
+        "sha256": "1470ed7e5d0209b1b6606ad64eb1acc964260dc8a53a1b6c18c7d750ce15c1c9"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 112871,
+        "sha256": "3f03b5369722ea0e84564782c7fdc5bacbe9cc955abf56b547ec9e338555dba4"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T161207Z/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 671046,
+        "sha256": "7eafbab470645f4d1876dc0caeef8b8638bb23a0eabe36d94b8865af04629677"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 671750,
+        "sha256": "1aa1890a3c387e3245ffc22b01ef24c6e79e0f63931e34135e1b9db49aa3a4ec"
+      }
+    }
+  ]
+}

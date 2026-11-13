@@ -1,0 +1,118 @@
+{
+  "kind": "separate_between_native_task_wall_observation",
+  "recordedUtc": "2026-11-06T05:43:16.793208+00:00",
+  "status": "OBSERVED_NOT_A_MATCHED_PERFORMANCE_COMPARISON",
+  "fromNativeRun": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632",
+  "toNativeRun": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9",
+  "nativeExitToNextNativeStartMs": 3527965.0,
+  "phases": [
+    {
+      "phase": "A native exit to A host exit",
+      "from": "2026-11-06T04:21:04.675Z",
+      "to": "2026-11-06T04:21:23.945568+00:00",
+      "wallMs": 19270.568
+    },
+    {
+      "phase": "A host exit to B preflight start: overlapping readbacks, reviews, affected proof and operator control preparation",
+      "from": "2026-11-06T04:21:23.945568+00:00",
+      "to": "2026-11-06T05:07:55.412987+00:00",
+      "wallMs": 2791467.419
+    },
+    {
+      "phase": "B preflight host interval",
+      "from": "2026-11-06T05:07:55.412987+00:00",
+      "to": "2026-11-06T05:09:15.834772+00:00",
+      "wallMs": 80421.785
+    },
+    {
+      "phase": "B preflight end to B host launch: operator audit and dispatch preparation",
+      "from": "2026-11-06T05:09:15.834772+00:00",
+      "to": "2026-11-06T05:11:47.709467+00:00",
+      "wallMs": 151874.695
+    },
+    {
+      "phase": "B host launch to dispatch",
+      "from": "2026-11-06T05:11:47.709467+00:00",
+      "to": "2026-11-06T05:17:02.857Z",
+      "wallMs": 315147.533
+    },
+    {
+      "phase": "B dispatch to native actor",
+      "from": "2026-11-06T05:17:02.857Z",
+      "to": "2026-11-06T05:19:52.640Z",
+      "wallMs": 169783.0
+    }
+  ],
+  "authority": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/HOST_RESULT.json",
+      "bytes": 154,
+      "sha256": "198326e5f00f7423e8c203b693a8ec52f5ddc1ef34dbd76a69ac378d9a1be863"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/WORKFLOW_TIMING.json",
+      "bytes": 4022,
+      "sha256": "48a88faa49a062ca356734219ca6e37f13274261a4219446f4575120a6445bf7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREFLIGHT_LAUNCH.json",
+      "bytes": 281,
+      "sha256": "86e9b4f116e668b8422a07dbe870cf15fc01f6fc8ecaa83e00e5f2a5ac65a370"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREFLIGHT_RESULT.json",
+      "bytes": 153,
+      "sha256": "657b8b3f5396bcfa2daa959362ce42f0423133c67ef3079773ff1ca97430881b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/HOST_LAUNCH.json",
+      "bytes": 278,
+      "sha256": "f24c2aeed37393a8ac9a8fa6d4657d87b518807d747e46a7540077261a3b7b91"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/STARTED.json",
+      "bytes": 1053,
+      "sha256": "432874128a3fe97b3cffe7ef011284421140bde9cdcfef4b1bb48100ee68d99b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/LAUNCH_TIMING_OBSERVATION.json",
+      "bytes": 3562,
+      "sha256": "e43c6078cbcdc56236bbd0e3869d9e77e2ac4f74e7c6d2623911f992d9d80634"
+    }
+  ],
+  "physicalProcessRows": [
+    {
+      "kind": "actor_process_exited",
+      "admissionOrdinal": 188903,
+      "eventId": "event://abiogenesis/a3ce2bf98a9d557085004e99cc853bff5491da40a55ad48729f5b863dcc5430f",
+      "eventTime": "2026-11-06T04:21:04.675Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632",
+      "offset": 1129924459,
+      "rowBytes": 1737,
+      "rowSha256": "84283da1f1e1cfbc7f0c5a0a045789278100b1ac0b09c4b7d6ec41ac054a94e0",
+      "processRef": "process://abiogenesis/ee69f56adca4fd6f291f81e2b05ccb7c92696fd7c2eeb0a7a4f152fdfed6e76e",
+      "pid": null
+    },
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 188935,
+      "eventId": "event://abiogenesis/cf9c38088287f07e7e441c171a2f1b17246c55a762507baad9f8fbf4f9a1cf34",
+      "eventTime": "2026-11-06T05:19:52.640Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9",
+      "offset": 1212700848,
+      "rowBytes": 1823,
+      "rowSha256": "d9450f989ba270817a6686ed2a658cf09ca553c070bbff9f3c6fc290dd5afd2d",
+      "processRef": "process://abiogenesis/419ba07f7606f4d754857f58fc8fcc6f31186b9fd6850fc052ae5d6afbf6d6ac",
+      "pid": 73671
+    }
+  ],
+  "limits": [
+    "This is the user-visible gap between native tasks, not a claim that RC6 executed throughout it.",
+    "The46.5-minute review/proof/preparation interval includes overlapping work; no unsupported exclusive CPU/labor attribution is made.",
+    "A closure/frozen reviews/affected resource corrections and B material binding are distinct from SDK setup, host startup and dispatch.",
+    "Setup was reused; no new setup timing. No speedup claim or erased failure."
+  ],
+  "followThrough": "Keep operator preparation and evidence sequencing visible alongside Product costs. Reuse closed resources and native controls to reduce repeated setup; do not rerun accepted qualification."
+}

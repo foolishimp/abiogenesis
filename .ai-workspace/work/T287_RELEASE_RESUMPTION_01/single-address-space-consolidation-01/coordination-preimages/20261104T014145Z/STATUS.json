@@ -1,0 +1,184 @@
+{
+  "recordedUtc": "2026-11-04T01:24:10.391884+00:00",
+  "status": "NATIVE06_CODING_RUNNING",
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "STDO3.0.4",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "companionComposition": []
+  },
+  "originalOutcome": "All observed R1-R7 red flags traced through complete affected callers to existing shared-library owners; redundant code/carriage removed, required work information and actual boundaries preserved, complete C1-C5 proof. No local-only closure.",
+  "immutableRC5": {
+    "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+    "standing": "Installed bounded local cut; unchanged and unqualified",
+    "handoff": "../rc5-performance-01/local-cut-rc5-01/HANDOFF.md"
+  },
+  "worksite": "/Users/jim/src/apps/abiogenesis-single-address-space",
+  "currentActivation": {
+    "id": "native-06",
+    "selection": "ROOT_REENTRY_SELECTION_06.md",
+    "grant": "native-06/NATIVE_GRANT.json",
+    "dispatcherPid": 40972,
+    "dispatchStartedUtc": "2026-11-04T00:28:02.311Z",
+    "manifestSha256": "a8560d667af2e2395883c865671b1de4fd868481db94e2c2ef3bb3b072a00ee8",
+    "provider": "claude",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "nativeWorkerStartedUtc": "2026-11-04T00:37:24.668Z",
+    "nativeWorkerPid": 46857,
+    "runRef": "run://abiogenesis/ae4338b56e450fcb8b3f8c934c1b1475eb5be4a6c99332bc45fd0b68cb762495",
+    "oneNativeCodingWorker": true,
+    "automaticRetry": false
+  },
+  "currentControls": {
+    "preflight": "native-06/INSTALLED_PREFLIGHT_CUSTODY.json",
+    "controlReview": "native-06/INDEPENDENT_CONTROL_REVIEW.json",
+    "controlReviewSha256": "e2e76d477e68b8d3407cb575ef4f6891de74a3f809700fb40cfffa14610ec143",
+    "contextDigest": "sha256:a2c5785eca9142285a887bd0c9d27662322d28ac5a056e43def247df48ff615c",
+    "callCanonicalDigest": "sha256:9ce9f696d28126274e18c0aaf62398990b2e915821106acf2a990a5702516820",
+    "selectedFiles": 899,
+    "sourcePins": 37,
+    "productWritePaths": 121,
+    "affectedLanes": 12,
+    "distinctTestFiles": 55,
+    "promptBytes": 857812,
+    "promptBound": 1048576,
+    "reserveBytes": 65536,
+    "requiredCommandBudgetMs": 6676750,
+    "inactivityCapMs": 7200000,
+    "absoluteActorCapMs": 9000000,
+    "outerCapMs": 18000000,
+    "interimCodeReview": {
+      "path": "native-06/INDEPENDENT_INTERIM_CODE_REVIEW.json",
+      "sha256": "a678d7ca5f2299acdbb504f525d99c3a27fdc23f18c03f49c7bdd6d321a275dc",
+      "subjectSha256": "3b608673ef2a27ac79f4b944232f9dc66746c433c3fb6ae660bc7c7d9e870e2f",
+      "result": "satisfied",
+      "standing": "Bounded exact static repair review; final source correspondence and actual execution still required"
+    },
+    "interimQualificationProofReview": {
+      "path": "native-06/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+      "sha256": "d08944f9abb7ed116922310dc9080162077d49647e4d6b7a33e2802c1acd8115",
+      "subjectSha256": "19d6ed436cd878b943dca3255ca381846b902ac56393d8cec5d4d675cdbc8f65",
+      "result": "satisfied_for_frozen_core_N5_CODE01_proof_design",
+      "standing": "No execution acceptance; final code/proof correspondence and actual C2 required"
+    },
+    "authorQualificationNegativeControl": {
+      "path": "native-06/author-qualification-feedback-001/CUSTODY.json",
+      "sha256": "f1a1ceece5a1552864ab8aa919742079bb41c77381e925c2e114994ffc312502",
+      "standing": "Author changed-owner scratch diagnostic with executed warm/copied divergence, not clean native05 rebuild or current acceptance"
+    },
+    "interimInstallProofReview": {
+      "path": "native-06/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+      "sha256": "248a20394349977a6cd9d6c281404dbb9fe1c15dd8bbe52584f0c1015e542e8b",
+      "subjectSha256": "a6190d8adceb5ad2df67ba9f3d4587388d3865626740b2cb1c8a8acef2077546",
+      "result": "no_concrete_finding_in_bounded_frozen_subject",
+      "standing": "Final source correspondence and actual C2 required"
+    },
+    "interimCodeRecheck002": {
+      "path": "native-06/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+      "sha256": "89c35598884f969c4e626d6045ee0f35814f8cba2f63d0d4b55ca5540eeeb8cf",
+      "subjectSha256": "0a5d1a457cbc69a868098e4284a83e975c012ca336bb07864f08338d9a0fa440",
+      "result": "no_concrete_finding_in_bounded_frozen_subject",
+      "standing": "Final source correspondence and actual C2 required"
+    },
+    "r1PairProofReviewSubject": {
+      "path": "native-06/interim-r1-pair-proof-review-001/SUBJECT.json",
+      "sha256": "24ffe18f6bdfc2ee97bbe320d26007928e1eb250f9c552db481e73bfccbcdda3",
+      "standing": "Independent review in progress; author R1 3pass and pair 1pass remain separate from C2"
+    }
+  },
+  "closedPredecessor": {
+    "id": "native-05",
+    "conjunction": "native-05/ROOT_CONJUNCTION.json",
+    "subjectSha256": "509603ed3f8f1a1c1e71a6a37b7e4769f869094924618d687c81516c97321ab4",
+    "conjunctionSha256": "2aa41220b2f29de6a0839838dbede8278fbbf2417cbeebcbdd85a09ca0da2506",
+    "actualC2": "142pass/1fail/30skip;8 later lanes unrun;120/120 source-handoff hashes equal;884 protected inputs unchanged",
+    "actualUAT": "unmet C1-C5",
+    "run": "blocked",
+    "freshResult": "not_found",
+    "freshReplay": "blocked",
+    "terminal": null,
+    "finalCloseSavedUtc": "2026-11-04T00:19:37.106145+00:00",
+    "wholePathActualProof": "native-05/actual-c2-001/single-address-space-proof.json",
+    "sourceReviewCustody": "native-05/FINAL_SOURCE_REVIEW_CUSTODY.json"
+  },
+  "selectedRemainingWork": [
+    "N5-CODE-01 qualification current-truth/refusal cache shortcut repair using existing owners",
+    "N5-PROOF-01 actual F_H/construction refusal controls",
+    "Remaining null/non-null/many-match liveness and relevant/unrelated growth/allocation proof",
+    "Current genuine retry/install fixture migration through existing F09/catalog/setup/owned readers; preserve identity/refusals",
+    "Actual complete affected C2, frozen independent review, UAT/fresh and Root whole-outcome conjunction"
+  ],
+  "acceptance": {
+    "native06SourceReturned": false,
+    "native06SourceReviewed": false,
+    "native06ActualC2Complete": false,
+    "native06UATComplete": false,
+    "originalC1toC5": "open",
+    "qualificationOrRelease": false
+  },
+  "continuity": {
+    "resumeOrder": [
+      "STATUS.json",
+      "ROOT_REENTRY_SELECTION_06.md",
+      "CONTEXT_AND_CAUSAL_MAP.md",
+      "native-05/ROOT_CONJUNCTION.json",
+      "native-06/execution/STARTED.json",
+      "native-06/execution/TIMING_OBSERVATION.json"
+    ],
+    "currentRootSelection": "ROOT_REENTRY_SELECTION_06.md",
+    "currentHeldConjunction": "native-05/ROOT_CONJUNCTION.json",
+    "mapSha256": "951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec",
+    "originalSelectionSha256": "071176d93d9b20f0d7ecc0db7f9fa0a6fea1f6d432766807b6e6ea6a7831de5d",
+    "rule": "Reacquire current stage and exact subject, preserve original full outcome and every accepted result/failure, then continue; do not restart completed discovery or qualification."
+  },
+  "timing": {
+    "current": "native-06/LAUNCH_TIMING.json",
+    "predecessorComplete": "native-05/STAGE_TIMING_COMPLETE.json",
+    "setupReused": true,
+    "rootAfterFinalCloseToDispatchMs": 505204.855,
+    "workerLaunchPending": false,
+    "nativeWorkerLaunchMs": 562357.0
+  },
+  "eta": {
+    "asOfUtc": "2026-11-04T00:53:55.132142+00:00",
+    "date": "2026-11-04",
+    "timezone": "Australia/Sydney",
+    "workingWindowAEDT": "14:00-15:00",
+    "standing": "Conditional acceptance decision after one successful follow-up; excludes new cut/install and whole qualification",
+    "completed": [
+      "priorRunCloseAndFresh",
+      "finalPacketPreflightReviewAdmission",
+      "nativeLaunch"
+    ],
+    "remainingMinutes": {
+      "repairAndFocusedProof": [
+        35,
+        65
+      ],
+      "handoffToC2": [
+        11,
+        15
+      ],
+      "affectedC2AndParallelReview": [
+        55,
+        70
+      ],
+      "uatFinalCloseAndFresh": [
+        25,
+        40
+      ]
+    },
+    "capsAreNotETA": true,
+    "asOfLocal": "11:53 AEDT",
+    "source": "Root work breakdown after 11:37:24 actual native Worker start; not a performance guarantee"
+  },
+  "constraints": [
+    "One ABG native coding Worker, xhigh; independent max review of exact frozen deltas",
+    "Root only operator/evidence effects; no Root Product/test repair",
+    "Preserve dirty/untracked work, immutable releases and every failure/accepted bounded result",
+    "No push/merge/tag/global selector/new cut/install/stable or whole-qualification claim"
+  ]
+}

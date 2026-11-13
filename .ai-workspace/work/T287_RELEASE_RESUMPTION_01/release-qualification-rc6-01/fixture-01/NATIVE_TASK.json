@@ -1,0 +1,62 @@
+{
+  "kind": "bounded_native_coding_task_preparation",
+  "outcome": "Repair N9-RETAINED-FIXTURE-01 only; meaningful existing seven-test component proof",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "runtimeBinding": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/RUNTIME_BINDINGS.json",
+  "codingEffort": "xhigh",
+  "oneWorkerAtATime": true,
+  "workOrder": {
+    "outcome": "Repair only current owned-prefix reader premise in the existing native semantic revision component harness, preserving all meaningful assertions and historical limits.",
+    "instructions": [
+      "# N9-RETAINED-FIXTURE-01 only\n\nProduct Frame: ABIogenesis5 fixed fifteen families / GOAL-035 / T-287 / exact STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b / empty composition. Source e7179b19 on codex/t287-5-release-qualification; immutable installed RC6 remains unchanged. This is a component-proof prerequisite repair, not whole D2 or release qualification.\n\nApply exact installed stdo-work with its relative references. Repair only the local admitted-prefix premise in t287-native-semantic-revision.test.mjs: current semantic_revision.nativeIntakeFacts consumes event_prefix.readOwnedRuntimeEventPrefixAtDurablePrefix, while this harness still overrides Event Store's old reader and accidentally attempts file:///component/no-journal. Supply the supported current lower-owner premise through the existing component mechanism. The harness is explicitly synthetic/lookup-only; do not pretend to admit a store/prefix, add a new interface, or alter production to accommodate it.\n\nPreserve the existing first test's real owner logic and assertions: absent/ambiguous cause refusals, ancestry mismatch, unique eligible parent/cause, unrelated Run behavior, judgment/event ordering, serialized selection/request, publication/binding/currentness and remaining correction/evidence assertions. Do not stop at a port-spy assertion or change expected native_revision_cause_absent into the incidental exception. Keep all seven existing tests; the two captured-envelope historical gates remain honest exclusions. Do not add a skip, lower a floor, activate old archives or weaken errors.\n\nNative write grant is only this test file plus standard qualification-scratch/fixture-01 handoffs/tmp. The current premise is local; no support, production or HOW write is granted. A real Product counterexample or further write dependency returns to Root. No further functionality.\n\nFor mechanical author proof and C2, use the exact immutable RC6 build/contracts/dependencies staged into an isolated test sandbox and the selected source test/support files. The main ABI5_GENERIC_JOB_BUILD_ROOT override alone is insufficient: forward-command-harness also has literal ../../build/code/src imports. Copy only the existing immutable executable/dependency subtrees into the sandbox's standard build/contracts/node_modules locations; never overwrite repaired test sources. No tsc/generation/pack/npm-install is required for this test-only change.\n\nRun the existing full seven-test module using Node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap. Expected current closure:5pass/0fail/2explicit historical skips. Existing first-test assertions must actually execute. Record exact actual results, including any newly reached failure; no fabricated green. No native actor/command/journal runs inside this component proof are claimed. Keep ABI5_EVIDENCE_ROOT unset for this bounded ungated component lane, preserving original historical input absence and limits.\n\nOne xhigh native coding Worker owns this increment. Return return/readiness/progress with exact hashes, changed premise and justified lower-owner assumptions, meaningful existing assertion evidence and all failures/skips. Freeze and stop. Root conjoins independent review, actual Testing/UAT and fresh closure. No Product release/qualification completion or reserved human acceptance.\n"
+    ],
+    "readFirst": [
+      "qualification-inputs/fixture-01/TASK.md",
+      "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+      "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+      "qualification-inputs/fixture-01/rubric.json",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts"
+    ],
+    "writeRoots": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "qualification-scratch/fixture-01/return.json",
+      "qualification-scratch/fixture-01/readiness.json",
+      "qualification-scratch/fixture-01/progress.json",
+      "qualification-scratch/fixture-01/tmp"
+    ],
+    "checks": []
+  },
+  "nativeAssessment": {
+    "candidatePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "rubricPath": "qualification-inputs/fixture-01/rubric.json",
+    "instructions": "Assess F1-F4 from actual frozen source and C2; Root later conjoins independent review/fresh closure. No whole D2 or release claim."
+  },
+  "sourceContextPaths": [
+    "stdo_abiogenesis.json",
+    "AGENTS.md",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts"
+  ],
+  "sourcesToStage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs",
+  "stagedRelativeRoot": "qualification-inputs/fixture-01",
+  "nativeFutureFiles": [
+    "qualification-scratch/fixture-01/return.json",
+    "qualification-scratch/fixture-01/readiness.json",
+    "qualification-scratch/fixture-01/progress.json"
+  ],
+  "scopeBoundary": "Only one test writable; no support/HOW/production grants. Existing supported native construction\u2192Testing\u2192UAT path, actual native Result supplies Testing subject; no injected producer/state."
+}

@@ -1,0 +1,28 @@
+{
+  "status": "ROOT_GRANTED_PREPARATION_ONLY",
+  "role": "separately activated Writer/Operator",
+  "reentry": "realization_refactor of local delivery controls",
+  "rootGrant": "Preparation-only Writer grant: prepare immutable successor cut controls under local-cut-02; keep local-cut-01 untouched. Pack once from retained tested tree without rebuild. Eligibility references Root bounded-local disposition, targeted proofs, actual R6/F04A, both red m5 receipts and debt; never fabricate passing unit. Prepare selective commit on codex/rc11-qualification base93a0, clean git-archive reproduction, pinned deps and absent-only contract seeds/source wins/full archive equality. No Git/pack/reproduction/install effects yet; final install requires independent packaging result. No main/index/tracking updates during proof.",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+    "bytes": 298978,
+    "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+  },
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182855,
+    "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+  },
+  "m5Disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/ROOT_M5_DISPOSITION.json",
+    "bytes": 1499,
+    "sha256": "5f34872ac04a9aef114ebe3609811c654fabed8d3b0ec26fd1dbccdd885c4251"
+  },
+  "effectsHeld": [
+    "pack",
+    "Git index/commit",
+    "reproduction",
+    "release/install",
+    "main tracking"
+  ]
+}

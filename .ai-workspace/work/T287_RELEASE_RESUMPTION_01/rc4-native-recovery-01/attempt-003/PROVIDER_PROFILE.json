@@ -1,0 +1,66 @@
+{
+  "kind": "rc4_native_recovery_attempt_003_draft_provider_profile",
+  "authority": {
+    "source": "Root explicit attempt003 prospective resource reprice under existing owner mandate",
+    "status": "PREPARED_FOR_EXACT_ROOT_ADMISSION"
+  },
+  "model": "claude-opus-5-5",
+  "effort": "xhigh",
+  "maxTurns": 480,
+  "maxBudgetUsd": null,
+  "inactivityTimeoutMs": 4500000,
+  "absoluteTimeoutMs": 5400000,
+  "outerTimeoutMs": 10800000,
+  "toolchainEnvironment": {
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "BASH_DEFAULT_TIMEOUT_MS": "4500000",
+    "BASH_MAX_TIMEOUT_MS": "4500000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-03/tmp",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO"
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/bin/claude",
+    "model": "claude-opus-5-5",
+    "maxTurns": 480,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "executables": [
+    {
+      "configuredPath": "/opt/homebrew/bin/node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "configuredPath": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+      "path": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+      "bytes": 152096,
+      "sha256": "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539"
+    },
+    {
+      "configuredPath": "/Users/jim/.local/bin/claude",
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+    }
+  ],
+  "providerCalls": 0,
+  "limits": "One-shot Root dispatch; required pipeline budget4267250ms fits4500000ms idle and5400000ms absolute. No dollar cap; no duration target."
+}

@@ -1,0 +1,80 @@
+{
+  "stage": "six-case-observation-once",
+  "selectedCases": [
+    "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+    "M5 ABG transport renews its inactivity lease only from observed progress",
+    "M5 ABG transport does not renew from unacknowledged output",
+    "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+    "owned process groups retain descendant cleanup after normal and TERM leader exits",
+    "M5 ABG transport excludes descendant output emitted after direct-process exit"
+  ],
+  "outerCapSeconds": 300,
+  "innerBudgetsUnchanged": {
+    "force": [
+      200,
+      350,
+      75
+    ],
+    "progress": [
+      120,
+      600,
+      75
+    ],
+    "unacknowledged": [
+      150,
+      600,
+      75
+    ],
+    "postTimeout": [
+      150,
+      600,
+      250
+    ],
+    "grouped": {
+      "worker": [
+        700,
+        1500,
+        150
+      ],
+      "command": [
+        700,
+        150
+      ],
+      "http": [
+        700,
+        500,
+        150
+      ],
+      "originalWholeCaseCapMs": 20000
+    },
+    "directExit47": [
+      150,
+      "original default absolute=4*150",
+      500
+    ]
+  },
+  "maximumOwnerCalls": 11,
+  "groupOrder": "original worker,command,http x normal,TERM; no continuation after original assertion failure within grouped case",
+  "observations": [
+    "child sidecar body-entry PID/PPID/role/local monotonic sequence",
+    "existing handler registration/entry and timer installation/fire",
+    "stdout/stderr byte identity, attempt/return/write callback/error",
+    "actual child spawn PID, readiness and port file publication",
+    "exit intention and ordinary exit-hook if invoked; no new signal handler",
+    "parent original callback arguments/return/errors and whole owner result before assertions",
+    "original stdout/stderr/transport and scratch artifacts before cleanup"
+  ],
+  "observerCost": "Builtin node:fs/node:crypto loading plus synchronous sidecar write/fsync; may affect startup/deadline behavior. No cross-process clock equality assumption. Local sequence + PID + bytes + parent observations establish causal joins; exact timer arms/signal delivery are not directly observed.",
+  "inferenceLimits": [
+    "No marker means body entry not observed, not never executed.",
+    "No writecallback means completion not observed; callback does not prove parent capture.",
+    "Post-exit descendant retains no SIGTERM handler: killed producer can make no-output assertion vacuous.",
+    "Current host load/uptime only covariates; absent historical telemetry cannot establish historical load cause.",
+    "Passing diagnostic does not replace original unit/m5 red."
+  ],
+  "followupHeld": [
+    "finite deliberately coalesced stdout callback-count oracle discriminator",
+    "bounded startup-prerequisite causal counterfactual chosen from stage1 facts",
+    "controlled observePublication pending-read then stop/deadline race, plus never-resolving probe handback"
+  ]
+}

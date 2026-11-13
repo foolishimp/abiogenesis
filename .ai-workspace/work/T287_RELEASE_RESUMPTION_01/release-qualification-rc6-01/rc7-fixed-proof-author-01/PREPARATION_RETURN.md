@@ -1,0 +1,5 @@
+STATIC_TEMPLATE_PREPARED_NOT_DISPATCHED. Exactly five selected Product/HOW/test paths; no source or runtime binding.
+
+448 prospective source/resource names = A397 + exact50 resource rows + the already-selected governance HOW absent from that447 union. No moving source bytes were read. Existing stage/lanes/direct native dispatch were reused as templates with short unique tmpo7f and /private/tmp/abg-o7f paths and unchanged finite320/xhigh/90min/30min/3h/8GiB limits. Focused feedback: selected default-library route tests and affected caller/fulfillment regression only; exact missing resources remain non-closure.
+
+Root must supply three future bindings: (1) completed carrier successor SUBJECT/head/source-before inventory and inherited state; (2) genuine latest actual close/readback resume and current author/workspace binding; (3) final materialized control/staging hashes and Root admission. Current A partial return does not enable this dispatch. Root owns all subsequent proof, review, cold readback and release sequencing. Syntax/template checks only; no Product edits, staging, runtime, tests or provider access.

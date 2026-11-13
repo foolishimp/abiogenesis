@@ -1,0 +1,63 @@
+{
+  "status": "PREPARED_FOR_ROOT_REVIEW_NO_EXECUTION",
+  "operator": "Root",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "sourceTree": "d3d22391589dcb6fd8d86ed128b0ede69b77348c",
+  "priorSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/SELECTION.json",
+    "bytes": 17396,
+    "sha256": "27225123e251934d52bba9974b7eb3600a20dbd379b421820e45cee4b6e4adf7"
+  },
+  "priorManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/MANIFEST.json",
+    "bytes": 39449,
+    "sha256": "221e45698a149a55d1ab390980518689864a57af76e607d928efa2eb8b62d9b3"
+  },
+  "currentResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/public-read-operator-resume.json",
+    "bytes": 99884807,
+    "sha256": "fb8e47827c4028c1bf4280f7bb45785c5882ce7146bb9045351cc982a83dca59"
+  },
+  "originalCall": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/execution/prepared-call.json",
+    "bytes": 30216598,
+    "sha256": "d5bb194b6aa1202bfb2e70b149f4f17bd6b0fded9267e12415e867dfd3a600b4"
+  },
+  "runRef": "run://abiogenesis/ddd6d5f0138c26ba2c98b2e8a8bc1fb2c641da070a0163315d047ae75d604b8c",
+  "graphCallRef": "graph-call://abiogenesis/62e0b81f697fd37032056fc69f23dd4ccf7fa8cbcffd503850bc181916ab77e2",
+  "requestRef": "request://abiogenesis/operator/rc4-source-acquisition-001/graph_call_result",
+  "correlationRef": "correlation://abiogenesis/operator/rc4-source-acquisition-001",
+  "runtimeTmp": {
+    "path": "/private/tmp/abiogenesis-rc4-runtime-01",
+    "device": 16777231,
+    "inode": 677101022,
+    "uid": 501,
+    "preparationState": "empty operator-owned canonical directory",
+    "lockPath": "/private/tmp/abiogenesis-rc4-runtime-01/abiogenesis-event-store-locks-v5/16777231-673308256.lock"
+  },
+  "decision": "Correct declarationProof from original005 catalog/view; acquire actual terminal C_CallResult; only then use existing PublicRunProjectionAuthority and source-result derivation owners. Failed parent is not successful Run or pending-frontier recovery. No Run/provider/maintenance or paid task selected.",
+  "authorityMapping": {
+    "prefix/reopenAuthority": "genuine current close handoff following resource maintenance and three Public reads",
+    "runtimeInvocationRef/invocationAdmissionRef/workspace/catalog coordinates": "rehydrateInvocationAdmissionAtPrefix joined to terminal producer and hasInvocationRunBindingAtPrefix",
+    "runId/graphCallId/resultRef/outputContractRef": "successful Public graph_call_result typed terminal, exact selected Run/GraphCall; never GraphCall digest as result digest",
+    "install": "current admitted ProductInstall matching exact original Program publication product/manifest/content/artifact",
+    "catalogReadinessBasis/catalogViewAllowlist/publicationDigests/publications": "original005 frozen catalog/view, authenticated by historical declaration proof and compared to source admission",
+    "sourceBasis": "deriveInvocationSourceResultBasisAtPrefix only; null preserved; nonnull joined back to exact terminal and unchanged original GovernanceWorkState task"
+  },
+  "effects": [
+    "one real Public graph_call_result read with historical declaration proof",
+    "pure installed owner projections/source eligibility on exact authenticated prefix",
+    "exclusive output records under this packet directory",
+    "ordinary temporary runtime lock in existing neutral operator namespace"
+  ],
+  "forbidden": [
+    "Run admission",
+    "provider call",
+    "event append/truncation/repair",
+    "Product/Git mutation",
+    "guessed receipt/SourceUse/digest",
+    "automatic retry or successor paid packet"
+  ],
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

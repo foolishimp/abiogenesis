@@ -1,0 +1,66 @@
+{
+  "syntax": [
+    {
+      "check": "node --check setup-state.mjs",
+      "exitCode": 0
+    },
+    {
+      "check": "node --check prepare-native-call.mjs",
+      "exitCode": 0
+    },
+    {
+      "check": "node --check dispatch.mjs",
+      "exitCode": 0
+    },
+    {
+      "check": "sh -n claude-provider.sh",
+      "exitCode": 0
+    },
+    {
+      "check": "Python parse operator-preflight.py",
+      "exitCode": 0
+    },
+    {
+      "check": "Python parse freeze-dispatch.py",
+      "exitCode": 0
+    },
+    {
+      "check": "Python parse readiness.py",
+      "exitCode": 0
+    }
+  ],
+  "positive": {
+    "status": "OPERATOR_FILE_ONLY_CHECKED",
+    "runtimeCalls": 0,
+    "ProductTestsBuilds": 0,
+    "sourceWriteIntersection": [],
+    "invariantSources": 17,
+    "manualSourceWritePaths": 13,
+    "generatedOutputWriteRoots": 0,
+    "scratchRoots": 4,
+    "readRoots": 982,
+    "selectedC2Paths": 967,
+    "commands": 9,
+    "predicates": 12,
+    "requiredExecutionBudgetMs": 4267250,
+    "selectedEntriesIncludingPlannedInputsAndAbsentScratch": 1254,
+    "selectedRawBytesIncludingPlannedInputs": 42195563,
+    "generatedEntriesIncludingRoot": 0,
+    "generatedRawBytes": 0,
+    "contextCapBytes": 268435456,
+    "contextCapEntries": 10000,
+    "issues": [],
+    "plannedInputs": 0,
+    "materialized": true,
+    "priorScratchSelected": false,
+    "limit": "Filesystem size/read-root prediction only; no admitted context or future-peak guarantee. Root installed preflight must validate actual prepared input/absence/symlink/freshness. New scratch must exist before installed observation; bounded disposable fixture teardown remains native work."
+  },
+  "negative": {
+    "negativeControl": "scratch source/write overlap refused",
+    "runtimeCalls": 0
+  },
+  "ProductRuntimeImports": 0,
+  "ProductBuildsTests": 0,
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

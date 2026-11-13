@@ -1,0 +1,13 @@
+{
+  "status": "ROOT_ACCEPTED_PROSPECTIVE_ALLOCATION",
+  "clarification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-plan/ALLOCATION_02.md",
+    "bytes": 1190,
+    "sha256": "4b9ebac15a10bbe1f66e017ac6c34eb1463d2bbaaa41bbd35639ba8969a8b4f3"
+  },
+  "ready": "READY.json",
+  "binding": "BINDING.json",
+  "unchangedDriver": "proof.r02.py",
+  "sourceAndControlsChanged": false,
+  "standing": "Exact Root allocation, not runtime behavior or completed proof."
+}

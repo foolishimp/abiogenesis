@@ -1,0 +1,120 @@
+{
+  "file": "test_env/tests/t287-native-frame-observation.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 12159.84133299999,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 7,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0,
+    "topLevel": 7,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "nominal liveness replay cuts preserve cold validation and reject false reuse",
+      "file": "test_env/tests/t287-native-frame-observation.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "liveness fold reuse refuses invalid history and never borrows another computation",
+      "file": "test_env/tests/t287-native-frame-observation.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "liveness hash reuse preserves complete probe contracts and rejects untrusted contexts",
+      "file": "test_env/tests/t287-native-frame-observation.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "liveness batch hash reuse preserves cold projections and isolates exact prefixes",
+      "file": "test_env/tests/t287-native-frame-observation.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "native controlled process preserves frame observations and owner causes",
+      "file": "test_env/tests/t287-native-frame-observation.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_FRAME_PROOF_ROOT unset; requires the proof-local territory of a native controlled frame run (with ABI5_FRAME_ENTRY_ROOT and ABI5_FRAME_EXECUTION_GRANT)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "frame declaration and observation-join falsifiers over an authentic read-only historical opening",
+      "file": "test_env/tests/t287-native-frame-observation.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": "ABI5_FRAME_HISTORY_PATH or ABI5_FRAME_HISTORY_SHA256 unset; requires the digest-bound retained frame history",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/events/112-t287-native-frame-observation.jsonl",
+    "bytes": 3106,
+    "sha256": "a7b050546bcfc60eb48634066fb54dc2eb116edd85e8b967a1e7ee8fee90597a"
+  },
+  "commandReceipt": "commands/112-t287-native-frame-observation.result.json",
+  "workspace": "/private/tmp/abg-r8c-012/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

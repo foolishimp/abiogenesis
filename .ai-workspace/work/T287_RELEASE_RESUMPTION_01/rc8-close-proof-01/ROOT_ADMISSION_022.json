@@ -1,0 +1,68 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "configSha256": "ef8a3438cfa2a2e948181cd85be8a5eb9b48474fa0bf662f7218b0fa66412987",
+  "inventorySha256": "fb86dc09bc5916db2e74899f54783b1d4e8c1e940ee83539dee45bb829fa7391",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "78608747d55903fde283a93f8e5effabd9b2bcb4f1395a89785e013c0e152341",
+  "at": "2026-11-07T14:20:41.274001+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "rootSelection": "Root admits exactly one broad022 execution over21 independent remaining files on retained A6 source. Root read exact controls/diffs and accepted nine021 whole-file joins. Preserve174whole899passes211historical skips and13 scheduling deferrals; W2-05 pending causal review adds no credit or technical-debt disposition.",
+  "preparationReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_RETURN_022.json",
+    "bytes": 4728,
+    "sha256": "15679ff3380d0df8b7da0babdce2fa608a3c38bc734a5542bd7be90d3ea5d0b3"
+  },
+  "controls": {
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_022.json",
+      "bytes": 8347,
+      "sha256": "78608747d55903fde283a93f8e5effabd9b2bcb4f1395a89785e013c0e152341"
+    },
+    "driver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-022.mjs",
+      "bytes": 36567,
+      "sha256": "42f25b47063082ed2984281bb637107ff578e8ef288e862e330f327055c204b8"
+    },
+    "config": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_024.json",
+      "bytes": 442243,
+      "sha256": "ef8a3438cfa2a2e948181cd85be8a5eb9b48474fa0bf662f7218b0fa66412987"
+    },
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-024/BOUND_INVENTORY.json",
+      "bytes": 2112004,
+      "sha256": "fb86dc09bc5916db2e74899f54783b1d4e8c1e940ee83539dee45bb829fa7391"
+    },
+    "driverDiff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_022.patch",
+      "bytes": 4509,
+      "sha256": "4e877c7fc8d8fcab51810ef43bdcf16b979e211dc9b51ae13a8b8374a7bcbd21"
+    },
+    "configDiff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CONFIG_DIFF_022.patch",
+      "bytes": 30077,
+      "sha256": "90a6b8b728da4d8247a83d60e3a9a38df681890004654247cb609b84bde9b81c"
+    }
+  },
+  "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+    "bytes": 295568,
+    "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+  },
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 174,
+    "passed": 899,
+    "skipped": 211,
+    "scheduled": 21,
+    "deferredNoCoverage": 13
+  },
+  "allowedEffects": [
+    "Existing controlled BC/execution-022 records and proof allocations",
+    "/private/tmp/abg-r8c-022 through existing proof owners",
+    "Existing two isolated test-build effects and successful-derived-copy cleanup as frozen driver grants"
+  ],
+  "bounds": "All selected inner/outer deadlines, other limits, env, tools, oracles and external inputs unchanged. One heavy proof at a time. Stop first red/incomplete/input/resource/deadline; no automatic retry, source change, provider, general cleanup, Git, checkpoint, cut or install.",
+  "preservation": "All prior failed allocations/receipts/skips/exclusions retained at their original identities. A6 evidence may conjoin later to accepted A11 through existing unchanged-input relation; no restamping. CUT8 held."
+}

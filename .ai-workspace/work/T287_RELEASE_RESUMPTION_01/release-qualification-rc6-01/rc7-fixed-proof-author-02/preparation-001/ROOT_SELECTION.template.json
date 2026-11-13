@@ -1,0 +1,51 @@
+{
+  "kind": "root_fixed_proof_admission_repair_selection",
+  "status": null,
+  "requiredStatusAtAdmission": "ROOT_SELECTED_FIXED_PROOF_ADMISSION_REPAIR",
+  "task": "rc7-fixed-proof-author-02",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/ROOT_SELECTION.json",
+    "bytes": 3886,
+    "sha256": "ccb6b9060049213605af4f8327347a95349bb8d8ce0af21e19fe59eb3a05cddc"
+  },
+  "rootPreparationConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/preparation-001/ROOT_REPAIR_TRIAGE.json",
+    "bytes": 6823,
+    "sha256": "c2260d656f2df072c86158fd349d1f1324d3105a28018ae13162285b997a4548"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/SOURCE_BEFORE.json",
+    "bytes": 238644,
+    "sha256": "a79ce5199e2fafd628f1cee905ab6e6a411ce69606e8271b5326c653ab0514ab"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 18126,
+    "sha256": "6ac0839037dd7e61c2f0efaa3700d5d1067bb7ca63a6e5758de982361bc681cc"
+  },
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "newProductFiles": 0,
+  "RootFinalAdmission": null,
+  "meaning": "Root selected exact five-path repair and3stage/5lane ceilings. Actual F source, both cold reads, successor and partial disposition are closed. Final staged pins and native admission remain unbound.",
+  "actualPredecessorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 9267,
+    "sha256": "a76d3fa989c53dd6dcadcd77a9433804a12364976fd9f28229117a80065d95fb"
+  },
+  "actualPredecessorResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/execution/after-run-resume.json",
+    "bytes": 72498685,
+    "sha256": "9648aa8dbb5151ca503432783177621ed464985b626a265809c7511fea5576bb"
+  },
+  "partialSourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 8972,
+    "sha256": "17438e94cecd3c7c433ed6a52ae2b1239d6c88d4a6ff678dcee0b1e13431bddd"
+  }
+}

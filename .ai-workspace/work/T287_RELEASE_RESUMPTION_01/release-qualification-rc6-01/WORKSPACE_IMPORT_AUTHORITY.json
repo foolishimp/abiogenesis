@@ -1,0 +1,12 @@
+{
+  "kind": "release_qualification_workspace_import_authority",
+  "status": "ROOT_AUTHORIZED_FRESH_IMPORTED_WORKSPACE",
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "authorizedActorRef": "actor://abiogenesis/operator/codex-root",
+  "createPolicy": "imported",
+  "preservationPolicy": "preserve_all_existing",
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+  "workspaceReentry": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/WORKSPACE_REENTRY_01.json",
+  "nativeDispatch": false
+}

@@ -1,0 +1,21 @@
+{
+  "recordedUtc": "2026-11-04T14:55:44.927406+00:00",
+  "standing": "Actual C2 actor paths from observed admitted transport binding; no command result or acceptance inferred.",
+  "eventOrdinal": 63612,
+  "eventTime": "2026-11-04T14:54:09.098Z",
+  "runId": "run://abiogenesis/5c4bc7882ac58cb455efc4ec16451884b278c7e4052da91c208ba27096fd5806",
+  "offset": 877227900,
+  "rowBytes": 1886842,
+  "rowSha256": "56fcd997330f1fd81613898103d8aeed64023f0cc2cf5153b0d3062b0d0f43f4",
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-ee6028652c1e9485-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-ee6028652c1e9485-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-ee6028652c1e9485-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-ee6028652c1e9485-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-ee6028652c1e9485-transport.json"
+  },
+  "transportBindingRef": "transport-binding://abiogenesis/b5749720e4bd6c6ca77f4f56875004fd6b830a2660409b6cb3102385abc66a9a",
+  "transportBindingDigest": "sha256:b5749720e4bd6c6ca77f4f56875004fd6b830a2660409b6cb3102385abc66a9a",
+  "inputDigest": "sha256:91604563d157555c17e15cd3742b823f7cdb92b7062a544c3be0b3c4f0287b8e",
+  "cCallRef": "c-call:sha256:d9c8ee5b4a54dfd55bfca00c631f518e2b31dfba1750dcbd0b2dffd4401ae5c0"
+}

@@ -1,0 +1,33 @@
+{
+  "kind": "b08_fresh_store_executive_selection",
+  "status": "PENDING_INDEPENDENT_REVIEW_AND_ROOT_SELECTION",
+  "sourceCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "recursionBound": 3,
+  "providerDispatch": false,
+  "sourceBasis": "none",
+  "ProductWriteRoots": [],
+  "selectedTask": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/task.md",
+    "bytes": 2530,
+    "sha256": "sha256:98ab51e0e473edadaebbe2b6ba5433bf7b6dc3adad89fec1089afa2f164379fe"
+  },
+  "selectedHow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/HOW.md",
+    "bytes": 1750,
+    "sha256": "sha256:dcd0dc2b7932337fa8d48d874a07450448252c664b93e4458e2706fb133e13e4"
+  },
+  "selectedRubric": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/rubric.json",
+    "bytes": 2218,
+    "sha256": "sha256:c8409de7aca6a8128312365d7dca9a40f65a19940bc6ff9a6237526765be0c5e"
+  },
+  "sourceBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/SOURCE_AND_ELIGIBILITY.json",
+    "bytes": 17275,
+    "sha256": "sha256:7f4e018779b6f559ef84eade99dd204ad8296bea19b32a37cdabbc6f11a5fea9"
+  },
+  "limits": [
+    "Root must replace pending status only after source review and exact setup selection",
+    "No prior Results are imported; failed B07 remains failed"
+  ]
+}

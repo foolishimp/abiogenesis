@@ -1,0 +1,49 @@
+{
+  "kind": "prospective_qr02_native_author_binding",
+  "status": "PREPARATION_ONLY_SUCCESSOR_AND_ACTIVATION_UNBOUND",
+  "sourceCommit": null,
+  "sourceSubject": null,
+  "sourceResult": null,
+  "sourceReview": null,
+  "d5ProofDisposition": null,
+  "sourceBefore": null,
+  "resume": null,
+  "actualClose": null,
+  "actualClosePrefix": null,
+  "installedRoot": null,
+  "workspaceAuthority": null,
+  "retainedAuthorBinding": null,
+  "providerProfile": null,
+  "rootControlAdmission": null,
+  "sourceAcquisitionComplete": false,
+  "setupRunsAuthorized": 0,
+  "bindingOverlayFields": [
+    "binding",
+    "catalog",
+    "catalogView"
+  ],
+  "reuseCandidates": {
+    "builder": {
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.6",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+      "manifestDigest": "sha256:404905f00e9d79bd7cc1da592a492b19443b809d3b81c12ec8af9af947c2a64a",
+      "productContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+      "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+      "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+      "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.6/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+      "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "retainedAuthorBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/after-binding-resume.json",
+      "bytes": 72486815,
+      "sha256": "1fba84d6a7a09d402a18e858fff3e4f29ce4ae95b3f2d99125575f6512cb78ff"
+    },
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "limits": [
+    "Every actual binding remains null until Root finalizes from genuine successor/close and proof disposition.",
+    "Reuse only binding/catalog/catalogView over the actual latest closed resume; never substitute old observations, synthesis, close or source.",
+    "No workspace rebind, catalog re-admission, reinstall, fabricated ancestry or provider call is selected."
+  ]
+}

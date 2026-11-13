@@ -1,0 +1,6 @@
+{
+  "kind": "operator_observation_timing_note",
+  "recordedUtc": "2026-11-05T23:28:51.699828+00:00",
+  "observation": "An immediate passive observer invocation preceded execution/STARTED.json and returned FileNotFoundError. A later read found the actual STARTED and actor-start events.",
+  "effect": "No native preflight/Run failure, retry, source mutation or dispatch duplication; observer only read and failed before writing."
+}

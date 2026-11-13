@@ -1,0 +1,142 @@
+{
+  "kind": "proof10_control_input_and_static_validation",
+  "recordedUtc": "2026-11-04T13:59:06.494833+00:00",
+  "syntax": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "finalize.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "prepare.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "dispatch.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "selector-size-preflight.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "c2-proof.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "sh",
+        "-n",
+        "claude-provider.sh"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "jsonParsed": 28,
+  "originalDraftPreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/PREPARATION_RETURN.json",
+    "bytes": 15169,
+    "sha256": "c0f4af49ef99e26967486a91818677468d2d0049c271b9738fb7eab2e257b522"
+  },
+  "sourceMatches": {
+    "source": 157,
+    "original09Handoffs": 3,
+    "total": 160,
+    "mismatches": []
+  },
+  "selection": {
+    "inherited969": 969,
+    "newPaths": 17,
+    "deduplicated": 986,
+    "currentlyPresent": 985,
+    "currentlyMissingFinalizationOutput": [
+      "consolidation-inputs/proof-10/C2_SELECTED_INPUTS.json"
+    ],
+    "currentPresentFileBytes": 25584474,
+    "meaning": "Literal file census only; final current context digest/budget and prompt capacities require installed-owner preflight. Guide is created by finalizer before all-files observed check; it is a control, not a future author handoff."
+  },
+  "dynamicInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+      "bytes": 5575,
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json",
+      "bytes": 6147,
+      "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+    }
+  ],
+  "literalClosure": {
+    "inherited09": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/C2_LITERAL_IMPORT_CLOSURE.json",
+      "bytes": 9841,
+      "sha256": "e9f367be8bb04d55bf59ae5bec90667aaad4e00ff2ffe214c02ee5c6b7a82b39"
+    },
+    "missing": [],
+    "standing": "Actual09 compiler/import/fixture support retained; source160 unchanged, only C2 input root/control wrappers change. New wrapper uses Node builtins; maintained preflight/dispatch relative imports resolve to existing operator-client. No newly claimed complete dynamic scanner."
+  },
+  "captureCompatibility": {
+    "owner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+      "bytes": 118773,
+      "sha256": "89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c"
+    },
+    "validators": [
+      {
+        "function": "isObservedWorksiteCommandExecutionTask",
+        "line": 243
+      },
+      {
+        "function": "isObservedWorksiteCommandExecutionObservation",
+        "line": 1775
+      },
+      {
+        "function": "isWorksiteExecutionHelperArtifact",
+        "line": 1378
+      },
+      {
+        "function": "helperArtifactPreservesProtectedObservations",
+        "line": 1410
+      }
+    ],
+    "arm": "Observed-C2; no09 native-arm assertion or new author/Construction handoff",
+    "sourceCorrespondence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/SOURCE_BEFORE.json",
+    "producerSource": "native09 exact frozen157 plus consolidation-scratch/native-09/{return,readiness,progress}.json",
+    "reportRoot": "test_env/test_runs/single-address-space-proof-10",
+    "packCommandOrdinal": 5,
+    "passiveCapturePrepared": false,
+    "meaning": "Root capture must use exact observed task/observation and shared helper/protected-observation owners. No runtime capture was executed."
+  },
+  "notExecuted": [
+    "finalization",
+    "installed preflight/capacity/budget owner calls",
+    "provider",
+    "tests/build/npm",
+    "runtime/dispatch/fresh reads",
+    "Product/test/HOW edit"
+  ],
+  "limits": [
+    "Syntax/static current-file checks are not C2, role capacity, acceptance or source semantic re-review.",
+    "Root still supplies exact actual09 continuation/fresh/close/outcome pins and selects finalization/admission."
+  ]
+}

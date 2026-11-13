@@ -1,0 +1,57 @@
+{
+  "status": "SELECTED_RC10_REPAIR_PROOF_CLOSED_RETURNED_TO_ROOT",
+  "utc": "2026-11-09T04:49:07.809011+00:00",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/source-freeze.json",
+    "bytes": 293103,
+    "sha256": "ddb7604d9b4a24269626cfca49cef9982519d9ad482eba6426fcfdaa1d60095e"
+  },
+  "nativeCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NATIVE_CUSTODY.json",
+    "bytes": 6813,
+    "sha256": "f97d6e4487f773979fe36b5eea9d8ba44ee12bf7aa5f44cf59abae5b75cd7b96"
+  },
+  "stageReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/STAGE_RETURN.json",
+    "bytes": 1490,
+    "sha256": "9b622c7559de84b37ad6ad6a7309f29c9fdb3937f19514f5b26ae1f40f682ae7"
+  },
+  "focusedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/FOCUSED_RETURN.json",
+    "bytes": 889,
+    "sha256": "7513eb659ad6de78c3306011b37fad03966b7ed3cae5c446881afc825c3bdc66"
+  },
+  "strictFirstCall": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/STRICT_FOCUSED_OBSERVATION.json",
+    "bytes": 3466,
+    "sha256": "aeab83667304aef7dd15ebe07c3ec96622aaba60f321da175d2a4b3ad80b45c5"
+  },
+  "unitReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/UNIT_RETURN.json",
+    "bytes": 670,
+    "sha256": "cd829d7bb5ed464efcf83a63797596914d261b0391a232462ec46c0f87441844"
+  },
+  "affectedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/AFFECTED_RETURN.json",
+    "bytes": 5610,
+    "sha256": "9f43f1186a00b4b3616251bd990209f380e49c2b7233ae3bace427bef293d192"
+  },
+  "measurementReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/RETURN.001.json",
+    "bytes": 11074,
+    "sha256": "4cb43518f92a3fd94e02688bcf9dc1b7e4684f823b2170999efce598d6e395a3"
+  },
+  "artifactReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/RETURN.json",
+    "bytes": 3268,
+    "sha256": "3e6948470ffeda5a00f30c3602d369a42c7f71e1de44eecee3a2dea4be644149"
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/FINAL_CONSERVATION.json",
+    "bytes": 2499,
+    "sha256": "b8d6fb0a0de0595184003eb3c28d341ec8d3a7f5c19de64c64f49d242dd4c897"
+  },
+  "permanentRegressionDisposition": "The maintained LIFE-01 file now asserts the first genuine call has exactly1row/1digest, one new basis and zero after, before manual holds; this detects the demonstrated wrong-key defect. The large-input in-flight50-call witness remains a separately selected external proof. Existing unperformed rollback/foreign/duplicate/continuation/error-exit and fullqualification residuals are not closed.",
+  "executionState": "All Operator native/build/focused/unit/affected/measurement processes returned; no active run, source edit or tracking write. Cut/install belongs to separately activated Writer and Root."
+}

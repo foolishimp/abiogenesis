@@ -1,0 +1,27 @@
+{
+  "recordedUtc": "2026-11-03T23:57:19.427917+00:00",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "purpose": "Proportional review of four-line generator budget propagation and actual installed owner projection only; original reviewed controls remain retained",
+  "previousReviewedGenerator": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-06-r1.py",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-budget-refinement-001/prepare-native-06-r1.py",
+      "bytes": 18811,
+      "sha256": "318b467ff1a2ce1ed406e847e05296161bddbca04b2e24b57b060c9b931744f9"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/NATIVE06_BUDGET_REFINEMENT_01.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-budget-refinement-001/NATIVE06_BUDGET_REFINEMENT_01.json",
+      "bytes": 1306,
+      "sha256": "62ef662bb616a67510ac0aa9f18dd636a6cf9e881f40179557dd6bc400158d38"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/NATIVE06_INSTALLED_BUDGET_PROJECTION.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-budget-refinement-001/NATIVE06_INSTALLED_BUDGET_PROJECTION.json",
+      "bytes": 1477,
+      "sha256": "605737d4f480c1abfc77cba513286011c7c2b42d944b693e256c83a774c250fe"
+    }
+  ],
+  "effects": "Evidence only; no admission or Product edit"
+}

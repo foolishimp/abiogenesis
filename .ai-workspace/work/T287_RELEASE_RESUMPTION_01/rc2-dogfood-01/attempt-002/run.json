@@ -1,0 +1,6 @@
+{
+  "runId": "rc2-dogfood-01-attempt-002",
+  "priorAttempt": "setup-001",
+  "relation": "new Run, same task; corrected operator authentication; no inherited completion credit",
+  "at": "2026-10-30T12:36:03.359Z"
+}

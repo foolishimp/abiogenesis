@@ -1,0 +1,104 @@
+{
+  "kind": "minimal_r2_passive_custody_preparation",
+  "status": "SYNTAX_CHECKED_ACTUAL_FUTURE_BINDINGS_UNBOUND",
+  "binder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/bind-return-r2.mjs",
+    "bytes": 16591,
+    "sha256": "eb15f96e33b6645601d5af371e06b39e523e4131b2ab298ec4f595b0d5a01e5d"
+  },
+  "bindingsTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/R2_BINDINGS.template.json",
+    "bytes": 2824,
+    "sha256": "501b9592beeac1025707ebf6c31b023cf5dd865972111105827059984adb5ed2"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_CONTROL_ADMISSION_R2.json",
+    "bytes": 10455,
+    "sha256": "976489f9077e82fbd07ff3f893641f7cb6cd7e470d5ff371326d3109ad8dfc22"
+  },
+  "hostManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/HOST_MANIFEST_R2.json",
+    "bytes": 14193,
+    "sha256": "330c43086dc156e4f16656026cb9ad8465c813af77c13036fda1870cabd8c2e8"
+  },
+  "postReturnSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/POST_RETURN_CUSTODY_R2.json",
+    "bytes": 5127,
+    "sha256": "4fb4a40eb93d680019f4cdb111bd9cc51ff1181d5b3ad6f0b8f3b328c5106544"
+  },
+  "stagedControlPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/STAGED_CONTROL_PINS_R2.json",
+    "bytes": 11420,
+    "sha256": "6100b436d90a5eff4cbc8e1a71e4feee14e2a96108de1ac0aa3c1b9cdda5d90b"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SOURCE_BEFORE.json",
+    "bytes": 273167,
+    "sha256": "dd60fc6d8488c5bf3d38c5be6ed26aa94a15682d58b7edb1e958a773e6653268"
+  },
+  "counts": {
+    "baselineSource": 449,
+    "readonlySource": 445,
+    "permittedSource": 4,
+    "stagedControls": 17,
+    "selectedPresent": 466,
+    "futureHandoffs": 3,
+    "selectedTotal": 469,
+    "changedStagedControls": 1
+  },
+  "changedStagedControls": [
+    "qualification-inputs/rc7-overhead-author-03/ROOT_CONTROL_ADMISSION.json"
+  ],
+  "sourceAlgorithms": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/bind-and-freeze.mjs",
+      "bytes": 19734,
+      "sha256": "6e9ea6e3409ec0c380aea5bedce374a9a71c8dbfc04d1650073650aa0f8e3deb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/capture-failed-return.mjs",
+      "bytes": 10971,
+      "sha256": "d71c2fec17fefb30f5c5d7b4abf1b0675fa1a3822e4a8c6a04a46f08d8e1f8bc"
+    }
+  ],
+  "adaptation": [
+    "Exact R2 admission/manifest, execution-r2 and host-supervision-r2 paths and current17 staged pins. Existing449 SourceBefore snapshot references and inherited54+2 preserved.",
+    "Original receipt/resume parsed once after actual host exit; same actual close and Run required. Full typed terminal is retained by identity/digests and original pointer when present.",
+    "Exact timing-selected physical Result row only. Native observation/failure uses existing installed owner shape and canonical value/payload/Result digest laws. Encoded body may join actual typed terminal only; no manufactured terminal on genuine failure.",
+    "Live source/control/handoff hashes match actual native.after; read-only445 source and17 control pins remain exact. Present and absent handoffs are handled by actual observation, never assumed.",
+    "Output is CLOSE.json plus SOURCE_CUSTODY.json/NATIVE_RESULT_RELATION.json metadata and original body references. No new source tree, source/body/handoff copies, archive inventory or cold result/replay. Null after/ambiguous Result/mismatch produces explicit PARTIAL_CUSTODY and stops."
+  ],
+  "syntaxCheck": {
+    "command": [
+      "node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/bind-return-r2.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "staticChecks": "Exact small metadata pins and449+17+3 name union checked; only staged admission changed. No current C/source/runtime files read.",
+  "futureUnbound": [
+    "actual host return",
+    "actual host start pin",
+    "actual execution",
+    "actual resume",
+    "actual pending record",
+    "actual timing/physical Result coordinates"
+  ],
+  "exactCommand": [
+    "node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/bind-return-r2.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/R2_BINDINGS.json",
+    "<sha256-of-Root-bound-R2_BINDINGS.json>"
+  ],
+  "supervision": "Root activates once through existing canonical commandRecorder; retain existing900000ms/536870912-byte bounds and8GiB. No new launcher or supervisor, no automatic retry.",
+  "limits": [
+    "Preparation only; no runtime acquisition, provider/auth, C/source writes, staging, tests/builds or launch.",
+    "Root supplies six actual pins after real host exit; do not run the null template.",
+    "Root holds live source unchanged for review; exact after bodies remain in original owner receipt/physical row, not a new filesystem snapshot.",
+    "All N failure and preparation artifacts remain intact. No source acceptance, native task success, qualification or release claim."
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "kind": "bounded_selected_storage_metadata_observation",
+  "observedUtc": "2026-11-06T20:39:30.226851+00:00",
+  "eventLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "exists": true,
+    "kind": "file",
+    "bytes": 2545133998,
+    "allocatedBytes": 2553073664,
+    "device": 16777231,
+    "inode": 701759869,
+    "mtimeUtc": "2026-11-06T20:39:12.132043+00:00"
+  },
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 2469184337,
+    "prefixDigest": "sha256:bc8acc20d02dcce182e69db494ffeefff387a4e449aed15305898b97ee07bda7",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 701759869,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:2f9c2c9ca80a8b242c6b651c77ea09b818ed242681febc463ac6d37b87812f97"
+  },
+  "eventLogLogicalGrowthSinceEntryPrefixBytes": 75949661,
+  "actorArchiveFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-0721bbc5d6975cc0-prompt.txt",
+      "exists": true,
+      "kind": "file",
+      "bytes": 46844,
+      "allocatedBytes": 49152,
+      "device": 16777231,
+      "inode": 708590358,
+      "mtimeUtc": "2026-11-06T20:04:10.095380+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-0721bbc5d6975cc0-output.txt",
+      "exists": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-0721bbc5d6975cc0-stdout.log",
+      "exists": true,
+      "kind": "file",
+      "bytes": 6890370,
+      "allocatedBytes": 7344128,
+      "device": 16777231,
+      "inode": 708590359,
+      "mtimeUtc": "2026-11-06T20:39:12.131736+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-0721bbc5d6975cc0-stderr.log",
+      "exists": true,
+      "kind": "file",
+      "bytes": 0,
+      "allocatedBytes": 0,
+      "device": 16777231,
+      "inode": 708590360,
+      "mtimeUtc": "2026-11-06T20:04:10.096484+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-0721bbc5d6975cc0-transport.json",
+      "exists": false
+    }
+  ],
+  "stdoutBaselineObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-0721bbc5d6975cc0-stdout.log",
+    "bytes": 1201412,
+    "birthUtc": "2026-11-06T20:04:10.095573+00:00",
+    "mtimeUtc": "2026-11-06T20:05:47.553682+00:00",
+    "device": 16777231,
+    "inode": 708590359
+  },
+  "stdoutLogicalGrowthSinceFirstObservedArchiveBytes": 5688958,
+  "executionOutputFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/DISPATCH_MANIFEST.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 35822,
+      "allocatedBytes": 36864,
+      "device": 16777231,
+      "inode": 708590220,
+      "mtimeUtc": "2026-11-06T20:01:51.561375+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/HOST_PREPARATION_STARTED.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 200,
+      "allocatedBytes": 4096,
+      "device": 16777231,
+      "inode": 708590225,
+      "mtimeUtc": "2026-11-06T20:01:59.358509+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/NATIVE_CAPACITY_PREFLIGHT.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 458,
+      "allocatedBytes": 4096,
+      "device": 16777231,
+      "inode": 708590344,
+      "mtimeUtc": "2026-11-06T20:04:04.059267+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/PREPARED_CALL.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 3066,
+      "allocatedBytes": 4096,
+      "device": 16777231,
+      "inode": 708590345,
+      "mtimeUtc": "2026-11-06T20:04:04.086623+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/STARTED.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 890,
+      "allocatedBytes": 4096,
+      "device": 16777231,
+      "inode": 708590346,
+      "mtimeUtc": "2026-11-06T20:04:04.086843+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/installed-content-before-run.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 2046,
+      "allocatedBytes": 4096,
+      "device": 16777231,
+      "inode": 708590228,
+      "mtimeUtc": "2026-11-06T20:02:00.545988+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/provider-availability.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 478,
+      "allocatedBytes": 4096,
+      "device": 16777231,
+      "inode": 708590226,
+      "mtimeUtc": "2026-11-06T20:01:59.480400+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/run.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 254,
+      "allocatedBytes": 4096,
+      "device": 16777231,
+      "inode": 708590342,
+      "mtimeUtc": "2026-11-06T20:04:02.439278+00:00"
+    }
+  ],
+  "commandRecorderOutputFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/commands/sdk-native-host.request.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 1873,
+      "allocatedBytes": 4096,
+      "device": 16777231,
+      "inode": 708590224,
+      "mtimeUtc": "2026-11-06T20:01:58.435877+00:00"
+    }
+  ],
+  "namedHandoffs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/progress.json",
+      "exists": true,
+      "kind": "file",
+      "bytes": 4613,
+      "allocatedBytes": 8192,
+      "device": 16777231,
+      "inode": 708597841,
+      "mtimeUtc": "2026-11-06T20:32:38.005178+00:00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/readiness.json",
+      "exists": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/return.json",
+      "exists": false
+    }
+  ],
+  "namedSourceFreezeSlots": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-01-source-freeze.json",
+      "exists": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02-source-freeze.json",
+      "exists": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-03-source-freeze.json",
+      "exists": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-04-source-freeze.json",
+      "exists": false
+    }
+  ],
+  "selectedNonLogFileLogicalBytes": 6986914,
+  "selectedNonLogFileAllocatedBytes": 7471104,
+  "rootResourceObservation": {
+    "reportedAtUtc": "2026-11-06T20:37Z",
+    "availableGiB": 12,
+    "previousSummaryAvailableGiB": 23,
+    "hostPid": 23948,
+    "hostRssKiB": 5742592,
+    "hostCpuPercent": 129.4,
+    "actorPid": 25642,
+    "actorRssKiB": 608000
+  },
+  "limits": [
+    "Stat only. No file body or raw provider content acquired; no recursive du or directory census.",
+    "Only exact campaign log, five current actor archive slots, current execution/commands regular files, three named handoffs and four named freeze slots are measured.",
+    "Event-log growth is a logical-size difference from exact admitted entry prefix; archive growth is relative to the earlier observed archive size, not a claimed zero-byte baseline.",
+    "No observed aggregate filesystem-space decrease is attributed to these files or to any specific process. Unmeasured filesystem/swap/platform effects remain unknown.",
+    "Root resource numbers are separately attributed observations and not remeasured by this script. No cleanup, retry or runtime operation."
+  ]
+}

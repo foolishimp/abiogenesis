@@ -1,0 +1,32 @@
+{
+  "label": "043-steel-consumer-declaration.test",
+  "started": "2026-11-13T10:51:32.664523+00:00",
+  "ended": "2026-11-13T10:51:33.808114+00:00",
+  "wallMs": 1144,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/043-steel-consumer-declaration.test/stdout.raw",
+      "bytes": 496,
+      "sha256": "5d5ba3b45b917b6f403bbd46be87b077d986de54e48fa13c9e806a546081815c"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/043-steel-consumer-declaration.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 1,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

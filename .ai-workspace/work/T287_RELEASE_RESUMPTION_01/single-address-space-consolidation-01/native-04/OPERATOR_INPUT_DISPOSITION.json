@@ -1,0 +1,144 @@
+{
+  "recordedUtc": "2026-11-03T19:47:53.675044+00:00",
+  "role": "Root operator/evidence Writer under original map and selection04",
+  "standing": "Current task-input declaration and preimage audit; actual next C2/UAT sufficiency still must execute",
+  "manifestSha256": "4738b7cfb9729269044f169e1ee04e754290ec7cbcaadbc42ed31440d2078f56",
+  "groups": {
+    "affected-tests-and-fixtures": {
+      "files": 194,
+      "bytes": 3660960,
+      "consumer": "Selected actual C2 lanes, literal import closure, their dynamic fixtures and granted caller-migration tests."
+    },
+    "method-current-controls-and-build-recipes": {
+      "files": 170,
+      "bytes": 1940096,
+      "consumer": "Product/method authority, original outcome, closed judgments/failures, rubric, exact input/custody routes and seven actual C2 commands."
+    },
+    "compiler-and-runtime-source": {
+      "files": 291,
+      "bytes": 7911730,
+      "consumer": "Complete TypeScript compilation and native source reasoning; no incomplete compiler closure."
+    },
+    "contract-seeds": {
+      "files": 202,
+      "bytes": 9025518,
+      "consumer": "Compiler JSON imports and existing manifest generator; exact contract-seeds command establishes the same relative tree."
+    }
+  },
+  "files": 857,
+  "selectedBytes": 22538304,
+  "futureFiles": [
+    "consolidation-scratch/native-04/progress.json",
+    "consolidation-scratch/native-04/readiness.json",
+    "consolidation-scratch/native-04/return.json"
+  ],
+  "historicalRC4Campaign": {
+    "observedFiles": 807,
+    "decodedBytes": 49638930,
+    "firstPreparationResultBytes": 66632659,
+    "scope": "Different source and task; no controlled CPU or speedup claim"
+  },
+  "omittedOrdinaryBodies": [
+    "Prior11MB compiled RC5 archive; use immutable installed baseline resource",
+    "Prior7.4MB C2 event and7.2MB helper result; their accepted evidence remains at pinned RC5 custody",
+    "Prior3.1MB captured codec sample; unrelated to this caller migration",
+    "Whole586MB runtime log; explicit read-only diagnostic resource by path/hash, not embedded task context",
+    "Historical .ai-workspace tree and broad digest searches"
+  ],
+  "retainedCustody": "Immutable RC5 campaign handoff and original performance log remain at the exact recorded paths/digests; only required evidence is admitted through existing sources. No historical bytes deleted.",
+  "R4": "Current required code/contracts/fixtures/method evidence remains; old archives/results/sample are removed from ordinary readRoots. Largest current bodies are source-owned compiler schemas/rule catalog. Native instruction-assembly within-process reuse remains a source/proof obligation; a smaller declaration alone does not close it.",
+  "R5": "Construction receives exact C2_SELECTED_INPUTS file guide, latest closed review/triage, source/return paths and seven named commands. Assessment receives same exact inputs and rubric. Do not search historical workspace for already located evidence. Actual behavior and UAT remain observable, not assumed.",
+  "sourceReview": "No moving candidate Product content inspected for this report; changed-source size uses frozen preimage.",
+  "largestInputs": [
+    {
+      "path": "consolidation-inputs/native-04/contract-seeds/schemas/public-operation.schema.json",
+      "bytes": 2870138,
+      "group": "contract-seeds",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "consolidation-inputs/native-04/contract-seeds/qualification/rule-catalog.json",
+      "bytes": 1770456,
+      "group": "contract-seeds",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "consolidation-inputs/native-04/contract-seeds/schemas/self-conformance.schema.json",
+      "bytes": 1050028,
+      "group": "contract-seeds",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 294547,
+      "group": "compiler-and-runtime-source",
+      "sizeSource": "frozen SOURCE_BEFORE"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 290041,
+      "group": "affected-tests-and-fixtures",
+      "sizeSource": "frozen SOURCE_BEFORE"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "bytes": 222875,
+      "group": "compiler-and-runtime-source",
+      "sizeSource": "frozen SOURCE_BEFORE"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "bytes": 221745,
+      "group": "compiler-and-runtime-source",
+      "sizeSource": "frozen SOURCE_BEFORE"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 213856,
+      "group": "compiler-and-runtime-source",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "consolidation-inputs/native-04/contract-seeds/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "group": "contract-seeds",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/src/index.ts",
+      "bytes": 190503,
+      "group": "affected-tests-and-fixtures",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/consensus.ts",
+      "bytes": 187701,
+      "group": "compiler-and-runtime-source",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "consolidation-inputs/native-04/contract-seeds/schemas/gtl-serialization.schema.json",
+      "bytes": 183649,
+      "group": "contract-seeds",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "consolidation-inputs/native-04/contract-seeds/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+      "bytes": 165730,
+      "group": "contract-seeds",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "consolidation-inputs/native-04/contract-seeds/qualification/sources/EXECUTIVE_BASELINE.md",
+      "bytes": 165730,
+      "group": "contract-seeds",
+      "sizeSource": "declared immutable input stat"
+    },
+    {
+      "path": "consolidation-inputs/native-04/contract-seeds/schemas/native-runtime-observation.json",
+      "bytes": 152705,
+      "group": "contract-seeds",
+      "sizeSource": "declared immutable input stat"
+    }
+  ]
+}

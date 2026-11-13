@@ -1,0 +1,197 @@
+{
+  "marker": "RC9_OWN01_OBSERVATIONS ",
+  "lines": [
+    "ℹ RC9_OWN01_OBSERVATIONS {\"environment\":{\"first\":{\"environmentDerivations\":1},\"copied\":{\"environmentDerivations\":1},\"rebuilt\":{\"environmentDerivations\":1}},\"runs\":[{\"environment\":{\"environmentDerivations\":1},\"basis\":{\"rowAdmissions\":2,\"bodyDigests\":2},\"install\":{\"contentVerifications\":4,\"lstats\":32,\"lists\":12,\"fileHashes\":16,\"graphCarrierReads\":4},\"worker\":{\"contractCopies\":0,\"schemaCopies\":0,\"reuses\":0,\"deepFrozenChecks\":0}},{\"environment\":{\"environmentDerivations\":0},\"basis\":{\"rowAdmissions\":2,\"bodyDigests\":2},\"install\":{\"contentVerifications\":4,\"lstats\":32,\"lists\":12,\"fileHashes\":16,\"graphCarrierReads\":4},\"worker\":{\"contractCopies\":0,\"schemaCopies\":0,\"reuses\":0,\"deepFrozenChecks\":0}},{\"environment\":{\"environmentDerivations\":0},\"basis\":{\"rowAdmissions\":2,\"bodyDigests\":2},\"install\":{\"contentVerifications\":4,\"lstats\":32,\"lists\":12,\"fileHashes\":16,\"graphCarrierReads\":4},\"worker\":{\"contractCopies\":0,\"schemaCopies\":0,\"reuses\":0,\"deepFrozenChecks\":0}}],\"prefix\":{\"source\":\"projectOwnedRuntimeEventPrefixAtDurablePrefix\",\"kind\":\"owned_runtime_event_prefix\",\"coordinateLength\":3504569,\"events\":97,\"basisRows\":3,\"row\":8},\"basis\":{\"first\":{\"rowAdmissions\":0,\"bodyDigests\":0},\"later\":{\"rowAdmissions\":0,\"bodyDigests\":0},\"earlier\":{\"rowAdmissions\":0,\"bodyDigests\":0},\"copied\":{\"rowAdmissions\":1,\"bodyDigests\":1},\"changedRawInput\":{\"path\":\"cold_prefix_admitted_row_law_refused\",\"first\":{\"rowAdmissions\":1,\"bodyDigests\":0},\"again\":{\"rowAdmissions\":1,\"bodyDigests\":0}},\"changedBasisDigest\":{\"path\":\"cold_prefix_admitted_row_law_refused\",\"first\":{\"rowAdmissions\":1,\"bodyDigests\":1},\"again\":{\"rowAdmissions\":1,\"bodyDigests\":1}}},\"close\":{\"kind\":\"abg_event_resource_receipt\",\"closePrefixLength\":3504569},\"worker\":{\"frozen\":{\"contractCopies\":0,\"schemaCopies\":0,\"reuses\":2,\"deepFrozenChecks\":1},\"mutable\":{\"contractCopies\":1,\"schemaCopies\":0,\"reuses\":0,\"deepFrozenChecks\":0},\"command\":[\"command\",\"contractDigest\",\"planDigest\"],\"environment\":[\"environmentDigest\",\"planDigest\"]},\"firstConsumer\":{\"acquisition\":{\"contentVerifications\":1,\"lstats\":8,\"lists\":3,\"fileHashes\":4,\"graphCarrierReads\":1},\"firstUse\":{\"contentVerifications\":1,\"lstats\":8,\"lists\":3,\"fileHashes\":4,\"graphCarrierReads\":1},\"refusedResolution\":{\"code\":\"wrong_owner\",\"stage\":\"implementation\"}},\"install\":{\"contentVerifications\":2,\"lstats\":16,\"lists\":6,\"fileHashes\":8,\"graphCarrierReads\":2},\"limit\":\"Smallest installed language fixture in one test process; counters observe this process only; no performance claim.\",\"unproved\":[\"duplicate, foreign and rollback rows\",\"the actual actor producer (the worker plan probe is synthetic)\",\"O3 retained verification reuse: physical verification stays at every consumer/effect boundary; no zero/once-per-resolution claim\"]}"
+  ],
+  "observations": {
+    "environment": {
+      "first": {
+        "environmentDerivations": 1
+      },
+      "copied": {
+        "environmentDerivations": 1
+      },
+      "rebuilt": {
+        "environmentDerivations": 1
+      }
+    },
+    "runs": [
+      {
+        "environment": {
+          "environmentDerivations": 1
+        },
+        "basis": {
+          "rowAdmissions": 2,
+          "bodyDigests": 2
+        },
+        "install": {
+          "contentVerifications": 4,
+          "lstats": 32,
+          "lists": 12,
+          "fileHashes": 16,
+          "graphCarrierReads": 4
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      {
+        "environment": {
+          "environmentDerivations": 0
+        },
+        "basis": {
+          "rowAdmissions": 2,
+          "bodyDigests": 2
+        },
+        "install": {
+          "contentVerifications": 4,
+          "lstats": 32,
+          "lists": 12,
+          "fileHashes": 16,
+          "graphCarrierReads": 4
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      {
+        "environment": {
+          "environmentDerivations": 0
+        },
+        "basis": {
+          "rowAdmissions": 2,
+          "bodyDigests": 2
+        },
+        "install": {
+          "contentVerifications": 4,
+          "lstats": 32,
+          "lists": 12,
+          "fileHashes": 16,
+          "graphCarrierReads": 4
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      }
+    ],
+    "prefix": {
+      "source": "projectOwnedRuntimeEventPrefixAtDurablePrefix",
+      "kind": "owned_runtime_event_prefix",
+      "coordinateLength": 3504569,
+      "events": 97,
+      "basisRows": 3,
+      "row": 8
+    },
+    "basis": {
+      "first": {
+        "rowAdmissions": 0,
+        "bodyDigests": 0
+      },
+      "later": {
+        "rowAdmissions": 0,
+        "bodyDigests": 0
+      },
+      "earlier": {
+        "rowAdmissions": 0,
+        "bodyDigests": 0
+      },
+      "copied": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      },
+      "changedRawInput": {
+        "path": "cold_prefix_admitted_row_law_refused",
+        "first": {
+          "rowAdmissions": 1,
+          "bodyDigests": 0
+        },
+        "again": {
+          "rowAdmissions": 1,
+          "bodyDigests": 0
+        }
+      },
+      "changedBasisDigest": {
+        "path": "cold_prefix_admitted_row_law_refused",
+        "first": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "again": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        }
+      }
+    },
+    "close": {
+      "kind": "abg_event_resource_receipt",
+      "closePrefixLength": 3504569
+    },
+    "worker": {
+      "frozen": {
+        "contractCopies": 0,
+        "schemaCopies": 0,
+        "reuses": 2,
+        "deepFrozenChecks": 1
+      },
+      "mutable": {
+        "contractCopies": 1,
+        "schemaCopies": 0,
+        "reuses": 0,
+        "deepFrozenChecks": 0
+      },
+      "command": [
+        "command",
+        "contractDigest",
+        "planDigest"
+      ],
+      "environment": [
+        "environmentDigest",
+        "planDigest"
+      ]
+    },
+    "firstConsumer": {
+      "acquisition": {
+        "contentVerifications": 1,
+        "lstats": 8,
+        "lists": 3,
+        "fileHashes": 4,
+        "graphCarrierReads": 1
+      },
+      "firstUse": {
+        "contentVerifications": 1,
+        "lstats": 8,
+        "lists": 3,
+        "fileHashes": 4,
+        "graphCarrierReads": 1
+      },
+      "refusedResolution": {
+        "code": "wrong_owner",
+        "stage": "implementation"
+      }
+    },
+    "install": {
+      "contentVerifications": 2,
+      "lstats": 16,
+      "lists": 6,
+      "fileHashes": 8,
+      "graphCarrierReads": 2
+    },
+    "limit": "Smallest installed language fixture in one test process; counters observe this process only; no performance claim.",
+    "unproved": [
+      "duplicate, foreign and rollback rows",
+      "the actual actor producer (the worker plan probe is synthetic)",
+      "O3 retained verification reuse: physical verification stays at every consumer/effect boundary; no zero/once-per-resolution claim"
+    ]
+  },
+  "failure": null,
+  "standing": "Existing final test diagnostic; no counter reinterpretation or additional acceptance claim."
+}

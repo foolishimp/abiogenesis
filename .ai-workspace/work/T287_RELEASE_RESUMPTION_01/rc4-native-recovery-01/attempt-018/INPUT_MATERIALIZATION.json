@@ -1,0 +1,85 @@
+{
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 446,
+        "sha256": "756e69ba2d31eae56448cb8f62eabb8e291a2d5acaf5b101b1f80cbf126a6870"
+      },
+      "target": "rc4-operator-inputs/native-recovery-18/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 446,
+      "sha256": "756e69ba2d31eae56448cb8f62eabb8e291a2d5acaf5b101b1f80cbf126a6870"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/task.DRAFT.md",
+        "bytes": 3874,
+        "sha256": "cd02c5257968f205b578dfe0205564c9566e2cde01cad9b28261540068053204"
+      },
+      "target": "rc4-operator-inputs/native-recovery-18/task.DRAFT.md",
+      "bytes": 3874,
+      "sha256": "cd02c5257968f205b578dfe0205564c9566e2cde01cad9b28261540068053204"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/rubric.DRAFT.json",
+        "bytes": 3803,
+        "sha256": "db6457f9e66ac8cb8b5f2c7a58ea467b726b410be6cfccb714431dab9b00ba3c"
+      },
+      "target": "rc4-operator-inputs/native-recovery-18/rubric.DRAFT.json",
+      "bytes": 3803,
+      "sha256": "db6457f9e66ac8cb8b5f2c7a58ea467b726b410be6cfccb714431dab9b00ba3c"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/NATIVE_GRANT.DRAFT.json",
+        "bytes": 15689,
+        "sha256": "5d12ec8a67da0ac4fd5a20d5b1ed524260db6152c01936e3b9fc89303c56a950"
+      },
+      "target": "rc4-operator-inputs/native-recovery-18/NATIVE_GRANT.DRAFT.json",
+      "bytes": 15689,
+      "sha256": "5d12ec8a67da0ac4fd5a20d5b1ed524260db6152c01936e3b9fc89303c56a950"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 587,
+        "sha256": "0cb0b43b01aa93c1b75e9d9f50ef48fac6bc6cb152a27cc98ff870a2e66e6f4f"
+      },
+      "target": "rc4-operator-inputs/native-recovery-18/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 587,
+      "sha256": "0cb0b43b01aa93c1b75e9d9f50ef48fac6bc6cb152a27cc98ff870a2e66e6f4f"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 2080,
+        "sha256": "0efc3d44f2fc737872958e1bff8d0b5d4940efb4238961c526c9639657e0cfc6"
+      },
+      "target": "rc4-operator-inputs/native-recovery-18/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 2080,
+      "sha256": "0efc3d44f2fc737872958e1bff8d0b5d4940efb4238961c526c9639657e0cfc6"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/readiness.py",
+        "bytes": 2570,
+        "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-18/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/readiness-inputs.json",
+        "bytes": 93918,
+        "sha256": "109cfb4477dd6d81935465ac3a8a0adb741d666f59981f693b2fa0ab5db6e5af"
+      },
+      "target": "rc4-operator-inputs/native-recovery-18/readiness-inputs.json",
+      "bytes": 93918,
+      "sha256": "109cfb4477dd6d81935465ac3a8a0adb741d666f59981f693b2fa0ab5db6e5af"
+    }
+  ],
+  "meaning": "One canonical eight-input mapping reused by readRoots, sources, selectedPaths and role readFirst; no Product scaffolds/history bodies."
+}

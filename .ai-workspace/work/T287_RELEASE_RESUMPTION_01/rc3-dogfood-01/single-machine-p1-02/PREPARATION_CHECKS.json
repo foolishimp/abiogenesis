@@ -1,0 +1,23 @@
+{
+  "all9IDsAndNonArgumentFieldsConserved": true,
+  "callFileSha256": "22c0360e7c7bc9361a97472aeaf7212b160799185e9e17c691f68ade76e96722",
+  "canonicalSourceUnchangedAfterPreparation": true,
+  "exact20CommitHook": "returned0",
+  "inputFileSha256": "f34967505e8a39ad84d3f4b523bcda476b10f9403f5f3c1e6bcfe1b57385d15d",
+  "installedPinsReused": 5328,
+  "kind": "single_machine_p1_02_static_preparation_checks",
+  "manifestFiles": 1031,
+  "manifestSha256": "b45ef784b5d6c680d4ca645b5f70571a91e81714bf55665f0f5ede375c9107f5",
+  "newModelFreePreflightOnly": true,
+  "noNewBootstrapStore": true,
+  "noPublicProviderCall": true,
+  "noStartedMarker": true,
+  "onlyCommandArgumentDeltas": [
+    "source-correspondence53",
+    "focused-owner-chain11"
+  ],
+  "rubricEqualsOriginal": true,
+  "sourceBasisNone": true,
+  "sourceCommit": "9c4a5c5e136ec564c66d1598fd32161ad4101f24",
+  "standing": "prepared_not_admitted_not_dispatched"
+}

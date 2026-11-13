@@ -1,0 +1,39 @@
+{
+  "recordedUtc": "2026-11-03T21:25:48.111260+00:00",
+  "coordinates": {
+    "kind": "c_call_result_admitted",
+    "admissionOrdinal": 34173,
+    "eventId": "event://abiogenesis/ed1653b40441b0b213b1f2f8e9280e071241acd32d416903f85cc00cdf7a95d6",
+    "eventTime": "2026-11-03T21:06:33.771Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "runId": "run://abiogenesis/7d0d16143b6fc2bffd4e4c1daac98e1b5f23ebdaf97d90131fa501d047ab039c",
+    "offset": 352368552,
+    "rowBytes": 2542569,
+    "rowSha256": "0e20ccb0ccd396e7006f5c4ba957b41e2ebff63412418ea24be13a9cc2cc4fa5",
+    "resultRef": "result://abiogenesis/4978531e4fdf9bff4e7d54b7ffe166c0962d7f3e0b1bd5e5ba5c291973d4ee18",
+    "valueKind": "native_workspace_work_observation"
+  },
+  "assessment": {
+    "disposition": "unmet",
+    "kind": "sandbox_uat_assessment",
+    "reason": "Assessed read-only against the exact candidate design sha256:d1dff3b4\u2026bef88 and rubric sha256:987adaad\u2026dcae9, both re-hashed and equal. Producer is Testing Result 190ca5\u2026. All criteria remain open. C1 unmet: the qualification_proof source carrier is not migrated. qualification_proof.ts:13/141 still imports and calls runtimePrefixFromArtifactTruth (artifact_truth.ts:841). projectRuntimeTruthAtDurablePrefix is still exported (replay.ts:120, index.ts:330). Its only consumers are the eleven granted t287 tests and falsifiers plus the fresh-process test proof harness. Selection04 retires that wrapper 'unless a concrete supported production contract is found', and a test harness is not one, so the stated retention reason does not meet C1 or selection04. planPendingInteractionAdmission has no remaining references, so only that wrapper is retired. Forward calls worksite_revision through a typed call-site widening, and an @internal overload repair is returned out of grant. Removing prefix/events from the declared ./abg return shapes of the forward/recovery authenticate and project functions has no owner ruling on whether it changes the Public contract. C2 unmet: the only measurements are scratch owner-meter figures. The liveness meter still shows about 25 RuntimeLivenessReconstruction rebuilds from ordinal 0 per invocation. The three global public_operation_admitted walks are attributed but not consolidated. CPU share is not measured. There is no actual C2 same-input measurement. C3 unmet/indeterminate: actual C2 command 6 (c2-proof.mjs) exited 1. The maintained-setup-harness lane ran 30 pass / 2 fail against a minimum of 32. Case 19 fails with ENOENT on test_env/uat/config.example.json. That file exists in the repo but appears in neither C2_SELECTED_INPUTS.json nor C2_INPUTS.json, so I attribute this failure to an operator input omission, not shown to be a candidate defect. The second failure is not visible in the admitted output and stays unattributed and indeterminate; even with case 19 fixed, the lane would still fail. c2-proof stopped before reading artifacts/single-address-space-proof.json (absent) or writing its lane report (test_runs/single-address-space-native-04 absent). No installed-producer native UAT, fresh result/replay or final close ran. Scratch whole-path and setup-case passes are author feedback, not actual proof. C4 unmet/indeterminate: R1\u2013R7 dispositions exist only in the Worker's return.json. R1 and R6 hand their reconstruction lineage and global walks back to Root. R4 and R5 are recorded as outside the grant. Five of the selection04 discriminator families named in return.json were not added: null/non-null scope, out-of-Run malformed/duplicate pairs, orphan/mixed-arm facts, missing versus out-of-scope, and declaration predecessor variants. C2_SELECTED_INPUTS also omits runtime-retained-projections-worker.mjs, the ABI5_S02_RETRY_FIXTURE carrier and config.example.json. C5 unmet: all 88 return.json source hashes equal the current worktree bytes (checked in memory). However, readiness.json records ready=false and frozenCandidate=null. The Testing source-correspondence command has no comparison predicate. The affected-proof command failed. affected-owner-lanes ran with 30 skips, including 3 retry cases skipped for a missing fixture. No independent review conjoins this candidate. No credit is given for scratch green, stage counts or the Worker's self-report. Disclosure: only read commands and in-memory hashing were used; no files were written and no network was used.",
+    "unresolvedCriteria": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5"
+    ]
+  },
+  "nativeProvenance": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/23dcac93f215e2d78f75b55799a491041b08fdcfa52a5b1bee4dd20e11724141",
+    "cCallRef": "c-call:sha256:4bccd37c957f814ceefb844f337612abfd296e6e30d8bc050f1717c9a662c205",
+    "executionAuthorityDigest": "sha256:3aa306965d8be9125177636baff1ca5c62da11af98467e6537cba666f52e36b4",
+    "executionAuthorityRef": "leaf-execution-authority://abiogenesis/3aa306965d8be9125177636baff1ca5c62da11af98467e6537cba666f52e36b4",
+    "promptDigest": "sha256:0e80ae7f7765333499f8f69511f9f2f8fccc71fb09422dc5b7c44cf9a285b385",
+    "transportBindingDigest": "sha256:86c8f0987a3c4d105be04c197eec692b09e9fe675c8234d18bd0d7379b42e31d",
+    "transportBindingRef": "transport-binding://abiogenesis/86c8f0987a3c4d105be04c197eec692b09e9fe675c8234d18bd0d7379b42e31d",
+    "transportDigest": "sha256:aafabeb3e49bf612dddcbfa586852a68888030cd824c7d069b5dcb7ff3325430"
+  },
+  "standing": "Original native verdict preserved; Root conjunction names bounded evidence corrections without altering it"
+}

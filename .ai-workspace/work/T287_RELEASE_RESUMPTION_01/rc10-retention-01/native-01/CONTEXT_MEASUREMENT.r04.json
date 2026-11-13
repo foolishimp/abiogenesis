@@ -1,0 +1,18 @@
+{
+  "status": "STATIC_FINAL_INPUTS_MEASURED_ACTUAL_RENDER_AT_PREPARED",
+  "files": 310,
+  "sourceAndControlBytes": 9108628,
+  "absentSelectedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs"
+  ],
+  "taskJsonBytes": 17916,
+  "instructionUtf8Bytes": 10084,
+  "ceilings": {
+    "files": 1024,
+    "bytes": 33554432,
+    "renderedWorkOrderBytes": 1048576
+  },
+  "withinStaticFileByteCeilings": true,
+  "actualRenderedWorkOrderBytes": null,
+  "actualMeasurement": "Unchanged host records observed member bytes and exact installed renderer work-order bytes in PREPARED before native dispatch; provider/system scaffolding remains unmeasured."
+}

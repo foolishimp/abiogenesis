@@ -1,0 +1,34 @@
+{
+  "kind": "c_call_result_admitted",
+  "admissionOrdinal": 188910,
+  "eventId": "event://abiogenesis/fcebde3f75af37690feb5b8e2e21d3c31a1783aff3f60ae212f410c89396ded3",
+  "eventTime": "2026-11-06T04:21:05.294Z",
+  "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+  "runId": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632",
+  "offset": 1130557143,
+  "rowBytes": 48152636,
+  "rowSha256": "f41bf60acb04ca7cf46acf0152393ad86b8b76e8fc8188f52447e23e2fe21d38",
+  "resultRef": "result://abiogenesis/29ce05da44ebff17763c6a567fd274001a42f59b23d3a50f76573d1603514f7b",
+  "valueKind": "native_workspace_work_observation",
+  "eventPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "physicalRow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "offset": 1130557143,
+    "bytes": 48152636,
+    "sha256": "f41bf60acb04ca7cf46acf0152393ad86b8b76e8fc8188f52447e23e2fe21d38"
+  },
+  "payloadDigest": "sha256:6b854b0ade840271d77e51e50d49d243cf0bcb488a3121f82dc31f31f23fe332",
+  "bodyReference": null,
+  "result": {
+    "digest": "sha256:29ce05da44ebff17763c6a567fd274001a42f59b23d3a50f76573d1603514f7b",
+    "ref": "result://abiogenesis/29ce05da44ebff17763c6a567fd274001a42f59b23d3a50f76573d1603514f7b"
+  },
+  "valueDigest": "sha256:38b566897a0e17a32db475b1b77c8b25434c6e91f2451a6a063a099768b59787",
+  "ownerReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/execution.json",
+    "bytes": 215694883,
+    "sha256": "0abf50e39e46e0167cc27f571cb0616db30b690e63be5c2dc50c1de4e2babcd0"
+  },
+  "ownerValuePointer": "/receipt/ownerOutput/value/terminalResult/value",
+  "standing": "Physical selected row joined to actual owner receipt; no event admission, whole-history decoding or substitute runtime truth"
+}

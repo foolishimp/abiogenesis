@@ -1,0 +1,25 @@
+{
+  "startingStageDigest": "691366bebf212cd763a67a11cbd9d11df41ef914759fcac2424d09f372314eaa",
+  "primaryStageDigest": "a3d3b876f57a943331900bf7a8cb311aedba1e4e294f5d470dd5835fa6f00e83",
+  "startingDependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+  "externalTestInputDigest": "04c98f99415488f1b18605899b2789fe4d3ba6f2adf4c8b5803f63e6daa1ecd9",
+  "externalTestInputsPreserved": true,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/t287-w2-05-generator-package.json",
+      "kind": "file",
+      "bytes": 8973,
+      "sha256": "df0021e2773aad4efbbad3240bd9839c27940cda02021a5f7b854c51c717471d",
+      "executable": false
+    }
+  ],
+  "sourceEffects": [],
+  "cleanup": "Only this successful derived source/build copy; retained test outputs above are preserved."
+}

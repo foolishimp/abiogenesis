@@ -1,0 +1,200 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "claim": "Bounded closure of TEST-FIXTURE-005-F1: retain established same-process immutable event references in F04 initial setup while preserving the existing intentional cold replay and all original assertions.",
+    "authorityBoundary": "Unchanged Product/HOW and ABG runtime authority; local test construction creates no runtime admission or lifecycle truth."
+  },
+  "kind": "independent_bounded_test_fixture_closure",
+  "createdUtc": "2026-11-07T07:48:36.386473+00:00",
+  "reviewer": "/root/rc8_source_review",
+  "verdict": "satisfied",
+  "findings": [],
+  "triage": "not_applicable",
+  "subject": {
+    "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "sourceRows": 1339,
+    "preimageSourceDigest": "ed403dda50772e778be696c91250d73a54c6abf5b8fea609bc1c8bacfccbc4d0",
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    "changedSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "bytes": 55353,
+      "sha256": "306d7410c5791df1e55ba09787681203d54118ca99b90caf92d0c863ab2adc80"
+    },
+    "construction": "Previously verified immutable source chain plus the one retained author-06 overlay. No moving C8 source read."
+  },
+  "pins": {
+    "scope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SCOPE.json",
+      "bytes": 7865,
+      "sha256": "3d8b7b5e2752d25c150482f9f6cfcc56ac69f52dbeaa869d02de9a5e6e3f1d0e"
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/READY.json",
+      "bytes": 572457,
+      "sha256": "4544cf2e6a2eda35232b2f30efe26dec5ed59f05e2c4879c86ef1e700aff5145"
+    },
+    "overlay": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "bytes": 55353,
+      "sha256": "306d7410c5791df1e55ba09787681203d54118ca99b90caf92d0c863ab2adc80"
+    },
+    "preimageFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/source-freeze.json",
+      "bytes": 296028,
+      "sha256": "7f845f6828ecd3255381deab9251047ba860a4e0dfdaccaf5ee6abc0e0c4416b"
+    },
+    "preimageReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-005/REVIEW.json",
+      "bytes": 23499,
+      "sha256": "5cf2d75c072f8b0d00bbacc57acca7418b4f83931866af02d852adb71043da2c"
+    },
+    "newF04Result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/RESULT.json",
+      "bytes": 793,
+      "sha256": "b57f0ef2d61fbe4c76cc1b6b5834026fe2ca951b9823cf47d60f290dc2434f8f"
+    },
+    "newF04Command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/commands/test.result.json",
+      "bytes": 1444,
+      "sha256": "ef83afd0460bcc4e46b8d21106501f75512f0c69072c8a5399ce15766a328289"
+    },
+    "newF04Stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/commands/test.stdout",
+      "bytes": 4448,
+      "sha256": "ae73a6c8f7e16b6e8c65e5d5a533d85c5a5e2cbd36c68282d62cd7d0a3a147b7"
+    },
+    "newF04Stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/commands/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "newF04Reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/events.jsonl",
+      "bytes": 1115,
+      "sha256": "13856c26bee363e138974d31896be5bbadeb98e7422924969113e684cb5c0792"
+    },
+    "retainedNativeResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/RESULT.json",
+      "bytes": 793,
+      "sha256": "a7ecaa5fcedcd87ba16f2fc09bf4d1fa491ba5c5a91c76eeb3fcecfbdead1162"
+    },
+    "retainedNativeStdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/commands/test.stdout",
+      "bytes": 14801,
+      "sha256": "795797d07970e663292d8bdff4109886f4d3f9e360eb2bdc26d7603db18b6778"
+    },
+    "retainedNativeReporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/events.jsonl",
+      "bytes": 12711,
+      "sha256": "4072b37205b4227a35633cc3bb0b2fc5a1292b63a74d79a6553fde7e4a8ad3f7"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "basisReuse": "Exact A5 review, its verified authority/requirements/owning HOW and source correspondence remain applicable. The explicit owner identity constraint and unchanged event_prefix.ts:178-179,465-490 establish that the returned event is the immutable selected object. No full source/Runtime audit was repeated.",
+  "delta": {
+    "changedFiles": 1,
+    "addedFiles": 0,
+    "deletedFiles": 0,
+    "code": "rows.push(prefixes.runtimeEventAtPrefixIndex(basis.prefix, index));",
+    "line": 287,
+    "otherEdit": "Adjacent comment now says the mode owns its rows array while retaining immutable event references in order.",
+    "noOtherDiff": true,
+    "coldReplayUnchanged": true,
+    "allAssertionsAndThirteenModesUnchanged": true,
+    "helperAndNativeWorkspaceUnchanged": true,
+    "sourceManifestComparison": "All 1,339 row entries compared with A5; only the permitted F04 row differs. Source digest independently recomputed.",
+    "derivedManifestComparison": "All 2,132 derived-input entries compared with A5; only the same test differs.",
+    "physicalReadback": "The new materialized test matches the overlay. Materialized native-workspace test and helper match their unchanged source pins. Previously verified nonchanged source/owner facts are reused, not claimed as a new complete physical audit."
+  },
+  "findingClosure": {
+    "finding": "TEST-FIXTURE-005-F1",
+    "originalSeverity": "S3",
+    "successorAssessment": "Repaired on this exact successor. The direct push preserves the actual event reference; the new array supplies fixture isolation. No serialization, clone or repeated freezing occurs in the initial loop.",
+    "preservedBoundary": "The intentional later cold JSON roundtrip remains and its original equality assertion passes.",
+    "identityEvidence": "Direct source expression and unchanged established-immutable owner contract. No new implementation-mirroring test was added.",
+    "functionalEvidence": "New complete F04 mechanical proof below; old failure and A5 finding remain unchanged historical evidence."
+  },
+  "proof": {
+    "newF04": {
+      "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+      "tests": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "wallMs": 37027.579542,
+      "exitCode": 0,
+      "timeout": false,
+      "truncated": false,
+      "stderrBytes": 0,
+      "reporterEnd": true,
+      "modes": [
+        "valid",
+        "invalid",
+        "absent",
+        "unreadable",
+        "conflict",
+        "owner-unavailable",
+        "artifact-refused",
+        "probe-refused",
+        "process-refused",
+        "plan-mismatch",
+        "unknown",
+        "present",
+        "normal"
+      ],
+      "assertionCoverage": "All thirteen completion diagnostics occur after original per-mode assertions. Exact EPIPE identity, negative artifact/process modes, normal completion, native-contract reuse and intentional cold reconstruction remain exercised. Twelve stdout modes show real window activity/artifact_pending probes; absent shows no window.",
+      "buildInvocations": 0
+    },
+    "retainedNativeWorkspace": {
+      "sourceDigest": "ed403dda50772e778be696c91250d73a54c6abf5b8fea609bc1c8bacfccbc4d0",
+      "passed": 43,
+      "failed": 0,
+      "skipped": 1,
+      "standing": "Exact A5 evidence reacquired, not rerun or restamped as A6. Native test, helper, owner inputs and archive unchanged.",
+      "historicalSkip": "ABI5_NATIVE_WORK_RETAINED_ROOT unset; retained installed-consumer case remains skipped and receives no pass credit."
+    }
+  },
+  "archiveRelation": {
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "unchanged": true,
+    "testUnshipped": "Previously verified exact member list excludes the affected test and helper; archive hash rechecked unchanged.",
+    "ProductOrPerformanceDelta": false
+  },
+  "independence": {
+    "productOrTestAuthorship": false,
+    "testExecution": false,
+    "actions": "Read-only frozen comparison, hashes and retained proof acquisition. No Product calls, tests, repair, Git/provider effects or subagents. Writes only this capsule."
+  },
+  "limits": [
+    "Satisfied only for this mechanical fixture correction and bounded focused evidence.",
+    "F04 retains controlled physical/admission premises; native-workspace retains its previously declared component boundary. No native held-store/rollback/flush or full installed Run claim.",
+    "Root retains native SDK/readback/physical-close conjunction, broader proof credits, remaining broad execution and cut/install acceptance.",
+    "No whole-5.0 qualification, publication or global-selector claim."
+  ],
+  "invalidation": [
+    "A changed one-line delta, owner immutability contract, frozen input/proof pin, Product/method/frame or standing identity constraint requires re-entry.",
+    "A counterexample showing retained event mutation or a changed copy-boundary requirement revises the affected reasoning."
+  ],
+  "owningReentry": "No additional repair recommended in this cone. Return to Root for its remaining native-readback/broad/cut conjunction; Reviewer does not select or perform those effects."
+}

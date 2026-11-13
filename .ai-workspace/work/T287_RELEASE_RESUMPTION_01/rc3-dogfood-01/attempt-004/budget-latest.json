@@ -1,0 +1,53 @@
+{
+  "kind": "rc3_b02_usage_projection",
+  "atUtc": "2026-10-31T09:22:53.211444+00:00",
+  "streams": [
+    {
+      "stream": "fp-0a6e158a20c312e0-stdout.log",
+      "bytes": 240961,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.684452",
+      "unresolved": false
+    },
+    {
+      "stream": "fp-25fe5e4f91079651-stdout.log",
+      "bytes": 4009634,
+      "terminalResultRows": 1,
+      "reportedUsd": "4.9741874",
+      "unresolved": false
+    },
+    {
+      "stream": "fp-28892d06774fc613-stdout.log",
+      "bytes": 1785,
+      "terminalResultRows": 0,
+      "reportedUsd": null,
+      "unresolved": true
+    },
+    {
+      "stream": "fp-7e1b1b843f520577-stdout.log",
+      "bytes": 3104381,
+      "terminalResultRows": 1,
+      "reportedUsd": "5.818089399999999",
+      "unresolved": false
+    },
+    {
+      "stream": "fp-96925bcf5960b9f9-stdout.log",
+      "bytes": 254504,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.7854",
+      "unresolved": false
+    }
+  ],
+  "knownReportedIncrementUsd": "14.262128799999999",
+  "historicalReportedNativeUsd": "46.3959266",
+  "historicalPlusKnownUsd": "60.658055399999999",
+  "unresolvedProcesses": 1,
+  "startedWithoutObservedStream": false,
+  "rootAction": "STOP_FOR_TRIAGE",
+  "limits": [
+    "Root monitors and controls the process; this projection does not enforce a cap",
+    "A running or ambiguous stream is unknown, not zero; proxy and other host charges remain unknown",
+    "Reported amounts are provider telemetry, not verified billed spend",
+    "Raw streams remain in their native archives"
+  ]
+}

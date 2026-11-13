@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "23d5546182514a369dd55781a0ff5f997204372bcecd9536d876c363e0c1930d",
+  "sourceCommit": "6937d30e869c23d819e98be26b136e090ec541d7",
+  "sourceTree": "914ebdee0d897784313dcf2705adf35db09a4cd6",
+  "decision": "Root reviewed exact attempt013 task,13-path grant, bootstrap boundary,HANDOFF and214 binding/22 packet pins. Admit bounded installed preflight/call construction only, with zero provider/Run admissions. Preserve zero canonical generated writes,four bounded scratch entries,original RC3 W contained in R bootstrap and accepted13-path scope. Actual frozen-call review and separate Root selection are required before one-shot dispatch; no automatic retry, code acceptance or release.",
+  "createdUtc": "2026-11-02T11:50:25.495937+00:00",
+  "packetSha256": "d04ee1a8260f6b318edf47f495809195713fdc2ce19fc9b1e089c226fb0a21e2"
+}

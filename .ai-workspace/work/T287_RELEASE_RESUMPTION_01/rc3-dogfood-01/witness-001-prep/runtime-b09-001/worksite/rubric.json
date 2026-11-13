@@ -1,0 +1,10 @@
+{
+  "outcome": "A bounded native Construction lookup over the current Run's admitted diagnostic evidence and original task basis",
+  "criteria": [
+    {"id":"W1","criterion":"The first selected Testing call has no claimed prior subject Result and measures the exact provided diagnostic fixture as its actual stdout in this Run."},
+    {"id":"W2","criterion":"Native Construction uses the fixed installed lookup client to retrieve the complete current-Run Testing stdout and original task and rubric, with their actual producer, source and byte identities."},
+    {"id":"W3","criterion":"An explicitly denied key is refused, without authority widening or fallback; complete request and response bytes and their Claude tool-result correspondence are retained and cold-joinable."},
+    {"id":"W4","criterion":"The actor identifies the actual failure supported by the retrieved bytes, conserves the original task and rubric, and distinguishes observation from unproven behavior."},
+    {"id":"W5","criterion":"Actual admitted Testing, Construction and transport evidence is preserved with honest gaps and native parent status; the witness does not claim overall UAT or Product qualification."}
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "status": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "selectedUtc": "2026-11-03T13:09:25.931500+00:00",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc5-performance",
+  "sourceTree": "6b40c56409c7e8990028644048b4aaad1b9ae027",
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.5",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.5",
+    "artifactDigest": "sha256:4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+    "manifestDigest": "sha256:0a897768a558df57842b47a9ec2947562f6c7e7730bc711fa85f791655e90db0",
+    "productContentDigest": "sha256:95d6634615c069e41c6b1ddd950454995f69d75cf03d3a43a8c9cbce97547b7c",
+    "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/worksite-command-execution/6d280b985987bf92feec3bbbe276a3b702f42ee7073b76a7ea65d11cc171ddba/ed5cd8a376c009be762b66f11b4a5ff0e8e3e31b9df2a5ec7d1dc055fd3bf59b/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+    "bytes": 10998785,
+    "sha256": "4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8"
+  },
+  "archiveMembers": 5325,
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.5",
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.5",
+  "installPath": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "tools": [
+    {
+      "name": "node",
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "name": "tar",
+      "configuredPath": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "bytes": 274448,
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    }
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/ROOT_FINAL_ACCEPTANCE.json",
+      "bytes": 7523,
+      "sha256": "4965f23e7187dcac88570e2265c396f4146d443acf2ad518744a0cc60ec256e4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/SOURCE_ADOPTION_CHECKPOINT.json",
+      "bytes": 2890,
+      "sha256": "9af05326124f74fe92b8211715dc7e5f910dc4929a9e9074c282f43805071066"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/GENERATED_ADOPTION.PREPARED.json",
+      "bytes": 20436,
+      "sha256": "6aa9cc17bb7bd745e378280302b9fda4115a67079ec0fb39a76aaf299c5056dc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/CLOSED_CONJUNCTION_OBSERVATION.json",
+      "bytes": 11638,
+      "sha256": "9f7e56cdce252a5bc7fb245d50289c7a0f4b1d9e9ae2899549a9f30c720c8522"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/execution/TIMING_OBSERVATION.json",
+      "bytes": 1096683,
+      "sha256": "ff7094466bf7cf045646dd539a0a260a32b752f20a50fefc33a8cd73b82e66c6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/WORKFLOW_PERFORMANCE.json",
+      "bytes": 13686,
+      "sha256": "3b948422ad490ebec2c293fd2a2833ff9c241eef43eedf77411139b7f7a03bbd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/SOURCE_REPRODUCTION.json",
+      "bytes": 3619,
+      "sha256": "a9df6459028263d9a329e8ccbed7537f20be76a51e8fb6631ae81102733bf607"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/EVIDENCE_CUSTODY_PREPARED.json",
+      "bytes": 468,
+      "sha256": "fb6af1a2592725cd6b6ad0806fb627ae2d1a7f9efb6366c2c8b3cafa2bb10519"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc5-performance/.ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/INDEX.json",
+      "bytes": 530967,
+      "sha256": "1f2ff7e1c33c30efd7037fa9fb24591ae6781680aeddb3798667febab4c6c833"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 2758,
+      "sha256": "f28e739baf2f5a4935b393c9a15204226d5cb252ef066ffa587461c3f4d8c661"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/review-subject-001/SUBJECT.json",
+      "bytes": 88235,
+      "sha256": "6dcb7b4dd0eb84b8d5706c3e50a3cf3576796f0bc77418fcd3ee68ee85e6dbee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/execution/fresh-reads.json",
+      "bytes": 4250251,
+      "sha256": "a85e9e1848f4d31bfc981093a0f6b02ef3b288e4c0bbc04efb736d4a99d842d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 2563,
+      "sha256": "a0c4c3d44bd453d27c68262c0841d25d59330269a1f6bd6be1790131b15f2a53"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01/FIRST_C2_FAILURE_TRIAGE.json",
+      "bytes": 3842,
+      "sha256": "de1080aba050b0f8cc9d173e2d51a7f66743bba2c0dedc69839c64e0a795fb5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01-r2/ROOT_REPRICING.json",
+      "bytes": 3214,
+      "sha256": "e76694421806047da77e06e29ae757ac8c12ae4c40d840bfe5637aeeaa16939c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/FAILED_C2_OBSERVATION.json",
+      "bytes": 7900,
+      "sha256": "7b0ee2ffe2449035278a36d2cc0df73c1257647d367d28b1480bd12f216fae77"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 3041,
+      "sha256": "1cd3895ca6353419024197ca9d531afc01204c34e3aff6220532490889769150"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/CLOSED_FAILED_CONJUNCTION.json",
+      "bytes": 3100,
+      "sha256": "848b2cc5d87fc8fef2bc37312cefd71866d0dfd640efe3ac073d03d790f809b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/PREPARATION_REFUSAL_01.json",
+      "bytes": 996,
+      "sha256": "06434d0a53ab9833988174d2f59aa53a863a6fe4dd39b294e48fcf555640971c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/CLOSED_FAILURE_TRIAGE.json",
+      "bytes": 2453,
+      "sha256": "a7c0e44b9edb820331d19b7af2cf3076bb84ae9bac0263cf03e19804cb3f86ef"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/SELECTOR_CAPACITY_PREFLIGHT.json",
+      "bytes": 1168,
+      "sha256": "66bd6e05a1ce632f4e147094a34fc411aac6c8c93a5c801130bd44ae252b08cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/REENTRY_TRIAGE.md",
+      "bytes": 6137,
+      "sha256": "727edf6ddc044ee9e6a2b2641a8af5e627bdb07c88a7bde4e5b09173c0f6fb6e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/REENTRY_TRIAGE.md",
+      "bytes": 3790,
+      "sha256": "922ed21e3a008d91ca10cef0cd356042741191515859a1aca775454a8ddbac05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/PARTIAL_CUSTODY_CHECKPOINT.json",
+      "bytes": 990,
+      "sha256": "e584a8d1837b88263cbc367b4c07c64f90941bcb9957cc5398e4f0b7815b6699"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/NATIVE_PROVIDER_FAILURE.json",
+      "bytes": 2797,
+      "sha256": "17dc05c11de0f67019a3c7151623c2c7629bd2042670489cb6b3a2fef6103ee0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/worksite-command-execution/6d280b985987bf92feec3bbbe276a3b702f42ee7073b76a7ea65d11cc171ddba/ed5cd8a376c009be762b66f11b4a5ff0e8e3e31b9df2a5ec7d1dc055fd3bf59b/sandbox/build_tenants/abiogenesis/typescript/artifacts/rc5-final-proof.json",
+      "bytes": 10016,
+      "sha256": "725c025819827af4577fa5ebed8e276da3c15d2594921ce05677f91d11c0dbfe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/install-local-rc5.mjs",
+      "bytes": 7209,
+      "sha256": "15f6639ee3204234e471bc37a994c7abfb84163e66e66051bbc8a417ac981450"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 530,
+      "sha256": "158477d2aaa3ba42b83644c3a65597f4efff5933b91d4550a810491ec9864686"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/RESIDUALS.md",
+      "bytes": 727,
+      "sha256": "2f96b9a2f857f39e573a5e8ce8e11df3e9f19ef519f44ca35387f721ec39a229"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/ROOT_AUTHORITY.md",
+      "bytes": 615,
+      "sha256": "6fa8e519713ca020cbfc7522950c554c6f550cb9a7d6593b1059b615b5ac3fd1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 18408,
+      "sha256": "ab18dfd105eb6e6ed9e9b934fb0f4c4753582b23317c773631de63ed076dddf0"
+    }
+  ],
+  "claim": "Local unqualified RC5 candidate: exact STDO3.0.4 default-library/qualification inputs, bounded private retained-route representation and selected affected proof, built by immutable installed RC4. No stable-release claim.",
+  "limits": [
+    "No full fifteen-family, F11/soleAF22, GC03 host-adapter or whole-method qualification.",
+    "Native method01 first C2 failure, r2 indeterminate UAT, F4-01 operator turn-cap failure, F4-02 installed-fixture failure, and F4-03 preparation and selector-bound refusals remain historical; final bounded conjunction does not rewrite them.",
+    "Captured physical-row saving is not a universal workload, latency or capacity claim.",
+    "Cold-history and task-launch timing observations do not establish a causal speedup.",
+    "Local source branch is unmerged and unpushed; no tag, global selector or stable-release claim.",
+    "Installation verifies an accepted candidate; it adds no provider/native-work qualification."
+  ],
+  "effectGrant": [
+    "fresh local release custody and actual Product-owner installation",
+    "exact all-member byte comparison and receipts"
+  ],
+  "failurePolicy": "Preserve any partial allocation and failure receipts; refuse existing roots; no automatic overwrite/removal/retry."
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "root_operator_budget_checkpoint",
+  "atUtc": "2026-10-31T09:03:21.825521+00:00",
+  "rootPid": 98124,
+  "publicCliPid": 1996,
+  "action": "SIGSTOP Public CLI between provider processes for Root triage",
+  "reportedIncrementUsd": "14.262128799999999",
+  "historicalPlusReportedUsd": "60.658055399999999",
+  "purpose": "Review B02 actual returned source and missing production selection before further paid work",
+  "claims": [
+    "This is an operator process suspension, not an admitted ABG stop or replay recovery"
+  ],
+  "processesBefore": [
+    {
+      "pid": 1996,
+      "ppid": 98124,
+      "state": "Rs",
+      "command": "/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js --jsonl /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/calls/lifecycle-start.request.jsonl"
+    },
+    {
+      "pid": 98124,
+      "ppid": 1087,
+      "state": "Ss",
+      "command": "/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/dispatch.mjs 05c14935e752e05b1a941d8054ce8a8de06fe1f3b506abe6dbee620182b9ead8"
+    }
+  ]
+}

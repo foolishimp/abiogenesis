@@ -1,0 +1,85 @@
+{
+  "status": "PREPARATION_ONLY_AWAITING_FINAL_FIXTURE_SCOPE",
+  "recordedUtc": "2026-11-07T06:43:10.493202+00:00",
+  "authority": "Executive /root prepare-only author04 activation under existing user approval ok move to rc7 build rc8",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "goal": "GOAL-035",
+  "ticket": "T-287",
+  "fixedFamilies": 15,
+  "sourceCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/SOURCE_CORRESPONDENCE.draft.json",
+    "bytes": 3620,
+    "sha256": "f9f040a881dd3a032787e6ab0be982db63016a03f644e9b4040ac277b0c81b65"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/runtime-001/resource-close.json",
+    "bytes": 2305,
+    "sha256": "da933b9f6e016336c0ae555430a821be077b9ea2c608e5ca1612f4790973d86c"
+  },
+  "closedPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 79112126,
+    "prefixDigest": "sha256:0f17cdf350cb75b6e5551d89efeade82d0f27332bdd91c7228ffb4bbccae80da",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 708868359,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:6112c30afde3b6a7fdfa2c7a2b84aab4715e4986ba2f52d4116108e0114b9c02"
+  },
+  "priorPreparedCoordinates": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/runtime-001/PREPARED.json",
+    "bytes": 6174,
+    "sha256": "edb1c5ff82bf7f579a27f45a73dab60c22907ae844b665aa46ff1e264fe72ea0"
+  },
+  "consumerAcquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/runtime-001/consumer-reacquisition.json",
+    "bytes": 10159,
+    "sha256": "5f7d70f56a2aa521b67f9092a47c6953f35fe69415eb89ed56180f702b9b9684"
+  },
+  "baseControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+    "bytes": 9837,
+    "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+  },
+  "predecessorHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/host.mjs",
+    "bytes": 12242,
+    "sha256": "a1ee90828a5b4bfda1de6cc17d6f4b29e4425e98e26d35ae4599fa9bed099b45"
+  },
+  "hostDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/host.draft.mjs",
+    "bytes": 12242,
+    "sha256": "3960799b659265c7eb80a67d39db62a9daba66e9b7c5b13af1daff314d48ae3e"
+  },
+  "hostChange": "Only author-03 -> author-04 request/input/correlation coordinates; maintained owner setup and held stdin gate unchanged.",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/runtime-001",
+  "scratchRoot": "/private/tmp/abg-r8-a04-2okauuou",
+  "proposedProofRoot": "/private/tmp/abg-r8-a04-2okauuou/proof",
+  "candidateAffectedTests": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "pendingReview": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/broad-f04-001",
+  "remainingBindings": [
+    "Root final closed causal review and exact test-only write grant",
+    "Finite native and proof budgets",
+    "Frozen task/binding/proof recipe",
+    "One actual owner resume and PREPARED pin before any provider dispatch"
+  ],
+  "selectedEffects": {
+    "nativeProviderDispatch": false,
+    "sourceEdits": false,
+    "runtimeReopened": false,
+    "newRuntimeCreated": false,
+    "testsExecuted": false,
+    "git": false,
+    "cutInstall": false,
+    "cleanup": false
+  },
+  "elapsedPreparationMs": 210.16
+}

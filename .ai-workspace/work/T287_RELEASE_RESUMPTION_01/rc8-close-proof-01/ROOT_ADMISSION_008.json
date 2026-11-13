@@ -1,0 +1,112 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "recordedUtc": "2026-11-07T08:10:17.767757+00:00",
+  "authority": "Root explicitly selected one execution008 now with independent oracle-applicability review in parallel. Both exact historical input paths selected; assertions remain mandatory.",
+  "configSha256": "16ab3a72109b5320349e8a796ba51a24c94f982b078c8b685116e61787d923e0",
+  "inventorySha256": "26978b97531b2e39dbf127ffaa6a7606e979346fb269bdc6cb8aefcd1abd9fa1",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "fb62423083a2d290fb972b557d07b50ea461a4e181915c49b1d924417e0efc59",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-008.mjs",
+    "bytes": 31569,
+    "sha256": "9224930ae095e6c3126597afdbbd0d7295a1ac43ab5610013fd27c22f469c366"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+  "artifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "credits": {
+    "wholeFiles": 82,
+    "passed": 501,
+    "skipped": 106,
+    "scheduledFiles": 126,
+    "failedPartialPassesExcluded": true,
+    "historicalIdentitiesRetained": true
+  },
+  "requiredInputs": {
+    "hc1": {
+      "testFile": "test_env/tests/t287-framework-handoff-types.test.mjs",
+      "environmentVariable": "ABI5_HC1_BASELINE_PACKAGE_PATH",
+      "archive": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc4-hc1-baseline-014/b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db.tgz",
+        "bytes": 10957749,
+        "sha256": "b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db"
+      },
+      "testSource": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+        "bytes": 23654,
+        "sha256": "a3850322cc233c9bb8821ba99bbe92eee4b9cb31923d354798a465eb701d23b3"
+      },
+      "carrier": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/REVIEW_RECEIPT.json",
+        "bytes": 10907,
+        "sha256": "63582ec5044f3f0ba291b3abcbd33546c6f4be48e68d7e9d0ace85c23f1fbb56"
+      },
+      "standing": "Root selected this exact existing historical archive by read-only path, no copy/substitution. All original per-slot schema assertions remain; intentional schema drift is not waived."
+    },
+    "consolidation": {
+      "testFile": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "environmentVariable": "ABI5_CONSOLIDATION_INPUTS",
+      "root": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10",
+      "resources": {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json",
+        "bytes": 6147,
+        "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+      },
+      "baseline": {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+        "bytes": 5575,
+        "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+      },
+      "eventLog": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+        "bytes": 586361364,
+        "sha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c"
+      },
+      "testSource": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "bytes": 123504,
+        "sha256": "87b241a825aa1a4c9050e89e9f1f05a44d603baf542daacfb58243faef07f2ae"
+      },
+      "supportSource": {
+        "path": "/private/tmp/abg-r8-a06-kr_0tqzz/p/w/build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+        "bytes": 29332,
+        "sha256": "5ae58446ee3139f81d1503864d2e404c0aaa18c807f1d203cfeff2639cca74e7"
+      },
+      "existingSelectionCarrier": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+        "bytes": 2492,
+        "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+      },
+      "standing": "Required unconditional historical read-only resource/context input. Existing current-owner equality/performance assertions remain. No event import/relabel/reopen/append, baseline replacement or old package equivalence claim. Root concrete input selection pending."
+    }
+  },
+  "rootTriage": "Execution007 failed before comparison because the Operator omitted the required archive. No Product defect is demonstrated by that omission; current-schema oracle applicability remains a separate open review question.",
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "stop": "First red, incomplete, resource/input drift. No retry, test/oracle edit or waiver.",
+  "providerCallsSelected": 0,
+  "sourceWritesSelected": 0,
+  "gitCutInstallCleanupSelected": false,
+  "allPredecessorsPreserved": true
+}

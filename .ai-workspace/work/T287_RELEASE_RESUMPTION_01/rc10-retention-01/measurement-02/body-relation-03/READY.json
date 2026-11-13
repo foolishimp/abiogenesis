@@ -1,0 +1,37 @@
+{
+  "status": "CORRECTED_BODY_RELATION_READY_ARTIFACT_AND_EXECUTION_HELD",
+  "supersedesUnexecutedWitness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/READY.json",
+    "bytes": 2881,
+    "sha256": "af8c5315f276295446c2de984db83847254d51b1b2c438ed54dfa97c98c33c48"
+  },
+  "rejection": "Root correctly found publicRequestInvocationRef absent from scalarPayload; old observer would match zero. Old files/pins preserved, no runtime executed.",
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/measurement.test.mjs",
+    "bytes": 19969,
+    "sha256": "14a1e88e9d3e62faab83b78b87f1a4074c9648fbeba47aab1a32d2f672dba532"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/run-measurement.mjs",
+    "bytes": 6877,
+    "sha256": "cbf6e18c4bc639a9e9186ce142dcbace52e8a3ad1f72919a8584ea1336bece75"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/BINDING.HELD.json",
+    "bytes": 4520,
+    "sha256": "b21f7b8871ab829a174a4df614e44f6954965003038b6bcb656969fb405d97ac"
+  },
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/MEASUREMENT_DELTA.patch",
+    "bytes": 3744,
+    "sha256": "73dcf09463cd81c246859bde9576fea7ec9a982c8cf2bf502b02767895d76891"
+  },
+  "relationBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/RELATION_BASIS.json",
+    "bytes": 1990,
+    "sha256": "77834c4595777bed8643806f66a86cdec9f50c83c2144590bf6071efeceac09d"
+  },
+  "guards": "Positive gauges before any observer body/basis read; only actual admitted-event bodies establish Public-to-admitted relation, cross-checked with metadata; unchanged gauges; two basis reads strict identity/zero row work. No new handle/index. All50-call/no-forcedGC/zero-after/history/close/readback/budget guards preserved.",
+  "unbound": "Repaired source freeze, build, archive, install, relation and execution admission remain unbound.",
+  "syntaxChecks": "Both Node --check passed; no test/runtime executed."
+}

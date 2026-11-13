@@ -1,0 +1,42 @@
+{
+  "file": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+    "testSha256": "25c3756928fb8a568e515538ed38500e8a8bbb8ec695e76fdcc380b3a6a7c37d",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Actual024 file exit1 after4.945s,14partialpasses/1assertion red at exact Public L-to-P profile boundary. Root causal triage pending; no whole-file credit, residual or no-block disposition. Remaining four independent files only. Original output and all nine existing assurance capsules preserved.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_024.json",
+        "bytes": 22348,
+        "sha256": "3293171df8aa6b164a93fc4a67ab30448eba30916783394009581c8d632eae88"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/files/204-witness-reprice-definition-binding.json",
+        "bytes": 1185,
+        "sha256": "aa18c261ad492c3538e71e1afc08cb860487187c388eaab32320f05068345430"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.result.json",
+        "bytes": 1512,
+        "sha256": "85659a719c4ef509a6cd46140cedd5ff4fa6aa2b254fbbd2686f80962a7c7aaf"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.stdout",
+        "bytes": 6782,
+        "sha256": "433a249063a45f53a123546617f2e13af04afabdb80ea14d92dadd778d88a7d2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/events/204-witness-reprice-definition-binding.jsonl",
+        "bytes": 10512,
+        "sha256": "f2c1c83657c75efa8edf4cb596d1c810cdf079ee3f31ddc268a209872dbdb40b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/FAILURE.json",
+        "bytes": 615,
+        "sha256": "08bd7f1e49f51a64e01bf6304da6559b7ee4a95bd743a4d70ffc5bfef78b08fa"
+      }
+    ]
+  }
+}

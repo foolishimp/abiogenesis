@@ -1,0 +1,114 @@
+{
+  "kind": "native_author_progress",
+  "task": "rc7-held-session-author-02",
+  "status": "FROZEN_STOPPED_RETURNED_TO_ROOT",
+  "startedUtc": "2026-11-06T14:52:25Z",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "preservedTrackedChanges": 63,
+  "inheritedNewProductPaths": 2,
+  "harnessPins": {
+    "prior-author-lanes.mjs": "211bb0e2f91cf6210adf7ce64b23cf0fc4f64bb1f10aea00795baa7541e16dc2",
+    "prior-author-stage.mjs": "746e64b4009aad7c656686179892addfa4a878e9e41c43a49276c6f01580f78f",
+    "C2_INPUTS.json": "7808e4f75ac2253ac2a50826ff02f5157c6e39155966e447da865b1b3be5f04e",
+    "COMMAND_BOUNDS.json": "195c06b45e4a853e272dd86b9f57dcf693471ea7b0b3b16342dcee7f62c9dfb5"
+  },
+  "controlObservations": [
+    {
+      "id": "HS2-CONTROL-001",
+      "observedUtc": "2026-11-06T14:52:25Z",
+      "subject": "qualification-inputs/rc7-held-session-author-02/prior-author-lanes.mjs",
+      "relation": "Line 81 throws 'Selected finite per-lane bound and positive filter required' unless lane.timeoutMs===300000. C2_INPUTS lanes fixed-route and fixed-route-correction declare timeoutMs 600000 (the Root-selected primary bound). Line 74 creates the lane allocation directory before line 81, so invoking fixed-route deterministically reserves an allocation with no summary; every later lane and stage invocation then stops with 'Prior lane allocation incomplete'. Guard and caller lanes require a passed fixed-route first.",
+      "standing": "Static read of the supplied harness; not executed. The Worker cannot edit qualification-inputs. Running fixed-route would consume an allocation for a known harness refusal and block all remaining lanes and stage02, so this Worker does not invoke it unless Root corrects the control."
+    }
+  ],
+  "stages": [
+    {
+      "label": "hs2-stage-01",
+      "mode": "after",
+      "report": "qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01-stage.json",
+      "reportSha256": "e91a116e3706599ec51e7f24fe03e80c2ade7a0531694411510e9249da5dd5d4",
+      "setupMs": 1600,
+      "compile": {
+        "exitCode": 0,
+        "ms": 7628
+      },
+      "generate": {
+        "exitCode": 0,
+        "ms": 22604
+      },
+      "lifecycle": {
+        "exitCode": 0,
+        "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender"
+      }
+    }
+  ],
+  "lanes": [],
+  "updatedUtc": "2026-11-06T15:36:16.097Z",
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "unchangedGrantedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+  ],
+  "howRelation": {
+    "native": "T287_NATIVE_WORKSPACE_WORK_DESIGN.md Declared typed assessment: one admitted-environment dependency relation (resolveNativeWorkspaceAssessmentDependency) over unique contract declaration by schema owner, declaring Program member, unique owner install binding the publication digest, install lock = environment lock with one lock row, owner = assessor owner or exactly one requires edge owner->assessor owner, unique schema_asset install with equal bytes. Leaf port applies it before dispatch and carries assessmentPublication; assembly reapplies over carried publication and exact-prefix environment; cold reconstruction repeats from persisted basis; raw preimage repeats over Catalog. Static contractByRef/contractPublicationByRef unchanged.",
+    "governance": "T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md Fixed-route environment and assessment scope (HS2): whole-Program programDeclarationClosure.publications is the observeRunEnvironment input; callable-scope guards unchanged; fixed test uses sandbox assessmentSelection with scripted assessor answering the consumer schema.",
+    "common": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md 10.9 Maintained readback binding (HS2): runReadbacks binds abg; RC7 fixed admission case exercises heldReadbacks before close and freshReadbacks after.",
+    "carriage": "execution_resolution.ts adds typed carriage admittedCatalog/admittedInstalls only; no resolution or authority added."
+  },
+  "authorChecks": [
+    {
+      "check": "node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit (worksite tenant, non-incremental, writes nothing)",
+      "result": "exit 0, no diagnostics"
+    },
+    {
+      "check": "node --check runner.mjs, t287-default-library.test.mjs",
+      "result": "ok"
+    },
+    {
+      "check": "in-memory precheck of 451 protected paths against SOURCE_CUSTODY baseline",
+      "result": "0 read-only violations; 12 of 17 mutable paths differ from baseline"
+    }
+  ],
+  "sourceFreeze": {
+    "label": "hs2-stage-01",
+    "path": "qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01-source-freeze.json",
+    "fileSha256": "38648095634ef9eb071a841574e189f2bcfa0b4d8f58576c69bfe426c5e17103",
+    "sourceCount": 451,
+    "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120"
+  },
+  "finalFrozenSource": {
+    "stage": "hs2-stage-01",
+    "sourceCount": 451,
+    "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+    "freeze": {
+      "path": "qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01-source-freeze.json",
+      "bytes": 96806,
+      "sha256": "38648095634ef9eb071a841574e189f2bcfa0b4d8f58576c69bfe426c5e17103"
+    },
+    "worksiteEqualsFinalFreeze": true
+  },
+  "laneDecision": "Not invoked: HS2-CONTROL-001 (static, re-confirmed after stage-01).",
+  "gaps": [
+    "HS2-CONTROL-001: no proof lane was invoked. prior-author-lanes.mjs throws unless lane.timeoutMs===300000, but fixed-route declares 600000, and mkdir(out) runs before that check. Invoking it would reserve an incomplete allocation that blocks every later lane and stage-02. Guard and caller lanes require a passing fixed-route. The maintained-route, assessment-guard and caller proofs are therefore absent. Root must correct the control.",
+    "The fixed admission test (540s) and the new guard test RC7 assessment dependency (280s) are authored but have never run, so their assertions, timing and the scripted-actor kind derivation from the Exact declared response JSON Schema prompt line are unverified.",
+    "Out-of-scope test exposure, not executed: t287-native-workspace-work.test.mjs assembly owners (around lines 306 and 1113-1183) lack environment.resolvedProductLock and owner.resolution, so its assessment prepare/assembly cases are expected to refuse under the new relation. Mock leaf ports in t287-native-worksite-execution and t287-qualification-law lack admittedCatalog, so their assessment preimage returns null. Updating them needs a grant.",
+    "harness.test.mjs caller lane is not exercised; the candidate caller is untested on this source.",
+    "Proof reuse: retained HS02 and fixed-admission summaries (POST_AUTHOR_PROOF_INPUTS) bind the prior source digest only and give no credit to the changed owners. No acceptance claim."
+  ]
+}

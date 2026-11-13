@@ -1,0 +1,36 @@
+{
+  "kind": "rc7_local_cut_preparation_manifest",
+  "status": "CLOSED_STATIC_PREPARATION_ONLY",
+  "createdUtc": "2026-11-06T12:50:33.159412+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-001/INPUT_MAP.json",
+      "bytes": 25234,
+      "sha256": "83ef0ea25b85aad9e45abb1f2184ee481be81d23acb08764eb828b4282b90521"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-001/README.md",
+      "bytes": 5241,
+      "sha256": "d1c37d108053aec3b1385bc62b07d604fed209606b5fc937247e4aa4387864e7"
+    }
+  ],
+  "checks": {
+    "jsonParsed": true,
+    "allListedOwnerReferencesHashVerified": true,
+    "priorRC6WorkflowPinsRecorded": 13,
+    "currentFrozenOwnerPins": 8,
+    "currentReferenceOverlayCovers59TrackedAnd2New": true,
+    "futureSourceAcceptanceArchivePinsNull": true,
+    "operationsExecuted": [
+      "Read-only files/hash checks",
+      "Read-only STDO basis verification",
+      "Read-only git show of existing release-claim at exact base commit"
+    ],
+    "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-001"
+  },
+  "futureSource": null,
+  "futureAcceptance": null,
+  "futureArchive": null,
+  "RootActivation": null,
+  "claim": "Owner/command/input readiness only; no build/install/source acceptance."
+}

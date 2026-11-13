@@ -1,0 +1,103 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "identity": "T287-RC8-REF01-NATIVE-ADMISSION-002",
+  "recordedUtc": "2026-11-07T03:04:29.374980+00:00",
+  "admittingAuthority": "Executive /root exact control readback and dispatch disposition in this collaboration session",
+  "recordingWriter": "/root/rc8_operator",
+  "userApproval": "ok move to rc7 build rc8",
+  "bindingSha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2",
+  "preparedSha256": "2a5f8be6eb079f13441ed935faa9fa91d1cd02af1c8bc5164305b4c53e682986",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/host.002.mjs",
+      "bytes": 12842,
+      "sha256": "bbf4bd81e711b6ec78e5035151c452c5ed7604856cc242e16493642323e5638b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/proof.002.mjs",
+      "bytes": 5804,
+      "sha256": "20b964b0900b15c25306a20061b18b03a5c792e6231daa98d929f0fcbd9fc395"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/TASK.002.json",
+      "bytes": 10804,
+      "sha256": "aedba92096b81986f2371f941eb9d427368aae11c46f70c327564a3cbb54d8f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+      "bytes": 9837,
+      "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/ACTIVATION.json",
+      "bytes": 7032,
+      "sha256": "08cd30ce104e1e21b492b13c3efb0004f699cc181d303d1e29466bee4b8e8c4b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/SUPERSESSION_002.json",
+      "bytes": 4191,
+      "sha256": "69d85cbe57e3798b626d9626ccbe892830d7b2aa947e0bf331cd660aead433f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/CONTEXT_DIAGNOSTIC_001.json",
+      "bytes": 628,
+      "sha256": "248101cd1e78247326d773d1d7db4cc0884bb1924ddfd8a3fd95ed39a9fe32ad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/CONTEXT_DIAGNOSTIC_002.json",
+      "bytes": 619,
+      "sha256": "0402574376861af4249f89307bbd3ae5c960fd1bc7e391f85274961452fcafe4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resource-close.json",
+      "bytes": 2293,
+      "sha256": "9f175f4d3d6cc24f416255740306b91978419cc99fc550eb8c814166e5cd50bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/PREPARED.json",
+      "bytes": 6090,
+      "sha256": "2a5f8be6eb079f13441ed935faa9fa91d1cd02af1c8bc5164305b4c53e682986"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/claude-provider.sh",
+      "bytes": 68,
+      "sha256": "93542d7ecc30905e9f04ced90dd571b9514bfd8a62e4276620fd6d364051b997"
+    }
+  ],
+  "decision": "Launch the same held prepared canonical native call once through RC7 SDK, Claude Opus5.5 xhigh; no restart or repeated setup. Retain actual SDK return and final physical close.",
+  "controlTriage": "Original complete installed setup closed after operator context-closure mismatch: a redundant explicit absent support child conflicted with an observed directory member list. Root accepted the paired read-only discriminator omitting only that redundant read root. Write scope/bounds unchanged; no Product repair. Initial failure diagnostic gap and failed coordinate-only diagnostic are retained.",
+  "scope": "Exact TASK.002 full REF-01 constructor/transport/static-binding/Product-run reference preservation, owning HOW first; native author correctness/identity/counters, separate Root Operator matched measurement. Identity-only RC8 metadata updates included.",
+  "budgets": {
+    "nativeWorkers": 1,
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "maxTurns": 400,
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 1800000,
+    "sourceBuildStages": 4,
+    "serialProofInvocations": 8,
+    "primaryProofTimeoutMs": 600000,
+    "diskReserveBytes": 4294967296
+  },
+  "preparation": {
+    "hostPid": 38197,
+    "sessionId": 94711,
+    "setup001CumulativeMs": 40213.242708,
+    "resume002CumulativeMs": 21254.930333,
+    "nativeProgramViewSeparateFromLibrarySetup": true,
+    "prefixBytes": 3187544,
+    "profile": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+    "freeBytesAtReadback": 11742240768,
+    "providerCallsBeforeAdmission": 0,
+    "RunAdmissionsBeforeAdmission": 0
+  },
+  "limits": [
+    "Preparation does not establish native execution, source acceptance, Product correctness, full qualification or a performance comparison",
+    "Original RC7 cut/source/install and prior evidence remain immutable",
+    "No broad close suite, Worker review activation, Git/cut/install/publication/global selector effect",
+    "External build/test/platform scratch is separately admitted; no enforced filesystem exclusion or complete off-scope observation claim"
+  ],
+  "return": "/root; preserve actual return/close and disclose any failure without automatic retry",
+  "qualified": false,
+  "sourceAccepted": false
+}

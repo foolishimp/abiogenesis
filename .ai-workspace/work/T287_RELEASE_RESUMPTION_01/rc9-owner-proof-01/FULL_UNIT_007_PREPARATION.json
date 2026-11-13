@@ -1,0 +1,111 @@
+{
+  "ProductFrame": "Same Product/STDO3.0.4 and exact frozen BUILT003. Fresh external unit evidence, not reuse of expired native execution grant.",
+  "status": "HELD_READY_FOR_ROOT_REVIEW",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-full-unit-007.mjs",
+    "bytes": 16338,
+    "sha256": "497f6b8fc054f6020f6b5e38af4e4942867248d954c39c124280b564093ccbd3"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_BINDING.HELD.json",
+    "bytes": 53313,
+    "sha256": "5558ca3865bd4d7135f79ea90736a078543cb2797322b4c40b7a58156c0e2a2a"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_CONTROL_DIFF.patch",
+    "bytes": 20956,
+    "sha256": "93bde4dc1a564aac7f08e78f78e48961dd650a9c855baa9a3ce8b1e3cb0ca178"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_PREPARATION_CHECKS.json",
+    "bytes": 697,
+    "sha256": "deb91cf5437a40237263a8a5180c72a03ede44ae5c7066baefda1108203569b7"
+  },
+  "bootstrapProposal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_GATE_007_PROPOSAL.json",
+    "bytes": 3311,
+    "sha256": "10202ffc6629f9a35a8a2238cad0e2caea10a1cb3672e4224aab6eaaf51e1ad1"
+  },
+  "command": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "run",
+      "test:unit"
+    ],
+    "cwd": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+    "unitScript": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-held-owner-fold-reuse.test.mjs test_env/tests/t287-owned-call-reference.test.mjs test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+    "unitScriptSha256": "8c19e51ab6428ca149558e00bb4bab778953d6681a72a5db1abad6147b1fe0df",
+    "profiling": false
+  },
+  "testFilesInOrdinaryScriptOrder": [
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs",
+    "test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-native-runtime-gate.test.mjs",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/forward-command-contracts.test.mjs",
+    "test_env/tests/forward-command-owners.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "expectedCounts": {
+    "tests": 95,
+    "passed": 89,
+    "skipped": 6,
+    "failed": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "suites": 0
+  },
+  "requiredEvidence": "All95 case identities;9complete matching file summaries;exact six skip dispositions;global/end/ordinal completion;both OWN+REF passed cases and final diagnostics.",
+  "buildBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/FOCUSED_BINDING.json",
+    "bytes": 6099,
+    "sha256": "41a940ec27dea02e987abec26545379f440c399a91a5a1055c62738ea5d453b1"
+  },
+  "buildBindingStanding": "Provenance of already-built stage only; new binding and execution admission are separate.",
+  "acceptedKnown006StopChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/RESOURCES.json",
+      "bytes": 1035,
+      "sha256": "4766a2996dfeee169951fef49632675001512f4b8ecb8c6f264546bf34cc4507"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/commands/own01.result.json",
+      "bytes": 1418,
+      "sha256": "f62bf3cd807a2752cd3732016a515fd0e2d092a288d1988179afa9317304b05b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/ancestry-after.json",
+      "bytes": 2847,
+      "sha256": "0d8fba18fac87e75faf4723e1bfccab46cf811d56efaddab4182d5cf28d2cbca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003-execution-006/REVIEW.json",
+      "bytes": 22303,
+      "sha256": "7531d63429221cff43f96064da863b22d67550ee6b37347b2cf6357e8ca555e2"
+    }
+  ],
+  "stopLimitation": "Root accepted known successful child closure plus post-ancestry/review; no universal current host scan or unknown-detached guarantee.",
+  "outerMs": 900000,
+  "normalFixtureEffects": "Existing disposable pack/install/content mutation/after-hooks only; no rebuild, independent artifact packaging, provider or native task.",
+  "supersedesUnexecutedSelection": {
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/UNIT_REMAINDER_005_PREPARATION.json",
+      "bytes": 4620,
+      "sha256": "db7fa51d412db7962ed2fb13c8a49d520d13459eaa2bf9c8c88090acc9f5c0e5"
+    },
+    "standing": "005 remains immutable and unexecuted;007 is Root-selected new whole-lane check."
+  },
+  "firstCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-full-unit-007.mjs",
+    "<status-only BOUND binding>",
+    "<actual SHA>",
+    "<Root execution admission>",
+    "<actual SHA>"
+  ],
+  "execution": false,
+  "remaining": "Root control review and bound execution admission only. Successful007 would provide one input to a later separately selected bootstrap successor; no packaging gate changed or activated."
+}

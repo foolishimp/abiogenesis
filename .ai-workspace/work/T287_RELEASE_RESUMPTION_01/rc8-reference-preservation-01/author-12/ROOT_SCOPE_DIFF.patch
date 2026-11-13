@@ -1,0 +1,399 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SCOPE.json
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SCOPE.json
+@@ -1,34 +1,197 @@
+ {
+   "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+-  "id": "T287-RC8-AUTHOR11-O1-COMPONENT-PREMISE",
+-  "at": "2026-11-07T11:54:37.416567+00:00",
+-  "authority": "Existing user RC7-to-RC8 approval; Root final A11 lawful re-entry and one maintained-owner preparation selection. Root read the closed causal review and exact host/proof deltas. Separate native dispatch admission remains required.",
++  "id": "T287-RC8-AUTHOR12-WITNESS-PROFILE-COORDINATE",
++  "at": "2026-11-07T22:16:12.013630+00:00",
++  "actor": "/root/rc8_operator; separate control Writer/Operator, returning to /root Executive",
++  "authority": "Current user continuation plus Root exact selection; current effect grant is A12 control preparation only. This record grants no SDK acquisition, resource allocation or native dispatch. Root reviews the concrete launch next.",
++  "admissionProvenance": {
++    "userInstruction": "ok continue on",
++    "source": "Root NEW_TASK and pinned resumption record; instruction provenance, not blanket evidence acceptance",
++    "rootSelection": "Root NOW selects the closed witness-reprice-024 review's exact two-reference test-only correction as realization_refactor: in test_env/tests/witness-reprice-definition-binding.test.mjs, replace obsolete ROOT_CURRENT_EVENT_PROFILE_REF with ROOT_WINDOW_EVENT_PROFILE_REF ONLY in profileRequest evidence and matching missing-evidence removal (frozen lines226,241), preserving all assertions/other cases.",
++    "controlAdmission": "Root NEW_TASK explicitly admits prepare/reconcile A12 controls ONLY under A12 dir and requires stopping before SDK acquisition/resource allocation/native dispatch/provider or tests.",
++    "resumption": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/RESUMPTION.json",
++      "bytes": 21402,
++      "sha256": "728d6f4965d4daa912f5a05b28df85f59066fc8cc232d47fe729c78c2ce593a1"
++    }
++  },
+   "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+   "method": "stdo://releases/v3.0.4/",
++  "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
++  "methodVerification": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/METHOD_BASIS.json",
++    "bytes": 658,
++    "sha256": "00fc7ffef3a749c71d894843f1fb5310b0c7f5685dbf4c70617047e47d5605d1"
++  },
+   "composition": [],
+   "fixedFamilies": 15,
+   "ticket": "T-287",
+   "goal": "GOAL-035",
+-  "sourcePreimageDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
++  "slice": "RC8 REF-01",
++  "modelPolicy": {
++    "exactRule": "human-proxy Executive gpt-6-astra max; Codex operators/writers/bounded reviewers gpt-6-astra xhigh; native workers claude-opus-5-5 xhigh",
++    "humanProxyExecutive": {
++      "model": "gpt-6-astra",
++      "reasoningEffort": "max"
++    },
++    "codexOperatorsWritersBoundedReviewers": {
++      "model": "gpt-6-astra",
++      "reasoningEffort": "xhigh"
++    },
++    "nativeWorkers": {
++      "model": "claude-opus-5-5",
++      "reasoningEffort": "xhigh"
++    },
++    "scope": "Current resumption and subsequent selected activations; prior evidence retains its historical actor settings",
++    "globalSettingsChanged": false,
++    "actualRuntimeModelVerification": "Required policy recorded from Root; this Writer does not claim provider telemetry verification"
++  },
++  "currentStatusPins": [
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
++      "bytes": 138970,
++      "sha256": "aa8409b95df79c1bdb9c0958ee2591e64654a82521382501cca13418bfb2a8e1"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
++      "bytes": 780667,
++      "sha256": "a9de28c9a43e2e7e69acf4b588287c1eee57cd777c633fd394c6553e130e183a"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/RESUMPTION.json",
++      "bytes": 21402,
++      "sha256": "728d6f4965d4daa912f5a05b28df85f59066fc8cc232d47fe729c78c2ce593a1"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/WRITER_RETURN.json",
++      "bytes": 2900,
++      "sha256": "02384b50d9f14396c6fa34bdcc658e9a725622384d83dea25f0b0c3208987497"
++    }
++  ],
++  "authorityPins": [
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
++      "bytes": 12932,
++      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
++      "bytes": 3136,
++      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
++      "bytes": 100324,
++      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
++      "bytes": 9837,
++      "sha256": "f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
++      "bytes": 16630,
++      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
++      "bytes": 10959,
++      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
++      "bytes": 27131,
++      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
++    }
++  ],
++  "causalSourcePins": [
++    {
++      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
++      "bytes": 22350,
++      "sha256": "5fd66737b877301cad2ac3f3c3605a68ba9ee83fc01f4d8be56359b7cdddc4fb"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
++      "bytes": 194356,
++      "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
++      "bytes": 27192,
++      "sha256": "25c3756928fb8a568e515538ed38500e8a8bbb8ec695e76fdcc380b3a6a7c37d"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/test_env/support/witness-reprice-mechanics.mjs",
++      "bytes": 21154,
++      "sha256": "38cb8a13689b744330e1bb6b57bab19911c158d8549bdc063bcbba2889bee205"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
++      "bytes": 14485,
++      "sha256": "f242656d220350439cf699d1654ce324cb2d6fb4d80b2567b5ba4bd8a7c89994"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
++      "bytes": 225695,
++      "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
++      "bytes": 40995,
++      "sha256": "c16c27de89523969d3f4a4b066c539115aff0150f5abe00ef147728763291e8f"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
++      "bytes": 21016,
++      "sha256": "76e72281b95fd00e192964ba5beb42ac550e28f78d0cc62e512071e494f61671"
++    },
++    {
++      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
++      "bytes": 23451,
++      "sha256": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9"
++    }
++  ],
++  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
++  "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
++  "sourcePreimageDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+   "sourcePreimageFreeze": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/source-freeze.json",
+-    "bytes": 295542,
+-    "sha256": "e2db4c2e9356da0d97d6277567504650078a8bf1d5b7085dfaee63a4dbae5007"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/source-freeze.json",
++    "bytes": 295552,
++    "sha256": "422808c5850d72cb0533fa7ddba6864c757f9b23eeba756466f4157f20cd7879"
+   },
+   "sourceIncrementAcceptance": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SOURCE_ACCEPTANCE.json",
+-    "bytes": 4408,
+-    "sha256": "d9adadd2558622cb8f60a20055509a160dd0e4a96f204bce368f19e809663922"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
++    "bytes": 7205,
++    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+   },
+   "actualPriorClose": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/runtime-001/resource-close.json",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/resource-close.json",
+     "bytes": 2308,
+-    "sha256": "d708e7218bd3ddc0c3b8286732c0767a31fb2aa422fcaf0fc5d47a6e7488dceb"
++    "sha256": "e4b341435ebfabe78c83d2c20bf911eeb9afc22ff082fbc0976a03e5ccd77703"
++  },
++  "actualPriorPreparedCoordinates": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/PREPARED.json",
++    "bytes": 6159,
++    "sha256": "48b3467078e80f16f4ae61aacad6f26b3e6db39c1776411a690396aa2b32f4ca"
++  },
++  "closedPrefix": {
++    "kind": "durable_prefix_coordinate",
++    "schemaVersion": "5.0.0",
++    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
++    "prefixLength": 192595103,
++    "prefixDigest": "sha256:ccf41d16714b6148491cf842e834764d2c892789f51b3acec3f998f8f82dea39",
++    "storeIdentity": {
++      "device": 16777231,
++      "inode": 708868359,
++      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
++    },
++    "coordinateDigest": "sha256:49a385677c464929c5c939b5eb024a95fa167102878c98b7c41884ee223d00fb"
+   },
+   "priorReturn": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/OPERATOR_RETURN.json",
+-    "bytes": 9462,
+-    "sha256": "968799201db7afdf86bddee69d2ec834a5f0cb94277b4770a2f11e7823ecaf4d"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/OPERATOR_RETURN.json",
++    "bytes": 10732,
++    "sha256": "ebb79d30a1d5a033341297b66b4ecf8f09bbf4fe5166ec1092b5ae9d8a142af4"
+   },
+   "productArchive": {
+     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+@@ -37,40 +200,92 @@
+   },
+   "reviews": [
+     {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/required-operation-016/REVIEW.json",
+-      "bytes": 14356,
+-      "sha256": "53e69f4caa8deb7f8925cad68d720362e71f6e4509c0ce8224b3b0c8fc36c953"
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/witness-reprice-024/REVIEW.json",
++      "bytes": 17442,
++      "sha256": "d9ebd6d2a12d677dad8db35ac83d976e953db5aaaf3c87a1b15ef26edc9b592a"
+     }
+   ],
+   "reviewReadmes": [
+     {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/required-operation-016/README.md",
+-      "bytes": 2211,
+-      "sha256": "7c8995f74481c258ed0bf8656c5baf5f6a0c52241ad4a69056945dad04608921"
+-    }
+-  ],
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/witness-reprice-024/README.md",
++      "bytes": 2646,
++      "sha256": "ff952ce34d2e12559135b36e72bfc1219807142f03c13467101441867c252400"
++    }
++  ],
++  "broad024": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_024.json",
++    "bytes": 22348,
++    "sha256": "3293171df8aa6b164a93fc4a67ab30448eba30916783394009581c8d632eae88"
++  },
++  "broad025": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_025.json",
++    "bytes": 11877,
++    "sha256": "78fae0e88a483d8268e527cfdf3868f97565aeff5cac86baf4a558cf284a203a"
++  },
++  "broad025CustodyCorrection": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_025_CUSTODY.json",
++    "bytes": 1279,
++    "sha256": "d4ad589a678dfdfdb37184f149112c02dfb73e1746fb8e9991b1e9c362c7795f"
++  },
++  "historicalDraft": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/READINESS.draft.json",
++    "bytes": 5714,
++    "sha256": "7c03901b1d27923d14f6f8f1086c186333028837daffd5cc8e6d4a67f94bf396"
++  },
+   "preparation": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/PREPARATION.json",
+-    "bytes": 7299,
+-    "sha256": "10d491d1e7483ce99453844ff9d8c0cb60605130d62cbd78bd6b4c5abfb6145c"
+-  },
+-  "rootConjunction": "S3 fixture seam mismatch: the callback-local override still names projectExactPrefixArtifactTruth while the current materialization owner calls projectOwnedPrefixArtifactTruth. The actual016 failure preceded ingress/body comparison. Exactly one obsolete override is the complete affected cone. Positive oracle is artifact ingress/body, not successful Effect completion; negative exact stage/code must execute. No Product regression or runtime receipt expansion is selected.",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/PREPARATION.json",
++    "bytes": 7955,
++    "sha256": "665771c91c8da586f53bd1f522c1224a752b7e2c66dcdac3fcee4025f980e7ff"
++  },
++  "task": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/TASK.json",
++    "bytes": 6688,
++    "sha256": "92b4fcedc260f3d46d1c1cf6533ab7d66b6ec71bd13422b30ae0ff75b0862118"
++  },
++  "staticPreflight": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/STATIC_PREFLIGHT.json",
++    "bytes": 9649,
++    "sha256": "385f7dad375fc4fc0a852e61627573404a9b84f8c25d0684932b7c9f595c9a6f"
++  },
++  "changeIntent": "Restore coherence of the existing current-W test evidence pair and its missing-evidence negative without changing supported behavior.",
++  "changeClass": "realization_refactor",
++  "reEntryPoint": "Existing unshipped Proof fixture under accepted native profile owner/HOW10.10 E-G and REF01 HOW10.11.",
++  "targetTruth": "Only two obsolete profile evidence references become ROOT_WINDOW_EVENT_PROFILE_REF; all existing complete-case assertions remain and execute once.",
++  "supersededTruth": "The selected fixture pairs current W digest with obsolete p5 evidence ref and deletes that same old ref in its missing-evidence control; original024 red remains immutable evidence.",
++  "rootConjunction": "Closed WR024-F1 S3 fixture mismatch; no RC8 Product regression demonstrated. Current native owner requires exact ref AND digest before entering the append transaction. The same two substitutions form the complete selected cone.",
+   "selectedEdit": {
+     "file": {
+-      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+-      "bytes": 44662,
+-      "sha256": "b4aacfd349c111119d51970aceb92a6ec3f4ce6e21770c87701c5e82eb2bd35c"
+-    },
+-    "line": 491,
+-    "from": "projectExactPrefixArtifactTruth",
+-    "to": "projectOwnedPrefixArtifactTruth",
+-    "extent": "Only the callback-local override key; preserve the result stub, all assertions and every other case."
++      "path": "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
++      "bytes": 27192,
++      "sha256": "25c3756928fb8a568e515538ed38500e8a8bbb8ec695e76fdcc380b3a6a7c37d"
++    },
++    "lines": [
++      226,
++      241
++    ],
++    "from": "ROOT_CURRENT_EVENT_PROFILE_REF",
++    "to": "ROOT_WINDOW_EVENT_PROFILE_REF",
++    "occurrences": 2,
++    "extent": "Only profileRequest evidence and the matching missing-evidence removal. Preserve all assertions, other cases, request content/digests, helpers, owners and archive."
+   },
+   "sourceWritePaths": [
+-    "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs"
+-  ],
++    "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs"
++  ],
++  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-12",
+   "readOnlyOwnerLibraryRoot": "build_tenants/abiogenesis/typescript/code/src",
+-  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-11",
++  "publicDelta": {
++    "membership": [],
++    "values": [],
++    "basis": "Test-only correction is outside the unchanged packed RC8 archive; current Product/requirements/HOW and all native public owner rows remain unchanged. This is the selected test-only relation, not a new Public comparison engine."
++  },
++  "closureLaw": "Native author returns one frozen exact two-reference delta plus one complete filtered-case pass, actual SDK result and physical close; Root separately evaluates source/proof acceptance and fresh result/replay obligations. Control preparation alone closes only this preparation return.",
++  "nonClosureConditions": [
++    "No actual native/proof result yet",
++    "Any source delta outside the selected two references",
++    "First scope/basis/resource/proof/lifecycle failure",
++    "Missing actual close/fresh required readback",
++    "No whole-file/broad-green/installed bridge/release qualification"
++  ],
+   "budgets": {
+     "sourceOverlayFreezes": 1,
+     "buildInvocations": 0,
+@@ -86,21 +301,58 @@
+     "focusedNameFilteredInvocations": 1,
+     "focusedWholeFileInvocations": 0
+   },
+-  "coverage": "One positive exact-name-filtered final O1 test: expected1pass0reportedskip, three other top-level tests/nine previously reported cases excluded without new coverage. No whole-file claim.",
++  "coverage": {
++    "namePattern": "^Public profile reprice retains the exact L-to-P boundary and standalone cold content checks$",
++    "expectedPassed": 1,
++    "expectedReportedSkipped": 0,
++    "excludedUnchangedCases": 14,
++    "wholeFile": false,
++    "newWholeFileCredit": false,
++    "conjunction": "Root may conjoin14 original024 case passes and1 new complete-case pass without restamping024."
++  },
+   "permissions": {
+     "controlPreparation": true,
+-    "oneOwnerPreparation": true,
++    "oneOwnerPreparation": false,
+     "nativeDispatch": false,
+     "operatorSourceEdits": false,
+-    "oneNativeCodingWorkerAfterSeparateAdmission": true
++    "sourceAuthor": "One native Claude Opus5.5 xhigh only after exact separate admission",
++    "proofAfterNativeAdmission": "One freeze and one exact-filtered existing case; no build/generation/repack"
++  },
++  "hostBoundary": {
++    "tools": "Normal exposed tools/shared unrestricted filesystem; instruction-governed scope.",
++    "sandboxEnforcedExclusions": false,
++    "operator": "Separate activated /root/rc8_operator under required xhigh policy; no claim of provider telemetry verification.",
++    "native": "Existing RC7 workerEnvironment constructs explicit claude-opus-5-5 --effort xhigh; actual actor telemetry remains pending.",
++    "return": "A12 PREPARATION_RETURN.json to /root Executive; stop before launch."
++  },
++  "preservedResiduals": {
++    "status": "OPEN",
++    "ids": [
++      "RC8-GC03-METHOD-304",
++      "RC8-NATIVE-ASSESSMENT-PROFILE",
++      "RC8-SAS-WHOLE-PROOF",
++      "RC8-PHYSICAL-LIFETIME-013",
++      "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
++      "RC8-SELECTED-ACTION-PROFILE",
++      "RC8-W2-05-TOKEN-ORACLE",
++      "RC8-C3-COMPOSITION-PROOF-BUDGET",
++      "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET"
++    ],
++    "allNineCapsuleBytesUnchanged": true,
++    "capsulesBytes": 24382,
++    "capsulesSha256": "5df1a142129ea645b593d60963f33a2ccf95f6a839c2998c939692f2ad4531c0",
++    "fiveInstalledC2NegativesSeparateFromAcceptedPositive": true,
++    "twelveColdResidualsAndS7Preserved": true
+   },
+   "prohibited": [
++    "Codex Product/source/test edits",
+     "Product/HOW/API/helper/guard/receipt changes",
+-    "Fabricated full-store completion",
+-    "Additional cases or assertions changed",
++    "Assertions or other cases changed",
+     "Build/generation/repack",
+     "Automatic repair/retry or timeout extension",
+-    "Git/cut/install/global selector/provider actions outside the separately admitted coding call",
+-    "Cleanup"
+-  ]
++    "Git/cut/install/global selector or publication",
++    "Cleanup",
++    "Additional provider calls"
++  ],
++  "nextOperation": "Proposed one RC7 maintained-owner preparation from genuine A11 close, returning HELD_PREPARED_NO_NATIVE_DISPATCH. Requires exact Root admission; native dispatch then requires the existing separate PREPARED-bound stdin admission."
+ }

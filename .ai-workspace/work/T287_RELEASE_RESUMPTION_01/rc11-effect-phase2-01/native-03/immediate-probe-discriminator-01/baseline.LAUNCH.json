@@ -1,0 +1,33 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/immediate-probe.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/BINDING.json",
+    "8b0acb78bcefdb1730856977a812de0568d70d37e5e4c0a937db7125f1268951",
+    "baseline"
+  ],
+  "pid": 53605,
+  "pgid": 53605,
+  "limits": {
+    "commandSeconds": 10,
+    "campaignSeconds": 30,
+    "outputBytes": 1048576
+  },
+  "preflight": {
+    "passed": true,
+    "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+    "sourceRows": 1345,
+    "compiledRows": 582
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "USER": "jim",
+    "LOGNAME": "jim",
+    "LANG": "en_AU.UTF-8",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "NODE_OPTIONS": "",
+    "NODE_PATH": "",
+    "NODE_DISABLE_COMPILE_CACHE": "1",
+    "GIT_OPTIONAL_LOCKS": "0"
+  }
+}

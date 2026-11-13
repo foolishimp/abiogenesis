@@ -1,0 +1,81 @@
+{
+  "ProductFrame": "Same Root RC9-BROAD-007 finite proof grant; no broader acceptance.",
+  "status": "ROOT_ADMITTED_RC9_BROAD_CLOSE",
+  "at": "2026-11-08T19:21:04.790339+00:00",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_007_BIND_ADMISSION.json",
+    "bytes": 3436,
+    "sha256": "d23c47842615c03cf79e70b372bb7a3e5d5d4958ab5aeb5199695e6358d7f9d6"
+  },
+  "configSha256": "a2ba7d6fd3f757329cdcdb95002e684d91dce89ec17e1f9288ee375e456828ee",
+  "inventorySha256": "e75c167187c939e5c54e5de207d978697829ba953e7fea944dae28ed05d2966d",
+  "frozenStageReceiptSha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a",
+  "preparationManifestSha256": "d179449a1ef0e9b33abd55ceba1021cf98744db223366b9fbf71837b2a2b8d74",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-007.json",
+    "bytes": 47083,
+    "sha256": "a2ba7d6fd3f757329cdcdb95002e684d91dce89ec17e1f9288ee375e456828ee"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-001/BOUND_INVENTORY.json",
+    "bytes": 1701389,
+    "sha256": "e75c167187c939e5c54e5de207d978697829ba953e7fea944dae28ed05d2966d"
+  },
+  "freeze": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "actualBindGate": {
+    "commandExitCode": 0,
+    "counts": {
+      "testFiles": 208,
+      "harnessFiles": 1,
+      "allTestDirectoryMjs": 213,
+      "focusedWholeFiles": 0,
+      "deferredFiles": 8,
+      "scheduledFiles": 201
+    },
+    "sourceRowsEqualInBuiltTree": 1338,
+    "acceptedGeneratedOutputs": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "kind": "file",
+        "bytes": 197474,
+        "sha256": "36ed8dd2cf8b7aff048f6f090430fb0fb46e92737f82ea4c136acd79b8bef1b1",
+        "executable": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "kind": "file",
+        "bytes": 3266103,
+        "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65",
+        "executable": false
+      }
+    ],
+    "generatedOutputStanding": "These exact two generated outputs are separately accepted in source-003-execution-006 REVIEW7531d634 and conjoined by sourceAcceptance007; both also equal the accepted c01e6cfe archive members. Root reaffirmed reuse without another review gate. Initial extra all-source-equals-built assertion was inapplicable to these generated outputs; not a Product failure.",
+    "sourceOutputAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003-execution-006/REVIEW.json",
+      "bytes": 22303,
+      "sha256": "7531d63429221cff43f96064da863b22d67550ee6b37347b2cf6357e8ca555e2"
+    },
+    "dependencyMembersMatched": 4576,
+    "dependencyMismatches": [],
+    "stageDigest": "a3d3b876f57a943331900bf7a8cb311aedba1e4e294f5d470dd5835fa6f00e83",
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "exactDeferredPopulation": true,
+    "focusedCoverage": []
+  },
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "scope": "One existing sequential broad run; Root admission grants normal derived fixture construction/teardown, one candidate-basis refresh reproducing measured archive/six verified fields, fullW2 first and unchanged build-effect isolations. Stop first failure/incomplete/resource/source discrepancy; no retry/extensions or source/control edits.",
+  "providerCallsSelected": 0,
+  "qualification": false
+}

@@ -1,0 +1,13 @@
+{
+  "status": "SELECTED_MEASUREMENT_FAILED",
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 29664.856,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "commandReceipt": "commands/s4-installed-carriage.result.json",
+  "measurement": "MEASUREMENT.json",
+  "S6Disposition": null,
+  "qualified": false
+}

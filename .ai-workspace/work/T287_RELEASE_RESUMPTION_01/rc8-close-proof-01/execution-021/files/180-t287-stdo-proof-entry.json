@@ -1,0 +1,107 @@
+{
+  "file": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1182.8621670000139,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 5,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 5,
+    "todo": 0,
+    "topLevel": 5,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "SDK proof resolves and imports the installed declared import-only public export",
+      "file": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "successful receipt nine is retained without changing its request or receipt",
+      "file": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "retained success rejects mismatched invocation, catalog or physical handoff",
+      "file": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "the existing conservation refusal remains a non-retained catalog branch",
+      "file": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "current source evidence rehydrates through installed owners and preserves refusal scope",
+      "file": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_ENV_SOURCE_EVIDENCE unset; requires the retained STDO source evidence",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/events/180-t287-stdo-proof-entry.jsonl",
+    "bytes": 2372,
+    "sha256": "7c593b43e2676651ece5bf2f29655a078436c5417ed656545125bcccde937672"
+  },
+  "commandReceipt": "commands/180-t287-stdo-proof-entry.result.json",
+  "workspace": "/private/tmp/abg-r8c-021/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

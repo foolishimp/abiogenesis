@@ -1,0 +1,86 @@
+--- /private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
++++ /private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/test_env/tests/m5-worker-transport.diagnostic.test.mjs
+@@ -14,7 +14,7 @@
+   constructKnownWorkerTransportContract,
+   prepareWorkerTransport,
+   runPreparedWorkerTransport,
+-  runWorkerTransport,
++  runWorkerTransport as originalRunWorkerTransport,
+   validateActorProcessCarrierPair,
+ } from "../../build/code/src/abg/index.js";
+ import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
+@@ -37,6 +37,74 @@
+ import { hasConfirmedOwnedProcessBoundary } from "../../build/code/src/shared/process/index.js";
+ import { closeSync as hs03CloseSync, fsyncSync as hs03FsyncSync, openSync as hs03OpenSync, readSync as hs03ReadSync,
+   truncateSync as hs03TruncateSync, unlinkSync as hs03UnlinkSync, writeSync as hs03WriteSync } from "node:fs";
++
++
++// DIAGNOSTIC ONLY: buffered observer records; original test body below is exact.
++import { mkdirSync as diagMkdir, readFileSync as diagRead, writeFileSync as diagWrite } from 'node:fs';
++import { createHash as diagHash } from 'node:crypto';
++const diagnosticRoot = "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/records";
++const diagnosticLabels = new Set(['progress-worker', 'unadmitted-progress-worker', 'post-timeout-output']);
++function diagnosticJson(value) {
++  const seen = new Map();
++  function encode(v, path) {
++    if (typeof v === 'bigint') return { type: 'BigInt', decimal: String(v) };
++    if (v === undefined) return { type: 'undefined' };
++    if (v === null || typeof v !== 'object') return v;
++    if (seen.has(v)) return { type: 'reference', path: seen.get(v) };
++    seen.set(v, path);
++    if (Array.isArray(v)) return v.map((x, i) => encode(x, `${path}/${i}`));
++    const entries = v instanceof Error ? [...new Set(['name', 'message', 'stack', ...Object.getOwnPropertyNames(v)])] : Object.keys(v);
++    return Object.fromEntries(entries.map(k => [k, encode(v[k], `${path}/${k}`)]));
++  }
++  return JSON.stringify(encode(value, '$'), null, 2) + '\n';
++}
++async function runWorkerTransport(input) {
++  if (!diagnosticLabels.has(input.label)) return originalRunWorkerTransport(input);
++  const origin = performance.now(), events = [], originalObserver = input.observer;
++  const callbackCounts = {}, originalCallbackCounts = {};
++  const observer = { ...originalObserver };
++  for (const name of ['onProcessStarted', 'onStdoutObserved', 'onStderrObserved', 'onTimeoutObserved', 'onSignalRequested', 'onProcessFinalized', 'onSpawnFailed']) {
++    observer[name] = function (...args) {
++      const entry = { name, atMs: performance.now() - origin, args, originalCallbackPresent: typeof originalObserver?.[name] === 'function' };
++      events.push(entry); callbackCounts[name] = (callbackCounts[name] ?? 0) + 1;
++      try {
++        if (entry.originalCallbackPresent) {
++          originalCallbackCounts[name] = (originalCallbackCounts[name] ?? 0) + 1;
++          entry.returnValue = Reflect.apply(originalObserver[name], originalObserver, args);
++        } else entry.returnValue = undefined;
++        return entry.returnValue;
++      } catch (error) { entry.error = error; throw error; }
++      finally { entry.returnAtMs = performance.now() - origin; }
++    };
++  }
++  let result, error, threw = false;
++  try { result = await originalRunWorkerTransport({ ...input, observer }); }
++  catch (caught) { error = caught; threw = true; }
++  const returnedAtMs = performance.now() - origin;
++  // No observer I/O: all persistence starts after the original owner settles,
++  // before original assertions and test-owned cleanup. Capture failures do not
++  // replace the original owner return/throw; the outer controller requires data.
++  try {
++    const directory = join(diagnosticRoot, input.label); diagMkdir(directory);
++    const artifacts = {};
++    for (const [name, artifact] of Object.entries(result?.artifacts ?? {})) {
++      if (typeof artifact?.path !== 'string') continue;
++      const bytes = diagRead(artifact.path);
++      if (bytes.length > 16 * 1024 * 1024) throw Error('diagnostic artifact exceeds declared16MiB bound');
++      const destination = join(directory, `${name}.bin`); diagWrite(destination, bytes, { flag: 'wx' });
++      artifacts[name] = { original: artifact, path: destination, bytes: bytes.length, sha256: diagHash('sha256').update(bytes).digest('hex') };
++    }
++    diagWrite(join(directory, 'record.json'), diagnosticJson({ kind: 'rc11_transport_diagnostic', label: input.label,
++      clock: 'parent performance.now; callback observations, not exact timer arms/readiness/signal delivery/direct exit',
++      callAtMonotonicMs: origin, returnedAtMs, timeoutMs: input.timeoutMs, absoluteTimeoutMs: input.absoluteTimeoutMs,
++      terminationGraceMs: input.terminationGraceMs, events, callbackCounts, originalCallbackCounts,
++      outcome: threw ? 'throw' : 'return', result, error, artifacts, captureComplete: true }), { flag: 'wx' });
++  } catch (captureError) {
++    try { process.stderr.write('RC11_DIAGNOSTIC_CAPTURE_ERROR ' + String(captureError?.stack ?? captureError) + '\n'); } catch {}
++  }
++  if (threw) throw error;
++  return result;
++}
+ 
+ // D5: the archive omits the three lifecycle copies the live result carries;
+ // its own timeoutClass and encoded processFacts determine each of them.

@@ -1,0 +1,80 @@
+{
+  "kind": "root_current_q23_proof_control_admission",
+  "at": "2026-11-05T19:50:32.226007+00:00",
+  "status": "ADMITTED_FOR_ONE_EXISTING_PROOF_ONLY_PREFLIGHT_AND_DISPATCH_IF_OWNER_CHECKS_PASS",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/PROOF_ONLY_GRANT.json",
+    "bytes": 4155,
+    "sha256": "e1a12d1ec941a4eb97f1253eb7c27071053d22dcacf22f66b86aef72fee671e7"
+  },
+  "frozenSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "actualAuthorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 3287,
+    "sha256": "a1fb09cbc628d72316cc5c7ca70c0e8554f42edeecbb494fdfe798f399e7be52"
+  },
+  "profileDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/ROOT_PROFILE_DISPOSITION.json",
+    "bytes": 3110,
+    "sha256": "59b29a543a0df68313dc1ed48ea3cfdb42fc37196a827fffaac6a39a396e2f11"
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 128,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 3600000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "program": "Existing default-library Testing/UAT source:none; original consumer binding/view with latest close",
+  "stagedInputs": {
+    "files": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-proof-01/FROZEN_SUBJECT.json",
+        "bytes": 982,
+        "sha256": "d68deee0a2ca67cf1617325f54094704e45c457854a2298c64efa31b05999135"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-proof-01/PROOF_ONLY_GRANT.json",
+        "bytes": 4155,
+        "sha256": "e1a12d1ec941a4eb97f1253eb7c27071053d22dcacf22f66b86aef72fee671e7"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-proof-01/ROOT_PROFILE_DISPOSITION.json",
+        "bytes": 3110,
+        "sha256": "59b29a543a0df68313dc1ed48ea3cfdb42fc37196a827fffaac6a39a396e2f11"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-proof-01/TASK.md",
+        "bytes": 2323,
+        "sha256": "ea57f606cb05eea72d4c930096beac2a68650c019e6f3b475b8922b5405f7fd0"
+      }
+    ]
+  },
+  "sourceWriteRoots": [],
+  "maximumConcurrentCodingWorkers": 0,
+  "automaticRetry": false,
+  "independentReview": "Required separate source review remains open; external Gemini auth refusal is not an accepted review. Native UAT is not independent same-family acceptance.",
+  "limits": [
+    "No new source code, qualifier-positive, retrospective authorship or release claim.",
+    "No old close or copied observations/synthesis.",
+    "Six exact C2 commands and Q1-Q7 only."
+  ]
+}

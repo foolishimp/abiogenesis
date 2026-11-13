@@ -1,0 +1,42 @@
+{
+  "assessmentInputs": null,
+  "c2SelectedPaths": 963,
+  "eventPrefix": null,
+  "firstRunRef": "run://abiogenesis/300105eb93014e324c59343cc10b4008f7b6326e7d5019a0857702f59c1c1c18",
+  "grant": null,
+  "kind": "single_machine_p1_02_reuse_selection",
+  "limits": [
+    "No prior Result imported as new input or success.",
+    "Same existing workspace/catalog/event resource; new distinct Run only.",
+    "Root selects actual final handoff; no inferred current pointer."
+  ],
+  "newSourceBasis": "none",
+  "observations": [],
+  "priorAfterRunResume": null,
+  "priorExecution": null,
+  "priorFreshReads": null,
+  "priorFrozenManifest": {
+    "bytes": 2300090,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/PREPARATION_MANIFEST.json",
+    "sha256": "324a96e0183eba68705c8e3589da79db9d9a2ab991234d63c629ec8a3efe6852"
+  },
+  "priorSetup": {
+    "bytes": 73451705,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/operator-resume-material.json",
+    "sha256": "33f6f6695cf1a2dce4de9f80ff15b1bf76f9b405168125dfe6bc6e746b70c5aa"
+  },
+  "providerDispatch": false,
+  "readRootCount": null,
+  "recursionBound": 4,
+  "rootAuthority": null,
+  "runId": "single-machine-p1-02",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001",
+  "sourceBaseline": null,
+  "sourceCensusSha256": null,
+  "sourceCommit": null,
+  "status": "PENDING_FIRST_RETURN_SOURCE_FREEZE_AND_ROOT_SELECTION",
+  "synthesis": null,
+  "workloadSha256": null,
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-machine-p1",
+  "writePathCount": 53
+}

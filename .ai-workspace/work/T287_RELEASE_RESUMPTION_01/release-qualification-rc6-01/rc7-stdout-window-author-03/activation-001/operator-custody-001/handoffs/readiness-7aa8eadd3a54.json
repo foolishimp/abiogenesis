@@ -1,0 +1,19 @@
+{
+  "kind": "native_author_readiness",
+  "activation": "rc7-stdout-window-author-03",
+  "frozenCandidate": {
+    "stageLabel": "sw3-stage-01",
+    "sourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+    "freezePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-source-freeze.json",
+    "freezeSha256": "sha256:86c14252b414e6b3a600c16a2c112178f97bcae2e0ac2938c1714e046e1f1b37"
+  },
+  "mechanicalReadiness": {
+    "typecheck": "pass",
+    "compile": "pass",
+    "generate": "pass",
+    "lifecycle": "pass",
+    "lanes": "6/6 pass once, serial, 300000ms"
+  },
+  "readyForRootAssurance": true,
+  "acceptanceClaimed": false
+}

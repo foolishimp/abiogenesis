@@ -1,0 +1,156 @@
+{
+  "status": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+  "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.8",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.8",
+    "manifestDigest": "sha256:0fc9fc5e92cb8bfbfc064f18e50324358f19d418ea508d41d6a5f3e69547da3b",
+    "productContentDigest": "sha256:5dd1e8165ec9fb25dceec68c6f81e79afd8b94debddbce77a15f02ab2928d6cb",
+    "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "artifactDigest": "sha256:a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "archiveMembers": 5325,
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8",
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8",
+  "installPath": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "tools": [
+    {
+      "name": "node",
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "name": "npm",
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "name": "tar",
+      "configuredPath": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "bytes": 274448,
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    {
+      "name": "git",
+      "configuredPath": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    },
+    {
+      "name": "cp",
+      "configuredPath": "/bin/cp",
+      "realPath": "/bin/cp",
+      "bytes": 152976,
+      "sha256": "d2b314592c43bb0f2e4ae25d473e7b3e5a24db68c21b175aeeba64001388a1fd"
+    },
+    {
+      "name": "python",
+      "configuredPath": "/usr/bin/python3",
+      "realPath": "/usr/bin/python3",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  ],
+  "qualified": false,
+  "published": false,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/ROOT_INSTALL_ADMISSION.json",
+      "bytes": 10103,
+      "sha256": "da67a6ac0b02947a284bbc4c40c0a7d99f33dad292c5d4adaa8bb1cb7ff0edd1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+      "bytes": 19284,
+      "sha256": "4f0f115220003b5c95e03d2602abc4118fe1f49917afa787a890096ca18d92f3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+      "bytes": 1380,
+      "sha256": "51ee2a7656199e4b735f9dd7e6609c19cab9708d33169546c9e9390a15383679"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/candidate/RESULT.json",
+      "bytes": 808,
+      "sha256": "50d7f6bfc2a4538e23e6747d54514f07b253c7322f16bc9b12b1e237da94058b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/reproduction/RESULT.json",
+      "bytes": 1284,
+      "sha256": "7333fc0619f9414cf8a5bfdb2e117128c2516686398b5de8567760f7feaadcf7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+      "bytes": 841,
+      "sha256": "51fc962bcb739f0b3d198cb3893d80db2b831cecfe274fb507a53f2336ecd88d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+      "bytes": 2765,
+      "sha256": "72d9d5720047331786d6453eed7bb3c52a7ac05b2e14455d97b7076ee2615226"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/reviews/packaging-001/REVIEW.json",
+      "bytes": 23777,
+      "sha256": "dabaf2e7f0aec43a338084924cf92fa75818f2c7b24cdf5f26fc0e2d2fef408a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-local-rc8.mjs",
+      "bytes": 7172,
+      "sha256": "af384db8543ae85f8604c7d0913bd8449d458ee579d538f7677112f889be11f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 6739,
+      "sha256": "d163f677072c9e3c143635f8859bf1cd03e49bd910162e86769b47d2e822d9cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/RESIDUALS.md",
+      "bytes": 12832,
+      "sha256": "396b1c7c0ae1f7ac39b9a7d53d54aae7c0e9317997055207d5b8254198a13e00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/ROOT_AUTHORITY.md",
+      "bytes": 4191,
+      "sha256": "b003d26342b03b3ac40ffbd7e176ff801295ab4dead15ae788dfed14d94513f4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 14219,
+      "sha256": "4e0299889ce457fba4cd9320ae98fc499e1d0394d6c91cab633da932d1d62f05"
+    }
+  ],
+  "claim": "Local unqualified RC8 candidate; direct actual installed-owner verification/content/export and empty-resource read/close smoke only. Full lifecycle/performance remains scoped to the exact-shipped-archive installed scratch proof. Actual installation standing is supplied by FINAL_INSTALL_VERIFICATION.json.",
+  "limits": [
+    "Bounded one-file/two-symbol unshipped fixture successor and exact casewise conjunction only; no new whole-file execution or whole-file pass credit.",
+    "The profile case uses injected Product/environment component premises while exercising native store/admission/transaction/close/reopen/cold correspondence; no installed L-to-W bridge proof.",
+    "Original024 red, original source identity and fourteen passing cases remain historical evidence; all prior accepted code, performance and functional proofs retain their exact subjects and limits.",
+    "All nine residual capsules remain OPEN. Existing limited no-block rationales apply only to this same explicitly unqualified local REF01 cut.",
+    "Twelve cold residuals, S7, fixed15/full5.0 and human gates remain open; no whole-broad-green or all-qualification claim.",
+    "Known-PID and exact-log descriptor observations are bounded custody evidence; no blanket physical or detached-descendant absence claim and no quota-enforcement assurance.",
+    "Observed native process model/effort arguments are declared configuration evidence, not provider telemetry assurance. Separate measured timings are retained without a speedup inference.",
+    "Accepted exact source60f8e595/1339 rows/27 selected paths (24 tracked modifications and three new files); checkpoint2019d62e/tree4c8a9240 and byte-equal clean reproduction are completed under BUILD_RESULT5c1b5628; exact packaging reviewdabaf2e7 is satisfied.",
+    "Use unchanged run-local-cut.corrected-002.mjs and PREPARATION_MANIFEST_CORRECTED_002.json; retain 20-minute install and 15-minute installed-owner ceilings.",
+    "Ship only the exact tested archive; preserve unrelated source, existing immutable cuts and original failure evidence.",
+    "Independent exact packaging review and separate Root install admission precede immutable custody and the narrower actual-installed smoke.",
+    "No push, tag, merge, publication, global selector, qualified claim, cleanup or automatic retry."
+  ],
+  "effectGrant": [
+    "Fresh local RC8 release custody and exact Product-owner installation",
+    "All-member byte correspondence and fresh installed-owner check"
+  ],
+  "failurePolicy": "Preserve failure, partial allocation and original receipts. No automatic retry/overwrite/cleanup."
+}

@@ -1,0 +1,27 @@
+{
+  "nodeChecks": [
+    {
+      "file": "setup-state.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "prepare-native-call.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "dispatch.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "pure-config-readiness.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "budget-readiness.mjs",
+      "exitCode": 0
+    }
+  ],
+  "pythonSyntax": "compiled without execution or pycache",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

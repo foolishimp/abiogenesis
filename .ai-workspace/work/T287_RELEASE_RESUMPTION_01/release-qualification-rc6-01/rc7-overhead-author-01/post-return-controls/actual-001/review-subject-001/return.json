@@ -1,0 +1,724 @@
+{
+  "kind": "rc7_overhead_author_return",
+  "task": "rc7-overhead-author-01",
+  "at": "2026-11-06T04:20:13.725Z",
+  "role": "single ABG-native coding Worker (Writer); returns to Root Executive",
+  "status": "FROZEN_PARTIAL_CANDIDATE",
+  "outcome": "Four of six selected relations realized (R1 before-copy, R3, R5, R6) with the R4 contract/history relation for them; R1 task-copy removal and R2 basis-holder extension not realized and returned as residual.",
+  "sourceBaseline": {
+    "sourceCustody": "qualification-inputs/rc7-overhead-author-01/SOURCE_CUSTODY.json",
+    "sourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/SOURCE_BEFORE.json",
+      "bytes": 215422,
+      "sha256": "05b4059600a96f515a4aa4f68e3975b85c3dc45d4652ca892dac3683eb22ae7e"
+    },
+    "sourceCommit": "1f62c0095 (HEAD; baseline record e7179b19b plus inherited dirty state)",
+    "baselineFiles": 397,
+    "unchangedByThisTask": 382,
+    "changedByThisTask": 15,
+    "unexpectedChanged": [],
+    "missing": [],
+    "inheritedTrackedChangedPaths": 20,
+    "inheritedNewProductPaths": 2,
+    "inheritedPreservation": "All 382 baseline files outside the 15 edited paths are byte-identical to SOURCE_BEFORE, including the 20 inherited modified and 2 inherited new Product files. Of the 15 edited paths, only design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md was inherited-modified; this task appended section 10.8 and kept its inherited content.",
+    "finalWorktreeEqualsStage": "rc7a-after-02: 397/397 staged sources byte-equal the worktree"
+  },
+  "changedFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "before": {
+        "bytes": 149148,
+        "sha256": "ed53e9d2e9de35e8aba62e9ff7a844d7fe3ef5e52934b7be820726756c36a735"
+      },
+      "after": {
+        "bytes": 153632,
+        "sha256": "87ef39bb7bd73cfe516e1ddadaf811657f5418203774ba660693f9528ebda7dd"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "before": {
+        "bytes": 20174,
+        "sha256": "190bbc2d6115ce8eae8021d25d3f27f42be3536fe326dee762fe35dbcc0c065f"
+      },
+      "after": {
+        "bytes": 20621,
+        "sha256": "ba3334e638d6464df618b75cd0ae03f93b9dff05f14530281141b0d5811f5078"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "before": {
+        "bytes": 129406,
+        "sha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5"
+      },
+      "after": {
+        "bytes": 130216,
+        "sha256": "c07261feca7ad1d1dbb27e294f42f5891138aca41b1220a5e68769c687a073ca"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "before": {
+        "bytes": 126341,
+        "sha256": "da1228f3876aca87ba065863bc990e216214f329ddb1e3d773466af08d18ee21"
+      },
+      "after": {
+        "bytes": 126876,
+        "sha256": "c0acb42e8ecf2f0410049cd02dd16564dbd86a5df93b2c5acf91ac8c4f2501a6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "before": {
+        "bytes": 37404,
+        "sha256": "7e280a39ea57094d52c9daff5bed18f4d4d8de20fe5785b48b2a3041189c753b"
+      },
+      "after": {
+        "bytes": 37639,
+        "sha256": "68ee96e433caa079dd7c26de3ed0f072d6fb18e17e0a1058d78a3447ea076ff8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "before": {
+        "bytes": 21411,
+        "sha256": "a74b4b064bc02691012bb770a2fd67c778f96dd077b611b4c361ba8959560292"
+      },
+      "after": {
+        "bytes": 22490,
+        "sha256": "4c4dac4382677004697bf31a6e59504a6efe55cccee9c901bde454b9e36bf55d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "before": {
+        "bytes": 8247,
+        "sha256": "32ed7dd156ac305e79dc3a9e87f6a3e5f76d5b9087ce7a4add992e82aa0af799"
+      },
+      "after": {
+        "bytes": 8239,
+        "sha256": "2acac61c0e14585b76ace3eda640fb8492ba12d079f5b84b66197d7e73d82377"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "before": {
+        "bytes": 56288,
+        "sha256": "d70db3d73cd08a20e1a40b6ecb3483b43d025d449c7a7fba9d53fc9f8f7776ea"
+      },
+      "after": {
+        "bytes": 56294,
+        "sha256": "d2ba1c12967011e20a5b5589fd1f1f5a3aba0e1b4755894744137a43d043d8cf"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "before": {
+        "bytes": 47365,
+        "sha256": "f98657628c0c21147f84e3d7c854df04014f71eef4a0920c2ac3cb34e66cd15d"
+      },
+      "after": {
+        "bytes": 47371,
+        "sha256": "54699a535c44ea4890687c06772e70622a452c3a8fabb4f01e11a17b8bf021ff"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "before": {
+        "bytes": 95835,
+        "sha256": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205"
+      },
+      "after": {
+        "bytes": 95841,
+        "sha256": "150ac49608bec68d136e231cba780a47aab1364313be0b0be169d7e364a767bc"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "before": {
+        "bytes": 96061,
+        "sha256": "8b3cbb16cc2c07af50b180e5cb29442c465719fa04ae887ecee501c3d10bb753"
+      },
+      "after": {
+        "bytes": 96067,
+        "sha256": "1229239650fbebd80b111b4c41c658cac13f63ca9fd1e50d5f09509fef3fbe27"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "before": {
+        "bytes": 37910,
+        "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+      },
+      "after": {
+        "bytes": 39702,
+        "sha256": "5d3850a9c4c6157bce7d0d4491c0d0c0b50ec85471708a05a43b2ff81247a551"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "before": {
+        "bytes": 4556,
+        "sha256": "b106e1de259ec993469a3d320316646eae9490330ec0bcb86fad2be7214dee7f"
+      },
+      "after": {
+        "bytes": 5516,
+        "sha256": "b98662b050796206dac7aec5131ab44edb07ca4d8f2cfe334859b0a27d7ee938"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "before": {
+        "bytes": 6407,
+        "sha256": "e17e26f31e1c85a285420bc2f74c66cddf22d960943020007583919729eef519"
+      },
+      "after": {
+        "bytes": 10056,
+        "sha256": "a8cc28369dc70e05ab229ef5c8bc489e4669d3faddea601c60908b7c2b2eeef6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "before": {
+        "bytes": 110595,
+        "sha256": "1f6b17f98fdf32252751e5cb012c4f3adfb865aec52a3adddf170b73d31f9245"
+      },
+      "after": {
+        "bytes": 115882,
+        "sha256": "b9af1afd99cba80bdaa4f89586c3b45c246036d9a3ef1915bdb1c0ffa7a97783"
+      }
+    }
+  ],
+  "designToOwner": [
+    {
+      "relation": "R1 Result derived before copy",
+      "status": "realized",
+      "how": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md §10.8",
+      "owners": [
+        "code/src/product/native_workspace_work.ts (constructNativeWorkspaceWorkObservation, isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure, retainedOriginalBefore)",
+        "code/src/implementation/native_workspace_work.ts (failure construction)"
+      ],
+      "consumers": [
+        "abg/semantic_job.ts:595",
+        "abg/default_library.ts:333",
+        "abg/semantic_revision.ts:263",
+        "product/semantic_job.ts:968",
+        "abg/instruction_assembly.ts nativeEvidenceWorkView/nativeWorkView"
+      ],
+      "history": "Retained Results carrying before==task.context validate under their original digest; before!=task.context, stripped-before-with-old-digest and injected-before-with-new-digest refuse."
+    },
+    {
+      "relation": "R1 Result task copy",
+      "status": "not_realized",
+      "reason": "Every native consumer and downstream task embedding (sourceNativeWork) reads task from the Result; removing it needs a CCall/current-input join at each consumer and a downstream task reshape. Not attempted inside one remaining compile stage."
+    },
+    {
+      "relation": "R2 unchanged after bytes reference basis-input holder",
+      "status": "not_realized",
+      "reason": "Requires extending WorksiteContextBodyMember source domain and event_prefix resolver to basis_admitted holders; existing behavior already keeps member references from task context but inline task-context bytes are still copied into after."
+    },
+    {
+      "relation": "R3 binding rawInputValue",
+      "status": "realized",
+      "how": "M03_INSTRUCTION_ASSEMBLY_DERIVATION.md binding paragraph; library design §10.8",
+      "owners": [
+        "code/src/abg/instruction_assembly.ts persistedNativeBasis (both native-work and worksite-native envelopes)",
+        "code/src/abg/execution_basis.ts NativeExecutionBasisCoordinate, nativeExecutionBasisCoordinate, deriveOwnedNativeInstructionAssemblyBasis coordinate/complete equality"
+      ]
+    },
+    {
+      "relation": "R4 contracts, generated projections, history",
+      "status": "realized_for_R1_before_R3_R5",
+      "generated": "Only contracts/capabilities/capability-definition-graph.json (551 fields) and product-toolchain-manifest.json (185 fields) differ between rc7a-before-01 and rc7a-after-02; every differing field is an identity/digest/ref cascade from source content. The 9 contracts/schemas files are byte-identical: the native Result and binding shapes are code-owned predicates, not generated JSON schemas. No generated file was hand-edited; none is written to the worktree."
+    },
+    {
+      "relation": "R5 RC7-LATENCY-01",
+      "status": "realized",
+      "owners": [
+        "code/src/abg/project_read_definition_bindings.ts populateRunReadAtDurablePrefix passes environment.artifactTruth.prefix"
+      ]
+    },
+    {
+      "relation": "R6 successor caller",
+      "status": "realized_in_canonical_runner_only",
+      "owners": [
+        "test_env/uat/runner.mjs freshReadbacks, commandRecorder, freshReadbackRecord"
+      ],
+      "note": "Operator campaign controls (prepare-r1, dispatch) untouched by grant; Root applies refresh(env.prefix) there."
+    }
+  ],
+  "retiredCopies": [
+    "Prospective native Result before field (observation and failure).",
+    "Persisted native binding envelope.nativeBasis.executionBasis.rawInputValue.",
+    "Second raw-prefix capture and cold history decode in populateRunReadAtDurablePrefix.",
+    "Runner: per-read raw close-handoff prefix acquisition in the parent when the acquired environment prefix is coordinate-equal; redundant caller.refresh() in freshReadbacks.",
+    "Runner: commands/<label>.result.json embedded stdout/stderr (now {path,byteCount,digest} of the retained .stdout/.stderr).",
+    "Runner: fresh-readback.json serialized projection twice per read (projection and ownerOutput.value.projection); now outcome path/digest, status, source and the existing terminal selection shape plus valueDigest."
+  ],
+  "remainingSupportedHistoricalCosts": [
+    "Result task copy (task.context included) remains in every prospective Result and in downstream sourceNativeWork embeddings.",
+    "Unchanged after entries remain inline when the task context is inline.",
+    "Original-contract Results with before and bindings with complete executionBasis keep their bytes and physical codec versions.",
+    "Lifecycle, run_result and run_replay return the full typed terminal value; CLI serializes it in full.",
+    "readOracleEvents decodes the close prefix for the oracle event array and refresh acquires the owned history (two decodes, distinct consumers; not changed)."
+  ],
+  "discriminators": [
+    {
+      "name": "RC7 logical carriage: basis, binding and Result hold each admitted body once and keep actual after, failure and original-contract history",
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "lane": "carriage",
+      "before": {
+        "stage": "rc7a-before-01",
+        "result": "fail",
+        "firstFailure": "bindingTask 1 !== 0",
+        "measured": {
+          "basisTask": 1,
+          "bindingTask": 1,
+          "resultTask": 1,
+          "resultContext": 2,
+          "contextBytes": 1366,
+          "basisBytes": 7403,
+          "bindingBytes": 33575,
+          "resultBytes": 10025
+        }
+      },
+      "after": {
+        "stage": "rc7a-after-02",
+        "result": "pass",
+        "measured": {
+          "basisTask": 1,
+          "bindingTask": 0,
+          "resultTask": 1,
+          "resultContext": 1,
+          "contextBytes": 1366,
+          "basisBytes": 7403,
+          "bindingBytes": 27391,
+          "resultBytes": 8649
+        }
+      },
+      "oracles": [
+        "changedPaths and actual after bytes",
+        "nativeWorkspaceWorkResultMatches with actual input; foreign input refuses",
+        "binding coordinate equals basis minus rawInputValue; rawInputDigest and envelope inputDigest bind the task",
+        "original-contract retention, restamp and forged-before refusals",
+        "failure without before; unknown after with observationFailure; null observationFailure refuses"
+      ]
+    },
+    {
+      "name": "RC7 prefix reuse: run-read population decodes a deserialized prefix once and keeps refusals",
+      "file": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "support": "test_env/support/t287-exact-prefix-projection-reuse.mjs countedOwnerCalls (existing precise-coverage seam)",
+      "lane": "prefix",
+      "before": {
+        "stage": "rc7a-before-01",
+        "result": "fail",
+        "firstFailure": "decodeRuntimeHistoryDescriptor 2 !== 1 for one deserialized prefix"
+      },
+      "after": {
+        "stage": "rc7a-after-02",
+        "result": "pass",
+        "decodes": {
+          "deserialized": 1,
+          "separatelyDeserialized": 1,
+          "acquiredIdentity": 0,
+          "foreignBinding": 1
+        }
+      },
+      "oracles": [
+        "equal unknown_source refusal before and after",
+        "separately deserialized coordinate acquires its own",
+        "projection_basis_mismatch for foreign binding digest",
+        "artifact_truth_invalid for changed digest and unsigned length",
+        "event log bytes unchanged"
+      ],
+      "limit": "Setup has no admitted Run, so the positive populated_run_read request is not exercised by this discriminator."
+    }
+  ],
+  "updatedExistingAssertions": [
+    "t287-native-workspace-work: admitted-member test and typed read-only assessment test now assert absence of before (fail in before mode by design)"
+  ],
+  "stages": [
+    {
+      "label": "rc7a-after-01",
+      "mode": "after",
+      "sourceCount": 397,
+      "sourceDigest": "df6a7d81cac359c7e86e4b08de3f6a52f2ae71324e0a2395ffa396b0fc9caaea",
+      "compile": {
+        "exitCode": 0,
+        "ms": 7674
+      },
+      "generate": {
+        "exitCode": 0,
+        "ms": 23002
+      },
+      "lifecycleGuard": {
+        "exitCode": 0,
+        "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender"
+      }
+    },
+    {
+      "label": "rc7a-before-01",
+      "mode": "before",
+      "sourceCount": 397,
+      "sourceDigest": "8f88100898a8488eb9162c618cfcab41b9bc1180011c6d949d93f57316f2e2f2",
+      "compile": {
+        "exitCode": 0,
+        "ms": 7547
+      },
+      "generate": {
+        "exitCode": 0,
+        "ms": 22773
+      },
+      "lifecycleGuard": {
+        "exitCode": 0,
+        "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender"
+      }
+    },
+    {
+      "label": "rc7a-after-02",
+      "mode": "after",
+      "sourceCount": 397,
+      "sourceDigest": "f74c9abcdc2e9463c1ce8d13b3b60cd657db6e366fd2b09c4c57de512c6f527b",
+      "compile": {
+        "exitCode": 0,
+        "ms": 7967
+      },
+      "generate": {
+        "exitCode": 0,
+        "ms": 23083
+      },
+      "lifecycleGuard": {
+        "exitCode": 0,
+        "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender"
+      }
+    }
+  ],
+  "lanes": {
+    "rc7a-after-01-lanes-carriage": {
+      "exitCode": 0,
+      "ms": 18988,
+      "tests": 92,
+      "pass": 85,
+      "fail": 0,
+      "skipped": 7,
+      "cancelled": 0,
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": false,
+      "activeRc7": [
+        "RC7 logical carriage: basis, binding and Result hold each admitted body once and keep actual after, failure and original-contract history"
+      ],
+      "failing": [],
+      "stdoutSha256": "d54c3b8e0eed7c807f3436f9f3628c629a5172d84b2510342a26739e1775a60e"
+    },
+    "rc7a-after-01-lanes-consumers": {
+      "exitCode": 1,
+      "ms": 125668,
+      "tests": 77,
+      "pass": 38,
+      "fail": 29,
+      "skipped": 10,
+      "cancelled": 0,
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": false,
+      "activeRc7": [],
+      "failing": [
+        "prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes",
+        "fulfillment raw schema and binder share nonempty support role forms without semantic judgment",
+        "pure projection separates historical adverse evidence, current roles, policy completeness and later obligations",
+        "real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage",
+        "selected-profile hook and persisted assembly conserve admitted additions through selected and gap projection",
+        "UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+        "Retained prior-Run source use: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+        "declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+        "framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe",
+        "framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+        "selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges",
+        "native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+        "UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+        "C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+        "parent conservation joins the pre-Run root basis through exact invocation and root implementation set",
+        "one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root",
+        "DataMapper caller separates author territories and baseline inputs from future final proof",
+        "consumer-authored source and scope remain exact application data; no solution is in library",
+        "observed child provenance joins the current preparation and rejects crossed or missing causal facts",
+        "observed command correspondence conserves explicit input across empty and different process environments",
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+        "declared command-executor assembly accepts native C2 and keeps exact task, owner and context refusals",
+        "extended original C2 plan preserves all 26 sources through native and observed owners",
+        "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+        "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+      ],
+      "stdoutSha256": "de103cf22366ed9e170dbc439458458b0e6f225094e4be9ff4a2964c86d02e0a"
+    },
+    "rc7a-after-01-lanes-prefix": {
+      "exitCode": 0,
+      "ms": 75854,
+      "tests": 4,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 1,
+      "cancelled": 0,
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": true,
+      "activeRc7": [
+        "RC7 prefix reuse: run-read population decodes a deserialized prefix once and keeps refusals"
+      ],
+      "failing": [],
+      "stdoutSha256": "9e74f2f482abd4be6d40f58dfc9640d22dffe7078b87a7ac5ee9c22e0a2daf63"
+    },
+    "rc7a-after-02-lanes-carriage": {
+      "exitCode": 0,
+      "ms": 19522,
+      "tests": 92,
+      "pass": 85,
+      "fail": 0,
+      "skipped": 7,
+      "cancelled": 0,
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": false,
+      "activeRc7": [
+        "RC7 logical carriage: basis, binding and Result hold each admitted body once and keep actual after, failure and original-contract history"
+      ],
+      "failing": [],
+      "stdoutSha256": "315edaf51d738ff03387abe21115d343178d6b055f200c1a9ab82eaab1e30578"
+    },
+    "rc7a-after-02-lanes-consumers": {
+      "exitCode": 1,
+      "ms": 176740,
+      "tests": 77,
+      "pass": 39,
+      "fail": 28,
+      "skipped": 10,
+      "cancelled": 0,
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": false,
+      "activeRc7": [],
+      "failing": [
+        "prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes",
+        "fulfillment raw schema and binder share nonempty support role forms without semantic judgment",
+        "pure projection separates historical adverse evidence, current roles, policy completeness and later obligations",
+        "real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage",
+        "selected-profile hook and persisted assembly conserve admitted additions through selected and gap projection",
+        "UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+        "Retained prior-Run source use: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+        "declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+        "framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe",
+        "framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+        "selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges",
+        "native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+        "UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+        "C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+        "parent conservation joins the pre-Run root basis through exact invocation and root implementation set",
+        "one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root",
+        "DataMapper caller separates author territories and baseline inputs from future final proof",
+        "consumer-authored source and scope remain exact application data; no solution is in library",
+        "observed child provenance joins the current preparation and rejects crossed or missing causal facts",
+        "observed command correspondence conserves explicit input across empty and different process environments",
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+        "extended original C2 plan preserves all 26 sources through native and observed owners",
+        "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+        "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+      ],
+      "stdoutSha256": "f6f9dafcabd3620735f4fd94e2eb5b38f77fecfcb028d85cea7410a2cdac5519"
+    },
+    "rc7a-after-02-lanes-legacy": {
+      "exitCode": 0,
+      "ms": 7756,
+      "tests": 37,
+      "pass": 37,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": true,
+      "activeRc7": [],
+      "failing": [],
+      "stdoutSha256": "b647b953b4bbaf16e2f4b66c129e63281b40ca1bdff02bbf2f6e88bebf508dfb"
+    },
+    "rc7a-after-02-lanes-prefix": {
+      "exitCode": 0,
+      "ms": 140985,
+      "tests": 4,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 1,
+      "cancelled": 0,
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": true,
+      "activeRc7": [
+        "RC7 prefix reuse: run-read population decodes a deserialized prefix once and keeps refusals"
+      ],
+      "failing": [],
+      "stdoutSha256": "902dd7e5644529258801d0323809070e2e374a36180489cda2b1b137a1c06116"
+    },
+    "rc7a-before-01-lanes-carriage": {
+      "exitCode": 1,
+      "ms": 18735,
+      "tests": 92,
+      "pass": 82,
+      "fail": 3,
+      "skipped": 7,
+      "cancelled": 0,
+      "requiredActivePass": false,
+      "historicalSkipsDeclared": false,
+      "activeRc7": [],
+      "failing": [
+        "admitted-member task context keeps unchanged bodies by reference and births changed bytes inline once",
+        "RC7 logical carriage: basis, binding and Result hold each admitted body once and keep actual after, failure and original-contract history",
+        "typed read-only assessment retains F_P source and exact observed basis, not a work report"
+      ],
+      "stdoutSha256": "22dc4474fcef16df71db49f24a53ddd2479d26364e7891407cd3c053b41a0865"
+    },
+    "rc7a-before-01-lanes-consumers": {
+      "exitCode": 1,
+      "ms": 200018,
+      "tests": 77,
+      "pass": 39,
+      "fail": 28,
+      "skipped": 10,
+      "cancelled": 0,
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": false,
+      "activeRc7": [],
+      "failing": [
+        "prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes",
+        "fulfillment raw schema and binder share nonempty support role forms without semantic judgment",
+        "pure projection separates historical adverse evidence, current roles, policy completeness and later obligations",
+        "real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage",
+        "selected-profile hook and persisted assembly conserve admitted additions through selected and gap projection",
+        "UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+        "Retained prior-Run source use: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+        "declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+        "framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe",
+        "framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+        "selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges",
+        "native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+        "UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+        "C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+        "parent conservation joins the pre-Run root basis through exact invocation and root implementation set",
+        "one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root",
+        "DataMapper caller separates author territories and baseline inputs from future final proof",
+        "consumer-authored source and scope remain exact application data; no solution is in library",
+        "observed child provenance joins the current preparation and rejects crossed or missing causal facts",
+        "observed command correspondence conserves explicit input across empty and different process environments",
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+        "extended original C2 plan preserves all 26 sources through native and observed owners",
+        "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+        "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+      ],
+      "stdoutSha256": "29e413b40ae53a019df175339c8ddf1f746cc3612dcd0d443a4fdf6b43c7ffd3"
+    },
+    "rc7a-before-01-lanes-prefix": {
+      "exitCode": 1,
+      "ms": 96416,
+      "tests": 4,
+      "pass": 2,
+      "fail": 1,
+      "skipped": 1,
+      "cancelled": 0,
+      "requiredActivePass": false,
+      "historicalSkipsDeclared": true,
+      "activeRc7": [],
+      "failing": [
+        "RC7 prefix reuse: run-read population decodes a deserialized prefix once and keeps refusals"
+      ],
+      "stdoutSha256": "a5dbc602995abf4f6d45b1fe876aa2d4bd5b7458a2a36073839544892c66799e"
+    }
+  },
+  "laneDisposition": {
+    "carriage": "after-02 85/92 pass, 0 fail, 7 skipped; RC7 logical carriage active. The lane runner predicate still fails because the skip \"RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction\" is env-gated and absent from C2_INPUTS allowedHistoricalSkippedTests; it is skipped identically in rc7a-before-01.",
+    "prefix": "after-02 3/4 pass, 0 fail, 1 declared historical skip; RC7 prefix reuse active.",
+    "consumers": "after-02 39 pass, 28 fail, 10 skipped. The 28 failing names equal rc7a-before-01 exactly: staged-closure ENOENT for .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness seed/selection, test_env/fixtures/sandbox-uat and test_env/falsifiers/runtime-retained-projections-worker.mjs. One after-only failure in rc7a-after-01 (declared command-executor assembly, persistedNativeBasis dereferenced an absent executionBasis in a component premise) was repaired and passes in after-02.",
+    "legacy": "after-02 37/37 pass."
+  },
+  "wholeCarriage": {
+    "status": "unbound_for_matched_retained_workload",
+    "missingBinding": "One matched retained N2/N3 workload requires the retained event logs and a new installed runtime execution through the campaign; both are outside this grant.",
+    "fixtureMeasured": "see discriminators (component scale: binding -6184 B, Result -1376 B per one-task fixture).",
+    "pinnedMetadataDerived": {
+      "source": "CARRIAGE_READINESS.json measurements (pinned, not re-measured)",
+      "N2": {
+        "bindingRawInputRemovedLogicalBytes": 14320013,
+        "resultBeforeRemovedLogicalBytes": 14309595,
+        "remainingResultTaskBytes": 14320013,
+        "remainingUnchangedAfterEntryBytes": 12660520
+      },
+      "N3": {
+        "bindingRawInputRemovedLogicalBytes": 14713970,
+        "resultBeforeRemovedLogicalBytes": 14706716,
+        "remainingResultTaskBytes": 14713970,
+        "remainingUnchangedAfterEntryBytes": 14405583
+      }
+    },
+    "notMeasured": [
+      "physical event rows and log increment",
+      "lifecycle terminal output",
+      "run_result/run_replay output",
+      "command stdout and retained record bytes",
+      "aggregate"
+    ],
+    "timings": {
+      "measured": {
+        "stageCompileMs": [
+          7674,
+          7547,
+          7967
+        ],
+        "stageGenerateMs": [
+          23002,
+          22773,
+          23083
+        ],
+        "laneMs": "see lanes"
+      },
+      "unmeasured": [
+        "setup/preflight",
+        "host startup",
+        "dispatch-to-actor",
+        "native work",
+        "closure",
+        "parent refresh",
+        "physical authentication",
+        "call construction",
+        "child CLI wall",
+        "parse/serialization/write",
+        "terminal agreement"
+      ],
+      "note": "No speedup claim; N2 versus N3 is not a matched pair."
+    }
+  },
+  "preservedFailures": "Prior 112 passes, recovery 117000ms cancellation, downstream host 8GiB OOM and first recovery-helper predicate failure remain old-subject evidence; not erased, not counted.",
+  "d5Classification": "Changed relations affecting D5 dependents: native Result shape (before), binding envelope executionBasis, run-read population prefix. Prior 112 passes are not reusable as new-candidate proof for those relations; legacy-lane relations (37/37) rerun on rc7a-after-02.",
+  "runnerProof": "test_env/uat/runner.mjs: node --check only. uat/harness.test.mjs (freshReadbacks and commandRecorder consumer) is outside the selected lanes and write grant; its controlled caller has no state.environment, so freshReadbacks passes caller.reopen() unchanged, as that test asserts.",
+  "auxiliaryWrites": [
+    "qualification-scratch/rc7-overhead-author-01/tmp/rc7a-* (stage and lane outputs)",
+    "/private/tmp/abg-o7a: test TMPDIR effects and one author file rc7a-changed.json (changed-file digest table)"
+  ],
+  "budget": {
+    "wallMinutes": "about 40 of 90",
+    "stages": "3 of 3",
+    "laneInvocations": "10 of 10",
+    "automaticRetries": 0
+  },
+  "nonClaims": [
+    "no independent review",
+    "no acceptance",
+    "no installed proof",
+    "no qualification",
+    "no publication or release"
+  ],
+  "returnTo": "Root Executive; stop"
+}

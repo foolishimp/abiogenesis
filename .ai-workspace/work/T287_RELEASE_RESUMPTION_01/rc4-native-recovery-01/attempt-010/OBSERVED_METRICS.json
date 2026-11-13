@@ -1,0 +1,2812 @@
+{
+  "schema": "passive_runtime_observation_v2",
+  "attempt": "010",
+  "source_commit": "7e914327158b7631d1df40b9ec1b068960013b10",
+  "sourceBasis": "none",
+  "started": "2026-11-02T04:30:20.621Z",
+  "dispatch_pid": 74472,
+  "root_exec_session": 99301,
+  "manifest_sha256": "a3c2676566abf1442cefc92de03bd75bc52fd33fb6c5a4febc162f326198f42b",
+  "status": "CLOSED_RUNTIME_FAILED",
+  "run_ids": [
+    "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+  ],
+  "event_observation": {
+    "initial_cursor": 816424329,
+    "cursor": 897222642,
+    "incremental_complete_rows": 5582,
+    "incremental_kind_counts": {
+      "public_operation_admitted": 1,
+      "invocation_admitted": 1,
+      "implementation_admitted": 1,
+      "basis_admitted": 2,
+      "run_segment_opened": 1,
+      "graph_call_opened": 4,
+      "frame_opened": 4,
+      "runtime_activity_probe_observed": 2782,
+      "traversal_cursor_entered": 4,
+      "c_call_opened": 8,
+      "c_call_fibre_selected": 8,
+      "c_call_evidenced": 8,
+      "abg_admitted_body_reference_record": 4,
+      "c_call_judged": 8,
+      "c_call_result_admitted": 7,
+      "traversal_route_admitted": 7,
+      "actor_transport_binding_admitted": 1,
+      "actor_invocation_started": 2,
+      "actor_process_started": 2,
+      "actor_process_stdout_observed": 2718,
+      "actor_process_exited": 2,
+      "actor_result_artifact_observed": 2,
+      "actor_invocation_closed": 2,
+      "child_foldback_admitted": 2,
+      "runtime_failure_observed": 1
+    },
+    "incremental_kind_row_bytes": {
+      "public_operation_admitted": 4349,
+      "invocation_admitted": 352586,
+      "implementation_admitted": 53553,
+      "basis_admitted": 532741,
+      "run_segment_opened": 2359,
+      "graph_call_opened": 10313,
+      "frame_opened": 10552,
+      "runtime_activity_probe_observed": 11969354,
+      "traversal_cursor_entered": 12477,
+      "c_call_opened": 21926,
+      "c_call_fibre_selected": 18371,
+      "c_call_evidenced": 28328,
+      "abg_admitted_body_reference_record": 1038677,
+      "c_call_judged": 17735,
+      "c_call_result_admitted": 59507462,
+      "traversal_route_admitted": 283641,
+      "actor_transport_binding_admitted": 1382869,
+      "actor_invocation_started": 5181,
+      "actor_process_started": 3755,
+      "actor_process_stdout_observed": 5204189,
+      "actor_process_exited": 3583,
+      "actor_result_artifact_observed": 84600,
+      "actor_invocation_closed": 241503,
+      "child_foldback_admitted": 5786,
+      "runtime_failure_observed": 2423
+    },
+    "cold_prefix_validated": false,
+    "stat_bytes": 897222642,
+    "last_ordinal": 36087,
+    "last_time": "2026-11-02T05:58:51.661Z",
+    "appended_bytes": 80798313,
+    "final_projection_basis_digest_owner_reported": "sha256:ea28850f2f0855ef67e27e8b67badd160330ca7082dbfbea936049e43d50f631"
+  },
+  "actors": {
+    "actor-invocation://abiogenesis/1cace50429b8634d1d40395204ab8b3fb7fb3ccdab570e5f74fcb0cbe6cfd054": {
+      "implementation": "implementation://abiogenesis/default-library/select@5",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "run_id": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace",
+      "last_event_kind": "actor_invocation_closed",
+      "last_ordinal": 30810,
+      "last_time": "2026-11-02T04:34:43.385Z",
+      "pid": 76581,
+      "exited": true,
+      "process_alive": false,
+      "exit_status": 0
+    },
+    "actor-invocation://abiogenesis/298aab45f8364d216a81eb2e46f3c62c5c260cd6fc3aa1623941485bbcdd61ce": {
+      "implementation": "implementation://abiogenesis/worksite/native-work-fp@5",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "run_id": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace",
+      "last_event_kind": "actor_invocation_closed",
+      "last_ordinal": 36051,
+      "last_time": "2026-11-02T05:58:33.333Z",
+      "pid": 78619,
+      "exited": true,
+      "process_alive": false,
+      "exit_status": 0
+    }
+  },
+  "archives": {
+    "fp-a365c573418f1e6d-stdout.log": {
+      "cursor": 273852,
+      "tool_counts": {
+        "StructuredOutput": 1
+      },
+      "provider_result": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 2,
+        "duration_ms": 84258,
+        "duration_api_ms": 72141,
+        "total_cost_usd": 2.5551920000000004,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 300393,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 7602,
+          "output_tokens_details": {
+            "thinking_tokens": 4255
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 300393,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 7602,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 300393,
+            "webSearchRequests": 0,
+            "costUSD": 2.5551920000000004,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 4255,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "terminal_reason": "completed",
+        "stop_reason": "tool_use"
+      },
+      "stat_bytes": 273852,
+      "output_path": "runtime-001/resources/archives/fp-a365c573418f1e6d-output.txt"
+    },
+    "fp-d0764c78c5a88b68-stdout.log": {
+      "cursor": 9917484,
+      "tool_counts": {
+        "Bash": 185,
+        "Read": 6,
+        "Grep": 16,
+        "Write": 1,
+        "Edit": 11,
+        "StructuredOutput": 1
+      },
+      "provider_result": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 222,
+        "duration_ms": 4908280,
+        "duration_api_ms": 2269269,
+        "total_cost_usd": 18.70251579999999,
+        "usage": {
+          "input_tokens": 416,
+          "cache_creation_input_tokens": 685877,
+          "cache_read_input_tokens": 44594871,
+          "output_tokens": 199876,
+          "output_tokens_details": {
+            "thinking_tokens": 105469
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 685877,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2519,
+            "outputTokens": 210608,
+            "cacheReadInputTokens": 44959719,
+            "cacheCreationInputTokens": 686141,
+            "webSearchRequests": 0,
+            "costUSD": 18.70251579999999,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 105469,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "terminal_reason": "completed",
+        "stop_reason": "tool_use"
+      },
+      "stat_bytes": 9917484,
+      "output_path": "runtime-001/resources/archives/fp-d0764c78c5a88b68-output.txt"
+    }
+  },
+  "tool_requests": {
+    "toolu_01A3VFcnXhTtBSWGx8CTDEZo": {
+      "tool": "StructuredOutput",
+      "id": "toolu_01A3VFcnXhTtBSWGx8CTDEZo",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_012VVrcwDYgWXkTnzvW42j4g": {
+      "tool": "Bash",
+      "id": "toolu_012VVrcwDYgWXkTnzvW42j4g",
+      "path": "",
+      "command_excerpt": "git rev-parse HEAD && git rev-parse HEAD^{tree} && git status --short | head -20 && wc -c .claude/skills/stdo-work/SKILL.md .claude/references/PRODUCT_BASIS.md rc4-operator-inputs/native-recovery-10/* stdo_abiogenesis.json AGENTS.md",
+      "test_or_build_candidate": false
+    },
+    "toolu_01PyTbYz7gEFQYRamV1MQ16i": {
+      "tool": "Bash",
+      "id": "toolu_01PyTbYz7gEFQYRamV1MQ16i",
+      "path": "",
+      "command_excerpt": "cat .claude/skills/stdo-work/SKILL.md && echo ======== && cat .claude/references/PRODUCT_BASIS.md",
+      "test_or_build_candidate": false
+    },
+    "toolu_01T9bfocRA28oGJqkz1eiZcx": {
+      "tool": "Bash",
+      "id": "toolu_01T9bfocRA28oGJqkz1eiZcx",
+      "path": "",
+      "command_excerpt": "for f in CURRENT_SELECTION.DRAFT.md task.DRAFT.md rubric.DRAFT.json PARTIAL_DISPOSITION.DRAFT.md REVIEWED_ROUTES_AND_PRIOR_RESULTS.md; do echo \"======== $f\"; cat rc4-operator-inputs/native-recovery-10/$f; done",
+      "test_or_build_candidate": false
+    },
+    "toolu_01BSE7X4nrGHXkWuZLjTxPEg": {
+      "tool": "Bash",
+      "id": "toolu_01BSE7X4nrGHXkWuZLjTxPEg",
+      "path": "",
+      "command_excerpt": "cat rc4-operator-inputs/native-recovery-10/NATIVE_GRANT.DRAFT.json",
+      "test_or_build_candidate": false
+    },
+    "toolu_01L3wmi8fMgczrHiLZYV3RJV": {
+      "tool": "Bash",
+      "id": "toolu_01L3wmi8fMgczrHiLZYV3RJV",
+      "path": "",
+      "command_excerpt": "sed -n '/Consume an existing exact owner/,/Evaluate And Construct/p' .claude/skills/stdo-work/SKILL.md; echo '----PRODUCT_BASIS----'; cat .claude/references/PRODUCT_BASIS.md; echo '----stdo----'; cat stdo_abiogenesis.json",
+      "test_or_build_candidate": false
+    },
+    "toolu_01VdtWg783rN2f5ZT5fK27q5": {
+      "tool": "Bash",
+      "id": "toolu_01VdtWg783rN2f5ZT5fK27q5",
+      "path": "",
+      "command_excerpt": "command -v stdo; stdo status --definition stdo_abiogenesis.json --verify 2>&1 | head -60",
+      "test_or_build_candidate": false
+    },
+    "toolu_01EbMQpDH4Nqf5rEiB529tDq": {
+      "tool": "Bash",
+      "id": "toolu_01EbMQpDH4Nqf5rEiB529tDq",
+      "path": "",
+      "command_excerpt": "stdo status --definition stdo_abiogenesis.json --verify 2>&1 | python3 -I -c 'import json,sys; d=json.load(sys.stdin); print({k:d[k] for k in d if k not in (\"standards\",\"release\")}); print([m for m in d[\"standards\"][\"members\"] if m[\"path\"] in (\"ACTIVATION.md\",\"SPEC_METHOD.md\",\"EXECUTIVE_BASELINE.md\",\"REFERENCE_FRAME.md\",\"frames/bootstrap.md\")])'; stdo resolve \"stdo://releases/v3.0.2/standards/ACTIVATION.md\" 2>&1 | head -5",
+      "test_or_build_candidate": false
+    },
+    "toolu_01TopbGrSS3kqUJggmVbN7tL": {
+      "tool": "Bash",
+      "id": "toolu_01TopbGrSS3kqUJggmVbN7tL",
+      "path": "",
+      "command_excerpt": "cd \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards\" && shasum -a 256 frames/bootstrap.md ACTIVATION.md && wc -c frames/bootstrap.md && cat frames/bootstrap.md | head -150",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Wcj8yhRfd1J5cazK2Fxiqs": {
+      "tool": "Bash",
+      "id": "toolu_01Wcj8yhRfd1J5cazK2Fxiqs",
+      "path": "",
+      "command_excerpt": "grep -n '^#' specification/PRODUCT.md | head -80",
+      "test_or_build_candidate": false
+    },
+    "toolu_01NUGg1caEdfSS1PHTARcbed": {
+      "tool": "Bash",
+      "id": "toolu_01NUGg1caEdfSS1PHTARcbed",
+      "path": "",
+      "command_excerpt": "sed -n '810,849p;1092,1112p' specification/PRODUCT.md",
+      "test_or_build_candidate": false
+    },
+    "toolu_01BbRa8ZHukVuetnMUSm169d": {
+      "tool": "Bash",
+      "id": "toolu_01BbRa8ZHukVuetnMUSm169d",
+      "path": "",
+      "command_excerpt": "grep -n 'CONTINUATION-01[4567]' specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md | head; grep -n 'POLICY-02[345]' specification/requirements/product/REQ-P-POLICY.md | head",
+      "test_or_build_candidate": false
+    },
+    "toolu_01BsXn5wq2bTLHYWejoPGZY1": {
+      "tool": "Bash",
+      "id": "toolu_01BsXn5wq2bTLHYWejoPGZY1",
+      "path": "",
+      "command_excerpt": "sed -n '55,80p' specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md; echo ----; sed -n '160,200p' specification/requirements/product/REQ-P-POLICY.md",
+      "test_or_build_candidate": false
+    },
+    "toolu_01VZD54fNUzBgAJGpC1WXPup": {
+      "tool": "Bash",
+      "id": "toolu_01VZD54fNUzBgAJGpC1WXPup",
+      "path": "",
+      "command_excerpt": "D=build_tenants/abiogenesis/typescript/design; wc -c AGENTS.md $D/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md $D/T287_NATIVE_WORKSPACE_WORK_DESIGN.md $D/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md; cat AGENTS.md",
+      "test_or_build_candidate": false
+    },
+    "toolu_01RUdaxPUL6nedVqr5ddVLy9": {
+      "tool": "Read",
+      "id": "toolu_01RUdaxPUL6nedVqr5ddVLy9",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_013MT6qtWWP1qbf2A4gSzZi3": {
+      "tool": "Read",
+      "id": "toolu_013MT6qtWWP1qbf2A4gSzZi3",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01XYkU8F934wX9dzE5eXhppx": {
+      "tool": "Bash",
+      "id": "toolu_01XYkU8F934wX9dzE5eXhppx",
+      "path": "",
+      "command_excerpt": "grep -n '^#' build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Ju5G1jN37UYf8merDvsNhR": {
+      "tool": "Bash",
+      "id": "toolu_01Ju5G1jN37UYf8merDvsNhR",
+      "path": "",
+      "command_excerpt": "sed -n '1,100p;300,420p' build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "test_or_build_candidate": false
+    },
+    "toolu_01SkmuchRQxz5DD6QGy6Nn6z": {
+      "tool": "Bash",
+      "id": "toolu_01SkmuchRQxz5DD6QGy6Nn6z",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && wc -l code/src/abg/instruction_assembly.ts code/src/abg/event_prefix.ts code/src/abg/default_library.ts code/src/abg/invocation_admission.ts code/src/abg/native_worksite_execution.ts code/src/abg/execution_basis.ts code/src/abg/construction_continuation.ts test_env/tests/t287-default-library.test.mjs test_env/tests/t287-native-worksite-execution.test.mjs && sed -n '380,470p' code/src/abg/instruction_assembly.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01PX3FkRcenVHWdnnbjGdx3R": {
+      "tool": "Bash",
+      "id": "toolu_01PX3FkRcenVHWdnnbjGdx3R",
+      "path": "",
+      "command_excerpt": "grep -n 'WorksiteContextBody\\|nativeContextBody\\|native-context-body\\|foreign\\|export function\\|continuedHolders' code/src/abg/event_prefix.ts | head -80",
+      "test_or_build_candidate": false
+    },
+    "toolu_01FKST5A7bgZgg7YoqNdk8rd": {
+      "tool": "Bash",
+      "id": "toolu_01FKST5A7bgZgg7YoqNdk8rd",
+      "path": "",
+      "command_excerpt": "sed -n '815,973p' code/src/abg/event_prefix.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01PKYS8X1oX3CQNcG2Wi4qcu": {
+      "tool": "Bash",
+      "id": "toolu_01PKYS8X1oX3CQNcG2Wi4qcu",
+      "path": "",
+      "command_excerpt": "sed -n '1,200p' code/src/abg/default_library.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01QHHbYURLZ4epiBuEfR5ezS": {
+      "tool": "Bash",
+      "id": "toolu_01QHHbYURLZ4epiBuEfR5ezS",
+      "path": "",
+      "command_excerpt": "sed -n '200,456p' code/src/abg/default_library.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01FjZ35kHcdytWHXwMdYLwtE": {
+      "tool": "Bash",
+      "id": "toolu_01FjZ35kHcdytWHXwMdYLwtE",
+      "path": "",
+      "command_excerpt": "grep -n 'hasAdmittedGovernanceSourceUse\\|hasAdmittedGovernanceCoveredSourceUse\\|function projectExactInvocationAdmissionAtPrefix\\|sourceResultBasis' code/src/abg/invocation_execution_truth.ts | head -40",
+      "test_or_build_candidate": false
+    },
+    "toolu_01UfxagRkKqcQSzhcrUe3Udc": {
+      "tool": "Bash",
+      "id": "toolu_01UfxagRkKqcQSzhcrUe3Udc",
+      "path": "",
+      "command_excerpt": "sed -n '150,300p' code/src/abg/invocation_execution_truth.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_0176qGXhcLT9A6jEWaFsgPL4": {
+      "tool": "Bash",
+      "id": "toolu_0176qGXhcLT9A6jEWaFsgPL4",
+      "path": "",
+      "command_excerpt": "grep -rn 'export function nativeContextBodyHolders' code/src | head; grep -rn 'NATIVE_CONTEXT_BODY_KEY' code/src | head -5; git log --oneline -8 -- code/src/abg/event_prefix.ts; git log -S continuedHolders --oneline | head",
+      "test_or_build_candidate": false
+    },
+    "toolu_01AH561aZ2YXNrMn46NpZeXY": {
+      "tool": "Bash",
+      "id": "toolu_01AH561aZ2YXNrMn46NpZeXY",
+      "path": "",
+      "command_excerpt": "sed -n '540,620p' code/src/abg/runtime_history.ts; git show 5559656d3 --stat | head -40",
+      "test_or_build_candidate": false
+    },
+    "toolu_01YJ22FoM8YDUTEGLYU7h6sU": {
+      "tool": "Bash",
+      "id": "toolu_01YJ22FoM8YDUTEGLYU7h6sU",
+      "path": "",
+      "command_excerpt": "git show 5559656d3 -- code/src/abg/event_prefix.ts | head -120",
+      "test_or_build_candidate": false
+    },
+    "toolu_01LEw6Xei6CYXJXnp8swTgCA": {
+      "tool": "Bash",
+      "id": "toolu_01LEw6Xei6CYXJXnp8swTgCA",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && grep -rln 'focused-owner-chain\\|affected-owner-tests' --include=*.json --include=*.md --include=*.mjs . 2>/dev/null | grep -v node_modules | head -20",
+      "test_or_build_candidate": true
+    },
+    "toolu_0119gUDem1T2GKYyEGzLPxkh": {
+      "tool": "Grep",
+      "id": "toolu_0119gUDem1T2GKYyEGzLPxkh",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01R25Kzx3ji3T7sbocwxzLnE": {
+      "tool": "Bash",
+      "id": "toolu_01R25Kzx3ji3T7sbocwxzLnE",
+      "path": "",
+      "command_excerpt": "python3 -I -c '\nimport json;d=json.load(open(\"rc3-operator-inputs/increment-b-07/NAMED_INTEGRATION_CHECK.json\"))\ndef walk(x,p=\"\"):\n  if isinstance(x,dict):\n    for k,v in x.items(): walk(v,p+\"/\"+k)\n  elif isinstance(x,list):\n    for i,v in enumerate(x): walk(v,p+\"/\"+str(i))\n  else:\n    s=str(x); print(p, s[:400])\nwalk(d)' | head -120",
+      "test_or_build_candidate": false
+    },
+    "toolu_01XSG8GAMpzfPHHaePsw346w": {
+      "tool": "Bash",
+      "id": "toolu_01XSG8GAMpzfPHHaePsw346w",
+      "path": "",
+      "command_excerpt": "grep -n 'command\\|test.mjs\\|focused\\|affected' rc3-operator-inputs/increment-b-07/HOW.md | head -60",
+      "test_or_build_candidate": true
+    },
+    "toolu_01XG8K7ftU9Rq9i3sY3PCTAa": {
+      "tool": "Bash",
+      "id": "toolu_01XG8K7ftU9Rq9i3sY3PCTAa",
+      "path": "",
+      "command_excerpt": "git log -1 --format=%B 7e9143271 | head -80; git show --stat 7e9143271 | tail -15",
+      "test_or_build_candidate": false
+    },
+    "toolu_014YSCbLyGQDF7AyYfMFUMMf": {
+      "tool": "Bash",
+      "id": "toolu_014YSCbLyGQDF7AyYfMFUMMf",
+      "path": "",
+      "command_excerpt": "ls -la rc4-scratch/ rc4-scratch/native-recovery-10 2>&1 | head; cat rc4-scratch/native-recovery-09/sync.sh",
+      "test_or_build_candidate": false
+    },
+    "toolu_01AAcnYC9UKyX1jkbAfdFQLm": {
+      "tool": "Bash",
+      "id": "toolu_01AAcnYC9UKyX1jkbAfdFQLm",
+      "path": "",
+      "command_excerpt": "ls -la rc4-scratch/native-recovery-10/ rc4-scratch/native-recovery-10/* 2>&1 | head; cat build_tenants/abiogenesis/typescript/package.json | head -60",
+      "test_or_build_candidate": false
+    },
+    "toolu_01P7yuM1y8T79CCX9jjs6KQj": {
+      "tool": "Bash",
+      "id": "toolu_01P7yuM1y8T79CCX9jjs6KQj",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && python3 -I -c 'import json;d=json.load(open(\"package.json\"));[print(k,\":\",v[:300]) for k,v in d.get(\"scripts\",{}).items()]'",
+      "test_or_build_candidate": false
+    },
+    "toolu_01XzLJH9BR6eb8qU1fFxbswJ": {
+      "tool": "Bash",
+      "id": "toolu_01XzLJH9BR6eb8qU1fFxbswJ",
+      "path": "",
+      "command_excerpt": "grep -n \"^test(\\|^  test(\\|^describe\\|it(\\|durable entered\\|^const \\|^async function\\|^function\\|^import\" test_env/tests/t287-default-library.test.mjs | head -120",
+      "test_or_build_candidate": false
+    },
+    "toolu_01ATcQ6a84xtNucHjifdscp3": {
+      "tool": "Bash",
+      "id": "toolu_01ATcQ6a84xtNucHjifdscp3",
+      "path": "",
+      "command_excerpt": "sed -n '1389,1734p' test_env/tests/t287-default-library.test.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_017ibTVVTEsnPdzTXhGJt3Jh": {
+      "tool": "Read",
+      "id": "toolu_017ibTVVTEsnPdzTXhGJt3Jh",
+      "path": "/Users/jim/.claude/projects/-Users-jim-src-apps-abiogenesis-rc4-native-recovery/ede42ffe-7466-4d15-8bef-dd60aca523c1/tool-results/bwvgj9rrf.txt",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01AwdkCwutDgWRb1d8gftjjs": {
+      "tool": "Bash",
+      "id": "toolu_01AwdkCwutDgWRb1d8gftjjs",
+      "path": "",
+      "command_excerpt": "grep -n 'requireClosedRun\\|inactive\\|stopped\\|run_closed\\|runtime_failure_observed\\|function .*[Ss]ourceResult' code/src/abg/invocation_admission.ts | head -60",
+      "test_or_build_candidate": false
+    },
+    "toolu_01QDk5kktov8nAyGzFBgX886": {
+      "tool": "Bash",
+      "id": "toolu_01QDk5kktov8nAyGzFBgX886",
+      "path": "",
+      "command_excerpt": "sed -n '420,700p' code/src/abg/invocation_admission.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01BXiTF6VTWU7Dq9buCH5VFj": {
+      "tool": "Bash",
+      "id": "toolu_01BXiTF6VTWU7Dq9buCH5VFj",
+      "path": "",
+      "command_excerpt": "grep -n 'sourceResult\\|gap_stopped\\|run_stopped\\|witness.admit\\|stop\\b\\|recursion\\|bound' test_env/support/retained-installed-consumer.mjs | head -50; wc -l test_env/support/retained-installed-consumer.mjs test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_012dMutvoKt37H68XjbicQqV": {
+      "tool": "Bash",
+      "id": "toolu_012dMutvoKt37H68XjbicQqV",
+      "path": "",
+      "command_excerpt": "grep -rln 'sourceResultBasis\\|source:{kind:.result' test_env/tests test_env/support | head -20; grep -rn \"kind:'result'\\|kind:\\\"result\\\"\" test_env/tests/*.mjs test_env/support/*.mjs | head -20",
+      "test_or_build_candidate": false
+    },
+    "toolu_014a5XibPmUrwV3AJA1CZarm": {
+      "tool": "Bash",
+      "id": "toolu_014a5XibPmUrwV3AJA1CZarm",
+      "path": "",
+      "command_excerpt": "grep -n 'source:\\|sourceResultBasis\\|runtimeStatus\\|run_stopped\\|failed\\|inactive' test_env/tests/t287-governance-covered-source-use.test.mjs | head -40; wc -l test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_0133MZaY2PwwjRxigFUvMrQJ": {
+      "tool": "Bash",
+      "id": "toolu_0133MZaY2PwwjRxigFUvMrQJ",
+      "path": "",
+      "command_excerpt": "grep -n \"source\\b\\|source:\\|kind:'result'\\|sourceResult\\|stop\\|witness\" test_env/tests/t287-default-library.test.mjs | sed -n '1,60p'",
+      "test_or_build_candidate": false
+    },
+    "toolu_01RswbFNa6b8F3MaCLzqFRpt": {
+      "tool": "Bash",
+      "id": "toolu_01RswbFNa6b8F3MaCLzqFRpt",
+      "path": "",
+      "command_excerpt": "grep -n \"gap\" code/src/gtl/default_library.ts | head -30; grep -rn \"gap_stopped\" code/src --include=*.ts | head -20",
+      "test_or_build_candidate": false
+    },
+    "toolu_01XXPbS5vK64st4XY5m2ScXy": {
+      "tool": "Grep",
+      "id": "toolu_01XXPbS5vK64st4XY5m2ScXy",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01BVvHSoRLiCd86ZQiFoERLA": {
+      "tool": "Bash",
+      "id": "toolu_01BVvHSoRLiCd86ZQiFoERLA",
+      "path": "",
+      "command_excerpt": "sed -n '1420,1460p' code/src/abg/replay.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01RDfJxfk9VUuwc6WUJZBNFQ": {
+      "tool": "Bash",
+      "id": "toolu_01RDfJxfk9VUuwc6WUJZBNFQ",
+      "path": "",
+      "command_excerpt": "grep -n 'export function projectFramedSynthesisPromptTask' -A60 code/src/product/default_library.ts | head -90",
+      "test_or_build_candidate": false
+    },
+    "toolu_01UoV16QttKsv2L6mUdFW1D5": {
+      "tool": "Grep",
+      "id": "toolu_01UoV16QttKsv2L6mUdFW1D5",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01X8kw6fV35Af2fDMsqsnwNA": {
+      "tool": "Bash",
+      "id": "toolu_01X8kw6fV35Af2fDMsqsnwNA",
+      "path": "",
+      "command_excerpt": "sed -n '1,60p' code/src/abg/instruction_assembly.ts | grep -n 'import' ; sed -n '355,380p' code/src/abg/instruction_assembly.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01EjqeAxSo6vUfn2X7cxSoKG": {
+      "tool": "Bash",
+      "id": "toolu_01EjqeAxSo6vUfn2X7cxSoKG",
+      "path": "",
+      "command_excerpt": "sed -n '1,80p' scripts/check-import-direction.mjs; grep -n '^import' code/src/abg/invocation_execution_truth.ts code/src/abg/execution_basis.ts | grep -n 'instruction_assembly\\|default_library' ",
+      "test_or_build_candidate": false
+    },
+    "toolu_01QmoSVdNrKhThaQzPjuHdPU": {
+      "tool": "Bash",
+      "id": "toolu_01QmoSVdNrKhThaQzPjuHdPU",
+      "path": "",
+      "command_excerpt": "grep -n 'invocation_execution_truth\\|default_library' code/src/abg/instruction_assembly.ts; grep -ln 'instruction_assembly' code/src/abg/*.ts; sed -n '1,40p' code/src/abg/invocation_execution_truth.ts | grep '^import'",
+      "test_or_build_candidate": false
+    },
+    "toolu_01RBeYdXDMCJ7KMYZwrNc63F": {
+      "tool": "Bash",
+      "id": "toolu_01RBeYdXDMCJ7KMYZwrNc63F",
+      "path": "",
+      "command_excerpt": "grep -n 'export function authenticateOwnedNativeInstructionAssemblyBasis' -A50 code/src/abg/execution_basis.ts | head -70",
+      "test_or_build_candidate": false
+    },
+    "toolu_01DVTRc6JZJrWPus5xzvbiNy": {
+      "tool": "Bash",
+      "id": "toolu_01DVTRc6JZJrWPus5xzvbiNy",
+      "path": "",
+      "command_excerpt": "du -sh \"/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules\" /Users/jim/src/apps/abiogenesis-rc4-native-recovery/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness 2>&1; du -sh /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript --exclude=node_modules 2>/dev/null || du -sh /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript; ls /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript; df -h /Users/jim | tail -1; node --version",
+      "test_or_build_candidate": false
+    },
+    "toolu_01G7AfTQ9c4apeRnLjhDnG7f": {
+      "tool": "Write",
+      "id": "toolu_01G7AfTQ9c4apeRnLjhDnG7f",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/sync.sh",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01HEDQNXHvCNft2zg5jCfN5x": {
+      "tool": "Bash",
+      "id": "toolu_01HEDQNXHvCNft2zg5jCfN5x",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && chmod +x rc4-scratch/native-recovery-10/sync.sh && rc4-scratch/native-recovery-10/sync.sh && ls rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript && ls rc4-scratch/native-recovery-10/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness",
+      "test_or_build_candidate": false
+    },
+    "toolu_01EmXaDvhSWnbaFwspyKDJ8s": {
+      "tool": "Bash",
+      "id": "toolu_01EmXaDvhSWnbaFwspyKDJ8s",
+      "path": "",
+      "command_excerpt": "echo \"TMPDIR=$TMPDIR NPM_CONFIG_CACHE=$NPM_CONFIG_CACHE\"; cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript && (time (TMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/tmp npx --offline tsc -p tsconfig.json > ../../../../build-baseline.log 2>&1; echo \"tsc exit $?\" >> ../../../../build-baseline.log)) 2>&1 | tail -3; tail -5 ../../../../build-baseline.log",
+      "test_or_build_candidate": true
+    },
+    "toolu_01P92xfX9B2frG866uohSwei": {
+      "tool": "Bash",
+      "id": "toolu_01P92xfX9B2frG866uohSwei",
+      "path": "",
+      "command_excerpt": "sed -n '1,40p' scripts/generate-product-manifest.mjs | head -40; (time node scripts/generate-product-manifest.mjs > ../../../../gen-baseline.log 2>&1; echo \"gen exit $?\" >> ../../../../gen-baseline.log) 2>&1 | tail -2; tail -3 ../../../../gen-baseline.log; git -C /Users/jim/src/apps/abiogenesis-rc4-native-recovery diff --no-index --stat /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/contracts contracts | tail -3; cmp product-toolchain-manifest.json /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json && echo manifest-identical",
+      "test_or_build_candidate": false
+    },
+    "toolu_01QaFyjbq69dJLJFGUVisTYr": {
+      "tool": "Bash",
+      "id": "toolu_01QaFyjbq69dJLJFGUVisTYr",
+      "path": "",
+      "command_excerpt": "diff -r contracts /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/contracts && echo contracts-identical",
+      "test_or_build_candidate": false
+    },
+    "toolu_01QqkitVGFc6sXEm9TZX2GuQ": {
+      "tool": "Bash",
+      "id": "toolu_01QqkitVGFc6sXEm9TZX2GuQ",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && grep -n \"npm\\|offline\\|registry\\|execFile\\|spawn\" test_env/support/root-installed-environment.mjs | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01YTRiUmiavaaL3YCNaU7F19": {
+      "tool": "Bash",
+      "id": "toolu_01YTRiUmiavaaL3YCNaU7F19",
+      "path": "",
+      "command_excerpt": "sed -n '175,260p' test_env/support/root-installed-environment.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_01S2LRnMFHhp95u8EZbGuxiV": {
+      "tool": "Bash",
+      "id": "toolu_01S2LRnMFHhp95u8EZbGuxiV",
+      "path": "",
+      "command_excerpt": "grep -n 'effect_unknown\\|export function projectPendingExecutionContinuations\\|export function selectPendingExecutionUse\\|replay_mismatch' code/src/abg/construction_continuation.ts | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_019hkzsamzZ244rZ91vuDaED": {
+      "tool": "Grep",
+      "id": "toolu_019hkzsamzZ244rZ91vuDaED",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_018i5G2STxvctxJhrY4KGQax": {
+      "tool": "Bash",
+      "id": "toolu_018i5G2STxvctxJhrY4KGQax",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && cat .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json | head -80; grep -n 'export async function witnessInput' -A40 build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs | head -60",
+      "test_or_build_candidate": false
+    },
+    "toolu_01FncHmdjRdeiKh8b1MQfRpN": {
+      "tool": "Bash",
+      "id": "toolu_01FncHmdjRdeiKh8b1MQfRpN",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && grep -n 'export function framedSynthesisResponseSchema' -A40 code/src/product/default_library.ts | grep -n 'gaps\\|minItems\\|contributions\\|required' | head -20; grep -rn '\"gap\"' code/src/hog/*.ts code/src/gtl/registered_selection.ts | head -12",
+      "test_or_build_candidate": false
+    },
+    "toolu_012qedJccXsQsubeHptDG97u": {
+      "tool": "Grep",
+      "id": "toolu_012qedJccXsQsubeHptDG97u",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_019TM2GVyyD1ptRegZPpmGwY": {
+      "tool": "Bash",
+      "id": "toolu_019TM2GVyyD1ptRegZPpmGwY",
+      "path": "",
+      "command_excerpt": "grep -rn 'resolveRegisteredSelection\\|registeredSelection' code/src/hog/*.ts | head -15; sed -n '1,80p' code/src/gtl/registered_selection.ts | sed -n '10,75p'",
+      "test_or_build_candidate": false
+    },
+    "toolu_01RAysMm72hYyHa232oBNjcR": {
+      "tool": "Bash",
+      "id": "toolu_01RAysMm72hYyHa232oBNjcR",
+      "path": "",
+      "command_excerpt": "sed -n '395,445p' code/src/hog/route_proposal.ts; sed -n '760,800p' code/src/hog/route_proposal.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_019chwtak28AJPsJrVqhtnoA": {
+      "tool": "Grep",
+      "id": "toolu_019chwtak28AJPsJrVqhtnoA",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_019zpocehuBU58kgCXZPEhAi": {
+      "tool": "Bash",
+      "id": "toolu_019zpocehuBU58kgCXZPEhAi",
+      "path": "",
+      "command_excerpt": "grep -n \"registered_graph_choice\\|disposition.*gap\\|gap\" code/src/gtl/default_library.ts | head -20; grep -n \"missingSupportRefs\\|\\\"gap\\\"\" code/src/hog/*.ts code/src/abg/traversal_route.ts | head",
+      "test_or_build_candidate": false
+    },
+    "toolu_015UVietsmEbK7pMTChwo1Xe": {
+      "tool": "Bash",
+      "id": "toolu_015UVietsmEbK7pMTChwo1Xe",
+      "path": "",
+      "command_excerpt": "grep -n 'export async function constructInstalledStartCall' -A60 test_env/support/registered-graph-selection.mjs | head -90",
+      "test_or_build_candidate": false
+    },
+    "toolu_01VG1J9AvHPNPqPzpXhnoCsb": {
+      "tool": "Bash",
+      "id": "toolu_01VG1J9AvHPNPqPzpXhnoCsb",
+      "path": "",
+      "command_excerpt": "sed -n '287,420p' test_env/support/registered-graph-selection.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_01BfRUUg7x2VbkwcX3oZB3Jy": {
+      "tool": "Grep",
+      "id": "toolu_01BfRUUg7x2VbkwcX3oZB3Jy",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01TB1fyFhCoCwZRYrgUkAzUn": {
+      "tool": "Bash",
+      "id": "toolu_01TB1fyFhCoCwZRYrgUkAzUn",
+      "path": "",
+      "command_excerpt": "sed -n '330,420p' test_env/uat/continuation.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_01UpWvMNm2BbQSuvJAgnvsmx": {
+      "tool": "Bash",
+      "id": "toolu_01UpWvMNm2BbQSuvJAgnvsmx",
+      "path": "",
+      "command_excerpt": "grep -n 'admitted_source_result\\|historicalSource' code/src/product/run_invocation_operation.ts | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01JSxmbLs6PwuAgaZsjQN2ey": {
+      "tool": "Bash",
+      "id": "toolu_01JSxmbLs6PwuAgaZsjQN2ey",
+      "path": "",
+      "command_excerpt": "sed -n '60,90p;285,340p;405,425p' code/src/product/run_invocation_operation.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01MYNDxEMdejgbcLER6FT1eu": {
+      "tool": "Bash",
+      "id": "toolu_01MYNDxEMdejgbcLER6FT1eu",
+      "path": "",
+      "command_excerpt": "sed -n '420,470p' test_env/support/registered-graph-selection.mjs; grep -n 'export async function runInstalledCliRequest' -A30 test_env/support/registered-graph-selection.mjs | head -40",
+      "test_or_build_candidate": false
+    },
+    "toolu_015qpVwMQ485oFqrQncwCjmE": {
+      "tool": "Bash",
+      "id": "toolu_015qpVwMQ485oFqrQncwCjmE",
+      "path": "",
+      "command_excerpt": "grep -n 'derive=\\|const derive\\|deriveInvocationSourceResultBasisAtPrefix\\|publicAuthorityDigest' test_env/uat/continuation.mjs | head; grep -n 'derive=' -A8 test_env/uat/continuation.mjs | head -20",
+      "test_or_build_candidate": false
+    },
+    "toolu_019tGdGYFneHHKynSeiHQ7XL": {
+      "tool": "Bash",
+      "id": "toolu_019tGdGYFneHHKynSeiHQ7XL",
+      "path": "",
+      "command_excerpt": "sed -n '1,30p' code/src/abg/event_prefix.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01A6oZv7HfgcPe262NE54mih": {
+      "tool": "Edit",
+      "id": "toolu_01A6oZv7HfgcPe262NE54mih",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_019wgVdhaWm64SdHoQvC8mWz": {
+      "tool": "Edit",
+      "id": "toolu_019wgVdhaWm64SdHoQvC8mWz",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_0155DfAoNizdebhbjNiSGH7K": {
+      "tool": "Edit",
+      "id": "toolu_0155DfAoNizdebhbjNiSGH7K",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01MPtS9kwNJqZfhqdLmFn37A": {
+      "tool": "Edit",
+      "id": "toolu_01MPtS9kwNJqZfhqdLmFn37A",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01YHodwfxE8DTxhHYszTcvVC": {
+      "tool": "Edit",
+      "id": "toolu_01YHodwfxE8DTxhHYszTcvVC",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_018w9mbqWh2YxrKGfSWFqGpW": {
+      "tool": "Edit",
+      "id": "toolu_018w9mbqWh2YxrKGfSWFqGpW",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_017LHUwiLwm5yEazH3E11jmP": {
+      "tool": "Edit",
+      "id": "toolu_017LHUwiLwm5yEazH3E11jmP",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01BhZLDeKu4QRT7hH6QbfXtW": {
+      "tool": "Edit",
+      "id": "toolu_01BhZLDeKu4QRT7hH6QbfXtW",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_016DB6FX6vfomSYchStiK6jG": {
+      "tool": "Edit",
+      "id": "toolu_016DB6FX6vfomSYchStiK6jG",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01HM5DDqJ4Mxuv5UbQLBhZXP": {
+      "tool": "Bash",
+      "id": "toolu_01HM5DDqJ4Mxuv5UbQLBhZXP",
+      "path": "",
+      "command_excerpt": "python3 -I - <<'EOF'\nimport re\np='code/src/abg/default_library.ts'\ns=open(p).read()\nold_imp='''import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,\n  hasAdmittedGovernanceCoveredSourceUse } from \"./invocation_execution_truth.js\";'''\nnew_imp='''import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,\n  hasAdmittedGovernanceCoveredSourceUse, governanceContextBodyUse } from \"./invocation_execution_truth.js\";'''\nassert s.count(old_imp)==1; s=s.replace(old_imp,new_imp)\nold1='''  // Current W is reobserved above; unchanged bodies already held by this Run's\n  // admitted Results are carried by member reference, changed bytes inline.\n  const context = reuseWorksiteContextBodiesAtPrefix(o.prefix, observed, { runId: o.call.runId });'''\nnew1='''  // Current W is reobserved above; unchanged bodies already held by this Run's\n  // admitted Results, or declared by its admitted",
+      "test_or_build_candidate": false
+    },
+    "toolu_01C6kuwEniSHq28qQtyKJTQN": {
+      "tool": "Bash",
+      "id": "toolu_01C6kuwEniSHq28qQtyKJTQN",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && rc4-scratch/native-recovery-10/sync.sh && cd rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript && rm -rf build && node node_modules/typescript/bin/tsc -p tsconfig.json 2>&1 | head -30; echo \"tsc exit ${pipestatus[1]}\"",
+      "test_or_build_candidate": true
+    },
+    "toolu_01P5BkMVsB7FDRwAX7h3sXvD": {
+      "tool": "Bash",
+      "id": "toolu_01P5BkMVsB7FDRwAX7h3sXvD",
+      "path": "",
+      "command_excerpt": "node scripts/generate-product-manifest.mjs > ../../../../gen-candidate.log 2>&1; echo \"gen exit $?\"; tail -3 ../../../../gen-candidate.log; diff -r contracts /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/contracts && echo contracts-identical; diff product-toolchain-manifest.json /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json && echo manifest-identical",
+      "test_or_build_candidate": false
+    },
+    "toolu_017p3g7Zp49nkEjK1oXgajd3": {
+      "tool": "Bash",
+      "id": "toolu_017p3g7Zp49nkEjK1oXgajd3",
+      "path": "",
+      "command_excerpt": "diff -rq contracts /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/contracts; diff -q product-toolchain-manifest.json /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "test_or_build_candidate": false
+    },
+    "toolu_01VyR7pcESoK1KENWM8z5QUu": {
+      "tool": "Bash",
+      "id": "toolu_01VyR7pcESoK1KENWM8z5QUu",
+      "path": "",
+      "command_excerpt": "export NPM_CONFIG_OFFLINE=true NPM_CONFIG_UPDATE_NOTIFIER=false; (time node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-event-body-encoding.test.mjs > ../../../../t-body.log 2>&1) 2>&1 | tail -1; grep -E '^# (tests|pass|fail|skipped)' ../../../../t-body.log; grep -n 'not ok' ../../../../t-body.log | head",
+      "test_or_build_candidate": true
+    },
+    "toolu_012ufKYneYnQZgC8g6BUP1wB": {
+      "tool": "Bash",
+      "id": "toolu_012ufKYneYnQZgC8g6BUP1wB",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10 && tail -15 t-body.log",
+      "test_or_build_candidate": false
+    },
+    "toolu_01KfuwJsrKxqhc5BRWKdp8rS": {
+      "tool": "Bash",
+      "id": "toolu_01KfuwJsrKxqhc5BRWKdp8rS",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && grep -n \"^test(\\|^async function\\|^function\\|^const \" test_env/tests/t287-event-body-encoding.test.mjs | sed -n '1,80p'",
+      "test_or_build_candidate": false
+    },
+    "toolu_01U8LZDhdgCfopPruTikrNbp": {
+      "tool": "Bash",
+      "id": "toolu_01U8LZDhdgCfopPruTikrNbp",
+      "path": "",
+      "command_excerpt": "sed -n '100,150p;535,732p' test_env/tests/t287-event-body-encoding.test.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_01C2iXXo1eLZG5K9JHaZUYDA": {
+      "tool": "Bash",
+      "id": "toolu_01C2iXXo1eLZG5K9JHaZUYDA",
+      "path": "",
+      "command_excerpt": "grep -rn 'export function retainedGovernanceWorkInput' -A15 code/src/product/ | head -30; grep -n 'export function governanceSubjectEvidenceRefs' -A12 code/src/product/default_library.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01MksFb6YfJJwws7gRLWjaQ5": {
+      "tool": "Bash",
+      "id": "toolu_01MksFb6YfJJwws7gRLWjaQ5",
+      "path": "",
+      "command_excerpt": "sed -n '1,23p' test_env/tests/t287-event-body-encoding.test.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_0161mPea1k2yUHZbTKhtm3ui": {
+      "tool": "Edit",
+      "id": "toolu_0161mPea1k2yUHZbTKhtm3ui",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01HdrSUQirLzfTKrFCXPfzR7": {
+      "tool": "Edit",
+      "id": "toolu_01HdrSUQirLzfTKrFCXPfzR7",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01TZHYNf5pRhbFu5vhSvxSpQ": {
+      "tool": "Bash",
+      "id": "toolu_01TZHYNf5pRhbFu5vhSvxSpQ",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests && sed -n 1,80p t287-event-body-encoding.test.mjs && grep -n \"^const \\|^function \\|^async function \\|^test(\" t287-event-body-encoding.test.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_018DWoci5CMaMhugxcHZ58mi": {
+      "tool": "Bash",
+      "id": "toolu_018DWoci5CMaMhugxcHZ58mi",
+      "path": "",
+      "command_excerpt": "sed -n 93,150p t287-event-body-encoding.test.mjs && sed -n 535,560p t287-event-body-encoding.test.mjs && sed -n 652,734p t287-event-body-encoding.test.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_01FQP6uooeAUZ7P6JqEbpLnL": {
+      "tool": "Bash",
+      "id": "toolu_01FQP6uooeAUZ7P6JqEbpLnL",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg && grep -n \"NATIVE_CONTEXT_BODY_POSITIONS\\|function sourceUseDeclaresMember\\|function reuseHeldContextBodies\\|function admittedHolderEnvelopes\\|export function resolveWorksiteContextBodyAtPrefix\\|function contextScope\\|otherRun\" event_prefix.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01LTyJZwfBCLinZrAhyBzwaP": {
+      "tool": "Bash",
+      "id": "toolu_01LTyJZwfBCLinZrAhyBzwaP",
+      "path": "",
+      "command_excerpt": "sed -n 780,1010p event_prefix.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01DBkLRrLpfYXSVknXy45Jqk": {
+      "tool": "Bash",
+      "id": "toolu_01DBkLRrLpfYXSVknXy45Jqk",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -rn \"nativeContextBodyHolders\\|NATIVE_CONTEXT_BODY_POSITIONS\" --include=*.ts . | head; grep -rn \"function nativeContextBodyHolders\" -A30 --include=*.ts . | head -50",
+      "test_or_build_candidate": false
+    },
+    "toolu_0149ReGsSibHAop8wez8fYWw": {
+      "tool": "Bash",
+      "id": "toolu_0149ReGsSibHAop8wez8fYWw",
+      "path": "",
+      "command_excerpt": "sed -n 1,60p abg/native_context_bodies.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_015KqKkkb3a7RiGgE6wZRsEs": {
+      "tool": "Grep",
+      "id": "toolu_015KqKkkb3a7RiGgE6wZRsEs",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_013WWeNoh4WLMze3bybvBBMu": {
+      "tool": "Bash",
+      "id": "toolu_013WWeNoh4WLMze3bybvBBMu",
+      "path": "",
+      "command_excerpt": "grep -n \"NATIVE_CONTEXT_BODY_POSITIONS\" -A10 abg/runtime_history.ts | head -20",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Pc3ehCofVnwcLfLf1tc8Ng": {
+      "tool": "Bash",
+      "id": "toolu_01Pc3ehCofVnwcLfLf1tc8Ng",
+      "path": "",
+      "command_excerpt": "grep -n \"governanceContract\" abg/invocation_execution_truth.ts | head -5; grep -rn \"export function governanceContract\\|export const governanceContract\" . | head",
+      "test_or_build_candidate": false
+    },
+    "toolu_018WWC23imqwihdsbfNCGDnk": {
+      "tool": "Bash",
+      "id": "toolu_018WWC23imqwihdsbfNCGDnk",
+      "path": "",
+      "command_excerpt": "sed -n 255,300p abg/invocation_execution_truth.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01MqrWehkVurxeEXJCN5chX4": {
+      "tool": "Bash",
+      "id": "toolu_01MqrWehkVurxeEXJCN5chX4",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests && python3 - <<'EOF'\nimport re\np='t287-event-body-encoding.test.mjs'\ns=open(p).read()\ns=s.replace('''import { projectExactExecutionBasisAtPrefix, governanceContextBodyUse } from \"../../build/code/src/abg/invocation_execution_truth.js\";\n''','''import { projectExactExecutionBasisAtPrefix, governanceContextBodyUse } from \"../../build/code/src/abg/invocation_execution_truth.js\";\nimport { governanceContract } from \"../../build/code/src/product/default_library_identity.js\";\n''',1)\nold_start=s.index('''  // A: preparation birth, then one native work Result''')\nold_end=s.index('''// Fixed model-free workload: 965 context entries''')\nnew='''  // A: preparation birth, then one native work Result whose task context carries members of it and births d inline.\n  const prepare = result(f.store, \"a-prepare\", nativeTask(\"a-prepare\", await carry({ runId: A })), A);\n  text[\"src/d.txt\"] = \"delta \".re",
+      "test_or_build_candidate": false
+    },
+    "toolu_01CM2BfZ4b6tZvVMECHkjriv": {
+      "tool": "Bash",
+      "id": "toolu_01CM2BfZ4b6tZvVMECHkjriv",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && cd $S/repo/build_tenants/abiogenesis/typescript && rm -rf build && node node_modules/typescript/bin/tsc -p tsconfig.json && echo BUILD-OK && NPM_CONFIG_OFFLINE=true NPM_CONFIG_UPDATE_NOTIFIER=false node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-event-body-encoding.test.mjs > $S/t-body.log 2>&1; echo exit=$?; grep -E \"^# (tests|pass|fail)|^not ok\" $S/t-body.log",
+      "test_or_build_candidate": true
+    },
+    "toolu_011RYWL3FhsXYdH8tZ9GNEUk": {
+      "tool": "Bash",
+      "id": "toolu_011RYWL3FhsXYdH8tZ9GNEUk",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; tail -15 $S/t-body.log; grep -n \"retained-source\" $S/t-body.log",
+      "test_or_build_candidate": false
+    },
+    "toolu_0167B9gxVEtUoVHLb4Ue5tg1": {
+      "tool": "Bash",
+      "id": "toolu_0167B9gxVEtUoVHLb4Ue5tg1",
+      "path": "",
+      "command_excerpt": "wc -l t287-default-library.test.mjs && grep -n \"^const \\|^function \\|^async function \\|^test(\\|SCRIPTED_ACTOR\\|INTERRUPTING_HOST\" t287-default-library.test.mjs | head -120",
+      "test_or_build_candidate": false
+    },
+    "toolu_017kuDwX6j7L7VVZhdsUkjz8": {
+      "tool": "Read",
+      "id": "toolu_017kuDwX6j7L7VVZhdsUkjz8",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_012b32h6wsXsTQhkoj7x598Q": {
+      "tool": "Bash",
+      "id": "toolu_012b32h6wsXsTQhkoj7x598Q",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env && wc -l uat/continuation.mjs && sed -n 150,420p uat/continuation.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_0135okLkCvwpefgrh8Q8R6jk": {
+      "tool": "Grep",
+      "id": "toolu_0135okLkCvwpefgrh8Q8R6jk",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_014eajZbH4qaXgGvAnWuL2nN": {
+      "tool": "Bash",
+      "id": "toolu_014eajZbH4qaXgGvAnWuL2nN",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && sed -n 1050,1100p owner_bindings/run_invocation.ts && sed -n 1260,1330p owner_bindings/run_invocation.ts && sed -n 60,90p product/run_invocation_operation.ts && sed -n 280,340p product/run_invocation_operation.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01AGdYTCLP5anJa22WNxSNQX": {
+      "tool": "Bash",
+      "id": "toolu_01AGdYTCLP5anJa22WNxSNQX",
+      "path": "",
+      "command_excerpt": "grep -n \"historicalSource\\|deriveCurrentSourceUse\\|currentSourceUse\" product/run_invocation_operation.ts | head -40",
+      "test_or_build_candidate": false
+    },
+    "toolu_01CXGLyNpWpnzZrtjxnGkLjj": {
+      "tool": "Bash",
+      "id": "toolu_01CXGLyNpWpnzZrtjxnGkLjj",
+      "path": "",
+      "command_excerpt": "sed -n 400,425p product/run_invocation_operation.ts && sed -n 520,560p product/run_invocation_operation.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01TXV1xR1giBguURnx6pV4cC": {
+      "tool": "Bash",
+      "id": "toolu_01TXV1xR1giBguURnx6pV4cC",
+      "path": "",
+      "command_excerpt": "grep -n \"export function deriveInvocationSourceResultBasisAtPrefix\" -A80 abg/invocation_execution_truth.ts | head -120",
+      "test_or_build_candidate": false
+    },
+    "toolu_011U6XyBJ8pwyhi9wo5Fo9Jh": {
+      "tool": "Grep",
+      "id": "toolu_011U6XyBJ8pwyhi9wo5Fo9Jh",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_014NgN3RNs6YcuevW7mHeGcK": {
+      "tool": "Bash",
+      "id": "toolu_014NgN3RNs6YcuevW7mHeGcK",
+      "path": "",
+      "command_excerpt": "sed -n 440,700p abg/invocation_admission.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_016EFi7zjVD6oMosKZdS16n1": {
+      "tool": "Bash",
+      "id": "toolu_016EFi7zjVD6oMosKZdS16n1",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env && grep -ln \"retainedGovernanceWorkInput\\|admitted_source_result\" tests/*.mjs support/*.mjs uat/*.mjs 2>/dev/null; grep -n \"gap_stopped\\|run_stopped\\|runtime_failure_observed\" tests/t287-governance-covered-source-use.test.mjs tests/t287-retained-installed-consumer.test.mjs 2>/dev/null | head -20",
+      "test_or_build_candidate": false
+    },
+    "toolu_015484tCB2U32CQGAYaQAvEz": {
+      "tool": "Bash",
+      "id": "toolu_015484tCB2U32CQGAYaQAvEz",
+      "path": "",
+      "command_excerpt": "grep -n \"admitted_source_result\\|retainedGovernanceWorkInput\\|^test(\\|runtimeStatus\\|stopped\\|failure\" tests/t287-governance-covered-source-use.test.mjs | head -60; wc -l tests/t287-governance-covered-source-use.test.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_01KQRkEMKQeko8AzJzsvh5CX": {
+      "tool": "Bash",
+      "id": "toolu_01KQRkEMKQeko8AzJzsvh5CX",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -on \"governanceRef(\\\"graph-function\\\", \\\"[a-z-]*\\\")\" product/default_library*.ts gtl/*.ts 2>/dev/null | sort -t: -k3 -u | head -30; grep -n \"gap_stopped\\|\\\"blocked\\\"\\|run_stopped\" abg/*.ts | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01ViWNE19gaeGHBGgmgbAQ1Q": {
+      "tool": "Grep",
+      "id": "toolu_01ViWNE19gaeGHBGgmgbAQ1Q",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01ELLwrrfMGiaKyG3qBmEpg9": {
+      "tool": "Bash",
+      "id": "toolu_01ELLwrrfMGiaKyG3qBmEpg9",
+      "path": "",
+      "command_excerpt": "sed -n 1415,1460p abg/replay.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Ua2V5wjnswc4rcjuK2dVZp": {
+      "tool": "Grep",
+      "id": "toolu_01Ua2V5wjnswc4rcjuK2dVZp",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_011VvjbPMUdU1MvD9UgLG4xp": {
+      "tool": "Bash",
+      "id": "toolu_011VvjbPMUdU1MvD9UgLG4xp",
+      "path": "",
+      "command_excerpt": "grep -n \"gaps\\|nextGraphFunctionRef === null\\|structural_step_missing\\|terminal\" product/default_library.ts | head -60",
+      "test_or_build_candidate": false
+    },
+    "toolu_01PcnwK39LNgnDv99VzzV9Ye": {
+      "tool": "Bash",
+      "id": "toolu_01PcnwK39LNgnDv99VzzV9Ye",
+      "path": "",
+      "command_excerpt": "sed -n 84,140p product/default_library.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_013H9iaGCBSA3vH7QgiPJJfF": {
+      "tool": "Bash",
+      "id": "toolu_013H9iaGCBSA3vH7QgiPJJfF",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env && grep -ln \"continuation/effect\\|effect_unknown\" tests/*.mjs | head; ls /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/ ; ls /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/",
+      "test_or_build_candidate": false
+    },
+    "toolu_015XpthKcp14Sg7fa7vhzWbz": {
+      "tool": "Bash",
+      "id": "toolu_015XpthKcp14Sg7fa7vhzWbz",
+      "path": "",
+      "command_excerpt": "grep -n \"continuation/effect\\|effect_unknown\" tests/t287-recursive-registered-selection.test.mjs | head; ls /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-09/ | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01BQM3WKn9uBMZzFghmZjgfv": {
+      "tool": "Bash",
+      "id": "toolu_01BQM3WKn9uBMZzFghmZjgfv",
+      "path": "",
+      "command_excerpt": "sed -n 415,440p tests/t287-recursive-registered-selection.test.mjs; cat /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-09/runtest.sh; ls /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-09/logs | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Q5FzopLtxoC2o5u6gnQDaM": {
+      "tool": "Bash",
+      "id": "toolu_01Q5FzopLtxoC2o5u6gnQDaM",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -n \"export function projectFramedSynthesisPromptTask\" -A40 product/*.ts abg/*.ts | head -60; sed -n 405,435p abg/instruction_assembly.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_011KGsQAHq1UKjw2yWZRsmw3": {
+      "tool": "Bash",
+      "id": "toolu_011KGsQAHq1UKjw2yWZRsmw3",
+      "path": "",
+      "command_excerpt": "sed -n 310,335p product/default_library.ts; grep -n \"function renderInstructionSections\" -A12 abg/*.ts | head -20",
+      "test_or_build_candidate": false
+    },
+    "toolu_014AQpRYYVDSs5k5ergw6gy6": {
+      "tool": "Bash",
+      "id": "toolu_014AQpRYYVDSs5k5ergw6gy6",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env && grep -n \"export async function constructInstalledStartCall\\|export function constructInstalledStartCall\" -A60 support/registered-graph-selection.mjs | head -90",
+      "test_or_build_candidate": false
+    },
+    "toolu_01L5nWZLVcaKy1Pboq8Syj7Q": {
+      "tool": "Bash",
+      "id": "toolu_01L5nWZLVcaKy1Pboq8Syj7Q",
+      "path": "",
+      "command_excerpt": "sed -n 287,420p support/registered-graph-selection.mjs",
+      "test_or_build_candidate": false
+    },
+    "toolu_01DHoP7tXeFYvBy8yqSXsdXw": {
+      "tool": "Bash",
+      "id": "toolu_01DHoP7tXeFYvBy8yqSXsdXw",
+      "path": "",
+      "command_excerpt": "sed -n 420,470p support/registered-graph-selection.mjs; grep -n \"^const operationId\\|operationId =\" support/registered-graph-selection.mjs | head -3",
+      "test_or_build_candidate": false
+    },
+    "toolu_01WcozajQZbWyaTsYh9NoEAp": {
+      "tool": "Grep",
+      "id": "toolu_01WcozajQZbWyaTsYh9NoEAp",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01NDoZ1xvpXpepzGNUwGCukj": {
+      "tool": "Bash",
+      "id": "toolu_01NDoZ1xvpXpepzGNUwGCukj",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && sed -n 167,240p public/installed_public_definition_call.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_018TReSJEWApsLFTyAE4bJZ9": {
+      "tool": "Bash",
+      "id": "toolu_018TReSJEWApsLFTyAE4bJZ9",
+      "path": "",
+      "command_excerpt": "grep -n \"export function projectExactInvocationAdmissionAtPrefix\\|export function rehydrateInvocationAdmissionAtPrefix\" -A6 abg/*.ts | head -30; grep -n \"promptDigest\" abg/*.ts | grep -i \"started\\|payload\" | head -5",
+      "test_or_build_candidate": false
+    },
+    "toolu_014m2ZHZZfKVo8Eg2eMxvCac": {
+      "tool": "Bash",
+      "id": "toolu_014m2ZHZZfKVo8Eg2eMxvCac",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests && sed -n 1,22p t287-default-library.test.mjs; grep -n \"^async function witnessInput\\|^const witnessRef\\|^const schemaPath\\|^const assessmentSchema\\|^async function libraryEnvironment\\|^function libraryConsumerDeclaration\\|witnessInput=\\|libraryEnvironment=\\|const witnessRef\\|schemaPath=\\|assessmentSchema=\" t287-default-library.test.mjs | head",
+      "test_or_build_candidate": false
+    },
+    "toolu_01LFsGE4MZQq77Ab3CYp4ViC": {
+      "tool": "Bash",
+      "id": "toolu_01LFsGE4MZQq77Ab3CYp4ViC",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -n \"invocation_admitted\\b\\|\\\"invocation_admitted\\\"\" abg/event_store.ts | head -5; grep -n \"invocation_admitted:\" -A3 abg/event_store.ts | head -10",
+      "test_or_build_candidate": false
+    },
+    "toolu_011q1Lfhjxi2Do9NT6QBcKHU": {
+      "tool": "Bash",
+      "id": "toolu_011q1Lfhjxi2Do9NT6QBcKHU",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/support && grep -n \"abg:\\|abg =\\|const abg\\|abg,\" root-installed-environment.mjs | head -10",
+      "test_or_build_candidate": false
+    },
+    "toolu_0197HeSJ6JXqwsH7CEyz2tkc": {
+      "tool": "Bash",
+      "id": "toolu_0197HeSJ6JXqwsH7CEyz2tkc",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests && python3 - <<'EOF'\np='t287-default-library.test.mjs'\ns=open(p).read()\nold=\"\"\" const tested=prior.some(r=>r.role==='select:'+testing);\n const [next,subject]=!tested&&domain.length&&immediate.includes(testing)?[testing,domain.at(-1)]:tested&&fresh.length&&uat?[uat,fresh.at(-1)]:[construction,null];\n const items=props.contributions.items.properties.supportRefs.items,support=items&&Array.isArray(items.enum)?[...items.enum]:[];\n role='select:'+next;extra={domain};output={interpretation:'Scripted model-free selector.',contributions:[{graphFunctionRef:next,contribution:'Scripted contribution.',reason:'Scripted ordered policy.',supportRefs:support,evidenceRefs:[],dependsOn:[]}],\n  gaps:[],nextGraphFunctionRef:next,nextReason:'Scripted ordered policy.',nextEvidenceRefs:[],subjectEvidenceRef:subject,revisionReason:'Scripted.',revisionEvidenceRefs:[]};\n\"\"\"\nnew=\"\"\" const tested=prior.some(r",
+      "test_or_build_candidate": false
+    },
+    "toolu_0127LnhvFbz6zLLXJEeTkUhS": {
+      "tool": "Bash",
+      "id": "toolu_0127LnhvFbz6zLLXJEeTkUhS",
+      "path": "",
+      "command_excerpt": "cat >> t287-default-library.test.mjs <<'EOF'\n// Retained-source integration over actual installed owners. A is an ordinary\n// Public start that completes Construction and stops on a scripted selector\n// gap; B is a separately authorized Public start over A's eligible retained\n// state. B is killed at its durable Testing entry and continued cold through\n// the unchanged pending_execution arm. B's post-Testing selector reads the\n// declared source bodies A holds only as A's selected native Result's task\n// context declares them. The model is the scripted stand-in above.\ntest('retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use',async t=>{\n  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;\n  const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:",
+      "test_or_build_candidate": false
+    },
+    "toolu_01FuLmPRB5ErTP7DkNXGDRz9": {
+      "tool": "Bash",
+      "id": "toolu_01FuLmPRB5ErTP7DkNXGDRz9",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && cd $S/repo/build_tenants/abiogenesis/typescript && rm -rf build && node node_modules/typescript/bin/tsc -p tsconfig.json && echo BUILD-OK && mkdir -p $S/evidence/retained-source && ABI5_RETAINED_SOURCE_EVIDENCE_ROOT=$S/evidence/retained-source NPM_CONFIG_CACHE=$S/tmp NPM_CONFIG_OFFLINE=true NPM_CONFIG_UPDATE_NOTIFIER=false NPM_CONFIG_AUDIT=false NPM_CONFIG_FUND=false node --experimental-vm-modules --test --test-concurrency=1 --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-1.log 2>&1; echo exit=$?; grep -E \"^# |^\u2139 (tests|pass|fail|duration)|^\u2716|not ok\" $S/t-retained-1.log | head -20",
+      "test_or_build_candidate": true
+    },
+    "toolu_0147HmVrTaQvHM9H9JyJKu9u": {
+      "tool": "Bash",
+      "id": "toolu_0147HmVrTaQvHM9H9JyJKu9u",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; grep -v \"^\u2139\" $S/t-retained-1.log | head -60 | cut -c1-1500",
+      "test_or_build_candidate": false
+    },
+    "toolu_01EHmYQz8zyEufgiHcaxFqxB": {
+      "tool": "Bash",
+      "id": "toolu_01EHmYQz8zyEufgiHcaxFqxB",
+      "path": "",
+      "command_excerpt": "cat /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-09/build.sh; tail -5 /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/gen-candidate.log",
+      "test_or_build_candidate": false
+    },
+    "toolu_01WW4W7U5PTYTR1GaKkMjXik": {
+      "tool": "Bash",
+      "id": "toolu_01WW4W7U5PTYTR1GaKkMjXik",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; cat > $S/build.sh <<'EOF'\n#!/bin/sh\n# scratch10 build: the steps of `npm run build` (clean, tsc, owning generator) inside the scratch mirror.\nset -e\ncd \"$(dirname \"$0\")/repo/build_tenants/abiogenesis/typescript\"\nnode scripts/clean.mjs\nnode node_modules/typescript/bin/tsc -p tsconfig.json\nnode scripts/generate-product-manifest.mjs\nEOF\ncat > $S/runtest.sh <<'EOF'\n#!/bin/sh\n# Run node:test files in the scratch10 build; npm stays offline.\ncd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript\nexport TMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/tmp\nexport NPM_CONFIG_CACHE=$TMPDIR NPM_CONFIG_UPDATE_NOTIFIER=false NPM_CONFIG_OFFLINE=true NPM_CONFIG_AUDIT=false NPM_CONFIG_FUND=false\nexec node --experimental-vm-modules --test --test-concurrency=1 \"$@\"\nEOF\nsh $S/sync.sh && sh $S/build.sh > $S/bu",
+      "test_or_build_candidate": true
+    },
+    "toolu_01FUgqPF8EeQpS72DGydxNTL": {
+      "tool": "Bash",
+      "id": "toolu_01FUgqPF8EeQpS72DGydxNTL",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests && python3 - <<'EOF'\np='t287-default-library.test.mjs'\ns=open(p).read()\nold=\"\"\"  refuse(ctx,path0+'.absent','missing');\n\"\"\"\nnew=\"\"\"  const covered=x=>ctx.readRoots.some(root=>root==='.'||root===x||x.startsWith(root+'/')),notFile=ctx.entries.find(e=>e.state!=='file'&&covered(e.relativePath));\n  assert.ok(notFile,JSON.stringify(ctx.readRoots));refuse(ctx,notFile.relativePath,'missing');\n\"\"\"\nassert s.count(old)==1\ns=s.replace(old,new)\nopen(p,'w').write(s)\nEOF\nS=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && sh $S/build.sh > $S/build-2.log 2>&1; echo build=$?; ABI5_RETAINED_SOURCE_EVIDENCE_ROOT=$S/evidence/retained-source sh $S/runtest.sh --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-3.log 2>&1; echo exit=$?; grep -v \"^\u2139 {\" $S/t-retained-3.log | head -40 | cut -c",
+      "test_or_build_candidate": true
+    },
+    "toolu_01FX15mHNnfFGmbSaChqewNS": {
+      "tool": "Bash",
+      "id": "toolu_01FX15mHNnfFGmbSaChqewNS",
+      "path": "",
+      "command_excerpt": "python3 - <<'EOF'\np='t287-default-library.test.mjs'\ns=open(p).read()\nold=\"\"\"  const covered=x=>ctx.readRoots.some(root=>root==='.'||root===x||x.startsWith(root+'/')),notFile=ctx.entries.find(e=>e.state!=='file'&&covered(e.relativePath));\n  assert.ok(notFile,JSON.stringify(ctx.readRoots));refuse(ctx,notFile.relativePath,'missing');\n\"\"\"\nnew=\"\"\"  refuse({...ctx,entries:ctx.entries.filter(e=>e.relativePath!==path0)},path0,'missing');\n\"\"\"\nassert s.count(old)==1\ns=s.replace(old,new)\nopen(p,'w').write(s)\nEOF\nS=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && sh $S/build.sh > $S/build-3.log 2>&1; echo build=$?; ABI5_RETAINED_SOURCE_EVIDENCE_ROOT=$S/evidence/retained-source sh $S/runtest.sh --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-4.log 2>&1; echo exit=$?; grep -v \"^\u2139 {\" $S/t-retained-4.log | head -40 | cut -c1-2500",
+      "test_or_build_candidate": true
+    },
+    "toolu_019F5XDByZVMh8Hiiw7N7Div": {
+      "tool": "Bash",
+      "id": "toolu_019F5XDByZVMh8Hiiw7N7Div",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; ls $S/evidence/retained-source; python3 -c \"\nimport json;s=json.load(open('$S/evidence/retained-source/summary.json'))\nfor k,v in s.items():\n  print(k, json.dumps(v)[:600])\n\"",
+      "test_or_build_candidate": false
+    },
+    "toolu_01JXJq7AF9cNdPMiEb4BFwpE": {
+      "tool": "Bash",
+      "id": "toolu_01JXJq7AF9cNdPMiEb4BFwpE",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; ROOT=/Users/jim/src/apps/abiogenesis-rc4-native-recovery; T=$S/repo/build_tenants/abiogenesis/typescript; sh $S/sync.sh && cd $ROOT && for f in default_library event_prefix instruction_assembly invocation_execution_truth; do git show HEAD:build_tenants/abiogenesis/typescript/code/src/abg/$f.ts > $T/code/src/abg/$f.ts; done; cd $T && git -C $ROOT diff --stat HEAD -- build_tenants/abiogenesis/typescript/code/src | tail -1; sed -i '' 's/^import { governanceContract } from \".*default_library_identity.js\";$/&/' test_env/tests/t287-event-body-encoding.test.mjs; sh $S/build.sh > $S/build-baseline-disc.log 2>&1; echo build=$?; tail -3 $S/build-baseline-disc.log; sh $S/runtest.sh --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-baseline.log 2>&1; echo exit=$?; grep -v \"^\u2139 {\" $S/t-retained-baseline.log | sed -n 1,30p | cut -c1-1500",
+      "test_or_build_candidate": true
+    },
+    "toolu_01FSgiv7DsZR4d35yS1Dvpsw": {
+      "tool": "Bash",
+      "id": "toolu_01FSgiv7DsZR4d35yS1Dvpsw",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; T=$S/repo/build_tenants/abiogenesis/typescript; cd $T && python3 - <<'EOF'\np='test_env/tests/t287-default-library.test.mjs'\ns=open(p).read()\nold=\"const useB=truth.governanceContextBodyUse(admissionB,B);\"\nnew=\"const useB=truth.governanceContextBodyUse?.(admissionB,B)??{runId:B,sourceResults:S.sourceResultValue.observations.map(o=>({resultRef:o.resultRef,resultDigest:o.resultDigest,cCallRef:o.cCallRef}))};\"\nassert s.count(old)==1\nopen(p,'w').write(s.replace(old,new))\nEOF\nsh $S/runtest.sh --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-baseline-2.log 2>&1; echo exit=$?; grep -v \"^\u2139 {\" $S/t-retained-baseline-2.log | sed -n 14,30p | cut -c1-1500",
+      "test_or_build_candidate": true
+    },
+    "toolu_013pe1mtRKsqPnj47uFY2eh5": {
+      "tool": "Bash",
+      "id": "toolu_013pe1mtRKsqPnj47uFY2eh5",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design && wc -l T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md && grep -n \"^#\\|replacement\\|current_intent\\|constructionContinuationUse\\|widen\\|R2\\|cross-Run\\|another Run\\|attempt0\" T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md | head -120",
+      "test_or_build_candidate": false
+    },
+    "toolu_019VALb9aWen5vs8fMBCPMGQ": {
+      "tool": "Read",
+      "id": "toolu_019VALb9aWen5vs8fMBCPMGQ",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01LF1LY1xzAfLhvqQGCg4R7w": {
+      "tool": "Read",
+      "id": "toolu_01LF1LY1xzAfLhvqQGCg4R7w",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_019HWskVgUYR3THs4d11k6sK": {
+      "tool": "Bash",
+      "id": "toolu_019HWskVgUYR3THs4d11k6sK",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -n \"sourceResultBasis\" abg/construction_continuation.ts abg/invocation_admission.ts | head -20; grep -rn \"worksiteContextBodyReaderAtPrefix\\|resolveWorksiteContextBodyAtPrefix\\|reuseWorksiteContextBodiesAtPrefix\" --include=*.ts . 2>/dev/null | grep -v \"^./abg/event_prefix.ts\" | head -20",
+      "test_or_build_candidate": false
+    },
+    "toolu_019VD4xEF829Q678tMA4xQUC": {
+      "tool": "Grep",
+      "id": "toolu_019VD4xEF829Q678tMA4xQUC",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_017GxFEac1MZVVH8qbkzZCkd": {
+      "tool": "Grep",
+      "id": "toolu_017GxFEac1MZVVH8qbkzZCkd",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_014gnZgM482Mt3fxeVT1fvaL": {
+      "tool": "Bash",
+      "id": "toolu_014gnZgM482Mt3fxeVT1fvaL",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design && python3 - <<'EOF'\np='T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md'\ns=open(p).read()\ndef rep(old,new):\n    global s\n    assert s.count(old)==1, old[:80]\n    s=s.replace(old,new)\nrep(\"\"\"and exact source Run/bases/cursor/intent, and reentry preserves source\nposition. Predecessor retained-context reads in a replacement Run follow that\nadmitted use (below). No event family is added for either relation.\"\"\",\n\"\"\"and exact source Run/bases/cursor/intent, and reentry preserves source\nposition. Neither arm reads a context body held in another Run; the one\ncross-Run body relation is retained-source use (below). No event family is\nadded for either relation.\"\"\")\nrep(\"\"\"not the required authentication, and it had no production consumer. The\nresolver refuses every other-Run holder as `foreign`.\n\nPredecessor-Run retained context (the replacement-Run relation) remains\nrequired. At the foreign-context me",
+      "test_or_build_candidate": false
+    },
+    "toolu_01S3bbaujsGfsCxzy2orHLec": {
+      "tool": "Bash",
+      "id": "toolu_01S3bbaujsGfsCxzy2orHLec",
+      "path": "",
+      "command_excerpt": "grep -n -i \"predecessor-run\\|predecessor run\\|replacement-required\\|replacement run\\|widen\" T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md | head -30; grep -n -i \"same-Run only\\|cross-Run holder\\|No cross-Run\\|Current limits\" -A3 T287_NATIVE_WORKSPACE_WORK_DESIGN.md | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01UDBx9QpejpccbKnLjEUqDg": {
+      "tool": "Bash",
+      "id": "toolu_01UDBx9QpejpccbKnLjEUqDg",
+      "path": "",
+      "command_excerpt": "sed -n 120,180p T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "test_or_build_candidate": false
+    },
+    "toolu_01MK2oNDV8fFEP7q94LosZXz": {
+      "tool": "Bash",
+      "id": "toolu_01MK2oNDV8fFEP7q94LosZXz",
+      "path": "",
+      "command_excerpt": "python3 - <<'EOF'\np='T287_NATIVE_WORKSPACE_WORK_DESIGN.md'\ns=open(p).read()\ndef rep(old,new):\n    global s\n    assert s.count(old)==1, old[:80]\n    s=s.replace(old,new)\nrep(\"\"\"reobserves current W, `reuseWorksiteContextBodiesAtPrefix` replaces each inline\nbody already held inline by an earlier committed Result of the same Run, path,\ndigest, authority basis and binding with that member; changed and new bodies\nstay inline and are born by the Result that admits the context.\"\"\",\"\"\"reobserves current W, `reuseWorksiteContextBodiesAtPrefix` replaces each inline\nbody already held inline by an earlier committed Result of the same Run, path,\ndigest, authority basis and binding with that member. A holder in another Run\nis used only when the consumer's admitted retained-source use declares that\nexact member (below). Changed and new bodies stay inline and are born by the\nResult that admits the context.\"\"\")\nrep(\"\"\"selector source matching, obligation quoting and the\nselector presentation read decla",
+      "test_or_build_candidate": false
+    },
+    "toolu_012h64aN1wxWvNn4ksCiPVey": {
+      "tool": "Bash",
+      "id": "toolu_012h64aN1wxWvNn4ksCiPVey",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && grep -rln \"T287_NATIVE_WORKSPACE_WORK_DESIGN\\|T287_PENDING_CONSUMER_CONTINUATION_DESIGN\" test_env scripts code 2>/dev/null | head",
+      "test_or_build_candidate": false
+    },
+    "toolu_014Py5Xth6RDoQcajhYYh4U7": {
+      "tool": "Bash",
+      "id": "toolu_014Py5Xth6RDoQcajhYYh4U7",
+      "path": "",
+      "command_excerpt": "grep -n \"T287_NATIVE_WORKSPACE_WORK_DESIGN\\|T287_PENDING_CONSUMER_CONTINUATION_DESIGN\" test_env/qualification/recipe/verification-recipe.json test_env/qualification/inventory.json | cut -c1-400",
+      "test_or_build_candidate": false
+    },
+    "toolu_014YpEzyi9s7oDErCp81rknT": {
+      "tool": "Bash",
+      "id": "toolu_014YpEzyi9s7oDErCp81rknT",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -n \"^export function\\|^function\\|^export const\\|^const [a-zA-Z]* = (\" abg/construction_continuation.ts | cut -c1-200 | head -120; wc -l abg/construction_continuation.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01K8nPQy16pG5E96ruW6Bqvq": {
+      "tool": "Bash",
+      "id": "toolu_01K8nPQy16pG5E96ruW6Bqvq",
+      "path": "",
+      "command_excerpt": "sed -n 160,345p abg/construction_continuation.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_016L6repDoj51xFeVZhb2jB1": {
+      "tool": "Bash",
+      "id": "toolu_016L6repDoj51xFeVZhb2jB1",
+      "path": "",
+      "command_excerpt": "grep -n \"preparedRelations\\|preparedOperations\\|pendingExecutionUses\\|new WeakSet\\|new WeakMap\" abg/construction_continuation.ts hog/*.ts abg/traversal_route.ts abg/traversal_cursor.ts | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01URApVxuttNed3YBtjgTFFP": {
+      "tool": "Bash",
+      "id": "toolu_01URApVxuttNed3YBtjgTFFP",
+      "path": "",
+      "command_excerpt": "grep -n \"selectedPreparations\" abg/construction_continuation.ts; git -C /Users/jim/src/apps/abiogenesis-rc4-native-recovery show 7e9143271 --stat | head -40",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Ax4zDJwAkjyyoqGnyRkFpi": {
+      "tool": "Grep",
+      "id": "toolu_01Ax4zDJwAkjyyoqGnyRkFpi",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    "toolu_01QMY76Tr5nJYPw4Smj8KQvc": {
+      "tool": "Bash",
+      "id": "toolu_01QMY76Tr5nJYPw4Smj8KQvc",
+      "path": "",
+      "command_excerpt": "sed -n 2240,2449p abg/construction_continuation.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01RCBdsqXMtAXytzBeBnTCG8": {
+      "tool": "Bash",
+      "id": "toolu_01RCBdsqXMtAXytzBeBnTCG8",
+      "path": "",
+      "command_excerpt": "grep -n \"pendingExecutionResume\\|preparePendingExecutionContinuation\\|projectPendingExecutionInputAtPrefix\\|materializeGraph(\" hog/*.ts abg/*.ts owner_bindings/*.ts product/*.ts | cut -c1-220",
+      "test_or_build_candidate": false
+    },
+    "toolu_018uuYP9KeMkAH9fWxPsXo26": {
+      "tool": "Bash",
+      "id": "toolu_018uuYP9KeMkAH9fWxPsXo26",
+      "path": "",
+      "command_excerpt": "sed -n 990,1140p hog/graph_execute.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Qj31RtHbDUcEjT92pSuLkj": {
+      "tool": "Bash",
+      "id": "toolu_01Qj31RtHbDUcEjT92pSuLkj",
+      "path": "",
+      "command_excerpt": "grep -n -i \"pending\" abg/native_work_reacquisition.ts abg/worksite_input_provenance.ts abg/native_worksite_execution.ts abg/default_library.ts abg/instruction_assembly.ts abg/execution_basis.ts abg/traversal_route.ts abg/traversal_cursor.ts hog/parent_rehydration.ts hog/child_traversal.ts hog/recursion_lifecycle.ts hog/evaluation_frame.ts hog/traversal_completion.ts hog/entry.ts 2>/dev/null | cut -c1-200 | head -60",
+      "test_or_build_candidate": false
+    },
+    "toolu_01DVuesacnxypAGwqEtTxro5": {
+      "tool": "Bash",
+      "id": "toolu_01DVuesacnxypAGwqEtTxro5",
+      "path": "",
+      "command_excerpt": "sed -n 2800,2830p abg/traversal_route.ts; sed -n 2875,2895p abg/traversal_route.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01B6hTu9ynYP9eLUxCyspAXp": {
+      "tool": "Bash",
+      "id": "toolu_01B6hTu9ynYP9eLUxCyspAXp",
+      "path": "",
+      "command_excerpt": "sed -n 85,100p abg/invocation_execution_truth.ts; sed -n 168,182p abg/invocation_execution_truth.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_01PELvpWy1QeGLJKFDB6L8PE": {
+      "tool": "Bash",
+      "id": "toolu_01PELvpWy1QeGLJKFDB6L8PE",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && grep -rln -i \"displaced pending\\|displaced reconstruction\\|pending reconstruction\" .ai-workspace build_tenants/abiogenesis/typescript/design rc4-operator-inputs 2>/dev/null | head -10",
+      "test_or_build_candidate": false
+    },
+    "toolu_01JnEj8PvR2TqxzbvYrBazgi": {
+      "tool": "Bash",
+      "id": "toolu_01JnEj8PvR2TqxzbvYrBazgi",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && timeout 60 grep -rl -i \"displaced\" rc4-operator-inputs build_tenants/abiogenesis/typescript/design .ai-workspace/tickets 2>/dev/null | head -10; ls rc4-operator-inputs | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_014VphFcNVe5wMuRpu79e68F": {
+      "tool": "Bash",
+      "id": "toolu_014VphFcNVe5wMuRpu79e68F",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-operator-inputs && ls -la native-recovery-10 native-recovery-09 | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01MHsPcBHURkR1c5X9AFXe7y": {
+      "tool": "Bash",
+      "id": "toolu_01MHsPcBHURkR1c5X9AFXe7y",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-operator-inputs/native-recovery-10 && cat REVIEWED_ROUTES_AND_PRIOR_RESULTS.md; grep -n -i \"displac\\|audit\\|survivor\\|duplicate\" task.DRAFT.md rubric.DRAFT.json PARTIAL_DISPOSITION.DRAFT.md",
+      "test_or_build_candidate": false
+    },
+    "toolu_01RLCgy82pJH2j6KoHtwevru": {
+      "tool": "Bash",
+      "id": "toolu_01RLCgy82pJH2j6KoHtwevru",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && git diff HEAD -- build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts | head -80",
+      "test_or_build_candidate": false
+    },
+    "toolu_018vSfMsd9METSAgyHQfD71c": {
+      "tool": "Bash",
+      "id": "toolu_018vSfMsd9METSAgyHQfD71c",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && sed -n 940,990p hog/graph_execute.ts; sed -n 1975,2040p owner_bindings/run_invocation.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_011oTSdvjcy3Crk6BLsYqV16": {
+      "tool": "Bash",
+      "id": "toolu_011oTSdvjcy3Crk6BLsYqV16",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && grep -ln \"pendingExecutionResume\\|projectPendingExecutionInputAtPrefix\\|preparePendingExecutionContinuation\\|pending_execution\" test_env/tests/*.mjs; grep -n \"^import\" code/src/hog/graph_execute.ts | grep -n \"construction_continuation\\|traversal_cursor\\|materialize\\|validator/graph\"",
+      "test_or_build_candidate": false
+    },
+    "toolu_01FNT5qmv2TyseoswtsiP1Ly": {
+      "tool": "Bash",
+      "id": "toolu_01FNT5qmv2TyseoswtsiP1Ly",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && sed -n 915,945p abg/construction_continuation.ts; sed -n 2120,2150p abg/construction_continuation.ts; grep -n \"^import\" abg/construction_continuation.ts | cut -c1-220",
+      "test_or_build_candidate": false
+    },
+    "toolu_011R7g5DBTTTtSD8ShpcCxWj": {
+      "tool": "Bash",
+      "id": "toolu_011R7g5DBTTTtSD8ShpcCxWj",
+      "path": "",
+      "command_excerpt": "grep -n \"export function materializeGraph\" -A4 gtl/materialize.ts | head; grep -n \"export function validateGraph\" -A6 validator/graph.ts | head; grep -n \"export function projectAdmittedTraversalCursorAtPrefix\\|export function projectTraversalInputAtPrefix\" -A6 abg/traversal_cursor.ts | head -40",
+      "test_or_build_candidate": false
+    },
+    "toolu_01U3zNSLYiz2nEi3bKH6A6GM": {
+      "tool": "Bash",
+      "id": "toolu_01U3zNSLYiz2nEi3bKH6A6GM",
+      "path": "",
+      "command_excerpt": "python3 - <<'EOF'\np='abg/construction_continuation.ts'\ns=open(p).read()\ndef rep(old,new):\n    global s\n    assert s.count(old)==1, old[:100]\n    s=s.replace(old,new)\n# helpers after the import block\nrep(\"\"\"import { rehydrateConstructionIntentForCursorAtPrefix } from \"./traversal_route.js\";\n\nconst preparedRelations = new WeakSet<object>();\"\"\",\"\"\"import { rehydrateConstructionIntentForCursorAtPrefix } from \"./traversal_route.js\";\n\n/** @internal One admitted basis's graph, rematerialized from its own admitted\n * input coordinates and checked against its admitted graph and validation refs.\n * The one rule for every continuation preparation and HoG restoration. */\nexport function rematerializeAdmittedBasisGraph(basis: ExecutionBasis, graphFunction: Readonly<import(\"../gtl/contracts.js\").GraphFunction>,\n  programValidation: import(\"../validator/validation.js\").ProgramValidation): Readonly<{ graph: ReturnType<typeof materializeGraph>;\n    graphValidation: import(\"../validator/graph.js\").Graph",
+      "test_or_build_candidate": false
+    },
+    "toolu_01KGbK4nfGX6GcmUAc921fCn": {
+      "tool": "Bash",
+      "id": "toolu_01KGbK4nfGX6GcmUAc921fCn",
+      "path": "",
+      "command_excerpt": "python3 - <<'EOF'\np='hog/graph_execute.ts'\ns=open(p).read()\ndef rep(old,new):\n    global s\n    assert s.count(old)==1, old[:100]\n    s=s.replace(old,new)\nrep('import { admitPendingConstructionIntentContinuation, projectPendingExecutionContinuations } from \"../abg/construction_continuation.js\";',\n    'import { admitPendingConstructionIntentContinuation, projectPendingCursorInputAtPrefix, projectPendingExecutionContinuations,\\n  rematerializeAdmittedBasisGraph } from \"../abg/construction_continuation.js\";')\nrep(\"\"\"    const coordinates = { invocationAdmissionRef: basis.invocationAdmissionRef, admittedInputRef: basis.rawInputAdmissionRef,\n      admittedInputDigest: basis.rawInputDigest, admittedInput: basis.rawInputValue };\n    const graph = materializeGraph(graphFunction, coordinates);\n    const graphValidation = validateGraph(graph, root.programValidation, graphFunction, coordinates);\n    const closureContractRef = graphFunction.declarations[\"abg.child_closure_contract\"];\n    const clos",
+      "test_or_build_candidate": false
+    },
+    "toolu_019yuypAk39RTUXUugNeRctY": {
+      "tool": "Bash",
+      "id": "toolu_019yuypAk39RTUXUugNeRctY",
+      "path": "",
+      "command_excerpt": "python3 - <<'EOF'\np='hog/graph_execute.ts'\ns=open(p).read()\nfor line in ['import { materializeGraph } from \"../gtl/materialize.js\";\\n','import { validateGraph } from \"../validator/graph.js\";\\n']:\n    assert s.count(line)==1\n    s=s.replace(line,'')\nopen(p,'w').write(s)\nEOF\nS=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && cd $S/repo/build_tenants/abiogenesis/typescript && node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit 2>&1 | head -20; echo tsc=$?",
+      "test_or_build_candidate": true
+    },
+    "toolu_01NKH3vQy5roDKFjQBArMbpB": {
+      "tool": "Bash",
+      "id": "toolu_01NKH3vQy5roDKFjQBArMbpB",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && python3 - <<'EOF'\np='abg/construction_continuation.ts'\ns=open(p).read()\nold=\"\"\"  return cursor === null || input === null || !isRecord(input.value) || input.inputRef !== pending.progressedInputRef ||\n    input.inputDigest !== pending.progressedInputDigest ? null : Object.freeze({ cursor, input });\n}\"\"\"\nnew=\"\"\"  return cursor === null || input === null || !isRecord(input.value) || input.inputRef !== pending.progressedInputRef ||\n    input.inputDigest !== pending.progressedInputDigest ? null\n    : Object.freeze({ cursor, input: input as typeof input & { readonly value: Readonly<Record<string, JsonValue>> } });\n}\"\"\"\nassert s.count(old)==1\nopen(p,'w').write(s.replace(old,new))\nEOF\nS=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && cd $S/repo/build_tenants/abiogenesis/typescript && node node_modules/typescript/bin/tsc -p tsconfig.json --",
+      "test_or_build_candidate": true
+    },
+    "toolu_016Bv9yNiXQTYV3BoRYbkPnw": {
+      "tool": "Bash",
+      "id": "toolu_016Bv9yNiXQTYV3BoRYbkPnw",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && python3 - <<'EOF'\np='abg/invocation_execution_truth.ts'\ns=open(p).read()\nold1=\"\"\"export function hasAdmittedGovernanceSourceUse(invocation: InvocationAdmission, event: RuntimeEvent): boolean {\n  const basis = invocation.sourceResultBasis;\n  if (basis === null || basis === undefined || basis.sourceResultContractRef !== governanceContract(\"state\") ||\n    !isRecord(basis.sourceResultValue) || basis.sourceResultValue.kind !== \"governance_work_state\" ||\n    event.kind !== \"c_call_result_admitted\" || !isRecord(event.payload) || event.payload.resultClass !== \"success\") return false;\n  const state = basis.sourceResultValue as unknown as GovernanceWorkState;\n  const payload = event.payload, synthesis = state.synthesis;\"\"\"\nnew1=\"\"\"export function hasAdmittedGovernanceSourceUse(invocation: InvocationAdmission, event: RuntimeEvent): boolean {\n  const state = admittedGovernanceSourceState(invocat",
+      "test_or_build_candidate": false
+    },
+    "toolu_01J3KH7i5cjuhVdnV4ADqrmp": {
+      "tool": "Bash",
+      "id": "toolu_01J3KH7i5cjuhVdnV4ADqrmp",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript/test_env/tests && for f in t287-event-body-encoding t287-native-work-reacquisition t287-native-work-reacquisition-normalization t287-native-worksite-execution t287-native-workspace-work t287-native-assembly-retained-input t287-native-work-currentness-consumers t287-native-work-unknown-effect t287-governance-covered-source-use t287-continuation-causation t287-default-library t287-retained-installed-consumer retained-route-cursor-transition t287-exact-construction-intent t287-selected-action t287-selected-action-authority t287-recursive-registered-selection t287-public-groups m5-fresh-process-reconstruction t287-default-library-fulfillment; do [ -f $f.test.mjs ] && echo \"$f yes\" || echo \"$f MISSING\"; done",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Np2QW8pTrnfre4iCmexcKF": {
+      "tool": "Bash",
+      "id": "toolu_01Np2QW8pTrnfre4iCmexcKF",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; mkdir -p $S/logs; start=$(date +%s); for f in t287-event-body-encoding t287-native-work-reacquisition t287-native-work-reacquisition-normalization t287-native-worksite-execution t287-native-workspace-work t287-native-assembly-retained-input t287-native-work-currentness-consumers t287-native-work-unknown-effect t287-governance-covered-source-use t287-continuation-causation t287-retained-installed-consumer retained-route-cursor-transition t287-exact-construction-intent t287-selected-action t287-selected-action-authority t287-public-groups m5-fresh-process-reconstruction t287-default-library-fulfillment; do t0=$(date +%s); sh $S/runtest.sh test_env/tests/$f.test.mjs > $S/logs/$f.log 2>&1; rc=$?; echo \"$f rc=$rc $(grep -E '^\u2139 (pass|fail|skipped) ' $S/logs/$f.log | tr '\\n' ' ') $(( $(date +%s)-t0 ))s\"; done; echo total=$(( $(date +%s)-start ))s",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Y3EG8G3c9pB4mnDxs5Sc2V": {
+      "tool": "Bash",
+      "id": "toolu_01Y3EG8G3c9pB4mnDxs5Sc2V",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; grep -v \"^\u2139\" $S/logs/t287-selected-action-authority.log | head -30 | cut -c1-600; echo ======; grep -v \"^\u2139\" $S/logs/t287-default-library-fulfillment.log | head -30 | cut -c1-600",
+      "test_or_build_candidate": false
+    },
+    "toolu_01ENEPNaUNrFu2MXHzedPauc": {
+      "tool": "Bash",
+      "id": "toolu_01ENEPNaUNrFu2MXHzedPauc",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; grep -v \"^\u2139\" $S/logs/t287-default-library-fulfillment.log | head -40 | cut -c1-600",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Exs4hMSCkM6DnC6Y1nTdJk": {
+      "tool": "Bash",
+      "id": "toolu_01Exs4hMSCkM6DnC6Y1nTdJk",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; rm -rf $S/evidence/retained-source $S/evidence/pending-testing; mkdir -p $S/evidence/retained-source $S/evidence/pending-testing; for f in t287-default-library t287-recursive-registered-selection; do t0=$(date +%s); ABI5_RETAINED_SOURCE_EVIDENCE_ROOT=$S/evidence/retained-source ABI5_PENDING_TESTING_EVIDENCE_ROOT=$S/evidence/pending-testing sh $S/runtest.sh test_env/tests/$f.test.mjs > $S/logs/$f.log 2>&1; rc=$?; echo \"$f rc=$rc $(grep -E '^\u2139 (pass|fail|skipped) ' $S/logs/$f.log | tr '\\n' ' ') $(( $(date +%s)-t0 ))s\"; done; grep -E \"^\u2716|^\ufe63|# SKIP\" $S/logs/t287-default-library.log $S/logs/t287-recursive-registered-selection.log | head -20",
+      "test_or_build_candidate": false
+    },
+    "toolu_01AaFwoZabEiuy8YpxbSgmsR": {
+      "tool": "Bash",
+      "id": "toolu_01AaFwoZabEiuy8YpxbSgmsR",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; awk '/^\u2716 failing tests:/{f=1} f' $S/logs/t287-default-library.log | grep -v \"^\u2139\" | head -50 | cut -c1-700",
+      "test_or_build_candidate": false
+    },
+    "toolu_012S75tQkCNfo2TiF7tpRcKG": {
+      "tool": "Bash",
+      "id": "toolu_012S75tQkCNfo2TiF7tpRcKG",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && sed -n 289,312p test_env/tests/t287-default-library.test.mjs | cut -c1-900",
+      "test_or_build_candidate": false
+    },
+    "toolu_014UQSZc152p7SSZinAq3rN1": {
+      "tool": "Bash",
+      "id": "toolu_014UQSZc152p7SSZinAq3rN1",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -n \"export function authenticateOwnedNativeInstructionAssemblyBasis\" -B2 -A40 abg/execution_basis.ts | grep -n \"invocation\\|prefix\\|return\\|Readonly<{\" | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01AWorikRUVvQzhZssLopzkN": {
+      "tool": "Bash",
+      "id": "toolu_01AWorikRUVvQzhZssLopzkN",
+      "path": "",
+      "command_excerpt": "grep -n \"authenticateOwnedNativeInstructionAssemblyBasis\\|function deriveOwnedNativeInstructionAssemblyBasis\\|OwnedNativeInstructionAssemblyBasis =\" abg/execution_basis.ts | head; grep -n \"type OwnedNativeInstructionAssemblyBasis\\|interface OwnedNativeInstructionAssemblyBasis\" -A20 abg/*.ts | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01V6it5ahi4iqDqtk98vd2Bk": {
+      "tool": "Bash",
+      "id": "toolu_01V6it5ahi4iqDqtk98vd2Bk",
+      "path": "",
+      "command_excerpt": "sed -n 164,236p abg/execution_basis.ts",
+      "test_or_build_candidate": false
+    },
+    "toolu_016T4Gs5QJM3VD363hgoFozr": {
+      "tool": "Bash",
+      "id": "toolu_016T4Gs5QJM3VD363hgoFozr",
+      "path": "",
+      "command_excerpt": "python3 - <<'EOF'\np='abg/instruction_assembly.ts'\ns=open(p).read()\nold=\"\"\"      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context,\n        governanceContextBodyUse(projectExactInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef), owner.call.runId))),\"\"\"\nnew=\"\"\"      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, bodyUse)),\"\"\"\nassert s.count(old)==1\ns=s.replace(old,new)\nold2=\"\"\"    const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;\n    const boundBasis = synthesisBoundBasis(context), response = framedSynthesisResponseSchema(task, bindings);\"\"\"\nnew2=\"\"\"    const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;\n    // Inline bodies need no permission; member reads use this Run and the\n    // invocation's admitted retained-source use (`governanceContextBody",
+      "test_or_build_candidate": true
+    },
+    "toolu_01CnHQMKDNtPpnYsfkBZiCFw": {
+      "tool": "Bash",
+      "id": "toolu_01CnHQMKDNtPpnYsfkBZiCFw",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env && grep -ln \"selected_action\\|prepareSelectedActionContinuation\\|selectPendingActionUse\" tests/*.mjs support/*.mjs | head; grep -n \"skip\" tests/t287-selected-action.test.mjs | head -5",
+      "test_or_build_candidate": false
+    },
+    "toolu_0192F8bnC6Fvtzbx71RtV9q8": {
+      "tool": "Bash",
+      "id": "toolu_0192F8bnC6Fvtzbx71RtV9q8",
+      "path": "",
+      "command_excerpt": "grep -n \"selected_action\\|SelectedAction\" tests/t287-recursive-registered-selection.test.mjs | head -10; sed -n 1,30p tests/t287-selected-action.test.mjs | cut -c1-300",
+      "test_or_build_candidate": false
+    },
+    "toolu_01AQyPPKK6temmFhC5U1UV8a": {
+      "tool": "Bash",
+      "id": "toolu_01AQyPPKK6temmFhC5U1UV8a",
+      "path": "",
+      "command_excerpt": "grep -n \"proof\" tests/t287-selected-action.test.mjs | head -20 | cut -c1-250; grep -n \"witnessRoot\\|\\.ai-workspace\\|FRAMED_GOVERNANCE\" tests/t287-selected-action.test.mjs support/t287-selected-action-host.mjs | head",
+      "test_or_build_candidate": false
+    },
+    "toolu_01FyxrggYj7yLPC2VdHhKNZp": {
+      "tool": "Bash",
+      "id": "toolu_01FyxrggYj7yLPC2VdHhKNZp",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; rm -rf $S/evidence/retained-source $S/evidence/pending-testing; mkdir -p $S/evidence/retained-source $S/evidence/pending-testing; for f in t287-default-library t287-recursive-registered-selection t287-event-body-encoding t287-native-assembly-retained-input t287-native-workspace-work t287-native-worksite-execution t287-exact-construction-intent t287-native-work-currentness-consumers; do t0=$(date +%s); ABI5_RETAINED_SOURCE_EVIDENCE_ROOT=$S/evidence/retained-source ABI5_PENDING_TESTING_EVIDENCE_ROOT=$S/evidence/pending-testing sh $S/runtest.sh test_env/tests/$f.test.mjs > $S/logs/final-$f.log 2>&1; rc=$?; echo \"$f rc=$rc $(grep -E '^\u2139 (pass|fail|skipped) ' $S/logs/final-$f.log | tr '\\n' ' ') $(( $(date +%s)-t0 ))s\"; done",
+      "test_or_build_candidate": false
+    },
+    "toolu_01L7wqEFgY8oPKiN7bqQh3eJ": {
+      "tool": "Bash",
+      "id": "toolu_01L7wqEFgY8oPKiN7bqQh3eJ",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && ls test_env/tests/*.test.mjs | wc -l; node -e \"const p=require('./package.json');console.log(JSON.stringify(p.scripts,null,1))\" | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01WmcQmpZBkFLt37pKveESZn": {
+      "tool": "Bash",
+      "id": "toolu_01WmcQmpZBkFLt37pKveESZn",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; cd $S/repo/build_tenants/abiogenesis/typescript && for l in lint-verification check-import-direction check-lifecycle-boundary check-calculus-boundary; do node scripts/$l.mjs > $S/logs/lint-$l.log 2>&1; echo \"$l rc=$? $(tail -1 $S/logs/lint-$l.log | cut -c1-200)\"; done",
+      "test_or_build_candidate": false
+    },
+    "toolu_019KaKMFhjv3aJKMShVEYGz5": {
+      "tool": "Bash",
+      "id": "toolu_019KaKMFhjv3aJKMShVEYGz5",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; head -20 $S/logs/lint-lint-verification.log | cut -c1-400",
+      "test_or_build_candidate": false
+    },
+    "toolu_01PgeWtXy75GBS2H3zExvrHg": {
+      "tool": "Bash",
+      "id": "toolu_01PgeWtXy75GBS2H3zExvrHg",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/runtest.sh test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs test_env/tests/t287-calculus-state-transfer.test.mjs > $S/logs/unit.log 2>&1; echo rc=$?; grep -E '^\u2139 (tests|pass|fail|skipped) ' $S/logs/unit.log",
+      "test_or_build_candidate": false
+    },
+    "toolu_01SHqHVhWU9EDFCLRzZZGZfG": {
+      "tool": "Bash",
+      "id": "toolu_01SHqHVhWU9EDFCLRzZZGZfG",
+      "path": "",
+      "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design && python3 - <<'EOF'\np='T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md'\ns=open(p).read()\nold=\"\"\"The pending-Testing discriminator keeps its own interrupting host because its\nstop predicate, the first entered Testing wrapper cursor, differs from the\nselected-action host's. Both use the same fsync observation and\n`recoverInterruptedEventStore` recovery.\"\"\"\nnew=\"\"\"The pending-Testing discriminator keeps its own interrupting host because its\nstop predicate, the first entered Testing wrapper cursor, differs from the\nselected-action host's. Both use the same fsync observation and\n`recoverInterruptedEventStore` recovery. The retained-source discriminator\nreuses the pending-Testing host unchanged: its source Run never enters Testing.\n\nAttempt 010 pending-reconstruction audit. Two checked facts were derived\nseparately at each reconstruction site; each now has one owner in\n`construction_continuation.",
+      "test_or_build_candidate": false
+    },
+    "toolu_012CpyNcFb3q1pRohbHVrq1h": {
+      "tool": "Bash",
+      "id": "toolu_012CpyNcFb3q1pRohbHVrq1h",
+      "path": "",
+      "command_excerpt": "python3 - <<'EOF'\np='T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md'\ns=open(p).read()\nold=\"\"\"- The 009 same-Run discriminator is unchanged and separate.\n\"\"\"\nnew=\"\"\"- The 009 same-Run discriminator is unchanged and separate.\n- The pending-reconstruction audit (Consolidation) moves two repeated checks\n  to one owner each without changing a refusal. The recursive, exact-intent and\n  default-library pending tests pass over it. The selected-action installed\n  tests read witness inputs outside the default-library witness and were not\n  run for this attempt.\n\"\"\"\nassert s.count(old)==1\ns=s.replace(old,new)\nopen(p,'w').write(s)\nEOF\necho ok",
+      "test_or_build_candidate": false
+    },
+    "toolu_01F4AGmcDvobZqyVaRQPGmqP": {
+      "tool": "Bash",
+      "id": "toolu_01F4AGmcDvobZqyVaRQPGmqP",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; ROOT=/Users/jim/src/apps/abiogenesis-rc4-native-recovery; T=$S/repo/build_tenants/abiogenesis/typescript; C=$ROOT/build_tenants/abiogenesis/typescript; sh $S/sync.sh && sh $S/build.sh > $S/build-final.log 2>&1; echo build=$?; tail -3 $S/build-final.log; diff -rq $T/contracts $C/contracts; cmp $T/product-toolchain-manifest.json $C/product-toolchain-manifest.json; echo cmp=$?",
+      "test_or_build_candidate": false
+    },
+    "toolu_01C8j7nqdkzJYmxdRUCMwHpo": {
+      "tool": "Bash",
+      "id": "toolu_01C8j7nqdkzJYmxdRUCMwHpo",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; ROOT=/Users/jim/src/apps/abiogenesis-rc4-native-recovery; T=$S/repo/build_tenants/abiogenesis/typescript; C=$ROOT/build_tenants/abiogenesis/typescript; diff <(python3 -m json.tool $C/contracts/capabilities/capability-definition-graph.json) <(python3 -m json.tool $T/contracts/capabilities/capability-definition-graph.json) | head -20; python3 - <<EOF\nimport json\na=json.load(open(\"$C/product-toolchain-manifest.json\")); b=json.load(open(\"$T/product-toolchain-manifest.json\"))\ndef walk(x,y,p=\"\"):\n    if type(x)!=type(y): print(\"type\",p); return\n    if isinstance(x,dict):\n        for k in sorted(set(x)|set(y)):\n            if k not in x or k not in y: print(\"key\",p+\"/\"+k); continue\n            walk(x[k],y[k],p+\"/\"+k)\n    elif isinstance(x,list):\n        if len(x)!=len(y): print(\"len\",p,len(x),len(y)); return\n        for i,(u,v) in enumerate(zip(x,y)): walk(u,v,p+\"/\"+str(i))\n    elif x!=y: print(\"val\",p,str(x",
+      "test_or_build_candidate": false
+    },
+    "toolu_01AHyBtw5nBhfutuS7Apqt6c": {
+      "tool": "Bash",
+      "id": "toolu_01AHyBtw5nBhfutuS7Apqt6c",
+      "path": "",
+      "command_excerpt": "F=/Users/jim/.claude/projects/-Users-jim-src-apps-abiogenesis-rc4-native-recovery/ede42ffe-7466-4d15-8bef-dd60aca523c1/tool-results/bdbozx0b2.txt; grep -E \"^(key|len|type) \" $F | head; grep -E \"^val \" $F | sed -E 's#/[0-9]+#/N#g' | awk '{print $2}' | sort | uniq -c | sort -rn | head -20",
+      "test_or_build_candidate": false
+    },
+    "toolu_01XwZxzUNvAfpdc7CYVchHmm": {
+      "tool": "Bash",
+      "id": "toolu_01XwZxzUNvAfpdc7CYVchHmm",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; ROOT=/Users/jim/src/apps/abiogenesis-rc4-native-recovery; T=$S/repo/build_tenants/abiogenesis/typescript; C=$ROOT/build_tenants/abiogenesis/typescript; rsync -a --delete --itemize-changes $T/contracts/ $C/contracts/ | head; cp $T/product-toolchain-manifest.json $C/product-toolchain-manifest.json; diff -rq $T/contracts $C/contracts && cmp $T/product-toolchain-manifest.json $C/product-toolchain-manifest.json && echo CORRESPONDS; cd $ROOT && git status --short | head -30",
+      "test_or_build_candidate": false
+    },
+    "toolu_01Qky3K1bD9YrXqD88zgsuhS": {
+      "tool": "Bash",
+      "id": "toolu_01Qky3K1bD9YrXqD88zgsuhS",
+      "path": "",
+      "command_excerpt": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; ROOT=/Users/jim/src/apps/abiogenesis-rc4-native-recovery; cd $ROOT && git diff --name-only HEAD | xargs shasum -a 256 > $S/RECEIPTS.sha256; git diff --stat HEAD | tail -1; cat $S/RECEIPTS.sha256 | awk '{print substr($1,1,16), $2}'; python3 -c \"\nimport json;s=json.load(open('$S/evidence/retained-source/summary.json'))\nprint({k:s[k] for k in ['runA','runB','sourceBasisRef','nativeResultRef','choicesB','actorRolesA','actorRolesB','bornInB','promptDigest','eventsA','eventsInterrupted','eventsFinal','finalLogSha256','resumeWallMs','hostWallMs']})\nfor l in s['lineage']: print(l['path'], l['holderResult'][-12:], l['memberPath'])\n\"; grep -h \"retained-source B continued cold\" $S/logs/final-t287-default-library.log | head -2",
+      "test_or_build_candidate": false
+    },
+    "toolu_012ckgJM8PCgmnFgXN4NDrUj": {
+      "tool": "StructuredOutput",
+      "id": "toolu_012ckgJM8PCgmnFgXN4NDrUj",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    }
+  },
+  "explicit_skill_observations": [
+    {
+      "tool": "Bash",
+      "id": "toolu_012VVrcwDYgWXkTnzvW42j4g",
+      "path": "",
+      "command_excerpt": "git rev-parse HEAD && git rev-parse HEAD^{tree} && git status --short | head -20 && wc -c .claude/skills/stdo-work/SKILL.md .claude/references/PRODUCT_BASIS.md rc4-operator-inputs/native-recovery-10/* stdo_abiogenesis.json AGENTS.md",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Bash",
+      "id": "toolu_01PyTbYz7gEFQYRamV1MQ16i",
+      "path": "",
+      "command_excerpt": "cat .claude/skills/stdo-work/SKILL.md && echo ======== && cat .claude/references/PRODUCT_BASIS.md",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Bash",
+      "id": "toolu_01L3wmi8fMgczrHiLZYV3RJV",
+      "path": "",
+      "command_excerpt": "sed -n '/Consume an existing exact owner/,/Evaluate And Construct/p' .claude/skills/stdo-work/SKILL.md; echo '----PRODUCT_BASIS----'; cat .claude/references/PRODUCT_BASIS.md; echo '----stdo----'; cat stdo_abiogenesis.json",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Bash",
+      "id": "toolu_01EbMQpDH4Nqf5rEiB529tDq",
+      "path": "",
+      "command_excerpt": "stdo status --definition stdo_abiogenesis.json --verify 2>&1 | python3 -I -c 'import json,sys; d=json.load(sys.stdin); print({k:d[k] for k in d if k not in (\"standards\",\"release\")}); print([m for m in d[\"standards\"][\"members\"] if m[\"path\"] in (\"ACTIVATION.md\",\"SPEC_METHOD.md\",\"EXECUTIVE_BASELINE.md\",\"REFERENCE_FRAME.md\",\"frames/bootstrap.md\")])'; stdo resolve \"stdo://releases/v3.0.2/standards/ACTIVATION.md\" 2>&1 | head -5",
+      "test_or_build_candidate": false
+    }
+  ],
+  "settings_design_reads": [
+    {
+      "tool": "Bash",
+      "id": "toolu_01VdtWg783rN2f5ZT5fK27q5",
+      "path": "",
+      "command_excerpt": "command -v stdo; stdo status --definition stdo_abiogenesis.json --verify 2>&1 | head -60",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Bash",
+      "id": "toolu_01VZD54fNUzBgAJGpC1WXPup",
+      "path": "",
+      "command_excerpt": "D=build_tenants/abiogenesis/typescript/design; wc -c AGENTS.md $D/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md $D/T287_NATIVE_WORKSPACE_WORK_DESIGN.md $D/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md; cat AGENTS.md",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Read",
+      "id": "toolu_01RUdaxPUL6nedVqr5ddVLy9",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Read",
+      "id": "toolu_013MT6qtWWP1qbf2A4gSzZi3",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Bash",
+      "id": "toolu_01XYkU8F934wX9dzE5eXhppx",
+      "path": "",
+      "command_excerpt": "grep -n '^#' build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Bash",
+      "id": "toolu_01Ju5G1jN37UYf8merDvsNhR",
+      "path": "",
+      "command_excerpt": "sed -n '1,100p;300,420p' build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Read",
+      "id": "toolu_019VALb9aWen5vs8fMBCPMGQ",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    {
+      "tool": "Read",
+      "id": "toolu_01LF1LY1xzAfLhvqQGCg4R7w",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    }
+  ],
+  "milestones": [
+    {
+      "observation_kind": "actual_run_observed",
+      "observed_at": "2026-11-02T04:33:15.928679+00:00",
+      "run_id": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace",
+      "ordinal": 30510,
+      "time": "2026-11-02T04:32:38.516Z"
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T04:33:16.065182+00:00",
+      "event_kind": "actor_invocation_started",
+      "ordinal": 30556,
+      "time": "2026-11-02T04:33:12.115Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": null,
+      "status": null
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T04:33:16.065219+00:00",
+      "event_kind": "actor_process_started",
+      "ordinal": 30557,
+      "time": "2026-11-02T04:33:12.157Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": 76581,
+      "status": null
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T04:34:46.089483+00:00",
+      "event_kind": "actor_process_exited",
+      "ordinal": 30807,
+      "time": "2026-11-02T04:34:42.406Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": null,
+      "status": 0
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T04:34:46.089516+00:00",
+      "event_kind": "actor_invocation_closed",
+      "ordinal": 30810,
+      "time": "2026-11-02T04:34:43.385Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": null,
+      "status": null
+    },
+    {
+      "observation_kind": "provider_result",
+      "observed_at": "2026-11-02T04:34:46.091399+00:00",
+      "archive": "fp-a365c573418f1e6d-stdout.log",
+      "result": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 2,
+        "duration_ms": 84258,
+        "duration_api_ms": 72141,
+        "total_cost_usd": 2.5551920000000004,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 300393,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 7602,
+          "output_tokens_details": {
+            "thinking_tokens": 4255
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 300393,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 7602,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 300393,
+            "webSearchRequests": 0,
+            "costUSD": 2.5551920000000004,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 4255,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "terminal_reason": "completed",
+        "stop_reason": "tool_use"
+      },
+      "output_path": "runtime-001/resources/archives/fp-a365c573418f1e6d-output.txt"
+    },
+    {
+      "observation_kind": "role_graph_call_opened",
+      "observed_at": "2026-11-02T04:35:31.106497+00:00",
+      "ordinal": 30847,
+      "time": "2026-11-02T04:35:02.898Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5",
+      "graphCallId": "graph-call://abiogenesis/fcb07a4939eb24e7e22d0fffb42ad4a7e8635ab91a8625b85a81b820d7175991",
+      "stageRole": "result",
+      "evidence_limit": "Observed call start, not successful stage completion."
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T04:37:01.122946+00:00",
+      "event_kind": "actor_invocation_started",
+      "ordinal": 30878,
+      "time": "2026-11-02T04:36:37.047Z",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "pid": null,
+      "status": null
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T04:37:01.122980+00:00",
+      "event_kind": "actor_process_started",
+      "ordinal": 30879,
+      "time": "2026-11-02T04:36:37.095Z",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "pid": 78619,
+      "status": null
+    },
+    {
+      "observation_kind": "explicit_skill_or_method_lookup",
+      "observed_at": "2026-11-02T04:37:01.124057+00:00",
+      "tool": "Bash",
+      "id": "toolu_012VVrcwDYgWXkTnzvW42j4g",
+      "path": "",
+      "command_excerpt": "git rev-parse HEAD && git rev-parse HEAD^{tree} && git status --short | head -20 && wc -c .claude/skills/stdo-work/SKILL.md .claude/references/PRODUCT_BASIS.md rc4-operator-inputs/native-recovery-10/* stdo_abiogenesis.json AGENTS.md",
+      "test_or_build_candidate": false
+    },
+    {
+      "observation_kind": "explicit_skill_or_method_lookup",
+      "observed_at": "2026-11-02T04:37:01.124088+00:00",
+      "tool": "Bash",
+      "id": "toolu_01PyTbYz7gEFQYRamV1MQ16i",
+      "path": "",
+      "command_excerpt": "cat .claude/skills/stdo-work/SKILL.md && echo ======== && cat .claude/references/PRODUCT_BASIS.md",
+      "test_or_build_candidate": false
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T04:37:01.124100+00:00",
+      "id": "toolu_01PyTbYz7gEFQYRamV1MQ16i",
+      "is_error": true,
+      "result_tail": "aterial computational composition or\n   recurrence, inspect the complete path and its accumulated work under the\n   owning design and optional frame refinement. Qualify declared workloads and\n   operational assumptions rather than inferring adequacy from local green.\n   Retire superseded responsibility; retained mechanisms need a supported\n   obligation, owner, purpose, scope and cost, and temporary ones a removal\n   trigger. Audit affected test predicates against the supported operating and\n   threat model; an excluded threat cannot require a replacement guard.\n6. Return the exact candidate and stop at a delegated return boundary.\n   Product-owned decision authority, or an\n   authorized Executive when that profile is adopted, decides whether Product,\n   qualification, release, risk, or admitted-work law requires independence\n   and separately activates `stdo-review`.\n\nKeep reusable judgments and owner rulings in the existing carrier: exact\nquestion, subject/basis, supporting computed evidence, actor and authority,\nconclusion, scope, uncertainty and revising observation. Preserve the original\nowner ruling separately from interpretation. Invalidate the affected claim\nwhen one of the invalidators of `ACTIVATION.md` section 7 occurs; retain\nunrelated valid results. Reuse does not\nmanufacture an owner ruling or satisfy required independent assessment.\n\nOn repricing, retain, supersede, defer or withdraw each affected obligation with\nits owner/evidence links in this carrier. Present the short consequence delta;\n\"continue\" does not accept an undisclosed architectural change. An authorized\npreservation checkpoint can keep unfinished work with its predecessor,\nterritory, concurrent-writer disposition and durable evidence; it claims no\nacceptance or publication.\n\nEvaluate closure as the conjunction of satisfied applicable obligations,\nvalid supporting evidence, required judgments/rulings and absence of an active\nnon-closure condition. A review event is not completion. Record a satisfied\nbounded result under the existing state-mutation grant; withhold only the\naffected claim when a condition is missing. Qualification, publication and\nconsumer adoption retain their separate conditions.\n\n## Return\n\nReturn the exact candidate/checkpoint, changed paths, affected authority,\nexecution-contract admission mechanism/result/evidence, focused and broader\nproof, non-changes, residuals, and closed or withheld work result. Do not\nclaim acceptance beyond the grant, discard a surviving obligation, or silently\ncontinue beyond a delegated return boundary.\n(eval):1: ======= not found"
+    },
+    {
+      "observation_kind": "explicit_skill_or_method_lookup",
+      "observed_at": "2026-11-02T04:37:46.130103+00:00",
+      "tool": "Bash",
+      "id": "toolu_01L3wmi8fMgczrHiLZYV3RJV",
+      "path": "",
+      "command_excerpt": "sed -n '/Consume an existing exact owner/,/Evaluate And Construct/p' .claude/skills/stdo-work/SKILL.md; echo '----PRODUCT_BASIS----'; cat .claude/references/PRODUCT_BASIS.md; echo '----stdo----'; cat stdo_abiogenesis.json",
+      "test_or_build_candidate": false
+    },
+    {
+      "observation_kind": "explicit_skill_or_method_lookup",
+      "observed_at": "2026-11-02T04:37:46.130177+00:00",
+      "tool": "Bash",
+      "id": "toolu_01EbMQpDH4Nqf5rEiB529tDq",
+      "path": "",
+      "command_excerpt": "stdo status --definition stdo_abiogenesis.json --verify 2>&1 | python3 -I -c 'import json,sys; d=json.load(sys.stdin); print({k:d[k] for k in d if k not in (\"standards\",\"release\")}); print([m for m in d[\"standards\"][\"members\"] if m[\"path\"] in (\"ACTIVATION.md\",\"SPEC_METHOD.md\",\"EXECUTIVE_BASELINE.md\",\"REFERENCE_FRAME.md\",\"frames/bootstrap.md\")])'; stdo resolve \"stdo://releases/v3.0.2/standards/ACTIVATION.md\" 2>&1 | head -5",
+      "test_or_build_candidate": false
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T04:42:16.189836+00:00",
+      "id": "toolu_01LEw6Xei6CYXJXnp8swTgCA",
+      "command_tail": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && grep -rln 'focused-owner-chain\\|affected-owner-tests' --include=*.json --include=*.md --include=*.mjs . 2>/dev/null | grep -v node_modules | head -20"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T04:42:16.189916+00:00",
+      "id": "toolu_01LEw6Xei6CYXJXnp8swTgCA",
+      "is_error": false,
+      "result_tail": "(eval):1: no matches found: --include=*.json"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T04:43:01.210425+00:00",
+      "id": "toolu_01XSG8GAMpzfPHHaePsw346w",
+      "command_tail": "grep -n 'command\\|test.mjs\\|focused\\|affected' rc3-operator-inputs/increment-b-07/HOW.md | head -60"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T04:43:01.210495+00:00",
+      "id": "toolu_01XSG8GAMpzfPHHaePsw346w",
+      "is_error": false,
+      "result_tail": "PATH only for the affected-owner test command, and set `HOME=/Users/jim` and `STDO_STORE=/Users/jim/Library/Application Support/STDO` in that command. The test calls `stdo resolve` and verifies the exact released manifest; its inherited temporary directory and executable interpreter also remain declared host dependencies. A native C2 observation proves the test environment actually found it; a preflight pin alone does not.\n7:The finite recursion bound is 12, allowing at most 11 child selections and adequate room for Construction, Testing, UAT and a real repair if needed. Do not script selector choices or force a failure. Use existing Claude profile at xhigh, max 160 turns; the owner removed the aggregate spending limit. Historical reported cost and unknown B03 reserve remain separate. Record every selector, Construction, Testing launcher and assessment stream, including unexpected/retried calls; bound 12 is not a spend cap. Root alone performs Public setup/dispatch and triages any failure. The native Construction Worker may perform focused model-free self-checks and scratch build/regeneration with pinned offline dependencies; only admitted native C2 provides the final command evidence. No paid nested provider or network install. The preparation helper makes no test, runtime or provider call.\n9:Retain all nine C2 commands. Increase only `focused-owner-chain` timeout from 180,000 to 600,000 ms for real installed owner setup; its additional 420,000 ms makes the old 1,747,250 ms C2 budget 2,167,250 ms. Proposed corresponding configured actor inactivity/Bash ceiling 2,400,000 ms and absolute ceiling 2,700,000 ms preserve a finite allowance; actual owner budget construction must verify that fit before dispatch. These are configured limits, not a proven termination duration. An outer three-hour receipt allowance remains separate. Stop if actual owner budgets or selected snapshots do not fit; do not silently raise other limits.\n11:B07-1 through B07-5 are the sole selected bounded Run/UAT acceptance basis; original A/B criteria remain conserved upstream obligations and retain their actual historical standing. Decisive proof is the real named case passing in complete admitted C2 output with exact selected test-source identity, all affected tests green and current packaged RC3 identity recorded. The generic test-pass-count predicate is insufficient: Root checks exact test name, no skip/todo, complete authenticated stdout, zero failures and source assertions. A future real installed-RC3 GC03 occurrence remains a separate live witness and is not implied by this test."
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T04:46:46.317378+00:00",
+      "id": "toolu_01EmXaDvhSWnbaFwspyKDJ8s",
+      "command_tail": "echo \"TMPDIR=$TMPDIR NPM_CONFIG_CACHE=$NPM_CONFIG_CACHE\"; cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript && (time (TMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/tmp npx --offline tsc -p tsconfig.json > ../../../../build-baseline.log 2>&1; echo \"tsc exit $?\" >> ../../../../build-baseline.log)) 2>&1 | tail -3; tail -5 ../../../../build-baseline.log"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T04:46:46.317419+00:00",
+      "id": "toolu_01EmXaDvhSWnbaFwspyKDJ8s",
+      "is_error": false,
+      "result_tail": "TMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/tmp NPM_CONFIG_CACHE=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/tmp\n( TMPDIR= npx --offline tsc -p tsconfig.json > ../../../../build-baseline.log)  12.26s user 0.41s system 158% cpu 7.979 total\nnpm notice New minor version of npm available! 11.5.1 -> 11.21.1\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.1\nnpm notice To update run: npm install -g npm@11.21.1\nnpm notice\ntsc exit 0"
+    },
+    {
+      "observation_kind": "first_code_mutation_request",
+      "observed_at": "2026-11-02T04:51:16.365961+00:00",
+      "tool": "Edit",
+      "id": "toolu_01A6oZv7HfgcPe262NE54mih",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T04:52:46.382669+00:00",
+      "id": "toolu_01C6kuwEniSHq28qQtyKJTQN",
+      "command_tail": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && rc4-scratch/native-recovery-10/sync.sh && cd rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript && rm -rf build && node node_modules/typescript/bin/tsc -p tsconfig.json 2>&1 | head -30; echo \"tsc exit ${pipestatus[1]}\""
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T04:52:46.382705+00:00",
+      "id": "toolu_01C6kuwEniSHq28qQtyKJTQN",
+      "is_error": false,
+      "result_tail": "tsc exit 0"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T04:53:31.391107+00:00",
+      "id": "toolu_01P5BkMVsB7FDRwAX7h3sXvD",
+      "is_error": true,
+      "result_tail": "ntracts@5.0.0-rc.3\",\"catalogVersion\":\"5.0.0\",\"productContentDigest\":\"sha256:919eebf40dc810f1ccd84e4256596ac157122c5e2d5a2294bcb9a38aa0824c87\",\"productId\":\"product://abiogenesis/typescript-tenant@5.0.0-rc.3\"},\"flatRow\":{\"contractDigest\":\"sha256:5d716075a641fb73c4c12ae379f743fd92bd283eb2693a7ed85d73a842dd988e\",\"contractId\":\"abg.operation.conformance.evaluate\",\"contractVersion\":\"5.0.0\"},\"nestedSelector\":{\"definitionKey\":{\"memberKey\":\"gtl_program\",\"operationId\":\"abg.operation.conformance.evaluate\"},\"definitionRef\":\"#/definitions/0/requestContract/identity\",\"selectorKind\":\"operation_definition_slot\",\"slot\":\"request\"}},{\"contractCatalog\":{\"catalogDigest\":\"sha256:dc7094e35ecb8c386dc28c6f9b958f010b4062ed02336fd02a94cd463f135f5c\",\"catalogId\":\"catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.3\",\"catalogVersion\":\"5.0.0\",\"productContentDigest\":\"sha256:919eebf40dc810f1ccd84e4256596ac157122c5e2d5a2294bcb9a38aa0824c87\",\"productId\":\"product://abiogenesis/typescript-tenant@5.0.0-rc.3\"},\"flatRow\":{\"contractDigest\":\"sha256:5d716075a641fb73c4c12ae379f743fd92bd283eb2693a7ed85d73a842dd988e\",\"contractId\":\"abg.operation.conformance.evaluate\",\"contractVersion\":\"5.0.0\"},\"nestedSelector\":{\"definitionKey\":{\"memberKey\":\"gtl_program\",\"operationId\":\"abg.operation.conformance.evaluate\"},\"definitionRef\":\"#/definitions/0/resultContract/identity\",\"selectorKind\":\"operation_definition_slot\",\"slot\":\"result\"}}]},{\"boundedProofRefs\":[\"proof://t287/st2a-g/capability-definition-graph\"],\"capabilityDefinitionDigest\":\"sha256:cb8806bde218effa59085a54ec4f30100f46310a0bc21a1ea7adfbee1eeb5143\",\"capabilityDefinitionRef\":\"capability-definition://abiogenesis/cb8806bde218effa59085a54ec4f30100f46310a0bc21a1ea7adfbee1eeb5143\",\"capabilityId\":\"abg.capability.install.bind-products@5\",\"capabilityVersion\":\"5.0.0\",\"dependentCapabilities\":[],\"effectRefs\":[],\"owningPublicContracts\":[{\"contractCatalog\":{\"catalogDigest\":\"sha256:dc7094e35ecb8c386dc28c6f9b958f010b4062ed02336fd02a94cd463f135f5c\",\"catalogId\":\"catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.3\",\"catalogVersion\":\"5.0.0\",\"productContentDigest\":\"sha256:919eebf40dc810f1ccd84e4256596ac157122c5e2d5a2294bcb9a38aa0824c87\",\"productId\":\"product://abiogenesis/typescript-tenant@5.0.0-rc.3\"},\"flatRow\":{\"contractDigest\":\"sha256:2fb127d30d58af3d3a83c627fe4e29ee32c9cc1fe07ff15d9ffff1c0e80205d2\",\"contractId\":\"abg.operation.product.verify\",\"contractVersion\":\"5.0.0\"},\"nestedSelector\":{\"definitionKey\":null,\"definitionRef\":null,\"selectorKind\":\"flat_contract\",\"slot\":null}},{\"contractCatalog\":{\"catalogDigest\":\"sha256:dc7094e35ecb8c386dc28c6f9b95"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T04:53:31.391202+00:00",
+      "id": "toolu_01VyR7pcESoK1KENWM8z5QUu",
+      "command_tail": "export NPM_CONFIG_OFFLINE=true NPM_CONFIG_UPDATE_NOTIFIER=false; (time node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-event-body-encoding.test.mjs > ../../../../t-body.log 2>&1) 2>&1 | tail -1; grep -E '^# (tests|pass|fail|skipped)' ../../../../t-body.log; grep -n 'not ok' ../../../../t-body.log | head"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T04:53:31.391219+00:00",
+      "id": "toolu_01VyR7pcESoK1KENWM8z5QUu",
+      "is_error": false,
+      "result_tail": "node --experimental-vm-modules --test --test-concurrency=1  >  2>&1  12.67s user 1.06s system 96% cpu 14.169 total"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T04:57:16.440204+00:00",
+      "id": "toolu_0149ReGsSibHAop8wez8fYWw",
+      "is_error": true,
+      "result_tail": "Exit code 1\nsed: abg/native_context_bodies.ts: No such file or directory"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T04:58:46.458144+00:00",
+      "id": "toolu_01CM2BfZ4b6tZvVMECHkjriv",
+      "command_tail": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && cd $S/repo/build_tenants/abiogenesis/typescript && rm -rf build && node node_modules/typescript/bin/tsc -p tsconfig.json && echo BUILD-OK && NPM_CONFIG_OFFLINE=true NPM_CONFIG_UPDATE_NOTIFIER=false node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-event-body-encoding.test.mjs > $S/t-body.log 2>&1; echo exit=$?; grep -E \"^# (tests|pass|fail)|^not ok\" $S/t-body.log"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T04:58:46.458182+00:00",
+      "id": "toolu_01CM2BfZ4b6tZvVMECHkjriv",
+      "is_error": false,
+      "result_tail": "BUILD-OK\nexit=0"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T05:07:01.504809+00:00",
+      "id": "toolu_01FuLmPRB5ErTP7DkNXGDRz9",
+      "command_tail": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && cd $S/repo/build_tenants/abiogenesis/typescript && rm -rf build && node node_modules/typescript/bin/tsc -p tsconfig.json && echo BUILD-OK && mkdir -p $S/evidence/retained-source && ABI5_RETAINED_SOURCE_EVIDENCE_ROOT=$S/evidence/retained-source NPM_CONFIG_CACHE=$S/tmp NPM_CONFIG_OFFLINE=true NPM_CONFIG_UPDATE_NOTIFIER=false NPM_CONFIG_AUDIT=false NPM_CONFIG_FUND=false node --experimental-vm-modules --test --test-concurrency=1 --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-1.log 2>&1; echo exit=$?; grep -E \"^# |^\u2139 (tests|pass|fail|duration)|^\u2716|not ok\" $S/t-retained-1.log | head -20"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:07:01.504858+00:00",
+      "id": "toolu_01FuLmPRB5ErTP7DkNXGDRz9",
+      "is_error": false,
+      "result_tail": "BUILD-OK\nexit=1\n\u2716 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (4773.679542ms)\n\u2139 tests 1\n\u2139 pass 0\n\u2139 fail 1\n\u2139 duration_ms 5185.523458\n\u2716 failing tests:\n\u2716 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (4773.679542ms)"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T05:07:01.504934+00:00",
+      "id": "toolu_01WW4W7U5PTYTR1GaKkMjXik",
+      "command_tail": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; cat > $S/build.sh <<'EOF'\n#!/bin/sh\n# scratch10 build: the steps of `npm run build` (clean, tsc, owning generator) inside the scratch mirror.\nset -e\ncd \"$(dirname \"$0\")/repo/build_tenants/abiogenesis/typescript\"\nnode scripts/clean.mjs\nnode node_modules/typescript/bin/tsc -p tsconfig.json\nnode scripts/generate-product-manifest.mjs\nEOF\ncat > $S/runtest.sh <<'EOF'\n#!/bin/sh\n# Run node:test files in the scratch10 build; npm stays offline.\ncd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript\nexport TMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/tmp\nexport NPM_CONFIG_CACHE=$TMPDIR NPM_CONFIG_UPDATE_NOTIFIER=false NPM_CONFIG_OFFLINE=true NPM_CONFIG_AUDIT=false NPM_CONFIG_FUND=false\nexec node --experimental-vm-modules --test --test-concurrency=1 \"$@\"\nEOF\nsh $S/sync.sh && sh $S/build.sh > $S/build-1.log 2>&1; echo build=$?; tail -3 $S/build-1.log; ABI5_RETAINED_SOURCE_EVIDENCE_ROOT=$S/evidence/retained-source sh $S/runtest.sh --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-2.log 2>&1; echo exit=$?; grep -v \"^\u2139\" $S/t-retained-2.log | head -50 | cut -c1-2500"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:09:16.522949+00:00",
+      "id": "toolu_01WW4W7U5PTYTR1GaKkMjXik",
+      "is_error": false,
+      "result_tail": "build=0\nexit=1\n\u2716 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (89358.696208ms)\n\n\u2716 failing tests:\n\ntest at test_env/tests/t287-default-library.test.mjs:1746:1\n\u2716 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (89358.696208ms)\n  AssertionError [ERR_ASSERTION]: path is outside the consumer's read scope or grant\n  + actual - expected\n  \n  + 'denied'\n  - 'missing'\n  \n      at refuse (file:///Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:1933:195)\n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:1941:3)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 'denied',\n    expected: 'missing',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T05:09:16.523030+00:00",
+      "id": "toolu_01FUgqPF8EeQpS72DGydxNTL",
+      "command_tail": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests && python3 - <<'EOF'\np='t287-default-library.test.mjs'\ns=open(p).read()\nold=\"\"\"  refuse(ctx,path0+'.absent','missing');\n\"\"\"\nnew=\"\"\"  const covered=x=>ctx.readRoots.some(root=>root==='.'||root===x||x.startsWith(root+'/')),notFile=ctx.entries.find(e=>e.state!=='file'&&covered(e.relativePath));\n  assert.ok(notFile,JSON.stringify(ctx.readRoots));refuse(ctx,notFile.relativePath,'missing');\n\"\"\"\nassert s.count(old)==1\ns=s.replace(old,new)\nopen(p,'w').write(s)\nEOF\nS=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && sh $S/build.sh > $S/build-2.log 2>&1; echo build=$?; ABI5_RETAINED_SOURCE_EVIDENCE_ROOT=$S/evidence/retained-source sh $S/runtest.sh --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-3.log 2>&1; echo exit=$?; grep -v \"^\u2139 {\" $S/t-retained-3.log | head -40 | cut -c1-2500"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:11:31.540959+00:00",
+      "id": "toolu_01FUgqPF8EeQpS72DGydxNTL",
+      "is_error": false,
+      "result_tail": "build=0\nexit=1\n\u2716 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (89636.138708ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 90073.804166\n\n\u2716 failing tests:\n\ntest at test_env/tests/t287-default-library.test.mjs:1746:1\n\u2716 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (89636.138708ms)\n  AssertionError [ERR_ASSERTION]: [\"design/implementation-design.md\",\"design/test-design.md\",\"generated/hello-world.mjs\",\"source/basic-cli.oracle.json\",\"source/original-basic-cli.txt\",\"source/witness-contract.md\",\"specification/project-conformance.md\",\"test-execution-plan.json\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]\n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:1942:10)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T05:11:31.541034+00:00",
+      "id": "toolu_01FX15mHNnfFGmbSaChqewNS",
+      "command_tail": "python3 - <<'EOF'\np='t287-default-library.test.mjs'\ns=open(p).read()\nold=\"\"\"  const covered=x=>ctx.readRoots.some(root=>root==='.'||root===x||x.startsWith(root+'/')),notFile=ctx.entries.find(e=>e.state!=='file'&&covered(e.relativePath));\n  assert.ok(notFile,JSON.stringify(ctx.readRoots));refuse(ctx,notFile.relativePath,'missing');\n\"\"\"\nnew=\"\"\"  refuse({...ctx,entries:ctx.entries.filter(e=>e.relativePath!==path0)},path0,'missing');\n\"\"\"\nassert s.count(old)==1\ns=s.replace(old,new)\nopen(p,'w').write(s)\nEOF\nS=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && sh $S/build.sh > $S/build-3.log 2>&1; echo build=$?; ABI5_RETAINED_SOURCE_EVIDENCE_ROOT=$S/evidence/retained-source sh $S/runtest.sh --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-4.log 2>&1; echo exit=$?; grep -v \"^\u2139 {\" $S/t-retained-4.log | head -40 | cut -c1-2500"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:13:46.556662+00:00",
+      "id": "toolu_01FX15mHNnfFGmbSaChqewNS",
+      "is_error": false,
+      "result_tail": "build=0\nexit=0\n\u2714 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (94834.922583ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 1\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 95270.721833"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T05:13:46.556770+00:00",
+      "id": "toolu_01JXJq7AF9cNdPMiEb4BFwpE",
+      "command_tail": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; ROOT=/Users/jim/src/apps/abiogenesis-rc4-native-recovery; T=$S/repo/build_tenants/abiogenesis/typescript; sh $S/sync.sh && cd $ROOT && for f in default_library event_prefix instruction_assembly invocation_execution_truth; do git show HEAD:build_tenants/abiogenesis/typescript/code/src/abg/$f.ts > $T/code/src/abg/$f.ts; done; cd $T && git -C $ROOT diff --stat HEAD -- build_tenants/abiogenesis/typescript/code/src | tail -1; sed -i '' 's/^import { governanceContract } from \".*default_library_identity.js\";$/&/' test_env/tests/t287-event-body-encoding.test.mjs; sh $S/build.sh > $S/build-baseline-disc.log 2>&1; echo build=$?; tail -3 $S/build-baseline-disc.log; sh $S/runtest.sh --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-baseline.log 2>&1; echo exit=$?; grep -v \"^\u2139 {\" $S/t-retained-baseline.log | sed -n 1,30p | cut -c1-1500"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:16:01.539883+00:00",
+      "id": "toolu_01JXJq7AF9cNdPMiEb4BFwpE",
+      "is_error": false,
+      "result_tail": " 4 files changed, 82 insertions(+), 20 deletions(-)\nbuild=0\nexit=1\n\u2716 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (90523.985583ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 90966.0495\n\n\u2716 failing tests:\n\ntest at test_env/tests/t287-default-library.test.mjs:1746:1\n\u2716 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (90523.985583ms)\n  TypeError [Error]: truth.governanceContextBodyUse is not a function\n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:1901:20)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T05:16:01.540015+00:00",
+      "id": "toolu_01FSgiv7DsZR4d35yS1Dvpsw",
+      "command_tail": "S=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; T=$S/repo/build_tenants/abiogenesis/typescript; cd $T && python3 - <<'EOF'\np='test_env/tests/t287-default-library.test.mjs'\ns=open(p).read()\nold=\"const useB=truth.governanceContextBodyUse(admissionB,B);\"\nnew=\"const useB=truth.governanceContextBodyUse?.(admissionB,B)??{runId:B,sourceResults:S.sourceResultValue.observations.map(o=>({resultRef:o.resultRef,resultDigest:o.resultDigest,cCallRef:o.cCallRef}))};\"\nassert s.count(old)==1\nopen(p,'w').write(s.replace(old,new))\nEOF\nsh $S/runtest.sh --test-name-pattern='retained-source B continued cold' test_env/tests/t287-default-library.test.mjs > $S/t-retained-baseline-2.log 2>&1; echo exit=$?; grep -v \"^\u2139 {\" $S/t-retained-baseline-2.log | sed -n 14,30p | cut -c1-1500"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:17:31.547391+00:00",
+      "id": "toolu_01FSgiv7DsZR4d35yS1Dvpsw",
+      "is_error": false,
+      "result_tail": "exit=1\n\u2716 retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use (89770.43175ms)\n  AssertionError [ERR_ASSERTION]: design/implementation-design.md is held in A\n  + actual - expected\n  \n  + 'run://abiogenesis/27262eaa80607299889bf0beed651674b228d6cd82c25288cf427c239d2c991d'\n  - 'run://abiogenesis/4a4b3d966f4a532ea7c3c94435d9195ec451d8cb311d1e9990061518b00cde58'\n  \n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:1913:112)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 'run://abiogenesis/27262eaa80607299889bf0beed651674b228d6cd82c25288cf427c239d2c991d',\n    expected: 'run://abiogenesis/4a4b3d966f4a532ea7c3c94435d9195ec451d8cb311d1e9990061518b00cde58',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:27:16.602556+00:00",
+      "id": "toolu_01PELvpWy1QeGLJKFDB6L8PE",
+      "is_error": true,
+      "result_tail": "Exit code 144"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T05:29:31.624915+00:00",
+      "id": "toolu_019yuypAk39RTUXUugNeRctY",
+      "command_tail": "python3 - <<'EOF'\np='hog/graph_execute.ts'\ns=open(p).read()\nfor line in ['import { materializeGraph } from \"../gtl/materialize.js\";\\n','import { validateGraph } from \"../validator/graph.js\";\\n']:\n    assert s.count(line)==1\n    s=s.replace(line,'')\nopen(p,'w').write(s)\nEOF\nS=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && cd $S/repo/build_tenants/abiogenesis/typescript && node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit 2>&1 | head -20; echo tsc=$?"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:29:31.624955+00:00",
+      "id": "toolu_019yuypAk39RTUXUugNeRctY",
+      "is_error": false,
+      "result_tail": "code/src/hog/graph_execute.ts(1087,25): error TS2322: Type 'JsonValue' is not assignable to type 'Readonly<Record<string, JsonValue>>'.\n  Type 'null' is not assignable to type 'Readonly<Record<string, JsonValue>>'.\ntsc=0"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T05:29:31.625009+00:00",
+      "id": "toolu_01NKH3vQy5roDKFjQBArMbpB",
+      "command_tail": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && python3 - <<'EOF'\np='abg/construction_continuation.ts'\ns=open(p).read()\nold=\"\"\"  return cursor === null || input === null || !isRecord(input.value) || input.inputRef !== pending.progressedInputRef ||\n    input.inputDigest !== pending.progressedInputDigest ? null : Object.freeze({ cursor, input });\n}\"\"\"\nnew=\"\"\"  return cursor === null || input === null || !isRecord(input.value) || input.inputRef !== pending.progressedInputRef ||\n    input.inputDigest !== pending.progressedInputDigest ? null\n    : Object.freeze({ cursor, input: input as typeof input & { readonly value: Readonly<Record<string, JsonValue>> } });\n}\"\"\"\nassert s.count(old)==1\nopen(p,'w').write(s.replace(old,new))\nEOF\nS=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && cd $S/repo/build_tenants/abiogenesis/typescript && node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit 2>&1 | head -20; echo done"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:29:31.625033+00:00",
+      "id": "toolu_01NKH3vQy5roDKFjQBArMbpB",
+      "is_error": false,
+      "result_tail": "done"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:33:16.680513+00:00",
+      "id": "toolu_01Y3EG8G3c9pB4mnDxs5Sc2V",
+      "is_error": true,
+      "result_tail": "Exit code 1\nnode:fs:440\n    return binding.readFileUtf8(path, stringToFlags(options.flag));\n                   ^\n\nError: ENOENT: no such file or directory, open '/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/environment.json'\n    at Object.readFileSync (node:fs:440:20)\n    at read (file:///Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs:14:29)\n    at file:///Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs:14:79 {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/environment.json'\n}\n\nNode.js v24.7.0\n\u2716 test_env/tests/t287-selected-action-authority.test.mjs (496.434166ms)\n\n\u2716 failing tests:\n\ntest at test_env/tests/t287-selected-action-authority.test.mjs:1:1\n\u2716 test_env/tests/t287-selected-action-authority.test.mjs (496.434166ms)\n  'test failed'\n(eval):1: ===== not found"
+    },
+    {
+      "observation_kind": "test_or_build_command",
+      "observed_at": "2026-11-02T05:41:31.755760+00:00",
+      "id": "toolu_016T4Gs5QJM3VD363hgoFozr",
+      "command_tail": "cution.invocationAdmissionRef), owner.call.runId))),\"\"\"\nnew=\"\"\"      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, bodyUse)),\"\"\"\nassert s.count(old)==1\ns=s.replace(old,new)\nold2=\"\"\"    const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;\n    const boundBasis = synthesisBoundBasis(context), response = framedSynthesisResponseSchema(task, bindings);\"\"\"\nnew2=\"\"\"    const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;\n    // Inline bodies need no permission; member reads use this Run and the\n    // invocation's admitted retained-source use (`governanceContextBodyUse`).\n    const bodyUse = task.context.entries.some(e => e.state === \"file\" && e.encoding === \"admitted_member\")\n      ? governanceContextBodyUse(projectExactInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef), owner.call.runId)\n      : { runId: owner.call.runId };\n    const boundBasis = synthesisBoundBasis(context), response = framedSynthesisResponseSchema(task, bindings);\"\"\"\nassert s.count(old2)==1\ns=s.replace(old2,new2)\nopen(p,'w').write(s)\nEOF\nS=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10; sh $S/sync.sh && sh $S/build.sh > $S/build-5.log 2>&1; echo build=$?; tail -3 $S/build-5.log; sh $S/runtest.sh --test-name-pattern='framed synthesis binds|selector planning preserves' test_env/tests/t287-default-library.test.mjs > $S/logs/dl-fix.log 2>&1; echo rc=$?; grep -E '^\u2139 (pass|fail|skipped) |^\u2716' $S/logs/dl-fix.log"
+    },
+    {
+      "observation_kind": "tool_result",
+      "observed_at": "2026-11-02T05:42:16.760587+00:00",
+      "id": "toolu_016T4Gs5QJM3VD363hgoFozr",
+      "is_error": false,
+      "result_tail": "build=0\nrc=0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 skipped 0"
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T05:58:46.977874+00:00",
+      "event_kind": "actor_process_exited",
+      "ordinal": 36048,
+      "time": "2026-11-02T05:58:32.243Z",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "pid": null,
+      "status": 0
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T05:58:46.977915+00:00",
+      "event_kind": "actor_invocation_closed",
+      "ordinal": 36051,
+      "time": "2026-11-02T05:58:33.333Z",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "pid": null,
+      "status": null
+    },
+    {
+      "observation_kind": "provider_result",
+      "observed_at": "2026-11-02T05:58:46.979675+00:00",
+      "archive": "fp-d0764c78c5a88b68-stdout.log",
+      "result": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 222,
+        "duration_ms": 4908280,
+        "duration_api_ms": 2269269,
+        "total_cost_usd": 18.70251579999999,
+        "usage": {
+          "input_tokens": 416,
+          "cache_creation_input_tokens": 685877,
+          "cache_read_input_tokens": 44594871,
+          "output_tokens": 199876,
+          "output_tokens_details": {
+            "thinking_tokens": 105469
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 685877,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2519,
+            "outputTokens": 210608,
+            "cacheReadInputTokens": 44959719,
+            "cacheCreationInputTokens": 686141,
+            "webSearchRequests": 0,
+            "costUSD": 18.70251579999999,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 105469,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "terminal_reason": "completed",
+        "stop_reason": "tool_use"
+      },
+      "output_path": "runtime-001/resources/archives/fp-d0764c78c5a88b68-output.txt"
+    },
+    {
+      "observation_kind": "runtime_failure",
+      "observed_at": "2026-11-02T05:59:31.987532+00:00",
+      "ordinal": 36087,
+      "time": "2026-11-02T05:58:51.661Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "payload": {
+        "diagnosticRef": "diagnostic://abiogenesis/worksite/native-work/post_work_observation_failed@5",
+        "failureDigest": "sha256:75b420de02a08347b2c392470dafa532828f2002b8d5120e47df0aa79caa4e61",
+        "failureRef": "runtime-failure://abiogenesis/75b420de02a08347b2c392470dafa532828f2002b8d5120e47df0aa79caa4e61",
+        "stage": "route"
+      }
+    },
+    {
+      "observation_kind": "wrapper_artifact",
+      "observed_at": "2026-11-02T06:01:01.994481+00:00",
+      "path": "attempt-010/execution/execution.json",
+      "bytes": 34531622
+    },
+    {
+      "observation_kind": "wrapper_artifact",
+      "observed_at": "2026-11-02T06:01:01.994583+00:00",
+      "path": "attempt-010/execution/outcome-summary.json",
+      "bytes": 557,
+      "contents": {
+        "ended": "2026-11-02T06:00:54.907Z",
+        "exitCode": 0,
+        "outcomeKind": "result",
+        "disposition": "runtime_failed",
+        "run": {
+          "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+          "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+        },
+        "terminal": null,
+        "qualification": false,
+        "R2Closure": false,
+        "meaning": "Fresh native development; actual Testing/UAT and R1\u2013R5 evidence determine outcome. No recovery or qualification credit follows merely from dispatch."
+      },
+      "ended": "2026-11-02T06:00:54.907Z",
+      "exitCode": 0,
+      "outcomeKind": "result",
+      "disposition": "runtime_failed",
+      "run": {
+        "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+        "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+      },
+      "terminal": null,
+      "qualification": false,
+      "R2Closure": false,
+      "meaning": "Fresh native development; actual Testing/UAT and R1\u2013R5 evidence determine outcome. No recovery or qualification credit follows merely from dispatch."
+    },
+    {
+      "observation_kind": "wrapper_artifact",
+      "observed_at": "2026-11-02T06:04:47.068453+00:00",
+      "path": "attempt-010/execution/fresh-reads.json",
+      "bytes": 2396,
+      "contents": [
+        {
+          "memberKey": "run_result",
+          "ownerOutput": {
+            "outcomeKind": "refusal",
+            "value": {
+              "code": "not_found",
+              "evidenceRefs": [],
+              "issuePaths": []
+            }
+          }
+        },
+        {
+          "memberKey": "run_replay",
+          "projection": {
+            "fromOrdinal": 0,
+            "kind": "run_replay_projection",
+            "limit": 4096,
+            "replay": {
+              "digest": "sha256:38bb06fae1a9eab61a9b3a7b333bec7791f50e52103e6df2ce9f7b1a1e3a6253",
+              "ref": "replay://abiogenesis/38bb06fae1a9eab61a9b3a7b333bec7791f50e52103e6df2ce9f7b1a1e3a6253"
+            },
+            "status": "failed",
+            "subject": {
+              "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+              "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+            },
+            "terminalResult": null
+          },
+          "source": {
+            "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+            "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+          },
+          "ownerOutput": {
+            "outcomeKind": "result",
+            "value": {
+              "caseKey": "run_replay",
+              "projection": {
+                "fromOrdinal": 0,
+                "kind": "run_replay_projection",
+                "limit": 4096,
+                "replay": {
+                  "digest": "sha256:38bb06fae1a9eab61a9b3a7b333bec7791f50e52103e6df2ce9f7b1a1e3a6253",
+                  "ref": "replay://abiogenesis/38bb06fae1a9eab61a9b3a7b333bec7791f50e52103e6df2ce9f7b1a1e3a6253"
+                },
+                "status": "failed",
+                "subject": {
+                  "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+                  "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+                },
+                "terminalResult": null
+              },
+              "projectionBasis": {
+                "digest": "sha256:ea28850f2f0855ef67e27e8b67badd160330ca7082dbfbea936049e43d50f631",
+                "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl"
+              },
+              "source": {
+                "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+                "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "wrapper_artifacts": {
+    "execution.json": {
+      "path": "attempt-010/execution/execution.json",
+      "bytes": 34531622
+    },
+    "outcome-summary.json": {
+      "path": "attempt-010/execution/outcome-summary.json",
+      "bytes": 557,
+      "contents": {
+        "ended": "2026-11-02T06:00:54.907Z",
+        "exitCode": 0,
+        "outcomeKind": "result",
+        "disposition": "runtime_failed",
+        "run": {
+          "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+          "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+        },
+        "terminal": null,
+        "qualification": false,
+        "R2Closure": false,
+        "meaning": "Fresh native development; actual Testing/UAT and R1\u2013R5 evidence determine outcome. No recovery or qualification credit follows merely from dispatch."
+      },
+      "ended": "2026-11-02T06:00:54.907Z",
+      "exitCode": 0,
+      "outcomeKind": "result",
+      "disposition": "runtime_failed",
+      "run": {
+        "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+        "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+      },
+      "terminal": null,
+      "qualification": false,
+      "R2Closure": false,
+      "meaning": "Fresh native development; actual Testing/UAT and R1\u2013R5 evidence determine outcome. No recovery or qualification credit follows merely from dispatch."
+    },
+    "fresh-reads.json": {
+      "path": "attempt-010/execution/fresh-reads.json",
+      "bytes": 2396,
+      "contents": [
+        {
+          "memberKey": "run_result",
+          "ownerOutput": {
+            "outcomeKind": "refusal",
+            "value": {
+              "code": "not_found",
+              "evidenceRefs": [],
+              "issuePaths": []
+            }
+          }
+        },
+        {
+          "memberKey": "run_replay",
+          "projection": {
+            "fromOrdinal": 0,
+            "kind": "run_replay_projection",
+            "limit": 4096,
+            "replay": {
+              "digest": "sha256:38bb06fae1a9eab61a9b3a7b333bec7791f50e52103e6df2ce9f7b1a1e3a6253",
+              "ref": "replay://abiogenesis/38bb06fae1a9eab61a9b3a7b333bec7791f50e52103e6df2ce9f7b1a1e3a6253"
+            },
+            "status": "failed",
+            "subject": {
+              "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+              "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+            },
+            "terminalResult": null
+          },
+          "source": {
+            "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+            "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+          },
+          "ownerOutput": {
+            "outcomeKind": "result",
+            "value": {
+              "caseKey": "run_replay",
+              "projection": {
+                "fromOrdinal": 0,
+                "kind": "run_replay_projection",
+                "limit": 4096,
+                "replay": {
+                  "digest": "sha256:38bb06fae1a9eab61a9b3a7b333bec7791f50e52103e6df2ce9f7b1a1e3a6253",
+                  "ref": "replay://abiogenesis/38bb06fae1a9eab61a9b3a7b333bec7791f50e52103e6df2ce9f7b1a1e3a6253"
+                },
+                "status": "failed",
+                "subject": {
+                  "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+                  "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+                },
+                "terminalResult": null
+              },
+              "projectionBasis": {
+                "digest": "sha256:ea28850f2f0855ef67e27e8b67badd160330ca7082dbfbea936049e43d50f631",
+                "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl"
+              },
+              "source": {
+                "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+                "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "provider_reported": {
+    "completed_reports": 2,
+    "known_completed_cost_subtotal_usd": 21.25770779999999,
+    "total_cost_usd": 21.2577078,
+    "inflight_cost_usd": 0,
+    "basis": "Reported list price, not independent billing verification; unknown in-flight costs are not zero.",
+    "prior_attempts_cost_usd_excluded": 88.1778884,
+    "all_observed_provider_actors_closed": true,
+    "cumulative_with_prior_attempts_usd": 109.4355962
+  },
+  "qualification": false,
+  "release": false,
+  "point_one_complete": false,
+  "preparation_separate": {
+    "basis": "Root reviewed frozen manifest; prior attempt preparation statistics not reused"
+  },
+  "provider_limits": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/PROVIDER_PROFILE.json",
+    "bytes": 3334,
+    "sha256": "69929c3baae871a17ead1514958958f37c3871395c44fcc40a8072c71603cfc8"
+  },
+  "call_canonical_sha256": null,
+  "evidence_limit": "Remaining R2 integration over source7e914327: eligibleA to ordinaryB to cold pending_executionB to actualC2/fold to new postTesting selector using actual A holder bytes, no lookup/binding/replay stubs. Candidate proof is distinct from qualification.",
+  "limits": "Retained files/process metadata only. No Product/API/source/Git/test/build/provider calls by observer. No acceptance or validated cold-prefix claim.",
+  "observed_at": "2026-11-02T06:06:37.019773+00:00",
+  "dispatch_alive": false,
+  "observed_role_graph_calls": [
+    {
+      "ordinal": 30847,
+      "time": "2026-11-02T04:35:02.898Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5",
+      "graphCallId": "graph-call://abiogenesis/fcb07a4939eb24e7e22d0fffb42ad4a7e8635ab91a8625b85a81b820d7175991",
+      "stageRole": "result",
+      "evidence_limit": "Observed call start, not successful stage completion."
+    }
+  ],
+  "observation_closed": true,
+  "monitor_helpers_closed": true,
+  "native_failure": {
+    "ordinal": 36055,
+    "at": "2026-11-02T05:58:35.053Z",
+    "eventRef": "event://abiogenesis/3efb01b05047fb0706e360b2647b2537ee0a6d1649adce032296c3d755cf9450",
+    "resultRef": "result://abiogenesis/dfd203ccade58616cc9631795a528833ddaa191ace74fb53a49226f5ddd192a4",
+    "resultDigest": "sha256:dfd203ccade58616cc9631795a528833ddaa191ace74fb53a49226f5ddd192a4",
+    "resultClass": "failure",
+    "valueKind": "native_workspace_work_failure",
+    "failureClass": "post_work_observation_failed",
+    "diagnosticRef": "diagnostic://abiogenesis/worksite/native-work/post_work_observation_failed@5",
+    "observationFailure": {
+      "code": "symlink_forbidden",
+      "disposition": "refused",
+      "kind": "worksite_effect_refusal",
+      "lastObservation": null,
+      "message": "worksite context cannot follow a symlink",
+      "schemaVersion": "5.0.0",
+      "substrateCode": null
+    },
+    "after": null,
+    "changedPaths": null,
+    "provenance": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/298aab45f8364d216a81eb2e46f3c62c5c260cd6fc3aa1623941485bbcdd61ce",
+      "cCallRef": "c-call:sha256:67afdecb11adad6d556b9302fa426c77a99ab2bf249d0914c7c537b8031f9505",
+      "executionAuthorityDigest": "sha256:db2926d0457372b86e619a79d32c01518c8838985c84d9c81395d352ce84533c",
+      "executionAuthorityRef": "leaf-execution-authority://abiogenesis/db2926d0457372b86e619a79d32c01518c8838985c84d9c81395d352ce84533c",
+      "promptDigest": "sha256:0992cc97000c066d726e79463b16e4983c2a052ebb3977a4f4cdfa5dcaed00a6",
+      "transportBindingDigest": "sha256:21d2399c338445184e34bfc1e595a0abc18c31e28e30b4d515c74748c500d0ef",
+      "transportBindingRef": "transport-binding://abiogenesis/21d2399c338445184e34bfc1e595a0abc18c31e28e30b4d515c74748c500d0ef",
+      "transportDigest": "sha256:ea3d2f48cdea7cd429a1164e9b108dfda9eddb284bd3369a95d32b7dad28e55c"
+    }
+  },
+  "final_wrapper": {
+    "outcome": {
+      "ended": "2026-11-02T06:00:54.907Z",
+      "exitCode": 0,
+      "outcomeKind": "result",
+      "disposition": "runtime_failed",
+      "run": {
+        "digest": "sha256:7ddb5e5d16432ac9996c155b82b310429ad2a546a95b3149a0c8e3d8cf1c7667",
+        "ref": "run://abiogenesis/7c93d139c480e9a4b1e1f33ff18972d1d49e76fa0b49cb61ad3d92d8be224ace"
+      },
+      "terminal": null,
+      "qualification": false,
+      "R2Closure": false,
+      "meaning": "Fresh native development; actual Testing/UAT and R1\u2013R5 evidence determine outcome. No recovery or qualification credit follows merely from dispatch."
+    },
+    "execution": {
+      "started": "2026-11-02T04:30:21.313Z",
+      "wallMs": 5432297.396125,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    "fresh_reads": [
+      {
+        "memberKey": "run_result",
+        "ownerOutcomeKind": "refusal",
+        "refusalCode": "not_found",
+        "replayStatus": null,
+        "terminalResult": null
+      },
+      {
+        "memberKey": "run_replay",
+        "ownerOutcomeKind": "result",
+        "refusalCode": null,
+        "replayStatus": "failed",
+        "terminalResult": null
+      }
+    ]
+  },
+  "actual_fp_activity": {
+    "invocations": 2,
+    "processes": 2,
+    "selection": 1,
+    "native_work": 1,
+    "assessment": 0,
+    "command_executor": 0,
+    "automatic_retries_observed": 0,
+    "prior_completed_fp_excluded": 17,
+    "campaign_cumulative_fp": 19,
+    "distinction": "F_P processes/invocations, not provider API requests, agent turns, shell commands or F_D selections."
+  },
+  "timings": {
+    "dispatch_started": "2026-11-02T04:30:20.621Z",
+    "wrapper_ended": "2026-11-02T06:00:54.907Z",
+    "dispatch_to_wrapper_ms": 5434286,
+    "host_wall_ms": 5432297.396125,
+    "selector_process_started": "2026-11-02T04:33:12.157Z",
+    "selector_process_exited": "2026-11-02T04:34:42.406Z",
+    "selector_process_wall_ms": 90249,
+    "construction_process_started": "2026-11-02T04:36:37.095Z",
+    "construction_process_exited": "2026-11-02T05:58:32.243Z",
+    "construction_process_wall_ms": 4915148,
+    "construction_turns": 222,
+    "selector_turns": 2,
+    "runtime_failure_at": "2026-11-02T05:58:51.661Z",
+    "observation_helpers_closed_at": "2026-11-02T06:04:47.073217Z"
+  },
+  "candidate_receipt": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/RECEIPTS.sha256",
+    "sha256": "45685dbf5c142eaa0ca54327c40c449019e3a787e874c21bb15627c5e19bb003",
+    "changed_path_count": 12,
+    "basis": "Worker-produced source SHA receipt, not admitted post-work observation. No successful after observation or native changedPaths value exists.",
+    "paths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+    ]
+  },
+  "native_testing": {
+    "admitted_c2_actors": 0,
+    "admitted_uat_actors": 0,
+    "nine_declared_commands_executed_by_native_run": false,
+    "reason": "Run failed during post-Construction observation before Testing admission."
+  },
+  "author_scratch_evidence": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10",
+    "final_default_library": {
+      "log": "logs/final-t287-default-library.log",
+      "tests": 28,
+      "pass": 25,
+      "fail": 0,
+      "skipped": 3,
+      "new_retained_source_integration_ms": 88536.242792,
+      "new_integration_skipped": false
+    },
+    "final_recursive": {
+      "log": "logs/final-t287-recursive-registered-selection.log",
+      "tests": 7,
+      "pass": 6,
+      "fail": 0,
+      "skipped": 1
+    },
+    "unit": {
+      "log": "logs/unit.log",
+      "tests": 92,
+      "pass": 86,
+      "fail": 0,
+      "skipped": 6
+    },
+    "baseline_discriminator": {
+      "log": "t-retained-baseline-2.log",
+      "failure": "design/implementation-design.md is held in A",
+      "limit": "HEAD production owners with scratch-only fallback for the new missing export; initial baseline failed only for missing export."
+    },
+    "temporary_regression": "Two selector-assembly component cases refused unknown_dependency after eager admission lookup; Worker repaired conditional member lookup and final whole file passed.",
+    "scratch_fixture_failures": [
+      "selected-action-authority lacked S7 environment.json",
+      "default-library-fulfillment lacked S6 witness contract"
+    ],
+    "root_c2_roster_fact": "Root verified S6 is selected for native C2 command7; selected-action-authority is source correspondence only, not an executed C2 file. Neither current C2 outcome occurred.",
+    "proof_limit": "Installed A-to-B topology, Public start/cold pending_execution, SIGKILL fixture, actual C2/fold/post-Testing selector and A-holder reads use scripted model actors. Not live-provider Root witness, acceptance or qualification."
+  },
+  "skill_read_classification": {
+    "explicit_stdo_skill_body_reads": [
+      {
+        "tool_id": "toolu_01PyTbYz7gEFQYRamV1MQ16i",
+        "path": ".claude/skills/stdo-work/SKILL.md",
+        "limit": "Skill cat returned; separator shell error prevented chained Product Basis read."
+      },
+      {
+        "tool_id": "toolu_01L3wmi8fMgczrHiLZYV3RJV",
+        "path": ".claude/skills/stdo-work/SKILL.md",
+        "limit": "Actual section reread; same command read PRODUCT_BASIS.md and stdo_abiogenesis.json separately."
+      }
+    ],
+    "metadata_not_body_read": [
+      "toolu_012VVrcwDYgWXkTnzvW42j4g wc -c and Git identities",
+      "toolu_01EbMQpDH4Nqf5rEiB529tDq stdo status --verify and ACTIVATION resolve"
+    ],
+    "settings_and_design_reads_separate": true,
+    "effectiveness_limit": "Observed skill access is not causal proof of improved efficiency or acceptance; successful provider authoring was followed by failed native observation."
+  },
+  "operator_intervention": {
+    "count": 1,
+    "at": "2026-11-02T05:26:57.640469Z",
+    "canonical_record_sha256_root_reported": "a16cbf990d3187990543526f10a0bb0ce1edff62ac943794ee1dbbd15ec77499",
+    "passive_observation": "attempt-010/WORKER_SEARCH_OBSERVATION.json",
+    "target": "Root SIGTERM exact verified read-only shell process group9647; native78619 remained alive",
+    "search_elapsed_ms": 367000,
+    "grep_cpu_ms": 365400,
+    "tool_id": "toolu_01PELvpWy1QeGLJKFDB6L8PE",
+    "observed_tool_exit": 144,
+    "observed_tool_is_error": true,
+    "recovery": "Narrower timeout60 search, exact010 reviewed routes/task reads, preserved-reader-grant audit; actor continued.",
+    "classification": "Worker search delivery-method cost. Separate from Product post-work symlink failure; no attribution of that failure to the intervention."
+  },
+  "final_limits": [
+    "No native010 C2/UAT, successful after observation, Root practical witness, empirical efficiency acceptance, qualification or release.",
+    "Provider report claims partial progress and12 source paths, not acceptance.",
+    "No offending symlink path is given by the native refusal; this observer did not inspect or repair links.",
+    "An npm update notice during offline npx is not independently established network contact.",
+    "Costs are provider-reported list prices; Root/direct-agent/setup costs and causal framework-overhead allocation are excluded."
+  ]
+}

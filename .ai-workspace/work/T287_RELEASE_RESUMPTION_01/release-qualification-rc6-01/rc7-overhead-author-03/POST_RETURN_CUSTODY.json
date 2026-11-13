@@ -1,0 +1,59 @@
+{
+  "status": "ROOT_SELECTED_PASSIVE_CUSTODY_ACTUAL_RETURN_PENDING",
+  "predecessorMandatoryColdReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 11973,
+    "sha256": "07c9b3d953198a2e4f3d86a623074f88c29cb829871e8bc18d06f0a342f87be4"
+  },
+  "proposedNormalAuthorSequence": [
+    "One retained parent caller/environment constructs and capacity-checks exact reopen-based call, then unchanged cold invokeLifecycle on that object.",
+    "Preserve one actual CLI execution and one actual successor resume. Let host exit; Root binds actual close/run/original receipt and exact physical Result row from actual timing observation coordinates.",
+    "Reuse existing B/A post-return binder/freezer algorithms. Prefer receipt nativeResult body and authenticated row/valueDigest; do not decode entire runtime history or manufacture event admission. Match selected physical source files against actual native.after and current final staged controls, preserve preimages/diff/inherited54+2; no Product writes.",
+    "Use narrowly Root-selected fresh proof reads when the cold/readback boundary is an actual changed/qualification relation. Every selected read compares the complete original typed terminal including Result, producer and complete value; expected not_found is valid only for actual absent terminal. Preserve all other refusals.",
+    "After native checker export is independently admitted, subsequent ordinary author work may use the existing acquired-resource SDK flow with that exact checker before/after and genuine owner-returned receipt/close. A borrowed selection cannot be substituted into an already populated reopen call."
+  ],
+  "existingOwners": {
+    "binderAndFreezer": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/bind-and-freeze.mjs",
+      "bytes": 19734,
+      "sha256": "6e9ea6e3409ec0c380aea5bedce374a9a71c8dbfc04d1650073650aa0f8e3deb"
+    },
+    "reader": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/read-one.mjs",
+      "bytes": 7717,
+      "sha256": "828af30ad0e77605e734428745164ffdbef223bf6d3a3325e53e28a7810c5d1e"
+    },
+    "launcher": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/launch-read.mjs",
+      "bytes": 1754,
+      "sha256": "6e905fdc19b1c687afdd890204d2599727cfe47ae7eb9b25abda1e6f0be3db66"
+    },
+    "runtimeRunner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    }
+  },
+  "actualHostReturn": null,
+  "actualExecution": null,
+  "actualResume": null,
+  "actualClose": null,
+  "actualRun": null,
+  "actualPhysicalResult": null,
+  "actualObservationEnvelope": null,
+  "actualFinalControlPins": null,
+  "rootPostReturnReadSelection": {
+    "selection": "actual_receipt_physical_result_after_source_conjunction_without_repeated_cold_reads",
+    "basis": "This four-file bridge changes GTL packaging coordinates, a checker export, two test consumers and HOW; the immutable RC6 executing runtime/readback owners are unchanged. B full typed result/replay closed at07c9b3d9. Actual returned terminal, physical Result/value/after and successor close still require binding and verification. The two actual cold-composition test cases are mandatory prospective source proof.",
+    "coldReadTriggers": [
+      "Actual receipt/physical Result/after/close disagreement or genuine new readback-owner counterexample",
+      "Separately selected installed candidate qualification boundary"
+    ],
+    "noWaiver": "No B read obligation waived; no qualification claim; genuine failure or uncertain resource effect returns to Root."
+  },
+  "limits": [
+    "B full typed cold-read obligations remain unchanged and are now actually closed. This proposal does not delete or retroactively waive them.",
+    "Current immutable RC6 canonical recorder/CLI may still make its legacy stdout/resultJSON copies. New summaries/reference controls do not add complete body copies.",
+    "Native null/partial/failed after remains partial; source custody and exact four-lane feedback are not full5.0 qualification, aggregate performance or release."
+  ]
+}

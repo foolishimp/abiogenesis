@@ -1,0 +1,53 @@
+{
+  "kind": "rc5_f4_native_grant",
+  "status": "ROOT_SELECTED_NATIVE_PREPARATION",
+  "taskId": "T287_RC5_F4_01",
+  "sourceCommit": "9f3f22b0f733718bee88d5ca1cc306ed0446797a",
+  "sourceTree": "17a9b10d91f5ab9dd05f63f8b2626d57db0c7dd8",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "builderRuntimeBasis": "stdo://releases/v3.0.2/",
+  "builder": "exact installed RC4 f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc5-performance",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "changeClass": "private durable representation and successor identity",
+  "derivedReentry": "Existing retained-route HOW; preserve logical RuntimeEvent and exact admitted Result membership; no Public/WHAT change",
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/release-claim.md"
+  ],
+  "scratchWriteRoots": [
+    "rc5-scratch/f4-01/return.json",
+    "rc5-scratch/f4-01/readiness.json",
+    "rc5-scratch/f4-01/tmp"
+  ],
+  "independentReview": "Independent max source review on frozen native return, alongside actual C2; method source review already satisfied",
+  "closure": "Actual F4 atomic/cold/installed and captured net-byte proof, retained method proof plus missing planning test, independent frozen review, native UAT and fresh result/replay. Local unqualified RC5 only.",
+  "effectOwner": "ABG native coding Worker; Root operator owns preparation/C2 source adoption/local checkpoints",
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 128,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null
+  },
+  "exclusions": [
+    "Product/requirements/Public schema changes",
+    "unselected owners, cold-history rewrite and new store/service/controller",
+    "GC03 host rewrite or full qualification",
+    "canonical generated/build/package/install writes",
+    "old histories/releases, push/tag/global selector"
+  ],
+  "normalTools": "Pinned offline node_modules is read-only; optional noEmit/syntax feedback; C2 alone compiles, stages, builds and tests actual candidate. No symlinks in observed inputs, no scratch mirrors, no replacement Run."
+}

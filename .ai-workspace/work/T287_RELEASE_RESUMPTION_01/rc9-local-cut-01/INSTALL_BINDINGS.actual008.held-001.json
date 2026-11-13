@@ -1,0 +1,82 @@
+{
+  "status": "PREPARED_ACTUAL_BUILD_INSTALL_HELD",
+  "activation": null,
+  "executionEnabled": false,
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 3194,
+    "sha256": "ef706217b8a134a2bd7c363357bca168c9291cb60f4890f1975698f39ab7e796"
+  },
+  "buildBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/ROOT_BUILD_BINDINGS.json",
+    "bytes": 26455,
+    "sha256": "fe16d77b2de8a38276ec613fac9d877add9932e5478cf18a2a54b54f7af2528c"
+  },
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1187,
+    "sha256": "f0870b39939c6aa279f4886ff79a20a49c880bbe7ac8a39636e3383ac1c03610"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/candidate/RESULT.json",
+    "bytes": 782,
+    "sha256": "a0bf12fc4c9d4e8e430c780df3432f620d737962de65fa2c9ad7359c89e24a05"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1274,
+    "sha256": "a89501cd7f7a8ade2bb50ac29d4af2fa25118858933ba3fffd0abc2ed1ea89e3"
+  },
+  "exactTestedArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+    "bytes": 831,
+    "sha256": "c130049c2da5eca6f70604236ab7463201d8bc3dde275f0f32e229146e3119ef"
+  },
+  "installInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+    "bytes": 2744,
+    "sha256": "afe7f0f945dcc8384b9bf846efa1ccbf4df23adf3a24549b9c44a7aa268ddc49"
+  },
+  "boundedClaim": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/BOUNDED_CANDIDATE_CLAIM.md",
+    "bytes": 3505,
+    "sha256": "e82e74f10d1c764440baef622a7f6857005fd2da72cbdc67636e95d241df6dbf"
+  },
+  "residuals": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/RESIDUALS.md",
+    "bytes": 15882,
+    "sha256": "a17c7d2b8a31e1da9f658a575495617f8862b5c73ad4758a0c9c52d7c5922c4a"
+  },
+  "rootAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/ROOT_AUTHORITY.md",
+    "bytes": 2171,
+    "sha256": "26906fa93fe72c9ce595663d688ee35c2e96c0bd9e9f10ea13e575856b4cbdb3"
+  },
+  "independentPackagingReview": null,
+  "claim": "Local unqualified RC9 candidate for the exact installed current-profile scripted F_P path demonstrated by accepted source/build/ordinary unit, exact-archive reference/readback/counter/close evidence, W2 and bounded201-file broad conjunction. This does not qualify unsupported or unexecuted paths or assert final immutable delivery. Actual immutable-install standing belongs solely to FINAL_INSTALL_VERIFICATION.json and linked receipts.",
+  "limits": [
+    "Exact RC9 checkpointe30ac16b4/treeff9a852c, source25121e78/1340 and tested archivec01e6cfe reproduced byte/member equal. Metadata is already9; rewriteIdentity=false; no rebuild or identity bridge during installation.",
+    "Root adopted limited no-block only for the exact installed current-profile scripted F_P path. Eight historical capsules remain OPEN with original evidence/triggers and actual RC9 causal rationale in final RESIDUALS. Configured unsupported GC03 is excluded; no RC8 acceptance transfer.",
+    "O3 retained installed-verification reuse was withdrawn. Original physical verification remains; performance follow-up OPEN. Missing duplicate/foreign/rollback probes get no credit; actual producer construction total is uninstrumented.",
+    "W2 successor closure and source/build/unit/reference/bounded201-file proof retain exact subjects and limits.12cold/S7/full15/human remain OPEN. No real-provider, general reliability/speed or qualification claim.",
+    "Historical native/M5/OWN/007 failures and007missing final resource/escaped uncertainty remain. Sampled bounds and observed CHILD_CLOSED are not universal physical assurance.",
+    "Preserve main/C7/C8 heads/index and dirty contents and all C9 source/progress/untracked paths. Existing exact packaging review and separate Root install admission are required; this binding is held.",
+    "Use unchanged build-bound paths/tools/bounds: fresh no-clobber RC9 release/install only after activation, Product verify/lock/install and all-member/checksum checks, then installed-owner content/export/empty-read/actual-close smoke. No native/provider workflow.",
+    "20-minute install and15-minute installed-owner ceilings,4GiB reserve,8GiB heap and64MiB output remain. First failure stops and preserves partial custody; no automatic retry/extension/overwrite/cleanup.",
+    "Actual installed standing belongs only to FINAL_INSTALL_VERIFICATION.json. No push/tag/merge/publication/global selector or qualification."
+  ],
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false,
+  "executionStanding": "PREPARATION ONLY: actual closed independent packaging review pin and separate Root install activation are outstanding. All build/source/archive/final-doc pins are actual and fixed; no allocation or smoke performed.",
+  "predecessorTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/INSTALL_BINDINGS.prepared.json",
+    "bytes": 2643,
+    "sha256": "0e3530cfc3ec186152a9788bfd1e22f3264d3925c3dbc5cc40c146eecd159192"
+  },
+  "finalClaimDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/ROOT_FINAL_CLAIM_DISPOSITION_008.json",
+    "bytes": 5907,
+    "sha256": "6f0a162eba375fce79c37df58b9602fb5f45067eb6c84c4ee5a96199c608a1a8"
+  }
+}

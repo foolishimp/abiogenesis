@@ -1,0 +1,29 @@
+{
+  "kind": "mechanical_preparation_parser_and_pin_check",
+  "closedUtc": "2026-11-06T22:48:04.929899+00:00",
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/PREPARATION_MANIFEST.json",
+    "bytes": 8272,
+    "sha256": "34f01caadbef6c1294a4ace29384a3e4fdddbadfe02581cf893385e7989426c1"
+  },
+  "nodeParsersPassed": 4,
+  "shellParserPassed": true,
+  "actualPinOccurrencesVerified": 81,
+  "uniqueActualPinnedFilesVerified": 48,
+  "mismatches": [],
+  "recordedPreparationSegment": {
+    "firstRetainedClockUtc": "2026-11-06T22:45:12+00:00",
+    "closedUtc": "2026-11-06T22:48:04.929899+00:00",
+    "elapsedMs": 172929.899,
+    "limit": "This records the timed construction/closure segment. Initial authority/control reads preceded the first retained clock and are not included; no claim of total turn duration. Root between-task interval remains separately measurable."
+  },
+  "runtimeOrProviderExecution": false,
+  "CStaging": false,
+  "ProductSourceEdits": false,
+  "remainingSubstantiveInputs": [
+    "Exact old/current profile compatibility relation",
+    "Dependency-complete added owner read/write paths",
+    "Six exact lane files/name selectors/active predicates/finite limits",
+    "Closed source review and Root disposition"
+  ]
+}

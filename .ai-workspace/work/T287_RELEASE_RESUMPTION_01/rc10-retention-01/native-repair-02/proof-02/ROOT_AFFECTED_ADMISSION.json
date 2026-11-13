@@ -1,0 +1,21 @@
+{
+  "id": "RC10-REPAIRED-REGRESSION-02-AFFECTED",
+  "status": "ROOT_ADMITTED_RC10_FROZEN_PROOF",
+  "mode": "affected",
+  "recordedUtc": "2026-11-09T04:31:27.818269+00:00",
+  "owner": "/root Executive",
+  "proofBindingSha256": "dcf159fe5282a3aea5b0730b77d3d93c58c1498afc6bc10bf90dca97e68e49e3",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/affected-proof.mjs",
+    "bytes": 15676,
+    "sha256": "c063e7d37e2488dc9e6bb960f784fd84311f11c47f604778d2c173e2c191fa70"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "ownerInstruction": "Root admits once maintained9-file unit then exact6-file affected,900s/8192MiB/16MiB/4GiB guards. Sequential lanes avoid shared proof-root/HALT/cache contention. No edits/build/retries; failure returns while an independent started proof may finish.",
+  "capacity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/CAPACITY.json",
+    "bytes": 585,
+    "sha256": "17172708f81db7176c62c1cc0127ca024547af7f7d9f37d41ccb30c95463ae8b"
+  },
+  "noAutomaticRetry": true
+}

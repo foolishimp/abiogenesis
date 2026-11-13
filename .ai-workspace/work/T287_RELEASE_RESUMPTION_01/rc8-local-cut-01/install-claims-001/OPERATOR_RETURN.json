@@ -1,0 +1,102 @@
+{
+  "status": "LOCAL_RC8_CHECKPOINT_AND_BYTE_EQUAL_REPRODUCTION_COMPLETE_REVIEW_READY_INSTALL_UNSELECTED",
+  "at": "2026-11-07T22:45:09.618260+00:00",
+  "actor": "/root/rc8_cut_preparation",
+  "consumer": "/root",
+  "sessionId": 36780,
+  "sessionExitCode": 0,
+  "singleAttempt": true,
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_ADMISSION.json",
+    "bytes": 15629,
+    "sha256": "2f87f6aa0c11738712baae6a25fb957cc22d12dc3180d42ece4762385022c3ec"
+  },
+  "buildBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+    "bytes": 19284,
+    "sha256": "4f0f115220003b5c95e03d2602abc4118fe1f49917afa787a890096ca18d92f3"
+  },
+  "buildResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/BUILD_RESULT.json",
+    "bytes": 1308,
+    "sha256": "5c1b562874f4d8a5b64b0aedda84c64629197f2652024f582f6a0589d42dffce"
+  },
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1380,
+    "sha256": "51ee2a7656199e4b735f9dd7e6609c19cab9708d33169546c9e9390a15383679"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1284,
+    "sha256": "7333fc0619f9414cf8a5bfdb2e117128c2516686398b5de8567760f7feaadcf7"
+  },
+  "exactTestedArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+    "bytes": 841,
+    "sha256": "51fc962bcb739f0b3d198cb3893d80db2b831cecfe274fb507a53f2336ecd88d"
+  },
+  "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+  "manifestSha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102",
+  "exactArchiveMembers": 5325,
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/BUILD_CUSTODY.json",
+    "bytes": 18686,
+    "sha256": "5103c8267344e59c524f536d579401e07b5e02f5d299d200a7518e57cbd62f71"
+  },
+  "builtSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/BUILT_SUBJECT.json",
+    "bytes": 4670,
+    "sha256": "0c0e90d8ce272d2ebd24817c3b7ecde283a184e8855e91877c338cf116a117b5"
+  },
+  "claims": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 6739,
+      "sha256": "d163f677072c9e3c143635f8859bf1cd03e49bd910162e86769b47d2e822d9cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/RESIDUALS.md",
+      "bytes": 12832,
+      "sha256": "396b1c7c0ae1f7ac39b9a7d53d54aae7c0e9317997055207d5b8254198a13e00"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/ROOT_AUTHORITY.md",
+      "bytes": 4191,
+      "sha256": "b003d26342b03b3ac40ffbd7e176ff801295ab4dead15ae788dfed14d94513f4"
+    }
+  ],
+  "claimChangeScope": "Phase-neutral heading and receipt-based execution/installation standing; actual checkpoint/reproduction bound. All substantive claims and all nine residuals retained; RESIDUALS byte-identical. Earlier final-bindings drafts untouched.",
+  "preservation": {
+    "mainAndRc7HeadsIndexes": true,
+    "sourceTrackedAndIndexCleanAtDriverCheck": true,
+    "allSourceRowsConservedByDriver": true,
+    "unselectedFilesPreserved": true,
+    "releaseAndInstallLocationsAbsent": true
+  },
+  "effects": {
+    "selectedSourceCommit": 1,
+    "cleanReproduction": 1,
+    "installs": 0,
+    "sdk": 0,
+    "provider": 0,
+    "nativeRun": 0,
+    "push": 0,
+    "tag": 0,
+    "merge": 0,
+    "globalSelector": 0,
+    "cleanup": 0,
+    "retry": 0,
+    "extensions": 0
+  },
+  "remaining": [
+    "Independent exact packaging review of this source/artifact/claim subject",
+    "Separate Root install admission",
+    "Actual installation and FINAL_INSTALL_VERIFICATION receipt"
+  ],
+  "qualified": false,
+  "published": false,
+  "returnBoundary": "Frozen successful build and claim handoff; stop."
+}

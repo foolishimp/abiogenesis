@@ -1,0 +1,251 @@
+{
+  "status": "STOPPED_FOR_ROOT_CAUSAL_TRIAGE_NO_DEPENDENT_EXECUTION",
+  "utc": "2026-11-09T03:58:36.240730+00:00",
+  "sourceDigestStill": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292744,
+    "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+  },
+  "sourceRowsCompared": 1334,
+  "sourceMismatches": [],
+  "expectedHOWEditRealized": false,
+  "workspaceManifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1855,
+    "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+  },
+  "measurement": {
+    "host": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/HOST_RESULT.json",
+      "bytes": 6881,
+      "sha256": "211a3aa45ad21f2f148f5ce4c736465a935ed580d3f481f301ed76712310bade"
+    },
+    "report": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/MEASUREMENT.json",
+      "bytes": 7254,
+      "sha256": "b16e57c1b1edad6e85cc8af50016db7eddf9672a89804a3f51a2c6e23718de1f"
+    },
+    "failure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/FAILURE.json",
+      "bytes": 623,
+      "sha256": "8a794acd06469ed3929440d0aec40f0b5884e17f60ab27fcc1c1a13baea23be9"
+    },
+    "firstCall": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/calls/00-1048576.json",
+      "bytes": 1623,
+      "sha256": "20de2f2fd34f7f433b8535eec75652dc2400aff355c92b45e4acd188aa72a29f"
+    },
+    "compressedEventLog": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/runtime.events.jsonl.gz",
+      "bytes": 794043,
+      "sha256": "a126f0677a7fbf1ec214bd4c44b02688131eb90238bd9c0c75393ffaea48f1e0"
+    },
+    "actualCalls": 1,
+    "nativeCallsUnexecuted": 49,
+    "firstCallSummary": {
+      "contextBodyBytes": 1048576,
+      "taskCanonicalBytes": 1404668,
+      "invocationRef": "invocation://abiogenesis/c29a45acabcb9d2651b5f40f709b07d29983c564ce31e5110fe57a08d617e70b",
+      "basisRef": "execution-basis://abiogenesis/edbc007c863ec8e9727f9dfd26982dddf6b121cd49e8996b69d1b2669d813b8f",
+      "retentionAfter": {
+        "openHandles": 0,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "activeSamples": 87,
+      "activeSampleMaxima": {
+        "openHandles": 1,
+        "retainedRows": 0,
+        "retainedPayloadBytes": 0,
+        "historyBasisBodies": 0,
+        "historyBasisPayloadBytes": 0
+      },
+      "inFlightWitness": null,
+      "workDelta": {
+        "basis": {
+          "rowAdmissions": 18,
+          "bodyDigests": 18
+        },
+        "history": {
+          "historyDecodes": 0,
+          "decodedRows": 0,
+          "historyBytesRead": 0,
+          "storeReopens": 0,
+          "coldHistoryReads": 0,
+          "bodyReads": 91,
+          "bodyBytesRead": 68249528
+        }
+      }
+    },
+    "actualMetadata": [
+      {
+        "kind": "public_operation_admitted",
+        "ordinal": 3,
+        "eventId": "event://abiogenesis/d9029c99ec1475a772a4620f4a59861b1dea1d6b418cff2f73ca82efbec933ea",
+        "basisId": "invocation-authority://abiogenesis/adb3ca1da166b0f987054b25114ab5c791e0c71fab4855d7cfd34747314d8e96",
+        "parentAggregateId": "invocation://abiogenesis/e97a8b9458695c2f3954b1c9127c050705db682299048a57e2e114b612601087",
+        "invocationRef": "invocation://abiogenesis/e97a8b9458695c2f3954b1c9127c050705db682299048a57e2e114b612601087",
+        "publicRequestInvocationRef": null,
+        "basisRef": null
+      },
+      {
+        "kind": "invocation_admitted",
+        "ordinal": 4,
+        "eventId": "event://abiogenesis/5d07218f1b332e32760547808ac2b792a546f535636388765fc7cbb84c618b3c",
+        "basisId": "invocation-admission://abiogenesis/c5d1ba8cc99ac4a68d9e4d1e7c346212571eee09e9953ed65aedf4656da5e42d",
+        "parentAggregateId": "invocation://abiogenesis/e97a8b9458695c2f3954b1c9127c050705db682299048a57e2e114b612601087",
+        "invocationRef": "invocation://abiogenesis/e97a8b9458695c2f3954b1c9127c050705db682299048a57e2e114b612601087",
+        "publicRequestInvocationRef": "invocation://abiogenesis/c29a45acabcb9d2651b5f40f709b07d29983c564ce31e5110fe57a08d617e70b",
+        "basisRef": null
+      },
+      {
+        "kind": "basis_admitted",
+        "ordinal": 6,
+        "eventId": "event://abiogenesis/9e7312fdb9014ff164fc6e59543ee39631fbd3bf49294f023a9bdcd023524bc5",
+        "basisId": "execution-basis://abiogenesis/edbc007c863ec8e9727f9dfd26982dddf6b121cd49e8996b69d1b2669d813b8f",
+        "parentAggregateId": "invocation://abiogenesis/e97a8b9458695c2f3954b1c9127c050705db682299048a57e2e114b612601087",
+        "invocationRef": "invocation://abiogenesis/e97a8b9458695c2f3954b1c9127c050705db682299048a57e2e114b612601087",
+        "publicRequestInvocationRef": null,
+        "basisRef": "execution-basis://abiogenesis/edbc007c863ec8e9727f9dfd26982dddf6b121cd49e8996b69d1b2669d813b8f"
+      }
+    ],
+    "sourceSelectedHolder": {
+      "identifier": "invocation://abiogenesis/c29a45acabcb9d2651b5f40f709b07d29983c564ce31e5110fe57a08d617e70b",
+      "selection": "retainBasisLifetime(entryPrefix, call.invocation.invocationRef)",
+      "sourceFile": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "bytes": 109576,
+        "sha256": "660f8cec4965c01ad3c16bf0e99d41bf1b911c8969cd44ed5e35070ad1a6ef2f"
+      },
+      "line": 1272,
+      "standing": "Identifier determined from actual Public request receipt and executed source selection; private holder map key was not instrumented."
+    },
+    "cleanup": {
+      "abandonedOnFailure": true,
+      "actualPhysicalCloseReceipt": false,
+      "logCustodyFailure": null
+    },
+    "adapterResidual": "Positive witness branch was not reached. Its scalarPayload.invocationRef===populated.call.invocation.invocationRef selector must follow invocation_admitted publicRequestInvocationRef to actual invocationRef on any admitted re-entry. This did not cause the observed zero retained rows/bodies and18 actual row admissions."
+  },
+  "how": {
+    "setupOpenSucceeded": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/runtime-001/WORKSPACE_OPEN.json",
+      "bytes": 1039,
+      "sha256": "70063b24c6e4476e16665812646994cbc3a41e552b159d06692036e483fd42e9"
+    },
+    "final": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/runtime-001/FINAL.json",
+      "bytes": 2649,
+      "sha256": "5d6cae7a01f788197d86a7f354f0a8a64a31b5948284f01be2929910b011ed75"
+    },
+    "actualOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 7657,
+      "sha256": "9d6c58bc3318aa5ad6931ba42a352af471ea815796a0febdd2f6dbddaba15d42"
+    },
+    "disposition": "runtime_failed",
+    "terminalResult": null,
+    "failureEvent": {
+      "ordinal": 16,
+      "eventId": "event://abiogenesis/4cd65ff7390055e5ca2fc8e93e1a6bb302a9009e3c8b7d4df30b6d7ae13bff88",
+      "failureRef": "runtime-failure://abiogenesis/3898d12fb3143c35b85219d9a6acff712b83ae86c3bef66d98cb6557ebb0d1e0",
+      "diagnostic": {
+        "candidate": {
+          "code": "actor_process_invocation_refused",
+          "diagnosticRef": "diagnostic://abiogenesis/actor-process/actor_process_invocation_refused@5",
+          "disposition": "refused",
+          "kind": "actor_process_effect_refusal",
+          "message": "worker transport absolute timeout must be one safe integer greater than its inactivity timeout",
+          "predecessorPrefix": {
+            "coordinateDigest": "sha256:7f2895986de3a53aa2c66eabee6377fbc11129e6a3946cd799fdf2b450cf3c4d",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/runtime-001/resources/events/runtime.events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:795d074b72a41fdfd4455ae05c9ec8b60de0a3409550b21ea5c363bc71de32ba",
+            "prefixLength": 3631395,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777231,
+              "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+              "inode": 718988645
+            }
+          },
+          "processFacts": null,
+          "schemaVersion": "5.0.0",
+          "successorPrefix": {
+            "coordinateDigest": "sha256:7f2895986de3a53aa2c66eabee6377fbc11129e6a3946cd799fdf2b450cf3c4d",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/runtime-001/resources/events/runtime.events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:795d074b72a41fdfd4455ae05c9ec8b60de0a3409550b21ea5c363bc71de32ba",
+            "prefixLength": 3631395,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777231,
+              "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+              "inode": 718988645
+            }
+          }
+        },
+        "stage": "leaf-effect-0"
+      }
+    },
+    "actorProcessStartedCount": 0,
+    "physicalClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/runtime-001/resource-close.json",
+      "bytes": 2311,
+      "sha256": "045165f718c53909b6608be7a965dbd6091d3379503741d589b82af47733f1a9"
+    },
+    "freshReadbacks": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/runtime-001/FRESH_READBACKS.json",
+      "bytes": 1683,
+      "sha256": "15ae6d2ba206b329a82d7732cde8383b48744932f189a13b940fba7268af50da"
+    },
+    "freshReadSummary": [
+      {
+        "memberKey": "run_result",
+        "outcomeKind": "refusal",
+        "status": null,
+        "terminal": null
+      },
+      {
+        "memberKey": "run_replay",
+        "outcomeKind": "result",
+        "status": "failed",
+        "terminal": null
+      }
+    ],
+    "closedPrefixExactAfterReads": true,
+    "controlFault": "Operator configured inactivity300000 equal to absolute300000. Installed RC9 requires absolute strictly greater than inactivity; process invocation refused before actor start. No provider call or Product edit occurred.",
+    "sourcePostimage": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 201692,
+      "sha256": "03c52118eb52197502aeeccfa374f1a006023b76461fa358ef1796a4905e2216"
+    }
+  },
+  "bankedEvidence": {
+    "nativeSourceReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/NATIVE_FINAL_HANDOFF.json",
+      "bytes": 9423,
+      "sha256": "c553afd4374a9a62a082d90140b7b410b76e88d0fd626ee7e476882288693efd"
+    },
+    "unitReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/UNIT_RETURN.001.json",
+      "bytes": 1252,
+      "sha256": "5001cba1dc8d871fe5827b149186097ad2bf83c5d4501f78d247bccee22c3715"
+    },
+    "provisionalArtifact": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/RETURN.json",
+      "bytes": 1699,
+      "sha256": "200998d23349a3248c27247ba90b38dff3184c8f63cc8625c6b65507a1061e9e"
+    }
+  },
+  "stopped": [
+    "No measurement retry/manual handle/new source edit.",
+    "No HOW retry/new author preparation.",
+    "No six-file affected-proof preparation or execution.",
+    "No cut/install release/Git effect or final acceptance."
+  ],
+  "nextOwner": "Root"
+}

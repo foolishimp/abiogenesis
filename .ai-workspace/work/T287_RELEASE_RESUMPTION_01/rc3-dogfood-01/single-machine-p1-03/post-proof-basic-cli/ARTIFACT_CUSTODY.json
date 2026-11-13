@@ -1,0 +1,25 @@
+{
+  "byteEquality": true,
+  "claims": "Observed all9 green helper archive only; native Testing admission/UAT/parent/Root selection remain pending; no package import/setup/proof invocation/release",
+  "helperCustody": {
+    "bytes": 9010,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/attempt-001/c2-helper-custody/CUSTODY.json",
+    "sha256": "be4b3b1648ca52f6dee6ba3dc8c9cf1f8a06b9e22b6f844ed19e0bf66ac11317"
+  },
+  "kind": "observed_c2_archive_copy",
+  "retainedArchive": {
+    "bytes": 10942981,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "sha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd"
+  },
+  "selection": {
+    "bytes": 8232,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/SELECTION.observed-c2.json",
+    "sha256": "2c66e8a04d28d429885fd8ae8c94840b8fb5f3908fb8868b49dddd9eaa42a5cc"
+  },
+  "sourceArchive": {
+    "bytes": 10942981,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/runtime-001/resources/archives/worksite-command-execution/faa16d64e8f1eccf61c988968e058f2fc7f659e05ef422bc08e8935539b8aa7d/aad03c7176aaa7223a29794474686f77ec1c5b3e213c71314f818b67dd514d3e/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "sha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd"
+  }
+}

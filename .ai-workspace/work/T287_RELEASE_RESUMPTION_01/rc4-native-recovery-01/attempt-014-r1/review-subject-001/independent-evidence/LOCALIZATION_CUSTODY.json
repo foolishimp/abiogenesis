@@ -1,0 +1,20 @@
+{
+  "kind": "additive_independent_evidence_custody",
+  "recordedUtc": "2026-11-02T15:00:28.727879+00:00",
+  "priorCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/independent-evidence/CUSTODY.json",
+    "bytes": 4712,
+    "sha256": "c85fea9fa0539a70b04c0f0071a293b5bc6f6e246ab6e20e6cc2c26e8bbd6b9d"
+  },
+  "original": {
+    "path": "/private/tmp/rc4-014-independent-review-r_vmsxub/LOCALIZATION_RECEIPT.json",
+    "bytes": 6878,
+    "sha256": "12a3134ad47c010ce38e44eb11b28058de9207a7d628678d417de4ba16eec2b8"
+  },
+  "retained": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/review-subject-001/independent-evidence/LOCALIZATION_RECEIPT.json",
+    "bytes": 6878,
+    "sha256": "12a3134ad47c010ce38e44eb11b28058de9207a7d628678d417de4ba16eec2b8"
+  },
+  "scope": "Late reviewer localization receipt only; no revision of prior custody/disposition, no Product/source/runtime/test/Git effects."
+}

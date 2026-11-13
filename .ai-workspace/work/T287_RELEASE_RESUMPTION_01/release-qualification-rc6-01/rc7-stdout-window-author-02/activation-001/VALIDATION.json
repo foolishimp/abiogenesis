@@ -1,0 +1,65 @@
+{
+  "kind": "materialized_control_static_validation",
+  "status": "PASSED_FINAL_ROOT_ADMISSION_PENDING",
+  "createdUtc": "2026-11-06T22:00:49.189412+00:00",
+  "parserChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/prepare-and-dispatch.mjs",
+      "exitCode": 0,
+      "command": "node --check"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/launch-owner-script.mjs",
+      "exitCode": 0,
+      "command": "node --check"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/inputs/prior-author-stage.mjs",
+      "exitCode": 0,
+      "command": "node --check"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/inputs/prior-author-lanes.mjs",
+      "exitCode": 0,
+      "command": "node --check"
+    }
+  ],
+  "allExecutableCodeEqualsClosedPreparation": true,
+  "jsonFilesParsedAfterCorrection": 15,
+  "distinctActualPinsRecursivelyChecked": 60,
+  "pinMismatches": [],
+  "explicitFuturePinPlaceholders": 1,
+  "sourceReferencesVerified": 451,
+  "same17WriteCeiling": true,
+  "controls": {
+    "antecedents": 19,
+    "finalAdmissionPending": 1
+  },
+  "contextCount": 474,
+  "bounds": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 3600000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "correction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/CONTROL_CORRECTION_001.json",
+    "bytes": 3699,
+    "sha256": "522300cf52b46ada652a4575b14b96f2f393430616bded4fdbac071382c4befc"
+  },
+  "effects": {
+    "ProductWrites": 0,
+    "CInputsStaged": 0,
+    "runtimeAcquisitions": 0,
+    "providerExecutions": 0,
+    "nativeDispatches": 0,
+    "testOrBuildLanes": 0
+  },
+  "limits": [
+    "Static operator validation only; independent control review/Root final admission remain separate.",
+    "Root working basis is physical451-row post-failure custody; no NativeResult/native.after or Product acceptance claim."
+  ]
+}

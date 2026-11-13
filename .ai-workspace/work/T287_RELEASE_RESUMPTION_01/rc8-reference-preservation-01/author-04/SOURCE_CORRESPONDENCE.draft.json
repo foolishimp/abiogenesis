@@ -1,0 +1,68 @@
+{
+  "status": "PREPARATION_ONLY_SOURCE_CORRESPONDENCE_BASELINE",
+  "recordedUtc": "2026-11-07T06:43:10.489946+00:00",
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+  "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "acceptedSourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+    "bytes": 293777,
+    "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+  },
+  "sourceRows": 1338,
+  "allAcceptedRowsMatchCurrentSource": true,
+  "sourceReadbackMs": 193.746,
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "publication": {
+    "packageFiles": [
+      "build/**",
+      "contracts/**",
+      "product-toolchain-manifest.json"
+    ],
+    "manifest": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    },
+    "productRelativeLocatorCount": 5323,
+    "testEnvLocatorCount": 0,
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "existingStageAndDependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-007/BOUND_INVENTORY.json",
+    "bytes": 1785300,
+    "sha256": "45dfcadf337a23342919228fe52989f3e64efb9dba04b79fd25309701c91811d"
+  },
+  "retainedBroadEvidence": {
+    "prior58WholeFilesBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_007.json",
+      "bytes": 110151,
+      "sha256": "decb2fbe7c97d5ee33945ad788d88bd01b37e24676405deba41ef55403ed81e6"
+    },
+    "new21WholeFilesReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_006.json",
+      "bytes": 10768,
+      "sha256": "16c72363ccc260eb06ceae2edd49314fa71f7709039515fb0fc52720f8067ade"
+    },
+    "wholeFiles": 79,
+    "passes": 455,
+    "skips": 105,
+    "failedFilePartialPassesNotIncluded": 1
+  },
+  "requiredSuccessorRelation": [
+    "Only final Root-granted unshipped test paths may differ from accepted1338-row source snapshot; freeze the successor as a new subject and retain original.",
+    "Every code/declaration/generated contract/manifest/dependency/publication archive byte must stay equal before reusing Product performance or packaging evidence.",
+    "Unchanged test exact bytes plus unchanged consumed Product/support/dependency inputs can retain original successful receipts through explicit source correspondence. No copied receipt is assigned a new execution time or new source digest.",
+    "Changed tests require new whole-command evidence and review; final source/review/cut binding updates remain separate Root effects."
+  ],
+  "postOverlayVerification": "PENDING_NATIVE_AUTHOR_AND_EXACT_OVERLAY_FREEZE",
+  "qualified": false
+}

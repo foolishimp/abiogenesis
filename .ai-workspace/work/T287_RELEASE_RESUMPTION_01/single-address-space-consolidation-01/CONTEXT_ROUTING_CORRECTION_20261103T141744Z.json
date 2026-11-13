@@ -1,0 +1,21 @@
+{
+  "role": "Root operator/evidence Writer under CONTEXT_AND_CAUSAL_MAP.md grant",
+  "recordedUtc": "2026-11-03T14:17:44.182378+00:00",
+  "purpose": "Disambiguate current authority from preserved historical current labels without changing historical record text.",
+  "effects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T141744Z/GOALS.md",
+      "beforeSha256": "a4bbbc6a845960069a0f36c608bc50ef3e4f38bc1903d4aa675c299e53784efc",
+      "afterSha256": "3cdc5f7f2ca4272cb98ca1d51f9d6e090efcb6cad6f6a107f7b0b81f5ed1c6df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T141744Z/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "beforeSha256": "740589260b805b4e55000d9a05dc203cb9f2a49608a025952ee35bdaa67f2310",
+      "afterSha256": "6ecf86042256c5bd14cf6dc38ff4fe1bd5b887106dbb7621dce31681f69b9c0c"
+    }
+  ],
+  "return": "Executive",
+  "sourceAndFrozenInputsChanged": false
+}

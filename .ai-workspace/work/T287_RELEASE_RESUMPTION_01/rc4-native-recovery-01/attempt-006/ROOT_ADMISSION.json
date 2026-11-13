@@ -1,0 +1,19 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "7223f5bb66c21d8ed7c38d81cd54141f0cc6c34fcc754e2973f1af2b6628a45d",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "sourceTree": "d3d22391589dcb6fd8d86ed128b0ede69b77348c",
+  "decision": "Root reviewed exact attempt006 setup-state, preparation, dispatch, provider wrapper, handoff and underlying source/acquisition. Admit Root-only installed preflight and call construction with provider0/Run0, including declared provider scratch-directory setup. Genuine independently reacquired retained source preserves original005 task and Program. Prior triage, source acquisition and actual assembled ambient C2 preflight are the selected checks. Actual dispatch requires subsequent Root selection of the exact generated call and frozen manifest.",
+  "packetSha256": "361ba697ab4ba63533e08a81556eec5d2082e31ad2ed931d75da698189a381f5",
+  "decidedUtc": "2026-11-01T23:53:00.533588+00:00",
+  "limits": [
+    "Frozen packet, scripts and prior records unchanged",
+    "Fresh retained work, not exact pending-frontier recovery or original predecessor R2 closure",
+    "No Product change, native acceptance, empirical optimization acceptance, qualification or release",
+    "No automatic retry or provider/Run admission in this selected preparation"
+  ],
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "dispatchSelected": false
+}

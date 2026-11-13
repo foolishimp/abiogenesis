@@ -1,0 +1,110 @@
+{
+  "productFrame": "Fixed fifteen-family ABIogenesis5.0, GOAL-035/T-287/REF-01, STDO3.0.4/empty composition. ABG owns events, admission and failure truth. This is independent operational-budget/Proof triage on unchanged A8 source86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9/freezeefba6bea8f3d0e1b0695772c18bdd731652b0f0652a2a878619b2445c073fc50; prior source verdict239114a2 remains bounded source assurance.",
+  "recordedUtc": "2026-11-07T09:13:51.021864+00:00",
+  "verdict": "confirmed_native_absolute_budget_failure; partial_proof_only; no_Product_performance_regression_or_loop_established",
+  "finding": {
+    "id": "A8-PROOF-BUDGET",
+    "severity": "S3",
+    "trigger": "Native author/controller selected900000ms absolute cap covering coding plus two serial600000ms proof commands.",
+    "actual": "SDK transport returned a receipt but ownerOutput.value.disposition is runtime_failed with result=null and terminalResult=null. Exact durable actor_process_timeout_observed records absolute timeout at09:06:20.877Z, elapsedMs900010.989417. This is owner evidence, not an inference from exit143.",
+    "timing": "Historical command started08:56:25.221Z; its nominal600000ms deadline was09:06:25.221Z. Native hard cap fired4.344s earlier, leaving595.656s after first command start and no opportunity for the second full selected lane. Maximum commanded proof allocation alone was1200000ms, larger than900000ms even before coding/setup.",
+    "harm": "Focused command recorder/result and four-case lane terminal receipts absent; coordinates lane unexecuted. Exact frozen edits remain reviewable, but requested execution conjunction was interrupted.",
+    "failClosed": "Existing native absolute watchdog recorded threshold, actor failure and failed Run; it did not report a terminal native result. No guard change is justified.",
+    "controlCause": "The Executive-selected nested budgets did not cover the selected serial work. This finding is about work allocation and incomplete proof, not a measured regression in unchanged Product code.",
+    "costAndRisk": "Small control-only re-entry on the same frozen source; no authoring, new native Worker, baseline replacement, event restamp, source optimization or test-oracle surgery. Repeating inside the same native budget risks another incomplete receipt."
+  },
+  "actualEvidence": {
+    "threshold": {
+      "eventId": "event://abiogenesis/10714a2e51fa8671c5f9c9cb6ddbd8dccc3ff347063bef4999b02ee2651eabb2",
+      "eventTime": "2026-11-07T09:06:20.877Z",
+      "timeoutClass": "absolute",
+      "elapsedMs": 900010.989417,
+      "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+      "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+      "byteOffset": 145912777,
+      "bytes": 9046,
+      "sha256": "7715988dd640e03d72ee57c4e5d58a774617dd73e3908e55a011e826b81a7c7d"
+    },
+    "durablePrefix": {
+      "length": 146410800,
+      "sha256": "sha256:fa254d2e71366647b090b526a476953c145e2a4e34929cc11e284fa19f1b57f1",
+      "independentlyRehashed": true,
+      "physicalIdentityUnchangedDuringRead": true
+    },
+    "partialReporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/lane-01/events.jsonl",
+      "bytes": 755,
+      "sha256": "3432f3aea4ff6fc3d33fdb592cc30b320a99ac23e86ae832e6faf123ce98c7f8"
+    },
+    "partialCases": "Classification and global run-invocation pairs each reported passed. No test-case timing or lane terminal summary is present, so no per-case duration or full-lane success claimed.",
+    "absentAtReview": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/lane-01/commands/test.result.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/lane-01/RESULT.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/lane-02/RESULT.json"
+    ],
+    "operatorLineage": "Root relayed Operator observation that the exact lineage was absent09:08:47 without additional signals. This Reviewer did not perform process observations; it is separate from the exact closed owner records."
+  },
+  "boundedPerformanceAnalysis": {
+    "globalPairsCase": "Source316-369 performs one full586361364B read/hash and five newly constructed durable coordinates: complete history plus before/orphan/paired/opened earlier cuts. Each call uses explicit cold readOwnedRuntimeEventPrefixAtDurablePrefix. It intentionally preserves independent physical prefix authentication.",
+    "ownerChain": "event_prefix85-87 -> event_store3639-3667. Fresh coordinates have no active acquired-owner identity (1806-1811); each takes finite decodeRuntimeHistoryDescriptor3775ff, validating rows/digests/profiles and indexing admitted history. The later invocation_execution_truth436ff uses checked records and indexed lookup;557-634 iterates finite invocation/public-operation selections;672-696 checks indexed Run binding. No unbounded source loop or new A8 owner algorithm was found in this cone.",
+    "limit": "Five cold prefix authentications against a586MB retained fixture explain substantial setup work as a source-level mechanism. No CPU/time attribution was measured, and process CPU/RSS snapshots cannot locate a hot function. Proof10 measurements concern other selected operations, not a timing baseline for this complete global-pairs case.",
+    "counterexampleToHang": "The preserved reporter records the global-pairs case passed in this actual execution. This disproves an infinite loop in that case here, but does not prove remaining cases finish or performance targets.",
+    "scope": "Do not convert explicit cold historical proof into warm borrowing or widen the selected12-cold-read migration scope merely to get this lane green."
+  },
+  "reentryRecommendation": {
+    "source": "Use exactly A8 frozen overlay/source86711/efba6bea with unchanged compiled archivea178 and manifestf743; keep failed native attempt and partial recorder bytes immutable.",
+    "first": "Run the whole installed-product-coordinate file independently under a new explicit Operator control version, expected11cases. Remove the prior historical-PASSED prerequisite in that new control; do not manufacture lane01/RESULT.json or relabel old evidence.",
+    "second": "Use the existing whole-consolidation proof recipe, all12cases including aggregate recorder, with3600000ms outer command and original per-case600000/900000ms limits unchanged. Run outside the completed native author lifetime, under a separate total allocation covering that command and receipt/close work. Do not use a four-case filter to claim the whole-file aggregate.",
+    "constructability": "Existing close controls already declare3600000ms for this file, and the questioned case demonstrably terminates. Thus the whole-file attempt is constructable without source edits. Completion within one hour is not proven; preserve any actual case refusal/timeout rather than auto-extending its600/900s limit. A later case-specific timeout/failure needs its own actual evidence, not extrapolation from this global-pairs case.",
+    "separation": "No new Worker or Product API is necessary. Root selects the new control/admission and final conjunction. Native actual failure, source verdict, external proof and cut acceptance remain distinct."
+  },
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/ROOT_SCOPE.json",
+      "bytes": 4703,
+      "sha256": "3bdbfd378de073045939cb2455448e9d0e5b905040a8550a66066cab1e387241"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/TASK.json",
+      "bytes": 6911,
+      "sha256": "cf541e69796013e161e541497ec692e769df4bc2da1ac54b09f682bebbb71785"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/lane-01/commands/test.request.json",
+      "bytes": 1025,
+      "sha256": "feea698cd9a5c595fc13053987cb79274af26ebc68adeac6dc9c841795502db8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 45728,
+      "sha256": "4ba0a8b728f8d9a79a19d0646f1a37722e2d19ba8e2b5a766fa7f1a11d8b1615"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001/FINAL.json",
+      "bytes": 3185,
+      "sha256": "5e196a717922d27a28e00f2ddee5d5527503a0638cd886207f327540ae10f1df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001/resource-close.json",
+      "bytes": 2308,
+      "sha256": "2320c892bb0d6d276e18cb67360710527196ff32c9cd21422aa419b682ac4b9a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 124657,
+      "sha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "bytes": 41277,
+      "sha256": "6a254033a8ea50a1f313340e7ba22c07a1797ff618e6527c473751bac0fdfc89"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_011.json",
+      "bytes": 194296,
+      "sha256": "791dd91a0a5a8a74ba62646beaf6ad0d8a2e2d09147e787aa3b35f02d1480716"
+    }
+  ],
+  "effects": "Read-only source/evidence and this new review addendum only. No tests, CPU profiling, Product calls, source repairs, process signals or new agents."
+}

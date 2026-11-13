@@ -1,0 +1,1141 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts b/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts
+index e1ac5bbde..8d1bb138e 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts
+@@ -113,6 +113,80 @@ function bodyValue(source: InlineBody, read?: InlineBodyReader): JsonValue {
+   return read(source);
+ }
+ 
++/** v3 retained-route form: the nested pair source names the route's consumed Result. */
++const ROUTE_SOURCE_CODEC = 3;
++const ROUTE_PAIR = ["entry", "kind", "schemaVersion", "source"] as const;
++/** @internal The durable owner's admitted events before the row being encoded or
++ * decoded. Envelope membership is checked before the owner acquires any body. */
++export interface EarlierAdmittedEvents {
++  readonly envelope: (eventRef: string) => Omit<RuntimeEvent, "payload"> | undefined;
++  readonly event: (eventRef: string) => RuntimeEvent;
++  /** Encoding only: earlier event refs under the owner's existing CCall aggregate index. */
++  readonly cCallEvents?: (cCallRef: string) => readonly string[];
++}
++
++// Shape checks only over a JSON route; the store validates restored events.
++function retainedRoute(event: Readonly<Record<string, unknown>>, sourcePresent: boolean) {
++  const payload = event.payload, bound = isRecord(payload) ? payload.boundInput : undefined;
++  if (event.kind !== "traversal_route_admitted" || typeof event.admissionOrdinal !== "number" ||
++      !["runId", "basisId", "graphCallId", "frameId"].every(key => typeof event[key] === "string") || !isRecord(payload) ||
++      typeof payload.cCallRef !== "string" || !isRecord(bound) || bound.kind !== "raw_admitted_value" || !isRecord(bound.value) ||
++      !hasExactKeys(bound.value, sourcePresent ? ROUTE_PAIR : ROUTE_PAIR.slice(0, 3)) || bound.value.kind !== "retained_graph_input" ||
++      !isRecord(bound.value.entry) || sourcePresent && !isRecord(bound.value.source)) return null;
++  return { payload, bound, value: bound.value, cCallRef: payload.cCallRef };
++}
++
++/** The route's consumed Result: an earlier event of its own CCall in its exact
++ * Run, basis, graph call and frame. An equal body elsewhere, a basis, another
++ * occurrence or the route itself never qualifies; no cause edge is required. */
++function isConsumedResultEnvelope(route: Readonly<Record<string, unknown>>, cCallRef: string,
++  source: Omit<RuntimeEvent, "payload">): boolean {
++  return source.kind === "c_call_result_admitted" && source.aggregateType === "c_call" && source.aggregateId === cCallRef &&
++    source.runId === route.runId && source.basisId === route.basisId && source.graphCallId === route.graphCallId &&
++    source.frameId === route.frameId && source.admissionOrdinal < (route.admissionOrdinal as number);
++}
++
++function consumedResultValue(result: RuntimeEvent, cCallRef: string): JsonValue | undefined {
++  const payload = result.payload;
++  return isRecord(payload) && payload.cCallRef === cCallRef && payload.resultClass === "success" &&
++    Object.hasOwn(payload, "value") ? payload.value : undefined;
++}
++
++function encodeRetainedRouteSource(event: RuntimeEvent, inline: string, earlier: EarlierAdmittedEvents): string | null {
++  const route = retainedRoute(event as unknown as Readonly<Record<string, unknown>>, true);
++  if (route === null || earlier.cCallEvents === undefined) return null;
++  // Producer policy: name a Result only when exactly one earlier member exists.
++  const sources = earlier.cCallEvents(route.cCallRef).flatMap(ref => {
++    const source = earlier.envelope(ref);
++    return source !== undefined && source.eventId === ref &&
++      isConsumedResultEnvelope(event as unknown as Readonly<Record<string, unknown>>, route.cCallRef, source) ? [source] : [];
++  });
++  if (sources.length !== 1) return null;
++  const source = sources[0]!, { source: body, ...value } = route.value;
++  const encoded = canonicalJson({ kind: REFERENCE_RECORD, codecVersion: ROUTE_SOURCE_CODEC,
++    event: { ...event, payload: { ...route.payload, boundInput: { ...route.bound, value } } } as JsonValue,
++    bodyReference: { sourceEventRef: source.eventId, sourcePayloadDigest: source.payloadDigest, sourceSlot: "c_call_result_value",
++      bodyDigest: sha256Canonical(body as JsonValue) } });
++  // Ordinary small sources remain inline; only then is the Result body acquired.
++  if (Buffer.byteLength(encoded) >= Buffer.byteLength(inline)) return null;
++  const shared = consumedResultValue(earlier.event(source.eventId), route.cCallRef);
++  return shared !== undefined && canonicalEquals(shared, body as JsonValue) ? encoded + "\n" : null;
++}
++
++function decodeRetainedRouteSource(event: Readonly<Record<string, unknown>>, reference: Readonly<Record<string, unknown>>,
++  earlier?: EarlierAdmittedEvents): JsonValue {
++  const route = retainedRoute(event, false), sourceRef = reference.sourceEventRef as string;
++  const source = route === null || earlier === undefined ? undefined : earlier.envelope(sourceRef);
++  if (route === null || source === undefined || source.eventId !== sourceRef || !isConsumedResultEnvelope(event, route.cCallRef, source) ||
++      reference.sourceSlot !== "c_call_result_value" || reference.sourcePayloadDigest !== source.payloadDigest)
++    throw new TypeError("durable body reference lacks its exact earlier consumed Result");
++  // The Result's own physical form, inline or v1, resolves through its owner.
++  const body = consumedResultValue(earlier!.event(sourceRef), route.cCallRef);
++  if (body === undefined || sha256Canonical(body) !== reference.bodyDigest)
++    throw new TypeError("durable body reference differs from its exact consumed Result");
++  return { ...event, payload: { ...route.payload, boundInput: { ...route.bound, value: { ...route.value, source: body } } } } as JsonValue;
++}
++
+ /** Detach caller data first; only this store's committed inline body may be
+  * shared. Source eligibility and physical encoding remain the durable owner's. */
+ export function captureRuntimeEventCandidate(
+@@ -136,9 +210,9 @@ export function captureRuntimeEventCandidate(
+ 
+ /** The caller stages additions and publishes them only with the durable batch. */
+ export function encodeEventBody(event: RuntimeEvent, committed: InlineEventBodies, staged: InlineEventBodies,
+-  read?: InlineBodyReader): string {
++  read?: InlineBodyReader, earlier?: EarlierAdmittedEvents): string {
+   const inline = canonicalJson(event), body = inlineEventBody(event);
+-  if (body === null) return inline + "\n";
++  if (body === null) return (earlier === undefined ? null : encodeRetainedRouteSource(event, inline, earlier)) ?? inline + "\n";
+   const key = inlineEventBodyKey(body), source = staged.get(key) ?? committed.get(key);
+   if (source !== undefined && compatibleSlots(source.slot, body.slot) && canonicalEquals(bodyValue(source, read), body.value!)) {
+     const payload = omitValue(event.payload as Record<string, JsonValue>, body.slot);
+@@ -152,19 +226,22 @@ export function encodeEventBody(event: RuntimeEvent, committed: InlineEventBodie
+   return inline + "\n";
+ }
+ 
+-/** Resolves only already validated, physically inline sources from this stream.
++/** Resolves only already validated, physically inline sources from this stream,
++ * or a retained route's exact earlier consumed Result through its owner.
+  * The event store still validates the complete restored envelope and all stamps. */
+ export function decodeEventBody(record: JsonValue, inlineByEvent: InlineEventBodies,
+-  read?: InlineBodyReader): {
++  read?: InlineBodyReader, earlier?: EarlierAdmittedEvents): {
+   readonly event: JsonValue; readonly physicallyInline: boolean;
+ } {
+   if (!isRecord(record) || record.kind !== REFERENCE_RECORD) return { event: record, physicallyInline: true };
+   const reference = record.bodyReference, event = record.event;
+-  if (!hasExactKeys(record, ["kind", "codecVersion", "event", "bodyReference"]) || (record.codecVersion !== 1 && record.codecVersion !== 2) ||
++  if (!hasExactKeys(record, ["kind", "codecVersion", "event", "bodyReference"]) ||
++      (record.codecVersion !== 1 && record.codecVersion !== 2 && record.codecVersion !== ROUTE_SOURCE_CODEC) ||
+       !isRecord(reference) || !hasExactKeys(reference, ["sourceEventRef", "sourcePayloadDigest", "sourceSlot", "bodyDigest"]) ||
+       typeof reference.sourceEventRef !== "string" || !isRecord(event) || !isRecord(event.payload)) {
+     throw new TypeError("durable body reference record is malformed");
+   }
++  if (record.codecVersion === ROUTE_SOURCE_CODEC) return { event: decodeRetainedRouteSource(event, reference, earlier), physicallyInline: false };
+   const target = slotFor(event.kind), source = inlineByEvent.get(reference.sourceEventRef);
+   if (target === null || (record.codecVersion === 2) !== (target === "native_definition_material") ||
+       !targetIsAbsent(event.payload, target) || source === undefined || !compatibleSlots(source.slot, target) ||
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts b/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts
+index a2d508dc8..b23af4fc7 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts
+@@ -3,7 +3,7 @@ import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
+ import { admitIJsonValue } from "../shared/i_json.js";
+ import { RuntimeDerivationSource } from "./runtime_derivation.js";
+ import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineEventBody, inlineEventBodyCoordinate, inlineEventBodyKey, inlineEventBodyValue,
+-  type InlineBody, type InlineBodyReader, type InlineEventBodies } from "./event_body_encoding.js";
++  type EarlierAdmittedEvents, type InlineBody, type InlineBodyReader, type InlineEventBodies } from "./event_body_encoding.js";
+ import { RuntimeHistory, RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistoryRow, runtimeHistorySelectorKeys,
+   type RuntimeEventBodyLocation } from "./runtime_history.js";
+ import {
+@@ -2316,11 +2316,24 @@ function appendDurablyBatch(state: EventStoreState, events: readonly RuntimeEven
+       events.some((event, index) => event.admissionOrdinal !== committedCount + index + 1))
+     throw new TypeError("durable append lacks its exact private admitted history");
+   const stagedBodies: InlineEventBodies = new Map(), selectedBodies = new Map<string, RuntimeEvent>();
++  // Earlier members only: this batch's preceding events, then committed rows.
++  const batchEvents = new Map<string, RuntimeEvent>(), committedRow = (ref: string) => {
++    const row = history.rowById(ref); return row !== undefined && row.envelope.admissionOrdinal <= committedCount ? row : undefined;
++  };
++  const earlier: EarlierAdmittedEvents = { envelope: ref => batchEvents.get(ref) ?? committedRow(ref)?.envelope,
++    event: ref => {
++      const event = batchEvents.get(ref), row = event === undefined ? committedRow(ref) : undefined;
++      if (event === undefined && row === undefined) throw new TypeError("durable body reference lacks its exact earlier source");
++      return event ?? history.event(row!.envelope.admissionOrdinal - 1, selectedBodies);
++    },
++    cCallEvents: ref => [...history.indices("aggregate:c_call:" + ref, committedCount).map(index => history.row(index)!.envelope.eventId),
++      ...[...batchEvents.values()].filter(event => event.aggregateType === "c_call" && event.aggregateId === ref).map(event => event.eventId)] };
+   const successorHash = state.durableHash!.copy();
+   let nextByteLength = priorByteLength;
+   const rows = events.map(event => {
+     const encoded = encodeEventBody(event, state.inlineBodies, stagedBodies, coordinate =>
+-      runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate));
++      runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate), earlier);
++    batchEvents.set(event.eventId, event);
+     const bytes = Buffer.from(encoded, "utf8"), offset = nextByteLength;
+     successorHash.update(bytes); nextByteLength += bytes.length;
+     const location: RuntimeEventBodyLocation = { offset, byteLength: bytes.length, physicalDigest: sha256Bytes(bytes),
+@@ -3413,6 +3426,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
+   }
+   const admitted: RuntimeEvent[] = [];
+   const eventsById = new Map<string, RuntimeEvent>();
++  const earlier: EarlierAdmittedEvents = { envelope: ref => eventsById.get(ref), event: ref => eventsById.get(ref)! };
+   let profile: Sha256Digest | null = null;
+   for (const [row] of new DurableHistoryLines().read(encoded)) {
+     const line = row.toString("utf8", 0, row.length - 1);
+@@ -3429,7 +3443,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
+     ) {
+       throw new TypeError("durable ABG event log contains a noncanonical event");
+     }
+-    const representation = decodeEventBody(physical, inlineByEvent), decoded = representation.event;
++    const representation = decodeEventBody(physical, inlineByEvent, undefined, earlier), decoded = representation.event;
+     if (!isRecord(decoded) || !hasOnlyRuntimeEventKeys(decoded)) throw new TypeError("durable ABG event log contains an invalid logical event");
+     const {
+       eventId,
+@@ -3624,12 +3638,16 @@ function constructRuntimeHistory(source: RuntimeHistoryPhysicalSource, inlineByE
+     const line = bytes.toString("utf8", 0, bytes.length - 1), physical: JsonValue = JSON.parse(line);
+     if (!isRecord(physical) ||  !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(bytes))
+       throw new TypeError("selected durable body is not the authenticated canonical row");
++    const earlierRow = (ref: string) => {
++      const selected = history.rowById(ref);
++      return selected !== undefined && selected.envelope.admissionOrdinal < row.envelope.admissionOrdinal ? selected : undefined;
++    };
+     const representation = decodeEventBody(physical, inlineByEvent, coordinate => {
+-      const selected = history.rowById(coordinate.eventRef);
+-      if (selected === undefined || selected.envelope.admissionOrdinal >= row.envelope.admissionOrdinal)
+-        throw new TypeError("selected reference lacks its exact earlier inline source");
++      const selected = earlierRow(coordinate.eventRef);
++      if (selected === undefined) throw new TypeError("selected reference lacks its exact earlier inline source");
+       return runtimeInlineBodyValue(history.event(selected.envelope.admissionOrdinal - 1, selectedBodies), coordinate);
+-    });
++    }, { envelope: ref => earlierRow(ref)?.envelope,
++      event: ref => history.event(earlierRow(ref)!.envelope.admissionOrdinal - 1, selectedBodies) });
+     const value = representation.event;
+     if (!isRecord(value) || !hasOnlyRuntimeEventKeys(value)) throw new TypeError("selected logical event is invalid");
+     const { payload, ...envelope } = value;
+@@ -3694,8 +3712,10 @@ function decodeRuntimeHistoryDescriptor(source: RuntimeHistoryPhysicalSource, by
+     if (!isRecord(physical) ||  !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(bytes))
+       throw new TypeError("durable ABG event log contains a noncanonical event");
+     const selectedBodies = new Map<string, RuntimeEvent>();
++    // The history holds only rows before this one while it is being decoded.
+     const representation = decodeEventBody(physical, inlineByEvent, coordinate =>
+-      runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate));
++      runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate),
++    { envelope: ref => history.rowById(ref)?.envelope, event: ref => history.eventById(ref, selectedBodies)! });
+     const decoded = representation.event;
+     if (!isRecord(decoded) || !hasOnlyRuntimeEventKeys(decoded)) throw new TypeError("durable ABG event log contains an invalid logical event");
+     const { eventId, admissionOrdinal, payloadDigest, eventContractDigest, ...candidate } = decoded;
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts b/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts
+index 27b9b6b53..b5475cad4 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts
+@@ -7,9 +7,9 @@ import type { CompleteDefinitionContractCoordinateMap } from "../shared/public_f
+ import type { ReferenceDigest } from "../shared/public_invocation.js";
+ import type { ProductInstall, ResolvedProductLock } from "./environment.js";
+ 
+-export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-rc.4";
++export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-rc.5";
+ export const ABI5_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
+-export const ABI5_PACKAGE_VERSION = "5.0.0-rc.4";
++export const ABI5_PACKAGE_VERSION = "5.0.0-rc.5";
+ 
+ export type ProductDeclaredDependency = {
+   readonly kind: "requires";
+diff --git a/build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md b/build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md
+index cdc1664f9..4bc0552a0 100644
+--- a/build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md
++++ b/build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md
+@@ -233,7 +233,7 @@ This is the [UP-019](stdo://releases/v3.0.4/standards/DESIGN_MODULE.md#computati
+ | Immutable declaration resolution and validation | Existing accepted Product/GTL/Validator relation | Consume and optimize existing owners; retain deeply immutable exact Catalog/View closure results and call-local installed module acquisition. [declaration_closure.ts](../code/src/product/declaration_closure.ts), [execution_resolution.ts](../code/src/product/execution_resolution.ts). Changed physical acquisition is not replaced by an old process cache. |
+ | History selection and scope/cause lookup | Existing Event Store/prefix relation | Optimize using authenticated envelope/scalar metadata, causal indexes, physical body locations and the verified bodies of the current generation in the same owner. [runtime_history.ts](../code/src/abg/runtime_history.ts), [event_prefix.ts](../code/src/abg/event_prefix.ts). This role selects; it grants no admission or new lifecycle. |
+ | Current-state Event Calculus/replay | Existing event interpretation | Incremental fold over newly committed suffix; retain current facts/dependencies, acquire historical bodies when selected. [Event Calculus design](ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md#operational-fold-and-historical-output). Complete requested ReplayState/events remain complete outputs. |
+-| Durable body encoding | Existing exact logical event meaning | Adapt physical representation only. [T289 v1 body slots](T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md#native-basis-input-and-ccall-result-physical-bodies-t-287--rc1) cover input/result; [payload topology v2 extension](M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md#native-definition-material-in-durable-event-rows) adds the exact native-definition field bundle. Old “two slots” describes v1, not the later entire codec. |
++| Durable body encoding | Existing exact logical event meaning | Adapt physical representation only. [T289 v1 body slots](T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md#native-basis-input-and-ccall-result-physical-bodies-t-287--rc1) cover input/result; [payload topology v2 extension](M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md#native-definition-material-in-durable-event-rows) adds the exact native-definition field bundle; [RC5 retained-route carriage](T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md#retained-route-source-carriage-t-287--rc5-f4) adds v3, a retained route's nested source named by its exact consumed same-Run/CCall Result. Old “two slots” describes v1, not the later entire codec. |
+ | Context/source/current-use selection | Existing frame/context and source authority | Consume current input, exact selected bodies and owner-proven source correspondence. Share exact accessible definition material while preserving role, qualifiers, residuals and effect permissions. [Default governance](T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md#covered-current-use-correspondence-and-native-testing-reacquisition), [pending consumer](T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md). |
+ | Common proof preparation | Existing install/bind/catalog/current-call owner relations | Adapt the canonical caller, not semantic owner law. Preparation is not dispatch; no helper invents ABG events or completion. The [shared helper](../test_env/uat/continuation.mjs) remains test support. |
+ | Traversal and installed bindings | Existing GTL/HoG/ABG and Product owners | Consume the selected Effect foundation and three static binding combinators; no additional semantic dispatcher, runner, catalog or registry. |
+@@ -248,7 +248,7 @@ The affected finite domain includes:
+ - owned live prefix, complete explicit validated array and prospective validation view;
+ - unchanged warm use, changed consumed authority/definition/observation, cold reopen and poisoned/rolled-back ownership;
+ - current narrow projection versus requested complete historical/public output;
+-- inline legacy rows, v1 input/result body references and v2 native-definition references;
++- inline legacy rows, v1 input/result body references, v2 native-definition references and v3 retained-route source references;
+ - genuine source/current-use evidence versus copied receipt or manufactured basis;
+ - retained completed producer work, exact pending consumer and fresh new work.
+ 
+@@ -284,7 +284,7 @@ For this boundary the complete candidate family includes declaration/basis ident
+ | Verify/resolve/install/bind/catalog preparation | Share lawful pure mechanics where equivalent; keep verification, physical effect, binding authority and pure readiness separate. No common “prepare” authority absorbs them. |
+ | Several exact-prefix reads | Existing parameterized projection/selection families, with exact scopes and output contracts; no second event store or universal untyped query. |
+ | Live/cold/prospective prefix representations | One admitted-history meaning with different proof/operational roles; prospective candidates are expressly not admitted history. Their private correspondence is subordinate. |
+-| Native input/result/definition bodies | One storage codec owner with closed typed slots and supported compatibility, preserving each event's distinct identity/causality; no separate body authority. |
++| Native input/result/definition bodies and retained-route sources | One storage codec owner with closed typed slots and supported compatibility, preserving each event's distinct identity/causality; a route consumes its Result and never becomes a body source; no separate body authority. |
+ | New work, exact continuation and retry | Preserve distinct admitted domains and failure/effect predicates. Shared mechanics cannot turn them into one “resume” mode. |
+ | Producer/consumer, child/parent and measurement/judgment | Preserve separate semantic roles, independence and return obligations; do not reduce them to one success bit. |
+ | Semantic candidate, physical receipt, event admission and replay | Preserve all owner boundaries. Generic Effect/binding/history mechanics transport or implement them but do not own them. |
+diff --git a/build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md
+index f8e41ccad..04ed13543 100644
+--- a/build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md
+@@ -168,3 +168,103 @@ its precise allocating site remains unproved. Focused live/cold/physical,
+ rollback and canonical compatibility checks plus a bounded authentic-body
+ constrained-heap discriminator are mechanical readiness. They do not earn a
+ new Run, retained-state continuation, application completion or UAT result.
++
++## Retained-route source carriage (T-287 / RC5 F4)
++
++Root selected this private durable representation change under the owner's
++approved RC5 scope and the F4 re-entry. Product meaning, the logical
++RuntimeEvent, every value/payload/event/route identity, lineage, currentness,
++refusal and the public event contract stay unchanged. It is the codec's third
++physical form; v1 input/Result and v2 native-definition forms keep their
++meaning above.
++
++The measured RC3-building-RC4 history held 15 retained routes whose nested
++source equalled the earlier Result of the same Run and CCall: 155,009,467 gross
++bytes. Every one of those Results was itself a v1 body reference, so a form
++limited to physically inline sources saves nothing there. The form below
++therefore names the consumed Result and acquires that Result's own earlier body
++dependency through the durable owner.
++
++### Eligible event and source membership
++
++Only a `traversal_route_admitted` event whose `payload.boundInput` is a
++`raw_admitted_value` holding exactly `{entry, kind: "retained_graph_input",
++schemaVersion, source}` is eligible; only `boundInput.value.source` may be
++omitted. Every other route field, `entry` and the bound-input stamps stay in
++the row.
++
++The source is the exact earlier admitted Result the route consumes: a
++`c_call_result_admitted` event in this stream, earlier by admission ordinal,
++with the route's `runId`, `basisId`, `graphCallId` and `frameId`, aggregate
++`c_call` and aggregate id equal to the route's `payload.cCallRef`, payload
++`cCallRef` equal to it, and `resultClass: "success"`. This is the same
++membership relation [worksite_input_provenance.ts](../code/src/abg/worksite_input_provenance.ts)
++`projectRetainedWorksiteInputAtPrefix` uses to find the route's source Result.
++New routes also cite that Result as a cause
++([traversal_route.ts](../code/src/abg/traversal_route.ts) retention causes);
++membership does not depend on that edge, so earlier retained routes have the
++same eligibility. A basis or another Result with an equal value, another
++occurrence of the CCall reference in a different Run or scope, a later or
++uncommitted event, and the route itself never qualify. A route is a consumer:
++it never becomes a body source for any later row, and the form adds no
++causation edge.
++
++### Physical record
++
++The closed record is `{kind: "abg_admitted_body_reference_record",
++codecVersion: 3, event, bodyReference}`. `event` is the complete logical route
++with only `payload.boundInput.value.source` absent. `bodyReference` carries the
++existing four keys: `sourceEventRef` (the Result's event id),
++`sourcePayloadDigest` (its admitted payload digest), `sourceSlot:
++"c_call_result_value"` and `bodyDigest` (canonical digest of the omitted body).
++
++The encoder in `appendDurablyBatch` uses the existing `aggregate:c_call:<ref>`
++history index over committed rows plus earlier events of the same durable
++batch. It encodes only when exactly one earlier event satisfies the envelope
++membership above, the reference row is smaller than the inline row, and the
++owner-acquired Result value is canonically equal to the route's source. Any
++other case writes the ordinary inline row; inline fallback is always valid.
++The size check precedes body acquisition, so small routes acquire nothing.
++
++### Decoding and acquisition
++
++All three readers decode the same way: full history
++(`decodeHistoricalEvents`), selected rows (`constructRuntimeHistory`'s reader)
++and descriptor decode (`decodeRuntimeHistoryDescriptor`). Each supplies only
++events before the route. The named source must satisfy the membership above
++and the reference's payload digest and slot. Its logical event is acquired
++through the same owner's existing body acquisition. That Result may itself be
++physically inline or a v1 reference; its own earlier body dependency resolves
++through its own v1 rule. The restored source must hash to `bodyDigest`. The
++store then validates the complete restored route exactly as for an inline row:
++envelope, ordinal, stamps and payload digest. A missing, forward, foreign,
++wrong-kind/slot/digest, tampered or mixed (source present) record refuses
++before logical history is exposed. Decoding checks only named membership; it
++does not count candidates, so all three readers agree on every byte sequence.
++The encoder's exactly-one condition is a producer policy. The CCall phase
++projection in [c_call.ts](../code/src/abg/c_call.ts) already refuses more than
++one Result per CCall.
++
++### Atomicity, compatibility and limits
++
++The record depends only on event identity, so v3 adds no staged source table.
++Append stages the encoded rows and publishes history, prefix and SHA
++continuation only after write and fsync. A failed write or fsync truncates to
++the prior extent, and a failed truncation poisons ownership, as for v1/v2. A
++rolled-back Result is absent from the history, so no committed route can name
++it. Historical files are never rewritten: legacy, v1 and v2 histories remain
++readable and may supply Results to new v3 rows. Readers older than this form do
++not read v3 rows. Physical lengths and prefix digests describe encoded bytes
++and differ from an all-inline encoding, while logical events and replay stay
++equal.
++
++Focused component cases distinguish exact membership from body equality: a
++real Result that is already physically referenced; same-valued basis and
++foreign-occurrence decoys; missing, forward, tampered and uncommitted sources;
++mixed forms; rollback and failed fsync; full, selected and descriptor cold
++reconstruction; and the captured-route-37961 three-row sample. The sample
++measures net bytes with reference overhead included. One installed case runs a
++`c_workflow` child into a retained E/S/T consumer and checks the physical
++reference with fresh result/replay. These cases prove only representation,
++reconstruction and that installed path. They establish no latency, capacity,
++campaign-wide saving or qualification claim.
+diff --git a/build_tenants/abiogenesis/typescript/package-lock.json b/build_tenants/abiogenesis/typescript/package-lock.json
+index 218ac8a81..032ee040e 100644
+--- a/build_tenants/abiogenesis/typescript/package-lock.json
++++ b/build_tenants/abiogenesis/typescript/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "@abiogenesis/typescript-tenant",
+-  "version": "5.0.0-rc.4",
++  "version": "5.0.0-rc.5",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "@abiogenesis/typescript-tenant",
+-      "version": "5.0.0-rc.4",
++      "version": "5.0.0-rc.5",
+       "bundleDependencies": [
+         "@valibot/to-json-schema",
+         "effect",
+diff --git a/build_tenants/abiogenesis/typescript/package.json b/build_tenants/abiogenesis/typescript/package.json
+index c94c2f924..f2e3086da 100644
+--- a/build_tenants/abiogenesis/typescript/package.json
++++ b/build_tenants/abiogenesis/typescript/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "@abiogenesis/typescript-tenant",
+-  "version": "5.0.0-rc.4",
++  "version": "5.0.0-rc.5",
+   "description": "ABIogenesis 5 direct-GTL TypeScript product",
+   "private": true,
+   "type": "module",
+diff --git a/build_tenants/abiogenesis/typescript/release-claim.md b/build_tenants/abiogenesis/typescript/release-claim.md
+index 7325dc17d..842515b56 100644
+--- a/build_tenants/abiogenesis/typescript/release-claim.md
++++ b/build_tenants/abiogenesis/typescript/release-claim.md
+@@ -1,216 +1,116 @@
+-# ABIogenesis 5.0.0-rc.3 Development Preview Candidate Claim
++# ABIogenesis 5.0.0-rc.5 Development Preview Candidate Claim
+ 
+-This source identifies `5.0.0-rc.3` as a **local, unqualified
+-development-preview candidate** authored through ABG on the installed RC2
+-runtime. It is not cut, tagged, published or deployed. It is not stable
+-ABIogenesis 5.0, an accepted release, whole-product or fifteen-family
+-qualification, human acceptance, an AF22 green verdict or an AF25 qualified
+-release snapshot. Whether this candidate becomes an immutable RC3 is a separate
+-owner/operator decision.
++This source identifies `5.0.0-rc.5` as a **local, unqualified
++development-preview candidate** for the bounded T-287 / GOAL-035 RC5 scope.
++It is built through ABG on the installed RC4 runtime. It is not cut, tagged,
++published or deployed. It is not stable ABIogenesis 5.0, an accepted release,
++whole-product or fifteen-family qualification, human acceptance, an AF22 green
++verdict or an AF25 qualified release snapshot. Whether this candidate becomes
++an immutable RC5 is a separate owner/operator decision.
+ 
+ | Coordinate | Value |
+ |---|---|
+-| Product | `product://abiogenesis/typescript-tenant@5.0.0-rc.3` |
+-| Package | `@abiogenesis/typescript-tenant` `5.0.0-rc.3`; `private: true` |
++| Product | `product://abiogenesis/typescript-tenant@5.0.0-rc.5` |
++| Package | `@abiogenesis/typescript-tenant` `5.0.0-rc.5`; `private: true` |
+ | Namespace/profile/subtree | `abiogenesis` / `one_project_unqualified` / `.` |
+-| Immutable ref | none; `v5.0.0-rc.3` is prospective and not created |
++| Immutable ref | none; `v5.0.0-rc.5` is prospective and not created |
+ | Discovery selector | `v5.0.0`; not moved by this candidate; not an artifact or qualification identity |
+-| Builder substrate | installed `5.0.0-rc.2` acting as Development Product |
+-| Source root | Increment A `927b8c0b8`; Increment B is uncommitted worksite source on it |
+-| Method | `stdo://releases/v3.0.2/` |
++| Builder substrate | installed `5.0.0-rc.4` acting as Development Product |
++| Predecessor | immutable RC4 source `3c113133d` |
++| Source root | checkpoint `53acfe7c6`; the F4 retained-route repair and the rc.5 identity are uncommitted worksite source on it |
++| Method | `stdo://releases/v3.0.4/` (manifest `102817a3…`); frozen RC4 and historical Runs keep their exact 3.0.2 bases |
+ | Distribution | none; no tag, push, registry or external publication |
+ 
+-## Delta from 5.0.0-rc.2 (Increment A)
++## Delta from 5.0.0-rc.4
++
++1. **STDO 3.0.4 runtime method inputs.** The default-library STDO snapshot,
++   role context and skill bindings, and the affected qualification inputs are
++   staged from the verified 3.0.4 release through their existing owners
++   (`90721c866`). Seventeen C2-generated outputs are adopted as unaccepted
++   candidate custody (`9f3f22b0f`). No actor, Public relation, host
++   registration or loader was added.
++2. **Retained-route source carriage.** A durable `traversal_route_admitted`
++   row whose bound input is a `retained_graph_input` may omit its nested
++   `source` body. It may do so only when that body equals the exact earlier
++   admitted same-Run, same-basis, same-graph-call, same-frame, same-cCall
++   successful Result that the route consumes. The row is a codec-v3
++   `abg_admitted_body_reference_record` that names the Result. The Result's
++   own body, inline or v1-referenced, is acquired through the existing durable
++   owner. Missing, forward, foreign, tampered, uncommitted and counterfeit
++   references refuse before history is exposed. Unavailable, unequal or larger
++   references stay inline. Staging, rollback and fsync poison are the existing
++   batch's. Full, selected and descriptor cold reads restore the exact logical
++   event. The owning HOW is the "Retained-route source carriage" section of
++   `design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md`.
++3. **Identity.** Package, lock root and the two Product constants move from
++   `5.0.0-rc.4` to `5.0.0-rc.5`. Logical schema and workflow versions stay
++   `5.0.0`. Dependency versions and integrity entries are unchanged.
++
++Logical events, payload and value digests, route identities, lineage,
++currentness, refusal classes, Public operations, Event Calculus and Product
++authority are unchanged. Physical event-log bytes and physical prefix digests
++of new histories may differ.
+ 
+-1. **Original UAT outcome conserved.** Native UAT task construction keeps the
+-   exact original declared `workOrders.uat.outcome` as the task outcome. A
+-   selected UAT planner contribution is carried only as separately labelled
+-   advisory context; it cannot add, narrow, replace or reword an original
+-   outcome, criterion, rubric or subject. Authoring purposes keep the selected
+-   contribution as their bounded outcome, unchanged. The owning design
+-   (`T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md`, selected native-work handoff)
+-   was amended before realization.
+-2. **Short diagnostics complete.** The planning/parent-context stream view
+-   delivers a strict UTF-8 stream of at most 8,192 bytes whole, as one exact
+-   byte range marked `complete`, when its body matches its declared byte length
+-   and digest. Longer streams keep the cue display with `complete: false` and
+-   an explicit `omittedByteCount`; non-UTF-8 streams show no excerpt and omit
+-   their whole length. Every form keeps the stream digest, byte length and the
+-   cited Result, Result digest and field path. The owning design section
+-   (Selector planning facts and retained measurement proof, Run02 repair31) was
+-   amended before realization.
+-3. **Owner tests.** `t287-default-library.test.mjs` adds the stream
+-   discriminator (retained 4,616-byte RC2 witness with its ENOENT, BOM, CRLF,
+-   Unicode, 8,192/8,193 boundary, long, invalid UTF-8 and unverified-body
+-   cases), replaces the two assertions that encoded the superseded behaviour
+-   (selected UAT contribution as task outcome; middle lines of a short stream
+-   withheld) with their stronger successors, and strengthens the shared
+-   planning correspondence check. The two default-library owner fixtures derive
+-   `packageVersion` from the built candidate instead of the literal
+-   `5.0.0-rc.1`.
+-4. **Identity.** Package, lock root and Product constants move from
+-   `5.0.0-rc.2` to `5.0.0-rc.3`. Dependency versions and integrity entries are
+-   unchanged.
+-
+-No effect, public schema, Event Calculus, event body or Product authority
+-changed. Result identity, producer/subject and failure/refusal classes are
+-unchanged.
+-
+-## Delta from Increment A (Increment B)
+-
+-Native A02 ended blocked at its recursion bound and native UAT remains
+-indeterminate for A3, A4 and A5. Increment B does not change that verdict,
+-does not qualify Run009 and requires no cross-version replay.
++## Evidence standing
+ 
+-1. **A repairs.** The default-library test embeds the authentic 4,616-byte
+-   retained RC2 stdout (SHA-256
+-   `bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6`) and its
+-   historical producer citation instead of reading an untracked operator path.
+-   The short-stream projection says `complete: true` only when a valid declared
+-   byte length and a valid `sha256:` digest are both present and both match;
+-   missing, malformed and mismatched metadata have counterexamples.
+-2. **Private governed lookup.** `abg/governed_context.ts` adds a module-owned,
+-   nonserializable `OwnedContextLookup`, a per-occurrence Unix-socket endpoint
+-   and the Claude stream-json correspondence gate. `abg/governed_context_client.ts`
+-   is the fixed client. `support/governed-context/host_adapter.py` is the
+-   short-lived pinned adapter to the installed released GC03
+-   `HostLookupBinding.read`, with no checkout fallback. The build packages the
+-   adapter at `contracts/governed-context/host_adapter.py` and records the
+-   GC03 identity, inventory digest and Python contract in
+-   `contracts/governed-context/selection.json`.
+-   B04 replaces the abbreviated `{grantId,sourceKeys}` selection, `{sourceKeys}`
+-   Context, string recheck and `{sourceKey,digest}` resolver with
+-   `deriveGc03HostLookup`. That derivation follows the released
+-   `_host_selection`/`read_source`/`digest` shapes and takes its values from
+-   native owner facts. The owner-held `{id,sha256}` retained-evidence resolver
+-   is `resolveGc03RetainedArtifact`. B05 removes the `gc03: null` refusal.
+-   The owner derives the full released `context.assemble` request from the
+-   authenticated activation-template member and current owner facts, and uses
+-   the published `invocationAdmissionDigest`. The adapter runs the released
+-   assembly and Recheck and gives the raw Context and Recheck to
+-   `HostLookupBinding`. Pages are bounded by the 8,192/65,536 intersection,
+-   and a larger request is refused. The focused file
+-   `t287-governed-context.test.mjs` (12 tests) passed in disposable scratch.
+-   No test named `GC03 real owner allowed denied cold tamper` exists yet. No
+-   allowed GC03 read through the native held-store, HoG, actor and adapter
+-   chain is demonstrated, and no allowed GC03 read is claimed.
+-3. **Actor lifecycle.** No caller supplies a lookup: the actor-process input
+-   has no lookup member. For a native Construction occurrence the owner
+-   derives the selection from the admitted constructor RunEnvironment role
+-   evidence. A selected occurrence would reserve inert endpoint coordinates
+-   before transport identity (every request refuses `endpoint_inactive`), bind
+-   the owner-constructed lookup of the actual admitted actor occurrence after
+-   intent admission, activate it only after the native `actor_process_started`
+-   event, close it on interruption, completion or failure, retain every
+-   exchange (served or refused) with complete request and response bytes,
+-   write the durable transcript beside the admitted raw stdout artifact, and
+-   refuse Result admission with the existing `actor_process_invocation_refused`
+-   class unless every exchange rejoins its exact fixed-client
+-   executable/argv/four-field command and complete `tool_result` bytes, with
+-   each disposition derived from the exact response bytes. Cold proof needs
+-   reacquired owner facts (closed cold lookup, occurrence, owner-reconstructed
+-   invocation); the transcript is only an index, and a page relabelled as
+-   refusal or a substituted invocation refuses.
+-4. **Conditional selection and execution gate.** A Program without the
+-   private `Program.policies["abg.governed_context"]` key selects nothing and
+-   runs unchanged. With it, the owner authenticates the admitted Program, its
+-   verified RunEnvironment, the dependency inventory row and Context member
+-   named by the key, the constructor role evidence and its complete-member
+-   source binding, and the strict private policy bytes; any missing,
+-   ambiguous, altered, partial or unsupported fact refuses dispatch. The owner
+-   execution gate verifies the policy's pinned Python and adapter bytes and
+-   fixed `-I -S -B` invocation and intersects the live role, graph function,
+-   native implementation, capability-grant actor, currentness and Context
+-   files; only its module-owned permit starts Python. `read_context` and
+-   dependency membership grant nothing; `corpusAccess`, axiom accesses and
+-   `pythonPath` stay null/empty. The Testing field is joined from the
+-   governance state recovered through the native leaf's execution-basis
+-   ancestry and parent CCall to the unique same-Run admitted Testing Result,
+-   producer, field and byte identity. The native Construction transport
+-   carries the owner-derived fixed-client command and finite permitted keys
+-   through `--append-system-prompt`. No Public schema was extended and no
+-   authority was minted.
++When this claim was written, no isolated build, packed artifact, C2 Testing,
++installed run or native UAT had run on this candidate, and this claim reports
++no result for them. Artifact, Product content and manifest identities come
++only from actual packaging output and are recorded outside this file. RC4
++evidence does not transfer to a new package digest.
+ 
+-Public operations, outcomes, event schema, the zero-tool selector and the
+-refusal algebra are unchanged.
++The F4 Worker's own checks used an in-memory TypeScript loader that wrote no
++build output. They are author feedback, not C2 Testing or acceptance:
+ 
+-## Evidence standing
++- `tsc --noEmit` exited 0.
++- The six `RC5 retained route` cases in `t287-event-body-encoding.test.mjs`
++  passed 6/6 with no skip.
++- Nine existing codec cases selected from the same file passed 9/9.
++- On the three captured physical rows of route 37961, encoded bytes fell from
++  3,139,020 to 1,678,257 (1,460,763 saved), with exact logical
++  reconstruction. On the component retained history, they fell from 113,561 to
++  61,898.
+ 
+-When this claim was written, no declared isolated build, owner test, packed
+-artifact or installed smoke had run on this candidate; this claim reports no
+-result for them. Artifact, Product content and manifest identities come only
+-from actual packaging output and are recorded outside this file. RC1 and RC2
+-evidence and historical results do not transfer to a new package digest. The
+-retained RC2 blocked UAT result and the 4,616-byte ENOENT stdout remain
+-historical observations; the ENOENT was a snapshot omission, not demonstrated
+-Product behaviour failure. Mechanical checks do not establish semantic
+-completeness or qualification.
++These figures count physical rows only. They are not a complete admitted
++history, a campaign saving or a latency result.
+ 
+ ## Open limits
+ 
+-- Whole-product and fifteen-family qualification, complete native F11, sole
+-  AF22, S02/S03/S06 and final 5.0 acceptance.
+-- Increment B fixed-client delivery by a native installed RC3 occurrence is a
+-  separate Root-controlled witness and is pending (B4). The live GC03 read
+-  needs a Root-selected GC03 provider policy and principal for ABG.
+-  Increment B tests use model-free or captured-protocol data only.
+-- Increment B (B03) Worker diagnosis ran only in a disposable scratch copy
+-  under the host temp directory with a copy of the pinned offline
+-  `node_modules`: `npm run build` exited 0; `t287-governed-context` 11/11,
+-  `t287-default-library` 23 pass/3 env-gated skips, `t287-native-workspace-work`
+-  39 pass/1 skip, `t287-stdo3-run-environment` 5/5 and `installed-language-smoke`
+-  1/1 passed. `m5-worker-transport` passed 23/23 once, then lost 2 and later 6
+-  timing-sensitive cases (a different set each run) at host load ~11.
+-  `r1-packed-artifact` refused `artifact_digest_mismatch` because the recorded
+-  candidate basis predates this source. These are Worker self-checks, not C2
+-  Testing or acceptance.
+-- No model-free HoG CCall lifecycle → prepared leaf owner → actor-process
+-  integration test from a held store and admitted same-Run C2 Result exists.
+-  The released GC03 bridge boundary blocks an allowed read: the GC03 Context
+-  packet, granted executor and `a_c.fd-support.recheck/1` projection come
+-  from GC03 `context.assemble` and the GC03 policy, not from native owner
+-  facts. No Root-selected GC03 provider policy or principal for ABG exists.
+-  Closing this needs design re-entry.
+-- Increment B (B04) Worker self-check, in a fresh disposable scratch copy
+-  whose `node_modules` matched the pinned `toolchain-census.json`
+-  (`canonicalInventorySha256 6aba0391…`, 4576 entries): the new focused
+-  `released GC03 bridge` test failed before the change
+-  (`gc.gc03RetainedSourceRef is not a function`) and passed after it;
+-  `npm run build` exited 0. This test exercises the owner derivation and
+-  resolver only, not the production chain. No broad suite or package check
+-  ran. The M5 failures and the stale R1 basis above are kept as diagnostics.
+-  This is not C2 Testing or acceptance.
+-- Prompt fit: whole short streams count against the unchanged prompt bound.
+-  The skip-gated captured eighteen/fifty-one observation fit case has not run
+-  on this candidate; an overflowing history refuses as
+-  `declared_bound_overflow`.
+-- Replay of RC2-prepared UAT tasks under RC3 task construction is unobserved;
+-  RC2 history keeps its RC2 executing artifact.
+-- Model-identity independence: no assessment by an independent model identity
+-  is established.
+-- Owner-suite timing, installed-CLI early-refusal proof and partial C2/intake
+-  diagnostics are carried from RC2.
+-- Carried from RC1: Public typed-stop start/result/replay fidelity;
+-  Q23/assessor identity and contributor-union attribution; whole-plan material
+-  sufficiency, token/context/cost fit and oversized cases.
+-- The qualification recipe under `test_env/qualification/` and other owner
+-  tests still carry literal `5.0.0-rc.1` identities; their behaviour on this
+-  candidate is unobserved.
+-- Canonical generated outputs (`contracts/`, `product-toolchain-manifest.json`)
+-  are reconciled only by traced materialization of accepted ABG-generated
+-  bytes.
++- The installed `RC5 retained route` case in
++  `m5-installed-graph-edge.test.mjs` has not run. It needs the C2-packed
++  candidate.
++- The rest of `t287-event-body-encoding.test.mjs`, the route-reconstruction
++  suite and the omitted non-capture selector-planning case have not run on
++  this source.
++- The 3.0.4 method candidate's native UAT is indeterminate (M3 open). Final
++  C2 and a new native UAT over the whole RC5 scope are pending.
++- Readers older than this candidate cannot read codec-v3 rows. Histories
++  written by this candidate need an RC5-or-later reader. Earlier inline, v1 and
++  v2 histories remain readable here.
++- No setup, launch or between-task latency change is made or claimed. No
++  capacity threshold or universal performance improvement is claimed.
++- The generated `product-toolchain-manifest.json` and
++  `test_env/fixtures/abi5-root-candidate-basis.json` still name `5.0.0-rc.4`
++  until actual build and packaging regenerate or reconcile them. Canonical
++  generated outputs (`contracts/`, `product-toolchain-manifest.json`) are
++  reconciled only by traced materialization of accepted ABG-generated bytes.
++- These remain excluded: the broader capsule's crash/saga cases, the capture
++  and live lanes listed in `PROOF_EXCLUSIONS.json`, and whole fifteen-family,
++  F11/AF22, GC03 host-adapter and stable-release qualification.
++- Limits carried from RC3/RC4 remain open: Increment B fixed-client native
++  delivery, an allowed GC03 read, prompt fit of the captured 18/51 assemblies,
++  model-identity independence, Public typed-stop fidelity, and literal
++  `5.0.0-rc.1` identities in owner tests.
+ 
+ ## Release boundary
+ 
+ F08 standalone Consensus and F12 dedicated observer/tuner remain reserved for
+-5.1, with the other Product release-boundary deferrals unchanged, including
++5.1. The other Product release-boundary deferrals are unchanged, including
+ yield production, native human response/resume and required host parity.
+ Dynamic graph generation/recomposition remains outside 5.0 acceptance.
+ 
+-RC1 release, install, tag, claim and evidence bytes are unchanged; the RC1
+-claim remains at `v5.0.0-rc.1`. The RC2 candidate claim remains in source root
+-`d1e4527dbbc0b9ca1a929122c62ca225184f3341`, and RC2 evidence is unchanged. RC3
+-work occurs in a separate mutable workspace. Only accepted changes actually
+-executed through ABG count as accepted output. Failures, workarounds, retries
+-and proxy interventions remain visible; missing usage/cost telemetry stays
+-unknown.
++RC1 through RC4 release, install, tag, claim and evidence bytes are unchanged.
++The RC3 candidate claim remains at source `97406077c`, and RC4 remains at
++`3c113133d`. Only accepted changes actually executed through ABG count as
++accepted output. Failures, workarounds, retries and proxy interventions remain
++visible. Missing usage/cost telemetry stays unknown.
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs
+index a1c746871..e81e5c220 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs
+@@ -1,4 +1,5 @@
+ import assert from "node:assert/strict";
++import { readFile } from "node:fs/promises";
+ import { fileURLToPath } from "node:url";
+ import test from "node:test";
+ import { runInstalledLanguageTest } from "../support/installed-language-test.mjs";
+@@ -45,3 +46,96 @@ test("M5 installed HoG traverses an independently declared composed GraphFunctio
+   assert.equal(JSON.stringify(events).includes("CompiledCProgramPlan"), false);
+   assert.equal(JSON.stringify(events).includes("compiled_execution"), false);
+ });
++
++// RC5 retained route: the structural atomic child admits S; the parent c_workflow
++// conserves it as its own Result; the retained E/S/T edge feeds a deterministic
++// consumer. The canonical binding is data from the supplied bootstrap Product
++// owner; the retained contract stays declared only by its ABI owner module.
++const RC5_IDS = Object.freeze({ programRef: "program://abi5-tests/structural/rc5-retained@5",
++  graphFunctionRef: "graph-function://abi5-tests/structural/rc5-retained@5" });
++function rc5RetainedRouteSource(product) {
++  const binding = product.graphInputRetentionBinding(STRUCTURAL_IDS.inputContractRef, STRUCTURAL_IDS.outputContractRef);
++  assert.equal(binding.targetContractRef, product.RETAINED_GRAPH_INPUT_CONTRACT.contractRef);
++  const once = (text, anchor, next) => {
++    assert.equal(text.split(anchor).length, 2, `fixture anchor ${anchor}`);
++    return text.replace(anchor, () => next);
++  };
++  const edits = {
++    "program.mjs": [
++      ["export const STRUCTURAL_FIXTURE_OWNER = ", `const RC5_RETAINED_BINDING = Object.freeze(${JSON.stringify(binding)});\nexport const STRUCTURAL_FIXTURE_OWNER = `],
++      ["export const WORKFLOW_IDS = ids('workflow');", "export const WORKFLOW_IDS = ids('workflow');\nexport const RC5_RETAINED_IDS = Object.freeze({ ...ids('rc5-retained'), consumerNodeRef: ref('node','rc5-retained/consume') });"],
++      ["export const contractKinds = Object.freeze({", "export const contractKinds = Object.freeze({\n  [RC5_RETAINED_BINDING.targetContractRef]:'retained_graph_input',"],
++      ["export const LEAF_SPECS = Object.freeze({", "export const LEAF_SPECS = Object.freeze({\n  rc5Consumer:{ids:ids('rc5-retained/consume'),input:RC5_RETAINED_BINDING.targetContractRef,output:STRUCTURAL_IDS.outputContractRef,kind:'data_output'},"],
++      ["{cases=['atomic','compose','graph-edge','substitute','workflow','gate','recursion','fan-out','worker','retry','worker-deterministic','worker-compose']}={}", "{cases=['rc5-retained-route']}={}"],
++      // The ABI worksite module owns T; the fixture only references it.
++      ["const contract = (contractRef,contractKind,valueKind) => {if(", "const contract = (contractRef,contractKind,valueKind) => {if(contractRef===RC5_RETAINED_BINDING.targetContractRef)return;if("],
++      ["  // One handle can belong to multiple finite test Programs, exactly as ordinary GTL.", `  if(cases.includes('rc5-retained-route')){
++    const E=STRUCTURAL_IDS.inputContractRef,S=STRUCTURAL_IDS.outputContractRef,G=RC5_RETAINED_IDS,C=LEAF_SPECS.rc5Consumer.ids;
++    const source=gtl.workflow.C(gtl.cGraphFunctionRef({graphFunctionRef:STRUCTURAL_IDS.graphFunctionRef,input:gtl.cCarrier(E),output:gtl.cCarrier(S)}));
++    const parent=graph(G,source,E,S,{terminal:C});
++    parent.template={...parent.template,terminalNodeRefs:[G.consumerNodeRef],
++      nodes:[...parent.template.nodes,{nodeRef:G.consumerNodeRef,nodeKind:'c_locus',term:of('rc5Consumer','result',true,G.consumerNodeRef)}],
++      edges:[gtl.graphEdge({fromNodeRef:G.nodeRef,toNodeRef:G.consumerNodeRef,inputBinding:RC5_RETAINED_BINDING})]};
++    graphFunctions.push(parent);addProgram(G,[G.graphFunctionRef,STRUCTURAL_IDS.graphFunctionRef],{terminal:C});
++  }
++  // One handle can belong to multiple finite test Programs, exactly as ordinary GTL.`],
++    ],
++    "leaf.mjs": [
++      ["import {canonicalJson as canonical,sha256Canonical as hash} from '@abiogenesis/typescript-tenant/product';",
++        "import {canonicalJson as canonical,sha256Canonical as hash,isRetainedGraphInput} from '@abiogenesis/typescript-tenant/product';"],
++      ["export const atomic=input=>", "export const rc5Consumer=input=>candidate('rc5Consumer',input,value('data_output',{message:input.source.message}));\nexport const atomic=input=>"],
++      ["function valid(kind,v){", "function valid(kind,v){\n if(kind==='retained_graph_input')return isRetainedGraphInput(v)&&valid('data_input',v.entry)&&valid('data_output',v.source);"],
++      ["const relation=(input,output)=>{", "const relation=(input,output)=>{\n if(input?.kind==='retained_graph_input')return isRetainedGraphInput(input)&&output?.kind==='data_output'&&input.source.message===input.entry.subject.trim()&&output.message===input.source.message;"],
++    ],
++  };
++  return (name, text) => (edits[name] ?? []).reduce((current, [anchor, next]) => once(current, anchor, next), text);
++}
++
++test("RC5 retained route carries an installed c_workflow source as a physical reference to its admitted Result", async context => {
++  const subject = Array.from({ length: 200 }, (_, index) => `retained source member ${index}`).join(" | ");
++  const input = constructStructuralInput(subject);
++  const proof = await runInstalledLanguageTest(context, packageRoot, {
++    prepareFixture: basis => prepareLanguageStructuralFixture({ ...basis, sourceTransform: rc5RetainedRouteSource(basis.product) }),
++    programRef: RC5_IDS.programRef,
++    catalogHandle: RC5_IDS.graphFunctionRef,
++    allowlist: [RC5_IDS.graphFunctionRef],
++    input,
++    identity: "rc5-retained-route",
++  });
++  assert.equal(proof.receipt.exitCode, 0);
++  assert.equal(proof.receipt.ownerOutput.outcomeKind, "result");
++  const { events, reads, handoff, environment } = proof;
++  const S = { kind: "data_output", schemaVersion: "5.0.0", message: subject };
++  const retained = events.filter(event => event.kind === "traversal_route_admitted" &&
++    event.payload.boundInput?.value?.kind === "retained_graph_input");
++  assert.equal(retained.length, 1);
++  const [used] = retained;
++  const consumed = events.filter(event => event.kind === "c_call_result_admitted" && event.aggregateId === used.payload.cCallRef &&
++    event.runId === used.runId && event.basisId === used.basisId && event.graphCallId === used.graphCallId && event.frameId === used.frameId);
++  assert.equal(consumed.length, 1);
++  const [parentResult] = consumed;
++  // Admitted truth: the restored retained source is the parent's admitted S.
++  assert.deepEqual(parentResult.payload.value, S);
++  assert.deepEqual(used.payload.boundInput.value, { kind: "retained_graph_input", schemaVersion: "5.0.0", entry: input, source: S });
++  assert.equal(used.causationEventRefs.includes(parentResult.eventId), true);
++  // Storage observations from the actual installed run's physical rows.
++  const rows = (await readFile(new URL(handoff.prefix.eventLogRef))).toString("utf8").trimEnd().split("\n").map(line => JSON.parse(line));
++  const physical = event => rows.filter(row => (row.kind === "abg_admitted_body_reference_record" ? row.event : row).eventId === event.eventId);
++  const [resultRow] = physical(parentResult), [routeRow] = physical(used);
++  assert.equal(resultRow.kind, "abg_admitted_body_reference_record");
++  assert.equal(resultRow.codecVersion, 1, "the parent source Result is itself physically referenced");
++  const childResult = events.find(event => event.eventId === resultRow.bodyReference.sourceEventRef);
++  assert.equal(childResult.kind, "c_call_result_admitted");
++  assert.notEqual(childResult.graphCallId, parentResult.graphCallId, "the inline body belongs to the child graph call");
++  assert.equal(routeRow.kind, "abg_admitted_body_reference_record");
++  assert.equal(routeRow.codecVersion, 3, "the retained route names its consumed Result");
++  assert.deepEqual(routeRow.bodyReference, { sourceEventRef: parentResult.eventId, sourcePayloadDigest: parentResult.payloadDigest,
++    sourceSlot: "c_call_result_value", bodyDigest: environment.product.sha256Canonical(S) });
++  assert.equal(Object.hasOwn(routeRow.event.payload.boundInput.value, "source"), false);
++  const terminal = events.filter(event => event.kind === "c_call_result_admitted").at(-1);
++  assert.deepEqual(terminal.payload.value, S, "the deterministic consumer checked E/S and returned S");
++  assert.equal(events.filter(event => event.kind === "run_closed").length, 1);
++  // Both fresh installed reads decode the v3 row in separate processes.
++  assert.deepEqual(reads.map(read => read.memberKey), ["run_result", "run_replay"]);
++  assert.equal(reads.every(read => read.receipt.exitCode === 0 && read.receipt.ownerOutput.outcomeKind === "result"), true);
++});
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs
+index 968b74073..de3d11a87 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs
+@@ -9,7 +9,7 @@ import test from "node:test";
+ import * as storeOwner from "../../build/code/src/abg/event_store.js";
+ import { persistEventLog } from "../../build/code/src/abg/event_log.js";
+ import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,
+-  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent } from "../../build/code/src/abg/event_prefix.js";
++  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent, indexedRuntimeEvents } from "../../build/code/src/abg/event_prefix.js";
+ import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/replay.js";
+ import { projectExactExecutionBasisAtPrefix, governanceContextBodyUse } from "../../build/code/src/abg/invocation_execution_truth.js";
+ import { governanceContract } from "../../build/code/src/product/default_library_identity.js";
+@@ -17,8 +17,10 @@ import { canonicalJson, writeCanonicalJson } from "../../build/code/src/shared/c
+ import { sha256Canonical, sha256Bytes } from "../../build/code/src/shared/digests.js";
+ import { isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
+ import { constructWorksiteCommandExecutionModulePublication } from '../../build/code/src/gtl/worksite_command_execution.js';
+-import { WORKSITE_COMMAND_EXECUTION_IDS, ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from '../../build/code/src/product/index.js';
+-import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey } from '../../build/code/src/abg/event_body_encoding.js';
++import { WORKSITE_COMMAND_EXECUTION_IDS, ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, RETAINED_GRAPH_INPUT_CONTRACT,
++  constructRetainedGraphInput } from '../../build/code/src/product/index.js';
++import { rawAdmitValue } from '../../build/code/src/validator/index.js';
++import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey, encodeEventBody, decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
+ import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from '../../build/code/src/abg/runtime_liveness_contracts.js';
+ import { loadWorksiteOwner, worksiteFixture } from "../support/t287-generic-job-worksite.mjs";
+ 
+@@ -912,3 +914,295 @@ test("965-member native context carriage is byte-equivalent to the expanded stru
+     baselineLabel: "structural/serialization projection of B11 shapes; not an executed old runtime and no old CPU/RSS/wall",
+     methodLimits: "single unrepeated local run; OS page cache holds the just-written log for the cold process; cold/warm cover the owner decode/resolve path only, not native Work or C2; no end-to-end speedup claim" }));
+ });
++
++// RC5 retained-route carriage. Real EventStore stamping, admission, durable
++// encoding, rollback and cold decode. Result and route envelopes are controlled
++// lower premises in the traversal owner's retained shape (owner constructor and
++// raw admission for the bound input); this is not traversal admission authority,
++// which m5-installed-graph-edge exercises through an installed candidate.
++const retainedContractRef = RETAINED_GRAPH_INPUT_CONTRACT.contractRef;
++const retainedEntry = { kind: "data_input", schemaVersion: "5.0.0", subject: "retained entry; ".repeat(64) };
++const retainedSource = { kind: "body_fixture_output", schemaVersion: "5.0.0", text: "consumed retained source; ".repeat(2000) };
++function route(store, label, source, { runId = "run://body-fixture", causes = [] } = {}) {
++  const boundInput = rawAdmitValue(constructRetainedGraphInput(retainedEntry, source), "invocation_input", retainedContractRef);
++  assert.equal(boundInput.kind, "raw_admitted_value", JSON.stringify(boundInput));
++  const body = { routeKind: "advance", cCallRef: "c-call://body-fixture/" + label, boundInput,
++    sourceCursorRef: "traversal-cursor://body-fixture/" + label, targetCursorRef: "traversal-cursor://body-fixture/" + label + "/next" };
++  const routeDigest = sha256Canonical(body);
++  return storeOwner.admitRuntimeEvent(store, envelope("traversal_route_admitted",
++    { routeRef: "traversal-route://body-fixture/" + routeDigest.slice(7), routeDigest, ...body },
++    { aggregateType: "frame", aggregateId: "frame://" + label, parentAggregateId: "graph-call://" + label, scopeClass: "run",
++      runId, graphCallId: "graph-call://" + label, frameId: "frame://" + label, causationEventRefs: causes }));
++}
++// The consumed Result is itself already physically referenced (v1 to the child).
++function retainedHistory(store, source = retainedSource) {
++  const child = result(store, "child", source), parent = result(store, "parent", source);
++  return { child, parent, used: route(store, "parent", source, { causes: [parent.eventId] }) };
++}
++const physicalId = row => (row.kind === "abg_admitted_body_reference_record" ? row.event : row).eventId;
++const rowIndex = (rows, event) => rows.findIndex(row => physicalId(row) === event.eventId);
++const withoutSource = event => {
++  const { source: _source, ...value } = event.payload.boundInput.value;
++  return { ...event, payload: { ...event.payload, boundInput: { ...event.payload.boundInput, value } } };
++};
++function assertRouteNamesResult(rows, used, consumed) {
++  const row = rows[rowIndex(rows, used)];
++  assert.equal(row.kind, "abg_admitted_body_reference_record"); assert.equal(row.codecVersion, 3);
++  assert.deepEqual(row.bodyReference, { sourceEventRef: consumed.eventId, sourcePayloadDigest: consumed.payloadDigest,
++    sourceSlot: "c_call_result_value", bodyDigest: sha256Canonical(used.payload.boundInput.value.source) });
++  assert.deepEqual(row.event, withoutSource(used), "only the nested retained source is omitted");
++  assert.deepEqual(Object.keys(row.event.payload.boundInput.value).sort(), ["entry", "kind", "schemaVersion"]);
++}
++// The same workload without the v3 form: the route row written inline.
++function routeInlineBytes(bytes, rows, used) {
++  const row = rows[rowIndex(rows, used)];
++  return bytes.length - Buffer.byteLength(canonicalJson(row) + "\n") + Buffer.byteLength(canonicalJson(used) + "\n");
++}
++async function reopenBytes(t, dir, name, bytes, authority) {
++  const eventLogPath = join(dir, name);
++  await writeFile(eventLogPath, bytes);
++  const info = await stat(eventLogPath), { authorityDigest: _old, ...body } = authority;
++  Object.assign(body, { eventLogPath, device: info.dev, inode: info.ino, durableByteLength: bytes.length, eventLogDigest: sha256Bytes(bytes) });
++  const reopened = storeOwner.reopenEventStore({ ...body, authorityDigest: sha256Canonical(body) });
++  if (reopened.kind === "reopened_event_store_context") t.after(() => reopened.store.closeDurableLog());
++  return reopened;
++}
++
++test("RC5 retained route names its exact already-referenced Result and reconstructs full, selected and descriptor reads", async t => {
++  const f = await resource(t), { child, parent, used } = retainedHistory(f.store);
++  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
++  assert.equal(rows[rowIndex(rows, child)].kind, "c_call_result_admitted");
++  assert.equal(rows[rowIndex(rows, parent)].codecVersion, 1, "the consumed Result is already physically referenced");
++  assert.equal(rows[rowIndex(rows, parent)].bodyReference.sourceEventRef, child.eventId);
++  assertRouteNamesResult(rows, used, parent);
++  assert.deepEqual(used.payload.boundInput.value.source, retainedSource);
++  assert.deepEqual(used.causationEventRefs, [parent.eventId]);
++  assert.ok(isDeeplyFrozen(events));
++  const cold = storeOwner.validateHistoricalEvents(bytes);
++  assert.deepEqual(cold, events); assert.deepEqual(storeOwner.validateHistoricalEvents(encode(events)), events);
++  // Synthetic routes are storage premises without traversal replay facts; the
++  // installed m5 case checks fresh run result/replay over a real retained route.
++  assert.equal(sha256Canonical(cold), sha256Canonical(events));
++  const coldRoute = cold.find(e => e.eventId === used.eventId), coldParent = cold.find(e => e.eventId === parent.eventId);
++  assert.equal(coldRoute.payload.boundInput.value.source, coldParent.payload.value, "full decode restores the acquired Result body");
++  const current = storeOwner.selectHeldEventStoreDurablePrefix(f.store);
++  const cut = storeOwner.durableRuntimeEventPrefixThroughEvent(current, used.eventId);
++  assert.equal(cut.prefixDigest, sha256Bytes(bytes.subarray(0, cut.prefixLength)));
++  assert.equal(storeOwner.runtimeEventPhysicalPrefix(events).digest, sha256Bytes(bytes));
++  const closed = f.store.projectReopenAuthorityAndClose();
++  assert.deepEqual(storeOwner.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(cut))), events.slice(0, used.admissionOrdinal));
++  const reopened = storeOwner.reopenEventStore(JSON.parse(JSON.stringify(closed.reopenAuthority)));
++  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
++  t.after(() => reopened.store.closeDurableLog());
++  // Selected read of the route row alone acquires its Result, then that Result's v1 source.
++  assert.deepEqual(indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(reopened.store), "id:" + used.eventId), [used]);
++  assert.deepEqual(reopened.store.readAll(), events);
++  // The reopened owner encodes against a committed Result it must reacquire from bytes.
++  const later = result(reopened.store, "after-reopen", retainedSource);
++  const laterRoute = route(reopened.store, "after-reopen", retainedSource, { causes: [later.eventId] });
++  const after = await readFile(f.eventLogPath), afterRows = decodeRows(after), all = reopened.store.readAll();
++  assert.equal(afterRows[rowIndex(afterRows, later)].codecVersion, 1);
++  assertRouteNamesResult(afterRows, laterRoute, later);
++  assert.deepEqual(storeOwner.validateHistoricalEvents(after), all);
++  const fresh = execFileSync(process.execPath, ["--input-type=module", "-e", `
++    import {readFileSync} from 'node:fs';
++    import {validateHistoricalEvents} from './build/code/src/abg/event_store.js';
++    import {sha256Canonical} from './build/code/src/shared/digests.js';
++    const events=validateHistoricalEvents(readFileSync(process.argv[1])), route=events.find(e=>e.eventId===process.argv[2]);
++    console.log(JSON.stringify({events:sha256Canonical(events),source:sha256Canonical(route.payload.boundInput.value.source)}));
++  `, f.eventLogPath, laterRoute.eventId], { cwd: new URL("../..", import.meta.url), encoding: "utf8", timeout: 90000 });
++  assert.deepEqual(JSON.parse(fresh), { events: sha256Canonical(all), source: sha256Canonical(retainedSource) });
++  const beforeBytes = routeInlineBytes(bytes, rows, used);
++  t.diagnostic("RC5_RETAINED_ROUTE_MEASURE " + JSON.stringify({ sample: "component-retained-history", beforeBytes,
++    afterBytes: bytes.length, netSavedBytes: beforeBytes - bytes.length, logicalUnchanged: true, logicalEvents: events.length,
++    sourceBytes: Buffer.byteLength(canonicalJson(retainedSource)), consumedResultPhysicalForm: "v1_reference" }));
++});
++
++test("RC5 retained route distinguishes exact consumed Result membership from same-valued basis and foreign occurrences", async t => {
++  const f = await resource(t);
++  const sameValuedBasis = storeOwner.admitRuntimeEvent(f.store, basis(retainedSource, "same-valued-basis"));
++  const foreignCall = result(f.store, "foreign-call", retainedSource);
++  const foreignRun = result(f.store, "parent", retainedSource, "run://foreign-occurrence");
++  const parent = result(f.store, "parent", retainedSource);
++  const unbacked = route(f.store, "unbacked", retainedSource);
++  const used = route(f.store, "parent", retainedSource, { causes: [parent.eventId] });
++  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
++  assert.equal(foreignRun.aggregateId, parent.aggregateId, "the foreign occurrence carries the same CCall reference");
++  assert.equal(rows[rowIndex(rows, parent)].bodyReference.sourceEventRef, sameValuedBasis.eventId,
++    "the Result body dependency may be an equal basis through v1");
++  assertRouteNamesResult(rows, used, parent);
++  assert.equal(rows[rowIndex(rows, unbacked)].kind, "traversal_route_admitted", "equal bodies without the route's own Result stay inline");
++  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
++  const closed = f.store.projectReopenAuthorityAndClose(), target = rowIndex(rows, used);
++  for (const [name, decoy] of Object.entries({ sameValuedBasis, foreignCall, foreignRun, unbackedRoute: unbacked })) {
++    const changed = structuredClone(rows);
++    changed[target].bodyReference = { ...changed[target].bodyReference, sourceEventRef: decoy.eventId, sourcePayloadDigest: decoy.payloadDigest };
++    assert.throws(() => storeOwner.validateHistoricalEvents(encode(changed)), /exact earlier consumed Result/, name);
++    const refused = await reopenBytes(t, f.dir, `decoy-${name}.jsonl`, encode(changed), closed.reopenAuthority);
++    assert.equal(refused.code, "invalid_event_history", name); assert.match(refused.message, /exact earlier consumed Result/, name);
++  }
++});
++
++test("RC5 retained route refuses missing, forward, tampered, mixed and uncommitted sources before exposing history", async t => {
++  const f = await resource(t), { child, parent, used } = retainedHistory(f.store);
++  const later = storeOwner.admitRuntimeEvent(f.store, basis(input, "after-route"));
++  // Storage probe only: the CCall phase owner refuses a second Result for one CCall.
++  const laterResult = result(f.store, "parent", retainedSource);
++  const committed = await readFile(f.eventLogPath);
++  let rolledBack;
++  assert.throws(() => storeOwner.admitRuntimeEventTransaction(f.store, () => {
++    rolledBack = result(f.store, "uncommitted", retainedSource);
++    route(f.store, "uncommitted", retainedSource, { causes: [rolledBack.eventId] });
++    throw Error("selected rollback");
++  }), /selected rollback/);
++  assert.deepEqual(await readFile(f.eventLogPath), committed, "rollback publishes neither Result nor route");
++  const unbacked = route(f.store, "uncommitted", retainedSource);
++  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
++  assert.equal(rows[rowIndex(rows, unbacked)].kind, "traversal_route_admitted", "a rolled-back Result supplies no source");
++  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
++  const target = rowIndex(rows, used), resultRow = rowIndex(rows, parent), childRow = rowIndex(rows, child), unbackedRow = rowIndex(rows, unbacked);
++  const reference = (sourceEventRef, sourcePayloadDigest) => ({ sourceEventRef, sourcePayloadDigest,
++    sourceSlot: "c_call_result_value", bodyDigest: sha256Canonical(retainedSource) });
++  const mutations = {
++    missing: [r => { r[target].bodyReference.sourceEventRef = "event://missing"; }, /exact earlier consumed Result/],
++    self: [r => { r[target].bodyReference = reference(used.eventId, used.payloadDigest); }, /exact earlier consumed Result/],
++    forwardResult: [r => { r[target].bodyReference = reference(laterResult.eventId, laterResult.payloadDigest); }, /exact earlier consumed Result/],
++    forwardOther: [r => { r[target].bodyReference = reference(later.eventId, later.payloadDigest); }, /exact earlier consumed Result/],
++    deletedResult: [r => { r.splice(resultRow, 1); }, /exact earlier consumed Result/],
++    childOccurrence: [r => { r[target].bodyReference = reference(child.eventId, child.payloadDigest); }, /exact earlier consumed Result/],
++    wrongPayload: [r => { r[target].bodyReference.sourcePayloadDigest = child.payloadDigest; }, /exact earlier consumed Result/],
++    wrongSlot: [r => { r[target].bodyReference.sourceSlot = "basis_input"; }, /exact earlier consumed Result/],
++    wrongBody: [r => { r[target].bodyReference.bodyDigest = sha256Canonical("changed"); }, /differs from its exact consumed Result/],
++    tamperedRouteCall: [r => { r[target].event.payload.cCallRef = child.aggregateId; }, /exact earlier consumed Result/],
++    tamperedRouteRun: [r => { r[target].event.runId = "run://foreign-occurrence"; }, /exact earlier consumed Result/],
++    tamperedEntry: [r => { r[target].event.payload.boundInput.value.entry.subject = "changed"; }, /inconsistent history/],
++    tamperedResultReference: [r => { r[resultRow].bodyReference.bodyDigest = sha256Canonical("changed"); }, /body reference/],
++    tamperedSourceBody: [r => { r[childRow].payload.value.text = "changed"; }, /inconsistent history/],
++    mixed: [r => { r[target].event.payload.boundInput.value.source = retainedSource; }, /exact earlier consumed Result/],
++    v1Route: [r => { r[target].codecVersion = 1; }, /body reference/],
++    v3Result: [r => { r[resultRow].codecVersion = 3; }, /exact earlier consumed Result/],
++    malformed: [r => { r[target].bodyReference.extra = true; }, /malformed/],
++    uncommitted: [r => { r[unbackedRow] = { kind: "abg_admitted_body_reference_record", codecVersion: 3, event: withoutSource(unbacked),
++      bodyReference: reference(rolledBack.eventId, rolledBack.payloadDigest) }; }, /exact earlier consumed Result/],
++  };
++  const closed = f.store.projectReopenAuthorityAndClose();
++  for (const [name, [mutate, refusal]] of Object.entries(mutations)) {
++    const changed = structuredClone(rows); mutate(changed);
++    assert.throws(() => storeOwner.validateHistoricalEvents(encode(changed)), refusal, name);
++    const refused = await reopenBytes(t, f.dir, `negative-${name}.jsonl`, encode(changed), closed.reopenAuthority);
++    assert.equal(refused.kind, "event_store_reopen_refusal", name); assert.match(refused.message, refusal, name);
++  }
++});
++
++test("RC5 retained route mixes inline, v1 and v3 rows and keeps small, unequal or unavailable sources inline", async t => {
++  const f = await resource(t), { parent, used } = retainedHistory(f.store);
++  const small = { kind: "small_source", schemaVersion: "5.0.0", n: 1 };
++  const smallResult = result(f.store, "small", small), smallRoute = route(f.store, "small", small, { causes: [smallResult.eventId] });
++  const unequalResult = result(f.store, "unequal", retainedSource);
++  const unequalRoute = route(f.store, "unequal", { ...retainedSource, text: "unequal retained source; ".repeat(2000) }, { causes: [unequalResult.eventId] });
++  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
++  assertRouteNamesResult(rows, used, parent);
++  assert.equal(rows[rowIndex(rows, smallRoute)].kind, "traversal_route_admitted", "a reference larger than its source stays inline");
++  assert.equal(rows[rowIndex(rows, unequalRoute)].kind, "traversal_route_admitted", "a source unequal to the consumed Result stays inline");
++  assert.deepEqual(new Set(rows.map(row => row.kind === "abg_admitted_body_reference_record" ? "v" + row.codecVersion : "inline")),
++    new Set(["inline", "v1", "v3"]));
++  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
++  // A pre-RC5 all-inline history stays readable; a new route may name its physically inline Result.
++  const closed = f.store.projectReopenAuthorityAndClose();
++  const historical = await openInlineCopy(t, f.dir, events, closed.reopenAuthority);
++  assert.deepEqual(historical.store.readAll(), events);
++  const appended = route(historical.store, "parent", retainedSource, { causes: [parent.eventId] });
++  const after = await readFile(historical.eventLogPath), afterRows = decodeRows(after);
++  assert.equal(afterRows[rowIndex(afterRows, parent)].kind, "c_call_result_admitted");
++  assertRouteNamesResult(afterRows, appended, parent);
++  assert.deepEqual(storeOwner.validateHistoricalEvents(after), historical.store.readAll());
++  assert.equal(sha256Canonical(historical.store.readAll().slice(0, events.length)), sha256Canonical(events));
++});
++
++test("RC5 retained route publishes nothing on rollback or failed fsync, poisons on failed restoration and keeps committed same-batch sources", async t => {
++  const f = await resource(t), child = result(f.store, "child", retainedSource);
++  const committed = storeOwner.selectHeldEventStoreDurablePrefix(f.store), before = await readFile(f.eventLogPath), prior = f.store.readAll();
++  const pair = label => storeOwner.admitRuntimeEventTransaction(f.store, () => {
++    const consumed = result(f.store, label, retainedSource);
++    return { consumed, used: route(f.store, label, retainedSource, { causes: [consumed.eventId] }) };
++  });
++  assert.throws(() => storeOwner.admitRuntimeEventTransaction(f.store, () => {
++    const consumed = result(f.store, "rolled-back", retainedSource);
++    route(f.store, "rolled-back", retainedSource, { causes: [consumed.eventId] });
++    throw Error("selected rollback");
++  }), /selected rollback/);
++  assert.equal(storeOwner.selectHeldEventStoreDurablePrefix(f.store), committed);
++  assert.deepEqual(await readFile(f.eventLogPath), before); assert.deepEqual(f.store.readAll(), prior);
++  const original = fs.fsyncSync; let calls = 0;
++  fs.fsyncSync = descriptor => { if (++calls === 1) throw Error("injected retained-route fsync failure"); return original(descriptor); };
++  syncBuiltinESMExports();
++  try { assert.throws(() => pair("failed-fsync"), /injected retained-route fsync failure/); }
++  finally { fs.fsyncSync = original; syncBuiltinESMExports(); }
++  assert.equal(storeOwner.selectHeldEventStoreDurablePrefix(f.store), committed);
++  assert.deepEqual(await readFile(f.eventLogPath), before); assert.deepEqual(f.store.readAll(), prior);
++  // One committed transaction: the Result and its route share one durable batch.
++  const { consumed, used } = pair("committed");
++  const rows = decodeRows(await readFile(f.eventLogPath)), events = f.store.readAll();
++  assert.equal(rows[rowIndex(rows, consumed)].bodyReference.sourceEventRef, child.eventId);
++  assertRouteNamesResult(rows, used, consumed);
++  const closed = f.store.projectReopenAuthorityAndClose(), reopened = storeOwner.reopenEventStore(closed.reopenAuthority);
++  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
++  assert.deepEqual(reopened.store.readAll(), events);
++  // Failed write fsync and failed restoration poison ownership; no later effect proceeds.
++  const good = await readFile(f.eventLogPath);
++  fs.fsyncSync = () => { throw Error("injected retained-route restoration failure"); }; syncBuiltinESMExports();
++  try {
++    assert.throws(() => storeOwner.admitRuntimeEventTransaction(reopened.store, () => {
++      const poisoned = result(reopened.store, "poisoned", retainedSource);
++      route(reopened.store, "poisoned", retainedSource, { causes: [poisoned.eventId] });
++    }), /could not be restored/);
++  } finally { fs.fsyncSync = original; syncBuiltinESMExports(); }
++  assert.throws(() => route(reopened.store, "after-poison", retainedSource));
++  try { reopened.store.closeDurableLog(); } catch { /* poisoned ownership is already released */ }
++  assert.deepEqual(await readFile(f.eventLogPath), good, "restored extent holds no partial Result or route");
++  assert.deepEqual(storeOwner.validateHistoricalEvents(good), events);
++});
++
++test("RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction", async t => {
++  const samplePath = process.env.ABG_RC5_ROUTE_SAMPLE_FILE;
++  if (samplePath === undefined) { t.skip("ABG_RC5_ROUTE_SAMPLE_FILE names the pinned captured sample"); return; }
++  const sample = JSON.parse(await readFile(samplePath, "utf8"));
++  assert.equal(sample.kind, "rc5_retained_route_captured_codec_sample");
++  const physical = sample.rows.map(row => {
++    const line = canonicalJson(row.physical) + "\n";
++    assert.equal(Buffer.byteLength(line), row.bytes, "captured row keeps its exact physical length");
++    assert.equal(sha256Bytes(line).slice(7), row.physicalLineSha256, "captured row keeps its exact physical bytes");
++    return { row, line };
++  });
++  const [inlineRow, resultRow, routeRow] = physical;
++  // Existing v1 decode of the captured inline body and its already-referenced Result.
++  const inlineByEvent = new Map(), byId = new Map();
++  for (const { row } of [inlineRow, resultRow]) {
++    const { event: decoded, physicallyInline } = decodeEventBody(row.physical, inlineByEvent);
++    assert.equal(sha256Canonical(decoded.payload), decoded.payloadDigest, "captured logical payload digest");
++    if (physicallyInline) inlineByEvent.set(decoded.eventId, inlineEventBody(decoded));
++    byId.set(decoded.eventId, decoded);
++  }
++  const consumed = byId.get(resultRow.row.eventRef), used = routeRow.row.physical;
++  assert.equal(resultRow.row.physical.codecVersion, 1, "the sample Result is already physically referenced");
++  assert.equal(consumed.payload.resultRef, sample.resultRef); assert.equal(used.payload.cCallRef, consumed.aggregateId);
++  // Three-row custody, not an admitted history: the codec sees only these earlier rows.
++  const earlier = { envelope: ref => byId.get(ref), event: ref => byId.get(ref),
++    cCallEvents: ref => [...byId.values()].filter(e => e.aggregateType === "c_call" && e.aggregateId === ref).map(e => e.eventId) };
++  const encoded = encodeEventBody(used, new Map(), new Map(), undefined, earlier), record = JSON.parse(encoded);
++  assert.equal(record.codecVersion, 3);
++  assert.deepEqual(record.bodyReference, { sourceEventRef: consumed.eventId, sourcePayloadDigest: consumed.payloadDigest,
++    sourceSlot: "c_call_result_value", bodyDigest: consumed.payload.valueDigest });
++  assert.equal(encoded, canonicalJson(record) + "\n", "encoded record is canonical under the same newline convention");
++  const restored = decodeEventBody(record, inlineByEvent, undefined, { envelope: earlier.envelope, event: earlier.event }).event;
++  assert.equal(canonicalJson(restored) + "\n", routeRow.line, "restored route equals the captured logical route");
++  assert.equal(sha256Canonical(restored.payload), used.payloadDigest);
++  assert.equal(sha256Canonical(restored.payload.boundInput.value.source), consumed.payload.valueDigest);
++  const beforeBytes = physical.reduce((total, { line }) => total + Buffer.byteLength(line), 0);
++  const afterBytes = Buffer.byteLength(inlineRow.line) + Buffer.byteLength(resultRow.line) + Buffer.byteLength(encoded);
++  t.diagnostic("RC5_RETAINED_ROUTE_MEASURE " + JSON.stringify({ sample: "captured-route-37961", beforeBytes, afterBytes,
++    netSavedBytes: beforeBytes - afterBytes, logicalUnchanged: true, rows: physical.length,
++    routeBeforeBytes: Buffer.byteLength(routeRow.line), routeAfterBytes: Buffer.byteLength(encoded),
++    grossSourceBytes: sample.grossSourceBytes, sourceStoreRowOrdinals: [37940, 37953, 37961],
++    limits: "three captured physical rows only; no complete admitted history, campaign saving or latency claim" }));
++});

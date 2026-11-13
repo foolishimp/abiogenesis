@@ -1,0 +1,28 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-stage.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/inputs/prior-author-stage.mjs
+@@ -6,14 +6,14 @@
+ import {pathToFileURL} from 'node:url';
+ import assert from 'node:assert/strict';
+ const [label,mode='after']=process.argv.slice(2);
+-const worksite='/Users/jim/src/apps/abiogenesis-rc6-local-cut',inputRoot=join(worksite,'qualification-inputs/rc7-held-session-author-04'),tmp=join(worksite,'qualification-scratch/rc7-held-session-author-04/tmp');
++const worksite='/Users/jim/src/apps/abiogenesis-rc6-local-cut',inputRoot=join(worksite,'qualification-inputs/rc7-held-session-author-05'),tmp=join(worksite,'qualification-scratch/rc7-held-session-author-05/tmp');
+ const tenantRel='build_tenants/abiogenesis/typescript',stage=join(tmp,label??''),tenant=join(stage,tenantRel),sha=b=>createHash('sha256').update(b).digest('hex');
+ const json=async p=>JSON.parse(await readFile(p,'utf8'));
+ const checked=async p=>{const s=await lstat(p.path);assert(s.isFile()&&!s.isSymbolicLink(),p.path);const b=await readFile(p.path);assert.equal(b.length,p.bytes,p.path);assert.equal(sha(b),p.sha256,p.path);return b;};
+-assert.equal(mode,'after');assert.equal(label,'hs4-stage-01');const setupStarted=Date.now();
++assert.equal(mode,'after');assert.equal(label,'hs5-stage-01');const setupStarted=Date.now();
+ const inputs=await json(join(inputRoot,'C2_INPUTS.json')),deps=await json(join(inputRoot,'DEPENDENCY_SOURCE_SELECTION.json')),bounds=await json(join(inputRoot,'COMMAND_BOUNDS.json'));
+ assert.equal(bounds.maxStages,1);assert.equal(bounds.maxLaneInvocations,5);assert.equal(bounds.concurrency,1);assert.deepEqual(bounds.stageLabels,[label]);
+-assert.equal(inputs.protectedSourcePaths.length,451);assert.equal(inputs.mutableProductPaths.length,2);
++assert.equal(inputs.protectedSourcePaths.length,451);assert.equal(inputs.mutableProductPaths.length,1);
+ const custody=await json(join(inputRoot,'SOURCE_CUSTODY.json')),baseline=JSON.parse(await checked(custody.sourceBefore));
+ const held=new Map(baseline.files.map(f=>[f.relativePath,f]));assert.equal(held.size,451);
+ const reuse=JSON.parse(await checked(deps.reusedProductPayload));
+@@ -41,6 +41,6 @@
+  if(present)await checked({path:target,bytes:r.bytes,sha256:r.sha256});else{await checked({path:join(reuse.sourceRoot,r.relativePath),bytes:r.bytes,sha256:r.sha256});await copyFile(join(reuse.sourceRoot,r.relativePath),target);await chmod(target,r.mode);}}
+ const payloadAfter=await verifyPayload(tenant);assert.deepEqual(payloadAfter,payloadBefore);await verifyPayload(reuse.sourceRoot);
+ for(const r of sources){await checked({path:join(stage,r.path),bytes:r.bytes,sha256:r.sha256});await checked({path:join(worksite,r.path),bytes:r.bytes,sha256:r.sha256});}
+-const reuseStep=phase=>({exitCode:0,signal:null,error:null,reused:true,executed:false,receipt:reuse.completedBuildReport,pointer:'/'+phase,historicalSourceDigest:original.sourceDigest,relation:'All449 non-writable source inputs and full5325-member Product payload unchanged; two changed caller/test mjs paths excluded from declared package payload.'});
++const reuseStep=phase=>({exitCode:0,signal:null,error:null,reused:true,executed:false,receipt:reuse.completedBuildReport,pointer:'/'+phase,historicalSourceDigest:original.sourceDigest,relation:'All450 non-writable source inputs and full5325-member Product payload unchanged; one changed test mjs path excluded from declared package payload.'});
+ const report={label,mode,stage,freezePath,setupMs:Date.now()-setupStarted,priorStageLabels:allocated,stageAllocationCap:1,sourceCount:451,sourceDigest,sources,compile:reuseStep('compile'),generate:reuseStep('generate'),lifecycle:reuseStep('lifecycle'),productReuse:{status:'FULL_DECLARED_PAYLOAD_BYTE_EQUAL',selection:deps.reusedProductPayload,before:payloadBefore,after:payloadAfter,originalCompletedBuildReport:reuse.completedBuildReport,noCompileOrGenerationExecuted:true}};
+ await writeFile(join(tmp,label+'-stage.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({label,sourceCount:451,sourceDigest,setupMs:report.setupMs,productReuse:report.productReuse}));

@@ -1,0 +1,25 @@
+{
+  "kind": "root_operator_changed_condition_host_reentry_preparation",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/single-host-r2.mjs",
+      "bytes": 16203,
+      "sha256": "d029e244243dfea5b5d5e9384442fd6f96a6478558567aa7f6b1343777fc002c",
+      "syntaxExit": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/launch-host-r2.mjs",
+      "bytes": 2649,
+      "sha256": "5f24c474d8d17eafa306847c3e41af0bbb4682b558df952bfe38d21c113d9006",
+      "syntaxExit": 0
+    }
+  ],
+  "adaptations": [
+    "Separate R2 manifests, bindings, admission, execution and host-supervision paths preserve all original failed artifacts.",
+    "Unique R2 request namespace and run label; same source work order/grant.",
+    "Existing fs.access X_OK on selected wrapper and provider executable before host allocation; no provider call."
+  ],
+  "actualFailedCloseBinding": "pending_closed_passive_custody",
+  "sourceChanges": 0,
+  "runtimeEffects": 0
+}

@@ -1,0 +1,38 @@
+{
+  "id": "RC11-CAUSE-01-STAGE1",
+  "role": "diagnostic Worker/Writer",
+  "userRequest": "root cause them so we can make a plan to proceed",
+  "rootGrant": "ONE six-original-case diagnostic derivative. Preserve owner bytes, original script behavior/deadlines/assertions/callback returns. Add independent per-fixture sidecar ordered local monotonic observations and buffered parent callbacks/results. Preserve all sidecars/archives and complete command/HTTP result before assertions/cleanup. No readiness wait, extra acknowledgement, clock reset/delay/grace change or retry. Grouped later modes stay unexecuted after original failure. Missing marker is not proof of no execution; write callback is not proof of parent capture. Execute once after exact controls/preflight, max300s; all followup counterfactual/race execution held for Root conjunction.",
+  "basis": "stdo://releases/v3.0.4/",
+  "frame": "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set",
+  "projectFrame": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "bytes": 27131,
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "definition": {
+    "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "bytes": 3136,
+    "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+  },
+  "closedDelivery": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_FINAL_DISPOSITION.json",
+    "bytes": 14965,
+    "sha256": "5d6c3ec6d2094a041e25d5515347f83be0d5bc6694fc12e552089b66b34cf121"
+  },
+  "subjectCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "originalTest": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "bytes": 114763,
+    "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+  },
+  "permittedRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator",
+    "/private/tmp/abg-rc11-root-cause-20261110-01"
+  ],
+  "noCleanContextClaim": true,
+  "paidProvider": false,
+  "sourceRepair": false,
+  "nextStageAdmitted": false
+}

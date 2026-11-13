@@ -1,0 +1,44 @@
+{
+  "status": "OPERATOR_FILE_ONLY_CHECKED",
+  "runtimeCalls": 0,
+  "ProductTestsBuilds": 0,
+  "sourceWriteIntersection": [],
+  "invariantSources": 14,
+  "manualSourcePaths": 52,
+  "generatedOutputRoots": 2,
+  "scratchRoots": 1,
+  "readRoots": 978,
+  "selectedC2Paths": 966,
+  "commands": 9,
+  "predicates": 12,
+  "requiredExecutionBudgetMs": 4267250,
+  "selectedEntriesIncludingPlannedInputsAndAbsentScratch": 1243,
+  "selectedRawBytesIncludingPlannedInputs": 41967859,
+  "generatedEntriesIncludingRoot": 267,
+  "generatedRawBytes": 12209056,
+  "contextCapBytes": 268435456,
+  "contextCapEntries": 10000,
+  "issues": [],
+  "plannedInputs": 0,
+  "materialized": true,
+  "priorScratchSelected": false,
+  "limit": "Filesystem size/read-root prediction only; no admitted context or future-peak guarantee. Root installed preflight must validate actual prepared input/absence/symlink/freshness. New scratch must exist before installed observation; bounded disposable fixture teardown remains native work.",
+  "negativeControl": {
+    "negativeControl": "generated-output source/write overlap refused",
+    "runtimeCalls": 0
+  },
+  "ownerSourceRoutes": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "lines": "1083-1185",
+      "finding": "Exact roots recursively include directories, deduplicate relative paths, reject aliases/symlinks/hardlinks, enforce raw bytes and entry count; absent explicit roots have their own state."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "lines": "126-1250",
+      "finding": "Existing generator owns contracts/ outputs and product-toolchain-manifest; these are already Testing allowed output territories."
+    }
+  ],
+  "C2Delta": "Restore testing block exactly to attempt003; remove attempt004 C2 TMPDIR/NPM_CONFIG_CACHE additions. Native provider profile alone uses scratch05 TMPDIR/NPM_CONFIG_CACHE.",
+  "tooling": "No network install; existing dependencies read-only; installed C2 isolation conserved."
+}

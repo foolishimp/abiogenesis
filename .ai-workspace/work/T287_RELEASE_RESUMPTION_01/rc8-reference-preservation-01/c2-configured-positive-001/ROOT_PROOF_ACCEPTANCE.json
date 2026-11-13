@@ -1,0 +1,134 @@
+{
+  "status": "ROOT_ACCEPTED_BOUNDED_CONFIGURED_C2_POSITIVE_PROOF",
+  "at": "2026-11-07T15:22:43.943443+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "fixedScope": "fixed15 / GOAL035 / T287 / REF01; empty composition",
+  "sourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 7205,
+    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "operatorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/OPERATOR_RETURN.json",
+    "bytes": 15566,
+    "sha256": "27afb6650015109e0c77d35c7569b375abcfc92a16e0c7d75e41e7672b3acb4f"
+  },
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/RESULT.json",
+    "bytes": 1514,
+    "sha256": "71c3eb4f0c29e933e50a73bf4f058f0b9f464dab41ed3441b51795df1ace7135"
+  },
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/events.jsonl",
+    "bytes": 822,
+    "sha256": "16f5b2d6b19250ffdaaa347e30a02be9e210916cba4f3fc790b758a0ce023bae"
+  },
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/commands/test.result.json",
+    "bytes": 1474,
+    "sha256": "84bbb99291ae99f2998791f378cb080c062160476db793c5cda2f9bab53814c3"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_ADMISSION.json",
+    "bytes": 4315,
+    "sha256": "0945c12282db47bd88a487ed4c02d0f946d670de1c666ea8614b06030392b313"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023/REVIEW.json",
+    "bytes": 20463,
+    "sha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907"
+  },
+  "original023Return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json",
+    "bytes": 13134,
+    "sha256": "9191ae6376601e9e91562936363e070d0a2bf0c00c57e60565c177a9b01dd207"
+  },
+  "rootConjunction": "Root read source assertions, complete return and exact reporter/command; rehashed23 bound control/actual/owner artifacts; independently compared both fresh stdout/result full rows with retained projections, exact observation with helper/full replay, both input prefixes and actual closed physical log. All material execution and source conservation inputs accepted for this one configured positive case.",
+  "acceptedPopulation": {
+    "selectedCase": "T-287 C2 compact acknowledgment preserves installed large-log observation and replay",
+    "passed": 1,
+    "skipped": 0,
+    "excluded": 11,
+    "wholeFileRun": false,
+    "newBroadWholeCredit": false,
+    "original023PartialComponents": 6,
+    "componentLimit": "Six prior component passes retain original023 identities. Conjunction is case-wise and creates no complete C2 file receipt.",
+    "ownerLocalRefusalChecks": 21,
+    "fiveInstalledNegativeVariantsQualified": false
+  },
+  "ownerOutcome": {
+    "publicExitCode": 0,
+    "publicFailure": null,
+    "run": "run://abiogenesis/c4b4e4f799a98377c3819fe798518838a059afa977cc6c593bac312fda2a33e6",
+    "replayStatus": "closed",
+    "terminalPresent": true,
+    "bothFreshFullRowsEqualRetained": true,
+    "exactObservationInFullReplay": true,
+    "freshPids": [
+      78272,
+      78273
+    ],
+    "freshProcessExitCode": 0,
+    "freshOwnedGroupsAbsent": true,
+    "freshCloseObserved": true,
+    "freshStreamsDisposed": true,
+    "knownChildAbsenceReceipts": 6,
+    "knownGroupAbsenceOnlyWhereRecorded": true
+  },
+  "physicalClose": {
+    "eventLog": {
+      "path": "/private/tmp/abg-r8-c2p-001/t/abi5-root-env-SCdtkL/runtime/events.jsonl",
+      "bytes": 4897400,
+      "sha256": "fa9b5cd1d6ca74499430665b03a114df779d3fa503cabc131ff7968ec4a66907"
+    },
+    "device": 16777231,
+    "inode": 713895575,
+    "rowCount": 231,
+    "compactBodyReferenceEnvelopes": 4,
+    "allNonCompactRawRowsEqualDecodedEvents": true,
+    "bothFreshInputsEqualFinalPrefix": true,
+    "unchangedPhysicalPrefixAfterReads": true,
+    "scratchRetained": true,
+    "deferredCleanupHooksInvoked": 0,
+    "installedProductUnchanged": true,
+    "escapedDescendantAbsenceClaim": false
+  },
+  "timing": {
+    "commandMs": 85257.564458,
+    "recipeMs": 87755.338417,
+    "invocationToMaterializedMs": 2389,
+    "setupMs": null,
+    "prior023StopToInvocationMs": 1059359,
+    "betweenTaskMeaning": "Control preparation, Root triage/review/admission; not Worker launch.",
+    "limit": "Isolated setup not timed; no Product speedup or unique host-cause inference."
+  },
+  "preservedObservations": [
+    "Original023 two180000ms inner timeouts and scoped Root controlled stop remain unchanged.",
+    "Operator optional raw-array equality failed only because four compact storage envelopes differ from decoded events; retained in original return. No runtime/test/source effect or repeat.",
+    "Root corrected its own static eventId-envelope accessor during reading; no runtime/test/source effect."
+  ],
+  "openResidual": {
+    "anchor": "T287#rc8-c2-installed-negative-proof-budget",
+    "bytes": 3015,
+    "sha256": "3ded7821e0d7000140474685e2942c41f2d6e86fe88afb7a9da1d1259dd9e367",
+    "scope": "Five installed negative variants only; remains OPEN as ninth capsule."
+  },
+  "effectsAndLimits": {
+    "sourceEdits": 0,
+    "builds": 0,
+    "repack": 0,
+    "liveProviderCalls": 0,
+    "nativeSemanticQualification": false,
+    "wholeC2Qualification": false,
+    "wholeReleaseQualified": false,
+    "cutOrInstallAdmission": false,
+    "broad025ExecutionAdmitted": false
+  }
+}

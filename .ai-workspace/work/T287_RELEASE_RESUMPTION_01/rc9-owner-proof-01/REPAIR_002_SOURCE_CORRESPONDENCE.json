@@ -1,0 +1,14 @@
+{
+  "status": "MATCHED",
+  "observedUtc": "2026-11-08T06:56:02.333499+00:00",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-001/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "528a04c0c171c56affaa1a2f9ba2b66413b7d6007d92bbbe092143a726938c49"
+  },
+  "sourceDigest": "6aacc0e5b7bda528bac527e16551789bb5da43e7aeb7d3408ebde994a9e822ff",
+  "rows": 1340,
+  "liveRoot": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+  "mismatches": [],
+  "scope": "Read-only byte correspondence at this observation; not source acceptance, live locking or a future writer exclusion"
+}

@@ -1,0 +1,34 @@
+{
+  "kind": "native_author_progress",
+  "task": "rc7-held-session-author-05",
+  "status": "SOURCE_FROZEN_PROOF_PENDING",
+  "updatedUtc": "2026-11-07T06:05:00Z",
+  "inputsRead": "All named qualification inputs; pinned H04 refusal-oracle, stage-001 review, root disposition, failed fixed-route summary. Six cited owner sources in the worksite hash-match their pinned frozen reads.",
+  "writePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+  "changedFile": {
+    "before": {"bytes": 370990, "sha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650"},
+    "after": {"bytes": 372769, "sha256": "c523337e02a238ea53b4b1011f03491c2981b459d8b16f822f6f46e1f94be5a1"}
+  },
+  "sourceFreeze": {
+    "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-source-freeze.json",
+    "bytes": 96811,
+    "sha256": "1007214c57046492ade2e9b8ffac7234f12f56ba3039d86d5646e6665c543ff4",
+    "status": "SOURCE_FROZEN_PAYLOAD_REUSE_AND_PROOF_PENDING",
+    "sourceCount": 451,
+    "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd"
+  },
+  "stage": {
+    "label": "hs5-stage-01",
+    "command": "node qualification-inputs/rc7-held-session-author-05/prior-author-stage.mjs hs5-stage-01 after",
+    "exitCode": 0,
+    "report": {
+      "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-stage.json",
+      "bytes": 100720,
+      "sha256": "4a68aa0323f37123dc899cf08cdccbc9ab910a6be37ab9a2196cfe1c24eb7607"
+    },
+    "setupMs": 4367,
+    "productReuse": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL; 5325 members; productContentDigest sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+    "compileGenerateLifecycle": "reused from H03 COMPLETED_STAGE_REPORT (sha256 5f8b65ec...); not executed"
+  },
+  "lanes": []
+}

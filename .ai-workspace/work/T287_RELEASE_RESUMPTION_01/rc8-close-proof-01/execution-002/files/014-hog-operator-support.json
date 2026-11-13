@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/hog-operator-support.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 622.7129580000001,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 3,
+    "failed": 0,
+    "passed": 3,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 3,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/events/014-hog-operator-support.jsonl",
+    "bytes": 1302,
+    "sha256": "d9b1768e9b396b529d8d1fdb6780d9493c864e70547c61185d162bec635bfba3"
+  },
+  "commandReceipt": "commands/014-hog-operator-support.result.json",
+  "workspace": "/private/tmp/abg-r8c-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

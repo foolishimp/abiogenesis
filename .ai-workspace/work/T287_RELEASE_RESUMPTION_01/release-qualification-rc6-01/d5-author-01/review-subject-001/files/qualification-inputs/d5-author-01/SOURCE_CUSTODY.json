@@ -1,0 +1,67 @@
+{
+  "kind": "d5_source_reacquisition_from_author06",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "previousReadinessSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/SOURCE_BEFORE.json",
+    "bytes": 169330,
+    "sha256": "2b90b2c6ffd36263878f1ae5fdab3945b1428f36f1b8ec5d704675216ef89e47"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "nativeResultRef": "result://abiogenesis/29d0ae0f59885533d681c73f4bcb49fa1c00c00f47295a96dd415c4fcc14b28e",
+  "nativeResultDigest": "sha256:29d0ae0f59885533d681c73f4bcb49fa1c00c00f47295a96dd415c4fcc14b28e",
+  "afterObservationRef": "worksite-context-observation://abiogenesis/740c79a70e08dd5b5a76264fd43c531f8f8047260a99916d183b4d5a13281bbb",
+  "current339Reacquired": 339,
+  "changesFromReadiness": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "readinessSha256": "eadea0767a720a6dae113153a142d98a7dbfd4f482c46b4a34339c064f46e35d",
+      "currentSha256": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264",
+      "currentBytes": 101944
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "readinessSha256": "4081e74e9bcb33cb493328fbe7c54ff57ea26a1571f66958a839824e926947cf",
+      "currentSha256": "3ea897beaddc78f9887a0dd1c726565f7e895914e69fc2b5fd8f611fab1be2b1",
+      "currentBytes": 23728
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "readinessSha256": "436ea942a5da2f4c9fd89f4c576f968500c398097c9b00fd520f8577e3ecca22",
+      "currentSha256": "1f7a1590b36022d705edddb373107d473b2d38181601974f723736b038beeda4",
+      "currentBytes": 79234
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "readinessSha256": "0bbbd4c8e96e6aacca5c9a961100ecac60a211efae94f9a94276223c095fc32d",
+      "currentSha256": "b5cf1ecc08df2593214a4e6e9b97d5c4c936bf7513549ee0b77e361db175728a",
+      "currentBytes": 55857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "readinessSha256": "879368cf595e31599399c135df4a131b11ca42fe4ea211abb5137454fb953a6f",
+      "currentSha256": "45c3dd890bb633f1e0bb369a7a5a511380eaa0149c771006c0b2ba0fec687d5c",
+      "currentBytes": 95469
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "readinessSha256": "d039e94c714169cac9321afdd0471aa29c5ef01469f9742a1427c30d56251bb3",
+      "currentSha256": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf",
+      "currentBytes": 88039
+    }
+  ],
+  "sixD5CodeOwnersChangedFromReadiness": [],
+  "Q23Accepted": false,
+  "limits": [
+    "Author06 source held; proof03/formal independent review remain pending. New D5/source/profile proof not inferred.",
+    "Prior D5 owner analysis remains applicable to unchanged six code owners; transport test and preserved Q23 gates/HOW changed and are current exact inputs."
+  ]
+}

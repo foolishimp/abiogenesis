@@ -1,0 +1,194 @@
+{
+  "kind": "independent_checkpoint_a_source_contract_review",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "frame": "Product + project f-end-to-end-interface-integration + lifecycle/effects/Proof; STDO3.0.4 empty composition",
+  "independence": "resumed-context nonauthor; no clean-context claim",
+  "subject": {
+    "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+    "rows": 1345,
+    "preimageSourceDigest": "64afc834b8442a42b42663ecca5514e33832edc531e9f01f03c9eacb4b67098b",
+    "preimageRows": 1344,
+    "all_named_frozen_rows_rehashed": true,
+    "changedOriginalRows": 3,
+    "added": 1,
+    "deleted": 0,
+    "unchangedOriginalRows": 1341
+  },
+  "verdict": "VIOLATED selected A reentry/facts relation; Root disposition and external proof pending",
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "S2",
+      "owner": "owned_process_lifetime.ts:227 / owned_process_state.ts:153",
+      "property": "Probe result must not overwrite a later completed observation; actual attempted probes must be represented truthfully at seal.",
+      "counterexample": "First probe emits exit and close; nested probe returns absent and seals; outer probe returns present. Completion absent/count1 differs from subsequent snapshot present/count2; two host probes entered before seal.",
+      "evidenceKind": "independent source trace, not executed",
+      "predecessorRelation": "Stale-return absence hazard also exists before A; predecessor counts at entry, candidate counts at return.",
+      "minimalClosure": "Invalidate obsolete probe continuation while retaining actual attempt accounting; one controlled actual-owner reentry discriminator plus affected finite proof."
+    }
+  ],
+  "comparisonProofLimit": {
+    "existingCase": "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+    "candidateNativePass": true,
+    "predecessorExecuted": false,
+    "predictedPredecessorFailure": "Stale KILL and active timer after nested completion",
+    "interpretation": "intended stale-action repair; no blanket preservation of redundant counts"
+  },
+  "productionSize": {
+    "before": {
+      "lines": 298,
+      "bytes": 12633
+    },
+    "afterLifetime": {
+      "lines": 262,
+      "bytes": 11508
+    },
+    "afterState": {
+      "lines": 227,
+      "bytes": 12604
+    },
+    "afterTotal": {
+      "lines": 489,
+      "bytes": 24112
+    },
+    "net": {
+      "lines": 191,
+      "bytes": 11479
+    },
+    "claim": "decision-state consolidation, no net code deletion or measured cost improvement"
+  },
+  "preservedSlices": {
+    "deadline_clock_duration_sha256": "e88dd9264f3b62fc008ba9a40ab239c232fd33b0e77c8f4067f4abc89bcfff1d",
+    "host_interfaces_guard_sha256": "87089888c9999ea3d0f7cdbde10810627e45bdfb4535ba0f36944fa492c97a36"
+  },
+  "nativeOnly": {
+    "controlledInitial": {
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "skip": 0
+    },
+    "controlledFinal": {
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "skip": 0
+    },
+    "compile": "worker report exit0, empty diagnostic log; not independent compiled/build proof",
+    "authorRun": "run://abiogenesis/1b3a9e57476b927b92b77f31a9de78f00a10bffc8c2db82481f2d16a53edbc05",
+    "readbackTerminalValueDigest": "sha256:b98ad8b6d675229b833f4dea6c09e8123920d9f934fa6c4e421f432aeccb2163",
+    "B": "unstarted"
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/FREEZE_RECEIPT.json",
+      "bytes": 4092,
+      "sha256": "7a660d1e9b377442ae861c460e9869ad08f8097d5e87d8436db82238e420f6c5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+      "bytes": 296057,
+      "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/TASK.json",
+      "bytes": 6637,
+      "sha256": "48eb66530603374bafa1bdce154fdbdf6a07e381039d99bc76d009c4c19ef757"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/ROOT_SCOPE.json",
+      "bytes": 6009,
+      "sha256": "90add4df71732a80fa17f499b1d5e6e87d970d0e0e6503b4086615ebf74b88b7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/WORKER_REPORT.json",
+      "bytes": 5653,
+      "sha256": "274ddddc3ecd005639ec9c8583e5a86ebc433cd3442eac6b25865897a2587998"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/source-freeze.json",
+      "bytes": 295251,
+      "sha256": "9a82a2297b03cec7da18862acca7d12c2625d8f6a85f4d0cf39069de0279e548"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/triage-proof/ASSESSMENT.md",
+      "bytes": 6002,
+      "sha256": "97e6036dc9d745cd6714d02423aea83923dffaa8c416475521eb761f14f00205"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/triage-design/ASSESSMENT.md",
+      "bytes": 7837,
+      "sha256": "8078d559c667982ab73e913dc4260a3697771b0fb0d339e61eabc31469963401"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/INTAKE.md",
+      "bytes": 11205,
+      "sha256": "194f5fd553125c1b7ada07d433b853a4970df49ba643956f0026f8023b2893ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11508,
+      "sha256": "4dd9aa2ac5d53529dac83b165775fb8980d9b3fc57997a148efde00d8563d51b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 12604,
+      "sha256": "9c555e755cfb2d1b35cf6ba4f7b5eb8afc5c06e2de6ca000960828430edbd3c8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 58244,
+      "sha256": "bdd6fd7a051ce7a399275b61c6902c7e34c5db9526ace96298798aea324b8680"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 17290,
+      "sha256": "d796e140aa827974f949ef56bcb8569e3c77756bafcfc7391896c1efc3646199"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/FINAL.json",
+      "bytes": 2654,
+      "sha256": "a6fceb49595cb941567434ce99fd26eb9fa117347326810e33809d3923f319d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/NATIVE_RETURN.json",
+      "bytes": 2185,
+      "sha256": "e7af4065f79925aa72ba036151683a6755dbc1bc9de8d2ed4864ce51bbdb88b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/FRESH_READBACKS.json",
+      "bytes": 6815,
+      "sha256": "09af2d919c94c8f88096d0a5635fcc315fdb9dba03a44301680d7eca38721273"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/resource-close.json",
+      "bytes": 2326,
+      "sha256": "e1389d0698bfdd02d3b6ed698cbdb7214d084bdcac42fbe166eb6fb519848056"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/compile-01.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/controlled-01.tap",
+      "bytes": 2818,
+      "sha256": "6b1369ccf3b8af1995792a73a4965f634e24ec082f1fb1f0f79f6af35c9b97f6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/controlled-02.tap",
+      "bytes": 3686,
+      "sha256": "d59a4317118b302e50410c542d8c3569dd2c247403fefdd8273332226427a922"
+    }
+  ],
+  "assessment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-review/ASSESSMENT.md",
+    "bytes": 8027,
+    "sha256": "17ec6ffc730c4ebe27cc7e972739b810766fa8bc520a3c0c7e4ce7c5d0706c54"
+  },
+  "limitations": [
+    "No reviewer execution, source repair, Git or provider effects.",
+    "No newly established production OS failure from synthetic host counterexample.",
+    "No full Phase2, installed qualification, release, speed or reliability claim."
+  ]
+}

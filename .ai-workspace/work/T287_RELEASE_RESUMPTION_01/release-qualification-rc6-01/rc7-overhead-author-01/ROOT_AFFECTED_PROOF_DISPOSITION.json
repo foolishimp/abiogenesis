@@ -1,0 +1,93 @@
+{
+  "kind": "root_partial_source_affected_proof_conjunction",
+  "at": "2026-11-06T04:55:52.184524+00:00",
+  "status": "PRESERVE_PARTIAL_DEVELOPMENT_BASIS_CONTINUE_SELECTED_CARRIAGE",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "runtimeClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10277,
+    "sha256": "ac9a2e6425ea18490d5b1ee2c5bcfc985a3ecac4bae7b2908571de857ee5848f"
+  },
+  "reviewDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 4686,
+    "sha256": "b71d632feb75682fc96c77f296ffd24da6709a0eda8654604a1730e672ed165c"
+  },
+  "proof": {
+    "firstClosedReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/SUMMARY.json",
+      "bytes": 32178,
+      "sha256": "6f357a2bb78d79ed6087fcb5d3dd1c11724ce3e18ed6d34d9cf786f206532609"
+    },
+    "twoCaseClosure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/TWO_CASE_CLOSURE.json",
+      "bytes": 5471,
+      "sha256": "12bff14a2ec8b0526c7f6415ca6a89da3ca080d391a19c3c7c92af833a02e42b"
+    },
+    "skipStanding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/SKIPS.json",
+      "bytes": 4390,
+      "sha256": "91233862f321e5b41ad1c6322847b78cad8343c646401b32b1ea2dc3f948217e"
+    },
+    "resourceSupplement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/SUPPLEMENTARY_RESOURCE_MANIFEST.json",
+      "bytes": 9197,
+      "sha256": "d755208b3b44ace1c81753ea0f5bd85be824941e8ce27f0eb7b7c417f2fa940e"
+    },
+    "rootSupplementSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/ROOT_SUPPLEMENTARY_SELECTION.json",
+      "bytes": 5385,
+      "sha256": "5031d4f213e09f60130d7378ddae40146186ae9e3d353b9bb734670244b50c19"
+    },
+    "environmentCorrection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/ROOT_ENV_CORRECTION.json",
+      "bytes": 7215,
+      "sha256": "87d11fd7a9a555457c1e0c228415768df9d97156db10988981ffcb5162cf619c"
+    }
+  },
+  "conjunction": {
+    "source397Digest": "f74c9abcdc2e9463c1ce8d13b3b60cd657db6e366fd2b09c4c57de512c6f527b",
+    "stageInputsConserved": 449,
+    "compileGenerateLifecycleGuard": "passed; original generator configuration failure retained; passed compile reused",
+    "executedConsumerCases": 65,
+    "executedConsumerFailures": 0,
+    "unexercisedConsumerCases": 12,
+    "maintainedHarness": {
+      "pass": 32,
+      "fail": 0,
+      "skip": 0
+    },
+    "countStanding": "63 originally passing distinct consumer cases plus the2 previously blocked cases; no repeat or double count. Original77/63/2/12 and targeted2/2 receipts remain separate.",
+    "runtimeStanding": "Original RC6 native terminal, fresh result and replay agree in full; prospective source validation is the separate finite proof above."
+  },
+  "unexercisedStanding": {
+    "fiveHistoricalCases": "Previously declared external/native-material cases remain unexercised on this subject.",
+    "sevenF11CarrierCases": "ABI5_F11_CARRIER_FULL_FIXTURE is unbound; preserve missing-material status and no pass credit. They remain under full qualification gate; no waiver.",
+    "declaredSkipPredicate": false,
+    "wholeLaneQualified": false
+  },
+  "remainingRequiredWork": [
+    "R1 full task copy removal",
+    "R2 unchanged-after basis holder",
+    "PC-001 complete carriage/current-input proof precision",
+    "PC-002 HOW digest wording",
+    "RC7-PREFIX-RUNNER-01 raw stream custody and its negative discriminator",
+    "Affected final source/installed evidence and unchanged117000/120000ms recovery gate",
+    "Matched complete carriage/phase measurement",
+    "Remaining selected fixed-route and5.0 release work"
+  ],
+  "next": "rc7-overhead-author-02 concrete packet can bind this conjunction and proceed to Root admission; no new design cycle or whole-source requalification selected.",
+  "qualification": false,
+  "publication": false,
+  "selectorChange": false,
+  "preservation": "All failed commands, source stages, preliminary counters and historical accepted evidence remain under their exact subjects. No test source was changed by operator preparation."
+}

@@ -1,0 +1,68 @@
+{
+  "kind": "bounded_q23_candidate_component_results",
+  "lanes": [
+    {
+      "id": "transport",
+      "files": [
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "tests": 26,
+      "pass": 26,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "sourceDeclaredMinimumTests": 23,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/fcd0cf9fdf8fb46c78c4abe721546c0844557ab28795911c405d14d66c2ad0be/730a2a82ce25d0a70bf7b7aac9f4217e1afbe2bbac27c9e5e5c71c957055775e/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-q23-author-05/transport.stdout.tap",
+        "bytes": 7613,
+        "sha256": "1942cdbe36561aab5d7f020bb11390e04dbf9922f7c70dcbc2a6093adaa66676"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/fcd0cf9fdf8fb46c78c4abe721546c0844557ab28795911c405d14d66c2ad0be/730a2a82ce25d0a70bf7b7aac9f4217e1afbe2bbac27c9e5e5c71c957055775e/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-q23-author-05/transport.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "qualification",
+      "files": [
+        "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+        "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-scopes.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "tests": 36,
+      "pass": 36,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "sourceDeclaredMinimumTests": 35,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/fcd0cf9fdf8fb46c78c4abe721546c0844557ab28795911c405d14d66c2ad0be/730a2a82ce25d0a70bf7b7aac9f4217e1afbe2bbac27c9e5e5c71c957055775e/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-q23-author-05/qualification.stdout.tap",
+        "bytes": 14996,
+        "sha256": "84e5738e374a620ff7a27b0149a5a85e2352d2e933599c4d92e6c26cde440895"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/fcd0cf9fdf8fb46c78c4abe721546c0844557ab28795911c405d14d66c2ad0be/730a2a82ce25d0a70bf7b7aac9f4217e1afbe2bbac27c9e5e5c71c957055775e/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-q23-author-05/qualification.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "failures": [],
+  "claim": "Compiled candidate owner-path evidence only; fixture premises are explicit, no actual production independent eligibility or release qualification.",
+  "limits": [
+    "Source-derived population floors are guards against omitted tests, not semantic sufficiency.",
+    "Actual new positive/negative assertions and fixture premises require rubric assessment.",
+    "No actual production cross-family eligibility, paid F11 or whole-release closure is claimed."
+  ]
+}

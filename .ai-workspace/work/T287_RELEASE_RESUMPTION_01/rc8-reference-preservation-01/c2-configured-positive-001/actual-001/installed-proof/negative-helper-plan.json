@@ -1,0 +1,14 @@
+{
+  "kind": "worksite_command_execution_helper_plan",
+  "schemaVersion": "5.0.0",
+  "attemptRef": "worksite-command-attempt://abiogenesis/276b570bc1fafec77b9331995015dc9c9dcf63525c19d7e54e7afb00eeea1ed4",
+  "helperModulePath": "/private/tmp/abg-r8-c2p-001/t/abi5-root-env-SCdtkL/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js",
+  "taskManifestPath": "/private/tmp/abg-r8-c2p-001/t/abi5-root-env-SCdtkL/workspace/.ai-workspace/archive/worksite-command-execution/fdb17390fcef2fcba4f1e0f78a9af82b7d2dd2646417d8bad25d83972e88702c/238a1e89a4770968335a093e3a1a16b0c42c729966210cfab2165553a210b83c/task.json",
+  "taskManifestDigest": "sha256:e8f0d2180384d84d246331eba08d302977294c929620a97378b743e7f0946537",
+  "taskManifestByteLength": 13370,
+  "artifactPath": "/private/tmp/abg-r8-c2p-001/t/abi5-root-env-SCdtkL/workspace/.ai-workspace/archive/worksite-command-execution/fdb17390fcef2fcba4f1e0f78a9af82b7d2dd2646417d8bad25d83972e88702c/238a1e89a4770968335a093e3a1a16b0c42c729966210cfab2165553a210b83c/result.json",
+  "sandboxRoot": "/private/tmp/abg-r8-c2p-001/t/abi5-root-env-SCdtkL/workspace/.ai-workspace/archive/worksite-command-execution/fdb17390fcef2fcba4f1e0f78a9af82b7d2dd2646417d8bad25d83972e88702c/238a1e89a4770968335a093e3a1a16b0c42c729966210cfab2165553a210b83c/sandbox",
+  "toolCommand": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/private/tmp/abg-r8-c2p-001/t/abi5-root-env-SCdtkL/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/private/tmp/abg-r8-c2p-001/t/abi5-root-env-SCdtkL/workspace/.ai-workspace/archive/worksite-command-execution/fdb17390fcef2fcba4f1e0f78a9af82b7d2dd2646417d8bad25d83972e88702c/238a1e89a4770968335a093e3a1a16b0c42c729966210cfab2165553a210b83c/launch.json'",
+  "toolInputDigest": "sha256:4a6204543e1ce34d6505bc6b9688a9225a431cd82b4ef1e5d16e5cda217b11f2",
+  "toolInputByteLength": 481
+}

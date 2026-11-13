@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/m5-installed-graph-edge.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 83557.565375,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-003/events/022-m5-installed-graph-edge.jsonl",
+    "bytes": 1090,
+    "sha256": "217dd63e42b1f8259944de26d78d7a668b6c0a09562a2010d3ede08ce2a99514"
+  },
+  "commandReceipt": "commands/022-m5-installed-graph-edge.result.json",
+  "workspace": "/private/tmp/abg-r8c-003/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

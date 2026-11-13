@@ -1,0 +1,157 @@
+{
+  "status": "ADMITTED_NATIVE_SOURCE_REVIEW_SUBJECT_C2_PENDING",
+  "capturedAt": "2026-11-03T03:26:24.635023+00:00",
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "sourceCommit": "72eea8f0cd384e7eaeb64ff1ba47b0a3ac2858d4",
+  "sourceTree": "d7754acafb3a67efe3b41c093263225ae9ce968e",
+  "nativeResultRef": "result://abiogenesis/8f3edeec63d9e0da6eaef6ac0f1b6179421148bb57b218d5fc1efd48bde622d3",
+  "nativeResultDigest": "sha256:8f3edeec63d9e0da6eaef6ac0f1b6179421148bb57b218d5fc1efd48bde622d3",
+  "eventOrdinal": 36693,
+  "eventTime": "2026-11-03T03:23:43.106Z",
+  "eventOffset": 789757775,
+  "eventRowBytes": 1512617,
+  "eventRowSha256": "b3c630f6686320998617fbce77806277cfa88eb99835f75628ee851afb0e3a59",
+  "eventPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/NATIVE_RESULT_EVENT.json",
+  "afterObservationRef": "worksite-context-observation://abiogenesis/e99913b90452ea8f5c26cfb57db155721205ec30f4147ee6120b4835237c18ad",
+  "afterObservationDigest": "sha256:e99913b90452ea8f5c26cfb57db155721205ec30f4147ee6120b4835237c18ad",
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "rc4-scratch/native-recovery-21/notes.md",
+    "rc4-scratch/native-recovery-21/readiness.json",
+    "rc4-scratch/native-recovery-21/return.json"
+  ],
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "bytes": 19452,
+      "sha256": "2743c8b76f597d1425e79e60b1e212e5821456e04ebc2d16259ac09e829ad5be",
+      "preimageSha256": "2743c8b76f597d1425e79e60b1e212e5821456e04ebc2d16259ac09e829ad5be",
+      "changed": false,
+      "admittedAfterEntry": {
+        "byteLength": 19452,
+        "digest": "sha256:2743c8b76f597d1425e79e60b1e212e5821456e04ebc2d16259ac09e829ad5be",
+        "encoding": "admitted_member",
+        "fileIdentity": "16777231:682699728",
+        "member": {
+          "path": [
+            "context",
+            "entries",
+            295
+          ],
+          "resultDigest": "sha256:ad8157ea1c6674cffc6d9456182262f78d591c9249073a44d5575792fe743b7d",
+          "resultRef": "result://abiogenesis/ad8157ea1c6674cffc6d9456182262f78d591c9249073a44d5575792fe743b7d"
+        },
+        "relativePath": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+        "state": "file"
+      },
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "bytes": 43212,
+      "sha256": "3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f",
+      "preimageSha256": "3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f",
+      "changed": false,
+      "admittedAfterEntry": {
+        "byteLength": 43212,
+        "digest": "sha256:3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f",
+        "encoding": "admitted_member",
+        "fileIdentity": "16777231:682700222",
+        "member": {
+          "path": [
+            "context",
+            "entries",
+            458
+          ],
+          "resultDigest": "sha256:ad8157ea1c6674cffc6d9456182262f78d591c9249073a44d5575792fe743b7d",
+          "resultRef": "result://abiogenesis/ad8157ea1c6674cffc6d9456182262f78d591c9249073a44d5575792fe743b7d"
+        },
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+        "state": "file"
+      },
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 93494,
+      "sha256": "d5aeb3b306c370918cd4514cc9dc8e2da5ea7442650e02b29e59c3ab4920622a",
+      "preimageSha256": "22359424fc1e75323fc0d0b746def0179cf1c2d7fadf21272bb4775ddf1040d7",
+      "changed": true,
+      "admittedAfterEntry": {
+        "byteLength": 93494,
+        "digest": "sha256:d5aeb3b306c370918cd4514cc9dc8e2da5ea7442650e02b29e59c3ab4920622a",
+        "encoding": "base64",
+        "fileIdentity": "16777231:682742223",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+        "state": "file"
+      },
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 26465,
+      "sha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec",
+      "preimageSha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec",
+      "changed": false,
+      "admittedAfterEntry": {
+        "byteLength": 26465,
+        "digest": "sha256:48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec",
+        "encoding": "admitted_member",
+        "fileIdentity": "16777231:682699777",
+        "member": {
+          "path": [
+            "context",
+            "entries",
+            466
+          ],
+          "resultDigest": "sha256:ad8157ea1c6674cffc6d9456182262f78d591c9249073a44d5575792fe743b7d",
+          "resultRef": "result://abiogenesis/ad8157ea1c6674cffc6d9456182262f78d591c9249073a44d5575792fe743b7d"
+        },
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "state": "file"
+      },
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 37818,
+      "sha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c",
+      "preimageSha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c",
+      "changed": false,
+      "admittedAfterEntry": {
+        "byteLength": 37818,
+        "digest": "sha256:bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c",
+        "encoding": "admitted_member",
+        "fileIdentity": "16777231:673301184",
+        "member": {
+          "path": [
+            "context",
+            "entries",
+            467
+          ],
+          "resultDigest": "sha256:ad8157ea1c6674cffc6d9456182262f78d591c9249073a44d5575792fe743b7d",
+          "resultRef": "result://abiogenesis/ad8157ea1c6674cffc6d9456182262f78d591c9249073a44d5575792fe743b7d"
+        },
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "state": "file"
+      },
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs"
+    }
+  ],
+  "priorPhysicalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/review-subject-001/SUBJECT.json",
+    "sha256": "0a780655d6adcef335c87a4383261179d7c52c50dc1c9d0d78d97ef88ee522f7"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/review-subject-001/repair.diff",
+    "bytes": 14273,
+    "sha256": "df1e475ec7a81befc4a5ea37e89b1de526dc55ae331d936da361bc0625cc7546"
+  },
+  "trackedChanges": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs"
+  ],
+  "outsideScopeTrackedChanges": [],
+  "sourceStableAcrossCapture": true,
+  "indexEmpty": true,
+  "projectionLimit": "Native observation body is physically retained in this exact event. Current file bytes match every selected after-entry digest; changed harness inline bytes also match. Unchanged admitted_member bodies were not recursively reconstructed; exact physical bytes and prior immutable subject are joined by their retained after-entry digests. No C2/UAT acceptance inferred."
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/steel-basic-cli-public.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/042-steel-basic-cli-public.test/process.json",
+    "bytes": 1080,
+    "sha256": "3f8ae428286388bed16678ce78126705eda12841e87a83bba64ef36d9fcbc528"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "at": "2026-11-08T17:46:15.780Z",
+  "hostPid": 73084,
+  "rows": [
+    {
+      "pid": 1,
+      "ppid": 0,
+      "pgid": 1,
+      "state": "Ss",
+      "elapsed": "34-15:04:00",
+      "command": "/sbin/launchd"
+    },
+    {
+      "pid": 24512,
+      "ppid": 1,
+      "pgid": 24512,
+      "state": "Ss",
+      "elapsed": "34-14:36:35",
+      "command": "/Users/jim/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-apple-darwin/bin/codex"
+    },
+    {
+      "pid": 27586,
+      "ppid": 24512,
+      "pgid": 27586,
+      "state": "Ss",
+      "elapsed": "02-15:40:29",
+      "command": "/Users/jim/.codex/packages/app-server-daemon/releases/0.167.0-aarch64-apple-darwin/bin/codex"
+    },
+    {
+      "pid": 73084,
+      "ppid": 27586,
+      "pgid": 73084,
+      "state": "Ss",
+      "elapsed": "00:01",
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    {
+      "pid": 73086,
+      "ppid": 73084,
+      "pgid": 73084,
+      "state": "R",
+      "elapsed": "00:00",
+      "command": "/bin/ps"
+    }
+  ],
+  "standing": "Observed host ancestors and descendants only; detached-descendant absence is not proved."
+}

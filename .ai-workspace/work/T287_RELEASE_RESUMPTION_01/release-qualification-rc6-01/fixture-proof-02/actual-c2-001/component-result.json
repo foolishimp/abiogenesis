@@ -1,0 +1,15 @@
+{
+  "kind": "bounded_native_semantic_revision_component_result",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "tests": 7,
+  "pass": 5,
+  "fail": 0,
+  "skipped": 2,
+  "stdoutSha256": "f3ded260d2fe2290fcf13acf1dd78eda996261f242e5dac21c0059179cb60285",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "historicalLimits": "Existing capturedEnvelopeSkip at two original tests; ABI5_EVIDENCE_ROOT remains unset, no archived body acquisition",
+  "claim": "Existing component assertions only; no new native journal/lifecycle/whole-D2 or release credit.",
+  "failures": []
+}

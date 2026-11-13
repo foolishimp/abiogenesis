@@ -1,0 +1,39 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "pid": 81698,
+  "pgid": 81698,
+  "capSeconds": 300,
+  "preflight": {
+    "passed": true,
+    "sourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+    "sourceRows": 1345,
+    "compiledRows": 582,
+    "baselineCompiledRows": 996,
+    "stagedInputsVerified": true
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "USER": "jim",
+    "LOGNAME": "jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "NODE_OPTIONS": "",
+    "NODE_PATH": "",
+    "NODE_DISABLE_COMPILE_CACHE": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "TMPDIR": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp",
+    "ABI5_TEST_EVIDENCE_DIR": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/evidence",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/owned-lifetime/tmp/npm-cache",
+    "ABI5_OWNED_PROCESS_PACKAGE_ROOT": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant"
+  }
+}

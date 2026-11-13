@@ -1,0 +1,47 @@
+{
+ "kind": "rc7_overhead_author_02_readiness",
+ "schemaVersion": "1",
+ "at": "2026-11-06T06:07:24.170Z",
+ "frozenStage": "o7b-after-04",
+ "frozenSourceDigest": "c5986d3bdc3620f2e621318b11def7f8bc39f59115eebafe15738335b35e1d9a",
+ "mechanicalReadiness": {
+  "compile": true,
+  "typecheckNoEmit": true,
+  "generator": false,
+  "lifecycleGuard": "not run",
+  "activeRc7Prefixes": {
+   "carriage": [
+    "RC7 complete carriage: the admitted basis is the only task and unchanged-body holder; the Result births only changed bytes",
+    "RC7 actual current input: the Result task is its own admitted basis input, held and cold; crossed coordinates refuse",
+    "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+   ],
+   "runner": [
+    "RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view"
+   ]
+  },
+  "finalNonManifestFailures": 0
+ },
+ "blockedOn": {
+  "kind": "out_of_cone_dependency",
+  "owner": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+  "required": {
+   "byteCount": 119249,
+   "digest": "sha256:b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+   "startByte": 109164,
+   "endByte": 111596,
+   "spanDigest": "sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf",
+   "spanUnique": true,
+   "rendererTextUnchanged": true
+  },
+  "current": {
+   "byteCount": 118773,
+   "digest": "sha256:89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c",
+   "startByte": 108688,
+   "endByte": 111120,
+   "spanDigest": "sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf"
+  }
+ },
+ "readyForRootReview": true,
+ "acceptanceClaim": false,
+ "qualificationClaim": false
+}

@@ -1,0 +1,123 @@
+{
+  "status": "BROAD_014_STOPPED_COMMAND_TIMEOUT_NO_WHOLE_FILE_CREDIT_FOR_STOPPED_FILE",
+  "at": "2026-11-07T10:47:53.616343+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_014.json",
+    "bytes": 2245,
+    "sha256": "6b8c2cd4d5cec77f8c9b9d55b74caa09ff007eab22fd2b8013ec03c2bf611286"
+  },
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_015.json",
+    "bytes": 295991,
+    "sha256": "2ca29b33ab5ef3c3faf3be918bc2a28550b02c255744334e23e4a50f2d33a681"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-015/BOUND_INVENTORY.json",
+    "bytes": 1967328,
+    "sha256": "c07c3e7e1476ab810f9598886d79fb57f6861d5811204db51b3967dee77049d2"
+  },
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/SUMMARY.json",
+    "bytes": 366344,
+    "sha256": "c4428a99771b0b90d3e3ae589565899b5e9c3fc50f4a38bf0f5c84ad5d0b6a86"
+  },
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/FAILURE.json",
+    "bytes": 616,
+    "sha256": "1a0393cc7bd9084ab44c38dfb45ad2dd82605938aefedb73e6df55f84ca56de5"
+  },
+  "counts": {
+    "carriedWholeFiles": 127,
+    "carriedPassed": 739,
+    "carriedSkipped": 167,
+    "newWholeFiles": 20,
+    "newPassed": 62,
+    "newSkipped": 25,
+    "totalValidWholeFiles": 147,
+    "totalPassed": 801,
+    "totalHistoricalSkipped": 192,
+    "deferredNoCoverage": 6,
+    "uncompletedScheduledIncludingStoppedFile": 55
+  },
+  "newWholeFiles": [
+    "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+    "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+    "test_env/tests/t287-predecessor-context.test.mjs",
+    "test_env/tests/t287-public-groups.test.mjs",
+    "test_env/tests/t287-public-preparation.test.mjs",
+    "test_env/tests/t287-public-terminal-projection.test.mjs",
+    "test_env/tests/t287-qual056-material.test.mjs",
+    "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+    "test_env/tests/t287-qualification-contraction.test.mjs",
+    "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+    "test_env/tests/t287-qualification-law.test.mjs",
+    "test_env/tests/t287-qualification-parent-alias.test.mjs",
+    "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+    "test_env/tests/t287-qualification-producer-context.test.mjs",
+    "test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+    "test_env/tests/t287-qualification-scopes.test.mjs",
+    "test_env/tests/t287-r4-aba-retry.test.mjs",
+    "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+    "test_env/tests/t287-reacquisition-root-contract.test.mjs",
+    "test_env/tests/t287-reconstruction-conservation.test.mjs"
+  ],
+  "newReceiptCustody": "Exact complete command/source/test joins remain in SUMMARY.results and corresponding execution-014/files receipts; all127 prior credits remain valid at their original identities, including any unvisited by this stopped loop.",
+  "stoppedFile": {
+    "path": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/files/152-t287-recursive-registered-selection.json",
+      "bytes": 1051,
+      "sha256": "05ee3a38c2a7ba292f97e50f482dc7d92763e6997462a953072fbccab9fdcaee"
+    },
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/commands/152-t287-recursive-registered-selection.result.json",
+      "bytes": 1521,
+      "sha256": "dcdd61aa3795917901d76fb917fbb5287a8b75d522bbfc212168665e48441a51"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/events/152-t287-recursive-registered-selection.jsonl",
+      "bytes": 968,
+      "sha256": "6aa103a5314a12cea60d9b4b3cc7f1345e237d76452d29e02c1818bb0d7cdc54"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/commands/152-t287-recursive-registered-selection.stdout",
+      "bytes": 956,
+      "sha256": "29effc209e0f6e4a2be59fc5d10be748733cb6a40ea831ade03368036fc110b6"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/commands/152-t287-recursive-registered-selection.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "exitCode": null,
+    "signal": "SIGTERM",
+    "timedOut": true,
+    "wallMs": 600046.9508329998,
+    "truncated": false,
+    "partialPassedCases": 3,
+    "observedAssertionFailures": 0,
+    "summaryAndEndAbsent": true,
+    "wholeFileCredit": false
+  },
+  "primaryPreserved": true,
+  "wallMs": 3373617,
+  "supervisorExitCode": 1,
+  "providerCalls": 0,
+  "sourceEdits": false,
+  "standing": "Existing600s command cap fired; three partial passes do not establish the remaining case or whole-file success. Root causal triage pending. No Product/host-load cause inferred, no retry/continuation/cleanup. Source remains immutable A6; independent A9/A10 and external A8 proofs retain separate source identities.",
+  "broadAccepted": false,
+  "wholeReleaseQualified": false
+}

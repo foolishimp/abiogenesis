@@ -1,0 +1,35 @@
+{
+  "status": "CONTROL_SYNTAX_AND_ACTUAL_RELATIONS_CHECKED",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-007.mjs",
+    "bytes": 21698,
+    "sha256": "ef2ae0fde1f6d6aeffb7d4fe00a51298771d72d944601bd6504a4e8824c348d8"
+  },
+  "syntaxOnly": {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-007.mjs"
+    ],
+    "exitCode": 0,
+    "wallMs": 26.44583396613598,
+    "stdout": "",
+    "stderr": ""
+  },
+  "actual007PinsMatchedRoot": true,
+  "historicalBuildBindingDistinct": true,
+  "unitCounts": {
+    "tests": 95,
+    "failed": 0,
+    "passed": 89,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0,
+    "topLevel": 95,
+    "suites": 0
+  },
+  "runtimeRootsAbsent": true,
+  "sourceAcceptance": null,
+  "activation": null,
+  "standing": "No bootstrap body/pack/install/test/import executed; reuse Root-checked007 receipts and original valid owners, not another proof inventory."
+}

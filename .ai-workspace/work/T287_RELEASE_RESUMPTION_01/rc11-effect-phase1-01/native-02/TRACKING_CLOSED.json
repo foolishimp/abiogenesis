@@ -1,0 +1,49 @@
+{
+  "status": "CLOSED_NATIVE_CURRENT_MAIN_TRACKING_RECORDED",
+  "utc": "2026-11-09T18:08:42.976837+00:00",
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/RETURN.json",
+    "bytes": 4357,
+    "sha256": "3aaf253bb65f852499f8e2f623978932d8539ccf29b1f8ff84f3d1a15aac394f"
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/source-freeze.json",
+    "bytes": 295015,
+    "sha256": "73fa9681d7153644a5c1ca76bfb23c0282afa8005fc79cfb1e2339711a606bf2"
+  },
+  "rows": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 182949,
+        "sha256": "3e9c4cb6b204fcbb7235b705b001ae8eec4b60418bd1d7d3c779a572a21ec99a"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 183620,
+        "sha256": "b2cf515465321f69b0650f3fd3c0f64e346d8f26d207309d6a9f236ea2c0da64"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 833669,
+        "sha256": "c20c96be9eac3769403fee1efe486f6f429e2591c9fad9941396c2289a2286d2"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 834340,
+        "sha256": "89e39c581131262338415fff6663845e7269849b929c577931c985ab7d0f198b"
+      },
+      "priorBodyPreserved": true
+    }
+  ],
+  "mainIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "successorSourceAndFrozenTrackingUnchanged": true,
+  "standing": "Main current status only; the earlier running-prefix source inventory remains immutable. No source/index/commit effects."
+}

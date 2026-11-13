@@ -1,0 +1,78 @@
+{
+  "id": "RC11-NATIVE02-SETUP-01",
+  "status": "ROOT_ADMITTED_RC11_NATIVE02_SETUP",
+  "basis": "Actual Root consumed exact READY/TASK/BINDING/HOST and conjoined both actual input reviews, then granted one fresh setup only through actual Public open.open of existing C11 workspace. This records Root admission, not Operator self-admission.",
+  "bindingSha256": "1b7b321ff7b30d76a5a337a17d71cdfdc8484d36a7cfc043186f92eb8c979bef",
+  "scopeSha256": "a2bf2d53c71ec03545800323822a7486859f4be7e96b4b9b892792005204f383",
+  "grantsFreshPublicSetup": true,
+  "providerDispatch": false,
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/READY.json",
+    "bytes": 7544,
+    "sha256": "a30b611fda891deb85e2d680ae2cb06117e53434e53e308adcd043a1e7d35951"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/host.mjs",
+      "bytes": 15326,
+      "sha256": "8c2a67425d16a3f2ff4a04a93c10cdb45dd7c6d553a1733ca5cf78956d75c16c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/TASK.json",
+      "bytes": 8876,
+      "sha256": "f0d6f92f917efe51cd7ea4a62f3f1e4058aafc8ab4913830e82d80bb6cbccb8f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/ROOT_SCOPE.json",
+      "bytes": 3569,
+      "sha256": "a2bf2d53c71ec03545800323822a7486859f4be7e96b4b9b892792005204f383"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/WORK_ORDER_PREFLIGHT.json",
+      "bytes": 817,
+      "sha256": "446c7e0868e2c60fb19b606512daa13268a0064b9c93702c359d5d233c6e2972"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/.abiogenesis/workspace-manifest.json",
+      "bytes": 1839,
+      "sha256": "f28304c016e7543e6f17c0bb6930f36d4754f8e8d82663bd4c0ea7397564b641"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+      "bytes": 11028443,
+      "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266232,
+      "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10105,
+      "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+    }
+  ],
+  "limits": {
+    "setupMaximumMs": 900000,
+    "commandMaximumMs": 300000,
+    "reserveBytes": 4294967296
+  },
+  "nextBoundary": "Hold same actual caller/resource at PREPARED; no stdin/native dispatch until separate Root admission. No source author, tests/build/generation or retry.",
+  "utc": "2026-11-09T08:08:06.308019+00:00"
+}

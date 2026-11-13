@@ -1,0 +1,168 @@
+{
+  "execution": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+      "--jsonl",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/a-run_result.request.jsonl"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2",
+    "started": "2026-11-02T09:16:28.305Z",
+    "environmentKeys": [
+      "ABG_TS_CLAUDE_APPEND_ARGS",
+      "ABG_TS_CLAUDE_COMMAND",
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+      "ABG_TS_FP_TERMINATION_GRACE_MS",
+      "ABG_TS_FP_TIMEOUT_MS",
+      "ABG_TS_WORKER_SANDBOX",
+      "ABG_WITNESS_PROVIDER_TMP",
+      "BASH_DEFAULT_TIMEOUT_MS",
+      "BASH_MAX_TIMEOUT_MS",
+      "BUN_INSTALL",
+      "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS",
+      "CLAUDE_CODE_OAUTH_TOKEN",
+      "CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS",
+      "CODEX_CI",
+      "CODEX_HOME",
+      "CODEX_MANAGED_BY_NPM",
+      "CODEX_MANAGED_PACKAGE_ROOT",
+      "CODEX_SESSION_ID",
+      "CODEX_THREAD_ID",
+      "CODEX_TOOL_CALL_ID",
+      "CODEX_VERSION",
+      "COLORFGBG",
+      "COLORTERM",
+      "COMMAND_MODE",
+      "CONDA_CHANGEPS1",
+      "GH_PAGER",
+      "GIT_PAGER",
+      "HOME",
+      "ITERM_PROFILE",
+      "ITERM_SESSION_ID",
+      "LANG",
+      "LC_ALL",
+      "LC_CTYPE",
+      "LC_TERMINAL",
+      "LC_TERMINAL_VERSION",
+      "LOGNAME",
+      "LaunchInstanceID",
+      "NODE_OPTIONS",
+      "NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S",
+      "NO_COLOR",
+      "NVM_DIR",
+      "OLDPWD",
+      "OSLogRateLimit",
+      "PAGER",
+      "PATH",
+      "PROMPT_EOL_MARK",
+      "PWD",
+      "PYENV_SHELL",
+      "SDKMAN_BROKER_API",
+      "SDKMAN_CANDIDATES_API",
+      "SDKMAN_CANDIDATES_DIR",
+      "SDKMAN_DIR",
+      "SDKMAN_PLATFORM",
+      "SECURITYSESSIONID",
+      "SHELL",
+      "SHLVL",
+      "SSH_AUTH_SOCK",
+      "TERM",
+      "TERMINFO_DIRS",
+      "TERM_FEATURES",
+      "TERM_PROGRAM",
+      "TERM_PROGRAM_VERSION",
+      "TERM_SESSION_ID",
+      "TMPDIR",
+      "USER",
+      "VIRTUAL_ENV_DISABLE_PROMPT",
+      "XPC_FLAGS",
+      "XPC_SERVICE_NAME",
+      "_",
+      "__CFBundleIdentifier",
+      "__CF_USER_TEXT_ENCODING"
+    ],
+    "timeoutMs": 10800000,
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 1801.58675,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "stdout": "{\"acquisitionKind\":\"reopen\",\"kind\":\"installed_definition_call_transport_result\",\"receipt\":{\"definitionKey\":{\"memberKey\":\"run_result\",\"operationId\":\"abg.operation.project.read\"},\"exitCode\":1,\"failure\":null,\"invocationRef\":\"invocation://abiogenesis/7b321e4cef3b0b5d1f058714190933610c0ac18d7c83fbf429ed25371d42a111\",\"kind\":\"definition_host_receipt\",\"ownerOutput\":{\"outcomeKind\":\"refusal\",\"value\":{\"code\":\"not_found\",\"evidenceRefs\":[],\"issuePaths\":[]}},\"resources\":{\"eventResource\":{\"acquisitionKind\":\"reopen\",\"closeHandoff\":{\"prefix\":{\"coordinateDigest\":\"sha256:d69e45feff5613d06ec390aebc7f2037189361ad51c416c9e848a85c05d86ec7\",\"eventLogRef\":\"file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl\",\"kind\":\"durable_prefix_coordinate\",\"prefixDigest\":\"sha256:21c9692a1e71272f07a5c5e1bf9becf7cf967bd10fa8c5dfadc9823463cca92d\",\"prefixLength\":8805484,\"schemaVersion\":\"5.0.0\",\"storeIdentity\":{\"device\":16777231,\"eventContractDigest\":\"sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537\",\"inode\":680615283}},\"reopenAuthority\":{\"authorityDigest\":\"sha256:874a4c9e291697817ff6eb67dcde0902f8b5c6a3967e2c617efd37e99397016c\",\"device\":16777231,\"durableByteLength\":8805484,\"eventContractDigest\":\"sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537\",\"eventLogDigest\":\"sha256:21c9692a1e71272f07a5c5e1bf9becf7cf967bd10fa8c5dfadc9823463cca92d\",\"eventLogPath\":\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl\",\"inode\":680615283,\"kind\":\"event_store_reopen_authority\",\"schemaVersion\":\"5.0.0\"}},\"entryPrefix\":{\"coordinateDigest\":\"sha256:d69e45feff5613d06ec390aebc7f2037189361ad51c416c9e848a85c05d86ec7\",\"eventLogRef\":\"file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl\",\"kind\":\"durable_prefix_coordinate\",\"prefixDigest\":\"sha256:21c9692a1e71272f07a5c5e1bf9becf7cf967bd10fa8c5dfadc9823463cca92d\",\"prefixLength\":8805484,\"schemaVersion\":\"5.0.0\",\"storeIdentity\":{\"device\":16777231,\"eventContractDigest\":\"sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537\",\"inode\":680615283}},\"kind\":\"abg_event_resource_receipt\",\"receiptDigest\":\"sha256:f0f3e66a8162cc779f53bb97a782bdebfe610868b5292ce4083e386b65697cd7\",\"schemaVersion\":\"5.0.0\"},\"kind\":\"abg_project_read_resource_receipt\",\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"}\n",
+    "stderr": ""
+  },
+  "wallMs": 1801.58675,
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "run_result",
+        "operationId": "abg.operation.project.read"
+      },
+      "exitCode": 1,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/7b321e4cef3b0b5d1f058714190933610c0ac18d7c83fbf429ed25371d42a111",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "not_found",
+          "evidenceRefs": [],
+          "issuePaths": []
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:d69e45feff5613d06ec390aebc7f2037189361ad51c416c9e848a85c05d86ec7",
+              "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:21c9692a1e71272f07a5c5e1bf9becf7cf967bd10fa8c5dfadc9823463cca92d",
+              "prefixLength": 8805484,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777231,
+                "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+                "inode": 680615283
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:874a4c9e291697817ff6eb67dcde0902f8b5c6a3967e2c617efd37e99397016c",
+              "device": 16777231,
+              "durableByteLength": 8805484,
+              "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+              "eventLogDigest": "sha256:21c9692a1e71272f07a5c5e1bf9becf7cf967bd10fa8c5dfadc9823463cca92d",
+              "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl",
+              "inode": 680615283,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:d69e45feff5613d06ec390aebc7f2037189361ad51c416c9e848a85c05d86ec7",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/runtime/events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:21c9692a1e71272f07a5c5e1bf9becf7cf967bd10fa8c5dfadc9823463cca92d",
+            "prefixLength": 8805484,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777231,
+              "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+              "inode": 680615283
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:f0f3e66a8162cc779f53bb97a782bdebfe610868b5292ce4083e386b65697cd7",
+          "schemaVersion": "5.0.0"
+        },
+        "kind": "abg_project_read_resource_receipt",
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

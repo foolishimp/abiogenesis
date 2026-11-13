@@ -1,0 +1,15 @@
+# H06: correct the local assessment fixture identity
+
+Follow the single ROOT_ARCHITECTURE_SELECTION.json and the closed assessment-guard review in EXTERNAL_READ_INPUTS. Existing ABIogenesis5 fixed15/GOAL-035/T287/STDO3.0.4 and immutableRC6 builder remain unchanged. Actual H05 source/close/resume is the predecessor; H05 is partial, not whole HS01/02 acceptance.
+
+Only `build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs` is writable. In its existing local `undeclared` assessment fixture, set `schemaAsset.contractId` to `undeclaredRef`, retaining all other schemaAsset members. This joins the already selected schema.$id and resultContract.contractRef. Keep the positive schema well-formedness assertion, subsequent exact missing-declaration null refusal, all8subcases and full event/actor/no-effect assertions. No other semantic change; no Product/HOW/public-setup/shared helper, new test/fixture/session/resource, broadened enum, fallback, weakened assertion or altered test timeout.
+
+Read exact451 filenames and the named immutable owner paths in EXTERNAL_READ_INPUTS, using explicit filenames only. No broad/glob Grep or additional source acquisition. Preserve H04 read-scope disclosure and every historical failure.
+
+Invoke the existing `prior-author-stage.mjs hs6-stage-01 after` once. It freezes451 sources before proof and verifies450 unchanged rows against actual H05. Publish the source-freeze path/digest in progress.json immediately for parallel independent review. It reuses all5325 declared Product payload members with pinned existing digest owners and explicit original H03 compile/generation/lifecycle receipts; no compiler/generator/lifecycle execution or copied payload inventory.
+
+Then invoke `prior-author-lanes.mjs hs6-stage-01 <lane>` once for each exact lane, serially: `assessment-guards`, `native-workspace-owner`, `caller`, each300000ms. Preserve all8 assessment subcases and only the existing named historical skip. The complete shared passed predicate must hold for every prior allocation on the same source. Failed/incomplete attempts count; any unexpected/out-of-scope failure stops and returns Root. No retry or correction stage.
+
+H05 fixed-route7/7 and held-session1/1 plus its measurement are retained by exact reference in POST_AUTHOR_PROOF_INPUTS. Do not rerun or relabel them. Applicability is conditional on the frozen one-field diff and unchanged Product/SDK/caller/helper/fixed-route/held-session closures; independent review and Root decide it. Any affected closure change returns Root.
+
+Preserve69 tracked changes+2 new source paths, empty index, immutable releases and all prior evidence. One xhigh Worker,320turn/90min absolute/30min inactivity/8GiB/3h host ceilings. Write the three existing handoffs under this task scratch, recording actual source/proof/failures and reused evidence, then stop. No publication, selector change, native/runtime acceptance or release claim. Root owns final source/native.after/stage/live/close conjunction and acceptance.

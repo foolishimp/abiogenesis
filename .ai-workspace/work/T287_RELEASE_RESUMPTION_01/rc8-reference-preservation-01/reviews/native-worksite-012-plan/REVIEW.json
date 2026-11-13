@@ -1,0 +1,172 @@
+{
+  "productFrame": "ABIogenesis5.0 fixed fifteen families F01-F07,F09-F11,F13-F17; GOAL-035/T-287/REF-01; STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b and empty composition. ABG remains sole admission/event/replay authority. This is an independent bounded fixture/owner/Proof causal review, not release qualification or Product repair.",
+  "frame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "recordedUtc": "2026-11-07T09:28:39.434516+00:00",
+  "subject": {
+    "acceptedA8SourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+    "freezeSha256": "efba6bea8f3d0e1b0695772c18bdd731652b0f0652a2a878619b2445c073fc50",
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "correspondence": "Eight selected causal source/HOW files matched their exact A8 manifest rows. Actual execution012 staged test bytes also match the same41821B/0c305238 source. A8 changes are other test files; this Product/fixture chain is unchanged."
+  },
+  "verdict": "falsified_current_fixture_premise; no_current_C2_unconstructability_established",
+  "owningRelations": [
+    "Accepted Common Computational Capability Library HOW R1 at715: prospective native Result carries inputDigest and no task/before copy. The existing ABG owner resolves its own admitted execution-basis rawInputValue; retained original-contract values retain their original bytes and meaning.",
+    "EVENTS-002/003 and PUBLIC-CONTRACTS-004 require original event/value identity and contract meaning to remain exact. PROJECTION-001/002 require current/cold reconstruction from the admitted basis, not a fabricated task inside the Result.",
+    "Same-process established immutable tasks are held by actual identity; an explicit fixture lower-owner premise is a deterministic test tool, not new runtime authority."
+  ],
+  "findings": [
+    {
+      "id": "NATIVE-WORKSITE-012",
+      "severity": "S3",
+      "title": "Current compact native Result is treated as an embedded-task fixture value",
+      "trigger": "Four ordinary cases call fixture(), whose constructor returns compact source, then inputFor reads source.task at30 before constructing a C2 task. Source.task is intentionally absent.",
+      "actual": "Execution012125 receipt:7tests,4failed,0passed,3optional-skips,9347.673ms, exit1, no timeout/truncation. All four failures originate inputFor30; their selected assertions were not reached.",
+      "cause": "fixture45 retains the original task only locally. constructNativeWorkspaceWorkObservation184-187 returns inputDigest/after/changedPaths/report/provenance without task. fixture53 discards that local task and calls inputFor(source,...). Additional component/retained paths repeat the obsolete source.task assumption.",
+      "harm": "Four current C2 component proof claims remain unavailable and three optional paths contain the same assumption. This failure is not evidence of illegal Product admission, dispatch or currentness.",
+      "failClosed": "No C2 task, archive publication or dispatch is reached by these four setup failures. Real owner source matching and authority/currentness checks remain unchanged.",
+      "probability": "Certain for these ordinary cases under current constructor; optional new-contract retained input would also encounter it.",
+      "confidence": "High for exact fixture cause and current source-owner relation; no end-to-end C2 execution claim.",
+      "costAndRisk": "Bounded one-test-file maintenance through existing constructors/resolvers. Correct all same-cause task handoffs and failure/basis premises together; a line30-only workaround would leave later failures. Product task re-embedding, digest-only trust, new APIs or guard changes would be disproportionate and unlawful."
+    }
+  ],
+  "currentOwnerPath": {
+    "product": "native_workspace_work148-198 defines/constructs compact observations; MatchesTask227ff binds task digest and observed context. worksite_command_execution425-464 receives explicit A/W/grant plus compact source.after and selected files; it does not read source.task.",
+    "ABG": "native_worksite_execution44-58 resolves a Result event's own task via projectExactExecutionBasisAtPrefix, checks rawInputDigest and graph function, applies observation/failure relation and returns that task. Source projector126-159 selects basis.rawInputValue, validates observation, invocation/fibre/evidence/judgment/closure, and returns sourceTask.",
+    "currentCallers": "default_library318-336 constructs native C2 from admitted operating A/W/grant and the compact subject Result. semantic_job968-986 receives sourceTask explicitly and checks it before constructing C2. Runtime source.task text search has only semantic_revision658-659; there input.source is guarded as NativeWorksiteCommandExecutionObservation, whose own command task is still carried, not a compact NativeWorkspaceWorkObservation.",
+    "environment": "Constructor ambient parameter is explicit in current API. Component re-entry can pass null or exact existing declared ambient as appropriate. environmentEntries906ff uses optional lookup; omission is not an evidenced second blocker and does not justify an environment redesign."
+  },
+  "affectedCone": {
+    "oneFile": "test_env/tests/t287-native-worksite-execution.test.mjs",
+    "actualRedCases": [
+      "105: changed/unchanged sources and no C1 identity",
+      "120: missing/duplicate/crossed/counterfeit source refusals",
+      "130: physical source currentness refuses before archive/native dispatch",
+      "317: cross-Run retained source admission plus wrong/foreign/stale/parentless negatives"
+    ],
+    "optionalCases": [
+      "138: installed-catalog assessment plus long producer history, exact membership, warm/cold and copied-prefix controls",
+      "225: actual retained native producer joins C2; absent/foreign origins refuse",
+      "260: admitted failed-write residue invalidates currentness after child basis cut"
+    ],
+    "taskUseSites": [
+      30,
+      31,
+      33,
+      92,
+      145,
+      179,
+      218,
+      238,
+      253,
+      291,
+      322,
+      338,
+      406
+    ],
+    "relatedHistoricalConsumer": "t287-native-semantic-evidence.test.mjs17 explicitly reads an extracted original-contract retained Result that carries task. This remains legitimate historical interpretation, not a prospective constructor consumer. Its execution012 case skipped; do not claim current evidence or alter original retained values.",
+    "scopeLimit": "No other direct source.task use on prospective native Result was found in the bounded code/tests search. Current C2 observation task and unrelated cursor taskOrdinal are distinct contracts."
+  },
+  "existingProofAndLimits": {
+    "currentC2Construction": "Execution012 native-semantic-job passed9. Its315ff four-assessed-stages case constructs a compact native observation and passes the original task explicitly to constructNativeSemanticExecutionTask; current C2 predicate and protected-file assertions pass. This is direct evidence against universal current C2 unconstructability, but a component test, not native C2 dispatch.",
+    "admittedTaskOwner": "Execution006 event-body-encoding passed25 plus1skip. Exact reporter case RC7 actual current input at1271 passed without skip: held and cold real basis join, crossed basis/non-task/foreign-call/absent-basis refusal, unchanged body lookup. It explicitly does not prove end-to-end native Work/C2.",
+    "currentness": "Execution012 native-work-currentness-consumers passed6. These current source/currentness consumers constrain the underlying owner behavior; they are not replacement for all seven selected file scenarios or native command dispatch.",
+    "defaultLibrary": "Execution006 default-library-fulfillment passed7, including native/C2 dependency retention; disclosed basis-owner component premises apply.",
+    "missing": "No current real native-C2 full dispatch claim is derived from the above. Actual native author/builder runs exercise native Workspace Work, not automatically C2 library execution. The four current ordinary oracles and three optional file scenarios remain unproved here."
+  },
+  "recommendedSmallestReentry": {
+    "choice": "Root selected one-file fixture maintenance after this bounded recommendation. No Product/HOW evolution, new owner API, task embedding or hash substitution is selected; Reviewer performs no implementation.",
+    "fixture": "Retain original fixture task as a separate sourceTask and pass it explicitly with source into inputFor, assessment preimage and mocked admitted basis. Preserve exact object identity; use source.inputDigest/actual task digest consistently. Do not add task to compact Result or accept an arbitrary digest-equal replacement as owner truth.",
+    "retainedInputs": "Resolve task from the actual admitted Result event/basis through projectNativeWorkspaceWorkSourceAtPrefix or projectNativeWorkspaceWorkResultTaskAtPrefix before constructing C2 or crossed controls. Preserve original log bytes, profiles and retained original-contract values.",
+    "counterexamples": "Update source-task references in all seven cases. For a newly constructed failed-writer counterexample, use existing native failure construction and a coherent matching admitted input/basis premise; do not hand-insert a task/before copy into a prospective compact value. Preserve the failed-residue/currentness assertion and source/closure/Run ownership distinctions. A legitimately retained original failure keeps its historical representation.",
+    "proof": "Execute the whole file after frozen review: the four ordinary cases must reach and satisfy all original assertions; three optional skips remain explicitly unexecuted unless exact declared Catalog/log inputs are supplied. If supplying them, execute all original long-history/cold/crossed and failed-residue controls with real existing owner algorithms. Do not claim native end-to-end qualification from component premises.",
+    "requiredCurrentC2": "Do not waive an actual current native C2 sunny-day admission/dispatch refusal as fixture drift. If such a counterexample appears after lawful task resolution, stop and triage it as a Product relation. Existing green component/basis controls bound this finding but do not authorize removing the required C2 path.",
+    "residualAlternative": "For the explicitly unqualified REF01 cut, Root may retain a precisely named missing optional historical/component claim only with preserved reds/skips and a closure trigger before claiming that coverage or release qualification. A blanket C2 residual cannot hide a demonstrated current functional refusal. Given the small one-file repair, deferring the four ordinary cases is not this Reviewer's preferred disposition."
+  },
+  "pins": [
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "bytes": 41821,
+      "sha256": "0c30523897fb3b123e0d222f3ac344e682f3a08c46a90442ee36b73058787b19"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "bytes": 27351,
+      "sha256": "eea3f793159d40ea3d29831658ab6d816867233b1adfa4ec91cb6497eaa61f6a"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "bytes": 143487,
+      "sha256": "1f1bcf8484f6ee7f733ea5d68ac9d5c1ca531c4b5b57b1c40314ca0ddb862a17"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "bytes": 23428,
+      "sha256": "6460194c1cd022e27b0775657bac504cb19543d6e7d41dc2f77d6f96def5e49c"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "bytes": 50194,
+      "sha256": "b5cfb4a869f800ad16d7391468c15519d7f87887e1a9dd2a494084c723d00555"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "bytes": 96630,
+      "sha256": "e3bbdcccc525f000821533dd316c7362fc437b64ad0c3dd028e331f3d4776bb6"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "bytes": 39900,
+      "sha256": "21c63203dcf831cc86eefe0f32126f3c1b5a5c9302ac1a183ad6c37c9b28a945"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 194356,
+      "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/SUMMARY.json",
+      "bytes": 294877,
+      "sha256": "d490608eb3647386ad68d9244950abd82d4fd2eccb466bd8fb941cb105f82d4c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/125-t287-native-worksite-execution.json",
+      "bytes": 2611,
+      "sha256": "ce37e135e7160978ee54917115290cd35812d9d1336a4f0e61039157d97926ee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/commands/125-t287-native-worksite-execution.stdout",
+      "bytes": 5908,
+      "sha256": "180674cc498449f6ff35146200005afd2df192cd30bc4fe2e1713d899c7f17c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/118-t287-native-semantic-job.json",
+      "bytes": 1150,
+      "sha256": "38a3587dd729fa868d7226f8a539fca294cbe141aae1d6e5833f571f2145e09c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/121-t287-native-work-currentness-consumers.json",
+      "bytes": 1193,
+      "sha256": "475931bd5548397f9099f1d3097f08bd26884f1dda758f94a7442e0fe119f43b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/files/117-t287-native-semantic-evidence.json",
+      "bytes": 1624,
+      "sha256": "89ef9917d630da0d499f1c707c23ad04ae036ee2e3b20b08ae41ab83a4b33944"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/files/074-t287-event-body-encoding.json",
+      "bytes": 1594,
+      "sha256": "c84b627de3c4eaf422c04c8d10cf722a993c44c85cace09d467dfcb93e82a360"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/files/070-t287-default-library-fulfillment.json",
+      "bytes": 1175,
+      "sha256": "c1b4c3a90a6ec7271b90d7bd9c49979563d5470ff937866c49c2ccf250ebf83b"
+    }
+  ],
+  "effects": "Read-only source/evidence and these two new review files. No tests, Product calls, disk/runtime work, profiling, source repairs, Git effects or Worker activation. Root alone conjoins proof and cut disposition.",
+  "executiveSteeringAtFreeze": "Root selected the recommended one-file fixture maintenance after independent owner/HOW read. Any successor authoring base is frozen A8 physical source86711, with source review239114a2 only: whole-consolidation/SAS acceptance remains pending and the A8 native Run failed. Root separately prepares/adopts any new ABG native Worker and source:none selection; this Reviewer performs no implementation or activation."
+}

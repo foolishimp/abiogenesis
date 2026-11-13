@@ -1,0 +1,33 @@
+{
+  "authorityBasis": {
+    "authorityDigest": "sha256:36e00e74b949d14406aba4f66805a41c4eb75dafdfbe7d31dbd292ed7780e6dd",
+    "authorityRef": "workspace-authority://abiogenesis/36e00e74b949d14406aba4f66805a41c4eb75dafdfbe7d31dbd292ed7780e6dd",
+    "importAuthorityDigest": null,
+    "importAuthorityRef": null,
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "source": "clean_creation"
+  },
+  "authorityMode": "clean",
+  "bindingDigest": null,
+  "bindingRef": null,
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/sandbox/worksite",
+  "configurationDigest": null,
+  "configurationRef": null,
+  "creationManifestDigest": "sha256:0b9f75dc6ff6a426f8bf10cdedd15acc0143c45ab16d2b27a23ae44e34ee9413",
+  "creationManifestRef": "workspace-creation://abiogenesis/0b9f75dc6ff6a426f8bf10cdedd15acc0143c45ab16d2b27a23ae44e34ee9413",
+  "kind": "workspace_manifest",
+  "preservationPolicy": "not_applicable",
+  "preservationState": "not_applicable",
+  "provenance": [
+    {
+      "provenanceDigest": "sha256:0b9f75dc6ff6a426f8bf10cdedd15acc0143c45ab16d2b27a23ae44e34ee9413",
+      "provenanceRef": "workspace-creation://abiogenesis/0b9f75dc6ff6a426f8bf10cdedd15acc0143c45ab16d2b27a23ae44e34ee9413"
+    }
+  ],
+  "scaffoldPolicy": "none",
+  "scaffoldState": "no_project_authority",
+  "schemaVersion": "5.0.0",
+  "workspaceDigest": "sha256:a906845fd97cf1f51d03255ebe8f2dfafd72edc38220d163f14abc1682d9fce9",
+  "workspaceRef": "workspace://abiogenesis/a906845fd97cf1f51d03255ebe8f2dfafd72edc38220d163f14abc1682d9fce9"
+}

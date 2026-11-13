@@ -1,0 +1,798 @@
+{
+  "observerPid": 50396,
+  "observedUtc": "2026-11-02T21:33:23.814199+00:00",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-5613ba2e11d7e473-stdout.log",
+  "physicalCompleteCursor": 9752419,
+  "records": [
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_0192zYDQwUq4NRLkTLZNH2K2",
+      "command": "cat .claude/references/PRODUCT_BASIS.md && echo ---- && cat .claude/skills/stdo-work/SKILL.md && echo ---- && cat stdo_abiogenesis.json",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_0192zYDQwUq4NRLkTLZNH2K2",
+      "is_error": false,
+      "outputExcerpt": "# Product Basis Selection\n\nUse this read-only procedure before every STDO workflow skill. It selects and\nverifies one Product basis; it grants no mutation, execution, review,\ndisposition, installation, or continuation authority.\n\n## Procedure\n\n1. State the requested Product scope from the exact request and Product-owned\n   identities or claims. If the request does not distinguish the Product, keep\n   the scope unresolved.\n2. Discover candidate `stdo_<label>.json` definitions within the authorized\n   workspace search boundary. A filename, current directory, nearest file, or\n   directory nesting is discovery evidence only and cannot select a Product or\n   imply composition.\n3. Determine applicability from each definition's Product-definition identity\n   and its Product-owned `what`, `how`, `ticketing`, bounded-context, and\n   explicit composition bindings. A path is selecting evidence only when the\n   definition itself binds it to the requested Product scope.\n4. Require exactly one applicable definition. For zero applicable definitions,\n   return the unresolved scope. For multiple applicable definitions, return\n   every remaining definition identity and path and request Product-scope\n   disambiguation. Do not choose by proximity, familiarity, recency, or label.\n5. Verify the selected definition read-only:\n\n   ```sh\n   stdo status --definition <selected-definition> --verify\n   ```\n\n   Require the reported definition path and identity, immutable basis URI, and\n   manifest SHA-256 to match the selected definition, with `installed: true`,\n   `valid: true`, and no failures. Do not sync, adopt, install, fall back to\n   mutable source, or select a nearby Product during this procedure.\n6. Return the requested Product scope, definition identity and path, immutable\n   basis URI or cut, manifest SHA-256, and verification result. Only then may\n   the calling skill continue under its own effect and authority boundary.\n\nZero definitions, multiple applicable definitions, failed verification, or any\nidentity, path, basis, manifest, installation, or validity mismatch stops the\ncalling skill before effects. Report the exact candidates or mismatch and the\nrequired re-entry; do not repair it implicitly.\n\n## Read A Member From That Basis\n\nAfter the selected basis has verified, resolve each required member through\nthat same immutable basis. A route consists of the member's package-relative\npath and, where needed, a heading anchor within it. For example:\n\n```sh\nSTDO_BASIS_URI='stdo://releases/<selected-immutable-cut>/'\nstdo resolve \"${STDO_BASIS_URI}manifest.json\"\nstdo resolve \"${STDO_BASIS_URI}standards/ACTIVATION.md\"\n```\n\nUse the basis URI returned by the verified Product Definition. Read the\nmanifest whose digest equals that definition's `manifest_sha256`. Require\n`ACTIVATION.md` in its standards inventory and require the resolved file's\nSHA-256 to equal that member's declared digest. Apply the same check to every\nother selected member. The resolver's returned URI must equal the requested\nURI, and its path must be in that verified installation. A path alone proves\nneither membership nor content identity.\n\nResolve the member without its fragment, then locate the exact anchor in\nthose verified bytes; for example, `#7-closed-result-and-reuse` selects\nACTIVATION's reuse owner. A missing member, anchor, manifest mismatch or\ncontent mismatch leaves the route unresolved. Acquire no replacement from a\ncheckout, moving selector, later cut or neighbouring Product. A frame is a\nmember too: verify its own bytes and the local sources and section digests\nlisted in `standards/frames/FRAME_INPUTS.json` before treating it as current.\nThis identity check does not establish semantic fidelity or task sufficiency.\n\nReturn the exact basis URI and manifest digest with each acquired member,\nits member digest, selected anchor and any unresolved dependency. The\ncalling skill retains its own authority and effect boundary.\n----\n---\nname: stdo-work\ndescription: Execute one admitted STDO work item through its lawful re-entry point. Use when a user says stdo work or explicitly asks to perform requirements, design, code, or test work under an STDO-governed basis. Do not invoke for generic non-STDO development.\n---\n\n# STDO Work\n\nDeliver the smallest causally closed change authorized by one exact work basis.\nThe admitted re-entry point decides where work begins.\n\n## Select The Product Basis\n\nRead and apply\n[`PRODUCT_BASIS.md`](../../references/PRODUCT_BASIS.md) before dra",
+      "outputChars": 18277
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01AZBbpsvjMPHKthW7LjEdqh",
+      "command": "which stdo; stdo status --definition stdo_abiogenesis.json --verify 2>&1 | head -50",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01AZBbpsvjMPHKthW7LjEdqh",
+      "is_error": false,
+      "outputExcerpt": "/Users/jim/.local/bin/stdo\n{\n  \"basis\": \"stdo://releases/v3.0.2/\",\n  \"cut\": \"v3.0.2\",\n  \"definition\": \"/Users/jim/src/apps/abiogenesis-rc4-native-recovery/stdo_abiogenesis.json\",\n  \"definition_id\": \"urn:stdo:product-definition:abiogenesis\",\n  \"failures\": [],\n  \"installed\": true,\n  \"manifest_sha256\": \"f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477\",\n  \"path\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2\",\n  \"release\": {\n    \"commit\": \"23ca9c0929d7be8570edafaf30542e3daeb8dc1f\",\n    \"cut\": \"v3.0.2\",\n    \"profile\": \"stable-v1\",\n    \"project_release_namespace\": \"specification_methodology\",\n    \"project_subtree_root\": \"specification_methodology/v3\",\n    \"project_subtree_tree\": \"4c870cb441be3574b911bacca28497fefc70e084\",\n    \"qualified_ref\": \"refs/tags/specification_methodology/v3.0.2\",\n    \"standards_tree\": \"f01a58e381a60edc7ed840cc9803f7d7296d65eb\",\n    \"tag_object\": \"d03b00a7fdf8972dc236b52eb09f3eccba7f62cb\",\n    \"tree\": \"c64345a9b2127df3cddc0e26f49bc9dac2a24bff\"\n  },\n  \"schema\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/schemas/product-definition.schema.json\",\n  \"selector\": \"stdo://channels/3.0.2\",\n  \"standards\": {\n    \"installed_root\": \"standards\",\n    \"member_count\": 67,\n    \"member_set_sha256\": \"644e5f6a509e0d79a2077ece8f1c25fc72e6abb5f03a95075b6e5b6eb565eb9d\",\n    \"members\": [\n      {\n        \"path\": \"ACTIVATION.md\",\n        \"sha256\": \"56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d\"\n      },\n      {\n        \"path\": \"ASSURANCE.md\",\n        \"sha256\": \"5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca\"\n      },\n      {\n        \"path\": \"AXIOMATIC_CALCULUS.md\",\n        \"sha256\": \"b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5\"\n      },\n      {\n        \"path\": \"CONFORMANCE.md\",\n        \"sha256\": \"d49e75f64dbdc4ca787062a9044da9d74e16fa0ae7b9321c29d3c1dd4a41ee03\"\n      },\n      {\n        \"path\": \"DESIGN_MODULE.md\",\n        \"sha256\": \"741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2\"\n      },\n      {\n        \"path\": \"EVALUATION.md\",",
+      "outputChars": 2088
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01N5h9DbUwqchLnukuWLMfas",
+      "command": "stdo status --definition stdo_abiogenesis.json --verify 2>&1 | python3 -c \"import json,sys; d=json.load(sys.stdin); print({k:d[k] for k in ['basis','definition_id','installed','valid','failures','manifest_sha256'] if k in d})\"; stdo resolve \"stdo://releases/v3.0.2/standards/frames/bootstrap.md\" 2>&1 | head -5",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01N5h9DbUwqchLnukuWLMfas",
+      "is_error": false,
+      "outputExcerpt": "{'basis': 'stdo://releases/v3.0.2/', 'definition_id': 'urn:stdo:product-definition:abiogenesis', 'installed': True, 'valid': True, 'failures': [], 'manifest_sha256': 'f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477'}\n{\n  \"path\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/frames/bootstrap.md\",\n  \"uri\": \"stdo://releases/v3.0.2/standards/frames/bootstrap.md\"\n}",
+      "outputChars": 404
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_018NpRRijaPd9T9t5eRKK8xX",
+      "command": "stdo status --definition stdo_abiogenesis.json --verify 2>&1 | python3 -c \"\nimport json,sys; d=json.load(sys.stdin)\nfor m in d['standards']['members']:\n  if m['path'] in ('frames/bootstrap.md','ACTIVATION.md','EXECUTIVE_BASELINE.md','REFERENCE_FRAME.md','SPEC_METHOD.md'): print(m)\n\"; shasum -a 256 \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/EXECUTIVE_BASELINE.md\" \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/REFERENCE_FRAME.md\"; shasum -a 256 \"/Users/jim/Library/Application Support/STDO/releases/v3.0.2/manifest.json\"",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_018NpRRijaPd9T9t5eRKK8xX",
+      "is_error": false,
+      "outputExcerpt": "{'path': 'ACTIVATION.md', 'sha256': '56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d'}\n{'path': 'EXECUTIVE_BASELINE.md', 'sha256': '064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a'}\n{'path': 'REFERENCE_FRAME.md', 'sha256': '4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64'}\n{'path': 'SPEC_METHOD.md', 'sha256': '06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e'}\n{'path': 'frames/bootstrap.md', 'sha256': '9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502'}\n064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a  /Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/EXECUTIVE_BASELINE.md\n4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64  /Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/REFERENCE_FRAME.md\nf7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477  /Users/jim/Library/Application Support/STDO/releases/v3.0.2/manifest.json",
+      "outputChars": 992
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_011DSpPJQL8veqxfap2LKcNo",
+      "command": "wc -l code/src/product/run_invocation_operation.ts code/src/product/admission_authority.ts code/src/product/invocation.ts code/src/product/index.ts code/src/owner_bindings/run_invocation.ts code/src/abg/construction_continuation.ts code/src/abg/project_read_definition_bindings.ts code/src/abg/index.ts code/src/public/installed_public_definition_call.ts code/src/public/index.ts code/src/abg/project_read_ports.ts code/src/abg/definition_event_resource.ts code/src/product/execution_resolution.ts code/src/product/stdo_environment.ts code/src/public/installed_definition_call_transport.ts test_env/types/framework-handoff.compile.ts test_env/tsconfig.framework-handoff.json test_env/tests/t287-framework-handoff-types.test.mjs",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_011DSpPJQL8veqxfap2LKcNo",
+      "is_error": false,
+      "outputExcerpt": "     801 code/src/product/run_invocation_operation.ts\n     525 code/src/product/admission_authority.ts\n    1432 code/src/product/invocation.ts\n     588 code/src/product/index.ts\n    2076 code/src/owner_bindings/run_invocation.ts\n    2454 code/src/abg/construction_continuation.ts\n     918 code/src/abg/project_read_definition_bindings.ts\n     587 code/src/abg/index.ts\n     346 code/src/public/installed_public_definition_call.ts\n      60 code/src/public/index.ts\n    1786 code/src/abg/project_read_ports.ts\n     483 code/src/abg/definition_event_resource.ts\n    1145 code/src/product/execution_resolution.ts\n     437 code/src/product/stdo_environment.ts\n     478 code/src/public/installed_definition_call_transport.ts\n     329 test_env/types/framework-handoff.compile.ts\n      21 test_env/tsconfig.framework-handoff.json\n     331 test_env/tests/t287-framework-handoff-types.test.mjs\n   14797 total",
+      "outputChars": 898
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_012Rwk1EqpRsa73wxdjPX31W",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env && cat tsconfig.framework-handoff.json && cat types/framework-handoff.compile.ts",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_012Rwk1EqpRsa73wxdjPX31W",
+      "is_error": false,
+      "outputExcerpt": "{\n  \"compilerOptions\": {\n    \"exactOptionalPropertyTypes\": true,\n    \"forceConsistentCasingInFileNames\": true,\n    \"incremental\": false,\n    \"module\": \"NodeNext\",\n    \"moduleResolution\": \"NodeNext\",\n    \"noEmit\": true,\n    \"noFallthroughCasesInSwitch\": true,\n    \"noImplicitOverride\": true,\n    \"noImplicitReturns\": true,\n    \"noUncheckedIndexedAccess\": true,\n    \"skipLibCheck\": true,\n    \"strict\": true,\n    \"target\": \"ES2022\",\n    \"typeRoots\": [\"../node_modules/@types\"],\n    \"types\": [\"node\"],\n    \"verbatimModuleSyntax\": true\n  },\n  \"files\": [\"types/framework-handoff.compile.ts\"]\n}\n// T287 HC1 owner-derived native call typing. Compiler proof only: canonical\n// package declarations, no source or private import, no cast that erases the\n// relation. Each negative is one statement on the line after its marker; the\n// marker names the diagnostic codes that make the case a real refusal.\nimport {\n  constructInstalledPublicDefinitionCall,\n  runInstalledDefinitionCallTransport,\n  type InstalledDefinitionCallAcquisition,\n  type InstalledDefinitionCallTransportOutcome,\n  type InstalledDefinitionCallTransportOutcomeOf,\n  type InstalledDefinitionCallTransportRefusal,\n  type InstalledPublicDefinitionCall,\n  type InstalledPublicDefinitionCallEnvironment,\n  type InstalledPublicDefinitionCallSelection,\n  type OwnerCallableDefinitionMember,\n  type OwnerDefinitionCompositeKey,\n  type OwnerDefinitionMember,\n  type OwnerDefinitionRequestOf,\n  type OwnerUnavailableDefinitionMember,\n} from \"@abiogenesis/typescript-tenant/public\";\nimport type {\n  ExactDirectRunInvocationRequest,\n  ExactStartRunInvocationRequest,\n} from \"@abiogenesis/typescript-tenant/product\";\n\ntype Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends\n  (<T>() => T extends B ? 1 : 2) ? true : false;\ntype Mutual<A, B> = [A] extends [B] ? [B] extends [A] ? true : false : false;\ntype IsAny<T> = 0 extends 1 & T ? true : false;\ntype IsOpen<T> = IsAny<T> extends true ? true : unknown extends T ? true : false;\ntype Assert<T extends true> = T;\ntype Distinct<T extends readonly unknown[], Seen = never> = T extends\n  readonly [infer H, ...infer R] ? [H] extends [Seen] ? false : Distinct<R, Seen | H>\n  : true;\n\n// Finite oracle: the declared packet members and the members without an\n// installed callable binding.\nconst DECLARED = [\n  \"abg.operation.catalog.admit#admit\",\n  \"abg.operation.catalog.apply#node_type\",\n  \"abg.operation.catalog.apply#overlay\",\n  \"abg.operation.catalog.view#allowlist\",\n  \"abg.operation.conformance.evaluate#gtl_program\",\n  \"abg.operation.interaction.respond#answer_escalation\",\n  \"abg.operation.interaction.respond#approve\",\n  \"abg.operation.interaction.respond#assess\",\n  \"abg.operation.interaction.respond#reject\",\n  \"abg.operation.interaction.respond#select\",\n  \"abg.operation.product.install#install\",\n  \"abg.operation.product.materialize#configuration\",\n  \"abg.operation.product.materialize#context_bootstrap\",\n  \"abg.operation.product.resolve#resolve\",\n  \"abg.operation.product.verify#verify\",\n  \"abg.operation.project.read#assessment_evidence\",\n  \"abg.operation.project.read#c_call_replay\",\n  \"abg.operation.project.read#catalog_describe\",\n  \"abg.operation.project.read#catalog_list\",\n  \"abg.operation.project.read#continuation_replay\",\n  \"abg.operation.project.read#graph_call_evidence\",\n  \"abg.operation.project.read#graph_call_replay\",\n  \"abg.operation.project.read#graph_call_result\",\n  \"abg.operation.project.read#graph_call_status\",\n  \"abg.operation.project.read#install_evidence\",\n  \"abg.operation.project.read#interaction_replay\",\n  \"abg.operation.project.read#release_evidence\",\n  \"abg.operation.project.read#result_evidence\",\n  \"abg.operation.project.read#run_evidence\",\n  \"abg.operation.project.read#run_gaps\",\n  \"abg.operation.project.read#run_lawful_actions\",\n  \"abg.operation.project.read#run_replay\",\n  \"abg.operation.project.read#run_result\",\n  \"abg.operation.project.read#run_status\",\n  \"abg.operation.project.read#ticket_consensus\",\n  \"abg.operation.project.read#witness_evidence\",\n  \"abg.operation.project.read#workspace_gaps\",\n  \"abg.operation.project.read#workspace_replay\",\n  \"abg.operation.project.read#workspace_status\",\n  \"abg.operation.release.snapshot#published_rc\",\n  \"abg.operation.release.snapshot#tapped_release\",\n  \"abg.operation.result.assess#assess\",\n  \"abg.operation.run.continue#current_intent\",\n  \"abg.operation.run.continue#selected_action\",\n  \"abg.operation.run.invoke#invoke\",\n  \"abg.operation.run.invoke#start\",\n  \"abg.operation.witness.admit#attest\",\n ",
+      "outputChars": 20967
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01WXmHsrYRsyQmYHggd9ysYK",
+      "command": "cat tests/t287-framework-handoff-types.test.mjs",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01WXmHsrYRsyQmYHggd9ysYK",
+      "is_error": false,
+      "outputExcerpt": "// T287 HC1 owner-derived native call typing. Real compiler checks of the\n// canonical and packed package declarations, packed-runtime inventory and raw\n// refusals, and a per-slot schema comparison with the exact014 baseline. Not\n// HC2 population, installed Run proof, qualification or release evidence.\nimport test from 'node:test';\nimport assert from 'node:assert/strict';\nimport fs from 'node:fs';\nimport os from 'node:os';\nimport path from 'node:path';\nimport { createHash } from 'node:crypto';\nimport { execFileSync } from 'node:child_process';\nimport { pathToFileURL } from 'node:url';\nimport ts from 'typescript';\n\nconst tenant = path.resolve(process.env.ABG_FRAMEWORK_HANDOFF_TENANT_ROOT ?? path.resolve(import.meta.dirname, '../..'));\nconst proofPath = path.join(tenant, 'test_env/types/framework-handoff.compile.ts');\nconst proofConfigPath = path.join(tenant, 'test_env/tsconfig.framework-handoff.json');\nconst BASELINE_SHA256 = 'b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db';\nconst PACKAGE_NAME = '@abiogenesis/typescript-tenant';\nconst CANONICAL_IMPORTS = /^@abiogenesis\\/typescript-tenant\\/(public|product|abg|validator)$/;\nconst HC1_DECLARATIONS = ['OwnerCallableDefinitionMember', 'OwnerUnavailableDefinitionMember',\n  'InstalledPublicDefinitionCallSelection', 'InstalledDefinitionCallTransportOutcomeOf'];\nconst SLOTS = ['request', 'result', 'refusal', 'nonTerminal'];\n\nconst proofText = fs.readFileSync(proofPath, 'utf8');\nconst proofSource = ts.createSourceFile(proofPath, proofText, ts.ScriptTarget.ES2022, true);\n\nfunction proofConfig() {\n  const parsed = ts.getParsedCommandLineOfConfigFile(proofConfigPath, {}, {...ts.sys,\n    onUnRecoverableConfigFileDiagnostic: d => { throw new Error(ts.flattenDiagnosticMessageText(d.messageText, '\\n')); }});\n  assert.deepEqual(parsed.errors, []);\n  return parsed;\n}\n\nconst markers = proofText.split('\\n').flatMap((line, index) => {\n  const match = line.match(/\\/\\/ @ts-expect-error HC1-NEG (\\S+) ([\\d ]+)$/);\n  return match === null ? [] : [{name: match[1], line: index + 2, codes: match[2].trim().split(/\\s+/).map(Number)}];\n});\n\n/** The finite oracle declared once, in the compiled proof itself. */\nfunction oracle(name) {\n  let values = null;\n  ts.forEachChild(proofSource, node => {\n    if (!ts.isVariableStatement(node)) return;\n    for (const declaration of node.declarationList.declarations) {\n      if (declaration.name.getText() !== name) continue;\n      const array = declaration.initializer.expression;\n      values = array.elements.map(element => element.text);\n    }\n  });\n  assert.ok(values, name);\n  return values;\n}\n\nconst format = d => ({code: d.code, file: d.file?.fileName ?? null,\n  line: d.file ? d.file.getLineAndCharacterOfPosition(d.start).line + 1 : null,\n  message: ts.flattenDiagnosticMessageText(d.messageText, '\\n').slice(0, 600)});\n\nfunction compile(rootFile, options, text = null) {\n  const host = ts.createCompilerHost(options);\n  if (text !== null) {\n    const getSourceFile = host.getSourceFile.bind(host), readFile = host.readFile.bind(host);\n    host.getSourceFile = (file, language, ...rest) => path.resolve(file) === rootFile\n      ? ts.createSourceFile(file, text, language, true) : getSourceFile(file, language, ...rest);\n    host.readFile = file => path.resolve(file) === rootFile ? text : readFile(file);\n  }\n  const program = ts.createProgram({rootNames: [rootFile], options, host});\n  const errors = ts.getPreEmitDiagnostics(program).filter(d => d.category === ts.DiagnosticCategory.Error);\n  return {program, errors};\n}\n\n/** Fail closed: an absent or stale (pre-HC1) package proves nothing. */\nfunction requireHc1Declarations(packageRoot) {\n  const manifest = JSON.parse(fs.readFileSync(path.join(packageRoot, 'package.json'), 'utf8'));\n  const types = path.join(packageRoot, manifest.exports['./public'].types);\n  assert.ok(fs.existsSync(types), `canonical package declarations are absent: ${types}`);\n  const text = fs.readFileSync(types, 'utf8');\n  for (const name of HC1_DECLARATIONS) assert.match(text, new RegExp(`\\\\b${name}\\\\b`), `${types} predates HC1: ${name}`);\n  return manifest;\n}\n\nfunction exportFile(packageRoot, manifest, subpath, condition) {\n  const target = manifest.exports[subpath];\n  return path.join(packageRoot, typeof target === 'string' ? target : target[condition] ?? target.default);\n}\n\nfunction scratch(t, prefix) {\n  const root = fs.mkdtempSync(path.join(os.tmpdir(), prefix));\n  t.after(() => fs.rmSync(root, {recursive: true, force: true}));",
+      "outputChars": 21108
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_016nEcGxsEx8mv4zGiXf43UD",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && sed -i '' 's/\"skipLibCheck\": true,/\"skipLibCheck\": false,/' test_env/tsconfig.framework-handoff.json && grep -n skipLibCheck test_env/tsconfig.framework-handoff.json tsconfig.json; ls -la node_modules | head -3; ls node_modules/.bin/tsc && node_modules/.bin/tsc --version; ls build 2>&1 | head",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_016nEcGxsEx8mv4zGiXf43UD",
+      "is_error": false,
+      "outputExcerpt": "test_env/tsconfig.framework-handoff.json:13:    \"skipLibCheck\": false,\ntsconfig.json:15:    \"skipLibCheck\": true,\nlrwxr-xr-x  1 jim  staff  89 Nov  3 02:38 node_modules -> /Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules\nnode_modules/.bin/tsc\nVersion 5.9.2\nls: build: No such file or directory",
+      "outputChars": 334
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Edit",
+      "id": "toolu_01MXyh3cFASW49jSzU8TwLd4",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts"
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Edit",
+      "id": "toolu_01MXyh3cFASW49jSzU8TwLd4",
+      "is_error": false,
+      "outputExcerpt": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts has been updated successfully.",
+      "outputChars": 183
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01EYMX49RFkRW5oxjc2CoCaw",
+      "command": "python3 - <<'EOF'\np='test_env/types/framework-handoff.compile.ts'\ns=open(p).read()\nold=\"\"\"  const rawOutcome: InstalledDefinitionCallTransportOutcome = await runInstalledDefinitionCallTransport(acquisition, raw);\n  void rawOutcome;\"\"\"\nnew=\"\"\"  const rawOutcome: InstalledDefinitionCallTransportOutcome = await runInstalledDefinitionCallTransport(acquisition, raw);\n  void rawOutcome;\n  // A union of valid alternatives keeps each alternative's own owner outcome.\n  const unionOutcome = await runInstalledDefinitionCallTransport(acquisition, validUnion);\n  if (unionOutcome.kind === \"installed_definition_call_transport_result\") {\n    const unionKey: StartMember[\"packet\"][\"definitionKey\"] | RunStatusMember[\"packet\"][\"definitionKey\"] = unionOutcome.receipt.definitionKey;\n    void unionKey;\n  }\"\"\"\nassert old in s; s=s.replace(old,new)\nold=\"\"\"declare const forgedStart: Omit<typeof startCall, \"resources\"> & { readonly resources: RunStatus[\"resources\"] };\"\"\"\nnew=\"\"\"declare const forgedStart: Omit<typeof startCall, \"resources\"> & { readonly resources: RunStatus[\"resources\"] };\ndeclare const forgedRequestStart: Omit<typeof startCall, \"invocation\"> & { readonly invocation: Omit<typeof startCall.invocation, \"request\"> & { readonly request: typeof runStatusCall.invocation.request } };\n// Each alternative is checked against its own member: valid unions transport;\n// one crossed alternative refuses the whole union.\ndeclare const validUnion: typeof startCall | typeof runStatusCall;\ndeclare const mixedResourceUnion: typeof startCall | typeof forgedStart;\ndeclare const mixedRequestUnion: typeof runStatusCall | typeof forgedRequestStart;\"\"\"\nassert old in s; s=s.replace(old,new)\nold=\"\"\"  // @ts-expect-error HC1-NEG transport-refuses-forged-typed-resources 2345\n  void runInstalledDefinitionCallTransport(acquisition, forgedStart);\"\"\"\nnew=\"\"\"  // @ts-expect-error HC1-NEG transport-refuses-forged-typed-resources 2345\n  void runInstalledDefinitionCallTransport(acquisition, forgedStart);\n  // @ts-expect-error HC1-NEG transport-refuses-mixed-union-crossed-resources 2345\n  void runInstalledDefinitionCallTransport(acquisition, mixedResourceUnion);\n  // @ts-expect-error HC1-NEG transport-refuses-mixed-union-crossed-request 2345\n  void runInstalledDefinitionCallTransport(acquisition, mixedRequestUnion);\"\"\"\nassert old in s; s=s.replace(old,new)\nold=\"\"\"type StartMember = CallableMemberOf<\"abg.operation.run.invoke#start\">;\"\"\"\nnew=\"\"\"type StartMember = CallableMemberOf<\"abg.operation.run.invoke#start\">;\ntype RunStatusMember = CallableMemberOf<\"abg.operation.project.read#run_status\">;\"\"\"\nassert old in s; s=s.replace(old,new)\nopen(p,'w').write(s)\nEOF\ngrep -n \"validUnion\\|mixed\" test_env/types/framework-handoff.compile.ts",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01EYMX49RFkRW5oxjc2CoCaw",
+      "is_error": false,
+      "outputExcerpt": "290:  const unionOutcome = await runInstalledDefinitionCallTransport(acquisition, validUnion);\n305:declare const validUnion: typeof startCall | typeof runStatusCall;\n306:declare const mixedResourceUnion: typeof startCall | typeof forgedStart;\n307:declare const mixedRequestUnion: typeof runStatusCall | typeof forgedRequestStart;\n342:  // @ts-expect-error HC1-NEG transport-refuses-mixed-union-crossed-resources 2345\n343:  void runInstalledDefinitionCallTransport(acquisition, mixedResourceUnion);\n344:  // @ts-expect-error HC1-NEG transport-refuses-mixed-union-crossed-request 2345\n345:  void runInstalledDefinitionCallTransport(acquisition, mixedRequestUnion);",
+      "outputChars": 662
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_017WTPVCSeW7FZoHwhEPmB6B",
+      "command": "mkdir -p /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/tmp && cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && cat > /dev/null <<'EOF'\nEOF\nexport TMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/tmp; time node --input-type=module -e '\nimport ts from \"typescript\"; import path from \"node:path\"; import fs from \"node:fs\";\nconst tenant=process.cwd(); const proofPath=path.join(tenant,\"test_env/types/framework-handoff.compile.ts\");\nconst cfg=ts.getParsedCommandLineOfConfigFile(path.join(tenant,\"test_env/tsconfig.framework-handoff.json\"),{},{...ts.sys,onUnRecoverableConfigFileDiagnostic:d=>{throw new Error(String(d.messageText))}});\nconst options={...cfg.options,baseUrl:tenant,paths:{\"@abiogenesis/typescript-tenant/*\":[\"code/src/*/index.ts\"]}};\nconst text=fs.readFileSync(proofPath,\"utf8\");\nconst markers=text.split(\"\\n\").flatMap((l,i)=>{const m=l.match(/\\/\\/ @ts-expect-error HC1-NEG (\\S+) ([\\d ]+)$/);return m?[{name:m[1],line:i+2,codes:m[2].trim().split(/\\s+/).map(Number)}]:[]});\nfunction compile(src){const host=ts.createCompilerHost(options);const g=host.getSourceFile.bind(host),r=host.readFile.bind(host);\n host.getSourceFile=(f,l,...x)=>path.resolve(f)===proofPath?ts.createSourceFile(f,src,l,true):g(f,l,...x);host.readFile=f=>path.resolve(f)===proofPath?src:r(f);\n const p=ts.createProgram({rootNames:[proofPath],options,host});return ts.getPreEmitDiagnostics(p).filter(d=>d.category===ts.DiagnosticCategory.Error).map(d=>({code:d.code,file:d.file?.fileName.replace(tenant+\"/\",\"\"),line:d.file?d.file.getLineAndCharacterOfPosition(d.start).line+1:null,msg:ts.flattenDiagnosticMessageText(d.messageText,\"\\n\").slice(0,300)}));}\nconst pos=compile(text); console.log(\"positive errors\",pos.length, JSON.stringify(pos.slice(0,8),null,1));\nconst neg=compile(text.replace(/\\/\\/ @ts-expect-error HC1-NEG/g,\"// HC1-NEG\"));\nconst fixtureErr=neg.filter(e=>e.file===\"test_env/types/framework-handoff.compile.ts\");\nfor(const m of markers){const codes=fixtureErr.filter(e=>e.line===m.line).map(e=>e.code);console.log(m.name, codes.length?(codes.every(c=>m.codes.includes(c))?\"OK\":\"BADCODE\"):\"NO-FAIL\", codes.join(\",\"));}\nconsole.log(\"unexpected\",JSON.stringify(neg.filter(e=>!markers.some(m=>m.line===e.line&&e.file===\"test_env/types/framework-handoff.compile.ts\")).slice(0,5)));\n' 2>&1 | tail -40",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_017WTPVCSeW7FZoHwhEPmB6B",
+      "is_error": false,
+      "outputExcerpt": "positive errors 0 []\nterminal-read-has-no-nonterminal OK 2367\nwrong-key OK 2322\nwrong-member OK 2345\nwrong-request OK 2345\nwrong-resources OK 2345\nstart-graph-function-requires-graph-slot OK 2345\nverify-installed-requires-dependency-lock OK 2345\nrun-stopped-requires-execution-basis OK 2345\nc-call-replay-selector-requires-c-call OK 2322\ncrossed-read-selector OK 2322\ncrossed-read-resources OK 2345\ncurrent-intent-member-refuses-selected-action OK 2345\nselected-action-member-refuses-current-intent OK 2345\ncurrent-intent-and-pending-are-exclusive OK 2322\npending-variant-requires-its-cursor OK 2322\nunavailable-member-has-no-callable-resources OK 2322,2322,2322\ntransport-refuses-forged-typed-resources OK 2345\ntransport-refuses-mixed-union-crossed-resources OK 2345\ntransport-refuses-mixed-union-crossed-request OK 2345\nunexpected []\nnode --input-type=module -e  2>&1  27.56s user 0.45s system 140% cpu 19.871 total\ntail -40  0.00s user 0.00s system 0% cpu 19.871 total",
+      "outputChars": 971
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01TouMupQHc116wvFaUARsZC",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && python3 - <<'EOF'\np='test_env/tests/t287-framework-handoff-types.test.mjs'\ns=open(p).read()\nstart=s.index(\"  // A structurally exact witness attest call reaches its absent binding.\")\nend=s.index(\"  t.diagnostic(JSON.stringify({kind: 'hc1_packed_runtime_inventory'\")\nnew='''  // Every unavailable member sends one structurally exact call through the raw\n  // transport and reaches its absent binding; the finite request table is\n  // scenario data per declared member, its slots follow the member's own\n  // declared authority-slot requirements.\n  const api = pkg.public, hash = pkg.product.sha256Canonical, ref = label => ({ref: label, digest: hash({label})});\n  const contractCatalog = {productId: 'product://hc1-proof/catalog', productContentDigest: hash('hc1-content'),\n    catalogId: 'catalog://hc1-proof/public', catalogVersion: '5.0.0', catalogDigest: hash('hc1-catalog')};\n  const respond = (responseKind, choice) => ({interaction: ref('interaction://hc1'), responseContract: ref('contract://hc1/response'),\n    responseKind, choice, value: {response: responseKind}, evidence: [ref('evidence://hc1')], currentBasis: ref('basis://hc1')});\n  const witness = (act, subjectKind, context) => ({subjectKind, subject: ref(`subject://hc1/${act}`), act,\n    content: {kind: 'typed_reason', contentContract: ref('contract://hc1/reason'), value: {reason: 'hc1'}},\n    context, evidence: [ref('evidence://hc1')], provenance: [ref('provenance://hc1')]});\n  const UNAVAILABLE_REQUESTS = {\n    'abg.operation.interaction.respond#answer_escalation': respond('answer_escalation', null),\n    'abg.operation.interaction.respond#approve': respond('approve', null),\n    'abg.operation.interaction.respond#assess': respond('assess', null),\n    'abg.operation.interaction.respond#reject': respond('reject', null),\n    'abg.operation.interaction.respond#select': respond('select', ref('choice://hc1')),\n    'abg.operation.witness.admit#attest': witness('attest', 'evidence_claim', {kind: 'basis', basis: ref('basis://hc1')}),\n    'abg.operation.witness.admit#hygiene-stamp': witness('hygiene-stamp', 'workspace', {kind: 'workspace', workspace: ref('workspace://hc1')}),\n    'abg.operation.witness.admit#intake': witness('intake', 'intake_item', {kind: 'segment', run: ref('run://hc1'), segment: ref('segment://hc1')}),\n    'abg.operation.witness.admit#run-resumed': witness('run-resumed', 'run', {kind: 'run', run: ref('run://hc1'), basis: ref('basis://hc1')}),\n  };\n  assert.deepEqual(Object.keys(UNAVAILABLE_REQUESTS).sort(), [...oracle('UNAVAILABLE')].sort());\n  const SLOT_VALUES = {workspace_binding: ref('workspace-binding://hc1'), product_set: [ref('product://hc1')],\n    dependency_lock: ref('lock://hc1'), actor: {actor: ref('actor://hc1'), attribution: ref('attribution://hc1')},\n    execution_basis: ref('execution-basis://hc1')};\n  const SLOT_NAMES = ['workspace_binding', 'product_set', 'dependency_lock', 'ca",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01TouMupQHc116wvFaUARsZC",
+      "is_error": false,
+      "outputExcerpt": "304:  assert.equal(unknown.code, 'unknown_definition');\n309:    rawUnavailableRefusals: unavailableCalls.map(row => `${row.invocation.definitionKey.operationId}#${row.invocation.definitionKey.memberKey}`)}));",
+      "outputChars": 208
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_016pvrh1FnWZ8XtZ2HA8iDc7",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && export TMPDIR=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/tmp; time node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1 | head -30",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_016pvrh1FnWZ8XtZ2HA8iDc7",
+      "is_error": false,
+      "outputExcerpt": "node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1  10.21s user 0.22s system 169% cpu 6.137 total\nhead -30  0.00s user 0.00s system 0% cpu 6.137 total",
+      "outputChars": 172
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01HBRF9KMZC8HtvgerFBhaLz",
+      "command": "cat tsconfig.json; node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json --listFilesOnly 2>/dev/null | grep -c \"code/src\"; echo \"exit=$?\"",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01HBRF9KMZC8HtvgerFBhaLz",
+      "is_error": false,
+      "outputExcerpt": "{\n  \"compilerOptions\": {\n    \"declaration\": true,\n    \"exactOptionalPropertyTypes\": true,\n    \"forceConsistentCasingInFileNames\": true,\n    \"module\": \"NodeNext\",\n    \"moduleResolution\": \"NodeNext\",\n    \"noEmitOnError\": true,\n    \"noFallthroughCasesInSwitch\": true,\n    \"noImplicitOverride\": true,\n    \"noImplicitReturns\": true,\n    \"noUncheckedIndexedAccess\": true,\n    \"outDir\": \"build/code/src\",\n    \"rootDir\": \"code/src\",\n    \"skipLibCheck\": true,\n    \"stripInternal\": true,\n    \"strict\": true,\n    \"target\": \"ES2022\",\n    \"verbatimModuleSyntax\": true\n  },\n  \"include\": [\n    \"code/src/**/*.ts\"\n  ]\n}\n290\nexit=0",
+      "outputChars": 614
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_015MBoMbg4Xk2SRA7zquCEpC",
+      "command": "sed -i '' 's|^export { ABG_PROJECT_READ_DEFINITION_BINDINGS } from \"./project_read_definition_bindings.js\";|export {\\n  ABG_PROJECT_READ_DEFINITION_BINDINGS,\\n  ABG_RUN_READ_MEMBER_KEYS,\\n  expectedRunReadAuthority,\\n  populateRunReadAtDurablePrefix,\\n  type AbgRunReadMemberKey,\\n} from \"./project_read_definition_bindings.js\";|' abg/index.ts && sed -n 530,540p abg/index.ts && cd ../.. && node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1 | head -20",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_015MBoMbg4Xk2SRA7zquCEpC",
+      "is_error": false,
+      "outputExcerpt": "  type WorkerTransportRequest,\n  type WorkerTransportResult,\n} from \"./worker_transport.js\";\nexport {\n  ABG_PROJECT_READ_DEFINITION_BINDINGS,\n  ABG_RUN_READ_MEMBER_KEYS,\n  expectedRunReadAuthority,\n  populateRunReadAtDurablePrefix,\n  type AbgRunReadMemberKey,\n} from \"./project_read_definition_bindings.js\";\nexport { ABG_PROJECT_READ_CONTRACTS } from \"./project_read_operation_contracts.js\";",
+      "outputChars": 391
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01Hs4eDXGpUXzGFdXuHqK5Nb",
+      "command": "python3 - <<'EOF'\np='owner_bindings/run_invocation.ts'\ns=open(p).read()\nold_policy='''    const regimes = new Set([...resolution.programValidation.executableLeafRows, ...resolution.programValidation.interactionLeafRows].map(row => row.fibre));\n    const policy = constructRootInvocationPolicy(setup.workspaceBinding, resolution.program,\n      resolution.programValidation.interactionLeafRows.map(row => ({ requirementKey: row.requirementKey,\n        requirementKeyDigest: row.requirementKeyDigest, actorCapabilityRef: row.requirement.actorCapabilityRef })),\n      ([\"F_D\", \"F_P\", \"F_H\"] as const).filter(regime => regimes.has(regime)), call.resources.applications);\n'''\nn=s.count(old_policy); assert n==3, n\ns=s.replace(old_policy,'''    const policy = constructRunOperationPolicy(setup.workspaceBinding, resolution, call.resources.applications);\n''')\ns=s.replace('''import { constructRootInvocationPolicy, constructCapabilityGrant } from \"../product/invocation.js\";\nimport { runOperationAuthorityMatches } from \"../product/run_invocation_operation.js\";''','''import { constructCapabilityGrant } from \"../product/invocation.js\";\nimport { constructRunOperationPolicy, expectedRunOperationAuthoritySlots, runOperationAuthorityMatches } from \"../product/run_invocation_operation.js\";\nimport { projectPendingExecutionContinuations } from \"../abg/construction_continuation.js\";\nimport { projectOpenedTraversalScopeForFrameAtPrefix } from \"../abg/open_call.js\";''')\n\nanchor=\"const invoke = bindExactPrefixTransition(\"\ncode='''/** The caller's continuation selection: the Run and one replay-derived\n * continuation key, plus the selected action and basis relation where the\n * selected_action member applies. */\nexport type RunContinuationSelectionIntent =\n  | Readonly<{ kind: \"current_intent\"; runRef: string; continuation: Readonly<{ ref: string; digest: Sha256Digest }> }>\n  | Readonly<{ kind: \"pending_execution\"; runRef: string; continuation: Readonly<{ ref: string; digest: Sha256Digest }> }>\n  | Readonly<{\n      kind: \"selected_action\";\n      request: SelectedActionUseRequest;\n      currentExecutionBasis: Readonly<{ ref: string; digest: Sha256Digest }>;\n    }>;\n\nexport type RunContinuationPopulationRefusal = Readonly<{\n  kind: \"run_continuation_population_refusal\";\n  code: \"missing_continuation\" | \"resolved_continuation\" | \"response_mismatch\" | \"replay_mismatch\" |\n    \"basis_mismatch\" | \"stale_action\" | \"action_mismatch\" | \"reprice_mismatch\" | \"intent_mismatch\";\n  issuePath: string;\n}>;\n\nexport type PopulatedRunContinuation = Readonly<{\n  kind: \"populated_run_continuation\";\n  memberKey: \"current_intent\" | \"selected_action\";\n  request: Readonly<Record<string, JsonValue>>;\n  slots: Readonly<Record<string, JsonValue>>;\n  resolution: import(\"../product/execution_resolution.js\").LoadedProductExecutionResolution;\n  policy: ReturnType<typeof constructRunOperationPolicy>;\n  grants: readonly import(\"../product/invocation.js\").CapabilityGrant[];\n  authority: Readonly<{ authorityRef: string",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01Hs4eDXGpUXzGFdXuHqK5Nb",
+      "is_error": false,
+      "outputExcerpt": "(Bash completed with no output)",
+      "outputChars": 31
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_019C5dmh6XxTkDSVvRZyaKcQ",
+      "command": "sed -i '' 's/^  admissionEnvironmentSelection,$/  admissionEnvironmentSelection,\\n  constructAdmissionCapabilityData,/' product/index.ts && grep -n \"constructAdmissionCapabilityData\\|constructAdmissionCapabilityGrants\" product/index.ts; cd ../.. && node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1 | head -20",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_019C5dmh6XxTkDSVvRZyaKcQ",
+      "is_error": false,
+      "outputExcerpt": "197:  constructAdmissionCapabilityGrants,\n227:  constructAdmissionCapabilityData,",
+      "outputChars": 81
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01NL8Q4o6NoFxdjxUvF7wCzh",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -n \"abgEventResourceInputPrefix\\|ReopenedAbgEventResourceInput\\|AbgEventResourceAssertion\\b\" abg/index.ts | head; sed -n 100,140p abg/definition_event_resource.ts; grep -n \"export type RunEnvironmentResources\\|export interface RunEnvironmentResources\" product/stdo_environment.ts; grep -n \"RunEnvironmentResources\\|AbgHistoricalDeclarationProof\\b\" product/index.ts abg/index.ts | head",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01NL8Q4o6NoFxdjxUvF7wCzh",
+      "is_error": false,
+      "outputExcerpt": "589:  abgEventResourceInputPrefix, abgEventResourceOutcomePrefix,\n591:  type AbgEventResourceInput, type ReopenedAbgEventResourceInput,\n  prefix: DurablePrefixCoordinate,\n): AcquiredAbgEventResourceSelection {\n  assertAcquiredResourceCurrent(resource, prefix);\n  const ownedPrefix = selectHeldEventStoreDurablePrefix(resource.store);\n  const selection = deepFreeze({ kind: \"acquired_abg_event_resource_selection\" as const,\n    schemaVersion: \"5.0.0\" as const, prefix: ownedPrefix });\n  acquiredSelections.set(selection, { acquisitionKind: resource.acquisitionKind,\n    store: resource.store, entryPrefix: ownedPrefix });\n  return selection;\n}\n\nexport function isAcquiredAbgEventResourceSelection(value: unknown): value is AcquiredAbgEventResourceSelection {\n  return isRecord(value) && acquiredSelections.has(value as unknown as AcquiredAbgEventResourceSelection);\n}\n\nexport function assertAcquiredAbgEventResourceSelectionCurrent(selection: AcquiredAbgEventResourceSelection): void {\n  const resource = acquiredSelections.get(selection);\n  if (resource === undefined) throw new TypeError(\"native selection has no acquired owner\");\n  assertAcquiredResourceCurrent(resource, selection.prefix);\n}\n\nexport function validateAbgEventResourceInput(value: unknown): value is AbgEventResourceInput {\n  return isAcquiredAbgEventResourceSelection(value) || validateAbgEventResourceAssertion(value);\n}\n\nexport function validateReopenedAbgEventResourceInput(value: unknown): value is ReopenedAbgEventResourceInput {\n  return isAcquiredAbgEventResourceSelection(value) ||\n    (validateAbgEventResourceAssertion(value) && value.kind === \"reopen_abg_event_resource\");\n}\n\nexport function abgEventResourceInputPrefix(input: ReopenedAbgEventResourceInput): DurablePrefixCoordinate {\n  return input.kind === \"acquired_abg_event_resource_selection\" ? input.prefix : input.closeHandoff.prefix;\n}\n\nexport function abgEventResourceOutcomePrefix(outcome: AbgEventResourceOutcome): DurablePrefixCoordinate {\n  return outcome.kind === \"abg_event_resource_completion\" ? outcome.successor.prefix : outcome.closeHandoff.prefix;\n}\n\n/** Physical owner relation for native completion at the live return boundary. */\nexport function acquiredAbgEventResourceCompletionCorresponds(\n  entry: AcquiredAbgEventResourceSelection,\n207:export type RunEnvironmentResources = v.InferOutput<typeof RUN_ENVIRONMENT_RESOURCES_SCHEMA>;\nproduct/index.ts:548:export { constructRunEnvironmentResources, runEnvironmentRecordMembers, observeRunEnvironment } from \"./stdo_environment.js\";\nproduct/index.ts:549:export type { RunEnvironmentResources, RunEnvironmentObservation } from \"./stdo_environment.js\";\nabg/index.ts:418:  type AbgHistoricalDeclarationProof,",
+      "outputChars": 2708
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_014D8s9QDcbRUKLkQsFWYqxH",
+      "command": "cat >> public/installed_public_definition_call.ts <<'EOF'\n\n/** Explicit envelope identity of one constructed installed call. */\nexport interface InstalledCallEnvelopeIdentity {\n  readonly definitionContractCoordinates: CompleteDefinitionContractCoordinateMap;\n  readonly requestRef: string;\n  readonly correlationRef: string;\n  readonly eventTime: string;\n  readonly provenanceRefs: readonly string[];\n}\n\nconst INSTALLED_PUBLIC = Object.freeze({\n  PUBLIC_FUNCTION_DEFINITION_FAMILY,\n  PUBLIC_OPERATION_CONTRACT_PROJECTIONS,\n  PUBLIC_PROJECTION_PAYLOADS,\n});\n\n/** The verified request-slot contract catalog of one exact member. */\nfunction verifiedContractCatalog(\n  coordinates: CompleteDefinitionContractCoordinateMap,\n  operationId: string,\n  memberKey: string,\n): PublicContractCatalogCoordinate {\n  const member = exact(\n    exact(coordinates.operations, (row) => row.operationId === operationId, \"verified operation coordinates\").members,\n    (row) => row.memberKey === memberKey,\n    \"verified member coordinates\",\n  );\n  if (member.slots.request === null) {\n    throw new TypeError(`${operationId}#${memberKey} lacks its verified request coordinate`);\n  }\n  return member.slots.request.contractCatalog;\n}\n\nfunction constructEnvelope(\n  envelope: InstalledCallEnvelopeIdentity,\n  operationId: string,\n  memberKey: string,\n  request: unknown,\n  slots: unknown,\n  resources: unknown,\n): InstalledPublicDefinitionCall {\n  return constructInstalledPublicDefinitionCall({\n    product: product,\n    installedPublic: INSTALLED_PUBLIC,\n    definitionContractCoordinates: envelope.definitionContractCoordinates,\n    contractCatalog: verifiedContractCatalog(envelope.definitionContractCoordinates, operationId, memberKey),\n    operationId,\n    memberKey,\n    request,\n    slots,\n    resources,\n    requestRef: envelope.requestRef,\n    correlationRef: envelope.correlationRef,\n    eventTime: envelope.eventTime,\n    provenanceRefs: envelope.provenanceRefs,\n  } as unknown as InstalledPublicDefinitionCallInput) as InstalledPublicDefinitionCall;\n}\n\n/** Optional run resources the caller supplies explicitly; none is defaulted. */\nexport interface InstalledRunCallResourceIntent {\n  readonly runEnvironmentResources?:\n    | product.RunEnvironmentResources\n    | ((populated: Readonly<{\n        authority: Readonly<{ authorityRef: string; authorityDigest: Sha256Digest; actorRef: string }>;\n        program: product.LoadedProductExecutionResolution[\"program\"];\n        workspaceBinding: product.WorkspaceBinding;\n      }>) => product.RunEnvironmentResources | Promise<product.RunEnvironmentResources>);\n  readonly historicalSource?: abg.AbgHistoricalGraphCallSourceResource;\n  readonly qualificationResources?: NonNullable<product.ProductRunInvocationResourceAssertion[\"qualificationResources\"]>;\n}\n\nasync function runResources(\n  intent: InstalledRunCallResourceIntent,\n  populated: Parameters<Exclude<InstalledRunCallResourceIntent[\"runEnvironmentResources\"], undefined | product.RunEnvironmentResources>>[",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_014D8s9QDcbRUKLkQsFWYqxH",
+      "is_error": false,
+      "outputExcerpt": "code/src/public/installed_public_definition_call.ts(418,35): error TS2694: Namespace '\"/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/index\"' has no exported member 'AbgHistoricalGraphCallSourceResource'.\ncode/src/public/installed_public_definition_call.ts(448,24): error TS2724: '\"/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/index\"' has no exported member named 'AbgEventResourceAssertion'. Did you mean 'AbgEventResourceCompletion'?\ncode/src/public/installed_public_definition_call.ts(497,30): error TS2724: '\"/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/index\"' has no exported member named 'AbgEventResourceAssertion'. Did you mean 'AbgEventResourceCompletion'?\ncode/src/public/installed_public_definition_call.ts(545,30): error TS2724: '\"/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/index\"' has no exported member named 'AbgEventResourceAssertion'. Did you mean 'AbgEventResourceCompletion'?",
+      "outputChars": 1123
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01D6hkaRANpZdsTSwtrgdU7H",
+      "command": "python3 - <<'EOF'\np='public/installed_public_definition_call.ts'\ns=open(p).read()\ns=s.replace('readonly historicalSource?: abg.AbgHistoricalGraphCallSourceResource;','readonly historicalSource?: NonNullable<product.ProductRunInvocationResourceAssertion[\"historicalSource\"]>;')\ns=s.replace('eventResource: abg.AbgEventResourceAssertion;','eventResource: abg.AbgEventResourceInput;')\ns=s.replace('eventResource: Extract<abg.AbgEventResourceAssertion, { readonly kind: \"reopen_abg_event_resource\" }>;','eventResource: abg.ReopenedAbgEventResourceInput;')\nopen(p,'w').write(s)\nEOF\ncd ../.. && node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1 | head -30",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01D6hkaRANpZdsTSwtrgdU7H",
+      "is_error": false,
+      "outputExcerpt": "(Bash completed with no output)",
+      "outputChars": 31
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01ARWSx7ZPU2HU3yfmEc881q",
+      "command": "python3 - <<'EOF'\np='public/index.ts'\ns=open(p).read()\ns=s.replace('''export {\n  constructInstalledPublicDefinitionCall,\n  type InstalledPublicDefinitionCall,''','''export {\n  constructInstalledPendingCall,\n  constructInstalledPublicDefinitionCall,\n  constructInstalledRunReadCall,\n  constructInstalledStartCall,\n  type InstalledCallEnvelopeIdentity,\n  type InstalledRunCallResourceIntent,\n  type InstalledPublicDefinitionCall,''',1)\nopen(p,'w').write(s)\nEOF\ncd ../.. && node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1 | head -30",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01ARWSx7ZPU2HU3yfmEc881q",
+      "is_error": false,
+      "outputExcerpt": "(Bash completed with no output)",
+      "outputChars": 31
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01A5ZPYTz2SLhZzuGY42m54J",
+      "command": "python3 - <<'EOF'\np='owner_bindings/run_invocation.ts'\ns=open(p).read()\ns=s.replace('''  resolution: import(\"../product/execution_resolution.js\").LoadedProductExecutionResolution;\n  policy: ReturnType<typeof constructRunOperationPolicy>;\n  grants: readonly import(\"../product/invocation.js\").CapabilityGrant[];\n  authority: Readonly<{ authorityRef: string; authorityDigest: Sha256Digest; actorRef: string }>;\n}>;''','''  resolution: import(\"../product/execution_resolution.js\").LoadedProductExecutionResolution;\n  workspaceBinding: WorkspaceBinding;\n  policy: ReturnType<typeof constructRunOperationPolicy>;\n  grants: readonly import(\"../product/invocation.js\").CapabilityGrant[];\n  authority: Readonly<{ authorityRef: string; authorityDigest: Sha256Digest; actorRef: string }>;\n}>;''',1)\ns=s.replace('''      kind: \"populated_run_continuation\" as const, memberKey, request, resolution, policy, grants: Object.freeze([grant]),''','''      kind: \"populated_run_continuation\" as const, memberKey, request, resolution,\n      workspaceBinding: setup.workspaceBinding, policy, grants: Object.freeze([grant]),''',1)\nopen(p,'w').write(s)\np='public/installed_public_definition_call.ts'\ns=open(p).read()\ns=s.replace('''      workspaceBinding: (input.catalog.readinessBasis.workspaceBinding as unknown) as product.WorkspaceBinding,''','''      workspaceBinding: population.workspaceBinding,''',1)\nopen(p,'w').write(s)\nEOF\ngrep -n \"WorkspaceBinding\\b\" owner_bindings/run_invocation.ts | head -3\ncd ../.. && node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1 | head",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01A5ZPYTz2SLhZzuGY42m54J",
+      "is_error": false,
+      "outputExcerpt": "40:  projectAdmittedWorkspaceBinding,\n84:  type WorkspaceBinding,\n172:  readonly workspaceBinding: WorkspaceBinding;",
+      "outputChars": 116
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_011gXg8NCSKP7D2CmZeZQTtE",
+      "command": "python3 - <<'EOF'\np='abg/index.ts'\ns=open(p).read()\nanchor='''  type AbgRunReadMemberKey,\n} from \"./project_read_definition_bindings.js\";\n'''\ns=s.replace(anchor,anchor+'''export { projectPendingExecutionUseRequest } from \"./construction_continuation.js\";\n''',1)\nopen(p,'w').write(s)\nEOF\ncd ../.. && node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1 | head",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_011gXg8NCSKP7D2CmZeZQTtE",
+      "is_error": false,
+      "outputExcerpt": "(Bash completed with no output)",
+      "outputChars": 31
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_017gCHf8P3Zq2oD5M3ENxbbt",
+      "command": "cd ../../test_env && python3 - <<'EOF'\np='support/registered-graph-selection.mjs'\ns=open(p).read()\nstart=s.index('export async function constructInstalledStartCall({')\nend=s.index('export async function runInstalledCliRequest({')\nnew='''/** One installed `run.invoke` start through the shipped SDK constructor. The\n * Product run owner populates the request and authority slots from the\n * selection, input and source intent; support supplies scenario data only. */\nexport async function constructInstalledStartCall({\n  environment,\n  publicApi,\n  eventResource,\n  input,\n  identity = \"st-1\",\n  runEnvironmentResourceFactory,\n  programRef,\n  rootMode = \"direct\",\n  declaredStartRef,\n  assetHandle,\n  inputFactory,\n  sourceResult,\n}) {\n  // One selection: next, one declared start, or one published asset handle.\n  assert.ok(declaredStartRef === undefined || assetHandle === undefined, \"start and asset selections are mutually exclusive\");\n  if (assetHandle !== undefined) assert.ok(typeof assetHandle === \"string\" && assetHandle.length > 0, \"asset selection names one handle\");\n  // A retained-source start names one owner-derived source-result basis and\n  // the Public authority it was projected under; otherwise the source is none.\n  if (sourceResult !== undefined) assert.ok(sourceResult.basis && sourceResult.projectionAuthority, \"a source start names its basis and projection authority\");\n  const {\n    product,\n    abg,\n    catalog,\n    catalogView,\n    admittedInstalls,\n    workspaceBinding,\n    additionalProducts: [fixture] = [],\n  } = environment;\n  const constructed = await publicApi.constructInstalledStartCall({\n    selection: Object.freeze({\n      memberKey: \"start\",\n      target: assetHandle !== undefined ? Object.freeze({ kind: \"asset\", handle: assetHandle })\n        : declaredStartRef === undefined ? Object.freeze({ kind: \"next\" })\n        : Object.freeze({ kind: \"declared_start\", startRef: declaredStartRef }),\n      rootMode,\n      fhMode: \"direct\",\n    }),\n    programRef: programRef ?? fixture.ids.programRef,\n    catalog,\n    catalogView,\n    applications: Object.freeze([]),\n    admittedInstalls,\n    workspaceBinding,\n    verifyInstallAdmission: (install) =>\n      abg.hasAdmittedProductInstall(environment.artifactTruth, install),\n    actorRef: workspaceBinding.authorizedActorRef,\n    input: inputFactory === undefined ? Object.freeze({ value: input }) : Object.freeze({\n      factory: ({ resolution }) => inputFactory({ resolution, program: resolution.program, workspaceBinding }),\n    }),\n    inputValueRef: `value://odd-glc/${identity}/hello-input`,\n    source: sourceResult === undefined ? Object.freeze({ kind: \"none\" }) : Object.freeze({\n      kind: \"admitted_source_result\",\n      basis: sourceResult.basis,\n      projectionAuthority: sourceResult.projectionAuthority,\n    }),\n    ...(runEnvironmentResourceFactory === undefined ? {} : {\n      runEnvironmentResources: (populated) => runEnvironmentResourceFactory({ ...populated, product }),\n    }),\n    event",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_017gCHf8P3Zq2oD5M3ENxbbt",
+      "is_error": false,
+      "outputExcerpt": "8:const schemaVersion = \"5.0.0\";\n9:const operationId = \"abg.operation.run.invoke\";\n103:    schemaVersion: \"5.0.0\",\n113:      assetLocator:{path:asset.path,mediaType:'application/schema+json',schemaVersion:version,contentDigest:await product.sha256File(join(sourceRoot,asset.path))} }))),\n121:    schemaVersion: \"5.0.0\",\n150:    schemaVersion: \"5.0.0\",\n183:        schemaVersion: \"5.0.0\",\n370:      contractCatalog: first.call.invocation.contractCatalog, operationId: \"abg.operation.run.continue\", memberKey: \"current_intent\",\n430:    schemaVersion,\nSYNTAX_OK",
+      "outputChars": 558
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01PA3XBzng9Es5FHbh71eXCD",
+      "command": "python3 - <<'EOF'\np='support/registered-graph-selection.mjs'\ns=open(p).read()\ns=s.replace('const operationId = \"abg.operation.run.invoke\";\\n','',1)\nopen(p,'w').write(s)\n\np='tests/t287-default-library.test.mjs'\ns=open(p).read()\nold1='''  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,start,eventResource:resource,\n    identityScope:'pending-testing','''\nnew1='''  const pending=await constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,expectedAuthority:start.workAuthority,\n    runEnvironmentResources:start.call.resources.runEnvironmentResources,eventResource:resource,\n    identityScope:'pending-testing','''\nassert s.count(old1)==1; s=s.replace(old1,new1,1)\nold2=\"\"\"  const makeCall=pending.call;\n  const cli=async(identity,call)=>{\n    const execution=await runInstalledCliRequest({scratch:proof,\"\"\"\nassert s.count(old2)==1\nold3=\"\"\"  const crossed=(await cli('crossed',makeCall('crossed',{pendingCursor:{ref:p.pendingCursorRef,digest:zero}}))).receipt;\"\"\"\nnew3=\"\"\"  const crossed=(await cli('crossed',pending.replay('crossed',{pendingCursor:{ref:p.pendingCursorRef,digest:zero}}))).receipt;\"\"\"\nassert s.count(old3)==1; s=s.replace(old3,new3,1)\nold4=\"\"\"  const resumedAt=performance.now(),continued=await cli('continue',makeCall('continue'));\"\"\"\nnew4=\"\"\"  const resumedAt=performance.now(),continued=await cli('continue',await pending.call('continue'));\"\"\"\nassert s.count(old4)==1; s=s.replace(old4,new4,1)\nold5=\"\"\"  const afterContinue=read().length,second=(await cli('second-use',makeCall('second-use'))).receipt;\"\"\"\nnew5=\"\"\"  const afterContinue=read().length,second=(await cli('second-use',pending.replay('second-use'))).receipt;\"\"\"\nassert s.count(old5)==1; s=s.replace(old5,new5,1)\ns=s.replace(old2,\"\"\"  const cli=async(identity,call)=>{\n    const execution=await runInstalledCliRequest({scratch:proof,\"\"\",1)\nold6=\"\"\"  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request:await requestFor(p),start:startA,eventResource:resource,\"\"\"\nnew6=\"\"\"  const pending=await constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request:await requestFor(p),expectedAuthority:startA.workAuthority,\n    runEnvironmentResources:startA.call.resources.runEnvironmentResources,eventResource:resource,\"\"\"\nassert s.count(old6)==1; s=s.replace(old6,new6,1)\nold7=\"\"\"  const makeCall=identity=>pending.call(identity);\n  const resumedAt=performance.now(),continued=await cli('continue',makeCall('continue'),actorEnvironment(logB));\"\"\"\nnew7=\"\"\"  const resumedAt=performance.now(),continued=await cli('continue',await pending.call('continue'),actorEnvironment(logB));\"\"\"\nassert s.count(old7)==1; s=s.replace(old7,new7,1)\nold8=\"\"\"second=(await cli('second-use',makeCall('second-use'),actorEnvironment(logB))).receipt;\"\"\"\nnew8=\"\"\"second=(await cli('second-use',pending.replay('second-use'),actorEnvironment(logB))).receipt;\"\"\"\nassert s.count(old8)==1; s=",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01PA3XBzng9Es5FHbh71eXCD",
+      "is_error": false,
+      "outputExcerpt": "OK",
+      "outputChars": 2
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01TcEW3cfW3kC75hRppZ8L2r",
+      "command": "python3 - <<'EOF'\np='tests/t287-recursive-registered-selection.test.mjs'\ns=open(p).read()\nold=\"\"\"  // The shared support assembles the cold Public pending_execution call. This\n  // Run's root admission names the fixture's admitted invocation authority and\n  // execution resolution; that is the start basis supplied, with no run-environment resources.\n  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,\n    start:{workAuthority:env.invocationAuthority,resolution:env.executionResolution,capabilityBasis:{policy:env.policy,actorRef:env.actorRef},call:{resources:{}}},\n    eventResource:()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)}),\n    identityScope:'pending-execution-public',eventTime:'2026-11-02T00:01:00.000Z',provenanceRef:ref('provenance','fixture')});\n  assert.equal(pending.use.source.continuationRef,p.continuationRef);assert.equal(pending.pendingInput.input.inputRef,p.progressedInputRef);\n  const makeCall=pending.call;\n\"\"\"\nnew=\"\"\"  // The shared support assembles the cold Public pending_execution call through\n  // the shipped constructor. This Run's root admission names the fixture's\n  // admitted invocation authority (asserted only); no run-environment resources.\n  const pending=await constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,expectedAuthority:env.invocationAuthority,\n    eventResource:()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)}),\n    identityScope:'pending-execution-public',eventTime:'2026-11-02T00:01:00.000Z',provenanceRef:ref('provenance','fixture')});\n  assert.equal(pending.use.source.continuationRef,p.continuationRef);assert.equal(pending.population.slots.input_contract.valueRef,p.progressedInputRef);\n\"\"\"\nassert s.count(old)==1; s=s.replace(old,new,1)\nfor o,n in [(\"\"\"  const crossed=await cli('crossed',makeCall('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}));\"\"\",\"\"\"  const crossed=await cli('crossed',pending.replay('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}));\"\"\"),\n            (\"\"\"  const continueCall=makeCall('continue');\"\"\",\"\"\"  const continueCall=await pending.call('continue');\"\"\"),\n            (\"\"\"  const second=await cli('second-use',makeCall('second-use'));\"\"\",\"\"\"  const second=await cli('second-use',pending.replay('second-use'));\"\"\")]:\n    assert s.count(o)==1,o; s=s.replace(o,n,1)\nopen(p,'w').write(s)\nEOF\ngrep -n \"makeCall\\|pendingInput\" tests/t287-recursive-registered-selection.test.mjs | head; node --check tests/t287-recursive-registered-selection.test.mjs && echo OK",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01TcEW3cfW3kC75hRppZ8L2r",
+      "is_error": false,
+      "outputExcerpt": "OK",
+      "outputChars": 2
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01SEHrhrKCAnEsZunqLjNWu7",
+      "command": "python3 - <<'EOF'\nimport re\np='tests/t287-st1-installed-cross-owner-hello.test.mjs'\ns=open(p).read()\na=s.index('async function constructInstalledStartCall({')\nb=s.index('function reopenedReadResource(product, closeHandoff) {')\nstart_new='''/** The ST-1 start through the shipped SDK constructor: the Product run owner\n * populates the request and authority slots; this test supplies scenario data. */\nasync function constructInstalledStartCall({\n  environment,\n  publicApi,\n  eventResource,\n  input,\n  identity = \"st-1\",\n}) {\n  const {\n    abg,\n    catalog,\n    catalogView,\n    admittedInstalls,\n    workspaceBinding,\n    additionalProducts: [languageFixture],\n  } = environment;\n  const constructed = await publicApi.constructInstalledStartCall({\n    selection: Object.freeze({\n      memberKey: \"start\",\n      target: Object.freeze({ kind: \"next\" }),\n      rootMode: \"direct\",\n      fhMode: \"direct\",\n    }),\n    programRef: languageFixture.ids.programRef,\n    catalog,\n    catalogView,\n    applications: Object.freeze([]),\n    admittedInstalls,\n    workspaceBinding,\n    verifyInstallAdmission: (install) =>\n      abg.hasAdmittedProductInstall(environment.artifactTruth, install),\n    actorRef: workspaceBinding.authorizedActorRef,\n    input: Object.freeze({ value: input }),\n    inputValueRef: `value://abi5-tests/${identity}/hello-input`,\n    source: Object.freeze({ kind: \"none\" }),\n    eventResource,\n    envelope: Object.freeze({\n      definitionContractCoordinates:\n        environment.verified.definitionContractCoordinates,\n      requestRef: `public-request://abi5-tests/${identity}/run-start`,\n      correlationRef: `correlation://abi5-tests/${identity}/run-start`,\n      eventTime: identity === \"st-1\"\n        ? \"2026-08-21T00:00:00.000Z\"\n        : \"2026-08-22T01:00:00.000Z\",\n      provenanceRefs: [`provenance://abi5-tests/${identity}-worker`],\n    }),\n  });\n  if (constructed.kind !== \"installed_start_call\") {\n    assert.fail(JSON.stringify(constructed));\n  }\n  const { population } = constructed;\n  return {\n    call: constructed.call,\n    resolution: population.resolution,\n    capabilityBasis: Object.freeze({\n      actorRef: workspaceBinding.authorizedActorRef,\n      capabilityGrants: population.grants,\n      policy: population.policy,\n      productInstalls: admittedInstalls,\n      program: population.resolution.program,\n      programValidation: population.resolution.programValidation,\n      workspaceBinding,\n    }),\n  };\n}\n\n'''\ns=s[:a]+start_new+s[b:]\na=s.index('function readAuthoritySlots(environment, packet, grants) {')\nb=s.index('test(\"ST-1 executes an independently authored minimal GTL test through installed Public owners\"')\nread_new='''/** One run read through the shipped SDK constructor. A falsifier patches the\n * canonical population explicitly and re-envelopes it. */\nfunction constructInstalledRunReadCall({\n  environment,\n  publicApi,\n  memberKey,\n  selector,\n  source,\n  eventResource,\n  identity,\n  contractCatalogOverride = null,\n  definitionContractCoo",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01SEHrhrKCAnEsZunqLjNWu7",
+      "is_error": false,
+      "outputExcerpt": "570:  const projectReadContracts = await import(\n582:  const runStatusPacket = projectReadContracts.ABG_PROJECT_READ_CONTRACTS\nOK",
+      "outputChars": 129
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01Ft1jGb2wbeZWtiVUAEx7ci",
+      "command": "python3 - <<'EOF'\np='tests/t287-st1-installed-cross-owner-hello.test.mjs'\ns=open(p).read()\nanchor='''  context.diagnostic(\n    \"ST-4: 1 fresh CLI start, 3 chained CLI reads, 1 one-snapshot flip-getter read, 1 pre-owner crossed-handoff refusal, DefinitionHostReceipt path, 0 read bytes\",\n  );\n});\n'''\nassert s.endswith(anchor)\nadd='''  context.diagnostic(\n    \"ST-4: 1 fresh CLI start, 3 chained CLI reads, 1 one-snapshot flip-getter read, 1 pre-owner crossed-handoff refusal, DefinitionHostReceipt path, 0 read bytes\",\n  );\n\n  // Shipped SDK constructors populate a direct GraphFunction invoke and every\n  // run read from their owners; this composition supplies scenario data only.\n  const sdkEnvelope = (identity) => Object.freeze({\n    definitionContractCoordinates:\n      environment.verified.definitionContractCoordinates,\n    requestRef: `public-request://abi5-tests/sdk/${identity}`,\n    correlationRef: `correlation://abi5-tests/sdk/${identity}`,\n    eventTime: \"2026-08-23T00:00:00.000Z\",\n    provenanceRefs: [\"provenance://abi5-tests/sdk-worker\"],\n  });\n  let sdkHandoff =\n    acquisitionFlipOutcome.receipt.resources.eventResource.closeHandoff;\n  const invokeConstruction = await publicApi.constructInstalledStartCall({\n    selection: Object.freeze({\n      memberKey: \"invoke\",\n      catalogHandle: languageFixture.ids.graphFunctionRef,\n    }),\n    programRef: languageFixture.ids.programRef,\n    catalog,\n    catalogView,\n    applications: Object.freeze([]),\n    admittedInstalls,\n    workspaceBinding,\n    verifyInstallAdmission: (install) =>\n      abg.hasAdmittedProductInstall(environment.artifactTruth, install),\n    actorRef: workspaceBinding.authorizedActorRef,\n    input: Object.freeze({ value: gtl.constructLanguageTestInput(\"World\") }),\n    inputValueRef: \"value://abi5-tests/sdk/direct-invoke-input\",\n    source: Object.freeze({ kind: \"none\" }),\n    eventResource: reopenedReadResource(product, sdkHandoff),\n    envelope: sdkEnvelope(\"direct-invoke\"),\n  });\n  if (invokeConstruction.kind !== \"installed_start_call\") {\n    assert.fail(JSON.stringify(invokeConstruction));\n  }\n  assert.deepEqual(invokeConstruction.call.invocation.definitionKey, {\n    operationId,\n    memberKey: \"invoke\",\n  });\n  const invokeOutcome = await publicApi.runInstalledDefinitionCallTransport(\n    Object.freeze({ kind: \"reopen\", closeHandoff: sdkHandoff }),\n    invokeConstruction.call,\n  );\n  assert.equal(\n    invokeOutcome.kind,\n    \"installed_definition_call_transport_result\",\n    JSON.stringify(invokeOutcome).slice(0, 4000),\n  );\n  assert.equal(\n    invokeOutcome.receipt.ownerOutput.outcomeKind,\n    \"result\",\n    JSON.stringify(invokeOutcome.receipt.ownerOutput).slice(0, 4000),\n  );\n  assert.equal(invokeOutcome.receipt.ownerOutput.value.disposition, \"completed\");\n  const invokeRun = invokeOutcome.receipt.resources.run;\n  assert.ok(invokeRun);\n  assert.notEqual(invokeRun.ref, st4Run.ref, \"direct invoke opens its own Run\");\n  assert.notEqual(invokeRun.ref, terminalRun.ref, \"direct invok",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01Ft1jGb2wbeZWtiVUAEx7ci",
+      "is_error": false,
+      "outputExcerpt": "OK",
+      "outputChars": 2
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01R5ajtqNmKHP4nfRBw38edh",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env && python3 - <<'EOF'\np='support/t287-generic-job-readback.mjs'\ns=open(p).read()\na=s.index('    const packet = abg.ABG_PROJECT_READ_CONTRACTS[memberKey], definition')\nb=s.index('    const path = join(outputRoot, memberKey + \".jsonl\");')\nnew='''    // The shipped SDK constructor populates source and read authority at the closed prefix.\n    const constructed = installedPublic.constructInstalledRunReadCall({ memberKey, workspaceBinding: bindingCoordinate,\n      sourceRef: outcome.ownerOutput.value.run.ref,\n      selector: memberKey === \"run_replay\" ? { kind: \"ordinal_page\", fromOrdinal: 0, limit: 10000 } : { kind: \"none\" },\n      eventResource: { kind: \"reopen_abg_event_resource\", schemaVersion: \"5.0.0\", closeHandoff: closed, handoffDigest: product.sha256Canonical(closed) },\n      envelope: { definitionContractCoordinates: verified.definitionContractCoordinates,\n        requestRef: `public-request://generic-job-mechanics.example/read/${memberKey}`,\n        correlationRef: \"correlation://generic-job-mechanics.example/fresh-read\", eventTime: \"2026-09-18T00:00:00.000Z\", provenanceRefs: [\"proof://generic-job-mechanics/fresh-public\"] } });\n    assert.equal(constructed.kind, \"installed_run_read_call\", constructed.kind === \"installed_run_read_call\" ? \"\" : JSON.stringify(constructed));\n    assert.deepEqual(constructed.population.source, outcome.ownerOutput.value.run);\n    const readCall = constructed.call;\n'''\ns=s[:a]+new+s[b:]\ns=s.replace('  const originalSlots = call.invocation.invocationAuthority.slots, reads = {};','  const reads = {};',1)\ns=s.replace('import { constructInstalledPublicDefinitionCall } from \"./installed-public-definition-call.mjs\";\\n','',1)\nopen(p,'w').write(s)\nEOF\ngrep -n \"constructInstalledPublicDefinitionCall\\|originalSlots\\|call\\.invocation\" support/t287-generic-job-readback.mjs; node --check support/t287-generic-job-readback.mjs && echo OK",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01R5ajtqNmKHP4nfRBw38edh",
+      "is_error": false,
+      "outputExcerpt": "15:  const closed = outcome.resources.eventResource.closeHandoff, bindingCoordinate = call.invocation.invocationAuthority.slots.workspace_binding;\nOK",
+      "outputChars": 149
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01UFF7zUTBwaKMwmMMgFvXA3",
+      "command": "python3 - <<'EOF'\np='fixtures/t287-management-supervision/fresh-public-read.mjs'\ns=open(p).read()\na=s.index('    const packet = abg.ABG_PROJECT_READ_CONTRACTS[memberKey];')\nb=s.index('    const file = join(outputRoot, memberKey + \".jsonl\");')\nnew='''    // The shipped SDK constructor populates source and read authority at the closed prefix.\n    const constructed = installedPublic.constructInstalledRunReadCall({ memberKey, workspaceBinding: originalSlots.workspace_binding,\n      sourceRef: outcome.ownerOutput.value.run.ref,\n      selector: memberKey === \"run_replay\" ? { kind: \"ordinal_page\", fromOrdinal: 0, limit: 10000 } : { kind: \"none\" },\n      eventResource: { kind: \"reopen_abg_event_resource\", schemaVersion: \"5.0.0\", closeHandoff: closed, handoffDigest: product.sha256Canonical(closed) },\n      envelope: { definitionContractCoordinates: verified.definitionContractCoordinates,\n        requestRef: `public-request://management-supervision/${mode}/${memberKey}`,\n        correlationRef: \"correlation://management-supervision/fresh-read\", eventTime: \"2026-09-19T08:06:00.000Z\", provenanceRefs: [\"proof://management-supervision/fresh-public\"] } });\n    assert.equal(constructed.kind, \"installed_run_read_call\", constructed.kind === \"installed_run_read_call\" ? \"\" : JSON.stringify(constructed));\n    assert.deepEqual(constructed.population.source, outcome.ownerOutput.value.run);\n    const readCall = constructed.call;\n'''\ns=s[:a]+new+s[b:]\ns=s.replace('import { constructInstalledPublicDefinitionCall } from \"../../support/installed-public-definition-call.mjs\";\\n','',1)\ns=s.replace('''// Same installed read-call helper used by generic-job readback, selecting status''','''// Same shipped read constructor used by generic-job readback, selecting status''',1)\nopen(p,'w').write(s)\nEOF\nnode --check fixtures/t287-management-supervision/fresh-public-read.mjs && echo OK",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01UFF7zUTBwaKMwmMMgFvXA3",
+      "is_error": false,
+      "outputExcerpt": "OK",
+      "outputChars": 2
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01GC3ftCT2ACiZUV13NqiLLz",
+      "command": "cd ../code/src && python3 - <<'EOF'\np='product/run_invocation_operation.ts'\ns=open(p).read()\nold='''  const value = \"value\" in input.input\n    ? input.input.value\n    : await input.input.factory(Object.freeze({ resolution, workspaceBinding: input.workspaceBinding }));\n  const inputContractRef = resolution.resolution.inputContract.contractRef;\n  const admittedInput = admitInstalledProductInput(resolution.productSemantics, inputContractRef, value);\n  if (admittedInput === null) {\n    return preparationRefusal(memberKey, \"invalid_input\", [\"/input\"]);\n  }\n  const policy = constructRunOperationPolicy(input.workspaceBinding, resolution, input.applications);\n  const { grants, authority } = constructRunInvocationAuthorityBasis(\n    memberKey,\n    input.actorRef,\n    input.workspaceBinding,\n    input.admittedInstalls,\n    input.catalogView,\n    resolution,\n    policy,\n  );\n  if (authority.kind !== \"invocation_authority\") {\n    return preparationRefusal(memberKey, \"invalid_capability\", [\"/invocationAuthority\"]);\n  }\n'''\nnew='''  // Policy and grants depend on the resolved declaration only; an input\n  // factory may name the grant it observes under.\n  const policy = constructRunOperationPolicy(input.workspaceBinding, resolution, input.applications);\n  const { grants, authority } = constructRunInvocationAuthorityBasis(\n    memberKey,\n    input.actorRef,\n    input.workspaceBinding,\n    input.admittedInstalls,\n    input.catalogView,\n    resolution,\n    policy,\n  );\n  if (authority.kind !== \"invocation_authority\") {\n    return preparationRefusal(memberKey, \"invalid_capability\", [\"/invocationAuthority\"]);\n  }\n  const value = \"value\" in input.input\n    ? input.input.value\n    : await input.input.factory(Object.freeze({ resolution, workspaceBinding: input.workspaceBinding, grants }));\n  const inputContractRef = resolution.resolution.inputContract.contractRef;\n  const admittedInput = admitInstalledProductInput(resolution.productSemantics, inputContractRef, value);\n  if (admittedInput === null) {\n    return preparationRefusal(memberKey, \"invalid_input\", [\"/input\"]);\n  }\n'''\nassert s.count(old)==1; s=s.replace(old,new,1)\nold2='''      factory: (resolved: Readonly<{\n        resolution: LoadedProductExecutionResolution;\n        workspaceBinding: WorkspaceBinding;\n      }>) => JsonValue | Promise<JsonValue>;'''\nnew2='''      factory: (resolved: Readonly<{\n        resolution: LoadedProductExecutionResolution;\n        workspaceBinding: WorkspaceBinding;\n        grants: readonly CapabilityGrant[];\n      }>) => JsonValue | Promise<JsonValue>;'''\nassert s.count(old2)==1; s=s.replace(old2,new2,1)\nopen(p,'w').write(s)\n\np='public/installed_public_definition_call.ts'\ns=open(p).read()\nold3='''  readonly historicalSource?: NonNullable<product.ProductRunInvocationResourceAssertion[\"historicalSource\"]>;'''\nnew3='''  readonly applicationResources?: readonly product.CatalogApplicationResources[];\n  readonly historicalSource?: NonNullable<product.ProductRunInvocationResourceAssertion[\"",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01GC3ftCT2ACiZUV13NqiLLz",
+      "is_error": false,
+      "outputExcerpt": "40:  constructCapabilityGrant,\n46:  type CapabilityGrant,\n103:  readonly grants: readonly CapabilityGrant[];",
+      "outputChars": 108
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01XmU7box4A42NYP56YES4oJ",
+      "command": "cd test_env && python3 - <<'EOF'\np='support/t287-generic-job-intake.mjs'\ns=open(p).read()\na=s.index('export async function constructGenericIntakeStart({')\nnew='''/** One generic intake start through the shipped SDK constructor; the Product\n * run owner populates request and authority, an input factory may name the\n * populated grant. Support supplies scenario data only. */\nexport async function constructGenericIntakeStart({ environment, publicApi, eventResource, input, inputFactory, identity, programRef }) {\n  const { abg, catalog, catalogView, admittedInstalls, workspaceBinding, additionalProducts: [fixture] } = environment;\n  assert.ok(inputFactory === undefined || input === undefined, \"one input source per native start\");\n  const constructed = await publicApi.constructInstalledStartCall({\n    selection: Object.freeze({ memberKey: \"start\", target: Object.freeze({ kind: \"next\" }), rootMode: \"direct\", fhMode: \"direct\" }),\n    programRef: programRef ?? fixture.ids.programRef,\n    catalog,\n    catalogView,\n    applications: Object.freeze([]),\n    admittedInstalls,\n    workspaceBinding,\n    verifyInstallAdmission: (install) => abg.hasAdmittedProductInstall(environment.artifactTruth, install),\n    actorRef: workspaceBinding.authorizedActorRef,\n    input: inputFactory === undefined ? Object.freeze({ value: input })\n      : Object.freeze({ factory: ({ grants, resolution }) => inputFactory({ grants, resolution }) }),\n    inputValueRef: `value://generic-job-mechanics.example/${identity}/job-input`,\n    source: Object.freeze({ kind: \"none\" }),\n    applicationResources: Object.freeze([]),\n    eventResource,\n    envelope: Object.freeze({\n      definitionContractCoordinates: environment.verified.definitionContractCoordinates,\n      requestRef: `public-request://generic-job-mechanics.example/${identity}/run-start`,\n      correlationRef: `correlation://generic-job-mechanics.example/${identity}/run-start`,\n      eventTime: identity === \"st-1\"\n        ? \"2026-08-21T00:00:00.000Z\"\n        : \"2026-08-22T01:00:00.000Z\",\n      provenanceRefs: [`provenance://generic-job-mechanics.example/${identity}-worker`],\n    }),\n  });\n  if (constructed.kind !== \"installed_start_call\") assert.fail(JSON.stringify(constructed));\n  const { population } = constructed;\n  return {\n    call: constructed.call,\n    resolution: population.resolution,\n    capabilityBasis: Object.freeze({\n      actorRef: workspaceBinding.authorizedActorRef,\n      capabilityGrants: population.grants,\n      policy: population.policy,\n      productInstalls: admittedInstalls,\n      program: population.resolution.program,\n      programValidation: population.resolution.programValidation,\n      workspaceBinding,\n    }),\n  };\n}\n'''\ns=s[:a]+new\ns=s.replace('import { constructInstalledPublicDefinitionCall } from \"./installed-public-definition-call.mjs\";\\n','',1)\nopen(p,'w').write(s)\nEOF\ngrep -n \"constructInstalledPublicDefinitionCall\\|schemaVersion\" support/t287-generic-job-intake.mjs | head -4; node --check support/t",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01XmU7box4A42NYP56YES4oJ",
+      "is_error": false,
+      "outputExcerpt": "28:    const body = { kind: \"durable_prefix_coordinate\", schemaVersion: \"5.0.0\", eventLogRef: full.eventLogRef,\n67:const schemaVersion = \"5.0.0\";\n98:  const lifecycle = gtl.constructSemanticJobLifecycleDeclaration({ kind: \"semantic_job_lifecycle_declaration\", schemaVersion,\n125:  const graphs = [root, intake, stageGraph], program = { kind: \"gtl_program\", programRef: ids.programRef, version: schemaVersion,\nOK",
+      "outputChars": 411
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_019WoyJUFGsJsvPhPS4TxbKa",
+      "command": "grep -n \"const hash\\|hash =\" support/retained-installed-consumer.mjs support/installed-qualification-conservation.mjs support/declared-testing-capability.mjs uat/public-setup.mjs tests/t287-selected-action.test.mjs | head; python3 - <<'EOF'\np='support/retained-installed-consumer.mjs'\ns=open(p).read()\nold='''      const basis = {kind: 'admission_capability_data', schemaVersion,\n        definition: {definitionKey: definition.definitionKey, definitionRef: definition.definitionRef,\n          definitionDigest: definition.definitionDigest, owner: {ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest}},\n        ownerArtifact: {request: ownerRequest, verified}, request,\n        resourceScope: {resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(slots)},\n        boundEnvironment: product.admissionEnvironmentSelection(selection.prefix, slots.workspace_binding)};'''\nnew='''      const basis = product.constructAdmissionCapabilityData({fixedPacket: packet, ownerArtifact: {request: ownerRequest, verified},\n        request, resources, authoritySlots: slots,\n        boundEnvironment: product.admissionEnvironmentSelection(selection.prefix, slots.workspace_binding)});'''\nassert s.count(old)==1; s=s.replace(old,new,1)\nopen(p,'w').write(s)\nEOF\nnode --check support/retained-installed-consumer.mjs && echo OK",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_019WoyJUFGsJsvPhPS4TxbKa",
+      "is_error": false,
+      "outputExcerpt": "support/retained-installed-consumer.mjs:77:  const {product, abg, public: installedPublic} = runtime, hash = product.sha256Canonical;\nsupport/installed-qualification-conservation.mjs:17:export const hash = product.sha256Canonical;\nsupport/declared-testing-capability.mjs:330:  const hash = product.sha256Canonical, coord = (ref, value = { ref }) => ({ ref, digest: hash(value) });\nOK",
+      "outputChars": 383
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01PZTkrP1spPx8AMVjnpxAXh",
+      "command": "cd ../../test_env && python3 - <<'EOF'\np='support/installed-qualification-conservation.mjs'\ns=open(p).read()\nold='''    const data = {kind: 'admission_capability_data', schemaVersion,\n      definition: {definitionKey: definition.definitionKey, definitionRef: definition.definitionRef,\n        definitionDigest: definition.definitionDigest, owner: {ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest}},\n      ownerArtifact: {request: ownerRequest, verified}, request,\n      resourceScope: {resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(selected)},\n      boundEnvironment: packet.metadata.workspaceBindingRequirement === 'forbidden' ? null\n        : product.admissionEnvironmentSelection(state.closeHandoff.prefix, selected.workspace_binding)};'''\nnew='''    const data = product.constructAdmissionCapabilityData({fixedPacket: packet, ownerArtifact: {request: ownerRequest, verified},\n      request, resources, authoritySlots: selected,\n      boundEnvironment: packet.metadata.workspaceBindingRequirement === 'forbidden' ? null\n        : product.admissionEnvironmentSelection(state.closeHandoff.prefix, selected.workspace_binding)});'''\nassert s.count(old)==1; s=s.replace(old,new,1)\n\na=s.index('export async function constructStart(caller, programRef, graphFunctionRef, input, qualificationResources) {')\nb=s.index('export async function prepareNative(caller, call) {')\nnewStart='''/** One graph_function start through the shipped SDK constructor; the Product\n * run owner populates request and authority from the selection and input. */\nexport async function constructStart(caller, programRef, graphFunctionRef, input, qualificationResources) {\n  const {state, native: {verified}} = caller;\n  const environment = caller.refresh();\n  const constructed = await installedPublic.constructInstalledStartCall({\n    selection: {memberKey: 'start', target: {kind: 'graph_function', handle: graphFunctionRef}, rootMode: 'direct', fhMode: 'direct'},\n    programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [],\n    admittedInstalls: environment.productInstalls, workspaceBinding: environment.workspaceBinding,\n    verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install),\n    actorRef: caller.actorRef, input: {value: input},\n    inputValueRef: 'input://abiogenesis/t287/installed-conservation/' + hash(input).slice(7),\n    source: {kind: 'none'}, applicationResources: [], qualificationResources, eventResource: caller.reopen(),\n    envelope: {definitionContractCoordinates: verified.definitionContractCoordinates,\n      requestRef: 'request://abiogenesis/t287/installed-conservation/' + programRef.split('/').at(-1),\n      correlationRef: 'correlation://abiogenesis/t287/installed-conservation', eventTime: new Date().toISOString(),\n      provenanceRefs: [pathToFileURL(join(caller.root, 'activation.json')).href]}});\n  assert.equal(constructed.kind, 'installed_start_call', constr",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01PZTkrP1spPx8AMVjnpxAXh",
+      "is_error": false,
+      "outputExcerpt": "OK\n50:  const contractCatalog = {productId: verified.productId, productContentDigest: verified.productContentDigest,\n81:      definitionContractCoordinates: verified.definitionContractCoordinates, contractCatalog, ...packet.definitionKey,\n125:  return {state, actorRef, actor, contractCatalog, reopen, refresh, boundSlots, authorize, invoke, native, root, eventLogPath};\n(eval):77: no matches found: --include=*.mjs",
+      "outputChars": 415
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_012n1edgeGCdX8qEHmbgLj1k",
+      "command": "python3 - <<'EOF'\np='support/declared-testing-capability.mjs'\ns=open(p).read()\nold='''    const basis = { kind: \"admission_capability_data\", schemaVersion,\n      definition: { definitionKey: definition.definitionKey, definitionRef: definition.definitionRef, definitionDigest: definition.definitionDigest,\n        owner: { ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest } },\n      ownerArtifact: { request: ownerRequest, verified: abiArtifact }, request,\n      resourceScope: { resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(slots) },\n      boundEnvironment: packet.metadata.workspaceBindingRequirement === \"forbidden\" ? null : product.admissionEnvironmentSelection(closeHandoff.prefix, slots.workspace_binding) };'''\nnew='''    const basis = product.constructAdmissionCapabilityData({ fixedPacket: packet, ownerArtifact: { request: ownerRequest, verified: abiArtifact },\n      request, resources, authoritySlots: slots,\n      boundEnvironment: packet.metadata.workspaceBindingRequirement === \"forbidden\" ? null : product.admissionEnvironmentSelection(closeHandoff.prefix, slots.workspace_binding) });'''\nassert s.count(old)==1; s=s.replace(old,new,1)\n\na=s.index('''    const resolution = await product.ProductExecutionResolutionPort.resolve({ catalog, catalogView, admittedInstalls: environment.productInstalls,''')\nb=s.index('''    const native = program.policies[\"abg.stdo_run_environment\"] !== undefined && !missingEnvironment;''')\nnew2='''    // The shipped SDK constructor populates request and authority; the input\n    // factory names the populated grant.\n    const valueRef = \"value://declared-testing.example/\" + ordinal, requestRef = \"request://declared-testing.example/\" + (++ordinal);\n    const constructed = await installedPublic.constructInstalledStartCall({\n      selection: { memberKey: \"start\", target: { kind: \"next\" }, rootMode: \"direct\", fhMode: \"direct\" },\n      programRef, catalog, catalogView, applications: [], admittedInstalls: environment.productInstalls, workspaceBinding: binding,\n      verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), actorRef,\n      input: { factory: ({ grants, resolution }) => makeInput({ grants, resolution }) }, inputValueRef: valueRef,\n      source: { kind: \"none\" }, applicationResources: [], eventResource: reopen(),\n      envelope: { definitionContractCoordinates: abiArtifact.definitionContractCoordinates, requestRef,\n        correlationRef: \"correlation://declared-testing.example/\" + executionConfig.mode, eventTime: \"2026-09-16T19:00:00.000Z\",\n        provenanceRefs: [\"provenance://declared-testing.example/proof\"] } });\n    assert.equal(constructed.kind, \"installed_start_call\", constructed.kind === \"installed_start_call\" ? \"\" : JSON.stringify(constructed));\n    const input = constructed.call.invocation.request.input.value;\n    let call = constructed.call;\n    if (program.policies[\"abg.stdo_run_environment\"] !== undefined ",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_012n1edgeGCdX8qEHmbgLj1k",
+      "is_error": false,
+      "outputExcerpt": "OK\n9:import { constructInstalledPublicDefinitionCall } from \"./installed-public-definition-call.mjs\";\n339:  const slotsFor = (definition, supplied = {}) => ({ workspace_binding: null, product_set: null, dependency_lock: null, catalog_scope: null,\n343:  function definitionCall(packet, request, slots, resources) {\n344:    return constructInstalledPublicDefinitionCall({ product, installedPublic, definitionContractCoordinates: abiArtifact.definitionContractCoordinates,\n354:      boundEnvironment: packet.metadata.workspaceBindingRequirement === \"forbidden\" ? null : product.admissionEnvironmentSelection(closeHandoff.prefix, slots.workspace_binding) });\n362:    return definitionCall(packet, request, { ...slots, capability_grants: { requiredCapabilityRefs: [...definition.capabilityRefs], grants: grants.map(g => ({ ref: g.grantRef, digest: g.grantDigest })) } },\n422:  assert.equal(resolvedLock.kind, \"resolved_product_lock\", JSON.stringify(resolvedLock));\n423:  const lock = { ref: resolvedLock.lockId, digest: resolvedLock.lockDigest }, references = products.map(p => p.reference);\n435:        resolvedLock: lock, targetRoot: installTargets[i], installPolicy: \"clean\" },\n437:        verifiedArtifact: item.verification.verifiedArtifact, resolvedLock }, { dependency_lock: lock, verification_references: [item.reference], actor });\n449:    { workspaceAuthority: { ref: workspaceAuthority.authorityBasisId, digest: workspaceAuthority.authorityBasisDigest }, installedSet: installCoordinates, resolvedLock: lock,\n452:      admittedInstalls: installed.map(row => row.install), resolvedLock, declaredRoots: roots }, { product_set: installCoordinates, dependency_lock: lock, actor }));\n457:  const boundSlots = { workspace_binding: bound.ownerOutput.value.binding, product_set: environment.productInstalls.map(product.productInstallCoordinate), dependency_lock: lock, actor };\n459:    { workspaceBinding: boundSlots.workspace_binding, descriptors: products.map(p => p.packed.descriptor), contributionManifests: products.map(p => p.packed.contributionManifest), resolvedLock: lock },\n469:  const catalogScope = { catalog: catalogReceipt.ownerOutput.value.catalog, view: viewReceipt.ownerOutput.value.view, allowlist };",
+      "outputChars": 2216
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01RVb4RQ4ZjQEVA6VTvbi11G",
+      "command": "python3 - <<'EOF'\np='support/declared-testing-capability.mjs'\ns=open(p).read()\ns=s.replace('''  const catalogScope = { catalog: catalogReceipt.ownerOutput.value.catalog, view: viewReceipt.ownerOutput.value.view, allowlist };\n''','',1)\nopen(p,'w').write(s)\nEOF\nnode --check support/declared-testing-capability.mjs && echo OK; grep -n \"viewReceipt\" support/declared-testing-capability.mjs | head -3",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01RVb4RQ4ZjQEVA6VTvbi11G",
+      "is_error": false,
+      "outputExcerpt": "OK\n466:  const viewReceipt = await invoke(await authorized(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,",
+      "outputChars": 120
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01RZC8ufK6Y9JUEeoh2M3Ygj",
+      "command": "python3 - <<'EOF'\np='uat/public-setup.mjs'\ns=open(p).read()\nold='''  const data={kind:'admission_capability_data',schemaVersion:version,\n    definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,\n      owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},\n    ownerArtifact:{request:native.request,verified},request,\n    resourceScope:{resourcesDigest:hash(resources),authoritySlots:product.admissionAuthoritySlots(slots)},\n    boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:\n      product.admissionEnvironmentSelection(prefix,slots.workspace_binding)};'''\nnew='''  const data=product.constructAdmissionCapabilityData({fixedPacket:packet,ownerArtifact:{request:native.request,verified},request,resources,\n    authoritySlots:slots,boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:\n      product.admissionEnvironmentSelection(prefix,slots.workspace_binding)});'''\nassert s.count(old)==1; s=s.replace(old,new,1)\na=s.index('export async function constructLifecycleCall(caller,input) {')\nnew2='''/** The lifecycle start through the shipped SDK constructor; the run-environment\n * resources are explicit fixture data over the populated authority. */\nexport async function constructLifecycleCall(caller,input) {\n  const {runtime,state,native,actorRef}=caller,{product,abg,api}=runtime,hash=product.sha256Canonical;\n  const environment=caller.refresh(),workspaceBinding=environment.workspaceBinding;\n  const declaration=state.catalog.boundPublications.find(value=>value.moduleRef===IDS.moduleRef)?.runEnvironments[0];\n  if(!declaration)throw new BoundaryFailure('default-library-environment','missing declaration');\n  const supportRoot=join(workspaceBinding.roots.archiveRoot,'run-environment-support');\n  await mkdir(supportRoot,{recursive:true});\n  const temporaryRoot=await realpath(supportRoot);\n  const dependencyRoot=await realpath(join(caller.installedRoot,'contracts/default-library/stdo'));\n  const dependencies=declaration.dependencies.map(dependency=>({dependencyRef:dependency.dependencyRef,root:dependencyRoot,recordPath:join(dependencyRoot,'context.inventory.json')}));\n  const coordinates={dependencies,pythonPath:null,temporaryRoot};\n  const constructed=await api.constructInstalledStartCall({\n    selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},\n    programRef:IDS.programRef,catalog:state.catalog,catalogView:state.catalogView,applications:[],\n    admittedInstalls:environment.productInstalls,workspaceBinding,\n    verifyInstallAdmission:install=>abg.hasAdmittedProductInstall(environment.artifactTruth,install),actorRef,\n    input:{value:input},inputValueRef:'value://abi5-tests/sandbox-uat/'+caller.config.runId+'/input',source:{kind:'none'},\n    runEnvironmentResources:({authority})=>product.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:version,.",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01RZC8ufK6Y9JUEeoh2M3Ygj",
+      "is_error": false,
+      "outputExcerpt": "OK\nuat/public-setup.mjs:239:export async function constructLifecycleCall(caller,input) {\nuat/runner.mjs:10:import { BoundaryFailure, constructLifecycleCall, installedModules, populateSandbox, publicCaller, requireKind, verifyArtifact } from './public-setup.mjs';\nuat/runner.mjs:376:    const prepared=await constructLifecycleCall(caller,input);await record('prepared-definition-call.json',prepared.call);\nuat/harness.test.mjs:15:import { constructLifecycleCall, installedModules, publicCaller } from './public-setup.mjs';\nuat/harness.test.mjs:684:  await constructLifecycleCall(caller,{kind:'controlled-input'});",
+      "outputChars": 612
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01UM7r8gF7AGya8xRPTApfoq",
+      "command": "python3 - <<'EOF'\nimport subprocess\norig=subprocess.run(['git','show','HEAD:build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs'],capture_output=True,text=True,check=True).stdout\np='uat/public-setup.mjs'\ns=open(p).read()\na=s.index('/** The lifecycle start through the shipped SDK constructor;')\noa=orig.index('export async function constructLifecycleCall(caller,input) {')\ns=s[:a]+orig[oa:]\nopen(p,'w').write(s)\nEOF\ngit diff --stat -- uat/public-setup.mjs; git diff -- uat/public-setup.mjs | head -40; node --check uat/public-setup.mjs && echo OK",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01UM7r8gF7AGya8xRPTApfoq",
+      "is_error": false,
+      "outputExcerpt": " .../abiogenesis/typescript/test_env/uat/public-setup.mjs       | 10 +++-------\n 1 file changed, 3 insertions(+), 7 deletions(-)\ndiff --git a/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs b/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs\nindex f773a4924..79b37df0e 100644\n--- a/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs\n+++ b/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs\n@@ -37,13 +37,9 @@ export async function authorizeInstalledOperation({runtime,native,actorRef,packe\n     row.definitionKey.operationId===packet.definitionKey.operationId&&row.definitionKey.memberKey===packet.definitionKey.memberKey);\n   if(!definition)throw new BoundaryFailure('installed-definition',packet.definitionKey);\n   const slots={...emptyAuthoritySlots(),...supplied};\n-  const data={kind:'admission_capability_data',schemaVersion:version,\n-    definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,\n-      owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},\n-    ownerArtifact:{request:native.request,verified},request,\n-    resourceScope:{resourcesDigest:hash(resources),authoritySlots:product.admissionAuthoritySlots(slots)},\n-    boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:\n-      product.admissionEnvironmentSelection(prefix,slots.workspace_binding)};\n+  const data=product.constructAdmissionCapabilityData({fixedPacket:packet,ownerArtifact:{request:native.request,verified},request,resources,\n+    authoritySlots:slots,boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:\n+      product.admissionEnvironmentSelection(prefix,slots.workspace_binding)});\n   const coordinate=(ref,value)=>({ref,digest:hash(value)});\n   const authorityValue={actorRef,authorityMode:'trusted_developer'};\n   const approvalValue={decision:'allow',actorRef,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,\nOK",
+      "outputChars": 2064
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_018iXEGBaTHUghyyB4yfhqbN",
+      "command": "python3 - <<'EOF'\np='qualification/dispatch.mjs'\ns=open(p).read()\nold='''  // The policy the run invocation preparation constructs (product/run_invocation_operation.ts prepareProductRunInvocation):\n  // the interaction leaves' requirement rows (the ruling Program's F_H leaf) and every declared leaf's fibre.\n  const validation = resolution.programValidation;\n  const regimes = new Set([...validation.executableLeafRows.map(row => row.fibre), ...validation.interactionLeafRows.map(row => row.fibre)]);\n  const interactions = validation.interactionLeafRows.map(row => ({ requirementKey: row.requirementKey, requirementKeyDigest: row.requirementKeyDigest,\n    actorCapabilityRef: row.requirement.actorCapabilityRef }));\n  const policy = product.constructRootInvocationPolicy(workspaceBinding, resolution.program, interactions, ['F_D', 'F_P', 'F_H'].filter(r => regimes.has(r)), []);'''\nnew='''  // The policy the run invocation preparation constructs (product/run_invocation_operation.ts constructRunOperationPolicy).\n  const validation = resolution.programValidation;\n  const regimes = new Set([...validation.executableLeafRows.map(row => row.fibre), ...validation.interactionLeafRows.map(row => row.fibre)]);\n  const policy = product.constructRunOperationPolicy(workspaceBinding, resolution, []);'''\nassert s.count(old)==1; s=s.replace(old,new,1)\na=s.index('/** The run.invoke start call of one Program\\'s graph function over one input. */')\nb=s.index('/** The in-process admission of one start call by the installed run invocation preparation (no dispatch, no event). */')\nnew2='''/** The run.invoke start call of one Program's graph function over one input, through the shipped SDK constructor. */\nexport async function startCall(caller, program, input, { qualificationResources, label, cache }) {\n  const { product, abg, api } = caller.runtime, state = caller.state, hash = product.sha256Canonical;\n  const root = await rootAuthority(caller, program, cache), { resolution, admittedInstalls, workspaceBinding, environment } = root;\n  const inputAdmitted = admitsInput(caller, resolution, input);\n  if (!inputAdmitted) return { root, inputAdmitted, call: null };\n  const constructed = await api.constructInstalledStartCall({\n    selection: { memberKey: 'start', target: { kind: 'graph_function', handle: program.graphFunctionRef }, rootMode: 'direct', fhMode: 'direct' },\n    programRef: program.programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [], admittedInstalls, workspaceBinding,\n    verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), actorRef: caller.actorRef,\n    input: { value: input }, inputValueRef: 'input://abiogenesis/t287/qualification/' + hash(input).slice(7), source: { kind: 'none' },\n    applicationResources: [], ...(qualificationResources === undefined ? {} : { qualificationResources }),\n    runEnvironmentResources: ({ authority }) => runEnvironmentResources(caller, { ...root, authority }),\n",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_018iXEGBaTHUghyyB4yfhqbN",
+      "is_error": false,
+      "outputExcerpt": "24:import { emptyAuthoritySlots } from '../uat/public-setup.mjs';\n27:const version = '5.0.0';\n91:  return product.constructRunEnvironmentResources({ kind: 'run_environment_resources', schemaVersion: version, ...coordinates,\n177:  return { kind: 'self_conformance_input', schemaVersion: version, representation: 'resource_refs_v1', resource, basis,\n188:export const proofResource = (built, prefix, selections) => ({ kind: 'qualification_proof_resource', schemaVersion: version, representation: 'resource_refs_v1',\n195:  return identity({ kind: 'qualification_ruling_request', schemaVersion: version, slotRef, subjectBasis: plan.subjectBasis, lawBasis: plan.lawBasis,\n272:  const verdictInput = { kind: 'qualification_verdict_input', schemaVersion: version, slotRef: 'node://abiogenesis/qualification/exact-candidate@5',\nOK",
+      "outputChars": 821
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_014ZEcYMchnNgnNehyPg5Qmg",
+      "command": "sed -i '' \"/^import { emptyAuthoritySlots } from '..\\/uat\\/public-setup.mjs';$/d\" qualification/dispatch.mjs && node --check qualification/dispatch.mjs && echo OK; sed -n 340,420p uat/continuation.mjs",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_014ZEcYMchnNgnNehyPg5Qmg",
+      "is_error": false,
+      "outputExcerpt": "OK\n          {subjectKind:'authority_basis',subject,act:'reprice',content:{kind:'typed_payload',contentContract:{ref:content.ref,digest:content.digest},\n            value:{declarationRef:before.bindingId,beforeDigest:before.bindingDigest,afterDigest:binding.bindingDigest,\n              changeClass:'realization_refactor',owningTicketRef:instance.current.ticketRef,reason:instance.current.repriceReason}},\n            context:{kind:'basis',basis:subject},evidence:[{ref:before.bindingId,digest:before.bindingDigest},{ref:binding.bindingId,digest:binding.bindingDigest}],provenance:[subject]},\n          {kind:'witness_reprice_resource_assertion',schemaVersion:version,eventResource:selection},bound());\n      }\n      assert.ok(revision.projectWorksiteRevisionBindingCover(prefixAt(),before,binding,[basis]),'Actual target-binding cover refused');\n    }\n    await checkpoint('covers-complete',{consumedBases:bases.size});\n    source=derive();if(!source)throw new BoundaryFailure('source-after-current-effects',null);\n    assert.equal(hash(p.retainedGovernanceWorkInput(source.sourceResultValue)),hash(input));\n    const currentDeclaration={kind:'abg_historical_declaration_proof',schemaVersion:version,catalog,catalogView:view};\n    const comparison={predecessorPrefix:selection.prefix,source,workspaceBinding:binding,program:resolution.program,\n      graphFunction:resolution.graphFunction,currentDeclaration,historicalDeclarations:[oldDeclaration]};\n    const use=truth.projectGovernanceCoveredSourceUse(prefixAt(),comparison);\n    await record('current-source-use.json',use);\n    if(!use)throw new BoundaryFailure('current-source-use',null);\n    await checkpoint('current-source-use-complete',{useDigest:use.useDigest,sourceBasisRef:source.basisRef});\n\n    const packet=p.RUN_OPERATION_CONTRACTS.invoke.start;\n    const regimes=new Set([...resolution.programValidation.executableLeafRows,...resolution.programValidation.interactionLeafRows].map(row=>row.fibre));\n    const applications=sourceCall.resources.applications;\n    const policy=p.constructRootInvocationPolicy(binding,resolution.program,\n      resolution.programValidation.interactionLeafRows.map(row=>({requirementKey:row.requirementKey,requirementKeyDigest:row.requirementKeyDigest,actorCapabilityRef:row.requirement.actorCapabilityRef})),\n      ['F_D','F_P','F_H'].filter(fibre=>regimes.has(fibre)),applications);\n    const grants=[p.constructCapabilityGrant(policy,actorRef,packet.definitionKey.operationId,p.DIRECT_INVOKE_CAPABILITY,\n      {admittedInstalls:installs,workspaceBinding:binding,fixedPacket:packet})];\n    const authority=p.constructInvocationAuthority(actorRef,binding,view,programRef,resolution.selectedCatalogEntry,policy,grants,\n      {admittedInstalls:installs,workspaceBinding:binding,fixedPacket:packet});\n    const previous=sourceCall.resources.runEnvironmentResources;\n    const runEnvironmentResources=p.constructRunEnvironmentResources({...previous,permission:{...previous.permission,\n      authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,\n      dependencies:previous.dependencies,pythonPath:previous.pythonPath,temporaryRoot:previous.temporaryRoot}});\n    const finalPrefix=selection.prefix,finalOwnedPrefix=prefixAt();\n    await checkpoint('resource-close-start');\n    close=a.closeAbgEventResource(resource,finalPrefix);resource=null;\n    await record('final-resource-receipt.json',close);await record('final-close-handoff.json',close.closeHandoff);\n    await checkpoint('resource-close-complete',{prefixLength:close.closeHandoff.prefix.prefixLength});\n    const eventResource={kind:'reopen_abg_event_resource',schemaVersion:version,closeHandoff:close.closeHandoff,handoffDigest:hash(close.closeHandoff)};\n    const program={ref:resolution.resolution.programRef,digest:resolution.resolution.programDigest};\n    const viewRef={ref:'graph-function-catalog-view://abiogenesis/'+view.viewDigest.slice(7),digest:view.viewDigest};\n    const boundInput={contract:{ref:resolution.resolution.inputContract.contractRef,digest:resolution.resolution.inputContractDigest},\n      valueRef:namespace+'/input',valueDigest:hash(input),value:input};\n    const request={...sourceCall.invocation.request,catalogView:viewRef,input:boundInput,sourceBasis:{kind:'admitted_source_result',\n      projectionAuthority:{ref:sourceCall.invocation.invocationRef,digest:source.publicAuthorityDigest},sourceResult:{ref:source.sourceResultRef,digest:source.sourceResultDigest}}};\n    const steering=hash(event",
+      "outputChars": 8718
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_018Lv53oR1jeBEsPuJu82gr9",
+      "command": "python3 - <<'EOF'\np='uat/continuation.mjs'\ns=open(p).read()\na=s.index(\"    const packet=p.RUN_OPERATION_CONTRACTS.invoke.start;\\n    const regimes=new Set(\")\nendmark=\"    assert.ok(p.isRunInvocationResourceAssertion(call.resources),'Actual native resource headers refused');\\n\"\nb=s.index(endmark)+len(endmark)\nnew='''    const applications=sourceCall.resources.applications,previous=sourceCall.resources.runEnvironmentResources;\n    const finalPrefix=selection.prefix,finalOwnedPrefix=prefixAt();\n    await checkpoint('resource-close-start');\n    close=a.closeAbgEventResource(resource,finalPrefix);resource=null;\n    await record('final-resource-receipt.json',close);await record('final-close-handoff.json',close.closeHandoff);\n    await checkpoint('resource-close-complete',{prefixLength:close.closeHandoff.prefix.prefixLength});\n    const eventResource={kind:'reopen_abg_event_resource',schemaVersion:version,closeHandoff:close.closeHandoff,handoffDigest:hash(close.closeHandoff)};\n    // The shipped SDK constructor populates B from B's own start intent (the\n    // lifecycle start: next, direct) over A's admitted source; A's request is\n    // not reused and A's run-environment coordinates are rebound to B's authority.\n    const constructed=await api.constructInstalledStartCall({\n      selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},\n      programRef,catalog,catalogView:view,applications,admittedInstalls:installs,workspaceBinding:binding,\n      verifyInstallAdmission:install=>a.hasAdmittedProductInstall(environment.artifactTruth,install),actorRef,\n      input:{value:input},inputValueRef:namespace+'/input',\n      source:{kind:'admitted_source_result',basis:source,projectionAuthority:{ref:sourceCall.invocation.invocationRef,digest:source.publicAuthorityDigest}},\n      historicalSource,\n      runEnvironmentResources:({authority})=>p.constructRunEnvironmentResources({...previous,permission:{...previous.permission,\n        authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,\n        dependencies:previous.dependencies,pythonPath:previous.pythonPath,temporaryRoot:previous.temporaryRoot}}),\n      eventResource,\n      envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:namespace+'/start',correlationRef:namespace,\n        eventTime:new Date().toISOString(),provenanceRefs:instance.provenanceRefs??[]}});\n    if(constructed.kind!=='installed_start_call')throw new BoundaryFailure('continuation-start-population',constructed.ownerOutput.value);\n    const call=constructed.call,program=call.invocation.request.program,viewRef=call.invocation.request.catalogView;\n    const {kind:_kind,schemaVersion:_schemaVersion,eventResource:_eventResource,...resources}=call.resources;\n''' + endmark\ns=s[:a]+new+s[b:]\nopen(p,'w').write(s)\nEOF\nnode --check uat/continuation.mjs && echo OK; grep -n \"emptyAuthoritySlots\\|lockCoordinate\\|selectedBinding\\|historicalSource\" uat/continuation.mjs ",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_018Lv53oR1jeBEsPuJu82gr9",
+      "is_error": false,
+      "outputExcerpt": "OK\n7:  emptyAuthoritySlots,installedModules,publicCaller,requireKind} from './public-setup.mjs';\n12:const lockCoordinate=lock=>({ref:lock.lockId,digest:lock.lockDigest});\n126:    assert.deepEqual(lockCoordinate(lock),instance.current.lock);\n127:    await checkpoint('fixed-resolution-complete',{beforeAcquisition:true,lock:lockCoordinate(lock)});\n185:      assert.deepEqual(resolved.receipt.ownerOutput.value.resolvedLock,lockCoordinate(lock));\n224:    const historicalSource=deepFreeze({kind:'abg_historical_graph_call_source_resource',schemaVersion:version,\n226:    if(!readPorts.projectHistoricalGraphCallSourceAtDurablePrefix(selection.prefix,historicalSource))throw new BoundaryFailure('historical-source-resource',null);\n228:    let selectedBinding=setup.workspaceBinding?.bindingId===undefined?setup.workspaceBinding:bindingCoordinate(setup.workspaceBinding),environment=null,binding=null;\n229:    assert.equal(selectedBinding.ref,sourceAdmission.workspaceBindingId);assert.equal(selectedBinding.digest,sourceAdmission.workspaceBindingDigest);\n231:      environment=requireKind(a.projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth(),selectedBinding),'exact_prefix_workspace_environment','workspace-environment');",
+      "outputChars": 1227
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_017bfqyBnKUNeokeowXfYGAK",
+      "command": "sed -i '' \"s/^  emptyAuthoritySlots,installedModules,publicCaller,requireKind} from '.\\/public-setup.mjs';$/  installedModules,publicCaller,requireKind} from '.\\/public-setup.mjs';/\" uat/continuation.mjs && node --check uat/continuation.mjs && echo OK; grep -n \"api\\b\" uat/continuation.mjs | head -3",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_017bfqyBnKUNeokeowXfYGAK",
+      "is_error": false,
+      "outputExcerpt": "OK\n102:    const {product:p,abg:a,api,gtl:g,invocationTruth:truth}=runtime,hash=p.sha256Canonical;\n154:        await api.runInstalledDefinitionCallWithResource(selection,call):await api.runInstalledDefinitionCallTransport({kind:'eventless'},call);\n369:    const constructed=await api.constructInstalledStartCall({",
+      "outputChars": 313
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_014fvdaaJb5tedXpHcZCtYwJ",
+      "command": "python3 - <<'EOF'\np='tests/t287-exact-construction-intent.test.mjs'\ns=open(p).read()\na=s.index(\" const packet=product.RUN_OPERATION_CONTRACTS.continue.current_intent,operationId=packet.definitionKey.operationId;\\n\")\nb=s.index(\" const results=[];\\n\")\nnew=''' // The shipped SDK constructor populates the current-intent call from the log at the acquired\n // prefix; a falsifier, and the consumed resend, patch that canonical population explicitly.\n const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});\n const envelope=identity=>({definitionContractCoordinates:e.verified.definitionContractCoordinates,requestRef:`public-request://exact-intent/${identity}`,correlationRef:`correlation://exact-intent/${identity}`,eventTime:'2026-09-29T00:01:00.000Z',provenanceRefs:[ref('provenance','fixture')]});\n const construct=async(identity,eventResource)=>{\n  const made=await publicApi.constructInstalledPendingCall({selection:{kind:'current_intent',runRef:opened.scope.runId,continuation:{ref:pending[0].continuationRef,digest:pending[0].continuationDigest}},catalog:e.catalog,catalogView:e.catalogView,applications:[],eventResource,envelope:envelope(identity)});\n  if(made.kind!=='installed_pending_call')assert.fail(JSON.stringify(made));\n  return made;\n };\n const canonical=await construct('population',resource());\n assert.deepEqual(canonical.population.request,{run:{ref:opened.scope.runId,digest:opened.scope.runDigest},continuation:{ref:pending[0].continuationRef,digest:pending[0].continuationDigest},currentIntent:{ref:prepared.intent.constructionIntentRef,digest:prepared.intent.constructionIntentDigest},continuationInput:{ref:prepared.pending.input.inputRef,digest:prepared.pending.input.inputDigest},expectedBasis:{ref:prepared.child.basisRef,digest:prepared.child.basisDigest}},'the owner populates the exact original intent');\n assert.deepEqual([canonical.population.authority.authorityRef,canonical.population.authority.authorityDigest],[e.invocationAuthority.authorityRef,e.invocationAuthority.authorityDigest],'attribution is the original admitted authority');\n const makeCall=async(identity,patch=null)=>{\n  if(patch===null)return (await construct(identity,resource())).call;\n  const eventResource=resource(),steering=product.sha256Canonical(eventResource),{definitionContractCoordinates,requestRef,correlationRef,eventTime,provenanceRefs}=envelope(identity);\n  return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates,contractCatalog:canonical.call.invocation.contractCatalog,operationId:'abg.operation.run.continue',memberKey:'current_intent',request:{...canonical.population.request,...patch},slots:{...canonical.population.slots,transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering}},resources:{...canonical.call.resources,eventResource},requestRef,correlationRef,eventTime,provenanceRef",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_014fvdaaJb5tedXpHcZCtYwJ",
+      "is_error": false,
+      "outputExcerpt": "OK\n80:   for(const memberKey of ['run_result','run_replay']) {const eventResource={kind:'reopen_abg_event_resource',schemaV",
+      "outputChars": 123
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01Nr3ghUcc8AqbvZEHXfrK9M",
+      "command": "python3 - <<'EOF'\np='tests/t287-selected-action.test.mjs'\ns=open(p).read()\nold=\"\"\" const basis={kind:'admission_capability_data',schemaVersion:'5.0.0',definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},ownerArtifact:{request:ownerRequest,verified:e.verified},request,resourceScope:{resourcesDigest:c.product.sha256Canonical(resources),authoritySlots:c.product.admissionAuthoritySlots(slots)},boundEnvironment:c.product.admissionEnvironmentSelection(c.handoff.prefix,binding)};\"\"\"\nnew=\"\"\" const basis=c.product.constructAdmissionCapabilityData({fixedPacket:packet,ownerArtifact:{request:ownerRequest,verified:e.verified},request,resources,authoritySlots:slots,boundEnvironment:c.product.admissionEnvironmentSelection(c.handoff.prefix,binding)});\"\"\"\nassert s.count(old)==1; s=s.replace(old,new,1)\n\na=s.index(\" const packet=c.product.RUN_OPERATION_CONTRACTS.continue.selected_action,operationId=packet.definitionKey.operationId,grant=\")\nb=s.index(\" const negatives=[['alternate-view',\")\nnew2=\"\"\" // The shipped SDK constructor populates the selected-action call from the log; the\n // negatives and duplicate resends patch that one canonical population explicitly.\n const envelope=name=>({definitionContractCoordinates:e.verified.definitionContractCoordinates,requestRef:`public-request://selected-action/${basename(dir)}-${name}`,correlationRef:`correlation://selected-action/${basename(dir)}-${name}`,eventTime:'2026-09-30T00:04:00.000Z',provenanceRefs:[ref('provenance','fixture')]});\n const construct=async name=>{\n  const made=await c.publicApi.constructInstalledPendingCall({selection:{kind:'selected_action',request:selectedRequest,currentExecutionBasis:coord(e.executionBasis)},catalog:e.catalog,catalogView:e.catalogView,applications:[],eventResource:resource(c),envelope:envelope(name)});\n  if(made.kind!=='installed_pending_call')assert.fail(JSON.stringify(made));\n  return made;\n };\n const canonical=await construct('population');\n assert.deepEqual(canonical.population.request,selectedRequest,'the owner populates the selected request');\n assert.deepEqual([canonical.population.authority.authorityDigest,canonical.population.policy.policyDigest],[e.invocationAuthority.authorityDigest,e.policy.policyDigest],'attribution and policy are the original admission');\n async function makeCall(name,patch=null,slotPatch={},view=e.catalogView){\n  if(patch===null&&Object.keys(slotPatch).length===0&&view===e.catalogView)return (await construct(name)).call;\n  const er=resource(c),steering=c.product.sha256Canonical(er),identity=envelope(name);\n  const viewScope=view===e.catalogView?{}:{catalog_scope:{...canonical.population.slots.catalog_scope,view:{ref:`graph-function-catalog-view://abiogenesis/${view.viewDigest.slice(7)}`,digest:view.viewDigest},allowlist:view.allowlist}};\n  return c.publicApi.constructInstalledPublicDefinitionCall(",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01Nr3ghUcc8AqbvZEHXfrK9M",
+      "is_error": false,
+      "outputExcerpt": "OK",
+      "outputChars": 2
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_0121KYSmvumQC5MLvdc3Wm27",
+      "command": "for f in support/registered-graph-selection.mjs support/t287-generic-job-intake.mjs support/t287-generic-job-readback.mjs support/retained-installed-consumer.mjs support/installed-qualification-conservation.mjs support/declared-testing-capability.mjs uat/public-setup.mjs uat/runner.mjs uat/continuation.mjs qualification/dispatch.mjs tests/t287-st1-installed-cross-owner-hello.test.mjs tests/t287-exact-construction-intent.test.mjs tests/t287-selected-action.test.mjs tests/t287-framework-handoff-types.test.mjs tests/t287-default-library.test.mjs tests/t287-recursive-registered-selection.test.mjs fixtures/t287-management-supervision/fresh-public-read.mjs; do n=$(grep -c \"constructRootInvocationPolicy\\|transport_steering:{ref\\|transport_steering: {\\|transport_steering: Object\\|kind: *['\\\"]admission_capability_data['\\\"]\\|constructInvocationAuthority(\\|build/code/src/abg/open_call\" $f); echo \"$n $f\"; done",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_0121KYSmvumQC5MLvdc3Wm27",
+      "is_error": false,
+      "outputExcerpt": "1 support/registered-graph-selection.mjs\n0 support/t287-generic-job-intake.mjs\n0 support/t287-generic-job-readback.mjs\n0 support/retained-installed-consumer.mjs\n0 support/installed-qualification-conservation.mjs\n0 support/declared-testing-capability.mjs\n3 uat/public-setup.mjs\n0 uat/runner.mjs\n0 uat/continuation.mjs\n1 qualification/dispatch.mjs\n0 tests/t287-st1-installed-cross-owner-hello.test.mjs\n1 tests/t287-exact-construction-intent.test.mjs\n2 tests/t287-selected-action.test.mjs\n0 tests/t287-framework-handoff-types.test.mjs\n0 tests/t287-default-library.test.mjs\n0 tests/t287-recursive-registered-selection.test.mjs\n0 fixtures/t287-management-supervision/fresh-public-read.mjs",
+      "outputChars": 683
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_016nkD7XnCs6ZsimdZo2HCuu",
+      "command": "cd .. && node_modules/.bin/tsc --noEmit --incremental false -p tsconfig.json 2>&1 | head -5; echo \"tsc exit: ${PIPESTATUS[0]}\"; node --input-type=module -e '\nimport ts from \"typescript\";\nconst cfgPath=\"tsconfig.json\";\nconst cfg=ts.getParsedCommandLineOfConfigFile(cfgPath,{},{...ts.sys,onUnRecoverableConfigFileDiagnostic:d=>{throw new Error(ts.flattenDiagnosticMessageText(d.messageText,\"\\n\"))}});\nconst options={...cfg.options,noEmit:false,declaration:true,emitDeclarationOnly:true,incremental:false,composite:false,tsBuildInfoFile:undefined};\nconst program=ts.createProgram({rootNames:cfg.fileNames,options});\nlet files=0;\nconst r=program.emit(undefined,()=>{files++;},undefined,true);\nconst diags=[...r.diagnostics];\nfor(const d of diags.slice(0,20)){const {line}=d.file?d.file.getLineAndCharacterOfPosition(d.start):{line:0};console.log((d.file?.fileName??\"\")+\":\"+(line+1)+\" TS\"+d.code+\" \"+ts.flattenDiagnosticMessageText(d.messageText,\"\\n\").slice(0,300));}\nconsole.log(\"declaration files (in memory):\",files,\"emit diagnostics:\",diags.length);\n' 2>&1 | tail -25",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_016nkD7XnCs6ZsimdZo2HCuu",
+      "is_error": false,
+      "outputExcerpt": "tsc exit: \ndeclaration files (in memory): 290 emit diagnostics: 0",
+      "outputChars": 65
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01RSbaChXJMPGi4e4292pzPL",
+      "command": "cat test_env/tsconfig.framework-handoff.json; grep -n \"^import\\|from \\\"@abiogenesis\" test_env/types/framework-handoff.compile.ts | head",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01RSbaChXJMPGi4e4292pzPL",
+      "is_error": false,
+      "outputExcerpt": "{\n  \"compilerOptions\": {\n    \"exactOptionalPropertyTypes\": true,\n    \"forceConsistentCasingInFileNames\": true,\n    \"incremental\": false,\n    \"module\": \"NodeNext\",\n    \"moduleResolution\": \"NodeNext\",\n    \"noEmit\": true,\n    \"noFallthroughCasesInSwitch\": true,\n    \"noImplicitOverride\": true,\n    \"noImplicitReturns\": true,\n    \"noUncheckedIndexedAccess\": true,\n    \"skipLibCheck\": false,\n    \"strict\": true,\n    \"target\": \"ES2022\",\n    \"typeRoots\": [\"../node_modules/@types\"],\n    \"types\": [\"node\"],\n    \"verbatimModuleSyntax\": true\n  },\n  \"files\": [\"types/framework-handoff.compile.ts\"]\n}\n5:import {\n20:} from \"@abiogenesis/typescript-tenant/public\";\n21:import type {\n24:} from \"@abiogenesis/typescript-tenant/product\";",
+      "outputChars": 719
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_01NUJjUhmT426VhKMQWUsAVh",
+      "command": "node --input-type=module -e '\nimport ts from \"typescript\";\nimport path from \"node:path\";\nconst root=process.cwd();\nconst cfgPath=path.join(root,\"test_env/tsconfig.framework-handoff.json\");\nconst cfg=ts.getParsedCommandLineOfConfigFile(cfgPath,{},{...ts.sys,onUnRecoverableConfigFileDiagnostic:d=>{throw new Error(String(d.messageText))}});\nconst options={...cfg.options,noEmit:true,baseUrl:root,paths:{\"@abiogenesis/typescript-tenant/*\":[\"code/src/*/index.ts\"]}};\nconst program=ts.createProgram({rootNames:cfg.fileNames,options});\nconst diags=ts.getPreEmitDiagnostics(program);\nconst target=path.join(root,\"test_env/types/framework-handoff.compile.ts\");\nconst src=program.getSourceFile(target);\nconst lines=src.text.split(\"\\n\");\nconst neg=[];lines.forEach((l,i)=>{const m=l.match(/@ts-expect-error\\s+(HC1-NEG\\s+\\S+)\\s+(\\d+)/);if(m)neg.push({line:i+1,label:m[1],code:Number(m[2])});});\nconsole.log(\"positive diagnostics (unused @ts-expect-error or other):\",diags.length);\nfor(const d of diags.slice(0,10)){const {line}=d.file?d.file.getLineAndCharacterOfPosition(d.start):{line:-1};console.log(\" \",path.relative(root,d.file?.fileName??\"\"),line+1,\"TS\"+d.code,ts.flattenDiagnosticMessageText(d.messageText,\"\\n\").slice(0,200));}\n// Negative probe: strip each directive in memory and require its own declared code on the next line.\nconst host=ts.createCompilerHost(options);const orig=host.getSourceFile.bind(host);\nlet ok=0,bad=[];\nfor(const n of neg){\n  const text=lines.map((l,i)=>i===n.line-1?l.replace(/@ts-expect-error/,\"ts-probe\"):l).join(\"\\n\");\n  host.getSourceFile=(f,lv,...r)=>path.resolve(f)===target?ts.createSourceFile(f,text,lv,true):orig(f,lv,...r);\n  const p=ts.createProgram({rootNames:cfg.fileNames,options,host,oldProgram:program});\n  const ds=ts.getPreEmitDiagnostics(p).filter(d=>d.file&&path.resolve(d.file.fileName)===target);\n  const at=ds.filter(d=>d.file.getLineAndCharacterOfPosition(d.start).line===n.line);\n  const other=ds.filter(d=>d.file.getLineAndCharacterOfPosition(d.start).line!==n.line);\n  if(at.length>0&&at.every(d=>d.code===n.code)&&other.length===0)ok++;else bad.push({...n,at:at.map(d=>d.code),other:other.map(d=>d.code)});\n}\nconsole.log(\"negatives:\",neg.length,\"held:\",ok,\"failed:\",JSON.stringify(bad));\n' 2>&1 | tail -20",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_01NUJjUhmT426VhKMQWUsAVh",
+      "is_error": false,
+      "outputExcerpt": "positive diagnostics (unused @ts-expect-error or other): 0\nnegatives: 19 held: 10 failed: [{\"line\":312,\"label\":\"HC1-NEG wrong-member\",\"code\":2322,\"at\":[2345],\"other\":[]},{\"line\":314,\"label\":\"HC1-NEG wrong-request\",\"code\":2322,\"at\":[2345],\"other\":[]},{\"line\":316,\"label\":\"HC1-NEG wrong-resources\",\"code\":2322,\"at\":[2345],\"other\":[]},{\"line\":318,\"label\":\"HC1-NEG start-graph-function-requires-graph-slot\",\"code\":2322,\"at\":[2345],\"other\":[]},{\"line\":320,\"label\":\"HC1-NEG verify-installed-requires-dependency-lock\",\"code\":2322,\"at\":[2345],\"other\":[]},{\"line\":322,\"label\":\"HC1-NEG run-stopped-requires-execution-basis\",\"code\":2322,\"at\":[2345],\"other\":[]},{\"line\":328,\"label\":\"HC1-NEG crossed-read-resources\",\"code\":2322,\"at\":[2345],\"other\":[]},{\"line\":330,\"label\":\"HC1-NEG current-intent-member-refuses-selected-action\",\"code\":2322,\"at\":[2345],\"other\":[]},{\"line\":332,\"label\":\"HC1-NEG selected-action-member-refuses-current-intent\",\"code\":2322,\"at\":[2345],\"other\":[]}]",
+      "outputChars": 963
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_014zhzCwVGXJQYs1epqBvF8Q",
+      "command": "sed -n 300,335p test_env/types/framework-handoff.compile.ts; grep -n \"function construct\\|const construct\\|declare function\\|= constructInstalledPublicDefinitionCall\\|constructInstalledStartCall\\|constructInstalledPendingCall\\|constructInstalledRunReadCall\" test_env/types/framework-handoff.compile.ts | head",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_014zhzCwVGXJQYs1epqBvF8Q",
+      "is_error": false,
+      "outputExcerpt": "declare const pendingWithoutCursor: Omit<PendingExecution[\"request\"], \"pendingCursor\">;\ndeclare const forgedStart: Omit<typeof startCall, \"resources\"> & { readonly resources: RunStatus[\"resources\"] };\ndeclare const forgedRequestStart: Omit<typeof startCall, \"invocation\"> & { readonly invocation: Omit<typeof startCall.invocation, \"request\"> & { readonly request: typeof runStatusCall.invocation.request } };\n// Each alternative is checked against its own member: valid unions transport;\n// one crossed alternative refuses the whole union.\ndeclare const validUnion: typeof startCall | typeof runStatusCall;\ndeclare const mixedResourceUnion: typeof startCall | typeof forgedStart;\ndeclare const mixedRequestUnion: typeof runStatusCall | typeof forgedRequestStart;\n\nexport function negatives(): void {\n  // @ts-expect-error HC1-NEG wrong-key 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, operationId: \"abg.operation.run.invoke\", memberKey: \"resume\", request: startGraph.request, slots: startGraph.slots, resources: startGraph.resources });\n  // @ts-expect-error HC1-NEG wrong-member 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, operationId: \"abg.operation.run.invoke\", memberKey: \"invoke\", request: startGraph.request, slots: startGraph.slots, resources: startGraph.resources });\n  // @ts-expect-error HC1-NEG wrong-request 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, operationId: \"abg.operation.run.invoke\", memberKey: \"start\", request: direct.request, slots: startGraph.slots, resources: startGraph.resources });\n  // @ts-expect-error HC1-NEG wrong-resources 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, operationId: \"abg.operation.run.invoke\", memberKey: \"start\", request: startGraph.request, slots: startGraph.slots, resources: runStatus.resources });\n  // @ts-expect-error HC1-NEG start-graph-function-requires-graph-slot 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, operationId: \"abg.operation.run.invoke\", memberKey: \"start\", request: startGraph.request, slots: startNext.slots, resources: startGraph.resources });\n  // @ts-expect-error HC1-NEG verify-installed-requires-dependency-lock 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, ...verifyInstalled, slots: verifyPacked.slots });\n  // @ts-expect-error HC1-NEG run-stopped-requires-execution-basis 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, ...runStopped, slots: reprice.slots });\n  // @ts-expect-error HC1-NEG c-call-replay-selector-requires-c-call 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, ...cCallReplay, request: { ...cCallReplay.request, selector: runReplay.request.selector } });\n  // @ts-expect-error HC1-NEG crossed-read-selector 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, ...lawfulActions, request: { ...lawfulActions.request, selector: workspaceGaps.request.selector } });\n  // @ts-expect-error HC1-NEG crossed-read-resources 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, ...runStatus, resources: productCatalogList.resources });\n  // @ts-expect-error HC1-NEG current-intent-member-refuses-selected-action 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, ...currentIntent, request: selectedAction.request });\n  // @ts-expect-error HC1-NEG selected-action-member-refuses-current-intent 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, ...selectedAction, request: currentIntent.request });\n  // @ts-expect-error HC1-NEG current-intent-and-pending-are-exclusive 2322 2345 2769\n  constructInstalledPublicDefinitionCall({ ...environment, ...currentIntent, request: { ...currentIntent.request, pendingCursor: pendingExecution.request.pendingCursor } });\n242:export const startCall = constructInstalledPublicDefinitionCall({ ...environment, operationId: \"abg.operation.run.invoke\", memberKey: \"start\", request: startGraph.request, slots: startGraph.slots, resources: startGraph.resources });\n243:export const nextCall = constructInstalledPublicDefinitionCall({ ...environment, operationId: \"abg.operation.run.invoke\", memberKey: \"start\", request: startNext.request, slots: startNext.slots, resources: startNext.resources });\n244:export const directCall = constructInstalledPublicDefinitionCall({ ...environment, ...direct });\n254:export const runStoppedCall = constructInstalledPublicDefinitionC",
+      "outputChars": 4646
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Bash",
+      "id": "toolu_018pDgMhu65nN4DeQqksAttU",
+      "command": "node --input-type=module -e '\nimport ts from \"typescript\";\nimport path from \"node:path\";\nconst root=process.cwd();\nconst cfgPath=path.join(root,\"test_env/tsconfig.framework-handoff.json\");\nconst cfg=ts.getParsedCommandLineOfConfigFile(cfgPath,{},{...ts.sys,onUnRecoverableConfigFileDiagnostic:d=>{throw new Error(String(d.messageText))}});\nconst options={...cfg.options,noEmit:true,baseUrl:root,paths:{\"@abiogenesis/typescript-tenant/*\":[\"code/src/*/index.ts\"]}};\nconst program=ts.createProgram({rootNames:cfg.fileNames,options});\nconsole.log(\"skipLibCheck:\",options.skipLibCheck,\"positive diagnostics:\",ts.getPreEmitDiagnostics(program).length);\nconst target=path.join(root,\"test_env/types/framework-handoff.compile.ts\");\nconst lines=program.getSourceFile(target).text.split(\"\\n\");\nconst neg=[];lines.forEach((l,i)=>{const m=l.match(/@ts-expect-error\\s+(HC1-NEG\\s+\\S+)((?:\\s+\\d+)+)/);if(m)neg.push({line:i+1,label:m[1],codes:m[2].trim().split(/\\s+/).map(Number)});});\nconst host=ts.createCompilerHost(options);const orig=host.getSourceFile.bind(host);\nlet ok=0,bad=[];\nfor(const n of neg){\n  const text=lines.map((l,i)=>i===n.line-1?l.replace(/@ts-expect-error/,\"ts-probe\"):l).join(\"\\n\");\n  host.getSourceFile=(f,lv,...r)=>path.resolve(f)===target?ts.createSourceFile(f,text,lv,true):orig(f,lv,...r);\n  const p=ts.createProgram({rootNames:cfg.fileNames,options,host,oldProgram:program});\n  const ds=ts.getPreEmitDiagnostics(p).filter(d=>d.file&&path.resolve(d.file.fileName)===target);\n  const at=ds.filter(d=>d.file.getLineAndCharacterOfPosition(d.start).line===n.line);\n  const other=ds.filter(d=>d.file.getLineAndCharacterOfPosition(d.start).line!==n.line);\n  if(at.length>0&&at.every(d=>n.codes.includes(d.code))&&other.length===0)ok++;else bad.push({...n,at:at.map(d=>d.code),other:other.map(d=>d.code)});\n}\nconsole.log(\"negatives:\",neg.length,\"held on own line with a declared code:\",ok,\"failed:\",JSON.stringify(bad));\n' 2>&1 | tail -5",
+      "file_path": null
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Bash",
+      "id": "toolu_018pDgMhu65nN4DeQqksAttU",
+      "is_error": false,
+      "outputExcerpt": "skipLibCheck: false positive diagnostics: 0\nnegatives: 19 held on own line with a declared code: 19 failed: []",
+      "outputChars": 110
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Write",
+      "id": "toolu_01W685rcdibeN9XPGW5DG2Zm",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/return.json"
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Write",
+      "id": "toolu_01W685rcdibeN9XPGW5DG2Zm",
+      "is_error": false,
+      "outputExcerpt": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/return.json has been updated successfully. (file state is current in your context \u2014 no need to Read it back)",
+      "outputChars": 200
+    },
+    {
+      "stage": "tool_requested",
+      "tool": "Write",
+      "id": "toolu_01DQgDFwQMUzQ2DKCQejLfsi",
+      "command": null,
+      "file_path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/notes.md"
+    },
+    {
+      "stage": "tool_returned",
+      "tool": "Write",
+      "id": "toolu_01DQgDFwQMUzQ2DKCQejLfsi",
+      "is_error": false,
+      "outputExcerpt": "The file /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-16/notes.md has been updated successfully. (file state is current in your context \u2014 no need to Read it back)",
+      "outputChars": 197
+    },
+    {
+      "type": "result",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 2453891,
+      "num_turns": 229,
+      "total_cost_usd": 18.946239600000002,
+      "result": "{\"summary\":\"HC2 increment implemented within the write grant on source 3c3c6e803 / tree e669e2a9. It is a partial candidate and has not been accepted.\\n\\n1. Owner population. All populators are exported:\\n   - populateProductRunInvocation covers start (next, graph_function, asset, declared_start) and direct invoke, via ProductExecutionResolutionPort.resolve.\\n   - populateRunContinuationAtDurablePrefix covers current_intent, pending_execution and selected_action. It mirrors how the owners derive from the log.\\n   - projectPendingExecutionUseRequest is a new ABG projection. It replaces the support module's private open_call fallback.\\n   - populateRunReadAtDurablePrefix covers the six run reads.\\n   - constructAdmissionCapabilityData builds admission data from the actual packet, owner, request, resources and slots. Supplied authority and approval stay explicit.\\n   - Expected-slot population is shared with runOperationAuthorityMatches and runReadKernel. Refusal check order is unchanged.\\n2. Shipped SDK constructors. constructInstalledStartCall, constructInstalledPendingCall and constructInstalledRunReadCall are exported from public/index.ts. They use the package's own owner modules and an explicit envelope. The CLI transport is unchanged.\\n3. Consumers. Superseded population bodies were removed or turned into thin wrappers in:\\n   - registered-graph-selection, generic-job intake and readback, fresh-public-read;\\n   - retained-installed-consumer, installed-qualification-conservation, declared-testing-capability;\\n   - qualification/dispatch startCall, uat/continuation, uat/public-setup admission data;\\n   - the exact-construction-intent, selected-action, default-library, recursive and ST-1 tests.\\n   Negative cases now patch the canonical population explicitly. Old start objects are used only in assertions, and B's start no longer reuses A's request.\\n4. ST-1 extension. ST-1 now also runs the shipped direct invoke and all six run reads.\\n5. HC1 residuals closed:\\n   - the proof config has skipLibCheck:false;\\n   - all 9 unavailable leaves are covered by raw refusal tests;\\n   - mixed valid/invalid call unions are type-checked per alternative, with positive and negative proof.\\n6. Checks run:\\n   - tsc 5.9.2 on the canonical config: 0 diagnostics.\\n   - Declaration emit, in memory and discarded: 290 files, 0 diagnostics.\\n   - HC1 proof compile, in memory, skipLibCheck:false: 0 positive diagnostics; 19/19 negatives fail on their own line with a declared code.\\n   - node --check passes for every edited .mjs file.\\n   - readiness.py: FILE_ONLY_READY, 0 issues, 12/12 source hashes matched.\\n   Outputs are in rc4-scratch/native-recovery-16/{readiness.json, return.json, notes.md}.\\n7. STDO 3.0.2. The basis was verified once at entry through the toolchain manager, using the Worker frame (section 9). No other version, cache or mutable methodology source was used.\",\"gaps\":[\"Stop to Root (concrete missing relation): uat/public-setup.mjs constructLifecycleCall and uat/runner.mjs freshReadbacks still hand-populate calls. uat/harness.test.mjs, which is outside the grant, mocks the superseded owners and api.constructInstalledPublicDefinitionCall, so migrating them would break that test. Finishing this needs that file in scope.\",\"qualification/dispatch.mjs rootAuthority still builds grants and authority through the Product constructors, because observedC2Task needs that grant. Only its policy now uses constructRunOperationPolicy.\",\"declared-testing-capability attaches stdoEnvironmentResources, a key the strict run-resource schema does not include. It is kept as an explicit resource patch after construction; its meaning was not changed or re-examined.\",\"The canonical tenant tsconfig.json still has skipLibCheck:true and is outside the write grant. Only the HC1 proof config was changed.\",\"Nothing was run at runtime: no packed, CLI, C2 or UAT run, because there is no build/ and builds are forbidden. This includes the 9-leaf raw refusal test, ST-1 (direct invoke and six reads), default-library, recursive, current-intent and selected-action. The ST-1 graph-call reads assume the direct-invoke Run emits a graph_call_opened event.\",\"Disclosure: TMPDIR is set to rc4-scratch/native-recovery-16/tmp, so tsc wrote tmp/node-compile-cache there. There were no other writes outside the granted paths.\",\"No acceptance is claimed. This candidate needs an independent build/pack, the selected C2 lanes and review. Continuing the graph work is left to Root.\"]}"
+    }
+  ],
+  "meaning": "Author transport observations only; no independent proof or acceptance."
+}

@@ -1,0 +1,62 @@
+{
+  "status": "HELD_FOR_ROOT_SOURCE_REPAIR",
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/after-run-resume.json",
+    "bytes": 72494784,
+    "sha256": "bb9d4dd3d7f130c76a546b7f6bc03d2d67058bebaba89e83734090406328cbab"
+  },
+  "actualClosePrefix": {
+    "coordinateDigest": "sha256:f5446f7ed698a31fe3597ea53757d837b0e90776883f02901420c4f5a8e36d49",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:0dfaba1d9e9cad99f57c0e86ee5645c33cd290c92b42b664efba71a5edf7129b",
+    "prefixLength": 914514036,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "rootControlAdmission": null,
+  "consumerBindingSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/CONSUMER_BINDING_RETAINED.json",
+    "bytes": 28708880,
+    "sha256": "66b6584dff16c8c3f4833650a2c780232d1bd58434aa5e05cb9088d7eae63dad"
+  },
+  "overlayFields": [
+    "binding",
+    "catalog",
+    "catalogView"
+  ],
+  "sourceBasis": "none",
+  "limit": "Actual author02 source/close custody is bound historically, but Root holds this exact source for the reported legacy cold-reader repair. No C2/UAT, staging or preflight on this held source. A corrected source/close and Root disposition/admission must replace this binding through a later explicit selection.",
+  "expectedAuthorDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02",
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5475,
+    "sha256": "05964a28314c79e70a6ee83e5f5bfc4c2ac2901e2bf1bafa081d6eb13cd1537f"
+  },
+  "authorHandoffs": {
+    "return.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/return.json",
+      "bytes": 44667,
+      "sha256": "0f163d27f452dde406c776f68406a699e72020bd134716038b4591b47ec895f2"
+    },
+    "readiness.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/readiness.json",
+      "bytes": 8988,
+      "sha256": "08e8b9bca084fe55f9913af2164b3afb244ada0df8d5af05b5e4b4feef252813"
+    },
+    "progress.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/progress.json",
+      "bytes": 8129,
+      "sha256": "96215b74ee73f0db4791ab52257f96e5b6934a017975b7fc8accc8d521fdd836"
+    }
+  }
+}

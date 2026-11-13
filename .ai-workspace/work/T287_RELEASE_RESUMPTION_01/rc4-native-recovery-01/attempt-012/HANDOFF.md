@@ -1,0 +1,11 @@
+# Attempt012 operator handoff
+
+PREPARED FOR ROOT REVIEW; no admission or execution by Writer. Source4fda33bb/d136d90f, installed operationalRC3, genuine closed011 handoff. Five manual paths and two owning generated territories are listed in NATIVE_GRANT.DRAFT.json. SourceBasis:none; new task realizes existing active_binding_semantics, preserving original task/history and predecessor provenance. Native96turns/xhigh, unchanged time ceilings/no dollar cap.
+
+Root steps after exact packet review: exclusive ROOT_ADMISSION.json from template; run `node --experimental-vm-modules prepare-native-call.mjs <binding SHA>` in this directory; inspect actual call/context/sources/write grants/ambient/prompt and model-free-preflight.json; then `python3 freeze-dispatch.py <binding SHA>`. Root selects exactly one `node --experimental-vm-modules dispatch.mjs <frozen manifest SHA>` only after actual frozen-call review. No automatic retry.
+
+File-only readiness: `python3 operator-preflight.py`; source/write overlap negative control: `python3 operator-preflight.py --negative-control`. These do not import Product/run tests/build/providers. Actual installed preflight remains authoritative. Neutral Runtime TMP is /private/tmp/abiogenesis-rc4-runtime-01; provider-only TMP/cache share precreated scratch12/tmp. No child C2 environment points at canonical worktree.
+
+Formal9command purposes/12predicates/time budget4267250 conserved; source correspondence now5manual paths; focused assembly/selection4 plus affected default-library/transport/environment3 replace broader011 recovery lists. Existing artifact2 tests and owning build/package remain. Candidate HOW is mutable and excluded from invariant/assessment sources. No whole previous scratch or giant log/resume in LLM context.
+
+Remaining runtime-derived decisions: installed preflight actual feasibility, Root exact-call admission, native implementation/test/UAT results, returned artifact install/source correspondence, and new real-provider witness. Frozen practical004 A/B stay before-evidence. Their reuse under a changed artifact requires an actual supported owner relation; otherwise Root commissions a fresh witness. No automatic reuse, same-Run recovery or release claim.

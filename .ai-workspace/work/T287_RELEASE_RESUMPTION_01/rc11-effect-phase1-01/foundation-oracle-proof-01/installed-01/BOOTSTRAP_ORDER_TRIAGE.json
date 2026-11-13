@@ -1,0 +1,32 @@
+{
+  "status": "READ_ONLY_ARCHIVE_INSTALL_CONTENT_IDENTITY_AFTER_ORDER_COMPARISON_FAILURE",
+  "utc": "2026-11-09T19:03:24.173166+00:00",
+  "archive": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045845,
+    "sha256": "fdbf93de131905f79e96c8716dbb833ae8b308b3e791e1ac63a79b59a1c74d46"
+  },
+  "archiveMembers": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/ARCHIVE_MEMBERS.json",
+    "bytes": 1099505,
+    "sha256": "5b61c7b8926862c6791d2988a524f3c09c862dbfc441f6addfde61e3fc9e38f8"
+  },
+  "installedPackageRoot": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/bootstrap-host/node_modules/@abiogenesis/typescript-tenant",
+  "actualFiles": 5327,
+  "expectedFiles": 5327,
+  "payloadBytes": 71840473,
+  "missing": [],
+  "extra": [],
+  "symlinks": [],
+  "contentLengthDigestMismatches": [],
+  "rawListEqual": false,
+  "canonicalPathSortedEqual": true,
+  "canonicalRowsetSha256": "b5a5d7eaf0114f3b54a0c30a218c8aed48ea03c51f8931dd493b9b3caf79f781",
+  "firstPositionalMismatch": {
+    "position": 76,
+    "actual": "build/code/src/abg/m03/transport.d.ts",
+    "expected": "build/code/src/abg/m03.d.ts"
+  },
+  "mechanism": "Runner sorted pathlib.Path objects, whose component ordering puts m03/transport.d.ts before m03.d.ts. The retained archive rows are sorted by complete POSIX path strings, where m03.d.ts precedes m03/transport.d.ts. Comparing lists before normalizing order rejects identical path/byte/digest sets.",
+  "proposedSmallestRepair": "Preserved successor control sorts actual rows by their path string before equality. Reuse existing successful bootstrap and exact retained work; no reinstall, repack, rebuild, source edit or completed-command repetition. W2-05 remains unexecuted until Root continuation admission."
+}

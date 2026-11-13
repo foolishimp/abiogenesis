@@ -1,0 +1,16 @@
+{
+  "status": "SCRIPT_PREPARED_NOT_EXECUTABLE_WITHOUT_FINAL_INPUT_MANIFEST",
+  "at": "2026-11-03T09:43:32.888011+00:00",
+  "basis": "ApprovedRC5localcut scope; exact installer owner pattern retained",
+  "sourceInstaller": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/install-local-rc4.mjs",
+  "sourceInstallerSha256": "16921ca6a09b919bd0d57dd43bf9c0c5a5c6631f4e32116c6e5e9c9ece54e575",
+  "effects": "Preparation only; no candidate archive, release or install allocated",
+  "requires": [
+    "independent frozen source review",
+    "actual C2 and native UAT conjunction",
+    "fresh result/replay",
+    "exact generated adoption and clean source checkpoint",
+    "pinned artifact/tool/claim/input manifest",
+    "fresh absent rc5release/install roots"
+  ]
+}

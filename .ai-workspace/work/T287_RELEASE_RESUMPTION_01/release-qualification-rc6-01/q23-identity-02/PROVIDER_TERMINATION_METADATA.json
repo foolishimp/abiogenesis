@@ -1,0 +1,18 @@
+{
+  "kind": "worker_transport_result_candidate",
+  "schemaVersion": "5.0.0",
+  "status": 143,
+  "disposition": "failure",
+  "failureClass": "transport_failure",
+  "absoluteTimeoutMs": 3600000,
+  "timeoutMs": 1800000,
+  "timeoutClass": "absolute",
+  "timedOut": true,
+  "terminationConfirmed": true,
+  "exitObserved": true,
+  "signal": null,
+  "progressEventCount": 17782,
+  "structuredEventCount": 18038,
+  "toolCallCount": 258,
+  "apiRetryCount": 0
+}

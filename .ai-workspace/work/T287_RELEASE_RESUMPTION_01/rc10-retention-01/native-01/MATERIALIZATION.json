@@ -1,0 +1,21 @@
+{
+  "status": "SPARSE_SOURCE_MATERIALIZED_TRACKED_CLEAN",
+  "recordedAt": "2026-11-09T02:36:11.781280+00:00",
+  "worktree": "/private/tmp/abg-rc10-retention-20261109",
+  "branch": "codex/rc10-retention",
+  "head": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "sparseCone": [
+    "specification",
+    "build_tenants/abiogenesis/typescript"
+  ],
+  "trackedClean": true,
+  "historicalEvidencePresent": false,
+  "sourceFiles": 1333,
+  "sourceBytes": 38174415,
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/SOURCE_INVENTORY.json",
+    "bytes": 292044,
+    "sha256": "96aa8e315f97033289a66fdc32320ff183390fb9c450789218d037ebb76feca6"
+  },
+  "mainHeadUnchanged": true
+}

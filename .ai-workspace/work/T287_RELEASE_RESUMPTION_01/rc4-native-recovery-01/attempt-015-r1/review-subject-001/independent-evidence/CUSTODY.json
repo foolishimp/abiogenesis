@@ -1,0 +1,75 @@
+{
+  "at": "2026-11-02T17:30:20.522922+00:00",
+  "kind": "independent_compact_evidence_custody",
+  "files": [
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/REVIEW_RECEIPT.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/REVIEW_RECEIPT.json",
+      "bytes": 10907,
+      "sha256": "63582ec5044f3f0ba291b3abcbd33546c6f4be48e68d7e9d0ace85c23f1fbb56"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/MANIFEST.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/MANIFEST.json",
+      "bytes": 2833,
+      "sha256": "df3df0608d27d8c6660de3be1197733405b1aa48cbf3b7f818776f9a7741b718"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/compiler-results.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/compiler-results.json",
+      "bytes": 976,
+      "sha256": "1e21319f2085532dbd0735b1718676da445594325875de0aaa7c293795bc5ea1"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/schema-comparison-results.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/schema-comparison-results.json",
+      "bytes": 1459,
+      "sha256": "069b5cf30133593e42167e677ad916de55c54eb8adcef05305d25288ddf0891d"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/union-control.ts",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/consumer/union-control.ts",
+      "bytes": 1748,
+      "sha256": "3f2f1ed50e8d45ed099ae60ade58ddbcb7cbc1c123a34b075959d43841af22e3"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/tsconfig.strict.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/consumer/tsconfig.strict.json",
+      "bytes": 624,
+      "sha256": "7c1f087bd4cff80a600783b77c15ba87b649d7629c16144dbfc3d7440d5467dd"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/tsconfig.union.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/consumer/tsconfig.union.json",
+      "bytes": 612,
+      "sha256": "4c6c950769f0a91243063279ea02043107afbf0692adb8641157366dc822f8d5"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer/framework-handoff.compile.ts",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/consumer/framework-handoff.compile.ts",
+      "bytes": 20380,
+      "sha256": "dbe62f2acd7b750bc0fc2cd19360e586d4a67dc81470f83b558e016ad0280c82"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/schema-comparison.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/schema-comparison.log",
+      "bytes": 359,
+      "sha256": "1d1276c19609774be0e68a190e1ff1c3c9dc840e8045d0021e1837cf880fc2bb"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/strict-packed.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/strict-packed.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/rc4-015-independent-review-eou4p8fp/union-control.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/union-control.log",
+      "bytes": 294,
+      "sha256": "e02ca6f44c80a96afd25c5ed6f4ceed5fb32cc9412d30cb83ba5a4d6c4a5269c"
+    }
+  ],
+  "originalsPreserved": true,
+  "candidateOrDependencyTreesCopied": false,
+  "scope": "Reviewer existing strict packed consumer and corrected-input schema comparison; union-control gap retained. No Writer test/runtime/source effect."
+}

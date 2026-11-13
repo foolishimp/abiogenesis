@@ -1,0 +1,136 @@
+{
+  "kind": "source_only_operator_control_readiness",
+  "status": "PASS_SOURCE_ONLY_PREPARED_NOT_DISPATCHED",
+  "at": "2026-11-06T03:32:33.769607+00:00",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/SOURCE_BEFORE.json",
+    "bytes": 215422,
+    "sha256": "05b4059600a96f515a4aa4f68e3975b85c3dc45d4652ca892dac3683eb22ae7e"
+  },
+  "counts": {
+    "selectedContextPaths": 419,
+    "existingFileBodies": 416,
+    "absentHandoffs": 3,
+    "sourceInventory": 397,
+    "freshCurrentPins": 46,
+    "compileCodeFiles": 290,
+    "stagedClosure": 397,
+    "permittedProductWritePaths": 85,
+    "nativeWriteRoots": 89,
+    "inheritedModifiedProduct": 20,
+    "inheritedNewProduct": 2
+  },
+  "bytes": {
+    "sourceBodies": 11433514,
+    "controlBodies": 457789,
+    "selectedPhysicalBodies": 11891303,
+    "maxContextBytes": 16777216,
+    "sourceBeforeMetadata": 215422,
+    "sourceBeforeInNativeContext": false,
+    "renderedOrderConservativeEstimate": 47038,
+    "promptReserve": 131072,
+    "maxPromptBytes": 1048576
+  },
+  "orderEstimateBasis": "Static upper estimate from complete order JSON plus readable paths, worksite root and 4096 fixed-text allowance against the acquired renderNativeWorkspaceWorkOrder source. Actual installed owner render remains Root preflight; no owner/runtime call made here.",
+  "lanes": [
+    {
+      "id": "carriage",
+      "modules": 6,
+      "minimumTests": 1,
+      "namedInactiveHistoricalCases": 6,
+      "requiredActivePrefixes": [
+        "RC7 logical carriage:"
+      ],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "consumers",
+      "modules": 9,
+      "minimumTests": 1,
+      "namedInactiveHistoricalCases": 5,
+      "requiredActivePrefixes": [],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "prefix",
+      "modules": 2,
+      "minimumTests": 1,
+      "namedInactiveHistoricalCases": 1,
+      "requiredActivePrefixes": [
+        "RC7 prefix reuse:"
+      ],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "legacy",
+      "modules": 5,
+      "minimumTests": 37,
+      "namedInactiveHistoricalCases": 0,
+      "requiredActivePrefixes": [],
+      "timeoutMs": 300000
+    }
+  ],
+  "syntax": [
+    {
+      "path": "prepare-r1.mjs",
+      "operation": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "dispatch.mjs",
+      "operation": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "inputs/prior-author-stage.mjs",
+      "operation": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "inputs/prior-author-lanes.mjs",
+      "operation": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "check-controls.py",
+      "operation": "Python ast.parse only",
+      "valid": true
+    },
+    {
+      "path": "launch-owner-script.py",
+      "operation": "Python ast.parse only",
+      "valid": true
+    },
+    {
+      "path": "claude-provider.sh",
+      "operation": "sh -n only",
+      "exitCode": 0
+    }
+  ],
+  "runtime": {
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 6583,
+      "sha256": "39e3410b7d40a20588e380189e6a77d7480e0fecfc54e3cfdbf04fe98bd5e887"
+    },
+    "actualResume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/after-run-resume.json",
+      "bytes": 72684562,
+      "sha256": "b6740b2697e2d5b74820bdbf339655c7bbd7c9e76fdfcd8af0242676ef93773e"
+    },
+    "prefixLength": 1057950101,
+    "rootControlAdmission": null,
+    "preflightCalls": 0,
+    "providerCalls": 0,
+    "nativeDispatches": 0,
+    "ProductBuildsOrTests": 0,
+    "credentialsAccessed": false
+  },
+  "limits": [
+    "Mechanical source/control readiness only. No independent semantic assessment, Product test pass, actual native capacity receipt, installed proof, qualification or release.",
+    "The 85 permitted files are the complete bounded causal cone, not an instruction to edit all or repeat unaffected proof.",
+    "Actual owner preflight and Root subsequent post-host full terminal readbacks remain pending.",
+    "No mutable control/source changed after this check may use this exact report without a refreshed concrete binding."
+  ]
+}

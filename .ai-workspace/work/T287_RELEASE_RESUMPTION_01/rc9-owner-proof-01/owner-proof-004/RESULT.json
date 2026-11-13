@@ -1,0 +1,44 @@
+{
+  "status": "OWN_PROOF_INCOMPLETE",
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 1,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "ownerObservationFailure": "AssertionError [ERR_ASSERTION]: one final OWN diagnostic required\n\n0 !== 1\n",
+  "ownerObservations": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/OWN01_OBSERVATIONS.json",
+    "bytes": 285,
+    "sha256": "a1416da5a5a8f54a31b13f4764f8a26c3003ded7bda73d159a9c26bb3e4df38d"
+  },
+  "skips": [],
+  "reporterComplete": true,
+  "parseFailure": null,
+  "command": {
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 528427.6741249999
+  },
+  "commandFailure": null,
+  "conservationFailure": null,
+  "ancestryFailure": null,
+  "postAncestryFailure": null,
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/events.jsonl",
+    "bytes": 1198,
+    "sha256": "827ad04fcdd046af8f96df1a6696acfcc984d73762150c3b374d7916da053b27"
+  },
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "wholeFile": false,
+  "originalUnitStanding": "FAILED/INCOMPLETE_UNCHANGED",
+  "sourceAcceptance": false,
+  "standing": "Actual complete OWN outcome and final observation status recorded before success assertion. No automatic retry or source acceptance. Original unit remains incomplete; M5 residual and bootstrap/broad conjunction remain Root-owned."
+}

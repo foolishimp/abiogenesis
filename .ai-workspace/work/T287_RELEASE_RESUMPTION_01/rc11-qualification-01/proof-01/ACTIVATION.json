@@ -1,0 +1,22 @@
+{
+  "id": "RC11-PROOF-PREP-01",
+  "role": "Mechanical HOW/Proof Writer, not assurance",
+  "issuer": "/root Executive",
+  "at": "2026-11-09T08:05:24.695266+00:00",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01",
+  "frame": "Same exact installedSTDO3.0.4, emptycomposition, fixed15families/ABGsoletruth; selected3capsules plus2triaged fixture/helper construction corrections.",
+  "purpose": "Prepare sequential bounded mechanical proof controls only; no build/test/Productimports until exact frozen source and separate Root execution admission.",
+  "futureIsolation": "Accepted Root design: exactsource-wins copy/frozenstage/work under /private/tmp; only absent immutableRC10contract seeds; pinned readonlydeps copied; no extraProduct code from install.",
+  "commands": [
+    "build",
+    "lint",
+    "native-assessment",
+    "selected-action",
+    "owned-lifetime",
+    "unit",
+    "r6",
+    "f04a"
+  ],
+  "sourceBinding": "Pending author02 and final frozen source inventory; no movingC11source pin claimed.",
+  "controlledProof": "All controlled-clock testcase source unchanged; fullcasepass plus exact12loopcombinations;5HTTP+3capture runtime diagnostics only."
+}

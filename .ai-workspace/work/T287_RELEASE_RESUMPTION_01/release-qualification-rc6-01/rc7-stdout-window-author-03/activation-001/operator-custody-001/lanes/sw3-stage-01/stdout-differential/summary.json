@@ -1,0 +1,34 @@
+[
+  {
+    "id": "stdout-differential",
+    "mode": "after",
+    "setupMs": 84,
+    "priorLaneAllocations": 0,
+    "laneAllocationCap": 6,
+    "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+    "activeRc7": [
+      "RC7 HS03 actual-stream: the pinned metadata declares each recorded actor, policy, start and qualifying chronology, and a recorded per-chunk prefix admits through the current owners",
+      "RC7 HS03 actual-stream: recorded chunk cadence closes bounded archive windows in the real transport, and each recorded actor keeps its qualifying lastActivity, decision and durable successor"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 HS03 actual-stream: test_env/tests/t287-calculus-fold.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 9957,
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 2,
+    "failing": [],
+    "stdoutSha256": "2fe6478fe38b824bf3a34c0932fa7576f47985c722d5e0ad335fed1f8b1be98a",
+    "stdoutBytes": 6127,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

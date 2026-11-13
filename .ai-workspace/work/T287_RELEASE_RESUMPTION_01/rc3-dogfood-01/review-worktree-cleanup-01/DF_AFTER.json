@@ -1,0 +1,5 @@
+{
+  "availableBytes": 303620071424,
+  "source": "statvfs after cleanup; simultaneous activity/APFS sharing may affect delta",
+  "totalBytes": 1995218165760
+}

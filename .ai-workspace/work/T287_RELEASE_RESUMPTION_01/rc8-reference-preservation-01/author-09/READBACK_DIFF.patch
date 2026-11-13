@@ -1,0 +1,27 @@
+--- author-07/readbacks.mjs
++++ author-09/readbacks.mjs
+@@ -6,11 +6,11 @@
+ import {fileURLToPath,pathToFileURL} from 'node:url';
+ const dir=dirname(fileURLToPath(import.meta.url)),sha=b=>createHash('sha256').update(b).digest('hex');
+ const load=async(path,expected)=>{const bytes=await readFile(path);if(expected)assert.equal(sha(bytes),expected);return {value:JSON.parse(bytes),pin:{path,bytes:bytes.length,sha256:sha(bytes)}};};
+-const binding=await load(join(dir,'BINDING.json'),'89bcde5f7779916f08c17948c5fda9ef24493068b4414e28a8ad807a2d9d022c');
++const binding=await load(join(dir,'BINDING.json'),'3d8e1eaf76f17ec2f4b19fa096ae00a7e812ac097417f8c2c8ed3768eea0d656');
+ const base=await load(binding.value.baseControls.path,binding.value.baseControls.sha256),b={...base.value,...binding.value};
+-const prepared=await load(join(b.runtimeRoot,'PREPARED.json'),'0f186a00586f0de9667625a4ee891eb45969d29b5cd1624cfdefa26b03c96b05');
+-const closed=await load(join(b.runtimeRoot,'resource-close.json'),'78f735ab9b3a86655f9da5b81bb033c75c29ac3be4b0c00dd1fb01f4c77d275b');
+-const outcome=await load(join(b.runtimeRoot,'calls/lifecycle-start.outcome.json'),'a6121516630821a9a1e8b5d49a9db7b37b529fdd9168059fa02a620684f55731');
++const prepared=await load(join(b.runtimeRoot,'PREPARED.json'),'c39dbe7bbd5a674397637db86eb107d20d34678ff83427bc7da05618720a9218');
++const closed=await load(join(b.runtimeRoot,'resource-close.json'),'5aa74712b3aa081545c306b947748144bf3fbf6ba97521e92faebe8282d1b473');
++const outcome=await load(join(b.runtimeRoot,'calls/lifecycle-start.outcome.json'),'df66bf4cc53f2fc59b76ef926313f5b475b7d77e509a52cd187dd5e16f3639e8');
+ const acquisition=await load(join(b.runtimeRoot,'abg-acquisition.json'));
+ for(const p of Object.values(b.sourceHelpers)){const bytes=await readFile(p.path);assert.equal(bytes.length,p.bytes);assert.equal(sha(bytes),p.sha256);}
+ const environment={...b.environment};for(const k of Object.keys(environment))if(/CLAUDE|ANTHROPIC|OPENAI|PROVIDER/u.test(k))delete environment[k];
+@@ -20,7 +20,7 @@
+ const record=(p,v,raw=false)=>runner.exclusiveRecord(root,p,v,raw),runtime=await owner.installedModules(b.bootstrapRoot);
+ const native={...acquisition.value,verified:acquisition.value.verification.verifiedArtifact};
+ const caller=owner.publicCaller({root,runtime,native,record,command:runner.commandRecorder(root,{environment,timeoutMs:b.proofTimeoutMs}),
+-  config:{runId:'rc8-reference-preservation-01-author07-fresh-readbacks',nodePath:process.execPath,setupEnvironment:environment}});
++  config:{runId:'rc8-reference-preservation-01-author09-fresh-readbacks',nodePath:process.execPath,setupEnvironment:environment}});
+ caller.state.binding=prepared.value.workspaceBinding;caller.state.closeHandoff=closed.value.closeHandoff;caller.installedRoot=prepared.value.installedRoot;
+ const prefix=closed.value.closeHandoff.prefix,before=await runner.eventResourceIdentity(fileURLToPath(prefix.eventLogRef));
+ const startedUtc=new Date().toISOString(),started=performance.now();

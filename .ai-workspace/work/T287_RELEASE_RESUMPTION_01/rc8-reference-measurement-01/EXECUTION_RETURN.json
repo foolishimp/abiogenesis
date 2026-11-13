@@ -1,0 +1,219 @@
+{
+  "status": "RC7_BEFORE_FAILED_AT_CONSTRUCTION_NO_SDK_SAMPLE",
+  "returnedAt": "2026-11-07T03:09:43.699711+00:00",
+  "actor": "/root/rc7_reference_ticket_writer",
+  "hostSession": 46105,
+  "hostExitCode": 1,
+  "selectedInvocationsExecuted": 1,
+  "subject": {
+    "label": "RC7-before",
+    "phase": "before",
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b"
+  },
+  "artifact": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+    "bytes": 11022180,
+    "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_ADMISSION.json",
+    "bytes": 3081,
+    "sha256": "1f774e558e807cdc18b38878b602b9ea2599a32d8bb8b61d09985a5feff6d112"
+  },
+  "host": {
+    "status": "MATCHED_REFERENCE_MEASUREMENT_FAILED",
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 27444.885292000003,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "commandReceipt": "commands/matched-reference.result.json",
+    "measurement": "MEASUREMENT.json",
+    "actualClose": "ACTUAL_CLOSE.json",
+    "qualified": false,
+    "providerCallsSelected": 0
+  },
+  "failure": {
+    "stage": "first 1MiB constructInstalledStartCall",
+    "kind": "product_run_invocation_preparation_refusal",
+    "ownerCode": "invalid_target",
+    "issuePaths": [
+      "/program"
+    ],
+    "source": "measurement.test.mjs:59",
+    "cause": "Not diagnosed by this bounded measurement result; Root triage required.",
+    "evidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/FAILURE.json",
+      "bytes": 723,
+      "sha256": "76b58403005f33dccc9c3fa992eb34a3b23f513ec7862e30d7ae13697bc9bf64"
+    }
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/MEASUREMENT.json",
+    "bytes": 8117,
+    "sha256": "b32924dfaa6e96f0b50cc6af6f08cea8ef618d9e050c95aedf4d1ecefd3d056c"
+  },
+  "phases": [
+    {
+      "name": "installed_fixture_setup",
+      "wallMs": 26395.369584,
+      "startMemory": {
+        "rss": 185958400,
+        "heapUsed": 68907088,
+        "external": 2707769,
+        "arrayBuffers": 48261
+      },
+      "endMemory": {
+        "rss": 2801844224,
+        "heapUsed": 366208224,
+        "external": 3279835,
+        "arrayBuffers": 624537
+      },
+      "memoryDelta": {
+        "rss": 2615885824,
+        "heapUsed": 297301136,
+        "external": 572066,
+        "arrayBuffers": 576276
+      },
+      "work": null,
+      "counters": {}
+    },
+    {
+      "name": "fixture_bytes",
+      "wallMs": 3.2472910000033153,
+      "startMemory": {
+        "rss": 2763882496,
+        "heapUsed": 310018720,
+        "external": 4677398,
+        "arrayBuffers": 2022100
+      },
+      "endMemory": {
+        "rss": 2768076800,
+        "heapUsed": 310111320,
+        "external": 15168358,
+        "arrayBuffers": 12513060
+      },
+      "memoryDelta": {
+        "rss": 4194304,
+        "heapUsed": 92600,
+        "external": 10490960,
+        "arrayBuffers": 10490960
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {}
+    },
+    {
+      "name": "held_acquisition",
+      "wallMs": 95.89266599999974,
+      "startMemory": {
+        "rss": 2768076800,
+        "heapUsed": 310654880,
+        "external": 15168958,
+        "arrayBuffers": 12513660
+      },
+      "endMemory": {
+        "rss": 2774450176,
+        "heapUsed": 290396432,
+        "external": 9638411,
+        "arrayBuffers": 6983113
+      },
+      "memoryDelta": {
+        "rss": 6373376,
+        "heapUsed": -20258448,
+        "external": -5530547,
+        "arrayBuffers": -5530547
+      },
+      "work": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177949,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {}
+    }
+  ],
+  "matchedCases": [],
+  "sdkCallSerializationSizes": null,
+  "constructorAndSdkCallSamples": "Unavailable: constructor refused before the first SDK call or optional serialization.",
+  "historyCounters": {
+    "historyDecodes": 1,
+    "decodedRows": 2,
+    "historyBytesRead": 3177949,
+    "storeReopens": 1,
+    "coldHistoryReads": 0,
+    "bodyReads": 0,
+    "bodyBytesRead": 0
+  },
+  "budgetObservations": [
+    {
+      "label": "after_setup",
+      "logicalBytes": 87461573,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_construct_1MiB",
+      "logicalBytes": 92705649,
+      "bound": 1073741824,
+      "quota": false
+    }
+  ],
+  "finalFootprint": {
+    "output": {
+      "logicalBytes": 783963,
+      "files": 10
+    },
+    "outerScratch": {
+      "logicalBytes": 12524341,
+      "files": 591
+    },
+    "fixtureScratch": "/private/tmp/abg-r8m-rc7-before-001/tmp/abi5-root-env-p7RuSD",
+    "fixtureScratchStillExists": false,
+    "cleanup": "Existing setupInstalledRootCatalog test hook only; operator performed no deletion."
+  },
+  "custody": {
+    "hostReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/commands/matched-reference.result.json",
+      "bytes": 1420,
+      "sha256": "aa2c24734047d7a40de8066e6c5b9132d60ccec35defba581f39d383ce2407f9"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/commands/matched-reference.stdout",
+      "bytes": 1610,
+      "sha256": "4b432fc8134bcbc0c2fcbdd3974ce93a007d025f63a6b54dfbde28041ada88d1"
+    },
+    "setupClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/SETUP_CLOSE.json",
+      "bytes": 1196,
+      "sha256": "9e91bd6a6cebc6aa897f27122ad338198c04853a4c4418f996d4d7c0ebeb86c9"
+    },
+    "measurementCloseExists": false,
+    "heldAbandonedOnFailure": true,
+    "partialLog": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/before-rc7-001/runtime.events.jsonl.gz",
+      "bytes": 767334,
+      "sha256": "66b408132adf9e88707b115000b996503a7f68280e35d479cb9ad07fb5babf84",
+      "physicalBytes": 3177949,
+      "physicalSha256": "40d196d398d27df63675fa4a9b8ccca1099074306dfeb49dc94cd8dcdbd91d21"
+    }
+  },
+  "limits": [
+    "Root reported active RC8 native coding Worker on the same host; possible contention bounds timing interpretation. No measured host-load attribution.",
+    "No construction/call before/after comparison, serialized-call sizes, native measurement result, cold parity or completed measurement close was obtained.",
+    "The retained setup close is not a measurement completion close.",
+    "No retry, after measurement, Product/ticket/GOALS/Git change, selector change or historical deletion was performed."
+  ]
+}

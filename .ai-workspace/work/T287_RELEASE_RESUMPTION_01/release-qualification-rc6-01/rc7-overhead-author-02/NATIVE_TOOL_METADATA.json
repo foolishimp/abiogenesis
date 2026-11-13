@@ -1,0 +1,58 @@
+{
+  "kind": "allowlisted_native_tool_use_metadata_only",
+  "at": "2026-11-06T06:09:02.754942+00:00",
+  "sourcePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-6b6fed8e482069c8-stdout.log",
+  "completePrefixBytes": 9497859,
+  "completePrefixSha256": "e1067adbe0ebd0c91ff2c8f8e41c4867a46d5e7842f3b564c44e18efb7b15453",
+  "uniqueToolUses": 231,
+  "toolCounts": {
+    "Bash": 219,
+    "Grep": 10,
+    "Write": 1,
+    "StructuredOutput": 1
+  },
+  "recent": [
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "StructuredOutput"
+    }
+  ],
+  "terminalMetadata": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "num_turns": 233,
+    "duration_ms": 2856745,
+    "duration_api_ms": 2005108,
+    "total_cost_usd": 17.843680200000005,
+    "stop_reason": "tool_use",
+    "session_id": "806cab60-1595-487c-857b-eb7b1c42329f"
+  },
+  "limits": "Only assistant tool_use metadata and explicit terminal counters projected. No private reasoning/narrative or tool_result inspected or output; not Product result/acceptance."
+}

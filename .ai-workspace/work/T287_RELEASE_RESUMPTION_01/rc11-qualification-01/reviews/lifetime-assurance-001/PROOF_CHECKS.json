@@ -1,0 +1,69 @@
+{
+  "kind": "read-only-proof-predicate-checks",
+  "allFiveHttpOutcomes": true,
+  "allThreeCaptureOutcomes": true,
+  "allPhysicalIdentityAndAbsenceRelations": true,
+  "allObservedPublicationsBeforeOwnerReturnAndSetup": true,
+  "unchangedHandbackLoop": "whole case 6 passed; literal 2 by 3 by 2 population and original assertions retained byte-for-byte; all 12 combinations complete",
+  "remainingCases": "all 18 exact named cases passed; no cancellation, skip or todo",
+  "otherDiagnostics": [
+    {
+      "line": 88,
+      "roundtrip": true,
+      "value": {
+        "scope": "posix_process_group",
+        "probes": 1,
+        "signals": 0,
+        "cleanupMs": 0.094125,
+        "closeObserved": true,
+        "bufferedBytes": 13
+      }
+    },
+    {
+      "line": 113,
+      "roundtrip": true,
+      "value": {
+        "owner": "worker",
+        "capturedBytes": 14,
+        "lateDiagnosticRetained": false
+      }
+    },
+    {
+      "line": 115,
+      "roundtrip": true,
+      "value": {
+        "owner": "command",
+        "capturedBytes": 14,
+        "lateDiagnosticRetained": false
+      }
+    },
+    {
+      "line": 117,
+      "roundtrip": true,
+      "value": {
+        "owner": "http",
+        "capturedBytes": 30,
+        "lateDiagnosticRetained": true
+      }
+    },
+    {
+      "line": 130,
+      "roundtrip": true,
+      "value": {
+        "ownedGroupAbsent": true,
+        "escapedGroup": 91151,
+        "closeObserved": false,
+        "disposed": true,
+        "cleanupMs": 31.193334,
+        "signals": 0,
+        "probes": 1
+      }
+    }
+  ],
+  "rawJsonParseControlFailure": {
+    "parsed": 12,
+    "failed": 1,
+    "httpPrimary": 4
+  },
+  "originalStdoutSha256AfterRead": "12721b5d5a910263c4a0f8a61dcaa6cbd0139a75ca7a3dcb4e1d1fa16f989263"
+}

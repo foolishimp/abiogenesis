@@ -1,0 +1,135 @@
+{
+  "kind": "bounded_native_author_preparation_readiness",
+  "status": "PREPARED_NOT_DISPATCHED",
+  "createdUtc": "2026-11-06T16:12:49.829898+00:00",
+  "frame": "Unchanged fixed fifteen-feature ABIogenesis5.0 / GOAL-035 / T287; empty composition. RC6 remains installed builder; no RC7 cut or release.",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_SELECTION.json",
+    "bytes": 5121,
+    "sha256": "8aa0ee39cdc0aab6586bd5bc018514736d32f3cabd081bf63fd0efa563bd3f01"
+  },
+  "architecture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 7741,
+    "sha256": "2fe46b95de9428e86f421759ddad6dac7ed064bef9ac9180feebf7f530309c98"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+    "bytes": 240531,
+    "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_AFTER.json",
+    "bytes": 557347,
+    "sha256": "515dd6b7d33208e4fa5fed02f7d15ebac853eefc7467c9da6c856e7f29fe3006"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10421,
+    "sha256": "7ddb9f2f715158677c4c11564b3996d43e13131d0cc9efb3524a3baef28ad494"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "342134fd5e693bc9f483bb71c9f2fddd10a67ec8390a01025c6e48074cfaf3aa"
+  },
+  "rootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 5681,
+    "sha256": "056516a52d383b7837ea32cf82342ba49187acd818406fcddbf776ed05061e6e"
+  },
+  "population": {
+    "sourceRows": 451,
+    "physicalSourceBytes": 12366365,
+    "compileClosure": 290,
+    "permittedWritePaths": 5,
+    "preparedControls": 17,
+    "controlsWithRootAdmission": 18,
+    "selectedContextEntries": 472,
+    "physicalContextBytesBeforeAdmission": 12532423,
+    "readFirstPaths": 22,
+    "estimatedOrderMetadataBytes": 91007,
+    "actualRenderedOrderBytes": null
+  },
+  "resourceBounds": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "stageAndLaneBounds": {
+    "stages": 2,
+    "lanes": 8,
+    "laneValues": [
+      {
+        "id": "fixed-route",
+        "timeoutMs": 600000
+      },
+      {
+        "id": "assessment-guards",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "native-workspace-owner",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "caller",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "fixed-route-correction",
+        "timeoutMs": 600000
+      },
+      {
+        "id": "assessment-guards-correction",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "native-workspace-owner-correction",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "caller-correction",
+        "timeoutMs": 300000
+      }
+    ]
+  },
+  "validation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/CONTROL_REUSE.json",
+    "bytes": 4130,
+    "sha256": "8a4f992326092c750571173c2f3b52e8ee32f4a628f01c796a7f8234793c040b"
+  },
+  "historicalUnexercised": [
+    "admitted pure consumer evaluates a native task as data without physical authority; ABI5_NATIVE_WORK_RETAINED_ROOT unbound. No proof credit."
+  ],
+  "remainingRootSteps": [
+    "Root verifies frozen/live source and prepared pins, stages controls and binds ROOT_CONTROL_ADMISSION; retain pre-admission workload/runtime bytes.",
+    "Root binds workload admission digest and RUNTIME_BINDINGS admission/status, then exact dispatch manifest.",
+    "Root alone invokes owner preflight and launches one coder once. Actual return/review/proof disposition/acceptance remain future."
+  ],
+  "effects": {
+    "ProductSourceWrites": 0,
+    "CStagingWrites": 0,
+    "testsOrBuilds": 0,
+    "runtimeAcquisitions": 0,
+    "providerCalls": 0,
+    "credentialReads": 0,
+    "nativeDispatches": 0
+  },
+  "limits": [
+    "Source remains partial; no source acceptance or timing/speedup claim.",
+    "All original H02 native/operator/diagnostic records preserved. Only Root final admission/dispatch are unbound; actual predecessor and final architecture are pinned.",
+    "The future stdout-window increment remains separate and unactivated; it must inherit the complete accepted successor inventory."
+  ],
+  "controlCorrection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/pre-admission-correction-001/CORRECTION.json",
+  "controlCorrectionStanding": "Unconsumed redundant buildAuthority removed from both grant copies; one correct canonical architectureSelection remains, with exact caller causal review already bound there. All active nested file pins recursively verified; original closed preimages preserved.",
+  "stagingManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/STAGING_MANIFEST.json",
+    "bytes": 10492,
+    "sha256": "d0793b14b15c8a5ee03d02eb5de388acab66ee4cef6e70a4f5ada6aa6126c1a2"
+  }
+}

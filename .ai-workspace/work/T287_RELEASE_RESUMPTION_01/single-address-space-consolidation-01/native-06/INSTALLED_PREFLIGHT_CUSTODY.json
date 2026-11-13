@@ -1,0 +1,59 @@
+{
+  "recordedUtc": "2026-11-04T00:23:41.301261+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/PREPARED_CALL.json",
+      "bytes": 4933,
+      "sha256": "9276a2c97dd8106ba456004389955bdcd5f37260af5f19f918366f38d142cde1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/SELECTOR_CAPACITY_PREFLIGHT_R1.json",
+      "bytes": 1168,
+      "sha256": "935cd75ee491d33940c1683341447b9a70128011fa0160bdc9510a01e16b8ebd"
+    }
+  ],
+  "status": "PREPARED_NOT_DISPATCHED",
+  "contextDigest": "sha256:a2c5785eca9142285a887bd0c9d27662322d28ac5a056e43def247df48ff615c",
+  "callCanonicalDigest": "sha256:9ce9f696d28126274e18c0aaf62398990b2e915821106acf2a990a5702516820",
+  "selectedFiles": 899,
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 6671750,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 6676750
+  },
+  "limits": {
+    "absoluteTimeoutMs": 9000000,
+    "inactivityTimeoutMs": 7200000
+  },
+  "sourcePins": 37,
+  "productWritePaths": 121,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "standing": "Exact installed constructors, context/source/selected-file observation, installed content, budget, capacity and Public call population passed; independent control review and Root admission remain separate."
+}

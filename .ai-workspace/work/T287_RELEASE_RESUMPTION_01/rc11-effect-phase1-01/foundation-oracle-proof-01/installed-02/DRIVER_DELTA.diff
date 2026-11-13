@@ -1,0 +1,106 @@
+--- installed-01/proof.py
++++ installed-02/proof.py
+@@ -99,6 +99,7 @@
+   assert not p.is_symlink(),'unexpected installed package symlink '+str(p)
+   if p.is_file():v=pin(p);actual.append({'path':p.relative_to(root).as_posix(),'bytes':v['bytes'],'sha256':v['sha256']})
+  expected=[{k:r[k] for k in ['path','bytes','sha256']} for r in record['rows']]
++ actual.sort(key=lambda r:r['path'])
+  assert actual==expected,'temporary installation differs from exact archive members'
+  manifest=json.loads((root/'product-toolchain-manifest.json').read_text());assert manifest['productContentDigest']==b['expectedProductContentDigest']
+  return {'archive':b['proofArchive'],'archiveMembers':b['archiveMembers'],'installedPackageRoot':str(root),'regularFiles':len(actual),'payloadBytes':sum(r['bytes'] for r in actual),'allRegularMembersEqual':True,'extraMissingSymlinkMembers':[],'manifest':pin(root/'product-toolchain-manifest.json'),'productContentDigest':manifest['productContentDigest']}
+@@ -107,10 +108,10 @@
+ assert sha(Path(binding_path).read_bytes())==binding_sha; b=json.loads(Path(binding_path).read_text())
+ assert sha(Path(admission_path).read_bytes())==admission_sha; admission=json.loads(Path(admission_path).read_text())
+ c=json.loads((O/'CONTROLS.json').read_text());ready=json.loads((O/'READY.json').read_text())
+-assert admission['status']=='ROOT_ADMITTED_FOUNDATION_ORACLE_INSTALLED_PROOF' and admission['bindingSha256']==binding_sha
++assert admission['status']=='ROOT_ADMITTED_FOUNDATION_ORACLE_INSTALLED_CONTINUATION' and admission['bindingSha256']==binding_sha
+ assert admission['controlsSha256']==pin(O/'CONTROLS.json')['sha256'] and admission['readySha256']==pin(O/'READY.json')['sha256']
+ assert admission['commandIds']==[x['id'] for x in c['commands']]
+-assert b['status']=='FROZEN_FOUNDATION_ORACLE_INSTALLED_PROOF_SUBJECT' and b['proofRoot']==c['proofRoot']
++assert b['status']=='FROZEN_FOUNDATION_ORACLE_INSTALLED_CONTINUATION_SUBJECT' and b['proofRoot']==c['proofRoot']
+ for p in ready['controls']:checked(p)
+ for k in ['node','npmCli','builderPin','archive']:checked(c[k])
+ inv=json.loads(checked(b['sourceInventory']));source=Path(b['frozenSourceRoot']);rows=inv['rows'];assert inv['sourceDigest']==b['sourceDigest'];same_source(source,rows)
+@@ -119,41 +120,43 @@
+ reused=json.loads(checked(b['reusedCompiledInventory']));checked(b['proofArchive']);checked(b['archiveMembers']);checked(b['packReturn']);checked(b['buildInputRelation'])
+ assert reused['sourceDigest']==b['reusedBuildSourceDigest']
+ assert compiled_rows(Path(reused['root']))==reused['rows'],'accepted compiled donor changed'
+-assert not Path(b['bootstrapHost']).exists(),'create-once bootstrap host exists'
++for p in b['retainedInputs']:checked(p)
++bootstrap_return=json.loads(checked(b['bootstrapReturn']))
++assert bootstrap_return['exitCode']==0 and not bootstrap_return['timedOut'] and not bootstrap_return['outputBudgetExceeded'] and bootstrap_return['groupAbsent'] and not bootstrap_return['cleanupNeeded'] and bootstrap_return['signals']==[]
++assert bootstrap_return['failure']=='temporary installation differs from exact archive members'
++checked(bootstrap_return['stdout']);checked(bootstrap_return['stderr'])
++assert group_absent(bootstrap_return['pgid']),'previous bootstrap process group exists'
++assert not (Path(b['retainedProofRoot'])/'w2-05').exists(),'whole-file proof already started'
++assert [x['id'] for x in c['commands']]==['w2-05']
+ for v in [dep,seed,npm]:verify_tree(v)
+ for p in b['preservationPins']:checked(p)
+ same_source(Path(b['liveSourceRoot']),rows)
+ assert shutil.disk_usage(source).free>c['reserveBytes']
+ assert controlled((source/c['tenantRelative']/'test_env/tests/t287-owned-process-lifetime.test.mjs').read_text())==base['blocks'],'controlled source altered'
+-proof=Path(c['proofRoot']);assert not proof.exists(),'create-once proof root already exists'
+-proof.mkdir();stage=proof/'source';work=proof/'work';tmp=proof/'tmp';stage.mkdir();work.mkdir();tmp.mkdir();began=time.monotonic()
++stage_record=json.loads(checked(b['retainedStage']))
++stage=Path(stage_record['frozenStage']);work=Path(stage_record['work']);tenant=work/c['tenantRelative']
++assert stage_record['sourceInventory']==b['sourceInventory'] and stage_record['sourceDigest']==b['sourceDigest'] and stage_record['appliedAbsentSeeds']==[]
++assert stage==Path(b['retainedProofRoot'])/'source' and work==Path(b['retainedProofRoot'])/'work'
++same_source(stage,rows);same_source(work,rows)
++retained_compiled=json.loads(checked(b['retainedCompiledInventory']))
++assert retained_compiled['root']==str(tenant) and retained_compiled['sourceDigest']==b['sourceDigest'] and retained_compiled['rows']==reused['rows']
++assert compiled_rows(tenant)==reused['rows'],'retained compiled work changed'
++verify_tree({**dep,'root':str(tenant/'node_modules')})
++metadata=json.loads(checked(b['retainedDependencyMetadata']))
++assert metadata['equal'] and dependency_metadata(Path(dep['root']))==metadata['before'] and dependency_metadata(tenant/'node_modules')==metadata['after'],'retained dependency metadata changed'
++equality=installed_archive_equality()
++pkg=json.loads((tenant/'package.json').read_text());assert pkg['scripts']['build']==c['expectedBuildScript'] and pkg['scripts']['lint']==c['expectedLintScript'] and pkg['scripts']['test:unit']==c['expectedUnitScript'],'selected npm scripts changed'
++proof=Path(c['proofRoot']);assert not proof.exists(),'create-once continuation output already exists'
++proof.mkdir();tmp=proof/'tmp';tmp.mkdir();began=time.monotonic()
+ try:
+- for row in rows:
+-  src=source/safe(row['path']);dst=stage/row['path'];dst.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(src,dst)
+- same_source(stage,rows);shutil.copytree(stage,work,dirs_exist_ok=True);tenant=work/c['tenantRelative']
+- metadata=dependency_metadata(Path(dep['root']))
+- shutil.copytree(dep['root'],tenant/'node_modules',symlinks=True);verify_tree({**dep,'root':str(tenant/'node_modules')})
+- copied=dependency_metadata(tenant/'node_modules');save(proof/'DEPENDENCY_METADATA.json',{'donorRoot':dep['root'],'copyRoot':str(tenant/'node_modules'),'before':metadata,'after':copied,'equal':metadata==copied,'method':'Python copytree/copy2 preserves directory and hidden-lock mtime/mode; no timestamp fabrication.'});assert metadata==copied,'dependency metadata changed'
+- applied=[]
+- for row in seed['rows']:
+-  assert row['kind']=='file';dest=tenant/'contracts'/safe(row['path'])
+-  if not dest.exists():dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(Path(seed['root'])/row['path'],dest);applied.append(row)
+- assert applied==b['expectedAbsentSeeds'],'undeclared absent seed population'
+- assert rows_at(work,rows)==rows,'seed overwrote original source'
+- for r in reused['rows']:
+-  dst=tenant/safe(r['path']);dst.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(Path(reused['root'])/r['path'],dst)
+- assert compiled_rows(tenant)==reused['rows'],'reused compiled copy mismatch'
+- assert rows_at(work,rows)==rows,'compiled copy changed frozen source'
+- bootstrap=Path(b['bootstrapHost']);bootstrap.mkdir();save(bootstrap/'package.json',{'name':'abiogenesis-root-cli-host','version':'0.0.0','private':True,'type':'module'})
+- save(proof/'STAGE.json',{'sourceInventory':b['sourceInventory'],'sourceDigest':b['sourceDigest'],'frozenStage':str(stage),'work':str(work),'dependencyInventory':c['dependencyInventory'],'contractSeedInventory':c['contractSeedInventory'],'appliedAbsentSeeds':applied,'allOriginalSourceBytesEqual':True})
+- assert time.monotonic()-began<c['stageMaximumSeconds'],'stage budget'
+- pkg=json.loads((tenant/'package.json').read_text());assert pkg['scripts']['build']==c['expectedBuildScript'] and pkg['scripts']['lint']==c['expectedLintScript'] and pkg['scripts']['test:unit']==c['expectedUnitScript'],'selected npm scripts changed'
++ save(proof/'REUSED_STATE.json',{'predecessorBinding':b['predecessorBinding'],'bootstrapReturn':b['bootstrapReturn'],'retainedStage':b['retainedStage'],'retainedCompiledInventory':b['retainedCompiledInventory'],'archiveInstallEquality':equality,'bootstrapGroupAbsent':True,'wholeFilePreviouslyUnstarted':True,'restageRebuildRepackReinstallPerformed':False})
+  for n in ['npm-user.npmrc','npm-global.npmrc']:(proof/n).write_text('')
+- env={k:os.environ[k] for k in ['HOME','USER','LOGNAME','SHELL','LANG'] if k in os.environ};env.update(PATH=str(Path(c['node']['path']).parent)+':/usr/bin:/bin:/usr/sbin:/sbin',TMPDIR=str(tmp),NODE_OPTIONS='',NODE_PATH='',NODE_COMPILE_CACHE=str(tmp/'node-compile-cache'),FORCE_COLOR='0',npm_config_offline='true',npm_config_audit='false',npm_config_fund='false',npm_config_update_notifier='false',npm_config_cache=str(tmp/'npm-cache'),npm_config_userconfig=str(proof/'npm-user.npmrc'),npm_config_globalconfig=str(proof/'npm-global.npmrc'))
+- env.update(ABI5_WAVE1_FROZEN_ARTIFACT_PATH=b['proofArchive']['path'],ABI5_WAVE1_FROZEN_INSTALL_HOST=b['bootstrapHost'],ABI5_WAVE1_FROZEN_ARTIFACT_SHA256=b['proofArchive']['sha256'])
+- assert not any(k in env for k in c['unsetOptIns']);save(proof/'ENVIRONMENT.json',{'environment':env,'unsetOptIns':c['unsetOptIns'],'excludedAmbientNames':sorted(k for k in os.environ if k not in env),'paidProviderSelected':False,'networkPolicy':'Offline npm; only mandatory local loopback HTTP fixtures; no live provider selection.'})
++ previous_env=json.loads(checked(b['retainedEnvironment']))
++ env={**previous_env['environment'],'TMPDIR':str(tmp),'NODE_COMPILE_CACHE':str(tmp/'node-compile-cache'),'npm_config_cache':str(tmp/'npm-cache'),'npm_config_userconfig':str(proof/'npm-user.npmrc'),'npm_config_globalconfig':str(proof/'npm-global.npmrc')}
++ assert env['NODE_OPTIONS']==env['NODE_PATH']=='' and env['npm_config_offline']=='true'
++ assert env['ABI5_WAVE1_FROZEN_ARTIFACT_PATH']==b['proofArchive']['path'] and env['ABI5_WAVE1_FROZEN_INSTALL_HOST']==b['bootstrapHost'] and env['ABI5_WAVE1_FROZEN_ARTIFACT_SHA256']==b['proofArchive']['sha256']
++ assert not any(k in env for k in c['unsetOptIns']);save(proof/'ENVIRONMENT.json',{**previous_env,'environment':env,'predecessor':b['retainedEnvironment'],'delta':'Only new continuation TMPDIR, compilation/npm cache and empty npm config paths.'})
+  results=[];retainedDelta=[];compiled=reused['rows']
+- save(proof/'COMPILED_BUILD_INVENTORY.json',{'root':str(tenant),'sourceDigest':b['sourceDigest'],'scopes':reused['scopes'],'rows':compiled,'inventoryDigest':reused['inventoryDigest'],'actualBuild':reused['actualBuild'],'reuseBasis':b['reusedCompiledInventory'],'buildInputRelation':b['buildInputRelation'],'rebuildPerformed':False})
+  for command in c['commands']:
+   assert time.monotonic()-began<c['campaignMaximumSeconds'],'campaign bound'
+   assert shutil.disk_usage(proof).free>c['reserveBytes'],'disk reserve'
+@@ -214,8 +217,10 @@
+  assert compiled_rows(tenant)==compiled,'final tested build changed'
+  assert compiled_rows(Path(reused['root']))==reused['rows'],'retained build donor changed'
+  installed_archive_equality()
++ for p in b['retainedInputs']:checked(p)
++ assert group_absent(bootstrap_return['pgid']),'previous bootstrap group reappeared'
+  for p in b['preservationPins']:checked(p)
+  same_source(Path(b['liveSourceRoot']),rows)
+- save(proof/'FINAL_RETURN.json',{'status':'MECHANICAL_PROOF_COMMANDS_PASSED_PENDING_ROOT_REVIEW','sourceDigest':b['sourceDigest'],'commands':results,'originalFrozenSourceConserved':True,'dependencyAndNpmAuthorityConserved':True,'compiledInventory':pin(proof/'COMPILED_BUILD_INVENTORY.json'),'retainedWorkDelta':retainedDelta,'standing':'Finite commands/full selected files only; skips recorded, no assurance/qualification/acceptance.'})
++ save(proof/'FINAL_RETURN.json',{'status':'MECHANICAL_PROOF_COMMANDS_PASSED_PENDING_ROOT_REVIEW','sourceDigest':b['sourceDigest'],'commands':results,'originalFrozenSourceConserved':True,'dependencyAndNpmAuthorityConserved':True,'compiledInventory':b['retainedCompiledInventory'],'retainedWorkDelta':retainedDelta,'standing':'Finite commands/full selected files only; skips recorded, no assurance/qualification/acceptance.'})
+ except Exception as e:
+  save(proof/'HALT.json',{'error':str(e),'standing':'Stopped; preserve actual outputs/process receipts/work. No automatic retry, source repair, broader cleanup or following command.'});raise

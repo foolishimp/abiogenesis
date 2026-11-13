@@ -1,0 +1,62 @@
+{
+  "status": "DIRECT_INSTALLED_OWNER_SMOKE_CLOSED",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant",
+  "version": "5.0.0-rc.10",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.10",
+  "shippedArchive": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+  "artifactDigest": "sha256:1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9",
+  "verification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/INSTALLED_OWNER_SMOKE.json.verification.json",
+    "bytes": 15794345,
+    "sha256": "ee3754fdd3c71c1225790ef0845f76f4bdedf50e75b259d09db7645713e9c037"
+  },
+  "installedContentMatches": true,
+  "exportedDefinitionCount": 56,
+  "resource": {
+    "eventLogPath": "/private/tmp/abg-r10c-cut-001/installed-smoke/events.jsonl",
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-r10c-cut-001/installed-smoke/events.jsonl",
+      "prefixLength": 0,
+      "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 719619383,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:0c2bd92e0b19c4f0d6363367b1e555840d08b7cae2076193fe678ed835e56aa1"
+    }
+  },
+  "ownerRead": [],
+  "actualClose": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-r10c-cut-001/installed-smoke/events.jsonl",
+      "prefixLength": 0,
+      "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 719619383,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:0c2bd92e0b19c4f0d6363367b1e555840d08b7cae2076193fe678ed835e56aa1"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/private/tmp/abg-r10c-cut-001/installed-smoke/events.jsonl",
+      "device": 16777231,
+      "inode": 719619383,
+      "eventLogDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "durableByteLength": 0,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+      "authorityDigest": "sha256:537c92c6dc9af8511f3d9efdba5712ea3799d648b0796c3497be9cdc1fa6a33c"
+    }
+  },
+  "nativeTransportInvoked": false,
+  "providerCalls": 0,
+  "qualified": false,
+  "scope": "Actual immutable-install verification/content/export and empty-resource read/close only. Full lifecycle/performance belongs to exact-shipped-archive installed scratch proof."
+}

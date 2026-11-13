@@ -1,0 +1,111 @@
+{
+  "id": "RC9-NATIVE-FOCUSED-PROOF-03",
+  "status": "HELD_PENDING_NATIVE_CONTROL_BINDING",
+  "preparationAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PREPARATION_003_ADMISSION.json",
+    "bytes": 1420,
+    "sha256": "b2661eca2543e5954bfaf846953eeb06453d3d7528afb243d0ae6cc9a2165b47"
+  },
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "sourceInventory": {
+    "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+  },
+  "allowedChangedPaths": null,
+  "optionalNewSourceFiles": [],
+  "tenantRelative": "build_tenants/abiogenesis/typescript",
+  "proofRoot": "/private/tmp/abg-r9-owner-native-003",
+  "progressRoot": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/qualification-scratch/rc9-owner-reuse-01/author-03",
+  "sourceHelpers": {
+    "runner.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    "public-setup.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39883,
+      "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+    },
+    "consumer.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    "scenarios.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  },
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901113,
+    "sha256": "83f5dc434970315c06f1f1cde41d4877eaafae0099a5224ee76369cf49042084"
+  },
+  "contractSeedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_CONTRACT_SEED_INVENTORY.json",
+    "bytes": 41787,
+    "sha256": "4a2b911260e5a5e2ded42c19a007943c23973aeb3712af26acbc3ef8c3d19379"
+  },
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "npmCli": {
+    "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "bytes": 54,
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+  },
+  "nativeAdmission": null,
+  "maxStages": 1,
+  "maxProofInvocations": 1,
+  "stageTimeoutMs": 600000,
+  "unitTimeoutMs": 900000,
+  "reserveBytes": 4294967296,
+  "maxOwnedBytes": 4294967296,
+  "maxOutputBytes": 16777216,
+  "unitScriptName": "test:unit",
+  "requiredUnitTests": [
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs"
+  ],
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r9-owner-native-003/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_update_notifier": "false",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_cache": "/private/tmp/abg-r9-owner-native-003/npm-cache",
+    "npm_config_userconfig": "/private/tmp/abg-r9-owner-native-003/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-r9-owner-native-003/npm-global.npmrc"
+  },
+  "executionStanding": "HELD. Exact baseline is actual author02 freeze1340rows41060a77; unit02 remains failed with intact structured evidence. Root/Operator must bind the closed author03 repair scope, actual admission and exact STARTED route. No Product/source scope is inferred. One unchanged stage/unit allowance in fresh native-003. External measurement/broad use the eventual final freeze; no O3 optimization claim.",
+  "nativeStartedReceiptPath": null,
+  "sourceBaselineDigest": "41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3",
+  "sourceBaselineRows": 1340,
+  "expectedUnitScript": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-held-owner-fold-reuse.test.mjs test_env/tests/t287-owned-call-reference.test.mjs test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+  "unitReporter": {
+    "relativePath": "scripts/node-test-evidence-reporter.mjs",
+    "bytes": 1514,
+    "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+  },
+  "unitReporterConfiguration": {
+    "scope": "unit subprocess environment only",
+    "stdoutReporter": "spec",
+    "structuredReporter": "exact staged unitReporter",
+    "structuredDestination": "<new-proof-root>/unit-01/events.jsonl",
+    "nodeOptionsBase": "--max-old-space-size=8192",
+    "visibility": "REPORTER_CONFIGURATION.json records full unit NODE_OPTIONS and unchanged npm/script command before execution"
+  }
+}

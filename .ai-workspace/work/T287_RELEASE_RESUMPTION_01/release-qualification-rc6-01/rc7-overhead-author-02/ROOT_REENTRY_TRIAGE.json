@@ -1,0 +1,114 @@
+{
+  "kind": "executive_existing_owner_reentry_triage",
+  "at": "2026-11-06T06:21:13.470431+00:00",
+  "status": "KNOWN_REENTRY_SELECTED_B_READBACKS_AND_SOURCE_REVIEWS_PENDING",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 779397,
+    "sha256": "31c092b1cb8dd767d1178ebba26c4b66651ebe1de032ab401ba6683faa67093b"
+  },
+  "authorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-02/return.json",
+    "bytes": 62835,
+    "sha256": "0fe4b76ed93991e58c5b4d77600861dde479102ae93808499c9f722f1e75fcfe"
+  },
+  "findings": [
+    {
+      "id": "RC7-B-C2-PIN-SCOPE-001",
+      "origin": "Root omitted gtl/worksite_command_execution.ts from writable scope while selecting edits to its pinned Product source member.",
+      "evidence": {
+        "stage": "o7b-after-04",
+        "exitCode": 1,
+        "error": "C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js",
+        "lifecycleGuard": "not run (generator failed first)",
+        "cause": "product/worksite_command_execution.ts validators read the embedded native Result without task, which changes the built member bytes; the pinned member lives in gtl/worksite_command_execution.ts outside the write grant.",
+        "outOfConePin": {
+          "owner": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+          "ownerWritable": false,
+          "member": "build/code/src/product/worksite_command_execution.js",
+          "current": {
+            "byteCount": 118773,
+            "digest": "sha256:89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c",
+            "startByte": 108688,
+            "endByte": 111120,
+            "spanDigest": "sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf"
+          },
+          "required": {
+            "byteCount": 119249,
+            "digest": "sha256:b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+            "startByte": 109164,
+            "endByte": 111596,
+            "spanDigest": "sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf",
+            "spanUnique": true,
+            "rendererTextUnchanged": true
+          }
+        }
+      },
+      "relation": "Physical published member/span coordinates must match the actual compiled Product-owned renderer. The generator correctly fails closed.",
+      "downstream": "Absent product-toolchain-manifest.json accounts for9 reported final failing invocations, including2 duplicated cold cases; verify exact unique failure list before reproof.",
+      "repair": "Native Worker updates existing declaration member digest/length and shifted span offsets from exact final compiled owner; retain identical renderer text/span digest. No guard waiver or generated-file patch.",
+      "authority": "Product WHAT unchanged; existing HOW/artifact identity re-entry."
+    },
+    {
+      "id": "RC7-B-NODE-FILTER-001",
+      "origin": "Root selected a negative test-name pattern which matches parent/root tests, so Node also admits the excluded descendants.",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/control-filter-triage-001/SUMMARY.json",
+        "bytes": 2663,
+        "sha256": "5b9f5405325c5f1162aef4b4fff4b58e55c1be483a57505841e473aea704bccb"
+      },
+      "actual": "The unchanged B staged helper ran both cold cases in consumers, and again in cold-resume. Exact stdlib-only probe: negative-name3/3; positive-skip1/1; positive-name2/2.",
+      "repair": "Use the existing Node --test-skip-pattern with exact positive cold-name pattern for the ordinary lane; retain positive --test-name-pattern for the cold lane. Keep deadline and per-test limits. No omission or double credit."
+    },
+    {
+      "id": "RC7-B-AUTHOR-BOUND-001",
+      "origin": "Author disclosed counting error and continued to5stages against4 and13lane invocations against12.",
+      "evidence": {
+        "stages": {
+          "used": 5,
+          "max": 4,
+          "labels": [
+            "o7b-before-01",
+            "o7b-after-01",
+            "o7b-after-02",
+            "o7b-after-03",
+            "o7b-after-04"
+          ],
+          "overrun": "one stage over the cap (o7b-after-04 is the fifth); counting error, disclosed"
+        },
+        "laneInvocations": {
+          "used": 13,
+          "max": 12,
+          "overrun": "one invocation over the cap; counting error, disclosed"
+        },
+        "scopeDisclosures": [
+          "Created and immediately deleted an empty file qualification-scratch/rc7-overhead-author-02/lane-data.tmp.json (scratch root, not one of the four declared scratch paths) during handoff computation.",
+          "tsc --noEmit ran in the worksite tenant (no emit, no tsbuildinfo).",
+          "Stage/lane scripts wrote only under qualification-scratch/rc7-overhead-author-02/tmp and /private/tmp/abg-o7b."
+        ]
+      },
+      "decision": "Preserve as process nonconformance; no retroactive grant enlargement or overall author conformance claim. Exact source/results remain available for independent evaluation. Future finite helpers should derive remaining counts from their existing selected scratch receipts and fail before additional stage/lane allocation, without a new Product mechanism."
+    },
+    {
+      "id": "RC7-OPERATIONAL-SDK-EXPORT-001",
+      "origin": "Existing SDK supports one acquired resource, but maintained runner keeps its trusted installed-content checker private behind invokeLifecycle, which forces cold CLI.",
+      "readiness": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/operational-sdk-readiness-001/READINESS.json",
+        "bytes": 38954,
+        "sha256": "7d39b7b3afe316ff71ba21500f070063d9edce3c7656e0b58d2e196c632cfa46"
+      },
+      "clarification": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/operational-sdk-readiness-001/CLARIFICATION.json",
+        "bytes": 8445,
+        "sha256": "f43b85cecf1e268c51904c03c20c518fe758ed16d12919148c1246a8fd91a9f3"
+      },
+      "repair": "Expose the existing checkInstalledIdentity unchanged through the maintained runner. Do not copy checker semantics. Reuse it for subsequent ordinary SDK operation in one host; retain selected cold proof boundaries."
+    }
+  ],
+  "ordering": "B actual full result/replay and frozen reviews complete first. Prepare the known bridge in parallel; any substantive review finding returns for Root scope conjunction before admission. No active controls or immutable RC6 changed.",
+  "limits": [
+    "B has genuine actual native return/physical close but remains unaccepted and generation blocked.",
+    "Current B full cold readback requirements remain unchanged.",
+    "No matched speedup, qualified RC7, stable release, push, selector or human-acceptance claim."
+  ]
+}

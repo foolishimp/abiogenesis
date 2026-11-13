@@ -1,0 +1,10 @@
+{
+  "cCallRef": "c-call:sha256:b9a37c86acb1df50bbbd4d3bcb655b0860b3bf9f448065df35d1598097ed3cf1",
+  "executionBasisRef": "execution-basis://abiogenesis/3f409247dfccedc41212ef72dfad3a4f7636e4cacdab6f0b3b3f2b6c749cee87",
+  "cursorRef": "traversal-cursor://abiogenesis/77508ac6bb5cd01a523104d9fd29b52a955b93d30bc409cd6db03723eabce86b",
+  "inputDigest": "sha256:2138b40b3946302a8b6f16851f15fa2055b0ec9309921d5fa4b1bf135ef1ba82",
+  "selectedSubjectRef": "result://abiogenesis/0dbf0d3bc826245b7b290aed0b6b419b71d88bb3fef81d33c2faa52e423005c2",
+  "phase": "selected_no_evidence",
+  "source": "existing constructor over actual admitted historical occurrence",
+  "diagnosticOnly": true
+}

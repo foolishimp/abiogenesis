@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/run-local-cut.mjs"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/run-local-cut.mjs",
+    "bytes": 25084,
+    "sha256": "c79196ca7f25db1c4c758a034512e7124d74d3b2adb6bacc4a3d45bc65d5750a"
+  },
+  "checks": [
+    "Only executable delta is ceilings.generate180000->600000.",
+    "Only build binding semantic delta is /boundsMs/generate180000->600000.",
+    "All future source/acceptance/archive/activation pins and other limits are unchanged.",
+    "Every preparation003 input pin remains unchanged."
+  ],
+  "execution": "Syntax only; no command owner, generation, build, install, source or runtime effect."
+}

@@ -1,0 +1,162 @@
+{
+  "kind": "bounded_independent_frozen_source_review",
+  "reviewId": "H05-SOURCE-STAGE-001",
+  "createdUtc": "2026-11-06T19:01:26.900868+00:00",
+  "status": "CLOSED_NO_CONCRETE_BLOCKER_IN_SELECTED_ORACLE_CORRECTION",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "dispositionOwner": "/root",
+  "productFrame": {
+    "product": "ABIogenesis5.0 unchanged fixed fifteen-family scope",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "method": "Selected installed/read STDO3.0.4",
+    "composition": [],
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "referenceFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authority": "Existing ABG admission/runtime and Product guards unchanged. RC6 remains immutable installed builder; RC7 prospective source."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/review-subject-stage-001/SUBJECT.json",
+    "bytes": 263453,
+    "sha256": "9add87d6db9157be0f724eb0777894ffd0bc1673e086f69a87b457b56dc791c6"
+  },
+  "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_BEFORE.json",
+    "bytes": 233295,
+    "sha256": "55389f6db03cb7c06090ada66e4827d4d39de186c6ebe88acb9f04b523629dbc"
+  },
+  "changedInput": {
+    "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 370990,
+      "sha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650"
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 372769,
+      "sha256": "c523337e02a238ea53b4b1011f03491c2981b459d8b16f822f6f46e1f94be5a1"
+    },
+    "withinSelectedWriteTerritory": true
+  },
+  "verification": {
+    "exactSubjectAndChangedBeforeAfterPinsVerified": true,
+    "metadataRowsCompared": 451,
+    "changedPaths": 1,
+    "unchangedRows": 450,
+    "custodyStanding": "Carriage verified the451 staged/held rows. Reviewer verified subject, single changed body/preimage and complete row-metadata delta. No repeated full source/payload census or moving-source read."
+  },
+  "findings": [],
+  "resolvedCounterexample": {
+    "id": "H04-REFUSAL-ORACLE-001",
+    "counterexampleReviewSha256": "02d21f72bb1d38b723e86df619eeec70100294cf06dc60677c6949af61276be6",
+    "status": "CORRECTED_IN_FROZEN_TEST_SOURCE_RUNTIME_PROOF_PENDING",
+    "caseMap": [
+      {
+        "case": "fixed-testing-over-state",
+        "code": "invalid_intent",
+        "issuePaths": [
+          "/invocation_admission"
+        ]
+      },
+      {
+        "case": "fixed-construction-over-state",
+        "code": "invalid_intent",
+        "issuePaths": [
+          "/invocation_admission"
+        ]
+      },
+      {
+        "case": "fixed-crossed-input",
+        "code": "invalid_input",
+        "issuePaths": [
+          "/input"
+        ]
+      },
+      {
+        "case": "fixed-stale-source",
+        "code": "invalid_input",
+        "issuePaths": [
+          "/observation"
+        ]
+      }
+    ],
+    "lineMarkers": {
+      "immediateInvariance": 2586,
+      "retainExactOracles": 2596,
+      "currentWrongWrappers": 2613,
+      "crossedInput": 2615,
+      "staleSource": 2631,
+      "mandatoryFourCases": 2657
+    },
+    "immediateGuards": "Every refused call asserts exit1 and semantic refusal, caller prefix unchanged, held-store durable prefix unchanged, complete event-row equality and complete scripted actor-log text equality before returning. These do not rely on filtered diagnostic.events.",
+    "currentness": "The three current-source negatives remain between actual Testing/source derivation and UAT; stale-source remains after successful UAT and before held reads/final close. No replay, source substitution, reacquisition or extra invocation is added.",
+    "deferredOnly": "Only exact code and issuePaths comparisons are retained for later. The positive UAT and complete held/fresh checks execute first, then the positive diagnostic, then an exact four-label assertion and mandatory per-case equality checks. No allowed union, fallback, optional case or softened final success criterion.",
+    "conservation": "No Product/guard/HOW/fixture change; no changes to the caller body/coordinate correction. The full actor-log read is a local test refactor of the existing scripted log, not a new runtime owner."
+  },
+  "buildEvidence": {
+    "frozenStageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/review-subject-stage-001/evidence/stage.json",
+      "bytes": 100720,
+      "sha256": "4a68aa0323f37123dc899cf08cdccbc9ab910a6be37ab9a2196cfe1c24eb7607"
+    },
+    "compileGenerationLifecycle": {
+      "compile": {
+        "reused": true,
+        "executed": false,
+        "receipt": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+          "bytes": 102337,
+          "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+        },
+        "pointer": "/compile"
+      },
+      "generate": {
+        "reused": true,
+        "executed": false,
+        "receipt": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+          "bytes": 102337,
+          "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+        },
+        "pointer": "/generate"
+      },
+      "lifecycle": {
+        "reused": true,
+        "executed": false,
+        "receipt": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+          "bytes": 102337,
+          "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+        },
+        "pointer": "/lifecycle"
+      }
+    },
+    "payloadReuseStatus": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL",
+    "payloadMembers": 5325,
+    "beforeAfterIdentityEqual": true,
+    "referenceFrame": "450 protected source rows compare with H04 baseline;5325 payload members and historical build receipts remain the selected H03 evidence."
+  },
+  "proofStanding": {
+    "capturedLanes": "No lane receipt at frozen capture; no actual pass credited by this review.",
+    "selectedOrder": [
+      "fixed-route",
+      "held-session",
+      "assessment-guards",
+      "native-workspace-owner",
+      "caller"
+    ],
+    "finalNativeAfter": null,
+    "actualReturnClose": null,
+    "rootDisposition": null
+  },
+  "neededRemedy": "No additional source correction identified in the selected delta. Root separately conjoins actual five-lane proof and final source/return/close custody.",
+  "historyPreserved": "H04 actual failed oracle, H03 coordinate/body counterexample and all prior clean bounded reviews/build/runtime failures remain unchanged.",
+  "limits": [
+    "Source review only; no test, build, stage/payload copy, runtime/provider call, launch or private actor-narrative inspection performed.",
+    "Only separately granted review artifacts written; Product/source/controls remain unmodified by Reviewer.",
+    "The source implements the required oracle distinctions; future UAT, stale-source and held/fresh runtime outcomes remain unproved at capture.",
+    "Independent same-family component review, not formal F11 J qualification, Root acceptance, installed release qualification or measured speedup."
+  ]
+}

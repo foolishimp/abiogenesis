@@ -1,0 +1,32 @@
+{
+  "label": "019-m5-installed-graph-edge.test",
+  "started": "2026-11-13T10:21:28.637319+00:00",
+  "ended": "2026-11-13T10:23:49.068404+00:00",
+  "wallMs": 140428,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/019-m5-installed-graph-edge.test/stdout.raw",
+      "bytes": 630,
+      "sha256": "4988e31e5283ee9a50a8e1a3e4df33e5e378e352684783c0444f2b279e69d61c"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/019-m5-installed-graph-edge.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 18,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

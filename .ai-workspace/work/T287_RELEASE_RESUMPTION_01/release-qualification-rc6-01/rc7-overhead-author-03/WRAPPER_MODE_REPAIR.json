@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-06T07:11:27.598020+00:00",
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_LAUNCH_FAILURE_TRIAGE.json",
+    "bytes": 4664,
+    "sha256": "830697a49638b306d938aea5dd3981b677e1a29f629aaf16013179a353bead93"
+  },
+  "wrapper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/claude-provider.sh",
+    "bytes": 419,
+    "sha256": "c07e691b38f829afee758b56731cca19d605d0c7d199039d5b1cd82461cd1ac6"
+  },
+  "beforeMode": "0644",
+  "afterMode": "0o755",
+  "bodyUnchanged": true,
+  "executable": true,
+  "ProductFilesChanged": 0
+}

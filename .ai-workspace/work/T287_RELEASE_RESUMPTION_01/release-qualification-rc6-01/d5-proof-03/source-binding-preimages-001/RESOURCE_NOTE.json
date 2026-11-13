@@ -1,0 +1,79 @@
+{
+  "kind": "bounded_static_successor_resource_note",
+  "knownContextBytes": 10952537,
+  "knownContextFiles": 423,
+  "unboundCurrentN3Handoffs": 3,
+  "mutableCurrentSourceBytesUnresolved": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+  ],
+  "selectedContextPaths": 426,
+  "maxContextFiles": 512,
+  "maxContextBytes": 16777216,
+  "maxPromptBytes": 1048576,
+  "assessmentSources": 70,
+  "candidateAndRubric": 2,
+  "knownAssessmentAssetBytes": 2528884,
+  "knownAssessmentAssetBytesExceedPromptCap": true,
+  "immutableRendererRoute": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+        "bytes": 44995,
+        "sha256": "d4799e3fe08e53ea47a058abe17ac367f4854f6e39d3bfaede76b89099728400"
+      },
+      "lines": [
+        274,
+        280,
+        281,
+        293
+      ],
+      "finding": "Current UAT binds every selected asset from observed context as {path,digest}, and appends all selected assessment assets to readFirst. Its instructions also carry full authenticated Testing command stdout/stderr streams and predicate observations."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_assessment.js",
+        "bytes": 6396,
+        "sha256": "c46085d2409f8aa00d35d4c1aa94b89daf19687c28f02e2a6d966050781ed049"
+      },
+      "lines": [
+        12,
+        17,
+        56,
+        64
+      ],
+      "finding": "Assessment source/candidate/rubric schema contains path and digest only; all are checked against the actual observed context."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+        "bytes": 18062,
+        "sha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443"
+      },
+      "lines": [
+        76,
+        82,
+        96
+      ],
+      "finding": "Assessment renderer emits readFirst/readRoots, assessment basis with path/digest assets, schema identity/schema and instructions; it tells the actor to reacquire full selected source. It does not inline the59 source file bodies."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+        "bytes": 124338,
+        "sha256": "1c8ce10ae0a54979af2384cc8fa7af9c8c5b1498255d967f5655aaa29136bfde"
+      },
+      "lines": [
+        86,
+        98,
+        145,
+        165
+      ],
+      "finding": "Native-work assembly prefixes declared role source/access context, then renderNativeWorkspaceWorkOrder. It carries no second whole task/context body and refuses declared_bound_overflow if actual UTF-8 prompt exceeds the governance Run maxPromptBytes."
+    }
+  ],
+  "selectedSourceBodiesAutomaticallyIncluded": false,
+  "fullProducerCommandStreamsIncluded": true,
+  "assetReferenceArrayBytesAtFixedDigestShape": 11318,
+  "standing": "Known prior/static sums only, not current candidate or measured prompt. Actual N3 repaired source/handoffs, final binding controls, full C2 command streams and owner projections remain unresolved. Existing UAT renders asset refs and requires reacquisition; source body sum alone does not establish prompt overflow. No compression path or extra scope selected."
+}

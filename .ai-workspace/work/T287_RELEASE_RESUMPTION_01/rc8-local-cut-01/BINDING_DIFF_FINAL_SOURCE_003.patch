@@ -1,0 +1,79 @@
+--- CUT8_BUILD_BINDINGS_FINAL_SOURCE_002.prepared.json
++++ CUT8_BUILD_BINDINGS_FINAL_SOURCE_003.prepared.json
+@@ -1,14 +1,14 @@
+ {
+   "status": "PREPARED_LOCAL_RC8_BUILD_FINAL_SOURCE_BROAD_ACCEPTANCE_PENDING",
+   "activation": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/ROOT_CUT8_FINAL_BINDING_PREPARATION_002.json",
+-    "bytes": 2148,
+-    "sha256": "9ebf27ec5a27f0b9d010e2388b62e49b0f72aefe4bb141fcebafa9c94c8c372e"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/ROOT_CUT8_BUDGET_SELECTION_002.json",
++    "bytes": 3688,
++    "sha256": "f5ae27c7f20e1e6e0a2006784aea37d009cf35da708c6c95225370a9cd339edb"
+   },
+   "preparationManifest": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_001.json",
+-    "bytes": 3657,
+-    "sha256": "2590a9475777ca956cdd638250a274901e67a3d0d520f5909797147dc433617b"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_002.json",
++    "bytes": 4182,
++    "sha256": "64e5c7a9bb4092fdc9334e9f78898e5cdd401d58059f2098c9a7f68a87c1ef39"
+   },
+   "source": {
+     "subject": {
+@@ -155,8 +155,8 @@
+     "generate": 600000,
+     "pack": 120000,
+     "inventory": 120000,
+-    "install": 600000,
+-    "installedOwner": 60000
++    "install": 1200000,
++    "installedOwner": 900000
+   },
+   "maxOutputBytes": 67108864,
+   "nodeHeapMiB": 8192,
+@@ -166,7 +166,7 @@
+     "Only a separately admitted exact C8 checkpoint and one clean temporary reproduction are prospective.",
+     "Ship the exact already-tested archive; preserve every immutable cut/worktree and existing failed receipt.",
+     "No merge/push/tag/publication/global selector or whole qualification claim. No retry/cleanup on failure.",
+-    "Bind PREPARATION_MANIFEST_CORRECTED_001.json and use run-local-cut.corrected-001.mjs; historical original controls are not the execution route."
++    "Bind PREPARATION_MANIFEST_CORRECTED_002.json and use run-local-cut.corrected-002.mjs; historical original controls are not the execution route."
+   ],
+   "proofBindings": {
+     "completedStage": {
+@@ -335,9 +335,9 @@
+     },
+     "inventoryCompatibility": {
+       "driver": {
+-        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-001.mjs",
+-        "bytes": 27888,
+-        "sha256": "c563c22709857bfa915bf00b3c3bb537ff97358aaccb502664ae3efeb0c32633"
++        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
++        "bytes": 27890,
++        "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+       },
+       "existingFormat": "files[{relativePath,sourceSnapshot,bytes,sha256}]",
+       "finalFreezeSourceFieldAbsent": true,
+@@ -422,13 +422,18 @@
+       "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_TIMING_SUFFICIENCY_002.json",
+       "bytes": 7063,
+       "sha256": "0a1b4d7af98055e443d2547cd9e674e455cdc1cadff6417d9cc81c5bfc690a6d"
++    },
++    "operatorBudgetSelection": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/ROOT_CUT8_BUDGET_SELECTION_002.json",
++      "bytes": 3688,
++      "sha256": "f5ae27c7f20e1e6e0a2006784aea37d009cf35da708c6c95225370a9cd339edb"
+     }
+   },
+-  "executionStanding": "Preparation only. Final source bounded acceptance is recorded; broadClose remains null, broad015 is active, and the 60s installed-owner timing mismatch requires Root disposition. No checkpoint/build/cut/install authorization or whole qualification claim.",
++  "executionStanding": "Preparation only. Final source bounded acceptance is recorded; broadClose remains null and broad015 stopped. Root selected outer Operator install1200000ms and installedOwner900000ms custody limits; no execution admission, Product deadline change or performance guarantee. No checkpoint/build/cut/install authorization or whole qualification claim.",
+   "executionEnabled": false,
+   "predecessorPreparedBinding": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_BUILD_BINDINGS_FINAL_SOURCE_001.prepared.json",
+-    "bytes": 20481,
+-    "sha256": "6bbaa235ab10b9c211f636f6079a7ab239022394ae4379bced10d33a73de01d9"
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_BUILD_BINDINGS_FINAL_SOURCE_002.prepared.json",
++    "bytes": 27039,
++    "sha256": "f389b23e8c3b6d8241c012860bae25824411fbb775c7f7bf4dc056195ecce320"
+   }
+ }

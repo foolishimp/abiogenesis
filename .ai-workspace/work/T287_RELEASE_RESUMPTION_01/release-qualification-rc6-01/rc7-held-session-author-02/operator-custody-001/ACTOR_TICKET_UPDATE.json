@@ -1,0 +1,24 @@
+{
+  "kind": "operator_actor_and_control_ticket_update",
+  "actor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/ACTOR_STARTED.json",
+    "bytes": 1317,
+    "sha256": "4eacb9864a6bc2ec049d33a32c6bab183ef0e15d4c835fee97b00050b0e3f6d4"
+  },
+  "controlCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-control-correction-001/CORRECTION.json",
+    "bytes": 4445,
+    "sha256": "65592fdee95b1cc1a2174c05ad07523ab1d265ed793aba9413002051c53ec82a"
+  },
+  "ticketBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/TICKET_BEFORE_ACTOR.md",
+    "bytes": 714810,
+    "sha256": "4c3e433ae6773ed5d945c2f79e0cd21b968e61feab250d6f494bd4849a839dfc"
+  },
+  "ticketAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 716277,
+    "sha256": "dd33bfbcd8156478726e0ff669f13bee31cf3c9e92802f201c23ac5630e37ed7"
+  },
+  "effects": "Additive operator correction/custody and current ticket metadata only; no active controls/C source/runtime/test effects."
+}

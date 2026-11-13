@@ -1,0 +1,44 @@
+{
+  "actualRetestCustody": {
+    "bytes": 3162,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/attempt-001/RETEST_RETURN_CUSTODY.json",
+    "sha256": "83426fe1020e4c4056e2f813c7c4be02e5b403826d88f787f7ee6d2fa0974905"
+  },
+  "artifactCustody": {
+    "bytes": 1742,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/ARTIFACT_CUSTODY.json",
+    "sha256": "45c8cba32e3c3cd22efe2ea711b913c2035bfbf6bf86108dfcf011ade43ccd77"
+  },
+  "authority": {
+    "bytes": 1969,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/ROOT_PROOF_SELECTION.md",
+    "sha256": "2b9cc4d78b3a67a8896548e71e1c138a9e9eec7f776b1606855def01fd1abcca"
+  },
+  "changedConfigFields": [
+    "archiveRoot",
+    "package",
+    "sourceCommit"
+  ],
+  "claimLimits": "bounded actual-artifact proof preparation; no live composition/resources or release credit",
+  "config": {
+    "bytes": 1771,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/config.json",
+    "sha256": "27dc1643d0692c334e2bffee218edd77c385c8b8dc12d2667477616a44e6ac4a"
+  },
+  "constructor": {
+    "bytes": 1883,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/prepare-config.py",
+    "sha256": "5b4dc50c46d2305b8d78e712cb111f6de52d5969da2dc40f16e6dd5e0fefaa1c"
+  },
+  "oracleChecks": 14,
+  "preservedFixtureCount": 6,
+  "providerCalls": 0,
+  "publicCalls": 0,
+  "runtimeOutputAbsent": true,
+  "selection": {
+    "bytes": 12463,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/SELECTION.json",
+    "sha256": "de0fd49058d569dbf492d56d4809750c48634e8a1f6735b234246a84c8cb6ef3"
+  },
+  "status": "PREPARED_NOT_INVOKED"
+}

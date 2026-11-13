@@ -1,0 +1,54 @@
+{
+  "status": "PREPARED_RC9_BOOTSTRAP_UNEXECUTED",
+  "id": "BOOTSTRAP-GATE-007",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_GATE_007_PREPARATION_ADMISSION.json",
+      "bytes": 719,
+      "sha256": "47db30c2c84ad52bbe1d32e89b9a07968d32b28e029a9feae6656cc543f369fc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-007.mjs",
+      "bytes": 21698,
+      "sha256": "ef2ae0fde1f6d6aeffb7d4fe00a51298771d72d944601bd6504a4e8824c348d8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_BINDINGS.PREPARATION.007.json",
+      "bytes": 10728,
+      "sha256": "9f8aafc4101f8ec5228cb12f04f90136dc73fec8275ba8657efb3093f84b12eb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.actual003.held-007.json",
+      "bytes": 7256,
+      "sha256": "ba2a45d430c98d3457a2bac853aeae3c5a76a5c40a3238bd2a1749a91367ddb2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_COMPILED_VALIDATION.007.json",
+      "bytes": 8334,
+      "sha256": "4bc3bcb20a4ef0e000183a24b13a7e09ddd906a16caa4f6e7d5d35b1ce0b8f1b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_GATE_007_CHECKS.json",
+      "bytes": 1140,
+      "sha256": "4440df86ec22314e2aa2f01fa2c201ece8f921423f9f68d0b5d7fcf9555d1107"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_GATE_007_PROPOSAL.json",
+      "bytes": 3311,
+      "sha256": "10202ffc6629f9a35a8a2238cad0e2caea10a1cb3672e4224aab6eaaf51e1ad1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_PREPARATION_003.json",
+      "bytes": 4397,
+      "sha256": "5a74a7d66a168546f864248a2f670f11697f05cba8cbd3a5e633789a0c4f3458"
+    }
+  ],
+  "retainedPreparation": "All earlier measurement/broad/control pins and closed review facts remain reusable and unchanged. This successor changes only bootstrap external-unit relation gates, exact receipt bindings and fresh bootstrap roots.",
+  "firstCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-007.mjs",
+    "<actual Root-bound bootstrap binding>",
+    "<actual binding SHA256>"
+  ],
+  "executionStanding": "HELD: sourceAcceptance and actual Root execution activation pins are pending. No build/version mutation or packaging executed."
+}

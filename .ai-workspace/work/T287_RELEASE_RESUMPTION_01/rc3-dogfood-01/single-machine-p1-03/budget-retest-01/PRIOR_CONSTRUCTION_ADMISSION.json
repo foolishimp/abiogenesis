@@ -1,0 +1,51 @@
+{
+  "firstSourceCustody": {
+    "bytes": 8378,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/construction-return-custody/CUSTODY.json",
+    "sha256": "4f2310b52bc6d27ff1553aceaaecdcc469ce97881699d1f0af71f01abd5d2358"
+  },
+  "fold": {
+    "admissionOrdinal": 15947,
+    "byteLength": 341107,
+    "byteOffset": 2719558739,
+    "cCallRef": "c-call:sha256:315c61d999373d22b8e1ebe25699f647fada10be9feca350dd0d5559af1d66be",
+    "contractRef": "contract://abiogenesis/default-library/state@5",
+    "eventRef": "event://abiogenesis/241c29dc217e5199fdc731ba0c5c7855c9ba8e6383b1024e75adc6cf78522086",
+    "executionBasisRef": "execution-basis://abiogenesis/84c8c2aa3d46e1380717d845f34c0df44099a09b2493e630b234b9f32515fd8b",
+    "graphCallRef": "graph-call://abiogenesis/83e6f42c1c4446db7c893cab0483163583cb0199756ac29dae50b91e2ec28775",
+    "rawSlice": {
+      "bytes": 341107,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/prior-construction-fold.raw.json",
+      "sha256": "de18fe1e6bfa15ca66d62ae09ed58286c9bf36ef8582c2c6e51bd0efe57147c6"
+    },
+    "resultDigest": "sha256:def3973be9da6293c35c9d6f0e628c7b8c0fd9ff3ba6c7329f4c92cb4a7b47e2",
+    "resultRef": "result://abiogenesis/def3973be9da6293c35c9d6f0e628c7b8c0fd9ff3ba6c7329f4c92cb4a7b47e2",
+    "sourceEventFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/events/runtime.events.jsonl",
+    "valueDigest": "sha256:fb27b79f2cec18af1d692d3c5896f912ed455a9a723c01cc5b2f900ef062251f",
+    "valueKind": "governance_work_state"
+  },
+  "join": "The one matching fold.payload.value.observations row with purpose construction; fold is never relabeled as native_workspace_work_observation.",
+  "kind": "external_admitted_construction_fold_leaf_join_custody",
+  "limits": [
+    "Direct native leaf admission byte range was not held by monitor; no invented coordinate or full-log rescan.",
+    "Authoritative history remains original physical event file; retained slice is observational custody.",
+    "No admitted_source_result import/current-intent rewrite; fresh retest begins source:none.",
+    "Final source checkpoint and fresh-read closure remain pending."
+  ],
+  "nativeLeaf": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/ebba8dca3dd91f0516430da5792e02c71612ed3ae84524571644209d063453b1",
+    "cCallRef": "c-call:sha256:aa23910155e10d0f101fd89e9cc65c8d7d792befca513363eb0e61f87f07f8ab",
+    "purpose": "construction",
+    "resultDigest": "sha256:f7775988da5c73d96a8cda55a81aec99891788f7b733a817597ea92480c986bb",
+    "resultRef": "result://abiogenesis/f7775988da5c73d96a8cda55a81aec99891788f7b733a817597ea92480c986bb"
+  },
+  "nativeLeafAdmissionEventRef": null,
+  "nativeLeafAdmissionRange": null,
+  "runRef": "run://abiogenesis/e6ee3d50951b8ff6ef88ba2cf19090e9c24f3387d70b32d9a5e99907b4fc4df5",
+  "secondSourceCustody": {
+    "bytes": 3090,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/second-construction-return-custody/CUSTODY.json",
+    "sha256": "cf449a9e3726a8d87b33a6a658bcebf9d38576a025eb614cc077ff13f44f7fc5"
+  },
+  "standing": "Actual admitted governance fold and its explicit native leaf reference; external evidence only, not imported Run state"
+}

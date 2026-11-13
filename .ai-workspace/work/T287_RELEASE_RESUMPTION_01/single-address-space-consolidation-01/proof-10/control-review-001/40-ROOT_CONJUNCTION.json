@@ -1,0 +1,111 @@
+{
+  "kind": "Root_closed_native09_conjunction",
+  "recordedUtc": "2026-11-04T14:04:12.210900+00:00",
+  "result": "TARGETED_SOURCE_ACCEPTED_VERIFICATION_INCOMPLETE",
+  "nativeStanding": "CLOSED_BLOCKED_NO_TERMINAL",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/SUBJECT.json",
+    "bytes": 225298,
+    "sha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ROOT_SOURCE_AND_EVIDENCE_DISPOSITION.json",
+    "bytes": 7829,
+    "sha256": "7b0abbf652915973c95682da42327baf2a477cb895372fad933e07df31476311"
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/INDEPENDENT_TARGETED_REFACTOR_REVIEW.json",
+    "bytes": 83767,
+    "sha256": "f37b4572adc78ba8a8543cd3b846c789be163f07a6788d168faf449027d07e36"
+  },
+  "actualC2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ACTUAL_C2_SUMMARY.json",
+    "bytes": 10624,
+    "sha256": "796a3c82eef44ceb32425ed2a636187622d589ca6b4f3d0b88bfb638654efbef"
+  },
+  "actualC2Result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_C2_CLOSED_RESULT.json",
+    "bytes": 2209,
+    "sha256": "5f93c6b93c5dc966519842450455de0ab4522130bf77cb5083d0d2471cf649be"
+  },
+  "UATNonEntry": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_UAT_CLOSED_RESULT.json",
+    "bytes": 3678,
+    "sha256": "7ee5260356f05f83e25c2c6289a242f92dfd0c4ff405b21dcf0897035c6ad273"
+  },
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/outcome-summary.json",
+    "bytes": 537,
+    "sha256": "e2211e63d55d616cd935e2560b309045ed612a9ec8489fe2fc03063dd783edfe"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/fresh-reads.json",
+    "bytes": 2413,
+    "sha256": "ec3cf79cbba8ca67567c15a91dbc3156cce3b1f5a83eb74ff8dadf35545cf700"
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ACTUAL_FINAL_CLOSE_COORDINATES.json",
+    "bytes": 2601,
+    "sha256": "8b5cdf63b2236d1886d1e04c45216935c4c9004d0c3005eb33ec41778e3e2de8"
+  },
+  "sourceAfterFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/SOURCE_AFTER_FINAL_CLOSE.json",
+    "bytes": 38398,
+    "sha256": "da1b46c5361c7613b5331f414d02bf61f8c3ca01fc70fd0bd676d7c52bfb3da3"
+  },
+  "sameFrozenSourceAndHandoffCount": 160,
+  "freshAgreement": {
+    "runRef": "run://abiogenesis/8151fe0a681158cbe0edc14139cee1dc877e592f278a5e78509364457a968c88",
+    "result": "not_found",
+    "replay": "blocked",
+    "terminal": null,
+    "agreement": "Both support the actual blocked Run with no terminal Result; no satisfied UAT inferred."
+  },
+  "criterionStanding": {
+    "T1": "Satisfied for frozen source and complete finite identified migration/retirement.",
+    "T2": "Bounded source behavior/equivalence and current build/regression support accepted with the preserved4/1/2 revision failure and historical75skip limits; no full D2/qualification claim.",
+    "T3": "Independent review supports focused author proof; actual whole-path proof is missing due operator baseline omission. Remains open for proof10.",
+    "T4": "Actual160 source/handoff correspondence, protected969 equality and genuine fresh close hold; C2 failed and UAT was not selected. Verification conjunction incomplete.",
+    "T5": "Targeted source cone/no added functionality supported; historical author scratch/diagnostic/cache limits preserved."
+  },
+  "actualFailuresPreserved": {
+    "C2Tally": {
+      "pass": 77,
+      "fail": 8,
+      "skipped": 75
+    },
+    "nativeProof": null,
+    "operatorFindings": [
+      "N9-EVIDENCE-01",
+      "N9-EVIDENCE-02"
+    ],
+    "registeredTechnicalDebt": "N9-RETAINED-FIXTURE-01",
+    "UAT": "Not selected, not an invented semantic verdict"
+  },
+  "nextSelectedPreparation": {
+    "scope": "Only existing12-case whole-path verification with byte-identical baseline; then read-only UAT. No coding author or Product changes.",
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_REENTRY_10.md",
+      "bytes": 4811,
+      "sha256": "f0881c924dce8bbb85b4752cefbada9c03199a021defe17e54a39435493b31d0"
+    },
+    "disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+      "bytes": 2492,
+      "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+    },
+    "dispatch": "Not yet admitted; exact finalized controls, proportional review and installed preflight remain required.",
+    "resume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/after-run-resume.json",
+      "bytes": 73165372,
+      "sha256": "20445ebb6088e32354033b5dc7c24b5de0be5b8ee788190fd29c7cba4386e5c5",
+      "savedUtc": "2026-11-04T13:59:25.596643+00:00"
+    }
+  },
+  "claimLimits": [
+    "No successful targeted verification yet",
+    "No new implementation, installed successor, qualification or release claim",
+    "No whole-workflow performance claim for uninstalled successor",
+    "Original widerR1-R7/C1-C5 and all accepted/historical failures remain outside this activation and unchanged"
+  ]
+}

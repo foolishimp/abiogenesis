@@ -1,0 +1,55 @@
+{
+  "id": "T287-RC9-OWNER-REUSE-AUTHOR03",
+  "status": "CONCRETE_CONTROLS_AWAIT_ROOT_REVIEW",
+  "outcome": "Repair the one existing owner-regression test through authentic prefix acquisition and meaningful counter/command/refusal oracles, then execute its complete unchanged normal unit lane.",
+  "readRoots": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/INTENT.md",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "build_tenants/abiogenesis/typescript/code/src",
+    "build_tenants/abiogenesis/typescript/scripts",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/uat",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/tsconfig.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs"
+  ],
+  "maxContextFiles": 1024,
+  "maxContextBytes": 33554432,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "qualification-scratch/rc9-owner-reuse-01/author-03"
+  ],
+  "instructions": [
+    "Receive exact controls /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/ROOT_SCOPE.json, ROOT_PACKET.txt, TASK.json and BINDING.json. Apply installed STDO3.0.4 stdo-work Receive at /Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md. Root RC9-REPAIR-03 selects one existing-test repair under owner instruction \"use RC8, pin to RC8 and use it to build RC9\". Actual native execution requires the host PREPARED-bound Root admission. One Claude Opus5.5 xhigh Worker, no delegation/additional provider calls. Record progress/intake/handoff under qualification-scratch/rc9-owner-reuse-01/author-03.",
+    "Exact baseline source41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3,1340rows/freeze9f5736f5. Author02 physically restored both consumers to accepted RC8 bytes and completed per-Run successor carriage; package/lock/contracts already agree at5.0.0-rc.9. Its stage built, unit was95tests/88pass/1fail/6skip, and actual Run/close/fresh readbacks are retained. Production, both HOWs, all metadata, dependencies and current nine-file test:unit script are immutable for this pass. Installed RC8 archivea178e960/content5dd1e816 is the builder; STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b/empty composition and existing Product/requirements/frame remain the authority. Read material owners and transitive callees; no project history acquisition is required.",
+    "Root closed review002 assigns RC9-SOURCE-003,004,005 priorityP2 to this proof. After the three actual held installed Runs, obtain the nominal calculus prefix through existing prefixOwner.projectOwnedRuntimeEventPrefixAtDurablePrefix(selection.prefix). Use that owner-issued prefix for runtimeEventBodiesAtPrefix and the owned/historical calculus operations. Keep selection.prefix as the DurablePrefixCoordinate for closeAbgEventResource. No cast, clone, materialized-array substitution or fabricated brand. Preserve actual returned successor carriage and exact physical close.",
+    "Correct the command-dependency oracle by holding label and every other request input fixed and changing only command. Inspect actual prepared command/contract fields as appropriate, so an unrelated label/path digest cannot satisfy the assertion. Correct the earlier-cut work interval by capturing its ending counter snapshot AFTER the projection being measured; retain the semantic null assertion. No worker/basis production edits.",
+    "Make the changed-row refusal execute meaningfully: use the existing cold owner contract and retain an explicit diagnostic of the path taken. No broad catch accepting arbitrary errors, silent optional branch or skipped proof credit. If cold prefix construction refuses, assert/report that exact owner outcome and do not claim row-digest coverage that was not reached. Preserve the meaningful owned/cold/refusal checks. Native owns lawful test construction within this one file; return re_entry_requested for any required production change or genuine new owner counterexample.",
+    "The complete OWN-01 sequence must execute: environment and three held Runs; owner-issued row/cold/historical checks; corrected earlier-cut and changed-row oracles; actual held-resource close; worker-plan checks; public physical verification; actual retained-semantics FIRST-use changed-content refusal; final counter/path diagnostics. Do not weaken or delete assertions to obtain green. Existing missing duplicate/foreign/rollback and actual actor-producer coverage remain explicit limits unless independently covered by the planned proof. A synthetic worker-plan probe does not prove the final actor producer. O3 retained verification reuse stays OPEN; physical verification at every previous consumer/effect boundary remains required, with no zero/once-per-resolution or O3 speedup claim.",
+    "Write only build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs and qualification-scratch/rc9-owner-reuse-01/author-03. No new source/support files, Product/HOW/metadata/package-script edits, git mutations, cleanup, install/cut/publication/global selector, or prior failure/HALT/stage/control changes. No Product compiler-feedback loop is selected for this test-only repair. Existing structural correspondence is retained; one fresh final recipe checks coherence. Read-only git status/diff may confirm the scope.",
+    "Final proof: read /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/FOCUSED_BINDING_PIN.json produced by the reviewed host after dispatch. Run /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-003.mjs <binding.path> <binding.sha256> stage, then the same command with unit stage-01. One fresh frozen stage600s and one unchanged npm run test:unit900s in /private/tmp/abg-r9-owner-native-003. The existing validated reporter and nine-file script are fixed. Recipe copies pinned dependency-only bytes, seeds only missing exactRC8 contracts with candidate winning, then compiles/generates/checks boundaries and runs the normal unit lane. Record source-freeze path immediately. After final freeze, any failure halts: no source alteration/retry against that or an old stage; return Root.",
+    "Limits native1800000ms/inactivity300000ms/maxTurns200; proof16MiB output/8GiB heap/4GiB free reserve/4GiB owned growth. Return exact one-file delta/freeze, whole build/unit evidence and honest skips, actually executed OWN-01 counters/path/first-use refusal/close, unproved limits, departures and timings in HANDOFF.md. Preserve both failed proofs and all historical residuals. Root separately owns affected review, exact-archive W2, measurement/broad, packaging/cut/install and qualification; no source acceptance or whole5.0 claim."
+  ],
+  "checks": []
+}

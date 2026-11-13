@@ -1,0 +1,125 @@
+{
+  "kind": "actual_single_address_space_c2_orchestration_result",
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 9,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 445517.669542,
+      "stdoutSha256": "be25c76f93b46f0cd15a4a907d9d538a0f66622467e84440d9b670194c332777",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 31,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 59212.00129099999,
+      "stdoutSha256": "40cec1e9d0c0bfc50165ee19bf91e8e70d1ca652943453663c03b1245370baed",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "retry-entry-consumers",
+      "files": [
+        "test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 45525.58729200001,
+      "stdoutSha256": "b8e4d89bcde327520c03075c809b1c74d0b8add58455f853c0c1b79677b02012",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "current-f09-retry-consumers",
+      "files": [
+        "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+        "test_env/tests/t287-r4-aba-retry.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 116304.731042,
+      "stdoutSha256": "58d935cb6f5f640dbcf507a64de1f17ef3615fe36d166aa7cc333c63872c2d00",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "current-intent-complete-pair",
+      "files": [
+        "test_env/tests/t287-exact-construction-intent.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 64050.65554100007,
+      "stdoutSha256": "8bf51c64024d268f186ca46e778be9caade4f27988a829e6ffe73bf7565f63e1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    }
+  ],
+  "failures": [],
+  "retainedEvidenceVerification": {
+    "kind": "retained_c2_evidence_correspondence",
+    "manifestSha256": "e01bbc9b6b3d6998eac59ef3092294785e2a01ce76c4bdf2617971e95bce0165",
+    "actualPriorC2ResultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+    "priorSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/SUBJECT.json",
+      "bytes": 184020,
+      "sha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670"
+    },
+    "packageArchiveSha256": "091ab10a500eea30f59cc3952c21d181eb9d85277c4b2591556308faa435f0e2",
+    "packageArchiveIntegrity": "sha512-brBeDiZdepxOza+Jm5MiQBGggpc/DtEieOE5+jUw2xnkaCxTN2UhT+dggwPsoRrCAI1t9G2VpvlLiR8rFZ5zgA==",
+    "unchangedFiles": 879,
+    "retainedLaneIds": [
+      "affected-owner-lanes",
+      "qualification-owner-components",
+      "historical-producer-acquisition",
+      "replay-request-consumers",
+      "fresh-process-semantic-values",
+      "forward-recovery-contracts",
+      "installed-affected-lane",
+      "maintained-setup-harness"
+    ],
+    "newExecution": false,
+    "meaning": "Exact runtime archive and declared test/helper/source dependencies agree with closed prior evidence; these lanes were not rerun here."
+  },
+  "nativeTestProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2/fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-07/single-address-space-proof.json",
+    "producerPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/691b4c572e9bac7c8655d326ebdb76a5e4d479a2304fc97570ec79683540f9b2/fcc9fe42e4a3a567e68fb299f3de99720501578e9ebeb25542da870c904f1667/sandbox/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+    "bytes": 163752,
+    "sha256": "dabbf028b83d80f83ef4d02de3389962d7afc8f1b5c162b1761d6b3178dea7c7",
+    "producerLanePassed": true
+  },
+  "sourceManifestSha256": "2e6e5b349ee6a00e2a217a82ec819e56802de1a60350fd10244017e7458461f8",
+  "authority": "Tests and native-authored proof retain their own claims; this wrapper records outcomes and fails every unmet selected predicate.",
+  "qualified": false,
+  "published": false
+}

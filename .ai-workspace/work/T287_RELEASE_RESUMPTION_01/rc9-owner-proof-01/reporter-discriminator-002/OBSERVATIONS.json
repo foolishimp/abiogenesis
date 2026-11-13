@@ -1,0 +1,117 @@
+{
+  "actual": {
+    "complete": true,
+    "parseFailure": null,
+    "counts": {
+      "tests": 2,
+      "failed": 1,
+      "passed": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 2,
+      "suites": 0
+    },
+    "summarySuccess": false,
+    "cases": [
+      {
+        "ordinal": 1,
+        "type": "case",
+        "passed": true,
+        "name": "control intentional pass",
+        "file": "test_env/tests/control-reporter.test.mjs",
+        "nesting": 0,
+        "testNumber": 1,
+        "suite": false,
+        "skip": false,
+        "todo": false,
+        "error": null
+      },
+      {
+        "ordinal": 2,
+        "type": "case",
+        "passed": false,
+        "name": "control intentional failure",
+        "file": "test_env/tests/control-reporter.test.mjs",
+        "nesting": 0,
+        "testNumber": 2,
+        "suite": false,
+        "skip": false,
+        "todo": false,
+        "error": {
+          "name": "Error",
+          "message": "Expected values to be strictly equal:\n\n1 !== 2\n",
+          "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\n1 !== 2\n",
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure",
+          "cause": {
+            "name": "AssertionError",
+            "message": "Expected values to be strictly equal:\n\n1 !== 2\n",
+            "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 2\n\n    at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/test_env/tests/control-reporter.test.mjs:4:47)\n    at Test.runInAsyncScope (node:async_hooks:214:14)\n    at Test.run (node:internal/test_runner/test:1106:25)\n    at Test.processPendingSubtests (node:internal/test_runner/test:788:18)\n    at Test.postRun (node:internal/test_runner/test:1235:19)\n    at Test.run (node:internal/test_runner/test:1163:12)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+            "code": "ERR_ASSERTION",
+            "failureType": null,
+            "cause": null
+          }
+        }
+      }
+    ],
+    "terminalRow": {
+      "ordinal": 5,
+      "type": "end"
+    }
+  },
+  "variants": {
+    "missing": {
+      "complete": false,
+      "parseFailure": "AssertionError [ERR_ASSERTION]: structured reporter missing",
+      "counts": null
+    },
+    "missingEnd": {
+      "complete": false,
+      "parseFailure": "structured reporter incomplete: begin/global summary/end required",
+      "counts": {
+        "tests": 2,
+        "failed": 1,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 2,
+        "suites": 0
+      }
+    },
+    "missingSummary": {
+      "complete": false,
+      "parseFailure": "structured reporter incomplete: begin/global summary/end required",
+      "counts": null
+    },
+    "malformed": {
+      "complete": false,
+      "parseFailure": "SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+      "counts": null
+    }
+  },
+  "command": {
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 1008.506
+  },
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/events.jsonl",
+    "bytes": 2005,
+    "sha256": "3aca8779fa27b1e05bcf3c8eb457de80a6875f926a98b8c52909296c90dd24da"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.stdout",
+    "bytes": 1316,
+    "sha256": "d4d469a777f6f68cb0f7cf9b0a4c022e362710992874a196f2537f068d5bfd7d"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

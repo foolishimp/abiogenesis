@@ -1,0 +1,78 @@
+{
+  "authorRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01",
+  "outputName": "actual-001",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 6803,
+    "sha256": "b7d93c37fdf71ded45a35c8f6fb7c1d9220bc3eaffbbff5077c2f251cd20e823"
+  },
+  "finalBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_FINAL_BINDINGS.json",
+    "bytes": 6931,
+    "sha256": "5a8f09e8f8ee03c8dfe55f6af8e1531ded9d8f08947326d474975367e1d96fd2"
+  },
+  "hostResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/HOST_RESULT.json",
+    "bytes": 154,
+    "sha256": "198326e5f00f7423e8c203b693a8ec52f5ddc1ef34dbd76a69ac378d9a1be863"
+  },
+  "hostLaunch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/HOST_LAUNCH.json",
+    "bytes": 277,
+    "sha256": "cf5203148b83605f5e9cdf475be2361968c699d9d81f39ac466ca4076c60b93e"
+  },
+  "execution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/execution.json",
+    "bytes": 215694883,
+    "sha256": "0abf50e39e46e0167cc27f571cb0616db30b690e63be5c2dc50c1de4e2babcd0"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/after-run-resume.json",
+    "bytes": 72497347,
+    "sha256": "8cd7aa806aa2cbe96ce095201a25e22f764e93b24f24d75b49666ae0397d082a"
+  },
+  "pending": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/READBACKS_PENDING.json",
+    "bytes": 2470,
+    "sha256": "21d978d6506ea39955cdccace88b6b096ee1ecb153b99ba8e012158267bc8511"
+  },
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/TIMING_OBSERVATION_ENVELOPES.json",
+    "bytes": 5955,
+    "sha256": "96fa5e8f424c5339b436a04c3f6801d13ee6e994ea19ae21689b63f299932d16"
+  },
+  "heapMiB": 8192,
+  "readTimeoutMs": 600000,
+  "maxOutputBytes": 536870912,
+  "selectedFeedback": [],
+  "readHostTimeoutMs": 900000,
+  "rootDisposition": {
+    "at": "2026-11-06T04:23:54.931522+00:00",
+    "role": "Separately bound Root operator Writer under ROOT_ACTIVATION and POST_RETURN_READBACK_SELECTION",
+    "status": "ACTUAL_RETURN_BOUND_FOR_CUSTODY_AND_PENDING_COLD_READS",
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/PREPARATION.json",
+      "bytes": 15731,
+      "sha256": "ddb28ec2d65e64a63575d71aae83756b38f28b17fcc0ab03ae442a18d396b6fb"
+    },
+    "selectedControls": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/bind-and-freeze.mjs",
+        "bytes": 19366,
+        "sha256": "a5f751ca82289f4757914ac1e8b37263213fb6fef7491628d76f941f6cdc094b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/read-one.mjs",
+        "bytes": 7717,
+        "sha256": "136a4528405040ac461edf23ab2b277f0e59d745a2736a2cc4fb40833bd6c187"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/launch-read.mjs",
+        "bytes": 1756,
+        "sha256": "f45dcdfa43cd4be8d2bd90ec5512699a71dfdfbfca3a1e8207dd8e4756c007bd"
+      }
+    ],
+    "authorStanding": "FROZEN_PARTIAL_CANDIDATE; remaining task-copy and unchanged-after-holder work remains selected; no source acceptance",
+    "sourceReview": "Root read all three controls and verified all23 preparation/source pins. Future input pins now bind actual returned host/receipt/resume/timing; no predecessor close."
+  }
+}

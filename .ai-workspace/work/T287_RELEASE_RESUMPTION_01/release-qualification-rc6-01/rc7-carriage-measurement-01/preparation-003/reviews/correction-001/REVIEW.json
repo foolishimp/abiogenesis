@@ -1,0 +1,96 @@
+{
+  "kind": "bounded_independent_measurement_fixture_correction_review",
+  "productFrame": "ABIogenesis fixed fifteen families F01-F07/F09-F11/F13-F17; GOAL035/T287; installed STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; composition[]. Existing ABG/GTL/public owners retain control and runtime authority. Accepted S3/HS03 source and prior proofs are unchanged.",
+  "createdUtc": "2026-11-07T00:11:32.444332+00:00",
+  "reviewer": {
+    "actor": "/root/rc7_growth_control_review",
+    "role": "independent Reviewer",
+    "reasoning": "max",
+    "authorship": "Separate reviewer actor; no authorship of this correction, no cross-family independence or enforced clean-room claim."
+  },
+  "subject": {
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/PREPARATION_MANIFEST.json",
+      "bytes": 2751,
+      "sha256": "ec11820ad54f484ecb3b1d6bf3b6c7cc3cfe97fe710106ac5798645cd1665ca3"
+    },
+    "rootSelectionAndTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/ROOT_SELECTION_AND_TRIAGE.json",
+      "bytes": 3700,
+      "sha256": "e8d36ccbcc9172cf3c77f852f00a8ecc206ba00036f287af9af767833d0eec9b"
+    },
+    "test": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/measurement.test.mjs",
+      "bytes": 22684,
+      "sha256": "169e983f93f84f141f967c1c698d2e19b3139f25888337df5ded4ca72c8a5ffc"
+    },
+    "runner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/run-measurement.mjs",
+      "bytes": 5137,
+      "sha256": "0ec73789b77ed1cadc8de1dd7f6f8e98ee495628dcae4ea076901bd3df46bd8f"
+    }
+  },
+  "result": "satisfied",
+  "status": "BOUNDED_NO_BLOCKER_RETURN_TO_ROOT",
+  "findings": [],
+  "triage": "not_applicable_no_findings",
+  "checks": [
+    {
+      "predicate": "Direct next selects the intended existing default start",
+      "result": "satisfied",
+      "evidence": "Read selected-stage gtl/public_start.ts51-99: declared start is supervised; direct requires no caller startRef and next resolves the unique declared default. native_workspace_work.ts38-40 publishes direct mode with its sole ids.startRef as abg.default_start_ref, selecting the same graph function. registered-graph-selection.mjs257-265 already defaults this caller route to next. Correction changes caller selection only; no Product guard bypass."
+    },
+    {
+      "predicate": "No assertion or measurement scope change",
+      "result": "satisfied",
+      "evidence": "Independent exact string comparison with preparation-002 shows measurement.test.mjs changes only OWNER_REFERENCES path and target declared_start/ids.startRef to next. Runner changes only reused002 owner/actor references and fresh actual-002,/private/tmp/abg-r7m2 paths. All other bytes, assertions, sizes, actor, contexts, source/artifact/install joins and finite bounds are identical."
+    },
+    {
+      "predicate": "Pinned reuse and fresh outputs preserve failed allocation",
+      "result": "satisfied",
+      "evidence": "All 9 selected predecessor/selection/file/failure pins match. Existing002 scripted actor is regular and executable. New actual-002 and /private/tmp/abg-r7m2 were absent at review; unchanged runner rejects occupied roots before allocation. Failed actual-001 remains preserved. Owner references and actor are reused by path, not copied."
+    }
+  ],
+  "ownerEvidence": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/code/src/gtl/public_start.ts",
+        "bytes": 3959,
+        "sha256": "a4d41d413a08e0a14296d9768c4b335ea030ed711d414a0ec1523bdb8e3c86a7"
+      },
+      "lines": "51-99"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+        "bytes": 8726,
+        "sha256": "e46879346a2bbf47e0e37e529582a01c1f37c955fc5d9fb9f3a175010813ae25"
+      },
+      "lines": "38-40"
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+        "bytes": 19702,
+        "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+      },
+      "lines": "257-265"
+    }
+  ],
+  "limits": [
+    "Static delta review only. No re-review of accepted source, completed focused proofs, artifact continuation or unchanged measurement framework.",
+    "Root owns actual activation/binding and finite execution. No successful task, measurement or performance claim is inferred from this review.",
+    "Original deterministic refusal remains evidence. The new bounded measurement, including its ordinary isolated fixture installation, remains unexecuted by this Reviewer."
+  ],
+  "effects": {
+    "ProductOrControlEdits": 0,
+    "testsOrBuilds": 0,
+    "packOrInstall": 0,
+    "runtimeOrProviderOrMeasurementCalls": 0,
+    "privateMaterialAcquired": false,
+    "writes": [
+      "This create-only REVIEW.json only."
+    ]
+  },
+  "returnTo": "Root; no admission or acceptance decision"
+}

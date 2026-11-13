@@ -1,0 +1,49 @@
+{
+  "kind": "selected_transport_failure_metadata_only",
+  "observedUtc": "2026-11-06T21:37:34.768553+00:00",
+  "actualTransport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-0721bbc5d6975cc0-transport.json",
+    "bytes": 18034887,
+    "sha256": "04ddd977169f69b7cd143bf25631591126f1c6df23ce75df878b93cc65609911"
+  },
+  "metadata": {
+    "kind": "worker_transport_result_candidate",
+    "disposition": "failure",
+    "status": 143,
+    "signal": null,
+    "timedOut": true,
+    "timeoutClass": "absolute",
+    "failureClass": "transport_failure",
+    "absoluteTimeoutMs": 5400000,
+    "timeoutMs": 1800000,
+    "exitObserved": true,
+    "terminationConfirmed": true,
+    "toolCallCount": 315,
+    "apiRetryCount": 0,
+    "progressEventCount": 26897,
+    "structuredEventCount": 27223,
+    "processFacts": {
+      "cleanupDeadlineNs": {
+        "kind": "bigint",
+        "value": "2832724529058583"
+      },
+      "cleanupElapsedMs": 386.163417,
+      "closeObserved": true,
+      "directExit": {
+        "signal": null,
+        "status": 143
+      },
+      "drainExpired": false,
+      "noChildEstablished": false,
+      "probeCount": 36,
+      "scopeAbsence": "absent",
+      "scopeKind": "posix_process_group",
+      "streamsDisposed": true
+    },
+    "nativeResultAssessmentDisposition": "absent"
+  },
+  "limits": [
+    "Only named scalar outcome/process/timeout metadata projected. No command, args, finalOutput, stdout, stderr, toolInvocations or verification contents inspected or emitted.",
+    "No native task success or Product acceptance claim."
+  ]
+}

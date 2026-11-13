@@ -1,0 +1,27 @@
+{
+  "kind": "future_d5_proof_input_staging_template",
+  "status": "UNBOUND_NOT_STAGED",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-01/FROZEN_SUBJECT.json",
+      "bytes": 319,
+      "sha256": "dd4279570fbd0cc4d047510221a49cd97059ef4bc8cca4a02a9774e80cad2922"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-01/PROOF_ONLY_GRANT.json",
+      "bytes": 7670,
+      "sha256": "6584205a51c16df6b6533e690a147eb4839bc52be03b660c0baeb652eb367a8d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-01/ROOT_UAT_DISPOSITION.json",
+      "bytes": 1686,
+      "sha256": "546717162c7a77849849a55af75b8dc84fce815280b5d274251717b8e09066a8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-01/TASK.md",
+      "bytes": 2549,
+      "sha256": "adc0a2df0c69aa26d4ab7a83c6ae8c4cf40294b29a88f28d99b61208d59e1566"
+    }
+  ],
+  "bindingRequired": "FROZEN_SUBJECT and PROOF_ONLY_GRANT are placeholders. Root must bind actual values then regenerate their pins, workload.sources and this manifest before staging."
+}

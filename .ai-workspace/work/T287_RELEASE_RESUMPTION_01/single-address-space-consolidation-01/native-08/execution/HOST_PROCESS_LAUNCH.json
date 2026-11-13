@@ -1,0 +1,9 @@
+{
+  "kind": "root_operator_host_process_launch_observation",
+  "recordedUtc": "2026-11-04T06:37:45.785696+00:00",
+  "monotonicNs": 2592484206864291,
+  "pid": 84423,
+  "executable": "/opt/homebrew/bin/node",
+  "declaredHeapMiB": 8192,
+  "meaning": "Host launch marker before exec; separate from SDK setup, native dispatch and Worker start."
+}

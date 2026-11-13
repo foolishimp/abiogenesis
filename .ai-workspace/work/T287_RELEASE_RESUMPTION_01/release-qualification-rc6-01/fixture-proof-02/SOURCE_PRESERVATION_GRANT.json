@@ -1,0 +1,29 @@
+{
+  "kind": "root_local_source_preservation_activation",
+  "at": "2026-11-05T09:31:40.055683+00:00",
+  "roleTransition": "Executive bounded acceptance -> separately bound operator Writer for Git custody",
+  "authority": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/WORKSPACE_REENTRY_01.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/ROOT_CONJUNCTION.json"
+  ],
+  "admission": "Owner continue and accepted bounded N9 authorize local preservation of its sole native-owned test change; no broader source effects.",
+  "branch": "codex/t287-5-release-qualification",
+  "parent": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "writePaths": [
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "corresponding Git index and successor branch commit"
+  ],
+  "candidateSha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc",
+  "nativeAuthor": "Configured Claude Opus5.5 native Worker; actual original Construction Resultae95925f... retained in fixture-01",
+  "custodian": "Root records accepted bytes only; no source authorship transfer by commit",
+  "effects": [
+    "Stage exactly one accepted test path",
+    "Create one local commit with native authorship and actual bounded proof references"
+  ],
+  "exclusions": [
+    "No push/merge/tag/publication/selector/install change",
+    "No staging or rewriting unrelated tracked/untracked work",
+    "No whole-5.0 qualification claim"
+  ]
+}

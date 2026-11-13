@@ -1,0 +1,90 @@
+{
+  "file": "test_env/tests/t287-rp2-fibre-substitution.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 190658.05966700002,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-018/events/164-t287-rp2-fibre-substitution.jsonl",
+    "bytes": 830,
+    "sha256": "51366c43c29c6baf3a4a07a351497f166e6e7dc75391a8fbf7c07655dc711b96"
+  },
+  "commandReceipt": "commands/164-t287-rp2-fibre-substitution.result.json",
+  "workspace": "/private/tmp/abg-r8c-018/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_D-events.json",
+      "kind": "file",
+      "bytes": 291484,
+      "sha256": "50542156e5b28aadd9330ddc0a5004729fdca8763167ea1cb1f09cdf415c3e0c",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_D-receipt.json",
+      "kind": "file",
+      "bytes": 26283,
+      "sha256": "37c7dc81640c4c901c075e3ca0d26afa5aa651efcd5616e4c315314d7b05d7b2",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_D-replay.json",
+      "kind": "file",
+      "bytes": 7732,
+      "sha256": "e413ad6adaa86fa79672d96b903a44fbaad0eb482592681030046ae7da1c8f83",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_P-events.json",
+      "kind": "file",
+      "bytes": 351374,
+      "sha256": "b305b3418d6a1fdae927c98778e528678f9630ffecd5a41e33d2407bad4f9ab7",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_P-receipt.json",
+      "kind": "file",
+      "bytes": 29350,
+      "sha256": "baf596648f9ba89ace132dd71339b256893ab80e2f104a18e3a6a0d102dd9ddf",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/F_P-replay.json",
+      "kind": "file",
+      "bytes": 7733,
+      "sha256": "0138845e3b2a1abd46e7f3c02d10e44a77737331449c36994272b88d082f8198",
+      "executable": false
+    },
+    {
+      "path": "test_env/test_runs/rp2/fibre-substitution/result.json",
+      "kind": "file",
+      "bytes": 24973,
+      "sha256": "b8888002b71a8e8c44d94031998ecc03a45b17ad02c6153af9b72705865405a9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

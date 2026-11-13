@@ -1,0 +1,24 @@
+{
+  "status": "MATERIALIZED_LOCAL_CUT_PACKET_PENDING_ROOT_INSTALL_SELECTION",
+  "recordedAt": "2026-11-03T04:07:04.795877+00:00",
+  "inputManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/INPUT_MANIFEST.json",
+    "bytes": 11235,
+    "sha256": "c10ac1aa0eb7dddf3701768ee1692e7cb76ed0cf394c200ca17c6d901113e445"
+  },
+  "sourceCommit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+  "sourceTree": "6ff1f9c51c6353abfaf01ced28a2f243a7a54d4d",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/4a2daf8632291a4993b91da5a968386bd45023cf05e329bb27ffcc2b5fdda532/1a5584640f404fbc8462e9018310f73c0a0cbe7e423243516af1083b15d45359/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+    "bytes": 10971457,
+    "sha256": "f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70"
+  },
+  "currentFilesVerified": 24,
+  "toolsVerified": 4,
+  "archiveMembersConfinedRegularUnique": 5321,
+  "releaseRootAbsent": true,
+  "installHostAbsent": true,
+  "rootAuthorityAbsent": true,
+  "noProductImportRuntimeInstallProvider": true,
+  "remaining": "Root reviews manifest, selects actual install, materializes existing consumer status and ROOT_AUTHORITY.md then final pins; Writer does not execute installer."
+}

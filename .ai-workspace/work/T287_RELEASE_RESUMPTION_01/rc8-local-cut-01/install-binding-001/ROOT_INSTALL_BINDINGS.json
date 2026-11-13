@@ -1,0 +1,82 @@
+{
+  "status": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/ROOT_INSTALL_ADMISSION.json",
+    "bytes": 10103,
+    "sha256": "da67a6ac0b02947a284bbc4c40c0a7d99f33dad292c5d4adaa8bb1cb7ff0edd1"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_002.json",
+    "bytes": 4182,
+    "sha256": "64e5c7a9bb4092fdc9334e9f78898e5cdd401d58059f2098c9a7f68a87c1ef39"
+  },
+  "buildBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+    "bytes": 19284,
+    "sha256": "4f0f115220003b5c95e03d2602abc4118fe1f49917afa787a890096ca18d92f3"
+  },
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1380,
+    "sha256": "51ee2a7656199e4b735f9dd7e6609c19cab9708d33169546c9e9390a15383679"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/candidate/RESULT.json",
+    "bytes": 808,
+    "sha256": "50d7f6bfc2a4538e23e6747d54514f07b253c7322f16bc9b12b1e237da94058b"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1284,
+    "sha256": "7333fc0619f9414cf8a5bfdb2e117128c2516686398b5de8567760f7feaadcf7"
+  },
+  "exactTestedArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+    "bytes": 841,
+    "sha256": "51fc962bcb739f0b3d198cb3893d80db2b831cecfe274fb507a53f2336ecd88d"
+  },
+  "installInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+    "bytes": 2765,
+    "sha256": "72d9d5720047331786d6453eed7bb3c52a7ac05b2e14455d97b7076ee2615226"
+  },
+  "boundedClaim": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/BOUNDED_CANDIDATE_CLAIM.md",
+    "bytes": 6739,
+    "sha256": "d163f677072c9e3c143635f8859bf1cd03e49bd910162e86769b47d2e822d9cd"
+  },
+  "residuals": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/RESIDUALS.md",
+    "bytes": 12832,
+    "sha256": "396b1c7c0ae1f7ac39b9a7d53d54aae7c0e9317997055207d5b8254198a13e00"
+  },
+  "rootAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/ROOT_AUTHORITY.md",
+    "bytes": 4191,
+    "sha256": "b003d26342b03b3ac40ffbd7e176ff801295ab4dead15ae788dfed14d94513f4"
+  },
+  "independentPackagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/reviews/packaging-001/REVIEW.json",
+    "bytes": 23777,
+    "sha256": "dabaf2e7f0aec43a338084924cf92fa75818f2c7b24cdf5f26fc0e2d2fef408a"
+  },
+  "claim": "Local unqualified RC8 candidate; direct actual installed-owner verification/content/export and empty-resource read/close smoke only. Full lifecycle/performance remains scoped to the exact-shipped-archive installed scratch proof. Actual installation standing is supplied by FINAL_INSTALL_VERIFICATION.json.",
+  "limits": [
+    "Bounded one-file/two-symbol unshipped fixture successor and exact casewise conjunction only; no new whole-file execution or whole-file pass credit.",
+    "The profile case uses injected Product/environment component premises while exercising native store/admission/transaction/close/reopen/cold correspondence; no installed L-to-W bridge proof.",
+    "Original024 red, original source identity and fourteen passing cases remain historical evidence; all prior accepted code, performance and functional proofs retain their exact subjects and limits.",
+    "All nine residual capsules remain OPEN. Existing limited no-block rationales apply only to this same explicitly unqualified local REF01 cut.",
+    "Twelve cold residuals, S7, fixed15/full5.0 and human gates remain open; no whole-broad-green or all-qualification claim.",
+    "Known-PID and exact-log descriptor observations are bounded custody evidence; no blanket physical or detached-descendant absence claim and no quota-enforcement assurance.",
+    "Observed native process model/effort arguments are declared configuration evidence, not provider telemetry assurance. Separate measured timings are retained without a speedup inference.",
+    "Accepted exact source60f8e595/1339 rows/27 selected paths (24 tracked modifications and three new files); checkpoint2019d62e/tree4c8a9240 and byte-equal clean reproduction are completed under BUILD_RESULT5c1b5628; exact packaging reviewdabaf2e7 is satisfied.",
+    "Use unchanged run-local-cut.corrected-002.mjs and PREPARATION_MANIFEST_CORRECTED_002.json; retain 20-minute install and 15-minute installed-owner ceilings.",
+    "Ship only the exact tested archive; preserve unrelated source, existing immutable cuts and original failure evidence.",
+    "Independent exact packaging review and separate Root install admission precede immutable custody and the narrower actual-installed smoke.",
+    "No push, tag, merge, publication, global selector, qualified claim, cleanup or automatic retry."
+  ],
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false,
+  "executionEnabled": true
+}

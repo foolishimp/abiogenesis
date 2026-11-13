@@ -1,0 +1,19 @@
+{
+  "kind": "root_partial_custody_authority",
+  "at": "2026-11-03T10:21:22.052594+00:00",
+  "roleTransition": "Executive actual failure disposition -> bounded Root operator Writer",
+  "failure": "Native actor error_max_turns at configured128; reports129. No completed increment or author return.",
+  "source": "Unfinished2-file codec/store delta only, preserve bytes and genuine admitted after-observation",
+  "grant": [
+    "Passive native failure/source snapshot",
+    "Exact selected changed-file local custody checkpoint",
+    "Historical failure and actor feedback records",
+    "Continued read-only fixture feasibility review and bounded reentry preparation"
+  ],
+  "exclusions": [
+    "No direct Product coding",
+    "No C2/UAT/qualification/acceptance or local cut claim",
+    "No prior evidence/history rewrite",
+    "No dispatch until actual current close and explicit reentry admission"
+  ]
+}

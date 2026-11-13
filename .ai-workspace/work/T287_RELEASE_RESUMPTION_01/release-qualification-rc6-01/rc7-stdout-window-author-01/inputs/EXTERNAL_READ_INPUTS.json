@@ -1,0 +1,17 @@
+{
+  "kind": "explicit_external_read_selection",
+  "root": null,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/metadata.json",
+      "bytes": 46684229,
+      "sha256": "2c9328e4abb8e25f8fbfc7a1e4574e481fb5889bf17bc04108f2571d2d3536b9"
+    }
+  ],
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "standing": "Only selected stdout-before/stdout-differential lanes consume this46.7MB metadata file by reference, not native context or stage copying. It is an external test oracle projection, never an admitted event stream. No raw provider/archive/credential bodies are selected."
+}

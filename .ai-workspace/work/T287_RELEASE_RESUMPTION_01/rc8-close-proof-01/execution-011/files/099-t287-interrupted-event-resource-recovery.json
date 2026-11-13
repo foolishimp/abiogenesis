@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 5195.369999999995,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 8,
+    "failed": 0,
+    "passed": 8,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 8,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/events/099-t287-interrupted-event-resource-recovery.jsonl",
+    "bytes": 3056,
+    "sha256": "721eb7619927d267b30d3879b4035b9cd8b853f870ab6817d210d750322aee19"
+  },
+  "commandReceipt": "commands/099-t287-interrupted-event-resource-recovery.result.json",
+  "workspace": "/private/tmp/abg-r8c-011/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

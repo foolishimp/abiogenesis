@@ -1,0 +1,113 @@
+{
+  "id": "T287-RC8-AUTHOR11-O1-COMPONENT-PREMISE",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "baseControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+    "bytes": 9837,
+    "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/PREPARATION.json",
+    "bytes": 7299,
+    "sha256": "10d491d1e7483ce99453844ff9d8c0cb60605130d62cbd78bd6b4c5abfb6145c"
+  },
+  "scopeGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SCOPE.json",
+    "bytes": 5575,
+    "sha256": "4383c2cb32444b8f1d17c1b46197e5eba10b559c74a77a77a25d18978f2b2b0c"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/TASK.json",
+    "bytes": 5287,
+    "sha256": "eff444d271d53121f8e9497dc701433f0cce3a1a9dfe62d1c4c040d24c3044b6"
+  },
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+  "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs"
+  ],
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001",
+  "proofRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence",
+  "proofScratchRoot": "/private/tmp/abg-r8-a11-001/p",
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-r8-a11-001/tmp",
+    "TMPPREFIX": "/private/tmp/abg-r8-a11-001/tmp/zsh",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-r8-a11-001/npm-cache",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/npm-global.npmrc",
+    "BASH_DEFAULT_TIMEOUT_MS": "600000",
+    "BASH_MAX_TIMEOUT_MS": "600000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 400,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 300000,
+    "absoluteTimeoutMs": 1800000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "reserveBytes": 4294967296,
+  "proofTimeoutMs": 600000,
+  "proofBounds": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "focusedNameFilteredInvocations": 1,
+    "focusedWholeFileInvocations": 0
+  },
+  "lanes": {
+    "materialization-o1": {
+      "files": [
+        "t287-required-operation-bindings.test.mjs"
+      ],
+      "namePattern": "^O1 \\(A\\): the materialization binding refuses an artifact body outside I-JSON before the artifact ingress$",
+      "wholeFile": false,
+      "expectedPassed": 1,
+      "expectedSkipped": 0,
+      "excludedUnchangedCases": 9
+    }
+  },
+  "controlFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/host.mjs",
+      "bytes": 12242,
+      "sha256": "ab2e3601532519e6a5b8ceff7cf2434cc2d7ccbc8659255782e5dc9778eb9709"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs",
+      "bytes": 10763,
+      "sha256": "c2f7225fbf3f790d2bf139774b89763febbe8017ef4c2deba17f7a7a75186bcf"
+    }
+  ],
+  "providerDispatch": false,
+  "rootOneDispatchAuthorization": false,
+  "sourceAccepted": false,
+  "qualified": false,
+  "meaning": "Root-selected one-key O1 fixture correction; one maintained-owner preparation from actual A10 close, held for separate dispatch admission. One filtered test/one freeze/zero builds; no whole-file restamp or Product change."
+}

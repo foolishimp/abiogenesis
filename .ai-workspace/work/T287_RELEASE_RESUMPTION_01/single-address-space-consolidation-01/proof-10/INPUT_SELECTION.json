@@ -1,0 +1,102 @@
+{
+  "kind": "proof_only_pending_input_selection",
+  "status": "CURRENT_PINS_AVAILABLE_FINAL_TEST_SUPPORT_PENDING",
+  "sourceCorrespondenceRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/SOURCE_BEFORE.json",
+  "sourceCorrespondenceCount": 160,
+  "currentControlPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+      "relativePath": "stdo_abiogenesis.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84",
+      "relativePath": "AGENTS.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "relativePath": "specification/PRODUCT.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "relativePath": "specification/INTENT.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-09/ROOT_TARGETED_REFACTOR_09.md",
+      "bytes": 6177,
+      "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05",
+      "relativePath": "consolidation-inputs/native-09/ROOT_TARGETED_REFACTOR_09.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-09/targeted-rubric.json",
+      "bytes": 2867,
+      "sha256": "67abbd06cbb78c8fc2ae3cbdf712b71b63c181fffcea4b2698ce22ef24623926",
+      "relativePath": "consolidation-inputs/native-09/targeted-rubric.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-09/AFFECTED_INTERFACE_CONE.json",
+      "bytes": 37902,
+      "sha256": "630b5a3c2d324ad61dd4e2f1d4fdf394fe47be2a11a9bc39cb204f7b5cbc3f10",
+      "relativePath": "consolidation-inputs/native-09/AFFECTED_INTERFACE_CONE.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-09/IR_PREIMAGES.json",
+      "bytes": 4912,
+      "sha256": "8b7019606ba50693581b7f49ccb7c2c8bd891a70315600e1a9a4f2318a05be09",
+      "relativePath": "consolidation-inputs/native-09/IR_PREIMAGES.json"
+    }
+  ],
+  "newInputRelativePaths": [
+    "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_REENTRY_10.md",
+    "consolidation-inputs/proof-10/TASK.md",
+    "consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+    "consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json"
+  ],
+  "requiredSelectedAndReadInputs": [
+    "consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+    "consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json"
+  ],
+  "baselineOrigin": {
+    "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-08/MEASURED_BASELINE.json",
+    "bytes": 5575,
+    "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+  },
+  "externalResourcesOrigin": {
+    "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-09/EXTERNAL_READ_RESOURCES.json",
+    "bytes": 6147,
+    "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+  },
+  "helperOwner": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+    "lines": "30-38",
+    "meaning": "Promise.all reads EXTERNAL_READ_RESOURCES.json and MEASURED_BASELINE.json from explicit ABI5_CONSOLIDATION_INPUTS; no skip/fallback is selected."
+  },
+  "commandEnvironmentProjection": {
+    "ABI5_CONSOLIDATION_INPUTS": "<actual isolated worksite>/consolidation-inputs/proof-10",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "TMPDIR": "/private/tmp/abg-n09"
+  },
+  "environmentMeaning": "ABI5_CONSOLIDATION_INPUTS must be resolved from the actual command worksite, as existing09 wrapper does; angle-bracket form here is a non-executable projection. Keep current host/CLI and provider namespaces unchanged. Later test scratch permission must be explicitly rebound by Root; no external writes occurred here.",
+  "pathBudget": {
+    "newBaselineRelativePathUtf8Bytes": 52,
+    "newBaselineAbsolutePathUtf8Bytes": 105,
+    "existingShortSocketLayout": "/private/tmp/abg-n09/abi5-single-address-setup-ABCDEF/setup-tmp/abg-gc-ABCDEF/s",
+    "socketLayoutUtf8Bytes": 79,
+    "socketLimitBytes": 108,
+    "meaning": "Source-derived layout copied from exact09 SHORT_TEST_SCRATCH; not a socket execution or a new permission."
+  },
+  "dependencyClosureLimit": "Existing09 literal-only closure is historical guidance, not a computed proof10 build/data closure. Actual compiled build/package/support selection awaits genuine09 output pins. No repeated all-lane fixture population or new scanner selected."
+}

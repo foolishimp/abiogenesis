@@ -1,0 +1,57 @@
+{
+  "status": "ROOT_ADMITTED_HOW_OPEN_SETUP_READY_NATIVE_HELD",
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/ROOT_SCOPE.json",
+    "bytes": 3881,
+    "sha256": "01fb12706a2f383a0c51765de9338a2cda70c1b781005fd820423c659e038edd"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/TASK.json",
+    "bytes": 2856,
+    "sha256": "82358087222c1539c67a43bcca26d77fc7751f8dbd8b1fa47f6676fafa04302c"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/BINDING.PREPARATION.json",
+    "bytes": 13386,
+    "sha256": "521462a713c904a7175099c1cce015007ae88039ff00ebb28bd80dc3ede67f0a"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/host.mjs",
+    "bytes": 15093,
+    "sha256": "2006816879061b00bfeb434b74a4fe639d33e5ed2f43d786a8d0b3e4fb528d47"
+  },
+  "hostDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/HOST_DELTA.patch",
+    "bytes": 5266,
+    "sha256": "c2407d9b2e21586b2da0d46973bbe892264b9a9a5d864843244b1e78112dfc5c"
+  },
+  "manifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1855,
+    "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+  },
+  "expectedAuthority": {
+    "ref": "workspace-authority://abiogenesis/a1e5afd77e63f8c6f7ea845ee5a8d4977ef1e7f359957962bfa2be65b438dd9f",
+    "digest": "sha256:a1e5afd77e63f8c6f7ea845ee5a8d4977ef1e7f359957962bfa2be65b438dd9f"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/SOURCE_INVENTORY.json",
+    "bytes": 292209,
+    "sha256": "f03711b3306f3d212bbe8c3cb8c02d90e34f38082a044412ebf5880934380d65"
+  },
+  "expectedAfter": {
+    "bytes": 201739,
+    "sha256": "1969d63beb6c7e43a083ca3f4a1c0a7251532bb25a844b24066a5d81283b35a8"
+  },
+  "contextFiles": 11,
+  "contextMemberBytes": 287360,
+  "instructionBytes": 1125,
+  "setupBudgetMs": 900000,
+  "nativeBudgetMs": 300000,
+  "nativeMaxTurns": 60,
+  "nativeModel": "claude-opus-5-5",
+  "nativeEffort": "xhigh",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/runtime-001",
+  "hostScratch": "/private/tmp/abg-rc10-how-02",
+  "nativeScratch": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/how-02"
+}

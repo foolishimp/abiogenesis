@@ -1,0 +1,62 @@
+{
+  "kind": "bounded_actual_binding_copy_attribution",
+  "at": "2026-11-05T23:51:48.772134+00:00",
+  "standing": "MEASURED_REMAINING_CARRIAGE_LEAD_NO_SOURCE_CHANGE_SELECTED",
+  "observation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/BINDING_SIZE_OBSERVATION.json",
+    "sha256": "4c7f6ae0cfc6e8172033c310e8e9ce87e1db28f905488cede1c0a548cc184317"
+  },
+  "bindingEvent": {
+    "kind": "actual_native_metadata_observation_source",
+    "eventOrdinal": 120028,
+    "eventOffset": 730839286,
+    "eventRowBytes": 14412670,
+    "eventRowSha256": "31878706545b0e135c04fb5e9fb051bfbb4a7233784c9a6fd6424d1661be7e31",
+    "transportBindingRef": "transport-binding://abiogenesis/c0bc0b5bbe25ff996963895313a5fe77714803d3459ba0dd3db2b0542d90b7b9",
+    "transportBindingDigest": "sha256:c0bc0b5bbe25ff996963895313a5fe77714803d3459ba0dd3db2b0542d90b7b9",
+    "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-dcb06c9659eb88a1-stdout.log",
+    "limits": "Allowlisted tool_use metadata and terminal counters only; no provider reasoning/narrative/tool_result or stderr."
+  },
+  "earlierBasisComparisons": [
+    {
+      "eventOrdinal": 120019,
+      "eventRef": "event://abiogenesis/a242e3f9b0dacbb0594d5f6e9483433fd623bb707cf7f8324823fa6b340c64ec",
+      "eventOffset": 716491341,
+      "eventRowBytes": 14325731,
+      "eventRowSha256": "34f3740584fe4780f3200e90f53af81d30af309b91a6b8558cdb0c92a21f1db5",
+      "sameRun": false,
+      "sameBasis": true,
+      "rawInputValuePresent": true,
+      "equalJsonValue": true,
+      "basisRef": "execution-basis://abiogenesis/0316301a50977a4ea4ad6a0a221ac676efff8a92d1a8ecb42baf2604c5689d51",
+      "payloadDigest": "sha256:2020a19c5eeb6f11efef159c894b9c8abf9fb1e77ad02ec0d86a839f74b7ec02"
+    }
+  ],
+  "installedOwnerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_body_encoding.js",
+      "bytes": 14291,
+      "sha256": "2358fe1ce79b18d07676c6cc42224770b80e0847fb44d3e626bb0a6b7d4615ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+      "bytes": 124338,
+      "sha256": "1c8ce10ae0a54979af2384cc8fa7af9c8c5b1498255d967f5655aaa29136bfde"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js",
+      "bytes": 76820,
+      "sha256": "cb112d3b0269756d592b4f70b88ed991263bd6e5c314b73ab1f0628396ada33a"
+    }
+  ],
+  "existingOwnerMap": {
+    "producer": "instruction_assembly.js native-work/worksite-native envelope includes complete native execution basis; actor_process.js includes instructionAssembly in actor_transport_binding_admitted.",
+    "durableLibrary": "event_body_encoding.js already provides shared encode/decode/capture and basis_input/Result body coordinates. Its native_definition_material slot selects six declaration fields and excludes executionBasis.rawInputValue.",
+    "implication": "Existing library is the first owner for any later scoped carriage repair. A truthful earlier-basis relation and affected cold-read proof must be selected; this observation is not a patch or a new codec design."
+  },
+  "limits": [
+    "JSON value equality is a physical source comparison, not new runtime admission or performance proof.",
+    "Byte counts do not establish CPU or wall-time attribution.",
+    "D5 lifecycle-copy completion remains the only coding task. This lead does not add an automatic release gate or invalidate accepted bounded RC6 evidence."
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "kind": "q23_actual_native_proof_failed_close",
+  "at": "2026-11-05T20:16:14.506699+00:00",
+  "status": "C2_SATISFIED_UAT_CONSTRUCTION_FAILED_SOURCE_UNACCEPTED",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "run": {
+    "digest": "sha256:b0d5c33b49b49ba2b959ecb3dad7261ce88bb70352ea36f374b825e9d78d4b6a",
+    "ref": "run://abiogenesis/13153bebad985222e998e336b206fca8111acfbfd6464cdb413bbc6b5a8960ff"
+  },
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/outcome-summary.json",
+    "bytes": 548,
+    "sha256": "dd8014ebf59f91fcf625cb4c49f0adc92ec0031b5d34f3a74c1e9f445a86da55"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/fresh-reads.json",
+    "bytes": 2402,
+    "sha256": "c5d78fcab49354d99ca83d6a9022bb18e22cac4cb5f03be3eff7a2c2616604de"
+  },
+  "freshResult": "not_found",
+  "freshReplayStatus": "failed",
+  "freshReplay": {
+    "digest": "sha256:ccdd69a12a05c1d33bfb1e3d675e3824f16ab453fa08415eb5702569179dd0b1",
+    "ref": "replay://abiogenesis/ccdd69a12a05c1d33bfb1e3d675e3824f16ab453fa08415eb5702569179dd0b1"
+  },
+  "terminal": null,
+  "freshFailureProjectionsConsistent": true,
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/after-run-resume.json",
+    "bytes": 72668372,
+    "sha256": "e10435e6bbaf9d0d3320d7868b356aca71c2bdba01a4104903eeb55aa205d3d6"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:7addcdd04cafcfd20b30517928d673b1579db786ad6ac7f42075a99e51f806de",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:8603143a3d6c1488140e44c9ce6b432ef3a55c762c2f1982aa52af48d3370d35",
+    "prefixLength": 431855279,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "allFrozenLiveMembersEqual": 339,
+  "allProofInputMembersEqual": 346,
+  "nativeC2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/ACTUAL_C2_SUMMARY.json",
+    "bytes": 4012,
+    "sha256": "4df8bd84310a5dc2933aa3a33a617cf27d827d07f46e8abb8c1fcde8161d66a7"
+  },
+  "nativeUat": {
+    "status": "NOT_LAUNCHED",
+    "failureEventOrdinal": 77434,
+    "failure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/RUNTIME_FAILURE_OBSERVATION.json",
+      "bytes": 1564,
+      "sha256": "57acff1df722518c9e3f831e05e601844facc57806f096cfc4a2b19693387327"
+    },
+    "diagnostic": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/UAT_CONSTRUCTION_FAILURE_DIAGNOSTIC.json",
+      "bytes": 207,
+      "sha256": "b76f1ad0bd56f87659b4c28cfbc7c77d2d19793945356aab67a883131e1e4f26"
+    }
+  },
+  "host": {
+    "startedUtc": "2026-11-05T19:52:22.668285+00:00",
+    "endedUtc": "2026-11-05T20:00:21.455086+00:00",
+    "wallMs": 478795.6184996292,
+    "exitCode": 0
+  },
+  "limits": [
+    "C2 remains valid bounded component evidence despite subsequent Run failure.",
+    "No native UAT, independent source acceptance, production eligibility, qualification or release closure.",
+    "Constructor duplicate-path violation is established; exact recovery route is under bounded owner readiness review.",
+    "Prior capture script assumed blocked and failed on runtime_failed; this operator capture failure is preserved."
+  ],
+  "operatorProjectionCorrection": "A generic recursive resume diagnostic printed excessive public metadata. It did not change the source or runtime. This close uses exact known fields and emits only bounded coordinates."
+}

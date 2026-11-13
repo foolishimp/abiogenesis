@@ -1,0 +1,129 @@
+{
+  "recordedUtc": "2026-11-03T19:35:12.324096+00:00",
+  "kind": "actual_c2_output_territory_and_report_capture_triage",
+  "subjectSha256": "cf84f95de7331851eae35cceca1ec2a9e07bd0e6dda5402cd4c7a6e5b29d5397",
+  "helperArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/7b0319d6c4e10c939a77d6ddc4b5a3494892f9ba50e89dfa58fdf699c308f41b/77fa91d656ef50df5e7f6ddb5a2afb4afb64e133cb8f9d9aad3cff845a9ad62b/result.json",
+    "fileSha256": "07cad8992e68973da49f94962b76925127388fe6d997f7a579f7eb2294e284d3",
+    "artifactRef": "worksite-command-helper-artifact://abiogenesis/6456f8b3dca38402e8517cef7f4b6f2756100c74ad2fe90b6be15d2651f6bffa",
+    "artifactDigest": "sha256:6456f8b3dca38402e8517cef7f4b6f2756100c74ad2fe90b6be15d2651f6bffa",
+    "taskRef": "worksite-command-execution-task://abiogenesis/7b0319d6c4e10c939a77d6ddc4b5a3494892f9ba50e89dfa58fdf699c308f41b",
+    "snapshotRef": "worksite-command-snapshot://abiogenesis/c994abf315185fc47e934008c3f6b969750a38f9b059037c7046ad0e87805653",
+    "snapshotRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/7b0319d6c4e10c939a77d6ddc4b5a3494892f9ba50e89dfa58fdf699c308f41b/77fa91d656ef50df5e7f6ddb5a2afb4afb64e133cb8f9d9aad3cff845a9ad62b/sandbox",
+    "producerRoute": "Actual command-worker Bash call named this launch/attempt root; not inferred from attemptRef hash."
+  },
+  "sourceCorrespondence": {
+    "matched": 91,
+    "expected": 91,
+    "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/actual-c2-001/source-correspondence.jsonl",
+    "sha256": "e1329df3227cc1bda802beec385f9f3b898e7d3d4fea4c11e0b865802be667c2"
+  },
+  "commands": [
+    {
+      "ordinal": 0,
+      "commandId": "command://abiogenesis/single-address-space/native-03/source-correspondence",
+      "exitStatus": 0,
+      "timedOut": false
+    },
+    {
+      "ordinal": 1,
+      "commandId": "command://abiogenesis/single-address-space/native-03/offline-toolchain",
+      "exitStatus": 0,
+      "timedOut": false
+    },
+    {
+      "ordinal": 2,
+      "commandId": "command://abiogenesis/single-address-space/native-03/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false
+    },
+    {
+      "ordinal": 3,
+      "commandId": "command://abiogenesis/single-address-space/native-03/compile",
+      "exitStatus": 0,
+      "timedOut": false
+    },
+    {
+      "ordinal": 4,
+      "commandId": "command://abiogenesis/single-address-space/native-03/generate",
+      "exitStatus": 0,
+      "timedOut": false
+    },
+    {
+      "ordinal": 5,
+      "commandId": "command://abiogenesis/single-address-space/native-03/pack",
+      "exitStatus": 0,
+      "timedOut": false
+    },
+    {
+      "ordinal": 6,
+      "commandId": "command://abiogenesis/single-address-space/native-03/affected-proof",
+      "exitStatus": 1,
+      "timedOut": false
+    }
+  ],
+  "disposition": "territory_mismatch",
+  "unmatchedEffects": [
+    {
+      "after": {
+        "byteLength": null,
+        "digest": "sha256:333178788eae3e0b14c9b07bbbb6232bfa4689c7f134eeaa9daae60aba96de53",
+        "kind": "worksite_path_observation",
+        "nodeKind": "directory",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/evidence",
+        "schemaVersion": "5.0.0",
+        "symlinkTarget": null
+      },
+      "before": null,
+      "changeKind": "created",
+      "kind": "worksite_path_delta",
+      "matchedTerritoryRef": null,
+      "ordinal": 6185,
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/evidence",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "after": {
+        "byteLength": 2473,
+        "digest": "sha256:0190707edcd826c5e8181b992a693fc69c37305377bd0f9b56f3586efa483674",
+        "kind": "worksite_path_observation",
+        "nodeKind": "file",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-non-root-alias-selection.json",
+        "schemaVersion": "5.0.0",
+        "symlinkTarget": null
+      },
+      "before": null,
+      "changeKind": "created",
+      "kind": "worksite_path_delta",
+      "matchedTerritoryRef": null,
+      "ordinal": 6186,
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-non-root-alias-selection.json",
+      "schemaVersion": "5.0.0"
+    }
+  ],
+  "protectedInputsUnchanged": true,
+  "productDelta": [],
+  "proofCaptureFailure": {
+    "code": "ENOENT",
+    "path": "build_tenants/abiogenesis/typescript/artifacts/affected-owner-lanes.stdout.log",
+    "owner": "Root C2 orchestration wrapper",
+    "effect": "First lane child completed but wrapper failed to persist stdout and its tally. Actual first-lane outcome is unknown; later lanes and UAT did not execute.",
+    "uncertainty": "Artifact-directory removal producer not localized; no Product defect inferred. Report custody must not rely on disposable artifact-directory survival."
+  },
+  "outputGrantFailure": {
+    "producer": "test_env/tests/r5-invocation-admission.test.mjs:515-518",
+    "missingTerritory": "build_tenants/abiogenesis/typescript/test_env/evidence/abi5-non-root-alias-selection.json and its directory container",
+    "owner": "Root C2 packet",
+    "reason": "Expanded affected lane included the existing R5 evidence writer without its output territory."
+  },
+  "selectedCorrection": {
+    "scope": "Next activation only; preserve current task, Run, helper and failures",
+    "changes": [
+      "Declare the existing test evidence output through the worksite owner",
+      "Write operator lane reports in a dedicated path under already permitted test_env/test_runs; create the owned report directory before writing",
+      "Ensure final native proof/report paths have their own declared producers"
+    ],
+    "productOrGuardChanges": false
+  },
+  "standing": "Build/generate/pack exits and exact source correspondence retained. No passing actual C2 lane, UAT, acceptance or qualification inferred."
+}

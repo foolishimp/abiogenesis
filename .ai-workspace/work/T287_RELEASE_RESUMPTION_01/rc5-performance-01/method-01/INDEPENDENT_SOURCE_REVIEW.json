@@ -1,0 +1,37 @@
+{
+  "kind": "independent_source_review_root_projection",
+  "actor": "/root/rc5_method_review",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "recordedUtc": "2026-11-03T09:01:13.449845+00:00",
+  "projectionOwner": "Root records actual collaboration Reviewer return; not a file authored by Reviewer",
+  "productFrame": "GOAL-035/T287 method-01, fixed fifteen5.0families F01-F07,F09-F11,F13-F17. Exact304 source/skills for four existing roles and qualification staging; immutable definitions, derived generator, exclusive ABG runtime admission. RC4/historicalRuns remain302. No newloader/controller/store/roleauthority/Publiccontract/implicitRunupgrade.",
+  "result": "satisfied",
+  "scope": "bounded frozen source change only",
+  "triage": "not_applicable",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01/review-subject-001/SUBJECT.json",
+  "subjectSha256": "f930968c9a585b364ffb60f060a6dbb7b6ca99fd565b1968522ad803295fb2ad",
+  "preimageCommit": "3e2304de7dbad73b85dbf27e94c54766202f1583",
+  "preimageTree": "a13171d5def11dca6e7d7c4307113dc1c9aea929",
+  "nativeResultRef": "result://abiogenesis/3e92739bff5cdcedb542e719d1e03b56ee2b637b61a4a9ed92b0649586fbd4d0",
+  "findings": [],
+  "checked": [
+    "7snapshot hashes/admittedafterbytes/preimages/commit/diff/eventrow",
+    "exact304manifest/sixreleasedmembers/spans/headingboundaries",
+    "fourfinitebindings preserve existing leaves/policies/selectors/acquisition/instruction contracts",
+    "generator existingmanifestadapter, pluginmembership, assetplacement, bytes, completespans; fullsourcevalidatorunchanged",
+    "HOW finite skill/reference selection/capabilityboundaries/contextcost",
+    "selected exact304 assertions and altered/missing/unpermitted acquisition cases; qualification existingowner and retained302 separation"
+  ],
+  "recommendation": "No source repair. Retain review and complete C2 source correspondence, UAT and actual final result/replay.",
+  "limits": [
+    "No tests/builds/providers/mutations by Reviewer",
+    "Actual selected tests and semantic use/attention under enlarged role context unperformed by this review",
+    "FirstC2 failure reported by Root, operator selection evidence only",
+    "F4,GC03hostassurance,wholequalification,package/installacceptance,releaseexcluded",
+    "Nonauthor reviewer; same model family as Coordinator; unrestrictedhost no enforcedread isolation"
+  ],
+  "invalidators": [
+    "material subject,basis,consumercontract,evidencechanges invalidate affectedconclusions"
+  ]
+}

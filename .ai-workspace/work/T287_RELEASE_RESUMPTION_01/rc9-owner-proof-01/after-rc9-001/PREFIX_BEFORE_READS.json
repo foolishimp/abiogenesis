@@ -1,0 +1,25 @@
+{
+  "selectionPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-r9m-rc9-after-001/tmp/abi5-root-env-QueKRf/runtime/events.jsonl",
+    "prefixLength": 10742012,
+    "prefixDigest": "sha256:774a6301681a14473ee0c56061a6ea1d3ffbccfb297fa021dd5904d3d6cf3523",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 714714429,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:fb9da069a2125428ef8343d5540c65b04cd7dcd03a826126b8c134915cb1f32b"
+  },
+  "projectionBasis": {
+    "ref": "file:///private/tmp/abg-r9m-rc9-after-001/tmp/abi5-root-env-QueKRf/runtime/events.jsonl",
+    "digest": "sha256:fb9da069a2125428ef8343d5540c65b04cd7dcd03a826126b8c134915cb1f32b"
+  },
+  "identity": {
+    "device": 16777231,
+    "inode": 714714429,
+    "byteCount": 10742012,
+    "digest": "sha256:774a6301681a14473ee0c56061a6ea1d3ffbccfb297fa021dd5904d3d6cf3523"
+  }
+}

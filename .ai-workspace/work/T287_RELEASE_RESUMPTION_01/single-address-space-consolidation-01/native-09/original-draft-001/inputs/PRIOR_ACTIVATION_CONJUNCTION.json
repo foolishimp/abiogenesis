@@ -1,0 +1,177 @@
+{
+  "recordedUtc": "2026-11-04T10:06:15.104653+00:00",
+  "role": "Root Executive; recorded through separately activated operator/evidence Writer",
+  "status": "NATIVE08_BOUNDED_RAW_PROOF_ACCEPTED_ORIGINAL_CONSOLIDATION_OPEN",
+  "basis": "STDO3.0.4 / T-287 / GOAL-035 / original R1-R7 and C1-C5",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/review-subject-001/SUBJECT.json",
+    "bytes": 173779,
+    "sha256": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0"
+  },
+  "subjectSha256": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+  "sourceStanding": "Exact uncommitted successor; 122 source files plus three handoffs equal frozen native08. Increment changes proof/HOW only; Product code unchanged from native06. Immutable RC5 remains builder.",
+  "nativeAuthorResultRef": "result://abiogenesis/3524e09b375cd71c81dff2e16ef35fcb1d87506b10826f8818fb1d564d7969b1",
+  "nativeAuthorEventOrdinal": 57792,
+  "closedReviews": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/INDEPENDENT_FH_PROOF_REVIEW.json",
+      "bytes": 67555,
+      "sha256": "c03c8e9ff32fe2be587c2138caa6f1c5a6900ec1750e406b4899c2ed08ccda02"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/INTERFACE_RECONCILIATION.json",
+      "bytes": 49257,
+      "sha256": "27987d384e4b32bc30cdc0b3832071d94dc713dd2491de6983dcc5720e1db07f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/UAT_EVIDENCE_TRIAGE.json",
+      "bytes": 48626,
+      "sha256": "c59d132639fe424d04a390f30cbb53ed852f8a74e20d71cd3951b75d4521d6da"
+    }
+  ],
+  "actualC2": {
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/ACTUAL_C2_SUMMARY.json",
+      "bytes": 30198,
+      "sha256": "9db8ca773ed55474e293cbc2d773f378fa02b61ffd746ed0d978486ad182b48a"
+    },
+    "admittedResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/NATIVE_C2_CLOSED_RESULT.json",
+      "bytes": 2209,
+      "sha256": "8a20ace03115a4614006c9a3a750ada990ac23e5b22386fb1413be8d650f6771"
+    },
+    "tally": {
+      "pass": 42,
+      "fail": 0,
+      "skipped": 0
+    },
+    "sourceCorrespondenceCount": 125,
+    "protectedInputs": 918,
+    "protectedBeforeEqualsAfter": true,
+    "productDelta": [],
+    "retainedPriorExecution": "Ten lanes retain 266 original passes and 41 historical skips. No new execution inferred."
+  },
+  "nativeUATAssessment": {
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/NATIVE_UAT_CLOSED_RESULT.json",
+      "bytes": 8772,
+      "sha256": "a5624353ef32d7802d7dce6f6a8c24f122ad4dc2650e230cabd3559e9fccedde"
+    },
+    "resultRef": "result://abiogenesis/ae75d21445ea98541163373cf7fc7f4cd001cfe1d7ee861d29307eb447a30190",
+    "disposition": "indeterminate",
+    "unresolvedCriteriaCount": 14,
+    "triage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/UAT_EVIDENCE_TRIAGE.json",
+      "bytes": 48626,
+      "sha256": "c59d132639fe424d04a390f30cbb53ed852f8a74e20d71cd3951b75d4521d6da"
+    },
+    "unchanged": true
+  },
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/outcome-summary.json",
+    "bytes": 537,
+    "sha256": "89381d1a31f65380e2c423e9f8522760aa10adbde3299d4ef0750823ba7ddfdc"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/fresh-reads.json",
+    "bytes": 2413,
+    "sha256": "ca62bd172c39cbb5f65fdda3fb0d1f9ad211141bdf223c69531237e102e81a32"
+  },
+  "freshStanding": {
+    "result": "not_found",
+    "replay": "blocked",
+    "terminal": null,
+    "agree": true,
+    "acceptedTerminal": false
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/after-run-resume.json",
+    "bytes": 73164323,
+    "sha256": "70b5885e4941e4e1fc127b6f17568e3640e021f5c775bc15da5a060b13e01406"
+  },
+  "closeCoordinates": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/ACTUAL_FINAL_CLOSE_COORDINATES.json",
+    "bytes": 2601,
+    "sha256": "fa2665c778b20406ea74be65a4ac63882ef773221a3ddf126a5a794b381425a9"
+  },
+  "sourceAfterFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/SOURCE_AFTER_FINAL_CLOSE.json",
+    "bytes": 30047,
+    "sha256": "7e011ea97c6b5d61f77cd7caab7ac47b0c289448bf73c539f831c958dcee31c4"
+  },
+  "hostFailure": false,
+  "native08ReadbackRecovery": false,
+  "priorRecovery": "Native07 recovery retained only as ancestry; not native08 execution.",
+  "rootRulings": [
+    "Accept bounded native08 real RAW F_H fixture/preparer/projection proof, actual 42/0/0 C2 and independent judgment. No further F_H code/proof repair is selected. Physical cold/current F_H grant binding/commit/dispatch/installed qualification remain outside that claim.",
+    "Do not accept whole R1-R7/C1-C5 completion. IR-01 and IR-02 are genuine remaining original C1 adoption/retirement omissions. Existing owner APIs suffice; select their complete finite caller/test population through one native Worker.",
+    "Conjoin the actual available proof/report pins from UAT triage without altering the actual indeterminate assessment. The missing snapshotRoot/delta instruction is an operator consumer mismatch, not Product projection loss.",
+    "The next operator packet must use existing final command stdout and exact report/native-proof locators. Preserve all original criteria and known limits. UAT cannot fabricate its own future fresh-close/Root conjunction or an unseen concurrent review.",
+    "Preserve separately the disclosed off-grant /tmp/dummy_ignore write/delete and missing earlier scratch TAP custody; no harmlessness, whole-host confinement or complete cache observation claim.",
+    "Same-input/component proof remains bounded. Complete successor native workflow performance and R6 CPU attribution remain open; no claim that all 826600ms startup is necessary or eliminated.",
+    "Preserve all historical code, tests, failures, installed releases and exact completed qualification. No new runtime acceptance follows from this document."
+  ],
+  "currentOriginalCriterionStanding": {
+    "C1": "Open: three historical cuts, seven ordinary semantic call expressions and obsolete wrapper retirement selected together in09; broader census retained with these exceptions.",
+    "C2": "Bounded same-input conservation and work/bytes/CPU/memory evidence retained with explicit limits; affected09 proof plus installed successor workflow observation still required.",
+    "C3": "Native08 actual RAW proof/C2 and earlier bounded installed producer-consumer/SDK evidence retained. Actual08 UAT/close remain indeterminate/blocked, no terminal; no original acceptance.",
+    "C4": "All R1-R7 stay in the original map; R4/R5 operator reachability corrected through exact existing references, actual whole-workflow cost and R6 residual not hidden.",
+    "C5": "Closed08 source, C2, review, UAT and fresh records now conjoined under their actual limits. New09 subject requires affected independent review/C2/assessment/fresh evidence and Root original-outcome decision."
+  },
+  "nextContinuationSelected": true,
+  "selection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_09.md",
+  "selectionPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_09.md",
+    "bytes": 9478,
+    "sha256": "9a4321873b6638cef5f6a3fad907a2b7240e29ad3b7ca6279af94905ad3146ff"
+  },
+  "selectedResiduals": [
+    "IR-01 complete three historical-cut owner migrations",
+    "IR-02 complete semantic authenticator caller migration and obsolete wrapper/test retirement",
+    "Operator UAT actual report locator and role ownership correction"
+  ],
+  "permittedProductEffects": {
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_09.md",
+      "bytes": 9478,
+      "sha256": "9a4321873b6638cef5f6a3fad907a2b7240e29ad3b7ca6279af94905ad3146ff"
+    },
+    "effects": "Only one native xhigh Worker; exact eight named Product files, necessary existing export owner, affected existing tests/support and owning HOW. Operator enumerates exact final paths; Root does not edit these."
+  },
+  "operatorControls": "Preparation authorized now from actual08 close. Existing-owner provider-free preflight and proportional frozen control review precede Root dispatch. No automatic retry.",
+  "nativeAbsoluteTimeoutMs": 9000000,
+  "nativeInactivityTimeoutMs": 7200000,
+  "outerTimeoutMs": 18000000,
+  "helperShellTimeoutMs": 7200000,
+  "proofCommandTimeoutMs": 2700000,
+  "budgetRationale": "Existing ceilings retained, not an ETA. Finite affected lane population is selected from actual semantic/interface dependencies; no unchanged whole qualification or broad long replay rerun.",
+  "timing": {
+    "startupBreakdown": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/STARTUP_COST_BREAKDOWN.json",
+      "bytes": 11133,
+      "sha256": "4c0076354fa66441e4d1edf38e772e5d7483e150e67143edee07dab4a24c565a"
+    },
+    "launchTiming": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/LAUNCH_TIMING_COMPLETE.json",
+      "bytes": 1076,
+      "sha256": "aac755a2f6a45664b8374135cee9c62b4118b622712cb496e0a044fac56d71d2"
+    },
+    "meaning": "Setup, host preparation, worker launch, actor work, between-task and final close remain distinct."
+  },
+  "forbidden": [
+    "Root Product/test authorship",
+    "second coding Worker",
+    "prior evidence/log/release mutation",
+    "commit/push/merge/tag",
+    "global selector",
+    "new cut/install",
+    "stable/whole qualification claim"
+  ],
+  "closure": {
+    "boundedNative08RawProof": true,
+    "wholeOriginalOutcome": false,
+    "release": false,
+    "qualified": false
+  }
+}

@@ -1,0 +1,5 @@
+# B04 readback status correction
+
+The frozen B05 input `rc3-operator-inputs/increment-b-05/B04_DISPOSITION.DRAFT.md` says its fresh readbacks and final prefix confirmation remain pending. That was accurate when authored but is stale. It is retained unchanged as a historical draft; this separate erratum supplies the later fact.
+
+B04 finished at 2026-10-31T13:16:18.493Z with `result` / `blocked` and no terminal Result. Fresh `run_result` returned `not_found` refusal and `run_replay` returned a blocked result. The actual full event prefix was 2,706,321,376 bytes, SHA/prefixDigest `5bf94f7575506833a346a0c85d0d9af3d4394b539e77f1f016e98d28ad0806da`, coordinateDigest `sha256:ba50cad82b6e5f3f8c6cbd84b23cde6149df90753a6c0c151b53541f51eb91ad`; both fresh close coordinates and the full prefix bytes/hash matched the retained handoff in `POST_READBACK_ASSERTION.json`. The frozen B05 activation, prepared call, preflight and dispatch bind these actual coordinates; this does not alter their bytes or the historical native verdict.

@@ -1,0 +1,119 @@
+{
+  "kind": "closed_failed_native_run_passive_custody",
+  "recordedUtc": "2026-11-06T07:17:53.224Z",
+  "status": "ACTUAL_RUNTIME_FAILED_NATIVE_SPAWN_FAILURE_CLOSED_SOURCE_UNCHANGED",
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:642598933e126ec3862fca050bc446a29c29e2f97c7590a981a8457a29b47a4b",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:ab7b8c96cd1f5059c7b027e1a5bdf6252cf0670369210a2384b3d7642c654689",
+      "prefixLength": 1409639062,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 701759869
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:e9a18805f9b06e34a1a6a24fa270d508f3cfcef87ed0961aef4773182c137952",
+      "device": 16777231,
+      "durableByteLength": 1409639062,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:ab7b8c96cd1f5059c7b027e1a5bdf6252cf0670369210a2384b3d7642c654689",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "inode": 701759869,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "closeDigest": "sha256:4db1e76d51eff4eeb84272634e4d8802299df51150e377c59d87636c480e2cfa",
+  "run": {
+    "digest": "sha256:71310acace00e52f51ac0ce392a419487242a7404af70f72b46fb2fdf0c203eb",
+    "ref": "run://abiogenesis/f81456702a82e0139b4c36132c2773141be9b86b78071a43ca12436d87924d63"
+  },
+  "actualExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/execution.json",
+    "bytes": 63216844,
+    "sha256": "43ce99b0f14573157705437c1152af9ca9467e4a429d8db6a0a2aab3455f452c"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/after-run-resume.json",
+    "bytes": 72498325,
+    "sha256": "427164432e60bd6424420b22383b672923b78dcbc24572c241aa95f731fa0c03"
+  },
+  "hostResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/host-supervision/HOST_RETURN.json",
+    "bytes": 556,
+    "sha256": "c9b6d57d1d97b07c852b300156679f5e302d57c94721c635572ef12e843718dd"
+  },
+  "hostStart": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/STARTED.json",
+    "bytes": 1568,
+    "sha256": "36a6718efebbc1883757a748f409fa47d5f619d168769102153e5b03c64c07ec"
+  },
+  "pending": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/READBACKS_PENDING.json",
+    "bytes": 2540,
+    "sha256": "f917f77327afbd7462092f814657a27a9a30db98f410a0f0e51291f5edb93e4c"
+  },
+  "invocationExitCode": 0,
+  "hostExitCode": 0,
+  "disposition": "runtime_failed",
+  "terminalResult": null,
+  "physicalFailureResult": {
+    "kind": "c_call_result_admitted",
+    "admissionOrdinal": 209522,
+    "eventId": "event://abiogenesis/32329a0498a0a1cdae3f3b5781327f3d6cb5a9cd6c55915fbb29e87b16693e99",
+    "eventTime": "2026-11-06T07:05:58.658Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/f81456702a82e0139b4c36132c2773141be9b86b78071a43ca12436d87924d63",
+    "offset": 1359904370,
+    "rowBytes": 49716782,
+    "rowSha256": "882d18fb67e4ceb66b3b517e971d34f4dc002f70170c9892902e3f8fa86c206a",
+    "resultRef": "result://abiogenesis/ac181feffe1e40caf9cdac694c1b13a09dcde3830ecaa7bd0973ba0282527c06",
+    "valueKind": "native_workspace_work_failure",
+    "result": {
+      "ref": "result://abiogenesis/ac181feffe1e40caf9cdac694c1b13a09dcde3830ecaa7bd0973ba0282527c06",
+      "digest": "sha256:ac181feffe1e40caf9cdac694c1b13a09dcde3830ecaa7bd0973ba0282527c06"
+    },
+    "valueDigest": "sha256:0f1096f3c412585bcfc4bc714435ddd2ba8a8f8052dee02a5f256ed3da719f55",
+    "payloadDigest": "sha256:70094a4f95c51d3c512e0e291c4868fe5cdb3554af22e65f4cf168967b0aeb05",
+    "physicalRow": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "offset": 1359904370,
+      "bytes": 49716782,
+      "sha256": "882d18fb67e4ceb66b3b517e971d34f4dc002f70170c9892902e3f8fa86c206a"
+    },
+    "failureClass": "transport_failure",
+    "diagnosticRef": "diagnostic://abiogenesis/worksite/native-work/transport_failure@5",
+    "beforeAfterEntriesEqual": true,
+    "changedPaths": [],
+    "ownerShapeValidated": true,
+    "terminalJoin": false,
+    "bodySource": "Exact inline physical Result row at actual returned closed prefix"
+  },
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/TIMING_OBSERVATION_ENVELOPES.json",
+    "bytes": 4164,
+    "sha256": "1a0ac88968ad35cb1807dec47aec2b12a4e0451bcfc1dd5d2f3c843b724c5ae6"
+  },
+  "sourceEquality": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/failed-actual-001/SOURCE_EQUALITY.json",
+    "bytes": 104890,
+    "sha256": "c393ac57ba117d860be007946830f1869f325d6ce5be8d328d8fe28ba9923b8b"
+  },
+  "presentSourceAndControlsMatched": 466,
+  "absentHandoffs": 3,
+  "coldReads": [],
+  "qualified": false,
+  "sourceAccepted": false,
+  "nativeSuccess": false,
+  "limits": [
+    "Genuine successor close of failed N; never substitute B close.",
+    "Actual returned terminal is null. Failure value comes from exact physical Result row; no terminal or event admission manufactured.",
+    "No native author effect, source change or handoff success inferred; exact before/after/current bytes are equal.",
+    "No cold result/replay selected for this deterministic failed Run. Source snapshots and all original owner artifacts remain intact."
+  ]
+}

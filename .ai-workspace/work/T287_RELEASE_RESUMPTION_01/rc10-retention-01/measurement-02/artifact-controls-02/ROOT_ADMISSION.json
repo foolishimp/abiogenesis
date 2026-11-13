@@ -1,0 +1,32 @@
+{
+  "id": "RC10-PROVISIONAL-ARTIFACT-02",
+  "status": "ROOT_ADMITTED_RC10_PROVISIONAL_PACK_INSTALL",
+  "owner": "/root Executive",
+  "recordedUtc": "2026-11-09T04:30:45.583209+00:00",
+  "bindingSha256": "1c67c2ce991052706ea3ac94782127b4bbe4e88e6cbc62f1cb422292e1b05f6f",
+  "sourceIdentity": {
+    "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292778,
+      "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+    }
+  },
+  "conditionalProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/STRICT_FOCUSED_OBSERVATION.json",
+    "bytes": 3466,
+    "sha256": "aeab83667304aef7dd15ebe07c3ec96622aaba60f321da175d2a4b3ad80b45c5"
+  },
+  "ownerInstruction": "Root conditionally authorizes, only after focused strict1/1 succeeds, one offline ignore-scripts pack and existing-owner verify/lock/install/all-member comparison from exact proof-02 built stage, same previous bounds/immutableRC9/no selector/no release/source edits. New artifact-02 and isolated bootstrap-002; old bff1a521 never reused/released.",
+  "bounds": {
+    "hostMs": 600000,
+    "packMs": 120000,
+    "installMs": 480000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "freeReserveBytes": 4294967296,
+    "nodeHeapMiB": 8192
+  },
+  "noAutomaticRetry": true
+}

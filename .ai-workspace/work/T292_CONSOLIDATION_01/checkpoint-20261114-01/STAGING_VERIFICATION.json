@@ -1,0 +1,1186 @@
+{
+  "originalVisibleFiles": 39225,
+  "allOriginalFilesStaged": true,
+  "stagedPaths": 39827,
+  "newLfsFiles": 196,
+  "newLfsBytes": 16498265729,
+  "embeddedGitlinks": 0,
+  "lfsObjects": [
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/selected-action/environment.json",
+      "oid": "a123b1aff2cb80a34f468207fc9ad03288f9cb932de0e78cde430fae872ec4cb",
+      "bytes": 52611008,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-002/diagnostic-01-after-run-resume.json",
+      "oid": "f5b052c5a75dc6b648d663569440ae09eb28cd3abdf9342633ed9630080289b1",
+      "bytes": 60948809,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-003/diagnostic-01-after-run-resume.json",
+      "oid": "f06745fde0da45eb3907ab7ad957e570e52983a98a7e60a7c31b43a39c85c0dd",
+      "bytes": 60949163,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-004/diagnostic-02-after-run-resume.json",
+      "oid": "bcffad61fc6e6c4c7e7d38459ea4e8ccebb023997224c799f08041e3eff17b96",
+      "bytes": 60949511,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-005/diagnostic-03-after-run-resume.json",
+      "oid": "6abc0a4782af02c56ef4d7f3a8b7c397fa0e5eb7616cafcd05207344811545b4",
+      "bytes": 60949861,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-006/diagnostic-04-after-run-resume.json",
+      "oid": "28a037c2b23ebd34440680416f526c9480ae59033bbf8d56fdf620f8a4d599b4",
+      "bytes": 60950211,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-007/assessment-intake-01-after-run-resume.json",
+      "oid": "e61a058b70076bd8bdeb2e046db67e2a70db27df449b9f190981890fb5a3cb46",
+      "bytes": 60950561,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-008/fixture-repair-01-after-run-resume.json",
+      "oid": "4d58dc4bf88158a13b186fe4723254f6bd8693480bd6ebb28675b58e1ddd7b19",
+      "bytes": 60950911,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-009/artifact-reconciliation-009-full.json",
+      "oid": "de5998610e66af2c3fca57f7e07eb6665204e868665bbd40b68713884d44233c",
+      "bytes": 96311901,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/attempt-009/candidate-rc2-01-after-run-resume.json",
+      "oid": "6ae92e7ef07746c8763b49c3ee1b21696c5a34afecb0fcebb657538b7377eb5e",
+      "bytes": 60951261,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/diagnostic-01-after-run-resume.json",
+      "oid": "28999244375469621b349bd8cba8f632e5a56c17493aa078173b4e8fe9ad7f96",
+      "bytes": 60948457,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/operator-resume-material.json",
+      "oid": "36f96641c6dddcdfb19b238c56ba1f50a3517afe9460eb0569c5a403cdff0410",
+      "bytes": 73449608,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/task.json",
+      "oid": "a791adc0b30ed0cca86392d17d044ac668e3b94b911461ae5e4f3a3cdf8a78c0",
+      "bytes": 78509491,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/bd6088e9314d5b2830993ecc31ceeda25a7bcc7fa2b021278b71ef07babb797e/7258a65e61a0dc1f89c41ee511121702332fff6dcf17263fc181865f538f0432/task.json",
+      "oid": "16c7151d1268cc9a7968a691f8612fc5882490c21d97b3b2a66dcf9404fae44d",
+      "bytes": 76977163,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/e800400653fe6dafb44ade9e93af95b56d9ca7d0dc29d6df350d5affb3f3ff02/c62b87eaa34a5728d6bd8ef616af1b37cb8d331bb70d532d3bf5d6a77ae4699c/task.json",
+      "oid": "ae8410d05f7e24dd9b9e6098af43619ecb3c8986e6ff56c2a82f081e10bffa4f",
+      "bytes": 97140131,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/ec4e650e91586cc30ec23570b8bd3459924fdf50f670e8b5527b3dbde6a0f6e6/7febaa086bbe7d90bcdb365b988ff5b3eb31f7692256d9ad92ca6de8791c442e/task.json",
+      "oid": "abe708ac16fce3bdb0183f37f9b9e5567bc56f621839d79163120dceadd5e2ff",
+      "bytes": 76949282,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-011/retained-runtime.json",
+      "oid": "b86f4bf41276791e71d9c381d106727d9d5c506f80596102c52ded451a6f43dc",
+      "bytes": 73353884,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/operator-resume-material.json",
+      "oid": "d5f55f3b753f22a5684c4712e85dd3ed1119269a3720e4b3107aebfb223a1ceb",
+      "bytes": 73449608,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/worksite-command-execution/5ef35a3d98191cde4badd5c7ba38e856c0771c3a5fe5d96bfbd7f5c0a31c5f03/f93bc5c02013c38501b7cd8304c51cf4edec6903902d4cc3b76875bac1ec9e03/task.json",
+      "oid": "0070a80fc50ad89ad30ef280f00e60a1613c2efee51d175963fe14b2e61a7e11",
+      "bytes": 111736243,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/operator-resume-material.json",
+      "oid": "39755f63e31d8d0b4a71f17498bca6137cfdc73ec5aa9048c5c065eb1b245d00",
+      "bytes": 73451053,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/worksite-command-execution/e1d42323c72c154c0c9ddb3a6d59e237629b76fd14194167f2079f527e06c2cb/fafa41d54cea85cfc03354774c712d4cb4571a450aecf4e866c524737380126c/task.json",
+      "oid": "ddfe58c8e78e8efd2ec7ef465fcf112aefab51f63dd62263be66035eda3fb9e5",
+      "bytes": 119063114,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/operator-resume-material.json",
+      "oid": "337ab966c0f745700a10f16621e22fbb0fb4d1e3263e5e2631dcf9c6391c993a",
+      "bytes": 73451062,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-004/operator-resume-material.json",
+      "oid": "898644ae4ee835685c3ee5be09ced6c2dd07bf24566bb8764cf35d84da6b913b",
+      "bytes": 73343901,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-005/operator-resume-material.json",
+      "oid": "4f02473d0c0bdc2e20f613f4c914a2637e02843fd8d082ce926203efac2e219c",
+      "bytes": 73371717,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-005/resources/archives/worksite-command-execution/61ed9667fad5a311b47b08dbb2d3e0673ebd25d2c1bd9509cdf6a2ce81e51b4f/eebe6060f96695f1657503318dfa081ef10e405990ac9845ae2b0f148d093063/task.json",
+      "oid": "efd3db17786aaa04b02694bbbffea8b5c658d71c1ef7fc4f5e4c50c787c3e178",
+      "bytes": 119515871,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/operator-resume-material.json",
+      "oid": "9d395736d57096136fbc05d46c25ac283acda4aa7dc2ad5bc6e7c1f793292d58",
+      "bytes": 73371717,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/task.json",
+      "oid": "1b797ee73e2d7adfcf6e1507bbcd47486660e04dec38991200fce1f5aa021f89",
+      "bytes": 119448294,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/attempt-001/after-run-resume.json",
+      "oid": "21cac75aabdefee804d5fd159f9f2b4dbccccc3a4f05f33c1c85e5342526190c",
+      "bytes": 60949821,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/operator-resume-material.json",
+      "oid": "33f6f6695cf1a2dce4de9f80ff15b1bf76f9b405168125dfe6bc6e746b70c5aa",
+      "bytes": 73451705,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/worksite-command-execution/51717170187809060e33cb0af9a7a0d87c0446a4f7661b396c2ac113879d4751/e98da6bc6b049353e1efc9c642358d502b0363b23ca48c0525a62b69cf26f3c8/task.json",
+      "oid": "5ea3fb10505773e20a22e16102f8e4d75dd65355c1daf64c9dd837c18b30fcc6",
+      "bytes": 120512831,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/worksite-command-execution/d6588659ad08b977845675cfdc0d08284567e7014030d70ef0b6d3b1bd6b6493/ac2bc83ecafaa391c70f600bbb02a6ff84a56d7e3214adf04e3842dcea45fbd8/task.json",
+      "oid": "e80dbf255a96aad840a73151bf5295a16689cad7c9c8288b08717fd15a44f952",
+      "bytes": 120137893,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/after-run-resume.json",
+      "oid": "7a30fcca0ff649419ba936c291969cf9f6d1ca9964a747daf2e389ac8b480ee3",
+      "bytes": 60950181,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/attempt-001/after-run-resume.json",
+      "oid": "0b45872436ba0399ae3890dd2decd23ea9dabedd971fceccd73c33267e12b030",
+      "bytes": 60851967,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/runtime-001/operator-resume-material.json",
+      "oid": "64e4867d32a91d3e7d314f5741306b2615f36df3214ba481c6c3b1b6acd93c64",
+      "bytes": 73346192,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/operator-resume-material.json",
+      "oid": "86961576528f07ea10d9adba703bc2ec27a840ce9946a5f603adde688de8fa2b",
+      "bytes": 73360529,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/operator-resume-material.json",
+      "oid": "252bb249f8466a1f446c5400360f852a460a301fde28c48b8d93534c74bfa2a9",
+      "bytes": 73360527,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b10-003/operator-resume-material.json",
+      "oid": "5dc821a6a8be27c480ad533f48229a18699ad4d6b905680266b2a6f1f754bc91",
+      "bytes": 73360530,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b11-004/operator-resume-material.json",
+      "oid": "0563878135ed467dc31404effa31228b940e4e41c878f222b5855115386aee5e",
+      "bytes": 73360530,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-001/after-run-resume.json",
+      "oid": "a02e6da38998d0814dd54aa658bfab95e2f9eeb635a8b008653a8113f816947b",
+      "bytes": 60953069,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-002/execution/after-run-resume.json",
+      "oid": "56047edf3d31fa72fe7ab304695469da62bf84dff4f265e6e7052c13866252ba",
+      "bytes": 60953427,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/execution/after-run-resume.json",
+      "oid": "f3b6bf6e686c211d75d08dd73d56ab05775de40aca5b2b0a01626cf180c3fc2f",
+      "bytes": 60953779,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/execution/after-run-resume.json",
+      "oid": "0e51e51fcd40c2b1c5ae1b308473e5b5e13e9fe28ca25faef03afb59a050b7e6",
+      "bytes": 60954164,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/public-read-operator-resume.json",
+      "oid": "fb8e47827c4028c1bf4280f7bb45785c5882ce7146bb9045351cc982a83dca59",
+      "bytes": 99884807,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/resource-recovery-001/recovered-operator-resume.json",
+      "oid": "cecb82be54e9abacd551ab0350fcde1c52332f7e7098d286e56937ca2ecd9e64",
+      "bytes": 73460655,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/source-acquisition-001/public-read-operator-resume.json",
+      "oid": "c6168af5f87dcc4c6d9a9e099d9103c25430b2731644c2b7a4ebb44df83aaa29",
+      "bytes": 99885171,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/execution/after-run-resume.json",
+      "oid": "1eaa792850fa6382fa7f1fe02edb84a0b99c9a57afeb7fbc4b9673a41adcadef",
+      "bytes": 99886218,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-001/public-read-operator-resume.json",
+      "oid": "ba1b8d8157432af87806979afad372ebb385e066a952e1d5bac12f6e119d9065",
+      "bytes": 99886582,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-002/fresh-context.json",
+      "oid": "05b6c1ab09da6a5cd6b259ac4cb9ac71ddd74384c3f5f65ef1e655a5f6cbe80d",
+      "bytes": 56700604,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/historical-source-preflight-003/fresh-context.json",
+      "oid": "05b6c1ab09da6a5cd6b259ac4cb9ac71ddd74384c3f5f65ef1e655a5f6cbe80d",
+      "bytes": 56700604,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-008/execution/after-run-resume.json",
+      "oid": "822180ea52a030a064854baeaff75c3295bc2759b857658b08099168390ddb9f",
+      "bytes": 99887631,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-008/execution/execution.json",
+      "oid": "701113c8d889570e69e13f5b130dd12dab2e49bf0c12a7d9a95aa9e00dd89325",
+      "bytes": 63272334,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-008/execution/prepared-call.json",
+      "oid": "48a41e743b7bcdd631eb4c1f54d4037864cba06f0a2c7c523a507c93ae23ee6b",
+      "bytes": 61533182,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-009/execution/after-run-resume.json",
+      "oid": "5deebead3d4b1965a086f3e0d4bb46557bb8dfe167a3cc9d98868e983f3b8181",
+      "bytes": 99888680,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/execution/after-run-resume.json",
+      "oid": "d4a0efe2a61ba62290cc8d8054d52c5bec2ae619f1db0bd42c86bfe1baeeac9e",
+      "bytes": 99889729,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-011/execution/after-run-resume.json",
+      "oid": "4ed6bc17b8b282dd6f3c7ede8a723c8e4a6f628ffac67c39727d26b9399fc7b0",
+      "bytes": 99890781,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/execution/after-run-resume.json",
+      "oid": "0b181b6147aab9c47a5d29828f4b29869db4bfe29d1554161ae39563f4181966",
+      "bytes": 99891830,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-013/execution/after-run-resume.json",
+      "oid": "dc820778a4cce15e99e38e80f2ed712f694a7ce166e4e808fd7f6b8204e9a3c1",
+      "bytes": 99889123,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014-r1/execution/after-run-resume.json",
+      "oid": "4c8c75ff791c21da91bae94faa262b47294b76e15e96fb2a6697b3b206c18c9a",
+      "bytes": 99890175,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/execution/after-run-resume.json",
+      "oid": "e752f2fefade58e45f288d564a9d13d43cf9f6294dd358f632ba9c77f6de081e",
+      "bytes": 99891224,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/resource-recovery-001/recovered-operator-resume.json",
+      "oid": "212fffe31d31ad9841710eaed7e8dba130530971b31a820fdd0b32a60d75eb01",
+      "bytes": 73461245,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/execution/after-run-resume.json",
+      "oid": "10a2b22bd3cdb2eaa6d4d67c17be1f241dd33633695723bb13ac81c851817a52",
+      "bytes": 99885376,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-018/execution/after-run-resume.json",
+      "oid": "c187e7cd19fc0220fb357ca5e15bd167ab0b86c2b5635a7921c99fc648a8d26c",
+      "bytes": 99886424,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r2/execution/after-run-resume.json",
+      "oid": "c542964bad333d804e8bf2f66518deeb44b3d7f843cb80af1a0d158feacbf8b3",
+      "bytes": 99887476,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-020/execution/after-run-resume.json",
+      "oid": "cd797b0afcc3e2431c80541ec8f729996012a2308f55c25974b373e1674a703f",
+      "bytes": 99888522,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/execution/after-run-resume.json",
+      "oid": "07c18e484cf008c71a77ab0a5c1a7d96e2bd5b1e216eff48408007c725e4d94e",
+      "bytes": 99889570,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/a.resume.json",
+      "oid": "42c39cbb0af88576996c81c6ea8ac8cfd0a6dcd0797e48d8ebe3101f80845fcb",
+      "bytes": 91173550,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/setup.resume.json",
+      "oid": "a581a3850a0209722d21c47e0c4eabd69167f7052ea5e2a823cad90667dfe0c9",
+      "bytes": 91173550,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/baseline.json",
+      "oid": "07cd5f5a1b73389cb2c245072c4c897ef302de0e44d1b30294798c81faf2b4d6",
+      "bytes": 86007554,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/operator-resume-material.json",
+      "oid": "be4907b15be34c60e9821bf7105396e6b45a31d018959534a5aec86282819d21",
+      "bytes": 73464475,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/operator-resume-material.json",
+      "oid": "6ff4f2316532ef82ac42964e175424715120a5e002670993418c709bbcccfc6a",
+      "bytes": 73464952,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/operator-resume-material.json",
+      "oid": "12b1d20c1375b7160e5192a5b7765b8c1a6822c746adfc039de968b389b1d565",
+      "bytes": 73465082,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/execution/after-run-resume.json",
+      "oid": "d8a58b38a3e3f335134b9559958fface236de94f3eb4eb166d041b659dfc4f2d",
+      "bytes": 99460277,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/execution/resume.json",
+      "oid": "4a32fd5aad0b4275ede4220087f26e76d359d249ef91d0d25de97497a842d982",
+      "bytes": 99459228,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/execution/after-run-resume.json",
+      "oid": "b60cb0623af9de37acda3a54d16da68569f394e1e36c35f5cd9f2cc54a8b621f",
+      "bytes": 99461326,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/execution/resume.json",
+      "oid": "319abb6a1daadea5fef4bd2e34d708ca8cbe1d0db1aac22ee28fb1fed01b748f",
+      "bytes": 99460277,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/execution/after-run-resume.json",
+      "oid": "518cced6325bf234139124eadc20a6bffa5822899bf1270eae38fb2aeefc5bb1",
+      "bytes": 99463429,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/execution/resume.json",
+      "oid": "553754aecd30dc31094e23d71216dbd4f9301b5ce0e7eea79eb281eddc48d730",
+      "bytes": 99462381,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/OBSERVED_FAILED_SELECTOR_TASK.json",
+      "oid": "df7ab9058d3f17d72a3c6d3ee628af83357691ab1a078d7471132a9bb6243a37",
+      "bytes": 66625703,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/execution/after-run-resume.json",
+      "oid": "3ed26074fd8709724eb17546d29cdf54b7c087e54f3e8124e0ca7d956457633b",
+      "bytes": 99462375,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/execution/resume.json",
+      "oid": "6a79ca9c2e0cec0577a173bb2c7dabf0cb81633db621a7ed91d9e212f2dfad2e",
+      "bytes": 99461326,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01-r2/execution/after-run-resume.json",
+      "oid": "94aef6f26cc84393c62dce4d9ce5ae8ff8b5bd7b5fa88188c765f9f7a79f43e5",
+      "bytes": 99459242,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01-r2/execution/resume.json",
+      "oid": "67e629577e325ff953f9c49490c3f981e5c72081a27806bc49da3c5f38029e30",
+      "bytes": 99458191,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01/execution/after-run-resume.json",
+      "oid": "9dbcdc4f2c6e6c0f8c9ca5cce8824f18917c9b1d7163bfc224d127682dd46854",
+      "bytes": 99458185,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01/execution/resume.json",
+      "oid": "c6d5b01af2771158e1d5d15626ab23e279816283387f592b2e49c338f74c1f49",
+      "bytes": 73034139,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/operator-resume-material.json",
+      "oid": "86c9ccb0037edcfeebc14a64f11c5b02795e0389dea0aa69dd3580e9f1ed44a1",
+      "bytes": 73033534,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/after-run-resume.json",
+      "oid": "f4d410411915f05b8fb83f56ca5d3aaba5c61d58fd73b155eef23d9c1aa09371",
+      "bytes": 72493736,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/execution.json",
+      "oid": "79c86727459cc29ac6102a1f5f71cfa67f049154337a07786496e4686c185cc7",
+      "bytes": 196267184,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/fresh-reads.json",
+      "oid": "b04b643d2b99604ad5f955ff265f683d9c0351fb53adbd335de12f81ad008ca6",
+      "bytes": 164341963,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/prepared-call.json",
+      "oid": "3107b81b2c72de78f7e534ca4c51487da7303d12e5a0a28d74e1fa2342ad694e",
+      "bytes": 56538114,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/resume.json",
+      "oid": "e7f157a3976ccb5f82dc3ce942d7a805324e3d2fc466c0c8c764464195597324",
+      "bytes": 72492688,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/after-run-resume.json",
+      "oid": "bb9d4dd3d7f130c76a546b7f6bc03d2d67058bebaba89e83734090406328cbab",
+      "bytes": 72494784,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/calls/lifecycle-start.outcome.json",
+      "oid": "d93aea2b8fe474b258c7c5f97028ce2aedc9192907f96ab9d24648eb4f030bbf",
+      "bytes": 52817043,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/execution.json",
+      "oid": "62ee250af817b0a2976a350be438a29f12d5e2d5098f5908e6f5ad531593b6ec",
+      "bytes": 215509931,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/fresh-reads.json",
+      "oid": "78f3e1ce9766ed6280e346ff9de86bd533c7634b7c15879ac560a6ed79cd92ae",
+      "bytes": 173600103,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/prepared-call.json",
+      "oid": "34e1620e453bb3b3c9eac23b4f6c46c1193e2e1179a9eb1d335871a9959262d0",
+      "bytes": 57988760,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/resume.json",
+      "oid": "55e2420dbb1d7819d3934995c0308c0edc56e2b62b24bb44544439dad99b43a6",
+      "bytes": 72493736,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/after-run-resume.json",
+      "oid": "0e36706812b89549667e70e77a7612bf419f162108ed095686d765a1ec3935b9",
+      "bytes": 72495832,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/execution.json",
+      "oid": "f10e71aab409c8a3e20c4cd6bf1c7806af85fd17fda2bb87b68d89a20bb8d3ea",
+      "bytes": 198486895,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/fresh-reads.json",
+      "oid": "8d5b89b8cdaca300ff3ae35a9ec32b4fa98cf3a09d0ef91f652992602bf6bba1",
+      "bytes": 177677375,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/prepared-call.json",
+      "oid": "bce46b3048b6eb75740dc833c79f9a3001dd7eaa29dc983384d2e1180774a4b0",
+      "bytes": 58774648,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/resume.json",
+      "oid": "bb014de20fcef6257d184290a09e99940b810ab5c5dc211fa4e1dd1e24e58a38",
+      "bytes": 72494782,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/execution/resume.json",
+      "oid": "6715b6be6c65b8e3b84eb25c07250c67983644d7f7698b5c9ccaf1c797be9a9b",
+      "bytes": 72673898,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/after-run-resume.json",
+      "oid": "b6740b2697e2d5b74820bdbf339655c7bbd7c9e76fdfcd8af0242676ef93773e",
+      "bytes": 72684562,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/after-run-resume.json",
+      "oid": "ec616ff48620b547405c04cda52e9b1086c16924b0c41694b980abba2c05bb19",
+      "bytes": 72660008,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/resume.json",
+      "oid": "901d8e1d9ea4d8013b48b435fd652640fbc26e5221e58075f12ef9d53848cc4b",
+      "bytes": 72658887,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/preparation-r2/resume.json",
+      "oid": "901d8e1d9ea4d8013b48b435fd652640fbc26e5221e58075f12ef9d53848cc4b",
+      "bytes": 72658887,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/execution/after-run-resume.json",
+      "oid": "1cdb8cde574ded6cc2644825d66ac8a23d218fdd43d79335d3648a5aff550729",
+      "bytes": 72661062,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/execution/resume.json",
+      "oid": "b9fee42c6b4e4e7728d0acfffb4ba53951c291af80d84d508fd322845b2d2419",
+      "bytes": 72660014,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/after-binding-resume.json",
+      "oid": "1fba84d6a7a09d402a18e858fff3e4f29ce4ae95b3f2d99125575f6512cb78ff",
+      "bytes": 72486815,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/after-run-resume.json",
+      "oid": "cda9e1191ed960dd444cbc518b88cf3df43a82f8fc882f8521b458655f37dfdf",
+      "bytes": 72663606,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/execution.json",
+      "oid": "3dd8837e5e771ba38c4d74cc92a4ec6b7933f08f4a50f759b48af36c2b3384af",
+      "bytes": 53952056,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/prepared-call.json",
+      "oid": "c09ec83d15e4407f3ced6e8d139baf4a3282846a1ffaa69202a2a947635503df",
+      "bytes": 53274954,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/resume.json",
+      "oid": "dfc512931ea69894c578a3d7e0de0293f92c6695c0f0a6f88e425d757a29f554",
+      "bytes": 72663257,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/after-run-resume.json",
+      "oid": "2c6e349a238a12df475a290d9d2c9f4836e5084c79ae7ecb37b02bbe830afa52",
+      "bytes": 72488402,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/execution.json",
+      "oid": "84e5d7f17dbe3488d9c56af62ed1be1c260c633364b98c127d09748d84a2c3b6",
+      "bytes": 53800367,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/prepared-call.json",
+      "oid": "7432e32201995aae396e29f5dd841e0ed3ce2e7b7a6683e5efa3de93c91ca6c0",
+      "bytes": 53100621,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/resume.json",
+      "oid": "a0e77127f856cdd9184ff829c8d2b33e3e97d58dd2ea6e1cdad60be8eb697965",
+      "bytes": 72487353,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/after-run-resume.json",
+      "oid": "a351f85061cfc8d2df57430fec2698a26e26167b7a807e5a745a67a6d3f38b35",
+      "bytes": 72489356,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/execution.json",
+      "oid": "90d335ca429222a0545ef392755160a6c17ec58471359e4a150d58bf16b545ee",
+      "bytes": 173762658,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/fresh-reads.json",
+      "oid": "33176022a3d908b27432b59606bcb7b1aad9b0b029cd54f96fc90cd232cd0adb",
+      "bytes": 145324307,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/prepared-call.json",
+      "oid": "a669535b1ec91bfa0429e6b7ad028c464150b901707690167a7c5728507a42b7",
+      "bytes": 53367117,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/execution/resume.json",
+      "oid": "f433248855ab5682da087442e5e84398031659579cbc6dc0f0dce20e910c919d",
+      "bytes": 72488308,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/after-run-resume.json",
+      "oid": "9a48aa80d002fe762cb67a27e6466536907f159a3703c6f0f2ce59ef66accccf",
+      "bytes": 72491453,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/execution.json",
+      "oid": "c5fc29bb58797d74ef0c017693b225ec9a5f956bb3aaaa5d027e6e9602c24d8d",
+      "bytes": 179172193,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/fresh-reads.json",
+      "oid": "de000fb80a4df52a05edda67df02b55dc870cbf69160e20ebb96a53747353bcc",
+      "bytes": 152897579,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/prepared-call.json",
+      "oid": "71110deec8033b228eadb377281c0a90292b6c613eff6b048abb1e69d7bfdd6b",
+      "bytes": 54633835,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/resume.json",
+      "oid": "76c5a0453239a6d60fc14407a58bff02fb2a1fb6a44147dfd80b82c3596b9467",
+      "bytes": 72490405,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/after-run-resume.json",
+      "oid": "e542d13a74640a9bb9e3524e00138adcdefc92ad93f1a8b13ae113a728a43641",
+      "bytes": 72662117,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/resume.json",
+      "oid": "c3f13472e7730d97259f109a782173a0ce4ec9a47959c695dc3df23e1bfcdc0f",
+      "bytes": 72661066,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/after-run-resume.json",
+      "oid": "e8eaf0a7c603dcc7731d7e886364af13c6052922a89889259181b307630069b3",
+      "bytes": 72663166,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/execution/resume.json",
+      "oid": "ece65878c6d9b9364362fafb1765476dad2ac781612fe70346995fa249f20df9",
+      "bytes": 72662117,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/after-run-resume.json",
+      "oid": "e10435e6bbaf9d0d3320d7868b356aca71c2bdba01a4104903eeb55aa205d3d6",
+      "bytes": 72668372,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/resume.json",
+      "oid": "b34e7d3f4850ef021f2fe30c3dcc90148fb681152af27d0207cc971bfd0bdab3",
+      "bytes": 72667323,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/after-run-resume.json",
+      "oid": "8d9c19df694447d33ddce20475c516851647007b763703e249aaf2a44f44ba02",
+      "bytes": 72670663,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/resume.json",
+      "oid": "5e5154b472be89150345eded2c461fec266a546915eeba0e01fae3a99ffe9141",
+      "bytes": 72669614,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/execution/after-run-resume.json",
+      "oid": "9648aa8dbb5151ca503432783177621ed464985b626a265809c7511fea5576bb",
+      "bytes": 72498685,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/execution/execution.json",
+      "oid": "14b1f00203ddee4b78d22e2e9ece7df416d7bec65b3971db1e7a9914a3e1c0a6",
+      "bytes": 55691731,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/execution/after-run-resume.json",
+      "oid": "6e3ec26fff97ed9b1f5ba9d498dd231310e80e544928a8f9a3682820805478a5",
+      "bytes": 72498682,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/execution/execution.json",
+      "oid": "8d7cb7071bddd26de8d1f0c35c0dc56fa1b539edbd4a9edabace685816cee97c",
+      "bytes": 53319024,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/execution/after-run-resume.json",
+      "oid": "210d24c9c839d8cae6c2dddd78c1ff5cd37abc0e4e7e8c58633f6b344722da5a",
+      "bytes": 72498720,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/execution/execution.json",
+      "oid": "604c96527eef64819af0e0c35054668204735e2cc560a980d4d31e6db340a5de",
+      "bytes": 53092920,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/after-run-resume.json",
+      "oid": "342134fd5e693bc9f483bb71c9f2fddd10a67ec8390a01025c6e48074cfaf3aa",
+      "bytes": 72498689,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/execution.json",
+      "oid": "d9c9995eea0c24ccc72c5f0a68880f3303ddf4c4ab16c8fef15c76003ad3d4ac",
+      "bytes": 55221131,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/after-run-resume.json",
+      "oid": "521b5f15987a92fdf818503cd62e057758bf3a656f36c7532204624cfa98aceb",
+      "bytes": 72498702,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/after-run-resume.json",
+      "oid": "daaa3b3868d7e9e1461c0f081584a012d6aa674f6a171579882f01803480142f",
+      "bytes": 72498689,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/execution/after-run-resume.json",
+      "oid": "f4a15a0719eee9987124ec5d3f1543c0fee120616588368224afde1a0e33b0bb",
+      "bytes": 72498689,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/execution/after-run-resume.json",
+      "oid": "62d6acfaa2d31add120ecafb37cac00c473c1a5a62b46852d18373268356d1f5",
+      "bytes": 72498689,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/after-run-resume.json",
+      "oid": "969ec498630bf7448ac005399972b59fe8e38b8509d4d63779266e284a354309",
+      "bytes": 72498689,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/execution.json",
+      "oid": "59fcc96088a0ad257631bd510c964b5d9bfc850da5ef68609e8408b4a90a0d29",
+      "bytes": 53182410,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/after-run-resume.json",
+      "oid": "8cd7aa806aa2cbe96ce095201a25e22f764e93b24f24d75b49666ae0397d082a",
+      "bytes": 72497347,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/calls/lifecycle-start.request.jsonl",
+      "oid": "7e8094be96493c1aa27d950ac3dbffea49a7025bcd16b79883540d87bb079dc8",
+      "bytes": 53906893,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/execution.json",
+      "oid": "0abf50e39e46e0167cc27f571cb0616db30b690e63be5c2dc50c1de4e2babcd0",
+      "bytes": 215694883,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/prepared-call.json",
+      "oid": "8f81e828e7de368105adb81fae1d269fabe7bd26bcf085119f49c23e47cc0d92",
+      "bytes": 61413362,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/resume.json",
+      "oid": "82a74b73db3ae99561760178caf67ac3efd4814db767570e7512ea0afdecae9c",
+      "bytes": 72496999,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/after-run-resume.json",
+      "oid": "34102b8ee052c13c9ea6238d55fe02c1d0a5722a1596f43b5bd43b4b0594f13a",
+      "bytes": 72497977,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/calls/lifecycle-start.outcome.json",
+      "oid": "4d578cd9890b7b47c0200dab5176680174df0a357f0946fc0b974759c79f30e1",
+      "bytes": 55789124,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/calls/lifecycle-start.request.jsonl",
+      "oid": "c1e581814eeef548bca75ebcd6ee7612abcc9ba2085f6fe7c2062acf0220868f",
+      "bytes": 55637479,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/commands/lifecycle-start.result.json",
+      "oid": "522f2d21b1c9aedd246b075e2f73f4cecd331c942487fbbdc87f504e6f6d4a95",
+      "bytes": 54680083,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/commands/lifecycle-start.stdout",
+      "oid": "7d40180085cd3240f09da63637510ab11979bc81f5fc78d10e12cbdc78d9974d",
+      "bytes": 54473096,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/execution.json",
+      "oid": "8355ba1b173f8e74f1a3d81ed71e42a574c1656e710133eb9031ba76253fea28",
+      "bytes": 230278463,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/prepared-call.json",
+      "oid": "ebbcac1752ea719f3775e20bbd8473cf2d0db6e9a91ffb80e6485cd004c76c35",
+      "bytes": 63163022,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/resume.json",
+      "oid": "6f890202a6466c9cb0e1c834e3a6bad0d082bec3bacd16ac7426f7e407576101",
+      "bytes": 72497629,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/after-run-resume.json",
+      "oid": "2c0ce523f6aab1c169ff1478d90d9ed10d78f131d4a3ddd652179eb62cc53dd6",
+      "bytes": 72498676,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/calls/lifecycle-start.request.jsonl",
+      "oid": "d663709289aca1bb6adf90593fba6bd6f5dcfa42e7c0e897a370a6276a53e8dc",
+      "bytes": 55001750,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/execution.json",
+      "oid": "d5d16add009c27d8f3abd1d5ee4cada75d92986e5d58237d6def53c144725f77",
+      "bytes": 219308288,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/after-run-resume.json",
+      "oid": "427164432e60bd6424420b22383b672923b78dcbc24572c241aa95f731fa0c03",
+      "bytes": 72498325,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/calls/lifecycle-start.request.jsonl",
+      "oid": "2784f8be60e3658a184dbf994ede667432d64965db3ee09ec8008eafc0298054",
+      "bytes": 54997901,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/execution.json",
+      "oid": "43ce99b0f14573157705437c1152af9ca9467e4a429d8db6a0a2aab3455f452c",
+      "bytes": 63216844,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/after-run-resume.json",
+      "oid": "f77ae5b6fa0e291c5e700abb5e634959939d360de279a04d02b992e6c711d699",
+      "bytes": 72498693,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/execution/after-run-resume.json",
+      "oid": "e1d90b7c8dab90b86ea7d85eb929f91e08b92313a5e612011b3809b0df4f9090",
+      "bytes": 72498693,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/execution/execution.json",
+      "oid": "00fcb84c636fbcdbf5035f925a20a2f0b16b99b1dd01d7dad5219a3d990ea92a",
+      "bytes": 54332614,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/after-run-resume.json",
+      "oid": "2aa718ee58e3e7f549da1d1feb56a5ab7fe8cd6a0c42789600c0745d39adcb61",
+      "bytes": 72498693,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/execution/execution.json",
+      "oid": "f76e50fabfc2238f40f89ee97d056b798cdbc1dd48e50108157d07260429cc2c",
+      "bytes": 56876503,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/operator-resume-material.json",
+      "oid": "c84c68d3b403aa538120032edfd406c8ebc9530d70f3790aefb23a2d5c0e11a0",
+      "bytes": 72658275,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-01/execution/after-run-resume.json",
+      "oid": "000c7dfd0dd6270277878f35b57d17bc632e03c29a12d5454175873275e6b109",
+      "bytes": 99579561,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-01/execution/resume.json",
+      "oid": "362fe7f529d41dd30b2cc1f6c2f024974be92c74c6ad96f30692edc46975a6be",
+      "bytes": 73155013,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/execution/after-run-resume.json",
+      "oid": "c66641ad6a2468832a0752fab421a93b2dabd997f1bfdfd042e7214b992341df",
+      "bytes": 99580615,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/execution/resume.json",
+      "oid": "43cd6755a5a8d2a88d8f723457ace0dcdc8d090e80cfd281053d7d2dcf2f6af0",
+      "bytes": 99579562,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/execution/after-run-resume.json",
+      "oid": "0fe1fda4f4d2e0c0fcdeedd619c7bb4cee7e402c697846f679ceee888a744a88",
+      "bytes": 99581664,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/execution/resume.json",
+      "oid": "7885cf64624db318afea94c918723586921db46b580dad0b928559a98f27d378",
+      "bytes": 99580615,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/execution/after-run-resume.json",
+      "oid": "15c5441a600c5e155548301220e52658dea6ffea18ee4d653fd91963a1d69b2d",
+      "bytes": 99582713,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/execution/resume.json",
+      "oid": "f426b6cb5c88545a226e4de35356dcbb5cad192a397dff65ae45ab2d22305381",
+      "bytes": 99581664,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/execution/after-run-resume.json",
+      "oid": "96c015d0d6143abe91c4b2e8a796f73ad4e86065c4c9d7d1a78b0fa6daac13fc",
+      "bytes": 99583762,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/execution/resume.json",
+      "oid": "0fe53009fea9441924cea520948055177d17cb41927b86fc6db403e94483ac39",
+      "bytes": 99582713,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/after-run-resume.json",
+      "oid": "2e8c3683018a6a9b0600c6b07518270255fad4106089cfd11778451985165e18",
+      "bytes": 99584811,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/resume.json",
+      "oid": "cb51a536ed3f68915681ec37cd4939d46142d2f9a5448bee3403f41794b3f78d",
+      "bytes": 99583762,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/after-run-resume.json",
+      "oid": "a27ab6da07a1166d16c63e215d2e08b80662d5512c4a08ec040aa2efad533d5e",
+      "bytes": 73163274,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/resume.json",
+      "oid": "13efd86009136376e152be8c486e01f92dc54ddc73081e46512dd335f8199d32",
+      "bytes": 99584811,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/readback-recovery-001/INPUT.json",
+      "oid": "9e02b90490c0ae7bb2a1def9acebbc268d9c972c376c602d7dbf2dbaa870dd19",
+      "bytes": 74679015,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/after-run-resume.json",
+      "oid": "70b5885e4941e4e1fc127b6f17568e3640e021f5c775bc15da5a060b13e01406",
+      "bytes": 73164323,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/resume.json",
+      "oid": "1d90dd2ee038c1f713fde9222e7a80cca2975005b940db53a968b0d751548083",
+      "bytes": 73163274,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/after-run-resume.json",
+      "oid": "20445ebb6088e32354033b5dc7c24b5de0be5b8ee788190fd29c7cba4386e5c5",
+      "bytes": 73165372,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/execution/resume.json",
+      "oid": "f786fe68c0bf1dfe7a139ff5466afff8a4ead53a476a2c7c854e59da96ffed2d",
+      "bytes": 73164323,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/execution/after-run-resume.json",
+      "oid": "9ba852a8cb4bbd57b02dadd40b92e594380eac6432fc9b07c7c20fdf9b6018ad",
+      "bytes": 73166418,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/execution/resume.json",
+      "oid": "8c9dc897a45074532559aa09bff1f4bb601d61aa1d0e8075d0769e6b876e49ed",
+      "bytes": 73165370,
+      "localObjectVerified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/operator-resume-material.json",
+      "oid": "f0b1cf1738e57e8dc9f1602900ea132a90be396421f36798df330228b994e98b",
+      "bytes": 73154403,
+      "localObjectVerified": true
+    }
+  ]
+}

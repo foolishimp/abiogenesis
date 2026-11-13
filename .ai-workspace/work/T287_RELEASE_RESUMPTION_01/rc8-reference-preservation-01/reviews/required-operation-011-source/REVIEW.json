@@ -1,0 +1,103 @@
+{
+  "productFrame": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "selection": "Fixed fifteen families F01-F07,F09-F11,F13-F17; GOAL-035/T-287/RC8 REF-01; explicitly unqualified local cut.",
+    "method": "STDO 3.0.4; manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "authority": "ABG retains event admission/replay authority. Product owns materialization. This Reviewer evaluates frozen source only; Root owns source/proof/native/cut conjunction."
+  },
+  "reviewId": "required-operation-011-source",
+  "role": "Independent MAX Reviewer, no authorship or test execution",
+  "at": "2026-11-07T12:14:20.371096+00:00",
+  "verdict": "satisfied",
+  "verdictExtent": "The exact A11 frozen delta implements the selected RO16 component-premise correction and nothing else. This is source conformance, not execution success or cut acceptance.",
+  "findings": [],
+  "triage": "not_applicable",
+  "source": {
+    "sourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "freeze": {
+      "path": "author-11/proof-evidence/source-freeze.json",
+      "bytes": 295552,
+      "sha256": "422808c5850d72cb0533fa7ddba6864c757f9b23eeba756466f4157f20cd7879"
+    },
+    "overlay": {
+      "path": "author-11/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "bytes": 44662,
+      "sha256": "ec32f3a77116aed86705fbc87c8dcb9470dd43b0018cc806e46de0fb2489ec8d"
+    },
+    "preimageDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+    "preimageFreeze": {
+      "path": "author-10/proof-evidence/source-freeze.json",
+      "bytes": 295542,
+      "sha256": "e2db4c2e9356da0d97d6277567504650078a8bf1d5b7085dfaee63a4dbae5007"
+    },
+    "scope": {
+      "path": "author-11/ROOT_SCOPE.json",
+      "bytes": 5575,
+      "sha256": "4383c2cb32444b8f1d17c1b46197e5eba10b559c74a77a77a25d18978f2b2b0c"
+    },
+    "causalReview": {
+      "path": "reviews/required-operation-016/REVIEW.json",
+      "bytes": 14356,
+      "sha256": "53e69f4caa8deb7f8925cad68d720362e71f6e4509c0ce8224b3b0c8fc36c953"
+    }
+  },
+  "governingRelations": "RO16 binds the unchanged Product/requirements/frame/HOW pins and complete causal cone: EVENTS-001/002/003, PUBLIC-CONTRACTS-004, PROJECTION-025; common HOW 10.9 Runtime history requires the owned-prefix reader for materialization; M04 immutable-artifact boundary and materializeOwner preserve admitJson before admitArtifact. Those requirements and owners are not changed by this delta.",
+  "comparison": {
+    "manifestRows": 1339,
+    "addedPaths": [],
+    "removedPaths": [],
+    "changedPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs"
+    ],
+    "sourceDigestVerification": "SHA256 of compact JSON of the ordered frozen rows independently recomputes the selected 95d3d1d0 sourceDigest.",
+    "actualByteComparison": "Overlay is exactly the A10 test bytes with the one callback-local line-491 key projectExactPrefixArtifactTruth replaced by projectOwnedPrefixArtifactTruth. The old pattern occurs once; replacing that occurrence produces the complete new file byte-for-byte.",
+    "preimageTest": {
+      "bytes": 44662,
+      "sha256": "b4aacfd349c111119d51970aceb92a6ec3f4ce6e21770c87701c5e82eb2bd35c"
+    },
+    "invariant": "All assertions, the empty-truth stub value, imports, other assumptions, cleanup, preceding callbacks and ordinary exact/cold-reader calls remain byte-identical. Every other source manifest row is identical to accepted A10. No Product/helper/HOW/config/dependency change is present in the frozen delta.",
+    "compiledOwner": {
+      "path": "/private/tmp/abg-r8-a10-o7l27nv6/p/w/build_tenants/abiogenesis/typescript/build/code/src/product/materialization_definition_bindings.js",
+      "bytes": 21869,
+      "sha256": "1f1d785513db4af8095a14e7113ceef46f1498325c3362b6a3e72a7c3018455f",
+      "comparison": "Actual selected compiled owner reacquired and matches RO16 reviewed owner."
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "buildInvocations": 0,
+    "limits": "No full physical inventory was rehashed. The accepted A10 frozen row identities are retained; the changed overlay and selected compiled consumer were reacquired. No archive repack/install claim is made."
+  },
+  "causalClosure": "The private SyntheticModule now supplies the empty artifact-truth premise to the exact owned export imported/called by materializeOwner. It does not modify the real owner or authenticate the nominal prefix. No new registry, schema, receipt, fallback or success substitution is introduced. The earlier wrong-seam source finding is corrected; its execution discriminator still requires actual proof.",
+  "oracleConservation": {
+    "positive": "Lines 529-532 still require exactly one supplied artifact ingress and its complete expected artifact body. They do not assert Effect success or complete a real event store.",
+    "negative": "Lines 533-537 still invoke the lone-surrogate body, require zero artifact ingress, Failure, stage abg_admission and code product_materialization_artifact_refused.",
+    "downstreamLimit": "The nominal lower store may fail real successor/transition/completion after positive ingress. That is outside this component oracle. No fabricated full-store success is added.",
+    "crossCase": "Only the last callback\u2019s private assumptions object and SyntheticModule export change. No imported namespace is mutated. Its temporary schema root, request and ingress recorder are locally constructed. No new cross-case interaction was found."
+  },
+  "retainedEvidence": {
+    "fileReceipt": {
+      "path": "execution-016/files/156-t287-required-operation-bindings.json",
+      "bytes": 1172,
+      "sha256": "0b18fd7642c65dbc7b42286633274507633d5f4769d699f53956ded60ba43f6f"
+    },
+    "reporter": {
+      "path": "execution-016/events/156-t287-required-operation-bindings.jsonl",
+      "bytes": 7373,
+      "sha256": "6ad13ba459d9af1c2b7eae1633f3bf96febe0cd471d9db38c1a38516e3867996"
+    },
+    "standing": "Broad016 remains nine reported passes and one original failure, not whole-file green. All previously passed source cases and their shared setup are byte-identical; their case-level evidence remains applicable under Root\u2019s explicit conjunction. The original failed O1 case is preserved as historical evidence, not overwritten."
+  },
+  "proofPrerequisites": [
+    "Exact selected focused final O1 case must actually close passing, including positive ingress/body and the subsequent malformed-body refusal; no claim from READY alone.",
+    "Bind the actual proof source/materialization to this freeze and unchanged compiled/archive inputs; preserve filter and all actual exclusions/counts.",
+    "Root must conjoin nine unchanged prior reported passes with the new final-case result explicitly. No new whole-file execution or restamping of the A6 ledger is authorized.",
+    "Native SDK outcome, physical resource closure and Operator readbacks remain independent acceptance inputs."
+  ],
+  "statusAtReview": "READY was observed present during the source comparison; lane-01/RESULT.json was absent at that observation. Neither READY nor pending runtime/proof records contribute to this source verdict. Subsequent actual proof belongs to Root\u2019s conjunction.",
+  "effects": "Only this new REVIEW.json and README.md written. No source edits, tests, Product/module calls, providers, process actions, Git, builds or cleanup."
+}

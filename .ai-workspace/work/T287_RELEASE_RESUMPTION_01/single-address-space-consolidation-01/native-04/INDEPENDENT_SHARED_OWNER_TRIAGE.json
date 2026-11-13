@@ -1,0 +1,719 @@
+{
+  "kind": "independent_shared_owner_root_cause_boundary_triage",
+  "schemaVersion": "1",
+  "recordedUtc": "2026-11-03T20:52:32.237Z",
+  "actor": {
+    "task": "/root/rc5_scope_review",
+    "role": "read-only max diagnostic advisor; separate from source reviewer",
+    "independence": "Nonauthor of native source. Prior owner/fixture advice disclosed. Same-family and unrestricted-host limitations; no clean-family or enforced exclusion claim."
+  },
+  "standing": "CLOSED_DIAGNOSTIC_RETURN_TO_ROOT_NO_SOURCE_ACCEPTANCE",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/shared-owner-triage-001/SUBJECT.json",
+    "sha256": "db17d26072b1b7988f8b91200ec7579e6b44e27165958f63a6e007c1fe2cc771",
+    "sourceSubject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/SUBJECT.json",
+    "sourceSubjectSha256": "2cf127e6fac782b900b8891fd0f7eb562f3970b47cbd753b5a4dc2c04954e208",
+    "sourceBase": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+    "returnPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/return.json",
+    "returnSha256": "2f9fedefef689257668673085edd7e067d7392c68b542b9d64d610e77dbc7daf",
+    "probeCustody": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/author-feedback-001/CUSTODY.json",
+    "probeCustodySha256": "292b429c7b6a8812152ce876b03a46cdc7e1fac91a485c1a3accea1cdbdbaeae"
+  },
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "outcome": "Original complete R1-R7/C1-C5 consolidation remains selected; no deferral or reduced outcome is selected by this triage.",
+    "method": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md"
+    },
+    "authority": "Product and requirements own WHAT; accepted common-library HOW owns realization relations; immutable source and scratch observations are evidence, not runtime or release authority.",
+    "laws": [
+      "specification/PRODUCT.md:819-848: owning live projection consumes established facts with exact dependency/scope/invalidation; cold acquisition, recovery and actual invalidation remain.",
+      "specification/PRODUCT.md:865-869: ordinary handoff cannot grow with unrelated history without a named governing dependency; no universal read multiplier or time threshold.",
+      "design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:17-22,195-197,643,655,660-662: common implementation, explicit owner predicates, owned territory, warm/cold/fork agreement and co-evolution."
+    ],
+    "prohibitions": [
+      "No new store, service, registry, runtime, Public controller or required process-local authority.",
+      "No altered event/schema/digest/currentness/refusal meaning; derived facts remain discardable and cold-reconstructible.",
+      "No full-history-output branch reclassified as ordinary work merely to make a meter pass."
+    ]
+  },
+  "effects": {
+    "performed": [
+      "Read exact named subjects, frozen owner files/probes/return, exact f49 causal sources and installed method.",
+      "Write only native-04/INDEPENDENT_SHARED_OWNER_TRIAGE.md and .json."
+    ],
+    "notPerformed": [
+      "No Product source repair or design implementation.",
+      "No moving native04/native05 source reads.",
+      "No tests, builds, providers, runtime repair, source acceptance or delegation."
+    ]
+  },
+  "questionResults": [
+    {
+      "claim": "Existing library relation is available for safe liveness candidate reuse",
+      "verdict": "satisfied",
+      "triage": "not_applicable",
+      "basis": "runtimeEventValidationBase exists and Event Calculus already forks its genuine predecessor derivation."
+    },
+    {
+      "claim": "Frozen ordinary invocation has completed R1 proportional realization",
+      "verdict": "falsified",
+      "findings": [
+        "SHARED-R1",
+        "SHARED-R2"
+      ],
+      "scope": "Only the demonstrated ordinary candidate-validation and repeated public-operation acquisition/classification relations."
+    },
+    {
+      "claim": "A new Product/HOW semantic decision or generic scope redesign is necessary",
+      "verdict": "falsified",
+      "findings": [
+        "SHARED-R1"
+      ],
+      "scope": "The existing safe predecessor/fork and owner computation contracts suffice; update owning HOW realization text with the implementation/proof."
+    },
+    {
+      "claim": "CPU shares, general latency speedup, actual C2, qualification or release closure",
+      "verdict": "indeterminate",
+      "reason": "Instrumented scratch work counts and static source establish location/mechanism, not those claims."
+    }
+  ],
+  "observations": [
+    {
+      "index": 0,
+      "entryEvents": 55,
+      "unrelatedStep": 0,
+      "bodyRows": 5160,
+      "bodyRowsByClass": {
+        "current_run": 3256,
+        "prior_run": 1736,
+        "no_run": 128,
+        "unrelated": 40
+      },
+      "distinctIndices": 103,
+      "livenessConstructions": 25,
+      "newScopes": 25,
+      "newAllScopesAttributedToLiveness": 24,
+      "publicOperationWalks": [],
+      "topOwnerRowsRetained": 40,
+      "priorInvocationAdvanceBodies": 576,
+      "priorInvocationSomeBodies": 671
+    },
+    {
+      "index": 1,
+      "entryEvents": 135,
+      "unrelatedStep": 32,
+      "bodyRows": 6223,
+      "bodyRowsByClass": {
+        "current_run": 3256,
+        "prior_run": 2700,
+        "unrelated": 140,
+        "no_run": 127
+      },
+      "distinctIndices": 167,
+      "livenessConstructions": 25,
+      "newScopes": 25,
+      "newAllScopesAttributedToLiveness": 24,
+      "publicOperationWalks": [
+        [
+          "projectExactRunInvocationFactsAtPrefix (abg/invocation_execution_truth.js:461) | unrelated",
+          36
+        ],
+        [
+          "projectFhEffectfulPublicInvocationFacts (abg/fh_continuation_projection.js:550) | unrelated",
+          36
+        ],
+        [
+          "projectEffectfulPublicInvocationTruthAtPrefix (abg/effectful_invocation_truth.js:103) | unrelated",
+          36
+        ]
+      ],
+      "topOwnerRowsRetained": 40,
+      "priorInvocationAdvanceBodies": 1152,
+      "priorInvocationSomeBodies": 1258
+    },
+    {
+      "index": 2,
+      "entryEvents": 439,
+      "unrelatedStep": 256,
+      "bodyRows": 8570,
+      "bodyRowsByClass": {
+        "prior_run": 4048,
+        "current_run": 3256,
+        "unrelated": 1132,
+        "no_run": 134
+      },
+      "distinctIndices": 462,
+      "livenessConstructions": 25,
+      "newScopes": 25,
+      "newAllScopesAttributedToLiveness": 24,
+      "publicOperationWalks": [
+        [
+          "projectExactRunInvocationFactsAtPrefix (abg/invocation_execution_truth.js:461) | unrelated",
+          292
+        ],
+        [
+          "projectFhEffectfulPublicInvocationFacts (abg/fh_continuation_projection.js:550) | unrelated",
+          292
+        ],
+        [
+          "projectEffectfulPublicInvocationTruthAtPrefix (abg/effectful_invocation_truth.js:103) | unrelated",
+          292
+        ]
+      ],
+      "topOwnerRowsRetained": 40,
+      "priorInvocationAdvanceBodies": 1728,
+      "priorInvocationSomeBodies": 1887
+    }
+  ],
+  "observationLimits": [
+    "Each probe has 25 liveness constructions and 25 new-scope observations. Of the scope observations, 24 are new_key all attributed to liveness and one is a scoped Event Calculus computation; the counts must not be equated one-for-one.",
+    "Only the top 40 owner/chain rows are retained. Probe0 has no global-walk row in that retained list; absence is not zero work.",
+    "Invocations add prior-invocation history as well as unrelated public-operation events. Their total body-row differences are not an isolated unrelated-history slope.",
+    "Current-Run body rows are 3256 in all three probes; this is an observation for these samples, not a general work or time law.",
+    "Prior-Run reconstruction advance body visits are 576,1152,1728: +576 per additional prior invocation. The retained anonymous liveness.js:448:31 prior-Run row, attributable to the some() body loop, is 671,1258,1887: the last increment is +629 (~630). Constructor count and shared public-operation passes alone are not an R1 closure oracle."
+  ],
+  "findings": [
+    {
+      "id": "SHARED-R1",
+      "severity": "S2",
+      "verdict": "falsified",
+      "property": "Ordinary prospective validation should use established predecessor facts without replaying accumulated history merely across the validation boundary.",
+      "entry": "Native liveness validation during one lawful installed invocation.",
+      "originatingRelation": "Candidate derivation isolation is present, but its genuine admitted-predecessor computation is not reused by liveness.",
+      "causalPath": [
+        "runtime_liveness.ts:187-195 creates/accepts after=extendRuntimeEventPrefixForValidation(prefix,event) and obtains livenessReconstruction(after).",
+        "event_prefix.ts:136-140,263-268: each prospective candidate gets a private RuntimeDerivationSource when actualSuccessor is unavailable.",
+        "event_prefix.ts:372-377 and runtime_derivation.ts:73-78,32-35 retain an owner computation only inside that actual source/scope.",
+        "calculus/liveness.ts:325-348,349-407,475-477 constructs from processed=0, rebuilding envelope indexes and re-reading earlier observation bodies.",
+        "Frozen probes identify 25 constructions per invocation on runtime_validation_event_prefix and the validateRuntimeLivenessEventAtPrefix -> admitNativeRuntimeLivenessEvent chain.",
+        "calculus/liveness.ts:418-425 iterates an entire kind bucket and acquires each body before the scope predicate; terminal-disposition queries at660-684 therefore still revisit prior-Run bodies even after construction is forked.",
+        "The same some() boundary is called by decideRuntimeLivenessEvent at509,521,538 and deriveRuntimeLivenessSemantics at660-684; repair/proof must include all those concrete query consumers."
+      ],
+      "existingSafeRoute": [
+        "event_prefix.ts:105-108 runtimeEventValidationBase: exact owner-checked predecessor, including selected-scope relation.",
+        "event_calculus.ts:288-293: computation(prefix) constructs from eventCalculusDerivation(base).forkAt(base), then advances candidate separately.",
+        "runtime_history.ts:467-493: genuine validation predecessor, same-source/generation and ordered-extension checks."
+      ],
+      "boundedCorrection": "Use the existing base selection and an owner-defined liveness derivation fork at that exact cut; retain candidate-local mutable progress. A new generic scope-sharing mechanism is not shown necessary. Also scope the concrete some() queries through existing envelopes/identities before body acquisition, preserving their exact membership and predicates; base/fork reuse alone does not close prior-invocation query growth.",
+      "guards": [
+        "Never advance the admitted derivation with a refused/speculative candidate.",
+        "Fork at the exact requested cut even if the retained base has advanced further; do not use future samples/contexts.",
+        "Keep candidate identity, prefix digest/threshold binding, selected scope, foreign/copy/cold and generation/rollback distinctions.",
+        "Do not replace full reconstruction with repeated whole-index/body copying under a new name; measure the retained relation and affected work.",
+        "Necessary candidate isolation/forks and global validity remain. Fewer constructor instances, zero readAll calls or three-to-one public-operation scans do not establish closure if prior-Run scans/copies still grow.",
+        "Envelope prefilters must be actual necessary conjuncts of each query; preserve body predicates and supported irregular/raw fallback where admitted-envelope correspondence is not established."
+      ],
+      "frames": {
+        "Product": "Established owner facts and named dependency extent, not a numeric threshold.",
+        "Design": "Existing Event Calculus predecessor/fork relation supplies the missing composition.",
+        "Integration": "Validator -> candidate prefix -> liveness owner -> Event Store admission is the affected path.",
+        "IdentityLifecycle": "Candidate and admitted cuts remain distinct; rollback invalidates the actual owner territory.",
+        "AuthorityEffect": "Forks are disposable pure derivations and confer no event admission, currentness or physical effect authority.",
+        "Proof": "Warm/base/fork/cold values and refusals plus actual ordinary invocation work must be conjoined."
+      },
+      "triage": {
+        "triggerLikelihood": "Observed in every one of the three named scratch invocations.",
+        "realizedHarm": "Repeated prior-history reconstruction/body acquisition and incomplete selected proportionality outcome; no semantic corruption shown.",
+        "confidence": "high for mechanism/location; CPU and wall-time share indeterminate",
+        "blastRadius": "Native frame, CCall and actor liveness admissions; related fold/read consumers of those derivations. Terminal disposition queries in decideRuntimeLivenessEvent/deriveRuntimeLivenessSemantics also require envelope/identity scope before body expansion.",
+        "workaround": "Existing cold reconstruction preserves semantics but does not complete the selected ordinary-efficiency outcome.",
+        "repairComplexity": "medium; one owner-defined derivation/base relation with finite proof",
+        "regressionRisk": "medium: speculative state leakage, historical cuts and context invalidation are decisive",
+        "priority": "Root-owned, unassigned",
+        "disposition": "Root-owned, no deferral selected"
+      }
+    },
+    {
+      "id": "SHARED-R2",
+      "severity": "S2",
+      "verdict": "falsified",
+      "property": "Equivalent public-operation acquisition/classification should be common while domain joins/refusals remain owner-defined.",
+      "entry": "Effectful invocation truth on the actual authority prefix.",
+      "originatingRelation": "Three consumers independently materialize the public_operation_admitted kind bucket before applying their distinct owner predicates.",
+      "causalPath": [
+        "invocation_execution_truth.ts:598-604 acquires every public-operation body before filtering run.invoke; 560-634 keeps the Run owner/public bijection.",
+        "fh_continuation_projection.ts:828-840 acquires the same bucket before selecting response/resume, then 1102-1117 enforces public/owner completeness and multiplicity.",
+        "effectful_invocation_truth.ts:235-259 acquires the same bucket before construction-arm selection and checks duplicate outer invocation across the joined facts.",
+        "runtime_history.ts:583-633 has no public operationId/continuationKind selector; indexedRuntimeEvents on the kind selection materializes that selected bucket.",
+        "Probe1 and probe2 retain each of those three owners at 36 and 292 unrelated-body visits respectively."
+      ],
+      "commonExistingOwner": "The Event Store-authenticated RuntimeHistorySelection and its RuntimeDerivationScope own shared acquisition/facts. effectful_invocation_truth is the existing semantic composition owner; Run, FH and construction owners retain their individual joins.",
+      "boundedCorrection": "One owner-scoped incremental public-operation acquisition/classification relation, consumed by all three existing owner joins. An all-family pair validator is not already present and must not be inferred from the three loops. Keep owner predicates explicit and reuse the actual prefix territory.",
+      "guards": [
+        "Preserve original malformed, duplicate, missing pair, orphan and mixed-arm domains and exact refusal channels/diagnostics.",
+        "Keep global checks on their actual authority prefix; do not silently narrow to the selected Run.",
+        "Invalidate/advance on relevant public rows AND matching owner/basis/continuation facts; public-operation count alone cannot bind a pair judgment.",
+        "Do not turn currently ignored out-of-domain rows into new refusals merely as an optimization.",
+        "Keep raw/copy/cold reconstruction, selected-Run replay and missing-versus-out-of-scope identity distinct."
+      ],
+      "triage": {
+        "triggerLikelihood": "Observed in probe1/2 and directly supported by all three source loops.",
+        "realizedHarm": "Repeated unrelated payload acquisition; no measured CPU share or proven changed refusal.",
+        "confidence": "high for repeated bucket acquisition, medium for exact eliminable total work until common relation is proved",
+        "blastRadius": "Run start, FH response/resume and construction continuation invocation truth; their independent readers.",
+        "workaround": "Current complete checks preserve refusal semantics but do not establish consolidation.",
+        "repairComplexity": "medium; finite shared fact acquisition with three explicit joins",
+        "regressionRisk": "medium: global/mixed-arm/missing-pair behavior and negative-result invalidation",
+        "priority": "Root-owned, unassigned",
+        "disposition": "Root-owned, no deferral selected"
+      }
+    },
+    {
+      "id": "SHARED-B1",
+      "severity": "S3",
+      "verdict": "falsified",
+      "property": "The owner API should declare its supported private representation instead of requiring a caller-side assertion.",
+      "originatingRelation": "worksite_revision.ts:637 declares only ValidatedRuntimeEventPrefix although the body uses RuntimeEventPrefix operations; worksite_command_forward.ts:35-38 widens by cast.",
+      "boundedCorrection": "Add the existing-pattern @internal RuntimeEventPrefix overload at the worksite_revision owner, preserving the public overload, and remove the caller-side cast.",
+      "guards": [
+        "Keep physical currentness, alias invalidation, unique producer, retained receipt and cover checks at worksite_revision.ts:640-675.",
+        "No Public serialized shape, callable outcome or event law change."
+      ],
+      "triage": {
+        "triggerLikelihood": "Static existing call boundary.",
+        "realizedHarm": "Type-boundary bypass; no runtime counterexample established.",
+        "confidence": "high for mismatch, runtime loss unshown",
+        "blastRadius": "Closed-construction retained vector and forwarding caller.",
+        "workaround": "Current assertion bypasses local type checking; not a semantic proof.",
+        "repairComplexity": "small",
+        "regressionRisk": "low if overload only; affected forwarding equality/refusal proof still required",
+        "priority": "Root-owned, unassigned",
+        "disposition": "Root-owned"
+      }
+    }
+  ],
+  "whyEarlierEvidenceMissed": [
+    "Local result/refusal equality and elimination of full snapshots did not instrument the candidate derivation source/base/fork relation. The previous meter also mixed prior invocation events with unrelated growth.",
+    "The installed test explicitly deferred whole-invocation residual assertions while checking the replaced continuation expression; local green did not complete ordinary invocation R1.",
+    "Global malformed/duplicate/complete-pair obligations were correctly preserved but their shared acquisition/classification cost was not separated from the distinct joins. Necessary information was treated too broadly as a retention reason for repeated passes.",
+    "Earlier advisor and author returns did not complete the comparison with event_calculus.ts:288-293; that existing route supersedes the hypothesis that new generic scope machinery is required.",
+    "Native04 allowed invocation_execution_truth but not event_prefix/runtime_derivation/runtime_history/worksite_revision. Missing worksite owner typing and omitted fixture/dynamic-dispatch dependencies encouraged file-local work; the first three shared files need not be edited merely because they were excluded."
+  ],
+  "continuation": {
+    "scope": "One coherent continuation of the original selected outcome, not a partial deferral grant.",
+    "ordinaryWriteCone": [
+      "code/src/abg/calculus/liveness.ts",
+      "code/src/abg/invocation_execution_truth.ts",
+      "code/src/abg/fh_continuation_projection.ts",
+      "code/src/abg/effectful_invocation_truth.ts",
+      "code/src/abg/worksite_revision.ts",
+      "code/src/abg/worksite_command_forward.ts",
+      "design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+    ],
+    "existingBoundaryReadCone": [
+      "code/src/abg/event_prefix.ts",
+      "code/src/abg/runtime_derivation.ts",
+      "code/src/abg/runtime_history.ts",
+      "code/src/abg/event_calculus.ts",
+      "code/src/abg/event_store.ts"
+    ],
+    "conditionalWrites": [
+      {
+        "paths": [
+          "code/src/abg/runtime_liveness.ts"
+        ],
+        "condition": "Only exact validator/derivation handoff adaptation preserving the same admission relation."
+      },
+      {
+        "paths": [
+          "code/src/abg/event_prefix.ts",
+          "code/src/abg/runtime_derivation.ts"
+        ],
+        "condition": "Only a demonstrated missing internal base/fork relation not expressible through runtimeEventValidationBase and existing computation ownership; no generic scope merging or new authority. Existing route is expected to suffice."
+      },
+      {
+        "paths": [
+          "code/src/abg/runtime_history.ts"
+        ],
+        "condition": "Only finite auxiliary selector/classification support if the selected common public-operation realization needs it; live/cold selector parity and malformed/unknown/missing-arm behavior must remain."
+      }
+    ],
+    "newFiles": "No new file is shown necessary. Prefer existing ABG owners and direct typed imports; any specifically selected private helper file must be named before dispatch, not admitted through a wildcard.",
+    "owningHow": "No Product/requirement amendment is needed. Common-library HOW17-22 and its existing Event Calculus fork/cut owner contract permit a Writer algorithm choice. Reconcile the same HOW195-197/643/655 with the actual liveness fork and shared acquisition/explicit joins before closure. Its residual sentence about proportional history is not an exemption from Product819-848/865-869. A changed domain, refusal, admission authority or generic library contract would require owning re-entry, not silent implementation.",
+    "stillSelectedPriorCone": [
+      "qualification_proof owned carrier and all its consumers, removal of the unconsumed materializing artifact adapter, replay/index wrapper retirement and all 11 test consumer files.",
+      "The three previously frozen omitted fixtures, t289-install-event-bodies.test.mjs, and steel-consumer-declaration.test.mjs as listed below.",
+      "Existing selected construction/FH/Run/identity/declaration/budget discriminators remain part of the complete outcome."
+    ]
+  },
+  "proofMatrix": [
+    {
+      "relation": "Liveness base/candidate fork, reverse historical/scoped/cold equality, refused sibling isolation and rollback",
+      "existingNative04Grant": [
+        "test_env/tests/t287-event-calculus-owner-continuation.test.mjs:79,148,200",
+        "test_env/tests/t287-ordered-reconstruction.test.mjs:22,72,159,192",
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs:122-390"
+      ],
+      "additional": "Read/run unchanged t287-calculus-fold.test.mjs relevant P-FOLD cases; writing it is necessary only if supporting fold behavior is changed. Keep exact fixture inputs non-skipped for the claimed relation."
+    },
+    {
+      "relation": "Null/non-null CCall budget; absent/one/many/invalid records and exact threshold digest",
+      "existingNative04Grant": [
+        "test_env/tests/t287-event-calculus-owner-continuation.test.mjs:79-106",
+        "test_env/tests/t287-retry-run-prefix.test.mjs:60,93,108",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs:349,462"
+      ],
+      "additional": "Supply the selected ABI5_S02_RETRY_FIXTURE read carrier; do not treat an unset-variable skip as proof. An unskipped bounded owner case may be added in an existing granted file."
+    },
+    {
+      "relation": "Out-of-Run malformed/duplicate pairs; orphan and mixed-arm FH/construction; relevant-owner-only change after a previously valid result",
+      "existingNative04Grant": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs:122-390",
+        "test_env/tests/r5-invocation-admission.test.mjs:501",
+        "test_env/tests/t287-continuation-causation.test.mjs:54"
+      ],
+      "additional": "Extend the existing owned-vs-complete comparison with explicit negative histories/arms on disposable resources; compare original owner refusal channels and event refs, not only final values."
+    },
+    {
+      "relation": "Missing identity versus present outside selected Run; full authority versus selected replay",
+      "existingNative04Grant": [
+        "test_env/tests/t287-cross-cut-public-read.test.mjs:113,139,154,178",
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs:122"
+      ],
+      "additional": "Exercise both separately; an unknown ref is not a substitute for a real foreign-Run ref."
+    },
+    {
+      "relation": "Declaration logical predecessor empty/nonempty, absent terminal event, changed/reordered cut and foreign-log controls",
+      "existingNative04Grant": [],
+      "additional": "Add test_env/tests/steel-consumer-declaration.test.mjs:582-585. It already owns real application resources and reconstructCatalogApplication negatives; extend there rather than inventing a weaker array-only oracle."
+    },
+    {
+      "relation": "Actual ordinary invocation work after shared-owner change",
+      "existingNative04Grant": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs:257-360",
+        "test_env/support/single-address-space-consolidation.mjs"
+      ],
+      "additional": "Separate growth containing only unrelated rows from growth of prior relevant invocations/probes; trace constructions/base cut and visited kinds. Preserve result/refusal/digest equality. No permanent magic multiplier or elapsed-time threshold. Retain the named prior-invocation lineage: advance1152->1728 (+576) and some1258->1887 (+629). Re-prove the actual scoped queries after the fork change; do not stop at constructor/public-operation counters."
+    }
+  ],
+  "fixtureDependencies": [
+    {
+      "path": "test_env/support/malformed-gtl-native-fixture.mjs",
+      "route": "141-157 and178-197",
+      "action": "Migrate exact new owned-prefix/artifact and indexed access bindings with the qualification carrier; preserve explicit synthetic admission and original source/native module routing."
+    },
+    {
+      "path": "test_env/support/fresh-process-runtime-proof.mjs",
+      "route": "23-42,169-203",
+      "action": "Test-only deep installed replay-module dispatch; normalize actual complete prefix/replay values through existing canonical writers; preserve two actual fresh children and cold reopen."
+    },
+    {
+      "path": "test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "route": "21-51,74-82",
+      "action": "Same semantic-value normalization in child; consume reopened.prefix after actual cold authentication, not handle JSON equality."
+    },
+    {
+      "path": "test_env/tests/t289-install-event-bodies.test.mjs",
+      "route": "56,67",
+      "action": "Actual old artifact-adapter consumer; migrate authentic-prefix and copied-null assertions with adapter retirement. No count-equality preservation is required by its diagnostic counters at50-51."
+    },
+    {
+      "path": "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "route": "54-95,142-176",
+      "action": "Preserve pinned historical modules, materializer nominal receipt, real reader/currentness and copied-resource cold negatives; a legacy test bridge must invoke actual owner functions, never invent current owned receipts."
+    },
+    {
+      "path": "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "route": "31-75",
+      "action": "VM loader spreads actual imported namespaces, so a new direct owner import normally follows the real module. Preserve isolation of predecessor and successor counters and exact CLOSED input custody."
+    },
+    {
+      "path": "test_env/tests/t287-owned-native-proof.test.mjs",
+      "route": "51-85",
+      "action": "Private prefix/invocation overrides must remain representation-consistent if an added import reaches their supplied array carrier. Inspect actual execution dependency, not only whether an export exists."
+    },
+    {
+      "path": "test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "route": "9-15",
+      "action": "Direct installed module loader, not a synthetic owned-prefix provider; added imports follow installed owner modules. Preserve this real boundary."
+    }
+  ],
+  "inventoryAndStaging": {
+    "correction": "The earlier blanket statement that any helper edit requires rewriting the historical recipe inventory was too broad.",
+    "productGenerator": {
+      "path": "scripts/generate-product-manifest.mjs:209",
+      "command": "node scripts/generate-product-manifest.mjs",
+      "qualificationOwner": "scripts/generate-qualification-rule-catalog.mjs:88-147",
+      "effects": [
+        "Read already staged contracts/qualification/authority-inputs.json and exact sources.",
+        "Write contracts/qualification/rule-catalog.json, law-basis.json, coverage.json and self-conformance schema; does not write test_env/qualification/inventory.json."
+      ]
+    },
+    "authorityStaging": {
+      "command": "node scripts/generate-qualification-rule-catalog.mjs --stage-authorities <repo root> <verified installed release root>",
+      "route": "scripts/generate-qualification-rule-catalog.mjs:20-52,149-152",
+      "meaning": "Explicit source-build action for actual governing-authority changes; not required solely by a helper edit. Preserved frozen authority inputs remain the normal reproduction source."
+    },
+    "historicalInventory": {
+      "owner": "test_env/qualification/build-resources.mjs:1-10,20-32,261-317",
+      "command": "node test_env/qualification/build-resources.mjs --package <installed package root> --install-record <Public install identity.json of same pack> --scratch <empty scratch directory>",
+      "effects": [
+        "recipe/verification-recipe.json",
+        "tenant-manifest.json",
+        "resources.json",
+        "inventory.json"
+      ],
+      "restriction": "Hard-bound to the rc.1 candidate identity by installedExports and PROSPECTIVE_RELEASE_FIELDS; --recipe-only true stops after recipe and does not regenerate inventory.",
+      "boundedProof": "The selected component/source tests do not run this historical qualification resource chain merely because helper source changes. Preserve its bytes and withhold current recipe/inventory qualification claims. A new current qualification-resource claim needs its own exact candidate/input/output grant; do not hand-edit hashes or silently reprice historical rc.1 resources."
+    }
+  },
+  "estimate": {
+    "kind": "rough planning range, not a guarantee or acceptance threshold",
+    "sharedOwnerRealizationAndChangedClaimProofMinutes": [
+      45,
+      80
+    ],
+    "outstandingQualificationFixtureWrapperWorkMinutes": [
+      20,
+      40
+    ],
+    "freezeAndReturnMinutes": 10,
+    "combinedMinutes": [
+      75,
+      130
+    ],
+    "excludes": [
+      "Actual independent C2, installed closure/UAT, and Root source disposition.",
+      "Provider stalls, host failures and newly demonstrated owner contradictions."
+    ],
+    "rootSteering": "Root selects 150-minute absolute provider limit with 10-minute return reserve, 1024 turns/xhigh, no automatic retry; outer budget repriced to 4h for source plus affected C2/closure. That covers this planning range if concrete owner budget preflight accepts it; it is not a promise to consume the limit."
+  },
+  "invalidation": [
+    "Changed frozen source bytes or coupled owner contract/authority.",
+    "Contrary executable evidence about the exact predecessor/fork or global join/refusal relation.",
+    "Changed Product frame, selection or evidence identity."
+  ],
+  "limits": [
+    "No candidate implementation or repair was written.",
+    "No acceptance, qualification, release or whole-Product review is conveyed.",
+    "Native05 source/proof is not yet an admitted evaluated subject."
+  ],
+  "evidence": {
+    "readFrozenSourceFiles": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 139516,
+        "sha256": "d1dff3b446c30d0a575a915bfaff0d7940071355822a8e71688bdf6b715bef88",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/shared-owner-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "bytes": 61840,
+        "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+        "source": "shared-f49"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/shared-owner-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+        "bytes": 6467,
+        "sha256": "59db62729425cb8c7ed871348cb44e5e9c8cbe283b8e6f35c7bb35f3187e1d31",
+        "source": "shared-f49"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/shared-owner-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "bytes": 43473,
+        "sha256": "a0ba80a5744cc70309bcd39d7d008b6f015f104744036c0df0f9b81623532942",
+        "source": "shared-f49"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+        "bytes": 41266,
+        "sha256": "6369f58eaacaee1472e7502af8ddb6dbfba701840b58698b20502dde58342cec",
+        "source": "shared-f49"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/shared-owner-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+        "bytes": 73350,
+        "sha256": "985f4199aa412d0e6cf77d3915d92dfee231ab75db3e759649669cdb2d157219",
+        "source": "shared-f49"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+        "bytes": 63253,
+        "sha256": "ec6bce207e50187e6d863203496252f882adc192c977c425fe10a87ce27a1563",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+        "bytes": 29653,
+        "sha256": "836de942e5e2209d14e288549461dfa76af52bf964cf39efcadd426792a11c8f",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+        "bytes": 11717,
+        "sha256": "694302358bb0adb6590ef4e5d4500d679a0dfbd4827c78b1285737ee0475278b",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+        "bytes": 49031,
+        "sha256": "a341d0ef3898c031c25285ccae67b9a0f7f892bf87e4a49d5748cf8556e39e81",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+        "bytes": 42973,
+        "sha256": "4dfa39eb28bded4e726ccf8f4dbb5a1696a12a7b18aa70d49e403737d59da050",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 29515,
+        "sha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "bytes": 46630,
+        "sha256": "659e498c72ec413bb0d94ee066601f05a263207a693105787438c69ab7750093",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+        "bytes": 9403,
+        "sha256": "d5ab42a4f91970f328e9b15bea532dee86def237c6b7709a31a00165799cace7",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "bytes": 8003,
+        "sha256": "e3d9d16cbf136031ff199cb9f718eaf7cde6c9cd4c3bd29e3c28ee19610dad4a",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs",
+        "bytes": 27376,
+        "sha256": "9db87e6586201f7ac806df00076fd4a289241750c9bb6cf367081b50f613cd94",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+        "bytes": 12353,
+        "sha256": "a56347f2621ec53733c27de869c1d0396d07f3bae09384a8dc5a8659958a9d99",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "bytes": 17058,
+        "sha256": "390667fdfb25dfbb198df335db6518449410d954f60b2914f7c9c9283d8efc49",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+        "bytes": 15707,
+        "sha256": "e8b911080ff7ef26ef7b6472471223abf44a187ff48ae659385edc4b5a163eac",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+        "bytes": 9421,
+        "sha256": "90540971276c92787e9a10877c2ccfe2798b58d1e438abf9b96167a7d4ecd7c8",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "bytes": 19959,
+        "sha256": "5dd7aefe879b65d2baf7e01d7d83eea6444848f5ae24f0c3b98ad68a5e164feb",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+        "bytes": 12240,
+        "sha256": "5f746eec8f1f598fe3ce5ea2d9698d44338842cf4470fb7195836b4f36917160",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-cross-cut-public-read.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-cross-cut-public-read.test.mjs",
+        "bytes": 19700,
+        "sha256": "1b3fcf8c7862c1c1b18bf1fbe3f6afd2759c66d7df6e50685e15f2d36f8551b9",
+        "source": "native04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "bytes": 42394,
+        "sha256": "679798679dbf0d84ffe00ec6b56ab058a9cdb7acf21d8f96ee571432b6be457d",
+        "source": "native04"
+      }
+    ],
+    "verifiedSharedAdditionalSources": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "bytes": 61840,
+        "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+        "sameAsBase": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+        "bytes": 6467,
+        "sha256": "59db62729425cb8c7ed871348cb44e5e9c8cbe283b8e6f35c7bb35f3187e1d31",
+        "sameAsBase": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "bytes": 43473,
+        "sha256": "a0ba80a5744cc70309bcd39d7d008b6f015f104744036c0df0f9b81623532942",
+        "sameAsBase": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+        "bytes": 41266,
+        "sha256": "6369f58eaacaee1472e7502af8ddb6dbfba701840b58698b20502dde58342cec",
+        "sameAsBase": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+        "bytes": 73350,
+        "sha256": "985f4199aa412d0e6cf77d3915d92dfee231ab75db3e759649669cdb2d157219",
+        "sameAsBase": true
+      }
+    ],
+    "probes": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/author-feedback-001/probe/inv-0.json",
+        "bytes": 37411,
+        "sha256": "77cecfee99716c5292c2cae0089a352f0f92f54c24f39e7d41829b06313ccd94"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/author-feedback-001/probe/inv-1.json",
+        "bytes": 37660,
+        "sha256": "1430cbdb2a990fc97dc6453355086089315001442c7f4c8f7c5243a5772c9013"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/author-feedback-001/probe/inv-2.json",
+        "bytes": 37695,
+        "sha256": "48bf05702b8d27c8203ebfdabe1eaac2769c50f76400461b5def06c5dd8d6064"
+      }
+    ],
+    "additionalSourceBasis": "Exact git show/git grep at f49e7533ebedff0946383cb0c5380a6ecac7889d only; no moving worktree content used."
+  }
+}

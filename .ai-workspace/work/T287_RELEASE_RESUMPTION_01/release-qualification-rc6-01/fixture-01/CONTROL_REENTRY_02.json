@@ -1,0 +1,40 @@
+{
+  "kind": "root_command_dependency_reentry",
+  "recordedUtc": "2026-11-05T08:28:51.241251+00:00",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/PREFLIGHT_R1_RESULT.json",
+    "bytes": 1020,
+    "sha256": "6a90fa10f55e7e05bdd18da87f1a9972e21ff8a15b8fb43b7107b2518029a827"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/PREFLIGHT_R1.stderr",
+    "bytes": 896,
+    "sha256": "868b1e25b9d91e785cbb73590f66d73f7e9ea1c22ad19c96594bb6dcbfe98d03"
+  },
+  "cause": "The proposed cp source was under this campaign WorkspaceBinding.toolchainRoot. Existing command configuration forbids passing live workspace/protected-root paths to the isolated child. Its combined diagnostic says identities must be unique; this failure is the childInputsExposeWorkspace branch, not duplicate IDs.",
+  "owningRelations": [
+    "product/worksite_command_execution.ts:exposesWorkspaceRoot and unsafeChildValue",
+    "product/worksite_command_execution.ts:constructWorksiteCommandConfiguration",
+    "maintained public-setup.mjs roots.toolchainRoot"
+  ],
+  "reentry": "Use the already verified immutable global RC6 dependency installation outside this live workspace as the explicit read-only source for the same three cp operations; no symlink, hidden path, active-workspace root, new copy service or guard bypass. Only isolated sandbox build/contracts/node_modules destinations may be written.",
+  "source": {
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "manifestDigest": "sha256:404905f00e9d79bd7cc1da592a492b19443b809d3b81c12ec8af9af947c2a64a",
+    "productContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+    "verifiedSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/SETUP_SELECTION.json",
+      "bytes": 6364,
+      "sha256": "ba0807540a2e74997b35a80ee875b93ba39a9045b37046ea63452f9376b7548e"
+    },
+    "completedSetup": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/SETUP_DISPOSITION.json",
+      "bytes": 3914,
+      "sha256": "1c3f3ef4511e287d57f65f1a789b8dc21fa140b88c2380faa039d319f01c65ef"
+    }
+  },
+  "supersedes": "Only dependency source coordinates in draft C2_RECIPE/C2_INPUTS. Same immutable RC6 payload, tests, predicates, read scope and write territories.",
+  "effects": "Failed preflight had no provider/Run; actual event bytes still exactly setup close. No source/test/HOW edit or immutable installation write.",
+  "next": "Re-enter actual owner command configuration and start-call preparation."
+}

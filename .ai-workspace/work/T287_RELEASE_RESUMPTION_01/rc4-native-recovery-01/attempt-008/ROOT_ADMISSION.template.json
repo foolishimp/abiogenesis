@@ -1,0 +1,8 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "TO_BE_SELECTED_BY_ROOT",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "sourceTree": "d3d22391589dcb6fd8d86ed128b0ede69b77348c",
+  "decision": "Preparation-only attempt008: use fresh existing-owner source basis with unchanged original005 task/public authority/historical resource/current prefix and neutral Runtime/provider scratch separation. Root admission authorizes installed preflight/call construction only; actual-call dispatch remains separately selected. No new Product scope, automatic retry, R2 or release acceptance."
+}

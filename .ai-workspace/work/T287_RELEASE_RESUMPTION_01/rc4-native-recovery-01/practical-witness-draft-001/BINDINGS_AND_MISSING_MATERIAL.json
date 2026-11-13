@@ -1,0 +1,153 @@
+{
+  "status": "DRAFT_ONLY_NOT_ADMITTED",
+  "createdUtc": "2026-11-02T07:08:52.177618+00:00",
+  "sourceCommit": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+  "sourceTree": "d136d90f44921b2944579bf89fbac0075052920b",
+  "scriptedModels": false,
+  "executionBindings": {
+    "archive": null,
+    "installedRoot": null,
+    "manifest": null,
+    "productContentDigest": null,
+    "definitionContractCoordinates": null,
+    "installationProof": null,
+    "candidateC2Receipt": null,
+    "candidateSourceCorrespondence": null,
+    "consumerProgram": null,
+    "consumerCatalog": null,
+    "consumerCatalogView": null,
+    "workspaceBinding": null,
+    "providerProfile": null,
+    "providerWrapper": null,
+    "neutralRuntimeTmp": null,
+    "providerLeafTmp": null,
+    "genuineCallerHandoff": null,
+    "commissionedAStop": {
+      "kind": "predeclared_ordinary_recursion_bound",
+      "aEntry": "start://default-library-witness/a@5",
+      "aRoot": "graph-function://default-library-witness/executive-a@5",
+      "aBound": 2,
+      "bEntry": "start://default-library-witness/b@5",
+      "bRoot": "graph-function://default-library-witness/executive-b@5",
+      "bBound": 8,
+      "sharedStep": "graph-function://default-library-witness/executive-step@5",
+      "declareBeforeA": true,
+      "sameProgramCatalogWorkspace": true,
+      "condition": "Initial attempt1; bound2 blocks before a second selected-child step. Successful Construction and eligible retained state must be observed, never guaranteed or fabricated."
+    },
+    "aStopOwnerEvidence": {
+      "standing": "Root-selected static supported composition from independent bounded review; not runtime proof",
+      "routes": [
+        "support/default-library.mjs:11\u201317 \u2192 gtl/default_library.ts:66\u201375 declared bound",
+        "traversal_cursor.ts:500\u2013507 initial attempt1",
+        "hog/recursion_lifecycle.ts:658\u2013662 attempt>=bound blocks",
+        "invocation_admission.ts:488\u2013556 latest judged eligible state from inactive blocked parent",
+        "invocation_admission.ts:1511\u20131530 same Program/digest/exact retained input/current catalog; same root not required",
+        "product/default_library.ts:93\u201396 conserves original",
+        "product/run_operation_contracts.ts:27\u201332 declared_start"
+      ]
+    },
+    "admission": null
+  },
+  "referenceAssets": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 271366,
+      "sha256": "a434d21da6b2a444d545b3ac70b822d04b0f07e2ceaa5b7ba2341513f6fbb03c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "bytes": 7324,
+      "sha256": "d615fa0bd09282c0e79d9850afb808290e0d35f24407f4528f598e520eec3155"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "bytes": 21826,
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 40946,
+      "sha256": "75a744779ec76a9f68a836977d0b0553204919b21cf4b3654eb6251d85d63761"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      "bytes": 5835,
+      "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/public-setup.mjs",
+      "bytes": 28050,
+      "sha256": "85781ebc5dddde17356c3f1a9ddc815c9bc982040a809be19c1b93e1f0c1811f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/runner.mjs",
+      "bytes": 36805,
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-011/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/physical-candidate-001/scratch-proof/evidence/retained-source/summary.json",
+      "bytes": 7242,
+      "sha256": "16dd79705a689447566b2720af0606a2c3ab7e98b6930580907f94a12de14c23"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "bytes": 20546,
+      "sha256": "653b0f0d8567636d5c66a5c77bce38b76a2765c9ba7337c7ebd8782bbbc2ff1b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "bytes": 51168,
+      "sha256": "e23d37dba745e5b07a710cb692c924687e9bad14fbc1e4cbc2d8304f91d9d2a9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "bytes": 41904,
+      "sha256": "a634bb0b19affc2e3cbb093101df3537a31c7e220962b7e9fc2a2c1a0a10709a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "bytes": 77259,
+      "sha256": "fb8f7cdd359d563d20828d0792a39e2e68cf22d852d612759c83f76d9de55237"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "bytes": 36411,
+      "sha256": "7177148ab49e3ce1a8cd35f2cf5f6bb49c52465ac7907708ec27835ec037aa36"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "bytes": 9952,
+      "sha256": "af43a39d642c0f408dfd5544cff400438811745367a5efea0b1539d217925f15"
+    }
+  ],
+  "operatorDrafts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-draft-001/operator.DRAFT.mjs",
+      "bytes": 8078,
+      "sha256": "ef539a7ee7f4c6988a947aba3e3988ff0321999f22caff8ce9604dcdd624c811"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-draft-001/entered-testing-host.DRAFT.mjs",
+      "bytes": 1981,
+      "sha256": "03b99e783ebc20f36dd2cb43f83392a7b951cfd65073a1aa24065837969fe642"
+    }
+  ],
+  "missingOwnerRelation": null,
+  "actual011Standing": {
+    "acquisitionResult": "result://abiogenesis/eba34eb35363314237313a69b20f779b46f77ba5259aa6b5522333fef6c40860",
+    "ordinal": 36998,
+    "afterContextDigest": "cb15b459593b95bf3c364a0ac255d1849b36758c8e14a78adfea1bedcbec131d",
+    "observationDigest": "86e0caafd188273bb85fc4d73e8dced1a9a59f6eb2d059362c8ef10c01083bd3",
+    "ProductChangedPaths": 0,
+    "C2OpenedOrdinal": 37467,
+    "C2Verdict": null
+  },
+  "executionProhibited": true,
+  "controlBoundary": "No Public run.stop/hold, per-Run depth override, current_intent stop, graph/catalog mutation or scripted gap. Both ordinary entries declared before A; B selected by declared_start through existing typed helper. Stop normally if A did not produce eligible Construction."
+}

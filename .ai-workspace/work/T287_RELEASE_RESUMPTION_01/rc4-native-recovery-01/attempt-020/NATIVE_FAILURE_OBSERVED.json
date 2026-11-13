@@ -1,0 +1,60 @@
+{
+  "status": "ACTUAL_NATIVE_POST_WORK_OBSERVATION_FAILED_OUTER_RETURN_PENDING",
+  "recordedAt": "2026-11-03T02:44:45.168234+00:00",
+  "runId": "run://abiogenesis/b3db8f441192ac08e74119217ebbb004abd27739cc3b27ba89619b7cb530737f",
+  "nativeResultRef": "result://abiogenesis/0be090284536f52d7f588f759c8e239c6a61171a32a0ac756d7cc302a452d7b5",
+  "eventOrdinal": 35433,
+  "eventTime": "2026-11-03T02:43:33.533Z",
+  "eventOffset": 749121608,
+  "eventRowBytes": 930322,
+  "eventRowSha256": "206f32b01634cc3e565bb487a990967150ad07669dc829cf21b27989332e654d",
+  "failureClass": "post_work_observation_failed",
+  "observationFailure": {
+    "code": "symlink_forbidden",
+    "disposition": "refused",
+    "kind": "worksite_effect_refusal",
+    "lastObservation": null,
+    "message": "worksite context cannot follow a symlink",
+    "schemaVersion": "5.0.0",
+    "substrateCode": null
+  },
+  "after": null,
+  "changedPaths": null,
+  "authorReport": {
+    "gaps": [
+      "The new case 'Maintained setup retains actual owner verification through ten native calls and preserves configured environment' cannot run on the pinned rc3 SDK (no `product.constructAdmissionCapabilityData`). End-to-end proof requires the C2-built candidate package and its refreshed candidate basis.",
+      "Two checks in the new case were checked by reading source only, not by execution: the verified artifact keeps object identity through admission, and the request is compared by content plus `selectOwnedProductVerification` (valibot rebuilds the request object).",
+      "The t287-w2-05 required case skips unless ABI5_PREPARATION_RESOLVE_CALL is set. C2 must point it at artifacts/setup020/preparation-resolve-call.json after the harness run.",
+      "The new case writes artifacts/setup020/* with exclusive create ('wx'), so a rerun needs that directory cleared first.",
+      "The new case needs an npm executable on the ambient PATH with a usable offline cache, and /usr/bin/tar.",
+      "Only PATH and TMPDIR are scoped. Install npm inherits the rest of the ambient environment, so other configured setupEnvironment keys such as npm_config_* no longer reach the install npm.",
+      "exact-candidate-qualification.mjs still reads the recorded calls/catalog-admit.outcome.json back as input and makes in-process eventless calls outside the setup environment scope. This is existing qualification behavior and was left as is.",
+      "The program-count limits in the new case (at most one link program; programs only in the two verification phases and right after product-verify-1) are based on rc3 counts. The candidate's counts have not been observed.",
+      "Phase timings are reported but no timing target is asserted.",
+      "All self-run checks are author feedback, not independent acceptance."
+    ],
+    "summary": "The maintained-setup change is in place but not proven end to end: the new harness case fails on the pinned rc3 SDK, which lacks the HC2 export `constructAdmissionCapabilityData`. All 25 existing harness cases pass there. Nothing is committed and no acceptance is claimed. Full record: rc4-scratch/native-recovery-20/return.json.\n\nChanges, over custody 45554d0b:\n- Design doc T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md: added the accepted HOW paragraph on maintained setup owner reuse, plus a short sequence diagram.\n- public-setup.mjs: `publicCaller.invoke` now passes the actual constructed call to `runtime.api.runInstalledDefinitionCallTransport` in the same installed module instance. It records compact request/resource coordinates, the real SDK outcome, the close handoff and timing. The setup JSONL file, the per-call CLI child and the stdout parser are gone. `populateSandbox` sets the configured PATH/TMPDIR for the whole serial setup and restores the ambient values in finally. There is no timeout race.\n- runner.mjs: added one named cold entry, `invokeColdInstalledEntry` (one JSONL request to a fresh installed CLI process). Fresh reads and lifecycle start both use it; lifecycle keeps its supervision environment.\n- harness.test.mjs: adapted three existing cases to the cold entry, and appended the required provider-free real case. It writes artifacts/setup020/preparation-resolve-call.json and the receipt beside it.\n- t287-w2-05-static-binding-algebra.test.mjs: one passive change. It now reads the saved receipt beside the call file; the old path mapping cannot find it under artifacts/setup020.\n- exact-candidate-qualification.mjs is untouched; no reason to change it was demonstrated.\n\nChecks (author feedback only):\n- `node --check` passes on all four edited .mjs files.\n- Harness run against the pinned rc3 SDK, in a scratch copy linked to that build: 25 of 26 top-level cases pass. The only failure is the new case, on the missing export above.\n- A separate scratch probe (observer-check.mjs) against the real rc3 code confirmed the heavy-work counting the new case uses. Core verification builds one declaration-closure program, consumer verification builds none and lock construction builds one link program. Reusing an already-verified value triggers no re-verification or re-link. A raw copy is verified again from scratch.\n- Pinned type-check (noEmit) was not run because no TypeScript source changed."
+  },
+  "provenance": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/d051ded637dff851e8726b93ea71e5102124f4366da91a8d88389c18fce9d39b",
+    "cCallRef": "c-call:sha256:04360ce47203651e798e5a7d05b7c24cb804130f9282c98ce5dc323a19a2be97",
+    "executionAuthorityDigest": "sha256:812e2a83ded952d8dd0fdf23b56b9cd32c2cf9bf75c8a72e315132d04001d220",
+    "executionAuthorityRef": "leaf-execution-authority://abiogenesis/812e2a83ded952d8dd0fdf23b56b9cd32c2cf9bf75c8a72e315132d04001d220",
+    "promptDigest": "sha256:795caa6d968d3a789fe96be1374c74dfb801e3c2d9097835409091e6371acc48",
+    "transportBindingDigest": "sha256:1abb6964a1271d64a28c962f8daff88b042ccf76aa2962c021474894033d79d0",
+    "transportBindingRef": "transport-binding://abiogenesis/1abb6964a1271d64a28c962f8daff88b042ccf76aa2962c021474894033d79d0",
+    "transportDigest": "sha256:65be0c4146297766f416e66fe3f62defa44d72d61f2b3fe6c07e7cc2ebf323eb"
+  },
+  "sourceAccepted": false,
+  "C2Executed": false,
+  "cleanupOrRetrySelected": false,
+  "providerOutput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-ac407ced5c6db43f-output.txt",
+    "bytes": 4220,
+    "sha256": "5477f5bdd62dfbbe7f083fc4fc3d48ea93f33565376233ad118d2a0b50512d00"
+  },
+  "limits": [
+    "No successful after-observation or actual source correspondence is claimed.",
+    "Root owns cleanup/recovery/source-custody selection; no source or process effects here."
+  ]
+}

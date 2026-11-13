@@ -1,0 +1,10 @@
+{
+  "RootEarlierObservationUtc": "2026-11-01T09:10:58Z",
+  "absent": true,
+  "authority": "Read-only Writer recheck only; no reservation/installation claimed",
+  "observedUtc": "2026-11-01T09:28:06.430603+00:00",
+  "paths": [
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3"
+  ]
+}

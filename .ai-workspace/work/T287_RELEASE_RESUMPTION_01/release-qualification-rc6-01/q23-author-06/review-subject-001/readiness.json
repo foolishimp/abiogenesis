@@ -1,0 +1,37 @@
+{
+  "kind": "q23_author_06_readiness",
+  "authorView": "mechanically_ready_for_root_freeze",
+  "acceptanceClaimed": false,
+  "subject": {
+    "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "frozenSubjectSha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638",
+    "changedPaths": {
+      "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md": "b5cf1ecc08df2593214a4e6e9b97d5c4c936bf7513549ee0b77e361db175728a",
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264",
+      "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts": "1f7a1590b36022d705edddb373107d473b2d38181601974f723736b038beeda4",
+      "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts": "3ea897beaddc78f9887a0dd1c726565f7e895914e69fc2b5fd8f611fab1be2b1",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs": "45c3dd890bb633f1e0bb369a7a5a511380eaa0149c771006c0b2ba0fec687d5c"
+    },
+    "otherFrozenPathsByteIdentical": 7,
+    "authorDelta": {"path": "qualification-scratch/q23-author-06/tmp/author-delta.patch", "sha256": "8a46fc490de2844f68de2421f9217bb0d73d8cc02d15ce85cf1066e35a122766"}
+  },
+  "finalAuthorCheck": {
+    "label": "repair-02",
+    "stage": {"path": "qualification-scratch/q23-author-06/tmp/repair-02-stage.json", "sha256": "c1b88f104b4ff2eba2ac06438b0bd782bc6d2557842a3c79d4119e36eb7a64a0", "compileExit": 0, "generateExit": 0, "sourceCount": 339},
+    "lanes": {"path": "qualification-scratch/q23-author-06/tmp/repair-02-lanes/summary.json", "sha256": "dd1516c5af121138fbe5e3e54e8ac48f36843f0f70431e320f886de3e294d66d",
+      "transport": "27/27, fail 0 skipped 0 cancelled 0 todo 0",
+      "qualification": "36/36, fail 0 skipped 0 cancelled 0 todo 0"}
+  },
+  "notEstablished": [
+    "Pre-repair baseline execution (not selected)",
+    "Independent review of this repair",
+    "Native C2/UAT over the frozen repair",
+    "Production-positive peer or cross-family eligibility, QR02/QR03, D5, release qualification"
+  ],
+  "rootAttention": [
+    "R1 missing owner relation: fresh peer-required plans are now non-dispatchable by design of this repair.",
+    "R5 disclosed network effect: npm update-notifier GET to registry.npmjs.org during repair-01 generate; bind npm_config_update_notifier=false/offline for C2.",
+    "R7 scope uncertainty: zsh heredoc transient files under /tmp/zsh."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "status": "PASSED",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/BINDING.json",
+    "bytes": 21810,
+    "sha256": "e7ce51aad78d4c3e89293d1f2a2f7c3f83ffcd433e8abf64b32690052e19f7f5"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-freeze.json",
+    "bytes": 295988,
+    "sha256": "2ed1b3ab7758905dc0c33702893898130de2758d0b026af20898833d5bebe9eb"
+  },
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "sourceRows": 1345,
+  "sourceAndRetainedProofGuards": {
+    "sourceRows": 1345,
+    "compiledRows": 998,
+    "archiveMembers": 5329,
+    "typedRawJoin": {
+      "typed": "sha256:7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+      "raw": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+      "payloadEqual": true
+    },
+    "sourceBuildDependencyArchiveInstallProtectionExact": true
+  },
+  "sourceCandidateUntrackedAndAllIndicesUnchanged": true,
+  "referencedPinChecks": 96,
+  "hostSyntaxExit": 0,
+  "providerWrapperSyntaxExit": 0,
+  "transport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/TRANSPORT_PREFLIGHT.json",
+    "bytes": 1073,
+    "sha256": "878bd3c7d4b03ce145a8be9582ef80ee3aa3336bb054e08569cb4f212225120a"
+  },
+  "context": {
+    "files": 6,
+    "sourceMemberBytes": 339072,
+    "taskFileBytes": 5589,
+    "instructionUtf8Bytes": 4111,
+    "sourceContentsInlined": false,
+    "renderedBytes": "Held until genuine setup; installed renderer measures before provider admission.",
+    "members": [
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/AGENTS.md",
+        "bytes": 13754,
+        "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/stdo_abiogenesis.json",
+        "bytes": 3136,
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 145462,
+        "sha256": "f4f9893e30f32ae7a17d242f69997a0c71812ce5084f57e75dc4af5c1cc8d892"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 92784,
+        "sha256": "4ae70f3c9a8d36ed6541c8ce52551c27c2e31b6b346795a02c53e6d54021a6cf"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "bytes": 75347,
+        "sha256": "c1b6ded8611016673f5ac6dd020af020e2d9135e7478dc4146070dda284994a6"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+        "bytes": 8589,
+        "sha256": "9cbe06469224c20e3f58792a1791b9886b72b3876812787330be098ddd878d9e"
+      }
+    ]
+  },
+  "runtimeHostAndNativeScratchAbsent": true,
+  "controlInputsInsideCampaignOnly": true,
+  "freeBytes": 377166843904,
+  "setupProviderHeld": true,
+  "executed": "Read-only file/Git/STDO checks, control syntax and installed pure timeout validator only. No runtime/source/tests/build/provider."
+}

@@ -1,0 +1,162 @@
+{
+  "status": "HELD_PREPARED_NO_NATIVE_DISPATCH",
+  "recordedUtc": "2026-11-07T03:03:33.754732+00:00",
+  "consumer": "/root",
+  "pid": 38197,
+  "sessionId": 94711,
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/PREPARED.json",
+    "bytes": 6090,
+    "sha256": "2a5f8be6eb079f13441ed935faa9fa91d1cd02af1c8bc5164305b4c53e682986"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/ACTIVATION.json",
+      "bytes": 7032,
+      "sha256": "08cd30ce104e1e21b492b13c3efb0004f699cc181d303d1e29466bee4b8e8c4b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/CHECKOUT.json",
+      "bytes": 979,
+      "sha256": "1029612b57297aabe3c1ce7ada654146e39881af4919a978920b0101b2226f4a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/ALLOCATION.json",
+      "bytes": 517,
+      "sha256": "385655237f84d51401d4713f257d5e9f00cad1ed0adeb43699c1dfa49273c183"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/SUPERSESSION_002.json",
+      "bytes": 4191,
+      "sha256": "69d85cbe57e3798b626d9626ccbe892830d7b2aa947e0bf331cd660aead433f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+      "bytes": 9837,
+      "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/TASK.002.json",
+      "bytes": 10804,
+      "sha256": "aedba92096b81986f2371f941eb9d427368aae11c46f70c327564a3cbb54d8f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/host.002.mjs",
+      "bytes": 12842,
+      "sha256": "bbf4bd81e711b6ec78e5035151c452c5ed7604856cc242e16493642323e5638b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/proof.002.mjs",
+      "bytes": 5804,
+      "sha256": "20b964b0900b15c25306a20061b18b03a5c792e6231daa98d929f0fcbd9fc395"
+    }
+  ],
+  "checkout": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b",
+    "branch": "codex/rc8-reference-preservation",
+    "root": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+    "materializedTrackedFiles": 1336,
+    "materializedBytes": 38022776,
+    "sparseSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc8-reference-preservation/info/sparse-checkout",
+      "bytes": 36309,
+      "sha256": "cc5bf156a20e9042817f7c751ecd0d58f9dfea3a752622f833bd30a1142a9e26"
+    },
+    "selectionOrigin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc7-local-cut/info/sparse-checkout",
+      "bytes": 36309,
+      "sha256": "cc5bf156a20e9042817f7c751ecd0d58f9dfea3a752622f833bd30a1142a9e26"
+    },
+    "trackedStatus": "",
+    "wallMs": 1469.5706251077354,
+    "freeBytesBefore": 12073672704,
+    "freeBytesAfter": 12002258944,
+    "noProductEdits": true,
+    "noNativeDispatch": true
+  },
+  "sourceTrackedStatus": "",
+  "setup001": {
+    "artifactVerificationMs": 18547.683333,
+    "heldSetupCumulativeMs": 40213.242708,
+    "setupPhaseMs": 21665.559375,
+    "actualCloseCumulativeMs": 40447.800917,
+    "outcome": "completed installed setup; context composition refusal before task construction; one successful close; original controls preserved"
+  },
+  "resume002": [
+    {
+      "phase": "artifactVerified",
+      "elapsedMs": 18371.951083,
+      "phaseMs": 18371.951083,
+      "utc": "2026-11-07T03:02:40.191Z",
+      "rssBytes": 2510651392,
+      "heapUsedBytes": 1637313224
+    },
+    {
+      "phase": "consumerArtifactVerified",
+      "elapsedMs": 18385.32725,
+      "phaseMs": 13.376166999998532,
+      "utc": "2026-11-07T03:02:40.204Z",
+      "rssBytes": 2529820672,
+      "heapUsedBytes": 1655042952
+    },
+    {
+      "phase": "resourceReacquired",
+      "elapsedMs": 18485.19975,
+      "phaseMs": 99.87250000000131,
+      "utc": "2026-11-07T03:02:40.304Z",
+      "rssBytes": 2493874176,
+      "heapUsedBytes": 1662585528
+    },
+    {
+      "phase": "environmentReconstructed",
+      "elapsedMs": 18834.016375,
+      "phaseMs": 348.8166249999995,
+      "utc": "2026-11-07T03:02:40.653Z",
+      "rssBytes": 2566389760,
+      "heapUsedBytes": 1686802952
+    },
+    {
+      "phase": "catalogReconstructed",
+      "elapsedMs": 19187.731667,
+      "phaseMs": 353.7152920000008,
+      "utc": "2026-11-07T03:02:41.007Z",
+      "rssBytes": 2595160064,
+      "heapUsedBytes": 1709993488
+    },
+    {
+      "phase": "contextObserved",
+      "elapsedMs": 19443.319083,
+      "phaseMs": 255.58741599999848,
+      "utc": "2026-11-07T03:02:41.262Z",
+      "rssBytes": 1825374208,
+      "heapUsedBytes": 177444568
+    },
+    {
+      "phase": "nativeCallConstructed",
+      "elapsedMs": 21254.368042,
+      "phaseMs": 1811.0489589999997,
+      "utc": "2026-11-07T03:02:43.073Z",
+      "rssBytes": 1874132992,
+      "heapUsedBytes": 216946656
+    }
+  ],
+  "nativeInvocationRef": "invocation://abiogenesis/fd5cae7500c76744f2e5d511fad1e3df934596150c32b05302e41307f7b387a9",
+  "nativeInvocationDigest": "sha256:fd5cae7500c76744f2e5d511fad1e3df934596150c32b05302e41307f7b387a9",
+  "context": {
+    "digest": "sha256:7d898f06cbb15b7d4c3920be2b9104b83f7590b624d53d19787d686e20fdf802",
+    "entries": 846
+  },
+  "renderedNativeOrderBytes": 11810,
+  "freeBytes": 11743719424,
+  "remaining": "Root exact admission of held prepared binding before native dispatch; no user confirmation required",
+  "readinessLimits": [
+    "Preparation is not native execution, Product acceptance, qualification or performance comparison",
+    "No reinstall or runtime migration on resume002; one legitimate cold reacquisition after the original host closed",
+    "Original diagnostic gap and wrong coordinate-only diagnostic read remain disclosed in SUPERSESSION_002",
+    "Proof helper syntax checked only; no source compile/test lanes executed by Operator"
+  ],
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "qualified": false
+}

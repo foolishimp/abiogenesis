@@ -1,0 +1,57 @@
+{
+  "status": "OBSERVED_NATIVE_SOURCE_FROZEN_C2_PENDING",
+  "authorFeedback": [],
+  "capturedUtc": "2026-11-05T08:53:43.990Z",
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "reviewBaseCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "nativeResultRef": "result://abiogenesis/ae95925f07b9ac9ce4123cccc831a7f05a1fe2f0977611c956ab03299a949960",
+  "nativeResultDigest": "sha256:ae95925f07b9ac9ce4123cccc831a7f05a1fe2f0977611c956ab03299a949960",
+  "eventOrdinal": 9518,
+  "eventTime": "2026-11-05T08:52:16.911Z",
+  "eventPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "eventOffset": 35267582,
+  "eventRowBytes": 205825,
+  "eventRowSha256": "7bfb223d5be9aaf448db93c2bfdad887d566c5b93d1a922c887b5156111540f2",
+  "observedThroughOrdinal": 9634,
+  "afterObservationRef": "worksite-context-observation://abiogenesis/5d89216f147707954cf46092d592c9838633476a7b6dd15f843c18fd5e1c9215",
+  "afterObservationDigest": "sha256:5d89216f147707954cf46092d592c9838633476a7b6dd15f843c18fd5e1c9215",
+  "trackedChangedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "incrementChangedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "heldSourceBeforeSha256": "a6d85d55b6cb2b2177963d5fdb754ba020e6bb609ba966a31fc7728f548921e2",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 67553,
+      "sha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc",
+      "preimageSha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19",
+      "changed": true,
+      "admittedAfterEntry": {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+        "state": "file",
+        "digest": "sha256:b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc",
+        "byteLength": 67553
+      },
+      "heldPreimageSha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19",
+      "changedFromHeld": true,
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+    }
+  ],
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/source.diff",
+    "bytes": 5451,
+    "sha256": "3ada829df26a622f168bc809937fabc42016d3670da18a0a75e9112a76e69a7e"
+  },
+  "limits": [
+    "Passive observation and file custody; final owner close/fresh projections will conjoin runtime standing.",
+    "No source acceptance, C2 pass, UAT or qualification inferred."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "status": "BOUND_ACTUAL_D5_NATIVE_SUBJECT",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "nativeResultRef": "result://abiogenesis/fe4ffa3d823a3e00db1dc4f0ffcb71698fd21c5afd312727dafdb8df5f412616",
+  "nativeResultDigest": "sha256:fe4ffa3d823a3e00db1dc4f0ffcb71698fd21c5afd312727dafdb8df5f412616",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "authorHandoffs": {
+    "return.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/return.json",
+      "bytes": 15174,
+      "sha256": "ad025195a31b420f9636702e9679b8b33e72af8fc4714bc75202d7dd2e73e06a"
+    },
+    "readiness.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/readiness.json",
+      "bytes": 3588,
+      "sha256": "3667d4276d37fc97f4e4d8bbfb10339b445f2b13a51a2ecd1dc661ce2156e0a4"
+    },
+    "progress.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/progress.json",
+      "bytes": 2527,
+      "sha256": "e8aa3483085178ccc8ecda89e6d7daf8a30bcf1c5b578853ad12a117fce9fcfb"
+    }
+  },
+  "expectedAuthorDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03",
+  "expectedFrozenFiles": 417,
+  "standing": "Actual N3 source/Result and handoffs bound; source custody only. Close/resume/review/Root admission and all C2/UAT remain pending. No old N2 source/close substituted.",
+  "coordinates": {
+    "eventOrdinal": 170477,
+    "eventTime": "2026-11-06T01:56:32.706Z",
+    "eventOffset": 972094312,
+    "eventRowBytes": 44165265,
+    "eventRowSha256": "f73b6fb964086866bf7d779ac3a24880e7909119b6cf0a6f6433b85a22b19a94",
+    "afterObservationRef": "worksite-context-observation://abiogenesis/dd15c56bcb0232d22cb3994fa23bcc9168fdc6d43e859fec06e1ec7fd32134c0",
+    "afterObservationDigest": "sha256:dd15c56bcb0232d22cb3994fa23bcc9168fdc6d43e859fec06e1ec7fd32134c0"
+  },
+  "feedbackCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/feedback-custody-001/INDEX.json",
+    "bytes": 8545,
+    "sha256": "b44f8c64ea32dd7444901539d5b5ea237a655403e828d1a3c95a64bce1b369fd"
+  }
+}

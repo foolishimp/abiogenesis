@@ -1,0 +1,80 @@
+{
+  "kind": "post_author_continuation_preparation_checks",
+  "status": "SYNTAX_AND_PINS_ONLY_PASSED",
+  "at": "2026-11-06T17:43:51.803062+00:00",
+  "syntax": [
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/run-build.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/run-build.mjs",
+        "bytes": 7027,
+        "sha256": "86228dc838f2fdadb45f9130184714000ac2a3b16a5e5e0712685d8be846f334"
+      }
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/run-proof.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/run-proof.mjs",
+        "bytes": 6904,
+        "sha256": "195a92dbb7782505092c493b9a79c9215c9e0dce42fcce4c0e003d623092eefa"
+      }
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/prior-author-lanes.completed-build.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/prior-author-lanes.completed-build.mjs",
+        "bytes": 11395,
+        "sha256": "28726995113ca266fad206bc7c703d5dbcd21fe4efeba8638c40856df57e2764"
+      }
+    }
+  ],
+  "sourceRows": 451,
+  "compiledJs": 290,
+  "compiledDeclarations": 290,
+  "helperDelta": "Exactly one stageReport read-path replacement; all source guards, finite allocation accounting, selectors, skip predicates and spawn supervision unchanged.",
+  "actualInputs": "Final H03 source/subject/close/disposition pins verified; partial source status retained.",
+  "futureOutputsAbsent": [
+    "build",
+    "proof",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-lanes-fixed-route",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-lanes-assessment-guards",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-lanes-native-workspace-owner",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-lanes-caller"
+  ],
+  "bounds": {
+    "generatorMs": 600000,
+    "lifecycleMs": 60000,
+    "lanesMs": [
+      600000,
+      300000,
+      300000,
+      300000
+    ],
+    "outerLaneRecorderGraceMs": 20000,
+    "heapMiB": 8192,
+    "maxOutputBytes": 67108864,
+    "retries": 0
+  },
+  "effects": "Preparation files and syntax checks only; no runtime/build/test/source effect."
+}

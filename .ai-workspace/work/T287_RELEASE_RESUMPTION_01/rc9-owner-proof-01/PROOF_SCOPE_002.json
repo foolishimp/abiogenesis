@@ -1,0 +1,160 @@
+{
+  "id": "PROOF_SCOPE_002",
+  "status": "SUCCESSOR_PROOF_SCOPE_RECORDED_EXECUTION_HELD",
+  "at": "2026-11-08T06:59:07.682844+00:00",
+  "writerActivation": {
+    "id": "RC9-PROOF-SCOPE-02",
+    "role": "external Proof-Control Writer",
+    "admittingAuthority": "/root Executive",
+    "permittedEffects": "One successor preparation scope record in existing external territory; read-only inspection of affected controls. No test/runtime/source/Git effects.",
+    "decisionEvidence": "Root RC9-REPAIR-02 chooses restoration of all existing physical content checks, removal of provider WeakMap/boolean/release/second-port shortcut, preserving observation counters if valid. O3 reuse optimization is OPEN performance follow-up needing owning lifetime Design. No once-per-resolution/zero-install-read acceptance claim for RC9. O1/O2/O4 and F3/F4/F6 remain. Native02 fixes OWN selection handoff plus real changed-content/retained-semantics refusal regression, HOW and three RC9 metadata files."
+  },
+  "basis": {
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "ProductScope": "fixed15/GOAL035/T287"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-001/REVIEW.json",
+    "bytes": 28710,
+    "sha256": "36240ead5af285ec9009154e2f91f70f1958fd565b4e7ab00464235a0a1a7119"
+  },
+  "rejectedSubject": {
+    "sourceDigest": "6aacc0e5b7bda528bac527e16551789bb5da43e7aeb7d3408ebde994a9e822ff",
+    "finding": "RC9-SOURCE-001 S2: retained first projection can accept stale installed content after another owner effect"
+  },
+  "native02ScopeControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_SCOPE.json",
+    "bytes": 3663,
+    "sha256": "5d0f6f010854447821bc28d65d6bf98f62872fb1511d03bca96f7e927599bb9d"
+  },
+  "claimDelta": {
+    "retained": [
+      "O1 immutable basis-row computation with current prefix membership/cardinality",
+      "O2 invariant workspace-environment components with fresh prefix wrapper and invalidation",
+      "O4 final contract freeze at actual configuration/endpoint boundary",
+      "F3 comment precision",
+      "F4 exact three-name W2 allowlist and complete case",
+      "F6 normal unit membership plus meaningful owner regression"
+    ],
+    "withdrawnForRC9": [
+      "O3 physical verification reuse optimization",
+      "one physical check per prepared resolution acceptance threshold",
+      "zero duplicate installed-content checks or zero installed reads acceptance claim",
+      "speedup/avoided-work attribution to O3"
+    ],
+    "requiredInstead": [
+      "Restore every existing physical content check and original refusal boundary",
+      "Remove the provider WeakMap, retained boolean, release hook and second-port shortcut selected by Root",
+      "Retained semantics must refuse after real disposable installed bytes change, including the first projection/port relation identified by review",
+      "Preserve valid observation-only counters, without a reuse quota or skipped-check inference"
+    ],
+    "O3Followup": {
+      "status": "OPEN",
+      "owner": "Root/owning lifetime Design",
+      "closure": "No closure by this source restoration, counters or existing nine residual capsules"
+    }
+  },
+  "readOnlyControlInspection": {
+    "files": {
+      "PREPARATION_MANIFEST.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PREPARATION_MANIFEST.json",
+        "bytes": 5835,
+        "sha256": "d179449a1ef0e9b33abd55ceba1021cf98744db223366b9fbf71837b2a2b8d74"
+      },
+      "REPAIR_002_MANIFEST.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/REPAIR_002_MANIFEST.json",
+        "bytes": 36079,
+        "sha256": "f7ddb34ae794405628f4ce49021eb0d7d01e741361aab33567d3ee866ac3bf47"
+      },
+      "focused-proof-002.mjs": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-002.mjs",
+        "bytes": 13305,
+        "sha256": "93187b4943f22cb4d601341962faa617a3b8a551b7b733187784f594c39c9170"
+      },
+      "FOCUSED_BINDING.PREPARATION.002.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FOCUSED_BINDING.PREPARATION.002.json",
+        "bytes": 5758,
+        "sha256": "9c8322a919101bec5b6fe54e89695b997f44f4618ec1dc0845fc6c8c33bfd99d"
+      },
+      "measurement.test.mjs": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/measurement.test.mjs",
+        "bytes": 24719,
+        "sha256": "00a3da00a6e58f67d22a22d48e2daeb86347fbe6754c40c6b60780b7814d3773"
+      },
+      "run-measurement.mjs": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-measurement.mjs",
+        "bytes": 6962,
+        "sha256": "83d6225d141524577895ae67f5a8416e13744f8a8c1c554f96884b718fa27c15"
+      },
+      "close-proof.mjs": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+        "bytes": 32816,
+        "sha256": "2e8e4155be73606d1009b629019b9966470225890a785c78105c6b6a80ba383e"
+      },
+      "RC8_BEFORE.bindings.preparation.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_BEFORE.bindings.preparation.json",
+        "bytes": 5660,
+        "sha256": "b33b1d811473e20515faa6081fcbedd33172a21eb8ba36f1a3294fd98e08b9ba"
+      },
+      "RC9_AFTER.bindings.preparation.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.bindings.preparation.json",
+        "bytes": 3364,
+        "sha256": "27ca8bb9c390ea31ea71880b5005eaac1e5302e1e4ae5ea3d759c23bf13a4a18"
+      },
+      "RESIDUAL_REASSESSMENT.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RESIDUAL_REASSESSMENT.json",
+        "bytes": 7606,
+        "sha256": "bbe78df2e0e986c2dc0d120859ca0ac098344e7cc98465f7cd275cdad71289c8"
+      },
+      "README.md": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/README.md",
+        "bytes": 8457,
+        "sha256": "65487d2d2fd92c99f5af76a8af86309e4fb79b70c9e669e691d788ebdcae51b8"
+      }
+    },
+    "result": "No hardcoded O3 reuse assertion in measurement fixture, measurement wrapper, broad driver or focused-002. No concrete script defect introduced by this scope change.",
+    "measurementAssertions": "Only history decode/reopen/cold-history zero deltas are hard assertions; they concern retained held-history law, not installed payload verification. Other additional counters are recorded generically and are not tested for O3 zero/one values.",
+    "wrapperAndBroadAssertions": "Archive/installation identity, source correspondence, typed verification and test/reporter completion remain necessary; they do not assert O3 optimization.",
+    "focused002": "Unchanged. It preserves exact normal unit script/case population and checks actual structured evidence, not O3 semantics."
+  },
+  "afterFreezeRequiredAdaptations": [
+    {
+      "surface": "New before/after measurement binding and claim projection",
+      "change": "Replace same-resolution installed-content verification role wording with physical installed-content verification work, observation only. Bind only actual surviving counter API/member pins. Baseline missing counters remain unavailable; no guessed zero or invented APIs."
+    },
+    {
+      "surface": "New candidate acceptance/measurement report",
+      "change": "Bind O1/O2/O4 selected predicates and restored physical-check/refusal evidence. Do not attribute any improvement or avoided physical verification to O3; keep n1 timings and task-cycle costs separate."
+    },
+    {
+      "surface": "Successor narrative/residual interpretation",
+      "change": "This record supersedes README once-per-resolution paragraph and RESIDUAL_REASSESSMENT C3 same-resolution wording for current RC9. Originals remain immutable history. Existing nine capsules stay OPEN until exact closure/disposition; O3 performance follow-up is separate."
+    },
+    {
+      "surface": "Native/final source and artifact bindings",
+      "change": "Use actual repaired native02 freeze and RC9 metadata source/artifact/install relation. Do not inherit author01 source acceptance, installed archive identity or failed OWN-01 proof."
+    },
+    {
+      "surface": "Complete W2 and broad population",
+      "change": "Existing planned201 population/209 total inventory remains prospective; reconcile exact final file/source pins and prerequisites. Full W2 first, changed-content/retained-semantics regression in required OWN test, all existing physical guards preserved. No RC8 whole credits."
+    },
+    {
+      "surface": "Future control scripts",
+      "change": "No new measurement/broad/focused script is required solely for O3 withdrawal. Any actual interface/fixture change discovered at freeze returns through its exact control re-entry."
+    }
+  ],
+  "preservation": {
+    "originalPreparationManifestUnchanged": true,
+    "repair002ManifestUnchanged": true,
+    "focused002Unchanged": true,
+    "priorFailedEvidenceUnchanged": true,
+    "testExecutionsThisActivation": 0,
+    "runtimeAllocationsThisActivation": 0,
+    "sourceEditsThisActivation": 0
+  },
+  "consumer": "/root",
+  "stop": "Return this scope record; wait for exact frozen candidate and applicable execution admission."
+}

@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-09T16:05:40.227294+00:00",
+  "loadAverage": [
+    4.01513671875,
+    4.08447265625,
+    4.55419921875
+  ],
+  "uptime": "3:05  up 35 days, 13:23, 10 users, load averages: 4.02 4.08 4.55",
+  "scope": "Current covariates only; no historical host telemetry or load-cause attribution",
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "hardCapSeconds": 300,
+  "freeBytes": 385652740096
+}

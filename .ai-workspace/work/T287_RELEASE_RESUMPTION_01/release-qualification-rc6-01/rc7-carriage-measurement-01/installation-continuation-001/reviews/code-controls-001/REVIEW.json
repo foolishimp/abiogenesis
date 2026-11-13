@@ -1,0 +1,148 @@
+{
+  "kind": "bounded_independent_install_continuation_review",
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": "Fixed fifteen: F01-F07, F09-F11, F13-F17",
+    "goal": "GOAL035/T287",
+    "method": "Installed STDO 3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "boundary": "Accepted S3/HS03 source and completed proofs remain with Root. This derived operator continuation changes the execution basis of existing Product lock/install owners only. ABG alone admits runtime truth; no new store/controller/authority or release claim."
+  },
+  "createdUtc": "2026-11-07T00:05:37.858765+00:00",
+  "reviewer": {
+    "actor": "/root/rc7_growth_control_review",
+    "role": "independent Reviewer",
+    "reasoning": "max",
+    "authorship": "Separate reviewer actor; did not author these controls or accepted source. No cross-family independence or enforced clean-room claim."
+  },
+  "result": "satisfied",
+  "status": "BOUNDED_NO_BLOCKER_RETURN_TO_ROOT",
+  "findings": [],
+  "triage": "not_applicable_no_findings",
+  "subject": {
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/DIAGNOSIS_AND_CONTROL_MANIFEST.json",
+      "bytes": 15269,
+      "sha256": "c1045e88abd9dbda95c41f8b60f6fa286168046ded6417657cb0102543e2bdeb"
+    },
+    "proposal": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/CONTINUATION_BINDINGS.proposal.json",
+      "bytes": 3929,
+      "sha256": "454c4b16aebebbfb057861b6f5a27726c28a486bc77bfa5d59bde7131ece565b"
+    },
+    "continueOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/continue-test-artifact.mjs",
+      "bytes": 11812,
+      "sha256": "afbf75453b45090ad909741e59fa2d3f4cf860c60772fecf7b5bc63f589a3cff"
+    },
+    "installAdapter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/install-retained-artifact.mjs",
+      "bytes": 4516,
+      "sha256": "36752211801e6145fc1ebc4af852a130d362b59cd643590004767edccc4fb617"
+    },
+    "adaptationDiff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/installation-continuation-001/OPERATOR_ADAPTATION.diff",
+      "bytes": 28242,
+      "sha256": "f7498ff7c3601686e5495b98d915dc035075686a616fdff8c78b94de1b9a56cd"
+    },
+    "RootTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_ARTIFACT_BASIS_TRIAGE_001.json",
+      "bytes": 3470,
+      "sha256": "904f275b66d6a225a7747429497ba6efe41ab2c932bd4c9e4a81463272364600"
+    }
+  },
+  "retainedBasis": {
+    "acceptedSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 10863,
+      "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+    },
+    "successfulStage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/stage.json",
+      "bytes": 97762,
+      "sha256": "27c2c400baf15dd1a4c754fed7df0bfbd22f6af13f6ff7473a084904cabc7340"
+    },
+    "sourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+    "stageManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "07626f47b6060024b8faec7541ca7068fad0de1ce64162aa1259c9be324aae85"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+      "bytes": 11021939,
+      "sha256": "ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693"
+    },
+    "verifiedReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/verification.json",
+      "bytes": 15797364,
+      "sha256": "ce518cb867f6ceb6612afd9510f8b18ca3f0f95eaa6a247e3358a9cefee4a549"
+    },
+    "priorRefusal": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/resolved-lock.json",
+      "bytes": 218,
+      "sha256": "da516723f516f49380f8b7330b2a14d29e6ec99ec7ffd041a24c651b7e526d6c"
+    },
+    "priorSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/SUMMARY.json",
+      "bytes": 1426,
+      "sha256": "03776698a2c74ea05c8c737570d036aa051186f8790e0575f2b97cb2859f8969"
+    }
+  },
+  "predicates": [
+    {
+      "predicate": "Correction addresses the observed owner-basis mismatch without changing owner law",
+      "result": "satisfied",
+      "evidence": "Read exact continuation scripts and relevant candidate compiled environment/declaration_exports/verify_product/install_product joins. constructResolvedProductLock reads the executing module manifest; candidate manifest content digest 863b31d9c4ff047ea629558a2edf08cf848b19da6ec7e2d1eebd2fc55f90fc11 agrees with the retained verified artifact. Existing incompatible_dependency refusal remains unchanged. The maintained root-installed-environment path already extracts/imports the selected archive before Product operations."
+    },
+    {
+      "predicate": "Candidate import has an authenticated archive and stage relation",
+      "result": "satisfied",
+      "evidence": "Independently matched 28 exact control/retained/stage/owner pins plus the named subject identities. Read-only tar inspection found 5325 regular members, no duplicate names, traversal paths or directory/link members. Archived product-toolchain-manifest bytes equal the selected stage; all five selected Product module digests equal their stage pins. All six declared runtime dependency package entries and the owner-loaded build/toolchain/typescript.cjs are packaged. No archive was extracted or module imported by this review."
+    },
+    {
+      "predicate": "Persisted verification is reused through existing public admission",
+      "result": "satisfied",
+      "evidence": "install-retained-artifact.mjs checks verified disposition, archive digest/length, Product/package/content identity and canonical manifest digest, then calls constructResolvedProductLock, public installProduct, isProductInstallCandidate and installedProductContentMatches. Candidate verify_product WeakMap custody cannot be invented by JSON parsing. install_product lines 215-233 retain lock membership, current-byte verifyProduct for foreign/copied carriers and complete canonical carrier comparison. No explicit extra verifier or bypass is introduced. This establishes the control/API relation; successful execution of the persisted-carrier join is not claimed."
+    },
+    {
+      "predicate": "Fresh allocations and finite command bounds precede effects",
+      "result": "satisfied",
+      "evidence": "continue-test-artifact lines 14-16 reject occupied artifact-install-002, /private/tmp/abg-r7p2 and measurement outputs before acquisition/allocation; adapter lines 14-16 rejects install host and lock/install/content/summary collisions. All selected roots and the original failed bootstrap-install were absent at review. Commands use the pinned recorder and argv arrays with explicit environment, distinct empty npm configs, 8GiB heap and Root-selected positive finite bounds no larger than proposed 120000 ms extraction commands, 600000 ms installation and 536870912 output bytes. Both scripts preserve partial outputs and stop; no retry or cleanup is added."
+    },
+    {
+      "predicate": "Accepted source, artifact and downstream measurement remain correctly attributed",
+      "result": "satisfied",
+      "evidence": "Continuation retains the prior 451-row inventory/stage digest and successful compile/generation/lifecycle receipts, checks source equality and seven fixture helpers, and compares candidate module/manifest bytes before import. Source/manifest/archive/verified pins are checked again after installation. It reuses original pack and verification by reference with packCount 0 and explicitVerificationCount 0 for this continuation; mandatory internal installer reauthentication is explicitly disclosed. Original failed lock/summary remain untouched. The emitted source-artifact relation uses actual new lock/install/content receipts; unchanged preparation-002 receives a pre-admission binding only. Fresh bootstrap installation remains distinct from the measurement fixture ordinary disposable install."
+    }
+  ],
+  "scopeAndCost": {
+    "scope": "Only operator correction, exact retained provenance, source/artifact joins, fresh outputs, finite bounds and existing owner API calls. No repeated source/design/measurement-framework review or focused tests.",
+    "concreteBlocker": null,
+    "repairRequest": null,
+    "newGates": 0
+  },
+  "futureBoundaries": [
+    "CONTINUATION_BINDINGS.proposal remains UNBOUND_PREPARATION_ONLY with activation and boundsSelectedByRoot null. Root owns actual continuation admission, finite bounds and final binding pins.",
+    "Actual bounded execution determines the persisted-carrier lock/install/content outcome. A static no-block review does not fabricate installation success.",
+    "The required installProduct internal verifier may run because process-local custody is absent; its failure must remain an actual refusal. No permission to bypass it is granted.",
+    "Measurement remains unadmitted. No source edits, rebuild, generation, pack repeat, focused-test repeat, qualification/release acceptance, immutable install mutation or selector change is selected."
+  ],
+  "reviewEffects": {
+    "ProductEdits": 0,
+    "controlEdits": 0,
+    "testsOrBuilds": 0,
+    "packOrArchiveExtraction": 0,
+    "ProductImportsOrOperations": 0,
+    "installations": 0,
+    "measurementOrRuntimeOrProviderCalls": 0,
+    "privateProviderMaterialAcquired": false,
+    "inspection": "Read-only exact metadata/source-owner snippets, file hashes and archive member bytes. Existing method/Product Frame intake reused.",
+    "writes": [
+      "This create-only REVIEW.json only."
+    ]
+  },
+  "returnTo": "Root; no activation or acceptance decision"
+}

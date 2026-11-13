@@ -1,0 +1,79 @@
+{
+  "status": "ROOT_REVIEW_REQUIRED_NO_CHECK_EXECUTED",
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "bytes": 36084,
+    "sha256": "a09343856e9fd6571b0947993679f6724aac3af123eec12d6ff93e57daa716ce"
+  },
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "commands": [
+    {
+      "label": "independent-cli",
+      "args": [
+        "generated/hello-world.mjs"
+      ],
+      "timeoutMs": 60000
+    },
+    {
+      "label": "independent-node-tests",
+      "args": [
+        "--test",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs"
+      ],
+      "timeoutMs": 120000
+    }
+  ],
+  "initialApplicationFiles": [
+    {
+      "path": "source/basic-cli/source.original.txt",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+        "bytes": 4325,
+        "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+      }
+    },
+    {
+      "path": "source/basic-cli/obligations.json",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+        "bytes": 4916,
+        "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+      }
+    },
+    {
+      "path": "source/basic-cli/oracle.json",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e9f8860eae6c8600d6b57d6a109cf65799194e62eadf3d52d73b23048ce320ba/75b3f81e32736e84cea3939bef299e203e97347cd5626e4412de6d89b311f790/sandbox/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+        "bytes": 1112,
+        "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+      }
+    }
+  ],
+  "requiredArtifacts": [
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "generated/hello-world.mjs",
+    "design/test-design.md",
+    "test/component/hello-cli.test.mjs",
+    "test/uat/hello-cli.uat.test.mjs",
+    "test-execution-plan.json"
+  ],
+  "directRoot": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001",
+  "abgArchiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs",
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "LANG",
+    "LC_ALL"
+  ],
+  "literalEnvironment": {
+    "TMPDIR": "/private/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192"
+  },
+  "meaning": "Same external commands and content rubric for both arms; no admitted-only oracle, fabricated event, provider or automatic repair. Actual commands use pinned absolute Node. Original command timeout budgets60/120s; existing recorder termination escalation2s, common to both external checks."
+}

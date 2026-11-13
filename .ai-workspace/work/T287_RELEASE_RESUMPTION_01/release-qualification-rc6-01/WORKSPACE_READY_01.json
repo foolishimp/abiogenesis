@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-05T07:47:38.468977+00:00",
+  "status": "SOURCE_WORKSPACE_READY",
+  "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "branch": "codex/t287-5-release-qualification",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "trackedClean": true,
+  "failedWorktreeRemovedByGit": true,
+  "rc6BranchUnchanged": true
+}

@@ -1,0 +1,40 @@
+{
+  "kind": "bounded_existing_reviewer_capability_readiness",
+  "at": "2026-11-05T16:23:04.756704+00:00",
+  "issuer": "Root under user Executive/independent-review mandate and ROOT_ACTIVATION",
+  "role": "Operator read-only capability readiness; no Product authorship or evaluation",
+  "question": "Determine whether the already installed Gemini CLI can support one exact frozen-source review by a third non-contributing model family with its highest supported reasoning setting and bounded read-only tool policy, without global configuration changes. Do not dispatch or read credentials.",
+  "evidenceAlreadyKnown": {
+    "command": "/opt/homebrew/bin/gemini",
+    "version": "0.42.0",
+    "help": "--model, --prompt, --approval-mode plan, --policy, --output-format json/stream-json are exposed. No auth-status subcommand appears in help.",
+    "explicitEnvironmentCredentialPresence": {
+      "GEMINI_API_KEY": false,
+      "GOOGLE_API_KEY": false
+    },
+    "oauth": "unknown; no home config/credentials acquisition allowed"
+  },
+  "allowedReadRoutes": [
+    "This request, ROOT_ACTIVATION, q23 ROOT_SELECTION/policy selection/scope clarification and exact STDO3.0.4 skills/frame for host capability",
+    "Installed /opt/homebrew/bin/gemini target and its package-local documentation/config schema/model constants",
+    "Official Gemini CLI documentation only if local package insufficient; use primary sources"
+  ],
+  "permittedOperations": [
+    "Read-only filesystem inspection of exact installed CLI/package capability",
+    "--help/--version only, no model prompt",
+    "Write THIRD_FAMILY_READINESS.json and .md in q23-identity-01 only"
+  ],
+  "requiredReturn": [
+    "Exact supported model configuration/identity and highest reasoning option if established",
+    "Read-only output/tool boundary and packet input route without new dispatcher/service/global plugin",
+    "Authentication remains unavailable/unknown unless exposed non-secret CLI capability establishes it; do not inspect home credential/config contents",
+    "Precise prerequisites and bounded invocation proposal for Root after frozen subject exists; no actual independence/eligibility or provider readiness claimed from name alone"
+  ],
+  "exclusions": [
+    "No Product source/test/HOW reads or edits",
+    "No model calls, login/browser auth, key reads, env-value output or config mutation",
+    "No new generic provider migration or independent-acceptance claim",
+    "No home/config directory exploration"
+  ],
+  "stop": "Return concise closed capability result; Root decides exact later review or owner input. Do not expand into provider integration design."
+}

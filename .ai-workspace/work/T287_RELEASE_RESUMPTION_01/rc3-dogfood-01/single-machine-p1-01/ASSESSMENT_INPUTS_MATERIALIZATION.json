@@ -1,0 +1,33 @@
+{
+  "files": [
+    {
+      "bytes": 4525,
+      "name": "task.md",
+      "sha256": "deb3b2681b8b68eda658a8feedeef2aaf9bbe731f757299dd79519232cfeb7f7"
+    },
+    {
+      "bytes": 23498,
+      "name": "HOW.md",
+      "sha256": "f3e9810fcfe968df47a29306b4f02a213156f4ceea64da2e41c12b586d77b873"
+    },
+    {
+      "bytes": 3400,
+      "name": "rubric.json",
+      "sha256": "5137555d3e58ae207b8bef9b8c16d33758f63ee421ae2e2392942dc8d001a3d2"
+    },
+    {
+      "bytes": 997,
+      "name": "COUNTEREXAMPLE.json",
+      "sha256": "a589c5aa8b934c5a09912bf5d4fd0d3ee1403de08b249eddd9cee6abb58c4004"
+    },
+    {
+      "bytes": 26980,
+      "name": "NATIVE_GRANT.json",
+      "sha256": "64ea969d4521c67344ff3ff3b05f0ad353c057631662e119988af40bd32a66bf"
+    }
+  ],
+  "kind": "single_machine_p1_assessment_input_materialization",
+  "nativeAdmission": false,
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01",
+  "target": "/Users/jim/src/apps/abiogenesis-single-machine-p1/rc3-operator-inputs/single-machine-p1-01"
+}

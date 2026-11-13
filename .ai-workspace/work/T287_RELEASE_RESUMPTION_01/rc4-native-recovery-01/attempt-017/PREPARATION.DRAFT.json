@@ -1,0 +1,76 @@
+{
+  "status": "UNFROZEN_EXTERNAL_ONLY_NO_EXECUTION",
+  "sourceCommit": "0a8d330a32d5f577b424394c0424a1cd9abe519b",
+  "sourceTree": "37256c94ccc68050275bfdd5e67f322911d48fc7",
+  "closedResume": null,
+  "candidate": null,
+  "builderArchiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+  "runtime": "runtime-003",
+  "actualBound": 8,
+  "operatorTemplateRefs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/setup-state.mjs",
+      "sha256": "300c9787df3d6408a8951aa86bfbad1ac034d74b54ce712c8525946435652763",
+      "standing": "Template only; rebind actual017 identities before execution"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/prepare-native-call.mjs",
+      "sha256": "93ac4e5d9a0d0dae2eae949a6aeea6cbfd366efe30018f1e66daf0202a558e60",
+      "standing": "Template only; rebind actual017 identities before execution"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/dispatch.mjs",
+      "sha256": "c2c52b865e9532d1073be3180c9686f7e9edfad4f4c387fc547256ecde13b2ec",
+      "standing": "Template only; rebind actual017 identities before execution"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/freeze-dispatch.py",
+      "sha256": "1b305ead828ed1422eba05600ea45d3484b39c33f84069e95c7f6d87842760da",
+      "standing": "Template only; rebind actual017 identities before execution"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/operator-preflight.py",
+      "sha256": "c11df8fd1252fb2b78aea2e92afc2952677ece75ad651e9345110be268db06c4",
+      "standing": "Template only; rebind actual017 identities before execution"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/pure-config-readiness.mjs",
+      "sha256": "2175ee7cbb74cc4fc51bb1e526cbe9df8a57d4b34027a0abffabb9dc7b78b5cf",
+      "standing": "Template only; rebind actual017 identities before execution"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/readiness.py",
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b",
+      "standing": "Template only; rebind actual017 identities before execution"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/claude-provider.sh",
+      "sha256": "d2472434e94172875f288c8d0c18810cde2c69f634204d4345bc23ef404a24bc",
+      "standing": "Template only; rebind actual017 identities before execution"
+    }
+  ],
+  "testing": {
+    "commands": 12,
+    "newHarnessTargetTimeoutMs": 300000,
+    "ownerBudgetStatus": "PURE_SELECTED_RUNTIME003_OWNER_PASS",
+    "requiredExecutionBudgetMs": 4448000,
+    "harnessAlreadySelectedReadPath": true,
+    "completeConfigurationStatus": "PENDING_GENUINE_FINAL_AUTHORITY_AMBIENT"
+  },
+  "missingMaterial": [
+    "Genuine recovered owner close handoff/current resume from selected recovery26972",
+    "Root conjoined final017 residual/proof selection and whole actual authority/ambient configuration readiness",
+    "Final source/input/absence/currentness pins before Root admission"
+  ],
+  "constraints": [
+    "No native worksite/input/scratch/tooling staging",
+    "No Product imports/runtime/provider/setup/build/Git",
+    "No freeze/admission",
+    "Only added path uat/harness.test.mjs; existing proof homes"
+  ],
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/PARTIAL_CHECKPOINT.json",
+    "sha256": "1d5bbe07a6b3531f820e76b81b84c264868dad3d272631e2a14a04bd0d2f9783"
+  },
+  "priorOutcome": "Outer timeout during third C2; no genuine normal wrapper close. C3 source admitted/preserved; strict packed chain bounded accepted. No third C2 verdict."
+}

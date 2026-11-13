@@ -1,0 +1,171 @@
+{
+  "productFrame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "selection": "Fixed fifteen families F01-F07,F09-F11,F13-F17 / GOAL-035 / T-287 / RC8 REF-01; explicitly unqualified local cut",
+    "method": "STDO 3.0.4; manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; empty composition",
+    "authority": "ABG alone selects exact admitted event profiles and establishes replay truth. Historical fixture bytes do not acquire current compatibility or runtime authority from relocation. Root alone disposes this assurance gap and accepts a cut."
+  },
+  "reviewId": "selected-action-profile-019",
+  "at": "2026-11-07T13:11:07.989777+00:00",
+  "role": "Independent MAX Reviewer; read-only source/evidence",
+  "verdict": {
+    "status": "falsified",
+    "claim": "The exact retained selected-action-04 prefix is compatible with the current owner used by the default authority test.",
+    "finding": "SAP-019-001",
+    "severity": "S3",
+    "classification": "Historical test-input/current-profile incompatibility; no current Product defect established.",
+    "fileInputClosure": "satisfied: the three exact original files were copied and read back; this earlier closure remains closed.",
+    "coverage": "Zero test bodies ran. The harness reports one failed file case, zero passes and zero skips; the source-level optional third-case skip was not reached."
+  },
+  "governingRelations": [
+    "EVENTS-001/002/003 and PUBLIC-CONTRACTS-004 preserve sole admission, original identities and exact versioned semantics. An unknown stamp cannot silently acquire another event table.",
+    "PROJECTION-001/002/004/025 requires deterministic projection from admitted history under exact basis/provenance; reconstructing history does not establish current physical authority.",
+    "CONTINUATION-011/012/013/014 preserves intent, selected action and exact current basis. Local/automatic selected-action work remains5.0; human-response deferral does not erase these owner regression claims.",
+    "T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md:2-3 explicitly keeps predecessor-stamped history with its original owner, forbids restamping/fallback and requires an exact known schedule. Common library HOW10.9/10.10 and the current classifier bind the retained/current implementation; the historical two-profile wording is not a fifth-profile grant."
+  ],
+  "finding": {
+    "trigger": "Import the unchanged authority test with the original04 three-file default subject. It deterministically fails before registration, even after successful input staging.",
+    "causalChain": [
+      "test:14 reads the now-present environment/opened; line16 parses and deeply freezes the original interrupted-prefix vector, then calls selectValidatedRuntimeEventPrefix.",
+      "event_prefix.ts:547-561 selects the cold immutable-snapshot route, checks gap-free ordinals, then calls projectRootEventProfileSchedule over the complete vector.",
+      "event_store.ts:3971-3973 takes the first row stamp and asks the exact classifier. That stamp is6c8a, absent from the four admitted tables, so it throws unknown native profile. Compiled stack points to event_store.js:2943.",
+      "The selected-action projection at test:17 and the two current-basis selector cases at24/30 are never reached. No install resolution, recovery/reopen or Product effect is attempted."
+    ],
+    "oldHeader": {
+      "profile": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "rows": 216,
+      "firstAdmissionOrdinal": 1,
+      "firstKind": "public_operation_artifact_admitted",
+      "firstEventId": "event://abiogenesis/add66c8cc99d1ac03af653fd04330c1b3284c36960a24fa0c465eaed9e671402",
+      "uniformStamp": true,
+      "declarationRepriceRows": 0,
+      "prefixBytes": 3319378,
+      "prefixSha256": "450e1cb9e597dd5ccc0a9d9fa00fe423006e81ee26cc7225f7277e2f155063bb"
+    },
+    "admittedProfiles": {
+      "L": "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c",
+      "installed_rc6": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "frozen_s2": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0",
+      "W_current": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "ownerLocations": "event_contract_profiles.ts:8-65 and event_store.ts:1214-1226 construct/select exactly L,RC6,S2,W. The published native-runtime-observation.json names W. No profile wildcard or fallback is present.",
+    "harm": "Two specific current-owner selector regression claims are unavailable; broad proof stops. No invalid history is admitted and no valid current-profile invocation is shown failing.",
+    "containment": "Unknown-profile refusal occurs at cold acquisition before selected-action interpretation. Original event bytes and all old/new failures remain intact. This guard success is not substitute proof of the unexecuted selector semantics.",
+    "probabilityAndCost": "Certain for this exact old-stamp/current-owner pair. Recopy or a larger timeout cannot repair it. Lawful current evidence requires a separately scoped fixture/proof selection; its cost is unmeasured and exceeds the completed three-file staging task. No Product redesign is warranted."
+  },
+  "distinctFromNativeAssessment": {
+    "record": {
+      "path": "reviews/native-assessment-011-plan/REVIEW.json",
+      "bytes": 11933,
+      "sha256": "6041d3abf85dbe8e51c7214f40b65e8abcadd347f45d334665dac371e32eecb6"
+    },
+    "existingResidual": "RC8-NATIVE-ASSESSMENT-PROFILE",
+    "difference": "That13-row fixture removes its unsupported4196 profile and re-admits under current W; first failures are forbidden lifecycle copies in artifact row9 and evidence row11. This216-row fixture preserves6c8a and is rejected at schedule selection before payload/selector work. They share a historical-fixture applicability limitation, not the same input/profile/cause or proof population. Keep separate findings and closure records."
+  },
+  "affectedProof": {
+    "defaultCases": [
+      "equal historical projection values do not mask the exact open current basis: both candidate orderings select actual open exact-basis occurrence",
+      "occurrence selection refuses genuine ambiguity and crossed basis: two open candidates or changed basis digest return null"
+    ],
+    "optionalBoundary": "The third same-binding alternate catalog/view case still requires ABI5_SELECTED_ACTION_OWNER_SUBJECT and a valid physical store/installed-owner subject. It is neither executed nor newly covered. Adjacent selected-action composition/preflight conditional dependencies remain exactly as mapped in018; copying or this finding does not activate them.",
+    "unqualifiedCutImpact": "The classifier/test/selected-action owners are unchanged from RC7 through A6/A11. The failure does not exercise the RC8 reference-preservation delta and establishes no failure on the chosen current-profile native author/build path. Conversely, accepted current-path proofs do not establish these two missing selector oracles or arbitrary6c8a compatibility. A limited unqualified REF-01 disposition must name this assurance gap, not declare selected-action/whole-broad/whole5.0 green."
+  },
+  "recommendation": {
+    "kind": "propose separate bounded assurance residual; Root alone selects",
+    "suggestedId": "RC8-SELECTED-ACTION-PROFILE",
+    "scope": "Default current-owner selected-action authority regression proof remains blocked by unsupported historical6c8a input. Preserve018 file-missing red,019 unknown-profile red and all original seeds; record018 external-input custody as satisfied.",
+    "trigger": "Before claiming these two current-owner discriminators, supporting/replaying6c8a under the new cut, changing the affected pending-selected-action authority relation, or whole5.0/release qualification. Any actual lawful current-profile selection failure requires immediate Product triage and cannot be absorbed into this historical residual.",
+    "smallestLawfulReentry": "Separately select an existing genuine current-profile pending-selected-action evidence population from the supported owner path, or authorize obtaining that actual owner evidence under a new distinct frozen subject. Preserve the original retained seed and both positive/ambiguity/crossed-basis oracles. Keep historical-owner replay distinct from current-owner regression proof. Do not overload OWNER_SUBJECT merely to relocate data and silently activate its physical third case.",
+    "closure": "Bind exact current admitted profile, original causal event/basis/route identities and a genuine open selected occurrence; retain both candidate-order positives and ambiguity/crossed-basis negatives; execute the complete intended component population with the existing optional physical scope explicitly unchanged. Any separately claimed installed catalog/view authority needs its own real store/currentness evidence.",
+    "falsifiers": [
+      "A lawful supported current-profile prefix is rejected before the intended owner relation.",
+      "An ambiguous population or wrong-basis occurrence is consumed, or equal historical values hide the sole exact open current occurrence.",
+      "A separately claimed installed catalog/view authority substitutes a coherent foreign current context or bypasses its actual physical/currentness checks."
+    ],
+    "notClosure": [
+      "Restamping6c8a to a supported digest or stripping the stamp",
+      "Adding a generic profile registry, fallback, compatibility alias or bypass",
+      "Inventing selected-occurrence seeds or changing expected results to obtain green",
+      "Counting old historical-owner proof, file-copy success or unrelated native passes as these current-owner results"
+    ],
+    "priorityBoundary": "A bounded explicit residual is proportionate for the already-selected unqualified reference cut; it is not approval of unsupported history or qualification. Root may instead authorize the separate evidence task. Reviewer performs neither action."
+  },
+  "source": {
+    "A6": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "A11": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "archive": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "comparison": "Five causal files match actual broad019, stage04, selected RC7 checkout and A6/A11 frozen rows. No source mutation caused this frontier.",
+    "pins": {
+      "test_env/tests/t287-selected-action-authority.test.mjs": {
+        "bytes": 5751,
+        "sha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740"
+      },
+      "code/src/abg/construction_continuation.ts": {
+        "bytes": 147829,
+        "sha256": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16"
+      },
+      "code/src/abg/event_contract_profiles.ts": {
+        "bytes": 14485,
+        "sha256": "f242656d220350439cf699d1654ce324cb2d6fb4d80b2567b5ba4bd8a7c89994"
+      },
+      "code/src/abg/event_store.ts": {
+        "bytes": 225695,
+        "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
+      },
+      "code/src/abg/event_prefix.ts": {
+        "bytes": 64754,
+        "sha256": "cfe2ce70db4935aac785bc92c24fa3634bd8e14ff38476fb612afe4cc12f512b"
+      }
+    },
+    "additionalPins": {
+      "design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md": {
+        "bytes": 22350,
+        "sha256": "5fd66737b877301cad2ac3f3c3605a68ba9ee83fc01f4d8be56359b7cdddc4fb"
+      },
+      "contracts/schemas/native-runtime-observation.json": {
+        "bytes": 153007,
+        "sha256": "f940670cfb03f4cc587d91537b1082b2563b6399332d687ef9319ac6289757de"
+      }
+    }
+  },
+  "evidenceBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+  "evidencePins": {
+    "OPERATOR_RETURN_019.json": {
+      "path": "OPERATOR_RETURN_019.json",
+      "bytes": 8949,
+      "sha256": "82eb2c4528d67adf24929366cf0b4ec5ff59a6ee23dc468e813de68f93dc207c"
+    },
+    "execution-019/files/171-t287-selected-action-authority.json": {
+      "path": "execution-019/files/171-t287-selected-action-authority.json",
+      "bytes": 1169,
+      "sha256": "bfb0c0c444764831b388ec415734bce3ac704d2a0e0036cd2ac1a503e593d95f"
+    },
+    "execution-019/commands/171-t287-selected-action-authority.result.json": {
+      "path": "execution-019/commands/171-t287-selected-action-authority.result.json",
+      "bytes": 1501,
+      "sha256": "efdd0968ff1be72a5b0654c3540fb7cbae7438e7c168e4bdee2b543f04c9b3c9"
+    },
+    "execution-019/commands/171-t287-selected-action-authority.stdout": {
+      "path": "execution-019/commands/171-t287-selected-action-authority.stdout",
+      "bytes": 1418,
+      "sha256": "5f42cacf7b78eb398df3a02a1b878bd792ac1a0fb1d64b3f97d23c5bc58dc9a3"
+    },
+    "execution-019/events/171-t287-selected-action-authority.jsonl": {
+      "path": "execution-019/events/171-t287-selected-action-authority.jsonl",
+      "bytes": 767,
+      "sha256": "c9ffe1058c8b2b2eaea02da5bce56bd6ddb2e16dbc29941d1a686afe3bb095db"
+    },
+    "execution-019/external-inputs/selected-action-default-common.json": {
+      "path": "execution-019/external-inputs/selected-action-default-common.json",
+      "bytes": 2057,
+      "sha256": "36dfd7081b86d28511921a811458629b0e24661620d8361c0bd43aa08c6ac99e"
+    }
+  },
+  "priorInputClosure": {
+    "path": "reviews/selected-action-inputs-018/REVIEW.json",
+    "bytes": 16136,
+    "sha256": "4e185513f2d493db4bfea3d659a419ab3dcb75a59eda78290462cfe038ed5a55"
+  },
+  "authorityReuse": "Product100324B/979681c2, Definition3136B/b5720642, frame27131B/2c2a3295 rehashed unchanged; exact full pins and original04/05 provenance remain in018 and RO16 capsules. Current requirements and accepted compatibility HOW reread; no authority evolution selected.",
+  "effectsAndLimits": "Only this new REVIEW.json/README.md written. Read exact receipts, staged prefix, current source and prior closed residual; no Product imports/calls, tests, source repair, generated seed, profile exploration beyond this cone, provider, Git, cleanup or new agents. Root retains all acceptance and execution authority."
+}

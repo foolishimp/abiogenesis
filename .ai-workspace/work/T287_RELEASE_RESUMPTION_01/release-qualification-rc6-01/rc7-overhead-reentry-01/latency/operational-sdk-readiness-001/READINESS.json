@@ -1,0 +1,426 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; fixed fifteen families F01-F07, F09-F11, F13-F17; GOAL-035/T-287",
+    "basis": "stdo://releases/v3.0.4/",
+    "composition": [],
+    "selectedOutcome": "RC7 overhead and duplication removal remains release work. Immutable installed RC6 supplies historical execution evidence and the present callable SDK; frozen A is the only prospective source examined.",
+    "owners": "Product defines meaning; installed Public constructors/transports are thin shells; Product populates run intent/authority; ABG exclusively acquires, admits, executes, advances and closes its event resource. Root selects effects/proof and independently admits the successor.",
+    "applicableLaw": "Frozen PRODUCT.md:811-849 permits established live-state reuse and requires genuine acquisition/invalidation/cold reconstruction; :994-1033 makes SDK/CLI projections of the same owners. Frame basis:1-45 selects STDO3.0.4 composition[].",
+    "evaluationBoundary": "Read-only operational API readiness. No Product authoring, active B review, implementation, dispatch, qualification or independent acceptance."
+  },
+  "kind": "bounded_operational_sdk_reuse_readiness",
+  "at": "2026-11-06T05:51:10.365392+00:00",
+  "status": "CLOSED_SUPPORTED_EXISTING_OWNER_SEQUENCE",
+  "decision": {
+    "answer": "Yes. The installed SDK supports one acquired resource and its actual prefix from environment projection through start-call population, mechanical preflight, invocation and owner completion. The outer caller then closes that same resource explicitly.",
+    "libraryGap": null,
+    "missingIntegration": "The current operator prepare/dispatch/cold-CLI composition does not use that complete route. Its call construction, evidence consumers, final physical close and host deadline must be composed at the existing control owners; publicCaller.invoke alone is not a drop-in replacement.",
+    "sameProcessBoundary": "Keep one installed module instance, outer resource, selection, environment and prepared.call alive in the same already-authorized host through mechanical preflight and invocation. Persist evidence without reading it back as the executable call. A retained process is sufficient; no library requires a preparer exit, JSON reload or fresh CLI. Current separate scripts do not already implement this relation.",
+    "authorityLimit": "Root must bind a future packet that permits this sequence and its mechanical predicates before effects. This report adds no approval controller or implicit authority. If a host actually exits, reacquisition is genuine and required; serialized selection bytes cannot restore ownership.",
+    "notASpeedClaim": "B observations remain phase evidence only. Neither 80.419s preflight, 315.148s pre-dispatch, nor 147.877s pre-admission is identified as wholly removable."
+  },
+  "sequence": [
+    {
+      "step": 1,
+      "owner": "Existing operator host + immutable installed product",
+      "input": "Root-selected source/intent/effect bounds, actual current close, exact verified installs/definition coordinates, selected native/provider environment and host bounds.",
+      "action": "Apply the declared environment before module loading; retain the current trusted installed-content checks and source/worksite observations. Use the existing commandRecorder at the outer single-host boundary if its deadline/process-group custody is required.",
+      "output": "One bounded host and one installed module instance. The outer process command receipt describes this real host, never a nonexistent CLI."
+    },
+    {
+      "step": 2,
+      "owner": "abg.acquireAbgEventResource / selectAcquiredAbgEventResource; publicCaller.acquire",
+      "input": "Actual reopen assertion with its actual closeHandoff and owner digest.",
+      "action": "Acquire once, then select resource.entryPrefix. publicCaller.acquire(caller.reopen()) already performs both.",
+      "output": "Outer AcquiredAbgEventResource and actual owner-issued AcquiredAbgEventResourceSelection s. The selection is module-instance identity, not an I-JSON capability."
+    },
+    {
+      "step": 3,
+      "owner": "publicCaller.refresh -> projectOwnedPrefixArtifactTruth -> projectWorkspaceEnvironmentFromArtifactTruth",
+      "input": "s.prefix explicitly, plus exact retained WorkspaceBinding coordinate.",
+      "action": "Call caller.refresh(s.prefix) after acquisition. Preserve requireCurrent:true. Use the environment's admitted installations and authority; do not first refresh a raw serialized prefix and subsequently reopen it.",
+      "output": "Existing authenticated artifact/environment projections attached to this owner. The history derivation retains actual acquired-prefix identity."
+    },
+    {
+      "step": 4,
+      "owner": "api.constructInstalledStartCall -> product.populateProductRunInvocation",
+      "input": "The already selected native author Program, start/next/direct intent, real input factory/context, actor, catalog/view, admitted installs, source:none, verified envelope coordinates; eventResource:s.",
+      "action": "Construct once, require installed_start_call, retain prepared.call. Run the selected mechanical preflight/currentness checks in this same host and retain their evidence. An ordinary later lifecycle start may supply its lawful source intent under the same owner contracts.",
+      "output": "Exact DefinitionCall whose resources.eventResource is s. Population binds transport_steering to s. Replacing eventResource in an earlier reopen call is invalid; regenerate the entire owner-populated call and its invocation/digest evidence."
+    },
+    {
+      "step": 5,
+      "owner": "api.runInstalledDefinitionCallWithResource; optionally existing publicCaller.invoke",
+      "input": "The same s and the same prepared.call, with no serialize/parse/clone handoff.",
+      "action": "Await runInstalledDefinitionCallWithResource(s,prepared.call), or caller.invoke(label,prepared.call,{expectResult:false}) with caller.state.selection===s. The helper retains the actual outcome and advances its selection. Transport detaches semantic data but restores the exact resource identity; fixed owner admission still runs.",
+      "output": "Actual installed_definition_call_transport_result with acquisitionKind:acquired and DefinitionHostReceipt, or actual transport refusal. No CLI command/stdout/exit event is created."
+    },
+    {
+      "step": 6,
+      "owner": "RUN_DEFINITION_BINDINGS.start -> bindExactPrefixTransition -> runInvocationOwner -> completeAbgEventResource",
+      "input": "Exact current selection and fully admitted call.",
+      "action": "The start owner borrows the same store, reprojects setup through its owned entry prefix, checks authority/source/currentness, admits effects and executes the unchanged traversal/native owner. Its scoped release does not close the outer borrowed store.",
+      "output": "The actual run receipt carries abg_event_resource_completion with entryPrefix and successor selection, not a closeHandoff. The transition binder requires same physical store, exact entry correspondence, current successor and lawful nondecreasing prefix."
+    },
+    {
+      "step": 7,
+      "owner": "Outer caller -> selectHeldEventStoreDurablePrefix -> closeAbgEventResource; publicCaller.close",
+      "input": "Original outer resource and actual final held prefix (normally completion.successor.prefix).",
+      "action": "After awaited return, close the original outer resource exactly once. For a failure without completion, use the owner's currently held prefix, preserve the failure, and attempt the same physical close in finally. Never use the old entry selection after advancement. If close cannot establish current correspondence, report the real close failure and leave recovery to existing Root recovery after quiescence.",
+      "output": "Separate actual abg_event_resource_receipt and closeHandoff. Persist these without rewriting the operation's completion/receipt. Clear resource, selection and environment in the durable resume; retain only the actual close for a later acquisition."
+    },
+    {
+      "step": 8,
+      "owner": "Existing exclusiveRecord/record and Root evidence consumers",
+      "input": "Actual prepared call/source observation, actual SDK outcome, actual outer close and genuine source handoff.",
+      "action": "Retain the call/source evidence and the complete SDK outcome once; reference its actual receipt/terminal instead of embedding copies. Retain the physical close separately and actual resume. Preserve all result/refusal/non-terminal/fault distinctions. Run trusted after-content checks without losing the already observed receipt.",
+      "output": "Reviewable actual source/result/close custody. Existing readers must select SDK outcome.receipt and the separate outer close; they must not assume execution.execution.exitCode or receipt.resources.eventResource.closeHandoff exists."
+    }
+  ],
+  "decidingOwnerRelations": [
+    {
+      "claim": "The native start constructor accepts AbgEventResourceInput, retains eventResource identity, and binds it into authority population.",
+      "installed": "startTypes:141-149; startConstructor:227-259; population:179-211,476-600",
+      "frozen": "installed_public_definition_call.ts:525-566; run_invocation_operation.ts:388-429,879ff"
+    },
+    {
+      "claim": "The SDK acquired transport requires the real module-issued selection, strict call resource identity, and currentness, then calls the same fixed owner through runExactDefinition.",
+      "installed": "transport:219-285; hostReceipt:14-49",
+      "frozen": "installed_definition_call_transport.ts:404-480"
+    },
+    {
+      "claim": "Start uses the transition binder, which supports borrowed completion; the exact-prefix read binder remains reopen-only.",
+      "installed": "runOwner:968-991,1684-1688; transition:34-92",
+      "frozen": "run_invocation.ts:1217-1260,2286-2298; exact_prefix_bindings.ts:63-95,117-137,154ff"
+    },
+    {
+      "claim": "Outer acquisition, identity-checked borrowing, completion and physical close are already distinct operations.",
+      "installed": "resource:17-96,174-266; resourceTypes:24-77",
+      "frozen": "definition_event_resource.ts:85-172,268-379"
+    },
+    {
+      "claim": "Acquired prefix projection uses the existing live derivation; raw/copied or no-longer-live physical proof retains cold acquisition/currentness semantics.",
+      "installed": "eventStore:904-944,1242-1268,1380-1413,2495-2523; artifactTruth:602-624; environment:202-222; eventPrefix:28-34",
+      "frozen": "event_store.ts / artifact_truth.ts / environment_admission.ts pinned as corresponding existing owners"
+    },
+    {
+      "claim": "Current operator lifecycle is expressly a cold entry; publicCaller.invoke already supports borrowed transport but has different return/close behavior.",
+      "installed": null,
+      "operator": "operatorSetup:108-172,303-337; operatorRunner:49-68,239-258,332-355; bDispatch:current pinned file"
+    }
+  ],
+  "invariants": [
+    "Keep one actual module instance and owner-held resource. Copied/serialized/foreign selections refuse; a coordinate digest alone does not grant physical custody.",
+    "Retain exclusive physical store identity, extent and current-prefix checks at use and close. The existing trusted-desktop contract does not promise detection of hostile same-inode content edits during a held session.",
+    "Preserve exact installed declarations, workspace/actor/effect grants, source:none for the selected author, input observation/currentness, native provider role and actual runtime/result admission.",
+    "Source changes, invalidation, a changed prefix, failed preflight or changed installed identity require the existing refusal/re-entry relation. Do not carry a prepared call across such a change.",
+    "The SDK receipt's exitCode is the Effect-host semantic status, not an OS child exit code. Result may still encode blocked/unmet work. Null ownerOutput/resources and execution failure must stay failure.",
+    "A borrowed operation completion is not physical release. Never splice an outer close into that immutable operation receipt or claim its receiptDigest covers an invented handoff.",
+    "No automatic retry. A process death cannot yield a fabricated completion/close; retain genuine interrupted-resource evidence and use existing recovery only under Root's later selected authority.",
+    "Retain the selected host timeout, process-group custody, environment and provider bounds. Awaiting an SDK Promise alone supplies none of the commandRecorder's outer timeout guarantees."
+  ],
+  "laterConsumersAndProof": {
+    "ordinaryCustody": "A native author receipt plus actual outer close preserves operation/result/resource custody. It does not qualify the candidate, certify an independent assessment, or prove cold reconstruction.",
+    "sourceForConsumer": "A later result-dependent consumer must resolve the actual persisted Result through existing deriveInvocationSourceResultBasisAtPrefix using actual publicAuthorityDigest/runtimeInvocationRef/invocationAdmissionRef/runId/resultRef, and keep source/current-input/WorkspaceBinding/producer joins. constructInstalledStartCall supplies an admitted_source_result only when that selected consumer's existing contract accepts it; the run owner rehydrates it at the actual entry prefix. A terminal JSON body or caller label cannot stand in for the admitted source.",
+    "laterProcess": "A genuinely later host acquires the actual new close once, reconstructs the required source/current input through the same owners, then reuses that acquisition internally. Live resource/selection identity is never persisted. Actual source freeze, retained bytes and changed-dependency checks remain required.",
+    "fixedTestingUat": "The separately selected RC7-LAUNCH-02 still requires its finite five-file HOW/library change and installed proof. Fresh fixed Testing has source:none; UAT must consume the exact admitted Testing stateResult and its real C2 child through existing source-result rehydration, with actual independent native assessment and truthful null selector provenance. Do not feed a bare native-author task/Result into an incompatible wrapper or infer this composition from generic SDK callability.",
+    "currentBGrant": "B ROOT_SELECTION retains one worker, 320 turns, 90-minute absolute/30-minute inactivity, three-hour host, 8 GiB and no automatic retry; four stages/twelve lane invocations. POST_RETURN_READBACK_SELECTION expressly requires actual receipt/resume, host exit, then both fresh owner reads with full typed terminal/value/producer/ref/digest equality and unchanged physical prefix, plus source freeze/independent review/affected installed proof. Its present invokeLifecycle route remains selected.",
+    "noWaiver": "This readiness neither replaces B's cold dispatch/readbacks nor waives any currently selected cold installed/release discriminator. Root must explicitly select any different future operational grant/proof sequence."
+  },
+  "classificationAndOrdering": {
+    "SDKLibrary": "No new Product/library capability is needed for ordinary author start/acquired completion/physical close. Existing RC6 exports suffice; frozen A corroborates the same owner relation.",
+    "controls": "Future operator preparation/dispatch must retain the same objects through preflight and execution, bind the rebuilt acquired-call digests, record the actual SDK return and separate close, migrate receipt consumers and bind the existing host deadline. These are concrete control integration changes, not a new Public mode or controller.",
+    "maintainedHarness": "The maintained invokeLifecycle currently hardcodes cold CLI and checkInstalledIdentity is local to that owner. If a maintained shared entry is changed, keep that work in the existing runner/public-setup and its harness; preserve the explicit cold entry, reuse/expose the existing identity check rather than copy its semantics, and reprove the changed owner. Such source/harness maintenance is not already implemented by this report and must be rebound after B freezes.",
+    "activeB": "Do not edit/reopen/reselect B. Any use on the shared event resource must await its genuine return/close and Root's current source/proof disposition. No moving B Product bytes were read.",
+    "fixedIncrement": "Ordinary SDK author reuse has no dependency on the future Testing/UAT direct-wrapper feature. That feature and its consumer proof remain separately selected release work; it must follow completed carrier work under Root ordering.",
+    "sourceLimit": "A is a frozen partial source, not the future B candidate. This readiness is contributing architecture, not acceptance of its own future control changes or of B."
+  },
+  "causalReproof": {
+    "cone": [
+      "Existing operator preparation/dispatch call construction and grant pins",
+      "Existing publicCaller/invokeLifecycle control integration and actual-receipt readers",
+      "Existing acquired-resource/start/transition/close owners as reused dependencies",
+      "Existing maintained harness and exact installed native author route"
+    ],
+    "required": [
+      "One authorized future ordinary native invocation retains the same actual selection/prepared call from mechanical preflight through transport; existing owner evidence shows one physical acquisition, not merely equal serialized coordinates.",
+      "Real start effect/result and physical close preserve invocation/source/Run/terminal/producer coordinates; the outer lock/resource is released on success and real owner refusal/failure; no completion is treated as a close.",
+      "Use nearest existing fixture/harness refusal cases for copied/stale/foreign selections, changed source/install, and receipt/close consumer mismatch; no new Product hooks, mock-only promotion or full-suite replay.",
+      "Preserve every genuinely selected cold result/replay discriminator and compare full actual terminal/source values at its required boundary.",
+      "Measure initial acquisition, construction/preflight, invocation-to-first-admission, native work, close/readbacks and between-task work separately on a matched workload. Do not infer speed or saved bytes from static control removal."
+    ],
+    "doneHere": "Static owner/contract inspection and exact pin verification only. No tests, build, runtime acquisition, provider call or performance trial."
+  },
+  "proportionality": {
+    "trigger": "Current controls demonstrably split prepare, dispatch projection and a cold CLI; current timings expose large unlocalized intervals. Their cost is plausible but not causally apportioned.",
+    "supportedChangeCost": "Bounded existing-control composition plus receipt-consumer adaptation and focused existing-owner proof. Avoid modifying the SDK/resource owners merely to reach APIs already present.",
+    "mainRisk": "Stale/forged acquired-call identity, missing outer close, losing actual failure/result evidence, or silently dropping host bounds/cold obligations. Existing nominal selection/currentness/transition checks fail closed; control mistakes can still strand a resource or misreport proof.",
+    "expansionBoundary": "Extending borrowed read contracts, redesigning defaults/selection, inventing a durable warm handle/cache/controller, or rewriting the event store is unnecessary for this ordinary author route."
+  },
+  "pins": {
+    "at": "2026-11-06T05:51:10.365392+00:00",
+    "authorityEvidenceControls": {
+      "rootSelection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_RC7_OVERHEAD_SELECTION.json",
+        "bytes": 4848,
+        "sha256": "9a2289d723d4ea138b520bc68249270fffd93ece12dc2f11eae2656c90bcf765"
+      },
+      "sameProcessJson": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/SAME_PROCESS_REUSE.json",
+        "bytes": 21979,
+        "sha256": "2d3abaf7e738a7f81596e3ecea77c3e3a3d17a4c53f18a8e0d87d9c07e1425fd"
+      },
+      "sameProcessMarkdown": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/SAME_PROCESS_REUSE.md",
+        "bytes": 5944,
+        "sha256": "344089de5192c8a300ad4ca0f02681388efd79e22be6cb14c83b4554b1141232"
+      },
+      "fixedProofDisposition": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/ROOT_FIXED_PROOF_DISPOSITION.json",
+        "bytes": 3886,
+        "sha256": "ccb6b9060049213605af4f8327347a95349bb8d8ce0af21e19fe59eb3a05cddc"
+      },
+      "fixedProofReadiness": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/FIXED_PROOF_ROUTE.json",
+        "bytes": 19922,
+        "sha256": "cc73e3b71b338817d0f6d5bebc825d4e8d670923000022df13300a4ff63b98da"
+      },
+      "currentBSelection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_SELECTION.json",
+        "bytes": 6421,
+        "sha256": "937a55890b738b8f4783e2a7d65178bb5a2731a5650ef46128c793dff8efedd5"
+      },
+      "currentBReadbacks": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/POST_RETURN_READBACK_SELECTION.json",
+        "bytes": 3604,
+        "sha256": "e781e7c800e771cd4abf5ec2df948dfb637877901ae99b7b0554aa9ef0049554"
+      },
+      "bTiming": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/LAUNCH_TIMING_OBSERVATION.json",
+        "bytes": 3562,
+        "sha256": "e43c6078cbcdc56236bbd0e3869d9e77e2ac4f74e7c6d2623911f992d9d80634"
+      },
+      "bLogTriage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/LOG_LAUNCH_TRIAGE.json",
+        "bytes": 8858,
+        "sha256": "9a96cf37d000f5e2cb3d13203c880b0ccc0c92a431053593f96ac22e0a37c9b0"
+      },
+      "bDispatch": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/dispatch.mjs",
+        "bytes": 6191,
+        "sha256": "90a36e9764de4cb0205bca8ac5c1e0fee0b6f4f36c56c608c9bad226b7988e3e"
+      },
+      "operatorSetup": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+        "bytes": 29259,
+        "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+      },
+      "operatorRunner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+        "bytes": 37910,
+        "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+      }
+    },
+    "sourceSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 668238,
+      "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+    },
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "installed": {
+      "package": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/package.json",
+        "bytes": 10003,
+        "sha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da"
+      },
+      "publicExports": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+        "bytes": 666,
+        "sha256": "64466232bfbe070bf68b23806104e6023d4b379009a43c64646ecf54cf40a504"
+      },
+      "abgExports": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/index.js",
+        "bytes": 10592,
+        "sha256": "cd78ae166b61a80ef8afbc1536d28737d140119425513883fc046f6e3fb8dffe"
+      },
+      "startConstructor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_public_definition_call.js",
+        "bytes": 16192,
+        "sha256": "6ef13edb5900fc4f4e72e87245705f173b9ff92534978424106e4c8dd5950146"
+      },
+      "startTypes": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_public_definition_call.d.ts",
+        "bytes": 11790,
+        "sha256": "4660a91eee2efc47d14dd23415e47f2f8d3b97fe329a6ecdd2f05355c6ad8357"
+      },
+      "transport": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_definition_call_transport.js",
+        "bytes": 14437,
+        "sha256": "629c50a1efd367f7693ffda4862d326a6de9e4160c1eabd7bc5ecd5ab4892c8f"
+      },
+      "transportTypes": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_definition_call_transport.d.ts",
+        "bytes": 4540,
+        "sha256": "060db6c2ac46f23a1de528d310f303c556cfbaed4590af12d6870b99facf38ba"
+      },
+      "resource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/definition_event_resource.js",
+        "bytes": 18848,
+        "sha256": "3243781dfc5293020c6191208f9f861a73030671ddfa0fb1b6e113a8725420c6"
+      },
+      "resourceTypes": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/definition_event_resource.d.ts",
+        "bytes": 21706,
+        "sha256": "651ca955d30b8fcdd9d38db2d670ce8dd64b65fc2b0556bd56a3e8f38453bf6a"
+      },
+      "transition": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/exact_prefix_bindings.js",
+        "bytes": 5454,
+        "sha256": "1db1f87d9bca9fa25c87525bd47d15c5172db207f3aca2cf2f5ae8e2d90055f6"
+      },
+      "runOwner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/owner_bindings/run_invocation.js",
+        "bytes": 97736,
+        "sha256": "7444dab77e39cc437544338f901b2978274794ad36bf5ffda7dd02f39287f5f7"
+      },
+      "population": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_invocation_operation.js",
+        "bytes": 38188,
+        "sha256": "cde0d865eda8ec90aceec3b3706884d25db2d09f366fe8469cf45833d745f86a"
+      },
+      "artifactTruth": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/artifact_truth.js",
+        "bytes": 38098,
+        "sha256": "4b27b0650d8e35f8a38046e4983722b15d0bc2cad8bee249a237ff9adbc21266"
+      },
+      "environment": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/environment_admission.js",
+        "bytes": 37345,
+        "sha256": "38548ea8755ea4dc1f8fb31a53cf622375e2cb61046fe6d878be6d0ad605ff50"
+      },
+      "eventStore": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "bytes": 198998,
+        "sha256": "706acaaa7300686eed4bcfa739347c12261c874adb20b3d354c7a9f195627199"
+      },
+      "eventPrefix": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+        "bytes": 51501,
+        "sha256": "ff97005d347e727bd398356fe4c99552d45395598f7ab4fd75f59280850cf260"
+      },
+      "hostReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/effect_definition.js",
+        "bytes": 1873,
+        "sha256": "863f4f23036a0804f19e9eeed5ec67e9b8d0e966e5e1be3da5947ab8a0dced13"
+      },
+      "sourceResultTypes": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_admission.d.ts",
+        "bytes": 10426,
+        "sha256": "7c693ed968654ffe55bf7806c569b15499096262bd3b6e91fbbdd47ed4b628dc"
+      }
+    },
+    "frozenSource": {
+      "AGENTS.md": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/AGENTS.md",
+        "bytes": 12932,
+        "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84",
+        "sourcePath": "AGENTS.md"
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+        "bytes": 42548,
+        "sha256": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335",
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts"
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+        "bytes": 23451,
+        "sha256": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9",
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts"
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+        "bytes": 46702,
+        "sha256": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb",
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts"
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 215016,
+        "sha256": "01c82b88e65e12b367b9683241407bcc7707531679963c04a580855bcfa1df71",
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts"
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+        "bytes": 7694,
+        "sha256": "f4034bd7f9fa18ede51dc9ad17f966f54f83b4d53e2f22eda7d43f35cc2462de",
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts"
+      },
+      "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "bytes": 107947,
+        "sha256": "73c27a0ed2d4e65a0317a1c6f5e16e5294248db7077960d273e9213f62052dc0",
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts"
+      },
+      "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "bytes": 48321,
+        "sha256": "028298bf9539c633c080621d863ccb77f50d0bb96fa8ea343b94542cdfe842ad",
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts"
+      },
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "bytes": 19920,
+        "sha256": "e19d6f4461e58e7fa13c5fd76064a78c466fb2fed5e09b3ce6509b95834081aa",
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts"
+      },
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 27318,
+        "sha256": "27de3ce5c295b3aaa76b58bb062357763a6109ddf6d55ba9b1844fd75914bd29",
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts"
+      },
+      "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 27131,
+        "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+        "sourcePath": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+      },
+      "specification/PRODUCT.md": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+        "sourcePath": "specification/PRODUCT.md"
+      },
+      "stdo_abiogenesis.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/stdo_abiogenesis.json",
+        "bytes": 3136,
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+        "sourcePath": "stdo_abiogenesis.json"
+      }
+    }
+  },
+  "effectsPerformed": {
+    "readOnly": true,
+    "onlyWrites": [
+      "READINESS.json",
+      "READINESS.md"
+    ],
+    "runtimeAcquisition": false,
+    "tests": false,
+    "build": false,
+    "provider": false,
+    "network": false,
+    "credentials": false,
+    "gitMutation": false,
+    "activeSourceRead": false,
+    "delegation": false
+  },
+  "residuals": [
+    "Root selection of a future concrete single-host control packet and exact actual source/current-close bindings",
+    "Control implementation and focused validation by the separately authorized owner after B freezes",
+    "B's unchanged required close/readback/review/proof conjunction",
+    "Separately selected fixed Testing/UAT HOW/library increment and actual proof",
+    "Matched operational timing; no speedup established"
+  ]
+}

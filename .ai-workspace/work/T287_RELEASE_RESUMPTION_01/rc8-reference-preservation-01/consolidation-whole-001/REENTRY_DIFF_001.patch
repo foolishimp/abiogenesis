@@ -1,0 +1,38 @@
+--- run.mjs
++++ run.reentry-001.mjs
+@@ -1,2 +1,2 @@
+-// One selected full consolidation file through the existing recorder and bounded file host.
++// Two exact external fixture-close tuples through the same recorder and file host; no source changes.
+ import assert from 'node:assert/strict';
+@@ -15,6 +15,10 @@
+ for(const p of admission.files??[])await checked(p);
+-assert.equal(c.file,'test_env/tests/t287-single-address-space-consolidation.test.mjs');assert.equal(c.expectedCases,12);assert.equal(c.commandTimeoutMs,3600000);
++const coordinates=c.file==='test_env/tests/t287-installed-product-coordinate.test.mjs';
++assert(coordinates?c.expectedCases===11&&c.commandTimeoutMs===600000:c.file==='test_env/tests/t287-single-address-space-consolidation.test.mjs'&&c.expectedCases===12&&c.commandTimeoutMs===3600000);
+ assert.equal(c.bounds.outputBytes,16777216);assert.equal(c.bounds.nodeHeapMiB,8192);assert.equal(c.bounds.reserveBytes,4294967296);assert.equal(c.bounds.maxOwnedBytes,4294967296);
+ const review=JSON.parse(await checked(c.review));assert.equal(review.verdict,'satisfied');assert.equal(review.findings.length,0);
+-assert.equal(c.focusedProofs.length,2);for(const [i,p]of c.focusedProofs.entries()){const r=JSON.parse(await checked(p));assert.equal(r.status,'PASSED');assert.equal(r.sourceDigest,c.sourceDigest);assert.equal(r.counts.passed,i===0?4:11);}
++const reentry=JSON.parse(await checked(c.rootReentry));assert.equal(reentry.status,'ROOT_SELECTED_EXTERNAL_FROZEN_SOURCE_PROOF_REENTRY');assert.equal(reentry.sourceDigest,c.sourceDigest);
++assert.deepEqual(c.failedNative,reentry.failedNative);const failedSdk=JSON.parse(await checked(c.failedNative.sdk));await checked(c.failedNative.close);
++assert.equal(failedSdk.receipt.ownerOutput.value.disposition,'runtime_failed');assert.equal(failedSdk.receipt.ownerOutput.value.result,null);assert.equal(failedSdk.receipt.ownerOutput.value.terminalResult,null);
++if(!coordinates){assert.equal(admission.coordinateProof.path,c.coordinateResultPath);const prior=JSON.parse(await checked(admission.coordinateProof));assert.equal(prior.status,'PASSED');assert.equal(prior.sourceDigest,c.sourceDigest);assert.equal(prior.counts.passed,11);assert.equal(prior.wholeFile,true);}
+ const freeze=JSON.parse(await checked(c.sourceFreeze)),ready=JSON.parse(await checked(c.ready)),inventory=JSON.parse(await checked(c.inventory));
+@@ -24,3 +28,3 @@
+ assert.equal(baseline.coordinate.prefixLength,resources.eventLogBytes);assert.equal(baseline.coordinate.prefixDigest,'sha256:'+resources.eventLogSha256);assert.equal((await lstat(resources.eventLogPath)).size,resources.eventLogBytes);
+-const basisBytes=await checked(c.candidateFixture),basis=JSON.parse(basisBytes),verification=JSON.parse(await checked(c.candidateSelection.verification));
++const basisBytes=await checked(c.candidateFixture),basis=JSON.parse(basisBytes),verification=JSON.parse(await checked(c.candidateFixtureReuse.verification));
+ for(const key of ['artifactDigest','productContentDigest','manifestDigest','productId','packageName','packageVersion'])assert.equal(basis[key],verification[key]);
+@@ -43,3 +47,3 @@
+   const events=join(c.outputRoot,'events.jsonl'),args=['--experimental-vm-modules','--test','--test-concurrency=1','--test-reporter=tap','--test-reporter-destination=stdout','--test-reporter='+join(tenant,'scripts/node-test-evidence-reporter.mjs'),'--test-reporter-destination='+events,c.file];
+-  await record('EXECUTION_STARTED.json',{at:new Date().toISOString(),pid:process.pid,binding:await pin(configPath),admission:await pin(admissionPath),sourceDigest:c.sourceDigest,file:c.file,wholeFile:true,expectedCases:12,environment:env});
++  await record('EXECUTION_STARTED.json',{at:new Date().toISOString(),pid:process.pid,binding:await pin(configPath),admission:await pin(admissionPath),sourceDigest:c.sourceDigest,file:c.file,wholeFile:true,expectedCases:c.expectedCases,environment:env});
+   await record('file-host-binding.json',{executable:c.node.realPath,args,cwd:tenant,outputRoot:c.outputRoot,scratchRoot:c.scratchRoot,resourceRecord:join(c.outputRoot,'resources.json'),bounds:c.bounds});
+@@ -48,6 +52,6 @@
+   const eventPin=await pin(events);assert(eventPin.bytes<=c.bounds.outputBytes);const rows=(await readFile(events,'utf8')).trim().split('\n').map(l=>JSON.parse(l)),summary=rows.filter(r=>r.type==='summary'&&r.file===null).at(-1);
+-  const passed=result.exitCode===0&&!result.signal&&!result.timedOut&&!result.truncated&&!result.failure&&summary?.success===true&&summary.counts.passed===12&&summary.counts.skipped===0&&rows.at(-1)?.type==='end';
++  const passed=result.exitCode===0&&!result.signal&&!result.timedOut&&!result.truncated&&!result.failure&&summary?.success===true&&summary.counts.passed===c.expectedCases&&summary.counts.skipped===0&&rows.at(-1)?.type==='end';
+   await verify(work,ready.derivedStageFiles);await verify(join(tenant,'node_modules'),inventory.dependencyFiles);await verify(ready.work,ready.derivedStageFiles);await verify(inventory.dependencyRoot,inventory.dependencyFiles);
+   await record('RESULT.json',{status:passed?'PASSED':'FAILED',sourceDigest:c.sourceDigest,file:c.file,wholeFile:true,counts:summary?.counts??null,events:eventPin,wallMs:result.wallMs,totalMs:performance.now()-started,exitCode:result.exitCode,signal:result.signal,timedOut:result.timedOut,truncated:result.truncated,primaryPreserved:true,buildInvocations:0,providerCalls:0});
+-  console.log(JSON.stringify({status:passed?'PASSED':'FAILED',counts:summary?.counts,wallMs:result.wallMs}));assert(passed,'Whole consolidation file incomplete or red');
++  console.log(JSON.stringify({status:passed?'PASSED':'FAILED',counts:summary?.counts,wallMs:result.wallMs}));assert(passed,'Selected whole fixture file incomplete or red');
+ }catch(error){await record('HALT.json',{at:new Date().toISOString(),error:String(error?.stack??error),result,automaticRetry:false});throw error;}

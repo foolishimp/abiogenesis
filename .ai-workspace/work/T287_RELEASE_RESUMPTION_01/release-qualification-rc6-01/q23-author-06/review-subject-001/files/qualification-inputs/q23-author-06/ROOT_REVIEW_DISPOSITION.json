@@ -1,0 +1,50 @@
+{
+  "kind": "root_closed_review_and_route_disposition",
+  "at": "2026-11-05T20:30:18.007394+00:00",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/codex-review-001/REVIEW.json",
+    "bytes": 37177,
+    "sha256": "14d8cd29a2dcf9bcab9f43c2ef4822aaea6f206a9abaadbb87fc9f3d95e0e135"
+  },
+  "routeReadiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/Q23_UAT_RECOVERY_READINESS.json",
+    "bytes": 24449,
+    "sha256": "64acf9078699829ed3a69cc6402b9bfdd7aa6127a1dd86b27951fbd2fe52f523"
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "conjunction": "Closed source findings agree with Root primary-source check: Q4requiredpeer completeness and Q1operand correspondence are not satisfied. Retain other bounded findings and62C2passes; sourceacceptance remainsfalse.",
+  "rankDisposition": {
+    "Q4": "S2 mandatorypre-dispatch condition, deterministicfirstrequiredpeer condition; selectboundedrepair.",
+    "Q1": "ReviewerS2 is preserved. Root prices realizedharm/probability asS3 because unusualoperand-onlyshape, noobservedpaidcall, normalexplicitselectionrefusesambiguity; stillcorrectbeforeQ23acceptance becauseQ1exactidentityclaim is unsound. Both are insideexisting selectedscope; nocompetingdebtcycle."
+  },
+  "lawfulReentry": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_SELECTION.json",
+    "bytes": 5010,
+    "sha256": "d1d467d9e4e1f24dbe986eefe70ed701f1525f710cfdc4b1ed6f5067d98f2a12"
+  },
+  "uatRoute": "Do not activate standaloneassessment. Retained nativeProgram lacksraw-resultdeclaration; alternativeconsumerroot lacks requiredcatalogmembership. No ownerfix added. Sourcecorrection justifies newaffected C2/UAT throughdefaultconsumer withdeduplicatedreadFirst.",
+  "pendingIndependentReview": "Thiscounterexample review is separatecontext but samefamilyasarchitect, notformalindependence. GoogleADCcredentialreplacement request remainsunanswered; noauthretry.",
+  "nextParallelReadiness": {
+    "D5": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_PROFILE_RETIREMENT_READINESS.json",
+      "bytes": 30505,
+      "sha256": "b57e3ef562309c85f68fe9e12fba52e03b70d196c139ee4ddd0189f2ff70573b"
+    },
+    "D5Proof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_RECOVERY_PROOF_READINESS.json",
+      "bytes": 24139,
+      "sha256": "a1844b66d6eb4177ea642ea38ad4c7da9938cf171667c9e1167a57cb0c1db65d"
+    },
+    "standing": "Closedreadiness only, notnativeactivation. Sixexistingowners andauthentic no_output recoveryprojectionfixture; preserveRC4pendingTestingproofwithitsoriginalscope."
+  },
+  "exclusions": "NoProductWHAT/sourceacceptance/qualifiedrelease/publication/global selector ornewcapability selected; failedRunsandoldproofsunchanged."
+}

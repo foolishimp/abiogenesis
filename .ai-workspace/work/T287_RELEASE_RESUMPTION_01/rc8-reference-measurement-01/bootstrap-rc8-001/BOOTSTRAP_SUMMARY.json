@@ -1,0 +1,72 @@
+{
+  "status": "EXACT_RC8_ARTIFACT_AND_BOOTSTRAP_COMPLETE_AFTER_UNADMITTED",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_AFTER_BOOTSTRAP_BINDINGS_001.json",
+    "bytes": 4954,
+    "sha256": "f9f285d4f54e0fc17a68f1af69954bbc4a500dcacb50d1f3509a1b2af29c53ea"
+  },
+  "sourceIdentity": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "compileExecuted": false,
+  "generationExecuted": false,
+  "packCount": 1,
+  "installCount": 1,
+  "qualified": false,
+  "budgetObservations": [
+    {
+      "label": "before_pack-once",
+      "logicalBytes": 1979,
+      "freeBytes": 9769291776,
+      "quota": false,
+      "overshootPossible": true
+    },
+    {
+      "label": "after_pack-once",
+      "logicalBytes": 24247680,
+      "freeBytes": 9742467072,
+      "quota": false,
+      "overshootPossible": true
+    },
+    {
+      "label": "before_verify-lock-install-once",
+      "logicalBytes": 24252951,
+      "freeBytes": 9742667776,
+      "quota": false,
+      "overshootPossible": true
+    },
+    {
+      "label": "after_verify-lock-install-once",
+      "logicalBytes": 120650289,
+      "freeBytes": 9647071232,
+      "quota": false,
+      "overshootPossible": true
+    }
+  ],
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 2557,
+    "sha256": "3dfe718500c18a0100544ae9bb4ef4a56d3c6211daff676f4c38145cf585fe7a"
+  },
+  "afterBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/AFTER_BINDINGS.pre-admission.json",
+    "bytes": 7866,
+    "sha256": "2493232ba130d3fa6ea5d92612a5609597bc6a504eb9fcc4f168b57cea745392"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "status": "STATIC_SUCCESSOR_DECLARED_INPUTS_MEASURED_ACTUAL_RENDER_AT_PREPARED",
+  "files": 295,
+  "sourceAndControlBytes": 8393165,
+  "absentSelectedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs"
+  ],
+  "taskJsonBytes": 13787,
+  "instructionUtf8Bytes": 8634,
+  "ceilings": {
+    "files": 1024,
+    "bytes": 33554432,
+    "renderedWorkOrderBytes": 1048576
+  },
+  "actualRenderedWorkOrderBytes": null,
+  "withinStaticFileByteCeilings": true,
+  "actualMeasurement": "Unchanged host records actual observed member bytes and exact installed native rendered work-order bytes in PREPARED before dispatch. Provider/system scaffolding is not claimed measured."
+}

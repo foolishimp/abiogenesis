@@ -1,0 +1,378 @@
+{
+  "auxiliary": {
+    "license": {
+      "path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "plugin": {
+      "installed_root": "plugins/spec",
+      "member_count": 17,
+      "members": [
+        {
+          "path": ".claude-plugin/plugin.json",
+          "sha256": "cb55b1159847a1521b36ee68c8a8c8879ab2b07a1cccaf96c719d886044ba7b7"
+        },
+        {
+          "path": ".codex-plugin/plugin.json",
+          "sha256": "5236e7b8034dae4d532da3e2011a7a444ad8206d40320ac9877f3946bf3004e6"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "path": "claude-skills/refresh/SKILL.md",
+          "sha256": "2931f409f8179624035fbc2638e596afe4daca27909064bd731271d651d1a493"
+        },
+        {
+          "path": "references/GETTING_STARTED.md",
+          "sha256": "b10ad82187d80028aa78ad366f877511efde132ff42faa4d62378f42be677eef"
+        },
+        {
+          "path": "references/PRODUCT_BASIS.md",
+          "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"
+        },
+        {
+          "path": "references/REFRESH.md",
+          "sha256": "12b9524ea60e58eaa6c3b96c1d547625483e030ba91a2f834e4881be0eaf2a89"
+        },
+        {
+          "path": "skills/stdo-help/SKILL.md",
+          "sha256": "cfb59f3e163621bdb42912b163fe790bd0691b9a846e1a1be59dea0b63ab1a63"
+        },
+        {
+          "path": "skills/stdo-help/agents/openai.yaml",
+          "sha256": "af3add1ac0464524f1fbb33dd63c49787c1c905e883a3cbd0d48a8075474a20e"
+        },
+        {
+          "path": "skills/stdo-review/SKILL.md",
+          "sha256": "1c5ab11aaa924be2d5142228832c2d3dae76fcb69d683e31fa0cd834721ba624"
+        },
+        {
+          "path": "skills/stdo-review/agents/openai.yaml",
+          "sha256": "e736f9789012d0365e5dec0973cd394a48009aa06548b83cea5912643eb7d9d4"
+        },
+        {
+          "path": "skills/stdo-status/SKILL.md",
+          "sha256": "e767658398f351eba38ae632588731b7f8ae76e2637a19df565715daa42a12b9"
+        },
+        {
+          "path": "skills/stdo-status/agents/openai.yaml",
+          "sha256": "b8a9e5843fcb27d5a774ae34ebabe91b039d1999af1b4efd57dcdc5a16383e37"
+        },
+        {
+          "path": "skills/stdo-ticket/SKILL.md",
+          "sha256": "6b55f75b9d7e96a660ea68c613ce1da11ba44d1dcea1f250df480c23a9a93a75"
+        },
+        {
+          "path": "skills/stdo-ticket/agents/openai.yaml",
+          "sha256": "0ca0733a5bf692cf9b9318c1eb1a64d66262b60b2357b59e24fa4d6dfc4d0d99"
+        },
+        {
+          "path": "skills/stdo-work/SKILL.md",
+          "sha256": "3465f25f6357c8186ee325377cd4db97872272a7993f3995ccdf57a4ae8ef76a"
+        },
+        {
+          "path": "skills/stdo-work/agents/openai.yaml",
+          "sha256": "88995a63dc11355deb2f72948a84702f555cc52a4398843f391c7901c0bf7d3f"
+        }
+      ],
+      "source_root": "plugins/spec"
+    },
+    "release_note": {
+      "installed_path": "release/release-note.md",
+      "sha256": "e5ba295e1259295a8550e03f98d1b2a6c38bd04f53c68dc3a324171212581bea",
+      "source_path": "releases/v3.0.2.md"
+    }
+  },
+  "kind": "stdo.installed-release-manifest",
+  "release": {
+    "commit": "23ca9c0929d7be8570edafaf30542e3daeb8dc1f",
+    "cut": "v3.0.2",
+    "profile": "stable-v1",
+    "project_release_namespace": "specification_methodology",
+    "project_subtree_root": "specification_methodology/v3",
+    "project_subtree_tree": "4c870cb441be3574b911bacca28497fefc70e084",
+    "qualified_ref": "refs/tags/specification_methodology/v3.0.2",
+    "standards_tree": "f01a58e381a60edc7ed840cc9803f7d7296d65eb",
+    "tag_object": "d03b00a7fdf8972dc236b52eb09f3eccba7f62cb",
+    "tree": "c64345a9b2127df3cddc0e26f49bc9dac2a24bff"
+  },
+  "schema_version": 1,
+  "standards": {
+    "installed_root": "standards",
+    "member_count": 67,
+    "member_set_sha256": "644e5f6a509e0d79a2077ece8f1c25fc72e6abb5f03a95075b6e5b6eb565eb9d",
+    "members": [
+      {
+        "path": "ACTIVATION.md",
+        "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+      },
+      {
+        "path": "ASSURANCE.md",
+        "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
+      },
+      {
+        "path": "AXIOMATIC_CALCULUS.md",
+        "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5"
+      },
+      {
+        "path": "CONFORMANCE.md",
+        "sha256": "d49e75f64dbdc4ca787062a9044da9d74e16fa0ae7b9321c29d3c1dd4a41ee03"
+      },
+      {
+        "path": "DESIGN_MODULE.md",
+        "sha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2"
+      },
+      {
+        "path": "EVALUATION.md",
+        "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff"
+      },
+      {
+        "path": "EXECUTIVE_BASELINE.md",
+        "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a"
+      },
+      {
+        "path": "FOUNDATIONS.md",
+        "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha256": "e1658700fd584ba64fa2620cadd2f44d74b0182de2f8921a6698eb6704d65da1"
+      },
+      {
+        "path": "IDENTITY.md",
+        "sha256": "c70399311010a8835b00d2a887a2451f11f66f631d6217d8df4be41751a59c08"
+      },
+      {
+        "path": "ODD.md",
+        "sha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9"
+      },
+      {
+        "path": "POSTING_GUIDE.md",
+        "sha256": "c5930cc1fa7da2324be0baaed970d35450e79f4673b77857f9f84a3fe5611ea0"
+      },
+      {
+        "path": "PRODUCT_DEFINITION.md",
+        "sha256": "7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523"
+      },
+      {
+        "path": "PROFILES.md",
+        "sha256": "076d5c17a06d372ed1efdc7909f9dc93c3193513ff233c48df2915810ffeffa4"
+      },
+      {
+        "path": "README.md",
+        "sha256": "50a723f83f5e6f7895447091099caef2b985e78b399bc9f6e488961a5e22dcee"
+      },
+      {
+        "path": "REFERENCE_FRAME.md",
+        "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64"
+      },
+      {
+        "path": "RELEASE.md",
+        "sha256": "b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886"
+      },
+      {
+        "path": "SPEC_METHOD.md",
+        "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e"
+      },
+      {
+        "path": "TICKETS.md",
+        "sha256": "5f7e4cb0785a27b9e6dda1fd91044e775183b6a0e6e80b33811e54665b144b57"
+      },
+      {
+        "path": "TRAVERSAL_OCCURRENCE.md",
+        "sha256": "7809ec20f4cf47a299ea3892616b449532a568feeccb50d49d46bbc72be9cba5"
+      },
+      {
+        "path": "UX.md",
+        "sha256": "236df084b51620fcc16c042db745448540777f7dab40c92cd946e7375a4815a0"
+      },
+      {
+        "path": "WORLD_MODEL.md",
+        "sha256": "86d946ccd015857051727bae0f9cf3340bf8bebe2e166e40c554173d8ac5a931"
+      },
+      {
+        "path": "WRITING_GUIDE.md",
+        "sha256": "155cb29aee317c189f78954dd210d206206ec5e854a26086d6560288cd51e249"
+      },
+      {
+        "path": "examples/DETERMINISTIC_CONTRACTS.md",
+        "sha256": "1ce623ad76a65b62292c842974811e10a5daa6fda672f836181a220205fbcbcb"
+      },
+      {
+        "path": "examples/PRODUCT_COMPOSITION.md",
+        "sha256": "306d197b2b983af43328eda0845776ea367530abbd73523723c3f230921df201"
+      },
+      {
+        "path": "examples/deterministic_contracts.py",
+        "sha256": "5eb612aac53947a7134d941cdc0433c227637e54509c7d33de211f9ab6ad146e"
+      },
+      {
+        "path": "frames/FRAME_INPUTS.json",
+        "sha256": "09c706caf22cf9d2cbd16ea9ba56620e40c969600456b56048edf56512a69d9c"
+      },
+      {
+        "path": "frames/ac-task-a.md",
+        "sha256": "88280e8164b30b855673d17d44ae2f0cc7e3761917dd22703bbcacfec0f133b4"
+      },
+      {
+        "path": "frames/acceptance-release.md",
+        "sha256": "91c2a25905e084fd070ab715cb3928d2ab30dfad0a6f7fc6d06feaa7941d2fca"
+      },
+      {
+        "path": "frames/binding.md",
+        "sha256": "422a4876c67e8ee945cb7e3d41a36f78a9350e12b05d93c2769c3c84b1e0a34f"
+      },
+      {
+        "path": "frames/bootstrap.md",
+        "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502"
+      },
+      {
+        "path": "frames/configuration.md",
+        "sha256": "d274551dea3aecdbff9122fb52948a0a45562114640c83c93fe2e82b19ddb7a1"
+      },
+      {
+        "path": "frames/dm-task-d.md",
+        "sha256": "e53ead1a63da1675f70f4ef2b4897b7a36ee2a7c6e33f92401c735d8404e00e6"
+      },
+      {
+        "path": "frames/eb-task-d.md",
+        "sha256": "be2d6436615830554aa41fdbd049fc687802628446d9930e58e7fd8187f23836"
+      },
+      {
+        "path": "frames/member-build-assess.md",
+        "sha256": "0ff16a1b2902b80d2c79cd4e2ae83c260f9ab35140a33c2bf690e14356cc7755"
+      },
+      {
+        "path": "frames/product-composition.md",
+        "sha256": "239e7f9e11cd9e3f4a7c75360851901932a8eb3824ccf7a4fea4a5ae696cc73a"
+      },
+      {
+        "path": "frames/rf-task-a.md",
+        "sha256": "4987196d194761f03a30357192d65707c4bf6522f6c3607d84f8f7b5fc150200"
+      },
+      {
+        "path": "frames/rf-task-b.md",
+        "sha256": "7dfae737281f057b08ce079fc87b33e6f71c6ea57d03cd4dc5e035a9c23e191c"
+      },
+      {
+        "path": "frames/stale-summary.md",
+        "sha256": "465a838eaa08b70d3c4a067b120138c2f6bccbda3301c6c347f69e055e35cef7"
+      },
+      {
+        "path": "frames/traversal-task-f.md",
+        "sha256": "8350586b8a6e4c02a04b5064b6fd4eb33bb2625f80f7578f3a5b3090a210ccf9"
+      },
+      {
+        "path": "schemas/installed-release-manifest.schema.json",
+        "sha256": "6454ddae1268e3918785c8bf5203648723390288ef3a8d9da51b7c0193f60eab"
+      },
+      {
+        "path": "schemas/product-definition.schema.json",
+        "sha256": "fefbfa2a5508c7399968b7ebcde83854a416a07d4e794215bdddc38f5e820f0e"
+      },
+      {
+        "path": "templates/AGENTS_TEMPLATE.md",
+        "sha256": "e27610545d3b9648ca8655052a067b64f93941dd096afd8e8b25c8722b1cb20e"
+      },
+      {
+        "path": "templates/CLAUDE_TEMPLATE.md",
+        "sha256": "e27610545d3b9648ca8655052a067b64f93941dd096afd8e8b25c8722b1cb20e"
+      },
+      {
+        "path": "templates/GOALS_TEMPLATE.md",
+        "sha256": "2dc711293f5e7129389efe0e5c3ea86e111c528569e6b72dad983cdbc2c71c3d"
+      },
+      {
+        "path": "templates/INTENT_TEMPLATE.md",
+        "sha256": "85b1e6c83b30d619e9f7f8018315022b6963edaa03f908e7aac38a16d5bdab26"
+      },
+      {
+        "path": "templates/PRODUCT_COMPOSITION_CONTRACT_TEMPLATE.md",
+        "sha256": "0f1ec842a316d78b1cf755176a7e97ac6d7ae54d9d520c5f476c1d3d3f8297ef"
+      },
+      {
+        "path": "templates/PRODUCT_DEFINITION_TEMPLATE.json",
+        "sha256": "84586b352660ff960188663fc21c2634e74c6fc61cba21e9c1a1e80190f92ef5"
+      },
+      {
+        "path": "templates/PRODUCT_TEMPLATE.md",
+        "sha256": "0e5365e4c87faecbaccb20aa8a106364afcd07635ca52dffbbf4a223873256f9"
+      },
+      {
+        "path": "templates/PROJECT_REFERENCE_FRAME_BASIS_TEMPLATE.md",
+        "sha256": "6c2111218693440aceed6df4f41bb16fdef1d54f9a250b02c50f400d017d80e2"
+      },
+      {
+        "path": "templates/README.md",
+        "sha256": "0cad976e5d9c9b6b272aa5d417f2d4f9626b93980e26b2195ae25f7517d52438"
+      },
+      {
+        "path": "templates/build_tenants/TENANT_REGISTRY_TEMPLATE.md",
+        "sha256": "8dd5d925a82f63683c9702a5fe8732eaa4afaead626ddfe49e270fb0a79e08a9"
+      },
+      {
+        "path": "templates/build_tenants/common/README_TEMPLATE.md",
+        "sha256": "e88790f0521229ca41cadc82af434908e5d8782748ccc93eb287d0e2fb5efae8"
+      },
+      {
+        "path": "templates/build_tenants/common/design/README_TEMPLATE.md",
+        "sha256": "bfe738647de2010be9571b3f330ee249d4a644f679ce2430312fbd57d5c08d33"
+      },
+      {
+        "path": "templates/build_tenants/common/design/adrs/ADR_TEMPLATE.md",
+        "sha256": "467c02cebf87d393ee7239cc1c80d66eda9485bb251097ef8e87dc7368e19089"
+      },
+      {
+        "path": "templates/build_tenants/common/design/adrs/README_TEMPLATE.md",
+        "sha256": "cb1084ed83594af1f6a6a4103d11b0daa1c13af4c199d2baf95d100db31969e8"
+      },
+      {
+        "path": "templates/build_tenants/variant/README_TEMPLATE.md",
+        "sha256": "0236d71e75b917f4b008474478eda7662e62fc7b11cc7409b8299b2e26f3ef96"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/README_TEMPLATE.md",
+        "sha256": "64237bb1766e83781e1c6e64f0eecf00e21524e007caae3a5651268cf94f7ec0"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/adrs/ADR_TEMPLATE.md",
+        "sha256": "e2f820c3a7b2ed1ae8b97c96706e83ee7cb086e8bef93427813e394cb2ea0929"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/adrs/README_TEMPLATE.md",
+        "sha256": "96c415caa86d9e6e5190c97f99f7fd36ae04a075e5c6da51594024728a562aa2"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/fp/INTENT_TEMPLATE.md",
+        "sha256": "76e33d7a4a75d77644eec20f6d5d3611894320eab05e36580d29cf90c28a4490"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/fp/README_TEMPLATE.md",
+        "sha256": "4542edc7e3a51bfba843530f1ee6b03fd3615f27a65d0f8815ae054225a5594c"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/fp/edge-overrides/EDGE_OVERRIDE_TEMPLATE.json",
+        "sha256": "996e1f2cd55090519e7c487ec46333afd2994a546c15190bb11d862e3a0683c4"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/fp/edge-overrides/README_TEMPLATE.md",
+        "sha256": "1432362afe35b5816259e6bef0163ffc38db6639557cd4541d2804ff04d02991"
+      },
+      {
+        "path": "templates/docs/README_TEMPLATE.md",
+        "sha256": "9c3425ff8b49c2b5573e9b8f0130b7a3e5f7d3ddcc01204aec363327e0872e7f"
+      },
+      {
+        "path": "templates/requirements/README_TEMPLATE.md",
+        "sha256": "4eacc1d3604e4859b60fc29c4bc6555fcd5de11d9ca1773258eedfb398e0f4a9"
+      },
+      {
+        "path": "templates/requirements/STARTER_REQUIREMENTS_TEMPLATE.md",
+        "sha256": "86165ef6955f5f56e096c23bb4bf07b155c75de76060d3e248fcc48b14218077"
+      }
+    ],
+    "source_root": "specification/standards"
+  }
+}

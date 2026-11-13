@@ -1,0 +1,122 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/runtime-001/resources/archives/fp-410e448473b92f37-stdout.log",
+    "bytes": 975041,
+    "sha256": "91a94af45081d18b9b1158bfa9906d82db606823e154a6b88237a6519d8b9832"
+  },
+  "toolCalls": [
+    {
+      "id": "toolu_01C394qjYKBW9poPELC8X1We",
+      "name": "Bash",
+      "input": {
+        "command": "D=qualification-inputs/rc11-effect-phase1-01/native-04; ls -la $D; cat $D/ROOT_SCOPE.json; echo ----; cat $D/ASSESSMENT.md; echo ----; cat $D/EXACT_SOURCE_ROUTES.json; echo ----; cat $D/EXTERNAL_TOOLS.json",
+        "description": "Read mandatory native-04 input files"
+      }
+    },
+    {
+      "id": "toolu_01358Eu6iwKMoVF2UMg8vwtR",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && shasum -a 256 test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md && wc -c test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs && sed -n 1,80p test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "description": "Verify pins and read test header"
+      }
+    },
+    {
+      "id": "toolu_01UsXW7gjgqzA8ZreqXc4F3R",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n 'MECHANICS_PATH\\|OWNER_CHAIN\\|assertOwnerChainSource\\|MECHANICS_OWNER_FACTS\\|^test(\\|WeakMap\\|new Map' test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "description": "Locate oracle references in test file"
+      }
+    },
+    {
+      "id": "toolu_01UN4pzZ9UYbDrTBXbLrFknr",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "offset": 240,
+        "limit": 120
+      }
+    },
+    {
+      "id": "toolu_01ATCK5y5D3x5ZYnY6oUvVUB",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1120,1176p design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "description": "Read Design \u00a710.12 tail"
+      }
+    },
+    {
+      "id": "toolu_01MbVBh2sr5UYVTHtZTQfr23",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n 'observeDefinitionCallWork\\|establishedInvocations\\|invocationReuses\\|callAdmissions\\|identity' test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs | head -60",
+        "description": "Find existing behavioral identity assertions"
+      }
+    },
+    {
+      "id": "toolu_01Unj31DmHsBSdGhmPcvCK1s",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 968,1030p design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md; grep -n 'owner-chain\\|W2-05\\|W2 owner' design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "description": "Read \u00a710.11 proof section and oracle mentions"
+      }
+    },
+    {
+      "id": "toolu_01UmTTAxsM3fdtpYLkRwmTUX",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "old_string": "// \u00a710.11 owner-local derived facts: exactly these three declarations, once\n// each, and only in the binding mechanics. Every other Map is hidden state.\nconst MECHANICS_OWNER_FACTS = Object.freeze({\n  selectedDefinitions: \"WeakMap\",\n  establishedInvocations: \"WeakMap\",\n  gatedResourceMembers: \"Map\",\n});\n\nfunction assertOwnerChainSource(path, source) {\n  assert.doesNotMatch(source, /applyRootPublicInvocation|createRootOperationContext|legacyRequest/u, path);\n  let residual = source;\n  if (path === MECHANICS_PATH) {\n    for (const [name, kind] of Object.entries(MECHANICS_OWNER_FACTS)) {\n      const declaration = new RegExp(`\\\\bconst ${name} = new ${kind}\\\\(\\\\);`, \"gu\");\n      assert.equal(residual.match(declaration)?.length ?? 0, 1, `${path}: ${name} is declared once as ${kind}`);\n      residual = residual.replace(declaration, \"\");\n    }\n  }\n  assert.doesNotMatch(residual, /WeakMap|new Map/u, path);\n}\n\ntest(\"W2-05 owner-chain static oracle admits exactly the three mechanics facts\", () => {\n  const allowed = [\n    \"const selectedDefinitions = new WeakMap();\",\n    \"const gatedResourceMembers = new Map();\",\n    \"const establishedInvocations = new WeakMap();\",\n  ].join(\"\\n\");\n  assertOwnerChainSource(MECHANICS_PATH, allowed);\n  for (const path of OWNER_CHAIN_PATHS.filter(path => path !== MECHANICS_PATH)) {\n    assertOwnerChainSource(path, \"export const value = 1;\");\n    assert.throws(() => assertOwnerChainSource(path, \"const selectedDefinitions = new WeakMap();\"),\n      assert.AssertionError, `${path} admits no Map`);\n    assert.throws(() => assertOwnerChainSource(path, \"const rows = new Map();\"), assert.AssertionError, path);\n  }\n  for (const [label, source] of [\n    [\"additional Map\", allowed + \"\\nconst retained = new Map();\"],\n    [\"additional WeakMap\", allowed + \"\\nconst retained = new WeakMap();\"],\n    [\"duplicate allowed declaration\", allowed + \"\\nconst selectedDefinitions = new WeakMap();\"],\n    [\"allowed name with another kind\", allowed.replace(\"gatedResourceMembers = new Map\", \"gatedResourceMembers = new WeakMap\")],\n    [\"missing allowed declaration\", allowed.replace(\"const establishedInvocations = new WeakMap();\", \"\")],\n    [\"legacy request\", allowed + \"\\nlegacyRequest();\"],\n    [\"legacy root invocation\", allowed + \"\\napplyRootPublicInvocation();\"],\n    [\"legacy root context\", allowed + \"\\ncreateRootOperationContext();\"],\n  ]) assert.throws(() => assertOwnerChainSource(MECHANICS_PATH, source), assert.AssertionError, label);\n});",
+        "new_string": "// Removed legacy root seams. This source check proves only that the installed\n// owner chain no longer names them. It judges no collection: owner facts and\n// their identity, admission, currentness and lifetime rest on behavioral owner\n// proof (the installed chain below and \u00a710.11 Proof), not on token absence.\nconst REMOVED_LEGACY_SEAMS = Object.freeze([\n  \"applyRootPublicInvocation\",\n  \"createRootOperationContext\",\n  \"legacyRequest\",\n]);\n\nfunction assertOwnerChainSource(path, source) {\n  assert.doesNotMatch(source, /applyRootPublicInvocation|createRootOperationContext|legacyRequest/u, path);\n}\n\nconst CALL_LOCAL_COLLECTIONS = Object.freeze([\n  [\"call-local visited Map\", [\n    \"function walk(value, visited) {\",\n    \"  if (visited.has(value)) return true;\",\n    \"  visited.set(value, true);\",\n    \"  return Object.values(value).every((member) => typeof member !== \\\"object\\\" || walk(member, visited));\",\n    \"}\",\n    \"export const established = (value) => walk(value, new Map());\",\n  ].join(\"\\n\")],\n  [\"call-local WeakMap\", \"export function count(values) {\\n  const seen = new WeakMap();\\n  for (const value of values) seen.set(value, true);\\n  return values.filter((value) => seen.has(value)).length;\\n}\"],\n  [\"collection mention\", \"// A WeakMap or new Map() here is ordinary call-local bookkeeping.\"],\n]);\n\ntest(\"W2-05 owner-chain static oracle permits call-local collections and mentions\", () => {\n  for (const path of OWNER_CHAIN_PATHS) {\n    for (const [label, source] of CALL_LOCAL_COLLECTIONS) {\n      assert.doesNotThrow(() => assertOwnerChainSource(path, source), `${path}: ${label}`);\n    }\n  }\n});\n\ntest(\"W2-05 owner-chain static oracle rejects removed legacy root seams\", () => {\n  for (const path of OWNER_CHAIN_PATHS) {\n    for (const seam of REMOVED_LEGACY_SEAMS) {\n      for (const [label, source] of CALL_LOCAL_COLLECTIONS) {\n        assert.throws(() => assertOwnerChainSource(path, `${source}\\n${seam}();`),\n          assert.AssertionError, `${path}: ${seam} beside ${label}`);\n      }\n    }\n  }\n});"
+      }
+    },
+    {
+      "id": "toolu_01VBVkD2pFvFcAFNZ3hyeW3o",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "old_string": "    \"  return Object.values(value).every((member) => typeof member !== \\\"object\\\" || walk(member, visited));\",",
+        "new_string": "    \"  return Object.values(value).every((member) =>\",\n    \"    typeof member !== \\\"object\\\" || member === null || walk(member, visited));\","
+      }
+    },
+    {
+      "id": "toolu_014zvBv9PiwP7zBDUdhjxD5e",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "old_string": "The W2 owner-chain oracle admits exactly `selectedDefinitions`,\n`establishedInvocations` and `gatedResourceMembers` in the binding mechanics.",
+        "new_string": "The W2 owner-chain source check rejects only the removed legacy root seams and\njudges no call-local collection; owner facts rest on behavioral owner proof."
+      }
+    },
+    {
+      "id": "toolu_01MU9oJDtwpUUJLntBb7JRJN",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && ls -la qualification-scratch/rc11-effect-phase1-01/native-04 2>&1; cd build_tenants/abiogenesis/typescript && grep -n '^await\\|^const .*= await\\|^[a-zA-Z].*mkdir\\|^process\\.' test_env/support/root-cli-environment.mjs test_env/support/candidate-basis.mjs | head; grep -n '^await\\|^const .*= await\\|^process\\.\\|^mkdir' test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs | head",
+        "description": "Check scratch dir and module top-level effects"
+      }
+    },
+    {
+      "id": "toolu_016XFd8FFNPYGcnrummrLJGk",
+      "name": "Bash",
+      "input": {
+        "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase1-01/native-04 && TMPDIR=$S/tmp python3 -I -c '\nimport subprocess, sys, os\nnode = \"/opt/homebrew/Cellar/node/24.7.0/bin/node\"\ntest = \"test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs\"\nscratch = sys.argv[1]\nruns = [\n  (\"syntax\", [node, \"--check\", test]),\n  (\"static-oracle\", [node, \"--experimental-vm-modules\", \"--test\", \"--test-concurrency=1\", \"--test-reporter=tap\",\n    \"--test-timeout=60000\", \"--test-name-pattern=^W2-05 owner-chain static oracle\", test]),\n]\nfor name, argv in runs:\n  try:\n    r = subprocess.run(argv, capture_output=True, timeout=60)\n    code = r.returncode; out, err = r.stdout, r.stderr\n  except subprocess.TimeoutExpired as e:\n    code = \"timeout\"; out, err = e.stdout or b\"\", e.stderr or b\"\"\n  open(os.path.join(scratch, name + \".stdout\"), \"wb\").write(out)\n  open(os.path.join(scratch, name + \".stderr\"), \"wb\").write(err)\n  print(name, \"exit\", code)\n  if code != 0: break\n' \"$S\"; echo; cat $S/syntax.stderr; cat $S/static-oracle.stdout; echo ---; cat $S/static-oracle.stderr",
+        "description": "Run syntax check and static-oracle selector under 60s cap",
+        "timeout": 150000
+      }
+    },
+    {
+      "id": "toolu_01DNtVk1PC5jUQs6kfMHhVDQ",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 302,352p test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs; grep -n 'assertOwnerChainSource(path, await' test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs; sed -n 1170,1174p design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md; shasum -a 256 test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md; ls ../../../qualification-scratch/rc11-effect-phase1-01/native-04 ../../../qualification-scratch/rc11-effect-phase1-01/native-04/tmp",
+        "description": "Review final edited regions and hashes"
+      }
+    }
+  ],
+  "standing": "Actual13 tool calls and matched outputs retained in exact archive; observed read/write commands stay within listed source/input/scratch routes. Runtime import closure was expressly read-only. No blanket physical isolation claim."
+}

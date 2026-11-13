@@ -1,0 +1,22 @@
+{
+  "testedSourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "successorSourceDigest": "4e4a4b04927ce140562576f0ea4b3c0047fffc83441526c040333f78350a7810",
+  "onlyChangedRow": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+  "before": {
+    "bytes": 26041,
+    "sha256": "6a2b34229ecd23aba4790b3682a6ab7a584de5dbb1aeefb1699223879a7c6f90"
+  },
+  "after": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "bytes": 26772,
+    "sha256": "07068863546b610af9b20c6b2d9e5da2884a462e37bb50ac56cc3dfda43a4ebd"
+  },
+  "otherRowsByteIdentical": 1344,
+  "codeAndTestsByteIdentical": true,
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4520,
+    "sha256": "2a0935527e62dba1f6aab5c6d709468ed1d971ea85078585d6b66e364a88f3d4"
+  },
+  "meaning": "Sole post-proof source delta is approved documentary current status/correspondence/accounting; the full inventory is not byte-identical to tested source."
+}

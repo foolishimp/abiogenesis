@@ -1,0 +1,32 @@
+{
+  "label": "047-t287-c0-post-publication-failure-owner-admission-close.test",
+  "started": "2026-11-13T11:04:57.905231+00:00",
+  "ended": "2026-11-13T11:08:06.088631+00:00",
+  "wallMs": 188182,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/047-t287-c0-post-publication-failure-owner-admission-close.test/stdout.raw",
+      "bytes": 3467,
+      "sha256": "8d113f7f3e4ab5533c40ae140d0f7d1bb8231fa8c0a3739a033bb8ca3346cf4a"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/047-t287-c0-post-publication-failure-owner-admission-close.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 22,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

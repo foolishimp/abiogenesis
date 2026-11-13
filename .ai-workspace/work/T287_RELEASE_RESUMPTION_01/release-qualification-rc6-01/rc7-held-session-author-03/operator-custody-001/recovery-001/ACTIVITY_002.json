@@ -1,0 +1,97 @@
+{
+  "kind": "allowlisted_native_activity_suffix_observation",
+  "observedUtc": "2026-11-06T17:23:12.748812+00:00",
+  "previousObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/ACTIVITY_001.json",
+    "bytes": 5748,
+    "sha256": "391c4b3f86f04e2822a329ce4a00237cc8895bfc1447349421a99aa9bec465a0"
+  },
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-13a1d76b3b3fee90-stdout.log",
+  "startOffset": 4101468,
+  "endOffset": 10141490,
+  "suffixBytes": 6040022,
+  "suffixSha256": "23533179ced68bd3c38b2a16ffc8a4faec197fd46dc1757d55c24d5caa57e72d",
+  "device": 16777231,
+  "inode": 708206410,
+  "archiveMtimeUtc": "2026-11-06T17:22:57.682415+00:00",
+  "completeSuffixRows": 3736,
+  "uniqueCompleteSuffixToolUses": 39,
+  "toolNameCounts": {
+    "Read": 2,
+    "Bash": 20,
+    "Edit": 17
+  },
+  "latestToolUse": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T17:21:57.416Z",
+    "toolUseRef": "toolu_01EEdZ8XSmQKSSURB5dMUhzu",
+    "byteOffset": 10135356,
+    "path": null
+  },
+  "latestPathBearingToolUse": {
+    "name": "Edit",
+    "timestamp": "2026-11-06T17:18:31.336Z",
+    "toolUseRef": "toolu_016gLgvTmRatMT68Q8dQBzfb",
+    "byteOffset": 9797575,
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+  },
+  "recentToolUseMetadata": [
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T17:18:43.893Z",
+      "toolUseRef": "toolu_01A13sT71jfjDD1kz5ZhcLSJ",
+      "byteOffset": 9886177,
+      "path": null
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T17:21:28.176Z",
+      "toolUseRef": "toolu_01Af8znwr7vU4eVGjQS11AFA",
+      "byteOffset": 9960211,
+      "path": null
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T17:21:33.249Z",
+      "toolUseRef": "toolu_01Wopyegwka2z6C6SKJbPB6Y",
+      "byteOffset": 9979015,
+      "path": null
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T17:21:37.454Z",
+      "toolUseRef": "toolu_01JPFKFfvRcMPskvp1v9RkHV",
+      "byteOffset": 10010158,
+      "path": null
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T17:21:42.542Z",
+      "toolUseRef": "toolu_01Fzm8yRjfCSgBaYoE1uHKX4",
+      "byteOffset": 10032733,
+      "path": null
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T17:21:46.829Z",
+      "toolUseRef": "toolu_01BTzdVqqwt38XrbfKNrbxoN",
+      "byteOffset": 10051911,
+      "path": null
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T17:21:47.630Z",
+      "toolUseRef": "toolu_01YcQoHKcWhj9YKGCjCrsrsK",
+      "byteOffset": 10067276,
+      "path": null
+    },
+    {
+      "name": "Bash",
+      "timestamp": "2026-11-06T17:21:57.416Z",
+      "toolUseRef": "toolu_01EEdZ8XSmQKSSURB5dMUhzu",
+      "byteOffset": 10135356,
+      "path": null
+    }
+  ],
+  "standing": "Metadata-only suffix, no old prefix reread, no provider narrative/thinking/tool results/stderr/commands retained. Tool use is observed activity, not semantic success."
+}

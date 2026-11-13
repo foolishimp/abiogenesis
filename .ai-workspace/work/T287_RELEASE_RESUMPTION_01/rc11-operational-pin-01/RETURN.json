@@ -1,0 +1,123 @@
+{
+  "id": "RC11-PIN-RC12-WAIT-001",
+  "result": "satisfied",
+  "status": "RC11_OPERATIONAL_BUILDER_PINNED_UNQUALIFIED",
+  "rc12Status": "WAITING_FOR_OWNER_RESUME",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/ACTIVATION.json",
+    "bytes": 4798,
+    "sha256": "fdfdbfc78211b638c8c9488f08a847e8d1c1d9f3b2144e260e6f34d501ef0f88"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7969,
+    "sha256": "8f09264b611d4686648965b5fd74ae034ddfd08016fd61f222f3e674f764869f"
+  },
+  "intent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/RC12_INTENT.md",
+    "bytes": 2592,
+    "sha256": "b9cda455579c090c7d947f77ef1fe3d70cd255e97b55c45bc275cb303c7f3d0e"
+  },
+  "readme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/README.md",
+    "bytes": 901,
+    "sha256": "e10a99854bc618ff3a4553c34b34428f41059f5852aabec609d30bc21063204a"
+  },
+  "verification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/VERIFICATION.json",
+    "bytes": 13267,
+    "sha256": "4ce3cc44c99b8bcaff30756ba0e5e2ee779ac919963416f6f2e363915c7297ca"
+  },
+  "verificationSummary": {
+    "members": 5327,
+    "payloadBytes": 71838919,
+    "inventorySha256": "2e90b54e58fd3c568076fc528ed4e8dc8dd321269f4a1e9cb522e705e60adf9d",
+    "mismatches": 0,
+    "extraMissingUnsafeDuplicateNonregularLinked": 0
+  },
+  "tracking": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 197474,
+        "sha256": "be5ce1f10610921f684479f3365b05ff027deea9e8198ba1a50275eda0d6a7e7"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 198782,
+        "sha256": "dce69ccd2571b0d560658c6fc27c98877eb1e77687543ca7370b03e6336d1e92"
+      },
+      "prefixBytes": 1308,
+      "prefixSha256": "a3d8a742f3a4710e84ac333b4e671804e3a947e21eb7bedeef4365b70bdc9a7d",
+      "priorBodyPreservedEveryByte": true,
+      "GitStagedOrCommitted": false
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 849109,
+        "sha256": "dae25367bc204a6c150ef85546ed0218213676aa7daece0a2b14f35d56876b43"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 850417,
+        "sha256": "976a70cd7c9ddf4ac925bac9b5cf3ebfbb817d0e3fe8d34a87e52d3bd2f9cd1c"
+      },
+      "prefixBytes": 1308,
+      "prefixSha256": "a3d8a742f3a4710e84ac333b4e671804e3a947e21eb7bedeef4365b70bdc9a7d",
+      "priorBodyPreservedEveryByte": true,
+      "GitStagedOrCommitted": false
+    }
+  ],
+  "preservedRC10Pin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "preservedRC11Source": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "preservedContinuationSource": "b7cf409fc74eca639525fccbea52e666be7743d4",
+  "preservedReceiptCount": 20,
+  "allProtectedReceiptsAndArchivePackageManifestExact": true,
+  "GitConservation": [
+    {
+      "root": "/Users/jim/src/apps/abiogenesis",
+      "HEAD": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+      "index": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29373151,
+        "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+      },
+      "indexByteExact": true,
+      "trackedStatus": [
+        "M .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        " M specification/GOALS.md"
+      ]
+    },
+    {
+      "root": "/private/tmp/abg-rc11-foundation-20261110-01",
+      "HEAD": "b7cf409fc74eca639525fccbea52e666be7743d4",
+      "index": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29655224,
+        "sha256": "969ce9121e57d68025fc42557539cbd591f848a8bbb3b808521953dda847c2b0"
+      },
+      "indexByteExact": true,
+      "trackedStatus": []
+    },
+    {
+      "root": "/private/tmp/abg-rc11-qualification-20261109",
+      "HEAD": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+      "index": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      "indexByteExact": true,
+      "trackedStatus": []
+    }
+  ],
+  "effects": "Created only fresh pin-carrier records/script/receipt and prepended one exact paragraph to main GOALS/T287. No Product/actor/runtime/build/test/install/Git/selector/release/source effect.",
+  "limits": "No new qualification or proof transfer. Historical RC11 failures/limits remain; later successor closures remain separate. Consensus legacy text reconciliation is held future owning work.",
+  "nextExecutionSelected": false,
+  "returnTo": "/root Executive; bounded recording complete, stop now."
+}

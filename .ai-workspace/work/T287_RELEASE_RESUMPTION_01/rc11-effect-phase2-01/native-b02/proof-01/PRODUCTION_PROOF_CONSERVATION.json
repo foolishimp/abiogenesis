@@ -1,0 +1,118 @@
+{
+  "status": "EXACT_ONE_TEST_SUCCESSOR_PRODUCTION_PROOF_CONSERVED_ROOT_CONJUNCTION_PENDING",
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+    "bytes": 295433,
+    "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+  },
+  "predecessorSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-freeze.json",
+    "bytes": 295988,
+    "sha256": "2ed1b3ab7758905dc0c33702893898130de2758d0b026af20898833d5bebe9eb"
+  },
+  "retainedRootAcceptance": {
+    "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+      "bytes": 2281,
+      "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+    }
+  },
+  "soleDelta": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "before": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 145462,
+      "sha256": "f4f9893e30f32ae7a17d242f69997a0c71812ce5084f57e75dc4af5c1cc8d892"
+    },
+    "after": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 147783,
+      "sha256": "ac430f557e3e4eaa9b66f697123ea74675ae5494e149df62f94546fa81d273a4"
+    }
+  },
+  "conservedSourceRows": 1344,
+  "stageBase": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/STAGE_BASE.json",
+    "bytes": 1280,
+    "sha256": "c7f4d6f8be4314471eca1edf92ad083c18763d6dfb6228d2e101a6d48bfd9e91"
+  },
+  "stageRoot": "/private/tmp/abg-rc11-effect-phase2-b-unit-stage-20261110-03",
+  "sourceWorkOverlay": "copy2 exact frozen m5 only, after actual native close; old Q1/Q2/frozen/live sources unchanged by Operator",
+  "compiledInventory": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 183894,
+    "sha256": "46693cab5a5a0aa954a339f62b0d4a4dd7cfea38f45e968c924a93a92e43c6c8"
+  },
+  "compiledRows": 998,
+  "compiledRowsExact": true,
+  "generatedDeltaExact": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197956,
+        "sha256": "abb2d91c0aca011b00791b92e04c0b1facf714fa9f2be4ba0cbb39f6553e7683"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197956,
+        "sha256": "775998d14ceae6619fcdb68a9e72f715415bb0061d13f868df402099649f3cb7"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266309,
+        "sha256": "53c884303235e4de5d33c1bc58d31bcab77c0e0fad725d48caf73d871f93d3ad"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3275542,
+        "sha256": "0a39a5ad916a98a7943a0b3720e8b46e8d2d288050f502ad558cb635aad74f79"
+      }
+    }
+  ],
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "dependencyMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/DEPENDENCY_METADATA.json",
+    "bytes": 56004,
+    "sha256": "48499ec0f313c2b71ed8a0b4a5dd8f48704b365865a28f133784fa425ec652ac"
+  },
+  "dependencyRows": 4576,
+  "dependencyMetadataRows": 500,
+  "dependenciesExact": true,
+  "originRelation": "One metadata-preserved node_modules per copied work tenant; test bare effect and helper/shared runner imports use the same tenant hierarchy and pinned package; no second compiled owner or package rewrite. No resolver/Product execution.",
+  "archive": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11052094,
+    "sha256": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8"
+  },
+  "archiveMembers": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/pack/ARCHIVE_MEMBERS.json",
+    "bytes": 1099783,
+    "sha256": "deeb6ab6595237d762e9ddef201b6b2f3deb3167347a4c1f90106b823ae06b65"
+  },
+  "bootstrapRoot": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/bootstrap-host/node_modules/@abiogenesis/typescript-tenant",
+  "buildPackInstallRepeated": false,
+  "historicalRed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/EXECUTION_RETURN.json",
+    "bytes": 4247,
+    "sha256": "c9adc0cb0e19bd79fae9b81485051b50b646f4cffe523a9afda9699d6268beac"
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/RETURN.json",
+    "bytes": 2809,
+    "sha256": "74c45b4eeae7748443f5f37d8f3be233ac6a8edc087039c69ffdd4ba906f9709"
+  },
+  "pycCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PYC_CUSTODY_RETURN.json",
+    "bytes": 1878,
+    "sha256": "229bd45d0f22e24e131d9d4429afe10b560aad47998e9b47e411ccf1aa0c742d"
+  },
+  "standing": "Structural conservation supports reuse of prior bounded production build/C2/lifetime facts only after Root conjunction. New fixture and complete unit remain unproved; no aggregate green substitution."
+}

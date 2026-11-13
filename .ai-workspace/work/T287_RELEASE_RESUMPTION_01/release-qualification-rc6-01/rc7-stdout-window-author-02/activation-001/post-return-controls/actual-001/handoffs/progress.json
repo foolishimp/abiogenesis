@@ -1,0 +1,253 @@
+{
+  "kind": "native_author_progress",
+  "task": "rc7-stdout-window-author-02",
+  "startedUtc": "2026-11-06T22:14:15Z",
+  "methodBootstrap": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/manifest.json",
+    "manifestSha256Observed": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "manifestMatchesMethodAccess": true,
+    "stdoVerify": "stdo verify v3.0.4 -> valid:true",
+    "entrypoint": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "entrypointSha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+    "entrypointReadUtc": "2026-11-06T22:15:00Z",
+    "hostPluginRegistrationClaimed": false
+  },
+  "readFirst": {
+    "startedUtc": "2026-11-06T22:15:30Z",
+    "paths": [
+      "qualification-inputs/rc7-stdout-window-author-02/METHOD_ACCESS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/TASK.md",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/COMMAND_BOUNDS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/SOURCE_CUSTODY.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_CONTROL_ADMISSION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_DEPENDENCY_READY_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/HS03_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/NATIVE_GRANT.json",
+      "qualification-inputs/rc7-stdout-window-author-02/MEASUREMENT_PLAN.json",
+      "qualification-inputs/rc7-stdout-window-author-02/EXTERNAL_READ_INPUTS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/C2_INPUTS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/prior-author-stage.mjs",
+      "qualification-inputs/rc7-stdout-window-author-02/prior-author-lanes.mjs",
+      "ROOT_REVIEW_DISPOSITION.json (edd58154, pinned)",
+      "reviews/source-stage-final-001/REVIEW.json (3212eab2, findings HS03-BOUNDARY-001, HS03-PROOF-001 only)",
+      "reviews/source-stage-final-001/BUILD_DECLARATION_ADDENDUM.json (1c27ebfa, HS03-DECLARATION-001 only)",
+      "sw1-stage-02-stage.json generate.stderr only",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts (classifier/observer regions)",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts (nextNativeProcessStreamOrdinal region)",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md \u00a710.10",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs (HS03 region)",
+      "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts (cold range check region)",
+      "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs (closure check region)"
+    ],
+    "notRead": "HELD_SESSION_DESIGN.md/HELD_SESSION_REVIEW.md bodies, AGENTS.md, PRODUCT.md, REQ-R-ABG3-PROJECTION/EVENTS and frame basis were not re-read in full this activation; Root selections and pinned HOW \u00a710.10 were used as the operative relation. Disclosed.",
+    "completedUtc": "2026-11-06T22:17:00Z"
+  },
+  "stages": [
+    {
+      "label": "sw2-stage-01",
+      "sourceFreezeReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-source-freeze.json",
+        "bytes": 96809,
+        "sha256": "af46c37f7c6774746f5cbefef4ee46edb04d917c532c224208e828e9e9778cab"
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-stage.json",
+        "bytes": 97761,
+        "sha256": "e7de38a04478b44ce5d47e56c972e1ee8a48d5c64d8ad306de86c96207e8e64f"
+      },
+      "sourceDigest": "c23199f8d96ca058708453bc4753ad6c99c437d3268231a68ab0b4080e4198d7",
+      "sourceCount": 451,
+      "compile": "exit0 7487ms",
+      "generate": "exit0 22530ms (packed native declaration closure now valid)",
+      "lifecycle": "exit0; 290 modules, 7 allow-listed sites, no offender",
+      "worksiteEqualsFrozenStage": true,
+      "changedRowsVsSourceBefore": {
+        "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts": "69a50dbcdc2c60fba90f7e1719f1fb597e6a113758d6d04403da830ed5af3852",
+        "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts": "d84d5ab75a556ae5d4e58bfa42d8084a7a39c45e3cdc957c1b2817d9379a2940",
+        "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts": "7c29c93c50b9ba904a061963083dc5c59df160e8204c5ba6697b6ee849505725",
+        "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "e43002becb6f277247d03dc504e29817139484927ec14dfcef055c02cba29fa8",
+        "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs": "48565c1d13129aafd765db2009ecab210f086f372e2cc3fe655633c5504edd6b"
+      }
+    }
+  ],
+  "lanes": [
+    {
+      "lane": "stdout-differential",
+      "stage": "sw2-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-lanes-stdout-differential/summary-stdout-differential.json",
+        "bytes": 1509,
+        "sha256": "745a7d9220b452ac13b9aee5d1251a239ec9e21f732c1e5e0a3fa14ca1e9df46"
+      },
+      "stdoutTap": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-lanes-stdout-differential/stdout-differential.stdout.tap",
+        "bytes": 6128,
+        "sha256": "6898af65292caddc9bdca53b89850784aa43edf53fd60f8492dda327b38f34e7"
+      },
+      "exitCode": 0,
+      "ms": 8358,
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "minimumTests": 1,
+      "requiredActivePass": true,
+      "failing": [],
+      "stageSourceDigest": "c23199f8d96ca058708453bc4753ad6c99c437d3268231a68ab0b4080e4198d7",
+      "passed": true
+    },
+    {
+      "lane": "scope-ordering",
+      "stage": "sw2-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-lanes-scope-ordering/summary-scope-ordering.json",
+        "bytes": 1498,
+        "sha256": "b8df4a8a8771ce66a67427aad7ef60ce2cc619c103f72acf99830af1ac99d89c"
+      },
+      "stdoutTap": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-lanes-scope-ordering/scope-ordering.stdout.tap",
+        "bytes": 1007,
+        "sha256": "a902e2d09fde163ffeb7e5f44b2fb75680ca92303c958846f0d8fcb8c048938d"
+      },
+      "exitCode": 0,
+      "ms": 715,
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "minimumTests": 1,
+      "requiredActivePass": true,
+      "failing": [],
+      "stageSourceDigest": "c23199f8d96ca058708453bc4753ad6c99c437d3268231a68ab0b4080e4198d7",
+      "passed": true
+    },
+    {
+      "lane": "timeout-interruption",
+      "stage": "sw2-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-lanes-timeout-interruption/summary-timeout-interruption.json",
+        "bytes": 2191,
+        "sha256": "303b902ab4eaf21cff6a8db6ea0fb1673d5feaf25df6426f9bee18e0bec8871d"
+      },
+      "stdoutTap": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-lanes-timeout-interruption/timeout-interruption.stdout.tap",
+        "bytes": 4219,
+        "sha256": "cea4612ad4d75b8dd7230268814770519de8351f8aa6b01eab4e9e87db510333"
+      },
+      "exitCode": 1,
+      "ms": 2510,
+      "tests": 10,
+      "pass": 9,
+      "fail": 1,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "minimumTests": 8,
+      "requiredActivePass": true,
+      "failing": [
+        "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization"
+      ],
+      "stageSourceDigest": "c23199f8d96ca058708453bc4753ad6c99c437d3268231a68ab0b4080e4198d7",
+      "passed": false
+    }
+  ],
+  "edits": [
+    {
+      "id": "S5-C2",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "change": "nextNativeProcessStreamOrdinal JSDoc marked @internal (actor-internal); no type published, checker and owner_contract_source_set unchanged"
+    },
+    {
+      "id": "S5-C1",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "change": "shared incremental observer records chunk-relative turn-boundary ends with standing; classifyChunk partitions each capture into segment-local classes; WorkerStdoutChunkSegment type; window mode partitions each capture at segment ends, closing a window at each completed boundary with exact archive offsets; segments validated to partition chars and bytes"
+    },
+    {
+      "id": "S5-C1",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "change": "current-profile classifier returns observer.classifyChunk segments; removed one-boolean boundary reduction"
+    },
+    {
+      "id": "S5-C3",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "change": "\u00a710.10 E-A/E-E segment relation, internal declaration note, truthful proof standing (cases named per owner; proof only when lanes pass)"
+    },
+    {
+      "id": "S5-C3",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "change": "3 RC7 HS03 archive: cases (coalesced boundary partition + fsync-before-reference; injected write/fsync failure; missing/changed/truncated archive refusal) and 2 RC7 HS03 timeout: cases (inactivity drain with exact lastQualifying and noise no-renew; absolute interruption drain)"
+    }
+  ],
+  "sourceBaselineCheck": {
+    "utc": "2026-11-06T22:16:30Z",
+    "rows": 451,
+    "differingFromSOURCE_BEFORE": 0
+  },
+  "localChecks": [
+    {
+      "command": "node --check test_env/tests/m5-worker-transport.test.mjs",
+      "result": "syntax ok",
+      "note": "parse-only, no test execution, no writes"
+    },
+    {
+      "command": "node --input-type=module import of frozen stage build (export presence; classifyChunk on literals)",
+      "result": "all referenced exports present; segments as designed",
+      "note": "in-memory, no writes"
+    }
+  ],
+  "codeReadyUtc": "2026-11-06T22:23:55Z",
+  "allocation": {
+    "stagesUsed": 1,
+    "stagesCap": 2,
+    "stageLabels": [
+      "sw2-stage-01"
+    ],
+    "stage2": "unused; not spent after the lane failure (would be a retry, and the lane runner refuses further lanes on any source after a failed final lane)",
+    "lanesUsed": 3,
+    "lanesCap": 6,
+    "lanesRun": [
+      "stdout-differential (pass 2/2)",
+      "scope-ordering (pass 2/2)",
+      "timeout-interruption (FAIL 9/10)"
+    ],
+    "lanesUnrun": [
+      "archive-integrity",
+      "legacy-replay",
+      "native-caller"
+    ],
+    "automaticRetries": 0
+  },
+  "stoppedUtc": "2026-11-06T22:27:30Z",
+  "stopReason": {
+    "lane": "timeout-interruption",
+    "test": "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization",
+    "error": "TypeError: worker transport absolute timeout must be one safe integer greater than its inactivity timeout",
+    "at": "prepareWorkerTransport -> resolveAbsoluteTimeoutMs (pre-launch refusal), called from m5-worker-transport.test.mjs:1900",
+    "classification": "Test-input defect authored in this activation: the case passed timeoutMs 5000 with absoluteTimeoutMs 500. The existing transport owner correctly refuses absolute <= inactivity before launch. No worker launched; the windowed absolute-interruption drain was not exercised. Not a product-code counterexample, but the mandatory absolute-interruption discriminator remains unproved.",
+    "localizedCorrection": "In that one case only, use { timeoutMs: 300, absoluteTimeoutMs: 600, terminationGraceMs: 200 } (DELTA every 30 ms renews the 300 ms lease; absolute fires at 600 ms). Not applied: the worksite must equal the frozen stage source, and the lane runner refuses further lanes after a failed allocation on this source.",
+    "otherCasesInLane": "7 M5 timeout/cleanup guards and RC7 HS03 timeout inactivity-drain case passed (9/10)."
+  },
+  "residuals": [
+    "Mandatory absolute timeout/interruption discriminator unproved (test-input defect above).",
+    "archive-integrity, legacy-replay and native-caller final lanes unrun; the three RC7 HS03 archive: cases and C1 coalesced-boundary partition are authored but unexecuted.",
+    "Cold refusal of window rows by worksite construction recovery is not separately executed; archive cases use the transport's existing archive-equals-observed comparison for missing/changed/truncated bytes.",
+    "C1 proof uses the shared observer classifyChunk with the real transport; the actor_process closure itself is exercised only through native-caller (unrun).",
+    "Nonadmitting-successor adoption in actor_process has source join only; stdout-differential/scope-ordering passes cover the runtime_liveness threshold/successor relation on the real store.",
+    "Original S5 absolute-timeout failure, retained stdout-before red (911 vs 3) and operator sw1-stage-02 generator refusal remain preserved as history; no acceptance, qualification or speedup claim."
+  ],
+  "disclosure": [
+    "Read-only in-memory checks outside the selected command list: node --check on the test file; node imports of the frozen stage build to confirm test-referenced exports exist and to exercise createWorkerTransportOutputObserver.classifyChunk on literal strings. No writes, no test runner, no provider.",
+    "HELD_SESSION_DESIGN.md/REVIEW.md, AGENTS.md, PRODUCT.md, REQ-R-ABG3-PROJECTION/EVENTS and frame basis were not re-read in full; Root selections and HOW \u00a710.10 were the operative relation.",
+    "stdo verify was first invoked with a URI form (refused by the tool), then with v3.0.4 (valid).",
+    "Created qualification-scratch/rc7-stdout-window-author-02/ and tmp/ (declared scratch); stage/lane owners wrote under tmp and /private/tmp/abg-sw2; tests created and removed mkdtemp dirs under /private/tmp/abg-sw2."
+  ]
+}

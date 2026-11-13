@@ -1,0 +1,152 @@
+{
+  "kind": "root_d5_profile_retirement_selection",
+  "at": "2026-11-05T21:43:31.750245+00:00",
+  "status": "SELECTED_FOR_ONE_NATIVE_AUTHOR_AFTER_OWNER_PREFLIGHT",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "F10 lifecycle truth and triggered pre-RC7 D5 profile obligation; preserve unaccepted Q23 F11/F15 increment",
+    "outcome": "Retire only redundant current-profile ABG lifecycle copies through existing owners; preserve physical/helper observations, primary facts, deterministic fold/replay and exact historical profile standing.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Product/requirements own WHAT; existing common-library/native-profile HOW owns D5. Frozen author06 subject676931d1 is current source, unaccepted pending proof/formal review.",
+      "tool": "Exact immutable STDO3.0.4 and maintained operator-client/RC6 owners. Host tools are behaviorally scoped, not OS confinement. This Writer prepares controls only.",
+      "runtime": "ABG and its single fold own runtime truth. Existing one-node native author Program; final resume/close unbound until Root supplies genuine proof03 close."
+    },
+    "prohibitions": [
+      "No new WHAT, registry/store/event stream, fold/rules/replay/runtime_liveness/transport_contracts/OwnedProcessFacts/helper rewrite.",
+      "No native ancestry invention, prior-journal mutation, universal backward compatibility, automatic retry or claimed Q23 acceptance.",
+      "Operator preparation cannot stage, preflight, run tests/build/provider/runtime/Git or change Product."
+    ]
+  },
+  "trigger": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/ROOT_PROFILE_DISPOSITION.json",
+    "bytes": 3110,
+    "sha256": "59b29a543a0df68313dc1ed48ea3cfdb42fc37196a827fffaac6a39a396e2f11"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "sourceStanding": "Frozen Q23 candidate remains unaccepted. Bounded source recheck and63-pass actual C2 stand; UAT construction failed for stale operator selections, and formal different-family judgment remains open.",
+  "priorSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/codex-review-001/REVIEW.json",
+    "bytes": 30397,
+    "sha256": "f357978e161011120a58171c8c9d240e815468068a98660566c9b8a803205ea3"
+  },
+  "priorActualC2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/ACTUAL_C2_SUMMARY.json",
+    "bytes": 4012,
+    "sha256": "24e6fdedf097e1f3f092dc731066346fa6ad82943a5c52a0d1ee096d00596e14"
+  },
+  "actualPredecessorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 4232,
+    "sha256": "b167846018da7215c64edee479447c2ef653f0e5d0b8b5e75726c043bc6905b1"
+  },
+  "closedUatTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/UAT_CONSTRUCTION_TRIAGE.json",
+    "bytes": 16272,
+    "sha256": "41f575444745ba749c2faca6a360a06f381573c48d40702a987ed210841b154e"
+  },
+  "decision": "Continue the already-triggered D5 existing-owner retirement on the exact preserved candidate. Do not repeat63 passes solely to repair UAT. Future changed D5 source gets its declared nine-module affected proof and actual UAT with complete current assessment assets.",
+  "outcome": "Retire derivable current-profile lifecycle copies at existing event/evidence/transport-archive owners; preserve primary physical facts, fold-derived behavior, useful projections, immutable L and genuine recovery.",
+  "codeOwners": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts"
+  ],
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs"
+  ],
+  "conditionalProductWrite": {
+    "path": "build_tenants/abiogenesis/typescript/scripts/check-lifecycle-boundary.mjs",
+    "condition": "Only if an existing exact recovery-artifact exception text changes as a necessary consequence; preserve the same narrow owner/reason. No widened process-owner allow-list, fluent set or disabled check."
+  },
+  "temporaryEffects": {
+    "providerScratch": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5a",
+    "providerNpmCache": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5a/npm-cache",
+    "providerShellTmpPrefix": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5a/zsh",
+    "testTmpdir": "/private/tmp/abg-d5a",
+    "testNpmCache": "/private/tmp/abg-d5a/npm-cache",
+    "testShellTmpPrefix": "/private/tmp/abg-d5a/zsh",
+    "externalReadOnly": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl",
+        "bytes": 9304,
+        "sha256": "3d4adcf616337360931993fbd10e42090c989ac24060d56318cd21ea9363f845",
+        "relativePath": "comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl",
+        "regularFile": true,
+        "symlink": false,
+        "acquisition": "Existence/type/byte count/hash only; no historical event/provider content printed or assessed."
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/events-01/runtime.events.jsonl",
+        "bytes": 2797774,
+        "sha256": "d2a677a2201dddb5b6f14d82b1c11e5d3cf95e9d369c30742cd750dac198e56c",
+        "relativePath": "comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/events-01/runtime.events.jsonl",
+        "regularFile": true,
+        "symlink": false,
+        "acquisition": "Existence/type/byte count/hash only; no historical event/provider content printed or assessed."
+      }
+    ],
+    "standing": "Proposed finite effects only. Root must bind before dispatch; no retroactive authorization of author06 effects."
+  },
+  "preparationReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/PREPARATION_RETURN_BUDGET_02.json",
+    "bytes": 37498,
+    "sha256": "d4566b5293a1a32437ed16b96ee04d5d34d564c3bd1038dd8c552d54d05ca192"
+  },
+  "ownerBudgetProjection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/BUDGET_OWNER_PROJECTION.json",
+    "bytes": 1662,
+    "sha256": "c40545b9d9aaa6769859fbad582082847ca4183027b211e839f83bd4e213bd04"
+  },
+  "provider": {
+    "agent": "claude",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "maxTurns": 384,
+    "absoluteTimeoutMs": 7200000,
+    "inactivityTimeoutMs": 1800000,
+    "maximumConcurrentCodingWorkers": 1,
+    "automaticRetry": false
+  },
+  "preservation": [
+    "All13 inherited changed Product paths and untracked work preserved; only selected owner cone may change.",
+    "CT01: original RC6 P histories retain their original immutable executable and actual closes; eventual successor uses a fresh store.",
+    "No fold/rules/replay/runtime_liveness/transport_contracts/physical-helper rewrite, new registry/store/event stream or universal migration.",
+    "Npm/shell-temp historical effects and all failed attempts remain exact.",
+    "No push, merge, tag, selector, source/release acceptance or actual human acceptance."
+  ],
+  "stops": [
+    "Exact source/basis/close mismatch",
+    "Existing-owner recovery fixture cannot establish authentic non-null positive within selected cone",
+    "Required out-of-scope consumer change; return to Root instead of expanding",
+    "Missing material or owner refusal; no automatic retry"
+  ],
+  "return": "Freeze actual native source and handoffs, then conjoin proportional max review with affected C2/UAT. Required independent judgments remain separate."
+}

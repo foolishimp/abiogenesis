@@ -1,0 +1,18 @@
+{
+  "standing": "POST_ROOT_STOP_FILE_OBSERVATION_NOT_RUNTIME_REPLAY",
+  "observedUtc": "2026-11-07T14:54:33.302416+00:00",
+  "roots": [
+    {
+      "path": "/private/tmp/abg-r8c-023/t/abi5-root-env-ZIsEdK",
+      "exists": false
+    },
+    {
+      "path": "/private/tmp/abg-r8c-023/t/abi5-root-env-o1PM9J",
+      "exists": false
+    },
+    {
+      "path": "/private/tmp/abg-r8c-023/t/abi5-root-env-oqgngA",
+      "exists": true
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+# Root selected attempt010
+
+Ordinary fresh native Construction→Testing→UAT over preserved7e914327158b7631d1df40b9ec1b068960013b10/tree c1a6d7d911def21b201700bd61249b1074bc493b with installedRC3 and genuine closed009 caller handoff. sourceBasis:none and empty initial state. Root-approved A→freshB admitted source-use→entered Testing interruption→cold pending_execution of sameB→C2/fold→new ordinary post-Testing selector consumes exactAbytes. Preserve009 R3/WeakSet/same-Run/generated proof; complete R2 integration and remaining bounded consolidation. Existing52+instruction_assembly.ts=53 manual paths, existing2generated territories only. Mutable continuation HOW is candidate, not invariant/assessment source. Preparation only, no admission/dispatch/acceptance.

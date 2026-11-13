@@ -1,0 +1,28 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "activation": "T287_RC5_F4_03",
+  "admittedUtc": "2026-11-03T11:33:23.512759+00:00",
+  "roleTransition": "Executive complete owner-chain failure triangulation -> bounded Root operator Writer",
+  "userAuthority": "Owner approved RC5; exact f4-02 S2 finding, actual C2 red, fresh blocked close and f4-03/REENTRY_TRIAGE.md",
+  "operationGrant": "One ABG native3file fixture/support repair, same C2 proof plus2source correspondence rows, native UAT and fresh reads. Focused scratch installed author feedback allowed on exact prior compiled archive. No Root Product coding.",
+  "sourceCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "sourceTree": "c4b60c78533eeff2734c289eccb1b37df982f3b9",
+  "nativeContractDigest": "sha256:97a56e4bc99a5f590b4a3f5e0bf02b9a1482af01391fb9487a5d268883f4b009",
+  "workloadDigest": "sha256:7ac89bf1e974bfef895d575836e1d24db0094c83d8c3e00602dc2defa8e21c78",
+  "preparedCall": "sha256:0d089939ce1616b0e99401145935ec40561f26cbec35e275d93fb8b89ff5011e",
+  "contextDigest": "sha256:162a97c5ba6c6f0db672944a04ee26eaf445564d99c4f1cdbeb25f23094bd4b2",
+  "nativeRuntimeAdmission": "Existing installed Public/ABG owner on dispatch",
+  "maxTurns": 256,
+  "finalProofRecipeChanged": false,
+  "C2Change": "Source-correspondence command adds exactly two test support files; remaining commands/predicates unchanged",
+  "reviewBaseCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "heldPriorSourceSubjectSha256": "e82e3e6391a9f16199b684b0b553564ed09bdfdfc45107accda3bdb45d959fb8",
+  "review": "Independent max exact3file repair review alongside C2; held runtime/source review retained",
+  "exclusions": [
+    "Product/requirements/Public schema changes",
+    "unselected owners, cold-history rewrite and new store/service/controller",
+    "GC03 host rewrite or full qualification",
+    "canonical generated/build/package/install writes",
+    "old histories/releases, push/tag/global selector"
+  ]
+}

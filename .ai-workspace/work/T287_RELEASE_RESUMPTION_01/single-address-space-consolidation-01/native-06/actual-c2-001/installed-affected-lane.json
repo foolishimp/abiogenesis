@@ -1,0 +1,16 @@
+{
+  "id": "installed-affected-lane",
+  "files": [
+    "test_env/tests/m5-installed-graph-edge.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 2,
+  "fail": 0,
+  "skipped": 0,
+  "wallMs": 81072.54487500014,
+  "stdoutSha256": "671d1393e2cc4755c9735c962252fef339c36136ba184b322a1144d40dc83a78",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

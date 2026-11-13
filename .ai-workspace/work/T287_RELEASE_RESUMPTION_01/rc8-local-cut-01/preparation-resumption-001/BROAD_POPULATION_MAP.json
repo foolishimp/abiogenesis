@@ -1,0 +1,592 @@
+{
+  "status": "PREPARED_A12_AND_FINAL_ROOT_CONJUNCTION_PENDING",
+  "at": "2026-11-07T22:18:07.382440+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "scope": "fixed15/GOAL035/T287/REF01;STDO3.0.4;empty composition",
+  "retainedA11SourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+  "retainedA11SourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_FINAL_SOURCE_INVENTORY_003.json",
+    "bytes": 541696,
+    "sha256": "b07fc4536774a536878e43c961cdf319e11ddec58c2d51d560e3f0ab46e0c3dc"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "broadReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_025.json",
+    "bytes": 11877,
+    "sha256": "78fae0e88a483d8268e527cfdf3868f97565aeff5cac86baf4a558cf284a203a"
+  },
+  "broadLedger": {
+    "previousWholeCredits": 188,
+    "previousActualPassed": 943,
+    "previousHistoricalSkipped": 227,
+    "allPreviousCreditObjectsRetained": true,
+    "newCompleteWholeFiles": 4,
+    "newActualPasses": 43,
+    "newHistoricalSkips": 0,
+    "wholeFilesAfterJoin": 192,
+    "actualPassesAfterJoin": 986,
+    "historicalSkipsAfterJoin": 227,
+    "inventoriedFiles": 208,
+    "unvisitedScheduledFiles": 0,
+    "schedulingDeferredFilePopulations": 16,
+    "deferredFiles": [
+      "test_env/tests/t287-governed-context.test.mjs",
+      "test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "test_env/tests/t287-registered-graph-selection.test.mjs",
+      "test_env/tests/t287-required-operation-bindings.test.mjs",
+      "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+      "test_env/tests/t287-selected-action-authority.test.mjs",
+      "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "test_env/tests/witness-reprice-definition-binding.test.mjs"
+    ],
+    "separateWholeAndCaseWiseProofsNotRestamped": true,
+    "witnessRepriceFailureCredit": false
+  },
+  "broadCustody": {
+    "hostPid": 85942,
+    "sessionId": 56233,
+    "exitCode": 0,
+    "hostObservedAbsent": true,
+    "allFourCommandsExitZeroNoSignalTimeoutTruncation": true,
+    "allReportersEnded": true,
+    "manualSignal": false,
+    "limit": "Existing known-process custody; no universal escaped-descendant absence claim."
+  },
+  "separatePopulations": [
+    {
+      "file": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "standing": "ACCEPTED_SEPARATE_WHOLE",
+      "retainedA11Test": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+        "bytes": 13915,
+        "sha256": "0eec8e0cacf1d622e5c24573b69f41d918616db563e4ebad59f81fe4b96fa1fd"
+      },
+      "claim": "11/11; A8 exact source relation retained.",
+      "broadLedgerRestamped": false,
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 3364,
+        "sha256": "66ce47f3e3c3885b2f92bac9236258b83b5eeebc86174b8cd4e65e08c2d37068"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/coordinates-001/RESULT.json",
+        "bytes": 870,
+        "sha256": "1fd5cc47b8cb2c000a3474015f6882c395cfc4fa36b34027b03eed4a3f05f40e"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "standing": "ACCEPTED_SEPARATE_WHOLE",
+      "retainedA11Test": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+        "bytes": 44744,
+        "sha256": "ecc02ba867f4da99e8189f90f3a79c2244eededcd18b312c6d987f89e62f4d42"
+      },
+      "claim": "4 actual passes and 3 historical optional skips; no native C2 integration claim.",
+      "broadLedgerRestamped": false,
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 3382,
+        "sha256": "5adb7f3484eee3463effd152a96abf2a6d01fb22253f8a0c0b7eece7a2b97991"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/lane-01/RESULT.json",
+        "bytes": 872,
+        "sha256": "95ed63babc9f83a8ceae61c309572dd7436b68302bf027f8afa228347b349c04"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+      "standing": "ACCEPTED_SEPARATE_WHOLE",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs",
+        "bytes": 13096,
+        "sha256": "13ea567a5e3c0bdbb36b413671c0ee72794fe8306737e0019c47edada2eb5c6c"
+      },
+      "claim": "1 pass; seven scenarios and four cold reads, exact A10 correspondence.",
+      "broadLedgerRestamped": false,
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/ROOT_PROOF_ACCEPTANCE.json",
+        "bytes": 5538,
+        "sha256": "7c1f566e0ce754acaba86a5c71e499099c207effd4a94ff54d4628196c239bc8"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/actual-001/RESULT.json",
+        "bytes": 872,
+        "sha256": "180a8774cf4524556521bdd1747378a2b7df04c468ad355d3ccf0dbb26192189"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+      "standing": "ACCEPTED_SEPARATE_WHOLE",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-rp2-correction-carriers.test.mjs",
+        "bytes": 5612,
+        "sha256": "8980e3c7e8f0dddf542219aed644d9fc12449baefe912004285d985dec2b0618"
+      },
+      "claim": "1 pass; two modes and two cold replays. No human-response/resume claim.",
+      "broadLedgerRestamped": false,
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/ROOT_PROOF_ACCEPTANCE.json",
+        "bytes": 5633,
+        "sha256": "ea1e0ad4348e245c1917ebcdf4fe7c540c7e035f7f213a5404de7632438ba26e"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/RESULT.json",
+        "bytes": 853,
+        "sha256": "7fc9169a5c9efe36e919bc4fae6be7c598542d9e5b9f4605f3423549136cc593"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+      "standing": "ACCEPTED_CASEWISE",
+      "retainedA11Test": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+        "bytes": 44662,
+        "sha256": "ec32f3a77116aed86705fbc87c8dcb9470dd43b0018cc806e46de0fb2489ec8d"
+      },
+      "claim": "Nine unchanged actual016 passes plus one final A11 focused pass; no new whole-file execution or complete Effect/store success claim.",
+      "broadLedgerRestamped": false,
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 7205,
+        "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/lane-01/RESULT.json",
+        "bytes": 985,
+        "sha256": "f23f86b6ccc0320b2ec484802414ea19e2d0b888848531add46a8462706daf58"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "standing": "ACCEPTED_CASEWISE",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+        "bytes": 10056,
+        "sha256": "a8cc28369dc70e05ab229ef5c8bc489e4669d3faddea601c60908b7c2b2eeef6"
+      },
+      "claim": "Original020 first case plus final A11 second case; two intended case assertions. Original timeout retained, no new whole file.",
+      "broadLedgerRestamped": false,
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/ROOT_PROOF_ACCEPTANCE.json",
+        "bytes": 7000,
+        "sha256": "2cbd148bbda0fa76061ad9b0d4f2f526bd3fbe4187df8d8bb152cf786ee80fb1"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/actual-001/RESULT.json",
+        "bytes": 1044,
+        "sha256": "6609ca468bbfe7cb55b5d789e7ef31d1a74ae3e859783abf2bfad89bf626f7f5"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-governed-context.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+        "bytes": 108269,
+        "sha256": "947813b7e0a9f60ab2adc7a6ae95fa972b3774351d961eb2e4bad48f30417427"
+      },
+      "claim": "Current 3.0.4 configured GC03 blocked/unaccepted; 14 partial passes, current custody/basis incompatibility.",
+      "broadLedgerRestamped": false,
+      "residual": "RC8-GC03-METHOD-304",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/gc03-method-fixture-001/REVIEW.json",
+        "bytes": 23747,
+        "sha256": "93291ad19d2d2ee01cd9c6e762047b47372a3208312701385ece3822c4d35502"
+      },
+      "ticketAnchor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-gc03-method-304",
+      "originalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_009.json",
+        "bytes": 4964,
+        "sha256": "8e9edf5e01afe9d47a3fc8e788c7aaf7705b928af4d42478127a8acb3605822d"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+        "bytes": 41843,
+        "sha256": "1ddd434b186c73fc9fa37d6579f008071381f7a194d228edfe148e667bfc5289"
+      },
+      "claim": "Four golden component cases unexecuted; unsupported historical profile premises, no current Product defect established.",
+      "broadLedgerRestamped": false,
+      "residual": "RC8-NATIVE-ASSESSMENT-PROFILE",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/native-assessment-011-plan/REVIEW.json",
+        "bytes": 11933,
+        "sha256": "6041d3abf85dbe8e51c7214f40b65e8abcadd347f45d334665dac371e32eecb6"
+      },
+      "ticketAnchor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-native-assessment-profile",
+      "originalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_011.json",
+        "bytes": 11060,
+        "sha256": "d0e57ed210542f6dc92286d82ad577dc4660f5c6bcfdf7db78705c2d4fc8d712"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "retainedA11Test": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "bytes": 124657,
+        "sha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314"
+      },
+      "claim": "Six partial whole-attempt passes; case7 timeout, cases8/9 and full aggregate open. Separately accepted cases10/11 do not close whole proof.",
+      "broadLedgerRestamped": false,
+      "residual": "RC8-SAS-WHOLE-PROOF",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/sas-timeout-002/REVIEW.json",
+        "bytes": 17734,
+        "sha256": "aa795159f828488487fd02bdc82392718cbfa2203d270fa8e705537ff8c75930"
+      },
+      "ticketAnchor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-sas-whole-proof",
+      "originalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/OPERATOR_RETURN_REENTRY_003.json",
+        "bytes": 8655,
+        "sha256": "2b736982f6d72e0d859f938b22ddc0f09b3ec1cc6570abfa3374217e9cedc11d"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "retainedA11Test": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 45742,
+        "sha256": "59fa9dc768b052149ee036577a23d60a55c1747b75337aebdce61027c20a6918"
+      },
+      "claim": "A10 actual16pass/2fail; response/HTTP readiness failures and unexecuted later HTTP modes; no18/18 or physical HTTP assurance.",
+      "broadLedgerRestamped": false,
+      "residual": "RC8-PHYSICAL-LIFETIME-013",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-010/REVIEW.json",
+        "bytes": 26564,
+        "sha256": "d911366f66a792dfa24981021d0e430ad7e34b8c74e3fd2ca5a8181abef2b067"
+      },
+      "ticketAnchor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-physical-lifetime-013",
+      "originalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_013.json",
+        "bytes": 7180,
+        "sha256": "17280683dd905725c48fd3fcd43ed11f9b76441894852e5fd1187f0ebb3f2a92"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "bytes": 68425,
+        "sha256": "b3dedc5ac34c469bcd3defd33588b26deb9519577d47c13606f3eb312e1aa38f"
+      },
+      "claim": "Three partial passes, 600s SIGTERM; current full recursion/resume and bounded Runtime latency unproved.",
+      "broadLedgerRestamped": false,
+      "residual": "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/recursive-timeout-014/REVIEW.json",
+        "bytes": 17312,
+        "sha256": "7b1b63bcc12f7e91a5803714881de362f1026e063f2a2ffd012d5ad4c302496a"
+      },
+      "ticketAnchor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-recursive-registered-selection-proof",
+      "originalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_014.json",
+        "bytes": 6259,
+        "sha256": "0700752b456589a9873b246f01736b4264adf842e47598453230a4e31f11dd92"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+        "bytes": 5751,
+        "sha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740"
+      },
+      "claim": "Zero bodies/passes/skips; exact historical6c8a prefix unsupported by current owner. Current selector discriminators unproved.",
+      "broadLedgerRestamped": false,
+      "residual": "RC8-SELECTED-ACTION-PROFILE",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/selected-action-profile-019/REVIEW.json",
+        "bytes": 14281,
+        "sha256": "0850c260b3942a5fdd13cf7de10ac4e8d85845ba03e2aa6f63c039590f4ec5e2"
+      },
+      "ticketAnchor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-selected-action-profile",
+      "originalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_019.json",
+        "bytes": 8949,
+        "sha256": "82eb2c4528d67adf24929366cf0b4ec5ff59a6ee23dc468e813de68f93dc207c"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "bytes": 58361,
+        "sha256": "845f678ae01f67143f16350b7e4dc930aec1bd51b49460526f50c67c81a35fac"
+      },
+      "claim": "One failed case/zero passes; new-on-RC8 lexical proof incompatibility. Reached dynamic assertions preserved, two export checks/final diagnostic unexecuted.",
+      "broadLedgerRestamped": false,
+      "residual": "RC8-W2-05-TOKEN-ORACLE",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/w2-05-owner-chain-021/REVIEW.json",
+        "bytes": 16062,
+        "sha256": "6d574381f35c2fb7cd1c1f394250128d641ffa22e1f20b24f7cfb5d7054d56b1"
+      },
+      "ticketAnchor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-w2-05-token-oracle",
+      "originalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_021.json",
+        "bytes": 21168,
+        "sha256": "62485a91481e52839143f5d55aff02f79978542436626911076fa601b5760682"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "bytes": 28631,
+        "sha256": "1d395a555ac1917700243b1acd6258b5f1800184ee54395305ec072ef0bab462"
+      },
+      "claim": "0pass/0fail/2cancelled; both240s inner deadlines; no current positive/partial completion or fresh replay credit; escaped-descendant absence unproved.",
+      "broadLedgerRestamped": false,
+      "residual": "RC8-C3-COMPOSITION-PROOF-BUDGET",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-branch-timeout-022/REVIEW.json",
+        "bytes": 15806,
+        "sha256": "926dd0590b21991a8760a7e3f65e0aa58e31f8b79c9a3a24a58933c848f57e04"
+      },
+      "ticketAnchor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-c3-composition-proof-budget",
+      "originalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_022.json",
+        "bytes": 14281,
+        "sha256": "bf078a7467d74812e957a0ec93a912ff113877fff187e9ed3f72927af442b975"
+      }
+    },
+    {
+      "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "standing": "OPEN_RESIDUAL",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "bytes": 108721,
+        "sha256": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf"
+      },
+      "claim": "Five installed negative variants remain OPEN; six original component passes and a separately accepted configured positive do not close them.",
+      "broadLedgerRestamped": false,
+      "residual": "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023/REVIEW.json",
+        "bytes": 20463,
+        "sha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907"
+      },
+      "ticketAnchor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-c2-installed-negative-proof-budget",
+      "originalReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json",
+        "bytes": 13134,
+        "sha256": "9191ae6376601e9e91562936363e070d0a2bf0c00c57e60565c177a9b01dd207"
+      },
+      "separateAcceptedPositive": {
+        "acceptance": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_PROOF_ACCEPTANCE.json",
+          "bytes": 6648,
+          "sha256": "39720ed81751230af6736335ed3be35a49510586a5e674f9b19c51d111de4a4f"
+        },
+        "result": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/actual-001/RESULT.json",
+          "bytes": 1514,
+          "sha256": "71c3eb4f0c29e933e50a73bf4f058f0b9f464dab41ed3441b51795df1ace7135"
+        },
+        "passed": 1,
+        "skipped": 0,
+        "excluded": 11,
+        "wholeFile": false,
+        "scope": "One configured installed large-log observation/replay case;21 owner-local refusal checks do not close five installed-negative variants; no universal escaped-descendant absence claim."
+      }
+    },
+    {
+      "file": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "standing": "A12_DEPENDENCY_PENDING",
+      "retainedA11Test": {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "bytes": 27192,
+        "sha256": "25c3756928fb8a568e515538ed38500e8a8bbb8ec695e76fdcc380b3a6a7c37d"
+      },
+      "claim": "Only two ROOT_CURRENT_EVENT_PROFILE_REF uses selected to become ROOT_WINDOW_EVENT_PROFILE_REF. Future source/proof/review/Root acceptance absent here; no new credit.",
+      "broadLedgerRestamped": false,
+      "finalA12Source": null,
+      "finalA12Proof": null,
+      "finalA12Review": null,
+      "finalA12Acceptance": null
+    }
+  ],
+  "residualCapsules": [
+    {
+      "id": "RC8-GC03-METHOD-304",
+      "status": "OPEN",
+      "sourceUri": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-gc03-method-304",
+      "sectionBytes": 3325,
+      "sectionSha256": "93462efef48242a061ba8d0f30d5a45a44db060289172bc3425d8aebf05c0c1b",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/gc03-method-fixture-001/REVIEW.json",
+        "bytes": 23747,
+        "sha256": "93291ad19d2d2ee01cd9c6e762047b47372a3208312701385ece3822c4d35502"
+      },
+      "source": "Existing Root-owned T287 capsule; not a new disposition. Full-document final pin pending delivery-record Writer."
+    },
+    {
+      "id": "RC8-NATIVE-ASSESSMENT-PROFILE",
+      "status": "OPEN",
+      "sourceUri": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-native-assessment-profile",
+      "sectionBytes": 2066,
+      "sectionSha256": "681930535ad1638e0fb65b10b977de5fe7267b27e133d94003f12e98ca996ec1",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/native-assessment-011-plan/REVIEW.json",
+        "bytes": 11933,
+        "sha256": "6041d3abf85dbe8e51c7214f40b65e8abcadd347f45d334665dac371e32eecb6"
+      },
+      "source": "Existing Root-owned T287 capsule; not a new disposition. Full-document final pin pending delivery-record Writer."
+    },
+    {
+      "id": "RC8-SAS-WHOLE-PROOF",
+      "status": "OPEN",
+      "sourceUri": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-sas-whole-proof",
+      "sectionBytes": 2742,
+      "sectionSha256": "6cccfb48e16cfe2acca0a4a8ddd162d6cb7c035767be6ac4f43ee1fc761334cb",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/sas-timeout-002/REVIEW.json",
+        "bytes": 17734,
+        "sha256": "aa795159f828488487fd02bdc82392718cbfa2203d270fa8e705537ff8c75930"
+      },
+      "source": "Existing Root-owned T287 capsule; not a new disposition. Full-document final pin pending delivery-record Writer."
+    },
+    {
+      "id": "RC8-PHYSICAL-LIFETIME-013",
+      "status": "OPEN",
+      "sourceUri": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-physical-lifetime-013",
+      "sectionBytes": 2218,
+      "sectionSha256": "87b1f3cb467d5662ff454bc303396a1cbf19424e7e1a92e1eaf9bdf28e0f56fa",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-010/REVIEW.json",
+        "bytes": 26564,
+        "sha256": "d911366f66a792dfa24981021d0e430ad7e34b8c74e3fd2ca5a8181abef2b067"
+      },
+      "source": "Existing Root-owned T287 capsule; not a new disposition. Full-document final pin pending delivery-record Writer."
+    },
+    {
+      "id": "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+      "status": "OPEN",
+      "sourceUri": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-recursive-registered-selection-proof",
+      "sectionBytes": 2003,
+      "sectionSha256": "d11ab32a7adc9e461c1b68cc78f55ca41d8edc43ad10f5441dba603977c61f28",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/recursive-timeout-014/REVIEW.json",
+        "bytes": 17312,
+        "sha256": "7b1b63bcc12f7e91a5803714881de362f1026e063f2a2ffd012d5ad4c302496a"
+      },
+      "source": "Existing Root-owned T287 capsule; not a new disposition. Full-document final pin pending delivery-record Writer."
+    },
+    {
+      "id": "RC8-SELECTED-ACTION-PROFILE",
+      "status": "OPEN",
+      "sourceUri": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-selected-action-profile",
+      "sectionBytes": 2742,
+      "sectionSha256": "7bdc46bcd54e89d9d5f54fedf2ffedaf9b817cea505b463f01f4c9455ca8936e",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/selected-action-profile-019/REVIEW.json",
+        "bytes": 14281,
+        "sha256": "0850c260b3942a5fdd13cf7de10ac4e8d85845ba03e2aa6f63c039590f4ec5e2"
+      },
+      "source": "Existing Root-owned T287 capsule; not a new disposition. Full-document final pin pending delivery-record Writer."
+    },
+    {
+      "id": "RC8-W2-05-TOKEN-ORACLE",
+      "status": "OPEN",
+      "sourceUri": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-w2-05-token-oracle",
+      "sectionBytes": 2775,
+      "sectionSha256": "99585cc56fa785094f9995826ddf21418473804fc0db21d9340f223f6ed33dd7",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/w2-05-owner-chain-021/REVIEW.json",
+        "bytes": 16062,
+        "sha256": "6d574381f35c2fb7cd1c1f394250128d641ffa22e1f20b24f7cfb5d7054d56b1"
+      },
+      "source": "Existing Root-owned T287 capsule; not a new disposition. Full-document final pin pending delivery-record Writer."
+    },
+    {
+      "id": "RC8-C3-COMPOSITION-PROOF-BUDGET",
+      "status": "OPEN",
+      "sourceUri": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-c3-composition-proof-budget",
+      "sectionBytes": 2795,
+      "sectionSha256": "d952007379f4550760e2bd817433661705a0b224c376713988728308514b477d",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-branch-timeout-022/REVIEW.json",
+        "bytes": 15806,
+        "sha256": "926dd0590b21991a8760a7e3f65e0aa58e31f8b79c9a3a24a58933c848f57e04"
+      },
+      "source": "Existing Root-owned T287 capsule; not a new disposition. Full-document final pin pending delivery-record Writer."
+    },
+    {
+      "id": "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET",
+      "status": "OPEN",
+      "sourceUri": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#rc8-c2-installed-negative-proof-budget",
+      "sectionBytes": 10055,
+      "sectionSha256": "eaebdb952ecb02c4129d9c0e2ac8560e17a2497d66d085dcd842355c9c286d40",
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023/REVIEW.json",
+        "bytes": 20463,
+        "sha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907"
+      },
+      "source": "Existing Root-owned T287 capsule; not a new disposition. Full-document final pin pending delivery-record Writer."
+    }
+  ],
+  "summary": {
+    "inventoriedFiles": 208,
+    "broadCreditedFiles": 192,
+    "broadActualPasses": 986,
+    "broadHistoricalSkips": 227,
+    "separateWholeProofs": 4,
+    "acceptedCasewisePopulations": 2,
+    "openResidualPopulations": 9,
+    "pendingA12CasewisePopulation": 1,
+    "wholeBroadGreen": false
+  },
+  "finalRootConjunction": null,
+  "finalDeliveryRecord": {
+    "status": "FINAL_WRITER_PINS_REACQUIRED",
+    "pins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 138970,
+        "sha256": "aa8409b95df79c1bdb9c0958ee2591e64654a82521382501cca13418bfb2a8e1"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 780667,
+        "sha256": "a9de28c9a43e2e7e69acf4b588287c1eee57cd777c633fd394c6553e130e183a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/RESUMPTION.json",
+        "bytes": 21402,
+        "sha256": "728d6f4965d4daa912f5a05b28df85f59066fc8cc232d47fe729c78c2ce593a1"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/WRITER_RETURN.json",
+        "bytes": 2900,
+        "sha256": "02384b50d9f14396c6fa34bdcc658e9a725622384d83dea25f0b0c3208987497"
+      }
+    ],
+    "authority": "Delivery-record Writer return; no new execution or acceptance. All nine capsule bytes preserved."
+  },
+  "executionEnabled": false
+}

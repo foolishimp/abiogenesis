@@ -1,0 +1,11 @@
+{
+  "kind": "rc5_workspace_import_authority",
+  "status": "ROOT_AUTHORIZED_FRESH_IMPORTED_WORKSPACE",
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis-rc5-performance",
+  "sourceCommit": "3e2304de7dbad73b85dbf27e94c54766202f1583",
+  "authorizedActorRef": "actor://abiogenesis/operator/codex-root",
+  "createPolicy": "imported",
+  "preservationPolicy": "preserve_all_existing",
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/PREPARATION_AUTHORITY.json",
+  "nativeDispatch": false
+}

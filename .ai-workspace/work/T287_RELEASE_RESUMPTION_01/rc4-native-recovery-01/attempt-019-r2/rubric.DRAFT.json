@@ -1,0 +1,24 @@
+{
+  "kind": "local_rc4_identity_acceptance_rubric",
+  "criteria": [
+    {
+      "id": "RC4-ID-1",
+      "criterion": "Only the three allowed source files change identity to5.0.0-rc.4, with dependency graph, schema5.0.0, major5 references, method and behavior conserved."
+    },
+    {
+      "id": "RC4-ID-2",
+      "criterion": "Seven declared C2 commands exit0; actual generated package/manifest/Product identity agree, owner verify/install/content check passes and complete payload delta is retained. Unrelated executable/declaration/schema payload bytes remain identical to4589; only exact identity constants/declarations/package and generated graph/manifest differ."
+    },
+    {
+      "id": "RC4-ID-3",
+      "criterion": "Existing provider-free installed-language-smoke executes the required case without skip against the exact new archive/host/digest, exercising canonical installed start and fresh result/replay."
+    }
+  ],
+  "excluded": [
+    "Whole5.0qualification",
+    "publication/tag/mainmerge/globalselector",
+    "general recovery/efficiency claim",
+    "repeated005 or matched pilot",
+    "source/generated adoption before separateRootselection"
+  ]
+}

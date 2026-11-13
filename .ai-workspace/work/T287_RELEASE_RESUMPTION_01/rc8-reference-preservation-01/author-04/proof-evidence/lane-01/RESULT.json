@@ -1,0 +1,28 @@
+{
+  "status": "FAILED",
+  "lane": "f04",
+  "file": "t287-f04a-probabilistic-result-candidate.test.mjs",
+  "sourceDigest": "f83837d581e02cc4a3fa4be8aa41dfe9d0722ea1be81df1b05de95ed25edaa0f",
+  "counts": {
+    "tests": 2,
+    "failed": 1,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/lane-01/events.jsonl",
+    "bytes": 12099,
+    "sha256": "a33fee9715ce688d919200bdbf7d6fbaca06d5246564265a951afa5f235c4f86"
+  },
+  "wallMs": 37694.926209000005,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "primaryPreserved": true,
+  "buildInvocations": 0
+}

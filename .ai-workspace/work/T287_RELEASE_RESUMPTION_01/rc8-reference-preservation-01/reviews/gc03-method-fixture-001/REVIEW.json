@@ -1,0 +1,325 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; fixed fifteen families F01-F07, F09-F11, F13-F17; GOAL-035/T-287.",
+    "selectedOutcome": "An explicitly unqualified RC8 reference-preservation local cut. This separate review assesses the GC03 fixture/method compatibility claim, not whole-Product qualification.",
+    "authoritySplit": "Product/requirements own WHAT; accepted TypeScript HOW owns realization. STDO3.0.4 with empty composition is the selected method. Released GC03 is a separately pinned support implementation, not an additional constitutional method authority. ABG remains the sole native admission/event/publication authority; SDK/CLI and support adapters stay thin.",
+    "classification": "The recipe, method binding, release inventory and test outputs are immutable definitions, derived tooling and observation/evidence. They create no new Run, grant, event authority, registry or qualification.",
+    "prohibitions": [
+      "No mixed-basis identity substitution, silent Definition rollback or mutable-release repair.",
+      "No local unsupported profile, foreign method-law change or methodology migration for green.",
+      "No current-basis GC03 integration acceptance, broad-green or whole5.0 claim from partial component proof."
+    ]
+  },
+  "kind": "independent_bounded_gc03_method_fixture_review",
+  "recordedUtc": "2026-11-07T08:29:55.527150+00:00",
+  "reviewer": {
+    "actor": "/root/rc8_source_review",
+    "role": "Reviewer only",
+    "independence": "Read-only source/evidence; no Product imports/calls, tests, provider, repair, Git, cleanup or subagents. Root hypotheses were independently checked against frozen source and exact installed GC03 bytes."
+  },
+  "basis": {
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "severityScale": "Campaign S0-S4; technical severity is distinct from Executive priority/disposition",
+    "pins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+        "bytes": 3136,
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+        "bytes": 12932,
+        "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 27131,
+        "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+        "bytes": 19406,
+        "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/manifest.json",
+        "bytes": 18022,
+        "sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+        "bytes": 8074,
+        "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+      }
+    ]
+  },
+  "subject": {
+    "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    "selectedSource": [
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+        "bytes": 108269,
+        "sha256": "947813b7e0a9f60ab2adc7a6ae95fa972b3774351d961eb2e4bad48f30417427",
+        "frozenRowMatched": true
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/support/t287-governed-context.mjs",
+        "bytes": 11252,
+        "sha256": "635c2dde9099488b8512ba348f17044a28220d8bd1bee682474a41a45bf9e562",
+        "frozenRowMatched": true
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+        "bytes": 76639,
+        "sha256": "6c328e506f8c7423df5b5cdfdb76efd86a06d0d785557263db71819d14c7ba03",
+        "frozenRowMatched": true
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 86579,
+        "sha256": "dd6b49949a460da15069802913f2afc76eeae9b943e3bbb3591955d1c2d2e2fe",
+        "frozenRowMatched": true
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/contracts/governed-context/selection.json",
+        "bytes": 848,
+        "sha256": "bcd97a55098c978140594d90fcb381bc893d79131154e9b902727b90f99f96f4",
+        "frozenRowMatched": true
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/contracts/governed-context/host_adapter.py",
+        "bytes": 10822,
+        "sha256": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+        "frozenRowMatched": true
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "bytes": 97222,
+        "sha256": "4a6d2a978a46de8e8eac04b4ff17a164dcfc3a5e495e6686f69eaff743b9b548",
+        "frozenRowMatched": true
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "bytes": 86253,
+        "sha256": "2883a6df78ac9c632b22bd6ce395e95dddea553ef885c0292aa8e6b666663098",
+        "frozenRowMatched": true
+      }
+    ],
+    "foreignReleaseInstallation": {
+      "path": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1/release-installation.json",
+      "bytes": 2310,
+      "sha256": "ca0e977a7cdb8c889cc87b70b95eb12d30f83734b4c32f6589a3bac5bbf8a467"
+    },
+    "foreignReleaseInventory": {
+      "path": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1/contents/INVENTORY.json",
+      "bytes": 7906,
+      "sha256": "fc6befa45d62acd902665d545fc20f65dc3d435fa242a72aaa4e8986c080c003"
+    },
+    "foreignSelectedMembers": [
+      {
+        "path": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1/contents/a_c/build_tenants/graphify/design/fd-method-stdo-3.0.2.json",
+        "bytes": 4751,
+        "sha256": "764dcc931f968791df8d26043e5642c4f3cfe915a9e7a16e69c72c6e3af001b4",
+        "releasedInventoryMatched": true
+      },
+      {
+        "path": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1/contents/a_c/build_tenants/graphify/code/ac_support_core.py",
+        "bytes": 245598,
+        "sha256": "34b40d039f7d1e2f36cf01f4c73cf90c760a8b67f21681e9f79543715a9ea4cc",
+        "releasedInventoryMatched": true
+      }
+    ],
+    "methodMemberPins": [
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/ACTIVATION.md",
+        "bytes": 142205,
+        "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/EVALUATION.md",
+        "bytes": 87317,
+        "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md",
+        "bytes": 92360,
+        "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+        "bytes": 142205,
+        "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/EVALUATION.md",
+        "bytes": 91301,
+        "sha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/AXIOMATIC_CALCULUS.md",
+        "bytes": 92360,
+        "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5"
+      }
+    ]
+  },
+  "claim": "The unchanged selected GC03 recipe can exercise its real allowed/denied/cold/tamper owner integration using the current Product Definition and STDO3.0.4 basis.",
+  "verdict": "falsified",
+  "scope": "Case15 materializeGc03Recipe and its declared constants; exact selected released GC03 descriptor/core/selection; reference-directed basis checks and private-policy activation boundary. No general GC03/runtime/method audit.",
+  "owningRelations": [
+    {
+      "source": "stdo_abiogenesis.json constitution.stdo.basis and composition",
+      "relation": "One exact3.0.4 release/manifest, no companion method authority. A fixture cannot silently substitute3.0.2 for the current governing basis."
+    },
+    {
+      "source": "REQ-P-PUBLIC-CONTRACTS-004; AGENTS.md identity, Product boundaries and deferred assurance",
+      "relation": "Exact identities cannot resolve to different bytes/semantics; unsupported sunny-day claims remain blocked. Executive may register bounded residuals without claiming their conjunction satisfied."
+    },
+    {
+      "source": "T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md:250-307",
+      "relation": "Accepted RC5 source selection supersedes3.0.2 member/span/role coordinates with3.0.4 while preserving prior installed cuts. It selects default-library source and skill bindings; it does not rewrite the separately pinned GC03 support implementation or its supported-profile table."
+    },
+    {
+      "source": "T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md:1193-1205; T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md:1283-1315,1379-1413",
+      "relation": "Host adapter verifies exact released GC03 inventory/members and refuses fallback. The private policy is opt-in; unsupported configured joins refuse. Production-chain allowed read/native-witness obligations are separate and unperformed in the owning text; component evidence does not supply them."
+    }
+  ],
+  "actualObservation": {
+    "execution": "009",
+    "result": "14 passes,1 failure,0 skips; whole-file pass not earned",
+    "fileWallMs": 27033.854290999996,
+    "failure": "method/EVALUATION.md differs from its custody digest",
+    "actualSha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485",
+    "expectedSha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+    "location": "t287-governed-context.test.mjs:599,605,730; case15 at699",
+    "standing": "The pinned stdo resolver and current manifest checks succeeded. Failure is in fixture custody before the configured real-owner allowed/denied/cold/tamper route is invoked. Existing setup work occurred; this is not a claim that the entire test had zero effects. No successful current-basis GC03 integration is observed."
+  },
+  "findings": [
+    {
+      "id": "GC03-304-001",
+      "severity": "S2",
+      "title": "Released GC03 method binding and the real-owner recipe do not support the current3.0.4 Product basis",
+      "causalChain": [
+        "The recipe at test513-525 names profile urn:a-c:fd-support:method:stdo-3.0.2:executive:1 and the old exact EVALUATION digest478fd21f. The test at710-715 resolves the current Product Definition’s3.0.4 basis and checks its actual manifest plus packaged correspondence.",
+        "materializeGc03Recipe copies current3.0.4 standards at605 but requires3.0.2 custody digests. ACTIVATION and AXIOMATIC_CALCULUS happen to be byte-identical across these cuts; EVALUATION is not (87317 versus91301 bytes), so its custody assertion correctly fails.",
+        "Even if that local expected digest were replaced, line614 copies the immutable released fd-method-stdo-3.0.2.json descriptor (4751 bytes, SHA764dcc93). Its method uri/manifest is3.0.2/f7f3f824 and its EVALUATION member still names478fd21f.",
+        "Released ac_support_core.py:374-380 accepts only three exact registered identity/digest pairs; no3.0.4 profile is present. Runtime construction at583-592 verifies exact descriptor bytes and compares the copied Product Definition basis with3.0.2/f7f3f824 for this native profile. The current3.0.4/102817a3 basis therefore raises basis_stale. This second rejection is source-proven, not dynamically executed by Reviewer."
+      ],
+      "violatedRelation": "The fixture claims a current-basis integration while composing current3.0.4 source/Definition with an exact3.0.2 released method binding. Exact source custody and supported-basis checks correctly reject that composition.",
+      "triggerProbability": "Certain at fixture custody for the exact selected inputs. The configured runtime composition also necessarily fails the released exact-basis check if reached with the current Definition; no probability estimate for unrelated paths is inferred.",
+      "harm": "One real-owner integration conjunction remains unexecuted: permitted and denied source reads, current native owner/Testing producer joins, cold correspondence and tamper refusal through released GC03 under3.0.4. The configured sunny-day path cannot lawfully succeed on these inputs. No unsupported current context is published because checks fail closed.",
+      "blastRadius": "The private GC03 policy composition and its current-basis integration/witness claim. This finding does not falsify the accepted request/reference-preservation source, measured archive, or successful native builder work that does not select the private GC03 policy. No claim is made that every possible Run is unconfigured.",
+      "containment": "Test custody stops first; released exact-profile and exact-Definition checks stop later. governed_context.ts:882-884 returns governed_context_not_selected when the private Program key is absent; actor_process.ts:945-953 only enters the GC03 setup for an explicitly selected policy and refuses unsupported configured input. Do not weaken these checks.",
+      "confidence": "High: exact frozen source, actual red stdout, descriptor and imported core all independently matched their pins. Later end-to-end assertions remain unobserved.",
+      "repairComplexity": "Not a one-hash fixture repair. Current3.0.4 support requires a separately authorized GC03 method-binding/implementation successor (or an owner-qualified exact compatibility mechanism), its reviewed released inventory, exact ABI selection/adoption, then affected owner proof. This is support-binding evolution under existing method law, not a required STDO law change. Scope/cost beyond this cut is indeterminate; likely several dependent artifacts and proof stages rather than a few local test lines.",
+      "regressionRisk": "Local hash substitution or a fabricated3.0.4 descriptor would sever custody; editing the released descriptor/core breaks its immutable inventory; rolling the actual Definition back would change the governing basis. A carefully selected historical3.0.2 fixture is a different claim and cannot close current3.0.4 integration.",
+      "lawfulLocalMaintenance": "A future Executive-selected historical-only test may use an internally coherent exact3.0.2 Definition, method sources and released profile, labeled as historical component coverage. Existing current-basis integration authority does not make that a substitute. No such change is selected by this review.",
+      "recommendation": "Preserve case15 and its actual red as the current compatibility counterexample; register RC8-GC03-METHOD-304 with explicit blocked configured-composition status. Do not expand the reference-preservation cut into a green-driven foreign support migration. The unqualified local cut may proceed on its proven unconfigured/default native path only under Root’s disposition; no whole-file/broad-green or whole5.0 qualification credit."
+    }
+  ],
+  "nativePathDistinction": {
+    "acceptedSourceRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "reacquiredExistingEvidence": "Actual lifecycle transport result528463B/170ec109, physical resource close2308B/6b432d9f, and fresh readbacks6630B/df4d7ec0 all match the accepted record. Readback status is READBACKS_PASSED_UNCHANGED_PREFIX. This reuses bounded native builder evidence, not a new execution or blanket audit.",
+    "limit": "These receipts neither execute this failed case nor prove current-basis GC03 allowed-read/delivery. Conversely a fixture custody failure before GC03 invocation does not erase those actual native returns. Fourteen current component passes remain partial observations, with no whole-file credit."
+  },
+  "residualProposal": {
+    "id": "RC8-GC03-METHOD-304",
+    "owningFrame": "Integration / exact identity / source and method compatibility / Proof",
+    "exactCounterexample": "execution009 case15, source947813b7, EVALUATION b856cf04 versus478fd21f; immutable GC03 core exact3.0.2 basis check",
+    "noBlockRationale": "Root selects an explicitly unqualified reference-preservation cut on the unconfigured default/native path; the optional current-basis GC03 composition is explicitly blocked and unaccepted, not silently treated as supported. Its fail-closed state does not make the selected unconfigured path unlawful.",
+    "reentryClass": "Separately authorized GC03 support-binding successor and exact ABI adoption; retain STDO3.0.4 as governing method unless independently changed by its owner.",
+    "activationTrigger": "Before enabling or claiming current-basis GC03 integration, or before release qualification.",
+    "dependentBoundary": "Configured GC03 real-owner integration and its existing native-witness obligations; whole5.0/release qualification as applicable.",
+    "closureFalsifier": "Unsupported profile/basis, source custody mismatch, permitted key unavailable, denied key allowed, producer/provenance/currentness mismatch, non-joinable cold delivery or tampered source accepted.",
+    "closureEvidence": "Exact supported foreign binding/release and ABI selection pins; actual allowed/denied/cold/tamper owner-chain proof against3.0.4, plus existing native-witness obligations, with all prior reds retained.",
+    "owner": "Root Executive for registration/selection; foreign GC03 owner for supported binding/release; ABI owner for exact adoption and integration.",
+    "status": "Root selected durable registration during review; Writer registration pending. This report records that selection, does not itself mutate the ticket."
+  },
+  "executiveDispositionInput": {
+    "actor": "/root",
+    "decision": "Root independently accepts the supported-basis diagnosis and selects durable residual RC8-GC03-METHOD-304. Configured current3.0.4 GC03 remains blocked; it does not block the explicitly unqualified reference-preservation cut on the unconfigured default/native path. No local hash substitution or Definition rollback.",
+    "source": "Coordination message received before capsule freeze",
+    "limits": "This is Root’s disposition recorded separately from Reviewer severity; actual ticket registration and broader/cut conjunction remain outside this capsule."
+  },
+  "proofPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_009.json",
+      "bytes": 4964,
+      "sha256": "8e9edf5e01afe9d47a3fc8e788c7aaf7705b928af4d42478127a8acb3605822d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/files/090-t287-governed-context.json",
+      "bytes": 1146,
+      "sha256": "7badbafe093f2794489da40da34f496003f536bda3a3263118e00c4121034183"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/commands/090-t287-governed-context.result.json",
+      "bytes": 1475,
+      "sha256": "f4551a544e045cee117e6aa9a4f4a29c435a3ab97a15ccfcbaa2d7e0d214845a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/commands/090-t287-governed-context.stdout",
+      "bytes": 5713,
+      "sha256": "98ffa6372a20219a072be7c1f213ae935c65a7d8a7ae35e851b34644333a7d48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-009/events/090-t287-governed-context.jsonl",
+      "bytes": 6907,
+      "sha256": "b75814922f58442533941f3176bdaaafc8eeecf7133d8179f8df04f0786c7c65"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 9246,
+      "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 528463,
+      "sha256": "170ec109e25e19c12e49385ff5de34f9e04d832982ba749ab5c4d81410434073"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/runtime-001/resource-close.json",
+      "bytes": 2308,
+      "sha256": "6b432d9f11f8320edda7f688382a967e44171df3f73254de8eedf74333c7a82b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/readbacks-001/RESULT.json",
+      "bytes": 6630,
+      "sha256": "df4d7ec08dcbd9792c490e330aeb164c308f2edc281cbeecb68929e37d1b4ca6"
+    }
+  ],
+  "unperformed": [
+    "No tests, Product execution, provider calls or repair.",
+    "No complete foreign GC03 audit or semantic3.0.2-to3.0.4 profile equivalence assessment.",
+    "No actual current-basis GC03 permitted/denied/cold/tamper or native-witness success.",
+    "No reassessment of all broad tests, cut reproduction, immutable installation or release."
+  ],
+  "invalidation": [
+    "A new exact supported GC03 binding/release or changed ABI selection.",
+    "Changed Product/method/frame/activation scope, especially selecting the configured GC03 path as required sunny-day work.",
+    "New actual integration/native-witness evidence on an exact compatible subject."
+  ],
+  "effects": {
+    "writes": [
+      "REVIEW.json",
+      "README.md"
+    ],
+    "testsRun": 0,
+    "productCalls": 0,
+    "sourceOrGitEffects": 0,
+    "providerCalls": 0
+  },
+  "returnTo": "/root Executive"
+}

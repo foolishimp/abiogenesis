@@ -1,0 +1,199 @@
+{
+  "productFrame": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "selection": "T-287 / GOAL-035 / RC8 REF-01; explicitly unqualified local reference-preservation cut",
+    "families": "F01-F07,F09-F11,F13-F17; F08/F12 reserved",
+    "method": "STDO 3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "authority": "ABG alone admits events and establishes replay truth. Product owns materialization and its files. Internal derivation bookkeeping reuses established owner facts; it creates no runtime authority. Reviewer diagnoses; Root selects disposition and acceptance."
+  },
+  "reviewId": "required-operation-016",
+  "role": "Independent MAX Reviewer; no authorship or execution",
+  "createdAt": "2026-11-07T11:46:16.696344+00:00",
+  "verdict": {
+    "status": "falsified",
+    "subjectClaim": "The final O1(A) component fixture supplies the artifact-truth premise required to exercise its positive ingress and malformed-body refusal oracles.",
+    "classification": "Stale test-component dependency binding; no observed Product semantic regression.",
+    "findingCount": 1,
+    "qualification": "Broad016 remains red. No new whole-file pass, whole-5.0 qualification or cut acceptance is claimed."
+  },
+  "authorityRelations": [
+    {
+      "requires": "REQ-R-ABG3-EVENTS-001/002/003",
+      "owner": "M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md:1006-1026, AF-23 materialize rows:636-637",
+      "relation": "The owner produces the materialization artifact; its single generic public_operation_artifact_admitted event is the boundary before ABG consumes it. Event and artifact identities retain their meaning."
+    },
+    {
+      "requires": "REQ-R-ABG3-PROJECTION-025; REQ-P-PUBLIC-CONTRACTS-004",
+      "owner": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:648 (10.9 Runtime history)",
+      "relation": "Materialization consumes projectOwnedPrefixArtifactTruth. Exact authenticated coordinates reuse their owner selection; copied/unbound coordinates authenticate cold. projectExactPrefixArtifactTruth remains a legitimate explicit cold reader, but it is no longer this component dependency."
+    },
+    {
+      "requires": "Declared I-JSON domain and artifact boundary",
+      "owner": "Common library HOW:130; materialization_definition_bindings.ts:379-419",
+      "relation": "Check declared owner output, resolve artifact truth, then admitJson on the complete artifact body before admitArtifact. A non-I-JSON body is product_materialization_artifact_refused at abg_admission, with zero artifact ingress."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RO16-001",
+      "severity": "S3",
+      "location": "test_env/tests/t287-required-operation-bindings.test.mjs:491",
+      "title": "The final O1 component overrides an unused cold-projection export.",
+      "trigger": "Run the final O1(A) test with its nominal {kind,coordinateDigest} prefix. This deterministically affects the supposedly valid first branch, not merely an exotic malformed value.",
+      "causalChain": [
+        "Lines 483-486 explicitly supply empty artifact truth and other lower premises; line 491 assigns that premise to projectExactPrefixArtifactTruth.",
+        "Lines 497-500 merge real exports with those overrides. The private SyntheticModule therefore keeps the real projectOwnedPrefixArtifactTruth selected by materialization_definition_bindings.ts:24,384 (compiled JS:22,283).",
+        "artifact_truth.ts:866-867 captures the raw prefix and invokes the owned-prefix reader. It has no authenticated selection; event_prefix.ts:81-82 and event_store.ts:3620-3623 delegate to cold acquisition. event_store.ts:3644 rejects its missing coordinate fields before opening any event log.",
+        "artifact_truth.ts:886-887 preserves event_envelope_invalid; materializeOwner:385-386 returns abg_admission/artifact_truth_invalid. The supplied abandonment no-op preserves this failure. No artifact ingress occurs, so line 530 observes 0 instead of 1.",
+        "The first assertion aborts the test. The lone-surrogate body and all its zero-ingress/stage/code assertions at 533-537 have not executed."
+      ],
+      "actualHarm": "The selected I-JSON ingress discriminator is unproved and the broad file cannot receive whole-file pass credit. No invalid artifact admission, runtime corruption or valid installed materialization failure is observed.",
+      "failClosed": "The malformed raw prefix is refused at its real acquisition boundary before artifact ingress. The artifact-body admitJson guard and exact refusal code remain intact.",
+      "scope": "One callback-local override key in one unshipped test. A bounded search of frozen test_env finds exactly one projectExactPrefixArtifactTruth override; other component artifact-truth overrides use the owned name. Ordinary calls to the exact cold reader, including this file\u2019s installed truth checks, are lawful and must remain unchanged.",
+      "sourceRelation": "All five causal source/test files listed in sourcePins are byte-identical in RC7 selected checkout, stage04 source, broad016 materialization, and A6/A10 frozen rows. This mismatch predates the RC8 delta. No earlier whole-file green is inferred.",
+      "whyOtherProofDoesNotCloseIt": "Build/constructor-focused proof does not exercise this private SyntheticModule premise. The installed cases use real acquired owners and the separate artifact-correspondence case has a different boundary. Their success does not establish the unexecuted malformed-body ingress branch.",
+      "repair": "Change only the override key at line 491 to projectOwnedPrefixArtifactTruth, retaining its exact empty-row result and every assertion. No Product/HOW/helper/guard/schema/receipt change, prefix fabrication, fallback or new owner API is warranted.",
+      "repairCost": "One identifier plus frozen-diff review and the final component case. Original failing case took 10.452375 ms after module/setup availability; selected-proof startup is not measured here. Whole-file rerun previously cost 589.831679416 s and is additional confidence, not an identified mandatory gate for this local correction.",
+      "residualRisk": "The proposed corrected case has not run. It must actually reach and pass both the positive ingress/body oracle and malformed-body exact refusal; source reasoning cannot replace that execution."
+    }
+  ],
+  "componentLimit": "The positive O1 oracle checks exactly one supplied admitArtifact call and its complete body; it does not assert Effect success or a successful acquired-store close. Real successor selection/transition/completion at materializeOwner:426-434 can still reject the intentionally nominal lower resource after ingress. Do not fabricate a full Runtime receipt to turn this component test into a different claim. The malformed body must fail earlier at 397-408.",
+  "observedProof": {
+    "operatorReturn": {
+      "path": "OPERATOR_RETURN_016.json",
+      "bytes": 10507,
+      "sha256": "1a53977e9bbeb224b88511768a4fee503630bc05853a0c45a2710fbf7306133e"
+    },
+    "fileReceipt": {
+      "path": "execution-016/files/156-t287-required-operation-bindings.json",
+      "bytes": 1172,
+      "sha256": "0b18fd7642c65dbc7b42286633274507633d5f4769d699f53956ded60ba43f6f"
+    },
+    "commandReceipt": {
+      "path": "execution-016/commands/156-t287-required-operation-bindings.result.json",
+      "bytes": 1503,
+      "sha256": "0a8e21db632698a7950e95db38fe18c1d0d1316a178e76299d2d74448a7ed0ee"
+    },
+    "stdout": {
+      "path": "execution-016/commands/156-t287-required-operation-bindings.stdout",
+      "bytes": 4460,
+      "sha256": "e7a04325c36d3669dbcc377612ef289bcd5e553f6cc78224a840925b1a827c58"
+    },
+    "reporter": {
+      "path": "execution-016/events/156-t287-required-operation-bindings.jsonl",
+      "bytes": 7373,
+      "sha256": "6ad13ba459d9af1c2b7eae1633f3bf96febe0cd471d9db38c1a38516e3867996"
+    },
+    "counts": {
+      "reportedPassed": 9,
+      "failed": 1,
+      "skipped": 0,
+      "wholeFilePassed": false
+    },
+    "command": "exit 1; no timeout, signal, truncation or parse failure; 589831.679416 ms",
+    "retainedPositive": "The two installed materialization members each passed a real result and a real refusal case: returned resource receipt and preserved entry bytes, exactly one artifact event, exact reconstructed truth and materialized-file digests for result; unchanged log and files for refusal. The result.assess pair and two preceding component cases also passed. These remain case evidence, not a whole-file green."
+  },
+  "recommendedReentry": {
+    "selection": "Root selected a one-key unshipped test correction and focused execution of only the final O1 binding case; Reviewer finds this proportionate for the bounded REF-01 increment.",
+    "crossCaseAnalysis": "The override is callback-local and only changes exports of its private SyntheticModule. It does not mutate an imported namespace. The callback owns its temporary schema root, request, supplied premises and ingress recorder. No specific cross-case dependency requiring all preceding cases to rerun was found.",
+    "mandatoryForClaim": [
+      "Frozen successor differs only in this one key; all preceding cases and final assertions unchanged.",
+      "Actual focused reporter closes this exact case as pass with both in-test branches executed; preserve source/compiled/archive correspondence.",
+      "Explicit case-wise conjunction: retain broad016\u2019s nine reported passes and original red; add the successor final-case receipt without restamping the A6 ledger or claiming a new whole-file execution."
+    ],
+    "failurePolicy": "Any new actual failure remains evidence for Root; no automatic additional mocks, assertion weakening or retry loop.",
+    "dispositionLimit": "This is a recommendation/compatibility judgment. Root owns native source admission, actual proof acceptance, broader conjunction and cut. No permanent residual is needed merely to avoid this trivial repair."
+  },
+  "bindings": {
+    "M": "/Users/jim/src/apps/abiogenesis",
+    "P": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01",
+    "BC": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+    "S": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source",
+    "T": "build_tenants/abiogenesis/typescript",
+    "broadSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "finalSourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+    "a6Freeze": {
+      "path": "author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    "a10Freeze": {
+      "path": "author-10/proof-evidence/source-freeze.json",
+      "bytes": 295542,
+      "sha256": "e2db4c2e9356da0d97d6277567504650078a8bf1d5b7085dfaee63a4dbae5007"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "compiledManifestSha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102",
+    "rc7Base": "27c08ce597b71c383eb3d032b25fa0791646c6c6"
+  },
+  "sourcePins": {
+    "test_env/tests/t287-required-operation-bindings.test.mjs": {
+      "bytes": 44662,
+      "sha256": "b4aacfd349c111119d51970aceb92a6ec3f4ce6e21770c87701c5e82eb2bd35c"
+    },
+    "code/src/product/materialization_definition_bindings.ts": {
+      "bytes": 24185,
+      "sha256": "8c3a5e21adcb002d34ba5487d44fe2c8ad34c3f618472781f96bd2524ffce4cf"
+    },
+    "code/src/abg/artifact_truth.ts": {
+      "bytes": 42548,
+      "sha256": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335"
+    },
+    "code/src/abg/event_prefix.ts": {
+      "bytes": 64754,
+      "sha256": "cfe2ce70db4935aac785bc92c24fa3634bd8e14ff38476fb612afe4cc12f512b"
+    },
+    "code/src/abg/event_store.ts": {
+      "bytes": 225695,
+      "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
+    }
+  },
+  "compiledOwner": {
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/product/materialization_definition_bindings.js",
+    "bytes": 21869,
+    "sha256": "1f1d785513db4af8095a14e7113ceef46f1498325c3362b6a3e72a7c3018455f"
+  },
+  "authorityPins": {
+    "stdo_abiogenesis.json": {
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "specification/PRODUCT.md": {
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md": {
+      "bytes": 16630,
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md": {
+      "bytes": 10959,
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65"
+    },
+    "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md": {
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+    }
+  },
+  "howPins": {
+    "design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": {
+      "bytes": 194356,
+      "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+    },
+    "design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md": {
+      "bytes": 176763,
+      "sha256": "7ec8f40889f6a5f73e18a2e54343d0dedb6032bc8d8c2f44fa761e110519d666"
+    }
+  },
+  "effectsAndLimits": "Read-only selected source/evidence and bounded test_env symbol search; writes only these two new review files. No Product calls, test execution, source repair, Git, process/provider or profile effects. No expanded library/runtime assurance."
+}

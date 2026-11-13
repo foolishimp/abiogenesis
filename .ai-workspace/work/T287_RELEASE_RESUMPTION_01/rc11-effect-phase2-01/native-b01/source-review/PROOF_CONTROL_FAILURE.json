@@ -1,0 +1,105 @@
+{
+  "status": "VIOLATED_CAMPAIGN_FAILURE_STOP_FINAL_CONJUNCTION_HELD",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/PROOF_CONTROL_FAILURE.md",
+    "bytes": 4379,
+    "sha256": "6c95a766934fb534576f8816e19310d196cffeaf6509cb9173c4c8b9cabe57ea"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/proof.py",
+    "bytes": 24914,
+    "sha256": "862517533438aaeb5cd09d87b56ebc6d5ce02b147074e8ae49f509456c8acca6"
+  },
+  "c2Return": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/RETURN.json",
+    "bytes": 7743,
+    "sha256": "a49d3b7b5e459409c31d8d9b745cfd494cb550e60ebff98a522f825d1b4a5de7"
+  },
+  "artifact": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11052094,
+    "sha256": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8"
+  },
+  "typedArtifactDigest": "sha256:7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+  "digestPayloadEqual": true,
+  "failureValue": "",
+  "failedRelations": [
+    {
+      "owner": "proof.py:162",
+      "relation": "typed Product digest vs bare control digest",
+      "kind": "false control rejection"
+    },
+    {
+      "owner": "proof.py:291-293",
+      "relation": "failure present independent of error text",
+      "kind": "actual fail-stop bypass"
+    },
+    {
+      "owner": "proof.py:295",
+      "relation": "aggregate success requires all command statuses PASSED",
+      "kind": "unguarded future label; not assumed executed"
+    }
+  ],
+  "subsequentClosedReceipt": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/RETURN.json",
+    "bytes": 122770,
+    "sha256": "b65e5a0a44ca8fc794a26fa468f37cd72ad2329691796a1f000ed28c6540afe8"
+  },
+  "c2InputsAndFacts": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/PROOF_CONFIG.json",
+      "bytes": 1209,
+      "sha256": "e55cfc13bfd299ea5fe9c0bde345c60acff9dafc46d7727fb758aad083b04d04"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/LAUNCH.json",
+      "bytes": 2076,
+      "sha256": "38c2873372b7953f447ffdd8b06a696259de3d30552214710b66ad0cd45c6a08"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/stdout.log",
+      "bytes": 2665,
+      "sha256": "0a4d51e16c1168136ad78fe1424d007071e2b9c6e27b68352c31257d1fb5cd25"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/resources.json",
+      "bytes": 1033,
+      "sha256": "327f85cc305bfad22e0a3627467548f6c4c86b0a7d69e6239136f4bf85570112"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/events.jsonl",
+      "bytes": 822,
+      "sha256": "233891fc0f3837a8751f69a967ebb4628188e50ab3cec483074a9d71ae904741"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/cleanup.json",
+      "bytes": 2165,
+      "sha256": "e17520194a0cf08fcac36bf52d1190d5fa8b6a97b6d80440e48d7a0b307c11ab"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/summary.json",
+      "bytes": 2914,
+      "sha256": "3f4241e5e2c71aaaddcd8d7ddfe36a1e81eb178ce20f6c4b5767d7a6033b9172"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-proof.json",
+      "bytes": 9769905,
+      "sha256": "11080201ae61ebad975e80316841e0bdc0d4afacae3c65d1ae975dc8286c7b8f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/C2-events-and-close.json",
+      "bytes": 7200121,
+      "sha256": "f5f7dad179d955140b990ea5c19a1009c2508e001257205ce41fc991327bdab6"
+    }
+  ],
+  "campaignFinalStanding": "pending; no final label treated as acceptance",
+  "newProductFailureClaim": false,
+  "reviewerEffects": false,
+  "repairOrRetry": false
+}

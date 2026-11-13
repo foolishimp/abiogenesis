@@ -1,0 +1,35 @@
+{
+  "status": "PREPARED_NOT_ADMITTED",
+  "finalSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-final-001/REVIEW.json",
+    "bytes": 26134,
+    "sha256": "3212eab2eb4cfab51562d87ab6bdde529391c148251a28fec85989dd8b456f68"
+  },
+  "rootSourceDisposition": null,
+  "finalRepairSelection": null,
+  "nativeGrant": null,
+  "rootControlAdmission": null,
+  "dispatchManifest": null,
+  "actualExecution": null,
+  "knownBuildOutcome": {
+    "stageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02-stage.json",
+      "bytes": 98048,
+      "sha256": "f93450ebe9044325d964cc6dea99e417b8044b68c941717eeaa59ba5418a9f78"
+    },
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-author-build-001/build/SUMMARY.json",
+      "bytes": 1611,
+      "sha256": "fa0b2083aba4bdcd8aa654e6d4d114ba7a6ddae14e6d13357dc85d1a11aff113"
+    },
+    "standing": "Operator-only original stage02: compile0/7206ms; generator1/9023ms packed native declaration closure invalid; lifecycle not run, no lanes. All451 source rows unchanged. No guard waiver or source acceptance."
+  },
+  "requiredRootSteps": [
+    "Conjoin exact final-source review and operator stage02 generator refusal; select precise repairs within17 paths and resources.",
+    "Materialize ROOT_SELECTION/ROOT_DEPENDENCY_READY_SELECTION/NATIVE_GRANT and affected task/control templates; preserve template preimages.",
+    "Bind exact final control hashes into workload/source support and runtime admission; stage20 controls with existing owner, recheck451 source bytes.",
+    "Run existing owner mechanical preflight and issue one exact dispatch if admitted. No stdout-before repetition, no new cold campaign drain."
+  ],
+  "templateVersusActual": "No native grant/admission/dispatch is present. Existing SDK host fails closed on missing or unadmitted bindings before acquisition.",
+  "reviewBuildAddendum": null
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "retained_exact_native_source_custody",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/SOURCE_BEFORE.json",
+    "bytes": 77017,
+    "sha256": "735fdac0aa37bb6bc7600d61bafe5ed99c20f20c0526f57ffb0919b1d68a188d"
+  },
+  "nativeResultRef": "result://abiogenesis/3d8ed6167e91545cfa65ef12d0e10356afd09489c37acba85ee72265db6e58b6",
+  "nativeResultDigest": "sha256:3d8ed6167e91545cfa65ef12d0e10356afd09489c37acba85ee72265db6e58b6",
+  "afterObservationRef": "worksite-context-observation://abiogenesis/890834b9f4052c68e4ebfe0ab9f5638fcc01c81e92cb4980ee0201bd9d809243",
+  "afterObservationDigest": "sha256:890834b9f4052c68e4ebfe0ab9f5638fcc01c81e92cb4980ee0201bd9d809243",
+  "fileCount": 339,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+  ],
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/source.diff",
+    "bytes": 143488,
+    "sha256": "bd187b1533f04e5a963bb0612ef7e1eb1e32c917f9feab385d9c9652988d24b1"
+  },
+  "limits": [
+    "Retained frozen source and actual native ancestry are evidence for that original subject, not acceptance of this repair or production eligibility.",
+    "Do not reread private provider material. Exact prior source manifest and physical coordinates remain in the pinned original SUBJECT."
+  ]
+}

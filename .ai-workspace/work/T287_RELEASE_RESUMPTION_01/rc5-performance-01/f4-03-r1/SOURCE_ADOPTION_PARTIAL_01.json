@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-03T12:56:47.600300+00:00",
+  "kind": "root_operator_metadata_preparation_failure",
+  "status": "PARTIAL_EXACT_CUSTODY_PRESERVED",
+  "origin": "adopt-source.py required all three status header fields to exist; successor ticket lacks one field",
+  "observed": "Assertion at line55 before writing ticket/release-claim. Two exact C2-generated copies and GOALS current paragraph already applied; native three files unchanged. No acceptance, runtime or proof failure.",
+  "scope": "Root metadata projection, not Product code",
+  "reentry": "Inspect existing ticket header, admit missing metadata key as insertion, continue only metadata from preserved originals with exact partial-state checks; do not rerun prior adoption effects",
+  "scriptSha256": "8d76c93f0d9e916c26be3cab1783084badab7fec4c50c6a26a7856d231cc1152"
+}

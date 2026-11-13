@@ -1,0 +1,74 @@
+{
+  "status": "HELD_PREPARED_OWN_PROOF_NOT_EXECUTED",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-owner-proof-004.mjs",
+    "bytes": 11645,
+    "sha256": "36d9aefd720728908bc8d37e2d9403b875b75e3cde326ea592e43e0c76bbfefa"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_BINDING.HELD.004.json",
+    "bytes": 18307,
+    "sha256": "a1d3b37cf974a18c882caeb192715d8a656f810869f872662db03e102416db1e"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_004_DIFF.patch",
+    "bytes": 13924,
+    "sha256": "060971deb60cc9eeda8f37816d70406e03880cda4415b82e31a90a6154fe5e03"
+  },
+  "preparationAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_004_PREPARATION_ADMISSION.json",
+    "bytes": 1569,
+    "sha256": "18d159f03f02543ca7b367e2a6338503be98ea21efe1f9c16b2870d56836551c"
+  },
+  "m5Ownership": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/OWNERSHIP_CHECK_001.json",
+    "bytes": 4788,
+    "sha256": "ebfdcf7909a5fa870a8fbaed4c10e3cb1adf252fb5a6d8f122b0dc15ea5a8386"
+  },
+  "stage": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+    "bytes": 929,
+    "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "test": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "bytes": 21920,
+    "sha256": "e38f745670d43f4c5d7170de1ee4ecc1fcf9949de64972d570cb5f14ebcb4627"
+  },
+  "sourceTest": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "bytes": 21920,
+    "sha256": "e38f745670d43f4c5d7170de1ee4ecc1fcf9949de64972d570cb5f14ebcb4627"
+  },
+  "materialPinCount": 30,
+  "counterExportsSourceAndCompiledNamesRevalidated": true,
+  "helperPinsRetained": true,
+  "matureReporterAndParserUnchanged": true,
+  "firstCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-owner-proof-004.mjs",
+    "<actual bound OWN binding>",
+    "<actual SHA>",
+    "<Root execution admission>",
+    "<actual SHA>"
+  ],
+  "bounds": {
+    "timeoutMs": 600000,
+    "outputBytes": 16777216,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192,
+    "ancestryProbeMs": 10000
+  },
+  "originalInnerTimeoutMs": 500000,
+  "fixtureEffects": "Root explicitly authorized unchanged disposable Product/fixture pack/install/content-refusal and test-owned after-hooks; no independent candidate packaging or rebuild.",
+  "remaining": "Actual Root bound execution admission; no further source task or permission question. Original unit/M5 disposition and strict bootstrap/broad proof gates unchanged.",
+  "newOutputAndTempAbsent": true,
+  "execution": false
+}

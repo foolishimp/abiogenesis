@@ -1,0 +1,18 @@
+{
+  "status": "EXACT_SELECTED_RUNTIME003_OWNER_PIN_VERIFIED",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/CALL_PREPARATION_BINDING.json",
+    "sha256": "673b67eef9fe61192f55a575b56433814506ee629a7a593071880cb2895fc662"
+  },
+  "inventory": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/payload-correspondence.json",
+    "bytes": 1034311,
+    "sha256": "4ff5b2918cd4f431729fb05c1bbcc228ddad97966bbf64199735ed4e03a6ede0"
+  },
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+    "bytes": 118773,
+    "sha256": "89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c"
+  },
+  "scope": "Read-only pin comparison before pure budget import; no Runtime/event/provider/source effects."
+}

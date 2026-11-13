@@ -1,0 +1,52 @@
+{
+  "kind": "root_actual_native_dispatch_bindings",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "createdUtc": "2026-11-06T23:10:19.696714+00:00",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 10001,
+    "sha256": "7d1143f741f6589ec08485f1a6126c9452a281b269141d2ac495e7cfa9ff2f86"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_SELECTION.json",
+    "bytes": 16456,
+    "sha256": "f3e373cc70b054d20feb343e16ae44090e1867ec63f90a2099a028378a4fb86d"
+  },
+  "runtime": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/RUNTIME_BINDINGS.json",
+    "bytes": 7217,
+    "sha256": "9f4560497a8e0f523b9feffaa2d9c164436767c2ae4b7f6242715892950b8264"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/workload.json",
+    "bytes": 191344,
+    "sha256": "c28f0bc0b42dae81f4ee0a51ea50e82c3638e4169771cd1efce371c07f1b5e5b"
+  },
+  "preAdmissionMapping": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/PRE_ADMISSION_PREIMAGE_MAP.json",
+    "bytes": 2615,
+    "sha256": "4454f2340f925adc7a68417a1adc2546dc10eb9f8bf059483a9eabf1709715db"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_PREFLIGHT_AND_STAGING.json",
+    "bytes": 14352,
+    "sha256": "b5b8859167a1f0644ecc58f6bb599881ca1d8c5b58a8fafd3aa5ba306b043fc2"
+  },
+  "nativeGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/NATIVE_GRANT.json",
+    "bytes": 57266,
+    "sha256": "ebfe653110420f994f2bb440d25ba7f4449f951af4925dcdae54cae3cda727c3"
+  },
+  "stagedAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-03/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 10001,
+    "sha256": "7d1143f741f6589ec08485f1a6126c9452a281b269141d2ac495e7cfa9ff2f86"
+  },
+  "sourceRows": 451,
+  "controlRows": 20,
+  "handoffRows": 3,
+  "existingWorkloadSources": 471,
+  "contextRows": 474,
+  "mutationExtent": "Only runtime status/admission pin, sole future workload digest, create-only admission/staged admission and final binding/dispatch records. Source/grant/selection/staging/controls remain frozen.",
+  "actualLaunch": null
+}

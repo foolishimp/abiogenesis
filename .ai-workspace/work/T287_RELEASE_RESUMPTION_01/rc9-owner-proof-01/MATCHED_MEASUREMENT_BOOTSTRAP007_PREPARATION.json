@@ -1,0 +1,115 @@
+{
+  "ProductFrame": "Same Product/STDO3.0.4/RC9 Proof scope, no O3 reuse claim or implied measurement acceptance.",
+  "status": "MATCHED_BINDINGS_CONCRETE_EXECUTION_HELD",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_BEFORE.bootstrap007.held-001.json",
+    "bytes": 6707,
+    "sha256": "e296bd843354a942ba1066e1b50ef25f666c4ba24884bce3e5458a14e84b1e44"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.bootstrap007.held-001.json",
+    "bytes": 11266,
+    "sha256": "25e90f7949a5c192f2dd2da6b070337a4d0f172b7bef2ab663bafb719974dba3"
+  },
+  "unchangedExecutable": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-measurement.mjs",
+    "bytes": 6962,
+    "sha256": "83d6225d141524577895ae67f5a8416e13744f8a8c1c554f96884b718fa27c15"
+  },
+  "unchangedMeasurementBody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/measurement.test.mjs",
+    "bytes": 24719,
+    "sha256": "00a3da00a6e58f67d22a22d48e2daeb86347fbe6754c40c6b60780b7814d3773"
+  },
+  "unchangedOwners": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWNER_REFERENCES.json",
+    "bytes": 2479,
+    "sha256": "cc8b0f7771967c0a22576566e8e16a108ce02c7c994c7dc56311d9c5286985be"
+  },
+  "scriptedActor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/scripted-readonly-actor.mjs",
+    "bytes": 1206,
+    "sha256": "31ed26993381d783a684563bfb3f9307d86da59237f9b1ac7ecbda6705bdc60f"
+  },
+  "originalPreparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PREPARATION_MANIFEST.json",
+    "bytes": 5835,
+    "sha256": "d179449a1ef0e9b33abd55ceba1021cf98744db223366b9fbf71837b2a2b8d74"
+  },
+  "sharedHelperRoot": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+  "sharedHelperPinsEqual": true,
+  "priorHelperValidation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ACTUAL003_SOURCE_HELPER_VALIDATION_001.json",
+    "bytes": 10154,
+    "sha256": "8ec1de7fe7a3298f776ca90e4473fbed093b4689212e8b17eae269ffc7d56b01"
+  },
+  "rc8Archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "rc8InstallReceipt": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/installation.json",
+    "bytes": 4231702,
+    "sha256": "e691e380799a28a36000da28ea97596cb038b0e2d9bbdc0a91ed93ab442c1e87"
+  },
+  "rc9Archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "rc9InstallReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/installation.json",
+    "bytes": 4231675,
+    "sha256": "327cebf91c092b13c77cf5ae3b409d9c41a20938f5193f16807c84bc2c0adc5e"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 4087,
+    "sha256": "50697a33ab3761d513cd5363e99a049bb6424d58114cf0fcbc7c90c92e7e7cc8"
+  },
+  "workload": {
+    "contextBodyBytes": [
+      1048576,
+      4194304
+    ],
+    "unprofiledCallsPerSubject": 2,
+    "heldReadParityPerSubject": 4,
+    "freshReadParityPerSubject": 4,
+    "additionalRC9ProfileCall": "4MiB-profile only, excluded from matched pair",
+    "scriptedActorOnly": true
+  },
+  "bounds": {
+    "hostMs": 900000,
+    "coldReadMs": 120000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "aggregateBytes": 1073741824,
+    "nodeHeapMiB": 8192
+  },
+  "baselineUnavailableCounterRoles": [
+    "execution-basis row admission/body-digest work",
+    "workspace invariant environment derivation work",
+    "physical installed-content verification work (observation only)",
+    "final native contract producer construction/freeze total (no dedicated counter)"
+  ],
+  "counterStanding": "Retain raw absolute snapshots and existing optional/required exports. Missing baseline roles are unavailable, never zero. Worker observations are not total final native-producer construction/freeze.",
+  "firstCommandShape": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-measurement.mjs",
+    "<status-only PREPARED_MATCHED_REFERENCE_MEASUREMENT binding>",
+    "<actual binding SHA>",
+    "<ROOT_ADMITTED_RC9_REFERENCE_MEASUREMENT admission>",
+    "<actual admission SHA>"
+  ],
+  "admissionShape": {
+    "status": "ROOT_ADMITTED_RC9_REFERENCE_MEASUREMENT",
+    "bindingsSha256": "actual selected subject binding SHA",
+    "preparationManifestSha256": "d179449a1ef0e9b33abd55ceba1021cf98744db223366b9fbf71837b2a2b8d74"
+  },
+  "effects": "None; only new binding/return records. Existing source/helpers/archive/install receipts reused without new inventory/reproof.",
+  "execution": false,
+  "remaining": "Separate Root admission for each subject; execute sequentially only if selected, no automatic retry or broader campaign activation."
+}

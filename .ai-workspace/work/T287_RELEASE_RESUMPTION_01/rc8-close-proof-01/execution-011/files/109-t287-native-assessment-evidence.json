@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+  "kind": "executed",
+  "passed": false,
+  "wallMs": 1189.080874999985,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 1,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/events/109-t287-native-assessment-evidence.jsonl",
+    "bytes": 767,
+    "sha256": "4d6743a2c29f7b58454ffd2a69ae5edfcb1a586a6c6ea3376dbabe11d876bd32"
+  },
+  "commandReceipt": "commands/109-t287-native-assessment-evidence.result.json",
+  "workspace": "/private/tmp/abg-r8c-011/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

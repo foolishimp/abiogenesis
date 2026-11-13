@@ -1,0 +1,54 @@
+{
+  "status": "EXPORTED_NAMES_PRESENT_NO_OWNER_ALLOCATION",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8/node_modules/@abiogenesis/typescript-tenant",
+  "checkedBy": "Direct dynamic imports of installed build/code/src/{product,abg,public,gtl}/index.js and typeof inspection; no owner method called",
+  "exports": {
+    "product": [
+      "ProductVerificationPort",
+      "CatalogOperationPort",
+      "NATIVE_WORKSPACE_WORK_IDS",
+      "constructNativeWorkspaceWorkTask",
+      "observeWorksiteContext",
+      "narrowGraphFunctionCatalog",
+      "sha256Canonical"
+    ],
+    "abg": [
+      "projectAdmittedProductInstallByAdmissionEventRef",
+      "hasAdmittedProductInstall",
+      "assertAcquiredAbgEventResourceSelectionCurrent",
+      "selectHeldEventStoreDurablePrefix"
+    ],
+    "public": [
+      "constructInstalledStartCall"
+    ],
+    "gtl": [
+      "modulePublication"
+    ]
+  },
+  "nativeProgramRef": "program://abiogenesis/worksite/native-work@5",
+  "catalogConstructed": false,
+  "runtimeAllocated": false,
+  "providerCalls": 0,
+  "modulePins": {
+    "product": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "bytes": 13810,
+      "sha256": "26771ef341c8d0d1b927118a9a73556cb93df7cd248dc4f5b187e50a395c4799"
+    },
+    "abg": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/index.js",
+      "bytes": 10592,
+      "sha256": "cd78ae166b61a80ef8afbc1536d28737d140119425513883fc046f6e3fb8dffe"
+    },
+    "public": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+      "bytes": 666,
+      "sha256": "64466232bfbe070bf68b23806104e6023d4b379009a43c64646ecf54cf40a504"
+    },
+    "gtl": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/index.js",
+      "bytes": 7224,
+      "sha256": "4fc5fa0f9ae71c5b253da4f21e2814613d373bae72124e83cf0cdc7350dcf1dd"
+    }
+  }
+}

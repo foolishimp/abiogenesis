@@ -1,0 +1,47 @@
+{
+  "file": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 618.0812079999996,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "closed recovery constructor validates as a whole Program and borrowed native closure (unadmitted readiness assumptions)",
+      "file": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/preserved-result-implementation-01/preimages/source-observation.json (sha256:c03f587f370f)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/events/002-d1-preserved-result-mechanics.jsonl",
+    "bytes": 1337,
+    "sha256": "dc481e29cde16a2d4089dd9b98ca48a6316817525e17f8a6bef7fdbd96aca52a"
+  },
+  "commandReceipt": "commands/002-d1-preserved-result-mechanics.result.json",
+  "workspace": "/private/tmp/abg-r8c-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

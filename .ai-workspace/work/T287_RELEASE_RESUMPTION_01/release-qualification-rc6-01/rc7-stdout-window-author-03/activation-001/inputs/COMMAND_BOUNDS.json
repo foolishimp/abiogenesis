@@ -1,0 +1,113 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "ROOT_SELECTED_S3_COMPLETION_BOUNDS",
+  "readCommands": [
+    "Exact future SOURCE_BEFORE, named controls, pinned historical metadata external oracle, installed STDO3.0.4/direct references and offline toolchain/seed only; no private provider/archive/auth content or broad scans.",
+    "Read-only rg and git diff/status/rev-parse/show on the admitted selected source; no Git mutation."
+  ],
+  "writeCommands": [
+    "Only25 exact existing Product/HOW/test paths in NATIVE_GRANT, three handoffs and selected scratch/temp effects; no new Product files.",
+    "Runtime/provider temp /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw3 and test /private/tmp/abg-sw3; distinct empty npm configs, preserve existing contents."
+  ],
+  "stageLabels": [
+    "sw3-stage-01",
+    "sw3-stage-02"
+  ],
+  "maxStages": 2,
+  "maxLaneInvocations": 6,
+  "concurrency": 1,
+  "laneIds": [
+    "stdout-differential",
+    "scope-ordering",
+    "timeout-interruption",
+    "archive-integrity",
+    "legacy-replay",
+    "native-caller"
+  ],
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-stdout-window-author-03/prior-author-stage.mjs",
+        "<next-fresh-selected-label>",
+        "after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 2,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 600000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-stdout-window-author-03/prior-author-lanes.mjs",
+        "<successful-frozen-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "stdout-differential",
+        "scope-ordering",
+        "timeout-interruption",
+        "archive-integrity",
+        "legacy-replay",
+        "native-caller"
+      ],
+      "maxLaneInvocations": 6,
+      "perLaneTimeoutMs": 300000,
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 3600000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "invocationAllocation": [
+    {
+      "phase": "final",
+      "lane": "stdout-differential",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "scope-ordering",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "timeout-interruption",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "archive-integrity",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "legacy-replay",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "native-caller",
+      "maximum": 1
+    }
+  ],
+  "allocationLaw": "Two create-only AFTER stages maximum; six exact final lanes once each, serial, on same final source. No baseline rerun. Second stage only for localized correction before final lanes; failed/incomplete reservations count. Stop on test failure/missing material, no retry/extra lane/timeout change.",
+  "missingResources": "All451 source rows and selected immutable RC6 JS owners pinned. Worker must implement mandatory named actor-successor/cold archive/old-profile cases; absent or filtered-out cases cannot pass.",
+  "freezeBeforeFeedback": "Stage sources and HOW are create-only snapshots with source-freeze receipt before build/testing. Publish that exact path/digest through progress.json immediately; Root may issue max frozen review while native lanes continue. Final native.after must match final staged source/HOW.",
+  "resourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 13105,
+    "sha256": "0abeadd4419584f3170b01e02cd3e79741f25666f095d524925f8dcf92acaa61"
+  }
+}

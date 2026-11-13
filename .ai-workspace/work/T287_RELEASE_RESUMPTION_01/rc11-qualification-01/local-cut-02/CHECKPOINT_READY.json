@@ -1,0 +1,36 @@
+{
+  "status": "ROOT_ADMITTED_ONE_SELECTIVE_CHECKPOINT_REPRODUCTION",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9481,
+    "sha256": "fbe6ec76f782ae2926f6d27bdd21c8f5ddec2ff5ca4b3463359ddc49610e091e"
+  },
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_CHECKPOINT_ACTIVATION.json",
+    "bytes": 3313,
+    "sha256": "e5f4a28182ad1e2917158a1259261f63579bb6728064c980618d99de503fc5f1"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_CHECKPOINT_BINDINGS.json",
+    "bytes": 9579,
+    "sha256": "2388c670d09bbc6b1cbee4812c745899ec1568bcaedd9c1f7fdd8b6e9b71c128"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/CHECKPOINT_PREFLIGHT.json",
+    "bytes": 2822,
+    "sha256": "5075a5103b659cc81e068deb3dff2cae556ac7b802babc861d06bfac19b39190"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/run-checkpoint-reproduction.mjs",
+    "bytes": 22779,
+    "sha256": "8e98679164a5fa27ad8289e9a504ea801fc3031d4597bfc9dee3796931c30df7"
+  },
+  "launchArgv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/run-checkpoint-reproduction.mjs",
+    "build",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_CHECKPOINT_BINDINGS.json",
+    "2388c670d09bbc6b1cbee4812c745899ec1568bcaedd9c1f7fdd8b6e9b71c128"
+  ],
+  "installationHeld": true
+}

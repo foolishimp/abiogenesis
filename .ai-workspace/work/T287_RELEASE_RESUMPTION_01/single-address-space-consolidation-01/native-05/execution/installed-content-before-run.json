@@ -1,0 +1,27 @@
+{
+  "phase": "before-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.5/95d6634615c069e41c6b1ddd950454995f69d75cf03d3a43a8c9cbce97547b7c/0e5fc8c8523dd0167e0ad50ee0073a4c7ef9038daab9ae55bd39466701030bba",
+      "admissionEventRef": "event://abiogenesis/692ae6c384e4deec019f8b751f671a8c6b3251e19bc754f6bb2802aebeafd044",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.5",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+      "productContentDigest": "sha256:95d6634615c069e41c6b1ddd950454995f69d75cf03d3a43a8c9cbce97547b7c",
+      "manifestDigest": "sha256:0a897768a558df57842b47a9ec2947562f6c7e7730bc711fa85f791655e90db0",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/0aca4ef366ec964f9f522645fa48c929b7850e0bf4a3ec9ecc494471e18fbf99/0e5fc8c8523dd0167e0ad50ee0073a4c7ef9038daab9ae55bd39466701030bba",
+      "admissionEventRef": "event://abiogenesis/bf423c3e56df3a068f912c1c391d7b806f8d931f07490f3d17523947ed65088e",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:22612ee090c0dfe4e6caae8cdbb36210b8de4f663478708519c72af03e520600",
+      "productContentDigest": "sha256:0aca4ef366ec964f9f522645fa48c929b7850e0bf4a3ec9ecc494471e18fbf99",
+      "manifestDigest": "sha256:50c274b544e18d5bb1e3f9579dcd31a8396b92f44211dd63ebecb7158f27fc14",
+      "contentMatches": true
+    }
+  ]
+}

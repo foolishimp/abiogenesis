@@ -1,0 +1,81 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "TEMPLATE_ONLY_NOT_EXECUTABLE",
+  "readCommands": [
+    "Exact future SOURCE_BEFORE files and selected control inputs; installed STDO3.0.4 skill/direct references and pinned offline toolchain/contract seed. No broad tree/history/provider scans.",
+    "Read-only git diff/status/rev-parse/show on the selected future source; rg on the selected source/resource names only."
+  ],
+  "writeCommands": [
+    "Only five Product/HOW/test paths, three handoffs and this task scratch. Stop on any newly required Product/HOW path.",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7f runtime/provider temp and /private/tmp/abg-o7f test temp, including named cache/zsh children; preserve existing contents, no cleanup.",
+    "Future selected npm-user.npmrc and npm-global.npmrc are two distinct empty staged controls; no shared /dev/null config roles."
+  ],
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-fixed-proof-author-01/prior-author-stage.mjs",
+        "<fresh-label>",
+        "before|after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 3,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 180000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-fixed-proof-author-01/prior-author-lanes.mjs",
+        "<fresh-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "fixed-route",
+        "cold-resume",
+        "caller-regression"
+      ],
+      "maxLaneInvocations": 4,
+      "perLaneTimeoutMs": 300000,
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "missingResources": "The future450-source selection includes B449 names (including51 supplemental fixture resources and maintained harness) plus the selected HOW. Actual after-source pins remain null. Preserve the three B-declared historical default-library cases as uncovered; required active fixed-route, cold and harness discriminators cannot skip. Seven F11-carrier cases remain outside this focused proof and uncovered at full5.0 qualification.",
+  "invocationAllocation": [
+    {
+      "stage": "before",
+      "lane": "fixed-route",
+      "maximum": 1,
+      "standing": "Meaningful selected before counterexample; retain actual failure."
+    },
+    {
+      "stage": "after",
+      "lane": "fixed-route",
+      "maximum": 1
+    },
+    {
+      "stage": "after",
+      "lane": "cold-resume",
+      "maximum": 1
+    },
+    {
+      "stage": "after",
+      "lane": "caller-regression",
+      "maximum": 1
+    }
+  ],
+  "partitionStanding": "Use exact anchored negative/positive name filters; do not combine the cold pair into fixed-route. Name-filtered exclusions receive neither pass nor source-declared skip credit. Required active tests and both cold cases may not skip. No fifth invocation or timeout increase is selected."
+}

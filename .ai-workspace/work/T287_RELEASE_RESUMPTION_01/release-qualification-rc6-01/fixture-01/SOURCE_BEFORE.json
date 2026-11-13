@@ -1,0 +1,91 @@
+{
+  "kind": "bounded_fixture_source_before",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+      "bytes": 7677,
+      "sha256": "cba6471264602fd95e465b2079809ac4a03c2b7b261ed79e687a3855b12b9793",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "bytes": 21165,
+      "sha256": "f95df8511a4d56148a80bac009ea41bceeb17907f59488bd6b24a39281d6fd59",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "bytes": 25759,
+      "sha256": "b633d1f69ef4f24d521e056206f0fb6f7b6467444d06dc64a9f9a23f69f98627",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "bytes": 9459,
+      "sha256": "3fa8fa8ffea19a187f727d64f6da3940e8def6ab3dadad0e055c0c45848ec0b3",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+      "bytes": 2031,
+      "sha256": "92f9faa3ec401fd80309b17f546a79354ae36b1869780c55fa5332110171a9d2",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "bytes": 3319,
+      "sha256": "85f0228f77adc6407390cdf50c51ca254b979e716b95123cb6daa35547685c7e",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "bytes": 4889,
+      "sha256": "a47f67cc01a55d363358a69a768f202e94cbca627b3f3fd6918a5a949425c051",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "bytes": 22133,
+      "sha256": "d56f24818f0dcf41469f643534f914b460fa7df096dcfe7ff3896861092fe814",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "bytes": 9623,
+      "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 66912,
+      "sha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10003,
+      "sha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da",
+      "relativePath": "build_tenants/abiogenesis/typescript/package.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 61840,
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 95835,
+      "sha256": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205",
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts"
+    }
+  ],
+  "writablePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "componentClosureFiles": 10,
+  "missingLiteralTestEnvInputs": [],
+  "externalLiteralBuildReferences": 7,
+  "closureLimit": "Only test_env modules acquired for current closure; compiled owner imports supplied from exact RC6 staged build. Dynamic historical evidence is intentionally absent; no inherited157/history inventory."
+}

@@ -1,0 +1,137 @@
+{
+  "id": "RC11-FOUNDATION-PREP-01",
+  "status": "ROOT_ADMITTED_PREPARATION_ONLY",
+  "role": "separately activated Writer/Operator",
+  "decisionOwner": "Root Executive",
+  "recordedUtc": "2026-11-09T17:04:09.271869+00:00",
+  "ownerInstruction": [
+    "Effect API prohibition was misunderstanding",
+    "ABG is the application sitting on the best possible implementation of the design",
+    "yes do this, this may have been the root blocker of many refactor attempts that were silently killed or hamstrung"
+  ],
+  "rootDirection": "Prepare isolated sparse successor from accepted RC11 and compact controls. Correct Product realization-profile restriction and complete owning Design/static-enforcement cone only after Root conjoins the independent mapping. Core exact Effect3.22.1 only; public API, Program, event and replay meaning remain unchanged. One observer repair pilot is prospective, not dispatched.",
+  "source": {
+    "commit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+    "tree": "1aabb06494de37a644b645161c6491d5b005cc73",
+    "acceptedSourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+      "bytes": 298978,
+      "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+    },
+    "deliveredDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 14965,
+      "sha256": "5d6c3ec6d2094a041e25d5515347f83be0d5bc6694fc12e552089b66b34cf121"
+    }
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "stdo": "stdo://releases/v3.0.4/",
+    "manifest": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "skill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    }
+  },
+  "effectGrant": {
+    "newWorktree": "/private/tmp/abg-rc11-foundation-20261110-01",
+    "branch": "codex/rc11-foundation-correction",
+    "controls": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator",
+    "operations": [
+      "create exact branch/worktree with no initial checkout",
+      "configure sparse materialization only in new worktree metadata",
+      "materialize exact accepted commit through new index",
+      "read-only existing dependency symlink for later author checks",
+      "record source/basis/preservation and held native route"
+    ]
+  },
+  "preexisting": {
+    "newWorktreeAbsent": true,
+    "newBranchAbsent": true,
+    "acceptedC11TrackedAndIndexClean": true,
+    "mainHead": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "mainIndexPreserved": true
+  },
+  "exclusions": [
+    "No Product or candidate source edits",
+    "No native/runtime/setup/provider dispatch",
+    "No build/tests/pack/install",
+    "No main/tracking/old cuts/pins/releases modification",
+    "No new dependency or selector/package/version change"
+  ],
+  "preservationPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/config",
+      "bytes": 3394,
+      "sha256": "60caaf703e24da50190aec332fb9d77204049d8594079b57dd3a42d051daf7d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 177987,
+      "sha256": "c0a8a9ed43787dd075a46f23a9d090add6f30164369ca51e415e01053d5613cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 828718,
+      "sha256": "17465ae63c2967b22cee48611af7f92d143aba496790fbef1d6ae820e304bd15"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 7591,
+      "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 14965,
+      "sha256": "5d6c3ec6d2094a041e25d5515347f83be0d5bc6694fc12e552089b66b34cf121"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10105,
+      "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266232,
+      "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10105,
+      "sha256": "02789c3812e488e53e7a6fe9bd3affd0d39144cd5e69b68adf48c7a7f1f6b9d1"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3266309,
+      "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+    }
+  ],
+  "stops": [
+    "stale or dirty baseline",
+    "existing target or branch conflict",
+    "missing authority",
+    "unexpected effects"
+  ],
+  "returnTo": "Root for exact scope/design conjunction before source author activation"
+}

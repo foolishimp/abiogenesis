@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "git",
+    "-c",
+    "core.fsmonitor=false",
+    "-c",
+    "core.hooksPath=/dev/null",
+    "commit",
+    "-m",
+    "refactor: scope command execution with Effect"
+  ],
+  "exitCode": 0,
+  "stdout": "[codex/rc11-foundation-correction b7cf409fc] refactor: scope command execution with Effect\n 6 files changed, 679 insertions(+), 250 deletions(-)\n",
+  "stderr": ""
+}

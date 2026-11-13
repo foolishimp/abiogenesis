@@ -1,0 +1,1272 @@
+{
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/runtime-001/resources/archives/fp-9ef74b9f9504af5d-stdout.log",
+    "bytes": 6574693,
+    "sha256": "d2a04282c0e175b921eb921bc0324f759ab06f70e26fceaa41b589a7948b8e99"
+  },
+  "tools": [
+    {
+      "line": 35,
+      "id": "toolu_01UUHDWsUy7Nin4cBjnB9EjS",
+      "name": "Bash",
+      "input": {
+        "command": "ls -la qualification-inputs/rc11-effect-phase2-01/native-b01/ && cat qualification-inputs/rc11-effect-phase2-01/native-b01/ROOT_SCOPE.json",
+        "description": "List input dir and read ROOT_SCOPE"
+      },
+      "ordinalZeroBased": 0,
+      "result": {
+        "line": 40,
+        "isError": false,
+        "canonicalBytes": 8650,
+        "sha256": "6c94dbdd8d62fe9e767afd70094f08082ebeb5a5f69b8a5f964bd5564264c81c"
+      }
+    },
+    {
+      "line": 64,
+      "id": "toolu_01RqDJWYtucxhtLaHsRbvvVa",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-b01 && cat SOURCE_SUBJECT.json && cat B_ERROR_BOUNDARY.md",
+        "description": "Read SOURCE_SUBJECT and B_ERROR_BOUNDARY"
+      },
+      "ordinalZeroBased": 1,
+      "result": {
+        "line": 68,
+        "isError": false,
+        "canonicalBytes": 14393,
+        "sha256": "0d13c226f1a99a804161abaaa256114213e0cd1aa1281292894f442972d7c9f3"
+      }
+    },
+    {
+      "line": 88,
+      "id": "toolu_01Exgk3kcbmxRqcNEDt8TqyJ",
+      "name": "Bash",
+      "input": {
+        "command": "cat API_RESULT.md && cat COMMON_LIBRARY_9_3.md && cat EXTERNAL_TOOLS.json",
+        "description": "Read API_RESULT, COMMON_LIBRARY, EXTERNAL_TOOLS"
+      },
+      "ordinalZeroBased": 2,
+      "result": {
+        "line": 92,
+        "isError": false,
+        "canonicalBytes": 19347,
+        "sha256": "fdcfce501263e5dc2f63a4b5c387c73b9dfa282fa0afac7fc972746592b6a913"
+      }
+    },
+    {
+      "line": 110,
+      "id": "toolu_01VfodNykoCHVpZAuJvJ4YiP",
+      "name": "Bash",
+      "input": {
+        "command": "cat CONTROLLED_CENSUS.json && cat PEER_DESIGN.md",
+        "description": "Read CONTROLLED_CENSUS and PEER_DESIGN"
+      },
+      "ordinalZeroBased": 3,
+      "result": {
+        "line": 114,
+        "isError": false,
+        "canonicalBytes": 16346,
+        "sha256": "d95150278c0f497c667da801e8766791c99908a9b65f0f56f3fceb025486abb5"
+      }
+    },
+    {
+      "line": 160,
+      "id": "toolu_01TTShimEzX6T9hFgGcvzBrV",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && wc -l code/src/implementation/worksite_command_helper.ts code/src/shared/owned_process_lifetime.ts code/src/shared/owned_process_state.ts code/src/shared/effect_definition.ts test_env/tests/t287-owned-process-lifetime.test.mjs && grep -n \"^import\\|^export\\|^async function\\|^function\\|^const\\|^class\\|^type\\|^interface\" code/src/implementation/worksite_command_helper.ts",
+        "description": "Outline helper source structure"
+      },
+      "ordinalZeroBased": 4,
+      "result": {
+        "line": 164,
+        "isError": false,
+        "canonicalBytes": 4176,
+        "sha256": "f0f6ab449bea5ca65d77d7b7da644c3ebf90e88f5029e5f3e191bdb779272e3e"
+      }
+    },
+    {
+      "line": 181,
+      "id": "toolu_0131tMgDDzN5W4sAGnLnDjoX",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "offset": 1,
+        "limit": 120
+      },
+      "ordinalZeroBased": 5,
+      "result": {
+        "line": 185,
+        "isError": false,
+        "canonicalBytes": 5409,
+        "sha256": "6c0f36e719232f852609845a68403034360fa707408c098edb73aa9e1b30c69a"
+      }
+    },
+    {
+      "line": 197,
+      "id": "toolu_0185q5Qa3t2GW9DuypGhHH3n",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "offset": 640,
+        "limit": 300
+      },
+      "ordinalZeroBased": 6,
+      "result": {
+        "line": 201,
+        "isError": false,
+        "canonicalBytes": 14135,
+        "sha256": "af1fdccf6154ce7bf670b83619b6bb6ee1c8cd279766b0ebd1b36a5ef8bff3f2"
+      }
+    },
+    {
+      "line": 213,
+      "id": "toolu_01E1GPguc1HRorgJUzBXHZAD",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "offset": 1050,
+        "limit": 540
+      },
+      "ordinalZeroBased": 7,
+      "result": {
+        "line": 217,
+        "isError": false,
+        "canonicalBytes": 28465,
+        "sha256": "98ad5108f92eca85e117bafb27f5e19e060bdf6074994e1dc1dd94f30870172e"
+      }
+    },
+    {
+      "line": 245,
+      "id": "toolu_01RHC3A2zkyyeKoC2ScPTu38",
+      "name": "Bash",
+      "input": {
+        "command": "cat -n code/src/shared/owned_process_lifetime.ts",
+        "description": "Read owned_process_lifetime.ts"
+      },
+      "ordinalZeroBased": 8,
+      "result": {
+        "line": 250,
+        "isError": false,
+        "canonicalBytes": 14157,
+        "sha256": "cfc2c64d3962b826fdb0a461146804cc6deabf763e60e3c0dc1fa510558c3d82"
+      }
+    },
+    {
+      "line": 268,
+      "id": "toolu_011uogPMUze2kGj7GmVCFcFn",
+      "name": "Bash",
+      "input": {
+        "command": "cat -n code/src/shared/effect_definition.ts && sed -n 1,60p code/src/shared/owned_process_state.ts",
+        "description": "Read effect_definition and start of state"
+      },
+      "ordinalZeroBased": 9,
+      "result": {
+        "line": 270,
+        "isError": false,
+        "canonicalBytes": 10139,
+        "sha256": "031a3719c53119bea4d4d8010407d04144d3a8096f424b9365331db97647b357"
+      }
+    },
+    {
+      "line": 301,
+      "id": "toolu_01EBXn1WuMerYmxjJRftGTxS",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "offset": 1,
+        "limit": 200
+      },
+      "ordinalZeroBased": 10,
+      "result": {
+        "line": 305,
+        "isError": false,
+        "canonicalBytes": 13104,
+        "sha256": "25181697023a6e254184aff9a5d8857a64db5001e4b198f766ae7d90d461534c"
+      }
+    },
+    {
+      "line": 328,
+      "id": "toolu_01VND7rFfKKZZw7fzuZ7VVjU",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "offset": 200,
+        "limit": 200
+      },
+      "ordinalZeroBased": 11,
+      "result": {
+        "line": 332,
+        "isError": false,
+        "canonicalBytes": 14969,
+        "sha256": "f06784eb4440f84cfbabea956972b36cd8d81b35f371907e5c1394760a7d5834"
+      }
+    },
+    {
+      "line": 356,
+      "id": "toolu_014HwhfkybukDeT2ndF8dFyq",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "offset": 400,
+        "limit": 250
+      },
+      "ordinalZeroBased": 12,
+      "result": {
+        "line": 360,
+        "isError": false,
+        "canonicalBytes": 18472,
+        "sha256": "f6939e4fdaa1687122ee9f0da9e3dfd3a0ef2b12bf2a823109fa7fb3b599408c"
+      }
+    },
+    {
+      "line": 379,
+      "id": "toolu_01YKRg9cWgEoZXXWzC15qmHh",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "offset": 650,
+        "limit": 390
+      },
+      "ordinalZeroBased": 13,
+      "result": {
+        "line": 383,
+        "isError": false,
+        "canonicalBytes": 32575,
+        "sha256": "c64d02cbe71a16a959270732b8d3bd92875419681238f74eb7b80f00b12cd0ef"
+      }
+    },
+    {
+      "line": 473,
+      "id": "toolu_01TcMvnJnQR89hTtoWiCC3ea",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"worksite_command_helper\\|SourceTextModule\\|mod.link\\|module.link\\|\\.link(\" test_env/tests/m5-worker-transport.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs | head -50; grep -rln \"from \\\"effect/\" code/src | head -20; grep -rn \"from \\\"effect\" code/src | awk -F'from' '{print $2}' | sort | uniq -c",
+        "description": "Find helper loaders and Effect import style"
+      },
+      "ordinalZeroBased": 14,
+      "result": {
+        "line": 477,
+        "isError": false,
+        "canonicalBytes": 2396,
+        "sha256": "bc2f5a4181cfb95acd963006a0f971f5fcc3d6f13610e8aeea4527b5d8b91037"
+      }
+    },
+    {
+      "line": 508,
+      "id": "toolu_01DZYRrxkh729x8sC2xfwv5q",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1215,1300p test_env/tests/m5-worker-transport.test.mjs; echo ----; sed -n 1,80p test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "description": "Read m5 and carrier helper loaders"
+      },
+      "ordinalZeroBased": 15,
+      "result": {
+        "line": 512,
+        "isError": false,
+        "canonicalBytes": 12101,
+        "sha256": "d4acb3446658a062d8afe6c7fb97760c6d2f2fe6a13187a527d77a794824e03a"
+      }
+    },
+    {
+      "line": 545,
+      "id": "toolu_01Cyheccnd5kmygwaCj2YsVv",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 300,460p test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "description": "Read carrier test helper usage"
+      },
+      "ordinalZeroBased": 16,
+      "result": {
+        "line": 549,
+        "isError": false,
+        "canonicalBytes": 12472,
+        "sha256": "486b1e3b9b1082a4a5087d32d9c3ce82c4298cf540237a00d0ea0dc89b69e079"
+      }
+    },
+    {
+      "line": 767,
+      "id": "toolu_01SLLJ281ZRkGKF8d6zJjpKC",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 60,241p code/src/shared/owned_process_state.ts",
+        "description": "Read owned_process_state reducer"
+      },
+      "ordinalZeroBased": 17,
+      "result": {
+        "line": 771,
+        "isError": false,
+        "canonicalBytes": 11276,
+        "sha256": "e6a9494aaebf8db7e4c4fba719813ea889fc857e031d8c7da93ad31a2608d9c4"
+      }
+    },
+    {
+      "line": 1400,
+      "id": "toolu_01U5KaatUubnX2j9NdVbC8GZ",
+      "name": "Bash",
+      "input": {
+        "command": "grep -rln \"worksite_command_helper\" test_env/ | head; echo ---; grep -rn \"worksite_command_helper\" test_env/tests/*.mjs | grep -v \"^test_env/tests/t287-owned-process-lifetime\\|^test_env/tests/m5-worker\\|^test_env/tests/t287-lifecycle\" | head -20; echo ---; cat node_modules/effect/package.json | grep '\"version\"'; ls -la node_modules | head -3; readlink node_modules || true",
+        "description": "Find helper consumers and Effect version"
+      },
+      "ordinalZeroBased": 18,
+      "result": {
+        "line": 1404,
+        "isError": false,
+        "canonicalBytes": 1583,
+        "sha256": "7799a8e1ba9c9a6555b0ffaa06f52a65c353d89b7f76c88d89b649b6a1940e69"
+      }
+    },
+    {
+      "line": 1448,
+      "id": "toolu_01NRZTbEEYhjpRRMsAyM4QRb",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect && grep -n \"^export const match\\b\\|^export const match:\" -A 20 src/Cause.ts | head -40; grep -n \"export const match = \" -A 30 src/internal/cause.ts | head -45",
+        "description": "Inspect Cause.match signature and implementation"
+      },
+      "ordinalZeroBased": 19,
+      "result": {
+        "line": 1452,
+        "isError": false,
+        "canonicalBytes": 2368,
+        "sha256": "a89be15f88f00ddb48a24b908f5bccc2512cc4adae5087729f4fd7649f058a71"
+      }
+    },
+    {
+      "line": 1494,
+      "id": "toolu_01MrRUMwZTJxaYiWoGLKvzso",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"const scopeClose\\|close(exit\\|close = \\|exitCollectAll\\b\" src/internal/fiberRuntime.ts | head -20; grep -n \"export const exitCollectAll\\b\" -A 12 src/internal/core.ts",
+        "description": "Inspect scope close and exit combination"
+      },
+      "ordinalZeroBased": 20,
+      "result": {
+        "line": 1498,
+        "isError": false,
+        "canonicalBytes": 1138,
+        "sha256": "e55b9b1329acb6eae639474e8638a475b37bf3689489887706e1fb3e09474efb"
+      }
+    },
+    {
+      "line": 1534,
+      "id": "toolu_01Fm6DKfjYyfcUHsWEKbEtYo",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 3225,3300p src/internal/fiberRuntime.ts; sed -n 3335,3352p src/internal/fiberRuntime.ts; grep -n \"const exitCollectAllInternal\" -A 25 src/internal/core.ts",
+        "description": "Read scope close implementation"
+      },
+      "ordinalZeroBased": 21,
+      "result": {
+        "line": 1538,
+        "isError": false,
+        "canonicalBytes": 4025,
+        "sha256": "e9422622808d4bf4816aaa07085061b0d692f00d2bf52aca9a33aef253a2e868"
+      }
+    },
+    {
+      "line": 1580,
+      "id": "toolu_016vMqiFt1RFgoNQzjHMViWD",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 385,430p src/internal/core.ts; sed -n 575,592p src/internal/core.ts; sed -n 880,915p src/internal/core.ts",
+        "description": "Read onExit/catchAll/matchEffect in core"
+      },
+      "ordinalZeroBased": 22,
+      "result": {
+        "line": 1584,
+        "isError": false,
+        "canonicalBytes": 3746,
+        "sha256": "2dc8fde1aa37554e41fb4834336bb4163806583a3a7b0772086995fdf4992c21"
+      }
+    },
+    {
+      "line": 1629,
+      "id": "toolu_013T9t6WDqTJFEP6v8md7Wct",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"export const gen\\b\\|export const gen:\" -A 25 src/internal/core.ts | head -40; grep -n \"fromIterator\" src/internal/core.ts | head; grep -n \"OP_ITERATOR\\|\\[OpCodes.OP_ITERATOR\\]\" src/internal/fiberRuntime.ts | head",
+        "description": "Inspect Effect.gen error handling"
+      },
+      "ordinalZeroBased": 23,
+      "result": {
+        "line": 1633,
+        "isError": false,
+        "canonicalBytes": 1657,
+        "sha256": "6e9f43b47445471d154ffe65250af30e0185cf6567cca9b4dbb61bc93b35c20d"
+      }
+    },
+    {
+      "line": 1678,
+      "id": "toolu_01YCLNVTiuzkm8SE7BUU5T16",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1400,1418p src/internal/core.ts; sed -n 188,215p src/internal/fiberRuntime.ts; grep -n \"} catch (e) {\" -A 14 src/internal/fiberRuntime.ts | sed -n 1,40p",
+        "description": "Read fromIterator and runloop catch"
+      },
+      "ordinalZeroBased": 24,
+      "result": {
+        "line": 1682,
+        "isError": false,
+        "canonicalBytes": 2436,
+        "sha256": "d073873ce00714cad848fb0e3c4f951128b4fd66e3d02f45cc18b73c6677846b"
+      }
+    },
+    {
+      "line": 1726,
+      "id": "toolu_01FYeZWWTHQWGtvBmB8DGXjv",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 82,112p src/internal/core-effect.ts; grep -n \"export const tryPromise\" -A 45 src/internal/core-effect.ts | sed -n 1,60p",
+        "description": "Read Effect.try and tryPromise implementations"
+      },
+      "ordinalZeroBased": 25,
+      "result": {
+        "line": 1730,
+        "isError": false,
+        "canonicalBytes": 2594,
+        "sha256": "0878541ca155d34aed05cbd3430b4a4daee2c61724e39d418b6976f43a863e7f"
+      }
+    },
+    {
+      "line": 1824,
+      "id": "toolu_01Mnke1ssxmv85zfy6NTAsWC",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"setTimeout\\|Promise.resolve\" src/Scheduler.ts | head",
+        "description": "Check Effect scheduler timer usage"
+      },
+      "ordinalZeroBased": 26,
+      "result": {
+        "line": 1828,
+        "isError": false,
+        "canonicalBytes": 226,
+        "sha256": "7befdfc858479b1a6c06565ab6103c56e4f1ba20a410acd2e64cfded6110643d"
+      }
+    },
+    {
+      "line": 1854,
+      "id": "toolu_01L7vD7DqNUF7XYKBAtWRnZd",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 110,175p src/Scheduler.ts",
+        "description": "Read MixedScheduler starve logic"
+      },
+      "ordinalZeroBased": 27,
+      "result": {
+        "line": 1858,
+        "isError": false,
+        "canonicalBytes": 1521,
+        "sha256": "70af5cc786ea02281481670ae2377a7e94dee65b7cef8f577a5a9f17d60ffde6"
+      }
+    },
+    {
+      "line": 2369,
+      "id": "toolu_01QMseNFdJAKWWerGj7Ue3mJ",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && cat tsconfig.json; grep -n '\"effect\"\\|\"typescript\"\\|\"type\"' package.json",
+        "description": "Read tsconfig and package deps"
+      },
+      "ordinalZeroBased": 28,
+      "result": {
+        "line": 2373,
+        "isError": false,
+        "canonicalBytes": 792,
+        "sha256": "bd2a3b28fa826e4ccb720a4dc471a0c3c4dd421af4cd921b1eb9423c9fe5eb7e"
+      }
+    },
+    {
+      "line": 2396,
+      "id": "toolu_01ULBZ39eGYbP7Y7EAUuqGq3",
+      "name": "Bash",
+      "input": {
+        "command": "cat design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "description": "Read Effect functional refactor plan"
+      },
+      "ordinalZeroBased": 29,
+      "result": {
+        "line": 2400,
+        "isError": false,
+        "canonicalBytes": 21215,
+        "sha256": "0054edc381bec994b3fd535e3c353354a8bd862e7cc75b4c72345e41fde40d91"
+      }
+    },
+    {
+      "line": 2440,
+      "id": "toolu_01CRWjdQxuBLHNPp3osi9iqV",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"process-failure\\|inspector\\|sibling\\|beside\\|D15\\|^## \\|^### \" design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md | head -80",
+        "description": "Locate stale C2 references and sections"
+      },
+      "ordinalZeroBased": 30,
+      "result": {
+        "line": 2444,
+        "isError": false,
+        "canonicalBytes": 2087,
+        "sha256": "6c98e90a41a6a07d411c42eff1c0da1847177f5fc9ab825bc4d088452dc49418"
+      }
+    },
+    {
+      "line": 2470,
+      "id": "toolu_01PCvcnvGb8FrwXNkX4PPtgy",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,75p design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "description": "Read C2 design opening"
+      },
+      "ordinalZeroBased": 31,
+      "result": {
+        "line": 2474,
+        "isError": false,
+        "canonicalBytes": 4956,
+        "sha256": "7388d3ab06677c138e6823d4990e5edb61727358c0de7f3b2acf8c734b724695"
+      }
+    },
+    {
+      "line": 2496,
+      "id": "toolu_01MNF3svEf2A474P8zhZK3AS",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 643,835p design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "description": "Read C2 section 6"
+      },
+      "ordinalZeroBased": 32,
+      "result": {
+        "line": 2500,
+        "isError": false,
+        "canonicalBytes": 12617,
+        "sha256": "abd399be1fc3b66b9cb4ec0d4f04bc8fd6af02327be5c3db42af89e556c998a0"
+      }
+    },
+    {
+      "line": 2604,
+      "id": "toolu_01TCUKNVt8p8rum95MSpXkaj",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && S=qualification-scratch/rc11-effect-phase2-01/native-b01 && ls -la $S 2>/dev/null; mkdir -p $S/baseline && T=build_tenants/abiogenesis/typescript && for f in code/src/implementation/worksite_command_helper.ts test_env/tests/t287-owned-process-lifetime.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md; do cp -p $T/$f $S/baseline/$(basename $f); done; ls -la $T/code/src/shared/owned_process_scope.ts 2>&1; shasum -a 256 $S/baseline/* $T/code/src/shared/owned_process_lifetime.ts $T/code/src/shared/owned_process_state.ts",
+        "description": "Copy baseline targets to scratch and hash"
+      },
+      "ordinalZeroBased": 33,
+      "result": {
+        "line": 2608,
+        "isError": false,
+        "canonicalBytes": 1664,
+        "sha256": "806a249dd3ff99def810f169ce1c112d09f26b2ed4f72f10125f2b566130a24d"
+      }
+    },
+    {
+      "line": 2676,
+      "id": "toolu_018PYaGqyso7cEZ44Sv1ZRAs",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "old_string": "#!/usr/bin/env node\nimport { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from \"../shared/owned_process_lifetime.js\";",
+        "new_string": "#!/usr/bin/env node\nimport * as Cause from \"effect/Cause\";\nimport * as Effect from \"effect/Effect\";\nimport * as Either from \"effect/Either\";\nimport * as Exit from \"effect/Exit\";\nimport * as Option from \"effect/Option\";\nimport * as Scope from \"effect/Scope\";\nimport { runEffectProgram } from \"../shared/effect_definition.js\";\nimport { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from \"../shared/owned_process_lifetime.js\";"
+      },
+      "ordinalZeroBased": 34,
+      "result": {
+        "line": 2680,
+        "isError": false,
+        "canonicalBytes": 174,
+        "sha256": "dbecf607d6fb3ddab4da44cf0b50f7f9f6892bd07d0f5abd41a6f863587653a4"
+      }
+    },
+    {
+      "line": 2701,
+      "id": "toolu_01GfoH2kNXKWnYuhFYrUgudJ",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "old_string": "import { spawn, type ChildProcessByStdio } from \"node:child_process\";",
+        "new_string": "import { spawn } from \"node:child_process\";"
+      },
+      "ordinalZeroBased": 35,
+      "result": {
+        "line": 2703,
+        "isError": false,
+        "canonicalBytes": 174,
+        "sha256": "dbecf607d6fb3ddab4da44cf0b50f7f9f6892bd07d0f5abd41a6f863587653a4"
+      }
+    },
+    {
+      "line": 2748,
+      "id": "toolu_01KiWrLAZ9PQoWh96QkpRT5x",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "old_string": "import { spawn } from \"node:child_process\";",
+        "new_string": "import { spawn, type ChildProcessByStdio } from \"node:child_process\";"
+      },
+      "ordinalZeroBased": 36,
+      "result": {
+        "line": 2750,
+        "isError": false,
+        "canonicalBytes": 174,
+        "sha256": "dbecf607d6fb3ddab4da44cf0b50f7f9f6892bd07d0f5abd41a6f863587653a4"
+      }
+    },
+    {
+      "line": 2892,
+      "id": "toolu_01H1fgAxDmKmocXJPn4PPGT3",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && grep -n \"^async function runCommand\" -A 86 code/src/implementation/worksite_command_helper.ts | tail -5",
+        "description": "Confirm runCommand end boundary"
+      },
+      "ordinalZeroBased": 37,
+      "result": {
+        "line": 2896,
+        "isError": false,
+        "canonicalBytes": 162,
+        "sha256": "20dcf3a01c856f5a1a49b2f1d120ed46411cbc5fb335f102d8c218053232b0b8"
+      }
+    },
+    {
+      "line": 3596,
+      "id": "toolu_01XCBD8cHejuQeVrpyVxMjzT",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "old_string": "async function runCommand(\n  task: WorksiteExecutionTask,\n  executionRoot: string,\n  ordinal: number,\n  attemptRef: string | null = null,\n): Promise<WorksiteCommandResult> {\n  const command = task.commands[ordinal]!;\n  const cwd = await confinedExistingPath(\n    executionRoot,\n    command.relativeCwd,\n    \"directory\",\n  );\n  const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));\n  let child: ChildProcessByStdio<null, Readable, Readable>;\n  try {\n    child = spawn(command.executable, [...command.args], {\n      cwd, env: environment, detached: process.platform !== \"win32\",\n      stdio: [\"ignore\", \"pipe\", \"pipe\"],\n    });\n  } catch (error) {\n    return commandResult(executionRoot, command, ordinal, noChildLaunchObservation(error));\n  }\n  activeCommand = child;\n  const stdout: Buffer[] = [], stderr: Buffer[] = [];\n  const signalSequence: (\"SIGTERM\" | \"SIGKILL\")[] = [];\n  let timedOut = false;\n  let launchFailed = false;\n  let captureOpen = true;\n  const timeoutTimer = createMonotonicDeadline();\n  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {\n    onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, \"utf8\")); timeoutTimer.cancel(); },\n    onExit: () => {\n      captureOpen = false; timeoutTimer.cancel(); child.stdout.destroy(); child.stderr.destroy();\n    },\n    onSignalRequested: (signal) => {\n      timeoutTimer.cancel(); signalSequence.push(signal);\n      stderr.push(Buffer.from(`${signal === \"SIGTERM\" ? \"\\n\" : \"\"}ABI worksite command cleanup: ${signal} requested\\n`, \"utf8\"));\n    },\n  });\n  const heartbeat = setInterval(() => {\n    lifetime.observe(() => { process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\\n`); });\n  }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));\n  const onStdout = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stdout.push(Buffer.from(chunk))); };\n  const onStderr = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stderr.push(Buffer.from(chunk))); };\n  try {\n    child.stdout.on(\"data\", onStdout); child.stderr.on(\"data\", onStderr);\n    timeoutTimer.after(command.timeoutMs, () => { timedOut = true; lifetime.requestTermination(); });\n  } catch (error) { lifetime.fail(error); }\n  let facts: Awaited<typeof lifetime.completion>;\n  try {\n    facts = await lifetime.completion;\n    if (facts.firstError !== null) {\n      const detail = {\n        taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, command,\n        diagnostic: { name: facts.firstError.name, message: facts.firstError.message },\n        processFacts: encodeOwnedProcessFacts(facts),\n      };\n      throw new WorksiteHelperFailure(\"worksite command failed; dependent work stopped\", detail,\n        { failureClass: \"command_failed\", ...detail });\n    }\n  } finally {\n    timeoutTimer.cancel(); clearInterval(heartbeat); activeCommand = null; captureOpen = false;\n    child.stdout.off(\"data\", onStdout); child.stderr.off(\"data\", onStderr);\n  }\n  // A spawn failure has no child to clean up; an exit needs a confirmed boundary.\n  const terminal = classifyOwnedProcessTerminal(facts);\n  if (terminal === \"unconfirmed\") stderr.push(unconfirmedScopeDiagnostic(facts));\n  const launched: LaunchProcessObservation = {\n    exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),\n    processSignal: facts.directExit?.signal ?? null, timedOut,\n    signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== \"unconfirmed\",\n    stdout: stream(Buffer.concat(stdout)), stderr: stream(Buffer.concat(stderr)),\n  };\n  if (!launched.terminationConfirmed) {\n    const processObservation = commandProcessObservation(command, ordinal, launched);\n    const detail = {\n      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,\n      command: processObservation, diagnostic: decodeStream(processObservation.stderr),\n      processFacts: encodeOwnedProcessFacts(facts),\n    };\n    throw new WorksiteHelperFailure(\"worksite command cleanup unresolved; dependent work stopped\", detail,\n      { failureClass: \"command_cleanup_unresolved\", ...detail, diagnostic: { name: \"TypeError\", message: detail.diagnostic } });\n  }\n  return commandResult(executionRoot, command, ordinal, launched);\n}",
+        "new_string": "/** Lift one fallible Promise operation: its synchronous throw or its rejection\n * stays the exact failure value, never a library wrapper. */\nfunction attempt<A>(operation: () => PromiseLike<A>): Effect.Effect<A, unknown> {\n  return Effect.tryPromise({ try: () => operation(), catch: (value) => value });\n}\n\n/** Lift one fallible synchronous operation, keeping its exact thrown value. */\nfunction attemptSync<A>(operation: () => A): Effect.Effect<A, unknown> {\n  return Effect.try({ try: () => operation(), catch: (value) => value });\n}\n\n/** The barrier every command release crosses before it disposes: request the\n * lifetime's existing finite cleanup, inert once cleanup began or completed,\n * then await that lifetime's one canonical completion. */\nfunction settled(lifetime: ReturnType<typeof createOwnedProcessLifetime>): Effect.Effect<OwnedProcessFacts> {\n  return Effect.suspend(() => {\n    lifetime.requestTermination();\n    return Effect.promise(() => lifetime.completion);\n  });\n}\n\n/** The bounded diagnostic of one closed command Scope. A failed use stays the\n * outcome, so release faults behind it are written here, never dropped. */\nfunction commandScopeClosed(used: Exit.Exit<unknown, unknown>, closed: Exit.Exit<void>): void {\n  if (Exit.isSuccess(used) || Exit.isSuccess(closed)) return;\n  try {\n    process.stderr.write(`ABI worksite command release fault: ${Cause.pretty(closed.cause).slice(0, 8192)}\\n`);\n  } catch {\n    // A diagnostic never replaces the selected outcome.\n  }\n}\n\n/** One command Scope. Its use runs interruptibly and its Exit is kept before\n * the Scope closes. A failed use, interruption included, is the outcome;\n * otherwise the closed Scope is, so a release fault alone still fails. */\nfunction commandScope<A>(use: Effect.Effect<A, unknown, Scope.Scope>): Effect.Effect<A, unknown> {\n  return Effect.uninterruptibleMask((restore) => Effect.gen(function* () {\n    const scope = yield* Scope.make();\n    const used = yield* Effect.exit(restore(Scope.extend(use, scope)));\n    const closed = yield* Effect.exit(Scope.close(scope, used));\n    commandScopeClosed(used, closed);\n    if (Exit.isFailure(used) || Exit.isSuccess(closed)) return yield* used;\n    return yield* Effect.failCause(closed.cause);\n  }));\n}\n\n/** One command's launch inside its Scope: its owned child's observation, or\n * the no-child observation of a synchronous spawn error. */\nfunction launchCommand(\n  task: WorksiteExecutionTask,\n  ordinal: number,\n  cwd: string,\n  attemptRef: string | null,\n): Effect.Effect<LaunchProcessObservation, unknown, Scope.Scope> {\n  return Effect.gen(function* () {\n    const command = task.commands[ordinal]!;\n    const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));\n    const stdout: Buffer[] = [], stderr: Buffer[] = [];\n    const signalSequence: (\"SIGTERM\" | \"SIGKILL\")[] = [];\n    let timedOut = false;\n    let launchFailed = false;\n    let captureOpen = true;\n    const timeoutTimer = createMonotonicDeadline();\n    // Spawn and lifetime are one uninterruptible acquisition: once a child\n    // exists, its settling release is registered before anything can fail.\n    const launch = yield* Effect.acquireRelease(\n      attemptSync(() => spawn(command.executable, [...command.args], {\n        cwd, env: environment, detached: process.platform !== \"win32\",\n        stdio: [\"ignore\", \"pipe\", \"pipe\"],\n      })).pipe(Effect.either, Effect.map(Either.map((child) => {\n        activeCommand = child;\n        const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {\n          onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, \"utf8\")); timeoutTimer.cancel(); },\n          onExit: () => {\n            captureOpen = false; timeoutTimer.cancel(); child.stdout.destroy(); child.stderr.destroy();\n          },\n          onSignalRequested: (signal) => {\n            timeoutTimer.cancel(); signalSequence.push(signal);\n            stderr.push(Buffer.from(`${signal === \"SIGTERM\" ? \"\\n\" : \"\"}ABI worksite command cleanup: ${signal} requested\\n`, \"utf8\"));\n          },\n        });\n        return { child, lifetime };\n      }))),\n      (launch) => Either.isLeft(launch) ? Effect.void\n        : Effect.zipRight(settled(launch.right.lifetime), Effect.sync(() => { activeCommand = null; })),\n    );\n    if (Either.isLeft(launch)) return yield* attemptSync(() => noChildLaunchObservation(launch.left));\n    const { child, lifetime } = launch.right;\n    // Each later resource registers its release before its fallible\n    // acquisition; that release disposes only after the settlement barrier.\n    const hold = (acquire: () => unknown, release: () => void) => Effect.zipRight(\n      Effect.addFinalizer(() => Effect.zipRight(settled(lifetime), Effect.sync(release))),\n      attemptSync(acquire),\n    );\n    let heartbeat: ReturnType<typeof setInterval> | undefined;\n    const onStdout = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stdout.push(Buffer.from(chunk))); };\n    const onStderr = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stderr.push(Buffer.from(chunk))); };\n    yield* Effect.all([\n      hold(() => {\n        heartbeat = setInterval(() => {\n          lifetime.observe(() => { process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\\n`); });\n        }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));\n      }, () => clearInterval(heartbeat)),\n      hold(() => child.stdout.on(\"data\", onStdout), () => child.stdout.off(\"data\", onStdout)),\n      hold(() => child.stderr.on(\"data\", onStderr), () => child.stderr.off(\"data\", onStderr)),\n      hold(() => timeoutTimer.after(command.timeoutMs, () => { timedOut = true; lifetime.requestTermination(); }),\n        () => timeoutTimer.cancel()),\n    ], { discard: true }).pipe(Effect.catchAll((error) => Effect.sync(() => lifetime.fail(error))));\n    const facts = yield* Effect.promise(() => lifetime.completion);\n    if (facts.firstError !== null) {\n      const detail = {\n        taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, command,\n        diagnostic: { name: facts.firstError.name, message: facts.firstError.message },\n        processFacts: encodeOwnedProcessFacts(facts),\n      };\n      return yield* Effect.fail(new WorksiteHelperFailure(\"worksite command failed; dependent work stopped\", detail,\n        { failureClass: \"command_failed\", ...detail }));\n    }\n    // A spawn failure has no child to clean up; an exit needs a confirmed boundary.\n    const terminal = classifyOwnedProcessTerminal(facts);\n    if (terminal === \"unconfirmed\") stderr.push(unconfirmedScopeDiagnostic(facts));\n    const launched: LaunchProcessObservation = {\n      exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),\n      processSignal: facts.directExit?.signal ?? null, timedOut,\n      signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== \"unconfirmed\",\n      stdout: stream(Buffer.concat(stdout)), stderr: stream(Buffer.concat(stderr)),\n    };\n    if (!launched.terminationConfirmed) {\n      const processObservation = commandProcessObservation(command, ordinal, launched);\n      const detail = {\n        taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,\n        command: processObservation, diagnostic: decodeStream(processObservation.stderr),\n        processFacts: encodeOwnedProcessFacts(facts),\n      };\n      return yield* Effect.fail(new WorksiteHelperFailure(\"worksite command cleanup unresolved; dependent work stopped\", detail,\n        { failureClass: \"command_cleanup_unresolved\", ...detail, diagnostic: { name: \"TypeError\", message: detail.diagnostic } }));\n    }\n    return launched;\n  });\n}\n\nfunction runCommand(\n  task: WorksiteExecutionTask,\n  executionRoot: string,\n  ordinal: number,\n  attemptRef: string | null = null,\n): Effect.Effect<WorksiteCommandResult, unknown> {\n  return Effect.gen(function* () {\n    const command = task.commands[ordinal]!;\n    const cwd = yield* attempt(() => confinedExistingPath(\n      executionRoot,\n      command.relativeCwd,\n      \"directory\",\n    ));\n    const launched = yield* commandScope(launchCommand(task, ordinal, cwd, attemptRef));\n    return yield* attempt(() => commandResult(executionRoot, command, ordinal, launched));\n  });\n}"
+      },
+      "ordinalZeroBased": 38,
+      "result": {
+        "line": 3600,
+        "isError": false,
+        "canonicalBytes": 174,
+        "sha256": "dbecf607d6fb3ddab4da44cf0b50f7f9f6892bd07d0f5abd41a6f863587653a4"
+      }
+    },
+    {
+      "line": 3640,
+      "id": "toolu_01SgkJhsTyTaTuGwpTt2Xput",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"^async function publishCreateOnly\\|^async function main\\|^await main\" code/src/implementation/worksite_command_helper.ts",
+        "description": "Locate main boundaries"
+      },
+      "ordinalZeroBased": 39,
+      "result": {
+        "line": 3644,
+        "isError": false,
+        "canonicalBytes": 150,
+        "sha256": "123dd6b32658ad8603fd0d93aac5643c12c39738c67af530a40cc825c8686436"
+      }
+    },
+    {
+      "line": 4075,
+      "id": "toolu_01BMKZkJvmYuwQAL4TNxJ8NR",
+      "name": "Bash",
+      "input": {
+        "command": "python3 - <<'EOF'\nimport pathlib\np = pathlib.Path(\"code/src/implementation/worksite_command_helper.ts\")\ntext = p.read_text()\nstart = text.index(\"async function main(): Promise<void> {\\n\")\nend = text.index(\"await main();\\n\")\nold = text[start:end]\nnew = '''/** The raw value a failed helper Exit selects: the first Fail or Die payload in\n * sequential (release) order, never a preferred category. An interruption or a\n * parallel Cause has no one original value and selects none. */\nfunction selectedFailure(cause: Cause.Cause<unknown>): Option.Option<unknown> {\n  const [ordered, first] = Cause.match<readonly [boolean, Option.Option<unknown>], unknown>(cause, {\n    onEmpty: [true, Option.none()],\n    onFail: (error) => [true, Option.some(error)],\n    onDie: (defect) => [true, Option.some(defect)],\n    onInterrupt: () => [false, Option.none()],\n    onSequential: (left, right) => [left[0] && right[0], Option.orElse(left[1], () => right[1])],\n    onParallel: () => [false, Option.none()],\n  });\n  return ordered ? first : Option.none();\n}\n\n/** The helper's host boundary: run one program once through the package\n * membrane and return its value or throw its selected raw failure. A failure\n * with no one original value throws its actual Cause. */\nasync function runHelperProgram<A>(program: Effect.Effect<A, unknown>): Promise<A> {\n  const exit = await runEffectProgram(program);\n  if (Exit.isSuccess(exit)) return exit.value;\n  const selected = selectedFailure(exit.cause);\n  throw Option.isSome(selected) ? selected.value : exit.cause;\n}\n\n/** Print one acknowledgment and settle only once its write has drained. */\nfunction acknowledge(line: string, output: NodeJS.WritableStream = process.stdout): Promise<void> {\n  return new Promise<void>((resolveWrite, rejectWrite) => {\n    output.write(line, (error) => error === null || error === undefined ? resolveWrite() : rejectWrite(error));\n  });\n}\n\nasync function main(): Promise<void> {\n  return runHelperProgram(Effect.gen(function* () {\n    const preflight = yield* attempt(() => admitLaunchManifest());\n    const { task, artifactPath, sandboxRoot } = preflight;\n    if (!isWorksiteExecutionTask(task)) {\n      return yield* Effect.fail(new TypeError(\"helper launch manifest does not retain one exact Product task\"));\n    }\n    const before = yield* attempt(() => observations(task));\n    const productInventoryBefore = yield* attempt(() => filesystemInventory(\n      task.workspaceBinding.roots.productRoot,\n    ));\n    const beforeMatches = before.every((row, ordinal) => canonicalEquals(\n      row,\n      worksiteExecutionSources(task)[ordinal]!.observation,\n    ));\n    const commandResults: WorksiteCommandResult[] = [];\n    const predicateObservations: WorksitePredicateObservation[] = [];\n    const snapshot = yield* attempt(() => beforeMatches\n      ? materializeSnapshot(task, sandboxRoot)\n      : (async () => {\n          await mkdir(sandboxRoot);\n          const snapshotMembers = Object.freeze([]) as readonly WorksiteExecutionSnapshotMember[];\n          const snapshotDigest = sha256Canonical(snapshotMembers);\n          return Object.freeze({\n            snapshotRef: `${worksiteExecutionIdentityPrefix(task, \"snapshot\")}/${snapshotDigest.slice(\"sha256:\".length)}`,\n            snapshotDigest,\n            snapshotMembers,\n          });\n        })());\n    const inventoryBefore = yield* attempt(() => filesystemInventory(sandboxRoot));\n    // A failure after launch is published as the artifact's `failure`\n    // disposition, then rethrown: the helper still exits non-zero. Any other\n    // failure, defect or interruption escapes unchanged.\n    const failed = !beforeMatches ? null : yield* Effect.gen(function* () {\n      for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {\n        const command = yield* runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);\n        if (!command.terminationConfirmed) {\n          return yield* Effect.fail(new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({\n            taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,\n            command, diagnostic: decodeStream(command.stderr),\n          })}`));\n        }\n        commandResults.push(command);\n      }\n      for (let ordinal = 0; ordinal < task.outcomePredicates.length; ordinal += 1) {\n        const observation = yield* attempt(() =>\n          predicateObservation(task, sandboxRoot, commandResults, ordinal, preflight.manifest.attemptRef));\n        if (observation.predicateKind === \"http_response_exact\") {\n          const probe = record(observation.observedValue);\n          const processObservation = record(probe.process);\n          if (processObservation.terminationConfirmed !== true) {\n            return yield* Effect.fail(new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({\n              taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,\n              observation, diagnostic: decodeStream(processObservation.stderr as unknown as WorksiteObservedStream),\n            })}`));\n          }\n        }\n        predicateObservations.push(observation);\n      }\n      return null;\n    }).pipe(Effect.catchAll((error) => error instanceof WorksiteHelperFailure ? Effect.succeed(error) : Effect.fail(error)));\n    const after = yield* attempt(() => observations(task));\n    const inventoryAfter = yield* attempt(() => filesystemInventory(sandboxRoot));\n    const delta = worksiteDelta(task, inventoryBefore, inventoryAfter);\n    const productInventoryAfter = yield* attempt(() => filesystemInventory(\n      task.workspaceBinding.roots.productRoot,\n    ));\n    const productDelta = worksiteDelta(task, productInventoryBefore, productInventoryAfter, false);\n    const afterMatches = after.every((row, ordinal) => canonicalEquals(\n      row,\n      worksiteExecutionSources(task)[ordinal]!.observation,\n    ));\n    const artifact = constructWorksiteExecutionHelperArtifact({\n      task,\n      // The adapters ran under this manifest's attempt; the subject names it.\n      ...(failed === null ? {} : { failure: { ...failed.subject, attemptRef: preflight.manifest.attemptRef } }),\n      disposition: failed !== null\n        ? \"failure\"\n        : !beforeMatches || !afterMatches\n        ? \"protected_mismatch\"\n        : productDelta.length > 0\n        ? \"product_mismatch\"\n        : delta.some((row) => row.matchedTerritoryRef === null)\n        ? \"territory_mismatch\"\n        : \"success\",\n      commandResults,\n      predicateObservations,\n      worksiteDelta: delta,\n      productDelta,\n      snapshotRoot: sandboxRoot,\n      snapshotRef: snapshot.snapshotRef,\n      snapshotDigest: snapshot.snapshotDigest,\n      snapshotMembers: snapshot.snapshotMembers,\n      protectedBefore: before,\n      protectedAfter: after,\n    });\n    const bytes = Buffer.from(`${canonicalJson(artifact)}\\\\n`, \"utf8\");\n    yield* attempt(() => publishCreateOnly(artifactPath, bytes));\n    yield* attempt(() => canonicalExistingPathWithinRoot(\n      preflight.manifest.archiveRoot,\n      artifactPath,\n      \"file\",\n    ));\n    // The acknowledgment is printed for every disposition, a failure included,\n    // and drained before the rethrow: a pipe is asynchronous.\n    const workerReturnProjection = Object.freeze({\n      kind: \"worksite_command_execution_worker_result\" as const,\n      schemaVersion: \"5.0.0\" as const,\n      taskRef: task.taskRef,\n      taskDigest: task.taskDigest,\n      attemptRef: preflight.manifest.attemptRef,\n      helperArtifactRef: artifact.artifactRef,\n      helperArtifactDigest: artifact.artifactDigest,\n    }) satisfies WorksiteCommandExecutionWorkerResult;\n    yield* attempt(() => acknowledge(`${canonicalJson(workerReturnProjection)}\\\\n`));\n    if (failed !== null) return yield* Effect.fail(failed);\n  }));\n}\n\n'''\np.write_text(text[:start] + new + text[end:])\nEOF\ntail -5 code/src/implementation/worksite_command_helper.ts; grep -n 'canonicalJson(artifact)\\|canonicalJson(workerReturnProjection)' code/src/implementation/worksite_command_helper.ts",
+        "description": "Replace main with composed Effect helper program"
+      },
+      "ordinalZeroBased": 40,
+      "result": {
+        "line": 4079,
+        "isError": false,
+        "canonicalBytes": 261,
+        "sha256": "e9a3bfe798c51714a6bfa4d56336ebbb11af5b0322041a3f02d5b5c4a572c958"
+      }
+    },
+    {
+      "line": 4137,
+      "id": "toolu_01UWzvbaGJvF4Dqz1zNpSrNU",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && S=qualification-scratch/rc11-effect-phase2-01/native-b01 && T=build_tenants/abiogenesis/typescript && mkdir -p $S/tenant && cp $T/package.json $S/tenant/package.json && ln -s /private/tmp/abg-rc11-foundation-20261110-01/$T/node_modules $S/tenant/node_modules && ls -la $S/tenant && command -v timeout gtimeout perl",
+        "description": "Create scratch tenant with symlinked node_modules"
+      },
+      "ordinalZeroBased": 41,
+      "result": {
+        "line": 4141,
+        "isError": true,
+        "canonicalBytes": 351,
+        "sha256": "e7c1d0f8b2cb38605c19aca47e6e8346295fb420eb6262cb897949057f8d7f94"
+      }
+    },
+    {
+      "line": 4211,
+      "id": "toolu_01M71NFvAoSwMp1BKf2NGpWn",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && S=qualification-scratch/rc11-effect-phase2-01/native-b01 && mkdir -p $S/checks && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && perl -e 'alarm 240; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js -p /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/tsconfig.json --outDir /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/tenant/build/code/src --incremental false > $S/checks/compile-01.out 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/compile-01.status; head -50 $S/checks/compile-01.out",
+        "description": "Run fresh scratch compile attempt 1",
+        "timeout": 300000
+      },
+      "ordinalZeroBased": 42,
+      "result": {
+        "line": 4215,
+        "isError": false,
+        "canonicalBytes": 48,
+        "sha256": "ff8bd85d685622a523e7d1a7c2d3aee396effbbe640a9280c1e64bfc684d6c89"
+      }
+    },
+    {
+      "line": 4672,
+      "id": "toolu_01KuhbGT5u549cTbojxMnPKp",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "async function helperModule(t, control = false, overrides = {}) {\n  const path = join(packageRoot, 'build/code/src/implementation/worksite_command_helper.js');\n  let source = (await readFile(path, 'utf8')).replace(/^#!.*\\n/u, '');\n  const suffix = control ? `export async function controlledMain(c) {\n    admitLaunchManifest=c.admit; observations=c.observations; filesystemInventory=c.inventory;\n    materializeSnapshot=c.snapshot; runCommand=c.command; predicateObservation=c.predicate;\n    worksiteDelta=c.delta; publishCreateOnly=c.publish; return main();\n  }\n  export async function controlledCommand(c, task) {\n    confinedExistingPath=c.confinedPath; reportObservation=c.report;\n    return runCommand(task, '/controlled', 0, 'attempt://selected');\n  }\n  export { runHttpProbe };` : 'export { runCommand, runHttpProbe };';\n  assert.match(source, /await main\\(\\);\\s*$/u); source = source.replace(/await main\\(\\);\\s*$/u, suffix);\n  const previous = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));\n  const mod = new SourceTextModule(source, { identifier: path });\n  await mod.link(async specifier => {\n    const imported = { ...await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href) };",
+        "new_string": "async function helperModule(t, control = false, overrides = {}) {\n  const path = join(packageRoot, 'build/code/src/implementation/worksite_command_helper.js');\n  let source = (await readFile(path, 'utf8')).replace(/^#!.*\\n/u, '');\n  // Promise-facing callers run the actual Effect command through the helper's own host projection.\n  const onHost = 'const runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));';\n  const suffix = control ? `${onHost}\n  const production = { confinedExistingPath, reportObservation, commandScopeClosed, runCommand,\n    canonicalExistingPathWithinRoot, acknowledge };\n  function controlledBindings(c) {\n    confinedExistingPath = c.confinedPath === undefined ? production.confinedExistingPath : c.confinedPath;\n    reportObservation = c.report === undefined ? production.reportObservation : c.report;\n    commandScopeClosed = c.closed === undefined ? production.commandScopeClosed\n      : (used, closed) => { c.closed(used, closed); production.commandScopeClosed(used, closed); };\n  }\n  export async function controlledMain(c) {\n    admitLaunchManifest=c.admit; observations=c.observations; filesystemInventory=c.inventory;\n    materializeSnapshot=c.snapshot; predicateObservation=c.predicate;\n    worksiteDelta=c.delta; publishCreateOnly=c.publish; controlledBindings(c);\n    runCommand = c.command === undefined ? production.runCommand : (...args) => attempt(() => c.command(...args));\n    canonicalExistingPathWithinRoot = c.path === undefined ? production.canonicalExistingPathWithinRoot : c.path;\n    acknowledge = c.output === undefined ? production.acknowledge : line => production.acknowledge(line, c.output);\n    return main();\n  }\n  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return runCommand(task, '/controlled', 0, 'attempt://selected');\n  }\n  export const controlledCommand = (c, task) => runHelperProgram(controlledCommandEffect(c, task));\n  export const activeCommandOf = () => activeCommand;\n  export { runHttpProbe, runHelperProgram, WorksiteHelperFailure };` : `${onHost}\n  export { runCommandOnHost as runCommand, runHttpProbe };`;\n  assert.match(source, /await main\\(\\);\\s*$/u); source = source.replace(/await main\\(\\);\\s*$/u, suffix);\n  const previous = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));\n  const mod = new SourceTextModule(source, { identifier: path });\n  await mod.link(async specifier => {\n    // Relative owners load from the selected package; bare Effect modules resolve as package dependencies.\n    const imported = { ...await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(path), specifier)).href : specifier) };"
+      },
+      "ordinalZeroBased": 43,
+      "result": {
+        "line": 4674,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 4761,
+      "id": "toolu_01QKNrDuM9U7t5ygoqNTGSTw",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "    let lifetime, reports = 0;\n    const helper = await helperModule(t, true, {\n      'node:child_process': { spawn: () => child },\n      '../shared/owned_process_lifetime.js': {\n        createOwnedProcessLifetime: (process, bounds, observations) => lifetime = createOwnedProcessLifetime(process, {\n          ...bounds, host: { clock: clock.clock, platform: 'posix', probeGroup: () => 'unknown', signal: () => {} },\n        }, observations),\n      },\n    });",
+        "new_string": "    let lifetime, reports = 0;\n    const helper = await helperModule(t, true, {\n      'node:child_process': { spawn: () => child },\n      '../shared/owned_process_lifetime.js': {\n        createOwnedProcessLifetime: (process, bounds, observations) => awaitedCompletion(lifetime = createOwnedProcessLifetime(process, {\n          ...bounds, host: { clock: clock.clock, platform: 'posix', probeGroup: () => 'unknown', signal: () => {} },\n        }, observations), notifyReady),\n      },\n    });"
+      },
+      "ordinalZeroBased": 44,
+      "result": {
+        "line": 4765,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 4799,
+      "id": "toolu_012fbETztQ92cjLoEt4Jzujk",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "    const result = helper.controlledCommand({ confinedPath: async () => '/controlled',\n      report: async () => { reports++; throw new Error('unexpected report filesystem access'); } }, task);\n    await Promise.resolve();\n    assert(lifetime);",
+        "new_string": "    const result = helper.controlledCommand({ confinedPath: async () => '/controlled',\n      report: async () => { reports++; throw new Error('unexpected report filesystem access'); } }, task);\n    await ready;\n    assert(lifetime);"
+      },
+      "ordinalZeroBased": 45,
+      "result": {
+        "line": 4801,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 4888,
+      "id": "toolu_01AkuNaBH9FaBmHkUDWcvats",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "  assert.equal(body.processFacts.firstError.message, body.diagnostic.message);\n}\n\ntest('controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error', async t => {\n  for (const ownerFailure of [false, true]) {\n    const clock = controlledClock(), child = new EventEmitter(), first = new Error('first report-owner failure');\n    child.pid = 321;",
+        "new_string": "  assert.equal(body.processFacts.firstError.message, body.diagnostic.message);\n}\n\n// Explicit acquisition readiness: the helper command reads its lifetime's\n// completion only after its last acquisition. Every other member is the same lifetime.\nfunction awaitedCompletion(lifetime, notify) {\n  return { ...lifetime, get completion() { notify(); return lifetime.completion; } };\n}\n\ntest('controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error', async t => {\n  for (const ownerFailure of [false, true]) {\n    const clock = controlledClock(), child = new EventEmitter(), first = new Error('first report-owner failure');\n    let notifyReady; const ready = new Promise(resolveReady => { notifyReady = resolveReady; });\n    child.pid = 321;"
+      },
+      "ordinalZeroBased": 46,
+      "result": {
+        "line": 4892,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 4952,
+      "id": "toolu_0124gEE5PbgSMQuxtzshXKBt",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "import test from 'node:test';\nimport { failureFact, observeOwnerCall, retainEvidence } from '../support/t287-publication-observer.mjs';",
+        "new_string": "import test from 'node:test';\nimport * as Cause from 'effect/Cause';\nimport * as Effect from 'effect/Effect';\nimport * as Exit from 'effect/Exit';\nimport * as Fiber from 'effect/Fiber';\nimport { failureFact, observeOwnerCall, retainEvidence } from '../support/t287-publication-observer.mjs';"
+      },
+      "ordinalZeroBased": 47,
+      "result": {
+        "line": 4956,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 5912,
+      "id": "toolu_01SnM2rdsqkvyvwaoX1KiY8q",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "    assert.equal(lifetime.snapshot().scopeAbsence, 'absent'); assert.equal(clock.active(), 0);\n    assert.equal(lifetime.snapshot().signalAttempts, 1);\n  }\n});\n",
+        "new_string": "    assert.equal(lifetime.snapshot().scopeAbsence, 'absent'); assert.equal(clock.active(), 0);\n    assert.equal(lifetime.snapshot().signalAttempts, 1);\n  }\n});\n\n// B command fixture: the actual helper Effect command over a controlled child,\n// clock and group host. The group ends at its first requested signal; the log\n// orders signals, the canonical completion and capture-listener detachment.\nconst bTask = (timeoutMs = 10000) => ({ taskRef: 'task://b-command', taskDigest: 'sha256:' + '5'.repeat(64),\n  outcomePredicates: [], workspaceBinding: { roots: { productRoot: '/controlled' } },\n  commands: [{ ordinal: 0, commandId: 'command://b-command', executable: 'controlled', args: [], environment: [],\n    relativeCwd: '.', timeoutMs, terminationGraceMs: 100, expectedReports: [] }] });\nconst bPaths = { confinedPath: async () => '/controlled', report: async () => assert.fail('no expected-report read') };\nconst realTimers = () => process.getActiveResourcesInfo().filter(name => name === 'Timeout').length;\nfunction bRow({ spawned = () => new ControlledChild(), faults = {} } = {}) {\n  const clock = controlledClock(), log = [];\n  let child = null, lifetime = null, absent = false, notifyReady;\n  const ready = new Promise(resolveReady => { notifyReady = resolveReady; });\n  const fault = (name, stage) => { if (Object.hasOwn(faults, `${name}-${stage}`)) throw faults[`${name}-${stage}`]; };\n  return { clock, log, ready, get child() { return child; }, get lifetime() { return lifetime; },\n    end: (status = 0, afterExit = () => {}) => { absent = true; child.emit('exit', status, null); afterExit(); child.emit('close'); },\n    spawn: () => {\n      child = spawned();\n      for (const name of ['stdout', 'stderr']) {\n        const stream = child[name], on = stream.on.bind(stream), off = stream.off.bind(stream);\n        stream.on = (event, listener) => { if (event === 'data') fault(name, 'attach'); return on(event, listener); };\n        stream.off = (event, listener) => {\n          off(event, listener); if (event === 'data') { log.push(['detach', name]); fault(name, 'detach'); } return stream;\n        };\n      }\n      return child;\n    },\n    own: (owned, bounds, observations) => {\n      lifetime = createOwnedProcessLifetime(owned, { ...bounds, host: { clock: clock.clock, platform: 'posix',\n        probeGroup: () => absent ? 'absent' : 'present',\n        signal: (_child, value) => { log.push(['signal', value]); absent = true; owned.emit('exit', null, value); owned.emit('close'); },\n      } }, observations);\n      lifetime.completion.then(() => log.push(['completion']));\n      return awaitedCompletion(lifetime, notifyReady);\n    } };\n}\nasync function bHelper(t, overrides = {}) {\n  let row = null;\n  const helper = await helperModule(t, true, {\n    'node:child_process': { spawn: () => row.spawn() },\n    '../shared/owned_process_lifetime.js': {\n      createMonotonicDeadline: () => createMonotonicDeadline(row.clock.clock),\n      createOwnedProcessLifetime: (child, bounds, observations) => row.own(child, bounds, observations),\n    },\n    ...overrides,\n  });\n  return { helper, start: options => (row = bRow(options)) };\n}\nconst settledThenDetached = log => {\n  const settled = log.findIndex(([kind]) => kind === 'completion');\n  assert(settled >= 0 && log.slice(settled + 1).every(([kind]) => kind === 'detach'), JSON.stringify(log));\n  assert.deepEqual(log.slice(settled + 1), [['detach', 'stderr'], ['detach', 'stdout']], 'every capture release follows settlement');\n  return log.slice(0, settled);\n};\nconst noResidue = (b, row, timers) => {\n  for (const name of ['stdout', 'stderr']) assert.equal(row.child[name].listenerCount('data'), 0, `${name} listener detached`);\n  assert.equal(row.clock.active(), 0, 'no lifetime or command deadline armed');\n  assert.equal(realTimers(), timers, 'heartbeat interval released');\n  assert.equal(b.helper.activeCommandOf(), null, 'emergency target cleared after settlement');\n};\n\ntest('controlled B command: partial setup failures settle before disposal', async t => {\n  const b = await bHelper(t), captureFault = new Error('stderr capture attach failure');\n  // A capture attach fault after stdout attached, and the actual deadline refusing 0 after both captures.\n  for (const [setup, faults, timeoutMs] of [['capture', { 'stderr-attach': captureFault }, 10000], ['timeout', {}, 0]]) {\n    const timers = realTimers(), row = b.start({ faults });\n    const outcome = await b.helper.controlledCommand(bPaths, bTask(timeoutMs)).then(value => ({ value }), error => ({ error }));\n    const first = row.lifetime.snapshot().firstError;\n    if (setup === 'capture') assert.equal(first, captureFault, 'the setup failure reaches the existing lifetime.fail');\n    else assert.equal(first.message, 'owned process wait must be positive and finite');\n    assertDependentFailure(outcome.error, 'worksite command failed; dependent work stopped: ', first);\n    assert.deepEqual(settledThenDetached(row.log), [['signal', 'SIGKILL']], `${setup}: finite cleanup requested before any wait`);\n    noResidue(b, row, timers);\n  }\n});\n\ntest('controlled B command: interruption settles before capture disposal', async t => {\n  const b = await bHelper(t);\n  for (const ending of ['interrupt', 'direct exit']) {\n    const timers = realTimers(), row = b.start();\n    let caught = false, observed;\n    const value = await b.helper.runHelperProgram(Effect.gen(function* () {\n      const fiber = yield* Effect.fork(b.helper.controlledCommandEffect(bPaths, bTask()));\n      yield* Effect.promise(() => row.ready);\n      const chunk = Buffer.from('before-exit');\n      row.child.stdout.emit('data', chunk); chunk.fill(0);\n      if (ending === 'interrupt') yield* Fiber.interrupt(fiber);\n      else row.end(0, () => row.child.stdout.emit('data', Buffer.from('after-exit')));\n      return yield* Fiber.join(fiber);\n    })).catch(error => { caught = true; observed = error; });\n    if (ending === 'interrupt') {\n      assert.equal(caught, true, 'interruption is not success');\n      assert(Cause.isCause(observed) && Cause.isInterruptedOnly(observed), 'the host keeps the actual interruption Cause');\n      assert.deepEqual(settledThenDetached(row.log), [['signal', 'SIGTERM']], 'interruption requests finite cleanup first');\n      assert.deepEqual(row.lifetime.snapshot().directExit, { status: null, signal: 'SIGTERM' });\n    } else {\n      assert.equal(caught, false);\n      assert.equal(decode(value.stdout), 'before-exit', 'copied bytes before the direct-exit capture cut only');\n      assert.equal(value.exitStatus, 0); assert.equal(value.terminationConfirmed, true); assert.deepEqual(value.signalSequence, []);\n      assert.deepEqual(settledThenDetached(row.log), []);\n    }\n    noResidue(b, row, timers);\n  }\n});\n\ntest('controlled B command: primary use and cleanup-only failures retain exact outcomes', async t => {\n  const b = await bHelper(t), first = new Error('primary command failure');\n  const stdoutFault = new Error('stdout release fault'), stderrFault = new Error('stderr release fault');\n  for (const [name, primary, faults, releaseOrder] of [\n    ['primary use with a secondary release fault', first, { 'stdout-detach': stdoutFault }, [stdoutFault]],\n    ['cleanup-only Error', null, { 'stdout-detach': stdoutFault }, [stdoutFault]],\n    ['cleanup-only undefined', null, { 'stdout-detach': undefined }, [undefined]],\n    ['two cleanup faults', null, { 'stdout-detach': stdoutFault, 'stderr-detach': stderrFault }, [stderrFault, stdoutFault]],\n  ]) {\n    const row = b.start({ faults }), scopes = [];\n    let caught = false, observed;\n    const pending = b.helper.controlledCommand({ ...bPaths, closed: (used, closed) => scopes.push({ used, closed }) }, bTask())\n      .catch(error => { caught = true; observed = error; });\n    await row.ready;\n    if (primary !== null) row.lifetime.fail(primary); else row.end(0);\n    await pending;\n    assert.equal(caught, true, `${name}: failure present whatever its value`);\n    assert.equal(scopes.length, 1); const [{ used, closed }] = scopes;\n    settledThenDetached(row.log);\n    // The closed Scope keeps every release fault, in release order, as a defect.\n    assert(Exit.isFailure(closed)); assert.equal([...Cause.failures(closed.cause)].length, 0);\n    const defects = [...Cause.defects(closed.cause)];\n    assert.equal(defects.length, releaseOrder.length); defects.forEach((defect, index) => assert(Object.is(defect, releaseOrder[index]), name));\n    if (primary !== null) {\n      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);\n      assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical primary use failure is the outcome');\n      assertDependentFailure(observed, 'worksite command failed; dependent work stopped: ', first);\n    } else {\n      assert(Exit.isSuccess(used));\n      assert(Object.is(observed, releaseOrder[0]), `${name}: the first release fault in release order is the outcome`);\n    }\n    assert.equal(b.helper.activeCommandOf(), null); assert.equal(row.clock.active(), 0);\n  }\n});\n\ntest('controlled B helper: raw failures survive actual lifts and host projection', async t => {\n  const b = await bHelper(t);\n  const preflight = (admit, calls) => b.helper.controlledMain({ admit,\n    observations: async () => { calls.push('observations'); return []; }, inventory: async () => { calls.push('inventory'); return []; },\n    snapshot: async () => { calls.push('snapshot'); return {}; }, command: async () => { calls.push('command'); },\n    predicate: async () => { calls.push('predicate'); }, delta: () => { calls.push('delta'); return []; },\n    publish: async () => { calls.push('publication'); } });\n  for (const value of [new Error('raw error'), { raw: 'object' }, 'raw string', null, false, undefined]) {\n    for (const lift of ['promise rejection', 'synchronous invocation throw', 'synchronous spawn throw', 'release defect']) {\n      const calls = [];\n      let pending;\n      if (lift === 'promise rejection') pending = preflight(() => Promise.reject(value), calls);\n      else if (lift === 'synchronous invocation throw') pending = preflight(() => { throw value; }, calls);\n      else if (lift === 'synchronous spawn throw') {\n        b.start({ spawned: () => { throw value; } }); pending = b.helper.controlledCommand(bPaths, bTask());\n      } else {\n        const row = b.start({ faults: { 'stdout-detach': value } });\n        pending = b.helper.controlledCommand(bPaths, bTask()); await row.ready; row.end(0);\n      }\n      let caught = false, observed;\n      try { await pending; } catch (error) { caught = true; observed = error; }\n      assert.equal(caught, true, `${lift}: failure present whatever its value`);\n      assert(Object.is(observed, value), `${lift}: the exact raw value, never a wrapper`);\n      assert.deepEqual(calls, [], 'a preflight failure launches and publishes nothing');\n      assert.equal(b.helper.activeCommandOf(), null);\n    }\n  }\n});\n\n// D15 through main: the injected constructor stands in for Product artifact\n// construction; every helper step, lift, command and the drain are actual.\nconst bArtifact = log => ({ '../product/worksite_command_execution.js': { constructWorksiteExecutionHelperArtifact: input => {\n  log.push(['artifact', input]); return { artifactRef: 'artifact://b-selected', artifactDigest: 'sha256:' + '6'.repeat(64) };\n} } });\nconst bMain = (log, overrides) => ({\n  admit: async () => ({ task: bTask(), sandboxRoot: '/controlled-sandbox', artifactPath: '/controlled-artifact',\n    manifest: { attemptRef: 'attempt://selected', archiveRoot: '/controlled-archive' } }),\n  observations: async () => { log.push(['observations']); return []; }, inventory: async () => { log.push(['inventory']); return []; },\n  snapshot: async () => ({ snapshotRef: 'snapshot://b', snapshotDigest: 'sha256:' + '7'.repeat(64), snapshotMembers: [] }),\n  predicate: async () => assert.fail('no predicate after a command failure'), delta: () => [],\n  publish: async (path, bytes) => { log.push(['publication', path, JSON.parse(bytes)]); },\n  path: async (root, path, kind) => { log.push(['path', root, path, kind]); return path; },\n  ...bPaths, ...overrides,\n});\n\ntest('controlled B helper: command failure reaches artifact and drained acknowledgment', async t => {\n  const log = [], scopes = [], b = await bHelper(t, bArtifact(log));\n  const first = new Error('primary command failure'), releaseFault = new Error('secondary release fault');\n  const row = b.start({ faults: { 'stdout-detach': releaseFault } });\n  let drain, notifyWritten, caught = false, observed;\n  const written = new Promise(resolveWritten => { notifyWritten = resolveWritten; });\n  const output = { write: (line, callback) => {\n    log.push(['acknowledgment', JSON.parse(line)]); drain = () => { log.push(['drained']); callback(); }; notifyWritten(); return true;\n  } };\n  const outcome = b.helper.controlledMain(bMain(log, { output, closed: (used, closed) => scopes.push({ used, closed }) }))\n    .catch(error => { caught = true; observed = error; log.push(['rejected']); });\n  await row.ready; row.lifetime.fail(first);\n  await Promise.race([written, outcome]);\n  await new Promise(resolveTurn => setImmediate(resolveTurn));\n  assert.equal(caught, false, 'no rethrow before the acknowledgment drains'); assert(drain, 'acknowledgment written');\n  drain(); await outcome;\n  assert.equal(caught, true);\n  assertDependentFailure(observed, 'worksite command failed; dependent work stopped: ', first);\n  const [{ used, closed }] = scopes;\n  assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical command failure was retained');\n  assert.deepEqual([...Cause.defects(closed.cause)], [releaseFault], 'the secondary release fault stays in the closed Scope');\n  assert.deepEqual(log.map(([kind]) => kind), ['observations', 'inventory', 'inventory', 'observations', 'inventory', 'inventory',\n    'artifact', 'publication', 'path', 'acknowledgment', 'drained', 'rejected']);\n  const artifact = log.find(([kind]) => kind === 'artifact')[1];\n  assert.equal(artifact.disposition, 'failure'); assert.deepEqual(artifact.commandResults, []);\n  assert.deepEqual(artifact.failure, { ...observed.subject, attemptRef: 'attempt://selected' });\n  assert.equal(artifact.failure.processFacts.firstError.message, first.message);\n  assert.deepEqual(log.find(([kind]) => kind === 'publication').slice(1),\n    ['/controlled-artifact', { artifactDigest: 'sha256:' + '6'.repeat(64), artifactRef: 'artifact://b-selected' }]);\n  assert.deepEqual(log.find(([kind]) => kind === 'path').slice(1), ['/controlled-archive', '/controlled-artifact', 'file']);\n  const acknowledgment = log.find(([kind]) => kind === 'acknowledgment')[1];\n  assert.equal(acknowledgment.helperArtifactRef, 'artifact://b-selected'); assert.equal(acknowledgment.attemptRef, 'attempt://selected');\n});\n\ntest('controlled B helper: later publication path and acknowledgment failures retain precedence', async t => {\n  const log = [], b = await bHelper(t, bArtifact(log));\n  const steps = ['observations', 'inventory', 'inventory', 'command', 'observations', 'inventory', 'inventory',\n    'artifact', 'publication', 'path', 'acknowledgment'];\n  for (const [stage, later, through] of [\n    ['after observation', new Error('after observation refused'), 5], ['after inventory', 'after inventory refused', 6],\n    ['publication', null, 9], ['path validation', undefined, 10],\n    ['acknowledgment', Object.assign(new Error('write EPIPE'), { code: 'EPIPE' }), 11], ['none', null, 11],\n  ]) {\n    log.length = 0;\n    const retained = new b.helper.WorksiteHelperFailure('worksite command failed; dependent work stopped', { stage },\n      { failureClass: 'command_failed', taskRef: 'task://b-command', attemptRef: null });\n    const count = kind => log.filter(([logged]) => logged === kind).length;\n    const fails = (at, ordinal = 1) => stage === at && ordinal ? Promise.reject(later) : undefined;\n    let caught = false, observed;\n    await b.helper.controlledMain(bMain(log, {\n      command: async () => { log.push(['command']); throw retained; },\n      observations: async () => { log.push(['observations']); await fails('after observation', count('observations') === 2); return []; },\n      inventory: async () => { log.push(['inventory']); await fails('after inventory', count('inventory') === 3); return []; },\n      publish: async () => { log.push(['publication']); await fails('publication'); },\n      path: async () => { log.push(['path']); await fails('path validation'); },\n      output: { write: (_line, callback) => { log.push(['acknowledgment']); callback(stage === 'acknowledgment' ? later : null); return true; } },\n    })).catch(error => { caught = true; observed = error; });\n    assert.equal(caught, true, stage);\n    assert(Object.is(observed, stage === 'none' ? retained : later), `${stage}: the later exact failure supersedes the retained one`);\n    assert.deepEqual(log.map(([kind]) => kind), steps.slice(0, through), `${stage}: nothing later runs`);\n  }\n});\n"
+      },
+      "ordinalZeroBased": 48,
+      "result": {
+        "line": 5914,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 6175,
+      "id": "toolu_01JNn4a7rtrZKWwitSMCMnRQ",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && python3 - <<'EOF'\nimport pathlib\np = pathlib.Path(\"test_env/tests/t287-owned-process-lifetime.test.mjs\")\ns = p.read_text()\nreps = [\n(\"\"\"      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);\n      assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical primary use failure is the outcome');\"\"\",\n\"\"\"      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);\n      const failures = [...Cause.failures(used.cause)];\n      assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical primary use failure is the outcome');\"\"\"),\n(\"\"\"  const [{ used, closed }] = scopes;\n  assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical command failure was retained');\n  assert.deepEqual([...Cause.defects(closed.cause)], [releaseFault], 'the secondary release fault stays in the closed Scope');\"\"\",\n\"\"\"  assert.equal(scopes.length, 1); const [{ used, closed }] = scopes;\n  const failures = [...Cause.failures(used.cause)], defects = [...Cause.defects(closed.cause)];\n  assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical command failure was retained');\n  assert(defects.length === 1 && Object.is(defects[0], releaseFault), 'the secondary release fault stays in the closed Scope');\"\"\"),\n(\"\"\"    const count = kind => log.filter(([logged]) => logged === kind).length;\n    const fails = (at, ordinal = 1) => stage === at && ordinal ? Promise.reject(later) : undefined;\n    let caught = false, observed;\n    await b.helper.controlledMain(bMain(log, {\n      command: async () => { log.push(['command']); throw retained; },\n      observations: async () => { log.push(['observations']); await fails('after observation', count('observations') === 2); return []; },\n      inventory: async () => { log.push(['inventory']); await fails('after inventory', count('inventory') === 3); return []; },\n      publish: async () => { log.push(['publication']); await fails('publication'); },\n      path: async () => { log.push(['path']); await fails('path validation'); },\"\"\",\n\"\"\"    const count = kind => log.filter(([logged]) => logged === kind).length;\n    const fail = (at, selected = true) => { if (stage === at && selected) throw later; };\n    let caught = false, observed;\n    await b.helper.controlledMain(bMain(log, {\n      command: async () => { log.push(['command']); throw retained; },\n      observations: async () => { log.push(['observations']); fail('after observation', count('observations') === 2); return []; },\n      inventory: async () => { log.push(['inventory']); fail('after inventory', count('inventory') === 3); return []; },\n      publish: async () => { log.push(['publication']); fail('publication'); },\n      path: async () => { log.push(['path']); fail('path validation'); },\"\"\"),\n]\nfor a, b in reps:\n    assert s.count(a) == 1, a[:60]\n    s = s.replace(a, b)\np.write_text(s)\nEOF\ngrep -n \"\\bproduction\\b\\|controlledBindings\\|runCommandOnHost\\|activeCommandOf\\|controlledCommandEffect\" code/src/implementation/worksite_command_helper.ts | head; /opt/homebrew/Cellar/node/24.7.0/bin/node --check test_env/tests/t287-owned-process-lifetime.test.mjs && echo SYNTAX_OK",
+        "description": "Apply identity checks and syntax-check test"
+      },
+      "ordinalZeroBased": 49,
+      "result": {
+        "line": 6180,
+        "isError": false,
+        "canonicalBytes": 11,
+        "sha256": "5e6d2a4260df7fed94e3efdb330eb80bc378c47a31e07393b8b84982726ca0ee"
+      }
+    },
+    {
+      "line": 6289,
+      "id": "toolu_01Mrgg7cfGFmCcxy16ii9pjM",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "old_string": "  const source = (await readFile(modulePath, 'utf8')).replace(/await main\\(\\);\\s*$/u, 'export { runCommand, runHttpProbe };');\n  assert.match(source, /export \\{ runCommand, runHttpProbe \\};$/u);\n  const priorSignals = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));\n  const module = new SourceTextModule(source, { identifier: modulePath });\n  await module.link(async specifier => {\n    const imported = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(modulePath), specifier)).href);",
+        "new_string": "  // The Effect command crosses the helper's own host projection to this Promise-facing case.\n  const source = (await readFile(modulePath, 'utf8')).replace(/await main\\(\\);\\s*$/u,\n    'const runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));\\nexport { runCommandOnHost as runCommand, runHttpProbe };');\n  assert.match(source, /export \\{ runCommandOnHost as runCommand, runHttpProbe \\};$/u);\n  const priorSignals = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));\n  const module = new SourceTextModule(source, { identifier: modulePath });\n  await module.link(async specifier => {\n    const imported = await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(modulePath), specifier)).href : specifier);"
+      },
+      "ordinalZeroBased": 50,
+      "result": {
+        "line": 6293,
+        "isError": false,
+        "canonicalBytes": 167,
+        "sha256": "7974a5397a2efd51c5ffae7bc68bea428e5a8bdfa6728398c03cf925150e2dda"
+      }
+    },
+    {
+      "line": 6320,
+      "id": "toolu_015gcvuEWbSNww2Xok69Ndzx",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"export { runCommand };\" test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "description": "Locate carrier runCommand exposures"
+      },
+      "ordinalZeroBased": 51,
+      "result": {
+        "line": 6324,
+        "isError": false,
+        "canonicalBytes": 309,
+        "sha256": "a5760f54fd082547b418c05e253d489457b16e7369cdeceebfd37e6c8eaf7f54"
+      }
+    },
+    {
+      "line": 6418,
+      "id": "toolu_01R59XzDXiimAY9ZLNLAwwNt",
+      "name": "Bash",
+      "input": {
+        "command": "python3 - <<'EOF'\nimport pathlib\np = pathlib.Path(\"test_env/tests/t287-lifecycle-failure-carrier.test.mjs\")\ns = p.read_text()\nassert s.count(\"'\\\\nexport { runCommand };'\") == 3\ns = s.replace(\"'\\\\nexport { runCommand };'\", \"runCommandOnHost\")\nanchor = \"const holds = (rows, name, identity) => calculus.holdsAt(\"\nassert s.count(anchor) == 1\ns = s.replace(anchor, \"\"\"// The helper's Effect command reaches these Promise-facing cases through its own host projection.\nconst runCommandOnHost = '\\\\nconst runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));' +\n  '\\\\nexport { runCommandOnHost as runCommand };';\n\n\"\"\" + anchor)\np.write_text(s)\nEOF\ngrep -n \"runCommandOnHost\" test_env/tests/t287-lifecycle-failure-carrier.test.mjs; for f in test_env/tests/m5-worker-transport.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs test_env/tests/t287-owned-process-lifetime.test.mjs; do /opt/homebrew/Cellar/node/24.7.0/bin/node --check $f && echo \"SYNTAX_OK $f\"; done",
+        "description": "Adapt carrier exposures and syntax-check all mjs"
+      },
+      "ordinalZeroBased": 52,
+      "result": {
+        "line": 6422,
+        "isError": false,
+        "canonicalBytes": 628,
+        "sha256": "52b3e7b3ec67e8ec7d1e3e9e08b730af93b850c36cfdfaa612fbc65d32b56ce9"
+      }
+    },
+    {
+      "line": 6547,
+      "id": "toolu_01Hsespu4EQ8tmHtzTuJo1WS",
+      "name": "Bash",
+      "input": {
+        "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && ls $S/tenant/build/code/src/implementation/worksite_command_helper.js >/dev/null && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-01.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-01.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-01.tap; grep -nE \"^not ok|^ok\" $S/checks/controlled-01.tap | head -40",
+        "description": "Run exact controlled selector attempt 1",
+        "timeout": 90000
+      },
+      "ordinalZeroBased": 53,
+      "result": {
+        "line": 6551,
+        "isError": false,
+        "canonicalBytes": 3606,
+        "sha256": "849e27fa122d91c766a6a1921d57cfd2b92c6663f06a88d6352364c7a55028bb"
+      }
+    },
+    {
+      "line": 6585,
+      "id": "toolu_01AgHSarinELsTe8yrCcskA5",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && sed -n 143,200p checks/controlled-01.tap",
+        "description": "Show first red failure details"
+      },
+      "ordinalZeroBased": 54,
+      "result": {
+        "line": 6589,
+        "isError": false,
+        "canonicalBytes": 2840,
+        "sha256": "d5188b8fe182c8ced15f0cf4a1c025b15778fd3767efcb3a1460966d2a4e0ca6"
+      }
+    },
+    {
+      "line": 6696,
+      "id": "toolu_01Adkt6yAuWZGP4jMSRyuSFM",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return runCommand(task, '/controlled', 0, 'attempt://selected');\n  }",
+        "new_string": "  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return production.runCommand(task, '/controlled', 0, 'attempt://selected');\n  }"
+      },
+      "ordinalZeroBased": 55,
+      "result": {
+        "line": 6700,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 6785,
+      "id": "toolu_017cvue49utoNVukvE3ESys3",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && /opt/homebrew/Cellar/node/24.7.0/bin/node --check test_env/tests/t287-owned-process-lifetime.test.mjs && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-02.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-02.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-02.tap; grep -nE \"^not ok\" $S/checks/controlled-02.tap",
+        "description": "Rerun controlled selector after harness fix",
+        "timeout": 90000
+      },
+      "ordinalZeroBased": 56,
+      "result": {
+        "line": 6789,
+        "isError": false,
+        "canonicalBytes": 157,
+        "sha256": "4c909497f9f84f8b9391b15831ece49048fa62acfe174e1c65766e40c8b1644f"
+      }
+    },
+    {
+      "line": 6949,
+      "id": "toolu_01HHJKrVwAdCE3MpxcivpNak",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "      assert.deepEqual(calls, [], 'a preflight failure launches and publishes nothing');\n      assert.equal(b.helper.activeCommandOf(), null);\n    }\n  }\n});",
+        "new_string": "      assert.deepEqual(calls, [], 'a preflight failure launches and publishes nothing');\n      assert.equal(b.helper.activeCommandOf(), null);\n    }\n  }\n  // API counterexamples, not observed helper Causes: sequential order, not a\n  // preferred category, selects the raw value; a parallel Cause has none.\n  const primary = new Error('primary defect'), secondary = new Error('secondary failure');\n  for (const [shape, cause] of [['sequential', Cause.sequential(Cause.die(primary), Cause.fail(secondary))],\n    ['parallel', Cause.parallel(Cause.fail(primary), Cause.fail(secondary))]]) {\n    let caught = false, observed;\n    try { await b.helper.runHelperProgram(Effect.failCause(cause)); } catch (error) { caught = true; observed = error; }\n    assert.equal(caught, true, shape);\n    if (shape === 'sequential') assert(Object.is(observed, primary), 'no category-priority squash');\n    else assert(Cause.isCause(observed) && !(observed instanceof Error), 'an ambiguous Cause stays a Cause');\n  }\n});"
+      },
+      "ordinalZeroBased": 57,
+      "result": {
+        "line": 6953,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    {
+      "line": 7036,
+      "id": "toolu_01BvbGqGZc19fb2GsRc98kAE",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && /opt/homebrew/Cellar/node/24.7.0/bin/node --check test_env/tests/t287-owned-process-lifetime.test.mjs && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-03.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-03.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-03.tap; grep -nE \"^not ok\" $S/checks/controlled-03.tap",
+        "description": "Rerun controlled selector with API counterexamples",
+        "timeout": 90000
+      },
+      "ordinalZeroBased": 58,
+      "result": {
+        "line": 7040,
+        "isError": false,
+        "canonicalBytes": 156,
+        "sha256": "1641f8e94f8048dd69fd9ac4e2e5d89d3bd20be344fd83c64cfdf6c68a46f9ad"
+      }
+    },
+    {
+      "line": 7075,
+      "id": "toolu_01N2jUy7rr2NBTEBjPfQrznf",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && sed -n 820,975p code/src/implementation/worksite_command_helper.ts",
+        "description": "Review new command region"
+      },
+      "ordinalZeroBased": 59,
+      "result": {
+        "line": 7079,
+        "isError": false,
+        "canonicalBytes": 8484,
+        "sha256": "a1957f41cdccb23b24192171ecd1292716e3d478bc00f57a9a67c5eabf26db71"
+      }
+    },
+    {
+      "line": 7229,
+      "id": "toolu_018QPECn6DvF38V41Q7qgKK9",
+      "name": "Bash",
+      "input": {
+        "command": "python3 - <<'EOF'\nimport hashlib, pathlib, json\nh = pathlib.Path(\"code/src/implementation/worksite_command_helper.ts\").read_text()\ndef body(start, end):\n    i = h.index(start); j = h.index(end, i)\n    b = h[i:j].encode()\n    return len(b), hashlib.sha256(b).hexdigest()\nprint(\"oneHttpRequest\", body(\"async function oneHttpRequest(\", \"\\nfunction httpProbeObservation(\"), \"expect 1246 65a402bc\")\nprint(\"runHttpProbe\", body(\"async function runHttpProbe(\", \"\\nasync function predicateObservation(\"), \"expect 7927 26cb041c\")\nfor f, exp in [(\"code/src/shared/owned_process_lifetime.ts\",\"fbb571cc\"),(\"code/src/shared/owned_process_state.ts\",\"235fc19c\"),(\"code/src/shared/effect_definition.ts\",None)]:\n    print(f, hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest()[:16], \"expect\", exp)\nprint(\"owned_process_scope.ts exists:\", pathlib.Path(\"code/src/shared/owned_process_scope.ts\").exists())\nprint(\"runEffectProgram occurrences:\", [l.strip() for l in h.splitlines() if \"runEffectProgram\" in l])\nprint(\"await main at EOF:\", h.rstrip().endswith(\"await main();\"))\nEOF",
+        "description": "Verify read-only boundaries and HTTP body hashes"
+      },
+      "ordinalZeroBased": 60,
+      "result": {
+        "line": 7233,
+        "isError": false,
+        "canonicalBytes": 654,
+        "sha256": "df0a009d22261f2ba974c601b8505ef85a227f43a3636016ce962d7ce4ce1212"
+      }
+    },
+    {
+      "line": 7500,
+      "id": "toolu_0175CYMqc9kpAyJWxp3hp1Mu",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && python3 - <<'EOF'\nimport pathlib, re\nB = pathlib.Path(\"qualification-scratch/rc11-effect-phase2-01/native-b01/baseline/worksite_command_helper.ts\").read_text()\nC = pathlib.Path(\"build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts\").read_text()\ndef region(t, start, end=None):\n    i = t.index(start); j = t.index(end, i) if end else len(t)\n    return t[i:j]\ndef stats(s):\n    lines = s.rstrip(\"\\n\").split(\"\\n\")\n    code = 0; inblock = False\n    for l in lines:\n        x = l.strip()\n        if not x: continue\n        if inblock:\n            if \"*/\" in x: inblock = False\n            continue\n        if x.startswith(\"/*\"):\n            if \"*/\" not in x: inblock = True\n            continue\n        if x.startswith(\"//\") or x.startswith(\"*\"): continue\n        code += 1\n    return len(lines), len(s.encode()), code\nrows = {\n \"file\": (stats(B), stats(C)),\n \"imports\": (stats(region(B, \"#!/usr/bin/env node\", \"\\nlet activeCommand\")), stats(region(C, \"#!/usr/bin/env node\", \"\\nlet activeCommand\"))),\n \"command (runCommand / lifts+barrier+scope+launch+runCommand)\": (stats(region(B, \"async function runCommand(\", \"\\nfunction decodeStream(\")), stats(region(C, \"/** Lift one fallible Promise operation\", \"\\nfunction decodeStream(\"))),\n \"main (main / host projection+acknowledge+main)\": (stats(region(B, \"async function main()\")), stats(region(C, \"/** The raw value a failed helper Exit selects\"))),\n}\nfor k,(b,c) in rows.items():\n    print(f\"{k}: before lines={b[0]} bytes={b[1]} code={b[2]} | after lines={c[0]} bytes={c[1]} code={c[2]} | delta lines={c[0]-b[0]:+} bytes={c[1]-b[1]:+} code={c[2]-b[2]:+}\")\n# coordination census in command and main regions\ncb = region(B, \"async function runCommand(\", \"\\nfunction decodeStream(\"); cc = region(C, \"/** Lift one fallible Promise operation\", \"\\nfunction decodeStream(\")\nmb = region(B, \"async function main()\"); mc = region(C, \"/** The raw value a failed helper Exit selects\")\npat = {\"try{\":r\"\\btry\\s*\\{\", \"catch(\":r\"\\bcatch\\s*(\\(|\\{)\", \"finally\":r\"\\bfinally\\b\", \"let \":r\"\\blet\\s\", \"await \":r\"\\bawait\\b\", \"new Promise\":r\"new Promise\", \"throw \":r\"\\bthrow\\b\",\n       \"yield*\":r\"yield\\*\", \"acquireRelease\":r\"acquireRelease\", \"addFinalizer\":r\"addFinalizer\", \"settled(\":r\"settled\\(\", \"attempt(\":r\"\\battempt\\(\", \"attemptSync(\":r\"attemptSync\\(\", \"catchAll\":r\"catchAll\", \"activeCommand =\":r\"activeCommand =\", \"requestTermination\":r\"requestTermination\", \".off(\":r\"\\.off\\(\", \"clearInterval\":r\"clearInterval\", \".cancel()\":r\"\\.cancel\\(\\)\"}\nfor name,(b,c) in {\"command\":(cb,cc),\"main\":(mb,mc)}.items():\n    print(name, {k:(len(re.findall(v,b)), len(re.findall(v,c))) for k,v in pat.items()})\nEOF\nwc -l -c qualification-scratch/rc11-effect-phase2-01/native-b01/baseline/*.mjs build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "description": "Compute line/byte and coordination accounting"
+      },
+      "ordinalZeroBased": 61,
+      "result": {
+        "line": 7504,
+        "isError": false,
+        "canonicalBytes": 2096,
+        "sha256": "0d8a225dc48da9c337a36a6d15f1b09f9c95875fa3b27aa8cd28c950f4abd964"
+      }
+    },
+    {
+      "line": 7848,
+      "id": "toolu_017gWJVQcSxus8hAGQQwnZ1T",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "old_string": "On failure or unresolved physical scope, main may retain internal diagnostic\nevidence by create-only publication of the fixed `process-failure.json` sibling\nat `archiveRoot/worksite-command-execution/<taskDigest hex>/<attemptDigest hex>/`.\nThe exact HOW binds canonical identities, format tag/version, full canonical\nfacts serialization, raw byte/error descriptions, preflight sibling absence,\nattempted versus verified publication, and partial-residue handling. Retention\ncan be unavailable; a failed publication does not prove no file committed.\nPreserve the primary failure. Never overwrite, delete, retry or fabricate a\ncomplete `result.json`, success acknowledgment or Product result.\n\nThe named internal `inspectWorksiteCommandExecutionProcessFailure` export in\n`implementation/worksite_command_execution.ts` rederives the exact task and\nauthority-free occurrence/launch coordinates, verifies the confined canonical\nsingle-link diagnostic and its joins, and returns verified-present, absent,\ninvalid or unavailable evidence. It needs no successful Worker exchange or\n`complete()`. It is an exact-attempt observation, not an admitted event, runtime\nresource, Public/SDK/CLI endpoint or permission to retry/continue/restore\ncurrentness/close. Existing success and ABG admission gates remain unchanged.\n\nThe failure-retention archive checks and attempted diagnostic publication are\nthe only selected later effects on that branch. No report read, later command,\npredicate/request, protected-after observation, delta inventory or successful\nhelper artifact follows. Unknown scope remains unknown. No budget or cleanup\nalgorithm changes. The exact original cause, physical facts and failure-side\ninspection must be proved through the actual helper boundary under a later\ngrant. Dependency-ready source can be selected separately; combined candidate,\naffected execution and L5 remain held for complete conjunction.",
+        "new_string": "**Current failure route: [Common Library \u00a79.3](ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#93-process-failure-facts)\nD15.** That HOW's `process-failure.json` sibling and its internal\n`inspectWorksiteCommandExecutionProcessFailure` inspector are superseded and\nnot implemented: nothing is written beside `L` and no dedicated inspector\nexists. A command or HTTP failure after launch (`command_failed`,\n`command_cleanup_unresolved`, `http_probe_failed`, `http_cleanup_unresolved`)\nis one `WorksiteHelperFailure` whose subject carries `processFacts`, encoded\nonce at its throw site. `main` catches only that class at its command/predicate\nloop, observes protected-after state and inventories, publishes the subject as\nthe create-only helper artifact's `failure` disposition, validates the artifact\npath, prints the acknowledgment, waits for that write to drain and only then\nrethrows the identical failure, so the helper still exits non-zero. The parent\nadmits the subject inline through the `helper_failure` leaf failure and\n`constructRuntimeFailureDiagnosticRef`; failure inspection is that admitted\nsubject (\u00a79.3 items 4 and 6). A later after-observation, inventory,\npublication, path or acknowledgment failure escapes as itself instead of the\nretained failure, and no drained acknowledgment is claimed. Never overwrite,\ndelete, retry or fabricate a complete `result.json`, success acknowledgment or\nProduct result.\n\nNo report read, later command or predicate/request follows the failure.\nUnknown scope remains unknown. No budget or cleanup algorithm changes. The\nexact original cause and physical facts must be proved through the actual\nhelper boundary under a later grant. Dependency-ready source can be selected\nseparately; combined candidate, affected execution and L5 remain held for\ncomplete conjunction."
+      },
+      "ordinalZeroBased": 62,
+      "result": {
+        "line": 7852,
+        "isError": false,
+        "canonicalBytes": 181,
+        "sha256": "39e2512f89016737e2d52aa097a07df97f466c65c09b9a53e7dd178d83a48057"
+      }
+    },
+    {
+      "line": 7932,
+      "id": "toolu_014o9w1xzx1NxybYR4xBQbCK",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "old_string": "confirm its owned physical scope absent within the declared bounds, the helper\nstops before expected-report filesystem observations, any later command or\npredicate, after snapshot or successful helper-artifact publication. The current\nfailure-handoff amendment permits only its exact create-only diagnostic archive\neffects on that branch, with publication uncertainty explicit.\nIt uses the existing thrown/non-admitted helper failure route, preserving the\noriginal cause and canonical final facts before fallible finalization. The fixed\nfailure sibling and internal inspector retain the exact task/attempt relation\nand observed command/probe, exit/signal/timeout and physical uncertainty. Observed",
+        "new_string": "confirm its owned physical scope absent within the declared bounds, the helper\nstops before expected-report filesystem observations and any later command or\npredicate, and publishes no successful helper artifact. It takes the D15 route\nof the failure-handoff amendment above (Common Library \u00a79.3 item 4): the\nhelper artifact's `failure` disposition carries the subject with its encoded\n`processFacts`, the drained acknowledgment follows, the identical failure is\nrethrown, and the parent admits that subject inline. The subject, built from\nthe original cause and canonical final facts before fallible finalization,\nretains the exact task/attempt relation and observed command/probe,\nexit/signal/timeout and physical uncertainty. Observed"
+      },
+      "ordinalZeroBased": 63,
+      "result": {
+        "line": 7936,
+        "isError": false,
+        "canonicalBytes": 181,
+        "sha256": "39e2512f89016737e2d52aa097a07df97f466c65c09b9a53e7dd178d83a48057"
+      }
+    },
+    {
+      "line": 7965,
+      "id": "toolu_01ULYqMeM9EXD9zwEFsRVgtK",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && grep -n \"process-failure\\|inspectWorksite\\|inspector\\|failure sibling\" design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md; grep -n \"^### 9.3 Process failure facts\" design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "description": "Confirm no stale references and anchor target"
+      },
+      "ordinalZeroBased": 64,
+      "result": {
+        "line": 7969,
+        "isError": false,
+        "canonicalBytes": 401,
+        "sha256": "fade732dc6dd0cc615a73d34c7c992bba07c191a93f9c18c6803128c232b2f8c"
+      }
+    },
+    {
+      "line": 8048,
+      "id": "toolu_011KKSnDcPvFkH9Mfd7M8xXt",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "old_string": "A consolidates; no net-deletion, performance or reliability claim follows. **B remains unactivated; full Phase2 acceptance is still joint A+B.**",
+        "new_string": "A consolidates; no net-deletion, performance or reliability claim follows. **B is constructed by the native-b01 source pass on accepted A commit `e134103a\u2026` and returned frozen to Root; it is not accepted, and full Phase2 acceptance is still joint A+B.** Its author checks are a fresh scratch compile and the exact `^controlled ` lifetime selector, 30/30 after a first red of 29/30 caused by a binding leak in the new test exposure; whole-file lifetime, physical, m5, carrier, unit, configured-C2 and installed proof remain external after freeze."
+      },
+      "ordinalZeroBased": 65,
+      "result": {
+        "line": 8052,
+        "isError": false,
+        "canonicalBytes": 241,
+        "sha256": "03e9ca6379b5ad3f343eedcc123db942b71e17057df92f9185d8dc28b47453fe"
+      }
+    },
+    {
+      "line": 8080,
+      "id": "toolu_01Pyma87VB34CzjjEs828jQr",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "old_string": "Their predecessor failures remain recorded. **B prospective** remains design and is unactivated.",
+        "new_string": "Their predecessor failures remain recorded. **B constructed (native-b01)** describes the frozen B source returned to Root; it is not accepted."
+      },
+      "ordinalZeroBased": 66,
+      "result": {
+        "line": 8084,
+        "isError": false,
+        "canonicalBytes": 241,
+        "sha256": "03e9ca6379b5ad3f343eedcc123db942b71e17057df92f9185d8dc28b47453fe"
+      }
+    },
+    {
+      "line": 8329,
+      "id": "toolu_01ErXz85wY3Vp8FgKyMn7ufc",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "old_string": "| **B prospective** | `runCommand`'s ad hoc `try/finally` coordinator (timeout cancel, heartbeat clear, `activeCommand` reset, capture close and listener removal) and its Promise result | `runCommand` returns one Effect. A Scope owns: the spawned child and lifetime (acquired together; release requests the existing finite cleanup, awaits the lifetime's own completion, then clears `activeCommand`), the unchanged heartbeat interval, and the capture listeners plus command timeout (released only after that physical completion). Ownership precedes fallible listener/timeout setup, whose error remains `lifetime.fail`. No retry, race or Effect timeout is added; Scope interruption is not physical absence. |\n| **B prospective** | `main`'s Promise sequencing | One helper Effect program, executed once through `runEffectProgram` in `main`; `await main()` stays. Existing async owners are lifted with their original rejection value; only `WorksiteHelperFailure` is caught for D15; the acknowledgment write is drained before the same failure is the program failure; `main` rethrows the squashed original cause. |",
+        "new_string": "| **B constructed (native-b01)** | `runCommand`'s ad hoc coordinator: the spawn `try/catch` over `let child`, the setup `try/catch`, the `let facts` `try/finally` whose six disposal actions (timeout cancel, heartbeat clear, `activeCommand` reset, capture-flag close, two listener removals) followed the completion await, a heartbeat created outside any protection, and its Promise result | `runCommand` returns one Effect: confinement, `commandScope(launchCommand(\u2026))`, then the unchanged `commandResult`. One uninterruptible `acquireRelease` spawns and creates the lifetime, so the child is owned before any fallible later resource; a synchronous spawn throw stays a value branch to the unchanged `noChildLaunchObservation`. Heartbeat, stdout/stderr capture and command timeout each register their release before their fallible acquisition. Every release, and the ownership release that then clears `activeCommand`, first crosses one `settled(lifetime)` barrier: `requestTermination()`, inert once cleanup began or completed, then the same canonical `completion`. LIFO release therefore never waits before a cleanup request, and partial setup leaves no attached listener, interval or deadline. Setup failure still calls `lifetime.fail` and reaches the existing `command_failed` projection. Copied buffers, the direct-exit capture cut, bounds, heartbeat text/cadence, status mapping, report gating and `activeCommand` emergency behavior are unchanged. The after-completion `captureOpen = false` is removed because `observe` is already inert once completion is published. No retry, race or Effect timeout is added; interruption is not physical absence, and the lifetime's own finite deadlines bound the uninterruptible wait. |\n| **B constructed (native-b01)** | Implicit use/cleanup composition | `commandScope` masks interruption, runs the use restored, retains the actual use Exit, then closes its Scope; Effect combines release Exits sequentially in release order. The failed use, interruption included, is the outcome; otherwise the closed outcome is, so a release fault alone still fails. When a failed use is selected, the release Cause goes to the bounded (8,192 code units) stderr diagnostic seam `commandScopeClosed`, and no serialized field is added. The selection is command-local; there is no helper-wide first-failure cell, so a cleanup `Die` cannot bypass the typed D15 catch. |\n| **B constructed (native-b01)** | `main`'s Promise sequencing, its `let failed` `try/catch` and the inline stdout-write Promise | `main` composes one Effect program and runs it exactly once through the unchanged `runEffectProgram` in `runHelperProgram`; `await main()` stays. Fallible async operations are lifted by `attempt` (`tryPromise` with identity `catch`) and spawn/setup by `attemptSync` (`try` with identity `catch`), so a synchronous invocation throw or a rejection keeps its exact value, `null`, `false` and `undefined` included. The narrow `instanceof WorksiteHelperFailure` catch stays at the command/predicate loop; any other failure, defect or interruption escapes unchanged. A later after-observation, inventory, publication, path or acknowledgment failure escapes as itself; only when all succeed and `acknowledge` has drained does the identical retained failure fail the program. The host projection rethrows the first `Fail`/`Die` payload in sequential order, with presence decided by `Option` rather than by the value, and throws the actual `Cause` for interruption or a parallel Cause. There is no category-priority squash, and `lifetime.fail`'s own normalization is unchanged. |"
+      },
+      "ordinalZeroBased": 67,
+      "result": {
+        "line": 8333,
+        "isError": false,
+        "canonicalBytes": 241,
+        "sha256": "03e9ca6379b5ad3f343eedcc123db942b71e17057df92f9185d8dc28b47453fe"
+      }
+    },
+    {
+      "line": 8506,
+      "id": "toolu_011TzE6YK5dwqrxWS9H9dGNF",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "old_string": "HTTP `oneHttpRequest`/`runHttpProbe` bodies, `worker_transport`, `shared/process`, `shared/effect_definition`, the SIGTERM/SIGINT `process.exit` emergency boundary (ordinary finalizers do not run through it), Product, schemas and admission/replay stay unchanged.",
+        "new_string": "HTTP `oneHttpRequest`/`runHttpProbe` bodies, `worker_transport`, `shared/process`, `shared/effect_definition`, the SIGTERM/SIGINT `process.exit` emergency boundary (ordinary finalizers do not run through it), Product, schemas and admission/replay stay unchanged.\n\n**B accounting (native-b01) covers every changed source module.** No `shared/owned_process_scope.ts` is created. Command is B's only adopter, the HTTP and worker bodies stay unchanged, and an extracted acquisition/settlement module would have no second caller. The lifetime and state modules and both HTTP bodies are byte-identical to A. The helper grows from 1,589 lines/68,872 bytes (1,511 non-blank, non-comment) to 1,697/75,347 (1,584): imports +7 lines, the command region 85\u2192158 lines (84\u2192133 code), and `main` with its host projection and acknowledgment 124\u2192152 (118\u2192135). Removed coordination: `runCommand`'s three `try` blocks and its `finally` with six imperative disposal actions, the `let child`/`let facts` definite-assignment bindings, the redundant after-completion capture-flag close, and `main`'s `let failed` `try/catch`. Added: one ownership acquisition, four registered releases, one shared settlement barrier crossed five times, one Scope selection with its diagnostic seam, two identity lifts shared with `main` (14 `attempt` and 3 `attemptSync` sites), one host projection and the named `acknowledge` drain. Retained owner state: `timedOut`, `launchFailed`, `captureOpen`, both capture buffers, `signalSequence`, the module `activeCommand`, and one `heartbeat` handle binding needed to register its release before acquisition. **B is not net deletion:** +108 lines/+6,475 bytes (+73 non-blank, non-comment). Its gain is partial-acquisition coverage, interruption-safe settlement before disposal and exact failure selection, not size. No speed, memory or lifecycle-cost saving is claimed, and HTTP/worker reuse remains unproved future work. The lifetime test file adds the six controlled B cases with one small fixture (+290 lines). m5 (+2 lines) and the carrier (+4) change only their Promise-facing exposure and bare Effect imports. The retained-fact and reentrant-clock capsules stay deferred, and B reopens neither A nor its R1/R2 history."
+      },
+      "ordinalZeroBased": 68,
+      "result": {
+        "line": 8510,
+        "isError": false,
+        "canonicalBytes": 241,
+        "sha256": "03e9ca6379b5ad3f343eedcc123db942b71e17057df92f9185d8dc28b47453fe"
+      }
+    },
+    {
+      "line": 8554,
+      "id": "toolu_01PN623wJb9J1ehwizTvQeM8",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && wc -l build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs qualification-scratch/rc11-effect-phase2-01/native-b01/baseline/t287-owned-process-lifetime.test.mjs && grep -c \"attempt(\" build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts && grep -o \"\\battempt(\" build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts | wc -l && grep -o \"attemptSync(\" build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts | wc -l",
+        "description": "Verify test line delta and lift site counts"
+      },
+      "ordinalZeroBased": 69,
+      "result": {
+        "line": 8558,
+        "isError": false,
+        "canonicalBytes": 250,
+        "sha256": "5cc833170bdc3bd9387ca0509ade70f56a488df7a3a58acf06bc54d5dd7dfe9b"
+      }
+    },
+    {
+      "line": 8661,
+      "id": "toolu_01Y94DRccTVyiV1QPAnPzbiZ",
+      "name": "Bash",
+      "input": {
+        "command": "S=qualification-scratch/rc11-effect-phase2-01/native-b01 && ls $S/tenant && rm -rf $S/tenant/build && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && perl -e 'alarm 240; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js -p /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/tsconfig.json --outDir /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/tenant/build/code/src --incremental false > $S/checks/compile-02.out 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/compile-02.status; wc -c $S/checks/compile-02.out; ls $S/tenant/build/code/src/implementation/worksite_command_helper.js",
+        "description": "Fresh scratch compile on final source",
+        "timeout": 300000
+      },
+      "ordinalZeroBased": 70,
+      "result": {
+        "line": 8823,
+        "isError": false,
+        "canonicalBytes": 290,
+        "sha256": "07467fef053006c40d7e26a0b83c111d16ae812b3a15843b788bfadbc2881352"
+      }
+    },
+    {
+      "line": 8826,
+      "id": "toolu_01MUq24ucTkhcBro8tkg2FaB",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-04.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-04.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-04.tap; grep -E \"^(not )?ok \" $S/checks/controlled-04.tap | sed -E 's/^(not ok|ok) [0-9]+ - //' > $S/checks/controlled-04.names; python3 - \"$S\" <<'EOF'\nimport json, sys, pathlib\nS = pathlib.Path(sys.argv[1])\ncensus = json.loads(pathlib.Path(\"/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-b01/CONTROLLED_CENSUS.json\").read_text())\nran = (S/\"checks/controlled-04.names\").read_text().splitlines()\nexpected = census[\"existingControlledNames\"] + census[\"requiredNewTopLevelNames\"]\nprint(\"ran\", len(ran), \"expected\", len(expected), \"set-equal\", set(ran) == set(expected), \"missing\", sorted(set(expected)-set(ran)), \"extra\", sorted(set(ran)-set(expected)))\nimport re\nsrc = pathlib.Path(\"test_env/tests/t287-owned-process-lifetime.test.mjs\").read_text()\nnames = re.findall(r\"^test\\('([^']+)'\", src, re.M)\nprint(\"whole-file top-level\", len(names), \"physical\", [n for n in names if not n.startswith(\"controlled \")])\nprint(\"whole-file equals census+6:\", set(names) == set(census[\"existingWholeFileNames\"] + census[\"requiredNewTopLevelNames\"]))\nEOF",
+        "description": "Final controlled selector run and census comparison",
+        "timeout": 90000
+      },
+      "ordinalZeroBased": 71,
+      "result": {
+        "line": 8830,
+        "isError": false,
+        "canonicalBytes": 718,
+        "sha256": "7bc529d3d08cf48bad8592a178017620b3e989e3b39d3dc62543a86a0ab2f51e"
+      }
+    },
+    {
+      "line": 8938,
+      "id": "toolu_01GeQwoAYiMNAf4rCSq4gaEb",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && S=qualification-scratch/rc11-effect-phase2-01/native-b01 && T=build_tenants/abiogenesis/typescript && ls -la $S/tmp $S/evidence | head; for f in $T/code/src/implementation/worksite_command_helper.ts $T/test_env/tests/t287-owned-process-lifetime.test.mjs $T/test_env/tests/m5-worker-transport.test.mjs $T/test_env/tests/t287-lifecycle-failure-carrier.test.mjs $T/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md $T/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md $T/code/src/shared/owned_process_lifetime.ts $T/code/src/shared/owned_process_state.ts; do printf \"%s %s %s\\n\" \"$(shasum -a 256 $f | cut -c1-64)\" \"$(wc -c < $f | tr -d ' ')\" \"$f\"; done | tee $S/checks/FINAL_HASHES.txt; ls $S/checks",
+        "description": "Record final hashes and check scratch residue"
+      },
+      "ordinalZeroBased": 72,
+      "result": {
+        "line": 8942,
+        "isError": false,
+        "canonicalBytes": 1930,
+        "sha256": "da02e2359f8d7c6ebff46bafebb7c3c8c39cd60afd2b67b46299564feb7d66f3"
+      }
+    },
+    {
+      "line": 9071,
+      "id": "toolu_01MEUyRqSjLvwZtXY5GTepeu",
+      "name": "Bash",
+      "input": {
+        "command": "S=qualification-scratch/rc11-effect-phase2-01/native-b01/baseline && T=build_tenants/abiogenesis/typescript/test_env/tests && diff $S/m5-worker-transport.test.mjs $T/m5-worker-transport.test.mjs; diff $S/t287-lifecycle-failure-carrier.test.mjs $T/t287-lifecycle-failure-carrier.test.mjs; diff $S/t287-owned-process-lifetime.test.mjs $T/t287-owned-process-lifetime.test.mjs | grep -E \"^[<>]\" | grep -c \"\"; diff $S/t287-owned-process-lifetime.test.mjs $T/t287-owned-process-lifetime.test.mjs | grep -E \"^<\"",
+        "description": "Diff test files against baseline"
+      },
+      "ordinalZeroBased": 73,
+      "result": {
+        "line": 9075,
+        "isError": false,
+        "canonicalBytes": 2802,
+        "sha256": "6b7a93f08b627740d65d8dccd1829f6480b28a758b91f5a3a72c30c1ce1472a9"
+      }
+    },
+    {
+      "line": 9641,
+      "id": "toolu_01WMDa7H3moHESi1B1M3BErQ",
+      "name": "StructuredOutput",
+      "input": {
+        "summary": "The B command/main increment is built on accepted A commit e134103a and frozen for Root. The final fresh scratch compile exits 0, and the exact ^controlled selector passes 30/30. This is not acceptance.\n\n**Changed paths** (worksite-relative):\n- build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts (sha256 c1b6ded8\u2026, 75347 bytes)\n- build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs (4ae70f3c\u2026)\n- build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs (f4f9893e\u2026)\n- build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs (4a8b300e\u2026)\n- build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md (dc73d271\u2026)\n- build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md (6a2b3422\u2026)\n\n**Optional module not created.** shared/owned_process_scope.ts does not exist. Command is B's only user, the HTTP and worker bodies are read-only, so a shared module would have no second caller. A's owned_process_lifetime.ts (fbb571cc\u2026) and owned_process_state.ts (235fc19c\u2026) are byte-identical. The oneHttpRequest (1246 bytes, 65a402bc\u2026) and runHttpProbe (7927 bytes, 26cb041c\u2026) bodies match SOURCE_SUBJECT.\n\n**Command.** runCommand now returns one closed Effect: confine the path, run commandScope(launchCommand), then the unchanged commandResult.\n- One uninterruptible acquireRelease spawns the child and creates its lifetime together. A synchronous spawn throw still goes to the unchanged noChildLaunchObservation.\n- Heartbeat, stdout/stderr capture and the command timeout each register their release before their fallible acquisition.\n- Every release, including the ownership release that clears activeCommand, first crosses one shared barrier. The barrier requests the lifetime's existing cleanup (a no-op once cleanup started or finished) and then awaits that same canonical completion.\n- A setup failure still calls lifetime.fail and reaches the existing command_failed projection.\n- Buffer copies, the direct-exit capture cut, bounds, heartbeat text and cadence, status mapping, report gating and the activeCommand emergency exit are unchanged.\n\n**Outcome selection.** commandScope keeps the actual use Exit, closes the Scope and collects its closing Exit.\n- A failed use wins, including interruption. Otherwise the closed outcome wins, so a cleanup fault alone still fails.\n- When a failed use is selected, any release Cause is written to stderr through a bounded (8192 characters) diagnostic, commandScopeClosed. No serialized field is added.\n\n**Main.** It composes one Effect program and runs it through the unchanged runEffectProgram exactly once, inside runHelperProgram. Top-level await main() stays.\n- Async operations are lifted with tryPromise and an identity catch (14 sites); spawn and setup use Effect.try with an identity catch (3 sites).\n- The narrow WorksiteHelperFailure catch stays at the original command/predicate loop.\n- Later after-observation, inventory, publication, path and acknowledgment failures escape as themselves. Only when all succeed and the acknowledgment write has drained does the identical retained failure fail the program.\n- The host projection throws the first Fail or Die payload in sequential order, deciding presence by Option rather than by the value. Interruption or a parallel Cause is thrown as the actual Cause. There is no category-priority squash.\n\n**Accounting** (helper is the only source module that changed):\n- Helper: 1589 lines / 68872 bytes / 1511 code lines \u2192 1697 / 75347 / 1584. That is +108 lines, +6475 bytes, +73 code lines.\n- By region: imports +7 lines; command 85\u2192158 lines (84\u2192133 code); main 124\u2192152 (118\u2192135).\n- Removed: runCommand's three try blocks and the finally with six manual disposals, the `let child`/`let facts` bindings, a redundant capture-flag reset, and main's `let failed` try/catch.\n- Added: one ownership acquisition, four registered releases, one barrier crossed five times, the Scope selector with its diagnostic, two identity lifts, the host projection, and a named acknowledge function.\n- Kept: timedOut, launchFailed, captureOpen, both buffers, signalSequence, activeCommand, plus one new heartbeat handle variable.\n- This is not net deletion, and no speed or cost saving is claimed.\n- Tests: lifetime file +290 lines; m5 +2 and carrier +4, changing only the Promise-facing exposure and bare Effect imports.\n- The plan now records truthful B status, design rows and this accounting. A's acceptance, R1/R2 history and the deferred retained-fact and reentrant-clock capsules are kept. C2's opening amendment and section 6 now point to the Common Library \u00a79.3 D15 artifact/admission route; the sibling file and inspector are marked superseded and are not implemented.\n\n**Checks.** Scratch files are under qualification-scratch/rc11-effect-phase2-01/native-b01/checks.\n- compile-01: exit 0, about 8 seconds.\n- controlled-01, the first red: 29/30. The failing case was 'controlled B helper: raw failures survive actual lifts and host projection', spawn-throw row, \"failure present\" (false !== true). Cause: my new test exposure leaked a binding \u2014 an earlier controlledMain row replaced runCommand with its stub, so controlledCommandEffect ran the stub. I fixed the test to always use the real command. No owner code or assertion changed.\n- controlled-02: 30/30.\n- controlled-03: 30/30, after adding API counterexamples (sequential Die-then-Fail and a parallel Cause) through the actual host projection.\n- Final, after clearing the scratch build: fresh compile-02 exit 0 (7.5 s), then controlled-04 30/30 in 0.54 s.\n- The names run equal the census exactly: 24 existing plus the 6 required. The whole file has 34 top-level cases; the 4 physical ones stay external.\n\n**Combined-Cause evidence.**\n- The cleanup-failure test asserts that the closed Scope keeps every release fault as a defect, in release order and by identity, including undefined. It also asserts that the use Cause's failure is the identical rejected WorksiteHelperFailure.\n- The D15 test sees the real command failure despite a secondary release fault. It asserts the retained identity, the closed-Scope defect, and the order artifact \u2192 publish \u2192 path \u2192 acknowledgment \u2192 drained \u2192 identical rethrow.\n- The real stderr diagnostic line appears in the TAP output.\n\n**Disclosures.** No Git, network, installs or nested providers were used. Edits used in-memory python3 with no temporary files. Writes outside source went only to the native-b01 scratch: baseline copies, the scratch tenant (copied package.json, symlinked node_modules, build output) and checks. A Node `node-compile-cache` directory appeared under scratch/tmp; it is a runtime cache.",
+        "gaps": [
+          "No acceptance is claimed. Whole-file lifetime (4 physical cases), m5, carrier, unit, normal build, configured-C2 and installed proof remain external after freeze.",
+          "The m5 and carrier edits (Promise-facing exposure via runHelperProgram and bare Effect imports in the VM loaders) were only syntax-checked, not executed.",
+          "Ack failure and drain ordering were exercised only through acknowledge's new optional output parameter with a controlled writable. A real process.stdout write-callback failure was not exercised.",
+          "Interruption settlement was proven only with controlled child and clock fixtures. Production has no interrupter, and physical interruption or group absence under the Effect command is unproven here.",
+          "Pre-existing and unchanged: if createOwnedProcessLifetime throws after spawn (non-positive grace, which the Product refuses), the child is left unowned with activeCommand set.",
+          "The VM loaders resolve bare effect/* imports from the test file's package. They match the helper's import by realpath in the scratch configuration; a packaged root with its own node_modules could load a second Effect copy. Not verified.",
+          "The new production diagnostic writes an 'ABI worksite command release fault' stderr line when a failed use hides a release fault. No serialized field is added; Root may dispose of this choice.",
+          "Some new oracles fix this design's choices: for example, a release registered before acquisition still detaches a never-attached stderr listener. The heartbeat no-residue check compares process.getActiveResourcesInfo() Timeout counts.",
+          "In the C2 E03 paragraph I also replaced the adjacent clause about stopping before after-snapshot/publication, which was stale against D15 and current main. The opening's historical ratification sentence ('failure/publication/inspection proof cases') is kept as history.",
+          "The retained-fact and reentrant-clock capsules stay deferred. Prior failures, six unit skips, the synthetic pending-owner limit and the qualification limits remain open. The plan's B author-check line is author evidence only."
+        ]
+      },
+      "ordinalZeroBased": 74,
+      "result": {
+        "line": 9643,
+        "isError": false,
+        "canonicalBytes": 41,
+        "sha256": "f151386d9c0ce2da9766ad2a0d8a6ff960e90d35288cd975ec54c55402534184"
+      }
+    }
+  ],
+  "standing": "Public tool inputs and matched result line/digest only; internal reasoning omitted.75 public records include StructuredOutput; maintained transport counts74 tools."
+}

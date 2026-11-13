@@ -1,0 +1,81 @@
+{
+  "file": "test_env/tests/t287-ordered-reconstruction.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 2134.960833000019,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 7,
+    "failed": 0,
+    "passed": 4,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 7,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "ordered owner advances exact suffixes and preserves historical, cold and unrelated-growth outputs",
+      "file": "test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "historical liveness folds conserve full/scoped/reverse reads and declaration refusals",
+      "file": "test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": "ABI5_HISTORICAL_LIVENESS_LOG unset; requires the historical liveness event log",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 7,
+      "type": "case",
+      "passed": true,
+      "name": "liveness historical-cut intermediates are call-local while authentic current, older, lease and refusal answers agree",
+      "file": "test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "nesting": 0,
+      "testNumber": 7,
+      "suite": false,
+      "skip": "ABI5_LIVENESS_CUT_HISTORY unset; requires the liveness historical-cut history",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/134-t287-ordered-reconstruction.jsonl",
+    "bytes": 2799,
+    "sha256": "fb036075c586e6e3b1ef357d72e5133ce3de018fe09282e4af938693e5b5713c"
+  },
+  "commandReceipt": "commands/134-t287-ordered-reconstruction.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

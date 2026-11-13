@@ -1,0 +1,177 @@
+{
+  "status": "BROAD019_STOPPED_FIRST_INITIALIZATION_REFUSAL",
+  "at": "2026-11-07T13:06:21.488414+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "preparationReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_RETURN_019.json",
+    "bytes": 4319,
+    "sha256": "801a4efaa1a527dd6794041f82c1542f4aae93ecf56a5e7af4c2bf112947e16b"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_019.json",
+    "bytes": 4702,
+    "sha256": "ae4bd77a14e2f6aecbe72bf7262fd5c3f5b6e6c60d8e24330abb7fc680a4b2f6"
+  },
+  "receipts": {
+    "EXECUTION_STARTED.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "88ec01e5ffcf9318c5bf7f0939f08edeb6c2ecb9ba6832e1117d9780656ddaf8"
+    },
+    "CANDIDATE_BASIS_REFRESH.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/CANDIDATE_BASIS_REFRESH.json",
+      "bytes": 3150,
+      "sha256": "4fa1d79b14bd1cd96e3fdcf6708329f6d6f10df54304cfb6e63083345380986d"
+    },
+    "PACKAGE_LAYOUT_READBACK.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/PACKAGE_LAYOUT_READBACK.json",
+      "bytes": 629,
+      "sha256": "c0fa29b308d3a37a01433291c88b59a60b48d13d5e9afa3926a479215c81b457"
+    },
+    "external-inputs/selected-action-default-common.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/external-inputs/selected-action-default-common.json",
+      "bytes": 2057,
+      "sha256": "36dfd7081b86d28511921a811458629b0e24661620d8361c0bd43aa08c6ac99e"
+    },
+    "FAILURE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/FAILURE.json",
+      "bytes": 619,
+      "sha256": "921c73d5f36c5363a9ac48b7b5df300146278d91d2d1256a18a4bb1182d0d809"
+    },
+    "SUMMARY.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/SUMMARY.json",
+      "bytes": 440478,
+      "sha256": "be475a6c1cda87fb1e05282eaa137b92f6e1e45f2a19043332988e514bc4241c"
+    }
+  },
+  "failedFileEvidence": {
+    "files/171-t287-selected-action-authority.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/files/171-t287-selected-action-authority.json",
+      "bytes": 1169,
+      "sha256": "bfb0c0c444764831b388ec415734bce3ac704d2a0e0036cd2ac1a503e593d95f"
+    },
+    "commands/171-t287-selected-action-authority.request.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/commands/171-t287-selected-action-authority.request.json",
+      "bytes": 983,
+      "sha256": "602c5a52cb15bf85b61fc22cafdc7d604eecf8fe163ae42d2211e778e5937bd1"
+    },
+    "commands/171-t287-selected-action-authority.result.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/commands/171-t287-selected-action-authority.result.json",
+      "bytes": 1501,
+      "sha256": "efdd0968ff1be72a5b0654c3540fb7cbae7438e7c168e4bdee2b543f04c9b3c9"
+    },
+    "commands/171-t287-selected-action-authority.stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/commands/171-t287-selected-action-authority.stdout",
+      "bytes": 1418,
+      "sha256": "5f42cacf7b78eb398df3a02a1b878bd792ac1a0fb1d64b3f97d23c5bc58dc9a3"
+    },
+    "commands/171-t287-selected-action-authority.stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/commands/171-t287-selected-action-authority.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "file-bindings/171-t287-selected-action-authority.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/file-bindings/171-t287-selected-action-authority.json",
+      "bytes": 1256,
+      "sha256": "e46ee0fbd1774527a9e732ffce5a32113463d88661411e73f1113a0918cd0ad0"
+    },
+    "events/171-t287-selected-action-authority.jsonl": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/events/171-t287-selected-action-authority.jsonl",
+      "bytes": 767,
+      "sha256": "c9ffe1058c8b2b2eaea02da5bce56bd6ddb2e16dbc29941d1a686afe3bb095db"
+    }
+  },
+  "process": {
+    "pid": 93725,
+    "session": 50262,
+    "actualExitCode": 1,
+    "closed": true,
+    "signalsSentByOperator": 0
+  },
+  "result": {
+    "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+    "firstError": "TypeError: unknown native profile",
+    "sourceRoute": "event_store.js:2943 projectRootEventProfileSchedule -> event_prefix.js:431 selectColdPrefixFromImmutableSnapshot -> selectValidatedRuntimeEventPrefix -> test line16",
+    "boundary": "Top-level initialization before declared test bodies. Three required historical files are now present and exact; applicability of their profile to the current owner is unresolved and belongs to Root triage.",
+    "counts": {
+      "tests": 1,
+      "failed": 1,
+      "passed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 1,
+      "suites": 0
+    },
+    "wholeFilePassed": false,
+    "assertedDefaultExpected": "2pass1historical skip remains unexecuted; no skip credit inferred from source.",
+    "commandExitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false
+  },
+  "coverage": {
+    "retainedWholeFiles": 162,
+    "retainedPassed": 862,
+    "retainedSkipped": 199,
+    "newWholeFiles": 0,
+    "newPassed": 0,
+    "newSkipped": 0,
+    "scheduledRemaining": 36,
+    "schedulingDeferrals": 10,
+    "inventory": 208,
+    "visitedWholeCredits": 161,
+    "unvisitedValidCredit": {
+      "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "counts": {
+        "tests": 5,
+        "passed": 3,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 2,
+        "todo": 0
+      },
+      "standing": "Original exact receipt remains in config; loop stopped before reaching it. Never drop or restamp this credit."
+    },
+    "failedInitializationExcludedFromCredits": true
+  },
+  "conservation": {
+    "primarySourceAndDependencies": true,
+    "originalAndDerivedExternalInputs": true,
+    "externalInputDigest": "04c98f99415488f1b18605899b2789fe4d3ba6f2adf4c8b5803f63e6daa1ecd9",
+    "sourceAndRuntimeEdits": 0,
+    "providerCalls": 0,
+    "selectedActionSelectorsPresent": false,
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "timing": {
+    "commandInvocationObservedAt": "2026-11-07T12:58:58.034138Z",
+    "executionStartedAt": "2026-11-07T13:00:55.081Z",
+    "testStartedAt": "2026-11-07T13:04:05.010Z",
+    "testCommandWallMs": 30363.469291999994,
+    "candidateRefreshCommandWallMs": 141533.18074999997,
+    "firstStopAt": "2026-11-07T13:04:35.735Z",
+    "summaryClosedAt": "2026-11-07T13:05:34.430Z",
+    "driverWallMs": 365423,
+    "previous018StopAt": "2026-11-07T12:29:55.646Z",
+    "previousStopToCommandInvocationSeconds": 1742.388138,
+    "previousStopToMaterializedStartSeconds": 1859.435,
+    "standing": "Between-run gap is Operator triage/preparation/admission/setup, not Worker launch. No host-cause or performance-improvement inference."
+  },
+  "standing": "Original018 missing-input failure and019 Operator path-comparison preflight are preserved separately. First new initialization error stopped serial dispatch. No automatic retry, repair, continuation, source/Git/cut/install/cleanup or qualification claim is selected."
+}

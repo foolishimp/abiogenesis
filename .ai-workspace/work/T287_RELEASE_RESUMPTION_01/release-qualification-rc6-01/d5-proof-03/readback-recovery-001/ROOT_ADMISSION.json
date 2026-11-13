@@ -1,0 +1,113 @@
+{
+  "kind": "root_existing_owner_readback_recovery_admission",
+  "at": "2026-11-06T03:10:48.634050+00:00",
+  "status": "ADMITTED_BOUNDED_READBACK_ONLY",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/ACTUAL_RECEIPT_CUSTODY.json",
+    "bytes": 3459,
+    "sha256": "99b566c9d745fb42917a5500584bd5407f9f44a37563efe37ee93045019a30af"
+  },
+  "failureEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/HOST_RESULT.json",
+      "bytes": 155,
+      "sha256": "29d3d0930840c7ee51cdc93a4351fbfa12ec7c071730f48b2761b21f2d4804d7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/HOST.stderr",
+      "bytes": 7259,
+      "sha256": "229b7d49aa23296ec1241dd652c8f066cb57e80aa2461f7ed7684655e15c67bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/TIMING_FAILURE_BREAKDOWN.json",
+      "bytes": 3442,
+      "sha256": "e8e32b5c001c541762714be37425fe5b84894bd12531da2001adf585e760a80d"
+    }
+  ],
+  "role": "Executive multi-frame triage -> separately bound operator Writer",
+  "triage": {
+    "Product": "Existing exact-prefix read owners preserve actual source/authority and truthful absent terminal after blocked invocation. No Product source or contract change.",
+    "integration": "Host returned genuine invocation receipt before fresh read construction. No run_result command was launched. Existing cold read helper performed caller.refresh plus independent constructor acquisition.",
+    "identity": "captureDurablePrefixCoordinate(raw) returns one nominal immutable coordinate, initially with no authenticated history. Artifact and read preparation both capture the same object and use existing owner reuse. Same serialized prefix and handoff digest, unchanged actual reopenAuthority.",
+    "runtimeEffect": "Installed constructor authenticates real prefix; normal serialized cold CLI acquires its actual resource. No synthetic close, direct event writer or borrowed authority claim.",
+    "proof": "Current C2 and absent UAT remain failed/open. Readback-only recovery retains exact full owner outputs, actual absent terminal and physicalprefixunchanged checks. No repeat of selectors, lifecycle or tests.",
+    "uncertainty": "Fatal stack proves heap exhaustion in string/Buffer processing, not exact allocation call. Source establishes redundant acquisition; success and memory fit of bounded recovery remain unmeasured.",
+    "contributingEvaluation": "MAX latency reviewer confirmed existing capture/constructor relation by source in closed communication; supplementary persisted report pending. Root owns this bounded disposition, not an independent acceptance claim."
+  },
+  "sourceOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 215016,
+      "sha256": "01c82b88e65e12b367b9683241407bcc7707531679963c04a580855bcfa1df71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+      "bytes": 23451,
+      "sha256": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 37404,
+      "sha256": "7e280a39ea57094d52c9daff5bed18f4d4d8de20fe5785b48b2a3041189c753b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 92881,
+      "sha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "bytes": 27318,
+      "sha256": "27de3ce5c295b3aaa76b58bb062357763a6109ddf6d55ba9b1844fd75914bd29"
+    }
+  ],
+  "actions": [
+    "Each pending run_result and run_replay once, sequentially, with an isolated8GiB operator and normal installedcoldCLI.",
+    "Use only actualreceipt close/run and original bound workspace/definition envelope. Capture exactsameprefixonce before constructor; omit redundant caller.refresh.",
+    "Retain canonical equality and physicalprefix size/hash/device/inode before/after. NormalcoldCLI serialization deliberately carries no nominal reuse authority acrossprocess."
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/INPUT.json",
+      "bytes": 250729,
+      "sha256": "2814fe922464f0203b6d8520411d063ba1fda7194aa24161ccc8c569a5055d5e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/read-one.mjs",
+      "bytes": 5018,
+      "sha256": "cafe3342f0ed9613a9717333a9eb66f1207df31717fee27d32fc414c4828f623"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/launch-read.py",
+      "bytes": 1814,
+      "sha256": "221ad7abcb71422ed03ab367e65b80d41bff9adb9137bcba39e0b8c90cda8c12"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    }
+  ],
+  "resourceLimits": {
+    "heapMiBPerProcess": 8192,
+    "outerMsPerMember": 900000,
+    "coldCliMs": 600000,
+    "coldCliOutputBytes": 536870912,
+    "automaticRetry": false,
+    "credentialUse": false
+  },
+  "stops": [
+    "Any owner refusal, unexpected physicalprefix mutation, mismatch or resource failure returns exact retained evidence to Root; no automatic retry."
+  ],
+  "standing": "Recovery of existing declared incomplete proof, no qualification acceptance. The underlying RC7 source fix remains nativeWorker work."
+}

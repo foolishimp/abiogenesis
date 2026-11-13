@@ -1,0 +1,345 @@
+{
+  "status": "FINAL_ABG_RUN_CLOSED_COMMON_EXTERNAL_CHECKS_CAPTURED",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/sandbox/worksite",
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "summary": {
+    "scenario": "basic-cli",
+    "runId": "2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e",
+    "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e",
+    "mode": "run",
+    "status": "passed",
+    "uatPass": true,
+    "runtimeDisposition": "result",
+    "terminalAvailable": true,
+    "independentOracle": "satisfied",
+    "reason": "Selected original obligations and exact terminal/readbacks agree"
+  },
+  "sealedAt": "2026-11-03T00:41:24.370Z",
+  "terminalResultRef": "result://abiogenesis/45f81514ce372648c2096e0abf54ad502399503ed85edbb6a02f32faa04fa4ba",
+  "freshTerminalEquality": true,
+  "freshReadMembers": [
+    "run_result",
+    "run_replay"
+  ],
+  "files": [
+    {
+      "relativePath": "design/implementation-design.md",
+      "sha256": "fd8f0aa5326091690b801cd7bc2749d6edcd17163c62e06afa4d18426e028963",
+      "bytes": 1838,
+      "admittedDigest": "sha256:fd8f0aa5326091690b801cd7bc2749d6edcd17163c62e06afa4d18426e028963"
+    },
+    {
+      "relativePath": "design/test-design.md",
+      "sha256": "16f651cbcf539b561519a2f71c8a6a1a150979ee36e0af6e0181167257a057ae",
+      "bytes": 1880,
+      "admittedDigest": "sha256:16f651cbcf539b561519a2f71c8a6a1a150979ee36e0af6e0181167257a057ae"
+    },
+    {
+      "relativePath": "generated/hello-world.mjs",
+      "sha256": "fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115",
+      "bytes": 61,
+      "admittedDigest": "sha256:fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115"
+    },
+    {
+      "relativePath": "source/basic-cli/obligations.json",
+      "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+      "bytes": 4916,
+      "admittedDigest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+    },
+    {
+      "relativePath": "source/basic-cli/oracle.json",
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "bytes": 1112,
+      "admittedDigest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    },
+    {
+      "relativePath": "source/basic-cli/source.original.txt",
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "bytes": 4325,
+      "admittedDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    },
+    {
+      "relativePath": "specification/project-conformance.md",
+      "sha256": "7708068a5a8d82550d9f809b0aa08c0d6009fbfef3e5f887ecaaabc981af818f",
+      "bytes": 2450,
+      "admittedDigest": "sha256:7708068a5a8d82550d9f809b0aa08c0d6009fbfef3e5f887ecaaabc981af818f"
+    },
+    {
+      "relativePath": "test-execution-plan.json",
+      "sha256": "eb9c22af770518cac08f9d07df1955e161d3618afc7ef78691f499802eabaa87",
+      "bytes": 779,
+      "admittedDigest": "sha256:eb9c22af770518cac08f9d07df1955e161d3618afc7ef78691f499802eabaa87"
+    },
+    {
+      "relativePath": "test/component/hello-cli.test.mjs",
+      "sha256": "e293cbaabfe1fff5e9d98b232ca2c700649d9c289fc146ea444a9179f1e9bcf8",
+      "bytes": 686,
+      "admittedDigest": "sha256:e293cbaabfe1fff5e9d98b232ca2c700649d9c289fc146ea444a9179f1e9bcf8"
+    },
+    {
+      "relativePath": "test/uat/hello-cli.uat.test.mjs",
+      "sha256": "5644e1c033f593a5479e7ba2090346b24ba14b08ccf1e8f1fd17383abd4dd2f2",
+      "bytes": 687,
+      "admittedDigest": "sha256:5644e1c033f593a5479e7ba2090346b24ba14b08ccf1e8f1fd17383abd4dd2f2"
+    }
+  ],
+  "applicationFileCount": 10,
+  "operatorMetadata": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/sandbox/worksite/.abiogenesis/workspace-manifest.json",
+      "bytes": 1557,
+      "sha256": "0d502a23430abed11b9c2e4f091919aa583d16a38d739b4743e85ca53e9c16f4"
+    }
+  ],
+  "deltaFromAdmittedConstruction": [],
+  "archivePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/summary.json",
+      "bytes": 563,
+      "sha256": "4de4e8a402c83b1f873e95016864fcdff674519794aa66b30301dc509b849589"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/SEALED.json",
+      "bytes": 311,
+      "sha256": "ffb8464fbf677bffe9cebfc92c0343d216cae9cea347bc1912183ee4ee1c2711"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/run.json",
+      "bytes": 8048,
+      "sha256": "7f2497b64ca54282fb019b71e3e324e6fe65f9f50c2c2fac99e334bc39c4290e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/workspace-manifest.json",
+      "bytes": 1704,
+      "sha256": "5cf14e833562aeed30a48d9f4c5100ec46e341b7d24390ae5f591a7e31dede52"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/fresh-readback.json",
+      "bytes": 276269,
+      "sha256": "e7b3505920f3c2bfa37e884290147b11ce13c6b207b02e03b91c2b2380641b75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/final-close-handoff.json",
+      "bytes": 1518,
+      "sha256": "16dd1d2637f59127f72f8ec4ee5d13f314d432fb6858b8a52dc76b001bf07030"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/runtime-event-prefix.json",
+      "bytes": 732,
+      "sha256": "1b31ca4541b13f6f2f4cbd1010f399ad764e1acdf3aaccf89134fd3a7c87f793"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/source-conservation.json",
+      "bytes": 718,
+      "sha256": "a898a0e529e548fe1a189eeca5a3b2303b83dd676ad02e48ceb3e9912a1f2686"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/independent-oracle.json",
+      "bytes": 5142,
+      "sha256": "b3e92b44faaf4dd4c1af3c1ce87c56bc1f97ec564ae32dea17251440504c9e57"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/installed-content-before-run.json",
+      "bytes": 2216,
+      "sha256": "d067142972307425bd2e7a432ce5170c55a957fb8a945a1424c87c4914d13619"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/installed-content-after-run.json",
+      "bytes": 2215,
+      "sha256": "b1e0b7e51347b0b10e7e6ec250f6f3cbe4143037e6b1c42dff250790d7fd5907"
+    }
+  ],
+  "eventLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/resources/events/runtime.events.jsonl",
+    "bytes": 24530958,
+    "sha256": "2d52589912177d166d546acd01a1306b2a837b72f2141dffcfec1134ef499b88"
+  },
+  "providerMeasurements": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/ABG_PROVIDER_MEASUREMENTS.json",
+    "bytes": 12586,
+    "sha256": "db436a99895edf2f47a9c3606258b58087032c6a5e75a5ceb7765d5df9091ee4"
+  },
+  "externalChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/external-checks-abg/EXTERNAL_RETURN.json",
+    "bytes": 2004,
+    "sha256": "9de1452723702fe01fe7e63882f56eca99e1776341cd6673cfbb01e9623038be"
+  },
+  "timeBreakdown": {
+    "runMetadataToSealMs": 847720.0,
+    "beforeLifecycleCommandMs": 283579.0,
+    "lifecycleCommandWallMs": 536696.639583,
+    "afterLifecycleThroughSealMs": 27444.36,
+    "firstProviderStartAfterRunMetadataMs": 288767,
+    "commands": {
+      "acquire-bootstrap.result.json": {
+        "started": "2026-11-03T00:27:16.783Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 464.218,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "pack-consumer.result.json": {
+        "started": "2026-11-03T00:27:55.676Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 294.84295900000143,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "preflight-node.result.json": {
+        "started": "2026-11-03T00:27:16.659Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 16.169666999999997,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "preflight-npm.result.json": {
+        "started": "2026-11-03T00:27:16.676Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 96.21829199999999,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "preflight-provider.result.json": {
+        "started": "2026-11-03T00:27:16.773Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 8.92541700000001,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "product-verify-0.result.json": {
+        "started": "2026-11-03T00:27:56.261Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 38044.759208999996,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "workspace-create.result.json": {
+        "started": "2026-11-03T00:27:36.455Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 19213.867416999998,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "product-verify-1.result.json": {
+        "started": "2026-11-03T00:28:34.460Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 19432.309957999998,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "product-resolve.result.json": {
+        "started": "2026-11-03T00:28:57.964Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 23610.74095800001,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "product-install-0.result.json": {
+        "started": "2026-11-03T00:29:21.905Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 41311.10187499999,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "product-install-1.result.json": {
+        "started": "2026-11-03T00:30:03.671Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 21910.028625000006,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "workspace-bind.result.json": {
+        "started": "2026-11-03T00:30:26.096Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 20671.236000000004,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "catalog-admit.result.json": {
+        "started": "2026-11-03T00:30:48.087Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 24845.944667000003,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "catalog-view.result.json": {
+        "started": "2026-11-03T00:31:14.162Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 21044.670790999982,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "program-conformance.result.json": {
+        "started": "2026-11-03T00:31:36.096Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 21438.533708000003,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "lifecycle-start.result.json": {
+        "started": "2026-11-03T00:32:00.229Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 536696.639583,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "run_result.result.json": {
+        "started": "2026-11-03T00:41:06.557Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 5532.930292000063,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      },
+      "run_replay.result.json": {
+        "started": "2026-11-03T00:41:18.181Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 5519.973832999938,
+        "timedOut": false,
+        "truncated": false,
+        "failure": null
+      }
+    },
+    "limits": [
+      "Intervals include setup/file I/O/verification/waits and are not CPU attribution.",
+      "ABG has additional method/roles/admission/protocol and independent assessment; direct arm has no such workflow.",
+      "External checks and unpriced Executive/Writer/reviewer work are separate.",
+      "Single ordered pilot, no universal efficiency or causal gain claim."
+    ]
+  }
+}

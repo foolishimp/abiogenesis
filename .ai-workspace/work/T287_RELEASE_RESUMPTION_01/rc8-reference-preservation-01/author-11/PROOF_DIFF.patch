@@ -1,0 +1,17 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs
+@@ -1,4 +1,4 @@
+-// Test-only successor: freeze the admitted overlay, reuse exact compiled inputs, run the one selected whole-file fixture lane once.
++// Test-only successor: freeze the admitted overlay, reuse exact compiled inputs, run the one selected focused fixture lane once.
+ import assert from 'node:assert/strict';
+ import {createHash} from 'node:crypto';
+ import {readFile,writeFile,mkdir,readdir,lstat,readlink,copyFile,chmod,symlink,statfs} from 'node:fs/promises';
+@@ -61,7 +61,7 @@
+       currentCandidateFixture:prep.currentCandidateFixture,productArchive:prep.productArchive,buildInvocations:0,environment:env});
+     console.log(JSON.stringify({status:'EXACT_COMPILED_INPUTS_REUSED',sourceDigest,tenant}));
+   }else{
+-    assert.equal(mode,'test','Use freeze | test lifetime');assert(Object.hasOwn(b.lanes,lane),'Unknown lane');
++    assert.equal(mode,'test','Use freeze | test materialization-o1');assert(Object.hasOwn(b.lanes,lane),'Unknown lane');
+     const ready=JSON.parse(await readFile(join(root,'READY.json'),'utf8')),freeze=JSON.parse(await readFile(join(root,'source-freeze.json'),'utf8'));
+     await verify(work,ready.derivedStageFiles);await verify(join(tenant,'node_modules'),inventory.dependencyFiles);
+     const label='lane-01';

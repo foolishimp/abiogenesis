@@ -1,0 +1,9 @@
+# T-287 RC6-driven RC7 continuation
+
+Current progress, 2026-11-05T22:44:34.280718+00:00: **D5_PARTIAL_SOURCE_CLOSED_ROOT_REENTRY**. RC6 remains the installed builder for prospective RC7. The native D5 Run closed normally with partial source, frozen SUBJECT `601d6588` (386 files,10 new changed paths); all357 final-stage members match. Author checks111 tests/110pass/1fail/0skip; no D5 C2/UAT or source acceptance. Fresh result/replay agree; latest genuine prefix716470691/SHA91354f99 is held by `d5-author-01/FINAL_RUNTIME_CLOSE.json` (SHAd316f1fb). M2 artifact/qualification digest coupling and an authentic recovery fixture remain incomplete. Bounded review identifies the red count as S3 test-attribution error, not extra causal lookups; Root selects a strict test-only correction for the next complete increment. The original one-target recovery premise is invalid: the semantic bridge requires implementation and verifier targets plus a command; exact owner readiness is being closed before another coding launch. No coding or proof Run is active; the proof template is dormant. Host52m23s, native44m39s, final readback/close6m05s; setup reused, preflight38.618s, dispatch-to-native38.913s. Detailed volumes/timings and all failures are preserved. Formal different-family review, QR02/QR03, qualification and release remain open; no push/selector/human acceptance.
+
+Current exact continuation: [D5 handoff](d5-author-01/HANDOFF.md), [status](STATUS.json).
+
+Remaining: D5 source/proof/review; Q23 UAT and required independent judgment; QR02 surviving contributors; QR03 current resources/eligible route; affected S01/S02/S03/S06; pre-RC F11/soleAF22; RC7 cut/install/qualification; reserved human acceptance/publication. Immutable RC6 remains local and unqualified. No push/global selector/stable claim.
+
+Previous state is preserved at `d5-author-01/dispatch-status-preimages/`. Never launch a second coding Worker or reopen the campaign while the D5 Run is active.

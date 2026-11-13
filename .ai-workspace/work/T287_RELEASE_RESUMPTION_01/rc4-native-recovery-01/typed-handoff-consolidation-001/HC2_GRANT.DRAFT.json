@@ -1,0 +1,250 @@
+{
+  "status": "UNFROZEN_HC2_PREPARATION_NOT_NATIVE_GRANT",
+  "changeClass": "realization_refactor",
+  "sourceCommit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+  "sourceTree": "e669e2a903de1893a38271b4010a785cc840333e",
+  "sourceSelection": "Root-selected unaccepted HC1 partial custody3c3c6e803, conjoined with immutable015 first/second subjects and actual red/native/independent evidence. No claim HC1 complete.",
+  "basis": "Accepted T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md HC2; ABI5_PROJECT_REFERENCE_FRAME_BASIS Owner/Install/Effect/Proof; operative STDO3.0.2",
+  "mandatoryOwnerPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/index.ts"
+  ],
+  "conditionalProducerReuseOrExportOnlyPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts"
+  ],
+  "migrationAndBodyRetirementPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-readback.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs"
+  ],
+  "conditionalProofPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json"
+  ],
+  "newProductFiles": [],
+  "generatedWriteRoots": [],
+  "scratchWriteRoots": null,
+  "limits": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "maxTurns": 384,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null
+  },
+  "constraints": [
+    "Exact existing source preimages pinned to3c3c6e803; this draft selects no source effects or paid call.",
+    "Conditional paths only for existing producer reuse/export or necessary proof; no new schema/refusal/event/API family or authority records.",
+    "Construction may use official noEmit compiler; C2 owns independent build/package/test materialization.",
+    "New installed composition fixture, if existing test homes cannot express the proof, is an explicit remaining Root scope decision; no Writer scaffold.",
+    "Historical frozen helper copies remain evidence; maintained successor operator uses package exports after acceptance."
+  ],
+  "resourceReprice": "Root selected384 turns for future HC2 after actual HC1 reported226/256; unchanged xhigh/time/cost limits and scope. Running015 unchanged.",
+  "inheritedProofRepairs": [
+    "Require canonical skipLibCheck:false for strict packed declaration checking; independent strict probe passed but canonical config must enforce it.",
+    "Actually dispatch all9 unavailable leaves through existing installed_binding_unavailable.",
+    "Fix mixed-valid/invalid call-union soundness in installed_definition_call_transport.ts with positive/negative union proof; no broad fallback acceptance."
+  ],
+  "prospectiveRuntimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003",
+  "recursionBound": 8,
+  "inheritedEnvironmentRepair": "Retain native second-return ABI5_HC1_BASELINE_PACKAGE_PATH repair (one name, no alias debt) and rerun candidate-vs-exact014 schema proof in next C2; baseline-self probe does not replace it.",
+  "sourcePreimages": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 33611,
+      "sha256": "593fce46fe3c5353b722315555254a0a425da3f24d62a9a25d08f672062d0684"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "bytes": 27921,
+      "sha256": "241ebed6ecbb3bd3f51dabe9433996d4b4d015451d528d9e8bd26f99cacd919d"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "bytes": 52769,
+      "sha256": "4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "bytes": 25279,
+      "sha256": "0f90a162f7be7590fbaa312e61c62a59af5e5c4b894c0cf7b815f740b21f0f47"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 94325,
+      "sha256": "afeb66f211c26c474511e4ec58456ef6427ff2cc5f83eedb6e3fc0e542eb04d0"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 146271,
+      "sha256": "50d14f82db074dafef93999993b4d45c6cc177c55fb977b6ff0babc32fb8fd63"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 33082,
+      "sha256": "cba443c792849187cc5f1636a8c24ea01c4b21be2e998a7db4b751549ceca617"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "bytes": 21557,
+      "sha256": "bfd3e0f12898d1007e90557e7bcfcabdd3c216b23ca883762126dc75be9fbbb6"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "bytes": 12060,
+      "sha256": "bf2e4bd675af961d3a0e4f089aa0ebcbc1780a13fb8c658f35ed36f716355553"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+      "bytes": 2106,
+      "sha256": "5ec09d66f74c578d23d28fbc44b23e0035c2a5c27e0a5a99a42d4b613b8e00df"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 92912,
+      "sha256": "5e0b45c35d9db3ca8ecd57d792a386dcb762a08303fe69558081f86ae579535f"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+      "bytes": 23451,
+      "sha256": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "bytes": 46572,
+      "sha256": "729336931f3708a0f9432da21d102f1a5f714614a06bc229f40384a89189710f"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "bytes": 34639,
+      "sha256": "a2d7b810f84bc2746d142fc9f5d2e8cba1ecc1f26c26f6a8f2e5921e195ba696"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "bytes": 19456,
+      "sha256": "18adbdd06dfa39b67da1eddf50d3d47e452dbb37aeab82ea9bad6e0d784e3ace"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "bytes": 29526,
+      "sha256": "bfc31213c58575d2afee4b287bb4a0f5acbba7f65b539daabb49c7a669429761"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "bytes": 26756,
+      "sha256": "a201ca84a06a7bed61ab16796dfed1221b84723e3dd29d0c597f66c0e9131879"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-readback.mjs",
+      "bytes": 6067,
+      "sha256": "2d1dd300d132bc769be9801ebdf156a41ed5ea52884f8e66a153d920577dd7e2"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10687,
+      "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+      "bytes": 43058,
+      "sha256": "3e4388d4fbf376d2719600a7768483a537a6939001449e5932359c970bd684c6"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+      "bytes": 60366,
+      "sha256": "fdf7dd2ec567a5fe8f6d1c03f060b0a22f5d1c35b5e69704b644d8af650b98fd"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 27984,
+      "sha256": "29abada25c16efff12bbd7bf995645e3aa68bb043eb59d67c988311a705aac18"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 36805,
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs",
+      "bytes": 40162,
+      "sha256": "7e75e8953fb05538c41a9e7e78c3525fdfdcebfb5bd489d2f720d7a71d236f2e"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs",
+      "bytes": 28948,
+      "sha256": "269fe102df2b5478b854b6970a9d667a581a9310b70a5f9ac2375ba08f75b22b"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "bytes": 68067,
+      "sha256": "aaf192c85bcd452baa4226945af2bc052bcba50e00738cd97effa30ee0e8b252"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 14634,
+      "sha256": "c4551dec5535c93cfde34b771952cf4f43d6d0cc6ee23b65bbaff978f75a59ca"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "bytes": 55669,
+      "sha256": "34f2ab698993c9d5a023a367493f9f9178d0ecb55810361417293609a747c11b"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs",
+      "bytes": 4989,
+      "sha256": "637ff9a399a550d8ff9b7e78fb6f5e5d01b22b17266ed393abf265e58191f24e"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+      "bytes": 20380,
+      "sha256": "dbe62f2acd7b750bc0fc2cd19360e586d4a67dc81470f83b558e016ad0280c82"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+      "bytes": 21109,
+      "sha256": "af2d2df1abbe12335c8541454b14772cfaa3358a9ddb991f6accdf76bee37c1e"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 276237,
+      "sha256": "2496802e0a6156a08244a2c3808f3210f60120fffb69c41f4617c615f49f46ed"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "bytes": 65180,
+      "sha256": "9a6ea5ebb1b0ee43ace33d17d779ddb8084ffd66c27cc390f7ebeb50e744e592"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json",
+      "bytes": 588,
+      "sha256": "208a0f142f3bb522b167db19b0f2de10081f663bcfce6bbb653c3182df28d389"
+    }
+  ]
+}

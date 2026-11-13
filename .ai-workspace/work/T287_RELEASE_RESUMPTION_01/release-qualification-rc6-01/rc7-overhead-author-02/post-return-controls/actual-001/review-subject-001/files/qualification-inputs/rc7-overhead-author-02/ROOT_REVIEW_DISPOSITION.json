@@ -1,0 +1,67 @@
+{
+  "kind": "root_partial_consolidation_review_disposition",
+  "at": "2026-11-06T04:37:55.066186+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "actualRuntimeClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10277,
+    "sha256": "ac9a2e6425ea18490d5b1ee2c5bcfc985a3ecac4bae7b2908571de857ee5848f"
+  },
+  "reviews": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/reviews/partial-carriage-001/REVIEW.json",
+      "bytes": 32376,
+      "sha256": "61f1d236b4873723b4e258a7827f8c8c5b36e77551119d6051fb489a7ae3ced9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/reviews/partial-prefix-runner-001/REVIEW.json",
+      "bytes": 20810,
+      "sha256": "1e1c4ff1be15b6025b689c81d6e9839f1f30962a025a3d4b4ac6a0b56d4f4b77"
+    }
+  ],
+  "status": "PRESERVE_REALIZED_PARTIAL_COMPLETE_SELECTED_CARRIAGE_AND_BOUNDED_CORRECTIONS",
+  "conjunction": "No new carrier or prefix source counterexample requiring reversal. Exact original terminal agrees through both actual cold reads. Realized partial is a basis for continuation, not whole-consolidation acceptance. Corrected consumer/harness proof is running separately.",
+  "decisions": [
+    {
+      "id": "R1-task",
+      "decision": "complete_now",
+      "outcome": "Remove prospective full native Result.task and downstream duplicate embeddings; resolve exact actual current/progressed input through existing CCall/execution/basis owners."
+    },
+    {
+      "id": "R2",
+      "decision": "complete_now",
+      "outcome": "Extend existing admitted-member holder to exact admitted basis input for unchanged after bytes; keep actual after facts, changed/new inline bytes, unknown/failure and currentness/source/authority/effect/independence."
+    },
+    {
+      "id": "PC-001",
+      "decision": "correct_in_same_continuation",
+      "outcome": "Make existing carriage discriminator assert complete selected body ownership and no task/binding/before/unchanged-after copies. Bind real cold coordinate/current-input reconstruction and crossed-coordinate refusal through existing owner fixture, not only a mocked assembly owner."
+    },
+    {
+      "id": "PC-002",
+      "decision": "correct_in_same_continuation",
+      "outcome": "Qualify existing M03 unchanged-digest wording for within-attempt reuse; prospective removal changes envelope identity while original historical owners remain unchanged."
+    },
+    {
+      "id": "RC7-PREFIX-RUNNER-01",
+      "decision": "correct_in_same_continuation",
+      "outcome": "Retain and reference the same original stdout/stderr bytes in existing commandRecorder; keep decoded parser text as a view. Add bounded UTF-8/non-UTF-8 custody assertion in maintained harness."
+    }
+  ],
+  "historicalEvidence": "Preserve partial author stages and failures, all preceding R/N/P evidence, recovery117s cancellation, host8GiB OOM, prior read-helper predicate error and current operator-stage omissions/config failure. No retroactive acceptance.",
+  "proofSequencing": "Do not rerun passed unrelated qualification. Conjoin current affected proof and carry any concrete failure into the same native continuation. Require final relevant cold consumer/prefix-positive proof and complete carriage measurement; actual installed D5/recovery gate remains open at117000/120000ms with selected explicit frozen artifact route.",
+  "nextAuthor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02",
+  "laterSelectedWork": "Fixed Testing/UAT route remains selected after carriage completion; static packet already prepared. QR02/QR03 and remaining5.0 gates unchanged.",
+  "independence": "Two independent non-authoring component reviews; no formal qualification J or different-family claim.",
+  "qualified": false,
+  "published": false
+}

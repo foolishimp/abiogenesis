@@ -1,0 +1,165 @@
+{
+  "status": "AUTHORIZED_FIVE_PATH_LOCAL_CHECKPOINT_COMPLETE",
+  "rootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4623,
+    "sha256": "733e4e94a79c038774011f7db46d9f0d459f8871d387c41110bff150138ce85a"
+  },
+  "commit": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+  "tree": "3bc9e2e3c36f29646dfd2c7a46006c33054ccbe0",
+  "parent": "65f311e735c1297b9982117eb73fb6a32999cc02",
+  "branch": "codex/rc11-foundation-correction",
+  "selectedPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "specification/GOALS.md"
+  ],
+  "commitCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/COMMIT_COMMAND.json",
+    "bytes": 397,
+    "sha256": "2abbb1da2c25d037389461db7e949c7825ece2d94cfada32a210a7d4a8e4a946"
+  },
+  "stagingReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/STAGED_CHECKPOINT.json",
+    "bytes": 2250,
+    "sha256": "3afd52445d0025bfa5d3a6f970be636fdf1105f56da9bf905307505da5e006ad"
+  },
+  "testedSourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "testedSourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/source-freeze.json",
+    "bytes": 295048,
+    "sha256": "12d3f6f9517d3b1173351877303fce46f007974c88e8fb0892b85389fbc700e0"
+  },
+  "postProofDocumentaryDelta": [
+    {
+      "before": {
+        "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 817325,
+        "sha256": "c6f7e18121d734156055795746d56a276ab973c487f19e9821e7bc49aa63ef8d"
+      },
+      "after": {
+        "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 818865,
+        "sha256": "f046291f4a4330a0b5db33a999c7c6aa4ac1758b4e5ce8649af996aa800dc643"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 12488,
+        "sha256": "1e74bd81742816ff4ecb7c82606a27bae60cef6889b8dafc4bf827b4e21d49d8"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 12980,
+        "sha256": "3c0820e1959dfbd1ac73e857036aa347475643d597096dbb921faae2ad41d574"
+      }
+    },
+    {
+      "before": {
+        "path": "specification/GOALS.md",
+        "bytes": 167610,
+        "sha256": "2eee0e510ece90daf00b6f91a259d57593323a9175f9f9e38ed7c263e4134239"
+      },
+      "after": {
+        "path": "specification/GOALS.md",
+        "bytes": 169150,
+        "sha256": "4ea9c08995b2424c90b0376092fcda989e9458c74634648f6bb3cae2df968a78"
+      }
+    }
+  ],
+  "documentaryReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/TRACKING_AND_DOCUMENTATION.json",
+    "bytes": 6312,
+    "sha256": "23c22d172265ec92a64fc5beac6dcfd0849d52d4b04056f2ba5a727faa0c8148"
+  },
+  "currentInventoryDigest": "a70d26075669f42c93aeec0fb842a664c347aa21d2f62bf483a1bf24c92ee004",
+  "allOther1341RowsConserved": true,
+  "sixTestedSourcePins": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "bytes": 60372,
+      "sha256": "77d9f61e3605a2a3d2050e22ec8961f34c8f11d12a9cee9e79f37454437e9879"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 203108,
+      "sha256": "62742b6c222ad698b022b6c00672541a5d701c92dc367191afc41bf0c1fc8f46"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 145250,
+      "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 52787,
+      "sha256": "4db80cc8cf535099e138138720dc0ffb196e81ed35a8c9fe3b3037fee9a1ab91"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+      "bytes": 8589,
+      "sha256": "9cbe06469224c20e3f58792a1791b9886b72b3876812787330be098ddd878d9e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+      "bytes": 9781,
+      "sha256": "44733710fd85aa4b6bc3ed2decc875e7334e7778a1358e3564a0ab39da4f0c61"
+    }
+  ],
+  "proofBuildCorrespondence": "All six tested source files and retained compiled inputs unchanged. Only three documentary status paths differ from the accepted full source inventory; no full-inventory equality or rebuilt proof is claimed.",
+  "preservation": {
+    "mainHead": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "mainIndex": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    "mainTrackedStatus": [
+      " M .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      " M specification/GOALS.md"
+    ],
+    "deliveredC11Head": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+    "retainedPinsConserved": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29372910,
+        "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+        "bytes": 7591,
+        "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+        "bytes": 11028443,
+        "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+        "bytes": 1839,
+        "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+      }
+    ],
+    "candidateTrackedClean": true,
+    "candidateUntrackedPathListConserved": {
+      "bytes": 54688,
+      "sha256": "fbe0dd5db00dcbc787579d74d855d9b2bba9ab50a21428ac20ca60cdd393fe62",
+      "count": 655
+    },
+    "candidateIndexAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+      "bytes": 29655080,
+      "sha256": "98894232f012280d3b8c3acd7e9e45f0819418abe7d3923de4a16addbae73f49"
+    }
+  },
+  "limits": "No rebuild/retest/production refactor/merge/push/release/installation/selector change. Installed old RC11 remains local/unqualified/unpublished and RC10 remains pinned. Phases2-4 and GC03 are planned/unactivated. Existing wider qualification residuals and all historical failures remain."
+}

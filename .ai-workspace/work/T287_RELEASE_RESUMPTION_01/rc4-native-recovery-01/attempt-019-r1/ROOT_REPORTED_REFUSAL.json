@@ -1,0 +1,24 @@
+{
+  "kind": "root_reported_tool_output_not_recorder_receipt",
+  "source": "Root collaboration message",
+  "sessionId": 9510,
+  "chunkId": "c50919",
+  "exitCode": 1,
+  "stdout": {
+    "status": "PURE_WHOLE_CONFIGURATION_REFUSED",
+    "name": "TypeError",
+    "message": "worksite command and predicate identities must be unique",
+    "observation": null,
+    "providerCalls": 0,
+    "RunAdmissions": 0
+  },
+  "stack": [
+    "Module.constructWorksiteCommandConfiguration installed worksite_command_execution.js:982:15",
+    "attempt-019/pure-config-readiness.mjs:27:25",
+    "Node.js v24.7.0"
+  ],
+  "rawOutputFile": null,
+  "cause": "Root traced childInputsExposeWorkspace -> unsafeChildValue -> hasParentPathSegment: two command args contained ../../../. IDs were unique; existing confinement correctly refused.",
+  "whyFileOnlyMissed": "File-only preparation joined selected source paths and checked duplicates, overlap, counts and syntax; it did not execute the complete installed C2 configuration owner. That owner is the authoritative command-value check.",
+  "correction": "Workspace-relative command args from cwd dot; adapter resolves fixed tenant subpath. No guard/schema/grant change or repeated original refusal."
+}

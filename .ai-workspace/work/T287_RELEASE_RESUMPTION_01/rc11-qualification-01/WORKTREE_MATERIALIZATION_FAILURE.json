@@ -1,0 +1,19 @@
+{
+  "status": "EMPTY_NO_CHECKOUT_INDEX_PRESERVED_BEFORE_COMPLETION",
+  "head": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "rootEntries": [
+    ".git"
+  ],
+  "indexExists": false,
+  "trackedIndexEntries": 0,
+  "sparseProfile": "/*\n!/*/\n/build_tenants/\n!/build_tenants/*/\n/build_tenants/abiogenesis/\n!/build_tenants/abiogenesis/*/\n/build_tenants/abiogenesis/typescript/\n/specification/\n",
+  "cause": "worktree add --no-checkout creates no index; sparse profile configuration alone did not populate it",
+  "stoppedBefore": "source inventory, dependency link, Product execution",
+  "readOnlyDiagnosticTermination": {
+    "pid": 76343,
+    "command": "git diff --cached --numstat",
+    "signal": "SIGTERM",
+    "reason": "unnecessary full-repository diff from absent index; no mutations"
+  },
+  "rootCompletionGrant": "Complete only new RC11 worktree index/worktree from exact 93a0de75 after verifying no authored bytes; no semantic re-entry."
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "name": "strict-packed",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "/private/tmp/rc4-015-independent-review-eou4p8fp/compiler/node_modules/typescript/bin/tsc",
+      "--noEmit",
+      "--incremental",
+      "false",
+      "-p",
+      "tsconfig.strict.json"
+    ],
+    "cwd": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer",
+    "exitStatus": 0,
+    "durationMs": 4255,
+    "log": "/private/tmp/rc4-015-independent-review-eou4p8fp/strict-packed.log"
+  },
+  {
+    "name": "union-control",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "/private/tmp/rc4-015-independent-review-eou4p8fp/compiler/node_modules/typescript/bin/tsc",
+      "--noEmit",
+      "--incremental",
+      "false",
+      "-p",
+      "tsconfig.union.json"
+    ],
+    "cwd": "/private/tmp/rc4-015-independent-review-eou4p8fp/consumer",
+    "exitStatus": 2,
+    "durationMs": 3424,
+    "log": "/private/tmp/rc4-015-independent-review-eou4p8fp/union-control.log"
+  }
+]

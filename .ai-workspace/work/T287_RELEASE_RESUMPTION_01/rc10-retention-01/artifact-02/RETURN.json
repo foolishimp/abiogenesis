@@ -1,0 +1,59 @@
+{
+  "status": "PROVISIONAL_REPAIRED_ARCHIVE_AND_TEMP_INSTALL_COMPLETE_MEASUREMENT_HELD",
+  "sourceIdentity": {
+    "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+      "bytes": 292778,
+      "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+    }
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "installation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/installation.json",
+    "bytes": 4232296,
+    "sha256": "ca2b15f2a1bf1f41b32a5dd636e0c9aec023e7bcf67a91929b4979e6cd36a462"
+  },
+  "installedRoot": "/private/tmp/abg-rc10-measurement-bootstrap-002/host/node_modules/@abiogenesis/typescript-tenant",
+  "manifest": {
+    "path": "/private/tmp/abg-rc10-measurement-bootstrap-002/host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3266232,
+    "sha256": "46ad3d49c09ca6e7e8a176c51cdb4a797a06ec1de5089392ed38e3a3685a450b"
+  },
+  "equality": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/ARCHIVE_INSTALL_EQUALITY.json",
+    "bytes": 2344,
+    "sha256": "a06d6baf301dcae910f5d32d3cb8859b7dac9dabf4ad203370bed660cc47afdd"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 2891,
+    "sha256": "4fee5659101505a05b23efce242369730e09cf951b61ce870a56c437fdae2367"
+  },
+  "measurementBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/MEASUREMENT_BINDING.PRE_ADMISSION.json",
+    "bytes": 11563,
+    "sha256": "a162b004989be8c39a591c7a002268b663d9408bd9ca5621bac27a4c09ea7805"
+  },
+  "measurementScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/measurement.test.mjs",
+    "bytes": 19969,
+    "sha256": "14a1e88e9d3e62faab83b78b87f1a4074c9648fbeba47aab1a32d2f672dba532"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/run-measurement.mjs",
+    "bytes": 6877,
+    "sha256": "cbf6e18c4bc639a9e9186ce142dcbace52e8a3ad1f72919a8584ea1336bece75"
+  },
+  "packCount": 1,
+  "installCount": 1,
+  "wallMs": 64143.242458,
+  "oldArtifactReused": false,
+  "noReleaseOrGlobalInstall": true,
+  "standing": "All5325 member bytes equal compiled stage/archive/temp install. Measurement execution still requires separate Root admission. Unit remains active; no acceptance/full qualification."
+}

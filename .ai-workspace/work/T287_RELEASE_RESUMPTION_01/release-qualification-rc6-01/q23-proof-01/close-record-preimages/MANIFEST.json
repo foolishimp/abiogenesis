@@ -1,0 +1,53 @@
+{
+  "at": "2026-11-05T20:16:14.506699+00:00",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/STATUS.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/close-record-preimages/0-STATUS.json",
+        "bytes": 8220,
+        "sha256": "f070faf18f7ea146dbbf0cd3b05bf992898666a94506da33ec00ce2f5593291d"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/HANDOFF.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/close-record-preimages/1-HANDOFF.md",
+        "bytes": 11496,
+        "sha256": "7e9fe9b561bcc5b928cc3daa5c3e46b3d6623b9dcc33d5a02fae4f1c2df147bb"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/HANDOFF.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/close-record-preimages/2-HANDOFF.md",
+        "bytes": 891,
+        "sha256": "d396ddde2099a05fd791d37bb431f0b662008701cdbd89a1ae2b235a60cda44b"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/HANDOFF.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/close-record-preimages/3-HANDOFF.md",
+        "bytes": 633,
+        "sha256": "63ebb46b7d4e1431dde473bdb152b971d596271f6052acf3fd3e6f570955871a"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/close-record-preimages/4-GOALS.md",
+        "bytes": 120294,
+        "sha256": "7124a36b2c5522e11949bc236f22877a837587c2b0d3bd1ebc93fe040c3eabe6"
+      }
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/close-record-preimages/5-T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 680654,
+        "sha256": "a943b1d36979b3f9b753af63bd6bce82a37288a42dcee2aa876f6b0f346da1ad"
+      }
+    }
+  ]
+}

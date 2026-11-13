@@ -1,0 +1,165 @@
+{
+  "kind": "independent_native03_r1_successor_source_review",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "independence": "resumed-context nonauthor; no clean-context claim",
+  "frame": "Product + six-frame atlas + f-end-to-end-interface-integration; Owner/Effect/Proof; selected STDO3.0.4 empty composition",
+  "subject": {
+    "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+    "inventorySha256": "954c2609173832ea9942c7317c4216f138e98543fab1f533e7d0a46fe4aa2c4f",
+    "rowsRehashed": 1345,
+    "comparedTo": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+    "changed": 4,
+    "unchanged": 1341,
+    "added": 0,
+    "deleted": 0
+  },
+  "disposition": {
+    "R1_original": "SOURCE_SATISFIED for eligible entry counts and stale-result/continuation rejection; execution conjunction pending",
+    "R2": "VIOLATED immediate-intent preservation by source counterexample; paired execution pending",
+    "overallA": "not accepted",
+    "rootDisposition": "reserved"
+  },
+  "findings": [
+    {
+      "id": "R2",
+      "severity": "S2",
+      "summary": "Outer immediate request is lost when its initial live probe re-enters via exit and nested graceful cleanup supersedes the probe token.",
+      "currentOwner": "owned_process_state.ts:151-170",
+      "predecessorOwner": "native01 frozen owned_process_lifetime.ts:251-284",
+      "fixture": "grace100; first POSIX probe emits exit-only once; every probe returns present; signal inert; requestTermination(immediate); inspect before clock advance",
+      "predictedPreA": {
+        "signals": [
+          "SIGTERM",
+          "SIGKILL"
+        ],
+        "cleanupDeadlineNs": "200000000"
+      },
+      "predictedA": {
+        "signals": [
+          "SIGTERM"
+        ],
+        "cleanupDeadlineNs": "300000000"
+      },
+      "evidenceKind": "independent source trace, not executed",
+      "origin": "introduced by A/native02 and retained in native03; contradicts author claim of unchanged pre-A behavior",
+      "boundedRepairCondition": "Preserve stronger cleanup intent independently of stale observation rejection, without any post-completion signals/probes/disposal or completion rewrite."
+    }
+  ],
+  "R1Relations": [
+    "Eligible assessment counted before fast-path evaluation/host reentry; cancelled tail not counted.",
+    "Token checked before absence write and continuation; superseded and completed returns inert; entered attempts retained.",
+    "Re-check coalescing preserves in-progress kill/deadline responsibility.",
+    "Notify/dispose/seal continuations retained; no generic tail rejection."
+  ],
+  "verifiedPreservedSlices": {
+    "deadline_clock_host_interfaces": "1ac6ea6d75b6d9ef6e725afa775bacac826729cc407723187fe660013598bef8",
+    "snapshot": "638752a84309e84428e0931b0c364b7c289e7311a35762576379a3f2cfdcffdb",
+    "reconcile_disposal": "bb7aee4a677b102250e3831e2b5028a23029195d867d7ed8cacf20a469747bea",
+    "facade_methods_guards": "3cb978e575f69d8b6179faec7ba17635f28ecccd516fc6ca4760045d15e036cc",
+    "allPriorTestTextExact": true
+  },
+  "nativeOnly": {
+    "tests": 18,
+    "pass": 18,
+    "fail": 0,
+    "skip": 0,
+    "standing": "author selfchecks only; no external review execution"
+  },
+  "productionAccounting": {
+    "lines": 502,
+    "bytes": 25148,
+    "deltaNative02Lines": 13,
+    "deltaNative02Bytes": 1036,
+    "deltaPreALines": 204,
+    "deltaPreABytes": 12515,
+    "claim": "consolidation, not net deletion or measured cost saving"
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-freeze.json",
+      "bytes": 295947,
+      "sha256": "954c2609173832ea9942c7317c4216f138e98543fab1f533e7d0a46fe4aa2c4f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/FREEZE_RECEIPT.json",
+      "bytes": 4793,
+      "sha256": "b9daae992dd8d470327d1588359370c6544ec24be6bea81c6b71eb77d8333c3a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/WORKER_REPORT.json",
+      "bytes": 6910,
+      "sha256": "079671bfd78714f855adc6aa6aae886fe76344bc9634b445d3e4b847405db929"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/TASK.json",
+      "bytes": 6503,
+      "sha256": "2ea47c686d5b0ab01c4c86d147cf5280a57201b2556f416b2f700d9ed0bafa16"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-review/ASSESSMENT.md",
+      "bytes": 8027,
+      "sha256": "17ec6ffc730c4ebe27cc7e972739b810766fa8bc520a3c0c7e4ce7c5d0706c54"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-review/EVIDENCE.json",
+      "bytes": 9576,
+      "sha256": "09eb2f3cf7d5fc387b09f7217691efeec67b65bc6439022a581ec45a6fb08f90"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-review/PROBE_EVIDENCE.md",
+      "bytes": 3371,
+      "sha256": "2fe847eb71baf7f19d40eda5e9f4685e4b29de63cddb9ad22b1c347e1b9a28af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-review/PROBE_EVIDENCE.json",
+      "bytes": 12958,
+      "sha256": "4e3dbf52ed5589b1d1b01bc9ffd90f94c832d6a3f08f6cdf1c8cb29adebffd20"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11658,
+      "sha256": "fbb571cc96fa60b4a7000c61063b060c7fcb14c11bed8ed96c40cbfe4bfa9e6f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 13490,
+      "sha256": "6af5f671477c20c98e3893f67957dd93d69ea674935e3c2426eb12a7ccf2d0e3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 69020,
+      "sha256": "bde24cca3b0e10d2589790a0847725b303070b993a26fb5ac2e9102a76787736"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 20144,
+      "sha256": "71414a3f69934ba6ccb3f1050ec58cb1e6dd2d44e546c5f9eda8acab8b048892"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/compile-01.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/controlled-01.tap",
+      "bytes": 5216,
+      "sha256": "56e8b00a67a09cecc475666d529cc14c56fbe33552f462944b52b46f34108eda"
+    }
+  ],
+  "assessment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-review/ASSESSMENT.md",
+    "bytes": 6574,
+    "sha256": "f67d5a5f9eecf69f56dd341814681b09b9d0ef6ec38bed4ef3aef0016ef024bc"
+  },
+  "limits": [
+    "No reviewer execution, source/Git mutation or repair.",
+    "No actual R2 comparative red acquired yet.",
+    "Preserved-probe/whole lifetime/baseline signal-notice proof pending.",
+    "B/F1 unreviewed here; no acceptance or qualification."
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "ProductFrame": "ABIogenesis 5.0 fixed fifteen families F01-F07,F09-F11,F13-F17; GOAL-035/T-287. This slice is a derived operator tool. Existing Product verification/lock/install owners retain effects; SDK/CLI remain thin shells; ABG alone admits runtime truth. No new runtime, store, controller, authority, qualification or release claim.",
+  "kind": "bounded_operator_control_review",
+  "reviewId": "RC7-S4-ARTIFACT-CONTROLS-001",
+  "at": "2026-11-06T20:22:57.861718+00:00",
+  "actor": "/root/rc7_growth_control_review",
+  "role": "Reviewer; assigned independent max by Root",
+  "returnTo": "/root",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "assignment": "Parent message selecting only new artifact controls and material joins; review artifacts only under reviews/artifact-controls-001.",
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "verification": {
+      "command": "stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify",
+      "exitCode": 0,
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "skill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+      "bytes": 8074,
+      "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+    },
+    "severityScale": "Product-selected S0-S4 descending; priority/disposition remain Root-owned"
+  },
+  "subject": {
+    "prepare-test-artifact.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/prepare-test-artifact.mjs",
+      "bytes": 9699,
+      "sha256": "6736f1b6c4700daa6bc11c8863b3eb7c3d33de952f4776cb0badb2ee11ab9308"
+    },
+    "install-test-artifact.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/install-test-artifact.mjs",
+      "bytes": 3511,
+      "sha256": "0786437a3e0f275fd2bfebf66c9c2e65479acb1c515ce857be5ed1f516cd1a22"
+    },
+    "ARTIFACT_CONTROL_MANIFEST.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_CONTROL_MANIFEST.json",
+      "bytes": 5228,
+      "sha256": "e7fb9a5d01fce0226a548752963bf8a5917111f6ebe0403ba8e2ba556afae24b"
+    }
+  },
+  "scope": "Static evaluation of the two new controls and their actual existing owner API joins for one future accepted successful S5 stage. Not evaluation of S5 source or repetition of preparation-002 review.",
+  "claim": "Given the exact future Root-selected inputs and finite bounds required by the supplied contract, the controls can preserve the accepted build, produce one isolated archive and real bootstrap installation through existing owners, and hand the same archive to the unchanged measurement without minting execution or release truth.",
+  "result": "satisfied",
+  "findings": [],
+  "triage": {
+    "class": "not_applicable"
+  },
+  "recommendation": "bounded_no_code_block; return for Root final binding and disposition, not execution admission or acceptance",
+  "evaluations": [
+    {
+      "predicate": "Source and compiled artifact conservation",
+      "result": "satisfied",
+      "evidence": [
+        "prepare-test-artifact.mjs:17-35",
+        "prepare-test-artifact.mjs:48-54",
+        "install-test-artifact.mjs:16-21",
+        "RC6 verify_product.js:1492-1586"
+      ],
+      "detail": "Checks 451 source rows against inventory and stage digest, completed compile/generate/lifecycle receipts, stage package root, exact manifest, and seven selected helper pins. Rechecks source/manifest around pack/install. Product owner verifies actual archive inventory and payload digest against the selected manifest. Final semantic source/build/acceptance binding remains Root-owned."
+    },
+    {
+      "predicate": "Existing command API, argv and owner outputs",
+      "result": "satisfied",
+      "evidence": [
+        "prepare-test-artifact.mjs:36-53",
+        "canonical operator runner.mjs:49-75",
+        "install-test-artifact.mjs:15-22"
+      ],
+      "detail": "Uses executable plus argv with shell-free spawn, consumes returned decoded stdout only as parser view, and preserves raw command streams/result receipts through the canonical recorder. Nonzero/signal/timeout/truncation/failure rejects success. Product refusal outputs are retained before assertions."
+    },
+    {
+      "predicate": "One pack and distinct installations",
+      "result": "satisfied",
+      "evidence": [
+        "prepare-test-artifact.mjs:45-55",
+        "install-test-artifact.mjs:16-21",
+        "preparation-002/measurement.test.mjs:27-31",
+        "frozen root-installed-environment.mjs:185-217,275-312"
+      ],
+      "detail": "One npm pack with ignore-scripts; no compile/generation call. RC6 owns bootstrap verification/lock/install/content check. Fixture frozenArtifact branch skips pack/extraction and independently performs its ordinary scratch install from the same archive. Bootstrap and measured setup install are explicitly distinct."
+    },
+    {
+      "predicate": "Fresh outputs and failure preservation",
+      "result": "satisfied",
+      "evidence": [
+        "prepare-test-artifact.mjs:14-22,37-44,58-59",
+        "install-test-artifact.mjs:11-14,17-21",
+        "canonical operator runner.mjs:14-17,49-75"
+      ],
+      "detail": "Checks all four artifact/measurement output and temp slots before effects; fixed fresh bootstrap root and create-only receipts preserve partial allocations and command failures. No retry, cleanup or automatic measurement launch. Allocation/early failures need not have a completed summary and are not success."
+    },
+    {
+      "predicate": "Unchanged measurement handoff and P2 correction",
+      "result": "satisfied",
+      "evidence": [
+        "prepare-test-artifact.mjs:55-57",
+        "preparation-002/run-measurement.mjs:14-32",
+        "preparation-002/measurement.test.mjs:57-94"
+      ],
+      "detail": "Actual archive/install and relation pins populate the existing unadmitted template. Root still selects measurement activation/bounds. Complete held/cold terminals and owner outputs compare at final P2; original Run identity is compared separately."
+    }
+  ],
+  "verifiedEvidence": {
+    "ownerPins": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_OWNER_PINS.json",
+      "bytes": 7242,
+      "sha256": "9fc9d03660b4f24fcb5ba0b419a17df6bdd610952421ee86c8e88698d0f98356"
+    },
+    "readiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_EXECUTION_READINESS.md",
+      "bytes": 4337,
+      "sha256": "9387ab3f65bc0914e508a07dec257a9ece81cf88ad08c08d189ba78b9e4558ae"
+    },
+    "bindingTemplate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_BINDINGS.template.json",
+      "bytes": 1807,
+      "sha256": "67ec1c2efac09fd7ecacdb673fd274b0ccd2c60ea4027385f593f644ba6cd6ad"
+    },
+    "measurementPreparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/PREPARATION_MANIFEST.json",
+      "bytes": 3987,
+      "sha256": "3468b45d6a09300fcdee5b0693be365d9224f63949267b00844fab39589b34a0"
+    },
+    "unchangedPreparationFiles": {
+      "count": 10,
+      "matches": 10
+    },
+    "canonicalOperatorOwnerPins": "all four match",
+    "builderOwnerPins": "all seven declared pins match; import-closure redesign or complete immutable-install requalification not performed",
+    "toolPins": "node, npm and tar realpaths, bytes and SHA-256 match",
+    "freshOutputsObservedAbsent": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001",
+      "/private/tmp/abg-r7p",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001",
+      "/private/tmp/abg-r7m"
+    ]
+  },
+  "futureRootBindingBoundaries": [
+    "Exact accepted S5 subject, complete 451-row source correspondence and source digest, successful stage receipts, compiled package root/manifest, and seven helper pins must be joined to the actual Root disposition. Hashing an activation or acceptance record does not interpret or grant its semantic authority.",
+    "Select finite positive packMs, installMs and outputBytes with 8192 MiB heap against the unchanged proposed ceilings; retain all four proposedBounds fields from the reviewed template. The script iterates the supplied proposedBounds keys, so this review does not claim universal validation of a rewritten Root-binding shape.",
+    "Root must bind the finite overall host/resource envelope for the eventual launch as well as the command limits; this review executes no host and establishes no resource measurement.",
+    "Recheck fresh output/temp allocation and immutable stage/manifest/helper/archive custody at admission. Actual pack/install success requires the genuine retained owner outputs; actual measurement needs separate Root activation and finite host/cold-read/actor/output bounds.",
+    "The final helper population must preserve the inspected frozenArtifact API join. Historical helper pins are reference evidence, not a substitute for final S5 helper pins.",
+    "No repeated completed qualification, local release-cut prerequisite, selector/publication/merge/push/tag effect, or immutable release mutation is authorized by this result."
+  ],
+  "independenceAndCapability": {
+    "authorship": "This Reviewer did not author or repair the candidate and derived the Product expectations before reading the scripts.",
+    "judgment": "Fresh assessment of pinned bytes; no author verdict substituted.",
+    "familyLimit": "No cross-model-family independence claim. If these operator controls were authored by the same model family, this bounded technical result does not establish a separately required cross-family semantic assessment under EVALUATION section 3.",
+    "host": "Exposed tools and filesystem are unrestricted. Acquisition exclusions were followed operationally; no enforced clean-room boundary is claimed.",
+    "excludedReads": "No private provider narrative/auth material, active S5 implementation, unrelated worktree contents or broad runtime records acquired."
+  },
+  "unperformedCoverage": [
+    "No script import or execution, syntax test, unit/integration test, build, generation, pack, install, provider/runtime launch or measurement performed.",
+    "No S5 source acceptance, whole-product qualification, release or benchmark conclusion.",
+    "No renewed whole-preparation-002 or immutable RC6 owner implementation review."
+  ],
+  "effectsPerformed": [
+    "Read-only source/hash/tool-resolution inspection and STDO status verification.",
+    "Create-only REVIEW.json and README.md in the granted review directory."
+  ],
+  "invalidation": [
+    "Material change to either script, controls/template, material owner API, helper interface or reviewed pins.",
+    "Changed Product/method/frame or activation/independence requirements.",
+    "A failed actual pack/install/measurement or changed source/build custody that contradicts a claimed join."
+  ],
+  "owningReentry": "Root conjoins this bounded result with actual accepted S5/binding evidence and owns disposition; a concrete failure returns to its existing operator or Product owner. No Worker activation follows from this review."
+}

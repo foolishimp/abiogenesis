@@ -1,0 +1,56 @@
+--- reviewed-core/frozen-proof.mjs
++++ proposed-deletion-capable/frozen-proof.mjs
+@@ -51,7 +51,14 @@
+ assert.equal(execFileSync('/usr/bin/git',['-C',b.sourceRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),b.sourceCommit);
+ assert(Array.isArray(b.allowedChangedPaths)&&b.allowedChangedPaths.length,'exact native write territory missing');
+ const safe=p=>{assert(typeof p==='string'&&!isAbsolute(p)&&!p.split('/').includes('..')&&!p.includes('\0'));return p;};
+-const allowed=new Set(b.allowedChangedPaths.map(safe)),extra=b.optionalNewSourceFiles.map(safe);
++const allowed=new Set(b.allowedChangedPaths.map(safe)),extra=b.requiredNewSourceFiles.map(safe);
++const deleted=new Set(b.allowedDeletedPaths.map(safe));
++assert.equal(deleted.size,b.allowedDeletedPaths.length,'duplicate deletion path');
++const deletionPreimages=new Map(b.deletedSourcePreimages.map(row=>[safe(row.path),row]));
++assert.equal(deletionPreimages.size,b.deletedSourcePreimages.length,'duplicate deletion preimage');
++assert.equal(deletionPreimages.size,deleted.size,'exact deletion preimage population required');
++for(const path of deleted){assert(allowed.has(path),'deletion is outside source write territory: '+path);assert(deletionPreimages.has(path),'missing deletion preimage: '+path);assert(!extra.includes(path),'new/deleted overlap');}
++
+ const exists=async p=>{try{await lstat(p);return true;}catch(e){if(e.code==='ENOENT')return false;throw e;}};
+ const dep=JSON.parse(await checked(b.dependencyInventory)),seed=JSON.parse(await checked(b.contractSeedInventory));
+ async function verifyRows(root,rows){for(const r of rows){const p=join(root,safe(r.path)),s=await lstat(p);if(r.kind==='symlink'){assert(s.isSymbolicLink());assert.equal(await readlink(p),r.target);const real=await realpath(p),rel=relative(await realpath(root),real);assert(rel&&!rel.startsWith('..')&&!isAbsolute(rel),'dependency link escapes');}else{assert(s.isFile());const v=await readFile(p);assert.equal(v.length,r.bytes);assert.equal(sha(v),r.sha256,'input changed '+p);}}}
+@@ -67,27 +74,31 @@
+     await mkdir(b.proofRoot);await mkdir(join(b.proofRoot,'tmp'));
+     for(const name of ['npm-user.npmrc','npm-global.npmrc'])await writeFile(join(b.proofRoot,name),'',{flag:'wx'});
+     output=join(b.proofRoot,'stage-01');await mkdir(output);
+-    const source=join(output,'source'),work=join(output,'work'),rows=[];
++    const source=join(output,'source'),work=join(output,'work'),rows=[],deletedRows=[];
+     const previous=new Map(inventory.rows.map(r=>[r.path,r]));
++    for(const path of deleted){assert(previous.has(path),'deletion is not an inventoried source file: '+path);assert.deepEqual(deletionPreimages.get(path),previous.get(path),'deletion preimage differs from exact source baseline: '+path);}
++
+     for(const path of [...new Set([...previous.keys(),...extra])].sort()){
+-      safe(path);const from=join(b.sourceRoot,path);assert((await lstat(from)).isFile());const bytes=await readFile(from),row={path,bytes:bytes.length,sha256:sha(bytes)};
++      safe(path);const from=join(b.sourceRoot,path);
++      if(deleted.has(path)){assert(!await exists(from),'selected deleted source remains present: '+path);deletedRows.push({...previous.get(path),absent:true});continue;}
++      assert((await lstat(from)).isFile());const bytes=await readFile(from),row={path,bytes:bytes.length,sha256:sha(bytes)};
+       if(previous.has(path)&&!allowed.has(path))assert.deepEqual(row,previous.get(path),'ungranted change '+path);
+       if(!previous.has(path))assert(extra.includes(path)&&allowed.has(path),'ungranted new source '+path);
+       const to=join(source,path);await mkdir(dirname(to),{recursive:true});await writeFile(to,bytes,{flag:'wx'});await chmod(to,(await lstat(from)).mode&0o777);rows.push(row);
+     }
+     const sourceDigest=sha(Buffer.from(JSON.stringify(rows)));
+-    await exclusiveRecord(output,'source-freeze.json',{status:'FROZEN_BEFORE_BUILD',source,sourceCommit:b.sourceCommit,sourceDigest,rows,binding:{path:resolve(bindingPath),sha256:bindingSha},nativeStartedReceipt});
++    await exclusiveRecord(output,'source-freeze.json',{status:'FROZEN_BEFORE_BUILD',source,sourceCommit:b.sourceCommit,sourceDigest,rows,deletedRows,binding:{path:resolve(bindingPath),sha256:bindingSha},nativeStartedReceipt});
+     console.log(JSON.stringify({status:'FROZEN_BEFORE_BUILD',stage:'stage-01',sourceDigest,freeze:join(output,'source-freeze.json')}));
+     await cp(source,work,{recursive:true});const tenant=join(work,b.tenantRelative);
+     await cp(dep.root,join(tenant,'node_modules'),{recursive:true,verbatimSymlinks:true});await verifyRows(join(tenant,'node_modules'),dep.rows);
+     // Source wins: immutable pinned RC9 provides only absent generator seed assets.
+-    const seeded=[];for(const r of seed.rows){assert.equal(r.kind,'file');const dest=join(tenant,'contracts',r.path);if(!await exists(dest)){await mkdir(dirname(dest),{recursive:true});await cp(join(seed.root,r.path),dest);seeded.push(r);}}
+-    await exclusiveRecord(output,'BUILD_INPUTS.json',{dependencyInventory:b.dependencyInventory,contractSeedInventory:b.contractSeedInventory,seededContracts:seeded,sourceWins:true,productRuntimeImportsFromDependencyCheckout:false});
++    const seeded=[],excludedDeletedSeeds=[];for(const r of seed.rows){assert.equal(r.kind,'file');const sourcePath=b.tenantRelative+'/contracts/'+r.path;if(deleted.has(sourcePath)){excludedDeletedSeeds.push(sourcePath);continue;}const dest=join(tenant,'contracts',r.path);if(!await exists(dest)){await mkdir(dirname(dest),{recursive:true});await cp(join(seed.root,r.path),dest);seeded.push(r);}}
++    await exclusiveRecord(output,'BUILD_INPUTS.json',{dependencyInventory:b.dependencyInventory,contractSeedInventory:b.contractSeedInventory,seededContracts:seeded,excludedDeletedSeeds,sourceWins:true,productRuntimeImportsFromDependencyCheckout:false});
+     const command=commandRecorder(output,{environment:env,timeoutMs:b.stageTimeoutMs,maxOutputBytes:b.maxOutputBytes});const results=[],began=Date.now();
+     for(const [id,args] of [['compile',['node_modules/typescript/bin/tsc','-p','tsconfig.json']],['generate',['scripts/generate-product-manifest.mjs']],['imports',['scripts/check-import-direction.mjs']],['lifecycle',['scripts/check-lifecycle-boundary.mjs']],['calculus',['scripts/check-calculus-boundary.mjs']]]){
+       const remaining=b.stageTimeoutMs-(Date.now()-began);assert(remaining>0,'stage allocation exhausted');
+       const r=await command(id,process.execPath,args,{cwd:tenant,timeoutMs:remaining});results.push({id,exitCode:r.exitCode,wallMs:r.wallMs,timedOut:r.timedOut});
+-      assert(r.exitCode===0&&!r.signal&&!r.failure&&!r.timedOut&&!r.truncated,id+' failed or incomplete');await budget();
++      assert(r.exitCode===0&&!r.signal&&!r.failure&&!r.timedOut&&!r.truncated,id+' failed or incomplete');for(const path of deleted)assert(!await exists(join(work,path)),'build revived explicitly deleted source: '+path);await budget();
+     }
+     await exclusiveRecord(output,'RESULT.json',{status:'BUILT',stage:'stage-01',sourceDigest,tenant,results,bindingSha256:bindingSha});
+   }else{

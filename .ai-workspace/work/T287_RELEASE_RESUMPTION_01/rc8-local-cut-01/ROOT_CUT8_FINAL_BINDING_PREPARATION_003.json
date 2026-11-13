@@ -1,0 +1,50 @@
+{
+  "status": "ROOT_SELECTED_FINAL_CUT8_BINDING_PREPARATION_ONLY",
+  "at": "2026-11-07T12:30:17.424971+00:00",
+  "writer": "/root/rc8_operator",
+  "consumer": "/root",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "authority": "Root accepted bounded A11source95d3 and selected additive final CUT8 inventory/binding for26paths; no checkpoint/build/cut/install. Existing corrected002 outer command budgets remain selected.",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 7205,
+    "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_FINAL_SOURCE_INVENTORY_003.json",
+    "bytes": 541696,
+    "sha256": "b07fc4536774a536878e43c961cdf319e11ddec58c2d51d560e3f0ab46e0c3dc"
+  },
+  "predecessorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_BUILD_BINDINGS_FINAL_SOURCE_003.prepared.json",
+    "bytes": 27417,
+    "sha256": "786152663d759ab74df33a0efc51cf67e674d64e979be14f6f9f641cc8012e48"
+  },
+  "operatorBudgetSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/ROOT_CUT8_BUDGET_SELECTION_002.json",
+    "bytes": 3688,
+    "sha256": "f5ae27c7f20e1e6e0a2006784aea37d009cf35da708c6c95225370a9cd339edb"
+  },
+  "selectedNewControls": [
+    "CUT8_FINAL_SOURCE_INVENTORY_003.json",
+    "CUT8_BUILD_BINDINGS_FINAL_SOURCE_004.prepared.json"
+  ],
+  "actualCurrentSourceRows": 1339,
+  "actualSelectedTrackedPaths": 23,
+  "actualSelectedNewPaths": 3,
+  "sourceWrites": 0,
+  "executionAdmitted": false,
+  "excludedEffects": [
+    "Product/source/test edits",
+    "Git/index/checkpoint",
+    "build/reproduction/pack",
+    "cut/install/selector/push",
+    "provider/native calls",
+    "cleanup"
+  ]
+}

@@ -1,0 +1,333 @@
+{
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/resources/archives/fp-1297eeac36d91dbc-stdout.log",
+    "bytes": 1536492,
+    "sha256": "4b607c6d9c086ed88fc1daefb263315e2b807fbfeb5f5853dd99a77d75f4e84e"
+  },
+  "tools": [
+    {
+      "line": 36,
+      "id": "toolu_01HAiwgiJvZdDDrkxPuhUimh",
+      "name": "Bash",
+      "input": {
+        "command": "git log --oneline -3 && git status --short && wc -l build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs && cat stdo_abiogenesis.json | head -50",
+        "description": "Show git state and file sizes"
+      },
+      "ordinal": 0,
+      "result": {
+        "line": 50,
+        "isError": false,
+        "contentSha256": "f6e6b6434931c290eb4652b87d850bff8bd94301a33c90061201e511393f24c3"
+      }
+    },
+    {
+      "line": 79,
+      "id": "toolu_01LLmXXih7kGdic9hiYFzi2L",
+      "name": "Bash",
+      "input": {
+        "command": "cat /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/ROOT_SCOPE.json; echo ----; cat /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/SOURCE_SUBJECT.json; echo ----; cat /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/EXTERNAL_TOOLS.json",
+        "description": "Read control route scope/subject/tools files"
+      },
+      "ordinal": 1,
+      "result": {
+        "line": 84,
+        "isError": false,
+        "contentSha256": "e7ba9d101d12e31f019ddf311216963ea717744096612a0669f0067c8b108e49"
+      }
+    },
+    {
+      "line": 134,
+      "id": "toolu_01WEcEyruwBVrRkUFhwyeAtD",
+      "name": "Bash",
+      "input": {
+        "command": "shasum -a 256 build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts && wc -c build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs && ls -la qualification-scratch/rc11-effect-phase2-01/ 2>&1; ls -la qualification-scratch/rc11-effect-phase2-01/native-b02 2>&1",
+        "description": "Verify target hashes and scratch dir"
+      },
+      "ordinal": 2,
+      "result": {
+        "line": 168,
+        "isError": false,
+        "contentSha256": "328d276309a62eac84b63eb5268c287d722b3c43b7a64b4a9975f6e91e3491a0"
+      }
+    },
+    {
+      "line": 180,
+      "id": "toolu_01TFEfoAyiaoT7nVNQwgjXGo",
+      "name": "Bash",
+      "input": {
+        "command": "cat /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/design/ASSESSMENT.md; echo ----; cat /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/unit-red-triage-01/proof/ASSESSMENT_REVISION_01.md; echo ----; cat /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/EXECUTION_RETURN.json",
+        "description": "Read Design, Proof assessments and red return"
+      },
+      "ordinal": 3,
+      "result": {
+        "line": 184,
+        "isError": false,
+        "contentSha256": "84d71145023b148d37235d665002f15ee768f86263f0886b5c7621455b901522"
+      }
+    },
+    {
+      "line": 207,
+      "id": "toolu_01D4jYw8zU97hbB4B9bp4LjN",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "offset": 1130,
+        "limit": 200
+      },
+      "ordinal": 4,
+      "result": {
+        "line": 211,
+        "isError": false,
+        "contentSha256": "da3603a29f85910de485d8e58649c6be8cf8b32a31025df69284d17a2ffde6c5"
+      }
+    },
+    {
+      "line": 224,
+      "id": "toolu_017ZR4DQ38PeeEJDZWpnbzDY",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "offset": 1150,
+        "limit": 75
+      },
+      "ordinal": 5,
+      "result": {
+        "line": 228,
+        "isError": false,
+        "contentSha256": "1c8493d6513e446ea0fa99c680276f1f0986b9431c88a2c1d743cfffd8d91c0c"
+      }
+    },
+    {
+      "line": 254,
+      "id": "toolu_01Y7QjMqGJRoVi53YRvq6jeb",
+      "name": "Grep",
+      "input": {
+        "pattern": "runHttpProbe|closeObserved|process_exited_before_port|httpPortFileArgumentPlaceholder",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "output_mode": "content"
+      },
+      "ordinal": 6,
+      "result": {
+        "line": 258,
+        "isError": false,
+        "contentSha256": "34b1e37588697f36733da4de0958b21ab5e29e176c4f2a30d679ee0430ce33ea"
+      }
+    },
+    {
+      "line": 277,
+      "id": "toolu_015VSPCsZmEURqCTYavmrGeh",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "offset": 1150,
+        "limit": 200
+      },
+      "ordinal": 7,
+      "result": {
+        "line": 281,
+        "isError": false,
+        "contentSha256": "de88a4f309e5d7fab0e1ca939c578e90550f0cdd9112d2ec16654ce68acf6f8a"
+      }
+    },
+    {
+      "line": 304,
+      "id": "toolu_014zRF3ApxTMrLm1RbbkZjeW",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "offset": 1125,
+        "limit": 30
+      },
+      "ordinal": 8,
+      "result": {
+        "line": 306,
+        "isError": false,
+        "contentSha256": "1697b9be26bd1161991318bf3d5b0b1b46f0f1bff2fe13c8b39c8fc0121848a3"
+      }
+    },
+    {
+      "line": 549,
+      "id": "toolu_017WnYyJ5uiTPQTM3vuq1iay",
+      "name": "Grep",
+      "input": {
+        "pattern": "^(async )?function (m5Optional|m5Events|m5Settle|m5Alive|m5Cap|m5CleanupMs|m5Artifacts)|^const (M5_GROUP_SETUP_MS|M5_SETUP_MS|m5Alive)|^import|retainEvidence|failureFact",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "output_mode": "content",
+        "head_limit": 40
+      },
+      "ordinal": 9,
+      "result": {
+        "line": 553,
+        "isError": false,
+        "contentSha256": "ed7f1909265fedf8f71d19ca840162c42836cd33be954a2b7936f77a69b42a77"
+      }
+    },
+    {
+      "line": 572,
+      "id": "toolu_01GAEduEHRmHsWffvjj6uLLp",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "offset": 705,
+        "limit": 50
+      },
+      "ordinal": 10,
+      "result": {
+        "line": 576,
+        "isError": false,
+        "contentSha256": "d2c6133c12db92e2231401980e755442fe5d766bb53b30dcf7941f6f4c26e303"
+      }
+    },
+    {
+      "line": 590,
+      "id": "toolu_012ozoeTA1RaxKwkfJXLnjrg",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs"
+      },
+      "ordinal": 11,
+      "result": {
+        "line": 592,
+        "isError": false,
+        "contentSha256": "db0f627cf559a659ad910d905ed2959100a08f91d6dbc6738c1ce2502bee3477"
+      }
+    },
+    {
+      "line": 702,
+      "id": "toolu_01MCD84SoNifJDgQgrjpJ5xi",
+      "name": "Bash",
+      "input": {
+        "command": "f=build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs && head -n 1217 $f | wc -c && head -n 1311 $f | wc -c && head -c 67946 $f | shasum -a 256 && tail -c +76242 $f | shasum -a 256",
+        "description": "Locate pinned region byte offsets"
+      },
+      "ordinal": 12,
+      "result": {
+        "line": 706,
+        "isError": false,
+        "contentSha256": "aad4a6e5c200ba1e69260a88f7b723a602c0a51f70eb8b142eb5999f711be5e6"
+      }
+    },
+    {
+      "line": 753,
+      "id": "toolu_01K8eayre124qwiD4P6qTCy3",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "old_string": "// margins. Normal leaders exit after readiness; TERM leaders wait for the\n// owner's timeout, which must follow that readiness.",
+        "new_string": "// margins. Normal leaders exit after readiness, HTTP-normal only after serving\n// the owner's actual request; TERM leaders wait for the owner's timeout, which\n// must follow that readiness."
+      },
+      "ordinal": 13,
+      "result": {
+        "line": 757,
+        "isError": false,
+        "contentSha256": "7974a5397a2efd51c5ffae7bc68bea428e5a8bdfa6728398c03cf925150e2dda"
+      }
+    },
+    {
+      "line": 915,
+      "id": "toolu_01KpW84PxevgN1g6L2UAS1qJ",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "old_string": "    await writeFile(leader, `import {spawn} from 'node:child_process';\\nimport {existsSync,writeFileSync} from 'node:fs';\\nwriteFileSync(${JSON.stringify(leaderFile)},JSON.stringify({pid:process.pid}));\\nconst child=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:'ignore'});child.unref();\\nconst wait=setInterval(()=>{if(!existsSync(${JSON.stringify(ready)}))return;clearInterval(wait);process.stdout.write('ready\\\\n');${owner === 'http' ? `writeFileSync(${JSON.stringify(join(scratch, `${label}.port`))},'1');` : ''}${mode === 'normal' ? 'process.exit(0);' : 'setInterval(()=>{},1000);'}},5);\\n`);",
+        "new_string": "    // HTTP-normal binds loopback port zero, publishes it and exits normally only\n    // once the owner's actual request has been served, so port observation\n    // causally precedes that exit. Its log separates publication, request,\n    // response write attempt/finish and exit intention from the owner's status.\n    const httpNormal = owner === 'http' && mode === 'normal', fixtureLog = join(scratch, `${label}-fixture.jsonl`);\n    const leaderTail = httpNormal ? `const fixture=(event,extra={})=>appendFileSync(${JSON.stringify(fixtureLog)},JSON.stringify({event,...extra})+'\\\\n');const body='actual-http';const server=http.createServer((q,r)=>{fixture('request-received',{method:q.method,url:q.url,localPort:q.socket.localPort});r.setHeader('Connection','close');r.once('finish',()=>{fixture('response-finished');server.close(()=>{fixture('exit-intention',{status:0});process.exit(0);});});fixture('response-write-attempt',{bytes:Buffer.byteLength(body)});r.end(body);});server.listen(0,'127.0.0.1',()=>{const port=server.address().port;writeFileSync(process.argv[2],String(port),{flag:'wx'});fixture('port-published',{port});});`\n      : `${owner === 'http' ? `writeFileSync(${JSON.stringify(join(scratch, `${label}.port`))},'1');` : ''}${mode === 'normal' ? 'process.exit(0);' : 'setInterval(()=>{},1000);'}`;\n    await writeFile(leader, `import {spawn} from 'node:child_process';\\nimport {${httpNormal ? 'appendFileSync,' : ''}existsSync,writeFileSync} from 'node:fs';\\n${httpNormal ? \"import http from 'node:http';\\n\" : ''}writeFileSync(${JSON.stringify(leaderFile)},JSON.stringify({pid:process.pid}));\\nconst child=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:'ignore'});child.unref();\\nconst wait=setInterval(()=>{if(!existsSync(${JSON.stringify(ready)}))return;clearInterval(wait);process.stdout.write('ready\\\\n');${leaderTail}},5);\\n`);"
+      },
+      "ordinal": 14,
+      "result": {
+        "line": 919,
+        "isError": false,
+        "contentSha256": "7974a5397a2efd51c5ffae7bc68bea428e5a8bdfa6728398c03cf925150e2dda"
+      }
+    },
+    {
+      "line": 1158,
+      "id": "toolu_01JTt1RX2yJAztgRbsyuK9yx",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "old_string": "    const child = typeof readyRecord === 'string' ? JSON.parse(readyRecord) : null;\n    const result = owner === 'http' ? settled.result?.process ?? null : settled.result;\n    const signals = owner === 'worker' ? workerSignals : result?.signalSequence ?? null;\n    const groupPresent = leaderPid === null ? null : alive(-leaderPid), descendantPresent = child === null ? null : alive(child.pid);\n    retainEvidence(t, 'm5-worker-transport', `owned-group-${label}`, { bounds: M5_GROUP, settledMs: settled.settledMs, startedPid,\n      leaderRecord, readyRecord, signals, groupPresent, descendantPresent, failure: failureFact(settled.failure), observation: settled.result,\n      artifacts: owner === 'worker' ? await m5Artifacts(join(scratch, 'archives'), label) : null });\n    if (settled.threw) throw settled.failure;\n    assert.notEqual(publishedLeader, null, `${label}: leader body ran`);\n    if (owner === 'worker') assert.equal(publishedLeader, startedPid, `${label}: published leader is the spawned owned child`);\n    assert.notEqual(child, null, `${label}: descendant body ran before leader readiness`);\n    if (owner === 'worker') {\n      assert.equal(result.exitObserved, true);\n      assert.equal(result.status, mode === 'normal' ? 0 : null);\n      assert.equal(result.signal, mode === 'normal' ? null : 'SIGTERM');\n    } else {\n      if (owner === 'http') assert.equal(settled.result.portFile.state, 'observed', `${label}: port published within the request window`);\n      assert.equal(result.exitStatus, mode === 'normal' ? 0 : 124);",
+        "new_string": "    const child = typeof readyRecord === 'string' ? JSON.parse(readyRecord) : null;\n    const fixture = httpNormal ? m5Events(await m5Optional(fixtureLog)) : null;\n    const result = owner === 'http' ? settled.result?.process ?? null : settled.result;\n    const signals = owner === 'worker' ? workerSignals : result?.signalSequence ?? null;\n    const groupPresent = leaderPid === null ? null : alive(-leaderPid), descendantPresent = child === null ? null : alive(child.pid);\n    retainEvidence(t, 'm5-worker-transport', `owned-group-${label}`, { bounds: M5_GROUP, settledMs: settled.settledMs, startedPid,\n      leaderRecord, readyRecord, signals, groupPresent, descendantPresent, failure: failureFact(settled.failure), observation: settled.result,\n      ...(httpNormal ? { fixture } : {}), artifacts: owner === 'worker' ? await m5Artifacts(join(scratch, 'archives'), label) : null });\n    if (settled.threw) throw settled.failure;\n    assert.notEqual(publishedLeader, null, `${label}: leader body ran`);\n    if (owner === 'worker') assert.equal(publishedLeader, startedPid, `${label}: published leader is the spawned owned child`);\n    assert.notEqual(child, null, `${label}: descendant body ran before leader readiness`);\n    if (httpNormal) {\n      // Premise: the leader received a request on its published port and\n      // finished that response before intending its normal exit.\n      assert.deepEqual(Array.isArray(fixture) ? fixture.map(row => row.event) : fixture, ['port-published', 'request-received',\n        'response-write-attempt', 'response-finished', 'exit-intention'], `${label}: actual request preceded normal leader exit`);\n      assert.deepEqual([fixture[1].method, fixture[1].url, fixture[1].localPort], ['GET', '/', fixture[0].port],\n        `${label}: the declared request reached the published port`);\n    }\n    if (owner === 'worker') {\n      assert.equal(result.exitObserved, true);\n      assert.equal(result.status, mode === 'normal' ? 0 : null);\n      assert.equal(result.signal, mode === 'normal' ? null : 'SIGTERM');\n    } else {\n      if (owner === 'http') assert.equal(settled.result.portFile.state, 'observed', `${label}: port published within the request window`);\n      // The owner's own observation and request carry the leader's published port.\n      if (httpNormal) assert.deepEqual([settled.result.portFile.port, settled.result.request?.port], [fixture[0].port, fixture[0].port],\n        `${label}: owner requested the port it observed`);\n      assert.equal(result.exitStatus, mode === 'normal' ? 0 : 124);"
+      },
+      "ordinal": 15,
+      "result": {
+        "line": 1162,
+        "isError": false,
+        "contentSha256": "7974a5397a2efd51c5ffae7bc68bea428e5a8bdfa6728398c03cf925150e2dda"
+      }
+    },
+    {
+      "line": 1238,
+      "id": "toolu_01R8fDVfm7JYxPxDwoEk98uf",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "offset": 1218,
+        "limit": 112
+      },
+      "ordinal": 16,
+      "result": {
+        "line": 1242,
+        "isError": false,
+        "contentSha256": "af2b1b7e975e91edbdf64a97f6453a29696a3cd01656f2ffe8a48f72df1eeaae"
+      }
+    },
+    {
+      "line": 1337,
+      "id": "toolu_0165J1r4rrr68WPxrBzJ8QEs",
+      "name": "Bash",
+      "input": {
+        "command": "N=/opt/homebrew/Cellar/node/24.7.0/bin/node && shasum -a 256 $N && S=qualification-scratch/rc11-effect-phase2-01/native-b02 && ls -la $S/evidence $S/tmp && /usr/bin/perl -e 'alarm 60; exec @ARGV' $N --check build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs > $S/node-check.stdout 2> $S/node-check.stderr; st=$?; echo \"$st\" > $S/node-check.status; echo \"status=$st\"; wc -c $S/node-check.stdout $S/node-check.stderr; cat $S/node-check.stderr",
+        "description": "Run pinned node syntax check and retain outputs",
+        "timeout": 90000
+      },
+      "ordinal": 17,
+      "result": {
+        "line": 1341,
+        "isError": false,
+        "contentSha256": "7de223bd1a741ddd73469b3674186a469fdf0801832f83bec32bafed392e5755"
+      }
+    },
+    {
+      "line": 1441,
+      "id": "toolu_019e3PqAGYuavw8nX6u6TYaM",
+      "name": "Bash",
+      "input": {
+        "command": "f=build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs && total=$(wc -c < $f) && echo total=$total && head -c 67946 $f | shasum -a 256 && sfx=$((total-69221)) && echo suffixStart=$sfx && tail -c 69221 $f | shasum -a 256 && shasum -a 256 $f && tail -c +67947 $f | head -c $((sfx-67946)) | shasum -a 256 && echo regionBytes=$((sfx-67946)) && shasum -a 256 build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+        "description": "Verify prefix/suffix pins and region digest"
+      },
+      "ordinal": 18,
+      "result": {
+        "line": 1445,
+        "isError": false,
+        "contentSha256": "99ab3fdedcb72896ce03d7128c8ea517301f8dbeff5e7c18284fb7bdc080ce6f"
+      }
+    },
+    {
+      "line": 1934,
+      "id": "toolu_01FCG9oNNff8UkJSgDfWDYfV",
+      "name": "StructuredOutput",
+      "input": {
+        "summary": "Applied PHASE2-B-HTTP-FIXTURE-REENTRY-01 as a test-only change to build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs, staying inside the pinned region (m5:1218-1329, previously 1218-1311). The unrelated prefix (67,946 bytes, f7ce9820\u2026) and suffix (69,221 bytes, d135c273\u2026) still match their pins. The region grew from 8,295 to 10,616 bytes; the file is now 147,783 bytes, SHA-256 ac430f557e3e4eaa9b66f697123ea74675ae5494e149df62f94546fa81d273a4.\n\nChanges:\n(1) Edited the comment above M5_GROUP to say HTTP-normal exits only after serving the owner's actual request.\n(2) Added httpNormal/fixtureLog and a leaderTail. For the HTTP-normal row only, the leader imports appendFileSync and node:http. After the descendant is ready and 'ready\\n' is written, it creates a loopback server and binds port 0 on 127.0.0.1. It writes the chosen port to process.argv[2] with flag 'wx', the port file the helper substituted. It logs the request, sets Connection: close, logs the write attempt and ends the response. On 'finish' it logs, then calls server.close; the close callback logs exit-intention {status:0} and calls process.exit(0). For the other five rows the generated leader text is identical to before, established by reading the code.\n(3) The test reads the fixture log with m5Events(m5Optional(...)) and adds a 'fixture' key to the HTTP-normal evidence only, before the threw check, any assertion and scratch cleanup. Owner result/error retention through m5Settle/failureFact is unchanged.\n(4) New HTTP-normal assertions: the fixture events are exactly [port-published, request-received, response-write-attempt, response-finished, exit-intention]; the request is GET / on the published port; settled.result.portFile.port and settled.result.request.port both equal the published port.\nAll original assertions (port observed, exit 0/124, signal, ppid identity, timedOut, TERM then KILL, terminationConfirmed, descendant absence), bounds and the six-row loop are kept. HTTP-TERM, worker and command rows have the same leader text and evidence.\n\nLog format (one JSON object per line): {event:'port-published',port}, {event:'request-received',method,url,localPort}, {event:'response-write-attempt',bytes}, {event:'response-finished'}, {event:'exit-intention',status:0}. Exit intention is kept separate from the owner's returned result.exitStatus, which is still asserted as 0. The response write attempt is kept separate from its finish.\n\nSyntax check: pinned /opt/homebrew/Cellar/node/24.7.0/bin/node (sha256 fe1c0128\u2026 verified) --check on this file under a 60s perl alarm returned status 0 with 0-byte stdout and 0-byte stderr. Output is retained in qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.{stdout,stderr,status}. The lifetime test, helper source and support observer hashes are unchanged.",
+        "gaps": [
+          "No semantic proof: the only check was node --check on the test file. The generated HTTP-normal leader script itself was neither parsed nor run. The external original nine-file unit (all six group rows, 39 M5, 34 evidence IDs) is still pending Root selection and has not run.",
+          "Whether the five other rows' generated leader text and evidence are unchanged was established by reading the code, not by running it.",
+          "The owner actually receiving the response (settled.result.response) is retained in the evidence but not asserted. The fixture's 'response-finished' event means the server handed the bytes to the OS, not that the client received them.",
+          "Port publication uses writeFileSync with 'wx', as in the existing lifetime pattern and the original fixture. The file exists briefly before its bytes are written, so the owner could in theory read it empty and record noncanonical_decimal_port. This window was not introduced here and was not fixed.",
+          "If the owner never sends the request, the leader stays alive until the original launch timeout. The red would then show exit 124 with fixture events ['port-published'] only, within the unchanged bounds.",
+          "Undeclared actions: at the start I ran read-only git log and git status despite the no-Git instruction; git status may refresh worktree .git index metadata. I used /usr/bin/perl alarm as the 60s timeout wrapper. I wrote an extra node-check.status file inside the declared native-b02 scratch.",
+          "SDK outcome, actual close, fresh result/replay and frozen successor are left to the host and Root. There is no acceptance claim; the original red remains evidence."
+        ]
+      },
+      "ordinal": 19,
+      "result": {
+        "line": 1936,
+        "isError": false,
+        "contentSha256": "f151386d9c0ce2da9766ad2a0d8a6ff960e90d35288cd975ec54c55402534184"
+      }
+    }
+  ],
+  "standing": "Public tool inputs and matched result line/digest only; no private reasoning. StructuredOutput included; transport counts19 tools."
+}

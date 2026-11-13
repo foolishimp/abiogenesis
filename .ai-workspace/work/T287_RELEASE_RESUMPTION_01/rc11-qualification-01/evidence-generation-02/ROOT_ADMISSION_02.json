@@ -1,0 +1,30 @@
+{
+  "id": "RC11-EVIDENCE-02",
+  "role": "Admitted external proof execution Worker",
+  "issuer": "/root Executive",
+  "at": "2026-11-09T07:15:23.568913+00:00",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/READY2.json",
+    "bytes": 5722,
+    "sha256": "a91e283bd9e128b0c8c617947ed2179ad0a0667dcf00f422793996e11bc67539"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/CONTROLS.json",
+    "bytes": 11915,
+    "sha256": "fb206acb5fcd9921b981cd9ec7f5d908177e906f08c1745acbbd15d0c075d182"
+  },
+  "independentReviewSha256": "6577a9c79b4985fdea5057ed01b508fde1203091c7bed00cd53cb34cbf2cf1e5",
+  "grant": "Immediate static view/resolution checks with NODE_OPTIONS/NODE_PATH empty; one selected-action02 command; one native-assessment02 command only after selected-action success, all guards conserved, actual host group absence, recovered closed handoff and snapshot receipt. Sequential; failure stops before other mode.",
+  "bounds": {
+    "callerMaximumMs": 1050000,
+    "hostMaximumMs": 900000,
+    "groupGraceMs": 5000,
+    "pollMaximumMs": 50000,
+    "nativeActorInactivityMs": 60000,
+    "nativeActorAbsoluteMs": 120000,
+    "nativeActorTerminationMs": 1000
+  },
+  "effects": "Only new raw mode directories/tmp and generated mode snapshots under evidence-generation-02; existing fixed source/helpers/runtime scripts/build/dependencies read-only; preserve01. Exact owner mechanisms only.",
+  "excluded": "No additional attempts, paid provider/network, candidate writes/staging/source build, Product repairs or broader cleanup. No whole-Run retry exhaustion/every-descendant inference from GENERATION alone.",
+  "return": "Actual snapshots and closure/physical receipts, scope qualified, for Root review before staging."
+}

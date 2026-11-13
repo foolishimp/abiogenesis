@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 0,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 1 - direct-symbol reuse conserves complete closure output and ownership refusals # SKIP ABI5_DECLARATION_BASELINE_MODULE or ABI5_DECLARATION_PROOF_ROOT unset; requires exact frozen baseline module and proof-local output root",
+    "# todo 0"
+  ]
+}

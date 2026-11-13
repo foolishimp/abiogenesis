@@ -1,0 +1,28 @@
+{
+  "kind": "root_vertex_review_auth_failure_and_private_diagnostic_disposition",
+  "at": "2026-11-05T19:55:33.626909+00:00",
+  "status": "NO_REVIEW_RETURNED",
+  "exitCode": 144,
+  "authError": "invalid_grant",
+  "httpStatus": 400,
+  "sourceUnchanged": true,
+  "finalResponseBytes": 0,
+  "providerReviewAccepted": false,
+  "failureFrames": [
+    {
+      "frame": "authentication",
+      "finding": "Existing ADC refresh was rejected. This route requires owner credential refresh or a different already-authorized provider. No further auth retries or source review calls selected."
+    },
+    {
+      "frame": "privacy",
+      "finding": "CLI error output included a refresh credential. Root attempted string redaction but missed quoted URLSearchParams key syntax and exposed it in the tool transcript. No credential value is repeated here. Raw files remain private0700 directories/0600 files and excluded from Git by local ignore; sanitized record is the public failure evidence. Owner should revoke or replace exposed ADC credential."
+    },
+    {
+      "frame": "Product/source",
+      "finding": "No reviewer response or source mutation. Independent review remains open; native C2/UAT can proceed independently."
+    }
+  ],
+  "rawDiagnosticStanding": "Original bytes/hash preserved under existing HOST_RESULT.json for private custody only. Never copy raw stderr, tmp errors or auth cache into ordinary evidence, prompts, comments or commits.",
+  "credentialContentsOpenedByOperator": "Original credential file was not opened. The CLI error diagnostic exposed a credential; this is an actual handling failure, not a hypothetical risk.",
+  "next": "Ask owner to reauthenticate existing Vertex ADC locally or select another configured independent family. No account creation, API enablement, permission changes, credential harvesting or global selector change."
+}

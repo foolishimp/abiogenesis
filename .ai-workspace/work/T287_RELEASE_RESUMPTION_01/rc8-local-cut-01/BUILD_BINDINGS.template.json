@@ -1,0 +1,59 @@
+{
+  "status": "UNBOUND_PREPARATION_ONLY",
+  "activation": null,
+  "preparationManifest": null,
+  "source": {
+    "subject": null,
+    "inventory": null,
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "baseTree": "0bce81973e212db033eba3466f0142919e6e788b",
+    "fileModes": {},
+    "deletedPaths": [],
+    "expectedChangedPaths": null,
+    "cumulativeSourceCoverageDisposition": null,
+    "nativeTestedArchive": null,
+    "testedManifest": null,
+    "testedStageRoot": null,
+    "nativeTestedArchiveSourceRelation": null,
+    "sourceDigest": null
+  },
+  "acceptance": {
+    "source": null,
+    "focusedAndReview": null,
+    "broadClose": null,
+    "referenceAfter": null
+  },
+  "metadata": {
+    "toVersion": "5.0.0-rc.8",
+    "rewriteIdentity": false
+  },
+  "paths": {
+    "repository": "/Users/jim/src/apps/abiogenesis",
+    "preservedCut": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+    "worktree": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+    "branch": "codex/rc8-reference-preservation",
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001",
+    "temp": "/private/tmp/abg-r8c-cut",
+    "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8"
+  },
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 600000,
+    "installedOwner": 60000
+  },
+  "maxOutputBytes": 67108864,
+  "nodeHeapMiB": 8192,
+  "limits": [
+    "Preparation only. Final frozen author-02 subject/actual delta and acceptance remain unbound.",
+    "Existing C8 must already match the exact frozen source. No stale overlay copy, metadata rewrite or identity bridge.",
+    "Only a separately admitted exact C8 checkpoint and one clean temporary reproduction are prospective.",
+    "Ship the exact already-tested archive; preserve every immutable cut/worktree and existing failed receipt.",
+    "No merge/push/tag/publication/global selector or whole qualification claim. No retry/cleanup on failure."
+  ]
+}

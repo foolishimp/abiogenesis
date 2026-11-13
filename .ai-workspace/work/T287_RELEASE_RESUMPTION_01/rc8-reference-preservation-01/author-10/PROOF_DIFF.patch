@@ -1,0 +1,11 @@
+--- author-09/proof.mjs
++++ author-10/proof.mjs
+@@ -61,7 +61,7 @@
+       currentCandidateFixture:prep.currentCandidateFixture,productArchive:prep.productArchive,buildInvocations:0,environment:env});
+     console.log(JSON.stringify({status:'EXACT_COMPILED_INPUTS_REUSED',sourceDigest,tenant}));
+   }else{
+-    assert.equal(mode,'test','Use freeze | test worksite');assert(Object.hasOwn(b.lanes,lane),'Unknown lane');
++    assert.equal(mode,'test','Use freeze | test lifetime');assert(Object.hasOwn(b.lanes,lane),'Unknown lane');
+     const ready=JSON.parse(await readFile(join(root,'READY.json'),'utf8')),freeze=JSON.parse(await readFile(join(root,'source-freeze.json'),'utf8'));
+     await verify(work,ready.derivedStageFiles);await verify(join(tenant,'node_modules'),inventory.dependencyFiles);
+     const label='lane-01';

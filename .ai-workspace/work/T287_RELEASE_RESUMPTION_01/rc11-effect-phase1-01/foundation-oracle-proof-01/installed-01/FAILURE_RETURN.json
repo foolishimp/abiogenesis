@@ -1,0 +1,46 @@
+{
+  "status": "STOPPED_CONTROL_ORDER_COMPARISON_FAILURE_W2_05_UNEXECUTED",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 2750,
+    "sha256": "37613e4d8bbfc87086421019e597d26a1ba5a81d487a568b5902cb0bef0b036b"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/BINDING.json",
+    "bytes": 6829,
+    "sha256": "3218fb52ac3a169b16bf9b48248eb707a253aae2a0a669d6a692a5d44b8ee467"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/proof.py",
+    "bytes": 19380,
+    "sha256": "31e9c90720932e894a28ed13612b2f1750d9d480702dba781dd490c28072e15c"
+  },
+  "bootstrapFailureReceipt": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/bootstrap/RETURN.json",
+    "bytes": 1400,
+    "sha256": "a82a410efb83b5590be6977cae9d87030e5f51a5a34371d38a626407a4e425c6"
+  },
+  "halt": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/HALT.json",
+    "bytes": 221,
+    "sha256": "8e2787373a25e1440f424b883eafff02d68b721986ae38e476bffd2a53345efd"
+  },
+  "bootstrapCommandActual": {
+    "exitCode": 0,
+    "wallSeconds": 2.528144166339189,
+    "groupAbsent": true,
+    "cleanupNeeded": false
+  },
+  "readOnlyCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/BOOTSTRAP_ORDER_TRIAGE.json",
+    "bytes": 1874,
+    "sha256": "21b498e30c82f6bce2b4d9129f1219345b9008f0df82334c99af1300cd5a525b"
+  },
+  "sourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "all1344RowsAtLiveFrozenStageWorkEqual": true,
+  "all996CompiledRowsAtDonorAndWorkEqual": true,
+  "preservationPinsConserved": true,
+  "fullTestLaunched": false,
+  "runtimeProviderLaunched": false,
+  "standing": "No retry, repair, source/tracking/Git mutation or next execution performed. Root owns control re-entry and any continuation."
+}

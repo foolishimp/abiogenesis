@@ -1,0 +1,93 @@
+{
+  "kind": "d5_author02_control_static_validation",
+  "recordedUtc": "2026-11-05T23:12:10.490797+00:00",
+  "status": "PASS_SYNTAX_AND_STATIC_CONTROL_CORRESPONDENCE_ONLY",
+  "sourceFilesMatched": 370,
+  "compileInputFiles": 290,
+  "additionalReadOnlyFiles": 13,
+  "inheritedTrackedChanges": 19,
+  "newProductFiles": 2,
+  "handoffs": 3,
+  "protectedFutureSourceFiles": 372,
+  "stagedControls": 32,
+  "selectedFutureContextFiles": 407,
+  "knownContextBytes": 10624479,
+  "maxContextFiles": 512,
+  "maxContextBytes": 16777216,
+  "maxPromptBytes": 1048576,
+  "invariantSourcePins": 36,
+  "modules": 10,
+  "commands": 7,
+  "projectedCommandBudgetMs": 1636750,
+  "laneBudgetMs": 840000,
+  "syntax": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/dispatch.mjs",
+      "kind": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/freeze-source.mjs",
+      "kind": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/prepare-r1.mjs",
+      "kind": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/inputs/c2-proof.mjs",
+      "kind": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/inputs/prior-author-lanes.mjs",
+      "kind": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/inputs/prior-author-stage.mjs",
+      "kind": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/inputs/source-correspondence.mjs",
+      "kind": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/observe-native-tools.py",
+      "kind": "Python ast.parse only",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/observe-progress.py",
+      "kind": "Python ast.parse only",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/claude-provider.sh",
+      "kind": "sh -n",
+      "exitCode": 0
+    }
+  ],
+  "checks": [
+    "Current selection/capsule exact pins preserved",
+    "Every frozen/additional existing source member matches selected bytes",
+    "Original Q23 rubric preserved byte for byte",
+    "Future Product inputs frozen separately from handoffs",
+    "Complete current assessment asset/readFirst population, unique within declared readRoots",
+    "Immutable original.sources exclude mutable Product bytes",
+    "Recovery helper lane isolates new module before broad lanes",
+    "Fresh stage labels and exclusive outputs preserve prior reports",
+    "Static C2 budget reconciliation"
+  ],
+  "notPerformed": [
+    "No Product/HOW/test edits",
+    "No staging, scratch creation, build, tests or constructor execution",
+    "No runtime/provider/network/authentication or credential-value access",
+    "No Git mutation or Product acceptance",
+    "No actual render/context/host resource/preflight claim"
+  ]
+}

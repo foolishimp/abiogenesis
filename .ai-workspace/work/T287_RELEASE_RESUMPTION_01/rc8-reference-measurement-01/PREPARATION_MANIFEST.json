@@ -1,0 +1,97 @@
+{
+  "kind": "rc8_reference_measurement_preparation",
+  "status": "PREPARED_SYNTAX_CHECKED_NOT_EXECUTED",
+  "preparedAt": "2026-11-07T03:03:24.484414+00:00",
+  "actor": "/root/rc7_reference_ticket_writer",
+  "role": "Operator/Writer; no Product coding",
+  "consumer": "/root",
+  "authority": {
+    "issuer": "/root",
+    "instruction": "Prepare and syntax-check only now; return exact script/config pins+command and wait.",
+    "scope": "New rc8-reference-measurement-01 only; baseline execution awaits Root admission after first actual RC7 Worker launch.",
+    "admissionForPreparation": "Explicit Root delegated preparation grant under owner-selected RC7-builder/RC8 plan; no measurement execution admission is claimed."
+  },
+  "basis": {
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "definitionPath": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "goals": "GOAL-035; fixed fifteen families/T-287",
+    "verification": "stdo status --definition --verify: installed=true, valid=true, failures=[]"
+  },
+  "sourceFixture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/measurement.test.mjs",
+    "bytes": 22697,
+    "sha256": "f6aa75e1b31556677cbfb95371fba9dcd3c5b6bb7e0f61b7368c8ab1e94a00d6"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement.mjs",
+      "bytes": 7180,
+      "sha256": "adb38545954f870802189ecee95f74a76ac88f689adb37ecb420d74eb1765603"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement.test.mjs",
+      "bytes": 23104,
+      "sha256": "e863fc59d1f6326e75dfc8d870893a69ca41280a6fb5f3a234e400d849a90e8f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/OWNER_REFERENCES.json",
+      "bytes": 2465,
+      "sha256": "f3099fbc32b8d6b83c6dcd909ca31f2d230d623af80dc15985843762a7c24e0f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC7_BEFORE.bindings.json",
+      "bytes": 4862,
+      "sha256": "8aafcb62cfcfabaf5e35f3beaa25f8676931a2d4f858bb122f5143705e68b5a6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC8_AFTER.bindings.template.json",
+      "bytes": 2964,
+      "sha256": "a888cb81f6f4775c6fb5e19ab13a6bfa600813f9f692887cad2c98e4b4f2200e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/README.md",
+      "bytes": 4297,
+      "sha256": "3b174fd2e8b01d6dd61bd4507ea02c7eb196a83fb7ead055cadc15c3debcc6bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/SYNTAX_CHECKS.json",
+      "bytes": 2364,
+      "sha256": "2a7b1597578cd99befad12f52de211a897afae35e7beffb7835224f3fe5f0257"
+    }
+  ],
+  "focusedProof": "Two Node syntax checks and JSON/pin/readback checks only; no runtime or Product tests.",
+  "executionCommandTemplate": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC7_BEFORE.bindings.json",
+    "8aafcb62cfcfabaf5e35f3beaa25f8676931a2d4f858bb122f5143705e68b5a6",
+    "<Root admission path inside this directory>",
+    "<Root admission SHA256>"
+  ],
+  "residuals": [
+    "No measurement executed; source/performance/identity correctness remains unproven by this preparation.",
+    "After artifact/install pins remain intentionally null until an exact successor is returned.",
+    "Aggregate 1 GiB is a phase-boundary monitored stop, with possible overshoot; not a filesystem hard quota.",
+    "Matched pair remains unprofiled; third after-only profile timing/counters stay separate. Pair cold parity is at the final prefix including the profile successor.",
+    "Native Worker launch timing remains a separate Root/operator observation."
+  ],
+  "effects": {
+    "createdPreparationFilesOnly": true,
+    "nativeCodingDispatch": false,
+    "providerCalls": 0,
+    "runtimeAllocated": false,
+    "outputAllocated": false,
+    "scratchAllocated": false,
+    "productWrites": false,
+    "ticketWrites": false,
+    "gitEffects": false,
+    "immutableInstallWrites": false,
+    "selectorChanged": false
+  },
+  "profileCorrection": "Root-selected third after-only 4MiB-profile call, fresh request/invocation identity through existing constructor/SDK owners; no duplicate setup."
+}

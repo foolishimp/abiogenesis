@@ -1,0 +1,151 @@
+{
+  "kind": "proof10_ready_to_finalize_return",
+  "recordedUtc": "2026-11-04T14:02:58.457316+00:00",
+  "status": "READY_FOR_ROOT_FINALIZATION_ONLY_NOT_PREFLIGHTED_OR_DISPATCHED",
+  "productFrame": "ABIogenesis5/GOAL-035/T-287/STDO3.0.4/empty composition; targeted IR01/IR02 T1-T5, immutable RC5/f49 builder; no Product change",
+  "currentControlInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/CURRENT_CONTROL_PINS.json",
+    "bytes": 9813,
+    "sha256": "ed0d796c4f03c0a43f170c59e9c119af7ff2a9fcfea97a787708cf53ab4e4c0a"
+  },
+  "staticValidation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/CONTROL_STATIC_VALIDATION.json",
+    "bytes": 4941,
+    "sha256": "bec8d60412f24df7bd1454ac8ca480adcb70efe244202519caacfd60e2ab9287"
+  },
+  "originalDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/PREPARATION_RETURN.json",
+    "bytes": 15169,
+    "sha256": "c0f4af49ef99e26967486a91818677468d2d0049c271b9738fb7eab2e257b522"
+  },
+  "exactSubjectSha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13",
+  "sourceCorrespondence": {
+    "files": 157,
+    "original09Handoffs": 3,
+    "totalMatches": 160,
+    "newNativeHandoffs": 0
+  },
+  "rootKnownBindings": {
+    "independentReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/INDEPENDENT_TARGETED_REFACTOR_REVIEW.json",
+      "bytes": 83767,
+      "sha256": "f37b4572adc78ba8a8543cd3b846c789be163f07a6788d168faf449027d07e36"
+    },
+    "rootDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ROOT_SOURCE_AND_EVIDENCE_DISPOSITION.json",
+      "bytes": 7829,
+      "sha256": "7b0abbf652915973c95682da42327baf2a477cb895372fad933e07df31476311"
+    },
+    "scopeSupplement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+      "bytes": 2492,
+      "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+    },
+    "actualUat": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_UAT_CLOSED_RESULT.json",
+      "bytes": 3678,
+      "sha256": "7ee5260356f05f83e25c2c6289a242f92dfd0c4ff405b21dcf0897035c6ad273"
+    }
+  },
+  "remainingActualPins": [
+    "afterRunResume",
+    "actualClose",
+    "actualOutcome",
+    "freshReads"
+  ],
+  "remainingRootDecision": "Root creates real ROOT_FINALIZATION_BINDINGS.json selecting exact known review/disposition/UAT pins and actual09 outcome/close/fresh/resume, then authorizes finalization; proportional current control review/installed preflight/capacity and dispatch remain Root-owned separate steps.",
+  "route": {
+    "entry": "Existing immediate Testing with null subjectEvidenceRef, followed by UAT of actual admitted testing observation",
+    "workOrders": [
+      "testing",
+      "uat"
+    ],
+    "noConstruction": true,
+    "noInjectedPreviousObservations": true,
+    "setupCommands": 7,
+    "packCommandOrdinal": 5,
+    "lane": {
+      "id": "single-address-space-whole-path",
+      "module": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "minimumPasses": 12,
+      "requireNoSkips": true
+    },
+    "reuse": "Actual09 build/job/consumer observations and real revision failure retained with original provenance/Root limits. No new execution credit, floor reduction or build-reuse framework."
+  },
+  "testInputFix": {
+    "baseline": {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+      "bytes": 5575,
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+    },
+    "externalResources": {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json",
+      "bytes": 6147,
+      "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+    },
+    "selection": "Both included in SELECTION_PLAN.newSelectedPaths and requiredInputPins; wrapper verifies bytes/hash before tests. All selected paths must exist in finalizer and installed owner preflight.",
+    "ordinaryCurrentCensus": {
+      "inherited969": 969,
+      "newPaths": 17,
+      "deduplicated": 986,
+      "currentlyPresent": 985,
+      "currentlyMissingFinalizationOutput": [
+        "consolidation-inputs/proof-10/C2_SELECTED_INPUTS.json"
+      ],
+      "currentPresentFileBytes": 25584474,
+      "meaning": "Literal file census only; final current context digest/budget and prompt capacities require installed-owner preflight. Guide is created by finalizer before all-files observed check; it is a control, not a future author handoff."
+    }
+  },
+  "capacity": "Unexecuted existing-owner5-phase adaptation: initial/post-C2/post-UAT satisfied/adverse/assessor; no construction phase. Uses current observed candidate/rubric/sources and explicitly historical diagnostic bodies; future allowances/reserve unchanged. No fit claim.",
+  "hostAndContinuation": "Existing8GB heap setting must apply at Node launch. Host environment is applied before installedModules/refresh. Derived environment is dropped and omitted from future persisted continuation; genuine09 close/binding/catalog/lock coordinates retained for maintained SDK.",
+  "captureCompatibility": {
+    "owner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+      "bytes": 118773,
+      "sha256": "89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c"
+    },
+    "validators": [
+      {
+        "function": "isObservedWorksiteCommandExecutionTask",
+        "line": 243
+      },
+      {
+        "function": "isObservedWorksiteCommandExecutionObservation",
+        "line": 1775
+      },
+      {
+        "function": "isWorksiteExecutionHelperArtifact",
+        "line": 1378
+      },
+      {
+        "function": "helperArtifactPreservesProtectedObservations",
+        "line": 1410
+      }
+    ],
+    "arm": "Observed-C2; no09 native-arm assertion or new author/Construction handoff",
+    "sourceCorrespondence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/SOURCE_BEFORE.json",
+    "producerSource": "native09 exact frozen157 plus consolidation-scratch/native-09/{return,readiness,progress}.json",
+    "reportRoot": "test_env/test_runs/single-address-space-proof-10",
+    "packCommandOrdinal": 5,
+    "passiveCapturePrepared": false,
+    "meaning": "Root capture must use exact observed task/observation and shared helper/protected-observation owners. No runtime capture was executed."
+  },
+  "mechanicalChecks": {
+    "nodeSyntax": 5,
+    "shellSyntax": 1,
+    "jsonParsed": 28,
+    "sourceAndOriginalDraftPreserved": true,
+    "preflightExecuted": false,
+    "providers": 0,
+    "RunAdmissions": 0,
+    "testsBuilds": 0
+  },
+  "effects": "Only new proof10 control/input writes and declared control-preimage preservation. No Product/test/HOW/09 controls/results/status/Git/runtime/native mutations or cleanup.",
+  "stops": [
+    "Missing actual finalization pins",
+    "Source160 currentness mismatch",
+    "New source finding or materially different failure",
+    "Root control review/preflight/capacity refusal"
+  ],
+  "stopState": "No in-flight process/session; Writer stops and returns to Root."
+}

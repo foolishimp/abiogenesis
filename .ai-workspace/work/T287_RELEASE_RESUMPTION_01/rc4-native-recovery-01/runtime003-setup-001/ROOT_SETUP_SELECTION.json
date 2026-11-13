@@ -1,0 +1,12 @@
+{
+  "kind": "rc4_native_recovery_root_setup_selection",
+  "status": "ROOT_SELECTED_SETUP",
+  "operator": "Root",
+  "bindingSha256": "564abfba8a43108c1f162cb45c05cd85ae050a4a4b8a46674cd968bafe4b536c",
+  "providerDispatch": false,
+  "allowedStages": [
+    "setup"
+  ],
+  "decision": "Root selects ordinary fresh bound8 consumer install/bind/catalog/conformance via existing owners on source3c partial; no Run/provider, old history copying, workspace manifest/global selector/source mutation or acceptance.",
+  "selectedUtc": "2026-11-02T17:51:07.115886+00:00"
+}

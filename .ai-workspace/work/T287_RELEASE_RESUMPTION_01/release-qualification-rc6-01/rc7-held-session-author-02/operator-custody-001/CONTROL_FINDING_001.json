@@ -1,0 +1,49 @@
+{
+  "kind": "native_author_observed_control_defect",
+  "id": "HS2-CONTROL-001",
+  "status": "PRESERVED_PRIMARY_LANE_BLOCKED_BEFORE_EXECUTION",
+  "recordedUtc": "2026-11-06T14:57:51.447401+00:00",
+  "progress": {
+    "original": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-02/progress.json",
+      "bytes": 1779,
+      "sha256": "2487baa841b1684a8001cdc2a3680c4f95193ce8e8c39320c6ff2e0bfdced9dd"
+    },
+    "frozen": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/progress-001.json",
+      "bytes": 1779,
+      "sha256": "2487baa841b1684a8001cdc2a3680c4f95193ce8e8c39320c6ff2e0bfdced9dd"
+    }
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/inputs/prior-author-lanes.mjs",
+    "bytes": 10971,
+    "sha256": "211bb0e2f91cf6210adf7ce64b23cf0fc4f64bb1f10aea00795baa7541e16dc2"
+  },
+  "staticGuard": {
+    "line": 81,
+    "text": "if(lane.timeoutMs!==300000||lane.testNamePattern?.includes('(?!')||lane.testSkipPattern?.includes('(?!'))throw Error('Selected finite per-lane bound and positive filter required');"
+  },
+  "selectedTimeouts": [
+    {
+      "id": "fixed-route",
+      "laneTimeoutMs": 600000,
+      "selectedBoundMs": 600000
+    },
+    {
+      "id": "fixed-route-correction",
+      "laneTimeoutMs": 600000,
+      "selectedBoundMs": 600000
+    }
+  ],
+  "actualAuthorAllocationsAtHandoff": {
+    "stages": 0,
+    "lanes": 0
+  },
+  "classification": "Operator preparation defect: old300s literal remained after intended per-lane budget adaptation. Parser and JSON relation checks did not detect the semantic mismatch. Not a Product/source defect or actual test failure.",
+  "disposition": "Root notified; no admitted control/C mutation, lane invocation, retry, stage or new timeout selected by custody.",
+  "limits": [
+    "The supplied guard occurs after create-only reservation; running the known refusal would consume an incomplete allocation. The author avoided that effect.",
+    "Author progress.startedUtc14:52:25Z is a handoff assertion, not substituted for an actual native-process-start envelope."
+  ]
+}

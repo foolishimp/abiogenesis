@@ -1,0 +1,1048 @@
+{
+  "status": "ACTUAL_NATIVE_SELFCHECKS_RETAINED_NOT_EXTERNAL_PROOF",
+  "checks": [
+    {
+      "name": "compile-01",
+      "status": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/compile-01.status",
+        "bytes": 47,
+        "sha256": "90485102b5d87f4d85a4496a67f0dcc51d851a28fe4cd8f31dc4038889fe5537"
+      },
+      "exitCode": 0,
+      "elapsedSeconds": 7.949000120162964,
+      "output": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/compile-01.out",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "actualCommand": {
+        "line": 4211,
+        "id": "toolu_01M71NFvAoSwMp1BKf2NGpWn",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && S=qualification-scratch/rc11-effect-phase2-01/native-b01 && mkdir -p $S/checks && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && perl -e 'alarm 240; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js -p /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/tsconfig.json --outDir /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/tenant/build/code/src --incremental false > $S/checks/compile-01.out 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/compile-01.status; head -50 $S/checks/compile-01.out",
+          "description": "Run fresh scratch compile attempt 1",
+          "timeout": 300000
+        },
+        "ordinalZeroBased": 42,
+        "result": {
+          "line": 4215,
+          "isError": false,
+          "canonicalBytes": 48,
+          "sha256": "ff8bd85d685622a523e7d1a7c2d3aee396effbbe640a9280c1e64bfc684d6c89"
+        }
+      },
+      "actualToolOutput": "exit=0 start=1794280396.204 end=1794280404.153"
+    },
+    {
+      "name": "compile-02",
+      "status": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/compile-02.status",
+        "bytes": 47,
+        "sha256": "81f36a2315c49fea26136f1d61bc1759f3ee661da0ead7699b265b2150a5afe4"
+      },
+      "exitCode": 0,
+      "elapsedSeconds": 7.5,
+      "output": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/compile-02.out",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "actualCommand": {
+        "line": 8661,
+        "id": "toolu_01Y94DRccTVyiV1QPAnPzbiZ",
+        "name": "Bash",
+        "input": {
+          "command": "S=qualification-scratch/rc11-effect-phase2-01/native-b01 && ls $S/tenant && rm -rf $S/tenant/build && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && perl -e 'alarm 240; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js -p /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/tsconfig.json --outDir /private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/tenant/build/code/src --incremental false > $S/checks/compile-02.out 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/compile-02.status; wc -c $S/checks/compile-02.out; ls $S/tenant/build/code/src/implementation/worksite_command_helper.js",
+          "description": "Fresh scratch compile on final source",
+          "timeout": 300000
+        },
+        "ordinalZeroBased": 70,
+        "result": {
+          "line": 8823,
+          "isError": false,
+          "canonicalBytes": 290,
+          "sha256": "07467fef053006c40d7e26a0b83c111d16ae812b3a15843b788bfadbc2881352"
+        }
+      },
+      "actualToolOutput": "build\nnode_modules\npackage.json\nexit=0 start=1794280925.886 end=1794280933.386\n       0 qualification-scratch/rc11-effect-phase2-01/native-b01/checks/compile-02.out\nqualification-scratch/rc11-effect-phase2-01/native-b01/tenant/build/code/src/implementation/worksite_command_helper.js"
+    },
+    {
+      "name": "controlled-01",
+      "status": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-01.status",
+        "bytes": 47,
+        "sha256": "778ac8ed51e6b4db4289585006692d4772c5e9c85fd2e473ab9022bf1bd0ab74"
+      },
+      "exitCode": 1,
+      "elapsedSeconds": 0.6010000705718994,
+      "output": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-01.tap",
+        "bytes": 10073,
+        "sha256": "1ad4d489d5742a78ae0f409ea712d991d34dc53ff7a405e04f589d2be1f09500"
+      },
+      "actualCommand": {
+        "line": 6547,
+        "id": "toolu_01Hsespu4EQ8tmHtzTuJo1WS",
+        "name": "Bash",
+        "input": {
+          "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && ls $S/tenant/build/code/src/implementation/worksite_command_helper.js >/dev/null && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-01.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-01.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-01.tap; grep -nE \"^not ok|^ok\" $S/checks/controlled-01.tap | head -40",
+          "description": "Run exact controlled selector attempt 1",
+          "timeout": 90000
+        },
+        "ordinalZeroBased": 53,
+        "result": {
+          "line": 6551,
+          "isError": false,
+          "canonicalBytes": 3606,
+          "sha256": "849e27fa122d91c766a6a1921d57cfd2b92c6663f06a88d6352364c7a55028bb"
+        }
+      },
+      "actualToolOutput": "exit=1 start=1794280694.698 end=1794280695.299\n# tests 30\n# suites 0\n# pass 29\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 564.487542\n3:ok 1 - controlled timing: host boundaries, finite huge and fractional delays never become early actions\n9:ok 2 - controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing\n15:ok 3 - controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit\n21:ok 4 - controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure\n27:ok 5 - controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection\n35:ok 6 - controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure\n41:ok 7 - controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct\n47:ok 8 - controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close\n53:ok 9 - controlled lifetime: callback errors stop ordinary observations and retain the first error\n59:ok 10 - controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct\n65:ok 11 - controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes\n71:ok 12 - controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows\n77:ok 13 - controlled lifetime: first error and disposal faults are recorded before the one completion publication\n83:ok 14 - controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result\n89:ok 15 - controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close\n95:ok 16 - controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result\n101:ok 17 - controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact\n107:ok 18 - controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result\n113:ok 19 - controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result\n119:ok 20 - controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted\n125:ok 21 - controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication\n131:ok 22 - controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error\n137:ok 23 - controlled owners: command and HTTP reject the original stream error before reports or a dependent request\n143:ok 24 - controlled B command: partial setup failures settle before disposal\n149:ok 25 - controlled B command: interruption settles before capture disposal\n159:ok 26 - controlled B command: primary use and cleanup-only failures retain exact outcomes\n165:not ok 27 - controlled B helper: raw failures survive actual lifts and host projection\n191:ok 28 - controlled B helper: command failure reaches artifact and drained acknowledgment\n197:ok 29 - controlled B helper: later publication path and acknowledgment failures retain precedence\n203:ok 30 - controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+      "population": {
+        "tests": 30,
+        "pass": 29,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "names": [
+          "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+          "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+          "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+          "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+          "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+          "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+          "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+          "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+          "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+          "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+          "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+          "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+          "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+          "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+          "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+          "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+          "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+          "controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result",
+          "controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result",
+          "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+          "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+          "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+          "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+          "controlled B command: partial setup failures settle before disposal",
+          "controlled B command: interruption settles before capture disposal",
+          "controlled B command: primary use and cleanup-only failures retain exact outcomes",
+          "controlled B helper: raw failures survive actual lifts and host projection",
+          "controlled B helper: command failure reaches artifact and drained acknowledgment",
+          "controlled B helper: later publication path and acknowledgment failures retain precedence",
+          "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds"
+        ],
+        "durationMs": 564.487542
+      },
+      "notOkNames": [
+        "controlled B helper: raw failures survive actual lifts and host projection"
+      ]
+    },
+    {
+      "name": "controlled-02",
+      "status": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-02.status",
+        "bytes": 47,
+        "sha256": "726cd7dbe9f2b9bffd7c23643ee8fca71a51cc0c2dacc45240ecf3eb4e7061fd"
+      },
+      "exitCode": 0,
+      "elapsedSeconds": 0.556999921798706,
+      "output": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-02.tap",
+        "bytes": 9341,
+        "sha256": "6a6c17d89b4876d744f8307b9fa68a914b13a168e5235caa21a18d5641aa39c4"
+      },
+      "actualCommand": {
+        "line": 6785,
+        "id": "toolu_017cvue49utoNVukvE3ESys3",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && /opt/homebrew/Cellar/node/24.7.0/bin/node --check test_env/tests/t287-owned-process-lifetime.test.mjs && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-02.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-02.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-02.tap; grep -nE \"^not ok\" $S/checks/controlled-02.tap",
+          "description": "Rerun controlled selector after harness fix",
+          "timeout": 90000
+        },
+        "ordinalZeroBased": 56,
+        "result": {
+          "line": 6789,
+          "isError": false,
+          "canonicalBytes": 157,
+          "sha256": "4c909497f9f84f8b9391b15831ece49048fa62acfe174e1c65766e40c8b1644f"
+        }
+      },
+      "actualToolOutput": "exit=0 start=1794280725.206 end=1794280725.763\n# tests 30\n# suites 0\n# pass 30\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 519.596625",
+      "population": {
+        "tests": 30,
+        "pass": 30,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "names": [
+          "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+          "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+          "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+          "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+          "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+          "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+          "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+          "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+          "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+          "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+          "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+          "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+          "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+          "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+          "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+          "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+          "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+          "controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result",
+          "controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result",
+          "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+          "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+          "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+          "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+          "controlled B command: partial setup failures settle before disposal",
+          "controlled B command: interruption settles before capture disposal",
+          "controlled B command: primary use and cleanup-only failures retain exact outcomes",
+          "controlled B helper: raw failures survive actual lifts and host projection",
+          "controlled B helper: command failure reaches artifact and drained acknowledgment",
+          "controlled B helper: later publication path and acknowledgment failures retain precedence",
+          "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds"
+        ],
+        "durationMs": 519.596625
+      },
+      "notOkNames": []
+    },
+    {
+      "name": "controlled-03",
+      "status": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-03.status",
+        "bytes": 47,
+        "sha256": "d3cd03d13ebca53f47425b47f59852e0bb83ef5515909829c5959eba92e593aa"
+      },
+      "exitCode": 0,
+      "elapsedSeconds": 0.560999870300293,
+      "output": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-03.tap",
+        "bytes": 9333,
+        "sha256": "aea7c2e7947d7b1c6fba336bb856e44133eaab12e589cc7991923d24964f6848"
+      },
+      "actualCommand": {
+        "line": 7036,
+        "id": "toolu_01BvbGqGZc19fb2GsRc98kAE",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && /opt/homebrew/Cellar/node/24.7.0/bin/node --check test_env/tests/t287-owned-process-lifetime.test.mjs && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-03.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-03.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-03.tap; grep -nE \"^not ok\" $S/checks/controlled-03.tap",
+          "description": "Rerun controlled selector with API counterexamples",
+          "timeout": 90000
+        },
+        "ordinalZeroBased": 58,
+        "result": {
+          "line": 7040,
+          "isError": false,
+          "canonicalBytes": 156,
+          "sha256": "1641f8e94f8048dd69fd9ac4e2e5d89d3bd20be344fd83c64cfdf6c68a46f9ad"
+        }
+      },
+      "actualToolOutput": "exit=0 start=1794280762.426 end=1794280762.987\n# tests 30\n# suites 0\n# pass 30\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 524.38775",
+      "population": {
+        "tests": 30,
+        "pass": 30,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "names": [
+          "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+          "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+          "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+          "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+          "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+          "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+          "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+          "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+          "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+          "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+          "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+          "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+          "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+          "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+          "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+          "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+          "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+          "controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result",
+          "controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result",
+          "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+          "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+          "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+          "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+          "controlled B command: partial setup failures settle before disposal",
+          "controlled B command: interruption settles before capture disposal",
+          "controlled B command: primary use and cleanup-only failures retain exact outcomes",
+          "controlled B helper: raw failures survive actual lifts and host projection",
+          "controlled B helper: command failure reaches artifact and drained acknowledgment",
+          "controlled B helper: later publication path and acknowledgment failures retain precedence",
+          "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds"
+        ],
+        "durationMs": 524.38775
+      },
+      "notOkNames": []
+    },
+    {
+      "name": "controlled-04",
+      "status": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-04.status",
+        "bytes": 47,
+        "sha256": "7681f9f6901bafab501ee781a62063400764afdb7636b17427f735dc45b942bf"
+      },
+      "exitCode": 0,
+      "elapsedSeconds": 0.5429999828338623,
+      "output": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-04.tap",
+        "bytes": 9349,
+        "sha256": "13c2599815c836c05fabe5abd71546b4ff6b4ef2f99d382617d8ae99066a0b2f"
+      },
+      "actualCommand": {
+        "line": 8826,
+        "id": "toolu_01MUq24ucTkhcBro8tkg2FaB",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-04.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-04.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-04.tap; grep -E \"^(not )?ok \" $S/checks/controlled-04.tap | sed -E 's/^(not ok|ok) [0-9]+ - //' > $S/checks/controlled-04.names; python3 - \"$S\" <<'EOF'\nimport json, sys, pathlib\nS = pathlib.Path(sys.argv[1])\ncensus = json.loads(pathlib.Path(\"/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-b01/CONTROLLED_CENSUS.json\").read_text())\nran = (S/\"checks/controlled-04.names\").read_text().splitlines()\nexpected = census[\"existingControlledNames\"] + census[\"requiredNewTopLevelNames\"]\nprint(\"ran\", len(ran), \"expected\", len(expected), \"set-equal\", set(ran) == set(expected), \"missing\", sorted(set(expected)-set(ran)), \"extra\", sorted(set(ran)-set(expected)))\nimport re\nsrc = pathlib.Path(\"test_env/tests/t287-owned-process-lifetime.test.mjs\").read_text()\nnames = re.findall(r\"^test\\('([^']+)'\", src, re.M)\nprint(\"whole-file top-level\", len(names), \"physical\", [n for n in names if not n.startswith(\"controlled \")])\nprint(\"whole-file equals census+6:\", set(names) == set(census[\"existingWholeFileNames\"] + census[\"requiredNewTopLevelNames\"]))\nEOF",
+          "description": "Final controlled selector run and census comparison",
+          "timeout": 90000
+        },
+        "ordinalZeroBased": 71,
+        "result": {
+          "line": 8830,
+          "isError": false,
+          "canonicalBytes": 718,
+          "sha256": "7bc529d3d08cf48bad8592a178017620b3e989e3b39d3dc62543a86a0ab2f51e"
+        }
+      },
+      "actualToolOutput": "exit=0 start=1794280933.956 end=1794280934.499\n# tests 30\n# suites 0\n# pass 30\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 505.204541\nran 30 expected 30 set-equal True missing [] extra []\nwhole-file top-level 34 physical ['physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed', 'physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize', 'physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result', 'physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded']\nwhole-file equals census+6: True",
+      "population": {
+        "tests": 30,
+        "pass": 30,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "names": [
+          "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+          "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+          "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+          "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+          "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+          "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+          "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+          "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+          "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+          "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+          "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+          "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+          "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+          "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+          "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+          "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+          "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+          "controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result",
+          "controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result",
+          "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+          "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+          "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+          "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+          "controlled B command: partial setup failures settle before disposal",
+          "controlled B command: interruption settles before capture disposal",
+          "controlled B command: primary use and cleanup-only failures retain exact outcomes",
+          "controlled B helper: raw failures survive actual lifts and host projection",
+          "controlled B helper: command failure reaches artifact and drained acknowledgment",
+          "controlled B helper: later publication path and acknowledgment failures retain precedence",
+          "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds"
+        ],
+        "durationMs": 505.204541
+      },
+      "notOkNames": []
+    }
+  ],
+  "syntax": [
+    {
+      "tool": {
+        "line": 6175,
+        "id": "toolu_01JNn4a7rtrZKWwitSMCMnRQ",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && python3 - <<'EOF'\nimport pathlib\np = pathlib.Path(\"test_env/tests/t287-owned-process-lifetime.test.mjs\")\ns = p.read_text()\nreps = [\n(\"\"\"      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);\n      assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical primary use failure is the outcome');\"\"\",\n\"\"\"      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);\n      const failures = [...Cause.failures(used.cause)];\n      assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical primary use failure is the outcome');\"\"\"),\n(\"\"\"  const [{ used, closed }] = scopes;\n  assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical command failure was retained');\n  assert.deepEqual([...Cause.defects(closed.cause)], [releaseFault], 'the secondary release fault stays in the closed Scope');\"\"\",\n\"\"\"  assert.equal(scopes.length, 1); const [{ used, closed }] = scopes;\n  const failures = [...Cause.failures(used.cause)], defects = [...Cause.defects(closed.cause)];\n  assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical command failure was retained');\n  assert(defects.length === 1 && Object.is(defects[0], releaseFault), 'the secondary release fault stays in the closed Scope');\"\"\"),\n(\"\"\"    const count = kind => log.filter(([logged]) => logged === kind).length;\n    const fails = (at, ordinal = 1) => stage === at && ordinal ? Promise.reject(later) : undefined;\n    let caught = false, observed;\n    await b.helper.controlledMain(bMain(log, {\n      command: async () => { log.push(['command']); throw retained; },\n      observations: async () => { log.push(['observations']); await fails('after observation', count('observations') === 2); return []; },\n      inventory: async () => { log.push(['inventory']); await fails('after inventory', count('inventory') === 3); return []; },\n      publish: async () => { log.push(['publication']); await fails('publication'); },\n      path: async () => { log.push(['path']); await fails('path validation'); },\"\"\",\n\"\"\"    const count = kind => log.filter(([logged]) => logged === kind).length;\n    const fail = (at, selected = true) => { if (stage === at && selected) throw later; };\n    let caught = false, observed;\n    await b.helper.controlledMain(bMain(log, {\n      command: async () => { log.push(['command']); throw retained; },\n      observations: async () => { log.push(['observations']); fail('after observation', count('observations') === 2); return []; },\n      inventory: async () => { log.push(['inventory']); fail('after inventory', count('inventory') === 3); return []; },\n      publish: async () => { log.push(['publication']); fail('publication'); },\n      path: async () => { log.push(['path']); fail('path validation'); },\"\"\"),\n]\nfor a, b in reps:\n    assert s.count(a) == 1, a[:60]\n    s = s.replace(a, b)\np.write_text(s)\nEOF\ngrep -n \"\\bproduction\\b\\|controlledBindings\\|runCommandOnHost\\|activeCommandOf\\|controlledCommandEffect\" code/src/implementation/worksite_command_helper.ts | head; /opt/homebrew/Cellar/node/24.7.0/bin/node --check test_env/tests/t287-owned-process-lifetime.test.mjs && echo SYNTAX_OK",
+          "description": "Apply identity checks and syntax-check test"
+        },
+        "ordinalZeroBased": 49,
+        "result": {
+          "line": 6180,
+          "isError": false,
+          "canonicalBytes": 11,
+          "sha256": "5e6d2a4260df7fed94e3efdb330eb80bc378c47a31e07393b8b84982726ca0ee"
+        }
+      },
+      "actualOutput": "SYNTAX_OK"
+    },
+    {
+      "tool": {
+        "line": 6418,
+        "id": "toolu_01R59XzDXiimAY9ZLNLAwwNt",
+        "name": "Bash",
+        "input": {
+          "command": "python3 - <<'EOF'\nimport pathlib\np = pathlib.Path(\"test_env/tests/t287-lifecycle-failure-carrier.test.mjs\")\ns = p.read_text()\nassert s.count(\"'\\\\nexport { runCommand };'\") == 3\ns = s.replace(\"'\\\\nexport { runCommand };'\", \"runCommandOnHost\")\nanchor = \"const holds = (rows, name, identity) => calculus.holdsAt(\"\nassert s.count(anchor) == 1\ns = s.replace(anchor, \"\"\"// The helper's Effect command reaches these Promise-facing cases through its own host projection.\nconst runCommandOnHost = '\\\\nconst runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));' +\n  '\\\\nexport { runCommandOnHost as runCommand };';\n\n\"\"\" + anchor)\np.write_text(s)\nEOF\ngrep -n \"runCommandOnHost\" test_env/tests/t287-lifecycle-failure-carrier.test.mjs; for f in test_env/tests/m5-worker-transport.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs test_env/tests/t287-owned-process-lifetime.test.mjs; do /opt/homebrew/Cellar/node/24.7.0/bin/node --check $f && echo \"SYNTAX_OK $f\"; done",
+          "description": "Adapt carrier exposures and syntax-check all mjs"
+        },
+        "ordinalZeroBased": 52,
+        "result": {
+          "line": 6422,
+          "isError": false,
+          "canonicalBytes": 628,
+          "sha256": "52b3e7b3ec67e8ec7d1e3e9e08b730af93b850c36cfdfaa612fbc65d32b56ce9"
+        }
+      },
+      "actualOutput": "61:const runCommandOnHost = '\\nconst runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));' +\n62:  '\\nexport { runCommandOnHost as runCommand };';\n329:  const real = await component('implementation/worksite_command_helper', {}, runCommandOnHost, exposeRunCommand);\n336:    { '../shared/owned_process_lifetime.js': unknownGroupLifetime }, runCommandOnHost, exposeRunCommand);\n378:    runCommandOnHost, exposeRunCommand);\nSYNTAX_OK test_env/tests/m5-worker-transport.test.mjs\nSYNTAX_OK test_env/tests/t287-lifecycle-failure-carrier.test.mjs\nSYNTAX_OK test_env/tests/t287-owned-process-lifetime.test.mjs"
+    },
+    {
+      "tool": {
+        "line": 6785,
+        "id": "toolu_017cvue49utoNVukvE3ESys3",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && /opt/homebrew/Cellar/node/24.7.0/bin/node --check test_env/tests/t287-owned-process-lifetime.test.mjs && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-02.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-02.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-02.tap; grep -nE \"^not ok\" $S/checks/controlled-02.tap",
+          "description": "Rerun controlled selector after harness fix",
+          "timeout": 90000
+        },
+        "ordinalZeroBased": 56,
+        "result": {
+          "line": 6789,
+          "isError": false,
+          "canonicalBytes": 157,
+          "sha256": "4c909497f9f84f8b9391b15831ece49048fa62acfe174e1c65766e40c8b1644f"
+        }
+      },
+      "actualOutput": "exit=0 start=1794280725.206 end=1794280725.763\n# tests 30\n# suites 0\n# pass 30\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 519.596625"
+    },
+    {
+      "tool": {
+        "line": 7036,
+        "id": "toolu_01BvbGqGZc19fb2GsRc98kAE",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && /opt/homebrew/Cellar/node/24.7.0/bin/node --check test_env/tests/t287-owned-process-lifetime.test.mjs && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-03.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-03.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-03.tap; grep -nE \"^not ok\" $S/checks/controlled-03.tap",
+          "description": "Rerun controlled selector with API counterexamples",
+          "timeout": 90000
+        },
+        "ordinalZeroBased": 58,
+        "result": {
+          "line": 7040,
+          "isError": false,
+          "canonicalBytes": 156,
+          "sha256": "1641f8e94f8048dd69fd9ac4e2e5d89d3bd20be344fd83c64cfdf6c68a46f9ad"
+        }
+      },
+      "actualOutput": "exit=0 start=1794280762.426 end=1794280762.987\n# tests 30\n# suites 0\n# pass 30\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 524.38775"
+    }
+  ],
+  "firstRed": {
+    "name": "controlled-01",
+    "status": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-01.status",
+      "bytes": 47,
+      "sha256": "778ac8ed51e6b4db4289585006692d4772c5e9c85fd2e473ab9022bf1bd0ab74"
+    },
+    "exitCode": 1,
+    "elapsedSeconds": 0.6010000705718994,
+    "output": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-01.tap",
+      "bytes": 10073,
+      "sha256": "1ad4d489d5742a78ae0f409ea712d991d34dc53ff7a405e04f589d2be1f09500"
+    },
+    "actualCommand": {
+      "line": 6547,
+      "id": "toolu_01Hsespu4EQ8tmHtzTuJo1WS",
+      "name": "Bash",
+      "input": {
+        "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01 && ls $S/tenant/build/code/src/implementation/worksite_command_helper.js >/dev/null && start=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time') && env ABI5_OWNED_PROCESS_PACKAGE_ROOT=$S/tenant ABI5_TEST_EVIDENCE_DIR=$S/evidence TMPDIR=$S/tmp NODE_OPTIONS= NODE_PATH= perl -e 'alarm 60; exec @ARGV' /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 \"--test-name-pattern=^controlled \" test_env/tests/t287-owned-process-lifetime.test.mjs > $S/checks/controlled-01.tap 2>&1; rc=$?; end=$(perl -MTime::HiRes=time -e 'printf \"%.3f\", time'); echo \"exit=$rc start=$start end=$end\" | tee $S/checks/controlled-01.status; grep -E \"^# (tests|suites|pass|fail|cancelled|skipped|todo|duration_ms)\" $S/checks/controlled-01.tap; grep -nE \"^not ok|^ok\" $S/checks/controlled-01.tap | head -40",
+        "description": "Run exact controlled selector attempt 1",
+        "timeout": 90000
+      },
+      "ordinalZeroBased": 53,
+      "result": {
+        "line": 6551,
+        "isError": false,
+        "canonicalBytes": 3606,
+        "sha256": "849e27fa122d91c766a6a1921d57cfd2b92c6663f06a88d6352364c7a55028bb"
+      }
+    },
+    "actualToolOutput": "exit=1 start=1794280694.698 end=1794280695.299\n# tests 30\n# suites 0\n# pass 29\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 564.487542\n3:ok 1 - controlled timing: host boundaries, finite huge and fractional delays never become early actions\n9:ok 2 - controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing\n15:ok 3 - controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit\n21:ok 4 - controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure\n27:ok 5 - controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection\n35:ok 6 - controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure\n41:ok 7 - controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct\n47:ok 8 - controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close\n53:ok 9 - controlled lifetime: callback errors stop ordinary observations and retain the first error\n59:ok 10 - controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct\n65:ok 11 - controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes\n71:ok 12 - controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows\n77:ok 13 - controlled lifetime: first error and disposal faults are recorded before the one completion publication\n83:ok 14 - controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result\n89:ok 15 - controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close\n95:ok 16 - controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result\n101:ok 17 - controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact\n107:ok 18 - controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result\n113:ok 19 - controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result\n119:ok 20 - controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted\n125:ok 21 - controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication\n131:ok 22 - controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error\n137:ok 23 - controlled owners: command and HTTP reject the original stream error before reports or a dependent request\n143:ok 24 - controlled B command: partial setup failures settle before disposal\n149:ok 25 - controlled B command: interruption settles before capture disposal\n159:ok 26 - controlled B command: primary use and cleanup-only failures retain exact outcomes\n165:not ok 27 - controlled B helper: raw failures survive actual lifts and host projection\n191:ok 28 - controlled B helper: command failure reaches artifact and drained acknowledgment\n197:ok 29 - controlled B helper: later publication path and acknowledgment failures retain precedence\n203:ok 30 - controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+    "population": {
+      "tests": 30,
+      "pass": 29,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "names": [
+        "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+        "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+        "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+        "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+        "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+        "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+        "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+        "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+        "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+        "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+        "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+        "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+        "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+        "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+        "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+        "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+        "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+        "controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result",
+        "controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result",
+        "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+        "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+        "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+        "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+        "controlled B command: partial setup failures settle before disposal",
+        "controlled B command: interruption settles before capture disposal",
+        "controlled B command: primary use and cleanup-only failures retain exact outcomes",
+        "controlled B helper: raw failures survive actual lifts and host projection",
+        "controlled B helper: command failure reaches artifact and drained acknowledgment",
+        "controlled B helper: later publication path and acknowledgment failures retain precedence",
+        "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds"
+      ],
+      "durationMs": 564.487542
+    },
+    "notOkNames": [
+      "controlled B helper: raw failures survive actual lifts and host projection"
+    ]
+  },
+  "adapterCorrection": {
+    "tool": {
+      "line": 6696,
+      "id": "toolu_01Adkt6yAuWZGP4jMSRyuSFM",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "old_string": "  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return runCommand(task, '/controlled', 0, 'attempt://selected');\n  }",
+        "new_string": "  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return production.runCommand(task, '/controlled', 0, 'attempt://selected');\n  }"
+      },
+      "ordinalZeroBased": 55,
+      "result": {
+        "line": 6700,
+        "isError": false,
+        "canonicalBytes": 175,
+        "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+      }
+    },
+    "meaning": "Exact before/after private-adapter edit retained; diagnosis belongs to Root/source assurance. No assertion changed in this specific edit."
+  },
+  "earlierControlFailure": {
+    "tool": {
+      "line": 4137,
+      "id": "toolu_01UWzvbaGJvF4Dqz1zNpSrNU",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01 && S=qualification-scratch/rc11-effect-phase2-01/native-b01 && T=build_tenants/abiogenesis/typescript && mkdir -p $S/tenant && cp $T/package.json $S/tenant/package.json && ln -s /private/tmp/abg-rc11-foundation-20261110-01/$T/node_modules $S/tenant/node_modules && ls -la $S/tenant && command -v timeout gtimeout perl",
+        "description": "Create scratch tenant with symlinked node_modules"
+      },
+      "ordinalZeroBased": 41,
+      "result": {
+        "line": 4141,
+        "isError": true,
+        "canonicalBytes": 351,
+        "sha256": "e7c1d0f8b2cb38605c19aca47e6e8346295fb420eb6262cb897949057f8d7f94"
+      }
+    },
+    "output": "Exit code 1\ntotal 24\ndrwxr-xr-x  4 jim  wheel    128 Nov 10 14:13 .\ndrwxr-xr-x  7 jim  wheel    224 Nov 10 14:13 ..\nlrwxr-xr-x  1 jim  wheel     94 Nov 10 14:13 node_modules -> /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules\n-rw-r--r--  1 jim  wheel  10105 Nov 10 14:13 package.json\n/usr/bin/perl",
+    "meaning": "Scratch package/symlink creation succeeded; trailing command -v timeout gtimeout perl returned1 with perl present. No compiler or Product failure inferred."
+  },
+  "census": {
+    "wholeFileNames": [
+      "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+      "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+      "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+      "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+      "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+      "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+      "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+      "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+      "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+      "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+      "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+      "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+      "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+      "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+      "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+      "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+      "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+      "controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result",
+      "controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result",
+      "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+      "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+      "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+      "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+      "controlled B command: partial setup failures settle before disposal",
+      "controlled B command: interruption settles before capture disposal",
+      "controlled B command: primary use and cleanup-only failures retain exact outcomes",
+      "controlled B helper: raw failures survive actual lifts and host projection",
+      "controlled B helper: command failure reaches artifact and drained acknowledgment",
+      "controlled B helper: later publication path and acknowledgment failures retain precedence",
+      "physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed",
+      "physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize",
+      "physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result",
+      "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+      "physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded"
+    ],
+    "wholeFileCount": 34,
+    "controlledNames": [
+      "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+      "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+      "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+      "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+      "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+      "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+      "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+      "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+      "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+      "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+      "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+      "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+      "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+      "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+      "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+      "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+      "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+      "controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result",
+      "controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result",
+      "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+      "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+      "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+      "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+      "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+      "controlled B command: partial setup failures settle before disposal",
+      "controlled B command: interruption settles before capture disposal",
+      "controlled B command: primary use and cleanup-only failures retain exact outcomes",
+      "controlled B helper: raw failures survive actual lifts and host projection",
+      "controlled B helper: command failure reaches artifact and drained acknowledgment",
+      "controlled B helper: later publication path and acknowledgment failures retain precedence"
+    ],
+    "controlledCount": 30,
+    "physicalUnexecuted": [
+      "physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed",
+      "physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize",
+      "physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result",
+      "physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded"
+    ]
+  },
+  "finalCorrespondence": {
+    "lastSourceWriteOrdinal": 68,
+    "freshCompilerOrdinal": 70,
+    "controlledOrdinal": 71,
+    "sourceWrites": [
+      {
+        "line": 2676,
+        "id": "toolu_018PYaGqyso7cEZ44Sv1ZRAs",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+          "old_string": "#!/usr/bin/env node\nimport { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from \"../shared/owned_process_lifetime.js\";",
+          "new_string": "#!/usr/bin/env node\nimport * as Cause from \"effect/Cause\";\nimport * as Effect from \"effect/Effect\";\nimport * as Either from \"effect/Either\";\nimport * as Exit from \"effect/Exit\";\nimport * as Option from \"effect/Option\";\nimport * as Scope from \"effect/Scope\";\nimport { runEffectProgram } from \"../shared/effect_definition.js\";\nimport { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from \"../shared/owned_process_lifetime.js\";"
+        },
+        "ordinalZeroBased": 34,
+        "result": {
+          "line": 2680,
+          "isError": false,
+          "canonicalBytes": 174,
+          "sha256": "dbecf607d6fb3ddab4da44cf0b50f7f9f6892bd07d0f5abd41a6f863587653a4"
+        }
+      },
+      {
+        "line": 2701,
+        "id": "toolu_01GfoH2kNXKWnYuhFYrUgudJ",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+          "old_string": "import { spawn, type ChildProcessByStdio } from \"node:child_process\";",
+          "new_string": "import { spawn } from \"node:child_process\";"
+        },
+        "ordinalZeroBased": 35,
+        "result": {
+          "line": 2703,
+          "isError": false,
+          "canonicalBytes": 174,
+          "sha256": "dbecf607d6fb3ddab4da44cf0b50f7f9f6892bd07d0f5abd41a6f863587653a4"
+        }
+      },
+      {
+        "line": 2748,
+        "id": "toolu_01KiWrLAZ9PQoWh96QkpRT5x",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+          "old_string": "import { spawn } from \"node:child_process\";",
+          "new_string": "import { spawn, type ChildProcessByStdio } from \"node:child_process\";"
+        },
+        "ordinalZeroBased": 36,
+        "result": {
+          "line": 2750,
+          "isError": false,
+          "canonicalBytes": 174,
+          "sha256": "dbecf607d6fb3ddab4da44cf0b50f7f9f6892bd07d0f5abd41a6f863587653a4"
+        }
+      },
+      {
+        "line": 3596,
+        "id": "toolu_01XCBD8cHejuQeVrpyVxMjzT",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+          "old_string": "async function runCommand(\n  task: WorksiteExecutionTask,\n  executionRoot: string,\n  ordinal: number,\n  attemptRef: string | null = null,\n): Promise<WorksiteCommandResult> {\n  const command = task.commands[ordinal]!;\n  const cwd = await confinedExistingPath(\n    executionRoot,\n    command.relativeCwd,\n    \"directory\",\n  );\n  const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));\n  let child: ChildProcessByStdio<null, Readable, Readable>;\n  try {\n    child = spawn(command.executable, [...command.args], {\n      cwd, env: environment, detached: process.platform !== \"win32\",\n      stdio: [\"ignore\", \"pipe\", \"pipe\"],\n    });\n  } catch (error) {\n    return commandResult(executionRoot, command, ordinal, noChildLaunchObservation(error));\n  }\n  activeCommand = child;\n  const stdout: Buffer[] = [], stderr: Buffer[] = [];\n  const signalSequence: (\"SIGTERM\" | \"SIGKILL\")[] = [];\n  let timedOut = false;\n  let launchFailed = false;\n  let captureOpen = true;\n  const timeoutTimer = createMonotonicDeadline();\n  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {\n    onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, \"utf8\")); timeoutTimer.cancel(); },\n    onExit: () => {\n      captureOpen = false; timeoutTimer.cancel(); child.stdout.destroy(); child.stderr.destroy();\n    },\n    onSignalRequested: (signal) => {\n      timeoutTimer.cancel(); signalSequence.push(signal);\n      stderr.push(Buffer.from(`${signal === \"SIGTERM\" ? \"\\n\" : \"\"}ABI worksite command cleanup: ${signal} requested\\n`, \"utf8\"));\n    },\n  });\n  const heartbeat = setInterval(() => {\n    lifetime.observe(() => { process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\\n`); });\n  }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));\n  const onStdout = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stdout.push(Buffer.from(chunk))); };\n  const onStderr = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stderr.push(Buffer.from(chunk))); };\n  try {\n    child.stdout.on(\"data\", onStdout); child.stderr.on(\"data\", onStderr);\n    timeoutTimer.after(command.timeoutMs, () => { timedOut = true; lifetime.requestTermination(); });\n  } catch (error) { lifetime.fail(error); }\n  let facts: Awaited<typeof lifetime.completion>;\n  try {\n    facts = await lifetime.completion;\n    if (facts.firstError !== null) {\n      const detail = {\n        taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, command,\n        diagnostic: { name: facts.firstError.name, message: facts.firstError.message },\n        processFacts: encodeOwnedProcessFacts(facts),\n      };\n      throw new WorksiteHelperFailure(\"worksite command failed; dependent work stopped\", detail,\n        { failureClass: \"command_failed\", ...detail });\n    }\n  } finally {\n    timeoutTimer.cancel(); clearInterval(heartbeat); activeCommand = null; captureOpen = false;\n    child.stdout.off(\"data\", onStdout); child.stderr.off(\"data\", onStderr);\n  }\n  // A spawn failure has no child to clean up; an exit needs a confirmed boundary.\n  const terminal = classifyOwnedProcessTerminal(facts);\n  if (terminal === \"unconfirmed\") stderr.push(unconfirmedScopeDiagnostic(facts));\n  const launched: LaunchProcessObservation = {\n    exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),\n    processSignal: facts.directExit?.signal ?? null, timedOut,\n    signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== \"unconfirmed\",\n    stdout: stream(Buffer.concat(stdout)), stderr: stream(Buffer.concat(stderr)),\n  };\n  if (!launched.terminationConfirmed) {\n    const processObservation = commandProcessObservation(command, ordinal, launched);\n    const detail = {\n      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,\n      command: processObservation, diagnostic: decodeStream(processObservation.stderr),\n      processFacts: encodeOwnedProcessFacts(facts),\n    };\n    throw new WorksiteHelperFailure(\"worksite command cleanup unresolved; dependent work stopped\", detail,\n      { failureClass: \"command_cleanup_unresolved\", ...detail, diagnostic: { name: \"TypeError\", message: detail.diagnostic } });\n  }\n  return commandResult(executionRoot, command, ordinal, launched);\n}",
+          "new_string": "/** Lift one fallible Promise operation: its synchronous throw or its rejection\n * stays the exact failure value, never a library wrapper. */\nfunction attempt<A>(operation: () => PromiseLike<A>): Effect.Effect<A, unknown> {\n  return Effect.tryPromise({ try: () => operation(), catch: (value) => value });\n}\n\n/** Lift one fallible synchronous operation, keeping its exact thrown value. */\nfunction attemptSync<A>(operation: () => A): Effect.Effect<A, unknown> {\n  return Effect.try({ try: () => operation(), catch: (value) => value });\n}\n\n/** The barrier every command release crosses before it disposes: request the\n * lifetime's existing finite cleanup, inert once cleanup began or completed,\n * then await that lifetime's one canonical completion. */\nfunction settled(lifetime: ReturnType<typeof createOwnedProcessLifetime>): Effect.Effect<OwnedProcessFacts> {\n  return Effect.suspend(() => {\n    lifetime.requestTermination();\n    return Effect.promise(() => lifetime.completion);\n  });\n}\n\n/** The bounded diagnostic of one closed command Scope. A failed use stays the\n * outcome, so release faults behind it are written here, never dropped. */\nfunction commandScopeClosed(used: Exit.Exit<unknown, unknown>, closed: Exit.Exit<void>): void {\n  if (Exit.isSuccess(used) || Exit.isSuccess(closed)) return;\n  try {\n    process.stderr.write(`ABI worksite command release fault: ${Cause.pretty(closed.cause).slice(0, 8192)}\\n`);\n  } catch {\n    // A diagnostic never replaces the selected outcome.\n  }\n}\n\n/** One command Scope. Its use runs interruptibly and its Exit is kept before\n * the Scope closes. A failed use, interruption included, is the outcome;\n * otherwise the closed Scope is, so a release fault alone still fails. */\nfunction commandScope<A>(use: Effect.Effect<A, unknown, Scope.Scope>): Effect.Effect<A, unknown> {\n  return Effect.uninterruptibleMask((restore) => Effect.gen(function* () {\n    const scope = yield* Scope.make();\n    const used = yield* Effect.exit(restore(Scope.extend(use, scope)));\n    const closed = yield* Effect.exit(Scope.close(scope, used));\n    commandScopeClosed(used, closed);\n    if (Exit.isFailure(used) || Exit.isSuccess(closed)) return yield* used;\n    return yield* Effect.failCause(closed.cause);\n  }));\n}\n\n/** One command's launch inside its Scope: its owned child's observation, or\n * the no-child observation of a synchronous spawn error. */\nfunction launchCommand(\n  task: WorksiteExecutionTask,\n  ordinal: number,\n  cwd: string,\n  attemptRef: string | null,\n): Effect.Effect<LaunchProcessObservation, unknown, Scope.Scope> {\n  return Effect.gen(function* () {\n    const command = task.commands[ordinal]!;\n    const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));\n    const stdout: Buffer[] = [], stderr: Buffer[] = [];\n    const signalSequence: (\"SIGTERM\" | \"SIGKILL\")[] = [];\n    let timedOut = false;\n    let launchFailed = false;\n    let captureOpen = true;\n    const timeoutTimer = createMonotonicDeadline();\n    // Spawn and lifetime are one uninterruptible acquisition: once a child\n    // exists, its settling release is registered before anything can fail.\n    const launch = yield* Effect.acquireRelease(\n      attemptSync(() => spawn(command.executable, [...command.args], {\n        cwd, env: environment, detached: process.platform !== \"win32\",\n        stdio: [\"ignore\", \"pipe\", \"pipe\"],\n      })).pipe(Effect.either, Effect.map(Either.map((child) => {\n        activeCommand = child;\n        const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {\n          onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, \"utf8\")); timeoutTimer.cancel(); },\n          onExit: () => {\n            captureOpen = false; timeoutTimer.cancel(); child.stdout.destroy(); child.stderr.destroy();\n          },\n          onSignalRequested: (signal) => {\n            timeoutTimer.cancel(); signalSequence.push(signal);\n            stderr.push(Buffer.from(`${signal === \"SIGTERM\" ? \"\\n\" : \"\"}ABI worksite command cleanup: ${signal} requested\\n`, \"utf8\"));\n          },\n        });\n        return { child, lifetime };\n      }))),\n      (launch) => Either.isLeft(launch) ? Effect.void\n        : Effect.zipRight(settled(launch.right.lifetime), Effect.sync(() => { activeCommand = null; })),\n    );\n    if (Either.isLeft(launch)) return yield* attemptSync(() => noChildLaunchObservation(launch.left));\n    const { child, lifetime } = launch.right;\n    // Each later resource registers its release before its fallible\n    // acquisition; that release disposes only after the settlement barrier.\n    const hold = (acquire: () => unknown, release: () => void) => Effect.zipRight(\n      Effect.addFinalizer(() => Effect.zipRight(settled(lifetime), Effect.sync(release))),\n      attemptSync(acquire),\n    );\n    let heartbeat: ReturnType<typeof setInterval> | undefined;\n    const onStdout = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stdout.push(Buffer.from(chunk))); };\n    const onStderr = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stderr.push(Buffer.from(chunk))); };\n    yield* Effect.all([\n      hold(() => {\n        heartbeat = setInterval(() => {\n          lifetime.observe(() => { process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\\n`); });\n        }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));\n      }, () => clearInterval(heartbeat)),\n      hold(() => child.stdout.on(\"data\", onStdout), () => child.stdout.off(\"data\", onStdout)),\n      hold(() => child.stderr.on(\"data\", onStderr), () => child.stderr.off(\"data\", onStderr)),\n      hold(() => timeoutTimer.after(command.timeoutMs, () => { timedOut = true; lifetime.requestTermination(); }),\n        () => timeoutTimer.cancel()),\n    ], { discard: true }).pipe(Effect.catchAll((error) => Effect.sync(() => lifetime.fail(error))));\n    const facts = yield* Effect.promise(() => lifetime.completion);\n    if (facts.firstError !== null) {\n      const detail = {\n        taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, command,\n        diagnostic: { name: facts.firstError.name, message: facts.firstError.message },\n        processFacts: encodeOwnedProcessFacts(facts),\n      };\n      return yield* Effect.fail(new WorksiteHelperFailure(\"worksite command failed; dependent work stopped\", detail,\n        { failureClass: \"command_failed\", ...detail }));\n    }\n    // A spawn failure has no child to clean up; an exit needs a confirmed boundary.\n    const terminal = classifyOwnedProcessTerminal(facts);\n    if (terminal === \"unconfirmed\") stderr.push(unconfirmedScopeDiagnostic(facts));\n    const launched: LaunchProcessObservation = {\n      exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),\n      processSignal: facts.directExit?.signal ?? null, timedOut,\n      signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== \"unconfirmed\",\n      stdout: stream(Buffer.concat(stdout)), stderr: stream(Buffer.concat(stderr)),\n    };\n    if (!launched.terminationConfirmed) {\n      const processObservation = commandProcessObservation(command, ordinal, launched);\n      const detail = {\n        taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,\n        command: processObservation, diagnostic: decodeStream(processObservation.stderr),\n        processFacts: encodeOwnedProcessFacts(facts),\n      };\n      return yield* Effect.fail(new WorksiteHelperFailure(\"worksite command cleanup unresolved; dependent work stopped\", detail,\n        { failureClass: \"command_cleanup_unresolved\", ...detail, diagnostic: { name: \"TypeError\", message: detail.diagnostic } }));\n    }\n    return launched;\n  });\n}\n\nfunction runCommand(\n  task: WorksiteExecutionTask,\n  executionRoot: string,\n  ordinal: number,\n  attemptRef: string | null = null,\n): Effect.Effect<WorksiteCommandResult, unknown> {\n  return Effect.gen(function* () {\n    const command = task.commands[ordinal]!;\n    const cwd = yield* attempt(() => confinedExistingPath(\n      executionRoot,\n      command.relativeCwd,\n      \"directory\",\n    ));\n    const launched = yield* commandScope(launchCommand(task, ordinal, cwd, attemptRef));\n    return yield* attempt(() => commandResult(executionRoot, command, ordinal, launched));\n  });\n}"
+        },
+        "ordinalZeroBased": 38,
+        "result": {
+          "line": 3600,
+          "isError": false,
+          "canonicalBytes": 174,
+          "sha256": "dbecf607d6fb3ddab4da44cf0b50f7f9f6892bd07d0f5abd41a6f863587653a4"
+        }
+      },
+      {
+        "line": 4075,
+        "id": "toolu_01BMKZkJvmYuwQAL4TNxJ8NR",
+        "name": "Bash",
+        "input": {
+          "command": "python3 - <<'EOF'\nimport pathlib\np = pathlib.Path(\"code/src/implementation/worksite_command_helper.ts\")\ntext = p.read_text()\nstart = text.index(\"async function main(): Promise<void> {\\n\")\nend = text.index(\"await main();\\n\")\nold = text[start:end]\nnew = '''/** The raw value a failed helper Exit selects: the first Fail or Die payload in\n * sequential (release) order, never a preferred category. An interruption or a\n * parallel Cause has no one original value and selects none. */\nfunction selectedFailure(cause: Cause.Cause<unknown>): Option.Option<unknown> {\n  const [ordered, first] = Cause.match<readonly [boolean, Option.Option<unknown>], unknown>(cause, {\n    onEmpty: [true, Option.none()],\n    onFail: (error) => [true, Option.some(error)],\n    onDie: (defect) => [true, Option.some(defect)],\n    onInterrupt: () => [false, Option.none()],\n    onSequential: (left, right) => [left[0] && right[0], Option.orElse(left[1], () => right[1])],\n    onParallel: () => [false, Option.none()],\n  });\n  return ordered ? first : Option.none();\n}\n\n/** The helper's host boundary: run one program once through the package\n * membrane and return its value or throw its selected raw failure. A failure\n * with no one original value throws its actual Cause. */\nasync function runHelperProgram<A>(program: Effect.Effect<A, unknown>): Promise<A> {\n  const exit = await runEffectProgram(program);\n  if (Exit.isSuccess(exit)) return exit.value;\n  const selected = selectedFailure(exit.cause);\n  throw Option.isSome(selected) ? selected.value : exit.cause;\n}\n\n/** Print one acknowledgment and settle only once its write has drained. */\nfunction acknowledge(line: string, output: NodeJS.WritableStream = process.stdout): Promise<void> {\n  return new Promise<void>((resolveWrite, rejectWrite) => {\n    output.write(line, (error) => error === null || error === undefined ? resolveWrite() : rejectWrite(error));\n  });\n}\n\nasync function main(): Promise<void> {\n  return runHelperProgram(Effect.gen(function* () {\n    const preflight = yield* attempt(() => admitLaunchManifest());\n    const { task, artifactPath, sandboxRoot } = preflight;\n    if (!isWorksiteExecutionTask(task)) {\n      return yield* Effect.fail(new TypeError(\"helper launch manifest does not retain one exact Product task\"));\n    }\n    const before = yield* attempt(() => observations(task));\n    const productInventoryBefore = yield* attempt(() => filesystemInventory(\n      task.workspaceBinding.roots.productRoot,\n    ));\n    const beforeMatches = before.every((row, ordinal) => canonicalEquals(\n      row,\n      worksiteExecutionSources(task)[ordinal]!.observation,\n    ));\n    const commandResults: WorksiteCommandResult[] = [];\n    const predicateObservations: WorksitePredicateObservation[] = [];\n    const snapshot = yield* attempt(() => beforeMatches\n      ? materializeSnapshot(task, sandboxRoot)\n      : (async () => {\n          await mkdir(sandboxRoot);\n          const snapshotMembers = Object.freeze([]) as readonly WorksiteExecutionSnapshotMember[];\n          const snapshotDigest = sha256Canonical(snapshotMembers);\n          return Object.freeze({\n            snapshotRef: `${worksiteExecutionIdentityPrefix(task, \"snapshot\")}/${snapshotDigest.slice(\"sha256:\".length)}`,\n            snapshotDigest,\n            snapshotMembers,\n          });\n        })());\n    const inventoryBefore = yield* attempt(() => filesystemInventory(sandboxRoot));\n    // A failure after launch is published as the artifact's `failure`\n    // disposition, then rethrown: the helper still exits non-zero. Any other\n    // failure, defect or interruption escapes unchanged.\n    const failed = !beforeMatches ? null : yield* Effect.gen(function* () {\n      for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {\n        const command = yield* runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);\n        if (!command.terminationConfirmed) {\n          return yield* Effect.fail(new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({\n            taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,\n            command, diagnostic: decodeStream(command.stderr),\n          })}`));\n        }\n        commandResults.push(command);\n      }\n      for (let ordinal = 0; ordinal < task.outcomePredicates.length; ordinal += 1) {\n        const observation = yield* attempt(() =>\n          predicateObservation(task, sandboxRoot, commandResults, ordinal, preflight.manifest.attemptRef));\n        if (observation.predicateKind === \"http_response_exact\") {\n          const probe = record(observation.observedValue);\n          const processObservation = record(probe.process);\n          if (processObservation.terminationConfirmed !== true) {\n            return yield* Effect.fail(new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({\n              taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,\n              observation, diagnostic: decodeStream(processObservation.stderr as unknown as WorksiteObservedStream),\n            })}`));\n          }\n        }\n        predicateObservations.push(observation);\n      }\n      return null;\n    }).pipe(Effect.catchAll((error) => error instanceof WorksiteHelperFailure ? Effect.succeed(error) : Effect.fail(error)));\n    const after = yield* attempt(() => observations(task));\n    const inventoryAfter = yield* attempt(() => filesystemInventory(sandboxRoot));\n    const delta = worksiteDelta(task, inventoryBefore, inventoryAfter);\n    const productInventoryAfter = yield* attempt(() => filesystemInventory(\n      task.workspaceBinding.roots.productRoot,\n    ));\n    const productDelta = worksiteDelta(task, productInventoryBefore, productInventoryAfter, false);\n    const afterMatches = after.every((row, ordinal) => canonicalEquals(\n      row,\n      worksiteExecutionSources(task)[ordinal]!.observation,\n    ));\n    const artifact = constructWorksiteExecutionHelperArtifact({\n      task,\n      // The adapters ran under this manifest's attempt; the subject names it.\n      ...(failed === null ? {} : { failure: { ...failed.subject, attemptRef: preflight.manifest.attemptRef } }),\n      disposition: failed !== null\n        ? \"failure\"\n        : !beforeMatches || !afterMatches\n        ? \"protected_mismatch\"\n        : productDelta.length > 0\n        ? \"product_mismatch\"\n        : delta.some((row) => row.matchedTerritoryRef === null)\n        ? \"territory_mismatch\"\n        : \"success\",\n      commandResults,\n      predicateObservations,\n      worksiteDelta: delta,\n      productDelta,\n      snapshotRoot: sandboxRoot,\n      snapshotRef: snapshot.snapshotRef,\n      snapshotDigest: snapshot.snapshotDigest,\n      snapshotMembers: snapshot.snapshotMembers,\n      protectedBefore: before,\n      protectedAfter: after,\n    });\n    const bytes = Buffer.from(`${canonicalJson(artifact)}\\\\n`, \"utf8\");\n    yield* attempt(() => publishCreateOnly(artifactPath, bytes));\n    yield* attempt(() => canonicalExistingPathWithinRoot(\n      preflight.manifest.archiveRoot,\n      artifactPath,\n      \"file\",\n    ));\n    // The acknowledgment is printed for every disposition, a failure included,\n    // and drained before the rethrow: a pipe is asynchronous.\n    const workerReturnProjection = Object.freeze({\n      kind: \"worksite_command_execution_worker_result\" as const,\n      schemaVersion: \"5.0.0\" as const,\n      taskRef: task.taskRef,\n      taskDigest: task.taskDigest,\n      attemptRef: preflight.manifest.attemptRef,\n      helperArtifactRef: artifact.artifactRef,\n      helperArtifactDigest: artifact.artifactDigest,\n    }) satisfies WorksiteCommandExecutionWorkerResult;\n    yield* attempt(() => acknowledge(`${canonicalJson(workerReturnProjection)}\\\\n`));\n    if (failed !== null) return yield* Effect.fail(failed);\n  }));\n}\n\n'''\np.write_text(text[:start] + new + text[end:])\nEOF\ntail -5 code/src/implementation/worksite_command_helper.ts; grep -n 'canonicalJson(artifact)\\|canonicalJson(workerReturnProjection)' code/src/implementation/worksite_command_helper.ts",
+          "description": "Replace main with composed Effect helper program"
+        },
+        "ordinalZeroBased": 40,
+        "result": {
+          "line": 4079,
+          "isError": false,
+          "canonicalBytes": 261,
+          "sha256": "e9a3bfe798c51714a6bfa4d56336ebbb11af5b0322041a3f02d5b5c4a572c958"
+        }
+      },
+      {
+        "line": 4672,
+        "id": "toolu_01KuhbGT5u549cTbojxMnPKp",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": "async function helperModule(t, control = false, overrides = {}) {\n  const path = join(packageRoot, 'build/code/src/implementation/worksite_command_helper.js');\n  let source = (await readFile(path, 'utf8')).replace(/^#!.*\\n/u, '');\n  const suffix = control ? `export async function controlledMain(c) {\n    admitLaunchManifest=c.admit; observations=c.observations; filesystemInventory=c.inventory;\n    materializeSnapshot=c.snapshot; runCommand=c.command; predicateObservation=c.predicate;\n    worksiteDelta=c.delta; publishCreateOnly=c.publish; return main();\n  }\n  export async function controlledCommand(c, task) {\n    confinedExistingPath=c.confinedPath; reportObservation=c.report;\n    return runCommand(task, '/controlled', 0, 'attempt://selected');\n  }\n  export { runHttpProbe };` : 'export { runCommand, runHttpProbe };';\n  assert.match(source, /await main\\(\\);\\s*$/u); source = source.replace(/await main\\(\\);\\s*$/u, suffix);\n  const previous = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));\n  const mod = new SourceTextModule(source, { identifier: path });\n  await mod.link(async specifier => {\n    const imported = { ...await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href) };",
+          "new_string": "async function helperModule(t, control = false, overrides = {}) {\n  const path = join(packageRoot, 'build/code/src/implementation/worksite_command_helper.js');\n  let source = (await readFile(path, 'utf8')).replace(/^#!.*\\n/u, '');\n  // Promise-facing callers run the actual Effect command through the helper's own host projection.\n  const onHost = 'const runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));';\n  const suffix = control ? `${onHost}\n  const production = { confinedExistingPath, reportObservation, commandScopeClosed, runCommand,\n    canonicalExistingPathWithinRoot, acknowledge };\n  function controlledBindings(c) {\n    confinedExistingPath = c.confinedPath === undefined ? production.confinedExistingPath : c.confinedPath;\n    reportObservation = c.report === undefined ? production.reportObservation : c.report;\n    commandScopeClosed = c.closed === undefined ? production.commandScopeClosed\n      : (used, closed) => { c.closed(used, closed); production.commandScopeClosed(used, closed); };\n  }\n  export async function controlledMain(c) {\n    admitLaunchManifest=c.admit; observations=c.observations; filesystemInventory=c.inventory;\n    materializeSnapshot=c.snapshot; predicateObservation=c.predicate;\n    worksiteDelta=c.delta; publishCreateOnly=c.publish; controlledBindings(c);\n    runCommand = c.command === undefined ? production.runCommand : (...args) => attempt(() => c.command(...args));\n    canonicalExistingPathWithinRoot = c.path === undefined ? production.canonicalExistingPathWithinRoot : c.path;\n    acknowledge = c.output === undefined ? production.acknowledge : line => production.acknowledge(line, c.output);\n    return main();\n  }\n  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return runCommand(task, '/controlled', 0, 'attempt://selected');\n  }\n  export const controlledCommand = (c, task) => runHelperProgram(controlledCommandEffect(c, task));\n  export const activeCommandOf = () => activeCommand;\n  export { runHttpProbe, runHelperProgram, WorksiteHelperFailure };` : `${onHost}\n  export { runCommandOnHost as runCommand, runHttpProbe };`;\n  assert.match(source, /await main\\(\\);\\s*$/u); source = source.replace(/await main\\(\\);\\s*$/u, suffix);\n  const previous = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));\n  const mod = new SourceTextModule(source, { identifier: path });\n  await mod.link(async specifier => {\n    // Relative owners load from the selected package; bare Effect modules resolve as package dependencies.\n    const imported = { ...await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(path), specifier)).href : specifier) };"
+        },
+        "ordinalZeroBased": 43,
+        "result": {
+          "line": 4674,
+          "isError": false,
+          "canonicalBytes": 175,
+          "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+        }
+      },
+      {
+        "line": 4761,
+        "id": "toolu_01QKNrDuM9U7t5ygoqNTGSTw",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": "    let lifetime, reports = 0;\n    const helper = await helperModule(t, true, {\n      'node:child_process': { spawn: () => child },\n      '../shared/owned_process_lifetime.js': {\n        createOwnedProcessLifetime: (process, bounds, observations) => lifetime = createOwnedProcessLifetime(process, {\n          ...bounds, host: { clock: clock.clock, platform: 'posix', probeGroup: () => 'unknown', signal: () => {} },\n        }, observations),\n      },\n    });",
+          "new_string": "    let lifetime, reports = 0;\n    const helper = await helperModule(t, true, {\n      'node:child_process': { spawn: () => child },\n      '../shared/owned_process_lifetime.js': {\n        createOwnedProcessLifetime: (process, bounds, observations) => awaitedCompletion(lifetime = createOwnedProcessLifetime(process, {\n          ...bounds, host: { clock: clock.clock, platform: 'posix', probeGroup: () => 'unknown', signal: () => {} },\n        }, observations), notifyReady),\n      },\n    });"
+        },
+        "ordinalZeroBased": 44,
+        "result": {
+          "line": 4765,
+          "isError": false,
+          "canonicalBytes": 175,
+          "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+        }
+      },
+      {
+        "line": 4799,
+        "id": "toolu_012fbETztQ92cjLoEt4Jzujk",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": "    const result = helper.controlledCommand({ confinedPath: async () => '/controlled',\n      report: async () => { reports++; throw new Error('unexpected report filesystem access'); } }, task);\n    await Promise.resolve();\n    assert(lifetime);",
+          "new_string": "    const result = helper.controlledCommand({ confinedPath: async () => '/controlled',\n      report: async () => { reports++; throw new Error('unexpected report filesystem access'); } }, task);\n    await ready;\n    assert(lifetime);"
+        },
+        "ordinalZeroBased": 45,
+        "result": {
+          "line": 4801,
+          "isError": false,
+          "canonicalBytes": 175,
+          "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+        }
+      },
+      {
+        "line": 4888,
+        "id": "toolu_01AkuNaBH9FaBmHkUDWcvats",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": "  assert.equal(body.processFacts.firstError.message, body.diagnostic.message);\n}\n\ntest('controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error', async t => {\n  for (const ownerFailure of [false, true]) {\n    const clock = controlledClock(), child = new EventEmitter(), first = new Error('first report-owner failure');\n    child.pid = 321;",
+          "new_string": "  assert.equal(body.processFacts.firstError.message, body.diagnostic.message);\n}\n\n// Explicit acquisition readiness: the helper command reads its lifetime's\n// completion only after its last acquisition. Every other member is the same lifetime.\nfunction awaitedCompletion(lifetime, notify) {\n  return { ...lifetime, get completion() { notify(); return lifetime.completion; } };\n}\n\ntest('controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error', async t => {\n  for (const ownerFailure of [false, true]) {\n    const clock = controlledClock(), child = new EventEmitter(), first = new Error('first report-owner failure');\n    let notifyReady; const ready = new Promise(resolveReady => { notifyReady = resolveReady; });\n    child.pid = 321;"
+        },
+        "ordinalZeroBased": 46,
+        "result": {
+          "line": 4892,
+          "isError": false,
+          "canonicalBytes": 175,
+          "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+        }
+      },
+      {
+        "line": 4952,
+        "id": "toolu_0124gEE5PbgSMQuxtzshXKBt",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": "import test from 'node:test';\nimport { failureFact, observeOwnerCall, retainEvidence } from '../support/t287-publication-observer.mjs';",
+          "new_string": "import test from 'node:test';\nimport * as Cause from 'effect/Cause';\nimport * as Effect from 'effect/Effect';\nimport * as Exit from 'effect/Exit';\nimport * as Fiber from 'effect/Fiber';\nimport { failureFact, observeOwnerCall, retainEvidence } from '../support/t287-publication-observer.mjs';"
+        },
+        "ordinalZeroBased": 47,
+        "result": {
+          "line": 4956,
+          "isError": false,
+          "canonicalBytes": 175,
+          "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+        }
+      },
+      {
+        "line": 5912,
+        "id": "toolu_01SnM2rdsqkvyvwaoX1KiY8q",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": "    assert.equal(lifetime.snapshot().scopeAbsence, 'absent'); assert.equal(clock.active(), 0);\n    assert.equal(lifetime.snapshot().signalAttempts, 1);\n  }\n});\n",
+          "new_string": "    assert.equal(lifetime.snapshot().scopeAbsence, 'absent'); assert.equal(clock.active(), 0);\n    assert.equal(lifetime.snapshot().signalAttempts, 1);\n  }\n});\n\n// B command fixture: the actual helper Effect command over a controlled child,\n// clock and group host. The group ends at its first requested signal; the log\n// orders signals, the canonical completion and capture-listener detachment.\nconst bTask = (timeoutMs = 10000) => ({ taskRef: 'task://b-command', taskDigest: 'sha256:' + '5'.repeat(64),\n  outcomePredicates: [], workspaceBinding: { roots: { productRoot: '/controlled' } },\n  commands: [{ ordinal: 0, commandId: 'command://b-command', executable: 'controlled', args: [], environment: [],\n    relativeCwd: '.', timeoutMs, terminationGraceMs: 100, expectedReports: [] }] });\nconst bPaths = { confinedPath: async () => '/controlled', report: async () => assert.fail('no expected-report read') };\nconst realTimers = () => process.getActiveResourcesInfo().filter(name => name === 'Timeout').length;\nfunction bRow({ spawned = () => new ControlledChild(), faults = {} } = {}) {\n  const clock = controlledClock(), log = [];\n  let child = null, lifetime = null, absent = false, notifyReady;\n  const ready = new Promise(resolveReady => { notifyReady = resolveReady; });\n  const fault = (name, stage) => { if (Object.hasOwn(faults, `${name}-${stage}`)) throw faults[`${name}-${stage}`]; };\n  return { clock, log, ready, get child() { return child; }, get lifetime() { return lifetime; },\n    end: (status = 0, afterExit = () => {}) => { absent = true; child.emit('exit', status, null); afterExit(); child.emit('close'); },\n    spawn: () => {\n      child = spawned();\n      for (const name of ['stdout', 'stderr']) {\n        const stream = child[name], on = stream.on.bind(stream), off = stream.off.bind(stream);\n        stream.on = (event, listener) => { if (event === 'data') fault(name, 'attach'); return on(event, listener); };\n        stream.off = (event, listener) => {\n          off(event, listener); if (event === 'data') { log.push(['detach', name]); fault(name, 'detach'); } return stream;\n        };\n      }\n      return child;\n    },\n    own: (owned, bounds, observations) => {\n      lifetime = createOwnedProcessLifetime(owned, { ...bounds, host: { clock: clock.clock, platform: 'posix',\n        probeGroup: () => absent ? 'absent' : 'present',\n        signal: (_child, value) => { log.push(['signal', value]); absent = true; owned.emit('exit', null, value); owned.emit('close'); },\n      } }, observations);\n      lifetime.completion.then(() => log.push(['completion']));\n      return awaitedCompletion(lifetime, notifyReady);\n    } };\n}\nasync function bHelper(t, overrides = {}) {\n  let row = null;\n  const helper = await helperModule(t, true, {\n    'node:child_process': { spawn: () => row.spawn() },\n    '../shared/owned_process_lifetime.js': {\n      createMonotonicDeadline: () => createMonotonicDeadline(row.clock.clock),\n      createOwnedProcessLifetime: (child, bounds, observations) => row.own(child, bounds, observations),\n    },\n    ...overrides,\n  });\n  return { helper, start: options => (row = bRow(options)) };\n}\nconst settledThenDetached = log => {\n  const settled = log.findIndex(([kind]) => kind === 'completion');\n  assert(settled >= 0 && log.slice(settled + 1).every(([kind]) => kind === 'detach'), JSON.stringify(log));\n  assert.deepEqual(log.slice(settled + 1), [['detach', 'stderr'], ['detach', 'stdout']], 'every capture release follows settlement');\n  return log.slice(0, settled);\n};\nconst noResidue = (b, row, timers) => {\n  for (const name of ['stdout', 'stderr']) assert.equal(row.child[name].listenerCount('data'), 0, `${name} listener detached`);\n  assert.equal(row.clock.active(), 0, 'no lifetime or command deadline armed');\n  assert.equal(realTimers(), timers, 'heartbeat interval released');\n  assert.equal(b.helper.activeCommandOf(), null, 'emergency target cleared after settlement');\n};\n\ntest('controlled B command: partial setup failures settle before disposal', async t => {\n  const b = await bHelper(t), captureFault = new Error('stderr capture attach failure');\n  // A capture attach fault after stdout attached, and the actual deadline refusing 0 after both captures.\n  for (const [setup, faults, timeoutMs] of [['capture', { 'stderr-attach': captureFault }, 10000], ['timeout', {}, 0]]) {\n    const timers = realTimers(), row = b.start({ faults });\n    const outcome = await b.helper.controlledCommand(bPaths, bTask(timeoutMs)).then(value => ({ value }), error => ({ error }));\n    const first = row.lifetime.snapshot().firstError;\n    if (setup === 'capture') assert.equal(first, captureFault, 'the setup failure reaches the existing lifetime.fail');\n    else assert.equal(first.message, 'owned process wait must be positive and finite');\n    assertDependentFailure(outcome.error, 'worksite command failed; dependent work stopped: ', first);\n    assert.deepEqual(settledThenDetached(row.log), [['signal', 'SIGKILL']], `${setup}: finite cleanup requested before any wait`);\n    noResidue(b, row, timers);\n  }\n});\n\ntest('controlled B command: interruption settles before capture disposal', async t => {\n  const b = await bHelper(t);\n  for (const ending of ['interrupt', 'direct exit']) {\n    const timers = realTimers(), row = b.start();\n    let caught = false, observed;\n    const value = await b.helper.runHelperProgram(Effect.gen(function* () {\n      const fiber = yield* Effect.fork(b.helper.controlledCommandEffect(bPaths, bTask()));\n      yield* Effect.promise(() => row.ready);\n      const chunk = Buffer.from('before-exit');\n      row.child.stdout.emit('data', chunk); chunk.fill(0);\n      if (ending === 'interrupt') yield* Fiber.interrupt(fiber);\n      else row.end(0, () => row.child.stdout.emit('data', Buffer.from('after-exit')));\n      return yield* Fiber.join(fiber);\n    })).catch(error => { caught = true; observed = error; });\n    if (ending === 'interrupt') {\n      assert.equal(caught, true, 'interruption is not success');\n      assert(Cause.isCause(observed) && Cause.isInterruptedOnly(observed), 'the host keeps the actual interruption Cause');\n      assert.deepEqual(settledThenDetached(row.log), [['signal', 'SIGTERM']], 'interruption requests finite cleanup first');\n      assert.deepEqual(row.lifetime.snapshot().directExit, { status: null, signal: 'SIGTERM' });\n    } else {\n      assert.equal(caught, false);\n      assert.equal(decode(value.stdout), 'before-exit', 'copied bytes before the direct-exit capture cut only');\n      assert.equal(value.exitStatus, 0); assert.equal(value.terminationConfirmed, true); assert.deepEqual(value.signalSequence, []);\n      assert.deepEqual(settledThenDetached(row.log), []);\n    }\n    noResidue(b, row, timers);\n  }\n});\n\ntest('controlled B command: primary use and cleanup-only failures retain exact outcomes', async t => {\n  const b = await bHelper(t), first = new Error('primary command failure');\n  const stdoutFault = new Error('stdout release fault'), stderrFault = new Error('stderr release fault');\n  for (const [name, primary, faults, releaseOrder] of [\n    ['primary use with a secondary release fault', first, { 'stdout-detach': stdoutFault }, [stdoutFault]],\n    ['cleanup-only Error', null, { 'stdout-detach': stdoutFault }, [stdoutFault]],\n    ['cleanup-only undefined', null, { 'stdout-detach': undefined }, [undefined]],\n    ['two cleanup faults', null, { 'stdout-detach': stdoutFault, 'stderr-detach': stderrFault }, [stderrFault, stdoutFault]],\n  ]) {\n    const row = b.start({ faults }), scopes = [];\n    let caught = false, observed;\n    const pending = b.helper.controlledCommand({ ...bPaths, closed: (used, closed) => scopes.push({ used, closed }) }, bTask())\n      .catch(error => { caught = true; observed = error; });\n    await row.ready;\n    if (primary !== null) row.lifetime.fail(primary); else row.end(0);\n    await pending;\n    assert.equal(caught, true, `${name}: failure present whatever its value`);\n    assert.equal(scopes.length, 1); const [{ used, closed }] = scopes;\n    settledThenDetached(row.log);\n    // The closed Scope keeps every release fault, in release order, as a defect.\n    assert(Exit.isFailure(closed)); assert.equal([...Cause.failures(closed.cause)].length, 0);\n    const defects = [...Cause.defects(closed.cause)];\n    assert.equal(defects.length, releaseOrder.length); defects.forEach((defect, index) => assert(Object.is(defect, releaseOrder[index]), name));\n    if (primary !== null) {\n      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);\n      assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical primary use failure is the outcome');\n      assertDependentFailure(observed, 'worksite command failed; dependent work stopped: ', first);\n    } else {\n      assert(Exit.isSuccess(used));\n      assert(Object.is(observed, releaseOrder[0]), `${name}: the first release fault in release order is the outcome`);\n    }\n    assert.equal(b.helper.activeCommandOf(), null); assert.equal(row.clock.active(), 0);\n  }\n});\n\ntest('controlled B helper: raw failures survive actual lifts and host projection', async t => {\n  const b = await bHelper(t);\n  const preflight = (admit, calls) => b.helper.controlledMain({ admit,\n    observations: async () => { calls.push('observations'); return []; }, inventory: async () => { calls.push('inventory'); return []; },\n    snapshot: async () => { calls.push('snapshot'); return {}; }, command: async () => { calls.push('command'); },\n    predicate: async () => { calls.push('predicate'); }, delta: () => { calls.push('delta'); return []; },\n    publish: async () => { calls.push('publication'); } });\n  for (const value of [new Error('raw error'), { raw: 'object' }, 'raw string', null, false, undefined]) {\n    for (const lift of ['promise rejection', 'synchronous invocation throw', 'synchronous spawn throw', 'release defect']) {\n      const calls = [];\n      let pending;\n      if (lift === 'promise rejection') pending = preflight(() => Promise.reject(value), calls);\n      else if (lift === 'synchronous invocation throw') pending = preflight(() => { throw value; }, calls);\n      else if (lift === 'synchronous spawn throw') {\n        b.start({ spawned: () => { throw value; } }); pending = b.helper.controlledCommand(bPaths, bTask());\n      } else {\n        const row = b.start({ faults: { 'stdout-detach': value } });\n        pending = b.helper.controlledCommand(bPaths, bTask()); await row.ready; row.end(0);\n      }\n      let caught = false, observed;\n      try { await pending; } catch (error) { caught = true; observed = error; }\n      assert.equal(caught, true, `${lift}: failure present whatever its value`);\n      assert(Object.is(observed, value), `${lift}: the exact raw value, never a wrapper`);\n      assert.deepEqual(calls, [], 'a preflight failure launches and publishes nothing');\n      assert.equal(b.helper.activeCommandOf(), null);\n    }\n  }\n});\n\n// D15 through main: the injected constructor stands in for Product artifact\n// construction; every helper step, lift, command and the drain are actual.\nconst bArtifact = log => ({ '../product/worksite_command_execution.js': { constructWorksiteExecutionHelperArtifact: input => {\n  log.push(['artifact', input]); return { artifactRef: 'artifact://b-selected', artifactDigest: 'sha256:' + '6'.repeat(64) };\n} } });\nconst bMain = (log, overrides) => ({\n  admit: async () => ({ task: bTask(), sandboxRoot: '/controlled-sandbox', artifactPath: '/controlled-artifact',\n    manifest: { attemptRef: 'attempt://selected', archiveRoot: '/controlled-archive' } }),\n  observations: async () => { log.push(['observations']); return []; }, inventory: async () => { log.push(['inventory']); return []; },\n  snapshot: async () => ({ snapshotRef: 'snapshot://b', snapshotDigest: 'sha256:' + '7'.repeat(64), snapshotMembers: [] }),\n  predicate: async () => assert.fail('no predicate after a command failure'), delta: () => [],\n  publish: async (path, bytes) => { log.push(['publication', path, JSON.parse(bytes)]); },\n  path: async (root, path, kind) => { log.push(['path', root, path, kind]); return path; },\n  ...bPaths, ...overrides,\n});\n\ntest('controlled B helper: command failure reaches artifact and drained acknowledgment', async t => {\n  const log = [], scopes = [], b = await bHelper(t, bArtifact(log));\n  const first = new Error('primary command failure'), releaseFault = new Error('secondary release fault');\n  const row = b.start({ faults: { 'stdout-detach': releaseFault } });\n  let drain, notifyWritten, caught = false, observed;\n  const written = new Promise(resolveWritten => { notifyWritten = resolveWritten; });\n  const output = { write: (line, callback) => {\n    log.push(['acknowledgment', JSON.parse(line)]); drain = () => { log.push(['drained']); callback(); }; notifyWritten(); return true;\n  } };\n  const outcome = b.helper.controlledMain(bMain(log, { output, closed: (used, closed) => scopes.push({ used, closed }) }))\n    .catch(error => { caught = true; observed = error; log.push(['rejected']); });\n  await row.ready; row.lifetime.fail(first);\n  await Promise.race([written, outcome]);\n  await new Promise(resolveTurn => setImmediate(resolveTurn));\n  assert.equal(caught, false, 'no rethrow before the acknowledgment drains'); assert(drain, 'acknowledgment written');\n  drain(); await outcome;\n  assert.equal(caught, true);\n  assertDependentFailure(observed, 'worksite command failed; dependent work stopped: ', first);\n  const [{ used, closed }] = scopes;\n  assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical command failure was retained');\n  assert.deepEqual([...Cause.defects(closed.cause)], [releaseFault], 'the secondary release fault stays in the closed Scope');\n  assert.deepEqual(log.map(([kind]) => kind), ['observations', 'inventory', 'inventory', 'observations', 'inventory', 'inventory',\n    'artifact', 'publication', 'path', 'acknowledgment', 'drained', 'rejected']);\n  const artifact = log.find(([kind]) => kind === 'artifact')[1];\n  assert.equal(artifact.disposition, 'failure'); assert.deepEqual(artifact.commandResults, []);\n  assert.deepEqual(artifact.failure, { ...observed.subject, attemptRef: 'attempt://selected' });\n  assert.equal(artifact.failure.processFacts.firstError.message, first.message);\n  assert.deepEqual(log.find(([kind]) => kind === 'publication').slice(1),\n    ['/controlled-artifact', { artifactDigest: 'sha256:' + '6'.repeat(64), artifactRef: 'artifact://b-selected' }]);\n  assert.deepEqual(log.find(([kind]) => kind === 'path').slice(1), ['/controlled-archive', '/controlled-artifact', 'file']);\n  const acknowledgment = log.find(([kind]) => kind === 'acknowledgment')[1];\n  assert.equal(acknowledgment.helperArtifactRef, 'artifact://b-selected'); assert.equal(acknowledgment.attemptRef, 'attempt://selected');\n});\n\ntest('controlled B helper: later publication path and acknowledgment failures retain precedence', async t => {\n  const log = [], b = await bHelper(t, bArtifact(log));\n  const steps = ['observations', 'inventory', 'inventory', 'command', 'observations', 'inventory', 'inventory',\n    'artifact', 'publication', 'path', 'acknowledgment'];\n  for (const [stage, later, through] of [\n    ['after observation', new Error('after observation refused'), 5], ['after inventory', 'after inventory refused', 6],\n    ['publication', null, 9], ['path validation', undefined, 10],\n    ['acknowledgment', Object.assign(new Error('write EPIPE'), { code: 'EPIPE' }), 11], ['none', null, 11],\n  ]) {\n    log.length = 0;\n    const retained = new b.helper.WorksiteHelperFailure('worksite command failed; dependent work stopped', { stage },\n      { failureClass: 'command_failed', taskRef: 'task://b-command', attemptRef: null });\n    const count = kind => log.filter(([logged]) => logged === kind).length;\n    const fails = (at, ordinal = 1) => stage === at && ordinal ? Promise.reject(later) : undefined;\n    let caught = false, observed;\n    await b.helper.controlledMain(bMain(log, {\n      command: async () => { log.push(['command']); throw retained; },\n      observations: async () => { log.push(['observations']); await fails('after observation', count('observations') === 2); return []; },\n      inventory: async () => { log.push(['inventory']); await fails('after inventory', count('inventory') === 3); return []; },\n      publish: async () => { log.push(['publication']); await fails('publication'); },\n      path: async () => { log.push(['path']); await fails('path validation'); },\n      output: { write: (_line, callback) => { log.push(['acknowledgment']); callback(stage === 'acknowledgment' ? later : null); return true; } },\n    })).catch(error => { caught = true; observed = error; });\n    assert.equal(caught, true, stage);\n    assert(Object.is(observed, stage === 'none' ? retained : later), `${stage}: the later exact failure supersedes the retained one`);\n    assert.deepEqual(log.map(([kind]) => kind), steps.slice(0, through), `${stage}: nothing later runs`);\n  }\n});\n"
+        },
+        "ordinalZeroBased": 48,
+        "result": {
+          "line": 5914,
+          "isError": false,
+          "canonicalBytes": 175,
+          "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+        }
+      },
+      {
+        "line": 6175,
+        "id": "toolu_01JNn4a7rtrZKWwitSMCMnRQ",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && python3 - <<'EOF'\nimport pathlib\np = pathlib.Path(\"test_env/tests/t287-owned-process-lifetime.test.mjs\")\ns = p.read_text()\nreps = [\n(\"\"\"      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);\n      assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical primary use failure is the outcome');\"\"\",\n\"\"\"      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);\n      const failures = [...Cause.failures(used.cause)];\n      assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical primary use failure is the outcome');\"\"\"),\n(\"\"\"  const [{ used, closed }] = scopes;\n  assert.deepEqual([...Cause.failures(used.cause)], [observed], 'the identical command failure was retained');\n  assert.deepEqual([...Cause.defects(closed.cause)], [releaseFault], 'the secondary release fault stays in the closed Scope');\"\"\",\n\"\"\"  assert.equal(scopes.length, 1); const [{ used, closed }] = scopes;\n  const failures = [...Cause.failures(used.cause)], defects = [...Cause.defects(closed.cause)];\n  assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical command failure was retained');\n  assert(defects.length === 1 && Object.is(defects[0], releaseFault), 'the secondary release fault stays in the closed Scope');\"\"\"),\n(\"\"\"    const count = kind => log.filter(([logged]) => logged === kind).length;\n    const fails = (at, ordinal = 1) => stage === at && ordinal ? Promise.reject(later) : undefined;\n    let caught = false, observed;\n    await b.helper.controlledMain(bMain(log, {\n      command: async () => { log.push(['command']); throw retained; },\n      observations: async () => { log.push(['observations']); await fails('after observation', count('observations') === 2); return []; },\n      inventory: async () => { log.push(['inventory']); await fails('after inventory', count('inventory') === 3); return []; },\n      publish: async () => { log.push(['publication']); await fails('publication'); },\n      path: async () => { log.push(['path']); await fails('path validation'); },\"\"\",\n\"\"\"    const count = kind => log.filter(([logged]) => logged === kind).length;\n    const fail = (at, selected = true) => { if (stage === at && selected) throw later; };\n    let caught = false, observed;\n    await b.helper.controlledMain(bMain(log, {\n      command: async () => { log.push(['command']); throw retained; },\n      observations: async () => { log.push(['observations']); fail('after observation', count('observations') === 2); return []; },\n      inventory: async () => { log.push(['inventory']); fail('after inventory', count('inventory') === 3); return []; },\n      publish: async () => { log.push(['publication']); fail('publication'); },\n      path: async () => { log.push(['path']); fail('path validation'); },\"\"\"),\n]\nfor a, b in reps:\n    assert s.count(a) == 1, a[:60]\n    s = s.replace(a, b)\np.write_text(s)\nEOF\ngrep -n \"\\bproduction\\b\\|controlledBindings\\|runCommandOnHost\\|activeCommandOf\\|controlledCommandEffect\" code/src/implementation/worksite_command_helper.ts | head; /opt/homebrew/Cellar/node/24.7.0/bin/node --check test_env/tests/t287-owned-process-lifetime.test.mjs && echo SYNTAX_OK",
+          "description": "Apply identity checks and syntax-check test"
+        },
+        "ordinalZeroBased": 49,
+        "result": {
+          "line": 6180,
+          "isError": false,
+          "canonicalBytes": 11,
+          "sha256": "5e6d2a4260df7fed94e3efdb330eb80bc378c47a31e07393b8b84982726ca0ee"
+        }
+      },
+      {
+        "line": 6289,
+        "id": "toolu_01Mrgg7cfGFmCcxy16ii9pjM",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+          "old_string": "  const source = (await readFile(modulePath, 'utf8')).replace(/await main\\(\\);\\s*$/u, 'export { runCommand, runHttpProbe };');\n  assert.match(source, /export \\{ runCommand, runHttpProbe \\};$/u);\n  const priorSignals = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));\n  const module = new SourceTextModule(source, { identifier: modulePath });\n  await module.link(async specifier => {\n    const imported = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(modulePath), specifier)).href);",
+          "new_string": "  // The Effect command crosses the helper's own host projection to this Promise-facing case.\n  const source = (await readFile(modulePath, 'utf8')).replace(/await main\\(\\);\\s*$/u,\n    'const runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));\\nexport { runCommandOnHost as runCommand, runHttpProbe };');\n  assert.match(source, /export \\{ runCommandOnHost as runCommand, runHttpProbe \\};$/u);\n  const priorSignals = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));\n  const module = new SourceTextModule(source, { identifier: modulePath });\n  await module.link(async specifier => {\n    const imported = await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(modulePath), specifier)).href : specifier);"
+        },
+        "ordinalZeroBased": 50,
+        "result": {
+          "line": 6293,
+          "isError": false,
+          "canonicalBytes": 167,
+          "sha256": "7974a5397a2efd51c5ffae7bc68bea428e5a8bdfa6728398c03cf925150e2dda"
+        }
+      },
+      {
+        "line": 6418,
+        "id": "toolu_01R59XzDXiimAY9ZLNLAwwNt",
+        "name": "Bash",
+        "input": {
+          "command": "python3 - <<'EOF'\nimport pathlib\np = pathlib.Path(\"test_env/tests/t287-lifecycle-failure-carrier.test.mjs\")\ns = p.read_text()\nassert s.count(\"'\\\\nexport { runCommand };'\") == 3\ns = s.replace(\"'\\\\nexport { runCommand };'\", \"runCommandOnHost\")\nanchor = \"const holds = (rows, name, identity) => calculus.holdsAt(\"\nassert s.count(anchor) == 1\ns = s.replace(anchor, \"\"\"// The helper's Effect command reaches these Promise-facing cases through its own host projection.\nconst runCommandOnHost = '\\\\nconst runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));' +\n  '\\\\nexport { runCommandOnHost as runCommand };';\n\n\"\"\" + anchor)\np.write_text(s)\nEOF\ngrep -n \"runCommandOnHost\" test_env/tests/t287-lifecycle-failure-carrier.test.mjs; for f in test_env/tests/m5-worker-transport.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs test_env/tests/t287-owned-process-lifetime.test.mjs; do /opt/homebrew/Cellar/node/24.7.0/bin/node --check $f && echo \"SYNTAX_OK $f\"; done",
+          "description": "Adapt carrier exposures and syntax-check all mjs"
+        },
+        "ordinalZeroBased": 52,
+        "result": {
+          "line": 6422,
+          "isError": false,
+          "canonicalBytes": 628,
+          "sha256": "52b3e7b3ec67e8ec7d1e3e9e08b730af93b850c36cfdfaa612fbc65d32b56ce9"
+        }
+      },
+      {
+        "line": 6696,
+        "id": "toolu_01Adkt6yAuWZGP4jMSRyuSFM",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": "  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return runCommand(task, '/controlled', 0, 'attempt://selected');\n  }",
+          "new_string": "  export function controlledCommandEffect(c, task) {\n    controlledBindings(c); return production.runCommand(task, '/controlled', 0, 'attempt://selected');\n  }"
+        },
+        "ordinalZeroBased": 55,
+        "result": {
+          "line": 6700,
+          "isError": false,
+          "canonicalBytes": 175,
+          "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+        }
+      },
+      {
+        "line": 6949,
+        "id": "toolu_01HHJKrVwAdCE3MpxcivpNak",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": "      assert.deepEqual(calls, [], 'a preflight failure launches and publishes nothing');\n      assert.equal(b.helper.activeCommandOf(), null);\n    }\n  }\n});",
+          "new_string": "      assert.deepEqual(calls, [], 'a preflight failure launches and publishes nothing');\n      assert.equal(b.helper.activeCommandOf(), null);\n    }\n  }\n  // API counterexamples, not observed helper Causes: sequential order, not a\n  // preferred category, selects the raw value; a parallel Cause has none.\n  const primary = new Error('primary defect'), secondary = new Error('secondary failure');\n  for (const [shape, cause] of [['sequential', Cause.sequential(Cause.die(primary), Cause.fail(secondary))],\n    ['parallel', Cause.parallel(Cause.fail(primary), Cause.fail(secondary))]]) {\n    let caught = false, observed;\n    try { await b.helper.runHelperProgram(Effect.failCause(cause)); } catch (error) { caught = true; observed = error; }\n    assert.equal(caught, true, shape);\n    if (shape === 'sequential') assert(Object.is(observed, primary), 'no category-priority squash');\n    else assert(Cause.isCause(observed) && !(observed instanceof Error), 'an ambiguous Cause stays a Cause');\n  }\n});"
+        },
+        "ordinalZeroBased": 57,
+        "result": {
+          "line": 6953,
+          "isError": false,
+          "canonicalBytes": 175,
+          "sha256": "8e31c83ab0c01c01eec983e92f1f091dc2f8402bf90262b809279388c2d87a87"
+        }
+      },
+      {
+        "line": 7848,
+        "id": "toolu_017gWJVQcSxus8hAGQQwnZ1T",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+          "old_string": "On failure or unresolved physical scope, main may retain internal diagnostic\nevidence by create-only publication of the fixed `process-failure.json` sibling\nat `archiveRoot/worksite-command-execution/<taskDigest hex>/<attemptDigest hex>/`.\nThe exact HOW binds canonical identities, format tag/version, full canonical\nfacts serialization, raw byte/error descriptions, preflight sibling absence,\nattempted versus verified publication, and partial-residue handling. Retention\ncan be unavailable; a failed publication does not prove no file committed.\nPreserve the primary failure. Never overwrite, delete, retry or fabricate a\ncomplete `result.json`, success acknowledgment or Product result.\n\nThe named internal `inspectWorksiteCommandExecutionProcessFailure` export in\n`implementation/worksite_command_execution.ts` rederives the exact task and\nauthority-free occurrence/launch coordinates, verifies the confined canonical\nsingle-link diagnostic and its joins, and returns verified-present, absent,\ninvalid or unavailable evidence. It needs no successful Worker exchange or\n`complete()`. It is an exact-attempt observation, not an admitted event, runtime\nresource, Public/SDK/CLI endpoint or permission to retry/continue/restore\ncurrentness/close. Existing success and ABG admission gates remain unchanged.\n\nThe failure-retention archive checks and attempted diagnostic publication are\nthe only selected later effects on that branch. No report read, later command,\npredicate/request, protected-after observation, delta inventory or successful\nhelper artifact follows. Unknown scope remains unknown. No budget or cleanup\nalgorithm changes. The exact original cause, physical facts and failure-side\ninspection must be proved through the actual helper boundary under a later\ngrant. Dependency-ready source can be selected separately; combined candidate,\naffected execution and L5 remain held for complete conjunction.",
+          "new_string": "**Current failure route: [Common Library \u00a79.3](ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#93-process-failure-facts)\nD15.** That HOW's `process-failure.json` sibling and its internal\n`inspectWorksiteCommandExecutionProcessFailure` inspector are superseded and\nnot implemented: nothing is written beside `L` and no dedicated inspector\nexists. A command or HTTP failure after launch (`command_failed`,\n`command_cleanup_unresolved`, `http_probe_failed`, `http_cleanup_unresolved`)\nis one `WorksiteHelperFailure` whose subject carries `processFacts`, encoded\nonce at its throw site. `main` catches only that class at its command/predicate\nloop, observes protected-after state and inventories, publishes the subject as\nthe create-only helper artifact's `failure` disposition, validates the artifact\npath, prints the acknowledgment, waits for that write to drain and only then\nrethrows the identical failure, so the helper still exits non-zero. The parent\nadmits the subject inline through the `helper_failure` leaf failure and\n`constructRuntimeFailureDiagnosticRef`; failure inspection is that admitted\nsubject (\u00a79.3 items 4 and 6). A later after-observation, inventory,\npublication, path or acknowledgment failure escapes as itself instead of the\nretained failure, and no drained acknowledgment is claimed. Never overwrite,\ndelete, retry or fabricate a complete `result.json`, success acknowledgment or\nProduct result.\n\nNo report read, later command or predicate/request follows the failure.\nUnknown scope remains unknown. No budget or cleanup algorithm changes. The\nexact original cause and physical facts must be proved through the actual\nhelper boundary under a later grant. Dependency-ready source can be selected\nseparately; combined candidate, affected execution and L5 remain held for\ncomplete conjunction."
+        },
+        "ordinalZeroBased": 62,
+        "result": {
+          "line": 7852,
+          "isError": false,
+          "canonicalBytes": 181,
+          "sha256": "39e2512f89016737e2d52aa097a07df97f466c65c09b9a53e7dd178d83a48057"
+        }
+      },
+      {
+        "line": 7932,
+        "id": "toolu_014o9w1xzx1NxybYR4xBQbCK",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+          "old_string": "confirm its owned physical scope absent within the declared bounds, the helper\nstops before expected-report filesystem observations, any later command or\npredicate, after snapshot or successful helper-artifact publication. The current\nfailure-handoff amendment permits only its exact create-only diagnostic archive\neffects on that branch, with publication uncertainty explicit.\nIt uses the existing thrown/non-admitted helper failure route, preserving the\noriginal cause and canonical final facts before fallible finalization. The fixed\nfailure sibling and internal inspector retain the exact task/attempt relation\nand observed command/probe, exit/signal/timeout and physical uncertainty. Observed",
+          "new_string": "confirm its owned physical scope absent within the declared bounds, the helper\nstops before expected-report filesystem observations and any later command or\npredicate, and publishes no successful helper artifact. It takes the D15 route\nof the failure-handoff amendment above (Common Library \u00a79.3 item 4): the\nhelper artifact's `failure` disposition carries the subject with its encoded\n`processFacts`, the drained acknowledgment follows, the identical failure is\nrethrown, and the parent admits that subject inline. The subject, built from\nthe original cause and canonical final facts before fallible finalization,\nretains the exact task/attempt relation and observed command/probe,\nexit/signal/timeout and physical uncertainty. Observed"
+        },
+        "ordinalZeroBased": 63,
+        "result": {
+          "line": 7936,
+          "isError": false,
+          "canonicalBytes": 181,
+          "sha256": "39e2512f89016737e2d52aa097a07df97f466c65c09b9a53e7dd178d83a48057"
+        }
+      },
+      {
+        "line": 8048,
+        "id": "toolu_011KKSnDcPvFkH9Mfd7M8xXt",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+          "old_string": "A consolidates; no net-deletion, performance or reliability claim follows. **B remains unactivated; full Phase2 acceptance is still joint A+B.**",
+          "new_string": "A consolidates; no net-deletion, performance or reliability claim follows. **B is constructed by the native-b01 source pass on accepted A commit `e134103a\u2026` and returned frozen to Root; it is not accepted, and full Phase2 acceptance is still joint A+B.** Its author checks are a fresh scratch compile and the exact `^controlled ` lifetime selector, 30/30 after a first red of 29/30 caused by a binding leak in the new test exposure; whole-file lifetime, physical, m5, carrier, unit, configured-C2 and installed proof remain external after freeze."
+        },
+        "ordinalZeroBased": 65,
+        "result": {
+          "line": 8052,
+          "isError": false,
+          "canonicalBytes": 241,
+          "sha256": "03e9ca6379b5ad3f343eedcc123db942b71e17057df92f9185d8dc28b47453fe"
+        }
+      },
+      {
+        "line": 8080,
+        "id": "toolu_01Pyma87VB34CzjjEs828jQr",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+          "old_string": "Their predecessor failures remain recorded. **B prospective** remains design and is unactivated.",
+          "new_string": "Their predecessor failures remain recorded. **B constructed (native-b01)** describes the frozen B source returned to Root; it is not accepted."
+        },
+        "ordinalZeroBased": 66,
+        "result": {
+          "line": 8084,
+          "isError": false,
+          "canonicalBytes": 241,
+          "sha256": "03e9ca6379b5ad3f343eedcc123db942b71e17057df92f9185d8dc28b47453fe"
+        }
+      },
+      {
+        "line": 8329,
+        "id": "toolu_01ErXz85wY3Vp8FgKyMn7ufc",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+          "old_string": "| **B prospective** | `runCommand`'s ad hoc `try/finally` coordinator (timeout cancel, heartbeat clear, `activeCommand` reset, capture close and listener removal) and its Promise result | `runCommand` returns one Effect. A Scope owns: the spawned child and lifetime (acquired together; release requests the existing finite cleanup, awaits the lifetime's own completion, then clears `activeCommand`), the unchanged heartbeat interval, and the capture listeners plus command timeout (released only after that physical completion). Ownership precedes fallible listener/timeout setup, whose error remains `lifetime.fail`. No retry, race or Effect timeout is added; Scope interruption is not physical absence. |\n| **B prospective** | `main`'s Promise sequencing | One helper Effect program, executed once through `runEffectProgram` in `main`; `await main()` stays. Existing async owners are lifted with their original rejection value; only `WorksiteHelperFailure` is caught for D15; the acknowledgment write is drained before the same failure is the program failure; `main` rethrows the squashed original cause. |",
+          "new_string": "| **B constructed (native-b01)** | `runCommand`'s ad hoc coordinator: the spawn `try/catch` over `let child`, the setup `try/catch`, the `let facts` `try/finally` whose six disposal actions (timeout cancel, heartbeat clear, `activeCommand` reset, capture-flag close, two listener removals) followed the completion await, a heartbeat created outside any protection, and its Promise result | `runCommand` returns one Effect: confinement, `commandScope(launchCommand(\u2026))`, then the unchanged `commandResult`. One uninterruptible `acquireRelease` spawns and creates the lifetime, so the child is owned before any fallible later resource; a synchronous spawn throw stays a value branch to the unchanged `noChildLaunchObservation`. Heartbeat, stdout/stderr capture and command timeout each register their release before their fallible acquisition. Every release, and the ownership release that then clears `activeCommand`, first crosses one `settled(lifetime)` barrier: `requestTermination()`, inert once cleanup began or completed, then the same canonical `completion`. LIFO release therefore never waits before a cleanup request, and partial setup leaves no attached listener, interval or deadline. Setup failure still calls `lifetime.fail` and reaches the existing `command_failed` projection. Copied buffers, the direct-exit capture cut, bounds, heartbeat text/cadence, status mapping, report gating and `activeCommand` emergency behavior are unchanged. The after-completion `captureOpen = false` is removed because `observe` is already inert once completion is published. No retry, race or Effect timeout is added; interruption is not physical absence, and the lifetime's own finite deadlines bound the uninterruptible wait. |\n| **B constructed (native-b01)** | Implicit use/cleanup composition | `commandScope` masks interruption, runs the use restored, retains the actual use Exit, then closes its Scope; Effect combines release Exits sequentially in release order. The failed use, interruption included, is the outcome; otherwise the closed outcome is, so a release fault alone still fails. When a failed use is selected, the release Cause goes to the bounded (8,192 code units) stderr diagnostic seam `commandScopeClosed`, and no serialized field is added. The selection is command-local; there is no helper-wide first-failure cell, so a cleanup `Die` cannot bypass the typed D15 catch. |\n| **B constructed (native-b01)** | `main`'s Promise sequencing, its `let failed` `try/catch` and the inline stdout-write Promise | `main` composes one Effect program and runs it exactly once through the unchanged `runEffectProgram` in `runHelperProgram`; `await main()` stays. Fallible async operations are lifted by `attempt` (`tryPromise` with identity `catch`) and spawn/setup by `attemptSync` (`try` with identity `catch`), so a synchronous invocation throw or a rejection keeps its exact value, `null`, `false` and `undefined` included. The narrow `instanceof WorksiteHelperFailure` catch stays at the command/predicate loop; any other failure, defect or interruption escapes unchanged. A later after-observation, inventory, publication, path or acknowledgment failure escapes as itself; only when all succeed and `acknowledge` has drained does the identical retained failure fail the program. The host projection rethrows the first `Fail`/`Die` payload in sequential order, with presence decided by `Option` rather than by the value, and throws the actual `Cause` for interruption or a parallel Cause. There is no category-priority squash, and `lifetime.fail`'s own normalization is unchanged. |"
+        },
+        "ordinalZeroBased": 67,
+        "result": {
+          "line": 8333,
+          "isError": false,
+          "canonicalBytes": 241,
+          "sha256": "03e9ca6379b5ad3f343eedcc123db942b71e17057df92f9185d8dc28b47453fe"
+        }
+      },
+      {
+        "line": 8506,
+        "id": "toolu_011TzE6YK5dwqrxWS9H9dGNF",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+          "old_string": "HTTP `oneHttpRequest`/`runHttpProbe` bodies, `worker_transport`, `shared/process`, `shared/effect_definition`, the SIGTERM/SIGINT `process.exit` emergency boundary (ordinary finalizers do not run through it), Product, schemas and admission/replay stay unchanged.",
+          "new_string": "HTTP `oneHttpRequest`/`runHttpProbe` bodies, `worker_transport`, `shared/process`, `shared/effect_definition`, the SIGTERM/SIGINT `process.exit` emergency boundary (ordinary finalizers do not run through it), Product, schemas and admission/replay stay unchanged.\n\n**B accounting (native-b01) covers every changed source module.** No `shared/owned_process_scope.ts` is created. Command is B's only adopter, the HTTP and worker bodies stay unchanged, and an extracted acquisition/settlement module would have no second caller. The lifetime and state modules and both HTTP bodies are byte-identical to A. The helper grows from 1,589 lines/68,872 bytes (1,511 non-blank, non-comment) to 1,697/75,347 (1,584): imports +7 lines, the command region 85\u2192158 lines (84\u2192133 code), and `main` with its host projection and acknowledgment 124\u2192152 (118\u2192135). Removed coordination: `runCommand`'s three `try` blocks and its `finally` with six imperative disposal actions, the `let child`/`let facts` definite-assignment bindings, the redundant after-completion capture-flag close, and `main`'s `let failed` `try/catch`. Added: one ownership acquisition, four registered releases, one shared settlement barrier crossed five times, one Scope selection with its diagnostic seam, two identity lifts shared with `main` (14 `attempt` and 3 `attemptSync` sites), one host projection and the named `acknowledge` drain. Retained owner state: `timedOut`, `launchFailed`, `captureOpen`, both capture buffers, `signalSequence`, the module `activeCommand`, and one `heartbeat` handle binding needed to register its release before acquisition. **B is not net deletion:** +108 lines/+6,475 bytes (+73 non-blank, non-comment). Its gain is partial-acquisition coverage, interruption-safe settlement before disposal and exact failure selection, not size. No speed, memory or lifecycle-cost saving is claimed, and HTTP/worker reuse remains unproved future work. The lifetime test file adds the six controlled B cases with one small fixture (+290 lines). m5 (+2 lines) and the carrier (+4) change only their Promise-facing exposure and bare Effect imports. The retained-fact and reentrant-clock capsules stay deferred, and B reopens neither A nor its R1/R2 history."
+        },
+        "ordinalZeroBased": 68,
+        "result": {
+          "line": 8510,
+          "isError": false,
+          "canonicalBytes": 241,
+          "sha256": "03e9ca6379b5ad3f343eedcc123db942b71e17057df92f9185d8dc28b47453fe"
+        }
+      }
+    ],
+    "laterSourceWrites": false
+  },
+  "standing": "First red remains failed; subsequent passes are separate actual inputs. No whole physical/m5/carrier/unit/installed proof ran here."
+}

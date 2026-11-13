@@ -1,0 +1,52 @@
+{
+  "kind": "targeted_phase1_source_successor_review",
+  "recordedAt": "2026-11-09T18:25:15.029221+00:00",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "verdict": "satisfied",
+  "triage": "not_applicable",
+  "closedFindings": [
+    {
+      "id": "PHASE1-PROOF-001",
+      "predecessorSeverity": "S2",
+      "closure": "physical and controlled proof consume the same ordered-completion timing relation; all completion splits and missing/unterminated cases discriminated"
+    },
+    {
+      "id": "PHASE1-PROOF-002",
+      "predecessorSeverity": "S3",
+      "closure": "available trace retained before original driver-error rethrow; pending owner is not awaited or falsely closed"
+    }
+  ],
+  "newFindings": [],
+  "source": {
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/frozen-source",
+    "inventoryBytes": 295022,
+    "inventorySha256": "9ff5a44dcaca743e51be2313c21e503a437b57f036162a0f8cc2e37d4df20ae3",
+    "sourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+    "rowsIndependentlyVerified": 1344,
+    "unchangedPredecessorRows": 1343,
+    "changed": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 145250,
+        "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+      }
+    ]
+  },
+  "baseline": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+  "priorReviewSha256": "2599ce4606269a626428044284188f7ca65ed052a884859e238ab9bb96d0884b",
+  "independence": "resumed context; nonauthor; no clean-context claim",
+  "nativeChecks": "Root reports successful native03 and7/7 controlled group; not substituted for source analysis or external proof",
+  "externalProof": "pending exact receipts and conjunction",
+  "reviewerExecutedTests": false,
+  "preservedLimits": [
+    "failed native02 and historical reds retained",
+    "no production change",
+    "no qualification/release acceptance",
+    "Root owns source acceptance/proof/debt disposition"
+  ],
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_RECHECK_NATIVE03.md",
+    "bytes": 5794,
+    "sha256": "e566805c7ef120516c759d0ff242566673d73f0aca529f69d79f618160883847"
+  }
+}

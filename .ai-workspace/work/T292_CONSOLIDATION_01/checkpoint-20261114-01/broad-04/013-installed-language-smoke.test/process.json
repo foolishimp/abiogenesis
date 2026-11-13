@@ -1,0 +1,32 @@
+{
+  "label": "013-installed-language-smoke.test",
+  "started": "2026-11-13T10:15:07.415063+00:00",
+  "ended": "2026-11-13T10:16:52.681488+00:00",
+  "wallMs": 105264,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/013-installed-language-smoke.test/stdout.raw",
+      "bytes": 392,
+      "sha256": "cfdcd30ff9fa15cd7d9e3e938cb1b01dcb11bab10eab8aa4248494b6602f952c"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/013-installed-language-smoke.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 10,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

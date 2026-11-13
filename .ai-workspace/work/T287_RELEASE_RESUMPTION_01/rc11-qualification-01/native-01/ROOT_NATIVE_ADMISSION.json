@@ -1,0 +1,52 @@
+{
+  "id": "RC11-NATIVE-01",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "basis": "Actual Root instruction consumed exact PREPARED/task/binding/host/scope and admits one same-live-caller native start. This records Root decision, not Operator acceptance.",
+  "bindingSha256": "98ebd56cb07423f7fde5169dc8ec30a26c8e323635913359e0d566710b325a20",
+  "preparedSha256": "ee211058953540f91db9ade6e76452791790dce03e1472873af17075c3504593",
+  "taskSha256": "e02abeeff9299f682a86003cff8119582de44ef0be7814d1a0b66148d2e45bbe",
+  "scopeSha256": "96771f46109ffd8fe96316e47a2f7174f4898d58edcbd3998e703def8ce3855f",
+  "hostSha256": "fbaf2602e6b371417d04fc46acf09d4524f91b892058b9fdbbc90c6cb5d0c0b4",
+  "sessionId": 57359,
+  "pid": 86072,
+  "invocationRef": "invocation://abiogenesis/25f5195f85afeb973276346e0f11f6502a19b4e3614309a5bb2959504b919bf5",
+  "prefixLength": 3188146,
+  "prefixDigest": "sha256:9b68fa8f7ac949198eec9ebcbec0cd81efe565f174f5c82f67698c688f77c0ff",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SCOPE.json",
+      "bytes": 7770,
+      "sha256": "96771f46109ffd8fe96316e47a2f7174f4898d58edcbd3998e703def8ce3855f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/TASK.FINAL.json",
+      "bytes": 12893,
+      "sha256": "e02abeeff9299f682a86003cff8119582de44ef0be7814d1a0b66148d2e45bbe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/host.mjs",
+      "bytes": 13794,
+      "sha256": "fbaf2602e6b371417d04fc46acf09d4524f91b892058b9fdbbc90c6cb5d0c0b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    }
+  ],
+  "limits": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "scope": "Source-only exact eight paths plus granted scratch. No tests/build/generation/fixture staging or nested provider. Source author stops at actual SDK return. Preserve actual after-observation/physical close/fresh result/replay. Author delta is intermediate until real fixture staging; no final RC11 freeze or acceptance.",
+  "onFailure": "Preserve actual evidence and return to Root; no automatic repeat or Operator Product repair.",
+  "utc": "2026-11-09T06:30:35.409804+00:00"
+}

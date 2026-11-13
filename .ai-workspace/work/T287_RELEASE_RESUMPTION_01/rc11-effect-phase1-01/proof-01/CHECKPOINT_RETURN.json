@@ -1,0 +1,95 @@
+{
+  "status": "ROOT_ACCEPTED_PHASE1_CHECKPOINT_COMPLETE",
+  "utc": "2026-11-09T18:43:22.215079+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 5646,
+    "sha256": "180686005460ea46047eb0c55d829228c410d9f7bd5c62b4cda49e53479dd8fc"
+  },
+  "commit": "65f311e735c1297b9982117eb73fb6a32999cc02",
+  "tree": "98597f697dbaaab2501a82e20c0cdb38ee9861af",
+  "parent": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+  "branch": "codex/rc11-foundation-correction",
+  "message": "test(t287): repair publication observation and transport proof",
+  "selectedPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+    "specification/GOALS.md"
+  ],
+  "trackedStatus": "clean",
+  "indexMatchesHEAD": true,
+  "fourTestedFilePins": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 145250,
+      "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 52787,
+      "sha256": "4db80cc8cf535099e138138720dc0ffb196e81ed35a8c9fe3b3037fee9a1ab91"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+      "bytes": 8589,
+      "sha256": "9cbe06469224c20e3f58792a1791b9886b72b3876812787330be098ddd878d9e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+      "bytes": 9781,
+      "sha256": "44733710fd85aa4b6bc3ed2decc875e7334e7778a1358e3564a0ab39da4f0c61"
+    }
+  ],
+  "testedSourceDigest": "c4a8c7cc4a85eb068edf1b06202ea6dc7baadb422924a39446c728770ba625ca",
+  "fullFinalSourceEqualsTestedInventory": false,
+  "documentaryOnlyPostProofDelta": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "specification/GOALS.md"
+  ],
+  "other1341RowsEqualTestedSource": true,
+  "compiledInventoryReverified": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182705,
+    "sha256": "3db4a581d6d81128f477de20b3e9591ce462e0be11dacb27f101fca2a34f2f35"
+  },
+  "compiledRows": 996,
+  "proofCampaign": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/FINAL_RETURN.json",
+    "bytes": 2384,
+    "sha256": "dd108d63df4222cd9859a07b29fcc287e16e36b198ff4b5d192540ee9a68ff75"
+  },
+  "proofReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/PROOF_FINAL_CONJUNCTION.json",
+    "bytes": 5315,
+    "sha256": "d86996b89aa1e328816974ab5fde9ce0e7fcf3af8a8cc33c8a2664ac904f482e"
+  },
+  "tracking": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/TRACKING_AND_DOCUMENTATION.json",
+    "bytes": 4168,
+    "sha256": "29b58ccf514a86b1d2cb32674c6fd715891d450b28914e9b7eccb8af0c3c9de3"
+  },
+  "sparseControlResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/SPARSE_ADD_CONTROL.json",
+    "bytes": 1001,
+    "sha256": "f13faa9d65fa806c28d81e1c113c22c76e3ce9d4750c805e101ded05ae81f520"
+  },
+  "protectedHeads": {
+    "/Users/jim/src/apps/abiogenesis": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "/private/tmp/abg-rc11-qualification-20261109": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "mainIndexConserved": true,
+  "deliveredC11IndexConserved": true,
+  "rc10PinArchiveInstallManifestConserved": true,
+  "mainTrackedChanges": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "specification/GOALS.md"
+  ],
+  "untrackedEvidence": "excluded from exact selective add/commit and preserved; no cleanup performed",
+  "futureFollowup": "FOUNDATION-ORACLE-001 active; only preparation until Root binds exact narrow source scope/setup",
+  "noNewExecution": "No repeated tests/build, merge, push, release, install or pin change."
+}

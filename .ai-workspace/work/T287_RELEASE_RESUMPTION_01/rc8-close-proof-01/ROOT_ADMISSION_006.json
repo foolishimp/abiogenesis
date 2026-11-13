@@ -1,0 +1,106 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "at": "2026-11-07T06:21:22.880467+00:00",
+  "executive": "/root",
+  "recorder": "/root/rc8_operator",
+  "rootDisposition": "Run exactly one serial continuation006 after exact metadata/test pin and source/receipt joins. Only calculus-fold receives the read-only historical oracle environment binding. Current events remain current; no copying/rederivation or provider/global env expansion. Stop first red/incomplete/resource/authority/input mismatch; no retry.",
+  "configSha256": "decb2fbe7c97d5ee33945ad788d88bd01b37e24676405deba41ef55403ed81e6",
+  "inventorySha256": "45dfcadf337a23342919228fe52989f3e64efb9dba04b79fd25309701c91811d",
+  "frozenStageReceiptSha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1",
+  "preparationManifestSha256": "e698f47317308fa9f4a3d942827893cb608b90b38ad6387bf4983ef809c51fca",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_007.json",
+    "bytes": 110151,
+    "sha256": "decb2fbe7c97d5ee33945ad788d88bd01b37e24676405deba41ef55403ed81e6"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-007/BOUND_INVENTORY.json",
+    "bytes": 1785300,
+    "sha256": "45dfcadf337a23342919228fe52989f3e64efb9dba04b79fd25309701c91811d"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_006.json",
+    "bytes": 3314,
+    "sha256": "e698f47317308fa9f4a3d942827893cb608b90b38ad6387bf4983ef809c51fca"
+  },
+  "controlCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CONTROL_CORRECTION_006.json",
+    "bytes": 4486,
+    "sha256": "329fb4735384888c9b620e6842709a7bd0544f8eea42cddf93944b1b07eacbfb"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 18167,
+    "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+  },
+  "subject": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "builder": "5.0.0-rc.7",
+    "method": "stdo://releases/v3.0.4/",
+    "ticket": "T-287",
+    "goal": "GOAL-035",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "identityKind": "base_plus_exact_frozen_overlay"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "composition": [],
+  "families": 15,
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "selectedEffects": {
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006",
+    "scratchRoot": "/private/tmp/abg-r8c-006",
+    "oracle": {
+      "testFile": "test_env/tests/t287-calculus-fold.test.mjs",
+      "environmentVariable": "ABI5_HS03_STREAM_METADATA",
+      "metadata": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/metadata.json",
+        "bytes": 46684229,
+        "sha256": "2c9328e4abb8e25f8fbfc7a1e4574e481fb5889bf17bc04108f2571d2d3536b9"
+      },
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+        "bytes": 3196,
+        "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+      }
+    },
+    "scopedEnvironmentOnly": true,
+    "scheduledFiles": 150,
+    "wholeFileCredits": 58,
+    "creditedPasses": 322,
+    "creditedSkips": 81,
+    "failedFilePartialPassesCredited": 0,
+    "primarySourceWrites": 0,
+    "git": false,
+    "newRuntimeOrProvider": false,
+    "npmVersionChanges": false,
+    "operatorCleanup": false,
+    "automaticRetry": false
+  },
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "fileTimeoutMs": {
+    "test_env/tests/t287-governed-context.test.mjs": 2100000,
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs": 3600000,
+    "test_env/tests/t289-install-event-bodies.test.mjs": 1200000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000,
+    "test_env/tests/t287-c0-post-publication-failure.test.mjs": 2100000
+  },
+  "existingCapacityGuardPassed": true,
+  "qualification": false
+}

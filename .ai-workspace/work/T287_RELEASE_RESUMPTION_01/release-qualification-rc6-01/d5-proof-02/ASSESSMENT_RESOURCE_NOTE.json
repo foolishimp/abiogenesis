@@ -1,0 +1,566 @@
+{
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "GOAL-035/T287/F10 D5 affected C2/UAT and preserved Q23 Q1-Q7",
+    "outcome": "Retire only redundant current-profile ABG lifecycle copies through existing owners; preserve physical/helper observations, primary facts, deterministic fold/replay and exact historical profile standing.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Current admitted author02 controls declare acquisition; the authentic baseline is retained on its exact partial. Final author02 source Result, SUBJECT and three handoffs remain unbound; no moving Product reads.",
+      "tool": "Exact STDO3.0.4 and existing installed RC6/default-consumer/operator-client owners. This Writer prepares controls and passive capture only.",
+      "runtime": "Actual completed author02 final close/resume must be supplied by Root. Existing fresh source:none Testing/UAT route is guarded by complete physical frozen-source custody; no source-binding bypass, old close, injected observations/synthesis or invented native ancestry."
+    },
+    "prohibitions": [
+      "No Product/source edits, coding Worker, staging, preflight, tests/build, provider/runtime/Git/network/credential operation in preparation.",
+      "No current/future candidate or close substitution; no old handoffs added to satisfy stale selectors; no private diagnostics/provider output or terminal source-body printing.",
+      "Native max UAT is component feedback, not formal independent third-family judgment or Q23/release acceptance."
+    ]
+  },
+  "kind": "closed_static_assessment_resource_note",
+  "at": "2026-11-06T00:21:49.317353+00:00",
+  "originalPreparationPreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/CONTROL_PREPARATION.json",
+    "bytes": 25517,
+    "sha256": "0e858c1ff159a238f2b0f99d56453f508e3693b93644c3124cdd7640d77f490e"
+  },
+  "scope": "Metadata-only byte arithmetic and read-only immutable renderer inspection. No moving Product source, owner construction, renderer execution, runtime/provider or staging. Seven-command recipe and assessment scope unchanged.",
+  "metadataPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/workload.json",
+      "bytes": 96072,
+      "sha256": "16b43895e003d9816d902a723418825a73757593859f04d457388086890c4c7a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/SOURCE_BEFORE.json",
+      "bytes": 177136,
+      "sha256": "a15965a47c9348526fbe2cbbcae5ff354627bc1e3a607d00bca7d813904091d7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/STAGING_MANIFEST.json",
+      "bytes": 15797,
+      "sha256": "cade804250d450b134913c5e9aa46470e87e6d1f2a69866ec2c1e88d4a117932"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/NATIVE_GRANT.json",
+      "bytes": 46349,
+      "sha256": "a04faddd84cb074df9ae4fcacdef911ea9d717366236de6e29caf0fabd572cd0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/baseline-feedback-001/OBSERVATION.json",
+      "bytes": 9674,
+      "sha256": "8f43ab0cdfb9efdd5e18602de250a58c8fa580d57e3e06ef62cf339485f5a15a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/STAGING_MANIFEST.json",
+      "bytes": 2721,
+      "sha256": "b8dcbca036a1754014715e2d34fb2d2705a38cfd4f7cf149f1e02b689d2f9a1a"
+    }
+  ],
+  "assessmentSources": {
+    "selected": 59,
+    "entriesWithPriorOrStaticSize": 56,
+    "knownByteSum": 2164452,
+    "knownMiB": 2.0641822814941406,
+    "categories": [
+      {
+        "category": "final-Product-bytes-unbound",
+        "entries": 20,
+        "knownBytes": 1373456
+      },
+      {
+        "category": "pinned-static",
+        "entries": 34,
+        "knownBytes": 780800
+      },
+      {
+        "category": "final-handoff-unbound",
+        "entries": 3,
+        "knownBytes": 0
+      },
+      {
+        "category": "final-proof-binding-unbound",
+        "entries": 2,
+        "knownBytes": 10196
+      }
+    ],
+    "rowsFormat": [
+      "path",
+      "knownBytesOrNull",
+      "standing",
+      "metadataBasis"
+    ],
+    "rows": [
+      [
+        "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        82336,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        299344,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        214920,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        37162,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        40227,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        10724,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        21963,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        96693,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        36543,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        83542,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        88005,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        23728,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+        9802,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        101944,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+        55857,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+        88039,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+        45491,
+        "final-Product-bytes-unbound",
+        "baseline-new-file"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+        7232,
+        "final-Product-bytes-unbound",
+        "baseline-new-file"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/scripts/check-lifecycle-boundary.mjs",
+        10007,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+        19897,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "qualification-inputs/d5-author-02/ROOT_PREPARATION_REQUEST.md",
+        3769,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/ROOT_SELECTION.json",
+        12229,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/D5_P6_UNCONFIRMED_CAPSULE.json",
+        3483,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/ROOT_ACTIVATION.json",
+        4646,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/ROOT_PROFILE_DISPOSITION.json",
+        3110,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/PARTIAL_RETURN.json",
+        17280,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/PARTIAL_READINESS.json",
+        3097,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/M2_READINESS.json",
+        40558,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/PROFILE_APPLICABILITY.json",
+        15104,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/RECOVERY_BUILD_READINESS.json",
+        58108,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/CAUSATION_TRIAGE.json",
+        24351,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/ROOT_CAUSATION_DISPOSITION.json",
+        2797,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/ROOT_EFFECT_DISPOSITION.json",
+        2346,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/CURRENT_SOURCE_DIFF.patch",
+        205422,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/ADDITIONAL_SOURCE_SELECTION.json",
+        29735,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/METHOD_ACCESS.json",
+        939,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/METHOD_VERIFICATION.json",
+        1368,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/Q23_RUBRIC.json",
+        4084,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/ROOT_POLICY_HOW_SELECTION.json",
+        3891,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/D5_PROOF_INPUT_READINESS.json",
+        44901,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/EXTERNAL_READ_INPUTS.json",
+        1670,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/DEPENDENCY_SOURCE_SELECTION.json",
+        5798,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/NATIVE_GRANT.json",
+        46349,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/TASK.md",
+        6104,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/SOURCE_CUSTODY.json",
+        3513,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/MATERIAL_AND_C2_SCOPE.json",
+        5923,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/C2_INPUTS.json",
+        200397,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/source-correspondence.mjs",
+        2368,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/c2-proof.mjs",
+        3963,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/prior-author-stage.mjs",
+        4368,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-inputs/d5-author-02/prior-author-lanes.mjs",
+        4208,
+        "pinned-static",
+        "N-static"
+      ],
+      [
+        "qualification-scratch/d5-author-02/return.json",
+        null,
+        "final-handoff-unbound",
+        null
+      ],
+      [
+        "qualification-scratch/d5-author-02/readiness.json",
+        null,
+        "final-handoff-unbound",
+        null
+      ],
+      [
+        "qualification-scratch/d5-author-02/progress.json",
+        null,
+        "final-handoff-unbound",
+        null
+      ],
+      [
+        "qualification-inputs/d5-proof-02/FROZEN_SUBJECT.json",
+        409,
+        "final-proof-binding-unbound",
+        "proof-static"
+      ],
+      [
+        "qualification-inputs/d5-proof-02/PROOF_ONLY_GRANT.json",
+        9787,
+        "final-proof-binding-unbound",
+        "proof-static"
+      ],
+      [
+        "qualification-inputs/d5-proof-02/ROOT_UAT_DISPOSITION.json",
+        1686,
+        "pinned-static",
+        "proof-static"
+      ],
+      [
+        "qualification-inputs/d5-proof-02/BASELINE_OBSERVATION.json",
+        9674,
+        "pinned-static",
+        "proof-static"
+      ],
+      [
+        "qualification-inputs/d5-proof-02/TASK.md",
+        3561,
+        "pinned-static",
+        "proof-static"
+      ]
+    ],
+    "unresolvedFinalHandoffs": [
+      "qualification-scratch/d5-author-02/return.json",
+      "qualification-scratch/d5-author-02/readiness.json",
+      "qualification-scratch/d5-author-02/progress.json"
+    ],
+    "meaning": "2,164,452 is the sum of pinned prior/static sizes, not a final-source measurement or mathematical lower bound:20 Product inputs may change,2 proof controls must be rebound and3 handoffs are unknown. The34 pinned-static entries contribute780,800 bytes under the unchanged scope."
+  },
+  "candidateAndRubric": {
+    "rowsFormat": [
+      "path",
+      "knownBytesOrNull",
+      "standing",
+      "metadataBasis"
+    ],
+    "rows": [
+      [
+        "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        147084,
+        "final-Product-bytes-unbound",
+        "held"
+      ],
+      [
+        "qualification-inputs/d5-author-02/rubric.json",
+        7610,
+        "pinned-static",
+        "N-static"
+      ]
+    ],
+    "knownAdditionalBytes": 154694,
+    "all61KnownAssetBytes": 2319146,
+    "standing": "Candidate HOW147,084 bytes is prior held mutable source; rubric7,610 bytes is pinned static. Neither is included in the59-source sum."
+  },
+  "caps": {
+    "selectedMaxPromptBytes": 1048576,
+    "selectedMaxContextBytes": 16777216,
+    "selectedMaxContextFiles": 512,
+    "selectedReadRoots": 412,
+    "knownAssessmentBytesMinusPromptCap": 1115876,
+    "knownAllContextBytes": 10702533,
+    "knownContextEntries": 409,
+    "unresolvedContextEntries": 3,
+    "knownAllContextBelowRawCap": true,
+    "limits": "The16MiB worksite raw context cap and1MiB assembled prompt cap are distinct. Prior/static totals do not prove final412-path context fit, final prompt fit or provider/tool-read context capacity."
+  },
+  "immutableRendererRoute": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+        "bytes": 44995,
+        "sha256": "d4799e3fe08e53ea47a058abe17ac367f4854f6e39d3bfaede76b89099728400"
+      },
+      "lines": [
+        274,
+        280,
+        281,
+        293
+      ],
+      "finding": "Current UAT binds every selected asset from observed context as {path,digest}, and appends all selected assessment assets to readFirst. Its instructions also carry full authenticated Testing command stdout/stderr streams and predicate observations."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_assessment.js",
+        "bytes": 6396,
+        "sha256": "c46085d2409f8aa00d35d4c1aa94b89daf19687c28f02e2a6d966050781ed049"
+      },
+      "lines": [
+        12,
+        17,
+        56,
+        64
+      ],
+      "finding": "Assessment source/candidate/rubric schema contains path and digest only; all are checked against the actual observed context."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+        "bytes": 18062,
+        "sha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443"
+      },
+      "lines": [
+        76,
+        82,
+        96
+      ],
+      "finding": "Assessment renderer emits readFirst/readRoots, assessment basis with path/digest assets, schema identity/schema and instructions; it tells the actor to reacquire full selected source. It does not inline the59 source file bodies."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+        "bytes": 124338,
+        "sha256": "1c8ce10ae0a54979af2384cc8fa7af9c8c5b1498255d967f5655aaa29136bfde"
+      },
+      "lines": [
+        86,
+        98,
+        145,
+        165
+      ],
+      "finding": "Native-work assembly prefixes declared role source/access context, then renderNativeWorkspaceWorkOrder. It carries no second whole task/context body and refuses declared_bound_overflow if actual UTF-8 prompt exceeds the governance Run maxPromptBytes."
+    }
+  ],
+  "referenceCarriage": {
+    "sourceAssetArrayBytes": 9348,
+    "all61AssetArrayBytes": 9681,
+    "method": "Static JSON length of exact path+digest object shapes; digest is always71 ASCII bytes. This counts only asset reference arrays, not schema/producer refs, readFirst/readRoots, instructions, full Testing command streams or role context. No owner renderer/call invoked and no invented future digest bound.",
+    "selectedSourceBodiesAutomaticallyIncluded": false,
+    "fullProducerCommandStreamsIncluded": true,
+    "declaredRoleContextIncluded": true
+  },
+  "conclusion": "The raw known assessment material exceeds1MiB, but its source bodies are not automatically included in this existing UAT prompt. The59 asset reference array is9,348 bytes. No predictable1MiB overflow follows from the2,164,452-byte source sum alone. Final full Testing streams, role context, instructions/schema/reference lists and actual binding must still satisfy the existing assembled-prompt refusal before paid UAT.",
+  "pending": [
+    "Final bytes of20 selected mutable Product source entries, including both new fixture files; actual final candidate HOW bytes.",
+    "Actual three final author02 handoffs and finalized proof binding controls.",
+    "Actual full C2 producer streams and predicate observations; actual assembled role+task prompt and complete context fit.",
+    "Root existing final binding/preflight; no compression path or scope/recipe change selected."
+  ]
+}

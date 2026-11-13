@@ -1,0 +1,28 @@
+{
+  "status": "GLOBAL_DEFAULT_REDUCTION_UNSAFE_FOR_SELECTED_RC3_C2",
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+    "bytes": 118773,
+    "sha256": "89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c"
+  },
+  "rendererLines": [
+    1643,
+    1651
+  ],
+  "actualPriorC2Stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-69fe39afbb0baa2d-stdout.log",
+    "bytes": 76384,
+    "sha256": "2b2595e0c17c4959d8479e4ed0ea941d9b3fa2f10772b8e8c23ad4f7c45e5bde"
+  },
+  "actualBashInput": {
+    "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/launch.json'",
+    "description": "Run the ABI worksite command helper for the task"
+  },
+  "finding": "Pinned renderer requires command-only semantic Bash input and explicitly prohibits timeout/run_in_background. Actual retained C2 helper has command and metadata description only. Lowering global default to120000 would truncate lawful long helper execution; no explicit long timeout exists to preserve.",
+  "selectedProfileUnchanged": {
+    "BASH_DEFAULT_TIMEOUT_MS": "4500000",
+    "BASH_MAX_TIMEOUT_MS": "4500000",
+    "idleMs": 4500000
+  },
+  "limits": "Read-only exact owner/retained input assessment; no Product or active profile change. No new role-specific wrapper/guard mechanism selected."
+}

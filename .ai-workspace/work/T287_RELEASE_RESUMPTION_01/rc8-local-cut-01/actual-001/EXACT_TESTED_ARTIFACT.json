@@ -1,0 +1,20 @@
+{
+  "kind": "exact_tested_rc8_artifact_correspondence",
+  "status": "BYTE_EQUAL",
+  "testedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "reproductionArchive": {
+    "path": "/private/tmp/abg-r8c-cut/reproduction/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "sameMemberSet": true,
+  "members": 5325,
+  "unchangedMembers": 5325,
+  "changedMembers": [],
+  "identityBridgeAllowance": false,
+  "qualified": false
+}

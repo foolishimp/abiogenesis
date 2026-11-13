@@ -1,0 +1,13 @@
+{
+  "status": "UNACCEPTED_NATIVE_CANDIDATE_CUSTODY",
+  "sourceCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "tree": "c4b60c78533eeff2734c289eccb1b37df982f3b9",
+  "parent": "53acfe7c6a51e0b0a1d354fbc79ef3d391cb7573",
+  "nativeResultRef": "result://abiogenesis/4accfc2ff24ed5231e50bee7e5150fc7297a10f43675e3ed1ee9d6a0cccc1996",
+  "subjectSha256": "e82e3e6391a9f16199b684b0b553564ed09bdfdfc45107accda3bdb45d959fb8",
+  "c2ResultRef": "result://abiogenesis/ed46e43e52c7f02851ac2153ac0c4d610f8163cfe7de86ffa9fe0a0341b3ee70",
+  "sourceFiles": 10,
+  "productSourceAuthoredByRoot": false,
+  "failedInstalledProofPreserved": true,
+  "standing": "Codec/source review has no material finding; installed fixture has S2 constructability defect. No generated adoption, acceptance or release."
+}

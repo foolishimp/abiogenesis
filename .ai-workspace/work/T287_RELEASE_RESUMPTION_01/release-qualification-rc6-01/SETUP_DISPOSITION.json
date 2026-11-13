@@ -1,0 +1,78 @@
+{
+  "kind": "root_installed_rc6_campaign_setup_disposition",
+  "recordedUtc": "2026-11-05T08:05:48.082981+00:00",
+  "status": "ACCEPTED_CAMPAIGN_SETUP_NO_NATIVE_QUALIFICATION",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/SETUP_SELECTION.json",
+    "bytes": 6364,
+    "sha256": "ba0807540a2e74997b35a80ee875b93ba39a9045b37046ea63452f9376b7548e"
+  },
+  "process": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/SETUP_PROCESS_RESULT.json",
+    "bytes": 836,
+    "sha256": "ce712cdd8961a1ce9cd6abf7230097590f6809711059aa3bb19b2e0a86b82a49"
+  },
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/summary.json",
+    "bytes": 2146,
+    "sha256": "5f459c37a0d3b8d884e15baaf8bdf1113e782cb0bf05acc7ea96151b51683c0a"
+  },
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/SETUP_TIMING.json",
+    "bytes": 5837,
+    "sha256": "d676ebfbbb8971a58187c31004c03a66d5ea01d759a7c9b189a8b8afdbe5f7cf"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/operator-resume-material.json",
+    "bytes": 72658275,
+    "sha256": "c84c68d3b403aa538120032edfd406c8ebc9530d70f3790aefb23a2d5c0e11a0"
+  },
+  "binding": {
+    "ref": "workspace-binding://abiogenesis/fb1d26ecb625f2f2788403a6989144ee756ac687c38dd36ac04ba45817f8c4ac",
+    "digest": "sha256:fb1d26ecb625f2f2788403a6989144ee756ac687c38dd36ac04ba45817f8c4ac"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 3186855,
+      "prefixDigest": "sha256:d4b2231dd20498332d71ccc33d7d31c3f245f70b151d73609a79c86f7dfaa26c",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 701759869,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+      },
+      "coordinateDigest": "sha256:8d7d3631edc5772510a874d19b9ebcb1a70b081c864a98327ae6b206019d46bf"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "device": 16777231,
+      "inode": 701759869,
+      "eventLogDigest": "sha256:d4b2231dd20498332d71ccc33d7d31c3f245f70b151d73609a79c86f7dfaa26c",
+      "durableByteLength": 3186855,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "authorityDigest": "sha256:beea53a9b91c8d723320c1ee0ca951c3b1ea8f2a28349cbd5e7efe647ae0f3a6"
+    }
+  },
+  "elapsed": {
+    "totalSetupProcessMs": 434771.9516251236,
+    "artifactVerificationMs": 188026.136625,
+    "maintainedSdkSetupMs": 229042.06437500002,
+    "otherOperatorProcessMs": 17703.75062512359,
+    "workerLaunchMs": null,
+    "betweenTasksMs": null
+  },
+  "ownerCalls": {
+    "completed": 10,
+    "nonzero": [],
+    "borrowedCalls": 6
+  },
+  "qualification": false,
+  "providerCalls": 0,
+  "nativeDispatches": 0,
+  "next": "Exact C2 preflight and one xhigh native fixture Worker, using this actual resource/close handoff through existing owners.",
+  "performanceLimits": "Single observed fresh campaign setup; no matched comparison or complete RC6 native-workflow speedup claim. Checkout failure and control preparation are separate."
+}

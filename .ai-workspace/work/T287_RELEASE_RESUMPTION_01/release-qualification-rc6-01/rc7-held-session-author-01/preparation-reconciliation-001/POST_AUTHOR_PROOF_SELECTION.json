@@ -1,0 +1,35 @@
+{
+  "kind": "root_post_author_proof_selection",
+  "status": "PROSPECTIVE_SEPARATE_OPERATOR_ALLOCATION_RESULTS_PENDING",
+  "createdUtc": "2026-11-06T14:06:48.863588+00:00",
+  "authority": "Root explicit selection after actual HS01 return and independent review",
+  "selectedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/SOURCE_AFTER.json",
+    "bytes": 510126,
+    "sha256": "692a29f93a48d755f973cee94d73f3952c7920e1d54f710e4e6c30f6a812efdc"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8825,
+    "sha256": "87de60b343daddd37b9b2aa085c9fe8d2ba0eb56a1c0925d64eae57eeb9eca70"
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/reviews/held-stage03-001/REVIEW.json",
+    "bytes": 38486,
+    "sha256": "7eadf0c978a64c5491ba556f79cf7f3846ea476d199a9828fa93b6105f086cae"
+  },
+  "caseCount": 2,
+  "executionOwner": "Existing canonical commandRecorder; exact executable selectors and controls remain Root-owned.",
+  "exactExecutableSelection": null,
+  "result": null,
+  "standing": "Separate prospective operator evidence, never a rewrite, rerun credit or extension of the closed native author ledger.",
+  "effectsByThisWriter": "Selection recorded only; no test/build/runtime/provider execution, source edit, staging or permission expansion.",
+  "rootNextNativeSelection": {
+    "task": "rc7-held-session-author-02",
+    "status": "DEPENDENCY_AND_CONTROL_PREPARATION_ONLY",
+    "definiteWork": "Local maintained-runner binding repair plus actual maintained-runner proof.",
+    "pendingSubscope": "Direct-assessment HOW/owner correction remains under bounded architectural evaluation; no paths or design invented here.",
+    "dispatch": null
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "kind": "root_preliminary_author_feedback_triage",
+  "at": "2026-11-06T04:12:16.529749+00:00",
+  "status": "AUTHOR_ACTIVE_NO_SOURCE_ACCEPTANCE",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/SOURCE_BEFORE.json",
+    "bytes": 215422,
+    "sha256": "05b4059600a96f515a4aa4f68e3975b85c3dc45d4652ca892dac3683eb22ae7e"
+  },
+  "feedback": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-01/tmp/rc7a-after-01-lanes-consumers/consumers.stdout.tap",
+    "bytes": 65789,
+    "sha256": "de103cf22366ed9e170dbc439458458b0e6f225094e4be9ff4a2964c86d02e0a"
+  },
+  "stage": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-01/tmp/rc7a-after-01-stage.json",
+    "bytes": 85027,
+    "sha256": "9a79753035aca32fc9fd5b8fbc4210c01f05127d926e82094e8540ea26a9059c"
+  },
+  "stagingOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-01/prior-author-stage.mjs",
+    "bytes": 5151,
+    "sha256": "6202653655dfa611781ab2afe5e93b7a24464afca78f9487a9dc1126f4868f72"
+  },
+  "counts": {
+    "tests": 77,
+    "pass": 38,
+    "fail": 29,
+    "cancelled": 0,
+    "skipped": 10
+  },
+  "failureClasses": {
+    "operator_missing_stage_resource": 28,
+    "unresolved_assertion": 1
+  },
+  "failures": [
+    {
+      "name": "1 - prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "2 - fulfillment raw schema and binder share nonempty support role forms without semantic judgment",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "3 - pure projection separates historical adverse evidence, current roles, policy completeness and later obligations",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "4 - real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "5 - selected-profile hook and persisted assembly conserve admitted additions through selected and gap projection",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "6 - UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "7 - Retained prior-Run source use: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "13 - declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "16 - framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "17 - framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "18 - selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "20 - native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "21 - worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "22 - worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "25 - fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "26 - UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "27 - C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "28 - parent conservation joins the pre-Run root basis through exact invocation and root implementation set",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "29 - one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "30 - DataMapper caller separates author territories and baseline inputs from future final proof",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "31 - consumer-authored source and scope remain exact application data; no solution is in library",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "32 - observed child provenance joins the current preparation and rejects crossed or missing causal facts",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "33 - observed command correspondence conserves explicit input across empty and different process environments",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "35 - default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "36 - retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "37 - declared command-executor assembly accepts native C2 and keeps exact task, owner and context refusals",
+      "classification": "unresolved_assertion"
+    },
+    {
+      "name": "60 - extended original C2 plan preserves all 26 sources through native and observed owners",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "76 - T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+      "classification": "operator_missing_stage_resource"
+    },
+    {
+      "name": "77 - T-287 C1 retains an exact partial prefix when a later C0 member refuses",
+      "classification": "operator_missing_stage_resource"
+    }
+  ],
+  "origin": "Operator stage copies the 397 protected source members only; selected consumer tests also read fixture trees and a cold-process helper outside that selection. Source compilation does not test those runtime file dependencies.",
+  "missingOwners": [
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs"
+  ],
+  "recurrence": "The user-provided RC4 review already identified framed-governance fixture omission in a sparse test tree. That relation was not carried into the selected author-stage resource closure.",
+  "disposition": "Preserve this failed run. Do not edit active controls or rerun against a moving candidate. The native author owns assertion investigation within its grant. On the frozen return, bind the missing existing test resources explicitly into the affected proof stage and use the existing test owners. No assertion/test weakening, timeout increase or inferred Product pass.",
+  "limits": "This classifies observed errors only; final source validity, complete resource sufficiency and actual corrected proof remain open."
+}

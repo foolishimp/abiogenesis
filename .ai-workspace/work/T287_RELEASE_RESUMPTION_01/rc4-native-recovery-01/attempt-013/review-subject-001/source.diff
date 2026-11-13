@@ -1,0 +1,960 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts b/build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts
+index c9588e629..36c56b3ec 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts
+@@ -24,9 +24,9 @@ import { isRuntimeProbeObservation, isRuntimeSystemProbeContract,
+   type RuntimeInvocationScope } from "../runtime_liveness_contracts.js";
+ import { projectWorksiteBasisObservation, projectWorksiteSelectedOccurrence, projectWorksiteFailureResultRequest } from "../c_call_outcome.js";
+ import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkObservation,
+-  isNativeWorkspaceWorkFailure,
+-  nativeWorkspacePathWithin } from "../../product/native_workspace_work.js";
+-import { projectNativeWorkUnknownEffectTask } from "../native_work_effect.js";
++  isNativeWorkspaceWorkFailure } from "../../product/native_workspace_work.js";
++import { nativeWorkImpact, nativeWorkImpactOverlaps, projectNativeWorkUnknownEffectTask,
++  type NativeWorkImpact } from "../native_work_effect.js";
+ 
+ interface EventCalculusEffectRefs {
+   readonly initiates: readonly string[];
+@@ -500,8 +500,8 @@ function worksiteTransitionForResult(
+   };
+ }
+ 
+-/** Known native changes retire exact paths; unknown after-state retires the
+- * declared writable scope. Neither case manufactures C0 provenance or successors. */
++/** The shared native impact (observed changes ∪ W\R; unknown after-state: all
++ * W) retires affected facts. Neither case manufactures C0 provenance or successors. */
+ export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): readonly string[];
+ /** @internal */
+ export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): readonly string[];
+@@ -511,10 +511,11 @@ export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorE
+ }
+ function nativeWorkPhysicalScope(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix):
+   { canonicalRoot: string; affectsPath: (path: string) => boolean } | null {
++  const scope = (impact: NativeWorkImpact) => ({ canonicalRoot: impact.canonicalRoot,
++    affectsPath: (path: string) => nativeWorkImpactOverlaps(impact, path) });
+   if (event.kind === "actor_invocation_failed" || event.kind === "actor_process_termination_unconfirmed") {
+     const task = projectNativeWorkUnknownEffectTask(event, priorEvents, ownedPrefix);
+-    return task === null ? null : { canonicalRoot: task.workspaceAuthorityBasis.canonicalRoot,
+-      affectsPath: path => nativeWorkspacePathWithin(path, task.writeRoots) };
++    return task === null ? null : scope(nativeWorkImpact(task, null));
+   }
+   if (event.kind !== "c_call_result_admitted" || !isRecord(event.payload)) return null;
+   const value = event.payload.value;
+@@ -530,9 +531,7 @@ function nativeWorkPhysicalScope(event: RuntimeEvent, priorEvents: readonly Runt
+     evidenceRefs.includes(row.payload.evidenceRef as string) && row.payload.evidenceClass === "probabilistic_transport" &&
+     row.payload.implementationRef === nativeIds.implementationRef && row.payload.transportDigest === value.provenance.transportDigest &&
+     row.payload.outputDigest === valueDigest)) return null;
+-  const changed = value.after === null || value.changedPaths === null ? null : new Set(value.changedPaths);
+-  return { canonicalRoot: value.task.workspaceAuthorityBasis.canonicalRoot,
+-    affectsPath: path => changed === null ? nativeWorkspacePathWithin(path, value.task.writeRoots) : changed.has(path) };
++  return scope(nativeWorkImpact(value.task, value.after === null ? null : value.changedPaths));
+ }
+ 
+ /** One worksite cause as the support pass read it. */
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts b/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
+index f321e2280..c7b3306a4 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
+@@ -20,7 +20,6 @@ import { admitIJsonText } from "../shared/i_json.js";
+ import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
+ import { indexedRuntimeEvents, worksiteContextBodyReaderAtPrefix } from "./event_prefix.js";
+ import { governanceContextBodyUse, hasExactInvocationRunBindingAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
+-import { resolveProgramStart } from "../gtl/public_start.js";
+ import type { RecurseApplication } from "../gtl/contracts.js";
+ import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+ import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
+@@ -30,7 +29,7 @@ import { isWorksiteContextObservation } from "../product/worksite_effect.js";
+ import { authenticateSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
+ import type { ProbabilisticWorkerRequest, LeafInvocationPort } from "../implementation/contracts.js";
+ import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
+-import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, rehydrateExecutionBasisAtPrefix, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
++import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+ import { nativeContextLeafFamily, registeredSelectionNativeRole, framedSynthesisAtLocus, framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
+ import { registeredSelectionTargets } from "../gtl/registered_selection.js";
+ import { isNativeRegisteredSelectionTask, nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice,
+@@ -402,6 +401,45 @@ function synthesisContext(basis: NativeInstructionAssemblyBasis, input: unknown,
+   }
+   return { owner, role, profile, bindings, choices, rawContractRef, input };
+ }
++/** Current execution facts for the selector, projected from the exact
++ * invocation admission, its Run segment, the governance root ancestry and the
++ * root definition named by the admitted digest. The retained-source
++ * predecessor stays a separate fact. A bound is shown only where the root
++ * declares one recursion to the executing GraphFunction. Null fails closed. */
++function currentExecutionBinding(owner: NonNullable<ReturnType<typeof synthesisContext>>["owner"],
++  basis: NativeInstructionAssemblyBasis): Readonly<Record<string, JsonValue>> | null {
++  const execution = owner.execution, runId = owner.call.runId;
++  const admission = projectExactInvocationAdmissionAtPrefix(owner.prefix, execution.invocationAdmissionRef);
++  const root = semanticJobRootAtPrefix(owner.prefix, execution);
++  if (admission === null || root === null || typeof runId !== "string" ||
++    !hasExactInvocationRunBindingAtPrefix(owner.prefix, admission, runId) ||
++    execution.invocationRef !== admission.invocationRef || execution.programRef !== admission.programRef ||
++    root.basisClass !== "root" || root.invocationAdmissionRef !== admission.invocationAdmissionRef ||
++    root.programRef !== admission.programRef || root.graphFunctionRef !== admission.graphFunctionRef ||
++    root.graphFunctionDigest !== admission.graphFunctionDigest) return null;
++  const start = admission.publicStart, source = admission.sourceResultBasis;
++  if (start !== null && (start.programRef !== admission.programRef || start.graphFunctionRef !== admission.graphFunctionRef)) return null;
++  const definitions = basis.declarationGraphFunctions.filter(g => g.name === root.graphFunctionRef && sha256Canonical(g) === root.graphFunctionDigest);
++  const recursions = definitions.length !== 1 || execution.basisRef === root.basisRef ? [] : definitions[0]!.template.applications
++    .filter((a): a is RecurseApplication => a.relationKind === "recurse" && a.graphFunctionRef === execution.graphFunctionRef);
++  const recursion = recursions.length === 1 ? recursions[0]! : null;
++  return {
++    meaning: "Current admitted execution facts. They identify the Run, invocation, root, start and executing GraphFunction now; they carry no task meaning and select no next member. The predecessor, when present, is a retained earlier source, not the current root or Run.",
++    runId,
++    invocation: { invocationAdmissionRef: admission.invocationAdmissionRef, invocationRef: admission.invocationRef,
++      invocationVariant: admission.invocationVariant },
++    programRef: admission.programRef,
++    root: { basisRef: root.basisRef, graphFunctionRef: root.graphFunctionRef, graphFunctionDigest: root.graphFunctionDigest },
++    start: start === null ? null : { startRef: start.startRef, target: start.target, until: start.until, rootMode: start.rootMode },
++    executing: { basisRef: execution.basisRef, graphFunctionRef: execution.graphFunctionRef },
++    declaredRecursion: recursion === null ? null : { applicationRef: recursion.applicationRef,
++      graphFunctionRef: recursion.graphFunctionRef, bound: recursion.bound },
++    predecessor: source === null ? null : { sourceRunId: source.sourceRunId,
++      sourceInvocationAdmissionRef: source.sourceInvocationAdmissionRef, sourceInvocationRef: source.sourceInvocationRef,
++      sourceGraphFunctionRef: source.sourceGraphFunctionRef, sourceResultRef: source.sourceResultRef,
++      sourceResultDigest: source.sourceResultDigest },
++  };
++}
+ function synthesisBoundBasis(context: NonNullable<ReturnType<typeof synthesisContext>>): FramedSynthesisBasis {
+   const { owner, role, input } = context;
+   return { inputRef: owner.inputRef, inputDigest: owner.inputDigest, taskRef: input.state.original.taskRef,
+@@ -414,6 +452,9 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
+     const context = synthesisContext(basis, input, contractByRef);
+     if (context === null) return assemblyRefusal("unknown_dependency", null, "selector", [basis.cCall.programLocusRef]);
+     const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;
++    // active_binding_semantics: unknown, foreign or inconsistent current facts refuse before dispatch.
++    const binding = currentExecutionBinding(owner, basis);
++    if (binding === null) return assemblyRefusal("unknown_dependency", null, "selector", [owner.execution.invocationAdmissionRef]);
+     // Inline bodies need no permission; member reads use this Run and the
+     // invocation's admitted retained-source use (`governanceContextBodyUse`).
+     const bodyUse = task.context.entries.some(e => e.state === "file" && e.encoding === "admitted_member")
+@@ -428,15 +469,15 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
+     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
+       instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
+       choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, bodyUse)),
+-      evidence: { declaredAccess: role.accessContent }, response };
++      binding, evidence: { declaredAccess: role.accessContent }, response };
+     const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment, ...responseSchemas,
+       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,
+-      sectionOrder: ["role", "choices", "task", "evidence", "response"] };
++      sectionOrder: ["role", "choices", "task", "binding", "evidence", "response"] };
+     const prompt = renderInstructionSections(plan.sectionOrder, sections);
+     if (Buffer.byteLength(prompt) > task.state.original.maxPromptBytes) return assemblyRefusal("declared_bound_overflow", null, "selector", [owner.inputRef]);
+     const identity = assemblyIdentity("framed-synthesis", plan, owner, basis.predecessorPrefix,
+       { sections, targetBindings: bindings, boundBasis });
+-    return finishInstructionAssembly(identity, { runEnvironment, ...responseSchemas }, { actorRef: governanceRef("actor", "executive"), workerBindingRef: governanceRef("worker", "selector"),
++    return finishInstructionAssembly(identity, { runEnvironment, ...responseSchemas, bindingDigest: sha256Canonical(binding) }, { actorRef: governanceRef("actor", "executive"), workerBindingRef: governanceRef("worker", "selector"),
+       implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest, rendererRef: plan.rendererRef,
+       instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef, transportLane: "closed_prompt_proof", prompt, responseJsonSchema: carrier });
+   } catch { return assemblyRefusal("unknown_dependency", null, "selector", [basis.cCall.programLocusRef]); }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts b/build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts
+index 89e7435f7..2dc3ac5ef 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts
+@@ -2,7 +2,7 @@ import { isDeepStrictEqual } from "node:util";
+ import { isRecord } from "../shared/admission_predicates.js";
+ import { type JsonValue } from "../shared/canonical_json.js";
+ import { sha256Canonical } from "../shared/digests.js";
+-import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask,
++import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, nativeWorkspacePathWithin,
+   nativeWorkspaceWorkGraphFunctionRef, type NativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
+ import { indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixExtent,
+   selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent,
+@@ -14,6 +14,30 @@ import { canonicalEquals } from "../shared/value/index.js";
+ import { ok, type StructuralRefusal } from "../shared/refusal.js";
+ import { checkExactRecord, resolveExactMatch, type CheckedRecord, type RecordCheck } from "../shared/select/index.js";
+ 
++/** @internal The one conservative physical impact of an authenticated native
++ * cause: observed changed paths ∪ (W \ R). R is the task's observed context
++ * scope; W\R is unobserved and impacted whole. Unknown after-state and unknown
++ * process/transport effects (`changedPaths === null`) impact all of W. EC and
++ * the currentness gate both read it; it never invents a changed path. */
++export type NativeWorkImpact = Readonly<{ canonicalRoot: string; changedPaths: readonly string[] | null;
++  writeRoots: readonly string[]; readRoots: readonly string[] }>;
++export function nativeWorkImpact(task: NativeWorkspaceWorkTask, changedPaths: readonly string[] | null): NativeWorkImpact {
++  return Object.freeze({ canonicalRoot: task.workspaceAuthorityBasis.canonicalRoot, changedPaths,
++    writeRoots: task.writeRoots, readRoots: task.context.readRoots });
++}
++/** @internal Exact path/subtree overlap: `path` is one fact path or one
++ * selected subtree root. Presence and absence facts are treated alike. */
++export function nativeWorkImpactOverlaps(impact: NativeWorkImpact, path: string): boolean {
++  const within = (inner: string, outer: string) => nativeWorkspacePathWithin(inner, [outer]);
++  if (impact.changedPaths === null) return impact.writeRoots.some(root => within(path, root) || within(root, path));
++  if (impact.changedPaths.some(changed => within(changed, path))) return true;
++  // The deeper of path and root is their common subtree; it meets W\R unless R covers it.
++  return impact.writeRoots.some(root => {
++    const common = within(path, root) ? path : within(root, path) ? root : null;
++    return common !== null && !nativeWorkspacePathWithin(common, impact.readRoots);
++  });
++}
++
+ function causeActor(event: RuntimeEvent): string | null {
+   if (!isRecord(event.payload) || typeof event.payload.actorInvocationRef !== "string" ||
+     typeof event.payload.processRef !== "string") return null;
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts b/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts
+index 8d3ab02b5..0b66bb7c9 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts
+@@ -2,7 +2,7 @@ import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, isValidationRuntimeEve
+ import type { RuntimeEventPrefix } from "./event_prefix.js";
+ import { isDeepStrictEqual } from "node:util";
+ import { projectWorksiteSelectedOccurrence, worksiteSelectedOccurrenceDependencies, projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from "./c_call_outcome.js";
+-import { nativeWorkUnknownEffectDependencies, projectNativeWorkUnknownEffectTask } from "./native_work_effect.js";
++import { nativeWorkImpact, nativeWorkImpactOverlaps, nativeWorkUnknownEffectDependencies, projectNativeWorkUnknownEffectTask } from "./native_work_effect.js";
+ import { projectReacquiredNativeWorkCommandSourceAtPrefix } from "./native_work_reacquisition.js";
+ /** Native-work source alternative at the existing C2 admission boundary. */
+ import { type JsonValue } from "../shared/canonical_json.js";
+@@ -221,7 +221,9 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
+     : nativeWorkspacePathWithin(path, readRoots);
+   // A later admitted mutation invalidates only the selected files it touches.
+   // Physical currentness is additionally checked by the unchanged C2 owner
+-  // before creating manifests and immediately before helper launch.
++  // before creating manifests and immediately before helper launch. Native
++  // causes use the shared EC impact relation over exact paths or subtrees.
++  const queried = readRoots ?? selectedPaths;
+   return indexedRuntimeEvents(prefix, "worksite-observation-dependency").some(e => {
+     if (e.admissionOrdinal <= afterOrdinal || !record(e.payload)) return false;
+     if (e.kind === "actor_process_termination_unconfirmed" || e.kind === "actor_invocation_failed") {
+@@ -229,9 +231,8 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
+       if (dependencies.length === 0) return false;
+       const task = projectNativeWorkUnknownEffectTask(e, dependencies, validatedRuntimeEventPrefixBeforeEvent(prefix, e.eventId));
+       if (task === null || task.workspaceAuthorityBasis.canonicalRoot !== canonicalRoot) return false;
+-      return readRoots === undefined ? selectedPaths.some(path => nativeWorkspacePathWithin(path, task.writeRoots))
+-        : readRoots.some(path => nativeWorkspacePathWithin(path, task.writeRoots) ||
+-          task.writeRoots.some(root => nativeWorkspacePathWithin(root, [path])));
++      const impact = nativeWorkImpact(task, null);
++      return queried.some(path => nativeWorkImpactOverlaps(impact, path));
+     }
+     if (e.kind === "c_call_fibre_selected") {
+       const selectedOccurrence = projectWorksiteSelectedOccurrence(e, worksiteSelectedOccurrenceDependencies(prefix, e));
+@@ -248,12 +249,11 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
+         invalidates(request.subject.relativePath);
+     }
+     const value = e.kind === "c_call_result_admitted" ? e.payload.value : null;
+-    return (isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) &&
+-      e.aggregateId === value.provenance.cCallRef &&
+-      (e.graphFunctionRef === native.graphFunctionRef || e.graphFunctionRef === native.assessmentGraphFunctionRef) &&
+-      value.task.workspaceAuthorityBasis.canonicalRoot === canonicalRoot &&
+-      (value.changedPaths === null ? (readRoots ?? [...selected]).some(path =>
+-        nativeWorkspacePathWithin(path, value.task.writeRoots) || value.task.writeRoots.some(root => nativeWorkspacePathWithin(root, [path]))) :
+-        value.changedPaths.some(invalidates));
++    if (!(isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) ||
++      e.aggregateId !== value.provenance.cCallRef ||
++      (e.graphFunctionRef !== native.graphFunctionRef && e.graphFunctionRef !== native.assessmentGraphFunctionRef) ||
++      value.task.workspaceAuthorityBasis.canonicalRoot !== canonicalRoot) return false;
++    const impact = nativeWorkImpact(value.task, value.after === null ? null : value.changedPaths);
++    return queried.some(path => nativeWorkImpactOverlaps(impact, path));
+   });
+ }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts b/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts
+index 5d6a01677..281d58785 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts
+@@ -41,7 +41,9 @@ export function isNativeWorkspaceWorkTask(value: unknown): value is NativeWorksp
+     g.operationId === "abg.operation.run.invoke" && g.scopeRef === w.bindingId && g.scopeDigest === w.bindingDigest &&
+     c.workspaceAuthorityBasisRef === a.authorityBasisId && c.workspaceAuthorityBasisDigest === a.authorityBasisDigest &&
+     c.workspaceBindingIdentity === w.bindingId && c.workspaceBindingDigest === w.bindingDigest &&
+-    unique(t.readFirst) && unique(t.writeRoots) && t.writeRoots.every(p => nativeWorkspacePathWithin(p, c.readRoots)) &&
++    // W and R are distinct: R is the observed commissioned scope; W may name
++    // disposable territory outside it, whose effects stay unobserved.
++    unique(t.readFirst) && unique(t.writeRoots) &&
+     t.readFirst.every(p => c.entries.some(e => e.relativePath === p && e.state !== "absent")) &&
+     (t.assessment === undefined || (t.writeRoots.length === 0 && nativeWorkspaceAssessmentSubjectMatches(t.assessment, c) &&
+       [...t.assessment.sources, t.assessment.candidate, t.assessment.rubric].every(asset => t.readFirst.includes(asset.path))));
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+index efbf05aed..2f545058e 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+@@ -43,9 +43,15 @@ F_P leaf, `graph-function://abiogenesis/worksite/native-work@5`, with the declar
+ closure relations. `constructNativeWorkspaceWorkTask` binds the exact admitted
+ workspace authority, binding, invocation capability grant, and actual bounded
+ context observation to consumer data: outcome, instructions, read-first paths,
+-write roots and checks. All paths are normalized, inside the observed readable
+-scope; required read-first assets exist. Empty write roots permit independent
+-read-only assessment. Instructions and checks cannot widen typed write scope.
++write roots and checks. All paths are normalized worksite-relative paths under
++the existing canonical path guard. Read-first paths lie inside the observed
++readable scope R (`context.readRoots`) and exist. Write roots W are a distinct
++declared territory, not forced inside R: R covers the commissioned
++Product/generated/evidence paths whose before/after facts the owner observes;
++disposable tooling may be explicit W outside R. The context observation keeps
++its protected binding/install roots. Empty write roots permit independent
++read-only assessment, and assessment requires them. Instructions and checks
++cannot widen typed write scope.
+ 
+ Actor-created temporary files, shell redirections and probe fixtures are writes,
+ including when subsequently deleted. Auxiliary checks use process memory, pipes
+@@ -88,8 +94,9 @@ The output carries task, before/after observations, actual changed paths,
+ short report and exact C-call/authority/transport provenance. Directory
+ membership changes caused by permitted descendant writes are supported;
+ unrelated changed files remain scope violations. With empty write roots every
+-change is a violation. Observation failure retains an explicit unknown after
+-state, not an invented unchanged state or rollback.
++change is a violation. Writes in W\R are not observed; they are neither
++`changedPaths` nor violations. Observation failure retains an explicit unknown
++after state, not an invented unchanged state or rollback.
+ 
+ Timeout, native nonzero exit, missing/malformed report, observation failure or
+ scope violation remains failure, with available partial edits retained. A
+@@ -100,18 +107,25 @@ uses the existing undispatched owner-refusal route. Durable admission failures
+ retain the existing failure behavior; physical work is not represented as an
+ atomic rollback.
+ 
+-An admitted native success or failure with observed edits retires earlier C0
+-current-observation facts only for exact changed file paths at the same
+-workspace binding. It does not manufacture C0 effect provenance or C0
+-successors. Unchanged/absent paths retain their facts. Native after-state stays
+-available in the ordinary admitted result and replay. An unavailable after
+-observation is not evidence that any particular file changed or remained
+-unchanged. The same authenticated result retires earlier C0 observations in
+-the task's declared writable scope at the same workspace binding, using the
+-existing exact-path/descendant/root scope relation. This includes observations
+-of absence inside that scope. Facts outside the writable scope and facts under
+-an empty read-only scope remain unaffected. Unknown after-state and the
+-original failure remain explicit; no successor observation is manufactured.
++One conservative impact relation in `abg/native_work_effect.ts` defines what an
++authenticated native cause may have changed at its canonical worksite root:
++impact = observed changed paths ∪ (W\R). A known after-state supplies
++`changedPaths` inside R; W\R is unobserved territory and is impacted whole. An
++unavailable after observation and an admitted post-start unknown
++process/transport effect impact all of W. That relation is not evidence that
++any particular file changed or remained unchanged. EC (`abg/calculus/axioms.ts`)
++and the currentness gate (`abg/native_worksite_execution.ts`) both consume it
++with exact path/subtree overlap. An exact fact path is impacted by an equal
++changed path or by lying in W\R. A selected subtree is impacted by a changed
++path inside it or by intersecting W\R. An impact retires the affected earlier
++C0 current-observation facts at the same canonical root. Facts of presence and
++facts of absence are retired alike, because immutable bindings do not partition
++a file. Observed-unchanged R facts and territory outside the impact remain
++current, including every fact under an empty read-only scope. The relation
++does not manufacture C0 effect provenance, C0 successors or `changedPaths`
++entries. Native after-state stays available in the ordinary admitted result and
++replay. Unknown after-state and the original failure remain explicit; no
++successor observation is manufactured.
+ 
+ ## Context body carriage (P1)
+ 
+@@ -199,8 +213,9 @@ also an effect-tail boundary. Its existing actor/transport/C-call lineage must
+ join the unique admitted native task, implementation, workspace binding and
+ grant. When no valid transport exchange reaches `complete`, that lineage
+ supplies scope-qualified **unknown**, not an unchanged worksite or a new native
+-Result. EC retires prior C0 current observations only inside that task's typed
+-write roots at the same binding; unrelated and read-only facts survive. The
++Result. The shared impact relation maps it to all of that task's typed write
++roots W. EC and the currentness gate retire prior C0 current observations only
++inside W at the same canonical root; unrelated and read-only facts survive. The
+ original refusal, partial physical work and diagnostic remain. No post-work
+ observation, rollback, report or assessment credit is claimed. Ordinary valid
+ exchanges still use the owner's actual before/after observation above.
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md
+index 26563aa42..f05ee1ad5 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md
+@@ -145,6 +145,43 @@ inaccessible locators are insufficient. Unknown required content, stale basis,
+ unsupported context or a declared bound overflow retains the existing typed
+ assembly refusal. Semantic insufficiency remains F_P's explicit gap.
+ 
++### Current active binding (framed synthesis)
++
++For the framed-synthesis selector, `active_binding_semantics` also presents
++the current execution facts in one `binding` section. `abg/instruction_assembly.ts`
++projects it from existing exact owners only:
++
++- the execution's admitted invocation (`projectExactInvocationAdmissionAtPrefix`);
++- its unique Run segment (`hasExactInvocationRunBindingAtPrefix`);
++- the governance root ancestry (`semanticJobRootAtPrefix`);
++- the root definition, selected from `declarationGraphFunctions` by the admitted
++  root name and digest.
++
++The section shows:
++
++- the current Run;
++- the invocation admission, invocation and variant;
++- the Program;
++- the root GraphFunction and its digest;
++- the admitted Public start, target and root mode;
++- the executing GraphFunction.
++
++The declared recursion bound appears only when the root template declares
++exactly one recurse application to the executing GraphFunction. Otherwise it is
++`null`. A retained-source predecessor comes from the admission's
++`sourceResultBasis`. It is shown separately and never as the current root or
++Run.
++
++These facts identify which admitted root, start and Run is executing now. They
++carry no task meaning and select no next member. They do not replace the
++original task, history or judgments, and historical first-root commentary does
++not override them.
++
++The section enters the existing section order, envelope and manifest, so
++transport and replay bind it. A missing, foreign or inconsistent owner relation
++refuses `unknown_dependency` before dispatch (REQ-R-ABG3-INSTRUCTION-ASSEMBLY-008).
++This refinement does not project the reentry basis.
++
+ Public acquisition data is excluded. In particular, Root measured a
+ 16,374,018-byte installed request containing 15,985,959 bytes of catalogue
+ readinessBasis. Neither that body nor an all-catalogue/publication/graph snapshot
+@@ -236,3 +273,33 @@ PC05-11 closure or whole-Product qualification. No further Product decision is
+ required by this proposal; realization and live authorization remain Executive's
+ next disposition.
+ 
++## Canonical installed test support
++
++`test_env/support/registered-graph-selection.mjs` is the one canonical helper
++for installed starts. It is unshipped test code and adds no Product, Public or
++runtime authority.
++
++`constructInstalledStartCall` resolves one selection through
++`ProductExecutionResolutionPort`:
++
++- next;
++- a declared start;
++- a published asset handle.
++
++A declared start and an asset handle are mutually exclusive. The typed Public
++start target follows the selection. Policy, grant, authority and slot resources
++come from the selected root's actual resolution.
++
++`constructInstalledPendingCall` assembles one pending-execution
++`continue.current_intent` call through the existing owners:
++
++1. the prefix continuation projection;
++2. `selectPendingExecutionUse`;
++3. `projectPendingExecutionInputAtPrefix`;
++4. the declared input contract;
++5. the existing capability-grant constructor.
++
++It requires the pending root admission's authority to equal the supplied
++start's authority. The default-library same-Run and retained-A/B cold tests
++reuse it, and their semantic and negative assertions stay in those tests.
++Historical operator forks remain immutable evidence, not support.
+diff --git a/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs b/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs
+index 0eb006c3c..be57aa0ad 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs
+@@ -234,8 +234,12 @@ export async function constructInstalledStartCall({
+   programRef,
+   rootMode = "direct",
+   declaredStartRef,
++  assetHandle,
+   inputFactory,
+ }) {
++  // One selection: next, one declared start, or one published asset handle.
++  assert.ok(declaredStartRef === undefined || assetHandle === undefined, "start and asset selections are mutually exclusive");
++  if (assetHandle !== undefined) assert.ok(typeof assetHandle === "string" && assetHandle.length > 0, "asset selection names one handle");
+   const {
+     product,
+     abg,
+@@ -255,7 +259,7 @@ export async function constructInstalledStartCall({
+     selection: Object.freeze({
+       kind: "start",
+       scope: "program",
+-      target: declaredStartRef ?? "next",
++      target: assetHandle === undefined ? declaredStartRef ?? "next" : `asset:${assetHandle}`,
+       ...(declaredStartRef === undefined ? {} : { startRef: declaredStartRef }),
+       until: "converged",
+       rootMode,
+@@ -338,12 +342,13 @@ export async function constructInstalledStartCall({
+   const request = Object.freeze({
+     program,
+     scope: "program",
+-    target: declaredStartRef === undefined ? Object.freeze({ kind: "next" }) : Object.freeze({
+-      kind: "declared_start", start: Object.freeze({
+-        ref: resolution.resolvedProgramStart.start.startRef,
+-        digest: product.sha256Canonical(resolution.resolvedProgramStart.start),
++    target: assetHandle !== undefined ? Object.freeze({ kind: "asset", handle: assetHandle })
++      : declaredStartRef === undefined ? Object.freeze({ kind: "next" }) : Object.freeze({
++        kind: "declared_start", start: Object.freeze({
++          ref: resolution.resolvedProgramStart.start.startRef,
++          digest: product.sha256Canonical(resolution.resolvedProgramStart.start),
++        }),
+       }),
+-    }),
+     until: "converged",
+     catalogView: view,
+     allowlist: Object.freeze([...catalogView.allowlist]),
+@@ -455,6 +460,88 @@ export async function constructInstalledStartCall({
+   };
+ }
+ 
++/** The typed pending_execution use request for one projected pending position,
++ * with the Run digest of its opened root scope at `prefix`. A position without
++ * progressed input (an effect_unknown cut) carries the literal `none`
++ * coordinate; the owner refuses that position on its effect first. */
++export async function pendingExecutionUseRequest({ environment, prefix, runId, pending }) {
++  const { product, abg } = environment, root = pending.chain[0];
++  const coordinate = (ref, digest) => Object.freeze({ ref, digest });
++  const scope = abg.projectOpenedTraversalScopeForFrameAtPrefix?.(prefix, root.frameId) ??
++    (await import(pathToFileURL(join(environment.installedRoot, "build/code/src/abg/open_call.js")).href))
++      .projectOpenedTraversalScopeForFrameAtPrefix(prefix, root.frameId);
++  return Object.freeze({
++    run: coordinate(runId, scope.runDigest),
++    continuation: coordinate(pending.continuationRef, pending.continuationDigest),
++    pendingCursor: coordinate(pending.pendingCursorRef, pending.pendingCursorDigest),
++    continuationInput: coordinate(pending.progressedInputRef ?? "none", pending.progressedInputDigest ?? product.sha256Canonical("none")),
++    expectedBasis: coordinate(root.basisRef, root.basisDigest),
++  });
++}
++
++/** One cold Public `run.continue` `current_intent` pending_execution call
++ * factory over the existing owners: use selection, pending input projection,
++ * the declared input contract and the capability-grant constructor. `start` is
++ * the actual Public start (resolution, capability basis, work authority and
++ * run-environment resources) whose authority the pending root admission
++ * names. `call(identity, requestPatch)` acquires a fresh event resource per
++ * call. Semantic and negative assertions stay with the caller. */
++export function constructInstalledPendingCall({ environment, publicApi, continuation, prefix, request, start,
++  eventResource, identityScope, eventTime, provenanceRef }) {
++  const { product, admittedInstalls, workspaceBinding, catalog, catalogView } = environment;
++  const use = continuation.selectPendingExecutionUse(prefix, request);
++  assert.equal(use.kind, "pending_execution_use", JSON.stringify(use));
++  assert.deepEqual([use.invocation.authorityRef, use.invocation.authorityDigest],
++    [start.workAuthority.authorityRef, start.workAuthority.authorityDigest], "the pending root admission names the supplied start authority");
++  const publications = start.resolution.declarationPublications;
++  const pendingInput = continuation.projectPendingExecutionInputAtPrefix(prefix, use,
++    (ref) => publications.flatMap((x) => x.graphFunctions).find((g) => g.name === ref) ?? null, start.resolution.programValidation);
++  assert.ok(pendingInput, "pending input carrier projects");
++  const inputDeclaration = publications.flatMap((x) => x.contracts).find((c) => c.contractRef === pendingInput.inputCarrierRef);
++  assert.ok(inputDeclaration, "pending input carrier has one declared contract");
++  const packet = product.RUN_OPERATION_CONTRACTS.continue.current_intent, pendingOperationId = packet.definitionKey.operationId;
++  const { policy, actorRef } = start.capabilityBasis;
++  const grant = product.constructCapabilityGrant(policy, actorRef, pendingOperationId, packet.metadata.capabilityRefs[0],
++    { admittedInstalls, workspaceBinding, fixedPacket: packet });
++  const r = start.resolution.resolution;
++  const contractCatalog = environment.verified.definitionContractCoordinates.operations
++    .find((o) => o.operationId === pendingOperationId).members.find((m) => m.memberKey === "current_intent").slots.request.contractCatalog;
++  const call = (identity, requestPatch = {}) => {
++    const resource = eventResource(), steering = product.sha256Canonical(resource);
++    const slots = {
++      workspace_binding: { ref: workspaceBinding.bindingId, digest: workspaceBinding.bindingDigest },
++      product_set: admittedInstalls.map(product.productInstallCoordinate),
++      dependency_lock: { ref: workspaceBinding.lockId, digest: workspaceBinding.lockDigest },
++      catalog_scope: {
++        catalog: { ref: `graph-function-catalog://abiogenesis/${catalog.basisDigest.slice(7)}`, digest: catalog.basisDigest },
++        view: { ref: `graph-function-catalog-view://abiogenesis/${catalogView.viewDigest.slice(7)}`, digest: catalogView.viewDigest },
++        allowlist: catalogView.allowlist,
++      },
++      execution_program: { ref: r.programRef, digest: r.programDigest },
++      graph_function: { graphFunction: { ref: r.graphFunctionRef, digest: r.graphFunctionDigest }, membership: r.programGraphFunctionMembership },
++      input_contract: { contract: { ref: inputDeclaration.contractRef, digest: product.sha256Canonical(inputDeclaration) },
++        valueRef: pendingInput.input.inputRef, valueDigest: pendingInput.input.inputDigest, value: pendingInput.input.value },
++      session_policy: { ref: policy.policyRef, digest: policy.policyDigest },
++      capability_grants: { requiredCapabilityRefs: packet.metadata.capabilityRefs, grants: [{ ref: grant.grantRef, digest: grant.grantDigest }] },
++      actor: { actor: { ref: actorRef, digest: product.sha256Canonical({ actorRef }) },
++        attribution: { ref: start.workAuthority.authorityRef, digest: start.workAuthority.authorityDigest } },
++      transport_steering: { ref: `transport-steering://abiogenesis/${steering.slice(7)}`, digest: steering },
++      verification_references: null,
++      execution_basis: request.expectedBasis,
++    };
++    return publicApi.constructInstalledPublicDefinitionCall({
++      product, installedPublic: publicApi, definitionContractCoordinates: environment.verified.definitionContractCoordinates,
++      contractCatalog, operationId: pendingOperationId, memberKey: "current_intent", request: { ...request, ...requestPatch }, slots,
++      resources: { kind: "run_invocation_resource_assertion", schemaVersion, eventResource: resource, catalog, catalogView,
++        applications: [], source: { kind: "none" },
++        ...(start.call.resources?.runEnvironmentResources === undefined ? {} : { runEnvironmentResources: start.call.resources.runEnvironmentResources }) },
++      requestRef: `public-request://${identityScope}/${identity}`, correlationRef: `correlation://${identityScope}/${identity}`,
++      eventTime, provenanceRefs: [provenanceRef],
++    });
++  };
++  return Object.freeze({ use, pendingInput, inputDeclaration, call });
++}
++
+ function readAuthoritySlots(environment, packet, grants) {
+   const { product, admittedInstalls, workspaceBinding } = environment;
+   return Object.freeze({
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+index 424d6eee9..86c4b69b3 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+@@ -16,7 +16,8 @@ import * as validator from '../../build/code/src/validator/index.js';
+ import {observedGovernanceTaskMatches} from '../../build/code/src/abg/default_library.js';
+ import {projectObservedWorksiteCommandChildAtPrefix} from '../../build/code/src/abg/worksite_input_provenance.js';
+ import {setupInstalledRootCatalog,requirePublicationValidations} from '../support/root-installed-environment.mjs';
+-import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
++import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest,
++  pendingExecutionUseRequest,constructInstalledPendingCall} from '../support/registered-graph-selection.mjs';
+ import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
+ // Authentic retained RC2 stdout (4616 bytes, sha256 bee000fc…87b6) and its historical producer citation from
+ // rc3-operator-inputs/increment-a-01/retained-stdout-custody.json, embedded so this test reads no untracked operator path.
+@@ -296,19 +297,61 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact
+   const node=graph.template.nodes.find(n=>n.term.programLocusRef===product.governanceRef('node','select')),role=library.runEnvironments[0].roles.find(r=>r.role==='selector');
+   const supplied={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state,context};
+   const targets=library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']);
+-  const events=[],call={regime:'F_P',cCallRef:'call:unit',cCallDigest:product.sha256Canonical('call'),graphFunctionRef:graph.name,programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')};
++  const events=[],call={regime:'F_P',cCallRef:'call:unit',cCallDigest:product.sha256Canonical('call'),runId:'run:unit',graphFunctionRef:graph.name,programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')};
++  // The executing step's root declares its recursion; the current binding projects that exact relation.
++  const executive=library.graphFunctions.find(g=>g.template.applications.some(a=>a.relationKind==='recurse'&&a.graphFunctionRef===graph.name)),recurse=executive.template.applications.find(a=>a.relationKind==='recurse');
+   const execution={programRef:library.programs[0].programRef,basisRef:'basis:unit',basisDigest:product.sha256Canonical('basis'),invocationAdmissionRef:'invocation:unit',registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,product.sha256Canonical(g)]))};
+-  const owner={events,call,execution,graph:{template:graph.template},inputValue:supplied,inputDigest:product.sha256Canonical(supplied),inputRef:'input:unit',program:library.programs[0]};
++  // The assembly owner's execution is the executing step under one root; later projection premises keep `execution`.
++  const currentExecution={...execution,basisClass:'child',parentExecutionBasisRef:'basis:root-current',invocationRef:'invocation-ref:unit',graphFunctionRef:graph.name};
++  const owner={events,call,execution:currentExecution,graph:{template:graph.template},inputValue:supplied,inputDigest:product.sha256Canonical(supplied),inputRef:'input:unit',program:library.programs[0]};
+   const candidate={publication:{...library,contracts:[]},graphFunction:graph,declarationGraphFunctions:library.graphFunctions,executionBasis:execution,cCall:call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
++  // Controlled current-binding premises: one exact admission, its one Run segment and the governance root.
++  const currentAdmission={invocationAdmissionRef:currentExecution.invocationAdmissionRef,invocationRef:currentExecution.invocationRef,invocationVariant:'direct',programRef:execution.programRef,
++    graphFunctionRef:executive.name,graphFunctionDigest:product.sha256Canonical(executive),sourceResultBasis:null,
++    publicStart:{kind:'public_start_identity',schemaVersion:'5.0.0',programRef:execution.programRef,graphFunctionRef:executive.name,startRef:'start:unit',scope:'program',target:'next',until:'converged',rootMode:'direct'}};
++  const currentRoot={basisClass:'root',basisRef:currentExecution.parentExecutionBasisRef,parentExecutionBasisRef:null,invocationAdmissionRef:currentAdmission.invocationAdmissionRef,
++    invocationRef:currentAdmission.invocationRef,programRef:execution.programRef,graphFunctionRef:executive.name,graphFunctionDigest:currentAdmission.graphFunctionDigest};
++  let currentRun=call.runId;
+   // Controlled authenticated occurrence/role premises; actual task/context and
+   // declaration/result owners are exercised here. Installed proof owns ingress.
+   const file=resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:'invocation:unit',environmentRef:'environment:unit',environmentDigest:product.sha256Canonical('environment'),evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent:[],accessContent:[]})}:{};
++    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:'invocation:unit',environmentRef:'environment:unit',environmentDigest:product.sha256Canonical('environment'),evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent:[],accessContent:[]})}:
++      specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:(_p,ref)=>ref===currentAdmission.invocationAdmissionRef?currentAdmission:null,
++        hasExactInvocationRunBindingAtPrefix:(_p,admission,runId)=>admission===currentAdmission&&runId===currentRun}:
++      specifier==='./semantic_job.js'?{semanticJobRootAtPrefix:(_p,e)=>e.parentExecutionBasisRef===currentRoot.basisRef&&e.invocationAdmissionRef===currentRoot.invocationAdmissionRef?currentRoot:null}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+   const lookup=ref=>library.contracts.find(c=>c.contractRef===ref)??null;
+   const assembly=m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
+   const rendered=assembly.request.prompt, response=assembly.request.responseJsonSchema;
++  // Current binding: exact current facts in their own bound section, separate from the conserved task.
++  const shown=assembly.envelope.sections.binding;assert.deepEqual(assembly.plan.sectionOrder,['role','choices','task','binding','evidence','response']);
++  assert.ok(rendered.includes('## binding\n'+product.canonicalJson(shown)));assert.equal(assembly.manifest.bindingDigest,product.sha256Canonical(shown));
++  assert.deepEqual({...shown,meaning:undefined},{meaning:undefined,runId:'run:unit',programRef:execution.programRef,
++    invocation:{invocationAdmissionRef:currentExecution.invocationAdmissionRef,invocationRef:currentExecution.invocationRef,invocationVariant:'direct'},
++    root:{basisRef:currentRoot.basisRef,graphFunctionRef:executive.name,graphFunctionDigest:currentAdmission.graphFunctionDigest},
++    start:{startRef:'start:unit',target:'next',until:'converged',rootMode:'direct'},executing:{basisRef:currentExecution.basisRef,graphFunctionRef:graph.name},
++    declaredRecursion:{applicationRef:recurse.applicationRef,graphFunctionRef:graph.name,bound:recurse.bound},predecessor:null});
++  // A retained-source predecessor stays separate from the current Run and root.
++  const sourceResultBasis={sourceRunId:'run:predecessor',sourceInvocationAdmissionRef:'invocation:predecessor',sourceInvocationRef:'invocation-ref:predecessor',
++    sourceGraphFunctionRef:executive.name,sourceCCallRef:'call:predecessor',sourceResultRef:'result:predecessor',sourceResultDigest:product.sha256Canonical('predecessor')};
++  currentAdmission.sourceResultBasis=sourceResultBasis;
++  const retainedBinding=m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup).envelope.sections.binding;currentAdmission.sourceResultBasis=null;
++  assert.deepEqual([retainedBinding.runId,retainedBinding.root,retainedBinding.invocation],[shown.runId,shown.root,shown.invocation],'the predecessor never becomes the current Run or root');
++  const {sourceCCallRef:_call,...predecessor}=sourceResultBasis;assert.deepEqual(retainedBinding.predecessor,predecessor);
++  // No invented bound: without the authenticated root definition the bound is absent, not defaulted.
++  const unbounded=m.namespace.evaluateFramedSynthesisInstructionAssembly({...candidate,declarationGraphFunctions:library.graphFunctions.filter(g=>g!==executive)},supplied,lookup);
++  assert.equal(unbounded.kind,'native_instruction_assembly');assert.equal(unbounded.envelope.sections.binding.declaredRecursion,null);
++  // Unknown, foreign or forged current facts refuse before dispatch with the existing cause.
++  const zeroDigest='sha256:'+'0'.repeat(64),swap=(target,key,value)=>{const old=target[key];target[key]=value;return ()=>{target[key]=old;};};
++  for(const [label,change] of [['foreign Run',()=>{const old=currentRun;currentRun='run:foreign';return ()=>{currentRun=old;};}],
++    ['unknown admission',()=>swap(currentAdmission,'invocationAdmissionRef','invocation:forged')],['forged root digest',()=>swap(currentRoot,'graphFunctionDigest',zeroDigest)],
++    ['crossed invocation',()=>swap(currentAdmission,'invocationRef','invocation-ref:forged')],['crossed start',()=>swap(currentAdmission.publicStart,'graphFunctionRef','graph:foreign')],
++    ['absent root',()=>swap(currentRoot,'basisRef','basis:other-root')]]){
++    const undo=change();try{assert.deepEqual(m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup),
++      {kind:'native_instruction_assembly_refusal',cause:'unknown_dependency',policy:null,role:'selector',unresolvedRefs:[execution.invocationAdmissionRef]},label);}finally{undo();}
++  }
++  assert.deepEqual(m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup),assembly,'the restored premises reproduce the same assembly');
+   const canonical=assembly.envelope.sections.response;
+   assert.deepEqual(canonical,product.framedSynthesisResponseSchema(supplied,assembly.envelope.targetBindings));assert.ok(canonical.anyOf.length>0,'canonical target/source constraints remain intact');
+   assert.equal(assembly.plan.responsePresentation,undefined);assert.equal(assembly.request.responsePresentation,undefined);
+@@ -460,10 +503,18 @@ async function planningAssemblyFor(task,{oldProjectorSource}={}) {
+     contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest]}))});
+   const graph=publication.graphFunctions.find(g=>g.name===IDS.stepRef),node=graph.template.nodes.find(n=>n.term.programLocusRef===product.governanceRef('node','select'));
+   const targets=library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']),role=publication.runEnvironments[0].roles.find(r=>r.role==='selector');
+-  const call={regime:'F_P',cCallRef:'call:controlled-planning',cCallDigest:product.sha256Canonical('call'),graphFunctionRef:graph.name,
++  const call={regime:'F_P',cCallRef:'call:controlled-planning',cCallDigest:product.sha256Canonical('call'),runId:'run:controlled-planning',graphFunctionRef:graph.name,
+     programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')};
+-  const execution={programRef:IDS.programRef,basisRef:'basis:controlled-planning',basisDigest:product.sha256Canonical('basis'),
+-    invocationAdmissionRef:'invocation:controlled-planning',registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,product.sha256Canonical(g)]))};
++  const execution={programRef:IDS.programRef,basisRef:'basis:controlled-planning',basisDigest:product.sha256Canonical('basis'),basisClass:'child',
++    parentExecutionBasisRef:'basis:controlled-planning-root',invocationAdmissionRef:'invocation:controlled-planning',invocationRef:'invocation-ref:controlled-planning',
++    graphFunctionRef:graph.name,registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,product.sha256Canonical(g)]))};
++  // Controlled current-binding premises: one exact admission, its Run segment and the governance root of the executing step.
++  const rootGraph=[...publication.graphFunctions,...library.graphFunctions].find(g=>g.template.applications.some(a=>a.relationKind==='recurse'&&a.graphFunctionRef===graph.name));
++  const rootRef=rootGraph?.name??'graph-function:controlled-planning-root',rootDigest=product.sha256Canonical(rootGraph??rootRef);
++  const admission={invocationAdmissionRef:execution.invocationAdmissionRef,invocationRef:execution.invocationRef,invocationVariant:'direct',programRef:execution.programRef,
++    graphFunctionRef:rootRef,graphFunctionDigest:rootDigest,publicStart:null,sourceResultBasis:null};
++  const rootExecution={basisClass:'root',basisRef:execution.parentExecutionBasisRef,parentExecutionBasisRef:null,invocationAdmissionRef:admission.invocationAdmissionRef,
++    invocationRef:admission.invocationRef,programRef:execution.programRef,graphFunctionRef:rootRef,graphFunctionDigest:rootDigest};
+   const owner={events:[],call,execution,graph:{template:graph.template},inputValue:task,inputDigest:product.sha256Canonical(task),inputRef:'input:controlled-planning',program:publication.programs[0]};
+   const candidate={publication,graphFunction:graph,declarationGraphFunctions:[...publication.graphFunctions,...library.graphFunctions],
+     executionBasis:execution,cCall:call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
+@@ -489,6 +540,9 @@ async function planningAssemblyFor(task,{oldProjectorSource}={}) {
+       s==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:execution.invocationAdmissionRef,
+         environmentRef:publication.runEnvironments[0].declarationRef,environmentDigest:product.sha256Canonical(publication.runEnvironments[0]),
+         evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent,accessContent:[]})}:
++      s==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:(_p,ref)=>ref===admission.invocationAdmissionRef?admission:null,
++        hasExactInvocationRunBindingAtPrefix:(_p,a,runId)=>a===admission&&runId===call.runId}:
++      s==='./semantic_job.js'?{semanticJobRootAtPrefix:(_p,e)=>e.parentExecutionBasisRef===rootExecution.basisRef?rootExecution:null}:
+       s==='../product/default_library.js'&&oldProjector?{projectFramedSynthesisPromptTask:oldProjector}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
+   await m.evaluate();const lookup=ref=>[...publication.contracts,...library.contracts].find(c=>c.contractRef===ref)??null;
+@@ -1577,6 +1631,11 @@ syncBuiltinESMExports();save('recovery-origin.json',{lastCloseHandoff:input.clos
+ const cliPath=join(input.installedRoot,'build/code/src/public/cli.js');process.argv=[process.execPath,cliPath,'--jsonl',input.requestPath];
+ await import(pathToFileURL(cliPath).href);fs.fsyncSync=nativeFsync;syncBuiltinESMExports();save('unexpected-completion.json',{exitCode:process.exitCode??0});
+ `;
++// The current-binding section of each admitted framed-synthesis selector
++// assembly, read from its delivered prompt and checked against its manifest.
++const selectorBindings=rows=>rows.filter(e=>e.kind==='actor_transport_binding_admitted'&&e.payload?.instructionAssembly?.plan?.variant==='framed-synthesis').map(e=>{
++  const a=e.payload.instructionAssembly,section=a.request.prompt.split('\n\n').find(x=>x.startsWith('## binding\n'));assert.ok(section,'the selector prompt presents its current binding');
++  const binding=JSON.parse(section.slice('## binding\n'.length));assert.equal(product.sha256Canonical(binding),a.manifest.bindingDigest,'prompt and manifest bind the same facts');return binding;});
+ test('default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm',async t=>{
+   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
+   // The consumer Program is validated over its Product-resolved declaration
+@@ -1651,41 +1710,20 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
+   const testingBasis=run0.find(e=>e.kind==='basis_admitted'&&e.payload.basisRef===p.chain[2].basisRef);assert.equal(testingBasis?.graphFunctionRef,testingRef);
+   assert.notEqual(p.progressedInputRef,start.call.invocation?.input?.valueRef??null);
+   const rootBasis=run0.find(e=>e.kind==='basis_admitted'&&e.payload.basisRef===p.chain[0].basisRef);assert.notEqual(p.progressedInputRef,rootBasis.payload.rawInputAdmissionRef,'progressed input is not graph-entry input');
+-  const coordinate=(ref,digest)=>({ref,digest}),zero='sha256:'+'0'.repeat(64);
+-  const rootScope=env.abg.projectOpenedTraversalScopeForFrameAtPrefix?.(prefix,p.chain[0].frameId)??(await load('abg/open_call')).projectOpenedTraversalScopeForFrameAtPrefix(prefix,p.chain[0].frameId);
+-  const request={run:coordinate(runId,rootScope.runDigest),continuation:coordinate(p.continuationRef,p.continuationDigest),
+-    pendingCursor:coordinate(p.pendingCursorRef,p.pendingCursorDigest),continuationInput:coordinate(p.progressedInputRef,p.progressedInputDigest),expectedBasis:coordinate(p.chain[0].basisRef,p.chain[0].basisDigest)};
+-  const use=cc.selectPendingExecutionUse(prefix,request);assert.equal(use.kind,'pending_execution_use',JSON.stringify(use));
+-  const publications=start.resolution.declarationPublications;
+-  const pendingInput=cc.projectPendingExecutionInputAtPrefix(prefix,use,ref=>publications.flatMap(x=>x.graphFunctions).find(g=>g.name===ref)??null,start.resolution.programValidation);
+-  assert.ok(pendingInput,'pending input carrier projects');const inputDeclaration=publications.flatMap(x=>x.contracts).find(c=>c.contractRef===pendingInput.inputCarrierRef);assert.ok(inputDeclaration);
+-  // 4. Cold Public run.continue current_intent pending_execution arm.
+-  const packet=product.RUN_OPERATION_CONTRACTS.continue.current_intent,operationId=packet.definitionKey.operationId,{policy,actorRef}=start.capabilityBasis;
+-  const grant=product.constructCapabilityGrant(policy,actorRef,operationId,packet.metadata.capabilityRefs[0],{admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet});
+-  const r=start.resolution.resolution;
+-  const makeCall=(identity,patch={})=>{
+-    const eventResource=resource(),steering=product.sha256Canonical(eventResource);
+-    const slots={workspace_binding:{ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest},product_set:env.admittedInstalls.map(product.productInstallCoordinate),
+-      dependency_lock:{ref:env.workspaceBinding.lockId,digest:env.workspaceBinding.lockDigest},
+-      catalog_scope:{catalog:{ref:`graph-function-catalog://abiogenesis/${env.catalog.basisDigest.slice(7)}`,digest:env.catalog.basisDigest},view:{ref:`graph-function-catalog-view://abiogenesis/${env.catalogView.viewDigest.slice(7)}`,digest:env.catalogView.viewDigest},allowlist:env.catalogView.allowlist},
+-      execution_program:{ref:r.programRef,digest:r.programDigest},graph_function:{graphFunction:{ref:r.graphFunctionRef,digest:r.graphFunctionDigest},membership:r.programGraphFunctionMembership},
+-      input_contract:{contract:{ref:inputDeclaration.contractRef,digest:product.sha256Canonical(inputDeclaration)},valueRef:pendingInput.input.inputRef,valueDigest:pendingInput.input.inputDigest,value:pendingInput.input.value},
+-      session_policy:{ref:policy.policyRef,digest:policy.policyDigest},capability_grants:{requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:[{ref:grant.grantRef,digest:grant.grantDigest}]},
+-      actor:{actor:{ref:actorRef,digest:product.sha256Canonical({actorRef})},attribution:{ref:start.workAuthority.authorityRef,digest:start.workAuthority.authorityDigest}},
+-      transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering},verification_references:null,execution_basis:{ref:p.chain[0].basisRef,digest:p.chain[0].basisDigest}};
+-    const contractCatalog=env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===operationId).members.find(m=>m.memberKey==='current_intent').slots.request.contractCatalog;
+-    return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:env.verified.definitionContractCoordinates,contractCatalog,operationId,memberKey:'current_intent',
+-      request:{...request,...patch},slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:'5.0.0',eventResource,catalog:env.catalog,catalogView:env.catalogView,applications:[],source:{kind:'none'},
+-        ...(start.call.resources?.runEnvironmentResources===undefined?{}:{runEnvironmentResources:start.call.resources.runEnvironmentResources})},
+-      requestRef:`public-request://pending-testing/${identity}`,correlationRef:`correlation://pending-testing/${identity}`,eventTime:'2026-11-02T00:01:00.000Z',provenanceRefs:['provenance://default-library-witness/pending-testing@5']});
+-  };
++  const zero='sha256:'+'0'.repeat(64);
++  const request=await pendingExecutionUseRequest({environment:env,prefix,runId,pending:p});
++  // 4. Cold Public run.continue current_intent pending_execution arm, through the shared support assembly.
++  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,start,eventResource:resource,
++    identityScope:'pending-testing',eventTime:'2026-11-02T00:01:00.000Z',provenanceRef:'provenance://default-library-witness/pending-testing@5'});
++  assert.equal(pending.use.source.continuationRef,p.continuationRef);
++  const makeCall=pending.call;
+   const cli=async(identity,call)=>{
+     const execution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:actorEnvironment});
+     const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));
+     if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;return {receipt,wallMs:execution.wallMs};
+   };
+   const read=()=>storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix);
+-  const crossed=(await cli('crossed',makeCall('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}))).receipt;
++  const crossed=(await cli('crossed',makeCall('crossed',{pendingCursor:{ref:p.pendingCursorRef,digest:zero}}))).receipt;
+   assert.equal(crossed.ownerOutput.outcomeKind,'refusal');assert.equal(crossed.ownerOutput.value.code,'response_mismatch');assert.deepEqual(crossed.ownerOutput.value.issuePaths,['/pendingCursor']);
+   assert.equal(read().length,interrupted.length,'a crossed request admits nothing');
+   const resumedAt=performance.now(),continued=await cli('continue',makeCall('continue'));
+@@ -1715,6 +1753,11 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
+   const parent=results(final).filter(e=>e.graphFunctionRef===witnessRef('graph-function','executive'));assert.equal(parent.at(-1).payload.value.terminal,true);
+   assert.equal(final.filter(e=>e.kind==='run_closed').length,1);assert.equal(final.some(e=>e.kind==='runtime_failure_observed'),false);
+   assert.equal(new Set(final.map(e=>e.runId)).size,1,'one Run identity');
++  // Each selector, before and after the resumption, presents this Run, its root admission and the declared bound; no predecessor.
++  const bindings=selectorBindings(final),stepRef=witnessRef('graph-function','executive-step');assert.equal(bindings.length,3,'three selector assemblies');
++  for(const b of bindings){assert.deepEqual([b.runId,b.predecessor,b.invocation.invocationAdmissionRef,b.root.basisRef,b.root.graphFunctionRef],
++    [runId,null,rootBasis.payload.invocationAdmissionRef,p.chain[0].basisRef,witnessRef('graph-function','executive')]);
++    assert.deepEqual([b.executing.graphFunctionRef,b.declaredRecursion?.graphFunctionRef,b.declaredRecursion?.bound],[stepRef,stepRef,8]);assert.equal(b.start?.rootMode,'direct');}
+   assert.deepEqual(cc.projectPendingExecutionContinuations(finalPrefix,runId),[],'no pending execution remains');
+   const operations=all.filter(e=>e.kind==='public_operation_admitted'&&e.payload.continuationKind==='pending_execution');assert.equal(operations.length,1,'one consumed use');
+   assert.ok(cc.projectPendingExecutionOperation(finalPrefix,operations[0]),'cold operation correspondence');
+@@ -1840,37 +1883,17 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
+   const [p,...extra]=cc.projectPendingExecutionContinuations(prefix,B);
+   assert.equal(extra.length,0);assert.ok(p,'one pending execution');assert.equal(p.phase,'undispatched');assert.equal(p.pendingCursorRef,interruption.entered[0].cursorRef);
+   assert.equal(p.chain[0].basisRef,rootB.payload.basisRef);
+-  const coordinate=(ref,digest)=>({ref,digest}),rootScope=env.abg.projectOpenedTraversalScopeForFrameAtPrefix?.(prefix,p.chain[0].frameId)??(await load('abg/open_call')).projectOpenedTraversalScopeForFrameAtPrefix(prefix,p.chain[0].frameId);
+-  const requestFor=o=>({run:coordinate(B,rootScope.runDigest),continuation:coordinate(o.continuationRef,o.continuationDigest),pendingCursor:coordinate(o.pendingCursorRef,o.pendingCursorDigest),
+-    continuationInput:coordinate(o.progressedInputRef??'none',o.progressedInputDigest??product.sha256Canonical('none')),expectedBasis:coordinate(o.chain[0].basisRef,o.chain[0].basisDigest)});
++  const requestFor=o=>pendingExecutionUseRequest({environment:env,prefix,runId:B,pending:o});
+   const lastSelected=rowsB.filter(e=>e.kind==='c_call_fibre_selected').at(-1),lines=bytes.toString('utf8').split('\n'),cut=lines.findIndex(l=>l.includes('"eventId":"'+lastSelected.eventId+'"'));
+   const early=env.abg.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(Buffer.from(lines.slice(0,cut+1).join('\n')+'\n')));
+   const [unknown]=cc.projectPendingExecutionContinuations(early,B);assert.equal(unknown?.phase,'effect_unknown','a dispatched call without its Result has an unknown effect');
+-  assert.deepEqual(cc.selectPendingExecutionUse(early,requestFor(unknown)),{kind:'refused',code:'replay_mismatch',path:'/continuation/effect'});
+-  const request=requestFor(p),use=cc.selectPendingExecutionUse(prefix,request);assert.equal(use.kind,'pending_execution_use',JSON.stringify(use));
+-  const publications=startA.resolution.declarationPublications;
+-  const pendingInput=cc.projectPendingExecutionInputAtPrefix(prefix,use,ref=>publications.flatMap(x=>x.graphFunctions).find(g=>g.name===ref)??null,startA.resolution.programValidation);
+-  assert.ok(pendingInput);const inputDeclaration=publications.flatMap(x=>x.contracts).find(c=>c.contractRef===pendingInput.inputCarrierRef);assert.ok(inputDeclaration);
+-  // 4. Cold Public run.continue current_intent pending_execution arm; source none: B's admission already carries the use.
+-  const packet=product.RUN_OPERATION_CONTRACTS.continue.current_intent,operationId=packet.definitionKey.operationId,{policy,actorRef}=startA.capabilityBasis;
+-  const grant=product.constructCapabilityGrant(policy,actorRef,operationId,packet.metadata.capabilityRefs[0],{admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet});
+-  const r=startA.resolution.resolution;
+-  const makeCall=identity=>{
+-    const eventResource=resource(),steer=product.sha256Canonical(eventResource);
+-    const slots={workspace_binding:{ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest},product_set:env.admittedInstalls.map(product.productInstallCoordinate),
+-      dependency_lock:{ref:env.workspaceBinding.lockId,digest:env.workspaceBinding.lockDigest},
+-      catalog_scope:{catalog:{ref:`graph-function-catalog://abiogenesis/${env.catalog.basisDigest.slice(7)}`,digest:env.catalog.basisDigest},view:{ref:`graph-function-catalog-view://abiogenesis/${env.catalogView.viewDigest.slice(7)}`,digest:env.catalogView.viewDigest},allowlist:env.catalogView.allowlist},
+-      execution_program:{ref:r.programRef,digest:r.programDigest},graph_function:{graphFunction:{ref:r.graphFunctionRef,digest:r.graphFunctionDigest},membership:r.programGraphFunctionMembership},
+-      input_contract:{contract:{ref:inputDeclaration.contractRef,digest:product.sha256Canonical(inputDeclaration)},valueRef:pendingInput.input.inputRef,valueDigest:pendingInput.input.inputDigest,value:pendingInput.input.value},
+-      session_policy:{ref:policy.policyRef,digest:policy.policyDigest},capability_grants:{requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:[{ref:grant.grantRef,digest:grant.grantDigest}]},
+-      actor:{actor:{ref:actorRef,digest:product.sha256Canonical({actorRef})},attribution:{ref:startA.workAuthority.authorityRef,digest:startA.workAuthority.authorityDigest}},
+-      transport_steering:{ref:`transport-steering://abiogenesis/${steer.slice(7)}`,digest:steer},verification_references:null,execution_basis:{ref:p.chain[0].basisRef,digest:p.chain[0].basisDigest}};
+-    const contractCatalog=env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===operationId).members.find(m=>m.memberKey==='current_intent').slots.request.contractCatalog;
+-    return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:env.verified.definitionContractCoordinates,contractCatalog,operationId,memberKey:'current_intent',
+-      request,slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:'5.0.0',eventResource,catalog:env.catalog,catalogView:env.catalogView,applications:[],source:{kind:'none'},
+-        ...(startA.call.resources?.runEnvironmentResources===undefined?{}:{runEnvironmentResources:startA.call.resources.runEnvironmentResources})},
+-      requestRef:`public-request://retained-source/${identity}`,correlationRef:`correlation://retained-source/${identity}`,eventTime:'2026-11-02T00:03:00.000Z',provenanceRefs:['provenance://default-library-witness/retained-source@5']});
+-  };
++  assert.deepEqual(cc.selectPendingExecutionUse(early,await requestFor(unknown)),{kind:'refused',code:'replay_mismatch',path:'/continuation/effect'});
++  // 4. Cold Public run.continue current_intent pending_execution arm through the shared support assembly; source none:
++  // B's admission already carries the use. B's root admission names A's start authority (same root, separately admitted).
++  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request:await requestFor(p),start:startA,eventResource:resource,
++    identityScope:'retained-source',eventTime:'2026-11-02T00:03:00.000Z',provenanceRef:'provenance://default-library-witness/retained-source@5'});
++  assert.equal(pending.use.invocation.invocationAdmissionRef,rootB.payload.invocationAdmissionRef,'the use resumes B\'s own admission');
++  const makeCall=identity=>pending.call(identity);
+   const resumedAt=performance.now(),continued=await cli('continue',makeCall('continue'),actorEnvironment(logB));
+   assert.equal(continued.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(continued.receipt.ownerOutput).slice(0,4000));
+   const value=continued.receipt.ownerOutput.value;assert.equal(value.continuationKind,'pending_execution');assert.equal(value.admittedIntent,null);
+@@ -1898,6 +1921,14 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
+   // 6. Lineage: B admission -> A's retained state -> A's native Result -> its task context -> A holder.
+   const admissionB=truth.projectExactInvocationAdmissionAtPrefix(finalPrefix,rootB.payload.invocationAdmissionRef);
+   assert.deepEqual(admissionB.sourceResultBasis,S,'B\'s immutable admission carries A\'s retained state');
++  // B's selectors present B's Run, root and admission; A appears only as the separate retained predecessor.
++  const bindingsA=selectorBindings(rowsA.filter(e=>e.runId===A)),bindingsB=selectorBindings(finalB);
++  assert.equal(bindingsA.length,2);assert.equal(bindingsB.length,2);
++  for(const b of bindingsA)assert.deepEqual([b.runId,b.predecessor,b.invocation.invocationAdmissionRef],[A,null,admissionA.invocationAdmissionRef]);
++  for(const b of bindingsB){assert.deepEqual([b.runId,b.root.basisRef,b.invocation.invocationAdmissionRef,b.declaredRecursion?.bound],[B,rootB.payload.basisRef,rootB.payload.invocationAdmissionRef,8]);
++    assert.notEqual(b.invocation.invocationAdmissionRef,admissionA.invocationAdmissionRef,'the current admission is not A\'s');
++    assert.deepEqual(b.predecessor,{sourceRunId:S.sourceRunId,sourceInvocationAdmissionRef:S.sourceInvocationAdmissionRef,sourceInvocationRef:S.sourceInvocationRef,
++      sourceGraphFunctionRef:S.sourceGraphFunctionRef,sourceResultRef:S.sourceResultRef,sourceResultDigest:S.sourceResultDigest});assert.equal(b.predecessor.sourceRunId,A);}
+   const useB=truth.governanceContextBodyUse(admissionB,B);
+   assert.ok(useB.sourceResults.some(x=>x.resultRef===N.payload.resultRef&&x.resultDigest===N.payload.resultDigest&&x.cCallRef===N.aggregateId));
+   const postTesting=results(finalB).filter(e=>e.payload.value?.kind==='framed_synthesis_task'&&e.admissionOrdinal>commands[0].admissionOrdinal);
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs
+index 2e542c540..19e3b7ff5 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs
+@@ -1036,6 +1036,42 @@ test('U1 physical target scope successor across bindings and native Result scope
+       for (let i = 0; i < selected.length; i++) { assert.equal(projected.facts[i].indexed, expected[i], selected[i].label); assert.equal(gates[i], !expected[i]); }
+       assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(before.prefix), before.projection);
+     }
++    {
++      // W and R are distinct. A known native Result impacts observed changes ∪ (W\R): EC and the
++      // currentness gate retire unobserved W\R facts, present and absent, and keep observed-unchanged R facts.
++      const label = 'known-outside-read', writeRoots = ['target.txt', 'nested'];
++      const f = await make(writeRoots, { taskFactory: async env => constructNativeWorkspaceWorkTask({ workspaceAuthorityBasis: env.workspaceAuthorityBasis,
++        workspaceBinding: env.workspaceBinding, capabilityGrant: env.capabilityGrant,
++        context: await product.observeWorksiteContext({ ...env, readRoots: ['target.txt', 'keep.txt'], maxFiles: 30, maxBytes: 10000 }),
++        outcome: 'Bounded test work with disposable tooling', instructions: ['Use only the declared scope.'], readFirst: ['target.txt'], writeRoots, checks: [] }) });
++      assert.deepEqual([f.task.context.readRoots, f.task.writeRoots], [['target.txt', 'keep.txt'], writeRoots]);
++      const b2 = await addTargets(f, ['target.txt', 'keep.txt', 'nested/file.txt', 'nested/absent.txt']);
++      const selected = [...b2.targets.map(({ request }) => observation('b2 ' + request.subject.relativePath, request)), ...controls(f)];
++      const before = await views(f, label + ' before', selected); assert.ok(before.facts.every(row => row.indexed));
++      const after = await product.observeWorksiteContext({ workspaceAuthorityBasis: f.workspaceAuthorityBasis, workspaceBinding: f.workspaceBinding,
++        readRoots: f.task.context.readRoots, maxFiles: f.task.context.maxFiles, maxBytes: f.task.context.maxBytes });
++      physicalEffects.push({ label, owner: 'actual Product observeWorksiteContext over R only', after }); await retention();
++      const report = { summary: 'Controlled component native Result outside R', gaps: [] };
++      const provenance = { cCallRef: f.process.payload.cCallRef, executionAuthorityRef: 'authority://u1/' + label,
++        executionAuthorityDigest: hash(label), actorInvocationRef: f.actorRef, transportBindingRef: f.binding.aggregateId,
++        transportBindingDigest: f.binding.payload.transportBindingDigest, promptDigest: hash(['prompt', label]), transportDigest: hash(['transport', label]) };
++      const value = constructNativeWorkspaceWorkObservation(f.task, after, report, provenance);
++      assert.deepEqual(value.changedPaths, [], 'R is observed unchanged; W\\R is never reported as changed');
++      const event = await nativeResult(f, label, value, report), projected = await views(f, label + ' after', selected);
++      const afterOrdinal = before.rows.at(-1).admissionOrdinal;
++      const gates = selected.map(o => nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), afterOrdinal, o.root, [o.path]));
++      // b2 target (R∩W), b2 keep (R\W), b2 nested present and absent (W\R), b1 target, same-root sibling, other root.
++      const expected = [true, true, false, false, true, true, true];
++      await capture(label + ' Result scope', { event, gates, expected,
++        retired: calculus.projectNativeWorkRetiredObservations(event, f.rows().filter(row => row.admissionOrdinal < event.admissionOrdinal)) });
++      for (let i = 0; i < selected.length; i++) {
++        assert.equal(projected.facts[i].indexed, expected[i], selected[i].label);
++        assert.equal(gates[i], !expected[i], selected[i].label + ' native gate');
++      }
++      assert.deepEqual(['nested', 'keep.txt', '.'].map(root => nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), afterOrdinal, f.canonicalRoot, [], [root])),
++        [true, false, true], 'selected read-root subtrees overlap W\\R exactly');
++      assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(before.prefix), before.projection);
++    }
+     for (const crossed of [false, true]) {
+       const label = crossed ? 'E1 re-signed G2 task versus G1 invocation' : 'E1 matched G1 control';
+       const f = await make(['target.txt'], { taskFactory: async env => {
+@@ -1082,9 +1118,9 @@ test('U1 physical target scope successor across bindings and native Result scope
+     }
+     await failC0AfterPublication();
+     await capture('selected proof complete', { cases: ['cross-binding predecessor', 'actual C0 successor', 'empty-write C0 successor',
+-      'known-off-scope', 'known-empty', 'after-unavailable', 'E1 matched G1', 'E1 re-signed G2', 'next C0 successor',
++      'known-off-scope', 'known-empty', 'after-unavailable', 'known-outside-read', 'E1 matched G1', 'E1 re-signed G2', 'next C0 successor',
+       'actual C0 post-publication unavailable'], result: 'satisfied under declared premises' });
+-    t.diagnostic('Ten selected physical-scope/C0 cases completed; no native/command actor, no installed claim.');
++    t.diagnostic('Eleven selected physical-scope/C0 cases completed; no native/command actor, no installed claim.');
+   } catch (error) {
+     await capture('first unexpected failure', { error: { name: error.name, message: error.message, stack: error.stack }, dependentCasesStopped: true }); throw error;
+   } finally {
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+index dfea1bf09..066451f9c 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+@@ -12,7 +12,7 @@ import { realizeNativeWorkspaceWork } from '../../build/code/src/implementation/
+ import { constructLeafExecutionAuthority } from '../../build/code/src/implementation/leaf_execution_authority.js';
+ import { createNewEmptyAppendSink } from '../../build/code/src/abg/index.js';
+ import { eventCalculusEffect, projectNativeWorkRetiredObservations } from '../../build/code/src/abg/event_calculus.js';
+-import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';
++import { projectNativeWorkUnknownEffectTask, nativeWorkImpact, nativeWorkImpactOverlaps } from '../../build/code/src/abg/native_work_effect.js';
+ import { worksiteCommandSourcesInvalidatedAfter } from '../../build/code/src/abg/native_worksite_execution.js';
+ import { rawAdmitValue } from '../../build/code/src/validator/raw_admission.js';
+ import { validateActorProcessCarrierPair } from '../../build/code/src/abg/actor_process.js';
+@@ -235,14 +235,17 @@ test('native work publishes one ordinary callable effect with run and child clos
+   assert.equal(publication.closureContracts.find(x=>x.closureContractRef===ids.childClosureContractRef).closureScope,'graph_call');
+   assert.equal(publication.implementationBindings[0].computeRegime,'F_P');
+ });
+-test('native task conserves read-only scope and refuses malformed or wider input',async t=>{
++test('native task conserves read-only scope, admits explicit write roots outside R and refuses malformed input',async t=>{
+   const env=await fixture(t,[]);
+   assert.equal(native.isNativeWorkspaceWorkTask(env.task),true);
+   assert.deepEqual(env.task.writeRoots,[]);
+   for(const patch of [{writeRoots:['../outside']},{readFirst:['missing']},{workspaceBinding:null},{context:{...env.task.context,maxBytes:1}}])
+     assert.equal(native.isNativeWorkspaceWorkTask({...env.task,...patch}),false);
++  // W and R are distinct: disposable territory may be explicit W outside R; read-first stays observed in R.
+   const scoped=await product.observeWorksiteContext({...env.read,readRoots:['target.txt']});
+-  assert.equal(native.isNativeWorkspaceWorkTask({...env.task,context:scoped,writeRoots:['keep.txt']}),false);
++  assert.equal(native.isNativeWorkspaceWorkTask({...env.task,context:scoped,writeRoots:['keep.txt']}),true);
++  for(const patch of [{writeRoots:['keep.txt','keep.txt']},{writeRoots:['../tools']},{writeRoots:['/tmp/tools']},{readFirst:['keep.txt']}])
++    assert.equal(native.isNativeWorkspaceWorkTask({...env.task,context:scoped,...patch}),false,JSON.stringify(patch));
+ });
+ test('owner refuses stale context before assembly/dispatch',async t=>{
+   const env=await fixture(t);const p=await prepare(t,env);
+@@ -419,6 +422,57 @@ test('observed partial failure retires touched C0 facts but preserves unchanged
+   assert.deepEqual(projectNativeWorkRetiredObservations({...event,payload:{...event.payload,evidenceRefs:[]}},prior),[]);
+ });
+ 
++test('known native result retires unobserved W\\R facts, present and absent, and preserves observed-unchanged R and unrelated facts',async t=>{
++  const env=await fixture(t);
++  await fs.mkdir(join(env.canonicalRoot,'tools'));await fs.writeFile(join(env.canonicalRoot,'tools/cache.txt'),'cache\n');
++  await fs.writeFile(join(env.canonicalRoot,'other.txt'),'other\n');
++  // R covers the commissioned files; disposable tooling is explicit W outside R.
++  const scoped=await product.observeWorksiteContext({...env.read,readRoots:['target.txt','keep.txt']});
++  env.task=native.constructNativeWorkspaceWorkTask({...env.task,context:scoped,writeRoots:['target.txt','tools']});
++  const paths=['target.txt','keep.txt','tools/cache.txt','tools/absent.txt','other.txt','absent.txt'];
++  const requests=await Promise.all(paths.map(async relativePath=>{
++    const subject=product.constructWorksiteSubject({...env.read,relativePath,subjectUri:pathToFileURL(join(env.canonicalRoot,relativePath)).href});
++    const predecessorObservation=await product.observeWorksiteSubject(env.workspaceAuthorityBasis,env.workspaceBinding,subject);
++    return product.constructWorksiteFileReplaceRequest({...env.read,capabilityGrant:env.capabilityGrant,subject,territory:env.territory,
++      predecessorObservation,replacementBytes:Buffer.from('future\n')});
++  }));
++  assert.ok(requests.every(product.isWorksiteFileReplaceRequest));
++  const p=await prepare(t,env);
++  // Actual local tool write in W\R; R stays unchanged, so the owner observes no change.
++  await fs.writeFile(join(env.canonicalRoot,'tools/cache.txt'),'tool output\n');
++  const exchange=p.exchange(JSON.stringify({summary:'tooling only',gaps:[]})),result=await p.prepared.complete(exchange),value=result.resultCandidate;
++  assert.equal(result.disposition,'success');assert.deepEqual(value.changedPaths,[],'W\\R writes are unobserved, never changedPaths');
++  assert.ok(native.isNativeWorkspaceWorkObservation(value));
++  assert.ok(native.nativeWorkspaceWorkResultMatches(env.task,value,p.call.cCallRef,exchange.observation));
++  const event={kind:'c_call_result_admitted',aggregateId:p.call.cCallRef,payload:{resultClass:'success',value,contractRef:ids.observationContractRef,
++    valueDigest:product.sha256Canonical(value),evidenceRefs:['evidence://test/outside-read']}};
++  const prior=requests.map(rawInputValue=>({kind:'basis_admitted',payload:{rawInputValue}}));
++  prior.push({kind:'c_call_evidenced',aggregateId:p.call.cCallRef,payload:{evidenceRef:'evidence://test/outside-read',
++    evidenceClass:'probabilistic_transport',implementationRef:ids.implementationRef,transportDigest:value.provenance.transportDigest,
++    outputDigest:event.payload.valueDigest}});
++  const retiredFor=retired=>requests.filter(r=>retired.includes(r.subject.relativePath)).map(r=>r.predecessorObservation.observationRef);
++  const expected=retiredFor(['tools/cache.txt','tools/absent.txt']);
++  assert.deepEqual(projectNativeWorkRetiredObservations(event,prior),expected,'W\\R presence and absence retire; observed-unchanged R and unrelated facts survive');
++  assert.deepEqual(eventCalculusEffect(event,prior).terminates.filter(f=>f.name==='worksite_observation_current').map(f=>f.identity),expected);
++  // One shared relation: exact paths and selected subtrees.
++  const known=nativeWorkImpact(value.task,value.changedPaths),unknown=nativeWorkImpact(value.task,null),readOnly=nativeWorkImpact({...value.task,writeRoots:[]},[]);
++  assert.deepEqual(paths.map(path=>nativeWorkImpactOverlaps(known,path)),[false,false,true,true,false,false]);
++  assert.deepEqual(paths.map(path=>nativeWorkImpactOverlaps(unknown,path)),[true,false,true,true,false,false],'unknown after-state impacts all of W');
++  assert.deepEqual(paths.map(path=>nativeWorkImpactOverlaps(readOnly,path)),[false,false,false,false,false,false]);
++  assert.deepEqual(['.','tools','keep.txt','target.txt'].map(root=>nativeWorkImpactOverlaps(known,root)),[true,true,false,false],'subtree overlap meets W\\R');
++  assert.deepEqual(['.','keep.txt','target.txt'].map(root=>nativeWorkImpactOverlaps(nativeWorkImpact(value.task,['target.txt']),root)),[true,false,true],'observed changes stay exact');
++  // An observed R change still retires exactly, alongside W\R.
++  const changed=native.constructNativeWorkspaceWorkObservation(env.task,await product.observeWorksiteContext({...env.read,readRoots:scoped.readRoots}),value.report,value.provenance);
++  assert.deepEqual(changed.changedPaths,[]);
++  await fs.writeFile(join(env.canonicalRoot,'target.txt'),'edited\n');
++  const edited=native.constructNativeWorkspaceWorkObservation(env.task,await product.observeWorksiteContext({...env.read,readRoots:scoped.readRoots}),value.report,value.provenance);
++  assert.deepEqual(edited.changedPaths,['target.txt']);
++  const editedEvent={...event,payload:{...event.payload,value:edited,valueDigest:product.sha256Canonical(edited)}};
++  const editedPrior=[...prior.slice(0,-1),{...prior.at(-1),payload:{...prior.at(-1).payload,outputDigest:editedEvent.payload.valueDigest}}];
++  assert.deepEqual(projectNativeWorkRetiredObservations(editedEvent,editedPrior),retiredFor(['target.txt','tools/cache.txt','tools/absent.txt']));
++  assert.deepEqual(projectNativeWorkRetiredObservations({...event,payload:{...event.payload,evidenceRefs:[]}},prior),[],'unauthenticated causes retire nothing');
++});
++
+ // The artifact owns publication identity; this assertion uses its actual built
+ // manifest rather than repeating a constructor-specific identity formula.
+ test('native publication agrees with actual generated artifact manifest identity',async()=>{

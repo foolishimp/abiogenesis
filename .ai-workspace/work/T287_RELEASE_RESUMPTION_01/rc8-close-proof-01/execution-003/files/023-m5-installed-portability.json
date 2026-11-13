@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/m5-installed-portability.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 166185.42716700007,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 8,
+    "failed": 0,
+    "passed": 8,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 8,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-003/events/023-m5-installed-portability.jsonl",
+    "bytes": 2608,
+    "sha256": "08afb8b076b172a32c5ffc5eb0f3701f5aa45aba631c65b35b9448ea15d1a909"
+  },
+  "commandReceipt": "commands/023-m5-installed-portability.result.json",
+  "workspace": "/private/tmp/abg-r8c-003/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

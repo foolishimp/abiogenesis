@@ -1,0 +1,206 @@
+{
+  "kind": "bounded_negative_oracle_counterexample_review",
+  "reviewId": "H04-REFUSAL-ORACLE-001",
+  "status": "CLOSED_CONFIRMED_TEST_ORACLE_MISMATCH",
+  "createdUtc": "2026-11-06T18:40:20.919262+00:00",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "dispositionOwner": "/root",
+  "productFrame": "Unchanged fixed fifteen-family ABIogenesis5.0 / GOAL035/T287 / selected installed-read STDO3.0.4 / empty composition. Existing ABG, Product preparation, current-source and authority guards remain unchanged.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/review-subject-stage-001/SUBJECT.json",
+    "bytes": 264445,
+    "sha256": "b5715335929d4cb2ba1b81879471970a5f78106a1aaa65571de55a7a5c506793"
+  },
+  "sourceDigest": "4cc3964124aa8424db8d67d2f992c4a9f8624fd0a88913f09dba478199551956",
+  "relevantFrozenInputs": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 370990,
+      "sha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 107947,
+      "sha256": "73c27a0ed2d4e65a0317a1c6f5e16e5294248db7077960d273e9213f62052dc0"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 48336,
+      "sha256": "4ccdb8ad319b9d62f71900d6755f02d55a655973027e07b2766f8ed9e4ed5558"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "bytes": 63239,
+      "sha256": "84e5288f43469b6494cd88b307b3c93bf4fb531a68508f1aff250f26f886d5eb"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "bytes": 77864,
+      "sha256": "5e5aacf55c3d62992eacad661e7de998a9dfc7930e3486cc4077f7a7e39e8425"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "bytes": 50194,
+      "sha256": "b5cfb4a869f800ad16d7391468c15519d7f87887e1a9dd2a494084c723d00555"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "bytes": 38467,
+      "sha256": "f8e51d0ca137f286db09801f9a10b7b2585d48762cd2df735268f80099fe1515"
+    }
+  ],
+  "actualEvidence": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/operator-custody-001/lanes/fixed-route/summary.json",
+      "bytes": 2212,
+      "sha256": "0d7d2a2cb75ea0385b0de71c8aa5131702e9d47a2515502fa785291b3625ed75"
+    },
+    "tap": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-lanes-fixed-route/fixed-route.stdout.tap",
+      "bytes": 3914,
+      "sha256": "f979543dac4f7ba6391b029594817c4fafdf4aaefd470509bffbd18debfb2522"
+    },
+    "failureMetadata": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/operator-custody-001/lanes/fixed-route/FAILURE_METADATA.json",
+      "bytes": 1353,
+      "sha256": "532acf7178bf5238823a4c1af09f2875924a9b830d77edde3608bf3fcb82fe78"
+    },
+    "laneMs": 66805,
+    "tests": 7,
+    "pass": 6,
+    "fail": 1,
+    "skipped": 0,
+    "cancelled": 0,
+    "reached": "Actual Testing completion/producer/role checks, derivation of its retained state Result, and both wrong-wrapper invalid_intent assertions precede the observed crossed-input failure in the awaited test sequence.",
+    "notReached": "Positive UAT, stale-source case, held/fresh readbacks and four later lanes. No full route closure."
+  },
+  "findings": [
+    {
+      "id": "H04-REFUSAL-ORACLE-001",
+      "severity": "S2",
+      "classification": "Existing integration-test oracle conflates Product preparation, ABG admission and source-observation refusals.",
+      "ref": "test_env/tests/t287-default-library.test.mjs:2582-2586,2601-2602,2617",
+      "trigger": "The helper hardcodes invalid_intent and /invocation_admission for all four distinct cases.",
+      "probability": "Observed for crossed-input; deterministic for stale-source under the test's intended successful-UAT premise.",
+      "harm": "Fails the installed discriminator despite the expected fail-closed refusal and prevents later positive/currentness/readback proof. No Product authority defect is established.",
+      "control": "Frozen owner paths refuse before event transaction or graph dispatch; existing effect boundaries remain. The test must retain exact no-effect and actor invariants.",
+      "repairCost": "Small test-only correction in the existing t287-default-library.test.mjs helper and four call sites; no Product, HOW, enum or guard change."
+    }
+  ],
+  "caseContracts": [
+    {
+      "case": "fixed-testing-over-state",
+      "premise": "Current successfully completed direct Testing state Result and exactly its retained input; target Testing wrapper.",
+      "code": "invalid_intent",
+      "issuePaths": [
+        "/invocation_admission"
+      ],
+      "owner": "abg/invocation_admission.ts:1508-1534; product/run_invocation_operation.ts:1052-1065",
+      "cause": "Retained-state entry permits the exact fixed UAT route or declared Executive fulfillment route, not another Testing invocation.",
+      "actorRolesAfter": [
+        "c2"
+      ],
+      "evidence": "Actual preceding assertion passed before the observed crossed-input failure; no full per-case event/actor equality assertion currently exists.",
+      "exitCode": 1,
+      "outcomeKind": "refusal",
+      "events": "No new admitted event; the owner returns/completes at the entry prefix before graph/actor dispatch. Assert the full prefix or full event delta, not the filtered diagnostic.events list.",
+      "mutation": "No new invocation/Run admission, actor or workspace effect from the refusal. Existing caller receipt/evidence recording and in-memory completion bookkeeping remain allowed."
+    },
+    {
+      "case": "fixed-construction-over-state",
+      "premise": "Same current Testing source and retained input; target Construction wrapper.",
+      "code": "invalid_intent",
+      "issuePaths": [
+        "/invocation_admission"
+      ],
+      "owner": "abg/invocation_admission.ts:1508-1534; product/run_invocation_operation.ts:1052-1065",
+      "cause": "Construction is not the admitted direct UAT entry over this retained Testing state.",
+      "actorRolesAfter": [
+        "c2"
+      ],
+      "evidence": "Actual preceding assertion passed before the observed crossed-input failure.",
+      "exitCode": 1,
+      "outcomeKind": "refusal",
+      "events": "No new admitted event; the owner returns/completes at the entry prefix before graph/actor dispatch. Assert the full prefix or full event delta, not the filtered diagnostic.events list.",
+      "mutation": "No new invocation/Run admission, actor or workspace effect from the refusal. Existing caller receipt/evidence recording and in-memory completion bookkeeping remain allowed."
+    },
+    {
+      "case": "fixed-crossed-input",
+      "premise": "Current Testing source, but input is the original fresh state instead of its retained completed state.",
+      "code": "invalid_input",
+      "issuePaths": [
+        "/input"
+      ],
+      "owner": "product/builtin_semantics.ts:1034-1045; product/run_invocation_operation.ts:675-691; owner_bindings/run_invocation.ts:1336-1345",
+      "cause": "Product validateInvocationBasis requires exact equality with retainedGovernanceWorkInput(source.sourceResultValue); the fresh original input fails before ABG invocation admission.",
+      "actorRolesAfter": [
+        "c2"
+      ],
+      "evidence": "Observed exit1/refusal invalid_input at /input. Diagnostic.events=[] is filtered, not an independent full no-append proof.",
+      "exitCode": 1,
+      "outcomeKind": "refusal",
+      "events": "No new admitted event; the owner returns/completes at the entry prefix before graph/actor dispatch. Assert the full prefix or full event delta, not the filtered diagnostic.events list.",
+      "mutation": "No new invocation/Run admission, actor or workspace effect from the refusal. Existing caller receipt/evidence recording and in-memory completion bookkeeping remain allowed."
+    },
+    {
+      "case": "fixed-stale-source",
+      "premise": "After successful UAT has admitted the assessment/fold over that Testing source, invoke UAT again using the old derived input/source.",
+      "code": "invalid_input",
+      "issuePaths": [
+        "/observation"
+      ],
+      "owner": "abg/invocation_admission.ts:498-555,612-618,668-696; owner_bindings/run_invocation.ts:1276-1301; product/run_invocation_operation.ts:1044-1065",
+      "cause": "Current-prefix rehydration runs before Product preparation. Later related admitted work makes the old Testing basis inapplicable; source rehydration returns null, producing observation/source_result_absent, mapped to invalid_input.",
+      "actorRolesAfter": [
+        "c2",
+        "assess"
+      ],
+      "evidence": "Statically established second oracle mismatch; this case was not reached in the failed H04 run.",
+      "exitCode": 1,
+      "outcomeKind": "refusal",
+      "events": "No new admitted event; the owner returns/completes at the entry prefix before graph/actor dispatch. Assert the full prefix or full event delta, not the filtered diagnostic.events list.",
+      "mutation": "No new invocation/Run admission, actor or workspace effect from the refusal. Existing caller receipt/evidence recording and in-memory completion bookkeeping remain allowed."
+    }
+  ],
+  "minimumCorrection": [
+    "Give the existing refused helper an explicit per-case expected code and exact issuePaths array; compare exact values, not an allowed-code union or substring.",
+    "Assert each case is a semantic refusal with exit1, unchanged complete prefix/full event delta and unchanged actor roles. Use the existing read/prefix/roles owners, not another runtime or observation framework.",
+    "Retain the two invalid_intent /invocation_admission wrong-wrapper expectations; use invalid_input /input for crossed-input and invalid_input /observation for stale-source after successful UAT."
+  ],
+  "sequenceDecision": {
+    "cannotDo": "Do not move the three current-source negative invocations after UAT. UAT consumes/advances that Testing source, so the same invocations would then hit the earlier stale-source refusal and cease to test their original relations.",
+    "smallestOption": "Keep current invocation order and fix exact per-case oracles.",
+    "optionalPositiveFirstEvidence": "Keep the three negative invocations before UAT, require refusal/no-append/no-actor immediately, retain their receipts, and defer only exact code/path assertions until after positive UAT and held/fresh agreement. Keep the stale invocation after UAT and before final close; its exact oracle can likewise be checked from retained evidence afterward. Deferred mismatches must still fail the final test.",
+    "lifetime": "No additional invocation, replayed workflow, historical prefix substitution, reacquisition or close is required. No mutation/currentness premise is weakened."
+  },
+  "positiveUatReview": {
+    "refs": [
+      "abg/invocation_admission.ts:1518-1534",
+      "product/default_library.ts:107-119",
+      "abg/default_library.ts:185-215,338-369",
+      "test_env/tests/t287-default-library.test.mjs:2605-2633"
+    ],
+    "conclusion": "No new static oracle mismatch established in the bounded positive assertions. Exact direct UAT consumes one direct Testing observation, resolves its actual C2 producer, appends an assessment observation with null synthesisResultRef and the UAT wrapper ref, and leaves terminal:false without parent convergence. Existing held/fresh comparisons use complete owner output and compare original terminal invariant fields separately from projectionBasis.",
+    "limit": "Scripted assessor execution, successful UAT and complete readbacks remain unobserved; this source judgment does not predict that all later runtime checks pass."
+  },
+  "historyPreserved": {
+    "h04SourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/reviews/stage-001/REVIEW.json",
+      "bytes": 11383,
+      "sha256": "3281cd86b119a9f60b6e1b5cebd5b6c7837db854ce4f290db332050470f1e2e2"
+    },
+    "meaning": "The clean review of the exact two-file coordinate/body correction remains preserved. This is a distinct inherited test-oracle counterexample, not a reversal of that correction."
+  },
+  "limits": [
+    "No Product/source edits, tests, build, runtime/provider calls or private actor-content inspection performed. Only granted counterexample artifacts written.",
+    "Metadata.events is filtered to selected refusal/failure kinds; [] alone is not proof of zero runtime append.",
+    "No release, formal F11 J qualification, installed route acceptance or measured performance claim. Root alone selects follow-up coding and proof."
+  ]
+}

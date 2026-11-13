@@ -1,0 +1,38 @@
+{
+  "classification": "Worker delivery-method search cost and Root operator intervention; not Product runtime defect or provider actor termination",
+  "tool_id": "toolu_01PELvpWy1QeGLJKFDB6L8PE",
+  "archive": "runtime-001/resources/archives/fp-d0764c78c5a88b68-stdout.log",
+  "targets": [
+    ".ai-workspace",
+    "build_tenants/abiogenesis/typescript/design",
+    "rc4-operator-inputs"
+  ],
+  "options": "grep -rln -i, piped head -10",
+  "processes": {
+    "actor": 78619,
+    "shell_and_pgid": 9647,
+    "grep": 9648,
+    "head": 9649
+  },
+  "passive_sample": {
+    "at": "2026-11-02T05:26:22Z",
+    "elapsed": "05:32",
+    "grep_cpu": "05:30.45",
+    "new_completed_output": false
+  },
+  "root_reported_intervention": {
+    "at": "2026-11-02T05:26:57.640469Z",
+    "signal": "SIGTERM",
+    "target": "exact verified pgid9647",
+    "elapsed": "06:07",
+    "grep_cpu": "06:05.40",
+    "group_empty_after_seconds": 0.5,
+    "actor_still_present": true
+  },
+  "observed_tool_result": {
+    "observed_at": "2026-11-02T05:27:16.602563Z",
+    "is_error": true,
+    "text": "Exit code 144"
+  },
+  "observed_recovery": "Worker attempted narrower timeout60 search, then read exact010 reviewed routes/task audit wording and reader diffs."
+}

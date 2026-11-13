@@ -1,0 +1,31 @@
+{
+ "kind": "native_03_progress",
+ "startedUtc": "2026-11-03T18:14:29Z",
+ "milestones": [
+  {
+   "utc": "2026-11-03T18:15:11Z",
+   "milestone": "intake",
+   "detail": "Read TASK, NATIVE_GRANT, selection03, owner/census classifications, recheck, C2 triage, previous return, held evidence, map, rubric. 43 held file hashes + 3 handoff hashes match current worktree. stdo status --verify: installed=true valid=true failures=[] manifest 102817a3..."
+  },
+  {
+   "utc": "2026-11-03T18:30:11Z",
+   "milestone": "liveness+first-migrations",
+   "detail": "liveness frame-scope null CCall short-circuit (extent read keeps authenticity/generation) + envelope-first basis bucket. Scratch meter same input: held 22.996 -> liveness-only candidate 9.732 full passes per unrelated event (both 4/4 pass). Then F_H facts kind-indexed + exact-ID reads + owned physical predecessor; effectful truth owned acquisition + kind-indexed construction/basis; replay ID membership via id-bucket envelopes; projectRuntimePrefixesAtDurablePrefix consumers (run_invocation x5, operator_support) migrated and adapter+export deleted; leaf port pre-effect read owned requireCurrent; invocation_admission reads owned; projectOwnedPrefixArtifactTruth adopted at run_invocation setup, environment (491/1241), materialization, release x2, product read; env forwarding wrapper deleted. tsc --noEmit clean."
+  },
+  {
+   "utc": "2026-11-03T18:56:53Z",
+   "milestone": "authority-effect-witness-receipt-migrations+HOW",
+   "detail": "Migrated requirement_handoff, semantic_revision, result_assessment_operation, self_conformance_basis, worksite_file_replace (333/696, requireCurrent kept), witness_definition_bindings (156/242/308), runtime_failure (276/346), materialization/result post-effect tail checks (extent+1 and tail by index), declaration_application logical-prefix relation (extent + through-event cut + runtimeEventPrefixDigest; absent cut refuses unready). t287-reconstruction-conservation migrated off deleted projectRuntimePrefixesAtDurablePrefix. HOW row updated in ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md. tsc --noEmit clean; w build + manifest exit 0; final lanes 0-3 running. Not migrated: worksite_command_forward 69/189/219, worksite_construction_recovery 215/322, witness_admission_operation, retry 638/3597, qualification_proof."
+  },
+  {
+   "utc": "2026-11-03T19:08:39Z",
+   "milestone": "witness-restore+final-lanes",
+   "detail": "Pre-restore candidate lane 0 (wf) failed only witness-reprice 124/128 (closed-row body read counts 323!==324, 3!==4); restored held complete reads at witness_definition_bindings 156/308 (242 kept migrated); witness files 22/22 pass. Pre-restore lanes 1/2/3 pass (SAS meter 5.732 vs held 22.996 passes per unrelated event). Held lane 0 rerun exit 0. Final build rebuilt 19:03Z; final lanes running; first final lane 2 hit EEXIST on the prior proof artifact in the same scratch root, artifact moved aside within tmp03 and lane 2 rerun."
+  },
+  {
+   "utc": "2026-11-03T19:13:10Z",
+   "milestone": "return",
+   "detail": "Final build lanes: lane0 108/108 pass (28 skips), lane1 2/2, lane2 rerun 4/4, lane3 32/32; held lane0 rerun 108 pass 0 fail. return.json and readiness.json written (standing PARTIAL_CANDIDATE_RETURNED_TO_ROOT_NOT_READY, ready=false). Editing stopped."
+  }
+ ]
+}

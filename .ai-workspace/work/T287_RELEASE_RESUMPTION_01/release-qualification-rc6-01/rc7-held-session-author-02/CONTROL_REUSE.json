@@ -1,0 +1,32 @@
+{
+  "kind": "bounded_existing_control_reuse",
+  "status": "MECHANICALLY_ADAPTED_NO_NEW_CONTROLLER",
+  "hostPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/prepare-and-dispatch.mjs",
+    "bytes": 19172,
+    "sha256": "a6ec23267d987560b41d3d88f429120b1d9b1410d5726b643397cea03949ce84"
+  },
+  "stagePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/inputs/prior-author-stage.mjs",
+    "bytes": 8283,
+    "sha256": "fb8261fbce5a7ed20239e677d65ee1bb6dce2d4b446d8b4778f437734fb78056"
+  },
+  "lanePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/inputs/prior-author-lanes.mjs",
+    "bytes": 10073,
+    "sha256": "7b22c3e9fbbb0449356b725e8906879e5e929c8902d7c6077727e71f3bacbcf2"
+  },
+  "operatorClients": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/OPERATOR_CLIENT_PINS.json",
+    "bytes": 1808,
+    "sha256": "6b92623b481d15eecdcf72c6103f3c1c3e8832ef16a0568e389ea57f7baaa5c7"
+  },
+  "changes": [
+    "Task-local paths/short temps and actual source/close pins.",
+    "Stage labels2 and after-only mode; same freeze/copy/build/generation owners.",
+    "Three primary and three optional correction lane ids; no before/measured gate, actual maintained integration first.",
+    "Selected600/300 per-lane child limits; same Node positive filters, serial execution, reservation/source custody, output receipts and pass predicate.",
+    "Correction reuse explicitly records integration evidence source; Root determines unaffected causal relation, never relabels old proof."
+  ],
+  "limits": "No Product code/HOW/test or provider invocation; no acquired call serialization, new supervisor, generic validation framework or copied installed checker."
+}

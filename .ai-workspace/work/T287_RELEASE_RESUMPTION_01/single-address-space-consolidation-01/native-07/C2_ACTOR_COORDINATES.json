@@ -1,0 +1,43 @@
+{
+  "recordedUtc": "2026-11-04T05:13:49.429087+00:00",
+  "standing": "Passive physical producer-coordinate projection; full logical body decoding/admitted C2 Result and final close remain separate acceptance evidence",
+  "runRef": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+  "cCallRef": "c-call:sha256:bf406fd971bb86070b1f249e51bda66916ddc280d5e839f8ecef56ce4c47495c",
+  "actorInvocationRef": "actor-invocation://abiogenesis/e8f350c2197fd4bd5eda64841f656fcfe6d8439d75ceec19e46e972c803ae7d1",
+  "transportBindingRef": "transport-binding://abiogenesis/f3dc1464b126d48ae43e073f24b845ded3cc1f4000d3b2b22aa8878ae059b79e",
+  "transportBindingDigest": "sha256:f3dc1464b126d48ae43e073f24b845ded3cc1f4000d3b2b22aa8878ae059b79e",
+  "promptDigest": "sha256:cac4b87ccfa2d8960b92dbf27c6b4a9a0956f932b864497a18984c13f03c1c4a",
+  "processRef": "process://abiogenesis/eae00283d8cda59f217af754690da0ced5db7fa88ee89ef974072f723dbc5f44",
+  "processId": 28787,
+  "processStartedUtc": "2026-11-04T05:11:03.024Z",
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-3f0f0294e07836a1-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-3f0f0294e07836a1-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-3f0f0294e07836a1-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-3f0f0294e07836a1-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-3f0f0294e07836a1-transport.json"
+  },
+  "physicalRows": [
+    {
+      "offset": 657461080,
+      "bytes": 3961911,
+      "sha256": "d72734df53be56f62ce6e35af15dcb273692f7d0afb49472b095051e383114a8"
+    },
+    {
+      "offset": 661422991,
+      "bytes": 2639,
+      "sha256": "816c46baacc99b56ff4c80308339e54b238b2194c9ae1a721a2f5a3839066d1c"
+    },
+    {
+      "offset": 661425630,
+      "bytes": 1894,
+      "sha256": "49d88c198b9fa960f8104f4ca4f31a02be8e75f3dd6c456315dd41aa4cccc67d"
+    }
+  ],
+  "bodyReference": {
+    "bodyDigest": "sha256:9dd3a5247267c6a4198acbb34208f7ea38f8e75b2c306e9a23082ebeeb1aa6fe",
+    "sourceEventRef": "event://abiogenesis/9c0766b55ff2e8c2e7f203cb8dd0b8f94d05b09878835c0e3e09eb66ed834837",
+    "sourcePayloadDigest": "sha256:b3062b19059aa771e1cdade03001c1fbfcf28a0251368de42d61fc7f0af6de82",
+    "sourceSlot": "native_definition_material"
+  }
+}

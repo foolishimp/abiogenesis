@@ -1,0 +1,55 @@
+{
+  "recordedUtc": "2026-11-05T09:24:32.743211+00:00",
+  "status": "FIXTURE_CURRENT_C2_PASSED_NATIVE_UAT_RUNNING",
+  "baseline": {
+    "commit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "tree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+    "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "installedProduct": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/HANDOFF.md",
+      "bytes": 3551,
+      "sha256": "feca45b69462ff345d5446b4e30a160c8d7b30f2a5f45659410808bf87472d53"
+    }
+  },
+  "activeSourceWorktree": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "nativeCodingWorkers": 0,
+  "nativeDispatches": 2,
+  "reviewRequests": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/FEATURE_AUDIT_REQUEST.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REQUEST.json"
+  ],
+  "next": "Conjoin actual UAT with current C2 and independent frozen-source review, then fresh result/replay/close; close only bounded N9.",
+  "qualification": "not_started",
+  "publication": "not_authorized",
+  "workspaceReentry": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/WORKSPACE_REENTRY_01.json",
+  "workspaceFailurePreserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/WORKSPACE_READY.json",
+  "plan": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_QUALIFICATION_PLAN.json",
+  "setupDisposition": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/SETUP_DISPOSITION.json",
+  "nativeLaunch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/HOST_LAUNCH.json",
+  "nativeRun": {
+    "digest": "sha256:17d6e6118cec3119e6574ef3c11fbc706bda5dfaf0e42eeea2d56415892b1c3a",
+    "ref": "run://abiogenesis/6bda9cbfba8d55b0447a307fcdbe2f060e16800c3d079fac6976bebfcf68d315"
+  },
+  "sourcePredicate": "satisfied",
+  "nativeTesting": "satisfied:4commands0,7tests5/0/2,30source_matches,5323dependency_matches",
+  "nativeUat": "running",
+  "freshClose": {
+    "coordinateDigest": "sha256:4604288fe2cf83f30d4e40985590c183dfdc00987f4c3ea7357e7c37bad8344f",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:8fc1ffe9bb4afb91c450735c74fce68e609b75f2666f9b7c84d66dfd45c8c14d",
+    "prefixLength": 43778059,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "triage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_FAILURE_TRIAGE.json",
+  "currentLaunch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/HOST_LAUNCH.json",
+  "currentC2": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/ACTUAL_C2_SUMMARY.json",
+  "pendingOwnerDecision": "Reviewer-family policy for final qualification; same-family default remains non-independent"
+}

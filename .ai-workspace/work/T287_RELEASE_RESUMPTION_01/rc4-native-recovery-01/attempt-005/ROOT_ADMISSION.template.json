@@ -1,0 +1,8 @@
+{
+  "status": "DRAFT_NOT_ADMITTED",
+  "operator": "Root",
+  "bindingSha256": "f6c3458f7e637c16d500643c3faf4b7885b4d0f11fc272d74a5f30dfcd2c6c5a",
+  "sourceCommit": "becc45851bf6e794a6411bd8d1f412b4f67cd181",
+  "sourceTree": "d8cf0eee6a038a0b91496439f92c596e5fabe19b",
+  "decision": "Root supplies exact admission after reviewing this successor packet; no ROOT_ADMISSION.json exists. Installed preflight/call construction is separate from actual generated-call review and dispatch."
+}

@@ -1,0 +1,15 @@
+{
+  "ended": "2026-11-02T00:02:06.370Z",
+  "exitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "runtime_failed",
+  "run": {
+    "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+    "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+  },
+  "terminal": null,
+  "sourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+  "qualification": false,
+  "R2Closure": false,
+  "meaning": "Fresh retained work. Any predecessor-context refusal is exact evidence for Root; no bypass or replayed progress."
+}

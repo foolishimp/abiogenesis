@@ -1,0 +1,73 @@
+{
+  "status": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_INSTALL_ACTIVATION_001.json",
+    "bytes": 2884,
+    "sha256": "20fc640768a61f795e70b8f03f426b6a8efa628dc0c9d86102dd75ece2018e06"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/PREPARATION_MANIFEST.corrected-001.json",
+    "bytes": 6617,
+    "sha256": "4c5f150a586d0ede40d107427ee563cac616a600e8f5b68384f2abd2c1e20ecc"
+  },
+  "buildBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_BUILD_BINDINGS_001.json",
+    "bytes": 6266,
+    "sha256": "7e1e6ee9766e063030119a6a3910259f552556ce9ebbf33a7bf4a303b3e570ca"
+  },
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 4370,
+    "sha256": "2e2ee9ba7063024c5da0b9955c119b9dc7f6dee51c1ec2aaed93b7e060042b0e"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/candidate/RESULT.json",
+    "bytes": 638,
+    "sha256": "f90ae489fd034e2ac47887a760c037579629db1e70ae321e43c696b83e8bd8da"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1261,
+    "sha256": "d72aa3def4385d419aac75c143df12e740251e5163e1750c73a484f92ac712e3"
+  },
+  "artifactIdentityBridge": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/ARTIFACT_IDENTITY_BRIDGE.json",
+    "bytes": 3244,
+    "sha256": "ed7f2e1fc658ed1907532920bfb27a071b095b6807813e1f46d1ae8bfc7a1681"
+  },
+  "independentPackagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/reviews/packaging-001/REVIEW.json",
+    "bytes": 23783,
+    "sha256": "d47424edf14fd4259c45f3cdd5b21613baa8024c78076e0f50842a13560e3489"
+  },
+  "boundedClaim": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/BOUNDED_CANDIDATE_CLAIM_001.md",
+    "bytes": 1674,
+    "sha256": "fbc58ce888d07bcbb5bff97892f5939ac943f95a26b289b7f90e8045bb4a2dbf"
+  },
+  "residuals": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/RESIDUALS_001.md",
+    "bytes": 2539,
+    "sha256": "6003531a6e8d2a3edac862142f0633320da5ebdb0d7648a470ed56957e93479b"
+  },
+  "rootAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_AUTHORITY_001.md",
+    "bytes": 1532,
+    "sha256": "4d8a8496cdf6b0199cb9f0b8014680a1459f4043039c1004c2b927f6f7b6a466"
+  },
+  "claim": "Local unqualified RC7 development candidate; exact accepted source and mechanical identity successor only.",
+  "limits": [
+    "No full qualification claim or completed qualification rerun.",
+    "No publication, push, merge, tag, global selector or immutable-cut mutation.",
+    "No source implementation: only exact frozen overlay and three identity files plus release claim in isolated worktree.",
+    "No automatic retries, cleanup, overwrite of failed allocations or widened bounds."
+  ],
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false,
+  "installInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+    "bytes": 2712,
+    "sha256": "9555d7966db2b3dea4922359e4326ebbccfaf7414d57aaf45b9ab0171fa65f6d"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "unaccepted_native_candidate_custody",
+  "recordedUtc": "2026-11-03T08:59:12.385978+00:00",
+  "sourceCommit": "90721c86680f17c1877dc26c9eb93b4243188785",
+  "tree": "fa31348ea74e4dbd875f6b9e006e896adee77661",
+  "parent": "3e2304de7dbad73b85dbf27e94c54766202f1583",
+  "nativeResultRef": "result://abiogenesis/3e92739bff5cdcedb542e719d1e03b56ee2b637b61a4a9ed92b0649586fbd4d0",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01/review-subject-001/SUBJECT.json",
+  "sourceBytesUnchanged": true,
+  "firstC2": "blocked at omitted operator fixture; preserved",
+  "freshRead": "run_result not_found/no terminal; run_replay blocked",
+  "acceptance": false,
+  "role": "Root operator Writer under PREPARATION_AUTHORITY; exact preservation checkpoint only"
+}

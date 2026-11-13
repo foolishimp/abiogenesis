@@ -1,0 +1,81 @@
+{
+  "kind": "native_author_progress",
+  "task": "rc7-fixed-proof-author-02",
+  "status": "AFTER_STAGE_FROZEN_BEFORE_AFTER_LANES",
+  "recordedUtc": "2026-11-06T12:18:57.229901+00:00",
+  "afterStage": {
+    "label": "f2-stage-02",
+    "mode": "after",
+    "sourceCount": 450,
+    "sourceDigest": "5fa9b8924e4af45127e556a2683ae1624fa366cf675ac88b299e216ad37a1282",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-stage.json",
+      "bytes": 97407,
+      "sha256": "c1e6fe7c042be6c5cfbda88a5bb0c8fb10b567d40cf3ea5fa4dd19ad9557d5cc"
+    },
+    "compile": 0,
+    "generate": 0,
+    "lifecycle": 0
+  },
+  "fiveSources": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "bytes": 38467,
+      "sha256": "f8e51d0ca137f286db09801f9a10b7b2585d48762cd2df735268f80099fe1515"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "bytes": 50194,
+      "sha256": "b5cfb4a869f800ad16d7391468c15519d7f87887e1a9dd2a494084c723d00555"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "bytes": 77864,
+      "sha256": "5e5aacf55c3d62992eacad661e7de998a9dfc7930e3486cc4077f7a7e39e8425"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "bytes": 91874,
+      "sha256": "744cefbf0c13d5d60b4ba32efd7e92565b20f712f9877609a7284808d9809559"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 339637,
+      "sha256": "5d5278db16a4345e19e7d54bcafad505c012705c3f2626221892dc6dc3ed2c27"
+    }
+  ],
+  "beforeEvidence": {
+    "stage": {
+      "label": "f2-stage-01",
+      "mode": "before",
+      "sourceDigest": "f0ecc3474e151bfa15763234866c486722fd1bcc2517c4cd80c93f2e80f607c0",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-stage.json",
+        "bytes": 97387,
+        "sha256": "f04e1c1e353244007e79da3eb539db858480dccd482d5219867dffe71c5e5c65"
+      }
+    },
+    "admissionLane": {
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-lanes-admission/summary-admission.json",
+        "bytes": 1230,
+        "sha256": "89ab8090613bf9280a52e57ad80294072855b2c00f86144f9e384eb820a6a72e"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-lanes-admission/admission.stdout.tap",
+        "bytes": 1887,
+        "sha256": "49cb13ca574aa73e7b82ca0e0a65923867ea2cf600341417263c960841dbb502"
+      },
+      "observed": "Direct Public invoke of graph-function://abiogenesis/default-library/testing@5 under program://default-library-witness/witness@5 refused at Product population: product_run_invocation_preparation_refusal, invalid_target, /program. Control ordinary start of the same Program populated. invocation_admission was not reached; no authority_mismatch was observable."
+    }
+  },
+  "allocations": {
+    "stagesUsed": 2,
+    "lanesUsed": 1,
+    "remaining": {
+      "stages": 1,
+      "lanes": 4
+    }
+  },
+  "hold": "Source held unchanged from this point for Root freeze/review alongside after-lane proof."
+}

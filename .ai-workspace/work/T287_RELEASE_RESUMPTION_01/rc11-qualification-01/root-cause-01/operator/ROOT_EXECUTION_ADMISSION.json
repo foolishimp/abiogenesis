@@ -1,0 +1,65 @@
+{
+  "status": "ROOT_ADMITTED_RC11_CAUSE_STAGE1",
+  "bindingSha256": "79118ca24ab8cb701d9bf6a413fdacb1991dc06abb96926b0b3924263e4eafce",
+  "commandIds": [
+    "six-case-diagnostic"
+  ],
+  "rootDecision": "Root conjoins reviewer minimum and admits one six-original-case derivative with unchanged owner bytes/scripts behavior/timeouts/assertions/callback returns. Add independent worker local sidecars and preserve parent/results/artifacts before assertions and cleanup. No added readiness/acknowledgement/timer reset/delay/grace/retry; later grouped modes unexecuted after original failure. Max300s; deterministic preflight then execute without another Root wait. Followup held for actual stage1 conjunction.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/ACTIVATION.json",
+      "bytes": 2454,
+      "sha256": "ac002d0874850f7aae32f8379d3adf82be06633422aa5d4b0a66e2f80641d724"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/PLAN.json",
+      "bytes": 2977,
+      "sha256": "1bae993918f7fa7b8788df251f2b29bd6f5db61c262a16f86d535d2778dff07f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/READY.json",
+      "bytes": 2342,
+      "sha256": "850884de028befc98070e2f235a020e45b51a0fcd002697a9366988189450b52"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/diagnostic.py",
+      "bytes": 12211,
+      "sha256": "2a1fe52f30af37844ea29e8fe4d732fe257b952fa0f5e661182e4f91906c2b9d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/RUNNER_DELTA.diff",
+      "bytes": 8862,
+      "sha256": "be656cd12edf1ce0fe0c97f555a3274d1ff3dd40a540b9d894c319a977031716"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/SOURCE_TRANSFORM.json",
+      "bytes": 2058,
+      "sha256": "1b368396cacfbeefa8686719480de3c82d295b866c2b611b93195348e0c87c2a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/SOURCE_TRANSFORM.diff",
+      "bytes": 12213,
+      "sha256": "0be1df9b01f327f975cc0760203d29bb032e6d0082d7e2d7511d330390b299af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/parent-observation.txt",
+      "bytes": 5727,
+      "sha256": "4122a5e0f3323acdbdc39b292608408710c1cdded0c721dbee3d9bca03f809cf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/observation-prelude.txt",
+      "bytes": 3374,
+      "sha256": "74f38b7147f216cf5d432b0ed875828f8d22f90363d08f69cf1bd35aa9c14ba8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/ENVIRONMENT.json",
+      "bytes": 1182,
+      "sha256": "3ab33f57278d80c105b8060ddd40165b5312a3a5e2ada17f13d2298918522354"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/COMMANDS.json",
+      "bytes": 913,
+      "sha256": "769f4d1dfeae45bc173671add6a8352b6a7a98a45d48f7e200cd4a668cd3126a"
+    }
+  ]
+}

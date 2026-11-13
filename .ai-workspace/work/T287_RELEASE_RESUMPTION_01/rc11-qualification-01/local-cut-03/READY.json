@@ -1,0 +1,42 @@
+{
+  "status": "ROOT_ADMITTED_ONE_REPRODUCTION_READY",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/ROOT_REPRODUCTION_BINDING.json",
+    "bytes": 10622,
+    "sha256": "a20ba392da0e2b3f081416ba0e3d0f4185f3070ac56dd326b3a245075ef485e4"
+  },
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/ROOT_ACTIVATION.json",
+    "bytes": 3358,
+    "sha256": "67ae08a63e1a7c8484ddfc818d9ff591a5858280d667c729ad283f531f5b1359"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/run-clean-reproduction.mjs",
+    "bytes": 19072,
+    "sha256": "0802748671f052b253246009fd25117b57fa4ac7de11c1045a1cabf59bd4f3ff"
+  },
+  "metadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/DEPENDENCY_METADATA.json",
+    "bytes": 5242,
+    "sha256": "76e95e5611c5c96c9069ffe231865f35e0abcb2d73e38fae4015a10911922ad1"
+  },
+  "copyHelper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/stage-dependencies.py",
+    "bytes": 1989,
+    "sha256": "dbf65ba3ce4be75a5262661ac023deb4a2f7fa426b890ba930e08ccd7c402fa8"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/PREFLIGHT.json",
+    "bytes": 3027,
+    "sha256": "8773216beff245cc8031ffd1eba233e8dd7897f7acbdadacdb20a0e24ec10226"
+  },
+  "launchArgv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/run-clean-reproduction.mjs",
+    "reproduce",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/ROOT_REPRODUCTION_BINDING.json",
+    "a20ba392da0e2b3f081416ba0e3d0f4185f3070ac56dd326b3a245075ef485e4"
+  ],
+  "metadataDependent": true,
+  "installHeld": true
+}

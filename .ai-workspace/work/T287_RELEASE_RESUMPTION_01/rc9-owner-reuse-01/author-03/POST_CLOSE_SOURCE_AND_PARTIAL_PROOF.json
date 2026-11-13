@@ -1,0 +1,150 @@
+{
+  "status": "TIMEOUT_CLOSED_SOURCE_PRESERVED_PARTIAL_UNIT",
+  "recordedAt": "2026-11-08T17:44:21.700597+00:00",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "rows": 1340,
+  "allLiveRowsEqualFreezeAfterActualClose": true,
+  "productionHowMetadataScriptUnchangedFromAuthor02": true,
+  "enforcementEvents": [
+    {
+      "kind": "actor_process_timeout_observed",
+      "eventId": "event://abiogenesis/ef0059b8e566610a0c3f91dc29f87e04aab1f5bb3bb2a5503c19e9797d57ef07",
+      "eventTime": "2026-11-08T17:36:22.302Z",
+      "admissionOrdinal": 1611,
+      "payloadDigest": "sha256:e4ca598379bb930ab2ccaf6958251e19bf03117fc8a7758be4debbb3e606023a",
+      "selectedPayload": {
+        "timeoutMs": 1800000
+      }
+    },
+    {
+      "kind": "actor_process_signal_requested",
+      "eventId": "event://abiogenesis/d9fdf8673de52668f3e90ae9974660bed088016a3dadd64a21da6d7906af88c7",
+      "eventTime": "2026-11-08T17:36:22.400Z",
+      "admissionOrdinal": 1613,
+      "payloadDigest": "sha256:15f9ac3a3feafd6c8b53de3d63466c90b389406862f55b62e7e9c6fa0521bd75",
+      "selectedPayload": {
+        "signal": "SIGTERM"
+      }
+    },
+    {
+      "kind": "actor_process_exited",
+      "eventId": "event://abiogenesis/7851529fd47d2721779fd84704c020eeb2715fb28d1cf1d056aa732f5b8c6447",
+      "eventTime": "2026-11-08T17:36:23.589Z",
+      "admissionOrdinal": 1616,
+      "payloadDigest": "sha256:d9ddddc6adf8f3e9f5b0472a655db0e67a97b71abdf932cef32017b4181b32a9",
+      "selectedPayload": {
+        "signal": null,
+        "status": 143
+      }
+    },
+    {
+      "kind": "actor_invocation_failed",
+      "eventId": "event://abiogenesis/ac0f545a28b330bc16e8cf546ff9122063c7d591d1ea64212d13ea9212836bcf",
+      "eventTime": "2026-11-08T17:36:24.396Z",
+      "admissionOrdinal": 1618,
+      "payloadDigest": "sha256:825da24880fde7f97b3752e6357eae5437db0e9204db8f4b2e2860e671bfe043",
+      "selectedPayload": {
+        "disposition": "failure",
+        "failureClass": "transport_failure"
+      }
+    }
+  ],
+  "unit": {
+    "structuredEvents": {
+      "path": "/private/tmp/abg-r9-owner-native-003/unit-01/events.jsonl",
+      "bytes": 25010,
+      "sha256": "f478816a617fe96d4e5c7275e3f5e915881553cd3e3c9707bd5d16da62640086"
+    },
+    "eventCount": 75,
+    "reportedCompletedFileSummaries": [
+      {
+        "ordinal": 11,
+        "type": "summary",
+        "file": "test_env/tests/forward-command-contracts.test.mjs",
+        "counts": {
+          "tests": 10,
+          "failed": 0,
+          "passed": 10,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 10,
+          "suites": 0
+        },
+        "success": true,
+        "durationMs": 7051.361291
+      },
+      {
+        "ordinal": 18,
+        "type": "summary",
+        "file": "test_env/tests/forward-command-owners.test.mjs",
+        "counts": {
+          "tests": 6,
+          "failed": 0,
+          "passed": 6,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 6,
+          "suites": 0
+        },
+        "success": true,
+        "durationMs": 889.107167
+      },
+      {
+        "ordinal": 41,
+        "type": "summary",
+        "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "counts": {
+          "tests": 22,
+          "failed": 0,
+          "passed": 19,
+          "cancelled": 0,
+          "skipped": 3,
+          "todo": 0,
+          "topLevel": 22,
+          "suites": 0
+        },
+        "success": true,
+        "durationMs": 4541.688208
+      },
+      {
+        "ordinal": 74,
+        "type": "summary",
+        "file": "test_env/tests/m5-worker-transport.test.mjs",
+        "counts": {
+          "tests": 32,
+          "failed": 5,
+          "passed": 27,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 32,
+          "suites": 0
+        },
+        "success": false,
+        "durationMs": 66862.626041
+      }
+    ],
+    "completedFileCountsOnly": {
+      "tests": 70,
+      "passed": 62,
+      "failed": 5,
+      "skipped": 3,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "finalUnitResultPresent": false,
+    "unitCommandResultPresent": false,
+    "reporterEndPresent": false,
+    "OWNCaseReported": false,
+    "standing": "Four completed file summaries only. OWN-01 began but has no reported case/result/final diagnostic; its executed assertions are unknown. Remaining files have no reported completion. No whole-unit counts or acceptance inferred."
+  },
+  "nativeObservation": "Absent: actual SDK runtime_failed with result/terminalResult null; physical source/freeze correspondence is separate.",
+  "noRetryOrExtension": true
+}

@@ -1,0 +1,82 @@
+{
+  "id": "FOUNDATION-GENERATION-02",
+  "status": "ROOT_ADMITTED_CONTROL_INPUT_REENTRY",
+  "cause": "Existing generator line460 refuses symlink-resolved bundled dependency outside exact package root. No Product source defect.",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/product-manifest.json",
+    "bytes": 767,
+    "sha256": "27b6836b8cf43e938fa702591a84b410c05801715b48777238b52ecf0adb8c69"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/product-manifest.stderr",
+    "bytes": 483,
+    "sha256": "7996a38a902fbf92c671d7e0d3f4824cc07164eeca804f59cbda3b810bd40a86"
+  },
+  "priorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/GENERATION_RETURN.json",
+    "bytes": 2858,
+    "sha256": "028ef5e7d5e59dcb2fd42aace2802932fce393fad0a9c15c4dea3757d1f4235c"
+  },
+  "symlink": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules",
+    "target": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+    "lstatConfirmedSymlink": true
+  },
+  "metadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/DEPENDENCY_METADATA.successor.json",
+    "bytes": 5227,
+    "sha256": "734ebfef33db3e7029d5ed3e15bb6e3d2d18c54ea126cd3f195a383051d773c9"
+  },
+  "unchangedRecipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/stage-dependencies.py",
+    "bytes": 1989,
+    "sha256": "dbf65ba3ce4be75a5262661ac023deb4a2f7fa426b890ba930e08ccd7c402fa8"
+  },
+  "effect": "Unlink only exact successor symlink, then existing copytree/copy2 metadata-preserving copy; resume manifest and unexecuted qualification-law test only. No compile repetition.",
+  "commands": [
+    {
+      "id": "dependency-preflight",
+      "argv": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/stage-dependencies.py",
+        "verify",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/DEPENDENCY_METADATA.successor.json",
+        "734ebfef33db3e7029d5ed3e15bb6e3d2d18c54ea126cd3f195a383051d773c9",
+        "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "id": "dependency-copy",
+      "argv": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/stage-dependencies.py",
+        "copy",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/DEPENDENCY_METADATA.successor.json",
+        "734ebfef33db3e7029d5ed3e15bb6e3d2d18c54ea126cd3f195a383051d773c9",
+        "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "id": "product-manifest-02",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "qualification-law-02",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=1",
+        "test_env/tests/t287-qualification-law.test.mjs"
+      ],
+      "timeoutSeconds": 600
+    }
+  ]
+}

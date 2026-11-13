@@ -1,0 +1,1036 @@
+{
+  "root": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01",
+  "rows": [
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/ACTIVE.json",
+      "bytes": 28,
+      "sha256": "7bd56479e938990452e6445b35de63e75538a469d8d1cf16a38c461e2c3e39a2"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/CAMPAIGN_RETURN.json",
+      "bytes": 627,
+      "sha256": "4065828b594449838fa857f1a6c37a2e50cddd0d6f7e50d3d2c61ed0cdd7661d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/CAMPAIGN_START.json",
+      "bytes": 178,
+      "sha256": "16e11e7af0c519f900c33453f5d917909f8184b8ce0e17c7912dc3b984b9cba4"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+      "bytes": 183894,
+      "sha256": "46693cab5a5a0aa954a339f62b0d4a4dd7cfea38f45e968c924a93a92e43c6c8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/DRIVER_LAUNCH.json",
+      "bytes": 726,
+      "sha256": "4d1d5e6dc61db506c65c97002a806be813aadf8befece90d5a9b726132b65d7b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/ENVIRONMENT.json",
+      "bytes": 1408,
+      "sha256": "dfa517118e41feaebace260a81de4108d17db05a0ce294dc39583cf3606f5374"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/HALT.json",
+      "bytes": 3186,
+      "sha256": "b645e02150402872b9e6ad7011ff4807d7e182aaa2478d5b27e8f5d12fc4834b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/OPERATOR_STOP.json",
+      "bytes": 4980,
+      "sha256": "1bbd08993c36be7d463e9931f1451ee901d68281cca33b1f0f9036c233750d38"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/STAGE.json",
+      "bytes": 861,
+      "sha256": "dfa597ff6ad782e69b6bbea78825f57869dbbce49aba22a975abba11a2d12170"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/b-selected/LAUNCH.json",
+      "bytes": 2092,
+      "sha256": "6ca1effcede8b3fc13045251a08e833f9d5082278fa35537f4aa817eeec80cdb"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/b-selected/RETURN.json",
+      "bytes": 2332,
+      "sha256": "5d85745cc808f58da47b655f0ee8e2c43279eaa8192f80570bdac5595d425f0a"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/b-selected/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/b-selected/stdout.log",
+      "bytes": 2464,
+      "sha256": "58dc07a611aa76917a2021b954a31447753bc93f4ea8d9bd1b52601255605e6a"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/bootstrap/ARCHIVE_INSTALL_EQUALITY.json",
+      "bytes": 534,
+      "sha256": "fd9072a5a935cc04e341550c7a31ca54671ad586d5f6093feb81b01620a8efd0"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/bootstrap/LAUNCH.json",
+      "bytes": 1566,
+      "sha256": "74cc9ea099c714c2753452acd2a6524972c6a637d23a2af812e5782ac01bc009"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/bootstrap/RETURN.json",
+      "bytes": 1077,
+      "sha256": "f3af0554371356631fdf0de00ba7f716b81c91ff58cda051fd4328410cba3782"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/bootstrap/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/bootstrap/stdout.log",
+      "bytes": 23,
+      "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/build/EFFECT_MODULE_ORIGINS.json",
+      "bytes": 15565,
+      "sha256": "745e0815c28171da5580430a32c2fc71295378e0960e383f9d3e8c211cf875d2"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/build/LAUNCH.json",
+      "bytes": 1654,
+      "sha256": "60343e38e51abbbbe3206e562cd3c8a026a46b13a229597a2e2c7b34299152c7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/build/RETURN.json",
+      "bytes": 1368,
+      "sha256": "987f8100b7a1949ea02330958909702fd045a1992a774f991f613f0ac37adbcf"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/build/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/build/stdout.log",
+      "bytes": 217,
+      "sha256": "35f0aaa5df5710947e6abd08c281e3261e6f7cf2b4358bcf70705429eef5fd85"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/FILE_HOST_BINDING.json",
+      "bytes": 1201,
+      "sha256": "779e80775464028200077f9ccb89b459e150311f8758987b7f39e736919c4fe2"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/LAUNCH.json",
+      "bytes": 2076,
+      "sha256": "38c2873372b7953f447ffdd8b06a696259de3d30552214710b66ad0cd45c6a08"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/PROOF_CONFIG.json",
+      "bytes": 1209,
+      "sha256": "e55cfc13bfd299ea5fe9c0bde345c60acff9dafc46d7727fb758aad083b04d04"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/RETURN.json",
+      "bytes": 7743,
+      "sha256": "a49d3b7b5e459409c31d8d9b745cfd494cb550e60ebff98a522f825d1b4a5de7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/events.jsonl",
+      "bytes": 822,
+      "sha256": "233891fc0f3837a8751f69a967ebb4628188e50ab3cec483074a9d71ae904741"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/C2-events-and-close.json",
+      "bytes": 7200121,
+      "sha256": "f5f7dad179d955140b990ea5c19a1009c2508e001257205ce41fc991327bdab6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/admitted-helper-artifact.json",
+      "bytes": 570861,
+      "sha256": "d79e5840956dec6cea7a1d801bbec5215b7f7083ae9678d181f295b4d46f34e8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/admitted-http-absence.json",
+      "bytes": 221,
+      "sha256": "fe10651f65c516698d38da47f1dee20fefcdb4248f7db9581fd9a6c80e61e5dd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/admitted-http-diagnostics.json",
+      "bytes": 265,
+      "sha256": "a034d645fc01b4c97755bc2e61b02e603c5140accb25a24438d203dea40480e9"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/admitted-http.json",
+      "bytes": 1481,
+      "sha256": "303905152c18ba3b687ce39ca5d71872c89552dd340d9814d7f6f4c79f8993c4"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/admitted-observation.json",
+      "bytes": 592722,
+      "sha256": "f13f4a6e7a1483124f2c738b6dae0a57888eaaa8422daf90e8dfeb6fa818baf0"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/cleanup.json",
+      "bytes": 2165,
+      "sha256": "e17520194a0cf08fcac36bf52d1190d5fa8b6a97b6d80440e48d7a0b307c11ab"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/command-process.json",
+      "bytes": 45,
+      "sha256": "d6fe86ac52b0329780466cff7ee922984868be83247e2913007deb0515fb28c2"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/command-prompt.txt",
+      "bytes": 9651,
+      "sha256": "28cafb2bd4bb7c10e3ae2253118424cf6be7dc5ea6bbed058f124e431e6671d4"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/command-tool-input.json",
+      "bytes": 547,
+      "sha256": "30cbc8322657123bc2e5dccd9c2d11a93ec3294bc34c9b2ebd0c263f933d5b9c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/command-transport-absence.json",
+      "bytes": 225,
+      "sha256": "6c83a3aaad19e48043debbac0cad7ac8c2270aa84885eca71dd0c6824bf14a7e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/configuration.json",
+      "bytes": 1209,
+      "sha256": "e55cfc13bfd299ea5fe9c0bde345c60acff9dafc46d7727fb758aad083b04d04"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/construction-absence.json",
+      "bytes": 220,
+      "sha256": "81384b31090a96bacfa891350bdd302768b4d99ca8d15c37367d3396b63526fe"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/construction-process.json",
+      "bytes": 50,
+      "sha256": "c1afb2e9c1ca36bb0987bce480a1294e8c9ad20f44762c979c5243b35f759679"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/definition-call.json",
+      "bytes": 27872864,
+      "sha256": "9c13965480ae77a8aa75bb17d12c99ddfbc8f7a9f6d30e9256e746bc128c41fe"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/environment.json",
+      "bytes": 20472936,
+      "sha256": "8c92a17475f20bcab114c7f478808d69c5a50ea00ab84bbd24c626c3ed203dd5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-proof.json",
+      "bytes": 9769905,
+      "sha256": "11080201ae61ebad975e80316841e0bdc0d4afacae3c65d1ae975dc8286c7b8f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/1/completion.json",
+      "bytes": 9984739,
+      "sha256": "57747aff40e46e98f749cee938984beda26ab546cc8bb2d406a2066315957d19"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/1/input.json",
+      "bytes": 1502,
+      "sha256": "00ef268d2310a588b6be6d0c1e1c49497609b331cb1edef859f72e2f7607b348"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/1/launch.json",
+      "bytes": 521,
+      "sha256": "0afa3b93138f75d7cc69b336cc855c52db8c5b55c2fda6a7011543c50ef1391c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/1/process.json",
+      "bytes": 77,
+      "sha256": "e2d9319aed33c5aa84ee8ed5cfea2dc8afcb7f3ac9c011138d5c308b899f76d6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/1/stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/1/stdout.bin",
+      "bytes": 6548602,
+      "sha256": "73de3b1c6ac8f72481a55c4aef1f84204706015a5ba6570ec687de4e2bc90d54"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/2/completion.json",
+      "bytes": 9984739,
+      "sha256": "eeedb7177ed9b0cadc1b8c3d3706e940c275cf1dc1e27a61e1f6d24cda4f82c8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/2/input.json",
+      "bytes": 1502,
+      "sha256": "00ef268d2310a588b6be6d0c1e1c49497609b331cb1edef859f72e2f7607b348"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/2/launch.json",
+      "bytes": 521,
+      "sha256": "0afa3b93138f75d7cc69b336cc855c52db8c5b55c2fda6a7011543c50ef1391c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/2/process.json",
+      "bytes": 77,
+      "sha256": "f22f2814a23b2632cf9a51514f43829ae85270a211bde5c29abcdf8155aabe26"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/2/stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/2/stdout.bin",
+      "bytes": 6548602,
+      "sha256": "d45abffbe0c6ddd09dd2a4a6a90fa1850194ab40d787c47c71d5ac2162a215f6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/fresh-replay/retained.json",
+      "bytes": 9770989,
+      "sha256": "acfc78acd96f9c6b18475d283c26326ac25f0ec9eb34085a5a78099513ea79b1"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/helper-ack.txt",
+      "bytes": 636,
+      "sha256": "785ddb72af8531842b1e42dcac319f18444e500779ebcb3a9aa7049f4ba24278"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/helper-shell-absence.json",
+      "bytes": 215,
+      "sha256": "cb9f56d45c5e7eb21afc9f81b08f5f7600058b6aa87dc0edcbde1394f7ea27f5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/identity.json",
+      "bytes": 2251,
+      "sha256": "5feea34eb227ac333d28f9a310345b56a56a686509bdfb54f26e26d89a843ae1"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-altered-helper-stream.json",
+      "bytes": 9028,
+      "sha256": "31b842d6e655a76730eb34eaef5089002e3cf2dc1af67d27fa9541503de018d7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-altered-launch-manifest.json",
+      "bytes": 9004,
+      "sha256": "688d0a2f86faf1bfc40309f94c179f97a39fba87f93f06da8e0ba516f34488c7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-altered-protected-source.json",
+      "bytes": 9022,
+      "sha256": "bcd5aada0e162f44d4c9da652e935c0c7bca556d2616b18d18f888fa5ad4201e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-altered-task-manifest.json",
+      "bytes": 9004,
+      "sha256": "688d0a2f86faf1bfc40309f94c179f97a39fba87f93f06da8e0ba516f34488c7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-coherent-foreign-artifact.json",
+      "bytes": 9017,
+      "sha256": "eec8c906ddb59d58eecdccdf5b8582a1932538b020af5d6a3dfef4e403c660cc"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-crossed-artifact-digest.json",
+      "bytes": 9009,
+      "sha256": "aa47c06a21adcbd9cd857ad8ef568e3adb374e00ac1b710d4b9f74dd260be2eb"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-crossed-artifact-ref.json",
+      "bytes": 9003,
+      "sha256": "20f322c7a4f49417b6dd5bc209d4b5ac8531744a82c87ad2b92a7ff17ecc4771"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-crossed-attempt.json",
+      "bytes": 8983,
+      "sha256": "bef2cdd0a6b22be4b212c649f132692581aeb5e1a2bee87403ecc829bac49341"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-crossed-task-digest.json",
+      "bytes": 8993,
+      "sha256": "8bbc424212090e18f7a54999ed35a8090690571d63a0a13c8714c4c5adb59493"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-crossed-task-ref.json",
+      "bytes": 8987,
+      "sha256": "fc24eaaa1758125757bce6ae8b7e2c723e935acc89698263cf4d7b67f9aa82e7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-extra-tool.json",
+      "bytes": 9362,
+      "sha256": "7ebf2d7c49ce15a48a15aac1fabccf1cd8f1bac382185af9edd4b1f7d3a5d05c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-helper-artifact.json",
+      "bytes": 570861,
+      "sha256": "a0404270275ad56b1ef0f903c5448a64115d2d3fb8c8506ff42ce0dedda51dbd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-helper-initial-completion.json",
+      "bytes": 603830,
+      "sha256": "506e769e362deb2e48c02381b15ed317990682652b76edfd3e122a6ec377581a"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-helper-plan.json",
+      "bytes": 2154,
+      "sha256": "808a10d70b6438a60951508ea7b7e223fc4b0d8379a1a6e68626d8f5aac542d5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-helper-process.json",
+      "bytes": 144,
+      "sha256": "ed42134226e7db6037e05ceaf4a5de10b28585a7e1477a1be69939c9e5cb6ede"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-helper-shell-absence.json",
+      "bytes": 224,
+      "sha256": "835e0c5ee5337cef47f1b8d3e0739c2df202d5967ffc2985ff3cf83b7c308d25"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-helper-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-helper-stdout.txt",
+      "bytes": 636,
+      "sha256": "c7407ad226e5879006709708eaeae37c04de7e94c6f3a3cfb67a6639930cd81c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-http-absence.json",
+      "bytes": 221,
+      "sha256": "b3913ad70d289850bcbcba9b5bfe96ffa16cbc1561f6c6d9d8ac31ac2423a8db"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-http-diagnostics.json",
+      "bytes": 265,
+      "sha256": "4ea3e25a1423050d3426831b745dd94a68bb631be563cbe537ee3cd7a7ba5c39"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-http.json",
+      "bytes": 1481,
+      "sha256": "51425201e07588e7a1e3b15aa889bbc947e093ff4ef2f961d78fa12bccca3667"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-input-altered-helper-stream.json",
+      "bytes": 294027,
+      "sha256": "a0e0fcc548a93813bd1bd0607706fc39e5edf92c3cb70dcbe923f092e0d13261"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-input-altered-launch-manifest.json",
+      "bytes": 7822,
+      "sha256": "5c1cede12254c4502955e325794a00bab28bf972d09a42862375824c2ae9f378"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-input-altered-task-manifest.json",
+      "bytes": 36716,
+      "sha256": "6fd49592e1b66c2ae4e27e3ebda8423c94d66914ba4faab1f9ecb90d129fa54e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-input-missing-artifact.json",
+      "bytes": 616,
+      "sha256": "03549f86e315b4ff2cce5a65aa8957713983b6f9b6b991d01c307b96f5c61e30"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-input-protected-source.json",
+      "bytes": 1427,
+      "sha256": "64d0153e69e21b08488b508e04eba3cc73801fc5b8678d4e8ba9b73e945c7b8c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-input-reordered-full-command-vector.json",
+      "bytes": 574027,
+      "sha256": "b2806f4f8098356e0940112782d88e6b8f7887eb0c0f833d76fd2e505abb2133"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-input-reordered-full-predicate-vector.json",
+      "bytes": 574027,
+      "sha256": "c8957df452d9e76bd0a35a2e6c6f817da45fcc22ceda82808e8d14e86360cfb7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-legacy-computed-arrays.json",
+      "bytes": 576747,
+      "sha256": "0521c172183f2f5d78e3d746751c3c851905b1569f9048b68c8b82fd23478e82"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-missing-ack.json",
+      "bytes": 8300,
+      "sha256": "7e3e36f8b3c50c07ed57bdb6d3b1737cc455d2300cc723bd9ee878548f5fe11e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-missing-helper-artifact.json",
+      "bytes": 8998,
+      "sha256": "4a7096ddcef39e48493b0cceb6f035eca0ee692ae38a86e401ff85233913c305"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-missing-helper-tool.json",
+      "bytes": 8642,
+      "sha256": "c27d9cc49a1994d487cc96443ef6308c4f056d14b84b678a6c68dcd686ab04d5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-non-json-ack.json",
+      "bytes": 8302,
+      "sha256": "8b9438989fd888c2ad4664fff469e52fbf7f69cbc6c8b25af8b14f553cb90eff"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-reordered-full-command-vector.json",
+      "bytes": 9028,
+      "sha256": "31b842d6e655a76730eb34eaef5089002e3cf2dc1af67d27fa9541503de018d7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-reordered-full-predicate-vector.json",
+      "bytes": 9028,
+      "sha256": "31b842d6e655a76730eb34eaef5089002e3cf2dc1af67d27fa9541503de018d7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-unknown-raw-key.json",
+      "bytes": 9283,
+      "sha256": "0c0d2bc4563a6c5474d905b4e18f7ac3cba8e4d1ab0bf3ad6e6d8747e8d327b6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-wrong-tool-input.json",
+      "bytes": 9013,
+      "sha256": "8899707bff73f9f21405749b8e3a16889697b182de8bbcc7951881859f929af7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/negative-wrong-tool.json",
+      "bytes": 9013,
+      "sha256": "fbdcf87d47866dba1e1826f96a30661edf42584427b5423bca5d7d6845060e73"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/public-outcome.json",
+      "bytes": 617653,
+      "sha256": "b91f06475ef4320a0077e8dcfc22b92c22482bec0eeaa8caffd286c07ad67b92"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/run-environment-binding.json",
+      "bytes": 7986,
+      "sha256": "a16a41b93191fa77c0daca14103ca3e811a0fe529a9eee81efcf6c0bcbbd9bec"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/source-close-handoff.json",
+      "bytes": 1242,
+      "sha256": "29a52d4416b75d4674a70e1cf1a1c453d7f7d2f5fe0ee49ffba79cc5e4bbeb2f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/source-completion.json",
+      "bytes": 121923,
+      "sha256": "037f5fb1315564bf7d5c5278b8f59b84b52d5bd3fd66983f351c76087c506ae6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/source-events.json",
+      "bytes": 5908623,
+      "sha256": "e91d9489844b7bf8434c5d048726299cfb7d77e7b0614dd557ce7fa03c321c8c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/summary.json",
+      "bytes": 2914,
+      "sha256": "3f4241e5e2c71aaaddcd8d7ddfe36a1e81eb178ce20f6c4b5767d7a6033b9172"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/task-budget.json",
+      "bytes": 725,
+      "sha256": "74f9c9de9a7ad86f9416310cc6b902abc84200ded187248c6db9498c8ed189af"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/task.json",
+      "bytes": 16105,
+      "sha256": "312e4ae8050341f68e44da3bc77111fc6cae0e55627b42d036d550ffa81b007a"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/transport-helper-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/transport-helper-stdout.txt",
+      "bytes": 636,
+      "sha256": "785ddb72af8531842b1e42dcac319f18444e500779ebcb3a9aa7049f4ba24278"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/transport-helper.json",
+      "bytes": 51,
+      "sha256": "d90d3b753738e6cee8cb9bdd192a337942a06e692ffd995845eee808c3897f1d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/resources.json",
+      "bytes": 1033,
+      "sha256": "327f85cc305bfad22e0a3627467548f6c4c86b0a7d69e6239136f4bf85570112"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/stdout.log",
+      "bytes": 2665,
+      "sha256": "0a4d51e16c1168136ad78fe1424d007071e2b9c6e27b68352c31257d1fb5cd25"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/driver.stderr.log",
+      "bytes": 331,
+      "sha256": "41962fcfc53ff9a76bc9019a26b79dc8ebfa2f89ee091e0cff6f3b8cc1e2f174"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/driver.stdout.log",
+      "bytes": 2142,
+      "sha256": "2d603cb29dbe1702bc1b2b8b6a74c18b08503a4e9f1772ef33f86eed2de5bbd7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/helper-prerequisite/LAUNCH.json",
+      "bytes": 1795,
+      "sha256": "6a7e960feff7cfac04a81d89c876e3459f3e8f79834f934ed81948afd7ce98fd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/helper-prerequisite/RETURN.json",
+      "bytes": 1762,
+      "sha256": "65b82abf8aaa019a571011bd29b00467db844f7176d526efd0074d47b5f3e62c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/helper-prerequisite/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/helper-prerequisite/stdout.log",
+      "bytes": 855,
+      "sha256": "61296992922b93dd51c931a155a0aeb2170606a0b828a5ca517137ed7154928a"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/lint/LAUNCH.json",
+      "bytes": 1502,
+      "sha256": "5cd29537e53a6a89c2919f5ebdb32c5ac207946f7d658d4c52aa6de125493101"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/lint/RETURN.json",
+      "bytes": 979,
+      "sha256": "3130b28bf76e198f22840a70c1283edc7e65d38648ee4bb7427d557038f13e90"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/lint/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/lint/stdout.log",
+      "bytes": 427,
+      "sha256": "b04f6dc46c57e47c7076c473898ec26a5069ddaa5341157d5bfd51cbbcfd1b8b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/LAUNCH.json",
+      "bytes": 1492,
+      "sha256": "ec7cdb7334c31a04e2f373dd2ab94ae84cc81268c4c59425459b6a0b779b5d06"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/RETURN.json",
+      "bytes": 122770,
+      "sha256": "b65e5a0a44ca8fc794a26fa468f37cd72ad2329691796a1f000ed28c6540afe8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-command--71666.json",
+      "bytes": 2404,
+      "sha256": "efadd76e015d7344275eaf39a1aa0d4a7ff2379ffb2cc05386b5d50ec1350809"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-http--71666.json",
+      "bytes": 1945,
+      "sha256": "7d8422bdc34283f5143cc1a92ddc1ea7513092ece667849d1ef4a24fffc8f4f4"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-capture-worker--71666.json",
+      "bytes": 3436,
+      "sha256": "b07cf50df8a8178f235d0f20b745f01018319c4e22baa3732c8abfd65663f716"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-invalid--71666.json",
+      "bytes": 1895,
+      "sha256": "30f19c5422d13628272dc48dd96f2af530583c33385f326572f9402d3ba1b4ba"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-missing--71666.json",
+      "bytes": 1784,
+      "sha256": "292ebf80d96756a0d92f5a157a6b6f09a033f3993c54e7160c06da6cc3f8c4dc"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-owner-error--71666.json",
+      "bytes": 4083,
+      "sha256": "b28fd25c24c6a3652be08285fe7c7785fcdd79d3ad09ae1f9e0feab7be69f8ef"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-request-failure--71666.json",
+      "bytes": 1977,
+      "sha256": "ce84817ce518c04c694e2fe47f707583bc56d7f3515603abb81fb85019d059cd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/evidence/t287-owned-process-lifetime--physical-http-response--71666.json",
+      "bytes": 2069,
+      "sha256": "c67f06676d633234d6c3f2f68351e61e0e087116d324b76e273d73fae9e49ead"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/stdout.log",
+      "bytes": 51287,
+      "sha256": "f8103cac849ca15f4b63db87009d34969f1eb82f21af28b32a663c2f21c49037"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/pack/ARCHIVE_MEMBERS.json",
+      "bytes": 1099783,
+      "sha256": "deeb6ab6595237d762e9ddef201b6b2f3deb3167347a4c1f90106b823ae06b65"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/pack/LAUNCH.json",
+      "bytes": 1544,
+      "sha256": "4e377ec7737522d55b89a460d7f9c575bf81984009bc2f2fbc919b1c3eb94d00"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/pack/RETURN.json",
+      "bytes": 1295,
+      "sha256": "957b64df1a3bdfc16d74363bf00e6a4af5302dd608faaf55f32c5bab6061ea26"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/pack/TESTED_BUILD_BEFORE.json",
+      "bytes": 182688,
+      "sha256": "e0023246b68be82e2e71f0ca93ab6cc74f8477bea558b73ca76f861b0099defa"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/pack/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/pack/stdout.log",
+      "bytes": 700604,
+      "sha256": "963004e5a4e73f6ea47889faba3c7996cf5de15e1824bf88293da39f6671b4fe"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/LAUNCH.json",
+      "bytes": 1934,
+      "sha256": "7dccd24e7dd50791bf65aecb98d2d6d43cf65410cd948591439f1750dc06d1fa"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/RETURN.json",
+      "bytes": 1441,
+      "sha256": "078b5b457773a1c4f0671bd3f9dc849ba4a245531293476f5620486876139d7c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-absolute--71846.json",
+      "bytes": 2884,
+      "sha256": "40d316bc8473ba2e8ddf4c46cdac4969055bf7006d622dabdc1b20f6b5789708"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-coalesced--71846.json",
+      "bytes": 2866,
+      "sha256": "093e7c400c12b7cba96e7aa8d7b4124206c843dad05454030c116893322e109c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-coalescedSplit--71846.json",
+      "bytes": 2961,
+      "sha256": "665d250c717200ffd6a670ec8dab0402f258739087f8c7364023ff0c7851d094"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-eachByte--71846.json",
+      "bytes": 3215,
+      "sha256": "0e10ea99d894ffcc230cb6ed0d24a771ee9bacdb2c1597b3a66d7e27cbd1e530"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-intact--71846.json",
+      "bytes": 2873,
+      "sha256": "1e227219ec1da516e4140579da3efbd476eae4ac693abfbf842429be0fa7e6b2"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-missing--71846.json",
+      "bytes": 2804,
+      "sha256": "b8e2d3788dbcd4f411a9a7250db04b5463ff29a3c3169444c57c65fa98fc569f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split1--71846.json",
+      "bytes": 2913,
+      "sha256": "83188516dbc2117dd5f232f5fce664d06f7767bfe432082402f5d883e9936f05"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split2--71846.json",
+      "bytes": 2913,
+      "sha256": "f8c660e075fd7d95c0a93343abfe3837082882d6b3059cd3313c4005bb68a4fd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split3--71846.json",
+      "bytes": 2913,
+      "sha256": "c2ae76d84065e8f8bba32b26a2d0897bcf5d7264b04cf681b811f306cee1f3ef"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split4--71846.json",
+      "bytes": 2913,
+      "sha256": "762fbba11a6b8f63628c0f3f9f6dce2c3d3a66a21d0134ace6cc20b5b37d03f1"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split5--71846.json",
+      "bytes": 2913,
+      "sha256": "315bb635a96e1ffebddea195cb9c8296b8cb78659f2a4ef73ebcfdce715ce6e0"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split6--71846.json",
+      "bytes": 2913,
+      "sha256": "2aea33c6fbc110326aea73bdda15477875d464e66faa8a17cd82da3912b02db5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split7--71846.json",
+      "bytes": 2913,
+      "sha256": "a0f95600aae66b56ec440c82681fe6be59555389c59d551c16e034f4a31c9824"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-split8--71846.json",
+      "bytes": 2913,
+      "sha256": "732864e51f667785665b80478bf2bf23ff773799685346987201c59241c07cf2"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-completion-unterminated--71846.json",
+      "bytes": 2931,
+      "sha256": "19368394d93434d6e95baae1296efb61430d7b5ba3d9b48db5c3f56fb2b369a9"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-drive-rejected--71846.json",
+      "bytes": 1548,
+      "sha256": "34994cf638c2f60e9d933f029473fb0af7daa4765d7f5845d99638874e8e1028"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-false-ack--71846.json",
+      "bytes": 2809,
+      "sha256": "1e128cfb40c520ee045d72132a48e3e357f0fe9cac0cb893f25b23240ae97a61"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-partition-fourScheduled--71846.json",
+      "bytes": 3043,
+      "sha256": "e810280f76c660cd13369ecbd689fed305b1a636bb73fc4fc35f0dd22d55abfa"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-partition-oneCoalesced--71846.json",
+      "bytes": 2915,
+      "sha256": "70207d2c3a064bea59a86e480d08d0fea9ad4a2fecf65b72f4cb271996ead0f1"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-partition-recordByRecord--71846.json",
+      "bytes": 3210,
+      "sha256": "309435ae4846d46aeb50f1f91070efefe4d9b61ad60b5d1329bfc27369fc0649"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-partition-splitEachByte--71846.json",
+      "bytes": 6319,
+      "sha256": "bf32221dea59bdbd82583c20f83838965d5b0d9f1d8202ba012cdc6313e0e0f7"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-post-exit--71846.json",
+      "bytes": 2544,
+      "sha256": "dfe180983a5cadfd6a259c61166ccd9cdb147212c5f7bc8672e212632395884b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--controlled-true-ack--71846.json",
+      "bytes": 2673,
+      "sha256": "1c86d5ddb32c8a95c0c8bdbcca06e2b8c4162f4fea1d4c355a89c07280ad44e6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-command-normal--71846.json",
+      "bytes": 1699,
+      "sha256": "06ac1828ee0eebaf81673fd0d86ecaa11fa69bb9f4fb9943e1dc340101ca408d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-TERM--71846.json",
+      "bytes": 4930,
+      "sha256": "0aea62e666d316dce033b1531f49039f492bd27cb03b75f0faf9a7906d8b919b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-normal--71846.json",
+      "bytes": 4869,
+      "sha256": "015653ce2ad0ddfef272ca19899b9dde898c836664b7eb70cb794b6e3b64e905"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--post-timeout-output--71846.json",
+      "bytes": 5816,
+      "sha256": "f53b41344f02518e033bf6e11a474e3e178607e2c973041da9a82bbb20e96fc5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--progress-lease--71846.json",
+      "bytes": 15268,
+      "sha256": "e8e43e23b6e5c82780e69679a74ea898754fe9b098faf9a4717b20d62fbf63a0"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--resistant-worker--71846.json",
+      "bytes": 27634,
+      "sha256": "79ad1b7efaf7bd1310fe180ed6b8c947ad7a1810ce1c45869b34a284a66a1c55"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--unacknowledged-output--71846.json",
+      "bytes": 33717,
+      "sha256": "37a43d9cd255203cab0ddd15084b99a831a537288c7e7185fc3083886058c969"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/stdout.log",
+      "bytes": 173637,
+      "sha256": "f357db345cb28a2869f2c45f24affc1bf1e57b89b651a1381ee26a5092c91508"
+    }
+  ],
+  "controlRows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/BINDING.json",
+      "bytes": 9473,
+      "sha256": "bfc7f0337d8e22e2678f590a80d5ae5f0c6cbabc29232154a6f773a6577fd0fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/CLOSURE_RETURN.json",
+      "bytes": 14780,
+      "sha256": "e9719cc79189d763c9bb2a67b398db8496592eeae895e145a8d99ef063df301f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/CONTROLLED_BASELINE.json",
+      "bytes": 4820,
+      "sha256": "da3cc864d95da598cd4b65a7dc276e1c8a9d2be69dcfea86376dffadb95a57d6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/CONTROLS.json",
+      "bytes": 32767,
+      "sha256": "9b2572369df3c10dddf589c419b95c4ef3de77e8133533cc9840bfe9711bbfc1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/DEPENDENCY_METADATA.json",
+      "bytes": 56004,
+      "sha256": "48499ec0f313c2b71ed8a0b4a5dd8f48704b365865a28f133784fa425ec652ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/DRIVER_DELTA.diff",
+      "bytes": 29874,
+      "sha256": "6e731c6497d2af57390a4285e4e4aa32cf798b11ea11074c2de8435e63d5371b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/EXECUTION_RETURN.json",
+      "bytes": 7937,
+      "sha256": "615c6c3f8b150bf74ee09b66e9e9b4d6356c4ebe122745aafe3b4c876aa4fb21"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/FAILURE_TRIAGE.md",
+      "bytes": 1937,
+      "sha256": "1c07a3611d94ea34f6625fd8737ec580b61e162ae281d40ceeab157763b8f6e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/LINT_RECIPE.json",
+      "bytes": 365,
+      "sha256": "f285eeef9412dd6c6263be4987b8a0d898536d6e05cff0495031d898ae7d8937"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/MODULE_ORIGIN_RELATION.json",
+      "bytes": 1314,
+      "sha256": "87ca45ec632ecd57106f77fd4c0e171ce9980e4349de7fbdfc9ada294b2cd79b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/POSTGUARDS.json",
+      "bytes": 2200,
+      "sha256": "cfd4e99e0eae39b86f9ed22e3ba96a4ea12d0a79a22baa5b28d78586ef29b158"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/PREPARATION_RETURN.json",
+      "bytes": 3333,
+      "sha256": "6454346935e4a22626638c4939e0e6c4d1d5b669594fcbdae97f1593f14cdfaa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/PRESERVATION_GUARDS.FINAL.json",
+      "bytes": 3614,
+      "sha256": "73a53af09559b4e090e7c93e75866209f741c3f7c7c4b8eb7bd6876616ea7157"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/PRESERVATION_GUARDS.json",
+      "bytes": 3614,
+      "sha256": "0b65a268a4ee68fbbad1fe0f6b448cb49d0ef48c66d6f2fe366207131bd39fd3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/README.md",
+      "bytes": 3520,
+      "sha256": "8e5126680ff0251a6009eb9d823005fffa0ee64ce2a873a831bb8cc1c3a8111e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/READY.json",
+      "bytes": 9126,
+      "sha256": "7c6f4c4d02c3bec73cec55377badaacf78a4253f248b65ebb4ac0f8c1513c7a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/ROOT_EXECUTION_ADMISSION.json",
+      "bytes": 3651,
+      "sha256": "e16a72549c05a14980dcb22600d20531f725ea6460f5136a7aaec4f3e47adc73"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/ROOT_SCOPE.json",
+      "bytes": 1706,
+      "sha256": "ec74eca089e2d6c8fb8e1bee2aa4584998d73eb76794592a2603f750d394b9d2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 2449,
+      "sha256": "bbfd304252d72b41522476ca0dcbe04f94a1b8578007e0b852674bfc62d388c2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/STATIC_PREFLIGHT.json",
+      "bytes": 2393,
+      "sha256": "7b276b6416e1df838f252e2a7c14ea71d33990721677582044bce3138e74e717"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/TRACKING.json",
+      "bytes": 1829,
+      "sha256": "274db96c5c415da5bcd5133d3a30822068cd23b949062df7082cf8e8044b20f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/TRACKING_SOURCE_ACCEPTANCE.json",
+      "bytes": 1705,
+      "sha256": "33b2fb6aebe00ba1220a2b30eed2a9b11b1b251b128d8a841d489c31db153ebc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/UNIT_DESCENDANT_CENSUS.json",
+      "bytes": 8728,
+      "sha256": "4ed7c97343ac3bd0b003dd44d9d2684b28b494125415e45e8a315c7ebee94dc4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/build.mjs",
+      "bytes": 2004,
+      "sha256": "ebfc7376401281633291ad4e18ab264ee01386efe62a0166e7ce197c0d634739"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/lint.mjs",
+      "bytes": 439,
+      "sha256": "17840d419bb43478b2f65b9d2c8674c5865b484b30de1cd33c805e9b270dc91e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/proof.py",
+      "bytes": 24914,
+      "sha256": "862517533438aaeb5cd09d87b56ebc6d5ce02b147074e8ae49f509456c8acca6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/seal-controls.py",
+      "bytes": 8839,
+      "sha256": "d7823341e49a795da50e66b317e693d38ae44424480973136117743a10e19386"
+    }
+  ],
+  "excludedOwnedTrees": [
+    "artifacts",
+    "bootstrap-host",
+    "c2-tmp",
+    "source",
+    "tmp",
+    "work"
+  ],
+  "standing": "These excluded trees are separately guarded by source/build/dependency/archive/bootstrap relations; no old evidence rewrite."
+}

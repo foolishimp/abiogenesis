@@ -1,0 +1,58 @@
+{
+  "status": "ACTUAL_COMPLETE_UNIT_FAILURES_RETAINED",
+  "stdout": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-03/unit/stdout.log",
+    "bytes": 42457,
+    "sha256": "0849a76507db09f99e6de444ec0e7f20f194753a151a7b15e4c2936b6d581992"
+  },
+  "counts": {
+    "tests": 95,
+    "pass": 84,
+    "fail": 5,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0
+  },
+  "failedCases": [
+    {
+      "line": 305,
+      "case": "not ok 51 - M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "tapBlock": "not ok 51 - M5 ABG transport force-terminates a worker that ignores SIGTERM\n  ---\n  duration_ms: 285.991375\n  type: 'test'\n  location: '/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:701:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    + actual - expected\n    \n    + 'inactivity'\n    - 'absolute'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 'absolute'\n  actual: 'inactivity'\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:743:10)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\n  ..."
+    },
+    {
+      "line": 329,
+      "case": "not ok 52 - M5 ABG transport renews its inactivity lease only from observed progress",
+      "tapBlock": "not ok 52 - M5 ABG transport renews its inactivity lease only from observed progress\n  ---\n  duration_ms: 212.3245\n  type: 'test'\n  location: '/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:757:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    \n    false !== true\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: true\n  actual: false\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:802:10)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\n  ..."
+    },
+    {
+      "line": 351,
+      "case": "not ok 53 - M5 ABG transport does not renew from unacknowledged output",
+      "tapBlock": "not ok 53 - M5 ABG transport does not renew from unacknowledged output\n  ---\n  duration_ms: 218.870583\n  type: 'test'\n  location: '/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:809:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    \n    false !== true\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: true\n  actual: false\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:843:10)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\n  ..."
+    },
+    {
+      "line": 381,
+      "case": "not ok 55 - owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "tapBlock": "not ok 55 - owned process groups retain descendant cleanup after normal and TERM leader exits\n  ---\n  duration_ms: 3798.467625\n  type: 'test'\n  location: '/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:892:1'\n  failureType: 'testCodeFailure'\n  error: \"ENOENT: no such file or directory, open '/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-owned-group-NPkhhe/http-normal-leader.json'\"\n  code: 'ENOENT'\n  stack: |-\n    async open (node:internal/fs/promises:642:25)\n    async readFile (node:internal/fs/promises:1279:14)\n    async TestContext.<anonymous> (file:///private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:954:30)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\n  ..."
+    },
+    {
+      "line": 397,
+      "case": "not ok 56 - M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "tapBlock": "not ok 56 - M5 ABG transport excludes descendant output emitted after direct-process exit\n  ---\n  duration_ms: 222.309791\n  type: 'test'\n  location: '/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:971:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    \n    null !== 47\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 47\n  actual: ~\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:1023:10)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\n  ..."
+    }
+  ],
+  "explicitSkips": [
+    "ok 35 - M5 resolves and independently validates the complete executable root set # SKIP ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+    "ok 36 - M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases # SKIP ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+    "ok 37 - M5 F_H-only roots produce one valid empty executable-resolution set # SKIP ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+    "ok 77 - material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction # SKIP ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body",
+    "ok 82 - native D2 root-backed binding cover authenticates source ancestry and preserves first refusals # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+    "ok 83 - native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)"
+  ],
+  "failedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "bytes": 114763,
+    "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+  },
+  "failedSourceEqualsRC10Base": true,
+  "causalStanding": "Actual failure observations only. No assertion that host load, readiness envelope or Product behavior caused them; Root triage remains required."
+}

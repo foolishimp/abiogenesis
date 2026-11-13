@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.2/828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8/3d4bfdc487ebc5930e137ff067cc0c59aed5f6ae0691f24ce1cd0fe1bb26f23c",
+      "admissionEventRef": "event://abiogenesis/92c86b753da55d6d2f2d775037f2288f4334b3af4925adb3cf323749af9a173d",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.2",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+      "productContentDigest": "sha256:828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8",
+      "manifestDigest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/95bdc9cb63396b8b343bfde217c96a766c2a9d89fbe06e40c2bb420824201417/3d4bfdc487ebc5930e137ff067cc0c59aed5f6ae0691f24ce1cd0fe1bb26f23c",
+      "admissionEventRef": "event://abiogenesis/1f1d21dc688dd6fe7704641b256a7504c4efc3b27125401616bd63e9bf925ced",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:9d74357f80dcf924d70aca7af3ee00b52f9a04bf12bc221df9436a5089c247ca",
+      "productContentDigest": "sha256:95bdc9cb63396b8b343bfde217c96a766c2a9d89fbe06e40c2bb420824201417",
+      "manifestDigest": "sha256:6d1c866853fcbe776fdcc5192defbe91f34b592719eb489da0de8f17c6c2b47c",
+      "contentMatches": true
+    }
+  ]
+}

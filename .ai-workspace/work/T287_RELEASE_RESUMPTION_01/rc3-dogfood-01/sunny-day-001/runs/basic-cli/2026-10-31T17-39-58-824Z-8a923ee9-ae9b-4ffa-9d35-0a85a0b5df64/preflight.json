@@ -1,0 +1,97 @@
+{
+  "disposition": "ready",
+  "issues": [],
+  "observations": [
+    {
+      "name": "node",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64",
+      "started": "2026-10-31T17:39:58.838Z",
+      "environmentKeys": [
+        "BASH_DEFAULT_TIMEOUT_MS",
+        "BASH_MAX_TIMEOUT_MS",
+        "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS",
+        "HOME",
+        "LANG",
+        "LC_ALL",
+        "NODE_OPTIONS",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 17.173750000000005,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "v24.7.0\n",
+      "stderr": ""
+    },
+    {
+      "name": "npm",
+      "executable": "/opt/homebrew/bin/npm",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64",
+      "started": "2026-10-31T17:39:58.856Z",
+      "environmentKeys": [
+        "BASH_DEFAULT_TIMEOUT_MS",
+        "BASH_MAX_TIMEOUT_MS",
+        "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS",
+        "HOME",
+        "LANG",
+        "LC_ALL",
+        "NODE_OPTIONS",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 107.924,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "11.5.1\n",
+      "stderr": ""
+    },
+    {
+      "name": "provider",
+      "executable": "/Users/jim/.local/bin/claude",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64",
+      "started": "2026-10-31T17:39:58.965Z",
+      "environmentKeys": [
+        "BASH_DEFAULT_TIMEOUT_MS",
+        "BASH_MAX_TIMEOUT_MS",
+        "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS",
+        "HOME",
+        "LANG",
+        "LC_ALL",
+        "NODE_OPTIONS",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 106.10716699999998,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "2.1.306 (Claude Code)\n",
+      "stderr": ""
+    }
+  ],
+  "providerReachability": "Not dispatched or network-qualified",
+  "selectedCases": [
+    "basic-cli"
+  ]
+}

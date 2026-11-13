@@ -1,0 +1,128 @@
+{
+  "kind": "actual_earlier_selector_and_conservative_failed_selector_accounting",
+  "actual": [
+    {
+      "ordinal": 50706,
+      "promptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-de55c2f52278e69c-prompt.txt",
+      "promptBytes": 984029,
+      "promptSha256": "10d6a39fbba6f660608231bdd8557137f4533c678c8b7d60d01ee7b02ae6d3d5",
+      "promptCanonicalDigest": "sha256:11875e0dcfca7b5e86bf3099d2cd44178eecaedb2ab8f295529a80e8f3376de1",
+      "sectionBytes": {
+        "role": 43099,
+        "choices": 5212,
+        "task": 928697,
+        "binding": 1564,
+        "evidence": 21,
+        "response": 5364
+      },
+      "taskBytes": 928697,
+      "otherBytes": 55332
+    },
+    {
+      "ordinal": 54608,
+      "promptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-b1c102d4024f6e56-prompt.txt",
+      "promptBytes": 1002235,
+      "promptSha256": "e0cf778e3a8694cef15e3f841db94dc5cfcf4f8fd2cfe5423734c546277fff79",
+      "promptCanonicalDigest": "sha256:54d1e717e6d20ec2d455021c12a6135d17af40dfafe948909129dd9f3cbe357f",
+      "sectionBytes": {
+        "role": 43099,
+        "choices": 5212,
+        "task": 945873,
+        "binding": 1564,
+        "evidence": 21,
+        "response": 6394
+      },
+      "taskBytes": 945873,
+      "otherBytes": 56362
+    }
+  ],
+  "historical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/fp-0141c53486056a96-prompt.txt",
+    "bytes": 557101,
+    "sha256": "6b9ec2ce3cccc5fb165fd72b6e81208eaafc3b7513d70421c8ea1fd9000a5a54",
+    "sectionBytes": {
+      "role": 9147,
+      "choices": 5212,
+      "task": 535804,
+      "binding": 1564,
+      "evidence": 21,
+      "response": 5281
+    },
+    "otherBytes": 21297
+  },
+  "fixedSectionIdentityChecks": [
+    {
+      "section": "role",
+      "firstSha256": "0dfd1fbacec19eac8912eb2ef279627ff63aadfcaa80aff64e307ff49ecd90da",
+      "lastSha256": "0dfd1fbacec19eac8912eb2ef279627ff63aadfcaa80aff64e307ff49ecd90da",
+      "equal": true
+    },
+    {
+      "section": "choices",
+      "firstSha256": "5f186c9f98f5dc055f2afcda1a53666489a5bd9b64dfaaec7f39fc1ddcadb517",
+      "lastSha256": "5f186c9f98f5dc055f2afcda1a53666489a5bd9b64dfaaec7f39fc1ddcadb517",
+      "equal": true
+    },
+    {
+      "section": "evidence",
+      "firstSha256": "f68805131a5e6e1b39adc1e9c2f2af233c4ad3543a9f7d74c61eab868d50de87",
+      "lastSha256": "f68805131a5e6e1b39adc1e9c2f2af233c4ad3543a9f7d74c61eab868d50de87",
+      "equal": true
+    }
+  ],
+  "failedSelector": {
+    "taskBytes": 998425,
+    "sectionBytes": {
+      "role": 43099,
+      "choices": 5212,
+      "task": 998425,
+      "binding": 1564,
+      "evidence": 21,
+      "response": 6922
+    },
+    "wrappersAndSeparatorsBytes": 72,
+    "inferredCompleteBytes": 1055315,
+    "inferredOverflowBytes": 6739,
+    "conservativeLowerBoundExcludingWholeBindingValue": 1053751,
+    "conservativeMinimumOverflowBytes": 5175,
+    "standing": "Actual task projection + actual same-Run role/choices/evidence + actual task-dependent response pure owner. The complete count uses source-supported equal-length execution binding refs from actual failed call. The lower bound excludes all binding-value bytes and already proves overflow; neither is an admitted prompt or fabricated basis."
+  },
+  "predictions": [
+    {
+      "name": "completed_native06_review_bodies",
+      "kind": "predictive_source_selection_only_not_future_admission",
+      "referenceOnlyPaths": [
+        "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json"
+      ],
+      "heldUnchanged": "All worksite files/context, readRoots/testing selectedPaths, construction readFirst, assessment sources, requiredSupportRefs, outcome/criteria, observations and prior judgment remain baseline byte values. Only selector-embedded original.sources membership changes.",
+      "taskProjectionBytes": 910915,
+      "savedTaskBytes": 87510,
+      "inferredCompleteSelectorBytes": 967805,
+      "headroomBytes": 80771,
+      "limit": "Source-supported fixed-section and binding-length accounting from actual same-Run selectors. No future native task/assembly/admission/Result is produced."
+    },
+    {
+      "name": "reviews_plus_previous_native06_return",
+      "kind": "predictive_source_selection_only_not_future_admission",
+      "referenceOnlyPaths": [
+        "consolidation-inputs/native-07/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+        "consolidation-inputs/native-07/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+        "consolidation-inputs/native-07/PREVIOUS_NATIVE_RETURN.json"
+      ],
+      "heldUnchanged": "All worksite files/context, readRoots/testing selectedPaths, construction readFirst, assessment sources, requiredSupportRefs, outcome/criteria, observations and prior judgment remain baseline byte values. Only selector-embedded original.sources membership changes.",
+      "taskProjectionBytes": 838906,
+      "savedTaskBytes": 159519,
+      "inferredCompleteSelectorBytes": 895796,
+      "headroomBytes": 152780,
+      "limit": "Source-supported fixed-section and binding-length accounting from actual same-Run selectors. No future native task/assembly/admission/Result is produced."
+    }
+  ],
+  "initialPreflightUnderestimate": 34035,
+  "initialActualHeadroom": 64547,
+  "initial64KiBReserveDeficit": 989
+}

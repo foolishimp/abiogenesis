@@ -1,0 +1,78 @@
+{
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "timeoutMs": 1200000,
+      "minimumPasses": 12,
+      "requireNoSkips": true
+    },
+    {
+      "id": "native-semantic-job",
+      "files": [
+        "test_env/tests/t287-native-semantic-job.test.mjs"
+      ],
+      "timeoutMs": 900000,
+      "minimumPasses": 9,
+      "requireNoSkips": true
+    },
+    {
+      "id": "native-semantic-revision",
+      "files": [
+        "test_env/tests/t287-native-semantic-revision.test.mjs"
+      ],
+      "timeoutMs": 900000,
+      "minimumPasses": 5,
+      "requireNoSkips": false
+    },
+    {
+      "id": "semantic-interface-and-fixture-consumers",
+      "files": [
+        "test_env/tests/d2-acknowledgment.test.mjs",
+        "test_env/tests/d2-binding-query-reuse.test.mjs",
+        "test_env/tests/d2-binding-transition.test.mjs",
+        "test_env/tests/d2-bounded-repair.test.mjs",
+        "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+        "test_env/tests/d2-historical-design.test.mjs",
+        "test_env/tests/d2-workflow-step.test.mjs",
+        "test_env/tests/t287-c2-child-program.test.mjs",
+        "test_env/tests/t287-d1-semantic-stage.test.mjs",
+        "test_env/tests/t287-generic-job-intake.test.mjs",
+        "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+        "test_env/tests/t287-generic-job-meaning.test.mjs",
+        "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+        "test_env/tests/t287-generic-job-revision.test.mjs",
+        "test_env/tests/t287-management-context.test.mjs",
+        "test_env/tests/t287-management-supervision.test.mjs",
+        "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+        "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+        "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+        "test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "test_env/tests/t287-predecessor-context.test.mjs",
+        "test_env/tests/t287-stdo-environment-citation.test.mjs",
+        "test_env/tests/t287-stdo-run-environment.test.mjs",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 62,
+      "requireNoSkips": false
+    }
+  ],
+  "population": "28 existing regression modules connected to changed owners/helpers; no feature development or wider proof closure.",
+  "minimumBasis": "12/9/5/62 existing finite regression minima; two whole-path additions may target shared cut/adapter behavior/work, not every syntax site.",
+  "historicalGates": "Existing D2 captured-envelope, old native retained job/selector/D1/predecessor/STDO-pilot/full-job proof inputs remain unselected. Preserve their exact gate reasons and label skipped branches unverified; no new skip of selected positive/negative/work cases.",
+  "requiredNewClaims": [
+    "Complete3/7 adoption/four-wrapper-consumer retirement tracing",
+    "Relevant behavior/refusals plus focused existing shared-adapter/cut-owner work discriminator; no per-site E2E framework"
+  ],
+  "unchangedEvidence": "No new execution credit from any native06/07/08 retained row; Product package bytes change, so old package-equality reuse is not selected.",
+  "limits": "Source-derived minima are preparation predicates, not observations or acceptance. Existing optional historical skips cannot satisfy selected new claims.",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+    "bytes": 6177,
+    "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+  }
+}

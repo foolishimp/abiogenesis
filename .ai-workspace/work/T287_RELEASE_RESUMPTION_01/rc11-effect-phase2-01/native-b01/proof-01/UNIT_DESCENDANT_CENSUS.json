@@ -1,0 +1,196 @@
+{
+  "kind": "POST_STOP_IDENTIFIED_UNIT_DESCENDANT_CENSUS",
+  "rows": [
+    {
+      "pid": 71886,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--resistant-worker--71846.json",
+          "role": ".fixture.ready(decoded).pid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 72107,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--post-timeout-output--71846.json",
+          "role": ".fixture.ready(decoded).pid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 72152,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-normal--71846.json",
+          "role": ".startedPid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-normal--71846.json",
+          "role": ".leaderRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-normal--71846.json",
+          "role": ".readyRecord(decoded).ppid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-normal-leader.json",
+          "role": ".pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-normal-descendant.json",
+          "role": ".ppid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 72153,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-normal--71846.json",
+          "role": ".readyRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-normal-descendant.json",
+          "role": ".pid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 72168,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-TERM--71846.json",
+          "role": ".startedPid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-TERM--71846.json",
+          "role": ".leaderRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-TERM--71846.json",
+          "role": ".readyRecord(decoded).ppid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-TERM-descendant.json",
+          "role": ".ppid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-TERM-leader.json",
+          "role": ".pid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 72169,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-TERM--71846.json",
+          "role": ".readyRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-TERM-descendant.json",
+          "role": ".pid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 72296,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-command-normal--71846.json",
+          "role": ".leaderRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-command-normal--71846.json",
+          "role": ".readyRecord(decoded).ppid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-normal-descendant.json",
+          "role": ".ppid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-normal-leader.json",
+          "role": ".pid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 72297,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-command-normal--71846.json",
+          "role": ".readyRecord(decoded).pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-normal-descendant.json",
+          "role": ".pid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 72298,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-TERM-leader.json",
+          "role": ".pid"
+        },
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-TERM-descendant.json",
+          "role": ".ppid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    },
+    {
+      "pid": 72299,
+      "provenance": [
+        {
+          "source": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-TERM-descendant.json",
+          "role": ".pid"
+        }
+      ],
+      "currentDirectPresence": "absent",
+      "sameNumberGroupPresence": "absent"
+    }
+  ],
+  "sourceFiles": [
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--progress-lease--71846.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--post-timeout-output--71846.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--resistant-worker--71846.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-command-normal--71846.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-normal--71846.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--unacknowledged-output--71846.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/evidence/m5-worker-transport--owned-group-worker-TERM--71846.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-TERM-descendant.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-TERM-leader.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-normal-descendant.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-TERM-leader.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-normal-leader.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/command-TERM-descendant.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-normal-leader.json",
+    "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/tmp/abi5-owned-group-5v5yEP/worker-normal-descendant.json"
+  ],
+  "interventions": [],
+  "scope": "Physical-case evidence and actual retained small leader/descendant/ready records only; controlled synthetic case records excluded. Same-number group probes are observations, not inferred group ownership.",
+  "exactQCommandMatches": [],
+  "fullAllDescendantAbsenceClaim": false
+}

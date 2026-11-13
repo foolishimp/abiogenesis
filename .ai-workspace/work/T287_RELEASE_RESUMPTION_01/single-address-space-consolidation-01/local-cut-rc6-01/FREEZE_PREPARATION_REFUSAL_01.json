@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-05T01:59:52.826879+00:00",
+  "kind": "operator_preparation_refusal",
+  "command": "python3 freeze-cut.py",
+  "exit": 1,
+  "failure": "Whitelist omitted package/build/code/src/product/builtin_semantics.d.ts",
+  "effects": "No source checkpoint, release or install allocated; successful candidate build preserved.",
+  "cause": "The two existing identity constants also flow into one existing inferred TypeScript declaration. All three changed build members are exact rc.5-to-rc.6 text substitutions.",
+  "frames": {
+    "identity": "Existing Product/package constants are the sole changed substantive inputs.",
+    "implementation": "Native source files still match snapshot except the declared identity constants; emitted JavaScript only changes contracts.js.",
+    "proof": "Archive byte discriminator was too narrowly limited to contracts.d.ts and correctly stopped; the observed builtin_semantics declaration adds no behavior."
+  },
+  "reentry": "Bounded operator script whitelist correction to include this exact derived declaration after byte-normalized equality; no Product source/test repair.",
+  "scriptBeforeSha256": "7ec2b0f4a98939cfc52613765f7e15c5bca212494b19365ed41d63bbb20c5c2f"
+}

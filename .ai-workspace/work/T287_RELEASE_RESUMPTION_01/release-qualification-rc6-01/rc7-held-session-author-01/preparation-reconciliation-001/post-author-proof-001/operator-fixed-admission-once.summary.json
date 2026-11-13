@@ -1,0 +1,51 @@
+{
+  "label": "operator-fixed-admission-once",
+  "testName": "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+  "counts": {
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "selectedNames": [
+    "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+  ],
+  "selectedPass": false,
+  "processExitCode": 1,
+  "signal": null,
+  "failure": null,
+  "timedOut": false,
+  "truncated": false,
+  "wallMs": 286825.12299999996,
+  "maximumResidentSetSizeBytes": 3290890240,
+  "rssOwner": "/usr/bin/time -l, macOS maximum resident set size",
+  "diagnosticLines": [],
+  "commandReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-fixed-admission-once.result.json",
+    "bytes": 1420,
+    "sha256": "f86f0fd733d7ad7e00b50e0a88909fd871d6e02c757fbb8e62adcdb17c2f6bd1"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-fixed-admission-once.stdout",
+    "bytes": 3546,
+    "sha256": "3ec2eae8b8b0d40d8b0e781d9d64c4b8ff94aab81a0cc5e39b7a5d182c44b59c"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-fixed-admission-once.stderr",
+    "bytes": 777,
+    "sha256": "12948f4cca8003ae36d02e2c265e0334ea0675fc3c2c1aefa3c8bb8a2d51d2e0"
+  },
+  "sourceAfter": {
+    "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+    "sourceRows": 450,
+    "generatedManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+    },
+    "matched": true
+  },
+  "unsafeExecution": false
+}

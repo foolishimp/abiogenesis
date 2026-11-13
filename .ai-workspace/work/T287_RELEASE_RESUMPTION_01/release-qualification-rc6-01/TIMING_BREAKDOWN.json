@@ -1,0 +1,111 @@
+{
+  "kind": "separated_observed_rc6_campaign_timing",
+  "at": "2026-11-05T09:35:33.447048+00:00",
+  "setup": {
+    "totalProcessMs": 434771.9516251236,
+    "artifactVerificationMs": 188026.136625,
+    "maintainedSdkMs": 229042.06437500002,
+    "occurrences": 1,
+    "otherProcessMs": 17703.75062512359,
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/SETUP_PROCESS_RESULT.json",
+      "field": "totalOperatorProcessMs",
+      "sha256": "ce712cdd8961a1ce9cd6abf7230097590f6809711059aa3bb19b2e0a86b82a49"
+    }
+  },
+  "fixture01": {
+    "preparationAfterSetupToNativeDispatchMs": 1892597.828,
+    "nativeRunMs": 1188661.82175,
+    "dispatchToFirstSelectorMs": 5721.0,
+    "dispatchToCodingWorkerMs": 129580.99999999999,
+    "nativeConstructionResultToC2StartMs": 184239.0,
+    "processes": [
+      {
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "startedUtc": "2026-11-05T08:36:17.740Z",
+        "endedUtc": "2026-11-05T08:37:40.934Z",
+        "wallMs": 83194.0,
+        "startEventOrdinal": 55,
+        "exitEventOrdinal": 1961
+      },
+      {
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "startedUtc": "2026-11-05T08:38:21.600Z",
+        "endedUtc": "2026-11-05T08:52:15.946Z",
+        "wallMs": 834346.0,
+        "startEventOrdinal": 2033,
+        "exitEventOrdinal": 9511
+      },
+      {
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "startedUtc": "2026-11-05T08:52:50.076Z",
+        "endedUtc": "2026-11-05T08:55:14.493Z",
+        "wallMs": 144417.0,
+        "startEventOrdinal": 9624,
+        "exitEventOrdinal": 11258
+      },
+      {
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "startedUtc": "2026-11-05T08:55:21.150Z",
+        "endedUtc": "2026-11-05T08:55:58.006Z",
+        "wallMs": 36856.0,
+        "startEventOrdinal": 11330,
+        "exitEventOrdinal": 11605
+      }
+    ],
+    "result": "runtime_failed: operator report-parent territory omission; source repair accepted separately"
+  },
+  "proof02": {
+    "setupReused": true,
+    "preflightMs": 70869.58849988878,
+    "priorNativeReturnToDispatchMs": 1347373.0,
+    "nativeRunMs": 508147.40004100004,
+    "totalHostMs": 562640.9371658228,
+    "dispatchToFirstSelectorMs": 8169.000000000001,
+    "dispatchToC2ProcessMs": 56800.0,
+    "c2ResultToUatProcessMs": 82959.0,
+    "processes": [
+      {
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "startedUtc": "2026-11-05T09:18:36.232Z",
+        "endedUtc": "2026-11-05T09:19:19.536Z",
+        "wallMs": 43304.0,
+        "startEventOrdinal": 11696,
+        "exitEventOrdinal": 12612
+      },
+      {
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "startedUtc": "2026-11-05T09:19:24.863Z",
+        "endedUtc": "2026-11-05T09:20:00.175Z",
+        "wallMs": 35312.0,
+        "startEventOrdinal": 12684,
+        "exitEventOrdinal": 12989
+      },
+      {
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "startedUtc": "2026-11-05T09:20:17.594Z",
+        "endedUtc": "2026-11-05T09:21:14.358Z",
+        "wallMs": 56764.0,
+        "startEventOrdinal": 13102,
+        "exitEventOrdinal": 14350
+      },
+      {
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+        "startedUtc": "2026-11-05T09:21:23.725Z",
+        "endedUtc": "2026-11-05T09:26:40.651Z",
+        "wallMs": 316926.0,
+        "startEventOrdinal": 14422,
+        "exitEventOrdinal": 16612
+      }
+    ],
+    "codingWorkers": 0,
+    "result": "completed with satisfied native UAT and matching fresh result/replay"
+  },
+  "limits": [
+    "Observed wall intervals, not CPU attribution or matched before/after speedup.",
+    "Setup/preparation, native launch and between-stage intervals are separately reported; do not sum overlapping intervals.",
+    "22m27s re-entry interval includes first fresh-close plus Root failure localization, source-review conjunction, route/control preparation and70.9s preflight; it is not runtime-only delay.",
+    "First Run and proof-only Run have different tasks; do not compare their totals as a performance gain.",
+    "Complete RC6 production-development workflow performance and full qualification are not established."
+  ]
+}

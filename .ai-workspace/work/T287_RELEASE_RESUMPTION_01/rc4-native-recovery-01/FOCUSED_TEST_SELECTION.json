@@ -1,0 +1,68 @@
+{
+  "originalFocused": [
+    "test_env/tests/t287-event-body-encoding.test.mjs",
+    "test_env/tests/t287-worksite-command-execution.test.mjs",
+    "test_env/tests/t287-governed-context.test.mjs",
+    "test_env/tests/t287-cold-record-decoder.test.mjs",
+    "test_env/tests/m5-event-store-reopen.test.mjs",
+    "test_env/tests/t287-calculus-state-transfer.test.mjs",
+    "test_env/tests/retained-route-cursor-transition.test.mjs",
+    "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "test_env/tests/t287-native-worksite-execution.test.mjs",
+    "test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "test_env/tests/t287-owned-native-proof.test.mjs"
+  ],
+  "addedSelfContained": [
+    "t287-exact-construction-intent.test.mjs",
+    "t287-recursive-registered-selection.test.mjs",
+    "t287-public-groups.test.mjs",
+    "m5-fresh-process-reconstruction.test.mjs",
+    "t287-native-work-currentness-consumers.test.mjs",
+    "t287-native-work-unknown-effect.test.mjs",
+    "t287-continuation-causation.test.mjs"
+  ],
+  "actualFocused": [
+    "test_env/tests/t287-event-body-encoding.test.mjs",
+    "test_env/tests/t287-worksite-command-execution.test.mjs",
+    "test_env/tests/t287-governed-context.test.mjs",
+    "test_env/tests/t287-cold-record-decoder.test.mjs",
+    "test_env/tests/m5-event-store-reopen.test.mjs",
+    "test_env/tests/t287-calculus-state-transfer.test.mjs",
+    "test_env/tests/retained-route-cursor-transition.test.mjs",
+    "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "test_env/tests/t287-native-worksite-execution.test.mjs",
+    "test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "test_env/tests/t287-owned-native-proof.test.mjs",
+    "test_env/tests/t287-exact-construction-intent.test.mjs",
+    "test_env/tests/t287-recursive-registered-selection.test.mjs",
+    "test_env/tests/t287-public-groups.test.mjs",
+    "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "test_env/tests/t287-native-work-unknown-effect.test.mjs",
+    "test_env/tests/t287-continuation-causation.test.mjs"
+  ],
+  "excludedWithoutPassCredit": [
+    {
+      "path": "test_env/tests/t287-selected-action-authority.test.mjs",
+      "reason": "Requires historical selected-action-04 files and machine-bound prefix; not supplied as current proof, no pass credit."
+    },
+    {
+      "path": "test_env/tests/t287-selected-action.test.mjs",
+      "reason": "Opt-in installed interruption lane requires separate evidence-root selection; not silently skipped in automatic C2, no pass credit."
+    },
+    {
+      "path": "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+      "reason": "Historical/phase-bound fixture required; not part of automatic selection. Existing source preserved and no pass credit; affected semantic obligations still require self-contained current-owner proof."
+    },
+    {
+      "path": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "reason": "Historical/phase-bound fixture required; not part of automatic selection. Existing source preserved and no pass credit; affected semantic obligations still require self-contained current-owner proof."
+    },
+    {
+      "path": "test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "reason": "Historical/phase-bound fixture required; not part of automatic selection. Existing source preserved and no pass credit; affected semantic obligations still require self-contained current-owner proof."
+    }
+  ],
+  "allNineCommandPurposesAndPredicatesRetained": true,
+  "focusedTimeoutMs": 2700000
+}

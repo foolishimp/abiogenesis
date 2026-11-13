@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-07T13:04:35.735Z",
+  "failure": "Error: FIRST_TEST_RED_OR_INCOMPLETE: test_env/tests/t287-selected-action-authority.test.mjs\n    at run (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-019-003.mjs:268:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-019-003.mjs:299:3",
+  "retainedScratch": "/private/tmp/abg-r8c-019",
+  "autoRetry": false
+}

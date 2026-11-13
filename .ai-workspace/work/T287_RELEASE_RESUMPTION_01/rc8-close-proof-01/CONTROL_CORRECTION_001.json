@@ -1,0 +1,35 @@
+{
+  "status": "PREPARATION_INVENTORY_CORRECTION_UNEXECUTED",
+  "at": "2026-11-07T04:41:35.965573+00:00",
+  "activation": "/root/rc7_reference_ticket_writer",
+  "consumer": "/root",
+  "authority": "Root selected exact-stage broad inventory/config preparation, preserving primary stage; routine narrow control correction required before execution. Root notified immediately before this correction.",
+  "finding": "Generic exclusion of every directory named node_modules omitted the generated build/toolchain/node_modules payload from materialized test subjects. Original bind result was retained and must not be admitted.",
+  "correction": "Exclude only the tenant-root node_modules that is separately inventoried/copied. Retain generated nested payload dependencies and tracked fixtures; no source/test/build changes.",
+  "supersededManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST.json",
+    "bytes": 2098,
+    "sha256": "49d7d28c214821977f0d2cd20ce4263b05348b8970027befd81443b1db5fd674"
+  },
+  "supersededInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-001/BOUND_INVENTORY.json",
+    "bytes": 1660396,
+    "sha256": "e959059dd19ab62bf9b2cd11b0209bff94d47602d495f0baa8c0779198020b34"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-001.mjs",
+    "bytes": 20119,
+    "sha256": "f43dff68d58a401fe7839aed58f792d9323e1946e5472340c9da1dfc34d216c3"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_002.json",
+    "bytes": 13575,
+    "sha256": "139ea4dfe2c0e6166734577a66171ca9b248148ebfc874a91a204610126c2156"
+  },
+  "syntax": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/SYNTAX_CHECKS_CORRECTED_001.json",
+    "bytes": 871,
+    "sha256": "17714007838b16ba4f676467945afc3e30c3a498c2e6cac82c2472ad8655c10d"
+  },
+  "remaining": "Rebind inventory and verify all Product locator paths against stage plus separately bound dependencies. Actual suite waits until matched measurement closes and Root admits exact corrected binding."
+}

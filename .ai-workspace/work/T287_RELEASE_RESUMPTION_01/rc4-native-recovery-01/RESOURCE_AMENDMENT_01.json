@@ -1,0 +1,34 @@
+{
+  "kind": "rc4_root_prospective_resource_and_test_amendment",
+  "status": "ROOT_SELECTED_FOR_NEXT_NATIVE_CALL",
+  "authority": "Root exact current-session resource-only decision after closed-budget guard inspection; current user implementation authorization unchanged",
+  "focusedTimeoutMs": 2700000,
+  "inactivityTimeoutMs": 4500000,
+  "absoluteTimeoutMs": 5400000,
+  "outerTimeoutMs": 10800000,
+  "maxTurns": 240,
+  "model": "claude-opus-5-5",
+  "effort": "xhigh",
+  "maxBudgetUsd": null,
+  "requiredExecutionBudgetMs": 4267250,
+  "budgetRuleSource": "Pinned RC3 product/worksite_command_execution.ts166-189: sum(timeout+2grace+min(grace,250)) +5000; both actor limits strictly greater, absolute greater than inactivity",
+  "budgetChecks": {
+    "idleExceedsBudget": true,
+    "absoluteExceedsBudget": true,
+    "absoluteExceedsIdle": true
+  },
+  "toolShellTimeoutMs": 4500000,
+  "toolShellReason": "Apply the selected global75min allowance to existing BASH_DEFAULT_TIMEOUT_MS/BASH_MAX_TIMEOUT_MS so the closed71.121min C2 helper is not capped by the inherited40min shell setting; no new per-role mechanism.",
+  "testExclusions": [
+    {
+      "path": "test_env/tests/t287-selected-action-authority.test.mjs",
+      "reason": "Requires historical selected-action-04 files and machine-bound prefix; not supplied as current proof, no pass credit."
+    },
+    {
+      "path": "test_env/tests/t287-selected-action.test.mjs",
+      "reason": "Opt-in installed interruption lane requires separate evidence-root selection; not silently skipped in automatic C2, no pass credit."
+    }
+  ],
+  "conservationObligation": "Worker supplies self-contained model-free current-owner conservation for affected current_intent/selected_action semantics in granted focused tests when shared meaning is touched. Tests/source preserved; no imported old Run fixture, weakened assertion or new skip.",
+  "preservation": "All admitted v2/first-draft/setup selection bytes preserved. Only prospective timing/test lane selection changes; all nine command purposes/predicates remain. Ceilings are not duration targets or improvement claims; Root may intervene earlier."
+}

@@ -1,0 +1,133 @@
+{
+  "costPrecision": "Displayed to 7 decimal USD places; raw decimal sum preserves serialized floating point values.",
+  "files": {
+    "CONSTRUCTION_RETURN_CUSTODY.json": {
+      "bytes": 6485,
+      "sha256": "0a0d123e579956ab2b71d3e52f62137ef9c4220161e7a6ba2eee7e1397723a95"
+    },
+    "P1_C2_FAILURE_INDEX.json": {
+      "bytes": 11115,
+      "sha256": "ad8a7574f2a9f64db38bbc012a506e90b904e2eccf97dadaa0117bb23d94465d"
+    },
+    "SECOND_CONSTRUCTION_RETURN_CUSTODY.json": {
+      "bytes": 6794,
+      "sha256": "2b9fa334262c6bb9ba64115a3ad15cb19ae49abac34a6f5ce607e28b5d0c663c"
+    },
+    "after-run-resume.json": {
+      "bytes": 60949821,
+      "sha256": "21cac75aabdefee804d5fd159f9f2b4dbccccc3a4f05f33c1c85e5342526190c"
+    },
+    "commands/run_replay.result.json": {
+      "bytes": 4865,
+      "sha256": "5a35bf1f106e040f39533fc4a2b088933290b4bbb1104f0da7f2131d2c093125"
+    },
+    "commands/run_result.result.json": {
+      "bytes": 3888,
+      "sha256": "8747dab53ce7588b567602e2637fd637910e70d3bc332721971c47c2ce0f0722"
+    },
+    "execution.json": {
+      "bytes": 37226477,
+      "sha256": "060a91bc72e227491ae0d5baebbaebe859d3434fbbf8799f22fdfa249c901642"
+    },
+    "fresh-reads.json": {
+      "bytes": 2411,
+      "sha256": "7be9d3b216ae79401c960fba31443e92615f241854d955fdcb2ef9c0413be778"
+    },
+    "outcome-summary.json": {
+      "bytes": 361,
+      "sha256": "7e3288b748fa3ca3d7add238e35fae43adcfb782555d5cd40277ed6c30f697ba"
+    }
+  },
+  "freshReads": {
+    "run_replay": "result/blocked",
+    "run_result": "refusal/not_found",
+    "sameRun": true,
+    "terminalResult": null
+  },
+  "kind": "single_machine_p1_run_closure_custody",
+  "limits": [
+    "No whole Product or P1 acceptance; C2 failed and UAT not completed.",
+    "First and second partial source snapshots remain distinct.",
+    "Native recurrence and result admission retained; no old report reclassified."
+  ],
+  "nativeStop": {
+    "disposition": "blocked",
+    "event": "event://abiogenesis/c913016bd681e5c934e5b0fce38fdd47facf91364510aa057c8c6739a803f715",
+    "eventTime": "2026-11-01T03:59:22.833Z",
+    "ordinal": 9666,
+    "reason": "reason://abiogenesis/recursion/bound-exhausted@5"
+  },
+  "prefix": {
+    "bytes": 1365770962,
+    "coordinateDigest": "sha256:ccb13062aec129110c63ad37e38215a4ebb7c81122ff9322616206731c067534",
+    "device": 16777231,
+    "independentFullSha256Command": "shasum -a 256; matched closed handoff",
+    "inode": 669167670,
+    "sha256": "ac927371963b7677538ce9cb4d667779c791611af71a771c00a7e02b0ac03278"
+  },
+  "providerTerminals": [
+    {
+      "bytes": 2410204,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/fp-0f259a5676ae32f9-stdout.log",
+      "reportedCostUsd": "5.264371400000001",
+      "sha256": "440fadbcb03de10b2ceddf27a730200dda62597b5c04cd8423dc629ed07ec7c4",
+      "subtype": "success",
+      "turns": 61
+    },
+    {
+      "bytes": 63640,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/fp-14ff34177c93dfa6-stdout.log",
+      "reportedCostUsd": "0.3673808",
+      "sha256": "9271f390b0b74135c2f028f79c7fb85e8d4140f0c28a12a136ce2b8a5615a663",
+      "subtype": "success",
+      "turns": 3
+    },
+    {
+      "bytes": 591382,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/fp-5f9ea8cbdb962820-stdout.log",
+      "reportedCostUsd": "2.404636",
+      "sha256": "4370be3d83311cfe1082160267849df96ab4175bc40e325c7c8ae1a81bf88d3a",
+      "subtype": "success",
+      "turns": 2
+    },
+    {
+      "bytes": 488450,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/fp-663223da3b2c209f-stdout.log",
+      "reportedCostUsd": "2.04024",
+      "sha256": "05d0efa9bf7e37bade9349dba5f7fe842aafb30542ca292fffc7dd1b4e460da0",
+      "subtype": "success",
+      "turns": 2
+    },
+    {
+      "bytes": 8175302,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/fp-a7c2e98d573eed09-stdout.log",
+      "reportedCostUsd": "16.039311000000005",
+      "sha256": "0671cfffa529eb74e664ed5f143b324299b0d5508ba8fe6f671a03ea5861b613",
+      "subtype": "success",
+      "turns": 179
+    },
+    {
+      "bytes": 273761,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/archives/fp-b21edf0dc13ffb84-stdout.log",
+      "reportedCostUsd": "1.8275240000000001",
+      "sha256": "34c20349b501cf35b05812ed05628187f0a6d27031531c7cf7abc678ce198c57",
+      "subtype": "success",
+      "turns": 2
+    }
+  ],
+  "publicOutcome": {
+    "closedAt": "2026-11-01T04:05:01.541Z",
+    "disposition": "blocked",
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "terminalResult": null
+  },
+  "rawNumericSumAsSerialized": "27.9434632000000061",
+  "reportedRunProviderUsd": "27.9434632",
+  "run": {
+    "digest": "sha256:09acc5bece02086118a1f44f5a97dbc07a59bec959d182aa604b15f23c8e9e6c",
+    "ref": "run://abiogenesis/300105eb93014e324c59343cc10b4008f7b6326e7d5019a0857702f59c1c1c18"
+  },
+  "standing": "blocked first Run; partial Construction Results and failed Testing only",
+  "unknownPriorB03ReserveUsd": "8, reserved uncertainty and not an observed charge"
+}

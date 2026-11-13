@@ -1,0 +1,39 @@
+{
+  "kind": "bounded_operator_intervention_observation",
+  "status": "ROOT_SIGNAL_EXECUTED_WORKER_RESPONSE_PENDING",
+  "recordedUtc": "2026-11-02T05:27:21.651276Z",
+  "attribution": "Root supplied execution and process observations; Writer performed no process action.",
+  "plannedDecision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/operator-interventions/slow-audit-search.json",
+    "sha256": "ba276873f5351deb95d5b65bea50b311094d115995636db54b67f91f1484a9f8"
+  },
+  "signal": {
+    "executedAt": "2026-11-02T05:26:57.640469+00:00",
+    "executor": "Root",
+    "signal": "SIGTERM",
+    "processGroupId": 9647,
+    "verifiedMembers": [
+      9647,
+      9648,
+      9649
+    ],
+    "verifiedNativeParentPid": 78619,
+    "shellElapsed": "06:07",
+    "grepCpu": "6:05.40",
+    "commandExitCode": 0
+  },
+  "observedAfter": {
+    "delaySeconds": 0.5,
+    "groupMembers": [],
+    "nativePid78619Present": true,
+    "nativeToolResponse": "pending monitor",
+    "workerRecovery": "pending monitor"
+  },
+  "limits": {
+    "ProductMutation": false,
+    "RunTermination": false,
+    "providerTermination": false,
+    "retryRequested": false
+  },
+  "classification": "Worker delivery-method overhead/operator intervention; no Product-runtime defect or successful Worker recovery inferred."
+}

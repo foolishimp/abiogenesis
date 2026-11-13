@@ -1,0 +1,26 @@
+{
+  "status": "CONTROL_DISCRIMINATOR_PASSED_EXPECTED_INTENTIONAL_RED",
+  "actualNpmExitCode": 1,
+  "counts": {
+    "tests": 2,
+    "failed": 1,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "stdoutVisible": true,
+  "structuredReporterComplete": true,
+  "parserFromSuccessorRecipe": true,
+  "incompleteVariants": [
+    "missing",
+    "missingEnd",
+    "missingSummary",
+    "malformed"
+  ],
+  "productProof": false,
+  "nativeExecution": false,
+  "limits": "One tiny control population verifies npm-parent NODE_OPTIONS propagation and exact structured parsing. It does not prove candidate behavior or the future nine-file unit population."
+}

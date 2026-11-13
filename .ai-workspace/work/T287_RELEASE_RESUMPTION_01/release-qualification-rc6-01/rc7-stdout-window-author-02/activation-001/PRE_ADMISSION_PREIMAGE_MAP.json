@@ -1,0 +1,36 @@
+{
+  "kind": "historical_materialization_pin_preimages",
+  "materialization": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/MATERIALIZATION_MANIFEST.json",
+    "bytes": 15042,
+    "sha256": "26d7236f94b19c393685b44894001bb3f06a0f62edb036df5c4a9a855607d411"
+  },
+  "mappings": [
+    {
+      "historicalPin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/RUNTIME_BINDINGS.json",
+        "bytes": 7001,
+        "sha256": "546d812f2e9683fe07ffb310e4edeaa9d83498ddbf2c93d49ca2f3ab4f529aa6"
+      },
+      "preservedBytes": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/RUNTIME_BINDINGS.pre-admission.json",
+        "bytes": 7001,
+        "sha256": "546d812f2e9683fe07ffb310e4edeaa9d83498ddbf2c93d49ca2f3ab4f529aa6"
+      }
+    },
+    {
+      "historicalPin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/workload.json",
+        "bytes": 185738,
+        "sha256": "428484d0cbffcf8c7a076272eef54ae2c73332f8cd11352033d8beae71a286bd"
+      },
+      "preservedBytes": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/workload.pre-admission.json",
+        "bytes": 185738,
+        "sha256": "428484d0cbffcf8c7a076272eef54ae2c73332f8cd11352033d8beae71a286bd"
+      }
+    }
+  ],
+  "otherMaterializedFilesUnchanged": 21,
+  "standing": "Historical materialization/correction pins remain facts about their preserved pre-admission bytes. Current runtime/workload pins are separately bound in ROOT_FINAL_BINDINGS; no stale pin is used as a current dispatch input."
+}

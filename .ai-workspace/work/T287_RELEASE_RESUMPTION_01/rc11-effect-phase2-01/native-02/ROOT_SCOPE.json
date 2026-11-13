@@ -1,0 +1,94 @@
+{
+  "id": "PHASE2-A-PREP-01",
+  "status": "ROOT_SELECTED_LIFETIME_ONLY_CONTINUATION_PREPARATION_SETUP_PROVIDER_HELD",
+  "ownerInstruction": "User continue; Root splits incomplete Phase2 into A shared lifetime then B command/main. Fixed900s/180s/100turns, no automatic retry.",
+  "predecessorScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json",
+    "bytes": 5536,
+    "sha256": "8d45c82e7e9f39628e4063c28902ec89091de37f60137663c530a7a83f708a7f"
+  },
+  "predecessorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/RETURN.json",
+    "bytes": 5672,
+    "sha256": "4f447c440308937a200bff4bec845d9980cacc3ecbbf94de3dc7ee74f5b8592f"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/source-freeze.json",
+    "bytes": 295251,
+    "sha256": "9a82a2297b03cec7da18862acca7d12c2625d8f6a85f4d0cf39069de0279e548"
+  },
+  "sourceDigest": "64afc834b8442a42b42663ecca5514e33832edc531e9f01f03c9eacb4b67098b",
+  "sourceCommit": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+  "conjunction": {
+    "designTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/triage-design/ASSESSMENT.md",
+      "bytes": 7837,
+      "sha256": "8078d559c667982ab73e913dc4260a3697771b0fb0d339e61eabc31469963401"
+    },
+    "proofTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/triage-proof/ASSESSMENT.md",
+      "bytes": 6002,
+      "sha256": "97e6036dc9d745cd6714d02423aea83923dffaa8c416475521eb761f14f00205"
+    },
+    "proofEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/triage-proof/EVIDENCE.json",
+      "bytes": 11258,
+      "sha256": "467f03642a61b67259d6cc5bb4f2b5e0a5d3f3724be44a3e99307c7433b25229"
+    },
+    "originalHow": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/design-intake/ASSESSMENT.md",
+      "bytes": 10454,
+      "sha256": "2076fe346f4345d3f2f1ae5425ea981fe4b6750f92335bc007a5e74dc355f13b"
+    },
+    "closedReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/RETURN.json",
+      "bytes": 5672,
+      "sha256": "4f447c440308937a200bff4bec845d9980cacc3ecbbf94de3dc7ee74f5b8592f"
+    },
+    "closedCustody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_CUSTODY.json",
+      "bytes": 11214,
+      "sha256": "7626760e0ae3c81a2d6b990585ba6c29831cce38fd29fb858c26e6d548ca1df9"
+    },
+    "freezeReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/FREEZE_RECEIPT.json",
+      "bytes": 2328,
+      "sha256": "baff943bfeb3a654cd21064954f20375f74dea005b86cc6249bc4e34cb87b7e1"
+    }
+  },
+  "definiteFailure": "Native01 absolute900s deadline;34tools,0APIretries,plan-only partial,implementation0. Why author did not finish is unknown. No Product defect inferred.",
+  "reentry": "A/B changes work packaging, not Product/event/replay/evidence law. Same accepted HOW with exact snapshot correction.",
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "qualification-scratch/rc11-effect-phase2-01/native-02"
+  ],
+  "requiredPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+  ],
+  "optionalNewPath": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+  "constraints": "A only: immutable shared physical transition and narrow synchronous Node bridge preserving API, first Error references, fresh snapshot identity/recomputed elapsed and separately sealed completion. Prefer exact unchanged createMonotonicDeadline. No helper/main/HTTP/worker/effect wrapper/dependency changes. Correct premature authored plan status, field count and prospective map in native A, never Operator. B remains required; fullPhase2acceptance joint.",
+  "nativeEnvelope": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "selfchecks": "Pinned scratch compile <=240s; Bash timeout300000ms. Actual ^controlled (timing|lifetime): selector <=60s; Bash timeout90000ms. Preserve first red; no physical/full/installed/unit/generator or provider nesting.",
+  "effectsNow": "Controls, immutable input copies, scratch-directory preparation and main GOALS/T287 prefixes only. No setup/provider/source mutation/proof.",
+  "basis": {
+    "basis": "stdo://releases/v3.0.4/",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4"
+  },
+  "mainProtectionRebinding": "Root independently conjoined concurrent comment-only df7e5f80; old main HEAD/index preservation false and recorded in predecessor custody. New guards use observed current main without merge/rebase/restoration."
+}

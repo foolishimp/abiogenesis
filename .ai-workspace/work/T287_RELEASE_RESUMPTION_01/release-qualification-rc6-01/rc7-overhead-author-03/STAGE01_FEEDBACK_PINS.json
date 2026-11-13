@@ -1,0 +1,161 @@
+{
+  "kind": "root_pinned_exact_bridge_author_feedback",
+  "at": "2026-11-06T07:43:41.756340+00:00",
+  "stageReport": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-stage.json",
+    "bytes": 97218,
+    "sha256": "e532290786dba62a7e232c8f7eef0e4b3b6872ed5542a5e1866e098fb4d167c9"
+  },
+  "sourceCount": 449,
+  "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737",
+  "compile": {
+    "exitCode": 0,
+    "ms": 8239
+  },
+  "generate": {
+    "exitCode": 0,
+    "ms": 38414
+  },
+  "lifecycle": {
+    "exitCode": 0,
+    "ms": 661
+  },
+  "lanes": [
+    {
+      "id": "publication",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-publication/summary-publication.json",
+        "bytes": 1556,
+        "sha256": "6e02e5ef8ffd46baae6ed380fc0b5df2ab4b39a5a363ae25de3c30253de9e492"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-publication/publication.stdout.tap",
+        "bytes": 516,
+        "sha256": "041b6d79925c438af9c05e84d9240d97488ad0efe10d513a41192c23fa5b2340"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-publication/publication.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "wallMs": 493,
+      "selectedPassedNames": [
+        "native publication agrees with actual generated artifact manifest identity"
+      ],
+      "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737"
+    },
+    {
+      "id": "c1-consumers",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-c1-consumers/summary-c1-consumers.json",
+        "bytes": 2023,
+        "sha256": "efa5abd78560cc592c1ef352eb1687792077da7dc953c65496dd62eb51168c4e"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-c1-consumers/c1-consumers.stdout.tap",
+        "bytes": 1325,
+        "sha256": "4c19669d774045990b5da691aa5e625dee7e65c1acf93a64ebf5276c9a66d066"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-c1-consumers/c1-consumers.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "tests": 3,
+        "pass": 3,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "wallMs": 157911,
+      "selectedPassedNames": [
+        "T-287 C1 remains singular inside the C3 composite publication",
+        "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+        "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+      ],
+      "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737"
+    },
+    {
+      "id": "cold-resume",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-cold-resume/summary-cold-resume.json",
+        "bytes": 2172,
+        "sha256": "87f02fc67f2524288af1868b1a6e9d78b19c76b5f7ea7cafdbf922a49cff84ce"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-cold-resume/cold-resume.stdout.tap",
+        "bytes": 9312,
+        "sha256": "7e0983b16ce2ec0999d014582a23bea5479bbe088befe914ba20479e93cedbe5"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-cold-resume/cold-resume.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "wallMs": 254311,
+      "selectedPassedNames": [
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+      ],
+      "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737"
+    },
+    {
+      "id": "runner",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-runner/summary-runner.json",
+        "bytes": 1648,
+        "sha256": "5ebfd167ac3e2ae98d8134320664b9c00f74c24849b3ba70fa65349b6d7c3064"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-runner/runner.stdout.tap",
+        "bytes": 2188,
+        "sha256": "e68201005d4e0c40e9da287fcc51ac3d363502a367993e310f80abc8969f25c2"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-runner/runner.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "wallMs": 107032,
+      "selectedPassedNames": [
+        "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+      ],
+      "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737"
+    }
+  ],
+  "uniqueRequiredCases": 7,
+  "uniquePassedCases": 7,
+  "allocatedStages": 1,
+  "allocatedLanes": 4,
+  "repeatedTests": false,
+  "limits": [
+    "Author stage evidence only; actual native return/after/final live source matching and frozen review remain required.",
+    "B178 passing observations,19 uncovered cases and historical red outcomes remain separately bounded; no whole qualification/performance/release claim."
+  ]
+}

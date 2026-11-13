@@ -1,0 +1,236 @@
+{
+  "productFrame": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "selection": "Fixed15 F01-F07,F09-F11,F13-F17 / GOAL035 / T287 / RC8 REF-01 realization refactor; explicitly unqualified local cut",
+    "method": "STDO3.0.4, manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b, empty composition",
+    "outcome": "Preserve canonical established in-process objects through the existing constructor/transport/binder/owner chain. Raw admission, currentness, effect authority and ABG event/replay truth remain with their existing owners. SDK stays thin.",
+    "classification": "Fixed definition selection and canonical admission identity facts are discardable derived bookkeeping/deterministic construction; resource-work counts are observation. None is a runtime registry, lifecycle or event writer."
+  },
+  "reviewId": "W2-05-OWNER-CHAIN-021",
+  "recordedUtc": "2026-11-07T14:22:07.562706+00:00",
+  "role": "Independent MAX Reviewer; no authorship, execution or disposition",
+  "verdict": "New-on-RC8 lexical proof incompatibility, not an old RC7 red and not an established Product regression. One failed case remains failed. A durable, explicitly bounded unqualified-cut residual is defensible; Root alone selects it or a test-only successor.",
+  "requirementsAndHow": [
+    {
+      "source": "M/specification/PRODUCT.md:1244-1266",
+      "relation": "Definitions, indexes/caches and deterministic catalog construction do not acquire an ABG lifecycle. Catalog readiness is eventless; different bases require their own validation."
+    },
+    {
+      "source": "M/specification/PRODUCT.md:994-1029",
+      "relation": "SDK/CLI may type, transport and ignite; may not construct runtime bases/events or decide closure."
+    },
+    {
+      "source": "REQ-P-PUBLIC-CONTRACTS-009/010; REQ-P-CATALOG-014/017/029/030",
+      "relation": "Canonical defaults and exact invocation/owner identity; coherent/idempotent readiness; eventless construction distinct from ABG runtime truth."
+    },
+    {
+      "source": "S/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:937-954,978-982,994-1037",
+      "relation": "Section10.11 X1 records only canonical admitted deeply immutable invocations against their exact definition and request schema. X4 preserves owner resource facts; counters observe actual work. Raw/copy/foreign values, currentness and effects retain their paths."
+    }
+  ],
+  "actualFailure": {
+    "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "line": 1582,
+    "kind": "ERR_ASSERTION / doesNotMatch",
+    "failedTarget": "build/code/src/public/binding/definition_binding_mechanics.js",
+    "commandWallMs": 350217.67975,
+    "caseWallMs": 348532.910917,
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "reporter": "Complete begin/case/summary/end; one failed, zero passed, zero skipped.",
+    "firstMatch": "compiled line67: const selectedDefinitions = new WeakMap();",
+    "otherMatches": [
+      "compiled line88: const gatedResourceMembers = new Map();",
+      "compiled line107: const establishedInvocations = new WeakMap();"
+    ],
+    "capturedBytes": "The complete actual compiled source printed in TAP matches the retained worksite compiled file after TAP indentation/newline normalization."
+  },
+  "finding": {
+    "id": "W205-021-01",
+    "severity": "S3",
+    "frame": "Proof / identity / source integration",
+    "originatingMismatch": "Unchanged W2-05 tail treats any WeakMap/new Map in five selected modules as evidence of forbidden process-local runtime authority. RC8 intentionally adds three classified declarations to mechanics under accepted HOW10.11; the lexical surrogate was not reconciled with that change.",
+    "triggerProbability": "Certain whenever this exact unchanged test reaches its tail against this exact RC8 compiled mechanics. This is not a probabilistic runtime corner.",
+    "demonstratedHarm": "The whole-file proof is red and its final export checks/diagnostic are absent. No runtime semantic harm is demonstrated by this predicate.",
+    "failClosed": "No test result is relabeled; raw invocation admission, owner resource checks, receipt/output admission and ABG effect/event authority remain. The reached dynamic case independently checks unchanged event bytes and exactly two install/binding events.",
+    "repairScope": "Only the test-tail oracle needs maintenance if selected. No Product, HOW, cache, registry or runtime change is supported.",
+    "cost": "One small unshipped test change plus frozen successor review and this one complete case; prior actual command cost350.218s. A new author/proof cycle is real cost, not required to preserve unchanged Product bytes for a clearly unqualified cut.",
+    "priority": "Root-owned; technical severity does not select backlog disposition."
+  },
+  "declarationClassification": [
+    {
+      "name": "selectedDefinitions",
+      "sourceLines": "mechanics124-135",
+      "role": "Packet-object identity -> unique fixed Public definition (or null). Missing facts are recomputed from the declared family. No event, runtime store or effect selection."
+    },
+    {
+      "name": "establishedInvocations",
+      "sourceLines": "mechanics171-174,208-229,439-467",
+      "role": "Canonical admission-output object -> exact definition/schema identity after deep immutability. Reuse requires those identities; absence falls through to existing request/invocation admission. Equal keys/digests or a raw copy do not establish the fact."
+    },
+    {
+      "name": "gatedResourceMembers",
+      "sourceLines": "mechanics138-164;static_definition_bindings37-90",
+      "role": "Observation counters keyed by resource-member name. Values are incremented/read for reports, never consulted to choose admission. No barrel exposes the counters."
+    }
+  ],
+  "sourceAndRc7Relation": {
+    "rc7Base": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "broadSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "acceptedA11SourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "compiledManifestSha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102",
+    "verified": "Exact test bytes match RC7 comparison tree, stage04, A6 manifest/work and actual021 work; test/mechanics/static-binder/public-index source bytes match A6 and A11 manifest rows. No moving C8 file was used as the subject.",
+    "rc7TokenResult": "All five named RC7 source and available compiled files lack every banned token. The first four source modules are unchanged in RC8 and still lack them. Mechanics adds the three declarations in RC8. This is source comparison, not a rerun of RC7.",
+    "affectedCone": "Exact five-alternative ban occurs once in test_env. Its five static targets plus the two following public-export assertions and final diagnostic are the complete local failed-tail cone; no broader purity audit is claimed."
+  },
+  "actualEvidenceExtent": {
+    "reached": "The one asynchronous case reached all preceding assertions on its executed path, including dynamic install/catalog/project/conformance owner interactions, typed negatives/unsupported operations, unchanged event-log bytes at1560-1561 and exact install/workspace-binding truth at1562-1572. The first four static target checks passed before the fifth failed.",
+    "notReached": [
+      "Export-absence assertions at1588-1589 for PUBLIC_DEFINITION_BINDINGS and LEGACY_DEFINITION_BINDINGS.",
+      "Final sha256File read and W2_05_PROOF emission at1591-1605; no diagnostic or census values are invented."
+    ],
+    "staticTailRead": "Compiled public/index.js has four explicit named export statements, no star export and neither prohibited export. Mechanics has none of the three legacy/controller tokens. This is exact static inspection, not execution of the tail or whole-case credit.",
+    "whyPriorProofMissed": "A3 explicitly accepted source plus six focused lanes, leaving broad proof separate. Those lanes exercised canonical identity/raw/copy/default/refusal behavior, but did not execute this W2-05 whole-file lexical tail. Source-to-affected-oracle maintenance was omitted; broad021 exposes that omission. A3 acceptance never supplied a whole W2-05 pass."
+  },
+  "dispositionOptions": [
+    {
+      "option": "Bounded residual without Product or test edits",
+      "recommendation": "Defensible for the explicitly unqualified REF-01 cut; proportionate if Root selects it. Keep the original red and no whole-case credit, retain this exact source classification and reached dynamic evidence, and register the proposed capsule.",
+      "limit": "Does not accept a general Map exemption or whole5.0 qualification. A new semantic/currentness/effect failure would require separate triage and could block."
+    },
+    {
+      "option": "Test-only successor and reproof",
+      "recommendation": "Name only selectedDefinitions, establishedInvocations and gatedResourceMembers as accepted mechanics declarations. Preserve the three legacy/controller bans for all five files, the container ban on the other four, a discriminator against additional unclassified mechanics declarations, both export checks and every dynamic assertion. Do not globally remove WeakMap/new Map guards or remove declarations from Product merely to pass a token check.",
+      "proof": "One complete unchanged-dynamic W2-05 case against the frozen successor and same archive; complete reporter and final diagnostic. No new generic framework, fresh Product build or extra runtime authority is needed."
+    }
+  ],
+  "proposedResidual": {
+    "id": "RC8-W2-05-TOKEN-ORACLE",
+    "status": "PROPOSED_ONLY_ROOT_DISPOSITION_REQUIRED",
+    "owner": "T287 Executive / owning W2-05 Proof maintenance",
+    "scope": "Whole W2-05 case remains red solely at the current lexical incompatibility; last two assertions and diagnostic unexecuted. Product source/archive remain unchanged.",
+    "noBlockRationale": "Accepted identity/observation declarations comply with Product classification; actual dynamic no-catalog-runtime-truth relation reached its assertions. No selected lawful REF-01 sunny-day obstruction is evidenced.",
+    "activationTrigger": "Before claiming this whole-case pass, broad-green coverage or relevant release qualification; also upon a binder/identity/counter change that invalidates this exact classification.",
+    "closureFalsifier": "Any extra unclassified authority/state mechanism, weakened raw/currentness/effect check, new catalog event or missing/mutated original assertion prevents closure.",
+    "closureEvidence": "Authorized narrow test-tail successor, exact source/archive correspondence, independent review and actual complete one-case pass including exports/final diagnostic.",
+    "dependentBoundary": "W2-05 whole-file/broad assurance and later release qualification, not admission of a new runtime design."
+  },
+  "limits": "No tests, imports of Product modules, source/control/Git changes, providers, processes or cleanup were performed. No general library purity or fresh-native runtime claim. Root alone conjoins and disposes.",
+  "roots": {
+    "M": "/Users/jim/src/apps/abiogenesis",
+    "P": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01",
+    "BC": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021",
+    "S": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source",
+    "W": "/private/tmp/abg-r8c-021/w",
+    "RC7": "/Users/jim/src/apps/abiogenesis-rc7-local-cut"
+  },
+  "pins": [
+    {
+      "ref": "M/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "ref": "M/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "ref": "M/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "ref": "M/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+    },
+    {
+      "ref": "M/specification/requirements/product/REQ-P-CATALOG.md",
+      "bytes": 13757,
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 194356,
+      "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "bytes": 58361,
+      "sha256": "845f678ae01f67143f16350b7e4dc930aec1bd51b49460526f50c67c81a35fac"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "bytes": 20232,
+      "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+      "bytes": 7039,
+      "sha256": "fd0624a822044ea73bd2b77ae8492bd6ed95595b98d451e7f0260c1d62fd31d4"
+    },
+    {
+      "ref": "W/build_tenants/abiogenesis/typescript/build/code/src/public/binding/definition_binding_mechanics.js",
+      "bytes": 18054,
+      "sha256": "9fa71fb621f432110938c7e2a1f3c1b01f02ea356b2f9cf762d59d7e76d3699c"
+    },
+    {
+      "ref": "W/build_tenants/abiogenesis/typescript/build/code/src/public/index.js",
+      "bytes": 666,
+      "sha256": "64466232bfbe070bf68b23806104e6023d4b379009a43c64646ecf54cf40a504"
+    },
+    {
+      "ref": "RC7/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "bytes": 14749,
+      "sha256": "7595080d8bb55a48cea75b6ed1a11e7cea0163e8544c110b6e0486c85a66e35e"
+    },
+    {
+      "ref": "RC7/build_tenants/abiogenesis/typescript/build/code/src/public/binding/definition_binding_mechanics.js",
+      "bytes": 12910,
+      "sha256": "f600d243c6862c3300963460135179f76e6cd561c33bba54cf8ff2bee0a7ab70"
+    },
+    {
+      "ref": "P/author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    {
+      "ref": "P/author-11/proof-evidence/source-freeze.json",
+      "bytes": 295552,
+      "sha256": "422808c5850d72cb0533fa7ddba6864c757f9b23eeba756466f4157f20cd7879"
+    },
+    {
+      "ref": "P/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 18167,
+      "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+    },
+    {
+      "ref": "P/reviews/source-003/REVIEW.json",
+      "bytes": 48569,
+      "sha256": "043f8979e03aaa64250a1f0894f9ec2c90a80e264899afdedb6175acbf9d5316"
+    },
+    {
+      "ref": "BC/files/186-t287-w2-05-install-catalog-owner-chain.json",
+      "bytes": 1188,
+      "sha256": "3cfcf288d1b7ffe5fa2d6fc145cf43fd93e343505fb2f7f29892cbcd50b86a0f"
+    },
+    {
+      "ref": "BC/commands/186-t287-w2-05-install-catalog-owner-chain.result.json",
+      "bytes": 1520,
+      "sha256": "6c0c3a271f5bef767e59601ae0ea2a4413c64b21701e690d29bb6dd2f7a554ea"
+    },
+    {
+      "ref": "BC/commands/186-t287-w2-05-install-catalog-owner-chain.stdout",
+      "bytes": 20609,
+      "sha256": "0549bd08f7c01ce0a7517dc55d7434354cec75f41a99f495e0c01986b2172aff"
+    },
+    {
+      "ref": "BC/events/186-t287-w2-05-install-catalog-owner-chain.jsonl",
+      "bytes": 1676,
+      "sha256": "6a44313c85c2bcdb54aa109cbd26927b4a25259e13bdb45b8d382b1d56a99926"
+    }
+  ]
+}

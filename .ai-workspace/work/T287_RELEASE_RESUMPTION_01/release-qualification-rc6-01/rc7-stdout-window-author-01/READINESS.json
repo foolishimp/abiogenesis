@@ -1,0 +1,174 @@
+{
+  "kind": "conditional_stdout_window_operator_preparation",
+  "status": "DEPENDENCY_PREPARED_NOT_STAGED_NOT_DISPATCHED",
+  "role": "Separate Root-bound operator/control Writer, not Product author or independent reviewer",
+  "preparationWindow": {
+    "startUtc": "2026-11-06T11:56:44+00:00",
+    "endUtc": "2026-11-06T12:17:38.052605+00:00",
+    "elapsedSeconds": 1254.052605,
+    "standing": "Operator preparation overlapping F2 native work; not native task/runtime performance."
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "version": "ABIogenesis5.0",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "runtimeOwner": "ABG alone",
+    "programLanguage": "GTL alone",
+    "shells": "SDK/CLI thin transport",
+    "builder": "immutable installed RC6",
+    "candidate": "prospective RC7",
+    "scope": "HS03 bounded design_reframe for stdout windows and central pre-decision flush; E1-E4 and all Product outcomes conserved; historical contract/replay and canonical generation required."
+  },
+  "selectedDefaults": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/HS03_SELECTION.json",
+    "bytes": 2867,
+    "sha256": "dea1cd67075ffe9213cb6b8751a2a8a6e86b9ed441a4edf2fcfb376a1da68cf6"
+  },
+  "selectedOrder": "Actual HS01/HS02 acceptance first; future native HOW resolves E1-E4, central flush/recursion/transactions before code; archive-byte owner and actor buffering, then exact scoped differential/timeout/interruption/archive/cold proof.",
+  "decidingOwnerRelations": {
+    "archive": "worker_transport.ts:454 writes actual archive bytes before onStdoutObserved but currently lacks fsync there.",
+    "actor": "actor_process.ts:1459 onward currently admits per chunk and classifies progress; window timing and last qualifying activity are distinct.",
+    "centralAdmission": "event_store.ts:4158 owns admitNativeRuntimeLivenessEvent. One scope-owned flush relation must cover all four producer routes.",
+    "preDecisionCorrection": "runtime_liveness.ts:363-370 derives and can return threshold_not_reached before its call at380 to common admission. The same central flush must precede this projection; late admission-only flush is insufficient.",
+    "historical": "Keep exact per-chunk event/profile identities and historical cut/replay responsibility. Canonical regeneration/catalog and C2 member/span pins apply to affected current contracts.",
+    "standing": "Line numbers are frozen F reference locations, not future HS01 source assumptions."
+  },
+  "populations": {
+    "referenceSourceRows": 450,
+    "referenceSourceBytes": 12255245,
+    "compileTypeScriptSources": 290,
+    "permittedExistingWritePaths": 17,
+    "plannedNativeInputs": 20,
+    "plannedAbsentHandoffs": 3,
+    "plannedContextEntries": 473,
+    "metadataExternalBytes": 46684229,
+    "metadataInNativeContext": false,
+    "metadataCopiedIntoStages": false,
+    "maxContextFiles": 512,
+    "maxContextBytes": 16777216,
+    "actualRenderedCapacity": null,
+    "renderedOrderPlanningEstimateBytes": [
+      45000,
+      90000
+    ]
+  },
+  "writePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs"
+  ],
+  "sourceReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/SOURCE_SELECTION.reference.json",
+    "bytes": 274668,
+    "sha256": "8d504dc2a0cd154f18bad1dee8b2d2ff6a7c59f029bf66e7c91349742535bb59"
+  },
+  "historicalOracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "oracleScope": {
+    "physicalPrefixBytes": 1016286093,
+    "physicalPrefixSha256": "9e62b2f99cc16de07ec9ff3804ade2f61db007c951cbda6d9a141fa505982e00",
+    "rows": 170487,
+    "stdoutRows": 84498,
+    "probeRows": 85006,
+    "decisionRows": 53,
+    "qualifyingStdoutRows": 83866,
+    "withoutQualifyingProbe": 632,
+    "limits": [
+      "Only public mechanical metadata is selected. No provider reasoning/text/tool_result/stderr/auth/credentials or raw Result/task/binding bodies are emitted.",
+      "No structured turn boundaries are invented. Historical stdout eventTime is its admitted wall-clock stamp; exact actor capture elapsedMs is only supplied by corresponding admitted probes. Noise-only chunk actor-clock instants are not inferred from wall time.",
+      "Actual-stream differential may compare recorded qualifying activity and decision points, within supplied clocks/scopes. Synthetic non-private mixed/noise/two-scope/turn-boundary cases separately prove classifier/window scheduling.",
+      "Archive byte integrity and original provider chunk content cannot be reconstructed from this metadata; current-owner archive failure/cold-replay discriminators are separate.",
+      "No runtime acquisition, provider invocation or log mutation. Only the exact closed historical prefix was read while later bytes may exist."
+    ],
+    "derivationCorrection": "First one-shot metadata projection stopped on the existing physical body-reference envelope lacking top-level admissionOrdinal; its script preimage is preserved. Corrected metadata location reads the recorded event envelope without decoding any referenced body, then verified the exact full selected prefix hash/count. No source/runtime repair or event admission occurred."
+  },
+  "proof": {
+    "maxStages": 4,
+    "maxLanes": 7,
+    "timeoutMs": 300000,
+    "serial": true,
+    "lanes": [
+      "stdout-before",
+      "stdout-differential",
+      "scope-ordering",
+      "timeout-interruption",
+      "archive-integrity",
+      "legacy-replay",
+      "native-caller"
+    ],
+    "sameFinalSubject": "Passing stdout-differential plus five affected lanes share exact final staged source/HOW digest; stage-freeze receipt precedes feedback for concurrent max review.",
+    "scope": "One genuine before counterexample; recorded qualifying-time/decision differential; focused known-timestamp all-four-producer/two-scope/mixed/noise/turn/max-window, timeout/interruption, archive-I/O/integrity and exact historical replay cases. No exhaustive campaign or unrecorded observation inferred."
+  },
+  "controls": {
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/NATIVE_GRANT.template.json",
+      "bytes": 47985,
+      "sha256": "7b67ddd8a241b033c01a28ea528440bf7864f712de232eb8558bd79af76d3953"
+    },
+    "host": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/prepare-and-dispatch.mjs",
+      "bytes": 19182,
+      "sha256": "9116ad83f24bbd7827fa7dd641f8244f434742ff962dca81c8c06c6fee483668"
+    },
+    "reuse": "Actual successful F SDK owner host via closed HS01 preparation, retaining acquired objects in memory and genuine SDK outcome/receipt/completion successor, with one outer close; existing checker/launcher/stage/lane APIs only.",
+    "metadataInput": "Existing lane runner adds one narrow pinned external metadata input only for before/differential. No Runtime/Public field or extra supervisor.",
+    "shortTemp": [
+      "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw1",
+      "/private/tmp/abg-sw1"
+    ],
+    "wrapperExecutable": true,
+    "distinctEmptyNpmConfigs": true
+  },
+  "futureBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/FUTURE_BINDINGS.json",
+    "bytes": 1716,
+    "sha256": "6afd85eb6e8e16a833ccfe275f937389868f245fd6d5fb64c581717a700303e2"
+  },
+  "HS01DependencyCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/DEPENDENCY_CORRECTION.json",
+    "bytes": 1768,
+    "sha256": "d528113bbe3dcd4a33d079e75b95877569aecfc0c9a94e5b2a45ea9ead0868e4"
+  },
+  "staticChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/STATIC_CHECKS.json",
+    "bytes": 1848,
+    "sha256": "e89b021640ef66b4f70e25ea806d2ae30f9e35dffb701978a453473684487a3b"
+  },
+  "ticketUpdate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/TICKET_UPDATE.json",
+    "bytes": 1015,
+    "sha256": "68051f7377d975f86b4d1c253277cd9603cbe0481a5c04458e4a2f3201fea130"
+  },
+  "riskAndCost": "Shared ordering/transaction and archived-reference changes can alter liveness decisions or cold recovery if implemented at the wrong seam. The bounded HOW-first owner cone and pre-decision/all-producer/two-scope, real-clock-metadata plus controlled-clock, archive failure and historical profile tests target that risk. No broader timer/constructor/replay redesign is selected.",
+  "remainingRootSteps": [
+    "Accept actual HS01/HS02 source/proof/measurements and exact final native.after/stage/review relation.",
+    "Bind genuine SDK receipt/completion/close/resume and maintained checker/operator route, materialize source/control pins, grant and Root selection/admission. No implicit repeated immutable-RC6 full cold drain.",
+    "Stage20 inputs/3absent handoffs, run existing owner preflight and activate one native Worker only when selected; conjoin independent frozen review, final affected proof and later installed qualification."
+  ],
+  "limits": [
+    "No Product/HOW/test source edits, C staging, SDK/runtime acquisition, provider/credential/network calls, build/test execution or Git/release effects. Historical file-prefix hashing/metadata derivation was explicitly selected read-only evidence work.",
+    "HS01 source/measurements/close and Root admission remain null. F450 is reference only; old source passes do not qualify future source.",
+    "Metadata test oracle cannot prove missing original turn boundaries/noise actor-clock capture times or actual archive bytes. Never classify absent probes as noise; preserve bounded proof plus controlled protocol discriminators.",
+    "No speedup, whole release, F11 independent acceptance or native activation claim. S4/HS01 closure, S3 withdrawal, S6 conditional repricing and all release gates remain unchanged."
+  ]
+}

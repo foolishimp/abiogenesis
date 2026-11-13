@@ -1,0 +1,25 @@
+{
+  "id": "qualification-law-02",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-reporter=tap",
+    "--test-concurrency=1",
+    "test_env/tests/t287-qualification-law.test.mjs"
+  ],
+  "timeoutSeconds": 600,
+  "exitCode": 0,
+  "elapsedSeconds": 0.5046116667799652,
+  "groupAbsent": true,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/qualification-law-02.stdout",
+    "bytes": 3585,
+    "sha256": "2704f97e07ebeb71239806060980b53ec123e2c36752482a743174ccb339cb23"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/qualification-law-02.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

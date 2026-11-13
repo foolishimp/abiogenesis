@@ -1,0 +1,146 @@
+{
+  "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 678.8101659999811,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 8,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 8,
+    "todo": 0,
+    "topLevel": 8,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "same-Run C2 source and failed semantic replay preserve immutable historical cuts",
+      "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_STEEL03_RETAINED_C2_ROOT unset; requires the retained installed C2 pre-actor failure",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "retry continuation preserves the admitted retained C1 input and ordinary terminal input",
+      "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_STEEL03_RETAINED_CONTINUATION_ROOT unset; requires the retained installed completed C1 prefix",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "declared fan-out output validates independently of leaf output slots",
+      "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_STEEL03_RETAINED_FANOUT_ROOT unset; requires the retained installed successful C0 prefix",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "C0 authentic immutable Program publication witness binds raw and installed semantic identities",
+      "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_STEEL03_RETAINED_C0_ROOT unset; requires the retained installed C0 prefix",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "admitted stage output preserves the exact C1 task carrier and distinct failure slot",
+      "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_STEEL03_RETAINED_LEAF_ROOT unset; requires the retained installed first-leaf prefix",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "worksite Program owner binds raw publication separately from installed semantic identity",
+      "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": "ABI5_STEEL03_RETAINED_PREFLIGHT_PATH unset; requires the authentic installed preflight and original prefix",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 7,
+      "type": "case",
+      "passed": true,
+      "name": "consumer callable membership resolves exact borrowed owners without contributor membership rewriting",
+      "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "nesting": 0,
+      "testNumber": 7,
+      "suite": false,
+      "skip": "ABI5_STEEL03_RETAINED_CALL_PATH unset; requires the retained installed conformance call",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 8,
+      "type": "case",
+      "passed": true,
+      "name": "run resources preserve the accepted retention carrier and reject wrong kind or extra fields",
+      "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "nesting": 0,
+      "testNumber": 8,
+      "suite": false,
+      "skip": "ABI5_STEEL03_RETAINED_START_CALL_PATH unset; requires the retained exact start resource assertion",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/events/201-w2-steel-single-start-closure.jsonl",
+    "bytes": 3498,
+    "sha256": "8c732e27ef6fe91fe91b9f166aad687398852caed4e900af704917598cb85fe9"
+  },
+  "commandReceipt": "commands/201-w2-steel-single-start-closure.result.json",
+  "workspace": "/private/tmp/abg-r8c-024/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

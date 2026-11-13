@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 702.1252920000115,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 7,
+    "failed": 0,
+    "passed": 7,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 7,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-003/events/027-m5-terminal-quiescence-owner.jsonl",
+    "bytes": 2431,
+    "sha256": "b4a4c30b1962dd67de2ed9cd82adf10cafbb40c90c22c5ab7a6a50c312a5ce1b"
+  },
+  "commandReceipt": "commands/027-m5-terminal-quiescence-owner.result.json",
+  "workspace": "/private/tmp/abg-r8c-003/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

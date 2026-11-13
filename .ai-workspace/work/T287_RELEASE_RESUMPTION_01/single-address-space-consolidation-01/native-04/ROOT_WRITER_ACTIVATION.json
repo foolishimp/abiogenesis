@@ -1,0 +1,17 @@
+{
+  "recordedUtc": "2026-11-03T19:41:59.149116+00:00",
+  "roleTransition": "Executive completion selection -> operator/evidence Writer",
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_04.md",
+  "effects": [
+    "Prepare continuation controls and exact held evidence",
+    "Prepare bounded C2 inputs and scratch guidance",
+    "Preserve/update coordination projections",
+    "Observe/freeze returned evidence"
+  ],
+  "exclusions": [
+    "No Root Product/test repair",
+    "No prior input/log/release mutation",
+    "No push, merge, tag, selector, new cut or stable claim"
+  ],
+  "nativeDispatch": "Only after exact installed-owner preflight and Root admission; one coding Worker"
+}

@@ -1,0 +1,385 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/freeze-source.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/bind-and-freeze.mjs
+@@ -1,93 +1,165 @@
+-// Passive custody of a native return. Candidate bytes are never edited here.
++// Operator custody only. Run once, after the actual author host exits.
++// Adapted from d5-author-03/freeze-source.mjs; never admits or replays an event.
+ import assert from 'node:assert/strict';
+ import {createReadStream} from 'node:fs';
+-import {readFile,writeFile,mkdir,lstat,readdir} from 'node:fs/promises';
+-import {createInterface} from 'node:readline';
++import {readFile,writeFile,mkdir,lstat,open} from 'node:fs/promises';
+ import {createHash} from 'node:crypto';
+ import {execFileSync} from 'node:child_process';
+-import {join,dirname} from 'node:path';
+-import {fileURLToPath,pathToFileURL} from 'node:url';
+-const dir=dirname(fileURLToPath(import.meta.url)),campaign=dirname(dir),json=async p=>JSON.parse(await readFile(p,'utf8'));
+-const grant=await json(join(dir,'NATIVE_GRANT.json')),retained=await json(join(dir,'execution/resume.json'));
+-const {decodeEventBody,inlineEventBody}=await import(pathToFileURL(join(retained.installedRoot,'build/code/src/abg/event_body_encoding.js')));
+-const {sha256Canonical}=await import(pathToFileURL(join(retained.installedRoot,'build/code/src/shared/digests.js')));
+-const hash=b=>createHash('sha256').update(b).digest('hex'),log=join(campaign,'runtime-001/resources/events/runtime.events.jsonl');
+-const prepared=await json(join(dir,'execution/PREPARED_CALL.json'));
+-const minimumOffset=prepared.eventPrefix.prefixLength;assert(Number.isSafeInteger(minimumOffset));
+-const inline=new Map(),eventsById=new Map();
+-const earlier={envelope:ref=>eventsById.get(ref),event:ref=>{const event=eventsById.get(ref);assert(event,'Missing earlier admitted event');return event;}};
+-let selected=null,offset=0,observedOrdinal=0;
+-for await(const line of createInterface({input:createReadStream(log),crlfDelay:Infinity})){
+- let raw;try{raw=JSON.parse(line);}catch{break;}
+- const rowBytes=Buffer.byteLength(line)+1,decoded=decodeEventBody(raw,inline,undefined,earlier),event=decoded.event;
+- eventsById.set(event.eventId,event);
+- if(decoded.physicallyInline){const body=inlineEventBody(event);if(body!==null)inline.set(body.eventRef,body);}
+- observedOrdinal=event.admissionOrdinal;
+- if(offset>=minimumOffset&&event.kind==='c_call_result_admitted'&&event.graphFunctionRef==='graph-function://abiogenesis/worksite/native-work@5'&&event.payload.value?.kind==='native_workspace_work_observation')
+-   selected={event,rawLine:line+'\n',offset,rowBytes};
+- offset+=rowBytes;
+-}
+-if(selected===null){console.log(JSON.stringify({status:'NO_NATIVE_SOURCE_RETURN_YET',observedOrdinal}));process.exit(0);}
+-const event=selected.event,value=event.payload.value;
+-assert.equal(sha256Canonical(event.payload),event.payloadDigest,'Observed native event payload differs from stamp');
+-assert.equal(execFileSync('/usr/bin/git',['-C',grant.worksiteRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),grant.sourceCommit);
+-const currentDiff=execFileSync('/usr/bin/git',['-C',grant.worksiteRoot,'diff','--name-only',grant.sourceCommit],{encoding:'utf8'}).trim().split('\n').filter(Boolean);
+-const heldBefore=await json(join(dir,'SOURCE_BEFORE.json'));
+-const cumulativePaths=[...new Set([...(heldBefore.inheritedTrackedChangedPaths??[]),...(heldBefore.inheritedNewProductPaths??[]),...grant.productWritePaths])];
+-assert(currentDiff.every(p=>cumulativePaths.includes(p)),'Unselected tracked modification');
+-for(const f of heldBefore.files){if(grant.productWritePaths.includes(f.relativePath))continue;const b=await readFile(join(grant.worksiteRoot,f.relativePath));assert.equal(b.length,f.bytes,f.relativePath);assert.equal(hash(b),f.sha256,'Read-only inherited source changed: '+f.relativePath);}
+-for(const f of (await json(join(dir,'STAGING_MANIFEST.json'))).files){const b=await readFile(f.path);assert.equal(b.length,f.bytes,f.path);assert.equal(hash(b),f.sha256,'Staged control changed: '+f.path);}
++import {getHeapStatistics} from 'node:v8';
++import {dirname,join,relative,isAbsolute,resolve} from 'node:path';
++import {fileURLToPath} from 'node:url';
++import {installedModules} from '../../operator-client/public-setup.mjs';
+ 
+-const after=new Map(value.after.entries.map(e=>[e.relativePath,e]));
+-const name=process.argv[2]??'review-subject-001';assert(/^review-subject-\d{3}$/.test(name));const root=join(dir,name);
+-try{await lstat(root);throw Error('Frozen subject already exists');}catch(e){if(e.code!=='ENOENT')throw e;}
+-const reviewBase=grant.sourceCommit;
+-const heldFiles=new Map(heldBefore.files.map(f=>[f.relativePath,f]));
+-assert.equal(grant.handoffFiles.length,3);assert(grant.newFilesExpectedAfterConstruction.every(p=>!grant.handoffFiles.includes(p)));
+-const files=[];
+-const workload=await json(join(dir,'workload.json'));const acquisitionPaths=workload.testing.selectedPaths.filter(p=>!grant.handoffFiles.includes(p));
+-for(const path of acquisitionPaths){
+- const b=await readFile(join(grant.worksiteRoot,path)),entry=after.get(path);
+- assert.equal(entry?.state,'file',path);assert.equal(entry.digest,'sha256:'+hash(b),path);assert.equal(entry.byteLength,b.length,path);
+- let pre=null;
+- try{pre=execFileSync('/usr/bin/git',['-C',grant.worksiteRoot,'show',reviewBase+':'+path],{stdio:['ignore','pipe','pipe']});}
+- catch(error){assert(path.startsWith('qualification-inputs/')||grant.newFilesExpectedAfterConstruction.includes(path)||(heldBefore.inheritedUntrackedPaths??[]).includes(path),'Unexpected absent baseline: '+path);}
+- files.push({path,bytes:b.length,sha256:hash(b),preimageSha256:pre===null?null:hash(pre),changed:cumulativePaths.includes(path)&&(pre===null||hash(b)!==hash(pre)),admittedAfterEntry:{relativePath:entry.relativePath,state:entry.state,digest:entry.digest,byteLength:entry.byteLength},heldPreimageSha256:heldFiles.get(path)?.sha256??null,changedFromHeld:grant.productWritePaths.includes(path)&&heldFiles.get(path)?.sha256!==hash(b),
+-   snapshot:join(root,'files',path),preimage:pre===null?null:join(root,'preimages',path),bytesValue:b,preimageValue:pre});
+-}
+-await mkdir(root);
+-for(const f of files){for(const [p,b]of [[f.snapshot,f.bytesValue],[f.preimage,f.preimageValue]]){if(p===null)continue;await mkdir(dirname(p),{recursive:true});await writeFile(p,b,{flag:'wx'});}}
+-// Retain exact physical coordinates/hash below; no full native/provider body dump.
+-
+-await writeFile(join(root,'NATIVE_RESULT_COORDINATES.json'),JSON.stringify({eventRef:event.eventRef,eventOrdinal:event.admissionOrdinal,resultRef:event.payload.resultRef,resultDigest:event.payload.resultDigest,afterObservationRef:value.after.observationRef,afterObservationDigest:value.after.observationDigest},null,2)+'\n',{flag:'wx'});
+-const diffParts=[execFileSync('/usr/bin/git',['-C',grant.worksiteRoot,'diff','--binary',reviewBase,'--',...cumulativePaths])];
+-for(const f of files.filter(f=>f.preimage===null&&cumulativePaths.includes(f.path))){
+- try{diffParts.push(execFileSync('/usr/bin/git',['diff','--no-index','--binary','--','/dev/null',f.snapshot],{stdio:['ignore','pipe','pipe']}));}
+- catch(error){assert.equal(error.status,1);diffParts.push(error.stdout);}
+-}
+-const diff=Buffer.concat(diffParts);
+-await writeFile(join(root,'source.diff'),diff,{flag:'wx'});
+-for(const name of ['return.json','readiness.json','progress.json']){
+- const path=join('qualification-scratch/d5-author-03',name),bytes=await readFile(join(grant.worksiteRoot,path)),entry=after.get(path);
+- assert.equal(entry?.state,'file',path);assert.equal(entry.digest,'sha256:'+hash(bytes),path);assert.equal(entry.byteLength,bytes.length,path);
+- await writeFile(join(root,name),bytes,{flag:'wx'});
+-}
+-const authorFeedback=[];
+-for(const [relativeRoot,label] of [['qualification-scratch/d5-author-03/tmp','handoff-tmp'],['tmpd5c/runs','native-scratch-runs']]){
+- const feedbackRoot=join(grant.worksiteRoot,relativeRoot);
+- let names;try{names=await readdir(feedbackRoot);}catch(error){if(error.code==='ENOENT')continue;throw error;}
+- for(const name of names.filter(name=>name.endsWith('.tap')).sort()){
+-  const bytes=await readFile(join(feedbackRoot,name)),snapshot=join(root,'author-feedback',label,name);
+-  await mkdir(dirname(snapshot),{recursive:true});await writeFile(snapshot,bytes,{flag:'wx'});
+-  authorFeedback.push({source:join(feedbackRoot,name),snapshot,bytes:bytes.length,sha256:hash(bytes),standing:'Author feedback, not actual C2 or acceptance'});
++const here=dirname(fileURLToPath(import.meta.url)),author=dirname(here);
++const sha=b=>createHash('sha256').update(b).digest('hex');
++const raw=await readFile(process.argv[2]);assert.equal(sha(raw),process.argv[3],'Root input pin');
++const input=JSON.parse(raw);assert.equal(input.authorRoot,author);
++assert(/^[a-z0-9][a-z0-9-]*$/u.test(input.outputName));
++assert.equal(input.heapMiB,8192);assert(getHeapStatistics().heap_size_limit>=8192*1024*1024);
++const root=join(here,input.outputName);await mkdir(root);
++const record=async(name,value)=>{const path=join(root,name);await mkdir(dirname(path),{recursive:true});await writeFile(path,JSON.stringify(value,null,2)+'\n',{flag:'wx'});return path;};
++async function pinnedJson(pin){assert(pin&&isAbsolute(pin.path)&&Number.isSafeInteger(pin.bytes)&&/^[a-f0-9]{64}$/u.test(pin.sha256),'Unbound file input');const b=await readFile(pin.path);assert.equal(b.length,pin.bytes,pin.path);assert.equal(sha(b),pin.sha256,pin.path);return JSON.parse(b);}
++async function filePin(path){const info=await lstat(path);assert(info.isFile()&&!info.isSymbolicLink(),path);const hash=createHash('sha256');for await(const part of createReadStream(path))hash.update(part);return {path,bytes:info.size,sha256:hash.digest('hex')};}
++const samePin=async pin=>{assert.deepEqual(await filePin(pin.path),pin);};
++const inside=(base,path)=>{const p=relative(base,path);return p!==''&&!p.startsWith('../')&&p!=='..'&&!isAbsolute(p);};
++const jsonPointer=(value,pointer)=>{assert(pointer===''||pointer.startsWith('/'));return pointer===''?value:pointer.slice(1).split('/').reduce((v,k)=>v?.[k.replace(/~1/gu,'/').replace(/~0/gu,'~')],value);};
++await record('STARTED.json',{at:new Date().toISOString(),pid:process.pid,inputSha256:process.argv[3],automaticRetry:false,role:'Post-host operator custody, not Product acceptance'});
++try{
++ const admission=await pinnedJson(input.admission);assert.equal(input.admission.sha256,'b7d93c37fdf71ded45a35c8f6fb7c1d9220bc3eaffbbff5077c2f251cd20e823');
++ const final=await pinnedJson(input.finalBindings);assert.equal(input.finalBindings.sha256,'5a8f09e8f8ee03c8dfe55f6af8e1531ded9d8f08947326d474975367e1d96fd2');
++ assert.deepEqual(final.admission,input.admission);assert.equal(final.staged.length,20);
++ const grant=await pinnedJson(final.grant),before=await pinnedJson(admission.sourceBefore),workload=await pinnedJson(final.workload);
++ assert.equal(before.files.length,397);assert.equal(grant.productWritePaths.length,85);assert.equal(grant.handoffFiles.length,3);assert.equal(grant.inheritedNewProductPaths.length,2);
++ const host=await pinnedJson(input.hostResult),launch=await pinnedJson(input.hostLaunch);
++ assert.equal(input.hostResult.path,join(author,'HOST_RESULT.json'));assert.equal(input.hostLaunch.path,join(author,'HOST_LAUNCH.json'));
++ assert(Number.isInteger(host.exitCode)&&Number.isFinite(Date.parse(host.endedUtc)),'Actual host exit is missing');
++ assert.equal(host.startedUtc,launch.startedUtc);assert(Number.isInteger(launch.pid)&&launch.pid>0);
++ try{process.kill(launch.pid,0);throw Error('Author host PID is still live; no return acquisition');}catch(error){if(error.code!=='ESRCH')throw error;}
++ const pending=await pinnedJson(input.pending);
++ assert.equal(input.pending.path,join(author,'execution/READBACKS_PENDING.json'));
++ assert.equal(pending.actualExecutionFile,input.execution.path);assert.equal(pending.actualResumeFile,input.resume.path);
++ assert.equal(input.execution.path,join(author,'execution/execution.json'));assert.equal(input.resume.path,join(author,'execution/after-run-resume.json'));
++ // One parse of the complete execution receipt. Subsequent reads consume hashes,
++ // coordinates and its retained file pin, not another copy of this large value.
++ let execution=await pinnedJson(input.execution);const receipt=execution.receipt;
++ assert.equal(receipt?.kind,'definition_host_receipt');
++ const close=receipt.resources?.eventResource?.closeHandoff;assert(close,'No genuine actual close; preserve this return and stop');
++ const run=receipt.resources.run??null,terminal=receipt.ownerOutput?.value?.terminalResult??null;
++ const executionState={exitCode:execution.execution?.exitCode??null,timedOut:execution.execution?.timedOut??null,truncated:execution.execution?.truncated??null,outcomeKind:receipt.ownerOutput?.outcomeKind??null};
++ execution=null;
++ let resumed=await pinnedJson(input.resume);
++ assert.equal(resumed.state.resource,null);assert.equal(resumed.state.selection,null);assert.equal(resumed.state.environment,null);
++ const runtime=await installedModules(resumed.installedRoot),hash=runtime.product.sha256Canonical;
++ assert.equal(hash(resumed.state.closeHandoff),hash(close));assert.equal(hash(pending.actualClose),hash(close));assert.deepEqual(pending.run,run);
++ const verified=resumed.native.verified;
++ const readInput={sourceExecution:input.execution,sourceResume:input.resume,hostResult:input.hostResult,hostLaunch:input.hostLaunch,pending:input.pending,
++  installedRoot:resumed.installedRoot,native:{verified:{productId:verified.productId,productContentDigest:verified.productContentDigest,
++   catalogId:verified.catalogId,catalogDigest:verified.catalogDigest,definitionContractCoordinates:verified.definitionContractCoordinates}},binding:resumed.state.binding,closeHandoff:close,run,
++  config:{runId:resumed.config.runId,nodePath:resumed.config.nodePath,setupEnvironment:resumed.config.setupEnvironment},
++  provenancePath:join(author,'execution/run.json'),members:run===null?[]:['run_result','run_replay'],heapMiB:8192,timeoutMs:input.readTimeoutMs,hostTimeoutMs:input.readHostTimeoutMs,maxOutputBytes:input.maxOutputBytes,
++  sourceOutcome:executionState,expectedTerminal:null,sourceCustody:null,
++  limits:['One cold process per pending member; same actual close; no refresh, lifecycle, provider, retry or heap increase.','Full owner output remains at the existing calls/<member>.outcome.json artifact.','Metadata is a reference projection of the actual receipt, not runtime admission.']};
++ assert.equal(readInput.config.setupEnvironment.NODE_OPTIONS,'--max-old-space-size=8192');
++ assert(Number.isSafeInteger(input.readTimeoutMs)&&input.readTimeoutMs>0&&input.readTimeoutMs<=600000);
++ assert(Number.isSafeInteger(input.readHostTimeoutMs)&&input.readHostTimeoutMs>input.readTimeoutMs&&input.readHostTimeoutMs<=admission.effectGrant.budgets.hostMs);
++ assert(Number.isSafeInteger(input.maxOutputBytes)&&input.maxOutputBytes>0&&input.maxOutputBytes<=536870912);
++ resumed=null;
++ if(terminal!==null){
++  assert(runtime.abg.isAbgTypedTerminalResult(terminal),'Actual terminal is not the installed owner type');
++  assert.equal(hash(terminal.value),terminal.valueDigest);assert.equal(terminal.producer.runRef,run?.ref);
++  readInput.expectedTerminal={terminalDigest:hash(terminal),result:terminal.result,contract:terminal.contract,valueKind:terminal.valueKind,valueDigest:terminal.valueDigest,
++   producerDigest:hash(terminal.producer),valueCanonicalDigest:hash(terminal.value),sourcePointer:'/receipt/ownerOutput/value/terminalResult'};
+  }
+-}
+-const subject={status:'OBSERVED_NATIVE_SOURCE_FROZEN_C2_PENDING',authorFeedback,capturedUtc:new Date().toISOString(),sourceRoot:grant.worksiteRoot,sourceCommit:grant.sourceCommit,reviewBaseCommit:reviewBase,
+- nativeResultRef:event.payload.resultRef,nativeResultDigest:event.payload.resultDigest,eventOrdinal:event.admissionOrdinal,eventTime:event.eventTime,
+- eventPath:log,eventOffset:selected.offset,eventRowBytes:selected.rowBytes,eventRowSha256:hash(selected.rawLine),observedThroughOrdinal:observedOrdinal,
+- afterObservationRef:value.after.observationRef,afterObservationDigest:value.after.observationDigest,trackedChangedPaths:currentDiff,changedPaths:files.filter(f=>f.changed).map(f=>f.path),
+- incrementChangedPaths:files.filter(f=>f.changedFromHeld).map(f=>f.path),heldSourceBeforeSha256:hash(await readFile(join(dir,'SOURCE_BEFORE.json'))),
+- files:files.map(({bytesValue,preimageValue,...f})=>f),diff:{path:join(root,'source.diff'),bytes:diff.length,sha256:hash(diff)},
+- limits:['Passive observation and file custody; final owner close/fresh projections will conjoin runtime standing.','No source acceptance, C2 pass, UAT or qualification inferred.']};
+-await writeFile(join(root,'SUBJECT.json'),JSON.stringify(subject,null,2)+'\n',{flag:'wx'});
+-console.log(JSON.stringify({status:subject.status,subject:join(root,'SUBJECT.json'),nativeResultRef:subject.nativeResultRef,eventOrdinal:subject.eventOrdinal,changedPaths:subject.changedPaths}));
++ const native=terminal?.valueKind==='native_workspace_work_observation'&&terminal.value?.kind==='native_workspace_work_observation'?terminal.value:null;
++ const authenticatedAfter=native!==null&&native.after!==null&&runtime.product.isNativeWorkspaceWorkObservation(native);
++ const after=new Map((authenticatedAfter?native.after.entries:[]).map(entry=>[entry.relativePath,entry]));
++ let coordinates=null;
++ if(native!==null){
++  assert.equal(terminal.producer.graphFunction.ref,'graph-function://abiogenesis/worksite/native-work@5');
++  const timing=await pinnedJson(input.timing);assert.equal(input.timing.path,join(author,'execution/TIMING_OBSERVATION_ENVELOPES.json'));
++  const rows=timing.results.filter(row=>row.eventId===terminal.producer.resultAdmissionEventRef);assert.equal(rows.length,1,'Exact native Result event is absent or ambiguous');
++  const row=rows[0],prefix=close.prefix,log=fileURLToPath(prefix.eventLogRef);
++  assert.equal(log,timing.eventLog);assert.equal(row.kind,'c_call_result_admitted');assert.equal(row.resultRef,terminal.result.ref);assert.equal(row.runId,run.ref);
++  assert(Number.isSafeInteger(row.offset)&&row.offset>=timing.fromByte&&Number.isSafeInteger(row.rowBytes)&&row.rowBytes>0&&row.offset+row.rowBytes<=prefix.prefixLength);
++  const handle=await open(log,'r');let physical;
++  try{
++   const stat=await handle.stat();assert.equal(stat.dev,prefix.storeIdentity.device);assert.equal(stat.ino,prefix.storeIdentity.inode);assert.equal(stat.size,prefix.prefixLength);
++   physical=Buffer.alloc(row.rowBytes);let read=0;while(read<physical.length){const r=await handle.read(physical,read,physical.length-read,row.offset+read);assert(r.bytesRead>0);read+=r.bytesRead;}
++   const end=await handle.stat();assert.equal(end.size,stat.size);assert.equal(end.mtimeMs,stat.mtimeMs);assert.equal(end.ctimeMs,stat.ctimeMs);
++  }finally{await handle.close();}
++  assert.equal(sha(physical),row.rowSha256);assert.equal(physical.at(-1),10);
++  const stored=JSON.parse(physical.toString('utf8')),event=stored.event??stored,payload=event.payload;
++  assert.equal(event.kind,'c_call_result_admitted');assert.equal(event.eventId,terminal.producer.resultAdmissionEventRef);assert.equal(event.admissionOrdinal,row.admissionOrdinal);
++  assert.equal(event.runId,run.ref);assert.equal(event.aggregateId,terminal.producer.cCallRef);assert.equal(event.graphFunctionRef,terminal.producer.graphFunction.ref);
++  assert.equal(payload.cCallRef,terminal.producer.cCallRef);assert.equal(payload.resultRef,terminal.result.ref);assert.equal(payload.resultDigest,terminal.result.digest);
++  assert.equal(payload.contractRef,terminal.contract.ref);assert.equal(payload.valueKind,terminal.valueKind);assert.equal(payload.valueDigest,terminal.valueDigest);
++  if(Object.hasOwn(payload,'value')){assert.equal(hash(payload.value),terminal.valueDigest);assert.equal(hash(payload),event.payloadDigest);}
++  else{assert.equal(stored.codecVersion,1);assert.equal(stored.bodyReference?.bodyDigest,terminal.valueDigest);assert.equal(hash({...payload,value:terminal.value}),event.payloadDigest);}
++  // Encoded body truth comes from the actual authenticated CLI terminal. This
++  // digest comparison does not decode a history or create an admitted event.
++  coordinates={...row,eventPath:log,physicalRow:{path:log,offset:row.offset,bytes:row.rowBytes,sha256:row.rowSha256},payloadDigest:event.payloadDigest,bodyReference:stored.bodyReference??null,
++   result:terminal.result,valueDigest:terminal.valueDigest,ownerReceipt:input.execution,ownerValuePointer:'/receipt/ownerOutput/value/terminalResult/value',
++   standing:'Physical selected row joined to actual owner receipt; no event admission, whole-history decoding or substitute runtime truth'};
++  await record('NATIVE_RESULT_COORDINATES.json',coordinates);
++ }
++ assert.equal(execFileSync('/usr/bin/git',['-C',grant.worksiteRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),grant.sourceCommit);
++ const currentDiff=execFileSync('/usr/bin/git',['-C',grant.worksiteRoot,'diff','--name-only',grant.sourceCommit],{encoding:'utf8'}).trim().split('\n').filter(Boolean);
++ const cumulative=[...new Set([...(before.inheritedTrackedChangedPaths??[]),...grant.inheritedNewProductPaths,...grant.productWritePaths])];
++ assert(currentDiff.every(path=>cumulative.includes(path)),'Tracked modification outside the preserved/selected cone');
++ for(const pin of final.staged)await samePin(pin);
++ const held=new Map(before.files.map(file=>[file.relativePath,file]));
++ for(const file of before.files){assert(file.sourceSnapshot);await samePin({path:file.sourceSnapshot,bytes:file.bytes,sha256:file.sha256});
++  if(!grant.productWritePaths.includes(file.relativePath))await samePin({path:join(grant.worksiteRoot,file.relativePath),bytes:file.bytes,sha256:file.sha256});}
++ const selected=workload.testing.selectedPaths.filter(path=>!grant.handoffFiles.includes(path));
++ const expectedPaths=[...held.keys(),...final.staged.map(pin=>relative(grant.worksiteRoot,pin.path))];
++ assert.deepEqual([...new Set(selected)].sort(),[...new Set(expectedPaths)].sort());assert.equal(selected.length,417);
++ const frozen=join(root,'review-subject-001');await mkdir(frozen);const files=[];
++ for(const path of selected){
++  assert(inside(grant.worksiteRoot,resolve(grant.worksiteRoot,path)));const source=join(grant.worksiteRoot,path),b=await readFile(source),entry=after.get(path);
++  if(authenticatedAfter){assert.equal(entry?.state,'file',path);assert.equal(entry.byteLength,b.length,path);assert.equal(entry.digest,'sha256:'+sha(b),path);}
++  let pre=null;try{pre=execFileSync('/usr/bin/git',['-C',grant.worksiteRoot,'show',grant.sourceCommit+':'+path],{stdio:['ignore','pipe','pipe']});}
++  catch(error){assert(path.startsWith('qualification-inputs/')||grant.inheritedNewProductPaths.includes(path),'Unexpected absent Git baseline: '+path);}
++  const prior=held.get(path),snapshot=join(frozen,'files',path),preimage=pre===null?null:join(frozen,'preimages',path);
++  await mkdir(dirname(snapshot),{recursive:true});await writeFile(snapshot,b,{flag:'wx'});
++  if(pre!==null){await mkdir(dirname(preimage),{recursive:true});await writeFile(preimage,pre,{flag:'wx'});}
++  files.push({path,bytes:b.length,sha256:sha(b),snapshot,preimage,preimageSha256:pre===null?null:sha(pre),
++   heldPreimage:prior?{path:prior.sourceSnapshot,bytes:prior.bytes,sha256:prior.sha256}:null,
++   changed:cumulative.includes(path)&&(pre===null||sha(b)!==sha(pre)),changedFromHeld:grant.productWritePaths.includes(path)&&prior?.sha256!==sha(b),
++   admittedAfterEntry:authenticatedAfter?{relativePath:entry.relativePath,state:entry.state,digest:entry.digest,byteLength:entry.byteLength}:null});
++ }
++ const handoffs=[],handoffValues=new Map();
++ for(const path of grant.handoffFiles){
++  let b;try{b=await readFile(join(grant.worksiteRoot,path));}catch(error){if(error.code==='ENOENT'&&!authenticatedAfter){handoffs.push({path,state:'absent',admitted:false});continue;}throw error;}
++  const entry=after.get(path);if(authenticatedAfter){assert.equal(entry?.state,'file',path);assert.equal(entry.byteLength,b.length,path);assert.equal(entry.digest,'sha256:'+sha(b),path);}
++  const name=path.slice(path.lastIndexOf('/')+1),snapshot=join(frozen,name);await writeFile(snapshot,b,{flag:'wx'});
++  handoffs.push({path,snapshot,bytes:b.length,sha256:sha(b),admitted:authenticatedAfter});handoffValues.set(name,JSON.parse(b));
++ }
++ const feedback=[];
++ for(const selection of input.selectedFeedback){
++  assert(handoffValues.has(selection.handoff));const named=jsonPointer(handoffValues.get(selection.handoff),selection.pointer),namedPath=typeof named==='string'?named:named?.path;
++  assert.equal(resolve(grant.worksiteRoot,namedPath),selection.file.path,'Feedback must be exactly named by its selected handoff field');
++  await samePin(selection.file);if(typeof named==='object'&&named!==null){if(named.bytes!==undefined)assert.equal(named.bytes,selection.file.bytes);if(named.sha256!==undefined)assert.equal(named.sha256.replace(/^sha256:/u,''),selection.file.sha256);}
++  const snapshot=join(frozen,'author-feedback',String(feedback.length).padStart(3,'0')+'-'+selection.file.path.split('/').at(-1));
++  await mkdir(dirname(snapshot),{recursive:true});await writeFile(snapshot,await readFile(selection.file.path),{flag:'wx'});feedback.push({...selection,snapshot,standing:'Author feedback only; no actual C2 or acceptance'});
++ }
++ const parts=[execFileSync('/usr/bin/git',['-C',grant.worksiteRoot,'diff','--binary',grant.sourceCommit,'--',...cumulative])];
++ for(const file of files.filter(file=>file.preimage===null&&cumulative.includes(file.path))){try{parts.push(execFileSync('/usr/bin/git',['diff','--no-index','--binary','--','/dev/null',file.snapshot],{stdio:['ignore','pipe','pipe']}));}catch(error){assert.equal(error.status,1);parts.push(error.stdout);}}
++ const diffPath=join(frozen,'source.diff');await writeFile(diffPath,Buffer.concat(parts),{flag:'wx'});
++ const status=authenticatedAfter?'OBSERVED_NATIVE_SOURCE_FROZEN_READBACK_REVIEW_PROOF_PENDING':'PHYSICAL_PARTIAL_CUSTODY_NO_AUTHENTICATED_NATIVE_AFTER';
++ const subject={status,capturedUtc:new Date().toISOString(),sourceRoot:grant.worksiteRoot,sourceCommit:grant.sourceCommit,reviewBaseCommit:grant.sourceCommit,
++  sourceBefore:admission.sourceBefore,sourceExecution:input.execution,sourceResume:input.resume,hostResult:input.hostResult,originalOutcome:executionState,
++  nativeResult:terminal?.result??null,nativeValueDigest:terminal?.valueDigest??null,physicalResult:coordinates,
++  afterObservationRef:authenticatedAfter?native.after.observationRef:null,afterObservationDigest:authenticatedAfter?native.after.observationDigest:null,
++  trackedChangedPaths:currentDiff,changedPaths:files.filter(file=>file.changed).map(file=>file.path),incrementChangedPaths:files.filter(file=>file.changedFromHeld).map(file=>file.path),
++  files,handoffs,authorFeedback:feedback,diff:await filePin(diffPath),rootFinalBindings:input.finalBindings,stagedControlCount:20,baselineCount:397,permittedProductPathCount:85,
++  limits:['Custody only; no Product acceptance, author success, independent review, C2/UAT or qualification inferred.','Null/missing native after preserves physical partial custody without admission credit.','Held source preimages remain at their exact pinned existing snapshots; Git preimages and the two inherited untracked files are preserved.','No recursive feedback/archive inventory; only Root-selected handoff-named files are retained.']};
++ const subjectPath=join(frozen,'SUBJECT.json');await writeFile(subjectPath,JSON.stringify(subject,null,2)+'\n',{flag:'wx'});
++ readInput.sourceCustody=await filePin(subjectPath);
++ const readPath=await record('READ_INPUT.json',readInput);
++ await record('SUMMARY.json',{status,sourceSubject:readInput.sourceCustody,readInput:await filePin(readPath),originalExecution:input.execution,
++  fullTerminalPresent:terminal!==null,authenticatedNativeAfter:authenticatedAfter,run,originalOutcome:executionState,hostExitCode:host.exitCode,
++  pendingReads:readInput.members,physicalResult:coordinates===null?null:{eventId:coordinates.eventId,row:coordinates.physicalRow},
++  files:files.length,handoffs:handoffs.map(({path,bytes,sha256,admitted,state})=>({path,bytes,sha256,admitted,state})),
++  qualified:false,meaning:'Root must execute each pending read once and conjoin exact source/review/proof; this is not coding-task success.'});
++ console.log(JSON.stringify({status,readInput:await filePin(readPath),sourceSubject:readInput.sourceCustody,pendingReads:readInput.members}));
++}catch(error){await record('FAILURE.json',{at:new Date().toISOString(),name:error.name,message:String(error.message).slice(0,800),status:'PARTIAL_OPERATOR_CUSTODY_REQUIRES_ROOT',automaticRetry:false});throw error;}
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/read-one-r2.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/read-one.mjs
+@@ -1,4 +1,6 @@
++// One actual pending cold read. Adapted from P3 read-one-r2.mjs.
+ import assert from 'node:assert/strict';
++import {createReadStream} from 'node:fs';
+ import {readFile,mkdir} from 'node:fs/promises';
+ import {createHash} from 'node:crypto';
+ import {getHeapStatistics} from 'node:v8';
+@@ -6,42 +8,71 @@
+ import {fileURLToPath,pathToFileURL} from 'node:url';
+ import {installedModules,publicCaller} from '../../operator-client/public-setup.mjs';
+ import {exclusiveRecord,commandRecorder,invokeColdInstalledEntry,eventResourceIdentity} from '../../operator-client/runner.mjs';
+-const A=dirname(fileURLToPath(import.meta.url)),member=process.argv[2],expected=process.argv[3],bytes=await readFile(join(A,'INPUT.json'));
+-assert.equal(createHash('sha256').update(bytes).digest('hex'),expected);
+-const input=JSON.parse(bytes),root=join(A,member);assert(input.members.includes(member));await mkdir(root);
+-const record=(p,v,raw=false)=>exclusiveRecord(root,p,v,raw),phases=[],start=performance.now();
+-const mark=phase=>phases.push({phase,at:new Date().toISOString(),offsetMs:performance.now()-start,memory:process.memoryUsage()});
+-assert(getHeapStatistics().heap_size_limit>=input.heapMiB*1024*1024);
+-await record('STARTED.json',{at:new Date().toISOString(),pid:process.pid,member,heapLimitBytes:getHeapStatistics().heap_size_limit,inputSha256:expected,automaticRetry:false});
++
++const [inputPath,expected,member]=process.argv.slice(2),bytes=await readFile(inputPath);
++const sha=b=>createHash('sha256').update(b).digest('hex');assert.equal(sha(bytes),expected);
++const input=JSON.parse(bytes);assert(['run_result','run_replay'].includes(member)&&input.members.includes(member));
++const root=join(dirname(inputPath),member);await mkdir(root);
++const record=(path,value,raw=false)=>exclusiveRecord(root,path,value,raw),started=performance.now(),phases=[];
++const mark=phase=>phases.push({phase,at:new Date().toISOString(),offsetMs:performance.now()-started,memory:process.memoryUsage()});
++const filePin=async path=>{let size=0;const hash=createHash('sha256');for await(const chunk of createReadStream(path)){size+=chunk.length;hash.update(chunk);}return {path,bytes:size,sha256:hash.digest('hex')};};
++assert.equal(input.heapMiB,8192);assert(getHeapStatistics().heap_size_limit>=8192*1024*1024);
++await record('STARTED.json',{at:new Date().toISOString(),pid:process.pid,member,inputSha256:expected,heapLimitBytes:getHeapStatistics().heap_size_limit,automaticRetry:false});
++let observed=null;
+ try{
+- for(const p of [input.sourceResume,input.actualReceipt,input.outcome]){const b=await readFile(p.path);assert.equal(b.length,p.bytes);assert.equal(createHash('sha256').update(b).digest('hex'),p.sha256);}
+- mark('input_pins_checked');
+  const runtime=await installedModules(input.installedRoot),hash=runtime.product.sha256Canonical;
++ assert.equal(input.config.setupEnvironment.NODE_OPTIONS,'--max-old-space-size=8192');
+  const physical=await eventResourceIdentity(fileURLToPath(input.closeHandoff.prefix.eventLogRef));
+- assert.equal(physical.byteCount,input.closeHandoff.prefix.prefixLength);assert.equal(physical.digest,input.closeHandoff.prefix.prefixDigest);assert.equal(physical.device,input.closeHandoff.prefix.storeIdentity.device);assert.equal(physical.inode,input.closeHandoff.prefix.storeIdentity.inode);
++ assert.equal(physical.byteCount,input.closeHandoff.prefix.prefixLength);assert.equal(physical.digest,input.closeHandoff.prefix.prefixDigest);
++ assert.equal(physical.device,input.closeHandoff.prefix.storeIdentity.device);assert.equal(physical.inode,input.closeHandoff.prefix.storeIdentity.inode);
+  mark('physical_prefix_checked');
+  const prefix=runtime.abg.captureDurablePrefixCoordinate(input.closeHandoff.prefix),sameClose={...input.closeHandoff,prefix};
+  assert.equal(hash(sameClose),hash(input.closeHandoff));
+- const caller=publicCaller({root,runtime,native:input.native,config:input.config,record,command:commandRecorder(root,{environment:input.config.setupEnvironment,timeoutMs:input.timeoutMs,maxOutputBytes:input.maxOutputBytes}),actorRef:'actor://abiogenesis/operator/codex-root'});
++ const caller=publicCaller({root,runtime,native:input.native,config:input.config,record,
++  command:commandRecorder(root,{environment:input.config.setupEnvironment,timeoutMs:input.timeoutMs,maxOutputBytes:input.maxOutputBytes}),actorRef:'actor://abiogenesis/operator/codex-root'});
+  caller.installedRoot=input.installedRoot;caller.state.binding=input.binding;caller.state.closeHandoff=sameClose;
+- mark('construct_run_read');
++ // No refresh. The exact captured owner coordinate goes into the existing API.
+  const constructed=runtime.api.constructInstalledRunReadCall({memberKey:member,workspaceBinding:input.binding,sourceRef:input.run.ref,
+- selector:member==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'},eventResource:caller.reopen(),
+- envelope:{definitionContractCoordinates:input.native.verified.definitionContractCoordinates,requestRef:'request://abi5-tests/sandbox-uat/'+input.config.runId+'/readback-recovery-001/'+member,correlationRef:'correlation://abi5-tests/sandbox-uat/'+input.config.runId,
+- eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(input.provenancePath).href]}});
++  selector:member==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'},eventResource:caller.reopen(),
++  envelope:{definitionContractCoordinates:input.native.verified.definitionContractCoordinates,
++   requestRef:'request://abi5-tests/sandbox-uat/'+input.config.runId+'/rc7-overhead-author-01-post-return/'+member,
++   correlationRef:'correlation://abi5-tests/sandbox-uat/'+input.config.runId,eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(input.provenancePath).href]}});
+  assert.equal(constructed.kind,'installed_run_read_call');assert.deepEqual(constructed.population.source,input.run);
+  mark('cold_installed_read');
+- const observed=await invokeColdInstalledEntry(caller,member,constructed.call,{runtimeRoot:input.installedRoot,environment:input.config.setupEnvironment});
+- assert.equal(observed.execution.timedOut,false);assert.equal(observed.execution.truncated,false);
+- const output=observed.receipt.ownerOutput;
+- if(member==='run_result'){assert.equal(observed.execution.exitCode,1);assert.equal(output.outcomeKind,'refusal');assert.equal(output.value?.code,'not_found');}
+- else {assert.equal(observed.execution.exitCode,0);assert.equal(output.outcomeKind,'result');}
++ observed=await invokeColdInstalledEntry(caller,member,constructed.call,{runtimeRoot:input.installedRoot,environment:input.config.setupEnvironment});
++ assert.equal(observed.execution.timedOut,false);assert.equal(observed.execution.truncated,false);assert.equal(observed.execution.signal,null);assert.equal(observed.execution.failure,null);
++ const owner=observed.receipt?.ownerOutput,projection=owner?.value?.projection,terminal=projection?.terminalResult??null;
++ const outputPin=await filePin(join(root,'calls',member+'.outcome.json'));
++ // New summaries reference the existing full call artifact only. The unchanged
++ // canonical recorder retains its legacy stdout/result JSON copies; this control
++ // does not clone that owner or claim those retained costs have been removed.
+  mark('cold_read_returned');
+- assert.equal(hash(caller.state.closeHandoff),hash(input.closeHandoff));assert.deepEqual(await eventResourceIdentity(fileURLToPath(prefix.eventLogRef)),physical);
+- const ownerOutput=observed.receipt.ownerOutput,projection=ownerOutput.value?.projection;
+- if(member==='run_replay'){assert(projection!==undefined);assert.equal(projection.terminalResult,null,'Unexpected terminal after original blocked/null return');}
+- else assert.equal(projection,undefined);
+- const selected={memberKey:member,projection,source:ownerOutput.value?.source,ownerOutput};await record('READ_RESULT.json',selected);
+- await record('SUMMARY.json',{status:'ACTUAL_COLD_READ_RETAINED',member,source:selected.source,projectionKind:projection?.kind??null,projectionStatus:projection?.status??null,terminalPresent:projection?.terminalResult!=null,projectionDigest:projection===undefined?null:hash(projection),outcomeKind:ownerOutput.outcomeKind,refusalCode:ownerOutput.outcomeKind==='refusal'?ownerOutput.value.code:null,closeHandoff:caller.state.closeHandoff,physicalPrefixUnchanged:true,wallMs:performance.now()-start,phases});
+- console.log(JSON.stringify({status:'ACTUAL_COLD_READ_RETAINED',member,projectionStatus:projection?.status??null,terminalPresent:projection?.terminalResult!=null,wallMs:performance.now()-start}));
+-}catch(e){await record('FAILURE.json',{at:new Date().toISOString(),name:e.name,message:String(e.message).slice(0,600),wallMs:performance.now()-start,phases});throw e;}
++ assert.equal(hash(caller.state.closeHandoff),hash(input.closeHandoff));
++ assert.deepEqual(await eventResourceIdentity(fileURLToPath(prefix.eventLogRef)),physical);
++ let relation;
++ if(input.expectedTerminal!==null){
++  const expectedTerminal=input.expectedTerminal;
++  assert.equal(owner?.outcomeKind,'result','Typed original terminal requires a successful owner read');assert.equal(observed.execution.exitCode,0);
++  assert(runtime.abg.isAbgTypedTerminalResult(terminal));assert.deepEqual(owner.value.source,input.run);assert.deepEqual(projection.subject,input.run);
++  assert.equal(hash(terminal.value),terminal.valueDigest);assert.deepEqual(terminal.result,expectedTerminal.result);assert.deepEqual(terminal.contract,expectedTerminal.contract);
++  assert.equal(terminal.valueKind,expectedTerminal.valueKind);assert.equal(terminal.valueDigest,expectedTerminal.valueDigest);
++  assert.equal(hash(terminal.producer),expectedTerminal.producerDigest);assert.equal(hash(terminal.value),expectedTerminal.valueCanonicalDigest);
++  assert.equal(hash(terminal),expectedTerminal.terminalDigest,'Full original typed terminal must agree');relation='FULL_TYPED_TERMINAL_EQUAL';
++ }else{
++  assert.equal(terminal,null,'Actual original return had no terminal');
++  if(member==='run_result'){assert.equal(owner?.outcomeKind,'refusal');assert.equal(owner.value?.code,'not_found');assert.equal(observed.execution.exitCode,1);assert.equal(projection,undefined);}
++  else{assert.equal(owner?.outcomeKind,'result');assert.equal(observed.execution.exitCode,0);assert(projection);assert.deepEqual(owner.value.source,input.run);assert.deepEqual(projection.subject,input.run);assert.equal(projection.terminalResult,null);}
++  relation='ACTUAL_ABSENT_TERMINAL_AGREEMENT_NOT_TASK_SUCCESS';
++ }
++ const summary={status:'ACTUAL_COLD_READ_RETAINED',member,relation,ownerOutput:outputPin,sourceExecution:input.sourceExecution,originalOutcome:input.sourceOutcome,
++  source:owner?.value?.source??null,outcomeKind:owner?.outcomeKind??null,refusalCode:owner?.outcomeKind==='refusal'?owner.value.code:null,
++  projectionKind:projection?.kind??null,projectionStatus:projection?.status??null,terminalPresent:terminal!==null,
++  terminalDigest:terminal===null?null:hash(terminal),closeDigest:hash(input.closeHandoff),physicalPrefixUnchanged:true,wallMs:performance.now()-started,phases,
++  qualified:false,meaning:'Exact owner-read relation only; source review, affected proof and Root disposition remain separate.'};
++ await record('SUMMARY.json',summary);console.log(JSON.stringify({status:summary.status,member,relation,output:outputPin,wallMs:summary.wallMs}));
++}catch(error){
++ const outputPath=join(root,'calls',member+'.outcome.json');let output=null;try{output=await filePin(outputPath);}catch{}
++ await record('FAILURE.json',{at:new Date().toISOString(),name:error.name,message:String(error.message).slice(0,800),member,ownerOutput:output,
++  outcomeKind:observed?.receipt?.ownerOutput?.outcomeKind??null,refusalCode:observed?.receipt?.ownerOutput?.value?.code??null,
++  status:'READ_UNSATISFIED_OR_REFUSAL_PRESERVED',wallMs:performance.now()-started,phases,automaticRetry:false});throw error;
++}
+--- /dev/null
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/launch-read.mjs
+@@ -0,0 +1,18 @@
++// One finite host invocation through the unchanged existing command owner.
++import assert from 'node:assert/strict';
++import {readFile,mkdir} from 'node:fs/promises';
++import {createHash} from 'node:crypto';
++import {dirname,join,resolve} from 'node:path';
++import {fileURLToPath} from 'node:url';
++import {commandRecorder,exclusiveRecord} from '../../operator-client/runner.mjs';
++const [path,expected,member]=process.argv.slice(2),inputPath=resolve(path),bytes=await readFile(inputPath);
++assert.equal(createHash('sha256').update(bytes).digest('hex'),expected);const input=JSON.parse(bytes);
++assert(['run_result','run_replay'].includes(member)&&input.members.includes(member));assert.equal(input.heapMiB,8192);
++assert(Number.isSafeInteger(input.hostTimeoutMs)&&input.hostTimeoutMs>input.timeoutMs&&input.hostTimeoutMs<=10800000);
++const root=join(dirname(inputPath),member+'-host');await mkdir(root);
++const command=commandRecorder(root,{environment:input.config.setupEnvironment,timeoutMs:input.hostTimeoutMs,maxOutputBytes:1048576});
++const observed=await command(member+'-host',input.config.nodePath,['--max-old-space-size=8192',join(dirname(fileURLToPath(import.meta.url)),'read-one.mjs'),inputPath,expected,member]);
++const result={member,exitCode:observed.exitCode,signal:observed.signal,timedOut:observed.timedOut,truncated:observed.truncated,failure:observed.failure,wallMs:observed.wallMs,
++ summaryPath:join(dirname(inputPath),member,'SUMMARY.json'),failurePath:join(dirname(inputPath),member,'FAILURE.json'),automaticRetry:false};
++await exclusiveRecord(root,'HOST_RESULT.json',result);console.log(JSON.stringify(result));
++if(observed.exitCode!==0||observed.signal!==null||observed.timedOut||observed.truncated||observed.failure!==null)process.exitCode=1;

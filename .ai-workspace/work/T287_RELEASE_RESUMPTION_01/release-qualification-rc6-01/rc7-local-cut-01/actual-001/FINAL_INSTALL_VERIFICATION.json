@@ -1,0 +1,122 @@
+{
+  "kind": "rc7_final_local_install_verification",
+  "status": "LOCAL_RC7_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED",
+  "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b",
+  "cutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/LOCAL_CUT_RECORD.json",
+    "bytes": 2204,
+    "sha256": "fae6e5faf214c2b8cac0c5adbb015c906e09817d788a6031383c33cffe022396"
+  },
+  "selectedManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/install-001/INPUT_MANIFEST.json",
+    "bytes": 7392,
+    "sha256": "b288246d8d6c2a085dc8b70ba0528f051e0dd117bbdeaa291f0a033e2211663b"
+  },
+  "checksums": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+      "bytes": 11022180,
+      "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 1674,
+      "sha256": "fbc58ce888d07bcbb5bff97892f5939ac943f95a26b289b7f90e8045bb4a2dbf"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 6621,
+      "sha256": "2e3ad45848bb5a702f8d1d0c92a09c8137eeb7965fa1f43e05175f5dd89148fa"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/ROOT_AUTHORITY.md",
+      "bytes": 1532,
+      "sha256": "4d8a8496cdf6b0199cb9f0b8014680a1459f4043039c1004c2b927f6f7b6a466"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/RESIDUALS.md",
+      "bytes": 2539,
+      "sha256": "6003531a6e8d2a3edac862142f0633320da5ebdb0d7648a470ed56957e93479b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/INPUT_MANIFEST.json",
+      "bytes": 7392,
+      "sha256": "b288246d8d6c2a085dc8b70ba0528f051e0dd117bbdeaa291f0a033e2211663b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/verification.json",
+      "bytes": 15797281,
+      "sha256": "073d771c68bece77add4ddfb5e6e8060bca13cfd614d8f485d57bd5d5ac54825"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/resolved-lock.json",
+      "bytes": 4562973,
+      "sha256": "90f613b0f76e08db7404a89892073650f5cb2cdc175095ff13dde698ffe885f5"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/installation.json",
+      "bytes": 4231702,
+      "sha256": "4b96e6d480ac8389c88928ef631371751d40695c7596028b5097aec878e2d681"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/payload-correspondence.json",
+      "bytes": 1035176,
+      "sha256": "d2620216808551710a79810d689ada33a86eed9ecaf2a03cec0f1be057763279"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7/LOCAL_CUT_RECORD.json",
+      "bytes": 2204,
+      "sha256": "fae6e5faf214c2b8cac0c5adbb015c906e09817d788a6031383c33cffe022396"
+    }
+  ],
+  "payloadMembers": 5325,
+  "payloadInventoryDigest": "sha256:dc5e7883ccc6bab1acabfb0f9d157d0b40c98ff75a1b0c14c524801117ab2554",
+  "installedOwnerRead": {
+    "status": "installed_owner_content_matches",
+    "version": "5.0.0-rc.7",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.7",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "installedOwnerReadWallMs": 815.5838749999966,
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/reviews/packaging-001/REVIEW.json",
+    "bytes": 23783,
+    "sha256": "d47424edf14fd4259c45f3cdd5b21613baa8024c78076e0f50842a13560e3489"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1261,
+    "sha256": "d72aa3def4385d419aac75c143df12e740251e5163e1750c73a484f92ac712e3"
+  },
+  "sourceAcceptance": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 10863,
+      "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+    },
+    "hs01": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 9575,
+      "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+    },
+    "hs02": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_GROWTH_AND_S6_DISPOSITION_001.json",
+      "bytes": 9204,
+      "sha256": "59669f1d27df76a098917addd2ce10dac7ca9640acf8567828f2413e9dd3d922"
+    },
+    "hs03": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 10863,
+      "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+    },
+    "s4GrowthAndS6Disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_GROWTH_AND_S6_DISPOSITION_001.json",
+      "bytes": 9204,
+      "sha256": "59669f1d27df76a098917addd2ce10dac7ca9640acf8567828f2413e9dd3d922"
+    }
+  },
+  "published": false,
+  "qualified": false,
+  "globalSelectorChanged": false
+}

@@ -1,0 +1,19 @@
+{
+  "status": "ROOT_ADMITTED_SETUP_PREFLIGHT_ONLY",
+  "operator": "Root",
+  "decidedUtc": "2026-11-02T08:42:22.480120+00:00",
+  "bindingSha256": "99887015c5a8aeee75544d10de0341049b1c44298141c4864831ffb037ac3a7d",
+  "packetSha256": "7cade39d33a900908f632d4fd863c1482bcaaabc46cf27d8cebc82be00bb4170",
+  "witnessSha256": "fa2be6e8b3380dfe99cb7b79424743e7365d2f4b7a479e2c9329f2546cb71a14",
+  "allowedStages": [
+    "setup"
+  ],
+  "callSha256": null,
+  "basis": [
+    "Existing T287/campaign selection under STDO3.0.2",
+    "Root independent file/diff/receipt inspection:48 pins/5321 candidate members",
+    "Pure readiness receipt 2a3ad7f5e488b47423aa4d491c881e7a491152c63c94c8b6e20f7da3119c1c78; exact proposed declaration c1e559fb34c282f941f2a59b9bd0108f7604e60bc5c719a2d4f152b2989df5e7",
+    "Whole-Program and both entry positive validation; original duplicate-identity negative control verified"
+  ],
+  "decision": "Root selects actual setup and installed call preflight only. No Run, provider or other stage is selected. Pure readiness is not installed admission; actual prepared calls require separate Root review and selection. Preserve001–003 and exact004 frozen inputs. No automatic retry, Product scope change, STDO3.0.3 adoption or witness/release acceptance follows."
+}

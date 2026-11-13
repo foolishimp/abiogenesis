@@ -1,0 +1,48 @@
+{
+  "kind": "bounded_static_materialization_checks",
+  "allPassed": true,
+  "sourceCount": 450,
+  "protectedSourceUnionEqual": true,
+  "productWritePaths": 5,
+  "stagedControlCount": 17,
+  "finalContextCount": 471,
+  "pendingRootAdmissionOnly": true,
+  "allocationCeilings": {
+    "stages": 3,
+    "lanes": 4
+  },
+  "positiveColdCasePartition": true,
+  "originalClosedPacketChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/PREPARATION_MANIFEST.json",
+      "sha256": "f582b18851ba6d5da85c47805137c0ec689dcf46eac88a96471b7373f2096786",
+      "filePinsVerified": 30
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/preparation-reconciliation-001/MANIFEST.json",
+      "sha256": "56e1997c16234b0ee8aa7353c10f29737362d898b1763d684bec122ab3c01198",
+      "filePinsVerified": 23
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-001/MANIFEST.json",
+      "sha256": "fabc68e66e2f390bad08b4575e5bf7915e2d294b9d42700171c0927a08e90600",
+      "filePinsVerified": 10
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-002/MANIFEST.json",
+      "sha256": "d74445cc93ea12d758085a6fc5c99b78bac7a3742412be74c1a2b9e29028b246",
+      "filePinsVerified": 4
+    }
+  ],
+  "wrapperMode": "0755",
+  "handoffsAbsent": true,
+  "rootAdmissionAbsent": true,
+  "sourceEdits": 0,
+  "runtimeAcquisitions": 0,
+  "providerInvocations": 0,
+  "buildsAndTests": 0,
+  "adaptationDiffMissingTemplatePaths": [
+    "preparation-reconciliation-001/inputs/prior-author-stage.template.mjs",
+    "operational-preparation-001/inputs/prior-author-lanes.template.mjs"
+  ]
+}

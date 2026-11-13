@@ -1,0 +1,35 @@
+{
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "activation": null,
+  "executionEnabled": false,
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 3194,
+    "sha256": "ef706217b8a134a2bd7c363357bca168c9291cb60f4890f1975698f39ab7e796"
+  },
+  "buildBindings": null,
+  "sourceCheckpoint": null,
+  "candidate": null,
+  "reproduction": null,
+  "exactTestedArtifact": null,
+  "installInputs": null,
+  "boundedClaim": null,
+  "residuals": null,
+  "rootAuthority": null,
+  "independentPackagingReview": null,
+  "claim": "Local unqualified RC9 candidate. Actual installed verification/content/export and empty-resource read/close smoke are evidenced only by FINAL_INSTALL_VERIFICATION.json; full W2/lifecycle/performance retain exact tested-archive evidence and limits.",
+  "limits": [
+    "Only exact Root-accepted final source and tested RC9 archive may be cut; metadata must already exist in native frozen source, rewriteIdentity=false.",
+    "Same prepared-resolution install-verification carriage only; no cross-resolution/event-session cache or zero-install-read-per-new-call claim.",
+    "Eight other historical RC8 residuals remain OPEN; F4 three-identifier W2 closure awaits exact proof and Root disposition. Twelve cold residuals, S7, fixed15/full5.0 and human gates remain open.",
+    "Focused/unit/broad/measurement/native evidence retain actual subject and exclusions; no whole-broad green, qualification or inferred speedup claim.",
+    "Preserve main/RC7/RC8 heads, indexes and their existing dirty/untracked contents by no writes there; before/after head/index verification is bounded evidence, not exhaustive byte re-audit of unrelated work. C9 stage/commit is restricted to the final accepted selected paths; all other untracked/progress paths remain untouched.",
+    "Independent exact packaging review follows completed checkpoint and byte-equal reproduction; separate Root install admission precedes immutable release/install custody.",
+    "Actual installation standing belongs solely to FINAL_INSTALL_VERIFICATION.json and its receipts. Earlier source/proof claims and source-artifact map do not assert future installation.",
+    "20-minute install and 15-minute installed-owner ceilings retained; failure preserves receipts and partial allocations, with no automatic retry/extension/cleanup.",
+    "No push, tag, merge, publication, global selector, qualification claim or new native/provider execution from cut controls."
+  ],
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false
+}

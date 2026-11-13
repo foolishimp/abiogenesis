@@ -1,0 +1,11 @@
+{
+  "recordedUtc": "2026-11-03T17:31:08.233964+00:00",
+  "activation": "native-02/ROOT_WRITER_ACTIVATION.json",
+  "effects": [
+    "STATUS.json"
+  ],
+  "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T173108Z/STATUS.json",
+  "beforeSha256": "27c7b9c6d7bb519d72949ccb457b733a5e5b24b4b8e6e07eb6b767ba23b1042b",
+  "afterSha256": "f3fb08635c46434fa1d0cbe2b4271454822c948efdc2b5e08a3a37dd6a181b5b",
+  "standing": "coordination observation and ETA only; no Product acceptance"
+}

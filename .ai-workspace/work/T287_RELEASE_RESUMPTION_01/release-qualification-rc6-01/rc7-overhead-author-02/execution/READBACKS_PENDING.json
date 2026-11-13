@@ -1,0 +1,39 @@
+{
+  "status": "ACTUAL_NATIVE_RECEIPT_RETAINED_READBACKS_PENDING",
+  "actualExecutionFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/execution.json",
+  "actualResumeFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/after-run-resume.json",
+  "actualClose": {
+    "prefix": {
+      "coordinateDigest": "sha256:e049b06fd6e261505e59a2f61a7586cf30d5eb526963d1fb2a6366d9c0a34e8c",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:db37cbf52f9b40c03da0446d71cb4da9e281aa17c5a1af7c6d355fb72d66023b",
+      "prefixLength": 1326572300,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 701759869
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:d455c88bee261a33f8b1b710b31ce17e5097f9e95e689e3612db97d9fe1fe640",
+      "device": 16777231,
+      "durableByteLength": 1326572300,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:db37cbf52f9b40c03da0446d71cb4da9e281aa17c5a1af7c6d355fb72d66023b",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "inode": 701759869,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "run": {
+    "digest": "sha256:6647f0df247870454b7ab337896cc7ff86d8a078f87f0a958e4413040f7e335f",
+    "ref": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9"
+  },
+  "terminalPresent": true,
+  "postReturnReadbackSelectionFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/POST_RETURN_READBACK_SELECTION.json",
+  "qualified": false,
+  "meaning": "Let this host exit. Root executes its exact separately bound existing-owner reads; full actual terminal equality is required before closure."
+}

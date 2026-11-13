@@ -1,0 +1,102 @@
+{
+  "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1000.6498750000028,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 22,
+    "failed": 0,
+    "passed": 19,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 22,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 19,
+      "type": "case",
+      "passed": true,
+      "name": "M5 resolves and independently validates the complete executable root set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 19,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 20,
+      "type": "case",
+      "passed": true,
+      "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 20,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 21,
+      "type": "case",
+      "passed": true,
+      "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 21,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/033-m5-c-algebra-validation.jsonl",
+    "bytes": 6613,
+    "sha256": "194583b475b5457d16f62ae7e5aaa0f2f15253da27d26536e186dcee274f8b4b"
+  },
+  "commandReceipt": "commands/033-m5-c-algebra-validation.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-non-root-alias-selection.json",
+      "kind": "file",
+      "bytes": 2473,
+      "sha256": "2d05bbba082de4d05d49e63db981238217f09d7cd122c6250c66a0ebce7b40ca",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r7.json",
+      "kind": "file",
+      "bytes": 3331,
+      "sha256": "dbedb7617512eccd43442fec156907b2015c8145b340e54882c3d698ab99cd95",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r8.json",
+      "kind": "file",
+      "bytes": 2444,
+      "sha256": "1ae7c42e56208dc7d2ec3626519cd70ec0decee06581a3f3c996a31936c7f6db",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

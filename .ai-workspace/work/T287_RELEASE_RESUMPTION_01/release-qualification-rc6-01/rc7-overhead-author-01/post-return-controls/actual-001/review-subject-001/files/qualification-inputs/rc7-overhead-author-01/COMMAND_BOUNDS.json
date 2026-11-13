@@ -1,0 +1,71 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "PROPOSED_IN_CONCRETE_PACKET_ROOT_RUNTIME_ADMISSION_PENDING",
+  "readCommands": [
+    "Read only the exact selected SOURCE_BEFORE and workload paths, installed selected method/direct references, pinned toolchain/contract seed, exact declared source snapshots and historical fixture pins.",
+    "rg over the selected source/test/HOW files for the actual consumer relation; git status/diff/show/rev-parse/ls-files read-only for this source and named baseline. Never scan whole provider/history archives."
+  ],
+  "writeCommands": [
+    "Edit only NATIVE_GRANT.productWritePaths and the three handoffs; scratch work only under NATIVE_GRANT native tmp root. No other Product or control edits.",
+    "Root-authorized short temporary effects only: /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7a for runtime/provider and /private/tmp/abg-o7a for tests, as bound in NATIVE_GRANT. Preserve existing content; no cleanup."
+  ],
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-overhead-author-01/prior-author-stage.mjs",
+        "<unique-label>",
+        "before|after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 3,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 180000,
+      "guardTimeoutMs": 60000,
+      "outputs": "qualification-scratch/rc7-overhead-author-01/tmp/<unique-label>"
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-overhead-author-01/prior-author-lanes.mjs",
+        "<unique-stage-label>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "carriage",
+        "consumers",
+        "prefix",
+        "legacy"
+      ],
+      "maxLaneInvocations": 10,
+      "concurrency": 1,
+      "perLaneTimeoutMs": 300000
+    }
+  ],
+  "syntaxCommands": [
+    "node --check for exact edited .mjs files; source read-only compiler diagnostics through selected stage."
+  ],
+  "measurementCommands": "Use selected existing test/support owners in the above scratch stage. Temporary instrumentation of a copied compiled owner in scratch is permitted for acquisition-count/byte/phase proof; no Product hook or second framework. Keep exact source/mutation and report the discriminator. No active campaign runtime invocation.",
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "nonClosure": "Budget expiry, skipped required proof, absent historical inputs, source/contract drift or any remaining duplication is explicit partial/non-closure. Do not raise budgets or substitute earlier receipt.",
+  "externalTemporaryEffects": {
+    "runtimeAndProviderRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7a",
+    "testRoot": "/private/tmp/abg-o7a",
+    "allowedChildren": [
+      "npm-cache",
+      "zsh",
+      "task-owned temporary files and sockets"
+    ],
+    "preservation": "Preserve existing directories/content; use fresh names, no cleanup. Root creates/admits these exact short temporary roots for future execution. Product write cone unchanged."
+  }
+}

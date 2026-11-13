@@ -1,0 +1,105 @@
+{
+  "kind": "q23_exact_operator_input_staging_plan",
+  "status": "NOT_STAGED_BY_OPERATOR_WRITER",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/C2_INPUTS.json",
+      "destination": "qualification-inputs/q23-identity-01/C2_INPUTS.json",
+      "bytes": 94094,
+      "sha256": "351c584ea9bcf8604789e6c47e85948e81b38001ac59c8f1ec5e4aa147b58740"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/DEPENDENCY_SOURCE_SELECTION.json",
+      "destination": "qualification-inputs/q23-identity-01/DEPENDENCY_SOURCE_SELECTION.json",
+      "bytes": 5413,
+      "sha256": "1bbf0cfff8d25c43052038d1498d54aba109fed33cb8d57e8983ffc2a5613f56"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/IDENTITY_DESIGN_REENTRY.json",
+      "destination": "qualification-inputs/q23-identity-01/IDENTITY_DESIGN_REENTRY.json",
+      "bytes": 20929,
+      "sha256": "7ec6f271253664b7a571d636ef65fddcf77015ed06795238b382368d91165876"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/MATERIAL_AND_C2_SCOPE.json",
+      "destination": "qualification-inputs/q23-identity-01/MATERIAL_AND_C2_SCOPE.json",
+      "bytes": 27218,
+      "sha256": "896b4c624f2301ea03804979cf04191dc5597786d922ec64f550d746e89a8293"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/METHOD_ACCESS.json",
+      "destination": "qualification-inputs/q23-identity-01/METHOD_ACCESS.json",
+      "bytes": 939,
+      "sha256": "6343d7c3c3a8eb0553e9b1452ae36cc70209c222cdde0edf502e102ba0c88d84"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/METHOD_VERIFICATION.json",
+      "destination": "qualification-inputs/q23-identity-01/METHOD_VERIFICATION.json",
+      "bytes": 1368,
+      "sha256": "1f9b60d56d52c6ca935d28439c9e081fbf67c6841d33f9c4b398dbff09d8a652"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/NATIVE_GRANT.json",
+      "destination": "qualification-inputs/q23-identity-01/NATIVE_GRANT.json",
+      "bytes": 33151,
+      "sha256": "9f529297f949c082158b505f8fabc86c3acf6c935fec52cb90ec03fad4aaa9a4"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/ROOT_ACTIVATION.json",
+      "destination": "qualification-inputs/q23-identity-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/ROOT_IDENTITY_DISPOSITION.json",
+      "destination": "qualification-inputs/q23-identity-01/ROOT_IDENTITY_DISPOSITION.json",
+      "bytes": 3523,
+      "sha256": "fe0ac1db2499a2ec73456d50a9a8f57df4cf70ac23c1ccbc8ec375882f7b9497"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/ROOT_POLICY_HOW_SELECTION.json",
+      "destination": "qualification-inputs/q23-identity-01/ROOT_POLICY_HOW_SELECTION.json",
+      "bytes": 3891,
+      "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/ROOT_SCOPE_CLARIFICATION.json",
+      "destination": "qualification-inputs/q23-identity-01/ROOT_SCOPE_CLARIFICATION.json",
+      "bytes": 1397,
+      "sha256": "22bb0fd012df55c925623c256118596ce5e38d0c345da986fa7b8c0136d73647"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/ROOT_SELECTION.json",
+      "destination": "qualification-inputs/q23-identity-01/ROOT_SELECTION.json",
+      "bytes": 7544,
+      "sha256": "dd2fd4b091990e326740b06849321542f9bdb6a85ed23fa8ed92d6ad1503bd7e"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/TASK.md",
+      "destination": "qualification-inputs/q23-identity-01/TASK.md",
+      "bytes": 6605,
+      "sha256": "dcb648baf9de7740cdb2667ba3e50d7572324c6038da5328cfc91d0a5137fc4e"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/c2-proof.mjs",
+      "destination": "qualification-inputs/q23-identity-01/c2-proof.mjs",
+      "bytes": 3330,
+      "sha256": "0d08e420afdb8259f6b4d6a0edc6a2fe7b8692da811c7a6334a4dd81d938213e"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/rubric.json",
+      "destination": "qualification-inputs/q23-identity-01/rubric.json",
+      "bytes": 4044,
+      "sha256": "553e2301669b92ac2c54ae0ba5d89ad24f08850bbe037b8c458459b329065556"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/inputs/source-correspondence.mjs",
+      "destination": "qualification-inputs/q23-identity-01/source-correspondence.mjs",
+      "bytes": 2375,
+      "sha256": "7610714960baa2b0ab618af6d5664a2a002c329fed3e3a1a209322a8b07f2ca9"
+    }
+  ],
+  "instructions": "Root copies exactly these candidate input bytes into the destination paths, creates selected temporary roots if admitted, then invokes prepare-r1.mjs under retained8GiB Node profile. No execution directory or runtime state is fabricated by this packet."
+}

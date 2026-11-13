@@ -1,0 +1,18 @@
+{
+  "kind": "source_custody_selection",
+  "status": "UNBOUND_F2_SOURCE_AND_CLOSE_REQUIRED",
+  "sourceBefore": null,
+  "sourceCommit": null,
+  "frozenSubject": null,
+  "sourceAfter": null,
+  "sourceDisposition": null,
+  "actualClose": null,
+  "actualResume": null,
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/SOURCE_SELECTION.reference.json",
+    "bytes": 276607,
+    "sha256": "607f67c09ececd64fc6c09cd28f2408b1261ccf7d8a5093043a43c7615e7f179"
+  },
+  "sourceCount": 450,
+  "meaning": "Reference F450 only. Root must bind genuine disposed F2 source and actual successor close/resume before staging or preflight; no old N/F close transplant. Hold SOURCE_BEFORE externally by reference, not in the native rendered context."
+}

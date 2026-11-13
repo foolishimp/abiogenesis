@@ -1,0 +1,66 @@
+{
+  "status": "ROOT_ACCEPTED_BOUNDED_ONE_FILE_FIXTURE_INCREMENT",
+  "at": "2026-11-07T10:21:10.973594+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL035",
+  "disposition": "Root read and accepted exact frozen delta/HANDOFF, four active whole-file component cases, independent no-finding review, actual completed typed SDK, physical close and fresh full-terminal equality at unchanged prefix.",
+  "sourceDigest": "d521558b06efbec82eae02a5405a3bb3ac494842be24e700a5ec61548a9eec35",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/source-freeze.json",
+    "bytes": 295548,
+    "sha256": "e0a0c4ebc6b46c45e6f325760307fd30e949f71eee2fb3719cff103734665f9c"
+  },
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/READY.json",
+    "bytes": 572457,
+    "sha256": "9ebf7043d1bd04de0da3f9680942f40ba01ee3ebd1e53fe43631a96a2ede1ac1"
+  },
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs"
+  ],
+  "rows": 1339,
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/native-worksite-009/REVIEW.json",
+    "bytes": 13142,
+    "sha256": "a25861dd6c9adbf659446651f77be1281b0be0c2d944f3d135114430fb622236"
+  },
+  "focusedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/lane-01/RESULT.json",
+    "bytes": 872,
+    "sha256": "95ed63babc9f83a8ceae61c309572dd7436b68302bf027f8afa228347b349c04"
+  },
+  "proofCounts": {
+    "tests": 7,
+    "failed": 0,
+    "passed": 4,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 7,
+    "suites": 0
+  },
+  "actualOutcomeCloseReadbackConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/OPERATOR_RETURN.json",
+    "bytes": 6984,
+    "sha256": "1828ac827e503c1daec162f796d453e72a5b7d9c3a83bcde18647a49d185b5a4"
+  },
+  "unchangedProductArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "limits": [
+    "Three original optional C2 paths unexecuted; no native C2 integration claim.",
+    "A9 is the bounded one-file increment over reviewed physical A8 source; cumulative A8/SAS proof remains pending and A8 runtime_failed remains failed.",
+    "All historical reds preserved; no broad/cut/install/whole qualification acceptance."
+  ],
+  "nextBoundary": "A10 selected controls/maintained-owner PREPARED may proceed from genuine A9 close; exact Root admission is required before one native dispatch.",
+  "broadAccepted": false,
+  "qualified": false
+}

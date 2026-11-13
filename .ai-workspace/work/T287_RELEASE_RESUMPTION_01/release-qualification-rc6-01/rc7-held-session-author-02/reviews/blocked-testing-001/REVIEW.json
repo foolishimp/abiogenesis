@@ -1,0 +1,129 @@
+{
+  "kind": "closed_focused_diagnostic_and_caller_architecture_evaluation",
+  "reviewId": "H02-BLOCKED-TESTING-001",
+  "status": "CLOSED",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "reasoning": "max, explicitly selected by Root",
+  "productFrame": {
+    "product": "Unchanged fixed fifteen-feature ABIogenesis 5.0 / GOAL-035 / T287",
+    "method": "STDO3.0.4",
+    "composition": [],
+    "referenceFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "boundaries": "ABG admission/runtime authority and exact Program, GraphFunction, implementation, workspace, ProductSet and lock owners remain unchanged. RC6 is the immutable installed builder; RC7 is prospective source."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/SUBJECT.json",
+    "bytes": 272692,
+    "sha256": "4e51195fb89bd95e51a65806e6f985c5843cc375bf1f42450941b6262fb7b187",
+    "sourceCount": 451,
+    "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+    "standing": "Unchanged frozen hs2-stage-01 source; affected sources acquired through subject snapshot references."
+  },
+  "diagnostic": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/runtime.events.jsonl",
+    "bytes": 3807167,
+    "sha256": "780c7b52e02688760caf535ea6ccc579f0ed84659976e230ee30df4a9ea50c58",
+    "verified": true,
+    "eventCount": 44,
+    "actorStartedEventCount": 0,
+    "refusal": {
+      "admissionOrdinal": 35,
+      "eventId": "event://abiogenesis/3c31ab3b81580482fcbab3e99926d68a63f16ec4cb662e887ba85cdd1c4d83f7",
+      "kind": "child_preparation_refused",
+      "stage": "basis_admission",
+      "childGraphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "message": "child owner derivation requires one exact installed root Program owner"
+    }
+  },
+  "additionalOwningHow": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md",
+    "bytes": 30820,
+    "sha256": "b1290a84e7c44e8a73486923ab254c7c8cedeea2568c018bc9be1b73273f0f36",
+    "standing": "Additional exact owner read explicitly named by Root; not represented as a changed candidate file.",
+    "section": "3. Independently exact installed owners",
+    "line": 236,
+    "relation": "W.roots.productRoot == I_P.installedRoot"
+  },
+  "conclusion": "The smallest lawful correction is to the maintained caller initial Program/workspace binding. Preserve both root-owner guards.",
+  "classification": "Bounded caller realization correction with clarification of the fixed-route HOW; not a Product or admission-law reframe.",
+  "causalJoin": {
+    "selectedProgramRef": "program://abiogenesis/default-library/default@5",
+    "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+    "programOwnerProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+    "programOwnerInstalledRoot": "/private/tmp/abg-hd1/abi5-rc7-fixed-Xr729w/caller/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "workspaceProductRoot": "/private/tmp/abg-hd1/abi5-rc7-fixed-Xr729w/caller/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+    "workspaceProductRootOwner": "product://abi5-tests/sandbox-uat@5.0.0",
+    "callerRootSelection": "test_env/uat/public-setup.mjs:253",
+    "fixedCallSelections": [
+      "test_env/uat/public-setup.mjs:372",
+      "test_env/uat/public-setup.mjs:397"
+    ],
+    "failedRelation": "No admitted install satisfies both the selected library Program owner identity and installedRoot equality to the consumer-bound workspace productRoot.",
+    "guardRefs": [
+      "code/src/abg/execution_basis.ts:647",
+      "code/src/abg/execution_basis.ts:720"
+    ],
+    "childAdmissionCallRef": "code/src/abg/execution_basis.ts:2496-2510",
+    "secondChildValidationRef": "code/src/abg/execution_basis.ts:2579-2595"
+  },
+  "finding": {
+    "id": "H02-FIXED-SETUP-001",
+    "trigger": "The maintained fixed route uses the library Program after setup unconditionally bound the consumer install as productRoot.",
+    "probability": "Observed on the retained actual fixed Testing invocation.",
+    "harm": "Testing cannot admit its command-execution child; no actor dispatch occurred.",
+    "failClosedControl": "Exact Program owner and child-owner checks refuse the crossed Program/workspace root.",
+    "repairScope": "Existing maintained setup selection and its fixed-route test, plus bounded owning HOW clarification."
+  },
+  "recommendedTransformation": [
+    "Select the intended Program/publication through the existing setup before workspace binding. Keep the consumer Program as the ordinary default; fixed Testing/UAT selects the existing library Program.",
+    "Derive that Program publication unique admitted owning install and bind its installedRoot as productRoot before constructing tasks, grants or fixed invocations.",
+    "Use the same selected Program/publication consistently for setup Catalog view, conformance packet and setup identity. Consumer-specific choices currently remain at public-setup.mjs:278,288,295.",
+    "Keep Testing and UAT on that one initial binding. Do not rebind during a call or rewrite retained input.",
+    "Preserve exactProgramOwnerInstall:647 and exactChildOwnerInstallations:720, including every other exact owner/publication/local-leaf/currentness/authority check."
+  ],
+  "exactSetupTuple": {
+    "program": "The chosen existing Program and its authenticated publication.",
+    "ownerRoot": "The unique exact admitted install of that Program publication owning Product.",
+    "workspaceBinding": "Initial binding productRoot equals the chosen Program owner installedRoot.",
+    "catalogView": "Allowlist of the chosen Program callableMembership, through the existing Catalog owner.",
+    "conformance": "The same chosen Program and its publication in the existing conformance packet.",
+    "identityRecord": "Records the same chosen Program, binding, view and unchanged installed set/lock.",
+    "ordinaryDefault": "Existing consumer lifecycle start retains its consumer Program and root."
+  },
+  "assessmentPreservation": {
+    "consumerProductId": "product://abi5-tests/sandbox-uat@5.0.0",
+    "assessorOwnerProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+    "retainedDependencyEdge": {
+      "kind": "requires",
+      "fromProductId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "toProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6"
+    },
+    "relation": "Both installs stay in the same exact admitted ProductSet and resolved lock. ABI-root Program binding neither transfers consumer schema ownership nor removes the actual consumer-to-ABI dependency. Existing selected schema/publication/install/lock/byte checks remain.",
+    "physicalProtection": "Both installed roots remain protected along with the workspace binding roots; canonical worksite authority is not changed."
+  },
+  "minimumAffectedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md"
+  ],
+  "separateRetainedFinding": {
+    "id": "H02-FIXTURE-001",
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "standing": "Previously confirmed assessment fixture migration remains separately required; it is not the causal source of this installed child refusal."
+  },
+  "decidingEvidence": "Existing actual Testing to derived Result to UAT case completes under the correctly bound owner, while a crossed Program/root binding continues to refuse. This recommendation allocates no execution or retry.",
+  "limits": [
+    "Read-only diagnostic and frozen-source evaluation; no Product edits, tests, runtime acquisition or provider calls.",
+    "No additional acquisition or re-review during persistence.",
+    "No raw scripted actor or private narrative inspected.",
+    "No new Program, runtime, catalog, controller, helper authority, reverse dependency or guard waiver proposed.",
+    "Future realized correction, installed proof and cold-read closure remain unproved.",
+    "Root owns source selection and acceptance. This is not formal release-family qualification."
+  ],
+  "accepted": false,
+  "qualified": false,
+  "published": false
+}

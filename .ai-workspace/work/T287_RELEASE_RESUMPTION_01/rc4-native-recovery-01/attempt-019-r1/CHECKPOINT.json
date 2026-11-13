@@ -1,0 +1,30 @@
+{
+  "kind": "operator_source_checkpoint",
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "sourceTree": "d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6",
+  "trackedClean": true,
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10003,
+      "sha256": "9efb911e450196243dec704592b6d515ba6e877340fd4e1008ee5dcc1c0ff2de"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/package-lock.json",
+      "bytes": 8001,
+      "sha256": "d7d6c706bba57775e6ee775dc82e6095acc8f0764c16be61fdc6bc9367022471"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "bytes": 13080,
+      "sha256": "ed665e03de6cef8b93d54c298b80128e6911d3d155b75379b5735c8881d347c7"
+    }
+  ],
+  "absentNativeCreatedPaths": [],
+  "preservationCheckpoint": "Accepted1100; metadata-only successor not yet authored",
+  "howAndTooling": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/typed-handoff-consolidation-001/HOW_AND_TOOLING_PROVISION_RECEIPT.json",
+    "bytes": 3258,
+    "sha256": "0f1d63c8d67c1b4c5bf61aaa12db22a6b3e7e6acde10eca9f83aed56abbf2d05"
+  }
+}

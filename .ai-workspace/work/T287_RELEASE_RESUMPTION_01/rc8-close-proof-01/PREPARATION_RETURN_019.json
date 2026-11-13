@@ -1,0 +1,94 @@
+{
+  "status": "BROAD019_PREPARED_NO_EXECUTION",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_019.json",
+    "bytes": 7791,
+    "sha256": "1085e8d0fdb0c0d8b9da07679051ec7e5762ea23b75977eeef1155b3078d13e5"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-019-003.mjs",
+    "bytes": 36372,
+    "sha256": "b51d348601e813123fe82d3a6d63f19eb80353b478831e97b7b5944be9da08bc"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_019_FINAL_003.patch",
+    "bytes": 17657,
+    "sha256": "e23a53fa3f23a04953e0bd801592f9a50f095dd521a2bd67bdd06060c9c86d4d"
+  },
+  "normalizationDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_NORMALIZATION_DIFF_019_003.patch",
+    "bytes": 1194,
+    "sha256": "2c19beecb7fb708211bda666419fbb04f3c05a254af2ad98dfa9059f49f220e0"
+  },
+  "originalBindDiagnostic": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/BIND_DIAGNOSTIC_019.json",
+    "bytes": 2705,
+    "sha256": "6e3329ed04623905199f404d71a59383e7aea2d0005204c9b1be397618730ec1"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_020.json",
+    "bytes": 401954,
+    "sha256": "ca48c097e549753685350d2a717df536341488ff4c3ca69257ca66bb07dbb23f"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-020/BOUND_INVENTORY.json",
+    "bytes": 2071965,
+    "sha256": "23c83ddaf1b42ba1fe92ef1c522ddbb82d99c9db758e7aabc275e17b2fb41819"
+  },
+  "inputCensusAddendum": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/INPUT_CENSUS_ADDENDUM_019.json",
+    "bytes": 4109,
+    "sha256": "d253a76b9bf292b648306dec8d5bdcb6eb847d4851e8fe81aeabb9ea2b7941b6"
+  },
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 162,
+    "passed": 862,
+    "skipped": 199,
+    "scheduled": 36,
+    "deferredNoCoverage": 10
+  },
+  "changedInventoryFields": [
+    "at",
+    "config",
+    "counts",
+    "focusedCoverage",
+    "externalTestInputFiles",
+    "externalTestInputDigest"
+  ],
+  "changedConfigFields": [
+    "bindingRoot",
+    "outputRoot",
+    "scratchRoot",
+    "focusedCoverage",
+    "executionStanding",
+    "selectedActionDefaultInputs"
+  ],
+  "sourceAndDependencyRowsUnchanged": true,
+  "all155PriorCreditsAndTenDeferralsPreserved": true,
+  "syntaxPassed": true,
+  "bindOnlyExitCode": 0,
+  "testsExecuted": 0,
+  "timing": {
+    "firstControlWrittenAt": "2026-11-07T12:52:27.110597+00:00",
+    "preparationCompletedAt": "2026-11-07T12:57:35.729196+00:00",
+    "firstControlWriteToPreparationCompleteSeconds": 308.618599,
+    "correctedBindObservedProcessStartUtc": "2026-11-07T12:55:40+00:00",
+    "boundRecordedAt": "2026-11-07T12:56:45.101Z",
+    "correctedBindSecondsAtOneSecondStartResolution": 65.101,
+    "testsExecuted": 0,
+    "standing": "Operator preparation only, not test or runtime execution timing. Earlier control authoring before first file write is not isolated; process start observation has one-second precision."
+  },
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-019-003.mjs",
+    "run",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_020.json",
+    "ca48c097e549753685350d2a717df536341488ff4c3ca69257ca66bb07dbb23f",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-020/BOUND_INVENTORY.json",
+    "23c83ddaf1b42ba1fe92ef1c522ddbb82d99c9db758e7aabc275e17b2fb41819",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_019.json",
+    "<exact future Root admission SHA256>"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "kind": "rc7_held_session_author_progress",
+  "task": "rc7-held-session-author-03",
+  "status": "STAGE01_FREEZE_IN_PROGRESS",
+  "updatedUtc": "2026-11-06T17:23:56.176Z",
+  "controlsVerified": [
+    "ROOT_CONTROL_ADMISSION selection/architecture/command-bounds sha256 match",
+    "EXTERNAL_READ_INPUTS 7/7 bytes+sha256 match",
+    "HEAD 1f62c0095e6196b089071bb72e88217792edf6ff",
+    "69 tracked modified paths present",
+    "STDO v3.0.4 verify failures: []"
+  ],
+  "howFirst": [
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md: Setup Program binding (HS3)",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md: 10.9 Setup Program binding, refusal diagnostics and fixture migration (HS3)"
+  ],
+  "stages": [],
+  "lanes": [],
+  "sourceFreeze": {
+    "label": "hs3-stage-01",
+    "status": "PENDING_STAGE_SCRIPT_FREEZE",
+    "freezePath": null,
+    "sourceDigest": null
+  },
+  "changedPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39862,
+      "sha256": "a36bb612733a3fd39802413868f1f6c55ac757207788cfdd94b4f6247e0b7dcc"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 370774,
+      "sha256": "2825568c61d32e7bb6291119fafd140917b205f101a2a9bf3b708e030e5c59cd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 121788,
+      "sha256": "9ce365f8cbcb1adfc1b25553d71528468777897c65153af9f4ac5a885d14fb09"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "bytes": 97222,
+      "sha256": "4a6d2a978a46de8e8eac04b4ff17a164dcfc3a5e495e6686f69eaff743b9b548"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 165642,
+      "sha256": "20d8ecc674badb488adb22488f176e9695b527bf3ef02996be92497546b4107f"
+    }
+  ],
+  "unchangedProtectedPaths": 446,
+  "checks": [
+    "node --check on three changed .mjs paths: ok",
+    "451 protected paths vs H02 SOURCE_BEFORE: only five permitted paths differ",
+    "git status: 69 tracked modified paths and 2 new Product paths present"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "phase": "reproduction",
+  "status": "BYTE_EQUAL",
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "root": "/private/tmp/abg-r8c-cut/reproduction",
+  "sourceArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/reproduction-source.tar",
+    "bytes": 39168000,
+    "sha256": "0cfe084a37ded3c46bfafe4a2202211e58087ca58150d3194ecab307d8100e55"
+  },
+  "expectedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-r8c-cut/reproduction/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "manifest": {
+    "path": "/private/tmp/abg-r8c-cut/reproduction/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+  }
+}

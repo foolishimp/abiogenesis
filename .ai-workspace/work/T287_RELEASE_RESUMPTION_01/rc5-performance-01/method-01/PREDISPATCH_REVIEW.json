@@ -1,0 +1,20 @@
+{
+  "kind": "independent_predispatch_review_return",
+  "actor": "/root/rc5_scope_review",
+  "effort": "max",
+  "independence": "nonauthor; same-family; unrestricted host scope",
+  "subject": {
+    "workloadSha256": "bc87687ef0fd173093feaf8ff42e124a7ce9d2fd3b06fa4b5f182e355b6f0778",
+    "grantSha256": "24f7427b5e4a8a21f2b63a910898d8fb667e7e2f055f6ada73170022b4ac84c7",
+    "preparedCallSha256": "bc6c88253548ac24873cd218ba2f2c0d6bf0b347529db8acb0fa98d3ab3ca5cb"
+  },
+  "verdict": "satisfied",
+  "findings": [],
+  "conclusion": "No concrete dispatch blocker.976 files/28228421 bytes regular; C2 protected/write disjoint; source pins and workload agree;304 inputs/plugin members verified; compilation and staging sequence sufficient; bounded HOW amendment authorized before implementation.",
+  "limits": [
+    "read-only file acquisition; no tests/runtime/provider",
+    "GC03 independently pinned unchanged; no new compatibility claim",
+    "invalidates on packet/selected input/permission/checkpoint change"
+  ],
+  "source": "Actual collaboration tool final return in current conversation; this is its attributed durable projection."
+}

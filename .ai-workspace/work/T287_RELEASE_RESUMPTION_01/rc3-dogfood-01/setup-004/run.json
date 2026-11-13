@@ -1,0 +1,22 @@
+{
+  "kind": "b08_fresh_store_workspace_open",
+  "selectionDigest": "sha256:46442543b6a6de57d27c11655e7b46cbdb788df93694abf031019b149ec0995d",
+  "previousRun": {
+    "digest": "sha256:e61a0ae57f743d2b44f7efb169a856a3e7bdbe5507e78636d45b3d6de9cf0e7c",
+    "ref": "run://abiogenesis/748af3f588e7348e2ab315c9e229caf1d662df3f963be03e62a7aa1d0e208fb0"
+  },
+  "sourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-009/B07_PARTIAL_CUSTODY.json",
+    "sha256": "sha256:fd38f865e077d7fb8423daf90e5ae7ac03120b444fa5c4e13d356ba010a40d0f"
+  },
+  "classification": "fresh local RC2 setup only; no inherited native Results or provider call",
+  "environmentNames": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "NODE_OPTIONS",
+    "PATH",
+    "TMPDIR"
+  ],
+  "recursionBound": 3
+}

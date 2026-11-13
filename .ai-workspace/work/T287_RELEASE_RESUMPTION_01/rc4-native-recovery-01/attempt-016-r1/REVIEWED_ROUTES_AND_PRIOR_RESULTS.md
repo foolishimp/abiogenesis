@@ -1,0 +1,14 @@
+# HC2 exact owner routes and prior proof
+
+Use accepted T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md HC2 and finite completion evidence. ProductExecutionResolutionPort.resolve/prepareProductRunInvocation own selected declaration/input/policy/grants/authority. ABG prepareConstructionIntentContinuation, selectPendingExecutionUse/preparePendingExecutionContinuation/projectPendingExecutionInputAtPrefix, selectPendingActionUse/prepareSelectedActionContinuation own their exact variants. Reads use prepareRunReadAtDurablePrefix and exact prefix/workspace owners. AdmissionCapabilityData is populated from actual verified packet/owner/request/resources/slots and explicit supplied authority; no receipt factory or auto-approval. Native request remains NativeInstructionAssembly.request. Reuse established same-process owner values; cold/raw ingress retains admission.
+
+Exact prior evidence references (read-only; do not ingest whole Runtime logs):
+- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/PARTIAL_CHECKPOINT.json SHA256 febe87e062b38f425922eaf48823600cb5bc84bfffb5f5636e920d4e372a9270
+- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-002/SUBJECT.json SHA256 f476e54fb9a42e0b6e394f7f6876b0ef518e0cbf3574bde835ff2dbd6d3982c0
+- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-002/repair.diff SHA256 d38bb124eb3cc0252383af865612901e28cc16641594e782e016fe161f9c476a
+- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/C2_CUSTODY.json SHA256 f74d444c6a4e4984c120b4982f7d4338926b8902fc456e5a5455657858912751
+- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/independent-evidence/REVIEW_RECEIPT.json SHA256 63582ec5044f3f0ba291b3abcbd33546c6f4be48e68d7e9d0ace85c23f1fbb56
+
+Exact baseline archive: /Users/jim/Library/Application Support/ABIogenesis/toolchains/rc4-hc1-baseline-014/b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db.tgz SHA256 b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db. Only ABI5_HC1_BASELINE_PACKAGE_PATH is supplied. Independent strict/schema receipts are bounded evidence; next candidate must pass actual C2.
+
+11 command sequence selects existing packed framework proof; ST1/ST4 bootstrap and extended six-read/direct invoke; exact default-library pending, retainedA/B and generic cold recursive cases; current-intent; selected-action (evidence root supplied); artifact check. Scripted local actors only. Physical candidate/source equality is not whole release proof.

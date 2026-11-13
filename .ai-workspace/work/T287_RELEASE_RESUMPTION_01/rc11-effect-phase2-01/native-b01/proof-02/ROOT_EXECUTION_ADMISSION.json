@@ -1,0 +1,53 @@
+{
+  "status": "ROOT_ADMITTED_PHASE2_B_UNIT_CONTINUATION",
+  "bindingSha256": "b61368b7b505cc42fe04650e22819c68e0bf0a9a255045a8c1024b37df360755",
+  "readySha256": "8c6c8799fc7f075f544fc64465a5e87947835993a9059927eed789e5a159570a",
+  "commandIds": [
+    "unit"
+  ],
+  "retrospectiveDisposition": {
+    "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+      "bytes": 2281,
+      "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+    }
+  },
+  "id": "PHASE2-B-UNIT-PROOF-02",
+  "decisionOwner": "Root",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "controlFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/READY.json",
+      "bytes": 6996,
+      "sha256": "8c6c8799fc7f075f544fc64465a5e87947835993a9059927eed789e5a159570a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/BINDING.json",
+      "bytes": 10420,
+      "sha256": "b61368b7b505cc42fe04650e22819c68e0bf0a9a255045a8c1024b37df360755"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/CONTROLS.json",
+      "bytes": 21010,
+      "sha256": "fc1a51fafd6eeb5dc4928441945ed9d6a762a14a5672c67acb145edbb3be1980"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/unit.py",
+      "bytes": 17434,
+      "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+      "bytes": 2281,
+      "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+    }
+  ],
+  "limits": {
+    "commandSeconds": 1800,
+    "globalSeconds": 2400,
+    "cleanupReserveSeconds": 15
+  },
+  "effects": "One original nine-file unit on the exact retained normal build, new output/evidence/tmp only. No source/build/pack/install/repeat/selector/Git/tracking effects.",
+  "standing": "Execution only; final semantic acceptance belongs to Root. Original failed campaign and interrupted unit preserved, no retrospective authorization or automatic retry."
+}

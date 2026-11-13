@@ -1,0 +1,56 @@
+{
+  "kind": "incremental_physical_envelope_metadata_timing_observation",
+  "activation": "q23-author-03",
+  "startedUtc": "2026-11-05T18:36:53.325Z",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "fromByte": 230041967,
+  "throughCompleteByte": 230057925,
+  "counts": {
+    "public_operation_admitted": {
+      "rows": 1,
+      "physicalBytes": 4261
+    },
+    "invocation_admitted": {
+      "rows": 1,
+      "physicalBytes": 10143
+    },
+    "invocation_refused": {
+      "rows": 1,
+      "physicalBytes": 1554
+    }
+  },
+  "processes": [],
+  "results": [],
+  "setupReused": true,
+  "sdkSetupMs": null,
+  "artifactVerificationMs": null,
+  "setupProcessEndedUtc": null,
+  "limits": [
+    "Incremental physical envelope metadata, not runtime admission or acceptance.",
+    "No raw provider thinking/text/tool-result/stdout is output or inspected for semantic content.",
+    "Wall intervals are not CPU attribution or matched causal speedup.",
+    "Setup-to-dispatch includes separate Root audit/control/preflight time, not between-task runtime latency."
+  ],
+  "throughOrdinal": 57852,
+  "latestEventTime": "2026-11-05T18:37:14.731Z",
+  "setupToDispatchOperatorPreparationMs": null,
+  "rootBetweenActivationMs": null,
+  "dispatchToInitialSelectorProcessMs": null,
+  "dispatchToNativeWorkerProcessMs": null,
+  "nativeResultToC2ProcessMs": null,
+  "recordedUtc": "2026-11-05T18:38:04.563601+00:00",
+  "outcomeReturned": true,
+  "closed": true,
+  "outcome": {
+    "startedUtc": "2026-11-05T18:36:53.325Z",
+    "endedUtc": "2026-11-05T18:37:15.824Z",
+    "wallMs": 22498.208584000004,
+    "exitCode": 1,
+    "outcomeKind": "refusal",
+    "disposition": null,
+    "run": null,
+    "terminal": null,
+    "qualified": false,
+    "meaning": "Native return; independent source review and actual C2/UAT determine bounded acceptance."
+  }
+}

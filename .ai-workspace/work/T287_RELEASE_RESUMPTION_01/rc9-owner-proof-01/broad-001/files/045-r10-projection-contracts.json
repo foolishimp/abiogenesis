@@ -1,0 +1,214 @@
+{
+  "file": "test_env/tests/r10-projection-contracts.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 645.21966599999,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 11,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 10,
+    "todo": 0,
+    "topLevel": 11,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "the retained S01 log is the historical S01 prefix: the owner coordinate keeps its digest, length and profile; the current profile refuses it",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "legal I-JSON null is not absence (pure carrier and replay-row selection, not a new admitted result)",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "held/failed/missing terminal truth cannot become a completed Product result",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "read before Run close is not_ready while the actually closed root GraphCall is independently readable",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "whole-prefix typed replay summary is conserved on first and empty-end pages; invalid offsets and arithmetic refuse",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 7,
+      "type": "case",
+      "passed": true,
+      "name": "scope and packet crossings refuse; root does not accept a caller declarationProof field",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 7,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 8,
+      "type": "case",
+      "passed": true,
+      "name": "a prefix holding a malformed liveness event is not admitted history: Run and workspace reads over it refuse",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 8,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 9,
+      "type": "case",
+      "passed": true,
+      "name": "native CCall owner rejects altered value, contract, producer, judgment and pre-result prefix without test-owned admission",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 9,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 10,
+      "type": "case",
+      "passed": true,
+      "name": "the shared mapper rejects crossed result aliases and keeps failed-command observation data verbatim",
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "nesting": 0,
+      "testNumber": 10,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/045-r10-projection-contracts.jsonl",
+    "bytes": 5307,
+    "sha256": "803d0c61fc43ef102aeac77378425db0259f564306d9f6c4db91f545f2bd9d51"
+  },
+  "commandReceipt": "commands/045-r10-projection-contracts.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-001/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "artifacts/self-consistent-substitution-abiogenesis-typescript-tenant.tgz",
+      "kind": "file",
+      "bytes": 11733777,
+      "sha256": "a26a8cfbf6262e13e2c511266ae6ba12eb12f9ba8219b3f0c610c2635de636ad",
+      "executable": false
+    },
+    {
+      "path": "artifacts/tampered-abiogenesis-typescript-tenant.tgz",
+      "kind": "file",
+      "bytes": 11733734,
+      "sha256": "c4dec2d28bb66d9f0a52c71bc82b632540858c5b30d01721fb9e895f22ae04e3",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-non-root-alias-selection.json",
+      "kind": "file",
+      "bytes": 2473,
+      "sha256": "2d05bbba082de4d05d49e63db981238217f09d7cd122c6250c66a0ebce7b40ca",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r1.json",
+      "kind": "file",
+      "bytes": 16042802,
+      "sha256": "675fd405ca6954fd0d587bf95d58198d7d75db20ff035375758346658bb7824a",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r7.json",
+      "kind": "file",
+      "bytes": 3331,
+      "sha256": "dbedb7617512eccd43442fec156907b2015c8145b340e54882c3d698ab99cd95",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/abi5-root-r8.json",
+      "kind": "file",
+      "bytes": 2444,
+      "sha256": "1ae7c42e56208dc7d2ec3626519cd70ec0decee06581a3f3c996a31936c7f6db",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

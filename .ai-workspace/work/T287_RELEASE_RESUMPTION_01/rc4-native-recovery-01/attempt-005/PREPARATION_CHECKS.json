@@ -1,0 +1,25 @@
+{
+  "status": "OPERATOR_PREPARATION_CHECKED_NO_RUNTIME",
+  "sourceCommit": "becc45851bf6e794a6411bd8d1f412b4f67cd181",
+  "sourceTree": "d8cf0eee6a038a0b91496439f92c596e5fabe19b",
+  "feasibility": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/FEASIBILITY.json",
+    "bytes": 2064,
+    "sha256": "721c74e89aca607267884dfb748beb4750e5d97b3d8b25b657b047583d298900"
+  },
+  "syntaxChecks": {
+    "mjs": 3,
+    "python": 2,
+    "result": "pass; parse only"
+  },
+  "ProductBuildTests": 0,
+  "runtimeProviderCalls": 0,
+  "actualInstalledContextAndRenderer": "not run for attempt005; Root-only after exact admission",
+  "priorFrozenPinsChecked": 70,
+  "sourcePreimages": 52,
+  "inputFilesMaterialized": 6,
+  "C2TestingExactAttempt003": true,
+  "nativeToolingEnvironmentOnly": true,
+  "noRootAdmission": true,
+  "nativeTrackedClean": true
+}

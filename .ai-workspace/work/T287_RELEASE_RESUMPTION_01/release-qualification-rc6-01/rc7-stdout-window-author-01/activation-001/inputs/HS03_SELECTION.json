@@ -1,0 +1,126 @@
+{
+  "kind": "root_selected_conditional_design_defaults",
+  "status": "ROOT_SELECTED_HS03_DEPENDENCY_READY_FINAL_ADMISSION_PENDING",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "Q2": {
+    "closeWindow": "structured turn boundary or maximum30000ms on the actor clock, whichever first applies",
+    "stdoutObservationsPerWindow": 1,
+    "classification": "Existing plain-text/Claude structured progress classification unchanged; mixed/noise windows keep last qualifying activity capture time separately from byte first/last capture times."
+  },
+  "Q3": {
+    "archiveOrder": "Actual worker_transport archive bytes are written and fsynced before admitting their observation reference.",
+    "replay": "Current rows with absent/different archive bytes refuse through existing owner; exact historical per-chunk rows and contract identities remain valid at their original cuts.",
+    "centralFlush": "One central scope-owned flush relation is reused from common admitNativeRuntimeLivenessEvent ingress and threshold projection entry before any later probe/decision, including runtime_threshold_not_reached. Native HOW resolves reentrancy/transaction ownership before code.",
+    "nonAdmittingSuccessor": "admitRuntimeThreshold opens admitRuntimeEventTransactionAtDurablePrefix at the old predecessor and uses selectActiveRuntimeTransactionHistoryAtDurablePrefix with durableOnly:true. The shared scope-window flush must be durable before the decision projection. If the flush advances the durable prefix but the decision is runtime_threshold_not_reached, return and adopt the actual successor even though no threshold event is emitted; actor_process local successorPrefix must not remain stale. Merely staging the window in transaction-local state is insufficient.",
+    "obligationSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/NONADMITTING_SUCCESSOR_OBLIGATION.json",
+      "bytes": 1593,
+      "sha256": "6489d74427f058bc69908202442c84ddee4d6afcedfc62e45ac91df40bf98acf"
+    }
+  },
+  "mandatoryDifferential": "E1-E4 and actual same-decision lastActivity, all four probe producers, two interleaved scopes, mixed/noise/turn/max-window, timeout/interruption and archive-order/integrity failures. Metadata-only actual historical chronology complements focused synthetic current-owner proof; no original turns/noise capture times invented.",
+  "resourceBounds": {
+    "stageCeiling": 4,
+    "laneCeiling": 7,
+    "laneTimeoutMs": 300000,
+    "concurrency": 1,
+    "providerTurns": 320,
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 1800000,
+    "hostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "compileTimeoutMs": 240000,
+    "generateTimeoutMs": 600000,
+    "guardTimeoutMs": 60000
+  },
+  "operativePrerequisites": {
+    "HS01Subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 8314,
+      "sha256": "30fefcf5e9da5b01135da739ffdae1a153089bcae51f19da72d8258d2840ea82"
+    },
+    "HS01SourceAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_AFTER.json",
+      "bytes": 563047,
+      "sha256": "b4a2fdc723a131caed5bb323157a55416c2ed9974edab7fbe68ff10efa8d8fa1"
+    },
+    "HS01RootDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 9575,
+      "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+    },
+    "HS02Measurements": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+      "bytes": 4046,
+      "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 9225,
+      "sha256": "2a9a8b0b475b87551f650c1573ebb842bb952b71fc7b983195a44463d13bafe9"
+    },
+    "actualResume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/after-run-resume.json",
+      "bytes": 72498689,
+      "sha256": "969ec498630bf7448ac005399972b59fe8e38b8509d4d63779266e284a354309"
+    },
+    "RootAdmission": null,
+    "acceptedHeldSessionSuccessor": {
+      "task": "rc7-held-session-author-06",
+      "sourceSubject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+        "bytes": 8314,
+        "sha256": "30fefcf5e9da5b01135da739ffdae1a153089bcae51f19da72d8258d2840ea82"
+      },
+      "sourceAfter": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_AFTER.json",
+        "bytes": 563047,
+        "sha256": "b4a2fdc723a131caed5bb323157a55416c2ed9974edab7fbe68ff10efa8d8fa1"
+      },
+      "RootDisposition": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+        "bytes": 9575,
+        "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+      },
+      "sourceStageNativeAfterLiveEquality": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/CUSTODY.json",
+        "bytes": 20273,
+        "sha256": "40b3cdb4a4286d308d1fad6abfe38ed5b1e0b872e6ee55e4e9b2d8f2e6eca12a"
+      },
+      "proofInventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/post-return-controls/actual-001/PROOF_INVENTORY.json",
+        "bytes": 15345,
+        "sha256": "5488dc0c162bd73cce17d1847bd7d4674d80baebb5baaaf45f7f0f86e67ed400"
+      },
+      "independentReview": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/reviews/stage-001/REVIEW.json",
+        "bytes": 12611,
+        "sha256": "f44ce517aa8d6ecc3882c11383e02d028bc9de1f72041af786b86b5375919de0"
+      },
+      "actualClose": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/FINAL_RUNTIME_CLOSE.json",
+        "bytes": 9225,
+        "sha256": "2a9a8b0b475b87551f650c1573ebb842bb952b71fc7b983195a44463d13bafe9"
+      },
+      "actualResume": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/after-run-resume.json",
+        "bytes": 72498689,
+        "sha256": "969ec498630bf7448ac005399972b59fe8e38b8509d4d63779266e284a354309"
+      }
+    }
+  },
+  "historicalMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "authority": "Root selected unchanged Q2/Q3,17 writes and four-stage/seven-lane scope. Actual H06 bounded source/functional dependency is adopted; final native admission remains separately required."
+}

@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/diagnostic.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/BINDING.json",
+    "79118ca24ab8cb701d9bf6a413fdacb1991dc06abb96926b0b3924263e4eafce",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/ROOT_EXECUTION_ADMISSION.json",
+    "60fb7c0288151fa35392ec1e1375c96aa4c708f9a5068b6298e504d55880ac96"
+  ],
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/READY.json",
+    "bytes": 2342,
+    "sha256": "850884de028befc98070e2f235a020e45b51a0fcd002697a9366988189450b52"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3746,
+    "sha256": "60fb7c0288151fa35392ec1e1375c96aa4c708f9a5068b6298e504d55880ac96"
+  }
+}

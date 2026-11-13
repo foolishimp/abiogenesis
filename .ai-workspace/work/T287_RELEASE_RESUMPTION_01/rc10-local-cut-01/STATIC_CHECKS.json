@@ -1,0 +1,82 @@
+{
+  "status": "SYNTAX_AND_STATIC_CHECKS_PASS_ONLY",
+  "recordedUtc": "2026-11-09T04:32:17.689532+00:00",
+  "subjects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/run-local-cut.mjs",
+      "bytes": 30160,
+      "sha256": "9179188b656f119b669880c32081c5ab01629376ea21c5c80c74e393c8d88cf0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/install-local-rc10.mjs",
+      "bytes": 7385,
+      "sha256": "0f0875d8d36eb7f7c373962dd2dc6fd5fdac3f45201d559cb65d26676dfe9687"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/installed-owner-smoke.mjs",
+      "bytes": 4378,
+      "sha256": "0053bf18773c9c813d067c598c7eb593e6336fc4254d7a1bd96297fd0e968164"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/exact-artifact-correspondence.py",
+      "bytes": 1322,
+      "sha256": "3089de86f40fad23c68026862ba84c38dd52f19b46c905edf57d9a83491d2c03"
+    }
+  ],
+  "nodeCheck": [
+    {
+      "file": "run-local-cut.mjs",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "run-local-cut.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "file": "install-local-rc10.mjs",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "install-local-rc10.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "file": "installed-owner-smoke.mjs",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "installed-owner-smoke.mjs"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "pythonAstParse": "pass; no import or py_compile",
+  "jsonParse": "pass",
+  "heldBindings": "both executionEnabled=false, activation=null; replacement archive=null",
+  "exactSelection": {
+    "changedPaths": 27,
+    "newPaths": 1,
+    "sourceModes": 1334
+  },
+  "obsoleteWorktreeGuards": "absent from active scripts",
+  "pinChecks": "Configured tool realpaths/bytes/SHA, successor/inventory bytes and complete dependency/seed path sets verified read-only; full dependency/source byte scans deferred to admitted driver gates.",
+  "executedDrivers": false,
+  "executedBuildTestsOrRuntime": false,
+  "limits": "Static preparation checks establish neither command success nor source acceptance or delivery.",
+  "inputInventoryPathSets": {
+    "dependencies": {
+      "expected": 4576,
+      "actual": 4576,
+      "extras": 0,
+      "missing": 0
+    },
+    "RC9ContractSeeds": {
+      "expected": 202,
+      "actual": 202,
+      "extras": 0,
+      "missing": 0
+    }
+  }
+}

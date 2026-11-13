@@ -1,0 +1,40 @@
+{
+  "recordedUtc": "2026-11-04T02:51:13.997239+00:00",
+  "kind": "operator_stdout_report_custody_triage",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/a47c7a3b4cebaa43a3f165d7bd4cdab169a494dcbef990570696780f91897fbc",
+  "helperArtifactDigest": "sha256:a47c7a3b4cebaa43a3f165d7bd4cdab169a494dcbef990570696780f91897fbc",
+  "stdoutBytes": 72533,
+  "stdoutDigest": "sha256:fec5e8a38d7f883cf039ae37bade694286f61ce95b5baa77c3101eafc91d0d2e",
+  "lastLineBytes": 65536,
+  "lastLineJsonError": {
+    "name": "JSONDecodeError",
+    "message": "Unterminated string starting at",
+    "position": 65501
+  },
+  "completeReportBytes": 10510,
+  "completeReportSha256": "f7c4b7be249bd46a2fb7d3c6289210b265e666de30eae5a1f5373bad7b4c66d0",
+  "reportDelta": {
+    "after": {
+      "byteLength": 10510,
+      "digest": "sha256:f7c4b7be249bd46a2fb7d3c6289210b265e666de30eae5a1f5373bad7b4c66d0",
+      "kind": "worksite_path_observation",
+      "nodeKind": "file",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-06/single-address-space-c2.json",
+      "schemaVersion": "5.0.0",
+      "symlinkTarget": null
+    },
+    "before": null,
+    "changeKind": "created",
+    "kind": "worksite_path_delta",
+    "matchedTerritoryRef": "worksite-command-write-territory://abiogenesis/ef5d3830a264d891e51a0ebda8d7eb8ee7dcc6fdc0c07359ff32a118bdecdf98",
+    "ordinal": 26433,
+    "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-06/single-address-space-c2.json",
+    "schemaVersion": "5.0.0"
+  },
+  "causeStanding": "The operator wrapper writes the full proof redundantly into its final stdout record before throwing for unmet predicates. The actual final record is incomplete; the exact flush/stream-loss mechanism is not yet attributed. The complete report and proof exist as helper-observed output files.",
+  "captureCorrection": "Use the installed-validated helper worksiteDelta file identities for complete report/proof/stream custody, rather than requiring an unguaranteed complete final stdout line.",
+  "nextControlSelection": "Retain proof in its existing file with the actual locator/digest in report; omit duplicate full proof body from stdout and await the final standard stdout write before raising an unmet-predicate error.",
+  "productSourceChanged": false,
+  "testResultsChanged": false,
+  "accepted": false
+}

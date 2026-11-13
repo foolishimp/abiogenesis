@@ -1,0 +1,86 @@
+{
+  "ProductFrame": "Same ABIogenesis Product/STDO3.0.4, frozen source25121e78 and existing BUILT003. Root alone conjoins source/proof/artifact acceptance.",
+  "status": "SUCCESSOR_PREPARED_EXECUTION_HELD",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-007.mjs",
+    "bytes": 21698,
+    "sha256": "ef2ae0fde1f6d6aeffb7d4fe00a51298771d72d944601bd6504a4e8824c348d8"
+  },
+  "heldBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_BINDINGS.actual003.held-007.json",
+    "bytes": 10972,
+    "sha256": "4d573f0de3608fed14c8eda7e28932d5bb31666c93248eaa8ba801f1943dd43d"
+  },
+  "template": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_BINDINGS.PREPARATION.007.json",
+    "bytes": 10728,
+    "sha256": "9f8aafc4101f8ec5228cb12f04f90136dc73fec8275ba8657efb3093f84b12eb"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_PREPARATION_007.json",
+    "bytes": 2912,
+    "sha256": "213b342b75e7951a5ad29bf60a06dab9f4651f2e966162357e7f5d819fd543f2"
+  },
+  "afterTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.actual003.held-007.json",
+    "bytes": 7256,
+    "sha256": "ba2a45d430c98d3457a2bac853aeae3c5a76a5c40a3238bd2a1749a91367ddb2"
+  },
+  "compiledMaterialValidation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_COMPILED_VALIDATION.007.json",
+    "bytes": 8334,
+    "sha256": "4bc3bcb20a4ef0e000183a24b13a7e09ddd906a16caa4f6e7d5d35b1ce0b8f1b"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_GATE_007_DIFF.patch",
+    "bytes": 15971,
+    "sha256": "82bd9f4acfe74d60b3049bccaf36fe95435547635842a0450eeffa5edec0fdac"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_GATE_007_CHECKS.json",
+    "bytes": 1140,
+    "sha256": "4440df86ec22314e2aa2f01fa2c201ece8f921423f9f68d0b5d7fcf9555d1107"
+  },
+  "gateChange": "Replace same-hash native build/unit assumption with pinned distinct007 external binding/admission joined to the same historical build/source/manifest/buildInputs; require actual95/89/6 nine-file lane, OWN+REF diagnostics, complete reporter/coverage, command success, conservation and closure. Reuse original pack/install/source equality/budget owners.",
+  "sourceAcceptanceShape": {
+    "value": null,
+    "requiredWhenBound": {
+      "path": "absolute path to actual Root source/proof conjunction receipt",
+      "bytes": "actual byte count",
+      "sha256": "actual SHA256"
+    },
+    "gate": "Existing checked(sourceAcceptance) retained; receipt content is Root-owned, no new acceptance schema or inferred status."
+  },
+  "activationShape": {
+    "value": null,
+    "requiredWhenBound": {
+      "path": "absolute path to actual Root bootstrap execution-admission receipt",
+      "bytes": "actual byte count",
+      "sha256": "actual SHA256"
+    },
+    "gate": "Existing ROOT_SELECTED_RC9_AFTER_BOOTSTRAP binding status plus checked(activation) retained. Preparation admission is not execution authority. Root binds actual execution scope before launch."
+  },
+  "concreteCall": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-007.mjs",
+      "<Root-bound successor of /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_BINDINGS.actual003.held-007.json>",
+      "<actual bound SHA256>"
+    ]
+  },
+  "bounds": {
+    "hostMs": 600000,
+    "packMs": 120000,
+    "installMs": 480000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "freeReserveBytes": 4294967296,
+    "nodeHeapMiB": 8192
+  },
+  "pendingOnly": [
+    "Root sourceAcceptance conjunction receipt pin",
+    "Actual Root bootstrap execution admission activation pin and resulting bound binding status/hash"
+  ],
+  "execution": false,
+  "standing": "No pack/install/build/test/native/provider/source/Git mutation or runtime allocation. Original controls/templates/failures and broad/measurement obligations preserved."
+}

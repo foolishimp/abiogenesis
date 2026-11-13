@@ -1,0 +1,46 @@
+{
+  "kind": "rc7_s4_installed_carriage_measurement_preparation",
+  "status": "PREPARED_UNBOUND_NOT_EXECUTED",
+  "createdUtc": "2026-11-06T15:50:08.461802+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/OWNER_REFERENCES.json",
+      "bytes": 14095,
+      "sha256": "ae70beed6b4cd987dae3e93c6e5dfe9bacb2b047f50917379791450ab0586d21"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/README.md",
+      "bytes": 7243,
+      "sha256": "a6f7c7aecafe77e513393a1bf936c55e36c411ce23b86724a1768139e6630c76"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/ROOT_BINDINGS.template.json",
+      "bytes": 1153,
+      "sha256": "6922e35dc063dd2590f84c2984596da3e1c881a3eba39ec912f1366e1cc099c0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/SYNTAX_CHECKS.json",
+      "bytes": 2169,
+      "sha256": "39145d9c008deaf51807c056d035c7b9a018a320d8e9f945c79a46677ee594c4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/measurement.test.mjs",
+      "bytes": 20885,
+      "sha256": "27c31276548bee98683ce991e45b7d52d4460f561d2b398cfded442b9da6e30c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/run-measurement.mjs",
+      "bytes": 5079,
+      "sha256": "313ab6a4c679c460205fd3aa09d089d6662da63403d9c4c0f78f9da2d955e562"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/scripted-readonly-actor.mjs",
+      "bytes": 1206,
+      "sha256": "31ed26993381d783a684563bfb3f9307d86da59237f9b1ac7ecbda6705bdc60f"
+    }
+  ],
+  "entrypoint": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/run-measurement.mjs",
+  "futureSourceArchiveAcceptanceActivation": null,
+  "S6Disposition": null,
+  "effects": "Preparation files and syntax checks only; no source/build/install/actor/runtime/provider effects."
+}

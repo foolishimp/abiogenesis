@@ -1,0 +1,60 @@
+{
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "controlRevision": "rc10-repaired-source-exact-measured-archive-001",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/INTAKE.json",
+      "bytes": 3708,
+      "sha256": "db16866baadb4ac1a370d9bfe1b62cb998245de0fc8fc6b37c76c97f4a3e67f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/OWNER_AND_TOOL_PINS.json",
+      "bytes": 5006,
+      "sha256": "83c430a888b56cba611ae37e5b185fe13603a0c1e40cec0ef32af6abea41eaad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/SOURCE_SELECTION.json",
+      "bytes": 138010,
+      "sha256": "8f257196a856ce0662389b69f638c91b0951523b37d12e2f1910a3509d50c4fc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/ROUTE.md",
+      "bytes": 4096,
+      "sha256": "07eb9b1bc4f6a4ff472eb2fb9c8be0ea38f3b435ce8baf765b475aa268f17891"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/CONTROL_DELTA.md",
+      "bytes": 1162,
+      "sha256": "42a4574c8d6cd14e26e98f0ae801bbb57f613c7c0098f6766c2fc59e8dddb0ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/run-local-cut.mjs",
+      "bytes": 30160,
+      "sha256": "9179188b656f119b669880c32081c5ab01629376ea21c5c80c74e393c8d88cf0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/install-local-rc10.mjs",
+      "bytes": 7385,
+      "sha256": "0f0875d8d36eb7f7c373962dd2dc6fd5fdac3f45201d559cb65d26676dfe9687"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/installed-owner-smoke.mjs",
+      "bytes": 4378,
+      "sha256": "0053bf18773c9c813d067c598c7eb593e6336fc4254d7a1bd96297fd0e968164"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/exact-artifact-correspondence.py",
+      "bytes": 1322,
+      "sha256": "3089de86f40fad23c68026862ba84c38dd52f19b46c905edf57d9a83491d2c03"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/STATIC_CHECKS.json",
+      "bytes": 2742,
+      "sha256": "7928615564308dd796943af7d50c2a8878ae2b5d209a0a30cd72f083307208cb"
+    }
+  ],
+  "preparedBindingTemplatesExcludedFromSelfHash": true,
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "executionEnabled": false,
+  "activation": null
+}

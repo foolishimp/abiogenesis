@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-03T11:56:07.557860+00:00",
+  "roleTransition": "Executive -> bounded operator Writer",
+  "subject": "Unexecuted RC5 local-cut preparation packet",
+  "grant": [
+    "Bind final local cut to completed byte-equal reproduction of exact committed source and archive",
+    "Bind committed evidence custody and preserve all failed attempts in final claims"
+  ],
+  "exclusions": [
+    "No Product source edits",
+    "No active native input mutation",
+    "No release or install allocation before accepted gates",
+    "No qualification, push or selector change"
+  ],
+  "return": "Review resulting exact input manifest after bounded acceptance and reproduction, then execute existing selected local install owners"
+}

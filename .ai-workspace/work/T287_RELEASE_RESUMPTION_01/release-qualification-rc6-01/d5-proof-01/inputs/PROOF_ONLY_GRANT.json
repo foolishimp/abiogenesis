@@ -1,0 +1,118 @@
+{
+  "kind": "bounded_d5_proof_only_grant_template",
+  "recordedUtc": "2026-11-05T22:05:28.598108+00:00",
+  "role": "Root Executive -> bound operator Writer for existing proof controls; no Product writes",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "GOAL-035/T287/F10 D5 affected C2/UAT and preserved Q23 Q1-Q7",
+    "outcome": "Retire only redundant current-profile ABG lifecycle copies through existing owners; preserve physical/helper observations, primary facts, deterministic fold/replay and exact historical profile standing.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Current admitted D5 controls declare future acquisition. Actual D5 source return/freeze is unavailable and unbound; no moving source acquired.",
+      "tool": "Exact STDO3.0.4 and existing installed RC6/default-consumer/operator-client owners. This Writer prepares controls and passive capture only.",
+      "runtime": "Future actual D5 final close must be supplied by Root. Source:none fresh Testing/UAT route with authentic retained consumer binding/catalog/view; no copied observations, synthesis or fake ancestry."
+    },
+    "prohibitions": [
+      "No Product/source edits, coding Worker, staging, preflight, tests/build, provider/runtime/Git/network/credential operation in preparation.",
+      "No current/future candidate or close substitution; no old handoffs added to satisfy stale selectors; no private diagnostics/provider output or terminal source-body printing.",
+      "Native max UAT is component feedback, not formal independent third-family judgment or Q23/release acceptance."
+    ]
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "frozenSubject": null,
+  "preflightFailureTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/UAT_CONSTRUCTION_TRIAGE.json",
+    "bytes": 16272,
+    "sha256": "41f575444745ba749c2faca6a360a06f381573c48d40702a987ed210841b154e"
+  },
+  "effectDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_EFFECT_DISPOSITION.json",
+    "bytes": 3702,
+    "sha256": "219dcf7f5145f6a3b5d0c22b5b8983c68a1265d2cdc5d35233348a85f438d5f0"
+  },
+  "operatorEnvironmentCorrection": "Disable npm notifier and registry lookup; declare shell temporary prefix inside existing selected roots. No retrospective confinement claim.",
+  "previousConstructionResult": null,
+  "actualResume": null,
+  "bindingSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/CONSUMER_BINDING_RETAINED.json",
+    "bytes": 28708880,
+    "sha256": "66b6584dff16c8c3f4833650a2c780232d1bd58434aa5e05cb9088d7eae63dad"
+  },
+  "route": "Existing default-library Testing/UAT, source:none; actual current observed source, no injected predecessor state; exact original consumer binding/catalog/view with latest owned close.",
+  "reuseBoundary": "Native author result and frozen source are retained evidence; no copied observations, synthesis or subjectEvidenceRef. Review runs separately alongside proof and Root conjoins later.",
+  "target": "Seven exact declared commands/nine unique modules and full P1-P7/Q1-Q7 evidence; actual native max UAT on actual future D5 frozen source. No coding or repair.",
+  "sourceWriteRoots": [],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-01",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/d5-proof-01",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5p1",
+    "/private/tmp/abg-d5a"
+  ],
+  "runtimeEffects": "Future existing ABG admissions and isolated C2 command sandbox only after Root admission. Reuse exactly declared allowedWriteTerritories; explicit offline/temp/evidence settings.",
+  "provider": {
+    "profile": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-01/PROVIDER_PROFILE.json",
+      "bytes": 2089,
+      "sha256": "cd477fd037b28ca004725aec0e8c34e71fb5c5aed77ada5eb82ec13194ffe31c"
+    },
+    "maximumConcurrentCodingWorkers": 0,
+    "automaticRetry": false
+  },
+  "stops": [
+    "Source/close/binding mismatch",
+    "Missing material or owner refusal",
+    "Any attempted source edit or new coding task"
+  ],
+  "exitLimits": [
+    "Actual native UAT is bounded component feedback, not formal independent third-family acceptance.",
+    "No Q23 acceptance, actual production eligibility, QR02/QR03, full F11/profile cut or release qualification.",
+    "D5 remains the sole active coding Worker; no successor dispatch until its genuine return/close and Root admission."
+  ],
+  "status": "UNBOUND_NOT_ADMITTED",
+  "rootUatDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/ROOT_UAT_DISPOSITION.json",
+    "bytes": 1686,
+    "sha256": "546717162c7a77849849a55af75b8dc84fce815280b5d274251717b8e09066a8"
+  },
+  "selectedAuthorControls": {
+    "workload.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/workload.json",
+      "bytes": 101120,
+      "sha256": "6828b81a7e73c20aede4da9afb3b466f9dde03be205c2ac71466d80fcbcaea87"
+    },
+    "C2_RECIPE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/C2_RECIPE.json",
+      "bytes": 43826,
+      "sha256": "54fd7c494d7b772cac04ef47868611a4d93bb4bb3b1e77f46629b55bd9cc9e64"
+    },
+    "NATIVE_GRANT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/NATIVE_GRANT.json",
+      "bytes": 41334,
+      "sha256": "4e1659eeb3b1655b39127c7af4fad95814437aba5582d4e135010a23c54087d3"
+    },
+    "ROOT_SELECTION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_SELECTION.json",
+      "bytes": 10325,
+      "sha256": "7c748823ac447064b1dd31d5e42f50680365ca588240e4420c57ccad6663f3c1"
+    },
+    "ROOT_CONTROL_ADMISSION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_CONTROL_ADMISSION.json",
+      "bytes": 6338,
+      "sha256": "b78c098faf2bb63f3bb1732541b450a07110e5bf39d87140fe788043d2e62ac8"
+    },
+    "BUDGET_OWNER_PROJECTION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/BUDGET_OWNER_PROJECTION.json",
+      "bytes": 1662,
+      "sha256": "c40545b9d9aaa6769859fbad582082847ca4183027b211e839f83bd4e213bd04"
+    }
+  }
+}

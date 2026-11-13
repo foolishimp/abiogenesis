@@ -1,0 +1,73 @@
+{
+  "kind": "root_q23_proof_only_reentry",
+  "recordedUtc": "2026-11-05T21:15:59.601801+00:00",
+  "role": "Root Executive -> bound operator Writer for existing proof controls; no Product writes",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "outcome": "Existing F11/F15 independence claims use actual configured identity through current ABG owners; unknown or ineligible required assessment cannot launch or become green.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "effectDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_EFFECT_DISPOSITION.json",
+    "bytes": 3702,
+    "sha256": "219dcf7f5145f6a3b5d0c22b5b8983c68a1265d2cdc5d35233348a85f438d5f0"
+  },
+  "operatorEnvironmentCorrection": "Disable npm notifier and registry lookup; declare shell temporary prefix inside existing selected roots. No retrospective confinement claim.",
+  "previousConstructionResult": "result://abiogenesis/29d0ae0f59885533d681c73f4bcb49fa1c00c00f47295a96dd415c4fcc14b28e",
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/after-run-resume.json",
+    "bytes": 72491453,
+    "sha256": "9a48aa80d002fe762cb67a27e6466536907f159a3703c6f0f2ce59ef66accccf"
+  },
+  "bindingSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/CONSUMER_BINDING_RETAINED.json",
+    "bytes": 28708880,
+    "sha256": "66b6584dff16c8c3f4833650a2c780232d1bd58434aa5e05cb9088d7eae63dad"
+  },
+  "route": "Existing default-library Testing/UAT, source:none; actual current observed source, no injected predecessor state; exact original consumer binding/catalog/view with latest owned close.",
+  "reuseBoundary": "Native author result and frozen source are retained evidence; no copied observations, synthesis or subjectEvidenceRef. Review runs separately alongside proof and Root conjoins later.",
+  "target": "Bounded Q1-Q7 on current compiled candidate: six declared commands, six full modules, zero failures/skips/cancelled/todo, meaningful owner-path predicates; native UAT plus fresh closure.",
+  "sourceWriteRoots": [],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-02",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-proof-02",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpq23p2",
+    "/private/tmp/abg-q23f"
+  ],
+  "runtimeEffects": "Existing ABG event admission and one isolated command sandbox; only selected report/build/dependency territories. No native coding Worker.",
+  "provider": {
+    "profile": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-02/PROVIDER_PROFILE.json",
+      "bytes": 1938,
+      "sha256": "7a89ee4a6f96762145d22482b406c1d2293eff2586e0cd82c56874fdc622a9c9"
+    },
+    "maximumConcurrentCodingWorkers": 0,
+    "automaticRetry": false
+  },
+  "stops": [
+    "Source/close/binding mismatch",
+    "Missing material or owner refusal",
+    "Any attempted source edit or new coding task"
+  ],
+  "exitLimits": [
+    "Native UAT is component feedback, not independent same-family acceptance.",
+    "No actual production Q23 eligibility, QR02, F11, qualification or release closure.",
+    "Preserve all failures, untracked work and immutable releases."
+  ]
+}

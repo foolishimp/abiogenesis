@@ -1,0 +1,224 @@
+{
+  "recordedUtc": "2026-11-03T21:17:44.674402+00:00",
+  "status": "PREPARATION_ONLY_PENDING_GENUINE_NATIVE04_CLOSE",
+  "additionalProductWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-malformed-gtl-gate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs"
+  ],
+  "conditionalOwnerEffects": [
+    {
+      "paths": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts"
+      ],
+      "condition": "Only exact validator/derivation handoff adaptation preserving the same admission relation."
+    },
+    {
+      "paths": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts"
+      ],
+      "condition": "Only a demonstrated missing internal base/fork relation not expressible through runtimeEventValidationBase and existing computation ownership; no generic scope merging or new authority. Existing route is expected to suffice."
+    },
+    {
+      "paths": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts"
+      ],
+      "condition": "Only finite auxiliary selector/classification support if the selected common public-operation realization needs it; live/cold selector parity and malformed/unknown/missing-arm behavior must remain."
+    },
+    {
+      "paths": [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs"
+      ],
+      "condition": "Write only if the selected shared fold/base relation actually needs a changed-claim falsifier here; preserve unchanged P-FOLD evidence otherwise."
+    }
+  ],
+  "additionalReadPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json"
+  ],
+  "affectedLanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "timeoutMs": 1200000,
+      "minimumPasses": 4,
+      "requireNoSkips": true
+    },
+    {
+      "id": "affected-owner-lanes",
+      "files": [
+        "test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+        "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+        "test_env/tests/t287-authenticated-owner-values.test.mjs",
+        "test_env/tests/t287-authenticated-owner-family.test.mjs",
+        "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "test_env/tests/t287-declared-testing-capability.test.mjs",
+        "test_env/tests/t287-default-library.test.mjs",
+        "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "test_env/tests/t287-continuation-causation.test.mjs",
+        "test_env/tests/t287-owned-native-proof.test.mjs",
+        "test_env/tests/t287-native-owner-reuse.test.mjs",
+        "test_env/tests/t288-initial-cursor-entry.test.mjs",
+        "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+        "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/t287-cross-cut-public-read.test.mjs",
+        "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "test_env/tests/witness-run-stopped-definition-binding.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 48,
+      "requireNoSkips": false
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 3,
+      "requireNoSkips": true
+    },
+    {
+      "id": "qualification-owner-components",
+      "files": [
+        "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+        "test_env/tests/t287-native-runtime-gate.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 7,
+      "requireNoSkips": false
+    },
+    {
+      "id": "historical-producer-acquisition",
+      "files": [
+        "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 3,
+      "requireNoSkips": true
+    },
+    {
+      "id": "retry-entry-consumers",
+      "files": [
+        "test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 3,
+      "requireNoSkips": true
+    },
+    {
+      "id": "replay-request-consumers",
+      "files": [
+        "test_env/tests/t287-c0-correction-regressions.test.mjs",
+        "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+        "test_env/tests/t287-deferred-application-restoration.test.mjs",
+        "test_env/tests/t287-held-prefix.test.mjs",
+        "test_env/tests/t287-live-worksite-construction.test.mjs",
+        "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+        "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+        "test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "test_env/tests/t287-worksite-command-execution.test.mjs",
+        "test_env/tests/t287-worksite-construction.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 10,
+      "requireNoSkips": false
+    },
+    {
+      "id": "fresh-process-semantic-values",
+      "files": [
+        "test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 1,
+      "requireNoSkips": true
+    },
+    {
+      "id": "forward-recovery-contracts",
+      "files": [
+        "test_env/tests/forward-command-owners.test.mjs",
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/d1-preserved-result-mechanics.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 3,
+      "requireNoSkips": false
+    },
+    {
+      "id": "installed-affected-lane",
+      "files": [
+        "test_env/tests/m5-installed-graph-edge.test.mjs"
+      ],
+      "timeoutMs": 300000,
+      "minimumPasses": 2,
+      "requireNoSkips": true
+    },
+    {
+      "id": "maintained-setup-harness",
+      "files": [
+        "test_env/uat/harness.test.mjs"
+      ],
+      "timeoutMs": 300000,
+      "minimumPasses": 32,
+      "requireNoSkips": true
+    }
+  ],
+  "proofSelectionMeaning": "Current affected source/consumer proof, not whole qualification. Whole-path runs first; its exact artifact is retained before later fixtures. No repeated file across lanes.",
+  "excludedHistoricalBranches": [
+    "Existing30 optional owner cases retain their declared inputs/skips and earn no current credit",
+    "Optional ABI5_OWNED_PROOF_DECLARATION retained-body branch remains unselected; ordinary synthetic qualification and three real producer cases execute",
+    "Old installed Thread2 is not activated; focused R4 fixture proves the changed predecessor relation",
+    "One optional historical forward case may retain its prior declared skip; no credit from that branch"
+  ],
+  "requiredNoSkips": [
+    "New changed-claim discriminators",
+    "Whole-path4 cases",
+    "T289 changed adapter/cold/rollback cases",
+    "Focused R4 predecessor component",
+    "Historical producer3 cases",
+    "Retry3 cases",
+    "Both actual fresh child projections",
+    "Installed2 cases",
+    "Maintained harness32 cases"
+  ],
+  "selectedResiduals": [
+    "Use existing authentic validation predecessor/fork relation for liveness; remove repeated prior-Run scans while conserving semantics/refusals/isolation",
+    "One shared public-operation acquisition/classification with distinct complete Run/FH/construction predicates preserved",
+    "Owner-side internal retained-vector signature and caller cast removal",
+    "Qualification carrier/joins and displaced artifact adapter retirement, with synthetic and real-source fixture routes",
+    "Replay wrapper retirement and all request/dispatcher consumers with actual complete semantic value comparisons",
+    "All selected missing budget/global-pair/orphan-mixed/identity/declaration discriminators and original R1-R7/C1-C5 proof",
+    "Correct missing C2 config input and preserve every failed or bounded accepted result; actual full C2/UAT/fresh closure remains required"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 327.66520800000035,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 5,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 5,
+    "todo": 0,
+    "topLevel": 5,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "revision collector: actual producer plus nested aliases yields one source and retains nonzero observation (lookup assumptions)",
+      "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-07/installed-frame-01/events-01/runtime.events.jsonl (sha256:25dd49061c90)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "revision collector: one producer without any alias remains accepted (lookup assumptions)",
+      "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-07/installed-frame-01/events-01/runtime.events.jsonl (sha256:25dd49061c90)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "revision collector: distinct same-valued producing CCalls remain ambiguous (lookup assumptions)",
+      "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-07/installed-frame-01/events-01/runtime.events.jsonl (sha256:25dd49061c90)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "revision collector: spliced, wrong, foreign, nonadvancing and stale producer each refuse (lookup assumptions)",
+      "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-07/installed-frame-01/events-01/runtime.events.jsonl (sha256:25dd49061c90)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "revision collector: the historical prefix it prepares from is strict and immutable (lookup assumptions)",
+      "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-07/installed-frame-01/events-01/runtime.events.jsonl (sha256:25dd49061c90)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/events/007-d2-evidence-owner-lookup.jsonl",
+    "bytes": 2853,
+    "sha256": "bf8bed6c076db4bd5413240c9cc7386dd1d5c593a19377fb49add7ce873d09f9"
+  },
+  "commandReceipt": "commands/007-d2-evidence-owner-lookup.result.json",
+  "workspace": "/private/tmp/abg-r8c-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

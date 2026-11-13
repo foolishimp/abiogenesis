@@ -1,0 +1,46 @@
+{
+  "id": "RC10-HOW-NATIVE-02",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "utc": "2026-11-09T03:54:21.023096+00:00",
+  "bindingSha256": "521462a713c904a7175099c1cce015007ae88039ff00ebb28bd80dc3ede67f0a",
+  "preparedSha256": "2209c647e857a9467f1b717f9c08a43df2ca09b28e4513e83b918d5be23d93a9",
+  "proofBindingSha256": "11f76bc76e6db4b233af90570c36ae2bf472f4a95f6ea15666fead750dda808d",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/host.mjs",
+      "bytes": 15093,
+      "sha256": "2006816879061b00bfeb434b74a4fe639d33e5ed2f43d786a8d0b3e4fb528d47"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/ROOT_SCOPE.json",
+      "bytes": 3881,
+      "sha256": "01fb12706a2f383a0c51765de9338a2cda70c1b781005fd820423c659e038edd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/TASK.json",
+      "bytes": 2856,
+      "sha256": "82358087222c1539c67a43bcca26d77fc7751f8dbd8b1fa47f6676fafa04302c"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+      "bytes": 1855,
+      "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/SOURCE_INVENTORY.json",
+      "bytes": 292209,
+      "sha256": "f03711b3306f3d212bbe8c3cb8c02d90e34f38082a044412ebf5880934380d65"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/NO_NATIVE_PROOF.json",
+      "bytes": 318,
+      "sha256": "11f76bc76e6db4b233af90570c36ae2bf472f4a95f6ea15666fead750dda808d"
+    }
+  ],
+  "grant": "One native start on same live actual caller/resource/call. Opus5.5 xhigh300s/60turns; only exact HOW postimage1969d63beb6c7e43a083ca3f4a1c0a7251532bb25a844b24066a5d81283b35a8. No tests/build/source behavior/metadata edits. Actual return/close/fresh reads and exact successor/input transfer required; no retry.",
+  "capacity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/CAPACITY.001.json",
+    "bytes": 405,
+    "sha256": "a1703f0a99c5a677ce2a421863c29a37dfd74c17c74cb05c0de4ef71f8f7fab7"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "scenario": "basic-cli",
+  "runId": "2026-11-01T08-58-45-762Z-afb1e3ec-20af-4e60-9610-b76d7a00afb4",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/runs/basic-cli/2026-11-01T08-58-45-762Z-afb1e3ec-20af-4e60-9610-b76d7a00afb4",
+  "mode": "run",
+  "status": "passed",
+  "uatPass": true,
+  "runtimeDisposition": "result",
+  "terminalAvailable": true,
+  "independentOracle": "satisfied",
+  "reason": "Selected original obligations and exact terminal/readbacks agree"
+}

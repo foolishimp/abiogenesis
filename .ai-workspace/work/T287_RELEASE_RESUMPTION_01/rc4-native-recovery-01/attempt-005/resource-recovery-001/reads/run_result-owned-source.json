@@ -1,0 +1,15 @@
+{
+  "target": {
+    "memberKey": "run_result",
+    "sourceKind": "run",
+    "targetRef": "run://abiogenesis/ddd6d5f0138c26ba2c98b2e8a8bc1fb2c641da070a0163315d047ae75d604b8c"
+  },
+  "source": {
+    "ref": "run://abiogenesis/ddd6d5f0138c26ba2c98b2e8a8bc1fb2c641da070a0163315d047ae75d604b8c",
+    "digest": "sha256:cf91ead0f54f5b8cd5f118812e02d4c8642d55e527600eb71d9e6d7c3fa5f464"
+  },
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/f9dc276b1a5f3318c6df127bb88fb731d811a6aee19b99d76b8b7817d1cc11a7",
+    "digest": "sha256:f9dc276b1a5f3318c6df127bb88fb731d811a6aee19b99d76b8b7817d1cc11a7"
+  }
+}

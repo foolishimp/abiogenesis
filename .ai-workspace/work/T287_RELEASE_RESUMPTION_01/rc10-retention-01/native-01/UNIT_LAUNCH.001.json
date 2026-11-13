@@ -1,0 +1,15 @@
+{
+  "utc": "2026-11-09T03:34:54.800874+00:00",
+  "pid": 66908,
+  "readySha256": "3cc3503fbe65c16dce5c156fb9df6a82102406fefb0227ede7bd1b50cdc41d44",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/frozen-proof.unit-r02.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/UNIT_BINDING.001.json",
+    "dc3fa00f5a3803f6cd382367a222e3c80f6d6a448e50ff261eabed12b9a12136",
+    "unit",
+    "stage-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/ROOT_UNIT_ADMISSION.001.json",
+    "f091513f72c60a8565156470cf9622ed5a0293826628b3297e0965bb9fad2fb2"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "status": "STATIC_DECLARED_INPUTS_MEASURED_ACTUAL_RENDER_AT_PREPARED",
+  "files": 293,
+  "sourceAndControlBytes": 8370029,
+  "absentSelectedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs"
+  ],
+  "taskJsonBytes": 11092,
+  "instructionUtf8Bytes": 6395,
+  "ceilings": {
+    "files": 1024,
+    "bytes": 33554432,
+    "renderedWorkOrderBytes": 1048576
+  },
+  "withinStaticFileByteCeilings": true,
+  "actualRenderedWorkOrderBytes": null,
+  "actualMeasurement": "host computes actual observation fileMembers/sourceBytes/canonicalBytes and exact installed renderedBytes in PREPARED before native dispatch.",
+  "limits": "Static selected file bytes and native rendered prompt are separate measurements; provider/system scaffolding and arbitrary later reads are not claimed measured."
+}

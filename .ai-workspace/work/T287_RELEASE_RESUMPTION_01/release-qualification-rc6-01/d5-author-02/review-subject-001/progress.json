@@ -1,0 +1,167 @@
+{
+  "kind": "d5_author_02_progress",
+  "schemaVersion": "1",
+  "at": "2026-11-06T01:02:13Z",
+  "worker": "claude (single fresh native coding Worker, d5-author-02)",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "outcome": "Complete the already selected D5 retirement through one typed existing-owner projection and authentic affected proof; no new feature or competing runtime.",
+  "claims": {
+    "sourceAcceptance": false,
+    "qualificationAcceptance": false,
+    "releaseAcceptance": false,
+    "profileCut": false,
+    "graphContinuationChosen": false
+  },
+  "phase": "complete_returned_stop",
+  "baseline": {
+    "stageLabel": "d5b-base1",
+    "stageReport": "qualification-scratch/d5-author-02/tmp/d5b-base1-stage.json",
+    "sourceCount": 372,
+    "sourceDigest": "2a79de5c3f643534b7c2cc1ce3fdf32fc2b318f6730740f2f222bd57e37ac890",
+    "compile": 0,
+    "generate": 0,
+    "lifecycleBoundary": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender",
+    "newFiles": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+        "bytes": 45491,
+        "sha256": "89e7bd962abd65668d49b89a97763162694e84f107564f47baf575966de6feca"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+        "bytes": 7232,
+        "sha256": "72096096d64998964c981a978a48602122666f8d92ac117caecb3bafbaa2cbfb"
+      }
+    ],
+    "lane": {
+      "id": "recovery",
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-base1/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "ms": 53578,
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "stdoutSha256": "e843f8b2687da2c93cb5e94ccc1aaac0c3f9c9d6a940b41b7f6090616ae75776",
+      "tap": "qualification-scratch/d5-author-02/tmp/d5b-base1-lanes-recovery/recovery.stdout.tap"
+    },
+    "proof": {
+      "abiArtifact": {
+        "artifactDigest": "sha256:0f6168c6aa060580d96f81695eee6db3c4323d089e0f8a84fad1cb2ed1e4d31e",
+        "productContentDigest": "sha256:c42feadcceeb3c5a1bc4f23c75f32b8cb15bd5a3a44fd01dcd7155b2fe6e434b",
+        "manifestDigest": "sha256:568b1b7543198bd152615c06a05da43ea65a1b18a77579c090f05630459278cd"
+      },
+      "testProducts": {
+        "source": {
+          "productId": "product://abi5-tests/d5-recovery-source@5.0.0",
+          "packageName": "@abi5-tests/d5-recovery-source",
+          "packageVersion": "5.0.0",
+          "artifactDigest": "sha256:3506f986a6ba7857db5fd3565a26f98b0e515dc73129f7ce8c2c3200ca661f59",
+          "manifestDigest": "sha256:8865174143c67168685a3fd859145014df53c3b77ea9b6f9a8f5ccb06c6ab8b2",
+          "productContentDigest": "sha256:bfa63a4d6ad7ec76e9f273eb561eae7142900a0cea716680825d44b6e87d48ab"
+        },
+        "lifecycle": {
+          "productId": "product://abi5-tests/d5-recovery@5.0.0",
+          "packageName": "@abi5-tests/d5-recovery",
+          "packageVersion": "5.0.0",
+          "artifactDigest": "sha256:c7ecbc127ba1c367431cc2b0f366f1dfa1eeb7863117f7c1e83ada728a2436df",
+          "manifestDigest": "sha256:c464ec183360272b18fcaa834203d2607b2041501f18a5f0ab1193196a2064b9",
+          "productContentDigest": "sha256:abbbc124e29af04c20c7a30972a93a120870cdba689de8ffdc13ee55fbc05c0b"
+        }
+      },
+      "profile": {
+        "eventContractDigest": "sha256:c4799f157883b5bb1439585ff65dbfdeaea4edcac34818817a7815878432fa02",
+        "currentRootEventContract": true
+      },
+      "prefix": {
+        "prefixLength": 4361512,
+        "prefixDigest": "sha256:2847e8b7405b8b8c62e1f60d8a602a6905361810bbf54af1ae7ebc6d3e4667e5",
+        "coordinateDigest": "sha256:187f1724e81f6bc933e8044e712c255042efb1f99bd5795164cf73a11b4e6282"
+      },
+      "sourceCCallRef": "c-call:sha256:b9acc48c3f891fd458e0ad2aea5ccab13cd5f155ebd920a9273a88d9ce511974",
+      "actorInvocationRef": "actor-invocation://abiogenesis/06a36043df97b9f0769b11162d54eb8318d96c90eb7106792a3516413f8163f6",
+      "construction": {
+        "resultClass": "failure",
+        "judgment": "blocked",
+        "completion": "failed"
+      },
+      "carrierCopies": {
+        "artifactEvent": [
+          "timedOut",
+          "exitObserved",
+          "terminationConfirmed",
+          "signalSequence"
+        ],
+        "failedEvent": [],
+        "transportArchive": []
+      },
+      "projected": {
+        "assessedEnvelopeDigest": "sha256:d0e6d38c9697fbad6c6916cf947c3cb8322bca7adeab301c9e700522be3d8c98",
+        "artifactDigests": {
+          "output": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "prompt": "sha256:227a0fd0288040ba4bb0a320ef57783227fe4b3ab2fa10b68334fbb1bb064834",
+          "stderr": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout": "sha256:eaf14a98f449dbbb0691edc96eb864f78f792b2110eb6da6abf3b97a296d7f73",
+          "transport": "sha256:d8be9e3cbdb7386e902a19f3d633c639f19af5401ed478de390b16b90bc6f154"
+        },
+        "artifactByteLengths": {
+          "output": 0,
+          "prompt": 8786,
+          "stderr": 0,
+          "stdout": 1054,
+          "transport": 4469
+        },
+        "artifactEventRef": "event://abiogenesis/69d8a66d162b9b138b7025a5fdde7065af5e6b4b5d86a08449d96da6d67e2c4e",
+        "processRef": "process://abiogenesis/d1b45ba7763347e49c5162ea5abf2262c99a7093c4a735f50645bf81d2a79aff",
+        "originalResultDigest": "sha256:a1dbb51c81ed6a98ba04d97d9c78b48764d5421249353e752f25be304a0e902e",
+        "originalJudgmentDigest": "sha256:49e32ed833cfa670f00fd1468b962f82f55463a4c774e54a3711acca1261c918",
+        "toolUseId": "d5-proposal",
+        "sessionId": "d5-controlled-session",
+        "files": [
+          {
+            "targetRef": "worksite-construction-target://abiogenesis/c0023876680e6587d92c4fedbd36430029b3137e22ad4b4dce8da55ed5d31e9f",
+            "sha256": "sha256:7b1a4d5327f8a1ac5702b115bf2686dba73338f154deb63e681c7ab0f2ff8f3a"
+          },
+          {
+            "targetRef": "worksite-construction-target://abiogenesis/7b253f80cae9f271ed43bca4849d61c71326cb6eb6d81f54d2fa4ad18b09cc4f",
+            "sha256": "sha256:145b08b41fa0660467a5068ef7b3e16826a19e1026e99e81e513d2036c30e66d"
+          }
+        ]
+      }
+    }
+  },
+  "steps": {
+    "fixtureAndBaseline": "done (d5b-base1)",
+    "m2": "done",
+    "causationTestFix": "done",
+    "howReconciliation": "done (three HOW docs, CT02 without cut)",
+    "finalProof": "done (d5b-final1)",
+    "tenModuleLanes": "done (d5b-final2, 113/113)",
+    "handoffs": "written"
+  },
+  "final": {
+    "sourceDigest": "f7d7594f66362312755f1d3c8740f0aca1129cd89f7352e9dd26c07a8d136233",
+    "profileDigest": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0",
+    "prefix": {
+      "prefixLength": 4361222,
+      "prefixDigest": "sha256:8d52033de09c7c5bba362674ea440b25e6f3493a2f6928c82b55520387037149",
+      "coordinateDigest": "sha256:4992be4f0faa85342cae43f11f9f302b70e3ff700c4def8193c5126941fdb9a6"
+    },
+    "archive": {
+      "transportDigest": "sha256:b62d3f7f5b525098d93647603dba2bf64878554aca94978648c98682eae9bf99",
+      "artifactDigests": {
+        "output": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "prompt": "sha256:239e71ab9e5f756a6326d723f859b500c415a91d7ee40a65ccf009d1a741817c",
+        "stderr": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "sha256:22fa049d05fdf41ca50d244a29e89d5743afef8fed9b118003b745475827c4d0",
+        "transport": "sha256:b62d3f7f5b525098d93647603dba2bf64878554aca94978648c98682eae9bf99"
+      }
+    }
+  },
+  "returnRef": "qualification-scratch/d5-author-02/return.json",
+  "readinessRef": "qualification-scratch/d5-author-02/readiness.json"
+}

@@ -1,0 +1,37 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.py
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.r02.py
+@@ -52,6 +52,8 @@
+  names=[untap(v) for v in re.findall(r'^# Subtest: (.*)$',text,re.M)]
+  assert sorted(names)==sorted(command['expectedNames']),'literal named population differs'
+  skips=[l for l in text.splitlines() if re.search(r'#\s*SKIP\b',l,re.I)]
++ skipped_names=[untap(m.group(1)) for line in skips if (m:=re.match(r'^ok \d+ - (.*?) # SKIP(?: |$)',line))]
++ assert sorted(skipped_names)==sorted(command.get('expectedSkippedNames',[])),'explicit skipped population differs'
+  diagnostics=[]
+  for line in text.splitlines():
+   m=re.match(r'^\s*#\s*((?:evidence )?\{.*\})\s*$',line)
+@@ -134,13 +136,13 @@
+   out=proof/command['id'];out.mkdir();evidence=out/'evidence';evidence.mkdir();pre=same_source(source,rows);same_source(stage,rows)
+   if compiled is not None:assert compiled_rows(tenant)==compiled,'retained tested build changed'
+   for p in b['preservationPins']:checked(p)
+-  argv=[c['node']['path']]+([c['npmCli']['path']] if command['kind']=='npm' else [])+command['args'];signals=[];timed_out=False;too_large=False;start=time.monotonic()
++  argv=[c['node']['path']]+([c['npmCli']['path']] if command['kind']=='npm' else [])+command['args'];signals=[];timed_out=False;command_timed_out=False;campaign_timed_out=False;too_large=False;start=time.monotonic()
+   with (out/'stdout.log').open('xb') as stdout,(out/'stderr.log').open('xb') as stderr:
+    commandEnv={**env,'ABI5_TEST_EVIDENCE_DIR':str(evidence)}
+    child=subprocess.Popen(argv,cwd=tenant,env=commandEnv,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,start_new_session=True)
+    save(out/'LAUNCH.json',{'argv':argv,'cwd':str(tenant),'pid':child.pid,'pgid':child.pid,'absoluteSeconds':command['timeoutSeconds'],'sourcePreDigest':pre,'evidenceDirectory':str(evidence),'environmentDelta':{'ABI5_TEST_EVIDENCE_DIR':str(evidence)}})
+    while child.poll() is None:
+-    timed_out=time.monotonic()-start>=command['timeoutSeconds'];too_large=(out/'stdout.log').stat().st_size+(out/'stderr.log').stat().st_size>c['maxOutputBytes']
++    command_timed_out=time.monotonic()-start>=command['timeoutSeconds'];campaign_timed_out=time.monotonic()-began>=c['campaignMaximumSeconds'];timed_out=command_timed_out or campaign_timed_out;too_large=(out/'stdout.log').stat().st_size+(out/'stderr.log').stat().st_size>c['maxOutputBytes']
+     if timed_out or too_large:break
+     time.sleep(.1)
+    cleanup_needed=not group_absent(child.pid)
+@@ -153,7 +155,8 @@
+      while time.monotonic()<until and not group_absent(child.pid):child.poll();time.sleep(.05)
+    try:code=child.wait(timeout=1)
+    except subprocess.TimeoutExpired:code=None
+-  group_gone=group_absent(child.pid);report={'id':command['id'],'argv':argv,'pid':child.pid,'pgid':child.pid,'exitCode':code,'wallSeconds':time.monotonic()-start,'timedOut':timed_out,'outputBudgetExceeded':too_large,'signals':signals,'groupAbsent':group_gone,'cleanupNeeded':cleanup_needed,'stdout':pin(out/'stdout.log'),'stderr':pin(out/'stderr.log')}
++  final_output_bytes=(out/'stdout.log').stat().st_size+(out/'stderr.log').stat().st_size;too_large=too_large or final_output_bytes>c['maxOutputBytes']
++  group_gone=group_absent(child.pid);report={'id':command['id'],'argv':argv,'pid':child.pid,'pgid':child.pid,'exitCode':code,'wallSeconds':time.monotonic()-start,'timedOut':timed_out,'limitCause':{'commandDeadline':command_timed_out,'campaignDeadline':campaign_timed_out,'combinedOutput':too_large},'finalCombinedOutputBytes':final_output_bytes,'outputBudgetExceeded':too_large,'signals':signals,'groupAbsent':group_gone,'cleanupNeeded':cleanup_needed,'stdout':pin(out/'stdout.log'),'stderr':pin(out/'stderr.log')}
+   error=None
+   try:
+    report['sourcePostDigest']=same_source(source,rows);same_source(stage,rows)

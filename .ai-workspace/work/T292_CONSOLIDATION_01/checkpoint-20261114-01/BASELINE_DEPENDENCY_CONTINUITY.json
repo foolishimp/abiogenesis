@@ -1,0 +1,9 @@
+{
+  "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/node_modules",
+  "oldLinkTarget": "/private/tmp/abg-td26p5/build_tenants/abiogenesis/typescript/node_modules",
+  "operation": "replaced symlink with byte-identical physical clone",
+  "members": 4576,
+  "manifestSha256": "66553818058ba89f1f28dabecdb519a183d3b31d02a42dff3982d067a19eaba4",
+  "allMembersEqual": true,
+  "baselineBuildAndManifestUnchanged": true
+}

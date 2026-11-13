@@ -1,0 +1,157 @@
+{
+  "kind": "native_author_progress",
+  "task": "rc7-held-session-author-05",
+  "status": "STOPPED_ON_LANE_FAILURE_RETURN_ROOT",
+  "updatedUtc": "2026-11-07T06:16:00Z",
+  "inputsRead": "All named qualification inputs; pinned H04 refusal-oracle, stage-001 review, root disposition, failed fixed-route summary. Six cited owner sources in the worksite hash-match their pinned frozen reads.",
+  "writePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+  "changedFile": {
+    "before": {
+      "bytes": 370990,
+      "sha256": "4bc0b30afacb52fb39cd5918a3dfcf931019e31964319c13c5836353f66d1650"
+    },
+    "after": {
+      "bytes": 372769,
+      "sha256": "c523337e02a238ea53b4b1011f03491c2981b459d8b16f822f6f46e1f94be5a1"
+    }
+  },
+  "sourceFreeze": {
+    "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-source-freeze.json",
+    "bytes": 96811,
+    "sha256": "1007214c57046492ade2e9b8ffac7234f12f56ba3039d86d5646e6665c543ff4",
+    "status": "SOURCE_FROZEN_PAYLOAD_REUSE_AND_PROOF_PENDING",
+    "sourceCount": 451,
+    "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd"
+  },
+  "stage": {
+    "label": "hs5-stage-01",
+    "command": "node qualification-inputs/rc7-held-session-author-05/prior-author-stage.mjs hs5-stage-01 after",
+    "exitCode": 0,
+    "report": {
+      "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-stage.json",
+      "bytes": 100720,
+      "sha256": "4a68aa0323f37123dc899cf08cdccbc9ab910a6be37ab9a2196cfe1c24eb7607"
+    },
+    "setupMs": 4367,
+    "productReuse": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL; 5325 members; productContentDigest sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+    "compileGenerateLifecycle": "reused from H03 COMPLETED_STAGE_REPORT (sha256 5f8b65ec...); not executed"
+  },
+  "lanes": [
+    {
+      "id": "fixed-route",
+      "order": 1,
+      "exitCode": 0,
+      "ms": 84298,
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "skipped": 0,
+      "requiredActivePass": true,
+      "summary": {
+        "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-lanes-fixed-route/summary-fixed-route.json",
+        "bytes": 2207,
+        "sha256": "7a663214febb66f14bb77cb581d505adcd0b7a80535775650bd7d582796c7174"
+      },
+      "stdoutSha256": "f8ade1b73e0489e11de01d272a13bd3ac3a3340feb8a50935cb3addf3ba59524",
+      "actualRefusals": [
+        [
+          "fixed-testing-over-state",
+          "invalid_intent",
+          [
+            "/invocation_admission"
+          ]
+        ],
+        [
+          "fixed-construction-over-state",
+          "invalid_intent",
+          [
+            "/invocation_admission"
+          ]
+        ],
+        [
+          "fixed-crossed-input",
+          "invalid_input",
+          [
+            "/input"
+          ]
+        ],
+        [
+          "fixed-stale-source",
+          "invalid_input",
+          [
+            "/observation"
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "held-session",
+      "order": 2,
+      "exitCode": 0,
+      "ms": 48743,
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "requiredActivePass": true,
+      "skippedNames": [],
+      "stageSourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+      "stdoutSha256": "265bb17895788dbb63197d20caf1411d6c3070fc3c29e9144ddb62248affd944",
+      "summary": {
+        "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-lanes-held-session/summary-held-session.json",
+        "bytes": 1676,
+        "sha256": "3651fc18f0d9982e0a170aad6a6aee7c133115f524ee0981f06107ab104d1e8f"
+      }
+    },
+    {
+      "id": "assessment-guards",
+      "order": 3,
+      "exitCode": 1,
+      "ms": 64430,
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "requiredActivePass": false,
+      "failing": [
+        "RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage"
+      ],
+      "stageSourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+      "stdoutSha256": "9d16753e2bc2ba507d074b8caed6ad1da7fb858eb717f78f782c9a79d5a50c92",
+      "summary": {
+        "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-lanes-assessment-guards/summary-assessment-guards.json",
+        "bytes": 1451,
+        "sha256": "9e98a0bd59adc0bf66b85632d827a3bdd03aeeedeafd37467dd8dcfac0866e0b"
+      },
+      "tap": {
+        "path": "qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-lanes-assessment-guards/assessment-guards.stdout.tap",
+        "bytes": 1764,
+        "sha256": "9d16753e2bc2ba507d074b8caed6ad1da7fb858eb717f78f782c9a79d5a50c92"
+      },
+      "failure": {
+        "test": "RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage",
+        "subcase": "missing or ambiguous exact consumer declaration refuses before assessment dispatch",
+        "assertion": "test_env/tests/t287-default-library.test.mjs:2768 assert.ok(relation.nativeWorkspaceAssessmentSchema(undeclared)) -> null",
+        "subcasesPassedBefore": [
+          "crossed consumer owner",
+          "crossed resolved lock",
+          "crossed schema bytes"
+        ],
+        "subcasesNotReached": [
+          "stale task input and unrelated callable",
+          "omitted or mismatched whole-Program F_P role",
+          "ordinary static raw-result contract lookup",
+          "warm/cold raw-preimage and same-boundary read agreement"
+        ]
+      }
+    }
+  ],
+  "notAllocated": [
+    "native-workspace-owner",
+    "caller"
+  ]
+}

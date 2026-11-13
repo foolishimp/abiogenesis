@@ -1,0 +1,12 @@
+{
+  "kind": "passive_cpu_sample_interpretation",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/COLD_LAUNCH_CPU_SAMPLE.txt",
+  "bytes": 931213,
+  "sha256": "5f8053bec9264ddfde409affe02876dd9061d27f28384a9ac2a938b04940e22a",
+  "sampleDurationSeconds": 2,
+  "pid": 41076,
+  "phase": "Initial cold launch before native coding Worker start",
+  "observation": "Main thread was executing JavaScript; native stack includes own-property/key enumeration and allocation. JavaScript function names are unresolved.",
+  "causalDisposition": "UNLOCALIZED; sample does not attribute elapsed launch cost to an existing owner or prove cold-history dominance.",
+  "effect": "No Product repair selected from this sample. Retain launch timings separately from setup and between-task costs."
+}

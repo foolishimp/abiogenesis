@@ -1,0 +1,194 @@
+{
+  "status": "DRAFT_NATIVE_CONTROL_PREPARATION_ONLY_SCOPE_PENDING",
+  "at": "2026-11-07T11:45:41.340320+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "authority": "Root preparation-only two-next-step activation. Final A11 scope waits closed causal review; no SDK acquisition/native dispatch is selected.",
+  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/source-freeze.json",
+    "bytes": 295542,
+    "sha256": "e2db4c2e9356da0d97d6277567504650078a8bf1d5b7085dfaee63a4dbae5007"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 4408,
+    "sha256": "d9adadd2558622cb8f60a20055509a160dd0e4a96f204bce368f19e809663922"
+  },
+  "predecessorReady": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/READY.json",
+    "bytes": 572457,
+    "sha256": "348ec08d485ccdef5139f1852064c2cc7dc4155f1255290173175cf66ad19f32"
+  },
+  "sourceTarget": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+    "bytes": 44662,
+    "sha256": "b4aacfd349c111119d51970aceb92a6ec3f4ce6e21770c87701c5e82eb2bd35c"
+  },
+  "actualPriorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/runtime-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "d708e7218bd3ddc0c3b8286732c0767a31fb2aa422fcaf0fc5d47a6e7488dceb"
+  },
+  "actualClosedPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 177717936,
+    "prefixDigest": "sha256:de44153a9902bf2a7a82a2bb272c49ec4df19402ac0ac521a7349d6efb31a2b9",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 708868359,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:28edd222ec2ed9d2aa906f1c7362774bfe65d8f603b5f60ed0e9c96242bfbf56"
+  },
+  "closedPhysicalMetadataObservedAt": "2026-11-07T11:45:41.340320+00:00",
+  "closedReadStanding": "Close receipt fully read and pin checked; current size/device/inode equal the retained close. No resource acquisition or prefix/hash requalification; existing owner must verify lawful reopen if later selected.",
+  "priorFreshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/readbacks-001/RESULT.json",
+    "bytes": 6636,
+    "sha256": "e01b208748d4a9d2331ec58b9c34babba388c5d40e4f101e9635900f11d67773"
+  },
+  "priorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/OPERATOR_RETURN.json",
+    "bytes": 9462,
+    "sha256": "968799201db7afdf86bddee69d2ec834a5f0cb94277b4770a2f11e7823ecaf4d"
+  },
+  "failedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_016.json",
+    "bytes": 10507,
+    "sha256": "1a53977e9bbeb224b88511768a4fee503630bc05853a0c45a2710fbf7306133e"
+  },
+  "baseControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+    "bytes": 9837,
+    "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/host.mjs",
+    "bytes": 12242,
+    "sha256": "ab2e3601532519e6a5b8ceff7cf2434cc2d7ccbc8659255782e5dc9778eb9709"
+  },
+  "hostDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/HOST_DIFF.patch",
+    "bytes": 4064,
+    "sha256": "1580aa113f71f5f7e8097e7d1c3680ebee0220870d48197c35f46a829b743003"
+  },
+  "proof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs",
+    "bytes": 10763,
+    "sha256": "c2f7225fbf3f790d2bf139774b89763febbe8017ef4c2deba17f7a7a75186bcf"
+  },
+  "proofDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/PROOF_DIFF.patch",
+    "bytes": 1527,
+    "sha256": "219c9a3ec04d58d90fc68c71fcb73412f273a87cd5c615368b4f28a7645125f0"
+  },
+  "budgets": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "focusedNameFilteredInvocations": 1,
+    "focusedWholeFileInvocations": 0
+  },
+  "lane": {
+    "materialization-o1": {
+      "files": [
+        "t287-required-operation-bindings.test.mjs"
+      ],
+      "namePattern": "^O1 \\(A\\): the materialization binding refuses an artifact body outside I-JSON before the artifact ingress$",
+      "wholeFile": false,
+      "expectedPassed": 1,
+      "expectedSkipped": 0,
+      "excludedUnchangedCases": 9
+    }
+  },
+  "draftTask": {
+    "maxContextFiles": 1024,
+    "maxContextBytes": 25165824,
+    "maxPromptBytes": 1048576,
+    "checks": [],
+    "id": "T287-RC8-AUTHOR11-O1-COMPONENT-PREMISE",
+    "status": "DRAFT_AWAITING_ROOT_CLOSED_CAUSAL_SCOPE",
+    "outcome": "Repair only the selected O1 materialization binding component premise and prove its complete existing positive-admission/invalid-body-refusal assertions through one exact name-filtered case.",
+    "readRoots": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "stdo_abiogenesis.json",
+      "specification/PRODUCT.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures",
+      "build_tenants/abiogenesis/typescript/code/src"
+    ],
+    "readFirst": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "stdo_abiogenesis.json",
+      "specification/PRODUCT.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts"
+    ],
+    "writeRoots": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "qualification-scratch/rc8-reference-preservation-01/author-11"
+    ],
+    "instructions": [
+      "Draft only: final Root closed causal review/scope and explicit owner-preparation admission remain pending. No native dispatch is authorized by this packet.",
+      "Use unchanged STDO3.0.4/fixed15families/GOAL035/T287/project frame and existing RC7 native owner route. One Claude Opus5.5 xhigh Worker only after Root concrete admission; no delegation/provider beyond that coding call.",
+      "Preimage is accepted A10source6c8d/1339rows with cumulative A10READY and actual closed177717936B/de44153a runtime. Preserve A10residuals and all016red/partial evidence; no log/catalog/lock/graph migration or copied runtime truth. Follow needed actual code/src transitive owner imports and selected support by reference.",
+      "Prospective one-file scope: the final O1 binding component harness overrides projectExactPrefixArtifactTruth while current production materializeOwner calls projectOwnedPrefixArtifactTruth. Closed review will bind the exact correction. Preserve the existing positive artifact admission and invalid-body refusal assertions, every other case and Product/HOW/API/algorithm bytes; no new helper/framework/guard relaxation.",
+      "Freeze once using /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs freeze; publish immediate FREEZE_NOTICE under qualification-scratch/rc8-reference-preservation-01/author-11 for independent review. Reuse cumulative A10READY/compiled/dependency/config/archive bytes; zero builds/generation/repack and no source edits after freeze.",
+      "Run only /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs test materialization-o1 through existing600000ms command/file-host controls. Exact positive name filter selects the final O1 binding test; expected1pass0reportedskip, unaffected9cases excluded/no rerun/no whole-file claim. Stop first red/incomplete/input/resource/scope failure and return original evidence; no repair/retry/timeout extension.",
+      "Native cap1800000ms/inactivity300000ms, proof600000ms/16MiB/8GiBheap/4GiBreserve and owned growth; same existing owners. Write concise HANDOFF in ownprogress; no Git/cut/install/global selector/cleanup/source writes outside target. Root alone accepts/conjoins unchanged prior cases."
+    ]
+  },
+  "proposedRuntimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001",
+  "proposedProofRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence",
+  "proposedScratchRoot": "/private/tmp/abg-r8-a11-001",
+  "scratchAllocated": false,
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 400,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 300000,
+    "absoluteTimeoutMs": 1800000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "review": null,
+  "finalScope": null,
+  "syntaxPassed": true,
+  "sdkAcquisitions": 0,
+  "providerDispatches": 0,
+  "sourceEdits": 0,
+  "remainingBindings": [
+    "Closed causal review and Root final scope",
+    "Final TASK/ROOT_SCOPE/PREPARATION/BINDING/CONTROL_FREEZE",
+    "Root explicit maintained-owner preparation selection; then concrete held-call dispatch admission"
+  ]
+}

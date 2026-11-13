@@ -1,0 +1,145 @@
+{
+  "status": "FINAL_UNIT_PARTIAL_FAILURES_OBSERVED",
+  "observedAt": "2026-11-08T17:31:21.632340+00:00",
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "structuredEventsPath": "/private/tmp/abg-r9-owner-native-003/unit-01/events.jsonl",
+  "failedCases": [
+    {
+      "ordinal": 55,
+      "type": "case",
+      "passed": false,
+      "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 52,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nfalse !== true\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:802:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "ordinal": 56,
+      "type": "case",
+      "passed": false,
+      "name": "M5 ABG transport does not renew from unacknowledged output",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 53,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nfalse !== true\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:843:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "ordinal": 57,
+      "type": "case",
+      "passed": false,
+      "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 54,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+        "stack": "Error [ERR_TEST_FAILURE]: The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+          "stack": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:888:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "ordinal": 58,
+      "type": "case",
+      "passed": false,
+      "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 55,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\n124 !== 0\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\n124 !== 0\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\n124 !== 0\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n124 !== 0\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:944:14)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "ordinal": 59,
+      "type": "case",
+      "passed": false,
+      "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "nesting": 0,
+      "testNumber": 56,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\nnull !== 47\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nnull !== 47\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\nnull !== 47\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nnull !== 47\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:1023:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    }
+  ],
+  "finalOutcomePending": true,
+  "standing": "Actual failures in unchanged worker-transport tests. Elevated host load is context only; no definitive source/environment attribution. No retry or source alteration."
+}

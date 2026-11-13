@@ -1,0 +1,14 @@
+{
+  "kind": "root_operator_budget_checkpoint",
+  "atUtc": "2026-10-31T07:30:47.377612+00:00",
+  "rootPid": 41382,
+  "publicCliPid": 41432,
+  "action": "SIGSTOP Public CLI between provider processes for Root triage",
+  "reportedIncrementUsd": "10.7288078",
+  "historicalPlusReportedUsd": "46.3959266",
+  "nativeVerdict": "UAT raw response indeterminate; Run not declared terminal by this record",
+  "purpose": "Review actual gaps and remaining scope before further paid work; preserve event log and live process",
+  "claims": [
+    "This is an operator process suspension, not an admitted ABG stop or replay recovery"
+  ]
+}

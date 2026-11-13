@@ -1,0 +1,15 @@
+{
+  "status": "GENERATED_CANDIDATE_CUSTODY_ADOPTED_NOT_ACCEPTED",
+  "recordedUtc": "2026-11-03T09:23:49.562115+00:00",
+  "sourceCommit": "9f3f22b0f733718bee88d5ca1cc306ed0446797a",
+  "tree": "17a9b10d91f5ab9dd05f63f8b2626d57db0c7dd8",
+  "parent": "90721c86680f17c1877dc26c9eb93b4243188785",
+  "adoptedFiles": 17,
+  "preparedManifestSha256": "b2121538077306cbeaa4d21ef48bd86c5f160aab2fe264866e83687311c5df0e",
+  "authoritySha256": "e76694421806047da77e06e29ae757ac8c12ae4c40d840bfe5637aeeaa16939c",
+  "c2ResultRef": "result://abiogenesis/177a06b017ffd095b0bf01c9b5746ec9d898b9a8b3a2011d15906f3ddef41137",
+  "codeSourceUnchanged": true,
+  "qualified": false,
+  "methodNativeUAT": "open; priorindeterminate retained; finalconjunctioncarriedintoF4Run",
+  "role": "Root operator Writer exactC2outputadoption under recordedrepricing"
+}

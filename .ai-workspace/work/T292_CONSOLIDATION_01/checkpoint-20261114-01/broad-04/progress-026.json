@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/r1-packed-artifact.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/026-r1-packed-artifact.test/process.json",
+    "bytes": 1066,
+    "sha256": "c05fda8c5936404aad2deee9eb709e79c172646c184fab2c94bd247b6a334413"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "kind": "foundation_oracle_installed_continuation_control_review",
+  "recordedAt": "2026-11-09T19:15:42.058373+00:00",
+  "verdict": "satisfied_controls_actual_proof_pending",
+  "newFindings": [],
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/READY.json",
+      "bytes": 5742,
+      "sha256": "81d534b90cb69f45573d79bc27f5e8441656df236a350153a01eb20ac194a405"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/BINDING.json",
+      "bytes": 12559,
+      "sha256": "a4db01e7a17adfab94dbfa9e6c4b9185410d04e327f5ea71e64760ef462992be"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/proof.py",
+      "bytes": 19052,
+      "sha256": "10f167d0a051fd41a175526e680c6fd7f6759bf9a342cebc7df1ba16379d6d5c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/CONTROLS.json",
+      "bytes": 4414,
+      "sha256": "02b8c0accbd75bb5298afcb9c8acfab13c16d1082c720340715548ea20e12c4e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/DRIVER_DELTA.diff",
+      "bytes": 12282,
+      "sha256": "e4401c553e023db4acfd8cb00d6480180be77b4f94611b257efd3e921a356805"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/PREFLIGHT.json",
+      "bytes": 4085,
+      "sha256": "f248a634b45c22344ca4757160c2611b90d4382cdd6fb055b2525c83a57ee42b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/ROOT_EXECUTION_ADMISSION.json",
+      "bytes": 2541,
+      "sha256": "1a24c0e19936ae0b468ddb5bfe236a95be26030c4f4ecd1e53b713d244438d92"
+    }
+  ],
+  "checks": {
+    "completeDiffIndependentlyEqual": true,
+    "allListedControlAndRetainedPinsVerified": true,
+    "soleW2CommandUnchanged": true,
+    "sameProtectionPinsAndExpectedAddedKeys": true,
+    "constructorSourceCorrectionUntouched": true,
+    "failedPredecessorPreserved": true,
+    "noRestageBootstrapPackBuildCommand": true,
+    "maintainedFrozenHarnessUsesExactTriple": true
+  },
+  "actualProof": "pending closed command and final receipts",
+  "reviewerExecutedTestsOrProductCode": false,
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/INSTALLED02_CONTROL_REVIEW.md",
+    "bytes": 3227,
+    "sha256": "89483ff5889249ee4068b7b5b9e85089c0c929a2788ec81e02e17e4e89695bb4"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "status": "closed_intake_scope_clarification",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/SCOPE_CLARIFICATION.md",
+    "bytes": 2441,
+    "sha256": "2b3e1b24d6420ac6550fcbe807e0158fca072e257ea2337932f6e5023989a07b"
+  },
+  "limits": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/INTAKE.md",
+    "bytes": 11205,
+    "sha256": "194f5fd553125c1b7ada07d433b853a4970df49ba643956f0026f8023b2893ae"
+  },
+  "rootSelectsProspectiveProof": true,
+  "wholeC2PopulationRequired": false,
+  "installedFailureProof": "conditional on selected claim or changed interface",
+  "executionPerformed": false
+}

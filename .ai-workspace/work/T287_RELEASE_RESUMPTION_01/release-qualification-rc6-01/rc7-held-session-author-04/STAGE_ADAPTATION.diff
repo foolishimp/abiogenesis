@@ -1,0 +1,135 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/inputs/prior-author-stage.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-stage.mjs
+@@ -1,86 +1,46 @@
+-// Author-check staging for rc7-held-session-author-03, adapted from the supplied prior-author-stage.mjs:
+-// copies only the selected C2 protected source closure (which now includes the
+-// test-support modules), the named offline toolchain and the immutable RC6 contract
+-// seed into this tmp root, then compiles and runs the canonical generator.
+-import { cp, mkdir, readFile, writeFile, readdir, lstat } from 'node:fs/promises';
+-import { createHash } from 'node:crypto';
+-import { dirname, join } from 'node:path';
+-import { spawnSync } from 'node:child_process';
+-
+-const [label,mode='after'] = process.argv.slice(2);
+-if(mode!=='after')throw Error('This continuation selects after stages only; retained baseline evidence is not rerun');
+-if (!/^[a-z0-9-]+$/.test(label ?? '')) throw new Error('usage: node stage.mjs <label>');
+-const worksite = '/Users/jim/src/apps/abiogenesis-rc6-local-cut';
+-const tmp = join(worksite, 'qualification-scratch/rc7-held-session-author-03/tmp');
+-const stage = join(tmp, label), tenantRel = 'build_tenants/abiogenesis/typescript', tenant = join(stage, tenantRel);
+-const inputs = JSON.parse(await readFile(join(worksite, 'qualification-inputs/rc7-held-session-author-03/C2_INPUTS.json'), 'utf8'));
+-const deps = JSON.parse(await readFile(join(worksite, 'qualification-inputs/rc7-held-session-author-03/DEPENDENCY_SOURCE_SELECTION.json'), 'utf8'));
+-const sha = b => createHash('sha256').update(b).digest('hex');
+-const setupStarted=Date.now();
+-const bounds=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-held-session-author-03/COMMAND_BOUNDS.json'),'utf8'));
+-if(bounds.maxStages!==2||bounds.maxLaneInvocations!==8||bounds.concurrency!==1)throw Error('Selected finite bounds differ');
+-if(!bounds.stageLabels.includes(label))throw Error('Only two selected stage labels are permitted');
+-await mkdir(tmp,{recursive:true});
+-const priorNames=await readdir(tmp);
+-const allocatedStages=bounds.stageLabels.filter(id=>priorNames.includes(id)||priorNames.includes(id+'-stage.json'));
+-if(allocatedStages.length>=bounds.maxStages)throw Error('Stage allocation cap reached; failed/incomplete allocations count');
+-for(const id of allocatedStages)if(!priorNames.includes(id+'-stage.json'))throw Error('Prior stage allocation is incomplete; stop and return');
+-for(const name of priorNames.filter(n=>bounds.stageLabels.some(id=>n.startsWith(id+'-lanes-')))){
+- const laneId=name.slice(name.indexOf('-lanes-')+7);
+- try{await lstat(join(tmp,name,'summary-'+laneId+'.json'));}catch(e){if(e.code==='ENOENT')throw Error('Prior lane allocation is incomplete; stop and return');throw e;}
+-}
+-if(label!==bounds.stageLabels[allocatedStages.length])throw Error('Stage labels must be allocated serially in selected order');
+-await mkdir(stage); // Create-only reservation; retained even if setup/build fails.
+-
+-const custody=JSON.parse(await readFile(join(worksite,'qualification-inputs/rc7-held-session-author-03/SOURCE_CUSTODY.json'),'utf8'));
+-const baselineBytes=await readFile(custody.sourceBefore.path);
+-if(baselineBytes.length!==custody.sourceBefore.bytes||sha(baselineBytes)!==custody.sourceBefore.sha256)throw Error('Root-bound source custody differs');
+-const baseline=JSON.parse(baselineBytes);
+-const baselineFiles=new Map(baseline.files.map(f=>[f.relativePath,f]));
+-const sources = [];
+-for (const path of inputs.protectedSourcePaths) {
+-  const baselineSource=mode==='before'&&!path.includes('/test_env/tests/')&&!path.includes('/test_env/support/')&&!path.endsWith('/test_env/uat/harness.test.mjs');
+-  const held=baselineFiles.get(path);if(!held)throw Error('Unselected stage source: '+path);
+-  const bytes=await readFile(baselineSource?held.sourceSnapshot:join(worksite,path));
+-  if(baselineSource&&(bytes.length!==held.bytes||sha(bytes)!==held.sha256))throw Error('Baseline source differs: '+path);
+-  if(!inputs.mutableProductPaths.includes(path)){const current=baselineSource?await readFile(join(worksite,path)):bytes;if(current.length!==held.bytes||sha(current)!==held.sha256)throw Error('Read-only source changed: '+path);}
+-  await mkdir(dirname(join(stage, path)), { recursive: true });
+-  await writeFile(join(stage, path), bytes, { flag: 'wx' });
+-  sources.push({ path, bytes: bytes.length, sha256: sha(bytes) });
+-}
+-// Freeze actual source before build/feedback, so Root can review this immutable stage while lanes run.
+-const frozenSourceDigest=sha(Buffer.from(JSON.stringify(sources)));
+-const freezePath=join(tmp,label+'-source-freeze.json');
+-await writeFile(freezePath,JSON.stringify({label,mode,stage,status:'SOURCE_FROZEN_BUILD_AND_FEEDBACK_PENDING',sourceCount:sources.length,sourceDigest:frozenSourceDigest,sources},null,2)+'\n',{flag:'wx'});
+-console.log(JSON.stringify({status:'SOURCE_FROZEN_BUILD_AND_FEEDBACK_PENDING',label,mode,stage,freezePath,sourceCount:sources.length,sourceDigest:frozenSourceDigest}));
+-for (const pin of [...deps.toolchainEntryPins, ...deps.contractSeedPins]) {
+-  const bytes = await readFile(pin.path);
+-  if (bytes.length !== pin.bytes || sha(bytes) !== pin.sha256) throw new Error('dependency pin differs: ' + pin.path);
+-}
+-await cp(deps.toolchainRoot, join(tenant, 'node_modules'), { recursive: true, verbatimSymlinks: true });
+-await cp(deps.contractSeedRoot, join(tenant, 'contracts'), { recursive: true });
+-const environment = { ...process.env, NPM_CONFIG_UPDATE_NOTIFIER: 'false', NPM_CONFIG_OFFLINE: 'true', NPM_CONFIG_USERCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-03/npm-user.npmrc', NPM_CONFIG_GLOBALCONFIG: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-03/npm-global.npmrc', TMPDIR: '/private/tmp/abg-hs3', TMPPREFIX: '/private/tmp/abg-hs3/zsh', NPM_CONFIG_CACHE: '/private/tmp/abg-hs3/npm-cache' };
+-for (const key of Object.keys(environment)) if (['ABI5_EVIDENCE_ROOT', 'ABI5_RESULT_LINEAGE_BASELINE', 'ABI5_RESULT_LINEAGE_REPORT', 'ABG_WORKSITE_BUILD_ROOT'].includes(key) || key.startsWith('ABI5_F11_') || key.startsWith('ABI5_WAVE1_FROZEN_ARTIFACT_')) delete environment[key];
+-for(const key of Object.keys(environment))if(/CLAUDE|ANTHROPIC|OPENAI|AZURE_OPENAI|PROVIDER/iu.test(key)||key.startsWith('ABG_TS_')||key.startsWith('ABI5_'))delete environment[key];
+-for(const path of [environment.NPM_CONFIG_USERCONFIG,environment.NPM_CONFIG_GLOBALCONFIG])if((await readFile(path)).length!==0)throw Error('Selected empty npm config differs');
+-await mkdir(environment.TMPDIR, { recursive: true });
+-await mkdir(join(tenant, 'artifacts'), { recursive: true });
+-const run = (command, args, timeoutMs) => {
+-  const started = Date.now();
+-  const child = spawnSync(command, args, { cwd: tenant, env: environment, timeout: timeoutMs, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+-  return { command: [command, ...args].join(' '), exitCode: child.status, signal: child.signal, error: child.error?.message ?? null,
+-    ms: Date.now() - started, stdout: (child.stdout ?? '').slice(-4000), stderr: (child.stderr ?? '').slice(-4000) };
+-};
+-const setupMs=Date.now()-setupStarted;
+-const compile = run(process.execPath, ['node_modules/typescript/bin/tsc', '-p', 'tsconfig.json'], 240000);
+-const generate = compile.exitCode === 0 ? run(process.execPath, ['scripts/generate-product-manifest.mjs'], 180000) : null;
+-const lifecycle = generate?.exitCode === 0 ? run(process.execPath, ['scripts/check-lifecycle-boundary.mjs'], 60000) : null;
+-const sourceDigest = sha(Buffer.from(JSON.stringify(sources)));
+-const report = { label, mode, stage, freezePath, setupMs, priorStageLabels:allocatedStages, stageAllocationCap:bounds.maxStages, sourceCount: sources.length, sourceDigest, sources, compile, generate, lifecycle };
+-await writeFile(join(tmp, label + '-stage.json'), JSON.stringify(report, null, 2) + '\n', { flag: 'wx' });
+-console.log(JSON.stringify({ label, sourceCount: sources.length, sourceDigest,
+-  lifecycle: lifecycle && { exitCode: lifecycle.exitCode, stdout: lifecycle.stdout, stderr: lifecycle.stderr },
+-  compile: { exitCode: compile.exitCode, ms: compile.ms, stdout: compile.stdout.slice(-3000) },
+-  generate: generate && { exitCode: generate.exitCode, ms: generate.ms, stderr: generate.stderr.slice(-1500) } }));
+-
+-if ([compile, generate, lifecycle].some(r => r === null || r.exitCode !== 0 || r.signal !== null || r.error !== null)) process.exitCode = 1;
++// Existing native staging route adapted for exact completed Product payload reuse.
++// One fresh source stage; no compiler, generator, lifecycle or new Product execution.
++import {mkdir,readFile,writeFile,copyFile,cp,chmod,readdir,lstat} from 'node:fs/promises';
++import {createHash} from 'node:crypto';
++import {join,dirname} from 'node:path';
++import {pathToFileURL} from 'node:url';
++import assert from 'node:assert/strict';
++const [label,mode='after']=process.argv.slice(2);
++const worksite='/Users/jim/src/apps/abiogenesis-rc6-local-cut',inputRoot=join(worksite,'qualification-inputs/rc7-held-session-author-04'),tmp=join(worksite,'qualification-scratch/rc7-held-session-author-04/tmp');
++const tenantRel='build_tenants/abiogenesis/typescript',stage=join(tmp,label??''),tenant=join(stage,tenantRel),sha=b=>createHash('sha256').update(b).digest('hex');
++const json=async p=>JSON.parse(await readFile(p,'utf8'));
++const checked=async p=>{const s=await lstat(p.path);assert(s.isFile()&&!s.isSymbolicLink(),p.path);const b=await readFile(p.path);assert.equal(b.length,p.bytes,p.path);assert.equal(sha(b),p.sha256,p.path);return b;};
++assert.equal(mode,'after');assert.equal(label,'hs4-stage-01');const setupStarted=Date.now();
++const inputs=await json(join(inputRoot,'C2_INPUTS.json')),deps=await json(join(inputRoot,'DEPENDENCY_SOURCE_SELECTION.json')),bounds=await json(join(inputRoot,'COMMAND_BOUNDS.json'));
++assert.equal(bounds.maxStages,1);assert.equal(bounds.maxLaneInvocations,5);assert.equal(bounds.concurrency,1);assert.deepEqual(bounds.stageLabels,[label]);
++assert.equal(inputs.protectedSourcePaths.length,451);assert.equal(inputs.mutableProductPaths.length,2);
++const custody=await json(join(inputRoot,'SOURCE_CUSTODY.json')),baseline=JSON.parse(await checked(custody.sourceBefore));
++const held=new Map(baseline.files.map(f=>[f.relativePath,f]));assert.equal(held.size,451);
++const reuse=JSON.parse(await checked(deps.reusedProductPayload));
++await checked(reuse.digestOwner);await checked(reuse.digestOwnerDependency);
++const owner=await import(pathToFileURL(reuse.digestOwner.path));
++const original=JSON.parse(await checked(reuse.completedBuildReport));assert.equal(original.status,'COMPLETED_WITH_SEPARATE_ROOT_GENERATION_CONTINUATION');
++for(const r of [original.compile,original.generate,original.lifecycle])assert(r&&r.exitCode===0&&r.signal===null&&r.error===null);
++const manifest=JSON.parse(await checked(reuse.manifest)),graphPath=manifest.capabilityDefinitionGraph.assetLocator.path;
++assert.deepEqual([...manifest.productRelativeLocators,graphPath,'product-toolchain-manifest.json'].sort(),reuse.files.map(x=>x.relativePath));assert.equal(reuse.files.length,5325);
++const productNames=new Set(reuse.files.map(x=>tenantRel+'/'+x.relativePath));for(const p of inputs.mutableProductPaths)assert(!productNames.has(p),'Writable caller/test must remain outside Product payload');
++const verifyPayload=async base=>{const content=[];for(const r of reuse.files){const b=await checked({path:join(base,r.relativePath),bytes:r.bytes,sha256:r.sha256});assert.equal((await lstat(join(base,r.relativePath))).mode&0o777,r.mode,r.relativePath);if(manifest.productRelativeLocators.includes(r.relativePath))content.push({path:r.relativePath,sha256:owner.sha256Bytes(b)});}assert.equal(owner.payloadInventoryDigest(content),manifest.productContentDigest);return{members:reuse.files.length,bytes:reuse.totalBytes,productContentDigest:manifest.productContentDigest,manifestSha256:reuse.manifest.sha256,graphSha256:reuse.graph.sha256};};
++const payloadBefore=await verifyPayload(reuse.sourceRoot);
++for(const p of [...deps.toolchainEntryPins,...deps.contractSeedPins])await checked(p);
++await mkdir(tmp,{recursive:true});const priorNames=await readdir(tmp);
++const allocated=bounds.stageLabels.filter(x=>priorNames.includes(x)||priorNames.includes(x+'-stage.json'));
++assert.equal(allocated.length,0,'The single stage allocation is consumed, including failed/incomplete attempts');
++await mkdir(stage);const sources=[];
++for(const path of inputs.protectedSourcePaths){const h=held.get(path);assert(h,path);const bytes=await readFile(join(worksite,path));if(!inputs.mutableProductPaths.includes(path)){assert.equal(bytes.length,h.bytes,path);assert.equal(sha(bytes),h.sha256,path);}await mkdir(dirname(join(stage,path)),{recursive:true});await writeFile(join(stage,path),bytes,{flag:'wx'});sources.push({path,bytes:bytes.length,sha256:sha(bytes)});}
++const sourceDigest=sha(Buffer.from(JSON.stringify(sources))),freezePath=join(tmp,label+'-source-freeze.json');
++await writeFile(freezePath,JSON.stringify({label,mode,stage,status:'SOURCE_FROZEN_PAYLOAD_REUSE_AND_PROOF_PENDING',sourceCount:sources.length,sourceDigest,sources},null,2)+'\n',{flag:'wx'});
++console.log(JSON.stringify({status:'SOURCE_FROZEN_PAYLOAD_REUSE_AND_PROOF_PENDING',label,mode,stage,freezePath,sourceCount:sources.length,sourceDigest}));
++// Fresh stage receives the unchanged offline dependency tree and only declared Product payload members.
++await cp(deps.toolchainRoot,join(tenant,'node_modules'),{recursive:true,verbatimSymlinks:true});
++for(const r of reuse.files){const target=join(tenant,r.relativePath);await mkdir(dirname(target),{recursive:true});let present=false;try{await lstat(target);present=true;}catch(e){if(e.code!=='ENOENT')throw e;}
++ if(present)await checked({path:target,bytes:r.bytes,sha256:r.sha256});else{await checked({path:join(reuse.sourceRoot,r.relativePath),bytes:r.bytes,sha256:r.sha256});await copyFile(join(reuse.sourceRoot,r.relativePath),target);await chmod(target,r.mode);}}
++const payloadAfter=await verifyPayload(tenant);assert.deepEqual(payloadAfter,payloadBefore);await verifyPayload(reuse.sourceRoot);
++for(const r of sources){await checked({path:join(stage,r.path),bytes:r.bytes,sha256:r.sha256});await checked({path:join(worksite,r.path),bytes:r.bytes,sha256:r.sha256});}
++const reuseStep=phase=>({exitCode:0,signal:null,error:null,reused:true,executed:false,receipt:reuse.completedBuildReport,pointer:'/'+phase,historicalSourceDigest:original.sourceDigest,relation:'All449 non-writable source inputs and full5325-member Product payload unchanged; two changed caller/test mjs paths excluded from declared package payload.'});
++const report={label,mode,stage,freezePath,setupMs:Date.now()-setupStarted,priorStageLabels:allocated,stageAllocationCap:1,sourceCount:451,sourceDigest,sources,compile:reuseStep('compile'),generate:reuseStep('generate'),lifecycle:reuseStep('lifecycle'),productReuse:{status:'FULL_DECLARED_PAYLOAD_BYTE_EQUAL',selection:deps.reusedProductPayload,before:payloadBefore,after:payloadAfter,originalCompletedBuildReport:reuse.completedBuildReport,noCompileOrGenerationExecuted:true}};
++await writeFile(join(tmp,label+'-stage.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({label,sourceCount:451,sourceDigest,setupMs:report.setupMs,productReuse:report.productReuse}));

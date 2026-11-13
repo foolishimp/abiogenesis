@@ -1,0 +1,104 @@
+{
+  "status": "ACTUAL_COLD_READ_RETAINED",
+  "member": "run_replay",
+  "source": {
+    "digest": "sha256:c3f09e39d01787b33dd16d3d52015a8bc676ee6cd374f4dc0ed1059c018db5a5",
+    "ref": "run://abiogenesis/15abec72a3540b57f239740fe660f548a663bb4cd0f1ef1def044eb492b39851"
+  },
+  "projectionKind": "run_replay_projection",
+  "projectionStatus": "blocked",
+  "terminalPresent": false,
+  "projectionDigest": "sha256:29629773a26ebde4bf9ba3205bdc7171e9ed3bf53dc613808b2504bb1cd792e6",
+  "outcomeKind": "result",
+  "refusalCode": null,
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:56a796f7ca179fb03538d31e77b995157c699c40abc28025837f7d6f2ae335db",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:2fc8a9f8bc56eded06c22d64c9969807cb3dd9498638dc75ab42c18389b7195b",
+      "prefixLength": 1057950101,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 701759869
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:ec26b6a9bca70bb0d3201d0e9a09ddf7928254d22686cf0ce7f429cc82ee369b",
+      "device": 16777231,
+      "durableByteLength": 1057950101,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:2fc8a9f8bc56eded06c22d64c9969807cb3dd9498638dc75ab42c18389b7195b",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "inode": 701759869,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "physicalPrefixUnchanged": true,
+  "wallMs": 133414.682125,
+  "phases": [
+    {
+      "phase": "input_pins_checked",
+      "at": "2026-11-06T03:14:12.271Z",
+      "offsetMs": 35.608917000000005,
+      "memory": {
+        "rss": 128237568,
+        "heapTotal": 10059776,
+        "heapUsed": 5339856,
+        "external": 75282834,
+        "arrayBuffers": 72974630
+      }
+    },
+    {
+      "phase": "physical_prefix_checked",
+      "at": "2026-11-06T03:14:13.164Z",
+      "offsetMs": 929.135125,
+      "memory": {
+        "rss": 284262400,
+        "heapTotal": 182468608,
+        "heapUsed": 81883984,
+        "external": 5993317,
+        "arrayBuffers": 3573817
+      }
+    },
+    {
+      "phase": "construct_run_read",
+      "at": "2026-11-06T03:14:13.165Z",
+      "offsetMs": 929.706709,
+      "memory": {
+        "rss": 284311552,
+        "heapTotal": 182468608,
+        "heapUsed": 81968952,
+        "external": 5993317,
+        "arrayBuffers": 3573817
+      }
+    },
+    {
+      "phase": "cold_installed_read",
+      "at": "2026-11-06T03:15:19.714Z",
+      "offsetMs": 67478.877334,
+      "memory": {
+        "rss": 3429629952,
+        "heapTotal": 2688352256,
+        "heapUsed": 2594973920,
+        "external": 24630487,
+        "arrayBuffers": 22186354
+      }
+    },
+    {
+      "phase": "cold_read_returned",
+      "at": "2026-11-06T03:16:25.086Z",
+      "offsetMs": 132849.91725,
+      "memory": {
+        "rss": 3429842944,
+        "heapTotal": 2687729664,
+        "heapUsed": 2537610104,
+        "external": 24665252,
+        "arrayBuffers": 22221119
+      }
+    }
+  ]
+}

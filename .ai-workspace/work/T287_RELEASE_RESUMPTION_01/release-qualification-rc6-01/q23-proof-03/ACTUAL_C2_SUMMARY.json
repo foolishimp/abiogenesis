@@ -1,0 +1,104 @@
+{
+  "at": "2026-11-05T21:27:07.686Z",
+  "status": "ACTUAL_SELECTED_C2_PREDICATES_SATISFIED",
+  "coordinates": {
+    "admissionOrdinal": 93589,
+    "eventId": "event://abiogenesis/d9f6f5c17f3ac0a918d43d70508914f44b3e971c7a22b438da6d483b954a3ad5",
+    "eventTime": "2026-11-05T21:26:03.684Z",
+    "runId": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+    "offset": 560630027,
+    "rowBytes": 5010224,
+    "rowSha256": "4f5d5e59e0ca6cdd8fec09b94370c6a4f8c181370c2da302b6105de6ba0bfa76",
+    "resultRef": "result://abiogenesis/9b3b4e60d90c54456654f1ad88fefc5aa7544537380b7a5982a72a8a41f9cd57",
+    "resultDigest": "sha256:9b3b4e60d90c54456654f1ad88fefc5aa7544537380b7a5982a72a8a41f9cd57",
+    "valueKind": "worksite_command_execution_observation"
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/738fe9401a11a7adc9764ab98ebab4c9f1a46b84752b1c0537db03e7f28fe4eb/d0b8366fbee547d3e5425c8c3f6644249f3591822ce54108c5361d4d4ded698c/result.json",
+    "bytes": 4912654,
+    "sha256": "e76ce57e27518eb7e5e6c797e34a40de579e6d2fb25854831f2f78f904c4206c"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "sourceMatches": 367,
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/qualification/q23-author-06/source-correspondence",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/q23-author-06/offline-toolchain",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/q23-author-06/contract-seeds",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/q23-author-06/compile",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/q23-author-06/generate",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/q23-author-06/component-proof",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    }
+  ],
+  "lanes": [
+    {
+      "id": "transport",
+      "tests": 27,
+      "pass": 27,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    {
+      "id": "qualification",
+      "tests": 36,
+      "pass": 36,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    }
+  ],
+  "protectedInputCount": 367,
+  "protectedBeforeAfterEqual": true,
+  "productDeltaCount": 0,
+  "unmatchedTerritoryCount": 0,
+  "sourceCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/actual-c2-001/source-correspondence.json",
+    "bytes": 79313,
+    "sha256": "d3936949c7b1d4e3bcd9a1065d8129f77c75d67d4638b4114b79a7555d107139"
+  },
+  "componentReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/actual-c2-001/component-result.json",
+    "bytes": 3769,
+    "sha256": "d9ff8807a99db3904dd9ef8db41c56022009c7f7f6fd74aa10f7c9a12856d4a5"
+  },
+  "limits": [
+    "Dependency entry pins only; no new whole dependency inventory assertion.",
+    "Component evidence only; independent source review, native UAT and fresh close remain separate.",
+    "Actual production eligibility, QR02 and F11 qualification are not established."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "startedUtc": "2026-11-01T05:29:19.425Z",
+  "pid": 32713,
+  "sourceBasis": "none",
+  "ProductWriteRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md"
+  ],
+  "provider": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "maxTurns": 240,
+    "maxBudgetUsd": null
+  },
+  "automaticRetry": false,
+  "preflight": "retained actual predictive preflight validated against current physical inputs; native currentness remains fresh"
+}

@@ -1,0 +1,145 @@
+{
+  "kind": "rc7_held_session_author_return",
+  "task": "rc7-held-session-author-02",
+  "worker": "native Opus 5.5 (claude-opus-5-5)",
+  "basis": "stdo://releases/v3.0.4/",
+  "createdUtc": "2026-11-06T15:36:16.097Z",
+  "status": "PARTIAL_SOURCE_FROZEN_BUILD_PASSED_PROOF_LANES_NOT_RUN_HS2_CONTROL_001",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "finalFrozenSource": {
+    "stage": "hs2-stage-01",
+    "sourceCount": 451,
+    "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+    "freeze": {
+      "path": "qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01-source-freeze.json",
+      "bytes": 96806,
+      "sha256": "38648095634ef9eb071a841574e189f2bcfa0b4d8f58576c69bfe426c5e17103"
+    },
+    "worksiteEqualsFinalFreeze": true
+  },
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "changedPathCount": 12,
+  "allChangedPathsInGrant": true,
+  "unchangedGrantedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+  ],
+  "changeClasses": [
+    "design_reframe (native/governance/common HOW)",
+    "realization_refactor (code/tests)"
+  ],
+  "howRelation": {
+    "native": "T287_NATIVE_WORKSPACE_WORK_DESIGN.md Declared typed assessment: one admitted-environment dependency relation (resolveNativeWorkspaceAssessmentDependency) over unique contract declaration by schema owner, declaring Program member, unique owner install binding the publication digest, install lock = environment lock with one lock row, owner = assessor owner or exactly one requires edge owner->assessor owner, unique schema_asset install with equal bytes. Leaf port applies it before dispatch and carries assessmentPublication; assembly reapplies over carried publication and exact-prefix environment; cold reconstruction repeats from persisted basis; raw preimage repeats over Catalog. Static contractByRef/contractPublicationByRef unchanged.",
+    "governance": "T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md Fixed-route environment and assessment scope (HS2): whole-Program programDeclarationClosure.publications is the observeRunEnvironment input; callable-scope guards unchanged; fixed test uses sandbox assessmentSelection with scripted assessor answering the consumer schema.",
+    "common": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md 10.9 Maintained readback binding (HS2): runReadbacks binds abg; RC7 fixed admission case exercises heldReadbacks before close and freshReadbacks after.",
+    "carriage": "execution_resolution.ts adds typed carriage admittedCatalog/admittedInstalls only; no resolution or authority added."
+  },
+  "stages": [
+    {
+      "label": "hs2-stage-01",
+      "mode": "after",
+      "report": "qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01-stage.json",
+      "reportSha256": "e91a116e3706599ec51e7f24fe03e80c2ade7a0531694411510e9249da5dd5d4",
+      "setupMs": 1600,
+      "compile": {
+        "exitCode": 0,
+        "ms": 7628
+      },
+      "generate": {
+        "exitCode": 0,
+        "ms": 22604
+      },
+      "lifecycle": {
+        "exitCode": 0,
+        "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender"
+      }
+    }
+  ],
+  "laneAllocations": [],
+  "laneInvocations": 0,
+  "stageInvocations": 1,
+  "pins": {
+    "c2Inputs": "7808e4f75ac2253ac2a50826ff02f5157c6e39155966e447da865b1b3be5f04e",
+    "commandBounds": "195c06b45e4a853e272dd86b9f57dcf693471ea7b0b3b16342dcee7f62c9dfb5",
+    "laneHarness": "211bb0e2f91cf6210adf7ce64b23cf0fc4f64bb1f10aea00795baa7541e16dc2",
+    "stageHarness": "746e64b4009aad7c656686179892addfa4a878e9e41c43a49276c6f01580f78f",
+    "contractSeed": "RC6 installed seed; 5 contractSeedPins and 6 toolchainEntryPins verified by the stage harness",
+    "c2RendererMember": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+      "bytes": 119249,
+      "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+      "matchesDeclaredPin": true
+    },
+    "generatedManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+      "productContentDigest": "sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+      "contributionManifestDigest": "sha256:31b4f49bb7dff2b19ef5bdde8cee63daf363630bbbee214e62da86144d39897d"
+    },
+    "generatedCatalogDrift": "Against hs1-stage-04, only contracts/capabilities/capability-definition-graph.json differs; the differences are generator-derived identities (productContentDigest, catalogDigest sha256:2b831d2ab6a6dc40732c40cf82cb380c947c010e17993e293a9bee27c940d6a8, capability digests) that follow from the source change. Not hand-edited."
+  },
+  "tests": {
+    "executedProofLanes": [],
+    "authorChecks": [
+      {
+        "check": "node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit (worksite tenant, non-incremental, writes nothing)",
+        "result": "exit 0, no diagnostics"
+      },
+      {
+        "check": "node --check runner.mjs, t287-default-library.test.mjs",
+        "result": "ok"
+      },
+      {
+        "check": "in-memory precheck of 451 protected paths against SOURCE_CUSTODY baseline",
+        "result": "0 read-only violations; 12 of 17 mutable paths differ from baseline"
+      }
+    ],
+    "authoredUnexecuted": [
+      "RC7 fixed admission: (t287-default-library.test.mjs, timeout 540000) with maintained heldReadbacks/freshReadbacks",
+      "RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage (t287-default-library.test.mjs, timeout 280000)"
+    ],
+    "failures": []
+  },
+  "preserved": {
+    "inheritedTrackedChanges": "57 inherited modified paths outside the authored set untouched; 6 inherited-dirty paths inside the grant edited in place; 69 tracked modified total",
+    "inheritedNewProductFiles": 2,
+    "historicalFailures": "untouched",
+    "git": "no commit, stash, branch, push or tag"
+  },
+  "disclosures": [
+    "tsc --noEmit in the worksite tenant wrote no build output, but TypeScript enabled the Node compile cache under provider TMPDIR tmphs2/node-compile-cache (declared provider temp).",
+    "The stage harness wrote under qualification-scratch/rc7-held-session-author-02/tmp and created /private/tmp/abg-hs2 (declared test temp; node-compile-cache and npm-cache).",
+    "tmphs2/abiogenesis-event-store-locks-v5 predates this Worker start and was not created by it.",
+    "Read-only inspection of the prior author-01 handoffs and hs1-stage-04 outputs, done to compare generated identities."
+  ],
+  "gaps": [
+    "HS2-CONTROL-001: no proof lane was invoked. prior-author-lanes.mjs throws unless lane.timeoutMs===300000, but fixed-route declares 600000, and mkdir(out) runs before that check. Invoking it would reserve an incomplete allocation that blocks every later lane and stage-02. Guard and caller lanes require a passing fixed-route. The maintained-route, assessment-guard and caller proofs are therefore absent. Root must correct the control.",
+    "The fixed admission test (540s) and the new guard test RC7 assessment dependency (280s) are authored but have never run, so their assertions, timing and the scripted-actor kind derivation from the Exact declared response JSON Schema prompt line are unverified.",
+    "Out-of-scope test exposure, not executed: t287-native-workspace-work.test.mjs assembly owners (around lines 306 and 1113-1183) lack environment.resolvedProductLock and owner.resolution, so its assessment prepare/assembly cases are expected to refuse under the new relation. Mock leaf ports in t287-native-worksite-execution and t287-qualification-law lack admittedCatalog, so their assessment preimage returns null. Updating them needs a grant.",
+    "harness.test.mjs caller lane is not exercised; the candidate caller is untested on this source.",
+    "Proof reuse: retained HS02 and fixed-admission summaries (POST_AUTHOR_PROOF_INPUTS) bind the prior source digest only and give no credit to the changed owners. No acceptance claim."
+  ],
+  "handoffs": [
+    "qualification-scratch/rc7-held-session-author-02/return.json",
+    "qualification-scratch/rc7-held-session-author-02/readiness.json",
+    "qualification-scratch/rc7-held-session-author-02/progress.json"
+  ]
+}

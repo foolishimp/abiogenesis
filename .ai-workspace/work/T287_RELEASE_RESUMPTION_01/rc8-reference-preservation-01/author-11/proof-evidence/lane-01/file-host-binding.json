@@ -1,0 +1,33 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "--test-reporter-destination=stdout",
+    "--test-reporter=/private/tmp/abg-r8-a11-001/p/w/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+    "--test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/lane-01/events.jsonl",
+    "--test-name-pattern=^O1 \\(A\\): the materialization binding refuses an artifact body outside I-JSON before the artifact ingress$",
+    "test_env/tests/t287-required-operation-bindings.test.mjs"
+  ],
+  "cwd": "/private/tmp/abg-r8-a11-001/p/w/build_tenants/abiogenesis/typescript",
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence",
+  "scratchRoot": "/private/tmp/abg-r8-a11-001/p",
+  "resourceRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/lane-01/resources.json",
+  "bounds": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "focusedNameFilteredInvocations": 1,
+    "focusedWholeFileInvocations": 0
+  }
+}

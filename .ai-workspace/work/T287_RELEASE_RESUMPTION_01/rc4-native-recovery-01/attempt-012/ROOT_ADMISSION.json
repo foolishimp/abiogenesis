@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "4fefdbf99a3f9d4b502f6ff71718599a071ff496f5b3ab37092441380d758fd7",
+  "sourceCommit": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+  "sourceTree": "d136d90f44921b2944579bf89fbac0075052920b",
+  "decision": "Root inspected task/grant/read-only evidence/formal proof scope and independently verified447binding pins and exact packet; admits only installed zero-provider preflight/call construction. Five manual paths, two owning generated territories and scratch12 realization_refactor; sourceBasis:none, original caps conserved. No Run/provider/dispatch or automatic retry selected; actual frozen-call review remains required.",
+  "packetSha256": "08e951171ff8aa90e109e01b03a5fab0b3b2023b493c3db86c5cafc964ed762c",
+  "selectedUtc": "2026-11-02T10:07:52.315441+00:00"
+}

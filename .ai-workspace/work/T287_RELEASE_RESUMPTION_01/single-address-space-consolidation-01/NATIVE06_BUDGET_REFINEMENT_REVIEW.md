@@ -1,0 +1,9 @@
+**Product Frame.** ABIogenesis5 / GOAL-035 / T-287 / exact installed STDO3.0.4; source Definition and immutable installed RC5 builder unchanged. Original R1–R7/C1–C5 and Root acceptance ownership remain.
+
+**Satisfied for the exact budget propagation; no material counterexample found.** Subject SHA256 `6fd8af52a7bcb049db8a53d6990c81931dada26ccfff6675b08bb03ab8a6d6c7`; all3frozen file hashes verified. Generator SHA256 `318b467ff1a2ce1ed406e847e05296161bddbca04b2e24b57b060c9b931744f9` differs from the reviewed `26e192f750310a018c1c78670e1848a170ef7a83dd84a716fc30edc9eaaf9fac` by exactly four added lines: propagate Root-selected inactivity into grant/provider, and helper timeout into both BASH timeout environment values as strings. Other source/close/fixture/predicate boundaries remain unchanged.
+
+Frozen installed projection SHA256 `605737d4f480c1abfc77cba513286011c7c2b42d944b693e256c83a774c250fe` records actual workerEnvironment and zero provider calls/admissions: **6,676,750ms required <7,200,000ms inactivity/helper <9,000,000ms absolute**; enclosing outer cap18,000,000ms. This satisfies the recorded strict owner inequalities. Actor absolute remains150minutes. Proof command100minutes/replay45minutes are selected caps, not ETA, throughput proof or automatic retry. The prior wrong-environment diagnostic remains preserved.
+
+Prior N6-CTRL-01 and its original preimage remain preserved; exact corrected template SHA256 `97630dbbdfa0b61f40f7375b3ce8ac6ea82a268b394002cf5bab0c9bf9553390` was reverified and is untouched by this delta.
+
+No preparation, tests, providers or projection were executed; no Product/control edits occurred. Only this report pair was written. Root must still bind genuine native05 close, exact final conjunction/value/dependency/source pins and complete installed preflight before admission. Later changed bytes/dependencies invalidate the affected judgment.

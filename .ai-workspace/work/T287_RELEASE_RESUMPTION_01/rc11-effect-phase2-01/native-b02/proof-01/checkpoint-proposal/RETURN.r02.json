@@ -1,0 +1,45 @@
+{
+  "status": "SOURCE_PROOF_ACCEPTED_CHECKPOINT_PREPARED_NO_LIVE_WRITES",
+  "rootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4520,
+    "sha256": "2a0935527e62dba1f6aab5c6d709468ed1d971ea85078585d6b66e364a88f3d4"
+  },
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/CHECKPOINT_PLAN.r02.md",
+    "bytes": 1712,
+    "sha256": "36c450455bdc8e62bd82f476bc91a2e130a0f770469b6f1468984c7e09e38c4c"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/CHECKPOINT_PLAN.r02.json",
+    "bytes": 8790,
+    "sha256": "b753d09efcbcb0274eb26cd77ba55a73c6325462b953954419b3e0d2862e1190"
+  },
+  "compactDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/PROPOSED_DELTA.r02.md",
+    "bytes": 4476,
+    "sha256": "03a7ae697d472191c15cd74f625830638a66ec0642bc9d5b8f27433aef3c14cb"
+  },
+  "fullDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/EFFECT_PLAN_STATUS.r02.diff",
+    "bytes": 17335,
+    "sha256": "2325571eaeba8d443fcd7fbda48dcecf116f82b6d2e39c2669b66d5ad58608fa"
+  },
+  "proposedPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.proposed.r02.md",
+    "bytes": 26772,
+    "sha256": "07068863546b610af9b20c6b2d9e5da2884a462e37bb50ac56cc3dfda43a4ebd"
+  },
+  "mainPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/MAIN_STATUS_PREFIX.proposed.r02.md",
+    "bytes": 1425,
+    "sha256": "c0864b14c732b348781431b7823c4f89615b7df9deee0e81fb9dba9ac173a075"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/RETURN.json",
+    "bytes": 1714,
+    "sha256": "51d55a82fe99653d9be275248ec9fde568b26a6c7190f121d701ce31ce02ef5c"
+  },
+  "sixPathAndCurrentGuards": "Exact prior preparation; no live operation since checks.",
+  "gitAndLiveWritesHeld": true
+}

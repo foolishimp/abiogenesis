@@ -1,0 +1,82 @@
+{
+  "status": "ROOT_ACCEPTED_BOUNDED_TWO_CASE_SOURCE_INCREMENT",
+  "at": "2026-11-07T08:36:43.805486+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "disposition": "Root read full delta, focused proof, independent review and actual SDK/close/readback conjunction; accepts A7 only for the selected first two historical-profile cases.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL035",
+  "sourceDigest": "b2ca1a756b264c1ee13e3bca9ba324d8d499619a28f97874d8fafde6d82ad146",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/source-freeze.json",
+    "bytes": 295567,
+    "sha256": "a4ded31e5b6e2601969af0bbc050191da458d6520c1397dbd56850eace7e47c7"
+  },
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/READY.json",
+    "bytes": 572576,
+    "sha256": "8af463df739f510f4a9784712c7d6bf6d63ba4605eac707dd3526915e7410860"
+  },
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "currentSourceRows": 1339,
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-007/REVIEW.json",
+    "bytes": 16105,
+    "sha256": "2395b5c86b9bb73927dc4e6cfdfe778f47f81732e87b819953a35ea83db99700"
+  },
+  "focusedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/RESULT.json",
+    "bytes": 1858,
+    "sha256": "13c7cb1a5c87f7c28e7c6c929fe1441cab01dcfa11aabb005280bab5faaf2da5"
+  },
+  "proofCounts": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "wholeFile": false
+  },
+  "actualOutcomeCloseReadbackConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/OPERATOR_RETURN.json",
+    "bytes": 8535,
+    "sha256": "4fc8aad2b8d109578e47d90d6c147be8ca59c76e59d4c80868c3d245108fe558"
+  },
+  "unchangedProductArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "priorAcceptedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "remainingClaims": {
+    "selectedFollowUp": "Four later cases at three historical-profile construction sites remain unproved; reuse of A7 retainedProfile is prospective until exact next scope is returned.",
+    "sites": [
+      {
+        "line": 278,
+        "case": "shared public-operation classification"
+      },
+      {
+        "line": 328,
+        "case": "global run-invocation pairs"
+      },
+      {
+        "line": 1205,
+        "helper": "retainedOwnedPrefix; historical revision cuts and semantic stage authentication"
+      }
+    ],
+    "wholeConsolidationFileAccepted": false,
+    "fullSourceCloseAccepted": false,
+    "broadAccepted": false,
+    "cutOrInstallAccepted": false
+  },
+  "preservation": "Original Product/build/dependencies/archive and all earlier receipts/failures remain.98 valid whole-file credits stay at their original source identities; A7 filtered proof adds no whole-file credit.",
+  "nextBoundary": "Await bounded causal review for exact next native fixture-maintenance scope; use genuine A7 close78f735ab/prefix509d77c9 and sourceb2ca1a75. No broad restart, native dispatch or speculative source edits selected."
+}

@@ -1,0 +1,85 @@
+{
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 573,
+        "sha256": "6014ed340b98ee3e8a262fee8c523a43b21eac09250dede6bc75345ca95c061b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-16/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 573,
+      "sha256": "6014ed340b98ee3e8a262fee8c523a43b21eac09250dede6bc75345ca95c061b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016/task.DRAFT.md",
+        "bytes": 7666,
+        "sha256": "b3d438839d4ae36e786ce5d519e6e83f15e438d0ea66e3c472a44ddc60710136"
+      },
+      "target": "rc4-operator-inputs/native-recovery-16/task.DRAFT.md",
+      "bytes": 7666,
+      "sha256": "b3d438839d4ae36e786ce5d519e6e83f15e438d0ea66e3c472a44ddc60710136"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016/rubric.DRAFT.json",
+        "bytes": 1743,
+        "sha256": "0420568532402e5e71a45a32ed57190ed36ded6f171f9fa0553aea51c0c70fd2"
+      },
+      "target": "rc4-operator-inputs/native-recovery-16/rubric.DRAFT.json",
+      "bytes": 1743,
+      "sha256": "0420568532402e5e71a45a32ed57190ed36ded6f171f9fa0553aea51c0c70fd2"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016/NATIVE_GRANT.DRAFT.json",
+        "bytes": 14367,
+        "sha256": "f4e6c07872b857083e3ef9ca6861fdda5ef01f776c3ee838046cec64a0e135f7"
+      },
+      "target": "rc4-operator-inputs/native-recovery-16/NATIVE_GRANT.DRAFT.json",
+      "bytes": 14367,
+      "sha256": "f4e6c07872b857083e3ef9ca6861fdda5ef01f776c3ee838046cec64a0e135f7"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 618,
+        "sha256": "4e5833480d24365dc43aa26e6ce525a6e89794946da404799948b536c063403b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-16/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 618,
+      "sha256": "4e5833480d24365dc43aa26e6ce525a6e89794946da404799948b536c063403b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 2826,
+        "sha256": "d544a834658a09bdf184967aec38abe4ba882420486633c5c5729672c59b13b6"
+      },
+      "target": "rc4-operator-inputs/native-recovery-16/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 2826,
+      "sha256": "d544a834658a09bdf184967aec38abe4ba882420486633c5c5729672c59b13b6"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016/readiness.py",
+        "bytes": 2570,
+        "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+      },
+      "target": "rc4-operator-inputs/native-recovery-16/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016/readiness-inputs.json",
+        "bytes": 93918,
+        "sha256": "92763fd4d0b5ce09ed29a4dc3644bbfccfa94a20d3f066e80f1ac54ea8aef7e8"
+      },
+      "target": "rc4-operator-inputs/native-recovery-16/readiness-inputs.json",
+      "bytes": 93918,
+      "sha256": "92763fd4d0b5ce09ed29a4dc3644bbfccfa94a20d3f066e80f1ac54ea8aef7e8"
+    }
+  ],
+  "meaning": "Eight compact invariant operator inputs; no Product scaffolds or old history bodies. All source/write roots disjoint."
+}

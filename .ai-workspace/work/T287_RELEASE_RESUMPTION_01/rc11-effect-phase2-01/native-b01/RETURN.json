@@ -1,0 +1,97 @@
+{
+  "status": "NATIVE_B_SUCCEEDED_SOURCE_FROZEN_EXTERNAL_PROOF_HELD",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-freeze.json",
+    "bytes": 295988,
+    "sha256": "2ed1b3ab7758905dc0c33702893898130de2758d0b026af20898833d5bebe9eb"
+  },
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "sourceRows": 1345,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "optionalScopeModuleCreated": false,
+  "freezeReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/FREEZE_RECEIPT.json",
+    "bytes": 22139,
+    "sha256": "c059004f17523d0ee5be0bb4c5f9cc8311f7ad226042d4c8e967cc6e3fa55dfd"
+  },
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/SOURCE_CUSTODY.json",
+    "bytes": 8601,
+    "sha256": "98a8a3afd1476b65b83b567e48590d91ccbc1316f07805e5da485b8b18c5fbd5"
+  },
+  "workerReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/WORKER_REPORT.json",
+    "bytes": 9102,
+    "sha256": "f2eeb8bac132650b4cf75024f73ddf3160da843fcc42e92eea38636558777d83"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/NATIVE_CHECKS.json",
+    "bytes": 144542,
+    "sha256": "5877e954961de192dc11af80048129ebdc98c67aecfb7c2a2c9a38c93a628a1d"
+  },
+  "compiledRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 64238,
+    "sha256": "a4a6c67d09040429ce7862eebef439ce73d782f4ddd35e069f46a731e579ffd4"
+  },
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/COMPILED_SCRATCH_INVENTORY.json",
+    "bytes": 107097,
+    "sha256": "77903b39c566c34441e5aa2c7ea5c85f78b307986a815cfa58538d70cfdce31c"
+  },
+  "native": {
+    "disposition": "completed",
+    "transportStatus": 0,
+    "toolCalls": 74,
+    "apiRetries": 0,
+    "sdkIntervalMs": 1663194.6559590003,
+    "physicalClose": true,
+    "freshReads": [
+      {
+        "memberKey": "run_result",
+        "outcomeKind": "result",
+        "status": null,
+        "terminal": "sha256:7b9b25c4f4ffb5e3ffd688cc7e1c8ad81075e51c627b6ee3232977fe52e83b19"
+      },
+      {
+        "memberKey": "run_replay",
+        "outcomeKind": "result",
+        "status": "closed",
+        "terminal": "sha256:7b9b25c4f4ffb5e3ffd688cc7e1c8ad81075e51c627b6ee3232977fe52e83b19"
+      }
+    ]
+  },
+  "firstRed": {
+    "test": "controlled B helper: raw failures survive actual lifts and host projection",
+    "population": "30 cases/29pass/1fail",
+    "receipt": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01/checks/controlled-01.tap",
+      "bytes": 10073,
+      "sha256": "1ad4d489d5742a78ae0f409ea712d991d34dc53ff7a405e04f589d2be1f09500"
+    },
+    "adapterEdit": "toolu_01Adkt6yAuWZGP4jMSRyuSFM"
+  },
+  "finalChecks": {
+    "compilerExit": 0,
+    "compilerSeconds": 7.5,
+    "controlled": "30pass/0fail/0cancel/0skip",
+    "wholeFileSourceCount": 34,
+    "physicalCasesUnexecuted": 4
+  },
+  "conserved": {
+    "A": true,
+    "HTTPBodies": true,
+    "mainAndIndices": true,
+    "RC10": true,
+    "inputs": true
+  },
+  "remaining": "Root/source/proof conjunction and joint Phase2 normal build + exact external helper/configured-C2/lifetime/one nine-file unit with full M5 subset. No external proof executed, no Git/release/install/acceptance. Prior failures and both capsules retained.",
+  "qualified": false
+}

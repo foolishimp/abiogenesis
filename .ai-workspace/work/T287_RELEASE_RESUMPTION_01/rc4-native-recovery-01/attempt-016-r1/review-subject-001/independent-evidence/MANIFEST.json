@@ -1,0 +1,56 @@
+{
+  "kind": "rc4_hc2_independent_factory_chain_probe",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/SUBJECT.json",
+    "bytes": 45009,
+    "sha256": "1d232ff1a8a576ac558a58c3b6123329e1fdebb456a1041e1f3d1d2772fac06d"
+  },
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/C2_PROVISIONAL_CUSTODY.json",
+    "sha256": "5e31d8770bb0500eacac97e6e320f8cdb2ee0bbf252d676f85f08fd2c013ef80"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10970115,
+    "sha256": "6698e6379503595426bcb599c21109f77aa5029344889709ca82bfc890ab0607"
+  },
+  "candidateStatus": "provisional physical exact packed artifact; final C2 admission pending",
+  "command": [
+    "/opt/homebrew/bin/node",
+    "/private/tmp/rc4-016-independent-review-uki2gn2f/compiler/node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "--incremental",
+    "false",
+    "-p",
+    "tsconfig.json"
+  ],
+  "cwd": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer",
+  "exitStatus": 2,
+  "durationMs": 3610,
+  "skipLibCheck": false,
+  "effects": "scratch extraction and compiler only; no runtime/provider/owner invocation",
+  "compilerVersion": "5.9.2",
+  "compilerLibrarySha256": "e5f1f6b3e82228a89873cc7b941b2465185e839c0692860f83e3e63e53f94c2b",
+  "evidence": [
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer/factory-chain.ts",
+      "bytes": 4069,
+      "sha256": "c2b5bc9db7ac6288e8a4e0435589f5f00b6e5a6d4c43289fe379f12cbcc4a429"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer/tsconfig.json",
+      "bytes": 612,
+      "sha256": "653bcd5b6f4bdd2a5593535a98210abe12d49fa539b8fa7f6cff7d5b5bdade8c"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/consumer/package.json",
+      "bytes": 33,
+      "sha256": "89c47db7851f89caec72da4f215ebc21cf1e294aeef3b45d2583562d846ab035"
+    },
+    {
+      "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/factory-chain.log",
+      "bytes": 5441,
+      "sha256": "9130a327eb75fea3a4bc0fae632e2df261932df0a4d69ec812f44be8839d35ad"
+    }
+  ]
+}

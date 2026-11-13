@@ -1,0 +1,11 @@
+--- run.reentry-001.mjs
++++ run.reentry-002.mjs
+@@ -16,7 +16,7 @@
+ const coordinates=c.file==='test_env/tests/t287-installed-product-coordinate.test.mjs';
+ assert(coordinates?c.expectedCases===11&&c.commandTimeoutMs===600000:c.file==='test_env/tests/t287-single-address-space-consolidation.test.mjs'&&c.expectedCases===12&&c.commandTimeoutMs===3600000);
+ assert.equal(c.bounds.outputBytes,16777216);assert.equal(c.bounds.nodeHeapMiB,8192);assert.equal(c.bounds.reserveBytes,4294967296);assert.equal(c.bounds.maxOwnedBytes,4294967296);
+-const review=JSON.parse(await checked(c.review));assert.equal(review.verdict,'satisfied');assert.equal(review.findings.length,0);
++const review=JSON.parse(await checked(c.review));assert.equal(review.verdict,'satisfied_for_bounded_frozen_source_delta; focused_execution_pending');assert.equal(review.findings.length,0);
+ const reentry=JSON.parse(await checked(c.rootReentry));assert.equal(reentry.status,'ROOT_SELECTED_EXTERNAL_FROZEN_SOURCE_PROOF_REENTRY');assert.equal(reentry.sourceDigest,c.sourceDigest);
+ assert.deepEqual(c.failedNative,reentry.failedNative);const failedSdk=JSON.parse(await checked(c.failedNative.sdk));await checked(c.failedNative.close);
+ assert.equal(failedSdk.receipt.ownerOutput.value.disposition,'runtime_failed');assert.equal(failedSdk.receipt.ownerOutput.value.result,null);assert.equal(failedSdk.receipt.ownerOutput.value.terminalResult,null);

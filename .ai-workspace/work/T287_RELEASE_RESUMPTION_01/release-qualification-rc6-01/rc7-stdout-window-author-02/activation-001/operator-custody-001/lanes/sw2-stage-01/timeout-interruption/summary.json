@@ -1,0 +1,35 @@
+[
+  {
+    "id": "timeout-interruption",
+    "mode": "after",
+    "setupMs": 64,
+    "priorLaneAllocations": 2,
+    "laneAllocationCap": 6,
+    "stageSourceDigest": "c23199f8d96ca058708453bc4753ad6c99c437d3268231a68ab0b4080e4198d7",
+    "activeRc7": [
+      "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:RC7 HS03 timeout:.*|M5\\ ABG\\ transport\\ force\\-terminates\\ a\\ worker\\ that\\ ignores\\ SIGTERM|M5\\ ABG\\ transport\\ renews\\ its\\ inactivity\\ lease\\ only\\ from\\ observed\\ progress|M5\\ ABG\\ transport\\ does\\ not\\ renew\\ from\\ unacknowledged\\ output|M5\\ ABG\\ transport\\ excludes\\ semantic\\ output\\ emitted\\ after\\ its\\ timeout\\ boundary|M5\\ ABG\\ transport\\ excludes\\ descendant\\ output\\ emitted\\ after\\ direct\\-process\\ exit|M5\\ admitted\\ long\\ inactivity,\\ absolute\\ and\\ grace\\ values\\ do\\ not\\ become\\ one\\-millisecond\\ timeouts|M5\\ a\\ finite\\ native\\ wakeup\\ above\\ the\\ host\\ timer\\ domain\\ does\\ not\\ fire\\ before\\ its\\ owner\\ deadline)$ test_env/tests/m5-worker-transport.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "ms": 2510,
+    "tests": 10,
+    "pass": 9,
+    "fail": 1,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 8,
+    "failing": [
+      "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization"
+    ],
+    "stdoutSha256": "cea4612ad4d75b8dd7230268814770519de8351f8aa6b01eab4e9e87db510333",
+    "stdoutBytes": 4219,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

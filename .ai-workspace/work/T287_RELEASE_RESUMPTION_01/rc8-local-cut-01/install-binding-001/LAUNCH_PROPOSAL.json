@@ -1,0 +1,32 @@
+{
+  "status": "REVIEWED_HELD_INSTALL_COMMAND_FOR_ROOT_SELECTION",
+  "at": "2026-11-07T22:50:03.010326+00:00",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "bytes": 27890,
+    "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/INSTALL_BINDINGS.prepared.json",
+    "bytes": 5491,
+    "sha256": "f1f1f936920ad6084cf0e085e4cd790b072f057a352c8286576aa8de3f8c0837"
+  },
+  "commandArgv": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "install",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/INSTALL_BINDINGS.prepared.json",
+    "f1f1f936920ad6084cf0e085e4cd790b072f057a352c8286576aa8de3f8c0837"
+  ],
+  "command": "/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs install /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/INSTALL_BINDINGS.prepared.json f1f1f936920ad6084cf0e085e4cd790b072f057a352c8286576aa8de3f8c0837",
+  "executeNow": false,
+  "activation": null,
+  "executionEnabled": false,
+  "requiredSeparateAdmission": "Root must select this exact install subject and record an actual install activation. Then materialize an admitted binding changing only status to ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY, activation to that exact pin, and executionEnabled under its grant; update command path/digest. No such admission is supplied here.",
+  "boundsInheritedFromBuild": {
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "expectedFinalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+  "scope": "Existing owner install and narrower actual-installed export/verification/empty-resource read/close smoke only; local unqualified, unpublished, selector unchanged."
+}

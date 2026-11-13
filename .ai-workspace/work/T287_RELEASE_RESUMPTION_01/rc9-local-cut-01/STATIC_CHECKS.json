@@ -1,0 +1,55 @@
+{
+  "status": "PASSED_PREPARATION_CHECKS_ONLY",
+  "at": "2026-11-08T06:39:37.207909+00:00",
+  "javascriptSyntax": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+      "command": [
+        "node",
+        "--check",
+        "run-local-cut.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-local-rc9.mjs",
+      "command": [
+        "node",
+        "--check",
+        "install-local-rc9.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/installed-owner-smoke.mjs",
+      "command": [
+        "node",
+        "--check",
+        "installed-owner-smoke.mjs"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "pythonSyntax": "compile(source, filename, exec), no execution or pycache",
+  "manifestFilePins": {
+    "count": 8,
+    "mismatches": []
+  },
+  "existingOwnerToolPins": {
+    "count": 18,
+    "mismatches": [],
+    "standing": "Exact existing command/dependency/tool pins rehashed; no full payload scan. C8 smoke helper matches historical exact helper bytes."
+  },
+  "mechanicalAdaptationEquality": true,
+  "budgetsEqualToActualRc8BuildBinding": true,
+  "buildAndInstallHeld": true,
+  "futureSourceArtifactAcceptancePinsNull": true,
+  "observedAbsences": {
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001": true,
+    "/private/tmp/abg-r9c-cut": true,
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9": true,
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9": true
+  },
+  "productTestsOrExecution": false,
+  "sourceOrGitEffects": false
+}

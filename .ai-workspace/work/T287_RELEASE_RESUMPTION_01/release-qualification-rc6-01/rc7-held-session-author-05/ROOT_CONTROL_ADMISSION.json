@@ -1,0 +1,127 @@
+{
+  "kind": "root_h05_native_control_admission",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "createdUtc": "2026-11-06T18:51:59.182404+00:00",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 8523,
+    "sha256": "e4e99717b58f6406cd149a2c9c7b40cfd028fceccdfe204518ef8f1aa9b8d8c6"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8788,
+    "sha256": "e43d763b6fd7f453f065a8d1c44f47108a8371410f3649b93344ac07c3fa120c"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_BEFORE.json",
+    "bytes": 233295,
+    "sha256": "55389f6db03cb7c06090ada66e4827d4d39de186c6ebe88acb9f04b523629dbc"
+  },
+  "maintainedCheckerSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "bytes": 39766,
+    "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+  },
+  "operatorRunner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+    "bytes": 39766,
+    "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+  },
+  "operatorPublicSetup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/public-setup.mjs",
+    "bytes": 29259,
+    "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/PREPARATION_MANIFEST.json",
+    "bytes": 16910,
+    "sha256": "e16fb15d530aeb18dc0254445a2921e547cc7a929bdd96bf67456fe7214541a2"
+  },
+  "controlReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/reviews/code-controls-001/REVIEW.json",
+    "bytes": 6795,
+    "sha256": "64c05748caf5362cabf3352506825c5a28d97bbcede15329ebf8768e52b377b2"
+  },
+  "nativeGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/NATIVE_GRANT.json",
+    "bytes": 54116,
+    "sha256": "c8ce765d14290b03bfe5427f0eb4cafb456d357397cf9a44749acec6356616c6"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/SOURCE_AFTER.json",
+    "bytes": 563090,
+    "sha256": "b92dc5ad604ad49fa1751baa4b0b4e6c34675741ec60189cc2b9bb0002e5ed25"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "f4a15a0719eee9987124ec5d3f1543c0fee120616588368224afde1a0e33b0bb"
+  },
+  "preAdmissionRuntime": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/RUNTIME_BINDINGS.pre-admission.json",
+    "bytes": 6894,
+    "sha256": "9e836dcdbe1ece35d229fa4fb4b4cc2880eb497d1c411c2bb69afc7367fda8f0"
+  },
+  "preAdmissionWorkload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/workload.pre-admission.json",
+    "bytes": 180403,
+    "sha256": "bc5dba4831462733f0f4e3437d7df4c817df68d02909711c5037fcab30386a88"
+  },
+  "selectedLaneControl": {
+    "canonicalNativeRelativePath": "qualification-inputs/rc7-held-session-author-05/prior-author-lanes.mjs",
+    "preparedSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/inputs/prior-author-lanes.mjs",
+      "bytes": 10602,
+      "sha256": "5b709aca5c8656fc74a8debefc3d92854636459b66bf6703f440a4e2b2bca346"
+    },
+    "predecessorCompleteSuccessLaw": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/CORRECTION.json",
+      "bytes": 2757,
+      "sha256": "9ba8e3b6df5b1b4e7c09e66c381eb83cbcc72fd5b65abb63f8de263a0c25e297"
+    },
+    "scope": "Complete predecessor passed predicate unchanged; only task/temp namespace adapted."
+  },
+  "preflight": {
+    "sourceRows": 451,
+    "protectedRows": 450,
+    "head": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "emptyIndex": true,
+    "preservedTrackedModifications": 69,
+    "preservedNewProductPaths": 2,
+    "preparedControlCount": 17,
+    "finalControlCount": 18,
+    "contextEntries": 472,
+    "freshOutputsAndOwnedTemporaryRoots": true,
+    "providerWrapperMode": "0755",
+    "providerBinaryHashMatches": true
+  },
+  "limits": {
+    "oneNativeWorker": true,
+    "reasoning": "xhigh",
+    "sourceWritePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "resourceBounds": {
+      "providerTurns": 320,
+      "providerAbsoluteTimeoutMs": 5400000,
+      "providerInactivityTimeoutMs": 1800000,
+      "outerHostTimeoutMs": 10800000,
+      "heapMiB": 8192,
+      "automaticRetries": 0,
+      "parallelNativeWorkers": 1
+    },
+    "stages": 1,
+    "lanes": 5,
+    "heldSessionAuthoredTimeoutMs": 280000,
+    "heldSessionLaneTimeoutMs": 600000,
+    "automaticRetries": 0,
+    "noPushMergeTagSelector": true
+  },
+  "taskClarification": "Product/control helper files remain read-only; the existing test-local refused helper is explicitly selected for correction by ROOT_ARCHITECTURE_SELECTION.",
+  "evidenceBoundary": "H04 caller repair is retained; UAT/held-fresh/full integration remain open. Exact four refusal oracles and immediate complete-prefix/actor invariance are required. Build reuse is explicit; final acceptance remains Root-owned.",
+  "operatorPreflightNote": "An earlier read-only preflight used the old preservation field name and stopped before staging; the actual inheritedTrackedChangedPaths field was then checked. No native launch or runtime effects occurred in that preflight.",
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

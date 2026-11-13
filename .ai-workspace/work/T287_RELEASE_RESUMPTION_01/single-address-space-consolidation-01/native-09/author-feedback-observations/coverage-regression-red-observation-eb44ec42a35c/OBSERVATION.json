@@ -1,0 +1,12 @@
+{
+  "recordedUtc": "2026-11-04T12:57:59.099915+00:00",
+  "sourcePath": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09/runs/coverage-regression-lanes.tap",
+  "snapshotPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/author-feedback-observations/coverage-regression-red-observation-eb44ec42a35c/coverage-regression-lanes.tap",
+  "bytes": 48416,
+  "sha256": "eb44ec42a35cd9fb4a023327f37af11cdaa95004ea9867fb5d11f9304244cbb1",
+  "completeFooter": false,
+  "topLevelResultCount": 122,
+  "topLevelFailedCount": 1,
+  "footer": [],
+  "standing": "Physical author-feedback observation only. No cause, final source correspondence, actual C2, review or acceptance inferred."
+}

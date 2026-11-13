@@ -1,0 +1,68 @@
+{
+  "file": "test_env/tests/t287-deferred-application-restoration.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 772.3080000001937,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "deferred restoration preserves the exact native completion prefix including observations after judgment",
+      "file": "test_env/tests/t287-deferred-application-restoration.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_S02_RECURSION_FIXTURE unset; requires the frozen S02 continuation-03 evidence carrier",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "deferred restoration refuses another producer and the later failed native scope",
+      "file": "test_env/tests/t287-deferred-application-restoration.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_S02_RECURSION_FIXTURE unset; requires the frozen S02 continuation-03 evidence carrier",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/081-t287-deferred-application-restoration.jsonl",
+    "bytes": 1301,
+    "sha256": "a4be1e63f8538515f032e6f359d2d0ec8cd983f037086d5c3af41e06a2db0f5d"
+  },
+  "commandReceipt": "commands/081-t287-deferred-application-restoration.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

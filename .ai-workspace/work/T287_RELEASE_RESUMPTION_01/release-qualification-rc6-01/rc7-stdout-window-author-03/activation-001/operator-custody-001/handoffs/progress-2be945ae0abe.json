@@ -1,0 +1,57 @@
+{
+  "kind": "native_author_progress",
+  "activation": "rc7-stdout-window-author-03",
+  "startedAt": "2026-11-06T23:13:08Z",
+  "method": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verifiedBy": "stdo verify v3.0.4 -> valid:true, manifest_sha256 matches",
+    "entrypoint": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "directReferences": [
+      "references/COORDINATED_HANDOFF.md#control-intake",
+      "references/COORDINATED_HANDOFF.md#receive"
+    ],
+    "readAt": "2026-11-06T23:14Z"
+  },
+  "phase": "final-lanes",
+  "stages": [
+    {
+      "label": "sw3-stage-01",
+      "mode": "after",
+      "freezePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01-source-freeze.json",
+      "freezeSha256": "sha256:86c14252b414e6b3a600c16a2c112178f97bcae2e0ac2938c1714e046e1f1b37",
+      "sourceCount": 451,
+      "sourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+      "compile": 0,
+      "generate": 0,
+      "lifecycle": 0,
+      "completedAt": "2026-11-06T23:41:21Z"
+    }
+  ],
+  "lanes": [],
+  "readFirstCompleted": {
+    "at": "2026-11-06T23:18:51.232Z",
+    "paths": [
+      "qualification-inputs/rc7-stdout-window-author-03/{METHOD_ACCESS,ROOT_CONTROL_ADMISSION,ROOT_DEPENDENCY_READY_SELECTION,ROOT_SELECTION,HS03_SELECTION,NATIVE_GRANT,SOURCE_CUSTODY,COMMAND_BOUNDS,EXTERNAL_READ_INPUTS,C2_INPUTS}.json",
+      "TASK.md",
+      "HELD_SESSION_DESIGN.md (R-E/E1-E4, §2.5, §6 S5, Q3/Q5)",
+      "prior-author-stage.mjs",
+      "prior-author-lanes.mjs",
+      "OWNER_ROUTE_ADDENDUM.json sha256 f5df2cbf...",
+      "design ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md §10.10 (current HOW)",
+      "code/src/abg/event_contract_profiles.ts",
+      "code/src/abg/event_store.ts (contract tables 1060-1200, cold decode 3727-3830)",
+      "code/src/abg/runtime_liveness.ts (stageNativeStdoutWindow, admitRuntimeThreshold)",
+      "code/src/abg/worksite_construction_recovery.ts (range relation 255-340)",
+      "RC6 packaged event_store.js/event_contract_profiles.js pins verified sha256"
+    ],
+    "sourceBeforeVerified": "all 451 worksite files equal SOURCE_BEFORE sha256 09fdc508...",
+    "profileReconstructionCheck": {
+      "method": "in-memory import of pinned RC6 packaged JS; S2 = RC6 table + binding configuredIdentity appended + D5 lifecycle-copy keys removed",
+      "rc6": "sha256:5b35ab53... (module export)",
+      "s2Reconstructed": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0",
+      "tempScript": "/private/tmp/abg-sw3/verify-profiles.mjs (declared test temp root)"
+    }
+  },
+  "updatedAt": "2026-11-06T23:41:27.251Z"
+}

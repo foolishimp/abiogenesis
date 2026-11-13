@@ -1,0 +1,45 @@
+{
+  "kind": "abg_event_resource_receipt",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "reopen",
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/runtime/events.jsonl",
+    "prefixLength": 3178662,
+    "prefixDigest": "sha256:d021151540034f2d85f89f95336834692d4c32a6b6fe3bfc01db8793a379a4e6",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 719230306,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:40bfa9a65650562fb49af74687a36e5521112609ef7589be5de939caddcf975f"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/runtime/events.jsonl",
+      "prefixLength": 19263623,
+      "prefixDigest": "sha256:0ccf7821342a1e5b39ed6ac6e382b97eb2f11654051fbe562183d86522b64975",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 719230306,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:e911794ff77462c431a4085b71f323eeec57bc82b9b8f756a9fba8ad8a933d3a"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/private/tmp/abg-rc10-retention-measurement-002/tmp/abi5-root-env-i08wwp/runtime/events.jsonl",
+      "device": 16777231,
+      "inode": 719230306,
+      "eventLogDigest": "sha256:0ccf7821342a1e5b39ed6ac6e382b97eb2f11654051fbe562183d86522b64975",
+      "durableByteLength": 19263623,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+      "authorityDigest": "sha256:0d68fa647a33f472111b6183cc8e1e7d8771602c62a92a43499b03d1cefe412a"
+    }
+  },
+  "receiptDigest": "sha256:5f7f169ea5a3dc286df28491ea451be7a28a8c596dfcb817b0ac5754c9892e70"
+}

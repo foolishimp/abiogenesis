@@ -1,0 +1,83 @@
+{
+  "id": "PHASE2-A-R2-PREP-01",
+  "status": "ROOT_SELECTED_NARROW_R2_PREPARATION_SETUP_PROVIDER_HELD",
+  "actor": "Separately activated Writer/Operator; Root remains Executive",
+  "changeClass": "realization_refactor",
+  "ownerInstruction": "User continue; Root conjoins closed Design, independent source and executed paired discriminator and selects narrow R2 realization repair. No Product or authority-policy change.",
+  "predecessorScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/ROOT_SCOPE.json",
+    "bytes": 6711,
+    "sha256": "fe58bceb2a12ade9a022136dda5bf1516525dea803fb2203a42ef7fc0c06de07"
+  },
+  "basis": {
+    "basis": "stdo://releases/v3.0.4/",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#executive-writer-and-reviewer-binding",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/SOURCE_SUBJECT.json",
+    "bytes": 2321,
+    "sha256": "affaa843b984aad171705f4a68e8310fe05b8990c59a9bc538f7c7cd3a4e2379"
+  },
+  "conjunction": {
+    "design": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/design-review/ASSESSMENT.md",
+      "bytes": 6382,
+      "sha256": "51f6a3c41c30652c8f2e4be86b4c5eba94cd0b21f3ee3b3855670d635584df8f"
+    },
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-review/ASSESSMENT.md",
+      "bytes": 6574,
+      "sha256": "f67d5a5f9eecf69f56dd341814681b09b9d0ef6ec38bed4ef3aef0016ef024bc"
+    },
+    "executedProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-review/R2_EVIDENCE.md",
+      "bytes": 2558,
+      "sha256": "60554752c7e31f89bf03d1dc5399fa7146265ad007c6e81dc1bcb4ddd371f871"
+    },
+    "bothRunReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/RETURN.json",
+      "bytes": 1226,
+      "sha256": "3bc4e31bb66280bda49c7987b62eeacf96967bef423a403d4a355e19c1a4e188"
+    },
+    "baselineObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/actual-baseline-001/OBSERVATION.json",
+      "bytes": 11588,
+      "sha256": "88948a98a96c1eb9302d9d5bb8935c890c09ad250a621c943ab929617b53659b"
+    },
+    "candidateObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/actual-candidate-001/OBSERVATION.json",
+      "bytes": 13913,
+      "sha256": "15328378485bc735ae97f1f3ac3c28e0bf38e60b2d219b4df415175c69652b22"
+    }
+  },
+  "causalDisposition": "R1 entry accounting/current-origin result rejection is source-satisfied. Distinct A regression R2 discards still-valid immediate intent together with an obsolete probe result. Actual pre-A requests TERM,KILL before outer return with200ms bound; native03 requests onlyTERM with300ms bound. Both actual probe counts match census; this is not R1 undercount. Historical native03 compatibility statement is false for pre-A.",
+  "targetTruth": "Preserve stronger immediate cleanup intent across nested graceful exit/close reentry, decide against current physical state, discard stale absence, retain actual entry counts and never resurrect completed cleanup. No independent supervisor/counter or unconditional replay of stale continuations. Preserve coalesced KILL/deadline duty and prior R1/clock/snapshot/Error/disposal laws. Algorithm/local carrier choice belongs to the author.",
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "qualification-scratch/rc11-effect-phase2-01/native-04"
+  ],
+  "requiredActualOwnerCases": [
+    "Exact first-probe exit-only/all-present immediate fixture: KILL before outer call returns; cleanup deadline<=200ms at grace100; independent actual probe census, no invented fixed count",
+    "Outer immediate with nested absent+exit+close completion: sealed facts and no post-completion signals/probes/disposal; retain all18 previous controlled cases"
+  ],
+  "constraints": "Only lifetime/state/lifetime-test/plan plus fresh scratch. No B/HTTP/worker/shared runner/dependencies/peer F1/Git. Correct new report/plan compatibility wording, preserve old reports/red runs. Account across both modules honestly; no net-deletion claim.",
+  "nativeEnvelope": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "selfchecks": "Fresh scratch compiler<=240s/Bash300000; exact ^controlled (timing|lifetime): <=60s/Bash90000. No full lifetime/broad/pack/provider nesting.",
+  "effectsNow": "Fresh native04 controls/immutable read inputs/scratch directories and current main GOALS/T287 prefixes only. No source/setup/provider effects until exact later Root admission.",
+  "returnRelation": "READY only. After future closed freeze: preserved R1 probe, R2 immediate fixture, whole lifetime and baseline signal-notice form selected reproof cone. A and joint Phase2 acceptance open; B held."
+}

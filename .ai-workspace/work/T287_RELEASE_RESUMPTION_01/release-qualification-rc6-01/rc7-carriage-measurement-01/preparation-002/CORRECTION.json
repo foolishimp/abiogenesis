@@ -1,0 +1,64 @@
+{
+  "kind": "rc7_s4_operator_proof_prefix_correction",
+  "status": "PREPARATION_ONLY_NOT_ACTIVATED",
+  "createdUtc": "2026-11-06T16:14:51.166673+00:00",
+  "productFrame": {
+    "scope": "ABIogenesis fixed fifteen / GOAL-035 / T-287, installed S4 carriage measurement only",
+    "basis": "STDO 3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "owner": "Existing Product/ABG/Public terminal and projection owners; operator proof correction only"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/PREPARATION_MANIFEST.json",
+    "bytes": 2705,
+    "sha256": "0adc029128fe44f13d2c7f3e0b4fd22f2a47d8b4258031a827504da2e25efc2d"
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/reviews/preparation-001/REVIEW.json",
+    "bytes": 9115,
+    "sha256": "946383058b89369bc24036a1051f21f43c91723fd031a79dd0c0150a861add6c"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/reviews/preparation-001/README.md",
+    "bytes": 3724,
+    "sha256": "dd4ac4034a574f1113b2e09f901c6b9028c705acb21bb379e175a7435290e1f8"
+  },
+  "projectionOwner": {
+    "file": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 92881,
+      "sha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697"
+    },
+    "line": 539,
+    "relation": "projectionBasis = {ref: prepared.packet.prefix.eventLogRef, digest: prepared.packet.prefix.coordinateDigest}"
+  },
+  "rootSelection": "Root selected preparation-002 only after the immutable preparation-001 max review; no Product/source/runtime effects.",
+  "finding": "Preparation-001 compared the first Run terminal returned at P1 with a read terminal projected after both Runs at P2, including their necessarily different projectionBasis. The same comparison was repeated for cold reads. This is an operator proof false refusal, not a Product defect or observed runtime failure.",
+  "correction": [
+    "Conserve every original typed-terminal field except projectionBasis: kind, schemaVersion, Result coordinate, contract, valueKind, valueDigest, full value and complete producer.",
+    "Bind finalReadPrefix from the actual held selection after both native Runs. Both held and cold read projectionBasis values must equal its eventLogRef/coordinateDigest.",
+    "Require complete warm-versus-cold typed terminal equality and complete owner-output equality at this same final P2 for each Run.",
+    "Keep original projection bases as observations; do not restamp original returned terminals."
+  ],
+  "reviewerCoordination": "Independent reviewer rc7_partial_prefix_review supplied the exact owner relation and reported no further concrete blocker in its closed preparation-001 review. This writer does not independently accept its own correction.",
+  "unchanged": [
+    "Two read-only 1 MiB/4 MiB scripted native tasks over one held resource.",
+    "Actual basis/binding/Result/source custody, complete serialization measurements and S4 carriage assertions.",
+    "Isolated pre-cut test archive/install relation; no local release-cut or publication prerequisite.",
+    "Future source/archive/acceptance/activation/bounds remain unbound; S6 remains a Root decision.",
+    "Existing canonical supervisors, installed owners, limits, no retries and no effects beyond this preparation."
+  ],
+  "inheritedPreCutClarification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/PRE_CUT_ARTIFACT_BINDING.json",
+    "bytes": 1521,
+    "sha256": "8cbfd9eff4cbd2cbbbc910dadf423ae98e184ac405bec3f7c3a74244f5429757"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/CORRECTION.diff",
+    "bytes": 9158,
+    "sha256": "82ad8aae389da5a97162d7c2cb1c141369242087dfbe43d46657d9594aa46556"
+  },
+  "originalArtifactsPreserved": true,
+  "runtimeCalls": 0,
+  "productEdits": 0
+}

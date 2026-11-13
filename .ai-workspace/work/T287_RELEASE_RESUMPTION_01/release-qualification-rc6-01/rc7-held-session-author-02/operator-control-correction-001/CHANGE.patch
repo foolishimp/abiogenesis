@@ -1,0 +1,9 @@
+--- admitted/prior-author-lanes.mjs
++++ operator-control-correction-001/prior-author-lanes.mjs
+@@ -79,5 +79,5 @@
+   const args = ['--experimental-vm-modules', '--test', '--test-concurrency=1', '--test-reporter=tap', ...(lane.testNamePattern === undefined ? [] : ['--test-name-pattern', lane.testNamePattern]), ...(lane.testSkipPattern === undefined ? [] : ['--test-skip-pattern', lane.testSkipPattern]), ...lane.files];
+   const laneEnvironment={...environment};
+-  if(lane.timeoutMs!==300000||lane.testNamePattern?.includes('(?!')||lane.testSkipPattern?.includes('(?!'))throw Error('Selected finite per-lane bound and positive filter required');
++  if(!Number.isSafeInteger(lane.timeoutMs)||lane.timeoutMs!==bounds.laneTimeouts[lane.id]||lane.testNamePattern?.includes('(?!')||lane.testSkipPattern?.includes('(?!'))throw Error('Selected finite per-lane bound and positive filter required');
+   const started = Date.now();
+   const child = spawnSync(process.execPath, args, { cwd: tenant, env: laneEnvironment, encoding: 'utf8', timeout: lane.timeoutMs, maxBuffer: 64 * 1024 * 1024 });

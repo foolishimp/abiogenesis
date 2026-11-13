@@ -1,0 +1,41 @@
+{
+  "kind": "materialized_operator_control_static_checks",
+  "status": "PASS_STATIC_ONLY",
+  "checks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/prepare-and-dispatch.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/launch-owner-script.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/inputs/prior-author-stage.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/inputs/prior-author-lanes.mjs",
+      "command": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/claude-provider.sh",
+      "command": "sh -n",
+      "exitCode": 0,
+      "mode": "0o755"
+    }
+  ],
+  "relations": [
+    "450 exact frozen source bodies hashed;59tracked/2existing-new preservation reacquired",
+    "30 write paths and472 unique planned context entries",
+    "eight lanes/four stages and unchanged300s; combined before + mandatory final actual admission",
+    "all prepared workload control/source digests bound except Root final admission",
+    "genuine actual close/original resume pins; original frozen F operator closure",
+    "same-process live call retained only in memory; executable wrapper"
+  ],
+  "limits": "No C staging or Product source edit, build/tests, SDK/runtime/provider/credential/network or Git/release mutation. Source hashes/control relations are mechanical preparation, not independent source acceptance."
+}

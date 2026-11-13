@@ -1,0 +1,31 @@
+{
+  "status": "PASSED",
+  "lane": "witness-profile",
+  "file": "witness-reprice-definition-binding.test.mjs",
+  "sourceDigest": "60f8e595cfcf1b11f01dd0d46c9030d5042fc3edb076d20993c583e0b6b98e32",
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/proof-evidence/lane-01/events.jsonl",
+    "bytes": 832,
+    "sha256": "5729254b5a5573aab15eb849f201aeb85a979009b4468563091570d27c551e58"
+  },
+  "wholeFile": false,
+  "namePattern": "^Public profile reprice retains the exact L-to-P boundary and standalone cold content checks$",
+  "optionalInputsSelected": false,
+  "wallMs": 1448.880042,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "primaryPreserved": true,
+  "buildInvocations": 0
+}

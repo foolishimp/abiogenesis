@@ -1,0 +1,7 @@
+{
+  "sourceRoot": "/private/tmp/abg-rc10-retention-20261109",
+  "branch": "codex/rc10-retention",
+  "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "rows": 1334,
+  "meaning": "Existing sparse worktree retained; no Git mutation or re-materialization."
+}

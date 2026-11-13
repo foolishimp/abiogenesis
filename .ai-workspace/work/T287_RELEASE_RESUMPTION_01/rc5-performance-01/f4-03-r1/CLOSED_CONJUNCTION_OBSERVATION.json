@@ -1,0 +1,105 @@
+{
+  "status": "EXACT_CLOSED_CONJUNCTION_OBSERVED_ROOT_ACCEPTANCE_PENDING",
+  "recordedUtc": "2026-11-03T12:52:12.749Z",
+  "role": "Root operator Writer passive exact-record conjunction; no new runtime/provider operation or Product mutation",
+  "run": {
+    "digest": "sha256:5ac362e9af09f31cdb88e01d5618a44bee487f63afb2413340c040d94b5dfeca",
+    "ref": "run://abiogenesis/b1bbae3d868c514ee6173c6a969a7277bee2214431a3c0fec885064f96eb2c26"
+  },
+  "terminalResult": {
+    "digest": "sha256:1cb1898a8cd62439d8740259676f2ba2b732672adfa8e91156fab96086e6e972",
+    "ref": "result://abiogenesis/1cb1898a8cd62439d8740259676f2ba2b732672adfa8e91156fab96086e6e972"
+  },
+  "terminalValueDigest": "sha256:d2873e172a18aec6aac8899522478e0e98613b2b2d2a16d6db6b5c8b89a318dc",
+  "producer": {
+    "cCallRef": "c-call:sha256:80b85deaac7fdd621b9d52551792e5db234ce3df317814a5da0c800bc3e6cebf",
+    "executionBasis": {
+      "digest": "sha256:8063585d423094d63910fdb808758915f7fd47632a2a6c1be808a9715ae40a6b",
+      "ref": "execution-basis://abiogenesis/8063585d423094d63910fdb808758915f7fd47632a2a6c1be808a9715ae40a6b"
+    },
+    "graphCallRef": "graph-call://abiogenesis/9113a058ae085f530fc4633bae764bfb51acad93404ce8cdfe767b6738b02633",
+    "graphFunction": {
+      "digest": "sha256:8a26fbde16e0321ce958259254f19f567365f459080e035a63051997f8b1fdd0",
+      "ref": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    },
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/e4a0c8dd1c8ce9f17c973676983b818f713a53f2185a926bd13584d6253d99ec",
+    "judgmentAdmissionEventRef": "event://abiogenesis/aef7715371b29175da1446d4308be1486b5e5f29fec927f9638d74c5e3c8dbcc",
+    "judgmentRef": "judgment://abiogenesis/c5707907a24df67c20312aafd298e573d4f38716d111979e8d50faaf5e8e926f",
+    "program": {
+      "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+      "ref": "program://abi5-tests/sandbox-uat/lifecycle@5"
+    },
+    "resultAdmissionEventRef": "event://abiogenesis/05c9bf6d19399274f7e12003ef993f90440a11e8a146c80856a7e4cc7fb5a91c",
+    "runRef": "run://abiogenesis/b1bbae3d868c514ee6173c6a969a7277bee2214431a3c0fec885064f96eb2c26",
+    "terminalRoute": {
+      "digest": "sha256:3fd31f34981697aeac5f41c98c615589824b7ec869a8d812af536b9dd03244ce",
+      "ref": "traversal-route://abiogenesis/3fd31f34981697aeac5f41c98c615589824b7ec869a8d812af536b9dd03244ce"
+    }
+  },
+  "nativeSourceResultRef": "result://abiogenesis/c39dfcf7ed519a1e0aab19121b3862fd57783d67ded22cd05c31012a7512a2de",
+  "c2ResultRef": "result://abiogenesis/a2a62ff6976dd579012ee6e1e036516eb3bf8c27018114d205f699e9222bd567",
+  "artifactDigest": "sha256:4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+  "independentSourceReview": "satisfied/no findings",
+  "uatObservation": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/1e416a41bdd193d9d9c316aed8a6bbddee00ba52c14e5c4e00d0cf4c6583d80d",
+    "cCallRef": "c-call:sha256:19b3557b89bd36aeeb8cda67e8af691fe6aed22b5c47d9f5f64492b8d59cac23",
+    "purpose": "uat",
+    "resultDigest": "sha256:bb18ba88c9564e64dd7b0d41e9a8f43648f6dcfe85a461ddfe7d534477fd7d0f",
+    "resultRef": "result://abiogenesis/bb18ba88c9564e64dd7b0d41e9a8f43648f6dcfe85a461ddfe7d534477fd7d0f",
+    "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+    "synthesisResultRef": "result://abiogenesis/d44b7aa5ac7f5baffa9572688548c182a80664344e8d7db92d70867a9afe2d45",
+    "value": {
+      "disposition": "satisfied",
+      "kind": "sandbox_uat_assessment",
+      "reason": "Product Frame: GOAL-035/T-287 keeps the fixed fifteen ABI5 families. F10 is event truth/replay. The selected slice is RC5 F4: private retained-route Result-reference codec carriage plus its installed witness. The subject under test is a test-only proof fixture (deterministic construction plus evidence), not runtime authority. Prohibited: Product, runtime, codec or identity edits, a copy of T, a fake lifecycle, a rival inventory, and redeclared framework contracts. SUBJECT: HEAD 1ad6b9f85 plus a worktree diff limited to the 3 granted files (git diff sha256 359dcef6…, 78 lines added, 12 removed). The worksite bytes equal the a2a62ff6 C2 correspondence: m5 test 74346a23…, installed-language-test 9099c80e…, root-installed-environment 48b5c453…. All 9 HELD_SOURCE_INVARIANTS files are byte-equal, including the codec/store and T289 b214b9f7…. default_library.ts and generate-product-manifest.mjs are also byte-equal. No runtime Product code changed. OWNER CHAIN (read in source): installed-language-test.mjs only forwards two options, additionalCorePublicationConstructors and crossPublicationProgram. root-installed-environment.mjs builds the canonical ABI CommandExecution publication through the installed gtl.constructWorksiteCommandExecutionModulePublication on the packed candidate basis. It admits the Catalog through product.admitGraphFunctionCatalog, which checks the preimages of the ABG-admitted install and binding. Only then does it validate the root Program, through product.resolveProgramDeclarationClosure -> constructCatalogProgramValidationInput -> validator.validateProgram. Those are the same owners execution_resolution.ts uses at lines 729-755. Typed refusals become assertion messages, so nothing dereferences an absent validation record. There is no copy of T, no semanticLifecycle and no hand-built inventory. Default M5 behaviour is equivalent: validations are now paired by index instead of by programRef, and the M5 case passed in C2. The rc5Consumer descriptor is exported through the existing sourceTransform as an exact-once anchor edit. The 'RC5 retained route' test asserts against the actual Public start-call resolution: (1) the fixture declares no T; (2) exactly one ABI CommandExecution publication declares T; (3) both declaration closures name T's exact owner (productId, installId, moduleRef, publicationDigest); (4) one consumer row with input T and output S, matching one packaged descriptor at build/leaf.mjs; (5) the parent Result row is physically codecVersion 1; (6) the route row is codecVersion 3, names that Result's eventId, payloadDigest, slot and bodyDigest, and carries no inline source; (7) logical E/S and the consumer value S are unchanged; (8) the run closes with run_closed; (9) fresh run_result and run_replay reads succeed in separate processes and append zero bytes. C2 a2a62ff6: all 7 commands exited 0. The immutable c2-final-proof.mjs (ea27cbf6…) requires an 'ok - RC5 retained route' line in both the codec run and the installed run. It also requires zero installed skips, an unchanged archive digest after the tests, and identity diffs that change only the version. Results: installed 2/0/0; codec 24/0/0; route 10 passed with 3 skips that PROOF_EXCLUSIONS declares; planning 1/0/0. F1 is satisfied: the codec bytes are held and conjoined with the held independent finding of no material codec defect. F2 is satisfied: the executed cases cover missing, forward, tampered, mixed and uncommitted sources, equal-valued decoys, inline/v1/v3 mixing, rollback/fsync/poison, full/selected/descriptor reconstruction and the v1 tests. F3 is satisfied: the captured sample went from 3139020 to 1678257 bytes with logicalUnchanged true; the installed v3 path ran with fresh reads; no latency is claimed. M1 is satisfied. I recomputed in memory the hashes of METHOD_RETAINED_PROOF's 6 unchanged source files and 99 qualification files, plus the helper hash; all equal the 18-pass C2 177a06b0, whose method review was satisfied. The previously omitted planning test has now run, which closes the prior M3 gap. The historical indeterminate UAT is preserved, not reversed. R1 is satisfied: 5.0.0-rc.5 appears only in the package, lock and contracts owners; archive sha256:4c098c82… verifies; qualification is false; exclusions and limits are explicit. NON-BLOCKING: the held release-claim.md 'Source root' row still describes checkpoint 53acfe7c6 with the F4 source uncommitted. The claim is still honestly local, unqualified and untagged, but Root should refresh that row at the local cut. OUTSIDE THIS UAT (Root conjuncts, not certified here): the independent max review of the 3-file repair (no record of it exists in scope); terminal result/replay agreement for the governing Run; Root adoption of generated bytes and the local cut. This assessment grants no admission, acceptance or continuation. DISCLOSURE: read-only throughout. Commands used: cat, sed, grep, ls, wc, shasum, git rev-parse/status/diff/log, and python3 -I -B for in-memory hashing. git status/diff may opportunistically refresh the shared index stat cache. I created no files, used no network and ran no tests. In-worksite reads beyond the read-first list: f4-01 INDEPENDENT_METHOD_SOURCE_REVIEW.json and RETAINED_INDETERMINATE_UAT.json; retained-method-c2-result.json (hashed only); release-claim.md; registered-graph-selection.mjs; leaf.mjs (grep only); product declaration_closure.ts, catalog_operations.ts, execution_resolution.ts and index.ts. Not read in full (digest or targeted grep only): PRODUCT.md, INTENT.md, the frame basis, the .claude skill/reference files and the T289 body.",
+      "unresolvedCriteria": []
+    }
+  },
+  "resultReplayOutcomeTerminalEqual": true,
+  "replayStatus": "closed",
+  "sourceSubjectSha256": "6dcb7b4dd0eb84b8d5706c3e50a3cf3576796f0bc77418fcd3ee68ee85e6dbee",
+  "eventLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 586361364,
+    "sha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+    "device": 16777231,
+    "inode": 685202701
+  },
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/execution/outcome-summary.json",
+      "bytes": 1044223,
+      "sha256": "a4700890f98a9f9ec3d62e0b59c7e5b8a1bafd5f477c454353f7f03f31e33758"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/execution/execution.json",
+      "bytes": 36248841,
+      "sha256": "fbea6c57f199e43c99f76faf5f72e17be2998795c85c0ab377c9a38dab3183a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/execution/fresh-reads.json",
+      "bytes": 4250251,
+      "sha256": "a85e9e1848f4d31bfc981093a0f6b02ef3b288e4c0bbc04efb736d4a99d842d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/GENERATED_ADOPTION.PREPARED.json",
+      "bytes": 20436,
+      "sha256": "6aa9cc17bb7bd745e378280302b9fda4115a67079ec0fb39a76aaf299c5056dc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 2758,
+      "sha256": "f28e739baf2f5a4935b393c9a15204226d5cb252ef066ffa587461c3f4d8c661"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/review-subject-001/SUBJECT.json",
+      "bytes": 88235,
+      "sha256": "6dcb7b4dd0eb84b8d5706c3e50a3cf3576796f0bc77418fcd3ee68ee85e6dbee"
+    }
+  ],
+  "limits": [
+    "Bounded selected proof only; Root owns acceptance.",
+    "Historical failed and indeterminate Runs remain unchanged.",
+    "No source adoption, clean reproduction, local cut/install, whole qualification or performance speedup inferred."
+  ]
+}

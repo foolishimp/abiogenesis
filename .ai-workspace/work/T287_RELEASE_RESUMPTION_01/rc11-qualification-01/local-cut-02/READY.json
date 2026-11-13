@@ -1,0 +1,68 @@
+{
+  "status": "PACK_COMPLETE_CHECKPOINT_REPRODUCTION_PREPARED_NOT_ADMITTED",
+  "packReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/PACK_RETURN.json",
+    "bytes": 6682,
+    "sha256": "513a2b15d19464fe0a6901af0709a527f98625417afe17b7c8ed1b70492d0d32"
+  },
+  "candidateArchive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 4064,
+    "sha256": "fc8fdf5ae34628e01878b65cddc12e4543621bda847e296c4d467c8bb0dc8760"
+  },
+  "checkpointBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/CHECKPOINT_BINDINGS.artifact-prepared.json",
+    "bytes": 8624,
+    "sha256": "8bf3e11a62f069ec71026160e4cf4a5a73f5a50e6334c6b506e1201bcc278967"
+  },
+  "checkpointDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/run-checkpoint-reproduction.mjs",
+    "bytes": 22779,
+    "sha256": "8e98679164a5fa27ad8289e9a504ea801fc3031d4597bfc9dee3796931c30df7"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/PREPARATION_MANIFEST.json",
+    "bytes": 1742,
+    "sha256": "8b8458c532e5b0e4fccd2fe470d8e52311db4fcfdbd17eda823f3c9f164902ea"
+  },
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/SOURCE_SELECTION.json",
+    "bytes": 3025,
+    "sha256": "6a61df0b17f3522422e142dfb997aebfcb2a3951994146822f05ac4bc1fed743"
+  },
+  "proofReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/RETURN.json",
+    "bytes": 5416,
+    "sha256": "e637941505a491fe365f346e8c368c0849286b81af928a014830a9a68377dc7b"
+  },
+  "tracking": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/TRACKING_RETURN.json",
+    "bytes": 2453,
+    "sha256": "c256157f218c55b80cb47b1136582267dcb9494254c2890fcb1c8e956fea1958"
+  },
+  "debt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_DEBT_REGISTRATION.json",
+    "bytes": 6136,
+    "sha256": "1e386dfd1a0858a4ae17e6d6ff0220fb68fe827709bda1fc8565a5e819f8cea1"
+  },
+  "currentHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/CURRENT_HANDOFF.md",
+    "bytes": 2657,
+    "sha256": "96cf642a78344f153944edafb2f657809a5c4434a51a889b08d251740c68a717"
+  },
+  "remainingUnbound": [
+    "source acceptance and final targeted-review conjunction",
+    "cumulative source-coverage disposition",
+    "Root checkpoint/reproduction admission",
+    "independent packaging result",
+    "Root release/install admission"
+  ],
+  "unitPassed": false,
+  "m5QualificationBlockerOpen": true,
+  "qualified": false
+}

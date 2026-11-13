@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/r4-catalog-admission.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 8,
+    "pass": 8,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/031-r4-catalog-admission.test/process.json",
+    "bytes": 1072,
+    "sha256": "6c67bcdd9a11a4de9597a24d88291fe68c315c94c4e086d80394a8a85d9ffee7"
+  }
+}

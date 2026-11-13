@@ -1,0 +1,14 @@
+{
+  "kind": "custody_tracked_only_status_clarification",
+  "createdUtc": "2026-11-06T22:30:29.618698+00:00",
+  "custody": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/post-return-controls/actual-001/CUSTODY.json",
+  "scope": "Git status was invoked with --untracked-files=no. The empty collapsedUntrackedEntries field and diagnostic untrackedTopEntries:0 mean no untracked entries were enumerated; they are not a finding that the worktree has no other untracked files.",
+  "actualVerifiedPreservation": {
+    "trackedModifiedCount": 70,
+    "knownExistingNewProductPathCount": 2,
+    "emptyIndex": true,
+    "sourceRows": 451
+  },
+  "untrackedCensusExecuted": false,
+  "sourceOrCloseChanged": false
+}

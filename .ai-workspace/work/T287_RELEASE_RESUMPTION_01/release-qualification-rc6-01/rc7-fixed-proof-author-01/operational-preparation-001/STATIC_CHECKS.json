@@ -1,0 +1,64 @@
+{
+  "kind": "operator_template_static_checks",
+  "syntax": [
+    {
+      "command": "node --check prepare-and-dispatch.template.mjs",
+      "exitCode": 0,
+      "executedModule": false
+    },
+    {
+      "command": "node --check launch-owner-script.template.mjs",
+      "exitCode": 0,
+      "executedModule": false
+    },
+    {
+      "command": "node --check inputs/prior-author-lanes.mjs",
+      "exitCode": 0,
+      "executedModule": false
+    }
+  ],
+  "closedPackets": [
+    {
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/PREPARATION_MANIFEST.json",
+        "bytes": 9510,
+        "sha256": "f582b18851ba6d5da85c47805137c0ec689dcf46eac88a96471b7373f2096786"
+      },
+      "verifiedFilePins": 30
+    },
+    {
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/preparation-reconciliation-001/MANIFEST.json",
+        "bytes": 23014,
+        "sha256": "56e1997c16234b0ee8aa7353c10f29737362d898b1763d684bec122ab3c01198"
+      },
+      "verifiedFilePins": 23
+    }
+  ],
+  "futureBindingsNull": [
+    "sourceCommit",
+    "resume",
+    "actualClosePrefix",
+    "workspaceAuthority",
+    "retainedAuthorBinding",
+    "actualClose",
+    "rootControlAdmission",
+    "frozenSubject",
+    "operatorRunner",
+    "operatorPublicSetup",
+    "maintainedCheckerSource"
+  ],
+  "selectedProductPaths": [
+    "product/default_library.ts",
+    "abg/default_library.ts",
+    "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "test_env/uat/public-setup.mjs",
+    "test_env/tests/t287-default-library.test.mjs"
+  ],
+  "productWriteCount": 5,
+  "maxStages": 3,
+  "maxLaneInvocations": 4,
+  "laneTimeoutMs": 300000,
+  "matchingColdPositivePatterns": true,
+  "execution": "No prepared script, SDK, test, build, runtime, provider, credential, C staging or source edit."
+}

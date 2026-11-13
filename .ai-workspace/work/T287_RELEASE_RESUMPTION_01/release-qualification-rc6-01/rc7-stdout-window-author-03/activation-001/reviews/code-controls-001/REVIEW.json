@@ -1,0 +1,209 @@
+{
+  "kind": "bounded_independent_s3_executable_control_review",
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "goal": "GOAL035/T287",
+    "method": "Installed STDO 3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "boundary": "ABG alone admits runtime truth; event/profile/archive owners retain their authority. Derived operator controls and thin SDK/CLI shells introduce no runtime authority, controller, store, release claim or acceptance."
+  },
+  "createdUtc": "2026-11-06T23:07:25.891992+00:00",
+  "reviewer": {
+    "actor": "/root/rc7_growth_control_review",
+    "role": "independent Reviewer",
+    "reasoning": "max",
+    "authorship": "Did not author the reviewed Product or controls. Separate reviewer actor; no cross-family independence claim. Host is not an enforced clean-room sandbox."
+  },
+  "result": "satisfied",
+  "status": "BOUNDED_NO_BLOCKER_RETURN_TO_ROOT",
+  "findings": [],
+  "triage": "not_applicable_no_findings",
+  "subject": {
+    "materialization": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/MATERIALIZATION_MANIFEST.json",
+      "bytes": 12369,
+      "sha256": "7c7464894658700a1630f1dce8910eb269d2c3f32693c722c6098b05cd91e909"
+    },
+    "semanticDelta": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/CONTROL_SEMANTIC_DIFF.json",
+      "bytes": 8503,
+      "sha256": "81759595d095cae27eb0c39e990a97ae5183f751007901dbedb18916b5c45cb5"
+    },
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/NATIVE_GRANT.json",
+      "bytes": 57266,
+      "sha256": "ebfe653110420f994f2bb440d25ba7f4449f951af4925dcdae54cae3cda727c3"
+    },
+    "workload": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/workload.json",
+      "bytes": 191298,
+      "sha256": "d6879fa9e6db3a29fc173b0d87038c7cb8759b8b44021a3817999d07ce72527a"
+    },
+    "rootSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_SELECTION.json",
+      "bytes": 16456,
+      "sha256": "f3e373cc70b054d20feb343e16ae44090e1867ec63f90a2099a028378a4fb86d"
+    },
+    "sourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/SOURCE_BEFORE.json",
+      "bytes": 278984,
+      "sha256": "09fdc508bf9672181e2cdc35ac69299772cbc42f50c8c4e81514062ad8873c81"
+    },
+    "runtimeBindings": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/RUNTIME_BINDINGS.json",
+      "bytes": 6940,
+      "sha256": "89759b9e021fb42363e962143a6ed3da17462ae2956bd0860852eab743a5c17f"
+    },
+    "commandBounds": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/inputs/COMMAND_BOUNDS.json",
+      "bytes": 4042,
+      "sha256": "4e89eae78bc6d75989dcdc8cd78627c0097d629ff43b45d1934d9406ed935d25"
+    },
+    "laneSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/inputs/C2_INPUTS.json",
+      "bytes": 50688,
+      "sha256": "b84d250cafd1d4b3bdaa82c918b9a8ed202a0777654da6537cdcea612fe481fa"
+    },
+    "externalReads": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/inputs/EXTERNAL_READ_INPUTS.json",
+      "bytes": 3715,
+      "sha256": "4dd77e6be055b27fc4d6ce4f8ba970769996565c2fa62b37ac2e4f184f7f3b21"
+    }
+  },
+  "reusedClosedReviews": [
+    {
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/reviews/root-scope-001/REVIEW.json",
+        "bytes": 8904,
+        "sha256": "3160c1b19d3d71bd87a424275278d59f16941ba99b1b3724dd556f7b96e0d28c"
+      },
+      "standing": "Reused exact closed S3 scope/compatibility/six-lane deciding-proof review; no repeated broad Product/source design review."
+    },
+    {
+      "review": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/reviews/code-controls-001/REVIEW.json",
+        "bytes": 14203,
+        "sha256": "7363c20f3f7bca3fb7fcbfdd5a7cf499e271be30f5edd4b0cdaccbf79de3e3b1"
+      },
+      "standing": "Reused unchanged executable owner-join review. Prior stale grant prose was corrected before this S3 subject; current grant explicitly selects S2 partial basis, 25 existing paths, 2 AFTER stages and 6 final lanes."
+    }
+  ],
+  "checks": [
+    {
+      "predicate": "Executable delta is mechanical and closed",
+      "result": "satisfied",
+      "evidence": "Independently compared all five actual executable bodies with their S2 counterparts. Exact equality after only rc7-stdout-window-author-02 to -03, tmpsw2 to tmpsw3, abg-sw2 to abg-sw3, and sw2-stage to sw3-stage substitutions. launch-owner-script.mjs is byte-identical. The 25 materialization file pins, 6 named materialization dependencies, 3 historical owner pins, 2 frozen-representation pins and reused scope review all match: 37 checks, no mismatch."
+    },
+    {
+      "predicate": "Scope and held source agree across actual controls",
+      "result": "satisfied",
+      "evidence": "All 451 unique SOURCE_BEFORE rows exactly equal predecessor SOURCE_AFTER on relativePath/bytes/sha256/sourceSnapshot. Required names, grant acquisition list and C2 protected list agree. Grant, Root disposition, Root selection and C2 mutable list select the same 25 existing paths, all in the protected inventory. Workload writeRoots equal grant nativeWriteRoots; all source digests agree. 471 workload sources plus 3 future handoffs account for 474 finite read roots. Nineteen prepared control pins agree with staging/workload; only admission source index 462 remains intentionally unbound."
+    },
+    {
+      "predicate": "Exact predecessor close and resume are preserved",
+      "result": "satisfied",
+      "evidence": "Runtime actualClosePrefix equals S2 FINAL_RUNTIME_CLOSE.closeHandoff.prefix. Selection/grant/runtime/custody agree on exact close, original resume and SOURCE_BEFORE pins. Original 72498693-byte resume SHA e1d90b7c8dab90b86ea7d85eb929f91e08b92313a5e612011b3809b0df4f9090 was hashed without reading private narrative. Binding overlay remains only binding/catalog/catalogView; immutable RC6 author runtime remains separate from prospective fresh W Product stores. No earlier close substitution or P-to-W continuation is selected."
+    },
+    {
+      "predicate": "Deciding cases must be active in actual final lane selection",
+      "result": "satisfied",
+      "evidence": "Actual C2 has six positive selectors with minimumTests [2,3,9,6,7,6], each at 300000 ms and no allowed historical skips. Scope lane requires both scopes and actor-successor prefixes; timeout requires both inactivity and steady-progress absolute cases and selects only worker-transport; archive requires all three transport prefixes plus cold reopen/recover/read; legacy requires retained per-chunk, RC6 and S2; native-caller retains six exact names and its carriage prefix. Unchanged lane owner requires active passing TAP names for every prefix, no failures/cancellations/todos, selected minimum count and same final source. Root-selected obligations additionally require both direct cold-reader siblings and real deciding owners; this review does not claim those future implementations or proofs exist."
+    },
+    {
+      "predicate": "Historical owner reads and retained BEFORE are explicitly attributed",
+      "result": "satisfied",
+      "evidence": "EXTERNAL_READ_INPUTS declares the three exact immutable RC6 compiled JavaScript owners under historicalRepresentationAuthority, and each appears in grant externalReadOnly. They are not represented as packaged TypeScript or copied into the 451 source inventory. The metadata oracle remains alone in files, satisfying unchanged external.files.length===1 guard. Read-first instructions require historical/profile owner inspection. Retained BEFORE pins and source digest remain a prior failed cadence counterexample, without another BEFORE allocation or full window proof claim."
+    },
+    {
+      "predicate": "Bounds remain finite and consistent",
+      "result": "satisfied",
+      "evidence": "Grant and COMMAND_BOUNDS resource ceilings are identical and match profile/Root selection: one xhigh Worker, 320 turns, 3600000 ms absolute, 1800000 ms inactivity, 8192 MiB heap, 10800000 ms host, no retry; two AFTER stage labels, six once-only serial lanes. Stage compile/generate/lifecycle limits stay 240000/600000/60000 ms. Existing stage/lane owners count failed/incomplete reservations and enforce frozen source. Canonical host recorder retains its finite output ceiling; stage/lane output ceilings remain unchanged."
+    },
+    {
+      "predicate": "Admission, executable mode, and collision guards remain effective",
+      "result": "satisfied",
+      "evidence": "Unchanged launcher and prepare owner require exact admitted dispatch manifest, pinned files, actual Root admission and source/close/selection joins before runtime acquisition; prepare refuses occupied outputs before resume parsing. Launcher refuses its four canonical command slots. At review, all 15 preparation/runtime output slots and 4 command slots were absent; admission and dispatch were absent. Exact provider wrapper and real binary are regular executable files with mode 0755; pinned Node is regular/executable mode 0555. Distinct empty npm config source pins and new namespace/temp paths remain selected. Root subsequently closed staging/preflight under the separately pinned receipt; reviewer performed no staging or launch."
+    }
+  ],
+  "executablePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/prepare-and-dispatch.mjs",
+      "bytes": 19668,
+      "sha256": "c60e6060f71426a42c092b4dfb504f83b5db5bb2ea64b3662d3079d75eb0f997"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/launch-owner-script.mjs",
+      "bytes": 2527,
+      "sha256": "26cf022c696712d652b9a59538185629693df3f5c7260f511e0ace3d30dd0413"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/inputs/prior-author-stage.mjs",
+      "bytes": 8324,
+      "sha256": "15efc7a8fb940be9d369b73a2f1676e6052807b7d5dd7f4281e6977ed7d75a7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/inputs/prior-author-lanes.mjs",
+      "bytes": 11393,
+      "sha256": "446c141edc85be303c8d8b9f86b7caac71392d4d5b2345edae14ffe3a34671d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/../claude-provider.sh",
+      "bytes": 733,
+      "sha256": "63229bf8de2f675025a1727718daf332f5d14614a16cf13df69cb6282517a8ba"
+    }
+  ],
+  "rootPreflightAcknowledgment": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_PREFLIGHT_AND_STAGING.json",
+      "bytes": 14352,
+      "sha256": "b5b8859167a1f0644ecc58f6bb599881ca1d8c5b58a8fafd3aa5ba306b043fc2"
+    },
+    "standing": "Parent supplied and reviewer verified receipt identity only; reuse Root live-source/head/index/executable-hash/staging/resource checks without repeating them or treating them as runtime execution."
+  },
+  "scopeAndCost": {
+    "scope": "Only new S3 control semantics, material joins, selectors, bounds, modes and collision/admission guards. No broad source re-review, repair proposal, extra proof lane or new gate.",
+    "concreteBlocker": null,
+    "escalation": "No observed failing predicate/counterexample; no disproportionate redesign requested."
+  },
+  "futureBindingBoundaries": [
+    "Root alone owns final admission and dependent runtime/workload/staging/dispatch pin mutations. This result evaluates the named frozen pre-admission controls; it does not admit or dispatch them.",
+    "Real owner capacity, provider availability, resource acquisition, native completion, final source implementation and six lane results remain future facts. Title/prefix predicates are control requirements, not semantic proof of unrun cases.",
+    "Post-return source, stage, installed artifact/measurement, qualification and release conclusions remain with their existing owners and Root. No source acceptance, HS03/E4 closure, speedup, qualified or published claim is made."
+  ],
+  "execution": {
+    "ProductEdits": 0,
+    "controlEdits": 0,
+    "tests": 0,
+    "builds": 0,
+    "providerCalls": 0,
+    "runtimeCalls": 0,
+    "packOrInstall": 0,
+    "moduleImports": 0,
+    "privateProviderMaterialAcquired": false,
+    "stdoVerification": "Read-only stdo status --definition exact Product Definition --verify succeeded for installed 3.0.4.",
+    "writes": [
+      "This create-only REVIEW.json only."
+    ]
+  },
+  "returnTo": "Root; no Worker activation or acceptance decision"
+}

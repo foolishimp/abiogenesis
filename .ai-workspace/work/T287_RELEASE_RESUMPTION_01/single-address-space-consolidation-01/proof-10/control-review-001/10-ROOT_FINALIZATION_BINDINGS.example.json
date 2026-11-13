@@ -1,0 +1,40 @@
+{
+  "status": "ROOT_SELECTED_PROOF_ONLY_FINALIZATION",
+  "native09RunRef": "run://abiogenesis/8151fe0a681158cbe0edc14139cee1dc877e592f278a5e78509364457a968c88",
+  "subjectSha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13",
+  "allowProofOnlyTestingAndUat": true,
+  "preserveActual09FailuresAndSkips": true,
+  "requiredPins": {
+    "afterRunResume": null,
+    "actualClose": null,
+    "actualOutcome": null,
+    "freshReads": null,
+    "actualUat": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_UAT_CLOSED_RESULT.json",
+      "bytes": 3678,
+      "sha256": "7ee5260356f05f83e25c2c6289a242f92dfd0c4ff405b21dcf0897035c6ad273"
+    },
+    "independentReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/INDEPENDENT_TARGETED_REFACTOR_REVIEW.json",
+      "bytes": 83767,
+      "sha256": "f37b4572adc78ba8a8543cd3b846c789be163f07a6788d168faf449027d07e36"
+    },
+    "rootDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ROOT_SOURCE_AND_EVIDENCE_DISPOSITION.json",
+      "bytes": 7829,
+      "sha256": "7b0abbf652915973c95682da42327baf2a477cb895372fad933e07df31476311"
+    }
+  },
+  "pinShape": {
+    "path": "Actual existing exact file supplied by Root",
+    "bytes": "safe nonnegative integer",
+    "sha256": "64 lowercase hex"
+  },
+  "meaning": "Root must supply genuine actual pins in ROOT_FINALIZATION_BINDINGS.json; this example is not read by scripts, not an invocation/Result/receipt and not final authorization.",
+  "knownScopeSupplement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+    "bytes": 2492,
+    "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+  },
+  "actualUatMeaning": "Genuine prior09 NATIVE_UAT_NOT_SELECTED/assessment null; no assessment body is required or invented."
+}

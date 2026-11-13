@@ -1,0 +1,18 @@
+{
+  "recordedUtc": "2026-11-03T22:56:40.161780+00:00",
+  "writerActivation": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/ROOT_WRITER_ACTIVATION.json",
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T225640161780Z/STATUS.json",
+    "sha256": "2ac174b89e328261b2e60fd4a5481f98ef331888ce2ce97f7e39dad528990268",
+    "reason": "Preserve prior mixed current/historical projection before reconciling native05 identity."
+  },
+  "output": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json",
+    "sha256": "b8b2bd1398ab3049d7c60523fea90de7d39e6a9668151de75b96f53cdcc9f7a5"
+  },
+  "effects": [
+    "Reconcile current activation identity and ETA",
+    "Retain all previous projection bytes in explicit preimage"
+  ],
+  "ProductOrAdmittedInputEdits": false
+}

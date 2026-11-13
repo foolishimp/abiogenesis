@@ -1,0 +1,39 @@
+{
+  "kind": "root_attributed_independent_review_projection",
+  "recordedUtc": "2026-11-03T11:24:01.135608+00:00",
+  "reviewer": "/root/rc5_method_review",
+  "effort": "max",
+  "projectionAuthor": "Root; records the actual independent reviewer return, not reviewer-authored filesystem output",
+  "subjectSha256": "e82e3e6391a9f16199b684b0b553564ed09bdfdfc45107accda3bdb45d959fb8",
+  "nativeResultRef": "result://abiogenesis/4accfc2ff24ed5231e50bee7e5150fc7297a10f43675e3ed1ee9d6a0cccc1996",
+  "reviewBaseCommit": "9f3f22b0f733718bee88d5ca1cc306ed0446797a",
+  "disposition": "falsified",
+  "productFrame": "GOAL035/T287 fixed fifteen ABI5 families; F10 event truth/replay. Private durable RuntimeEvent representation preserves identities/provenance/currentness/cold recovery; source304, retained RC4runtime302.",
+  "verified": [
+    "ten frozen files and admitted after-image bytes",
+    "9f3 preimages and diff",
+    "Native Result event20018 hash and after observation",
+    "actual C2 helper source correspondence and streams"
+  ],
+  "findings": [
+    {
+      "id": "RC5-F4-INSTALLED-FIXTURE-01",
+      "severity": "S2",
+      "classification": "selected-proof fixture constructability",
+      "observed": "New retained input consumer requires canonical ABI-owned T; fixture correctly omits its own T declaration, but installed-language-test setup validates only fixture-local contracts before resolved closure. Missing contract/retention relation yields validation refusal without programRef; setup lookup gives undefined and crashes at509.",
+      "sourceCounterexample": "rc5Consumer function/binding added without extending fixed packaged descriptor exports. Existing implementation_resolution would return implementation_absent. This second failure was not executed.",
+      "scope": "new installed c_workflow -> retained E/S/T -> consumer -> fresh result/replay witness",
+      "repair": "Complete fixture/preparation through existing resolved-declaration and packaged-implementation owners; preserve canonical T owner. Small test/preparation increment and focused installed reproof. Codec repair not indicated.",
+      "confidence": "high",
+      "limit": "Underlying validation diagnostics not exposed by failed helper; not exhaustive diagnosis"
+    }
+  ],
+  "codecStoreAssessment": "No material defect found: exact earlier named Result membership including v1-referenced Results; batch sources local until write/fsync; rollback/poison retained; earlier-only complete/selected/descriptor acquisition; routes not sources.",
+  "identityClaimAssessment": "Package/lock/Product version owners agree onRC5; honest unqualified source claim.",
+  "recommendation": "Retain valid codec/component evidence; withhold installed witness acceptance pending bounded correction/reproof.",
+  "limits": [
+    "No reviewer writes, repairs, builds, tests or provider calls",
+    "Native UAT, whole qualification, installation and release outside result",
+    "Nonauthor Reviewer; same-family Coordinator relation is not family-diverse assurance"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "status": "SYNTAX_AND_EXACT_DIFF_PASSED",
+  "at": "2026-11-07T03:12:46.512364+00:00",
+  "commands": [
+    {
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement-002.test.mjs"
+      ],
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement-002.test.mjs",
+        "bytes": 23072,
+        "sha256": "4e1f72c4df690c242fc4775dd74ec5157e18e4851f8ad210dfd98a597124f9b7"
+      },
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement-002.mjs"
+      ],
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement-002.mjs",
+        "bytes": 7192,
+        "sha256": "d8aacc1ee82a3c8914171e19a4ae8fdab5a922ef65dc35328106105c8695aa03"
+      },
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "fixtureInverseByteEquality": true,
+  "runnerOnlyVersionedBasenamesAndUsageLabel": true,
+  "configOnlyFreshOutputAndScratchRoots": true,
+  "measurementExecutedByTheseChecks": false
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "existing_owner_post_return_sequence",
+  "status": "EXISTING_OWNER_POST_RETURN_RELATION_DECLARED_NOT_EXECUTED",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_SELECTION.json",
+    "bytes": 6421,
+    "sha256": "937a55890b738b8f4783e2a7d65178bb5a2731a5650ef46128c793dff8efedd5"
+  },
+  "cause": "Known parent refresh in maintained N3 freshReadbacks can keep the prior environment reachable while acquiring the successor; subsequent raw-prefix construction repeats acquisition. The actual P3 recovery succeeded through existing capture-once read construction in separate host processes at 8 GiB. Do not repeat the known problematic automatic parent sequence.",
+  "nativeDispatch": [
+    "Use the existing one-node direct native author Program and maintained invokeLifecycle.",
+    "Retain the exact actual invocation receipt in execution.json and the genuine successor close/resume; no old close on failure.",
+    "Record a metadata-only outcome summary and READBACKS_PENDING.json pointing to the one complete execution receipt, then let the host exit. No automatic freshReadbacks call in this operator dispatch."
+  ],
+  "readbackOwner": "Root uses the existing P3 capture-once installed SDK pattern, binding the actual returned close and expected full terminal after author host exit. No new dispatch gate, manifest protocol, helper framework or Product contract is introduced by this sequence.",
+  "readbackRelation": [
+    "Each read enters through its actual installed owner boundary and exact returned current close. Keep physical prefix identity/length/digest unchanged.",
+    "Where the same process already acquired a coordinate, pass that exact coordinate through existing prepare APIs; no serialized coordinate may claim the acquired owner identity. Avoid redundant parent refresh.",
+    "Retain one exact complete read output for each cold observation plus source/ref/digest/exit/custody metadata. Consume the actual invocation terminal from execution.json once; do not embed it in every summary.",
+    "If the actual invocation has a typed terminal, BOTH reads must satisfy the existing full typed result and complete canonical terminal value/producer/ref/digest relation to that actual terminal. P3 blocked-only or terminalPresent-only checks do not close this author return.",
+    "If the actual invocation has no terminal, preserve the truthful failure/blocked/refusal and absence agreement; do not call the coding task successful.",
+    "Fresh readbacks and source freeze/independent review/affected installed proof remain required later. One changed-condition Root disposition is needed on failure; no automatic retry or heap bump."
+  ],
+  "canonicalNativeChange": "Exact existing runner original-byte custody correction and maintained harness assertion are included; no copied supervisor/helper framework.",
+  "directPreparationReuse": "The selected direct-native preparer uses one publicCaller and retains its exact state.environment from its first refresh for construction. It does not have P3 dry/caller duplication, so it adds no extra refresh. If another existing caller is instantiated in a same-process successor path, reuse via caller.refresh(env.prefix); never clone/serialize that owner value.",
+  "fullClosurePredicate": "Strict complete typed terminal equality against actual author invocation plus unchanged physical prefix and actual source relation; not merely two successful exit codes, terminal presence, P3 absence, or matching body size."
+}

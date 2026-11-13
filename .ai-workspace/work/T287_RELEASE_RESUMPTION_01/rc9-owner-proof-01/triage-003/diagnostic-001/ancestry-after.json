@@ -1,0 +1,4 @@
+{
+  "at": "2026-11-08T17:47:25.444Z",
+  "failure": "Error: Command failed: /bin/ps -axo pid=,ppid=,pgid=,stat=,etime=,comm=\n"
+}

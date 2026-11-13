@@ -1,0 +1,41 @@
+{
+  "status": "PREPARED_PENDING_ACTUAL_CLOSE_AND_ROOT_READ_ADMISSION",
+  "at": "2026-11-07T12:16:32.086395+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "authority": "Root selected coordinate-only preparation while A11 Worker closes; no readback execution before genuine close and Root admission.",
+  "baseScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/readbacks.mjs",
+    "bytes": 4791,
+    "sha256": "3542bd217aa93a234eac06fe889dff796a8c01b23ab50f22a43de0f49d482e35"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/readbacks.prepared.mjs",
+    "bytes": 4731,
+    "sha256": "a7433b2221011d5de9d5261fced70a9809fa353ff393530a3e613f03ea2efff2"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/READBACK_PREPARATION_DIFF.patch",
+    "bytes": 2957,
+    "sha256": "8c0fc5d2518993a0053e2c89b829653756b0a35cf605edae02967b31e6b260c4"
+  },
+  "expectedRun": "run://abiogenesis/c06be45e2c660d8baecb314cf6e8e2fc7806c3da0b49ca725cf4d7f7a21d38b6",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/BINDING.json",
+    "bytes": 5090,
+    "sha256": "d172b81abff26cd54198429f4ccf965fcca7624f591add59709d1a7859fdb359"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/PREPARED.json",
+    "bytes": 6159,
+    "sha256": "48b3467078e80f16f4ae61aacad6f26b3e6db39c1776411a690396aa2b32f4ca"
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/readbacks-001",
+  "pending": [
+    "Actual SDK outcome SHA256",
+    "Actual physical-close SHA256",
+    "Root exact readback admission"
+  ],
+  "relation": "Existing freshReadbacks owners and full typed SDK/result/replay equality plus unchanged physical prefix; no algorithm or assertion change.",
+  "executionEnabled": false,
+  "providerCalls": 0
+}

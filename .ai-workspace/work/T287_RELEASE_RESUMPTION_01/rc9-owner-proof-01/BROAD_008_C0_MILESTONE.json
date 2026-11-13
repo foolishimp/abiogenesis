@@ -1,0 +1,76 @@
+{
+  "ProductFrame": "Same Root-admitted BROAD008 continuation; evidence only, Root owns broad acceptance.",
+  "status": "C0_WHOLE_FILE_PASSED_CAMPAIGN_ACTIVE",
+  "at": "2026-11-08T20:41:33.765138+00:00",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-008.json",
+    "bytes": 214131,
+    "sha256": "ec04f94a9eca98ad9a932b12853bbbb74917867a1e5655a9f178463b36a76750"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_008_RUN_ADMISSION.json",
+    "bytes": 4438,
+    "sha256": "8ac8605bbe66512b07428704fb236651055de73b493cd2afec9930e0d6ffe956"
+  },
+  "started": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/EXECUTION_STARTED.json",
+    "bytes": 2615,
+    "sha256": "9e200934204079e5c66a2dbd6cae52dbc15d040c720de110bd076f0a7e3b0f39"
+  },
+  "candidateRefresh": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/CANDIDATE_BASIS_REFRESH.json",
+    "bytes": 3166,
+    "sha256": "4c1f3ef88b90de77dbf9356b722533470ceac850ec12bc82c22ca4223774c442"
+  },
+  "wholeFile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/files/063-t287-c0-post-publication-failure.json",
+    "bytes": 1180,
+    "sha256": "4731fa263058a62e9bdbb6aa267ca9e96dfb3866132fcef5e3d24bfe6d77692c"
+  },
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/commands/063-t287-c0-post-publication-failure.result.json",
+    "bytes": 1510,
+    "sha256": "1361ca77e68ad79d83e9ae89adca7a5b10b6b5e87353363d0bea67ed9ac0c97e"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/commands/063-t287-c0-post-publication-failure.stdout",
+    "bytes": 7021,
+    "sha256": "ec1be0991e630a7c249e05b4276fd03aac8df515734fe24e41f3e455208d737c"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/commands/063-t287-c0-post-publication-failure.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/063-t287-c0-post-publication-failure.jsonl",
+    "bytes": 9014,
+    "sha256": "1a73ef4795a10fe20ae8fc4afa4a871104c12a12e2debf5403b7f08ff373e68a"
+  },
+  "resource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/resources/063-t287-c0-post-publication-failure.json",
+    "bytes": 14041,
+    "sha256": "b346e721d43dc0d087793d37abc57fecf814b7fdc5ace7e51db0eaa89b7a54de"
+  },
+  "observed": {
+    "wallMs": 1174268.6680420002,
+    "counts": {
+      "tests": 31,
+      "failed": 0,
+      "passed": 31,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 31,
+      "suites": 0
+    },
+    "completeReporterRows": 35,
+    "childClosed": true,
+    "monitorFailure": null,
+    "maxObservedOwnedBytes": 347321787,
+    "minObservedFreeBytes": 336629637120,
+    "sourceEffects": [],
+    "selectedTimeoutMs": 2100000
+  },
+  "standing": "Whole31cases completed on unchanged source/test/assertions, fresh exact-archive derived tree, selected finite envelope. Original007timeout preserved; no causal performance/host attribution or retroactive green. Driver advanced after per-file conservation; continuation active and may still stop on any later discrepancy."
+}

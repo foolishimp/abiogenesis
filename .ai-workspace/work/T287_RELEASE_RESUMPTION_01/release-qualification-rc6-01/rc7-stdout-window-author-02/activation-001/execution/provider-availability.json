@@ -1,0 +1,18 @@
+{
+  "checks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/claude-provider.sh",
+      "mode": "755",
+      "executable": true,
+      "bytes": 733
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "mode": "755",
+      "executable": true,
+      "bytes": 272984176
+    }
+  ],
+  "providerExecuted": false,
+  "credentialsRead": false
+}

@@ -1,0 +1,272 @@
+{
+  "kind": "bounded_independent_frozen_successor_source_review",
+  "status": "CLOSED_C1_C2_SOURCE_RESOLVED_C3_TWO_SELECTED_PROOF_JOINS_OPEN",
+  "createdUtc": "2026-11-06T22:31:35.412086+00:00",
+  "productFrame": {
+    "product": "ABIogenesis5.0 unchanged fixed fifteen feature families; GOAL-035 / T-287",
+    "method": "STDO3.0.4",
+    "composition": [],
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "authority": "Existing ABG runtime/admission and archive/event/body/effect owners, GTL Program law and thin SDK/CLI. Immutable installed RC6 builder versus prospective RC7 source; no new runtime/store/controller/event stream/cache framework/Public expansion."
+  },
+  "methodReviewSkill": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "bytes": 8074,
+    "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df",
+    "standing": "Previously manager-resolved/read selected skill reused for this continuing independent MAX component review."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/SUBJECT.json",
+    "bytes": 268637,
+    "sha256": "4b7a03c69daf130c60621eb967c37f5793279d9e7e103acbb805541a3d4a55ae"
+  },
+  "stageLabel": "sw2-stage-01",
+  "sourceDigest": "c23199f8d96ca058708453bc4753ad6c99c437d3268231a68ab0b4080e4198d7",
+  "sourceRows": 451,
+  "changedRows": 5,
+  "unchangedRows": 446,
+  "changedFiles": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 86312,
+        "sha256": "9f53567d685291fad5ee96e30d247153d5ccb2871a15ed3890f139891b8fa87c"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 86153,
+        "sha256": "69a50dbcdc2c60fba90f7e1719f1fb597e6a113758d6d04403da830ed5af3852"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 34175,
+        "sha256": "a14023071cbb3e70146708f0ed72b42dd061a96aa72d54e8a788b4bea00ff541"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 34204,
+        "sha256": "d84d5ab75a556ae5d4e58bfa42d8084a7a39c45e3cdc957c1b2817d9379a2940"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 45349,
+        "sha256": "1ba9e9aabf52cb30c8cb59b9f4d4156a9847112ed4f83bd33a092f31062b91ab"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 49004,
+        "sha256": "7c29c93c50b9ba904a061963083dc5c59df160e8204c5ba6697b6ee849505725"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 173286,
+        "sha256": "ec4b9d17621f639cb455824f110b623a01573cb8a49d32bac026cdc60d77ff85"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 175343,
+        "sha256": "e43002becb6f277247d03dc504e29817139484927ec14dfcef055c02cba29fa8"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 96693,
+        "sha256": "aff4484204b9309acd2abef27c296b6b0a1fb89aa66c4661f88d540a04b83657"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 114058,
+        "sha256": "48565c1d13129aafd765db2009ecab210f086f372e2cc3fe655633c5504edd6b"
+      },
+      "withinSelectedWriteTerritory": true
+    }
+  ],
+  "verification": "Exact subject and all five before/after file pins verified. All451 source metadata rows compared to held S5 inventory: exactly five differ. All451 build-report rows equal this subject. Candidate bodies were read only from immutable source snapshots/preimages; unchanged owner review is reused.",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/ROOT_SELECTION.json",
+    "bytes": 10920,
+    "sha256": "705f891eb6912ac989e028dbaf2f7b728cc9e116c016a4f264c418c2f8bba7ba"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/inputs/TASK.md",
+    "bytes": 4800,
+    "sha256": "7633f82a0fdaafc554bb242f8332fc5bfe261e170b77ddffe098cbc309555ff8"
+  },
+  "measurementPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/inputs/MEASUREMENT_PLAN.json",
+    "bytes": 5806,
+    "sha256": "4a18be2f4c241598114276b3dedac2c2d98119cfcf97e7aa2d80c1f2ca195880"
+  },
+  "buildEvidence": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/operator-custody-001/stages/sw2-stage-01/stage.json",
+      "bytes": 97761,
+      "sha256": "e7de38a04478b44ce5d47e56c972e1ee8a48d5c64d8ad306de86c96207e8e64f"
+    },
+    "setupMs": 1743,
+    "compile": {
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 7487,
+      "stdout": "",
+      "stderr": ""
+    },
+    "generate": {
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 22530,
+      "stdout": "",
+      "stderr": ""
+    },
+    "lifecycle": {
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/check-lifecycle-boundary.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 589,
+      "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender\n",
+      "stderr": ""
+    },
+    "standing": "Actual selected build passes; not proof-lane, NativeResult, installed or release evidence."
+  },
+  "priorReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-final-001/REVIEW.json",
+    "bytes": 26134,
+    "sha256": "3212eab2eb4cfab51562d87ab6bdde529391c148251a28fec85989dd8b456f68"
+  },
+  "priorDeclarationAddendum": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-final-001/BUILD_DECLARATION_ADDENDUM.json",
+    "bytes": 11745,
+    "sha256": "1c27ebfade1323a7e39c7d479c02ad94eb84b8daf4ba4f8df90fa88400b64174"
+  },
+  "historicalPreservation": {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/summary.json",
+      "bytes": 1508,
+      "sha256": "b2b210c971ede687abe790b4a7689a1e684d4b536f69bba32e70b515777c4e18"
+    },
+    "standing": "Original genuine911-versus3 BEFORE red and subsequent failed canonical generation remain historical failures. They are not rewritten or relabelled as successor success."
+  },
+  "conclusion": "No new Product-code counterexample found in the five-file correction. The structured-boundary and declaration defects are resolved in source; canonical generation now passes. Existing Q2/Q3/legacy/archive owner joins are preserved. Mandatory proof is partially completed: the new raw-transport cases do not yet establish two explicitly selected owner relations. Preserve this coherent source and actual build, with those proof residuals visible for Root disposition.",
+  "priorFindings": [
+    {
+      "id": "HS03-BOUNDARY-001",
+      "disposition": "SOURCE_CORRECTION_SUPPORTED",
+      "references": [
+        "worker_transport.ts:403-445",
+        "worker_transport.ts:609-645",
+        "actor_process.ts:1341-1349",
+        "m5-worker-transport.test.mjs:1761-1811"
+      ],
+      "assessment": "The existing incremental observer records exact chunk-relative ends after each completed structured boundary and the progress/final-output state there. classifyChunk compares each segment with the preceding segment state. The actor passes these same segments; transport validates complete character/byte partition, appends each exact segment with its archive offset and closes at each boundary. A noise-only tail gets no qualifying/result signal. Held incomplete-line length is accounted for when a boundary completes in a later capture. No second parser or clock is introduced.",
+      "proofBoundary": "The new real-transport archive case explicitly requires a coalesced first callback and checks segment flags, exact byte windows, final noise drain and fsync ordering. A passing receipt would establish that controlled shape; none was acquired by this review."
+    },
+    {
+      "id": "HS03-DECLARATION-001",
+      "disposition": "SOURCE_AND_CANONICAL_BUILD_CORRECTION_SUPPORTED",
+      "references": [
+        "runtime_liveness.ts:372-374",
+        "operator-custody-001/stages/sw2-stage-01/stage.json"
+      ],
+      "assessment": "The only runtime_liveness delta marks nextNativeProcessStreamOrdinal @internal. RuntimeEventPrefix remains internal; no declaration checker/stripInternal/Public owner widening occurred. Actual compile, canonical generation and lifecycle all exit0, directly resolving the previously observed packed-declaration failure on this exact subject."
+    },
+    {
+      "id": "HS03-PROOF-001",
+      "disposition": "PARTIALLY_FULFILLED_TWO_SELECTED_JOINS_OPEN",
+      "assessment": "The required prefixes now exist: three archive and two timeout cases in the existing m5 worker file. They cover actual subprocess window bytes, fsync call ordering, injected actual archive write/fsync failure with original error/no unavailable reference, live final archive damage refusal, noise inactivity and absolute-timeout drain. Their presence and source are established; execution and two remaining owner joins are not."
+    }
+  ],
+  "findings": [
+    {
+      "id": "S2-HS03-PROOF-001",
+      "severity": "S2",
+      "classification": "Remaining selected proof coverage, not an established new runtime implementation defect",
+      "trigger": "Treating all selected HS03 obligations as closed merely because the newly authored raw-transport cases pass.",
+      "selectedAuthority": [
+        "inputs/TASK.md:13",
+        "inputs/MEASUREMENT_PLAN.json:required",
+        "inputs/MEASUREMENT_PLAN.json:measure",
+        "inputs/MEASUREMENT_PLAN.json:nonAdmittingSuccessorObligation.proof"
+      ],
+      "residuals": [
+        {
+          "relation": "Actual actor_process adoption of non-admitting durable successor",
+          "references": [
+            "m5-worker-transport.test.mjs:1709-1738",
+            "m5-worker-transport.test.mjs:1865-1912",
+            "actor_process.ts:1456-1479",
+            "t287-calculus-fold.test.mjs:1466-1532"
+          ],
+          "evidence": "Both new timeout cases invoke raw runWorkerTransport with the helper observer containing onTimeoutObserved and onProcessFinalized. They do not enter actor_process, onNativeSupervisionWakeup or admitRuntimeThreshold. The inherited calculus cases check returned successor through a manually declared actor/current EventStore, but not the actor-local successor adoption assignment.",
+          "falsifier": "Deleting the actual actor_process successorPrefix = decision.successorPrefix assignment would not change these new raw-transport tests or the inherited direct threshold-return checks.",
+          "minimumProof": "Use the existing selected owner/harness route to drive a pending qualifying window through the actual actor callback and a runtime_threshold_not_reached decision, then a subsequent owner admission at the returned durable successor. It must fail on stale local adoption and on durableOnly observing only staged activity. Do not replace the deciding native owner with mocked success or add a new runtime/test framework."
+        },
+        {
+          "relation": "Damaged current window archive through existing cold/recovery admission owner",
+          "references": [
+            "m5-worker-transport.test.mjs:1805-1811",
+            "m5-worker-transport.test.mjs:1843-1863",
+            "abg/worksite_construction_recovery.ts:289-327"
+          ],
+          "evidence": "The new damage test mutates/unlinks/truncates the file at onProcessFinalized and checks the existing live transport final comparison. The stated restarted reader only opens the archive through hs03ReadRange. Neither invokes the existing cold/recovery admission that joins event rows, original digests/offsets and retained artifact ownership.",
+          "falsifier": "Removing the owning cold range/digest refusal would not change this live-final-comparison test or its direct filesystem range reads.",
+          "minimumProof": "Retain the useful live archive tests and add the already-selected exact post-close/recovery owner check with valid current-window positive premise and missing/changed/truncated negatives, preserving old per-chunk identity/cut assertions. Reuse existing selected test owners and access helpers; no new archive validator or guard weakening."
+        }
+      ],
+      "ranking": {
+        "probability": "Certain coverage gap in the exact test paths; not a probability claim that the implementation itself fails.",
+        "harm": "Would overstate the explicitly selected actual-adoption/cold-evidence closure.",
+        "failClosedControl": "Current code guards remain; pending Root conjunction and this review keep unsupported assurance visible. Required test prefixes alone do not detect these omitted assertions.",
+        "repairCost": "Bounded additional deciding assertions/owner integration in the existing selected proof files. No Product-code change is justified solely by this gap."
+      },
+      "minimumRemedy": "Complete only the two selected owner joins or retain them explicitly unproved under a Root disposition. Preserve source/build and any applicable passed unchanged proof by reference; do not automatically replay unrelated lanes.",
+      "howStanding": "The HOW now truthfully distinguishes authored cases from passing receipts. Its E4 cold-owner assertion remains source-grounded but lacks the selected new cold discriminator; the current authored tests must not be described as that discriminator."
+    }
+  ],
+  "conservedRelations": [
+    "The S5 common scope-owned flush, transaction restore, durable pre-threshold commit and not_reached return/adoption source paths are unchanged apart from internal declaration visibility and the classifier call. Frame/CCall/actor scopes and existing validators retain their owners.",
+    "Archive bytes are written once before segmentation; byte-length partition checks protect character-to-byte conversion. Existing fsync-before-reference, sticky failure, terminal drain and final archive comparison remain.",
+    "Legacy/raw callers without a segment classifier retain one aggregate segment or their existing per-chunk path. Event-store, event contracts, event prefix, historical/current calculus and cold recovery implementation are unchanged.",
+    "No repeated 451-file source audit, new constructor-hardening requirement, new event authority or broad design loop was introduced."
+  ],
+  "processStanding": {
+    "progress": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/review-subject-stage-001/evidence/progress.json",
+      "bytes": 5720,
+      "sha256": "fd6addccdab76438229d85e4777a700200dfb8987f18841820091f875d38dd12"
+    },
+    "disclosure": "Author progress explicitly says HELD_SESSION_DESIGN/REVIEW bodies, AGENTS, Product, relevant requirements and frame were not re-read in full during this activation; Root selections and HOW10.10 were used. It claims readFirst completed22:17 and selected installed stdo-work acquisition.",
+    "assessment": "Retain the authored disclosure as disclosure, not independent proof of tool/read chronology. Do not infer additional absent reads from metadata. No full procedure-compliance claim is supplied. No source/effect invalidator is established by this bounded review; source/build evidence is assessed separately under Root authority. No new method gate or automatic rerun follows."
+  },
+  "proofAndCustodyLimits": [
+    "No lane receipt was available to this review at closure; Root runs the six selected lanes independently and must conjoin their exact final source standing.",
+    "This is an AFTER-stage frozen source, not yet final NativeResult/native.after/physical-close custody or source acceptance.",
+    "Historical metadata still does not supply old noise clocks, provider bytes or turn boundaries. Synthetic current-owner tests do not reconstruct those facts.",
+    "No source edits, build/test/runtime/provider calls, private actor narrative or raw historical-log access by Reviewer; only create-only review artifacts written.",
+    "Same-family component review to Root, not formal F11 J, whole procedure conformity, installed RC7 performance, measured speedup, acceptance or release."
+  ]
+}

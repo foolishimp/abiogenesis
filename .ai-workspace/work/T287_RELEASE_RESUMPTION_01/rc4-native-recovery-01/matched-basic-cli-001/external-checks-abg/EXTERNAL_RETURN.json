@@ -1,0 +1,63 @@
+{
+  "arm": "abg",
+  "worksite": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/sandbox/worksite",
+  "results": [
+    {
+      "label": "independent-cli",
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 29.556083,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    {
+      "label": "independent-node-tests",
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 107.720458,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    }
+  ],
+  "inputBytesPreserved": true,
+  "artifacts": [
+    {
+      "path": "specification/project-conformance.md",
+      "bytes": 2450,
+      "sha256": "7708068a5a8d82550d9f809b0aa08c0d6009fbfef3e5f887ecaaabc981af818f"
+    },
+    {
+      "path": "design/implementation-design.md",
+      "bytes": 1838,
+      "sha256": "fd8f0aa5326091690b801cd7bc2749d6edcd17163c62e06afa4d18426e028963"
+    },
+    {
+      "path": "generated/hello-world.mjs",
+      "bytes": 61,
+      "sha256": "fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115"
+    },
+    {
+      "path": "design/test-design.md",
+      "bytes": 1880,
+      "sha256": "16f651cbcf539b561519a2f71c8a6a1a150979ee36e0af6e0181167257a057ae"
+    },
+    {
+      "path": "test/component/hello-cli.test.mjs",
+      "bytes": 686,
+      "sha256": "e293cbaabfe1fff5e9d98b232ca2c700649d9c289fc146ea444a9179f1e9bcf8"
+    },
+    {
+      "path": "test/uat/hello-cli.uat.test.mjs",
+      "bytes": 687,
+      "sha256": "5644e1c033f593a5479e7ba2090346b24ba14b08ccf1e8f1fd17383abd4dd2f2"
+    },
+    {
+      "path": "test-execution-plan.json",
+      "bytes": 779,
+      "sha256": "eb9c22af770518cac08f9d07df1955e161d3618afc7ef78691f499802eabaa87"
+    }
+  ],
+  "assessment": "PENDING independent symmetric content/stdout/test-output judgment; process exit is not acceptance; no admitted event fabricated"
+}

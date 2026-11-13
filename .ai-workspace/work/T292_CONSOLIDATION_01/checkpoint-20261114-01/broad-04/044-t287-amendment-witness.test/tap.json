@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "counts": {
+    "tests": 13,
+    "pass": 12,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 13 - live: the same amendment witness against a real provider writes its evidence # SKIP ABI5_AMENDMENT_WITNESS_LIVE is not '1'; selects the live amendment witness",
+    "# todo 0"
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "kind": "bounded_independent_frozen_source_review",
+  "schemaVersion": 1,
+  "reviewId": "H03-SOURCE-STAGE-001",
+  "createdUtc": "2026-11-06T17:39:10.869034+00:00",
+  "status": "CLOSED_BOUNDED_NO_CONCRETE_SOURCE_BLOCKER_ESTABLISHED",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "dispositionOwner": "/root",
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "scope": "Unchanged fixed fifteen-family set; GOAL035/T287",
+    "method": "STDO3.0.4",
+    "composition": [],
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "referenceFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "referenceFrameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "methodRead": "Selected installed review skill previously manager-resolved, read and verified in this review chain; reused here, no fresh method verification claimed.",
+    "authority": "ABG remains the admission/runtime owner. RC6 is the immutable installed builder; RC7 source is prospective. No new controller, Program, runtime, store or authority."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/SUBJECT.json",
+    "bytes": 267155,
+    "sha256": "1c0531c2ce628677ccfb7ac4f78ce812ad031d91689f0c23b69fda67102e3447"
+  },
+  "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+    "bytes": 240531,
+    "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+  },
+  "architectureSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 7741,
+    "sha256": "2fe46b95de9428e86f421759ddad6dac7ed064bef9ac9180feebf7f530309c98"
+  },
+  "verification": {
+    "frozenBodiesVerified": 451,
+    "changedPaths": 5,
+    "inheritedUnchangedPaths": 446,
+    "changedPreimagesVerified": 5,
+    "basis": "Closed review independently checked every frozen source body against the subject, each changed before/after pin, and the exact five-row delta against pinned SOURCE_BEFORE. This persistence step did not re-review source.",
+    "movingSourceUsed": false
+  },
+  "changedInputs": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 163198,
+        "sha256": "3a69209681bd754428e7c5420f32d6b165e5dce44dd8a0eaca7356c99984d1e1"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 165642,
+        "sha256": "20d8ecc674badb488adb22488f176e9695b527bf3ef02996be92497546b4107f"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "bytes": 93642,
+        "sha256": "aeec24f5088b3152cef1c3665a73dc00bbb8f360286d28ea2ed226d36983df58"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "bytes": 97222,
+        "sha256": "4a6d2a978a46de8e8eac04b4ff17a164dcfc3a5e495e6686f69eaff743b9b548"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 364643,
+        "sha256": "7b6f0b93ef7da1b60d8d858458109fc664ae4a6e587801c84d39934ca6b4c941"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 370774,
+        "sha256": "2825568c61d32e7bb6291119fafd140917b205f101a2a9bf3b708e030e5c59cd"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "bytes": 118690,
+        "sha256": "1aefd7d8ae52a2b1cc0ac929ca003966de5980bce5d73a17fb43b94d7d5e9e25"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "bytes": 121788,
+        "sha256": "9ce365f8cbcb1adfc1b25553d71528468777897c65153af9f4ac5a885d14fb09"
+      },
+      "withinSelectedWriteTerritory": true
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "bytes": 35391,
+        "sha256": "0ba9523bb899b00a0d33a0800fdc5beca26ddc98d4ea5eb373c8f754069d8dd5"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "bytes": 39862,
+        "sha256": "a36bb612733a3fd39802413868f1f6c55ac757207788cfdd94b4f6247e0b7dcc"
+      },
+      "withinSelectedWriteTerritory": true
+    }
+  ],
+  "findings": [],
+  "conservedRelations": [
+    {
+      "owner": "test_env/uat/public-setup.mjs:184-336",
+      "conclusion": "Choose the Program/publication before binding, resolve its unique admitted install by Product/artifact/content/manifest/publication coordinates, and use its root for workspace binding. The same choice supplies Catalog membership, conformance and setup identity."
+    },
+    {
+      "owner": "test_env/uat/public-setup.mjs:354-409",
+      "conclusion": "Both fixed calls reuse the setup library view and refuse mismatched bindings before population. Ordinary consumer setup remains the default. No mid-call rebind or task/grant rewrite."
+    },
+    {
+      "owner": "code/src/abg/execution_basis.ts:647,720",
+      "conclusion": "Both Program-owner root equalities and the surrounding exact publication/leaf/implementation checks remain unchanged. Both installs and the consumer-to-ABI lock remain available; the assessment schema remains consumer-owned."
+    },
+    {
+      "owner": "test_env/tests/t287-native-workspace-work.test.mjs:286-307,864-890,1126-1221",
+      "conclusion": "H02-FIXTURE-001 is addressed in source: assessmentPublication, owner.resolution and resolved-lock/install facts now supply the existing shared relation. Crossed owner/lock/dependency direction and absent carriage remain negative controls. These are explicitly controlled component premises."
+    },
+    {
+      "owner": "test_env/tests/t287-default-library.test.mjs:2534-2554,2590-2633",
+      "conclusion": "The maintained discriminator retains root/view/conformance/identity checks, consumer schema and lock edge, actual Testing-to-derived-state-to-UAT path, no selector dispatch, source refusal/currentness controls and complete held/fresh owner-output equality."
+    },
+    {
+      "owner": "Both changed HOW files; t287-default-library.test.mjs:1199-1212",
+      "conclusion": "HOW additions describe the bounded realization correction and component limits. Refusal diagnostics expose bounded typed coordinates without copying task or provider bodies."
+    }
+  ],
+  "neededRemedy": "No further source repair recommended by this bounded review. Root conjoins separately admitted proof and final custody.",
+  "proofAtReviewClose": {
+    "stageReportPresentAtCapture": false,
+    "buildAndLanes": "Not available in captured subject; none credited by the source review.",
+    "actualNativeAfter": null,
+    "finalReturnClose": null
+  },
+  "subsequentObservedLimitation": {
+    "buildReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/stage-001/stage.json",
+      "bytes": 97531,
+      "sha256": "9ad0946d9c442075add5a0d6bc216f70981ef80471eb8b3858ce1c2e3aff312b"
+    },
+    "sourceChanged": false,
+    "setupMs": 40841,
+    "compile": {
+      "exitCode": 0,
+      "elapsedMs": 116576
+    },
+    "generation": {
+      "status": "timed_out",
+      "elapsedMs": 180074,
+      "signal": "SIGTERM",
+      "error": "ETIMEDOUT"
+    },
+    "lifecycle": "unrun",
+    "lanes": "unrun",
+    "classification": "Separately observed build/proof limitation with unresolved cause, not a source defect or expected semantic red.",
+    "runtimeClose": "Root reports the SDK host genuinely exited 0 and closed; final source custody remains pending. This review does not independently authenticate final return/close."
+  },
+  "historyPreserved": {
+    "h02DiagnosticEvents": 44,
+    "h02EventLogSha256": "780c7b52e02688760caf535ea6ccc579f0ed84659976e230ee30df4a9ea50c58",
+    "standing": "Prior child basis-admission refusal remains historical negative evidence; this review does not rewrite it."
+  },
+  "limits": [
+    "Independent same-family component review, not formal F11 J qualification.",
+    "No Product/source edits, tests, builds, runtime acquisition, provider calls, or author/private narrative inspection performed by Reviewer.",
+    "Controlled component fixture facts are not installed admission proof.",
+    "Source-stage review is not final native-after custody, Root acceptance, installed candidate qualification, release evidence or measured speedup.",
+    "Only the five selected caller/test/HOW changes and their deciding existing owner joins were reviewed; inherited work was not reopened."
+  ]
+}

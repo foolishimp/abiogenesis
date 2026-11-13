@@ -1,0 +1,71 @@
+{
+  "status": "SETUP_CLOSED_NO_DISPATCH_STDIN_LAUNCH_CONTROL_FAILURE",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/ROOT_SETUP_ADMISSION.json",
+    "bytes": 7221,
+    "sha256": "1be4d90a51b3e6a06e77c7ee042faa18b3ef1599723296ed053fac9af7228244"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/BINDING.r02.json",
+    "bytes": 19443,
+    "sha256": "94c63e2a3034b0c5db668da725cbd0960cf40eab6cce2452a50aac7690c4142b"
+  },
+  "launch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/LAUNCH.json",
+    "bytes": 944,
+    "sha256": "227752358d0f1bd76d57096197a00d7dbc5f27114742fbfe385c0d2312e99db2"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/runtime-001/PREPARED.json",
+    "bytes": 6764,
+    "sha256": "92ebc682e8dd7bea3c6caa0fdecea3b63ac8018629dfe706468088bd1394d1b1"
+  },
+  "preparedStanding": "Actual call/context constructed but resource now closed; unusable for future dispatch or resume.",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/runtime-001/FAILURE.json",
+    "bytes": 1375,
+    "sha256": "38656383fdae13a65d47d2d57aee11f128c26a9f4882185e217d66904c3728db"
+  },
+  "final": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/runtime-001/FINAL.json",
+    "bytes": 1743,
+    "sha256": "4f72833fbf7a0ad2787176fb1781367d50d07dd2f8acb525ea9df9b8f579d2b2"
+  },
+  "close": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/runtime-001/resource-close.json",
+    "bytes": 2299,
+    "sha256": "95931a5d3dee87e7ba95f7827371ced8c60593f9c39c43d71da400d26424d9de"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "context": {
+    "digest": "sha256:17f138b87de9fc002d0acc7c159e431c0f187169c5cedb95125486690e760b70",
+    "entries": 16,
+    "fileMembers": 15,
+    "sourceBytes": 162348,
+    "canonicalBytes": 222198
+  },
+  "renderedBytes": 7823,
+  "pid": 872,
+  "pty": 27812,
+  "hostExitCode": 1,
+  "actualPidAbsent": true,
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/source-freeze.json",
+    "bytes": 295251,
+    "sha256": "9a82a2297b03cec7da18862acca7d12c2625d8f6a85f4d0cf39069de0279e548"
+  },
+  "sourceDigest": "64afc834b8442a42b42663ecca5514e33832edc531e9f01f03c9eacb4b67098b",
+  "sourceRowsPreserved": 1344,
+  "protectionGuardsPassed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/PRESERVATION_GUARDS.json",
+    "bytes": 3317,
+    "sha256": "6913ad226439cd28b7f8b534a46881da5d92678245e27b7cd57770f063d70608"
+  },
+  "mainIndexHeadTrackingAndBuilderPinsUnchanged": true,
+  "cause": "Operator launched Node through python3 heredoc os.execv. The heredoc consumed standard input; Node inherited exhausted stdin and readline ended immediately after PREPARED. Host correctly refused missing admission and closed.",
+  "actualLaunchControl": "python3 - <<'PY'\nimport json,os\np='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/LAUNCH.json'\na=json.load(open(p))['argv'];os.environ['GIT_OPTIONAL_LOCKS']='0';os.execv(a[0],a)\nPY",
+  "minimumRepair": "Fresh admitted setup allocation with identical owner/task route and a direct Node command in retained PTY, or python -c preserving stdin. No old resource/call reuse; no retry executed.",
+  "scope": "No provider, native source edit, build/test, Git, release or selector effect. Prior failure/controls preserved.",
+  "recordedAt": "2026-11-10T00:38:57.281594+00:00"
+}

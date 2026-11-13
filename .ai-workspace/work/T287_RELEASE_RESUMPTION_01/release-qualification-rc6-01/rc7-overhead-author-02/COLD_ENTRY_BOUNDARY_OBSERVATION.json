@@ -1,0 +1,46 @@
+{
+  "kind": "cold_entry_launch_boundary_observation",
+  "observedUtc": "2026-11-06T05:41:49.698511+00:00",
+  "run": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/STARTED.json",
+      "bytes": 1053,
+      "mtimeUtc": "2026-11-06T05:17:02.859912+00:00",
+      "timestampStanding": "Filesystem observation, not a Product event or internal CPU timer"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/installed-content-before-run.json",
+      "bytes": 2046,
+      "mtimeUtc": "2026-11-06T05:17:03.960322+00:00",
+      "timestampStanding": "Filesystem observation, not a Product event or internal CPU timer"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/calls/lifecycle-start.request.jsonl",
+      "bytes": 55637479,
+      "mtimeUtc": "2026-11-06T05:17:04.238175+00:00",
+      "timestampStanding": "Filesystem observation, not a Product event or internal CPU timer"
+    }
+  ],
+  "childCli": {
+    "pid": 71914,
+    "parentPid": 68254,
+    "startedUtcApprox": "2026-11-06T05:17:04Z",
+    "clockResolutionSeconds": 1,
+    "source": "OS ps lstart, Sydney16:17:04 converted to UTC05:17:04"
+  },
+  "actualFirstAdmissionUtc": "2026-11-06T05:19:30.734Z",
+  "approximateLocalizations": {
+    "STARTEDToInstalledIdentityFileMs": 1100.41,
+    "STARTEDToWrittenCLIRequestMs": 1378.263,
+    "cliStartToFirstAdmissionMsApprox": 146734
+  },
+  "meaning": "The installed-content observation and55.637MB request existed within1.4s of STARTED. The remaining pre-admission interval primarily lies after cold CLI spawn; its internal decode/authentication/history/projection breakdown remains unmeasured.",
+  "limits": [
+    "File mtimes and second-resolution process metadata are auxiliary observations, not exact event-clock step timings.",
+    "No causal attribution of pre-dispatch315s or child pre-admission work from these boundaries alone.",
+    "No runtime reopen, retry, source mutation or speedup claim."
+  ],
+  "existingReadiness": "../rc7-overhead-reentry-01/latency/SAME_PROCESS_REUSE.json",
+  "nextReadiness": "../rc7-overhead-reentry-01/latency/operational-sdk-readiness-001/READINESS.json"
+}

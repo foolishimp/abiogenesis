@@ -1,0 +1,143 @@
+{
+  "status": "FROZEN_SOURCE_REVIEW_INPUT_NOT_ACCEPTANCE",
+  "recordedUtc": "2026-11-07T03:35:26.147365+00:00",
+  "authority": "Root selected independent max review at first substantive frozen stage; Operator records source and residuals only",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source-freeze.json",
+    "bytes": 293771,
+    "sha256": "0b387280632b2bb43220a867c6d8563b9153f43a1783e510f5721f989523e022"
+  },
+  "sourceRoot": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source",
+  "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+  "sourceRows": 1338,
+  "stageResult": {
+    "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/RESULT.json",
+    "bytes": 843,
+    "sha256": "c95cbbde589d8cf990f0f6df4df714a899641b4bc3399b6fb6309d3e271b183e"
+  },
+  "reviewFocus": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/REVIEW_FOCUS.json",
+    "bytes": 837,
+    "sha256": "74b4affabecd1c108c6aa65b77f6d7409a391a1d289ac35923ee284731c8bc5f"
+  },
+  "workerHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/HANDOFF.md",
+    "bytes": 11909,
+    "sha256": "8345c54149c3ac6e6566999eacf58f3e425c7672114f251c91d523dd31d0b627"
+  },
+  "sdkOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/calls/lifecycle-start.outcome.json",
+    "bytes": 1647630,
+    "sha256": "3dd78a68391b946907dd578ed21f7b51957d3a826167af3040f26072eab98b51"
+  },
+  "scopeReconciliation": {
+    "sdkChangedPathEntries": 16,
+    "trackedChangedFiles": 13,
+    "newFiles": 2,
+    "logicalFileDelta": 15,
+    "directoryObservationEntries": [
+      "build_tenants/abiogenesis/typescript/test_env/support"
+    ],
+    "allFilesExactlyMatchFrozenStage": true,
+    "files": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 50320,
+        "sha256": "653857ff3b78e7fd1f0bd37b0e504afeddcaf6d128fab0b4174d04f739990f8b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+        "bytes": 36876,
+        "sha256": "a7f8656189c0a7b754c93680011d9ccd07b9e3eb714c681a9b86a9824b15a6c5"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "bytes": 13080,
+        "sha256": "7d068fe8136483682efcb823d26d3031ff01e5c8498302a6c78943d859ac7f56"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "bytes": 47655,
+        "sha256": "0a1fcbf60c8fb132747fbf31f1ce486676b0033c713eed8eaa78d521a6d3aec9"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "bytes": 49817,
+        "sha256": "0ae97ae95f37e76be6ad37b8565228aeeedcba0661538a89d4ff578ad307dc12"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "bytes": 28326,
+        "sha256": "6176a1afddccc929de14a8e765675638a3ab1d9b2a4b0d28bcb8a6a834b4274f"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+        "bytes": 19157,
+        "sha256": "1f12826edc8dbad7ef59f6e782e8ea06fbbf47844f23a15c7b38fc85cb59fd17"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+        "bytes": 7176,
+        "sha256": "78016af0361b311618dfda2fdfe0af28a7123454be0aa95cbf0333130dcf9e8c"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "bytes": 21284,
+        "sha256": "714cead7c0bf4ec2acc408b998817e720cd09dde37c0b0536b54c75d3dde53f8"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 27548,
+        "sha256": "0cb0d20978e47eff03a1ba4c94ccf9bd243687176dcf4460fc80d8c6313bba13"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 187789,
+        "sha256": "e4ec76856e11429af1413487e6b37563944a6a784fa2ea36843d76bd76aa8772"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+        "bytes": 8001,
+        "sha256": "305f7494ff2e171720a12f604ddb19c9cfca7cb01a83a1d030c39647c927789d"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10003,
+        "sha256": "a0f72d262f00eabc74f6aaa963972888c3bb15cf703c30f7ad1bec8413e7fd17"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+        "bytes": 1474,
+        "sha256": "1945a53c4e637f5a2a6eebeb4be97a4e38aaa3b645cd0e001cab0061caa856a2"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+        "bytes": 10863,
+        "sha256": "b7a114e8a2407139b6b439b3b2173eb9b9e38db351502575bea1d0f4895f10a5"
+      }
+    ]
+  },
+  "rootSelectedResiduals": [
+    "First binder sight still performs admitJson plus Valibot structural admission and an isDeeplyFrozen Catalog/view walk; the full REF-01 work bound is not established by this source alone.",
+    "Worker proposes an owner_bindings/run_invocation.ts schema recognition extension, which lies outside its admitted write set and is a proposal only. Root/review must assess owner identity and transform semantics before any extension.",
+    "Current transport native-relinks counter measures retained-verifier reattachment. It does not establish the count of expensive native module/declaration linking work.",
+    "Corrected mechanical stage builds and import/lifecycle/calculus pass. Owned-call lane is running; no proof result or source acceptance is inferred."
+  ],
+  "nativeBoundary": {
+    "actualSdkReturned": true,
+    "physicalResourceClosed": true,
+    "final": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/FINAL.json",
+      "bytes": 3195,
+      "sha256": "fec4bae74c1c65fe611baf1dae157a094e2a0b35dbd343672e03c614f79208f9"
+    },
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/resource-close.json",
+      "bytes": 2304,
+      "sha256": "469e6ab2f2bc0818a8e8c9629a242fd885e6e0ea46fde66d6360d583294ead73"
+    },
+    "freshResultReplayReadbacks": "not yet performed"
+  },
+  "qualified": false,
+  "sourceAccepted": false
+}

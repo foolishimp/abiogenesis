@@ -1,0 +1,30 @@
+{
+  "phase": "reproduce",
+  "startedUtc": "2026-11-09T10:19:16.793Z",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/ROOT_REPRODUCTION_BINDING.json",
+    "bytes": 10622,
+    "sha256": "a20ba392da0e2b3f081416ba0e3d0f4185f3070ac56dd326b3a245075ef485e4"
+  },
+  "status": "EXACT_METADATA_BOUND_CLEAN_REPRODUCTION_COMPLETE_INSTALL_HELD",
+  "qualified": false,
+  "published": false,
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1254,
+    "sha256": "351ad5ccc49b34d4567ae69accfbdf063abab4d214023d9a09959cfc3bc387c9"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/actual-001/REPRODUCTION_RESULT.json",
+    "bytes": 1694,
+    "sha256": "11bd0773f5dd14f4b0564f351a500ca562ac6ac60d69bc9378e64089a9b64221"
+  },
+  "correspondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/actual-001/EXACT_TESTED_ARTIFACT.json",
+    "bytes": 801,
+    "sha256": "bb37bf1eb947e828b24eb0d18998f91bc8a9edf91fce442a6e1a72896b64b0f1"
+  },
+  "gitMutations": false,
+  "metadataDependentLimit": "Exact fully declared source, dependency contents/links/modes and relevant directory/hidden-lock metadata. No source-plus-file-bytes-only or metadata-insensitive reproduction claim.",
+  "endedUtc": "2026-11-09T10:20:00.407Z"
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/r10-projection-contracts.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/028-r10-projection-contracts.test/process.json",
+    "bytes": 1084,
+    "sha256": "84790f5ae92922438add88417c0fe4e8eaaf5745f2aaca6d59c8e1cc0e1ede12"
+  }
+}

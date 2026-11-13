@@ -1,0 +1,42 @@
+{
+  "kind": "rc7_native_author_readiness",
+  "schemaVersion": "1",
+  "task": "rc7-fixed-proof-author-01",
+  "frozenCandidate": {
+    "afterStageLabel": "o7f-stage-02",
+    "afterStageSourceDigest": "8a88489f56c3689e7d860e9628db6de1193ad1b1553c5a869a90ad3e3eaed533",
+    "files": {
+      "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": "1ec06ad4862faf3d6ae7bd7b6748ec198d36e742888fc380371fcf9d766527d4",
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts": "06e04db153bf279d5dad81ce4953982ae0b3fe6bf89963055c8b67f35b71c31b",
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts": "cd7930f973f61d37504a80f89ebbd6e6fc7ba4989d3096fc07d9186c7d444b59",
+      "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs": "0fa5de4056bbe525c231cee5eb037cb03b43bcf78647fe3b407cf25afe99e665",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs": "892474792a7418da877579901c7375bc18bffc3012b92afee49da8b1fdec9a48"
+    },
+    "equalsTestedStage": true,
+    "note": "No edit followed the after stage; the worktree files equal the o7f-stage-02 staged bytes."
+  },
+  "mechanicalReadiness": {
+    "compile": "pass (after stage)",
+    "generate": "pass (after stage)",
+    "lifecycleGuard": "pass (after stage)",
+    "fixedRoute": "pass 30/33, 3 declared historical skips, 6 active RC7 fixed proof tests",
+    "coldResume": "pass 2/2",
+    "callerRegression": "pass 40/40 including RC7 original stream bytes",
+    "beforeCounterexample": "5 RC7 route tests fail on the before stage; the selected-regression RC7 test passes on both"
+  },
+  "blockingForInstalledFixedProof": [
+    {
+      "owner": "abg/invocation_admission.ts retained governance-source admission (lines 1517-1529) with gtl/default_library.ts wrapper declarations (line 72)",
+      "relation": "A retained governance-state source is admitted only when the invoked GraphFunction declares abg.supported_fulfillment_profile; only the Executive declares it. The direct UAT invoke over the admitted Testing state Result is expected to be refused (authority_mismatch).",
+      "standing": "Static finding; not executed. A sixth Product path is required; outside the five-file grant; the Worker stopped without changing it."
+    }
+  ],
+  "rootOwned": [
+    "Owner-dependency selection and grant",
+    "Installed fixed Testing -> actual state Result -> native UAT Run with zero selectors, replay, cold readback and timing",
+    "Independent review of the frozen candidate",
+    "Release sequencing"
+  ],
+  "readyForRootReview": "The frozen candidate is ready for Root review. Readiness for the installed fixed proof depends on the open admission owner dependency.",
+  "notClaimed": ["independent acceptance", "whole qualification", "successful native or installed proof", "timing savings"]
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "rc7_s4_pre_cut_artifact_binding_clarification",
+  "at": "2026-11-06T15:53:47.972783+00:00",
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-001/PREPARATION_MANIFEST.json",
+    "bytes": 2705,
+    "sha256": "0adc029128fe44f13d2c7f3e0b4fd22f2a47d8b4258031a827504da2e25efc2d"
+  },
+  "rootInstruction": "S4 installed growth is a gate before the local release cut; bind a frozen built installed-test artifact, not immutable release publication.",
+  "requiredRelation": "Root selects the exact frozen built/tested source, isolated test archive and actual materialized test-bootstrap install receipt. These existing pack/verify/install owners are independent of local release custody. The fixture then uses frozen-artifact mode and its ordinary disposable install.",
+  "localReleaseCutDependency": false,
+  "immutableReleasePublicationRequired": false,
+  "requiredPackageVersion": null,
+  "bootstrapRestriction": "Any exact Root-selected isolated test install with the selected archive digest may be bound. No fabricated installation receipt, symlink standing in for materialization or old archive fallback. If no such test archive/bootstrap is retained, those are honest missing inputs to materialize through existing owners before activation.",
+  "currentExecution": "UNACTIVATED; final bindings and finite grant still null. H02 and Root diagnostic runtime are untouched."
+}

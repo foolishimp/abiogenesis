@@ -1,0 +1,22 @@
+{
+  "kind": "future_native_owner_obligation",
+  "status": "CONDITIONAL_HS03_NOT_ACTIVATED",
+  "selectedTask": "rc7-stdout-window-author-01",
+  "source": "Root source-routed clarification; no source or runtime changes by operator Writer",
+  "obligation": "admitRuntimeThreshold opens admitRuntimeEventTransactionAtDurablePrefix at the old predecessor and uses selectActiveRuntimeTransactionHistoryAtDurablePrefix with durableOnly:true. The shared scope-window flush must be durable before the decision projection. If the flush advances the durable prefix but the decision is runtime_threshold_not_reached, return and adopt the actual successor even though no threshold event is emitted; actor_process local successorPrefix must not remain stale. Merely staging the window in transaction-local state is insufficient.",
+  "owningCone": [
+    "event_store.ts",
+    "runtime_liveness.ts",
+    "actor_process.ts"
+  ],
+  "howFirst": "Resolve transaction ownership and flush recursion in the selected existing HOW before implementation; preserve E3 and exact same-decision lastActivity.",
+  "proof": "Existing selected differential and timeout/interruption proof must observe qualifying window activity and actual successor on the non-admitting branch; no additional lane or framework selected.",
+  "preservation": "Original prepared packet unchanged; existing 17-path scope and four-stage/seven-lane ceilings unchanged.",
+  "futureBindings": {
+    "acceptedHS01Source": null,
+    "acceptedHS02Measurement": null,
+    "rootDisposition": null,
+    "actualClose": null,
+    "rootActivation": null
+  }
+}

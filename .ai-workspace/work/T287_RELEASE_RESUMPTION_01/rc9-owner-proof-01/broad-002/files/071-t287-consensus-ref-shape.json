@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-consensus-ref-shape.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 657.0500000000466,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/071-t287-consensus-ref-shape.jsonl",
+    "bytes": 1108,
+    "sha256": "4963bb2a10aa0fe96da247c8737e2cb8e232f50ec6866be048f691de027efb0e"
+  },
+  "commandReceipt": "commands/071-t287-consensus-ref-shape.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

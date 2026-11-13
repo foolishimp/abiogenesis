@@ -1,0 +1,84 @@
+{
+  "kind": "root_conjoined_exact_bridge_disposition",
+  "at": "2026-11-06T07:51:21.575452+00:00",
+  "disposition": "accept",
+  "scope": "Bounded B-to-N four-path bridge and its affected existing-owner composition proof; existing checker export admitted for subsequent operator SDK use.",
+  "productFrame": {
+    "method": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "goal": "GOAL-035/T-287, unchanged fixed15 ABIogenesis5.0",
+    "changeClass": "Existing GTL physical pin, maintained runner export, exact existing test-consumer migration and HOW residual; Product WHAT unchanged"
+  },
+  "rootActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/SOURCE_AFTER.json",
+    "bytes": 274182,
+    "sha256": "40cd08685c5598c48f2acb06872eb861a544180949ef3a242b317f02393f823e"
+  },
+  "actualReturnClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/post-return-controls/r2-actual-001/CLOSE.json",
+    "bytes": 9362,
+    "sha256": "6090dda1891bbee042afcc976c2d3ba408d558a679e40a1f7518ca2434982234"
+  },
+  "nativeRun": {
+    "digest": "sha256:3ff5031db0c5af54362d6aed74d6b4a0515b0176b192776f8658ee5d2f900e35",
+    "ref": "run://abiogenesis/4dbcf7d8368c7bfa449c68be5bd443ab224e710b1496116a8b541939007f9ab2"
+  },
+  "frozenReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/reviews/bridge-stage01-001/REVIEW.json",
+    "bytes": 21261,
+    "sha256": "4988e11a05ea4f0532b090a9c581f6f9c2dfc08d63c91fa72531723a5ece3aff"
+  },
+  "frozenReviewSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/SUBJECT.json",
+    "bytes": 5616,
+    "sha256": "1f6d164d5bda072805daaefebd072d42c0c04b7e903eb62048a4bb5737d9f366"
+  },
+  "affectedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/STAGE01_FEEDBACK_PINS.json",
+    "bytes": 6826,
+    "sha256": "5067602bd75a2adc6fed94f8b258d92ea6e6ff2b84bb99c518c8efa74fd5545b"
+  },
+  "sourceConjunction": {
+    "all449FinalSourceRowsMatchNativeAfterAndTestedStage": true,
+    "allFourFrozenReviewSnapshotsMatch": true,
+    "all17StagedControlsUnchangedDuringNativeRun": true,
+    "allThreeHandoffsMatchActualAfter": true,
+    "stages": 1,
+    "lanes": 4,
+    "uniqueRequiredCases": 7,
+    "pass": 7,
+    "fail": 0,
+    "skip": 0,
+    "cancel": 0,
+    "authorBoundsObserved": true
+  },
+  "findingsClosed": [
+    "Existing GTL C2 member/span pin now matches compiled owner and genuine manifest generation; no guard weakening.",
+    "Existing checkInstalledIdentity body is exported unchanged; no replacement checker.",
+    "Two actual cold default-library consumers use admitted current task/body holders while retaining ordinary progression/currentness/W-outside-R/source/negative oracles.",
+    "HOW residual matches bounded implementation and remaining proof limits."
+  ],
+  "reviewLimit": "Ordinary fixture negative source substitutions exercise a Result holder; alternate basis-holder negative coverage is not inferred from those assertions. Existing B holder-specific evidence retains its bounded standing. No new fixture/hardening loop selected.",
+  "preserved": [
+    "B frozen source/178 passing observations/19 uncovered cases and original failures retain exact scoped standing.",
+    "B actual full result/replay remains closed; no repetition selected for this unchanged-runtime four-path bridge.",
+    "First N EACCES no-child failure remains runtime_failed at actual close0936b54d; source unchanged and exact metadata-only repair recorded.",
+    "Immutable RC6 remains unchanged, local and unqualified; no candidate performance acceptance."
+  ],
+  "next": "Use actual N successor close, exact SOURCE_AFTER and admitted unchanged shared checker through prepared existing SDK controls for the already-selected fixed Testing/UAT route; one native Worker at a time.",
+  "remaining": [
+    "Fixed Testing/UAT route increment and actual affected proof",
+    "Matched installed RC7 workflow/carriage/performance and D5 residual/recovery proof",
+    "QR02/eligible QR03 independent material, remaining scenarios/F11 and RC7 local cut/qualification",
+    "Reserved human release/publication acceptance"
+  ],
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

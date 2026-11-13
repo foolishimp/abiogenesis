@@ -1,0 +1,16 @@
+{
+  "status": "EXISTING_PRODUCT_OWNER_CONTENT_MATCHES",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/bootstrap-install/node_modules/@abiogenesis/typescript-tenant",
+  "artifactDigest": "sha256:ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693",
+  "manifestDigest": "sha256:cd9abf92465cabd3feada4f0560f1fcf70b688237e647d6953f1cc7c2af05e07",
+  "productContentDigest": "sha256:863b31d9c4ff047ea629558a2edf08cf848b19da6ec7e2d1eebd2fc55f90fc11",
+  "contentMatches": true,
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/bootstrap/package/build/code/src/product/index.js",
+    "relativePath": "build/code/src/product/index.js",
+    "bytes": 13810,
+    "sha256": "26771ef341c8d0d1b927118a9a73556cb93df7cd248dc4f5b187e50a395c4799"
+  },
+  "releaseCut": false,
+  "qualified": false
+}

@@ -1,0 +1,47 @@
+{
+  "id": "RC10-HOW-OPEN-02",
+  "status": "ROOT_ADMITTED_RC10_SETUP",
+  "utc": "2026-11-09T03:51:38.331133+00:00",
+  "bindingSha256": "521462a713c904a7175099c1cce015007ae88039ff00ebb28bd80dc3ede67f0a",
+  "scopeSha256": "01fb12706a2f383a0c51765de9338a2cda70c1b781005fd820423c659e038edd",
+  "grantsFreshPublicSetup": true,
+  "providerDispatch": false,
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/READY.json",
+    "bytes": 2770,
+    "sha256": "aa6577e0b345a87724d68f085823c08e7ac9b2809717f4ed610b93700de1e73f"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/ROOT_SCOPE.json",
+      "bytes": 3881,
+      "sha256": "01fb12706a2f383a0c51765de9338a2cda70c1b781005fd820423c659e038edd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/TASK.json",
+      "bytes": 2856,
+      "sha256": "82358087222c1539c67a43bcca26d77fc7751f8dbd8b1fa47f6676fafa04302c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/BINDING.PREPARATION.json",
+      "bytes": 13386,
+      "sha256": "521462a713c904a7175099c1cce015007ae88039ff00ebb28bd80dc3ede67f0a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/host.mjs",
+      "bytes": 15093,
+      "sha256": "2006816879061b00bfeb434b74a4fe639d33e5ed2f43d786a8d0b3e4fb528d47"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-02/HOST_DELTA.patch",
+      "bytes": 5266,
+      "sha256": "c2407d9b2e21586b2da0d46973bbe892264b9a9a5d864843244b1e78112dfc5c"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+      "bytes": 1855,
+      "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+    }
+  ],
+  "grant": "Root selects supported Public open re-entry. One new setup after exact pin checks; original manifest/source/runtime preserved; native held until actual PREPARED consumed."
+}

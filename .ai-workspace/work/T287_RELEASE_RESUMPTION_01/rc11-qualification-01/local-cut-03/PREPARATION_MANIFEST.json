@@ -1,0 +1,36 @@
+{
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "controlRevision": "rc11-metadata-bound-reproduction-only-003",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/OWNER_AND_TOOL_PINS.json",
+      "bytes": 4702,
+      "sha256": "601493cb6acd52a0d16616609eb7e2cc8f78713b4fc022ed8526b12c88c60143"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/DEPENDENCY_METADATA.json",
+      "bytes": 5242,
+      "sha256": "76e95e5611c5c96c9069ffe231865f35e0abcb2d73e38fae4015a10911922ad1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/stage-dependencies.py",
+      "bytes": 1989,
+      "sha256": "dbf65ba3ce4be75a5262661ac023deb4a2f7fa426b890ba930e08ccd7c402fa8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/run-clean-reproduction.mjs",
+      "bytes": 19072,
+      "sha256": "0802748671f052b253246009fd25117b57fa4ac7de11c1045a1cabf59bd4f3ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/exact-artifact-correspondence.py",
+      "bytes": 1322,
+      "sha256": "3089de86f40fad23c68026862ba84c38dd52f19b46c905edf57d9a83491d2c03"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/ROOT_ACTIVATION.json",
+      "bytes": 3358,
+      "sha256": "67ae08a63e1a7c8484ddfc818d9ff591a5858280d667c729ad283f531f5b1359"
+    }
+  ]
+}

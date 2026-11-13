@@ -1,0 +1,10 @@
+{
+  "kind": "root_selection_reference",
+  "status": "REFERENCE_ONLY_NOT_A_SECOND_DECISION",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 8523,
+    "sha256": "e4e99717b58f6406cd149a2c9c7b40cfd028fceccdfe204518ef8f1aa9b8d8c6"
+  },
+  "meaning": "Single durable Root architecture selection governs H05; final native control admission remains unbound."
+}

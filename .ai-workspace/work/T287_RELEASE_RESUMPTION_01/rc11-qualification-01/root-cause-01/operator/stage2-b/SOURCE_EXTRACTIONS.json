@@ -1,0 +1,39 @@
+{
+  "sources": [
+    {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 114763,
+      "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 52915,
+      "sha256": "a1f9e3888392d2f063967bc468b1ddc47fd7f3df5db70681efc18a477ad23458"
+    }
+  ],
+  "texts": {
+    "progressObserver": "() => {\n        progressObservations += 1;\n        return true;\n      }",
+    "progressCriterion": "assert.equal(progressObservations >= 7, true);",
+    "sinceMs": "const sinceMs = (start, at = performance.now()) => Math.round((at - start) * 1000) / 1000;",
+    "observePublication": "function observePublication(start, setupMs, probes) {\n  const observed = {}, pending = new Map(Object.entries(probes));\n  let stopped = false, wake = () => {};\n  const done = (async () => {\n    while (!stopped && pending.size > 0 && performance.now() - start < setupMs) {\n      for (const [name, probe] of pending) {\n        const value = await probe().catch(() => null);\n        if (value !== null) { observed[name] = { atMs: sinceMs(start), value }; pending.delete(name); }\n      }\n      if (!stopped && pending.size > 0) await new Promise(resolveWait => {\n        const timer = setTimeout(resolveWait, 10); wake = () => { clearTimeout(timer); resolveWait(); };\n      });\n    }\n    return { observed, unobserved: [...pending.keys()],\n      end: pending.size === 0 ? 'complete' : stopped ? 'owner_returned' : 'setup_deadline' };\n  })();\n  return () => { stopped = true; wake(); return done; };\n}"
+  },
+  "textPins": {
+    "progressObserver": {
+      "bytes": 71,
+      "sha256": "adf4219d952a4c3e023e3f5bddf8a6f51413d81e88bb05ecd828dd526b80015a"
+    },
+    "progressCriterion": {
+      "bytes": 46,
+      "sha256": "1c8f161a436d6e4791296d056bba595f11dd7bd394f02600ba4b12ec3642fc74"
+    },
+    "sinceMs": {
+      "bytes": 90,
+      "sha256": "df436c3fccfecdbfbc08c419f85c257799b83180eccb3d91f72a8b89db44eba3"
+    },
+    "observePublication": {
+      "bytes": 896,
+      "sha256": "9501b895efbe205c9069022c84a1edbc12d189675724179df22e30e837401083"
+    }
+  },
+  "method": "Exact substring/regex extraction from unchanged retained source. No source edits or repaired function."
+}

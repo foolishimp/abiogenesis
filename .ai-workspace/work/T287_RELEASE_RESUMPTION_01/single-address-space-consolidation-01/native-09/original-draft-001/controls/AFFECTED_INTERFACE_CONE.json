@@ -1,0 +1,742 @@
+{
+  "kind": "finite_native09_selected_interface_dependency_cone",
+  "subjectSha256": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+  "baseline": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "sourceMethod": "Exact f49 reference search overlaid by frozen122 native08 files, reverse references of seven direct helpers; not executed tests",
+  "retiredInterfaces": [
+    "authenticateSemanticStageBasis",
+    "authenticateSemanticJobBasis",
+    "projectJobRevisionSubject",
+    "projectRevisionSelectionSubject"
+  ],
+  "directTestConsumers": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "directSupportConsumers": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs"
+  ],
+  "transitiveTestConsumers": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-acknowledgment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-bounded-repair.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-historical-design.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-workflow-step.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-child-program.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-intake.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-lifecycle.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-read-dependency.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-predecessor-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "transitiveSupportConsumers": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs"
+  ],
+  "helperReferences": [
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "match": "d2-binding-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "match": "d2-binding-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "match": "d2-binding-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "match": "d2-binding-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+      "match": "d2-evidence-owner-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+      "match": "d2-evidence-owner-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+      "match": "d2-evidence-owner-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-acknowledgment.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-bounded-repair.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-historical-design.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-workflow-step.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "match": "d2-bounded-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "match": "d2-workflow-step-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "match": "d2-workflow-step-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "match": "d2-workflow-step-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-acknowledgment.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "match": "d2-workflow-step-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "match": "d2-workflow-step-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-workflow-step.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "match": "d2-workflow-step-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+      "match": "t287-generic-job-revision.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+      "match": "t287-generic-job-revision.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-child-program.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+      "match": "t287-generic-job-revision.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+      "match": "t287-generic-job-revision.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+      "match": "t287-generic-job-revision.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-intake.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-read-dependency.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "match": "t287-generic-job-intake.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-read-dependency.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "match": "t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+      "match": "t287-predecessor-context.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+      "match": "t287-predecessor-context.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-predecessor-context.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+      "match": "t287-predecessor-context.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+      "match": "d2-historical-design-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+      "match": "d2-historical-design-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+      "match": "d2-historical-design-harness.mjs"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/d2-historical-design.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+      "match": "d2-historical-design-harness.mjs"
+    }
+  ],
+  "interfaceReferences": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 29,
+          "text": "import { authenticateSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from \"./semantic_stage.js\";"
+        },
+        {
+          "line": 666,
+          "text": "const owner = authenticateSemanticStageBasis(basis);"
+        },
+        {
+          "line": 1212,
+          "text": "? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);"
+        }
+      ],
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 11,
+          "text": "import { authenticateSemanticJobBasis, semanticJobInputMatchesBasis, semanticJobContextCurrent, semanticJobRootAtPrefix } from \"./semantic_job.js\";"
+        },
+        {
+          "line": 792,
+          "text": "const owner = authenticateSemanticJobBasis(basis);"
+        },
+        {
+          "line": 1212,
+          "text": "? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 24,
+          "text": "import { authenticateSemanticStageBasis, authenticateOwnedSemanticStageBasis, projectSemanticPredecessorAtPrefix, semanticInputValueAtBasis, semanticInputAtBasisEquals,"
+        },
+        {
+          "line": 1034,
+          "text": "const owner = authenticateSemanticStageBasis(basis);"
+        }
+      ],
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 34,
+          "text": "import { authenticateSemanticJobBasis, authenticateOwnedSemanticJobBasis, semanticJobRootAtPrefix, semanticJobConstructionSourceAtPrefix } from \"./semantic_job.js\";"
+        },
+        {
+          "line": 396,
+          "text": "const owner = authenticateSemanticJobBasis(basis);"
+        }
+      ],
+      "projectJobRevisionSubject": [
+        {
+          "line": 393,
+          "text": "export function projectJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical = false) {"
+        }
+      ],
+      "projectRevisionSelectionSubject": [
+        {
+          "line": 1031,
+          "text": "export function projectRevisionSelectionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical = false) {"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 401,
+          "text": "export function authenticateSemanticStageBasis(basis: SemanticStageNativeBasis) {"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 31,
+          "text": "import { authenticateSemanticStageBasis } from \"../abg/semantic_stage.js\";"
+        },
+        {
+          "line": 683,
+          "text": "? authenticateSemanticJobBasis(input.occurrence.semanticStageBasis) : authenticateSemanticStageBasis(input.occurrence.semanticStageBasis)) !== null)) &&"
+        }
+      ],
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 32,
+          "text": "import { authenticateSemanticJobBasis, validateWorksiteFileParentsPlanAtPrefix } from \"../abg/semantic_job.js\";"
+        },
+        {
+          "line": 683,
+          "text": "? authenticateSemanticJobBasis(input.occurrence.semanticStageBasis) : authenticateSemanticStageBasis(input.occurrence.semanticStageBasis)) !== null)) &&"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 5,
+          "text": "import { authenticateSemanticStageBasis, type SemanticStageNativeBasis } from \"../abg/semantic_stage.js\";"
+        },
+        {
+          "line": 60,
+          "text": "? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);"
+        },
+        {
+          "line": 99,
+          "text": "const owner = basis === undefined ? null : job ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);"
+        }
+      ],
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 6,
+          "text": "import { authenticateSemanticJobBasis } from \"../abg/semantic_job.js\";"
+        },
+        {
+          "line": 60,
+          "text": "? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);"
+        },
+        {
+          "line": 99,
+          "text": "const owner = basis === undefined ? null : job ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 4,
+          "text": "import { authenticateSemanticStageBasis, projectSemanticWorksitePreparation, projectSemanticEvidenceInput, projectSemanticEnvelopeOutput } from \"../abg/semantic_stage.js\";"
+        },
+        {
+          "line": 63,
+          "text": "? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);"
+        }
+      ],
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 12,
+          "text": "import { projectNativeSemanticTask, projectNativeSemanticFold, projectNativeSemanticExecution, projectNativeSemanticEvidence, authenticateSemanticJobBasis, projectSemanticJobContext, projectSemanticJobPlan, projectSemanticJobBridge,"
+        },
+        {
+          "line": 63,
+          "text": "? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 217,
+          "text": "'./semantic_stage.js':{authenticateSemanticStageBasis:()=>semanticOwner,authenticateOwnedSemanticStageBasis:()=>semanticOwner,semanticInputValueAtBasis:b=>b.input,"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 77,
+          "text": "\"./semantic_stage.js\":{authenticateSemanticStageBasis:()=>owner,authenticateOwnedSemanticStageBasis:()=>owner,semanticInputValueAtBasis:b=>b.input,"
+        }
+      ],
+      "projectRevisionSelectionSubject": [
+        {
+          "line": 100,
+          "text": "function select(parent,cause){basis.input=selectionInput(parent,cause);owner.call.implementationRef=ids.selectionImplementationRef;return module.namespace.projectRevisionSelectionSubject(basis,basis.input,false);}"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 89,
+          "text": "authenticateSemanticStageBasis:()=>owner,authenticateOwnedSemanticStageBasis:()=>owner,semanticInputValueAtBasis:()=>input,"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 83,
+          "text": "const overrides=specifier==='./semantic_stage.js'?{authenticateSemanticStageBasis:()=>owner,authenticateOwnedSemanticStageBasis:()=>owner,"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 48,
+          "text": "const authenticated=owner.authenticateSemanticStageBasis(basis);assert.ok(authenticated,'actual unchanged authentication at retained prefix');"
+        },
+        {
+          "line": 57,
+          "text": "await module.link(async s=>{const native=await import(pathToFileURL(resolve(dirname(p),s)).href);const values={...native,...(s==='./semantic_stage.js'?{authenticateSemanticStageBasis:()=>owner,semanticInputMatchesBasis:()=>true}:{})};return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});});"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 213,
+          "text": "assert.ok(native.authenticateSemanticStageBasis(basis));"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 84,
+          "text": "const values={...native,...(specifier==='./semantic_stage.js'?{authenticateSemanticStageBasis:()=>owner,semanticInputMatchesBasis:()=>true}: {})};"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 54,
+          "text": "const owner = semantic.authenticateSemanticStageBasis(basis); assert.ok(owner, \"actual shared owner authenticates saved native basis\");"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs": {
+      "authenticateSemanticStageBasis": [
+        {
+          "line": 324,
+          "text": "'../abg/semantic_stage.js': { authenticateSemanticStageBasis: () => ({ admitted: true }) },"
+        },
+        {
+          "line": 357,
+          "text": "'../abg/semantic_stage.js': { authenticateSemanticStageBasis: () => owner },"
+        }
+      ],
+      "projectJobRevisionSubject": [
+        {
+          "line": 114,
+          "text": "'./semantic_revision.js': { projectJobRevisionSubject: () => subject },"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": {
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 667,
+          "text": "export function authenticateSemanticJobBasis(basis: SemanticStageNativeBasis) {"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs": {
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 51,
+          "text": "assert.ok(jobs.authenticateSemanticJobBasis(basis));"
+        },
+        {
+          "line": 62,
+          "text": "assert.equal(jobs.authenticateSemanticJobBasis({ ...basis, executionBasis: owners[(index + 1) % owners.length].basis.executionBasis }), null,"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs": {
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 58,
+          "text": "const owner = jobs.authenticateSemanticJobBasis(basis); assert.ok(owner);"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs": {
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 93,
+          "text": "const authenticated = jobs.authenticateSemanticJobBasis(basis); assert.ok(authenticated);"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs": {
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 232,
+          "text": "\"./semantic_job.js\": { authenticateSemanticJobBasis: () => owner,"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs": {
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 58,
+          "text": "assert.equal(job.authenticateSemanticJobBasis(basis).role,'author');"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs": {
+      "authenticateSemanticJobBasis": [
+        {
+          "line": 160,
+          "text": "assert.equal(h.jobOwner.authenticateSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'selection recovers the actual original root');"
+        },
+        {
+          "line": 184,
+          "text": "assert.equal(h.jobOwner.authenticateSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'successor Run does not replace original root');"
+        }
+      ]
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs": {
+      "projectJobRevisionSubject": [
+        {
+          "line": 62,
+          "text": "const subject = revision.projectJobRevisionSubject(basis, input, true); assert.ok(subject, \"all source, authority, origin and physical checks pass\");"
+        },
+        {
+          "line": 128,
+          "text": "const subject = revision.projectJobRevisionSubject(basis, input, true); assert.ok(subject);"
+        },
+        {
+          "line": 175,
+          "text": "assert.equal(revision.projectJobRevisionSubject(basis, changed, false), null);"
+        }
+      ]
+    }
+  },
+  "productEffects": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-acknowledgment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-query-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-bounded-repair.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-historical-design.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-workflow-step.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-child-program.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-intake.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-lifecycle.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-read-dependency.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-predecessor-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "counts": {
+    "productImplementationFiles": 8,
+    "directTestConsumers": 9,
+    "directSupportConsumers": 7,
+    "transitiveTestConsumers": 22,
+    "transitiveSupportConsumers": 9,
+    "exactPermittedProductPaths": 43
+  },
+  "limits": [
+    "Existing historical fixture gates retain their prior claims; no execution inferred",
+    "Two existing SAS source files may add the required behavior/work discriminators; no new production mechanism",
+    "d2-binding-query-reuse is an existing cut/query caller test with explicit lower-owner stubs, not installed authority proof"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "existing_owner_post_return_sequence",
+  "status": "F2_POST_RETURN_TEMPLATE_ACTUAL_FUTURE_UNBOUND",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/ROOT_SELECTION.json",
+    "bytes": 3033,
+    "sha256": "fba02df143b503fe4f8112ed739b99496d4ecfeb2411f878aeb4d65172cf6aed"
+  },
+  "cause": "Reuse the corrected A sequencing: persist the future actual receipt/resume, exit host, then Root binds genuine cold reads to that actual return. No previous P3 receipt or coordinates are this future result.",
+  "nativeDispatch": [
+    "Use the existing one-node direct native Program through the retained SDK host and actual acquired owner.",
+    "Retain actual SDK outcome in execution.json at /receipt, separate actual resource-close.json at /closeHandoff and genuine successor resume; let host exit.",
+    "Root binds both exact full typed cold reads against actual return/close; no previous receipt/close fallback or automatic readback."
+  ],
+  "readbackOwner": "Root uses the existing P3 capture-once installed SDK pattern, binding the actual returned close and expected full terminal after author host exit. No new dispatch gate, manifest protocol, helper framework or Product contract is introduced by this sequence.",
+  "readbackRelation": [
+    "Each read enters through its actual installed owner boundary and exact returned current close. Keep physical prefix identity/length/digest unchanged.",
+    "Where the same process already acquired a coordinate, pass that exact coordinate through existing prepare APIs; no serialized coordinate may claim the acquired owner identity. Avoid redundant parent refresh.",
+    "Retain one exact complete read output for each cold observation plus source/ref/digest/exit/custody metadata. Consume the actual invocation terminal from execution.json once; do not embed it in every summary.",
+    "If the actual invocation has a typed terminal, BOTH reads must satisfy the existing full typed result and complete canonical terminal value/producer/ref/digest relation to that actual terminal. P3 blocked-only or terminalPresent-only checks do not close this author return.",
+    "If the actual invocation has no terminal, preserve the truthful failure/blocked/refusal and absence agreement; do not call the coding task successful.",
+    "Fresh readbacks and source freeze/independent review/affected installed proof remain required later. One changed-condition Root disposition is needed on failure; no automatic retry or heap bump."
+  ],
+  "canonicalNativeChange": "No canonical runner Product change is granted here. Exactly five selected fixed-route files; Root owns post-return drain/read sequencing using existing APIs.",
+  "directPreparationReuse": "The selected direct-native preparer uses one publicCaller and retains its exact state.environment from its first refresh for construction. It does not have P3 dry/caller duplication, so it adds no extra refresh. If another existing caller is instantiated in a same-process successor path, reuse via caller.refresh(env.prefix); never clone/serialize that owner value.",
+  "fullClosurePredicate": "Strict complete typed terminal equality against actual author invocation plus unchanged physical prefix and actual source relation; not merely two successful exit codes, terminal presence, P3 absence, or matching body size."
+}

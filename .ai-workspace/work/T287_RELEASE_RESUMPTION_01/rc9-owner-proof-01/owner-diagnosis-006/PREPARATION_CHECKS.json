@@ -1,0 +1,46 @@
+{
+  "status": "CONTROL_PREPARATION_CHECKED",
+  "syntax": [
+    {
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/run-owner-diagnosis-006.mjs"
+      ],
+      "exitCode": 0,
+      "wallMs": 27.684875298291445,
+      "stdout": "",
+      "stderr": "",
+      "standing": "Control syntax parse only; script body/test/Product not executed."
+    },
+    {
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/file-host-006.mjs"
+      ],
+      "exitCode": 0,
+      "wallMs": 20.988457836210728,
+      "stdout": "",
+      "stderr": "",
+      "standing": "Control syntax parse only; script body/test/Product not executed."
+    },
+    {
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/phase-tail-006.mjs"
+      ],
+      "exitCode": 0,
+      "wallMs": 21.738875191658735,
+      "stdout": "",
+      "stderr": "",
+      "standing": "Control syntax parse only; script body/test/Product not executed."
+    }
+  ],
+  "pinChecks": {
+    "count": 61,
+    "mismatches": []
+  },
+  "execution": "No runner/helper body, candidate/test/build/provider or runtime allocation executed."
+}

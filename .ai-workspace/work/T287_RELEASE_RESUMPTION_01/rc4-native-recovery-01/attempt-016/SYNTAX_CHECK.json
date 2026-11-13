@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "file": "prepare-native-call.mjs",
+      "exit": 0
+    },
+    {
+      "file": "setup-state.mjs",
+      "exit": 0
+    },
+    {
+      "file": "dispatch.mjs",
+      "exit": 0
+    },
+    {
+      "file": "pure-config-readiness.mjs",
+      "exit": 0
+    },
+    {
+      "file": "freeze-dispatch.py",
+      "compileOnly": true
+    },
+    {
+      "file": "operator-preflight.py",
+      "compileOnly": true
+    },
+    {
+      "file": "readiness.py",
+      "compileOnly": true
+    }
+  ],
+  "runtimeCalls": 0
+}

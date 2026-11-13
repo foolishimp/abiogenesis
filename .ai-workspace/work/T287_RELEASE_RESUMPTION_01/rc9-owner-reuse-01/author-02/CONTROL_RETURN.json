@@ -1,0 +1,50 @@
+{
+  "status": "CONCRETE_AUTHOR02_CONTROLS_READY_FOR_ROOT_REVIEW",
+  "recordedAt": "2026-11-08T07:00:59.250993+00:00",
+  "controls": {
+    "ROOT_PACKET.txt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_PACKET.txt",
+      "bytes": 3131,
+      "sha256": "7f001fe1bfb10f86f78959932599339b64e8da290db84b7a4bef004d3a9c91cd"
+    },
+    "ROOT_SCOPE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_SCOPE.json",
+      "bytes": 3663,
+      "sha256": "5d0f6f010854447821bc28d65d6bf98f62872fb1511d03bca96f7e927599bb9d"
+    },
+    "TASK.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/TASK.json",
+      "bytes": 11863,
+      "sha256": "1253168b96f8c40a63e25dd0f26c4ef791c9c5e41d781e8ce57f3e3563f3ba9e"
+    },
+    "BINDING.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/BINDING.json",
+      "bytes": 10156,
+      "sha256": "294d0d53881ba9e924382fffd911d2c646d204edb8190e9d94fc140b27b0faae"
+    },
+    "host.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/host.mjs",
+      "bytes": 13586,
+      "sha256": "62174e1f216e004590b27928b7cdd30a01ffd8584e0d7cc572d27299c02547be"
+    },
+    "PREPARATION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/PREPARATION.json",
+      "bytes": 2053,
+      "sha256": "e1e83d6ee32dc03bb6e74832cbab5c7d4b49fe0ae9887bedfc395ff061aa3502"
+    },
+    "STATIC_PREFLIGHT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/STATIC_PREFLIGHT.json",
+      "bytes": 12886,
+      "sha256": "aed7585377021c360f039088766ae43bdc121c7bff86b13b0999551a62fbc08a"
+    }
+  },
+  "all1340PreimagesEqual": true,
+  "allEightWritePathsInReadRoots": true,
+  "actualClosedPrefixUnchanged": true,
+  "newInstallOrSetupReplay": false,
+  "runtimeAllocated": false,
+  "providerDispatched": false,
+  "requestedOperation": "Execute exact STATIC_PREFLIGHT command once; retain one owner at HELD_PREPARED_NO_NATIVE_DISPATCH for actual PREPARED-bound Root decision. Host includes reviewed future focused-binding production after dispatch admission.",
+  "futureEffects": "Exact preflight effectTerritory only; source edits and final proof require native dispatch admission.",
+  "O3Residual": "OPEN separate T287 performance follow-up; prior physical boundaries retained; no once/zero-per-resolution or speedup claim."
+}

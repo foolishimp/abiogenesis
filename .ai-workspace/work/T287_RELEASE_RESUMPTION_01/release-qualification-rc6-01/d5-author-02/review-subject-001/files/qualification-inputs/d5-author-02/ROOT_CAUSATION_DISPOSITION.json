@@ -1,0 +1,41 @@
+{
+  "kind": "root_causation_measurement_disposition",
+  "at": "2026-11-05T22:39:48.787142+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "actualPartialSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 461262,
+    "sha256": "601d6588e7c8c9f03a5305a378fb3454f815e641003668677b51142b590b096f"
+  },
+  "diagnosis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/TRIAGE.json",
+    "bytes": 24351,
+    "sha256": "7f27ca61097b174e776a64cc00865d2672f0eb34b41511a8173688883cb082ec"
+  },
+  "diagnosisVerdict": "S3 test measurement attribution gap; actual admission/location lookups equal expected127. Existing durable encoding batch contributes128 known map writes. No D5 runtime lookup regression established.",
+  "rootDisposition": "Select a bounded test-only attribution correction in the next complete D5 source increment; no independent coding dispatch now. Do not redesign event store or remove its durable encoder map to fit the incomplete measurement.",
+  "preservedLaw": [
+    "Explicit owner/phase-bound category for durable encoding batch map; expected N entries",
+    "Exact map population accounting and unattributed=0",
+    "128/256 growth, canonical-byte/cold-event equality and per-prefix projection assertions",
+    "Adjacent rollback/reappend/refusal-precedence checks"
+  ],
+  "riskPricing": {
+    "trigger": "Deterministic when this selected test executes",
+    "realizedHarm": "A red proof lane and repeated author work; no causal corruption/data loss/runtime performance regression established",
+    "failClosed": "Unknown-operation assertion rejects the incomplete measurement; never infer missing cold/growth checks passed",
+    "repairChurn": "Small test-only owner attribution; runtime redesign disproportionate"
+  },
+  "limits": [
+    "Frozen predecessor manifest did not include this test, so its prior classifier provenance remains unproved by this review",
+    "Author stage3 failed before later cold/map-count/256 growth assertions; those remain unexecuted",
+    "Overall D5 M2/recovery completeness, actual C2/UAT and final close remain separate"
+  ],
+  "futureWritePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+  "automaticRetry": false,
+  "activation": "Future only after complete M2/recovery owner readiness and actual source close are conjoined"
+}

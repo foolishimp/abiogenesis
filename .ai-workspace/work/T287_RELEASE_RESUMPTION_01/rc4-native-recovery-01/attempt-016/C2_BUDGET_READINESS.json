@@ -1,0 +1,41 @@
+{
+  "kind": "pure_existing_owner_c2_budget_readiness",
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 4132750,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 4137750
+  },
+  "limits": {
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000
+  },
+  "fits": true,
+  "commands": 11,
+  "scope": "Pure existing budget owner only; actual whole configuration requires genuine runtime003 authority/ambient; no Runtime/provider/store/build/test effects."
+}

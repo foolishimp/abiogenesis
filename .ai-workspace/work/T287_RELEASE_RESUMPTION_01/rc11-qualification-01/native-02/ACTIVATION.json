@@ -1,0 +1,42 @@
+{
+  "id": "RC11-AUTHOR02-PREP",
+  "status": "PREPARATION_ONLY_ACTUAL_FIXTURES_REQUIRED",
+  "owner": "Root Executive",
+  "writer": "/root/rc10_operator",
+  "effort": "xhigh",
+  "utc": "2026-11-09T07:18:17.828522+00:00",
+  "grant": "Prepare smaller native task and supported existing-workspace Public open host skeleton only under P11/native-02 and corresponding C11 qualification-inputs/scratch. No setup/runtime/provider/source effects. Do not finalize source inventory/task hash or construct native call before actual fixture bytes exist.",
+  "reprice": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_REPRICE_01.json",
+    "bytes": 3254,
+    "sha256": "596ee32800d6173c5dcb5224d6deb688533905c77bd564252a04b79b23c351e9"
+  },
+  "priorFailurePreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/RETURN.json",
+    "bytes": 6964,
+    "sha256": "70ec4ba74bb5872617dacb052b588b07b413b1a956d1b89185693e54f69a2378"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "worksiteManifest": {
+    "path": "/private/tmp/abg-rc11-qualification-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1839,
+    "sha256": "f28304c016e7543e6f17c0bb6930f36d4754f8e8d82663bd4c0ea7397564b641"
+  },
+  "expectedWorkspaceAuthority": {
+    "ref": "workspace-authority://abiogenesis/510e8534e522495da6d3b1fc8145c32408ebcdb8504ea9aa4d1b029ddc1cbe1f",
+    "digest": "sha256:510e8534e522495da6d3b1fc8145c32408ebcdb8504ea9aa4d1b029ddc1cbe1f"
+  },
+  "sourceScope": "Two snapshot consumers, load-only new support, actual construction/proof README, exact physical test controls, three RC11 version metadata paths. Four actual produced snapshots are readonly inputs staged under a separate future grant. No checked-in generator or generator implementation.",
+  "model": "claude-opus-5-5",
+  "effortSelection": "xhigh",
+  "provisionalLimits": {
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "nextBoundary": "Root finalizes exact scope and source/input pins after actual evidence generation/staging."
+}

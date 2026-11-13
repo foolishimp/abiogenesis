@@ -1,0 +1,157 @@
+{
+  "recordedUtc": "2026-11-03T20:56:16.349731+00:00",
+  "status": "ACTUAL_C2_COMMAND_FAILED",
+  "standing": "Actual helper output and lane custody; native admission/Run close still pending. No whole acceptance.",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/7ee909f2ec53e31004998246f790301ca78aa4600681f271357129cbb37d3c0a",
+  "helperArtifactDigest": "sha256:7ee909f2ec53e31004998246f790301ca78aa4600681f271357129cbb37d3c0a",
+  "helperPhysicalSha256": "ff20e4ac7290f80c64841cfda3cfd8a868d6c809346f3f581e3eaaf12dbc0cbe",
+  "helperProducer": {
+    "attemptRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64",
+    "attemptDigest": "sha256:be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64",
+    "attemptRef": "worksite-command-attempt://abiogenesis/fc3832c1dc87a3bddeb8436c2e4083483a756e1826cc96903bf7d7bd995d61dc",
+    "taskRef": "worksite-command-execution-task://abiogenesis/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1",
+    "taskDigest": "sha256:c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1",
+    "taskManifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64/task.json",
+    "taskManifestDigest": "sha256:0480681d07e77dfc1944912741ec9c65beb45f58bbd7f86c626df86f87c38437",
+    "launchManifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64/launch.json",
+    "launchManifestDigest": "sha256:2387bb430a5c42c3c3865f939a6cba92616606e44cb33520a5267c3b80343455"
+  },
+  "commands": [
+    {
+      "ordinal": 0,
+      "commandId": "command://abiogenesis/single-address-space/native-04/source-correspondence",
+      "exitStatus": 0,
+      "processSignal": null,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "observationRef": "worksite-command-observation://abiogenesis/5c6fb1669adef152e9b3a03d6ee3cbc094af2667cccb8a2188d4068307587288",
+      "observationDigest": "sha256:5c6fb1669adef152e9b3a03d6ee3cbc094af2667cccb8a2188d4068307587288"
+    },
+    {
+      "ordinal": 1,
+      "commandId": "command://abiogenesis/single-address-space/native-04/offline-toolchain",
+      "exitStatus": 0,
+      "processSignal": null,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "observationRef": "worksite-command-observation://abiogenesis/95fcc6949d0b1da656d6d8ced77f86b7642f4bc711e846f63cc50d2cc9a156f5",
+      "observationDigest": "sha256:95fcc6949d0b1da656d6d8ced77f86b7642f4bc711e846f63cc50d2cc9a156f5"
+    },
+    {
+      "ordinal": 2,
+      "commandId": "command://abiogenesis/single-address-space/native-04/contract-seeds",
+      "exitStatus": 0,
+      "processSignal": null,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "observationRef": "worksite-command-observation://abiogenesis/e01cde2bd4e8b9b65ed8509b57d24e502158c964e488a4f8627f0f007cb5f4a1",
+      "observationDigest": "sha256:e01cde2bd4e8b9b65ed8509b57d24e502158c964e488a4f8627f0f007cb5f4a1"
+    },
+    {
+      "ordinal": 3,
+      "commandId": "command://abiogenesis/single-address-space/native-04/compile",
+      "exitStatus": 0,
+      "processSignal": null,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "observationRef": "worksite-command-observation://abiogenesis/d2292a3cb390eb2c9ac9f100da72104265906d27846e60cc1470cbeb4a2ad4e3",
+      "observationDigest": "sha256:d2292a3cb390eb2c9ac9f100da72104265906d27846e60cc1470cbeb4a2ad4e3"
+    },
+    {
+      "ordinal": 4,
+      "commandId": "command://abiogenesis/single-address-space/native-04/generate",
+      "exitStatus": 0,
+      "processSignal": null,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "observationRef": "worksite-command-observation://abiogenesis/1f4c5e08f10f8550d889fd6d10a0b7f36d03b481d3243bf51e04a01ab092cd8c",
+      "observationDigest": "sha256:1f4c5e08f10f8550d889fd6d10a0b7f36d03b481d3243bf51e04a01ab092cd8c"
+    },
+    {
+      "ordinal": 5,
+      "commandId": "command://abiogenesis/single-address-space/native-04/pack",
+      "exitStatus": 0,
+      "processSignal": null,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "observationRef": "worksite-command-observation://abiogenesis/01335ba8ec462c62ed4774ed74c9ccdfb11af8a359b12f6340c7ff5479b94a66",
+      "observationDigest": "sha256:01335ba8ec462c62ed4774ed74c9ccdfb11af8a359b12f6340c7ff5479b94a66"
+    },
+    {
+      "ordinal": 6,
+      "commandId": "command://abiogenesis/single-address-space/native-04/affected-proof",
+      "exitStatus": 1,
+      "processSignal": null,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "observationRef": "worksite-command-observation://abiogenesis/83c63aa2e0f3bf2551caebeb3645b81cc938e1dba891b7db8ac1e1302c20b933",
+      "observationDigest": "sha256:83c63aa2e0f3bf2551caebeb3645b81cc938e1dba891b7db8ac1e1302c20b933"
+    }
+  ],
+  "predicateObservedValues": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+  ],
+  "sourceCorrespondence": {
+    "count": 102,
+    "allEqualFrozenSourceAndHandoff": true,
+    "subjectSha256": "2cf127e6fac782b900b8891fd0f7eb562f3970b47cbd753b5a4dc2c04954e208"
+  },
+  "protectedInputCount": 860,
+  "protectedBeforeEqualsAfter": true,
+  "productDelta": [],
+  "lanes": [
+    {
+      "id": "affected-owner-lanes",
+      "pass": 106,
+      "fail": 0,
+      "skipped": 30,
+      "wallMs": 368728.621708,
+      "stdoutSha256": "a213f90df8de147defa38c7219315eca8ee7c8d251c84d59c6094d53564c2006",
+      "failedCases": []
+    },
+    {
+      "id": "installed-affected-lane",
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 81702.797583,
+      "stdoutSha256": "b09629629c6462adcb7388ba30b470ba6eec34235de18d249d26185e2972bd56",
+      "failedCases": []
+    },
+    {
+      "id": "maintained-setup-harness",
+      "pass": 30,
+      "fail": 2,
+      "skipped": 0,
+      "wallMs": 67616.480417,
+      "stdoutSha256": "89d212ad41c5ac18b14093588b50d37c3251541c29cfc663b0efe15db20ecd94",
+      "failedCases": [
+        "not ok 11 - Caller execution policy omits optional actor caps, retains explicit positive flags and rejects invalid caps",
+        "not ok 19 - Archived judgment conserves acquired module, manifest and rubric despite later ambient edits; tampering refuses"
+      ]
+    },
+    {
+      "id": "single-address-space-whole-path",
+      "pass": 4,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 210492.431917,
+      "stdoutSha256": "233faefb254747328d0a7eea1f65bcddd83f300c155c5932aa886063a7301b9d",
+      "failedCases": []
+    }
+  ],
+  "nativeProof": {
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/c5f3a413c436cc77f296bf3ea6254dda49d54fc403a785df5c92b7862d2b06c1/be1de523b272977416c14c5520552c7cd2d6a71d920bbfb2048acf865eeedd64/sandbox/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+    "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/actual-c2-001/single-address-space-proof.json",
+    "bytes": 98778,
+    "sha256": "25eaf5e89da177bf453705355ba6dd26cd38dab84c5bfc6ff298961be058f805"
+  },
+  "failure": "Maintained setup harness has2 ENOENT failures for test_env/uat/config.example.json, absent from selected C2 inputs. Root input preparation triage required; no Product defect inferred.",
+  "priorEvidencePreserved": true
+}

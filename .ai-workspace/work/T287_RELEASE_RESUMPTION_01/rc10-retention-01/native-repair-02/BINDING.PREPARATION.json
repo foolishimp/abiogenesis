@@ -1,0 +1,287 @@
+{
+  "id": "RC10-INTEGRATION-REPAIR-02",
+  "status": "PREPARED_RC10_NATIVE_EXECUTION_HELD",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/ROOT_SCOPE.json",
+    "bytes": 6945,
+    "sha256": "2e73c0e378a8d91d87ce066c77fb3411d74f9751bfcd5aaa843d01796e802b56"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/TASK.json",
+    "bytes": 5716,
+    "sha256": "13619b2660ef478717696dfc654afa41de99ddde887d9beefa0f93f10d7e1fb4"
+  },
+  "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "sourceRoot": "/private/tmp/abg-rc10-retention-20261109",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/SOURCE_INVENTORY.json",
+    "bytes": 292209,
+    "sha256": "f03711b3306f3d212bbe8c3cb8c02d90e34f38082a044412ebf5880934380d65"
+  },
+  "sourceMaterialization": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/MATERIALIZATION.json",
+    "bytes": 267,
+    "sha256": "cbf92447ed80db88d65f98a2ce0dab463c0559376242b61da0bdd7a36aa61263"
+  },
+  "branch": "codex/rc10-retention",
+  "bootstrapRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9/node_modules/@abiogenesis/typescript-tenant",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 6302,
+    "sha256": "cf78adcc3b44737b813c721704470e2ad4674c7dde9631dd7168ff0b724932bb"
+  },
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "sourceHelpers": {
+    "public-setup.mjs": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39883,
+      "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+    },
+    "runner.mjs": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    "consumer.mjs": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    "scenarios.mjs": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-rc10-native-repair-02/tmp",
+    "TMPPREFIX": "/private/tmp/abg-rc10-native-repair-02/tmp/zsh",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-rc10-native-repair-02/npm-cache",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/npm-global.npmrc",
+    "BASH_DEFAULT_TIMEOUT_MS": "180000",
+    "BASH_MAX_TIMEOUT_MS": "180000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 100,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 180000,
+    "absoluteTimeoutMs": 900000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "providerExecutable": {
+    "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+    "bytes": 272984176,
+    "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+  },
+  "providerWrapper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/claude-provider.sh",
+    "bytes": 68,
+    "sha256": "93542d7ecc30905e9f04ced90dd571b9514bfd8a62e4276620fd6d364051b997"
+  },
+  "dependencyRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+  "dependencyPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/package.json",
+      "bytes": 3620,
+      "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/@types/node/package.json",
+      "bytes": 4509,
+      "sha256": "89cb280743d8e75899ce6848e2d6502b47b0409e403a7fbc956a2d0aec9cb182"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+      "bytes": 40617,
+      "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/package.json",
+      "bytes": 1914,
+      "sha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/package.json",
+      "bytes": 1832,
+      "sha256": "5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/jsonc-parser/package.json",
+      "bytes": 1180,
+      "sha256": "a7a9192caaac00d9330592f4fd572908bee037518128a0fc3db96d2cd652e2b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/ajv/package.json",
+      "bytes": 4405,
+      "sha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/ajv-formats/package.json",
+      "bytes": 1897,
+      "sha256": "402fb4bcfa457f0226813f3976ac42839dd619907c075c108efba8600d7edb69"
+    }
+  ],
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "contractSeedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9/node_modules/@abiogenesis/typescript-tenant/contracts",
+  "scratchRoot": "/private/tmp/abg-rc10-native-repair-02",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/runtime-001",
+  "proofTimeoutMs": 900000,
+  "reserveBytes": 4294967296,
+  "focusedProofTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NO_NATIVE_PROOF.json",
+    "bytes": 318,
+    "sha256": "f57cc2a61e8bad3c48cd540dfab89f437f53a5086145160229a4b790fa263f0a"
+  },
+  "proofControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/NO_NATIVE_PROOF.json",
+      "bytes": 318,
+      "sha256": "f57cc2a61e8bad3c48cd540dfab89f437f53a5086145160229a4b790fa263f0a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/transport-preflight.mjs",
+      "bytes": 1319,
+      "sha256": "65ba305d4494785db96e188f2e2ce7f2022704761ff749b65e356c3594571da6"
+    }
+  ],
+  "nativeDispatch": false,
+  "qualified": false,
+  "setupEffectsAwaitingAdmission": [
+    "Actual existing Public open.open with exact original manifest authority, unbound result and unchanged manifest.",
+    "Fresh Public-installed RC9 and maintained test consumer under this new runtime-001.",
+    "Fresh actual event resource and native call; hold same live caller for Root admission, no provider at setup."
+  ],
+  "installedCallSelection": {
+    "memberKey": "start",
+    "target": {
+      "kind": "next"
+    },
+    "rootMode": "direct",
+    "fhMode": "direct",
+    "programOwnerSymbol": "product.NATIVE_WORKSPACE_WORK_IDS.programRef",
+    "callConstructor": "public.constructInstalledStartCall",
+    "transport": "public.runInstalledDefinitionCallWithResource through maintained runner.invokeLifecycle",
+    "resource": "fresh owner acquisition and actual returned successor, never old RC8/9 identity"
+  },
+  "readOnlyInputPins": [
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/APPS_AGENTS.md",
+      "bytes": 8133,
+      "sha256": "abd68d0b412858965e007e44e30a432fa0e388f46a2978226a55ff93f05857f2"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/EXTERNAL_TOOLS.json",
+      "bytes": 792,
+      "sha256": "5f567c9d6907ed22e24f9f142a3ef24c2855ee881e17f24ea378b7f00d228bb6"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/FAILURE_HANDOFF.001.json",
+      "bytes": 12714,
+      "sha256": "60e3f4ff054e5cef0a38709c859bfc131f17b55aea3fbb4ee840f7a4e5040cb3"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/REVIEW_ADDENDUM.json",
+      "bytes": 18507,
+      "sha256": "bebd8440ebdcffebf83e4b9a0e9710df149b22abf729e6d550e8f261b39bcbd9"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/REVIEW_ADDENDUM.md",
+      "bytes": 3150,
+      "sha256": "fd57c1d6ff857289c1d4bad68a23104e37c2f7a9d4dc97d8206494cae1ade9be"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/ROOT_SCOPE.json",
+      "bytes": 6945,
+      "sha256": "2e73c0e378a8d91d87ce066c77fb3411d74f9751bfcd5aaa843d01796e802b56"
+    },
+    {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/repair-02/STDO_STDO_WORK_SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    }
+  ],
+  "nativeScratchRoot": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/repair-02",
+  "workerEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/repair-02/tmp",
+    "TMPPREFIX": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/repair-02/tmp/zsh",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/repair-02/npm-cache",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/npm-global.npmrc",
+    "BASH_DEFAULT_TIMEOUT_MS": "180000",
+    "BASH_MAX_TIMEOUT_MS": "180000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "nativeScratchDirectories": [
+    "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/repair-02/tmp",
+    "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/repair-02/npm-cache"
+  ],
+  "scopeInputGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/ROOT_SCOPE.json",
+    "bytes": 6945,
+    "sha256": "2e73c0e378a8d91d87ce066c77fb3411d74f9751bfcd5aaa843d01796e802b56"
+  },
+  "sourceSelection": {
+    "classification": "realization_refactor + owning HOW clarification",
+    "rootScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/ROOT_SCOPE.json",
+      "bytes": 6945,
+      "sha256": "2e73c0e378a8d91d87ce066c77fb3411d74f9751bfcd5aaa843d01796e802b56"
+    }
+  },
+  "workspaceOpenManifest": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1855,
+    "sha256": "fd51501ff604dacb77ae47c7e94defb0793995dc39161240fc6247da95e6031a"
+  },
+  "expectedWorkspaceAuthority": {
+    "ref": "workspace-authority://abiogenesis/a1e5afd77e63f8c6f7ea845ee5a8d4977ef1e7f359957962bfa2be65b438dd9f",
+    "digest": "sha256:a1e5afd77e63f8c6f7ea845ee5a8d4977ef1e7f359957962bfa2be65b438dd9f"
+  },
+  "transportContract": {
+    "source": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+      "bytes": 43447,
+      "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+    },
+    "functionSha256": "af5edc19ebb7c6ca6190637a840342620650a98c13568132b50ed25fbbef1ac7",
+    "functionBytes": 346,
+    "inactivityTimeoutMs": 180000,
+    "absoluteTimeoutMs": 900000,
+    "maxTurns": 100
+  }
+}

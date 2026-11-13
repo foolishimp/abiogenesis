@@ -1,0 +1,23 @@
+{
+  "status": "PASSED",
+  "source": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+    "bytes": 43447,
+    "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+  },
+  "functionSha256": "af5edc19ebb7c6ca6190637a840342620650a98c13568132b50ed25fbbef1ac7",
+  "selected": {
+    "source": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+      "bytes": 43447,
+      "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+    },
+    "functionBytes": 346,
+    "functionSha256": "af5edc19ebb7c6ca6190637a840342620650a98c13568132b50ed25fbbef1ac7",
+    "inactivityTimeoutMs": 180000,
+    "absoluteTimeoutMs": 900000,
+    "maxTurns": 100
+  },
+  "oldEqualTimeoutRejected": true,
+  "meaning": "Only the exact installed pure timeout validator executed; no runtime or provider allocation."
+}

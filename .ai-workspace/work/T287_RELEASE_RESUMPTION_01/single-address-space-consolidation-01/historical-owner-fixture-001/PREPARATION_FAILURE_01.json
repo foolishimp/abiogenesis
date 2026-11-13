@@ -1,0 +1,8 @@
+{
+  "recordedUtc": "2026-11-03T20:21:11.840805+00:00",
+  "operation": "Add offline dependency symlink after exact archive extraction",
+  "failure": "FileExistsError: package/node_modules already exists",
+  "cause": "The exact original archive already carries bundled runtime dependencies; adding an offline dependency link was unnecessary.",
+  "effects": "All archive payloads were extracted into this new fixture directory before failure; no old installation/release or existing payload was overwritten. The failed symlink created nothing.",
+  "correction": "Verify and use the original bundled dependencies and all extracted payloads; no dependency substitution."
+}

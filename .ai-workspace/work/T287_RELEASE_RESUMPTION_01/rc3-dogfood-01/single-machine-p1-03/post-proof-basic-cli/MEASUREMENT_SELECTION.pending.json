@@ -1,0 +1,75 @@
+{
+  "fixture": {
+    "config": {
+      "bytes": 1771,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/config.json",
+      "sha256": "27dc1643d0692c334e2bffee218edd77c385c8b8dc12d2667477616a44e6ac4a"
+    },
+    "name": "original basic-cli",
+    "oracle": "unchanged14checks/sixfixtures/tenroots/twocommands/bound12",
+    "selection": {
+      "bytes": 12463,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/SELECTION.json",
+      "sha256": "de0fd49058d569dbf492d56d4809750c48634e8a1f6735b234246a84c8cb6ef3"
+    }
+  },
+  "historicalComparator": {
+    "artifactSha256": "9b6440795b600ce822b54ec35c468d35af6fdd07a251f5c0bdb6c1d3ccfc253d",
+    "claim": "Same-input observation only; no new paid oldbaseline or strictCPU/provider benchmark",
+    "evidence": {
+      "bytes": 54509,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/SUNNY_DAY_NATIVE_PROOF.json",
+      "sha256": "2e1775a4c9b450ca92c7e48cf74447bfc0df5e1d8b904b58b92c60365c5c9b4c"
+    },
+    "verifiedPrefix": {
+      "coordinateDigest": "sha256:e4d1a4154f4332f49d9d9082c07b79be287844a68c764ab54d07c2198e1245ac",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:d08d3ee4c44fd8dd7bfb1c1ed9b38d2f480eccfe6a5059f41a8d683a34f39b1d",
+      "prefixLength": 23532557,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 667698100
+      }
+    }
+  },
+  "limits": [
+    "No reader invocation before actual closed prefix/installedmodule pins and Root selection",
+    "Cold timing starts after module import and custody verification; filesystem cache uncontrolled",
+    "Warm established projection is a different existing operation; maxRSS processwide",
+    "No965/B11 denominator or performance gate; provider telemetry separate",
+    "Raw occurrence counts and admitted first-birth/holder counts are distinct; preserve source/event coordinates"
+  ],
+  "new": {
+    "actualRun": null,
+    "artifact": {
+      "bytes": 10942981,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+      "sha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd"
+    },
+    "closeReturn": null,
+    "eventStoreModule": null,
+    "installedRoot": null,
+    "prefix": null
+  },
+  "status": "PENDING_ACTUAL_BASIC_CLI_CLOSED_RETURN_AND_INSTALLED_OWNER",
+  "tools": {
+    "bodySubtree": {
+      "bytes": 1154,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/efficiency-p1-01/scripts/b11_body_measure.py",
+      "sha256": "1b158ad165f9e6aa781be88e26f615fb78db834da1ce5dcd77e94ba32a705af2"
+    },
+    "eventFamilies": {
+      "bytes": 1906,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/efficiency-p1-01/scripts/b11_measure_events.py",
+      "sha256": "24e187cc8dd6916a5c5e00ac343c113b0571a1508e62c3d15af5ed54bf0a6a20"
+    },
+    "prefixReader": {
+      "bytes": 2094,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/post-proof/measure-prefix.mjs",
+      "sha256": "287115894281eab47c700409c3f7516922d500bb0962a7774bcf4d951d199c1d"
+    }
+  }
+}

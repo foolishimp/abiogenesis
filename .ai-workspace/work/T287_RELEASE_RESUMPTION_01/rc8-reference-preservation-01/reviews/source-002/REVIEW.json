@@ -1,0 +1,615 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "fixedFamilies": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "activeWork": "GOAL-035 / T-287 release resumption; RC7 builder to prospective RC8; REF-01 constructed-call reference preservation",
+    "selectedOutcome": "Source-002 recheck of the bounded source-001 correction: canonical request/schema output/refusal preserved; explicit existing Catalog/view owner facts consumed before full-tree gates; real first-call and warm identity/work evidence. Fixed Product scope unchanged.",
+    "classification": "Owner-local identity bookkeeping is deterministic construction / a derived tool. It is not runtime admission authority, a durable registry, an event writer or a lifecycle.",
+    "authoritySplit": "Product/requirements own WHAT; the TypeScript HOW realizes it; exact immutable definitions and reconstructible Catalog/view remain eventless. ABG alone admits runtime truth and events; SDK/CLI remain thin invocation/projection shells.",
+    "prohibitions": [
+      "No new universal trust registry, store, language, runtime, public controller or replacement admission calculus",
+      "No migration of the twelve cold reads or S7 export census deletion",
+      "No whole-5.0 qualification, release, installation or selector claim from this review"
+    ],
+    "composition": []
+  },
+  "reviewId": "T287-RC8-REF01-SOURCE-002",
+  "recordedUtc": "2026-11-07T04:16:43.875865+00:00",
+  "actor": "/root/rc8_source_review",
+  "role": "Reviewer",
+  "returnTo": "/root",
+  "verdict": "falsified",
+  "claim": "The exact stage-03 correction closes the prior two source findings and composes canonical construction with established-object reuse through the actual Product/run consumer.",
+  "independence": {
+    "authoredSuccessor": false,
+    "repairedSuccessor": false,
+    "reviewerExecutedTests": false,
+    "priorRole": "Author of the source-001 review and lawful behavior/falsifier report; no Product implementation or accepted HOW artifact authored by this reviewer. The review findings informed the Executive repair scope.",
+    "reviewerFamily": "OpenAI Codex; MAX requested by Executive",
+    "subjectAuthor": "Native author-02 Worker, as bound by Executive",
+    "evidenceConditions": "Prior context and Executive hypotheses/failure notification visible. Product basis and exact source independently reverified; this return contains its own bounded causal assessment. Shared retained mechanical proof is not represented as reviewer execution.",
+    "hostBoundary": "Tools broader than the read-only grant; no enforced isolation claim. Only exact source/control/proof reads and the two source-002 artifact writes performed."
+  },
+  "basis": {
+    "productDefinition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "stdo": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "verification": "stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify: exit 0, installed=true, valid=true, failures=[]; required members resolved through stdo"
+    },
+    "severityScale": "Product frame descending S0-S4; S2 material semantic/authority/causal/proportionality/proof defect with bounded workaround. No priority or promotion disposition is assigned.",
+    "owningRelations": [
+      "PRODUCT.md:811-848 Live State, Recovery And Valid Reuse; 1240-1275 Definition, Tool, Runtime Authority and Compression Boundary; F01/F05/F06/F09/F10 in fixed fifteen-family set",
+      "REQ-P-PUBLIC-CONTRACTS-009/010: exact declared defaults, invocation identity and owning semantic function",
+      "REQ-P-CATALOG-014/017/029/030: exact coherent readiness, exact idempotence, eventless construction and separate ABG runtime truth",
+      "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md: admission family, O-SCHEMA, 10.9 residuals and new 10.11 X1-X6",
+      "T-287 anchors rc7-reference-preservation-follow-up and rc8-reference-preservation-plan; TASK.002 exact grant",
+      "STDO EVALUATION 3/4/5 and ACTIVATION 7; project Reviewer/Executive separation and proportionality"
+    ],
+    "requirements": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+        "bytes": 19406,
+        "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-CATALOG.md",
+        "bytes": 13757,
+        "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+      }
+    ],
+    "scope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/ROOT_SCOPE.json",
+      "bytes": 6774,
+      "sha256": "ce0ddb1af07e4759affdfc7ff901fb21bae1b0ae10ca552c7f217af43bfb0cbb"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/TASK.json",
+      "bytes": 11827,
+      "sha256": "ac69cb3e3e15d10a07790b6677d90127dcae4bf0a322a3ef1f24ac9c67d129c9"
+    },
+    "liveReverification": "Product Definition, Product, project frame and both owning requirement documents independently rehashed unchanged; stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify again returned installed=true, valid=true, failures=[]. Existing exact installed stdo-review skill and selected method clauses reused unchanged."
+  },
+  "subject": {
+    "sourceRoot": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "5805c757c7baca31e4b81b7775c5210d84a87c5a11238360e50f6587f7aebf6a"
+    },
+    "sourceDigest": "b884ca1fe49d31b1fd2d3b6f8ade9c64fba911b83dc37fee069d74453cd4ff81",
+    "sourceDigestIndependentlyRecomputed": "b884ca1fe49d31b1fd2d3b6f8ade9c64fba911b83dc37fee069d74453cd4ff81",
+    "verifiedMembers": 1338,
+    "memberMismatches": 0,
+    "previousSourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+    "previousSourceFreeze": {
+      "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source-freeze.json",
+      "bytes": 293771,
+      "sha256": "0b387280632b2bb43220a867c6d8563b9153f43a1783e510f5721f989523e022"
+    },
+    "baselineCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "deltaFromStage02": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+        "bytes": 8404,
+        "sha256": "23c99905b12861502910a7260aaac3ab5b081ee11370fbd5a77f5f7ea8ab2363"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 50429,
+        "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "bytes": 108537,
+        "sha256": "8f1d6ac38cfbb76cd479c95ade440f189b5f78d4da46c817a070bce3293e3638"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+        "bytes": 37953,
+        "sha256": "dcff7ac2a79787e89ebc7a3d10de79a0563ee30fa133dc7e5dd74cbe7250a058"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+        "bytes": 20232,
+        "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+        "bytes": 7039,
+        "sha256": "fd0624a822044ea73bd2b77ae8492bd6ed95595b98d451e7f0260c1d62fd31d4"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "bytes": 21524,
+        "sha256": "ce38e94f4206edcbf4bbd16c096a5c94df12151a7b51809a6b6bc101b46778a7"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 27556,
+        "sha256": "3c1a5881ad87fb2d302e7e4dc20f2a982885a3614679374afa48c6a1ed706b01"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+        "bytes": 5579,
+        "sha256": "6162e59f630388acb4a70e222e33b71ca03fb04c7d8cd20e50b4933e561664ad"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 192091,
+        "sha256": "3b38dcfdd30d3503a572988a650c6bfe8c7d46696aae37bf6afc952890050001"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+        "bytes": 1672,
+        "sha256": "942ab51480a843bc0711c71a03bdba9dd2360eb5764c41877c19151008f6cc73"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+        "bytes": 19992,
+        "sha256": "a65d9527ebb4cf58e80af3538beac07e78fde1edfc51f2c172cc6e7938a6b00c"
+      }
+    ],
+    "deltaFromRC7": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+        "bytes": 8404,
+        "sha256": "23c99905b12861502910a7260aaac3ab5b081ee11370fbd5a77f5f7ea8ab2363",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 50429,
+        "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "bytes": 108537,
+        "sha256": "8f1d6ac38cfbb76cd479c95ade440f189b5f78d4da46c817a070bce3293e3638",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+        "bytes": 37953,
+        "sha256": "dcff7ac2a79787e89ebc7a3d10de79a0563ee30fa133dc7e5dd74cbe7250a058",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "bytes": 13080,
+        "sha256": "7d068fe8136483682efcb823d26d3031ff01e5c8498302a6c78943d859ac7f56",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "bytes": 47655,
+        "sha256": "0a1fcbf60c8fb132747fbf31f1ce486676b0033c713eed8eaa78d521a6d3aec9",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+        "bytes": 49817,
+        "sha256": "0ae97ae95f37e76be6ad37b8565228aeeedcba0661538a89d4ff578ad307dc12",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "bytes": 28326,
+        "sha256": "6176a1afddccc929de14a8e765675638a3ab1d9b2a4b0d28bcb8a6a834b4274f",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+        "bytes": 20232,
+        "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+        "bytes": 7039,
+        "sha256": "fd0624a822044ea73bd2b77ae8492bd6ed95595b98d451e7f0260c1d62fd31d4",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "bytes": 21524,
+        "sha256": "ce38e94f4206edcbf4bbd16c096a5c94df12151a7b51809a6b6bc101b46778a7",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 27556,
+        "sha256": "3c1a5881ad87fb2d302e7e4dc20f2a982885a3614679374afa48c6a1ed706b01",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+        "bytes": 5579,
+        "sha256": "6162e59f630388acb4a70e222e33b71ca03fb04c7d8cd20e50b4933e561664ad",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 192091,
+        "sha256": "3b38dcfdd30d3503a572988a650c6bfe8c7d46696aae37bf6afc952890050001",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+        "bytes": 8001,
+        "sha256": "305f7494ff2e171720a12f604ddb19c9cfca7cb01a83a1d030c39647c927789d",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10003,
+        "sha256": "a0f72d262f00eabc74f6aaa963972888c3bb15cf703c30f7ad1bec8413e7fd17",
+        "new": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+        "bytes": 1672,
+        "sha256": "942ab51480a843bc0711c71a03bdba9dd2360eb5764c41877c19151008f6cc73",
+        "new": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+        "bytes": 19992,
+        "sha256": "a65d9527ebb4cf58e80af3538beac07e78fde1edfc51f2c172cc6e7938a6b00c",
+        "new": true
+      }
+    ],
+    "changedCounts": {
+      "fromStage02": 12,
+      "fromRC7": 18,
+      "trackedAgainstRC7": 16,
+      "newAgainstRC7": 2
+    },
+    "outsideGrantedPaths": []
+  },
+  "priorReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-001/REVIEW.json",
+    "bytes": 32984,
+    "sha256": "0e236b5cc3e1b9e6c4e93a8da9840dee45478fee2366b55461c23b6fe94fad16"
+  },
+  "priorFindingAssessment": [
+    {
+      "id": "RC8-SOURCE-001",
+      "originalSeverity": "S2",
+      "sourceAssessment": "The prior first-binder Catalog/view copy/schema/walk counterexample is corrected in this source slice. Exact owner predicates are evaluated before the binder gate; accepted members are excluded from that gate. Source plus the retained first-run counters corroborate zero added Catalog/view owner admission/construction/comparison and two member reuses.",
+      "scopeLimit": "This does not close all REF-01 work: the Product payload finding below remains. Nor does zero additional post-setup work prove exactly one full admission during setup.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+          "bytes": 7039,
+          "sha256": "fd0624a822044ea73bd2b77ae8492bd6ed95595b98d451e7f0260c1d62fd31d4",
+          "lines": [
+            60,
+            90
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+          "bytes": 37953,
+          "sha256": "dcff7ac2a79787e89ebc7a3d10de79a0563ee30fa133dc7e5dd74cbe7250a058",
+          "lines": [
+            400,
+            424
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+          "bytes": 37953,
+          "sha256": "dcff7ac2a79787e89ebc7a3d10de79a0563ee30fa133dc7e5dd74cbe7250a058",
+          "lines": [
+            968,
+            969
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+          "bytes": 108537,
+          "sha256": "8f1d6ac38cfbb76cd479c95ade440f189b5f78d4da46c817a070bce3293e3638",
+          "lines": [
+            2288,
+            2317
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RC8-SOURCE-002",
+      "originalSeverity": "S2",
+      "sourceAssessment": "The prior generic member-schema/frozen-raw inference and both caches are retired. Binders without owner facts call canonical admitContract unchanged; accepted Catalog/view facts are explicit existing-owner predicates. Other members use canonical outputs, including defaults, and non-enumerable/symbol/accessor/unknown shell properties take the whole canonical gate. Establishment now retains the admitted invocation, preserving schema-normalized request/default/digest semantics.",
+      "scopeLimit": "The later defaulted-start, transform/default, non-enumerable and frozen-rebox runtime probes were not reached in this failed lane. Source correction is supported; full affected execution is pending. The corrected canonical invocation exposes the next owner-identity failure below.",
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+          "bytes": 20232,
+          "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812",
+          "lines": [
+            208,
+            222
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+          "bytes": 7039,
+          "sha256": "fd0624a822044ea73bd2b77ae8492bd6ed95595b98d451e7f0260c1d62fd31d4",
+          "lines": [
+            54,
+            90
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 19992,
+          "sha256": "a65d9527ebb4cf58e80af3538beac07e78fde1edfc51f2c172cc6e7938a6b00c",
+          "lines": [
+            101,
+            184
+          ]
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "RC8-SOURCE-003",
+      "severity": "S2",
+      "verdict": "falsified",
+      "title": "Canonical invocation normalization loses Product-admitted payload identity, causing a second Product input copy on the first real call",
+      "violatedRelation": "T-287 REF-01 and author-02 ROOT_SCOPE/TASK require unchanged established input references and zero additional input copying after construction, while preserving canonical defaults/request digest. HOW 10.11 X1/X2 says the canonical constructed invocation carries the owner-admitted input and later Product admission reuses it. These two relations are not yet composed.",
+      "exactTrigger": "The first normal installed start call after setup with an object-valued Product input; the retained focused lane demonstrates this trigger at rc8-ref01-0. No exotic schema or malformed input is required.",
+      "causalPath": [
+        "populateProductRunInvocation calls admitInstalledProductInputValue and places its detached value in request.input.value and the input_contract authority slot (run_invocation_operation.ts:965-976, 992-996, 1018-1053).",
+        "detachedProductInput records only the exact I-JSON output object in admittedProductInputs (semantics.ts:512-523).",
+        "admitExactDefinitionCall applies request/invocation schemas via admitRuntimeContract (definition_binding_mechanics.ts:454-468). For start, contractBoundValueSchema.value uses recursive jsonValueSchema with Valibot array/record branches (shared/public_function_contracts.ts:173-181, 237-242). safeParse returns its reconstructed containers (687-695).",
+        "The correction correctly retains this canonical admitted invocation (definition_binding_mechanics.ts:214-222). Its object-valued payload is a new object, outside the Product input owner WeakSet. Retaining canonical defaults/digest is necessary and must not be reverted.",
+        "Real Product preparation reads request.input.value and calls admitInstalledProductInput (run_invocation_operation.ts:676-698). Identity lookup misses, so semantics.ts:517-522 performs another admitJson copy and registers that new output instead.",
+        "Thus the canonical invocation can be carried by identity throughout transport/binder while its nested payload has already lost the earlier Product admission identity. The copied Product output is not the payload retained in the invocation, so that retained payload does not gain a future hit merely because this preparation ran."
+      ],
+      "evidence": [
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+          "bytes": 49817,
+          "sha256": "0ae97ae95f37e76be6ad37b8565228aeeedcba0661538a89d4ff578ad307dc12",
+          "lines": [
+            965,
+            1053
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "bytes": 28326,
+          "sha256": "6176a1afddccc929de14a8e765675638a3ab1d9b2a4b0d28bcb8a6a834b4274f",
+          "lines": [
+            508,
+            556
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+          "bytes": 20232,
+          "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812",
+          "lines": [
+            208,
+            222
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+          "bytes": 20232,
+          "sha256": "8b7958d8e3e397059e2fbdb3caea1cf9951c5f60ad4b85062c1a1988cdffd812",
+          "lines": [
+            447,
+            468
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+          "bytes": 26029,
+          "sha256": "add45e14c6b77eb342ab4858cee7cbc43204553b9b2a8b8c5a159a853cb53814",
+          "lines": [
+            173,
+            181
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+          "bytes": 26029,
+          "sha256": "add45e14c6b77eb342ab4858cee7cbc43204553b9b2a8b8c5a159a853cb53814",
+          "lines": [
+            237,
+            242
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+          "bytes": 26029,
+          "sha256": "add45e14c6b77eb342ab4858cee7cbc43204553b9b2a8b8c5a159a853cb53814",
+          "lines": [
+            687,
+            695
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+          "bytes": 49817,
+          "sha256": "0ae97ae95f37e76be6ad37b8565228aeeedcba0661538a89d4ff578ad307dc12",
+          "lines": [
+            676,
+            698
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "bytes": 19992,
+          "sha256": "a65d9527ebb4cf58e80af3538beac07e78fde1edfc51f2c172cc6e7938a6b00c",
+          "lines": [
+            48,
+            77
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/lane-01/commands/test.stdout",
+          "bytes": 2031,
+          "sha256": "e44728b0c890897e0831761e7fdc23e395a229e894b08112f0417e18be0389c0"
+        }
+      ],
+      "observedCounterexample": {
+        "lane": "owned-call, first iteration rc8-ref01-0",
+        "inputCopies": 1,
+        "expectedInputCopies": 0,
+        "inputReuses": 0,
+        "catalogFullAdmissions": 0,
+        "viewConstructions": 0,
+        "catalogComparisons": 0,
+        "viewComparisons": 0,
+        "transportDetaches": 0,
+        "verifierReattachments": 0,
+        "establishedCarries": 1,
+        "call": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 5,
+          "resourceMemberReuses": 2,
+          "gated.kind": 1,
+          "gated.schemaVersion": 1,
+          "gated.eventResource": 1,
+          "gated.applications": 1,
+          "gated.source": 1
+        },
+        "outcome": "Test aborts at line 69; TAP reports 0 pass / 1 fail. The helper had already obtained a result outcome and borrowed-resource completion before the counter assertion."
+      },
+      "triage": {
+        "class": "complete",
+        "triggerProbability": "Certain for the demonstrated ordinary object-valued first-start fixture, and source-predicted for the same normalization/WeakSet path; primitive inputs and other invocation shapes are not generalized.",
+        "realizedHarm": "One additional full Product input I-JSON copy after construction, contrary to the selected reference/work bound. The semantic call itself returned result; no data corruption, stale-prefix acceptance or unauthorized event is demonstrated. Large-payload cost magnitude remains unmeasured here.",
+        "failClosedControls": "Canonical normalized request/default/digest checks are retained; Product performs full I-JSON admission and its own admitInput guard on the unrecognized object. This is safe repeated work, not an admission bypass.",
+        "causalAssessment": "The first repair closes raw-versus-normalized output correctness locally but changes a nested object identity on which the next existing owner relies. The full handoff lacks a conserved Product-admitted payload relation.",
+        "confidence": "high: exact source chain plus matching retained real-lane counterexample; reviewer did not execute the lane",
+        "blastRadius": "The selected constructor-to-real-run-Product-input path for object/array payloads rebuilt by canonical schemas. Catalog/view bypass is separately improved; no scope expansion to twelve cold reads or all library users.",
+        "containment": "Preserve normalized invocation and full fail-closed Product admission while treating REF-01 as incomplete. Do not restore raw invocation retention or substitute digest equality for actual owner identity.",
+        "repairComplexity": "Bounded producer-to-consumer correction at existing run construction, canonical invocation construction and Product input owners. Exact implementation effort remains indeterminate; no new Product or shared admission calculus is indicated.",
+        "regressionRisk": "Moderate at normalization/admission handoff. Widening to generic schema interpretation or shared json/value/immutable changes would add disproportionate risk.",
+        "repairRabbitHoleRisk": "Retain both required laws and correct their exact handoff. Do not start a broad schema purity proof or create a universal admitted-value registry."
+      },
+      "smallestLawfulReentry": "Re-enter HOW 10.11 X1/X2 and the existing run construction/canonical invocation/Product input owner seam. The constructor must return the canonical normalized invocation with the intended established Product input relation preserved to its actual consumer. This review does not prescribe a new memo, bless canonical copies by equal digest, or authorize outside-path primitive edits. Root selects the exact causal correction and any narrowly justified additional path.",
+      "meaningfulFalsifiers": [
+        "First post-setup real start and warm successors show any additional Product input copy or loss of the established payload identity after constructor completion.",
+        "Preserving the payload regresses the existing defaulted-start request/digest or resource transform/default/non-enumerable refusal witnesses.",
+        "A mutable, raw, changed or foreign payload obtains an established owner fact by equal content or deep freezing alone."
+      ],
+      "requiredReproof": "Reuse the same first-call/warm owned-call discriminator after a selected correction, preserving its current failing result. Check actual nested Product-input reference/owner relation as well as outer request identity, canonical default/digest behavior and zero additional input copies; then execute the remaining already-selected focused coverage. No extra broad-suite or implementation loop is authorized by this report."
+    }
+  ],
+  "boundedSourceChecks": [
+    {
+      "relation": "Owner facts are construction/derived-tool facts, not ABG runtime authority",
+      "assessment": "Catalog predicates consult the existing ownedCatalogs/readyCatalogs owners; the new view membership is recorded by the existing narrowing owner only for a view over an admitted ready Catalog, with deep immutability checked at construction. No event/store/runtime authority is introduced."
+    },
+    {
+      "relation": "No generic schema cache",
+      "assessment": "The per-member WeakMap/WeakSet and partial-schema cache are removed. The remaining strict-object projection forwards explicitly named module-static owner facts and canonical-admits the remainder. Only the existing run Catalog/view owners supply production entries; it does not infer arbitrary schema purity/identity from frozen inputs."
+    },
+    {
+      "relation": "Conditional write limits",
+      "assessment": "All 18 baseline-relative paths are granted. exact_prefix_bindings forwards the same optional owner table through the two existing specializations. shared/effect_definition adds only EstablishedResourceMembers type; no executable fourth binder or runtime change."
+    },
+    {
+      "relation": "Raw/currentness/effects",
+      "assessment": "Canonical raw fallback and prior held selection, bound-prefix, Product semantic and installed content checks remain. Changed/fake Catalog objects cannot pass existing owner identity membership. Source support is bounded; later negative runtime cases remain unexecuted."
+    },
+    {
+      "relation": "Worker prepared plan",
+      "assessment": "Only deepFrozenChecks observation was added in this correction. Mutable contract/schema clone-and-freeze behavior is retained from stage-02; no successor worker-lane execution was reached."
+    },
+    {
+      "relation": "Counter meaning",
+      "assessment": "gated.catalog/gated.catalogView correspond to the actual binder gate input population; source removes any binder frozen walk of those members. verifierReattachments is explicitly a reference reattachment count, not module/declaration linking. No native linking zero is inferred."
+    }
+  ],
+  "proof": {
+    "stageResult": {
+      "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/RESULT.json",
+      "bytes": 836,
+      "sha256": "e0eda27e24fe5facc0681825918490450fc25c50c2a87d70d6aa5068bc6f6e64"
+    },
+    "stageResultInterpretation": "Retained Operator result reports compile, generate, imports, lifecycle and calculus exit 0; independently hashed/read, not reviewer-executed.",
+    "ownedCallStdout": {
+      "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/lane-01/commands/test.stdout",
+      "bytes": 2031,
+      "sha256": "e44728b0c890897e0831761e7fdc23e395a229e894b08112f0417e18be0389c0"
+    },
+    "ownedCallResult": "0 pass / 1 fail, first normal call, inputCopies 1 versus expected 0. Duration 35.514991417 seconds for the test; no speedup/general performance conclusion.",
+    "reached": "Setup owner predicates, first construction/default digest/immutability/caller-mutation assertions, real run result and borrowed completion, and first-call counters. The source and log agree on the failing line.",
+    "notReached": [
+      "First-call receiving-owner equality assertions after line 69",
+      "Warm successor iterations",
+      "Copied-call raw-path probe",
+      "Defaulted-start real-owner probe",
+      "Frozen rebox and frozen fake-Catalog probes",
+      "Member transform/default/non-enumerable canonical equivalence probes",
+      "Shallow-frozen invocation probe",
+      "Worker prepared-plan mutation/reuse probes"
+    ],
+    "notPerformed": [
+      "Reviewer dynamic tests or counterexample execution",
+      "Remaining successor binding/catalog/invocation/worker/held lanes",
+      "Matched RC8 performance/profile assessment",
+      "Independent installed readback/replay/close or release/install proof",
+      "General schema/cold-read census"
+    ],
+    "setupCountLimit": "Snapshots start after setup. Source tests assert setup owner membership and zero additional Catalog admission after setup; they do not report or establish exactly one full Catalog admission during setup.",
+    "nativeLinkLimit": "No physical native module/declaration-link counter or evaluated profile is supplied here. The renamed transport counter correctly disclaims that measurement.",
+    "priorProofStanding": "Stage-02 48 passes / 2 historical skips keep their original subject and scope; they are not successor passes."
+  },
+  "recommendation": "Preserve the stage-03 partial, its corrected canonical semantics/Catalog-view reuse, and the exact failing proof. Select only the next causal correction at the existing Product-input/normalization handoff. Do not revert raw retention, expand to shared primitive redesign, or run an autonomous patch/test loop. Root alone conjoins source and execution, assigns priority and decides acceptance.",
+  "priority": "not_assigned",
+  "promotionDisposition": "not_assigned",
+  "sourceAccepted": false,
+  "invalidation": [
+    "Material change to cited source, payload/schema behavior, selected inputs or proof",
+    "Changed Product/STDO/frame/requirements or reviewer capability/independence",
+    "Exact observation that revises the stated handoff/counterexample or supplies presently unperformed evidence"
+  ],
+  "artifactEffects": [
+    "reviews/source-002/README.md",
+    "reviews/source-002/REVIEW.json"
+  ]
+}

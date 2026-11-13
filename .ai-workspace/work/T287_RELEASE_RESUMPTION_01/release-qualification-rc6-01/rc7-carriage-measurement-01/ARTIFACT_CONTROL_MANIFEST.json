@@ -1,0 +1,96 @@
+{
+  "kind": "s4_isolated_test_artifact_control_preparation",
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "at": "2026-11-06T20:14:06.556231+00:00",
+  "ProductFrame": "STDO3.0.4 / ABIogenesis fixed15 / GOAL-035 / T-287; ABG runtime authority; immutable RC6 builder; isolated S4 artifact only",
+  "authority": "Root operator Writer selection to prepare eventual successful S5-stage packing/install and the existing S4 measurement; actual execution requires exact Root admission",
+  "originalMeasurementPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/PREPARATION_MANIFEST.json",
+    "bytes": 3987,
+    "sha256": "3468b45d6a09300fcdee5b0693be365d9224f63949267b00844fab39589b34a0"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_OWNER_PINS.json",
+      "bytes": 7242,
+      "sha256": "9fc9d03660b4f24fcb5ba0b419a17df6bdd610952421ee86c8e88698d0f98356"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_BINDINGS.template.json",
+      "bytes": 1807,
+      "sha256": "67ec1c2efac09fd7ecacdb673fd274b0ccd2c60ea4027385f593f644ba6cd6ad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/prepare-test-artifact.mjs",
+      "bytes": 9699,
+      "sha256": "6736f1b6c4700daa6bc11c8863b3eb7c3d33de952f4776cb0badb2ee11ab9308"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/install-test-artifact.mjs",
+      "bytes": 3511,
+      "sha256": "0786437a3e0f275fd2bfebf66c9c2e65479acb1c515ce857be5ed1f516cd1a22"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_SYNTAX_CHECKS.json",
+      "bytes": 2707,
+      "sha256": "596c8cc0afc9b814d4c23ff00140a1ab91d0a2f5f8590d986c463862078f0589"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_EXECUTION_READINESS.md",
+      "bytes": 4337,
+      "sha256": "9387ab3f65bc0914e508a07dec257a9ece81cf88ad08c08d189ba78b9e4558ae"
+    }
+  ],
+  "owners": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ARTIFACT_OWNER_PINS.json",
+    "bytes": 7242,
+    "sha256": "9fc9d03660b4f24fcb5ba0b419a17df6bdd610952421ee86c8e88698d0f98356"
+  },
+  "entrypoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/prepare-test-artifact.mjs",
+    "bytes": 9699,
+    "sha256": "6736f1b6c4700daa6bc11c8863b3eb7c3d33de952f4776cb0badb2ee11ab9308"
+  },
+  "installOwnerInvocation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/install-test-artifact.mjs",
+    "bytes": 3511,
+    "sha256": "0786437a3e0f275fd2bfebf66c9c2e65479acb1c515ce857be5ed1f516cd1a22"
+  },
+  "existingMeasurementEntrypoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/run-measurement.mjs",
+    "bytes": 5079,
+    "sha256": "313ab6a4c679c460205fd3aa09d089d6662da63403d9c4c0f78f9da2d955e562"
+  },
+  "futureBindings": {
+    "acceptedS5Subject": null,
+    "sourceInventory": null,
+    "completedStage": null,
+    "RootAcceptance": null,
+    "artifactActivation": null,
+    "archive": null,
+    "installation": null,
+    "measurementActivation": null
+  },
+  "effectsPerformed": [
+    "Growth carrier preparation files only",
+    "Two node --check syntax calls",
+    "Finite named owner/tool/preparation pin reads and absence checks"
+  ],
+  "effectsNotPerformed": [
+    "source or Git writes",
+    "compile/generation/lifecycle",
+    "pack/install",
+    "test/provider/runtime calls",
+    "release/selector mutations"
+  ],
+  "remainingRootSteps": [
+    "Bind actual accepted S5 stage/source/manifest/helper pins and Root artifact activation/bounds in a new binding file.",
+    "Invoke the fixed artifact command once; preserve failure without retry.",
+    "Bind actual artifact-produced measurement inputs plus Root measurement activation/bounds; invoke existing preparation-002 runner once."
+  ],
+  "limits": [
+    "No new Product/runtime framework. Existing npm, Product verify/lock/install/content-check and commandRecorder owners execute effects.",
+    "One archive pack; bootstrap installation and the existing fixture disposable installation are distinct measured operations.",
+    "S4 evidence and S6 disposition are future; no qualification/release or speedup claim."
+  ]
+}

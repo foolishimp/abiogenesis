@@ -1,0 +1,55 @@
+{
+  "kind": "bounded_observed_author_launch_timing",
+  "recordedUtc": "2026-11-06T01:51:37.464745+00:00",
+  "activation": "d5-author-03",
+  "setupReused": true,
+  "sdkSetupMs": null,
+  "preflightMs": 59543.49899990484,
+  "hostStartUtc": "2026-11-06T01:41:30.393094+00:00",
+  "dispatchStartUtc": "2026-11-06T01:42:25.394Z",
+  "nativeStartUtc": "2026-11-06T01:43:24.375Z",
+  "hostStartupToDispatchMs": 55000.906,
+  "dispatchToNativeActorMs": 58981.0,
+  "hostLaunchToNativeActorMs": 113981.90599999999,
+  "predecessorHostCloseToSuccessorHostLaunchMs": 1673038.054,
+  "nativeProcess": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 161315,
+    "eventId": "event://abiogenesis/a1bc4899842efdc1f2c38c4facf10817b50319b749cd50da4622b690de3c5d2f",
+    "eventTime": "2026-11-06T01:43:24.375Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/bfcf75d202fb8d8e0c2f240ebfa1f1275b764714255d836b9a54446f393cede6",
+    "offset": 944082637,
+    "rowBytes": 1813,
+    "rowSha256": "32faa8d9758d6615ac42cc4ed80675f2374c2c377f5e2287244b76a565ebce83",
+    "processRef": "process://abiogenesis/f5de71de1fd66d014d3f479550fa313f09834a948eb158d0ae28b3ad4eed66c2",
+    "pid": 11472
+  },
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/HOST_LAUNCH.json",
+      "bytes": 268,
+      "sha256": "759038d0e89bb8f8dd511f32af93b526468db5a83764bd84dcea0479e310cae4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/PREFLIGHT_RESULT.json",
+      "bytes": 153,
+      "sha256": "a73aeee1ed45b44c0eaaa31852b99a6a6159e01ff962f2d74c1f1b45b6f81ed9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/STARTED.json",
+      "bytes": 1042,
+      "sha256": "63d6e2f9ba55d3e9001f219924a56d20c7e237c9244bc63265fbf3d9044971c4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/NATIVE_METADATA_SOURCE.json",
+      "bytes": 773,
+      "sha256": "e746a0a6e9f1ecad8f045b2c554de99dfe92024cbd982ec559f2f92e04caf5c7"
+    }
+  ],
+  "limits": [
+    "Setup was reused, not newly measured as zero.",
+    "Between-task interval includes frozen review, Root triage, control preparation and preflight; not pure runtime latency.",
+    "Wall time only; no CPU attribution or matched speedup."
+  ]
+}

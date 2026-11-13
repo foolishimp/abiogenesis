@@ -1,0 +1,207 @@
+{
+  "status": "A_CLOSED_SOURCE_NATIVE_OBSERVATION_AND_GUARDS_RECORDED",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+    "bytes": 296057,
+    "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+  },
+  "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+  "nativeAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/NATIVE_AFTER_OBSERVATION.json",
+    "bytes": 135595,
+    "sha256": "4d220727c62bf910a50de8a722ee299c96571113161652fa01d6c46051e45651"
+  },
+  "nativeObservedFilesEqual": 15,
+  "nativeObservedChangedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "newFileObservationLimit": "Newstate permitted/reported/physicallyfrozen, outsideinitialnativecontext and absentnativeafter. Fullinventory/toolwrite/compiledoutputpins bind it; no broader ownerobservation claim.",
+  "guardRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/PRESERVATION_GUARDS.json",
+    "bytes": 3317,
+    "sha256": "6913ad226439cd28b7f8b534a46881da5d92678245e27b7cd57770f063d70608"
+  },
+  "allGuardPinsPassed": true,
+  "allHeadsAndIndicesExact": true,
+  "stagedPaths": [],
+  "originalUntrackedPreserved": {
+    "count": 662,
+    "sha256": "cdd33142273ddfecf43f781141e6f314ac14c57c011643e9aacb8fc70639e248"
+  },
+  "authorizedAdditionalUntracked": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "qualification-inputs/rc11-effect-phase2-01/native-02/CONTRACT_ROUTES.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-02/DESIGN_TRIAGE.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-02/EXTERNAL_TOOLS.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-02/PREBUILT_IDENTITY.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-02/PROOF_TRIAGE.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-02/ROOT_SCOPE.json",
+    "qualification-scratch/rc11-effect-phase2-01/native-02/compile-01.log",
+    "qualification-scratch/rc11-effect-phase2-01/native-02/controlled-01.tap",
+    "qualification-scratch/rc11-effect-phase2-01/native-02/controlled-02.tap",
+    "qualification-scratch/rc11-effect-phase2-01/native-02/owned_process_lifetime.before.ts",
+    "qualification-scratch/rc11-effect-phase2-01/native-02/tenant/node_modules",
+    "qualification-scratch/rc11-effect-phase2-01/native-02/tenant/package.json",
+    "qualification-scratch/rc11-effect-phase2-01/native-02/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/6e459371"
+  ],
+  "newSourceFiles": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts"
+  ],
+  "unchangedOriginalRows": 1341,
+  "retainedSourceCompiledCodeRowsEqual": 580,
+  "dependencyRowsEqual": 4576,
+  "scratchInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/COMPILED_SCRATCH_INVENTORY.json",
+    "bytes": 106064,
+    "sha256": "9c3f3259eee428e2ff5f265ffa8f01821238a5143806e149049334d9cdf5fee9"
+  },
+  "scratchInputsRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 63683,
+    "sha256": "f6a31ed105da856437fe3c349daea7ee434b2d603bd33ee5fb26c39863dd4757"
+  },
+  "nativeChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/NATIVE_CHECKS.json",
+    "bytes": 8668,
+    "sha256": "628d07c861ae66cc4a71640a99907c965eb05fa2a2e6c51f56803c4e47f8146f"
+  },
+  "hostPid4456Absent": true,
+  "nativePidAndPgid6057Absent": true,
+  "processFacts": {
+    "cleanupDeadlineNs": {
+      "kind": "bigint",
+      "value": "3103962096979416"
+    },
+    "cleanupElapsedMs": 0.449459,
+    "closeObserved": true,
+    "directExit": {
+      "signal": null,
+      "status": 0
+    },
+    "drainExpired": false,
+    "firstError": null,
+    "launchFailure": null,
+    "noChildEstablished": false,
+    "probeCount": 1,
+    "scopeAbsence": "absent",
+    "scopeKind": "posix_process_group",
+    "signalAttempts": 0,
+    "streamsDisposed": true
+  },
+  "archives": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/resources/archives/fp-ce0413d1defa4cd8-output.txt",
+      "bytes": 5652,
+      "sha256": "6b4ae07ba23f691c482b1c5b0afb0ac5934122344594cc29eea765a41cbeab52"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/resources/archives/fp-ce0413d1defa4cd8-prompt.txt",
+      "bytes": 7823,
+      "sha256": "d743a61aa62ca8c30a92adc9a02b3884d65ba7eec57377df6e37ce27edda3443"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/resources/archives/fp-ce0413d1defa4cd8-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/resources/archives/fp-ce0413d1defa4cd8-stdout.log",
+      "bytes": 2016293,
+      "sha256": "ccc97fa8a291625e0cdc0b2b10e3eb843133a030d5a2d771a353a0a91eaf405a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/resources/archives/fp-ce0413d1defa4cd8-transport.json",
+      "bytes": 2189893,
+      "sha256": "caca9142366a1d5fa71339edea199a1e126cc056c9938cbc4c6089f4cdce6046"
+    }
+  ],
+  "providerPublicResult": {
+    "duration_api_ms": 603434,
+    "stop_reason": "tool_use",
+    "session_id": "192aa7c0-13d2-4aa1-8b73-7c1d70594070",
+    "total_cost_usd": 2.5959324000000006,
+    "usage": {
+      "input_tokens": 34,
+      "cache_creation_input_tokens": 123671,
+      "cache_read_input_tokens": 1169742,
+      "output_tokens": 68624,
+      "output_tokens_details": {
+        "thinking_tokens": 48689
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 123671,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 34,
+        "outputTokens": 68624,
+        "cacheReadInputTokens": 1169742,
+        "cacheCreationInputTokens": 123671,
+        "webSearchRequests": 0,
+        "costUSD": 2.5959324000000006,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 48689,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 21,
+    "subtype": "success",
+    "api_error_status": null,
+    "ttft_ms": 1826,
+    "type": "result",
+    "duration_ms": 616397,
+    "uuid": "e26c1779-a5ec-446d-b558-14f0e4b96d00",
+    "ttft_stream_ms": 1369,
+    "time_to_request_ms": 575,
+    "first_content_frame_ms": 1370,
+    "queued_turn_count": 0,
+    "result_index": 0
+  },
+  "standing": "NativeA source not accepted; no independentwholefileproof. Operator made controls/freeze/evidenceonly, no sourceedit. Oldfailedruns retained."
+}

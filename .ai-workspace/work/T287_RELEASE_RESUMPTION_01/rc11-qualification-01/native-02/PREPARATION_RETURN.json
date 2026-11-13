@@ -1,0 +1,63 @@
+{
+  "status": "RC11_AUTHOR02_PREPARATION_ONLY_WAIT_ACTUAL_FIXTURES",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/ACTIVATION.json",
+    "bytes": 2391,
+    "sha256": "63303ff5339954c64d9c34a024396b62ad481615cdbdf7684bd69b4665276b02"
+  },
+  "worksiteManifest": {
+    "path": "/private/tmp/abg-rc11-qualification-20261109/.abiogenesis/workspace-manifest.json",
+    "bytes": 1839,
+    "sha256": "f28304c016e7543e6f17c0bb6930f36d4754f8e8d82663bd4c0ea7397564b641"
+  },
+  "expectedWorkspaceAuthority": {
+    "ref": "workspace-authority://abiogenesis/510e8534e522495da6d3b1fc8145c32408ebcdb8504ea9aa4d1b029ddc1cbe1f",
+    "digest": "sha256:510e8534e522495da6d3b1fc8145c32408ebcdb8504ea9aa4d1b029ddc1cbe1f"
+  },
+  "hostSkeleton": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/host.skeleton.mjs",
+    "bytes": 15326,
+    "sha256": "8c2a67425d16a3f2ff4a04a93c10cdb45dd7c6d553a1733ca5cf78956d75c16c"
+  },
+  "validatedOpenPrecedent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/host.mjs",
+    "bytes": 15341,
+    "sha256": "bc37b1d25c4f77122a967473a76fc8685c5173a7ebe071422641bd06e889d401"
+  },
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/transport-preflight.mjs",
+    "bytes": 1458,
+    "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+  },
+  "hostDelta": "Narrow existing-workspace open.open adaptation only, exact manifest authority/unbound outcome/locator/digest and unchanged manifest guards; distinct native02 setup/binding statuses. Current caller/native selection/dispatch/close/fresh-read mechanics reused. No old Run/resource identity copied.",
+  "loaderContract": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/LOADER_CONTRACT.draft.md",
+    "bytes": 1650,
+    "sha256": "51e05bbc2d346459c344b696f5353057979e1b7ca9ed267f41d85ab76e743588"
+  },
+  "draftTaskPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/TASK.skeleton.json",
+  "draftTaskStanding": "No final task hash or executable binding/admission until actual fixture data and successor inventory exist.",
+  "futureReadonlyFixturePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json"
+  ],
+  "futureInputsRoot": "/private/tmp/abg-rc11-qualification-20261109/qualification-inputs/rc11-qualification-01/native-02",
+  "futureScratchRoot": "/private/tmp/abg-rc11-qualification-20261109/qualification-scratch/rc11-qualification-01/native-02",
+  "checks": [
+    {
+      "file": "host.skeleton.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "transport-preflight.mjs",
+      "exitCode": 0
+    }
+  ],
+  "runtimeAllocated": false,
+  "providerDispatched": false,
+  "sourceEdits": false,
+  "mainTrackingEdits": false,
+  "nextOwner": "Root final conjunction after actual data generation and separately admitted exact staging."
+}

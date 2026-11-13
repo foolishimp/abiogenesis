@@ -1,0 +1,85 @@
+{
+  "status": "PROPOSED_NOT_AUTHORIZED_NOT_EXECUTED",
+  "scope": "Only owned scratch10/repo disposable build mirror; no Product/source files, other scratch, Runtime resources or Git.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/physical-candidate-001/SUBJECT.json",
+    "bytes": 8351,
+    "sha256": "1cb35abe1e645376b8086060ecd34f46925190d2b1d60879a893dedb37511d2a"
+  },
+  "proofCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/physical-candidate-001/PROOF_CUSTODY.json",
+    "bytes": 19232,
+    "sha256": "6515336036ad6f354b12836329900ced1ac758d8796a26fceeef0fed0a135def"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/physical-candidate-001/DISPOSABLE_REPO_INVENTORY.json",
+    "bytes": 1974344,
+    "sha256": "a5374d128526f7a8e174b6f98f13c4de046b3be4b4e719980f7604494d46e7ff"
+  },
+  "proposedRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo",
+  "rootIdentity": {
+    "device": 16777231,
+    "inode": 678368060
+  },
+  "preconditions": [
+    "Root separately selects cleanup after proof preservation and quiescence/lease absence.",
+    "Recheck canonical nonsymlink owned root and inventory; stop on drift/unexpected content.",
+    "Do not follow symlinks; remove only the explicitly selected disposable root.",
+    "Preserve snapshot/proof custody and all original source/receipts/logs/evidence outside repo."
+  ],
+  "symlinks": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/node_modules/.bin/tsc",
+      "kind": "symlink",
+      "device": 16777231,
+      "inode": 678370563,
+      "mode": 41453,
+      "bytes": 21,
+      "mtimeNs": 1793594778993722506,
+      "target": "../typescript/bin/tsc"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/node_modules/.bin/tsserver",
+      "kind": "symlink",
+      "device": 16777231,
+      "inode": 678370562,
+      "mode": 41453,
+      "bytes": 26,
+      "mtimeNs": 1793594778993633089,
+      "target": "../typescript/bin/tsserver"
+    }
+  ],
+  "scratchEntryCountsIncludingEachChildRoot": {
+    "RECEIPTS.sha256": 1,
+    "build-1.log": 1,
+    "build-2.log": 1,
+    "build-3.log": 1,
+    "build-4.log": 1,
+    "build-5.log": 1,
+    "build-baseline-disc.log": 1,
+    "build-baseline.log": 1,
+    "build-final.log": 1,
+    "build.sh": 1,
+    "evidence": 6,
+    "gen-baseline.log": 1,
+    "gen-candidate.log": 1,
+    "logs": 35,
+    "repo": 7274,
+    "runtest.sh": 1,
+    "sync.sh": 1,
+    "t-body.log": 1,
+    "t-retained-1.log": 1,
+    "t-retained-2.log": 1,
+    "t-retained-3.log": 1,
+    "t-retained-4.log": 1,
+    "t-retained-baseline-2.log": 1,
+    "t-retained-baseline.log": 1,
+    "tmp": 36798
+  },
+  "totalScratchDescendantEntries": 44134,
+  "projectedScratchEntriesAfterRepoOnlyRemoval": 36860,
+  "entryBoundCaveat": "Repo-only cleanup removes both forbidden symlinks but leaves 36860 scratch descendants, before other declared readRoots; this still exceeds the10000entry cap. No additional tmp cleanup is selected by this proposal.",
+  "performedCleanup": false,
+  "runtimeCalls": 0,
+  "ProductMutation": false
+}

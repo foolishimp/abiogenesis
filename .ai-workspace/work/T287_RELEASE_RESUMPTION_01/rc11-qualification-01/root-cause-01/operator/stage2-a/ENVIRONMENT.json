@@ -1,0 +1,33 @@
+{
+  "environment": {
+    "HOME": "/Users/jim",
+    "USER": "jim",
+    "LOGNAME": "jim",
+    "SHELL": "/bin/zsh",
+    "LANG": "en_AU.UTF-8",
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/tmp",
+    "NODE_OPTIONS": "",
+    "NODE_PATH": "",
+    "NODE_COMPILE_CACHE": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/tmp/node-compile-cache",
+    "FORCE_COLOR": "0",
+    "npm_config_offline": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/tmp/npm-cache",
+    "npm_config_userconfig": "/private/tmp/abg-rc11-proof-20261109-01/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-rc11-proof-20261109-01/npm-global.npmrc"
+  },
+  "original": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/ENVIRONMENT.json",
+    "bytes": 2716,
+    "sha256": "d44d5be365995d839f89a5e8ab4b1c86d722dd81e3adb419168412695f805654"
+  },
+  "changedWritableCoordinates": [
+    "TMPDIR",
+    "NODE_COMPILE_CACHE",
+    "npm_config_cache"
+  ],
+  "NODE_OPTIONS": ""
+}

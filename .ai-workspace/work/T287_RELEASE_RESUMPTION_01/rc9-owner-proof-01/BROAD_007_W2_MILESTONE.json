@@ -1,0 +1,65 @@
+{
+  "ProductFrame": "Root RC9-BROAD-007 fullW2 first within current201-file campaign; evidence only, Root owns F4 closure and broad acceptance.",
+  "status": "FULL_W2_EXACT_ARCHIVE_PASSED_CAMPAIGN_ACTIVE",
+  "at": "2026-11-08T19:23:15.520675+00:00",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-007.json",
+    "bytes": 47083,
+    "sha256": "a2ba7d6fd3f757329cdcdb95002e684d91dce89ec17e1f9288ee375e456828ee"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_007_RUN_ADMISSION.json",
+    "bytes": 4089,
+    "sha256": "051fcf4bf6a445d2dd7b00c6892572baab6a2cdf1b6bb75b75ee88427df0e138"
+  },
+  "started": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/EXECUTION_STARTED.json",
+    "bytes": 2614,
+    "sha256": "ff5a18ae40722fd9e8aa415bf1f1bf70c0d4041a6356035cd1b287093a1be155"
+  },
+  "candidateBasisRefresh": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/CANDIDATE_BASIS_REFRESH.json",
+    "bytes": 3166,
+    "sha256": "a5af0ab2b0e6c5920fdbf82dd118f522a4c98af2511dc1d1d97bebda57de974e"
+  },
+  "wholeFile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/files/001-t287-w2-05-install-catalog-owner-chain.json",
+    "bytes": 1189,
+    "sha256": "f303cf91fb41adf89e8f6a749686215aeb92863e19d227840c24d6c7f745cf40"
+  },
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/001-t287-w2-05-install-catalog-owner-chain.jsonl",
+    "bytes": 1116,
+    "sha256": "a30ddc2e900082b9375636d7c78baa453a84cd970bb365d4a78c3a11b98d080d"
+  },
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/001-t287-w2-05-install-catalog-owner-chain.result.json",
+    "bytes": 1521,
+    "sha256": "f9328e1b9f1f77bbf31992e8dc07c23401932c996f9ba31fe50aa8435d06433b"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/001-t287-w2-05-install-catalog-owner-chain.stdout",
+    "bytes": 2125,
+    "sha256": "8a0abc7d1c61f2bed185e081f45409140094584bc7e4a278a198bdda5d51640e"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/001-t287-w2-05-install-catalog-owner-chain.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observed": {
+    "tests": 2,
+    "passed": 2,
+    "skipped": 0,
+    "failed": 0,
+    "cancelled": 0,
+    "wallMs": 76056.099084,
+    "completeReporter": true,
+    "W2_05_PROOFCount": 1,
+    "archiveSha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+    "staticExactThreeMechanicsCase": true,
+    "installedProductOwnerCase": true,
+    "sourceEffects": []
+  },
+  "standing": "Exact unchanged full file, all dynamic/static assertions and final diagnostic completed. No independent F4 closure disposition or full broad claim; historical red and all other residuals preserved."
+}

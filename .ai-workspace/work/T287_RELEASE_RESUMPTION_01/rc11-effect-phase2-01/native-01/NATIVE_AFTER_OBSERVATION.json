@@ -1,0 +1,477 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 4881505,
+    "sha256": "c43aa0fe47aa6fc97680120848315f7e123029eb15f4cd6cbfda21465fcf6d98"
+  },
+  "value": {
+    "after": {
+      "entries": [
+        {
+          "byteLength": 13754,
+          "digest": "sha256:5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720140027",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              0
+            ]
+          },
+          "relativePath": "AGENTS.md",
+          "state": "file"
+        },
+        {
+          "byteLength": 68872,
+          "digest": "sha256:9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720140199",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              1
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+          "state": "file"
+        },
+        {
+          "byteLength": 5579,
+          "digest": "sha256:6162e59f630388acb4a70e222e33b71ca03fb04c7d8cd20e50b4933e561664ad",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720140306",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              2
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+          "state": "file"
+        },
+        {
+          "byteLength": 12633,
+          "digest": "sha256:77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720140311",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              3
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+          "state": "file"
+        },
+        {
+          "byteLength": 623,
+          "digest": "sha256:363f229002215edc8f10de0edc1a22e4da1e2d1f9a201f694f135894f1e8f018",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720140314",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              4
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/code/src/shared/process/index.ts",
+          "state": "file"
+        },
+        {
+          "byteLength": 16214,
+          "bytes": "IyBULTI4NyBFZmZlY3QgRnVuY3Rpb25hbCByZXBhaXIgYW5kIHJlZmFjdG9yIHBsYW4KClN0YXR1czogKipQaGFzZTFBLzFCIGFuZCBGT1VOREFUSU9OLU9SQUNMRS0wMDEgYWNjZXB0ZWQgZm9yIHRoZWlyIGV4YWN0IHN1Y2Nlc3NvciBzb3VyY2VzIGFuZCBzZWxlY3RlZCBwcm9vZnM7IFJvb3QgUEhBU0UyLVNDT1BFLTAxIGFjdGl2YXRlcyB0aGUgcGhhc2UyIGxpZmV0aW1lL2NvbW1hbmQgc291cmNlIHNsaWNlIGJlbG93IG9uIGNoZWNrcG9pbnQgYGVkMTdhYjE04oCmYDsgaXRzIHNvdXJjZSBpcyBhdXRob3JlZCwgdW5yZXZpZXdlZCBhbmQgdW5wcm92ZWQuIFBoYXNlcyAz4oCTNCBhbmQgR0MwMyByZW1haW4gcGxhbm5lZCBhbmQgdW5hY3RpdmF0ZWQuKiogUm9vdCBbUEhBU0UxLUZJTkFMLUFDQ0VQVEFOQ0UtMDFdKC9Vc2Vycy9qaW0vc3JjL2FwcHMvYWJpb2dlbmVzaXMvLmFpLXdvcmtzcGFjZS93b3JrL1QyODdfUkVMRUFTRV9SRVNVTVBUSU9OXzAxL3JjMTEtZWZmZWN0LXBoYXNlMS0wMS9wcm9vZi0wMS9ST09UX0ZJTkFMX0FDQ0VQVEFOQ0UuanNvbikgcmV0YWlucyB0aGUgcGhhc2UxIGNsb3N1cmU6IGRldGVybWluaXN0aWMgMjkvMjksIGxpZmV0aW1lIDE4LzE4LCBtNSAzOS8zOSBhbmQgb3JpZ2luYWwgbmluZS1maWxlIHVuaXQgOTYgcGFzc2VzL3NpeCBkZWNsYXJlZCBza2lwcy4gUm9vdCBbRk9VTkRBVElPTi1PUkFDTEUtRklOQUwtQUNDRVBUQU5DRS0wMV0oL1VzZXJzL2ppbS9zcmMvYXBwcy9hYmlvZ2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMxMS1lZmZlY3QtcGhhc2UxLTAxL2ZvdW5kYXRpb24tb3JhY2xlLXByb29mLTAxL1JPT1RfRklOQUxfQUNDRVBUQU5DRS5qc29uKSBhY2NlcHRzIG5hdGl2ZTA0IHNvdXJjZSBgMDAyZTQ4MWHigKZgIGFuZCB3aG9sZSBpbnN0YWxsZWQgVzItMDUgMy8zIHdpdGggemVybyBza2lwcyBvbiBwcm9vZiBhcmNoaXZlIGBmZGJmOTNkZeKApmA7IHRoYXQgb3JhY2xlIGlzIGNsb3NlZC4gVGhvc2UgY291bnRzIGFyZSBiYXNlbGluZSBmb3IgdGhlaXIgZXhhY3Qgc291cmNlcywgbm90IGV2aWRlbmNlIGZvciB0aGUgcGhhc2UyIHN1Y2Nlc3Nvci4gSGlzdG9yaWNhbCBmYWlsdXJlcywgc2l4IHNraXBwZWQgY2xhaW1zLCBzeW50aGV0aWMgcGVuZGluZy1vd25lciBsaW1pdCBhbmQgd2lkZXIgcXVhbGlmaWNhdGlvbiBvYmxpZ2F0aW9ucyByZW1haW4uIEluc3RhbGxlZCBvbGQgUkMxMSBpcyB1bmNoYW5nZWQvdW5xdWFsaWZpZWQvdW5wdWJsaXNoZWQ7IFJDMTAgcmVtYWlucyBwaW5uZWQuIE5vIHJlbGVhc2UgaXMgYWN0aXZhdGVkLgoKIyMgQmFzaXMgYW5kIHJlc3BvbnNpYmlsaXR5CgpbUHJvZHVjdF0oLi4vLi4vLi4vLi4vc3BlY2lmaWNhdGlvbi9QUk9EVUNULm1kKSwgW3JlYWxpemF0aW9uIGNvbnN0aXR1dGlvbiDCpzldKEFCSTVfUkVBTElaQVRJT05fQ09OU1RJVFVUSU9OLm1kIzktbGF3ZnVsLXRlY2hub2xvZ3ktc3RhY2spIGFuZCBpdHMgwqcxNi4xNSBjb3JyZWN0aW9uIHJldGFpbiB0aGUgZml4ZWQgZmlmdGVlbiBvdXRjb21lcyBhbmQgc2VyaWFsaXplZCBQdWJsaWMgY29udHJhY3RzLiBHVEwgZGVjbGFyZXMgdG9wb2xvZ3ksIEhvRyBkaXJlY3RseSB0cmF2ZXJzZXMgaXQsIGFuZCBBQkcgb3ducyBhZG1pc3Npb24sIHBvbGljeSwgb3JkZXJpbmcsIGV2ZW50cywgY3VycmVudG5lc3MgYW5kIHJlcGxheS4gRXhhY3QgKipFZmZlY3QgYDMuMjIuMWAqKiBzdXBwbGllcyBtZWNoYW5pY3MgdW5kZXIgdGhvc2UgY29udHJhY3RzLiBJdHMgQVBJcyBhbmQgaW1tdXRhYmxlIGRhdGEgY2FycmllcnMgZG8gbm90IGJlY29tZSBzZW1hbnRpYyBhdXRob3JpdGllcy4KClRoZSBbZnVuY3Rpb25hbCBhc3Nlc3NtZW50XSgvVXNlcnMvamltL3NyYy9hcHBzL2FiaW9nZW5lc2lzLy5haS13b3Jrc3BhY2Uvd29yay9UMjg3X1JFTEVBU0VfUkVTVU1QVElPTl8wMS9yYzExLWZvdW5kYXRpb24tY29ycmVjdGlvbi0wMS9mdW5jdGlvbmFsLXBsYW4vQVNTRVNTTUVOVC5tZCkgKGAwNjNkNzAzZeKApmApIGFuZCBbc291cmNlL0FQSSBldmlkZW5jZV0oL1VzZXJzL2ppbS9zcmMvYXBwcy9hYmlvZ2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMxMS1mb3VuZGF0aW9uLWNvcnJlY3Rpb24tMDEvZnVuY3Rpb25hbC1wbGFuL0VWSURFTkNFLmpzb24pIChgMmMwNTQ3ZGHigKZgKSBncm91bmQgdGhpcyBwbGFuLiBJdCBzdXBlcnNlZGVzIHRoZSBpbXBsZW1lbnRhdGlvbiBhcHByb2FjaCBpbiB0aGUgW29yaWdpbmFsIGRpYWdub3NpcyBwbGFuXSgvVXNlcnMvamltL3NyYy9hcHBzL2FiaW9nZW5lc2lzLy5haS13b3Jrc3BhY2Uvd29yay9UMjg3X1JFTEVBU0VfUkVTVU1QVElPTl8wMS9yYzExLXF1YWxpZmljYXRpb24tMDEvcm9vdC1jYXVzZS0wMS9vcGVyYXRvci9ST09UX0NBVVNFX0FORF9QTEFOLm1kKTsgdGhhdCBkb2N1bWVudCwgYWxsIGZhaWxlZCBydW5zIGFuZCB0aGUgW2NvbmpvaW5lZCBkaWFnbm9zaXNdKC9Vc2Vycy9qaW0vc3JjL2FwcHMvYWJpb2dlbmVzaXMvLmFpLXdvcmtzcGFjZS93b3JrL1QyODdfUkVMRUFTRV9SRVNVTVBUSU9OXzAxL3JjMTEtcXVhbGlmaWNhdGlvbi0wMS9yb290LWNhdXNlLTAxL3Jldmlldy9BU1NFU1NNRU5ULm1kKSByZW1haW4gdW5jaGFuZ2VkLgoKVGhlIHByb3ZlZCBkZWZlY3RzIGJlbG9uZyB0byB0ZXN0IFByb29mOiBgb2JzZXJ2ZVB1YmxpY2F0aW9uYCBjcmVkaXRzIHJlc3VsdHMgYWZ0ZXIgc3RvcC9jdXRvZmYsIG1heSBzdGFydCBhbm90aGVyIHByb2JlLCBhbmQgY2FuIGhhbmcgb24gYW4gdW5yZXNvbHZlZCByZWFkOyBwaHlzaWNhbCBmaXh0dXJlcyBhc3N1bWUgc3RhcnR1cC9lbWlzc2lvbiBwcmVyZXF1aXNpdGVzOyB0aGUgcHJvZ3Jlc3Mgb3JhY2xlIGNvdW50cyBjYWxsYmFja3MgcmF0aGVyIHRoYW4gY29tcGxldGUgY29udGVudDsgYSBwb3N0LWV4aXQgbmVnYXRpdmUgY2FuIHBhc3Mgd2l0aG91dCBhIGxhdGUgd3JpdGUgYXR0ZW1wdDsgYXNzZXJ0aW9ucyBhbmQgY2xlYW51cCBlcmFzZSBjYXVzYWwgZXZpZGVuY2UuIEEgNjAwbXMgZml4dHVyZSBkZWxheSByZXByb2R1Y2VkIHRoZSBzaXggaGlzdG9yaWNhbCBmYWlsdXJlIHByZWRpY2F0ZXMgd2l0aG91dCBjaGFuZ2luZyBvd25lciBjbG9ja3MuIFRoaXMgcHJvdmVzIGEgc3VmZmljaWVudCBtZWNoYW5pc20sIG5vdCB0aGUgY2F1c2Ugb2YgdGhvc2UgZXJhc2VkIGhpc3RvcmljYWwgZXhlY3V0aW9ucy4gTmVpdGhlciBhIHByb2R1Y3Rpb24gdHJhbnNwb3J0IHJlZ3Jlc3Npb24gbm9yIHRoZSBvbGQgRWZmZWN0IHJlc3RyaWN0aW9uIGNhdXNpbmcgc3BlY2lmaWMgZmFpbGVkIGF1dGhvciBydW5zIGlzIGVzdGFibGlzaGVkLiBQcm9kdWN0aW9uIHJlZmFjdG9ycyBiZWxvdyByZXF1aXJlIHRoZWlyIG93biBkZXNpZ24gYW5kIGRlbGV0aW9uIGNhc2UuCgojIyBPcmRlcmVkIHdvcmsKCnwgUGhhc2UgfCBCb3VuZGVkIGNoYW5nZSBhbmQgZGVwZW5kZW5jeSB8IFJlcXVpcmVkIGV4aXQgZXZpZGVuY2UgfAp8LS0tfC0tLXwtLS18CnwgKiowLiBBdXRob3JpdHkgY2xvc3VyZSoqIHwgQ29uam9pbiB0aGUgZml2ZS1kb2N1bWVudCByZXZpZXcsIGdlbmVyYXRlZCBhdXRob3JpdHkgbWlycm9ycyBhbmQgY3VycmVudCBpbnN0cnVjdGlvbnMgYXQgb25lIGV4YWN0IGZyZWV6ZS4gUHJlc2VydmUgc291cmNlIGFuZCBoaXN0b3JpY2FsIGV2aWRlbmNlLiB8IENvbmZsaWN0aW5nIG1lY2hhbmlzbSBleGNsdXNpb25zIGFyZSByZWNvbmNpbGVkOyBzZW1hbnRpYyBvd25lcnNoaXAgcmVtYWlucy4gR2VuZXJhdGVkIGRlZmluaXRpb25zIGNhcnJ5IG5vIHBvc2l0aXZlIHF1YWxpZmljYXRpb24gdmVyZGljdC4gfAp8ICoqMUEuIE9ic2VydmVyIGJ1ZyByZXBhaXIqKiB8IFJlcGxhY2Ugb25seSB0aGUgdGVzdCBvYnNlcnZlciBpbiBgdDI4Ny1vd25lZC1wcm9jZXNzLWxpZmV0aW1lLnRlc3QubWpzYCwgaXRzIHR3byBjYWxsIHNpdGVzIGFuZCBhIHNtYWxsIHRlc3Qgc3VwcG9ydCBtb2R1bGUgaWYgdXNlZnVsLiBVc2Ugb25lIHNjb3BlZCBFZmZlY3Qgb2JzZXJ2ZXIsIGV4cGxpY2l0IHN0b3AvY29tcGxldGlvbiwgaW50ZXJydXB0aWJsZSBvYnNlcnZhdGlvbiB3YWl0cyBhbmQgaW1tdXRhYmxlIHRlcm1pbmFsIHNuYXBzaG90LiBEZWxldGUgdGhlIGRpc3BsYWNlZCBgc3RvcHBlZC93YWtlL2RvbmVgIFByb21pc2UvdGltZXIgcHJvdG9jb2wuIHwgRGV0ZXJtaW5pc3RpYyBsYXRlL3N0b3AvZGVhZGxpbmUvaGFuZyBjb3VudGVyZXhhbXBsZXMgcGFzcywgbm8gbmV4dCBwcm9iZSBvciBsYXRlIG11dGF0aW9uLCBib3VuZGVkIGhhbmRiYWNrIGFuZCBubyBvd25lZCBvYnNlcnZlciBmaWJlci90aW1lciByZXNpZHVlLiBQcmVzZXJ2ZSBhY3R1YWwgb3duZXIgcmVzdWx0L2Vycm9yLiB8CnwgKioxQi4gbTUgUHJvb2YgcmVwYWlyKiogfCBSZXBhaXIgYG01LXdvcmtlci10cmFuc3BvcnQudGVzdC5tanNgIHByZW1pc2VzIGFuZCBvcmFjbGVzLCBub3QgcHJlc3VtZWQgcHJvZHVjdGlvbiBkZWZlY3RzLiBSZXRhaW4gYWN0dWFsIGFjdG9yL2NhcHR1cmUvY2xlYW51cCBmYWN0cyBiZWZvcmUgYXNzZXJ0aW9ucy4gVXNlIG9yZGVyZWQgY29tcGxldGUgYnl0ZXMvcmVjb3JkcywgY29udHJvbGxlZCBsZWFzZS9hY2svY3V0b2ZmIGxhdyBhbmQgZmluaXRlIG5vbnZhY3VvdXMgcGh5c2ljYWwgc3RhcnR1cC9lbWlzc2lvbiBmaXh0dXJlcy4gfCBGb2N1c2VkIGNvdW50ZXJleGFtcGxlcywgY29tcGxldGUgYWZmZWN0ZWQgbTUgYW5kIGxpZmV0aW1lIGZpbGVzLCB0aGVuIHRoZSBvcmlnaW5hbCBuaW5lLWZpbGUgdW5pdCBpbnZvY2F0aW9uIGFsbCBwYXNzIG9uIHRoZSBzYW1lIHN1Y2Nlc3NvciBmcmVlemUuIE5vIHJlcGVhdGVkLXVudGlsLWdyZWVuIHJ1biwgY2xvY2sgcmViYXNlLCBleHRyYSBhY2tub3dsZWRnZW1lbnQgb3IgZXJhc2VkIHByaW9yIHJlZCBldmlkZW5jZS4gfAp8ICoqMi4gTGlmZXRpbWUgcGx1cyBjb21tYW5kKiogfCBBZnRlciBwaGFzZTEsIGZyZWV6ZSB0aGUgZXhpc3RpbmcgYG93bmVkX3Byb2Nlc3NfbGlmZXRpbWUudHNgIGNvbnRyYWN0LiBGYWN0b3IgaXRzIHNtYWxsIGltbXV0YWJsZSBwaHlzaWNhbCBzdGF0ZSBhbmQgcHVyZSB0cmFuc2l0aW9uOyByZWFsaXplIGFjdGlvbnMvbGlzdGVuZXIvaGVhcnRiZWF0L2xlYXNlIGxpZmV0aW1lIHdpdGggc2NvcGVkIEVmZmVjdCByZXNvdXJjZXMuIENvbnN1bWUgaXQgdGhyb3VnaCBgd29ya3NpdGVfY29tbWFuZF9oZWxwZXIudHM6OnJ1bkNvbW1hbmRgIGFzIHRoZSBmaXJzdCBwcm9kdWN0aW9uIGVuZC10by1lbmQgdGhyZWFkLiB8IEV4YWN0IGxhdW5jaC10by1yZXN1bHQvcmVmdXNhbCBhbmQgZGVwZW5kZW50LXdvcmsgZ2F0aW5nIGNvbnNlcnZlIHBoeXNpY2FsIGZhY3RzLCBkZWFkbGluZXMsIGNhcHR1cmUgYW5kIGVycm9yIG9yZGVyaW5nLiBEZWxldGUgbmFtZWQgZGlzcGxhY2VkIG11dGF0aW9uL3RpbWVyL2xpc3RlbmVyL2ZpbmFsaXphdGlvbiBjb29yZGluYXRpb247IG5vIHNlY29uZCBzdXBlcnZpc29yIGJlaGluZCBhbiBFZmZlY3Qgd3JhcHBlci4gfAp8ICoqMy4gSFRUUCByZXNvdXJjZXMqKiB8IFJldXNlIHRoZSBwcm92ZWQgbGlmZXRpbWUgY29udHJhY3QgaW4gYHJ1bkh0dHBQcm9iZWAgYW5kIGBvbmVIdHRwUmVxdWVzdGAuIFNjb3BlIHBvcnQgcmVhZHMsIHBvbGxpbmcsIHJlcXVlc3QvcmVzcG9uc2UgbGlzdGVuZXJzIGFuZCBoZWFydGJlYXQ7IHJlcGxhY2UgbWFudWFsIHNldHRsZW1lbnQgY29vcmRpbmF0aW9uIHdpdGggdGVybWluYWwgYXJiaXRyYXRpb24gYW5kIGZpbml0ZSBkaXNwb3NhbC4gfCBObyByZWFkL3JlcXVlc3QgYWZ0ZXIgc3RvcCBvciBsYXRlIHRlcm1pbmFsIG11dGF0aW9uLiBQcmVzZXJ2ZSBjcmVhdGUtb25seSBwb3J0IGlkZW50aXR5L2NvbmZpbmVtZW50LCByZXNwb25zZSBib3VuZCwgbnVsbC9yZWZ1c2FsL2Vycm9yIG1lYW5pbmdzIGFuZCBjdXJyZW50IG5vcm1hbC1yZXNwb25zZSBsYXVuY2gtZHVyYXRpb24gYmVoYXZpb3IgdW5sZXNzIHNlcGFyYXRlbHkgcmVwcmljZWQuIHwKfCAqKjQuIFdvcmtlciBjYXB0dXJlL2FyY2hpdmUqKiB8IExhc3QsIHNlcGFyYXRlIGltbXV0YWJsZSBjYXB0dXJlL3dpbmRvdyByZWR1Y3Rpb24gZnJvbSBwaHlzaWNhbCBhcmNoaXZlIHdyaXRlcywgc3RyZWFtIGNhcHR1cmUgYW5kIG9ic2VydmVycyBpbiBgd29ya2VyX3RyYW5zcG9ydC50c2AuIENvbnNvbGlkYXRlIG9ubHkgbWVjaGFuaWNzIHdob3NlIGV4YWN0IHNoYXJlZCBjb250cmFjdCBhbmQgZGVsZXRpb24gYmVuZWZpdCBhcmUgZGVtb25zdHJhdGVkLiB8IFByZXNlcnZlIHJhdyB2ZXJzdXMgc2VtYW50aWMgb3V0cHV0LCBjYXB0dXJlIHRpbWVzdGFtcHMsIHdpbmRvd3MsIGFjdHVhbCBvYnNlcnZlciByZXR1cm5zLCBmaXJzdCBlcnJvciwgcm9sbGJhY2sgcmVzdG9yYXRpb24sIGZzeW5jLWJlZm9yZS1yZWZlcmVuY2UsIG5hdGl2ZSB0aHJlc2hvbGQgYWRtaXNzaW9uIGFuZCBmaW5hbCB3aW5kb3cgYmVmb3JlIGZpbmFsaXphdGlvbi4gRXhhY3QgYWZmZWN0ZWQgb3duZXIvZXZlbnQvcmVwbGF5IHRyYWNlcyByZW1haW4gZXF1YWwuIHwKClBoYXNlczFBLzFCIG1heSBoYXZlIHNlcGFyYXRlIGRlc2lnbiBwcmVwYXJhdGlvbjsgaW50ZWdyYXRlIGFuZCBwcm92ZSBvbmUgc291cmNlIGZyZWV6ZSBzZXF1ZW50aWFsbHkuIExhdGVyIHNoYXJlZCBsaWZldGltZS9jYWxsZXIgc291cmNlIGNoYW5nZXMgYW5kIHBoeXNpY2FsIHByb29mcyBhcmUgc2VxdWVudGlhbC4gRWFjaCBwaGFzZSByZXR1cm5zIGl0cyBleGFjdCBjaGFuZ2VkIHBhdGhzLCBkZWxldGVkIG1lY2hhbmljcywgYWN0dWFsIHJlY2VpcHRzIGFuZCB1bnJlc29sdmVkIGNsYWltcyB0byBSb290IGJlZm9yZSB0aGUgbmV4dCBhY3RpdmF0aW9uLiBObyB1bml2ZXJzYWwgZnJhbWV3b3JrLCByZWdpc3RyeSwgZXZlbnQgYnVzIG9yIG5ldyBydW50aW1lIGF1dGhvcml0eSBmb2xsb3dzIGZyb20gdGhpcyBwbGFuLgoKIyMgUGhhc2UyIGFjY2VwdGVkIEhPVyAoUEhBU0UyLVNDT1BFLTAxKQoKUmVtb3ZlZCByZXNwb25zaWJpbGl0aWVzLCBkZWNpZGVkIGJlZm9yZSBzb3VyY2UgY2hhbmdlOgoKfCBEaXNwbGFjZWQgbWVjaGFuaXNtIHwgU2VsZWN0ZWQgcmVwbGFjZW1lbnQgfAp8LS0tfC0tLXwKfCBgY3JlYXRlT3duZWRQcm9jZXNzTGlmZXRpbWVgJ3Mgc2V2ZW50ZWVuIHBhcmFsbGVsIG11dGFibGUgZmllbGRzIChgcGhhc2VgLCBgZGlyZWN0RXhpdGAsIGBsYXVuY2hGYWlsdXJlYCwgYGZpcnN0RXJyb3JgLCBgc2NvcGVBYnNlbmNlYCwgYGNsb3NlT2JzZXJ2ZWRgLCBgc3RyZWFtc0Rpc3Bvc2VkYCwgYGRyYWluRXhwaXJlZGAsIGBjbGVhbnVwU3RhcnRlZE5zYCwgYHNjb3BlRGVhZGxpbmVOc2AsIGBjbGVhbnVwRGVhZGxpbmVOc2AsIGBwcm9iZUNvdW50YCwgYHNpZ25hbEF0dGVtcHRzYCwgYGtpbGxBdHRlbXB0ZWRgLCBgY29tcGxldGlvblB1Ymxpc2hlZGApIGFuZCBpdHMgbXV0dWFsbHkgcmUtZW50cmFudCBkZWNpc2lvbiBjbG9zdXJlcyBgcHJvYmVgLCBgc2lnbmFsYCwgYGNvbXBsZXRlYCwgYGZpbmlzaFNjb3BlYCwgYGNoZWNrYCwgYHN0YXJ0S2lsbGAsIHRoZSBkZWNpc2lvbiBib2R5IG9mIGByZXF1ZXN0VGVybWluYXRpb25gL2BmYWlsYCwgYW5kIHRoZSBgaWYgKHBoYXNlICE9PSAidGVybSIpIHJldHVybmAgc3RhbGUtVEVSTSBwYXRjaCB8IE9uZSBmcm96ZW4gYE93bmVkUHJvY2Vzc1N0YXRlYCBhbmQgcHVyZSBgdHJhbnNpdGlvbk93bmVkUHJvY2Vzcyh0aW1pbmcsIHN0YXRlLCBpbnB1dCwgbm93TnMpYCBpbiBgc2hhcmVkL293bmVkX3Byb2Nlc3Nfc3RhdGUudHNgLiBFYWNoIHN0ZXAgcmV0dXJucyB0aGUgbmV4dCBzdGF0ZSBhbmQgYSBmaW5pdGUgcGh5c2ljYWwgYWN0aW9uIGxpc3QgKGBub3RpZnlgLCBgc2lnbmFsYCwgYHByb2JlYCwgYGZpbmFsaXplYCk7IGEgY2FsbGJhY2sgb3IgaG9zdCBwcm9iZSBpcyBhbHdheXMgdGhlIHN0ZXAncyBsYXN0IGFjdGlvbiBhbmQgaXRzIGNvbnRpbnVhdGlvbiBpcyBhIG5ldyBpbnB1dCBkZWNpZGVkIGFnYWluc3QgdGhlIHRoZW4tY3VycmVudCBzdGF0ZSwgc28gYW4gb2Jzb2xldGUgVEVSTS9LSUxMIGNhbm5vdCBmb2xsb3cgcmUtZW50cmFudCBzdHJlbmd0aGVuaW5nIG9yIGNvbXBsZXRpb24uIFRoZSB0aHJlZSB3YWl0IGRlYWRsaW5lcyBhcmUgc3RhdGUgdmFsdWVzLiB8CnwgSW1wZXJhdGl2ZSB0aW1lciBhcm1pbmcgaW5zaWRlIGVhY2ggY2xvc3VyZSB8IFRoZSBuYXJyb3cgc3luY2hyb25vdXMgYnJpZGdlIHJlY29uY2lsZXMgdGhlIHRocmVlIGV4aXN0aW5nIGBjcmVhdGVNb25vdG9uaWNEZWFkbGluZWAgd2FpdHMgZnJvbSB0aGUgY3VycmVudCBzdGF0ZSBhZnRlciBldmVyeSBzdGVwOyBhIGZpcmVkIHdhaXQgaXMgYWNjZXB0ZWQgb25seSB3aGlsZSBpdCBpcyBzdGlsbCB0aGUgc3RhdGUncyB3YWl0LiBEZWFkbGluZSBhcml0aG1ldGljLCBjaHVua2luZywgc3RhbGUtYXJtIGd1YXJkcyBhbmQgYWxyZWFkeS1kdWUgc3luY2hyb25vdXMgYWN0aW9uIGFyZSB1bmNoYW5nZWQuIHwKfCBTbmFwc2hvdCByZWNvbXB1dGF0aW9uIGFmdGVyIGNvbXBsZXRpb24gfCBPbmUgZnJvemVuIGZhY3RzIG9iamVjdCBpcyBzZWFsZWQgYWZ0ZXIgZmluaXRlIGRpc3Bvc2FsIGhhcyByZWNvcmRlZCBpdHMgc3luY2hyb25vdXMgZXJyb3JzIGFuZCBvd25lciBlcnJvciByZXBvcnRpbmcgaXMgZGlzY29ubmVjdGVkOyBgc25hcHNob3QoKWAgdGhlbiByZXR1cm5zIHRoYXQgc2FtZSBvYmplY3QuIEluZXJ0IHN0cmVhbS9jaGlsZCBlcnJvciBndWFyZHMgcmVtYWluIHVudGlsIG5hdHVyYWwgY2xvc2UgYW5kIGhvbGQgbm8gbXV0YXRpb24gYXV0aG9yaXR5LiB8CnwgYHJ1bkNvbW1hbmRgJ3MgYWQgaG9jIGB0cnkvZmluYWxseWAgY29vcmRpbmF0b3IgKHRpbWVvdXQgY2FuY2VsLCBoZWFydGJlYXQgY2xlYXIsIGBhY3RpdmVDb21tYW5kYCByZXNldCwgY2FwdHVyZSBjbG9zZSBhbmQgbGlzdGVuZXIgcmVtb3ZhbCkgYW5kIGl0cyBQcm9taXNlIHJlc3VsdCB8IGBydW5Db21tYW5kYCByZXR1cm5zIG9uZSBFZmZlY3QuIEEgU2NvcGUgb3duczogdGhlIHNwYXduZWQgY2hpbGQgYW5kIGxpZmV0aW1lIChhY3F1aXJlZCB0b2dldGhlcjsgcmVsZWFzZSByZXF1ZXN0cyB0aGUgZXhpc3RpbmcgZmluaXRlIGNsZWFudXAsIGF3YWl0cyB0aGUgbGlmZXRpbWUncyBvd24gY29tcGxldGlvbiwgdGhlbiBjbGVhcnMgYGFjdGl2ZUNvbW1hbmRgKSwgdGhlIHVuY2hhbmdlZCBoZWFydGJlYXQgaW50ZXJ2YWwsIGFuZCB0aGUgY2FwdHVyZSBsaXN0ZW5lcnMgcGx1cyBjb21tYW5kIHRpbWVvdXQgKHJlbGVhc2VkIG9ubHkgYWZ0ZXIgdGhhdCBwaHlzaWNhbCBjb21wbGV0aW9uKS4gT3duZXJzaGlwIHByZWNlZGVzIGZhbGxpYmxlIGxpc3RlbmVyL3RpbWVvdXQgc2V0dXAsIHdob3NlIGVycm9yIHJlbWFpbnMgYGxpZmV0aW1lLmZhaWxgLiBObyByZXRyeSwgcmFjZSBvciBFZmZlY3QgdGltZW91dCBpcyBhZGRlZDsgU2NvcGUgaW50ZXJydXB0aW9uIGlzIG5vdCBwaHlzaWNhbCBhYnNlbmNlLiB8CnwgYG1haW5gJ3MgUHJvbWlzZSBzZXF1ZW5jaW5nIHwgT25lIGhlbHBlciBFZmZlY3QgcHJvZ3JhbSwgZXhlY3V0ZWQgb25jZSB0aHJvdWdoIGBydW5FZmZlY3RQcm9ncmFtYCBpbiBgbWFpbmA7IGBhd2FpdCBtYWluKClgIHN0YXlzLiBFeGlzdGluZyBhc3luYyBvd25lcnMgYXJlIGxpZnRlZCB3aXRoIHRoZWlyIG9yaWdpbmFsIHJlamVjdGlvbiB2YWx1ZTsgb25seSBgV29ya3NpdGVIZWxwZXJGYWlsdXJlYCBpcyBjYXVnaHQgZm9yIEQxNTsgdGhlIGFja25vd2xlZGdtZW50IHdyaXRlIGlzIGRyYWluZWQgYmVmb3JlIHRoZSBzYW1lIGZhaWx1cmUgaXMgdGhlIHByb2dyYW0gZmFpbHVyZTsgYG1haW5gIHJldGhyb3dzIHRoZSBzcXVhc2hlZCBvcmlnaW5hbCBjYXVzZS4gfAoKSFRUUCBgb25lSHR0cFJlcXVlc3RgL2BydW5IdHRwUHJvYmVgIGJvZGllcywgYHdvcmtlcl90cmFuc3BvcnRgLCBgc2hhcmVkL3Byb2Nlc3NgLCBgc2hhcmVkL2VmZmVjdF9kZWZpbml0aW9uYCwgdGhlIFNJR1RFUk0vU0lHSU5UIGBwcm9jZXNzLmV4aXRgIGVtZXJnZW5jeSBib3VuZGFyeSAob3JkaW5hcnkgZmluYWxpemVycyBkbyBub3QgcnVuIHRocm91Z2ggaXQpLCBQcm9kdWN0LCBzY2hlbWFzIGFuZCBhZG1pc3Npb24vcmVwbGF5IHN0YXkgdW5jaGFuZ2VkLgoKIyMgUGhhc2UxIGNhdXNhbCBwcm9vZiBhbmQgcmV0YWluZWQgZWZmZWN0cwoKRmlyc3QgdGVzdCBvYnNlcnZlciBzdG9wIGR1cmluZyBhd2FpdCwgY3V0b2ZmMTAvcmVzb2x2ZTExLCBleGFjdCBib3VuZGFyeTEwLCBhIG5ldmVyLXJlc29sdmluZyByZWFkLCByZWFkIGVycm9yLCBjb21wbGV0aW9uIGJlZm9yZSBjdXRvZmYsIGFuZCBsYXRlIHJlc29sdXRpb24gYWZ0ZXIgcmV0dXJuLiBDaGVjayBlbGlnaWJpbGl0eSBiZWZvcmUgZXZlcnkgcHJvYmUgYW5kIGFmdGVyIGVhY2ggd2FpdC4gUmV0dXJuIG9uZSBzZWFsZWQgc25hcHNob3QgaW5kZXBlbmRlbnRseSBvZiBhbiB1bnJlc29sdmVkIGV4dGVybmFsIHJlYWQ7IG5vIGxhdGUgY2FsbGJhY2sgbWF5IG11dGF0ZSBpdCBvciBzdGFydCBhbm90aGVyIHByb2JlLiBSZWNvcmQgaW1tZWRpYXRlIG93bmVyLXNldHRsZSB0aW1lIGJlZm9yZSBjb3B5aW5nIGFydGlmYWN0cy4gUmV0YWluIHJlc3VsdC9lcnJvciwgZml4dHVyZSBib2R5L2hhbmRsZXIvdGltZXIgcmVhZGluZXNzLCB3cml0ZSBhdHRlbXB0L2NvbXBsZXRpb24sIGV4aXQgaW50ZW50aW9uLCBzdGRvdXQvc3RkZXJyIGFuZCBjbGVhbnVwL2Fic2VuY2UgZmFjdHMgYmVmb3JlIGFzc2VydGlvbnMgYW5kIHNjcmF0Y2ggcmVtb3ZhbC4KCkZvciBtNSwgZGV0ZXJtaW5pc3RpYyBjaGVja3MgcHJlc2VydmUgb3JpZ2luYWwgb3duZXIgY2xvY2sgcG9saWN5OiB0cnVlIGFja25vd2xlZGdlbWVudHMgcmVuZXcgaW5hY3Rpdml0eSwgZmFsc2UgYWNrbm93bGVkZ2VtZW50cyBkbyBub3QsIGFic29sdXRlIGRlYWRsaW5lcyBuZXZlciByZW5ldywgYW5kIGN1dG9mZiBleGNsdWRlcyBsYXRlciBzZW1hbnRpYyBieXRlcy4gSWRlbnRpY2FsIG9yZGVyZWQgY29udGVudCBtdXN0IHlpZWxkIHRoZSBzYW1lIG9yYWNsZSB1bmRlciBzcGxpdC9jb2FsZXNjZWQgY2FwdHVyZS4gUGh5c2ljYWwgc2V0dXAgdXNlcyBwcm9zcGVjdGl2ZSBmaW5pdGUgZW52ZWxvcGVzIHdpdGggY2xvY2tzIHN0aWxsIGFuY2hvcmVkIGF0IHNwYXduLCBhbmQgc2VwYXJhdGVseSBkZW1vbnN0cmF0ZXMgYWN0dWFsIHByZW1pc2VzLiBTcGF3biBub3RpZmljYXRpb24gaXMgbm90IGZpeHR1cmUgYm9keSByZWFkaW5lc3MuIFRoZSBwb3NpdGl2ZSBwcm9ncmVzcyB3b3JrbG9hZCBtdXN0IG91dGxhc3QgdGhlIGluaXRpYWwgbGVhc2UgYW5kIGV4ZXJjaXNlIHJlbmV3YWw7IG1lcmVseSBlbmxhcmdpbmcgYSBsZWFzZSBiZXlvbmQgdGhlIHdob2xlIHdvcmtsb2FkIGlzIGludmFsaWQuIEEgbGF0ZS1kYXRhIHRlc3QgbXVzdCBhY3R1YWxseSBleGVyY2lzZSBhbiBlbWlzc2lvbiBhdHRlbXB0IGFuZCBjYXB0dXJlLWNsb3NlZCBvdXRjb21lLCBub3Qga2lsbCB0aGUgcHJvZHVjZXIgYmVmb3JlIGl0cyB0aW1lciBhbmQgaW5mZXIgZW1pc3Npb24gZnJvbSBhIHRlc3QgbmFtZS4gRGVjbGFyZSBmaW5pdGUgY2FwcywgcmV0YWluZWQgc2NyYXRjaC9vdXRwdXQgYW5kIHNjb3BlZCBjbGVhbnVwIGJlZm9yZSBlYWNoIGV4ZWN1dGlvbjsgbm8gYWRhcHRpdmUgcmV0cnkgb3IgYmxhbmtldCB0aW1lb3V0IGluZmxhdGlvbi4KCiMjIEV4YWN0IG1lY2hhbmljcyB0aGF0IG11c3Qgc3Vydml2ZSByZWZhY3RvcmluZwoKUmV0YWluIGBjcmVhdGVNb25vdG9uaWNEZWFkbGluZWAncyBiaWdpbnQgbmFub3NlY29uZHMsIHBvc2l0aXZlLWZyYWN0aW9uIGNlaWxpbmcsIGh1Z2UgZmluaXRlIGRlYWRsaW5lcyBjaHVua2VkIGF0IHRoZSBob3N0IG1heGltdW0sIHN0YWxlLWFybSByZWplY3Rpb24gYW5kIGFic29sdXRlIG5vbi1yZW5ld2FsLiBVc2Ugb25lIGV4cGxpY2l0IG1vbm90b25pYyBkb21haW4gYW5kIG9yaWdpbmFsIHN0YXJ0L2N1dG9mZi4gRWZmZWN0J3Mgc2NoZWR1bGVyIHRyZWF0cyBzbGVlcHMgYWJvdmUgYDJeMzEtMWBtcyBhcyBpbmZpbml0ZSwgd2hpbGUgYENsb2NrLmN1cnJlbnRUaW1lTWlsbGlzYCB1c2VzIGBEYXRlLm5vd2A7IG5laXRoZXIgc2lsZW50bHkgcmVwbGFjZXMgdGhlIGN1cnJlbnQgYXJpdGhtZXRpYy9lcG9jaC4gQSBuYXJyb3cgY2xvY2svd2FpdCBhZGFwdGVyIG1heSBzdXBwbHkgRWZmZWN0IHN1c3BlbnNpb24gYW5kIGNhbmNlbGxhdGlvbiB3aGlsZSBwcmVzZXJ2aW5nIHRob3NlIGxhd3MuIFRlc3RDbG9jayByZXF1aXJlcyBhbiBleHBsaWNpdGx5IGFsaWduZWQgc2VydmljZSBhbmQgZG9lcyBub3QgY29udHJvbCBOb2RlIEkvTyBvciBjaGlsZCBwcm9jZXNzZXMuCgpgYWNxdWlyZVJlbGVhc2VgIGFjcXVpc2l0aW9uL3JlbGVhc2UgYXJlIHVuaW50ZXJydXB0aWJsZTsgYHJhY2VGaXJzdGAgd2FpdHMgZm9yIGxvc2VyIHRlcm1pbmF0aW9uLiBGaW5hbGl6ZXJzIG11c3QgcGVyZm9ybSB0aGUgZmluaXRlIG93bmVyIGNsZWFudXAgcHJvdG9jb2wsIG5vdCBhd2FpdCBhcmJpdHJhcnkgdW5yZXNvbHZlZCBJL08uIERvIG5vdCBoaWRlIGxpdmUgY2xlYW51cCB3aXRoIGBkaXNjb25uZWN0YC4gSW50ZXJydXB0aW9uIG9yIGFuIEFib3J0U2lnbmFsIGlzIG5vdCBwcm9vZiBvZiBPUyBjYW5jZWxsYXRpb24sIGRpcmVjdC1jaGlsZCBleGl0IG9yIGdyb3VwIGFic2VuY2UuIFByZXNlcnZlIGVycm9yIGd1YXJkcyB0aHJvdWdoIG5hdHVyYWwgY2xvc2UgYW5kIGRpc3Rpbmd1aXNoIGFic2VudCwgcHJlc2VudCBhbmQgdW5rbm93biBwaHlzaWNhbCBvdXRjb21lcy4gS2VlcCB0aGUgc2luZ3VsYXIgcHJvZHVjdGlvbiBgcnVuRWZmZWN0UHJvZ3JhbWAgbWVtYnJhbmUuCgpBIGJvdW5kZWQgRWZmZWN0IFF1ZXVlIHN1c3BlbmRzIGFuIEVmZmVjdCBwcm9kdWNlcjsgaXQgZG9lcyBub3QgYXV0b21hdGljYWxseSBiYWNrcHJlc3N1cmUgYSBOb2RlIEV2ZW50RW1pdHRlciBjYWxsYmFjay4gVW5ib3VuZGVkIGZpYmVycyBwZXIgY2h1bmssIHVuYm91bmRlZCBgYXN5bmNQdXNoYCwgYW5kIGRyb3BwaW5nL3NsaWRpbmcgZmluaXRlIHN0cmVhbXMgYXJlIHVuc3VpdGFibGUgc3Vic3RpdHV0ZXMgZm9yIGxvc3NsZXNzIGNhcHR1cmUuIEFueSBsYXRlciBzdHJlYW0gY29udmVyc2lvbiBtdXN0IGJpbmQgcHVsbCBvciBwYXVzZS9yZXN1bWUgdG8gYSBmaW5pdGUgYnl0ZS9jaHVuayBidWRnZXQsIGtlZXAgY2FwdHVyZSB0aW1lIGRpc3RpbmN0IGZyb20gZGVxdWV1ZSB0aW1lLCBkZWZpbmUgb3ZlcmZsb3cvcmVmdXNhbCwgYW5kIGRpc3Bvc2UgcGVuZGluZyBvZmZlcnMvdGFrZXMgYW5kIGlucHV0IGxpc3RlbmVycy4gUmV0YWluIHRoZSBjdXJyZW50IHN5bmNocm9ub3VzIGR1cmFiaWxpdHkgcGF0aCB1bnRpbCBlcXVpdmFsZW50IG9yZGVyaW5nIGFuZCBhY3R1YWwgbWVtb3J5L2xhdGVuY3kgZXZpZGVuY2UganVzdGlmeSBjaGFuZ2luZyBpdC4KCkJlZm9yZSBlYWNoIHByb2R1Y3Rpb24gcGhhc2UsIGJpbmQgb2JzZXJ2YWJsZSB0cmFjZXMgYW5kIGZhaWx1cmUgYWxnZWJyYSwgdGhlbiByZXByb3ZlIGNvbnRyb2xsZWQgcGVybXV0YXRpb25zIGFuZCBmaW5pdGUgcGh5c2ljYWwgd2l0bmVzc2VzOiBsYXVuY2ggZmFpbHVyZSwgY2FsbGJhY2svc3RkaW8vZGlzcG9zYWwgZmF1bHRzLCBmaXJzdC1lcnJvciBwcmVzZXJ2YXRpb24sIFRFUk0tdG8tS0lMTCBzdHJlbmd0aGVuaW5nLCBwcmVzZW50L2Fic2VudC91bmtub3duIGdyb3VwLCBjbG9zZSB3aXRob3V0IGV4aXQsIGRpcmVjdC1jaGlsZCBXaW5kb3dzIHNjb3BlLCBlc2NhcGVkIGRlc2NlbmRhbnRzLCBmcmFjdGlvbmFsL2h1Z2UgZGVhZGxpbmVzIGFuZCBpbW11dGFibGUgZmluYWwgc25hcHNob3RzLiBQaGFzZTQgYWRkaXRpb25hbGx5IHJlcXVpcmVzIGFyY2hpdmUgZnN5bmMvcm9sbGJhY2svY29ycnVwdGlvbiBhbmQgY3VycmVudC1wcm9maWxlIEFCRyBhZG1pc3Npb24vcmVwbGF5IHByb29mLiBSdW50aW1lIGNvbnRyYWRpY3Rpb25zIHJldHVybiB0byBvd25pbmcgRGVzaWduOyBubyBibGluZCByZXBlYXQgb3IgYnJvYWRlciBydW4gZmlyc3QuIEV4cGVjdGVkIGJlbmVmaXQgaXMgcmVkdWNlZCBkdXBsaWNhdGVkIGNvb3JkaW5hdGlvbiBhbmQgcHJvb2YgYnVyZGVuOyBzcGVlZCBvciBtZW1vcnkgZ2FpbnMgcmVxdWlyZSBtYXRjaGVkIG1lYXN1cmVtZW50LgoKIyMgRnV0dXJlIGNhbmRpZGF0ZSBiYWNrbG9nIGFuZCByZXRhaW5lZCBpbXBsZW1lbnRhdGlvbnMKCkFmdGVyIHBoYXNlMiwgYXNzZXNzIGBwaW5uZWRHYzAzSG9zdFJlYWRlcmAgZm9yIHJldXNlIG9mIGEgZGlyZWN0LWNoaWxkIGxpZmV0aW1lIGNvbnRyYWN0OiBpdHMgY3VycmVudCBjaGlsZCBpcyAqKm5vdCBkZXRhY2hlZCoqLCBzbyBuZWdhdGl2ZS1QSUQgcHJvY2Vzcy1ncm91cCBzaWduYWxsaW5nIGNhbm5vdCBiZSB0cmFuc3BsYW50ZWQuIFByZXNlcnZlIGFkYXB0ZXIvZXhlY3V0YWJsZSBkaWdlc3QgdmVyaWZpY2F0aW9uLCBwZXJtaXRzL2N1cnJlbnRuZXNzLCBvd25lciByZWRlcml2YXRpb24sIGNhbGxiYWNrL25hdGl2ZS1wYWdlIGFncmVlbWVudCBhbmQgZXhhY3Qgb3duZWQgYWJzZW5jZS4gU2VwYXJhdGVseSBhc3Nlc3MgdGhlIEdDMDMgZW5kcG9pbnQvY2xpZW50IGFzIG9uZSBzb2NrZXQtcmVzb3VyY2UgcmVsYXRpb246IGluZXJ0IHJlc2VydmF0aW9uLCBhY3RpdmF0aW9uLCBGSUZPIHJlcXVlc3RzLCBleGFjdCBieXRlcy9kaWdlc3RzLCBwYXJ0aWFsL292ZXJzaXplIGlucHV0LCBjbG9zZSBkdXJpbmcgcGVuZGluZyBsb29rdXAgYW5kIG5vIHBvc3QtY2xvc2UgcHJvdG9jb2wgd3JpdGVzLiBTbmFwc2hvdCBzdG9wIGRvZXMgbm90IGVzdGFibGlzaCBsb29rdXAgY2FuY2VsbGF0aW9uOyBzb2NrZXQgaW5hY3Rpdml0eSB0aW1lb3V0IG11c3Qgbm90IHNpbGVudGx5IGJlY29tZSBhYnNvbHV0ZSB0aW1lb3V0LgoKUmV0YWluIGFscmVhZHktc2NvcGVkIGBydW5faW52b2NhdGlvbmAgb3duZXJzaGlwIGFuZCB0aGUgdGhpbiBucG0vZ2l0IGFkYXB0ZXJzIHVubGVzcyBhIGNvdW50ZXJleGFtcGxlIG9yIGV4YWN0IHNoYXJlZCBjYW5jZWxsYXRpb24vZGlhZ25vc3RpYyBjb250cmFjdCBkZW1vbnN0cmF0ZXMgZGVsZXRpb24gYmVuZWZpdC4gUHJlc2VydmUgaW52b2NhdGlvbiBpZGVudGl0eSwgY29tcHV0YXRpb25hbCByZWxlYXNlIHZlcnN1cyBzZW1hbnRpYyBjbG9zdXJlLCBleHBlY3RlZC1wcmVmaXggaGFuZG9mZnMgYW5kIGFkbWl0dGVkIHRydXRoLiBQcm9taXNlIHN5bnRheCBhbG9uZSBpcyBub3QgYSByZWZhY3RvciByZWFzb24uIE5vIG5ldyBwYWNrYWdlLCBsaWJyYXJ5IHVwZ3JhZGUsIGJsYW5rZXQgUHJvbWlzZSBjb252ZXJzaW9uIG9yIGF1dG9ub21vdXMgcHVibGljYXRpb24gcmV0cnkgaXMgc2VsZWN0ZWQuCgpSb290IGNsb3NlcyBgUkMxMS1MSUZFVElNRS1PQlMtTEFURS0wMDFgIGFuZCBgUkMxMS1NNS1UUkFOU1BPUlQtUFJPT0YtMDAxYCBvbmx5IGZvciB0aGUgYWNjZXB0ZWQgUGhhc2UxIHN1Y2Nlc3NvciBhbmQgc2VsZWN0ZWQgcHJvb2YuIEhpc3RvcmljYWwgcmVkIHJ1bnMgYW5kIG5hdGl2ZTAyIHRpbWVvdXQgcmVtYWluIHByZXNlcnZlZDsgc2l4IHNraXBwZWQgY2xhaW1zIGFuZCB0aGUgc3ludGhldGljIHBlbmRpbmctb3duZXIgbGltaXQgcmVtYWluIGV4cGxpY2l0LiBgRk9VTkRBVElPTi1PUkFDTEUtMDAxYCBpcyBjbG9zZWQgYnkgaXRzIG93biBSb290IGFjY2VwdGFuY2UgYWJvdmU7IGl0IGRvZXMgbm90IHJlb3BlbiBQaGFzZTEgcHJvb2YuIERpYWdub3N0aWMgZ3JlZW4gZG9lcyBub3QgcmVwbGFjZSBxdWFsaWZpY2F0aW9uLiBMb2NhbCBSQzExIHJlbWFpbnMgaW5zdGFsbGVkLCB1bnF1YWxpZmllZCBhbmQgdW5wdWJsaXNoZWQ7IFJDMTAgcmVtYWlucyBwaW5uZWQgYnVpbGRlci4gTmF0aXZlLXdvcmtmbG93LCBmdWxsNS4wLCBTNywgb3RoZXIgY2Fwc3VsZXMgYW5kIGh1bWFuIG9ibGlnYXRpb25zIHJlbWFpbiBvcGVuLiBQYWNrYWdpbmcncyBkZWNsYXJlZCBtZXRhZGF0YS1kZXBlbmRlbnQgcmVwcm9kdWN0aW9uIGFuZCBndWFyZHMgYXJlIHJldGFpbmVkOyB0aGlzIHBsYW4gZG9lcyBub3QgcmVvcGVuIHBhY2thZ2luZyBvciBjbGFpbSBmaWxlLWJ5dGVzLW9ubHkgcmVwcm9kdWNpYmlsaXR5Lgo=",
+          "digest": "sha256:c4580846ef6a09ca26413b691960ecd2e04074cc263e92844b4f18f2a52a451e",
+          "encoding": "base64",
+          "fileIdentity": "16777231:720157013",
+          "relativePath": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+          "state": "file"
+        },
+        {
+          "byteLength": 72393,
+          "digest": "sha256:533480ed2edcfe90f878ab17f2f473af7906bdce2c73178c78c78d0c741dcc2d",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720140940",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              6
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+          "state": "file"
+        },
+        {
+          "byteLength": 10105,
+          "digest": "sha256:02789c3812e488e53e7a6fe9bd3affd0d39144cd5e69b68adf48c7a7f1f6b9d1",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720140958",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              7
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/package.json",
+          "state": "file"
+        },
+        {
+          "byteLength": 1349,
+          "digest": "sha256:603feef050dc15e99b59eef38196bcfedd396285033f939cdb21ca24b26d8ec0",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720141145",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              8
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+          "state": "file"
+        },
+        {
+          "byteLength": 8589,
+          "digest": "sha256:9cbe06469224c20e3f58792a1791b9886b72b3876812787330be098ddd878d9e",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720223790",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              9
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+          "state": "file"
+        },
+        {
+          "byteLength": 145250,
+          "digest": "sha256:7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720262219",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              10
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+          "state": "file"
+        },
+        {
+          "byteLength": 53258,
+          "digest": "sha256:8bff42467575b20f9cdfa1792ebd7ac6b462b11c753303a66d0523b93f901cac",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720141285",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              11
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+          "state": "file"
+        },
+        {
+          "byteLength": 52787,
+          "digest": "sha256:4db80cc8cf535099e138138720dc0ffb196e81ed35a8c9fe3b3037fee9a1ab91",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720141315",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              12
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "state": "file"
+        },
+        {
+          "byteLength": 604,
+          "digest": "sha256:2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720141406",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              13
+            ]
+          },
+          "relativePath": "build_tenants/abiogenesis/typescript/tsconfig.json",
+          "state": "file"
+        },
+        {
+          "fileIdentity": "16777231:720497827",
+          "members": [
+            "DESIGN_ASSESSMENT.md",
+            "EXACT_SOURCE_ROUTES.json",
+            "EXTERNAL_TOOLS.json",
+            "PREBUILT_IDENTITY.json",
+            "PROOF_INTAKE.md",
+            "PROOF_SCOPE_CLARIFICATION.md",
+            "ROOT_SCOPE.json"
+          ],
+          "relativePath": "qualification-inputs/rc11-effect-phase2-01/native-01",
+          "state": "directory"
+        },
+        {
+          "byteLength": 10454,
+          "digest": "sha256:2076fe346f4345d3f2f1ae5425ea981fe4b6750f92335bc007a5e74dc355f13b",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720497829",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              15
+            ]
+          },
+          "relativePath": "qualification-inputs/rc11-effect-phase2-01/native-01/DESIGN_ASSESSMENT.md",
+          "state": "file"
+        },
+        {
+          "byteLength": 26805,
+          "digest": "sha256:8d5746ff38c1a50bdbb586bf3f849eeced0f46d0e6548393462e1853497384ef",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720497833",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              16
+            ]
+          },
+          "relativePath": "qualification-inputs/rc11-effect-phase2-01/native-01/EXACT_SOURCE_ROUTES.json",
+          "state": "file"
+        },
+        {
+          "byteLength": 3737,
+          "digest": "sha256:dcf032dd2d74eaa11a4ce8c34f3acaa954e21828846089f1077f3f96d9ef254b",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720497841",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              17
+            ]
+          },
+          "relativePath": "qualification-inputs/rc11-effect-phase2-01/native-01/EXTERNAL_TOOLS.json",
+          "state": "file"
+        },
+        {
+          "byteLength": 1347,
+          "digest": "sha256:935adbab5145df29d50f723ec6d3a9174e7c7a400f2df5081346f065ea744f61",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720497832",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              18
+            ]
+          },
+          "relativePath": "qualification-inputs/rc11-effect-phase2-01/native-01/PREBUILT_IDENTITY.json",
+          "state": "file"
+        },
+        {
+          "byteLength": 11205,
+          "digest": "sha256:194f5fd553125c1b7ada07d433b853a4970df49ba643956f0026f8023b2893ae",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720497830",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              19
+            ]
+          },
+          "relativePath": "qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_INTAKE.md",
+          "state": "file"
+        },
+        {
+          "byteLength": 2441,
+          "digest": "sha256:2b3e1b24d6420ac6550fcbe807e0158fca072e257ea2337932f6e5023989a07b",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720497831",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              20
+            ]
+          },
+          "relativePath": "qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_SCOPE_CLARIFICATION.md",
+          "state": "file"
+        },
+        {
+          "byteLength": 5536,
+          "digest": "sha256:8d45c82e7e9f39628e4063c28902ec89091de37f60137663c530a7a83f708a7f",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720497828",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              21
+            ]
+          },
+          "relativePath": "qualification-inputs/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json",
+          "state": "file"
+        },
+        {
+          "byteLength": 6120,
+          "digest": "sha256:11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720141428",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              22
+            ]
+          },
+          "relativePath": "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+          "state": "file"
+        },
+        {
+          "byteLength": 9354,
+          "digest": "sha256:fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720141448",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              23
+            ]
+          },
+          "relativePath": "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
+          "state": "file"
+        },
+        {
+          "byteLength": 3136,
+          "digest": "sha256:b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+          "encoding": "admitted_member",
+          "fileIdentity": "16777231:720141515",
+          "member": {
+            "basisDigest": "sha256:5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "basisRef": "execution-basis://abiogenesis/5cdb3620e75413b8c34a8ccba49fa8a5895b7da85dc1defa81636d579c62ed14",
+            "path": [
+              "context",
+              "entries",
+              24
+            ]
+          },
+          "relativePath": "stdo_abiogenesis.json",
+          "state": "file"
+        }
+      ],
+      "kind": "worksite_context_observation",
+      "maxBytes": 2097152,
+      "maxFiles": 40,
+      "observationDigest": "sha256:34828d21920e813a972f3af823f6e32d9de758903d077dad646dbfc5ab7ce0d5",
+      "observationRef": "worksite-context-observation://abiogenesis/34828d21920e813a972f3af823f6e32d9de758903d077dad646dbfc5ab7ce0d5",
+      "readRoots": [
+        "AGENTS.md",
+        "stdo_abiogenesis.json",
+        "qualification-inputs/rc11-effect-phase2-01/native-01",
+        "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+        "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+        "build_tenants/abiogenesis/typescript/code/src/shared/process/index.ts",
+        "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+        "build_tenants/abiogenesis/typescript/package.json",
+        "build_tenants/abiogenesis/typescript/tsconfig.json",
+        "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+        "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md"
+      ],
+      "schemaVersion": "5.0.0",
+      "workspaceAuthorityBasisDigest": "sha256:e1babab853ce47b826f7ffe32bad62e6ad8dd95016eced4da30d60dc5f3f3bea",
+      "workspaceAuthorityBasisRef": "workspace-authority://abiogenesis/e1babab853ce47b826f7ffe32bad62e6ad8dd95016eced4da30d60dc5f3f3bea",
+      "workspaceBindingDigest": "sha256:c8599e7d4e251a5ea9e16c9a9c76661a660a6c04b47cc85843506678669f06fd",
+      "workspaceBindingIdentity": "workspace-binding://abiogenesis/c8599e7d4e251a5ea9e16c9a9c76661a660a6c04b47cc85843506678669f06fd"
+    },
+    "changedPaths": [
+      "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+    ],
+    "diagnosticRef": "diagnostic://abiogenesis/worksite/native-work/transport_failure@5",
+    "failureClass": "transport_failure",
+    "inputDigest": "sha256:16bdbd1fcbb159d344eceea0981a03f7e7ea1f7f5f7e6fb8cbed1f9b2835a7e1",
+    "kind": "native_workspace_work_failure",
+    "observationFailure": null,
+    "provenance": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/90810405abf91abb821c3e1145ae82562388e22375cd8fa648669f34a4ad7b74",
+      "cCallRef": "c-call:sha256:9f3c556ffca33608aa39197f78a1d2b432c59780affb8e198d304e9a1e5c0544",
+      "executionAuthorityDigest": "sha256:141ef72dbbae4cf6364971c620068e12a43536c723e7f0bcc29c45b1bd0aebbe",
+      "executionAuthorityRef": "leaf-execution-authority://abiogenesis/141ef72dbbae4cf6364971c620068e12a43536c723e7f0bcc29c45b1bd0aebbe",
+      "promptDigest": "sha256:63737ac0bc195efd39087c5b95c39c0b9f7323b7fadd5722b2bcf20f1a7f884f",
+      "transportBindingDigest": "sha256:4f2fc73cc8a1ad06e4f68c725a810757dbfd8d66a4df9c2d046176617edea0b4",
+      "transportBindingRef": "transport-binding://abiogenesis/4f2fc73cc8a1ad06e4f68c725a810757dbfd8d66a4df9c2d046176617edea0b4",
+      "transportDigest": "sha256:6084390a9f5b4da973d85e5d3a77657a70a8671743fde33075a18ba0796e7a64"
+    },
+    "report": null,
+    "schemaVersion": "5.0.0"
+  }
+}

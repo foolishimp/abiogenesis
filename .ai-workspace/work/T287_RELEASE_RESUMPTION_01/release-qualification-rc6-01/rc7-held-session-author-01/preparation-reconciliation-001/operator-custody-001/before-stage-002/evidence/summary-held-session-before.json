@@ -1,0 +1,34 @@
+[
+  {
+    "id": "held-session-before",
+    "mode": "before",
+    "setupMs": 155,
+    "priorLaneAllocations": 0,
+    "laneAllocationCap": 8,
+    "stageSourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd",
+    "activeRc7": [],
+    "requiredActivePass": false,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:RC7 HS02:|RC7 fixed admission: ) test_env/tests/t287-exact-prefix-projection-reuse.test.mjs test_env/tests/t287-default-library.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "ms": 251117,
+    "tests": 2,
+    "pass": 0,
+    "fail": 2,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 2,
+    "failing": [
+      "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+      "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+    ],
+    "stdoutSha256": "3af4e4a388c211a16e89819e9c0f8e9adeeeddfdf24513e1a792f56e1ed18976",
+    "stdoutBytes": 3315,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

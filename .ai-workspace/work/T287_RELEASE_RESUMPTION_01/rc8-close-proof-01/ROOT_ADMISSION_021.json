@@ -1,0 +1,79 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "at": "2026-11-07T14:00:30.339418+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "goal": "GOAL035",
+  "ticket": "T-287",
+  "scope": "REF01",
+  "configSha256": "b89db2dd87aac3433fea87855c097cbe3d8598582c035b04bb9027493f856711",
+  "inventorySha256": "31f2a6c5c62f5d5ba1d632057c7e302f70612b68ccc7e0634934d36fa480b5c0",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "6cb964790e753395711265f6bb3ef27d2257f2faf6bf418a155bbf9af43435b2",
+  "basePreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_021.json",
+    "bytes": 7153,
+    "sha256": "6cb964790e753395711265f6bb3ef27d2257f2faf6bf418a155bbf9af43435b2"
+  },
+  "finalPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_FINAL_021.json",
+    "bytes": 6412,
+    "sha256": "5f8a0ea551265532771710da902b32d17ffb2c4b1931d66761ffb66207d5a229"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-021.mjs",
+    "bytes": 36502,
+    "sha256": "fc5716a4e38b17d5c5afcf040864128a39bb007e27794f26126893656e773fb4"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_023.json",
+    "bytes": 415066,
+    "sha256": "b89db2dd87aac3433fea87855c097cbe3d8598582c035b04bb9027493f856711"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-023/BOUND_INVENTORY.json",
+    "bytes": 2084983,
+    "sha256": "31f2a6c5c62f5d5ba1d632057c7e302f70612b68ccc7e0634934d36fa480b5c0"
+  },
+  "configDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CONFIG_BUDGET_DIFF_021.patch",
+    "bytes": 1119,
+    "sha256": "2d7b5f17944fdc27fde761c69e3e169ff9c8cc4b290a360c4d27ba7139ecf1ba"
+  },
+  "inventoryDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/INVENTORY_CONFIG_REBIND_DIFF_021.patch",
+    "bytes": 1461,
+    "sha256": "c99522af157f8bff857de9b16e183ffd56763626dc0d626e54eb7f61dcbd15b4"
+  },
+  "closedBudgetReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/remaining-proof-budget-021/REVIEW.json",
+    "bytes": 16426,
+    "sha256": "f0f6f32dee333e2dd2cdbc6bfc6a00c49ada0061f0adeea9fc74a59352457876"
+  },
+  "casewiseProofAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/st2a-e-second-case-001/ROOT_PROOF_ACCEPTANCE.json",
+    "bytes": 7000,
+    "sha256": "2cbd148bbda0fa76061ad9b0d4f2f526bd3fbe4187df8d8bb152cf786ee80fb1"
+  },
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 165,
+    "passed": 865,
+    "skipped": 201,
+    "scheduled": 31,
+    "schedulingDeferrals": 12,
+    "permanentOpenResiduals": 6
+  },
+  "rootDisposition": "Root read full initial/final/numeric/inventory diffs and independently verified decoded config changes only fresh bindingRoot plus named1200000ms override; inventory facts only config pin and all source/dependency/external/test/credit/deferral objects exact. Admit one31-file continuation. Preserve165whole865pass201skip;12scheduling deferrals consist of four separately accepted whole proofs, two case-wise proofs and sixOPEN assurance residuals, with no restamp.",
+  "inventorySerialization": "Inventory diff also escapes U+2013 in one source-declaration string. Decoded row is identical; serialization only, no source rewrite or further control revision.",
+  "residualEvidence": {
+    "ticket": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "anchor": "rc8-selected-action-profile",
+    "sectionBytes": 2743,
+    "sectionSha256": "590bbae5f324b30e2c2a58c6241366f3977556a4e3ea8a9135a3750f252733a3",
+    "standing": "Root read durable section; sixOPEN capsules total, originalfive unchanged."
+  },
+  "effects": "Fresh execution021 and /private/tmp/abg-r8c-021 through existing owners. All inner timers, other bounds/env/input rows/source/archive unchanged. One outer command override only. Stop first red/incomplete/input/resource/deadline; no automatic retry/extension or parallel heavy test. Existing two isolated test-build/successful-derived-copy cleanup grants only; no provider/source/Git/cut/checkpoint/rebuild/install action otherwise.",
+  "wholeReleaseQualified": false
+}

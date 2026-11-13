@@ -1,0 +1,443 @@
+{
+  "kind": "rc4_native_recovery_causal_scope_revision2",
+  "status": "DRAFT_EXACT_PACKET_FOR_ROOT_ADMISSION",
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "sourceTree": "a013136818170f69609b2211665815e1a328e242",
+  "preimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "ownerGroup": "continuation_and_source_use",
+      "bytes": 121139,
+      "sha256": "e2497331ba0e3d7cad817274ef9e66d476384489ff6475caa670ca531b1d4688"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "ownerGroup": "continuation_and_source_use",
+      "bytes": 40218,
+      "sha256": "bbdcffe51b99ec9f1593bdecdc6df14c408dd45e6961ef32d45318094639faf8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "ownerGroup": "continuation_and_source_use",
+      "bytes": 76782,
+      "sha256": "29af9e2e32035cb794bf4cd501eed5504e8a92d6e68ebebcbabbd2aba5c31fa8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "ownerGroup": "continuation_and_source_use",
+      "bytes": 129875,
+      "sha256": "2811b8363e2fbd3117509f4ef9bfba54b0bb4060bf4003094a357f6c93e5933b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "ownerGroup": "continuation_and_source_use",
+      "bytes": 53062,
+      "sha256": "d633ee4b9ad0b4f7d801d8f32da2f049e9cd8c5e413f47b1f547b3ca8b8a5d00"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "ownerGroup": "continuation_and_source_use",
+      "bytes": 222772,
+      "sha256": "1fd8ae75296c6000b923c86533a742b85ba9b228904b5dcbd9139d98f09befb0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "ownerGroup": "context_and_native_consumers",
+      "bytes": 57842,
+      "sha256": "eb527b9a5a8649d9f35e5f7270273d1d79f91619901073633f19577a5a986a68"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "ownerGroup": "context_and_native_consumers",
+      "bytes": 47208,
+      "sha256": "256373b03534d39930b69056623f5946f404865a52f8fcdf10f42d2524e224ac"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "ownerGroup": "context_and_native_consumers",
+      "bytes": 37094,
+      "sha256": "2ea8516698f0578bd7eb1882919ba100741eea6fddd2528fa33eccd195ed97e1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "ownerGroup": "context_and_native_consumers",
+      "bytes": 21321,
+      "sha256": "661bfa3d62331bada881024922fcaea82a465f0f77d0b02275919a42a3096ef6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "ownerGroup": "owning_how",
+      "bytes": 26079,
+      "sha256": "cb1c5405e9136128c713c2d3630818821e12a2be0e7f8f5cfd4c17b1527b750f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "ownerGroup": "owning_how",
+      "bytes": 47457,
+      "sha256": "d2cf50423579c7548b03cd42c9c0b001dc4e51bf4591d6569df6a8e476bc53dd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 57354,
+      "sha256": "7c3656c791b6cb207ff3f059d4f0145781c1d05db4951a05e977501fab29fc11"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 52744,
+      "sha256": "b36b41eb6d95ad77bbfd776c31483dbae0ec09fb817e062d3b86c4cce367e2a8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 4626,
+      "sha256": "6a84a8a5ef05698086a820ce4de0b306c2c19d9d8243cfc12391f708497453ac"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 29104,
+      "sha256": "cc8cb70f6155762f808d13cce5f7b914477e862588fe1188191c50112d400dc5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 91894,
+      "sha256": "4f4dce1d67b3962cbb3f9cd0463be9ea51dde4d61961a081322d528daba558a7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 14920,
+      "sha256": "fafb8eb47d56a3c3534dfb046b9aea9d3fc9d59754fd9e1bf1c26f0eb7d37921"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 126803,
+      "sha256": "3a05a43285e7247ce8120742c43f1e8cc4021d180a94b24b0ad3ead81f05bb88"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 14600,
+      "sha256": "259301c52f320dfaa2a7061842a77d3f394d840a0129419b0bed9e3246b8a667"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 53135,
+      "sha256": "33a20f75fa13981e6eae47288ef87df09066f15b85ec844f59dfb884363856d8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 12353,
+      "sha256": "a56347f2621ec53733c27de869c1d0396d07f3bae09384a8dc5a8659958a9d99"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 212367,
+      "sha256": "b0309476da10eb52f343f8d43d95aea3572cb082cd4b5fd7b0d30411bde56649"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 17380,
+      "sha256": "2dc3fa1974bfa09c0640e1eb2868cfd5c8d7c6f2ba03c90c8ef318e5a3810a2d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+      "ownerGroup": "causal_proof",
+      "bytes": 18584,
+      "sha256": "53ae12e95eb62b6ea74e267872d2eee5c647da79c11a3d4565dd2e3dd58fb991"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "ownerGroup": "run_continue_contract_domain",
+      "bytes": 9097,
+      "sha256": "50d61dc0dbccd2959ea0f4e333ae188b52a18aad3399e2bda2f94e6f411c126a",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "ownerGroup": "run_continue_contract_domain",
+      "bytes": 33611,
+      "sha256": "593fce46fe3c5353b722315555254a0a425da3f24d62a9a25d08f672062d0684",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "ownerGroup": "run_continue_contract_domain",
+      "bytes": 84653,
+      "sha256": "1c4a66a3ae91e2826d40861bf4061220727b339c652a69b8bf8137b2b22b0bc4",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/capability_contracts.ts",
+      "ownerGroup": "run_continue_contract_domain",
+      "bytes": 26465,
+      "sha256": "2c94652bb8263eaae2b62404fcc541fb3c87fa72774ee9b7132899b0c7497a42",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "ownerGroup": "continuation_causal_projection",
+      "bytes": 49616,
+      "sha256": "d4faccacec91a4fcc0ab56da7d2b333a097b288d0ea4f696dd61e17883e50eb9",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "ownerGroup": "continuation_causal_projection",
+      "bytes": 10990,
+      "sha256": "e2855dc9d29724c53701c47eb7dc51df0bf329e40e1a0f7b554950ae65874159",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "ownerGroup": "continuation_causal_projection",
+      "bytes": 211352,
+      "sha256": "6b367a622af8ef0aec5f55d4192b0b80fae1ba884fea9c23cdcaf25b6402fbcd",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "ownerGroup": "continuation_causal_projection",
+      "bytes": 74076,
+      "sha256": "dbbc1bb3221add3ed14b4b62dfe2016815800d3bcd45afadbf419b71e5e4690a",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "ownerGroup": "pending_child_and_recursive_returns",
+      "bytes": 19995,
+      "sha256": "bce3602df93bd27f2c072b6c1a0baedb51942e55dd8d22e061cf5b9a9837cbc5",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "ownerGroup": "pending_child_and_recursive_returns",
+      "bytes": 5018,
+      "sha256": "88e0d07680eceefc151c0174e4d3a640a0bcd3e5252a18394e2266318d080a78",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "ownerGroup": "pending_child_and_recursive_returns",
+      "bytes": 34157,
+      "sha256": "18eefb8f78e3ed65545dae9c22305213750f6dc1460db5ff7c18098e201cb298",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/child_traversal.ts",
+      "ownerGroup": "pending_child_and_recursive_returns",
+      "bytes": 10540,
+      "sha256": "c0761b4cea4b72dbd669f01bab50a69a6267d16157a7d1fd9196da826dc5d496",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+      "ownerGroup": "pending_child_and_recursive_returns",
+      "bytes": 12053,
+      "sha256": "aead5cc457a342565828c6f7616a40c597ba906cb232530b6a8e6e5141958eac",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/evaluation_frame.ts",
+      "ownerGroup": "pending_child_and_recursive_returns",
+      "bytes": 5508,
+      "sha256": "7a6a298aa7294543e570f2620a0fa6f27748d3e4f6c128d8fb490c6a5794404b",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/traversal_completion.ts",
+      "ownerGroup": "pending_child_and_recursive_returns",
+      "bytes": 6747,
+      "sha256": "098b41de5cb5875455028afce4b2de6d0fdb73e224e39d12f004923ef2951591",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "ownerGroup": "pending_child_and_recursive_returns",
+      "bytes": 38671,
+      "sha256": "d726e013fcecdc2870d2dc54b70efc35dc2384647bef27cd2f44c26bc9a3c657",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/child_lifecycle.ts",
+      "ownerGroup": "pending_child_and_recursive_returns",
+      "bytes": 10787,
+      "sha256": "4ca7327e5eb63aa671282e92d298fcd4917410da6f360f3864ea56ed070a8326",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md",
+      "ownerGroup": "affected_existing_how",
+      "bytes": 176061,
+      "sha256": "2a00eca51e66e21b5ebff2192218dbdac269e257d087a6e8d37f31dc935dc4fa",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "ownerGroup": "affected_existing_how",
+      "bytes": 15722,
+      "sha256": "a972f62ece78b17275a475fd3b08b2d1161fd08f9210cec03c54f7e1d0bcf888",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "ownerGroup": "affected_proof",
+      "bytes": 14634,
+      "sha256": "c4551dec5535c93cfde34b771952cf4f43d6d0cc6ee23b65bbaff978f75a59ca",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "ownerGroup": "affected_proof",
+      "bytes": 55656,
+      "sha256": "2291c7d8b3ca017e8ca3267ca9687b0e569c34bb9000b3cedd53232219e82aa0",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "ownerGroup": "affected_proof",
+      "bytes": 5751,
+      "sha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "ownerGroup": "affected_proof",
+      "bytes": 35538,
+      "sha256": "a073bb07a1a5134acdf6603fae5217686e636020908474c4078ebcfa44590069",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-public-groups.test.mjs",
+      "ownerGroup": "affected_proof",
+      "bytes": 7812,
+      "sha256": "e3f83e2034e418f13e52d6470fac693b4a4a36b288754e72f41376c12731869d",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "ownerGroup": "affected_proof",
+      "bytes": 3635,
+      "sha256": "d221155c75ad5a059e7523bdd62c53e27d70ad02675d91ea0d284645aaa2aedc",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "ownerGroup": "generated_correspondence_owner",
+      "bytes": 51632,
+      "sha256": "e2cf1d57b23b7f80b034df3f06c51d33e806feaa4d26e363c5540e3811d2e780",
+      "condition": "Only the part causally required by the selected registered-selection pending Testing alternative; existing canonical computation reused where sufficient."
+    }
+  ],
+  "readAndReuseOnly": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "reason": "Existing behavior/contract to consume and preserve; no presumptive edit. Return to Root if an actual unsupported causal relation requires amendment."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/public_function_family.ts",
+      "reason": "Existing generic publication/schema generator source; verify inferred new member correspondence without changing generic projection unless demonstrated necessary."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/public_function_projections.ts",
+      "reason": "Existing generic publication/schema generator source; verify inferred new member correspondence without changing generic projection unless demonstrated necessary."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+      "reason": "Existing generic publication/schema generator source; verify inferred new member correspondence without changing generic projection unless demonstrated necessary."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "reason": "Existing generic publication/schema generator source; verify inferred new member correspondence without changing generic projection unless demonstrated necessary."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/traversal.ts",
+      "reason": "Existing generic publication/schema generator source; verify inferred new member correspondence without changing generic projection unless demonstrated necessary."
+    }
+  ],
+  "newProductPaths": [],
+  "generatedCorrespondence": {
+    "paths": [
+      "build_tenants/abiogenesis/typescript/contracts/public-operations/run/continue/operation-contract.json",
+      "build_tenants/abiogenesis/typescript/contracts/schemas/operations/run/continue/request.schema.json",
+      "build_tenants/abiogenesis/typescript/contracts/schemas/operations/run/continue/result.schema.json",
+      "build_tenants/abiogenesis/typescript/contracts/schemas/operations/run/continue/non-terminal.schema.json",
+      "build_tenants/abiogenesis/typescript/contracts/schemas/operations/run/continue/refusal.schema.json",
+      "build_tenants/abiogenesis/typescript/contracts/public-functions/adapter-projection.json",
+      "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "build_tenants/abiogenesis/typescript/contracts/schemas/public-operation.schema.json"
+    ],
+    "policy": "Owned scratch/C2 build emits these through the existing generator from canonical owner contracts/profile. No handwritten generated schema, no canonical generated output mutation granted by these source write roots. Source/C2 artifact correspondence must name exact changed declarations/assets; unchanged generic generators stay unchanged. A required persisted generated source outside this scope returns to Root."
+  },
+  "writeScopeMeaning": "Finite causal outer bound; edit only demonstrated required relations. Worker chooses helper names, algorithms and placement inside these canonical owners. New owner/module or runtime mechanism is not granted. Same responsibility is consolidated once with replaced callers identified.",
+  "rootSelectedFrontier": "Actual default-library registered selection and bounded recursion pending native Testing, through an explicit typed alternative inside existing run.continue; not a OneSurface substitute or fresh retained-work approximation.",
+  "scopeDelta": {
+    "removedPresumptiveWrites": [
+      "code/src/abg/native_work_effect.ts",
+      "code/src/abg/instruction_assembly.ts",
+      "code/src/product/default_library.ts",
+      "code/src/product/default_library_fulfillment.ts",
+      "code/src/product/native_workspace_work.ts",
+      "code/src/product/native_workspace_assessment.ts",
+      "code/src/product/worksite_preparation_contracts.ts",
+      "code/src/gtl/default_library.ts",
+      "code/src/gtl/native_workspace_work.ts",
+      "design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md"
+    ],
+    "addedOwnerGroups": [
+      "run_continue_contract_domain",
+      "continuation_causal_projection",
+      "pending_child_and_recursive_returns",
+      "affected_existing_how",
+      "affected_proof",
+      "generated_correspondence_owner"
+    ],
+    "priorWriteCount": 35,
+    "revisionWriteCount": 51
+  }
+}

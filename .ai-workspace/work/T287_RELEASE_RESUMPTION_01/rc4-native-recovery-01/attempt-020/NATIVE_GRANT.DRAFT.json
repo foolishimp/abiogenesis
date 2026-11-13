@@ -1,0 +1,75 @@
+{
+  "basis": {
+    "uri": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "sourceCommit": "45554d0be9b2b01d3b90867137c55bacb5a5f9da",
+  "sourceTree": "0461e4d60afdc31c2a6a02c08021e9f7a2bd5210",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "builder": {
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "cliRelativePath": "build/code/src/public/cli.js",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "archiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+    "manifestSha256": "8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+    "productContentSha256": "c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4"
+  },
+  "kind": "rc4_setup_owner_reuse_native_grant",
+  "status": "UNFROZEN_PREPARATION_NO_ADMISSION",
+  "changeClass": "realization_refactor",
+  "Construction": {
+    "productWritePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+    ],
+    "generatedOutputWriteRoots": [],
+    "directoryCreationRoots": [],
+    "scratchWriteRoots": [
+      "rc4-scratch/native-recovery-20/return.json",
+      "rc4-scratch/native-recovery-20/readiness.json",
+      "rc4-scratch/native-recovery-20/notes.md",
+      "rc4-scratch/native-recovery-20/tmp"
+    ],
+    "mandatoryExistingPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md"
+    ],
+    "nativeCreatedPaths": [],
+    "conditionalExistingPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+    ]
+  },
+  "scope": "Default maintained single-machine setup uses existing installed SDK and actual owner-produced values in one module instance; explicit cold lifecycle/recovery/read remains. No Product runtime/source, schema, cache, registry, service, or event-history change. Conditional files only for actual environment/dry-guard/provenance proof dependency.",
+  "otherRoleCanonicalWritePaths": [],
+  "tooling": {
+    "offlineReadRoot": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "scratchRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-20",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-20/tmp",
+    "readOnlyProof": "reuse existing offline census and verification script",
+    "normalDevelopmentMethods": "Normal author inspection/editing and useful syntax/pinned noEmit feedback inside grant. No author dependency mirror/build/package; C2 owns independent build/package/tests. No repeated full-worktree census or accepted recovery audit.",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-20/tmp",
+    "environmentBoundary": "All current RC3 writes contained in observedR. Provider-only existingtmp; neutral RuntimeTMP; no RuntimeNPM. Candidate W outsideR proof requires successor installed runtime.",
+    "dependencyLink": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/node_modules",
+    "dependencyTarget": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "dependencyAccess": "Operator-owned link/store read-only tooling; outside W and observedR. Existing full census verified before/after."
+  },
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 256,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "focusedTimeoutMs": 2700000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null,
+    "maxContextBytes": 268435456
+  },
+  "acceptance": "Bounded setup population/transport retirement, genuine two-product setup/owner count/environment/negative proof and affected cold boundary conservation. No full qualification, paid pilot rerun or local installation."
+}

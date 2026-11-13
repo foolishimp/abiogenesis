@@ -1,0 +1,76 @@
+{
+  "id": "FOUNDATION-ORACLE-FINAL-ACCEPTANCE-01",
+  "status": "ROOT_ACCEPTED_EXACT_SOURCE_AND_SELECTED_INSTALLED_PROOF",
+  "recordedAt": "2026-11-09T19:20:31.779885+00:00",
+  "owner": "Root Executive; separately activated Writer records this decision",
+  "sourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/source-freeze.json",
+    "bytes": 295048,
+    "sha256": "12d3f6f9517d3b1173351877303fce46f007974c88e8fb0892b85389fbc700e0"
+  },
+  "sourceReview": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/SOURCE_REVIEW_NATIVE04.md",
+      "bytes": 6895,
+      "sha256": "0621d27db3f95762aff9ec1414ddb27f2e9add15e174d3f3d06d1b15e75f9a99"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/SOURCE_REVIEW_NATIVE04.json",
+      "bytes": 4765,
+      "sha256": "08256201f29d8179abbd2a62e3835eb78de38734fbaa803125b09298f8d5703a"
+    }
+  ],
+  "independentFinalConjunction": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/FINAL_CONJUNCTION_NATIVE04.md",
+      "bytes": 4476,
+      "sha256": "ac7405dd945919dbed08c49693f18b375a925ddf6d2eb7477261af87b8c9b8a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/FINAL_CONJUNCTION_NATIVE04.json",
+      "bytes": 6667,
+      "sha256": "1a4a3af62dfab4182c771b0ad692ab20fefd199684b0245d61efdfb8aa459856"
+    }
+  ],
+  "wholeFileReceipt": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/continuation-01/w2-05/RETURN.json",
+    "bytes": 4846,
+    "sha256": "9bc2f50a5d8a697250c33de2389bdc116c5193ba14010ed3ee414d7bda7bc33c"
+  },
+  "finalReceipt": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/continuation-01/FINAL_RETURN.json",
+    "bytes": 946,
+    "sha256": "de7d828f7099754b57b421925df439d47f12bc2130e261e4f07980174cd9278a"
+  },
+  "operatorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/RETURN.json",
+    "bytes": 6621,
+    "sha256": "1fcc4110ae16ad2174fba6a2409df9bbacae82019f97b4ebbcbfdc09eb02de74"
+  },
+  "proofArchive": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045845,
+    "sha256": "fdbf93de131905f79e96c8716dbb833ae8b308b3e791e1ac63a79b59a1c74d46"
+  },
+  "productContentDigest": "sha256:778f5667e380f52fdf35398c48b24ff875598a6c3588cc030faa440283c11587",
+  "disposition": "FOUNDATION-ORACLE-001 is CLOSED only for native04 exact two-file constructor gate/Design correction and selected whole installed W2-05 proof. No scoped counterexample remains. Phase1 existing exact closure is retained separately.",
+  "checkpointGrant": {
+    "branch": "codex/rc11-foundation-correction",
+    "base": "65f311e735c1297b9982117eb73fb6a32999cc02",
+    "exactPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "specification/GOALS.md",
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    ],
+    "documentaryPostProofDeltaOnly": [
+      "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "specification/GOALS.md",
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    ],
+    "mainWrites": "Current GOALS/T287 prefixes only, prior bodies and main HEAD/index conserved."
+  },
+  "limits": "Historical native02 timeout, old red runs and installed-01 comparator failure remain unchanged. Six phase1 skips, synthetic pending-owner limit and all wider qualification residuals remain. Phases2-4 and GC03 are planned/unactivated. Old installed RC11 remains unchanged, local, unqualified and unpublished; RC10 remains operational builder. No rebuild/retest/production refactor/merge/push/release/global installation/selector effect."
+}

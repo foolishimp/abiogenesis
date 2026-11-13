@@ -1,0 +1,92 @@
+{
+  "recordedUtc": "2026-11-03T18:05:39.629521+00:00",
+  "kind": "actual_c2_input_sufficiency_triage",
+  "result": {
+    "admissionOrdinal": 19042,
+    "eventTime": "2026-11-03T17:55:30.967Z",
+    "resultRef": "result://abiogenesis/1d9a0a3d97c5a0de7fc4988d4a03ee47340e8f921b6292f3189e966c0aacf959",
+    "offset": 145418434,
+    "rowBytes": 9439286,
+    "rowSha256": "b6f8e7bd1e898c145b4a9edcf95d2fdb72f6954039b37dc9f29560aee3d79a70"
+  },
+  "observationRef": "worksite-command-execution-observation://abiogenesis/2643f5ae8508ff405822c223542912d66251bdc83c0017bb2e9dd58e5b434dda",
+  "observationDigest": "sha256:2643f5ae8508ff405822c223542912d66251bdc83c0017bb2e9dd58e5b434dda",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/1020af808e59f82334898dbd9207f809ad3e425f9ff2375b1ee2352a9b6f1b59",
+  "helperArtifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/2b3dea4f262c179014aac48d5344bc5daf58762f843c02980fe1ff40bb503097/306d3afdae96a036435944bf0a420e059512a2a5bb0a7f30f42328e1ad073643/result.json",
+  "sandboxRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/2b3dea4f262c179014aac48d5344bc5daf58762f843c02980fe1ff40bb503097/306d3afdae96a036435944bf0a420e059512a2a5bb0a7f30f42328e1ad073643/sandbox",
+  "sourceCorrespondence": {
+    "matched": 46,
+    "productPaths": 43,
+    "handoffPaths": 3,
+    "subjectSha256": "9cb2e4d899b01f12597d23853ea7569cf816951a379821a2a24dc65bde398435"
+  },
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/single-address-space/native-02/source-correspondence",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/single-address-space/native-02/offline-toolchain",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/single-address-space/native-02/contract-seeds",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/single-address-space/native-02/compile",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/single-address-space/native-02/generate",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/single-address-space/native-02/pack",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/single-address-space/native-02/affected-proof",
+      "exitStatus": 1
+    }
+  ],
+  "lane": {
+    "pass": 43,
+    "fail": 3,
+    "skipped": 22,
+    "otherLanes": "not reached"
+  },
+  "exactFailures": [
+    "t287-default-library1184: missing scenarios.mjs",
+    "t287-default-library1302: missing scenarios.mjs",
+    "t287-default-library1439: missing scenarios.mjs"
+  ],
+  "inputEvidence": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "sourceSha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "sourceBytes": 7569,
+      "unchangedFromF49": true,
+      "inSelectedPaths": false,
+      "presentInActualSandbox": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "sourceSha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "sourceBytes": 11420,
+      "unchangedFromF49": true,
+      "inSelectedPaths": true,
+      "presentInActualSandbox": true
+    }
+  ],
+  "additionalActualSkips": "Two declared-testing cases require ABG_TS_CLAUDE_COMMAND, present in author actor environment and absent in declared actual C2 environment. Retain as unexecuted; no current credit.",
+  "triangulation": {
+    "Product": "No changed Product outcome or defect evidenced by these pre-assertion module-load failures.",
+    "integration": "C2 imported selectedPaths omitted transitive maintained harness modules; author scratch copied a broader tenant and masked omission.",
+    "identity": "Actual source-correspondence matches all43 frozen Product files and3 handoff files. Existing missing modules are byte-equal f49.",
+    "effect": "No repair to Product/test predicates, current runtime, failed sandbox or old inputs.",
+    "proof": "Build/generate/pack passed; first lane failed, later lanes and UAT unproved. Author green is not actual C2 green.",
+    "recurrence": "Explicit file selection was verified for listed entries but not closed over their literal imports. Next packet uses existing TypeScript parser to check that material relation; dynamic fixture obligations remain explicit."
+  },
+  "RootDisposition": "Preserve failed Run/evidence and reviewed source. Include required maintained modules and literal-import closure in the already-selected native-03 packet. Carry this triage to Worker; no standalone Product patch or automatic old-call retry."
+}

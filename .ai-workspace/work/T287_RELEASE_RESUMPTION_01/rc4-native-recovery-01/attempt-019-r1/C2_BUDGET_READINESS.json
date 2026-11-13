@@ -1,0 +1,43 @@
+{
+  "kind": "pure_existing_owner_c2_budget_readiness",
+  "ownerPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+  "ownerSha256": "89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c",
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 1091750,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 1096750
+  },
+  "limits": {
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000
+  },
+  "fits": true,
+  "commands": 7,
+  "scope": "Pure existing budget owner only; actual whole configuration requires genuine runtime003 authority/ambient; no Runtime/provider/store/build/test effects."
+}

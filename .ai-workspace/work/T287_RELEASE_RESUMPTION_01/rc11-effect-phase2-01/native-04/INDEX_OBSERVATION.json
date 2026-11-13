@@ -1,0 +1,55 @@
+{
+  "indices": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29373151,
+        "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29373151,
+        "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+      },
+      "byteEqual": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      "byteEqual": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29655080,
+        "sha256": "98894232f012280d3b8c3acd7e9e45f0819418abe7d3923de4a16addbae73f49"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29655080,
+        "sha256": "98894232f012280d3b8c3acd7e9e45f0819418abe7d3923de4a16addbae73f49"
+      },
+      "byteEqual": true
+    }
+  ],
+  "heads": {
+    "/Users/jim/src/apps/abiogenesis": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+    "/private/tmp/abg-rc11-foundation-20261110-01": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+    "/private/tmp/abg-rc11-qualification-20261109": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "expectedHeads": {
+    "/Users/jim/src/apps/abiogenesis": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+    "/private/tmp/abg-rc11-foundation-20261110-01": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+    "/private/tmp/abg-rc11-qualification-20261109": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "headsExact": true,
+  "note": "Read-only Git commands use GIT_OPTIONAL_LOCKS=0; byte drift, if any, is recorded rather than restored."
+}

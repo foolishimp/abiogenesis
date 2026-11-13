@@ -1,0 +1,13 @@
+{
+  "kind": "actual_existing_native_order_render_measurement",
+  "renderedNativeOrderBytes": 53307,
+  "maxPromptBytes": 1048576,
+  "reserveBytes": 131072,
+  "fitsWithReserve": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "limits": [
+    "Actual owner work-order text, not complete transport/instruction assembly. Existing dispatch owners apply actual remaining guards.",
+    "No selector is part of the selected one-node native author Program."
+  ]
+}

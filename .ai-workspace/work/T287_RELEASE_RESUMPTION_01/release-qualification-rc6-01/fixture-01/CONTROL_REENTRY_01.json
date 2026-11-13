@@ -1,0 +1,33 @@
+{
+  "kind": "root_operator_control_role_reentry",
+  "recordedUtc": "2026-11-05T08:23:23.333121+00:00",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/PREFLIGHT_RESULT.json",
+    "bytes": 563,
+    "sha256": "b294022467c84472bac2a26e5ce4e6c7fb7985862100bc9c6e87c2060ee241cb"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/PREFLIGHT.stderr",
+    "bytes": 921,
+    "sha256": "5fa6fdca35c68191ce78d9dbe27025a8dda13e051915abad726fba576f74e2c5"
+  },
+  "priorWorkload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/workload.before-role-reentry.json",
+    "bytes": 29334,
+    "sha256": "cf1014803ef39c9cce7a531e321f86166437dcda65aefcec74ca63e598fee7ba"
+  },
+  "revisedWorkload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/workload.json",
+    "bytes": 28970,
+    "sha256": "d8860fc3181697af4a73e7c5a2d11e123cc6f710889d5598598c479468528e5f"
+  },
+  "cause": "Operator composed assessment.sources from all read-context paths, aliasing distinct candidate and rubric roles; constructGovernanceWorkState correctly refused before any provider/Run. Related inspection found the writable candidate also incorrectly included in original immutable sources.",
+  "owningRelations": [
+    "product/default_library.ts:governanceAssessmentRolesDistinct",
+    "abg/default_library.ts: original source digest preservation"
+  ],
+  "reentry": "Remove candidate/rubric only from assessment source role; candidate and rubric remain in their canonical fields and read context. Remove writable candidate from original immutable sources; keep it in source-before custody and current C2 selected subject. No source content/acceptance predicate/scope change.",
+  "effects": "No Product or test edit; actual failed preflight had no Run or provider effects and created no execution directory. Earlier refusal retained.",
+  "review": "Root integration/caller-recipe triage; existing owner contract unchanged. No additional Product interface or duplicate role validator.",
+  "next": "Provider-free full owner preflight on this revised exact workload; not an automatic native retry."
+}

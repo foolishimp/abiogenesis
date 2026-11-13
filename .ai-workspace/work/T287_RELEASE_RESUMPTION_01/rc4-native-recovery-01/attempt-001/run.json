@@ -1,0 +1,7 @@
+{
+  "kind": "rc4_native_recovery_prepared_call",
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "bindingDigest": "ca9e39e5367030639d67017841fda323ac89ed0e6cf625c3f4bd145924ecff1a",
+  "sourceBasis": "none",
+  "status": "not_dispatched"
+}

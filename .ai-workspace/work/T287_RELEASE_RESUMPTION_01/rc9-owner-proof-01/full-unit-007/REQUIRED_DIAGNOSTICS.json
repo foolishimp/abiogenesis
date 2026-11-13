@@ -1,0 +1,656 @@
+{
+  "diagnostics": [
+    {
+      "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "marker": "RC9_OWN01_OBSERVATIONS ",
+      "observations": {
+        "environment": {
+          "first": {
+            "environmentDerivations": 1
+          },
+          "copied": {
+            "environmentDerivations": 1
+          },
+          "rebuilt": {
+            "environmentDerivations": 1
+          }
+        },
+        "runs": [
+          {
+            "environment": {
+              "environmentDerivations": 1
+            },
+            "basis": {
+              "rowAdmissions": 2,
+              "bodyDigests": 2
+            },
+            "install": {
+              "contentVerifications": 4,
+              "lstats": 32,
+              "lists": 12,
+              "fileHashes": 16,
+              "graphCarrierReads": 4
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          },
+          {
+            "environment": {
+              "environmentDerivations": 0
+            },
+            "basis": {
+              "rowAdmissions": 2,
+              "bodyDigests": 2
+            },
+            "install": {
+              "contentVerifications": 4,
+              "lstats": 32,
+              "lists": 12,
+              "fileHashes": 16,
+              "graphCarrierReads": 4
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          },
+          {
+            "environment": {
+              "environmentDerivations": 0
+            },
+            "basis": {
+              "rowAdmissions": 2,
+              "bodyDigests": 2
+            },
+            "install": {
+              "contentVerifications": 4,
+              "lstats": 32,
+              "lists": 12,
+              "fileHashes": 16,
+              "graphCarrierReads": 4
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        ],
+        "prefix": {
+          "source": "projectOwnedRuntimeEventPrefixAtDurablePrefix",
+          "kind": "owned_runtime_event_prefix",
+          "coordinateLength": 3504471,
+          "events": 97,
+          "basisRows": 3,
+          "row": 8
+        },
+        "basis": {
+          "first": {
+            "rowAdmissions": 0,
+            "bodyDigests": 0
+          },
+          "later": {
+            "rowAdmissions": 0,
+            "bodyDigests": 0
+          },
+          "earlier": {
+            "rowAdmissions": 0,
+            "bodyDigests": 0
+          },
+          "copied": {
+            "rowAdmissions": 1,
+            "bodyDigests": 1
+          },
+          "changedRawInput": {
+            "path": "cold_prefix_admitted_row_law_refused",
+            "first": {
+              "rowAdmissions": 1,
+              "bodyDigests": 0
+            },
+            "again": {
+              "rowAdmissions": 1,
+              "bodyDigests": 0
+            }
+          },
+          "changedBasisDigest": {
+            "path": "cold_prefix_admitted_row_law_refused",
+            "first": {
+              "rowAdmissions": 1,
+              "bodyDigests": 1
+            },
+            "again": {
+              "rowAdmissions": 1,
+              "bodyDigests": 1
+            }
+          }
+        },
+        "close": {
+          "kind": "abg_event_resource_receipt",
+          "closePrefixLength": 3504471
+        },
+        "worker": {
+          "frozen": {
+            "contractCopies": 0,
+            "schemaCopies": 0,
+            "reuses": 2,
+            "deepFrozenChecks": 1
+          },
+          "mutable": {
+            "contractCopies": 1,
+            "schemaCopies": 0,
+            "reuses": 0,
+            "deepFrozenChecks": 0
+          },
+          "command": [
+            "command",
+            "contractDigest",
+            "planDigest"
+          ],
+          "environment": [
+            "environmentDigest",
+            "planDigest"
+          ]
+        },
+        "firstConsumer": {
+          "acquisition": {
+            "contentVerifications": 1,
+            "lstats": 8,
+            "lists": 3,
+            "fileHashes": 4,
+            "graphCarrierReads": 1
+          },
+          "firstUse": {
+            "contentVerifications": 1,
+            "lstats": 8,
+            "lists": 3,
+            "fileHashes": 4,
+            "graphCarrierReads": 1
+          },
+          "refusedResolution": {
+            "code": "wrong_owner",
+            "stage": "implementation"
+          }
+        },
+        "install": {
+          "contentVerifications": 2,
+          "lstats": 16,
+          "lists": 6,
+          "fileHashes": 8,
+          "graphCarrierReads": 2
+        },
+        "limit": "Smallest installed language fixture in one test process; counters observe this process only; no performance claim.",
+        "unproved": [
+          "duplicate, foreign and rollback rows",
+          "the actual actor producer (the worker plan probe is synthetic)",
+          "O3 retained verification reuse: physical verification stays at every consumer/effect boundary; no zero/once-per-resolution claim"
+        ]
+      }
+    },
+    {
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "marker": "RC8_REF01_OBSERVATIONS ",
+      "observations": {
+        "setupAbsolute": {
+          "catalogFullAdmissions": 1,
+          "catalogViewConstructions": 1,
+          "productInputCopies": 0
+        },
+        "observations": [
+          {
+            "identity": "rc8-ref01-0",
+            "construction": {
+              "call": {
+                "callAdmissions": 1,
+                "establishedInvocations": 1,
+                "establishmentWalks": 1,
+                "invocationReuses": 0,
+                "resourceGates": 0,
+                "resourceMemberAdmissions": 0,
+                "resourceMemberReuses": 0
+              },
+              "transport": {
+                "detaches": 0,
+                "verifierReattachments": 0,
+                "establishedCarries": 0
+              },
+              "catalog": {
+                "fullAdmissions": 0,
+                "viewConstructions": 0
+              },
+              "resolution": {
+                "catalogComparisons": 0,
+                "viewComparisons": 0
+              },
+              "input": {
+                "inputCopies": 1,
+                "inputReuses": 0
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            },
+            "carried": {
+              "call": {
+                "callAdmissions": 0,
+                "establishedInvocations": 0,
+                "establishmentWalks": 0,
+                "invocationReuses": 1,
+                "resourceGates": 1,
+                "resourceMemberAdmissions": 5,
+                "resourceMemberReuses": 2,
+                "gated.kind": 1,
+                "gated.schemaVersion": 1,
+                "gated.eventResource": 1,
+                "gated.applications": 1,
+                "gated.source": 1
+              },
+              "transport": {
+                "detaches": 0,
+                "verifierReattachments": 0,
+                "establishedCarries": 1
+              },
+              "catalog": {
+                "fullAdmissions": 0,
+                "viewConstructions": 0
+              },
+              "resolution": {
+                "catalogComparisons": 0,
+                "viewComparisons": 0
+              },
+              "input": {
+                "inputCopies": 0,
+                "inputReuses": 1
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            }
+          },
+          {
+            "identity": "rc8-ref01-1",
+            "construction": {
+              "call": {
+                "callAdmissions": 1,
+                "establishedInvocations": 1,
+                "establishmentWalks": 1,
+                "invocationReuses": 0,
+                "resourceGates": 0,
+                "resourceMemberAdmissions": 0,
+                "resourceMemberReuses": 0,
+                "gated.kind": 0,
+                "gated.schemaVersion": 0,
+                "gated.eventResource": 0,
+                "gated.applications": 0,
+                "gated.source": 0
+              },
+              "transport": {
+                "detaches": 0,
+                "verifierReattachments": 0,
+                "establishedCarries": 0
+              },
+              "catalog": {
+                "fullAdmissions": 0,
+                "viewConstructions": 0
+              },
+              "resolution": {
+                "catalogComparisons": 0,
+                "viewComparisons": 0
+              },
+              "input": {
+                "inputCopies": 1,
+                "inputReuses": 0
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            },
+            "carried": {
+              "call": {
+                "callAdmissions": 0,
+                "establishedInvocations": 0,
+                "establishmentWalks": 0,
+                "invocationReuses": 1,
+                "resourceGates": 1,
+                "resourceMemberAdmissions": 5,
+                "resourceMemberReuses": 2,
+                "gated.kind": 1,
+                "gated.schemaVersion": 1,
+                "gated.eventResource": 1,
+                "gated.applications": 1,
+                "gated.source": 1
+              },
+              "transport": {
+                "detaches": 0,
+                "verifierReattachments": 0,
+                "establishedCarries": 1
+              },
+              "catalog": {
+                "fullAdmissions": 0,
+                "viewConstructions": 0
+              },
+              "resolution": {
+                "catalogComparisons": 0,
+                "viewComparisons": 0
+              },
+              "input": {
+                "inputCopies": 0,
+                "inputReuses": 1
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            }
+          },
+          {
+            "identity": "rc8-ref01-2",
+            "construction": {
+              "call": {
+                "callAdmissions": 1,
+                "establishedInvocations": 1,
+                "establishmentWalks": 1,
+                "invocationReuses": 0,
+                "resourceGates": 0,
+                "resourceMemberAdmissions": 0,
+                "resourceMemberReuses": 0,
+                "gated.kind": 0,
+                "gated.schemaVersion": 0,
+                "gated.eventResource": 0,
+                "gated.applications": 0,
+                "gated.source": 0
+              },
+              "transport": {
+                "detaches": 0,
+                "verifierReattachments": 0,
+                "establishedCarries": 0
+              },
+              "catalog": {
+                "fullAdmissions": 0,
+                "viewConstructions": 0
+              },
+              "resolution": {
+                "catalogComparisons": 0,
+                "viewComparisons": 0
+              },
+              "input": {
+                "inputCopies": 1,
+                "inputReuses": 0
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            },
+            "carried": {
+              "call": {
+                "callAdmissions": 0,
+                "establishedInvocations": 0,
+                "establishmentWalks": 0,
+                "invocationReuses": 1,
+                "resourceGates": 1,
+                "resourceMemberAdmissions": 5,
+                "resourceMemberReuses": 2,
+                "gated.kind": 1,
+                "gated.schemaVersion": 1,
+                "gated.eventResource": 1,
+                "gated.applications": 1,
+                "gated.source": 1
+              },
+              "transport": {
+                "detaches": 0,
+                "verifierReattachments": 0,
+                "establishedCarries": 1
+              },
+              "catalog": {
+                "fullAdmissions": 0,
+                "viewConstructions": 0
+              },
+              "resolution": {
+                "catalogComparisons": 0,
+                "viewComparisons": 0
+              },
+              "input": {
+                "inputCopies": 0,
+                "inputReuses": 1
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            }
+          },
+          {
+            "identity": "rc8-ref01-copied",
+            "carried": {
+              "call": {
+                "callAdmissions": 1,
+                "establishedInvocations": 0,
+                "establishmentWalks": 0,
+                "invocationReuses": 0,
+                "resourceGates": 1,
+                "resourceMemberAdmissions": 7,
+                "resourceMemberReuses": 0,
+                "gated.kind": 1,
+                "gated.schemaVersion": 1,
+                "gated.eventResource": 1,
+                "gated.applications": 1,
+                "gated.source": 1,
+                "gated.catalog": 1,
+                "gated.catalogView": 1
+              },
+              "transport": {
+                "detaches": 1,
+                "verifierReattachments": 0,
+                "establishedCarries": 0
+              },
+              "catalog": {
+                "fullAdmissions": 1,
+                "viewConstructions": 1
+              },
+              "resolution": {
+                "catalogComparisons": 1,
+                "viewComparisons": 1
+              },
+              "input": {
+                "inputCopies": 1,
+                "inputReuses": 0
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            }
+          },
+          {
+            "identity": "rc8-ref01-defaulted",
+            "carried": {
+              "call": {
+                "callAdmissions": 0,
+                "establishedInvocations": 0,
+                "establishmentWalks": 0,
+                "invocationReuses": 1,
+                "resourceGates": 1,
+                "resourceMemberAdmissions": 5,
+                "resourceMemberReuses": 2,
+                "gated.kind": 1,
+                "gated.schemaVersion": 1,
+                "gated.eventResource": 1,
+                "gated.applications": 1,
+                "gated.source": 1,
+                "gated.catalog": 0,
+                "gated.catalogView": 0
+              },
+              "transport": {
+                "detaches": 0,
+                "verifierReattachments": 0,
+                "establishedCarries": 1
+              },
+              "catalog": {
+                "fullAdmissions": 0,
+                "viewConstructions": 0
+              },
+              "resolution": {
+                "catalogComparisons": 0,
+                "viewComparisons": 0
+              },
+              "input": {
+                "inputCopies": 1,
+                "inputReuses": 0
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            }
+          },
+          {
+            "identity": "rc8-ref01-rebox",
+            "carried": {
+              "call": {
+                "callAdmissions": 0,
+                "establishedInvocations": 0,
+                "establishmentWalks": 0,
+                "invocationReuses": 1,
+                "resourceGates": 1,
+                "resourceMemberAdmissions": 5,
+                "resourceMemberReuses": 2,
+                "gated.kind": 1,
+                "gated.schemaVersion": 1,
+                "gated.eventResource": 1,
+                "gated.applications": 1,
+                "gated.source": 1,
+                "gated.catalog": 0,
+                "gated.catalogView": 0
+              },
+              "transport": {
+                "detaches": 0,
+                "verifierReattachments": 0,
+                "establishedCarries": 1
+              },
+              "catalog": {
+                "fullAdmissions": 0,
+                "viewConstructions": 0
+              },
+              "resolution": {
+                "catalogComparisons": 0,
+                "viewComparisons": 0
+              },
+              "input": {
+                "inputCopies": 0,
+                "inputReuses": 1
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            }
+          },
+          {
+            "identity": "rc8-ref01-fake-catalog",
+            "carried": {
+              "call": {
+                "callAdmissions": 0,
+                "establishedInvocations": 0,
+                "establishmentWalks": 0,
+                "invocationReuses": 1,
+                "resourceGates": 1,
+                "resourceMemberAdmissions": 6,
+                "resourceMemberReuses": 1,
+                "gated.kind": 1,
+                "gated.schemaVersion": 1,
+                "gated.eventResource": 1,
+                "gated.applications": 1,
+                "gated.source": 1,
+                "gated.catalog": 1,
+                "gated.catalogView": 0
+              },
+              "transport": {
+                "detaches": 0,
+                "verifierReattachments": 0,
+                "establishedCarries": 1
+              },
+              "catalog": {
+                "fullAdmissions": 1,
+                "viewConstructions": 1
+              },
+              "resolution": {
+                "catalogComparisons": 1,
+                "viewComparisons": 1
+              },
+              "input": {
+                "inputCopies": 0,
+                "inputReuses": 1
+              },
+              "worker": {
+                "contractCopies": 0,
+                "schemaCopies": 0,
+                "reuses": 0,
+                "deepFrozenChecks": 0
+              }
+            }
+          }
+        ],
+        "binderProbe": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 2,
+          "resourceMemberReuses": 1,
+          "gated.kind": 1,
+          "gated.schemaVersion": 0,
+          "gated.eventResource": 0,
+          "gated.applications": 0,
+          "gated.source": 0,
+          "gated.catalog": 0,
+          "gated.catalogView": 0,
+          "gated.t": 1
+        },
+        "shell": {
+          "contractCopies": 1,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 1
+        },
+        "deep": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 2,
+          "deepFrozenChecks": 1
+        },
+        "limit": "Smallest installed language fixture in one test process; counters observe this process only; no performance claim."
+      }
+    }
+  ],
+  "failure": null,
+  "standing": "Actual unchanged OWN and REF final diagnostics; no new counter interpretation."
+}

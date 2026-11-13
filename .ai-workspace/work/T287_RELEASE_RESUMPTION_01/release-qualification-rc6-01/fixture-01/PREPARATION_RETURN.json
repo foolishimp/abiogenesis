@@ -1,0 +1,173 @@
+{
+  "kind": "fixture01_operator_preparation_return",
+  "recordedUtc": "2026-11-05T08:09:51.384856+00:00",
+  "status": "BOUNDED_PACKET_PREPARED_ROOT_STAGING_PREFLIGHT_AND_PROVIDER_SELECTION_REMAIN",
+  "role": "Operator Writer, not Product author or independent Reviewer",
+  "authority": {
+    "ROOT_ACTIVATION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "WORKSPACE_REENTRY_01.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/WORKSPACE_REENTRY_01.json",
+      "bytes": 2473,
+      "sha256": "768de1d1395e9497b3cc01b3514c25f72f98ea8a7bc99acbe9b43085a074eeaa"
+    },
+    "FIXTURE_TRIAGE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/FIXTURE_TRIAGE.json",
+      "bytes": 3051,
+      "sha256": "022dfbb1e946412a5f11788bb424506580bb4475196f34a07dbb1fc471a0a630"
+    },
+    "ROOT_QUALIFICATION_PLAN.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_QUALIFICATION_PLAN.json",
+      "bytes": 6440,
+      "sha256": "f6c318797e831d6a0cedaa1143ca3f0aef4c227ec1274143af9f0ba333e4e04b"
+    }
+  },
+  "runtime": {
+    "kind": "actual_rc6_sdk_binding",
+    "status": "ACTUAL_SETUP_CLOSED_NO_NATIVE_DISPATCH",
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/summary.json",
+      "bytes": 2146,
+      "sha256": "5f459c37a0d3b8d884e15baaf8bdf1113e782cb0bf05acc7ea96151b51683c0a"
+    },
+    "resumeMaterial": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/operator-resume-material.json",
+      "bytes": 72658275,
+      "sha256": "c84c68d3b403aa538120032edfd406c8ebc9530d70f3790aefb23a2d5c0e11a0"
+    },
+    "timing": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/SETUP_TIMING.json",
+      "bytes": 5837,
+      "sha256": "d676ebfbbb8971a58187c31004c03a66d5ea01d759a7c9b189a8b8afdbe5f7cf"
+    },
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "workspaceBinding": {
+      "ref": "workspace-binding://abiogenesis/fb1d26ecb625f2f2788403a6989144ee756ac687c38dd36ac04ba45817f8c4ac",
+      "digest": "sha256:fb1d26ecb625f2f2788403a6989144ee756ac687c38dd36ac04ba45817f8c4ac"
+    },
+    "catalogDigest": "sha256:74fc64a9409509bbd4e2611353a63d267556999485dfd7e1c19e507176e79a8e",
+    "closeHandoff": {
+      "prefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+        "prefixLength": 3186855,
+        "prefixDigest": "sha256:d4b2231dd20498332d71ccc33d7d31c3f245f70b151d73609a79c86f7dfaa26c",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 701759869,
+          "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+        },
+        "coordinateDigest": "sha256:8d7d3631edc5772510a874d19b9ebcb1a70b081c864a98327ae6b206019d46bf"
+      },
+      "reopenAuthority": {
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+        "device": 16777231,
+        "inode": 701759869,
+        "eventLogDigest": "sha256:d4b2231dd20498332d71ccc33d7d31c3f245f70b151d73609a79c86f7dfaa26c",
+        "durableByteLength": 3186855,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "authorityDigest": "sha256:beea53a9b91c8d723320c1ee0ca951c3b1ea8f2a28349cbd5e7efe647ae0f3a6"
+      }
+    },
+    "providerCalls": 0,
+    "meaning": "Actual maintained SDK close/state, not invented previous native work. Large resume/catalog bodies remain at owner-returned paths, not in task context."
+  },
+  "nativeTask": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/NATIVE_TASK.json",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/NATIVE_GRANT.json",
+  "c2Recipe": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/C2_RECIPE.json",
+  "scope": "One local fixture test only, one xhigh native coding Worker, existing assertions; no Product/HOW change or broad qualification",
+  "componentDependencySet": {
+    "testEnvModules": 10,
+    "packageJson": "build_tenants/abiogenesis/typescript/package.json",
+    "readonlySourceOwners": 2,
+    "old157FileInventoryCarried": false,
+    "oldHistoryBodiesCarried": false
+  },
+  "recipeSummary": "Four C2 commands: clone exact runtimeRC6 build,contracts,node_modules into isolated tenant; run existing seven-test component wrapper. No tsc/generation/npm/pack. Protected repaired test/support/package paths remain outside write territories.",
+  "meaningfulProof": "Existing first test must reach native_revision_cause_absent/ambiguous and full downstream correction assertions; full lane expected5pass/0fail/2historical gates, no skips added or errors weakened. Any new failure returns to Root.",
+  "remaining": [
+    "Root stages inputs/ into actual canonical worksite qualification-inputs/fixture-01 under its existing workspace grant; this Writer cannot write outside fixture-01.",
+    "Root binds enabled current native provider/credential/command metadata with xhigh and finite existing limits; actual setup intentionally had provider.enabled=false. No provider was enabled or called here.",
+    "Root composes final default-library workload from NATIVE_TASK and C2_RECIPE through maintained operator-client, computes source digests/currentness and uses actual SDK resume material. This is an existing-owner projection step, not a new interface.",
+    "Proportionate exact control review, SDK command/context/capacity/budget preflight, then separate Root dispatch selection. None executed."
+  ],
+  "sourceBefore": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/SOURCE_BEFORE.json",
+  "acquisitionDisclosure": "An initial literal import walk crossed from test_env into generated checkout build modules. Root received/acknowledged disclosure; no clean-frame/independent-assurance claim. Current dependency census stops at test_env boundary; generated-product content is not assessed here. No private actor text, archives or log bodies acquired.",
+  "effects": "Only new fixture-01 controls/input drafts; no Product/test/HOW edits, SDK/setup/preflight/provider/build/tests/dispatch/Git/runtime effects.",
+  "method": "Selected STDO3.0.4 definition verified installed/valid/no failures; exact stdo-work and relative routes reused.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs/WORKSPACE_REENTRY_01.json",
+      "bytes": 2473,
+      "sha256": "768de1d1395e9497b3cc01b3514c25f72f98ea8a7bc99acbe9b43085a074eeaa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs/FIXTURE_TRIAGE.json",
+      "bytes": 3051,
+      "sha256": "022dfbb1e946412a5f11788bb424506580bb4475196f34a07dbb1fc471a0a630"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/RUNTIME_BINDINGS.json",
+      "bytes": 3121,
+      "sha256": "7445dcc7e45da5b1a936d318d222698aab8c10681af17cdc21a036ce183bf2fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs/NATIVE_GRANT.json",
+      "bytes": 2257,
+      "sha256": "7763e2d5b841699b5d5e2e486008a0490f9117bc06cd3235af25d6759f932390"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/NATIVE_GRANT.json",
+      "bytes": 2257,
+      "sha256": "7763e2d5b841699b5d5e2e486008a0490f9117bc06cd3235af25d6759f932390"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs/TASK.md",
+      "bytes": 3380,
+      "sha256": "5185e776ee3e7a5a3bc5ed390255ccdd2fcb43f145a53dd9a49ec1755bc467e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs/rubric.json",
+      "bytes": 1237,
+      "sha256": "55c7d409c89cca2f2715b948b6f9320a188fa958da5dfd248ae6f57cda2b8c5a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/SOURCE_BEFORE.json",
+      "bytes": 5281,
+      "sha256": "9447c4ab54d521a8836953ec88d6ec1a9ebf5b6fa3d283cea3abeedc588c79d2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs/C2_INPUTS.json",
+      "bytes": 1959,
+      "sha256": "0b2e8a374877840e77a92794064be23f0bf5ea323399e2fdd33795d714ad70a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/C2_RECIPE.json",
+      "bytes": 7094,
+      "sha256": "670b0731d3be3e7a14365eddb173f363885aa46ecc163b10c725698c0c0e2769"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/inputs/c2-proof.mjs",
+      "bytes": 2474,
+      "sha256": "37f8ee15ebd5ea2dfca58edb26f73175034ebb7776c2fc066e5be91a9e20decb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/NATIVE_TASK.json",
+      "bytes": 7161,
+      "sha256": "64932b935552aad0df40beae7955887475fb164862eb9e5caae935ac07f62276"
+    }
+  ],
+  "stop": "Return now. No active process/session and no further exploration or implementation."
+}

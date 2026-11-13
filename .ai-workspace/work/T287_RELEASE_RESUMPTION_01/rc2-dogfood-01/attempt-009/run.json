@@ -1,0 +1,6 @@
+{
+  "runId": "rc2-dogfood-01-attempt-009",
+  "priorAttempt": "attempt-008",
+  "relation": "new Run: corrected complete test-source input, ABG-owned RC2 identity and candidate claim, actual isolated fixture/diagnostic/package proof; prior input omission and blocked run retained; no publication or full qualification",
+  "at": "2026-10-30T17:38:21.081Z"
+}

@@ -1,0 +1,29 @@
+{
+  "status": "STATIC_FROZEN_SOURCE_OBSERVATIONS_NO_EXECUTION",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+    "bytes": 298978,
+    "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+  },
+  "topLevelCaseCounts": {
+    "t287-native-assessment-evidence.test.mjs": 4,
+    "t287-selected-action-authority.test.mjs": 3,
+    "t287-owned-process-lifetime.test.mjs": 18
+  },
+  "selectedActionThirdCase": "Still explicitly gated by ABI5_SELECTED_ACTION_OWNER_SUBJECT; default two component cases.",
+  "controlledInitialRegionByteExact": true,
+  "controlledRegionDescription": "Original bytes before function httpDeclaration (through line 443), including the full literal 2 x 3 x 2 handback loop, unchanged.",
+  "presentSourceWork": [
+    "All ten named source targets changed; new loader and README are present.",
+    "Both supplied helper/leaf postimages match exactly.",
+    "Physical source includes prospective 5000/10005 setup allowances, derived 62000/51000 top-level caps, five HTTP mode and three capture-leg diagnostics.",
+    "Four native cases and eighteen lifetime cases remain declared."
+  ],
+  "gaps": [
+    "Native author report is null; finalOutput empty, assessment absent after absolute timeout.",
+    "No node --check, build or test command was issued by the native actor; syntax/import and behavioral completeness remain unproved.",
+    "Last tool was a read-only lifetime diff-hunk query; source may be complete or partial and requires independent source/proof disposition.",
+    "No claim of semantic preservation is inferred from case counts or unchanged controlled region."
+  ],
+  "operatorRepairs": false
+}

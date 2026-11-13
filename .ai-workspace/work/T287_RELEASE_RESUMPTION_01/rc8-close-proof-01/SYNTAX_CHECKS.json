@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.mjs"
+      ],
+      "started": "2026-11-07T03:38:18.696348+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.mjs",
+        "bytes": 20061,
+        "sha256": "44bda4222432dc388e3ff963f9a2ab8ce13803d7b473569df7304b085cc0fcc0"
+      }
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs"
+      ],
+      "started": "2026-11-07T03:38:18.719516+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/file-host.mjs",
+        "bytes": 2803,
+        "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+      }
+    }
+  ],
+  "suiteExecuted": false,
+  "fixturesAllocated": false,
+  "scope": "JavaScript parsing only; no runtime or semantic proof"
+}

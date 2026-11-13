@@ -1,0 +1,32 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "recordedAt": "2026-11-01T16:39:11.844545+00:00",
+  "bindingSha256": "f6c3458f7e637c16d500643c3faf4b7885b4d0f11fc272d74a5f30dfcd2c6c5a",
+  "packetSha256": "46c35e23c6a72d85275d558ca662bb229d4eefab554dba4191b8e76f432b82fb",
+  "sourceCommit": "becc45851bf6e794a6411bd8d1f412b4f67cd181",
+  "sourceTree": "d8cf0eee6a038a0b91496439f92c596e5fabe19b",
+  "decision": "ADMIT Root-only installed preflight and call preparation plus file-only freezing for the exact reviewed successor005 packet. Actual-call review and separately selected one-shot dispatch remain pending.",
+  "authorizedNow": [
+    "Root installed preflight and call preparation",
+    "File-only freezing for actual-call review"
+  ],
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "evidence": [
+    "Root independently verified exact successor binding/packet hashes, all pinned bytes and preimages, clean source, positive and negative file checks, task delta, and C2 testing exactly equal to attempt003.",
+    "Source-based independent boundary review confirms the C2 environment correction; prior packet GO applies only to unchanged scope.",
+    "Attempt004 Root preflight session98506 exited1 before actual call/provider/Run admission: canonical-worktree TMPDIR/NPM_CONFIG_CACHE in C2 child environment triggered existing isolation refusal, despite distinct command/predicate IDs. Successor005 restores C2 exactly to003 and retains scratch05 environment only in native provider toolchainEnvironment."
+  ],
+  "scope": "Same bounded actual default-library same-Run pending-Testing milestone, scoped consolidation/cleanup and native C2/UAT. Leave current_intent domain intact; original predecessor R2, full campaign and separate practical Root witness remain required.",
+  "constraints": [
+    "Exactly reviewed packet grants and resources",
+    "No Product diagnostic repair or gate/scope expansion",
+    "No runtime retry or implicit fallback",
+    "Generated outputs only through owning generator"
+  ],
+  "nativeAcceptance": false,
+  "qualification": false,
+  "release": false,
+  "projection": "Separately bound bookkeeping Writer projects Root decision and communicated independent review evidence; no runtime/provider action performed."
+}

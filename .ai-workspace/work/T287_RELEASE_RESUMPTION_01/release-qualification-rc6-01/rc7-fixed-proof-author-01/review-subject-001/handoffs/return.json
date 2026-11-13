@@ -1,0 +1,141 @@
+{
+  "kind": "rc7_native_author_return",
+  "schemaVersion": "1",
+  "task": "rc7-fixed-proof-author-01",
+  "rootSelection": "RC7-LAUNCH-02",
+  "changeClass": "design_reframe",
+  "method": {
+    "stdoBasis": "stdo://releases/v3.0.4/",
+    "skill": "stdo-work (installed v3.0.4 plugin root, direct file loading)",
+    "role": "single native Worker; returns to Root; no acceptance claim"
+  },
+  "disposition": "frozen_author_candidate_with_named_owner_dependency",
+  "statement": "Author candidate frozen at the after-stage identity. Focused author checks pass on the after stage and the RC7 route tests fail on the before stage. The installed fixed route is expected to be refused at ABG invocation admission for the UAT invoke until the owner dependency below is resolved outside this five-file grant. No independent acceptance, whole qualification, native proof or timing claim is made.",
+  "source": {
+    "custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/SOURCE_BEFORE.json",
+      "bytes": 272640,
+      "sha256": "d7b898e49d3260fc243dfcd29531c29cd8393fb5b33cb2ff3e571e83249606ac"
+    },
+    "stagedSourceCount": 450,
+    "beforeStageSourceDigest": "7c779af16c883f8ec0f185ad16adf45d2d152bf84418d35b1e0a9e397989eb48",
+    "afterStageSourceDigest": "8a88489f56c3689e7d860e9628db6de1193ad1b1553c5a869a90ad3e3eaed533",
+    "inheritedWork": "All inherited accepted-N worktree changes outside the five paths are untouched; the before stage verified every non-mutable staged source equals its held baseline."
+  },
+  "changedFiles": [
+    { "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "before": { "bytes": 82902, "sha256": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8" },
+      "after": { "bytes": 88472, "sha256": "1ec06ad4862faf3d6ae7bd7b6748ec198d36e742888fc380371fcf9d766527d4" } },
+    { "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "before": { "bytes": 36411, "sha256": "7177148ab49e3ce1a8cd35f2cf5f6bb49c52465ac7907708ec27835ec037aa36" },
+      "after": { "bytes": 36974, "sha256": "06e04db153bf279d5dad81ce4953982ae0b3fe6bf89963055c8b67f35b71c31b" } },
+    { "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "before": { "bytes": 47701, "sha256": "83c69d83739b5f439bcd00a92ca768819a4e729feaa3a17f9c9fd489f48a5543" },
+      "after": { "bytes": 51261, "sha256": "cd7930f973f61d37504a80f89ebbd6e6fc7ba4989d3096fc07d9186c7d444b59" } },
+    { "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "before": { "bytes": 29259, "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05" },
+      "after": { "bytes": 32732, "sha256": "0fa5de4056bbe525c231cee5eb037cb03b43bcf78647fe3b407cf25afe99e665" } },
+    { "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "before": { "bytes": 292701, "sha256": "2d956ee914d4a100beb3e2c1f178d0260dc84141e51c023467b28875d78aa15e" },
+      "after": { "bytes": 328119, "sha256": "892474792a7418da877579901c7375bc18bffc3012b92afee49da8b1fdec9a48" } }
+  ],
+  "generatorIdentities": {
+    "generator": { "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs", "bytes": 53308, "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f" },
+    "lifecycleGuard": { "path": "build_tenants/abiogenesis/typescript/scripts/check-lifecycle-boundary.mjs", "bytes": 10007, "sha256": "9d5f5ce8a4b9f82a42d7da4a034af4885b554f3d631ded09582fbc8064054351" },
+    "generatedManifestBefore": { "path": "qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-01/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json", "bytes": 3265439, "sha256": "4f65a5138613f3417d48c30d8053ac419d430050be3ef14ec606d76a44b45844", "productContentDigest": "sha256:5aaa5810b9341721f685dbd3a95b5ee9b10f70ffb48aaa485de2ac8eae2761c7" },
+    "generatedManifestAfter": { "path": "qualification-scratch/rc7-fixed-proof-author-01/tmp/o7f-stage-02/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json", "bytes": 3265439, "sha256": "0cc638ec98c18ce3b85e96daf39a8ece08ff63dcb4c0d82c69591e96091f8f5f", "productContentDigest": "sha256:3e0dd0247de90baa91c90a842ac3f760584c459b2c0854e23449dbcfc7922767" },
+    "stageHelper": { "path": "qualification-inputs/rc7-fixed-proof-author-01/prior-author-stage.mjs", "bytes": 7662, "sha256": "6deac2414cbc9b9d1ad75ab8e5e0b5d5dc73e8a088dc17a3aa2c3ce370402f9b" },
+    "laneHelper": { "path": "qualification-inputs/rc7-fixed-proof-author-01/prior-author-lanes.mjs", "bytes": 9363, "sha256": "c7e543d7cd9db2ebbb5c36d6716363d12d1c2434cec4c586995ede7373adb88f" },
+    "c2Inputs": { "path": "qualification-inputs/rc7-fixed-proof-author-01/C2_INPUTS.json", "bytes": 42773, "sha256": "887a0ad2317bc3fed703d4d9e38798b4bb7f0687683fa829635b3565b922a25e" },
+    "commandBounds": { "path": "qualification-inputs/rc7-fixed-proof-author-01/COMMAND_BOUNDS.json", "bytes": 3681, "sha256": "f33c0809a87c828e37f01176c8afdd4127deb411c38008084fb0a39415723591" },
+    "task": { "path": "qualification-inputs/rc7-fixed-proof-author-01/TASK.md", "bytes": 6285, "sha256": "343fcb78d622f6f3ef52fc0b263a562c35e30829e0695688b6f3f34604aa164d" }
+  },
+  "howToOwner": {
+    "how": "T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md section 'RC7 fixed Testing/UAT direct wrapper route — 2026-11-06', amended first; FS-C01 and DL-I02 carry one sentence each.",
+    "relations": [
+      { "how": "Direct-route authentication (root == execution basis, no parent, exact Testing/UAT wrapper, null root synthesis)", "owner": "abg/default_library.ts owner(): `direct` from invocationRootAtPrefix + execution.graphFunctionRef; DIRECT_WRAPPERS" },
+      { "how": "Finite state relation (no fulfillment, only testing/uat work orders; Testing source none + 0 rows; UAT Testing-wrapper source + exactly one selector-free testing row of the Testing wrapper)", "owner": "abg/default_library.ts directFixedState(), refusal relation 'direct_fixed_route'" },
+      { "how": "Single producer and actual C2 child of the source direct Testing root", "owner": "abg/default_library.ts subjectEvidence(): direct branch adds source Run, source invocation admission and root-Testing parent checks after all existing Result/digest/CCall/actor/source-use/binding checks; refusal 'direct_testing_child'" },
+      { "how": "Unconditional full-original UAT instructions; selected advisory stays between them", "owner": "abg/default_library.ts nativeTask(): `advisory` text; selected UAT/author order and bytes unchanged" },
+      { "how": "Selector-free fold only on the authenticated route; nullable synthesisResultRef; non-terminal", "owner": "abg/default_library.ts projectGovernanceFold() guard `synthesis === null ? o.direct !== purpose : target guard`; `synthesisResultRef: synthesis?.resultRef ?? null`" },
+      { "how": "Product typing admits a null row only for its own Testing/UAT wrapper", "owner": "product/default_library.ts observationSchema (nullable) + directObservationTyped in isGovernanceWorkState" },
+      { "how": "Caller: invoke Testing (source none) -> derive the Run's own state Result at its close handoff -> invoke UAT with admitted_source_result", "owner": "test_env/uat/public-setup.mjs constructFixedTestingCall, deriveFixedTestingSource, constructFixedUatCall over shared constructConsumerRunCall; constructLifecycleCall unchanged in behavior" }
+    ],
+    "unchangedOwners": ["gtl/default_library.ts", "test_env/uat/consumer.mjs", "Public SDK", "abg/invocation_admission.ts generic source admission", "native C2/assessment identities"]
+  },
+  "ownerDependency": {
+    "status": "open; outside the five-file grant; not changed",
+    "finding": "ABG invocation admission refuses a retained governance-state source unless the invoked GraphFunction declares abg.supported_fulfillment_profile = GOVERNANCE_FULFILLMENT_PROFILE (abg/invocation_admission.ts:1517-1529, refusal authority_mismatch 'retained library work requires its exact current input, declared entry, Program and workspace authority'). defaultGovernanceGraphFunctions declares it only on the Executive parent (gtl/default_library.ts:72); the Testing/UAT wrappers do not. Public run.invoke passes resolution.graphFunction, the selected catalog entry, so the direct UAT invoke over the admitted Testing state Result is expected to be refused at admission before the owner route runs.",
+    "evidence": "Static read of the owning sources only; not executed. The author harness supplies a controlled invocation admission and does not exercise ABG admission.",
+    "candidateOwners": [
+      "gtl/default_library.ts wrapper declaration (changes wrapper definition/publication digests; the declared meaning 'supports fulfillment profile' does not match a route that refuses fulfillment)",
+      "abg/invocation_admission.ts retained governance-source relation for the direct UAT wrapper over a Testing-wrapper source (generic source admission change)"
+    ],
+    "rootAction": "Root selects the owning path and grant. The Worker did not widen scope."
+  },
+  "evidence": {
+    "before": {
+      "stage": { "label": "o7f-stage-01", "mode": "before", "compile": "exit 0, 7438 ms", "generate": "exit 0, 22301 ms", "lifecycleGuard": "exit 0, 290 modules, no offender", "receiptSha256": "9ca90aa6716ac3de2b10f9cfc768e6378b7f4b7ada20349ba90807011f5c28d0" },
+      "fixedRoute": { "exitCode": 1, "tests": 33, "pass": 25, "fail": 5, "skipped": 3, "ms": 2985,
+        "failing": [
+          "RC7 fixed proof: direct root Testing prepares the observed C2 task and folds one selector-free Testing observation",
+          "RC7 fixed proof: direct Testing refuses open scope, fabricated or retained input, and a selector-free fold off the root Testing wrapper",
+          "RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector",
+          "RC7 fixed proof: direct UAT refuses crossed source, row population, producer identity, currentness and off-root relations",
+          "RC7 fixed proof: public-setup invokes Testing directly, derives its admitted state Result once and invokes UAT over exactly that source; the lifecycle start is unchanged"
+        ],
+        "failureCauses": "Four owner tests: assert.ok(folded) — baseline fold refuses null synthesis. Caller test: baseline product typing rejects synthesisResultRef null (retainedGovernanceWorkInput returned null) before reaching the absent caller exports.",
+        "passingRc7": ["RC7 fixed proof: selected children keep the synthesis target guard, selected Result ref and selected instruction order"],
+        "note": "The helper's requiredActivePass=true on this lane reflects only the passing selected-regression RC7 test; the five route tests failed as the intended counterexample.",
+        "stdoutSha256": "14676ac780518aecd9746f2e81c70d9b1fde4df53352f113a2cefe78a816fc05" }
+    },
+    "after": {
+      "stage": { "label": "o7f-stage-02", "mode": "after", "compile": "exit 0, 7343 ms", "generate": "exit 0, 21976 ms", "lifecycleGuard": "exit 0, 290 modules, no offender", "receiptSha256": "b6b6f41aa890194415bd578248b744ad3e97b6b2bb78826c822c7166e4bf99eb" },
+      "fixedRoute": { "exitCode": 0, "tests": 33, "pass": 30, "fail": 0, "skipped": 3, "ms": 3348, "activeRc7Pass": 6, "historicalSkipsDeclared": true, "stdoutSha256": "6999f776bc33c7dca29c383b284a061866db3dd87c5a245e9cc6a01da9a01a86" },
+      "coldResume": { "exitCode": 0, "tests": 2, "pass": 2, "fail": 0, "skipped": 0, "ms": 167499, "stdoutSha256": "af43215eb6c067d953780da665fe63be6deec634759aced55752f8bfb1e716de" },
+      "callerRegression": { "exitCode": 0, "tests": 40, "pass": 40, "fail": 0, "skipped": 0, "ms": 69748, "activeRc7": ["RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view"], "stdoutSha256": "8f64876636f6cc5d6945c654460e56c05b04c530180979c5f6067bec1a222e7e" }
+    },
+    "partition": "fixed-route used the anchored positive --test-skip-pattern for the two cold names (not reported by Node); cold-resume used the same anchored --test-name-pattern and ran exactly those two once."
+  },
+  "rc7Discriminators": {
+    "directTestingPositive": "Root Testing wrapper over the fixed state: unchanged observed C2 preparation (prep admission matches), actual C2 observation folded once; synthesisResultRef null, Testing wrapper, exact Result/digest/CCall/actor, original and unresolved preserved, terminal false, fold admission matches, retained projection and entry basis required.",
+    "directTestingRefusals": "open scope (construction work order) -> direct_fixed_route; observations with source none -> retained_root_state; admitted source on Testing -> direct_fixed_route; non-root Testing child and foreign root wrapper keep preparation but refuse a selector-free fold; product typing refuses null rows naming another wrapper or purpose.",
+    "directUatPositive": "Producer equals the one Testing row's Result/digest/CCall/actor; outcome is the original; writeRoots []; governing outcome, full-original instruction and whole producer carried in order with no advisory/author text; prep admission matches; unmet and satisfied assessments fold with null synthesisResultRef, UAT wrapper, independent assessor, terminal false; measuring actor cannot assess its producer.",
+    "directUatRefusals": "source wrapper/executive/value digest/contract/Run/invocation; zero, two, selected, UAT-purpose, foreign-wrapper rows; open scope; crossed CCall/digest/actor; C2 child invocation, absent/non-root parent, parent wrapper/invocation; invalidated sources; changed producer dependency bytes (restored bytes current again); UAT child, foreign UAT root, Testing wrapper root.",
+    "selectedRegression": "Selected Testing child keeps its synthesis Result ref; a selection naming UAT cannot fold Testing; selected UAT keeps advisory between governing and full-original instructions; selector-free UAT off the route has no producer; selected author keeps supplied/selection/author order; selector-free author keeps its supplied goal. Passes on before and after.",
+    "caller": "constructFixedTestingCall (invoke Testing handle, source none, distinct refs); deriveFixedTestingSource derives once at the Run's own close-handoff prefix with the Testing invocation digest, admission, Run and Result; refuses blocked/no-Result/other producer/other Run/other invocation/refusal before derivation and wrong admission wrapper, underivable, executive source, unobserved or terminal state after; constructFixedUatCall carries exactly that input and source; population refusal stage preserved; lifecycle start selection/source/refs unchanged. Controlled premises: population, admission, prefix reads, derivation."
+  },
+  "callerHarnessEffects": "public-setup.mjs: constructLifecycleCall now delegates to constructConsumerRunCall with identical selection, input, source none, inputValueRef '/input', requestRef '/start' and refusal stages; harness.test.mjs (caller-regression lane, 40/40) including the lifecycle caller test passes unchanged. Three new exports only; runner.mjs and other importers unchanged.",
+  "preservedBehavior": {
+    "trueSelector": "Selected states at any basis position keep the synthesis target guard and record the actual synthesis Result ref; selected UAT/author instruction order unchanged; existing fold/assessment test (1027) and both cold Executive Runs pass.",
+    "refusals": "Existing retained_root_state, original_task, fulfillment_selection, selected_evidence_ref, source_use, covered_current_use, producer_actor refusals unchanged; a selector-free fold off the authenticated route still refuses."
+  },
+  "failures": [
+    "Before fixed-route lane: 5 RC7 route tests failed by design (counterexample), exit 1.",
+    "No after-stage failure. Stage o7f-stage-03 unused."
+  ],
+  "missingResourcesAndResiduals": [
+    "OPEN OWNER DEPENDENCY: ABG admission requires abg.supported_fulfillment_profile on the invoked GraphFunction for a retained governance-state source; UAT wrapper lacks it (see ownerDependency).",
+    "Installed fixed Testing -> actual state Result -> native UAT Run, replay, cold readback, timing: Root-owned, not run.",
+    "Root wrapper Run closure and source derivation (requireClosedRun, applicable retained work) and acceptance of the supplied run-environment resources on direct wrapper invoke: not exercised.",
+    "Cross-binding: the existing cover compares one GraphFunction, so the route needs one WorkspaceBinding (HOW states it); not tested.",
+    "Open-fulfillment refusal on the direct route: code-level only (no fulfillment fixture).",
+    "Indeterminate UAT fold is not separately exercised (same path as unmet); parent evaluation unchanged and not on this route.",
+    "STDO assessor role/instruction assembly, installed schema and prompt overflow for the direct UAT task: existing generic tests only.",
+    "Three historical default-library capture/live cases skipped and unbound, no credit; seven F11 cases uncovered.",
+    "Unsupported direct purposes at root (for example construction) are unchanged: they prepare and refuse only at fold."
+  ],
+  "budget": {
+    "stages": "2 of 3 (o7f-stage-01 before, o7f-stage-02 after); o7f-stage-03 unused",
+    "laneInvocations": "4 of 4 (before fixed-route; after fixed-route, cold-resume, caller-regression); no retry",
+    "providerTurnsAndWallClock": "not self-measured by the Worker; host-observed"
+  },
+  "scopeDisclosures": [
+    "Writes: the five granted paths; these three handoffs; stage/lane outputs under qualification-scratch/rc7-fixed-proof-author-01/tmp via the supplied helpers (including test-created artifacts/setup020 inside the staged tenant); test temp /private/tmp/abg-o7f via lane TMPDIR.",
+    "zsh heredocs used to pass Python edit scripts create transient shell temp files under the shell's default temp location; one stray empty heredoc ran as a no-op. These are shell mechanics outside the declared paths; their scope standing is uncertain.",
+    "Read-only commands: git diff/status, node --check, stat/shasum, stdo verify for the v3.0.4 basis (any toolchain cache writes are platform-owned).",
+    "Not used: tmpo7f runtime temp (preserved, untouched), network, installs, Git mutation, provider calls, tsc outside stages.",
+    "Before/after observations cover selected worksite facts only and do not prove absence of off-scope writes."
+  ],
+  "notClaimed": ["independent acceptance", "whole qualification", "successful native or installed proof", "timing savings"]
+}

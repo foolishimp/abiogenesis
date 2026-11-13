@@ -1,0 +1,140 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5",
+    "fixedFifteenFamilies": true,
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "scope": "original R1-R7/C1-C5",
+    "sourceDefinition": "STDO 3.0.4",
+    "installedBuilderRuntime": "STDO 3.0.4",
+    "reviewBasis": "retained exact installed stdo-review",
+    "role": "independent nonauthor reviewer",
+    "rootOwnsAcceptance": true
+  },
+  "recordedUtc": "2026-11-04T01:52:33.151285+00:00",
+  "kind": "remaining_pair_proof_fixture_triage",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/SUBJECT.json",
+    "sha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670",
+    "result": "result://abiogenesis/1551b466553fb6a2769333a2fd5efaca58788acd3c016a549f73e094b77b252b",
+    "eventOrdinal": 49501,
+    "afterObservationDigest": "sha256:8f52940c855e282e919c794ba89f8770636c270461b0b810c9f097e87a834724",
+    "verifiedFiles": 121,
+    "hashMismatches": [],
+    "reviewed002FinalOverlapMatched": 13,
+    "immutableContextExcludedFromFinalWriteTerritory": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+    ],
+    "readinessSha256": "c46163b32fafc4a392cb62d4d09cb760a2f98bccb1d34ac0ed602006f87eaf51"
+  },
+  "claim": {
+    "selection": "ROOT_REENTRY_SELECTION_06.md:37-45",
+    "sha256": "d5ed3bbf5c2c632c8c8ecb43abb364d99275a632bdde5417aabe37f2665baba3",
+    "requires": "Finite valid actual F_H/construction pair baseline, supported malformed/mixed/orphan/duplicate controls, unrelated Run facts, complete value/refusal reasons and refs/order through applicable warm/cold/uncached routes",
+    "doesNotRequire": [
+      "old whole qualification",
+      "every historical interaction variant",
+      "new current Public F_H resume binding",
+      "new producer/framework"
+    ]
+  },
+  "standing": {
+    "verdict": "N5-PROOF-01 remains open; both readiness residuals are selected proof work, not new Product defect evidence",
+    "preservedFindings": [
+      "N5-PROOF-01",
+      "N6-R1-PROOF-01",
+      "N6-R1-PROOF-02"
+    ],
+    "priorReviewJsonSha256": "4fc3d7903cbe03b4c14c4f76d85c8c6efb5d98d3a37a2f5e9662071b6802d5a3",
+    "actualC2": "pending; no credit assigned"
+  },
+  "pairedBaseline": {
+    "currentCase": "SAS:728-832; baseline795-803 has Run pair and empty F_H facts",
+    "canPassWithoutBehavior": "Always-null construction_intent/selected_action correspondence or always-invalid nonempty F_H histories preserve all current case assertions",
+    "retainedPositive": "default-library:1745-1898 and1922-2053 current pending_execution Public cold producer, positive correspondence and combined duplicate lookup",
+    "fhProducer": "continuation.ts:1564-1632 commitFhInteractionResponseAtExpectedPrefix: actual atomically admitted operation+response owner",
+    "fhPositiveOwner": "fh_continuation_projection.ts:913-1127; exact fact refs and complete cardinality",
+    "constructionIntentOwner": "effectful_invocation_truth.ts:214-233 actual admitted constructionContinuationUse basis and source invocation",
+    "selectedActionOwners": "construction_continuation.ts:2034-2204 preparation/admission;2233-2260 actual predecessor projection",
+    "controlledSelectedFixture": "t287-continuation-causation:19-39,54-106; explicit pinned S7 historical premises and fresh admission/cold boundary, not a complete global effectful positive",
+    "currentPublicFhResume": "Not required: continuation.ts:1577-1578 says no5.0 binding resumes F_H",
+    "unfrozenDependenciesRequestedFromRoot": [
+      "existing valid current F_H positive fixture premise; Root found no current positive F_H projector test"
+    ],
+    "fixtureConstructabilityOutsideFrozenCone": "Resolved to six exact f49 construction producer files; no new execution credit. F_H positive fixture premise remains unverified."
+  },
+  "unrelatedRun": {
+    "currentGap": "SAS:774-779 appends only an unrelated workspace operation",
+    "existingProducer": "SAS:465-488 constructInstalledStartCall -> runInstalledDefinitionCallWithResource -> successful receipt successor and distinct newly opened Run",
+    "minimalSequence": [
+      "Build valid positive pair at genuine P",
+      "Use current acquired selection and distinct identity to execute existing independent Run at valid P; adopt successor Q",
+      "Ask same actual complete-pair owners at Q and historical P; compare complete values with appropriate query-prefix identity and exact selected priorAdmission",
+      "Preserve warm/copied/cold complete outputs and exact refusal reasons/refs/order",
+      "Retain existing one-Run controls and apply same finite negatives after Q"
+    ],
+    "semanticLimits": [
+      "Global Run fact list legitimately gains the second Run",
+      "Do not dispatch a Public Run from a globally invalid suffix",
+      "Workspace-only growth does not exercise the same Run-fact relation"
+    ]
+  },
+  "duplicateControlRetained": {
+    "subjectSha256": "9c4cfd04cc68dbd0ec3e79d2224179cac7524d305d82217e08c9ce836126c02a",
+    "sourceSha256": "ff28021b9a3b9acffe947ba146ce5ceaffb67fdf13a494de62a995c415e1a68a",
+    "path": "existing-duplicate-owner-proof-001/m5-event-store-reopen.test.mjs:953-997",
+    "domain": "explicit validated-history lower-owner cross-kind collision, one rehydratable owner, duplicate_outer_invocation",
+    "currentC2Credit": false,
+    "rollbackCase1076_1111": "generic workspace events and injected throw; not positive F_H pair"
+  },
+  "sourceHashes": {
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs": "9407605058cce466f6efe2d2e4b11bf0198e77cfacbc9fef109070ff4ec41cb3",
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs": "a56347f2621ec53733c27de869c1d0396d07f3bae09384a8dc5a8659958a9d99",
+    "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts": "dcd891fcb9f07a1ba5220c0ff21351c1f2a7c25884b7dcaadb60ceeb8faf4ac3",
+    "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts": "a2da3031ca7c408bac41fea0c39a7043333ce0b14a6769fd82979733b7de22ab",
+    "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16",
+    "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts": "25aad5b6abaf0630976f18c74f65c2fb8105510294cc8a0f8b6ea7f85e6e2252"
+  },
+  "limits": [
+    "No tests/builds/providers/native contact or moving source reads",
+    "Only this permitted report pair written",
+    "No new Product defect inferred",
+    "No full source rereview or old qualification",
+    "Prior F09/retry and other R1 findings not reopened",
+    "Root selects exact fixture inputs/repair and conjoins actual C2/UAT"
+  ],
+  "fixtureAddendum": {
+    "recordedUtc": "2026-11-04T01:55:38.400200+00:00",
+    "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-pair-producer-fixtures-001/SUBJECT.json",
+    "sha256": "d5699b7d1b53a3968c9e8afd83f9e9436a1bdf53c1c02dabe12161b33e256312",
+    "verifiedFileCount": 6,
+    "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+    "fileHashes": {
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs": "7c04193bf6b0feb2d90268a4e8e529f2f75ddeba590d0bea277cfb95893f74ab",
+      "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs": "bedcfe2165b3863efb355a2d20d0f998aba1960bcc2fef9bda019e6b15c6f59c",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs": "199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2"
+    },
+    "minimalCurrentIntentProducer": {
+      "test": "t287-exact-construction-intent.test.mjs",
+      "setup": "20-37 actual packed installed root / genuine frontier / no initial actor dispatch",
+      "canonicalPopulation": "55-65 shipped constructInstalledPendingCall current_intent",
+      "actualColdExecution": "75-84, fixed local subprocess52-54; completed",
+      "actualResult": "100-112 final physical history and resolved original intent",
+      "immutableRootHelper": "interim-r1-pair-proof-review-001 frozen root-installed-environment.mjs:809-842 actual admitInvocation/Public operation; sha25648b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+      "descriptorClosure": "exact-intent-product:41-43 declares/exports descriptors for bindings",
+      "proofStanding": "source-verified existing producer candidate, not new execution/C2 credit",
+      "minimalAssertions": "actual Public op + unique constructionContinuationUse basis, exact six-field priorAdmission from combined effectful truth, empty FH facts, full owned/copied/cold/historical outputs and expected prefix identity"
+    },
+    "unrelatedRunConstructor": "registered-graph-selection:228-298 actual shipped start call, source:none when no sourceResult; distinct identity, Program actually installed in that fixture, preserve fixed local transport if exact-intent fixture is chosen",
+    "graphEdgeLimit": "SAS GraphEdge reference belongs to structural environment; do not copy uninstalled reference into exact-intent environment",
+    "selectedActionHostLimit": "46-54 and82-108 genuine interruption precursor; no post-interruption positive consumer in supplied six files",
+    "fhLimit": "No F_H positive inference. Existing response-commit relation verified; positive fixture premise unverified. No current Public F_H resume binding required."
+  }
+}

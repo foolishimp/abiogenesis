@@ -1,0 +1,18 @@
+{
+  "kind": "operator_command_budget_preparation_refusal",
+  "recordedUtc": "2026-11-03T13:52:25.985716+00:00",
+  "actualRequiredExecutionBudgetMs": 4726750,
+  "actualLimits": {
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 4500000
+  },
+  "violatedRelation": "required budget must be strictly below both selected limits",
+  "rootCause": "Root gave the final three-lane orchestrator a3600000ms timeout though its lane maxima total3000000ms, and did not check the canonical aggregate before expensive observation.",
+  "change": "Set wrapper timeout to3000000ms, covering the declared lane maxima; move existing canonical budget calculation and fit check ahead of worksite observation. Other timeouts, source scope and native limits unchanged.",
+  "providerCalls": 0,
+  "nativeActors": 0,
+  "sourceEdits": 0,
+  "RunAdmissions": 0,
+  "successorDriver": "prepare-r2.mjs",
+  "successorWorkloadSha256": "214c85f139449e535e8da069a2af994471dfec6b840b50eb01f4a2570d84be40"
+}

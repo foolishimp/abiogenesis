@@ -1,0 +1,156 @@
+{
+  "kind": "finite_native_input_materialization",
+  "status": "PREPARED_NOT_STAGED_FINAL_ADMISSION_PENDING",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 9291,
+    "sha256": "d3b7b87fab998bca08bc8572ddea2c34e4342378d30981c6a4b033416c3bc258"
+  },
+  "inputs": [
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/C2_INPUTS.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/C2_INPUTS.json",
+        "bytes": 42338,
+        "sha256": "15bf55e2e8f0f1fca210a33b4edda78aa13ebc45f44bf7210b80db2444771d83"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/COMMAND_BOUNDS.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/COMMAND_BOUNDS.json",
+        "bytes": 3987,
+        "sha256": "4a3c950476d14271a5b99f8430a603caa703441ec273b6b5619f7cb044ec1bb2"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/DEPENDENCY_SOURCE_SELECTION.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/DEPENDENCY_SOURCE_SELECTION.json",
+        "bytes": 4587,
+        "sha256": "d0a81cee496dfde403c1e610345999bff758e927b4a381cb30fc283a20e1ecf3"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/EXTERNAL_READ_INPUTS.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/EXTERNAL_READ_INPUTS.json",
+        "bytes": 15906,
+        "sha256": "8b512643a673e0ee5ea11b96fddad6aa7a1294dd73b64b85f8f35ba7e0b5ad4b"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/MEASUREMENT_PLAN.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/MEASUREMENT_PLAN.json",
+        "bytes": 2862,
+        "sha256": "1a0e9adfda74c680b012d9cf40e1d2418c86e081c1de45a0b53d10b6217116a9"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/METHOD_ACCESS.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/METHOD_ACCESS.json",
+        "bytes": 939,
+        "sha256": "6343d7c3c3a8eb0553e9b1452ae36cc70209c222cdde0edf502e102ba0c88d84"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/NATIVE_GRANT.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/NATIVE_GRANT.json",
+        "bytes": 58047,
+        "sha256": "d8b731fd4baf18c266bfa81bc881eb32037185e0b2c7deb0ebe12efda45161f8"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/POST_AUTHOR_PROOF_INPUTS.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/POST_AUTHOR_PROOF_INPUTS.json",
+        "bytes": 5493,
+        "sha256": "ce8814473d03c5348f811634564dfb6f0f0fa189bb515bdb6aed3402cb5d4dbd"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/ROOT_ACTIVATION.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/ROOT_ACTIVATION.json",
+        "bytes": 4646,
+        "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/ROOT_ARCHITECTURE_SELECTION.json",
+        "bytes": 9291,
+        "sha256": "d3b7b87fab998bca08bc8572ddea2c34e4342378d30981c6a4b033416c3bc258"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/ROOT_SELECTION.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/ROOT_SELECTION.json",
+        "bytes": 517,
+        "sha256": "df358d2f7163a02c47dd74496a70c894922d3f390d1b275e3ce258a382136dcf"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/SOURCE_CUSTODY.json",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/SOURCE_CUSTODY.json",
+        "bytes": 2446,
+        "sha256": "9ccf2bd078a8d9869631d7f58fcd267a2369a2361125f8a26ba0aecccc98a0e2"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/TASK.md",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/TASK.md",
+        "bytes": 3033,
+        "sha256": "8a381a1965c871a21353839d3b042c78d778a8e06d73e91810372160dbc7a00d"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/npm-global.npmrc",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/npm-global.npmrc",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/npm-user.npmrc",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/npm-user.npmrc",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/prior-author-lanes.mjs",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/prior-author-lanes.mjs",
+        "bytes": 10474,
+        "sha256": "5ee692a49a9ad68eacff16deb5cf682f42f8e356144b0c043063cace7dcfd15c"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/prior-author-stage.mjs",
+      "preparedSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/inputs/prior-author-stage.mjs",
+        "bytes": 6891,
+        "sha256": "ddde69ffc1421672735701d7d6344898ae0cd3973b26ba0a95227548561c49dd"
+      }
+    },
+    {
+      "nativeRelativePath": "qualification-inputs/rc7-held-session-author-06/ROOT_CONTROL_ADMISSION.json",
+      "preparedSource": null
+    }
+  ],
+  "sourceRows": 451,
+  "stagedControlCount": 18,
+  "futureHandoffs": 3,
+  "contextEntries": 472,
+  "limits": "Root copies17 exact controls plus final admission into the fresh H06 C namespace. No preparation staging/output placeholders. H04 payload inventory and all frozen source bodies stay shared references."
+}

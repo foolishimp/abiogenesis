@@ -1,0 +1,1084 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts
+index 970f16775..b0a4ec4ac 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts
+@@ -1,4 +1,11 @@
+ #!/usr/bin/env node
++import * as Cause from "effect/Cause";
++import * as Effect from "effect/Effect";
++import * as Either from "effect/Either";
++import * as Exit from "effect/Exit";
++import * as Option from "effect/Option";
++import * as Scope from "effect/Scope";
++import { runEffectProgram } from "../shared/effect_definition.js";
+ import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
+ import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
+ import { hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
+@@ -811,90 +818,163 @@ async function commandResult(
+   return result;
+ }
+ 
+-async function runCommand(
+-  task: WorksiteExecutionTask,
+-  executionRoot: string,
+-  ordinal: number,
+-  attemptRef: string | null = null,
+-): Promise<WorksiteCommandResult> {
+-  const command = task.commands[ordinal]!;
+-  const cwd = await confinedExistingPath(
+-    executionRoot,
+-    command.relativeCwd,
+-    "directory",
+-  );
+-  const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));
+-  let child: ChildProcessByStdio<null, Readable, Readable>;
+-  try {
+-    child = spawn(command.executable, [...command.args], {
+-      cwd, env: environment, detached: process.platform !== "win32",
+-      stdio: ["ignore", "pipe", "pipe"],
+-    });
+-  } catch (error) {
+-    return commandResult(executionRoot, command, ordinal, noChildLaunchObservation(error));
+-  }
+-  activeCommand = child;
+-  const stdout: Buffer[] = [], stderr: Buffer[] = [];
+-  const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
+-  let timedOut = false;
+-  let launchFailed = false;
+-  let captureOpen = true;
+-  const timeoutTimer = createMonotonicDeadline();
+-  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {
+-    onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, "utf8")); timeoutTimer.cancel(); },
+-    onExit: () => {
+-      captureOpen = false; timeoutTimer.cancel(); child.stdout.destroy(); child.stderr.destroy();
+-    },
+-    onSignalRequested: (signal) => {
+-      timeoutTimer.cancel(); signalSequence.push(signal);
+-      stderr.push(Buffer.from(`${signal === "SIGTERM" ? "\n" : ""}ABI worksite command cleanup: ${signal} requested\n`, "utf8"));
+-    },
++/** Lift one fallible Promise operation: its synchronous throw or its rejection
++ * stays the exact failure value, never a library wrapper. */
++function attempt<A>(operation: () => PromiseLike<A>): Effect.Effect<A, unknown> {
++  return Effect.tryPromise({ try: () => operation(), catch: (value) => value });
++}
++
++/** Lift one fallible synchronous operation, keeping its exact thrown value. */
++function attemptSync<A>(operation: () => A): Effect.Effect<A, unknown> {
++  return Effect.try({ try: () => operation(), catch: (value) => value });
++}
++
++/** The barrier every command release crosses before it disposes: request the
++ * lifetime's existing finite cleanup, inert once cleanup began or completed,
++ * then await that lifetime's one canonical completion. */
++function settled(lifetime: ReturnType<typeof createOwnedProcessLifetime>): Effect.Effect<OwnedProcessFacts> {
++  return Effect.suspend(() => {
++    lifetime.requestTermination();
++    return Effect.promise(() => lifetime.completion);
+   });
+-  const heartbeat = setInterval(() => {
+-    lifetime.observe(() => { process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\n`); });
+-  }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));
+-  const onStdout = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stdout.push(Buffer.from(chunk))); };
+-  const onStderr = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stderr.push(Buffer.from(chunk))); };
+-  try {
+-    child.stdout.on("data", onStdout); child.stderr.on("data", onStderr);
+-    timeoutTimer.after(command.timeoutMs, () => { timedOut = true; lifetime.requestTermination(); });
+-  } catch (error) { lifetime.fail(error); }
+-  let facts: Awaited<typeof lifetime.completion>;
++}
++
++/** The bounded diagnostic of one closed command Scope. A failed use stays the
++ * outcome, so release faults behind it are written here, never dropped. */
++function commandScopeClosed(used: Exit.Exit<unknown, unknown>, closed: Exit.Exit<void>): void {
++  if (Exit.isSuccess(used) || Exit.isSuccess(closed)) return;
+   try {
+-    facts = await lifetime.completion;
++    process.stderr.write(`ABI worksite command release fault: ${Cause.pretty(closed.cause).slice(0, 8192)}\n`);
++  } catch {
++    // A diagnostic never replaces the selected outcome.
++  }
++}
++
++/** One command Scope. Its use runs interruptibly and its Exit is kept before
++ * the Scope closes. A failed use, interruption included, is the outcome;
++ * otherwise the closed Scope is, so a release fault alone still fails. */
++function commandScope<A>(use: Effect.Effect<A, unknown, Scope.Scope>): Effect.Effect<A, unknown> {
++  return Effect.uninterruptibleMask((restore) => Effect.gen(function* () {
++    const scope = yield* Scope.make();
++    const used = yield* Effect.exit(restore(Scope.extend(use, scope)));
++    const closed = yield* Effect.exit(Scope.close(scope, used));
++    commandScopeClosed(used, closed);
++    if (Exit.isFailure(used) || Exit.isSuccess(closed)) return yield* used;
++    return yield* Effect.failCause(closed.cause);
++  }));
++}
++
++/** One command's launch inside its Scope: its owned child's observation, or
++ * the no-child observation of a synchronous spawn error. */
++function launchCommand(
++  task: WorksiteExecutionTask,
++  ordinal: number,
++  cwd: string,
++  attemptRef: string | null,
++): Effect.Effect<LaunchProcessObservation, unknown, Scope.Scope> {
++  return Effect.gen(function* () {
++    const command = task.commands[ordinal]!;
++    const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));
++    const stdout: Buffer[] = [], stderr: Buffer[] = [];
++    const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
++    let timedOut = false;
++    let launchFailed = false;
++    let captureOpen = true;
++    const timeoutTimer = createMonotonicDeadline();
++    // Spawn and lifetime are one uninterruptible acquisition: once a child
++    // exists, its settling release is registered before anything can fail.
++    const launch = yield* Effect.acquireRelease(
++      attemptSync(() => spawn(command.executable, [...command.args], {
++        cwd, env: environment, detached: process.platform !== "win32",
++        stdio: ["ignore", "pipe", "pipe"],
++      })).pipe(Effect.either, Effect.map(Either.map((child) => {
++        activeCommand = child;
++        const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {
++          onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, "utf8")); timeoutTimer.cancel(); },
++          onExit: () => {
++            captureOpen = false; timeoutTimer.cancel(); child.stdout.destroy(); child.stderr.destroy();
++          },
++          onSignalRequested: (signal) => {
++            timeoutTimer.cancel(); signalSequence.push(signal);
++            stderr.push(Buffer.from(`${signal === "SIGTERM" ? "\n" : ""}ABI worksite command cleanup: ${signal} requested\n`, "utf8"));
++          },
++        });
++        return { child, lifetime };
++      }))),
++      (launch) => Either.isLeft(launch) ? Effect.void
++        : Effect.zipRight(settled(launch.right.lifetime), Effect.sync(() => { activeCommand = null; })),
++    );
++    if (Either.isLeft(launch)) return yield* attemptSync(() => noChildLaunchObservation(launch.left));
++    const { child, lifetime } = launch.right;
++    // Each later resource registers its release before its fallible
++    // acquisition; that release disposes only after the settlement barrier.
++    const hold = (acquire: () => unknown, release: () => void) => Effect.zipRight(
++      Effect.addFinalizer(() => Effect.zipRight(settled(lifetime), Effect.sync(release))),
++      attemptSync(acquire),
++    );
++    let heartbeat: ReturnType<typeof setInterval> | undefined;
++    const onStdout = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stdout.push(Buffer.from(chunk))); };
++    const onStderr = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stderr.push(Buffer.from(chunk))); };
++    yield* Effect.all([
++      hold(() => {
++        heartbeat = setInterval(() => {
++          lifetime.observe(() => { process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\n`); });
++        }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));
++      }, () => clearInterval(heartbeat)),
++      hold(() => child.stdout.on("data", onStdout), () => child.stdout.off("data", onStdout)),
++      hold(() => child.stderr.on("data", onStderr), () => child.stderr.off("data", onStderr)),
++      hold(() => timeoutTimer.after(command.timeoutMs, () => { timedOut = true; lifetime.requestTermination(); }),
++        () => timeoutTimer.cancel()),
++    ], { discard: true }).pipe(Effect.catchAll((error) => Effect.sync(() => lifetime.fail(error))));
++    const facts = yield* Effect.promise(() => lifetime.completion);
+     if (facts.firstError !== null) {
+       const detail = {
+         taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, command,
+         diagnostic: { name: facts.firstError.name, message: facts.firstError.message },
+         processFacts: encodeOwnedProcessFacts(facts),
+       };
+-      throw new WorksiteHelperFailure("worksite command failed; dependent work stopped", detail,
+-        { failureClass: "command_failed", ...detail });
++      return yield* Effect.fail(new WorksiteHelperFailure("worksite command failed; dependent work stopped", detail,
++        { failureClass: "command_failed", ...detail }));
+     }
+-  } finally {
+-    timeoutTimer.cancel(); clearInterval(heartbeat); activeCommand = null; captureOpen = false;
+-    child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
+-  }
+-  // A spawn failure has no child to clean up; an exit needs a confirmed boundary.
+-  const terminal = classifyOwnedProcessTerminal(facts);
+-  if (terminal === "unconfirmed") stderr.push(unconfirmedScopeDiagnostic(facts));
+-  const launched: LaunchProcessObservation = {
+-    exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
+-    processSignal: facts.directExit?.signal ?? null, timedOut,
+-    signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== "unconfirmed",
+-    stdout: stream(Buffer.concat(stdout)), stderr: stream(Buffer.concat(stderr)),
+-  };
+-  if (!launched.terminationConfirmed) {
+-    const processObservation = commandProcessObservation(command, ordinal, launched);
+-    const detail = {
+-      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
+-      command: processObservation, diagnostic: decodeStream(processObservation.stderr),
+-      processFacts: encodeOwnedProcessFacts(facts),
++    // A spawn failure has no child to clean up; an exit needs a confirmed boundary.
++    const terminal = classifyOwnedProcessTerminal(facts);
++    if (terminal === "unconfirmed") stderr.push(unconfirmedScopeDiagnostic(facts));
++    const launched: LaunchProcessObservation = {
++      exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
++      processSignal: facts.directExit?.signal ?? null, timedOut,
++      signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== "unconfirmed",
++      stdout: stream(Buffer.concat(stdout)), stderr: stream(Buffer.concat(stderr)),
+     };
+-    throw new WorksiteHelperFailure("worksite command cleanup unresolved; dependent work stopped", detail,
+-      { failureClass: "command_cleanup_unresolved", ...detail, diagnostic: { name: "TypeError", message: detail.diagnostic } });
+-  }
+-  return commandResult(executionRoot, command, ordinal, launched);
++    if (!launched.terminationConfirmed) {
++      const processObservation = commandProcessObservation(command, ordinal, launched);
++      const detail = {
++        taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
++        command: processObservation, diagnostic: decodeStream(processObservation.stderr),
++        processFacts: encodeOwnedProcessFacts(facts),
++      };
++      return yield* Effect.fail(new WorksiteHelperFailure("worksite command cleanup unresolved; dependent work stopped", detail,
++        { failureClass: "command_cleanup_unresolved", ...detail, diagnostic: { name: "TypeError", message: detail.diagnostic } }));
++    }
++    return launched;
++  });
++}
++
++function runCommand(
++  task: WorksiteExecutionTask,
++  executionRoot: string,
++  ordinal: number,
++  attemptRef: string | null = null,
++): Effect.Effect<WorksiteCommandResult, unknown> {
++  return Effect.gen(function* () {
++    const command = task.commands[ordinal]!;
++    const cwd = yield* attempt(() => confinedExistingPath(
++      executionRoot,
++      command.relativeCwd,
++      "directory",
++    ));
++    const launched = yield* commandScope(launchCommand(task, ordinal, cwd, attemptRef));
++    return yield* attempt(() => commandResult(executionRoot, command, ordinal, launched));
++  });
+ }
+ 
+ function decodeStream(value: WorksiteObservedStream): string {
+@@ -1463,127 +1543,155 @@ async function publishCreateOnly(path: string, bytes: Buffer): Promise<void> {
+   }
+ }
+ 
++/** The raw value a failed helper Exit selects: the first Fail or Die payload in
++ * sequential (release) order, never a preferred category. An interruption or a
++ * parallel Cause has no one original value and selects none. */
++function selectedFailure(cause: Cause.Cause<unknown>): Option.Option<unknown> {
++  const [ordered, first] = Cause.match<readonly [boolean, Option.Option<unknown>], unknown>(cause, {
++    onEmpty: [true, Option.none()],
++    onFail: (error) => [true, Option.some(error)],
++    onDie: (defect) => [true, Option.some(defect)],
++    onInterrupt: () => [false, Option.none()],
++    onSequential: (left, right) => [left[0] && right[0], Option.orElse(left[1], () => right[1])],
++    onParallel: () => [false, Option.none()],
++  });
++  return ordered ? first : Option.none();
++}
++
++/** The helper's host boundary: run one program once through the package
++ * membrane and return its value or throw its selected raw failure. A failure
++ * with no one original value throws its actual Cause. */
++async function runHelperProgram<A>(program: Effect.Effect<A, unknown>): Promise<A> {
++  const exit = await runEffectProgram(program);
++  if (Exit.isSuccess(exit)) return exit.value;
++  const selected = selectedFailure(exit.cause);
++  throw Option.isSome(selected) ? selected.value : exit.cause;
++}
++
++/** Print one acknowledgment and settle only once its write has drained. */
++function acknowledge(line: string, output: NodeJS.WritableStream = process.stdout): Promise<void> {
++  return new Promise<void>((resolveWrite, rejectWrite) => {
++    output.write(line, (error) => error === null || error === undefined ? resolveWrite() : rejectWrite(error));
++  });
++}
++
+ async function main(): Promise<void> {
+-  const preflight = await admitLaunchManifest();
+-  const { task, artifactPath, sandboxRoot } = preflight;
+-  if (!isWorksiteExecutionTask(task)) {
+-    throw new TypeError("helper launch manifest does not retain one exact Product task");
+-  }
+-  const before = await observations(task);
+-  const productInventoryBefore = await filesystemInventory(
+-    task.workspaceBinding.roots.productRoot,
+-  );
+-  const beforeMatches = before.every((row, ordinal) => canonicalEquals(
+-    row,
+-    worksiteExecutionSources(task)[ordinal]!.observation,
+-  ));
+-  const commandResults: WorksiteCommandResult[] = [];
+-  const predicateObservations: WorksitePredicateObservation[] = [];
+-  const snapshot = beforeMatches
+-    ? await materializeSnapshot(task, sandboxRoot)
+-    : await (async () => {
+-        await mkdir(sandboxRoot);
+-        const snapshotMembers = Object.freeze([]) as readonly WorksiteExecutionSnapshotMember[];
+-        const snapshotDigest = sha256Canonical(snapshotMembers);
+-        return Object.freeze({
+-          snapshotRef: `${worksiteExecutionIdentityPrefix(task, "snapshot")}/${snapshotDigest.slice("sha256:".length)}`,
+-          snapshotDigest,
+-          snapshotMembers,
+-        });
+-      })();
+-  const inventoryBefore = await filesystemInventory(sandboxRoot);
+-  // A failure after launch is published as the artifact's `failure`
+-  // disposition, then rethrown: the helper still exits non-zero.
+-  let failed: WorksiteHelperFailure | null = null;
+-  if (beforeMatches) try {
+-    for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {
+-      const command = await runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);
+-      if (!command.terminationConfirmed) {
+-        throw new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
+-          taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
+-          command, diagnostic: decodeStream(command.stderr),
+-        })}`);
+-      }
+-      commandResults.push(command);
++  return runHelperProgram(Effect.gen(function* () {
++    const preflight = yield* attempt(() => admitLaunchManifest());
++    const { task, artifactPath, sandboxRoot } = preflight;
++    if (!isWorksiteExecutionTask(task)) {
++      return yield* Effect.fail(new TypeError("helper launch manifest does not retain one exact Product task"));
+     }
+-    for (let ordinal = 0; ordinal < task.outcomePredicates.length; ordinal += 1) {
+-      const observation = await predicateObservation(task, sandboxRoot, commandResults, ordinal, preflight.manifest.attemptRef);
+-      if (observation.predicateKind === "http_response_exact") {
+-        const probe = record(observation.observedValue);
+-        const processObservation = record(probe.process);
+-        if (processObservation.terminationConfirmed !== true) {
+-          throw new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({
++    const before = yield* attempt(() => observations(task));
++    const productInventoryBefore = yield* attempt(() => filesystemInventory(
++      task.workspaceBinding.roots.productRoot,
++    ));
++    const beforeMatches = before.every((row, ordinal) => canonicalEquals(
++      row,
++      worksiteExecutionSources(task)[ordinal]!.observation,
++    ));
++    const commandResults: WorksiteCommandResult[] = [];
++    const predicateObservations: WorksitePredicateObservation[] = [];
++    const snapshot = yield* attempt(() => beforeMatches
++      ? materializeSnapshot(task, sandboxRoot)
++      : (async () => {
++          await mkdir(sandboxRoot);
++          const snapshotMembers = Object.freeze([]) as readonly WorksiteExecutionSnapshotMember[];
++          const snapshotDigest = sha256Canonical(snapshotMembers);
++          return Object.freeze({
++            snapshotRef: `${worksiteExecutionIdentityPrefix(task, "snapshot")}/${snapshotDigest.slice("sha256:".length)}`,
++            snapshotDigest,
++            snapshotMembers,
++          });
++        })());
++    const inventoryBefore = yield* attempt(() => filesystemInventory(sandboxRoot));
++    // A failure after launch is published as the artifact's `failure`
++    // disposition, then rethrown: the helper still exits non-zero. Any other
++    // failure, defect or interruption escapes unchanged.
++    const failed = !beforeMatches ? null : yield* Effect.gen(function* () {
++      for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {
++        const command = yield* runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);
++        if (!command.terminationConfirmed) {
++          return yield* Effect.fail(new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
+             taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
+-            observation, diagnostic: decodeStream(processObservation.stderr as unknown as WorksiteObservedStream),
+-          })}`);
++            command, diagnostic: decodeStream(command.stderr),
++          })}`));
+         }
++        commandResults.push(command);
+       }
+-      predicateObservations.push(observation);
+-    }
+-  } catch (error) {
+-    if (!(error instanceof WorksiteHelperFailure)) throw error;
+-    failed = error;
+-  }
+-  const after = await observations(task);
+-  const inventoryAfter = await filesystemInventory(sandboxRoot);
+-  const delta = worksiteDelta(task, inventoryBefore, inventoryAfter);
+-  const productInventoryAfter = await filesystemInventory(
+-    task.workspaceBinding.roots.productRoot,
+-  );
+-  const productDelta = worksiteDelta(task, productInventoryBefore, productInventoryAfter, false);
+-  const afterMatches = after.every((row, ordinal) => canonicalEquals(
+-    row,
+-    worksiteExecutionSources(task)[ordinal]!.observation,
+-  ));
+-  const artifact = constructWorksiteExecutionHelperArtifact({
+-    task,
+-    // The adapters ran under this manifest's attempt; the subject names it.
+-    ...(failed === null ? {} : { failure: { ...failed.subject, attemptRef: preflight.manifest.attemptRef } }),
+-    disposition: failed !== null
+-      ? "failure"
+-      : !beforeMatches || !afterMatches
+-      ? "protected_mismatch"
+-      : productDelta.length > 0
+-      ? "product_mismatch"
+-      : delta.some((row) => row.matchedTerritoryRef === null)
+-      ? "territory_mismatch"
+-      : "success",
+-    commandResults,
+-    predicateObservations,
+-    worksiteDelta: delta,
+-    productDelta,
+-    snapshotRoot: sandboxRoot,
+-    snapshotRef: snapshot.snapshotRef,
+-    snapshotDigest: snapshot.snapshotDigest,
+-    snapshotMembers: snapshot.snapshotMembers,
+-    protectedBefore: before,
+-    protectedAfter: after,
+-  });
+-  const bytes = Buffer.from(`${canonicalJson(artifact)}\n`, "utf8");
+-  await publishCreateOnly(artifactPath, bytes);
+-  await canonicalExistingPathWithinRoot(
+-    preflight.manifest.archiveRoot,
+-    artifactPath,
+-    "file",
+-  );
+-  // The acknowledgment is printed for every disposition, a failure included,
+-  // and drained before the rethrow: a pipe is asynchronous.
+-  const workerReturnProjection = Object.freeze({
+-    kind: "worksite_command_execution_worker_result" as const,
+-    schemaVersion: "5.0.0" as const,
+-    taskRef: task.taskRef,
+-    taskDigest: task.taskDigest,
+-    attemptRef: preflight.manifest.attemptRef,
+-    helperArtifactRef: artifact.artifactRef,
+-    helperArtifactDigest: artifact.artifactDigest,
+-  }) satisfies WorksiteCommandExecutionWorkerResult;
+-  await new Promise<void>((resolveWrite, rejectWrite) => {
+-    process.stdout.write(
+-      `${canonicalJson(workerReturnProjection)}\n`,
+-      (error) => error ? rejectWrite(error) : resolveWrite(),
+-    );
+-  });
+-  if (failed !== null) throw failed;
++      for (let ordinal = 0; ordinal < task.outcomePredicates.length; ordinal += 1) {
++        const observation = yield* attempt(() =>
++          predicateObservation(task, sandboxRoot, commandResults, ordinal, preflight.manifest.attemptRef));
++        if (observation.predicateKind === "http_response_exact") {
++          const probe = record(observation.observedValue);
++          const processObservation = record(probe.process);
++          if (processObservation.terminationConfirmed !== true) {
++            return yield* Effect.fail(new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({
++              taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
++              observation, diagnostic: decodeStream(processObservation.stderr as unknown as WorksiteObservedStream),
++            })}`));
++          }
++        }
++        predicateObservations.push(observation);
++      }
++      return null;
++    }).pipe(Effect.catchAll((error) => error instanceof WorksiteHelperFailure ? Effect.succeed(error) : Effect.fail(error)));
++    const after = yield* attempt(() => observations(task));
++    const inventoryAfter = yield* attempt(() => filesystemInventory(sandboxRoot));
++    const delta = worksiteDelta(task, inventoryBefore, inventoryAfter);
++    const productInventoryAfter = yield* attempt(() => filesystemInventory(
++      task.workspaceBinding.roots.productRoot,
++    ));
++    const productDelta = worksiteDelta(task, productInventoryBefore, productInventoryAfter, false);
++    const afterMatches = after.every((row, ordinal) => canonicalEquals(
++      row,
++      worksiteExecutionSources(task)[ordinal]!.observation,
++    ));
++    const artifact = constructWorksiteExecutionHelperArtifact({
++      task,
++      // The adapters ran under this manifest's attempt; the subject names it.
++      ...(failed === null ? {} : { failure: { ...failed.subject, attemptRef: preflight.manifest.attemptRef } }),
++      disposition: failed !== null
++        ? "failure"
++        : !beforeMatches || !afterMatches
++        ? "protected_mismatch"
++        : productDelta.length > 0
++        ? "product_mismatch"
++        : delta.some((row) => row.matchedTerritoryRef === null)
++        ? "territory_mismatch"
++        : "success",
++      commandResults,
++      predicateObservations,
++      worksiteDelta: delta,
++      productDelta,
++      snapshotRoot: sandboxRoot,
++      snapshotRef: snapshot.snapshotRef,
++      snapshotDigest: snapshot.snapshotDigest,
++      snapshotMembers: snapshot.snapshotMembers,
++      protectedBefore: before,
++      protectedAfter: after,
++    });
++    const bytes = Buffer.from(`${canonicalJson(artifact)}\n`, "utf8");
++    yield* attempt(() => publishCreateOnly(artifactPath, bytes));
++    yield* attempt(() => canonicalExistingPathWithinRoot(
++      preflight.manifest.archiveRoot,
++      artifactPath,
++      "file",
++    ));
++    // The acknowledgment is printed for every disposition, a failure included,
++    // and drained before the rethrow: a pipe is asynchronous.
++    const workerReturnProjection = Object.freeze({
++      kind: "worksite_command_execution_worker_result" as const,
++      schemaVersion: "5.0.0" as const,
++      taskRef: task.taskRef,
++      taskDigest: task.taskDigest,
++      attemptRef: preflight.manifest.attemptRef,
++      helperArtifactRef: artifact.artifactRef,
++      helperArtifactDigest: artifact.artifactDigest,
++    }) satisfies WorksiteCommandExecutionWorkerResult;
++    yield* attempt(() => acknowledge(`${canonicalJson(workerReturnProjection)}\n`));
++    if (failed !== null) return yield* Effect.fail(failed);
++  }));
+ }
+ 
+ await main();
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md b/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md
+index 06c4fdf59..f16895efa 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md
+@@ -1,6 +1,6 @@
+ # T-287 Effect Functional repair and refactor plan
+ 
+-Status: **Root accepts bounded Phase2 A construction and physical-contract preservation on source `cbc3e527…` (1,345 rows), under [PHASE2-A-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_FINAL_ACCEPTANCE.json).** The [independent source/Proof conjunction](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/FINAL_CONJUNCTION.md) and [actual four-member proof](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/OPERATOR_RETURN.json) retain both repaired-owner probes passing and whole lifetime **28/28, zero skips**. The exact baseline signal-notice case remains an assertion failure; its current-success counterpart passed in the whole file. This status edit is documentary after proof; the tested bridge/state/test bytes are unchanged. The earlier source freeze and native/red records remain the authoritative history, including the corrected false pre-A compatibility claim. A consolidates; no net-deletion, performance or reliability claim follows. **B remains unactivated; full Phase2 acceptance is still joint A+B.** Phases3–4 and GC03 remain planned. Phase1 and FOUNDATION-ORACLE-001 retain their separate exact closures; six earlier unit skips, synthetic pending-owner limit, peer retained-fact coverage and other qualification obligations remain. [RC11-LIFETIME-REENTRANT-BOUND-001](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/DEFERRED_ROOT_DISPOSITION.json) is a deferred, unexecuted inherited-host hypothesis, not closed by this proof. Installed RC11 is unchanged/local/unqualified/unpublished; RC10 remains pinned. No release is activated.
++Status: **Root accepts bounded Phase2 A construction and physical-contract preservation on source `cbc3e527…` (1,345 rows), under [PHASE2-A-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_FINAL_ACCEPTANCE.json).** The [independent source/Proof conjunction](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/FINAL_CONJUNCTION.md) and [actual four-member proof](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/OPERATOR_RETURN.json) retain both repaired-owner probes passing and whole lifetime **28/28, zero skips**. The exact baseline signal-notice case remains an assertion failure; its current-success counterpart passed in the whole file. This status edit is documentary after proof; the tested bridge/state/test bytes are unchanged. The earlier source freeze and native/red records remain the authoritative history, including the corrected false pre-A compatibility claim. A consolidates; no net-deletion, performance or reliability claim follows. **B is constructed by the native-b01 source pass on accepted A commit `e134103a…` and returned frozen to Root; it is not accepted, and full Phase2 acceptance is still joint A+B.** Its author checks are a fresh scratch compile and the exact `^controlled ` lifetime selector, 30/30 after a first red of 29/30 caused by a binding leak in the new test exposure; whole-file lifetime, physical, m5, carrier, unit, configured-C2 and installed proof remain external after freeze. Phases3–4 and GC03 remain planned. Phase1 and FOUNDATION-ORACLE-001 retain their separate exact closures; six earlier unit skips, synthetic pending-owner limit, peer retained-fact coverage and other qualification obligations remain. [RC11-LIFETIME-REENTRANT-BOUND-001](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/DEFERRED_ROOT_DISPOSITION.json) is a deferred, unexecuted inherited-host hypothesis, not closed by this proof. Installed RC11 is unchanged/local/unqualified/unpublished; RC10 remains pinned. No release is activated.
+ 
+ ## Basis and responsibility
+ 
+@@ -25,7 +25,7 @@ Phases1A/1B may have separate design preparation; integrate and prove one source
+ 
+ ## Phase2 accepted HOW (PHASE2-SCOPE-01, split A/B by PHASE2-A-PREP-01)
+ 
+-Correspondence below is by status: **A removed**, **A R1 repaired** and **A R2 repaired** describe the accepted bounded native04 successor and its selected source/Proof conjunction above. Their predecessor failures remain recorded. **B prospective** remains design and is unactivated.
++Correspondence below is by status: **A removed**, **A R1 repaired** and **A R2 repaired** describe the accepted bounded native04 successor and its selected source/Proof conjunction above. Their predecessor failures remain recorded. **B constructed (native-b01)** describes the frozen B source returned to Root; it is not accepted.
+ 
+ | Status | Displaced mechanism | Replacement |
+ |---|---|---|
+@@ -34,11 +34,14 @@ Correspondence below is by status: **A removed**, **A R1 repaired** and **A R2 r
+ | **A R1 repaired (accepted native04 successor)** | Native02's return-time `probeCount` increment and unconditional stale `probed` fact write/continuation | Immediately before the fast-path evaluation or host probe can re-enter, the bridge dispatches pure `probing`: it counts that entered assessment and makes the tail's probe token the state's `probing`. Like a wait, `probed` acts only while its token is current; a later entry or completion supersedes it, so a stale or sealed result writes no fact and continues nothing, and its entered count is never decremented. A tail cancelled by its own signal/reconcile re-entry never enters and is not counted. A re-check requested while an assessment is still in progress proposes no second probe; that assessment's own result decides against the then-current state, so its kill/deadline continuation cannot be lost to a nested check. Legitimate notify/dispose/seal continuations are unchanged. |
+ | **A R2 repaired (accepted native04 successor)** | Native02/03's discard of a still-valid immediate request together with its superseded probe result (native02 by its phase guard, native03 by stale-token rejection) | A superseded `terminate-immediate` result still writes no fact, its observed absence is never used, and its continuation never runs. Its immediate request alone is decided again through the ordinary `terminate` rule against the then-current state: completed cleanup ignores it; `kill`, drain with confirmed absence or an already-sent KILL performs nothing; drain with unconfirmed absence requests its one KILL; `term` enters `kill` through a fresh, counted assessment whose current result decides KILL and the tightened bound. A graceful request needs no re-decision because any superseding entry or completion carries at least its duty. No state field, input, tail, wait, counter or bridge change is added. The preserved external R2 fixture actually records TERM,KILL before return, a 200ms bound and six entries/count6 on native04; later controlled completion retains16 entries/count16 and three disposals without timer residue. This is the selected controlled relation, not an arbitrary injected-host or OS-absence claim. |
+ | **A preserved, not changed** | `snapshot()` and completion | `snapshot()` still returns a fresh unfrozen view with `cleanupElapsedMs` recomputed on each call, including after completion. Only the completion facts are sealed once, frozen after synchronous disposal errors are recorded and owner error reporting is disconnected. Inert stream/child error guards remain until natural close without mutation authority. Factory/method signatures, inline `observe<T>` return and the Promise completion are unchanged. |
+-| **B prospective** | `runCommand`'s ad hoc `try/finally` coordinator (timeout cancel, heartbeat clear, `activeCommand` reset, capture close and listener removal) and its Promise result | `runCommand` returns one Effect. A Scope owns: the spawned child and lifetime (acquired together; release requests the existing finite cleanup, awaits the lifetime's own completion, then clears `activeCommand`), the unchanged heartbeat interval, and the capture listeners plus command timeout (released only after that physical completion). Ownership precedes fallible listener/timeout setup, whose error remains `lifetime.fail`. No retry, race or Effect timeout is added; Scope interruption is not physical absence. |
+-| **B prospective** | `main`'s Promise sequencing | One helper Effect program, executed once through `runEffectProgram` in `main`; `await main()` stays. Existing async owners are lifted with their original rejection value; only `WorksiteHelperFailure` is caught for D15; the acknowledgment write is drained before the same failure is the program failure; `main` rethrows the squashed original cause. |
++| **B constructed (native-b01)** | `runCommand`'s ad hoc coordinator: the spawn `try/catch` over `let child`, the setup `try/catch`, the `let facts` `try/finally` whose six disposal actions (timeout cancel, heartbeat clear, `activeCommand` reset, capture-flag close, two listener removals) followed the completion await, a heartbeat created outside any protection, and its Promise result | `runCommand` returns one Effect: confinement, `commandScope(launchCommand(…))`, then the unchanged `commandResult`. One uninterruptible `acquireRelease` spawns and creates the lifetime, so the child is owned before any fallible later resource; a synchronous spawn throw stays a value branch to the unchanged `noChildLaunchObservation`. Heartbeat, stdout/stderr capture and command timeout each register their release before their fallible acquisition. Every release, and the ownership release that then clears `activeCommand`, first crosses one `settled(lifetime)` barrier: `requestTermination()`, inert once cleanup began or completed, then the same canonical `completion`. LIFO release therefore never waits before a cleanup request, and partial setup leaves no attached listener, interval or deadline. Setup failure still calls `lifetime.fail` and reaches the existing `command_failed` projection. Copied buffers, the direct-exit capture cut, bounds, heartbeat text/cadence, status mapping, report gating and `activeCommand` emergency behavior are unchanged. The after-completion `captureOpen = false` is removed because `observe` is already inert once completion is published. No retry, race or Effect timeout is added; interruption is not physical absence, and the lifetime's own finite deadlines bound the uninterruptible wait. |
++| **B constructed (native-b01)** | Implicit use/cleanup composition | `commandScope` masks interruption, runs the use restored, retains the actual use Exit, then closes its Scope; Effect combines release Exits sequentially in release order. The failed use, interruption included, is the outcome; otherwise the closed outcome is, so a release fault alone still fails. When a failed use is selected, the release Cause goes to the bounded (8,192 code units) stderr diagnostic seam `commandScopeClosed`, and no serialized field is added. The selection is command-local; there is no helper-wide first-failure cell, so a cleanup `Die` cannot bypass the typed D15 catch. |
++| **B constructed (native-b01)** | `main`'s Promise sequencing, its `let failed` `try/catch` and the inline stdout-write Promise | `main` composes one Effect program and runs it exactly once through the unchanged `runEffectProgram` in `runHelperProgram`; `await main()` stays. Fallible async operations are lifted by `attempt` (`tryPromise` with identity `catch`) and spawn/setup by `attemptSync` (`try` with identity `catch`), so a synchronous invocation throw or a rejection keeps its exact value, `null`, `false` and `undefined` included. The narrow `instanceof WorksiteHelperFailure` catch stays at the command/predicate loop; any other failure, defect or interruption escapes unchanged. A later after-observation, inventory, publication, path or acknowledgment failure escapes as itself; only when all succeed and `acknowledge` has drained does the identical retained failure fail the program. The host projection rethrows the first `Fail`/`Die` payload in sequential order, with presence decided by `Option` rather than by the value, and throws the actual `Cause` for interruption or a parallel Cause. There is no category-priority squash, and `lifetime.fail`'s own normalization is unchanged. |
+ 
+ A adds no Effect wrapper, scheduler, mailbox, registry, parallel probe counter or second coordinator; its bridge still holds the current-state reference and the armed-wait record. **Accounting covers both modules.** The pre-A lifetime was 298 lines/12,633 bytes (278 non-blank, non-comment). Native02 A was lifetime 262/11,508 plus state 227/12,604, totalling 489/24,112. Native03 R1 is lifetime 265/11,658 plus state 237/13,490, totalling 502/25,148 (241 + 201 = 442 non-blank, non-comment). Native04 R2 changes the state module only: lifetime 265/11,658 (byte-identical) plus state 241/13,755, totalling 506/25,413 (241 + 203 = 444 non-blank, non-comment). That is +4 lines/+265 bytes over native03 and +208 lines/+12,780 bytes (+166 non-blank, non-comment) over the predecessor. Combined coordination is unchanged by R2. The bridge holds two mutable bindings (`current` and the once-assigned completion resolver), the three-slot armed-wait record and three unchanged `createMonotonicDeadline` waits. The state carries the fifteen facts plus `waits` and `probing`, with 11 input kinds, 4 tail kinds and 5 probe continuations. R2 adds one conditional branch in `probed`. A consolidates mutable decision state and scattered timer arming into one immutable state/transition plus bridge reconciliation. It is not net deletion; no speed, memory, maintenance or lifecycle-cost saving is claimed. HTTP `oneHttpRequest`/`runHttpProbe` bodies, `worker_transport`, `shared/process`, `shared/effect_definition`, the SIGTERM/SIGINT `process.exit` emergency boundary (ordinary finalizers do not run through it), Product, schemas and admission/replay stay unchanged.
+ 
++**B accounting (native-b01) covers every changed source module.** No `shared/owned_process_scope.ts` is created. Command is B's only adopter, the HTTP and worker bodies stay unchanged, and an extracted acquisition/settlement module would have no second caller. The lifetime and state modules and both HTTP bodies are byte-identical to A. The helper grows from 1,589 lines/68,872 bytes (1,511 non-blank, non-comment) to 1,697/75,347 (1,584): imports +7 lines, the command region 85→158 lines (84→133 code), and `main` with its host projection and acknowledgment 124→152 (118→135). Removed coordination: `runCommand`'s three `try` blocks and its `finally` with six imperative disposal actions, the `let child`/`let facts` definite-assignment bindings, the redundant after-completion capture-flag close, and `main`'s `let failed` `try/catch`. Added: one ownership acquisition, four registered releases, one shared settlement barrier crossed five times, one Scope selection with its diagnostic seam, two identity lifts shared with `main` (14 `attempt` and 3 `attemptSync` sites), one host projection and the named `acknowledge` drain. Retained owner state: `timedOut`, `launchFailed`, `captureOpen`, both capture buffers, `signalSequence`, the module `activeCommand`, and one `heartbeat` handle binding needed to register its release before acquisition. **B is not net deletion:** +108 lines/+6,475 bytes (+73 non-blank, non-comment). Its gain is partial-acquisition coverage, interruption-safe settlement before disposal and exact failure selection, not size. No speed, memory or lifecycle-cost saving is claimed, and HTTP/worker reuse remains unproved future work. The lifetime test file adds the six controlled B cases with one small fixture (+290 lines). m5 (+2 lines) and the carrier (+4) change only their Promise-facing exposure and bare Effect imports. The retained-fact and reentrant-clock capsules stay deferred, and B reopens neither A nor its R1/R2 history.
++
+ ## Phase1 causal proof and retained effects
+ 
+ First test observer stop during await, cutoff10/resolve11, exact boundary10, a never-resolving read, read error, completion before cutoff, and late resolution after return. Check eligibility before every probe and after each wait. Return one sealed snapshot independently of an unresolved external read; no late callback may mutate it or start another probe. Record immediate owner-settle time before copying artifacts. Retain result/error, fixture body/handler/timer readiness, write attempt/completion, exit intention, stdout/stderr and cleanup/absence facts before assertions and scratch removal.
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+index 0c0b0cff7..131bb2d5c 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+@@ -45,33 +45,32 @@ Error or thrown value through every later finalizer/diagnostic failure; absence
+ of a throw is distinct from a thrown null/undefined. Do not rebuild physical
+ facts from callbacks or borrow the outer worker’s process-group evidence.
+ 
+-On failure or unresolved physical scope, main may retain internal diagnostic
+-evidence by create-only publication of the fixed `process-failure.json` sibling
+-at `archiveRoot/worksite-command-execution/<taskDigest hex>/<attemptDigest hex>/`.
+-The exact HOW binds canonical identities, format tag/version, full canonical
+-facts serialization, raw byte/error descriptions, preflight sibling absence,
+-attempted versus verified publication, and partial-residue handling. Retention
+-can be unavailable; a failed publication does not prove no file committed.
+-Preserve the primary failure. Never overwrite, delete, retry or fabricate a
+-complete `result.json`, success acknowledgment or Product result.
+-
+-The named internal `inspectWorksiteCommandExecutionProcessFailure` export in
+-`implementation/worksite_command_execution.ts` rederives the exact task and
+-authority-free occurrence/launch coordinates, verifies the confined canonical
+-single-link diagnostic and its joins, and returns verified-present, absent,
+-invalid or unavailable evidence. It needs no successful Worker exchange or
+-`complete()`. It is an exact-attempt observation, not an admitted event, runtime
+-resource, Public/SDK/CLI endpoint or permission to retry/continue/restore
+-currentness/close. Existing success and ABG admission gates remain unchanged.
+-
+-The failure-retention archive checks and attempted diagnostic publication are
+-the only selected later effects on that branch. No report read, later command,
+-predicate/request, protected-after observation, delta inventory or successful
+-helper artifact follows. Unknown scope remains unknown. No budget or cleanup
+-algorithm changes. The exact original cause, physical facts and failure-side
+-inspection must be proved through the actual helper boundary under a later
+-grant. Dependency-ready source can be selected separately; combined candidate,
+-affected execution and L5 remain held for complete conjunction.
++**Current failure route: [Common Library §9.3](ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#93-process-failure-facts)
++D15.** That HOW's `process-failure.json` sibling and its internal
++`inspectWorksiteCommandExecutionProcessFailure` inspector are superseded and
++not implemented: nothing is written beside `L` and no dedicated inspector
++exists. A command or HTTP failure after launch (`command_failed`,
++`command_cleanup_unresolved`, `http_probe_failed`, `http_cleanup_unresolved`)
++is one `WorksiteHelperFailure` whose subject carries `processFacts`, encoded
++once at its throw site. `main` catches only that class at its command/predicate
++loop, observes protected-after state and inventories, publishes the subject as
++the create-only helper artifact's `failure` disposition, validates the artifact
++path, prints the acknowledgment, waits for that write to drain and only then
++rethrows the identical failure, so the helper still exits non-zero. The parent
++admits the subject inline through the `helper_failure` leaf failure and
++`constructRuntimeFailureDiagnosticRef`; failure inspection is that admitted
++subject (§9.3 items 4 and 6). A later after-observation, inventory,
++publication, path or acknowledgment failure escapes as itself instead of the
++retained failure, and no drained acknowledgment is claimed. Never overwrite,
++delete, retry or fabricate a complete `result.json`, success acknowledgment or
++Product result.
++
++No report read, later command or predicate/request follows the failure.
++Unknown scope remains unknown. No budget or cleanup algorithm changes. The
++exact original cause and physical facts must be proved through the actual
++helper boundary under a later grant. Dependency-ready source can be selected
++separately; combined candidate, affected execution and L5 remain held for
++complete conjunction.
+ 
+ ## 1. Claim
+ 
+@@ -819,14 +818,15 @@ a timeout; cleanup does not manufacture `timedOut` or application failure.
+ 
+ Current common-library E03 continuation: if a command or HTTP probe cannot
+ confirm its owned physical scope absent within the declared bounds, the helper
+-stops before expected-report filesystem observations, any later command or
+-predicate, after snapshot or successful helper-artifact publication. The current
+-failure-handoff amendment permits only its exact create-only diagnostic archive
+-effects on that branch, with publication uncertainty explicit.
+-It uses the existing thrown/non-admitted helper failure route, preserving the
+-original cause and canonical final facts before fallible finalization. The fixed
+-failure sibling and internal inspector retain the exact task/attempt relation
+-and observed command/probe, exit/signal/timeout and physical uncertainty. Observed
++stops before expected-report filesystem observations and any later command or
++predicate, and publishes no successful helper artifact. It takes the D15 route
++of the failure-handoff amendment above (Common Library §9.3 item 4): the
++helper artifact's `failure` disposition carries the subject with its encoded
++`processFacts`, the drained acknowledgment follows, the identical failure is
++rethrown, and the parent admits that subject inline. The subject, built from
++the original cause and canonical final facts before fallible finalization,
++retains the exact task/attempt relation and observed command/probe,
++exit/signal/timeout and physical uncertainty. Observed
+ callback signal lists are distinct from canonical signal attempts. The complete helper
+ artifact contract cannot be replaced by a partial successful artifact. A
+ failed but physically confirmed inner command may still be a truthful
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
+index fb8719569..9f2966d0d 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
+@@ -1230,12 +1230,14 @@ test('owned process groups retain descendant cleanup after normal and TERM leade
+   // Expose only the compiled private command/HTTP owners in this component test VM.
+   // Its function body and imported owners are unchanged; helper main is not run.
+   const modulePath = resolve(import.meta.dirname, '../../build/code/src/implementation/worksite_command_helper.js');
+-  const source = (await readFile(modulePath, 'utf8')).replace(/await main\(\);\s*$/u, 'export { runCommand, runHttpProbe };');
+-  assert.match(source, /export \{ runCommand, runHttpProbe \};$/u);
++  // The Effect command crosses the helper's own host projection to this Promise-facing case.
++  const source = (await readFile(modulePath, 'utf8')).replace(/await main\(\);\s*$/u,
++    'const runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));\nexport { runCommandOnHost as runCommand, runHttpProbe };');
++  assert.match(source, /export \{ runCommandOnHost as runCommand, runHttpProbe \};$/u);
+   const priorSignals = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));
+   const module = new SourceTextModule(source, { identifier: modulePath });
+   await module.link(async specifier => {
+-    const imported = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(modulePath), specifier)).href);
++    const imported = await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(modulePath), specifier)).href : specifier);
+     return new SyntheticModule(Object.keys(imported), function () {
+       for (const [name, value] of Object.entries(imported)) this.setExport(name, value);
+     });
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs
+index 6e7e38e0e..3f80ab6f7 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs
+@@ -57,6 +57,10 @@ const unknownGroupLifetime = {
+   }, observers),
+ };
+ 
++// The helper's Effect command reaches these Promise-facing cases through its own host projection.
++const runCommandOnHost = '\nconst runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));' +
++  '\nexport { runCommandOnHost as runCommand };';
++
+ const holds = (rows, name, identity) => calculus.holdsAt(
+   calculus.deriveRuntimeEventCalculusProjection(prefixes.selectValidatedRuntimeEventPrefix(deepFreeze([...rows]))),
+   calculus.constructRuntimeFluent({ name, identity }));
+@@ -322,14 +326,14 @@ test('helper route: the classifier reports spawn failure as confirmed and unreso
+     commandId: 'command://t287/carrier', executable, args: executable === process.execPath ? ['-e', ''] : [],
+     relativeCwd: '.', environment: [], timeoutMs: 10_000, terminationGraceMs: 50, expectedReports: [] }] });
+ 
+-  const real = await component('implementation/worksite_command_helper', {}, '\nexport { runCommand };', exposeRunCommand);
++  const real = await component('implementation/worksite_command_helper', {}, runCommandOnHost, exposeRunCommand);
+   const launched = await real.runCommand(task(join(scratch, 'absent-executable')), scratch, 0);
+   assert.equal(launched.exitStatus, 127);
+   assert.equal(launched.terminationConfirmed, true, 'a no-child launch failure has nothing to clean up');
+   assert.equal(Buffer.from(launched.stderr.payload, 'base64').toString('utf8').includes('cleanup unresolved'), false);
+ 
+   const unknown = await component('implementation/worksite_command_helper',
+-    { '../shared/owned_process_lifetime.js': unknownGroupLifetime }, '\nexport { runCommand };', exposeRunCommand);
++    { '../shared/owned_process_lifetime.js': unknownGroupLifetime }, runCommandOnHost, exposeRunCommand);
+   let thrown = null;
+   try { await unknown.runCommand(task(process.execPath), scratch, 0); }
+   catch (error) { thrown = error; }
+@@ -371,7 +375,7 @@ test('helper route: an error after launch with unresolved cleanup throws the com
+     observe: () => undefined, fail: () => {}, requestTermination: () => {}, snapshot: () => facts }) };
+   const helper = await component('implementation/worksite_command_helper',
+     { 'node:child_process': { spawn: () => child }, '../shared/owned_process_lifetime.js': stubLifetime },
+-    '\nexport { runCommand };', exposeRunCommand);
++    runCommandOnHost, exposeRunCommand);
+   const task = { taskRef: 'task://t287/carrier', taskDigest: hash('task'), commands: [{
+     commandId: 'command://t287/carrier', executable: 'fixture-command', args: [], relativeCwd: '.', environment: [],
+     timeoutMs: 10_000, terminationGraceMs: 50, expectedReports: [] }] };
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
+index 978784478..01aa1e26d 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
+@@ -9,6 +9,10 @@ import { pathToFileURL } from 'node:url';
+ import { Readable, Writable } from 'node:stream';
+ import { SourceTextModule, SyntheticModule } from 'node:vm';
+ import test from 'node:test';
++import * as Cause from 'effect/Cause';
++import * as Effect from 'effect/Effect';
++import * as Exit from 'effect/Exit';
++import * as Fiber from 'effect/Fiber';
+ import { failureFact, observeOwnerCall, retainEvidence } from '../support/t287-publication-observer.mjs';
+ 
+ // Explicit package selection also lets later proof consume exact packaged bytes.
+@@ -623,21 +627,39 @@ test('controlled lifetime: ordinary, throwing and fast-path assessments count at
+ async function helperModule(t, control = false, overrides = {}) {
+   const path = join(packageRoot, 'build/code/src/implementation/worksite_command_helper.js');
+   let source = (await readFile(path, 'utf8')).replace(/^#!.*\n/u, '');
+-  const suffix = control ? `export async function controlledMain(c) {
++  // Promise-facing callers run the actual Effect command through the helper's own host projection.
++  const onHost = 'const runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));';
++  const suffix = control ? `${onHost}
++  const production = { confinedExistingPath, reportObservation, commandScopeClosed, runCommand,
++    canonicalExistingPathWithinRoot, acknowledge };
++  function controlledBindings(c) {
++    confinedExistingPath = c.confinedPath === undefined ? production.confinedExistingPath : c.confinedPath;
++    reportObservation = c.report === undefined ? production.reportObservation : c.report;
++    commandScopeClosed = c.closed === undefined ? production.commandScopeClosed
++      : (used, closed) => { c.closed(used, closed); production.commandScopeClosed(used, closed); };
++  }
++  export async function controlledMain(c) {
+     admitLaunchManifest=c.admit; observations=c.observations; filesystemInventory=c.inventory;
+-    materializeSnapshot=c.snapshot; runCommand=c.command; predicateObservation=c.predicate;
+-    worksiteDelta=c.delta; publishCreateOnly=c.publish; return main();
++    materializeSnapshot=c.snapshot; predicateObservation=c.predicate;
++    worksiteDelta=c.delta; publishCreateOnly=c.publish; controlledBindings(c);
++    runCommand = c.command === undefined ? production.runCommand : (...args) => attempt(() => c.command(...args));
++    canonicalExistingPathWithinRoot = c.path === undefined ? production.canonicalExistingPathWithinRoot : c.path;
++    acknowledge = c.output === undefined ? production.acknowledge : line => production.acknowledge(line, c.output);
++    return main();
+   }
+-  export async function controlledCommand(c, task) {
+-    confinedExistingPath=c.confinedPath; reportObservation=c.report;
+-    return runCommand(task, '/controlled', 0, 'attempt://selected');
++  export function controlledCommandEffect(c, task) {
++    controlledBindings(c); return production.runCommand(task, '/controlled', 0, 'attempt://selected');
+   }
+-  export { runHttpProbe };` : 'export { runCommand, runHttpProbe };';
++  export const controlledCommand = (c, task) => runHelperProgram(controlledCommandEffect(c, task));
++  export const activeCommandOf = () => activeCommand;
++  export { runHttpProbe, runHelperProgram, WorksiteHelperFailure };` : `${onHost}
++  export { runCommandOnHost as runCommand, runHttpProbe };`;
+   assert.match(source, /await main\(\);\s*$/u); source = source.replace(/await main\(\);\s*$/u, suffix);
+   const previous = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));
+   const mod = new SourceTextModule(source, { identifier: path });
+   await mod.link(async specifier => {
+-    const imported = { ...await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href) };
++    // Relative owners load from the selected package; bare Effect modules resolve as package dependencies.
++    const imported = { ...await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(path), specifier)).href : specifier) };
+     if (control && specifier.endsWith('/worksite_command_forward.js')) {
+       imported.isExecutableWorksiteCommandTask = () => true; imported.executableWorksiteCommandSources = () => [];
+     }
+@@ -691,9 +713,16 @@ function assertDependentFailure(error, prefix, first) {
+   assert.equal(body.processFacts.firstError.message, body.diagnostic.message);
+ }
+ 
++// Explicit acquisition readiness: the helper command reads its lifetime's
++// completion only after its last acquisition. Every other member is the same lifetime.
++function awaitedCompletion(lifetime, notify) {
++  return { ...lifetime, get completion() { notify(); return lifetime.completion; } };
++}
++
+ test('controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error', async t => {
+   for (const ownerFailure of [false, true]) {
+     const clock = controlledClock(), child = new EventEmitter(), first = new Error('first report-owner failure');
++    let notifyReady; const ready = new Promise(resolveReady => { notifyReady = resolveReady; });
+     child.pid = 321;
+     for (const name of ['stdin', 'stdout', 'stderr']) {
+       child[name] = new EventEmitter(); child[name].destroy = () => {};
+@@ -702,9 +731,9 @@ test('controlled command continuation: unresolved cleanup stops before expected-
+     const helper = await helperModule(t, true, {
+       'node:child_process': { spawn: () => child },
+       '../shared/owned_process_lifetime.js': {
+-        createOwnedProcessLifetime: (process, bounds, observations) => lifetime = createOwnedProcessLifetime(process, {
++        createOwnedProcessLifetime: (process, bounds, observations) => awaitedCompletion(lifetime = createOwnedProcessLifetime(process, {
+           ...bounds, host: { clock: clock.clock, platform: 'posix', probeGroup: () => 'unknown', signal: () => {} },
+-        }, observations),
++        }, observations), notifyReady),
+       },
+     });
+     const task = { taskRef: 'task://selected', taskDigest: 'sha256:' + '1'.repeat(64), commands: [{
+@@ -714,7 +743,7 @@ test('controlled command continuation: unresolved cleanup stops before expected-
+     }] };
+     const result = helper.controlledCommand({ confinedPath: async () => '/controlled',
+       report: async () => { reports++; throw new Error('unexpected report filesystem access'); } }, task);
+-    await Promise.resolve();
++    await ready;
+     assert(lifetime);
+     child.stdout.emit('data', Buffer.from('original stdout'));
+     child.stderr.emit('data', Buffer.from('original inner diagnostic'));
+@@ -805,6 +834,267 @@ test('controlled owners: command and HTTP reject the original stream error befor
+   }
+ });
+ 
++// B command fixture: the actual helper Effect command over a controlled child,
++// clock and group host. The group ends at its first requested signal; the log
++// orders signals, the canonical completion and capture-listener detachment.
++const bTask = (timeoutMs = 10000) => ({ taskRef: 'task://b-command', taskDigest: 'sha256:' + '5'.repeat(64),
++  outcomePredicates: [], workspaceBinding: { roots: { productRoot: '/controlled' } },
++  commands: [{ ordinal: 0, commandId: 'command://b-command', executable: 'controlled', args: [], environment: [],
++    relativeCwd: '.', timeoutMs, terminationGraceMs: 100, expectedReports: [] }] });
++const bPaths = { confinedPath: async () => '/controlled', report: async () => assert.fail('no expected-report read') };
++const realTimers = () => process.getActiveResourcesInfo().filter(name => name === 'Timeout').length;
++function bRow({ spawned = () => new ControlledChild(), faults = {} } = {}) {
++  const clock = controlledClock(), log = [];
++  let child = null, lifetime = null, absent = false, notifyReady;
++  const ready = new Promise(resolveReady => { notifyReady = resolveReady; });
++  const fault = (name, stage) => { if (Object.hasOwn(faults, `${name}-${stage}`)) throw faults[`${name}-${stage}`]; };
++  return { clock, log, ready, get child() { return child; }, get lifetime() { return lifetime; },
++    end: (status = 0, afterExit = () => {}) => { absent = true; child.emit('exit', status, null); afterExit(); child.emit('close'); },
++    spawn: () => {
++      child = spawned();
++      for (const name of ['stdout', 'stderr']) {
++        const stream = child[name], on = stream.on.bind(stream), off = stream.off.bind(stream);
++        stream.on = (event, listener) => { if (event === 'data') fault(name, 'attach'); return on(event, listener); };
++        stream.off = (event, listener) => {
++          off(event, listener); if (event === 'data') { log.push(['detach', name]); fault(name, 'detach'); } return stream;
++        };
++      }
++      return child;
++    },
++    own: (owned, bounds, observations) => {
++      lifetime = createOwnedProcessLifetime(owned, { ...bounds, host: { clock: clock.clock, platform: 'posix',
++        probeGroup: () => absent ? 'absent' : 'present',
++        signal: (_child, value) => { log.push(['signal', value]); absent = true; owned.emit('exit', null, value); owned.emit('close'); },
++      } }, observations);
++      lifetime.completion.then(() => log.push(['completion']));
++      return awaitedCompletion(lifetime, notifyReady);
++    } };
++}
++async function bHelper(t, overrides = {}) {
++  let row = null;
++  const helper = await helperModule(t, true, {
++    'node:child_process': { spawn: () => row.spawn() },
++    '../shared/owned_process_lifetime.js': {
++      createMonotonicDeadline: () => createMonotonicDeadline(row.clock.clock),
++      createOwnedProcessLifetime: (child, bounds, observations) => row.own(child, bounds, observations),
++    },
++    ...overrides,
++  });
++  return { helper, start: options => (row = bRow(options)) };
++}
++const settledThenDetached = log => {
++  const settled = log.findIndex(([kind]) => kind === 'completion');
++  assert(settled >= 0 && log.slice(settled + 1).every(([kind]) => kind === 'detach'), JSON.stringify(log));
++  assert.deepEqual(log.slice(settled + 1), [['detach', 'stderr'], ['detach', 'stdout']], 'every capture release follows settlement');
++  return log.slice(0, settled);
++};
++const noResidue = (b, row, timers) => {
++  for (const name of ['stdout', 'stderr']) assert.equal(row.child[name].listenerCount('data'), 0, `${name} listener detached`);
++  assert.equal(row.clock.active(), 0, 'no lifetime or command deadline armed');
++  assert.equal(realTimers(), timers, 'heartbeat interval released');
++  assert.equal(b.helper.activeCommandOf(), null, 'emergency target cleared after settlement');
++};
++
++test('controlled B command: partial setup failures settle before disposal', async t => {
++  const b = await bHelper(t), captureFault = new Error('stderr capture attach failure');
++  // A capture attach fault after stdout attached, and the actual deadline refusing 0 after both captures.
++  for (const [setup, faults, timeoutMs] of [['capture', { 'stderr-attach': captureFault }, 10000], ['timeout', {}, 0]]) {
++    const timers = realTimers(), row = b.start({ faults });
++    const outcome = await b.helper.controlledCommand(bPaths, bTask(timeoutMs)).then(value => ({ value }), error => ({ error }));
++    const first = row.lifetime.snapshot().firstError;
++    if (setup === 'capture') assert.equal(first, captureFault, 'the setup failure reaches the existing lifetime.fail');
++    else assert.equal(first.message, 'owned process wait must be positive and finite');
++    assertDependentFailure(outcome.error, 'worksite command failed; dependent work stopped: ', first);
++    assert.deepEqual(settledThenDetached(row.log), [['signal', 'SIGKILL']], `${setup}: finite cleanup requested before any wait`);
++    noResidue(b, row, timers);
++  }
++});
++
++test('controlled B command: interruption settles before capture disposal', async t => {
++  const b = await bHelper(t);
++  for (const ending of ['interrupt', 'direct exit']) {
++    const timers = realTimers(), row = b.start();
++    let caught = false, observed;
++    const value = await b.helper.runHelperProgram(Effect.gen(function* () {
++      const fiber = yield* Effect.fork(b.helper.controlledCommandEffect(bPaths, bTask()));
++      yield* Effect.promise(() => row.ready);
++      const chunk = Buffer.from('before-exit');
++      row.child.stdout.emit('data', chunk); chunk.fill(0);
++      if (ending === 'interrupt') yield* Fiber.interrupt(fiber);
++      else row.end(0, () => row.child.stdout.emit('data', Buffer.from('after-exit')));
++      return yield* Fiber.join(fiber);
++    })).catch(error => { caught = true; observed = error; });
++    if (ending === 'interrupt') {
++      assert.equal(caught, true, 'interruption is not success');
++      assert(Cause.isCause(observed) && Cause.isInterruptedOnly(observed), 'the host keeps the actual interruption Cause');
++      assert.deepEqual(settledThenDetached(row.log), [['signal', 'SIGTERM']], 'interruption requests finite cleanup first');
++      assert.deepEqual(row.lifetime.snapshot().directExit, { status: null, signal: 'SIGTERM' });
++    } else {
++      assert.equal(caught, false);
++      assert.equal(decode(value.stdout), 'before-exit', 'copied bytes before the direct-exit capture cut only');
++      assert.equal(value.exitStatus, 0); assert.equal(value.terminationConfirmed, true); assert.deepEqual(value.signalSequence, []);
++      assert.deepEqual(settledThenDetached(row.log), []);
++    }
++    noResidue(b, row, timers);
++  }
++});
++
++test('controlled B command: primary use and cleanup-only failures retain exact outcomes', async t => {
++  const b = await bHelper(t), first = new Error('primary command failure');
++  const stdoutFault = new Error('stdout release fault'), stderrFault = new Error('stderr release fault');
++  for (const [name, primary, faults, releaseOrder] of [
++    ['primary use with a secondary release fault', first, { 'stdout-detach': stdoutFault }, [stdoutFault]],
++    ['cleanup-only Error', null, { 'stdout-detach': stdoutFault }, [stdoutFault]],
++    ['cleanup-only undefined', null, { 'stdout-detach': undefined }, [undefined]],
++    ['two cleanup faults', null, { 'stdout-detach': stdoutFault, 'stderr-detach': stderrFault }, [stderrFault, stdoutFault]],
++  ]) {
++    const row = b.start({ faults }), scopes = [];
++    let caught = false, observed;
++    const pending = b.helper.controlledCommand({ ...bPaths, closed: (used, closed) => scopes.push({ used, closed }) }, bTask())
++      .catch(error => { caught = true; observed = error; });
++    await row.ready;
++    if (primary !== null) row.lifetime.fail(primary); else row.end(0);
++    await pending;
++    assert.equal(caught, true, `${name}: failure present whatever its value`);
++    assert.equal(scopes.length, 1); const [{ used, closed }] = scopes;
++    settledThenDetached(row.log);
++    // The closed Scope keeps every release fault, in release order, as a defect.
++    assert(Exit.isFailure(closed)); assert.equal([...Cause.failures(closed.cause)].length, 0);
++    const defects = [...Cause.defects(closed.cause)];
++    assert.equal(defects.length, releaseOrder.length); defects.forEach((defect, index) => assert(Object.is(defect, releaseOrder[index]), name));
++    if (primary !== null) {
++      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);
++      const failures = [...Cause.failures(used.cause)];
++      assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical primary use failure is the outcome');
++      assertDependentFailure(observed, 'worksite command failed; dependent work stopped: ', first);
++    } else {
++      assert(Exit.isSuccess(used));
++      assert(Object.is(observed, releaseOrder[0]), `${name}: the first release fault in release order is the outcome`);
++    }
++    assert.equal(b.helper.activeCommandOf(), null); assert.equal(row.clock.active(), 0);
++  }
++});
++
++test('controlled B helper: raw failures survive actual lifts and host projection', async t => {
++  const b = await bHelper(t);
++  const preflight = (admit, calls) => b.helper.controlledMain({ admit,
++    observations: async () => { calls.push('observations'); return []; }, inventory: async () => { calls.push('inventory'); return []; },
++    snapshot: async () => { calls.push('snapshot'); return {}; }, command: async () => { calls.push('command'); },
++    predicate: async () => { calls.push('predicate'); }, delta: () => { calls.push('delta'); return []; },
++    publish: async () => { calls.push('publication'); } });
++  for (const value of [new Error('raw error'), { raw: 'object' }, 'raw string', null, false, undefined]) {
++    for (const lift of ['promise rejection', 'synchronous invocation throw', 'synchronous spawn throw', 'release defect']) {
++      const calls = [];
++      let pending;
++      if (lift === 'promise rejection') pending = preflight(() => Promise.reject(value), calls);
++      else if (lift === 'synchronous invocation throw') pending = preflight(() => { throw value; }, calls);
++      else if (lift === 'synchronous spawn throw') {
++        b.start({ spawned: () => { throw value; } }); pending = b.helper.controlledCommand(bPaths, bTask());
++      } else {
++        const row = b.start({ faults: { 'stdout-detach': value } });
++        pending = b.helper.controlledCommand(bPaths, bTask()); await row.ready; row.end(0);
++      }
++      let caught = false, observed;
++      try { await pending; } catch (error) { caught = true; observed = error; }
++      assert.equal(caught, true, `${lift}: failure present whatever its value`);
++      assert(Object.is(observed, value), `${lift}: the exact raw value, never a wrapper`);
++      assert.deepEqual(calls, [], 'a preflight failure launches and publishes nothing');
++      assert.equal(b.helper.activeCommandOf(), null);
++    }
++  }
++  // API counterexamples, not observed helper Causes: sequential order, not a
++  // preferred category, selects the raw value; a parallel Cause has none.
++  const primary = new Error('primary defect'), secondary = new Error('secondary failure');
++  for (const [shape, cause] of [['sequential', Cause.sequential(Cause.die(primary), Cause.fail(secondary))],
++    ['parallel', Cause.parallel(Cause.fail(primary), Cause.fail(secondary))]]) {
++    let caught = false, observed;
++    try { await b.helper.runHelperProgram(Effect.failCause(cause)); } catch (error) { caught = true; observed = error; }
++    assert.equal(caught, true, shape);
++    if (shape === 'sequential') assert(Object.is(observed, primary), 'no category-priority squash');
++    else assert(Cause.isCause(observed) && !(observed instanceof Error), 'an ambiguous Cause stays a Cause');
++  }
++});
++
++// D15 through main: the injected constructor stands in for Product artifact
++// construction; every helper step, lift, command and the drain are actual.
++const bArtifact = log => ({ '../product/worksite_command_execution.js': { constructWorksiteExecutionHelperArtifact: input => {
++  log.push(['artifact', input]); return { artifactRef: 'artifact://b-selected', artifactDigest: 'sha256:' + '6'.repeat(64) };
++} } });
++const bMain = (log, overrides) => ({
++  admit: async () => ({ task: bTask(), sandboxRoot: '/controlled-sandbox', artifactPath: '/controlled-artifact',
++    manifest: { attemptRef: 'attempt://selected', archiveRoot: '/controlled-archive' } }),
++  observations: async () => { log.push(['observations']); return []; }, inventory: async () => { log.push(['inventory']); return []; },
++  snapshot: async () => ({ snapshotRef: 'snapshot://b', snapshotDigest: 'sha256:' + '7'.repeat(64), snapshotMembers: [] }),
++  predicate: async () => assert.fail('no predicate after a command failure'), delta: () => [],
++  publish: async (path, bytes) => { log.push(['publication', path, JSON.parse(bytes)]); },
++  path: async (root, path, kind) => { log.push(['path', root, path, kind]); return path; },
++  ...bPaths, ...overrides,
++});
++
++test('controlled B helper: command failure reaches artifact and drained acknowledgment', async t => {
++  const log = [], scopes = [], b = await bHelper(t, bArtifact(log));
++  const first = new Error('primary command failure'), releaseFault = new Error('secondary release fault');
++  const row = b.start({ faults: { 'stdout-detach': releaseFault } });
++  let drain, notifyWritten, caught = false, observed;
++  const written = new Promise(resolveWritten => { notifyWritten = resolveWritten; });
++  const output = { write: (line, callback) => {
++    log.push(['acknowledgment', JSON.parse(line)]); drain = () => { log.push(['drained']); callback(); }; notifyWritten(); return true;
++  } };
++  const outcome = b.helper.controlledMain(bMain(log, { output, closed: (used, closed) => scopes.push({ used, closed }) }))
++    .catch(error => { caught = true; observed = error; log.push(['rejected']); });
++  await row.ready; row.lifetime.fail(first);
++  await Promise.race([written, outcome]);
++  await new Promise(resolveTurn => setImmediate(resolveTurn));
++  assert.equal(caught, false, 'no rethrow before the acknowledgment drains'); assert(drain, 'acknowledgment written');
++  drain(); await outcome;
++  assert.equal(caught, true);
++  assertDependentFailure(observed, 'worksite command failed; dependent work stopped: ', first);
++  assert.equal(scopes.length, 1); const [{ used, closed }] = scopes;
++  const failures = [...Cause.failures(used.cause)], defects = [...Cause.defects(closed.cause)];
++  assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical command failure was retained');
++  assert(defects.length === 1 && Object.is(defects[0], releaseFault), 'the secondary release fault stays in the closed Scope');
++  assert.deepEqual(log.map(([kind]) => kind), ['observations', 'inventory', 'inventory', 'observations', 'inventory', 'inventory',
++    'artifact', 'publication', 'path', 'acknowledgment', 'drained', 'rejected']);
++  const artifact = log.find(([kind]) => kind === 'artifact')[1];
++  assert.equal(artifact.disposition, 'failure'); assert.deepEqual(artifact.commandResults, []);
++  assert.deepEqual(artifact.failure, { ...observed.subject, attemptRef: 'attempt://selected' });
++  assert.equal(artifact.failure.processFacts.firstError.message, first.message);
++  assert.deepEqual(log.find(([kind]) => kind === 'publication').slice(1),
++    ['/controlled-artifact', { artifactDigest: 'sha256:' + '6'.repeat(64), artifactRef: 'artifact://b-selected' }]);
++  assert.deepEqual(log.find(([kind]) => kind === 'path').slice(1), ['/controlled-archive', '/controlled-artifact', 'file']);
++  const acknowledgment = log.find(([kind]) => kind === 'acknowledgment')[1];
++  assert.equal(acknowledgment.helperArtifactRef, 'artifact://b-selected'); assert.equal(acknowledgment.attemptRef, 'attempt://selected');
++});
++
++test('controlled B helper: later publication path and acknowledgment failures retain precedence', async t => {
++  const log = [], b = await bHelper(t, bArtifact(log));
++  const steps = ['observations', 'inventory', 'inventory', 'command', 'observations', 'inventory', 'inventory',
++    'artifact', 'publication', 'path', 'acknowledgment'];
++  for (const [stage, later, through] of [
++    ['after observation', new Error('after observation refused'), 5], ['after inventory', 'after inventory refused', 6],
++    ['publication', null, 9], ['path validation', undefined, 10],
++    ['acknowledgment', Object.assign(new Error('write EPIPE'), { code: 'EPIPE' }), 11], ['none', null, 11],
++  ]) {
++    log.length = 0;
++    const retained = new b.helper.WorksiteHelperFailure('worksite command failed; dependent work stopped', { stage },
++      { failureClass: 'command_failed', taskRef: 'task://b-command', attemptRef: null });
++    const count = kind => log.filter(([logged]) => logged === kind).length;
++    const fail = (at, selected = true) => { if (stage === at && selected) throw later; };
++    let caught = false, observed;
++    await b.helper.controlledMain(bMain(log, {
++      command: async () => { log.push(['command']); throw retained; },
++      observations: async () => { log.push(['observations']); fail('after observation', count('observations') === 2); return []; },
++      inventory: async () => { log.push(['inventory']); fail('after inventory', count('inventory') === 3); return []; },
++      publish: async () => { log.push(['publication']); fail('publication'); },
++      path: async () => { log.push(['path']); fail('path validation'); },
++      output: { write: (_line, callback) => { log.push(['acknowledgment']); callback(stage === 'acknowledgment' ? later : null); return true; } },
++    })).catch(error => { caught = true; observed = error; });
++    assert.equal(caught, true, stage);
++    assert(Object.is(observed, stage === 'none' ? retained : later), `${stage}: the later exact failure supersedes the retained one`);
++    assert.deepEqual(log.map(([kind]) => kind), steps.slice(0, through), `${stage}: nothing later runs`);
++  }
++});
++
+ test('physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed', { timeout: 5000 }, async t => {
+   const child = spawn(process.execPath, ['-e', 'process.stdout.write("actual-output")'], { detached: process.platform !== 'win32', stdio: ['pipe', 'pipe', 'pipe'] });
+   t.after(() => { if (alive(process.platform === 'win32' ? child.pid : -child.pid)) { try { process.platform === 'win32' ? child.kill('SIGKILL') : process.kill(-child.pid, 'SIGKILL'); } catch (error) { if (error.code !== 'ESRCH') throw error; } } });

@@ -1,0 +1,109 @@
+{
+  "checks": [
+    {
+      "ordinalZeroBased": 21,
+      "tool": {
+        "line": 2697,
+        "id": "toolu_01Xu3ocNhj8RjTuvrCxAiS9k",
+        "name": "Bash",
+        "input": {
+          "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03; R=/private/tmp/abg-rc11-foundation-20261110-01; start=$(date +%s); perl -e 'alarm shift; exec @ARGV' 240 /opt/homebrew/Cellar/node/24.7.0/bin/node \"$R/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js\" -p \"$R/build_tenants/abiogenesis/typescript/tsconfig.json\" --outDir \"$S/tenant/build/code/src\" --incremental false > \"$S/compile-01.log\" 2>&1; rc=$?; echo \"exit=$rc seconds=$(( $(date +%s) - start ))\"; cat \"$S/compile-01.log\" | head -40; ls -la \"$S/tenant/build/code/src/shared/\" | grep owned_process",
+          "description": "Compile changed source into scratch tenant with 240s cap",
+          "timeout": 300000
+        },
+        "result": {
+          "line": 2701,
+          "isError": false,
+          "canonicalBytes": 308,
+          "sha256": "84796bf799b9e2601209ec69d48c9f23c0bc05dd1a48764fd480b019503a6158"
+        }
+      },
+      "actualOutput": {
+        "line": 2701,
+        "isError": false,
+        "content": "exit=0 seconds=8\n-rw-r--r--   1 jim  wheel   2706 Nov 10 12:33 owned_process_lifetime.d.ts\n-rw-r--r--   1 jim  wheel  10055 Nov 10 12:33 owned_process_lifetime.js\n-rw-r--r--   1 jim  wheel   4536 Nov 10 12:33 owned_process_state.d.ts\n-rw-r--r--   1 jim  wheel   8865 Nov 10 12:33 owned_process_state.js"
+      }
+    },
+    {
+      "ordinalZeroBased": 23,
+      "tool": {
+        "line": 2829,
+        "id": "toolu_01KVmYrte9Fu6QyWp1LWPfUP",
+        "name": "Bash",
+        "input": {
+          "command": "S=/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03; cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && start=$(date +%s); env ABI5_OWNED_PROCESS_PACKAGE_ROOT=\"$S/tenant\" ABI5_TEST_EVIDENCE_DIR=\"$S/evidence\" TMPDIR=\"$S/tmp\" NODE_OPTIONS= NODE_PATH= perl -e 'alarm shift; exec @ARGV' 60 /opt/homebrew/Cellar/node/24.7.0/bin/node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-timeout=60000 '--test-name-pattern=^controlled (timing|lifetime):' test_env/tests/t287-owned-process-lifetime.test.mjs > \"$S/controlled-01.tap\" 2>&1; rc=$?; echo \"exit=$rc seconds=$(( $(date +%s) - start ))\"; grep -E \"^(not )?ok|^# (tests|suites|pass|fail|skipped|todo|cancelled|duration)\" \"$S/controlled-01.tap\"",
+          "description": "Run controlled timing/lifetime selector with 60s cap",
+          "timeout": 90000
+        },
+        "result": {
+          "line": 2833,
+          "isError": false,
+          "canonicalBytes": 2204,
+          "sha256": "85cd3f5aeb2c7d8c8f644b45ebefa3707a3dfe468836ea3787359c22ffe65e7e"
+        }
+      },
+      "actualOutput": {
+        "line": 2833,
+        "isError": false,
+        "content": "exit=0 seconds=0\nok 1 - controlled timing: host boundaries, finite huge and fractional delays never become early actions\nok 2 - controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing\nok 3 - controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit\nok 4 - controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure\nok 5 - controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection\nok 6 - controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct\nok 7 - controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close\nok 8 - controlled lifetime: callback errors stop ordinary observations and retain the first error\nok 9 - controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct\nok 10 - controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes\nok 11 - controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows\nok 12 - controlled lifetime: first error and disposal faults are recorded before the one completion publication\nok 13 - controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result\nok 14 - controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close\nok 15 - controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result\nok 16 - controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact\nok 17 - controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted\nok 18 - controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds\n# tests 18\n# suites 0\n# pass 18\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 201.750958"
+      }
+    }
+  ],
+  "receipts": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/compile-01.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-03/controlled-01.tap",
+      "bytes": 5216,
+      "sha256": "56e8b00a67a09cecc475666d529cc14c56fbe33552f462944b52b46f34108eda"
+    }
+  ],
+  "population": {
+    "total": 18,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "names": [
+      "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+      "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+      "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+      "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+      "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+      "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+      "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+      "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+      "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+      "controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes",
+      "controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows",
+      "controlled lifetime: first error and disposal faults are recorded before the one completion publication",
+      "controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result",
+      "controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close",
+      "controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result",
+      "controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact",
+      "controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted",
+      "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds"
+    ]
+  },
+  "firstRed": null,
+  "compilerInputOrder": {
+    "lastTypeScriptWrites": [
+      14,
+      15
+    ],
+    "testWrites": [
+      18,
+      19
+    ],
+    "compile": 21,
+    "controlled": 23,
+    "laterSourceWrites": [
+      26,
+      27
+    ],
+    "laterWritesMeaning": "Only documentary plan changed after compiler/test; no TypeScript/test edits afterward."
+  }
+}

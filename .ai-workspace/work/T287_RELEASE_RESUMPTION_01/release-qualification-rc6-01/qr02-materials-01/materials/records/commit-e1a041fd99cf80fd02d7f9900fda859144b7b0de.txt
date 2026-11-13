@@ -1,0 +1,18 @@
+tree c09fb7ffc21a3190e45754b224131ee1964b4ca2
+parent 92498a2d29eca294d851557753cbda2fe047c357
+author Dimitar Popov <jimpopov@gmail.com> 1793234565 +1100
+committer Dimitar Popov <jimpopov@gmail.com> 1793234565 +1100
+
+D5-c: the native qualification made dispatch-ready without a provider call (projection 520.21 USD, 409 calls; execution material 7,528,927 bytes; eight behaviors analysed)
+
+Not dispatch-ready.
+- 70 execution-class slots render at 8.24 to 9.28 MB, over both bounds (a Product finding).
+- 7 complement slots are over the prompt bound with no lawful partition (a ruling question).
+- Each assess@5 start costs about 291 s in process, in validator/qualification.ts:507.
+
+The provenance: 24 chains, 1,520 records, held, every slot valid. The dry mode admitted the C2, 119 rulings, F11,
+AF22 and assess 0 to 2 at full scale and stopped before any spawn. 0 USD.
+
+The record is .ai-workspace/comments/claude/20261029T003734Z_D5C_DISPATCH_READY/ and the D5-c return in phase_d.md.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

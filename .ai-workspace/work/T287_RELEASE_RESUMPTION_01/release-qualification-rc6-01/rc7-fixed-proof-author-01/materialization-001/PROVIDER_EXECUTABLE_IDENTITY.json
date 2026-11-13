@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/claude-provider.sh",
+      "bytes": 729,
+      "sha256": "96367a65195801d4bbfc7fc2b7efff98a905fae133f5a584b66aa08e485f6092",
+      "mode": "0o755",
+      "regularFile": true,
+      "executable": true
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b",
+      "mode": "0o755",
+      "regularFile": true,
+      "executable": true
+    }
+  ],
+  "providerInvoked": false,
+  "credentialsRead": false
+}

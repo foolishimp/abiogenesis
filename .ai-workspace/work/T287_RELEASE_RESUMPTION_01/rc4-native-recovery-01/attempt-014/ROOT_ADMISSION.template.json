@@ -1,0 +1,8 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "6ab7cf5c7fedddfb77fbdeb56cdd56bcdcb98da1b0a0f427494fd327375b4734",
+  "sourceCommit": "16d245c1e30119c4f8bbadce06c63d857a576ee4",
+  "sourceTree": "8da4f23ce03482ad294b434322261a2f40e57edd",
+  "decision": "Root selection pending: bounded014 installed zero-provider preflight/call construction only on preserved unaccepted013 source, nine manual repair paths/canonical helper conditional/zero generated Construction writes/four scratch entries. Actual frozen-call review required before one-shot dispatch; no automatic retry or acceptance."
+}

@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 53846.481833,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 9,
+    "failed": 0,
+    "passed": 9,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 9,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-010/events/093-t287-gtl-serialization-publication.jsonl",
+    "bytes": 3145,
+    "sha256": "17c25a0087018e16081684507709fe638e4ebf982f1c178ae19a236673db07a6"
+  },
+  "commandReceipt": "commands/093-t287-gtl-serialization-publication.result.json",
+  "workspace": "/private/tmp/abg-r8c-010/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

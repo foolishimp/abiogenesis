@@ -1,0 +1,29 @@
+{
+  "status": "EXACT_RC8_SUCCESSOR_MATERIALIZED",
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+  "branch": "codex/rc9-owner-reuse",
+  "root": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+  "materializationStartedUtc": "2026-11-08T06:11:52.182190+00:00",
+  "completedUtc": "2026-11-08T06:11:53.722503+00:00",
+  "materializationWallMs": 1540.0705421343446,
+  "materializedTrackedFiles": 1339,
+  "materializedBytes": 38097605,
+  "sparseSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc9-owner-reuse/info/sparse-checkout",
+    "bytes": 36309,
+    "sha256": "cc5bf156a20e9042817f7c751ecd0d58f9dfea3a752622f833bd30a1142a9e26"
+  },
+  "selectionOrigin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc8-reference-preservation/info/sparse-checkout",
+    "bytes": 36309,
+    "sha256": "cc5bf156a20e9042817f7c751ecd0d58f9dfea3a752622f833bd30a1142a9e26"
+  },
+  "trackedStatus": "",
+  "freeBytesBefore": 336164204544,
+  "freeBytesAfter": 336093016064,
+  "noProductEdits": true,
+  "noRuntimeAllocation": true,
+  "noNativeDispatch": true,
+  "setupReconciliation": "git worktree add --no-checkout and sparse-checkout set left new index empty; confirmed empty index and used git read-tree -mu HEAD solely in the new worktree. No preexisting source was removed. Timing starts at final materialization, not initial branch creation."
+}

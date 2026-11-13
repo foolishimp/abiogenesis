@@ -1,0 +1,9 @@
+{
+  "label": "command-transport",
+  "pid": 78231,
+  "groupId": 78231,
+  "directChildPresence": "absent",
+  "ownedGroupPresence": "absent",
+  "observedAt": "2026-11-07T15:11:46.518Z",
+  "physicalAbsenceIsNotAdmission": true
+}

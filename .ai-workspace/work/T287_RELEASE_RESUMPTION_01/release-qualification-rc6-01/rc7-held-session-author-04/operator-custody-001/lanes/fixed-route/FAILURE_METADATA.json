@@ -1,0 +1,32 @@
+{
+  "kind": "bounded_existing_test_failure_metadata",
+  "observedUtc": "2026-11-06T18:32:07.413555+00:00",
+  "tap": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01-lanes-fixed-route/fixed-route.stdout.tap",
+    "bytes": 3914,
+    "sha256": "f979543dac4f7ba6391b029594817c4fafdf4aaefd470509bffbd18debfb2522"
+  },
+  "test": "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+  "diagnostic": {
+    "label": "fixed-crossed-input",
+    "exitCode": 1,
+    "outcomeKind": "refusal",
+    "disposition": null,
+    "code": "invalid_input",
+    "issuePaths": [
+      "/input"
+    ],
+    "failure": null,
+    "events": []
+  },
+  "assertion": {
+    "expected": "invalid_intent",
+    "actual": "invalid_input",
+    "code": "ERR_ASSERTION",
+    "operator": "strictEqual"
+  },
+  "locations": [
+    "location: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-04/tmp/hs4-stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:2510:1'"
+  ],
+  "standing": "Actual failed assertion metadata only; no private provider content. Source/guard/test-correction classification remains Root/reviewer owned; no admission/positive route completion inferred."
+}

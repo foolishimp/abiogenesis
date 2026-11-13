@@ -1,0 +1,65 @@
+{
+  "kind": "native_author_actual_preparation_phases",
+  "status": "SDK_CALL_PREPARED_ACTOR_START_SEPARATE",
+  "recordedUtc": "2026-11-06T14:50:27.831277+00:00",
+  "hostStartUtc": "2026-11-06T14:41:43.605Z",
+  "hostPid": 83585,
+  "preparedCall": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/PREPARED_CALL.json",
+    "bytes": 3066,
+    "sha256": "d727360144f91fafe978e6ca465e7bc24aff66ec56689d62e0a606c13d9607e8"
+  },
+  "startedReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/STARTED.json",
+    "bytes": 888,
+    "sha256": "98144fc9c8e3d70f4d92d7fa7bf84ef09037b8236881aa3cc370e9e0f3d1b33c"
+  },
+  "cumulativeMs": {
+    "beforeRunIdentityMs": 3765.247875,
+    "acquiredMs": 193375.25608300001,
+    "environmentMs": 447325.019666,
+    "preparedMs": 456306.11062500003
+  },
+  "phaseMs": {
+    "identity": 3765.247875,
+    "acquireAfterIdentity": 189610.008208,
+    "environmentAfterAcquire": 253949.76358299996,
+    "constructionAfterEnvironment": 8981.090959000052
+  },
+  "contextEntries": 474,
+  "renderedNativeOrderBytes": 51584,
+  "capacity": {
+    "kind": "actual_existing_native_order_render_measurement",
+    "renderedNativeOrderBytes": 51584,
+    "maxPromptBytes": 1048576,
+    "reserveBytes": 131072,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Actual owner work-order text, not complete transport/instruction assembly. Existing dispatch owners apply actual remaining guards.",
+      "No selector is part of the selected one-node native author Program."
+    ]
+  },
+  "invocationRef": "invocation://abiogenesis/0ba4bf16c0eb41c8f1c415361f9b5f442c4f88eef7a0bc0c638ca3fbb96ee4b2",
+  "inputCanonicalDigest": "sha256:46e4f978ef944d0ca4b7b5ee6a8d822186d058e282d2abf4ccb26a1b90c5a497",
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 1910935493,
+    "prefixDigest": "sha256:b63e19d67982429feecae067639de0be4444849ef91ae1f113387275035af166",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 701759869,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:baeac38db2c45405515bc1c38fed006c58388cbd151bbc85a19b87ed8e4f28b5"
+  },
+  "actorStart": null,
+  "limits": [
+    "STARTED.startedUtc is the host timestamp, not native actor start.",
+    "Cumulative preparation456.306s is actual existing RC6 owner work over the selected prefix; no matched speedup, cause attribution or RC7 performance qualification.",
+    "Same resource/caller/environment/call remained in memory per the existing owner record. No raw call/capability body serialized by custody."
+  ]
+}

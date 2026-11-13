@@ -1,0 +1,52 @@
+{
+  "kind": "additive_static_resource_readiness_return",
+  "at": "2026-11-06T00:21:49.318363+00:00",
+  "originalPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/CONTROL_PREPARATION.json",
+    "bytes": 25517,
+    "sha256": "0e858c1ff159a238f2b0f99d56453f508e3693b93644c3124cdd7640d77f490e"
+  },
+  "originalReadable": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/CONTROL_PREPARATION.md",
+    "bytes": 2643,
+    "sha256": "74efcb88e2f01f83413bfea24544b1cab6e16d42bf669d8e1d159eaba7f7157e"
+  },
+  "resourceNote": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/ASSESSMENT_RESOURCE_NOTE.json",
+    "bytes": 20232,
+    "sha256": "494ccb660ce6f23e70d67d61f5003a9ef506e9cb28dc40cdc85e31e5d5391669"
+  },
+  "readableNote": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/ASSESSMENT_RESOURCE_NOTE.md",
+    "bytes": 1899,
+    "sha256": "4d3a5dcc9f51e716be657a48cee59dac79fce9d6983e59d085aacf3b7620193d"
+  },
+  "status": "CLOSED_ADDITIVE_NOTE_NO_BINDING_OR_SCOPE_CHANGE",
+  "keyResult": {
+    "assessmentSources": 59,
+    "knownPriorStaticBytes": 2164452,
+    "finalHandoffsUnknown": 3,
+    "mutableSourceEntriesFinalBytesUnknown": 20,
+    "sourceReferenceArrayBytes": 9348,
+    "sourceBodiesInInitialUatPrompt": false,
+    "finalPromptFit": null
+  },
+  "unchanged": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/C2_RECIPE.json",
+      "bytes": 45548,
+      "sha256": "1dda60a62f5e18d1d500df46b875b0ceb3d369d63b588e0e41b332d065209729"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/workload.json",
+      "bytes": 96072,
+      "sha256": "16b43895e003d9816d902a723418825a73757593859f04d457388086890c4c7a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/RUNTIME_BINDINGS.json",
+      "bytes": 1046,
+      "sha256": "f028f55182f6e051056a6735e0a44ab5a958b2a1484c6dde006981d3c02657bb"
+    }
+  ],
+  "standing": "Preserve original closed return; final source/close and actual assembled-prompt checks remain barriers. No owner call, staging, Product read/edit, tests/provider/runtime executed."
+}

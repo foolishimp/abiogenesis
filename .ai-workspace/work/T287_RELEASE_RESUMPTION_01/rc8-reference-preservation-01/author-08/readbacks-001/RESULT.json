@@ -1,0 +1,42 @@
+{
+  "status": "READBACKS_PASSED_ABSENT_TERMINAL_UNCHANGED_PREFIX",
+  "startedUtc": "2026-11-07T09:09:56.891Z",
+  "completedUtc": "2026-11-07T09:13:29.271Z",
+  "wallMs": 212378.113583,
+  "observations": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "refusal",
+      "outcome": "calls/run_result.outcome.json",
+      "outcomeDigest": "sha256:1675125e46b13e959ed736b03ae2f776eab5269c4527abf17a3ff599d045d9f0",
+      "source": null,
+      "status": null,
+      "terminal": null
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "outcome": "calls/run_replay.outcome.json",
+      "outcomeDigest": "sha256:714e35b3f8f7507c0e8c4339a8d97675eb0f9782617aed35a585e3ca2659a447",
+      "source": {
+        "digest": "sha256:a45e68bad5186f4270bb15b14c8a3e0f1e6f1a566d7c46d0ff8af0d6bc6717ed",
+        "ref": "run://abiogenesis/2618b1e5f2a34dde48f417ecf85eb28bcd27fe6fd6aa6116218bfc6a7d8549be"
+      },
+      "status": "failed",
+      "terminal": null
+    }
+  ],
+  "physicalIdentity": {
+    "device": 16777231,
+    "inode": 708868359,
+    "byteCount": 146410800,
+    "digest": "sha256:fa254d2e71366647b090b526a476953c145e2a4e34929cc11e284fa19f1b57f1"
+  },
+  "prefixUnchanged": true,
+  "typedTerminalAbsentInActualSdkAndBothReads": true,
+  "actualSdkDisposition": "runtime_failed",
+  "actualSdkOwnerOutputDigest": "sha256:4da682936b7db309873a3d1cc42ff7f0ca431d46391f5afd3004a848c1d42e55",
+  "fullTypedTerminalDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+  "sourceAccepted": false,
+  "qualified": false
+}

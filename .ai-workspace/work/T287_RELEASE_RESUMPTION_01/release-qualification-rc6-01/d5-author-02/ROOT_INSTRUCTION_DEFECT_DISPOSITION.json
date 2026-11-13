@@ -1,0 +1,24 @@
+{
+  "kind": "root_operator_instruction_defect_disposition",
+  "at": "2026-11-06T00:19:22.816188+00:00",
+  "diagnosis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/CONTROL_DEFECT.json",
+    "bytes": 7181,
+    "sha256": "1fdb0dc91206745b1cdb699b106415d3b534b1fa248ef46018eb3c3b4fba4bf6"
+  },
+  "classification": "S4_OPERATOR_CONTROL_SEGMENTATION_ERROR",
+  "originatingRelation": "The intended supplemental instruction was one string; Python list += str instead produced224 single-character members. The actual prepared input and installed newline renderer carried that segmentation.",
+  "frames": {
+    "workAndAuthority": "The complete TASK.md remains an exact admitted readFirst/context member and retains baseline-first order, explicit local controlled fixture actors and effect boundaries. The baseline was observed to pass before M2. No scope or policy substitution is selected.",
+    "representationAndTool": "A string-array shape is still valid after character extension, so syntax/type-element/hash checks missed the intended instruction grouping. The source is operator preparation, not a demonstrated Product decoder defect.",
+    "proofAndEffect": "The active native task remains unfinished. Baseline success bounds this one exercised relation, not the absence of all behavioral effects. No latency, cost or comprehension causation is established."
+  },
+  "disposition": "Preserve active author controls and complete the existing native task. Correct prospective proof controls with explicit complete instruction arrays and direct shape/content correspondence checks. No retry, source repair, retroactive pin change or generic framework rule is selected.",
+  "proportionality": {
+    "observedHarm": "224 fragmented instruction entries and223 extra newline bytes; avoidable prompt noise.",
+    "trigger": "Operator list extension by a plain string.",
+    "controls": "Complete authoritative TASK present; exact source/effect grants and native owner checks remain active; proof02 uses two explicit instructions per work order.",
+    "repairCost": "Small operator-control correction; changing Product instruction semantics would exceed the demonstrated defect."
+  },
+  "followThrough": "Preserve final source/results and review actual effects on return; bind only the corrected proof02 controls after final source/close admission."
+}

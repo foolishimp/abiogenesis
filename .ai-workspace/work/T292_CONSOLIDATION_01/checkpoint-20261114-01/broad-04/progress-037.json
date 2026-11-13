@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/rc2-assessment-intake.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 5,
+    "pass": 5,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/037-rc2-assessment-intake.test/process.json",
+    "bytes": 1075,
+    "sha256": "273f6e7027910bb98e6b8692bb4d3aaf27d143ee2b1dcb546a69c0e630a2d488"
+  }
+}

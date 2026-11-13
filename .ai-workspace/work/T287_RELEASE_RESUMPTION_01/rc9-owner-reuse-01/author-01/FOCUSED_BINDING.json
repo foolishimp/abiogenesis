@@ -1,0 +1,119 @@
+{
+  "id": "RC9-NATIVE-FOCUSED-PROOF-01",
+  "status": "ROOT_ADMITTED_RC9_NATIVE_FOCUSED_PROOF",
+  "preparationAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/WRITER_ACTIVATION.json",
+    "bytes": 2642,
+    "sha256": "83b855e51ec23fc5acc5a3f22b209baebfdd67f4ce11e4eba08a42db82ead068"
+  },
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/SOURCE_INVENTORY.json",
+    "bytes": 293897,
+    "sha256": "81127b9136bcdacc0c39cba61539bc8638b435d7d5ea6679ce8cd45a635e62fa"
+  },
+  "allowedChangedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/installed_module.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/package.json"
+  ],
+  "optionalNewSourceFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+  ],
+  "tenantRelative": "build_tenants/abiogenesis/typescript",
+  "proofRoot": "/private/tmp/abg-r9-owner-native-001",
+  "progressRoot": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/qualification-scratch/rc9-owner-reuse-01/author-01",
+  "sourceHelpers": {
+    "runner.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    "public-setup.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39883,
+      "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+    },
+    "consumer.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    "scenarios.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  },
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901113,
+    "sha256": "83f5dc434970315c06f1f1cde41d4877eaafae0099a5224ee76369cf49042084"
+  },
+  "contractSeedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_CONTRACT_SEED_INVENTORY.json",
+    "bytes": 41787,
+    "sha256": "4a2b911260e5a5e2ded42c19a007943c23973aeb3712af26acbc3ef8c3d19379"
+  },
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "npmCli": {
+    "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "bytes": 54,
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+  },
+  "nativeAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/ROOT_ADMISSION.json",
+    "bytes": 2853,
+    "sha256": "201e8f3bdc8ee371f03cf8228d01cb7fd961f47311ac97ec03d80a173149f283"
+  },
+  "maxStages": 1,
+  "maxProofInvocations": 1,
+  "stageTimeoutMs": 600000,
+  "unitTimeoutMs": 900000,
+  "reserveBytes": 4294967296,
+  "maxOwnedBytes": 4294967296,
+  "maxOutputBytes": 16777216,
+  "unitScriptName": "test:unit",
+  "requiredUnitTests": [
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs"
+  ],
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r9-owner-native-001/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_update_notifier": "false",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_cache": "/private/tmp/abg-r9-owner-native-001/npm-cache",
+    "npm_config_userconfig": "/private/tmp/abg-r9-owner-native-001/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-r9-owner-native-001/npm-global.npmrc"
+  },
+  "executionStanding": "Exact Root native dispatch admission plus actual host STARTED record; dispatch initiation is not a claim of child actor start. One frozen stage and one unit lane only.",
+  "nativeStartedReceiptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/STARTED.json"
+}

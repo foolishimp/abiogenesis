@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+import {dirname,join} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+const root=dirname(fileURLToPath(import.meta.url)),cfg=JSON.parse(await fs.readFile(join(root,'CONTROLS.json'),'utf8'));
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const save=async(n,x)=>fs.writeFile(join(root,n),JSON.stringify(x,null,2)+'\n',{flag:'wx'});
+const pin=async p=>{const b=await fs.readFile(p);return {path:p,bytes:b.length,sha256:sha(b)};};
+const absent=pid=>{try{process.kill(pid,0);return false;}catch(e){if(e.code==='ESRCH')return true;throw e;}};
+const checkPins=async()=>{for(const row of cfg.pins)assert.deepEqual(await pin(row.path),row);};
+try{
+ assert.equal(process.env.NODE_OPTIONS??'','');assert.equal(process.env.NODE_PATH??'','');assert.equal(process.env.TMPDIR,cfg.tmpdir);
+ await checkPins();assert.deepEqual(await pin(join(root,'recover.mjs')),cfg.script);
+ const verified=spawnSync('python3',[cfg.verifyView],{encoding:'utf8',timeout:30000});assert.equal(verified.status,0,verified.stderr);assert.equal(verified.stdout,await fs.readFile(cfg.viewVerification,'utf8'));
+ assert.equal(absent(cfg.ownerPid),true);assert.equal(absent(-cfg.ownerPid),true);
+ const before=await fs.readFile(cfg.eventLog.path),logStat=await fs.lstat(cfg.eventLog.path),lockBytes=await fs.readFile(cfg.lock.path),lockStat=await fs.lstat(cfg.lock.path);
+ assert.equal(logStat.isFile(),true);assert.equal(lockStat.isFile(),true);assert.equal(logStat.dev,cfg.device);assert.equal(logStat.ino,cfg.inode);assert.equal(lockStat.dev,cfg.lockDevice);assert.equal(lockStat.ino,cfg.lockInode);assert.deepEqual(await pin(cfg.eventLog.path),cfg.eventLog);assert.deepEqual(await pin(cfg.lock.path),cfg.lock);
+ const noOpen=spawnSync('/usr/sbin/lsof',['-nP','-Fpcn','--',cfg.eventLog.path,cfg.lock.path],{encoding:'utf8',timeout:30000});await save('QUIESCENCE.json',{ownerPid:cfg.ownerPid,pidAbsent:true,groupAbsent:true,lsof:{status:noOpen.status,signal:noOpen.signal,stdout:noOpen.stdout,stderr:noOpen.stderr},scope:'Exact two file paths only; no competing open descriptors returned.'});assert.equal(noOpen.status,1);assert.equal(noOpen.stdout,'');assert.equal(noOpen.stderr,'');
+ const selection={initialOrigin:{newResourceRequest:{kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:cfg.eventLog.path},device:cfg.device,inode:cfg.inode},ownerPid:cfg.ownerPid,expectedCurrent:{byteLength:before.length,digest:'sha256:'+sha(before)},abandonedLock:{path:cfg.lock.path,device:lockStat.dev,inode:lockStat.ino,bytesBase64:lockBytes.toString('base64'),digest:'sha256:'+sha(lockBytes)}};
+ await save('RECOVERY_SELECTION.json',{provenance:cfg.originProvenance,selection});
+ const owner=await import(pathToFileURL(cfg.ownerModule).href);
+ assert.equal(absent(cfg.ownerPid),true);assert.equal(absent(-cfg.ownerPid),true);assert.deepEqual(await fs.readFile(cfg.eventLog.path),before);assert.deepEqual(await fs.readFile(cfg.lock.path),lockBytes);
+ const result=owner.recoverInterruptedEventStore(selection);await save('RECOVERY.json',result);assert.equal(result.kind,'recovered',JSON.stringify(result));assert.equal(result.validatedEventCount,5);
+ const rows=owner.readRuntimeEventsAtDurablePrefix(result.closeHandoff.prefix);assert.equal(rows.length,5);assert.deepEqual(rows,owner.validateHistoricalEvents(before,result.closeHandoff.prefix.storeIdentity.eventContractDigest));assert.deepEqual(await fs.readFile(cfg.eventLog.path),before);
+ let lockAbsent=false;try{await fs.lstat(cfg.lock.path);}catch(e){if(e.code==='ENOENT')lockAbsent=true;else throw e;}assert.equal(lockAbsent,true);
+ const after=await fs.stat(cfg.eventLog.path);assert.equal(after.dev,cfg.device);assert.equal(after.ino,cfg.inode);await checkPins();
+ const kinds={};for(const row of rows)kinds[row.kind]=(kinds[row.kind]??0)+1;
+ await save('RETURN.json',{status:'physical_maintenance_recovered_and_closed',recovery:await pin(join(root,'RECOVERY.json')),selection:await pin(join(root,'RECOVERY_SELECTION.json')),quiescence:await pin(join(root,'QUIESCENCE.json')),originalBytes:await pin(cfg.eventLog.path),validatedEventCount:rows.length,eventKinds:kinds,originalEventIds:rows.map(r=>r.eventId),lockAbsent,pidAbsent:absent(cfg.ownerPid),groupAbsent:absent(-cfg.ownerPid),sourceControlsAndSelectedSnapshotConserved:true,eventsAppended:0,semanticClosureClaim:false,fixtureGeneration:false,retry:false,originProvenance:cfg.originProvenance});
+}catch(error){await save('FAILURE.json',{message:error.message,stack:error.stack,standing:'Stopped after at most one owner recovery call; no retry, manual unlink or cleanup. Existing recovery receipt, if present, governs actual status.'});throw error;}

@@ -1,0 +1,31 @@
+{
+  "status": "PROVISIONAL_ARTIFACT_READY_MEASUREMENT_UNADMITTED",
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028335,
+    "sha256": "bff1a5214f198f5f133c8643f653dc3cb55022622009c23070e779f0ec2dadec"
+  },
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/RESULT.json",
+    "bytes": 1369,
+    "sha256": "1dad4b5d1c604241b36c9f7329d0836bb5630e2ef5a19b72d1b9ceb4904cd818"
+  },
+  "equality": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/ARCHIVE_INSTALL_EQUALITY.json",
+    "bytes": 2202,
+    "sha256": "dd30bf578060a261747bc952f96f678071b73944f9fb65ca458b283e67e9bdcd"
+  },
+  "relation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 2864,
+    "sha256": "2f1ae77669e3b84857975abeb66a8f4c0480ea9dae639912e58e1e3aa90ec2e0"
+  },
+  "measurementBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/MEASUREMENT_BINDING.PRE_ADMISSION.json",
+    "bytes": 9722,
+    "sha256": "39e8c557cb55b8b72e3009b6941f7c346b2e18765eb8aa578de66619fe2fe4a6"
+  },
+  "actualInstallRoot": "/private/tmp/abg-rc10-measurement-bootstrap-001/host/node_modules/@abiogenesis/typescript-tenant",
+  "qualification": false
+}

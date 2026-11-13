@@ -1,0 +1,216 @@
+{
+  "productFrame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "selection": "Fixed fifteen families F01-F07,F09-F11,F13-F17 / GOAL-035 / T-287 / RC8 REF-01; explicitly unqualified local cut",
+    "method": "STDO 3.0.4, manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; empty composition",
+    "authority": "Product/requirements retain selected-action and exact current-basis law. ABG alone establishes admission/replay truth. Historical files are test input bytes, not new runtime/store authority. Root owns staging selection, proof and cut disposition."
+  },
+  "reviewId": "selected-action-inputs-018",
+  "at": "2026-11-07T12:41:44.460424+00:00",
+  "role": "Independent MAX Reviewer; no repair or execution",
+  "verdict": {
+    "status": "falsified",
+    "claim": "The broad018 staged input population closes the remaining default historical fixture dependencies.",
+    "finding": "SAI-018-001",
+    "severity": "S3",
+    "classification": "Proof input/staging omission; Product behavior remains untested by this initialization failure."
+  },
+  "requirementsAndOwners": [
+    "CONTINUATION-011/012/013/014: distinguish continued intent from newly selected action and preserve exact current execution/workspace authority; automatic/local correction remains 5.0 while human response/resume is deferred.",
+    "PROJECTION-025 and EVENTS-001/002/003: reuse exact established facts and retain acquisition/authentication at real boundaries. Copying retained fixture bytes does not mint store/device/inode authority.",
+    "construction_continuation.ts:1789-1861 projects selected occurrences from exact indexed event/basis/route relations; pendingSelectedOccurrence:1864-1868 selects exactly one open occurrence matching both basis ref and digest.",
+    "The authority test:21-23 explicitly limits cloned occurrence coordinates to unit premises over real retained evidence, not admitted history or installed qualification. Common library HOW 10.9 retains cold authentication for copied coordinates."
+  ],
+  "finding": {
+    "trigger": "Module initialization at test:14 reads environment.json immediately, before test registration and before the optional physical-owner skip can apply.",
+    "actual": "ENOENT at the expected derived .ai-workspace path, 0 passes/1 harness file failure, 1898.699333 ms command, exit1, no timeout/signal/truncation. No body assertion ran.",
+    "causalChain": "Default subject at line13 -> eager environment/opened reads at14 -> immutable interrupted-prefix read at16 -> actual owner projection at17 -> two selector cases at24/30. The first file is absent, so all later steps are unreached.",
+    "stagingDefect": "close-proof.corrected-018.mjs:66 inventories the selected materialization roots; line73 only requires some governance-prefixed row. The bound inventory contains14 default-library-witness/s6 files, so it passes while containing none of the required S7 seed files. INPUT_CENSUS_008 reports no additional mandatory external inputs and assumes fixture trees are frozen; that relation was not complete.",
+    "harm": "The default selected-action owner discriminators receive no proof. Missing input is not evidence that current Product selection is wrong. Existing passed files and all historical reds retain their identities.",
+    "containment": "Failure occurs before test body and before any runtime or store acquisition. This is a test-input failure, not a demonstrated semantic fail-closed Product result.",
+    "cost": "Three exact existing files, 42006634 bytes total, plus a small explicit staging/input-binding correction and whole authority-file proof. No source authoring, rebuild, repack, generated seed or generic dependency framework is required."
+  },
+  "inputClosure": {
+    "originalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01",
+    "derivedTargetPrefix": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/",
+    "requiredDefault": [
+      {
+        "path": "selected-action-04/environment.json",
+        "bytes": 38680887,
+        "sha256": "36e5184c773b2db277347d2417b49df88d3168dea5665f2780481597326628cb"
+      },
+      {
+        "path": "selected-action-04/opened.json",
+        "bytes": 6369,
+        "sha256": "be800c13c44ac5416791fa18f9e65ab8fae6b0eeef081bd641f3219b2363b145"
+      },
+      {
+        "path": "selected-action-04/interrupted-prefix.jsonl",
+        "bytes": 3319378,
+        "sha256": "450e1cb9e597dd5ccc0a9d9fa00fe423006e81ee26cc7225f7277e2f155063bb"
+      }
+    ],
+    "provenance": "Each required file is present under original main and independently matches both selected-action-04/freeze.json and proof-manifest.json, including exact bytes and SHA256. The 216-row prefix is preserved unchanged; its historical event profile is not restamped.",
+    "originalRecords": [
+      {
+        "path": "selected-action-04/freeze.json",
+        "bytes": 33386,
+        "sha256": "243b67d1956cd01c21a26d6725c0e7e66f0d16de3cb70bc0ef3e11feb02a80d9"
+      },
+      {
+        "path": "selected-action-04/proof-manifest.json",
+        "bytes": 21951,
+        "sha256": "8970e05386811d76354ec8a6a2b5d92776b8b5d45853d96a7bfb5294a927e096"
+      },
+      {
+        "path": "selected-action-05/freeze.json",
+        "bytes": 17544,
+        "sha256": "b1755a47a9a1a9f18d768a225bef0f9824a188666b67af287fff14985eb4a683"
+      },
+      {
+        "path": "selected-action-05/proof-manifest.json",
+        "bytes": 16237,
+        "sha256": "f0bd28cbc6007f6eb228c5aafc5995dff9013cf0b257a6bead923b7710b04926"
+      }
+    ],
+    "trackingDistinction": "The fourteen staged governance rows are part of the selected frozen inventory. These S7 seeds are separate generated historical run evidence, absent from that inventory and the selected RC7 checkout. Do not pretend they are already tracked RC7 source. Git was not queried under the review effect restriction; provenance here is the exact original frozen run manifests and bytes.",
+    "requiredDefaultDynamicDependencies": "None beyond these three data files for the default two cases: the file imports current compiled owners from the derived tenant, and reads opened.scope plus the immutable event vector. Although environment.json contains original absolute installed paths, they are not followed by the default cases.",
+    "optionalInputs": [
+      {
+        "path": "selected-action-04/recovery.json",
+        "bytes": 1523,
+        "sha256": "6a821c1c95e5a7d4483304ba97143630fb0974748176888894fc9f240c5af025"
+      },
+      {
+        "path": "selected-action-05/current/environment.json",
+        "bytes": 42377726,
+        "sha256": "4813aba0c29747e8fbbf0e043120a88db585d4f73cdf47f3e92019662094cb4c"
+      },
+      {
+        "path": "selected-action-05/latest-handoff.json",
+        "bytes": 1414,
+        "sha256": "f6b5b6c7c49eee6997ce6e6bbfd352b2bfc78b0d32310a9d5b819b51e8874c1f"
+      }
+    ],
+    "optionalConsumerMap": [
+      {
+        "consumer": "t287-selected-action-authority.test.mjs:20,35-46",
+        "gate": "ABI5_SELECTED_ACTION_OWNER_SUBJECT must be set",
+        "closure": "Adds 04/recovery.json and its exact physical closeHandoff.prefix; resolves environment catalog/view against admitted installs and their installed files. Device/inode/current log and installed-byte premises cannot be reconstructed by copying JSON. Preserve the existing default skip."
+      },
+      {
+        "consumer": "t287-selected-action.test.mjs:199-212",
+        "gate": "ABI5_SELECTED_ACTION_EVIDENCE_ROOT set AND ABI5_SELECTED_ACTION_PREFLIGHT=1",
+        "closure": "Dynamically joins 05/current/environment.json and 05/latest-handoff.json, plus 04/environment.json and interrupted-prefix.jsonl. The 05 environment imports the original 04/covered/disposable installed owners; its handoff names that original physical log/device/inode. These original files match the05 manifests, but merely staging them does not qualify those live dependencies. No activation is selected."
+      },
+      {
+        "consumer": "t287-selected-action.test.mjs:213 onward",
+        "gate": "Selected evidence root and optional RESUME_FROM/RECOVER_FROM selectors",
+        "closure": "Resume/recovery reads environment/opened/handoff/lock/result from the explicitly selected retained or fresh evidence roots; ordinary no-resume branch creates fresh native evidence. These are conditional runtime input/resource relations, not extra default fixture copies."
+      }
+    ],
+    "remainingCone": "Bounded scan of the remaining nondeferred test population and its selected-action host/imports found these two S7 consumers. No additional mandatory default S7 seed appears. Earlier S03 automatic and continuation-causation consumers use other separately gated retained evidence; this review neither enables them nor revises their prior coverage. Unrelated generated .ai-workspace output roots are not historical input omissions."
+  },
+  "lawfulReentry": {
+    "selection": "Root may select exact external fixture inputs and a fresh version of the existing staging/binding control. Do not mutate accepted source freezes or old evidence.",
+    "steps": [
+      "Bind and verify the three originals by their recorded byte counts/hashes and original manifests; materialize unchanged bytes at their existing relative paths in the derived test worksite before execution. Preserve all existing14 governance inputs.",
+      "Replace or supplement the weak directory-presence premise with this explicit three-row closure for the selected default authority consumer. Include the external inputs and destination readbacks in the new input census/inventory/receipt; no broad harness redesign.",
+      "Keep every ABI5_SELECTED_ACTION_* selector unset in the broad default environment. In particular OWNER_SUBJECT is not a relocation option because setting it activates the third physical-owner case. Do not rewrite embedded paths, event profiles, hashes or store coordinates.",
+      "Run the unchanged whole authority file through the admitted proof owner. Required result for this default population: two passes and its one existing explicit physical-owner skip; retain the original018 failure and exact source/input bindings.",
+      "Continue other unchanged tests only under Root\u2019s new concrete control. The adjacent optional composition test keeps its existing skip; record its conditional closure instead of claiming copying proves it."
+    ],
+    "limits": "Exact copies close the identified filesystem preconditions, not the owner assertions themselves. A subsequent projection/schema/assertion failure is fresh evidence requiring Root triage; do not fabricate seeds, restamp old events, bypass current guards or add automatic repairs.",
+    "stop": "Stop before execution if any source/manifests/bytes differ, a required input is absent, or a selector would activate an unprovided physical dependency. Stop and return any new actual red; no retry loop.",
+    "qualification": "No current installed selected-action authority or whole5.0 qualification is granted by the two default unit cases. No permanent residual is needed merely to avoid this small staging correction."
+  },
+  "recurrence": "The same dependency-closure error recurs despite a guard intended to address historical fixture completeness: some directory content was mistaken for the consumers\u2019 complete input set. A prior memory record documents thirteen tracked witness files omitted from an isolated review snapshot; that older pass does not transfer. Here the S7 inputs are separately frozen generated records, so exact external input selection is required rather than an assertion that tracked checkout completeness alone suffices.",
+  "source": {
+    "A6": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "A11": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "archive": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "comparison": "Each source pin matched actual broad018, stage04, RC7 selected checkout and A6/A11 manifest rows. No Product or test source delta is implicated.",
+    "pins": {
+      "test_env/tests/t287-selected-action-authority.test.mjs": {
+        "bytes": 5751,
+        "sha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740"
+      },
+      "test_env/tests/t287-selected-action.test.mjs": {
+        "bytes": 55699,
+        "sha256": "c7e2646a84222aa3276a18077010d9674d5c89faebf7449c854a8c6288f7a9f7"
+      },
+      "test_env/support/t287-selected-action-host.mjs": {
+        "bytes": 16381,
+        "sha256": "bedcfe2165b3863efb355a2d20d0f998aba1960bcc2fef9bda019e6b15c6f59c"
+      },
+      "code/src/abg/construction_continuation.ts": {
+        "bytes": 147829,
+        "sha256": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16"
+      },
+      "code/src/abg/event_prefix.ts": {
+        "bytes": 64754,
+        "sha256": "cfe2ce70db4935aac785bc92c24fa3634bd8e14ff38476fb612afe4cc12f512b"
+      }
+    }
+  },
+  "evidenceBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+  "evidencePins": {
+    "OPERATOR_RETURN_018.json": {
+      "path": "OPERATOR_RETURN_018.json",
+      "bytes": 14470,
+      "sha256": "b1daa0dfbe3d8abd7e72346fb5fe893e55b0931aaf41255d808d19757899901a"
+    },
+    "execution-018/SUMMARY.json": {
+      "path": "execution-018/SUMMARY.json",
+      "bytes": 446549,
+      "sha256": "8eaa2b78c535b53e56224545e173754115253788a219fde9e1c10b40b739e083"
+    },
+    "execution-018/FAILURE.json": {
+      "path": "execution-018/FAILURE.json",
+      "bytes": 611,
+      "sha256": "8cbfa50bd9a7ac14b7fd8e301e29c8a1f37a238869c5c3165c347fecdd07ddcf"
+    },
+    "execution-018/files/171-t287-selected-action-authority.json": {
+      "path": "execution-018/files/171-t287-selected-action-authority.json",
+      "bytes": 2861,
+      "sha256": "18ab4c744c088e3609ec44d4dfcb5e7d549818219e77d5c8c4ba2bb85a618411"
+    },
+    "execution-018/commands/171-t287-selected-action-authority.result.json": {
+      "path": "execution-018/commands/171-t287-selected-action-authority.result.json",
+      "bytes": 1501,
+      "sha256": "5bd41f8f01d2ff86e0646240cc6662e6f709a5739561e1b080d5e4dcb84be61e"
+    },
+    "execution-018/commands/171-t287-selected-action-authority.stdout": {
+      "path": "execution-018/commands/171-t287-selected-action-authority.stdout",
+      "bytes": 1419,
+      "sha256": "cc3f88277276888ef658040fbd59abf40e9a4728791a716825861c9ac2b27b30"
+    },
+    "execution-018/events/171-t287-selected-action-authority.jsonl": {
+      "path": "execution-018/events/171-t287-selected-action-authority.jsonl",
+      "bytes": 765,
+      "sha256": "c2ed035f5494be7c031329770005e936e5096fc9c820d2b5f17c1bff6def1c2e"
+    },
+    "close-proof.corrected-018.mjs": {
+      "path": "close-proof.corrected-018.mjs",
+      "bytes": 33246,
+      "sha256": "73df519ac97916be6c06b6ae6bc2f882f700f6dbe9ae8f56738dd443ece65e3a"
+    },
+    "binding-019/BOUND_INVENTORY.json": {
+      "path": "binding-019/BOUND_INVENTORY.json",
+      "bytes": 2051895,
+      "sha256": "355b10d80f6ed7eb26d60a434002e46142b9e00204cc1a39ba4571e8e572bd38"
+    },
+    "CLOSE_BINDINGS_019.json": {
+      "path": "CLOSE_BINDINGS_019.json",
+      "bytes": 380698,
+      "sha256": "ea7c1e6a836e0d602821810f096cf34ee784afa6625cf9f67b0d690dd4570b52"
+    },
+    "INPUT_CENSUS_008.json": {
+      "path": "INPUT_CENSUS_008.json",
+      "bytes": 8169,
+      "sha256": "2e5ed0954831d00c421802d83b15732f2dff94259ef3fe55ec70558e0ca9d712"
+    }
+  },
+  "authorityReuse": "Exact unchanged Product/Definition/frame and review skill pins retained from prior closed RO16 capsule53e69f4c; current continuation/assurance scope reread. No authority or Product change selected.",
+  "effects": "Read-only exact source, original fixture manifests/data, evidence inventories and bounded pending-consumer search. Writes only this new capsule. No tests, Product imports/calls, provider, Git, source edits, copies, cleanup or new agents."
+}

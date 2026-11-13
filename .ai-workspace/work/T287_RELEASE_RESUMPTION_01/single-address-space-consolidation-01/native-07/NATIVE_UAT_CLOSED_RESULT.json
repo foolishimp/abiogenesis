@@ -1,0 +1,28 @@
+{
+  "recordedUtc": "2026-11-04T06:17:45.426670+00:00",
+  "status": "UAT_NOT_REACHED_POST_C2_SELECTOR_PREPARATION_REFUSAL",
+  "assessment": null,
+  "nativeActorLaunched": false,
+  "nativeAssessmentResultRef": null,
+  "actualPreUatSelectorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_POST_C2_SELECTOR_FAILURE.json",
+    "bytes": 3462,
+    "sha256": "c796e8dfa06c079e58f36ba603898fbacc9fd29011ca75036d6c2526f96232ff"
+  },
+  "capacityTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/POST_C2_SELECTOR_CAPACITY_TRIAGE.json",
+    "bytes": 59238,
+    "sha256": "8cb64233da7055a303272a62fce1f6a5a198163b2fd0e05b08aa57192f9c5880"
+  },
+  "actualFailedRuntimeOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/outcome-summary.json",
+    "bytes": 547,
+    "sha256": "3826159735b9e9b573633db90fe8a0c437e7a76f54e7d8c4513c928737a937bc"
+  },
+  "actualRecoveredFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_FINAL_CLOSE_COORDINATES.json",
+    "bytes": 1753,
+    "sha256": "3fa487424afc48326251d9d5e149e41ae81b7d9802d6c0945fdeff9358e2bfe6"
+  },
+  "standing": "Closed non-entry observation. No UAT task, actor, assessment or semantic UAT rejection is invented. Current C2 and source claims keep their bounded standing."
+}

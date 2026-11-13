@@ -1,0 +1,9 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "fb14804a88ec6e8cc5c043787320f9dcdd3d94fb2407a59ab134883e6180f7f6",
+  "sourceCommit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+  "sourceTree": "e669e2a903de1893a38271b4010a785cc840333e",
+  "decision": "Root admits HC2 plus the three HC1 residuals on fresh genuine runtime003 for zero-provider installed preflight and call construction only. Exact frozen-call review precedes one-shot dispatch. Declared same-Run graph consequence may select bounded correction; no automatic replacement Run or scope expansion. Practical005, qualification and release remain separate obligations; no acceptance is inferred.",
+  "selectedUtc": "2026-11-02T18:15:40.914378+00:00"
+}

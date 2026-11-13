@@ -1,0 +1,41 @@
+{
+  "status": "NATIVE_CONSTRUCTION_RETURN_ADMITTED",
+  "nativeResult": {
+    "eventId": "event://abiogenesis/c5f09c1b3b93f5eb9e67794a77864a618c04c54fb7af2ea7a4bd8e6c5f8614f6",
+    "ordinal": 10221,
+    "eventTime": "2026-11-02T19:10:42.807Z",
+    "resultRef": "result://abiogenesis/90c243218be3f425a6c71b4ce483f18da7e2395e6d122f0b170d09337d0ebeda",
+    "resultDigest": "sha256:90c243218be3f425a6c71b4ce483f18da7e2395e6d122f0b170d09337d0ebeda",
+    "logPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+    "physicalOffset": 97838846,
+    "physicalBytes": 5671513,
+    "physicalRowSha256": "72f7e7c42470519b3aa994acb541bae01174c8c503659051736902887efeadf2"
+  },
+  "after": {
+    "observationRef": "worksite-context-observation://abiogenesis/c1cb08c2f9187916d91e2c15609b456be771146a04f62c91d321668e6bb2b592",
+    "observationDigest": "sha256:c1cb08c2f9187916d91e2c15609b456be771146a04f62c91d321668e6bb2b592"
+  },
+  "manualChangedCount": 28,
+  "scratchChangedPaths": [
+    "rc4-scratch/native-recovery-16/notes.md",
+    "rc4-scratch/native-recovery-16/readiness.json",
+    "rc4-scratch/native-recovery-16/return.json",
+    "rc4-scratch/native-recovery-16/tmp",
+    "rc4-scratch/native-recovery-16/tmp/node-compile-cache",
+    "rc4-scratch/native-recovery-16/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501",
+    "rc4-scratch/native-recovery-16/tmp/node-compile-cache/v24.7.0-arm64-1db51be2-501/02cd939c"
+  ],
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/SUBJECT.json",
+    "bytes": 45009,
+    "sha256": "1d232ff1a8a576ac558a58c3b6123329e1fdebb456a1041e1f3d1d2772fac06d"
+  },
+  "provider": {
+    "turns": 229,
+    "reportedDurationMs": 2453891,
+    "reportedCostUsd": 18.9462396
+  },
+  "C2": "pending",
+  "UAT": "pending",
+  "acceptance": false
+}

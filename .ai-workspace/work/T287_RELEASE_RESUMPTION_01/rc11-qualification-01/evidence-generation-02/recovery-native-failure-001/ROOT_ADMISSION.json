@@ -1,0 +1,16 @@
+{
+  "id": "RC11-NATIVE02-RECOVERY-01",
+  "role": "External physical-maintenance Writer/Operator",
+  "issuer": "/root Executive",
+  "at": "2026-11-09T07:24:18.957534+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/NATIVE_FAILURE_PHYSICAL_OBSERVATION.json",
+    "bytes": 2142,
+    "sha256": "3042dcb1cca4b0b87d87ec5732addfe1bebcccf6cef45c8459dd7aba504e557e"
+  },
+  "grant": "One existing recoverInterruptedEventStore call on exact failednative02 store, after fresh exact PID/group absence, current file/lock identity/bytes, no competing opener/writer, immutableRC10 pins. Require recovered/close handoff, lock absence, same original5events/bytes via physical read.",
+  "originProvenance": "Reconstructed initialOrigin from exact setup source createNewEmptyAppendSink request at lines356-360 and current file coordinates; not a captured creation receipt.",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/recovery-native-failure-001",
+  "effects": "Owner recovery/close of selected abandoned append lock only; no semantic event append, manual unlink, cleanup, delete, fixture generation, retry, source/Product/candidate changes.",
+  "return": "Any owner refusal stops; exact receipt and physical status return toRoot."
+}

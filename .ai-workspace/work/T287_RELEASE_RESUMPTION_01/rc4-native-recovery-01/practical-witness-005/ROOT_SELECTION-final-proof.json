@@ -1,0 +1,11 @@
+{
+  "status": "ROOT_SELECTED_ZERO_PROVIDER_STAGE",
+  "operator": "Root",
+  "selectedAt": "2026-11-03T00:08:47.151070+00:00",
+  "bindingSha256": "be5a291b2390e1a5fed5c0a2ddcb008f097ea0fcdddaf19d21a1810c5335d92b",
+  "allowedStages": [
+    "proof"
+  ],
+  "callSha256": null,
+  "decision": "Root selects zero-provider proof, sequential read-b then proof, from genuine continue.resume18de64c180a5345ebcc6b7092edbd36b21d4754dfae530d0e2c76f5408026134/closed21014910B prefix and completed same B738cb4e3. Existing owner fresh reads and exact A-holder/no-repeat/result-replay assertions must succeed; no paid call, retry or inferred acceptance."
+}

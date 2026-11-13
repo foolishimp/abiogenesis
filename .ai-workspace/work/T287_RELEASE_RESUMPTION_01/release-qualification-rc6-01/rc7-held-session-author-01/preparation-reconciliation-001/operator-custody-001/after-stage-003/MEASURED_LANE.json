@@ -1,0 +1,102 @@
+{
+  "kind": "frozen_measured_lane_observation",
+  "status": "MEASURED_LANE_FAILED_NO_FINAL_LANE_ELIGIBILITY",
+  "createdUtc": "2026-11-06T13:52:22.834320+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-001/SUBJECT.json",
+    "bytes": 274008,
+    "sha256": "04bf02b9607e53ac1bcc065eaf4cd9dff77d321fb41abd5e189f98475c10ccc6"
+  },
+  "build": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/after-stage-003/BUILD.json",
+    "bytes": 2024,
+    "sha256": "45fbccc85a3dc03237207c83ee849c5f3596f6acf074efda45e5dc49cd3622ca"
+  },
+  "artifacts": [
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-lanes-held-session-measured/summary-held-session-measured.json",
+        "bytes": 1342,
+        "sha256": "8e06c7f3bc0b47f79ee5fa14ccc60000d49d15899315b19f49242f5c07cc282f"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/after-stage-003/evidence/summary-held-session-measured.json",
+        "bytes": 1342,
+        "sha256": "8e06c7f3bc0b47f79ee5fa14ccc60000d49d15899315b19f49242f5c07cc282f"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-lanes-held-session-measured/held-session-measured.stdout.tap",
+        "bytes": 1945,
+        "sha256": "0d5313bcec521554b7524d295eb0dfcbb14b53bf237898184365c6607ff31c4c"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/after-stage-003/evidence/held-session-measured.stdout.tap",
+        "bytes": 1945,
+        "sha256": "0d5313bcec521554b7524d295eb0dfcbb14b53bf237898184365c6607ff31c4c"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-lanes-held-session-measured/held-session-measured.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/after-stage-003/evidence/held-session-measured.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "laneSummary": {
+    "id": "held-session-measured",
+    "mode": "after",
+    "setupMs": 622,
+    "priorLaneAllocations": 1,
+    "laneAllocationCap": 8,
+    "stageSourceDigest": "1adb7041ad05452d412b538b68a3c03334aa53c47526711380392f1eba60a2d3",
+    "activeRc7": [],
+    "requiredActivePass": false,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 HS02: test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "ms": 218339,
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 1,
+    "failing": [
+      "RC7 HS02: one held acquisition serves warm Runs and held run_result/run_replay without another decode, reopen or append, refuses stale/copied/foreign/closed selections, closes once and equals the cold reads"
+    ],
+    "stdoutSha256": "0d5313bcec521554b7524d295eb0dfcbb14b53bf237898184365c6607ff31c4c",
+    "stdoutBytes": 1945,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "authorProgress": {
+    "original": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/progress.json",
+      "bytes": 6575,
+      "sha256": "b3c7971ccb2c28368fba6fa5aba32608e2d7a8ffb777a305d129795d47f01385"
+    },
+    "frozen": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/after-stage-003/evidence/progress-at-capture.json",
+      "bytes": 6575,
+      "sha256": "b3c7971ccb2c28368fba6fa5aba32608e2d7a8ffb777a305d129795d47f01385"
+    }
+  },
+  "standing": [
+    "Actual1test/0pass/1fail/0skip/0cancel in218.339s, exit1; requiredActivePass false.",
+    "Author attributes failure to stale-prefix fixture population before the selection guard and asserts earlier warm/counter assertions passed; these remain author claims for independent review.",
+    "TAP/stderr copied and hashed without content review. No complete HS02 proof, passing measured lane, source acceptance or final-lane eligibility is inferred.",
+    "No extra test, retry, stage or timeout allocation is selected by this custody."
+  ]
+}

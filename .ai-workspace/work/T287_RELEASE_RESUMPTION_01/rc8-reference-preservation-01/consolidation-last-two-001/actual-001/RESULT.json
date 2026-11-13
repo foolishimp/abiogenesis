@@ -1,0 +1,33 @@
+{
+  "status": "PASSED",
+  "sourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+  "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+  "wholeFile": false,
+  "namePattern": "^(?:historical revision cuts:|semantic stage authentication borrows the owned prefix:)",
+  "excludedCaseCount": 10,
+  "excludedHaveNoCoverage": true,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-last-two-001/actual-001/events.jsonl",
+    "bytes": 1294,
+    "sha256": "4c1b5cc1a345aef1ad0a2d9672dd7c41338750e9f889ccfd16e9b8fef84a3a8d"
+  },
+  "wallMs": 597417.786042,
+  "totalMs": 645373.142792,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "primaryPreserved": true,
+  "buildInvocations": 0,
+  "providerCalls": 0
+}

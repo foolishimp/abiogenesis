@@ -1,0 +1,513 @@
+{
+  "kind": "governance_work_state",
+  "schemaVersion": "5.0.0",
+  "original": {
+    "taskRef": "task://abiogenesis/t287/release-qualification/fixture-01",
+    "task": "Repair only current owned-prefix reader premise in the existing native semantic revision component harness, preserving all meaningful assertions and historical limits.",
+    "sources": [
+      {
+        "path": "AGENTS.md",
+        "digest": "sha256:a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+      },
+      {
+        "path": "CLAUDE.md",
+        "digest": "sha256:6c2f604416499412902f5696953f5a059a88f5a5a348b1b39e58108819ec1940"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "digest": "sha256:acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "digest": "sha256:716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "digest": "sha256:2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "digest": "sha256:b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+        "digest": "sha256:cba6471264602fd95e465b2079809ac4a03c2b7b261ed79e687a3855b12b9793"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+        "digest": "sha256:f95df8511a4d56148a80bac009ea41bceeb17907f59488bd6b24a39281d6fd59"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+        "digest": "sha256:b633d1f69ef4f24d521e056206f0fb6f7b6467444d06dc64a9f9a23f69f98627"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+        "digest": "sha256:3fa8fa8ffea19a187f727d64f6da3940e8def6ab3dadad0e055c0c45848ec0b3"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+        "digest": "sha256:92f9faa3ec401fd80309b17f546a79354ae36b1869780c55fa5332110171a9d2"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+        "digest": "sha256:85f0228f77adc6407390cdf50c51ca254b979e716b95123cb6daa35547685c7e"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+        "digest": "sha256:a47f67cc01a55d363358a69a768f202e94cbca627b3f3fd6918a5a949425c051"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+        "digest": "sha256:d56f24818f0dcf41469f643534f914b460fa7df096dcfe7ff3896861092fe814"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+        "digest": "sha256:70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/C2_INPUTS.json",
+        "digest": "sha256:d4c519693c53ece5d098f290a16fd71fdce6323f67bcf3f4f7f6c3056b549f55"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+        "digest": "sha256:ec354c90745999cb897f807e48496936be117c000b70bfae0001d02eab55a373"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+        "digest": "sha256:022dfbb1e946412a5f11788bb424506580bb4475196f34a07dbb1fc471a0a630"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+        "digest": "sha256:1ff95564606e6119be08acd15a53eca65d685511f06acfe9884026b4881de5c3"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+        "digest": "sha256:7763e2d5b841699b5d5e2e486008a0490f9117bc06cd3235af25d6759f932390"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/ROOT_ACTIVATION.json",
+        "digest": "sha256:bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+        "digest": "sha256:56bcb94e9287842ee9349fb0843c0747666dd2d18ea8587546bfcce252bf77b9"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/TASK.md",
+        "digest": "sha256:5185e776ee3e7a5a3bc5ed390255ccdd2fcb43f145a53dd9a49ec1755bc467e8"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/WORKSPACE_REENTRY_01.json",
+        "digest": "sha256:768de1d1395e9497b3cc01b3514c25f72f98ea8a7bc99acbe9b43085a074eeaa"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/c2-proof.mjs",
+        "digest": "sha256:37f8ee15ebd5ea2dfca58edb26f73175034ebb7776c2fc066e5be91a9e20decb"
+      },
+      {
+        "path": "qualification-inputs/fixture-01/rubric.json",
+        "digest": "sha256:55c7d409c89cca2f2715b948b6f9320a188fa958da5dfd248ae6f57cda2b8c5a"
+      },
+      {
+        "path": "specification/PRODUCT.md",
+        "digest": "sha256:979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+      },
+      {
+        "path": "stdo_abiogenesis.json",
+        "digest": "sha256:b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+      }
+    ],
+    "authorityRefs": [
+      "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_CONTROL_SELECTION.json"
+    ],
+    "requiredSupportRefs": [
+      "support://abiogenesis/t287/n9-retained-fixture-01"
+    ],
+    "readRoots": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "qualification-inputs/fixture-01/C2_INPUTS.json",
+      "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+      "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+      "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+      "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+      "qualification-inputs/fixture-01/ROOT_ACTIVATION.json",
+      "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+      "qualification-inputs/fixture-01/TASK.md",
+      "qualification-inputs/fixture-01/WORKSPACE_REENTRY_01.json",
+      "qualification-inputs/fixture-01/c2-proof.mjs",
+      "qualification-inputs/fixture-01/rubric.json",
+      "qualification-scratch/fixture-01/progress.json",
+      "qualification-scratch/fixture-01/readiness.json",
+      "qualification-scratch/fixture-01/return.json",
+      "specification/PRODUCT.md",
+      "stdo_abiogenesis.json"
+    ],
+    "maxContextFiles": 128,
+    "maxContextBytes": 16777216,
+    "maxPromptBytes": 1048576,
+    "workOrders": {
+      "design": {
+        "outcome": "Repair only current owned-prefix reader premise in the existing native semantic revision component harness, preserving all meaningful assertions and historical limits.",
+        "instructions": [
+          "Current grant selects one bounded Construction, native Testing using the fixed four-command recipe, and UAT over F1-F4. Existing specification/design/induction are sufficient and read-only. No new feature, broad investigation, build, repack or additional coding Worker. A dependency or actual failure returns to Root."
+        ],
+        "readFirst": [
+          "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+          "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+          "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+          "qualification-inputs/fixture-01/TASK.md",
+          "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+          "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+          "qualification-inputs/fixture-01/rubric.json",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+          "qualification-inputs/fixture-01/C2_INPUTS.json",
+          "qualification-inputs/fixture-01/c2-proof.mjs"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "induction": {
+        "outcome": "Repair only current owned-prefix reader premise in the existing native semantic revision component harness, preserving all meaningful assertions and historical limits.",
+        "instructions": [
+          "Current grant selects one bounded Construction, native Testing using the fixed four-command recipe, and UAT over F1-F4. Existing specification/design/induction are sufficient and read-only. No new feature, broad investigation, build, repack or additional coding Worker. A dependency or actual failure returns to Root."
+        ],
+        "readFirst": [
+          "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+          "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+          "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+          "qualification-inputs/fixture-01/TASK.md",
+          "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+          "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+          "qualification-inputs/fixture-01/rubric.json",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+          "qualification-inputs/fixture-01/C2_INPUTS.json",
+          "qualification-inputs/fixture-01/c2-proof.mjs"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "specification": {
+        "outcome": "Repair only current owned-prefix reader premise in the existing native semantic revision component harness, preserving all meaningful assertions and historical limits.",
+        "instructions": [
+          "Current grant selects one bounded Construction, native Testing using the fixed four-command recipe, and UAT over F1-F4. Existing specification/design/induction are sufficient and read-only. No new feature, broad investigation, build, repack or additional coding Worker. A dependency or actual failure returns to Root."
+        ],
+        "readFirst": [
+          "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+          "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+          "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+          "qualification-inputs/fixture-01/TASK.md",
+          "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+          "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+          "qualification-inputs/fixture-01/rubric.json",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+          "qualification-inputs/fixture-01/C2_INPUTS.json",
+          "qualification-inputs/fixture-01/c2-proof.mjs"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "testing": {
+        "outcome": "Repair only current owned-prefix reader premise in the existing native semantic revision component harness, preserving all meaningful assertions and historical limits.",
+        "instructions": [
+          "Current grant selects one bounded Construction, native Testing using the fixed four-command recipe, and UAT over F1-F4. Existing specification/design/induction are sufficient and read-only. No new feature, broad investigation, build, repack or additional coding Worker. A dependency or actual failure returns to Root."
+        ],
+        "readFirst": [
+          "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+          "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+          "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+          "qualification-inputs/fixture-01/TASK.md",
+          "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+          "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+          "qualification-inputs/fixture-01/rubric.json",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+          "qualification-inputs/fixture-01/C2_INPUTS.json",
+          "qualification-inputs/fixture-01/c2-proof.mjs"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "uat": {
+        "outcome": "Repair only current owned-prefix reader premise in the existing native semantic revision component harness, preserving all meaningful assertions and historical limits.",
+        "instructions": [
+          "Assess only F1-F4 in the supplied rubric using actual frozen test and actual C2. Component outcomes are five passes/zero failures/two original historical skips, with first-test assertions unchanged in meaning and actually executed. No full D2/native-correction or release qualification claim. Root independent review and future fresh closure are separate exit obligations, not missing native UAT criteria. Read the exact report.path named by component-proof command stdout, verify its returned bytes/hash and actual tally. Do not infer archive siblings or read raw provider text/logs."
+        ],
+        "readFirst": [
+          "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+          "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+          "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+          "qualification-inputs/fixture-01/TASK.md",
+          "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+          "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+          "qualification-inputs/fixture-01/rubric.json",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+          "qualification-inputs/fixture-01/C2_INPUTS.json",
+          "qualification-inputs/fixture-01/c2-proof.mjs"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "construction": {
+        "outcome": "Repair only current owned-prefix reader premise in the existing native semantic revision component harness, preserving all meaningful assertions and historical limits.",
+        "instructions": [
+          "# N9-RETAINED-FIXTURE-01 only\n\nProduct Frame: ABIogenesis5 fixed fifteen families / GOAL-035 / T-287 / exact STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b / empty composition. Source e7179b19 on codex/t287-5-release-qualification; immutable installed RC6 remains unchanged. This is a component-proof prerequisite repair, not whole D2 or release qualification.\n\nApply exact installed stdo-work with its relative references. Repair only the local admitted-prefix premise in t287-native-semantic-revision.test.mjs: current semantic_revision.nativeIntakeFacts consumes event_prefix.readOwnedRuntimeEventPrefixAtDurablePrefix, while this harness still overrides Event Store's old reader and accidentally attempts file:///component/no-journal. Supply the supported current lower-owner premise through the existing component mechanism. The harness is explicitly synthetic/lookup-only; do not pretend to admit a store/prefix, add a new interface, or alter production to accommodate it.\n\nPreserve the existing first test's real owner logic and assertions: absent/ambiguous cause refusals, ancestry mismatch, unique eligible parent/cause, unrelated Run behavior, judgment/event ordering, serialized selection/request, publication/binding/currentness and remaining correction/evidence assertions. Do not stop at a port-spy assertion or change expected native_revision_cause_absent into the incidental exception. Keep all seven existing tests; the two captured-envelope historical gates remain honest exclusions. Do not add a skip, lower a floor, activate old archives or weaken errors.\n\nNative write grant is only this test file plus standard qualification-scratch/fixture-01 handoffs/tmp. The current premise is local; no support, production or HOW write is granted. A real Product counterexample or further write dependency returns to Root. No further functionality.\n\nFor mechanical author proof and C2, use the exact immutable RC6 build/contracts/dependencies staged into an isolated test sandbox and the selected source test/support files. The main ABI5_GENERIC_JOB_BUILD_ROOT override alone is insufficient: forward-command-harness also has literal ../../build/code/src imports. Copy only the existing immutable executable/dependency subtrees into the sandbox's standard build/contracts/node_modules locations; never overwrite repaired test sources. No tsc/generation/pack/npm-install is required for this test-only change.\n\nRun the existing full seven-test module using Node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap. Expected current closure:5pass/0fail/2explicit historical skips. Existing first-test assertions must actually execute. Record exact actual results, including any newly reached failure; no fabricated green. No native actor/command/journal runs inside this component proof are claimed. Keep ABI5_EVIDENCE_ROOT unset for this bounded ungated component lane, preserving original historical input absence and limits.\n\nOne xhigh native coding Worker owns this increment. Return return/readiness/progress with exact hashes, changed premise and justified lower-owner assumptions, meaningful existing assertion evidence and all failures/skips. Freeze and stop. Root conjoins independent review, actual Testing/UAT and fresh closure. No Product release/qualification completion or reserved human acceptance.\n",
+          "Root ROOT_CONTROL_SELECTION.json adopts the finite grant, including /private/tmp/abg-r6f1 temporary effects. METHOD_ACCESS.json binds exact installed STDO3.0.4 direct-file skill access and its relative references; no local .claude skill copy is required. Native provider scratch is tmpqf01, separate from test scratch. Preserve compiled checkout/build and all other files. For author selfcheck, use qualification-scratch/fixture-01/tmp as an isolated staging root with the ten selected test/support files and package.json at the same relative tenant paths, then clone the exact installed RC6 build/contracts/node_modules into that isolated tenant and run the selected Node test flags. Do not run the fixed C2 wrapper twice in one output directory. Tools are general host capabilities; exclusions are behavioral. Return missing prerequisites to Root without broadening.",
+          "DEPENDENCY_SOURCE_SELECTION is the Root re-entry for the same immutable RC6 payload: copy executable dependencies only from the explicit global RC6 installation in C2_INPUTS, which is outside the active workspace roots. Do not expose active runtime/toolchain/archive/worksite roots in C2 child arguments; no symlinks or mutation of either installed release."
+        ],
+        "readFirst": [
+          "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+          "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+          "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+          "qualification-inputs/fixture-01/TASK.md",
+          "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+          "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+          "qualification-inputs/fixture-01/rubric.json",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts"
+        ],
+        "writeRoots": [
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "qualification-scratch/fixture-01/return.json",
+          "qualification-scratch/fixture-01/readiness.json",
+          "qualification-scratch/fixture-01/progress.json",
+          "qualification-scratch/fixture-01/tmp"
+        ],
+        "checks": []
+      }
+    },
+    "testing": {
+      "selectedPaths": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "build_tenants/abiogenesis/typescript/package.json",
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+        "qualification-inputs/fixture-01/C2_INPUTS.json",
+        "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+        "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+        "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+        "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+        "qualification-inputs/fixture-01/ROOT_ACTIVATION.json",
+        "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+        "qualification-inputs/fixture-01/TASK.md",
+        "qualification-inputs/fixture-01/WORKSPACE_REENTRY_01.json",
+        "qualification-inputs/fixture-01/c2-proof.mjs",
+        "qualification-inputs/fixture-01/rubric.json",
+        "qualification-scratch/fixture-01/progress.json",
+        "qualification-scratch/fixture-01/readiness.json",
+        "qualification-scratch/fixture-01/return.json",
+        "specification/PRODUCT.md",
+        "stdo_abiogenesis.json"
+      ],
+      "commands": [
+        {
+          "commandId": "command://abiogenesis/qualification/fixture-01/immutable-build",
+          "executable": "/bin/cp",
+          "args": [
+            "-cR",
+            "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build",
+            "build"
+          ],
+          "relativeCwd": "build_tenants/abiogenesis/typescript",
+          "environment": {
+            "NODE_OPTIONS": "--max-old-space-size=8192",
+            "TMPDIR": "/private/tmp/abg-r6f1"
+          },
+          "timeoutMs": 60000,
+          "terminationGraceMs": 5000,
+          "expectedReports": []
+        },
+        {
+          "commandId": "command://abiogenesis/qualification/fixture-01/immutable-contracts",
+          "executable": "/bin/cp",
+          "args": [
+            "-cR",
+            "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts",
+            "contracts"
+          ],
+          "relativeCwd": "build_tenants/abiogenesis/typescript",
+          "environment": {
+            "NODE_OPTIONS": "--max-old-space-size=8192",
+            "TMPDIR": "/private/tmp/abg-r6f1"
+          },
+          "timeoutMs": 60000,
+          "terminationGraceMs": 5000,
+          "expectedReports": []
+        },
+        {
+          "commandId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies",
+          "executable": "/bin/cp",
+          "args": [
+            "-cR",
+            "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/node_modules",
+            "node_modules"
+          ],
+          "relativeCwd": "build_tenants/abiogenesis/typescript",
+          "environment": {
+            "NODE_OPTIONS": "--max-old-space-size=8192",
+            "TMPDIR": "/private/tmp/abg-r6f1"
+          },
+          "timeoutMs": 60000,
+          "terminationGraceMs": 5000,
+          "expectedReports": []
+        },
+        {
+          "commandId": "command://abiogenesis/qualification/fixture-01/component-proof",
+          "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "args": [
+            "qualification-inputs/fixture-01/c2-proof.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": {
+            "NODE_OPTIONS": "--max-old-space-size=8192",
+            "TMPDIR": "/private/tmp/abg-r6f1"
+          },
+          "timeoutMs": 660000,
+          "terminationGraceMs": 5000,
+          "expectedReports": []
+        }
+      ],
+      "outcomePredicates": [
+        {
+          "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-build/exit",
+          "predicateKind": "process_exit",
+          "declaration": {
+            "equals": 0,
+            "validationCommandId": "command://abiogenesis/qualification/fixture-01/immutable-build"
+          }
+        },
+        {
+          "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-contracts/exit",
+          "predicateKind": "process_exit",
+          "declaration": {
+            "equals": 0,
+            "validationCommandId": "command://abiogenesis/qualification/fixture-01/immutable-contracts"
+          }
+        },
+        {
+          "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies/exit",
+          "predicateKind": "process_exit",
+          "declaration": {
+            "equals": 0,
+            "validationCommandId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies"
+          }
+        },
+        {
+          "predicateId": "command://abiogenesis/qualification/fixture-01/component-proof/exit",
+          "predicateKind": "process_exit",
+          "declaration": {
+            "equals": 0,
+            "validationCommandId": "command://abiogenesis/qualification/fixture-01/component-proof"
+          }
+        }
+      ],
+      "allowedWriteTerritories": [
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/abiogenesis/typescript/build"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/abiogenesis/typescript/contracts"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/abiogenesis/typescript/node_modules"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-fixture-01"
+        }
+      ]
+    },
+    "assessment": {
+      "candidatePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "rubricPath": "qualification-inputs/fixture-01/rubric.json",
+      "sources": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+        "qualification-inputs/fixture-01/C2_INPUTS.json",
+        "qualification-inputs/fixture-01/DEPENDENCY_SOURCE_SELECTION.json",
+        "qualification-inputs/fixture-01/FIXTURE_TRIAGE.json",
+        "qualification-inputs/fixture-01/METHOD_ACCESS.json",
+        "qualification-inputs/fixture-01/NATIVE_GRANT.json",
+        "qualification-inputs/fixture-01/ROOT_ACTIVATION.json",
+        "qualification-inputs/fixture-01/ROOT_CONTROL_SELECTION.json",
+        "qualification-inputs/fixture-01/TASK.md",
+        "qualification-inputs/fixture-01/WORKSPACE_REENTRY_01.json",
+        "qualification-inputs/fixture-01/c2-proof.mjs",
+        "specification/PRODUCT.md",
+        "stdo_abiogenesis.json"
+      ],
+      "resultContract": {
+        "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+        "contractVersion": "5.0.0",
+        "contractKind": "output",
+        "valueKind": "sandbox_uat_assessment"
+      },
+      "schemaAsset": {
+        "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+        "contractId": "contract://abi5-tests/sandbox-uat/assessment@5",
+        "bytesBase64": "eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCIkaWQiOiJjb250cmFjdDovL2FiaTUtdGVzdHMvc2FuZGJveC11YXQvYXNzZXNzbWVudEA1IiwidHlwZSI6Im9iamVjdCIsImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicmVxdWlyZWQiOlsia2luZCIsImRpc3Bvc2l0aW9uIiwicmVhc29uIiwidW5yZXNvbHZlZENyaXRlcmlhIl0sInByb3BlcnRpZXMiOnsia2luZCI6eyJjb25zdCI6InNhbmRib3hfdWF0X2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sInVucmVzb2x2ZWRDcml0ZXJpYSI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoic3RyaW5nIn19fX0K"
+      },
+      "verdictField": "disposition",
+      "satisfiedValue": "satisfied"
+    }
+  },
+  "synthesis": null,
+  "observations": [],
+  "unresolvedSupportRefs": [
+    "support://abiogenesis/t287/n9-retained-fixture-01"
+  ],
+  "terminal": false
+}

@@ -1,0 +1,1319 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts b/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts
+index 39ac8cbe8..2053ae4be 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts
+@@ -5,7 +5,7 @@ import { isDeepStrictEqual as same } from "node:util";
+ import { resolve } from "node:path";
+ import { pathToFileURL } from "node:url";
+ import { authenticateOwnedNativeInstructionAssemblyBasis, rehydrateExecutionBasisAtPrefix, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+-import type { RuntimeEventPrefix } from "./event_prefix.js";
++import { reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyReaderAtPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
+ import { sha256Bytes } from "../shared/digests.js";
+ import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,
+   hasAdmittedGovernanceCoveredSourceUse } from "./invocation_execution_truth.js";
+@@ -19,7 +19,7 @@ import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWo
+ import { constructObservedWorksiteCommandExecutionTask, constructNativeWorksiteCommandExecutionTask, worksiteCommandConfigurationMatches, boundWorksiteCommandDeclarations,
+   isObservedWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionObservation,
+   isNativeWorksiteCommandExecutionObservation, type ObservedWorksiteCommandExecutionTaskInput, type WorksiteObservedStream } from "../product/worksite_command_execution.js";
+-import { constructWorksiteSubject, isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
++import { constructWorksiteSubject, isWorksiteContextObservation, sameWorksiteContextIdentity, type WorksiteContextObservation } from "../product/worksite_effect.js";
+ import { observeWorksiteContext, observeWorksiteSubject } from "../product/worksite_operations.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import type { RuntimeEvent } from "./event_store.js";
+@@ -91,8 +91,11 @@ type GovernanceWorksiteObservation = Readonly<{
+  */
+ async function observeGovernanceWorksite(o: Owner, state: GovernanceWorkState, observedPaths: readonly string[],
+   refusal?: GovernanceTestingRefusal): Promise<GovernanceWorksiteObservation | null> {
+-  const context = await observeWorksiteContext({ ...operating(o), protectedInstallRoots: o.environment.productInstalls.map(i => i.installedRoot), readRoots: state.original.readRoots, maxFiles: state.original.maxContextFiles, maxBytes: state.original.maxContextBytes });
+-  if (!isWorksiteContextObservation(context)) return testingRefused(refusal, "testing_context", "context_observation");
++  const observed = await observeWorksiteContext({ ...operating(o), protectedInstallRoots: o.environment.productInstalls.map(i => i.installedRoot), readRoots: state.original.readRoots, maxFiles: state.original.maxContextFiles, maxBytes: state.original.maxContextBytes });
++  if (!isWorksiteContextObservation(observed)) return testingRefused(refusal, "testing_context", "context_observation");
++  // Current W is reobserved above; unchanged bodies already held by this Run's
++  // admitted Results are carried by member reference, changed bytes inline.
++  const context = reuseWorksiteContextBodiesAtPrefix(o.prefix, observed, { runId: o.call.runId });
+   if (!contextMatches(o, state, context)) return testingRefused(refusal, "testing_context", "authority_binding_sources", { contextRef: context.observationRef, workspaceBindingRef: o.execution.workspaceBindingId });
+   const current = operating(o), observedFiles: ObservedWorksiteCommandExecutionTaskInput["observedFiles"][number][] = [];
+   for (const relativePath of observedPaths) {
+@@ -117,10 +120,14 @@ function sourceResult(o: Owner, input: unknown) {
+   return retained !== undefined && retained.entryBasis.basisRef === o.execution.basisRef &&
+     retained.input.admissionRef === o.inputRef && same(retained.input.value, input) ? retained.sourceResult : null;
+ }
++/** One consumer's selected-body reader for an admitted context at this owner's prefix. */
++function bodies(o: Owner, context: WorksiteContextObservation) {
++  return worksiteContextBodyReaderAtPrefix(o.prefix, context, { runId: o.call.runId });
++}
+ /** Selection task construction over the admitted context; reads no worksite. */
+-function selectionTask(state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask | null {
++function selectionTask(o: Owner, state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask | null {
+   if (state.original.fulfillment !== undefined && state.synthesis === null &&
+-    !governanceFulfillmentSourceMatches(state.original.fulfillment, context)) return null;
++    !governanceFulfillmentSourceMatches(state.original.fulfillment, context, bodies(o, context))) return null;
+   if (state.terminal) throw new TypeError("completed parent cannot select work");
+   return { kind: "framed_synthesis_task", schemaVersion: "5.0.0", state, context };
+ }
+@@ -146,7 +153,7 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
+     const task = record(inputEvent?.payload) && isFramedSynthesisTask(inputEvent.payload.value) ? inputEvent.payload.value : null;
+     if (task === null || j.requirementProposals === undefined || !same(task.state, input.state)) return null;
+     const fulfillment = deriveGovernanceObligations(input.state.original.fulfillment, input.state.fulfillment!, j.requirementProposals,
+-      input.state.original.taskRef, o.inputRef, task.context, framedSynthesisEvidenceRefs(task));
++      input.state.original.taskRef, o.inputRef, task.context, framedSynthesisEvidenceRefs(task), bodies(o, task.context));
+     if (fulfillment === null) return null;
+     projected = { ...input.state, fulfillment, unresolvedSupportRefs: fulfillment.coverage.filter(r => r.disposition !== "eligible").map(r => r.obligationRef) };
+   }
+@@ -165,7 +172,7 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
+ export async function projectGovernanceSelection(basis: NativeInstructionAssemblyBasis, input: unknown) {
+   const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input)) return null;
+   const observation = await observeGovernanceWorksite(o, input, []);
+-  return observation === null ? null : selectionTask(input, observation.context);
++  return observation === null ? null : selectionTask(o, input, observation.context);
+ }
+ function subjectEvidence(o: Owner, state: GovernanceWorkState, purpose: GovernancePurpose, refusal?: GovernanceTestingRefusal) {
+   const ref = state.synthesis?.judgment.subjectEvidenceRef;
+@@ -297,7 +304,7 @@ function testingTask(o: Owner, input: GovernanceWorkState, observation: Governan
+     return constructObservedWorksiteCommandExecutionTask({ ...current, observedFiles: observation.observedFiles, ...governanceTestingConfiguration(input) }, ambient ?? null);
+   const p = subjectEvidence(o, input, "testing", refusal);
+   if (p === null || !isNativeWorkspaceWorkObservation(p.value) || p.value.task.assessment !== undefined) return testingRefused(refusal, "testing_subject", "native_work_required", { resultRef: selectedSource });
+-  if (!same(p.value.after, context)) {
++  if (!sameWorksiteContextIdentity(p.value.after, context)) {
+     if (reacquire === undefined) return testingRefused(refusal, "testing_reacquisition", "callback_absent", { resultRef: selectedSource, contextRef: context.observationRef });
+     const task = refusal === undefined ? reacquire(context) : reacquire(context, refusal);
+     return task ?? testingRefused(refusal, "testing_reacquisition", "callback_entered_refused", { resultRef: selectedSource, contextRef: context.observationRef });
+@@ -383,7 +390,7 @@ export function governanceResultMatches(basis: NativeInstructionAssemblyBasis, i
+     if (implementation === ref("implementation", "project-choice")) return same(output, projectGovernanceChoice(basis, input));
+     if (!isGovernanceWorkState(input)) return false;
+     if (implementation === ref("implementation", "prepare-selection")) return isFramedSynthesisTask(output) &&
+-      contextMatches(o, input, output.context) && same(output, selectionTask(input, output.context));
++      contextMatches(o, input, output.context) && same(output, selectionTask(o, input, output.context));
+     if (implementation === ref("implementation", "prepare-native")) return isNativeWorkspaceWorkTask(output) && same(output,
+       nativeTask(o, input, basis.graphFunction.declarations["abg.default_library_purpose"] as GovernancePurpose, output.context));
+     if (implementation === ref("implementation", "prepare-testing")) {
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts b/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts
+index 37c57b560..310fc5709 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts
+@@ -1,6 +1,8 @@
+ import { createHash } from "node:crypto";
+ import { canonicalJson, writeCanonicalJson, type JsonValue } from "../shared/canonical_json.js";
+-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
++import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
++import { deepFreeze } from "../shared/immutable.js";
++import type { WorksiteContextBodyMember, WorksiteContextEntry, WorksiteContextObservation } from "../product/worksite_effect.js";
+ import type { CheckedRecord } from "../shared/select/index.js";
+ import { ownedRuntimeDerivationSource, runtimeDerivationSource, RuntimeDerivationSource, type RuntimeDerivationScope } from "./runtime_derivation.js";
+ import {
+@@ -19,7 +21,8 @@ import {
+   type RuntimeEvent,
+   type RuntimeEventScope,
+ } from "./event_store.js";
+-import { RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistorySelectorKeys } from "./runtime_history.js";
++import { RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistorySelectorKeys, nativeContextBodyHolders,
++  NATIVE_CONTEXT_BODY_KEY } from "./runtime_history.js";
+ import { canonicalEquals } from "../shared/value/index.js";
+ 
+ const VALIDATED_RUNTIME_EVENT_PREFIX = Symbol(
+@@ -816,3 +819,155 @@ export function runtimeEventPrefixDigest(prefix: RuntimeEventPrefix): Sha256Dige
+   derivation.advance(events);
+   return derivation.digests[events.length]!;
+ }
++
++/** Typed fail-closed cause of one native context body read. */
++export type WorksiteContextBodyRefusalCode = "malformed" | "missing" | "pending" | "foreign" | "tampered" | "stale" | "denied";
++/** The consumer's own Run and read grant; a body never widens either. */
++export type WorksiteContextBodyUse = Readonly<{ runId: string; readable?: (relativePath: string) => boolean }>;
++export type WorksiteContextBodyResolution = Readonly<{ kind: "worksite_context_body"; relativePath: string; digest: Sha256Digest;
++  byteLength: number; bytes: Buffer; holder: Readonly<{ eventRef: string; resultRef: string; resultDigest: Sha256Digest }> | null }> |
++  Readonly<{ kind: "worksite_context_body_refusal"; code: WorksiteContextBodyRefusalCode; relativePath: string; reason: string }>;
++
++const HELD_CONTEXT_BODIES = Symbol("held_native_context_bodies");
++type HeldContextBodies = { readonly events: Map<string, RuntimeEvent | null>; readonly members: Map<string, Map<string, readonly (string | number)[]>>;
++  acquisitions: number };
++const contextScope = (c: Pick<WorksiteContextObservation, "workspaceAuthorityBasisRef" | "workspaceAuthorityBasisDigest" | "workspaceBindingIdentity" | "workspaceBindingDigest">) =>
++  [c.workspaceAuthorityBasisRef, c.workspaceAuthorityBasisDigest, c.workspaceBindingIdentity, c.workspaceBindingDigest].join("\0");
++/** Derived facts of committed bodies only: a validation candidate is never a holder. */
++function committedBodyPrefix(prefix: RuntimeEventPrefix): RuntimeEventPrefix | undefined {
++  return isValidationRuntimeEventPrefix(prefix) ? runtimeEventValidationBase(prefix) : prefix;
++}
++function heldContextBodies(prefix: RuntimeEventPrefix): HeldContextBodies {
++  return runtimePrefixComputation(prefix, HELD_CONTEXT_BODIES, () => ({ events: new Map(), members: new Map(), acquisitions: 0 }));
++}
++/** One acquisition of a committed holder Result per derivation territory. */
++function heldResultEvent(prefix: RuntimeEventPrefix, held: HeldContextBodies, eventRef: string): RuntimeEvent | null {
++  if (held.events.has(eventRef)) return held.events.get(eventRef)!;
++  const event = runtimeEventAtPrefix(prefix, eventRef) ?? null;
++  held.acquisitions++; held.events.set(eventRef, event);
++  return event;
++}
++function heldMembers(event: RuntimeEvent, held: HeldContextBodies): Map<string, readonly (string | number)[]> {
++  let members = held.members.get(event.eventId);
++  if (members !== undefined) return members;
++  members = new Map();
++  const payload = event.payload as Readonly<Record<string, JsonValue>>;
++  for (const holder of nativeContextBodyHolders(payload.value)) {
++    const scope = contextScope(holder.context as unknown as WorksiteContextObservation);
++    holder.entries.forEach((entry, index) => {
++      const e = entry as unknown as WorksiteContextEntry;
++      if (typeof e === "object" && e !== null && e.state === "file" && e.encoding === "base64") {
++        const key = [scope, e.relativePath, e.digest].join("\0");
++        if (!members!.has(key)) members!.set(key, Object.freeze([...holder.path, "entries", index]));
++      }
++    });
++  }
++  held.members.set(event.eventId, members);
++  return members;
++}
++function admittedHolderEnvelopes(prefix: RuntimeEventPrefix, key: string) {
++  return indexedRuntimeEventEnvelopes(prefix, key).filter(row => row.kind === "c_call_result_admitted");
++}
++
++/** @internal Producer carriage at the held-prefix owner. Each inline body that
++ * an earlier committed same-Run Result already holds inline at a declared
++ * native context coordinate, for the same path, digest, authority basis and
++ * binding, becomes an exact admitted member reference; every other body stays
++ * inline and is born by the Result that admits this context. The observed
++ * identity is unchanged and no worksite is read. */
++export function reuseWorksiteContextBodiesAtPrefix<T extends WorksiteContextObservation>(prefix: RuntimeEventPrefix, context: T,
++  use: WorksiteContextBodyUse): T {
++  if (isValidationRuntimeEventPrefix(prefix)) return context;
++  try { return reuseHeldContextBodies(prefix, context, use); }
++  // Carriage only removes repeated bytes: an unavailable derivation keeps every body inline.
++  catch { return context; }
++}
++function reuseHeldContextBodies<T extends WorksiteContextObservation>(prefix: RuntimeEventPrefix, context: T, use: WorksiteContextBodyUse): T {
++  const held = heldContextBodies(prefix), scope = contextScope(context);
++  let reused = false;
++  const entries = context.entries.map(entry => {
++    if (entry.state !== "file" || entry.encoding !== "base64") return entry;
++    for (const row of admittedHolderEnvelopes(prefix, NATIVE_CONTEXT_BODY_KEY + entry.digest)) {
++      if (row.runId !== use.runId) continue;
++      const event = heldResultEvent(prefix, held, row.eventId), payload = event?.payload as Readonly<Record<string, JsonValue>> | undefined;
++      if (event === null || payload === undefined || typeof payload.resultRef !== "string" || typeof payload.resultDigest !== "string" ||
++        (payload.resultClass !== "success" && payload.resultClass !== "failure")) continue;
++      const path = heldMembers(event, held).get([scope, entry.relativePath, entry.digest].join("\0"));
++      if (path === undefined) continue;
++      reused = true;
++      const { encoding: _encoding, bytes: _bytes, ...facts } = entry;
++      const member: WorksiteContextBodyMember = { resultRef: payload.resultRef, resultDigest: payload.resultDigest as Sha256Digest, path };
++      return { ...facts, encoding: "admitted_member" as const, member };
++    }
++    return entry;
++  });
++  return reused ? deepFreeze({ ...context, entries }) as T : context;
++}
++
++/** @internal Exact selected-member read at a raw ingress, effect, helper or
++ * cold-recovery boundary. A reference is only a locator: the owner rejoins the
++ * committed Result, its digest and Run, the declared member coordinate, the
++ * holder's authority basis and binding, the consumer's path, digest and read
++ * grant, and the held bytes. Every other case refuses with its typed cause. */
++export function resolveWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, context: WorksiteContextObservation,
++  relativePath: string, use: WorksiteContextBodyUse): WorksiteContextBodyResolution {
++  const refuse = (code: WorksiteContextBodyRefusalCode, reason: string): WorksiteContextBodyResolution =>
++    Object.freeze({ kind: "worksite_context_body_refusal", code, relativePath, reason });
++  const verify = (entry: { digest: Sha256Digest; byteLength: number }, base64: unknown) => {
++    if (typeof base64 !== "string") return null;
++    const bytes = Buffer.from(base64, "base64");
++    return bytes.toString("base64") === base64 && bytes.length === entry.byteLength && sha256Bytes(bytes) === entry.digest ? bytes : null;
++  };
++  try {
++    if (typeof relativePath !== "string" || !context.readRoots.some(root => root === "." || root === relativePath || relativePath.startsWith(root + "/")) ||
++      (use.readable !== undefined && !use.readable(relativePath))) return refuse("denied", "path is outside the consumer's read scope or grant");
++    const entry = context.entries.find(e => e.relativePath === relativePath);
++    if (entry === undefined || entry.state !== "file") return refuse("missing", "the consumer context observes no file at this path");
++    if (entry.encoding === "base64") {
++      const bytes = verify(entry, entry.bytes);
++      return bytes === null ? refuse("tampered", "inline body differs from its observed digest or length")
++        : Object.freeze({ kind: "worksite_context_body", relativePath, digest: entry.digest, byteLength: entry.byteLength, bytes, holder: null });
++    }
++    const member = (entry as { member?: unknown }).member as WorksiteContextBodyMember | undefined;
++    if (entry.encoding !== "admitted_member" || typeof member !== "object" || member === null || typeof member.resultRef !== "string" ||
++      typeof member.resultDigest !== "string" || !Array.isArray(member.path)) return refuse("malformed", "admitted member reference is malformed");
++    const committed = committedBodyPrefix(prefix);
++    if (committed === undefined) return refuse("pending", "no committed predecessor prefix");
++    const rows = admittedHolderEnvelopes(committed, "payload:resultRef:" + member.resultRef);
++    if (rows.length === 0) return refuse("pending", "referenced Result is not admitted at this prefix");
++    if (rows.length !== 1) return refuse("tampered", "referenced Result is not one exact admission");
++    if (rows[0]!.runId !== use.runId) return refuse("foreign", "referenced Result belongs to another Run");
++    const held = heldContextBodies(committed), event = heldResultEvent(committed, held, rows[0]!.eventId);
++    const payload = event?.payload as Readonly<Record<string, JsonValue>> | undefined;
++    if (event === null || payload === undefined) return refuse("pending", "referenced Result body is unavailable");
++    if (payload.resultDigest !== member.resultDigest) return refuse("tampered", "referenced Result digest differs from its admission");
++    if (payload.resultClass !== "success" && payload.resultClass !== "failure") return refuse("pending", "referenced Result is not a committed body");
++    const holder = nativeContextBodyHolders(payload.value).find(h => member.path.length === h.path.length + 2 &&
++      h.path.every((step, i) => member.path[i] === step) && member.path[h.path.length] === "entries");
++    const index = member.path.at(-1);
++    if (holder === undefined || !Number.isSafeInteger(index)) return refuse("tampered", "reference names no declared native context member");
++    if (contextScope(holder.context as unknown as WorksiteContextObservation) !== contextScope(context))
++      return refuse("foreign", "holder context belongs to another authority basis or binding");
++    const source = holder.entries[index as number] as unknown as WorksiteContextEntry | undefined;
++    if (typeof source !== "object" || source === null || source.state !== "file" || source.encoding !== "base64" || source.relativePath !== relativePath)
++      return refuse("tampered", "referenced member is not one inline body of this path");
++    if (source.digest !== entry.digest || source.byteLength !== entry.byteLength) return refuse("stale", "referenced member holds another version of this path");
++    const bytes = verify(entry, source.bytes);
++    return bytes === null ? refuse("tampered", "held body differs from its digest or length") : Object.freeze({ kind: "worksite_context_body",
++      relativePath, digest: entry.digest, byteLength: entry.byteLength, bytes,
++      holder: Object.freeze({ eventRef: event.eventId, resultRef: member.resultRef, resultDigest: member.resultDigest }) });
++  } catch (error) { return refuse("malformed", `native context body read failed: ${String(error)}`); }
++}
++/** @internal One consumer's selected-body reader over one context at this prefix. */
++export function worksiteContextBodyReaderAtPrefix(prefix: RuntimeEventPrefix, context: WorksiteContextObservation,
++  use: WorksiteContextBodyUse): (entry: Readonly<{ relativePath: string }>) => Buffer | null {
++  return entry => {
++    const read = resolveWorksiteContextBodyAtPrefix(prefix, context, entry.relativePath, use);
++    return read.kind === "worksite_context_body" ? read.bytes : null;
++  };
++}
++/** @internal Holder Result acquisitions recorded in this prefix's derivation territory. */
++export function worksiteContextBodyAcquisitionsAtPrefix(prefix: RuntimeEventPrefix): number {
++  const committed = committedBodyPrefix(prefix);
++  return committed === undefined ? 0 : heldContextBodies(committed).acquisitions;
++}
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts b/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
+index 2298cc9e6..1c86006fb 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
+@@ -18,7 +18,7 @@ import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/diges
+ import { deepFreeze } from "../shared/immutable.js";
+ import { admitIJsonText } from "../shared/i_json.js";
+ import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
+-import { indexedRuntimeEvents } from "./event_prefix.js";
++import { indexedRuntimeEvents, worksiteContextBodyReaderAtPrefix } from "./event_prefix.js";
+ import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+ import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
+ import { semanticSourceText, semanticWorkerResultSchema, semanticPredecessorStatementRefs, semanticAssessmentStatementDomain, isSemanticStageEnvelope, type SemanticEvidenceInput } from "../product/semantic_stage.js";
+@@ -173,8 +173,10 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
+         programLocusRef: owner.call.programLocusRef, contextRef: supplied.context.observationRef,
+         contextDigest: supplied.context.observationDigest, worksiteRoot: supplied.workspaceAuthorityBasis.canonicalRoot,
+         readRoots: supplied.context.readRoots, writeRoots: supplied.writeRoots, role, ...presentation };
++      // The admitted input binds the task by inputRef/inputDigest; the envelope
++      // carries no second whole task or context body.
+       const identity = assemblyIdentity("native-work", plan, owner,
+-        basis.predecessorPrefix, { nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] }, task: supplied });
++        basis.predecessorPrefix, { nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] } });
+       const prompt = (role === null ? "" : `Declared role context:\n${canonicalJson(role)}\n\n`) + renderNativeWorkspaceWorkOrder(supplied);
+       const promptBytes = Buffer.from(prompt, "utf8"), bound = declaredRunPromptBound(owner);
+       if (bound !== null && promptBytes.length > bound) return assemblyRefusal("declared_bound_overflow", null, selectedRole, ["maxPromptBytes"]);
+@@ -401,7 +403,8 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
+       carrierResponseSchemaDigest: sha256Canonical(carrier) };
+     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
+       instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
+-      choices, task: projectFramedSynthesisPromptTask(task), evidence: { declaredAccess: role.accessContent }, response };
++      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, { runId: owner.call.runId })),
++      evidence: { declaredAccess: role.accessContent }, response };
+     const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment, ...responseSchemas,
+       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,
+       sectionOrder: ["role", "choices", "task", "evidence", "response"] };
+@@ -862,6 +865,7 @@ function constructJobInstructionAssembly(basis: SemanticStageNativeBasis, suppli
+       observation: content === "not_required" ? input.context === null ? null : { observationRef: input.context.observationRef, observationDigest: input.context.observationDigest, bodyDisposition: "omitted_not_required" } :
+         input.context === null ? null : { ...input.context, entries: input.context.entries.map(e => {
+           if (e.state !== "file") return e;
++          if (e.encoding !== "base64") throw new TypeError("semantic worksite view requires its inline observed body");
+           const { bytes, encoding, ...identity } = e;
+           return { ...identity, sourceEncoding: encoding, textView: observedText(bytes, e.digest, e.byteLength) };
+         }) } },
+@@ -967,6 +971,8 @@ export function renderNativeRevisionSelectionDecisionView(
+   const contextView = (context: Row): Row => ({ ...context,
+     entries: (context.entries as readonly Row[]).map(entry => {
+       if (entry.state !== "file") return entry;
++      // Semantic evidence contexts are inline births; a member reference refuses this view.
++      if (entry.encoding !== "base64" || typeof entry.bytes !== "string") throw new TypeError("semantic evidence view requires inline context bodies");
+       const { bytes, encoding, ...identity } = entry;
+       return { ...identity, sourceEncoding: encoding!, textView: bytesView(bytes as string, entry.digest as Sha256Digest, entry.byteLength as number) };
+     }) });
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts b/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts
+index 179ba2da4..a304a0b2b 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts
+@@ -12,7 +12,9 @@ import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
+ import { isGovernanceWorkState, governanceTestingConfiguration, governanceRef } from "../product/default_library.js";
+ import { constructNativeWorksiteCommandReacquisitionRequest, constructWorksiteCommandConfiguration,
+   worksiteCommandConfigurationMatches } from "../product/worksite_command_execution.js";
+-import { constructWorksiteSubject, type WorksiteContextObservation } from "../product/worksite_effect.js";
++import { constructWorksiteSubject, isWorksiteContextObservation, sameWorksiteContextIdentity, worksiteContextIdentityEntry,
++  type WorksiteContextObservation } from "../product/worksite_effect.js";
++import { deepFreeze } from "../shared/immutable.js";
+ import { resolve } from "node:path";
+ import { pathToFileURL } from "node:url";
+ import { nativeWorkReacquisitionGraphFunction } from "../gtl/worksite_command_execution.js";
+@@ -205,6 +207,23 @@ function governanceReacquisitionRequestMatches(prefix: RuntimeEventPrefix, execu
+   return matches;
+ }
+ 
++/** The request contract keeps its exact retained-context entry relation. A fresh
++ * entry whose observed physical facts equal the source `after` entry takes that
++ * admitted entry and its body carriage; a changed, new or absent member keeps its
++ * own fresh observation, which the request contract refuses. Identity is unchanged. */
++function inSourceContextCarriage(context: WorksiteContextObservation, after: WorksiteContextObservation): WorksiteContextObservation {
++  const source = new Map(after.entries.map(entry => [entry.relativePath, entry] as const));
++  let adopted = false;
++  const entries = context.entries.map(entry => {
++    const held = source.get(entry.relativePath);
++    if (held === undefined || isDeepStrictEqual(held, entry) ||
++      !same(worksiteContextIdentityEntry(held), worksiteContextIdentityEntry(entry))) return entry;
++    adopted = true;
++    return held;
++  });
++  return adopted ? deepFreeze({ ...context, entries }) : context;
++}
++
+ /** Private invoking-owner operation for the existing prepare-testing F_D leaf.
+  * The explicit resource is resolved before any retained establishment facts. */
+ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructionAssemblyBasis, input: unknown,
+@@ -243,7 +262,8 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
+     stage = "native_request_construction";
+     const request = constructNativeWorksiteCommandReacquisitionRequest({
+       workspaceAuthorityBasis: environment.workspaceAuthorityBasis, workspaceBinding: environment.workspaceBinding,
+-      capabilityGrant: invocation.capabilityGrants[0]!, sourceNativeWork: value as NativeWorksiteCommandExecutionTask["sourceNativeWork"], currentContext: context,
++      capabilityGrant: invocation.capabilityGrants[0]!, sourceNativeWork: value as NativeWorksiteCommandExecutionTask["sourceNativeWork"],
++      currentContext: inSourceContextCarriage(context, value.after),
+       source: { prefix: basis.predecessorPrefix, graphCallRef: source.sourceResult.graphCallId!, declarationReference: reference },
+       selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath,
+         subjectUri: pathToFileURL(resolve(environment.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
+@@ -287,11 +307,13 @@ function deriveAuthenticatedNativeWorkReacquisition(basis: NativeWorkReacquisiti
+   if (derived.source.sourceResult.runId === occurrence.call.runId) return refused(refusal, "native_source_run", "historical_run", { sourceResultEventRef: derived.source.sourceResult.eventId });
+   return { ...occurrence, task: derived.task };
+ }
+-/** Read-only existing physical observation owner; all read-scope files, not just C2 sources. */
++/** Read-only existing physical observation owner; all read-scope files, not just C2 sources.
++ * Fresh physical facts are compared by identity, independent of body carriage. */
+ export async function nativeWorkReacquisitionContextCurrent(request: NativeWorksiteCommandReacquisitionRequest): Promise<boolean> {
+   const { readRoots, maxFiles, maxBytes } = request.currentContext;
+-  return same(await observeWorksiteContext({ workspaceAuthorityBasis: request.workspaceAuthorityBasis,
+-    workspaceBinding: request.workspaceBinding, readRoots, maxFiles, maxBytes }), request.currentContext);
++  const current = await observeWorksiteContext({ workspaceAuthorityBasis: request.workspaceAuthorityBasis,
++    workspaceBinding: request.workspaceBinding, readRoots, maxFiles, maxBytes });
++  return isWorksiteContextObservation(current) && sameWorksiteContextIdentity(current, request.currentContext);
+ }
+ /** The optional owner coordinate only reidentifies an already authenticated
+  * historical preparation cut; it confers no current-source or effect authority. */
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts b/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts
+index 69a5fa774..b49f53ba2 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts
+@@ -544,6 +544,40 @@ export function runtimeHistoryPayload(selection: RuntimeHistorySelection, index:
+   return event.payload;
+ }
+ 
++/** @internal Declared native context positions of admitted Result values whose
++ * inline file bodies are retained there. The derived index below names only
++ * these member coordinates; it is a hint, never read authority. */
++export const NATIVE_CONTEXT_BODY_POSITIONS: Readonly<Record<string, readonly (readonly string[])[]>> = Object.freeze({
++  framed_synthesis_task: Object.freeze([Object.freeze(["context"])]),
++  native_workspace_work_task: Object.freeze([Object.freeze(["context"])]),
++  native_workspace_work_observation: Object.freeze([Object.freeze(["task", "context"]), Object.freeze(["after"])]),
++  native_workspace_work_failure: Object.freeze([Object.freeze(["task", "context"]), Object.freeze(["after"])]),
++});
++export const NATIVE_CONTEXT_BODY_KEY = "native-context-body:";
++type HeldContext = Readonly<{ path: readonly string[]; context: Readonly<Record<string, JsonValue>>; entries: readonly JsonValue[] }>;
++/** @internal Shape-only enumeration of the declared context positions of one value. */
++export function nativeContextBodyHolders(value: unknown): readonly HeldContext[] {
++  const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
++  if (!record(value) || typeof value.kind !== "string" || !Object.hasOwn(NATIVE_CONTEXT_BODY_POSITIONS, value.kind)) return [];
++  const held: HeldContext[] = [];
++  for (const path of NATIVE_CONTEXT_BODY_POSITIONS[value.kind]!) {
++    let cursor: unknown = value;
++    for (const step of path) cursor = record(cursor) ? cursor[step] : undefined;
++    if (record(cursor) && cursor.kind === "worksite_context_observation" && Array.isArray(cursor.entries))
++      held.push({ path, context: cursor, entries: cursor.entries });
++  }
++  return held;
++}
++/** @internal Digests of the inline file bodies a committed Result holds. */
++export function nativeContextHeldBodyDigests(value: unknown): readonly string[] {
++  const digests = new Set<string>();
++  for (const { entries } of nativeContextBodyHolders(value)) for (const entry of entries) {
++    const e = typeof entry === "object" && entry !== null && !Array.isArray(entry) ? entry as Readonly<Record<string, JsonValue>> : undefined;
++    if (e?.state === "file" && e.encoding === "base64" && typeof e.digest === "string") digests.add(e.digest);
++  }
++  return [...digests];
++}
++
+ /** @internal The existing prefix selector vocabulary, shared by materialized
+  * and body-location histories. Keys select rows; they do not validate payloads. */
+ export function runtimeHistorySelectorKeys(event: RuntimeEvent): readonly string[] {
+@@ -571,6 +605,8 @@ export function runtimeHistorySelectorKeys(event: RuntimeEvent): readonly string
+         (payload.value.kind === "worksite_file_replace_output" || payload.value.kind === "native_workspace_work_observation" || payload.value.kind === "native_workspace_work_failure" ||
+           (payload.value.kind === "worksite_effect_refusal" && payload.value.phase === "post_publication")))
+       keys.push("worksite-observation-dependency");
++    if (event.kind === "c_call_result_admitted" && (payload.resultClass === "success" || payload.resultClass === "failure"))
++      for (const digest of nativeContextHeldBodyDigests(payload.value)) keys.push(NATIVE_CONTEXT_BODY_KEY + digest);
+     if (event.kind === "c_call_fibre_selected" &&
+         payload.callClass === "leaf" && payload.regime === "F_D")
+       keys.push("worksite-observation-dependency");
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
+index e20052cca..058c27593 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
+@@ -18,7 +18,7 @@ import { isSemanticJobInput, isSemanticJobEnvelope, constructSemanticJobEnvelope
+   semanticJobPathWithin, type SemanticJobEnvelope, type SemanticJobContractIssue } from "../product/semantic_job.js";
+ import { constructWorksiteSubject, constructWorksiteTerritory, 
+   constructWorksiteFileParentsRequest, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
+-  isWorksiteContextObservation, type WorksiteFileParentsRequest, type WorksiteContextObservation } from "../product/worksite_effect.js";
++  isWorksiteContextObservation, inlineWorksiteContextBytes, type WorksiteFileParentsRequest, type WorksiteContextObservation } from "../product/worksite_effect.js";
+ import { observeWorksiteContext, observeWorksiteFileParents, observeWorksiteSubject } from "../product/worksite_operations.js";
+ import { constructWorksiteConstructionTask, WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../product/worksite_construction.js";
+ import { isWorksiteCommandExecutionObservation, constructWorksiteCommandConfiguration, isWorksiteReadDependencyBasis,
+@@ -218,7 +218,8 @@ export function semanticJobContextCurrent(basis: SemanticStageNativeBasis, input
+         if (entry.state === "absent" || stat.isSymbolicLink() || realpathSync(path) !== path || `${stat.dev}:${stat.ino}` !== entry.fileIdentity) return false;
+         if (entry.state === "directory") return stat.isDirectory() && canonicalEquals(readdirSync(path).sort(), entry.members);
+         const bytes = readFileSync(path);
+-        return stat.isFile() && stat.nlink === 1 && bytes.length === entry.byteLength && sha256Bytes(bytes) === entry.digest && bytes.toString("base64") === entry.bytes;
++        const inline = inlineWorksiteContextBytes(entry);
++        return stat.isFile() && stat.nlink === 1 && bytes.length === entry.byteLength && sha256Bytes(bytes) === entry.digest && (inline === null || bytes.toString("base64") === inline);
+       } catch (error) { return entry.state === "absent" && (error as NodeJS.ErrnoException).code === "ENOENT"; }
+     });
+   } catch { return false; }
+@@ -326,7 +327,7 @@ async function observeDesignWorksite(basis: SemanticStageNativeBasis, input: unk
+     // relation (`semanticJobSavedWorksite`) reads them; the live subject
+     // observation is admitted only when it names those exact bytes.
+     const entry = original.context?.entries.find(e => e.relativePath === target.relativePath);
+-    const base64 = observation.state === "absent" ? "" : entry?.state === "file" ? entry.bytes : null;
++    const base64 = observation.state === "absent" ? "" : inlineWorksiteContextBytes(entry);
+     if (base64 === null) return null;
+     const bytes = Buffer.from(base64, "base64");
+     if (observation.state === "file" && (observation.fileDigest !== sha256Bytes(bytes) || observation.byteLength !== bytes.length)) return null;
+@@ -361,7 +362,7 @@ export function semanticJobSavedWorksite(original: SemanticJobEnvelope, value: u
+   const rows = task.targets.map(target => {
+     const selected = design.targets.find(t => t.relativePath === target.subject.relativePath);
+     const entry = original.context?.entries.find(e => e.relativePath === target.subject.relativePath);
+-    const base64 = target.predecessorObservation.state === "absent" ? "" : entry?.state === "file" ? entry.bytes : null;
++    const base64 = target.predecessorObservation.state === "absent" ? "" : inlineWorksiteContextBytes(entry);
+     return selected === undefined || base64 === null || (target.predecessorObservation.state === "file" &&
+       (sha256Bytes(Buffer.from(base64, "base64")) !== target.predecessorObservation.fileDigest)) ? null : { target, base64, role: selected.role };
+   });
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
+index 06b879eda..f4c8912cc 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
+@@ -49,7 +49,7 @@ import { isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation }
+ import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+ import { isSemanticJobInput, constructNativeSemanticConstructionTask } from "../product/semantic_job.js";
+ import { semanticJobContextMatches, semanticJobContextCurrent } from "./semantic_job.js";
+-import { isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
++import { inlineWorksiteContextBytes, isWorksiteContextObservation, worksiteContextIdentityEntry, type WorksiteContextObservation } from "../product/worksite_effect.js";
+ import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
+ import { observeWorksiteContext } from "../product/worksite_operations.js";
+ 
+@@ -178,10 +178,11 @@ function operationalPreparationFailure(prefix: RuntimeEventPrefix,
+   return { role, stageRef: stages[0]!.declarationRef, evidenceRef, evidenceAdmissionEventRef: rows[0]!.eventId,
+     ownerObservation: observation, refusal } as const;
+ }
++/** Same physical facts under another binding; body carriage is not compared. */
+ function contextCorresponds(a: WorksiteContextObservation, b: WorksiteContextObservation) {
+-  const { observationRef: _ar, observationDigest: _ad, workspaceBindingIdentity: _aw, workspaceBindingDigest: _awd, ...left } = a;
+-  const { observationRef: _br, observationDigest: _bd, workspaceBindingIdentity: _bw, workspaceBindingDigest: _bwd, ...right } = b;
+-  return canonicalEquals(left, right);
++  const { observationRef: _ar, observationDigest: _ad, workspaceBindingIdentity: _aw, workspaceBindingDigest: _awd, entries: ae, ...left } = a;
++  const { observationRef: _br, observationDigest: _bd, workspaceBindingIdentity: _bw, workspaceBindingDigest: _bwd, entries: be, ...right } = b;
++  return canonicalEquals(left, right) && canonicalEquals(ae.map(worksiteContextIdentityEntry), be.map(worksiteContextIdentityEntry));
+ }
+ /** Discovery occurs only at the declared intake. Consumers use its admitted
+  * result and exact references; they never choose a later or similar failure. */
+@@ -975,7 +976,7 @@ export function projectRevisionEvidenceInput(basis: SemanticStageNativeBasis, in
+       const row = original.current.worksite!.targets.find(t => t.target.subject.relativePath === source?.subject.relativePath);
+       const read = isSemanticJobRevisionEnvelope(original) ? original.current.context?.entries.find(entry =>
+         entry.relativePath === source?.subject.relativePath && entry.state === "file") : undefined;
+-      const expectedBytes = row?.base64 ?? (read?.state === "file" ? read.bytes : null);
++      const expectedBytes = row?.base64 ?? inlineWorksiteContextBytes(read);
+       if (source === undefined || expectedBytes === null || source.designTargetRef !== member.designTargetRef ||
+         !canonicalEquals(source.source, member.source) || (source.source.kind === "retained_dependency" && expectedBytes !== bytes.toString("base64"))) throw new TypeError("snapshot dependency or source tag changed");
+       return { subjectRef: source.subject.subjectRef, observationRef: member.sourceObservationRef, base64: bytes.toString("base64"), role: row?.role === "verifier" ? "verifier_artifact" as const : "realization" as const };
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts
+index 965989834..e6481f7e3 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts
+@@ -4,7 +4,7 @@ import { NATIVE_WORKSPACE_WORK_IDS as ids, isNativeWorkspaceWorkTask, nativeWork
+   nativeWorkspaceChangedPaths, nativeWorkspaceWorkProvenance, constructNativeWorkspaceWorkObservation,
+   type NativeWorkspaceWorkTask, type NativeWorkspaceWorkFailure } from "../product/native_workspace_work.js";
+ import { observeWorksiteContext } from "../product/worksite_operations.js";
+-import { isWorksiteContextObservation } from "../product/worksite_effect.js";
++import { carryWorksiteContextBodies, isWorksiteContextObservation, sameWorksiteContextIdentity } from "../product/worksite_effect.js";
+ import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "../product/contracts.js";
+ import { isLeafExecutionAuthority } from "./leaf_execution_authority.js";
+ import { type JsonValue } from "../shared/canonical_json.js";
+@@ -31,9 +31,11 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
+     throw new TypeError("native workspace work requires its exact admitted effect authority and assembly");
+   const observationInput = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
+     readRoots: input.context.readRoots, maxFiles: input.context.maxFiles, maxBytes: input.context.maxBytes };
+-  const before = await observeWorksiteContext(observationInput);
+-  if (!isWorksiteContextObservation(before) || !canonicalEquals(before, input.context))
++  // Fresh physical currentness; the admitted task keeps its own body carriage.
++  const current = await observeWorksiteContext(observationInput);
++  if (!isWorksiteContextObservation(current) || !sameWorksiteContextIdentity(current, input.context))
+     throw new TypeError("native workspace input context is unavailable or stale before dispatch");
++  const before = input.context;
+   const workerRequest = prepareAssembly().request;
+   if (workerRequest.implementationRef !== ids.implementationRef || workerRequest.inputDigest !== sha256Canonical(input) ||
+     workerRequest.transportLane !== "worker_executes" || workerRequest.resultContractRef !== nativeWorkspaceWorkResultContractRef(input) ||
+@@ -44,8 +46,10 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
+     async complete(exchange) {
+       // Observe even after timeout, nonzero exit, absent/malformed report or
+       // an exchange-identity failure. Authorized partial work is not rollback.
++      // Unchanged after bodies keep the task's admitted members; changed bytes
++      // are born inline once in this Result.
+       const observed = await observeWorksiteContext(observationInput);
+-      const after = isWorksiteContextObservation(observed) ? observed : null;
++      const after = isWorksiteContextObservation(observed) ? carryWorksiteContextBodies(observed, before) : null;
+       const report = input.assessment === undefined ? parseNativeWorkspaceWorkReport(exchange.observation.finalOutput) : null;
+       const assessment = input.assessment === undefined ? null : parseNativeWorkspaceAssessmentResult(nativeWorkspaceWorkResponseSchema(input), exchange.observation.finalOutput);
+       const sameExchange = canonicalEquals(exchange.request, workerRequest);
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts b/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts
+index 6a8577c7f..1b856c2cf 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts
+@@ -7,7 +7,7 @@ import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
+ import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
+ import type { NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
+ import { isNativeWorkspaceWorkReport } from "./native_workspace_work.js";
+-import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
++import { inlineWorksiteContextBody, isWorksiteContextObservation, type WorksiteContextBodyReader, type WorksiteContextObservation } from "./worksite_effect.js";
+ import { GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA, GOVERNANCE_FULFILLMENT_STATE_SCHEMA, GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA,
+   isGovernanceFulfillmentDeclaration, type GovernanceFulfillmentDeclaration, initialGovernanceFulfillment, governanceFulfillmentStateMatches,
+   deriveGovernanceObligations, governanceFulfillmentActive } from "./default_library_fulfillment.js";
+@@ -264,17 +264,21 @@ export function projectGovernanceObservationFacts(state: GovernanceWorkState, co
+         producerActorRef: fact.producerActorRef } }) };
+   }));
+ }
+-/** Presentation over the already-bound task; canonical proof stays in its owner. */
+-export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>> {
++/** Presentation over the already-bound task; canonical proof stays in its owner.
++ * Declared source bodies are read through the task context's reader; an
++ * unavailable body refuses the presentation rather than omitting the source. */
++export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask,
++  read: WorksiteContextBodyReader = inlineWorksiteContextBody): Readonly<Record<string, JsonValue>> {
+   const { state, context } = task, original = state.original;
+   const declaredSourcePaths = new Set([...original.sources.map(source => source.path),
+     ...(original.fulfillment?.context.members.map(member => member.path) ?? [])]);
+   const sourceTextsInTask = new Set<string>();
+   const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
+-    const bytes = Buffer.from(entry.bytes, "base64");
++    const bytes = read(entry);
++    if (bytes === null) throw new TypeError("declared source body is unavailable to this presentation");
+     let text: string;
+     try { text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes); }
+-    catch { return { encoding: "base64", content: entry.bytes }; }
++    catch { return { encoding: "base64", content: bytes.toString("base64") }; }
+     // Exact containment only. The actor receives the complete text in this
+     // same prompt, not a locator that would require a forbidden file read.
+     const start = text.length === 0 ? -1 : original.task.indexOf(text);
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts b/build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts
+index c59b05eec..c1d99b3d0 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts
+@@ -4,7 +4,7 @@ import { isDeepStrictEqual as same } from "node:util";
+ import { CONTEXT_DECLARATION_SCHEMA, REQUIREMENT_TERM_SCHEMA, GTL_CONTRACT_FULFILLMENT_BINDING_SCHEMA } from "../gtl/requirement_handoff.js";
+ import { POLICY_SCHEMA, SHAPE_SCHEMA } from "../gtl/semantic_stage.js";
+ import type { ContractDeclaration, GtlProgram } from "../gtl/contracts.js";
+-import type { WorksiteContextObservation } from "./worksite_effect.js";
++import { inlineWorksiteContextBody, type WorksiteContextBodyReader, type WorksiteContextObservation } from "./worksite_effect.js";
+ import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import { deepFreeze } from "../shared/immutable.js";
+@@ -95,13 +95,16 @@ export function governanceFulfillmentContractsMatch(d: GovernanceFulfillmentDecl
+   return [...new Set(d.bindings.flatMap(b => [b.realizationContractRef, b.proofContractRef]).filter((r): r is string => r !== null))]
+     .every(r => contract(r)?.contractKind === "output") && contract(d.assessmentContractRef)?.contractKind === "output";
+ }
+-/** First source acquisition only; subsequent internal owners retain this binding. */
+-export function governanceFulfillmentSourceMatches(d: GovernanceFulfillmentDeclaration, context: WorksiteContextObservation): boolean {
++/** First source acquisition only; subsequent internal owners retain this binding.
++ * Only the declared members' bodies are read, through the context's reader. */
++export function governanceFulfillmentSourceMatches(d: GovernanceFulfillmentDeclaration, context: WorksiteContextObservation,
++  read: WorksiteContextBodyReader = inlineWorksiteContextBody): boolean {
+   if (hash(d.context.members) !== d.context.inventoryDigest) return false;
+   return d.context.members.every(m => {
+     const e = context.entries.find(e => e.relativePath === m.path);
+     if (e?.state !== "file" || e.digest !== m.digest || e.byteLength !== m.byteCount) return false;
+-    const bytes = Buffer.from(e.bytes, "base64");
++    const bytes = read(e);
++    if (bytes === null) return false;
+     return d.terms.every(t => t.sourceBindings.filter(b => b.memberRef === m.memberRef).every(b => sha256Bytes(bytes.subarray(b.startByte, b.endByte)) === b.spanDigest));
+   });
+ }
+@@ -119,7 +122,7 @@ export function governanceFulfillmentStateMatches(d: GovernanceFulfillmentDeclar
+ }
+ export function deriveGovernanceObligations(d: GovernanceFulfillmentDeclaration, prior: GovernanceFulfillmentState,
+   proposals: readonly GovernanceRequirementProposal[], taskRef: string, sourceResultRef: string, context: WorksiteContextObservation,
+-  evidenceRefs: readonly string[]): GovernanceFulfillmentState | null {
++  evidenceRefs: readonly string[], read: WorksiteContextBodyReader = inlineWorksiteContextBody): GovernanceFulfillmentState | null {
+   if (!unique(proposals.map(p => p.candidateRef))) return null;
+   const additions = [...prior.additions], active = governanceFulfillmentActive(d, prior);
+   for (const p of proposals) {
+@@ -130,8 +133,9 @@ export function deriveGovernanceObligations(d: GovernanceFulfillmentDeclaration,
+     if (known) { if (known.proposalDigest !== proposalDigest) return null; continue; }
+     const sourceBindings = p.sourceQuotes.map(q => {
+       const m = d.context.members.find(m => m.memberRef === q.memberRef), e = context.entries.find(e => e.relativePath === m?.path);
+-      return m !== undefined && e?.state === "file" && e.digest === m.digest
+-        ? groundBoundSourceQuote(d.context.contextRef, { memberRef: m.memberRef, digest: m.digest, base64: e.bytes }, q.quote) : null;
++      const file = m !== undefined && e?.state === "file" && e.digest === m.digest ? e : undefined, bytes = file === undefined ? null : read(file);
++      return m !== undefined && file !== undefined && bytes !== null
++        ? groundBoundSourceQuote(d.context.contextRef, { memberRef: m.memberRef, digest: file.digest, base64: bytes.toString("base64") }, q.quote) : null;
+     });
+     if (sourceBindings.some(b => b === null)) return null;
+     const id = hash({ taskRef, proposal: p, sourceBindings }).slice(7), requirementRef = governanceRef("requirement", id), obligationRef = governanceRef("obligation", id);
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts b/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts
+index e730e5e3e..5d6a01677 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts
+@@ -6,7 +6,7 @@ import { deepFreeze } from "../shared/immutable.js";
+ import { admitIJsonText } from "../shared/i_json.js";
+ import { isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
+ import { isCapabilityGrantValue, type CapabilityGrant } from "./invocation.js";
+-import { exactWorkspaceBinding, isWorksiteContextObservation, normalizeWorksiteRelativePath, type WorksiteContextObservation,
++import { exactWorkspaceBinding, isWorksiteContextObservation, normalizeWorksiteRelativePath, worksiteContextIdentityEntry, type WorksiteContextObservation,
+   type WorksiteEffectRefusal } from "./worksite_effect.js";
+ import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
+ import type { LeafExecutionAuthority } from "../implementation/contracts.js";
+@@ -130,8 +130,9 @@ export function nativeWorkspaceWorkAuthorityMatches(task: NativeWorkspaceWorkTas
+     a.actorRef === e.actorRef && a.capabilityGrantRef === task.capabilityGrant.grantRef &&
+     a.capabilityGrantDigest === task.capabilityGrant.grantDigest && canonicalEquals(task, e.rawInputValue);
+ }
++/** Physical facts only: body carriage never makes a path changed. */
+ export function nativeWorkspaceChangedPaths(before: WorksiteContextObservation, after: WorksiteContextObservation): readonly string[] {
+-  const rows = (context: WorksiteContextObservation) => new Map(context.entries.map(e => [e.relativePath, e]));
++  const rows = (context: WorksiteContextObservation) => new Map(context.entries.map(e => [e.relativePath, worksiteContextIdentityEntry(e)]));
+   const a = rows(before), b = rows(after);
+   return [...new Set([...a.keys(), ...b.keys()])].sort().filter(path => !canonicalEquals(a.get(path) ?? null, b.get(path) ?? null));
+ }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts b/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
+index 359ef8784..883cf788c 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
+@@ -24,7 +24,7 @@ import type { WorksiteCommandPreparationInput } from "./worksite_preparation_con
+ import { projectWorksiteCommandExecutionBudget, worksiteCommandExecutionBudgetFits,
+   type WorksiteCommandExecutionLimits, type WorksiteDeclaredCommandInput, type WorksiteOutcomePredicateInput } from "./worksite_command_execution.js";
+ import { isWorksiteContextObservation, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
+-  constructWorksiteSubject, constructWorksiteObservation, type WorksiteContextObservation } from "./worksite_effect.js";
++  constructWorksiteSubject, constructWorksiteObservation, inlineWorksiteContextBytes, type WorksiteContextObservation } from "./worksite_effect.js";
+ import { resolve } from "node:path";
+ import { pathToFileURL } from "node:url";
+ import { SEMANTIC_STAGE_IDS as ids } from "../gtl/semantic_stage_identity.js";
+@@ -647,9 +647,10 @@ export function deriveSemanticJobPreparation(envelope: SemanticJobEnvelope, work
+           role: row.role, text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(row.base64, "base64")) })),
+         currentReadOnlyDependencies: (readDependencyBasis?.members ?? []).map(row => {
+           const entry = envelope.context!.entries.find(entry => entry.relativePath === row.subject.relativePath);
+-          if (entry?.state !== "file") throw new TypeError("missing read dependency bytes");
++          const base64 = inlineWorksiteContextBytes(entry);
++          if (base64 === null) throw new TypeError("missing read dependency bytes");
+           return { memberRef: row.sourceMemberRef, relativePath: row.subject.relativePath, observationRef: row.observation.observationRef,
+-            text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(entry.bytes, "base64")) };
++            text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(base64, "base64")) };
+         }),
+         commands: design.commands, outcomePredicates: design.outcomePredicates, ...(revision === undefined ? {} : { revisionFeedback: revision.feedback,
+           retainedReadOnlyPaths: design.targets.filter(t => !revision.selectedPaths.includes(t.relativePath)).map(t => t.relativePath) }) })].join("\n\n");
+@@ -788,10 +789,11 @@ export function nativeSemanticPaths(envelope: SemanticJobEnvelope) {
+     !all.every(path => semanticJobPathWithin(path, envelope.job.worksiteScope.readRoots))) throw new TypeError("distinct protected source, rubric and stage territories required");
+   return { assets, rubricPath: selection.rubricPath };
+ }
++/** Semantic native contexts are born inline; an admitted member here refuses. */
+ function nativeSemanticFile(context: WorksiteContextObservation, path: string) {
+-  const rows = context.entries.filter(e => e.relativePath === path && e.state === "file");
+-  if (rows.length !== 1 || rows[0]!.state !== "file") throw new TypeError("one observed native semantic file required: " + path);
+-  return rows[0]!;
++  const rows = context.entries.filter(e => e.relativePath === path && e.state === "file"), row = rows.length === 1 ? rows[0] : undefined;
++  if (row?.state !== "file" || row.encoding !== "base64") throw new TypeError("one inline observed native semantic file required: " + path);
++  return row;
+ }
+ export function nativeSemanticContextMatches(envelope: SemanticJobEnvelope, context: WorksiteContextObservation, admittedRevision = false): boolean {
+   try {
+@@ -863,7 +865,9 @@ export function nativeSemanticEvidenceArtifacts(envelope: SemanticJobEnvelope, v
+       const snapshot = value.snapshotMembers.filter(m => m.relativePath === selected.relativePath &&
+         m.digest === observed.digest && m.byteLength === observed.byteLength);
+       if (snapshot.length !== 1 || snapshot[0]!.sourceObservationRef !== row.observation.observationRef) throw new TypeError("exact native C2 snapshot required");
+-      return { subjectRef: row.subject.subjectRef, observationRef: snapshot[0]!.sourceObservationRef, base64: observed.bytes,
++      const base64 = inlineWorksiteContextBytes(observed);
++      if (base64 === null) throw new TypeError("native evidence target body is not inline");
++      return { subjectRef: row.subject.subjectRef, observationRef: snapshot[0]!.sourceObservationRef, base64,
+         role: selected.role === "verifier" ? "verifier_artifact" as const : "realization" as const };
+     }));
+   } catch { return null; }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts b/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts
+index d73882fe8..0c8915e48 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts
+@@ -10,6 +10,7 @@ import {
+   type Sha256Digest,
+ } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
++import type { JsonValue } from "../shared/canonical_json.js";
+ import type { CCall } from "../abg/c_call.js";
+ import type {
+   AdmittedImplementationResolutionRow,
+@@ -1866,9 +1867,17 @@ export function isWorksiteFileParentsFailure(value: unknown): value is WorksiteF
+     Array.isArray(physical.diagnostics) && physical.diagnostics.every(validRefusal);
+ }
+ 
++type WorksiteContextFileFacts = { relativePath: string; state: "file"; fileIdentity: string; byteLength: number; digest: Sha256Digest };
++/** One exact earlier inline entry of an admitted Result value: the same path
++ * and digest at `path` from that Result's `value`. It locates bytes only; it
++ * grants no read, currentness or attribution. */
++export type WorksiteContextBodyMember = Readonly<{ resultRef: string; resultDigest: Sha256Digest; path: readonly (string | number)[] }>;
++/** File bytes are born inline once; later contexts carry an admitted member
++ * reference. Storage location is not part of the observed identity. */
++export type WorksiteContextFileEntry = Readonly<WorksiteContextFileFacts & { encoding: "base64"; bytes: string }> |
++  Readonly<WorksiteContextFileFacts & { encoding: "admitted_member"; member: WorksiteContextBodyMember }>;
+ export type WorksiteContextEntry = Readonly<{ relativePath: string; state: "directory"; fileIdentity: string; members: readonly string[] }> |
+-  Readonly<{ relativePath: string; state: "file"; fileIdentity: string; byteLength: number; digest: Sha256Digest; encoding: "base64"; bytes: string }> |
+-  Readonly<{ relativePath: string; state: "absent" }>;
++  WorksiteContextFileEntry | Readonly<{ relativePath: string; state: "absent" }>;
+ export type WorksiteContextObservation = {
+   readonly kind: "worksite_context_observation";
+   readonly schemaVersion: "5.0.0";
+@@ -1883,8 +1892,68 @@ export type WorksiteContextObservation = {
+   readonly maxBytes: number;
+   readonly entries: readonly WorksiteContextEntry[];
+ };
++type WorksiteContextBody = Omit<WorksiteContextObservation, "kind" | "schemaVersion" | "observationRef" | "observationDigest">;
+ 
+-/** Saved-context validation is pure; it neither refreshes nor reconstructs I/O. */
++/** Observed physical facts only: path, state, file identity, length and digest. */
++export function worksiteContextIdentityEntry(entry: WorksiteContextEntry): JsonValue {
++  if (entry.state !== "file") return entry as unknown as JsonValue;
++  return { relativePath: entry.relativePath, state: entry.state, fileIdentity: entry.fileIdentity, byteLength: entry.byteLength, digest: entry.digest };
++}
++/** The one context identity relation; the body carriage of each file is excluded. */
++export function worksiteContextIdentityDigest(body: WorksiteContextBody): Sha256Digest {
++  return sha256Canonical({ ...body, entries: body.entries.map(worksiteContextIdentityEntry) } as unknown as JsonValue);
++}
++export function worksiteContextObservationRef(digest: Sha256Digest): string {
++  return identity("worksite-context-observation://abiogenesis", digest);
++}
++/** Exact identity equality of two validated contexts, independent of body carriage. */
++export function sameWorksiteContextIdentity(a: WorksiteContextObservation, b: WorksiteContextObservation): boolean {
++  return a.observationRef === b.observationRef && a.observationDigest === b.observationDigest;
++}
++/** Inline base64 bytes of one entry; `null` for an admitted member or non-file. */
++export function inlineWorksiteContextBytes(entry: WorksiteContextEntry | undefined): string | null {
++  return entry?.state === "file" && entry.encoding === "base64" ? entry.bytes : null;
++}
++/** Selected-body read for one context. An admitted member is read only through
++ * the held-prefix owner's reader for the consumer's Run and grant; `null` refuses. */
++export type WorksiteContextBodyReader = (entry: WorksiteContextFileEntry) => Buffer | null;
++/** The pure default: inline bodies only; every admitted member refuses. */
++export const inlineWorksiteContextBody: WorksiteContextBodyReader = entry => {
++  const bytes = inlineWorksiteContextBytes(entry);
++  return bytes === null ? null : Buffer.from(bytes, "base64");
++};
++/** Unchanged physical members keep the predecessor's established carriage; a
++ * changed or new member keeps its own inline birth. Identity is unchanged. */
++export function carryWorksiteContextBodies(context: WorksiteContextObservation, predecessor: WorksiteContextObservation): WorksiteContextObservation {
++  const prior = new Map(predecessor.entries.flatMap(e => e.state === "file" ? [[e.relativePath, e] as const] : []));
++  let carried = false;
++  const entries = context.entries.map(entry => {
++    const held = prior.get(entry.relativePath);
++    // An inline predecessor is not an admitted holder: the member keeps its own bytes.
++    if (entry.state !== "file" || held === undefined || held.digest !== entry.digest || held.byteLength !== entry.byteLength ||
++      held.encoding !== "admitted_member" || (entry.encoding === "admitted_member" && canonicalEquals(entry.member, held.member))) return entry;
++    carried = true;
++    return { ...worksiteContextIdentityEntry(entry) as WorksiteContextFileFacts, encoding: "admitted_member" as const, member: held.member };
++  });
++  return carried ? deepFreeze({ ...context, entries }) : context;
++}
++
++function memberPathValid(path: unknown): path is readonly (string | number)[] {
++  return Array.isArray(path) && path.length > 0 && path.length <= 16 &&
++    path.every(step => (typeof step === "string" && step.length > 0) || (Number.isSafeInteger(step) && (step as number) >= 0));
++}
++function contextDeeplyFrozen(value: Record<string, unknown>): boolean {
++  return Object.isFrozen(value) && Object.isFrozen(value.readRoots) && Object.isFrozen(value.entries) &&
++    (value.entries as readonly Record<string, unknown>[]).every(entry => Object.isFrozen(entry) &&
++      (entry.members === undefined || Object.isFrozen(entry.members)) &&
++      (!isRecord(entry.member) || (Object.isFrozen(entry.member) && Object.isFrozen(entry.member.path))));
++}
++/** Inline bodies of one immutable context object are decoded and hashed once. */
++const verifiedImmutableContexts = new WeakSet<object>();
++
++/** Saved-context validation is pure; it neither refreshes nor reconstructs I/O.
++ * An inline body is checked against its digest; an admitted member reference is
++ * checked for shape only and is resolved by the held-prefix owner at use. */
+ export function isWorksiteContextObservation(value: unknown): value is WorksiteContextObservation {
+   try {
+     if (!isRecord(value) || !hasExactKeys(value, ["kind", "schemaVersion", "observationRef", "observationDigest",
+@@ -1897,6 +1966,7 @@ export function isWorksiteContextObservation(value: unknown): value is WorksiteC
+       value.readRoots.some(root => normalizeWorksiteRelativePath(root, true) !== root) ||
+       !Array.isArray(value.entries) || value.entries.length > (value.maxFiles as number)) return false;
+     const observation = value as unknown as WorksiteContextObservation;
++    const verified = verifiedImmutableContexts.has(value);
+     const paths = new Set<string>();
+     let bytes = 0;
+     let previous: string | null = null;
+@@ -1913,11 +1983,20 @@ export function isWorksiteContextObservation(value: unknown): value is WorksiteC
+           entry.members.some((member, index) => !nonEmptyString(member) || member.includes("/") || member.includes("\\") || member === "." || member === ".." ||
+             (index > 0 && entry.members[index - 1]! >= member))) return false;
+       } else if (entry.state === "file") {
+-        if (!hasExactKeys(entry, ["relativePath", "state", "fileIdentity", "byteLength", "digest", "encoding", "bytes"]) || !nonEmptyString(entry.fileIdentity) ||
+-          !Number.isSafeInteger(entry.byteLength) || entry.byteLength < 0 || !isSha256Digest(entry.digest) || entry.encoding !== "base64" || typeof entry.bytes !== "string") return false;
+-        const actual = Buffer.from(entry.bytes, "base64");
+-        if (actual.toString("base64") !== entry.bytes || actual.length !== entry.byteLength || sha256Bytes(actual) !== entry.digest) return false;
+-        bytes += actual.length;
++        if (!nonEmptyString(entry.fileIdentity) || !Number.isSafeInteger(entry.byteLength) || entry.byteLength < 0 || !isSha256Digest(entry.digest)) return false;
++        if (entry.encoding === "base64") {
++          if (!hasExactKeys(entry, ["relativePath", "state", "fileIdentity", "byteLength", "digest", "encoding", "bytes"]) || typeof entry.bytes !== "string") return false;
++          if (!verified) {
++            const actual = Buffer.from(entry.bytes, "base64");
++            if (actual.toString("base64") !== entry.bytes || actual.length !== entry.byteLength || sha256Bytes(actual) !== entry.digest) return false;
++          }
++        } else if (entry.encoding === "admitted_member") {
++          const member = entry.member as unknown;
++          if (!hasExactKeys(entry, ["relativePath", "state", "fileIdentity", "byteLength", "digest", "encoding", "member"]) || !isRecord(member) ||
++            !hasExactKeys(member, ["resultRef", "resultDigest", "path"]) || !nonEmptyString(member.resultRef) || !isSha256Digest(member.resultDigest) ||
++            !memberPathValid(member.path)) return false;
++        } else return false;
++        bytes += entry.byteLength;
+         if (bytes > observation.maxBytes) return false;
+       } else return false;
+     }
+@@ -1930,7 +2009,9 @@ export function isWorksiteContextObservation(value: unknown): value is WorksiteC
+       }
+     }
+     const { kind: _k, schemaVersion: _s, observationRef: _r, observationDigest: _d, ...body } = observation;
+-    const digest = sha256Canonical(body);
+-    return observation.observationDigest === digest && observation.observationRef === identity("worksite-context-observation://abiogenesis", digest);
++    const digest = worksiteContextIdentityDigest(body);
++    const valid = observation.observationDigest === digest && observation.observationRef === worksiteContextObservationRef(digest);
++    if (valid && !verified && contextDeeplyFrozen(value)) verifiedImmutableContexts.add(value);
++    return valid;
+   } catch { return false; }
+ }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts b/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts
+index f08323133..7f2b904b8 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts
+@@ -57,6 +57,8 @@ import {
+   isWorksiteFileParentsRequest,
+   isWorksiteFileParentsAuthorization,
+   isWorksiteContextObservation,
++  worksiteContextIdentityDigest,
++  worksiteContextObservationRef,
+   normalizeWorksiteRelativePath,
+   worksiteFileParentPaths,
+   worksiteFileParentsFailure,
+@@ -1076,7 +1078,8 @@ export interface WorksiteContextInput extends WorksiteReadBasis {
+   readonly maxBytes: number;
+ }
+ 
+-/** Complete for its declared read roots or refused; replay consumes these bytes. */
++/** Complete for its declared read roots or refused. Every file body is born
++ * inline here; a later owner may carry an unchanged one by admitted member. */
+ export async function observeWorksiteContext(input: WorksiteContextInput): Promise<WorksiteContextObservation | WorksiteEffectRefusal> {
+   if (!Array.isArray(input.readRoots) || input.readRoots.length === 0 || new Set(input.readRoots).size !== input.readRoots.length ||
+     input.readRoots.some(path => normalizeWorksiteRelativePath(path, true) !== path) || !Number.isSafeInteger(input.maxFiles) || input.maxFiles < 1 ||
+@@ -1162,9 +1165,9 @@ export async function observeWorksiteContext(input: WorksiteContextInput): Promi
+       readRoots: input.readRoots, maxFiles: input.maxFiles, maxBytes: input.maxBytes,
+       entries: [...entries.values()].sort((a, b) => a.relativePath < b.relativePath ? -1 : a.relativePath > b.relativePath ? 1 : 0),
+     };
+-    const observationDigest = sha256Canonical(body);
++    const observationDigest = worksiteContextIdentityDigest(body);
+     const observation = deepFreeze({ kind: "worksite_context_observation" as const, schemaVersion: "5.0.0" as const,
+-      observationRef: `worksite-context-observation://abiogenesis/${observationDigest.slice("sha256:".length)}`, observationDigest, ...body });
++      observationRef: worksiteContextObservationRef(observationDigest), observationDigest, ...body });
+     return isWorksiteContextObservation(observation) ? observation : worksiteRefusal("stale_observation", "worksite context did not produce a complete closed observation");
+   } catch (error) { return worksiteRefusal("filesystem_refused", `worksite context observation failed: ${String(error)}`, null, errnoCode(error)); }
+ }
+diff --git a/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md b/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
+index b6e325a4b..a1fd0ec3e 100644
+--- a/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
++++ b/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
+@@ -230,6 +230,13 @@ version 1 histories remain readable. A location or
+ digest alone cannot replace required content. No Proxy/getter body, alternate
+ renderer, live-cache authority or new quota is introduced.
+ 
++The native-work envelope binds its admitted task through `inputRef` and
++`inputDigest` and carries no second whole task. Its plan keeps the context
++ref/digest, read roots and write roots. The framed-synthesis selector reads each
++declared source body through the held-prefix reader for its own Run and grant;
++an unavailable member refuses the assembly. Semantic evidence and worksite views
++require inline births and refuse an admitted member.
++
+ ## Candidate Design Surfaces
+ 
+ | Candidate | Prime status | Rationale |
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+index a86198852..73387c7c2 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+@@ -113,6 +113,59 @@ of absence inside that scope. Facts outside the writable scope and facts under
+ an empty read-only scope remain unaffected. Unknown after-state and the
+ original failure remain explicit; no successor observation is manufactured.
+ 
++## Context body carriage (P1)
++
++A worksite context's identity is its workspace authority basis and binding,
++read roots, bounds and ordered path/state/file-identity/length/content-digest
++entries. `observationRef`/`observationDigest` hash exactly those facts; the
++storage location of a file body is not part of identity. Before/after
++comparison, `changedPaths` and currentness compare these facts. The C2
++reacquisition request keeps its exact entry relation; its preparation owner
++presents the fresh context in the source `after` carriage for unchanged facts.
++
++`observeWorksiteContext` births every file body inline. A file entry is either
++inline (`encoding: "base64"`, `bytes`) or an admitted member
++(`encoding: "admitted_member"`, `member: {resultRef, resultDigest, path}`). A
++member names one earlier inline entry of a committed `c_call_result_admitted`
++value at a declared native context coordinate: `framed_synthesis_task.context`,
++`native_workspace_work_task.context`, and `task.context`/`after` of a native
++observation or failure. The pure guard hashes inline bodies once per immutable
++value and checks member shape only.
++
++The held Event Store prefix owner (`abg/event_prefix.ts`) derives an in-memory
++selector `native-context-body:<digest>` from those coordinates of committed
++success/failure Results. It is a hint, never read authority. After a producer
++reobserves current W, `reuseWorksiteContextBodiesAtPrefix` replaces each inline
++body already held inline by an earlier committed Result of the same Run, path,
++digest, authority basis and binding with that member; changed and new bodies
++stay inline and are born by the Result that admits the context. Validation
++candidates are never holders; an unavailable derivation keeps bodies inline.
++`resolveWorksiteContextBodyAtPrefix` reads one selected member at a raw ingress,
++presentation or cold-recovery boundary. It rejoins the committed Result, its
++digest and Run, the declared coordinate, holder basis/binding, the consumer's
++path, digest, read roots and grant, and the held bytes, and otherwise refuses
++with `malformed`, `missing`, `pending`, `foreign`, `tampered`, `stale` or
++`denied`.
++
++The native implementation reobserves W before dispatch and compares identity.
++`before` is the admitted task context. `after` keeps the task's members for
++unchanged files and births changed bytes inline once. The governance
++preparation owner (`abg/default_library.ts`) applies producer carriage to its
++fresh observation; selector source matching, obligation quoting and the
++selector presentation read declared members through the owner reader for their
++own Run. Semantic job/revision contexts remain inline births; their byte
++consumers refuse a member.
++
++Current limits: the observation's `task` is the exact admitted input and the C2
++`sourceNativeWork` is the exact admitted observation, by the exact-equality
++owners `abg/native_worksite_execution.ts` and `abg/execution_basis.ts`. Those
++copies carry metadata and any inline births of the copied value. A direct native
++task whose context is itself a birth repeats those bodies in its observation.
++Holders are same-Run only; a replacement Run births its first context.
++The packaged C2 renderer `product/worksite_command_execution.ts` is a pinned
++run-environment member (`gtl/worksite_command_execution.ts`), so any change
++to it needs that pin re-entered first.
++
+ ## Consumer judgment and qualification
+ 
+ ### Supported post-dispatch refusal (RC2 crosscut R02)
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+index 627d76489..8826f7e9f 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+@@ -173,6 +173,12 @@ same-Run composition, a consumer pure leaf may construct this task; C2 child
+ admission requires the exact earlier closed native producer in the same
+ invocation and Run, the actual declared C2 workflow call and original grant.
+ No fixed consumer preparation implementation or cumulative envelope is added.
++
++Protected observations use only the selected `after` entries' path, file
++identity, length and digest. A selected entry may be inline or an admitted
++member ([context body carriage](./T287_NATIVE_WORKSPACE_WORK_DESIGN.md#context-body-carriage-p1));
++C2 resolves no context body. The helper reads its snapshot bytes from W at its
++process boundary and checks them against these facts.
+ Ordinary HoG input routing and graph membership still govern that call.
+ 
+ The private native task/source projection retains successful applicability
+@@ -335,7 +341,14 @@ A and actor remain the original authority. A changed W requires the existing
+ exact `witness.admit#reprice` binding cover for the source child's execution
+ basis; equal file bytes alone never cover changed binding authority. The current
+ context has the original complete after-observation entries, read roots and
+-limits with current A/W coordinates, not only the C2 snapshot subset.
++limits with current A/W coordinates, not only the C2 snapshot subset. The
++request contract keeps its exact entry relation. The governance preparation
++owner presents the fresh context in the source `after` carriage: an entry with
++the same path/state/file identity/length/digest takes the admitted source entry,
++and any changed, new or absent entry keeps its fresh observation and is refused.
++Body carriage never changes context identity. The pre-effect currentness gate
++reobserves W and compares context identity. The packaged C2 renderer source is
++a pinned run-environment member, so this relation is not realized inside it.
+ 
+ The ABI-owned F_D preparation authenticates its actual admitted occurrence,
+ implementation, invocation and current grant. It checks historical native
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+index afd198a2d..b47e0182d 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+@@ -853,7 +853,7 @@ test('native observation facts preserve captured history through preparation adm
+         for(const line of lines)assert.ok(facts[i].observed.commandResults[j].stdout.excerpts.some(e=>e.text.includes(line)),line);
+       }
+       const next=fullAssembly(task),priorAssembly=fullAssembly(prior);assert.deepEqual(next.request.responseJsonSchema,priorAssembly.request.responseJsonSchema);
+-      assert.deepEqual(next.plan,priorAssembly.plan);assert.equal(next.envelope.inputDigest,product.sha256Canonical(task));assert.deepEqual(next.envelope.task,task);
++      assert.deepEqual(next.plan,priorAssembly.plan);assert.equal(next.envelope.inputDigest,product.sha256Canonical(task));assert.equal(Object.hasOwn(next.envelope,'task'),false,'the envelope binds the admitted task by input digest, not a second whole copy');
+       assert.ok(Buffer.byteLength(next.request.prompt)<Buffer.byteLength(priorAssembly.request.prompt));assert.equal(product.sha256Canonical(input),before);
+       metrics.push({name,observations:input.observations.length,oldCompletePromptBytes:Buffer.byteLength(priorAssembly.request.prompt),newCompletePromptBytes:Buffer.byteLength(next.request.prompt),factsBytes:Buffer.byteLength(JSON.stringify(facts)),namedFailureLines:namedLines});
+     }
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs
+index 10c330fa0..d4eb76f23 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs
+@@ -1,6 +1,6 @@
+ import assert from "node:assert/strict";
+ import fs from "node:fs";
+-import { mkdtemp, readFile, writeFile, stat, rm } from "node:fs/promises";
++import { mkdir, mkdtemp, readFile, writeFile, stat, rm } from "node:fs/promises";
+ import { tmpdir } from "node:os";
+ import { join } from "node:path";
+ import { syncBuiltinESMExports } from "node:module";
+@@ -8,7 +8,8 @@ import { execFileSync } from "node:child_process";
+ import test from "node:test";
+ import * as storeOwner from "../../build/code/src/abg/event_store.js";
+ import { persistEventLog } from "../../build/code/src/abg/event_log.js";
+-import { selectValidatedRuntimeEventPrefix } from "../../build/code/src/abg/event_prefix.js";
++import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,
++  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix } from "../../build/code/src/abg/event_prefix.js";
+ import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/replay.js";
+ import { projectExactExecutionBasisAtPrefix } from "../../build/code/src/abg/invocation_execution_truth.js";
+ import { canonicalJson, writeCanonicalJson } from "../../build/code/src/shared/canonical_json.js";
+@@ -18,6 +19,7 @@ import { constructWorksiteCommandExecutionModulePublication } from '../../build/
+ import { WORKSITE_COMMAND_EXECUTION_IDS, ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from '../../build/code/src/product/index.js';
+ import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey } from '../../build/code/src/abg/event_body_encoding.js';
+ import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from '../../build/code/src/abg/runtime_liveness_contracts.js';
++import { loadWorksiteOwner, worksiteFixture } from "../support/t287-generic-job-worksite.mjs";
+ 
+ test("shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays", () => {
+   const value = { "\ufffd": "last", "\ud834\udd1e": "first", "2": -0, "10": 1e21,
+@@ -118,10 +120,10 @@ async function resource(t) {
+ }
+ // Real event-store stamping/admission and CCall phase projection; fixture supplies
+ // lower callable/evidence semantics. This is not an installed Program qualification.
+-function result(store, label, value) {
++function result(store, label, value, runId = "run://body-fixture") {
+   const cCallRef = "c-call://body-fixture/" + label;
+   const extra = { aggregateType: "c_call", aggregateId: cCallRef, parentAggregateId: "frame://" + label,
+-    scopeClass: "run", runId: "run://body-fixture", graphCallId: "graph-call://" + label, frameId: "frame://" + label };
++    scopeClass: "run", runId, graphCallId: "graph-call://" + label, frameId: "frame://" + label };
+   const pair = storeOwner.admitRuntimeEventBatch(store, [
+     () => envelope("c_call_opened", { cCallRef, cCallDigest: sha256Canonical(label), callClass: "leaf",
+       batchRef: null, taskOrdinal: null, attempt: 1, programLocusRef: "locus://" + label, retryPath: [] }, extra),
+@@ -526,3 +528,197 @@ test("large duplicate Result bodies and complete replay hashing fit a constraine
+   assert.ok(observed.physicalBytes < observed.logicalBodyBytes / 4);
+   t.diagnostic(JSON.stringify(observed));
+ });
++
++// Real worksite observation, EventStore Result admission and held-prefix
++// carriage. Task/observation values are controlled lower premises at the
++// declared native context coordinates; this is not native Work qualification.
++async function contextFixture(t, files) {
++  const product = await loadWorksiteOwner(), w = await worksiteFixture(product);
++  t.after(() => rm(w.scratch, { force: true, recursive: true }));
++  const write = async (path, text) => { await mkdir(join(w.canonicalRoot, path, ".."), { recursive: true }); await writeFile(join(w.canonicalRoot, path), text); };
++  for (const [path, text] of Object.entries(files)) await write(path, text);
++  const observe = async () => {
++    const context = await product.observeWorksiteContext({ ...w, readRoots: ["src"], maxFiles: 4096, maxBytes: 64 * 1024 * 1024 });
++    assert.equal(context.kind, "worksite_context_observation", JSON.stringify(context)); return context;
++  };
++  return { product, w, write, observe };
++}
++const nativeTask = (label, context) => ({ kind: "native_workspace_work_task", schemaVersion: "5.0.0", handoff: label, context });
++const fileEntries = context => context.entries.filter(entry => entry.state === "file");
++const carriage = context => Object.fromEntries(fileEntries(context).map(e => [e.relativePath, e.encoding === "base64" ? "inline" : e.member.resultRef]));
++function inlineOccurrences(events) {
++  const counts = new Map();
++  const visit = value => {
++    if (typeof value !== "object" || value === null) return;
++    if (value.kind === "worksite_context_observation") for (const e of value.entries)
++      if (e.state === "file" && e.encoding === "base64") counts.set(e.digest, (counts.get(e.digest) ?? 0) + 1);
++    for (const child of Object.values(value)) visit(child);
++  };
++  for (const event of events) if (event.kind === "c_call_result_admitted") visit(event.payload.value);
++  return counts;
++}
++
++test("native context bodies are born inline once, referenced by unchanged handoffs and refused unless exactly held", async t => {
++  const f = await resource(t), text = { "src/a.txt": "alpha ".repeat(4000), "src/b.txt": "beta ".repeat(4000), "src/c.txt": "gamma ".repeat(4000) };
++  const { product, w, write, observe } = await contextFixture(t, text), use = { runId: "run://body-fixture" }, original = { ...text };
++  const handoff = async label => {
++    const observed = await observe(), context = reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), observed, use);
++    assert.ok(product.sameWorksiteContextIdentity(context, observed), "carriage never changes the observed identity");
++    assert.ok(product.isWorksiteContextObservation(context) && isDeeplyFrozen(context));
++    return { context, event: result(f.store, label, nativeTask(label, context)) };
++  };
++  const birth = await handoff("birth"), first = await handoff("unchanged-one"), second = await handoff("unchanged-two");
++  const R = h => h.event.payload.resultRef, all = r => ({ "src/a.txt": r, "src/b.txt": r, "src/c.txt": r });
++  assert.deepEqual(carriage(birth.context), all("inline"), "first bodies are born inline in the admitted Result");
++  assert.deepEqual(carriage(first.context), all(R(birth))); assert.deepEqual(carriage(second.context), all(R(birth)));
++  text["src/b.txt"] = "changed beta ".repeat(4000); await write("src/b.txt", text["src/b.txt"]);
++  const changed = await handoff("changed"), after = await handoff("after-change");
++  assert.deepEqual(carriage(changed.context), { ...all(R(birth)), "src/b.txt": "inline" }, "a changed member is first written inline once");
++  assert.deepEqual(carriage(after.context), { ...all(R(birth)), "src/b.txt": R(changed) }, "then it becomes referenceable");
++  assert.equal(after.context.entries.find(e => e.relativePath === "src/b.txt").member.path.join("/"), "context/entries/" +
++    changed.context.entries.findIndex(e => e.relativePath === "src/b.txt"));
++
++  const events = f.store.readAll(), log = await readFile(f.eventLogPath), occurrences = inlineOccurrences(events);
++  assert.equal(occurrences.size, 4); assert.ok([...occurrences.values()].every(count => count === 1), "each body version has one semantic occurrence");
++  const versions = [...Object.values(text), original["src/b.txt"]].map(body => Buffer.from(body).toString("base64"));
++  for (const base64 of versions) assert.equal(log.toString().split(base64).length - 1, 1, "each body version is physically written once");
++  const prefix = selectRuntimeEventPrefixFromStore(f.store), acquired = worksiteContextBodyAcquisitionsAtPrefix(prefix);
++  assert.equal(acquired, 2, "producer carriage acquires each holder Result once in this prefix lineage");
++  for (const h of [first, second, changed, after]) for (const e of fileEntries(h.context)) {
++    const read = resolveWorksiteContextBodyAtPrefix(prefix, h.context, e.relativePath, use);
++    assert.equal(read.kind, "worksite_context_body", JSON.stringify(read));
++    assert.equal(read.bytes.toString(), (h === first || h === second ? original : text)[e.relativePath]);
++  }
++  assert.equal(worksiteContextBodyAcquisitionsAtPrefix(prefix), acquired, "selected reads reuse the established holder acquisitions");
++
++  const refuse = (context, path, expected, at = prefix, consumer = use) => {
++    const read = resolveWorksiteContextBodyAtPrefix(at, context, path, consumer);
++    assert.equal(read.kind, "worksite_context_body_refusal", expected); assert.equal(read.code, expected, read.reason);
++  };
++  const withEntry = (context, path, change) => ({ ...context, entries: context.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
++  const member = (path, change) => withEntry(after.context, path, e => { change(e.member); return e; });
++  refuse(member("src/a.txt", m => { delete m.resultDigest; }), "src/a.txt", "malformed");
++  refuse(withEntry(after.context, "src/a.txt", e => ({ ...e, member: "result://unstructured" })), "src/a.txt", "malformed");
++  refuse(member("src/a.txt", m => { m.resultRef = "result://body-fixture/never-admitted"; }), "src/a.txt", "pending");
++  refuse(after.context, "src/b.txt", "pending", selectValidatedRuntimeEventPrefix(events.slice(0, events.findIndex(e => e.eventId === changed.event.eventId))));
++  refuse(member("src/a.txt", m => { m.resultDigest = sha256Canonical("tampered"); }), "src/a.txt", "tampered");
++  refuse(member("src/a.txt", m => { m.path = ["context", "entries", 0]; }), "src/a.txt", "tampered");
++  refuse(member("src/a.txt", m => { m.path = ["after", "entries", 1]; }), "src/a.txt", "tampered");
++  refuse(withEntry(after.context, "src/b.txt", e => ({ ...e, member: after.context.entries.find(x => x.relativePath === "src/a.txt").member })), "src/b.txt", "tampered");
++  refuse(withEntry(after.context, "src/b.txt", e => ({ ...e, member: first.context.entries.find(x => x.relativePath === "src/b.txt").member })), "src/b.txt", "stale");
++  refuse({ ...after.context, workspaceBindingDigest: sha256Canonical("foreign-binding") }, "src/a.txt", "foreign");
++  refuse(after.context, "src/a.txt", "foreign", prefix, { runId: "run://foreign" });
++  refuse(after.context, "src/a.txt", "denied", prefix, { ...use, readable: path => path !== "src/a.txt" });
++  refuse(after.context, "outside/a.txt", "denied");
++  refuse(after.context, "src/none.txt", "missing");
++  refuse(withEntry(birth.context, "src/a.txt", e => ({ ...e, bytes: Buffer.from("forged").toString("base64") })), "src/a.txt", "tampered");
++
++  const foreign = result(f.store, "foreign-holder", nativeTask("foreign", await observe()), "run://foreign");
++  const foreignRef = withEntry(after.context, "src/a.txt", e => ({ ...e, member: { resultRef: foreign.payload.resultRef,
++    resultDigest: foreign.payload.resultDigest, path: ["context", "entries", e.member.path[2]] } }));
++  refuse(foreignRef, "src/a.txt", "foreign", selectRuntimeEventPrefixFromStore(f.store));
++  const unchanged = reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), await observe(), use);
++  assert.deepEqual(carriage(unchanged), carriage(after.context), "another Run's holder never becomes this Run's producer");
++
++  // Cold reconstruction from retained log bytes only; the mutable worksite is gone.
++  await rm(join(w.canonicalRoot, "src"), { force: true, recursive: true });
++  const cold = selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)));
++  for (const e of fileEntries(after.context)) {
++    const read = resolveWorksiteContextBodyAtPrefix(cold, after.context, e.relativePath, use);
++    assert.equal(read.kind, "worksite_context_body"); assert.equal(read.bytes.toString(), text[e.relativePath]);
++  }
++  const logical = events.filter(e => e.kind === "c_call_result_admitted").reduce((n, e) => n + Buffer.byteLength(canonicalJson(e.payload.value)), 0);
++  t.diagnostic(JSON.stringify({ kind: "native_context_body_carriage_discriminator", handoffs: 5, bodyVersions: occurrences.size,
++    semanticInlineOccurrences: [...occurrences.values()].reduce((a, b) => a + b, 0), holderAcquisitions: acquired,
++    logicalResultValueBytes: logical, physicalLogBytes: log.length, nativeAdmission: false }));
++});
++
++// Fixed model-free workload: 965 context entries (src, 4 directories, 960 files)
++// and three changed members across a selector -> native task -> observation ->
++// two unchanged handoffs chain at the declared native context coordinates. The
++// old side is a structural/serialization projection of the B11 shapes (every
++// entry inline; observation.before = task.context), not an executed old runtime.
++test("965-member native context carriage is byte-equivalent to the expanded structural baseline without body multiplication", async t => {
++  const files = {};
++  for (let i = 0; i < 960; i++) files[`src/m${i % 4}/f${String(i).padStart(3, "0")}.txt`] = `member ${i} exact retained source line;\n`.repeat(40 + (i % 50));
++  const f = await resource(t), { w, write, observe } = await contextFixture(t, files), use = { runId: "run://body-fixture" };
++  const prefix = () => selectRuntimeEventPrefixFromStore(f.store), carry = context => reuseWorksiteContextBodiesAtPrefix(prefix(), context, use);
++  const c0 = await observe();
++  assert.equal(c0.entries.length, 965); assert.equal(fileEntries(c0).length, 960);
++  const selector = result(f.store, "selector", { kind: "framed_synthesis_task", schemaVersion: "5.0.0", context: carry(c0) });
++  const task = nativeTask("construction", carry(await observe()));
++  const taskResult = result(f.store, "native-task", task);
++  const changedPaths = ["src/m0/f000.txt", "src/m1/f481.txt", "src/m3/f959.txt"];
++  for (const path of changedPaths) { files[path] = "changed " + files[path]; await write(path, files[path]); }
++  const observation = result(f.store, "native-observation", { kind: "native_workspace_work_observation", schemaVersion: "5.0.0",
++    task, before: task.context, after: carry(await observe()) });
++  const handoffs = [result(f.store, "testing-one", nativeTask("testing-one", carry(await observe()))),
++    result(f.store, "testing-two", nativeTask("testing-two", carry(await observe())))];
++  const admitted = [selector, taskResult, observation, ...handoffs], values = admitted.map(e => e.payload.value);
++  assert.deepEqual(fileEntries(task.context).filter(e => e.encoding === "base64"), [], "the native task carries only selector members");
++  assert.deepEqual(fileEntries(observation.payload.value.after).filter(e => e.encoding === "base64").map(e => e.relativePath), changedPaths);
++  for (const h of handoffs) {
++    const members = fileEntries(h.payload.value.context).map(e => e.member?.resultRef);
++    assert.equal(members.filter(r => r === observation.payload.resultRef).length, 3);
++    assert.equal(members.filter(r => r === selector.payload.resultRef).length, 957);
++  }
++
++  // Exact reconstruction: each compact value expands to its structural baseline.
++  const held = prefix(), resolveAll = (at, context) => ({ ...context, entries: context.entries.map(e => {
++    if (e.state !== "file" || e.encoding === "base64") return e;
++    const read = resolveWorksiteContextBodyAtPrefix(at, context, e.relativePath, use);
++    assert.equal(read.kind, "worksite_context_body", JSON.stringify(read));
++    const { member: _member, ...facts } = e; return { ...facts, encoding: "base64", bytes: read.bytes.toString("base64") };
++  }) });
++  const expand = (at, value) => value.kind === "native_workspace_work_observation"
++    ? { ...value, task: expand(at, value.task), before: resolveAll(at, value.before), after: resolveAll(at, value.after) }
++    : { ...value, context: resolveAll(at, value.context) };
++  const baseline = values.map(value => expand(held, value));
++  for (const value of baseline) for (const context of value.kind === "native_workspace_work_observation" ? [value.task.context, value.before, value.after] : [value.context])
++    assert.ok(fileEntries(context).every(e => e.encoding === "base64"));
++  assert.equal(baseline[2].after.entries.find(e => e.relativePath === "src/m1/f481.txt").bytes, Buffer.from(files["src/m1/f481.txt"]).toString("base64"));
++  assert.deepEqual(baseline[4].context.entries, baseline[2].after.entries, "unchanged handoff reconstructs the exact after context");
++  const bytesOf = list => list.reduce((n, value) => n + Buffer.byteLength(canonicalJson(value)), 0);
++  const occurrencesOf = list => [...inlineOccurrences(list.map(value => ({ kind: "c_call_result_admitted", payload: { value } }))).values()].reduce((a, b) => a + b, 0);
++  const log = await readFile(f.eventLogPath), acquisitions = worksiteContextBodyAcquisitionsAtPrefix(held);
++  const measured = { compact: { serializedValueBytes: bytesOf(values), semanticBodyOccurrences: occurrencesOf(values), physicalLogBytes: log.length },
++    baseline: { serializedValueBytes: bytesOf(baseline), semanticBodyOccurrences: occurrencesOf(baseline) } };
++  assert.equal(measured.compact.semanticBodyOccurrences, 963, "960 births and 3 changed births");
++  assert.equal(measured.baseline.semanticBodyOccurrences, 960 * 7, "B11 shapes carry one full body set per context role");
++  assert.ok(measured.compact.serializedValueBytes * 3 < measured.baseline.serializedValueBytes, "metadata repeats; bodies do not");
++  assert.equal(acquisitions, 2, "selector and observation holders are each acquired once");
++
++  // Warm: second complete selected read in the same prefix territory.
++  const warm = (() => {
++    const cpu = process.cpuUsage(), start = performance.now();
++    const final = handoffs.at(-1).payload.value.context;
++    for (const e of fileEntries(final)) assert.equal(resolveWorksiteContextBodyAtPrefix(held, final, e.relativePath, use).kind, "worksite_context_body");
++    const spent = process.cpuUsage(cpu);
++    return { wallMs: performance.now() - start, cpuUserUs: spent.user, cpuSystemUs: spent.system, rss: process.memoryUsage().rss,
++      acquisitionsAdded: worksiteContextBodyAcquisitionsAtPrefix(held) - acquisitions };
++  })();
++  assert.equal(warm.acquisitionsAdded, 0);
++  // Cold: a fresh Node process reconstructs from retained log bytes only; the mutable worksite is gone.
++  await rm(join(w.canonicalRoot, "src"), { force: true, recursive: true });
++  const script = `
++    import assert from 'node:assert/strict';
++    import {readFileSync} from 'node:fs';
++    import * as storeOwner from './build/code/src/abg/event_store.js';
++    import {selectValidatedRuntimeEventPrefix,resolveWorksiteContextBodyAtPrefix,worksiteContextBodyAcquisitionsAtPrefix} from './build/code/src/abg/event_prefix.js';
++    const cpu=process.cpuUsage(),start=performance.now();
++    const events=storeOwner.validateHistoricalEvents(readFileSync(process.argv[1])),prefix=selectValidatedRuntimeEventPrefix(events);
++    const context=events.at(-1).payload.value.context;let bytes=0;
++    for(const e of context.entries)if(e.state==='file'){const read=resolveWorksiteContextBodyAtPrefix(prefix,context,e.relativePath,{runId:'run://body-fixture'});
++      assert.equal(read.kind,'worksite_context_body');bytes+=read.bytes.length;}
++    const spent=process.cpuUsage(cpu);
++    console.log(JSON.stringify({wallMs:performance.now()-start,cpuUserUs:spent.user,cpuSystemUs:spent.system,rss:process.memoryUsage().rss,
++      maxRSSKiB:process.resourceUsage().maxRSS,resolvedBytes:bytes,acquisitions:worksiteContextBodyAcquisitionsAtPrefix(prefix)}));`;
++  const cold = JSON.parse(execFileSync(process.execPath, ["--input-type=module", "-e", script, f.eventLogPath],
++    { cwd: new URL("../..", import.meta.url), encoding: "utf8", timeout: 90000, maxBuffer: 1048576 }));
++  assert.equal(cold.resolvedBytes, Object.values(files).reduce((n, text) => n + Buffer.byteLength(text), 0));
++  assert.equal(cold.acquisitions, 2);
++  t.diagnostic(JSON.stringify({ kind: "native_context_965_member_carriage", entries: 965, files: 960, changed: 3, handoffs: values.length,
++    ...measured, holderAcquisitions: acquisitions, warm, cold,
++    baselineLabel: "structural/serialization projection of B11 shapes; not an executed old runtime and no old CPU/RSS/wall",
++    methodLimits: "single unrepeated local run; OS page cache holds the just-written log for the cold process; cold/warm cover the owner decode/resolve path only, not native Work or C2; no end-to-end speedup claim" }));
++});
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+index 58284fc25..dfea1bf09 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+@@ -264,6 +264,35 @@ test('actual observation remains independent of report and consumer judgment',as
+     evidenceClass:'probabilistic_transport',cCallRef:p.call.cCallRef,transportDigest:value.provenance.transportDigest,outputDigest:product.sha256Canonical(value)}]}),true);
+   assert.equal(native.isNativeWorkspaceWorkObservation({...value,changedPaths:[]}),false);
+ });
++// The member below is a controlled lower premise standing for one the held-prefix
++// owner issued; the native effect owner neither resolves nor re-hashes it.
++test('admitted-member task context keeps unchanged bodies by reference and births changed bytes inline once',async t=>{
++  const env=await fixture(t),inline=env.task.context,keep=inline.entries.findIndex(e=>e.relativePath==='keep.txt');
++  const member={resultRef:'result://native-owner/holder',resultDigest:digest('holder'),path:['context','entries',keep]};
++  const compact=deepFreeze({...inline,entries:inline.entries.map((e,i)=>{if(i!==keep)return e;const {bytes:_b,encoding:_e,...facts}=e;return {...facts,encoding:'admitted_member',member};})});
++  assert.equal(product.isWorksiteContextObservation(compact),true);assert.equal(product.sameWorksiteContextIdentity(compact,inline),true);
++  const task=native.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,
++    capabilityGrant:env.capabilityGrant,context:compact,outcome:'Perform the declared local work',instructions:['Read the selected input.'],
++    readFirst:['target.txt'],writeRoots:['target.txt'],checks:[]});
++  assert.equal(native.isNativeWorkspaceWorkTask(task),true);
++  const p=await prepare(t,{...env,task});
++  // Physical currentness remains the effect owner's fresh observation, also for a member-carried file.
++  await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'outside change\n');
++  await assert.rejects(realizeNativeWorkspaceWork(task,p.occurrence,()=>({request:p.request})),/stale/);
++  await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'unchanged\n');
++  await fs.writeFile(join(env.canonicalRoot,'target.txt'),'actual edit\n');
++  const exchange=p.exchange(JSON.stringify({summary:'edited',gaps:[]}));
++  const result=await p.prepared.complete(exchange),value=result.resultCandidate;
++  assert.equal(result.disposition,'success');assert.deepEqual(value.changedPaths,['target.txt'],'body carriage never makes a path changed');
++  assert.equal(value.before,task.context,'before is the admitted task context, not a second observed body copy');
++  const after=Object.fromEntries(value.after.entries.filter(e=>e.state==='file').map(e=>[e.relativePath,e]));
++  assert.deepEqual(after['keep.txt'].member,member,'unchanged member keeps the task carriage');
++  assert.equal(after['target.txt'].encoding,'base64');assert.equal(Buffer.from(after['target.txt'].bytes,'base64').toString(),'actual edit\n');
++  assert.equal(native.isNativeWorkspaceWorkObservation(value),true);
++  assert.equal(native.nativeWorkspaceWorkResultMatches(task,value,p.call.cCallRef,exchange.observation),true);
++  const tampered={...value,after:{...value.after,entries:value.after.entries.map(e=>e.relativePath==='target.txt'?{...e,bytes:Buffer.from('forged\n').toString('base64')}:e)}};
++  assert.equal(native.isNativeWorkspaceWorkObservation(tampered),false,'an inline birth is still checked against its digest');
++});
+ for (const mode of ['timeout','malformed-report','read-only-change']) test(`native ${mode} retains actual partial edit and refuses success`,async t=>{
+   const env=await fixture(t,mode==='read-only-change'?[]:['target.txt']);const p=await prepare(t,env);
+   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'partial edit\n');

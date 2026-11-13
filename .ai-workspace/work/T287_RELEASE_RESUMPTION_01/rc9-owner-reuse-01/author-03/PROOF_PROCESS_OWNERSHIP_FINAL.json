@@ -1,0 +1,9 @@
+{
+  "observedAt": "2026-11-08T17:40:33.100034+00:00",
+  "method": "Read-only all-process accessible lsof cwd plus all-process ps known pid/process-group check; no process mutation",
+  "accessibleCwdRecords": 937,
+  "liveAuthor03ProofOrPrepCwds": [],
+  "liveKnownFormerPidsOrGroups": [],
+  "noLiveFormerProofProcessObserved": true,
+  "scopeLimit": "Observational process ownership check; not a claim of technical isolation. Both exact source/proof namespace and known process groups checked."
+}

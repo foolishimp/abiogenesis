@@ -1,0 +1,78 @@
+{
+  "id": "PHASE1-NATIVE-01",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedUtc": "2026-11-09T17:47:04.875988+00:00",
+  "ownerApproval": "approved go",
+  "rootDecision": "Release exactly this genuine held installed-RC10 call once on same caller/resource; exact four test paths and cheap checks. Capture actual native outcome, source custody, physical close and fresh replay/result. No follow-on paid retry, production mutation or external broad proof yet.",
+  "bindingSha256": "66b2ce15c22c4c41117c996e7e9dac44e04241524a370c4def942299cbb18272",
+  "preparedSha256": "3fadef45e5d1df9dad3a8e97fc9c75537253a68c052989bf9fd86732c091e84f",
+  "taskSha256": "65893baa04766ab8cc95c390390b0a0342565afb3144f2a98c5b9dea6f3d3efc",
+  "scopeSha256": "b7339f2b7304b9fb8bc75ecc945ed1aff6091b4e02b56a75f5bfda53647ad1bd",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/host.mjs",
+      "bytes": 15410,
+      "sha256": "1b8173d71d932a9ad93ed280ee22e331dc9e9d17e4543b2480aa24f5e2794172"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/ROOT_SCOPE.json",
+      "bytes": 3541,
+      "sha256": "b7339f2b7304b9fb8bc75ecc945ed1aff6091b4e02b56a75f5bfda53647ad1bd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/TASK.json",
+      "bytes": 9931,
+      "sha256": "65893baa04766ab8cc95c390390b0a0342565afb3144f2a98c5b9dea6f3d3efc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/BINDING.json",
+      "bytes": 15767,
+      "sha256": "66b2ce15c22c4c41117c996e7e9dac44e04241524a370c4def942299cbb18272"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/CONTROL_REENTRY.json",
+      "bytes": 2734,
+      "sha256": "05a5adf6357fb23e437221decf456da81e19a7de8f83c42b278a2466db28382e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/claude-provider.sh",
+      "bytes": 68,
+      "sha256": "93542d7ecc30905e9f04ced90dd571b9514bfd8a62e4276620fd6d364051b997"
+    }
+  ],
+  "invocationRef": "invocation://abiogenesis/84f2946b150d066b8405da8f6568d0b77118579e855d600f79af31270aa2d826",
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188209,
+    "prefixDigest": "sha256:e6b97034dc966b33b709f4125e5b1c3015ca6b4bbc879c08a52084beb1e678d4",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 720190320,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:78982f38b37fda9f5efe9829e5e85e581b3055bbb22ed3b8d0d7533ec4cf8716"
+  },
+  "sessionId": 79349,
+  "pid": 52016,
+  "provider": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "maxTurns": 100,
+    "inactivityTimeoutMs": 180000,
+    "absoluteTimeoutMs": 900000
+  },
+  "renderedBytes": 11037,
+  "nextOwner": "Root consumes closed freeze, independent assurance and separately admitted external proof."
+}

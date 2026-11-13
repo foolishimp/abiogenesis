@@ -1,0 +1,248 @@
+{
+  "status": "FIXED_STARTUP_DELAY_COUNTERFACTUAL_FROZEN",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/READY.json",
+    "bytes": 2720,
+    "sha256": "0e872fb58f4c67b37c4b246f085f9106fbd80bb07906f913c44d6eebec7b4b62"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 2620,
+    "sha256": "6001989de47cae8a0decca7892fc7a4e6ad640d3fd0ac8fc276e03dd9378977b"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/SOURCE_TRANSFORM.diff",
+    "bytes": 13699,
+    "sha256": "35996c96387453dd3c6c2862d93437dcb5013e9bef329a1b5dac3c3a32712237"
+  },
+  "runReceipt": {
+    "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/run-01/six-case-delay-counterfactual/RETURN.json",
+    "bytes": 5403,
+    "sha256": "dbe46edf3f4c9ca033077c8cb51dd9a528008f1ec678acad78707085acebfbc3"
+  },
+  "tap": {
+    "tests": 6,
+    "pass": 0,
+    "fail": 6,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "wallSeconds": 4.0326527500000005,
+  "groupAbsent": true,
+  "outerCleanupNeeded": false,
+  "sixDelayedRoles": [
+    {
+      "role": "http-normal-leader.mjs.jsonl",
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/sidecars/http-normal-leader.mjs.jsonl",
+        "bytes": 493,
+        "sha256": "f84f084286259306e2c974e2b5ee7d48a7493f37666854d87da95ce74536b174"
+      },
+      "scheduled": true,
+      "completed": false,
+      "originalHandlerInstalled": false,
+      "writesAttempted": 0,
+      "filesPublished": 0
+    },
+    {
+      "role": "post-exit-worker.mjs.jsonl",
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/sidecars/post-exit-worker.mjs.jsonl",
+        "bytes": 488,
+        "sha256": "e4a3dbccc4ede736300cb909b5baf8c09414d207d3c019b03424d3ad2b99ddd2"
+      },
+      "scheduled": true,
+      "completed": false,
+      "originalHandlerInstalled": false,
+      "writesAttempted": 0,
+      "filesPublished": 0
+    },
+    {
+      "role": "post-timeout-worker.mjs.jsonl",
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/sidecars/post-timeout-worker.mjs.jsonl",
+        "bytes": 498,
+        "sha256": "fd7b1d1298016a59ffb68ecb0ab3097a06c72c68292c2daa6addca29b4ba3127"
+      },
+      "scheduled": true,
+      "completed": false,
+      "originalHandlerInstalled": false,
+      "writesAttempted": 0,
+      "filesPublished": 0
+    },
+    {
+      "role": "progress-worker.mjs.jsonl",
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/sidecars/progress-worker.mjs.jsonl",
+        "bytes": 486,
+        "sha256": "d65edc7fd857ad640ddd7617daf038b84d423dc090fa719f12620c9d506b9c68"
+      },
+      "scheduled": true,
+      "completed": false,
+      "originalHandlerInstalled": false,
+      "writesAttempted": 0,
+      "filesPublished": 0
+    },
+    {
+      "role": "resistant-worker.mjs.jsonl",
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/sidecars/resistant-worker.mjs.jsonl",
+        "bytes": 487,
+        "sha256": "2be454116f9b91637af8bfe9ea3d5619c15647c34e32c9613c970ce516335bcf"
+      },
+      "scheduled": true,
+      "completed": false,
+      "originalHandlerInstalled": false,
+      "writesAttempted": 0,
+      "filesPublished": 0
+    },
+    {
+      "role": "unadmitted-progress-worker.mjs.jsonl",
+      "sidecar": {
+        "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/sidecars/unadmitted-progress-worker.mjs.jsonl",
+        "bytes": 520,
+        "sha256": "dd40b6a9e78c63a0d3fdb2ad4635fa793952b892f1b1161cc9f22ff33107e46f"
+      },
+      "scheduled": true,
+      "completed": false,
+      "originalHandlerInstalled": false,
+      "writesAttempted": 0,
+      "filesPublished": 0
+    }
+  ],
+  "actors": [
+    {
+      "role": "command-TERM-descendant.mjs.jsonl",
+      "pid": 81730,
+      "absent": true
+    },
+    {
+      "role": "command-TERM-leader.mjs.jsonl",
+      "pid": 81729,
+      "absent": true
+    },
+    {
+      "role": "command-normal-descendant.mjs.jsonl",
+      "pid": 81728,
+      "absent": true
+    },
+    {
+      "role": "command-normal-leader.mjs.jsonl",
+      "pid": 81727,
+      "absent": true
+    },
+    {
+      "role": "http-normal-leader.mjs.jsonl",
+      "pid": 81732,
+      "absent": true
+    },
+    {
+      "role": "post-exit-worker.mjs.jsonl",
+      "pid": 81755,
+      "absent": true
+    },
+    {
+      "role": "post-timeout-worker.mjs.jsonl",
+      "pid": 81708,
+      "absent": true
+    },
+    {
+      "role": "progress-worker.mjs.jsonl",
+      "pid": 81706,
+      "absent": true
+    },
+    {
+      "role": "resistant-worker.mjs.jsonl",
+      "pid": 81705,
+      "absent": true
+    },
+    {
+      "role": "unadmitted-progress-worker.mjs.jsonl",
+      "pid": 81707,
+      "absent": true
+    },
+    {
+      "role": "worker-TERM-descendant.mjs.jsonl",
+      "pid": 81712,
+      "absent": true
+    },
+    {
+      "role": "worker-TERM-leader.mjs.jsonl",
+      "pid": 81711,
+      "absent": true
+    },
+    {
+      "role": "worker-normal-descendant.mjs.jsonl",
+      "pid": 81710,
+      "absent": true
+    },
+    {
+      "role": "worker-normal-leader.mjs.jsonl",
+      "pid": 81709,
+      "absent": true
+    }
+  ],
+  "ownerRecords": [
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/command-TERM/record.json",
+      "bytes": 17881,
+      "sha256": "90813fd826a0b44253862a76ce31d5d0aaeb0e2429cb3a668dc6d524b5b53e32"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/command-normal/record.json",
+      "bytes": 15470,
+      "sha256": "bd0726f93ca642d61c9a994b445ab0641313ca83de6085dad95ea2de84ea8a8c"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/http-normal/record.json",
+      "bytes": 18507,
+      "sha256": "7518e1fd972bc29b0fdea1f5762e778eb67af6f00667661d29b93223c55a4e36"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/post-exit-output/record.json",
+      "bytes": 14260,
+      "sha256": "e277de87b810cc5b9be8b480fc9dd9a6a9cfd1244025114be54ea6fb0de174a6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/post-timeout-output/record.json",
+      "bytes": 9543,
+      "sha256": "ee7ad6c251bb8e310c882b7e21f9301de3d22f04c82d1afcf498604764511aaf"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/progress-worker/record.json",
+      "bytes": 8335,
+      "sha256": "620b7f58d4ac9099191666b3e2bd34866ad34c38a0ed1b65aa2c6e326757659b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/resistant-worker/record.json",
+      "bytes": 8107,
+      "sha256": "553cce604fe2862a0b8b7d55013390b028172b32a17d6382f3de5e5a9706f3db"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/unadmitted-progress-worker/record.json",
+      "bytes": 9209,
+      "sha256": "41a36c69eb03c8c6c82443118ec3deb029e38df2c9b07b3260e55425d1ecab91"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/worker-TERM/record.json",
+      "bytes": 16344,
+      "sha256": "92113faa83901080553c78fdd62de3450f68c6bbade1b17a6a39b0aefedfd062"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/records/worker-normal/record.json",
+      "bytes": 11532,
+      "sha256": "64be95c3fc8f7e9ea760f5707bb44ac59d9c169ab0652ee5af0033c06bc03100"
+    }
+  ],
+  "laterGroupedModeUnexecuted": [
+    "http-TERM"
+  ],
+  "finding": "Exactly600ms deliberate delay before original semantic actions reproduced all six original assertion signature types with original clocks unchanged. All six delayed actors entered the instrumentation prefix and scheduled the delay, but none reached delay completion, original signal handler, write or publication. Five individual workers ended by inactivity/defaultSIGTERM; HTTP-normal returned port_file_timeout/SIGTERM/confirmed absence before original leader ENOENT.",
+  "httpClockRelation": "Unchanged helper arms requestTimer with min(launch.timeoutMs,request.timeoutMs)=min(700,500)=500ms; this expires before600ms delayed body.",
+  "limits": [
+    "Sufficient controlled prerequisite counterexample; not proof of the erased historical actor cause or host load.",
+    "Stage1 and stage2A returnedAtMs are post-artifact-copy timestamps, not exact owner-settle times.",
+    "No deadline increase, original-clock reset, retry or Product/source repair."
+  ]
+}

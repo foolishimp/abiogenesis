@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-07T15:10:29.668Z",
+  "pid": 77380,
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/BINDING.json",
+    "bytes": 15328,
+    "sha256": "699dfbe58ffc35d56bf32c582c6da307871896245fb53e2d2c38fe350e26c31c"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_ADMISSION.json",
+    "bytes": 4315,
+    "sha256": "0945c12282db47bd88a487ed4c02d0f946d670de1c666ea8614b06030392b313"
+  },
+  "sourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+  "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+  "wholeFile": false,
+  "expectedCases": 1,
+  "namePattern": "^T-287 C2 compact acknowledgment preserves installed large-log observation and replay$",
+  "excludedCaseCount": 11,
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/private/tmp/abg-r8-c2p-001/b:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r8-c2p-001/t",
+    "NODE_OPTIONS": "",
+    "npm_config_userconfig": "/private/tmp/abg-r8-c2p-001/user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-r8-c2p-001/global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-r8-c2p-001/n",
+    "npm_config_offline": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "ABG_T287_C2_PROOF_CONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/PROOF_CONFIG.json",
+    "ABG_TS_CLAUDE_COMMAND": "/private/tmp/abg-r8-c2p-001/UNSELECTED_PROVIDER",
+    "ABG_TS_LIVE_CLAUDE_COMMAND": "/private/tmp/abg-r8-c2p-001/UNSELECTED_PROVIDER",
+    "ABI5_UAT_UNIT_ROOT": "/private/tmp/abg-r8-c2p-001/w/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat-units"
+  }
+}

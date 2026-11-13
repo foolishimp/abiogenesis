@@ -1,0 +1,7 @@
+# Pure-owner recheck003 — direct owner import correction
+
+Root reports recheck002 session41327 exited1 after fresh actual observation exactly matched source digest a097d3925bf88156f2bc1991acc00126b591f0a0dc2d8a7ac51b5460003af82c. The script then called sameWorksiteContextIdentity through the Product facade, which does not export it.002 fault, fresh observation, preservation result, inputs and outputs remain immutable; preservation reports unchanged log/install/inputs and no provider/Run.
+
+Only operator behavior change: import product/worksite_effect.js directly and use its existing exported sameWorksiteContextIdentity at the two existing call sites. Static source traversal verified every other referenced callable/export against actual emitted installed modules, including Product facade re-exports; SELECTION.json retains the exact mapping and source pins. No installed module was imported or executed by Writer. No Product repair, broader review, new gate or task is selected.
+
+The same minimal pure-owner diagnostic remains: genuine current resume plus acquired historical resource, exact25403 assembly, fresh actual observation, ordinary projectGovernanceTestingTask branch. No Public reread, forced reacquisition, old omitted-control requirement, C2/provider/Run or paid007. Neutral Runtime TMP and existing captured scratch05/tmp are unchanged. Root alone may execute recheck-context.mjs MANIFEST_SHA256 after exact review; task construction or next typed refusal precedes any paid selection. This is not native Testing, R2 or qualification closure.

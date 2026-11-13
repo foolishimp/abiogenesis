@@ -1,0 +1,105 @@
+{
+  "kind": "bounded_method_and_read_first_ordering_observation",
+  "observedUtc": "2026-11-06T22:21:03.589004+00:00",
+  "progress": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/progress.json",
+    "bytes": 1869,
+    "sha256": "2d89b1e4460ed148810680572767d873b49044057f0df229351d42c1ffa69a83"
+  },
+  "authoredBootstrap": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/manifest.json",
+    "manifestSha256Observed": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "manifestMatchesMethodAccess": true,
+    "stdoVerify": "stdo verify v3.0.4 -> valid:true",
+    "entrypoint": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "entrypointSha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+    "entrypointReadUtc": "2026-11-06T22:15:00Z",
+    "hostPluginRegistrationClaimed": false
+  },
+  "authoredReadFirst": {
+    "startedUtc": "2026-11-06T22:15:30Z",
+    "paths": [
+      "qualification-inputs/rc7-stdout-window-author-02/METHOD_ACCESS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/TASK.md",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/COMMAND_BOUNDS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/SOURCE_CUSTODY.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_CONTROL_ADMISSION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_DEPENDENCY_READY_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/HS03_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/NATIVE_GRANT.json",
+      "qualification-inputs/rc7-stdout-window-author-02/MEASUREMENT_PLAN.json"
+    ],
+    "pending": "EXTERNAL_READ_INPUTS, HELD_SESSION_DESIGN/REVIEW, AGENTS.md, stdo_abiogenesis.json, PRODUCT.md, REQ-R-ABG3-PROJECTION/EVENTS, frame basis, owners, HOW"
+  },
+  "sourceMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/operator-custody-001/SOURCE_METADATA_002.json",
+    "bytes": 4961,
+    "sha256": "2b4f9c6d3378666129d27b8560e82b2588f0ab207e6af0fd8d666bff59b67b09"
+  },
+  "earliestChangedPathMtimeObserved": "2026-11-06T22:17:00.184899+00:00",
+  "selectedAccessMetadata": [
+    {
+      "timestamp": "2026-11-06T22:14:15.460Z",
+      "toolUseRef": "toolu_01CNRHVKbksjrvPHjAULv444",
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [
+        "qualification-inputs/rc7-stdout-window-author-02/METHOD_ACCESS.json"
+      ],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false
+    },
+    {
+      "timestamp": "2026-11-06T22:14:17.729Z",
+      "toolUseRef": "toolu_01PxpnFdaSP1PsQeiHFPhwGD",
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [
+        "qualification-inputs/rc7-stdout-window-author-02/METHOD_ACCESS.json",
+        "qualification-inputs/rc7-stdout-window-author-02/TASK.md"
+      ],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false
+    },
+    {
+      "timestamp": "2026-11-06T22:14:52.405Z",
+      "toolUseRef": "toolu_01PLqosQjQDE6cufe8iXgqWi",
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [
+        "qualification-inputs/rc7-stdout-window-author-02/METHOD_ACCESS.json",
+        "qualification-inputs/rc7-stdout-window-author-02/ROOT_CONTROL_ADMISSION.json",
+        "qualification-inputs/rc7-stdout-window-author-02/ROOT_DEPENDENCY_READY_SELECTION.json",
+        "qualification-inputs/rc7-stdout-window-author-02/ROOT_SELECTION.json",
+        "qualification-inputs/rc7-stdout-window-author-02/HS03_SELECTION.json",
+        "qualification-inputs/rc7-stdout-window-author-02/TASK.md",
+        "qualification-inputs/rc7-stdout-window-author-02/NATIVE_GRANT.json",
+        "qualification-inputs/rc7-stdout-window-author-02/SOURCE_CUSTODY.json",
+        "qualification-inputs/rc7-stdout-window-author-02/COMMAND_BOUNDS.json",
+        "qualification-inputs/rc7-stdout-window-author-02/MEASUREMENT_PLAN.json",
+        "AGENTS.md",
+        "stdo_abiogenesis.json"
+      ],
+      "selectedMethodPathPresence": [
+        "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md"
+      ],
+      "selectedMethodManagerCommandPresence": true
+    },
+    {
+      "timestamp": "2026-11-06T22:14:54.788Z",
+      "toolUseRef": "toolu_01J1CVBSvt9zNgKSpMzFKAus",
+      "selectedReadFirstPath": null,
+      "selectedReadFirstPathMentions": [
+        "qualification-inputs/rc7-stdout-window-author-02/EXTERNAL_READ_INPUTS.json"
+      ],
+      "selectedMethodPathPresence": [],
+      "selectedMethodManagerCommandPresence": false
+    }
+  ],
+  "completionReceiptObserved": false,
+  "standing": "RECORD_GAP: latest authored progress lists read-first material pending; selected path/request metadata alone does not close completion before observed source effect. No inference of unobserved Bash contents or universal procedural violation.",
+  "limits": [
+    "Source stat mtime is not the exact first edit time.",
+    "All tool requests so far are Bash; absent direct Read/Edit tools do not establish no read/write.",
+    "No new gate, interruption, source/proof effect or private content acquisition."
+  ]
+}

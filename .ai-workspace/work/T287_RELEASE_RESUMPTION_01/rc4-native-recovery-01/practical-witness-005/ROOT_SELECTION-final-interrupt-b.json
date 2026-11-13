@@ -1,0 +1,11 @@
+{
+  "status": "ROOT_SELECTED_ONE_SHOT_INTERRUPT_B",
+  "operator": "Root",
+  "selectedAt": "2026-11-02T23:57:19.410870+00:00",
+  "bindingSha256": "be5a291b2390e1a5fed5c0a2ddcb008f097ea0fcdddaf19d21a1810c5335d92b",
+  "allowedStages": [
+    "interrupt-b"
+  ],
+  "callSha256": "bdfce612bb56a0335ad2ff404b2698f1e72e8449136f097ce1da6731c5848263",
+  "decision": "Root reviewed actual B asset/direct/same-Program call with admitted A bd963a4f/latest Result c4fa6f98, one conserved Construction observation and exact owner current-context identity equal to A after. Select exactly one interrupt-b through existing enteredTestingHost: interrupt only at durable entered Testing before prepare-testing/C2. No automatic retry, recovery or continuation is selected; Root verifies actual frontier/quiescence before next action."
+}

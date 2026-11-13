@@ -1,0 +1,19 @@
+{
+  "kind": "root_proof_only_native_host_launch",
+  "startedUtc": "2026-11-05T09:18:23.500828+00:00",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/execution/DISPATCH_MANIFEST.json",
+    "bytes": 5821,
+    "sha256": "fda1237d050478e4b3227c3871657540ee931275ed6ea10cfa4fe5b172bccc4d"
+  },
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/dispatch.mjs",
+    "fda1237d050478e4b3227c3871657540ee931275ed6ea10cfa4fe5b172bccc4d"
+  ],
+  "automaticRetry": false,
+  "codingWorkers": 0,
+  "endedUtc": "2026-11-05T09:27:46.157637+00:00",
+  "elapsedMs": 562640.9371658228,
+  "exitCode": 0
+}

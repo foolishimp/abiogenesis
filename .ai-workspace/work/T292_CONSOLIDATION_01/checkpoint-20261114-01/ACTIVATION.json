@@ -1,0 +1,23 @@
+{
+  "activation": "T292-MAIN-CHECKPOINT-CLEANUP-20261114-01",
+  "role": "Writer",
+  "actor": "Root explicit transition from Executive before these effects",
+  "authority": "User: checkpoint everything into main remove any old worktrees that are no longer needed",
+  "startingMain": "3f6a4cb1a2b0cbd6a0218d777ca69e1733ba70bb",
+  "territory": [
+    "ABIogenesis main: all outstanding visible tracked/untracked work and local Git checkpoint",
+    ".gitattributes: exact new large-file LFS entries",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/checkpoint-20261114-01",
+    "T292/T293 status and frozen broad-04 evidence",
+    "registered obsolete ABIogenesis worktrees under /private/tmp (excluding current composed-final-04)",
+    "historical baseline dependency link: exact materialized copy before donor removal"
+  ],
+  "effects": "Inventory and preserve all outstanding work; archive non-reproducible old-worktree files, snapshot dirty generated files; preserve failed proof; materialize needed dependency; commit and verify main; remove only preserved obsolete worktrees and prunable residue; final audit checkpoint",
+  "exclusions": [
+    "current composed-final-04 and needed external proof/baseline roots",
+    "new Product repairs or test campaign",
+    "deleting historical branch commits",
+    "push, pin, release installation or publication"
+  ],
+  "return": "Root Executive with final clean main checkpoint, removal/retention inventory, preserved failure"
+}

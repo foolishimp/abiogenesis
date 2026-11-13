@@ -1,0 +1,86 @@
+{
+  "status": "PREPARED_FOR_EXACT_ROOT_REVIEW_NO_ADMISSION",
+  "createdUtc": "2026-11-01T18:15:01.492421+00:00",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/CALL_PREPARATION_BINDING.json",
+    "bytes": 142216,
+    "sha256": "7223f5bb66c21d8ed7c38d81cd54141f0cc6c34fcc754e2973f1af2b6628a45d"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/CALL_PREPARATION_BINDING.json",
+      "bytes": 142216,
+      "sha256": "7223f5bb66c21d8ed7c38d81cd54141f0cc6c34fcc754e2973f1af2b6628a45d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/CHECKPOINT.json",
+      "bytes": 70704,
+      "sha256": "fed8bd00370ccd42393c1f83a131453e684016e51a1e536bbe4a7cfb2ad0eb51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/FEASIBILITY.json",
+      "bytes": 1310,
+      "sha256": "b409606b92a8f7121819c8477e90c0361f8bbfa2973352796a56dd47f6fff1dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/HANDOFF.md",
+      "bytes": 4313,
+      "sha256": "39954614d0f6d66b077a1f1e4abba4f8f84ab5f7d3da6f8f07e27b32aacb42c6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/PROVIDER_PROFILE.json",
+      "bytes": 3255,
+      "sha256": "9f612b25fb81acce3ffda6172689905ca4c4d9e3b1b9b2ce24538953ac28a753"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/ROOT_ADMISSION.template.json",
+      "bytes": 405,
+      "sha256": "be4fcdfdb30bf8bd0b34470b17baead3749a666560db89cdeb96a3fc8625d789"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/WORKSTATE_DERIVATION.json",
+      "bytes": 2742,
+      "sha256": "a4f52288290cadb2bf7e2a0fe258dd0be21710aab8663e1e3ca54dbb0991ce85"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/claude-provider.sh",
+      "bytes": 425,
+      "sha256": "ffdae1599e071061c117df573be8a75d6df53e2a5b1ded469d3784910f19c686"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/dispatch.mjs",
+      "bytes": 6011,
+      "sha256": "048db28aa8335f453c330fd35dd04121c2631080db93ce1af24c7d234d13c2f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/freeze-dispatch.py",
+      "bytes": 3503,
+      "sha256": "56e589aa3e9b70f00d8341f18f1a90cf401308cc6520f6defa94b3d47149708a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/operator-preflight.py",
+      "bytes": 6590,
+      "sha256": "2e9878848daf2199afebe37a1708abc8ca9feacd05835f90f09fe4b44d2c4cdf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/prepare-native-call.mjs",
+      "bytes": 14100,
+      "sha256": "7a89ce8b3c4e09cf913aa8b080c37a45fddbac985ad25369f0c0145ba78cb28c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/setup-state.mjs",
+      "bytes": 5950,
+      "sha256": "2b8b78ebb0f91d4552fa30033d6a60ddf831bd790f4e0c52d16dc1a567d270f9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/workload.json",
+      "bytes": 265943,
+      "sha256": "00fe069c43243cf5f05afec713f784ef4b892aca9fe950c35fcf9d3e0041c3fc"
+    }
+  ],
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "sourceTree": "d3d22391589dcb6fd8d86ed128b0ede69b77348c",
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "installedImportsByWriter": 0
+}

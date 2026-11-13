@@ -1,0 +1,122 @@
+{
+  "kind": "rc3_b05_usage_projection",
+  "atUtc": "2026-10-31T14:26:09.359694+00:00",
+  "streams": [
+    {
+      "stream": "fp-0a6e158a20c312e0-stdout.log",
+      "bytes": 240961,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.684452",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-25fe5e4f91079651-stdout.log",
+      "bytes": 4009634,
+      "terminalResultRows": 1,
+      "reportedUsd": "4.9741874",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-28892d06774fc613-stdout.log",
+      "bytes": 437285,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.96198",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-7039f62840e47eb4-stdout.log",
+      "bytes": 397006,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.0387931999999998",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-7e1b1b843f520577-stdout.log",
+      "bytes": 3104381,
+      "terminalResultRows": 1,
+      "reportedUsd": "5.818089399999999",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-91c8dc01ceb1afa5-stdout.log",
+      "bytes": 3278594,
+      "terminalResultRows": 0,
+      "reportedUsd": null,
+      "classification": "ended_transport_unknown_cost"
+    },
+    {
+      "stream": "fp-95e0c01a4a6ac5c9-stdout.log",
+      "bytes": 1946695,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.9622148000000004",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-96925bcf5960b9f9-stdout.log",
+      "bytes": 254504,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.7854",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-ad5197359cbfc781-stdout.log",
+      "bytes": 270051,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.8684040000000002",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-b35290ed2a921c20-stdout.log",
+      "bytes": 432831,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.074176",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-b75611088e92b2b6-stdout.log",
+      "bytes": 2594313,
+      "terminalResultRows": 1,
+      "reportedUsd": "4.015721399999999",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-b7fe7cfccbbf3cfd-stdout.log",
+      "bytes": 472104,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.448316",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-d99f15da2fe9e513-stdout.log",
+      "bytes": 339559,
+      "terminalResultRows": 1,
+      "reportedUsd": "2.3127240000000002",
+      "classification": "reported"
+    }
+  ],
+  "knownReportedBFamilyUsd": "33.9444581999999986",
+  "historicalPreBUsd": "46.3959266",
+  "allReportedNativeTotalUsd": "80.3403847999999986",
+  "endedB03UnknownCostReserveUsd": "8",
+  "effectiveConservativeTotalUsd": "88.3403847999999986",
+  "b03RecordedTransportTerminated": true,
+  "activeOrAmbiguousNewStreams": [],
+  "otherUnresolvedStreams": [],
+  "startedWithoutObservedNewStream": false,
+  "effectiveWithActiveProcessReservesUsd": "88.3403847999999986",
+  "beforeAnotherProviderWithWitnessReserveUsd": "98.8403847999999986",
+  "rootAction": "REVIEW_82",
+  "reviewCheckpointsUsd": [
+    "82",
+    "90"
+  ],
+  "preWitnessStopUsd": "94",
+  "userAllocationUsd": "100",
+  "perActiveB05ProcessReserveUsd": "4.5",
+  "laterWitnessReserveUsd": "6",
+  "limits": [
+    "Unknown B03 cost is reserved, not estimated as billed or active",
+    "Other charges and active process costs remain unknown",
+    "This is a manual monitoring projection, not an enforced aggregate cap; Root makes each provider decision"
+  ]
+}

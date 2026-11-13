@@ -1,0 +1,475 @@
+{
+  "taskRef": "task://abiogenesis/t287/single-address-space/proof-10",
+  "task": "# Proof10: testing and assessment of the unchanged targeted09 refactor\n\nABIogenesis5 / GOAL-035 / T-287 / immutable STDO3.0.4, empty composition. ROOT_PROOF_ONLY_REENTRY_10 selects no Product/test/HOW change and no additional functionality. The candidate is exact native09 SUBJECT38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13:157 source files and3 original09 handoffs. Broader R1-R7/C1-C5 remains outstanding history, outside current gates.\n\nAfter Root supplies actual09 closed/fresh/resume and final review/disposition pins, select immediate Testing of existing current files with subjectEvidenceRef=null. Only testing and uat work orders exist. No author/native-work construction, prior observation injection, no-op coding stage or future source handoff is allowed. Testing uses the existing command-execution owner, then the actual admitted testing observation is eligible for UAT.\n\nUse the established isolated sandbox source correspondence/offline-toolchain/contract-seeds/compile/generate/pack sequence. Only the existing12-case single-address-space-whole-path module executes, at minimum12 passes, zero failures and zero skips, including both targeted cut/authenticator discriminators. Both EXTERNAL_READ_RESOURCES.json and exact retained MEASURED_BASELINE.json are selected, pinned and read before tests. ABI5_CONSOLIDATION_INPUTS names consolidation-inputs/proof-10 in the actual isolated worksite. Setup/build/package is verification custody, not an install or release cut.\n\nPreserve actual09 C2 as prior execution: compile/generate/pack succeeded; whole-path5/7/0, job9/0/0, revision4/1/2, consumers59/0/73. Null nativeProof is real. The six missing-baseline ENOENTs and dependent proof-record failure are not erased by this new lane. Revision1fail/exit1 remains a visible known failure. Prior observations get only the exact Root-disposed bounded credit and their original execution provenance; no lower floor, expected-failure waiver, blanket pass or re-execution credit. Final independent review and Root disposition are separate exact readable inputs.\n\nUAT assesses original targeted T1-T3/T5 and T4 available current-source/C2 correspondence using the exact targeted rubric, actual10 C2 plus Root-disposed prior evidence. The actual command stdout returns c2Report.path/bytes/sha256; that exact file returns nativeTestProof.path/bytes/sha256. Explicit permission covers reading and verifying exactly those returned files. Do not assume assessor snapshotRoot/worksiteDelta access, infer archive siblings, use cleanup-prone producerPath or inline complete helper/delta/proof bodies.\n\nConcurrent Root review and future post-UAT fresh/close/Root acceptance remain separate Root exit obligations, outside native unresolvedCriteria. Preserve true missing evidence and refusals. Any source defect or materially different failure returns to Root; it does not authorize a coding stage, fixture functionality or unrelated proof. No Git/selector/release/adoption/qualification effects.\n\nCurrent closed Root disposition: native09 source assessment is satisfied/no source findings; overall verification remains indeterminate. Targeted T2 is preserved available behavior with truthful retained failure/skip limits, not complete D2 qualification. N9-RETAINED-FIXTURE-01 is registered outside this refactor. ROOT_PROOF_ONLY_DISPOSITION_10 governs that bounded reuse.\n\nActual09 UAT was not selected (assessment=null), with an admitted gap choice. It supplies no assessment acceptance. The new proof-only Testing then UAT path remains subject to actual09 genuine close/fresh/continuation pins.\n",
+  "sources": [],
+  "authorityRefs": [
+    "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_REENTRY_10.md",
+    "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md"
+  ],
+  "requiredSupportRefs": [
+    "support://abiogenesis/t287/targeted-interface-refactor/ir01-ir02@09"
+  ],
+  "readRoots": [],
+  "maxContextFiles": 10000,
+  "maxContextBytes": 268435456,
+  "maxPromptBytes": 1048576,
+  "workOrders": {
+    "testing": {
+      "outcome": "Execute the prescribed12-case whole-path verification against unchanged native09 source with baseline restored, preserving all observations and failures.",
+      "instructions": [
+        "Immediate Testing uses subjectEvidenceRef=null and current observed files. No author/construction stage or injected previous Result.",
+        "Run only the complete declared testing command plan. Exact returned report/proof locators support assessment; prior09 observations are not newly executed."
+      ],
+      "readFirst": [
+        "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_REENTRY_10.md",
+        "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+        "consolidation-inputs/proof-10/TASK_EXECUTION.md",
+        "consolidation-inputs/proof-10/PROOF_ONLY_GRANT.json",
+        "consolidation-inputs/proof-10/targeted-rubric.json",
+        "consolidation-inputs/proof-10/C2_INPUTS.json",
+        "consolidation-inputs/proof-10/ACTUAL_NATIVE09_C2_SUMMARY.json",
+        "consolidation-inputs/proof-10/NATIVE09_C2_CLOSED_RESULT.json",
+        "consolidation-inputs/proof-10/INDEPENDENT_NATIVE09_REVIEW.json",
+        "consolidation-inputs/proof-10/ROOT_DISPOSITION.json",
+        "consolidation-inputs/proof-10/SHORT_TEST_SCRATCH.json",
+        "consolidation-inputs/proof-10/c2-proof.mjs",
+        "consolidation-inputs/proof-10/NATIVE09_UAT_STANDING.json"
+      ],
+      "writeRoots": [],
+      "checks": []
+    },
+    "uat": {
+      "outcome": "Complete only targeted IR-01/IR-02 existing-owner migration and four-wrapper/consumer retirement, preserving behavior with focused work discrimination and no added functionality.",
+      "instructions": [
+        "Assess original targeted T1-T3/T5 and T4 available current-source/C2 correspondence against the exact targeted rubric. No added functionality or source/test/HOW changes.",
+        "Use actual10 C2 and exact Root-disposed actual09 observations. Keep revision1fail/exit1, all other failures/skips and preimage comparison limits visible; no floor-lowering or blanket waiver.",
+        "Read and verify exactly authenticated stdout c2Report.path/bytes/sha256, then report.nativeTestProof.path/bytes/sha256; do not assume snapshotRoot/worksiteDelta or infer archive siblings.",
+        "Future post-UAT fresh/close and Root acceptance are separate Root exit obligations outside native unresolvedCriteria; retain real missing available evidence honestly.",
+        "Closed Root disposition limits T2 to preserved available behavior/equivalence with explicit revision unexecuted suffix and historical skips; do not reinterpret that as missing whole-D2 qualification or make the real failure green."
+      ],
+      "readFirst": [
+        "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_REENTRY_10.md",
+        "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+        "consolidation-inputs/proof-10/TASK_EXECUTION.md",
+        "consolidation-inputs/proof-10/PROOF_ONLY_GRANT.json",
+        "consolidation-inputs/proof-10/targeted-rubric.json",
+        "consolidation-inputs/proof-10/C2_INPUTS.json",
+        "consolidation-inputs/proof-10/ACTUAL_NATIVE09_C2_SUMMARY.json",
+        "consolidation-inputs/proof-10/NATIVE09_C2_CLOSED_RESULT.json",
+        "consolidation-inputs/proof-10/INDEPENDENT_NATIVE09_REVIEW.json",
+        "consolidation-inputs/proof-10/ROOT_DISPOSITION.json",
+        "consolidation-inputs/proof-10/SHORT_TEST_SCRATCH.json",
+        "consolidation-inputs/proof-10/c2-proof.mjs",
+        "consolidation-inputs/proof-10/NATIVE09_UAT_STANDING.json"
+      ],
+      "writeRoots": [],
+      "checks": []
+    }
+  },
+  "testing": {
+    "selectedPaths": [],
+    "commands": [
+      {
+        "commandId": "command://abiogenesis/single-address-space/proof-10/source-correspondence",
+        "executable": "/opt/homebrew/bin/node",
+        "args": [
+          "-e",
+          "const fs=require('node:fs'),crypto=require('node:crypto');for(const p of process.argv.slice(1)){const b=fs.readFileSync(p);console.log(JSON.stringify({path:p,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex')}))}",
+          "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+          "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+          "build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts",
+          "build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts",
+          "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+          "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+          "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+          "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+          "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+          "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+          "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+          "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+          "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+          "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+          "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+          "build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts",
+          "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts",
+          "build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+          "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+          "build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+          "build_tenants/abiogenesis/typescript/code/src/product/result_definition_bindings.ts",
+          "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+          "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+          "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md",
+          "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+          "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+          "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/d2-acknowledgment.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-query-reuse.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/d2-bounded-repair.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/d2-historical-design.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/d2-workflow-step.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-family.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-child-program.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-cross-cut-public-read.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-environment-projection-conservation.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-intake.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-lifecycle.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-read-dependency.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-malformed-gtl-gate.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-predecessor-context.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-reconstruction-conservation.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t288-initial-cursor-entry.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+          "consolidation-scratch/native-09/return.json",
+          "consolidation-scratch/native-09/readiness.json",
+          "consolidation-scratch/native-09/progress.json"
+        ],
+        "relativeCwd": ".",
+        "environment": {
+          "NODE_OPTIONS": "--max-old-space-size=8192",
+          "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/private/tmp/abg-n09"
+        },
+        "timeoutMs": 30000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis/single-address-space/proof-10/offline-toolchain",
+        "executable": "/bin/cp",
+        "args": [
+          "-cR",
+          "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+          "node_modules"
+        ],
+        "relativeCwd": "build_tenants/abiogenesis/typescript",
+        "environment": {
+          "NODE_OPTIONS": "--max-old-space-size=8192",
+          "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/private/tmp/abg-n09"
+        },
+        "timeoutMs": 60000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis/single-address-space/proof-10/contract-seeds",
+        "executable": "/bin/cp",
+        "args": [
+          "-cR",
+          "consolidation-inputs/native-08/contract-seeds",
+          "build_tenants/abiogenesis/typescript/contracts"
+        ],
+        "relativeCwd": ".",
+        "environment": {
+          "NODE_OPTIONS": "--max-old-space-size=8192",
+          "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/private/tmp/abg-n09"
+        },
+        "timeoutMs": 30000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis/single-address-space/proof-10/compile",
+        "executable": "/opt/homebrew/bin/node",
+        "args": [
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "tsconfig.json"
+        ],
+        "relativeCwd": "build_tenants/abiogenesis/typescript",
+        "environment": {
+          "NODE_OPTIONS": "--max-old-space-size=8192",
+          "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/private/tmp/abg-n09"
+        },
+        "timeoutMs": 240000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis/single-address-space/proof-10/generate",
+        "executable": "/opt/homebrew/bin/node",
+        "args": [
+          "--input-type=module",
+          "-e",
+          "import{mkdir}from'node:fs/promises';await mkdir('artifacts',{recursive:true});await import('./scripts/generate-product-manifest.mjs');"
+        ],
+        "relativeCwd": "build_tenants/abiogenesis/typescript",
+        "environment": {
+          "NODE_OPTIONS": "--max-old-space-size=8192",
+          "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/private/tmp/abg-n09"
+        },
+        "timeoutMs": 120000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis/single-address-space/proof-10/pack",
+        "executable": "/opt/homebrew/bin/npm",
+        "args": [
+          "pack",
+          "--ignore-scripts",
+          "--silent",
+          "--pack-destination",
+          "artifacts"
+        ],
+        "relativeCwd": "build_tenants/abiogenesis/typescript",
+        "environment": {
+          "NODE_OPTIONS": "--max-old-space-size=8192",
+          "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/private/tmp/abg-n09"
+        },
+        "timeoutMs": 120000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis/single-address-space/proof-10/affected-proof",
+        "executable": "/opt/homebrew/bin/node",
+        "args": [
+          "consolidation-inputs/proof-10/c2-proof.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {
+          "NODE_OPTIONS": "--max-old-space-size=8192",
+          "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/private/tmp/abg-n09"
+        },
+        "timeoutMs": 1500000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "predicateId": "command://abiogenesis/single-address-space/proof-10/source-correspondence/exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "equals": 0,
+          "validationCommandId": "command://abiogenesis/single-address-space/proof-10/source-correspondence"
+        }
+      },
+      {
+        "predicateId": "command://abiogenesis/single-address-space/proof-10/offline-toolchain/exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "equals": 0,
+          "validationCommandId": "command://abiogenesis/single-address-space/proof-10/offline-toolchain"
+        }
+      },
+      {
+        "predicateId": "command://abiogenesis/single-address-space/proof-10/contract-seeds/exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "equals": 0,
+          "validationCommandId": "command://abiogenesis/single-address-space/proof-10/contract-seeds"
+        }
+      },
+      {
+        "predicateId": "command://abiogenesis/single-address-space/proof-10/compile/exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "equals": 0,
+          "validationCommandId": "command://abiogenesis/single-address-space/proof-10/compile"
+        }
+      },
+      {
+        "predicateId": "command://abiogenesis/single-address-space/proof-10/generate/exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "equals": 0,
+          "validationCommandId": "command://abiogenesis/single-address-space/proof-10/generate"
+        }
+      },
+      {
+        "predicateId": "command://abiogenesis/single-address-space/proof-10/pack/exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "equals": 0,
+          "validationCommandId": "command://abiogenesis/single-address-space/proof-10/pack"
+        }
+      },
+      {
+        "predicateId": "command://abiogenesis/single-address-space/proof-10/affected-proof/exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "equals": 0,
+          "validationCommandId": "command://abiogenesis/single-address-space/proof-10/affected-proof"
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/build"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/contracts"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/node_modules"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/artifacts"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs"
+      },
+      {
+        "pathKind": "file",
+        "relativePath": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/evidence"
+      }
+    ]
+  },
+  "assessment": {
+    "candidatePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "rubricPath": "consolidation-inputs/proof-10/targeted-rubric.json",
+    "sources": [
+      "stdo_abiogenesis.json",
+      "AGENTS.md",
+      "specification/PRODUCT.md",
+      "specification/INTENT.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      ".claude/skills/stdo-work/SKILL.md",
+      ".claude/references/PRODUCT_BASIS.md",
+      ".claude/references/COORDINATED_HANDOFF.md",
+      "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "consolidation-inputs/native-09/ROOT_TARGETED_REFACTOR_09.md",
+      "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_REENTRY_10.md",
+      "consolidation-inputs/proof-10/TASK_EXECUTION.md",
+      "consolidation-inputs/proof-10/PROOF_ONLY_GRANT.json",
+      "consolidation-inputs/proof-10/ACTUAL_NATIVE09_C2_SUMMARY.json",
+      "consolidation-inputs/proof-10/NATIVE09_C2_CLOSED_RESULT.json",
+      "consolidation-inputs/proof-10/ROOT_DISPOSITION.json",
+      "consolidation-inputs/proof-10/C2_INPUTS.json",
+      "consolidation-inputs/proof-10/INDEPENDENT_NATIVE09_REVIEW.json",
+      "consolidation-scratch/native-09/return.json",
+      "consolidation-scratch/native-09/readiness.json",
+      "consolidation-inputs/proof-10/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+      "consolidation-inputs/proof-10/NATIVE09_UAT_STANDING.json"
+    ]
+  }
+}

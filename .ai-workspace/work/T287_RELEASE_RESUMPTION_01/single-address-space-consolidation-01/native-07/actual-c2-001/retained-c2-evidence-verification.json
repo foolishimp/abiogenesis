@@ -1,0 +1,25 @@
+{
+  "kind": "retained_c2_evidence_correspondence",
+  "manifestSha256": "e01bbc9b6b3d6998eac59ef3092294785e2a01ce76c4bdf2617971e95bce0165",
+  "actualPriorC2ResultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+  "priorSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/SUBJECT.json",
+    "bytes": 184020,
+    "sha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670"
+  },
+  "packageArchiveSha256": "091ab10a500eea30f59cc3952c21d181eb9d85277c4b2591556308faa435f0e2",
+  "packageArchiveIntegrity": "sha512-brBeDiZdepxOza+Jm5MiQBGggpc/DtEieOE5+jUw2xnkaCxTN2UhT+dggwPsoRrCAI1t9G2VpvlLiR8rFZ5zgA==",
+  "unchangedFiles": 879,
+  "retainedLaneIds": [
+    "affected-owner-lanes",
+    "qualification-owner-components",
+    "historical-producer-acquisition",
+    "replay-request-consumers",
+    "fresh-process-semantic-values",
+    "forward-recovery-contracts",
+    "installed-affected-lane",
+    "maintained-setup-harness"
+  ],
+  "newExecution": false,
+  "meaning": "Exact runtime archive and declared test/helper/source dependencies agree with closed prior evidence; these lanes were not rerun here."
+}

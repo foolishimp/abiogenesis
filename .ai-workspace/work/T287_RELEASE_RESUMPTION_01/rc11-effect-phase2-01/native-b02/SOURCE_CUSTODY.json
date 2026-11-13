@@ -1,0 +1,147 @@
+{
+  "status": "CLOSED_NATIVE_B02_ONE_FILE_CUSTODY_UNACCEPTED",
+  "freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+    "bytes": 295433,
+    "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+  },
+  "freezeReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/FREEZE_RECEIPT.json",
+    "bytes": 2505,
+    "sha256": "4db25133f85819224c1ce1cd23f87ce4bee4556c01e62ee2a5f87542eeef776d"
+  },
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "nativeAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/NATIVE_AFTER_CORRESPONDENCE.json",
+    "bytes": 2146,
+    "sha256": "a3403982dad2e8ed40eb17baf020276f5750414bfcf8a9e39357ce5024fb1ffb"
+  },
+  "toolHistory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/TOOL_HISTORY.json",
+    "bytes": 24653,
+    "sha256": "30c090f9cf8fe835cdebdcd2ce90572c8373c5ed922504d205fb88d082db5475"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/NATIVE_CHECKS.json",
+    "bytes": 2484,
+    "sha256": "15e17183d3a4b260c4bbbdb00427a2f5e08afb5a0b62b4d0c4bb57f290853922"
+  },
+  "workerReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/WORKER_REPORT.json",
+    "bytes": 4552,
+    "sha256": "e744f6ecf1a5b0ae23987658c97e84859967e818e4e372612b9b32d3e87ec8e3"
+  },
+  "transport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/resources/archives/fp-1297eeac36d91dbc-transport.json",
+    "bytes": 1659165,
+    "sha256": "f7434d2e4ee7e31c37123f664fd4b22ee968a988a49a9608e1d5f44ad0b2087d"
+  },
+  "transportSummary": {
+    "status": 0,
+    "signal": null,
+    "disposition": "success",
+    "timeoutClass": null,
+    "failureClass": null,
+    "toolCallCount": 19,
+    "apiRetryCount": 0,
+    "processFacts": {
+      "cleanupDeadlineNs": {
+        "kind": "bigint",
+        "value": "3117592920990750"
+      },
+      "cleanupElapsedMs": 0.244916,
+      "closeObserved": true,
+      "directExit": {
+        "signal": null,
+        "status": 0
+      },
+      "drainExpired": false,
+      "firstError": null,
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "probeCount": 1,
+      "scopeAbsence": "absent",
+      "scopeKind": "posix_process_group",
+      "signalAttempts": 0,
+      "streamsDisposed": true
+    }
+  },
+  "assessmentDisposition": "admitted",
+  "ownerDisposition": "completed",
+  "nativeFinal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/FINAL.json",
+    "bytes": 2628,
+    "sha256": "813c433b9d688436ba9b05ee2c2b912d3f8ae52616a0a5e1e32c2e326704b52b"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/runtime-001/FRESH_READBACKS.json",
+    "bytes": 6807,
+    "sha256": "db6a04f11a4b3a3c70c5a88992240de6be7532de7dd14122abf95244b6d43201"
+  },
+  "sdkIntervalMs": 320010.103042,
+  "actualCloseAt": "2026-11-10T04:42:00.734Z",
+  "coldReads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "result",
+      "status": null,
+      "terminalValueDigest": "sha256:6d5f14b974ed189442d33e9c74a0ba76afae2268fc3dfb5a3bbb5802a732a7fe"
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "status": "closed",
+      "terminalValueDigest": "sha256:6d5f14b974ed189442d33e9c74a0ba76afae2268fc3dfb5a3bbb5802a732a7fe"
+    }
+  ],
+  "actorAndHostAbsent": [
+    8454,
+    10528
+  ],
+  "actorGroupAbsent": true,
+  "delta": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "before": {
+      "bytes": 145462,
+      "lines": 2297,
+      "sha256": "f4f9893e30f32ae7a17d242f69997a0c71812ce5084f57e75dc4af5c1cc8d892"
+    },
+    "after": {
+      "bytes": 147783,
+      "lines": 2317,
+      "sha256": "ac430f557e3e4eaa9b66f697123ea74675ae5494e149df62f94546fa81d273a4"
+    },
+    "lineDelta": 20
+  },
+  "readonlyGitDeviation": [
+    {
+      "tool": {
+        "line": 36,
+        "id": "toolu_01HAiwgiJvZdDDrkxPuhUimh",
+        "name": "Bash",
+        "input": {
+          "command": "git log --oneline -3 && git status --short && wc -l build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs && cat stdo_abiogenesis.json | head -50",
+          "description": "Show git state and file sizes"
+        },
+        "ordinal": 0,
+        "result": {
+          "line": 50,
+          "isError": false,
+          "contentSha256": "f6e6b6434931c290eb4652b87d850bff8bd94301a33c90061201e511393f24c3"
+        }
+      },
+      "actualOutput": {
+        "line": 50,
+        "isError": false,
+        "content": "e134103a2 refactor: separate owned process transitions from host effects\ned17ab148 test(t287): align owner-chain oracle with foundation principle\n65f311e73 test(t287): repair publication observation and transport proof\n M build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts\n M build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md\n M build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md\n M build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs\n M build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs\n?? .abiogenesis/\n?? .foundation-generation/\n?? qualification-inputs/\n?? qualification-scratch/\n    2297 build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs\n    1321 build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs\n    3618 total\n{\n  \"$schema\": \"stdo://releases/v3.0.4/standards/schemas/product-definition.schema.json\",\n  \"kind\": \"stdo.product-definition\",\n  \"product\": {\n    \"definition_id\": \"urn:stdo:product-definition:abiogenesis\",\n    \"name\": \"ABIogenesis\",\n    \"source_project\": \"./\",\n    \"bounded_context\": null\n  },\n  \"constitution\": {\n    \"stdo\": {\n      \"source\": {\n        \"repository\": \"https://github.com/foolishimp/specification_methodology.git\"\n      },\n      \"selector\": \"stdo://channels/3.0.4\",\n      \"basis\": {\n        \"uri\": \"stdo://releases/v3.0.4/\",\n        \"manifest_sha256\": \"102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b\"\n      }\n    },\n    \"additional_authorities\": [],\n    \"entrypoints\": [\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/frames/bootstrap.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/SPEC_METHOD.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/REFERENCE_FRAME.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/EXECUTIVE_BASELINE.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/ODD.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/IDENTITY.md\"\n      },\n      {\n        \"basis\": \"#/constitution/stdo/basis\",\n        \"uri\": \"standards/RELEASE.md\"\n      }"
+      }
+    }
+  ],
+  "deviationStanding": "Author reported read-only git log/status despite no-Git instruction. Exact commands/results retained; all main/F index pins remained exact. No complete action/read-scope conformance claim. No new source authority inferred.",
+  "operatorCacheCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PYC_CUSTODY_RETURN.json",
+    "bytes": 1878,
+    "sha256": "229bd45d0f22e24e131d9d4429afe10b560aad47998e9b47e411ccf1aa0c742d"
+  },
+  "qualified": false
+}

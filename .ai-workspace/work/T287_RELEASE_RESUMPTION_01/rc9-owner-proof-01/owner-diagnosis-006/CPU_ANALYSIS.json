@@ -1,0 +1,332 @@
+{
+  "status": "ACTUAL_PARTIAL_CPU_DIAGNOSIS",
+  "recordedAt": "2026-11-08T18:35:46.797947+00:00",
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/profiles/CPU.20261109.053244.11148.0.001.cpuprofile",
+    "bytes": 15704311,
+    "sha256": "caf3a8d9e4d5121894273b4f47a2883a48fdead155a658f09d127b606546a434"
+  },
+  "profileProcess": {
+    "pid": 11148,
+    "identity": "11148@Mon Nov 9 05:32:44 2026",
+    "role": "isolated OWN test file",
+    "testRunnerPid": 11147,
+    "testRunnerProfile": "MISSING; original PROFILE_COLLECTION.complete=false preserved"
+  },
+  "perProcessCpu": [
+    {
+      "identity": "11144@Mon Nov 9 05:32:44 2026",
+      "pid": 11144,
+      "ppidAtFirst": 27586,
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "firstObservedAt": "2026-11-08T18:32:44.836Z",
+      "lastObservedAt": "2026-11-08T18:33:23.744Z",
+      "observations": 6,
+      "firstCumulativeCpuSeconds": 0.14,
+      "lastCumulativeCpuSeconds": 0.16,
+      "deltaCpuSeconds": 0.01999999999999999,
+      "observedElapsedSeconds": 38.906889834000005,
+      "cpuPerElapsed": 0.0005140477711102563,
+      "standing": "Observed interval only; not final lifetime CPU and not short-lived/unknown-child accounting."
+    },
+    {
+      "identity": "11146@Mon Nov 9 05:32:44 2026",
+      "pid": 11146,
+      "ppidAtFirst": 11144,
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "firstObservedAt": "2026-11-08T18:32:45.879Z",
+      "lastObservedAt": "2026-11-08T18:33:14.883Z",
+      "observations": 4,
+      "firstCumulativeCpuSeconds": 0.04,
+      "lastCumulativeCpuSeconds": 0.22,
+      "deltaCpuSeconds": 0.18,
+      "observedElapsedSeconds": 29.005622083000002,
+      "cpuPerElapsed": 0.006205693485384572,
+      "standing": "Observed interval only; not final lifetime CPU and not short-lived/unknown-child accounting."
+    },
+    {
+      "identity": "11147@Mon Nov 9 05:32:44 2026",
+      "pid": 11147,
+      "ppidAtFirst": 11146,
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "firstObservedAt": "2026-11-08T18:32:45.879Z",
+      "lastObservedAt": "2026-11-08T18:33:14.883Z",
+      "observations": 4,
+      "firstCumulativeCpuSeconds": 0.04,
+      "lastCumulativeCpuSeconds": 0.04,
+      "deltaCpuSeconds": 0.0,
+      "observedElapsedSeconds": 29.005622083000002,
+      "cpuPerElapsed": 0.0,
+      "standing": "Observed interval only; not final lifetime CPU and not short-lived/unknown-child accounting."
+    },
+    {
+      "identity": "11148@Mon Nov 9 05:32:44 2026",
+      "pid": 11148,
+      "ppidAtFirst": 11147,
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "firstObservedAt": "2026-11-08T18:32:45.879Z",
+      "lastObservedAt": "2026-11-08T18:33:14.883Z",
+      "observations": 4,
+      "firstCumulativeCpuSeconds": 0.45,
+      "lastCumulativeCpuSeconds": 30.97,
+      "deltaCpuSeconds": 30.52,
+      "observedElapsedSeconds": 29.005622083000002,
+      "cpuPerElapsed": 1.052209806521873,
+      "standing": "Observed interval only; not final lifetime CPU and not short-lived/unknown-child accounting."
+    },
+    {
+      "identity": "11149@Mon Nov 9 05:32:45 2026",
+      "pid": 11149,
+      "ppidAtFirst": 11148,
+      "command": "npm pack",
+      "firstObservedAt": "2026-11-08T18:32:45.879Z",
+      "lastObservedAt": "2026-11-08T18:32:45.879Z",
+      "observations": 1,
+      "firstCumulativeCpuSeconds": 0.54,
+      "lastCumulativeCpuSeconds": 0.54,
+      "deltaCpuSeconds": null,
+      "observedElapsedSeconds": null,
+      "cpuPerElapsed": null,
+      "standing": "Observed interval only; not final lifetime CPU and not short-lived/unknown-child accounting."
+    }
+  ],
+  "profileSummary": {
+    "sampleCount": 5682,
+    "nodeCount": 55745,
+    "profileDurationUs": 38533750,
+    "sumTimeDeltasUs": 38533708,
+    "configuredSamplingIntervalUs": 10000,
+    "actualDeltaMinUs": 0,
+    "actualDeltaMaxUs": 18250,
+    "idleWeightedMs": 9229.205,
+    "nonIdleWeightedMs": 29304.503,
+    "method": "Pair each samples[i] node with actual timeDeltas[i]; aggregate self weights by call frame or module path, combining bootstrap/consumer copies for module summary. These sampled timeline weights are neither exact CPU accounting nor inclusive attribution. Use observed deltas, not sampleCount times configured interval."
+  },
+  "principalModules": [
+    {
+      "module": "toolchain/typescript.cjs",
+      "selfWeightedMs": 14203.299,
+      "percentOfTotalWeightedTime": 36.8594141005065,
+      "percentOfNonIdleWeightedTime": 48.46797435875299
+    },
+    {
+      "module": "(idle)",
+      "selfWeightedMs": 9229.205,
+      "percentOfTotalWeightedTime": 23.950991168563377,
+      "percentOfNonIdleWeightedTime": null
+    },
+    {
+      "module": "code/src/product/declaration_exports.js",
+      "selfWeightedMs": 4844.822,
+      "percentOfTotalWeightedTime": 12.572945224996255,
+      "percentOfNonIdleWeightedTime": 16.532687826167876
+    },
+    {
+      "module": "code/src/shared/canonical_json.js",
+      "selfWeightedMs": 2690.122,
+      "percentOfTotalWeightedTime": 6.981217587469132,
+      "percentOfNonIdleWeightedTime": 9.179892933178222
+    },
+    {
+      "module": "node:internal/crypto/hash",
+      "selfWeightedMs": 1777.291,
+      "percentOfTotalWeightedTime": 4.612302039554564,
+      "percentOfNonIdleWeightedTime": 6.064907499028392
+    },
+    {
+      "module": "(garbage collector)",
+      "selfWeightedMs": 1039.214,
+      "percentOfTotalWeightedTime": 2.6968959229150746,
+      "percentOfNonIdleWeightedTime": 3.546260450143106
+    },
+    {
+      "module": "node:path",
+      "selfWeightedMs": 967.502,
+      "percentOfTotalWeightedTime": 2.5107939261905448,
+      "percentOfNonIdleWeightedTime": 3.30154720590211
+    },
+    {
+      "module": "code/src/shared/value/equality.js",
+      "selfWeightedMs": 614.046,
+      "percentOfTotalWeightedTime": 1.5935294885195062,
+      "percentOfNonIdleWeightedTime": 2.095398103151587
+    },
+    {
+      "module": "(program)",
+      "selfWeightedMs": 409.834,
+      "percentOfTotalWeightedTime": 1.0635727036702516,
+      "percentOfNonIdleWeightedTime": 1.3985359178417052
+    },
+    {
+      "module": "node:internal/modules/esm/utils",
+      "selfWeightedMs": 281.418,
+      "percentOfTotalWeightedTime": 0.7303164284111978,
+      "percentOfNonIdleWeightedTime": 0.9603234014922553
+    },
+    {
+      "module": "code/src/product/verify_product.js",
+      "selfWeightedMs": 125.414,
+      "percentOfTotalWeightedTime": 0.32546569356886185,
+      "percentOfNonIdleWeightedTime": 0.427968356945006
+    },
+    {
+      "module": "code/src/shared/immutable.js",
+      "selfWeightedMs": 120.209,
+      "percentOfTotalWeightedTime": 0.3119580394391321,
+      "percentOfNonIdleWeightedTime": 0.4102065815618849
+    }
+  ],
+  "principalFrames": [
+    {
+      "function": "(idle)",
+      "url": "",
+      "line": 0,
+      "selfWeightedMs": 9229.205,
+      "samples": 742,
+      "percentOfTotalWeightedTime": 23.950991168563377
+    },
+    {
+      "function": "writeCanonicalJson",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+      "line": 10,
+      "selfWeightedMs": 2100.29,
+      "samples": 172,
+      "percentOfTotalWeightedTime": 5.4505265883054905
+    },
+    {
+      "function": "resolveEntityName",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/toolchain/typescript.cjs",
+      "line": 53823,
+      "selfWeightedMs": 1774.711,
+      "samples": 139,
+      "percentOfTotalWeightedTime": 4.605606602925418
+    },
+    {
+      "function": "update",
+      "url": "node:internal/crypto/hash",
+      "line": 134,
+      "selfWeightedMs": 1735.458,
+      "samples": 128,
+      "percentOfTotalWeightedTime": 4.503739946334778
+    },
+    {
+      "function": "",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/code/src/product/declaration_exports.js",
+      "line": 835,
+      "selfWeightedMs": 1634.871,
+      "samples": 117,
+      "percentOfTotalWeightedTime": 4.242703557103822
+    },
+    {
+      "function": "resolveNameHelper",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/toolchain/typescript.cjs",
+      "line": 23574,
+      "selfWeightedMs": 1384.755,
+      "samples": 121,
+      "percentOfTotalWeightedTime": 3.593619902865304
+    },
+    {
+      "function": "scan",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/toolchain/typescript.cjs",
+      "line": 12794,
+      "selfWeightedMs": 1342.082,
+      "samples": 126,
+      "percentOfTotalWeightedTime": 3.482877900045332
+    },
+    {
+      "function": "(garbage collector)",
+      "url": "",
+      "line": 0,
+      "selfWeightedMs": 1039.214,
+      "samples": 84,
+      "percentOfTotalWeightedTime": 2.6968959229150746
+    },
+    {
+      "function": "normalize",
+      "url": "node:path",
+      "line": 1293,
+      "selfWeightedMs": 920.668,
+      "samples": 65,
+      "percentOfTotalWeightedTime": 2.3892535854582175
+    },
+    {
+      "function": "visit",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/code/src/product/declaration_exports.js",
+      "line": 827,
+      "selfWeightedMs": 916.288,
+      "samples": 66,
+      "percentOfTotalWeightedTime": 2.3778869139715284
+    },
+    {
+      "function": "physicalRelationRefsForNode",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/code/src/product/declaration_exports.js",
+      "line": 696,
+      "selfWeightedMs": 637.126,
+      "samples": 49,
+      "percentOfTotalWeightedTime": 1.6534250999151185
+    },
+    {
+      "function": "exportedSymbolPhysicalRelationRefs",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/code/src/product/declaration_exports.js",
+      "line": 784,
+      "selfWeightedMs": 518.459,
+      "samples": 39,
+      "percentOfTotalWeightedTime": 1.3454687516706152
+    },
+    {
+      "function": "visitNode2",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/toolchain/typescript.cjs",
+      "line": 32436,
+      "selfWeightedMs": 488.708,
+      "samples": 38,
+      "percentOfTotalWeightedTime": 1.2682610248668515
+    },
+    {
+      "function": "(program)",
+      "url": "",
+      "line": 0,
+      "selfWeightedMs": 409.834,
+      "samples": 33,
+      "percentOfTotalWeightedTime": 1.0635727036702516
+    },
+    {
+      "function": "processImports",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/toolchain/typescript.cjs",
+      "line": 144847,
+      "selfWeightedMs": 379.081,
+      "samples": 42,
+      "percentOfTotalWeightedTime": 0.9837646561291221
+    },
+    {
+      "function": "direct",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/code/src/product/declaration_exports.js",
+      "line": 800,
+      "selfWeightedMs": 354.499,
+      "samples": 25,
+      "percentOfTotalWeightedTime": 0.9199711587579373
+    },
+    {
+      "function": "recursiveTypeRelatedTo",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/toolchain/typescript.cjs",
+      "line": 70204,
+      "selfWeightedMs": 319.75,
+      "samples": 66,
+      "percentOfTotalWeightedTime": 0.8297929698330615
+    },
+    {
+      "function": "writeCanonicalJson",
+      "url": "file:///private/tmp/abg-r9-owner-diagnosis-006/tmp/abi5-root-env-4SJmcH/bootstrap/package/build/code/src/shared/canonical_json.js",
+      "line": 10,
+      "selfWeightedMs": 313.333,
+      "samples": 43,
+      "percentOfTotalWeightedTime": 0.8131400175659191
+    }
+  ],
+  "interpretation": "During observed seconds1-30, the isolated test process consumed approximately one CPU-second per elapsed second; runner CPU stayed at0.04s while observed. Principal self-sampled source work includes bundled TypeScript/declaration-export processing, canonical JSON and hashing. This current successful run does not establish the cause of OWN004 cancellation or a performance speedup.",
+  "phaseObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/PHASE_OBSERVATION.json",
+    "bytes": 117,
+    "sha256": "bed5d370afa61b8ab900eda7cdc794596bcd081195309ec5ea12dabe85e58d47"
+  },
+  "phaseStanding": "Command closed before300s; phase read correctly not attempted. Full case/final diagnostic supplies successful assertion extent, not a sampled live phase trace."
+}

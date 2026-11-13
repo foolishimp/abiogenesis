@@ -1,0 +1,16 @@
+{
+  "id": "native-semantic-job",
+  "files": [
+    "test_env/tests/t287-native-semantic-job.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 9,
+  "fail": 0,
+  "skipped": 0,
+  "wallMs": 1054.7461250000051,
+  "stdoutSha256": "89ad80bfdf68fef6892bae0e596af1a1d6dd4ca4f4210c9387912b9b214269de",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

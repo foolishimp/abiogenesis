@@ -1,0 +1,49 @@
+{
+  "file": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+    "testSha256": "1d395a555ac1917700243b1acd6258b5f1800184ee54395305ec072ef0bab462",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Root causal review worksite-branch-timeout-022 pending after two240000ms inner-case cancellations; original484520.007ms command exit1 was not an outer timeout. Scheduling only; zero whole/pass credit, no final no-block disposition or retry. C1/C2 remain scheduled unchanged.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_022.json",
+        "bytes": 14281,
+        "sha256": "bf078a7467d74812e957a0ec93a912ff113877fff187e9ed3f72927af442b975"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/files/192-t287-worksite-branch-construction.json",
+        "bytes": 1178,
+        "sha256": "a5963273a77b89ed9db71847bd94f24fb20b5a12bed48cd238953c5efc74bb69"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/192-t287-worksite-branch-construction.result.json",
+        "bytes": 1509,
+        "sha256": "47fbaa70cf7b9a98c20c1a56e17435c70c185a473985332caf24d68fa97fe3b9"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/192-t287-worksite-branch-construction.stdout",
+        "bytes": 1087,
+        "sha256": "79513dc517f4fa62475170d6342cf5c24fa79ad38b9b4d8475a3fd22373147d3"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/events/192-t287-worksite-branch-construction.jsonl",
+        "bytes": 1714,
+        "sha256": "9f9341b297aa7cd6fdd72ec153dfc9e9e61db62bd38a9dc988d7da96618b83e1"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/FAILURE.json",
+        "bytes": 614,
+        "sha256": "1051d606aafc8467a6a3e93815f7f618b1d1e1b35ea5cc8dab0bd32373f06416"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/observations/branch-first-red-001/OBSERVATION.json",
+        "bytes": 3204,
+        "sha256": "078dca11948a16a5d1f452e2760721dd4c2c289fd112c16028ff215448ec753e"
+      }
+    ],
+    "capsule": "RC8-C3-COMPOSITION-PROOF-BUDGET",
+    "successorStanding": "Root selected scheduling exclusion only; see RESIDUAL_REASSESSMENT.json, no closure or inherited semantic no-block"
+  }
+}

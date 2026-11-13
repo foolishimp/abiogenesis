@@ -1,0 +1,85 @@
+{
+  "kind": "q23_native_author_actual_close",
+  "at": "2026-11-05T21:15:17.272128+00:00",
+  "status": "COMPLETED_SOURCE_RETURN_FROZEN_UNACCEPTED",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "run": {
+    "digest": "sha256:380785fd5c2f302c268b7ce9f54a48376f0bc5e7d0b60ab551e318a84204a1b5",
+    "ref": "run://abiogenesis/29ddecc23f74d9fde7f26de4b94095b8c38dba24e5c9711ffaa4769d0083634f"
+  },
+  "result": {
+    "digest": "sha256:29d0ae0f59885533d681c73f4bcb49fa1c00c00f47295a96dd415c4fcc14b28e",
+    "ref": "result://abiogenesis/29d0ae0f59885533d681c73f4bcb49fa1c00c00f47295a96dd415c4fcc14b28e"
+  },
+  "replay": {
+    "digest": "sha256:9d5778833b8785d2e7acd78c5d70a37466473f33f3f4154c56bd4a071cce484b",
+    "ref": "replay://abiogenesis/9d5778833b8785d2e7acd78c5d70a37466473f33f3f4154c56bd4a071cce484b"
+  },
+  "terminalValueDigest": "sha256:9d75986881cd8b68466860934284f5477aa616c609bdbc4e7f108e7736ec6d56",
+  "freshTerminalEqual": true,
+  "freshReplayStatus": "closed",
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/execution/after-run-resume.json",
+    "bytes": 72491453,
+    "sha256": "9a48aa80d002fe762cb67a27e6466536907f159a3703c6f0f2ce59ef66accccf"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:13e7280b5df22927dfa8e86362ad2eff944448d949882dd2acb2a555fe3f661a",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:343350ae182650d5bf64692cf9c5b75f66c234fc91dd0bbda4c46c65cf0edfde",
+    "prefixLength": 539268763,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "physicalPrefixVerified": true,
+  "allFrozenLiveMembersEqual": 364,
+  "authorStageSourceMatches": 339,
+  "authorChecks": {
+    "compileExit": 0,
+    "generateExit": 0,
+    "tests": 63,
+    "pass": 63,
+    "fail": 0,
+    "skip": 0,
+    "stage": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-06/tmp/repair-02-stage.json",
+      "bytes": 71288,
+      "sha256": "c1b88f104b4ff2eba2ac06438b0bd782bc6d2557842a3c79d4119e36eb7a64a0"
+    },
+    "lanes": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-06/tmp/repair-02-lanes/summary.json",
+      "bytes": 1721,
+      "sha256": "dd1516c5af121138fbe5e3e54e8ac48f36843f0f70431e320f886de3e294d66d"
+    }
+  },
+  "profileDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/ROOT_PROFILE_DISPOSITION.json",
+    "bytes": 3110,
+    "sha256": "59b29a543a0df68313dc1ed48ea3cfdb42fc37196a827fffaac6a39a396e2f11"
+  },
+  "effectDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_EFFECT_DISPOSITION.json",
+    "bytes": 3702,
+    "sha256": "219dcf7f5145f6a3b5d0c22b5b8983c68a1265d2cdc5d35233348a85f438d5f0"
+  },
+  "host": {
+    "startedUtc": "2026-11-05T20:40:26.749389+00:00",
+    "endedUtc": "2026-11-05T21:07:55.540827+00:00",
+    "wallMs": 1648778.7217502482,
+    "exitCode": 0
+  },
+  "limits": [
+    "Actual native author source return only; not C2/UAT or independent acceptance.",
+    "Historical failures/intermediate checks and effects remain unchanged.",
+    "Q23 production-positive, QR02, triggered D5/profile cut, full qualification and release remain open."
+  ]
+}

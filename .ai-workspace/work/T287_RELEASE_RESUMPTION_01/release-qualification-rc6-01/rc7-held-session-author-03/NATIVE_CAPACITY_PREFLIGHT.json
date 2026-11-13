@@ -1,0 +1,17 @@
+{
+  "kind": "bounded_native_capacity_preparation",
+  "renderedNativeOrderBytes": null,
+  "estimatedOrderMetadataBytes": 91007,
+  "estimateLaw": "UTF8 JSON of selected task/workOrders/sources; not an owner-rendered acquired call. Root owner preflight supplies actual render.",
+  "maxPromptBytes": 1048576,
+  "reserveBytes": 131072,
+  "fitsWithReserve": true,
+  "physicalContextBytesBeforeAdmission": 12532423,
+  "futureAdmissionReserveBytes": 32768,
+  "maxContextBytes": 16777216,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "limits": [
+    "No live acquired call/resource serialized or hashed. Actual SDK preparation/dispatch remains Root-only."
+  ]
+}

@@ -1,0 +1,558 @@
+{
+  "recordedUtc": "2026-11-04T06:39:58.297110+00:00",
+  "status": "NATIVE08_DISPATCHED_AWAITING_NATIVE_WORKER",
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "STDO3.0.4",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "companionComposition": []
+  },
+  "originalOutcome": "All observed R1-R7 red flags traced through complete affected callers to existing shared-library owners; redundant code/carriage removed, required work information and actual boundaries preserved, complete C1-C5 proof. No local-only closure.",
+  "immutableRC5": {
+    "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+    "standing": "Installed bounded local cut; unchanged and unqualified",
+    "handoff": "../rc5-performance-01/local-cut-rc5-01/HANDOFF.md"
+  },
+  "worksite": "/Users/jim/src/apps/abiogenesis-single-address-space",
+  "currentActivation": {
+    "id": "T287_SINGLE_ADDRESS_SPACE_NATIVE_08",
+    "status": "DISPATCHED_AWAITING_NATIVE_WORKER",
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_08.md",
+      "bytes": 8720,
+      "sha256": "e9a9090c91c3fa99493110d0a8176ef94de8d9f40fc13aa43956bf24fb70b1d7"
+    },
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/NATIVE_GRANT.json",
+      "bytes": 17658,
+      "sha256": "c505a15eca08fda5bc12084c8e1fd59d292ebf653842af0cf88cc6f3fb3fe691"
+    },
+    "sourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/SOURCE_BEFORE.json",
+      "bytes": 54745,
+      "sha256": "fdee43956f7baa36ff53dbdadba66996e00529188c59e6801625563149277953"
+    },
+    "workload": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/workload.json",
+      "bytes": 213941,
+      "sha256": "e098e209ad6261a72c69e447755f738bc18de1c526b87408af6243883c4c295c"
+    },
+    "sourceExtents": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/SOURCE_EXTENT_CLASSIFICATION.json",
+      "bytes": 8826,
+      "sha256": "464a9ffb3a10b551d445f3327e6dabb8e0a864c6b4cd574e28edd1cdd7ed5295"
+    },
+    "packet": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/PACKET_PREPARATION_COMPLETE.json",
+      "bytes": 1334,
+      "sha256": "09232607d2af7a26d90367781e20e30589f7caf7f0780e13d585f2531c1517e1"
+    },
+    "effort": "xhigh",
+    "nativeWorkerActive": false,
+    "nativeDispatched": true,
+    "automaticRetry": false,
+    "preflightSessionId": 83728,
+    "oneNativeCodingWorker": true,
+    "inlineSources": 20,
+    "inlineSourceBytes": 311043,
+    "assessmentSources": 33,
+    "constructionScope": "Existing SAS test/support/HOW only; no Product-code change",
+    "installedPreflight": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/PREPARED_CALL.json",
+      "bytes": 12126,
+      "sha256": "b39f9c849470e351364e4784e03b0fd19b32993985ec0da5ef322a9328675875"
+    },
+    "phaseCapacity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/SELECTOR_CAPACITY_PREFLIGHT_R1.json",
+      "bytes": 8061,
+      "sha256": "b29090135d5b4baef85247d2df3507a8c773e69ba55ce653f38e1178fd961648"
+    },
+    "controlReviewSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/control-review-001/SUBJECT.json",
+      "bytes": 12480,
+      "sha256": "ebd1a7104f706761e67d16eb53b587b88818b9e8e197c94aa322aa2f69445c94"
+    },
+    "started": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/STARTED.json",
+      "bytes": 1050,
+      "sha256": "e07574e9c3a348a34acebb98e74bf8233375ac3576347b6e140548f9170b7092"
+    },
+    "dispatchManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/execution/DISPATCH_MANIFEST.json",
+      "bytes": 88270,
+      "sha256": "3f239f4e4063b61c994df04d859a3d55e23ed19bd15dd5127ef8dba95a7d0888"
+    },
+    "finalControlReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/FINAL_CONTROL_REVIEW.json",
+      "bytes": 12568,
+      "sha256": "0c990e8d95c474c859a52e4b2615bc04019068d6a537a95b782e4fcecf151915"
+    },
+    "hostSession": 10004,
+    "hostPid": 84423
+  },
+  "currentControls": {
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_08.md",
+      "bytes": 8720,
+      "sha256": "e9a9090c91c3fa99493110d0a8176ef94de8d9f40fc13aa43956bf24fb70b1d7"
+    },
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-08-r2.py",
+      "bytes": 21995,
+      "sha256": "0ccf6ba42d243109eb8261d24c8e940e0f6ceb7563eab401ccfefc5bf2ffca3b"
+    },
+    "wrapper": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/c2-proof.mjs",
+      "bytes": 8089,
+      "sha256": "fbd0f8119a9c40e09cde7a47f5531691a59172e419779a79958bc03aaba0906a"
+    },
+    "phaseCapacity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/selector-size-preflight.mjs",
+      "bytes": 10906,
+      "sha256": "5d47fe65b0288ee9d2b853126ee5dd3b25fd4cc0d5cc0395237fefe92b225e22"
+    },
+    "retainedEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/NATIVE08_EVIDENCE_REUSE.json",
+      "bytes": 318595,
+      "sha256": "a66c4447bed2b621dd102df8779a0d854ed1308f7d1a5b98fcbe9e374d61a902"
+    },
+    "standing": "Source separation and host launch checks prepared. Actual installed preflight and final control review remain before native dispatch."
+  },
+  "closedPredecessor": {
+    "id": "native-07",
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/SUBJECT.json",
+      "bytes": 184296,
+      "sha256": "46bb8546b515e044011e4f3c129b1aba2947ddfc13396e870392532ea4b344ae"
+    },
+    "rootConjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ROOT_CONJUNCTION.json",
+      "bytes": 31047,
+      "sha256": "53552405caf9ca8f7b5eb04f6c9a25985e8d9980fcf14763323c153d71144a80"
+    },
+    "actualC2": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+      "bytes": 17240,
+      "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+    },
+    "uatNonEntry": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/NATIVE_UAT_CLOSED_RESULT.json",
+      "bytes": 1640,
+      "sha256": "b4bf339eb2a5a11b4ebe81df3b2ee2fef243d607726d9c2a4dccd0f13fe7f014"
+    },
+    "actualOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/outcome-summary.json",
+      "bytes": 547,
+      "sha256": "3826159735b9e9b573633db90fe8a0c437e7a76f54e7d8c4513c928737a937bc"
+    },
+    "actualRecoveredFinalClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_FINAL_CLOSE_COORDINATES.json",
+      "bytes": 1753,
+      "sha256": "3fa487424afc48326251d9d5e149e41ae81b7d9802d6c0945fdeff9358e2bfe6"
+    },
+    "sourceAfterFinalClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/SOURCE_AFTER_FINAL_CLOSE.json",
+      "bytes": 30045,
+      "sha256": "6868e7da7c55fcf24be3025b94c836215f1310d484b4a33f0111bf994dd6cbcc"
+    },
+    "capacityFailure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/POST_C2_SELECTOR_CAPACITY_TRIAGE.json",
+      "bytes": 59238,
+      "sha256": "8cb64233da7055a303272a62fce1f6a5a198163b2fd0e05b08aa57192f9c5880"
+    },
+    "hostFailure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/HOST_READBACK_OOM_OBSERVATION.json",
+      "bytes": 1937,
+      "sha256": "f635ea430829475d87791d2869618630cae46ea40bd6e7c2ff4b753a5a6f624f"
+    },
+    "readbackRecovery": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/readback-recovery-001/RECOVERY_COMPLETE.json",
+      "bytes": 1157,
+      "sha256": "58e8459f5f54d77942838a1522594718c29afabb201fc3b9ca9d8fa6189fd6c3"
+    },
+    "standing": "Partial source,46 current passes, runtime_failed, UAT not entered; actual fresh result not_found/replay failed/no terminal and unchanged resource recovered. All failures preserved, no acceptance."
+  },
+  "selectedRemainingWork": [
+    "Observe actual native Worker start and finish the selected conditional RAW F_H proof",
+    "Run three affected C2 lanes and independent max review of the frozen new proof, reusing unchanged bounded evidence",
+    "Complete native UAT and actual fresh close",
+    "Conjoin every original caller/R1-R7/C1-C5 row; no complete successor workflow-speedup or release claim"
+  ],
+  "acceptance": {
+    "native06SourceReturned": true,
+    "native06SourceReviewed": true,
+    "native06ActualC2Complete": false,
+    "native06UATComplete": false,
+    "originalC1toC5": "open",
+    "qualificationOrRelease": false,
+    "native06SourceReviewStanding": "Bounded code/HOW/qualification/current-install reviews conjoined; original outcome and named proof gaps remain open",
+    "native07ActualC2Complete": true,
+    "native07UATComplete": false,
+    "native07FailedTruthFreshReadbackComplete": true,
+    "native08InstalledPreflightPassed": true,
+    "native08CurrentCandidateAccepted": false,
+    "native08ControlReviewPassed": true
+  },
+  "continuity": {
+    "resumeOrder": [
+      "STATUS.json",
+      "ROOT_REENTRY_SELECTION_06.md",
+      "CONTEXT_AND_CAUSAL_MAP.md",
+      "native-06/review-subject-001/SUBJECT.json",
+      "native-06/review-subject-001/readiness.json",
+      "native-06/INDEPENDENT_INTERIM_R1_PAIR_PROOF_REVIEW.json",
+      "native-06/C2_HELPER_COORDINATES.json",
+      "native-06/execution/TIMING_OBSERVATION.json",
+      "native-05/ROOT_CONJUNCTION.json"
+    ],
+    "currentRootSelection": "ROOT_REENTRY_SELECTION_06.md",
+    "currentHeldConjunction": "native-05/ROOT_CONJUNCTION.json",
+    "mapSha256": "951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec",
+    "originalSelectionSha256": "071176d93d9b20f0d7ecc0db7f9fa0a6fea1f6d432766807b6e6ea6a7831de5d",
+    "rule": "Reacquire current stage and exact subject, preserve original full outcome and every accepted result/failure, then continue; do not restart completed discovery or qualification."
+  },
+  "timing": {
+    "current": "native-08/LAUNCH_TIMING.json",
+    "predecessorComplete": "native-05/STAGE_TIMING_COMPLETE.json",
+    "setupReused": true,
+    "rootAfterFinalCloseToDispatchMs": 2076770.42,
+    "workerLaunchPending": true,
+    "nativeWorkerLaunchMs": null,
+    "native07": {
+      "passiveObservation": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/TIMING_OBSERVATION_ENVELOPES.json",
+      "hostLaunch": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/HOST_LAUNCH_OBSERVATION.json",
+        "bytes": 443,
+        "sha256": "64b7c38aff1c630fde1cb2404741bc4ddce3d4c2a11520c46c3b0fa6bdba4e86"
+      },
+      "hostProcessStartToRuntimeStartMs": 43331.0,
+      "rootAfterPriorActualCloseToDispatchMs": 2072214.492,
+      "nativeWorkerLaunchMs": 711784.0,
+      "standing": "Host start has whole-second OS precision; native process and between-task event timings remain pending. Setup reuse is not new setup or a speedup claim.",
+      "launchStageRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/LAUNCH_STAGE_TIMING.json"
+    },
+    "currentActivation": "native-08",
+    "currentStatus": "Host launched and actual dispatch recorded; native Worker start pending.",
+    "native08": {
+      "kind": "native08_launch_stage_observation",
+      "hostProcessLaunchedUtc": "2026-11-04T06:37:45.785696+00:00",
+      "nativeDispatchStartedUtc": "2026-11-04T06:38:36.570Z",
+      "hostPreparationBeforeDispatchMs": 50784.304,
+      "previousActualFinalCloseSavedUtc": "2026-11-04T06:03:59.799580+00:00",
+      "rootAfterFinalCloseToDispatchMs": 2076770.42,
+      "setupReused": true,
+      "sdkSetupMs": 28938.979459,
+      "artifactVerificationMs": 19748.530083,
+      "nativeWorkerLaunchMs": null,
+      "limits": [
+        "Host interval includes pinned-file verification, installed owner refresh and context observation; it is distinct from original SDK setup and worker launch.",
+        "Actual Worker start remains unobserved; no elapsed-time speedup inferred."
+      ]
+    }
+  },
+  "eta": {
+    "asOfUtc": "2026-11-04T06:39:58.297110+00:00",
+    "date": "2026-11-04",
+    "timezone": "Australia/Sydney",
+    "priorWindowAEDT": "14:00-15:00",
+    "priorWindowStanding": "Withdrawn as final-acceptance ETA after explicit partial native06 return",
+    "currentVerificationAndCloseWindowAEDT": null,
+    "provisionalFinalWindowAEDT": null,
+    "standing": "Earlier final windows remain withdrawn. Native08 installed preflight and final-control review passed; Root dispatched at06:38:36.570Z. Actual Worker startup, proof, C2/UAT and fresh close remain. No reliable final clock time is claimed.",
+    "nextContinuationEstimateMinutes": {
+      "preparationAndLaunch": [
+        15,
+        25
+      ],
+      "remainingProofAndRetryMigration": [
+        35,
+        60
+      ],
+      "handoffToC2": [
+        11,
+        15
+      ],
+      "affectedProofAndParallelReview": [
+        10,
+        25
+      ],
+      "uatFinalCloseAndFresh": [
+        25,
+        40
+      ]
+    },
+    "excludes": [
+      "new cut/install",
+      "whole qualification"
+    ],
+    "capsAreNotETA": true,
+    "withdrawnWindowAEDT": "16:40-17:30"
+  },
+  "constraints": [
+    "One ABG native coding Worker, xhigh; independent max review of exact frozen deltas",
+    "Root only operator/evidence effects; no Root Product/test repair",
+    "Preserve dirty/untracked work, immutable releases and every failure/accepted bounded result",
+    "No push/merge/tag/global selector/new cut/install/stable or whole-qualification claim"
+  ],
+  "currentC2": {
+    "activation": "native-08",
+    "status": "NOT_STARTED",
+    "newLaneMinimums": [
+      10,
+      31,
+      1
+    ],
+    "retainedLanes": 10,
+    "retainedPasses": 266,
+    "retainedHistoricalSkips": 41,
+    "retainedNewExecution": false
+  },
+  "prospectiveContinuation": {
+    "status": "SELECTED_PREPARED_PREFLIGHT_PENDING",
+    "activation": "native-08",
+    "admissionSelected": false,
+    "sourceSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_08.md",
+      "bytes": 8720,
+      "sha256": "e9a9090c91c3fa99493110d0a8176ef94de8d9f40fc13aa43956bf24fb70b1d7"
+    },
+    "nextGates": [
+      "Actual installed constructors and all-stage capacity preflight",
+      "Proportional frozen final-control review",
+      "Root exact dispatch admission"
+    ]
+  },
+  "priorC2": {
+    "standing": "Actual admitted C2 Result and helper conjoined; all12 lanes finished, only retry-entry unmet.",
+    "coordinates": "native-06/C2_HELPER_COORDINATES.json",
+    "firstLaneCustody": "native-06/actual-c2-001/FIRST_LANE_CUSTODY.json",
+    "firstLane": {
+      "pass": 9,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 451915.525625
+    },
+    "actualSandboxSourceMatches": 124,
+    "proofSha256": "ea2ff9037e99d787562a7f67cb7742b8ca6310317b3a6ebc687ed8b3228004fc",
+    "expectedUnrepairedFailure": "current retry-entry fixture remains legacy S02",
+    "latestProgress": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/actual-c2-001/PROGRESS_20261104T024308Z.json",
+      "sha256": "1a187b1878fef1b850669641c8b9136fb1e0c12a8a1096066467e7e9dc501e48",
+      "completedLanes": 10,
+      "totalLanes": 12,
+      "passedLanes": 9,
+      "passingTests": 269,
+      "unmetLanes": [
+        "retry-entry-consumers"
+      ],
+      "aggregatePending": false
+    },
+    "closedResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/NATIVE_C2_CLOSED_RESULT.json",
+      "bytes": 2210,
+      "sha256": "a830c8c535518c30e7ca24775976ee0502e0189d5f13a955a5042fab4fa78067"
+    },
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+      "bytes": 15561,
+      "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+    },
+    "actualResultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+    "tally": {
+      "pass": 303,
+      "fail": 0,
+      "skipped": 44
+    },
+    "completedLanes": 12,
+    "passedLanes": 11,
+    "sourceMatches": 124,
+    "protectedCount": 899,
+    "protectedPreserved": true,
+    "productDeltaCount": 0,
+    "missingCurrentRetryCases": 3,
+    "declaredHistoricalSkips": 41,
+    "aggregateAccepted": false
+  },
+  "currentUAT": {
+    "activation": "native-08",
+    "status": "NOT_STARTED"
+  },
+  "currentFinalClose": {
+    "activation": "native-08",
+    "status": "NOT_STARTED"
+  },
+  "previousActivation": {
+    "id": "T287_SINGLE_ADDRESS_SPACE_NATIVE_07",
+    "status": "RUNTIME_FAILED_HOST_EXIT134_FINAL_READBACK_INCOMPLETE",
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_07.md",
+      "bytes": 12312,
+      "sha256": "24fb0de17574b992d28fab71009f086f56c346e84effd98e9b7654b4551d6bc2"
+    },
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/NATIVE_GRANT.json",
+      "bytes": 17783,
+      "sha256": "d75aca0b77bb8fa54394ecc6c0bed35df0aa4d5f3d63e7d9ef31f0ccac7503a4"
+    },
+    "preflight": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/PREPARED_CALL.json",
+      "bytes": 4933,
+      "sha256": "5b1bef2914f5444cea89504db81a5886331f40a2a2be8a5cddf75a5ad9d7b06d"
+    },
+    "sourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/SOURCE_BEFORE.json",
+      "bytes": 54555,
+      "sha256": "2728cfda99cadd80bd38ebe1da75d69ab27cb546959ea6582b1822e0c93f7526"
+    },
+    "effort": "xhigh",
+    "oneNativeCodingWorker": true,
+    "nativeWorkerActive": false,
+    "automaticRetry": false,
+    "dispatcherPid": 70111,
+    "dispatchStartedUtc": "2026-11-04T03:46:35.331Z",
+    "manifestSha256": "64290dd3c98aeb5c44eb23df8c50d212be1f437ad1e34aa2b52961045fdaeef3",
+    "execSessionId": 16773,
+    "started": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/STARTED.json",
+      "bytes": 1014,
+      "sha256": "1d72ddd69d2bf45164dc04fabf6d4a8ce7340114a27505f0a5c6438c947a0051"
+    },
+    "actualRunRef": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+    "nativeWorkerStartedUtc": "2026-11-04T03:58:27.115Z",
+    "nativeWorkerPid": 77817,
+    "runRef": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d",
+    "nativeWorkerExitedUtc": "2026-11-04T04:56:28.952Z",
+    "returnedUtc": "2026-11-04T04:56:31.911Z",
+    "nativeResult": "result://abiogenesis/0138c3581877dcadcdaa5dd1426ff1d55f29e86f17cdb1685168dcd3a2da0a8b",
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/SUBJECT.json",
+      "bytes": 184296,
+      "sha256": "46bb8546b515e044011e4f3c129b1aba2947ddfc13396e870392532ea4b344ae"
+    },
+    "authorReadiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/readiness.json",
+      "bytes": 2323,
+      "sha256": "d5890a8f290eea37aa0b9ebca3186e00d3b39017f778b4010ec85eac166ddb19"
+    },
+    "authorReady": false,
+    "nativeWorkerProcessDurationMs": 3481837,
+    "openAuthorGaps": [
+      "F_H RAW positive seed (item 3, FH_POSITIVE_PREMISE_TRIAGE) not built and no gate executed. Missing producer relation: the invocation_admitted record and its invocationAdmissionDigest are built only inside module-private admitInvocationWithRequest (invocation_admission.ts:870, digest :1646). Exported admitInvocation refuses any capability set other than exactly one direct-invoke grant (:781-800). No exported owner constructs a RAW invocation record carrying the response grant. The seed therefore needs a test-owned RAW producer for that record and the full fresh basis/Run binding/F_H pending carrier/hold route/fh_interaction_opened chain before prepareContinuationPublicOperation and prepareFhInteractionResponse can be asked. Root to select whether that RAW producer is admitted; F_H positivity remains unverified.",
+      "Selected-action complete positive: not built (REMAINING_PAIR_PROOF_TRIAGE: no post-interruption selected-action consumer exists in the pinned fixtures); unchanged from native06.",
+      "Fork queries use validated-kind extension forks over the synthetic lower premise. The owned-base runtime_validation_event_prefix receipt is not asked for these budget variants, because no owned store exists for synthetic rows without manufacturing one.",
+      "Retry failed-scope producer passes an unadmitted leafPort ({}) to the actual structural owner to reach its own failTraversal path. The resulting refusal after failure is a thrown TypeError from the liveness owner, not a typed refusal.",
+      "Allocation: the 42/50 reference-write bound and the 620/8 array bounds are source-derived under stated assumptions, computed from live counters; bytes, CPU, whole allocation and workflow speedup remain unclaimed. N6-R1-PROOF-02 disposition is Root's.",
+      "Not rerun by this Worker: t289, r4 (shared-owner lane) and the F09 consumer lane (unchanged files). Package bytes were not re-packed; the package files field (build/**, contracts/**, manifest) excludes every changed file. NATIVE07_EVIDENCE_REUSE lists all five changed paths as selected changed proof paths.",
+      "Author-run scratch passes are not actual C2, UAT, independent review or Root conjunction."
+    ],
+    "independentReview": {
+      "proofAllocation": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/INDEPENDENT_PROOF_REVIEW.json",
+        "bytes": 9350,
+        "sha256": "b25042153875e50db37088550333c0c747f41946869e87cf0c5e95b52f9bae88"
+      },
+      "runtimePairRetryAndFhIntake": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/INDEPENDENT_RUNTIME_PROOF_REVIEW.json",
+        "bytes": 53752,
+        "sha256": "1205fe2ebeb4a7849f5f99eb6781c9d162eea24bf07315625c77ff147f73d3b4"
+      },
+      "standing": "Closed; bounded supported claims retained; N7-PROOF-01 leaves F_H proof open",
+      "sourceUnchangedByRoot": true
+    },
+    "dispatcherActive": false
+  },
+  "closedNative07C2": {
+    "activation": "native-07",
+    "standing": "Actual helper and admitted C2 Result conjoined; Root acceptance remains separate.",
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+      "bytes": 17240,
+      "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+    },
+    "closedResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/NATIVE_C2_CLOSED_RESULT.json",
+      "bytes": 2209,
+      "sha256": "08e010d7b31f6ef28ad1ca790fddea8ec3e4b66b84a781752e505e8e5d8e7310"
+    },
+    "actualResultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+    "resultUtc": "2026-11-04T05:25:00.279Z",
+    "tally": {
+      "pass": 46,
+      "fail": 0,
+      "skipped": 0
+    },
+    "completedLanes": 5,
+    "passedLanes": 5,
+    "sourceMatches": 125,
+    "protectedCount": 911,
+    "protectedPreserved": true,
+    "productDeltaCount": 0,
+    "aggregateSelectedC2Satisfied": true,
+    "originalOutcomeAccepted": false,
+    "retainedEvidence": {
+      "actualExecution": "native-06",
+      "lanes": 8,
+      "passes": 261,
+      "historicalSkips": 41,
+      "newExecution": false,
+      "guards": 879
+    },
+    "actorStartedUtc": "2026-11-04T05:11:03.024Z",
+    "actorExitedUtc": "2026-11-04T05:24:52.649Z",
+    "nativeResultToActorMs": 871112,
+    "actorDurationMs": 829625
+  },
+  "closedNative07UAT": {
+    "status": "NOT_REACHED_POST_C2_SELECTOR_PREPARATION_REFUSAL",
+    "nativeActorLaunched": false,
+    "failure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_POST_C2_SELECTOR_FAILURE.json",
+      "bytes": 3462,
+      "sha256": "c796e8dfa06c079e58f36ba603898fbacc9fd29011ca75036d6c2526f96232ff"
+    },
+    "actualTask": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_POST_C2_SELECTOR_TASK_COORDINATES.json",
+      "bytes": 966,
+      "sha256": "cfec292c33241488c583df66707e1f95268cdb9696f0a5d72c67f9a1398c2862"
+    },
+    "taskMeasurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/POST_C2_SELECTOR_CAPACITY_MEASUREMENT.json",
+      "bytes": 14577,
+      "sha256": "b2bbcad1f8720b42e4e0eab3e23faee2517b7ea513115eb2ee4eaf3fbaac3a43"
+    },
+    "taskProjectionBytes": 998425,
+    "totalPromptBound": 1048576,
+    "fullPromptMeasurement": "independent bounded triage active; task alone excludes role/choices/binding/evidence/response"
+  },
+  "closedNative07FinalClose": {
+    "status": "ACTUAL_CLOSE_READBACK_AND_CONTINUATION_RECOVERED",
+    "hostFailure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/HOST_READBACK_OOM_OBSERVATION.json",
+      "bytes": 1937,
+      "sha256": "f635ea430829475d87791d2869618630cae46ea40bd6e7c2ff4b753a5a6f624f"
+    },
+    "runtimeOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/outcome-summary.json",
+      "bytes": 547,
+      "sha256": "3826159735b9e9b573633db90fe8a0c437e7a76f54e7d8c4513c928737a937bc"
+    },
+    "actualInvocationClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/calls/lifecycle-start.close.json",
+      "bytes": 1368,
+      "sha256": "974285215f3a66047b2a62c69bb1216580e458ef610105aa0ddeeeda75a67576"
+    },
+    "freshReadsSaved": true,
+    "afterRunResumeSaved": true,
+    "earlierCloseSubstituted": false,
+    "hostObservedHeapGB": 4,
+    "alreadyDeclaredNodeOptions": "--max-old-space-size=8192",
+    "hostLaunchMismatch": "Setting process.env after process startup does not configure that process V8 heap. The exact failed allocation owner remains unproven.",
+    "actualFinalClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_FINAL_CLOSE_COORDINATES.json",
+      "bytes": 1753,
+      "sha256": "3fa487424afc48326251d9d5e149e41ae81b7d9802d6c0945fdeff9358e2bfe6"
+    }
+  }
+}

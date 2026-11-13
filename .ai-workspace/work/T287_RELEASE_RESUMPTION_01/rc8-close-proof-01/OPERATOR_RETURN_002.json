@@ -1,0 +1,182 @@
+{
+  "status": "BROAD_CLOSE_STOPPED_INSTALLED_SMOKE_VERIFICATION_REFUSAL",
+  "recordedUtc": "2026-11-07T04:56:00.095969+00:00",
+  "operator": "/root/rc8_operator",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_002.json",
+    "bytes": 6061,
+    "sha256": "62a6c01100e5dbca2234e2ce1df1555cb3ab989e0226782e25b1b9edc8d7c3ea"
+  },
+  "correctedPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_002.json",
+    "bytes": 2373,
+    "sha256": "9cd917e62f77726551b11d6c96d8ddbeab60af11125d3d7b608ac8529300ef5a"
+  },
+  "previousExecutionReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_001.json",
+    "bytes": 5523,
+    "sha256": "04a07e107702df3f18a5b9fe6b503c7116141f5a7b3305b8fda3067528c5a5c5"
+  },
+  "actualInvocation": {
+    "countForThisSelectedSuccessor": 1,
+    "sessionId": 31012,
+    "observedPid": 17829,
+    "exitCode": 1,
+    "liveExecSession": false,
+    "executionStarted": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/EXECUTION_STARTED.json",
+      "bytes": 2651,
+      "sha256": "e8ff339a86ae5609fd9cd5781085f343984e44baaf73e169fe49b4abbbbe309f"
+    },
+    "driverWallMs": 29532,
+    "failingChildStartedUtc": "2026-11-07T04:54:24.218Z",
+    "failingChildWallMs": 5284.628249999998,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false
+  },
+  "observedFailure": {
+    "file": "test_env/tests/installed-language-smoke.test.mjs",
+    "case": "Hello World is an external minimal GTL program through installed Public execution and fresh reads",
+    "ownerOutcome": "product_verification_refusal",
+    "code": "payload_inventory_mismatch",
+    "message": "archive file set differs from the manifest",
+    "assertionLocation": "test_env/support/root-installed-environment.mjs:280",
+    "expected": "verified",
+    "actual": "refused",
+    "artifactRef": "abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "standing": "Actual package-verification refusal during test setup; causal classification remains for Root. No operator source repair or automatic retry."
+  },
+  "evidence": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/SUMMARY.json",
+      "bytes": 62236,
+      "sha256": "9187ebb35d4650668f06e1c26fa308fe3272f35e703cd65e8bc891be6d61ef74"
+    },
+    "failure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/FAILURE.json",
+      "bytes": 605,
+      "sha256": "1eaad87313e453a158c5e0a9da0764085f60198aeb8cfedf2a4fe052f5b1b8e9"
+    },
+    "fileResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/files/015-installed-language-smoke.json",
+      "bytes": 907,
+      "sha256": "04b5bf7f4a7622aa91129799eb0f06462611febc6bedfaa9a6a053bc270a102c"
+    },
+    "commandRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/commands/015-installed-language-smoke.request.json",
+      "bytes": 977,
+      "sha256": "4ed1d81108d0ab3622a5add0c718e20be7ea0e7d627a8d4cbe2a119e54a4e641"
+    },
+    "commandResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/commands/015-installed-language-smoke.result.json",
+      "bytes": 1482,
+      "sha256": "75aebb53450de3c528d8d79e2a95aeba0526c22440776e3df2c0b858c60f5588"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/commands/015-installed-language-smoke.stdout",
+      "bytes": 1705,
+      "sha256": "3942dd4eed044b41603ec327c99907ec73a5a3e107c9ef7ab5f9839c9063b2d7"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/commands/015-installed-language-smoke.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/events/015-installed-language-smoke.jsonl",
+      "bytes": 3067,
+      "sha256": "739c338c76031fa5cb494c9cae9ee73ef78fbab3d0b806f03b1c80520ca83ccf"
+    },
+    "failingChildResources": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/resources/015-installed-language-smoke.json",
+      "bytes": 463,
+      "sha256": "9d91a83026a5a4f326857e8adc94ab082e05a7e8ebb7fe157b7e0b2076abb853"
+    }
+  },
+  "coverage": {
+    "inventoriedFiles": 208,
+    "scheduledFiles": 203,
+    "attemptedFiles": 15,
+    "passedFilesThisRun": 14,
+    "failedFiles": 1,
+    "remainingScheduledUnrun": 188,
+    "actualTestCounts": {
+      "tests": 90,
+      "failed": 1,
+      "passed": 40,
+      "cancelled": 0,
+      "skipped": 49,
+      "todo": 0,
+      "topLevel": 90,
+      "suites": 0
+    },
+    "skipCountsByFile": [
+      {
+        "file": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+        "skipped": 1,
+        "todo": 0
+      },
+      {
+        "file": "test_env/tests/d2-acknowledgment.test.mjs",
+        "skipped": 3,
+        "todo": 0
+      },
+      {
+        "file": "test_env/tests/d2-binding-transition.test.mjs",
+        "skipped": 10,
+        "todo": 0
+      },
+      {
+        "file": "test_env/tests/d2-bounded-repair.test.mjs",
+        "skipped": 9,
+        "todo": 0
+      },
+      {
+        "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+        "skipped": 5,
+        "todo": 0
+      },
+      {
+        "file": "test_env/tests/d2-historical-design.test.mjs",
+        "skipped": 13,
+        "todo": 0
+      },
+      {
+        "file": "test_env/tests/d2-workflow-step.test.mjs",
+        "skipped": 8,
+        "todo": 0
+      }
+    ],
+    "previousWholeFileCredits": 5,
+    "previousCreditedPassedTests": 46,
+    "previousHistoricalSkips": 2,
+    "creditsEnteredByStoppedLoop": 0,
+    "standing": "49 observed skips are not passes. The five earlier exact whole-file credits remain retained; the stopped loop had not reached them. The 193 pending entries comprise 188 unrun scheduled files plus those five prior credits."
+  },
+  "custody": {
+    "scratchRoot": "/private/tmp/abg-r8c-002",
+    "bothFailedScratchRootsRetained": true,
+    "originalStageAndDependenciesPreserved": true,
+    "preservationEvidence": "Frozen driver final verification of exact source/dependency inventories; no extra whole-tree reacquisition by Operator.",
+    "resourceRecords": 15,
+    "resourceStatuses": [
+      "CHILD_CLOSED"
+    ],
+    "maxObservedOwnedBytes": 136177625,
+    "minObservedFreeBytes": 8702013440,
+    "monitorFailures": [],
+    "resourceLimitsOperationalNotQuota": true,
+    "detachedDescendantAbsenceProven": false
+  },
+  "selectedEffects": {
+    "sourceEdits": false,
+    "git": false,
+    "dependencyInstall": false,
+    "providerCallsSelected": 0,
+    "automaticRetries": 0,
+    "cleanup": false,
+    "newRepairSelected": false
+  },
+  "qualification": false
+}

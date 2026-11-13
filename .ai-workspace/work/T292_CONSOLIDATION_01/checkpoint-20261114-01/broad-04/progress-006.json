@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/d2-bounded-repair.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 10,
+    "pass": 10,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/006-d2-bounded-repair.test/process.json",
+    "bytes": 1063,
+    "sha256": "2b7582605553a9f18c61a6db4deefb46b2f5ccf112aae3603662c949c8078e17"
+  }
+}

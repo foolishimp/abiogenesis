@@ -1,0 +1,115 @@
+{
+  "kind": "h06_native_author_readiness",
+  "task": "rc7-held-session-author-06",
+  "status": "FROZEN_SUBJECT_READY_FOR_INDEPENDENT_REVIEW_AND_ROOT_CONJUNCTION",
+  "createdUtc": "2026-11-06T19:36:30Z",
+  "productFrame": {
+    "method": "installed STDO3.0.4",
+    "product": "ABIogenesis5.0 fixed fifteen-family scope",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "composition": [],
+    "installedBuilder": "5.0.0-rc.6 (unchanged)",
+    "changeClass": "realization_refactor"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 9291,
+    "sha256": "d3b7b87fab998bca08bc8572ddea2c34e4342378d30981c6a4b033416c3bc258"
+  },
+  "counterexample": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/reviews/assessment-guard-triage-001/REVIEW.json",
+    "bytes": 19247,
+    "sha256": "bee3ec529a5ed426f4018d4a128f324a496bcd42719df9a72d61554cb9d27f15",
+    "finding": "H05-ASSESSMENT-FIXTURE-001"
+  },
+  "frozenSubject": {
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-06/tmp/hs6-stage-01-source-freeze.json",
+      "bytes": 96811,
+      "sha256": "faba234e7d8ced9d6537bd0cc18adaf0c1666bdb036e6136c277aac117c4fd55"
+    },
+    "sourceCount": 451,
+    "sourceDigest": "a07beb4b5ffe861cc5610ede437e18a4089f9f23b3b9cb6cc0a8d688aeb99b91",
+    "predecessorSourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "changedRows": 1,
+    "unchangedRows": 450,
+    "worksiteMatchesFreezeAfterProof": true
+  },
+  "oneFieldDiff": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "frozenBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 372769,
+      "sha256": "c523337e02a238ea53b4b1011f03491c2981b459d8b16f822f6f46e1f94be5a1"
+    },
+    "after": {
+      "bytes": 372837,
+      "sha256": "af146549b2d6388bf2b39e59f1c8821bb8980da98911af37c089c1111de4bf2b"
+    },
+    "line": 2767,
+    "before": "    const undeclared={...withBytes(admitted,JSON.stringify({...assessmentSchema,$id:undeclaredRef})+'\\n'),resultContract:{...admitted.resultContract,contractRef:undeclaredRef}};",
+    "afterText": "    const undeclared={...withBytes({...admitted,schemaAsset:{...admitted.schemaAsset,contractId:undeclaredRef}},JSON.stringify({...assessmentSchema,$id:undeclaredRef})+'\\n'),resultContract:{...admitted.resultContract,contractRef:undeclaredRef}};",
+    "semantics": "undeclared.schemaAsset = {productId: admitted.schemaAsset.productId, contractId: undeclaredRef, bytesBase64: <undeclared schema bytes from withBytes>}. schema.$id, resultContract.contractRef and schemaAsset.contractId now share undeclaredRef, matching native_workspace_assessment.ts:51.",
+    "unchanged": [
+      "assert.ok(relation.nativeWorkspaceAssessmentSchema(undeclared)) positive well-formedness assertion",
+      "assert.equal(assessor.nativeAssessmentDependency(undeclared,row),null,'undeclared contract') exact refusal",
+      "no consumer publication / two declarations / no Program-member declaration refusals",
+      "all eight subcases, predicates list, final actor-role log, warm/cold and same-boundary read assertions",
+      "test timeout 280_000",
+      "withBytes helper, shared support/default-library.mjs, Product/HOW/public-setup, installed publications/assets/lock"
+    ]
+  },
+  "productReuse": {
+    "status": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL",
+    "members": 5325,
+    "bytes": 71702388,
+    "productContentDigest": "sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+    "manifestSha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a",
+    "graphSha256": "82720d92dad9e7c30749042935e69793d93d99092d2a617a434e3e83da1f1432",
+    "payloadSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+      "bytes": 1466472,
+      "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+    },
+    "originalBuildReceipts": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+      "bytes": 102337,
+      "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581",
+      "compile": "reused, executed:false",
+      "generate": "reused, executed:false",
+      "lifecycle": "reused, executed:false"
+    },
+    "writablePathOutsidePayload": true
+  },
+  "retainedConditionalH05Evidence": {
+    "fixedRoute": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/fixed-route/summary.json",
+      "bytes": 2207,
+      "sha256": "7a663214febb66f14bb77cb581d505adcd0b7a80535775650bd7d582796c7174",
+      "standing": "H05 fixed-route 7/7 on source 5340ac6d; retained by reference, not rerun, not an H06 execution"
+    },
+    "heldSession": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/summary.json",
+      "bytes": 1676,
+      "sha256": "3651fc18f0d9982e0a170aad6a6aee7c133115f524ee0981f06107ab104d1e8f",
+      "standing": "H05 held-session 1/1 on source 5340ac6d; retained by reference, not rerun, not an H06 execution"
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+      "bytes": 4046,
+      "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+    },
+    "pinsVerified": true,
+    "applicability": "Conditional. Author observation only: diff against the frozen H05 file shows one changed line, 2767, inside the 'RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage' test body (lines 2671-2845); every other line of that file and all 450 other rows are byte-equal to actual H05. The author did not separately map which files and lines form the fixed-route and held-session closures. Independent frozen review and Root decide applicability."
+  },
+  "reviewFocus": [
+    "Confirm the only semantic change is undeclared.schemaAsset.contractId := undeclaredRef, with productId and bytesBase64 semantics retained.",
+    "Confirm no assertion, subcase, timeout or predicate list changed.",
+    "Confirm the changed line is outside every fixed-route and held-session test closure that H05 evidence relies on."
+  ],
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

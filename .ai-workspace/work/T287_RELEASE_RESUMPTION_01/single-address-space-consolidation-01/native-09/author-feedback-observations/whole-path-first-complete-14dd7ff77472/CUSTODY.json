@@ -1,0 +1,21 @@
+{
+  "kind": "passive_first_complete_whole_path_author_feedback",
+  "observedUtc": "2026-11-04T12:45:58.824839+00:00",
+  "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09/runs/single-address-space-whole-path.tap",
+  "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/author-feedback-observations/whole-path-first-complete-14dd7ff77472/single-address-space-whole-path.tap",
+  "bytes": 78247,
+  "sha256": "14dd7ff774722dfc01ff64fab460c8ede3e939181f98581228449457e3a74e11",
+  "tally": {
+    "pass": 12,
+    "fail": 0,
+    "skipped": 0
+  },
+  "durationMs": 508054.977125,
+  "completeDurationFooter": true,
+  "sourceCoordinates": "Exact Root-named scratch TAP; first complete footer observation by this passive recorder",
+  "standing": "Author feedback, separate from final native handoff, actual C2, review and acceptance",
+  "limits": [
+    "No actor contact, investigation or test rerun",
+    "Observed physical output only; no claim about missing earlier artifacts or provider thinking"
+  ]
+}

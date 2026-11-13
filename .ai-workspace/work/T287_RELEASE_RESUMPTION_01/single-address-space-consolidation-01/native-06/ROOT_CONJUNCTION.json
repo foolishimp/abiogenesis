@@ -1,0 +1,439 @@
+{
+  "recordedUtc": "2026-11-04T03:37:13.570133+00:00",
+  "role": "Root Executive conjunction and bounded re-entry",
+  "basis": "STDO3.0.4 / T-287 / GOAL-035 / original R1-R7 and C1-C5",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/SUBJECT.json",
+    "bytes": 184020,
+    "sha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670"
+  },
+  "subjectSha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670",
+  "sourceStanding": "Partial successor after genuine native06 failure; immutable RC5 baseline retained.",
+  "nativeAuthorReadiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/readiness.json",
+    "bytes": 4294,
+    "sha256": "c46163b32fafc4a392cb62d4d09cb760a2f98bccb1d34ac0ed602006f87eaf51"
+  },
+  "closedReviews": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/INDEPENDENT_FINAL_SOURCE_DELTA_REVIEW.json",
+      "bytes": 20861,
+      "sha256": "59ce21490ad62cded338af47597e2188d4d6f021cfa0b91efdedd6b090f7899b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/INDEPENDENT_INTERIM_CODE_RECHECK_002.json",
+      "bytes": 14613,
+      "sha256": "89c35598884f969c4e626d6045ee0f35814f8cba2f63d0d4b55ca5540eeeb8cf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/INDEPENDENT_INTERIM_QUALIFICATION_PROOF_REVIEW.json",
+      "bytes": 20971,
+      "sha256": "d08944f9abb7ed116922310dc9080162077d49647e4d6b7a33e2802c1acd8115"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/INDEPENDENT_INTERIM_INSTALL_PROOF_REVIEW.json",
+      "bytes": 26888,
+      "sha256": "248a20394349977a6cd9d6c281404dbb9fe1c15dd8bbe52584f0c1015e542e8b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/INDEPENDENT_INTERIM_R1_PAIR_PROOF_REVIEW.json",
+      "bytes": 34613,
+      "sha256": "4fc3d7903cbe03b4c14c4f76d85c8c6efb5d98d3a37a2f5e9662071b6802d5a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/LAYERED_ALLOCATION_BOUND_TRIAGE.json",
+      "bytes": 14959,
+      "sha256": "f869d000fc1977cc94684d7bf2aecb2f07640627bebf80966868ea55559129f3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/REMAINING_PAIR_PROOF_TRIAGE.json",
+      "bytes": 10671,
+      "sha256": "438023f25c87627b91182bd7ac870a2955e9810adfbde7b782608faa0743a98f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/FH_POSITIVE_PREMISE_TRIAGE.json",
+      "bytes": 25031,
+      "sha256": "21c0b17d83a2cab5404274ecdcb53fd7d685846de54e4cc128df2d3b8d4b8f44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/PROSPECTIVE_COMPLETION_REVIEW.json",
+      "bytes": 7068,
+      "sha256": "70f69593f56e642956329b7a02c7ca45a937e8d4d25bccd4fdb5476d9c4b934d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/PROSPECTIVE_REUSE_CONTROL_REVIEW.json",
+      "bytes": 4388,
+      "sha256": "59abb74657e334dea4782091dbccca1e6a177fe4b58524d0169c2bae6f631233"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/PROSPECTIVE_REUSE_CONTROL_RECHECK.json",
+      "bytes": 3681,
+      "sha256": "fcd10b8285c5eaccb1bf39a83f34b0b3b2e3d6c2df71b2911505ae40b4d2fc8b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/PROSPECTIVE_C2_OUTPUT_REVIEW.json",
+      "bytes": 5102,
+      "sha256": "60810155e623c62f662b34626aa8ef20be1f1565e320ea57f8d81ee74aeb573e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/UAT_CAPACITY_TRIAGE.json",
+      "bytes": 52017,
+      "sha256": "2935089131df4d0f7b1a95eee587e05cbd8ad96cc041a8cebd44009735fef9ac"
+    }
+  ],
+  "actualC2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+    "bytes": 15561,
+    "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+  },
+  "admittedC2Result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/NATIVE_C2_CLOSED_RESULT.json",
+    "bytes": 2210,
+    "sha256": "a830c8c535518c30e7ca24775976ee0502e0189d5f13a955a5042fab4fa78067"
+  },
+  "actualUATPreparationRefusal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/NATIVE_UAT_CLOSED_RESULT.json",
+    "bytes": 6403,
+    "sha256": "e7be64e897614fb2d9f088c14f637991e37123f3e3fb2e93f84b8d44523566b8"
+  },
+  "nativeUATAssessment": null,
+  "actualOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/outcome-summary.json",
+    "bytes": 547,
+    "sha256": "755108e801c50da71d1019ed4bdc2c15a2ce3d3e5d74fe7f5b0b3e60a0bfdac8"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/fresh-reads.json",
+    "bytes": 2411,
+    "sha256": "e7cc0cd0bb35b4daf65ba12af681fad42facef88ce1640ae82f6bfee8ad64672"
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/execution/after-run-resume.json",
+    "bytes": 99584811,
+    "sha256": "2e8c3683018a6a9b0600c6b07518270255fad4106089cfd11778451985165e18"
+  },
+  "closeCoordinates": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_FINAL_CLOSE_COORDINATES.json",
+    "bytes": 1354,
+    "sha256": "06fbfccc221db42a1ed862eabd7396bf26733cd7a5251e55548a0aa1382ec4c0"
+  },
+  "sourceAfterFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/SOURCE_AFTER_FINAL_CLOSE.json",
+    "bytes": 29798,
+    "sha256": "dfe758249f78149b4b373bffc812e142386b549bb221dd5c165e2917fa38bb60"
+  },
+  "rootRulings": [
+    "No current concrete Product defect remains in the reviewed native06 code delta; missing proof is not supplied by that review.",
+    "Retry-entry producer remains stale and three required cases did not execute.",
+    "Native UAT preparation refusal is operator carriage overflow, not a failed assessment or new Product defect.",
+    "Keep all original R1-R7/C1-C5 open until their exact final conjunction is supported."
+  ],
+  "nextContinuationSelected": true,
+  "selection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_07.md",
+  "selectionPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_07.md",
+    "bytes": 12312,
+    "sha256": "24fb0de17574b992d28fab71009f086f56c346e84effd98e9b7654b4551d6bc2"
+  },
+  "additionalProductWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs"
+  ],
+  "conditionalOwnerEffects": [],
+  "permittedProductEffects": {
+    "paths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+    ],
+    "effects": "Only selected tests/support/HOW proof completion and current retry producer migration; no Product code/law change. Wider observed source paths are custody, not repair scope."
+  },
+  "additionalReadPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs"
+  ],
+  "selectedResiduals": [
+    "Current retry-entry producer with all three current cases and original controls",
+    "Finite actual validation-fork and successive-cut budget queries",
+    "Current-intent complete pair, actual unrelated Run, duplicate ambiguity and bounded RAW F_H premise",
+    "Precise separate allocation units and source-derived bound",
+    "Complete original caller/R1-R7/C1-C5 dispositions; actual C2, required independent review, UAT and fresh closure"
+  ],
+  "affectedLanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "timeoutMs": 1200000,
+      "minimumPasses": 9,
+      "requireNoSkips": true
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 31,
+      "requireNoSkips": true
+    },
+    {
+      "id": "retry-entry-consumers",
+      "files": [
+        "test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "timeoutMs": 1500000,
+      "minimumPasses": 3,
+      "requireNoSkips": true
+    },
+    {
+      "id": "current-f09-retry-consumers",
+      "files": [
+        "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+        "test_env/tests/t287-r4-aba-retry.test.mjs"
+      ],
+      "timeoutMs": 900000,
+      "minimumPasses": 2,
+      "requireNoSkips": true
+    },
+    {
+      "id": "current-intent-complete-pair",
+      "files": [
+        "test_env/tests/t287-exact-construction-intent.test.mjs"
+      ],
+      "timeoutMs": 900000,
+      "minimumPasses": 1,
+      "requireNoSkips": true
+    }
+  ],
+  "retainedEvidence": [
+    {
+      "id": "affected-owner-lanes",
+      "files": [
+        "test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+        "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+        "test_env/tests/t287-authenticated-owner-values.test.mjs",
+        "test_env/tests/t287-authenticated-owner-family.test.mjs",
+        "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "test_env/tests/t287-declared-testing-capability.test.mjs",
+        "test_env/tests/t287-default-library.test.mjs",
+        "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "test_env/tests/t287-continuation-causation.test.mjs",
+        "test_env/tests/t287-owned-native-proof.test.mjs",
+        "test_env/tests/t287-native-owner-reuse.test.mjs",
+        "test_env/tests/t288-initial-cursor-entry.test.mjs",
+        "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+        "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/t287-cross-cut-public-read.test.mjs",
+        "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "test_env/tests/witness-run-stopped-definition-binding.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 106,
+      "fail": 0,
+      "skipped": 30,
+      "wallMs": 364187.12912500004,
+      "stdoutSha256": "7a9e4db5acc70412b38b03ac56b3e5c7dde5c264a66845bef5ee42b48fe758e5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "qualification-owner-components",
+      "files": [
+        "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+        "test_env/tests/t287-native-runtime-gate.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 43,
+      "fail": 0,
+      "skipped": 1,
+      "wallMs": 17077.846791999997,
+      "stdoutSha256": "34f47ea437546fc3ae676931eb67c799ef64819b08a724caf24a83445150ac1a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "historical-producer-acquisition",
+      "files": [
+        "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 15944.27099999995,
+      "stdoutSha256": "234f37ab9f56c14fb5dfd30d98e5133491309a92bf568bb71b4aebbc0367cb32",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "replay-request-consumers",
+      "files": [
+        "test_env/tests/t287-c0-correction-regressions.test.mjs",
+        "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+        "test_env/tests/t287-deferred-application-restoration.test.mjs",
+        "test_env/tests/t287-held-prefix.test.mjs",
+        "test_env/tests/t287-live-worksite-construction.test.mjs",
+        "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+        "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+        "test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "test_env/tests/t287-worksite-command-execution.test.mjs",
+        "test_env/tests/t287-worksite-construction.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 57,
+      "fail": 0,
+      "skipped": 9,
+      "wallMs": 1987995.568959,
+      "stdoutSha256": "9957b08c7c4842cbb4194f32f2ce4839d8c73313b77a784d9183cbb733030dba",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "fresh-process-semantic-values",
+      "files": [
+        "test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 38557.39254199993,
+      "stdoutSha256": "e817c40edc9f43c8d9b793cc1fcbb42b4c212f5cc0af1dccc56e188bb338b1db",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "forward-recovery-contracts",
+      "files": [
+        "test_env/tests/forward-command-owners.test.mjs",
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/d1-preserved-result-mechanics.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 17,
+      "fail": 0,
+      "skipped": 1,
+      "wallMs": 1445.1814999999478,
+      "stdoutSha256": "56861aaeb0c347183f96a1c4ca21b9520d6161418fdd8d5aae2c4970617f94ea",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "installed-affected-lane",
+      "files": [
+        "test_env/tests/m5-installed-graph-edge.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 81072.54487500014,
+      "stdoutSha256": "671d1393e2cc4755c9735c962252fef339c36136ba184b322a1144d40dc83a78",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "maintained-setup-harness",
+      "files": [
+        "test_env/uat/harness.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 32,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 67467.79991700035,
+      "stdoutSha256": "21945d1781dc2dbfca89ea9a8e92666cd60131f1a295c087b661f4b9cec0434c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    }
+  ],
+  "retainedEvidenceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/NATIVE07_EVIDENCE_REUSE.json",
+    "bytes": 306610,
+    "sha256": "e01bbc9b6b3d6998eac59ef3092294785e2a01ce76c4bdf2617971e95bce0165"
+  },
+  "requiredNoSkips": [
+    "All five newly selected lanes",
+    "Every changed retry/fork/pair/allocation claim; no missing case earns credit from old lanes"
+  ],
+  "excludedHistoricalBranches": [
+    "Existing30 optional owner cases retain their declared inputs/skips and earn no current credit",
+    "Optional ABI5_OWNED_PROOF_DECLARATION retained-body branch remains unselected; ordinary synthetic qualification and three real producer cases execute",
+    "Old installed Thread2 is not activated; focused R4 fixture proves the changed predecessor relation",
+    "One optional historical forward case may retain its prior declared skip; no credit from that branch",
+    "Nine existing replay-request historical/live-provider branches listed below remain unselected; no native provider or old qualification is requested."
+  ],
+  "nativeAbsoluteTimeoutMs": 9000000,
+  "nativeInactivityTimeoutMs": 7200000,
+  "outerTimeoutMs": 18000000,
+  "helperShellTimeoutMs": 7200000,
+  "proofCommandTimeoutMs": 2700000,
+  "budgetRationale": "Retain existing 150min native absolute,120min inactivity/helper and5h outer ceilings; reduce affected C2 proof command to45min by conditionally reusing eight unchanged passing lanes. Expected Worker35-60min/C2 10-25min are estimates, not timeout or retry rules. Final installed-owner budget check is required.",
+  "operatorControls": {
+    "wrapper": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native07-c2-proof-template.mjs",
+      "bytes": 7744,
+      "sha256": "e5e2fa0c4ce28008051134b893102dc0588da79ec6b91c4ceffccb8bf8250914"
+    },
+    "capacityTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/UAT_CAPACITY_TRIAGE.json",
+      "bytes": 52017,
+      "sha256": "2935089131df4d0f7b1a95eee587e05cbd8ad96cc041a8cebd44009735fef9ac"
+    },
+    "promptCapUnchanged": true,
+    "packStdout": "filename only; actual archive/digests retained before fixture cleanup",
+    "fullProof": "Actual helper-observed file and exact locator/digest; no duplicated full proof in stdout"
+  },
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/STAGE_TIMING_COMPLETE.json",
+    "bytes": 1147,
+    "sha256": "fb025a35022e11c633cc461d4caa5b6918faed1cb28684234af1c769977c4928"
+  },
+  "forbidden": [
+    "Root Product/test repair",
+    "Mutation of prior controls/logs/frozen subjects/immutable releases or unrelated work",
+    "Overlapping native coding Workers",
+    "New Product/Public family/cache/store/runtime authority",
+    "Push/merge/tag/global selector/new cut/install/stable or whole-qualification claim"
+  ],
+  "closure": {
+    "originalOutcomeAccepted": false,
+    "qualified": false,
+    "published": false,
+    "nextNativeDispatched": false
+  }
+}

@@ -1,0 +1,15 @@
+# RC5 bounded local cut: complete
+
+Source `f49e7533ebedff0946383cb0c5380a6ecac7889d`, tree `6b40c56409c7e8990028644048b4aaad1b9ae027`, branch `codex/rc5-performance` is a locally installed, unqualified RC5 candidate. Immutable installed RC4 built it. STDO3.0.4 default-library/skill and affected qualification inputs are staged in RC5; RC4 remains on its original method basis.
+
+The exact archive SHA256 is `4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8` (10,998,785B). The clean committed-source reproduction is byte-equal. All5,325 installed payloads match, totaling71,757,122B. Existing Product verification and install owners returned verified/materialized. All selected inputs and release checksums match. [Final file-only verification](FINAL_INSTALL_VERIFICATION.json), [clean reproduction](SOURCE_REPRODUCTION.json), [source/evidence map](SOURCE_ARTIFACT_EVIDENCE_MAP.json), [bounded acceptance](../f4-03-r1/ROOT_FINAL_ACCEPTANCE.json).
+
+Release custody: `/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.5`. Installed package: `/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.5/node_modules/@abiogenesis/typescript-tenant`. `LOCAL_CUT_RECORD.json`, verification/install/lock receipts, complete payload inventory and SHA256SUMS are retained in release custody. No global selector was changed.
+
+Selected current proof:37 passes,0fail,3 declared excluded skips;18 unchanged retained method passes; all7 C2 commands exit0; independent frozen source review satisfied; native UAT satisfied with no unresolved criteria; fresh result/replay agree on terminal `1cb1898a8cd62439d8740259676f2ba2b732672adfa8e91156fab96086e6e972`. Exact source, operator seeds, actor archives and closed event log are committed under `.ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01` in the source checkpoint. The captured three physical rows shrink3,139,020→1,678,257B without logical change; this is not a universal storage or latency claim.
+
+The successful RC4 workflow took64m27.732s including fresh reads. Setup27.8495s, dispatch-to-coding4m11.207s, coding-Result-to-C2-launch14m25.340s are distinct. [Fine-grained timing and red flags](../PERFORMANCE_DETAIL.md) retains the cold-history and internal-transition gaps. RC5's own full native workflow has not been measured.
+
+All historical failed and indeterminate attempts remain unchanged. No whole fifteen-family, F11/soleAF22, GC03 or whole-method qualification, publication, tag, merge, push or stable release is claimed. New v3 private physical rows require RC5-or-newer readers; prior inline/v1/v2 histories remain readable by RC5. Same-family independent-review limits remain. Main dirty/untracked work is preserved.
+
+The owner subsequently selected causal consolidation of repeated same-address-space processing and unnecessary context carriage. Continue from the [whole-path context and causal map](../../single-address-space-consolidation-01/CONTEXT_AND_CAUSAL_MAP.md); do not mutate this completed cut or treat local repairs as closure of that broader outcome.

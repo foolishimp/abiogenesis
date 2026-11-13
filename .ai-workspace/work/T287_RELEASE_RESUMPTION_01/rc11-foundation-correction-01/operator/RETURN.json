@@ -1,0 +1,116 @@
+{
+  "status": "FOUNDATION_AUTHORITY_AMENDMENT_FROZEN_NATIVE_HELD",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/AMENDMENT_FREEZE.json",
+    "bytes": 11016,
+    "sha256": "74408ce11bf1812cd9d4f29d659daf0e21ae30957faa3e8edd4c02f686cef962"
+  },
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/POSTGUARDS.json",
+    "bytes": 6811,
+    "sha256": "0b7e4dd172756a92636ed32a4856064a8595acfb26d04251dc1eff854451f4ed"
+  },
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/ROOT_FOUNDATION_BASIS_01.json",
+    "bytes": 4787,
+    "sha256": "f5f6370fed089b47cf2a959f65acf29660f1b426a5b779c6b350a636f89c793a"
+  },
+  "triage": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/triage/ASSESSMENT.md",
+      "bytes": 10947,
+      "sha256": "c63758ecbd3a268c164655e49cdc2f2975e0fecece95ab04f4178f220eba5f8e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/triage/ASSESSMENT.json",
+      "bytes": 8685,
+      "sha256": "ac5619d25ec04827862252213b2cb1a47b6c12b6a7eda7c0784e2d52a95d0066"
+    }
+  ],
+  "repairPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/REPAIR_PLAN.md",
+    "bytes": 6470,
+    "sha256": "2af953ed09ddbe4fb4154756266ae8563960a41535ecf915b0497fd015f9ba70"
+  },
+  "actualChecks": {
+    "compiler": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/tsc.json",
+      "bytes": 832,
+      "sha256": "6009b808a5c46569db00729218a661c5c2af61019c6f62a5897b3854b27a87bb"
+    },
+    "authorityGeneration": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/qualification-authorities.json",
+      "bytes": 951,
+      "sha256": "e321aaf915438b60e0978de5adcf01a1f2db49193f71cf4d9193909a20b2228c"
+    },
+    "successfulContinuation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/GENERATION_CONTINUATION_RETURN.json",
+      "bytes": 3318,
+      "sha256": "8b02ab023bd6083da24763f6476ea4753057d79ed409b6c3ea9f8c0db166efc1"
+    },
+    "qualificationLaw": {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/qualification-law-02.json",
+        "bytes": 916,
+        "sha256": "e6bbbfd71d132d6468e0ea37ad85ae6ac275faaaf2e5332477449a5a7481785d"
+      },
+      "counts": {
+        "tests": 11,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 4,
+        "todo": 0
+      },
+      "skips": [
+        "ok 3 - authority staging and ordinary reproduction bind retainedRC1's exact Definition-selected release # SKIP ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied",
+        "ok 4 - authority staging and ordinary reproduction bind selectedRC2's exact Definition-selected release # SKIP ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied",
+        "ok 5 - authority staging refuses wrong manifest and altered selected member before writing # SKIP ABG_QUALIFICATION_SOURCE_ROOT or ABG_QUALIFICATION_RELEASE_ROOT unset; exact installed source acquisition roots not supplied",
+        "ok 6 - authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest # SKIP ABG_QUALIFICATION_STAGE_FIXTURES unset; exact current staging fixture not supplied"
+      ],
+      "scope": "whole existing file, no qualification verdict"
+    }
+  },
+  "preservedControlFailures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/GENERATION_RETURN.json",
+      "bytes": 2858,
+      "sha256": "028ef5e7d5e59dcb2fd42aace2802932fce393fad0a9c15c4dea3757d1f4235c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/GENERATION_REENTRY_RETURN.json",
+      "bytes": 1331,
+      "sha256": "2942d782b3a3c221fd169a32b47babfa52030beefaf01eeae2fa662b8a546fdf"
+    }
+  ],
+  "generatedFootprint": {
+    "changedTrackedOutputs": [
+      "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    ],
+    "unchangedRewrittenDefinitions": "Other generator outputs, including self-conformance.schema.json, match the retained compiled/contracts inventory; no positive evidence generated.",
+    "successorLocalCompiledRowsCompared": 996,
+    "codeRowsChanged": 0,
+    "scratch": "/private/tmp/abg-rc11-foundation-20261110-01/.foundation-generation",
+    "dependencies": "4576 file/link entries and authentic directory/hidden-lock metadata verified by unchanged accepted copy recipe"
+  },
+  "trackingReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/AUTHORITY_EDIT_RECEIPT.json",
+    "bytes": 5556,
+    "sha256": "aacf29cb2bee55c0c94ca272b71ac3322a4fa2afd4d4da5a8255fadba2802dad"
+  },
+  "nextOwner": "Root consumes independent review and assesses complete Functional approach; revise repair plan before any native pilot. No setup/runtime prepared or launched.",
+  "nativeRoute": "Existing installed RC10 fresh create.imported setup route, actual native Program distinct from setup library Program, current nominal resource and same held caller; exact task/admission still absent.",
+  "limits": [
+    "Local delivered RC11 remains unqualified/unpublished; RC10 operational pin unchanged.",
+    "Active D2 restriction established, specific later author-failure causation unproved.",
+    "Both qualification debts and original failures remain open.",
+    "Metadata-dependent package reproduction limit unchanged; no new package was cut."
+  ]
+}

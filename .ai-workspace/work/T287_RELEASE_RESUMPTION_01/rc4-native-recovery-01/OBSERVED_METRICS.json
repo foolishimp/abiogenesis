@@ -1,0 +1,818 @@
+{
+  "schema": "passive_runtime_observation_v1",
+  "observed_at": "2026-11-01T12:57:55.508374+00:00",
+  "scope": "Retained artifacts and process metadata only; no Product invocation or source inspection. Incomplete live observation, not cold-prefix validation, acceptance, qualification or release.",
+  "status": "CLOSED_RUNTIME_FAILED_WITH_PARTIAL_CONSTRUCTION",
+  "run_id": "run://abiogenesis/0d2dd7fd032d7167d561d366259bfa713e1e8b3bb5fd7a844192f15561e037da",
+  "source_base": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "event_observation": {
+    "stat_bytes": 75317263,
+    "cursor_bytes": 75317263,
+    "last_observed_ordinal": 6771,
+    "last_observed_time": "2026-11-01T12:55:15.033Z",
+    "incremental_records_observed": 3501,
+    "initial_prefix_observed": false,
+    "incremental_event_kinds": {
+      "actor_process_stdout_observed": 1710,
+      "runtime_activity_probe_observed": 1741,
+      "actor_process_exited": 1,
+      "actor_result_artifact_observed": 1,
+      "actor_invocation_closed": 1,
+      "c_call_evidenced": 6,
+      "c_call_result_admitted": 3,
+      "c_call_judged": 6,
+      "traversal_route_admitted": 6,
+      "terminal_reached": 3,
+      "frame_closed": 3,
+      "graph_call_closed": 3,
+      "child_foldback_admitted": 3,
+      "abg_admitted_body_reference_record": 4,
+      "c_call_opened": 3,
+      "c_call_fibre_selected": 3,
+      "graph_call_opened": 1,
+      "frame_opened": 1,
+      "traversal_cursor_entered": 1,
+      "runtime_failure_observed": 1
+    }
+  },
+  "archives": {
+    "fp-a13f808cf0fe0142-stdout.log": {
+      "cursor_bytes": 4573984,
+      "observed_tools": {
+        "Bash": 69,
+        "Read": 3,
+        "Edit": 2,
+        "StructuredOutput": 1
+      },
+      "observed_mutation_requests": [
+        {
+          "tool": "Edit",
+          "id": "toolu_013yw1ZNQPCZn7EQmrtsHhPb",
+          "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+        },
+        {
+          "tool": "Edit",
+          "id": "toolu_018LFJV49nVZSrK6WQo71Md9",
+          "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_01NemdbeAXNpNpYUTXTJrYTE",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='code/src/abg/event_prefix.ts'\ns=open(p).read()\nold='''/** The consumer's own Run and read grant; a body never widens either. */\nexport type WorksiteContextBodyUse = Readonly<{ runId: string; readable?: (relativePath: string) => boolean }>;'''\nnew='''/** The consumer's own Run and read grant; a body never widens either. A\n * continued use may additionally carry the owner-derived exact relation of one\n * admitted pending-execution continuation; it names members, not a Run grant. */\nexport type WorksiteContextBodyUse = Readonly<{ runId: string; readable?: (relativePath: string) => boolean;\n  continuedHolders?: ContinuedContextHolders }>;\n/** Exact selected context -> member -> committed holder tuples of one admitted\n * progressed input in its source Run. Only this owner constructs it. */\nexport type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  inputEventRef: string; members: ReadonlySet<string> }>;'''\nassert s.count(ol"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_011ftu6TWkCsEsZxZ6ZMxmuP",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='code/src/abg/event_prefix.ts'\ns=open(p).read()\nold=\"members.add(continuedHolderKey(read.holder.eventRef, (entry as { member: WorksiteContextBodyMember }).member, contextScope(context), entry));\"\nassert s.count(old)==1\ns=s.replace(old,\"members.add(continuedHolderKey(read.holder.eventRef, entry.member, contextScope(context), entry));\")\nopen(p,'w').write(s)\nEOF\ncat > /dev/null <<'EOF'\nEOF\ntime node --input-type=module -e '\nimport ts from \"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/typescript.js\";\nconst root=process.cwd(), nm=\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules\";\nconst cfg=ts.getParsedCommandLineOfConfigFile(root+\"/tsconfig.json\",{},{...ts.sys,onUnRecoverableConfigFileDiagnostic:d=>{throw new Error(d.messageText)}});\nconst options={...cfg.options,noEmit:true,typeRoots:[nm+\"/@types\"],baseUrl:root,paths:{\"*\":[nm+\"/*\"]}};\nconst program=ts.createProgram(cfg.fileNames,option"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_01PytUs29Uzfwa82cqhnWD2h",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='test_env/tests/t287-event-body-encoding.test.mjs'\ns=open(p).read()\nold='''import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,\n  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent } from \"../../build/code/src/abg/event_prefix.js\";'''\nnew='''import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,\n  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent,\n  projectContinuedContextHoldersAtPrefix } from \"../../build/code/src/abg/event_prefix.js\";'''\nassert s.count(old)==1; s=s.replace(old,new)\nanchor='''// Fixed model-free workload: 965 context entries'''\nassert s.count(anchor)==1\nt='''// Model-free continued-context discriminator. Real EventStore admission,\n// worksite observation and held-prefix carriage; the source Run's ho"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_01ST3i8nqGncVN8xsZzdTxCJ",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='code/src/abg/event_prefix.ts'\ns=open(p).read()\nreps=[\n('''export type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  inputEventRef: string; members: ReadonlySet<string> }>;''',\n'''export type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  targetRunId: string; inputEventRef: string; members: ReadonlySet<string> }>;'''),\n('''    if (continued === undefined || continued !== null && (!CONTINUED_CONTEXT_HOLDERS.has(continued) ||\n      continued.sourceRunId !== rows[0]!.runId)) return refuse(\"foreign\", \"referenced Result belongs to another Run\");''',\n'''    if (continued === undefined || continued !== null && (!CONTINUED_CONTEXT_HOLDERS.has(continued) ||\n      continued.sourceRunId !== rows[0]!.runId || continued.targetRunId !== use.runId))\n      return refuse(\"foreign\", \"referenced Result belongs to another Run\");'''),\n('''export function projectContinuedContextHoldersAtPrefi"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_018EpuAnDv4BDbPx6SV9Qtih",
+          "path": "",
+          "command_excerpt": "S=/tmp/rc4-nr-scratch.fGw5uH; cd $S/t && python3 - <<'EOF'\np='test_env/tests/t287-recursive-registered-selection.test.mjs'\ns=open(p).read()\na=\"    const events=env.store.readAll(),runEvents=events.filter(e=>e.runId===opened.run.runId),failures=runEvents.filter(e=>e.kind==='runtime_failure_observed');\"\nassert s.count(a)==1\ns=s.replace(a,a+\"\\n    if(scenario==='success'){(await import('node:fs')).writeFileSync('/tmp/rc4-nr-scratch.fGw5uH/success-events.json',JSON.stringify({runId:opened.run.runId,events}));}\")\nopen(p,'w').write(s)\nEOF\ntime node --experimental-vm-modules --test --test-concurrency=1 --test-name-pattern=\"authenticated recursive child failure\" test_env/tests/t287-recursive-registered-selection.test.mjs 2>&1 | grep -E \"^(\u2714|\u2716|\u2139 (pass|fail|skipped))\" ; ls -la $S/success-events.json"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_01EoigbEi2QYm4nPaATSwFXv",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='code/src/abg/construction_continuation.ts'\ns=open(p).read()\nanchor='''import type { LoadedProductExecutionResolution } from \"../product/execution_resolution.js\";'''\nassert s.count(anchor)==1\nnew='''/** One unfinished return obligation of a pending execution, root-first. A\n * `recursion` level is an open child of an admitted non-terminal termination\n * leaf; a `workflow` level is an open child of an unreturned workflow call. */\nexport type PendingExecutionReturn = Readonly<{\n  relation: \"root\" | \"workflow\" | \"recursion\";\n  basisRef: string;\n  basisDigest: Sha256Digest;\n  frameId: string;\n  graphCallId: string;\n  parentCCallRef: string | null;\n  entryRouteRef: string | null;\n}>;\n/** Replay-derived pending execution of a Run without construction composition\n * (registered selection/recursion). It grants no execution; the phase records\n * whether the pending call already has dispatch or evidence facts. */\nexport type PendingExecutionContinuation = Readonly<{\n  continua"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_012dPfxem3rjFRAxd7VCYv9f",
+          "path": "",
+          "command_excerpt": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && python3 - <<'EOF'\np='code/src/abg/construction_continuation.ts'\ns=open(p).read()\na='''    const pp = payload(position), pendingCCallRef = open.length === 1 ? position.aggregateId : null;'''\nb='''    const pp = payload(position), pendingCCallRef = open.length === 1 ? position.aggregateId : null;\n    // A returned (folded) child under the pending call is the later Result phase, not a pending dispatch.\n    if (pendingCCallRef !== null && rows.some(e => e.kind === \"basis_admitted\" && payload(e).parentCCallRef === pendingCCallRef)) return [];'''\nassert s.count(a)==1; s=s.replace(a,b); open(p,'w').write(s)\nEOF\ngrep -n \"eventLogPath\\|validateHistoricalEvents\\|return {\" test_env/support/root-installed-environment.mjs | head -20"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_018hbE94vYsdJurTw3N698Eg",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='test_env/tests/t287-recursive-registered-selection.test.mjs'\ns=open(p).read()\na=\"    const events=env.store.readAll(),runEvents=events.filter(e=>e.runId===opened.run.runId),failures=runEvents.filter(e=>e.kind==='runtime_failure_observed');\"\nassert s.count(a)==1\nb=a+'''\n    if(scenario==='success'){\n      // Model-free pending-execution premise: retained log bytes cut at durable\n      // event boundaries of this actual installed recursion/workflow Run.\n      const continuation=await load('abg/construction_continuation'),storeOwner=await load('abg/event_store');\n      const lines=(await readFile(join(env.scratch,'runtime','events.jsonl'))).toString('utf8').split('\\\\n');\n      const coldAt=event=>{const i=lines.findIndex(l=>l.includes('\"eventId\":\"'+event.eventId+'\"'));assert.ok(i>=0,'durable boundary row');\n        return env.abg.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(Buffer.from(lines.slice(0,i+1).join('\\\\n')+'\\\\n')));};\n      const pen"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_01ChyeUG1dxkmWEM72NMuPhf",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='test_env/tests/t287-recursive-registered-selection.test.mjs'\ns=open(p).read()\na=\"assert.equal(p.continuationDigest,hash((({continuationRef,continuationDigest,openedEventRef,terminalEventRef,status,...body})=>body)(p)));\"\nb=\"assert.equal(p.continuationDigest,(await load('shared/digests')).sha256Canonical((({continuationRef,continuationDigest,openedEventRef,terminalEventRef,status,...body})=>body)(p)));\"\nassert s.count(a)==1; s=s.replace(a,b); open(p,'w').write(s)\nEOF\nS=/tmp/rc4-nr-scratch.fGw5uH; rsync -a code/ $S/t/code/ && cp test_env/tests/t287-recursive-registered-selection.test.mjs $S/t/test_env/tests/ && cd $S/t && node node_modules/typescript/bin/tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs && date && time node --experimental-vm-modules --test --test-concurrency=1 --test-name-pattern=\"authenticated recursive child failure\" test_env/tests/t287-recursive-registered-selection.test.mjs 2>&1 | grep -vE \"^# |^\\s+\\{\" | grep -E \"\u2714|\u2716|\u2139 (pass|fail"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_01PWUW4mqokHzXwem7tiiWjc",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md'\ns=open(p).read()\nreps=[\n('''2. Exactly one deepest open occurrence: an admitted cursor whose CCall (if\n   opened) has no admitted Result. Its ancestors are the open CCalls reached by\n   `basis.parentCCallRef` to the root, root-first. Each ancestor is one return\n   obligation `{basisRef, basisDigest, cCallRef, cursorRef, cursorDigest,\n   relation}` with `relation` in `workflow | registered_selection | recursion`.''',\n'''2. The chain is walked root-first through open frames. Each level has exactly\n   one unfolded child basis whose frame is open and not terminal. That child's\n   `parentCCallRef` is either an unreturned workflow call (`workflow`) or an\n   admitted non-terminal `termination` leaf (`recursion`). Each level records\n   `{relation, basisRef, basisDigest, frameId, graphCallId, parentCCallRef,\n   entryRouteRef}`, where `entryRouteRef` is the admitted route, if any, that\n   produced the parent call's cursor."
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_018GtLi1xiXykVSfexUd3FLP",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md'\ns=open(p).read()\na=\"pending execution restores an admitted registered-selection/recursive pending occurrence (REQ-P-POLICY-024, CONTINUATION-015) |\"\nb=\"pending execution restores an admitted registered-selection/recursive pending occurrence (REQ-P-POLICY-024, CONTINUATION-015); HOW recorded, Public member not yet realized |\"\nassert s.count(a)==1; s=s.replace(a,b); open(p,'w').write(s)\nEOF\nS=/tmp/rc4-nr-scratch.fGw5uH; rsync -a design/ $S/t/design/; cd $S/t && time timeout 1500 node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-native-work-unknown-effect.test.mjs test_env/tests/t287-governance-covered-source-use.test.mjs 2>&1 | grep -E \"^(\u2714|\u2716|\ufe63)|\u2139 (tests|pass|fail|skipped|todo)\" | head -40"
+        },
+        {
+          "tool": "Bash",
+          "id": "toolu_01Hfezoc5RdEQ7TXDsQtT7TZ",
+          "path": "",
+          "command_excerpt": "python3 - <<'EOF'\np='code/src/abg/event_prefix.ts'\ns=open(p).read()\nreps=[\n('''/** Exact selected context -> member -> committed holder tuples of one admitted\n * progressed input in its source Run. Only this owner constructs it. */\nexport type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  targetRunId: string; inputEventRef: string; members: ReadonlySet<string> }>;''',\n'''/** Exact selected context -> member -> committed holder tuples of one admitted\n * progressed input in its source Run. Only this owner constructs it; `members`\n * is an inspection copy, the authoritative tuple set stays owner-private. */\nexport type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  targetRunId: string; inputEventRef: string; members: readonly string[] }>;'''),\n('''const CONTINUED_CONTEXT_HOLDERS = new WeakSet<object>();''',\n'''const CONTINUED_CONTEXT_HOLDERS = new WeakMap<object, ReadonlySet<string>>();'''),\n(",
+          "test_or_build_candidate": true
+        }
+      ],
+      "stat_bytes": 4573984,
+      "provider_result": {
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 1520146,
+        "duration_api_ms": 846353,
+        "num_turns": 76,
+        "total_cost_usd": 7.892418000000001,
+        "usage": {
+          "input_tokens": 140,
+          "cache_creation_input_tokens": 349225,
+          "cache_read_input_tokens": 16490790,
+          "output_tokens": 89995,
+          "output_tokens_details": {
+            "thinking_tokens": 40509
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 349225,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 140,
+            "outputTokens": 89995,
+            "cacheReadInputTokens": 16490790,
+            "cacheCreationInputTokens": 349225,
+            "webSearchRequests": 0,
+            "costUSD": 7.892418000000001,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 40509,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "terminal_reason": "completed",
+        "stop_reason": "tool_use"
+      }
+    }
+  },
+  "provider_reported": {
+    "completed_selector_cost_usd": 2.91292,
+    "completed_selector_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 350714,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 5360,
+      "thinking_tokens": 2156
+    },
+    "native_construction_cost_usd": 7.892418000000001,
+    "native_construction_final_usage": {
+      "input_tokens": 140,
+      "cache_creation_input_tokens": 349225,
+      "cache_read_input_tokens": 16490790,
+      "output_tokens": 89995,
+      "output_tokens_details": {
+        "thinking_tokens": 40509
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 349225,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "total_cost_usd": 10.805338,
+    "known_completed_cost_subtotal_usd": 10.805338,
+    "cost_basis": "Sum of the two observed completed provider stdout reports, list-price basis; not independent billing verification.",
+    "completed_provider_report_count": 2
+  },
+  "preparation_separate": {
+    "reported_command_wall_ms": 252167.714209,
+    "reported_event_prefix_bytes": 3195673,
+    "reported_provider_calls": 0
+  },
+  "milestones": [
+    {
+      "kind": "native_design_edit_requested",
+      "tool_id": "toolu_013yw1ZNQPCZn7EQmrtsHhPb",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+    },
+    {
+      "kind": "native_design_edit_requested",
+      "tool_id": "toolu_018LFJV49nVZSrK6WQo71Md9",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+    },
+    {
+      "observed_at": "2026-11-01T12:35:11.986063+00:00",
+      "kind": "first_substantive_code_mutation_requested",
+      "tool": "Bash",
+      "id": "toolu_01NemdbeAXNpNpYUTXTJrYTE",
+      "path": "",
+      "command_excerpt": "python3 - <<'EOF'\np='code/src/abg/event_prefix.ts'\ns=open(p).read()\nold='''/** The consumer's own Run and read grant; a body never widens either. */\nexport type WorksiteContextBodyUse = Readonly<{ runId: string; readable?: (relativePath: string) => boolean }>;'''\nnew='''/** The consumer's own Run and read grant; a body never widens either. A\n * continued use may additionally carry the owner-derived exact relation of one\n * admitted pending-execution continuation; it names members, not a Run grant. */\nexport type WorksiteContextBodyUse = Readonly<{ runId: string; readable?: (relativePath: string) => boolean;\n  continuedHolders?: ContinuedContextHolders }>;\n/** Exact selected context -> member -> committed holder tuples of one admitted\n * progressed input in its source Run. Only this owner constructs it. */\nexport type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  inputEventRef: string; members: ReadonlySet<string> }>;'''\nassert s.count(ol"
+    },
+    {
+      "observed_at": "2026-11-01T12:55:03.317047+00:00",
+      "kind": "actor_process_exited",
+      "ordinal": 6663,
+      "time": "2026-11-01T12:54:38.823Z",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "payload_summary": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/09d6dd4918e3232e8d7d6e93ae9aa5ccd213eefd97fdb265174b9291f567cb8c",
+        "status": 0
+      }
+    },
+    {
+      "observed_at": "2026-11-01T12:55:03.317477+00:00",
+      "kind": "terminal_reached",
+      "ordinal": 6676,
+      "time": "2026-11-01T12:54:44.040Z",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "payload_summary": {
+        "resultRef": "result://abiogenesis/24f7201cdf1bf827b17e2a49a4e52cad0a1ac3e85d4957e96b51afbc9086853d"
+      }
+    },
+    {
+      "observed_at": "2026-11-01T12:55:03.317511+00:00",
+      "kind": "terminal_reached",
+      "ordinal": 6710,
+      "time": "2026-11-01T12:54:52.347Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5",
+      "payload_summary": {
+        "resultRef": "result://abiogenesis/4beb1c306407ba42b6c83c13414808333121ffa513c783e7d818dfaeb0cb5231"
+      }
+    },
+    {
+      "observed_at": "2026-11-01T12:55:03.317531+00:00",
+      "kind": "terminal_reached",
+      "ordinal": 6727,
+      "time": "2026-11-01T12:54:54.745Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "payload_summary": {
+        "resultRef": "result://abiogenesis/7f5cee8ce21d06c9fa52af75bde16689e21d9286cc8a873be1775b6ad68cdecc"
+      }
+    },
+    {
+      "observed_at": "2026-11-01T12:55:03.322513+00:00",
+      "kind": "test_or_build_command",
+      "tool": "Bash",
+      "id": "toolu_01SGPBFjLZW9mepKePjgAjSJ",
+      "path": "",
+      "command_excerpt": "B=$(mktemp -d /tmp/rc4-nr-base.XXXXXX); cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && git archive bcb1faf63 build_tenants/abiogenesis/typescript | tar -x -C $B && cd $B/build_tenants/abiogenesis/typescript && rsync -a /tmp/rc4-nr-scratch.fGw5uH/t/node_modules/ ./node_modules/ && node node_modules/typescript/bin/tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs && diff -rq contracts /tmp/rc4-nr-scratch.fGw5uH/t/contracts && cmp product-toolchain-manifest.json /tmp/rc4-nr-scratch.fGw5uH/t/product-toolchain-manifest.json && echo \"BASE==CANDIDATE generated assets identical\"; echo BASE=$B; grep -n \"skip:\" /tmp/rc4-nr-scratch.fGw5uH/t/test_env/tests/t287-exact-construction-intent.test.mjs /tmp/rc4-nr-scratch.fGw5uH/t/test_env/tests/t287-continuation-causation.test.mjs /tmp/rc4-nr-scratch.fGw5uH/t/test_env/tests/t287-native-assembly-retained-input.test.mjs | cut -c1-250",
+      "test_or_build_candidate": true
+    },
+    {
+      "observed_at": "2026-11-01T12:55:03.322589+00:00",
+      "kind": "tool_result",
+      "id": "toolu_01SGPBFjLZW9mepKePjgAjSJ",
+      "tool": "Bash",
+      "command_excerpt": "B=$(mktemp -d /tmp/rc4-nr-base.XXXXXX); cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && git archive bcb1faf63 build_tenants/abiogenesis/typescript | tar -x -C $B && cd $B/build_tenants/abiogenesis/typescript && rsync -a /tmp/rc4-nr-scratch.fGw5uH/t/node_modules/ ./node_modules/ && node node_modules/typescript/bin/tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs && diff -rq contracts /tmp/rc4-nr-scratch.fGw5uH/t/contracts && cmp product-toolchain-manifest.json /tmp/rc4-nr-scratch.fGw5uH/t/product-toolchain-manifest.json && echo \"BASE==CANDIDATE generated assets identical\"; echo BASE=$B; grep -n \"skip:\" /tmp/rc4-nr-scratch.fGw5uH/t/test_env/tests/t287-exact-construction-intent.test.mjs /tmp/rc4-nr-scratch.fGw5uH/t/test_env/tests/t287-continuation-causation.test.mjs /tmp/rc4-nr-scratch.fGw5uH/t/test_env/tests/t287-native-assembly-retained-input.test.mjs | cut -c1-250",
+      "is_error": false,
+      "result_tail": "Files contracts/capabilities/capability-definition-graph.json and /tmp/rc4-nr-scratch.fGw5uH/t/contracts/capabilities/capability-definition-graph.json differ\nBASE=/tmp/rc4-nr-base.9KWvaT\n/tmp/rc4-nr-scratch.fGw5uH/t/test_env/tests/t287-native-assembly-retained-input.test.mjs:12:test('actual native author fold consumes its admitted retained pair; crossed basis and input refuse',{skip:!process.env.ABI5_NATIVE_RETAINED_JOB&&'ABI5_NATIVE\nShell cwd was reset to /Users/jim/src/apps/abiogenesis-rc4-native-recovery"
+    },
+    {
+      "observed_at": "2026-11-01T12:55:03.323351+00:00",
+      "kind": "test_or_build_command",
+      "tool": "Bash",
+      "id": "toolu_01Hfezoc5RdEQ7TXDsQtT7TZ",
+      "path": "",
+      "command_excerpt": "python3 - <<'EOF'\np='code/src/abg/event_prefix.ts'\ns=open(p).read()\nreps=[\n('''/** Exact selected context -> member -> committed holder tuples of one admitted\n * progressed input in its source Run. Only this owner constructs it. */\nexport type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  targetRunId: string; inputEventRef: string; members: ReadonlySet<string> }>;''',\n'''/** Exact selected context -> member -> committed holder tuples of one admitted\n * progressed input in its source Run. Only this owner constructs it; `members`\n * is an inspection copy, the authoritative tuple set stays owner-private. */\nexport type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  targetRunId: string; inputEventRef: string; members: readonly string[] }>;'''),\n('''const CONTINUED_CONTEXT_HOLDERS = new WeakSet<object>();''',\n'''const CONTINUED_CONTEXT_HOLDERS = new WeakMap<object, ReadonlySet<string>>();'''),\n(",
+      "test_or_build_candidate": true
+    },
+    {
+      "observed_at": "2026-11-01T12:55:03.323416+00:00",
+      "kind": "tool_result",
+      "id": "toolu_01Hfezoc5RdEQ7TXDsQtT7TZ",
+      "tool": "Bash",
+      "command_excerpt": "python3 - <<'EOF'\np='code/src/abg/event_prefix.ts'\ns=open(p).read()\nreps=[\n('''/** Exact selected context -> member -> committed holder tuples of one admitted\n * progressed input in its source Run. Only this owner constructs it. */\nexport type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  targetRunId: string; inputEventRef: string; members: ReadonlySet<string> }>;''',\n'''/** Exact selected context -> member -> committed holder tuples of one admitted\n * progressed input in its source Run. Only this owner constructs it; `members`\n * is an inspection copy, the authoritative tuple set stays owner-private. */\nexport type ContinuedContextHolders = Readonly<{ kind: \"continued_context_holders\"; sourceRunId: string;\n  targetRunId: string; inputEventRef: string; members: readonly string[] }>;'''),\n('''const CONTINUED_CONTEXT_HOLDERS = new WeakSet<object>();''',\n'''const CONTINUED_CONTEXT_HOLDERS = new WeakMap<object, ReadonlySet<string>>();'''),\n(",
+      "is_error": false,
+      "result_tail": "TSC_OK\n\u2714 native context bodies are born inline once, referenced by unchanged handoffs and refused unless exactly held (127.508458ms)\n\u2714 a continued Run reads predecessor-held bodies only through the exact admitted context relation (87.189167ms)\n\u2714 965-member native context carriage is byte-equivalent to the expanded structural baseline without body multiplication (2249.987875ms)\n\u2139 tests 3\n\u2139 pass 3\n\u2139 fail 0\n\u2139 skipped 0\n\u2139 todo 0\nShell cwd was reset to /Users/jim/src/apps/abiogenesis-rc4-native-recovery"
+    },
+    {
+      "observed_at": "2026-11-01T12:55:03.323552+00:00",
+      "kind": "provider_result",
+      "archive": "fp-a13f808cf0fe0142-stdout.log",
+      "result": {
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 1520146,
+        "duration_api_ms": 846353,
+        "num_turns": 76,
+        "total_cost_usd": 7.892418000000001,
+        "usage": {
+          "input_tokens": 140,
+          "cache_creation_input_tokens": 349225,
+          "cache_read_input_tokens": 16490790,
+          "output_tokens": 89995,
+          "output_tokens_details": {
+            "thinking_tokens": 40509
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 349225,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 140,
+            "outputTokens": 89995,
+            "cacheReadInputTokens": 16490790,
+            "cacheCreationInputTokens": 349225,
+            "webSearchRequests": 0,
+            "costUSD": 7.892418000000001,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 40509,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "terminal_reason": "completed",
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "observed_at": "2026-11-01T12:55:48.328992+00:00",
+      "kind": "wrapper_artifact_available",
+      "path": "attempt-001/execution.json",
+      "bytes": 35272600
+    },
+    {
+      "observed_at": "2026-11-01T12:56:33.333842+00:00",
+      "kind": "wrapper_artifact_available",
+      "path": "attempt-001/fresh-reads.json",
+      "bytes": 2396
+    },
+    {
+      "observed_at": "2026-11-01T12:56:33.333879+00:00",
+      "kind": "wrapper_artifact_available",
+      "path": "attempt-001/outcome-summary.json",
+      "bytes": 457
+    }
+  ],
+  "qualification": false,
+  "release": false,
+  "process_alive_observed": {
+    "21991": false,
+    "23031": false
+  },
+  "recent_nonstream_events": [
+    {
+      "kind": "child_foldback_admitted",
+      "ordinal": 6680,
+      "time": "2026-11-01T12:54:44.784Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "c_call_evidenced",
+      "ordinal": 6681,
+      "time": "2026-11-01T12:54:44.819Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "abg_admitted_body_reference_record",
+      "ordinal": null,
+      "time": null,
+      "graph": null
+    },
+    {
+      "kind": "c_call_judged",
+      "ordinal": 6687,
+      "time": "2026-11-01T12:54:46.605Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "traversal_route_admitted",
+      "ordinal": 6691,
+      "time": "2026-11-01T12:54:47.317Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "c_call_opened",
+      "ordinal": 6693,
+      "time": "2026-11-01T12:54:48.841Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "ordinal": 6694,
+      "time": "2026-11-01T12:54:48.841Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "c_call_evidenced",
+      "ordinal": 6698,
+      "time": "2026-11-01T12:54:50.790Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "ordinal": 6700,
+      "time": "2026-11-01T12:54:50.790Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "c_call_judged",
+      "ordinal": 6704,
+      "time": "2026-11-01T12:54:51.790Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "traversal_route_admitted",
+      "ordinal": 6708,
+      "time": "2026-11-01T12:54:52.347Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "terminal_reached",
+      "ordinal": 6710,
+      "time": "2026-11-01T12:54:52.347Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "frame_closed",
+      "ordinal": 6711,
+      "time": "2026-11-01T12:54:52.347Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "graph_call_closed",
+      "ordinal": 6713,
+      "time": "2026-11-01T12:54:52.347Z",
+      "graph": "graph-function://abiogenesis/default-library/construction@5"
+    },
+    {
+      "kind": "child_foldback_admitted",
+      "ordinal": 6714,
+      "time": "2026-11-01T12:54:53.435Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "c_call_evidenced",
+      "ordinal": 6715,
+      "time": "2026-11-01T12:54:53.453Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "abg_admitted_body_reference_record",
+      "ordinal": null,
+      "time": null,
+      "graph": null
+    },
+    {
+      "kind": "c_call_judged",
+      "ordinal": 6721,
+      "time": "2026-11-01T12:54:54.203Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "traversal_route_admitted",
+      "ordinal": 6725,
+      "time": "2026-11-01T12:54:54.745Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "terminal_reached",
+      "ordinal": 6727,
+      "time": "2026-11-01T12:54:54.745Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "frame_closed",
+      "ordinal": 6728,
+      "time": "2026-11-01T12:54:54.745Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "graph_call_closed",
+      "ordinal": 6730,
+      "time": "2026-11-01T12:54:54.745Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "child_foldback_admitted",
+      "ordinal": 6731,
+      "time": "2026-11-01T12:54:55.630Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    },
+    {
+      "kind": "traversal_route_admitted",
+      "ordinal": 6732,
+      "time": "2026-11-01T12:55:03.361Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    },
+    {
+      "kind": "c_call_opened",
+      "ordinal": 6734,
+      "time": "2026-11-01T12:55:04.317Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "ordinal": 6735,
+      "time": "2026-11-01T12:55:04.317Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    },
+    {
+      "kind": "c_call_evidenced",
+      "ordinal": 6739,
+      "time": "2026-11-01T12:55:04.765Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    },
+    {
+      "kind": "abg_admitted_body_reference_record",
+      "ordinal": null,
+      "time": null,
+      "graph": null
+    },
+    {
+      "kind": "c_call_judged",
+      "ordinal": 6745,
+      "time": "2026-11-01T12:55:05.521Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    },
+    {
+      "kind": "abg_admitted_body_reference_record",
+      "ordinal": null,
+      "time": null,
+      "graph": null
+    },
+    {
+      "kind": "graph_call_opened",
+      "ordinal": 6750,
+      "time": "2026-11-01T12:55:09.024Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "frame_opened",
+      "ordinal": 6751,
+      "time": "2026-11-01T12:55:09.024Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "traversal_cursor_entered",
+      "ordinal": 6753,
+      "time": "2026-11-01T12:55:09.322Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "c_call_opened",
+      "ordinal": 6754,
+      "time": "2026-11-01T12:55:11.727Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "ordinal": 6755,
+      "time": "2026-11-01T12:55:11.727Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "c_call_evidenced",
+      "ordinal": 6759,
+      "time": "2026-11-01T12:55:12.771Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "c_call_result_admitted",
+      "ordinal": 6761,
+      "time": "2026-11-01T12:55:12.771Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "c_call_judged",
+      "ordinal": 6765,
+      "time": "2026-11-01T12:55:13.489Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "traversal_route_admitted",
+      "ordinal": 6769,
+      "time": "2026-11-01T12:55:14.014Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+    },
+    {
+      "kind": "runtime_failure_observed",
+      "ordinal": 6771,
+      "time": "2026-11-01T12:55:15.033Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    }
+  ],
+  "skill_observation_limits": "The initial four skill_observations entries are AGENTS/settings/design/member-related commands, not explicit STDO skill reads. Explicit skill reads/invocations remain unobserved unless subsequently recorded with explicit_skill_or_method_lookup milestones.",
+  "observation_closed": true,
+  "construction_outcome": "actor-reported partial, not candidate_ready for R1-R5",
+  "construction_output_path": "runtime-001/resources/archives/fp-a13f808cf0fe0142-output.txt",
+  "explicit_stdo_skill_reads_observed": [],
+  "explicit_stdo_skill_read_limit": "No explicit SKILL.md read or Skill invocation observed in complete retained native stdout; AGENTS/settings/design reads are not counted as skill reads.",
+  "settings_design_member_related_trace": [
+    {
+      "tool": "Bash",
+      "id": "toolu_017EdX8qZ8YWf3wcK5DBNr31",
+      "command": "git rev-parse HEAD && git status --short | head -20 && ls rc4-operator-inputs/native-recovery-01/ && wc -c rc4-operator-inputs/native-recovery-01/* AGENTS.md stdo_abiogenesis.json specification/PRODUCT.md specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md specification/requirements/product/REQ-P-POLICY.md build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "path": ""
+    },
+    {
+      "tool": "Bash",
+      "id": "toolu_01PDHNNT6o35pstsoDQZ9fpq",
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && cat AGENTS.md stdo_abiogenesis.json",
+      "path": ""
+    },
+    {
+      "tool": "Bash",
+      "id": "toolu_01WNkckL3rVfwH1tSkRc8UHV",
+      "command": "grep -n \"run.continue\\|current_intent\\|selected_action\" design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md | head -20; grep -n \"current_intent\\|selected_action\\|exact resumption\\|Exact\\|continuation\" design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md | head -20; grep -n \"context\\|holder\\|member\" design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md | head -30",
+      "path": ""
+    },
+    {
+      "tool": "Bash",
+      "id": "toolu_0195djj8M4PZht2aUdL1mi5V",
+      "command": "python3 - <<'EOF'\nimport re\np='design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md'\ns=open(p).read()\nold=\"\"\"Holders are same-Run only; a replacement Run observes and births its own first\ncontext. A pending native context whose members name predecessor-Run holders\nrefuses `foreign` and stays an unsupported residual.\"\"\"\nnew=\"\"\"Producer carriage holders are same-Run only; a replacement Run observes and\nbirths its own first context. A pending native context whose members name\npredecessor-Run holders is read only through the owner-branded\n`continuedHolders` relation of `WorksiteContextBodyUse`. That relation consists\nof exact context -> member -> committed-holder tuples, derived from the admitted\nprogressed input of a `run.continue/pending_execution` use\n([HOW](./T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#retained-context-bytes)).\nWithout that exact tuple the read still refuses `foreign`.\"\"\"\nassert s.count(old)==1\ns=s.replace(old,new)\nopen(p,'w').write(s)\n\np='design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md'\ns=open(p).read()\nold=\"| `abg.operation.run.continue` | `current_intent`, `selected_action` | T-272 `AF-17`; selected action returns through `AF-14/AF-15` |\"\nnew=\"| `abg.operation.run.continue` | `current_intent`, `selected_action`, `pending_execution` | T-272 `AF-17`; selected action returns through `AF-14/AF-15`; pending execution restores an admitted registered-selection/recursive pending occurrence (REQ-P-POLICY-024, CONTINUATION-015) |\"\nassert s.count(old)==1; s=s.replace(old,new)\nold=\"| `run.continue(selected_action)` |\"\ni=s.index(old); j=s.index(\"\\n\",i)\nrow=\"\\n| `run.continue(pending_execution)` | run ref, pending-execution continuation ref/digest, pending cursor ref/digest, progressed continuation-input ref/digest, expected execution-basis ref/digest; no intent or action field | continued run state, successor receipt, evidence refs, replay ref; `admittedIntent` null | shared `run.continue` refusal set, unchanged ([mapping](./T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#typed-member)) | `held`, `gap_stop`; no defaults |\"\ns=s[:j]+row+s[j:]\nold=\"| `run.invoke(invoke|start)`, `run.continue(current_intent|selected_action)` |\"\nassert s.count(old)==1; s=s.replace(old,\"| `run.invoke(invoke|start)`, `run.continue(current_intent|selected_action|pending_execution)` |\")\nopen(p,'w').write(s)\n\np='design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md'\ns=open(p).read()\nold=\"\"\"This owner relation does not change fresh retained-work semantics or existing\nF_H response meaning, and supplies no qualification by declaration alone.\"\"\"\nnew=old+\"\"\"\n\nThe registered-selection pending-execution alternative\n([HOW](T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#registered-selection-pending-execution-continuation))\napplies the same law without a ConstructionIntent. Its pending truth is the\ndeepest admitted open cursor reached through an admitted registered-selection\nroute, together with every open ancestor return obligation (workflow,\nregistered-selection and recursion), including consumed recursion allowance.\nInterruption is established by exclusive resource acquisition, not by absence\nof events. One reentry link consumes the occurrence. Replacement bases, scopes,\nCCalls and cursors are new Run-local identities with predecessor payload\nbindings. Completed producers remain historical Results; no producer reruns.\nA started dispatch without Result stays unknown under the existing effect owner\nand refuses resumption.\"\"\"\nassert s.count(old)==1; s=s.replace(old,new)\nopen(p,'w').write(s)\nEOF\ngit diff --stat",
+      "path": ""
+    }
+  ],
+  "closed_physical_census": {
+    "stat_bytes_before": 75317263,
+    "stat_bytes_after": 75317263,
+    "mtime_ns_unchanged": true,
+    "complete_parseable_json_rows": 6771,
+    "invalid_or_incomplete_rows": 0,
+    "kind_counts": {
+      "public_operation_artifact_admitted": 3,
+      "public_operation_admitted": 1,
+      "invocation_admitted": 1,
+      "implementation_admitted": 1,
+      "basis_admitted": 2,
+      "run_segment_opened": 1,
+      "graph_call_opened": 5,
+      "frame_opened": 5,
+      "runtime_activity_probe_observed": 3375,
+      "traversal_cursor_entered": 5,
+      "c_call_opened": 11,
+      "c_call_fibre_selected": 11,
+      "c_call_evidenced": 11,
+      "abg_admitted_body_reference_record": 7,
+      "c_call_judged": 11,
+      "c_call_result_admitted": 7,
+      "traversal_route_admitted": 10,
+      "actor_transport_binding_admitted": 2,
+      "actor_invocation_started": 2,
+      "actor_process_started": 2,
+      "actor_process_stdout_observed": 3279,
+      "actor_process_exited": 2,
+      "actor_result_artifact_observed": 2,
+      "actor_invocation_closed": 2,
+      "terminal_reached": 3,
+      "frame_closed": 3,
+      "graph_call_closed": 3,
+      "child_foldback_admitted": 3,
+      "runtime_failure_observed": 1
+    },
+    "physical_row_bytes_by_kind": {
+      "public_operation_artifact_admitted": 3195673,
+      "public_operation_admitted": 4333,
+      "invocation_admitted": 352558,
+      "implementation_admitted": 53537,
+      "basis_admitted": 501313,
+      "run_segment_opened": 2343,
+      "graph_call_opened": 12909,
+      "frame_opened": 13133,
+      "runtime_activity_probe_observed": 14456898,
+      "traversal_cursor_entered": 15533,
+      "c_call_opened": 29753,
+      "c_call_fibre_selected": 25077,
+      "c_call_evidenced": 34381,
+      "abg_admitted_body_reference_record": 33736,
+      "c_call_judged": 24132,
+      "c_call_result_admitted": 44262884,
+      "traversal_route_admitted": 3116943,
+      "actor_transport_binding_admitted": 2576781,
+      "actor_invocation_started": 5153,
+      "actor_process_started": 3727,
+      "actor_process_stdout_observed": 6223504,
+      "actor_process_exited": 3557,
+      "actor_result_artifact_observed": 49827,
+      "actor_invocation_closed": 290284,
+      "terminal_reached": 7249,
+      "frame_closed": 5065,
+      "graph_call_closed": 5104,
+      "child_foldback_admitted": 9468,
+      "runtime_failure_observed": 2408
+    },
+    "limit": "Single read-only physical JSONL census after process exit. Not validated cold prefix, semantic admission, body-only byte attribution, or qualification."
+  },
+  "actor_and_failure_events": [
+    {
+      "ordinal": 54,
+      "time": "2026-11-01T12:27:49.241Z",
+      "kind": "actor_invocation_started",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "processId": null,
+      "diagnosticRef": null
+    },
+    {
+      "ordinal": 55,
+      "time": "2026-11-01T12:27:49.294Z",
+      "kind": "actor_process_started",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "processId": 22137,
+      "diagnosticRef": null
+    },
+    {
+      "ordinal": 1190,
+      "time": "2026-11-01T12:29:16.689Z",
+      "kind": "actor_invocation_started",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "processId": null,
+      "diagnosticRef": null
+    },
+    {
+      "ordinal": 1191,
+      "time": "2026-11-01T12:29:16.728Z",
+      "kind": "actor_process_started",
+      "graph": "graph-function://abiogenesis/worksite/native-work@5",
+      "processId": 23031,
+      "diagnosticRef": null
+    },
+    {
+      "ordinal": 6771,
+      "time": "2026-11-01T12:55:15.033Z",
+      "kind": "runtime_failure_observed",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "processId": null,
+      "diagnosticRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-selection@5"
+    }
+  ],
+  "outcome_summary": {
+    "ended": "2026-11-01T12:55:55.013Z",
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:93b962c8aee5da27ae060ac566686f0925945137ec0eb32a022d9be1e2e1fdd9",
+      "ref": "run://abiogenesis/0d2dd7fd032d7167d561d366259bfa713e1e8b3bb5fd7a844192f15561e037da"
+    },
+    "terminal": null,
+    "qualification": false,
+    "pointOneCompletion": "Requires separate Root actual installed interruption witness."
+  },
+  "fresh_reads": {
+    "run_result": "refusal/not_found",
+    "run_replay_status": "failed",
+    "terminalResult": null,
+    "path": "attempt-001/fresh-reads.json"
+  },
+  "final_failure": {
+    "ordinal": 6771,
+    "eventTime": "2026-11-01T12:55:15.033Z",
+    "stage": "route",
+    "diagnosticRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-selection@5"
+  },
+  "execution": {
+    "path": "attempt-001/execution.json",
+    "exitCode": 0,
+    "wallMs": 1671180.466458,
+    "timedOut": false,
+    "truncated": false
+  },
+  "point_one_complete": false
+}

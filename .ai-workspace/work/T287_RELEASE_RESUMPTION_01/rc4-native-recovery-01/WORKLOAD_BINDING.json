@@ -1,0 +1,43 @@
+{
+  "status": "PREPARED_NOT_ADMITTED_AS_NATIVE_RUN",
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "priorWorkload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/workload-v2.json",
+    "bytes": 222740,
+    "sha256": "5a0d6b9c7eac4aaa899d5401e43c160c6b15d9c6069351f4ff24c7dd001fcdbe"
+  },
+  "admittedGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/NATIVE_GRANT.json",
+    "bytes": 35731,
+    "sha256": "22b9bbe34825e82588514cdff09da41d185147ccd85f23623bcf85da4743fb16"
+  },
+  "resourceAmendment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/RESOURCE_AMENDMENT_01.json",
+    "bytes": 2148,
+    "sha256": "85869e460108942e20d622ed11552cf75f402755d6b2089694c6ca07a398bdce"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/workload.json",
+    "bytes": 254606,
+    "sha256": "30c0716a4810b56e916ca764a227819ee9bce69118b44718d20a293f5a6c85c0"
+  },
+  "readRoots": 980,
+  "selectedPaths": 966,
+  "writePaths": 51,
+  "focusedFiles": 18,
+  "commands": 9,
+  "requiredExecutionBudgetMs": 4267250,
+  "currentInputBytes": 29752002,
+  "maxContextBytes": 32096575,
+  "sourceBinding": "Exact Git HEAD + tracked-clean guard, explicit51 preimages and authenticated no-clobber input receipts; no fresh961 census",
+  "setupSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/summary.json",
+    "bytes": 3983,
+    "sha256": "03f89e01445e223259c9b4cd190bbe9b9e785d7acbf284007a277ee68c1e23ff"
+  },
+  "setupResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/operator-resume-material.json",
+    "bytes": 73464475,
+    "sha256": "be4907b15be34c60e9821bf7105396e6b45a31d018959534a5aec86282819d21"
+  }
+}

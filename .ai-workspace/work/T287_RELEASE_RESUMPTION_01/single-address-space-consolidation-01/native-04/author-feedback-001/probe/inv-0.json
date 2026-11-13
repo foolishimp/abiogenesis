@@ -1,0 +1,488 @@
+{
+ "index": 0,
+ "unrelatedSteps": 0,
+ "entryEvents": 55,
+ "currentRun": "run://abiogenesis/134acd6f2a2a4a344fb73ccf673f07915d44e298fa2d1a1e22f87d5c725dee1a",
+ "bodyRows": 5160,
+ "byClass": [
+  [
+   "current_run",
+   3256
+  ],
+  [
+   "prior_run",
+   1736
+  ],
+  [
+   "no_run",
+   128
+  ],
+  [
+   "unrelated",
+   40
+  ]
+ ],
+ "byOwnerClass": [
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:448:31 | prior_run",
+   671
+  ],
+  [
+   "RuntimeLivenessReconstruction.advance (abg/calculus/liveness.js:396) | prior_run",
+   576
+  ],
+  [
+   "RuntimeLivenessReconstruction.event (abg/calculus/liveness.js:456) | current_run",
+   567
+  ],
+  [
+   "RuntimeLivenessReconstruction.advance (abg/calculus/liveness.js:396) | current_run",
+   323
+  ],
+  [
+   "RuntimeLivenessReconstruction.contextStamp (abg/calculus/liveness.js:477) | current_run",
+   304
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:441:111 | current_run",
+   198
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:438:77 | current_run",
+   184
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:448:31 | current_run",
+   157
+  ],
+  [
+   "deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:636) | current_run",
+   149
+  ],
+  [
+   "RuntimeEventCalculusDerivation.advance (abg/event_calculus.js:230) | current_run",
+   88
+  ],
+  [
+   "RuntimeLivenessReconstruction.event (abg/calculus/liveness.js:456) | prior_run",
+   87
+  ],
+  [
+   "projectCCallPhase (abg/c_call.js:166) | current_run",
+   86
+  ],
+  [
+   "RuntimeLivenessReconstruction.contextStamp (abg/calculus/liveness.js:477) | prior_run",
+   72
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:441:111 | prior_run",
+   66
+  ],
+  [
+   "admitRoute (abg/traversal_route.js:2613) | current_run",
+   57
+  ],
+  [
+   "deriveCCallLivenessContext (abg/calculus/liveness.js:122) | prior_run",
+   54
+  ],
+  [
+   "deriveCCallLivenessContext (abg/calculus/liveness.js:123) | prior_run",
+   54
+  ],
+  [
+   "nativeLivenessRelationHolds (abg/calculus/liveness.js:521) | current_run",
+   48
+  ],
+  [
+   "Object.get (abg/calculus/axioms.js:1596) | current_run",
+   48
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call.js:1115:131 | current_run",
+   48
+  ],
+  [
+   "RuntimeEventCalculusDerivation.advance (abg/event_calculus.js:230) | prior_run",
+   44
+  ],
+  [
+   "deriveReplayPrefixFacts (abg/replay.js:921) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1478) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1479) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1482) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1495) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1535) | current_run",
+   44
+  ],
+  [
+   "relationEdges (abg/replay.js:1142) | current_run",
+   44
+  ],
+  [
+   "projectOwnerFacts (abg/replay.js:1284) | current_run",
+   44
+  ],
+  [
+   "projectOwnerFacts (abg/replay.js:1316) | current_run",
+   44
+  ],
+  [
+   "projectOwnerFacts (abg/replay.js:1326) | current_run",
+   44
+  ],
+  [
+   "projectOwnerFacts (abg/replay.js:1339) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1551) | current_run",
+   44
+  ],
+  [
+   "projectExactExecutionBasisRecordAtPrefix (abg/calculus/execution_basis_record.js:50) | no_run",
+   40
+  ],
+  [
+   "deriveCCallLivenessContext (abg/calculus/liveness.js:122) | current_run",
+   40
+  ],
+  [
+   "deriveCCallLivenessContext (abg/calculus/liveness.js:123) | current_run",
+   40
+  ],
+  [
+   "hasUndispatchedEvidence (abg/c_call.js:1081) | current_run",
+   40
+  ],
+  [
+   "nativeLivenessRelationHolds (abg/calculus/liveness.js:521) | unrelated",
+   24
+  ],
+  [
+   "Object.get (abg/calculus/axioms.js:1596) | prior_run",
+   24
+  ],
+  [
+   "deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:589) | current_run",
+   22
+  ]
+ ],
+ "byChainClass": [
+  [
+   "RuntimeLivenessReconstruction.advance (abg/calculus/liveness.js:396) < new RuntimeLivenessReconstruction (abg/calculus/liveness.js:355) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) | prior_run",
+   576
+  ],
+  [
+   "RuntimeLivenessReconstruction.advance (abg/calculus/liveness.js:396) < new RuntimeLivenessReconstruction (abg/calculus/liveness.js:355) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) | current_run",
+   276
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:448:31 < RuntimeLivenessReconstruction.some (abg/calculus/liveness.js:444) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:573) < nativeLivenessRelationHolds (abg/calculus/liveness.js:525) < Object.deriveLiveness [as derive] (abg/calculus/rules.js:74) | prior_run",
+   262
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:448:31 < RuntimeLivenessReconstruction.some (abg/calculus/liveness.js:444) < any (abg/calculus/liveness.js:689) < deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:701) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:580) | prior_run",
+   230
+  ],
+  [
+   "RuntimeLivenessReconstruction.event (abg/calculus/liveness.js:456) < findEvent (abg/calculus/liveness.js:211) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:222:62 < probeObservationMatches (abg/calculus/liveness.js:222) < deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:639) | current_run",
+   173
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:438:77 < RuntimeLivenessReconstruction.declarationRows (abg/calculus/liveness.js:438) < probeObservationMatches (abg/calculus/liveness.js:281) < deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:639) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:580) | current_run",
+   164
+  ],
+  [
+   "RuntimeLivenessReconstruction.event (abg/calculus/liveness.js:456) < findEvent (abg/calculus/liveness.js:211) < probeObservationMatches (abg/calculus/liveness.js:219) < deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:639) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:580) | current_run",
+   162
+  ],
+  [
+   "RuntimeLivenessReconstruction.event (abg/calculus/liveness.js:456) < findEvent (abg/calculus/liveness.js:211) < probeObservationMatches (abg/calculus/liveness.js:224) < deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:639) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:580) | current_run",
+   162
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:441:111 < RuntimeLivenessReconstruction.observationRows (abg/calculus/liveness.js:441) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:569) < nativeLivenessRelationHolds (abg/calculus/liveness.js:525) < Object.deriveLiveness [as derive] (abg/calculus/rules.js:74) | current_run",
+   132
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:441:111 < RuntimeLivenessReconstruction.observationRows (abg/calculus/liveness.js:441) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:569) < nativeLivenessRelationHolds (abg/calculus/liveness.js:525) < Object.deriveLiveness [as derive] (abg/calculus/rules.js:74) | prior_run",
+   66
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:441:111 < RuntimeLivenessReconstruction.observationRows (abg/calculus/liveness.js:441) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:569) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < observeNativeFrameLiveness (abg/runtime_liveness.js:89) | current_run",
+   66
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:448:31 < RuntimeLivenessReconstruction.some (abg/calculus/liveness.js:444) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:573) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < observeNativeFrameLiveness (abg/runtime_liveness.js:89) | prior_run",
+   60
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:448:31 < RuntimeLivenessReconstruction.some (abg/calculus/liveness.js:444) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:573) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < observeNativeCCallLiveness (abg/runtime_liveness.js:165) | prior_run",
+   60
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:448:31 < RuntimeLivenessReconstruction.some (abg/calculus/liveness.js:444) < any (abg/calculus/liveness.js:689) < deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:701) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:580) | current_run",
+   60
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:448:31 < RuntimeLivenessReconstruction.some (abg/calculus/liveness.js:444) < any (abg/calculus/liveness.js:689) < deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:701) < deriveRuntimeLivenessProjection (abg/calculus/liveness.js:823) | prior_run",
+   59
+  ],
+  [
+   "admitRoute (abg/traversal_route.js:2613) < admitTraversalTransitionInActiveTransaction (abg/traversal_route.js:3140) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call_outcome.js:1067:28 < Module.admitOwnedCCallCompletion (abg/c_call_outcome.js:1038) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/ccall_lifecycle.js:535:50 | current_run",
+   57
+  ],
+  [
+   "deriveCCallLivenessContext (abg/calculus/liveness.js:122) < contextForOccurrence (abg/calculus/liveness.js:202) < RuntimeLivenessReconstruction.contextFacts (abg/calculus/liveness.js:493) < RuntimeLivenessReconstruction.context (abg/calculus/liveness.js:488) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:537) | prior_run",
+   48
+  ],
+  [
+   "deriveCCallLivenessContext (abg/calculus/liveness.js:123) < contextForOccurrence (abg/calculus/liveness.js:202) < RuntimeLivenessReconstruction.contextFacts (abg/calculus/liveness.js:493) < RuntimeLivenessReconstruction.context (abg/calculus/liveness.js:488) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:537) | prior_run",
+   48
+  ],
+  [
+   "nativeLivenessRelationHolds (abg/calculus/liveness.js:521) < Object.deriveLiveness [as derive] (abg/calculus/rules.js:74) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/fold.js:35:27 < effectOf (abg/calculus/fold.js:35) < applyStep (abg/calculus/fold.js:112) | current_run",
+   48
+  ],
+  [
+   "RuntimeLivenessReconstruction.event (abg/calculus/liveness.js:456) < nativeLivenessRelationHolds (abg/calculus/liveness.js:523) < Object.deriveLiveness [as derive] (abg/calculus/rules.js:74) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/fold.js:35:27 < effectOf (abg/calculus/fold.js:35) | current_run",
+   48
+  ],
+  [
+   "RuntimeLivenessReconstruction.contextStamp (abg/calculus/liveness.js:477) < RuntimeLivenessReconstruction.contextFacts (abg/calculus/liveness.js:491) < RuntimeLivenessReconstruction.context (abg/calculus/liveness.js:488) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:537) < nativeLivenessRelationHolds (abg/calculus/liveness.js:525) | current_run",
+   48
+  ],
+  [
+   "RuntimeLivenessReconstruction.contextStamp (abg/calculus/liveness.js:477) < RuntimeLivenessReconstruction.contextFacts (abg/calculus/liveness.js:491) < deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:594) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:580) < nativeLivenessRelationHolds (abg/calculus/liveness.js:525) | current_run",
+   48
+  ],
+  [
+   "Object.get (abg/calculus/axioms.js:1596) < eventCalculusEffectRefs (abg/calculus/axioms.js:820) < axiomEffectOf (abg/calculus/axioms.js:1602) < effectOf (abg/calculus/fold.js:36) < applyStep (abg/calculus/fold.js:112) | current_run",
+   48
+  ],
+  [
+   "RuntimeEventCalculusDerivation.advance (abg/event_calculus.js:230) < eventCalculusDerivation (abg/event_calculus.js:280) < runtimeEventCalculusEffectsByKind (abg/event_calculus.js:304) < projectArtifactTruth (abg/artifact_truth.js:407) < projectValidatedPrefixArtifactTruth (abg/artifact_truth.js:524) | prior_run",
+   44
+  ],
+  [
+   "file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:448:31 < RuntimeLivenessReconstruction.some (abg/calculus/liveness.js:444) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:573) < nativeLivenessRelationHolds (abg/calculus/liveness.js:525) < Object.deriveLiveness [as derive] (abg/calculus/rules.js:74) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1478) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) < projectRunTruthAtDurablePrefix (abg/project_read_ports.js:675) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1479) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) < projectRunTruthAtDurablePrefix (abg/project_read_ports.js:675) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1482) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) < projectRunTruthAtDurablePrefix (abg/project_read_ports.js:675) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1495) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) < projectRunTruthAtDurablePrefix (abg/project_read_ports.js:675) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1535) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) < projectRunTruthAtDurablePrefix (abg/project_read_ports.js:675) | current_run",
+   44
+  ],
+  [
+   "relationEdges (abg/replay.js:1142) < projectRunSemanticReplay (abg/replay.js:1537) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) | current_run",
+   44
+  ],
+  [
+   "projectOwnerFacts (abg/replay.js:1284) < projectRunSemanticReplay (abg/replay.js:1538) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) | current_run",
+   44
+  ],
+  [
+   "projectOwnerFacts (abg/replay.js:1316) < projectRunSemanticReplay (abg/replay.js:1538) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) | current_run",
+   44
+  ],
+  [
+   "projectOwnerFacts (abg/replay.js:1326) < projectRunSemanticReplay (abg/replay.js:1538) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) | current_run",
+   44
+  ],
+  [
+   "projectOwnerFacts (abg/replay.js:1339) < projectRunSemanticReplay (abg/replay.js:1538) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) | current_run",
+   44
+  ],
+  [
+   "projectRunSemanticReplay (abg/replay.js:1551) < projectOwnedRunReplayContext (abg/replay.js:1468) < runContext (abg/project_read_ports.js:535) < canonicalRunContext (abg/project_read_ports.js:588) < projectRunTruthAtDurablePrefix (abg/project_read_ports.js:675) | current_run",
+   44
+  ],
+  [
+   "deriveRuntimeLivenessSemantics (abg/calculus/liveness.js:636) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:580) < nativeLivenessRelationHolds (abg/calculus/liveness.js:525) < Object.deriveLiveness [as derive] (abg/calculus/rules.js:74) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/fold.js:35:27 | current_run",
+   42
+  ],
+  [
+   "RuntimeEventCalculusDerivation.advance (abg/event_calculus.js:230) < eventCalculusDerivation (abg/event_calculus.js:280) < deriveRuntimeHeldFluentProjection (abg/event_calculus.js:301) < deriveReplayPrefixFacts (abg/replay.js:593) < projectRuntimeReplayGuard (abg/replay.js:46) | current_run",
+   42
+  ],
+  [
+   "RuntimeEventCalculusDerivation.advance (abg/event_calculus.js:230) < eventCalculusDerivation (abg/event_calculus.js:280) < deriveRuntimeHeldFluentProjection (abg/event_calculus.js:301) < deriveReplayPrefixFacts (abg/replay.js:592) < projectRuntimeReplayGuard (abg/replay.js:46) | current_run",
+   37
+  ],
+  [
+   "deriveCCallLivenessContext (abg/calculus/liveness.js:122) < contextForOccurrence (abg/calculus/liveness.js:202) < RuntimeLivenessReconstruction.contextFacts (abg/calculus/liveness.js:493) < RuntimeLivenessReconstruction.context (abg/calculus/liveness.js:488) < decideRuntimeLivenessEvent (abg/calculus/liveness.js:537) | current_run",
+   35
+  ]
+ ],
+ "distinctIndices": 103,
+ "livenessConstructions": 25,
+ "live": [
+  [
+   "runtime_validation_event_prefix@entry+8 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+12 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+13 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+14 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+16 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+18 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+19 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+20 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+22 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+23 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+24 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+26 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+29 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+30 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+31 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+33 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+35 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+36 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+37 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+39 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+40 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+41 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+43 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ],
+  [
+   "owned_runtime_event_prefix@cut-12 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < projectFrameLivenessContext (abg/runtime_liveness.js:120) < projectRunQuiescence (abg/replay.js:200)",
+   1
+  ],
+  [
+   "runtime_validation_event_prefix@entry+46 | file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/calculus/liveness.js:509:88 < RuntimeDerivationScope.owner (abg/runtime_derivation.js:37) < runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106)",
+   1
+  ]
+ ],
+ "newScopes": 25,
+ "scope": [
+  [
+   "new_key all | runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106) < observeNativeCCallLiveness (abg/runtime_liveness.js:165) < action (abg/c_call.js:3210)",
+   8
+  ],
+  [
+   "new_key all | runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106) < observeNativeFrameLiveness (abg/runtime_liveness.js:89) < admitFrameObservedCCallEvent (abg/c_call.js:3202)",
+   6
+  ],
+  [
+   "new_key all | runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106) < observeNativeCCallLiveness (abg/runtime_liveness.js:165) < admitPreparedCCallOpening (abg/c_call.js:3276)",
+   4
+  ],
+  [
+   "new_key all | runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106) < observeNativeFrameLiveness (abg/runtime_liveness.js:89) < admitPreparedCCallOpening (abg/c_call.js:3275)",
+   2
+  ],
+  [
+   "new_key all | runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106) < observeNativeFrameLiveness (abg/runtime_liveness.js:89) < admitRuntimeEventBatch (abg/traversal_route.js:2927)",
+   2
+  ],
+  [
+   "new_key all | runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106) < observeNativeFrameLiveness (abg/runtime_liveness.js:89) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/open_call.js:457:9",
+   1
+  ],
+  [
+   "new_key {\"runId\":\"run://abiogenesis/134acd6f2a2a4a344fb73ccf673f07915d44e298fa2d1a1e22f8 | runtimePrefixComputation (abg/event_prefix.js:306) < eventCalculusDerivation (abg/event_calculus.js:276) < runtimeFluentHoldsAtPrefix (abg/event_calculus.js:313) < file:///Users/jim/src/apps/abiogenesis-single-address-space/tmp04/t/b/abi5-root-env-sMWMIR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/traversal_cursor.js:584:14 < runRuntimeEventTransaction (abg/event_store.js:3210) < admitRuntimeEventTransactionAtDurablePrefix (abg/event_store.js:3276)",
+   1
+  ],
+  [
+   "new_key all | runtimePrefixComputation (abg/event_prefix.js:306) < livenessReconstruction (abg/calculus/liveness.js:509) < validateRuntimeLivenessEventAtPrefix (abg/runtime_liveness.js:186) < admitNativeRuntimeLivenessEvent (abg/event_store.js:3106) < observeNativeFrameLiveness (abg/runtime_liveness.js:89) < action (abg/closure.js:67)",
+   1
+  ]
+ ]
+}

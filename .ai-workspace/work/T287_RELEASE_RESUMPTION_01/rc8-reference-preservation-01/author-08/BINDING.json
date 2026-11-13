@@ -1,0 +1,119 @@
+{
+  "id": "T287-RC8-AUTHOR08-FIXTURE-COMPLETION",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "baseControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+    "bytes": 9837,
+    "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/PREPARATION.json",
+    "bytes": 7581,
+    "sha256": "62a65d58cd6118de00b93c4865d7380c90d371a5a354a163331ba2a827003a6c"
+  },
+  "scopeGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/ROOT_SCOPE.json",
+    "bytes": 4703,
+    "sha256": "3bdbfd378de073045939cb2455448e9d0e5b905040a8550a66066cab1e387241"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/TASK.json",
+    "bytes": 6911,
+    "sha256": "cf541e69796013e161e541497ec692e769df4bc2da1ac54b09f682bebbb71785"
+  },
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+  "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "sourceDigest": "b2ca1a756b264c1ee13e3bca9ba324d8d499619a28f97874d8fafde6d82ad146",
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs"
+  ],
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001",
+  "proofRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence",
+  "proofScratchRoot": "/private/tmp/abg-r8-a08-95yy1lti/p",
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-r8-a08-95yy1lti/tmp",
+    "TMPPREFIX": "/private/tmp/abg-r8-a08-95yy1lti/tmp/zsh",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-r8-a08-95yy1lti/npm-cache",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/npm-global.npmrc",
+    "BASH_DEFAULT_TIMEOUT_MS": "600000",
+    "BASH_MAX_TIMEOUT_MS": "600000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 400,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 300000,
+    "absoluteTimeoutMs": 900000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "reserveBytes": 4294967296,
+  "proofTimeoutMs": 600000,
+  "proofBounds": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 900000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000,
+    "focusedNameFilteredInvocations": 1,
+    "focusedWholeFileInvocations": 1
+  },
+  "lanes": {
+    "historical": {
+      "files": [
+        "t287-single-address-space-consolidation.test.mjs"
+      ],
+      "namePattern": "^(?:shared public-operation classification|global run-invocation pairs|historical revision cuts:|semantic stage authentication)",
+      "wholeFile": false,
+      "expectedPassed": 4
+    },
+    "coordinates": {
+      "files": [
+        "t287-installed-product-coordinate.test.mjs"
+      ],
+      "wholeFile": true,
+      "expectedPassed": 11
+    }
+  },
+  "controlFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/host.mjs",
+      "bytes": 12242,
+      "sha256": "c4db3703eca666c867c18893392cbeca25470dfde9a7ec5e2e7cebb86e4342f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof.mjs",
+      "bytes": 11499,
+      "sha256": "62c546bd928e207b010ed3f0808756aaad7e3974f17a254acab5a7387c41ccdb"
+    }
+  ],
+  "providerDispatch": false,
+  "rootOneDispatchAuthorization": false,
+  "sourceAccepted": false,
+  "qualified": false,
+  "meaning": "Preparation-only genuine A7-close successor; exactly two test-file premise corrections, two proof lanes, one freeze, zero builds. Root concrete dispatch admission required."
+}

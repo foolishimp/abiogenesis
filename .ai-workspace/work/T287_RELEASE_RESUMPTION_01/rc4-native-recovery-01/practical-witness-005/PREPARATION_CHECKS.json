@@ -1,0 +1,51 @@
+{
+  "status": "FILE_ONLY_PROVISIONAL_C3_SETUP_READY_FOR_ROOT_REVIEW",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/BINDING.DRAFT.json",
+    "bytes": 22415,
+    "sha256": "18a0e1a327d2dc102427fd3df7ff047f89526cc11606e54bace810dfd51a605f"
+  },
+  "checks": [
+    {
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/witness.mjs"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/operator.mjs"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/verify-files.py"
+      ],
+      "exitCode": 0,
+      "result": {
+        "status": "FILE_ONLY_C3_SETUP_PACKET_CHECKED",
+        "packetPins": 43,
+        "archiveMembers": 5321,
+        "bootstrap": "absent",
+        "providerCalls": 0,
+        "RunAdmissions": 0,
+        "ProductImports": 0,
+        "candidateAccepted": false
+      }
+    }
+  ],
+  "candidateAccepted": false,
+  "ProductImports": 0,
+  "setupExecutions": 0,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "bootstrapMaterialized": false
+}

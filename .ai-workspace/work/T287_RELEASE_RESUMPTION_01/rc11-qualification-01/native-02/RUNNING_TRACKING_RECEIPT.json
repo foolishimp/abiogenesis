@@ -1,0 +1,56 @@
+{
+  "status": "RC11_NATIVE02_SOURCE_AUTHOR_RUNNING_PREFIX_RECORDED",
+  "nativeAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/ROOT_NATIVE_ADMISSION.json",
+    "bytes": 3128,
+    "sha256": "19455adb9979ec75cdcd83f3e57a58d21cffedbc7208f7b96aa82e642ed20a45"
+  },
+  "actualStarted": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/runtime-001/STARTED.json",
+    "bytes": 1620,
+    "sha256": "01ff5438d6cb01c01bd6403c54404d16d965dac17d292314b403ad99435da6ef"
+  },
+  "tracking": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 174167,
+        "sha256": "05adccfbdd8ffaeb42cdea28f1434163af3b9fa94223bf170a9dfcdeb9a6e7b6"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 174988,
+        "sha256": "54d15da51fa74a5a023f7ff0a52858ce84a3de24c933d86fbf04688a5101cf75"
+      },
+      "insertOffset": 21,
+      "insertedBytes": 821,
+      "allPreviousBytesPreserved": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 822834,
+        "sha256": "c7c3ca4e2fb27b4bcc8961f19c25f72d8198b7642281a96c4aeb204ded868f4f"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 823644,
+        "sha256": "3de731bcd91ce0258a7c999acb5f8f9435eecc1af23bc1930c8af8bd54073ade"
+      },
+      "insertOffset": 70,
+      "insertedBytes": 810,
+      "allPreviousBytesPreserved": true
+    }
+  ],
+  "mainIndexUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "sourcePreDispatchConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/SETUP_RETURN.json",
+    "bytes": 4567,
+    "sha256": "e14496d5409d4ca192db7509ba670e29fdae13e004ea13dae85f37353210b4cb"
+  },
+  "sourceMutationByOperator": false
+}

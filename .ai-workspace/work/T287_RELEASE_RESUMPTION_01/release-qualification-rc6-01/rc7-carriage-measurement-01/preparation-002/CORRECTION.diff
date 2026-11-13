@@ -1,0 +1,54 @@
+--- preparation-001/measurement.test.mjs
++++ preparation-002/measurement.test.mjs
+@@ -51,22 +51,45 @@
+       assert.equal(receipt.ownerOutput.outcomeKind,'result','native call outcome');const terminal=receipt.ownerOutput.value?.terminalResult;assert(abg.isAbgTypedTerminalResult(terminal),'actual complete typed terminal');
+       assert.equal(terminal.value?.kind,'native_workspace_work_observation');assert.equal(receipt.resources.eventResource.kind,'abg_event_resource_completion');selection=receipt.resources.eventResource.successor;
+       assert(selection.prefix.prefixLength>entry.prefix.prefixLength);if(callStart.work&&callEnd.work)for(const key of ['historyDecodes','storeReopens','coldHistoryReads'])assert.equal(callEnd.work[key]-callStart.work[key],0,'warm native call '+key);
+-      const row={label,contextBodyBytes:f.bytes,contextCanonicalBytes:Buffer.byteLength(product.canonicalJson(actualInput.context)),taskCanonicalBytes:Buffer.byteLength(product.canonicalJson(actualInput)),sdkCall:callBytes,sdkOutcome:outcomeBytes,callWallMs:callEnd.at-callStart.at,eventLog:{beforeBytes:entry.prefix.prefixLength,afterBytes:selection.prefix.prefixLength,appendedBytes:selection.prefix.prefixLength-entry.prefix.prefixLength},terminalIdentity:{result:terminal.result,producer:terminal.producer,valueDigest:hash(terminal.value)}};
++      const row={label,contextBodyBytes:f.bytes,contextCanonicalBytes:Buffer.byteLength(product.canonicalJson(actualInput.context)),taskCanonicalBytes:Buffer.byteLength(product.canonicalJson(actualInput)),sdkCall:callBytes,sdkOutcome:outcomeBytes,callWallMs:callEnd.at-callStart.at,eventLog:{beforeBytes:entry.prefix.prefixLength,afterBytes:selection.prefix.prefixLength,appendedBytes:selection.prefix.prefixLength-entry.prefix.prefixLength},terminalIdentity:{result:terminal.result,producer:terminal.producer,valueDigest:hash(terminal.value),originalProjectionBasis:terminal.projectionBasis}};
+       cases.push(row);runs.push({label,file:f,input:actualInput,receipt,terminal,row});
+     }
+-    const beforeReads=await eventResourceIdentity(logPath);await save('PREFIX_BEFORE_READS.json',{selectionPrefix:selection.prefix,identity:beforeReads});
++    // Both reads select the final P2. A Run's immutable terminal identity is
++    // conserved from its original return; projectionBasis belongs to this read.
++    const finalReadPrefix=selection.prefix;
++    const finalReadBasis={ref:finalReadPrefix.eventLogRef,digest:finalReadPrefix.coordinateDigest};
++    report.readProjectionBasis=finalReadBasis;
++    const beforeReads=await eventResourceIdentity(logPath);await save('PREFIX_BEFORE_READS.json',{selectionPrefix:finalReadPrefix,projectionBasis:finalReadBasis,identity:beforeReads});
+     const warm=[];
+-    for(const run of runs){const at=mark(),entry=selection,{call}=constructInstalledRunReadCall({environment:env,publicApi,memberKey:'run_result',selector:{kind:'none'},source:run.receipt.resources.run,eventResource:entry,identity:'rc7-s4-warm-'+run.label});const outcome=await publicApi.runInstalledDefinitionCallWithResource(entry,call);phase('warm_result_'+run.label,at,mark());const body=await full('calls/'+run.label+'.warm-run-result.json',outcome);assert.equal(outcome.kind,'installed_definition_call_transport_result');assert.equal(outcome.receipt.ownerOutput.outcomeKind,'result');const completion=outcome.receipt.resources.eventResource;assert.equal(completion.kind,'abg_event_resource_completion');assert.deepEqual(completion.successor.prefix,entry.prefix);selection=completion.successor;assert.deepEqual(outcome.receipt.ownerOutput.value.projection.terminalResult,run.terminal);warm.push(outcome.receipt.ownerOutput);run.row.warmRead=body;}
++    for(const run of runs){
++      const at=mark(),entry=selection;assert.deepEqual(entry.prefix,finalReadPrefix);
++      const {call}=constructInstalledRunReadCall({environment:env,publicApi,memberKey:'run_result',selector:{kind:'none'},source:run.receipt.resources.run,eventResource:entry,identity:'rc7-s4-warm-'+run.label});
++      const outcome=await publicApi.runInstalledDefinitionCallWithResource(entry,call);phase('warm_result_'+run.label,at,mark());
++      const body=await full('calls/'+run.label+'.warm-run-result.json',outcome);assert.equal(outcome.kind,'installed_definition_call_transport_result');assert.equal(outcome.receipt.ownerOutput.outcomeKind,'result');
++      const completion=outcome.receipt.resources.eventResource;assert.equal(completion.kind,'abg_event_resource_completion');assert.deepEqual(completion.successor.prefix,finalReadPrefix);selection=completion.successor;
++      const terminal=outcome.receipt.ownerOutput.value.projection.terminalResult;assert(abg.isAbgTypedTerminalResult(terminal));
++      const {projectionBasis:originalBasis,...originalIdentity}=run.terminal;
++      const {projectionBasis:readBasis,...readIdentity}=terminal;
++      assert.deepEqual(readIdentity,originalIdentity,'original Run Result, complete value, producer and contract identity are unchanged');
++      assert.deepEqual(readBasis,finalReadBasis,'held terminal is projected at actual final P2');
++      warm.push(outcome.receipt.ownerOutput);run.row.warmRead={...body,originalRunIdentityEquality:true,projectionBasis:readBasis,originalProjectionBasis:originalBasis};
++    }
+     assert.deepEqual(await eventResourceIdentity(logPath),beforeReads);
+-    const closeStart=mark();closed=abg.closeAbgEventResource(held,selection.prefix);held=null;assert.equal(closed.kind,'abg_event_resource_receipt');assert.deepEqual(closed.closeHandoff.prefix,selection.prefix);await save('ACTUAL_CLOSE.json',closed);phase('outer_close',closeStart,mark());
++    const closeStart=mark();closed=abg.closeAbgEventResource(held,selection.prefix);held=null;assert.equal(closed.kind,'abg_event_resource_receipt');assert.deepEqual(closed.closeHandoff.prefix,selection.prefix);assert.deepEqual(closed.closeHandoff.prefix,finalReadPrefix);await save('ACTUAL_CLOSE.json',closed);phase('outer_close',closeStart,mark());
+     const record=(name,value,raw=false)=>save(name,value,raw),command=commandRecorder(O,{environment:process.env,timeoutMs:bounds.coldReadMs,maxOutputBytes:bounds.outputBytes});
+     const caller={root:O,record,command,config:{nodePath:b.node.configuredPath,setupEnvironment:process.env},state:{closeHandoff:closed.closeHandoff,calls:[]},runtime:{product}};
+     for(const [i,run] of runs.entries()){
+       const at=mark(),{call}=constructInstalledRunReadCall({environment:env,publicApi,memberKey:'run_result',selector:{kind:'none'},source:run.receipt.resources.run,eventResource:reopen(closed.closeHandoff),identity:'rc7-s4-cold-'+run.label});
+       const read=await invokeColdInstalledEntry(caller,'cold-'+run.label,call,{runtimeRoot:env.installedRoot,environment:process.env});phase('cold_result_'+run.label,at,mark(),{childWallMs:read.execution.wallMs,parentCountersExcludeChild:true});
+       assert.equal(read.execution.exitCode,0);assert(!read.execution.signal&&!read.execution.failure&&!read.execution.timedOut&&!read.execution.truncated);assert.equal(read.receipt.ownerOutput.outcomeKind,'result');assert.deepEqual(read.receipt.resources.eventResource.closeHandoff.prefix,closed.closeHandoff.prefix);
+-      const terminal=read.receipt.ownerOutput.value?.projection?.terminalResult;assert(abg.isAbgTypedTerminalResult(terminal));assert.deepEqual(terminal,run.terminal);assert.deepEqual(read.receipt.ownerOutput,warm[i]);
+-      run.row.coldRead={outcome:await pin(join(O,'calls/cold-'+run.label+'.outcome.json')),request:await pin(join(O,'calls/cold-'+run.label+'.request.jsonl')),rawStdout:await pin(join(O,'commands/cold-'+run.label+'.stdout')),fullTypedTerminalEquality:true,fullReadOwnerOutputEquality:true,unchangedPrefix:true};
++      const terminal=read.receipt.ownerOutput.value?.projection?.terminalResult;assert(abg.isAbgTypedTerminalResult(terminal));
++      const {projectionBasis:originalBasis,...originalIdentity}=run.terminal;
++      const {projectionBasis:readBasis,...readIdentity}=terminal;
++      assert.deepEqual(readIdentity,originalIdentity,'cold read conserves original Run Result, complete value, producer and contract identity');
++      assert.deepEqual(readBasis,finalReadBasis,'cold terminal is projected at actual final P2');
++      assert.deepEqual(terminal,warm[i].value.projection.terminalResult,'complete warm and cold typed terminal equality at P2');
++      assert.deepEqual(read.receipt.ownerOutput,warm[i],'complete warm and cold owner-output equality at P2');
++      run.row.coldRead={outcome:await pin(join(O,'calls/cold-'+run.label+'.outcome.json')),request:await pin(join(O,'calls/cold-'+run.label+'.request.jsonl')),rawStdout:await pin(join(O,'commands/cold-'+run.label+'.stdout')),originalRunIdentityEquality:true,projectionBasis:readBasis,originalProjectionBasis:originalBasis,fullTypedTerminalEquality:true,fullReadOwnerOutputEquality:true,terminalComparison:'COMPLETE_WARM_COLD_AT_FINAL_SELECTED_PREFIX',unchangedPrefix:true};
+     }
+     assert.deepEqual(await eventResourceIdentity(logPath),beforeReads);
+     // One explicit post-session proof decode. It is separate from warm-call/read work.

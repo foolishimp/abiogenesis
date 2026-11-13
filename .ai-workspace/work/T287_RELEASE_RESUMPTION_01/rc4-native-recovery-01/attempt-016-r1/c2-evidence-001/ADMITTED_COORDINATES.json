@@ -1,0 +1,40 @@
+{
+  "kind": "PASSIVE_ADMITTED_C2_COORDINATE_PROJECTION",
+  "physicalOffset": 131203428,
+  "physicalBytes": 28650767,
+  "rowSha256": "ab2d1f26587c52bb3b27d7e7b483b1c73590fbcf67ea7381919ffc289d687d34",
+  "admissionOrdinal": 11183,
+  "eventId": "event://abiogenesis/8a170d734e19697e61ab24b01f3f66894850d730983c0c925d030fa3e8d5c363",
+  "eventTime": "2026-11-02T19:26:32.803Z",
+  "resultRef": "result://abiogenesis/849a8bbb52c21c0e54ba09ae97850c4aaacd2a98a13d4405d4676d4068821339",
+  "resultDigest": "sha256:849a8bbb52c21c0e54ba09ae97850c4aaacd2a98a13d4405d4676d4068821339",
+  "helperArtifactDigest": "sha256:22884f011319d1f88fb5d25e521bd04f95c226deb947989a7ce0e52ef87bc850",
+  "observationDigest": "sha256:05f9efd4023ceb4e5db210e46a23df8f60c3982f06031a6b0f4c15ade76cf684",
+  "commandExits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0
+  ],
+  "predicateObservedValues": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0
+  ],
+  "standing": "Actual admitted native C2 observation, red9/11. No UAT/Run closure/acceptance."
+}

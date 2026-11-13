@@ -1,0 +1,7 @@
+# Recorded Root authority — selected source/proof accepted; build held
+
+Decision owner: Root Executive. Recorded by the separately activated Writer from Root's direct instructions. Root conjoins and accepts the bounded repaired source f242bd4d and exact archive1354b327 with native custody, limited repair review, five-command build, focused regression, ordinary unit, corrected50-call measurement, six affected files and final Operator conservation. Exact identities, receipts and exclusions are in ROOT_BOUNDED_ACCEPTANCE.002.json.
+
+All selected source/proof acceptance prerequisites are satisfied within those recorded bounds. Root explicitly requires no additional review cycle or tests before the exact checkpoint/reproduction phase. The Writer has not issued execution authority: BUILD_BINDINGS.002.HELD.json has executionEnabled:false and activation:null. Root must supply one exact build admission and create its executable binding successor.
+
+That phase may checkpoint only the exact27 source paths on the existing codex/rc10-retention branch and clean-reproduce the selected measured archive. It preserves current main, its two tracked status edits and raw evidence, the candidate's non-source evidence and immutable installed RC9. No main merge or selector change is selected. A later install still needs actual byte/member-equal reproduction, final packaging disposition and separate Root install admission. No qualification, publication, tag, push or human acceptance is granted here.

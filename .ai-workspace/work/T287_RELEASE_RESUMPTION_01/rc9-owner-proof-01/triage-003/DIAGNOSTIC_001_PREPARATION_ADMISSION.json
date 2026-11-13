@@ -1,0 +1,12 @@
+{
+  "id": "RC9-PROOF-DIAGNOSTIC-004",
+  "status": "ROOT_SELECTED_PREPARATION_ONLY",
+  "role": "separate Proof-Control Writer",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003",
+  "selection": "One complete unchanged32-case M5 diagnostic on existing BUILT003;180s outer cap,16MiB output,4GiB free. No inner-deadline/assertion alteration, rebuild/repack/native/provider/source/Git effect. Root bound execution admission still required.",
+  "closeReadback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/NATIVE003_CLOSE_READBACK.json",
+    "bytes": 1570,
+    "sha256": "811aff1d04f85feebfb8912972f43acf11217b64f787fadddf7e46d4dc99a0ee"
+  }
+}

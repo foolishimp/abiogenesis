@@ -1,0 +1,57 @@
+{
+  "kind": "bounded_q23_identity_owner_component_acceptance",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "outcome": "Existing F11/F15 independence claims use actual configured identity through current ABG owners; unknown or ineligible required assessment cannot launch or become green.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Named mutable candidate at 1f62c0095e6196b089071bb72e88217792edf6ff; M Root selections are current coordination authority; C GOALS/T287 historical labels do not choose work.",
+      "tool": "Existing immutable installed RC6 and maintained operator-client; exact STDO3.0.4 definition and direct immutable skill routes.",
+      "runtime": "Actual native-author-binding-01 close; ABG alone admits and dispatches later native work. Operator packet is not runtime evidence."
+    },
+    "prohibitions": [
+      "No new Product WHAT, control plane, registry, journal or generic provider migration",
+      "No QR02 historical reconstruction or invented production positive eligibility",
+      "No operator candidate algorithm/test implementation, preflight, provider, commit, release or global selector change"
+    ]
+  },
+  "criteria": [
+    {
+      "id": "Q1",
+      "criterion": "One canonical source-bound configured identity corresponds to the final prepared transport args/environment and is recorded once by the existing binding owner; legacy/missing/conflicting identity remains unknown. No remote-attestation claim."
+    },
+    {
+      "id": "Q2",
+      "criterion": "Result/J consumers authenticate existing invocation and binding coordinates. Cold reconstruction/readback and substituted/crossed/digest-changed binding negatives conserve identity/refusal without copied identity bodies."
+    },
+    {
+      "id": "Q3",
+      "criterion": "Existing published QUALIFICATION_ROLE_POLICY and HOW implement only the selected exact two-profile declaration. Same-family default is non-independent; different declared family only permits the remaining author/evidence/peer check. No prefix taxonomy, fallback permission or retroactive authorship."
+    },
+    {
+      "id": "Q4",
+      "criterion": "Actual call-bound required preparation gates before dependent paid invocation. Required same-family, identity/owner/prior-author/peer unknown and future-J-only external cases prove zero provider starts and remain non-green. Ordinary not_required behavior is preserved."
+    },
+    {
+      "id": "Q5",
+      "criterion": "One meaningful eligible native-history component fixture uses canonical owners with explicit declared/lower-owner premises; nearest negatives and cold projection execute. No synthetic fixture is represented as physical admission or actual production eligibility."
+    },
+    {
+      "id": "Q6",
+      "criterion": "All six selected modules execute without skipped/failed/cancelled/todo cases on this host after current candidate compile/generation. Existing meaningful assertions remain. New evidence is assessed by criterion and actual assertions, not counts alone."
+    },
+    {
+      "id": "Q7",
+      "criterion": "HOW/code/test changes stay inside the exact grant and retain source/proof correspondence; all selected source inputs are protected and frozen. Existing contributor union and QR02 boundary remain; no Product WHAT, generic migration or release claim."
+    }
+  ],
+  "rootExitOutsideNativeAssessor": [
+    "Root independent MAX frozen-source review",
+    "Actual final close and fresh result/replay conjunction",
+    "Actual production positive Q23/F11 remains dependent on sufficient prior attribution and a real eligible route; QR02/QR03 and release qualification remain separate"
+  ]
+}

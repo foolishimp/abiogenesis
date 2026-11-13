@@ -1,0 +1,16 @@
+{
+  "kind": "native_author_progress",
+  "activation": "rc7-stdout-window-author-03",
+  "startedAt": "2026-11-06T23:13:08Z",
+  "method": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verifiedBy": "stdo verify v3.0.4 -> valid:true, manifest_sha256 matches",
+    "entrypoint": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "directReferences": ["references/COORDINATED_HANDOFF.md#control-intake", "references/COORDINATED_HANDOFF.md#receive"],
+    "readAt": "2026-11-06T23:14Z"
+  },
+  "phase": "control-intake",
+  "stages": [],
+  "lanes": []
+}

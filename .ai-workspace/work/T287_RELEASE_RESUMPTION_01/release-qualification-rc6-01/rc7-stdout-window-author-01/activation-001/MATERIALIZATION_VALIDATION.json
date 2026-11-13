@@ -1,0 +1,54 @@
+{
+  "kind": "s5_actual_h06_materialization_checks",
+  "at": "2026-11-06T19:59:00.335442+00:00",
+  "metadataDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/METADATA_BINDING_DELTA.json",
+    "bytes": 13313,
+    "sha256": "b3265b3352ff3edbefe4dc788d81ab8aeed168fd5a4f15245f26f4136bd76458"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/MATERIALIZATION_PREFLIGHT.json",
+    "bytes": 3617,
+    "sha256": "f1dc8b52f0f2e97b4d0bf3a5af2e5dbfea4172cc74c6581060738666a8308d9c"
+  },
+  "staged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/STAGED_ANTECEDENT_PINS.json",
+    "bytes": 15087,
+    "sha256": "993b24ba43bfbdbe1d476fed339f6627e01a296485e433f8bf3fb37af285e458"
+  },
+  "finiteReferencedPinsVerified": 73,
+  "pinMismatches": 0,
+  "counts": {
+    "sourceRows": 451,
+    "antecedentsStaged": 19,
+    "admissionStillAbsent": 1,
+    "finalControls": 20,
+    "presentContext": 471,
+    "futureHandoffs": 3,
+    "context": 474,
+    "writablePaths": 17,
+    "stages": 4,
+    "lanes": 7
+  },
+  "checks": {
+    "sourceBytesEqualBeforeAfterStaging": true,
+    "indexEmpty": true,
+    "tracked69AndNew2Preserved": true,
+    "untrackedCensusPerformed": false,
+    "closedTemplatesMapsCodeUnchanged": true,
+    "Q2Q3Unchanged": true,
+    "same24060060BuildAnd300LaneBounds": true,
+    "actualH06CloseResume": true,
+    "H05OnlyRetainedOriginalProof": true,
+    "methodSkillFirstInstructionAndProgressRoute": true,
+    "noNewInputFrameworkRuntimeGate": true,
+    "futureRuntimeOutputsAbsent": true
+  },
+  "remainingRootBindings": {
+    "RootControlAdmission": null,
+    "finalRuntime": null,
+    "finalWorkloadAdmissionDigest": null,
+    "dispatch": null
+  },
+  "effects": "Only19 named antecedent control copies under fresh C namespace and selected ticket projection. No Product/source edit, build/test, provider/runtime execution or launch."
+}

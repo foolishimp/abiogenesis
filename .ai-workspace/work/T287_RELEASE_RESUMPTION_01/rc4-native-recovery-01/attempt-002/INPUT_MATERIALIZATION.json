@@ -1,0 +1,55 @@
+{
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-002/CURRENT_SELECTION.md",
+        "bytes": 1241,
+        "sha256": "8f8aa78c7864447218f2f2645cb229e264c6ed7ead568a22cef331f433193860"
+      },
+      "target": "rc4-operator-inputs/native-recovery-02/CURRENT_SELECTION.md",
+      "bytes": 1241,
+      "sha256": "8f8aa78c7864447218f2f2645cb229e264c6ed7ead568a22cef331f433193860"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-002/task.md",
+        "bytes": 5218,
+        "sha256": "505cdfdf2959425ba7cfc7b48d3a9ed176d73b7f2e002491d011db942c3e2f7d"
+      },
+      "target": "rc4-operator-inputs/native-recovery-02/task.md",
+      "bytes": 5218,
+      "sha256": "505cdfdf2959425ba7cfc7b48d3a9ed176d73b7f2e002491d011db942c3e2f7d"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-002/PARTIAL_DISPOSITION.md",
+        "bytes": 3292,
+        "sha256": "3d14514e54e4e0a05b112932e770e597baa664fb27c6e8d14d998d1abbaafa63"
+      },
+      "target": "rc4-operator-inputs/native-recovery-02/PARTIAL_DISPOSITION.md",
+      "bytes": 3292,
+      "sha256": "3d14514e54e4e0a05b112932e770e597baa664fb27c6e8d14d998d1abbaafa63"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-002/rubric.json",
+        "bytes": 2739,
+        "sha256": "9b6d3c00d4ac575428a47533b33fc67370b55ca767f5eff335d63a2d41c2b73c"
+      },
+      "target": "rc4-operator-inputs/native-recovery-02/rubric.json",
+      "bytes": 2739,
+      "sha256": "9b6d3c00d4ac575428a47533b33fc67370b55ca767f5eff335d63a2d41c2b73c"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-002/NATIVE_GRANT.DRAFT.json",
+        "bytes": 12004,
+        "sha256": "ca9bb06c85de7a3a22fe40779bb8b48d63a4fa513e2b696103c84fa15d668678"
+      },
+      "target": "rc4-operator-inputs/native-recovery-02/NATIVE_GRANT.DRAFT.json",
+      "bytes": 12004,
+      "sha256": "ca9bb06c85de7a3a22fe40779bb8b48d63a4fa513e2b696103c84fa15d668678"
+    }
+  ],
+  "meaning": "operator task/authority projection only; no snapshot of editable Product HOW"
+}

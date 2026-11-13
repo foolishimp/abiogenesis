@@ -1,0 +1,18 @@
+{
+  "kind": "bounded_read_only_host_stack_sample",
+  "recordedUtc": "2026-11-03T23:33:00.279264+00:00",
+  "pid": 28990,
+  "command": "sample28990 for2seconds at1ms requested interval",
+  "sample": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/C2_HANDOFF_PROCESS_SAMPLE_001.txt",
+    "bytes": 265432,
+    "sha256": "716f68dfc8879f531c594bac52bd75b705f2c75a8f7815ff2055bef4769f7cf6"
+  },
+  "observedPhase": "After native Result and Testing selection, before C2 actor start on unchanged installed RC5 builder",
+  "interpretation": "Host sample shows active V8 property/array work alongside idle background threads; it lacks reliable JavaScript owner symbols. No specific owner, causal CPU share or successor gain attributed.",
+  "limits": [
+    "Only one brief handoff interval sampled.",
+    "Samples across threads cannot be divided as a Product CPU percentage.",
+    "No Product/source/runtime mutation."
+  ]
+}

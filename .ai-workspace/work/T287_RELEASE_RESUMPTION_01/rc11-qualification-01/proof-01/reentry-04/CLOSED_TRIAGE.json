@@ -1,0 +1,129 @@
+{
+  "status": "ROOT_CONJOINED_READONLY_UNIT_FAILURE_TRIAGE",
+  "unitFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/RETURN.json",
+    "bytes": 10855,
+    "sha256": "39b278807ba09acfee766d8b0062970d2faf267c48f0392f25409d5cd5f42948"
+  },
+  "failureBlocks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/UNIT_FAILURES.json",
+    "bytes": 7471,
+    "sha256": "c12e111e936a5142b096ad64e071ce1bcb85279cce536950cf584851b62591b5"
+  },
+  "exactLaunch": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-03/unit/LAUNCH.json",
+    "bytes": 921,
+    "sha256": "26d364e52bf2276fcd91dcec721471ddd3ab5661c2b128a93ea1cb90c061ed71"
+  },
+  "environment": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/ENVIRONMENT.json",
+    "bytes": 2716,
+    "sha256": "d44d5be365995d839f89a5e8ab4b1c86d722dd81e3adb419168412695f805654"
+  },
+  "failedFile": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "bytes": 114763,
+    "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+  },
+  "failedFileEqualsRC10BaseAndPriorProofStage": true,
+  "compiledComparison": {
+    "filesCompared": 580,
+    "runtimeJsCompared": 290,
+    "installedRC10Differences": [
+      "product/contracts.js",
+      "product/contracts.d.ts",
+      "product/builtin_semantics.d.ts"
+    ],
+    "differenceMeaning": "Only rc.10 to rc.11 identity literals; all other compiled files byte equal. All runtime JS also equals prior RC10 tested stage except product/contracts.js.",
+    "dependencyInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+      "bytes": 901147,
+      "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+    },
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    }
+  },
+  "fixtureBudgetsMs": [
+    {
+      "case": 51,
+      "inactivity": 200,
+      "absolute": 350,
+      "grace": 75,
+      "writesEvery": 20
+    },
+    {
+      "case": 52,
+      "inactivity": 120,
+      "absolute": 600,
+      "grace": 75,
+      "initialWriteThenSixEvery": 40,
+      "oracle": "at least seven data callbacks; writes can coalesce, actual cause unproved"
+    },
+    {
+      "case": 53,
+      "inactivity": 150,
+      "absolute": 600,
+      "grace": 75,
+      "writesEvery": 20,
+      "actualRawCallbacks": 0
+    },
+    {
+      "case": 55,
+      "outerTest": 20000,
+      "workerInactivity": 700,
+      "workerAbsolute": 1500,
+      "commandLaunch": 700,
+      "httpLaunch": 700,
+      "httpRequest": 500,
+      "grace": 150,
+      "failure": "first HTTP-normal leader-file read; ENOENT"
+    },
+    {
+      "case": 56,
+      "inactivity": 150,
+      "defaultAbsolute": 600,
+      "grace": 500,
+      "leaderExitDelay": 50,
+      "descendantOutputDelay": 225,
+      "actualStatus": null
+    }
+  ],
+  "retainedFixtureEvidence": "All five named scratch-prefix populations absent after their test-owned recursive cleanup. No per-child archived clock/publication evidence survives; retained TAP gives assertion values and case durations.",
+  "priorRC10": {
+    "result": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/unit-01/RESULT.json",
+      "bytes": 6777,
+      "sha256": "8ad8cc41bf49b86c92079f9105078cc1d01016013067672a0b17a3333cdb4624"
+    },
+    "reporter": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/unit-01/events.jsonl",
+      "bytes": 30099,
+      "sha256": "91d2bb488952ad33ad92c3463ba7ef7c5a6f6899bfdb36bb62e32c82043d7fe6"
+    },
+    "configuration": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/unit-01/REPORTER_CONFIGURATION.json",
+      "bytes": 2578,
+      "sha256": "a37239134f9a107a6d8235871e346f91fcfbd1299451423a2d46fd8949640963"
+    },
+    "command": {
+      "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/unit-01/commands/unit.result.json",
+      "bytes": 1199,
+      "sha256": "2312a308fc7d83c5d525cb4675a15ea7ec07b5a8413e884d16d4bba56ad6366b"
+    },
+    "counts": {
+      "tests": 95,
+      "pass": 89,
+      "skip": 6,
+      "fail": 0
+    },
+    "sameFiveCasesPassed": true,
+    "sameM5CasePopulation": 32,
+    "wallSeconds": 179.57180920800002,
+    "differences": "RC10 npm run test:unit with spec plus structured reporters and heap8192 in NODE_OPTIONS; RC11 direct pinned Node, explicit TAP, empty NODE_OPTIONS; distinct TMPDIR/locale/cache/host time. No baseline host-equivalence or causal inference."
+  },
+  "independentSourceAssurance": "Root delivered CLOSED independent source-assurance triage: exact m5 and worker_transport/owned_process_lifetime/worksite_command_helper match RC10/proof bytes; changed helper/leaf unreachable; sequential argv; absent failed-actor facts prevent attribution. This Root conjunction references that separately owned review; no fabricated reviewer-file pin.",
+  "selectedDiscriminator": "One whole unchanged m5 file at exact current build/env/flags, original internal clocks, prospective300s outer cap; on pass only original R6/F04A900s. No whole-unit repeat or source repair. Original red unit remains explicit and pack remains held."
+}

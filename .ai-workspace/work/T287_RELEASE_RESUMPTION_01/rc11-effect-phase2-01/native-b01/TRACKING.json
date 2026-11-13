@@ -1,0 +1,55 @@
+{
+  "status": "AUTHORIZED_IDLE_BOUNDARY_PREFIX_ONLY",
+  "files": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 193382,
+        "sha256": "d89dc35bbe5fb3eca8a05cc69f78014365e81832f2d6bc537742863570c033d8"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 194477,
+        "sha256": "8501483f401f06e2c52dfcd08bf83a9b47162146356e14834916a65144b754ac"
+      },
+      "prefixBytes": 1095,
+      "priorBodyPreserved": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 845017,
+        "sha256": "bf11dcf4410b05a257de4074a7c502cb919b33c1805d1d63cc2d29428005a49d"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 846112,
+        "sha256": "81ddd282f44c6175bcb6e566bc617d3df2e8e977d98b332fa2c1dbb812ff44e1"
+      },
+      "prefixBytes": 1095,
+      "priorBodyPreserved": true
+    }
+  ],
+  "indicesUnchanged": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29373151,
+      "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+      "bytes": 29655224,
+      "sha256": "bc07c7f9439cea13cbeb210beffb330ed9fc0950afa63c4d755741bc858c39eb"
+    }
+  ],
+  "heads": {
+    "/Users/jim/src/apps/abiogenesis": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+    "/private/tmp/abg-rc11-foundation-20261110-01": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+    "/private/tmp/abg-rc11-qualification-20261109": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/private/tmp/abg-r8-c2p-001/w/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs"
+  ],
+  "detached": true,
+  "timeoutMs": 30000,
+  "terminationGraceMs": 1000,
+  "modulePath": "/private/tmp/abg-r8-c2p-001/t/abi5-root-env-SCdtkL/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/owned_process_lifetime.js"
+}

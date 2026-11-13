@@ -1,0 +1,669 @@
+diff --git a/build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs b/build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs
+index f7d0823f6..6ae92b03d 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs
+@@ -53,11 +53,12 @@ export async function rootResolution(caller, { programRef, graphFunctionRef }, c
+ 
+ /** The canonical run.invoke start population of one Program's graph function over a factory-built input: the Product
+  * run owner resolves, constructs the policy and grants, and hands them to the factory before it admits the input. */
+-function populateStart(caller, root, program, factory) {
+-  const { product, abg } = caller.runtime, state = caller.state, { environment, admittedInstalls, workspaceBinding } = root;
++function populateStart(caller, environment, program, factory) {
++  const { product, abg } = caller.runtime, state = caller.state;
+   return product.populateProductRunInvocation({
+     selection: { memberKey: 'start', target: { kind: 'graph_function', handle: program.graphFunctionRef }, rootMode: 'direct', fhMode: 'direct' },
+-    programRef: program.programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [], admittedInstalls, workspaceBinding,
++    programRef: program.programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [],
++    admittedInstalls: environment.productInstalls, workspaceBinding: environment.workspaceBinding,
+     verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), actorRef: caller.actorRef,
+     input: { factory }, inputValueRef: 'input://abiogenesis/t287/qualification/' + caller.config.runId + '/population', source: { kind: 'none' },
+     transportResourceAssertion: caller.reopen() });
+@@ -97,25 +98,33 @@ export async function runEnvironmentResources(caller, root) {
+       operations: [...new Set(['read_context', ...declaration.accesses.map(a => a.operation)])].sort(), ...coordinates } });
+ }
+ 
+-/** The run.invoke start call of one Program's graph function over one input, through the shipped SDK constructor. */
+-export async function startCall(caller, program, input, { qualificationResources, label, cache }) {
++/** The run.invoke start call of one Program's graph function over one input, through the shipped SDK constructor. The
++ * canonical start population resolves the root and admits the input under the Program's input contract; its factory
++ * returns the explicit input and retains the resolution it observed, so no preliminary resolution runs. The population's
++ * input refusal is the inputAdmitted false result (as admitsInput); any other refusal stops the caller. A supplied cache
++ * has no use here. */
++export async function startCall(caller, program, input, { qualificationResources, label }) {
+   const { product, abg, api } = caller.runtime, state = caller.state, hash = product.sha256Canonical;
+-  const root = await rootResolution(caller, program, cache), { resolution, admittedInstalls, workspaceBinding, environment } = root;
+-  const inputAdmitted = admitsInput(caller, resolution, input);
+-  if (!inputAdmitted) return { root, inputAdmitted, call: null };
++  const environment = caller.refresh(), admittedInstalls = environment.productInstalls, workspaceBinding = environment.workspaceBinding;
++  let resolution = null;
++  const root = () => ({ environment, admittedInstalls, workspaceBinding, resolution });
+   const constructed = await api.constructInstalledStartCall({
+     selection: { memberKey: 'start', target: { kind: 'graph_function', handle: program.graphFunctionRef }, rootMode: 'direct', fhMode: 'direct' },
+     programRef: program.programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [], admittedInstalls, workspaceBinding,
+     verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), actorRef: caller.actorRef,
+-    input: { value: input }, inputValueRef: 'input://abiogenesis/t287/qualification/' + hash(input).slice(7), source: { kind: 'none' },
++    input: { factory: resolved => { resolution = resolved.resolution; return input; } },
++    inputValueRef: 'input://abiogenesis/t287/qualification/' + hash(input).slice(7), source: { kind: 'none' },
+     applicationResources: [], ...(qualificationResources === undefined ? {} : { qualificationResources }),
+-    runEnvironmentResources: ({ authority }) => runEnvironmentResources(caller, { ...root, authority }),
++    runEnvironmentResources: ({ authority }) => runEnvironmentResources(caller, { ...root(), authority }),
+     eventResource: caller.reopen(),
+     envelope: { definitionContractCoordinates: caller.native.verified.definitionContractCoordinates,
+       requestRef: 'request://abiogenesis/t287/qualification/' + caller.config.runId + '/' + label, correlationRef: 'correlation://abiogenesis/t287/qualification/' + caller.config.runId,
+       eventTime: new Date().toISOString(), provenanceRefs: [pathToFileURL(join(caller.root, 'run.json')).href] } });
+-  if (constructed.kind !== 'installed_start_call') throw new TypeError('start population of ' + program.programRef + ': ' + constructed.ownerOutput.value.code);
+-  return { root, inputAdmitted, call: constructed.call };
++  if (constructed.kind === 'installed_start_call') return { root: { ...root(), resolution: constructed.population.resolution }, inputAdmitted: true, call: constructed.call };
++  const refused = constructed.ownerOutput.value;
++  if (resolution !== null && refused.code === 'invalid_input' && refused.issuePaths.length === 1 && refused.issuePaths[0] === '/input')
++    return { root: root(), inputAdmitted: false, call: null };
++  throw new TypeError('start population of ' + program.programRef + ': ' + refused.code);
+ }
+ 
+ /** The in-process admission of one start call by the installed run invocation preparation (no dispatch, no event). */
+@@ -137,13 +146,16 @@ export async function admitCall(caller, call) {
+  * commands, predicates and write territories, and the C2 Program's root invocation grant. The canonical start
+  * population constructs that grant and hands it to the task factory; the population is not dispatched. */
+ export async function observedC2Task(caller, q, c2, declared, ambient) {
+-  const root = await rootResolution(caller, PROGRAMS.c2);
+-  let task;
+-  const population = await populateStart(caller, root, PROGRAMS.c2, ({ workspaceBinding, grants }) =>
+-    task = q.product.constructObservedWorksiteCommandExecutionTask({ workspaceAuthorityBasis: root.environment.workspaceAuthorityBasis,
++  const environment = caller.refresh();
++  let task, resolution = null;
++  const population = await populateStart(caller, environment, PROGRAMS.c2, ({ resolution: resolved, workspaceBinding, grants }) => {
++    resolution = resolved;
++    return task = q.product.constructObservedWorksiteCommandExecutionTask({ workspaceAuthorityBasis: environment.workspaceAuthorityBasis,
+       workspaceBinding, capabilityGrant: grants[0], observedFiles: c2.subjects.map((subject, n) => ({ subject, observation: c2.observations[n] })),
+-      commands: commandInput(declared), outcomePredicates: declared.outcomePredicates, allowedWriteTerritories: declared.allowedWriteTerritories }, ambient));
++      commands: commandInput(declared), outcomePredicates: declared.outcomePredicates, allowedWriteTerritories: declared.allowedWriteTerritories }, ambient);
++  });
+   if (task === undefined) throw new TypeError('the C2 start population refused before its task: ' + JSON.stringify(population.ownerOutput?.value ?? population.kind));
++  const root = { environment, admittedInstalls: environment.productInstalls, workspaceBinding: environment.workspaceBinding, resolution };
+   return { task, root, observed: q.deep.c2.isObservedWorksiteCommandExecutionTask(task) };
+ }
+ 
+diff --git a/build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs b/build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs
+index 0698a79f8..8d6a3faef 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs
+@@ -4,7 +4,7 @@ import { chmod, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+ import { basename, dirname, join, resolve } from "node:path";
+ import { pathToFileURL } from "node:url";
+ import { promisify } from "node:util";
+-import { prepareStdoNoteProduct, pilotResources, stdoInstallsSkip } from "./stdo-environment-pilot.mjs";
++import { prepareStdoNoteProduct, stdoInstallsSkip } from "./stdo-environment-pilot.mjs";
+ export { stdoInstallsSkip };
+ import { constructInstalledPublicDefinitionCall } from "./installed-public-definition-call.mjs";
+ import { expectedVerificationIdentity } from "./candidate-basis.mjs";
+@@ -489,13 +489,9 @@ export async function setupTestingInvocation({ packageRoot, scratch, inputRoot,
+         provenanceRefs: ["provenance://declared-testing.example/proof"] } });
+     assert.equal(constructed.kind, "installed_start_call", constructed.kind === "installed_start_call" ? "" : JSON.stringify(constructed));
+     const input = constructed.call.invocation.request.input.value;
+-    let call = constructed.call;
+-    if (program.policies["abg.stdo_run_environment"] !== undefined && !missingEnvironment) {
+-      // The pilot's run-environment resource stays explicit test data on the constructed call.
+-      const temporaryRoot = join(binding.roots.archiveRoot, "stdo-access-support"); await mkdir(temporaryRoot, { recursive: true });
+-      call = { invocation: call.invocation, resources: { ...call.resources,
+-        stdoEnvironmentResources: pilotResources(product, fixture.env, constructed.population.authority, program, await realpath(temporaryRoot)) } };
+-    }
++    // The canonical constructed call is dispatched unchanged; the legacy RC7
++    // pilot environment population is deferred (T287-HC2-LEGACY-STDO-PILOT-01).
++    const call = constructed.call;
+     const native = program.policies["abg.stdo_run_environment"] !== undefined && !missingEnvironment;
+     if (native) assert.equal(typeof transport, executionConfig.live ? "undefined" : "string",
+       "mechanical mode requires a disclosed double; live mode forbids one");
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs
+index 60eee2fc8..9f40a4207 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs
+@@ -535,6 +535,12 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
+   const crossed=await cli('crossed',pending.replay('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}));
+   assert.equal(crossed.ownerOutput.outcomeKind,'refusal');assert.equal(crossed.ownerOutput.value.code,'response_mismatch');assert.deepEqual(crossed.ownerOutput.value.issuePaths,['/pendingCursor']);
+   assert.equal(storeOwnerRead().length,before,'a refused crossed request admits nothing');
++  // The pending execution is Run-scoped: a Run that does not hold it, or its Run under another digest, is refused.
++  for(const [name,run,code,path] of [['wrong-run',{ref:`${runId}/absent`,digest:zero},'missing_continuation','/continuation'],['wrong-run-digest',{ref:runId,digest:zero},'basis_mismatch','/run']]){
++    const out=await cli(name,pending.replay(name,{run}));
++    assert.equal(out.ownerOutput.outcomeKind,'refusal',name);assert.equal(out.ownerOutput.value.code,code,name);assert.deepEqual(out.ownerOutput.value.issuePaths,[path],name);
++    assert.equal(storeOwnerRead().length,before,`${name} admits nothing`);
++  }
+   const continueCall=await pending.call('continue');
+   const continued=await cli('continue',continueCall);
+   assert.equal(continued.ownerOutput.outcomeKind,'result',JSON.stringify(continued.ownerOutput));
+@@ -568,6 +574,32 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
+     const read=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:`pending-${memberKey}`,acquisition:{kind:'reopen',closeHandoff:handoff},call:readCall,expectedExitCode:null});
+     assert.equal(read.output.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(read.output).slice(0,4000));reads[memberKey]=read.output.receipt.ownerOutput.value;
+   }
++  // An actual closed child GraphCall of this Run, neither its root GraphCall nor a missing Run: its typed
++  // Result reads only under the historical declaration proof; omitting the proof refuses. Neither read appends.
++  const graphCalls=final.filter(e=>e.kind==='graph_call_opened'),roots=graphCalls.filter(e=>e.payload.parentFrameId===undefined).map(e=>e.graphCallId);
++  assert.ok(roots.length>0,'the Run opened its root GraphCall');
++  const child=graphCalls.find(e=>e.payload.parentFrameId!==undefined&&final.some(c=>c.kind==='graph_call_closed'&&c.graphCallId===e.graphCallId));
++  assert.ok(child&&!roots.includes(child.graphCallId),'a closed child GraphCall, not the root GraphCall');
++  const declarationProof={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:env.catalog,catalogView:env.catalogView};
++  const childRead=async(identity,proof)=>{
++    const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};
++    const constructed=publicApi.constructInstalledRunReadCall({memberKey:'graph_call_result',
++      workspaceBinding:{ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest},sourceRef:child.graphCallId,selector:{kind:'none'},eventResource,
++      ...(proof===undefined?{}:{declarationProof:proof}),
++      envelope:{definitionContractCoordinates:env.verified.definitionContractCoordinates,requestRef:`public-request://pending-execution-public/${identity}`,
++        correlationRef:`correlation://pending-execution-public/${identity}`,eventTime:'2026-11-02T00:02:00.000Z',provenanceRefs:[ref('provenance','fixture')]}});
++    assert.equal(constructed.kind,'installed_run_read_call',JSON.stringify(constructed));
++    assert.equal(constructed.population.source.ref,child.graphCallId);
++    assert.equal(Object.hasOwn(constructed.call.resources,'declarationProof'),proof!==undefined);
++    return cli(identity,constructed.call);
++  };
++  const beforeChildReads=storeOwnerRead().length;
++  const proved=await childRead('child-graph-call-proof',declarationProof);
++  assert.equal(proved.ownerOutput.outcomeKind,'result',JSON.stringify(proved.ownerOutput).slice(0,4000));
++  assert.deepEqual([proved.ownerOutput.value.projection.terminalResult.producer.runRef,proved.ownerOutput.value.projection.terminalResult.producer.graphCallRef],[runId,child.graphCallId]);
++  const omitted=await childRead('child-graph-call-omitted-proof');
++  assert.equal(omitted.ownerOutput.outcomeKind,'refusal');assert.equal(omitted.ownerOutput.value.code,'projection_basis_mismatch');assert.deepEqual(omitted.ownerOutput.value.issuePaths,[]);
++  assert.equal(storeOwnerRead().length,beforeChildReads,'child GraphCall reads append zero events');
+   t.diagnostic(JSON.stringify({runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),eventsBefore:interruptedEvents.length,eventsAfter:storeOwnerRead().length,
+     replay:continued.ownerOutput.value.replay,proofLimit:'Cold reopen through the installed Public CLI pending_execution arm over the generic recursion fixture; not the default-library pending-Testing topology; not Root installed fresh-process witness.'}));
+ });
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs
+index 31fdb2891..25a2138dd 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs
+@@ -10,6 +10,10 @@ import * as Effect from "effect/Effect";
+ 
+ import { prepareLanguageSmokeFixture } from
+   "../support/language-smoke-fixture.mjs";
++import { prepareDeveloperMiniProduct } from
++  "../support/developer-mini-product.mjs";
++import * as qualification from "../qualification/dispatch.mjs";
++import { installedModules, publicCaller } from "../uat/public-setup.mjs";
+ import { constructInstalledPublicDefinitionCall } from
+   "../support/installed-public-definition-call.mjs";
+ import {
+@@ -2100,3 +2104,242 @@ test("ST-1 executes an independently authored minimal GTL test through installed
+     "SDK: shipped constructors populate 1 direct invoke, 1 graph_function start, 6 run reads and 1 invalid_target asset start, 0 read bytes",
+   );
+ });
++
++// The unchanged developer mini Product: one installed setup and two explicit
++// STARTs. Its ticket graph_function START goes through the qualification
++// wrapper; its published greeting asset START through the shipped factory.
++// Neither patches a target or writes a fixture, publication or asset.
++test("ST-1 starts the developer mini Product's graph_function and published asset targets through installed owners", async (context) => {
++  const environment = await setupInstalledRootCatalog(context, packageRoot, {
++    candidateBasisSource: "packed_artifact",
++    workspaceProductIndex: 1,
++    prepareAdditionalProducts: async ({ scratch }) => {
++      const prepared = await prepareDeveloperMiniProduct(packageRoot, scratch);
++      prepared.loadInstalledPublication = async ({ installedRoot, verified }) => {
++        const module = await import(
++          pathToFileURL(join(installedRoot, "build/index.js")).href
++        );
++        return module.constructDeveloperMiniPublication({
++          productId: verified.productId,
++          artifactDigest: verified.artifactDigest,
++          productContentDigest: verified.productContentDigest,
++          productManifestDigest: verified.manifestDigest,
++          packageName: verified.packageName,
++          packageVersion: verified.packageVersion,
++        });
++      };
++      return [prepared];
++    },
++  });
++  const {
++    product,
++    abg,
++    catalog,
++    admittedInstalls,
++    workspaceBinding,
++    additionalProducts: [miniProduct],
++  } = environment;
++  const ids = miniProduct.ids;
++  const catalogView = product.narrowGraphFunctionCatalog(
++    catalog,
++    [ids.graphFunctionRef, ids.ticketGraphFunctionRef],
++  );
++  assert.equal(
++    catalogView.kind,
++    "graph_function_catalog_view",
++    JSON.stringify(catalogView),
++  );
++  const runtime = await installedModules(environment.installedRoot);
++  const publicApi = runtime.api;
++  const caller = publicCaller({
++    root: environment.scratch,
++    runtime,
++    native: { verified: environment.verified },
++    command: () => {
++      throw new Error("no provider dispatch");
++    },
++    record: async () => {},
++    config: { runId: "st-1-developer-mini" },
++    actorRef: workspaceBinding.authorizedActorRef,
++  });
++  caller.installedRoot = environment.installedRoot;
++  Object.assign(caller.state, {
++    binding: {
++      ref: workspaceBinding.bindingId,
++      digest: workspaceBinding.bindingDigest,
++    },
++    resolvedLock: environment.lock,
++    catalog,
++    catalogView,
++    closeHandoff: environment.store.projectReopenAuthorityAndClose(),
++  });
++  const dispatch = async (identity, call) => {
++    const before = caller.state.closeHandoff;
++    const outcome = await publicApi.runInstalledDefinitionCallTransport(
++      Object.freeze({ kind: "reopen", closeHandoff: before }),
++      call,
++    );
++    assert.equal(
++      outcome.kind,
++      "installed_definition_call_transport_result",
++      `${identity} ${JSON.stringify(outcome).slice(0, 4000)}`,
++    );
++    const { receipt } = outcome;
++    assert.equal(
++      receipt.ownerOutput.outcomeKind,
++      "result",
++      `${identity} ${JSON.stringify(receipt.ownerOutput).slice(0, 4000)}`,
++    );
++    assert.equal(receipt.ownerOutput.value.disposition, "completed", identity);
++    caller.state.closeHandoff = receipt.resources.eventResource.closeHandoff;
++    const run = receipt.resources.run;
++    assert.ok(run, `${identity} admits a Run`);
++    assert.deepEqual(
++      abg.readRuntimeEventsAtDurablePrefix(caller.state.closeHandoff.prefix)
++        .filter((event) =>
++          event.kind === "graph_call_opened" && event.runId === run.ref
++        )
++        .map((event) => event.graphCallId),
++      [receipt.ownerOutput.value.graphCall.ref],
++      `${identity} Run opens exactly its result GraphCall`,
++    );
++    return receipt;
++  };
++
++  // The qualification wrapper's input refusal comes from the canonical
++  // population, retains the resolution it observed and appends zero bytes.
++  const ticketProgram = Object.freeze({
++    programRef: ids.ticketProgramRef,
++    graphFunctionRef: ids.ticketGraphFunctionRef,
++  });
++  const ticketInput = Object.freeze({
++    kind: "developer_ticket_work_input",
++    schemaVersion,
++    ticketRef: "ticket://abi5-tests/st-1/developer-mini",
++    requestedOutcome: "preserve the declared ticket outcome",
++  });
++  const refusedLogBytes = await readFile(
++    new URL(caller.state.closeHandoff.prefix.eventLogRef),
++  );
++  const refusedInput = Object.freeze({ ...ticketInput, requestedOutcome: "" });
++  const refusedStart = await qualification.startCall(
++    caller,
++    ticketProgram,
++    refusedInput,
++    { label: "developer-mini-ticket-refused" },
++  );
++  assert.equal(refusedStart.inputAdmitted, false);
++  assert.equal(refusedStart.call, null);
++  assert.equal(
++    refusedStart.root.resolution.resolution.programRef,
++    ids.ticketProgramRef,
++  );
++  assert.equal(
++    qualification.admitsInput(caller, refusedStart.root.resolution, refusedInput),
++    false,
++  );
++  assert.equal(
++    Buffer.compare(
++      await readFile(new URL(caller.state.closeHandoff.prefix.eventLogRef)),
++      refusedLogBytes,
++    ),
++    0,
++    "a refused qualification input appends zero bytes",
++  );
++
++  const ticketStart = await qualification.startCall(
++    caller,
++    ticketProgram,
++    ticketInput,
++    { label: "developer-mini-ticket" },
++  );
++  assert.equal(ticketStart.inputAdmitted, true);
++  assert.equal(
++    ticketStart.root.resolution.resolution.programRef,
++    ids.ticketProgramRef,
++  );
++  assert.equal(
++    qualification.admitsInput(caller, ticketStart.root.resolution, ticketInput),
++    true,
++  );
++  assert.deepEqual(ticketStart.call.invocation.definitionKey, {
++    operationId,
++    memberKey: "start",
++  });
++  assert.deepEqual(ticketStart.call.invocation.request.target, {
++    kind: "graph_function",
++    handle: ids.ticketGraphFunctionRef,
++  });
++  assert.deepEqual(ticketStart.call.invocation.request.input.value, ticketInput);
++  assert.ok(
++    ticketStart.call.invocation.invocationAuthority.slots.graph_function,
++    "a graph_function start carries its GraphFunction slot",
++  );
++  const ticketReceipt = await dispatch("ticket", ticketStart.call);
++  assert.deepEqual(ticketReceipt.ownerOutput.value.terminalResult.value, {
++    kind: "developer_ticket_work_output",
++    schemaVersion,
++    ticketRef: ticketInput.ticketRef,
++    disposition: "completed",
++    summary: `Completed: ${ticketInput.requestedOutcome}`,
++  });
++
++  // The published asset target is the Program's own predeclared handle.
++  const assetTarget = Object.freeze({
++    kind: "asset",
++    handle: ids.greetingAssetHandle,
++  });
++  const greetingInput = Object.freeze({
++    kind: "developer_greeting_input",
++    schemaVersion,
++    name: "ST1",
++  });
++  const assetStart = await publicApi.constructInstalledStartCall({
++    selection: Object.freeze({
++      memberKey: "start",
++      target: assetTarget,
++      rootMode: "direct",
++      fhMode: "direct",
++    }),
++    programRef: ids.programRef,
++    catalog,
++    catalogView,
++    applications: Object.freeze([]),
++    admittedInstalls,
++    workspaceBinding,
++    verifyInstallAdmission: (install) =>
++      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
++    actorRef: workspaceBinding.authorizedActorRef,
++    input: Object.freeze({ value: greetingInput }),
++    inputValueRef: "value://abi5-tests/st-1-developer-mini/greeting-input",
++    source: Object.freeze({ kind: "none" }),
++    eventResource: reopenedReadResource(product, caller.state.closeHandoff),
++    envelope: Object.freeze({
++      definitionContractCoordinates:
++        environment.verified.definitionContractCoordinates,
++      requestRef: "public-request://abi5-tests/st-1-developer-mini/asset-start",
++      correlationRef: "correlation://abi5-tests/st-1-developer-mini/asset-start",
++      eventTime: "2026-08-24T00:00:00.000Z",
++      provenanceRefs: ["provenance://abi5-tests/st-1-developer-mini-worker"],
++    }),
++  });
++  if (assetStart.kind !== "installed_start_call") {
++    assert.fail(JSON.stringify(assetStart));
++  }
++  assert.deepEqual(assetStart.call.invocation.request.target, assetTarget);
++  assert.equal(assetStart.population.resolution.resolution.programRef, ids.programRef);
++  assert.equal(
++    assetStart.call.invocation.invocationAuthority.slots.graph_function,
++    null,
++    "an asset start carries no GraphFunction slot",
++  );
++  const assetReceipt = await dispatch("asset", assetStart.call);
++  assert.notEqual(assetReceipt.resources.run.ref, ticketReceipt.resources.run.ref);
++  assert.equal(
++    assetReceipt.ownerOutput.value.terminalResult.value.message,
++    "Welcome ST1.",
++  );
++  context.diagnostic(
++    "ST-1 developer mini: 1 installed setup, 1 qualification graph_function START with 1 zero-byte input refusal, 1 shipped-factory published asset START",
++  );
++});
+diff --git a/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs b/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
+index f058bd88f..ea8363a68 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
+@@ -661,34 +661,49 @@ test('Caller run-environment support is canonical, strictly contained and admitt
+   const graphFunctions=[...publication.graphFunctions,...gtl.constructNativeWorkspaceWorkModulePublication(artifact).graphFunctions,
+     ...gtl.constructWorksiteCommandExecutionModulePublication(artifact).graphFunctions];
+   const actorRef='actor://controlled/uat-caller',authority={actorRef,authorityRef:'authority://controlled/uat-caller',authorityDigest:hash('controlled-authority')};
+-  const packet=product.RUN_OPERATION_CONTRACTS.invoke.start;
+-  // Resolution, authority and Public transport are controlled premises. The
++  const coordinates={operations:[]},workspaceBinding={roots:{archiveRoot}},resolution={kind:'loaded_product_execution_resolution',program};
++  // Population, authority and Public transport are controlled premises. The
+   // actual caller, canonical resources constructor and containment owner run.
+-  let supplied;
++  let supplied,population=null;
+   const caller={root:scratch,installedRoot:fileURLToPath(new URL('../../',import.meta.url)),actorRef,config:{runId:'controlled-environment'},
+-    state:{binding:{ref:'binding://controlled',digest:hash('binding')},resolvedLock:{lockId:'lock://controlled',lockDigest:hash('lock')},
+-      catalog:{basisDigest:hash('catalog'),boundPublications:[publication]},catalogView:{viewDigest:hash('view'),allowlist:[IDS.graphFunctionRef]}},
+-    native:{verified:{definitionContractCoordinates:{operations:[{operationId:packet.definitionKey.operationId,
+-      members:[{memberKey:packet.definitionKey.memberKey,slots:{request:{contractCatalog:null}}}]}]}}},
+-    runtime:{product:{...product,
+-      ProductExecutionResolutionPort:{async resolve(){return {kind:'loaded_product_execution_resolution',productSemantics:null,program,
+-        programValidation:{executableLeafRows:[]},selectedCatalogEntry:null,
+-        resolution:{inputContract:{contractRef:'contract://controlled/input'},inputContractDigest:hash('input-contract'),
+-          programRef:program.programRef,programDigest:hash(program)}};}},
+-      admitInstalledProductInput:()=>true,
+-      constructRootInvocationPolicy:()=>({policyRef:'policy://controlled',policyDigest:hash('policy')}),
+-      constructCapabilityGrant:()=>({grantRef:'grant://controlled',grantDigest:hash('grant')}),
+-      constructInvocationAuthority:()=>authority},
+-      abg:{hasAdmittedProductInstall:()=>true},api:{constructInstalledPublicDefinitionCall(value){supplied=value;return value;}}},
+-    refresh:()=>({productInstalls:[],workspaceBinding:{roots:{archiveRoot}}}),reopen:()=>({kind:'controlled-event-resource'})};
+-  await constructLifecycleCall(caller,{kind:'controlled-input'});
+-  assert.deepEqual(supplied.request.sourceBasis,{kind:'none'});
+-  assert.deepEqual(supplied.resources.source,{kind:'none'});
+-  const resources=supplied.resources.runEnvironmentResources,temporaryRoot=resources.temporaryRoot;
++    state:{catalog:{basisDigest:hash('catalog'),boundPublications:[publication]},catalogView:{viewDigest:hash('view'),allowlist:[IDS.graphFunctionRef]}},
++    native:{verified:{definitionContractCoordinates:coordinates}},
++    runtime:{product,abg:{hasAdmittedProductInstall:()=>true},api:{async constructInstalledStartCall(value){
++      supplied=value;if(population)return population;
++      const runEnvironmentResources=await value.runEnvironmentResources({authority,program,workspaceBinding:value.workspaceBinding});
++      return {kind:'installed_start_call',population:{resolution},call:{invocation:{request:{sourceBasis:{kind:'none'}}},
++        resources:{kind:'run_invocation_resource_assertion',source:{kind:'none'},runEnvironmentResources}}};
++    }}},
++    refresh:()=>({productInstalls:[],workspaceBinding}),reopen:()=>({kind:'controlled-event-resource'})};
++  // A population refusal is preserved before any support root exists.
++  population={kind:'product_run_invocation_preparation_refusal',memberKey:'start',
++    ownerOutput:{outcomeKind:'refusal',value:{code:'invalid_input',issuePaths:['/input'],evidenceRefs:[]}}};
++  await assert.rejects(constructLifecycleCall(caller,{kind:'controlled-input'}),error=>{
++    assert.equal(error.stage,'lifecycle-input-admission');assert.deepEqual(error.observation,population.ownerOutput);return true;
++  });
++  await assert.rejects(stat(join(archiveRoot,'run-environment-support')),{code:'ENOENT'});
++  population=null;
++  const prepared=await constructLifecycleCall(caller,{kind:'controlled-input'});
++  assert.deepEqual(supplied.selection,{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'});
++  assert.equal(supplied.programRef,IDS.programRef);assert.equal(supplied.actorRef,actorRef);
++  assert.equal(supplied.catalog,caller.state.catalog);assert.equal(supplied.catalogView,caller.state.catalogView);
++  assert.deepEqual(supplied.applications,[]);assert.deepEqual(supplied.admittedInstalls,[]);assert.equal(supplied.workspaceBinding,workspaceBinding);
++  assert.equal(typeof supplied.verifyInstallAdmission,'function');
++  assert.deepEqual(supplied.input,{value:{kind:'controlled-input'}});
++  assert.equal(supplied.inputValueRef,'value://abi5-tests/sandbox-uat/controlled-environment/input');
++  assert.deepEqual(supplied.source,{kind:'none'});assert.deepEqual(supplied.eventResource,{kind:'controlled-event-resource'});
++  assert.equal(supplied.envelope.definitionContractCoordinates,coordinates);
++  assert.equal(supplied.envelope.requestRef,'request://abi5-tests/sandbox-uat/controlled-environment/start');
++  assert.equal(supplied.envelope.correlationRef,'correlation://abi5-tests/sandbox-uat/controlled-environment');
++  assert.equal(prepared.resolution,resolution);
++  assert.deepEqual(prepared.call.invocation.request.sourceBasis,{kind:'none'});
++  assert.deepEqual(prepared.call.resources.source,{kind:'none'});
++  const resources=prepared.call.resources.runEnvironmentResources,temporaryRoot=resources.temporaryRoot;
+   assert.notEqual(temporaryRoot,archiveRoot);
+   assert.equal(temporaryRoot,await realpath(join(archiveRoot,'run-environment-support')));
+   assert.equal((await stat(temporaryRoot)).isDirectory(),true);
+   assert.equal(resources.permission.temporaryRoot,temporaryRoot);
++  assert.equal(resources.permission.authorityRef,authority.authorityRef);assert.equal(resources.permission.authorityDigest,authority.authorityDigest);
+   const input={publication,program,graphFunctions,authority,archiveRoot,resources};
+   assert.equal((await product.observeRunEnvironment(input)).kind,'run_environment_observed');
+   for(const forbiddenRoot of [archiveRoot,scratch]) {
+@@ -717,15 +732,18 @@ test('Admitted failed and blocked Runs retain both fresh reads and unchanged eve
+   for(const status of ['failed','blocked']) {
+     const eventPath=join(scratch,status+'.events.jsonl'),bytes=Buffer.from('controlled admitted '+status+' Run premise\n');
+     await writeFile(eventPath,bytes,{flag:'wx'});
+-    const prefix={eventLogRef:pathToFileURL(eventPath).href,coordinateDigest:hash(status)},calls=[];
+-    // Run admission and Public projection are controlled premises. The actual
+-    // two-read caller uses canonical read packets and checks physical bytes.
++    const prefix={eventLogRef:pathToFileURL(eventPath).href,coordinateDigest:hash(status)},calls=[],constructed=[];
++    const run={ref:'run://controlled/'+status,digest:hash(status)},coordinates={operations:[]};
++    let population=null;
++    // Run admission, read population and Public projection are controlled
++    // premises. The actual two-read caller checks source and physical bytes.
+     const caller={root:scratch,installedRoot:'/controlled/installed',actorRef:'actor://controlled/readback',config:{runId:status},
+-      state:{binding:{ref:'binding://controlled',digest:hash('binding')},closeHandoff:{prefix}},native:{verified:{definitionContractCoordinates:null}},contractCatalog:null,
+-      runtime:{product:{...product,constructCapabilityGrant:()=>({grantRef:'grant://controlled',grantDigest:hash('grant')})},abg,
+-        api:{constructInstalledPublicDefinitionCall:value=>value}},
+-      refresh:()=>({workspaceAuthorityBasis:null,productInstalls:[],workspaceBinding:{lockId:'lock://controlled',lockDigest:hash('lock')}}),
+-      reopen:()=>({kind:'controlled-event-resource'}),
++      state:{binding:{ref:'binding://controlled',digest:hash('binding')},closeHandoff:{prefix}},native:{verified:{definitionContractCoordinates:coordinates}},
++      runtime:{product,abg,api:{constructInstalledRunReadCall(input){
++        constructed.push(input);
++        return population??{kind:'installed_run_read_call',call:{controlled:input.memberKey},population:{source:{ref:run.ref,digest:run.digest}}};
++      }}},
++      refresh:()=>({}),reopen:()=>({kind:'controlled-event-resource'}),
+       async invoke(memberKey,call){
+         calls.push({memberKey,call});
+         return {receipt:{ownerOutput:memberKey==='run_result'?{outcomeKind:'refusal',value:{code:'absent_terminal_result'}}:
+@@ -733,14 +751,24 @@ test('Admitted failed and blocked Runs retain both fresh reads and unchanged eve
+       }};
+     const ownerOutput=status==='failed'?{outcomeKind:'refusal',value:{code:'controlled_failure'}}:
+       {outcomeKind:'result',value:{kind:'governance_work_state',terminal:false}};
+-    const run={ref:'run://controlled/'+status,digest:hash(status)};
+     const execution={receipt:{exitCode:1,resources:{run},ownerOutput},call:{invocation:{invocationAuthority:{slots:{}}}}};
+     const reads=await freshReadbacks(caller,execution);
+     assert.deepEqual(calls.map(row=>row.memberKey),['run_result','run_replay']);
+     assert.equal(reads.length,2);assert.equal(reads[0].ownerOutput.outcomeKind,'refusal');assert.equal(reads[1].projection.status,status);
+-    for(const {memberKey,call}of calls) {
+-      assert.equal(call.operationId,abg.ABG_PROJECT_READ_CONTRACTS[memberKey].definitionKey.operationId);
+-      assert.deepEqual(call.request.source,{sourceKind:'run',sourceRef:run.ref,sourceDigest:run.digest});
++    assert.deepEqual(constructed.map(row=>row.memberKey),['run_result','run_replay']);
++    for(const [i,input] of constructed.entries()) {
++      assert.equal(input.workspaceBinding,caller.state.binding);assert.equal(input.sourceRef,run.ref);
++      assert.deepEqual(input.selector,input.memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'});
++      assert.deepEqual(input.eventResource,{kind:'controlled-event-resource'});assert.equal(input.envelope.definitionContractCoordinates,coordinates);
++      assert.equal(input.envelope.requestRef,'request://abi5-tests/sandbox-uat/'+status+'/'+input.memberKey);
++      assert.deepEqual(calls[i].call,{controlled:input.memberKey});
++    }
++    // A population refusal or a foreign source dispatches no read.
++    for(const [refused,stage] of [[{kind:'run_read_population_refusal',code:'unknown_source',issuePath:'/source/sourceRef'},'run_result-read-population'],
++      [{kind:'installed_run_read_call',call:{controlled:'foreign'},population:{source:{ref:run.ref,digest:hash('foreign')}}},'run_result-read-source']]) {
++      population=refused;calls.length=0;
++      await assert.rejects(freshReadbacks(caller,execution),error=>error.stage===stage);
++      assert.deepEqual(calls,[]);
+     }
+     assert.deepEqual(await readFile(eventPath),bytes);assert.deepEqual(caller.state.closeHandoff.prefix,prefix);
+   }
+diff --git a/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs b/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs
+index 79b37df0e..02827a609 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs
+@@ -235,46 +235,33 @@ export async function populateSandbox(caller) {
+ }
+ 
+ export async function constructLifecycleCall(caller,input) {
+-  const {runtime,state,native,actorRef}=caller,{product,abg,api}=runtime,hash=product.sha256Canonical;
++  const {runtime,state,native,actorRef,config}=caller,{product,abg,api}=runtime,hash=product.sha256Canonical;
+   const environment=caller.refresh(),admittedInstalls=environment.productInstalls,workspaceBinding=environment.workspaceBinding;
+-  const resolution=requireKind(await product.ProductExecutionResolutionPort.resolve({catalog:state.catalog,catalogView:state.catalogView,admittedInstalls,
+-    verifyInstallAdmission:install=>abg.hasAdmittedProductInstall(environment.artifactTruth,install),programRef:IDS.programRef,
+-    selection:{kind:'start',scope:'program',target:'next',until:'converged',rootMode:'direct'}}),'loaded_product_execution_resolution','default-library-resolution');
+-  if(!product.admitInstalledProductInput(resolution.productSemantics,resolution.resolution.inputContract.contractRef,input))throw new BoundaryFailure('lifecycle-input-admission',input.kind);
+-  const fixedPacket=product.RUN_OPERATION_CONTRACTS.invoke.start;
+-  const regimes=new Set(resolution.programValidation.executableLeafRows.map(row=>row.fibre));
+-  const policy=product.constructRootInvocationPolicy(workspaceBinding,resolution.program,[],['F_D','F_P','F_H'].filter(regime=>regimes.has(regime)),[]);
+-  const grants=[product.constructCapabilityGrant(policy,actorRef,fixedPacket.definitionKey.operationId,product.DIRECT_INVOKE_CAPABILITY,{admittedInstalls,workspaceBinding,fixedPacket})];
+-  const authority=product.constructInvocationAuthority(actorRef,workspaceBinding,state.catalogView,IDS.programRef,resolution.selectedCatalogEntry,policy,grants,{admittedInstalls,workspaceBinding,fixedPacket});
+-  const boundInput={contract:{ref:resolution.resolution.inputContract.contractRef,digest:resolution.resolution.inputContractDigest},
+-    valueRef:'value://abi5-tests/sandbox-uat/'+caller.config.runId+'/input',valueDigest:hash(input),value:input};
+-  const program={ref:resolution.resolution.programRef,digest:resolution.resolution.programDigest},
+-    view={ref:'graph-function-catalog-view://abiogenesis/'+state.catalogView.viewDigest.slice(7),digest:state.catalogView.viewDigest};
+-  const eventResource=caller.reopen(),steering=hash(eventResource),lock={ref:state.resolvedLock.lockId,digest:state.resolvedLock.lockDigest};
+-  const request={program,scope:'program',target:{kind:'next'},until:'converged',catalogView:view,allowlist:[...state.catalogView.allowlist],
+-    input:boundInput,fhMode:'direct',rootMode:'direct',sourceBasis:{kind:'none'}};
+-  const slots={...emptyAuthoritySlots(),workspace_binding:state.binding,product_set:admittedInstalls.map(product.productInstallCoordinate),dependency_lock:lock,
+-    catalog_scope:{catalog:{ref:'graph-function-catalog://abiogenesis/'+state.catalog.basisDigest.slice(7),digest:state.catalog.basisDigest},view,allowlist:request.allowlist},
+-    execution_program:program,input_contract:boundInput,session_policy:{ref:policy.policyRef,digest:policy.policyDigest},
+-    capability_grants:{requiredCapabilityRefs:[...fixedPacket.metadata.capabilityRefs],grants:grants.map(grant=>({ref:grant.grantRef,digest:grant.grantDigest}))},
+-    actor:{actor:{ref:actorRef,digest:hash({actorRef})},attribution:{ref:authority.authorityRef,digest:authority.authorityDigest}},
+-    transport_steering:{ref:'transport-steering://abiogenesis/'+steering.slice(7),digest:steering}};
+   const declaration=state.catalog.boundPublications.find(value=>value.moduleRef===IDS.moduleRef)?.runEnvironments[0];
+   if(!declaration)throw new BoundaryFailure('default-library-environment','missing declaration');
+-  const supportRoot=join(workspaceBinding.roots.archiveRoot,'run-environment-support');
+-  await mkdir(supportRoot,{recursive:true});
+-  const temporaryRoot=await realpath(supportRoot);
+-  const dependencyRoot=await realpath(join(caller.installedRoot,'contracts/default-library/stdo'));
+-  const dependencies=declaration.dependencies.map(dependency=>({dependencyRef:dependency.dependencyRef,root:dependencyRoot,recordPath:join(dependencyRoot,'context.inventory.json')}));
+-  const coordinates={dependencies,pythonPath:null,temporaryRoot};
+-  const runEnvironmentResources=product.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:version,...coordinates,
+-    permission:{authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,actorRef,programRef:IDS.programRef,
+-      environmentRef:declaration.declarationRef,environmentDigest:hash(declaration),operations:['read_context'],...coordinates}});
+-  const contractCatalog=native.verified.definitionContractCoordinates.operations.find(value=>value.operationId===fixedPacket.definitionKey.operationId).members.find(value=>value.memberKey==='start').slots.request.contractCatalog;
+-  const call=api.constructInstalledPublicDefinitionCall({product,installedPublic:api,definitionContractCoordinates:native.verified.definitionContractCoordinates,contractCatalog,
+-    ...fixedPacket.definitionKey,request,slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:version,eventResource,
+-      catalog:state.catalog,catalogView:state.catalogView,applications:[],source:{kind:'none'},runEnvironmentResources},
+-    requestRef:'request://abi5-tests/sandbox-uat/'+caller.config.runId+'/start',correlationRef:'correlation://abi5-tests/sandbox-uat/'+caller.config.runId,
+-    eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(caller.root,'run.json')).href]});
+-  return {call,resolution};
++  const namespace='abi5-tests/sandbox-uat/'+config.runId;
++  // The shipped run owner populates request, slots, policy, grants and
++  // authority; the scenario input and run-environment support stay explicit.
++  const constructed=await api.constructInstalledStartCall({
++    selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},
++    programRef:IDS.programRef,catalog:state.catalog,catalogView:state.catalogView,applications:[],admittedInstalls,workspaceBinding,
++    verifyInstallAdmission:install=>abg.hasAdmittedProductInstall(environment.artifactTruth,install),actorRef,
++    input:{value:input},inputValueRef:'value://'+namespace+'/input',source:{kind:'none'},
++    async runEnvironmentResources({authority}) {
++      const supportRoot=join(workspaceBinding.roots.archiveRoot,'run-environment-support');
++      await mkdir(supportRoot,{recursive:true});
++      const temporaryRoot=await realpath(supportRoot);
++      const dependencyRoot=await realpath(join(caller.installedRoot,'contracts/default-library/stdo'));
++      const dependencies=declaration.dependencies.map(dependency=>({dependencyRef:dependency.dependencyRef,root:dependencyRoot,recordPath:join(dependencyRoot,'context.inventory.json')}));
++      const coordinates={dependencies,pythonPath:null,temporaryRoot};
++      return product.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:version,...coordinates,
++        permission:{authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,actorRef,programRef:IDS.programRef,
++          environmentRef:declaration.declarationRef,environmentDigest:hash(declaration),operations:['read_context'],...coordinates}});
++    },
++    eventResource:caller.reopen(),
++    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://'+namespace+'/start',
++      correlationRef:'correlation://'+namespace,eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(caller.root,'run.json')).href]}});
++  if(constructed.kind!=='installed_start_call')throw new BoundaryFailure(
++    constructed.ownerOutput?.value?.code==='invalid_input'?'lifecycle-input-admission':'lifecycle-start-population',constructed.ownerOutput??constructed);
++  return {call:constructed.call,resolution:constructed.population.resolution};
+ }
+diff --git a/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs b/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs
+index f90506522..f3ce42733 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs
+@@ -242,22 +242,18 @@ export async function freshReadbacks(caller,execution) {
+     if(receipt.ownerOutput.outcomeKind==='refusal')throw new BoundaryFailure('lifecycle-start',receipt.ownerOutput);
+     throw new BoundaryFailure('readback-source','No admitted Run coordinate');
+   }
+-  const {product,abg,api}=caller.runtime,env=caller.refresh(),hash=product.sha256Canonical;
++  const {product,abg,api}=caller.runtime,hash=product.sha256Canonical;caller.refresh();
+   const prefix=caller.state.closeHandoff.prefix,identityBefore=await eventResourceIdentity(fileURLToPath(prefix.eventLogRef)),reads=[];
+   for(const memberKey of ['run_result','run_replay']) {
+-    const packet=abg.ABG_PROJECT_READ_CONTRACTS[memberKey],grants=packet.metadata.capabilityRefs.map(cap=>product.constructCapabilityGrant(
+-      env.workspaceAuthorityBasis,caller.actorRef,packet.definitionKey.operationId,cap,{admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet}));
+-    const slots={...Object.fromEntries(Object.keys(execution.call.invocation.invocationAuthority.slots).map(key=>[key,null])),
+-      workspace_binding:caller.state.binding,product_set:env.productInstalls.map(product.productInstallCoordinate),
+-      dependency_lock:{ref:env.workspaceBinding.lockId,digest:env.workspaceBinding.lockDigest},
+-      capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(grant=>({ref:grant.grantRef,digest:grant.grantDigest}))}};
+-    const request={caseKey:memberKey,source:{sourceKind:'run',sourceRef:run.ref,sourceDigest:run.digest},
+-      projectionBasis:{projectionBasisRef:prefix.eventLogRef,projectionBasisDigest:prefix.coordinateDigest},
+-      selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'}};
+-    const call=api.constructInstalledPublicDefinitionCall({product,installedPublic:api,definitionContractCoordinates:caller.native.verified.definitionContractCoordinates,
+-      contractCatalog:caller.contractCatalog,...packet.definitionKey,request,slots,resources:{kind:'abg_project_read_resource_assertion',schemaVersion:'5.0.0',eventResource:caller.reopen()},
+-      requestRef:'request://abi5-tests/sandbox-uat/'+caller.config.runId+'/'+memberKey,correlationRef:'correlation://abi5-tests/sandbox-uat/'+caller.config.runId,
+-      eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(caller.root,'run.json')).href]});
++    // ABG populates the read request and authority at the reopened prefix.
++    const constructed=api.constructInstalledRunReadCall({memberKey,workspaceBinding:caller.state.binding,sourceRef:run.ref,
++      selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'},eventResource:caller.reopen(),
++      envelope:{definitionContractCoordinates:caller.native.verified.definitionContractCoordinates,
++        requestRef:'request://abi5-tests/sandbox-uat/'+caller.config.runId+'/'+memberKey,correlationRef:'correlation://abi5-tests/sandbox-uat/'+caller.config.runId,
++        eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(caller.root,'run.json')).href]}});
++    if(constructed.kind!=='installed_run_read_call')throw new BoundaryFailure(memberKey+'-read-population',constructed);
++    if(constructed.population.source.ref!==run.ref||constructed.population.source.digest!==run.digest)throw new BoundaryFailure(memberKey+'-read-source',{run,source:constructed.population.source});
++    const call=constructed.call;
+     const observed=await caller.invoke(memberKey,call,{runtimeRoot:caller.installedRoot,expectResult:false});
+     const projection=observed.receipt.ownerOutput.value?.projection;
+     if(hash(caller.state.closeHandoff.prefix)!==hash(prefix)||!isDeepStrictEqual(identityBefore,await eventResourceIdentity(fileURLToPath(prefix.eventLogRef))))throw new BoundaryFailure(memberKey+'-read-only','Read changed event resource');

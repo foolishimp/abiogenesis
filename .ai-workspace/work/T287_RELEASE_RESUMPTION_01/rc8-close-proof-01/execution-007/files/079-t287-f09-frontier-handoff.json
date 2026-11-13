@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 69062.226042,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-007/events/079-t287-f09-frontier-handoff.jsonl",
+    "bytes": 781,
+    "sha256": "9101ec658f09e3f85ad2a4bef66de32eda1e34c5fccf1bd46c8db49312d77cc4"
+  },
+  "commandReceipt": "commands/079-t287-f09-frontier-handoff.result.json",
+  "workspace": "/private/tmp/abg-r8c-007/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

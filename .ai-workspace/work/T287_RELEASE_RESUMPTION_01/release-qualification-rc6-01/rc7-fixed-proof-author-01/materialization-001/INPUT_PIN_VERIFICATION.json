@@ -1,0 +1,48 @@
+{
+  "verifiedPreparationManifests": [
+    {
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/preparation-reconciliation-001/MANIFEST.json",
+        "bytes": 23014,
+        "sha256": "56e1997c16234b0ee8aa7353c10f29737362d898b1763d684bec122ab3c01198"
+      },
+      "files": 23
+    },
+    {
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-002/MANIFEST.json",
+        "bytes": 6056,
+        "sha256": "d74445cc93ea12d758085a6fc5c99b78bac7a3742412be74c1a2b9e29028b246"
+      },
+      "files": 4
+    },
+    {
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operational-preparation-001/MANIFEST.json",
+        "bytes": 16022,
+        "sha256": "fabc68e66e2f390bad08b4575e5bf7915e2d294b9d42700171c0927a08e90600"
+      },
+      "files": 10
+    }
+  ],
+  "sourceRowsLiveAndSnapshotMatched": 449,
+  "additionalHow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/materialization-001/selected-how/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "bytes": 82902,
+    "sha256": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8"
+  },
+  "sourceCount": 450,
+  "inheritedTrackedMatched": 55,
+  "inheritedNewPreserved": 2,
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/SOURCE_BEFORE.json",
+    "bytes": 272640,
+    "sha256": "d7b898e49d3260fc243dfcd29531c29cd8393fb5b33cb2ff3e571e83249606ac"
+  },
+  "operatorCopies": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/materialization-001/FROZEN_OPERATOR_COPIES.json",
+    "bytes": 4038,
+    "sha256": "9db883a92bf7dd539990374c1be77219233a84dea8bc87f1341a0fc2398c022b"
+  },
+  "effects": "Read-only source/dependency inspection, exact operator copies, task scratch and materialized controls only; no Product/HOW/test edits, build/test/runtime/provider/auth invocation."
+}

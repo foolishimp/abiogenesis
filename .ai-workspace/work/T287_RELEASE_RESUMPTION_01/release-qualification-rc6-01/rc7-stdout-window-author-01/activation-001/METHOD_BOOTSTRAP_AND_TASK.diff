@@ -1,0 +1,42 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/TASK.md
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/TASK.materialized.md
+@@ -1,8 +1,10 @@
+ # RC7-HS03 — bounded stdout windows and pre-decision flush
+ 
+-This is the assembled activation packet for the already-selected HS03 task, pending Root admission. Its predecessor must be the actual H05 returned source and Root acceptance, with conserved HS01/HS02 proof/measurements and the genuine H05 SDK receipt/completion/close and original resume. H05 admitted inputs establish451 source names only; they do not establish accepted returned bytes. Final source/acceptance/close/resume remain unbound until Root closes the dependency. Do not substitute an earlier H04/H03 close or require an unselected duplicate immutable-RC6 full drain. The user approved design/corrections/build; Root alone supplies final source and native admission.
++First, before any Product edit or build/test effect, explicitly invoke the pinned installed `stdo-work` entrypoint through `qualification-inputs/rc7-stdout-window-author-01/METHOD_ACCESS.json`: read and follow `/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md` (SHA256 `9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35`). Read the selected authority and owner inputs in the work-order readFirst list before construction, including the actual `NATIVE_GRANT.json` (SHA256 `070e17fed1bad36e2f58f0b39b0d874f53dbb14523d5e45c6df273093cda6b3a`) and Root admission. Record bounded bootstrap/read-first completion metadata (selected paths/pins and timestamps only) in the existing `qualification-scratch/rc7-stdout-window-author-01/progress.json`. Use C2_INPUTS' finite451 source names; do not perform an untracked filename census. This is the existing method grant, with no plugin registration, new input, framework or runtime gate.
+ 
+-Use exact installed STDO3.0.4 `stdo-work`/`stdo-ticket`, empty composition, AGENTS, ABI5_PROJECT_REFERENCE_FRAME_BASIS, fixed15 ABIogenesis5.0/GOAL-035/T287. ABG remains sole runtime/admission owner, GTL sole Program language; SDK/CLI stay thin. This bounded `design_reframe` conserves Product liveness/timeout/effect meanings. No new store, event stream, controller, scheduler/helper framework, Public mode, metadata authority or broad redesign. Only the17 named existing paths are writable; conditional contract/replay/C2 paths are ceilings, not edit mandates. Preserve all inherited dirty/new work, historical profile identities, S4 and HS01/HS02 closure.
++This actual HS03 materialization uses Root-accepted H06 source, tested-stage/native.after/live custody, genuine H06 close and original resume. Original H05 fixed-route7/7 and held-session1/1/measurement are separate retained evidence, with reuse adopted on unchanged closures. Full H06 author procedure compliance is unavailable; Root processDisposition RC7-PROC-H06-01 is retained and supplies the bootstrap correction below. Final S5 native admission remains Root-owned; no earlier-close fallback or unselected duplicate immutable-RC6 drain.
++
++Use exact installed STDO3.0.4 `stdo-work` under the existing admitted grant, empty composition, AGENTS, ABI5_PROJECT_REFERENCE_FRAME_BASIS, fixed15 ABIogenesis5.0/GOAL-035/T287. ABG remains sole runtime/admission owner, GTL sole Program language; SDK/CLI stay thin. This bounded `design_reframe` conserves Product liveness/timeout/effect meanings. No new store, event stream, controller, scheduler/helper framework, Public mode, metadata authority or broad redesign. Only the17 named existing paths are writable; conditional contract/replay/C2 paths are ceilings, not edit mandates. Preserve all inherited dirty/new work, historical profile identities, S4 and HS01/HS02 closure.
+ 
+ ## HOW before code
+ 
+--- workload.template.json#/workOrders/construction
++++ workload.pre-admission.json#/workOrders/construction
+@@ -1,7 +1,7 @@
+ {
+   "outcome": "Implement selected Q2/Q3/E1-E4 through existing archive/actor/shared liveness owners, preserving exact decisions/lastActivity/old replay contracts and returning bounded actual/synthetic proof. No Product outcome change or new framework.",
+   "instructions": [
+-    "Invoke exact installed STDO3.0.4 stdo-work/stdo-ticket. Require Root-bound actual accepted H05 returned source/disposition/genuine close, conserving selected HS01/HS02 proof/measurements. Apply TASK, selected defaults and17-path grant; no outside writes or new Product files.",
++    "First, before any Product edit or build/test effect, explicitly invoke the pinned installed `stdo-work` entrypoint through `qualification-inputs/rc7-stdout-window-author-01/METHOD_ACCESS.json`: read and follow `/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md` (SHA256 `9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35`). Read the selected authority and owner inputs in the work-order readFirst list before construction, including the actual `NATIVE_GRANT.json` (SHA256 `070e17fed1bad36e2f58f0b39b0d874f53dbb14523d5e45c6df273093cda6b3a`) and Root admission. Record bounded bootstrap/read-first completion metadata (selected paths/pins and timestamps only) in the existing `qualification-scratch/rc7-stdout-window-author-01/progress.json`. Use C2_INPUTS' finite451 source names; do not perform an untracked filename census. This is the existing method grant, with no plugin registration, new input, framework or runtime gate. Actual H06 accepted source/disposition/genuine close is bound; retain original H05 proof only as separately identified historical evidence.",
+     "Write owning HOW before code. One window closes at structured turn boundary or maximum30000ms actor-clock interval; unchanged progress classification, last qualifying activity distinct from byte/flush time. Actual worker_transport archive fsync precedes one window observation reference.",
+     "Use one central scope-owned flush from common liveness ingress and before threshold projection including not-reached; preserve all four producer routes, two-scope separation, recursion/enclosing transaction ownership, final-window drain and failure/recovery. Preserve old per-chunk rows/contracts; regenerate affected canonical identities and C2 pins.",
+     "Use only four create-only stages and seven serial300-second lanes including failed/incomplete attempts, no retries or manual extra tests. One baseline counterexample then final actual-stream differential and five focused affected lanes on identical source. Metadata is a pinned external oracle only, not history; missing turn/noise capture times remain missing. Canonical compile/generation/lifecycle ceilings are240/600/60seconds. Root repriced generation only after unchanged-owner completion in197.973s; no cause resolution, speedup or further timeout increase is implied.",
+@@ -10,6 +10,7 @@
+     "Apply the complete existing terminal passed predicate to every allocated non-stdout-before predecessor before any next lane; all final source digests must match. Preserve the intentional genuine baseline red, original failures and4stage/7lane caps; no retry after an affected-lane failure."
+   ],
+   "readFirst": [
++    "qualification-inputs/rc7-stdout-window-author-01/METHOD_ACCESS.json",
+     "qualification-inputs/rc7-stdout-window-author-01/ROOT_CONTROL_ADMISSION.json",
+     "qualification-inputs/rc7-stdout-window-author-01/ROOT_DEPENDENCY_READY_SELECTION.json",
+     "qualification-inputs/rc7-stdout-window-author-01/ROOT_SELECTION.json",
+@@ -17,7 +18,6 @@
+     "qualification-inputs/rc7-stdout-window-author-01/TASK.md",
+     "qualification-inputs/rc7-stdout-window-author-01/NATIVE_GRANT.json",
+     "qualification-inputs/rc7-stdout-window-author-01/SOURCE_CUSTODY.json",
+-    "qualification-inputs/rc7-stdout-window-author-01/METHOD_ACCESS.json",
+     "qualification-inputs/rc7-stdout-window-author-01/COMMAND_BOUNDS.json",
+     "qualification-inputs/rc7-stdout-window-author-01/MEASUREMENT_PLAN.json",
+     "qualification-inputs/rc7-stdout-window-author-01/EXTERNAL_READ_INPUTS.json",

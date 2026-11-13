@@ -1,0 +1,34 @@
+{
+  "recordedUtc": "2026-11-05T09:27:08.549Z",
+  "coordinates": {
+    "kind": "c_call_result_admitted",
+    "admissionOrdinal": 16619,
+    "eventId": "event://abiogenesis/6cad21bb4d211906a14cf506237f8b5af579f6bffcae43ed2673959850547fc8",
+    "eventTime": "2026-11-05T09:26:40.721Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "runId": "run://abiogenesis/812aad09966e3567acd6d3fcede2a83e7912af6f1ff7cb1e4305464946c2e171",
+    "offset": 66918531,
+    "rowBytes": 107187,
+    "rowSha256": "815fa4fed3a311982393696a101561992df86388edd7b3650c154a500c90e17f",
+    "resultRef": "result://abiogenesis/e68e2402dcce170d78eff9d5403beb0cde5663d5c36188a2d419dff42b21f957",
+    "resultDigest": "sha256:e68e2402dcce170d78eff9d5403beb0cde5663d5c36188a2d419dff42b21f957",
+    "valueKind": "native_workspace_work_observation"
+  },
+  "assessment": {
+    "disposition": "satisfied",
+    "kind": "sandbox_uat_assessment",
+    "reason": "Independent UAT of the unchanged F1-F4 rubric (rubric.json sha256:55c7d409…5a). Inputs were the frozen candidate, the closed source review and the current C2 Result 700e84…. Basis: stdo status --definition stdo_abiogenesis.json --verify returned installed true, failures [] and manifest 102817a3…5b. Every declared source digest in the assessment basis matched when recomputed. The candidate is 67553 B with sha256 b8f223b9…bbbc, equal to the frozen subject. The current C2 report was read at the exact stdout report.path: 615 B, sha256 5d74ea295a51867166922264dee18b897f2fe910a486f078bcbec1a0dcbe6c5b, as returned. Its contents: exitCode 0, signal null, error null, tests 7, pass 5, fail 0, skipped 2, empty stderr (e3b0…), failures []. Its historicalLimits and claim strings keep the component-only and historical-gate limits. It differs from the failed first Run's report (f44d98…), so it is a fresh execution. F1 satisfied. Candidate lines 121-123 put readOwnedRuntimeEventPrefixAtDurablePrefix into the existing prefixOverrides for './event_prefix.js'. That is the exact export at event_prefix.ts:85, which semantic_revision.ts:196 calls with no options. The override returns the in-memory component prefix only for the declared intake coordinate and throws for any other, so the component never opens a journal. Comments at lines 108-118 state the lookup-only assumption. The run:/related: index premise delegates key membership to the history owner's runtimeHistorySelectorKeys. semantic_revision.ts and event_prefix.ts are byte-unchanged. Limit: the undeclared-coordinate throw branch is never exercised. F2 satisfied. I count 186 assertion call sites independently. Only tests 4 and 5 carry {skip:capturedEnvelopeSkip}. That gate is skip-only while ABI5_EVIDENCE_ROOT is unset, and the C2 command environment did not contain it. The file has no t.skip, todo or subtests, so 7 = 5+0+2 means tests 1, 2, 3, 6 and 7 passed and exactly the two historical gates skipped. Test 1 has no early return, so its pass means every sequential assertion ran: the cause_absent, cause_ambiguous, ancestry, unrelated-Run, judgment-order, tampered-choice, original-root, correction and Evidence checks (lines 145-228). The closed review establishes that test bodies and skip declarations are byte-identical to the preimage. fail 0 means no newly reached failure. F3 satisfied. The closed review establishes the one-file premise/import/comment delta and retirement of the dead override. The current digests of the production owners, support files, fixtures, PRODUCT.md, the frame basis and package.json match the declared and reviewed values. The session-start git status shows only the candidate modified among tracked files. The cp commands only read the immutable install. F4 satisfied. The admitted Result shows exactly four commands. Three /bin/cp -cR commands copy build, contracts and node_modules from the installedRoot named in C2_INPUTS and DEPENDENCY_SOURCE_SELECTION into the tenant cwd. The fourth runs node 24.7.0 on c2-proof.mjs (sha256 37f8ee15…, unchanged), which runs C2_INPUTS.testFile with ABI5_GENERIC_JOB_BUILD_ROOT set to the sandbox tenant and ABI5_EVIDENCE_ROOT deleted. All four exited 0 with termination confirmed, no timeout, empty stderr and 4/4 exit predicates at 0. TMPDIR was /private/tmp/abg-r6f1. Limits kept: (1) I did not observe the raw TAP, the sandbox's copy of the candidate or the staged-tree bytes, because those archive siblings were not granted; tally and skip identity come from the report plus source structure, and RC6 artifact digest e9ffe45c… is reused from setup verification, not recomputed. (2) No whole-tree mutation audit. (3) The fixture's prefix, admission, ancestry, leaf and receipt premises are synthetic, and historical tests 4 and 5 did not run. (4) Historical evidence stays separate and attributed: the first Run's runtime_failed status, its helper refusal of the omitted test_env/test_runs parent, its earlier 5/0/2 tally, and the author's disclosed reads outside the declared list. (5) This is component proof only, with no native journal, correction, whole-D2, F11, fifteen-family or release qualification. Root's fresh reads and final conjunction are outside this result. Actions: read-only reads within the declared scope, the granted exact report read, and the stdo verify control read (any cache it writes is platform-owned). No files were written or edited, and there were no Git, network or repair effects.",
+    "unresolvedCriteria": []
+  },
+  "nativeProvenance": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/ed18eb5078b9fde20d7eb9983355a3a9ccfa90434e2c707564ee52e9597fed64",
+    "cCallRef": "c-call:sha256:4b1a5e60bf7f456bc8f2de08f4a6aca04a5af1fc2ff881ae441ef209479566dc",
+    "executionAuthorityDigest": "sha256:18084e6f53870d8a2c20099f898a50dd892f1d3b8a2f2e6ca67539bed3af6ed1",
+    "executionAuthorityRef": "leaf-execution-authority://abiogenesis/18084e6f53870d8a2c20099f898a50dd892f1d3b8a2f2e6ca67539bed3af6ed1",
+    "promptDigest": "sha256:a4f226eaac332f95fc456aa1868ce6dc6b8db247d82a135a51634cb7ca08d2d3",
+    "transportBindingDigest": "sha256:fa7a1239e39fcbfc4304e819cdf3818ea991a04eb3d0922aee3827ae47488268",
+    "transportBindingRef": "transport-binding://abiogenesis/fa7a1239e39fcbfc4304e819cdf3818ea991a04eb3d0922aee3827ae47488268",
+    "transportDigest": "sha256:63c74b3a4a5763f16e85001add15fbbda541665fcddcae15cc7e361bfbd084e9"
+  },
+  "standing": "Actual native assessment preserved; Root may separately conjoin bounded evidence corrections. No acceptance inferred."
+}

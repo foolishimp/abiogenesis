@@ -1,0 +1,250 @@
+{
+  "productFrame": {
+    "fixedProductFamilies": "F01-F07,F09-F11,F13-F17; fifteen selected ABIogenesis 5.0 families",
+    "wave": "GOAL-035 / T-287",
+    "featureAndSlice": "F11 / Q23; future author-only native continuation capability, separately from active-task disposition and later Testing/UAT",
+    "productOutcome": "Continue one Root-selected native author task through an existing installed public Program, retaining exact workspace authority and actual admitted outcomes, without a paid workflow selector or UAT in the author invocation.",
+    "sourceAuthority": "Root assignment and ROOT_ACTIVATION select this bounded capability question. Root alone selects a future task and its source/read/write scope after the actual Q23-02 close and disposition. Moving candidate source was not inspected.",
+    "toolAuthority": "Immutable RC6 Product/public/GTL/NativeWork owners and the maintained operator-client are inspected tools, not independent runtime authority. No new Program, adapter, router, controller or Product implementation is proposed.",
+    "runtimeAuthority": "Only ABG-owned admission/events, the latest genuine resource close, and fresh run_result/run_replay establish runtime facts. CLI session continuity, reports and physical snapshots do not manufacture prior ABG state or native attribution.",
+    "basis": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+    },
+    "classification": {
+      "program": "immutable definition",
+      "sdk": "derived tool / thin invocation shell",
+      "context": "physical observation/evidence",
+      "futureRun": "runtime execution entity only upon owner admission"
+    },
+    "prohibitions": [
+      "No provider/native invocation, test, build, credential or private-history read in this capability task.",
+      "No Product/runtime writes or interruption/replacement of Q23-02.",
+      "No private event writer, hidden selector, per-role provider router, fabricated source basis, observations, synthesis, result or prior close.",
+      "No independence, Q23, F11, release qualification or acceptance claim."
+    ]
+  },
+  "kind": "native_author_continuation_route_capability",
+  "at": "2026-11-05T18:17:08.230857+00:00",
+  "status": "closed",
+  "verdict": "satisfied",
+  "claim": "Immutable installed RC6 and the maintained operator-client already expose a public author-only NativeWork Program route without a paid selector or UAT.",
+  "claimLimit": "Static owner/API capability established. No prospective call was assembled against a live close, preflighted, admitted or executed here; future runtime/session success remains indeterminate.",
+  "triage": "not_applicable",
+  "installedSubject": {
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "version": "5.0.0-rc.6",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "productContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+    "manifestDigest": "sha256:404905f00e9d79bd7cc1da592a492b19443b809d3b81c12ec8af9af947c2a64a",
+    "identityStanding": "Selected retained installed identity; relevant files hashed below. This bounded task did not run a fresh full manifest verification."
+  },
+  "route": {
+    "programRef": "program://abiogenesis/worksite/native-work@5",
+    "startRef": "start://abiogenesis/worksite/native-work@5",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "workerActorRef": "actor://abiogenesis/worksite/native-work@5",
+    "taskContractRef": "contract://abiogenesis/worksite/native-work/task@5",
+    "outputContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+    "publicConstructor": "api.constructInstalledStartCall",
+    "taskConstructor": "product.constructNativeWorkspaceWorkTask",
+    "contextConstructor": "product.observeWorksiteContext",
+    "inputFactory": "ProductRunInvocationInputIntent.factory({resolution,workspaceBinding,grants})",
+    "grantOwner": "populateProductRunInvocation -> constructRunInvocationAuthorityBasis -> constructCapabilityGrant; exactly one abg.operation.run.invoke grant",
+    "existingTransport": "operator-client/runner.mjs invokeLifecycle -> invokeColdInstalledEntry -> installed public/cli.js --jsonl",
+    "avoid": "operator-client/public-setup.mjs constructLifecycleCall selects the default workflow and its run environment; use the existing public constructor directly for this author Program. No helper or Product change is needed.",
+    "topology": "One declared start and one result-bearing F_P C.of native-work node, no edges/applications. Native assessment is a separate Program. No default selector, Testing or UAT callable belongs to this selected Program."
+  },
+  "taskSchema": {
+    "kind": "native_workspace_work_task",
+    "schemaVersion": "5.0.0",
+    "requiredFields": [
+      "workspaceAuthorityBasis",
+      "workspaceBinding",
+      "capabilityGrant",
+      "context",
+      "outcome",
+      "instructions",
+      "readFirst",
+      "writeRoots",
+      "checks"
+    ],
+    "optionalAssessment": "Omit for author work. It selects assessment semantics and is not needed here.",
+    "joins": [
+      "A and W exact authority id/digest and authorized actor agree.",
+      "Owner-issued grant actor equals A authorized actor, operationId abg.operation.run.invoke, scopeRef W.bindingId, scopeDigest W.bindingDigest.",
+      "Observed context A/W refs/digests match the exact invocation environment.",
+      "readFirst and writeRoots contain unique normalized relative paths; every readFirst member exists and is not absent in context.",
+      "Owner checks protected write roots and reobserves the context before provider dispatch; stale or unavailable context refuses."
+    ],
+    "report": "Strict native_workspace_work_report payload: summary:string, gaps:string[]."
+  },
+  "actualContext": {
+    "source": "caller.refresh() projects the exact current owned prefix into environment; product.observeWorksiteContext observes the Root-selected readRoots and explicit maxFiles/maxBytes on the actual worksite.",
+    "scope": "Include the actual partial source and all task-material controls/dependencies under Root selection. No old context reuse merely because the CLI session is resumed. No full source inventory required by this capability report.",
+    "freshness": "NativeWork owner compares the actual fresh observation identity before dispatch and observes again after success or failure. Do not fabricate or manually retrofit context entries."
+  },
+  "assembly": "// Schematic future operator assembly; not executed by this capability task.\n// caller is the maintained publicCaller restored from the LATEST ACTUAL close.\n// Root supplies bounded task fields, new refs and its selected author-only config.\nconst { api, product, abg } = caller.runtime;\nconst ids = product.NATIVE_WORKSPACE_WORK_IDS;\nconst environment = caller.refresh();\nconst context = await product.observeWorksiteContext({\n  workspaceAuthorityBasis: environment.workspaceAuthorityBasis,\n  workspaceBinding: environment.workspaceBinding,\n  readRoots, maxFiles, maxBytes\n});\n// Require context.kind === 'worksite_context_observation'; retain exact observation.\nconst constructed = await api.constructInstalledStartCall({\n  selection: { memberKey: 'start',\n    target: { kind: 'declared_start', startRef: ids.startRef },\n    rootMode: 'direct', fhMode: 'direct' },\n  programRef: ids.programRef,\n  catalog: caller.state.catalog, catalogView: caller.state.catalogView,\n  applications: [], admittedInstalls: environment.productInstalls,\n  workspaceBinding: environment.workspaceBinding,\n  verifyInstallAdmission: install =>\n    abg.hasAdmittedProductInstall(environment.artifactTruth, install),\n  actorRef: caller.actorRef,\n  input: { factory: ({ workspaceBinding, grants }) => {\n    // Existing owner issues exactly one invoke grant (run_invocation_operation.js).\n    // Assert one grant and its actor/operation/binding joins; do not construct one.\n    if (grants.length !== 1) throw new Error('unexpected owner grant count');\n    return product.constructNativeWorkspaceWorkTask({\n      workspaceAuthorityBasis: environment.workspaceAuthorityBasis,\n      workspaceBinding, capabilityGrant: grants[0], context,\n      outcome, instructions, readFirst, writeRoots, checks\n      // assessment is absent: this is author work.\n    });\n  } },\n  inputValueRef: rootBoundFreshInputValueRef,\n  source: { kind: 'none' },\n  eventResource: caller.reopen(),\n  envelope: {\n    definitionContractCoordinates: caller.native.verified.definitionContractCoordinates,\n    requestRef: rootBoundFreshRequestRef,\n    correlationRef: rootBoundFreshCorrelationRef,\n    eventTime: new Date().toISOString(), provenanceRefs: rootControlRefs\n  }\n});\n// Require constructed.kind === 'installed_start_call'; owner refusals stop.\n// No default-library runEnvironmentResources: the selected native Program has none.\n// Root's separately admitted execution uses the existing runner:\n// invokeLifecycle(caller, retainedInstallations, constructed.call,\n//   workerEnvironment(authorOnlyConfig));\n// Then retain the returned real close and existing fresh result/replay readbacks.\n",
+  "continuationSeparation": {
+    "eventResource": "After Root finishes Q23-02 close/readbacks and failure disposition, restore its latest actual closeHandoff into the maintained caller state, with resource and selection released/null as in the existing cold-entry pattern; preserve admitted binding/catalog/lock/install state and refresh from that close. caller.reopen constructs the owner reopen assertion. Never substitute the old setup close or synthesize a prefix.",
+    "abgInvocation": "This is a new source:none run.invoke of the existing author Program, over the current actual physical state. It does not continue or relabel the failed Run and does not carry invented governance source state.",
+    "cliSession": "Only the author invocation receives provider.appendArgs containing the existing selected effort and --resume plus the actually recorded author-session ID. workerEnvironment serializes that to ABG_TS_CLAUDE_APPEND_ARGS; installed transport accepts these append arguments. Session availability and CLI acceptance must be established by its actual execution, not by this static capability finding.",
+    "roleIsolation": "The selected Program has no other paid role to receive this resumed process environment. This is a topology and invocation-scope conclusion, not a claim that arbitrary host subprocesses are sandboxed. Root retains existing behavioral prohibitions on nested provider work.",
+    "nextProof": "Testing/UAT is a separately selected public invocation using a clean explicit provider configuration without --resume/author-session arguments. Rebuild its environment rather than reuse the author environment. No per-role router is necessary.",
+    "latestFailureInput": "Root reports Q23-02 absoluteTimeoutMs 3600000, status 143 and 258 tool calls; partial-subject-001/SUBJECT.json SHA256 9c59c4d96ecf0ce3980a7cd6ee611539f3ff9a2de6f3654bc2cc876b24942e34. This report did not inspect the partial subject or the still-completing actual close; those remain Root binding inputs."
+  },
+  "freshNativeSourceStanding": {
+    "positive": "A successful newly admitted author invocation returns its own NativeWork observation, actual before/after, changed paths and execution/actorInvocation/transport provenance, followed by the owner-issued actual run close. Existing fresh run_result/run_replay establish that Run outcome.",
+    "limits": [
+      "It does not convert the failed predecessor into success or retrospectively attribute inherited bytes to the new author invocation.",
+      "A snapshot or resumed CLI memory is not an admitted cross-Run native source basis.",
+      "Later C2 may use the existing observed-source proof route over the frozen current source. Native-source C2 uses its separate existing constructor/reacquisition contracts and must authenticate the actual native result and required joins.",
+      "Do not seed governance observations/synthesis/subjectEvidenceRef with invented success. Use the existing owners and their actual returned evidence.",
+      "Author continuation is not independent assessment; QR02 construction history, Q23 policy qualification, real positive F11 and release acceptance remain open."
+    ]
+  },
+  "minimumFutureInputs": [
+    "Root-selected future native author task/grant and exact partial-source disposition.",
+    "Q23-02 latest genuine closeHandoff plus retained caller binding/catalog/view/admitted installs, after actual close/readbacks finish.",
+    "Current catalog/view must resolve the shipped native-work Program/callable; a refusal is a stop, not authority to patch catalog/runtime.",
+    "Actual bounded context and unique fresh request/correlation/input refs.",
+    "Existing author command/model/effort and actual session ID; retained resource/timeout limits separately selected by Root.",
+    "Separate clean Testing/UAT controls and actual successor source freeze after author completion."
+  ],
+  "unknowns": [
+    "Actual final Q23-02 close coordinates were deliberately not acquired while Root completes them.",
+    "Future public-call admission, effective CLI session resume and native report success are unexecuted.",
+    "Current retained catalog/view native callable availability must be checked by existing resolution; static setup includes the native publication.",
+    "No full runtime/host-tool isolation or qualification independence is established by this capability review."
+  ],
+  "invalidation": [
+    "Change to the pinned installed native/public/invocation/transport owners or maintained SDK files.",
+    "A future selected Program adds another paid actor or applications, or the resumed environment is reused for another invocation.",
+    "Stale/forged close, mismatched current environment/context/grant, missing catalog resolution or different task authority."
+  ],
+  "performedEffects": "Read-only bounded source inspection and SHA256 calculation; wrote only this JSON and sibling Markdown. No invocation, provider/auth call, testing, Product/runtime edits or private history reads.",
+  "sourcePins": [
+    {
+      "id": "native_program",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/native_workspace_work.js",
+      "bytes": 8920,
+      "sha256": "9016d9b38a9c7deab1ee33276340674ee7207e6089bb89e96732154a79b0ba15",
+      "lines": "6-56",
+      "supports": "Shipped native-work Program: one declared start, one F_P C.of node, no edges or applications; assessment Program is separate."
+    },
+    {
+      "id": "native_identity",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work_identity.js",
+      "bytes": 2193,
+      "sha256": "2907abfc78af790759ce01f886e5f87f60fb6d96aef338f8df2d60992783960b",
+      "lines": "1-24",
+      "supports": "Canonical Program, start, callable, actor and contract identifiers."
+    },
+    {
+      "id": "native_task",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 18062,
+      "sha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443",
+      "lines": "17-43;111-129;143 onward",
+      "supports": "Strict task constructor and authority/context/grant joins; actual invocation provenance."
+    },
+    {
+      "id": "native_execution",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/native_workspace_work.js",
+      "bytes": 7904,
+      "sha256": "ade7b4e2106b7a5659c346a7d45fd2354296d790a2845bf0ec702f089228e3cf",
+      "lines": "20-76",
+      "supports": "Exact-prefix environment, protected write scope, fresh context, single worker request, post-work observation even on failure."
+    },
+    {
+      "id": "context_owner",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js",
+      "bytes": 48459,
+      "sha256": "c9f4459c7308c281299ab2d6bff5608ed5ad22c58b0f723d12de5d8b0ed863a2",
+      "lines": "observeWorksiteContext export",
+      "supports": "Canonical physical-context observation owner; parameters also shown in native_execution lines36-39."
+    },
+    {
+      "id": "public_start",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_public_definition_call.js",
+      "bytes": 16192,
+      "sha256": "6ef13edb5900fc4f4e72e87245705f173b9ff92534978424106e4c8dd5950146",
+      "lines": "221-257",
+      "supports": "constructInstalledStartCall delegates population and packages actual installed public run.invoke call."
+    },
+    {
+      "id": "input_factory_schema",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_invocation_operation.d.ts",
+      "bytes": 12859,
+      "sha256": "34eabdc5fbf69ec6419496cb07fb8c36d1b209a5d4c65af370075613946b037a",
+      "lines": "149-211",
+      "supports": "Selection intent and input.factory({resolution,workspaceBinding,grants}) contract."
+    },
+    {
+      "id": "invocation_owner",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_invocation_operation.js",
+      "bytes": 38188,
+      "sha256": "cde0d865eda8ec90aceec3b3706884d25db2d09f366fe8469cf45833d745f86a",
+      "lines": "165-177;476-560",
+      "supports": "Owner derives policy, exactly one invoke grant and authority; calls factory after grant construction and admits the resulting input."
+    },
+    {
+      "id": "public_exports",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+      "bytes": 666,
+      "sha256": "64466232bfbe070bf68b23806104e6023d4b379009a43c64646ecf54cf40a504",
+      "lines": "4",
+      "supports": "Public constructor export."
+    },
+    {
+      "id": "product_exports",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "bytes": 13690,
+      "sha256": "163f1e44620fa7049ff97f6973fca01ef5e205846945e15188511571b28e2f0d",
+      "lines": "63-64",
+      "supports": "Canonical native task/identity and observeWorksiteContext exports."
+    },
+    {
+      "id": "transport",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/transport_contracts.js",
+      "bytes": 11516,
+      "sha256": "db506fd86877170e6783463c06ac37027e895d15cb029700a2d772e39a69812b",
+      "lines": "68-140;201-229",
+      "supports": "Claude append arguments are supported; --resume is not a protocol-owned forbidden append flag."
+    },
+    {
+      "id": "sdk_caller",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05",
+      "lines": "20-31;101-143;257-282;303-334",
+      "supports": "Installed modules/publicCaller, exact current close reopen and refresh; core native publication; default lifecycle helper is deliberately not the author constructor."
+    },
+    {
+      "id": "sdk_runner",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2",
+      "lines": "113-123;244-295;349-355",
+      "supports": "Explicit per-process worker environment, generic installed cold entry, actual close capture and fresh result/replay readbacks."
+    },
+    {
+      "id": "proof_owner",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "bytes": 34310,
+      "sha256": "e4090de450b9e80c7de43f3ca16df7cec5de0b43c6e101453e45093a4b5c437a",
+      "lines": "72-77;138-145",
+      "supports": "Fresh governance state and actual subject evidence selection; no invented observations or synthesis."
+    },
+    {
+      "id": "command_owner",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+      "bytes": 118773,
+      "sha256": "89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c",
+      "lines": "190-212",
+      "supports": "Native and observed command-task constructors are distinct; native lineage needs actual admitted native source and its required joins."
+    }
+  ],
+  "returnTo": "Root Executive; future readiness only. No activation or priority/disposition selection by this report."
+}

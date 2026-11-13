@@ -1,0 +1,706 @@
+{
+  "status": "EXACT_EIGHT_PHYSICAL_TAP_LINES_RETAINED",
+  "stdout": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-02/owned-lifetime/stdout.log",
+    "bytes": 21558,
+    "sha256": "12721b5d5a910263c4a0f8a61dcaa6cbd0139a75ca7a3dcb4e1d1fa16f989263"
+  },
+  "rows": [
+    {
+      "line": 101,
+      "rawTapLine": "# {\"owner\":\"http\",\"mode\":\"response\",\"fixtureRoot\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-3XSoxr\",\"pid\":91007,\"pgid\":91007,\"scopeAbsent\":true,\"physical\":{\"bounds\":{\"launchMs\":5600,\"requestMs\":5300,\"graceMs\":120,\"ceilingMs\":11260},\"spawn\":{\"atMs\":0.915,\"pid\":91007},\"readiness\":{\"observed\":{\"identity\":{\"atMs\":43.217,\"value\":{\"pid\":91007,\"pgid\":91007}},\"port\":{\"atMs\":43.322,\"value\":\"63247\"}},\"unobserved\":[],\"end\":\"complete\"},\"spawnToPublicationMs\":{\"identity\":42.302,\"port\":42.407},\"ownerReturnMs\":61.351,\"absenceCheckMs\":61.505},\"identityFailure\":null,\"stdout\":\"\",\"stderr\":\"\",\"observation\":{\"request\":{\"hostname\":\"127.0.0.1\",\"port\":63247,\"method\":\"GET\",\"path\":\"/\",\"timeoutMs\":5300},\"portFile\":{\"relativePath\":\"response.port\",\"port\":63247,\"state\":\"observed\",\"issue\":null,\"byteLength\":5,\"digest\":\"sha256:fb8e4c4110bd0d1559e5a50903d3716d7c284cf5b408e7a180b3cda0d9a9095a\"},\"response\":{\"status\":200,\"body\":\"actual-http\",\"bodyDigest\":\"sha256:e5ab4333bf8dcadb488fa653be055c239888ce705142af82536e39db927c44d0\",\"byteLength\":11},\"process\":{\"exitStatus\":0,\"processSignal\":null,\"timedOut\":false,\"signalSequence\":[],\"terminationConfirmed\":true,\"stdout\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"},\"stderr\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}}},\"failure\":null}",
+      "rawJsonDecoded": {
+        "owner": "http",
+        "mode": "response",
+        "fixtureRoot": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-3XSoxr",
+        "pid": 91007,
+        "pgid": 91007,
+        "scopeAbsent": true,
+        "physical": {
+          "bounds": {
+            "launchMs": 5600,
+            "requestMs": 5300,
+            "graceMs": 120,
+            "ceilingMs": 11260
+          },
+          "spawn": {
+            "atMs": 0.915,
+            "pid": 91007
+          },
+          "readiness": {
+            "observed": {
+              "identity": {
+                "atMs": 43.217,
+                "value": {
+                  "pid": 91007,
+                  "pgid": 91007
+                }
+              },
+              "port": {
+                "atMs": 43.322,
+                "value": "63247"
+              }
+            },
+            "unobserved": [],
+            "end": "complete"
+          },
+          "spawnToPublicationMs": {
+            "identity": 42.302,
+            "port": 42.407
+          },
+          "ownerReturnMs": 61.351,
+          "absenceCheckMs": 61.505
+        },
+        "identityFailure": null,
+        "stdout": "",
+        "stderr": "",
+        "observation": {
+          "request": {
+            "hostname": "127.0.0.1",
+            "port": 63247,
+            "method": "GET",
+            "path": "/",
+            "timeoutMs": 5300
+          },
+          "portFile": {
+            "relativePath": "response.port",
+            "port": 63247,
+            "state": "observed",
+            "issue": null,
+            "byteLength": 5,
+            "digest": "sha256:fb8e4c4110bd0d1559e5a50903d3716d7c284cf5b408e7a180b3cda0d9a9095a"
+          },
+          "response": {
+            "status": 200,
+            "body": "actual-http",
+            "bodyDigest": "sha256:e5ab4333bf8dcadb488fa653be055c239888ce705142af82536e39db927c44d0",
+            "byteLength": 11
+          },
+          "process": {
+            "exitStatus": 0,
+            "processSignal": null,
+            "timedOut": false,
+            "signalSequence": [],
+            "terminationConfirmed": true,
+            "stdout": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stderr": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "failure": null
+      }
+    },
+    {
+      "line": 102,
+      "rawTapLine": "# {\"owner\":\"http\",\"mode\":\"invalid\",\"fixtureRoot\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-3XSoxr\",\"pid\":91009,\"pgid\":91009,\"scopeAbsent\":true,\"physical\":{\"bounds\":{\"launchMs\":5600,\"requestMs\":5300,\"graceMs\":120,\"ceilingMs\":11260},\"spawn\":{\"atMs\":0.513,\"pid\":91009},\"readiness\":{\"observed\":{\"identity\":{\"atMs\":43.927,\"value\":{\"pid\":91009,\"pgid\":91009}},\"port\":{\"atMs\":44.003,\"value\":\"invalid\"}},\"unobserved\":[],\"end\":\"complete\"},\"spawnToPublicationMs\":{\"identity\":43.414,\"port\":43.49},\"ownerReturnMs\":55.322,\"absenceCheckMs\":55.482},\"identityFailure\":null,\"stdout\":\"\",\"stderr\":\"\",\"observation\":{\"request\":null,\"portFile\":{\"relativePath\":\"invalid.port\",\"port\":null,\"state\":\"invalid\",\"issue\":\"noncanonical_decimal_port\",\"byteLength\":7,\"digest\":\"sha256:f1234d75178d892a133a410355a5a990cf75d2f33eba25d575943d4df632f3a4\"},\"response\":null,\"process\":{\"exitStatus\":128,\"processSignal\":\"SIGTERM\",\"timedOut\":false,\"signalSequence\":[\"SIGTERM\"],\"terminationConfirmed\":true,\"stdout\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"},\"stderr\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}}},\"failure\":null}",
+      "rawJsonDecoded": {
+        "owner": "http",
+        "mode": "invalid",
+        "fixtureRoot": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-3XSoxr",
+        "pid": 91009,
+        "pgid": 91009,
+        "scopeAbsent": true,
+        "physical": {
+          "bounds": {
+            "launchMs": 5600,
+            "requestMs": 5300,
+            "graceMs": 120,
+            "ceilingMs": 11260
+          },
+          "spawn": {
+            "atMs": 0.513,
+            "pid": 91009
+          },
+          "readiness": {
+            "observed": {
+              "identity": {
+                "atMs": 43.927,
+                "value": {
+                  "pid": 91009,
+                  "pgid": 91009
+                }
+              },
+              "port": {
+                "atMs": 44.003,
+                "value": "invalid"
+              }
+            },
+            "unobserved": [],
+            "end": "complete"
+          },
+          "spawnToPublicationMs": {
+            "identity": 43.414,
+            "port": 43.49
+          },
+          "ownerReturnMs": 55.322,
+          "absenceCheckMs": 55.482
+        },
+        "identityFailure": null,
+        "stdout": "",
+        "stderr": "",
+        "observation": {
+          "request": null,
+          "portFile": {
+            "relativePath": "invalid.port",
+            "port": null,
+            "state": "invalid",
+            "issue": "noncanonical_decimal_port",
+            "byteLength": 7,
+            "digest": "sha256:f1234d75178d892a133a410355a5a990cf75d2f33eba25d575943d4df632f3a4"
+          },
+          "response": null,
+          "process": {
+            "exitStatus": 128,
+            "processSignal": "SIGTERM",
+            "timedOut": false,
+            "signalSequence": [
+              "SIGTERM"
+            ],
+            "terminationConfirmed": true,
+            "stdout": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stderr": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "failure": null
+      }
+    },
+    {
+      "line": 103,
+      "rawTapLine": "# {\"owner\":\"http\",\"mode\":\"missing\",\"fixtureRoot\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-3XSoxr\",\"pid\":91011,\"pgid\":91011,\"scopeAbsent\":true,\"physical\":{\"bounds\":{\"launchMs\":5600,\"requestMs\":5300,\"graceMs\":120,\"ceilingMs\":11260},\"spawn\":{\"atMs\":0.546,\"pid\":91011},\"readiness\":{\"observed\":{\"identity\":{\"atMs\":42.815,\"value\":{\"pid\":91011,\"pgid\":91011}}},\"unobserved\":[\"port\"],\"end\":\"setup_deadline\"},\"spawnToPublicationMs\":{\"identity\":42.269},\"ownerReturnMs\":5313.543,\"absenceCheckMs\":5313.867},\"identityFailure\":null,\"stdout\":\"\",\"stderr\":\"\",\"observation\":{\"request\":null,\"portFile\":{\"relativePath\":\"missing.port\",\"port\":null,\"state\":\"absent\",\"issue\":\"port_file_timeout\",\"byteLength\":null,\"digest\":null},\"response\":null,\"process\":{\"exitStatus\":128,\"processSignal\":\"SIGTERM\",\"timedOut\":false,\"signalSequence\":[\"SIGTERM\"],\"terminationConfirmed\":true,\"stdout\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"},\"stderr\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}}},\"failure\":null}",
+      "rawJsonDecoded": {
+        "owner": "http",
+        "mode": "missing",
+        "fixtureRoot": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-3XSoxr",
+        "pid": 91011,
+        "pgid": 91011,
+        "scopeAbsent": true,
+        "physical": {
+          "bounds": {
+            "launchMs": 5600,
+            "requestMs": 5300,
+            "graceMs": 120,
+            "ceilingMs": 11260
+          },
+          "spawn": {
+            "atMs": 0.546,
+            "pid": 91011
+          },
+          "readiness": {
+            "observed": {
+              "identity": {
+                "atMs": 42.815,
+                "value": {
+                  "pid": 91011,
+                  "pgid": 91011
+                }
+              }
+            },
+            "unobserved": [
+              "port"
+            ],
+            "end": "setup_deadline"
+          },
+          "spawnToPublicationMs": {
+            "identity": 42.269
+          },
+          "ownerReturnMs": 5313.543,
+          "absenceCheckMs": 5313.867
+        },
+        "identityFailure": null,
+        "stdout": "",
+        "stderr": "",
+        "observation": {
+          "request": null,
+          "portFile": {
+            "relativePath": "missing.port",
+            "port": null,
+            "state": "absent",
+            "issue": "port_file_timeout",
+            "byteLength": null,
+            "digest": null
+          },
+          "response": null,
+          "process": {
+            "exitStatus": 128,
+            "processSignal": "SIGTERM",
+            "timedOut": false,
+            "signalSequence": [
+              "SIGTERM"
+            ],
+            "terminationConfirmed": true,
+            "stdout": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stderr": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "failure": null
+      }
+    },
+    {
+      "line": 104,
+      "rawTapLine": "# {\"owner\":\"http\",\"mode\":\"request-failure\",\"fixtureRoot\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-3XSoxr\",\"pid\":91063,\"pgid\":91063,\"scopeAbsent\":true,\"physical\":{\"bounds\":{\"launchMs\":5600,\"requestMs\":5300,\"graceMs\":120,\"ceilingMs\":11260},\"spawn\":{\"atMs\":1.225,\"pid\":91063},\"readiness\":{\"observed\":{\"identity\":{\"atMs\":54.043,\"value\":{\"pid\":91063,\"pgid\":91063}},\"port\":{\"atMs\":54.114,\"value\":\"1\"}},\"unobserved\":[],\"end\":\"complete\"},\"spawnToPublicationMs\":{\"identity\":52.818,\"port\":52.889},\"ownerReturnMs\":5604.336,\"absenceCheckMs\":5604.656},\"identityFailure\":null,\"stdout\":\"\",\"stderr\":\"\",\"observation\":{\"request\":{\"hostname\":\"127.0.0.1\",\"port\":1,\"method\":\"GET\",\"path\":\"/\",\"timeoutMs\":5300},\"portFile\":{\"relativePath\":\"request-failure.port\",\"port\":1,\"state\":\"observed\",\"issue\":null,\"byteLength\":1,\"digest\":\"sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b\"},\"response\":null,\"process\":{\"exitStatus\":124,\"processSignal\":\"SIGTERM\",\"timedOut\":true,\"signalSequence\":[\"SIGTERM\"],\"terminationConfirmed\":true,\"stdout\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"},\"stderr\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}}},\"failure\":null}",
+      "rawJsonDecoded": {
+        "owner": "http",
+        "mode": "request-failure",
+        "fixtureRoot": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-3XSoxr",
+        "pid": 91063,
+        "pgid": 91063,
+        "scopeAbsent": true,
+        "physical": {
+          "bounds": {
+            "launchMs": 5600,
+            "requestMs": 5300,
+            "graceMs": 120,
+            "ceilingMs": 11260
+          },
+          "spawn": {
+            "atMs": 1.225,
+            "pid": 91063
+          },
+          "readiness": {
+            "observed": {
+              "identity": {
+                "atMs": 54.043,
+                "value": {
+                  "pid": 91063,
+                  "pgid": 91063
+                }
+              },
+              "port": {
+                "atMs": 54.114,
+                "value": "1"
+              }
+            },
+            "unobserved": [],
+            "end": "complete"
+          },
+          "spawnToPublicationMs": {
+            "identity": 52.818,
+            "port": 52.889
+          },
+          "ownerReturnMs": 5604.336,
+          "absenceCheckMs": 5604.656
+        },
+        "identityFailure": null,
+        "stdout": "",
+        "stderr": "",
+        "observation": {
+          "request": {
+            "hostname": "127.0.0.1",
+            "port": 1,
+            "method": "GET",
+            "path": "/",
+            "timeoutMs": 5300
+          },
+          "portFile": {
+            "relativePath": "request-failure.port",
+            "port": 1,
+            "state": "observed",
+            "issue": null,
+            "byteLength": 1,
+            "digest": "sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+          },
+          "response": null,
+          "process": {
+            "exitStatus": 124,
+            "processSignal": "SIGTERM",
+            "timedOut": true,
+            "signalSequence": [
+              "SIGTERM"
+            ],
+            "terminationConfirmed": true,
+            "stdout": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stderr": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "failure": null
+      }
+    },
+    {
+      "line": 105,
+      "rawTapLine": "# {\"owner\":\"http\",\"mode\":\"owner-error\",\"fixtureRoot\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-3XSoxr\",\"pid\":91137,\"pgid\":91137,\"scopeAbsent\":true,\"physical\":{\"bounds\":{\"launchMs\":5600,\"requestMs\":5300,\"graceMs\":120,\"ceilingMs\":11260},\"spawn\":{\"atMs\":0.59,\"pid\":91137},\"readiness\":{\"observed\":{\"identity\":{\"atMs\":42.577,\"value\":{\"pid\":91137,\"pgid\":91137}},\"port\":{\"atMs\":42.712,\"value\":\"1\"}},\"unobserved\":[],\"end\":\"complete\"},\"spawnToPublicationMs\":{\"identity\":41.987,\"port\":42.122},\"ownerReturnMs\":54.845,\"absenceCheckMs\":54.974},\"identityFailure\":null,\"stdout\":null,\"stderr\":null,\"observation\":null,\"failure\":{\"name\":\"TypeError\",\"code\":null,\"message\":\"worksite HTTP probe failed; dependent work stopped: {\\\\\"attemptRef\\\\\":null,\\\\\"diagnostic\\\\\":{\\\\\"message\\\\\":\\\\\"Method must be a valid HTTP token [\\\\\\\\\\\\\"bad\\\\\\\\nmethod\\\\\\\\\\\\\"]\\\\\",\\\\\"name\\\\\":\\\\\"TypeError\\\\\"},\\\\\"processFacts\\\\\":{\\\\\"cleanupDeadlineNs\\\\\":{\\\\\"kind\\\\\":\\\\\"bigint\\\\\",\\\\\"value\\\\\":\\\\\"3045779743073166\\\\\"},\\\\\"cleanupElapsedMs\\\\\":1.438459,\\\\\"closeObserved\\\\\":true,\\\\\"directExit\\\\\":{\\\\\"signal\\\\\":\\\\\"SIGKILL\\\\\",\\\\\"status\\\\\":null},\\\\\"drainExpired\\\\\":false,\\\\\"firstError\\\\\":{\\\\\"code\\\\\":\\\\\"ERR_INVALID_HTTP_TOKEN\\\\\",\\\\\"errno\\\\\":null,\\\\\"message\\\\\":\\\\\"Method must be a valid HTTP token [\\\\\\\\\\\\\"bad\\\\\\\\nmethod\\\\\\\\\\\\\"]\\\\\",\\\\\"name\\\\\":\\\\\"TypeError\\\\\",\\\\\"path\\\\\":null,\\\\\"syscall\\\\\":null},\\\\\"launchFailure\\\\\":null,\\\\\"noChildEstablished\\\\\":false,\\\\\"probeCount\\\\\":4,\\\\\"scopeAbsence\\\\\":\\\\\"absent\\\\\",\\\\\"scopeKind\\\\\":\\\\\"posix_process_group\\\\\",\\\\\"signalAttempts\\\\\":1,\\\\\"streamsDisposed\\\\\":true},\\\\\"request\\\\\":{\\\\\"hostname\\\\\":\\\\\"127.0.0.1\\\\\",\\\\\"method\\\\\":\\\\\"bad\\\\\\\\nmethod\\\\\",\\\\\"path\\\\\":\\\\\"/\\\\\",\\\\\"timeoutMs\\\\\":5300},\\\\\"taskDigest\\\\\":\\\\\"sha256:3333333333333333333333333333333333333333333333333333333333333333\\\\\",\\\\\"taskRef\\\\\":\\\\\"task://physical-http/owner-error\\\\\"}\",\"stack\":\"TypeError: worksite HTTP probe failed; dependent work stopped: {\\\\\"attemptRef\\\\\":null,\\\\\"diagnostic\\\\\":{\\\\\"message\\\\\":\\\\\"Method must be a valid HTTP token [\\\\\\\\\\\\\"bad\\\\\\\\nmethod\\\\\\\\\\\\\"]\\\\\",\\\\\"name\\\\\":\\\\\"TypeError\\\\\"},\\\\\"processFacts\\\\\":{\\\\\"cleanupDeadlineNs\\\\\":{\\\\\"kind\\\\\":\\\\\"bigint\\\\\",\\\\\"value\\\\\":\\\\\"3045779743073166\\\\\"},\\\\\"cleanupElapsedMs\\\\\":1.438459,\\\\\"closeObserved\\\\\":true,\\\\\"directExit\\\\\":{\\\\\"signal\\\\\":\\\\\"SIGKILL\\\\\",\\\\\"status\\\\\":null},\\\\\"drainExpired\\\\\":false,\\\\\"firstError\\\\\":{\\\\\"code\\\\\":\\\\\"ERR_INVALID_HTTP_TOKEN\\\\\",\\\\\"errno\\\\\":null,\\\\\"message\\\\\":\\\\\"Method must be a valid HTTP token [\\\\\\\\\\\\\"bad\\\\\\\\nmethod\\\\\\\\\\\\\"]\\\\\",\\\\\"name\\\\\":\\\\\"TypeError\\\\\",\\\\\"path\\\\\":null,\\\\\"syscall\\\\\":null},\\\\\"launchFailure\\\\\":null,\\\\\"noChildEstablished\\\\\":false,\\\\\"probeCount\\\\\":4,\\\\\"scopeAbsence\\\\\":\\\\\"absent\\\\\",\\\\\"scopeKind\\\\\":\\\\\"posix_process_group\\\\\",\\\\\"signalAttempts\\\\\":1,\\\\\"streamsDisposed\\\\\":true},\\\\\"request\\\\\":{\\\\\"hostname\\\\\":\\\\\"127.0.0.1\\\\\",\\\\\"method\\\\\":\\\\\"bad\\\\\\\\nmethod\\\\\",\\\\\"path\\\\\":\\\\\"/\\\\\",\\\\\"timeoutMs\\\\\":5300},\\\\\"taskDigest\\\\\":\\\\\"sha256:3333333333333333333333333333333333333333333333333333333333333333\\\\\",\\\\\"taskRef\\\\\":\\\\\"task://physical-http/owner-error\\\\\"}\\\\n    at Module.runHttpProbe (/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:1024:15)\\\\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\\\\n    at async TestContext.<anonymous> (file:///private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs:616:20)\\\\n    at async Test.run (node:internal/test_runner/test:1113:7)\\\\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\"}}",
+      "rawJsonDecodeFailure": "Expecting ',' delimiter: line 1 column 726 (char 725)"
+    },
+    {
+      "line": 112,
+      "rawTapLine": "# {\"owner\":\"worker\",\"fixtureRoot\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3\",\"readyPid\":91140,\"descendantAlive\":false,\"identity\":{\"pid\":91140,\"pgid\":91139},\"groupAbsent\":true,\"physical\":{\"bounds\":{\"inactivityMs\":11005,\"absoluteMs\":12005,\"launchMs\":11005,\"requestMs\":10305,\"graceMs\":150,\"ceilingMs\":12455},\"spawn\":{\"atMs\":2.01,\"pid\":91139},\"readiness\":{\"observed\":{\"identity\":{\"atMs\":55.461,\"value\":{\"pid\":91140,\"pgid\":91139}},\"ready\":{\"atMs\":55.558,\"value\":91140}},\"unobserved\":[],\"end\":\"complete\"},\"spawnToPublicationMs\":{\"identity\":53.451,\"ready\":53.548},\"ownerReturnMs\":104.122,\"absenceCheckMs\":104.553},\"stdout\":\"leader-output\\\\n\",\"stderr\":\"\",\"archived\":{\"stdout\":\"leader-output\\\\n\",\"stderr\":\"\"},\"observation\":{\"kind\":\"worker_transport_result_candidate\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"success\",\"agentKey\":\"generic\",\"lane\":\"worker_executes\",\"command\":\"/opt/homebrew/Cellar/node/24.7.0/bin/node\",\"args\":[\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/worker-leader.mjs\",\"capture boundary\"],\"status\":0,\"signal\":null,\"timeoutMs\":11005,\"absoluteTimeoutMs\":12005,\"timeoutClass\":null,\"failureClass\":null,\"structuredEventCount\":0,\"progressEventCount\":1,\"toolCallCount\":0,\"toolInvocations\":[],\"apiRetryCount\":0,\"stdout\":\"leader-output\\\\n\",\"stderr\":\"\",\"finalOutput\":\"leader-output\\\\n\",\"processFacts\":{\"directExit\":{\"status\":0,\"signal\":null},\"launchFailure\":null,\"noChildEstablished\":false,\"scopeKind\":\"posix_process_group\",\"scopeAbsence\":\"absent\",\"closeObserved\":true,\"streamsDisposed\":true,\"drainExpired\":false,\"firstError\":null,\"cleanupDeadlineNs\":{\"kind\":\"bigint\",\"value\":\"3045780018398583\"},\"cleanupElapsedMs\":43.487542,\"probeCount\":8,\"signalAttempts\":1},\"artifacts\":{\"prompt\":{\"path\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-prompt.txt\",\"byteLength\":16,\"digest\":\"sha256:04f14855b997c07d8ee00c79fec8ea0b92e3d2cfbb520dd06064c90adb983798\"},\"output\":{\"path\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-output.txt\",\"byteLength\":14,\"digest\":\"sha256:3dbb1916c9b5ef48a672d6b88557d7ae409227344990ded7d735d3df9d565f82\"},\"stdout\":{\"path\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-stdout.log\",\"byteLength\":14,\"digest\":\"sha256:3dbb1916c9b5ef48a672d6b88557d7ae409227344990ded7d735d3df9d565f82\"},\"stderr\":{\"path\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-stderr.log\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"},\"transport\":{\"path\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-transport.json\",\"byteLength\":1818,\"digest\":\"sha256:58dca5173ff8bacb99de8cd78a5e8fcbcb5f491bae4830699f897c122c03866e\"}},\"timedOut\":false,\"exitObserved\":true,\"terminationConfirmed\":true},\"failure\":null}",
+      "rawJsonDecoded": {
+        "owner": "worker",
+        "fixtureRoot": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3",
+        "readyPid": 91140,
+        "descendantAlive": false,
+        "identity": {
+          "pid": 91140,
+          "pgid": 91139
+        },
+        "groupAbsent": true,
+        "physical": {
+          "bounds": {
+            "inactivityMs": 11005,
+            "absoluteMs": 12005,
+            "launchMs": 11005,
+            "requestMs": 10305,
+            "graceMs": 150,
+            "ceilingMs": 12455
+          },
+          "spawn": {
+            "atMs": 2.01,
+            "pid": 91139
+          },
+          "readiness": {
+            "observed": {
+              "identity": {
+                "atMs": 55.461,
+                "value": {
+                  "pid": 91140,
+                  "pgid": 91139
+                }
+              },
+              "ready": {
+                "atMs": 55.558,
+                "value": 91140
+              }
+            },
+            "unobserved": [],
+            "end": "complete"
+          },
+          "spawnToPublicationMs": {
+            "identity": 53.451,
+            "ready": 53.548
+          },
+          "ownerReturnMs": 104.122,
+          "absenceCheckMs": 104.553
+        },
+        "stdout": "leader-output\\n",
+        "stderr": "",
+        "archived": {
+          "stdout": "leader-output\\n",
+          "stderr": ""
+        },
+        "observation": {
+          "kind": "worker_transport_result_candidate",
+          "schemaVersion": "5.0.0",
+          "disposition": "success",
+          "agentKey": "generic",
+          "lane": "worker_executes",
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "args": [
+            "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/worker-leader.mjs",
+            "capture boundary"
+          ],
+          "status": 0,
+          "signal": null,
+          "timeoutMs": 11005,
+          "absoluteTimeoutMs": 12005,
+          "timeoutClass": null,
+          "failureClass": null,
+          "structuredEventCount": 0,
+          "progressEventCount": 1,
+          "toolCallCount": 0,
+          "toolInvocations": [],
+          "apiRetryCount": 0,
+          "stdout": "leader-output\\n",
+          "stderr": "",
+          "finalOutput": "leader-output\\n",
+          "processFacts": {
+            "directExit": {
+              "status": 0,
+              "signal": null
+            },
+            "launchFailure": null,
+            "noChildEstablished": false,
+            "scopeKind": "posix_process_group",
+            "scopeAbsence": "absent",
+            "closeObserved": true,
+            "streamsDisposed": true,
+            "drainExpired": false,
+            "firstError": null,
+            "cleanupDeadlineNs": {
+              "kind": "bigint",
+              "value": "3045780018398583"
+            },
+            "cleanupElapsedMs": 43.487542,
+            "probeCount": 8,
+            "signalAttempts": 1
+          },
+          "artifacts": {
+            "prompt": {
+              "path": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-prompt.txt",
+              "byteLength": 16,
+              "digest": "sha256:04f14855b997c07d8ee00c79fec8ea0b92e3d2cfbb520dd06064c90adb983798"
+            },
+            "output": {
+              "path": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-output.txt",
+              "byteLength": 14,
+              "digest": "sha256:3dbb1916c9b5ef48a672d6b88557d7ae409227344990ded7d735d3df9d565f82"
+            },
+            "stdout": {
+              "path": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-stdout.log",
+              "byteLength": 14,
+              "digest": "sha256:3dbb1916c9b5ef48a672d6b88557d7ae409227344990ded7d735d3df9d565f82"
+            },
+            "stderr": {
+              "path": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-stderr.log",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "transport": {
+              "path": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/archive/worker-transport.json",
+              "byteLength": 1818,
+              "digest": "sha256:58dca5173ff8bacb99de8cd78a5e8fcbcb5f491bae4830699f897c122c03866e"
+            }
+          },
+          "timedOut": false,
+          "exitObserved": true,
+          "terminationConfirmed": true
+        },
+        "failure": null
+      }
+    },
+    {
+      "line": 114,
+      "rawTapLine": "# {\"owner\":\"command\",\"fixtureRoot\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3\",\"readyPid\":91143,\"descendantAlive\":false,\"identity\":{\"pid\":91143,\"pgid\":91142},\"groupAbsent\":true,\"physical\":{\"bounds\":{\"inactivityMs\":11005,\"absoluteMs\":12005,\"launchMs\":11005,\"requestMs\":10305,\"graceMs\":150,\"ceilingMs\":11455},\"spawn\":{\"atMs\":0.666,\"pid\":91142},\"readiness\":{\"observed\":{\"identity\":{\"atMs\":55.152,\"value\":{\"pid\":91143,\"pgid\":91142}},\"ready\":{\"atMs\":55.269,\"value\":91143}},\"unobserved\":[],\"end\":\"complete\"},\"spawnToPublicationMs\":{\"identity\":54.486,\"ready\":54.603},\"ownerReturnMs\":101.371,\"absenceCheckMs\":101.669},\"stdout\":\"leader-output\\\\n\",\"stderr\":\"\\\\nABI worksite command cleanup: SIGTERM requested\\\\n\",\"archived\":null,\"observation\":{\"kind\":\"worksite_command_result\",\"schemaVersion\":\"5.0.0\",\"ordinal\":0,\"commandId\":\"command://capture\",\"executable\":\"/opt/homebrew/Cellar/node/24.7.0/bin/node\",\"args\":[\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/command-leader.mjs\"],\"relativeCwd\":\".\",\"environment\":[],\"timeoutMs\":11005,\"terminationGraceMs\":150,\"exitStatus\":0,\"timedOut\":false,\"processSignal\":null,\"signalSequence\":[\"SIGTERM\"],\"terminationConfirmed\":true,\"stdout\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"bGVhZGVyLW91dHB1dAo=\",\"byteLength\":14,\"digest\":\"sha256:3dbb1916c9b5ef48a672d6b88557d7ae409227344990ded7d735d3df9d565f82\"},\"stderr\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"CkFCSSB3b3Jrc2l0ZSBjb21tYW5kIGNsZWFudXA6IFNJR1RFUk0gcmVxdWVzdGVkCg==\",\"byteLength\":49,\"digest\":\"sha256:3154960decd075ed56867dec48e15e1eca0f810701e871b0c8e67620b32612cc\"},\"reports\":[],\"reportCount\":0,\"observationRef\":\"worksite-command-observation://abiogenesis/e873a98acfc9db2fbc228c5a04dfde321a2c44ff5294d2598f6b725223766e1b\",\"observationDigest\":\"sha256:e873a98acfc9db2fbc228c5a04dfde321a2c44ff5294d2598f6b725223766e1b\"},\"failure\":null}",
+      "rawJsonDecoded": {
+        "owner": "command",
+        "fixtureRoot": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3",
+        "readyPid": 91143,
+        "descendantAlive": false,
+        "identity": {
+          "pid": 91143,
+          "pgid": 91142
+        },
+        "groupAbsent": true,
+        "physical": {
+          "bounds": {
+            "inactivityMs": 11005,
+            "absoluteMs": 12005,
+            "launchMs": 11005,
+            "requestMs": 10305,
+            "graceMs": 150,
+            "ceilingMs": 11455
+          },
+          "spawn": {
+            "atMs": 0.666,
+            "pid": 91142
+          },
+          "readiness": {
+            "observed": {
+              "identity": {
+                "atMs": 55.152,
+                "value": {
+                  "pid": 91143,
+                  "pgid": 91142
+                }
+              },
+              "ready": {
+                "atMs": 55.269,
+                "value": 91143
+              }
+            },
+            "unobserved": [],
+            "end": "complete"
+          },
+          "spawnToPublicationMs": {
+            "identity": 54.486,
+            "ready": 54.603
+          },
+          "ownerReturnMs": 101.371,
+          "absenceCheckMs": 101.669
+        },
+        "stdout": "leader-output\\n",
+        "stderr": "\\nABI worksite command cleanup: SIGTERM requested\\n",
+        "archived": null,
+        "observation": {
+          "kind": "worksite_command_result",
+          "schemaVersion": "5.0.0",
+          "ordinal": 0,
+          "commandId": "command://capture",
+          "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "args": [
+            "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3/command-leader.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": [],
+          "timeoutMs": 11005,
+          "terminationGraceMs": 150,
+          "exitStatus": 0,
+          "timedOut": false,
+          "processSignal": null,
+          "signalSequence": [
+            "SIGTERM"
+          ],
+          "terminationConfirmed": true,
+          "stdout": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "bGVhZGVyLW91dHB1dAo=",
+            "byteLength": 14,
+            "digest": "sha256:3dbb1916c9b5ef48a672d6b88557d7ae409227344990ded7d735d3df9d565f82"
+          },
+          "stderr": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "CkFCSSB3b3Jrc2l0ZSBjb21tYW5kIGNsZWFudXA6IFNJR1RFUk0gcmVxdWVzdGVkCg==",
+            "byteLength": 49,
+            "digest": "sha256:3154960decd075ed56867dec48e15e1eca0f810701e871b0c8e67620b32612cc"
+          },
+          "reports": [],
+          "reportCount": 0,
+          "observationRef": "worksite-command-observation://abiogenesis/e873a98acfc9db2fbc228c5a04dfde321a2c44ff5294d2598f6b725223766e1b",
+          "observationDigest": "sha256:e873a98acfc9db2fbc228c5a04dfde321a2c44ff5294d2598f6b725223766e1b"
+        },
+        "failure": null
+      }
+    },
+    {
+      "line": 116,
+      "rawTapLine": "# {\"owner\":\"http\",\"fixtureRoot\":\"/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3\",\"readyPid\":91148,\"descendantAlive\":false,\"identity\":{\"pid\":91148,\"pgid\":91147},\"groupAbsent\":true,\"physical\":{\"bounds\":{\"inactivityMs\":11005,\"absoluteMs\":12005,\"launchMs\":11005,\"requestMs\":10305,\"graceMs\":150,\"ceilingMs\":21760},\"spawn\":{\"atMs\":0.92,\"pid\":91147},\"readiness\":{\"observed\":{\"identity\":{\"atMs\":54.411,\"value\":{\"pid\":91148,\"pgid\":91147}},\"ready\":{\"atMs\":54.531,\"value\":91148}},\"unobserved\":[],\"end\":\"complete\"},\"spawnToPublicationMs\":{\"identity\":53.491,\"ready\":53.611},\"ownerReturnMs\":105.533,\"absenceCheckMs\":105.853},\"stdout\":\"leader-output\\\\nlate-diagnostic\\\\n\",\"stderr\":\"\",\"archived\":null,\"observation\":{\"request\":null,\"portFile\":{\"relativePath\":\"http.port\",\"port\":null,\"state\":\"absent\",\"issue\":\"process_exited_before_port\",\"byteLength\":null,\"digest\":null},\"response\":null,\"process\":{\"exitStatus\":0,\"processSignal\":null,\"timedOut\":false,\"signalSequence\":[\"SIGTERM\"],\"terminationConfirmed\":true,\"stdout\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"bGVhZGVyLW91dHB1dApsYXRlLWRpYWdub3N0aWMK\",\"byteLength\":30,\"digest\":\"sha256:71fcb59de7b560e773655e376b423297f7ba244102d7ddeae000592ba03db4f6\"},\"stderr\":{\"kind\":\"worksite_observed_stream\",\"schemaVersion\":\"5.0.0\",\"encoding\":\"base64\",\"payload\":\"\",\"byteLength\":0,\"digest\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}}},\"failure\":null}",
+      "rawJsonDecoded": {
+        "owner": "http",
+        "fixtureRoot": "/private/tmp/abg-rc11-proof-20261109-01/tmp/abi5-lifetime-lwqrp3",
+        "readyPid": 91148,
+        "descendantAlive": false,
+        "identity": {
+          "pid": 91148,
+          "pgid": 91147
+        },
+        "groupAbsent": true,
+        "physical": {
+          "bounds": {
+            "inactivityMs": 11005,
+            "absoluteMs": 12005,
+            "launchMs": 11005,
+            "requestMs": 10305,
+            "graceMs": 150,
+            "ceilingMs": 21760
+          },
+          "spawn": {
+            "atMs": 0.92,
+            "pid": 91147
+          },
+          "readiness": {
+            "observed": {
+              "identity": {
+                "atMs": 54.411,
+                "value": {
+                  "pid": 91148,
+                  "pgid": 91147
+                }
+              },
+              "ready": {
+                "atMs": 54.531,
+                "value": 91148
+              }
+            },
+            "unobserved": [],
+            "end": "complete"
+          },
+          "spawnToPublicationMs": {
+            "identity": 53.491,
+            "ready": 53.611
+          },
+          "ownerReturnMs": 105.533,
+          "absenceCheckMs": 105.853
+        },
+        "stdout": "leader-output\\nlate-diagnostic\\n",
+        "stderr": "",
+        "archived": null,
+        "observation": {
+          "request": null,
+          "portFile": {
+            "relativePath": "http.port",
+            "port": null,
+            "state": "absent",
+            "issue": "process_exited_before_port",
+            "byteLength": null,
+            "digest": null
+          },
+          "response": null,
+          "process": {
+            "exitStatus": 0,
+            "processSignal": null,
+            "timedOut": false,
+            "signalSequence": [
+              "SIGTERM"
+            ],
+            "terminationConfirmed": true,
+            "stdout": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "bGVhZGVyLW91dHB1dApsYXRlLWRpYWdub3N0aWMK",
+              "byteLength": 30,
+              "digest": "sha256:71fcb59de7b560e773655e376b423297f7ba244102d7ddeae000592ba03db4f6"
+            },
+            "stderr": {
+              "kind": "worksite_observed_stream",
+              "schemaVersion": "5.0.0",
+              "encoding": "base64",
+              "payload": "",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        "failure": null
+      }
+    }
+  ],
+  "standing": "Raw TAP lines preserved exactly. Seven happen to parse as raw JSON; owner-error contains reporter-escaped nested backslashes and does not. No runner parser changed; Root controls decoder/acceptance disposition."
+}

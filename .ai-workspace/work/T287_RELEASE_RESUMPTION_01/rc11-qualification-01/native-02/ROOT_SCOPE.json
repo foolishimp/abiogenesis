@@ -1,0 +1,50 @@
+{
+  "id": "RC11-AUTHOR02-SCOPE-01",
+  "status": "ROOT_CONJOINED_DATA_FIRST_SOURCE_PASS_SETUP_AND_DISPATCH_HELD",
+  "owner": "Root Executive",
+  "previousScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SCOPE.json",
+    "bytes": 7770,
+    "sha256": "96771f46109ffd8fe96316e47a2f7174f4898d58edcbd3998e703def8ce3855f"
+  },
+  "reprice": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_REPRICE_01.json",
+    "bytes": 3254,
+    "sha256": "596ee32800d6173c5dcb5224d6deb688533905c77bd564252a04b79b23c351e9"
+  },
+  "basis": "Unchanged Product, requirements, STDO3.0.4/frame; realization_refactor of selected proof owners and two fixture construction seams, plus prospective RC11 package identity.",
+  "actualEvidenceBasis": {
+    "path": "/private/tmp/abg-rc11-qualification-20261109/qualification-inputs/rc11-qualification-01/native-02/ACTUAL_EVIDENCE_BASIS.json",
+    "bytes": 7800,
+    "sha256": "4453f0985f7faf7f24ee07d4b4d9032d4ae6927a5bad29da7de333a063b135b5"
+  },
+  "sourceTargets": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs"
+  ],
+  "readonlyFixturePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json"
+  ],
+  "scratch": "qualification-scratch/rc11-qualification-01/native-02",
+  "nativeLimits": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "grant": "Finalize controls/readonly input freeze and static preflight only. Native04 exact pair staging separately recorded. STOP before setup/provider until Root admits exact bound task. Subsequent native author alone may edit ten source targets; no generator authoring or fixture rewrite.",
+  "physicalClarification": "All existing controlled-clock cases including the literal2x3x2 handback loop remain byte-for-byte unchanged, with no diagnostics inserted there. New runtime diagnostics only for five physical HTTP modes and three capture legs. Whole unchanged test6 completion covers its12 combinations; external proof may enumerate them from exact source.",
+  "boundary": "Actual readonly snapshots are component inputs, not present store authority, passing tests, Run semantic closure, qualification or acceptance. Original failures preserved."
+}

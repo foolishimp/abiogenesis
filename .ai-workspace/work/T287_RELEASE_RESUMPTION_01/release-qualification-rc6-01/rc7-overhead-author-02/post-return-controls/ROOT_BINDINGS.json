@@ -1,0 +1,49 @@
+{
+  "authorRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02",
+  "outputName": "actual-001",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 7417,
+    "sha256": "135e58a7843574160121fd3bc5610562df3508b87f149d558931daed2a7fc3ac"
+  },
+  "finalBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_FINAL_BINDINGS.json",
+    "bytes": 6585,
+    "sha256": "57dcb5faaf106919abe6df4a06155afc384a2da3a1e8846149b75ca45a11a3cb"
+  },
+  "hostResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/HOST_RESULT.json",
+    "bytes": 153,
+    "sha256": "0a3bc09698459cebc4c49945229eae14aaaf3006b8d5e0cf3798dc13954668c9"
+  },
+  "hostLaunch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/HOST_LAUNCH.json",
+    "bytes": 278,
+    "sha256": "f24c2aeed37393a8ac9a8fa6d4657d87b518807d747e46a7540077261a3b7b91"
+  },
+  "execution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/execution.json",
+    "bytes": 230278463,
+    "sha256": "8355ba1b173f8e74f1a3d81ed71e42a574c1656e710133eb9031ba76253fea28"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/after-run-resume.json",
+    "bytes": 72497977,
+    "sha256": "34102b8ee052c13c9ea6238d55fe02c1d0a5722a1596f43b5bd43b4b0594f13a"
+  },
+  "pending": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/READBACKS_PENDING.json",
+    "bytes": 2470,
+    "sha256": "9a3866807aaaa53b27504897e5f5243e8c769c7d80283ea125c0abf976672db5"
+  },
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/execution/TIMING_OBSERVATION_ENVELOPES.json",
+    "bytes": 5959,
+    "sha256": "0135382eae969c038ac0fe11c18ab9815040059d42f08aad70cb82bc1d3fc802"
+  },
+  "heapMiB": 8192,
+  "readTimeoutMs": 600000,
+  "maxOutputBytes": 536870912,
+  "selectedFeedback": [],
+  "readHostTimeoutMs": 900000
+}

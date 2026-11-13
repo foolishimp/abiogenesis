@@ -1,0 +1,168 @@
+{
+  "status": "COORDINATE_WHOLE_FILE_PASSED_SAS_WHOLE_FILE_INCOMPLETE_TIMEOUT",
+  "at": "2026-11-07T10:27:40.325833+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "subject": {
+    "sourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/source-freeze.json",
+      "bytes": 296040,
+      "sha256": "efba6bea8f3d0e1b0695772c18bdd731652b0f0652a2a878619b2445c073fc50"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/READY.json",
+      "bytes": 572457,
+      "sha256": "d40e3b0e695d6ef2b8529a11cf1b7a75708e167c6287c99679aabf74f19e309b"
+    },
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-008/REVIEW.json",
+      "bytes": 10466,
+      "sha256": "239114a205733bbb66fa4c69b9ddc099926c5d365a03857e7fdd942baaa99224"
+    },
+    "nativeStanding": "A8 original native Run runtime_failed; this external source proof does not replace or relabel it."
+  },
+  "controls": {
+    "recipe": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-003.mjs",
+      "bytes": 9290,
+      "sha256": "c66493aa3d20640b4af59d74750c3e5eb26656d04b09f76ca260328f4463af5c"
+    },
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/PREPARATION_REENTRY_003.json",
+      "bytes": 1785,
+      "sha256": "80e9bf1c7ac655de7c14c83d8173476fdd8958b2542e50296a50f0784ce6fe1f"
+    },
+    "sasBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/CONSOLIDATION_BINDING_001.json",
+      "bytes": 8147,
+      "sha256": "ccd638b11a2e35bd6b19724e35f929776bbb8261d06c3c095eed67290150161b"
+    },
+    "sasAdmission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/CONSOLIDATION_ADMISSION_003.json",
+      "bytes": 2024,
+      "sha256": "fea0c1aef6671e794785f36a2127bdb7d17c54789871b9f40a5ed0fdc771fc6d"
+    },
+    "coordinateResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/coordinates-001/RESULT.json",
+      "bytes": 870,
+      "sha256": "1fd5cc47b8cb2c000a3474015f6882c395cfc4fa36b34027b03eed4a3f05f40e"
+    }
+  },
+  "sas": {
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/RESULT.json",
+      "bytes": 733,
+      "sha256": "b6a00d23643936cea846ae154293c52cbc7ebe9ddd4e68da2723f5faf54a057f"
+    },
+    "halt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/HALT.json",
+      "bytes": 44910,
+      "sha256": "272e83b676600653d955d53c01cb5addc1470bceaeb17b9c5fae375a734b0be2"
+    },
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/commands/test.result.json",
+      "bytes": 1483,
+      "sha256": "8554b5cb6047d41dfcb4f50cdd1d796f86445c70cebd38f4e5c7db4ed0b77ba9"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/commands/test.stdout",
+      "bytes": 40643,
+      "sha256": "22757fa83b7bb51f042699f7ea49928c47088a8e4d8c8dab0d03f735e8b7c4f3"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/commands/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/events.jsonl",
+      "bytes": 3010,
+      "sha256": "bfb724fe5c145a33ebb87e211c511e9e8ece60b622b6a77511bd20679535f4e8"
+    },
+    "commandExit": {
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "timedOut": true,
+      "truncated": false,
+      "wallMs": 3600075.445625
+    },
+    "recipeTotalMs": 3740257.72575,
+    "primaryPreserved": true,
+    "expectedWholeFileCases": 12,
+    "completePassingCases": 6,
+    "failedCase": {
+      "ordinal": 7,
+      "type": "case",
+      "passed": false,
+      "name": "complete-pair owners refuse orphan F_H, construction-intent and selected-action operations by stage and admission order, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values",
+      "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "nesting": 0,
+      "testNumber": 7,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "test timed out after 900000ms",
+        "stack": "Error [ERR_TEST_FAILURE]: test timed out after 900000ms",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testTimeoutFailure",
+        "cause": {
+          "name": "Error",
+          "message": "test timed out after 900000ms",
+          "stack": null,
+          "code": null,
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    "caseDurations": [
+      {
+        "case": 1,
+        "name": "retained RC5 history: the owned prefix of the migrated liveness callers preserves the measured context with fewer event-log bytes, no full snapshot and no immutability walk",
+        "durationMs": 303398.66275
+      },
+      {
+        "case": 2,
+        "name": "liveness candidate validation forks its admitted base: equal decisions and context, isolated siblings, unchanged base, no per-candidate rebuild",
+        "durationMs": 173051.529166
+      },
+      {
+        "case": 3,
+        "name": "shared public-operation classification equals the complete class predicates of the retained history, with orphan and mixed-arm facts kept",
+        "durationMs": 194450.3735
+      },
+      {
+        "case": 4,
+        "name": "global run-invocation pairs stay history-wide on real earlier cuts, and a foreign Run stays distinct from a missing one",
+        "durationMs": 296420.326458
+      },
+      {
+        "case": 5,
+        "name": "installed producer to consumer: borrowed held history keeps exact values, reuses warm selections as unrelated history grows, refuses stale/copied/foreign/rollback input and reopens cold",
+        "durationMs": 722454.643625
+      },
+      {
+        "case": 6,
+        "name": "qualification material at a genuine owned cut: an invalidating producer fibre refuses warm, copied and cold alike; the historical cut stays valid and unrelated growth reuses declarations",
+        "durationMs": 825489.000708
+      },
+      {
+        "case": 7,
+        "name": "complete-pair owners refuse orphan F_H, construction-intent and selected-action operations by stage and admission order, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values",
+        "durationMs": 919400.30575
+      }
+    ],
+    "endRecordPresent": false,
+    "wholeFileCredit": false,
+    "aggregateProofCompleted": false
+  },
+  "termination": "Existing commandRecorder outer3600000ms timeout produced SIGTERM; original file-host/test PIDs61450/61458/61459 observed absent afterward, no manual signal. Supervisor completed preservation checks and exited1. No retry or deadline extension.",
+  "standing": "Six passing cases are partial source evidence only. Cases8-12/final aggregate are unproved. Root triage pending; no Product/schema/host-load causal diagnosis inferred from these bounds. Earlier failed recipes/native/partial proof remain unchanged.",
+  "builds": 0,
+  "providerCalls": 0,
+  "broadAccepted": false,
+  "qualified": false
+}

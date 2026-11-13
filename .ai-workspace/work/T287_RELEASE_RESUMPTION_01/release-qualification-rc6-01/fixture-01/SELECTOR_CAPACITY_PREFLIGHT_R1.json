@@ -1,0 +1,17 @@
+{
+  "kind": "bounded_current_initial_projection_measurement",
+  "projectionBytes": 489897,
+  "selectedFiles": 31,
+  "sourceCount": 27,
+  "contextBytes": 699336,
+  "maxPromptBytes": 1048576,
+  "reserveBytes": 131072,
+  "initialProjectionFitsWithReserve": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "limits": [
+    "Initial owner task projection only; not complete rendered request or future-stage fit.",
+    "Existing native assembly applies actual prompt limit before each paid invocation.",
+    "No historical task/prompt bodies or invented future producer observations used."
+  ]
+}

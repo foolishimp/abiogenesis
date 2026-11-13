@@ -1,0 +1,37 @@
+{
+  "kind": "root_existing_native_author_binding_selection",
+  "at": "2026-11-05T18:48:45.183553+00:00",
+  "roleTransition": "Executive -> separately bound operator Writer under current ROOT_ACTIVATION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/RUNTIME_FAILURE_TRIAGE_01.json",
+    "bytes": 3925,
+    "sha256": "74ab5b2277c32688fea3b2dd58161d29f2f2307bc4e1b443cf324a5bf163ef13"
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/execution/after-run-resume.json",
+    "bytes": 72663606,
+    "sha256": "cda9e1191ed960dd444cbc518b88cf3df43a82f8fc882f8521b458655f37dfdf"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "oldProductRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+  "selectedProductRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "effects": [
+    "Existing workspace-bind for same authority/manifest/installed set/lock, changing only selected Product root to actual ABI owner install",
+    "Existing Catalog admission and allowlist view under that binding, retaining actual published objects",
+    "One owned resource acquisition and final close; retain original consumer binding/catalog/view"
+  ],
+  "prohibited": [
+    "No Product source/HOW/test edit",
+    "No artifact build/verify/install repetition",
+    "No provider or native coding call",
+    "No new Program/router/store",
+    "No publication/global selector/Git change"
+  ],
+  "postcondition": "Owner-issued new binding and exact Catalog/view on actual final prefix; source unchanged. A later native call requires separate preflight/admission."
+}

@@ -1,0 +1,70 @@
+{
+  "kind": "worker_increment_return",
+  "support": "support://abiogenesis/rc4/maintained-setup-owner-reuse",
+  "task": "task://abiogenesis/rc4/attempt020",
+  "changeClass": "realization_refactor",
+  "custody": {
+    "sourceCommit": "45554d0be9b2b01d3b90867137c55bacb5a5f9da",
+    "branch": "codex/rc4-native-recovery",
+    "committed": false
+  },
+  "acceptance": "none claimed; self-run checks below are author feedback only",
+  "changedPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "sha256": "2743c8b76f597d1425e79e60b1e212e5821456e04ebc2d16259ac09e829ad5be",
+      "change": "Added '### Maintained setup owner reuse (RC4 setup020)' in 'Admission boundary and established internal values': one installed module instance; publicCaller.invoke hands the actual constructed DefinitionCall to runInstalledDefinitionCallTransport; owner-verified artifact and exact request relation retained; compact coordinates, SDK outcome, close and timing recorded as evidence only; no re-ingestion of persisted projections; cold/raw ingress and new Products still verify; installs keep physical checks and locks; owners keep permissions/currentness/close/reopen; no legacy mode, cache, service or receipt authority; setup PATH/TMPDIR scoped over the serial setup and restored in finally; one named cold entry for lifecycle and fresh reads; no timeout race. Includes a small sequence diagram."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec",
+      "change": "publicCaller.invoke now calls runtime.api.runInstalledDefinitionCallTransport(transportAcquisition(call), call) with the actual constructed call; records calls/<label>.request.json (compact coordinates: acquisitionKind, definitionKey, invocationRef/Digest, request/resources/eventResource digests), calls/<label>.outcome.json (actual SDK outcome) and calls/<label>.close.json; state.calls carries exitCode, outcomeKind, acquisitionKind, closeDigest, started, wallMs. Removed setup JSONL write, per-op CLI child and stdout parser. Added exported transportAcquisition(call) and private withSetupEnvironment (PATH/TMPDIR assigned for the whole populateSandbox scope, ambient restored in finally; explicit environment required). populateSandbox wraps the unchanged serial body populateInstalledSetup. cliTransportJsonl retained for the cold entry and continuation consumers. No timeout race."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c",
+      "change": "Added exported invokeColdInstalledEntry(caller,label,call,{runtimeRoot,environment}): one canonical JSONL request to a fresh installed cli.js process under its declared environment, one-line outcome parse, close recorded. freshReadbacks and invokeLifecycle use it (lifecycle keeps its supervision environment)."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "22359424fc1e75323fc0d0b746def0179cf1c2d7fadf21272bb4775ddf1040d7",
+      "change": "Adapted three existing controlled cases to the named cold entry (lifecycle dispatch args/environment; fresh read requests carry reopen acquisition and exact invocation; refusal case caller doubles). Appended provider-free real case 'Maintained setup retains actual owner verification through ten native calls and preserves configured environment' with the specified coverage; writes archive maintained-setup-proof.json and test-only artifacts/setup020/{preparation-resolve-call.json,preparation-resolve-receipt.json,maintained-setup-proof.json} (flag wx)."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "sha256": "3e436c147f7dd9f0f567f1dc6c4bbfcf3cfdd76c6bb16a71a56c322882de778f",
+      "change": "Conditional path, passive provenance relation only: the retained preparation receipt is read as the sibling '-receipt.json' of ABI5_PREPARATION_RESOLVE_CALL instead of the '/calls/'->'/receipts/' mapping, which cannot resolve for artifacts/setup020/preparation-resolve-call.json. Assertions unchanged."
+    }
+  ],
+  "untouchedConditionalPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+      "reason": "No demonstrated environment/dry-guard relation: its extra view/conformance calls are eventless (no lock namespace or npm dependence), and calls/catalog-admit.outcome.json is still recorded with the full SDK outcome."
+    }
+  ],
+  "feedback": {
+    "syntax": "node --check (v24.7.0) passes for public-setup.mjs, runner.mjs, harness.test.mjs, t287-w2-05-static-binding-algebra.test.mjs.",
+    "pinnedSdk": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant (5.0.0-rc.3)",
+    "pinnedHarness": "Scratch probe (build/contracts symlinked to the pinned SDK, edited uat files byte-identical to the worktree): 26 top-level harness cases, 25 pass (all existing, including the three adapted cold-entry cases), 1 fails: the new case, at 'product.constructAdmissionCapabilityData is not a function'. rc3 predates the HC2 admission-capability constructor that publicCaller.authorize already requires at custody 45554d0b, so the new case cannot run end to end on the pinned SDK. TAP: rc4-scratch/native-recovery-20/tmp/harness-pinned-2.tap.",
+    "observerMechanics": "Probe observer-check against real rc3 owners (rc4-scratch/native-recovery-20/tmp/probe/observer-check.mjs): verifier and type-program entries are attributed by stack frame to verifyProduct, resolveNativeDeclarationClosures and linkNativeContractSet in the same module instance; core initial verification gives 1 verifier and 1 closure program; consumer verification gives 1 verifier and 0 programs; lock construction gives 1 link program; owned re-verify/re-lock give 0 entries; a structuredClone raw copy re-verifies cold (1 verifier entry). These are rc3 mechanics, not candidate proof.",
+    "pinnedNoEmit": "Not run: the edits are .mjs test/support and design surfaces. No TypeScript source changed."
+  },
+  "residuals": [
+    "End-to-end proof of the new harness case belongs to C2 on the freshly built and packaged candidate. Its assertions for the authorized call shape (call.resources.admissionAuthority.basis.ownerArtifact.{verified,request}) were desk-checked against the source admission_authority.ts at custody but not executed: verified is expected to keep identity (v.custom); request is checked by canonical deepEqual plus selectOwnedProductVerification, because valibot rebuilds it.",
+    "The new case requires artifacts/<package>.tgz matching test_env/fixtures/abi5-root-candidate-basis.json (readCandidateBasis), an npm executable on the ambient PATH with the offline cache usable, and /usr/bin/tar. It writes artifacts/setup020/* with flag wx, so it is not rerunnable without removing that directory.",
+    "t287-w2-05 'preparation resolution retains its established native link and raw lock refusals' skips unless ABI5_PREPARATION_RESOLVE_CALL is set; C2 must point it at artifacts/setup020/preparation-resolve-call.json after the harness run so the required case does not skip.",
+    "Only PATH and TMPDIR are scoped in-process. Install npm now inherits the remaining ambient process environment, as the grant states, instead of the old exclusive child environment. Any other toolchainEnvironment keys (e.g. npm_config_*) from config.setupEnvironment no longer reach the install npm unless already ambient.",
+    "exact-candidate-qualification.mjs still reads the recorded calls/catalog-admit.outcome.json and issues in-process eventless calls outside the setup env scope. That re-ingestion is pre-existing qualification behavior, not setup, and is outside this increment.",
+    "The new case's assertion that type programs occur only in core-initial-verification, consumer-verification and after:product-verify-1 assumes the candidate's consumer verification and lock link match the rc3-observed counts. A candidate whose consumer verification builds a declaration closure program still passes (it is allowed in consumer-verification); a second link program fails (<=1).",
+    "Phase timings are measured and reported (t.diagnostic and maintained-setup-proof.json). No timing target is asserted."
+  ],
+  "namedMissingRelations": [
+    "relation://abiogenesis/rc4/setup020/candidate-build-package: pinned rc3 SDK lacks product.constructAdmissionCapabilityData (HC2); the new case's end-to-end execution needs the C2-built candidate package and refreshed candidate basis.",
+    "relation://abiogenesis/rc4/setup020/preparation-resolve-env: C2 run binding ABI5_PREPARATION_RESOLVE_CALL to artifacts/setup020/preparation-resolve-call.json for the t287-w2-05 required case."
+  ],
+  "scopeDisclosure": [
+    "All auxiliary writes stayed under rc4-scratch/native-recovery-20/tmp: probe tree (copies of test_env/uat, sandbox-uat fixtures, support/candidate-basis.mjs, rc3 tgz, generated probe candidate basis, symlinks to the pinned build/contracts), observer-check.mjs and outputs, TAP files, and the npm cache/logs, event-store lock namespace and node compile cache produced by TMPDIR/NPM_CONFIG_CACHE pointing there.",
+    "No network, publish, dependency install, author build/package, installed Product/runtime mutation or git mutation was performed (git use was read-only: status, diff, rev-parse). Any npm processes from the probe harness ran under scratch TMPDIR/npm cache with the existing harness arguments.",
+    "Untracked build_tenants/abiogenesis/typescript/node_modules and the other untracked roots were present before this increment and were not touched."
+  ]
+}

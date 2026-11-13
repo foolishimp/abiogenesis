@@ -1,0 +1,32 @@
+{
+  "label": "016-m5-event-calculus-runtime.test",
+  "started": "2026-11-13T10:16:57.620405+00:00",
+  "ended": "2026-11-13T10:18:23.317459+00:00",
+  "wallMs": 85695,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/016-m5-event-calculus-runtime.test/stdout.raw",
+      "bytes": 4578,
+      "sha256": "7a1a99271c1773a6da72520fbd04b5d0119f00670ef413354b7c8fb9c6e0d726"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/016-m5-event-calculus-runtime.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 6,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

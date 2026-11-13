@@ -1,0 +1,73 @@
+{
+  "recordedUtc": "2026-11-03T21:28:58.234663+00:00",
+  "status": "ROOT_SELECTED_PREDISPATCH_REFINEMENT",
+  "role": "Existing Root operator/evidence Writer; no Product source effect",
+  "failedPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/PREFLIGHT_TIMING.json",
+    "bytes": 283,
+    "sha256": "e1a0bccdb3d8c265168ae10de9ed4ae97fd3b2e450b6e82bfcdc08d06fecbc75"
+  },
+  "failedCapacity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/SELECTOR_CAPACITY_PREFLIGHT.json",
+    "bytes": 1171,
+    "sha256": "8455d9edfbaeac72c473d8fc2dadff804fd7789bef9eea25373b00e3eeeae250"
+  },
+  "violation": "Predictive prompt1026416B plus65536B reserve exceeds unchanged1048576B cap; no provider or Run admission occurred",
+  "sourceOfCause": "Installed product/default_library.js projectFramedSynthesisPromptTask embeds each original.sources body; two inventory bodies duplicate context/testing and held-source coordinates",
+  "frames": {
+    "Product": "No outcome/library/runtime change. Immutable installed builder unchanged.",
+    "Ownership": "Both inventories are operator navigation/identity data; current Root selection, complete grant and closed source judgments retain substantive authority.",
+    "Context": "Native worker readFirst/readRoots/selectedPaths retain both exact files. Their actual current bytes remain bound by whole context observation and protected C2 inputs.",
+    "Evidence": "Failed preflight retained. New exact constructors/context/predictive rendering required before dispatch.",
+    "Scope": "Original causal map, R1-R7/C1-C5 rubric, full previous native return, exact triages and all source/test inputs remain selected."
+  },
+  "whyPriorCheckMissed": "Prepared continuation added complete finite dependencies and reviews after the previous smaller packet; actual installed rendering is the first current capacity measurement.",
+  "removedOnlyFromInlineSourceBodyPopulation": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/C2_SELECTED_INPUTS.json",
+      "bytes": 76876,
+      "sha256": "0a4973f5847cdec819cf7f87d1080fb0c489cb230abc39a0f432fb3858e350a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/HELD_SOURCE_AND_EVIDENCE.json",
+      "bytes": 32596,
+      "sha256": "f7b3095004a4a2786ae82287dcece462434187825c6cb55e6d4d1dabfe79d8a5"
+    }
+  ],
+  "oldSourceRows": [
+    {
+      "path": "consolidation-inputs/native-05/HELD_SOURCE_AND_EVIDENCE.json",
+      "digest": "sha256:f7b3095004a4a2786ae82287dcece462434187825c6cb55e6d4d1dabfe79d8a5"
+    },
+    {
+      "path": "consolidation-inputs/native-05/C2_SELECTED_INPUTS.json",
+      "digest": "sha256:0a4973f5847cdec819cf7f87d1080fb0c489cb230abc39a0f432fb3858e350a7"
+    }
+  ],
+  "oldSourceCount": 43,
+  "newSourceCount": 41,
+  "unchangedReadAndSelectedPaths": true,
+  "unchangedWriteGrant": true,
+  "unchangedPromptBound": 1048576,
+  "originalWorkload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/workload.json",
+    "bytes": 225895,
+    "sha256": "0513e2155a65a0ff1e6f2068c791a47f036f27ae6243f98d703b5508fa356fbc"
+  },
+  "refinedWorkload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/workload-r1.json",
+    "bytes": 225405,
+    "sha256": "8f56decb001b76131ebab9dca7783e7f36853afeb7c4127c5d39959e0ee2dc0b"
+  },
+  "prepare": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/prepare-r1.mjs",
+    "bytes": 7158,
+    "sha256": "dd28975ae533da491193b78a8219b74067fa3b4a6d2ef51ce46f1f870e78a1c1"
+  },
+  "dispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/dispatch-r1.mjs",
+    "bytes": 5197,
+    "sha256": "e832a00e925cb62269c2a1049bde1f921ff18eb692b86b27edd67ef32c8f3379"
+  },
+  "standing": "Preparation correction only; no source acceptance or launch; retain original frozen control review subject unchanged"
+}

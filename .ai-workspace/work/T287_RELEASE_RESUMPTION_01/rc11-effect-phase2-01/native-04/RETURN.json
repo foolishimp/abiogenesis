@@ -1,0 +1,64 @@
+{
+  "status": "NATIVE_R2_SUCCEEDED_SOURCE_FROZEN_EXTERNAL_PROOF_HELD",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-freeze.json",
+    "bytes": 295850,
+    "sha256": "06dac8db990b326559fedef24968e95ec7ad80da89778a1f51ddc0bb3ae55cf4"
+  },
+  "sourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+  "sourceRows": 1345,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "freezeReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/FREEZE_RECEIPT.json",
+    "bytes": 7541,
+    "sha256": "1209b396866fe6c39890935e2a4062cdc84385772ceb7d73f630db94156d2621"
+  },
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/SOURCE_CUSTODY.json",
+    "bytes": 7127,
+    "sha256": "123daabea2309a38db94041cf8d84b5204ff8c54e9f3a20149a6f9e9fe57621f"
+  },
+  "workerReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/WORKER_REPORT.json",
+    "bytes": 6145,
+    "sha256": "5ba6cddfd86c4ba4ac1989f52773732a68438fda278d90a367df447eda473c29"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/NATIVE_CHECKS.json",
+    "bytes": 11415,
+    "sha256": "c949a8ec94752181c42b19594d1642d4f4df464209251ef16293badd252969f9"
+  },
+  "compiledRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 64163,
+    "sha256": "b062a80c0e757ecaeb966ab971edee7a45ee4c1a75e838ab8688716584f7c88b"
+  },
+  "compiledOwners": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 10055,
+      "sha256": "5f3cc53f6bfc5fe116e3c6c119ff8a65d45a095d964b45af1da6df15d233a743"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src/shared/owned_process_state.js",
+      "bytes": 9132,
+      "sha256": "0688546fa4e395b300bc4a267e1e1f733dafe87f2a1b571ece899096901a1972"
+    }
+  ],
+  "native": {
+    "disposition": "success",
+    "status": 0,
+    "toolCalls": 26,
+    "apiRetries": 0,
+    "sdkIntervalMs": 459503.072833,
+    "physicalClose": true,
+    "freshReplayClosed": true
+  },
+  "indexBytesPreserved": true,
+  "remaining": "Root and independent source/proof conjunction; selected external R1/R2 probes, baseline signal and whole lifetime. B held. Author advanced-clock concern is unexecuted and returned for disposition.",
+  "qualified": false
+}

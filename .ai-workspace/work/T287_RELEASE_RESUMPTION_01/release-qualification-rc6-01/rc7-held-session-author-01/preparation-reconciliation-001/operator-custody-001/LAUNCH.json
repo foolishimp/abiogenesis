@@ -1,0 +1,54 @@
+{
+  "kind": "native_author_launch_observation",
+  "status": "NATIVE_ACTIVE_SOURCE_AND_CLOSE_PENDING",
+  "recordedUtc": "2026-11-06T13:00:53.883830+00:00",
+  "observationOwner": "Root; actual metadata supplied by Root message, no independent runtime acquisition by custody Writer",
+  "selectedTask": "rc7-held-session-author-01",
+  "controlRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 7487,
+    "sha256": "639711463ce171bd97e5d1973482cf3453837a0dc125edf24c9cf05be5601ade"
+  },
+  "dispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/execution/DISPATCH_MANIFEST.json",
+    "bytes": 27990,
+    "sha256": "51000ce3d8489f2be5eac601d7e53af78ac427ce3a84fa97b07346bba3aec936"
+  },
+  "host": {
+    "session": 43493,
+    "pid": 7179,
+    "startedUtc": "2026-11-06T12:54:10.182Z"
+  },
+  "actor": {
+    "pid": 8545,
+    "startedUtc": "2026-11-06T12:56:09.443Z",
+    "processRef": "process://abiogenesis/0f9136fbcab02c5658bb10ef5017f1bd0ffb4b2f2c045f9c2d9502610e9e1061",
+    "cCall": "c-call:sha256:b968cd55e0384ab3adac889a67dbd457928c0c9e7b4b958a395361152a9c2564"
+  },
+  "timing": {
+    "cumulativeMs": {
+      "identity": 1290.426,
+      "acquired": 48379.531,
+      "environment": 109867.498,
+      "prepared": 112071.497
+    },
+    "hostToNativeMs": 119261,
+    "preparationToNativeMs": 7189.764,
+    "predecessorSdkCloseUtc": "2026-11-06T12:25:54.134Z",
+    "predecessorCloseToHostMs": 1696048,
+    "betweenTaskStanding": "coordination, review, new blocker triage and corrected controls; separate from runtime/native work"
+  },
+  "limits": [
+    "One observed RC6-installed launch; historical source and log growth differ, so no matched speedup claim.",
+    "Custody watches named handoffs and stage receipts; Root owns host polling and actual runtime evidence.",
+    "First substantive after-stage remains interim until final source/native.after/tested match and Root disposition."
+  ],
+  "futureBindings": {
+    "finalSource": null,
+    "actualResult": null,
+    "actualClose": null,
+    "hs03Activation": null,
+    "releaseCut": null
+  }
+}

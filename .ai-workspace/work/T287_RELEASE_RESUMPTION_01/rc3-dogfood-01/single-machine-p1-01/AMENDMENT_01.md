@@ -1,0 +1,24 @@
+# Amendment01: prospective measurement scope and exact source closure
+
+Root selects this amendment before native launch. The frozen DESIGN_AND_ACTIVATION.md SHA2561f8ac926fdecc1a1a842f77a6571ef28c97307407e2b0aa901fe774d8b4177f8 and NATIVE_GRANT_DRAFT.json SHA256612d1c3d7efbe5f523741b4a9a12d67982c173aab4df6db1133573aa6503ebef remain unchanged. This is the prospective interpretation/admission source for criterion4 and closure only; all other criteria, outcomes, authority boundaries, finite write scope and Root-selected resource ceilings stand.
+
+Replace criterion4 with:
+
+> The nine existing C2 purposes/IDs/toolchain/STDO environment are retained; source-correspondence and focused-owner arguments cover the selected finite P1 source/test set. All nine commands pass on the actual current source/build/package/artifact, with meaningful required cases and no bypass or new skip/todo. On one fixed model-free965-member fixture, C2 compares the source-grounded old expanded representation with the actual new-owner compact representation: record serialized bytes, semantic body-occurrence counts, exact reconstructed logical bytes/metadata and owner acquisition counts. Record actual new-owner cold/warm local wall/CPU/RSS measurements with method/cache limitations. Label the old expanded projection as a structural/serialization baseline, not an executed old runtime; do not claim matched old-runtime CPU/RSS/wall or a full end-to-end speedup. Root's later actual matched old/new installed-runtime resource comparison and one live composition are separate post-candidate proof, not native UAT conditions or facts supplied in advance.
+
+Root approves963 C2 selected source paths: conserve the authenticated B11 fallback961 and add only the two existing granted HOWs missing from that snapshot, design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md and design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md, under the same tenant prefix. Five new P1 operator documents are separate governance reads, yielding968 readRoots; the controlled965-member test fixture is independent of that live readRoot count. Preserve exact source pins and no-clobber materialization. No old archive/runtime or historical124MB event is added to C2 inputs. No maxContextBytes increase is selected by this amendment.
+
+Reason: the present C2 resources do not declare the old B11 runtime/archive/historical Result as inputs. Filesystem reachability cannot grant that read. Adding its10,936,961B archive to29,151,991 source bytes would exceed the existing32MiB observation bound and amplify the very path under repair. Source-proven expanded serialization is sufficient to falsify duplication; it cannot establish old-runtime resource costs. This clarification refines the expected claim prospectively rather than weakening a failed evaluation or injecting a future Root fact. Native UAT still evaluates the actual repair and all preserved functional/refusal/cold/recovery requirements; it must not fabricate an old runtime benchmark.
+
+Authority: Root explicit selection of criterion4 clarification/no baseline input expansion/963 closure in this session. This record neither runs anything nor creates Product or Public semantics. Actual native input/call/manifest and launch remain Root-controlled and separately reviewed. No frozen design/grant bytes changed.
+
+## Added existing test outer bound
+
+Root also admits these two existing test files, increasing the original44-path causal write outer bound to46. Both are already within the affected C2 command and963 protected source selection; no extra test command or dependency expansion is added:
+
+- `build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs`: 212273B, SHA256 `9dfee75df15788d4ff53f44c188055a3732cf3f4d72d568e0ed39a2b0df70d31`, exact commit `97406077c9a91e18e9425c3df55c6cd80f4c2073` preimage.
+- `build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs`: 88910B, SHA256 `18941e48a57166d48ea0f65500c67301d376be72ba47e8714a0531c5f9453f71`, exact commit `97406077c9a91e18e9425c3df55c6cd80f4c2073` preimage.
+
+The default-library test contains old inline task/source variants and native-workspace-work contains whole task/before equality and retarget/rewrite refusals. Native Worker must adapt those assertions to authenticated reference equivalence while preserving producer/lineage/currentness/tamper checks; removing/skipping the cases is not repair. All46 paths are an outer bound, not mandatory edits. No new Product helper/module/file is granted.
+
+Root admission: explicit current-session ruling accepts the independent conditional GO, this criterion4/963 clarification and the two test additions. The successor NATIVE_GRANT_ADMITTED.json is ROOT_ADMITTED_DESIGN_AND_NATIVE_PREPARATION; actual provider dispatch remains Root-only after final exact-call preflight. Original frozen design/grant stay immutable.

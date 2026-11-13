@@ -1,0 +1,61 @@
+{
+  "kind": "root_local_cut_checkout_allocation_correction",
+  "at": "2026-11-06T23:59:55.852284+00:00",
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/PREPARATION_MANIFEST.json",
+    "bytes": 5605,
+    "sha256": "d5103764e35eafae6f92b48264610f373b4e2e8ff56c821a47742db72b7d41c8"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/run-local-cut.mjs",
+    "bytes": 25084,
+    "sha256": "c79196ca7f25db1c4c758a034512e7124d74d3b2adb6bacc4a3d45bc65d5750a"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/run-local-cut.corrected-001.mjs",
+    "bytes": 25612,
+    "sha256": "b7a23fb5c64ae49d06852e26923931f7ce6928ce4c2e410899c904f6a67e18e5"
+  },
+  "observation": {
+    "baseCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "trackedBlobs": 129325,
+    "trackedBytes": 46537318596,
+    "aiWorkspaceTrackedBytes": 46439011988,
+    "availableBytesObserved": 6746017792,
+    "method": "Read-only git ls-tree -rlz exact base, aggregate blob sizes; no untracked census or history decode."
+  },
+  "selectedDelta": "Fresh worktree --no-checkout, Git no-cone sparse selection of five existing reproduction roots plus every exact451 selected overlay path, then read-tree -mu HEAD. This covers14 small selected commentary fixtures without materializing the unrelated46.439GB history tree. Complete base Git tree remains unchanged.",
+  "sparsePatterns": [
+    "/AGENTS.md",
+    "/CLAUDE.md",
+    "/stdo_abiogenesis.json",
+    "/specification/",
+    "/build_tenants/abiogenesis/typescript/"
+  ],
+  "unchanged": [
+    "451-row frozen overlay and identity edits",
+    "all bounds",
+    "build/generation/pack owners",
+    "source commit and exact clean reproduction",
+    "source coverage and archive identity bridge",
+    "install procedure and Product guards",
+    "preserved main/current-cut HEAD/index and immutable releases"
+  ],
+  "limits": "Only the fresh declared RC7 worktree is populated. No cleanup, sparse change or index/HEAD change to existing main or RC6 worktree. Activation remains unbound.",
+  "preservedInitialPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/PREPARATION_MANIFEST.json",
+    "bytes": 6511,
+    "sha256": "cbcac9437a551ffb2fc54db3c833c1eda61ac43f0c5f893ba176c212d1e6c517"
+  },
+  "sparseAdditionalPatterns": "Each admitted451-row relativePath prefixed with /; no root expansion, unknown path or untracked census.",
+  "reviewCorrections": [
+    "Initial005 manifest entrypoint incorrectly named004; final manifest now names and pins corrected005 runner.",
+    "Initial five patterns omitted14 selected fixture files. Exact451 overlay paths are now included so git add never targets excluded selected sources."
+  ]
+}

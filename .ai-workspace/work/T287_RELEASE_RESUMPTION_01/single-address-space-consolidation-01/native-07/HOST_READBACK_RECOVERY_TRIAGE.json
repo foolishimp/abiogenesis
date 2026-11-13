@@ -1,0 +1,205 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "basis": "exact installed STDO3.0.4",
+    "emptyComposition": true,
+    "builder": "immutable RC5/f49",
+    "outcome": "original R1-R7/C1-C5 remains open",
+    "rootOwnsRecoveryAcceptance": true
+  },
+  "recordedUtc": "2026-11-04T05:55:47.696110+00:00",
+  "kind": "bounded_root_host_readback_oom_recovery_triage",
+  "evidencePins": {
+    "native-07/HOST_READBACK_OOM_OBSERVATION.json": {
+      "bytes": 1937,
+      "sha256": "f635ea430829475d87791d2869618630cae46ea40bd6e7c2ff4b753a5a6f624f"
+    },
+    "native-07/dispatch.mjs": {
+      "bytes": 5194,
+      "sha256": "1ba56bee61652cdfe3ead6fc6d383bef2f5d055118560b2c2821b1fb2243ad68"
+    },
+    "native-07/execution/outcome-summary.json": {
+      "bytes": 547,
+      "sha256": "3826159735b9e9b573633db90fe8a0c437e7a76f54e7d8c4513c928737a937bc"
+    },
+    "native-07/execution/calls/lifecycle-start.outcome.json": {
+      "bytes": 1022246,
+      "sha256": "ee696af67777cd4845e5e4e0504adf0665faad68d695ceb751746c67708df60e"
+    },
+    "native-07/execution/calls/lifecycle-start.close.json": {
+      "bytes": 1368,
+      "sha256": "974285215f3a66047b2a62c69bb1216580e458ef610105aa0ddeeeda75a67576"
+    },
+    "native-07/execution/resume.json": {
+      "bytes": 99584811,
+      "sha256": "13efd86009136376e152be8c486e01f92dc54ddc73081e46512dd335f8199d32"
+    },
+    "operator-client/public-setup.mjs": {
+      "bytes": 26465,
+      "sha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec"
+    },
+    "operator-client/runner.mjs": {
+      "bytes": 37818,
+      "sha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c"
+    },
+    "native-07/readback-recovery-001/recover.mjs": {
+      "bytes": 4998,
+      "sha256": "2a7479475def0b97dc884afdfb554e5fc8895ba01f9f476aed6fe3672fc47729"
+    },
+    "native-07/readback-recovery-001/ROOT_RECOVERY_SELECTION.json": {
+      "bytes": 4184,
+      "sha256": "61c8424352867dc5366ab13dc77f6ab6b5add30f04eb805d0d300eb973c1f45d"
+    }
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "directInstalledOwnerPins": {
+    "public/installed_public_definition_call.js": {
+      "bytes": 16192,
+      "sha256": "6ef13edb5900fc4f4e72e87245705f173b9ff92534978424106e4c8dd5950146"
+    },
+    "abg/definition_event_resource.js": {
+      "bytes": 18848,
+      "sha256": "3243781dfc5293020c6191208f9f861a73030671ddfa0fb1b6e113a8725420c6"
+    },
+    "abg/artifact_truth.js": {
+      "bytes": 38463,
+      "sha256": "3b579d25cfab5f5d17bdb8ef656b0b7619adecf2a555ae8c1c755d675a0ccd9a"
+    },
+    "abg/environment_admission.js": {
+      "bytes": 37245,
+      "sha256": "bf53f46f683280b2dd6fe5038732d99b672696b8d04615680fd4614ee1f8998f"
+    },
+    "abg/project_read_definition_bindings.js": {
+      "bytes": 31681,
+      "sha256": "38f7ff8838caaaaa89f7355cb2e032858f33734087a0a28b3d2289fcff1a8c49"
+    }
+  },
+  "verdict": "actual-close existing-owner readback recovery is lawful/static source consistent; success and exact allocation owner unverified",
+  "establishedFacts": {
+    "hostExit": 134,
+    "heapObservation": "~4GB from operator transcription, not runtime event",
+    "nativeOutcome": "actual saved runtime_failed, terminal null",
+    "receiptCloseEqualityVerified": true,
+    "actualClose": {
+      "prefix": {
+        "coordinateDigest": "sha256:ed0f2ce3aec4ca992b1887a678b582866ae846be7c792722cfcde8afacc5c282",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:566def8b3bb94b0805af8e41484bbcb15f50fae2c95a454b7497ece0afe742cc",
+        "prefixLength": 672021993,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+          "inode": 685986968
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:855ca9ed896a2c341a8c4363cdffb1a5c18e22054bd87e0fdda8aa2eb37b1969",
+        "device": 16777231,
+        "durableByteLength": 672021993,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "eventLogDigest": "sha256:566def8b3bb94b0805af8e41484bbcb15f50fae2c95a454b7497ece0afe742cc",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+        "inode": 685986968,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    },
+    "actualRun": {
+      "digest": "sha256:7a44f42efc73644b4d1b8c9f5384dfabccbf5a32abd1f552413ae70dee0a6576",
+      "ref": "run://abiogenesis/044be1576a8d108f95e1d4aa9ebe3b4afe6d5c5b2823696568b70443897e4b2d"
+    },
+    "priorResumePrefixLength": 596681388,
+    "firstReadRequestSaved": false,
+    "nativeOperationRepeated": false,
+    "hostConfigurationMismatch": "8GB already declared in setup/toolchain env; plain-node host applied process.env only after launch; observed host retained ~4GB",
+    "currentPrefixSelection": "serialized environment.prefix is compact durable coordinate, not event vector; actual close differs and refresh selects actual current prefix"
+  },
+  "uncertainties": [
+    "Exact ObjectEntries JavaScript owner/peak allocation not identified",
+    "Dropping environment reduces retained derived state but is not a proven OOM cure",
+    "Actual cold owner/SDK workload may still exceed available heap",
+    "Source stage bound spans refresh, streaming identity, SDK population and canonical request encoding before first request record",
+    "Root launched recovery separately; live outcome not observed by reviewer"
+  ],
+  "minimumReadState": {
+    "required": [
+      "actual closeHandoff",
+      "exact retained binding ref/digest",
+      "environment:null",
+      "compact calls metadata",
+      "actual saved receipt",
+      "installedRoot/runtime modules",
+      "exact native.verified definition coordinates and publicCaller catalog identifiers",
+      "config.runId/nodePath/setupEnvironment",
+      "Root actor/command/record closures"
+    ],
+    "notConsumedForReads": [
+      "state.resolvedLock",
+      "state.catalog",
+      "state.catalogView",
+      "serialized derived environment/artifactTruth"
+    ],
+    "laterContinuation": "preserve exact static lock/catalog/view values or pins separately; do not replace full catalog with fake coordinate shape; future owner refresh derives current environment"
+  },
+  "existingOwnerRoute": [
+    "publicCaller.refresh111-116 -> actual projectOwnedPrefixArtifactTruth/currentness/exact workspace projection",
+    "freshReadbacks260-293 -> actual installed run-read SDK309-329 -> populateRunReadAtDurablePrefix436-472",
+    "invokeColdInstalledEntry243-257 for run_result/run_replay only",
+    "unchanged prefix and streaming physical identity280; source Run ref/digest276; terminal agreement285-292"
+  ],
+  "checks": {
+    "pre": [
+      "pin original failure/receipt/close/Run/config/installed identity",
+      "use actual672021993 close, never prior596681388",
+      "existing8GB host policy at process start, correct environment/lock namespace",
+      "actual owner currentness/binding checks; no coordinate/lock bypass"
+    ],
+    "post": [
+      "both actual read requests/outcomes/returned closes preserved",
+      "source ref/digest match actual receipt",
+      "prefix and physical identity unchanged for each read",
+      "null terminal remains absent; failed/not_found truth not upgraded",
+      "exclusive recovered fresh/checkpoint outputs; derived environment omitted",
+      "original runtime/host failure and prior receipts preserved"
+    ]
+  },
+  "recoverySourceCheck": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/readback-recovery-001/recover.mjs",
+    "sha256": "2a7479475def0b97dc884afdfb554e5fc8895ba01f9f476aed6fe3672fc47729",
+    "status": "consistent on static read",
+    "properties": [
+      "input pins and heap-at-launch guard",
+      "actual receipt-close equality/run/ref/runtime_failed checks",
+      "read caller only close/binding/calls/envnull",
+      "run_result/run_replay command allowlist",
+      "maintained freshReadbacks and unchanged prefix checks",
+      "no invokeLifecycle",
+      "static continuation metadata separately preserved and environment omitted",
+      "exclusive report/continuation writes"
+    ],
+    "selectionSha256": "61c8424352867dc5366ab13dc77f6ab6b5add30f04eb805d0d300eb973c1f45d",
+    "requiredHostHeapMiB": 8192,
+    "rootReportedSession": 56145,
+    "executionObservedByReviewer": false
+  },
+  "futureControls": [
+    "apply/record declared host heap at launch rather than mutating only child environment",
+    "persist close/binding/static metadata without derived environment",
+    "pin latest actual close and retain old failures/receipts",
+    "exclusive attempt/stage evidence and existing read-only identity checks",
+    "stop on new refusal/OOM with exact stage/evidence; no automatic native/C2 repetition or owner bypass"
+  ],
+  "limits": [
+    "No approval or execution success claim",
+    "No prompt-cap/new heap-policy/Product change",
+    "No Product/test or broad code/allocation review",
+    "No tests/builds/providers/native contact/runtime operation/lock manipulation/delegation",
+    "Only permitted report pair written",
+    "Prior native08 draft-identity finding retained separately",
+    "Same-family/non-authorship/prior-advisory limits retained"
+  ]
+}

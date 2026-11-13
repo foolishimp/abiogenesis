@@ -1,0 +1,55 @@
+{
+  "files": [
+    {
+      "bytes": 2974,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/task.md",
+      "role": "task",
+      "sha256": "2447f9993629e91c4c0e30aa4a37e8100df57a3957d7b75b411f539f60e0220d",
+      "target": "rc3-operator-inputs/single-machine-p1-03/task.md"
+    },
+    {
+      "bytes": 6241,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/HOW.md",
+      "role": "how",
+      "sha256": "b22156289c96026dd094144ddf544ad44aad538393c7e9a2add413c0641872c7",
+      "target": "rc3-operator-inputs/single-machine-p1-03/HOW.md"
+    },
+    {
+      "bytes": 1843,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/rubric.json",
+      "role": "rubric",
+      "sha256": "b460a5b77875c5e7006eece0043cedae0e6d76439fe2b928831b96d33d4b781e",
+      "target": "rc3-operator-inputs/single-machine-p1-03/rubric.json"
+    },
+    {
+      "bytes": 14134,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/NATIVE_GRANT.json",
+      "role": "grant",
+      "sha256": "5785e2ba3aa1858828b7c68363664ee71ddb35e3d506d0c45c84f56225628a07",
+      "target": "rc3-operator-inputs/single-machine-p1-03/NATIVE_GRANT.json"
+    },
+    {
+      "bytes": 15454,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/COUNTEREXAMPLE.json",
+      "role": "counterexample",
+      "sha256": "f1120a95bbe668a913d5bb2b4ffbfecd5716f4c64092615c6f40486de65308fb",
+      "target": "rc3-operator-inputs/single-machine-p1-03/COUNTEREXAMPLE.json"
+    },
+    {
+      "bytes": 5795,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/DIAGNOSTICS.md",
+      "role": "diagnostics",
+      "sha256": "5a8633ae67787c5ede01a9646e8b56d89a70e46601182a725f0ab71cb981d412",
+      "target": "rc3-operator-inputs/single-machine-p1-03/DIAGNOSTICS.md"
+    },
+    {
+      "bytes": 81570,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/FOCUSED_C2_STDOUT.txt",
+      "role": "focused_stdout",
+      "sha256": "a26cd9d5db6f8ab0df562beaf3edd076e616c908affa17d664cb2bb2d67a87a9",
+      "target": "rc3-operator-inputs/single-machine-p1-03/FOCUSED_C2_STDOUT.txt"
+    }
+  ],
+  "noClobber": true,
+  "standing": "Root-admitted new P1-03 operator inputs only; original histories/inputs preserved"
+}

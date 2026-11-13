@@ -1,0 +1,230 @@
+{
+  "status": "CAMPAIGN_HALTED_CONTROL_POSTCHECK_AND_STOP_DEFECT",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "campaign": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/CAMPAIGN_RETURN.json",
+    "bytes": 627,
+    "sha256": "4065828b594449838fa857f1a6c37a2e50cddd0d6f7e50d3d2c61ed0cdd7661d"
+  },
+  "halt": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/HALT.json",
+    "bytes": 3186,
+    "sha256": "b645e02150402872b9e6ad7011ff4807d7e182aaa2478d5b27e8f5d12fc4834b"
+  },
+  "operatorStop": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/OPERATOR_STOP.json",
+    "bytes": 4980,
+    "sha256": "1bbd08993c36be7d463e9931f1451ee901d68281cca33b1f0f9036c233750d38"
+  },
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/POSTGUARDS.json",
+    "bytes": 2200,
+    "sha256": "cfd4e99e0eae39b86f9ed22e3ba96a4ea12d0a79a22baa5b28d78586ef29b158"
+  },
+  "commands": [
+    {
+      "id": "lint",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/lint/RETURN.json",
+        "bytes": 979,
+        "sha256": "3130b28bf76e198f22840a70c1283edc7e65d38648ee4bb7427d557038f13e90"
+      },
+      "status": "PASSED",
+      "failure": null,
+      "exitCode": 0,
+      "wallSeconds": 0.11214841715991497,
+      "groupAbsentNow": true,
+      "counts": null
+    },
+    {
+      "id": "build",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/build/RETURN.json",
+        "bytes": 1368,
+        "sha256": "987f8100b7a1949ea02330958909702fd045a1992a774f991f613f0ac37adbcf"
+      },
+      "status": "PASSED",
+      "failure": null,
+      "exitCode": 0,
+      "wallSeconds": 30.31483479216695,
+      "groupAbsentNow": true,
+      "counts": null
+    },
+    {
+      "id": "helper-prerequisite",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/helper-prerequisite/RETURN.json",
+        "bytes": 1762,
+        "sha256": "65b82abf8aaa019a571011bd29b00467db844f7176d526efd0074d47b5f3e62c"
+      },
+      "status": "PASSED",
+      "failure": null,
+      "exitCode": 0,
+      "wallSeconds": 0.4315930837765336,
+      "groupAbsentNow": true,
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "id": "b-selected",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/b-selected/RETURN.json",
+        "bytes": 2332,
+        "sha256": "5d85745cc808f58da47b655f0ee8e2c43279eaa8192f80570bdac5595d425f0a"
+      },
+      "status": "PASSED",
+      "failure": null,
+      "exitCode": 0,
+      "wallSeconds": 0.5509144999086857,
+      "groupAbsentNow": true,
+      "counts": {
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "id": "pack",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/pack/RETURN.json",
+        "bytes": 1295,
+        "sha256": "957b64df1a3bdfc16d74363bf00e6a4af5302dd608faaf55f32c5bab6061ea26"
+      },
+      "status": "PASSED",
+      "failure": null,
+      "exitCode": 0,
+      "wallSeconds": 3.831398084294051,
+      "groupAbsentNow": true,
+      "counts": null
+    },
+    {
+      "id": "bootstrap",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/bootstrap/RETURN.json",
+        "bytes": 1077,
+        "sha256": "f3af0554371356631fdf0de00ba7f716b81c91ff58cda051fd4328410cba3782"
+      },
+      "status": "PASSED",
+      "failure": null,
+      "exitCode": 0,
+      "wallSeconds": 2.1683922079391778,
+      "groupAbsentNow": true,
+      "counts": null
+    },
+    {
+      "id": "c2-positive",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/RETURN.json",
+        "bytes": 7743,
+        "sha256": "a49d3b7b5e459409c31d8d9b745cfd494cb550e60ebff98a522f825d1b4a5de7"
+      },
+      "status": "FAILED_OR_INCOMPLETE",
+      "failure": "",
+      "exitCode": 0,
+      "wallSeconds": 54.27273599989712,
+      "groupAbsentNow": true,
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "id": "owned-lifetime",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/owned-lifetime/RETURN.json",
+        "bytes": 122770,
+        "sha256": "b65e5a0a44ca8fc794a26fa468f37cd72ad2329691796a1f000ed28c6540afe8"
+      },
+      "status": "PASSED",
+      "failure": null,
+      "exitCode": 0,
+      "wallSeconds": 12.356816125102341,
+      "groupAbsentNow": true,
+      "counts": {
+        "tests": 34,
+        "pass": 34,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "id": "unit",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/unit/RETURN.json",
+        "bytes": 1441,
+        "sha256": "078b5b457773a1c4f0671bd3f9dc849ba4a245531293476f5620486876139d7c"
+      },
+      "status": "FAILED_OR_INCOMPLETE",
+      "failure": "command failed/incomplete/cleanup required",
+      "exitCode": 1,
+      "wallSeconds": 41.67850520834327,
+      "groupAbsentNow": true,
+      "counts": null
+    }
+  ],
+  "firstFailure": {
+    "id": "c2-positive",
+    "receipt": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/RETURN.json",
+      "bytes": 7743,
+      "sha256": "a49d3b7b5e459409c31d8d9b745cfd494cb550e60ebff98a522f825d1b4a5de7"
+    },
+    "cause": "retain_c2 compared the owner tagged sha256 digest to raw hex. Bare AssertionError serialized as empty string.",
+    "actualTAP": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0
+    },
+    "actualRawSummary": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/summary.json",
+      "bytes": 2914,
+      "sha256": "3f4241e5e2c71aaaddcd8d7ddfe36a1e81eb178ce20f6c4b5767d7a6033b9172"
+    },
+    "actualCleanup": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/c2-positive/installed-proof/cleanup.json",
+      "bytes": 2165,
+      "sha256": "e17520194a0cf08fcac36bf52d1190d5fa8b6a97b6d80440e48d7a0b307c11ab"
+    },
+    "notRerun": true
+  },
+  "stopFailure": {
+    "cause": "The driver marks failure when error is not None, then uses if error to halt. Empty string is false; lifetime and unit therefore started despite the earlier failed receipt.",
+    "laterLifetime": "Actual34/34 zero skip, generated after stop should have occurred; retained separately for Root disposition, not autoaccepted.",
+    "unit": "Operator terminated current owned group with one SIGTERM; incomplete, no automatic repeat."
+  },
+  "unchangedControlBytes": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/proof.py",
+    "bytes": 24914,
+    "sha256": "862517533438aaeb5cd09d87b56ebc6d5ce02b147074e8ae49f509456c8acca6"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11052094,
+    "sha256": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8"
+  },
+  "members": 5329,
+  "buildInventory": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 183894,
+    "sha256": "46693cab5a5a0aa954a339f62b0d4a4dd7cfea38f45e968c924a93a92e43c6c8"
+  },
+  "qualification": false,
+  "sourceRepairOrRetry": false,
+  "nextOwner": "Root control/source/proof triage; no reentry executed."
+}

@@ -1,0 +1,37 @@
+{
+  "status": "ROOT_ADMITTED_RC11_PROOF_CONTINUATION",
+  "utc": "2026-11-09T09:38:52.716005+00:00",
+  "bindingSha256": "8b684197a40c53601ba715afa53d281d5aad1736771e5f95a5df35aaf50dd3cf",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/BINDING.json",
+      "bytes": 5568,
+      "sha256": "8b684197a40c53601ba715afa53d281d5aad1736771e5f95a5df35aaf50dd3cf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/COMMANDS.json",
+      "bytes": 551,
+      "sha256": "76f6b1f847deaeae84c1f556c60f637db1435767bb82bcf23469172340b4210f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/continuation.py",
+      "bytes": 10569,
+      "sha256": "0b3f6f9d02422a73254050c86b39517504a0e7464ba0ae7d8196f88525635f89"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/READY.json",
+      "bytes": 1137,
+      "sha256": "9c07bf3075a40ce3c5ab13a4dda7de4831d16b7e63ede35bc957e9cd24dafd95"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/ROOT_M5_DISPOSITION.json",
+      "bytes": 1499,
+      "sha256": "5f34872ac04a9aef114ebe3609811c654fabed8d3b0ec26fd1dbccdd885c4251"
+    }
+  ],
+  "commandIds": [
+    "r6",
+    "f04a"
+  ],
+  "rootDecision": "Root read all three exact diagnostic record.json bodies and copied-artifact pins. Observed unacknowledged-output has launchFailure null, directExit SIGTERM, no output/callback, clean group absence; it never exercised false acknowledgement. Other two diagnostic cases demonstrate their bounded intended outcomes. This supplies no current contradiction of the selected RC11 claims and does NOT close m5 cause/proof. Root now selects continued bounded local delivery with m5 deferred as an explicit qualification blocker (no repaired-unit or all-green claim), subject to remaining helper proof and packaging. Grant separate mechanical execution: record reentry-05 admission and run ONLY original R6 then F04A, once each, original900 s caps, same retained source/build/deps/env, stop on first failure/incomplete/drift. No repeats/build/source mutation. New reentry-05 controls and continuation-05 outputs/scratch only. Pack remains held for actual results and exact successor controls. After proof closes, Root will grant durable tracking/debt registration and cut preparation; do not alter tracked guards mid-proof."
+}

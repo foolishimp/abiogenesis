@@ -1,0 +1,322 @@
+{
+  "kind": "b11_bounded_efficiency_measurements",
+  "subject": {
+    "runRef": "run://abiogenesis/4e1de2e9334620f62f9bb725d24517d6ea6ecfe3f68c5e064795561ffa5d20aa",
+    "executingRC2ArchiveSha256": "36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+    "executingRC2Manifest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+    "executingRC2SourceCommit": "d1e4527dbbc0b9ca1a929122c62ca225184f3341",
+    "candidateRC3ArchiveSha256": "0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c",
+    "methodUri": "stdo://releases/v3.0.2/",
+    "methodManifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "nativeLifecycleWallSeconds": 2321.737344292,
+  "providerDurationSumSeconds": 920.454,
+  "eventLog": {
+    "bytes": 1339885116,
+    "records": 4525,
+    "missingKind": 0,
+    "scanWallSeconds": 1.5719835422933102,
+    "topKindBytes": {
+      "c_call_result_admitted": 679289876,
+      "traversal_route_admitted": 361529670,
+      "actor_transport_binding_admitted": 280233794,
+      "runtime_activity_probe_observed": 9712614,
+      "actor_process_stdout_observed": 3680190,
+      "public_operation_artifact_admitted": 3195635,
+      "basis_admitted": 1070410,
+      "invocation_admitted": 352512,
+      "actor_invocation_closed": 184394,
+      "c_call_evidenced": 93320,
+      "actor_result_artifact_observed": 86854,
+      "c_call_opened": 76273
+    },
+    "topKindCounts": {
+      "c_call_result_admitted": 28,
+      "traversal_route_admitted": 28,
+      "actor_transport_binding_admitted": 6,
+      "runtime_activity_probe_observed": 2288,
+      "actor_process_stdout_observed": 1946,
+      "public_operation_artifact_admitted": 3,
+      "basis_admitted": 10,
+      "invocation_admitted": 1,
+      "actor_invocation_closed": 6,
+      "c_call_evidenced": 28,
+      "actor_result_artifact_observed": 6,
+      "c_call_opened": 28
+    },
+    "selectedLargeEvents": [
+      {
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-10-31T23:22:02.183Z",
+        "eventId": "event://abiogenesis/39836eadf7f12f9e3688fa09e7747861e80edf9b0e043dd9b89952bb625ef603",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "aggregateType": "c_call",
+        "runId": null,
+        "ordinal": 1879,
+        "bytes": 117774256,
+        "offset": 169047722
+      },
+      {
+        "kind": "traversal_route_admitted",
+        "eventTime": "2026-10-31T23:22:45.778Z",
+        "eventId": "event://abiogenesis/f48bea97b54d39b6bf862d7ccd0d2f251b6921edcd5fd61e1146885afd651249",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+        "aggregateType": "frame",
+        "runId": null,
+        "ordinal": 1900,
+        "bytes": 118006511,
+        "offset": 286886823
+      },
+      {
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-10-31T23:26:28.274Z",
+        "eventId": "event://abiogenesis/b93832e0ff5db0d99a3f56b441cdc3e06c4d71c28c7b14ca3b1a0fb740be2936",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "aggregateType": "c_call",
+        "runId": null,
+        "ordinal": 2906,
+        "bytes": 119450320,
+        "offset": 449633125
+      },
+      {
+        "kind": "actor_transport_binding_admitted",
+        "eventTime": "2026-10-31T23:28:44.592Z",
+        "eventId": "event://abiogenesis/abd2d2fd06a3f4b19adcfccc9c7c69a10de75381f5a445c1bb48078979c6774b",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "aggregateType": "transport_binding",
+        "runId": null,
+        "ordinal": 2929,
+        "bytes": 119593138,
+        "offset": 569161677
+      },
+      {
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-10-31T23:33:27.829Z",
+        "eventId": "event://abiogenesis/8445ea8ef201a851f529de4a23e819f1c91296bbdbc0927a8554989c5a714774",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "aggregateType": "c_call",
+        "runId": null,
+        "ordinal": 2982,
+        "bytes": 124233329,
+        "offset": 688934717
+      },
+      {
+        "kind": "traversal_route_admitted",
+        "eventTime": "2026-10-31T23:35:10.924Z",
+        "eventId": "event://abiogenesis/e952adcded4cb1fb3f32836501f0067eaaa252957574ba95e343b091d679af32",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "aggregateType": "frame",
+        "runId": null,
+        "ordinal": 3003,
+        "bytes": 124474488,
+        "offset": 813233002
+      },
+      {
+        "kind": "actor_transport_binding_admitted",
+        "eventTime": "2026-10-31T23:43:04.741Z",
+        "eventId": "event://abiogenesis/21f107b18450e1d728c4a2af744111a6f5226d62e54e69418de66d2f23eef841",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+        "aggregateType": "transport_binding",
+        "runId": null,
+        "ordinal": 3906,
+        "bytes": 79213106,
+        "offset": 1021968118
+      },
+      {
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-10-31T23:47:10.317Z",
+        "eventId": "event://abiogenesis/2bbb686296abfaf5247cd278c274e3dd6a3686ec6df3987d35a6bd54362ce61b",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+        "aggregateType": "c_call",
+        "runId": null,
+        "ordinal": 4440,
+        "bytes": 117900335,
+        "offset": 1102896987
+      },
+      {
+        "kind": "traversal_route_admitted",
+        "eventTime": "2026-10-31T23:48:37.205Z",
+        "eventId": "event://abiogenesis/8245cd121ac5632d67f5ed038625e830e2942559fe144863b6151eca29460bc7",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+        "aggregateType": "frame",
+        "runId": null,
+        "ordinal": 4461,
+        "bytes": 118203823,
+        "offset": 1220862195
+      }
+    ],
+    "closedPrefixSha256": "9132990646773460f5b1981c4b5ddc721333bdba465ff1655eba61a8ac2886d8",
+    "unchangedAfterProfile": true,
+    "device": 16777231,
+    "inode": 668846706
+  },
+  "processIntervals": [
+    {
+      "phase": "selector1",
+      "startOrdinal": 55,
+      "start": "2026-10-31T23:16:11.546Z",
+      "endOrdinal": 1007,
+      "end": "2026-10-31T23:17:07.038Z",
+      "seconds": 55.492
+    },
+    {
+      "phase": "construction",
+      "startOrdinal": 1079,
+      "start": "2026-10-31T23:17:29.998Z",
+      "endOrdinal": 1872,
+      "end": "2026-10-31T23:21:59.163Z",
+      "seconds": 269.165
+    },
+    {
+      "phase": "selector2",
+      "startOrdinal": 1985,
+      "start": "2026-10-31T23:24:43.167Z",
+      "endOrdinal": 2859,
+      "end": "2026-10-31T23:25:45.938Z",
+      "seconds": 62.771
+    },
+    {
+      "phase": "testing_launcher",
+      "startOrdinal": 2931,
+      "start": "2026-10-31T23:28:45.792Z",
+      "endOrdinal": 2975,
+      "end": "2026-10-31T23:32:54.724Z",
+      "seconds": 248.932
+    },
+    {
+      "phase": "selector3",
+      "startOrdinal": 3088,
+      "start": "2026-10-31T23:39:02.099Z",
+      "endOrdinal": 3836,
+      "end": "2026-10-31T23:40:19.441Z",
+      "seconds": 77.342
+    },
+    {
+      "phase": "uat",
+      "startOrdinal": 3908,
+      "start": "2026-10-31T23:43:05.536Z",
+      "endOrdinal": 4433,
+      "end": "2026-10-31T23:47:07.191Z",
+      "seconds": 241.655
+    }
+  ],
+  "betweenProcessIntervals": [
+    {
+      "phase": "selector1_to_construction",
+      "startOrdinal": 1007,
+      "start": "2026-10-31T23:17:07.038Z",
+      "endOrdinal": 1079,
+      "end": "2026-10-31T23:17:29.998Z",
+      "seconds": 22.96
+    },
+    {
+      "phase": "construction_to_selector2",
+      "startOrdinal": 1872,
+      "start": "2026-10-31T23:21:59.163Z",
+      "endOrdinal": 1985,
+      "end": "2026-10-31T23:24:43.167Z",
+      "seconds": 164.004
+    },
+    {
+      "phase": "selector2_to_testing",
+      "startOrdinal": 2859,
+      "start": "2026-10-31T23:25:45.938Z",
+      "endOrdinal": 2931,
+      "end": "2026-10-31T23:28:45.792Z",
+      "seconds": 179.854
+    },
+    {
+      "phase": "testing_to_selector3",
+      "startOrdinal": 2975,
+      "start": "2026-10-31T23:32:54.724Z",
+      "endOrdinal": 3088,
+      "end": "2026-10-31T23:39:02.099Z",
+      "seconds": 367.375
+    },
+    {
+      "phase": "selector3_to_uat",
+      "startOrdinal": 3836,
+      "start": "2026-10-31T23:40:19.441Z",
+      "endOrdinal": 3908,
+      "end": "2026-10-31T23:43:05.536Z",
+      "seconds": 166.095
+    },
+    {
+      "phase": "uat_to_run_closed",
+      "startOrdinal": 4433,
+      "start": "2026-10-31T23:47:07.191Z",
+      "endOrdinal": 4525,
+      "end": "2026-10-31T23:53:21.068Z",
+      "seconds": 373.877
+    }
+  ],
+  "processTotalSeconds": 955.357,
+  "betweenProcessTotalSeconds": 1274.165,
+  "c2Nesting": {
+    "eventOrdinal": 2982,
+    "eventBytes": 124233329,
+    "payloadValueTaskBytes": 119448293,
+    "sourceNativeWorkBytes": 117772212,
+    "beforeContextBytes": 39242903,
+    "taskContextBytes": 39242903,
+    "afterContextBytes": 39254711,
+    "entriesEach": 965,
+    "beforeAndTaskIdenticalEntries": 965,
+    "beforeAndAfterIdenticalEntries": 962,
+    "encodedFileBytesBefore": 38880024,
+    "encodedFileBytesTask": 38880024,
+    "encodedFileBytesAfter": 38891832,
+    "note": "JSON subtree sizes use UTF-8 compact serialization; C2 sourceNativeWork contains 3 complete contexts, not all necessarily identical"
+  },
+  "coldPrefixProfile": {
+    "operation": "installed RC2 readRuntimeEventsAtDurablePrefix exact final B11 prefix, isolated subprocess with --cpu-prof",
+    "prefixBytes": 1339885116,
+    "eventCount": 4525,
+    "wallMs": 17552.586583,
+    "cpuMs": 18345.96,
+    "maxRssKiB": 4993168,
+    "profileBytes": 460420,
+    "profileSha256": "6918ce3a97e0409d877c09bf631accaf5ac810a3f4c59e5d1e4af55d82a9d443",
+    "profileLocalPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/efficiency-p1-01/local-raw/CPU.20261101.124913.70952.0.001.cpuprofile",
+    "sampleCount": 14406,
+    "sampleDurationSeconds": 17.985,
+    "inclusiveSampleSeconds": {
+      "readRuntimeEventsAtDurablePrefix": 17.006,
+      "validateHistoricalEvents": 16.485,
+      "decodeHistoricalEvents": 16.483
+    },
+    "leafSampleSeconds": {
+      "hash.update": 7.124,
+      "writeCanonicalJson": 4.242,
+      "utf8Write": 1.369,
+      "decodeHistoricalEvents": 0.886,
+      "garbageCollector": 0.556
+    },
+    "host": {
+      "physicalMemoryBytes": 137438953472,
+      "freeMemoryPercentageObserved": 86,
+      "cache": "warm after prior reads",
+      "profilingOverhead": "CPU profiling enabled; no unprofiled matched control"
+    },
+    "limitations": [
+      "inclusive samples overlap; do not sum as independent cost",
+      "diagnostic process exited normally with no orphan; exact closed event identity reverified unchanged",
+      "one cold operation measured, actual B11 execution call count and contribution to intervals not profiled"
+    ]
+  },
+  "localComparison": {
+    "b10LifecycleSeconds": 2464.980792375,
+    "b10ProviderDurationSumSeconds": 1070.929,
+    "b11LifecycleSeconds": 2321.737344292,
+    "b11ProviderDurationSumSeconds": 920.454,
+    "witness004LifecycleSeconds": 393.26931925,
+    "witness004ProviderDurationSumSeconds": 353.605,
+    "limits": "Different Run/source/tasks/contexts; no controlled speedup or direct-agent productivity claim."
+  },
+  "limits": [
+    "Event sizes establish representation amplification, not end-to-end latency causation.",
+    "Actor intervals are actual process start to exit, include work and may overlap provider-reported duration; do not add provider durations.",
+    "Between-process intervals include owner work, scheduling and I/O; not wholly attributable to CPU.",
+    "Proposed metadata-only projection is non-equivalent and is not an implemented authority or schema."
+  ]
+}

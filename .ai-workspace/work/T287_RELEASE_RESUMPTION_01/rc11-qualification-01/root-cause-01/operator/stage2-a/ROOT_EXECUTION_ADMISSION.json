@@ -1,0 +1,45 @@
+{
+  "status": "ROOT_ADMITTED_RC11_CAUSE_STAGE2_A",
+  "bindingSha256": "25f5b9ee3f9269c5ec4b9f0f53404ec0a6d4ea9fcc68b3e89110fc1ffd7c43c7",
+  "commandIds": [
+    "six-case-delay-counterfactual"
+  ],
+  "rootDecision": "Root admits one six-case derivative from frozenstage1 with explicit600ms fixture BODY delay before original semantic actions in five individual workers and ONLY HTTP-normal leader. Preserve original clocks/assertions; leave other group modes unchanged. Record scheduled/completed delay; expected originalfailures diagnostic only, not repair or historical equivalence. Max60s, once, preserve results/cleanup.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/READY.json",
+      "bytes": 2720,
+      "sha256": "0e872fb58f4c67b37c4b246f085f9106fbd80bb07906f913c44d6eebec7b4b62"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/BINDING.json",
+      "bytes": 8704,
+      "sha256": "25f5b9ee3f9269c5ec4b9f0f53404ec0a6d4ea9fcc68b3e89110fc1ffd7c43c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/SOURCE_TRANSFORM.json",
+      "bytes": 1701,
+      "sha256": "11edd520edfac63d3d0ac7298e1d9d352b27844199c5d7f03050ba7fa1c4e5cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/SOURCE_TRANSFORM.diff",
+      "bytes": 13699,
+      "sha256": "35996c96387453dd3c6c2862d93437dcb5013e9bef329a1b5dac3c3a32712237"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/diagnostic.py",
+      "bytes": 12222,
+      "sha256": "cc66d3691adb5f656d1631cd0273a8423b474541957e770904f9398ff79a6ac5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/COMMANDS.json",
+      "bytes": 931,
+      "sha256": "889c7dfff1dc769371d99db7aa79c0fc5698fe31bcdf5b630fab7c7b88c1691a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/stage2-a/ENVIRONMENT.json",
+      "bytes": 1209,
+      "sha256": "e8349474031407f79420f9bb30d93952e01316b2090b9a72c7d7bb9e5d18573b"
+    }
+  ]
+}

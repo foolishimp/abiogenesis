@@ -1,0 +1,24 @@
+{
+  "startedUtc": "2026-11-06T22:11:45.439Z",
+  "endedUtc": "2026-11-06T22:28:12.539Z",
+  "wallMs": 987084.02775,
+  "marks": {
+    "beforeRunIdentityMs": 1158.203083,
+    "acquiredMs": 57414.669375,
+    "environmentMs": 133486.630375,
+    "preparedMs": 135683.496667
+  },
+  "invoked": true,
+  "transport": "installed_sdk",
+  "sdkExitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "completed",
+  "run": {
+    "ref": "run://abiogenesis/d15a0e80ef7d002e6ab188eb41d83331d085b9b961e6549b9f439f499d07c6be",
+    "digest": "sha256:82c349599c3cc4f3d2fa39b5633915cc984dd368a97353988c41f7d6f6c9db5e"
+  },
+  "physicalCloseSucceeded": true,
+  "errors": [],
+  "qualified": false,
+  "meaning": "SDK exitCode is an Effect-host status, not CLI/process metadata. Actual typed blocked/unmet results remain unchanged."
+}

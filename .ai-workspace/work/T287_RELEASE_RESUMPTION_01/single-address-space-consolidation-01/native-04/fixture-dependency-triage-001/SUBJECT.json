@@ -1,0 +1,43 @@
+{
+  "recordedUtc": "2026-11-03T20:05:45.303966+00:00",
+  "kind": "frozen_existing_test_dependency_triage",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "bytes": 22594,
+      "sha256": "590a2f9110587f57a72e4438d3bb6c45d3847d314a875f4dfefc4731e6c99f62",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/fixture-dependency-triage-001/files/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "standing": "Exact f49 and current worksite equal; outside native04 write grant"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 8406,
+      "sha256": "89f440e0e1296b42e00d1aeb970e35ea2edea808d8ba4f9a03d0401da75b95b4",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/fixture-dependency-triage-001/files/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "standing": "Exact f49 and current worksite equal; outside native04 write grant"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "bytes": 2282,
+      "sha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/fixture-dependency-triage-001/files/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "standing": "Exact f49 and current worksite equal; outside native04 write grant"
+    }
+  ],
+  "directSyntheticFixtureConsumers": [
+    "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-malformed-gtl-gate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs"
+  ],
+  "native04DispatchManifestSha256": "4738b7cfb9729269044f169e1ee04e754290ec7cbcaadbc42ed31440d2078f56",
+  "sourceStanding": "No current native04 Product edits are frozen or reviewed by this record.",
+  "issue": "Selected qualification carrier migration requires its synthetic lower-owner fixture to follow existing owned-prefix APIs. Selected replay wrapper retirement requires migration of the existing dynamically invoked fresh-process proof harness. Those test dependencies were omitted from the native04 write grant; the original complete outcome remains selected."
+}

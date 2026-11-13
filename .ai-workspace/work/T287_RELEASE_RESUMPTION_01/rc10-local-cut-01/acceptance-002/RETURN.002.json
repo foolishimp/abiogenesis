@@ -1,0 +1,86 @@
+{
+  "id": "RC10-LOCAL-CUT-ACCEPTANCE-002-RETURN",
+  "status": "SELECTED_SOURCE_PROOF_CONJUNCTION_COMPLETE_READY_FOR_ONE_ROOT_BUILD_ADMISSION",
+  "recordedUtc": "2026-11-09T04:51:16.199281+00:00",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "records": {
+    "ROOT_BOUNDED_ACCEPTANCE.002.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/ROOT_BOUNDED_ACCEPTANCE.002.json",
+      "bytes": 21569,
+      "sha256": "d6d22bbb4757ba931df4d4b1adbf18071773c7ddc31384bd7a5da30e7fb971e9"
+    },
+    "CUMULATIVE_SOURCE_COVERAGE.002.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/CUMULATIVE_SOURCE_COVERAGE.002.json",
+      "bytes": 13373,
+      "sha256": "52fa4c0c4ef938160a0a71c7d0b163fdd5a4e167fee4828ee28acc70512c6091"
+    },
+    "SOURCE_ARTIFACT_CONJUNCTION.002.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/SOURCE_ARTIFACT_CONJUNCTION.002.json",
+      "bytes": 5338,
+      "sha256": "779ebdd45fd4a215f8ac694e6adca46e4860e467ace5d2dd58b4f1373a2e2de0"
+    },
+    "BUILD_BINDINGS.002.HELD.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/BUILD_BINDINGS.002.HELD.json",
+      "bytes": 10279,
+      "sha256": "3ab3432847d5c68e46315c64790214c06a2ea74d02076f24e40a892f75b0cfae"
+    },
+    "BOUNDED_CANDIDATE_CLAIM.002.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/BOUNDED_CANDIDATE_CLAIM.002.md",
+      "bytes": 2153,
+      "sha256": "ece3c7127bd825330e84792db550d0e7a89f47cedcba9f6c81d7a4c7758e5478"
+    },
+    "RESIDUALS.002.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/RESIDUALS.002.md",
+      "bytes": 2483,
+      "sha256": "3511020d956118eb807e0b3c626a40aad9e718af44a4de1f802b393d84c560bc"
+    },
+    "ROOT_AUTHORITY.002.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/ROOT_AUTHORITY.002.md",
+      "bytes": 1500,
+      "sha256": "e57c6caf00e64c91e8dfea456b860872d3e22531262cadf3bb693913808bdc58"
+    },
+    "BINDING_CHECKS.002.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/BINDING_CHECKS.002.json",
+      "bytes": 2401,
+      "sha256": "45288a10daa02c9d16cf606d55790d204b4eab7d37755379597c9453906a6acf"
+    }
+  },
+  "preservedPreparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 2837,
+    "sha256": "7113beb67d03d9c4398f89799ad49a355b00116d07fa8ba7f1a297a7a5c13128"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-001/RETURN.001.json",
+    "bytes": 3840,
+    "sha256": "b15ffd3072cac9fa77ba4bb48977635983cfff58918e4e413ad3c7adde50f7a8"
+  },
+  "nextRootBindingDelta": {
+    "status": "ROOT_SELECTED_LOCAL_RC10_BUILD_ONLY",
+    "executionEnabled": true,
+    "activation": "Exact separate Root build-admission file pin; currently unbound. Create a new binding successor, preserve this held packet."
+  },
+  "nextCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/run-local-cut.mjs",
+    "build",
+    "<Root executable binding successor path>",
+    "<exact successor binding SHA-256>"
+  ],
+  "unresolvedBeforeBuild": [
+    "Root build activation/admission only"
+  ],
+  "laterUnperformed": [
+    "actual source checkpoint and clean byte/member-equal reproduction",
+    "final packaging disposition and Root install admission",
+    "actual immutable RC10 installation"
+  ],
+  "executionEnabled": false,
+  "sourceGitBuildInstallMainEffects": false,
+  "stop": "Return concrete pins to Root; no further review/test cycle or execution by this Writer activation."
+}

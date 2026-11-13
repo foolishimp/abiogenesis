@@ -1,0 +1,171 @@
+{
+  "kind": "root_h05_refusal_oracle_selection",
+  "status": "ROOT_SELECTED_NATIVE_ONE_TEST_ORACLE_CORRECTION",
+  "createdUtc": "2026-11-06T18:44:13.050176+00:00",
+  "productFrame": {
+    "method": "installed STDO3.0.4",
+    "product": "ABIogenesis5.0 fixed fifteen-family scope",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "composition": [],
+    "runtimeAuthority": "ABG",
+    "installedBuilder": "5.0.0-rc.6",
+    "classification": "existing HOW realization correction; no new Product outcome, authority, public contract or runtime entity"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/SOURCE_AFTER.json",
+    "bytes": 563090,
+    "sha256": "b92dc5ad604ad49fa1751baa4b0b4e6c34675741ec60189cc2b9bb0002e5ed25"
+  },
+  "actualFinalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 8803,
+    "sha256": "a75488774414e84e7b92b177d59bb857e9b2792646da60b656bfca8a19b2e005"
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8788,
+    "sha256": "e43d763b6fd7f453f065a8d1c44f47108a8371410f3649b93344ac07c3fa120c"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "f4a15a0719eee9987124ec5d3f1543c0fee120616588368224afde1a0e33b0bb"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 3005,
+    "sha256": "4fb544e7d1c342596392899e9fc5c77bad15ebda549e0479862c0f85cb89b6a5"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/reviews/stage-001/REVIEW.json",
+    "bytes": 11383,
+    "sha256": "3281cd86b119a9f60b6e1b5cebd5b6c7837db854ce4f290db332050470f1e2e2"
+  },
+  "counterexample": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/reviews/refusal-oracle-001/REVIEW.json",
+    "bytes": 15206,
+    "sha256": "02d21f72bb1d38b723e86df619eeec70100294cf06dc60677c6949af61276be6"
+  },
+  "proofInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/post-return-controls/actual-001/PROOF_INVENTORY.json",
+    "bytes": 10444,
+    "sha256": "3f2d8f0a161af4abf28c9d194bdfd1e7424482ce22a3e218e882bcba35f967f5"
+  },
+  "reusedProductPayload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+    "bytes": 1466472,
+    "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+  },
+  "completedBuildReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+    "bytes": 102337,
+    "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+  },
+  "rootCause": {
+    "origin": "One test helper imposed the late invocation-admission oracle on distinct early input/observation refusal boundaries.",
+    "observed": "Crossed input returned invalid_input at /input; test expected invalid_intent.",
+    "staticSecondMismatch": "Consumed Testing source after UAT returns invalid_input at /observation.",
+    "whyMissed": "Earlier setup failures prevented reaching these assertions; controlled mocks did not establish actual Public gate ordering.",
+    "ProductDefectEstablished": false
+  },
+  "selectedRepair": {
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "expectedCases": [
+      {
+        "label": "fixed-testing-over-state",
+        "code": "invalid_intent",
+        "issuePath": "/invocation_admission",
+        "position": "before UAT"
+      },
+      {
+        "label": "fixed-construction-over-state",
+        "code": "invalid_intent",
+        "issuePath": "/invocation_admission",
+        "position": "before UAT"
+      },
+      {
+        "label": "fixed-crossed-input",
+        "code": "invalid_input",
+        "issuePath": "/input",
+        "position": "before UAT"
+      },
+      {
+        "label": "fixed-stale-source",
+        "code": "invalid_input",
+        "issuePath": "/observation",
+        "position": "after UAT before close"
+      }
+    ],
+    "implementation": "Use the existing helper with one exact expected code/path tuple per case; no allowed-code union/fallback.",
+    "immediateProof": "Each invocation must immediately prove refusal, unchanged COMPLETE prefix/full event delta, and unchanged actor log. Filtered diagnostic events are insufficient.",
+    "ordering": "Keep current-source negative invocations before UAT; stale invocation remains after UAT before close. Defer ONLY code/path assertions until after successful UAT and held/fresh checks. Every deferred assertion remains mandatory and fails the final test on mismatch. Emit the existing positive-path diagnostic before deferred assertions.",
+    "forbidden": [
+      "Product/public-contract/guard changes",
+      "public-setup/HOW edits",
+      "new tests/fixtures/sessions/workflows/resources/frameworks",
+      "moving current-source invocations after UAT",
+      "dropping or weakening negative assertions",
+      "broad or glob searches beyond selected source paths"
+    ]
+  },
+  "nativeExecution": {
+    "oneCodingWorker": true,
+    "reasoning": "xhigh",
+    "maxTurns": 320,
+    "absoluteTimeoutMs": 5400000,
+    "inactivityTimeoutMs": 1800000,
+    "hostTimeoutMs": 10800000,
+    "memoryLimitMiB": 8192,
+    "automaticRetries": 0,
+    "sourceRows": 451,
+    "stages": 1,
+    "lanes": [
+      {
+        "id": "fixed-route",
+        "timeoutMs": 600000
+      },
+      {
+        "id": "held-session",
+        "timeoutMs": 600000
+      },
+      {
+        "id": "assessment-guards",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "native-workspace-owner",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "caller",
+        "timeoutMs": 300000
+      }
+    ],
+    "stop": "Any unexpected Product/architecture failure, unsafe reuse, source/scope mismatch or out-of-scope repair returns to Root; no retry.",
+    "protectedRows": 450
+  },
+  "proofOrder": {
+    "first": "Actual installed Testing -> admitted state Result -> UAT, including complete held/fresh agreement.",
+    "second": "Existing HS02 installed ordinary-consumer/held-session case, because the changed unconditional setup affects that path; its previous accepted evidence stays historical.",
+    "remaining": "Previously unconsumed affected assessment, workspace-owner and caller lanes.",
+    "allowedHistoricalSkip": "admitted pure consumer evaluates a native task as data without physical authority",
+    "newTests": "No new mirror test is selected; use the existing affected integration/counter cases."
+  },
+  "buildEvidenceReuse": {
+    "selection": "Reference the existing H04 inventory and completed H03 Product build. One isolated451-source stage; all450 non-writable sources unchanged from H04 baseline.",
+    "payloadMembers": 5325,
+    "owner": "Existing pinned RC6 shared/digests and canonical_json",
+    "noCompileGenerationLifecycleReexecution": true,
+    "explicitReuseRequired": true,
+    "preserveOldStagesAndFailures": true
+  },
+  "readScope": "Use exact pinned owner/test paths from the closed review; all seven cited paths are within451 sources. No broad glob/Grep. Preserve H04 read-scope disclosure.",
+  "acceptanceBoundary": "Root conjoins exact source/native.after/stage/live/close, independent max frozen review and five selected lanes before HS01/02 acceptance or HS03 activation.",
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

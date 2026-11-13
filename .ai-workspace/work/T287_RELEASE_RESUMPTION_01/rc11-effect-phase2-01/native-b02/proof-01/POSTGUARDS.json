@@ -1,0 +1,20 @@
+{
+  "status": "EXACT_AFTER_TERMINAL",
+  "guardResult": {
+    "sourceRows": 1345,
+    "compiledRows": 998,
+    "archiveMembers": 5329,
+    "typedRawJoin": {
+      "typed": "sha256:7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+      "raw": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+      "payloadEqual": true
+    },
+    "sourceBuildDependencyArchiveInstallProtectionExact": true
+  },
+  "observedUtc": "2026-11-10T04:54:50.821084+00:00",
+  "originalUnitStatusUnchanged": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-03/UNIT_RETURN.json",
+    "bytes": 502148,
+    "sha256": "26788f385c6994442727d5ef6899a23025713fdacb601d1a7eb2ec196ad2097e"
+  }
+}

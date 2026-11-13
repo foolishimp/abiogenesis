@@ -1,0 +1,66 @@
+{
+  "status": "NATIVE_METADATA_SUCCESSOR_REQUIRED_BEFORE_FINAL_ARTIFACT",
+  "targetVersion": "5.0.0-rc.9",
+  "sourceBase": {
+    "commit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "tree": "4c8a9240aba29eb2858ddfd719a92337a033128c"
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 53308,
+      "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f",
+      "relation": "Lines85-91 read package.json and package-lock.json; lines154-160 reject package name/version/Product identity disagreement with compiled constants. No argv/env override."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/build_tenants/abiogenesis/typescript/scripts/refresh-candidate-basis.mjs",
+      "bytes": 1914,
+      "sha256": "61114eb2c8e984924c2346c44d9b01dc2eaa1eed4a4cd40817fe80ccb6728d00",
+      "relation": "Packs existing source identity and writes candidate fixture; no identity override. Not invoked by cut."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+      "bytes": 27890,
+      "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c",
+      "relation": "metadata.rewriteIdentity=false; source pkg/lock versions and tested manifest target must agree; clean reproduction exact archive bytes required."
+    }
+  ],
+  "changes": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "values": [
+        "version: 5.0.0-rc.8 -> 5.0.0-rc.9"
+      ],
+      "preserve": "Retain author01 unit script and all other fields."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "values": [
+        "version: 5.0.0-rc.8 -> 5.0.0-rc.9",
+        "packages[''].version: 5.0.0-rc.8 -> 5.0.0-rc.9"
+      ],
+      "preserve": "Dependency graph, integrity/resolution and all other values unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "values": [
+        "ABI5_PRODUCT_ID suffix @5.0.0-rc.8 -> @5.0.0-rc.9",
+        "ABI5_PACKAGE_VERSION: 5.0.0-rc.8 -> 5.0.0-rc.9"
+      ],
+      "preserve": "All other code and contracts unchanged."
+    }
+  ],
+  "authority": "Root selected prospective native successor after author01; this Operator does not implement it. Live author01 write roots are not expanded.",
+  "proofAndConjunction": [
+    "Freeze completed author01 core for its independent review; version-only successor must bind that exact preimage and prove only the selected three-file value delta.",
+    "Final source freeze must include metadata; compile canonical TypeScript, generate canonical manifest, assert package/lock root versions == exported constants == manifest Product identity == 5.0.0-rc.9.",
+    "Final measured scratch archive, full W2 exact-archive proof, RC9 measurement/profile/fresh reads and broad evidence must bind the actual final subject or an explicit Root-accepted unchanged-component relation. RC8 prior archive is never RC9 credit.",
+    "Reuse valid core semantic review under exact preimage/delta relation; no duplicate whole semantic review merely for version labels. Root conjoins metadata/source/proof/evidence.",
+    "Only after source/proof acceptance and a concrete cut admission: stage/commit actual selected changed/new paths, clean git-archive reproduction, compare tgz bytes + manifest + every regular member against tested RC9 archive.",
+    "Independent packaging review binds actual checkpoint/tree, archive/reproduction and final phase-neutral claims; installation remains separately selected."
+  ],
+  "forbiddenShortcut": "No temporary archive/stage identity patch, source version patch by this Operator, identity bridge allowance, fixture refresh or metadata mutation during cut.",
+  "finalMetadataAcceptance": null,
+  "finalSourceFreeze": null,
+  "measuredArchive": null
+}

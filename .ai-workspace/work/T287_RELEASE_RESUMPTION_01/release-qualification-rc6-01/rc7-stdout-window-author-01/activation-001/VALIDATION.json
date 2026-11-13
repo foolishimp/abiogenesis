@@ -1,0 +1,98 @@
+{
+  "kind": "s5_activation_preparation_checks",
+  "status": "PREPARATION_CHECKS_PASS_DEPENDENCY_UNBOUND",
+  "checkedAt": "2026-11-06T19:14:03.161625+00:00",
+  "finiteReferencedPinsVerified": 70,
+  "pinMismatches": 0,
+  "syntaxReceipts": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/prior-author-lanes.mjs",
+        "bytes": 10812,
+        "sha256": "cd12153f75b704b86bff85d1e3ef48878e3a3db07246be6dd9d0cd48b4731808"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/prepare-and-dispatch.mjs",
+        "bytes": 19666,
+        "sha256": "7ae4d14404c11792c7f8f8894200c18aa0ae345322182bad4d414c091d8a34fc"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/launch-owner-script.mjs",
+        "bytes": 2527,
+        "sha256": "26cf022c696712d652b9a59538185629693df3f5c7260f511e0ace3d30dd0413"
+      },
+      "exitCode": 0
+    }
+  ],
+  "codeReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/code-controls-001/REVIEW.json",
+    "bytes": 5755,
+    "sha256": "284b45b4466592907e9711750e9b99b5b603bac16e7e2c5727622942c5429b44"
+  },
+  "checks": {
+    "sourceNameSetEqualsActualH05Admitted451Names": true,
+    "productWritePathsUnchanged17": true,
+    "nativeInputs20Context474": true,
+    "all471FutureWorkloadDigestsNull": true,
+    "stages4Lanes7SerialNoRetry": true,
+    "buildBoundsMs": {
+      "stages": 4,
+      "lanes": 7,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 600000,
+      "guardTimeoutMs": 60000
+    },
+    "allLanes300000Ms": true,
+    "completePredicateVerbatimH05": true,
+    "sameFinalSourcePriorNonBeforeBarrier": true,
+    "intentionalBeforeRedPreserved": true,
+    "hostsByteIdenticalPreparation003": true,
+    "acceptedSourceCloseResumeAdmissionUnbound": true,
+    "actualOutputSlotsAbsent": [
+      "execution",
+      "commands",
+      "ROOT_CONTROL_ADMISSION.json",
+      "SOURCE_BEFORE.json",
+      "workload.json",
+      "RUNTIME_BINDINGS.json",
+      "NATIVE_GRANT.json",
+      "ROOT_SELECTION.json",
+      "ROOT_DEPENDENCY_READY_SELECTION.json",
+      "PROVIDER_PROFILE.json",
+      "inputs/C2_INPUTS.json",
+      "inputs/HS03_SELECTION.json",
+      "inputs/SOURCE_CUSTODY.json"
+    ],
+    "providerWrapperMode": "0755",
+    "oracleExternalNoSourceBodiesCopied": true
+  },
+  "wrapper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/claude-provider.sh",
+    "bytes": 733,
+    "sha256": "7725a378820b2a0ea901e8ba53ba3fb9af1b608864d096165ef52bc0e58f2b39"
+  },
+  "observedH05PartialOnly": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/SOURCE_AFTER.json",
+      "bytes": 563015,
+      "sha256": "2a385829927eac2ba13be072d7deab71949ab9db56bc6fb2797bd786398aa519"
+    },
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8045,
+      "sha256": "d3c8fc06ce2b305c089257a0b9524650c69512e2d029d2995ca36d47420a90a9"
+    },
+    "RootPartialDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 5439,
+      "sha256": "229dad7dfaef6df2ff2a1b005ef4f7df38416ad3a221c79a18fe57a1c9c36e7a"
+    }
+  },
+  "standing": "H05 host closed; fixed7/7 and held1/1 passed, assessment0/1 failed, last two lanes unallocated. This partial custody is observation only, not S5 dependency acceptance. No staging, runtime/provider, build/test, source edit or launch occurred."
+}

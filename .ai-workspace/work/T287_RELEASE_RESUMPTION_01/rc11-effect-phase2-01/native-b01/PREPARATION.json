@@ -1,0 +1,19 @@
+{
+  "status": "CONTROLS_READY_STATIC_PREFLIGHT_PENDING",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/SOURCE_SUBJECT.json",
+    "bytes": 4506,
+    "sha256": "ccdeaa357bf3323343ccbd15795fa9e7e80c7bd17dfc491308cebf12fc7ac44e"
+  },
+  "context": {
+    "files": 23,
+    "sourceMemberBytes": 559090,
+    "instructionUtf8Bytes": 6386,
+    "sourceContentsInlined": false,
+    "renderedBytes": "Actual installed renderer measures at future PREPARED; no runtime allocated."
+  },
+  "hostByteIdentical": true,
+  "sourcePreserved": true,
+  "optionalModuleAbsent": true,
+  "setupProviderHeld": true
+}

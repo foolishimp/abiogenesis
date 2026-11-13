@@ -1,0 +1,50 @@
+{
+  "observedUtc": "2026-11-03T20:06:56.692035+00:00",
+  "scope": "Complete evaluated consolidation successor; immutable installed RC5 unchanged; no new cut/install included",
+  "revisedPlanningWindowAEDT": [
+    "2026-11-04 08:15",
+    "2026-11-04 09:00"
+  ],
+  "previousPlanningWindowAEDT": [
+    "2026-11-04 07:45",
+    "2026-11-04 08:20"
+  ],
+  "revisionReason": "The one-pass assumption is falsified: Root omitted three existing dynamic test-support dependencies from the native04 write grant. Qualification carrier migration and unconsumed replay wrapper retirement remain selected and require a further serialized native continuation.",
+  "remainingBreakdown": [
+    {
+      "work": "Finish current caller/liveness changes and changed-claim feedback",
+      "minutes": [
+        20,
+        30
+      ]
+    },
+    {
+      "work": "Freeze current return, source review parallel with actual affected C2 and close",
+      "minutes": [
+        15,
+        25
+      ]
+    },
+    {
+      "work": "Complete qualification/replay migration with its three test dependencies in next native continuation, including launch",
+      "minutes": [
+        15,
+        25
+      ]
+    },
+    {
+      "work": "Final affected proof, UAT, fresh result/replay and Root conjunction",
+      "minutes": [
+        20,
+        30
+      ]
+    }
+  ],
+  "assumptions": [
+    "Current liveness work completes",
+    "One further continuation resolves the three omitted test dependencies and original remaining relation",
+    "No additional repair cycle or new cut/install included"
+  ],
+  "confidence": "Conditional planning range, not a committed completion deadline",
+  "nextRevision": "Current source return or material contrary evidence"
+}

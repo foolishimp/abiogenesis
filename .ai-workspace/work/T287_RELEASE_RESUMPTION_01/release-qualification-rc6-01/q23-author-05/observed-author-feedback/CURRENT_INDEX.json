@@ -1,0 +1,121 @@
+{
+  "kind": "bounded_current_author_feedback_custody",
+  "at": "2026-11-05T19:37:24.344210+00:00",
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-05/tmp/b1-stage.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/observed-author-feedback/b1-stage.json",
+      "bytes": 67238,
+      "sha256": "1b470ddde6c87081e44a60249293fe56e1f7f02dc641fa6a5e1ef5bad76f4025",
+      "summary": {
+        "label": "b1",
+        "sourceCount": 318,
+        "sourceDigest": "31f8d7079d56b9a909bc0abbf95c620f9e2638585bdb1de9dfaa5b0980c187df",
+        "compile": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json",
+          "exitCode": 0,
+          "signal": null,
+          "ms": 7246,
+          "stdout": "",
+          "stderr": ""
+        },
+        "generate": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs",
+          "exitCode": 0,
+          "signal": null,
+          "ms": 21929,
+          "stdout": "",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-05/tmp/b0-stage.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/observed-author-feedback/b0-stage.json",
+      "bytes": 67238,
+      "sha256": "8e733c266ce8a3f6a46da7c1089ab517ae474e6887d56209392c6a7a0a7b81fc",
+      "summary": {
+        "label": "b0",
+        "sourceCount": 318,
+        "sourceDigest": "2abc61044ffbfd0f3f1533806094389347c0300ffa132304ee203d94bd824eca",
+        "compile": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json",
+          "exitCode": 0,
+          "signal": null,
+          "ms": 7235,
+          "stdout": "",
+          "stderr": ""
+        },
+        "generate": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs",
+          "exitCode": 0,
+          "signal": null,
+          "ms": 22038,
+          "stdout": "",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-05/tmp/b1-lanes/summary.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/observed-author-feedback/b1-lanes/summary.json",
+      "bytes": 1837,
+      "sha256": "e7394d8f4f62bba470cd031be396ae1e38114c813d7dd6db466352f37ee47fea",
+      "summary": [
+        {
+          "id": "transport",
+          "exitCode": 0,
+          "tests": 26,
+          "pass": 26,
+          "fail": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0,
+          "ms": 8946
+        },
+        {
+          "id": "qualification",
+          "exitCode": 1,
+          "tests": 36,
+          "pass": 35,
+          "fail": 1,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0,
+          "ms": 6174
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-author-05/tmp/b0-lanes/summary.json",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/observed-author-feedback/b0-lanes/summary.json",
+      "bytes": 1707,
+      "sha256": "8ce4540386a8beaf228e1a03a8ca403a22cda776e095999ba0775eb054302b0b",
+      "summary": [
+        {
+          "id": "transport",
+          "exitCode": 0,
+          "tests": 23,
+          "pass": 23,
+          "fail": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0,
+          "ms": 8992
+        },
+        {
+          "id": "qualification",
+          "exitCode": 0,
+          "tests": 35,
+          "pass": 35,
+          "fail": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0,
+          "ms": 5646
+        }
+      ]
+    }
+  ],
+  "limits": "Author checks only, each exact source stage separate; not native C2, independent review or final source acceptance."
+}

@@ -1,0 +1,68 @@
+{
+  "file": "test_env/tests/t287-declared-testing-capability.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 36224.67608300003,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 7,
+    "failed": 0,
+    "passed": 5,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0,
+    "topLevel": 7,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "declared testing context is bound into the actual consumer lifecycle and shared role policies",
+      "file": "test_env/tests/t287-declared-testing-capability.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_TESTING_INPUT_ROOT unset; requires exact selected RC7 companion release-record directory",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 7,
+      "type": "case",
+      "passed": true,
+      "name": "declared checker composition uses native owners and independently rederives saved C1/C2 requests",
+      "file": "test_env/tests/t287-declared-testing-capability.test.mjs",
+      "nesting": 0,
+      "testNumber": 7,
+      "suite": false,
+      "skip": "ABI5_TESTING_INPUT_ROOT unset; requires exact selected RC7 companion release-record directory",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/events/069-t287-declared-testing-capability.jsonl",
+    "bytes": 2757,
+    "sha256": "a2f43f8f2de94e8ed7acc81a2006c861a7cf7037bc96dc70461a72d7dd9e8cd1"
+  },
+  "commandReceipt": "commands/069-t287-declared-testing-capability.result.json",
+  "workspace": "/private/tmp/abg-r8c-006/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

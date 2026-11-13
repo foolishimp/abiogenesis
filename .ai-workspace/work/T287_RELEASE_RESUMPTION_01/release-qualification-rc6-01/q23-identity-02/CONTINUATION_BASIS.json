@@ -1,0 +1,105 @@
+{
+  "kind": "root_q23_preserved_failure_continuation_basis",
+  "at": "2026-11-05T17:03:44.622986+00:00",
+  "status": "UNACCEPTED_PARTIAL_CONTINUATION",
+  "priorSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_SELECTION.json",
+    "bytes": 7544,
+    "sha256": "dd2fd4b091990e326740b06849321542f9bdb6a85ed23fa8ed92d6ad1503bd7e"
+  },
+  "failureTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_FAILURE_TRIAGE.json",
+    "bytes": 6780,
+    "sha256": "18a279b98ade4dd072b87a776c1e4fc2e2d9187e67452cddb48472bc2b7620c8"
+  },
+  "actualFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ACTUAL_NATIVE_FAILURE.json",
+    "bytes": 876929,
+    "sha256": "a9b93fdb97ff7af87cd2cf3b0a23a3efc1b7658b4212dce1b6c180270d7ab7b0"
+  },
+  "partialSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/SUBJECT.json",
+    "bytes": 156367,
+    "sha256": "a24edd45380fb4dfc373a555f2f8bf6de87fbbf6e2aa42fe5fe35199cdb92bc1"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/after-run-resume.json",
+    "bytes": 72662117,
+    "sha256": "e542d13a74640a9bb9e3524e00138adcdefc92ad93f1a8b13ae113a728a43641"
+  },
+  "source": {
+    "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "tree": "ff447cb7c9cf04c2af9cc784ef3ff0e1892ab702",
+    "trackedClean": false,
+    "unacceptedPartial": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/partial-subject-001/SUBJECT.json",
+      "bytes": 156367,
+      "sha256": "a24edd45380fb4dfc373a555f2f8bf6de87fbbf6e2aa42fe5fe35199cdb92bc1"
+    },
+    "changedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts"
+    ]
+  },
+  "failure": {
+    "cause": "native provider error_max_turns",
+    "configuredLimit": 128,
+    "reportedTurns": 129,
+    "reportedCostUsd": 12.5611594,
+    "nativeC2": false,
+    "nativeUat": false
+  },
+  "heldPartial": "Only transport_contracts.ts has113 added lines: configured-identity types/grammar/derivation/guard/correspondence. It is unaccepted, not wired into remaining owners. Self-review against selected HOW; preserve or correct within granted scope.",
+  "recovery": {
+    "maxTurns": 384,
+    "effort": "xhigh",
+    "timeoutsUnchanged": true,
+    "session": "Fresh existing native task. No global provider --resume because that would also reuse author context for selector and UAT. No custom phase/session router.",
+    "setupRuns": 0
+  },
+  "addedReadOnlyFixtureDependencies": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/isolated-compiled-copy.mjs",
+      "bytes": 1089,
+      "sha256": "115ca576b41c1d0850ae4913d86430b8f861b7641cb823afa60f1a71c342cfbd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-test-gtl.mjs",
+      "bytes": 538,
+      "sha256": "6d6df752d02fc5cacee702dc693febd3e8dce2d073a9842bfff5897992f50f7a"
+    }
+  ],
+  "baselineInput": "PRIOR_AUTHOR_FEEDBACK.json",
+  "priorAuthorHelpers": [
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-01/tmp/stage.mjs",
+        "bytes": 3726,
+        "sha256": "bda7e065c4851c5caebeb5ff7ef26a70edecce68edec4cb8167f0e28a4501d45"
+      },
+      "copiedInput": "prior-author-stage.mjs",
+      "use": "Unchanged prior native-author scratch helper; read/copy/adapt only in this continuation scratch, not an operator Product/test implementation."
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-01/tmp/lanes.mjs",
+        "bytes": 2813,
+        "sha256": "b570358c0eec89e0c25e5a10d39b7794f7b7c0d135a04ae652816a9478209f6b"
+      },
+      "copiedInput": "prior-author-lanes.mjs",
+      "use": "Unchanged prior native-author scratch helper; read/copy/adapt only in this continuation scratch, not an operator Product/test implementation."
+    }
+  ],
+  "workRemaining": "Complete existing-owner identity carriage, reference consumers, declared two-profile policy HOW, actual pre-invocation gate, meaningful owner-path tests and three handoffs within unchanged17 Product write paths. Do not redo broad initial discovery or unchanged baseline; use selected architecture and preserved evidence.",
+  "claims": "No Q23/C2/UAT/independence/qualification/release acceptance from the partial or author baseline."
+}

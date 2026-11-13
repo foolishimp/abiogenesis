@@ -1,0 +1,107 @@
+{
+  "candidateFirstReturnCustody": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/construction-return-custody/CUSTODY.json",
+  "classification": "same named mutable-prefix fixture error as retained first-Run C2; prior timeout in current P1-03 remains separate. Not a new candidate defect.",
+  "files": [
+    {
+      "bytes": 0,
+      "name": "focused-full.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 37347,
+      "name": "focused-full.out",
+      "sha256": "4b736a8087a499df547154f999e4ec00623ec1f2177d0f3cb676d8e599cb50ae"
+    },
+    {
+      "bytes": 36,
+      "name": "focused-full.status",
+      "sha256": "fcc1eda65f164afaae23996a90ebc80854124e7401c705d6335bb50e7f41f662"
+    },
+    {
+      "bytes": 0,
+      "name": "focused-unbounded.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 46262,
+      "name": "focused-unbounded.out",
+      "sha256": "683141ac5d6f888ad3bef58f45d21843f39bb15d3e815b6ede1a9a88f54d2a0b"
+    },
+    {
+      "bytes": 20,
+      "name": "focused-unbounded.status",
+      "sha256": "66cf47400dc4aa7118c888e2989558cfc05e77b6671a6c9943dc991d3a66f872"
+    },
+    {
+      "bytes": 0,
+      "name": "head-focused.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 45751,
+      "name": "head-focused.out",
+      "sha256": "38a7d99f60fc947f4b4f363ed2ee15cb2226260d3a9a1adf2e539f67e0c70869"
+    },
+    {
+      "bytes": 20,
+      "name": "head-focused.status",
+      "sha256": "fdbb7e87840977897aa71f03b4b1c5beae9239f63ef1e51608852d081eb941aa"
+    }
+  ],
+  "gitHead": "9c4a5c5e136ec564c66d1598fd32161ad4101f24",
+  "kind": "p1_03_baseline_scratch_diagnostic",
+  "originalFirstRunEvidence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/FOCUSED_C2_STDOUT.txt",
+  "sourceScope": "10 granted paths were restored from git HEAD into a scratch copy; selected other inputs were copied from worksite. This is not the final candidate.",
+  "tenRestoredPaths": [
+    {
+      "bytes": 120502,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "3f78db27edb607b0ed2405e106abeb43c96a09df9b2b3fd4ec9eab974070274a"
+    },
+    {
+      "bytes": 38179,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "sha256": "0e037aa24c16f6389601eb2ac7fe782dbccbfd251842550ee38d69689e8ad7e5"
+    },
+    {
+      "bytes": 24181,
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "edeb3857b126608f34b041302b591444140797e806a308d87e2aa84b4d590508"
+    },
+    {
+      "bytes": 142929,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "0d9a1332eeef34e065275fa17da41729bd21a52e725a8a70b13f9b3c66c29edf"
+    },
+    {
+      "bytes": 19137,
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "sha256": "a9594ae35df45aee492255f0ef9e7bfb8725927440b9a1f8303a3e6f52a585a2"
+    },
+    {
+      "bytes": 25087,
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "b04e6d685bba02af568c08e3bcc6044bfc90b90426954366fbfdba972b423806"
+    },
+    {
+      "bytes": 71983,
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "b24a1272ba436bc082f9eb8e161ae4b5a95b7bc7b8e01178bb3454fa920ecca4"
+    },
+    {
+      "bytes": 56725,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "sha256": "821b5e08ea33365bb304674650399f98701236797c881ca7a8f2d499676680ec"
+    },
+    {
+      "bytes": 7078,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "sha256": "3c6a310d4719acf0f0db7689abfda2953d8404a7939e80a58b89850bc222feba"
+    },
+    {
+      "bytes": 49136,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "b79d5265dcf83d76792e3035bb4b76f8082b5bb8edf7320edd6ee524ccf3c609"
+    }
+  ]
+}

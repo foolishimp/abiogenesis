@@ -1,0 +1,156 @@
+{
+  "kind": "fixed_testing_uat_materialization_readiness",
+  "status": "MATERIALIZED_SYNTAX_VALID_ROOT_FINAL_ADMISSION_PENDING",
+  "recordedUtc": "2026-11-06T08:17:39.730640+00:00",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/ROOT_DEPENDENCY_READY_SELECTION.json",
+    "bytes": 5260,
+    "sha256": "1eab3e05a229aee500601e2ba2ea7f64653fad8fa936fe8cbf7f9f227abe4ced"
+  },
+  "frame": "fixed15 ABIogenesis5.0 / GOAL035 T287; existing fixed Testing -> actual admitted Testing stateResult -> native UAT owners; STDO3.0.4 unchanged",
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/SOURCE_BEFORE.json",
+    "bytes": 272640,
+    "sha256": "d7b898e49d3260fc243dfcd29531c29cd8393fb5b33cb2ff3e571e83249606ac"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5900,
+    "sha256": "13f510c096e71153e3f5609aeb32dc39014e3b467b4b45ddda517515ebc57088"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution-r2/after-run-resume.json",
+    "bytes": 72498676,
+    "sha256": "2c0ce523f6aab1c169ff1478d90d9ed10d78f131d4a3ddd652179eb62cc53dd6"
+  },
+  "sourceCount": 450,
+  "inheritedTrackedChangeCount": 55,
+  "inheritedNewProductPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+  ],
+  "productWritePaths": 5,
+  "newProductFiles": 0,
+  "stagedControls": 17,
+  "finalStagedControls": 18,
+  "futureHandoffs": 3,
+  "finalContextEntries": 471,
+  "presentContextBytesBeforeRootAdmission": 12370859,
+  "maxContextBytes": 16777216,
+  "operatorRunner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+    "bytes": 39766,
+    "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+  },
+  "operatorPublicSetup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/public-setup.mjs",
+    "bytes": 29259,
+    "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+  },
+  "maintainedCheckerSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/review-subject-stage01/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "bytes": 39766,
+    "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+  },
+  "sourceCustody": "All449 accepted N frozen source refs plus one tracked selected HOW snapshot. Source current equality verified before staging; no Product/source edits. Existing55 tracked changes and2 new Product files retained.",
+  "bounds": {
+    "stageAllocations": 3,
+    "laneAllocations": 4,
+    "compileMs": 240000,
+    "generateMs": 180000,
+    "guardMs": 60000,
+    "laneMs": 300000,
+    "providerTurns": 320,
+    "providerAbsoluteMs": 5400000,
+    "providerInactivityMs": 1800000,
+    "hostMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0
+  },
+  "controlAdaptations": [
+    "SDK002 host unchanged except actual N FINAL_RUNTIME_CLOSE closeHandoff.prefix field selection. Full acquired call remains in memory.",
+    "Exact frozen maintained runner/public-setup/consumer/scenarios copies, no checker/recorder/library fork.",
+    "Launcher adds regular-file/executable preflight for both existing wrapper and pinned provider binary. Wrapper0755 verified without execution.",
+    "Existing stage/lane owners reuse N allocated-directory/receipt count logic for3stages/4lanes; failed/incomplete allocations retained, positive cold filters, exact before/after source selection, no extra acquisitions.",
+    "Actual450 source metadata, fixed5 write scope, genuine successor references and staged17 controls replace future placeholders."
+  ],
+  "rootFinalSteps": [
+    {
+      "step": 1,
+      "action": "Create F/ROOT_CONTROL_ADMISSION.json from materialization-001/ROOT_CONTROL_ADMISSION.template.json with Root actual decision/status and copy identical bytes create-only to C/qualification-inputs/rc7-fixed-proof-author-01/ROOT_CONTROL_ADMISSION.json. Do not change the seventeen existing staged controls."
+    },
+    {
+      "step": 2,
+      "action": "Preserved preimages are under materialization-001. Set F/RUNTIME_BINDINGS.json status to ROOT_ADMITTED_NATIVE_DISPATCH, bind rootControlAdmission exact path/bytes/sha256. Fill the sole null digest in F/workload.json sources with sha256:<actual staged admission hash>; keep all other relations and bytes unchanged."
+    },
+    {
+      "step": 3,
+      "action": "Create F/execution/DISPATCH_MANIFEST.json from DISPATCH_MANIFEST.materialized-template.json with status ROOT_ADMITTED_NATIVE_DISPATCH, actual rootControlAdmission, repinned RUNTIME_BINDINGS/workload and both Root admission file pins added. Existing wrapper/operator/source/control pins remain exact."
+    },
+    {
+      "step": 4,
+      "action": "After Root final admission only, launch once with the exact command below and the actual final dispatch manifest hash. Root owns resulting proof/custody and acceptance."
+    }
+  ],
+  "rootLaunchCommand": "NODE_OPTIONS=--max-old-space-size=8192 /opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/launch-owner-script.mjs <SHA256_OF_ACTUAL_execution/DISPATCH_MANIFEST.json>",
+  "unbound": {
+    "rootAdmission": null,
+    "finalDispatchManifest": null,
+    "actualNativeOutcome": null,
+    "actualNativeAfter": null,
+    "actualSuccessorClose": null,
+    "actualSuccessorResume": null,
+    "actualHandoffs": null,
+    "nativeCapacityPreflight": null
+  },
+  "checks": {
+    "syntax": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/materialization-001/SYNTAX_RECEIPT.json",
+      "bytes": 5679,
+      "sha256": "6452fbf5f0473fe29b1273e132c71a6d4984be808c98ad72886815fbb9389d83"
+    },
+    "static": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/materialization-001/STATIC_CHECKS.json",
+      "bytes": 2026,
+      "sha256": "4490a6c263e698de8f87826dd9787fc107e6749866d0292fa590ce62ed3f8c96"
+    },
+    "staging": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/materialization-001/STAGING_RECEIPT.json",
+      "bytes": 1324,
+      "sha256": "a6c97d7efdb0ad6cdd78d88f5b6a40e0e01ca2138725fcb25eb558f0188dfe0e"
+    },
+    "providerAvailability": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/materialization-001/PROVIDER_EXECUTABLE_IDENTITY.json",
+      "bytes": 701,
+      "sha256": "4967eec6c9fe7ad9b3a04f36f7fda6a2750ddf78cb7f495ef0ea09f632ca93cf"
+    }
+  },
+  "priorClosedPacketsPreserved": true,
+  "admissionMutablePreimages": [
+    {
+      "futureRootMutablePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/RUNTIME_BINDINGS.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/materialization-001/RUNTIME_BINDINGS.pre-admission.json",
+        "bytes": 6961,
+        "sha256": "9d37e2bcc7f42a09022a205f08796606ab4aa50ce8d8ae6eacb8be7b052065d5"
+      }
+    },
+    {
+      "futureRootMutablePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/workload.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/materialization-001/workload.pre-admission.json",
+        "bytes": 179569,
+        "sha256": "ec547eba847183c445f37f82850bce49187d6893d41262065a158fb5ee8a60ce"
+      }
+    }
+  ],
+  "limitations": [
+    "Preparation only; no runtime/SDK/provider/auth, native launch, builds or tests invoked.",
+    "Actual runtime/resource and native work-order capacity preflight execute in the selected single SDK host after Root admission. No claimed native outcome or installed qualification.",
+    "Three historical default-library cases and seven F11 qualification carriers retain their existing uncovered status; exact selected active tests may not be skipped.",
+    "Initial CONTROL_ADAPTATION.diff contains the host/launcher adaptation; STAGE_LANE_ADAPTATION.diff completes the two path-resolved stage/lane diffs recorded missing from the first static diff pass."
+  ],
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false
+}

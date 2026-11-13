@@ -1,0 +1,85 @@
+{
+  "kind": "actual_rc6_proof03_bounded_failure_timing",
+  "at": "2026-11-06T03:08:22.632390+00:00",
+  "sourceEnvelopes": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/execution/TIMING_OBSERVATION_ENVELOPES.json",
+    "bytes": 17463,
+    "sha256": "c5cbf343c6a1e845806eca0ddc1c22821179a488a536848614be80f70f522391"
+  },
+  "host": {
+    "startedUtc": "2026-11-06T02:31:42.725453+00:00",
+    "endedUtc": "2026-11-06T02:54:09.260937+00:00",
+    "wallMs": 1346534.0881249867,
+    "exitCode": -6
+  },
+  "setup": {
+    "reused": true,
+    "timeMs": null,
+    "standing": "Not measured in this activation; not zero."
+  },
+  "successfulPreflight": {
+    "startedUtc": "2026-11-06T02:26:46.960012+00:00",
+    "endedUtc": "2026-11-06T02:29:02.518673+00:00",
+    "wallMs": 135557.70662473515,
+    "exitCode": 0
+  },
+  "hostToDispatchMs": 62313.547,
+  "dispatchToInitialSelectorMs": 67735.0,
+  "processes": [
+    {
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "started": "2026-11-06T02:33:52.774Z",
+      "ended": "2026-11-06T02:39:27.119Z",
+      "wallMs": 334345.0,
+      "startOrdinal": 170539,
+      "endOrdinal": 173286
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "started": "2026-11-06T02:39:37.198Z",
+      "ended": "2026-11-06T02:44:21.835Z",
+      "wallMs": 284637.0,
+      "startOrdinal": 173358,
+      "endOrdinal": 173533
+    },
+    {
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "started": "2026-11-06T02:44:52.956Z",
+      "ended": "2026-11-06T02:50:10.599Z",
+      "wallMs": 317643.0,
+      "startOrdinal": 173646,
+      "endOrdinal": 175696
+    }
+  ],
+  "selectorTotalMs": 651988.0,
+  "invocationMs": 1058842.243125,
+  "ownerReturnToHostAbortMs": 225379.937,
+  "completedFreshReadCommands": 0,
+  "logGrowthBytes": 41664008,
+  "firstReadComplete": false,
+  "redFlags": [
+    {
+      "id": "D5-C2-RECOVERY-TIMEOUT-01",
+      "observed": "Recovery Node test117000ms cancellation; earlier same source109072ms. Actual112otherpasses retained; complete recovery suffix unproved."
+    },
+    {
+      "id": "RC7-HOST-MEMORY-01",
+      "observed": "Host8GiBheap exhausted after actualblockedreceipt before first read command. Exact allocation owner not proven by native stack; redundant caller refresh/raw prefix recapture supported by source."
+    },
+    {
+      "id": "RC7-LATENCY-01",
+      "observed": "Already acquired owned prefix discarded by run-read population; concrete identity reuse miss in RC6 and prospectiveRC7."
+    },
+    {
+      "id": "RC7-LAUNCH-02",
+      "observed": "Two selector actors for fixed Testing/UAT-only work consume observed combined wall; no Product mandate for universal selector, but existing direct wrapper provenance/fold route remains unimplemented. Still selected RC7 task-launch work; separate from first logical-carriage increment."
+    }
+  ],
+  "limits": [
+    "Intervals overlap; do not sum invocation+process+hostwall.",
+    "Event times measure wall, not provider tokens, CPU attribution or removable time.",
+    "Host crash prevented final dispatch phase artifact; exact subphase allocation remains unknown.",
+    "Blocked invocation is not a UAT judgment; no nativeassessor launched.",
+    "No claim RC7 fixes are implemented, accepted or measured."
+  ]
+}

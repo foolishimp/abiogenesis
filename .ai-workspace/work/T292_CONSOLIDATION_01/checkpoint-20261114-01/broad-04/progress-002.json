@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/002-d1-preserved-result-mechanics.test/process.json",
+    "bytes": 1098,
+    "sha256": "2b5a7c8661be4b204d2f964490e726dc72c742188ef136fb4062f2c83555111d"
+  }
+}

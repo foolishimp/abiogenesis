@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 19,
+    "pass": 19,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/015-m5-c-algebra-validation.test/process.json",
+    "bytes": 1081,
+    "sha256": "2535280e1ae7068c0dfff296219f2e637050742e650578d7003f5ad349fcce8f"
+  }
+}

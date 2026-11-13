@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-08T20:06:17.339Z",
+  "failure": "Error: FIRST_TEST_RED_OR_INCOMPLETE: test_env/tests/t287-c0-post-publication-failure.test.mjs\n    at run (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs:235:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs:266:3",
+  "retainedScratch": "/private/tmp/abg-r9c-broad-001",
+  "autoRetry": false
+}

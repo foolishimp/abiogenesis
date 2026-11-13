@@ -1,0 +1,69 @@
+{
+  "kind": "generation_ceiling_only_preparation_checks",
+  "status": "SYNTAX_AND_CONTROL_CONSISTENCY_PASSED",
+  "syntax": {
+    "argv": [
+      "node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-004/inputs/prior-author-stage.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "file": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-004/inputs/prior-author-stage.mjs",
+      "bytes": 8291,
+      "sha256": "fb98dcb5447a3c4554594ad8cae67b1b3f0a357f142a6879fffbdb6daa625347"
+    }
+  },
+  "exactNumericChange": {
+    "generationMs": {
+      "before": 180000,
+      "after": 600000
+    },
+    "compileMs": 240000,
+    "guardMs": 60000
+  },
+  "unchanged": {
+    "sourceNames": 451,
+    "nativeInputs": 20,
+    "futureHandoffs": 3,
+    "contextEntries": 474,
+    "productWritePaths": 17,
+    "stageCeiling": 4,
+    "laneCeiling": 7,
+    "laneMs": 300000,
+    "nativeWorkers": 1,
+    "providerAbsoluteMs": 5400000,
+    "providerInactivityMs": 1800000,
+    "hostMs": 10800000,
+    "heapMiB": 8192,
+    "retries": 0
+  },
+  "priorManifestsAndFilesVerified": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/PREPARATION_MANIFEST.json",
+      "bytes": 23144,
+      "sha256": "161eb78985e35fe0e33ce3ce0ebaecd677cf3c3340fa8226a5e9378b4f98de0e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/PREPARATION_MANIFEST.json",
+      "bytes": 38841,
+      "sha256": "60310873aac7d8443f6dc3969c13ecb267f6e0960a9f722d05d57e25c2bbe07e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-003/PREPARATION_MANIFEST.json",
+      "bytes": 14957,
+      "sha256": "d10be2ad380776fb21e03ebc0974a375effdacd8a831bff85c49bc7949b000b8"
+    }
+  ],
+  "futureAcceptanceAndActivation": {
+    "acceptedH03Subject": null,
+    "acceptedH03SourceAfter": null,
+    "H03RootDisposition": null,
+    "actualH03Close": null,
+    "actualH03Resume": null,
+    "RootAdmission": null
+  },
+  "effects": "New004 control copies/report and syntax only; no source, stage, build/test, runtime, provider or activation effect."
+}

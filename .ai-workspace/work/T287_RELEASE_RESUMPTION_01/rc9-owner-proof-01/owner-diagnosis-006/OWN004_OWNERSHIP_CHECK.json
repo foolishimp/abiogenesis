@@ -1,0 +1,119 @@
+{
+  "status": "NO_LIVE_OWNED_PROCESS_OBSERVED",
+  "recordedAt": "2026-11-08T18:25:45.954Z",
+  "authority": "Root bounded read-only ownership check of closed OWN004 before diagnosis006 binding; only this receipt writable. No stop, cleanup, retry, unrelated effects, full tracker update or host-causation inference.",
+  "sourceDigestRetained": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "sourceRehashedByThisOperation": false,
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/REQUEST.json",
+      "bytes": 3594,
+      "sha256": "3dffcaa0e3b4517350b3a7784755a3f6e4c908df1a531d4e5ebaca58cc1a4139"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/RESOURCES.json",
+      "bytes": 4602,
+      "sha256": "269e95afc10fe24d041ab3885b81f03e2081bcbff7c93bcbfd0ed1c30a5ab5a5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/commands/own01.request.json",
+      "bytes": 922,
+      "sha256": "90478f6e293d14d219defaf349c371897183eb1f0726c3844fd4156d42e0e1e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/commands/own01.result.json",
+      "bytes": 1380,
+      "sha256": "22f0dee43916df170b34c7cd6402e3439a02cee15c2ad8ab1da25ce761ca01fc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/ancestry-before.json",
+      "bytes": 1137,
+      "sha256": "7cb83716ca4ff4f06129843255ef60ff93c4468c3425484ae7a4ee611aa05bfa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/ancestry-during.json",
+      "bytes": 1502,
+      "sha256": "3846fc7a042a80ec46e4eba969296eb36444438814c8e7f8a742b7d0986c1d09"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/ancestry-after.json",
+      "bytes": 1137,
+      "sha256": "14d7252b5a84ac7b51eef0d77d45d796e0801b8187b01a74e31a74aba8e843ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/RESULT.json",
+      "bytes": 1632,
+      "sha256": "9bb38d8500f38114a93c6e7001767bf91d0c82984ab5f299bd2d89a435ebd009"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/FILE_HOST_BINDING.json",
+      "bytes": 868,
+      "sha256": "fa2d00f0013c21b70b844153df9560dfead4a4b82b01bfad170ad85724eadf20"
+    }
+  ],
+  "recordedOwners": {
+    "hostPid": 80958,
+    "pidsIncludingRecordedProbes": [
+      80958,
+      80975,
+      80977,
+      80984,
+      80985,
+      88711
+    ],
+    "pgids": [
+      80958,
+      80977
+    ],
+    "derivation": "Transitive descendants of REQUEST.hostPid in actual before/during/after ancestry receipts; shared Codex ancestors excluded."
+  },
+  "searchedCwdRoots": [
+    "/private/tmp/abg-r9-owner-external-004",
+    "/private/tmp/abg-r9-owner-native-003/stage-01/work"
+  ],
+  "actualProofCwd": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+  "psObservation": {
+    "command": [
+      "/bin/ps",
+      "-axo",
+      "pid=,ppid=,pgid=,stat=,etime=,comm="
+    ],
+    "startedAt": "2026-11-08T18:25:45.371Z",
+    "completedAt": "2026-11-08T18:25:45.410Z",
+    "timeoutSeconds": 10,
+    "wallSeconds": 0.03822837537154555,
+    "exitCode": 0,
+    "timedOut": false,
+    "stdoutBytes": 154994,
+    "stdoutSha256": "759f437ce174dc46de7033ebe86d52d0d1b5e7ab0f98e0d4cc68c684368e2844",
+    "stderr": "",
+    "observedProcessCount": 1259,
+    "knownPidOrPgidOrDescendantMatches": []
+  },
+  "lsofCwdObservation": {
+    "command": [
+      "/usr/sbin/lsof",
+      "-nP",
+      "-d",
+      "cwd",
+      "-F",
+      "pcfn"
+    ],
+    "startedAt": "2026-11-08T18:25:45.373Z",
+    "completedAt": "2026-11-08T18:25:45.951Z",
+    "timeoutSeconds": 20,
+    "wallSeconds": 0.5780789591372013,
+    "exitCode": 0,
+    "timedOut": false,
+    "stdoutBytes": 44419,
+    "stdoutSha256": "0f3848788b7d72e04c2126514e8ce5b11f1f2f1ad601b7205c823abeb80eeeb9",
+    "stderr": "",
+    "accessibleCwdRecordCount": 919,
+    "knownPidOrOwnedCwdMatches": []
+  },
+  "limits": [
+    "Point-in-time observations of accessible processes and cwd records, not technical isolation or universal detached-descendant absence proof.",
+    "An unknown descendant that changed ancestry/process group and cwd cannot be identified from these receipts alone."
+  ],
+  "effects": "Only this fresh ownership record written; no process stopped, cleanup, source edit, test rerun or tracker update."
+}

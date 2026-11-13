@@ -1,0 +1,140 @@
+{
+  "kind": "incremental_physical_envelope_metadata_timing_observation",
+  "activation": "rc7-overhead-author-03",
+  "startedUtc": "2026-11-06T07:04:30.387Z",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "fromByte": 1326572300,
+  "throughCompleteByte": 1409639062,
+  "counts": {
+    "public_operation_admitted": {
+      "rows": 1,
+      "physicalBytes": 4271
+    },
+    "invocation_admitted": {
+      "rows": 1,
+      "physicalBytes": 10162
+    },
+    "implementation_admitted": {
+      "rows": 1,
+      "physicalBytes": 6257
+    },
+    "basis_admitted": {
+      "rows": 1,
+      "physicalBytes": 16583161
+    },
+    "run_segment_opened": {
+      "rows": 1,
+      "physicalBytes": 2342
+    },
+    "graph_call_opened": {
+      "rows": 1,
+      "physicalBytes": 2251
+    },
+    "frame_opened": {
+      "rows": 1,
+      "physicalBytes": 2529
+    },
+    "runtime_activity_probe_observed": {
+      "rows": 7,
+      "physicalBytes": 26079
+    },
+    "traversal_cursor_entered": {
+      "rows": 1,
+      "physicalBytes": 3059
+    },
+    "c_call_opened": {
+      "rows": 1,
+      "physicalBytes": 2569
+    },
+    "c_call_fibre_selected": {
+      "rows": 1,
+      "physicalBytes": 2194
+    },
+    "actor_transport_binding_admitted": {
+      "rows": 1,
+      "physicalBytes": 16682356
+    },
+    "actor_invocation_started": {
+      "rows": 1,
+      "physicalBytes": 2536
+    },
+    "actor_process_spawn_failed": {
+      "rows": 1,
+      "physicalBytes": 1811
+    },
+    "actor_result_artifact_observed": {
+      "rows": 1,
+      "physicalBytes": 4406
+    },
+    "actor_invocation_failed": {
+      "rows": 1,
+      "physicalBytes": 2480
+    },
+    "c_call_evidenced": {
+      "rows": 1,
+      "physicalBytes": 4849
+    },
+    "c_call_result_admitted": {
+      "rows": 1,
+      "physicalBytes": 49716782
+    },
+    "c_call_judged": {
+      "rows": 1,
+      "physicalBytes": 2182
+    },
+    "traversal_route_admitted": {
+      "rows": 1,
+      "physicalBytes": 2672
+    },
+    "run_stopped": {
+      "rows": 1,
+      "physicalBytes": 1814
+    }
+  },
+  "processes": [],
+  "results": [
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 209522,
+      "eventId": "event://abiogenesis/32329a0498a0a1cdae3f3b5781327f3d6cb5a9cd6c55915fbb29e87b16693e99",
+      "eventTime": "2026-11-06T07:05:58.658Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/f81456702a82e0139b4c36132c2773141be9b86b78071a43ca12436d87924d63",
+      "offset": 1359904370,
+      "rowBytes": 49716782,
+      "rowSha256": "882d18fb67e4ceb66b3b517e971d34f4dc002f70170c9892902e3f8fa86c206a",
+      "resultRef": "result://abiogenesis/ac181feffe1e40caf9cdac694c1b13a09dcde3830ecaa7bd0973ba0282527c06",
+      "valueKind": "native_workspace_work_failure"
+    }
+  ],
+  "setupReused": true,
+  "sdkSetupMs": null,
+  "artifactVerificationMs": null,
+  "setupProcessEndedUtc": null,
+  "limits": [
+    "Incremental physical envelope metadata, not runtime admission or acceptance.",
+    "No raw provider thinking/text/tool-result/stdout is output or inspected for semantic content.",
+    "Wall intervals are not CPU attribution or matched causal speedup.",
+    "Setup-to-dispatch includes separate Root audit/control/preflight time, not between-task runtime latency."
+  ],
+  "setupToDispatchOperatorPreparationMs": null,
+  "rootBetweenActivationMs": null,
+  "dispatchToInitialSelectorProcessMs": null,
+  "dispatchToNativeWorkerProcessMs": null,
+  "dispatchToC2ProcessMs": null,
+  "nativeResultToC2ProcessMs": null,
+  "recordedUtc": "2026-11-06T07:06:50.069588+00:00",
+  "outcomeReturned": true,
+  "closed": true,
+  "throughOrdinal": 209528,
+  "latestEventTime": "2026-11-06T07:06:02.581Z",
+  "outcome": {
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:71310acace00e52f51ac0ce392a419487242a7404af70f72b46fb2fdf0c203eb",
+      "ref": "run://abiogenesis/f81456702a82e0139b4c36132c2773141be9b86b78071a43ca12436d87924d63"
+    },
+    "qualified": false
+  }
+}

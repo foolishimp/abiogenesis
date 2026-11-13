@@ -1,0 +1,76 @@
+{
+  "kind": "operator_session_cost_observation",
+  "createdUtc": "2026-11-06T15:29:39.548090+00:00",
+  "builder": "Immutable RC6 in both observations",
+  "observations": [
+    {
+      "task": "rc7-held-session-author-01",
+      "processRequest": "2026-11-06T12:54:09.165Z",
+      "hostMarker": "2026-11-06T12:54:10.182Z",
+      "nativeActorStart": "2026-11-06T12:56:09.443Z",
+      "processToHostMarkerMs": 1017.0,
+      "identityMs": 1290.426042,
+      "acquisitionAfterIdentityMs": 47089.105041,
+      "environmentAfterAcquisitionMs": 61487.96670900001,
+      "contextAndCallConstructionMs": 2203.99887499999,
+      "preparedToNativeStartMs": 7189.503,
+      "hostToNativeStartMs": 119261.0,
+      "processToNativeStartMs": 120278.0,
+      "sources": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/commands/sdk-native-host.request.json",
+          "bytes": 1903,
+          "sha256": "447e24375d29b0c7e86ccc629cdc4696ba5f4e9fa465ca16fba152f90c49fb71"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/execution/STARTED.json",
+          "bytes": 881,
+          "sha256": "fcdecb4bdc91ecfcb21ed0ccbb972e7eb7ba325864cdc19f753bb5c4cfc8516b"
+        }
+      ]
+    },
+    {
+      "task": "rc7-held-session-author-02",
+      "processRequest": "2026-11-06T14:41:39.252Z",
+      "hostMarker": "2026-11-06T14:41:43.605Z",
+      "nativeActorStart": "2026-11-06T14:49:45.951Z",
+      "processToHostMarkerMs": 4353.0,
+      "identityMs": 3765.247875,
+      "acquisitionAfterIdentityMs": 189610.008208,
+      "environmentAfterAcquisitionMs": 253949.76358299996,
+      "contextAndCallConstructionMs": 8981.090959000052,
+      "preparedToNativeStartMs": 26039.889,
+      "hostToNativeStartMs": 482346.0,
+      "processToNativeStartMs": 486699.0,
+      "sources": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/commands/sdk-native-host.request.json",
+          "bytes": 1841,
+          "sha256": "c1338d678fc0b48f57bff1b151c1ef0776c512f64f276f724b9839f767e94bcf"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/STARTED.json",
+          "bytes": 888,
+          "sha256": "98144fc9c8e3d70f4d92d7fa7bf84ef09037b8236881aa3cc370e9e0f3d1b33c"
+        }
+      ]
+    }
+  ],
+  "betweenTaskHandoffs": {
+    "F2CloseToHS01HostMs": 1696048,
+    "HS01CloseToHS02HostMs": 2910387,
+    "meaning": "End-to-start coordination, review, proof, triage and control preparation; not framework setup or native coding time. Subtasks overlap; these totals are not attributed to a single cause."
+  },
+  "hostSample": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/ROOT_HOST_SAMPLE_001.txt",
+    "bytes": 84978,
+    "sha256": "7e0df30af8d98e164850e2033e7fcd4b918f001fc3647e166715f329e8533176"
+  },
+  "sampleLimit": "Sample occurred after host preparation/native start and predominantly observed waiting; it does not diagnose the preceding acquisition/environment cost.",
+  "limits": [
+    "Different accumulated histories and contexts, no matched speedup comparison.",
+    "Actual entire RC7 installed native workflow remains unmeasured.",
+    "Counters proving zero warm decode/reopen in the small installed candidate fixture do not erase RC6 driver cold acquisition or environment costs.",
+    "Current H02 actor work and return/close timings remain pending."
+  ]
+}

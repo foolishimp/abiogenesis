@@ -1,0 +1,9 @@
+# Root bounded local RC3 cut/install selection
+
+The owner selected review/evaluate/action and continued RC3 delivery. Root accepts exact archive `70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd` at native source checkpoint `bcb1faf63cfb39bd7ccf7e14b48b133d1163216b` only as a bounded, unqualified LOCAL development candidate. Root conjoins inherited source review, accepted native N1–N4/C2/UAT/fresh closure, installed basic-cli C→T→UAT with 14/14 oracle and source/install conservation, and one 628.890417 ms cold read with uncontrolled filesystem cache.
+
+Writer effects are operator installer/inputs/claim/evidence map and existing T287/GOALS disposition/F4 capsule, with static/syntax checks only. Product source/HOW/tests and historical archive/claim/evidence stay unchanged. Root alone executes the reviewed installer: fresh no-clobber `releases/5.0.0-rc.3` and `installs/5.0.0-rc.3`, exact archive copy, external record copies, fresh bootstrap extraction, Product verify → resolved lock → install → full payload equality and actual receipts. No rebuild/repack, provider/native Run, external publication/tag/push/default-selector/global-CLI change, cleanup/overwrite or qualification suite is selected. Preparation is not successful installation.
+
+Root observed both target roots absent at 2026-11-01T09:10:58Z; Writer rechecked absence. The installer rechecks immediately before allocation and returns any collision or uncertain partial effect without automatic retry/removal. Final qualification/release remains open.
+
+Root explicitly defers P1 capsule `T287-P1-F4-ROUTE-CARRIAGE-01` for the bounded development cut: exact physical copies and storage harm, lawful existing-codec-only re-entry with original stamps/refusals/rollback/cold truth preserved. Body-once overall, F5/965-member scaling and native-context predecessor-member continuation remain open. No Product semantics are waived.

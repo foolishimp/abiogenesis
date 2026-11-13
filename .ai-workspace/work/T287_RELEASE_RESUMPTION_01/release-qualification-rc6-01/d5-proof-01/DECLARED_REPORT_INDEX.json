@@ -1,0 +1,77 @@
+{
+  "source": "workload.testing.commands; resolve by commandId, never a fixed array index",
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-01/source-correspondence",
+      "ordinal": 1,
+      "timeoutMs": 60000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-01/offline-toolchain",
+      "ordinal": 2,
+      "timeoutMs": 60000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-01/contract-seeds",
+      "ordinal": 3,
+      "timeoutMs": 60000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-01/compile",
+      "ordinal": 4,
+      "timeoutMs": 240000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-01/generate",
+      "ordinal": 5,
+      "timeoutMs": 180000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-01/lifecycle-boundary",
+      "ordinal": 6,
+      "timeoutMs": 60000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-01/component-proof",
+      "ordinal": 7,
+      "timeoutMs": 900000
+    }
+  ],
+  "sourceCorrespondenceCommandId": "command://abiogenesis/qualification/d5-author-01/source-correspondence",
+  "componentCommandId": "command://abiogenesis/qualification/d5-author-01/component-proof",
+  "guardCommandId": "command://abiogenesis/qualification/d5-author-01/lifecycle-boundary",
+  "lanes": [
+    {
+      "id": "transport",
+      "files": [
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "timeoutMs": 120000,
+      "minimumTests": 26
+    },
+    {
+      "id": "qualification",
+      "files": [
+        "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+        "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-scopes.test.mjs"
+      ],
+      "timeoutMs": 300000,
+      "minimumTests": 36
+    },
+    {
+      "id": "d5-lifecycle-profile",
+      "files": [
+        "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "timeoutMs": 300000,
+      "minimumTests": 3,
+      "populationStanding": "One explicit invocation of each additional module. Floor is only an omission guard, not an expected total or semantic sufficiency."
+    }
+  ],
+  "standing": "Component receipt is declared command7. Actual report paths/hashes come only from its captured stdout receipt."
+}

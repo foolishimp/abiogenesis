@@ -1,0 +1,58 @@
+{
+  "recordedUtc": "2026-11-04T03:07:39.029Z",
+  "status": "NATIVE_UAT_PREPARATION_REFUSED_ACTOR_NOT_LAUNCHED",
+  "coordinates": {
+    "kind": "c_call_result_admitted",
+    "admissionOrdinal": 50623,
+    "eventId": "event://abiogenesis/42c7dc34c97a7f9e13efc7337d38c0d402b29a213f09c1808c601f1f77e3a493",
+    "eventTime": "2026-11-04T02:57:46.070Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "runId": "run://abiogenesis/ae4338b56e450fcb8b3f8c934c1b1475eb5be4a6c99332bc45fd0b68cb762495",
+    "offset": 596544940,
+    "rowBytes": 4577,
+    "rowSha256": "3f16ee1b866a3fe4cb4d3ac3e2f6f37ffa61788a65557ea390d6683493344150",
+    "resultRef": "result://abiogenesis/b2f5635c9c90192cfa72a4fb00d628b4b023f5c12f9375ded216ea76155e5ae5",
+    "resultDigest": "sha256:b2f5635c9c90192cfa72a4fb00d628b4b023f5c12f9375ded216ea76155e5ae5",
+    "valueKind": "native_workspace_work_failure"
+  },
+  "assessment": null,
+  "preparationFailure": {
+    "diagnosticRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22%7B%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22policy%5C%22%3Anull%2C%5C%22role%5C%22%3A%5C%22assessor%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20%7B%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22policy%5C%22%3Anull%2C%5C%22role%5C%22%3A%5C%22assessor%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%5Cn%20%20%20%20at%20requireDeclaredNativeInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Fsingle-address-space-consolidation-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Finstruction_assembly.js%3A518%3A15)%5Cn%20%20%20%20at%20prepareInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Fsingle-address-space-consolidation-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Factor_process.js%3A440%3A23)%5Cn%20%20%20%20at%20realizeNativeWorkspaceWork%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Fsingle-address-space-consolidation-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fnative_workspace_work.js%3A43%3A27)%5Cn%20%20%20%20at%20async%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_RELEASE_RESUMPTION_01%2Fsingle-address-space-consolidation-01%2Fruntime-001%2Fsandbox%2Finstalled%2Fabg%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A540%3A26)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+    "failureClass": "implementation_exception",
+    "kind": "native_workspace_work_failure",
+    "schemaVersion": "5.0.0"
+  },
+  "diagnostic": {
+    "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+    "errorClass": "TypeError",
+    "errorCode": null,
+    "message": "{\"kind\":\"native_instruction_assembly_refusal\",\"cause\":\"declared_bound_overflow\",\"policy\":null,\"role\":\"assessor\",\"unresolvedRefs\":[\"maxPromptBytes\"]}",
+    "messageTruncated": false,
+    "reason": "thrown",
+    "stack": "TypeError: {\"kind\":\"native_instruction_assembly_refusal\",\"cause\":\"declared_bound_overflow\",\"policy\":null,\"role\":\"assessor\",\"unresolvedRefs\":[\"maxPromptBytes\"]}\n    at requireDeclaredNativeInstructionAssembly (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js:518:15)\n    at prepareInstructionAssembly (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js:440:23)\n    at realizeNativeWorkspaceWork (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/native_workspace_work.js:43:27)\n    at async invokeLeafOwnerBoundary (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:540:26)",
+    "stackTruncated": false,
+    "stage": "preparation"
+  },
+  "refusal": {
+    "kind": "native_instruction_assembly_refusal",
+    "cause": "declared_bound_overflow",
+    "policy": null,
+    "role": "assessor",
+    "unresolvedRefs": [
+      "maxPromptBytes"
+    ]
+  },
+  "actualTask": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_UAT_TASK.json",
+    "sha256": "f8d585d107f847decc652cef2f93a230c1f0b863e5e4d763c3d22bd77aba9455",
+    "bytes": 1798584,
+    "eventOrdinal": 50598,
+    "resultRef": "result://abiogenesis/71beb013c79d1fe9db7d7306e08da5d5b192cd82bb526f374af8fc64f618d6f8",
+    "payloadDigest": "sha256:d179b4eb66f138c79a18275081665caa2ebadd1d03ff0f986b4246a7f6ff7d50",
+    "offset": 594823450,
+    "rowBytes": 1631010,
+    "rowSha256": "bce9d4fcfaf88dcfe81946539b4c757a083e433768cda745b7b35025e3faa7a1"
+  },
+  "nativeActorLaunched": false,
+  "standing": "Actual pre-launch refusal, not a native UAT assessment or semantic rejection; original obligations remain open."
+}

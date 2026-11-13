@@ -1,0 +1,157 @@
+{
+  "kind": "root_s3_source_proof_and_hs03_disposition",
+  "status": "ROOT_ACCEPTED_BOUNDED_HS03_SOURCE_AND_PROOF",
+  "at": "2026-11-06T23:54:21.665022+00:00",
+  "roleTransition": "Executive -> separately bound coordination/operator Writer under existing ROOT_ACTIVATION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; fixed fifteen families",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "boundary": "ABG alone admits runtime truth. Replay is pure over acquired history; SDK/CLI remain thin. Archive references are observation evidence under existing transport/event owners, not new runtime authority."
+  },
+  "evidence": {
+    "sourceAfter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/SOURCE_AFTER.json",
+      "bytes": 558369,
+      "sha256": "0b71ee7e97032e627869a34c66e7f0dbb7ba414df321f60704b6c49f78800253"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8466,
+      "sha256": "3116500e96a5a8a6f66e8d62a3530af1d84f8f85c6d2e7e09da5df73403e1516"
+    },
+    "finalSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 25157,
+      "sha256": "1a216aa2b1ea9a688765a76d54249426721f5c591eb74e4db966d6649c504da3"
+    },
+    "custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/CUSTODY.json",
+      "bytes": 23761,
+      "sha256": "0cafbd5a729d223a26b5712a13148728a3d27b7d1315ea7ebbe6946acf15b28a"
+    },
+    "proofInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/PROOF_INVENTORY.json",
+      "bytes": 31098,
+      "sha256": "35d3a1ecaa3629c5d7a956fd551c17ec492d1463ff988a9c55467f2b3fafcc83"
+    },
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/reviews/source-stage-sw3-stage-01/REVIEW.json",
+      "bytes": 52974,
+      "sha256": "a92a2cc830f2d94c911c5fb3b16c3e60c8b5ea9a1676b0be38186c75032b50b7"
+    },
+    "sourceReviewReadme": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/reviews/source-stage-sw3-stage-01/README.md",
+      "bytes": 5003,
+      "sha256": "a06c81af3fa7308dda297daf1961090e892cb2dd595aeefae91e1332edd23df8"
+    },
+    "authorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/handoffs/return.json",
+      "bytes": 11244,
+      "sha256": "f968a1605e6f1e9017e8eaf6f0f15ac8cc2acc5781f3777708121732fc6ab8ac"
+    },
+    "stage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/stage.json",
+      "bytes": 97762,
+      "sha256": "27c2c400baf15dd1a4c754fed7df0bfbd22f6af13f6ff7473a084904cabc7340"
+    },
+    "sessionCosts": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/SESSION_COSTS.json",
+      "bytes": 12155,
+      "sha256": "bcdfd5120b33de66299cf4655a27a0ffe6e9dfdcb43a5cc26e07371b3aa41884"
+    }
+  },
+  "acceptedClaim": "Accept the exact S3 451-row source, 18-file bounded delta and six focused lanes as completion of selected HS03 stdout-window, actor-successor, cold archive-adoption and exact historical-profile work. Actual native Result completed, host exited0, and one physical resource close joined its original resume and durable successor. No additional campaign cold read was selected or performed.",
+  "sourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+  "actualProof": {
+    "stage": "sw3-stage-01",
+    "build": {
+      "compile": {
+        "exitCode": 0
+      },
+      "generate": {
+        "exitCode": 0
+      },
+      "lifecycle": {
+        "exitCode": 0
+      }
+    },
+    "lanes": {
+      "stdout-differential": 2,
+      "scope-ordering": 3,
+      "timeout-interruption": 9,
+      "archive-integrity": 6,
+      "legacy-replay": 7,
+      "native-caller": 6
+    },
+    "passed": 33,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "stageAllocationsConsumed": 1,
+    "laneInvocationsConsumed": 6,
+    "baselineRepeated": false
+  },
+  "acceptedRelations": [
+    "Actual actor callback preserves archive offset, length/digest, first/last capture clocks and distinct last qualifying activity in the declared W witness.",
+    "One scope-owned admission path flushes pending observations before later probes and interruption/effect decisions; actual actor successor adoption is exercised.",
+    "Existing transport range/path validation is shared with descriptor and byte-array cold acquisition and specialized recovery; pure fold and warm active selection perform no archive reads.",
+    "The existing profile owner conserves exact L, installed RC6 and S2 identities and independently selects semantic capabilities; fresh W is the selected working path.",
+    "Valid absolute-timeout fixture and six same-source focused lanes pass; independent frozen-source review establishes no material counterexample."
+  ],
+  "retainedAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 9575,
+    "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+  },
+  "procedureDisposition": {
+    "wholeProcedureCompliant": false,
+    "disclosures": [
+      "HOW 10.10 (E-F cold window adoption, E-G exact profiles, section 11 RecoveryRequired transition) was amended in the same session after the first owner edits had begun, not strictly before all dependent implementation.",
+      "Auxiliary pre-stage checks ran in a copy at /private/tmp/abg-sw3/check (declared test temp root), with node_modules symlinked read-only to the rc2-dogfood-01 toolchain; it was removed after the stage. A profile-reconstruction script and a falsifier backup (actor_process.js.orig, check-copy JS only) were also kept there and removed afterwards.",
+      "The actor-successor falsifier (adoption of decision.successorPrefix removed) ran against compiled JS in the check copy, not the worksite. It failed as required, and the original was restored before the copy was deleted.",
+      "tsc --noEmit ran against the worksite tsconfig (no emit, no build info).",
+      "The RC6 historical case imports the installed RC6 packaged event_store.js read-only, in process, to write a temporary RC6 store. Installed files were not modified or copied.",
+      "No packaged S2 writer is selected. The S2 historical case writes S2 rows through a declared test stand-in for the row-identity formula (exact 3bcc stamp, canonical payload digest, eventId over the stamped envelope), then decodes them with the current cold decoder.",
+      "The retained-historical case's old assertion counting stdout probes (retained+1) was never reached at S2 because of its first digest assertion. It omitted the startup coverage probe and now asserts the exact coverage/activity sequence."
+    ],
+    "decision": "Retain the HOW-after-first-edit departure and auxiliary check-copy/noEmit/falsifier work. Accept final source and selected proof separately from process compliance; no material source/proof invalidator was found. Auxiliary work receives no part of the33 selected pass count. No repeat work is selected merely to manufacture procedural compliance."
+  },
+  "historicalProofLimits": [
+    "RC6 historical rows use the actual immutable installed writer. S2 uses the declared exact-profile row-identity stand-in because no packaged S2 writer was selected.",
+    "Selected historical per-chunk rows/cuts, prefix and fold behavior are covered; no full old terminal/C-call corpus or exhaustive historical qualification is claimed.",
+    "Old-P native continuation and P-to-W migration remain outside this selected fresh-W path."
+  ],
+  "timing": {
+    "setupMs": 138783.379,
+    "preparedToActorMs": 6518.62,
+    "actorToOwnerEndMs": 1867842,
+    "previousOwnerEndToHostMs": 2537101,
+    "meaning": "Setup, launch and between-task coordination are distinct; native interval includes coding, build/testing, handoff and close. No full installed native-workflow speedup is inferred."
+  },
+  "retainedFailures": "S5 timeout/missing native after/generator failure, S2 invalid timeout input and earlier lane/process failures remain immutable historical evidence. Their later repairs do not relabel original receipts.",
+  "nextWork": [
+    "Execute the already reviewed isolated installed S4 growth measurement against this exact successful stage; then decide S6 from actual measurements.",
+    "Bind reproducible local RC7 cut/install through prepared owners, preserving source coverage and independently reviewing actual packaging identities."
+  ],
+  "residuals": [
+    "Installed S4 growth/S6 decision",
+    "Reproducible local RC7 cut/install",
+    "Full installed native-workflow performance and cold-history/task-launch coordination cost",
+    "D5, QR02/eligible QR03, S01/S02/S03/S06, F11 and exact5.0 qualification plus actual human release gates"
+  ],
+  "accepted": true,
+  "acceptanceScope": "bounded HS03 source/component proof; retained HS01 evidence remains separately scoped",
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "rc7Installed": false
+}

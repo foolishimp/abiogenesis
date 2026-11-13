@@ -1,0 +1,35 @@
+{
+  "kind": "root_post_author_proof_admission",
+  "status": "ROOT_ADMITTED_POST_AUTHOR_TWO_CASE_PROOF",
+  "admittedUtc": "2026-11-06T14:07:18.543037+00:00",
+  "manifestSha256": "4a9659ac582930a1ef4e566080b8c039180db88606fa8f71fa96366e98ded4f4",
+  "subjectSha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741",
+  "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+  "role": "Separate operator Writer, mechanical proof only; Root retains evaluation",
+  "authority": "ROOT_ACTIVATION.json bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f; user instructed build RC7 applying corrections",
+  "frame": "STDO3.0.4, fixed fifteen-feature ABIogenesis5.0, GOAL-035/T287, empty companion composition",
+  "decision": "Run exactly the two recorded once-only serial commands through unchanged canonical commandRecorder on frozen stage04. New prospective allocation; original failed author ledger remains immutable.",
+  "purpose": "Prove corrected held-session test and localize actual maintained direct fixed-admission path before further source repair.",
+  "scope": {
+    "sourceEdits": false,
+    "newStages": 0,
+    "laneAllocations": 2,
+    "laneTimeoutMs": 300000,
+    "automaticRetries": 0,
+    "coldCampaignReads": 0,
+    "providerCalls": false,
+    "testEffects": "Existing isolated test fixtures and scripted stand-in actors under declared short temporary root; stdout, stderr, measurements and proof records only."
+  },
+  "preflight": "Exact manifest and four contained controls checked by Root; execution must verify450 stage source rows, generated manifest and all existing dependency/tool/npm-config pins before effects and after each command.",
+  "stops": [
+    "Changed frozen source or pin",
+    "Host timeout, output truncation, memory or disk exhaustion",
+    "More than two commands or any automatic retry"
+  ],
+  "claims": {
+    "productAccepted": false,
+    "runnerRegressionClosed": false,
+    "qualified": false,
+    "published": false
+  }
+}

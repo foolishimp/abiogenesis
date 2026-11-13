@@ -1,0 +1,46 @@
+{
+  "portFile": {
+    "byteLength": 6,
+    "digest": "sha256:9c74a1804799db6e4b2c59710dca7ed2407ccca7e70c9cebf256db60d68d9dfe",
+    "issue": null,
+    "port": 63802,
+    "relativePath": "c2-source/evidence-http-port.txt",
+    "state": "observed"
+  },
+  "process": {
+    "exitStatus": 0,
+    "processSignal": null,
+    "signalSequence": [],
+    "stderr": {
+      "byteLength": 0,
+      "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "base64",
+      "kind": "worksite_observed_stream",
+      "payload": "",
+      "schemaVersion": "5.0.0"
+    },
+    "stdout": {
+      "byteLength": 190,
+      "digest": "sha256:fd9dc61f4da7904d350633ab7c4d685d41f3f60670216d25cd1d37243ea4c833",
+      "encoding": "base64",
+      "kind": "worksite_observed_stream",
+      "payload": "eyJwcm9vZiI6ImMyLWh0dHAtcHJvY2VzcyIsInBpZCI6NzgzMDIsInBoYXNlIjoic3RhcnRlZCJ9CnsicHJvb2YiOiJjMi1odHRwLXByb2Nlc3MiLCJwaWQiOjc4MzAyLCJwaGFzZSI6InJlc3BvbnNlLWZpbmlzaGVkIn0KeyJwcm9vZiI6ImMyLWh0dHAtcHJvY2VzcyIsInBpZCI6NzgzMDIsInBoYXNlIjoic2VydmVyLWNsb3NlZCJ9Cg==",
+      "schemaVersion": "5.0.0"
+    },
+    "terminationConfirmed": true,
+    "timedOut": false
+  },
+  "request": {
+    "hostname": "127.0.0.1",
+    "method": "GET",
+    "path": "/",
+    "port": 63802,
+    "timeoutMs": 1000
+  },
+  "response": {
+    "body": "abi-ok",
+    "bodyDigest": "sha256:d98380d3f12eb7eabbb72ae8531aa21dfa74055c0d2dd707646c790067b656e1",
+    "byteLength": 6,
+    "status": 201
+  }
+}

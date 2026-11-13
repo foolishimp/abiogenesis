@@ -1,0 +1,27 @@
+{
+  "kind": "file_only_exact_declared_absence_check",
+  "expectedFutureScratchOutputs": [
+    "rc4-scratch/native-recovery-19/return.json",
+    "rc4-scratch/native-recovery-19/readiness.json",
+    "rc4-scratch/native-recovery-19/notes.md"
+  ],
+  "actualMissingReadRoots": [
+    "rc4-scratch/native-recovery-19/notes.md",
+    "rc4-scratch/native-recovery-19/readiness.json",
+    "rc4-scratch/native-recovery-19/return.json"
+  ],
+  "exactSetEquality": true,
+  "presentTmpRoot": "rc4-scratch/native-recovery-19/tmp",
+  "placeholderFilesCreated": false,
+  "newSourceAbsencesAllowed": false,
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/NATIVE_GRANT.DRAFT.json",
+    "bytes": 4357,
+    "sha256": "ebe8cb43c1c7494db4c121bcbd20fe1ff9f3b0427a4ed3c16a399a32e9a6c677"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r1/workload.json",
+    "bytes": 207332,
+    "sha256": "54a01e78c4cfb6e7fa1f73f1d3a8fbae2c31fe139fa87966841bd192543354de"
+  }
+}

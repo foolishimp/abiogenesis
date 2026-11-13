@@ -1,0 +1,77 @@
+{
+  "status": "PREPARED_AFTER_ONLY_UNBOUND_UNEXECUTED",
+  "at": "2026-11-07T04:35:17.208101+00:00",
+  "activation": "/root/rc7_reference_ticket_writer",
+  "consumer": "/root",
+  "basis": {
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "definitionPath": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "goals": "GOAL-035; fixed fifteen families/T-287",
+    "verification": "stdo status --definition --verify: installed=true, valid=true, failures=[]"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/PREPARATION_MANIFEST_AFTER_003.json",
+    "bytes": 4516,
+    "sha256": "7b120b8d37515e01b04ccc4ba92a2611c7526dfab4cdd1b1a2787864d25b2409"
+  },
+  "sourcePreparation": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "bootstrapPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/AFTER_BOOTSTRAP_MANIFEST_001.json",
+    "bytes": 2707,
+    "sha256": "d550aea0243fdc4624449b2f9568196ca02e3b33eb0137b2bd9041081af1e51d"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement-after-004.test.mjs",
+      "bytes": 24133,
+      "sha256": "a2b0afa637046090e506ff7c657e569a2b56e7ac2d097eb599ba730d43432c7b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement-after-004.mjs",
+      "bytes": 8029,
+      "sha256": "9f11e7c7baf207755296d685fbcc88d6589f8ccb952e5868cf8e989c3a18d202"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC8_AFTER_004.bindings.template.json",
+      "bytes": 4780,
+      "sha256": "a25cad8e67fceb809eae0904dc208f563944398f86ffc084b3551afe1d3b1361"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/CURRENT_BOOTSTRAP_AFTER_HANDOFF_004.md",
+      "bytes": 3195,
+      "sha256": "cba3238f8ef5efc5af5459797ab362b101e72b813290b97bd648802201a4f1b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/SYNTAX_CHECKS_BOOTSTRAP_AFTER_004.json",
+      "bytes": 2079,
+      "sha256": "d31fb2dd8c30b44fbfacc15f821bc1bf22a4cd782b83870c2ac5e6ffef15ed85"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/OWNER_REFERENCES.json",
+      "bytes": 2465,
+      "sha256": "f3099fbc32b8d6b83c6dcd909ca31f2d230d623af80dc15985843762a7c24e0f"
+    }
+  ],
+  "executed": false,
+  "baselineRerun": false,
+  "sourceAcceptance": null,
+  "remaining": "Root exact accepted source/bootstrap binding, actual artifact/install receipts, Root after admission; then matched pair/profile before broad tests."
+}

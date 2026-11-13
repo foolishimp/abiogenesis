@@ -1,0 +1,39 @@
+{
+  "kind": "static_template_readiness",
+  "status": "STATIC_TEMPLATE_PREPARED_SOURCE_RUNTIME_UNBOUND",
+  "at": "2026-11-06T04:27:27.728960+00:00",
+  "selectedSourceNames": 448,
+  "referenceSourceNames": 397,
+  "referenceResourceNames": 50,
+  "alreadySelectedHowAdded": 1,
+  "prospectiveContextPaths": 465,
+  "permittedProductWritePaths": 5,
+  "nativeWriteRoots": 9,
+  "syntax": [
+    {
+      "path": "prepare-r1.template.mjs",
+      "syntax": "valid"
+    },
+    {
+      "path": "dispatch.template.mjs",
+      "syntax": "valid"
+    },
+    {
+      "path": "inputs/prior-author-stage.mjs",
+      "syntax": "valid"
+    },
+    {
+      "path": "inputs/prior-author-lanes.mjs",
+      "syntax": "valid"
+    }
+  ],
+  "PythonAndShellSyntax": "valid",
+  "sourceBytes": null,
+  "renderedOrderBytes": null,
+  "liveSourceAcquisition": false,
+  "sourceLocalWrites": false,
+  "runtimeCalls": 0,
+  "providerCalls": 0,
+  "testsOrBuilds": 0,
+  "meaning": "Syntax and exact template relations only; no actual baseline, capacity, runtime readiness, acceptance or timing claim."
+}

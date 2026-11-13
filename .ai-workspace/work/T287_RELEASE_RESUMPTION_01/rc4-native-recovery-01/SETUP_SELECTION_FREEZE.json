@@ -1,0 +1,26 @@
+{
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/ROOT_SETUP_SELECTION.json",
+    "bytes": 7288,
+    "sha256": "91aa11bbd9a8904185ce1b9f582c86a6fbab286548187eede3331ec0ecc38009"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/ROOT_NATIVE_ADMISSION.json",
+    "bytes": 3000,
+    "sha256": "d0d6aa77bcbe33deee08dcff41c2c40730c7a363d8a2f0c11ecab794e1926f69"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/NATIVE_GRANT.json",
+    "bytes": 35731,
+    "sha256": "22b9bbe34825e82588514cdff09da41d185147ccd85f23623bcf85da4743fb16"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/prepare-rc3-builder.v2.mjs",
+    "bytes": 7581,
+    "sha256": "c29a11236931746e8a611113d37cdd04e049c0d36c9d45c8a90122987b91999d"
+  },
+  "sourceTrackedClean": true,
+  "runtimeAbsent": true,
+  "publicCalls": 0,
+  "providerCalls": 0
+}

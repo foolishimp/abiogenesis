@@ -1,0 +1,50 @@
+{
+  "kind": "bounded_suffix_actor_envelope_observation",
+  "observedUtc": "2026-11-06T19:30:54.007029+00:00",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "start": 2356670820,
+  "end": 2390714907,
+  "readBytes": 34044087,
+  "rows": 15,
+  "maxReadBytes": 67108864,
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 2356670820,
+    "prefixDigest": "sha256:b8c646d73641ac0fb48d28869d0f7f3622e25323a50ebfaa2b3f3079f25061c0",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 701759869,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:68fbdfbd9417005c4277917d4d3e8881c7d2049e5fd53aab48a005fe1e1ddccf"
+  },
+  "matches": [
+    {
+      "offset": 2390713067,
+      "bytes": 1840,
+      "sha256": "a60b87defc49543dd41a1555c0aea9a4877e68d256e3137be4ccf8dbf93b172a",
+      "envelope": {
+        "kind": "actor_process_started",
+        "eventId": "event://abiogenesis/33cef79382e2d6244b91e5f64e2d5ec6bc0b4067e4b9463957c93db4d9435401",
+        "eventTime": "2026-11-06T19:29:01.886Z",
+        "admissionOrdinal": 298538,
+        "runId": "run://abiogenesis/925caebd0e48e085207334d7096c7bf376778022e34ce9d22d1e804001cd4204",
+        "basisId": "execution-basis://abiogenesis/fa19d332ace46b7acd74d9e86e6f12dd7d8d391d32103f86483a11d1cae623c1",
+        "aggregateId": "process://abiogenesis/699929c2e790e189271d186fa978daa79de7a963b6329814559aa574e5854cae",
+        "aggregateType": "process",
+        "scopeClass": "run",
+        "payloadDigest": "sha256:567415a7b876e8d77afea77769b83af0213e26e8fdfb07194ecca9677e4ff6ba"
+      },
+      "actor": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/f0ba7153975a517e79fda2a9cc3d0e63f3ed94591c0b2ade776d139909341788",
+        "cCallRef": "c-call:sha256:2b8c2cd13fee25d95fa72979b25080683bf45f9bd6e07b3e73e59a99962d13f1",
+        "processId": 98013,
+        "processRef": "process://abiogenesis/699929c2e790e189271d186fa978daa79de7a963b6329814559aa574e5854cae"
+      }
+    }
+  ],
+  "privatePayloadReadOrRetained": false,
+  "standing": "Only actor_process_started envelope and allowlisted process coordinates are projected; other row bytes are skipped."
+}

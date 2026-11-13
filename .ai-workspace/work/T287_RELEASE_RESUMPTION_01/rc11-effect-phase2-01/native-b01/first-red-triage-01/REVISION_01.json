@@ -1,0 +1,32 @@
+{
+  "kind": "report-only-product-frame-completion",
+  "reason": "Root requested explicit fixed15, active GOAL035/T287 Phase2 slice and source/tool/runtime split required by AGENTS Product Frame",
+  "prior": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/first-red-triage-01/ASSESSMENT.md",
+      "bytes": 6858,
+      "sha256": "48dc5defedd247c454617b621a79e7568222dc81598329077a1088c92288aead"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/first-red-triage-01/EVIDENCE.json",
+      "bytes": 4232,
+      "sha256": "25d92dca02b40735c3a20a4f22bffee7943fae8a6cde7702d0e73aa7d3dc760a"
+    }
+  ],
+  "current": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/first-red-triage-01/ASSESSMENT.md",
+      "bytes": 8153,
+      "sha256": "357e86b80a50a0e4abd7d0500af3254b7651ed6b38297bd9dd350f4c7558b8ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/first-red-triage-01/EVIDENCE.json",
+      "bytes": 4927,
+      "sha256": "c988f913e3d74c17a32ba0e6b0a9569f520b9efb4cc2a32988388130f6e11399"
+    }
+  ],
+  "preservedFindingsAndLimits": true,
+  "preservedCausalBodySha256": "b009bd4972fe6c839ecc288a6fd073d3488bebb229e54e1bdd3df51cf08daee0",
+  "productSourceTestEffects": false,
+  "newAnalysisScope": false
+}

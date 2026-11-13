@@ -1,0 +1,47 @@
+{
+  "updates": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 195335,
+        "sha256": "050cb96a399c6e9dad1f7d6c5e82bad58b15dc110666215fef446fe6176beee3"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 196005,
+        "sha256": "edcbdf8affddfa6918dada6fd1a79409144e9240cb0d5139ed863b69015ed6ff"
+      },
+      "priorBodyExact": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 846970,
+        "sha256": "02f070a961945fffccaa21b047471d70ecae19c1014dd7a26e2ab7c6c5b709eb"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 847640,
+        "sha256": "9c4a973baa5d0218a56e00457b6a79c2c15b69738c64b813484b7958bb9be15c"
+      },
+      "priorBodyExact": true
+    }
+  ],
+  "indicesConserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29373151,
+      "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+      "bytes": 29654632,
+      "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+      "bytes": 29655224,
+      "sha256": "bc07c7f9439cea13cbeb210beffb330ed9fc0950afa63c4d755741bc858c39eb"
+    }
+  ]
+}

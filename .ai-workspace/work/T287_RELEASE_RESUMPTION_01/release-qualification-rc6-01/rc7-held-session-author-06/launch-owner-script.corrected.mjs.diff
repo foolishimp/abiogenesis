@@ -1,0 +1,10 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/launch-owner-script.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/launch-owner-script.corrected.mjs
+@@ -15,6 +15,6 @@
+ for(const file of [profile.provider.command,profile.realClaude]){const st=await lstat(file);assert(st.isFile()&&!st.isSymbolicLink(),'Exact provider file required');assert((st.mode&0o111)!==0,'Provider executable mode absent');await access(file,constants.X_OK);}
+ const environment={...process.env,NODE_OPTIONS:profile.runtimeEnvironment.NODE_OPTIONS};
+ const command=commandRecorder(dir,{environment,timeoutMs:profile.outerTimeoutMs,maxOutputBytes:536870912});
+-const result=await command('sdk-native-host','/opt/homebrew/Cellar/node/24.7.0/bin/node',[join(dir,'prepare-and-dispatch.mjs'),process.argv[2]],{cwd:dir});
++const result=await command('sdk-native-host','/opt/homebrew/Cellar/node/24.7.0/bin/node',[join(dir,'prepare-and-dispatch.corrected.mjs'),process.argv[2]],{cwd:dir});
+ console.log(JSON.stringify({status:'SDK_NATIVE_HOST_RETURNED',exitCode:result.exitCode,signal:result.signal,timedOut:result.timedOut,truncated:result.truncated,failure:result.failure,wallMs:result.wallMs}));
+ process.exitCode=result.exitCode===0&&!result.timedOut&&!result.truncated&&!result.failure?0:1;

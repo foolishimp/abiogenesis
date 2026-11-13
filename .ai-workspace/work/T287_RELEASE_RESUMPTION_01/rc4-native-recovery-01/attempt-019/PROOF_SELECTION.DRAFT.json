@@ -1,0 +1,200 @@
+{
+  "status": "CONCRETE_C2_COMMAND_SELECTION",
+  "relativeCwd": "build_tenants/abiogenesis/typescript",
+  "sourceCorrespondence": [
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts"
+  ],
+  "commands": [
+    {
+      "args": [
+        "-e",
+        "const fs=require('node:fs'),crypto=require('node:crypto'),prefix='build_tenants/abiogenesis/typescript/';console.log(JSON.stringify({prefix}));for(const p of process.argv.slice(1).sort()){if(!p.startsWith(prefix))throw Error('path outside exact prefix');const b=fs.readFileSync(p);console.log(JSON.stringify({p:p.slice(prefix.length),b:b.length,h:crypto.createHash('sha256').update(b).digest('hex')}))}",
+        "build_tenants/abiogenesis/typescript/package.json",
+        "build_tenants/abiogenesis/typescript/package-lock.json",
+        "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts"
+      ],
+      "commandId": "command://abiogenesis/rc4/attempt019/source-correspondence",
+      "environment": {
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "executable": "/opt/homebrew/bin/node",
+      "expectedReports": [],
+      "relativeCwd": ".",
+      "terminationGraceMs": 5000,
+      "timeoutMs": 30000
+    },
+    {
+      "args": [
+        "-cR",
+        "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+        "node_modules"
+      ],
+      "commandId": "command://abiogenesis/rc4/attempt019/offline-toolchain",
+      "environment": {
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "executable": "/bin/cp",
+      "expectedReports": [],
+      "relativeCwd": "build_tenants/abiogenesis/typescript",
+      "terminationGraceMs": 5000,
+      "timeoutMs": 60000
+    },
+    {
+      "args": [
+        "-cR",
+        "rc3-operator-inputs/increment-a-01/contract-seeds",
+        "build_tenants/abiogenesis/typescript/contracts"
+      ],
+      "commandId": "command://abiogenesis/rc4/attempt019/contract-seeds",
+      "environment": {
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "executable": "/bin/cp",
+      "expectedReports": [],
+      "relativeCwd": ".",
+      "terminationGraceMs": 5000,
+      "timeoutMs": 30000
+    },
+    {
+      "args": [
+        "run",
+        "build"
+      ],
+      "commandId": "command://abiogenesis/rc4/attempt019/build",
+      "environment": {
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "executable": "/opt/homebrew/bin/npm",
+      "expectedReports": [],
+      "relativeCwd": "build_tenants/abiogenesis/typescript",
+      "terminationGraceMs": 5000,
+      "timeoutMs": 480000
+    },
+    {
+      "args": [
+        "scripts/refresh-candidate-basis.mjs"
+      ],
+      "commandId": "command://abiogenesis/rc4/attempt019/package",
+      "environment": {
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "executable": "/opt/homebrew/bin/node",
+      "expectedReports": [],
+      "relativeCwd": "build_tenants/abiogenesis/typescript",
+      "terminationGraceMs": 5000,
+      "timeoutMs": 60000
+    },
+    {
+      "commandId": "command://abiogenesis/rc4/attempt019/identity-inventory",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "../../../rc4-operator-inputs/native-recovery-19/identity-and-smoke.mjs",
+        "prepare"
+      ],
+      "environment": {
+        "HOME": "/Users/jim",
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "ABI5_RC4_BASELINE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/node_modules/@abiogenesis/typescript-tenant"
+      },
+      "relativeCwd": "build_tenants/abiogenesis/typescript",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 5000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc4/attempt019/installed-language",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "../../../rc4-operator-inputs/native-recovery-19/identity-and-smoke.mjs",
+        "smoke"
+      ],
+      "environment": {
+        "HOME": "/Users/jim",
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "ABI5_RC4_BASELINE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/node_modules/@abiogenesis/typescript-tenant"
+      },
+      "relativeCwd": "build_tenants/abiogenesis/typescript",
+      "timeoutMs": 300000,
+      "terminationGraceMs": 5000,
+      "expectedReports": []
+    }
+  ],
+  "requiredCase": "Hello World is an external minimal GTL program through installed Public execution and fresh reads",
+  "requiredSkipCount": 0,
+  "budget": "Actual selected installed owner calculation pending concrete command assembly; no timer enlargement assumed.",
+  "payloadComparison": "File-only full4589/RC4 member/path/hash comparison after C2. Enumerate all changed bytes; only package identity/constants/declarations, identity-derived publications/catalog/graph/manifest are expected. Unrelated executable/declaration/schema bytes must be identical. Explain generator output exactly before inheritance/adoption.",
+  "runtimeResource": "Reuse genuine018 closed runtime003 handoff; operational builder70de unchanged. No fresh setup cycle.",
+  "pending": "Root pure full-configuration and installed renderer/call preflight; no Runtime/Run/provider selected.",
+  "commandCount": 7,
+  "outcomePredicates": [
+    {
+      "predicateId": "predicate://abiogenesis/rc4/attempt019/source-correspondence-exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc4/attempt019/source-correspondence"
+      }
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc4/attempt019/offline-toolchain-exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc4/attempt019/offline-toolchain"
+      }
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc4/attempt019/contract-seeds-exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc4/attempt019/contract-seeds"
+      }
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc4/attempt019/build-exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc4/attempt019/build"
+      }
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc4/attempt019/package-exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc4/attempt019/package"
+      }
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc4/attempt019/identity-inventory-exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc4/attempt019/identity-inventory"
+      }
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc4/attempt019/installed-language-exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/rc4/attempt019/installed-language"
+      }
+    }
+  ],
+  "requiredExecutionBudgetMs": 1096750,
+  "budgetOwner": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+  "command5Producer": "scripts/refresh-candidate-basis.mjs packs --ignore-scripts and writes current artifact/manifest identity; adapter consumes its output, no stale fixture assumption.",
+  "selectedPaths": 965
+}

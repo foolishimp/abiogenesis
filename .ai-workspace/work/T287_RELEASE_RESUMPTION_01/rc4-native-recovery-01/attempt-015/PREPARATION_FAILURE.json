@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-02T15:57:22.266Z",
+  "name": "TypeError",
+  "message": "worksite command and predicate identities must be unique",
+  "observation": null,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Preparation refused; no fallback, stale handoff or automatic retry."
+}

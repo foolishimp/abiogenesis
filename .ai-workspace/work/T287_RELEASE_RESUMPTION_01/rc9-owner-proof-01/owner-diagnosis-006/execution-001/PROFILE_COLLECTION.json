@@ -1,0 +1,32 @@
+{
+  "capBytes": 67108864,
+  "actualTotalBytes": 15704311,
+  "collectedBytes": 15704311,
+  "files": [
+    {
+      "name": "CPU.20261109.053244.11148.0.001.cpuprofile",
+      "bytes": 15704311,
+      "pid": 11148,
+      "threadId": 0,
+      "observedProcessIdentities": [
+        "11148@Mon Nov 9 05:32:44 2026"
+      ],
+      "role": "isolated_test_file",
+      "sha256": "caf3a8d9e4d5121894273b4f47a2883a48fdead155a658f09d127b606546a434",
+      "sampleCount": 5682,
+      "nodeCount": 55745,
+      "startTimeUs": 2980981569209,
+      "endTimeUs": 2981020102959,
+      "status": "COMPLETE_PROFILE"
+    }
+  ],
+  "failures": [
+    "missing complete sampled test_runner profile"
+  ],
+  "expectedProcessIds": {
+    "testRunner": 11147,
+    "testFile": 11148
+  },
+  "complete": false,
+  "standing": "Profiles must correspond to observed owned processes. A missing, over-cap or invalid/truncated file is unavailable, never zero CPU."
+}

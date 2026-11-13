@@ -1,0 +1,15 @@
+[
+  {
+    "id": "six-case-delay-counterfactual",
+    "kind": "testfile",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "--test-name-pattern=^(?:M5\\ ABG\\ transport\\ force\\-terminates\\ a\\ worker\\ that\\ ignores\\ SIGTERM|M5\\ ABG\\ transport\\ renews\\ its\\ inactivity\\ lease\\ only\\ from\\ observed\\ progress|M5\\ ABG\\ transport\\ does\\ not\\ renew\\ from\\ unacknowledged\\ output|M5\\ ABG\\ transport\\ excludes\\ semantic\\ output\\ emitted\\ after\\ its\\ timeout\\ boundary|owned\\ process\\ groups\\ retain\\ descendant\\ cleanup\\ after\\ normal\\ and\\ TERM\\ leader\\ exits|M5\\ ABG\\ transport\\ excludes\\ descendant\\ output\\ emitted\\ after\\ direct\\-process\\ exit)$",
+      "/private/tmp/abg-rc11-root-cause-20261110-01/stage2-a/test_env/tests/m5-worker-transport.delay.test.mjs"
+    ],
+    "timeoutSeconds": 60
+  }
+]

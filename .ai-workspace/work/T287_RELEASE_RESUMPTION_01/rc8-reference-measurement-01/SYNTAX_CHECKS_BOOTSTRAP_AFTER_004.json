@@ -1,0 +1,51 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/prepare-after-bootstrap-001.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/prepare-after-bootstrap-001.mjs",
+        "bytes": 12426,
+        "sha256": "873828fcb68982020d0a5bbd09288899658db21f4eee958be234197de59de84a"
+      }
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement-after-004.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement-after-004.test.mjs",
+        "bytes": 24133,
+        "sha256": "a2b0afa637046090e506ff7c657e569a2b56e7ac2d097eb599ba730d43432c7b"
+      }
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement-after-004.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement-after-004.mjs",
+        "bytes": 8029,
+        "sha256": "9f11e7c7baf207755296d685fbcc88d6589f8ccb952e5868cf8e989c3a18d202"
+      }
+    }
+  ],
+  "executionPerformed": false,
+  "measurementBodyConservation": "Fixture004 differs from003 only by adding retained bootstrap roots to outside-phase aggregate budget traversal; inverse restoration exact. Wrapper adds exact source/receipt relation checks and routes004."
+}

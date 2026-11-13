@@ -1,0 +1,41 @@
+{
+  "recordedUtc": "2026-11-03T20:38:44.191844+00:00",
+  "purpose": "Read-only multi-frame triage of admitted native04 liveness/global-walk residual and existing shared library owner relation; no Product repair",
+  "sourceSubject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/review-subject-001/SUBJECT.json",
+  "sourceSubjectSha256": "2cf127e6fac782b900b8891fd0f7eb562f3970b47cbd753b5a4dc2c04954e208",
+  "sourceBase": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "authorFeedback": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/author-feedback-001/CUSTODY.json",
+  "authorFeedbackSha256": "292b429c7b6a8812152ce876b03a46cdc7e1fac91a485c1a3accea1cdbdbaeae",
+  "additionalFrozenSources": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 61840,
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "sameAsBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+      "bytes": 6467,
+      "sha256": "59db62729425cb8c7ed871348cb44e5e9c8cbe283b8e6f35c7bb35f3187e1d31",
+      "sameAsBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "bytes": 43473,
+      "sha256": "a0ba80a5744cc70309bcd39d7d008b6f015f104744036c0df0f9b81623532942",
+      "sameAsBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "bytes": 41266,
+      "sha256": "6369f58eaacaee1472e7502af8ddb6dbfba701840b58698b20502dde58342cec",
+      "sameAsBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "bytes": 73350,
+      "sha256": "985f4199aa412d0e6cf77d3915d92dfee231ab75db3e759649669cdb2d157219",
+      "sameAsBase": true
+    }
+  ]
+}

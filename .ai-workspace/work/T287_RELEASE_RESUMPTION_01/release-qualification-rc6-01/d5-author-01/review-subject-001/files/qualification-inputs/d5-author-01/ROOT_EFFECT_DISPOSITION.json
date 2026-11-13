@@ -1,0 +1,49 @@
+{
+  "kind": "q23_author_operator_effect_disposition",
+  "at": "2026-11-05T21:15:17.272128+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "decision": "Preserve returned source and author checks, continue affected component proof with corrected future operator environment. No source acceptance or retroactive effect authorization.",
+  "observations": [
+    {
+      "id": "R5",
+      "owner": "Supplied canonical Product generator invoking npm pack; npm update notifier environment",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpq23f/npm-cache/_logs/2026-11-05T20_54_33_331Z-debug-0.log",
+        "bytes": 1586,
+        "sha256": "0be961237a58580666f069c0bd9242a72dd49638adf5fb1756453a6d28a730b6"
+      },
+      "observed": "npm log records GET 200 https://registry.npmjs.org/npm in 389ms during repair-01.",
+      "violation": "One network effect conflicts with the author no-network grant.",
+      "limits": "This log is not complete network or request-header/body telemetry. Absence of credential or worksite-data transmission is unverified. No package install/publication is established.",
+      "correction": "Future proof command environments and provider wrapper explicitly set NPM_CONFIG_UPDATE_NOTIFIER=false and NPM_CONFIG_OFFLINE=true. Existing controls and historical logs remain unchanged.",
+      "scope": "Operator environment correction; no Product code repair, recut, repeated historical tests or added review cycle."
+    },
+    {
+      "id": "R7",
+      "owner": "Native author shell temporary-file effects",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/return.json",
+        "bytes": 22792,
+        "sha256": "0542a719a0c279f819f2fc9016ce4606ddf4f1385d6598eadd647a969ea7f52e"
+      },
+      "observed": "Author discloses possible transient /tmp/zsh files from heredocs outside declared write roots; their exact creation/deletion is unverified.",
+      "standing": "Retain effect-boundary uncertainty; do not claim perfect confinement or reclassify it as preauthorized.",
+      "correction": "Future operator wrapper and proof commands declare TMPPREFIX under their selected temporary roots. Assessment retains zero source write roots; no coding or heredoc scratch is required."
+    }
+  ],
+  "proofBoundary": "364 frozen/live members and all three returned handoffs match; 339 final author-stage sources match the frozen manifest. Those observations support source correspondence only, not global effect confinement.",
+  "operatorProjectionError": "Root diagnostic accidentally selected the terminal object rather than scalar terminal coordinates, overprinting retained source payloads. No code/runtime mutation resulted. Subsequent diagnostics use explicit scalar/path projections and bounded serialization. This recurs as operator output baggage, not a Product defect or evidence of improved performance.",
+  "residuals": [
+    "Independent different-family review pending credential replacement.",
+    "Q23 production eligibility, QR02, D5, full qualification and release remain open."
+  ]
+}

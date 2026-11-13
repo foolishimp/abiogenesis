@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-07T14:38:39.778Z",
+  "failure": "Error: FIRST_TEST_RED_OR_INCOMPLETE: test_env/tests/t287-worksite-branch-construction.test.mjs\n    at run (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-022.mjs:268:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-022.mjs:299:3",
+  "retainedScratch": "/private/tmp/abg-r8c-022",
+  "autoRetry": false
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "rc7_held_session_author_readiness",
+  "task": "rc7-held-session-author-02",
+  "worker": "native Opus 5.5 (claude-opus-5-5)",
+  "basis": "stdo://releases/v3.0.4/",
+  "createdUtc": "2026-11-06T15:36:16.097Z",
+  "ready": false,
+  "mechanical": {
+    "stage01Compile": true,
+    "stage01Generate": true,
+    "stage01LifecycleGuard": true,
+    "c2PinMatches": true,
+    "worksiteEqualsFinalFreeze": true,
+    "allChangedPathsInGrant": true,
+    "harnessPinsUnchanged": true
+  },
+  "blocking": [
+    "HS2-CONTROL-001 lane bound/allocation ordering blocks every proof lane",
+    "fixed-route, assessment-guards and caller lanes not executed on the frozen source",
+    "out-of-scope native-work mock assembly tests expected to refuse; need grant"
+  ],
+  "finalSourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120"
+}

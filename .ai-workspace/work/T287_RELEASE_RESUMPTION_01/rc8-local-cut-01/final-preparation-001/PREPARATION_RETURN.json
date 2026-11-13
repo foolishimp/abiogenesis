@@ -1,0 +1,124 @@
+{
+  "status": "A12_SOURCE_PREPARATION_COMPLETE_ACCEPTANCE_AND_EXECUTION_WITHHELD",
+  "at": "2026-11-07T22:29:06.786126+00:00",
+  "actor": "/root/rc8_cut_preparation",
+  "consumer": "/root",
+  "result": "satisfied",
+  "predicate": "Observed A12 source inventory, selected source membership/modes, retained archive correspondence and disabled successor drafts only.",
+  "activation": "Root successor preparation instruction; write only new final-preparation-001; no C8/Git/source/test/build/runtime effects.",
+  "basis": "STDO3.0.4/102817a3;fixed15/GOAL035/T287/REF01;empty composition",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/preparation-resumption-001/PREPARATION_RETURN.json",
+    "bytes": 5967,
+    "sha256": "64de1ae759b7ae6fd76c24c3e72e9f59c664682c8a13ddcc2a24f2bbf68d3002"
+  },
+  "sourceDigest": "60f8e595cfcf1b11f01dd0d46c9030d5042fc3edb076d20993c583e0b6b98e32",
+  "verification": {
+    "frozenSourceRows": 1339,
+    "immutableSnapshotRowsMatched": 1339,
+    "liveC8RowsMatched": 1339,
+    "changedRowsFromA11": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs"
+    ],
+    "selectedPaths": 27,
+    "trackedModifiedPaths": 24,
+    "newPaths": 3,
+    "derivedStageRowsMatched": 2132,
+    "derivedStageChangesFromA11": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs"
+    ],
+    "originalArchiveUnchanged": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "manifestUnchanged": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    },
+    "cumulativeUnshippedChanges": 9,
+    "twoSubstitutionsOnly": true,
+    "focusedPassed": 1,
+    "focusedSkipped": 0,
+    "wholeFileCredit": false,
+    "indexUnchanged": true,
+    "deliveryPinsUnchanged": true,
+    "mismatches": []
+  },
+  "documents": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SOURCE_INVENTORY.json",
+      "bytes": 541876,
+      "sha256": "311af9d981a6d5369d8a90fb1c31243bf0452208eefb43d10aa55240bb6c7db2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SELECTED_SOURCE_DELTA.json",
+      "bytes": 6664,
+      "sha256": "8dbcad9f52f08292a9e8bf3ef7e3b8feaae4cb7d142fac342d467e67342785c4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SOURCE_ARTIFACT_RELATION.prepared.json",
+      "bytes": 6093,
+      "sha256": "eb10a17e703925b245bf40bbc596e98cd3de7bd1e0da8a2ab88341f7cb69f03e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/CUT8_BUILD_BINDINGS.prepared.json",
+      "bytes": 15047,
+      "sha256": "65bfb8b289dfb7967ecd3e112f3197a15fa575bfb41e26f9b0b0ad063b90534e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/BROAD_POPULATION_MAP.prepared.json",
+      "bytes": 36067,
+      "sha256": "fe89fef6188a5bf47b53dce03725653613c493fd9918ee6637c3509a53dc4b51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 6690,
+      "sha256": "fa491f11ed13b16c40563beec255290a266e5c809b7b15bc2d16f6acacb50e45"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/RESIDUALS.md",
+      "bytes": 12533,
+      "sha256": "54676f93be84bc5f596edd43654245477781de327aac63256dbce631fa8b77ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/ROOT_AUTHORITY.md",
+      "bytes": 3461,
+      "sha256": "abc20ce65124ca975ba947c28378dce8631d25924c692cf6e199c724a6f6d1dc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/BUILD_COMMAND.prepared.json",
+      "bytes": 4314,
+      "sha256": "a3d48c19e68acfe50232ba54a8a386e75758aa7108fe293c22b5d58528ad606c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/prepare-source.py",
+      "bytes": 19191,
+      "sha256": "171f605673dc664e2dae139991a485dcaf4497dac850135cfa7f3615174c01ff"
+    }
+  ],
+  "remainingMandatoryDependencies": [
+    "Actual independent A12 source review",
+    "Actual A12 SDK close/fresh readback conjunction",
+    "Root A12 source/casewise acceptance",
+    "Root final source/broad conjunction",
+    "Separate exact Root build admission; later exact packaging review and separate install admission"
+  ],
+  "sourceAcceptance": null,
+  "broadClose": null,
+  "executionEnabled": false,
+  "effects": {
+    "writesOnly": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001",
+    "source": 0,
+    "git": 0,
+    "tests": 0,
+    "builds": 0,
+    "repack": 0,
+    "install": 0,
+    "sdk": 0,
+    "providers": 0,
+    "cleanup": 0
+  },
+  "returnBoundary": "Stop; preserve this frozen preparation until a separate successor activation."
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/d2-binding-transition.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/005-d2-binding-transition.test/process.json",
+    "bytes": 1077,
+    "sha256": "df64d5afc4aa41e47091f6a33367724aaa1c419cdcb6bf02b8156c05fff2386f"
+  }
+}

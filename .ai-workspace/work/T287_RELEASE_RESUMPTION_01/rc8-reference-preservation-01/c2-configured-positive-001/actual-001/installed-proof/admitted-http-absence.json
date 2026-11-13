@@ -1,0 +1,9 @@
+{
+  "label": "admitted-http",
+  "pid": 78249,
+  "groupId": 78249,
+  "directChildPresence": "absent",
+  "ownedGroupPresence": "absent",
+  "observedAt": "2026-11-07T15:11:46.651Z",
+  "physicalAbsenceIsNotAdmission": true
+}

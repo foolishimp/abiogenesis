@@ -1,0 +1,122 @@
+{
+  "kind": "root_rc7_held_session_correction_selection",
+  "status": "SELECTED_OUTCOME_CONTROLS_PREPARING_NO_NATIVE_ACTIVATION",
+  "selectedUtc": "2026-11-06T14:13:57.623882+00:00",
+  "authority": {
+    "user": "Build RC7 according to the reviewed held-graph design applying corrections. Preserve dirty work, immutable releases and historical evidence.",
+    "rootActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "method": "STDO3.0.4",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "composition": [],
+    "productFrame": "Unchanged fixed fifteen-feature ABIogenesis5.0 / GOAL-035 / T287. ABG alone owns runtime admission; static Program/declaration/implementation authority, pure projections and thin SDK/CLI remain."
+  },
+  "basis": {
+    "hs01SourceAfterSha256": "692a29f93a48d755f973cee94d73f3952c7920e1d54f710e4e6c30f6a812efdc",
+    "hs01FinalSourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+    "hs01ActualCloseSha256": "87de60b343daddd37b9b2aa085c9fe8d2ba0eb56a1c0925d64eae57eeb9eca70",
+    "hs01ReviewSha256": "7eadf0c978a64c5491ba556f79cf7f3846ea476d199a9828fa93b6105f086cae",
+    "hs01RootDispositionSha256": "c1a3d77c74c716e4b5413067aed917560318b1239c2244e6f2356ae8ba3ac20f",
+    "nativeHowAdditionalReadSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "3642a5d070359287eed4530147406686268316e65dd6450e3be46301afd5b775",
+      "section": "Declared typed assessment, especially lines390-399"
+    }
+  },
+  "classification": "Bounded design_reframe for inner assessment dependency, plus existing maintained-runner integration correction; no Product or requirement change.",
+  "rootCause": [
+    {
+      "id": "HS01-RUNNER-001",
+      "relation": "Maintained runReadbacks removed runtime.abg destructuring but still calls abg.isAbgTypedTerminalResult.",
+      "effect": "Completed-Run held and cold terminal agreement throws.",
+      "repair": "Restore the existing owner binding and prove the actual maintained readback helper on a completed Run."
+    },
+    {
+      "id": "HS01-ASSESSMENT-001",
+      "relations": [
+        "The new actual fixed-admission test installs sandbox-uat but still supplies the witness consumer assessment identity.",
+        "The library Program lawfully hosts its direct canonical wrapper Catalog rows, but its static execution closure cannot declare an arbitrary downstream consumer assessment contract.",
+        "The separate native assessment already has fixed outer task/observation carriers and an input-selected inner response contract; assembly and raw-preimage currently impose static closure ownership on that inner dependency."
+      ],
+      "whyPriorProofMissed": "Earlier actual admission stopped at reciprocal Program membership, and controlled owner cases did not traverse the actual installed owner chain. Stage03 HS02 then stopped at a test-construction error before affected final lanes.",
+      "preservation": "Membership, Program closure, schema ownership and currentness correctly fail closed. The prior library-Program-only remedy was incomplete and is re-entered at its owning HOW."
+    }
+  ],
+  "outcome": [
+    "Keep the existing library Program, canonical callable membership, implementation closure, native assessment identity, fixed outer observation contract and actual assessor role.",
+    "Amend native-work and governance HOW: specifically for the canonical typed assessment callable, the authenticated admitted task explicitly selects one inner consumer contract/schema dependency. Ordinary raw-result declaration and static contract lookup law stay unchanged.",
+    "Use one shared existing-owner operation over the actual admitted workspace environment/catalog/lock: check the task input identity, unique exact consumer publication and contract, admitted install and publication binding, applicable resolved-lock row and actual dependency evidence, and immutable installed schema_asset bytes. Neither installation alone nor supplied schema bytes grant the relation. Do not invent a reverse library-to-consumer dependency edge.",
+    "Carry the already admitted environment through the existing run/leaf boundary where necessary. Reuse the existing assessmentPublication passage. Instruction assembly, response preparation/completion and raw-result preimage consume the same admitted selection relation; no separate validation algorithm or global contract fallback.",
+    "Persist/reconstruct through existing task, execution basis, publication and prefix evidence so cold verification agrees. No new runtime entity, service, store, registry, event stream, Program, custom controller or process-local authority.",
+    "Use the maintained sandbox consumer actual assessmentSelection and matching scripted response schema in the test. Preserve unrelated witness fixtures and ordinary consumer compositions.",
+    "Preserve source/result conservation, full-original assessment, actor separation, read-only assessment scope, schema validity, stale/foreign/closed refusals and cold recovery."
+  ],
+  "workerDiscretion": "Callable names, carrier shape and helper placement belong to the native Worker within this selected outcome. Write the compact owning HOW amendment before implementation depends on it. Reuse shared library operations; no extra generic declaration mechanism or new schema authority.",
+  "allowedExistingPaths": [
+    "design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "code/src/product/native_workspace_assessment.ts",
+    "code/src/implementation/contracts.ts",
+    "code/src/implementation/leaf_invocation_port.ts",
+    "code/src/hog/ccall_lifecycle.ts",
+    "code/src/abg/instruction_assembly.ts",
+    "code/src/abg/execution_basis.ts",
+    "code/src/owner_bindings/run_invocation.ts",
+    "test_env/uat/runner.mjs",
+    "test_env/uat/public-setup.mjs",
+    "test_env/tests/t287-default-library.test.mjs",
+    "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "conditionalExistingPath": {
+    "path": "code/src/product/execution_resolution.ts",
+    "onlyFor": "Typed carriage of the existing admitted environment if required. No Catalog membership, execution resolution, dependency authority or refusal weakening."
+  },
+  "proofOrder": [
+    "Actual maintained direct Testing then UAT over its derived state Result first, using the installed candidate and actual consumer assessment owner. Include maintained heldReadbacks and freshReadbacks terminal agreement to cover the missing abg binding.",
+    "Finite affected schema-selection refusals: crossed owner/lock/schema bytes, missing or ambiguous declarations, stale input and other callable selection refuse before assessment dispatch. Preserve ordinary static raw-result behavior.",
+    "Warm/cold raw-preimage and complete read agreement on the same selectors/boundary. Preserve accepted unaffected evidence with explicit source relation; do not repeat historical RC4/RC6 qualification.",
+    "Reuse the separately selected stage04 post-author HS02 result only for unchanged affected owners and its exact measured scope; it does not prove the maintained caller or later changed source."
+  ],
+  "budgetPolicy": {
+    "oneNativeCodingWorker": true,
+    "nativeReasoning": "xhigh",
+    "independentFrozenReview": "max, proportional and concurrent with build/testing",
+    "prospectiveStages": 2,
+    "laneBudget": "Finite exact case list to be bound in final controls; no unrecorded retry or stage extension.",
+    "campaignColdReads": 0,
+    "latency": "Keep setup, worker dispatch, native work/testing, proof and between-task coordination separate."
+  },
+  "stops": [
+    "Product or requirement change required",
+    "New runtime authority or contract lookup fallback required",
+    "Necessary write outside final exact grant",
+    "Failed integration relation not covered by this triage",
+    "Source/pin mismatch or host resource failure"
+  ],
+  "prohibitions": [
+    "No push, merge, tag, global selector change or stable release claim.",
+    "No immutable release mutation or deletion of dirty/untracked work.",
+    "No discarded historical failure or retroactive green receipt.",
+    "No S5 stdout implementation in this increment."
+  ],
+  "independentEvaluation": {
+    "evaluator": "/root/rc7_partial_prefix_review, max, new bounded read-only Architect/evaluator frame after closed HS01 review",
+    "result": "Inner/outer distinction recommended as a bounded HOW/interface amendment; no Product-level conflict found. Existing catalog application is not a solution. Actual admitted environment passage still needs realization in the named owners.",
+    "limits": "Design evaluation only; no new implementation or test executed."
+  },
+  "future": {
+    "dispatchManifest": null,
+    "rootControlAdmission": null,
+    "nativeLaunch": null,
+    "sourceAcceptance": null,
+    "qualified": false,
+    "published": false
+  }
+}

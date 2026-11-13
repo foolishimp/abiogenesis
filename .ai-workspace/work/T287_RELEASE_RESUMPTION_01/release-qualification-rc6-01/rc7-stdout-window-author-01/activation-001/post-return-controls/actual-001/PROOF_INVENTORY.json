@@ -1,0 +1,180 @@
+{
+  "kind": "actual_s5_failure_proof_inventory",
+  "status": "BASELINE_GENUINE_RED_PRESERVED_FINAL_SOURCE_UNBUILT",
+  "createdUtc": "2026-11-06T21:39:31.398975+00:00",
+  "finalSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 11876,
+    "sha256": "8b155cbaa167dc2eaf2b0d515f448d3728ccdc6ce2cb771d4a03b95e3669eac1"
+  },
+  "finalSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_AFTER.json",
+    "bytes": 559922,
+    "sha256": "c65b3703473186207d4787ec0998e6120099f41661b112d3ea0b55760e87e814"
+  },
+  "sourceCount": 451,
+  "stagesConsumed": 1,
+  "maxStages": 4,
+  "laneInvocationsConsumed": 1,
+  "maxLaneInvocations": 7,
+  "reservations": [
+    {
+      "kind": "stage",
+      "stage": "sw1-stage-01",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-01",
+      "sourceFreezePresent": true,
+      "stageReportPresent": true
+    },
+    {
+      "kind": "lane",
+      "stage": "sw1-stage-01",
+      "id": "stdout-before",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-01-lanes-stdout-before",
+      "summaryPresent": true
+    }
+  ],
+  "stages": [
+    {
+      "label": "sw1-stage-01",
+      "mode": "before",
+      "sourceDigest": "5d51fb333507b2e38183f40c96101358c426c2fa7b49bcb7dc31589e085d063a",
+      "sourceFreeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/stages/sw1-stage-01/source-freeze.json",
+        "bytes": 96809,
+        "sha256": "bc2444779c9f0dd71186b7d5b2c457cf10a88167b0deaf509466ec668a3deb1c"
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/stages/sw1-stage-01/stage.json",
+        "bytes": 97761,
+        "sha256": "d104a9f37a433fc9fd9e75150d99dbc23cfb4994b80fbe8a0c95f68d8600c45b"
+      },
+      "sameAll451AsFinalSource": false,
+      "differingPaths": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs"
+      ],
+      "setupMs": 1944,
+      "phases": {
+        "compile": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 7716,
+          "error": null
+        },
+        "generate": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 22860,
+          "error": null
+        },
+        "lifecycle": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 600,
+          "error": null
+        }
+      }
+    }
+  ],
+  "executedLanes": [
+    {
+      "id": "stdout-before",
+      "stage": "sw1-stage-01",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/summary.json",
+        "bytes": 1508,
+        "sha256": "b2b210c971ede687abe790b4a7689a1e684d4b536f69bba32e70b515777c4e18"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/stdout.tap",
+        "bytes": 6157,
+        "sha256": "ab1cb3bf77d06f0bb3813e2512ff7561466402fd7b2ecc40f0ee57d377c4468e"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-01-lanes-stdout-before/stdout-before.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "result": {
+        "mode": "before",
+        "setupMs": 67,
+        "stageSourceDigest": "5d51fb333507b2e38183f40c96101358c426c2fa7b49bcb7dc31589e085d063a",
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "ms": 2584,
+        "tests": 2,
+        "pass": 1,
+        "fail": 1,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "requiredActivePass": true,
+        "failing": [
+          "RC7 HS03 actual-stream: recorded chunk cadence closes bounded archive windows in the real transport, and each recorded actor keeps its qualifying lastActivity, decision and durable successor"
+        ],
+        "skippedNames": []
+      },
+      "sameFinalSource": false
+    }
+  ],
+  "unallocatedSelectedLanes": [
+    "stdout-differential",
+    "scope-ordering",
+    "timeout-interruption",
+    "archive-integrity",
+    "legacy-replay",
+    "native-caller"
+  ],
+  "allSixFinalLanesPassedSameFinalSource": false,
+  "beforeCadenceCounterexample": {
+    "actualReferences": 911,
+    "expectedClosedWindows": 3,
+    "laterAssertionsReached": false,
+    "standing": "Genuine expected-before cadence red; final test/source changed afterward and is not covered."
+  },
+  "handoffs": [
+    {
+      "name": "progress",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/progress.json",
+      "exists": true,
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/handoffs/progress.json",
+        "bytes": 7574,
+        "sha256": "ffb2cf189d0779d2edf4e9a4b53980a1cf1f3185ebdcd04431786542648ead2f"
+      }
+    },
+    {
+      "name": "readiness",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/readiness.json",
+      "exists": false,
+      "snapshot": null
+    },
+    {
+      "name": "return",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/return.json",
+      "exists": false,
+      "snapshot": null
+    }
+  ],
+  "actualNativeAfter": null,
+  "qualified": false,
+  "accepted": false,
+  "limits": [
+    "Runtime disposition is runtime_failed; SDK exit0 and closed host are not native task success.",
+    "Actual Result and typed terminalResult are null. No native.before/native.after or completed NativeResult source custody is claimed.",
+    "Only baseline sw1-stage-01 exists; its genuine cadence red911 versus3 is retained. Final source differs from that stage and is unbuilt/unaccepted.",
+    "No AFTER stage, readiness or return was produced at this capture. All six final lanes remain unallocated.",
+    "Author bootstrap broad recursive-grep disclosure and explicit tool error metadata remain preserved; no private tool contents read.",
+    "No Product acceptance, release, qualification or speedup claim. Root owns review and continuation.",
+    "Actual absolute timeout is witnessed by selected transport metadata; clean outer host exit does not imply native success.",
+    "Actual SDK Result and terminalResult are null. No native.before/native.after, effect-complete NativeResult, or terminal projection equality is invented.",
+    "Only20 staged control file pins and final live bytes were verified. Native before/after control equality cannot be checked without a NativeResult.",
+    "One closed runtime resource and its original actual resume are retained by reference. No repeated campaign cold drain or physical event decode was performed.",
+    "Root retains final review conjunction, procedural disposition, continuation and release decisions."
+  ]
+}

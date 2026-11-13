@@ -1,0 +1,28 @@
+{
+  "status": "PASSED",
+  "lane": "native-workspace",
+  "file": "t287-native-workspace-work.test.mjs",
+  "sourceDigest": "ed403dda50772e778be696c91250d73a54c6abf5b8fea609bc1c8bacfccbc4d0",
+  "counts": {
+    "tests": 44,
+    "failed": 0,
+    "passed": 43,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 40,
+    "suites": 0
+  },
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof-evidence/lane-02/events.jsonl",
+    "bytes": 12711,
+    "sha256": "4072b37205b4227a35633cc3bb0b2fc5a1292b63a74d79a6553fde7e4a8ad3f7"
+  },
+  "wallMs": 2150.0895,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "primaryPreserved": true,
+  "buildInvocations": 0
+}

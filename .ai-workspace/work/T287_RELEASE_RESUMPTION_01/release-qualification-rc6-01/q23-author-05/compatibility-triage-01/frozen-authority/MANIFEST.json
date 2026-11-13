@@ -1,0 +1,57 @@
+{
+  "kind": "exact_git_authority_supplement",
+  "members": [
+    {
+      "id": "requirements",
+      "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+      "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "bytes": 16630,
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "lines": "16-20;34-44;62;68-83",
+      "use": "EVENTS-001/002/003/010/013/014/024/027/028/029: append-only exact runtime truth and versioned event census, not universal successor decoding.",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/frozen-authority/specification/requirements/abg/REQ-R-ABG3-EVENTS.md"
+    },
+    {
+      "id": "profile_how",
+      "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+      "bytes": 21291,
+      "sha256": "8dd2fa84d4705009959572386817077797adcb54d76239b9c4fb628e4e6dd029",
+      "lines": "sections1-5,7",
+      "use": "Exactly L/current P and one L-to-P transition; immutable original validation, no unknown fallback or inferred transitive compatibility.",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/frozen-authority/build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md"
+    },
+    {
+      "id": "p5_how",
+      "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "bytes": 86253,
+      "sha256": "2883a6df78ac9c632b22bd6ce395e95dddea553ef885c0292aa8e6b666663098",
+      "lines": "469-486;488-497",
+      "use": "Explicit original p4 replay executable plus fresh p5; unknown old-current digests refuse; no in-place migration qualification.",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/frozen-authority/build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md"
+    },
+    {
+      "id": "d5_how",
+      "gitCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 145655,
+      "sha256": "a9a69cdf6657e90581d3cfe5482668872bb7bc7b572a4b3ac97d628c414248f9",
+      "lines": "601-621",
+      "use": "Retirement ownership and D5 trigger at the next root event-contract profile change.",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/frozen-authority/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+    }
+  ],
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/frozen-authority/ROOT_PROFILE_DISPOSITION.json",
+      "bytes": 3110,
+      "sha256": "59b29a543a0df68313dc1ed48ea3cfdb42fc37196a827fffaac6a39a396e2f11"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/frozen-authority/TRIAGE_RESULT.json",
+      "bytes": 24413,
+      "sha256": "c8e823ce100c35e347e9c4a1f46c6e47f6c00e90f40ccdf852f1a635fbec9265"
+    }
+  ]
+}

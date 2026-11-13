@@ -1,0 +1,209 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedUtc": "2026-11-07T06:50:49.893655+00:00",
+  "authority": "Executive /root final TEST_ONLY_STDOUT_COMPONENT_OWNER_REBIND selection: prepare maintained SDK then dispatch once when canonical bindings/owners ready; no further GO. Optional unshipped helper clarification and exact review conjunction follow.",
+  "bindingSha256": "8abb99c2505bf8948f85132d74dd95115a69c9589ed98bc069846deb82acc821",
+  "preparedSha256": "c0e6f50bf00a084c638bc805642d16857216ff7a94d2ea61262e2924d5a48224",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/runtime-001/PREPARED.json",
+    "bytes": 6165,
+    "sha256": "c0e6f50bf00a084c638bc805642d16857216ff7a94d2ea61262e2924d5a48224"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/ROOT_SCOPE.json",
+      "bytes": 4249,
+      "sha256": "5690ef7996f0e4c58969fec1b823630405270cdccdfecbcb0b5445a176e40a71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/TASK.json",
+      "bytes": 8246,
+      "sha256": "804b3b271ec4d5dcd54a369f9d111d2df705d34199e20b25bec12b8e05cda462"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/PREPARATION.json",
+      "bytes": 6492,
+      "sha256": "80b9b043eceaa6c776fef9cddecc2b4dd337d2f9ddcfad8a10764e01bfa8d98c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/BINDING.json",
+      "bytes": 5041,
+      "sha256": "8abb99c2505bf8948f85132d74dd95115a69c9589ed98bc069846deb82acc821"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/host.mjs",
+      "bytes": 12242,
+      "sha256": "3960799b659265c7eb80a67d39db62a9daba66e9b7c5b13af1daff314d48ae3e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof.mjs",
+      "bytes": 10320,
+      "sha256": "0d903a479d2aced207b4078321582be3a3e747dd022f6d366584f911b7557685"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/broad-f04-001/REVIEW.json",
+      "bytes": 26969,
+      "sha256": "f01ec4cb00eb7b8fa3cb77debfcbdd2a2cdb5b715bc41624284b8a8caa5901b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/broad-f04-001/README.md",
+      "bytes": 5455,
+      "sha256": "bfbbf1c63bfd71fe2b70360abc10e50f6a0b87e33a5700c3e7c5b7b0a37a846b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/CONTROL_FREEZE.json",
+      "bytes": 2494,
+      "sha256": "df637793992604dd062c039c88b26a9a0a72af583fe07e1ff0470ef2c09aff2a"
+    }
+  ],
+  "rootDisposition": {
+    "finding": "BROAD-F04-001 S2 test integration/proof defect; no demonstrated shipped runtime defect",
+    "observed": "F04 finalizedArtifactCases supplies store{} with partial module overrides; real current-profile stdout transaction guard correctly fails before retained EPIPE",
+    "predictedSibling": "native-workspace-work post-effect-conflict component has the same current-profile seam; high-confidence source prediction, not a second observed red",
+    "excluded": "Legacy lifecycle-failure-carrier uses legacy digest and no stdout; no edit/reproof selected",
+    "selectedCorrection": "Bind real stdout-window/probe algorithms and their transitive event_store/event_prefix imports to one coherent fixture transaction, current recorder prefix and admission premise. Preserve all13 F04 modes, exact EPIPE identity and native conflict/currentness assertions.",
+    "prohibited": "No Product/HOW/store/transport/runtime algorithm change, guard weakening, copied window/probe algorithm, no-op success, expected-error substitution, legacy switch, skip, generic mocking framework or full-runtime conversion."
+  },
+  "exactScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs"
+  ],
+  "budgets": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "focusedWholeFileInvocations": 2,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000
+  },
+  "actualOwnerReadiness": {
+    "pid": 53544,
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceRows": 1338,
+    "heldPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 79112126,
+      "prefixDigest": "sha256:0f17cdf350cb75b6e5551d89efeade82d0f27332bdd91c7228ffb4bbccae80da",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 708868359,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:6112c30afde3b6a7fdfa2c7a2b84aab4715e4986ba2f52d4116108e0114b9c02"
+    },
+    "setupProgramBinding": {
+      "selection": "library",
+      "programRef": "program://abiogenesis/default-library/default@5",
+      "catalogProgramDigest": "sha256:ed4f7469cbdc8178ac6fc8bc10d1ad9357ff778e93ec460a1654f2f7b6bd8427",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationSemanticDigest": "sha256:5576103c3bf1352ba64188a4b3574eb419c79edb0de73996da6586a33b68af11",
+      "owner": {
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.7",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.7/8c66c6ff87bdf00c23fdd141447205660e0a50210a1193eadb0753a178bbd37c/e5b3334c7d69afd8ef605fed97d71b09a876aea58ec80ace7612c7a2da15699a",
+        "admissionEventRef": "event://abiogenesis/efe24a876b3f12e97529ee16adc76464a60e89b3c4fa0d12ff46ab3f8903ed9d",
+        "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+      },
+      "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "nativeSelection": {
+      "programRef": "program://abiogenesis/worksite/native-work@5",
+      "startRef": "start://abiogenesis/worksite/native-work@5",
+      "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+      "viewDigest": "sha256:c47238131fffc453de61af4af95ef9ab6db76cad75c0266ebf912cf0a53377ae"
+    },
+    "phases": {
+      "artifactVerified": {
+        "utc": "2026-11-07T06:49:51.205Z",
+        "elapsedMs": 18995.771041,
+        "memory": {
+          "rss": 2482044928,
+          "heapTotal": 1766850560,
+          "heapUsed": 1611930224,
+          "external": 254288552,
+          "arrayBuffers": 251859409
+        }
+      },
+      "consumerArtifactVerified": {
+        "utc": "2026-11-07T06:49:51.212Z",
+        "elapsedMs": 19003.430957999997,
+        "memory": {
+          "rss": 2482110464,
+          "heapTotal": 1766850560,
+          "heapUsed": 1612883584,
+          "external": 254490156,
+          "arrayBuffers": 252060973
+        }
+      },
+      "resourceReacquired": {
+        "utc": "2026-11-07T06:49:52.358Z",
+        "elapsedMs": 20148.686166,
+        "memory": {
+          "rss": 1860960256,
+          "heapTotal": 312115200,
+          "heapUsed": 168283528,
+          "external": 49170901,
+          "arrayBuffers": 46743844
+        }
+      },
+      "environmentReconstructed": {
+        "utc": "2026-11-07T06:49:54.184Z",
+        "elapsedMs": 21975.068666,
+        "memory": {
+          "rss": 2085191680,
+          "heapTotal": 578027520,
+          "heapUsed": 451141128,
+          "external": 69823028,
+          "arrayBuffers": 67395971
+        }
+      },
+      "catalogReconstructed": {
+        "utc": "2026-11-07T06:49:54.549Z",
+        "elapsedMs": 22340.352916,
+        "memory": {
+          "rss": 2099855360,
+          "heapTotal": 614170624,
+          "heapUsed": 532916544,
+          "external": 69831220,
+          "arrayBuffers": 67404163
+        }
+      },
+      "contextObserved": {
+        "utc": "2026-11-07T06:49:54.581Z",
+        "elapsedMs": 22371.478832999997,
+        "memory": {
+          "rss": 2100953088,
+          "heapTotal": 615219200,
+          "heapUsed": 494457952,
+          "external": 90014635,
+          "arrayBuffers": 87587578
+        }
+      },
+      "nativeCallConstructed": {
+        "utc": "2026-11-07T06:49:56.240Z",
+        "elapsedMs": 24030.895416,
+        "memory": {
+          "rss": 1909407744,
+          "heapTotal": 382320640,
+          "heapUsed": 267103264,
+          "external": 5531199,
+          "arrayBuffers": 98141
+        }
+      }
+    },
+    "hostElapsedMs": 24725.900125,
+    "controlAndImportMs": 694.982584
+  },
+  "custody": "One prepared call in existing PTY10334/PID53544; no re-prepare/resource allocation. Preserve all predecessor failures/results. Root reviews overlay concurrently; no source acceptance asserted.",
+  "providerCallsAuthorized": 1,
+  "sourceAccepted": false,
+  "wholeReleaseQualified": false
+}

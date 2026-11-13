@@ -1,0 +1,59 @@
+{
+  "kind": "root_control_intake_failure_triage",
+  "at": "2026-11-06T02:17:31.180348+00:00",
+  "status": "LOCALIZED_OPERATOR_TRANSLATION_OMISSION_NOT_PRODUCT_FAILURE",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/preflight-attempt-01/PREFLIGHT_RESULT.json",
+    "bytes": 153,
+    "sha256": "3fee7c6a3258775825536928ced9e3c0b5ee45238c7b3990e36ae72dfa9d6f50"
+  },
+  "phaseTiming": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/preflight-attempt-01/PREPARE_PHASE_TIMING.json",
+    "bytes": 3034,
+    "sha256": "e8c9758b4dd5fc09563d66197c2832323e37692dcf1b02bec80b2f4735fc4cbb"
+  },
+  "stderrRetained": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/preflight-attempt-01/PREFLIGHT.stderr",
+    "bytes": 925,
+    "sha256": "52a0908ab4a4a320f03392b8d232cc2a9b3cb333f04fc7dc01dc82a74158476c"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/preflight-attempt-01/control-preimages/workload.json",
+    "bytes": 101467,
+    "sha256": "77312d6dff04e89a6605c5979b30b88966cccf7504fbe0e647dbef9061bf0922"
+  },
+  "probe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/INTAKE_OWNER_PROBE.json",
+    "bytes": 1292,
+    "sha256": "dba0da59db853dc86dde0942342d2359c78f95b682124f1104f2117a6efacabc"
+  },
+  "frames": {
+    "Product": "Unchanged D5 P1-P7/Q23 Q1-Q7 outcome and existing conditional governance library. Original governance work must name at least one required support obligation.",
+    "representation": "Direct NativeWork author metadata lawfully used an empty requiredSupportRefs list because it was not consumed as GovernanceWorkState. Proof02 copied that field into the distinct governance input; proof03 inherited it.",
+    "integration": "Existing installed default_library originalSchema requires nonempty requiredSupportRefs. Full governed input construction failed before any dry caller/runtime/provider action.",
+    "proof": "Pure owning constructor rejects the exact existing workload and accepts it when only requiredSupportRefs names the already selected task obligation. No Product source or criterion changes."
+  },
+  "whyPriorChecksMissed": "Prior static comparisons established template identity, source custody, command/budget and instruction shape, but proof02 never reached a successful owner preflight and empty direct-native metadata was not a lawful governance original. Retained static checks did not claim owner acceptance.",
+  "repair": {
+    "owner": "Root-bound operator Writer, existing workload control only",
+    "field": "requiredSupportRefs",
+    "from": [],
+    "to": [
+      "support://abiogenesis/t287/d5-proof-03"
+    ],
+    "meaning": "Name the existing task D5 P1-P7/preserved Q1-Q7 exact-source and actual C2/UAT support obligation using the same established support-reference scheme as q23-proof-03. No new requirement, fake evidence or bypass."
+  },
+  "evidencePreserved": "First failed preflight and exact source-bound controls retained here; no source/Result/review/stage evidence invalidated.",
+  "reentry": "One deliberate corrected existing-owner preflight, then admitted dispatch only if owners pass; no automatic retry.",
+  "effectsBeforeFailure": {
+    "runtimeAdmissions": 0,
+    "providerCalls": 0,
+    "sourceWrites": 0,
+    "physicalPrefixUnchanged": true
+  },
+  "limits": [
+    "First0.824s preflight is a failed operator attempt; not a failed C2/UAT or Product regression.",
+    "Fresh source binding/owner prompt/budget checks remain required after correction.",
+    "Do not add a Product guard, alternate schema or invented governance observations."
+  ]
+}

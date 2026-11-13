@@ -1,0 +1,56 @@
+{
+  "status": "REVIEWABLE_PROVISIONAL_C3_SETUP_ONLY",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/BINDING.DRAFT.json",
+    "bytes": 22415,
+    "sha256": "18a0e1a327d2dc102427fd3df7ff047f89526cc11606e54bace810dfd51a605f"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/BINDING.DRAFT.json",
+      "bytes": 22415,
+      "sha256": "18a0e1a327d2dc102427fd3df7ff047f89526cc11606e54bace810dfd51a605f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/witness.mjs",
+      "bytes": 43101,
+      "sha256": "49a4f84e5754da6052b299d2e18e37be512948fdf61a8a18273ce127d5b4a60b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/operator.mjs",
+      "bytes": 4502,
+      "sha256": "af938ae7be25323166574af11940af4a76426da3d77f9951f93a65da7ca825c9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/HANDOFF.DRAFT.md",
+      "bytes": 4861,
+      "sha256": "06fe5cb0e9cfb8e086fc4359d5991b2d3dbecef6fd6bb2614390228446530a1e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/CANDIDATE_C3_CUSTODY.json",
+      "bytes": 999086,
+      "sha256": "ae849c0224a053abb12873dcecf64ae6024bdf63e85c7317d246553a030a7193"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/DEFINITION_ROOTS.DRAFT.json",
+      "bytes": 4071754,
+      "sha256": "b06c594cf4d94b219644deaa58c3ced7ba1c57665c51d9f99714bacb0efd05f9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/verify-files.py",
+      "bytes": 2077,
+      "sha256": "0cba0f4c4dae391271bc84cb7625553e19bb011b0180861e0ee12487f1fdea44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/PREPARATION_CHECKS.json",
+      "bytes": 1639,
+      "sha256": "2e5dc11830cddd4a25eba00362e9a3f05f31fdbd2782c6cb2d079efdcba51d5d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_SELECTION.template.json",
+      "bytes": 348,
+      "sha256": "61a08afdbe178d1683837cc42be51ecdfefac882db30c4c49e4f145691aca870"
+    }
+  ],
+  "limits": "No Root selection/materialization/setup/import/provider. Final accepted candidate and exact A/B installed preflight gate paid proof."
+}

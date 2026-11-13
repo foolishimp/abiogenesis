@@ -1,0 +1,22 @@
+{
+  "kind": "predictive_selector_capacity",
+  "installedRendererSha256": "3ba9e751bf3b2ca805ebafbd4678d96fffb9aff2055e301e7b78a70b483b518a",
+  "historicalOtherSections": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/fp-0141c53486056a96-prompt.txt",
+    "sha256": "6b9ec2ce3cccc5fb165fd72b6e81208eaafc3b7513d70421c8ea1fd9000a5a54"
+  },
+  "currentContextDigest": "sha256:5e1d7f79b6e01805ebb4327302e55145f35fbbb3963ef44b708ea2ee2f442a20",
+  "currentInputDigest": "sha256:eabade21ae0a2195f19105c54d7d7846ee6d8d589c23147eab0bae59428577b1",
+  "sourceCount": 28,
+  "taskProjectionBytes": 689770,
+  "promptBytes": 711067,
+  "promptBound": 1048576,
+  "reserveBytes": 65536,
+  "fitsWithReserve": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "limits": [
+    "Actual installed owner task projection and renderer format; other sections are exact prior RC4 selector sections with controlled historical bindings.",
+    "Predictive operator check with64KiB reserve, not native assembly/admission or a proof of all future role contexts. Runtime owners remain authoritative."
+  ]
+}

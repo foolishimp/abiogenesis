@@ -1,0 +1,83 @@
+{
+  "status": "PHYSICAL_PACKAGE_DEPENDENCIES_CORRECTED_AND_BOUND",
+  "recordedUtc": "2026-11-07T05:00:56.070366+00:00",
+  "executive": "/root",
+  "operator": "/root/rc8_operator",
+  "rootDisposition": "Execution003 is selected once these exact control and credit conditions hold; no further GO required. Stop on any materialization/credit-join uncertainty or first test red/incomplete/resource limit.",
+  "rootDiagnosis": {
+    "classification": "OPERATOR_PACKAGE_LAYOUT",
+    "productDelta": false,
+    "cause": "A shared node_modules symlink resolves runtime imports but npm Arborist/packlist omits bundled dependency members. Root observed 4,230/3,233 total/dependency members in failed common versus 5,325/4,328 in accepted physical stage; difference 1,095 dependency members. Product verification correctly refused.",
+    "failedArchiveLimit": "The existing test cleanup removed the failed archive; raw verification refusal and npm-owned read-only diagnosis remain preserved."
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-003.mjs",
+    "bytes": 21577,
+    "sha256": "17b5aa254998ff8f5b42e03bfb14c5d55a74f73586aa8b0598f94b204896a759"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_004.json",
+    "bytes": 38501,
+    "sha256": "7fd7b04d7d6e7f5e4b110335f53540b69f33bde9c3f30c82646499dee4cd0198"
+  },
+  "predecessorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_002.json",
+    "bytes": 7531,
+    "sha256": "f91c5ddb4eb16f43cc6a1d27a4eae18d01ef0dc00bc53181cdf87e7c61523190"
+  },
+  "changes": [
+    "Physical exact dependencies inside common and each isolated tenant/node_modules; no shared dependency symlink",
+    "Preflight counts 2*(stageBytes+dependencyBytes)",
+    "Existing npm-owned read-only pre-loop packlist comparison with accepted physical stage; expected 5325/4328 members",
+    "Fourteen prior whole-file successes join the original five credits; skips remain separate",
+    "Versioned control names and fresh allocations only"
+  ],
+  "syntax": {
+    "command": "node --check close-proof.corrected-003.mjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  "bind": {
+    "invocations": 1,
+    "exitCode": 0,
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-004/BOUND_INVENTORY.json",
+      "bytes": 1715906,
+      "sha256": "071bddc9b04faef1d384c1f20121cb38a87796fdc1ccb6447b2bca002538396b"
+    },
+    "onlyChangedFields": [
+      "at",
+      "config",
+      "counts",
+      "focusedCoverage"
+    ],
+    "stageRowsUnchanged": 2131,
+    "dependencyRowsUnchanged": 4576,
+    "stageDigest": "d5976daaa2fd294fe703e10a325a3c60a76e391fb6c1f37ac9b46823aa30303d",
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "sourceAndDependencyRowsExactlyEqual": true
+  },
+  "creditJoin": {
+    "newFiles": 14,
+    "newPasses": 40,
+    "newHistoricalSkips": 49,
+    "originalFiles": 5,
+    "originalPasses": 46,
+    "originalHistoricalSkips": 2,
+    "totalFiles": 19,
+    "totalPasses": 86,
+    "totalSkips": 51,
+    "scheduledFiles": 189,
+    "verified": "Exact frozen test bytes; successful actual command/host bindings without name filtering; complete successful reporter output/counts; stdout/stderr receipt hashes. No failing file credited."
+  },
+  "footprint": {
+    "stageBytes": 65473298,
+    "dependencyBytes": 58290948,
+    "twoCompleteCopiesBytes": 247528492
+  },
+  "preparationOnlyTests": 0,
+  "sourceEdits": false,
+  "dependencyInstall": false,
+  "network": false,
+  "providerCallsSelected": 0
+}

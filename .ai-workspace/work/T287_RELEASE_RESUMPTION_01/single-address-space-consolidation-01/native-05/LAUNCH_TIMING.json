@@ -1,0 +1,75 @@
+{
+  "recordedUtc": "2026-11-03T21:41:25.822138+00:00",
+  "kind": "separated_native_launch_wall_observation",
+  "activation": "native-05",
+  "runRef": "run://abiogenesis/c4581064ff35c1127d0e65366bc6d662fa29d87bbfbaa874206e954b2782ee73",
+  "setup": {
+    "reused": true,
+    "sdkSetupMs": 28938.979459,
+    "artifactVerificationMs": 19748.530083,
+    "standing": "Original maintained setup reused; not rerun for this continuation"
+  },
+  "preflight": {
+    "refusedAttemptMs": 25607.818874996156,
+    "successfulRefinementMs": 51861.91420909017,
+    "source": "Actual installed owner preparation, zero providers/admissions"
+  },
+  "dispatchStartedUtc": "2026-11-03T21:34:06.657Z",
+  "initialSelectorStartedUtc": "2026-11-03T21:36:52.014Z",
+  "nativeWorkerStartedUtc": "2026-11-03T21:40:38.777Z",
+  "dispatchToInitialSelectorMs": 165357.0,
+  "initialSelectorMs": 72485.0,
+  "selectorExitToNativeWorkerMs": 154278.0,
+  "dispatchToNativeWorkerMs": 392120.0,
+  "priorOutcomeToDispatchMs": 1143639.0,
+  "derivedPriorFinalCloseUtc": "2026-11-03T21:20:42.403136+00:00",
+  "derivedPriorFinalCloseToDispatchMs": 804253.8640000001,
+  "priorFinalCloseTimeDerivation": "Prior actual dispatch STARTED timestamp + final process wallMs5805466.136167; elapsed derivation, not separately stamped UTC endpoint",
+  "actorCoordinates": {
+    "selector": {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 34736,
+      "eventId": "event://abiogenesis/416cdce32e09a24a8da48518483e2c4d112734df075cb245f2bab617378814bc",
+      "eventTime": "2026-11-03T21:36:52.014Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/c4581064ff35c1127d0e65366bc6d662fa29d87bbfbaa874206e954b2782ee73",
+      "offset": 397174915,
+      "rowBytes": 1859,
+      "rowSha256": "112ad21aa7aace8f5af683a4c04cedce3dba304c08107078d38a59d14fe1f243",
+      "processRef": "process://abiogenesis/7f827b6fe1ef9b6148cc0e377f82830ac0ca59e4a6e08a23af8f26f9911d264f",
+      "pid": 30741
+    },
+    "selectorExit": {
+      "kind": "actor_process_exited",
+      "admissionOrdinal": 34914,
+      "eventId": "event://abiogenesis/94badd6957f2241dfea82ebaa1301512326d73f29f1fa97a9b2d94570194b2a9",
+      "eventTime": "2026-11-03T21:38:04.499Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "runId": "run://abiogenesis/c4581064ff35c1127d0e65366bc6d662fa29d87bbfbaa874206e954b2782ee73",
+      "offset": 397731872,
+      "rowBytes": 1773,
+      "rowSha256": "247183fdf6648d4aa1efd4c22866b7a7e44a1f6b47a1a65a82f30a738261c053",
+      "processRef": "process://abiogenesis/7f827b6fe1ef9b6148cc0e377f82830ac0ca59e4a6e08a23af8f26f9911d264f",
+      "pid": null
+    },
+    "native": {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 34986,
+      "eventId": "event://abiogenesis/140e7811e692e3b7d848c24d9165a20cf08d06475da61c6690882835ce9cb3a7",
+      "eventTime": "2026-11-03T21:40:38.777Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/c4581064ff35c1127d0e65366bc6d662fa29d87bbfbaa874206e954b2782ee73",
+      "offset": 400281967,
+      "rowBytes": 1888,
+      "rowSha256": "0ad99df5f2c2d83004e116c3de66460592a078282c9660af5c841e63126b643e",
+      "processRef": "process://abiogenesis/db343a4ddabe5d22967a0ac3c7464c4deb822c47c32aa84982ff7b175b7b2091",
+      "pid": 33050
+    }
+  },
+  "limits": [
+    "Unchanged installed RC5 builder, not successor speedup",
+    "Native coding starts only at its actor process event",
+    "Intervals are elapsed wall, not CPU attribution; Root work overlaps prior close",
+    "Node dispatcher local verification before STARTED is outside official dispatch-to-actor interval; ps sample is retained separately"
+  ]
+}

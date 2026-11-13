@@ -1,0 +1,52 @@
+{
+  "kind": "root_native_dependency_ready_selection",
+  "status": "F2_PARTIAL_SOURCE_AND_GENUINE_CLOSE_BOUND_HS01_FINAL_ADMISSION_PENDING",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/ROOT_SELECTION.json",
+    "bytes": 8614,
+    "sha256": "b38a73cc0967dca6843ced9c10cf0155a82a4d3eef64e1f1b40d7101c092f30e"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/SOURCE_BEFORE.json",
+    "bytes": 238587,
+    "sha256": "d2a3e323b21f5f812f2c83c0353c9c74737763016b4f8e70f329e9e2446c323d"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/SOURCE_AFTER.json",
+    "bytes": 504858,
+    "sha256": "0fee4bdb8486eb84390b1c6d19e4a197c6244b2b366b4c3704359e17e18f9bae"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 18826,
+    "sha256": "fa6db03cfdc19517ba0107a49bcb2e2b83ef82f003b05e9eb82b2da9a8f5e400"
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 6407,
+    "sha256": "b6b88cd3eebad2254f73bbbcdf57ab225d50edf167f6393446596ab89f4936fd"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/reviews/admission-stage-001/REVIEW.json",
+    "bytes": 25008,
+    "sha256": "a59ff6f6872a835f7a093ec2d57f3d8ef8717317e59eed628f34e15a642f4ad8"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10295,
+    "sha256": "9e7f5faa39dd1eaf59ca58dd10610116464107bc243fb8538bf8d360c5f3f07d"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/execution/after-run-resume.json",
+    "bytes": 72498682,
+    "sha256": "6e3ec26fff97ed9b1f5ba9d498dd231310e80e544928a8f9a3682820805478a5"
+  },
+  "sourceCount": 450,
+  "preservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/PRESERVATION.json",
+    "bytes": 6165,
+    "sha256": "3b1503d0c95c65cbec44d4e04d959bffa68dc851e352f1ddb63911fd87bf496b"
+  },
+  "coldEvidenceStanding": "F2 source/SDK/completion/actual close plus actual-after/frozen/tested/live equality and independent review are the adopted basis. No F2 cold reads executed or implicitly required. F full cold reads remain historical immutable-builder evidence. HS02 actual candidate warm/cold proof stays mandatory.",
+  "routeOpen": "F2-PROGRAM-001 is selected HS01 work, not a reason to block source-only HS01 entry or claim prior closure."
+}

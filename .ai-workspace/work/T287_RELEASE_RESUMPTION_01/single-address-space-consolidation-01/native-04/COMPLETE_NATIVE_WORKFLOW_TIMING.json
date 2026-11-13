@@ -1,0 +1,72 @@
+{
+  "recordedUtc": "2026-11-03T21:31:02.917076+00:00",
+  "standing": "Observed native04 unchanged installed RC5 builder; not successor speedup or CPU share",
+  "observationSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/execution/TIMING_OBSERVATION.json",
+    "sha256": "54162c04ee2f27f2f1eeca911b632f506f6a992e3344ed7951d2a0f209f46d9f"
+  },
+  "dispatchToOutcomeMs": 5466007.095000001,
+  "actorIntervals": [
+    {
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "processRef": "process://abiogenesis/ee48df201d05fcfada920d3f424d38c34bb023c9eff022ebd037be3a49bee628",
+      "startedUtc": "2026-11-03T19:45:39.480Z",
+      "endedUtc": "2026-11-03T19:47:14.677Z",
+      "wallMs": 95197.0
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "processRef": "process://abiogenesis/b05ba59319681a4a02c567462b6564ab12162cb276f009792fb5750daaa68c9d",
+      "startedUtc": "2026-11-03T19:48:54.595Z",
+      "endedUtc": "2026-11-03T20:32:12.044Z",
+      "wallMs": 2597449.0
+    },
+    {
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "processRef": "process://abiogenesis/0716543acb05a39baa9a27054fb771ebc182c61beec3b5027a9bd99b9c0098b2",
+      "startedUtc": "2026-11-03T20:33:46.480Z",
+      "endedUtc": "2026-11-03T20:36:38.161Z",
+      "wallMs": 171681.0
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "processRef": "process://abiogenesis/5c6e6277af01f64d947f09001fd112dafe2cc8ce9e1d4c66dc6132ff7d00b37b",
+      "startedUtc": "2026-11-03T20:40:10.247Z",
+      "endedUtc": "2026-11-03T20:54:04.294Z",
+      "wallMs": 834047.0
+    },
+    {
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "processRef": "process://abiogenesis/97d0196aa8daf3a77ccb820af7d9268ac7c80d8f07ad07ca740a60139a95f27e",
+      "startedUtc": "2026-11-03T20:57:29.642Z",
+      "endedUtc": "2026-11-03T21:00:19.672Z",
+      "wallMs": 170030.0
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "processRef": "process://abiogenesis/9f2203c2b7817c189b184b217b01b89c82f0b6a12d4906c1ac84f4d2570ec7aa",
+      "startedUtc": "2026-11-03T21:03:47.533Z",
+      "endedUtc": "2026-11-03T21:06:31.955Z",
+      "wallMs": 164422.0
+    },
+    {
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "processRef": "process://abiogenesis/8854615d5ad86411684a846f0a5459cd2c89b937b0cadc6ad51cd34ef85694f9",
+      "startedUtc": "2026-11-03T21:09:48.478Z",
+      "endedUtc": "2026-11-03T21:12:28.615Z",
+      "wallMs": 160137.0
+    }
+  ],
+  "actorIntervalSumMs": 4192963.0,
+  "outsideRecordedActorIntervalsMs": 1273044.0950000007,
+  "nativeResultToC2ProcessMs": 476396.0,
+  "freshReadAndFinalRecordMs": 339459.0411669994,
+  "dispatchThroughFreshReadsAndCloseMs": 5805466.136167,
+  "finalWallSource": "Actual dispatch process terminal output recorded by exec session58362; final wall includes fresh readbacks and owner resume record",
+  "setup": "Maintained SDK resource setup reused; see LAUNCH_TIMING.json for original setup/artifact verification. Preflight, Root preparation, native launch and in-Run between-task latency remain distinct.",
+  "limitations": [
+    "Blocked Run with failed C2; no terminal success",
+    "Interval subtraction identifies elapsed orchestration outside recorded actor processes, not CPU cost attribution",
+    "No comparison with the pending successor is claimed"
+  ]
+}

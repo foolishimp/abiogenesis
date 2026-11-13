@@ -1,0 +1,50 @@
+{
+  "kind": "root_s4_installed_growth_measurement_activation",
+  "status": "ROOT_SELECTED_S4_INSTALLED_CARRIAGE_MEASUREMENT",
+  "at": "2026-11-07T00:07:00.421179+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "candidateAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 10863,
+    "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 4866,
+    "sha256": "abce5ba8307cca776181bbbe7c11374b372bf33dad00561de33882f12b3de950"
+  },
+  "preparedBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/MEASUREMENT_BINDINGS.pre-admission.json",
+    "bytes": 4916,
+    "sha256": "be0322f9c396b599ade7b5c9b767ee50e01e22f72aa8ac9df0fc378fc88bf5fa"
+  },
+  "bootstrapCompletion": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/SUMMARY.json",
+    "bytes": 2707,
+    "sha256": "c4b4921ba21f46344acf9242f0992dce1f7bb706cae337096124436b0eac1e6c"
+  },
+  "selection": "Exactly two read-only scripted native-work tasks with1MiB and4MiB selected context bodies over one held resource; actual Result/binding/task physical growth, warm work counters and two full cold run_result comparisons at final P2. Existing maintained fixture performs its own disposable install from the original archive.",
+  "boundsSelectedByRoot": {
+    "hostMs": 900000,
+    "coldReadMs": 300000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001",
+  "tempRoot": "/private/tmp/abg-r7m",
+  "S6": "Root decides from actual persistent carriage and explicit optional SDK serialization. No automatic contract redesign.",
+  "limits": [
+    "No actual provider/native coding productivity or matched speedup claim",
+    "No full qualification or repeat of completed historical/campaign qualification",
+    "Preserve failed artifact attempt and exact accepted S3/HS01 proof; no source/immutable release/selector change",
+    "No retry or overwrite after failure"
+  ],
+  "availableBytes": 6537162752,
+  "qualified": false
+}

@@ -1,0 +1,39 @@
+{
+  "id": "t287-foundation-oracle-repair-04",
+  "status": "READY_FOR_ADMITTED_NATIVE_SOURCE_AUTHOR",
+  "outcome": "Replace overbroad collection-token enforcement with honest legacy-seam static checks and retained behavioral owner proof; align the single Design sentence.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "qualification-inputs/rc11-effect-phase1-01/native-04",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+    "build_tenants/abiogenesis/typescript/package.json"
+  ],
+  "maxContextFiles": 30,
+  "maxContextBytes": 2097152,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc11-effect-phase1-01/native-04/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-effect-phase1-01/native-04/ASSESSMENT.md",
+    "qualification-inputs/rc11-effect-phase1-01/native-04/EXACT_SOURCE_ROUTES.json",
+    "qualification-inputs/rc11-effect-phase1-01/native-04/EXTERNAL_TOOLS.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "qualification-scratch/rc11-effect-phase1-01/native-04"
+  ],
+  "checks": [
+    "One-file syntax",
+    "One exact static-oracle selector only;60s cap, explicit TAP and retained diagnostics",
+    "Actual changed paths and check gaps; full installed proof external"
+  ],
+  "instructions": [
+    "Implement FOUNDATION-ORACLE-REPAIR-01 on the exact current checkpoint. The only source writes are the named W2-05 test and the two-line oracle sentence in Common Computational Capability Library Design \u00a710.12 (current1172\u20131173). All other source, including production mechanics, is read-only. Use the copied Root scope, closed triage and exact source excerpts. Do not rediscover setup or scan the repository.\n\nThe current source oracle removes exactly three named Map/WeakMap declarations and rejects all other constructor tokens, including comments. This incorrectly rejects lawful call-local bookkeeping such as a Map equivalent of the existing one-call visited Set. Remove this constructor blacklist and exact-name capability allowlist/mutation expectations as enforcement. Permit ordinary call-local Map/WeakMap code and mentions without approving each helper/API. Do not assert that token absence proves semantic authority. Preserve the specific applyRootPublicInvocation/createRootOperationContext/legacyRequest exclusions and the complete installed behavioral owner-chain test, its runtime assertions, actual installed-source invocation and all \u00a710.11 schema/default/identity/currentness laws. Add the smallest static regression population for benign collections/mentions plus the exact forbidden legacy seams. Keep all static-oracle test names prefixed `W2-05 owner-chain static oracle` so the finite selector is exact. Do not weaken or remove installed behavioral evidence. Update only the matching Design sentence to distinguish source checks for removed legacy seams from behavioral owner proof; no broad Design rewrite or new policy framework.\n\nUse current compiled code/dependencies read-only as declared. Perform one-file Node syntax check and at most ONE exact static-oracle selector from EXTERNAL_TOOLS.json, with a60s outer timeout and explicit TAP. These static cases must not execute the complete installed test. All diagnostics/temp/evidence go under the granted native-04 scratch. No build/generation/pack/install, full installed test, paid/provider nesting, Git, tracking edits, production changes or runtime instrumentation. If the selected check fails, retain actual diagnostics and return; do not relax semantics or start a broad proof. Report exact changed paths, removed bad enforcement, preserved assertions, actual case names/counts and unexecuted full installed proof. Finish one concise structured result within600s; no self-acceptance or qualification claim."
+  ]
+}

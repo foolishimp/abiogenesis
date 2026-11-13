@@ -1,0 +1,94 @@
+{
+  "diff": {
+    "bytes": 14040,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/WORKER_INSTRUCTION_DIFF.patch",
+    "sha256": "a3a8a48b56dbc3f2c1a5c6bfc2db17d6b3abfa0c9f89fadca93f709e15f5140d"
+  },
+  "kind": "p1_02_instruction_only_successor_preservation",
+  "oldOperatorPreimages": [
+    {
+      "bytes": 5226,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/task.md",
+      "sha256": "bad54641f937979868480e774c5e49a0a83d3416cb364cf1c3654b4678d80c87"
+    },
+    {
+      "bytes": 36102,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/HOW.md",
+      "sha256": "0a6e9d092af0e4240f2124141da7faa4b9de5b3a5224954454ab73e1c3610733"
+    },
+    {
+      "bytes": 12602,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/AMENDMENT_DRAFT.md",
+      "sha256": "53681c81615885fbf1a0eabb64fbae2811471ae05a6ec195d34e3b5842d8053a"
+    },
+    {
+      "bytes": 31603,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/NATIVE_GRANT.json",
+      "sha256": "de815797179db7c56f84fca6f0670358ccd540fe1f75c2e9447976176a5442b0"
+    },
+    {
+      "bytes": 6457,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/ROOT_REUSE_SELECTION.json",
+      "sha256": "5acefab8fbfa7c1ba1f92196d8cb3ce31ffb7805818235c1a687eb22bc164703"
+    },
+    {
+      "bytes": 246330,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/workload-v2.json",
+      "sha256": "24490f3b0afd0a9e373b2dc1d9b2cb717e8c62155e181faa4ffa578e8962b9f7"
+    },
+    {
+      "bytes": 222229,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/snapshot-census.json",
+      "sha256": "0781eee0b0d87c683f4f5920858bdfd7564332fb12a0a8e566a6311f20ae3c8d"
+    },
+    {
+      "bytes": 278583,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/PREFLIGHT_BINDING.json",
+      "sha256": "42cb301e1588b31c064c20f0b7d9c250ff08fe6e25598f6a1e07dabb8451b0be"
+    },
+    {
+      "bytes": 1433,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/model-free-preflight.json",
+      "sha256": "975415958fa381cd2a2e47ffed67108c06c2aa66d27ff7abc5ba10e5ea4c50ca"
+    },
+    {
+      "bytes": 276595,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/ACTIVATE_P1.json",
+      "sha256": "eeb55d85b5e35271d5d5858539008c50c193b8108137223a0aa8e1653ad5cf89"
+    },
+    {
+      "bytes": 5465,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/prepare-call.mjs",
+      "sha256": "c39fc1ec31d48524876dcb2ae97ff18166a498e3cf06629aa04139fad6abeb81"
+    },
+    {
+      "bytes": 7950,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/dispatch.mjs",
+      "sha256": "73fa60a353934900836383c8f7a0be5b51d883c989b5d486398b91f2629bf339"
+    },
+    {
+      "bytes": 2975,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/freeze-dispatch.py",
+      "sha256": "20ed07fb1e897f50bd4ae55140a2ecc0de53081f92929db0f96ee915458f1318"
+    },
+    {
+      "bytes": 2734,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/superseded-b45ef/ASSESSMENT_INPUTS_MATERIALIZATION.json",
+      "sha256": "7d5d8613bfbf7d39e548ea387cc42279f7f6650775e6271b9312c61bc61aae3b"
+    }
+  ],
+  "previousManifest": {
+    "bytes": 279982,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/attempt-001/PREPARATION_MANIFEST.json",
+    "sha256": "b45ef784b5d6c680d4ca645b5f70571a91e81714bf55665f0f5ede375c9107f5"
+  },
+  "scope": "Owner worker-discretion clarification only; successor actual call still Root review/dispatch",
+  "unchanged": [
+    "source9c4a5c5e/53 Product paths+preimages",
+    "source closure963",
+    "seven assessment roles970 reads",
+    "original rubric4/all9 C2 commands/env/predicates",
+    "effects/siloing/independent review/profile/bound4",
+    "actual firstRun prefix and failed evidence"
+  ]
+}

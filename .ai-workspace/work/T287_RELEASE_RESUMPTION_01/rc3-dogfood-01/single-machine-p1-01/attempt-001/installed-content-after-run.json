@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/34cfb9f8b401178dd170bac58c8b74f2f57689b2501b5d1d28687622f21de951/d13eccfd2abf59caeb5541d33a3c24555e34523d16df5ed04e727b5bc199a157",
+      "admissionEventRef": "event://abiogenesis/d36e860957e696cdb11bf48a27a42dc423b6f39adbbc6c05750a981645f53f31",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c",
+      "productContentDigest": "sha256:34cfb9f8b401178dd170bac58c8b74f2f57689b2501b5d1d28687622f21de951",
+      "manifestDigest": "sha256:14d5b7d1379ba17f6f425bbf3766c1b4ff524cfc4b25dbeedc30e64b5d03c700",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/89539ff5e846769e79af387beac5fe48d6e86c333819ecb33bce1bee378c9b3f/d13eccfd2abf59caeb5541d33a3c24555e34523d16df5ed04e727b5bc199a157",
+      "admissionEventRef": "event://abiogenesis/22b117fc7e9d8fc07bf58abd5ee46981c3909e6642d3ffcf6c2b50eefcdf6b5f",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:9efdebf217debcb44384f754adcc1e85cee8e1eb5023028c193e720566f0d349",
+      "productContentDigest": "sha256:89539ff5e846769e79af387beac5fe48d6e86c333819ecb33bce1bee378c9b3f",
+      "manifestDigest": "sha256:5314a6e42b8965e0bb1aba1cf339c4323405d4ae44f56b8e7f434106817df683",
+      "contentMatches": true
+    }
+  ]
+}

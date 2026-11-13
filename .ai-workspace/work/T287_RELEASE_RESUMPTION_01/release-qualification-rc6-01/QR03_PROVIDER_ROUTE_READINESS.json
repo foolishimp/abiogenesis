@@ -1,0 +1,341 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0, GOAL-035/T-287, fifteen-family Product",
+    "slice": "QR03 actual eligible native assessor route for fixed F11/F15 outcome, on frozen F6",
+    "frame": "STDO 3.0.4 Product / Design / Proof and Integration / Identity",
+    "outcome": "Locate the smallest missing existing-owner route without changing independence, native evidence or whole-subject requirements.",
+    "standing": "Contributing readiness only; no provider activation, implementation selection, policy waiver or independent acceptance."
+  },
+  "status": "CLOSED_NO_CURRENT_THIRD_FAMILY_OR_EXTERNAL_J_ROUTE",
+  "conclusion": "The existing native actor selects Claude. Shared Codex/Gemini/generic transport implementations and the two declared profiles do not supply an eligible third-family native qualification route. A concrete alternate qualification route needs both Product-owned profile registration and selected-lane protocol realization under the existing actor/transport owners. QR02 prior attribution remains a separate prerequisite. The present disjoint driver adds no peer-bootstrap requirement.",
+  "pins": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR03_PROVIDER_ROUTE_REQUEST.md",
+      "bytes": 3087,
+      "sha256": "f5c7771fce96ab72fa3d8a5b78fa2cb1480843917df2251a6070bc443ddfbab1"
+    },
+    "frozenSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+      "bytes": 434234,
+      "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+    },
+    "baseCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "methodUri": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "reusedClosedRecords": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR03_PEER_BOOTSTRAP_READINESS.json",
+        "bytes": 17505,
+        "sha256": "0eb669b778c39f7465f4f1ed26b17f26ba1fcc4f8fd78b1d5f768e97147c111e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_NEXT_INCREMENT.json",
+        "bytes": 15827,
+        "sha256": "4f618b6cad0a0972b45b784c4b912209e9a939e67c869b7090e84e6d01f65e32"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_SOURCE_ROOT_DISPOSITION.json",
+        "bytes": 2110,
+        "sha256": "9ecb421ac5d9bcc2d2360dca5205930e9ab95533d97ecfba83f58392777fe4c8"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_D5_SOURCE_RESULT.json",
+        "bytes": 20561,
+        "sha256": "eeb520bfd1598adef50ffef7fa80323b1158d6741938255c17b1d963dd491233"
+      }
+    ],
+    "redactedExternalReviewFailure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-002/REVIEW_FAILURE_REDACTED.json",
+      "bytes": 1864,
+      "sha256": "90f410027a3aed66928210af08625ffafbd0def53aaf8f8c1d959c5d74b908f1"
+    },
+    "owners": [
+      {
+        "sourcePath": "specification/PRODUCT.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/specification/PRODUCT.md",
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+        "lineRoutes": [
+          576,
+          613,
+          727,
+          742,
+          1176
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "specification/requirements/product/REQ-P-QUAL.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/specification/requirements/product/REQ-P-QUAL.md",
+        "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28",
+        "lineRoutes": [
+          364,
+          371
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+        "sha256": "b5cf1ecc08df2593214a4e6e9b97d5c4c936bf7513549ee0b77e361db175728a",
+        "lineRoutes": [
+          35,
+          43,
+          59,
+          63,
+          81,
+          101,
+          270,
+          277
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "sha256": "94908ca0c4900dcf7be787f207dafe87be9288f0da1b75c88b9cfb5cec33679b",
+        "lineRoutes": [
+          1043,
+          1084,
+          1095,
+          1120
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "sha256": "3ea897beaddc78f9887a0dd1c726565f7e895914e69fc2b5fd8f611fab1be2b1",
+        "lineRoutes": [
+          41,
+          42,
+          66,
+          88,
+          106,
+          149,
+          162,
+          206,
+          382,
+          503
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "sha256": "2f19a31bf833e9b651b0077ac5de1d8d21dc2b488e663b1893f228c317a77f26",
+        "lineRoutes": [
+          575,
+          610,
+          755,
+          808
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "sha256": "cf7151bf17b124577c67e279c1a487723607431814c374364b7059ea9c364a59",
+        "lineRoutes": [],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+        "sha256": "e96f3f83600db08d3145b468895de887d375d764e8ae4f0929e886207383e4cd",
+        "lineRoutes": [
+          104,
+          134,
+          143,
+          153,
+          253,
+          262
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "sha256": "1f7a1590b36022d705edddb373107d473b2d38181601974f723736b038beeda4",
+        "lineRoutes": [
+          500,
+          568,
+          748,
+          771
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "sha256": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264",
+        "lineRoutes": [
+          569,
+          623,
+          768,
+          790,
+          824,
+          834
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+        "sha256": "dc021e2712cae19e8dfd6be56d33c239105115c483ae6381983f154a70ddff31",
+        "lineRoutes": [
+          41,
+          66
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "6b91dcbd8327b922a6c563685fa3aa1346ea3e5fdda56015bef8a66eec93753b",
+        "lineRoutes": [
+          1610,
+          1631
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+        "sha256": "364c615d339fe85d187d3f0fd792715da9ee0f127587fb20eb9d27b17aebdf5c",
+        "lineRoutes": [
+          86,
+          97
+        ],
+        "standing": "frozen F6 owner; no moving D5 read"
+      }
+    ]
+  },
+  "routeTable": [
+    {
+      "route": "Native Claude / declared Opus 5.5",
+      "implemented": "actor_process selects the Claude contract, prepares final arguments/environment and one identity-bearing binding; the native role/schema/tool protocol and ABG result lineage exist.",
+      "eligibility": "Only exact claude + claude-opus-5-5 resolves to the declared Anthropic Claude profile. Same-family authorship is ineligible. Mixed Claude/GPT surviving authorship has no eligible member of the present profile set.",
+      "standing": "Implemented native path; not a production-positive mixed-author qualification result."
+    },
+    {
+      "route": "Shared Codex adapter / declared gpt-6-astra profile",
+      "implemented": "Known Codex contract builder, argv model selector grammar and exact qualification profile exist. The builder defaults to gpt-5.5 unless configured; that default is not the declared Astra profile.",
+      "eligibility": "Native actor still hard-selects Claude. The generic Codex builder does not establish an admitted native qualification occurrence or the selected closed-prompt/native-work protocol. Astra would still conflict with GPT-authored material.",
+      "standing": "Implemented lower-level transport plus declaration; no demonstrated alternative native qualification route."
+    },
+    {
+      "route": "Shared Gemini adapter / possible third family",
+      "implemented": "A generic plain-text argv transport template exists.",
+      "eligibility": "No Gemini configured-model grammar in MODEL_SELECTION, no exact Gemini qualification actorProfiles row, and no native actor selection/qualified selected-lane protocol. Identity derives unknown(agent_model_selection_unsupported).",
+      "standing": "No existing third-family native qualification route. No model or family selected here."
+    },
+    {
+      "route": "Generic command or a different executable under the Claude selection",
+      "implemented": "Generic plain-text builder and command customization exist.",
+      "eligibility": "Changing command text does not change agentKey, parser, protocol or policy identity. Generic identity grammar/profile is absent; a Claude-bound command cannot lawfully impersonate another family.",
+      "standing": "Not an eligibility workaround."
+    },
+    {
+      "route": "External source review or externally supplied assessor JSON",
+      "implemented": "Source review may inform Root; actual native qualification realization consumes a bound actor-process exchange and native proof validates its producing ASSESS CCall/start/transport/artifact.",
+      "eligibility": "No inspected published owner admits arbitrary external review output as a qualification J. The external_construction arm concerns authorship evidence, not an external-assessor import arm. F_H attribution acknowledgment does not create or waive the assessor relation.",
+      "standing": "External review and native J remain distinct; Gemini attempts returned no review."
+    }
+  ],
+  "implementedChain": [
+    {
+      "stage": "Selected task and role",
+      "owner": "qualification_contracts.ts:104-134; qualification.ts:748; leaf_invocation_port.ts:1610-1631",
+      "relation": "The task selects the published role/actor and closed_prompt_proof worker request; the leaf binds an authentic call-specific eligibility operation."
+    },
+    {
+      "stage": "Actual adapter and configuration",
+      "owner": "actor_process.ts:1043-1082; transport_contracts.ts:135-206; worker_transport.ts:755-808",
+      "relation": "Hard-coded Claude contract -> final frozen args/sanitized environment -> configured identity. Only Claude/Codex have model grammars; this is configured identity, not provider-side model attestation."
+    },
+    {
+      "stage": "Pre-paid policy",
+      "owner": "qualification.ts:504-568; qualification_proof.ts:768-790",
+      "relation": "Exact agent/model must match one declared profile; same declared family as an author is ineligible; unknown prior authorship remains unknown. Current external construction always yields external_attribution_requires_future_judgment."
+    },
+    {
+      "stage": "One admitted binding and actual occurrence",
+      "owner": "actor_process.ts:1095-1120; existing c_call transport projection",
+      "relation": "Existing binding retains one configured identity with actual call/actor/contract/arguments; later lineage references it. No role label or command override changes its agent family."
+    },
+    {
+      "stage": "J realization and proof",
+      "owner": "implementation/qualification.ts:41-66; qualification_proof.ts:576-623,824-834",
+      "relation": "Exact worker request, successful observed exchange, input/actor/worker/implementation match and zero tool calls are required. Native proof joins the admitted ASSESS CCall, role/slot, actual start, transport, raw artifact and request/prompt/binding digests, then repeats eligibility. External text cannot supply that relation."
+    }
+  ],
+  "nativeModeConstraints": {
+    "qualificationLane": "F11 assessment explicitly selects closed_prompt_proof (qualification.ts:748); its realization requires toolCallCount===0 (implementation/qualification.ts:55).",
+    "claudeOnlyProtocol": "composeWorkerTransportArgs supplies closed-prompt --safe-mode/--tools empty and host --json-schema only for Claude (transport_contracts.ts:486-493). A generic alternate template does not establish equivalent actual no-tool/schema behavior.",
+    "nativeWorkMode": "For native_workspace_work tasks, actor_process.ts:1048-1050 appends Claude --tools Read,Edit,Write,Glob,Grep,Bash and optionally --append-system-prompt. Governed context, when selected, also explicitly requires claude_stream_json at1068-1069. These cannot be treated as provider-neutral native-task arguments.",
+    "outputNormalization": "Claude uses structured stream normalization; the other known templates use plain_text, with raw result-bearing stdout, toolCallCount=0 and toolInvocations=[] in worker_transport.ts:579-592. That generic projection is not parsed evidence of another host native tool protocol; the output-file fallback is likewise not native protocol qualification.",
+    "smallestScope": "An alternate F11 assessor needs a truthful, qualified closed_prompt_proof protocol through the existing native actor. Full native editing/tool execution/governed-context parity is not automatically required; it becomes a dependency only if that mode is selected. Swapping the hard-coded agent/profile alone is insufficient."
+  },
+  "attributionStanding": {
+    "example": "test_env/qualification/provenance.mjs retains SHA-256 364c615d339fe85d187d3f0fd792715da9ee0f127587fb20eb9d27b17aebdf5c in F6, matching the closed QR02 example.",
+    "documentarySupport": "QR02_ORIGINAL_SOURCE_ROOT_DISPOSITION accepts the original D5 grant, declared Opus 5.5 writer, implementation and bounded closure; RP-2 original records support Codex gpt-6-astra contribution. This supersedes the earlier source-location unknown in QR02_NEXT_INCREMENT, without upgrading its wider attribution standing.",
+    "conservedLimits": "The documented retained D5 block and later RP-2 changes are a finite real mixed-contributor example. Complete inherited contributors, semantic survival/current-scope sufficiency and pre-paid eligibility remain with the existing attribution owner. Do not select one convenient author or require invented historical native author events for the lawful external arm.",
+    "policyConsequence": "Where both declared families survive in a relevant established author set, neither current declared profile is independent of every author. Third-family actual route alone also does not solve current external-attribution gate missingness; no future J may bootstrap its own permission."
+  },
+  "smallestMissingOwnerCone": [
+    {
+      "owner": "Published qualification role policy and corresponding HOW",
+      "paths": [
+        "code/src/validator/qualification_contracts.ts",
+        "design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md"
+      ],
+      "missing": "An explicit concrete configured agent/model -> declared family/profile correspondence suitable for the actual surviving author scope. The existing Product-owned policy must select this; an operator cannot infer taxonomy or mint a profile in task input. No concrete third profile is chosen by this report."
+    },
+    {
+      "owner": "Existing native actor and shared transport contract/normalizer",
+      "paths": [
+        "code/src/abg/actor_process.ts",
+        "code/src/abg/transport_contracts.ts",
+        "code/src/abg/worker_transport.ts"
+      ],
+      "missing": "An owned selection of the actual alternative adapter, exact configured-identity derivation, and truthful command/schema/tool restrictions plus result/evidence normalization for the selected qualification lane. Reuse the existing binding, call and J lineage; no second dispatcher or registry."
+    },
+    {
+      "owner": "Existing qualification prior-attribution/proof owner, QR02",
+      "paths": [
+        "code/src/abg/qualification_proof.ts",
+        "code/src/validator/qualification.ts",
+        "test_env/qualification/provenance.mjs"
+      ],
+      "missing": "Sufficient source-bound prior contributor facts consumable by the pre-paid decision without self-assertion or the future assessment J. Reuse the closed documentary/correspondence work and existing external arm; do not erase mixed contributions."
+    }
+  ],
+  "changeClass": {
+    "permittedRealizationExtension": "Selecting/registering a concrete eligible profile and realizing its actual native qualification adapter/lane within existing Product/transport/proof owners can serve unchanged F11/F15 WHAT. It changes owned policy/declaration and implementation bytes and therefore requires exact candidate/source-bound proof. This is not mandatory whole-host Codex parity or a new Product family.",
+    "notRoutineConfiguration": "Waiving same-family independence, pretending Claude is another identity, admitting arbitrary external JSON as native J, or substituting external review for required native qualification would change the selected independence/admission contract rather than merely configure an adapter. None is selected."
+  },
+  "sunnyDayDependencies": [
+    "Retain the existing five-role disjoint/author_distinct plan; source and resource correspondence must bind the actual prospective candidate.",
+    "Establish the relevant surviving author set and usable prior attribution through QR02; unknown remains blocked before dependent paid work.",
+    "Root/Product owner selects one concrete actually available profile/family and a bounded native qualification-lane realization under the named existing owners, preserving strict family law.",
+    "Only after exact source-bound route/protocol/identity/negative proof and authorized runtime/auth prerequisites are met may the real assessor produce an admitted J with native lineage and fresh readback/replay. No paid reproduction is requested here."
+  ],
+  "externalReview": {
+    "standing": "No review returned from Root's two Gemini attempts: unsupported client (Root-reported) and invalid ADC grant (named redacted record, finalResponseBytes=0, providerReviewAccepted=false).",
+    "auth": "Credential replacement request remains pending. Root reported absence of GEMINI_API_KEY, GOOGLE_API_KEY and GOOGLE_APPLICATION_CREDENTIALS; no environment or credential contents were inspected here.",
+    "separation": "Successful external source review after owner credential repair would still be external review, not the missing native qualification route or native J. No auth retry or renewed user question is selected."
+  },
+  "minimalNextLawfulSelection": "Root can select a bounded existing-owner native qualification-route/registration increment only after the concrete eligible profile and prior-attribution prerequisites are settled. Keep it separate from active D5 lifecycle copies and from external source-review authentication. This report selects no implementation, profile, provider, policy change or activation.",
+  "effects": {
+    "reportsOnly": [
+      "QR03_PROVIDER_ROUTE_READINESS.json",
+      "QR03_PROVIDER_ROUTE_READINESS.md"
+    ],
+    "sourceOrGitChanges": false,
+    "movingD5Read": false,
+    "authPrivateFiles": false,
+    "providerNetworkRuntime": false,
+    "testsBuilds": false
+  },
+  "returnTo": "Root; closed bounded provider-route readiness, stop."
+}

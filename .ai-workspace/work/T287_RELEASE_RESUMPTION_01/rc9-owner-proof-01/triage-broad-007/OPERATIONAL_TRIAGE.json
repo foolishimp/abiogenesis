@@ -1,0 +1,204 @@
+{
+  "ProductFrame": "STDO3.0.4 ABI5/T287 separate read-only operational triage after Root-admitted broad007 stop. Product/test semantics and suffix review remain with Source Reviewer; Root conjoins any continuation.",
+  "status": "OPERATIONAL_TRIAGE_COMPLETE_CONTINUATION_UNSELECTED",
+  "at": "2026-11-08T20:12:19.437411+00:00",
+  "failedRunReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_007_RETURN.json",
+    "bytes": 10385,
+    "sha256": "7a4468717984da45e21d03de99903f58ab1da7f0fae794169c16a67ed5516d09"
+  },
+  "ownership": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-broad-007/OWNERSHIP_OBSERVATION.json",
+    "bytes": 3424,
+    "sha256": "f4ed92f2447e8350d3a1b240d414255048a20caf5d7b951804ab4b4ea1368060"
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-broad-007/POST_TIMEOUT_CONSERVATION.json",
+    "bytes": 1986,
+    "sha256": "689f3d91ba831bf8f29d3e54ba3dfb3bc19cc5cad398c5679a3f3067d6b47173"
+  },
+  "findings": [
+    "Actual600000ms outer allocation stopped file063 at600005.997ms bySIGTERM; no output truncation, no completed failed assertion, and no file/global summary/end.",
+    "Canonical commandRecorder starts the file-host as a detached POSIX group leader and on timeout sends SIGTERM to that group, with a2s unref SIGKILL fallback. File-host launches its child in the same group and persists CHILD_CLOSED only after childclose; its final resource receipt is absent here. No PID/PGID was retained in the command result, so exact past group ownership cannot be reconstructed from that receipt.",
+    "One bounded10s-per-probe read-only ps/lsof observation succeeded in0.044s/0.621s:1260process rows/920accessiblecwd records, no exact command/script/owned-root match. This supports no accessible matching process at that moment; detached or changed-cwd/argv descendants remain outside that guarantee.",
+    "Post-timeout verification of already-bound rows found0mismatches across2133derived source/generated input rows,3historical external rows and4576dependency rows. Derived archive remains exactc01e6cfe. This is known-row conservation, not a new full membership inventory.",
+    "600s was not sufficient for the established31-case whole-file workload. Existing historical completed same-test evidence used2100s and took1285.270s; current first15cases alone took563.126s. This operational mismatch does not establish a Product assertion failure, host-load cause or RC9 performance regression."
+  ],
+  "ownershipOwners": {
+    "fileHost": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    },
+    "commandRecorder": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    },
+    "commandRecorderLines": "49-65",
+    "fileHostStanding": "same reviewed unchanged owner; no signal handler added and no new probe protocol"
+  },
+  "currentTiming": {
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/063-t287-c0-post-publication-failure.result.json",
+      "bytes": 1515,
+      "sha256": "bd12469b00cecf943f02aabbcda657205da8b2d967f2c19ac53c22578a1a02b0"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/063-t287-c0-post-publication-failure.stdout",
+      "bytes": 3309,
+      "sha256": "6d90dbd0ac1175cd82e268e7f16436039a45e17a7992356b1f8d88c5ff036b69"
+    },
+    "reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/063-t287-c0-post-publication-failure.jsonl",
+      "bytes": 4157,
+      "sha256": "899a9b5288eca4647b9738e27bff0bfc325212299a1a22e526f4472460399700"
+    },
+    "test": {
+      "path": "/private/tmp/abg-r9c-broad-001/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "bytes": 56917,
+      "sha256": "a8f0525caa1b047f304fe87afaa80b51854b5c050b384c8c7098609bab290067"
+    },
+    "caseRegistrationLines": "725-758",
+    "expectedWholeCases": 31,
+    "completedCases": [
+      {
+        "name": "B04-06 create: installed owner, ABG admission and fresh replay",
+        "wallMs": 37494.815167
+      },
+      {
+        "name": "B04-06 replace: installed owner, ABG admission and fresh replay",
+        "wallMs": 36569.847
+      },
+      {
+        "name": "B04-01 cleanup-compensated: installed owner, ABG admission and fresh replay",
+        "wallMs": 37296.52925
+      },
+      {
+        "name": "B04-01 compensation-failed: installed owner, ABG admission and fresh replay",
+        "wallMs": 37591.401459
+      },
+      {
+        "name": "B04-01 identity-unavailable: installed owner, ABG admission and fresh replay",
+        "wallMs": 37599.528209
+      },
+      {
+        "name": "B04-01 persistent-staging: installed owner, ABG admission and fresh replay",
+        "wallMs": 37641.503833
+      },
+      {
+        "name": "B04-01 substituted-staging: installed owner, ABG admission and fresh replay",
+        "wallMs": 37231.800416
+      },
+      {
+        "name": "B04-01 residue-unknown: installed owner, ABG admission and fresh replay",
+        "wallMs": 37904.255917
+      },
+      {
+        "name": "B04-02 link-successor-read: installed owner, ABG admission and fresh replay",
+        "wallMs": 37458.434792
+      },
+      {
+        "name": "B04-02 rename-successor-read: installed owner, ABG admission and fresh replay",
+        "wallMs": 37632.612334
+      },
+      {
+        "name": "B04-02 successor-mismatch: installed owner, ABG admission and fresh replay",
+        "wallMs": 37872.051917
+      },
+      {
+        "name": "B04-02 successor-absent: installed owner, ABG admission and fresh replay",
+        "wallMs": 37967.204
+      },
+      {
+        "name": "B04-02 successor-nonfile: installed owner, ABG admission and fresh replay",
+        "wallMs": 37752.166833
+      },
+      {
+        "name": "B04-03 inventory-read: installed owner, ABG admission and fresh replay",
+        "wallMs": 37130.083792
+      },
+      {
+        "name": "B04-03 inventory-mismatch: installed owner, ABG admission and fresh replay",
+        "wallMs": 37983.7705
+      }
+    ],
+    "caseSumMs": 563126.0054189999,
+    "caseMeanMs": 37541.7336946,
+    "caseMinMs": 36569.847,
+    "caseMaxMs": 37983.7705,
+    "whole31AtObservedMeanMs": 1163793.7445326,
+    "projectionStanding": "Linear planning estimate only; suffix extent/semantics reviewed separately, no guaranteed completion or causal speedup claim.",
+    "innerLimitStanding": "Current31 test registrations have no explicit test timeout option; the selected outer600s governs the whole file. No source deadline change is proposed."
+  },
+  "priorWholeTiming": {
+    "file": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-005/files/053-t287-c0-post-publication-failure.json",
+      "bytes": 1171,
+      "sha256": "91ee0076607de441d71b2202948fa9ed9e4740d85d0c48bbebbbc0468c2cf5a8"
+    },
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-005/commands/053-t287-c0-post-publication-failure.result.json",
+      "bytes": 1501,
+      "sha256": "ebd7e2b818eb8321c7a3dd52c373505d8ff1bdb10ed1a85282f13657239ab727"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-005/commands/053-t287-c0-post-publication-failure.stdout",
+      "bytes": 7021,
+      "sha256": "fe990009710813d582842c2952e9e71542b48487300341bf6c3ba4b9209d085b"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-005/events/053-t287-c0-post-publication-failure.jsonl",
+      "bytes": 9014,
+      "sha256": "a0e974ab17ddafcbb922fd9f447ec9dd2f714569e8f1448980456eacd04b6a5f"
+    },
+    "wholeCases": 31,
+    "passes": 31,
+    "skips": 0,
+    "wallMs": 1285269.541,
+    "outerMs": 2100000,
+    "sameTestSha256": "a8f0525caa1b047f304fe87afaa80b51854b5c050b384c8c7098609bab290067",
+    "standing": "HistoricalRC8 timing calibrates a finite whole-file envelope only. Different Product/archive/runtime means no RC9 behavioral credit or statistical comparison."
+  },
+  "proposal": {
+    "status": "ROOT_SELECTION_REQUIRED_NO_EFFECTS",
+    "wholeFileReuse": {
+      "count": 62,
+      "source": "existing broad007 full per-file receipts and complete reporter/command/resource/effect conservation, same final003freeze/source/stage/dependencies/currentcandidatefixture/exactarchive/ordinaryenvironment",
+      "mechanism": "Existing focusedCoverage entries only after Root conjoins exact RC9 source/command/fixture/environment equivalence; bind each current test hash,32d86a52freeze and actual whole-file evidence pins. No partial063credit and no RC8 credit."
+    },
+    "remainingSelection": {
+      "totalPopulation": 209,
+      "selected": 201,
+      "held": 8,
+      "wholeCreditsProposed": 62,
+      "filesToExecute": 139,
+      "firstUncreditedFile": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "wholeRetryPopulation": 31,
+      "failed007Immutable": true,
+      "newExclusions": false
+    },
+    "oneExistingOverrideProposed": {
+      "file": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "fileTimeoutMs": 2100000,
+      "basis": "Reuse the exact previously successful35minute whole-file envelope rather than guess a new one; actual prior whole21.421min, current mean-based whole19.397min. Root must select it explicitly; no automatic extension."
+    },
+    "successorControls": "New config/admission/inventory and fresh owned broad roots only, reusing unchanged close-proof/file-host/command/reporter owners. Same primaryBUILT003 and measuredarchive, derived refresh must again reproduce exactarchive/sixfields; same test assertions, provider-disabled environment,4GiBreserve+owned/16MiBoutput/8GiBheap/10smonitor/build-effect isolations. Do not copy or mutate stopped runtime scratch.",
+    "overallBudget": {
+      "originalOverallMs": 14400000,
+      "elapsedStoppedCampaignMs": 2704511,
+      "remainingActiveExecutionBudgetMs": 11695489,
+      "standing": "Propose consuming remaining original active-execution allocation; any fresh overall allocation requires explicit Root decision, never a silent4h reset."
+    },
+    "stop": "Exactly one continuation if selected; first new failure/cancel/timeout/incomplete/resource/source discrepancy stops and returnsRoot. No automatic rerun/repair loop or newsource task."
+  },
+  "effects": {
+    "tests": 0,
+    "signalsToOwnedProcesses": 0,
+    "cleanup": 0,
+    "runtimeAllocations": 0,
+    "sourceWrites": 0,
+    "git": 0,
+    "newRecords": "triage-broad-007 only"
+  }
+}

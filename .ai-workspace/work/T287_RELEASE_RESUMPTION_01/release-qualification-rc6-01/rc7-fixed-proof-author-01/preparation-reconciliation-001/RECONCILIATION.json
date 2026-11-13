@@ -1,0 +1,191 @@
+{
+  "kind": "bounded_future_fixed_proof_packet_reconciliation",
+  "status": "PROPOSED_TEMPLATES_ACTUAL_SOURCE_RUNTIME_AND_ADMISSION_UNBOUND",
+  "recordedUtc": "2026-11-06T05:41:13.362390+00:00",
+  "originalPacket": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/PREPARATION_MANIFEST.json",
+    "bytes": 9510,
+    "sha256": "f582b18851ba6d5da85c47805137c0ec689dcf46eac88a96471b7373f2096786"
+  },
+  "originalPinsVerified": 30,
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/ROOT_SELECTION.json",
+    "bytes": 3886,
+    "sha256": "ccb6b9060049213605af4f8327347a95349bb8d8ce0af21e19fe59eb3a05cddc"
+  },
+  "referenceEvidence": {
+    "BNames": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/SOURCE_BEFORE.json",
+      "bytes": 396203,
+      "sha256": "1237b28d89dbd4e2da393d26f0e098d0e781d155431a9659a1e575f618dc493a"
+    },
+    "BFinalControls": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_FINAL_BINDINGS.json",
+      "bytes": 6585,
+      "sha256": "57dcb5faaf106919abe6df4a06155afc384a2da3a1e8846149b75ca45a11a3cb"
+    },
+    "BConsumerPartition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/CONSUMER_LANE_SPLIT.json",
+      "bytes": 12229,
+      "sha256": "ae40ff141c7a5391f741bc2999f118ae85deeb9149dd8deed0bd32aff2001204"
+    },
+    "supplementaryResource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/SUPPLEMENTARY_RESOURCE_MANIFEST.json",
+      "bytes": 9197,
+      "sha256": "d755208b3b44ace1c81753ea0f5bd85be824941e8ce27f0eb7b7c417f2fa940e"
+    },
+    "closedColdProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/reports/TWO_CASE_CLOSURE.json",
+      "bytes": 5471,
+      "sha256": "12bff14a2ec8b0526c7f6415ca6a89da3ca080d391a19c3c7c92af833a02e42b"
+    }
+  },
+  "confirmedCounts": {
+    "originalSourceNames": 448,
+    "reconciledSourceNames": 450,
+    "BReferenceNames": 449,
+    "selectedHowAddition": 1,
+    "addedSourceNames": 2,
+    "unchangedProductWritePaths": 5,
+    "proposedStagedControlsBeforeFutureAdmission": 16,
+    "proposedContextNamesWithThreeHandoffs": 469,
+    "maxContextFilesUnchanged": 512
+  },
+  "addedNames": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs"
+  ],
+  "exactHowName": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+  "finiteProofSchedule": [
+    {
+      "stage": "before",
+      "lane": "fixed-route",
+      "maximum": 1,
+      "standing": "Meaningful selected before counterexample; retain actual failure."
+    },
+    {
+      "stage": "after",
+      "lane": "fixed-route",
+      "maximum": 1
+    },
+    {
+      "stage": "after",
+      "lane": "cold-resume",
+      "maximum": 1
+    },
+    {
+      "stage": "after",
+      "lane": "caller-regression",
+      "maximum": 1
+    }
+  ],
+  "unchangedCeilings": {
+    "maxStages": 3,
+    "maxLaneInvocations": 4,
+    "laneTimeoutMs": 300000,
+    "compileMs": 240000,
+    "generationMs": 180000,
+    "guardMs": 60000,
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "timingRelation": {
+    "BHistoricalCombinedConsumerForecastMs": 432051.114417,
+    "actualClosedColdPairMs": 244431.585458,
+    "standing": "432051.114417ms was a forecast from separate runs, not a measured combined lane. The actual cold pair closed244431.585458ms under300000ms. Preserve separate cold lane; no future timing guarantee."
+  },
+  "skipStanding": {
+    "defaultLibraryHistoricalCases": [
+      "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+      "native observation facts preserve captured history through preparation admission and complete assembly",
+      "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes"
+    ],
+    "meaning": "B already declares these three historical capture/live cases unbound/uncovered. They carry no credit. Required active fixed-route/harness discriminators and both cold cases cannot skip. No F11 coverage inferred.",
+    "F11CarrierCasesRemainUncovered": 7
+  },
+  "trueMissingSelection": [
+    "Actual completed B frozen subject, exact450 future byte/snapshot pins and source commit, inherited tracked/new facts, and exact HOW bytes under that selected basis. B-before449 metadata supplies names only.",
+    "Actual latest close/resume, workspace/native binding and Root admission/final control bindings after B closes. All remain null.",
+    "Root materialization of this proposed overlay, including16 controls and any separately admitted final Root control; no active packet is replaced here."
+  ],
+  "verification": {
+    "originalPins": true,
+    "union450": true,
+    "fiveProductPathsUnchanged": true,
+    "threeStagesFourInvocationsUnchanged": true,
+    "futureSourceAndRuntimePinsUnbound": true,
+    "syntax": {
+      "commands": [
+        {
+          "command": "node --check inputs/prior-author-stage.mjs",
+          "exitCode": 0
+        },
+        {
+          "command": "node --check inputs/prior-author-lanes.mjs",
+          "exitCode": 0
+        },
+        {
+          "command": "sh -n claude-provider.template.sh",
+          "exitCode": 0
+        },
+        {
+          "command": "node --check dispatch.template.mjs",
+          "exitCode": 0
+        }
+      ],
+      "execution": "No prepared script invoked."
+    },
+    "originalPinsStillUnchangedAfterPreparation": true,
+    "dispatchTimingExistingOwnerCallOrderAndCountsPreserved": true
+  },
+  "effects": "Writes only preparation-reconciliation-001. No moving-source/C/installed reads or writes, staging, runtime/SDK/provider/credential, build or test calls.",
+  "limitations": [
+    "Reconciliation is operator control preparation, not Product writing, active B revision or runtime activation.",
+    "Original closed packet stays byte-identical; effective templates combine this overlay with unchanged pinned original members.",
+    "No new supervisor/framework/controller or automatic source repair. Existing B stage/lane owner code is reused with path substitutions only.",
+    "No required test is omitted or assigned skip credit; final four-invocation schedule is finite and failure/exhaustion returns to Root.",
+    "No Product/source acceptance, actual resource admission, full5.0 qualification, release or timing-savings claim."
+  ],
+  "observationOnlyDispatchTiming": {
+    "sourceDispatch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/dispatch.template.mjs",
+      "bytes": 6191,
+      "sha256": "90a36e9764de4cb0205bca8ac5c1e0fee0b6f4f36c56c608c9bad226b7988e3e"
+    },
+    "sourceBoundaryObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/COLD_ENTRY_BOUNDARY_OBSERVATION.json",
+      "bytes": 2536,
+      "sha256": "f9d289106fb307ceeda38b789e1bace0f5dd1a0e6802187f59a84841be583772"
+    },
+    "RootObservedWindowsMs": {
+      "hostToStarted": 315148,
+      "startedToFirstOperationAdmission": 147877
+    },
+    "actualBoundaryLimits": "Installed identity/request write completed within1.4s of STARTED and CLI spawn followed then; remaining post-STARTED pre-admission work is localized inside cold entry, without an internal causal breakdown.",
+    "futureScalarMarks": [
+      "module body entry",
+      "dispatch pin verification",
+      "resume/config/metadata parse",
+      "installedModules",
+      "caller.refresh",
+      "worksite context observation",
+      "prepared-call parse",
+      "canonical digest",
+      "before existing STARTED record"
+    ],
+    "recordOwner": "Existing exclusiveRecord through existing STARTED.json; preStartPerformance contains timeOrigin, scalar mark offsets, seven phase durations and module-body-to-record elapsed time only.",
+    "orderAndAcquisition": "Original operation/assertion order retained. Each original read, parse, installedModules, refresh, context observation and canonical digest still occurs exactly once; no route or resource change.",
+    "limits": [
+      "No B or current dispatch change; future template only.",
+      "Module body entry occurs after static import evaluation; Node bootstrap/static import internals remain unmeasured, although timeOrigin and entry offset establish their aggregate boundary.",
+      "Marks persist only if the existing STARTED record is reached. Pre-STARTED failures keep the original thrown behavior; no new failure framework/recording route was added.",
+      "Phase gaps include existing host/environment/ambient checks; no unsupported causal attribution or speedup claim.",
+      "No runtime launch or repeated acquisition was performed; syntax check only."
+    ]
+  }
+}

@@ -1,0 +1,2240 @@
+{
+  "kind": "readonly_owned_history_discriminator",
+  "startedUtc": "2026-11-03T13:30:16.114Z",
+  "packageRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.4/node_modules/@abiogenesis/typescript-tenant",
+  "eventPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+  "sourceCommit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+  "logSha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+  "coordinate": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 586361364,
+    "prefixDigest": "sha256:532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 685202701,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+    },
+    "coordinateDigest": "sha256:9f23584e3c16b47430b6665a1c836f97312fd40fd4e81bbb8c3d921bf78465bb"
+  },
+  "limits": [
+    "One captured historical cut; not a native workflow speedup.",
+    "Inspector instrumentation affects absolute durations.",
+    "Cold file acquisition is reported separately from repeated same-address-space projection.",
+    "Measures this history/materialization path, not all CPU causes of observed event silence."
+  ],
+  "measurements": [
+    {
+      "name": "cold_readonly_authentication",
+      "wallMs": 14835.4735,
+      "cpuUserMs": 15205.288,
+      "cpuSystemMs": 567.918,
+      "readCalls": 8985,
+      "readBytes": 666189062,
+      "memoryBefore": {
+        "rss": 285753344,
+        "heapTotal": 171720704,
+        "heapUsed": 33794760,
+        "external": 56312631,
+        "arrayBuffers": 26839
+      },
+      "memoryAfter": {
+        "rss": 1274593280,
+        "heapTotal": 387219456,
+        "heapUsed": 244404784,
+        "external": 5434472,
+        "arrayBuffers": 3030004
+      }
+    },
+    {
+      "name": "owned_prefix_and_liveness",
+      "wallMs": 1963.6655840000003,
+      "cpuUserMs": 1784.298,
+      "cpuSystemMs": 209.29,
+      "readCalls": 12199,
+      "readBytes": 51567041,
+      "memoryBefore": {
+        "rss": 1264648192,
+        "heapTotal": 366231552,
+        "heapUsed": 229942440,
+        "external": 2431323,
+        "arrayBuffers": 26855
+      },
+      "memoryAfter": {
+        "rss": 1281245184,
+        "heapTotal": 437157888,
+        "heapUsed": 333758024,
+        "external": 2480347,
+        "arrayBuffers": 75879
+      },
+      "cpuProfile": "owned_prefix_and_liveness.cpuprofile",
+      "ownerCalls": [
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "durableIdentity",
+          "count": 24398
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "sameDurableIdentity",
+          "count": 24398
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "hasOnlyRuntimeEventKeys",
+          "count": 12199
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 170786
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 232253
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "assertOwnedRuntimeHistorySelection",
+          "count": 11932
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "readRuntimeHistoryRowBytes",
+          "count": 12199
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "runtimeInlineBodyValue",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 12199
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "selectOwnedRuntimeEventPrefix",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isOwnedRuntimeEventPrefix",
+          "count": 11930
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isLocatedPrefix",
+          "count": 11930
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "locatedReceipt",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "selectLocatedSubset",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventAtPrefix",
+          "count": 11917
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventBodiesAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventEnvelopesAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "",
+          "count": 23801
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventPrefixExtent",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimePrefixComputation",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "validatedRuntimeEventPrefixThroughEvent",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "historicalRuntimeEventPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "scopeKey",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "indexedRuntimeEvents",
+          "count": 7
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness.js",
+          "name": "projectFrameLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "acceptsSelection",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "owner",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "selectionScope",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "sha256Bytes",
+          "count": 12199
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "sha256Canonical",
+          "count": 12208
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "",
+          "count": 2872290
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "isSha256Digest",
+          "count": 71496
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "slotFor",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "fieldFor",
+          "count": 3
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "valueAtSlot",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "replaceValue",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "targetIsAbsent",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "compatibleSlots",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "inlineEventBody",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "inlineEventBodyValue",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "bodyValue",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "decodeEventBody",
+          "count": 12199
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get length",
+          "count": 47997
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get generation",
+          "count": 47997
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "row",
+          "count": 47919
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "rowById",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "indexById",
+          "count": 11919
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "indices",
+          "count": 7
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "event",
+          "count": 12239
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "select",
+          "count": 8
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "<instance_members_initializer>",
+          "count": 8
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "RuntimeHistorySelection",
+          "count": 8
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "",
+          "count": 320
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get length",
+          "count": 47934
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "assertCurrentGeneration",
+          "count": 47989
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "includesIndex",
+          "count": 11918
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "row",
+          "count": 23801
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "rowById",
+          "count": 11918
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "eventById",
+          "count": 11917
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "event",
+          "count": 321
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "select",
+          "count": 7
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "selectScope",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "cut",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "materialize",
+          "count": 7
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "",
+          "count": 320
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "is",
+          "count": 11935
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "owner",
+          "count": 11932
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "RuntimeEventBodyView",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "at",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "compareUnicodeCodeUnits",
+          "count": 1905504
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "canonicalJson",
+          "count": 24399
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "",
+          "count": 3966669
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "writeCanonicalJson",
+          "count": 2113371
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "",
+          "count": 1905486
+        },
+        {
+          "file": "build/code/src/shared/immutable.js",
+          "name": "deepFreeze",
+          "count": 851487
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "record",
+          "count": 59585
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "exact",
+          "count": 59585
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 464788
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "ref",
+          "count": 178765
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "elapsed",
+          "count": 35748
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "runtimeLivenessDigest",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeInvocationScope",
+          "count": 3
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 18
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 21
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeLivenessBinding",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "constructRuntimeSystemProbeContract",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeSystemProbeContract",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeProbeObservation",
+          "count": 35748
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeThresholdObservation",
+          "count": 23832
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "record",
+          "count": 35718
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "exactOrNull",
+          "count": 5
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "livenessContextFacts",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "deriveActorLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 20
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "deriveCCallLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 94
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 94
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "deriveFrameLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 37
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 37
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 36
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextForOccurrence",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "RuntimeLivenessReconstruction",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "advance",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 137
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "cut",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextStamp",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "context",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextFacts",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "livenessReconstruction",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/admit/record.js",
+          "name": "isRecord",
+          "count": 36605
+        },
+        {
+          "file": "build/code/src/shared/admit/record.js",
+          "name": "hasExactKeys",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/shared/admit/record.js",
+          "name": "",
+          "count": 8
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitScalarString",
+          "count": 86567
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "isRealmObjectPrototype",
+          "count": 7351
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "isJsonObject",
+          "count": 7351
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "isRealmArrayPrototype",
+          "count": 2453
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "isDataDescriptor",
+          "count": 60406
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "defineMember",
+          "count": 44927
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitArray",
+          "count": 2453
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "",
+          "count": 15479
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitRecord",
+          "count": 7351
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitAt",
+          "count": 57955
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitJson",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/shared/value/equality.js",
+          "name": "canonicalEquals",
+          "count": 12200
+        },
+        {
+          "file": "build/code/src/shared/value/equality.js",
+          "name": "",
+          "count": 940576
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "writeCanonicalRecord",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "",
+          "count": 18
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "canonicalRecordDigest",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "",
+          "count": 19
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "",
+          "count": 205665
+        },
+        {
+          "file": "build/code/src/shared/refusal.js",
+          "name": "ok",
+          "count": 102883
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "executionBasisBody",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "project",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "expected",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "actual",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "projectExactExecutionBasisRecordAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/select/exact_match.js",
+          "name": "exactMatchCardinality",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/shared/select/exact_match.js",
+          "name": "onlyExactMatch",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/shared/select/exact_match.js",
+          "name": "resolveExactMatch",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/shared/select/exact_record.js",
+          "name": "checkExactRecord",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "expanded_full_history_prefix",
+      "wallMs": 6891.170291999999,
+      "cpuUserMs": 7363.071,
+      "cpuSystemMs": 473.913,
+      "readCalls": 11568,
+      "readBytes": 425363929,
+      "memoryBefore": {
+        "rss": 1278377984,
+        "heapTotal": 432160768,
+        "heapUsed": 293529616,
+        "external": 2431323,
+        "arrayBuffers": 26855
+      },
+      "memoryAfter": {
+        "rss": 1779843072,
+        "heapTotal": 917258240,
+        "heapUsed": 797139512,
+        "external": 3977952,
+        "arrayBuffers": 1573484
+      },
+      "cpuProfile": "expanded_full_history_prefix.cpuprofile",
+      "ownerCalls": [
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "isKnownRootEventContractDigest",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "durableIdentity",
+          "count": 23136
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "sameDurableIdentity",
+          "count": 23136
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "hasOnlyRuntimeEventKeys",
+          "count": 11568
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 161952
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 230983
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "readRuntimeHistoryRowBytes",
+          "count": 11568
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "runtimeInlineBodyValue",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 11568
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "isRootEventProfileBoundary",
+          "count": 23799
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "projectRootEventProfileSchedule",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "extendRootEventProfileProjection",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "PrefixImmutabilityReceipt",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "constructImmutablePrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isImmutableRuntimeValue",
+          "count": 4559844
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "",
+          "count": 4536045
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "selectValidatedRuntimeEventPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "scopeKey",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "selectPrefixFromImmutableSnapshot",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "structure",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "profile",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "validateCauses",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "select",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "advance",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "",
+          "count": 35753
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "range",
+          "count": 35753
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "upper",
+          "count": 71506
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "through",
+          "count": 35753
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "<instance_members_initializer>",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "accepts",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "owner",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "snapshot",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "scope",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "SnapshotProof",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "for",
+          "count": 7
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "source",
+          "count": 3
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "sharesPrefix",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "follows",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "ownedRuntimeDerivationSource",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "sharesRuntimeEventPrefix",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "sha256Bytes",
+          "count": 11568
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "sha256Canonical",
+          "count": 11674
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "",
+          "count": 14586320
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "slotFor",
+          "count": 106
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "fieldFor",
+          "count": 144
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "nativeParts",
+          "count": 15
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "isNativeDefinitionBundle",
+          "count": 10
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "",
+          "count": 30
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "",
+          "count": 30
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "valueAtSlot",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "replaceValue",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "targetIsAbsent",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "",
+          "count": 30
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "compatibleSlots",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "inlineEventBody",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "inlineEventBodyValue",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "bodyValue",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/event_body_encoding.js",
+          "name": "decodeEventBody",
+          "count": 11568
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get length",
+          "count": 23800
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get generation",
+          "count": 23800
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "row",
+          "count": 11621
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "rowById",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "indexById",
+          "count": 53
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "event",
+          "count": 23852
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get length",
+          "count": 23800
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "assertCurrentGeneration",
+          "count": 23800
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "event",
+          "count": 23799
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "materialize",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "",
+          "count": 23799
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "nativeContextBodyHolders",
+          "count": 91
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "record",
+          "count": 177
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "nativeContextHeldBodyDigests",
+          "count": 91
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "runtimeHistorySelectorKeys",
+          "count": 23799
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "record",
+          "count": 95484
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "compareUnicodeCodeUnits",
+          "count": 4226024
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "canonicalJson",
+          "count": 23136
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "",
+          "count": 6460805
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "writeCanonicalJson",
+          "count": 6230974
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "",
+          "count": 4226024
+        },
+        {
+          "file": "build/code/src/shared/immutable.js",
+          "name": "deepFreeze",
+          "count": 1579274
+        },
+        {
+          "file": "build/code/src/shared/admit/record.js",
+          "name": "isRecord",
+          "count": 35016
+        },
+        {
+          "file": "build/code/src/shared/admit/record.js",
+          "name": "hasExactKeys",
+          "count": 106
+        },
+        {
+          "file": "build/code/src/shared/admit/record.js",
+          "name": "",
+          "count": 424
+        },
+        {
+          "file": "build/code/src/shared/value/equality.js",
+          "name": "canonicalEquals",
+          "count": 11568
+        },
+        {
+          "file": "build/code/src/shared/value/equality.js",
+          "name": "",
+          "count": 912621
+        }
+      ]
+    },
+    {
+      "name": "expanded_prefix_liveness",
+      "wallMs": 248.2587080000012,
+      "cpuUserMs": 244.818,
+      "cpuSystemMs": 4.994,
+      "readCalls": 0,
+      "readBytes": 0,
+      "memoryBefore": {
+        "rss": 1762983936,
+        "heapTotal": 905117696,
+        "heapUsed": 761677864,
+        "external": 2431323,
+        "arrayBuffers": 26855
+      },
+      "memoryAfter": {
+        "rss": 1772404736,
+        "heapTotal": 909574144,
+        "heapUsed": 808387360,
+        "external": 2431323,
+        "arrayBuffers": 26855
+      },
+      "cpuProfile": "expanded_prefix_liveness.cpuprofile",
+      "ownerCalls": [
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isOwnedRuntimeEventPrefix",
+          "count": 35773
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isValidationRuntimeEventPrefix",
+          "count": 35773
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isLocatedPrefix",
+          "count": 35773
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventAtPrefix",
+          "count": 11917
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventBodiesAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventEnvelopesAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventPrefixExtent",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "PrefixImmutabilityReceipt",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isFor",
+          "count": 23857
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "constructImmutablePrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventsFromValidatedPrefix",
+          "count": 23857
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "computationReceipt",
+          "count": 11927
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimePrefixComputation",
+          "count": 11926
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "validatedRuntimeEventPrefixThroughEvent",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "historicalRuntimeEventPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "advance",
+          "count": 11925
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "range",
+          "count": 11925
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "upper",
+          "count": 23850
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "through",
+          "count": 11925
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "indexedRuntimeEvents",
+          "count": 11925
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness.js",
+          "name": "projectFrameLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "accepts",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "owner",
+          "count": 11926
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "snapshot",
+          "count": 3
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "prefix",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "scope",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "for",
+          "count": 3
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "source",
+          "count": 3
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "sharesRuntimeEventPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "sha256Canonical",
+          "count": 7
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "",
+          "count": 206299
+        },
+        {
+          "file": "build/code/src/shared/digests.js",
+          "name": "isSha256Digest",
+          "count": 71496
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "is",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "RuntimeEventBodyView",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "at",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "compareUnicodeCodeUnits",
+          "count": 75524
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "canonicalJson",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "",
+          "count": 105
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "writeCanonicalJson",
+          "count": 116072
+        },
+        {
+          "file": "build/code/src/shared/canonical_json.js",
+          "name": "",
+          "count": 75506
+        },
+        {
+          "file": "build/code/src/shared/immutable.js",
+          "name": "deepFreeze",
+          "count": 67873
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "record",
+          "count": 59585
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "exact",
+          "count": 59585
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 464788
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "ref",
+          "count": 178765
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "elapsed",
+          "count": 35748
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "runtimeLivenessDigest",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeInvocationScope",
+          "count": 3
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 18
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 21
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeLivenessBinding",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "constructRuntimeSystemProbeContract",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeSystemProbeContract",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeProbeObservation",
+          "count": 35748
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness_contracts.js",
+          "name": "isRuntimeThresholdObservation",
+          "count": 23832
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "record",
+          "count": 35718
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "exactOrNull",
+          "count": 5
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "livenessContextFacts",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "deriveActorLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 20
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "deriveCCallLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 94
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 94
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "deriveFrameLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 37
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 37
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 36
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextForOccurrence",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "RuntimeLivenessReconstruction",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "advance",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 137
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "cut",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextStamp",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "context",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextFacts",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "livenessReconstruction",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/admit/record.js",
+          "name": "isRecord",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitScalarString",
+          "count": 86567
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "isRealmObjectPrototype",
+          "count": 7351
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "isJsonObject",
+          "count": 7351
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "isRealmArrayPrototype",
+          "count": 2453
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "isDataDescriptor",
+          "count": 60406
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "defineMember",
+          "count": 44927
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitArray",
+          "count": 2453
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "",
+          "count": 15479
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitRecord",
+          "count": 7351
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitAt",
+          "count": 57955
+        },
+        {
+          "file": "build/code/src/shared/admit/json.js",
+          "name": "admitJson",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/shared/value/equality.js",
+          "name": "canonicalEquals",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/value/equality.js",
+          "name": "",
+          "count": 105
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "writeCanonicalRecord",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "",
+          "count": 18
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "canonicalRecordDigest",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "",
+          "count": 19
+        },
+        {
+          "file": "build/code/src/shared/value/record.js",
+          "name": "",
+          "count": 205665
+        },
+        {
+          "file": "build/code/src/shared/refusal.js",
+          "name": "ok",
+          "count": 102883
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "executionBasisBody",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "project",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "expected",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "actual",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "projectExactExecutionBasisRecordAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/execution_basis_record.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/shared/select/exact_match.js",
+          "name": "exactMatchCardinality",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/shared/select/exact_match.js",
+          "name": "onlyExactMatch",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/shared/select/exact_match.js",
+          "name": "resolveExactMatch",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/shared/select/exact_record.js",
+          "name": "checkExactRecord",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "owned_prefix_and_liveness_repeat",
+      "wallMs": 0.25183300000207964,
+      "cpuUserMs": 0.259,
+      "cpuSystemMs": 0.003,
+      "readCalls": 0,
+      "readBytes": 0,
+      "memoryBefore": {
+        "rss": 1766195200,
+        "heapTotal": 892583936,
+        "heapUsed": 747664112,
+        "external": 2460510,
+        "arrayBuffers": 26855
+      },
+      "memoryAfter": {
+        "rss": 1766195200,
+        "heapTotal": 892583936,
+        "heapUsed": 747705728,
+        "external": 2460510,
+        "arrayBuffers": 26855
+      },
+      "cpuProfile": "owned_prefix_and_liveness_repeat.cpuprofile",
+      "ownerCalls": [
+        {
+          "file": "build/code/src/abg/event_store.js",
+          "name": "assertOwnedRuntimeHistorySelection",
+          "count": 5
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "selectOwnedRuntimeEventPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isOwnedRuntimeEventPrefix",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "isLocatedPrefix",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "locatedReceipt",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventBodiesAtPrefix",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimeEventPrefixExtent",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "runtimePrefixComputation",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/event_prefix.js",
+          "name": "scopeKey",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_liveness.js",
+          "name": "projectFrameLivenessContext",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "acceptsSelection",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "owner",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_derivation.js",
+          "name": "selectionScope",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get length",
+          "count": 11
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get generation",
+          "count": 11
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "row",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "indexById",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "event",
+          "count": 2
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "get length",
+          "count": 7
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "assertCurrentGeneration",
+          "count": 11
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "includesIndex",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "row",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "rowById",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "eventById",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "event",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "selectScope",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "sharesSource",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "extends",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "is",
+          "count": 7
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "owner",
+          "count": 5
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "<instance_members_initializer>",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "RuntimeEventBodyView",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/runtime_history.js",
+          "name": "at",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "record",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "advance",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextStamp",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 6
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "",
+          "count": 4
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "context",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "contextFacts",
+          "count": 1
+        },
+        {
+          "file": "build/code/src/abg/calculus/liveness.js",
+          "name": "livenessReconstruction",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "ordinal": 23799,
+    "eventRef": "event://abiogenesis/3200aa5c6c89a217bc50388c1cc2b1fb96eaa600dbbc36579bf858ef3f849fee",
+    "cCallRef": "c-call:sha256:91961be974bed3786bb4ccecf4fd9d0d85a8ce52d9532118624834e717e73667",
+    "frameId": "frame://abiogenesis/bb006457fb541cc364bc8baf3fe3365ddf2583e81f0b42b28020266d07474bd8"
+  },
+  "contextDigest": "sha256:163d18833183aa7ddc9a7eebc46689b0ec9fa896683a5fa39ee53663fb69b7d1",
+  "equalContext": true,
+  "status": "COMPARISON_PASSED",
+  "eventLogUnchanged": true,
+  "eventAppends": 0,
+  "storeAcquisitions": 0,
+  "providerCalls": 0,
+  "endedUtc": "2026-11-03T13:30:41.445Z"
+}

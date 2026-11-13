@@ -1,0 +1,681 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; unchanged fifteen families A5-F01-F07, F09-F11, F13-F17; GOAL-035/T-287",
+    "slice": "RC7 overhead release work, using retained RC6 N2/N3 execution; SDK/preflight/launch/readback/history owner chain",
+    "outcome": "Remove demonstrated repeated derivation and carriage through existing owners while preserving real work information, physical facts, admission, deterministic cold reconstruction and fresh result/replay.",
+    "authoritySplit": "Product/requirements govern WHAT; selected accepted HOW governs realization; SDK/CLI are thin invocation and projection; ABG alone admits runtime truth; evidence artifacts observe without authoring truth.",
+    "prohibitions": [
+      "No new cache authority, store, event stream, service, runtime or framework",
+      "No bypass of real acquisition, mutable-worksite observation, admission, effect, invalidation or replay",
+      "No modification of immutable RC6 or prior accepted evidence",
+      "No tests/build/runtime/provider/network/auth/Git/source/control changes or delegation in this evaluation"
+    ],
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "methodVerification": {
+      "command": "stdo status --definition /Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json --verify",
+      "exitCode": 0,
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "hostBoundary": "Independent actor, unrestricted filesystem/tools, manually bounded named reads and allowed metadata; no technical read sandbox is claimed. No private provider contents, raw stderr or credentials inspected or emitted."
+  },
+  "kind": "closed_rc7_latency_owner_readiness",
+  "at": "2026-11-06T02:25:06.788588+00:00",
+  "readinessStatus": "CLOSED_BOUNDED_RELATION_IDENTIFIED_ATTRIBUTION_OPEN",
+  "coreResult": "falsified",
+  "claim": "Run-read request population reuses the artifact truth acquisition it has just performed.",
+  "findings": [
+    {
+      "id": "RC7-LATENCY-01",
+      "claim": "Run-read request population reuses the artifact truth acquisition it has just performed.",
+      "result": "falsified",
+      "trigger": "An ordinary deserialized close-handoff prefix enters populateRunReadAtDurablePrefix in the parent operator process.",
+      "causalChain": [
+        "projectOwnedPrefixArtifactTruth(input.prefix) calls captureDurablePrefixCoordinate; the raw coordinate is detached into a new registered coordinate A and cold-decoded. The original raw input remains unregistered.",
+        "populateRunReadAtDurablePrefix then supplies original input.prefix, not artifactTruth.prefix A, to prepareRunReadAtDurablePrefix.",
+        "prepareRunRead calls captureDurablePrefixCoordinate again, producing coordinate B. prepareRead checks acquired.prefix === packet.prefix, which fails because A and B differ.",
+        "prepareRead falls through to readOwnedRuntimeEventPrefixAtDurablePrefix(B), so the existing history decoder repeats physical authentication/history acquisition at the same unchanged prefix."
+      ],
+      "sourceLines": {
+        "abg/project_read_definition_bindings.ts": "660-695",
+        "abg/artifact_truth.ts": "853-877",
+        "abg/event_store.ts": "1738-1755,3568-3604",
+        "abg/project_read_ports.ts": "681-707,1017-1027",
+        "shared/i_json.ts": "63-67",
+        "shared/admit/json.ts": "59-65; admission makes fresh ordinary containers"
+      },
+      "installedLines": {
+        "abg/project_read_definition_bindings.js": "436-447",
+        "abg/artifact_truth.js": "605-609",
+        "abg/project_read_ports.js": "509-515,710-718",
+        "abg/event_store.js": "904-913,2495-2535"
+      },
+      "originatingLaw": [
+        "PRODUCT.md:811-879",
+        "REQ-R-ABG3-PROJECTION-002",
+        "REQ-R-ABG3-PROJECTION-025"
+      ],
+      "classification": "Pure projection/deterministic construction over an already authenticated observation; no new runtime execution entity.",
+      "minimalChange": "Within the existing population owner, retain the exact artifactTruth.prefix for subsequent preparation (or capture the coordinate once and thread that exact value through both existing calls). Do not add a cache, a trusted flag, or a new reader. Keep request semantics, authority slots, source checks and cold boundary checks.",
+      "triage": {
+        "causalConfidence": "high for static duplicate-acquisition path in installed and frozen sources",
+        "wallTimeAttribution": "indeterminate; no per-owner phase sample was acquired",
+        "blastRadius": "Raw-prefix installed read construction for all six existing Run/GraphCall read members; semantic outputs are not shown wrong. The active acquired child kernel already retains its entryPrefix.",
+        "containment": "Existing refusal and physical checks remain; the issue adds computation on a lawful path.",
+        "repairComplexity": "Small owner-coordinate handoff, then caller reuse where needed",
+        "regressionRisk": "Accidentally retaining an unacquired or stale prefix or weakening copy/raw input admission; affected positive and refusal/cold proof is required.",
+        "severity": "No numeric Product severity scale selected in this bounded architecture assignment; technical consequence is repeated full-history work on the supported read path."
+      },
+      "proofStanding": "Code-backed diagnosis; no failing-before/passing-after execution, timing attribution, source fix or performance acceptance performed."
+    }
+  ],
+  "ownerMap": [
+    {
+      "phase": "preflight",
+      "owners": "d5-author-03/prepare-r1.mjs:11-60; publicCaller.refresh; Product installed-content and observeWorksiteContext owners",
+      "informationGained": "Exact admitted controls/predecessor close, current payload bytes, current worksite and no event-prefix writes over preparation. N3 preflight is prepare-r1, not runner.preflight.",
+      "reuseOrChange": "No check removal selected. Preparation and dispatch are separate processes with mutable-state intervals; the repeated worksite observation gains current information. Source-pinning, physical hash and record-writing costs need their existing phase timers.",
+      "attributedMs": null
+    },
+    {
+      "phase": "P3 attempt-02 preflight environment_refresh (new actual sample)",
+      "owners": "existing publicCaller.refresh; projectOwnedPrefixArtifactTruth -> existing cold history owner/artifact facts -> currentness check -> projectWorkspaceEnvironmentFromArtifactTruth",
+      "informationGained": "One fresh historical environment acquisition at the selected actual close prefix. The record measures 62,318.64775ms of 65,147.044667ms module body, before a later capacity refusal.",
+      "reuseOrChange": "No duplicate full acquisition is established inside this refresh. Preserve first cold acquisition; use existing marker refinement or owner-focused proof to separate history decode/validation, body materialization and projection. Do not transfer the measured 62 seconds to LATENCY-01 or speculate about auth/physical-worksite cost.",
+      "attributedMs": 62318.64775,
+      "internalAttribution": "indeterminate"
+    },
+    {
+      "phase": "host-start to dispatch",
+      "owners": "d5-author-03/dispatch.mjs:13-38",
+      "informationGained": "Controls and source commit still match; caller reconstructs historical environment; observeWorksiteContext establishes source/input context unchanged since preflight.",
+      "reuseOrChange": "Preserve current observation and explicit installation checks; no speculative bootstrap or auth redesign.",
+      "attributedMs": null
+    },
+    {
+      "phase": "dispatch to native actor",
+      "owners": "runner.mjs:332-354,244-258; installed CLI -> installed_definition_call_transport -> existing ABG start/actor owners",
+      "informationGained": "Trusted installed content, cold physical event-resource acquisition and actual native dispatch.",
+      "reuseOrChange": "Existing runInstalledDefinitionCallWithResource and acquired selection support maintained same-process SDK work already. A fresh CLI process remains a real cold boundary. Inspect supplied phase timers before selecting deeper launch repairs.",
+      "attributedMs": null
+    },
+    {
+      "phase": "parent fresh-read construction",
+      "owners": "public-setup.mjs:109,126-133; runner.mjs:267-279; installed_public_definition_call.ts:646-684; finding RC7-LATENCY-01",
+      "informationGained": "First exact prefix/environment/source selection establishes truth; second same-prefix decode caused by losing owner identity gains no new fact.",
+      "reuseOrChange": "First fix the owner handoff. Then have existing caller/read construction carry the exact authenticated environment.prefix while coordinate-equal to current closeHandoff. Do not feed serialized read records back as authority. A refreshed/changed handoff invalidates affected reuse.",
+      "attributedMs": null
+    },
+    {
+      "phase": "fresh result and replay subprocesses",
+      "owners": "definition_event_resource.ts:319-353; exact_prefix_bindings.ts:97-150; project_read_definition_bindings.ts:738-825; project_read_ports.ts:987-1058",
+      "informationGained": "Each independent child establishes genuine cold physical/admission/replay correspondence and unchanged prefix receipt.",
+      "reuseOrChange": "Keep both fresh reads for this proof. Within each child use its already acquired resource and prepared closure; do not repeat source construction or transfer parent-local authority across the process boundary.",
+      "attributedMs": null
+    },
+    {
+      "phase": "history derivation",
+      "owners": "event_store.ts DurableHistoryDerivation/RuntimeHistorySelection; event_prefix.ts:65-87; artifact_truth.ts:814-877; environment_admission.ts:503-529; replay.ts:2153-2159",
+      "informationGained": "Existing authenticated history and owner computation territory supply artifact truth, workspace environment and selected Run replay.",
+      "reuseOrChange": "Reuse these implemented owners. Do not replace them with a digest-keyed global cache or invent a new index/service. Body-carriage reduction lowers bytes presented to necessary cold work, but its seconds contribution is unmeasured.",
+      "attributedMs": null
+    },
+    {
+      "phase": "evidence retention",
+      "owners": "runner.mjs:14-17,49-69,244-258,282; dispatch.mjs:41-48",
+      "informationGained": "First complete output plus identity/exit metadata supports custody; repeated embedding of the same projection does not create independent observation.",
+      "reuseOrChange": "In the existing operator evidence files, retain one complete output body and reference it from command/outcome/fresh-read summaries with identity and metadata; readback agreement should consume the one parsed value. This is operator evidence-carriage work, distinct from ABI event/body semantics. Preserve exact raw evidence and required consumers.",
+      "attributedMs": null
+    }
+  ],
+  "measurements": {
+    "kind": "retained_wall_observations_not_cpu_or_speedup",
+    "N2": {
+      "preflightMs": 46454.21799970791,
+      "setupReused": true,
+      "setupMs": null,
+      "hostStartupToDispatchMs": 42471.366,
+      "dispatchToNativeMs": 46682.0,
+      "nativeActorMs": 6076019.0,
+      "nativeExitToFreshCloseMs": 594173.04,
+      "outcomeToFreshCloseMs": 551533.04,
+      "resultCommandMs": 85709.91191700008,
+      "replayCommandMs": 86359.34341700003,
+      "outcomeToResultStartMs": 214963.0,
+      "resultExitToReplayStartMs": 161617.088,
+      "replayExitToHostMs": 2883.697,
+      "startLogBytes": 716470691,
+      "endLogBytes": 914514036,
+      "previousCloseToLaunchMs": 2505315.79
+    },
+    "N3": {
+      "preflightMs": 59543.49899990484,
+      "setupReused": true,
+      "setupMs": null,
+      "hostStartupToDispatchMs": 55000.906,
+      "dispatchToNativeMs": 58981.0,
+      "nativeActorMs": 787720.0,
+      "nativeExitToHostCloseMs": 517497.432,
+      "outcomeToHostCloseMs": 504002.432,
+      "nativeExitToOutcomeMs": 13495.0,
+      "resultCommandMs": 63946.317583000055,
+      "replayCommandMs": 65654.81325000012,
+      "outcomeToResultStartMs": 217176.0,
+      "resultExitToReplayStartMs": 154487.682,
+      "replayExitToHostMs": 2737.619,
+      "hostTotalMs": 1419185.432834085,
+      "startLogBytes": 914514036,
+      "endLogBytes": 1016286093,
+      "previousCloseToLaunchMs": 1673038.054
+    },
+    "limits": [
+      "Nested command intervals are not additive to their enclosing phases.",
+      "Command exits are approximated from ISO start plus recorded monotonic wall duration; source records provide their precision.",
+      "Predecessor-close to next launch includes Root review/control/preflight preparation, not pure runtime between-task latency.",
+      "Outcome-summary time is actual retained N3 endedUtc; polling TIMING_OBSERVATION_ENVELOPES.recordedUtc is not an outcome timestamp.",
+      "Root supplied an actual retained P3 failed-preflight sample during evaluation; it was read without waiting or activating work. No fresh-readback P3 sample was acquired."
+    ],
+    "P3_preflightAttempt02": {
+      "status": "script_threw_before_completion",
+      "hostExitCode": 1,
+      "hostWallMs": 65269.99020809308,
+      "moduleBodyElapsedMs": 65147.044666999995,
+      "selectedPhaseWallMs": {
+        "environment_refresh": 62318.64775,
+        "installed_content_verification": 1214.6575000000012,
+        "physical_prefix_read_and_hash": 657.9087080000027,
+        "source_identity_and_hash_correspondence": 148.534959,
+        "worksite_observation": 256.8964999999953
+      },
+      "capacity": {
+        "kind": "bounded_current_initial_projection_measurement",
+        "projectionBytes": 1257382,
+        "selectedFiles": 420,
+        "sourceCount": 49,
+        "contextBytes": 14790408,
+        "maxPromptBytes": 1048576,
+        "reserveBytes": 131072,
+        "initialProjectionFitsWithReserve": false,
+        "providerCalls": 0,
+        "RunAdmissions": 0,
+        "limits": [
+          "Initial owner task projection only; not complete rendered request or future-stage fit.",
+          "Existing native assembly applies actual prompt limit before each paid invocation.",
+          "No historical task/prompt bodies or invented future producer observations used."
+        ]
+      },
+      "interpretation": "environment_refresh is localized at 62.319 seconds; this is the first cold caller.refresh, not evidence that the later LATENCY-01 double-capture path caused the preflight duration. Decoder, physical validation, body demand, artifact fold and environment materialization shares are unknown. The later capacity guard refused; no completed preflight/Run/provider claim. Root control preparation remains separate."
+    }
+  },
+  "artifactSizeObservations": {
+    "execution/commands/run_result.stdout": 44169481,
+    "execution/commands/run_result.result.json": 44206570,
+    "execution/calls/run_result.outcome.json": 44448592,
+    "execution/commands/run_replay.stdout": 44169136,
+    "execution/commands/run_replay.result.json": 44206212,
+    "execution/calls/run_replay.outcome.json": 44448181,
+    "execution/fresh-reads.json": 177677375,
+    "execution/execution.json": 198486895,
+    "execution/outcome-summary.json": 44341706,
+    "execution/after-run-resume.json": 72495832
+  },
+  "minimalCausalIncrement": [
+    "Fix RC7-LATENCY-01 in the existing ABG read-population owner and carry its established coordinate across the existing parent SDK construction path.",
+    "Keep fresh installed process boundaries and their physical/admission/refusal obligations.",
+    "Consolidate redundant operator evidence body embeddings separately through existing recording surfaces if Root includes that owner territory; retain exact complete body custody.",
+    "Use existing phase timers to price remaining launch/history/serialization work; do not broaden to speculative runtime rewriting."
+  ],
+  "requiredProof": [
+    {
+      "id": "P1",
+      "kind": "same-process causal discriminator",
+      "needed": "At one genuine retained prefix, instrument the existing acquisition boundary in a focused test. Feed an ordinary deserialized close handoff to the maintained installed constructor. Demonstrate baseline duplicated cold acquisition and successor one acquisition through environment/source preparation, with identical call/request/source/authority/refusal. Do not treat the static count prediction as an executed result."
+    },
+    {
+      "id": "P2",
+      "kind": "pure construction and reuse",
+      "needed": "Construct result/replay in the same caller at the same exact prefix; verify unchanged event bytes, Run/WorkspaceBinding/authority coordinates and projections. Exercise acquired identity, equal copied coordinate and separately deserialized coordinate. Copies cannot impersonate acquired owner identity. Reusing caller.environment.prefix must remain contingent on exact current handoff equality."
+    },
+    {
+      "id": "P3",
+      "kind": "refusal and invalidation",
+      "needed": "Keep invalid digest/contract, truncated/replaced/changed cold file, stale-current prefix after append, wrong WorkspaceBinding/source and unknown source refusals. Cold reconstruction after owner close/restart must work; mutable physical observation and effect boundaries retain currentness checks. Refusal paths must not acquire append or semantic authority."
+    },
+    {
+      "id": "P4",
+      "kind": "cold installed end-to-end",
+      "needed": "Re-run the affected installed result/replay proof on one frozen successor with genuine fresh processes, matching terminal ref/digest/producer/value and expected missing result after incomplete work; physical prefix identity/length/digest remains unchanged. Existing six read members and common construction call sites bound affected coverage. This does not repeat unrelated full qualification."
+    },
+    {
+      "id": "P5",
+      "kind": "matched timing",
+      "needed": "Use same retained history bytes, event contract, selected Run, result/replay selector, installed payload/environment, output-retention policy and host conditions before/after. Separate parent refresh, physical identity hashing, call construction, CLI wall, parse/serialization/write and terminal agreement. Label cold/warm OS conditions. The retained P3 failed-preflight sample already localizes environment_refresh; fresh-read and deeper owner attribution remain missing. Reuse the existing timers when authorized work produces them; this review does not activate work."
+    },
+    {
+      "id": "P6",
+      "kind": "workflow boundary",
+      "needed": "Report setup/preflight/host startup/dispatch-to-actor/native work/closure/operator preparation independently for actual native use. A readback-only improvement is not worker-launch or complete-workflow improvement. Differently sized N2/N3 histories and different native tasks cannot be matched speedup evidence."
+    }
+  ],
+  "invalidation": {
+    "affectedClaims": [
+      "Raw-prefix read-population same-process cost/reuse",
+      "Maintained caller fresh-read construction",
+      "Any changed evidence-carrier consumer",
+      "Any new performance statement"
+    ],
+    "retainedEvidence": [
+      "Immutable RC6 N2/N3 observations remain historical facts; source changes do not rewrite them.",
+      "D5 source 94c038bd and close 6ca141a4 remain their own bounded subjects; no D5, C2, UAT, release or whole-Product acceptance is conferred here.",
+      "Unaffected Product/requirement/owner/refusal relations and prior accepted cuts remain banked."
+    ],
+    "revisingObservations": [
+      "A changed source/member hash or governing basis",
+      "Owner instrumentation shows different acquisition behavior",
+      "P3 phase data localizes the actual cost elsewhere",
+      "Any changed physical prefix, installed payload, workload, process boundary or proof meaning"
+    ]
+  },
+  "residuals": [
+    "One actual failed-preflight phase sample is now retained; its internal function/CPU/allocation/I/O attribution, failing-before/passing-after execution and matched comparison remain unperformed.",
+    "Exact sum of historical result/body carriage and evidence serialization is not converted into saved wall time.",
+    "Preflight/launch structural costs are mapped; no unsupported removal of actual fresh physical checks is proposed.",
+    "Detailed event-body reduction remains with its existing body-encoding/NativeWorkspaceWork owners; the separate retained owner observations are input, not an implemented codec decision.",
+    "No release readiness, production qualification, formal F11 J, QR02/QR03 or human acceptance claim."
+  ],
+  "pins": {
+    "requestSelectionSubjectAndEvidence": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/REQUEST.json",
+        "bytes": 3883,
+        "sha256": "033f4afe0bd3301c39b085d7c7cb8182dd271c9c24af3cfa89d06321df1de7bf"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_RC7_OVERHEAD_SELECTION.json",
+        "bytes": 4848,
+        "sha256": "9a2289d723d4ea138b520bc68249270fffd93ece12dc2f11eae2656c90bcf765"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+        "bytes": 494547,
+        "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/FINAL_RUNTIME_CLOSE.json",
+        "bytes": 5608,
+        "sha256": "6ca141a406721beb702b64706ba867d8af58488b067f5fbe203b3582f0a20929"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/TIMING_BREAKDOWN.json",
+        "bytes": 7290,
+        "sha256": "a19d931abfbc09ebfbb72d13f54e6268aaf2c174f56f61665f157d858881c2b9"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/READBACK_LATENCY_OWNER_OBSERVATION.json",
+        "bytes": 2845,
+        "sha256": "70c4ab3a4ae6fb9ecb30ae4aec6968a5acb738243df2d39bf9a6b179e6c91c65"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/REMAINING_CARRIAGE_OWNER_MAP.json",
+        "bytes": 4101,
+        "sha256": "d441689c99938e9da47a22389fb7d843b6ce19f8d105a65ad9adb87c6a2c0f0a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/RESULT_CARRIAGE_OWNER_OBSERVATION.json",
+        "bytes": 4058,
+        "sha256": "d9b0d75764b58a012398f068d7fb6f21cc76c3099867e9979c77109ffa27ee44"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/LAUNCH_TIMING.json",
+        "bytes": 2623,
+        "sha256": "aafd1e5ef8100d4608bf410e7df9da65a671890f46ed9acf2df6c5d3012f4b70"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/HOST_LAUNCH.json",
+        "bytes": 268,
+        "sha256": "759038d0e89bb8f8dd511f32af93b526468db5a83764bd84dcea0479e310cae4"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/HOST_RESULT.json",
+        "bytes": 153,
+        "sha256": "848a32accfdd80243d2b7e3300cbda636ce697b9429382cc62a63f0e8895c21c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/PREFLIGHT_RESULT.json",
+        "bytes": 153,
+        "sha256": "a73aeee1ed45b44c0eaaa31852b99a6a6159e01ff962f2d74c1f1b45b6f81ed9"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/TIMING_OBSERVATION_ENVELOPES.json",
+        "bytes": 5942,
+        "sha256": "fc7ad4f243cbd4677fc01974eba261efc816a1f146baa97c458952002e3a5615"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/commands/lifecycle-start.result.json",
+        "bytes": 45916175,
+        "sha256": "65612715221d24f4cbf70e1b5ce19130de44dcad63e48f987bbe759280d0b002"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/commands/run_result.result.json",
+        "bytes": 44206570,
+        "sha256": "7ba6e6178b414ff80342aff0c25f1c662d7a7237aef4f2e91adbd11d3ef015a2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/commands/run_replay.result.json",
+        "bytes": 44206212,
+        "sha256": "dd2b2245febc619f383f2b50318d6e351fea64402d00c7b7b2f3c6abde8aeae3"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/execution/outcome-summary.json",
+        "bytes": 44341706,
+        "sha256": "42c16dc8d796f9b8affd69e851a5cd735a80cda78b8d1cb039d0763ccbd329c0"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/preflight-attempt-02/PREPARE_PHASE_TIMING.json",
+        "bytes": 5183,
+        "sha256": "ca2653214fde0497df09b89e3162cba9af0a434e152c9f5bb7647ec30f481b6b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/preflight-attempt-02/PREFLIGHT_RESULT.json",
+        "bytes": 153,
+        "sha256": "27838809ab8d8932f51e131f62648a6ad565a9fa521f54f67270355b8fd9f299"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/preflight-attempt-02/SELECTOR_CAPACITY_PREFLIGHT.json",
+        "bytes": 598,
+        "sha256": "9f24984dae893ce0a17d75aa96b5bedaa750c32295d730842b478477bd4893d0"
+      }
+    ],
+    "sourceOwners": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "bytes": 27318,
+        "sha256": "27de3ce5c295b3aaa76b58bb062357763a6109ddf6d55ba9b1844fd75914bd29",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "bytes": 19920,
+        "sha256": "e19d6f4461e58e7fa13c5fd76064a78c466fb2fed5e09b3ce6509b95834081aa",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "bytes": 37404,
+        "sha256": "7e280a39ea57094d52c9daff5bed18f4d4d8de20fe5785b48b2a3041189c753b",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "bytes": 92881,
+        "sha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+        "bytes": 42548,
+        "sha256": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 215016,
+        "sha256": "01c82b88e65e12b367b9683241407bcc7707531679963c04a580855bcfa1df71",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "bytes": 61840,
+        "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+        "bytes": 46702,
+        "sha256": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+        "bytes": 23451,
+        "sha256": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+        "bytes": 7694,
+        "sha256": "f4034bd7f9fa18ede51dc9ad17f966f54f83b4d53e2f22eda7d43f35cc2462de",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+        "bytes": 114749,
+        "sha256": "8b8cdd35d0298469424d7226d0fb58a125b64cd6556eddfc7ff716c0aea372ea",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/shared/i_json.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/shared/i_json.ts",
+        "bytes": 4358,
+        "sha256": "dcf69f847703080f649ef1bf5a531d7cc9749176343a0962c7be324c38de992a",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/shared/admit/json.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/shared/admit/json.ts",
+        "bytes": 13711,
+        "sha256": "c539fa3ae2278493eb7149cdf205e3eb98535d9704368b4b3147fb004aa06912",
+        "verifiedAgainstSubject": true
+      }
+    ],
+    "installedOwners": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_public_definition_call.js",
+        "bytes": 16192,
+        "sha256": "6ef13edb5900fc4f4e72e87245705f173b9ff92534978424106e4c8dd5950146"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_definition_call_transport.js",
+        "bytes": 14437,
+        "sha256": "629c50a1efd367f7693ffda4862d326a6de9e4160c1eabd7bc5ecd5ab4892c8f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_definition_bindings.js",
+        "bytes": 31681,
+        "sha256": "38f7ff8838caaaaa89f7355cb2e032858f33734087a0a28b3d2289fcff1a8c49"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_ports.js",
+        "bytes": 83193,
+        "sha256": "e456444583dbd74857bc956e52670db30217f68e5bb2419344b89dc5c0add7b4"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/artifact_truth.js",
+        "bytes": 38098,
+        "sha256": "4b27b0650d8e35f8a38046e4983722b15d0bc2cad8bee249a237ff9adbc21266"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "bytes": 198998,
+        "sha256": "706acaaa7300686eed4bcfa739347c12261c874adb20b3d354c7a9f195627199"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+        "bytes": 51501,
+        "sha256": "ff97005d347e727bd398356fe4c99552d45395598f7ab4fd75f59280850cf260"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/environment_admission.js",
+        "bytes": 37345,
+        "sha256": "38548ea8755ea4dc1f8fb31a53cf622375e2cb61046fe6d878be6d0ad605ff50"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/definition_event_resource.js",
+        "bytes": 18848,
+        "sha256": "3243781dfc5293020c6191208f9f861a73030671ddfa0fb1b6e113a8725420c6"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/exact_prefix_bindings.js",
+        "bytes": 5454,
+        "sha256": "1db1f87d9bca9fa25c87525bd47d15c5172db207f3aca2cf2f5ae8e2d90055f6"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/replay.js",
+        "bytes": 95816,
+        "sha256": "f276459a68d6c763659283f9af53122d7ecd40bfd7f8dfda40cfe29a74015245"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/i_json.js",
+        "bytes": 3890,
+        "sha256": "2d1ca425146e67cae18025c815cda1f365c302c0d491a1f9e58be17129be86a8"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admit/json.js",
+        "bytes": 13112,
+        "sha256": "86596caf903747494988ffbb541e67a5017598debb3c9ee3ce8c9276ee940d96"
+      }
+    ],
+    "operatorOwners": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+        "bytes": 37910,
+        "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+        "bytes": 29259,
+        "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/prepare-r1.mjs",
+        "bytes": 11603,
+        "sha256": "caf252495d8f505a6e4d2477a875520e42fd5876c92608fbff889d0454b3863a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/dispatch.mjs",
+        "bytes": 5558,
+        "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/prepare-r1.mjs",
+        "bytes": 21293,
+        "sha256": "500058c8aa0984b74eb1dbc858b8f82477ca2877e4c9ccd9977d6297c7b6f02c",
+        "standing": "current source marker placement acquired after sample; not independently proven as complete executed-script identity",
+        "lines": "85-93"
+      }
+    ],
+    "authority": [
+      {
+        "relativePath": "AGENTS.md",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/AGENTS.md",
+        "bytes": 12932,
+        "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "stdo_abiogenesis.json",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/stdo_abiogenesis.json",
+        "bytes": 3136,
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "specification/PRODUCT.md",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 27131,
+        "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 149148,
+        "sha256": "ed53e9d2e9de35e8aba62e9ff7a844d7fe3ef5e52934b7be820726756c36a735",
+        "verifiedAgainstSubject": true
+      },
+      {
+        "relativePath": "specification/GOALS.md",
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/GOALS.md",
+        "bytes": 115334,
+        "sha256": "329a559b11a0d4b0ee875bf3e6d38d5c643a5f4ec73a2cfc89b78f80663536c7",
+        "standing": "live authority acquired separately; not a SUBJECT member"
+      },
+      {
+        "relativePath": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+        "bytes": 10959,
+        "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+        "standing": "live authority acquired separately; not a SUBJECT member"
+      }
+    ],
+    "method": [
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/manifest.json",
+        "bytes": 18022,
+        "sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+        "bytes": 13369,
+        "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+        "bytes": 8074,
+        "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+        "bytes": 3947,
+        "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+        "bytes": 22028,
+        "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+        "bytes": 94520,
+        "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+        "bytes": 142205,
+        "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/EVALUATION.md",
+        "bytes": 91301,
+        "sha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485"
+      }
+    ]
+  },
+  "effectsPerformed": [
+    "Read-only named source/evidence/metadata acquisition",
+    "Read-only stdo status/resolve verification",
+    "Write READINESS.md and READINESS.json only in assigned latency directory"
+  ],
+  "returnTo": "Root; no Worker/Reviewer activation or delegation",
+  "privacy": "Command JSON was parsed only to select safe timing/exit metadata; excluded stdout/stderr/provider values were never printed or semantically inspected. Event payloads and provider archives were not read."
+}

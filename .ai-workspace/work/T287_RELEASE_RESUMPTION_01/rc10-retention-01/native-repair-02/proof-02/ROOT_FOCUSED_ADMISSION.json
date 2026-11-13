@@ -1,0 +1,41 @@
+{
+  "id": "RC10-REPAIR-PROOF-02-FOCUSED",
+  "status": "ROOT_ADMITTED_RC10_FROZEN_PROOF",
+  "mode": "focused",
+  "recordedUtc": "2026-11-09T04:27:13.669047+00:00",
+  "owner": "/root Executive",
+  "proofBindingSha256": "2f6a4e41ba324dde032e8a24d032e794ea42ef527ce61cfdec12a3c3bfc7d301",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "conditionalRootGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/ROOT_STAGE_ADMISSION.json",
+    "bytes": 1715,
+    "sha256": "560592cc688de74692bfebff2ef245d088d66d49ffb63a643c8b6d169e452b07"
+  },
+  "satisfiedCondition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/STAGE_RETURN.json",
+    "bytes": 1490,
+    "sha256": "9b622c7559de84b37ad6ad6a7309f29c9fdb3937f19514f5b26ae1f40f682ae7"
+  },
+  "actualStage": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/RESULT.json",
+    "bytes": 986,
+    "sha256": "ae5cf7e38f13a03e1f27eb90aa3f26c9c78be29243b8cc9d5298ee62fa4f2045"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/frozen-proof.mjs",
+    "bytes": 15645,
+    "sha256": "e7de3cec3058cdfc22da52b7cd047a9a98d4d796426fde9d14c1d7bcac0ac689"
+  },
+  "limits": {
+    "focusedMs": 600000,
+    "heapMiB": 8192,
+    "outputBytes": 16777216,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296
+  },
+  "population": [
+    "test_env/tests/t287-held-basis-lifetime.test.mjs"
+  ],
+  "modeEnvironment": "functional; workload50 explicit skip",
+  "noAutomaticRetry": true
+}

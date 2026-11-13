@@ -1,0 +1,543 @@
+{
+  "kind": "exact_recovery_source_dependency_closure",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "frozenSubject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+  "files": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "bytes": 42549,
+      "sha256": "200f4a94e0fd84296f35816f663e747830c1690375daa986d51cfaa3c0c2d51e",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+      "bytes": 5091,
+      "sha256": "98f1994045dbbeda2087b80a6bf569659a89056a4346f3670e77b14792d6d44d",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "bytes": 21165,
+      "sha256": "f95df8511a4d56148a80bac009ea41bceeb17907f59488bd6b24a39281d6fd59",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 67553,
+      "sha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "bytes": 23199,
+      "sha256": "208787a16a81dc51f5aa676e129bdd462710952c68a1652ab383bf4a58420fcf",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9594,
+      "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "bytes": 9459,
+      "sha256": "3fa8fa8ffea19a187f727d64f6da3940e8def6ab3dadad0e055c0c45848ec0b3",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "bytes": 9963,
+      "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "bytes": 22133,
+      "sha256": "d56f24818f0dcf41469f643534f914b460fa7df096dcfe7ff3896861092fe814",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "bytes": 4889,
+      "sha256": "a47f67cc01a55d363358a69a768f202e94cbca627b3f3fd6918a5a949425c051",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "bytes": 25759,
+      "sha256": "b633d1f69ef4f24d521e056206f0fb6f7b6467444d06dc64a9f9a23f69f98627",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "bytes": 3319,
+      "sha256": "85f0228f77adc6407390cdf50c51ca254b979e716b95123cb6daa35547685c7e",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+      "bytes": 7677,
+      "sha256": "cba6471264602fd95e465b2079809ac4a03c2b7b261ed79e687a3855b12b9793",
+      "sourceSnapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/source-inputs/build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+      "acquisition": "Exact tracked base1f62 plus current-byte equality"
+    }
+  ],
+  "importEdges": [
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/gtl/index.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/validator/index.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/gtl/index.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/validator/index.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "kind": "static module reference"
+    },
+    {
+      "from": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "to": "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+      "kind": "static module reference"
+    }
+  ],
+  "fileReadReview": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "line": 9,
+      "text": "export { LANGUAGE_TEST_IDS, LANGUAGE_TEST_DIRECT_IDS, constructLanguageTestInput, evaluateLanguageTestResult, constructLanguageTestPublication } from \"../fixtures/language-smoke/program.mjs\";"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "line": 30,
+      "text": "  for (const name of [\"program.mjs\", \"leaf.mjs\"]) await cp(fileURLToPath(new URL(`../fixtures/language-smoke/${name}`, import.meta.url)), join(sourceRoot, \"build\", name));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "line": 31,
+      "text": "  const payload = { \"package.json\": { name: owner.packageName, version: owner.packageVersion, type: \"module\","
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "line": 32,
+      "text": "    exports: { \"./program\": \"./build/program.mjs\" }, files: [\"build\", \"contracts\", \"product-toolchain-manifest.json\"],"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "line": 34,
+      "text": "    \"contracts/public-contract-catalog.schema.json\": { $schema: \"https://json-schema.org/draft/2020-12/schema\", type: \"object\" } };"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "line": 46,
+      "text": "    catalogVersion: \"5.0.0\", catalogSchemaPath: \"contracts/public-contract-catalog.schema.json\","
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "line": 47,
+      "text": "    catalogSchemaDigest: await product.sha256File(join(sourceRoot, \"contracts/public-contract-catalog.schema.json\")), rows: [] };"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "line": 67,
+      "text": "  await writeFile(join(sourceRoot, \"product-toolchain-manifest.json\"), `${product.canonicalJson(manifest)}\\n`);"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "line": 94,
+      "text": "        product.sha256Bytes(await readFile(path)),"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "line": 236,
+      "text": "    await readFile(join(root, \"product-toolchain-manifest.json\"), \"utf8\"),"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "line": 615,
+      "text": "  assert.deepEqual(await readFile(targetPath), REPLACEMENT);"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "line": 967,
+      "text": "  assert.deepEqual(await readFile(targetPaths[0]), REPLACEMENT);"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "line": 968,
+      "text": "  assert.deepEqual(await readFile(targetPaths[1]), staleBytes);"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "line": 969,
+      "text": "  await assert.rejects(readFile(targetPaths[2]), { code: \"ENOENT\" });"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+      "line": 13,
+      "text": "export const sourceObservationInput=evidenceInput({path:D1_PRESERVED_RECORD+'preimages/source-observation.json',"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "line": 2,
+      "text": "// Donor provenance is recorded in retirement.json; this module performs no donor I/O."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 39,
+      "text": " const job=p.constructSemanticJobInput({...initial,lifecycleRef:selectedDeclaration.declarationRef,evaluationData:{independentSentinel:'evaluator-only-9bff'},taskData:{...initial.taskData,nativeLifecycle:{assets:declaration.stages.map((s,i)=>({stageR"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 44,
+      "text": " await writeFile(join(env.canonicalRoot,'assets/rubric.json'),p.canonicalJson(selectedDeclaration)+'\\n');"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 59,
+      "text": " await writeFile(join(env.canonicalRoot,`assets/${i}.json`),JSON.stringify(value)+'\\n');const observation=n.constructNativeWorkspaceWorkObservation(task,await env.observe(),{summary:'component candidate',gaps:[]},provenance('author-'+i));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 70,
+      "text": "async function component(name,overrides){const file=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 343,
+      "text": " const rubric=join(env.canonicalRoot,'assets/rubric.json'),before=await readFile(rubric);await writeFile(rubric,'changed protected current context');"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 444,
+      "text": " const rubric=join(env.canonicalRoot,'assets/rubric.json'),bytes=await readFile(rubric);await writeFile(rubric,'changed after semantic refusal');"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 562,
+      "text": "// native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json,"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 569,
+      "text": "// design-bound-diagnosis-01/design-input.json (sha256:49b8be73c463\u2026) and the"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 571,
+      "text": "// caller-preparation-01/intake-01/forensic-diagnostic-events.json,"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "line": 49,
+      "text": "  const evidence = JSON.parse(await readFile(evidencePath, \"utf8\"));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "line": 126,
+      "text": "  const closed = JSON.parse(await readFile(evidencePath, \"utf8\"));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "line": 183,
+      "text": "  const callBytes = await readFile(join(closed.scratch, callPaths[0]));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "line": 95,
+      "text": "  await retain(\"input.json\", stdin);"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "line": 105,
+      "text": "  await retain(\"launch.json\", evidenceJson(launch));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "line": 113,
+      "text": "    try { await retain(\"launch-failure.json\", evidenceJson(evidenceError(error))); }"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "line": 132,
+      "text": "    await retain(\"process.json\", evidenceJson({"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "line": 162,
+      "text": "    await retain(\"completion.json\", evidenceJson({"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "line": 210,
+      "text": "    join(ownedProcessProof.evidenceRoot, \"retained.json\"),"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "line": 16,
+      "text": "export const capturedEnvelopeInput=evidenceInput({path:\"comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json\","
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "line": 89,
+      "text": "  const module=new SourceTextModule(readFileSync(modulePath,\"utf8\"),{identifier:modulePath});"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "line": 112,
+      "text": "    await writeFile(join(cliHost, \"package.json\"), `${JSON.stringify({"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "line": 147,
+      "text": "    await readFile(join(installedPackageRoot, \"package.json\"), \"utf8\"),"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "line": 151,
+      "text": "    await readFile("
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "line": 152,
+      "text": "      join(installedPackageRoot, \"product-toolchain-manifest.json\"),"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "line": 167,
+      "text": "    const artifactDigest = product.sha256Bytes(await readFile(artifactPath));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "line": 177,
+      "text": "        artifactDigest: product.sha256Bytes(await readFile(artifactPath)),"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "line": 251,
+      "text": "    await readFile(join(packageRoot, \"package.json\"), \"utf8\"),"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 18,
+      "text": "  const full = proof.closeHandoff.prefix, bytes = await readFile(fileURLToPath(full.eventLogRef));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 22,
+      "text": "    const call = JSON.parse(await readFile(join(proof.scratch, row.name + \"-call.json\"), \"utf8\"));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 70,
+      "text": "  packageName: \"@abiogenesis-fixtures/generic-job-mechanics\", packageVersion: \"5.0.0\","
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 146,
+      "text": "  const values = { \"package.json\": { name: ids.packageName, version: ids.packageVersion, type: \"module\", exports: { \"./publication\": \"./build/publication.json\" },"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 147,
+      "text": "    files: [\"build\", \"contracts\", \"product-toolchain-manifest.json\"],"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 148,
+      "text": "    dependencies: { [abiPublication.productSemanticsBinding.packageName]: `file:${abiPackageArchivePath}` } }, \"build/publication.json\": data,"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 149,
+      "text": "    \"contracts/public-contract-catalog.schema.json\": { $schema: \"https://json-schema.org/draft/2020-12/schema\", type: \"object\" } };"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 162,
+      "text": "    catalogSchemaPath: \"contracts/public-contract-catalog.schema.json\", catalogSchemaDigest: inventory.find(r => r.path.startsWith(\"contracts/\")).sha256, rows: [] };"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 178,
+      "text": "  await writeFile(join(sourceRoot, \"product-toolchain-manifest.json\"), product.canonicalJson(manifest) + \"\\n\", { flag: \"wx\" });"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 184,
+      "text": "    async loadInstalledPublication({ installedRoot }) { const bytes = await readFile(join(installedRoot, \"build/publication.json\"));"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "line": 185,
+      "text": "      assert.equal(product.sha256Bytes(bytes), inventory.find(r => r.path === \"build/publication.json\").sha256);"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "line": 185,
+      "text": "    'node:fs':{readFileSync:()=>{physicalReads++;throw Error('no original file read in replay');},lstatSync:()=>{physicalReads++;throw Error('no original stat in replay');},realpathSync:()=>{physicalReads++;throw Error('no original path in replay');}"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "line": 190,
+      "text": "  const provenance=new SourceTextModule(readFileSync(provenancePath,'utf8'),{identifier:provenancePath});"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "line": 198,
+      "text": "  const module=new SourceTextModule(readFileSync(modulePath,'utf8'),{identifier:modulePath}),links=new Map();"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "line": 218,
+      "text": "      semanticModule=new SourceTextModule(readFileSync(path,'utf8'),{identifier:path});"
+    }
+  ],
+  "note": "Source custody only; no support module or provider executed."
+}

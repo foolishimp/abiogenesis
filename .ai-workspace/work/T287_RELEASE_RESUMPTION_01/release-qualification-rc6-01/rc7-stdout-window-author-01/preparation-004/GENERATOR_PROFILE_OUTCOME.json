@@ -1,0 +1,66 @@
+{
+  "kind": "bounded_generator_profile_and_completed_outcome",
+  "createdUtc": "2026-11-06T17:56:28.832391+00:00",
+  "sample": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/GENERATOR_SAMPLE_001.txt",
+    "bytes": 358457,
+    "sha256": "68e71699c3c27708a797b0f764ded75f9143beec89ee80a47f82cff889e32618"
+  },
+  "processObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/GENERATOR_PROCESS_OBSERVATION_001.json",
+    "bytes": 835,
+    "sha256": "cab614021440a3f04c9d993ef521cd92ed4aa63a3305625792cd9df5f972a785"
+  },
+  "completedBuildReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+    "bytes": 102337,
+    "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+  },
+  "buildSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/SUMMARY.json",
+    "bytes": 4084,
+    "sha256": "10364df1188c668e6bd4406bd0a7c6c69a16db4ef915df8d4513b9fb20689007"
+  },
+  "originalFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/stage-001/stage.json",
+    "bytes": 97531,
+    "sha256": "9ad0946d9c442075add5a0d6bc216f70981ef80471eb8b3858ce1c2e3aff312b"
+  },
+  "profileInterpretation": {
+    "window": "One short sample at2026-11-06T17:49:11Z,28 main-thread samples",
+    "supported": "Main thread was executing an async/file-close continuation in deep anonymous V8/JS frames; repeated frames and iterator/property access were observed. No npm child existed in the adjacent process snapshot.",
+    "unsupported": [
+      "Exact JS function or Product owner",
+      "Infinite loop",
+      "GC dominance",
+      "Whole-phase attribution from44.2percent OS snapshot",
+      "Root cause from elapsed time alone"
+    ],
+    "gc": "Minor collection was visible; background waits do not establish main-thread idleness.",
+    "outputBoundary": "At17:50:46Z graph and manifest remained three-byte placeholders written17:47:39Z; early toolchain/qualification/context output writes had completed. Exact later substage was unresolved."
+  },
+  "actualOutcome": {
+    "generatorWallMs": 197972.945292,
+    "generatorTimeSeconds": {
+      "real": 197.94,
+      "user": 97.7,
+      "sys": 9.14
+    },
+    "generatorMaximumRssBytes": 1889959936,
+    "generatorReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/commands/generate.result.json",
+      "bytes": 1113,
+      "sha256": "386138ab9a1eeb92b281737fddfb4faa15fa1ae4c7b217c47167f2eda7c24d4e"
+    },
+    "lifecycleWallMs": 634.538125000021,
+    "lifecycleReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/commands/lifecycle.result.json",
+      "bytes": 1117,
+      "sha256": "9a435bea64102a6d715611cffad7e0155dad87a1ab4e93fae8398133b5b7fc3e"
+    },
+    "sourceRowsUnchanged": 451,
+    "compiledJsAndDeclarationsUnchanged": 580,
+    "completedReportExplicitlyReusesCompile": true
+  },
+  "disposition": "Canonical unchanged generation completed successfully in197.973s under a separately admitted600s ceiling. Root prospectively reprices only S5 generation to600s. Original180s timeout remains a failure; cause remains unassigned, no speedup or Product acceptance inferred."
+}

@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-02T02:07:57.005Z",
+  "name": "TypeError",
+  "message": "product.sameWorksiteContextIdentity is not a function",
+  "observation": null,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Retain failure and stop. No workspace adjustment, fabricated progress or retry."
+}

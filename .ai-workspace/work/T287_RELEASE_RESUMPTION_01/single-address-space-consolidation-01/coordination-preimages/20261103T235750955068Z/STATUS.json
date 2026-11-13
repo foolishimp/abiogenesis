@@ -1,0 +1,460 @@
+{
+  "recordedUtc": "2026-11-03T23:33:00.279264+00:00",
+  "status": "NATIVE05_SOURCE_FROZEN_NEXT_STEP_SELECTION_IN_PROGRESS",
+  "standing": "Unreleased consolidation successor; immutable installed RC5 remains unchanged and unqualified. Moving source and author tests do not establish acceptance.",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-address-space",
+  "currentActivation": {
+    "name": "native-05",
+    "execSession": 8408,
+    "dispatcherPid": 28716,
+    "abgPid": 28990,
+    "startedUtc": "2026-11-03T21:34:06.657Z",
+    "canonicalRunId": "run://abiogenesis/c4581064ff35c1127d0e65366bc6d662fa29d87bbfbaa874206e954b2782ee73",
+    "manifestSha256": "29e9603f45fdb47f8d045615446b19888b45c280c32138abe8ba18cbc2335a02",
+    "contextDigest": "sha256:233869a9bcd54fe088b56873505a38126f1299f1509b61b0d87d80c0da6b51d8",
+    "callCanonicalDigest": "sha256:7970bb8e4bbdcf22448563a20974196090f4b35de5caa976a1c54c98b7553aac",
+    "entrypoint": "native-05/dispatch-r1.mjs",
+    "workload": "native-05/workload-r1.json",
+    "nativeWorker": {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 34986,
+      "eventId": "event://abiogenesis/140e7811e692e3b7d848c24d9165a20cf08d06475da61c6690882835ce9cb3a7",
+      "eventTime": "2026-11-03T21:40:38.777Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/c4581064ff35c1127d0e65366bc6d662fa29d87bbfbaa874206e954b2782ee73",
+      "offset": 400281967,
+      "rowBytes": 1888,
+      "rowSha256": "0ad99df5f2c2d83004e116c3de66460592a078282c9660af5c841e63126b643e",
+      "processRef": "process://abiogenesis/db343a4ddabe5d22967a0ac3c7464c4deb822c47c32aa84982ff7b175b7b2091",
+      "pid": 33050,
+      "exitedUtc": "2026-11-03T23:22:41.372Z",
+      "wallMs": 6122595.0
+    },
+    "automaticRetry": false,
+    "oneNativeCodingWorker": true
+  },
+  "unchangedOriginalOutcome": "All red-flag categories tied to existing library, full affected caller migration, unnecessary carriage and duplicate code retired, preserved work information, meaningful end-to-end and measured proof. No local-only closure.",
+  "continuity": {
+    "resumeOrder": [
+      "STATUS.json",
+      "ROOT_REENTRY_SELECTION_05.md",
+      "CONTEXT_AND_CAUSAL_MAP.md",
+      "native-04/ROOT_CONJUNCTION.json",
+      "native-05/execution/STARTED.json",
+      "native-05/execution/TIMING_OBSERVATION.json",
+      "native-05/INDEPENDENT_INTERIM_CODE_REVIEW.json"
+    ],
+    "rootClosureRule": "Every R1-R7 row and equivalent affected caller accounted for; one local pass cannot close the task. Preserve applicable accepted evidence and failures; reprove affected relations only.",
+    "resumptionRule": "Reacquire current stage and exact subject, carry original outcome and unresolved relations, then continue the next action. Do not restart completed discovery or qualification.",
+    "frozenMapSha256": "951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec",
+    "frozenSelectionSha256": "071176d93d9b20f0d7ecc0db7f9fa0a6fea1f6d432766807b6e6ea6a7831de5d",
+    "currentRootSelection": "ROOT_REENTRY_SELECTION_05.md",
+    "currentHeldConjunction": "native-04/ROOT_CONJUNCTION.json"
+  },
+  "currentControls": {
+    "preflight": {
+      "contextDigest": "sha256:233869a9bcd54fe088b56873505a38126f1299f1509b61b0d87d80c0da6b51d8",
+      "callCanonicalDigest": "sha256:7970bb8e4bbdcf22448563a20974196090f4b35de5caa976a1c54c98b7553aac",
+      "selectedFiles": 884,
+      "sourcePins": 41,
+      "productWritePaths": 117,
+      "affectedLanes": 11,
+      "distinctTestFiles": 53,
+      "promptBytes": 911812,
+      "promptBound": 1048576,
+      "reserveBytes": 65536,
+      "originalPreflightRefusalPreserved": true
+    },
+    "dispatch": {
+      "startedUtc": "2026-11-03T21:34:06.657Z",
+      "pid": 28716,
+      "manifestSha256": "29e9603f45fdb47f8d045615446b19888b45c280c32138abe8ba18cbc2335a02",
+      "controlReviewSha256": "e3743266239af4ec321c93bf7450a2d33aee13cc8aedf932170c281304a737c7",
+      "refinementReviewSha256": "d2a3847b269d4273d2a42c04fa913a7b96e2b4ad8406cae9dbcc881a009e9104",
+      "nativeCodingStarted": true,
+      "automaticRetry": false,
+      "nativeWorkerStartedUtc": "2026-11-03T21:40:38.777Z",
+      "runRef": "run://abiogenesis/c4581064ff35c1127d0e65366bc6d662fa29d87bbfbaa874206e954b2782ee73",
+      "nativePid": 33050,
+      "dispatchToNativeWorkerMs": 392120.0
+    },
+    "controlReview": "native-05/INDEPENDENT_CONTROL_REVIEW.json",
+    "packetRefinement": "native-05/PACKET_REFINEMENT_01.json",
+    "refinementReview": "native-05/INDEPENDENT_CONTROL_REFINEMENT_01.json"
+  },
+  "latestObservation": {
+    "observedUtc": "2026-11-03T22:56:40.100470+00:00",
+    "throughOrdinal": 41212,
+    "incrementChangedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs"
+    ],
+    "nativeResult": null,
+    "recentToolDescriptions": [
+      {
+        "name": "Bash",
+        "description": "Identify exactly which files native05 changed"
+      },
+      {
+        "name": "Bash",
+        "description": "Check whole-path-7 and replay lane progress"
+      },
+      {
+        "name": "Bash",
+        "description": "Show running test lane command lines"
+      }
+    ],
+    "standing": "Moving source activity only; no correctness, proof pass or completion inferred",
+    "authorHandoff": "Interim return/readiness written partial and not ready at23:07:49Z; native Result not yet admitted; last replay batch still running."
+  },
+  "independentReview": {
+    "reviewer": "/root/rc5_scope_review",
+    "effort": "max",
+    "interimSubject": "native-05/interim-code-review-001/SUBJECT.json",
+    "interimReview": "native-05/INDEPENDENT_INTERIM_CODE_REVIEW.json",
+    "standing": "N5-CODE-01 supported S2 static refusal divergence at exact interim bytes; actual held reader-domain applicability established. No executed false qualification.",
+    "domainSubject": "native-05/qualification-domain-001/SUBJECT.json",
+    "domainReviewExpected": "native-05/QUALIFICATION_DOMAIN_REVIEW.json",
+    "finalSourceAndProofReview": "Exact final hash conjunction completed in FINAL_SOURCE_REVIEW_CUSTODY.json; unchanged code/proof plus separately reviewed late F09 delta retain bounded judgments.",
+    "domainReview": "native-05/QUALIFICATION_DOMAIN_REVIEW.json",
+    "rootDisposition": "native-05/ROOT_N5_CODE01_DISPOSITION.json",
+    "proofReview": "native-05/INDEPENDENT_INTERIM_PROOF_REVIEW.json",
+    "proofStanding": "One S2 N5-PROOF-01: classifier controls do not exercise actual F_H/construction global refusal branches; no new Product defect claimed.",
+    "fixtureTriage": {
+      "agent": "/root/rc5_scope_review",
+      "effort": "max",
+      "status": "complete",
+      "subject": "native-05/fixture-reentry-triage-001/SUBJECT.json",
+      "purpose": "Resolve exact retry-contract/install-history baseline failures and minimal existing current fixture/owner route; current C2 omission of F09 consumers.",
+      "record": "native-05/INDEPENDENT_FIXTURE_ROUTE_TRIAGE.json",
+      "verdict": "Stale fixture/test premises; concrete existing current producer/reader routes; no new Product regression."
+    },
+    "lateF09": "native-05/INDEPENDENT_F09_PROOF_DELTA_REVIEW.json; bounded satisfied, no material finding"
+  },
+  "acceptance": {
+    "originalRubric": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-05/rubric.json",
+    "C1": "Complete affected caller migration and deletion await frozen source/review.",
+    "C2": "Meaningful same-input complete-value and work-reduction proof awaits actual C2.",
+    "C3": "Actual installed owner and maintained harness proof awaits actual C2/UAT/fresh closure.",
+    "C4": "Every original R1-R7 row remains required; no scope reset or whole-workflow gain inferred.",
+    "C5": "Actual source correspondence120/120, green selected lanes, independent review and UAT/fresh conjunction remain pending.",
+    "qualificationOrRelease": false
+  },
+  "timing": {
+    "setup": {
+      "startedUtc": "2026-11-03T13:36:59.593Z",
+      "setupStartedUtc": "2026-11-03T13:37:19.698Z",
+      "endedUtc": "2026-11-03T13:37:49.000Z",
+      "artifactVerificationMs": 19748.530082999998,
+      "sdkSetupMs": 28938.979459000002,
+      "totalOperatorMs": 49406.601708,
+      "operations": [
+        {
+          "label": "workspace-create",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.workspace.create",
+            "memberKey": "imported"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/7a9c234fd12c2532e57480ad856a4c9f48ee6bc99799f5b0565e97ddb683d18f",
+          "acquisitionKind": "eventless",
+          "closeDigest": null,
+          "started": "2026-11-03T13:37:19.827Z",
+          "wallMs": 73.66570800000045
+        },
+        {
+          "label": "product-verify-0",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.product.verify",
+            "memberKey": "verify"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/ef618feabc83cd47eeac90237dc9a2e1b18350d5ff4b404a7db37e689b18dad9",
+          "acquisitionKind": "eventless",
+          "closeDigest": null,
+          "started": "2026-11-03T13:37:20.505Z",
+          "wallMs": 212.86479099999997
+        },
+        {
+          "label": "product-verify-1",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.product.verify",
+            "memberKey": "verify"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/aae8737a87071ba995932cff40694de5115e0ac604213540d44a7ed4baf05107",
+          "acquisitionKind": "eventless",
+          "closeDigest": null,
+          "started": "2026-11-03T13:37:20.845Z",
+          "wallMs": 69.82949999999983
+        },
+        {
+          "label": "product-resolve",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.product.resolve",
+            "memberKey": "resolve"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/acd18f29042ad8b927c7b2bdc9ce9f97048df7fb959a1f79962d656b77d9e6cd",
+          "acquisitionKind": "eventless",
+          "closeDigest": null,
+          "started": "2026-11-03T13:37:25.543Z",
+          "wallMs": 297.885333000002
+        },
+        {
+          "label": "product-install-0",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.product.install",
+            "memberKey": "install"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/1c107220a194d7830fcd512501bbf09d9a7fb6fc66d6931f374a20e9bd364342",
+          "acquisitionKind": "new",
+          "closeDigest": "sha256:6f57fe5752424929bc5f55b2be1a71b6e53b3b4177a594db5f9ceb209e0b273f",
+          "started": "2026-11-03T13:37:26.127Z",
+          "wallMs": 4192.6237500000025
+        },
+        {
+          "label": "product-install-1",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.product.install",
+            "memberKey": "install"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/79dbac731923fc17472ab10f25042659ef9a2833e592422c547c9d6a33984c67",
+          "acquisitionKind": "reopen",
+          "closeDigest": "sha256:4958b4aef353b8ff69e05efc82a279a87afb25f688d02de50afd5ceccc1c7a87",
+          "started": "2026-11-03T13:37:30.797Z",
+          "wallMs": 3156.6440409999996
+        },
+        {
+          "label": "workspace-bind",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.workspace.bind",
+            "memberKey": "bind"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/2a75c51e2a0f44bf0a10227cca12dae4f606c10e824a4092276a66da83af59f4",
+          "acquisitionKind": "reopen",
+          "closeDigest": "sha256:b6b2a5e95ad6d797aa0bb4fc26d49a16556a155acd42a2ea0c04e29de98070af",
+          "started": "2026-11-03T13:37:34.472Z",
+          "wallMs": 1457.7976250000065
+        },
+        {
+          "label": "catalog-admit",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.catalog.admit",
+            "memberKey": "admit"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/96c7b58aa3bc2a7a56f7126b26b600ffa9c2997f0768739941a4ccf4dd876e5c",
+          "acquisitionKind": "reopen",
+          "closeDigest": "sha256:b6b2a5e95ad6d797aa0bb4fc26d49a16556a155acd42a2ea0c04e29de98070af",
+          "started": "2026-11-03T13:37:37.288Z",
+          "wallMs": 5600.704082999997
+        },
+        {
+          "label": "catalog-view",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.catalog.view",
+            "memberKey": "allowlist"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/860658b1227b02328ccf3428bb0e681a05c8f3905e67fdc0fdfb314af739d292",
+          "acquisitionKind": "eventless",
+          "closeDigest": null,
+          "started": "2026-11-03T13:37:44.137Z",
+          "wallMs": 1632.3884590000016
+        },
+        {
+          "label": "program-conformance",
+          "exitCode": 0,
+          "definitionKey": {
+            "operationId": "abg.operation.conformance.evaluate",
+            "memberKey": "gtl_program"
+          },
+          "outcomeKind": "result",
+          "invocationRef": "invocation://abiogenesis/3ffc55f1813d298c213cabc23edb662ce05281c9aa297d400a0ba5997d2d43ab",
+          "acquisitionKind": "eventless",
+          "closeDigest": null,
+          "started": "2026-11-03T13:37:46.640Z",
+          "wallMs": 1974.5014169999995
+        }
+      ],
+      "workerLaunchMs": null,
+      "betweenTaskMs": null,
+      "qualification": false,
+      "providerCalls": 0,
+      "definition": "SDK setup starts before maintained populateSandbox and ends after its completed owner calls. Imported workspace selection is explicit. Bootstrap import/artifact verification and checkout/preparation are separate."
+    },
+    "currentLaunch": "native-05/LAUNCH_TIMING.json",
+    "currentEventObservation": "native-05/execution/TIMING_OBSERVATION.json",
+    "dispatchToNativeWorkerMs": 392120.0,
+    "rootBetweenActivationMs": 1143639.0,
+    "limits": [
+      "Root between-activation work, SDK setup, native launch and in-Run handoffs are separate.",
+      "Current builder is unchanged installed RC5; this run cannot itself establish successor native-workflow speedup.",
+      "Wall intervals are not CPU attribution."
+    ],
+    "nativeToolMetadata": "native-05/NATIVE_TOOL_TIMING_OBSERVATION_001.json",
+    "nativeWorkerMs": 6122595.0,
+    "replayLaneBudgetRisk": "native-05/REPLAY_LANE_BUDGET_OBSERVATION_001.json"
+  },
+  "eta": {
+    "observedUtc": "2026-11-03T23:33:00.279264+00:00",
+    "scope": "Complete evaluated consolidation successor; installed RC5 unchanged and unqualified; no new cut/install included",
+    "planningOriginAEDT": "2026-11-04 10:28",
+    "planningWindowAEDT": [
+      "2026-11-04 13:00",
+      "2026-11-04 14:30"
+    ],
+    "remainingBreakdown": [
+      {
+        "work": "Current C2/UAT/fresh close with next preparation in parallel",
+        "minutes": [
+          20,
+          40
+        ]
+      },
+      {
+        "work": "Next native Worker launch",
+        "minutes": [
+          5,
+          10
+        ]
+      },
+      {
+        "work": "Cache repair and remaining focused proof/fixture work",
+        "minutes": [
+          50,
+          80
+        ]
+      },
+      {
+        "work": "Affected C2 with independent review in parallel",
+        "minutes": [
+          50,
+          75
+        ]
+      },
+      {
+        "work": "Final UAT/fresh reads and Executive conjunction",
+        "minutes": [
+          15,
+          25
+        ]
+      }
+    ],
+    "risk": "Conditional on one successful follow-up; current actual C2 and final after-run close still pending. New contrary evidence can extend the range.",
+    "confidence": "Low to medium conditional planning range. Excludes new cut/install and whole-release qualification.",
+    "priorEstimate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T225941221747Z/STATUS.json",
+      "sha256": "b8b2bd1398ab3049d7c60523fea90de7d39e6a9668151de75b96f53cdcc9f7a5"
+    },
+    "revisionReason": "Actual replay lane took33m57s; earlier20-35min C2 estimate undercounted testing and stale fixture/test premises still require focused correction."
+  },
+  "next": "Observe ABG next selection/actual C2 and Run close. Prepare bounded continuation from exact frozen source, original scope and closed code/proof/fixture triages. Do not change active inputs or start another coding Worker before current close.",
+  "preservedFailures": {
+    "native05Preflight": "native-05/SELECTOR_CAPACITY_PREFLIGHT.json",
+    "native05ToolStall": {
+      "record": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/tool-stall-001/TRIAGE_AND_EFFECT_SELECTION.json",
+      "signal": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/tool-stall-001/SIGNAL_RECEIPT.json",
+      "resumption": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/tool-stall-001/OBSERVED_RESUMPTION.json",
+      "cause": "Bare cat waiting for stdin before selected code-edit command",
+      "effect": "Root SIGTERM exact cat child38102; same provider33050 and ABG Run continued",
+      "sourceRepairByRoot": false,
+      "outsideGrantTemporaryFile": "/tmp/ignore observed empty and preserved; preimage unknown; retain as native tool effect deviation",
+      "standing": "Separate operator/tool failure, no Product performance or test credit"
+    },
+    "priorProjection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T225640161780Z/STATUS.json",
+      "sha256": "2ac174b89e328261b2e60fd4a5481f98ef331888ce2ce97f7e39dad528990268",
+      "reason": "Preserve prior mixed current/historical projection before reconciling native05 identity."
+    }
+  },
+  "activationHistory": [
+    {
+      "activation": "native-01",
+      "outcome": "native-01/execution/outcome-summary.json",
+      "conjunction": null
+    },
+    {
+      "activation": "native-02",
+      "outcome": "native-02/execution/outcome-summary.json",
+      "conjunction": null
+    },
+    {
+      "activation": "native-03",
+      "outcome": "native-03/execution/outcome-summary.json",
+      "conjunction": "native-03/ROOT_CONJUNCTION.json"
+    },
+    {
+      "activation": "native-04",
+      "outcome": "native-04/execution/outcome-summary.json",
+      "conjunction": "native-04/ROOT_CONJUNCTION.json"
+    }
+  ],
+  "closedRC5Handoff": "../rc5-performance-01/local-cut-rc5-01/HANDOFF.md",
+  "projectionPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/20261103T233300279264Z/STATUS.json",
+    "sha256": "a4c6aab8f2bfbb16205cb8ef5fb4a813153b4d2492e861bcd9b8e8102760e6ca"
+  },
+  "frozenSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/review-subject-001/SUBJECT.json",
+    "sha256": "509603ed3f8f1a1c1e71a6a37b7e4769f869094924618d687c81516c97321ab4",
+    "nativeResultRef": "result://abiogenesis/95f6ae44d96e1cf4884a8ec5239ce7f44bab12ab877d416ddafd50d773f1a530",
+    "eventOrdinal": 42383,
+    "eventTime": "2026-11-03T23:22:43.842Z",
+    "afterObservationDigest": "sha256:fb91747333a77354117ab1e231bbd89e8f9dd3febcaffa0e395a0d4aa1575abc",
+    "sourceFiles": 117,
+    "incrementChangedFiles": 34,
+    "cumulativeChangedFiles": 84,
+    "authorReady": false,
+    "reviewCustody": "native-05/FINAL_SOURCE_REVIEW_CUSTODY.json",
+    "authorFeedback": "native-05/author-feedback-001/CUSTODY.json",
+    "standing": "Native admitted exact partial source; no actual C2/UAT/fresh closure or whole acceptance."
+  },
+  "nextPreparationPlan": "NATIVE06_PREPARATION_PLAN.json"
+}

@@ -1,0 +1,22 @@
+{
+  "startedUtc": "2026-11-06T16:27:18.008Z",
+  "endedUtc": "2026-11-06T16:34:45.830Z",
+  "wallMs": 447852.77991700004,
+  "marks": {
+    "beforeRunIdentityMs": 11395.603333000001,
+    "acquiredMs": 304630.82200000004,
+    "environmentMs": 425971.826917
+  },
+  "invoked": false,
+  "transport": "installed_sdk",
+  "sdkExitCode": null,
+  "outcomeKind": null,
+  "disposition": null,
+  "run": null,
+  "physicalCloseSucceeded": true,
+  "errors": [
+    "mechanical-preparation"
+  ],
+  "qualified": false,
+  "meaning": "SDK exitCode is an Effect-host status, not CLI/process metadata. Actual typed blocked/unmet results remain unchanged."
+}

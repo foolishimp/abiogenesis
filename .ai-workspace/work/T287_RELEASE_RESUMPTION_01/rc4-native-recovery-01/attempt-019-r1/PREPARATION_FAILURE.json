@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-03T00:58:44.168Z",
+  "name": "AssertionError",
+  "message": "The expression evaluated to a falsy value:\n\n  assert(observed.entries.every(e=>e.state==='file'||e.state==='directory'||(e.state==='absent'&&selection.allowedAbsentRoots.includes(e.relativePath))))\n",
+  "observation": null,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Preparation refused; no fallback, stale handoff or automatic retry."
+}

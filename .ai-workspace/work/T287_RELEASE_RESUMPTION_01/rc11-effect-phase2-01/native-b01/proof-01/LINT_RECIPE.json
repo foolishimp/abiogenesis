@@ -1,0 +1,18 @@
+{
+  "lint": {
+    "files": [
+      {
+        "path": "test_env/tests/m5-worker-transport.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "kind": "mjs"
+      }
+    ]
+  }
+}

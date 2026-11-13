@@ -1,0 +1,13 @@
+   "kind": "commit",
+   "commit": "92498a2d29eca294d851557753cbda2fe047c357",
+   "parent": "56015068371277c8efed53f0f40d1e53bdee79ea",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 10,
+   "deleted": 0,
+   "records": 21,
+   "recordBytes": 3299338,
+   "status": "grounded",
+   "ms": 14
+  }
+ ],

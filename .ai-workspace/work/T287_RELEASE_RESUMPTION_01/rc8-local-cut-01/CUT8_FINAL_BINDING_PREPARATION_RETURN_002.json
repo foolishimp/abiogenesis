@@ -1,0 +1,74 @@
+{
+  "status": "FINAL_SOURCE_BINDING_PREPARED_NO_EXECUTION",
+  "at": "2026-11-07T11:14:34.064932+00:00",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/ROOT_CUT8_FINAL_BINDING_PREPARATION_002.json",
+    "bytes": 2148,
+    "sha256": "9ebf27ec5a27f0b9d010e2388b62e49b0f72aefe4bb141fcebafa9c94c8c372e"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_FINAL_SOURCE_INVENTORY_002.json",
+    "bytes": 541529,
+    "sha256": "b0710113167753ca54d5e9045ec8fc0a15aae5f3c264b96bdc44e54e76316f10"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_BUILD_BINDINGS_FINAL_SOURCE_002.prepared.json",
+    "bytes": 27039,
+    "sha256": "f389b23e8c3b6d8241c012860bae25824411fbb775c7f7bf4dc056195ecce320"
+  },
+  "timingSufficiency": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_TIMING_SUFFICIENCY_002.json",
+    "bytes": 7063,
+    "sha256": "0a1b4d7af98055e443d2547cd9e674e455cdc1cadff6417d9cc81c5bfc690a6d"
+  },
+  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+  "sourceRows": 1339,
+  "selectedPaths": 25,
+  "trackedPaths": 22,
+  "newPaths": 3,
+  "changedInventoryRows": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "derivedStageRows": 2132,
+  "derivedStageDeltaFromA6": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "unchangedControls": [
+    "run-local-cut.corrected-001.mjs",
+    "PREPARATION_MANIFEST_CORRECTED_001.json",
+    "OWNER_AND_TOOL_PINS.json",
+    "install-local-rc8.mjs",
+    "installed-owner-smoke.mjs"
+  ],
+  "prospectiveAllocations": {
+    "output": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001",
+      "absent": true
+    },
+    "temp": {
+      "path": "/private/tmp/abg-r8c-cut",
+      "absent": true
+    },
+    "releaseRoot": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8",
+      "absent": true
+    },
+    "installHost": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8",
+      "absent": true
+    }
+  },
+  "broadClose": null,
+  "executionAdmitted": false,
+  "requiredBeforeExecution": [
+    "Root final broad/source/residual conjunction and concrete build activation",
+    "Root disposition of credible installedOwner60s timing mismatch"
+  ],
+  "limitsUnchanged": true
+}

@@ -1,0 +1,11 @@
+--- close-proof.corrected-014.mjs
++++ close-proof.corrected-015.mjs
+@@ -124 +124 @@
+-  assert.deepEqual(deferred.map(r=>r.file).sort(),['test_env/tests/t287-governed-context.test.mjs','test_env/tests/t287-installed-product-coordinate.test.mjs','test_env/tests/t287-native-assessment-evidence.test.mjs','test_env/tests/t287-native-worksite-execution.test.mjs','test_env/tests/t287-owned-process-lifetime.test.mjs','test_env/tests/t287-single-address-space-consolidation.test.mjs']);
++  assert.deepEqual(deferred.map(r=>r.file).sort(),['test_env/tests/t287-governed-context.test.mjs','test_env/tests/t287-installed-product-coordinate.test.mjs','test_env/tests/t287-native-assessment-evidence.test.mjs','test_env/tests/t287-native-worksite-execution.test.mjs','test_env/tests/t287-owned-process-lifetime.test.mjs','test_env/tests/t287-recursive-registered-selection.test.mjs','test_env/tests/t287-single-address-space-consolidation.test.mjs']);
+@@ -141 +141 @@
+-  const prep=JSON.parse(await readFile(join(here,'PREPARATION_MANIFEST_CORRECTED_014.json'),'utf8'));assert.equal(await hashFile(join(here,'PREPARATION_MANIFEST_CORRECTED_014.json')),admission.preparationManifestSha256);
++  const prep=JSON.parse(await readFile(join(here,'PREPARATION_MANIFEST_CORRECTED_015.json'),'utf8'));assert.equal(await hashFile(join(here,'PREPARATION_MANIFEST_CORRECTED_015.json')),admission.preparationManifestSha256);
+@@ -276 +276 @@
+-const [mode,configPath,configSha,...rest]=process.argv.slice(2);assert(['bind','run'].includes(mode),'usage: close-proof.corrected-014.mjs bind CONFIG SHA | run CONFIG SHA INVENTORY SHA ADMISSION SHA');
++const [mode,configPath,configSha,...rest]=process.argv.slice(2);assert(['bind','run'].includes(mode),'usage: close-proof.corrected-015.mjs bind CONFIG SHA | run CONFIG SHA INVENTORY SHA ADMISSION SHA');

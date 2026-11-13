@@ -1,0 +1,72 @@
+{
+  "status": "RC11_PREPARATION_COMPLETE_SCOPE_CONJUNCTION_PENDING",
+  "utc": "2026-11-09T06:20:00.702521+00:00",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ACTIVATION.json",
+    "bytes": 2887,
+    "sha256": "d73d5a1d11bf6360fa070cc95d8a4babd5a72588adb122feeb78257866089209"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SELECTION.json",
+    "bytes": 1687,
+    "sha256": "6570f98651c4a4c2df803c2b0a78198bb6b5dbc3f85a753eb29fbf4ce5b9fdf3"
+  },
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/WORKTREE_PREPARATION.json",
+    "bytes": 2209,
+    "sha256": "66fc3f2359619b01a24a1592c1c10ebe72ecba5392f567f2efdcb8edc63a9fa1"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/SOURCE_INVENTORY.json",
+    "bytes": 292691,
+    "sha256": "e25d162544a1779ecdbdbe4fe99a7fbe4ead1589341a34096c136af90fade90d"
+  },
+  "sourceRoot": "/private/tmp/abg-rc11-qualification-20261109",
+  "branch": "codex/rc11-qualification",
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "sourceFiles": 1334,
+  "sourceBytes": 38188055,
+  "tracking": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/TRACKING_RECEIPT.json",
+    "bytes": 1687,
+    "sha256": "03d083f4233fedee8a5aa9f80297b31ef50874231111d2a96b990b6a77e19403"
+  },
+  "nativeRoute": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/NATIVE_ROUTE_PREPARATION.json",
+    "bytes": 5536,
+    "sha256": "4371ee050a0aa20e30a766628b15c9b8c2e921c509a5193e8dd8f5ad9f0ef6ed"
+  },
+  "controlSyntaxChecks": [
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/host.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/transport-preflight.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "model": "claude-opus-5-5",
+  "effort": "xhigh",
+  "remainingAuthority": "Root closed three-residual conjunction, exact native test/support/fixture/metadata scope and budgets, fresh setup then actual PREPARED native admission; external actual model-free evidence generation/staging and proof require separate grants. No O3/full qualification or machine selector selected.",
+  "sourceConserved": true,
+  "mainIndexConserved": true,
+  "immutableBuildersConserved": true,
+  "runtimeAllocated": false,
+  "providerCalls": 0,
+  "returnTo": "/root Executive"
+}

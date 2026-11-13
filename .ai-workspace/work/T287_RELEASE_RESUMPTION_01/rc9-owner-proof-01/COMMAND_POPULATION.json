@@ -1,0 +1,3885 @@
+{
+  "status": "ROOT_SELECTED_POPULATION_EXECUTION_HELD",
+  "rootSelection": "Root accepts import-cone conclusion; selects planned201 = prior208 minus8 explicitly held residual files plusnewregression, subject exactfinalreconciliation; fullW2 first; same-exact-RC9 receipts only; proposed600s/file4hcampaign, no autoextension",
+  "sourcePopulation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-027/BOUND_INVENTORY.json",
+    "bytes": 2158784,
+    "sha256": "6d1e07f11477ac46dd81959c94065d85ddd5432bf1bc862f036c7bfc18e8776f"
+  },
+  "expectedFinalInventory": [
+    "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+    "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+    "test_env/tests/d2-acknowledgment.test.mjs",
+    "test_env/tests/d2-binding-query-reuse.test.mjs",
+    "test_env/tests/d2-binding-transition.test.mjs",
+    "test_env/tests/d2-bounded-repair.test.mjs",
+    "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+    "test_env/tests/d2-historical-design.test.mjs",
+    "test_env/tests/d2-workflow-step.test.mjs",
+    "test_env/tests/forward-command-contracts.test.mjs",
+    "test_env/tests/forward-command-owners.test.mjs",
+    "test_env/tests/generic-input-retention.test.mjs",
+    "test_env/tests/hello-product-boundary.test.mjs",
+    "test_env/tests/hog-operator-support.test.mjs",
+    "test_env/tests/installed-language-smoke.test.mjs",
+    "test_env/tests/integration-shared-seams.test.mjs",
+    "test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test_env/tests/m5-consensus-module.test.mjs",
+    "test_env/tests/m5-event-calculus-runtime.test.mjs",
+    "test_env/tests/m5-event-store-reopen.test.mjs",
+    "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+    "test_env/tests/m5-installed-graph-edge.test.mjs",
+    "test_env/tests/m5-installed-portability.test.mjs",
+    "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+    "test_env/tests/m5-s03-authority.test.mjs",
+    "test_env/tests/m5-s06-prime.test.mjs",
+    "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/r1-packed-artifact.test.mjs",
+    "test_env/tests/r10-child-proof.test.mjs",
+    "test_env/tests/r10-projection-contracts.test.mjs",
+    "test_env/tests/r2-clean-install.test.mjs",
+    "test_env/tests/r3-workspace-binding.test.mjs",
+    "test_env/tests/r4-catalog-admission.test.mjs",
+    "test_env/tests/r5-invocation-admission.test.mjs",
+    "test_env/tests/r6-implementation-resolution.test.mjs",
+    "test_env/tests/r7-graph-validation-basis.test.mjs",
+    "test_env/tests/r8-direct-hog-entry.test.mjs",
+    "test_env/tests/r9-causal-result-closure.test.mjs",
+    "test_env/tests/rc2-assessment-intake.test.mjs",
+    "test_env/tests/retained-route-cursor-transition.test.mjs",
+    "test_env/tests/rival-authority-mutations.test.mjs",
+    "test_env/tests/runtime-scope-regressions.test.mjs",
+    "test_env/tests/steel-basic-cli-c2.test.mjs",
+    "test_env/tests/steel-basic-cli-projection.test.mjs",
+    "test_env/tests/steel-basic-cli-public.test.mjs",
+    "test_env/tests/steel-basic-cli-source-replay.test.mjs",
+    "test_env/tests/steel-consumer-authority.test.mjs",
+    "test_env/tests/steel-consumer-declaration.test.mjs",
+    "test_env/tests/t287-authenticated-owner-family.test.mjs",
+    "test_env/tests/t287-authenticated-owner-values.test.mjs",
+    "test_env/tests/t287-c0-correction-regressions.test.mjs",
+    "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "test_env/tests/t287-c2-child-program.test.mjs",
+    "test_env/tests/t287-c2-core-environment.test.mjs",
+    "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+    "test_env/tests/t287-calculus-fold.test.mjs",
+    "test_env/tests/t287-calculus-state-transfer.test.mjs",
+    "test_env/tests/t287-cold-record-decoder.test.mjs",
+    "test_env/tests/t287-common-computational-library.test.mjs",
+    "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+    "test_env/tests/t287-consensus-ref-shape.test.mjs",
+    "test_env/tests/t287-continuation-causation.test.mjs",
+    "test_env/tests/t287-cross-cut-public-read.test.mjs",
+    "test_env/tests/t287-d1-requirement-handoff.test.mjs",
+    "test_env/tests/t287-d1-semantic-stage.test.mjs",
+    "test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+    "test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+    "test_env/tests/t287-declared-testing-capability.test.mjs",
+    "test_env/tests/t287-default-library-fulfillment.test.mjs",
+    "test_env/tests/t287-default-library.test.mjs",
+    "test_env/tests/t287-deferred-application-restoration.test.mjs",
+    "test_env/tests/t287-environment-projection-conservation.test.mjs",
+    "test_env/tests/t287-event-body-encoding.test.mjs",
+    "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+    "test_env/tests/t287-exact-construction-intent.test.mjs",
+    "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+    "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+    "test_env/tests/t287-framework-handoff-types.test.mjs",
+    "test_env/tests/t287-generic-job-intake.test.mjs",
+    "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+    "test_env/tests/t287-generic-job-meaning.test.mjs",
+    "test_env/tests/t287-generic-job-parent-audit.test.mjs",
+    "test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+    "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+    "test_env/tests/t287-generic-job-revision.test.mjs",
+    "test_env/tests/t287-generic-job-worksite.test.mjs",
+    "test_env/tests/t287-governance-covered-source-use.test.mjs",
+    "test_env/tests/t287-governed-context.test.mjs",
+    "test_env/tests/t287-gtl-graph-law.test.mjs",
+    "test_env/tests/t287-gtl-language-corpus.test.mjs",
+    "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-held-prefix.test.mjs",
+    "test_env/tests/t287-historical-source-resource.test.mjs",
+    "test_env/tests/t287-installed-dependency-lock.test.mjs",
+    "test_env/tests/t287-installed-product-coordinate.test.mjs",
+    "test_env/tests/t287-installed-qualification-conservation.test.mjs",
+    "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+    "test_env/tests/t287-json-value-definition.test.mjs",
+    "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "test_env/tests/t287-live-worksite-construction.test.mjs",
+    "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+    "test_env/tests/t287-management-context.test.mjs",
+    "test_env/tests/t287-management-stream-drain.test.mjs",
+    "test_env/tests/t287-management-supervision.test.mjs",
+    "test_env/tests/t287-multi-candidate-admission.test.mjs",
+    "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "test_env/tests/t287-native-event-time.test.mjs",
+    "test_env/tests/t287-native-frame-observation.test.mjs",
+    "test_env/tests/t287-native-owner-reuse.test.mjs",
+    "test_env/tests/t287-native-registered-selection.test.mjs",
+    "test_env/tests/t287-native-runtime-gate.test.mjs",
+    "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+    "test_env/tests/t287-native-semantic-evidence.test.mjs",
+    "test_env/tests/t287-native-semantic-job.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+    "test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "test_env/tests/t287-native-work-unknown-effect.test.mjs",
+    "test_env/tests/t287-native-worksite-execution.test.mjs",
+    "test_env/tests/t287-native-workspace-work.test.mjs",
+    "test_env/tests/t287-observed-worksite-command.test.mjs",
+    "test_env/tests/t287-ordered-reconstruction.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs",
+    "test_env/tests/t287-owned-native-proof.test.mjs",
+    "test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+    "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+    "test_env/tests/t287-predecessor-context.test.mjs",
+    "test_env/tests/t287-public-groups.test.mjs",
+    "test_env/tests/t287-public-preparation.test.mjs",
+    "test_env/tests/t287-public-terminal-projection.test.mjs",
+    "test_env/tests/t287-qual056-material.test.mjs",
+    "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+    "test_env/tests/t287-qualification-contraction.test.mjs",
+    "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+    "test_env/tests/t287-qualification-law.test.mjs",
+    "test_env/tests/t287-qualification-parent-alias.test.mjs",
+    "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+    "test_env/tests/t287-qualification-producer-context.test.mjs",
+    "test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+    "test_env/tests/t287-qualification-scopes.test.mjs",
+    "test_env/tests/t287-r4-aba-retry.test.mjs",
+    "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+    "test_env/tests/t287-reacquisition-root-contract.test.mjs",
+    "test_env/tests/t287-reconstruction-conservation.test.mjs",
+    "test_env/tests/t287-recursive-registered-selection.test.mjs",
+    "test_env/tests/t287-registered-graph-selection.test.mjs",
+    "test_env/tests/t287-release-acceptance.test.mjs",
+    "test_env/tests/t287-release-publication.test.mjs",
+    "test_env/tests/t287-required-operation-bindings.test.mjs",
+    "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+    "test_env/tests/t287-retained-installed-consumer.test.mjs",
+    "test_env/tests/t287-retry-run-prefix.test.mjs",
+    "test_env/tests/t287-route-reconstruction.test.mjs",
+    "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
+    "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+    "test_env/tests/t287-rp2-fibre-substitution.test.mjs",
+    "test_env/tests/t287-rp2-material-selection.test.mjs",
+    "test_env/tests/t287-rp2-resource-memo.test.mjs",
+    "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+    "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+    "test_env/tests/t287-s03-automatic.test.mjs",
+    "test_env/tests/t287-select-family.test.mjs",
+    "test_env/tests/t287-selected-action-authority.test.mjs",
+    "test_env/tests/t287-selected-action.test.mjs",
+    "test_env/tests/t287-selected-execution-closure.test.mjs",
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+    "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+    "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+    "test_env/tests/t287-static-declaration-closure.test.mjs",
+    "test_env/tests/t287-stdo-environment-citation.test.mjs",
+    "test_env/tests/t287-stdo-proof-entry.test.mjs",
+    "test_env/tests/t287-stdo-run-environment.test.mjs",
+    "test_env/tests/t287-stdo3-run-environment.test.mjs",
+    "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+    "test_env/tests/t287-undispatched-diagnostic.test.mjs",
+    "test_env/tests/t287-value-equality.test.mjs",
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+    "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+    "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+    "test_env/tests/t287-wave2-installed-product-verification.test.mjs",
+    "test_env/tests/t287-wave2-owner-chain.test.mjs",
+    "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+    "test_env/tests/t287-worksite-branch-construction.test.mjs",
+    "test_env/tests/t287-worksite-command-execution.test.mjs",
+    "test_env/tests/t287-worksite-construction.test.mjs",
+    "test_env/tests/t288-initial-cursor-entry.test.mjs",
+    "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "test_env/tests/t288-logical-prefix-digest.test.mjs",
+    "test_env/tests/t289-install-event-bodies.test.mjs",
+    "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+    "test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+    "test_env/tests/w2-steel-single-start-closure.test.mjs",
+    "test_env/tests/w2-steel-single-start-installed.test.mjs",
+    "test_env/tests/w2-steel-single-start.test.mjs",
+    "test_env/tests/witness-reprice-definition-binding.test.mjs",
+    "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "scheduledCount": 201,
+  "heldCount": 8,
+  "commands": [
+    {
+      "order": 1,
+      "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 2,
+      "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 3,
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-owned-call-reference.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 4,
+      "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 5,
+      "file": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 6,
+      "file": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 7,
+      "file": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-installed-product-coordinate.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 8,
+      "file": "test_env/tests/t289-install-event-bodies.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t289-install-event-bodies.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 9,
+      "file": "test_env/tests/t287-calculus-fold.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-calculus-fold.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 10,
+      "file": "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 11,
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 12,
+      "file": "test_env/tests/r4-catalog-admission.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 13,
+      "file": "test_env/tests/r5-invocation-admission.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r5-invocation-admission.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 14,
+      "file": "test_env/tests/r7-graph-validation-basis.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r7-graph-validation-basis.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 15,
+      "file": "test_env/tests/r8-direct-hog-entry.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r8-direct-hog-entry.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 16,
+      "file": "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 17,
+      "file": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 18,
+      "file": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/d1-preserved-result-mechanics.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 19,
+      "file": "test_env/tests/d2-acknowledgment.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/d2-acknowledgment.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 20,
+      "file": "test_env/tests/d2-binding-query-reuse.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/d2-binding-query-reuse.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 21,
+      "file": "test_env/tests/d2-binding-transition.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/d2-binding-transition.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 22,
+      "file": "test_env/tests/d2-bounded-repair.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/d2-bounded-repair.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 23,
+      "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/d2-evidence-owner-lookup.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 24,
+      "file": "test_env/tests/d2-historical-design.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/d2-historical-design.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 25,
+      "file": "test_env/tests/d2-workflow-step.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/d2-workflow-step.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 26,
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/forward-command-contracts.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 27,
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/forward-command-owners.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 28,
+      "file": "test_env/tests/generic-input-retention.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/generic-input-retention.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 29,
+      "file": "test_env/tests/hello-product-boundary.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/hello-product-boundary.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 30,
+      "file": "test_env/tests/hog-operator-support.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/hog-operator-support.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 31,
+      "file": "test_env/tests/installed-language-smoke.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/installed-language-smoke.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 32,
+      "file": "test_env/tests/integration-shared-seams.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/integration-shared-seams.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 33,
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-c-algebra-validation.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 34,
+      "file": "test_env/tests/m5-consensus-module.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-consensus-module.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 35,
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-event-calculus-runtime.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 36,
+      "file": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 37,
+      "file": "test_env/tests/m5-installed-graph-edge.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-installed-graph-edge.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 38,
+      "file": "test_env/tests/m5-installed-portability.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-installed-portability.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 39,
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 40,
+      "file": "test_env/tests/m5-s03-authority.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-s03-authority.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 41,
+      "file": "test_env/tests/m5-s06-prime.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-s06-prime.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 42,
+      "file": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/m5-terminal-quiescence-owner.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 43,
+      "file": "test_env/tests/r1-packed-artifact.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r1-packed-artifact.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 44,
+      "file": "test_env/tests/r10-child-proof.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r10-child-proof.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 45,
+      "file": "test_env/tests/r10-projection-contracts.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r10-projection-contracts.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 46,
+      "file": "test_env/tests/r2-clean-install.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r2-clean-install.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 47,
+      "file": "test_env/tests/r3-workspace-binding.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r3-workspace-binding.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 48,
+      "file": "test_env/tests/r6-implementation-resolution.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r6-implementation-resolution.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 49,
+      "file": "test_env/tests/r9-causal-result-closure.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/r9-causal-result-closure.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 50,
+      "file": "test_env/tests/rc2-assessment-intake.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/rc2-assessment-intake.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 51,
+      "file": "test_env/tests/retained-route-cursor-transition.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/retained-route-cursor-transition.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 52,
+      "file": "test_env/tests/rival-authority-mutations.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/rival-authority-mutations.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 53,
+      "file": "test_env/tests/runtime-scope-regressions.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/runtime-scope-regressions.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 54,
+      "file": "test_env/tests/steel-basic-cli-c2.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/steel-basic-cli-c2.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 55,
+      "file": "test_env/tests/steel-basic-cli-projection.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/steel-basic-cli-projection.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 56,
+      "file": "test_env/tests/steel-basic-cli-public.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/steel-basic-cli-public.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 57,
+      "file": "test_env/tests/steel-basic-cli-source-replay.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/steel-basic-cli-source-replay.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 58,
+      "file": "test_env/tests/steel-consumer-authority.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/steel-consumer-authority.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 59,
+      "file": "test_env/tests/steel-consumer-declaration.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/steel-consumer-declaration.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 60,
+      "file": "test_env/tests/t287-authenticated-owner-family.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-authenticated-owner-family.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 61,
+      "file": "test_env/tests/t287-authenticated-owner-values.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-authenticated-owner-values.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 62,
+      "file": "test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-c0-correction-regressions.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 63,
+      "file": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 64,
+      "file": "test_env/tests/t287-c2-child-program.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-c2-child-program.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 65,
+      "file": "test_env/tests/t287-c2-core-environment.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-c2-core-environment.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 66,
+      "file": "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-c2a-fp-source-contract.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 67,
+      "file": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-calculus-state-transfer.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 68,
+      "file": "test_env/tests/t287-cold-record-decoder.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-cold-record-decoder.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 69,
+      "file": "test_env/tests/t287-common-computational-library.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-common-computational-library.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 70,
+      "file": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-conformance-owner-reuse.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 71,
+      "file": "test_env/tests/t287-consensus-ref-shape.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-consensus-ref-shape.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 72,
+      "file": "test_env/tests/t287-continuation-causation.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-continuation-causation.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 73,
+      "file": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-cross-cut-public-read.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 74,
+      "file": "test_env/tests/t287-d1-requirement-handoff.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-d1-requirement-handoff.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 75,
+      "file": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-d1-semantic-stage.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 76,
+      "file": "test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 77,
+      "file": "test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 78,
+      "file": "test_env/tests/t287-declared-testing-capability.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-declared-testing-capability.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 79,
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-default-library-fulfillment.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 80,
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-default-library.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 81,
+      "file": "test_env/tests/t287-deferred-application-restoration.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-deferred-application-restoration.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 82,
+      "file": "test_env/tests/t287-environment-projection-conservation.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-environment-projection-conservation.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 83,
+      "file": "test_env/tests/t287-event-body-encoding.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-event-body-encoding.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 84,
+      "file": "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-event-calculus-owner-continuation.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 85,
+      "file": "test_env/tests/t287-exact-construction-intent.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-exact-construction-intent.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 86,
+      "file": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 87,
+      "file": "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-f09-frontier-handoff.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 88,
+      "file": "test_env/tests/t287-framework-handoff-types.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-framework-handoff-types.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 89,
+      "file": "test_env/tests/t287-generic-job-intake.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-generic-job-intake.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 90,
+      "file": "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-generic-job-lifecycle.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 91,
+      "file": "test_env/tests/t287-generic-job-meaning.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-generic-job-meaning.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 92,
+      "file": "test_env/tests/t287-generic-job-parent-audit.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-generic-job-parent-audit.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 93,
+      "file": "test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-generic-job-parent-foldback.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 94,
+      "file": "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-generic-job-read-dependency.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 95,
+      "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-generic-job-revision.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 96,
+      "file": "test_env/tests/t287-generic-job-worksite.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-generic-job-worksite.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 97,
+      "file": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-governance-covered-source-use.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 98,
+      "file": "test_env/tests/t287-gtl-graph-law.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-gtl-graph-law.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 99,
+      "file": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-gtl-language-corpus.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 100,
+      "file": "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-gtl-serialization-publication.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 101,
+      "file": "test_env/tests/t287-held-prefix.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-held-prefix.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 102,
+      "file": "test_env/tests/t287-historical-source-resource.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-historical-source-resource.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 103,
+      "file": "test_env/tests/t287-installed-dependency-lock.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-installed-dependency-lock.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 104,
+      "file": "test_env/tests/t287-installed-qualification-conservation.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-installed-qualification-conservation.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 105,
+      "file": "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 106,
+      "file": "test_env/tests/t287-json-value-definition.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-json-value-definition.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 107,
+      "file": "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-lifecycle-failure-carrier.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 108,
+      "file": "test_env/tests/t287-live-worksite-construction.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-live-worksite-construction.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 109,
+      "file": "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-malformed-gtl-gate.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 110,
+      "file": "test_env/tests/t287-management-context.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-management-context.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 111,
+      "file": "test_env/tests/t287-management-stream-drain.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-management-stream-drain.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 112,
+      "file": "test_env/tests/t287-management-supervision.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-management-supervision.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 113,
+      "file": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-multi-candidate-admission.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 114,
+      "file": "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-assembly-retained-input.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 115,
+      "file": "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-c2-instruction-assembly.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 116,
+      "file": "test_env/tests/t287-native-event-time.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-event-time.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 117,
+      "file": "test_env/tests/t287-native-frame-observation.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-frame-observation.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 118,
+      "file": "test_env/tests/t287-native-owner-reuse.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-owner-reuse.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 119,
+      "file": "test_env/tests/t287-native-registered-selection.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-registered-selection.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 120,
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-runtime-gate.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 121,
+      "file": "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-selection-profile-scope.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 122,
+      "file": "test_env/tests/t287-native-semantic-evidence.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-semantic-evidence.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 123,
+      "file": "test_env/tests/t287-native-semantic-job.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-semantic-job.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 124,
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-semantic-revision.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 125,
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-structural-gates.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 126,
+      "file": "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 127,
+      "file": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-work-reacquisition.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 128,
+      "file": "test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-work-unknown-effect.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 129,
+      "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-worksite-execution.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 130,
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-native-workspace-work.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 131,
+      "file": "test_env/tests/t287-observed-worksite-command.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-observed-worksite-command.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 132,
+      "file": "test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-ordered-reconstruction.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 133,
+      "file": "test_env/tests/t287-owned-native-proof.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-owned-native-proof.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 134,
+      "file": "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 135,
+      "file": "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-post-binding-worksite-write.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 136,
+      "file": "test_env/tests/t287-predecessor-context.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-predecessor-context.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 137,
+      "file": "test_env/tests/t287-public-groups.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-public-groups.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 138,
+      "file": "test_env/tests/t287-public-preparation.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-public-preparation.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 139,
+      "file": "test_env/tests/t287-public-terminal-projection.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-public-terminal-projection.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 140,
+      "file": "test_env/tests/t287-qual056-material.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qual056-material.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 141,
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qualification-carrier-resource.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 142,
+      "file": "test_env/tests/t287-qualification-contraction.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qualification-contraction.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 143,
+      "file": "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 144,
+      "file": "test_env/tests/t287-qualification-law.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qualification-law.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 145,
+      "file": "test_env/tests/t287-qualification-parent-alias.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qualification-parent-alias.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 146,
+      "file": "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 147,
+      "file": "test_env/tests/t287-qualification-producer-context.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qualification-producer-context.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 148,
+      "file": "test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qualification-raw-contract-preimage.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 149,
+      "file": "test_env/tests/t287-qualification-scopes.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-qualification-scopes.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 150,
+      "file": "test_env/tests/t287-r4-aba-retry.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-r4-aba-retry.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 151,
+      "file": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-r6-retry-success-exit.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 152,
+      "file": "test_env/tests/t287-reacquisition-root-contract.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-reacquisition-root-contract.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 153,
+      "file": "test_env/tests/t287-reconstruction-conservation.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-reconstruction-conservation.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 154,
+      "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-registered-graph-selection.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 155,
+      "file": "test_env/tests/t287-release-acceptance.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 156,
+      "file": "test_env/tests/t287-release-publication.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-release-publication.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 157,
+      "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-required-operation-bindings.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 158,
+      "file": "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 159,
+      "file": "test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 160,
+      "file": "test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-retained-installed-consumer.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 161,
+      "file": "test_env/tests/t287-retry-run-prefix.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 162,
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-route-reconstruction.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 163,
+      "file": "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-rp2-behavior-carriers.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 164,
+      "file": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-rp2-correction-carriers.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 165,
+      "file": "test_env/tests/t287-rp2-fibre-substitution.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-rp2-fibre-substitution.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 166,
+      "file": "test_env/tests/t287-rp2-material-selection.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-rp2-material-selection.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 167,
+      "file": "test_env/tests/t287-rp2-resource-memo.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-rp2-resource-memo.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 168,
+      "file": "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-runtime-activity-quiescence.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 169,
+      "file": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-runtime-failure-diagnostic.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 170,
+      "file": "test_env/tests/t287-s03-automatic.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-s03-automatic.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 171,
+      "file": "test_env/tests/t287-select-family.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-select-family.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 172,
+      "file": "test_env/tests/t287-selected-action.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-selected-action.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 173,
+      "file": "test_env/tests/t287-selected-execution-closure.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-selected-execution-closure.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 174,
+      "file": "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 175,
+      "file": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 176,
+      "file": "test_env/tests/t287-static-declaration-closure.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-static-declaration-closure.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 177,
+      "file": "test_env/tests/t287-stdo-environment-citation.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-stdo-environment-citation.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 178,
+      "file": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-stdo-proof-entry.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 179,
+      "file": "test_env/tests/t287-stdo-run-environment.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-stdo-run-environment.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 180,
+      "file": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-stdo3-run-environment.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 181,
+      "file": "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 182,
+      "file": "test_env/tests/t287-undispatched-diagnostic.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-undispatched-diagnostic.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 183,
+      "file": "test_env/tests/t287-value-equality.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-value-equality.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 184,
+      "file": "test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-wave2-definition-coordinate.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 185,
+      "file": "test_env/tests/t287-wave2-installed-product-verification.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-wave2-installed-product-verification.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 186,
+      "file": "test_env/tests/t287-wave2-owner-chain.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-wave2-owner-chain.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 187,
+      "file": "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 188,
+      "file": "test_env/tests/t287-worksite-construction.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-worksite-construction.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 189,
+      "file": "test_env/tests/t288-initial-cursor-entry.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t288-initial-cursor-entry.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 190,
+      "file": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 191,
+      "file": "test_env/tests/t288-logical-prefix-digest.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t288-logical-prefix-digest.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 192,
+      "file": "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t291-m6-admission-refusal-surface.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 193,
+      "file": "test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/w2-steel-serial-branch-installed.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 194,
+      "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/w2-steel-single-start-closure.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 195,
+      "file": "test_env/tests/w2-steel-single-start-installed.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/w2-steel-single-start-installed.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 196,
+      "file": "test_env/tests/w2-steel-single-start.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/w2-steel-single-start.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 197,
+      "file": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/witness-reprice-definition-binding.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 198,
+      "file": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/witness-run-stopped-definition-binding.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 199,
+      "file": "test_env/uat/harness.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/uat/harness.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": false
+    },
+    {
+      "order": 200,
+      "file": "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": true
+    },
+    {
+      "order": 201,
+      "file": "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-reporter-destination=stdout",
+        "--test-reporter=<derived-tenant>/scripts/node-test-evidence-reporter.mjs",
+        "--test-reporter-destination=<bound-output>/events/<ordinal>.jsonl",
+        "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs"
+      ],
+      "timeoutMs": 600000,
+      "cwd": "<derived-final-frozen-tenant>",
+      "isolatedBuildEffect": true
+    }
+  ],
+  "held": [
+    {
+      "file": "test_env/tests/t287-governed-context.test.mjs",
+      "capsule": "RC8-GC03-METHOD-304",
+      "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE"
+    },
+    {
+      "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "capsule": "RC8-NATIVE-ASSESSMENT-PROFILE",
+      "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE"
+    },
+    {
+      "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "capsule": "RC8-SAS-WHOLE-PROOF",
+      "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE"
+    },
+    {
+      "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "capsule": "RC8-PHYSICAL-LIFETIME-013",
+      "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE"
+    },
+    {
+      "file": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "capsule": "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+      "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE"
+    },
+    {
+      "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+      "capsule": "RC8-SELECTED-ACTION-PROFILE",
+      "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE"
+    },
+    {
+      "file": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "capsule": "RC8-C3-COMPOSITION-PROOF-BUDGET",
+      "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE"
+    },
+    {
+      "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "capsule": "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET",
+      "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE"
+    }
+  ],
+  "executionStanding": "No candidate freeze/archive/dependency-stage/fixture binding yet. Command templates are concrete population, not executable readiness."
+}

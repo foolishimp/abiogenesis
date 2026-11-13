@@ -1,0 +1,1545 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5.0",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "selection": "RC6_BASED_5_0_QUALIFICATION_RESUMPTION",
+    "families": [
+      "A5-F01",
+      "A5-F02",
+      "A5-F03",
+      "A5-F04",
+      "A5-F05",
+      "A5-F06",
+      "A5-F07",
+      "A5-F09",
+      "A5-F10",
+      "A5-F11",
+      "A5-F13",
+      "A5-F14",
+      "A5-F15",
+      "A5-F16",
+      "A5-F17"
+    ],
+    "scenarios": [
+      "ABG5-S01",
+      "ABG5-S02",
+      "ABG5-S03",
+      "ABG5-S06",
+      "ABG5-S07"
+    ],
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "sourceToolRuntimeSplit": {
+      "immutable_definition": [
+        "GTLProgram",
+        "GraphFunction",
+        "overlay",
+        "contracts",
+        "Product/lock/WorkspaceBinding coordinates"
+      ],
+      "derived_tools": [
+        "catalog construction/narrowing",
+        "Public projections",
+        "coverage catalog",
+        "qualification resource preparation",
+        "evidence matrices"
+      ],
+      "observations": [
+        "test outcomes",
+        "artifact/source correspondence",
+        "native results",
+        "fresh readbacks",
+        "review results"
+      ],
+      "owner_effects": "Declared GTL selects owner effects through HoG; ABG alone admits runtime truth; replay reconstructs it. Reviewer report and source hashes create no runtime authority."
+    },
+    "prohibitions": [
+      "No semantic compiler, lowered Program, second runtime/controller/registry or private event writer.",
+      "No dynamic graph generation.",
+      "No 5.1 F08/S05 or F12/S04 claim; no native human response/resume or same-edge yield producer.",
+      "No full original Data Mapper prerequisite.",
+      "No release, human acceptance, selector or publication effect in this review."
+    ]
+  },
+  "kind": "t287_rc6_fifteen_family_and_required_scenario_coverage_review",
+  "recordedUtc": "2026-11-05T07:54:01.904575+00:00",
+  "role": "Independent MAX Reviewer",
+  "consumer": "Root Executive",
+  "status": "closed_returned",
+  "reviewPredicate": "Whether the reacquired frozen RC6 mechanisms and retained evidence establish the complete selected 5.0 family/scenario qualification conjunction, and which dependency-ready proof remains.",
+  "verdict": "indeterminate",
+  "triage": {
+    "class": "indeterminate",
+    "technicalSeverity": "indeterminate",
+    "priority": "not_assigned",
+    "promotionBoundaryEffect": "Root owns disposition; no whole-product qualification is established."
+  },
+  "subject": {
+    "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "commit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "tree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "installedProduct": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant",
+    "standing": "Local unqualified development candidate; installed identity is receipt-bound, not newly invoked here."
+  },
+  "authority": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/FEATURE_AUDIT_REQUEST.json",
+      "bytes": 4426,
+      "sha256": "fbc2541d50ed6d9d9408bf3f68b5ef27a1c4f692da233d89e26ebcc18c52d4d1"
+    },
+    "activation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "methodSkill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "evaluationMemberSha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485",
+    "activationMemberSha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+  },
+  "summary": {
+    "familyRows": 15,
+    "scenarioRows": 5,
+    "currentWholeProductQualification": false,
+    "newProductRegressionDemonstrated": false,
+    "meaning": "Mechanisms are materially implemented and bounded accepted evidence is preserved. No family is labelled absent merely because current exact-candidate qualification is missing. Current evidence is insufficient for the required conjunction.",
+    "principalDependencies": [
+      "N9-RETAINED-FIXTURE-01 before dependent D2 proof",
+      "Q23 assessor identity and QR-02 source-grounded contributor selection before independent F11 credit",
+      "Successor resource/prospective-release binding; retained helper and tenant manifest still RC1",
+      "Current affected S01/S02/S03/S06 evidence and independent sufficiency judgment",
+      "Prospective S07 through existing owners, then reserved actual human acceptance/publication"
+    ]
+  },
+  "mechanicalVerification": {
+    "controlPinsMatched": true,
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "sourceTree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+    "trackedStatus": "",
+    "capsuleRecordsVerified": 23,
+    "conservedSourceFilesVerified": 157,
+    "mismatches": [],
+    "methodDefinitionVerification": {
+      "manager": "/Users/jim/.local/bin/stdo",
+      "definition_id": "urn:stdo:product-definition:abiogenesis",
+      "installed": true,
+      "valid": true,
+      "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+    },
+    "builds": 0,
+    "tests": 0,
+    "nativeRuns": 0,
+    "providerCalls": 0,
+    "installations": 0
+  },
+  "families": [
+    {
+      "id": "A5-F01",
+      "outcome": "Exact Product, install, workspace and catalog",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F01)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-INSTALL.md#",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-CATALOG.md#"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+          "bytes": 92039,
+          "sha256": "bd34c1095ab3109704941cc55968e4a64bc5dae559a41e1252b5e231eaf95688",
+          "line": 2011,
+          "mechanism": "verifyProduct"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+          "bytes": 18597,
+          "sha256": "6587f5a46e752c9c21d2f7328a43e241796d8b855ec4f3791e0b9e169f559ce2",
+          "line": 298,
+          "mechanism": "installProduct/installProductInResolvedLock and content correspondence"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/workspace_operations.ts",
+          "bytes": 22187,
+          "sha256": "dbbea975c69a6f82f037a9dc43b05f5bb013d77c32bbf22f2815d5db4a2298e8",
+          "line": 492,
+          "mechanism": "create/open exact workspace"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/catalog_operations.ts",
+          "bytes": 13201,
+          "sha256": "48f7eddd0f63b31da83bd35fa14495843589e574948be26df48757aaecc0ef7f",
+          "line": 266,
+          "mechanism": "Raw-admit/validate publication before immutable catalog construction"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E05",
+        "E06",
+        "E11",
+        "E15"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "RC6 installation is established by retained owner receipts. Complete source-blind R1-R10 and catalog refusal coverage on one prospective pre-RC subject is not established."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "Conflict/dependency refusals and fresh catalog/workspace joins need exact scenario coverage; installation alone is insufficient.",
+      "invalidator_or_reuse_rationale": "Reuse RC6 packaging and the 5,325-member correspondence. Earlier installed starts retain their original subject.",
+      "smallest_next_proof": "Bind one external minimal Program and oracle to the exact installed pre-RC basis, then close S01 with two fresh reads."
+    },
+    {
+      "id": "A5-F02",
+      "outcome": "Complete GTL authoring and validation",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F02)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md#",
+        "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+          "bytes": 21843,
+          "sha256": "1568dbd0418a0706c7d3555ae5ad0d946cba0a399c468feec2dc46140ba494f1",
+          "line": 8,
+          "mechanism": "All seven C constructors and typed value carriers"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/graph_construction.ts",
+          "bytes": 23993,
+          "sha256": "5e26fbe0abaffb6b682aeb0edd008289806ce78a78b6a0d59b1ce03760d48251",
+          "line": 339,
+          "mechanism": "identity/promote/compose/substitute GraphFunction construction"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/serialization.ts",
+          "bytes": 2370,
+          "sha256": "1dacbc80962e2cbec9622343e407c6b15749e992b339ec5cd911b297e40ef434",
+          "line": 7,
+          "mechanism": "raw admission and canonical serialization"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+          "bytes": 83926,
+          "sha256": "e81f929f893f5f1132df12a2c70eb49e263cfb089835f13550b9b85360cf1f1f",
+          "line": 1939,
+          "mechanism": "whole-Program validation and publication owner"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E11",
+        "E14",
+        "E20"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "Complete retained-language and malformed-program coverage has no authenticated current F11 sufficiency judgment."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "All seven constructor mechanisms are present. Complete executed nested forms and nearest mutation negatives on the current subject remain unknown.",
+      "invalidator_or_reuse_rationale": "Old D5 gap rows are historical. The RP2 carriers are present; same-edge yield production is reserved for 5.1.",
+      "smallest_next_proof": "Join the existing finite conservation population to retained execution evidence, then exercise only missing or invalidated cases."
+    },
+    {
+      "id": "A5-F03",
+      "outcome": "Complete graph, C and traversal execution",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F03)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md#",
+        "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-CCALL.md#"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+          "bytes": 46913,
+          "sha256": "78d213d48e697882b8614d825c8a6cb4b4c7ee9ef5b5f3a75cbc72f80c33ec49",
+          "line": 1122,
+          "mechanism": "Effect traversal through existing C-call/retry/workflow/recursion owners"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/hog/structural_transition.ts",
+          "bytes": 9772,
+          "sha256": "2cd043820485c949405a8b23a0bb32abbabe9e3d6bf958d66c7897040ae2a742",
+          "line": 63,
+          "mechanism": "structural transition owner"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+          "bytes": 21843,
+          "sha256": "1568dbd0418a0706c7d3555ae5ad0d946cba0a399c468feec2dc46140ba494f1",
+          "line": 603,
+          "mechanism": "seven-constructor C API"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+          "bytes": 293838,
+          "sha256": "79788a830ca61f6c31397c85a95f373d3cddc77e0457c6907452d4b70d452422",
+          "line": 6896,
+          "mechanism": "owned result admission"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E09",
+        "E11",
+        "E12",
+        "E13",
+        "E14",
+        "E20"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "Bounded direct traversal, retry, current-intent and RAW proof exists; the complete retained 4.6 matrix is not qualified."
+      },
+      "genuine_code_gap": "A current N9 test-premise mismatch is demonstrated. No new HoG/Product traversal regression was established by this audit.",
+      "remaining_gap_or_unknown": "The selected-action positive and several gated caller arms remain unexecuted. N9 stops the later D2 assertions.",
+      "invalidator_or_reuse_rationale": "Do not revive old batch, fibre or ticket-carrier absence. Preserve native09 revision 4/1/2 and consumer 59/0/73 without promoting skips.",
+      "smallest_next_proof": "Repair the N9 component premise at its owner, then select the first uncovered supported traversal relation."
+    },
+    {
+      "id": "A5-F04",
+      "outcome": "Probabilistic result integrity",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F04)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md#",
+        "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md#"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+          "bytes": 79977,
+          "sha256": "d2e29a5fb054952e544e252c588621cbd095d6f4c59c5a46e9f6f448c1858faf",
+          "line": 1220,
+          "mechanism": "Exact admitted leaf owner; parse/I-JSON admission; verify declared probabilistic result preimage; malformed/refused output stays rejected"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+          "bytes": 126341,
+          "sha256": "da1228f3876aca87ba065863bc990e216214f329ddb1e3d773466af08d18ee21",
+          "line": 1,
+          "mechanism": "Instruction assembly owner"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+          "bytes": 293838,
+          "sha256": "79788a830ca61f6c31397c85a95f373d3cddc77e0457c6907452d4b70d452422",
+          "line": 6640,
+          "mechanism": "Probabilistic evidence/result contract joins"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E09",
+        "E11",
+        "E14",
+        "E16",
+        "E17"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "Live native work and bounded rejection proof exist; the complete current malformed, incomplete, contradictory and unattributed output population lacks a qualified evidence join."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "Semantic adequacy and author/assessor identity remain separate from schema validity. F11 Q23 does not mean general native result validation is absent.",
+      "invalidator_or_reuse_rationale": "Proof10 and earlier native evidence retain their original Runs. The source bridge supports unchanged mechanisms within bounded scopes.",
+      "smallest_next_proof": "Reuse supported live F_P execution, then bind the nearest missing refusal and authentic-attribution cases before full qualification."
+    },
+    {
+      "id": "A5-F05",
+      "outcome": "One Public contract authority",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F05)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/binding/public_function_family.ts",
+          "bytes": 18098,
+          "sha256": "389923685da83ecce33e31b3dc97adc79fcfa20629abcb7b8f4380ab7b535bc3",
+          "line": 463,
+          "mechanism": "Single intrinsic owner-derived Public definition family"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/binding/public_function_projections.ts",
+          "bytes": 26681,
+          "sha256": "af4b3e251fd9c1b81ee319bc169437075ac374bca9cd857d2d5b3d96048883ff",
+          "line": 722,
+          "mechanism": "SDK/CLI/schema/documentation projections derive from that family"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+          "bytes": 25505,
+          "sha256": "1d7dbc683a541bccc08a4bcd7f7f09140da321d2cf0266b05dc70870ae4389d3",
+          "line": 1,
+          "mechanism": "result.assess realization"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts",
+          "bytes": 24185,
+          "sha256": "8c3a5e21adcb002d34ba5487d44fe2c8ad34c3f618472781f96bd2524ffce4cf",
+          "line": 1,
+          "mechanism": "product.materialize owner binding"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E06",
+        "E08",
+        "E11",
+        "E14"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "One typed Public definition mechanism is present. Exact release-wide agreement of projections, handlers and documentation is not yet qualified."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "Generated identity changes need exact candidate joins. Selected setup routes do not prove every Public member.",
+      "invalidator_or_reuse_rationale": "R2-b and R2-c accepted result.assess and product.materialize. Old missing-callable and bypass-gap labels do not establish current absence.",
+      "smallest_next_proof": "Rebind generated resources and use existing Public authority concordance checks for affected or uncovered members."
+    },
+    {
+      "id": "A5-F06",
+      "outcome": "Thin SDK and CLI",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F06)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-059"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+          "bytes": 2392,
+          "sha256": "7e57c4112ab328a278eb93e3a36a6b23f7e8c8e49dd29fe3d5d2fe2b60b2035e",
+          "line": 1,
+          "mechanism": "SDK exports installed transport and owner-derived call constructors"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+          "bytes": 27318,
+          "sha256": "27de3ce5c295b3aaa76b58bb062357763a6109ddf6d55ba9b1844fd75914bd29",
+          "line": 1,
+          "mechanism": "Canonical installed call construction"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+          "bytes": 4341,
+          "sha256": "c3b1f1819c9363f1b15fddf5387001be90e705a68ea9fbf6cb761fbbd29538b3",
+          "line": 1,
+          "mechanism": "CLI projection/entry"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+          "bytes": 19920,
+          "sha256": "e19d6f4461e58e7fa13c5fd76064a78c466fb2fed5e09b3ce6509b95834081aa",
+          "line": 1,
+          "mechanism": "Installed owner transport"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E09",
+        "E11",
+        "E12",
+        "E15",
+        "E17"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "Native Public usage is retained; current complete inspect/start/read/automatic-continue/blocked-handoff coverage remains unresolved."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "The selected-action positive and full One Surface progression need exact admission-to-readback evidence. Human response/resume is reserved for 5.1.",
+      "invalidator_or_reuse_rationale": "Current-intent and retry proofs remain valid within their premises. Preserve typed non-green outcomes.",
+      "smallest_next_proof": "Use existing SDK/CLI for the smallest S03 correction, continuation and typed-block discriminator after N9."
+    },
+    {
+      "id": "A5-F07",
+      "outcome": "Complete One Surface loop",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F07)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-059",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-010"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/consensus.ts",
+          "bytes": 187701,
+          "sha256": "eb623a0eb41e40e0ec404bd75bc178c7c37d5ba1493f7731b26ba6eca881d4b4",
+          "line": 4852,
+          "mechanism": "Ordinary oneSurface Program declares four semantic authorities and refresh loci"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+          "bytes": 129406,
+          "sha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+          "line": 1155,
+          "mechanism": "Admitted construction authority selection"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+          "bytes": 222875,
+          "sha256": "cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1",
+          "line": 1514,
+          "mechanism": "Exact admitted selected-action/declared-target route"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+          "bytes": 293838,
+          "sha256": "79788a830ca61f6c31397c85a95f373d3cddc77e0457c6907452d4b70d452422",
+          "line": 5760,
+          "mechanism": "evaluateAction admission relation"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E12",
+        "E14",
+        "E16",
+        "E20"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "The complete ordered four-authority loop, evidence refresh, bounded correction to completion and separate truthful block are not established on the current qualifying subject."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "Generic lifecycle or worker-task UAT cannot substitute for the four distinct authorities and their ABG boundaries. E12 explicitly leaves the selected-action positive unverified.",
+      "invalidator_or_reuse_rationale": "Ordinary One Surface remains 5.0 even though standalone F08 Consensus qualification is reserved. Preserve D2 and current-intent proof as bounded evidence.",
+      "smallest_next_proof": "Bind an existing One Surface Program and oracle; prove correction to completion and a no-lawful-next-step case with fresh frontier and result projections."
+    },
+    {
+      "id": "A5-F09",
+      "outcome": "Catalog semantics",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F09)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-CATALOG.md#"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+          "bytes": 36344,
+          "sha256": "69f3462c4d2637d1bfceabafb162d254c4ee7224bff33bbc18c414884324a269",
+          "line": 417,
+          "mechanism": "immutable catalog admission"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+          "bytes": 36344,
+          "sha256": "69f3462c4d2637d1bfceabafb162d254c4ee7224bff33bbc18c414884324a269",
+          "line": 889,
+          "mechanism": "pure catalog narrowing"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+          "bytes": 36344,
+          "sha256": "69f3462c4d2637d1bfceabafb162d254c4ee7224bff33bbc18c414884324a269",
+          "line": 941,
+          "mechanism": "noncallable declaration application"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/catalog_operations.ts",
+          "bytes": 13201,
+          "sha256": "48f7eddd0f63b31da83bd35fa14495843589e574948be26df48757aaecc0ef7f",
+          "line": 303,
+          "mechanism": "view/application thin owners"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E05",
+        "E11",
+        "E14",
+        "E20"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "Bounded catalog and installed proof exists. Exact callable/start/declaration and wrong-basis refusal relations need current coverage judgment."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "Pure catalog construction is not a runtime event. Source presence does not establish every malformed or conflicting case.",
+      "invalidator_or_reuse_rationale": "Reuse exact catalog-owner cases and source correspondence; revalidate changed publication, workspace or environment joins.",
+      "smallest_next_proof": "Conjoin S01 publication, narrowing and start with the existing nearest catalog negatives."
+    },
+    {
+      "id": "A5-F10",
+      "outcome": "Event-sourced runtime truth",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F10)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md#",
+        "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md#",
+        "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-RETRY.md#"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+          "bytes": 61840,
+          "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+          "line": 85,
+          "mechanism": "canonical owned durable prefix reader"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+          "bytes": 114749,
+          "sha256": "8b8cdd35d0298469424d7226d0fb58a125b64cd6556eddfc7ff716c0aea372ea",
+          "line": 1,
+          "mechanism": "replay projection"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+          "bytes": 147829,
+          "sha256": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16",
+          "line": 1,
+          "mechanism": "admitted current-intent continuation"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "bytes": 95835,
+          "sha256": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205",
+          "line": 196,
+          "mechanism": "revision cause read at actual historical owned prefix"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E09",
+        "E10",
+        "E11",
+        "E12",
+        "E13",
+        "E16"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "Bounded fresh-process, pending, retry, RAW and terminal proof exists; full causal conservation and the current correction/selected-action path remain open."
+      },
+      "genuine_code_gap": "N9 is a concrete fixture defect; no new runtime regression was demonstrated. Wider R1-R7 performance residuals are not automatically missing 5.0 features.",
+      "remaining_gap_or_unknown": "N9 stops the D2 suffix. RAW fixture success does not prove physical F_H grant/dispatch or ordinary-route failure; general crash/saga claims remain excluded.",
+      "invalidator_or_reuse_rationale": "Keep the accepted 005 deliberate-interruption and 07 current-intent proofs. Proof10 does not erase 08 indeterminate/blocked or 09 failed history.",
+      "smallest_next_proof": "Repair the N9 premise, then prove the affected installed correction and fresh result/replay relation. Broader resilience work requires a concrete selected-row gap."
+    },
+    {
+      "id": "A5-F11",
+      "outcome": "Self-conformance",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F11)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md#REQ-P-SELF-CONFORMANCE-008",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-060"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+          "bytes": 30391,
+          "sha256": "c7a9476c5509f2eb0587e1f14d066ff2a4ac788291a9dc8ba620d94b43fc1c4a",
+          "line": 33,
+          "mechanism": "complete subject self-conformance assessment framework"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+          "bytes": 73354,
+          "sha256": "ae6fda8f5b7174b68b606aef631a2a2607fe1a0093b6536f48b8bf94cf2c33c9",
+          "line": 869,
+          "mechanism": "contributor scopes unioned over selected subject members"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+          "bytes": 92279,
+          "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+          "line": 645,
+          "mechanism": "authenticated construction authors; external actorIdentityRef"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+          "bytes": 92279,
+          "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+          "line": 718,
+          "mechanism": "assessor independence comparison consumes source.actorRef"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E11",
+        "E19",
+        "E20",
+        "E21",
+        "E22",
+        "E24"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "No authenticated complete RC6-based F11 result exists in the acquired evidence. Current qualification law is STDO 3.0.4."
+      },
+      "genuine_code_gap": "Q23 persists: external authors are actorIdentityRef strings, compared to judgment.source.actorRef, whose source schema supplies no actorIdentityRef. The owning route review determines the exact lawful repair and technical grade; no native counterexample was run here. E24 returns QR-01 S1, QR-02 S2 and QR-03 S2; the union mechanism itself is present.",
+      "remaining_gap_or_unknown": "Q23 stable assessor identity remains unresolved. RC1-bound resources need exact successor preparation, including applicability, material sufficiency, attribution, independence and resource limits. Closed QR-02 also finds last-author-only provenance and a no-trailer product-owner fallback; the relevant current contributor set must be established from actual native or external construction records.",
+      "invalidator_or_reuse_rationale": "Contributor-scope union is already implemented. STDO 3.0.4 law restaging is already present. Old slot counts, costs and dry runs remain historical.",
+      "smallest_next_proof": "Resolve Q23 at its owning contract/binding; rebind resources and the prospective release claim; render and price a bounded representative assessment before wholesale F11."
+    },
+    {
+      "id": "A5-F13",
+      "outcome": "Native independence",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F13)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-063"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+          "bytes": 2392,
+          "sha256": "7e57c4112ab328a278eb93e3a36a6b23f7e8c8e49dd29fe3d5d2fe2b60b2035e",
+          "line": 1,
+          "mechanism": "nativeSDK installed transport"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+          "bytes": 4341,
+          "sha256": "c3b1f1819c9363f1b15fddf5387001be90e705a68ea9fbf6cb761fbbd29538b3",
+          "line": 1,
+          "mechanism": "nativeCLI"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+          "bytes": 79977,
+          "sha256": "d2e29a5fb054952e544e252c588621cbd095d6f4c59c5a46e9f6f448c1858faf",
+          "line": 1220,
+          "mechanism": "native worker result protocol"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E09",
+        "E11",
+        "E15",
+        "E16",
+        "E17",
+        "E18"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "Native SDK/CLI and worker use is demonstrated on bounded original subjects; current exact-candidate whole-path qualification remains open."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "Host-free invocation differs from provider-free operation. Native LLM transport remains required; mandatory marketplace/native parity is 5.1.",
+      "invalidator_or_reuse_rationale": "Reuse actual native workflows. Same-family review is not a claim of the required independent qualification.",
+      "smallest_next_proof": "Carry the existing native path through S01/S03/S06; no additional host-adapter project is required."
+    },
+    {
+      "id": "A5-F14",
+      "outcome": "Installed language and runtime mechanics proof",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F14)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-058",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-008"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/serialization.ts",
+          "bytes": 2370,
+          "sha256": "1dacbc80962e2cbec9622343e407c6b15749e992b339ec5cd911b297e40ef434",
+          "line": 7,
+          "mechanism": "externalGTLauthoring/admission"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/publication.ts",
+          "bytes": 784,
+          "sha256": "d296665f80a2fdb73d38f6a1d0a2e58e70784c484a2780f97eeb6e33b8f509d3",
+          "line": 1,
+          "mechanism": "ordinary publication"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+          "bytes": 27318,
+          "sha256": "27de3ce5c295b3aaa76b58bb062357763a6109ddf6d55ba9b1844fd75914bd29",
+          "line": 1,
+          "mechanism": "installed invocation"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+          "bytes": 79977,
+          "sha256": "d2e29a5fb054952e544e252c588621cbd095d6f4c59c5a46e9f6f448c1858faf",
+          "line": 1220,
+          "mechanism": "liveF_Pdeclared result validation"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E05",
+        "E11",
+        "E14",
+        "E17"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "The RC6 local package/install is verified; current S01 R1-R10 plus live F_P evidence is not conjoined on one exact qualifying subject."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "The external Program, oracle, publication and leaf binding must be independent and prospectively fixed; a Hello application UAT is not automatically the language test.",
+      "invalidator_or_reuse_rationale": "Keep earlier language and native proof with its exact artifact and oracle. Package correspondence alone supplies no new invocation.",
+      "smallest_next_proof": "Execute one independently fixed external deterministic Program through the installed CLI and a scoped live F_P path, retaining admission/result/replay coordinates."
+    },
+    {
+      "id": "A5-F15",
+      "outcome": "Exact-candidate qualification",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F15)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-057",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064A",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064B"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+          "bytes": 9802,
+          "sha256": "dc021e2712cae19e8dfd6be56d33c239105115c483ae6381983f154a70ddff31",
+          "line": 22,
+          "mechanism": "F_Passessment and soleF_Dverdict declarations"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+          "bytes": 9802,
+          "sha256": "dc021e2712cae19e8dfd6be56d33c239105115c483ae6381983f154a70ddff31",
+          "line": 69,
+          "mechanism": "native exact-candidate qualification realization"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+          "bytes": 92279,
+          "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+          "line": 698,
+          "mechanism": "authenticated planned assessment resolution"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+          "bytes": 41016,
+          "sha256": "00788ff65b6ea0de0b7dc68b67d7a89a80300e92aec04bb9246122671e790c2b",
+          "line": 1,
+          "mechanism": "qualification subject/law contracts"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E11",
+        "E19",
+        "E20",
+        "E21",
+        "E22",
+        "E24"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "No complete same-subject F11 and sole AF22 green verdict is established for the prospective pre-RC or installed-RC subject."
+      },
+      "genuine_code_gap": "The F11 Q23 relation and RC1-specific preparation are current gaps. A second reducer or per-behavior controller is neither absent required functionality nor an authorized repair. E24 returns QR-01 S1, QR-02 S2 and QR-03 S2; the union mechanism itself is present.",
+      "remaining_gap_or_unknown": "Q23 and successor resources are prerequisites. Required behaviors need independent applicability and positive/nearest-negative sufficiency judgment. Closed QR-02 also finds last-author-only provenance and a no-trailer product-owner fallback; the relevant current contributor set must be established from actual native or external construction records.",
+      "invalidator_or_reuse_rationale": "The 43/0/1 qualification-owner component lane and producer acquisition prove bounded mechanics. Coverage-catalog membership and old slot counts do not qualify a subject.",
+      "smallest_next_proof": "Use existing F11 and sole AF22 after resources and scenario evidence are ready; retain seeded negatives and any non-green verdict."
+    },
+    {
+      "id": "A5-F16",
+      "outcome": "Immutable RC and accepted5.0 release",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F16)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-056",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-067",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-014"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+          "bytes": 21038,
+          "sha256": "0487b8b2f1f909adb043722d15ee7018c03b21942ed642cf35960f7bf087e284",
+          "line": 45,
+          "mechanism": "requires exact native same-subject green non-bypassed verdict"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_operations.ts",
+          "bytes": 10986,
+          "sha256": "f732ef6b7e086785354c335b40b6084c289cedbf40500be4d1a6a58165b85671",
+          "line": 1,
+          "mechanism": "publication/acceptance scope contracts"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/product/release_acceptance.ts",
+          "bytes": 5271,
+          "sha256": "21dacf62239f32e1ca1a9744c159d256d9011a2f611b6d9fb3acccc699dc37fe",
+          "line": 52,
+          "mechanism": "actual owner-ruling resolution"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E05",
+        "E06",
+        "E11",
+        "E14"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "RC6 is local, unqualified and unpublished. Prospective authorization, installed-RC qualification, actual human acceptance and post-publication proof have not occurred."
+      },
+      "genuine_code_gap": "No demonstrated Product code gap in this bounded audit; full behavior not re-executed.",
+      "remaining_gap_or_unknown": "These are future owner effects, not missing Product mechanisms. A local preview cannot retroactively authorize S07; changed qualifying bytes require a higher RC.",
+      "invalidator_or_reuse_rationale": "Preserve the RC6 artifact and the original RC1 preview exception. Packaging is not release acceptance. Do not inherit the old D6 RC1 ordinal.",
+      "smallest_next_proof": "After prospective pre-RC green, return the exact candidate for reserved publication/acceptance; materialize without rebuild, qualify installed RC, accept unchanged bytes and append post-publication proof."
+    },
+    {
+      "id": "A5-F17",
+      "outcome": "Specification-driven downstream lifecycle",
+      "product_route": "repo://abiogenesis/specification/PRODUCT.md#complete-50-feature-set (A5-F17)",
+      "requirements": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-062",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-013",
+        "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md#"
+      ],
+      "implemented_mechanisms": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_job.ts",
+          "bytes": 6429,
+          "sha256": "c72b63ef41730d1675e23da2676e400ced25e9e1f8697e64b881005afe62b377",
+          "line": 1,
+          "mechanism": "declared lifecycle Program"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+          "bytes": 14977,
+          "sha256": "3a617f33f892c73083fd297d78c258b500eba2105b68694feb585b0649be3336",
+          "line": 1,
+          "mechanism": "declared correction/publication"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+          "bytes": 56288,
+          "sha256": "d70db3d73cd08a20e1a40b6ecb3483b43d025d449c7a7fba9d53fc9f8f7776ea",
+          "line": 1,
+          "mechanism": "native semantic lifecycle owner"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+          "bytes": 95835,
+          "sha256": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205",
+          "line": 196,
+          "mechanism": "admitted cause and local targeted revision"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+          "bytes": 5580,
+          "sha256": "bbb77f9cfdc6b50f6f079c1058b59a4d64d067d70790298963859d39b6429b08",
+          "line": 1,
+          "mechanism": "preregistered capability choice"
+        }
+      ],
+      "implementation_standing": "Named mechanisms inspected in frozen source; not a complete family conformance verdict.",
+      "accepted_bounded_evidence": [
+        "E14",
+        "E16",
+        "E17",
+        "E09"
+      ],
+      "current_qualification": {
+        "core_result": "indeterminate",
+        "standing": "D2 and D3 were accepted on an exact older candidate. RC4 application/recovery and proof10 refactor UAT remain bounded; complete current F17/S06 is not joined."
+      },
+      "genuine_code_gap": "No absence of the generic lifecycle or selection mechanism was demonstrated. N9 and qualification identity are concrete dependencies; witness completeness is a semantic/evidence question.",
+      "remaining_gap_or_unknown": "Bind original source, selected/excluded obligations and owners, independent oracle and every mandatory outcome. Verify different preregistered choice, closed-rule/F_P contrast, unknown-input gap and recursive foldback; N9 affects revision proof.",
+      "invalidator_or_reuse_rationale": "S06 law is unchanged since D3. Candidate, runtime and method joins changed. Preserve original acceptance and reprove only affected or missing relations; original Data Mapper is not a prerequisite.",
+      "smallest_next_proof": "Reconcile the existing prospective witness/oracle with current dependencies, then target the first needed revision, choice or foldback relation through installed Public contracts."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "ABG5-S01",
+      "requirement_routes": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-008",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-058"
+      ],
+      "implementation_families": [
+        "A5-F01",
+        "A5-F02",
+        "A5-F05",
+        "A5-F06",
+        "A5-F09",
+        "A5-F14"
+      ],
+      "accepted_bounded_evidence": [
+        "E05",
+        "E06",
+        "E11",
+        "E14"
+      ],
+      "current_qualification": "indeterminate",
+      "required_boundary": "Ten ordered R1-R10 obligations on one exact installed pre_rc_candidate, an independently authored external Program/oracle, and two equal fresh terminal/closed reads.",
+      "remaining_gap_or_unknown": "E05 proves packaging and installation, not invocation. No current complete R1-R10 witness was reacquired.",
+      "invalidator_or_reuse_rationale": "Keep package verification and prior tests. Current binding, Program, oracle, causal events and readbacks need an explicit compatible subject join.",
+      "smallest_next_proof": "One prospectively bound source-blind external Program through installed CLI, using existing setup owners and two fresh reads.",
+      "evidence_classification": "Implemented owner mechanisms and bounded historical evidence; current scenario conformance is not established."
+    },
+    {
+      "id": "ABG5-S02",
+      "requirement_routes": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-009",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064"
+      ],
+      "implementation_families": [
+        "A5-F02",
+        "A5-F03",
+        "A5-F04",
+        "A5-F09",
+        "A5-F10",
+        "A5-F14"
+      ],
+      "accepted_bounded_evidence": [
+        "E09",
+        "E11",
+        "E12",
+        "E13",
+        "E14",
+        "E20"
+      ],
+      "current_qualification": "indeterminate",
+      "required_boundary": "Seven C constructors, retained graph algebra, four compute and eight structural rows, fibre substitution, transparent child traversal, live F_P and malformed GTL/F_P refusal before prohibited effects.",
+      "remaining_gap_or_unknown": "No current complete positive/nearest-negative coverage judgment. Historical skips and direct arms remain unexecuted; RP2 carriers and live P4 selection do not alone establish S02.",
+      "invalidator_or_reuse_rationale": "The current catalog has 65 behaviors after the 5.1 yield-production exclusion. Native06/07/08/09/proof10 retain separate producers and bounded scopes.",
+      "smallest_next_proof": "Map finite claims to exact existing execution coordinates; exercise only uncovered or invalidated behavior. No exhaustive hardening campaign follows.",
+      "evidence_classification": "Implemented owner mechanisms and bounded historical evidence; current scenario conformance is not established."
+    },
+    {
+      "id": "ABG5-S03",
+      "requirement_routes": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-010",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-059"
+      ],
+      "implementation_families": [
+        "A5-F03",
+        "A5-F06",
+        "A5-F07",
+        "A5-F10"
+      ],
+      "accepted_bounded_evidence": [
+        "E12",
+        "E14",
+        "E16",
+        "E09"
+      ],
+      "current_qualification": "indeterminate",
+      "required_boundary": "Program-owned four-authority loop; evidence refresh; bounded correction to completion preserving unaffected work; separate typed block/handoff; retained 5.0 consequence, disposition and public-control rows.",
+      "remaining_gap_or_unknown": "The N9 first assertion stops the D2 suffix. The selected-action positive remains unverified, and generic task UAT does not establish the complete ordered loop.",
+      "invalidator_or_reuse_rationale": "D2 accepted a bounded blocked correction case, and 005 accepted same-B pending recovery. Neither is erased or promoted to full S03. Human response and same-edge yield production remain reserved.",
+      "smallest_next_proof": "Repair the existing fixture premise, then use an exact installed One Surface correction/completion and truthful no-next-step case with fresh frontier/result/replay.",
+      "evidence_classification": "Implemented owner mechanisms and bounded historical evidence; current scenario conformance is not established."
+    },
+    {
+      "id": "ABG5-S06",
+      "requirement_routes": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-013",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-062"
+      ],
+      "implementation_families": [
+        "A5-F02",
+        "A5-F03",
+        "A5-F04",
+        "A5-F06",
+        "A5-F07",
+        "A5-F09",
+        "A5-F10",
+        "A5-F13",
+        "A5-F17"
+      ],
+      "accepted_bounded_evidence": [
+        "E14",
+        "E16",
+        "E17",
+        "E09"
+      ],
+      "current_qualification": "indeterminate",
+      "required_boundary": "Native SDK/CLI plus complete selected original-specification lifecycle, admitted semantic/executable evidence, consequential revision, changed preregistered choice under counterevidence, criterion/closed-rule/F_P contrast, unknown-input gap and recursive foldback preserving parent obligations.",
+      "remaining_gap_or_unknown": "The D3 workloads were accepted on pack550b48cc. The acquired records do not establish all current exact discriminator joins. P4 choice A and the gated recursive A-to-B test are routes, not current acceptance.",
+      "invalidator_or_reuse_rationale": "S06 clauses are unchanged from fd38e8227. Candidate/runtime/method changes and D3 same-pack inheritance require affected-join review. Do not automatically rerun all six workloads or require original Data Mapper.",
+      "smallest_next_proof": "Retain the prospective witness/oracles, fix selected scope before construction, then execute only affected or missing revision/choice/foldback relations through installed owners and admit independent semantic judgment.",
+      "evidence_classification": "Implemented owner mechanisms and bounded historical evidence; current scenario conformance is not established."
+    },
+    {
+      "id": "ABG5-S07",
+      "requirement_routes": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-014",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-057C",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-067"
+      ],
+      "implementation_families": [
+        "A5-F11",
+        "A5-F15",
+        "A5-F16"
+      ],
+      "accepted_bounded_evidence": [
+        "E05",
+        "E06",
+        "E11",
+        "E19",
+        "E24"
+      ],
+      "current_qualification": "indeterminate; release execution not performed",
+      "required_boundary": "pre_rc_candidate green -> prospective RC authorization -> immutable RC/output-only snapshot without rebuild -> installed_rc qualification -> actual human acceptance of unchanged RC -> post-publication install addendum.",
+      "remaining_gap_or_unknown": "Complete current F11 and sole AF22 are absent; Q23 and RC1 preparation remain unresolved. No qualified publication, human acceptance or post-publication receipt is claimed. QR-02 also requires repair of contributor selection/attribution inputs.",
+      "invalidator_or_reuse_rationale": "The local preview cannot retroauthorize this chain. Changed qualifying Product/claim bytes require a higher RC and applicable gates; acceptance creates no third subject or final rename.",
+      "smallest_next_proof": "Finish dependencies and selected scenarios; bind prospective identity/claim before qualification; use existing F11/AF22 and return the exact candidate for reserved owner effects.",
+      "evidence_classification": "Implemented owner mechanisms and bounded historical evidence; current scenario conformance is not established."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E01",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/FEATURE_AUDIT_REQUEST.json",
+      "bytes": 4426,
+      "sha256": "fbc2541d50ed6d9d9408bf3f68b5ef27a1c4f692da233d89e26ebcc18c52d4d1",
+      "scope": "Exact review grant and twenty-row population.",
+      "standing": "current verified control",
+      "reuse_or_invalidator": "Any subject, authority, acquisition or write-grant change requires re-entry."
+    },
+    {
+      "id": "E02",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f",
+      "scope": "GOAL-035 RC6-based qualification resumption; publication and human acceptance reserved.",
+      "standing": "current verified authority",
+      "reuse_or_invalidator": "This result authorizes no Worker, provider call, repair or release."
+    },
+    {
+      "id": "E03",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "scope": "F01-F07,F09-F11,F13-F17; S01/S02/S03/S06/S07; completion predicate.",
+      "standing": "current verified governing source",
+      "reuse_or_invalidator": "Material Product/basis change invalidates dependent judgments."
+    },
+    {
+      "id": "E04",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "scope": "Source/tool/runtime split, review independence, trusted desktop, severity S0-S4 and Executive disposition.",
+      "standing": "current frozen frame",
+      "reuse_or_invalidator": "Changed frame or capability envelope requires affected re-evaluation."
+    },
+    {
+      "id": "E05",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/FINAL_INSTALL_VERIFICATION.json",
+      "bytes": 4687,
+      "sha256": "fb1e0dd041301aa4fb33ff89af3a645b9d162221d346e92f34dd735e6f8243b6",
+      "scope": "RC6 verified/locked/installed via existing Product owners; 5,325 payload members; fresh installed-owner content match; all 11 checksums.",
+      "standing": "retained actual installation receipt, qualified=false,published=false",
+      "reuse_or_invalidator": "Fresh receipt bytes read and hashed here; installed payloads not independently rehashed in this activation. Does not prove S01 invocation or scenario qualification."
+    },
+    {
+      "id": "E06",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01/INDEPENDENT_LOCAL_CUT_REVIEW.json",
+      "bytes": 18281,
+      "sha256": "84666f1abf65b43a6ce4fa358047fd3461d611a21a966f9302d48cad4f2b2f61",
+      "scope": "Satisfied identity/derived-metadata bridge, byte-exact reproduction and existing installer route.",
+      "standing": "accepted packaging assessment, no implementation/whole-product reopening",
+      "reuse_or_invalidator": "Subject e7179b19 / tree 68267aea; actual install is separately E05. Same model family, no clean-family claim."
+    },
+    {
+      "id": "E07",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/SOURCE_BRIDGE.json",
+      "bytes": 60375,
+      "sha256": "e392e46703ece22ed47a50ddecc9f86fb7a7c9a5b21ffc2ea0c8b2a1bc22587c",
+      "scope": "157 source files conserved from native09 frozen subject 38933d61515b; exact native increment26 paths.",
+      "standing": "all 157 current hashes independently checked here, zero mismatches",
+      "reuse_or_invalidator": "Proves identity of these source members only; unchanged source does not prove unexecuted paths."
+    },
+    {
+      "id": "E08",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/ARTIFACT_IDENTITY_BRIDGE.json",
+      "bytes": 3370,
+      "sha256": "da399a114c85a4014261c4944ecdf76d9dcbe0c953362ce9809a7b19735e20e0",
+      "scope": "Proof10 artifact e0a84d33 to RC6 e9ffe45c: same 5,325 member set,5,319 byte-equal, six identity/generated members changed.",
+      "standing": "accepted bounded packaging bridge",
+      "reuse_or_invalidator": "No old Run is relabelled RC6; same compiled mechanisms retain bounded proof, while candidate-dependent identity and qualification joins need their own current binding."
+    },
+    {
+      "id": "E09",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/proof-10/ROOT_CONJUNCTION.json",
+      "bytes": 13939,
+      "sha256": "4d74f116ae022fae56d517ebda3bda4b3032a62bf7e7d992ad7f53c1c7122313",
+      "scope": "T1-T5 targeted interface refactor accepted; actual 12/0/0, 7 commands, native UAT satisfied, fresh result/replay equal, source 160 unchanged.",
+      "standing": "accepted bounded native proof on its original artifact and Run",
+      "reuse_or_invalidator": "Run run://abiogenesis/5c4bc7882ac58cb455efc4ec16451884b278c7e4052da91c208ba27096fd5806; digest sha256:39e32e424f7c5f6c68d4bc2359bc3740d2c2bbbd927b2730aeb93e107e21f707; terminal result://abiogenesis/fe2936d9ef5d5a7a11fecd292246fc76cffbdadab45090b198bae70afeff091e. Only missing-baseline whole-path gap closed; not fifteen-family or F11 qualification."
+    },
+    {
+      "id": "E10",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/native-09/ROOT_SOURCE_AND_EVIDENCE_DISPOSITION.json",
+      "bytes": 7829,
+      "sha256": "7b0abbf652915973c95682da42327baf2a477cb895372fad933e07df31476311",
+      "scope": "Exact source accepted; actual09 77/8/75 retained, revision 4/1/2, consumers 59/0/73; N9-RETAINED-FIXTURE-01 registered.",
+      "standing": "original source/evidence disposition preserved",
+      "reuse_or_invalidator": "Proof10 closes N9-EVIDENCE-01 only. The N9 fixture obligation activates before dependent D2 positive/component or qualification proof; no expected-failure green or reduced floor."
+    },
+    {
+      "id": "E11",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ROOT_CONJUNCTION.json",
+      "bytes": 21305,
+      "sha256": "c42f01a28029f29ff00a9f01800344c5fa64be21121f496061015f5bc1772c27",
+      "scope": "Bounded affected-owner106/0/30, qualification-owner43/0/1, producer-acquisition3/0/0, replay57/0/9, fresh-process1/0/0, forward17/0/1, installed2/0/0, setup32/0/0.",
+      "standing": "retained actual lane evidence; whole native06 outcome not accepted",
+      "reuse_or_invalidator": "Each count keeps original lane and producer; excluded historical branches receive no credit. Source changes since native06 require affected relation check."
+    },
+    {
+      "id": "E12",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ROOT_CONJUNCTION.json",
+      "bytes": 31047,
+      "sha256": "53552405caf9ca8f7b5eb04f6c9a25985e8d9980fcf14763323c153d71144a80",
+      "scope": "46 new passes / 0 fail / 0 skip; current retry and current-intent/RAW ambiguity under disclosed premises; earlier 261/0/41 reused, not rerun.",
+      "standing": "bounded proof; original outcome open, original host/runtime failure preserved",
+      "reuse_or_invalidator": "Inherited selected-action positive remains unverified; no full F_H grant/dispatch or typed ordinary-route failure from narrow unadmitted-port fail-closed case."
+    },
+    {
+      "id": "E13",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/ROOT_CONJUNCTION.json",
+      "bytes": 11303,
+      "sha256": "16613c500832f38aa692710fea57a21f303cb0cd96812f8534afd2c91132e18a",
+      "scope": "Actual 42/0/0 and bounded real RAW F_H fixture/preparer/projection proof accepted.",
+      "standing": "native UAT remains indeterminate with 14 criteria; result not_found, replay blocked, no terminal",
+      "reuse_or_invalidator": "Not F_H response/resume or installed qualification. IR01/02 omissions subsequently closed only within E09 T1-T5; wider R1-R7/C1-C5 not accepted wholesale."
+    },
+    {
+      "id": "E14",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md",
+      "bytes": 1041833,
+      "sha256": "ee27ae9212f70710aad1fe58ec3f52a2e22b3d78c22bbac1c217f5f21e6d9c34",
+      "scope": "Historical R2-b/R2-c, D2, D3 and D5/RP1/RP2 records, used as exact routing and original owner rulings.",
+      "standing": "D2 accepted on 2a07453f0; D3 accepted on fd38e8227 / pack550b48cc; older feature-gap ledger not current authority",
+      "reuse_or_invalidator": "D3 record lines 5146-5153 explicitly limits direct inheritance to its exact pack and names later code/contracts/pack changes. S06 discriminators themselves are unchanged between fd38e8227 and RC6; no new-law invalidator invented."
+    },
+    {
+      "id": "E15",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 5560,
+      "sha256": "289ad4173b77719ff0bc001d5de2c9f23a91b05b0c04e3c76be849620a4edecd",
+      "scope": "Exact RC4 source/artifact link to018/005, application pilot, maintained setup021, C2/UAT/fresh closure.",
+      "standing": "accepted bounded RC4 source/evidence correspondence",
+      "reuse_or_invalidator": "RC4 source 3c113133 / artifact f59c8ffe; STDO 3.0.2 historical proof does not become 3.0.4 qualification."
+    },
+    {
+      "id": "E16",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/ROOT_ACCEPTANCE.json",
+      "bytes": 3248,
+      "sha256": "e4f8c7e33c1910a33ef53d2d0f3f4fd135e20cf3862fca234f4ae3befa58f8a4",
+      "scope": "Fresh native Construction A; current B authority; interruption before Testing dispatch; existing-owner recovery; same-B pending continuation; no repeated Construction; C2/UAT/terminal/replay agreement.",
+      "standing": "accepted bounded R1-R5 on 1100bd8f / artifact4589f5c5",
+      "reuse_or_invalidator": "Deliberate undispatched boundary only; no general crash/saga proof; full 5.0 qualification separate; do not rerun this accepted relation only for a new identifier."
+    },
+    {
+      "id": "E17",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/ROOT_PILOT_DISPOSITION.json",
+      "bytes": 2267,
+      "sha256": "563e84153b1a15abb52d9a850512364d7ee653f330daba0801f25d9840f900f8",
+      "scope": "Single matched application pair accepted; external 14-byte stdout/empty stderr/exit 0, 2 pass; ABG native C2/UAT, 14 criteria and fresh closed terminal.",
+      "standing": "bounded useful application outcome and instrumentation pilot",
+      "reuse_or_invalidator": "Not a complete S06 contract-class or universal productivity/parity claim; preserves asymmetric timing and unpriced operator contributions."
+    },
+    {
+      "id": "E18",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/STATUS.json",
+      "bytes": 5527,
+      "sha256": "fe466c8ea38647aa359550a46c8f882c01ec6a3264bb7e984ed198a7786e08ab",
+      "scope": "Accepted exact 3-file repair; actual 37/0 with 3 excluded skips, C2/UAT/fresh closure and local install; earlier failures retained.",
+      "standing": "RC5 f49e7533 locally installed, qualified=false",
+      "reuse_or_invalidator": "Old currentActivation labels are historical. No whole RC6 workflow-performance or qualification transfer."
+    },
+    {
+      "id": "E19",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+      "bytes": 28320,
+      "sha256": "5e9be0a0a6b980ef07ebfc683f6415a0f9a38f362199ea3f7c6095446d214424",
+      "scope": "QualificationLawBasis STDO 3.0.4, current Product and Definition bytes.",
+      "standing": "current source-linked qualification law, not an assessment",
+      "reuse_or_invalidator": "lawBasis ref qualification-law://abiogenesis/a8246cd14a26c7ff7746172b91bfeb4fefe3b37d0a208931fcd354eb8d4955b8; source migration need not be repeated."
+    },
+    {
+      "id": "E20",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+      "bytes": 11425,
+      "sha256": "da4d7575da44e1d88dbeebd8331b90ce0e1d5350371516e3f80d385f596ea41d",
+      "scope": "16 source-linked coverage claims and 65 behavior names, explicit 5.1 yield producer exclusion.",
+      "standing": "derived obligation inventory, no execution or semantic coverage judgment",
+      "reuse_or_invalidator": "Refs/labels do not establish positive/nearest-negative sufficiency; public-operator-loop labels must be read through REQ-P-QUAL-059/Product, not used to select scenario authority."
+    },
+    {
+      "id": "E21",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/build-resources.mjs",
+      "bytes": 27924,
+      "sha256": "4e9523856ea3bcad5602e3590aa73d4020c1169edc03c5f71fda0e04eda2741b",
+      "scope": "Lines 23-32 bind prospective RC1 and refuse installed package version other than 5.0.0-rc.1.",
+      "standing": "historical preparation helper requires successor rebinding",
+      "reuse_or_invalidator": "Not missing Product qualification mechanism. Prepare exact successor resources before native assessment dispatch."
+    },
+    {
+      "id": "E22",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/tenant-manifest.json",
+      "bytes": 9012,
+      "sha256": "72971fda3e08d426ff87aa316e0c140f84ba05b5811b8120ff1a958c4783b12f",
+      "scope": "Retained tenant manifest still namesRC1 Product/catalog/claims.",
+      "standing": "stale for RC6-based qualifying subject",
+      "reuse_or_invalidator": "Reconstruct via existing owner on selected candidate; do not rename hashes/subjects by hand."
+    },
+    {
+      "id": "E23",
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/.ai-workspace/work/T287_RC6_LOCAL_EVIDENCE_01/INDEX.json",
+      "bytes": 10099,
+      "sha256": "ee58e3a10ee9c9386921ae8fe6479c83fd86ba5718d1b58d120774d82a4166bb",
+      "scope": "23 committed evidence records of boundedRC6 capsule.",
+      "standing": "all 23 retained byte counts and hashes checked here, zero mismatches",
+      "reuse_or_invalidator": "Custody verification alone does not independently establish the semantics of every nested native claim."
+    },
+    {
+      "id": "E24",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+      "bytes": 28638,
+      "sha256": "085c993048138ee929c07cd3be709e867fa51c3d0b0fe9bcf77497b1b8bc1c69",
+      "scope": "Closed separately scoped qualification-route review over the same frozen RC6 subject. QR-01 S1: assessor identity; QR-02 S2: provenance last-author/preservation fallback; QR-03 S2: RC1 preparation binding.",
+      "standing": "Consumed closed peer result; original technical severities and triage preserved, not a second review by this audit.",
+      "reuse_or_invalidator": "Current STDO 3.0.4 law and existing witness/oracle inputs remain valid. Contributor-scope union is already implemented. Current material fit and priced dispatch remain unmeasured. Exact subject/basis/evidence changes invalidate affected claims."
+    }
+  ],
+  "retainedFindingsAndUnknowns": [
+    {
+      "id": "N9-RETAINED-FIXTURE-01",
+      "classification": "demonstrated test-premise defect, not demonstrated Product runtime regression",
+      "owningFrame": "Proof/test premise against canonical runtime prefix reader",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "bytes": 95835,
+        "sha256": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205",
+        "line": 196,
+        "mechanism": "real owned durable-prefix read"
+      },
+      "test": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+        "bytes": 66912,
+        "sha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19",
+        "lines": [
+          118,
+          121,
+          137
+        ]
+      },
+      "evidence": [
+        "E10",
+        "E09"
+      ],
+      "causalAssessment": "Component fixture supplies old EventStore reader stub and omits the owned reader relation; actual09/preimage first assertion reports intake_projection_exception instead of native_revision_cause_absent. Later assertions do not execute.",
+      "severity": "Original reviewSeverity4 retained on its original scale; no numeric-to-S-scale relabelling. Current audit triage remains indeterminate pending owning fixture review.",
+      "triggerProbability": "Observed every retained matching preimage/candidate/actual09 run; future dependent component proof uses the same premise.",
+      "realizedHarm": "One real failed case and unexecuted suffix; cannot claim complete D2 qualification.",
+      "containment": "Fail-closed null/refusal; no evidenced false green or current runtime regression.",
+      "repairComplexity": "Bounded test premise migration through existing owner, preserving meaningful assertions.",
+      "regressionRisk": "Low for bounded fixture repair; higher if expanded into runtime constructor/algebra redesign without a supported counterexample.",
+      "requiredReentry": "Existing native semantic revision component-test owner; Root selects one bounded Worker if needed."
+    },
+    {
+      "id": "Q23_ASSESSOR_IDENTITY",
+      "classification": "current code/contract identity-domain gap; owning route review determines exact repair",
+      "sources": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+          "bytes": 92279,
+          "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+          "line": 696,
+          "mechanism": "external authors return stable actorIdentityRef"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+          "bytes": 92279,
+          "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+          "line": 718,
+          "mechanism": "comparison uses judgment.source.actorRef"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+          "bytes": 41016,
+          "sha256": "00788ff65b6ea0de0b7dc68b67d7a89a80300e92aec04bb9246122671e790c2b",
+          "line": 242,
+          "mechanism": "assessor source has actorRef/workerBindingRef/actorInvocationRef, no actorIdentityRef"
+        }
+      ],
+      "evidence": [
+        "E14"
+      ],
+      "causalAssessment": "Observed code supplies no exact stable-assessor identity join corresponding to external authorIdentity strings. Merely unequal actorRef strings do not establish declared author/assessor independence.",
+      "counterexampleStatus": "Static supported relation gap; no native bypass/counterexample execution in this audit.",
+      "severity": "indeterminate in this coverage audit; consume the separately scoped qualification-route review for technical grade and owner binding.",
+      "triggerProbability": "Material whenever required independence is checked against external construction identity.",
+      "realizedHarm": "Current F11 independence claim cannot be supported by this comparison alone.",
+      "containment": "Do not dispatch wholesale qualification or consume a same-subject green until current owner relation is bound; ordinary native worker proof remains valid within its scope.",
+      "repairComplexity": "Owning identity/carrier/transport/proof relation; do not guess a local string rename.",
+      "regressionRisk": "Material if repaired by self-asserted assessor identity or by weakening author exclusion.",
+      "requiredReentry": "Qualification/worker identity contract owner under unchanged Product independence law.",
+      "closedOwningReview": {
+        "evidenceId": "E24",
+        "finding": "QR-01",
+        "severity": "S1",
+        "triage": "complete"
+      }
+    },
+    {
+      "id": "SUCCESSOR_QUALIFICATION_RESOURCES",
+      "classification": "stale preparation and bindings, not missing Product qualification mechanism",
+      "sources": [
+        "E21",
+        "E22",
+        "E19"
+      ],
+      "causalAssessment": "build-resources hardcodes RC1 and rejects RC6; tenant manifest retains RC1. Qualification law is already current3.0.4.",
+      "severity": "indeterminate; preparation refuses the wrong installed identity and has a bounded successor re-entry.",
+      "triggerProbability": "Certain if the unchanged helper is given RC6.",
+      "realizedHarm": "Cannot construct authentic current qualifying resource set; old inventory/plan/slots cannot be relabelled.",
+      "containment": "Version check refuses; no paid execution performed here.",
+      "repairComplexity": "Finite proof tooling/resource rebuild and exact subject/law/material/attribution validation; use existing owners.",
+      "regressionRisk": "Falsegreen if old objects are renamed without rebuilding authenticated joins.",
+      "requiredReentry": "Qualification preparation owner after exact prospective subject selection.",
+      "closedOwningReview": {
+        "evidenceId": "E24",
+        "finding": "QR-03",
+        "severity": "S2",
+        "triage": "complete"
+      }
+    },
+    {
+      "id": "S06_CURRENT_SUBJECT_JOIN",
+      "classification": "evidence applicability and semantic sufficiency unknown, not newly missing Product feature",
+      "evidence": [
+        "E14",
+        "E16",
+        "E17"
+      ],
+      "causalAssessment": "D3 accepted one older exact pack; S06 law including selection/foldback discriminators is unchanged. Later source/contracts/package/method changes invalidate direct whole-scenario inheritance; only affected joins need new support.",
+      "severity": "indeterminate",
+      "requiredReentry": "Root reconciles the exact existing witness/oracle with affected runtime paths and independent semantic assessment. Do not require original Data Mapper or automatically replay all six workloads."
+    },
+    {
+      "id": "QR-02_CONTRIBUTOR_INPUT_SELECTION",
+      "classification": "Closed peer finding: provenance driver/input defect; no missing generic scope-union mechanism",
+      "evidence": [
+        "E24"
+      ],
+      "severity": "S2",
+      "triage": "complete as returned by owning qualification-route reviewer",
+      "causalAssessment": "taskProvenance selects provenance.last per member, while identity(message) maps no Co-Authored-By trailer to product-owner. Preservation commits do not establish that a human authored native-produced changes. The existing union can only check the chains supplied to it.",
+      "requiredReentry": "Use exact current native producers or sufficient original external construction records. Select surviving contributions per assessment scope at the existing owner; neither indiscriminate history union nor a new provenance ledger follows.",
+      "realizedHarm": "No incorrect qualification observed; complete current author/assessor exclusion cannot be established from the retained driver alone.",
+      "containment": "No dependent paid independent assessment or qualification credit before attributable contributor input is sufficient.",
+      "repairComplexity": "Bounded contributor correspondence and driver repair under existing contracts.",
+      "regressionRisk": "Misrepresenting correct scopes or rewriting historical authorship; preserve original records."
+    }
+  ],
+  "firstDependencyReadyWork": [
+    {
+      "order": 1,
+      "work": "Conjoin the owning fixture and qualification-route reviews. N9 now matters before dependent D2 qualification.",
+      "output": "A bounded test-premise repair, if confirmed by its owner, preserving meaningful assertions and existing runtime owners."
+    },
+    {
+      "order": 2,
+      "work": "Settle the exact successor Product, artifact and prospective RC claim; resolve Q23 at its owner. Rebind qualification resources while retaining the current STDO 3.0.4 law. Include QR-02 contributor selection/attribution; preserve the existing scope-union mechanism.",
+      "output": "Valid subject, inventory, coverage, material and provenance bindings plus a priced finite plan before paid dispatch."
+    },
+    {
+      "order": 3,
+      "work": "Use the smallest installed composition discriminator: correction/continuation preserving unaffected work, truthful blocking and required registered choice/foldback.",
+      "output": "Exact result/replay evidence for affected or missing relations; keep valid prior accepted proof."
+    },
+    {
+      "order": 4,
+      "work": "Close remaining S01/S02/S03/S06 coverage and independent F11 sufficiency through existing owners, then sole AF22.",
+      "output": "A same-subject/law green or explicit non-green verdict, with no new controller or per-behavior owning-result vector."
+    },
+    {
+      "order": 5,
+      "work": "Return the exact prospective qualified candidate for reserved S07 release and human acceptance decisions.",
+      "output": "An acyclic unchanged-RC lineage, with post-publication installation as a terminal addendum."
+    }
+  ],
+  "materialOwnerQuestions": [
+    {
+      "owner": "Root / qualification identity owner",
+      "question": "Which authenticated actor/worker identity relation supplies the stable assessor identity corresponding to construction attribution?",
+      "standing": "Material before independence-bearing F11; this report asks for no approval and prescribes no speculative implementation."
+    },
+    {
+      "owner": "Root / witness authority",
+      "question": "Which existing prospective witness contract/oracle will support current S06, and which accepted obligations and proof survive the changed runtime paths?",
+      "standing": "Settle from existing witness inputs where possible; no routine human approval stage is implied."
+    },
+    {
+      "owner": "Root / release authority",
+      "question": "What exact prospective successor RC and release claim will final qualification bind after any qualifying changes?",
+      "standing": "Must precede qualification. Publication and actual human acceptance remain reserved."
+    }
+  ],
+  "completionPredicateResiduals": [
+    "The 4.6 successor record and retained/reserved traversal dispositions require sufficient behavioral evidence; catalog presence is not closure.",
+    "The complete installed scenario conjunction and meaningful nearest negatives remain unestablished.",
+    "No exhaustive claim that every rival reachable authority is absent was made; bounded source reviews retain their exact scopes.",
+    "Each qualifying subject needs the same selected STDO 3.0.4 law, complete F11 and sole AF22.",
+    "Immutable RC, actual human acceptance and post-publication installation conditions remain unperformed and reserved."
+  ],
+  "unperformedCoverage": [
+    "No builds, tests, providers, native runs, installations, raw event-log replay or independent installed payload rehash were performed.",
+    "No exhaustive whole-tree conformance, every negative/path, complete native performance, full R1-R7/C1-C5 or general crash/saga evaluation.",
+    "No native independent-assessment eligibility determination for all current author/assessor pairs. Same model family does not establish required clean-family independence.",
+    "No actualS07publication/humanacceptance; missing futureeffects are not classified as missing Product mechanisms."
+  ],
+  "acquisitionAndIndependence": {
+    "authorship": "No authorship or repair of this exact frozen source in this activation. Shared prior mechanical facts and original owner rulings are identified separately from this judgment.",
+    "host": "Unrestricted filesystem tools; behavioral read bounds, not sandbox isolation.",
+    "priorContext": "Task intake, Product sources and lightweight memory registry routing were read; no clean-context/family qualification claim. Parent-reportedQ23/resource hypotheses were checked against frozen source.",
+    "disclosure": [
+      "One filename-only campaign search for roster/coverage/handoff records returned nested archive fixture paths. Their contents and raw provider material were not acquired; subsequent reads used named source/closed-record routes.",
+      "An initial method verification printed its manifest inventory; later verification and governing sections used the compact verified reader.",
+      "No raw provider thinking/text/tool-result/stdout or bulk event-log contents used as evidence."
+    ],
+    "effectBoundary": "Only FEATURE_COVERAGE_REVIEW.json and FEATURE_COVERAGE_REVIEW.md are written."
+  },
+  "invalidation": {
+    "materialInputChange": "Changed source/artifact/claim, evidence population, oracle, resource/provenance, execution capability or independently authenticated actor condition invalidates only dependent results before reuse.",
+    "changedBasis": "Changed Product/requirements/STDO/subject or workspace/runtime binding requires applicable re-entry; a session/role change alone does not.",
+    "declaredRevisingObservation": "A supported current native counterexample, lost/changed evidence bytes, mismatched source bridge, failed affected composition or conflict in required independent judgment revises the corresponding row."
+  },
+  "return": "Closed bounded result to Root. No Reviewer activates a Worker. No further action selected by this result.",
+  "contributedClosedReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+    "bytes": 28638,
+    "sha256": "085c993048138ee929c07cd3be709e867fa51c3d0b0fe9bcf77497b1b8bc1c69",
+    "result": "falsified",
+    "findings": [
+      {
+        "id": "QR-01",
+        "severity": "S1",
+        "title": "Q23 assessor identity correspondence is still absent",
+        "triage": "complete"
+      },
+      {
+        "id": "QR-02",
+        "severity": "S2",
+        "title": "The test provenance selection does not establish the relevant contributor set",
+        "triage": "complete"
+      },
+      {
+        "id": "QR-03",
+        "severity": "S2",
+        "title": "The retained qualification helper is bound to RC1, not the requested successor",
+        "triage": "complete"
+      }
+    ],
+    "standing": "Independent coverage judgment remains distinct from this separately scoped route review. Root conjoins the results."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "status": "PREPARED_OPERATOR_INPUTS",
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 780,
+        "sha256": "6e2be665e7cc033639c770763365eb468aeff569e72b7766d493121dfa6d63d1"
+      },
+      "target": "rc4-operator-inputs/native-recovery-10/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 780,
+      "sha256": "6e2be665e7cc033639c770763365eb468aeff569e72b7766d493121dfa6d63d1"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/task.DRAFT.md",
+        "bytes": 7611,
+        "sha256": "2c570d8aa968aa04ba090dd89201d5cef98588c1e34a20bc7f774976d229ea48"
+      },
+      "target": "rc4-operator-inputs/native-recovery-10/task.DRAFT.md",
+      "bytes": 7611,
+      "sha256": "2c570d8aa968aa04ba090dd89201d5cef98588c1e34a20bc7f774976d229ea48"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/rubric.DRAFT.json",
+        "bytes": 2997,
+        "sha256": "84029cfc683fae755c97917cf47f21e1ff5b874ab6b7bee99ddc6fe50f621c01"
+      },
+      "target": "rc4-operator-inputs/native-recovery-10/rubric.DRAFT.json",
+      "bytes": 2997,
+      "sha256": "84029cfc683fae755c97917cf47f21e1ff5b874ab6b7bee99ddc6fe50f621c01"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/NATIVE_GRANT.DRAFT.json",
+        "bytes": 14397,
+        "sha256": "ce0ae8c6deab8c08aa958d40801ca067bff54d397001a48cd57f11c2132b772f"
+      },
+      "target": "rc4-operator-inputs/native-recovery-10/NATIVE_GRANT.DRAFT.json",
+      "bytes": 14397,
+      "sha256": "ce0ae8c6deab8c08aa958d40801ca067bff54d397001a48cd57f11c2132b772f"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 1443,
+        "sha256": "e393fb00a1d49b186d38fe71f4381a1e208063ba826ce8124196eb0a36675253"
+      },
+      "target": "rc4-operator-inputs/native-recovery-10/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 1443,
+      "sha256": "e393fb00a1d49b186d38fe71f4381a1e208063ba826ce8124196eb0a36675253"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 3330,
+        "sha256": "87300cb4a0657a68aa115440c37ba109c20def95fe9f3ec19277f1af2e1df111"
+      },
+      "target": "rc4-operator-inputs/native-recovery-10/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 3330,
+      "sha256": "87300cb4a0657a68aa115440c37ba109c20def95fe9f3ec19277f1af2e1df111"
+    }
+  ],
+  "meaning": "Six new10 inputs only after009 preservation/quiescence; old materials preserved."
+}

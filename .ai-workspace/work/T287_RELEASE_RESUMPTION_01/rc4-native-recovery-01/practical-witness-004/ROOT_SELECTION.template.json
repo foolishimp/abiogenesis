@@ -1,0 +1,10 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "ROOT_SELECTS_EXACT_BINDING",
+  "allowedStages": [
+    "setup"
+  ],
+  "callSha256": null,
+  "decision": "Root review must select setup/preflight only. Each real A/B/continue call and resource recovery is selected separately; no provider dispatch from setup, no automatic retry."
+}

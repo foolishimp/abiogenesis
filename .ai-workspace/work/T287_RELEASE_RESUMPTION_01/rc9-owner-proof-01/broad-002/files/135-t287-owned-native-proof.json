@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-owned-native-proof.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1902.688457999844,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "20–24 MB native carrier: preparation -> Result clone -> judgment/foldback -> C2 conserves proof and current invalidators",
+      "file": "test_env/tests/t287-owned-native-proof.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_OWNED_PROOF_NATIVE_REQUEST unset; requires the 20–24 MB native carrier request",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/135-t287-owned-native-proof.jsonl",
+    "bytes": 920,
+    "sha256": "33fc2bc41e9f529744855c0318f6fabd3cd352e51305c0c93737db981de3c89d"
+  },
+  "commandReceipt": "commands/135-t287-owned-native-proof.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

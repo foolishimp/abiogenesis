@@ -1,0 +1,25 @@
+{
+  "sourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+  "kind": "rc4_native_recovery_prepared_call_binding",
+  "status": "prepared_not_dispatched",
+  "bindingDigest": "7223f5bb66c21d8ed7c38d81cd54141f0cc6c34fcc754e2973f1af2b6628a45d",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "workloadSha256": "00fe069c43243cf5f05afec713f784ef4b892aca9fe950c35fcf9d3e0041c3fc",
+  "inputFileSha256": "4ff089120aa368cff75735656f0dae6fe33ea7f3e944c21cdef4be7c9f3a07e3",
+  "inputCanonicalDigest": "sha256:66a0a92076a26a452a2bdbc29609012672c1909fdf763fdd4f2654377a0f5d6a",
+  "callFileSha256": "f6744ea096ba23c1feb1480de789514e6811e1b280ca5ab27bb3adb4ece0d14e",
+  "callCanonicalDigest": "sha256:a0c6105eed8fe41100cb3450408f5cf5cf774a580f00dbbff2da00b797849d65",
+  "invocationRef": "invocation://abiogenesis/010f3cf2a9d254806b465a0282ac7da3a1765e2a57bdbb125d25d0a4df0fe607",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "eventPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 314517064,
+    "sha256": "5b2307b5b808ee20a5dc0f7f2769dafd5964d79214adadc998756d78bdf5be21",
+    "device": 16777231,
+    "inode": 673308256,
+    "coordinateDigest": "sha256:c02e79759e6c82d298cf68a17683e9b21c9fd87ee612b5e8fe381e0f6565e6bf"
+  },
+  "preflightSha256": "b93e4aed92e2559db492ce107c149804bf182349f47626b97e1318a26ab844d6",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

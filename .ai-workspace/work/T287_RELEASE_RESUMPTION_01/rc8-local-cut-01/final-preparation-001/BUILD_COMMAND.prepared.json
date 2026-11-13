@@ -1,0 +1,90 @@
+{
+  "status": "CONCRETE_EXISTING_DRIVER_ROUTE_FINAL_BINDINGS_PENDING",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "bytes": 27890,
+    "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+  },
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_002.json",
+    "bytes": 4182,
+    "sha256": "64e5c7a9bb4092fdc9334e9f78898e5cdd401d58059f2098c9a7f68a87c1ef39"
+  },
+  "preparedBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/CUT8_BUILD_BINDINGS.prepared.json",
+    "bytes": 15047,
+    "sha256": "65bfb8b289dfb7967ecd3e112f3197a15fa575bfb41e26f9b0b0ad063b90534e"
+  },
+  "finalBindingFieldsToFill": [
+    "status=ROOT_SELECTED_LOCAL_RC8_BUILD_ONLY",
+    "activation:exact separate Root build admission",
+    "source.cumulativeSourceCoverageDisposition:actual Root A12 source acceptance",
+    "source.finalTestOnlySourceAcceptance:actual Root A12 source acceptance",
+    "acceptance.source:actual Root A12 source acceptance",
+    "acceptance.focusedAndReview:actual Root accepted A12 conjunction",
+    "acceptance.broadClose:actual Root final broad/source conjunction",
+    "proofBindings final A12 review/SDKclose-readback/source acceptance/Root broad conjunction",
+    "executionEnabled:true only under separate actual Root execution admission"
+  ],
+  "commandArgv": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "build",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/CUT8_BUILD_BINDINGS.final.json",
+    "<SHA256_OF_ACTUAL_FINAL_BINDING>"
+  ],
+  "executeNow": false,
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "expectedOutputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001",
+  "expectedBuildOutputs": [
+    "SOURCE_PREPARED.json",
+    "SOURCE_CHECKPOINT.json",
+    "REPRODUCTION_INPUTS_VERIFIED.json",
+    "candidate/RESULT.json",
+    "reproduction/RESULT.json",
+    "EXACT_TESTED_ARTIFACT.json",
+    "INSTALL_INPUTS_PENDING.json",
+    "BUILD_RESULT.json"
+  ],
+  "afterBuild": "Independent satisfied review of exact checkpoint/tree/reproduction/artifact, then separate Root install admission through unchanged corrected002 install phase.",
+  "priorControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/preparation-resumption-001/CONTROL_RECONCILIATION.json",
+    "bytes": 5806,
+    "sha256": "df53b28e14fab7fac0e136018dc35d1cc0a7bed55e22c8220e1cd4df75608844"
+  },
+  "deliveryPinsRemainFrozen": {
+    "status": "FINAL_WRITER_PINS_REACQUIRED",
+    "pins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 138970,
+        "sha256": "aa8409b95df79c1bdb9c0958ee2591e64654a82521382501cca13418bfb2a8e1"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 780667,
+        "sha256": "a9de28c9a43e2e7e69acf4b588287c1eee57cd777c633fd394c6553e130e183a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/RESUMPTION.json",
+        "bytes": 21402,
+        "sha256": "728d6f4965d4daa912f5a05b28df85f59066fc8cc232d47fe729c78c2ce593a1"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/WRITER_RETURN.json",
+        "bytes": 2900,
+        "sha256": "02384b50d9f14396c6fa34bdcc658e9a725622384d83dea25f0b0c3208987497"
+      }
+    ],
+    "authority": "Delivery-record Writer return; no new execution or acceptance. All nine capsule bytes preserved."
+  }
+}

@@ -1,0 +1,119 @@
+{
+ "kind": "native_05_readiness",
+ "utc": "2026-11-03T23:07:49Z",
+ "ready": false,
+ "reason": "Truthful partial evidence. The selected source relations are realized and their changed-claim falsifiers pass in scratch. However, the retry-entry budget cases cannot run (the declared S02 fixture is refused under the current event contract), T289 has a pre-existing red, and actual C2, review and UAT are outside this Worker.",
+ "mechanical": {
+  "typecheck": "exit 0",
+  "scratchBuild": "tsc exit 0, generator exit 0",
+  "trackedChangesOutsideGrant": []
+ },
+ "laneSummary": {
+  "qual-components-1": [
+   41,
+   2,
+   1
+  ],
+  "release-acceptance-2": [
+   6,
+   0,
+   0
+  ],
+  "producer-1": [
+   3,
+   0,
+   0
+  ],
+  "adapter-consumers-1": [
+   9,
+   1,
+   4
+  ],
+  "f49-t289-1": [
+   3,
+   1,
+   0
+  ],
+  "affected-owner-2": [
+   108,
+   0,
+   28
+  ],
+  "r4-1": [
+   8,
+   0,
+   0
+  ],
+  "fresh-process-1": [
+   1,
+   0,
+   0
+  ],
+  "replay-consumers-1": [
+   null,
+   null,
+   null
+  ],
+  "whole-path-5": [
+   5,
+   1,
+   0
+  ],
+  "whole-path-6": [
+   6,
+   0,
+   0
+  ],
+  "global-pairs-1": [
+   1,
+   0,
+   0
+  ],
+  "whole-path-7": [
+   7,
+   0,
+   0
+  ],
+  "retry-budget-1": [
+   7,
+   3,
+   1
+  ],
+  "f49-retry-2": [
+   0,
+   3,
+   0
+  ],
+  "f09-consumers-1": [
+   1,
+   1,
+   0
+  ],
+  "f09-consumers-2": [
+   1,
+   1,
+   0
+  ],
+  "f09-consumers-3": [
+   1,
+   0,
+   0
+  ],
+  "f09-consumers-4": [
+   1,
+   0,
+   0
+  ],
+  "remaining-c2-1": [
+   37,
+   0,
+   1
+  ],
+  "harness-1": [
+   32,
+   0,
+   0
+  ]
+ },
+ "sourceHashesOf": "return.json sourceHashes"
+}

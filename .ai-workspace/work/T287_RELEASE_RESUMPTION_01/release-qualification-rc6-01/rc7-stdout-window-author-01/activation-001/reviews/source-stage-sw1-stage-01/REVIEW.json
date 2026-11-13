@@ -1,0 +1,92 @@
+{
+  "kind": "bounded_independent_frozen_before_test_review",
+  "status": "CLOSED_BEFORE_DISCRIMINATOR_REVIEW_AFTER_PENDING",
+  "createdUtc": "2026-11-06T21:07:11.256830+00:00",
+  "productFrame": {
+    "product": "ABIogenesis 5.0 unchanged fixed fifteen feature families; GOAL-035 / T-287",
+    "method": "STDO 3.0.4",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authority": "ABG remains sole runtime and admission authority; GTL owns Program language; thin SDK/CLI; installed RC6 builder is immutable, candidate RC7 remains prospective. No new runtime/store/controller/event stream/cache framework or Public expansion."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/review-subject-stage-001/SUBJECT.json",
+    "bytes": 264494,
+    "sha256": "38f96c0269cdd7e682f5e686fcca902e6eca5eb5ab182c8a3ac130166f4b7c8d"
+  },
+  "stageLabel": "sw1-stage-01",
+  "stageMode": "before",
+  "sourceDigest": "5d51fb333507b2e38183f40c96101358c426c2fa7b49bcb7dc31589e085d063a",
+  "sourceRows": 451,
+  "changedFile": {
+    "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "bytes": 83542,
+      "sha256": "149f8a0d42d23d23b0158a6b6791bcd9e191b80be0f4e89dd2302442aa5b6196"
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "bytes": 122552,
+      "sha256": "e0ce4cb94853a25fa511ce45971a42dddf9599538da3dd8de3c0a8fb17fcbb15"
+    },
+    "withinSelectedWriteTerritory": true
+  },
+  "unchangedStanding": "Custody subject records 450 unchanged immutable H06 source references, including old HOW. Reviewer independently verified subject and changed preimage/body pins and read only named frozen baseline owners; this is not a fresh 451-file audit.",
+  "evidence": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/summary.json",
+      "bytes": 1508,
+      "sha256": "b2b210c971ede687abe790b4a7689a1e684d4b536f69bba32e70b515777c4e18"
+    },
+    "tap": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/stdout.tap",
+      "bytes": 6157,
+      "sha256": "ab1cb3bf77d06f0bb3813e2512ff7561466402fd7b2ecc40f0ee57d377c4468e"
+    },
+    "measurementSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/MEASUREMENT_PLAN.materialized.json",
+      "bytes": 4471,
+      "sha256": "ed0447324e0f52a4c3c331985a10a52042bcf7c4246603a46631921c95ff80bd"
+    }
+  },
+  "conclusion": "No concrete blocker to retaining this baseline/differential test as the selected cadence discriminator. Actual baseline fails semantically at the intended per-capture versus bounded-window assertion. This conclusion neither reviews nor accepts an AFTER implementation.",
+  "observed": [
+    "The sole source delta appends 501 lines to t287-calculus-fold.test.mjs; baseline Product/runtime/HOW bodies are unchanged.",
+    "The original transport onStdoutObserved contract takes a captured string and calls its observer once per chunk (worker_transport.ts:69,455). The new test drives that real transport with non-private synthesized byte lengths and a declared replay classifier.",
+    "Actual stdout-before is exit1: two tests, one pass, one fail, zero skips/cancellations, 2584ms. The first metadata/current-owner per-chunk-prefix case passes.",
+    "The real failure at t287-calculus-fold.test.mjs:1570 is 911 observed stdout callbacks versus 3 modeled closed windows; it occurs after setup, current-owner admission and actual transport invocation. It is not missing module, missing manifest or a build failure."
+  ],
+  "boundedSourceAssessment": [
+    {
+      "join": "Cadence and oracle",
+      "references": [
+        "t287-calculus-fold.test.mjs:1106-1223",
+        "t287-calculus-fold.test.mjs:1415-1450",
+        "t287-calculus-fold.test.mjs:1534-1571"
+      ],
+      "assessment": "Recorded qualifying clocks and chunk byte lengths are pinned. Unknown noise clocks are explicitly held at the previous replay instant, bytes are synthesized, and no historical turn boundaries are invented. The before fallback classifier computes the same window oracle from received chunks; cadence red is genuine within that disclosed replay."
+    },
+    {
+      "join": "Pending-window durable threshold",
+      "references": [
+        "t287-calculus-fold.test.mjs:1466-1531",
+        "runtime_liveness.ts:358-393"
+      ],
+      "assessment": "Authored later assertions require last qualifying activity, one flush, durable successor on not_reached, no invented threshold row, and stale predecessor refusal. They target the selected durableOnly/non-admitting-successor relation but were not reached in BEFORE."
+    }
+  ],
+  "findings": [],
+  "limits": [
+    "Assertions after failing line1570 did not execute: archive descriptor/range checks, bind/drain checks and all24 pending-window decision replays remain unproved by this lane.",
+    "The archive read in onStdoutObserved checks bytes visible before callback, not fsync by itself. Fsync/failure/cold-integrity must be assessed in the selected AFTER implementation and existing proof grouping.",
+    "Historical metadata does not establish original provider bytes, noise capture clocks or structured turn boundaries. The known absolute threshold uses its recorded elapsed instant; non-timeout synthetic probes at pending.last are not historical exit or decision-clock reconstruction.",
+    "The first passing case exercises frame/CCall production without a pending stdout window. Common-ingress all-four-producer flushing, two interleaved scopes, rollback/reentrancy, actual actor_process successor adoption, and legacy contract/cut replay require the selected AFTER source and proof.",
+    "No source edits, builds, tests, runtime acquisition, provider invocation or private actor narrative access by Reviewer. All candidate reads used immutable snapshot/preimage paths.",
+    "This is same-family component review to Root, not formal F11 J, whole procedure compliance, release qualification, acceptance, installed RC7 evidence or measured speedup. Root owns conjunction; AFTER subject and proof remain pending."
+  ],
+  "nextBoundedStep": "Review the first exact frozen AFTER source/HOW delta and its selected proof without discarding this real BEFORE failure or promoting unreached assertions to evidence."
+}

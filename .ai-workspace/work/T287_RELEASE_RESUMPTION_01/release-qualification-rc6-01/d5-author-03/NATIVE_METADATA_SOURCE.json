@@ -1,0 +1,11 @@
+{
+  "kind": "actual_native_metadata_observation_source",
+  "eventOrdinal": 161313,
+  "eventOffset": 929276588,
+  "eventRowBytes": 14803523,
+  "eventRowSha256": "9b4bd1ce6d392939e6c89974a42d5f9b02a19af72651bb9988b95638e4eccdc5",
+  "transportBindingRef": "transport-binding://abiogenesis/b77357d9faee5cdacbab6666ebe37461ad4b7594bab06e3c01f1112bdf2ad180",
+  "transportBindingDigest": "sha256:b77357d9faee5cdacbab6666ebe37461ad4b7594bab06e3c01f1112bdf2ad180",
+  "limits": "Allowlisted tool_use metadata and terminal counters only; no provider reasoning/narrative/tool_result or stderr.",
+  "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-411eae67f6d724d8-stdout.log"
+}

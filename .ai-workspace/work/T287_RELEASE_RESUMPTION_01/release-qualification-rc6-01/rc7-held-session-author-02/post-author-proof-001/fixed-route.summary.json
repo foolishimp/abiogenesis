@@ -1,0 +1,67 @@
+{
+  "id": "fixed-route",
+  "pass": false,
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01-lanes-fixed-route/summary-fixed-route.json",
+    "bytes": 2212,
+    "sha256": "2811b93ac97be79493260669f74a859692b4dbed9969881be126a270c13c10c7"
+  },
+  "laneSummary": {
+    "id": "fixed-route",
+    "mode": "after",
+    "setupMs": 67,
+    "priorLaneAllocations": 0,
+    "laneAllocationCap": 6,
+    "stageSourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+    "integrationEvidenceSourceDigest": null,
+    "integrationEvidenceReused": false,
+    "activeRc7": [
+      "RC7 fixed proof: direct root Testing prepares the observed C2 task and folds one selector-free Testing observation",
+      "RC7 fixed proof: direct Testing refuses open scope, fabricated or retained input, and a selector-free fold off the root Testing wrapper",
+      "RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector",
+      "RC7 fixed proof: direct UAT refuses crossed source, row population, producer identity, currentness and off-root relations",
+      "RC7 fixed proof: selected children keep the synthesis target guard, selected Result ref and selected instruction order",
+      "RC7 fixed proof: public-setup invokes Testing directly, derives its admitted state Result once and invokes UAT over exactly that source; the lifecycle start is unchanged"
+    ],
+    "requiredActivePass": false,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:RC7 fixed admission: |RC7 fixed proof: ) test_env/tests/t287-default-library.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "ms": 86743,
+    "tests": 7,
+    "pass": 6,
+    "fail": 1,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 7,
+    "failing": [
+      "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+    ],
+    "stdoutSha256": "7a5e0d48bd98dc7feb3d77918374358ff3cf3e70f1c8f0cb8db3acbb97baa191",
+    "stdoutBytes": 3524,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "commandReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/post-author-proof-001/commands/fixed-route.result.json",
+    "bytes": 1032,
+    "sha256": "b48bd282a7017cd70303031b890e5582af49a145980ecbae01b1e168a5c09c7c"
+  },
+  "wallMs": 86852.080208,
+  "maximumResidentSetSizeBytes": 2382151680,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "sourceAfter": {
+    "sourceRows": 451,
+    "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+    "stagedAndLiveMatch": true,
+    "originalControlsUnchanged": true
+  }
+}

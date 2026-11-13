@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_SELECTION_REQUIRED",
+  "operator": "Root",
+  "bindingSha256": "18a0e1a327d2dc102427fd3df7ff047f89526cc11606e54bace810dfd51a605f",
+  "allowedStages": [
+    "setup"
+  ],
+  "callSha256": null,
+  "decision": "Template only: provisional C3 isolated setup/preflight; no Run/provider or acceptance. Root selection must be explicit."
+}

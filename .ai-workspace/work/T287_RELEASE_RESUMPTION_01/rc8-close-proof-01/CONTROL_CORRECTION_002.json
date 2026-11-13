@@ -1,0 +1,107 @@
+{
+  "status": "OPERATOR_NODE_MODULE_LAYOUT_CORRECTED_BOUND_NOT_EXECUTION_ADMITTED",
+  "recordedUtc": "2026-11-07T04:52:36.569645+00:00",
+  "executive": "/root",
+  "operator": "/root/rc8_operator",
+  "predecessorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_001.json",
+    "bytes": 5523,
+    "sha256": "04a07e107702df3f18a5b9fe6b503c7116141f5a7b3305b8fda3067528c5a5c5"
+  },
+  "rootTriage": {
+    "classification": "OPERATOR_NODE_MODULE_LAYOUT",
+    "productSourceChanged": false,
+    "productAssertionExecuted": false,
+    "cause": "Original stage and scratch/d both contain identical AJV and four lock-declared transitive packages. Node realpath follows tenant/node_modules to d; package lookup from d/ajv searches d/node_modules and scratch/node_modules, not sibling d/fast-deep-equal.",
+    "rootReadOnlyDiscriminator": "createRequire(<root>/ajv/dist/compile/resolve.js).resolve(fast-deep-equal) succeeds under the original stage node_modules and fails under scratch/d. Root supplied this causal diagnosis; Operator did not repeat it.",
+    "selectedCorrection": "Keep exact dependency bytes under scratch/node_modules and conserve the existing tenant symlink. Product laws, source, inventory membership, size/currentness checks, bounds and credits are unchanged."
+  },
+  "codeDelta": {
+    "predecessor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-001.mjs",
+      "bytes": 20119,
+      "sha256": "f43dff68d58a401fe7839aed58f792d9323e1946e5472340c9da1dfc34d216c3"
+    },
+    "successor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-002.mjs",
+      "bytes": 20130,
+      "sha256": "71e7223c33c96d9b5a925a6ba1ee1d256876852197cf582cc8c8eeca94ca6d78"
+    },
+    "changes": [
+      "join(c.scratchRoot,'d') becomes join(c.scratchRoot,'node_modules')",
+      "Preparation-manifest lookup advances to PREPARATION_MANIFEST_CORRECTED_002.json",
+      "Usage text names the versioned driver"
+    ]
+  },
+  "configDelta": {
+    "predecessor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_002.json",
+      "bytes": 13575,
+      "sha256": "139ea4dfe2c0e6166734577a66171ca9b248148ebfc874a91a204610126c2156"
+    },
+    "successor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_003.json",
+      "bytes": 13661,
+      "sha256": "0ea3badd2fb57c28f6fdda4a233314735a3c40df1f42f6b9148f3e1f0b0c2a77"
+    },
+    "changedFields": [
+      "bindingRoot",
+      "outputRoot",
+      "scratchRoot",
+      "executionStanding"
+    ],
+    "newBindingRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-003",
+    "newOutputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002",
+    "newScratchRoot": "/private/tmp/abg-r8c-002"
+  },
+  "syntax": {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "close-proof.corrected-002.mjs"
+    ],
+    "exitCode": 0,
+    "output": ""
+  },
+  "bind": {
+    "invocations": 1,
+    "sessionId": 66851,
+    "exitCode": 0,
+    "status": "BOUND_NOT_EXECUTION_ADMITTED",
+    "predecessorInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-002/BOUND_INVENTORY.json",
+      "bytes": 1691127,
+      "sha256": "94a333d31a4d0e72e39371081c2853aca30d1e393d2d594d1c2f50864c6c2b73"
+    },
+    "successorInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-003/BOUND_INVENTORY.json",
+      "bytes": 1691127,
+      "sha256": "3e14a0f8188cf72f43570fc4c1bc187333bbc58437652d578b9b7e28be7c4498"
+    },
+    "onlyChangedInventoryFields": [
+      "at",
+      "config"
+    ],
+    "allOtherInventoryFieldsExactlyEqual": true,
+    "stageRows": 2131,
+    "dependencyRows": 4576,
+    "stageDigest": "d5976daaa2fd294fe703e10a325a3c60a76e391fb6c1f37ac9b46823aa30303d",
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "counts": {
+      "testFiles": 207,
+      "harnessFiles": 1,
+      "allTestDirectoryMjs": 212,
+      "focusedWholeFiles": 5,
+      "scheduledFiles": 203
+    }
+  },
+  "preservation": {
+    "originalControlsAndExecution001Retained": true,
+    "testFixturesAllocated": false,
+    "secondTestExecution": false,
+    "sourceEdits": false,
+    "dependencyInstall": false,
+    "providerCalls": 0,
+    "executionAdmission": null
+  }
+}

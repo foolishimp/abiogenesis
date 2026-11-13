@@ -1,0 +1,107 @@
+{
+  "recordedUtc": "2026-11-03T19:10:15.068530+00:00",
+  "authority": "native-03/ROOT_WRITER_ACTIVATION.json",
+  "statusPreimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/coordination-preimages/STATUS.20261103T191015Z.json",
+  "statusPreimageSha256": "b45a84b6ec164223a5da3e154b64cc1ed8bbb63c0ca7cbef29abf618f8c4e2c4",
+  "previousEta": {
+    "observedUtc": "2026-11-03T18:33:18.903163+00:00",
+    "scope": "Evaluated successor consolidation candidate; completed installed RC5 unchanged",
+    "workingRemainingMinutes": [
+      60,
+      100
+    ],
+    "breakdown": [
+      {
+        "work": "Finish remaining caller migrations and matched whole-path measurements",
+        "minutes": [
+          20,
+          40
+        ]
+      },
+      {
+        "work": "Affected author feedback and exact native handoff",
+        "minutes": [
+          10,
+          15
+        ]
+      },
+      {
+        "work": "Frozen-source independent review alongside actual build and affected C2",
+        "minutes": [
+          20,
+          30
+        ]
+      },
+      {
+        "work": "Native UAT, fresh result/replay, Root assessment",
+        "minutes": [
+          10,
+          15
+        ]
+      }
+    ],
+    "revisedPlanningWindowAEDT": [
+      "2026-11-04 06:30",
+      "2026-11-04 07:15"
+    ],
+    "previousPlanningWindowAEDT": [
+      "2026-11-04 06:00",
+      "2026-11-04 07:00"
+    ],
+    "revisionReason": "At05:32AEDT the full caller migration and combined measurement remain active; actual frozen review/C2/UAT are still ahead. No test or acceptance stage omitted to fit earlier estimate.",
+    "assumption": "Native03 completes remaining relation and current affected proof passes; a new repair cycle extends this estimate. No successor cut/install included.",
+    "stageEvidence": "Native03 progress18:30:11Z: same-input held22.996 to liveness-only9.732 body passes per unrelated event; subsequent migrations typecheck but combined proof pending.",
+    "nextRevision": "Native source return, material failure, or substantive schedule change.",
+    "scheduleRisk": "06:30-07:15AEDT depends on completing these sites and affected proof; another native activation will require a revised estimate.",
+    "riskObservedUtc": "2026-11-03T18:59:07.839205+00:00"
+  },
+  "eta": {
+    "observedUtc": "2026-11-03T19:10:15.068530+00:00",
+    "scope": "Complete evaluated consolidation successor; existing installed RC5 unchanged; no new cut/install included",
+    "workingRemainingMinutes": [
+      75,
+      115
+    ],
+    "revisedPlanningWindowAEDT": [
+      "2026-11-04 07:30",
+      "2026-11-04 08:15"
+    ],
+    "previousPlanningWindowAEDT": [
+      "2026-11-04 06:30",
+      "2026-11-04 07:15"
+    ],
+    "revisionReason": "Current pass leaves selected forwarding, recovery, witness, retry and qualification-source work; witness proof equalities require reconciliation under unchanged law. The prior estimate assumed this worker would complete the whole selected caller list.",
+    "breakdown": [
+      {
+        "work": "Close current pass, freeze source, conjoin independent review and actual proof",
+        "minutes": [
+          15,
+          25
+        ]
+      },
+      {
+        "work": "Launch and complete remaining selected caller migrations and proof reconciliation",
+        "minutes": [
+          30,
+          45
+        ]
+      },
+      {
+        "work": "Final frozen-source review alongside actual affected C2",
+        "minutes": [
+          20,
+          30
+        ]
+      },
+      {
+        "work": "Native UAT, fresh result/replay and Root assessment",
+        "minutes": [
+          10,
+          15
+        ]
+      }
+    ],
+    "assumption": "One further native continuation completes the original remaining relation and final proof passes; no extra repair cycle included.",
+    "nextRevision": "Material contrary evidence or current/final native return."
+  }
+}

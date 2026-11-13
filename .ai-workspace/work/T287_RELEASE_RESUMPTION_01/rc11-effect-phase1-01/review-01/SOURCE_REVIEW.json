@@ -1,0 +1,95 @@
+{
+  "kind": "independent_phase1_source_review",
+  "recordedAt": "2026-11-09T18:09:53.223042+00:00",
+  "reviewer": "/root/rc11_packaging_assurance",
+  "verdict": "falsified",
+  "frame": "Product/Proof + Effect-Lifecycle; prepared before candidate acquisition",
+  "context": "resumed nonauthor; no clean-context claim",
+  "baseline": "db9cf974a3f6263a7000d7b132c784b4e0b7a4d6",
+  "subject": {
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/frozen-source",
+    "sourceRows": 1344,
+    "sourceDigest": "5eb4b82b5861c25a4df23b6d42444b0ad9240d4fb76e7ac93851d5bbd9074fea",
+    "freezeSha256": "73fa9681d7153644a5c1ca76bfb23c0282afa8005fc79cfb1e2339711a606bf2",
+    "custodySha256": "86f70fcc34bf1643dc316f26ba0548c9a09596c3967313697d62f551114c5f73",
+    "changedSource": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+        "bytes": 8589,
+        "sha256": "9cbe06469224c20e3f58792a1791b9886b72b3876812787330be098ddd878d9e"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 138655,
+        "sha256": "38f201421431f21120ceabe75babf54ceda8c43639d87bcfa38e8cc03c610999"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 52787,
+        "sha256": "4db80cc8cf535099e138138720dc0ffb196e81ed35a8c9fe3b3037fee9a1ab91"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+        "bytes": 9781,
+        "sha256": "44733710fd85aa4b6bc3ed2decc875e7334e7778a1358e3564a0ab39da4f0c61"
+      }
+    ],
+    "inventoryIndependentlyVerified": true,
+    "scope": "four authorized source paths plus declared two operator tracking changes",
+    "productionAndPrivateHarnessEqualBaseline": true
+  },
+  "findings": [
+    {
+      "id": "PHASE1-PROOF-001",
+      "severity": "S2",
+      "owner": "m5 test Proof",
+      "source": "tests/m5-worker-transport.test.mjs:1003-1021",
+      "relation": "physical completion timestamp still selected from one callback containing complete newline",
+      "counterexample": "same ordered bytes split final record as comple + te newline; completeAt null; age assertion fails despite byte/record success",
+      "cause": "timing oracle remains callback-partition dependent",
+      "whyPriorChecksMiss": "new controlled content partitions do not consume physical completion timing oracle; observer selfchecks unrelated",
+      "repair": "bounded completion witness relation using ordered content and corresponding capture time, plus same-relation partition/incomplete discriminators",
+      "cost": "small test-only oracle and discriminator edit; no timeout or production change",
+      "closure": "split/coalesced completion preserves correct timestamp; incomplete completion refuses; original spawn/lease proof remains",
+      "priority": "Root-owned"
+    },
+    {
+      "id": "PHASE1-PROOF-002",
+      "severity": "S3",
+      "owner": "m5 controlled-test evidence",
+      "source": "tests/m5-worker-transport.test.mjs:800-804",
+      "relation": "driver assertion rejection precedes the sole trace retention",
+      "counterexample": "assertion at 812-814,829-830,841-842 or853-855 rejects before retainEvidence",
+      "cause": "retention follows only successful drive",
+      "impact": "causal facts unavailable on owner-counterexample branch; no false-green claim",
+      "repair": "retain available controlled trace then rethrow original error without awaiting unfinishable owner or fabricating close/result",
+      "cost": "one bounded failure path and discriminator",
+      "closure": "exact thrown identity and available trace survive failure with bounded handback",
+      "priority": "Root selected with S2 for one successor"
+    }
+  ],
+  "sourceCoverage": {
+    "observer": "no additional selected source counterexample; actual file JSON/text scope",
+    "actualOwnerControlledTests": "actual imported owner and lifetime host seams, not duplicate algorithm",
+    "physicalProgressWorkloadMs": 5550,
+    "physicalInitialLeaseMs": 5000,
+    "newPhysicalWindowsSkip": "explicit POSIX post-exit fixture; controlled exclusion remains unskipped"
+  },
+  "execution": {
+    "native": "runtime_failed at900s, null terminalResult, close/readback preserved",
+    "authorChecks": "Root-reported four Node syntax and8/8 observer; not independent full proof",
+    "externalProof": "not conjoined; full proof held for corrected freeze",
+    "reviewerExecution": false
+  },
+  "limits": [
+    "no production regression established",
+    "no qualification/native workflow success",
+    "no source/runtime/package/install/Git effects by reviewer",
+    "original failures/debts retained"
+  ],
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_REVIEW.md",
+    "bytes": 11867,
+    "sha256": "2599ce4606269a626428044284188f7ca65ed052a884859e238ab9bb96d0884b"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "status": "PARTIAL",
+  "contexts": [
+    1048576,
+    4194304
+  ],
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "bytes": 11021939,
+    "sha256": "ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693"
+  },
+  "finalSourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 25157,
+    "sha256": "1a216aa2b1ea9a688765a76d54249426721f5c591eb74e4db966d6649c504da3"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 4866,
+    "sha256": "abce5ba8307cca776181bbbe7c11374b372bf33dad00561de33882f12b3de950"
+  },
+  "phases": [
+    {
+      "name": "installed_fixture_setup",
+      "wallMs": 28603.5905,
+      "endRssBytes": 2829533184,
+      "work": null
+    },
+    {
+      "name": "fixture_bytes",
+      "wallMs": 9.062666999998328,
+      "endRssBytes": 2792325120,
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      }
+    },
+    {
+      "name": "held_acquisition",
+      "wallMs": 97.2802499999998,
+      "endRssBytes": 2798698496,
+      "work": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177829,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      }
+    }
+  ],
+  "cases": [],
+  "S6Disposition": null,
+  "qualified": false,
+  "setupAccounting": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 349.4415,
+      "provisioning_verify_artifact": 22379.94275,
+      "provisioning_install": 3675.8753749999996,
+      "provisioning_installed_content_check": 613.7912499999984,
+      "provisioning_additional_products": 0.0020839999997406267,
+      "installed_owner_loading": 300.5269159999989,
+      "environment_install_and_workspace_admission": 822.9297499999993,
+      "execution_preparation_publication_program_and_catalog": 455.52150000000256
+    }
+  },
+  "installedRoot": "/private/tmp/abg-r7m/tmp/abi5-root-env-a23AX9/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "installCandidate": {
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.6/863b31d9c4ff047ea629558a2edf08cf848b19da6ec7e2d1eebd2fc55f90fc11/b0f06d1a7a3c52067b846f9a4165f99483a9c2c7702a986eda3fec50729b811b",
+    "installedRoot": "/private/tmp/abg-r7m/tmp/abi5-root-env-a23AX9/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693",
+    "productContentDigest": "sha256:863b31d9c4ff047ea629558a2edf08cf848b19da6ec7e2d1eebd2fc55f90fc11",
+    "manifestDigest": "sha256:cd9abf92465cabd3feada4f0560f1fcf70b688237e647d6953f1cc7c2af05e07"
+  },
+  "fixtureSourcePins": [
+    {
+      "path": "/private/tmp/abg-r7m/tmp/abi5-root-env-a23AX9/workspace/context-1MiB.txt",
+      "bytes": 1048576,
+      "sha256": "4e29ad18ab9f42d7c233500771a39d7c852b200baf328fd00fbbe3fecea1eb56"
+    },
+    {
+      "path": "/private/tmp/abg-r7m/tmp/abi5-root-env-a23AX9/workspace/context-4MiB.txt",
+      "bytes": 4194304,
+      "sha256": "5947c00ce4da5eac3e8b3731df34e42a2d7b7e88bdb7bd93b8152afcedaa2f92"
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: {\"kind\":\"product_run_invocation_preparation_refusal\",\"memberKey\":\"start\",\"ownerOutput\":{\"outcomeKind\":\"refusal\",\"value\":{\"code\":\"invalid_target\",\"issuePaths\":[\"/program\"],\"evidenceRefs\":[]}}}\n+ actual - expected\n\n+ 'product_run_invocation_preparation_refusal'\n- 'installed_start_call'\n\n    at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-002/measurement.test.mjs:47:14)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+  "abandonedOnFailure": true,
+  "partialEventLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001/runtime.events.jsonl",
+    "bytes": 3177829,
+    "sha256": "4d5deb3fba09454808b38b36680416e77191001435fad9eee4bf0d920d4f1052"
+  },
+  "totalWallMs": 28836.259875,
+  "nodeResourceUsage": {
+    "userCPUTime": 33735853,
+    "systemCPUTime": 1118657,
+    "maxRSS": 2799088,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 248326,
+    "majorPageFault": 84,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 2,
+    "ipcReceived": 1,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 974,
+    "involuntaryContextSwitches": 145695
+  },
+  "measuredPhaseWallMs": 28709.933416999997,
+  "unassignedFixtureSerializationOrOtherMs": 126.32645800000319,
+  "limits": [
+    "Scripted actor; no provider, native-coding productivity, general performance or matched-baseline speedup claim.",
+    "The two tasks are read-only: changed-body birth remains covered by accepted S4 evidence, not re-exercised here.",
+    "Task-holder row bytes are actual physical row extents, not an invented allocation of shared encoded body bytes.",
+    "Complete SDK serialization is explicit JSON.stringify measurement; it is not claimed to be mandatory internal runtime serialization.",
+    "Fixture setup includes the maintained helper actual scratch install; original bootstrap remains immutable.",
+    "Two full run_result cold equalities only; HS02 replay equality is reused on its original subject, not relabelled as this measurement.",
+    "S6 remains a Root Product/consumer-contract decision; linear bytes alone do not select redesign.",
+    "Phase RSS and nodeResourceUsage describe the parent process; they exclude cold CLI and actor child peak RSS.",
+    "Fixture-owned temporary installation/worksite is cleaned by its existing test hook; retained physical log and complete outcomes preserve this proof."
+  ]
+}

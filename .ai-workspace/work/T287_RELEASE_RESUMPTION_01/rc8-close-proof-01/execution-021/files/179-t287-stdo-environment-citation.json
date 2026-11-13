@@ -1,0 +1,68 @@
+{
+  "file": "test_env/tests/t287-stdo-environment-citation.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 3512.8196250000037,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "RC7 source citation boundary: real corpus access, both compiled role assemblies and unchanged grounding",
+      "file": "test_env/tests/t287-stdo-environment-citation.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_ENV_PROOF_ROOT unset; requires the proof root and the input root holding stdo-installs.json",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "preserved failed RC6 output still has thirteen valid quotes and one ineligible role-frame quote",
+      "file": "test_env/tests/t287-stdo-environment-citation.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": "ABI5_ENV_PRIOR_EVENTS unset; requires preserved failed pilot history",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/events/179-t287-stdo-environment-citation.jsonl",
+    "bytes": 1284,
+    "sha256": "d15057b5e23e405fa5c21808243568ccdf4ba4702a6167fb92eebe4544bea9f4"
+  },
+  "commandReceipt": "commands/179-t287-stdo-environment-citation.result.json",
+  "workspace": "/private/tmp/abg-r8c-021/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

@@ -1,0 +1,252 @@
+{
+  "id": "RC11-NATIVE03-RETURN",
+  "status": "stopped_native_fixture_generation_failed",
+  "at": "2026-11-09T07:31:31.129321+00:00",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/READY3.json",
+    "bytes": 6469,
+    "sha256": "acdd669d187ca41d8417cf6df8663a6d31ba8b421affac5f1b37f5acae796c47"
+  },
+  "executionAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/ROOT_EXECUTION_ADMISSION_03.json",
+    "bytes": 2995,
+    "sha256": "90092caeda37056a2cc60a8984f228b6383212a24c79ef2941e7ab602f3bc3f5"
+  },
+  "helperDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/HELPER.diff",
+    "bytes": 511,
+    "sha256": "d15f69a28c19434fddf53abb38cea06d8fc4aba616659c8340d6db696bded82c"
+  },
+  "guardConservation": "All31inputs/fourruntimecontrols and full view/source/build/dependency checks match; banked selected02 snapshot conserved.",
+  "receipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/LAUNCH.json",
+      "bytes": 1133,
+      "sha256": "168fa2411ea5625ce4b8c8d2fbec53389125a39dd23fdc9f8584efebb1ef2a58"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/HOST_TERMINATION.json",
+      "bytes": 160,
+      "sha256": "93c0a25622f62e2401d2070bb0813a7eddfc383eb552e3b9c2804ddd9640b4ef"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/environment.json",
+      "bytes": 16049090,
+      "sha256": "4146fb95929d2b735856cbd83a852cf8a771ba62a1cfed85618bb2b813cdfdfa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/setup.json",
+      "bytes": 1712,
+      "sha256": "b471e317cadbf4af7a7e3cf3969f6e50ae2f93400dbe962342b4406ef075ed98"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/request.json",
+      "bytes": 1399,
+      "sha256": "ad92c8662d50dd7c4170b25b6dcadd64acddc1a070d9294dd3fe45c57963999e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/opened.json",
+      "bytes": 6412,
+      "sha256": "f94136c857fb8c98406d70cfdb20fda9c364c9ac3206ff8c240da9d10f70dee7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/completion.json",
+      "bytes": 13105,
+      "sha256": "ece307adfa83b2019a3280d73d4ab49fc07451781b49240933fcdcc1468c96d1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/close-handoff.json",
+      "bytes": 1414,
+      "sha256": "4105917e601cd1c0337887dcfa5a1710274fb10bb506fddbb1cc11db85243fb4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/FAILURE.json",
+      "bytes": 638,
+      "sha256": "9b1bed29fbac15401ba78dc493a8920c79072b35fe4573efa51a72b3f5eadf26"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/CONTROL_FAILURE.json",
+      "bytes": 628,
+      "sha256": "c7a327661c418fc0b232f44e31bb4b8d92dd657c7d79f9b96be810dc19801cdd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/stderr.log",
+      "bytes": 485,
+      "sha256": "1ed2d561df549b9b918a80ee69baf87b867e22a7fc57c20a32fc9e02bd140dd5"
+    }
+  ],
+  "actualCompletion": {
+    "kind": "executable_traversal_completion",
+    "disposition": "failed",
+    "cCallRef": "c-call:sha256:ec833df59122b68bfd832edd6241f9d9af34031672a0346c33d135d7db0215e5",
+    "resultRef": "result://abiogenesis/0fded268b0fdc94585917d92fa37d8cbec83b3054e3eefe01d1a6e0ae3cf2b5e",
+    "judgmentRef": "judgment://abiogenesis/9600c90145840d7ba757c7f00e879f9e5a482cad8190a2254346db206739a499",
+    "resultValue": {
+      "diagnosticRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/malformed_preparation@5",
+      "failureClass": "malformed_return",
+      "kind": "structural_failure",
+      "schemaVersion": "5.0.0"
+    },
+    "runId": "run://abiogenesis/2147957a6100d1d202cc3d6baed6ecdcb9cfb4e6b865e9a46ba5c37cf4b2560f",
+    "actorProcesses": [],
+    "runStoppedEventRef": "event://abiogenesis/cb4b495bc8267bf0c8cc858b9e2ae9c5aaa074242a9605e0fec4797949738664",
+    "runClosedEventRef": null
+  },
+  "eventHistory": {
+    "file": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/tmp/abi5-root-env-MdmivN/runtime/events.jsonl",
+      "bytes": 3280831,
+      "sha256": "68dbe6aa9392b6b7efb6a6a228e3d3182874316f3549af6936dd264e6c9554ad"
+    },
+    "device": 16777231,
+    "inode": 719787541,
+    "count": 27,
+    "eventKinds": {
+      "public_operation_artifact_admitted": 3,
+      "public_operation_admitted": 1,
+      "invocation_admitted": 1,
+      "implementation_admitted": 1,
+      "basis_admitted": 1,
+      "run_segment_opened": 1,
+      "graph_call_opened": 1,
+      "frame_opened": 1,
+      "runtime_activity_probe_observed": 7,
+      "traversal_cursor_entered": 1,
+      "traversal_route_admitted": 2,
+      "retry_attempt_opened": 1,
+      "c_call_opened": 1,
+      "c_call_fibre_selected": 1,
+      "c_call_evidenced": 1,
+      "c_call_result_admitted": 1,
+      "c_call_judged": 1,
+      "run_stopped": 1
+    },
+    "relevantOwnerRows": [
+      {
+        "ordinal": 19,
+        "eventId": "event://abiogenesis/546e399051b8f2ee908e87384018cfc6f81fea5a3ae673d8af4becb1dfed8ad7",
+        "kind": "c_call_evidenced",
+        "payload": {
+          "cCallRef": "c-call:sha256:ec833df59122b68bfd832edd6241f9d9af34031672a0346c33d135d7db0215e5",
+          "contractRef": "contract://abi5-tests/structural/worker/evidence@5",
+          "evidenceClass": "undispatched_owner_refusal",
+          "evidenceDigest": "sha256:3e3420b36b1cf6acefae7ba85fa4a35d601bd84057958cd4a0d329a09e8c7adf",
+          "evidenceRef": "evidence://abiogenesis/3e3420b36b1cf6acefae7ba85fa4a35d601bd84057958cd4a0d329a09e8c7adf",
+          "failureContractRef": "contract://abi5-tests/structural/worker/failure@5",
+          "failureValue": {
+            "diagnosticRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/malformed_preparation@5",
+            "failureClass": "malformed_return",
+            "kind": "structural_failure",
+            "schemaVersion": "5.0.0"
+          },
+          "implementationRef": "implementation://abi5-tests/structural/worker@5",
+          "inputDigest": "sha256:406b942fc1e702940cac0b06ad2175c80770297d5bf8a981958b24bb92c3bb75",
+          "outputDigest": "sha256:eed24bde6faf2eb587c2575f5b14e82722c4db6a6b2094440ea1f7a12d578dd9",
+          "ownerObservation": {
+            "attempt": 1,
+            "cCallRef": "c-call:sha256:ec833df59122b68bfd832edd6241f9d9af34031672a0346c33d135d7db0215e5",
+            "diagnosticRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/malformed_preparation@5",
+            "errorClass": null,
+            "errorCode": null,
+            "frameId": "frame://abiogenesis/67093fee3e40f81f82574f1b1a667c5366f8a3bdc0bcd839ef79ed33cdc9bc22",
+            "graphCallId": "graph-call://abiogenesis/a0cd5e115126b98e0135179226c982e6a216b34e94cb2f7d9f33fd4c3f531133",
+            "implementationRef": "implementation://abi5-tests/structural/worker@5",
+            "inputContractRef": "contract://abi5-tests/structural/worker/input@5",
+            "inputDigest": "sha256:406b942fc1e702940cac0b06ad2175c80770297d5bf8a981958b24bb92c3bb75",
+            "kind": "undispatched_owner_observation",
+            "outputContractRef": "contract://abi5-tests/structural/worker/output@5",
+            "programLocusRef": "node://abi5-tests/structural/retry@5",
+            "reason": "malformed_preparation",
+            "runId": "run://abiogenesis/2147957a6100d1d202cc3d6baed6ecdcb9cfb4e6b865e9a46ba5c37cf4b2560f",
+            "schemaVersion": "5.0.0",
+            "stage": "preparation",
+            "taskOrdinal": null
+          }
+        }
+      },
+      {
+        "ordinal": 21,
+        "eventId": "event://abiogenesis/1f52a36cd1428cfca3cfb58058ad211acae0ef6ce481e353431f0ce6e54fee21",
+        "kind": "c_call_result_admitted",
+        "payload": {
+          "cCallRef": "c-call:sha256:ec833df59122b68bfd832edd6241f9d9af34031672a0346c33d135d7db0215e5",
+          "contractRef": "contract://abi5-tests/structural/worker/failure@5",
+          "evidenceRefs": [
+            "evidence://abiogenesis/3e3420b36b1cf6acefae7ba85fa4a35d601bd84057958cd4a0d329a09e8c7adf"
+          ],
+          "resultClass": "failure",
+          "resultDigest": "sha256:0fded268b0fdc94585917d92fa37d8cbec83b3054e3eefe01d1a6e0ae3cf2b5e",
+          "resultRef": "result://abiogenesis/0fded268b0fdc94585917d92fa37d8cbec83b3054e3eefe01d1a6e0ae3cf2b5e",
+          "value": {
+            "diagnosticRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/malformed_preparation@5",
+            "failureClass": "malformed_return",
+            "kind": "structural_failure",
+            "schemaVersion": "5.0.0"
+          },
+          "valueDigest": "sha256:eed24bde6faf2eb587c2575f5b14e82722c4db6a6b2094440ea1f7a12d578dd9",
+          "valueKind": "structural_failure"
+        }
+      },
+      {
+        "ordinal": 23,
+        "eventId": "event://abiogenesis/71251c1a2cff3c00c374bb5a57df2e5b0d039e74fbaf4915bc7d72c4cd1df947",
+        "kind": "c_call_judged",
+        "payload": {
+          "cCallRef": "c-call:sha256:ec833df59122b68bfd832edd6241f9d9af34031672a0346c33d135d7db0215e5",
+          "contractRef": "contract://abi5-tests/structural/worker/judgment@5",
+          "judgment": "blocked",
+          "judgmentDigest": "sha256:9600c90145840d7ba757c7f00e879f9e5a482cad8190a2254346db206739a499",
+          "judgmentRef": "judgment://abiogenesis/9600c90145840d7ba757c7f00e879f9e5a482cad8190a2254346db206739a499",
+          "predicateRef": "predicate://abi5-tests/structural/worker@5",
+          "reasonRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/malformed_preparation@5",
+          "replayStateDigest": "sha256:604536c31e8c5cfc53b123a2daee2799f5f40ff0868b030a752f435f27f0156f",
+          "resultDigest": "sha256:0fded268b0fdc94585917d92fa37d8cbec83b3054e3eefe01d1a6e0ae3cf2b5e",
+          "resultRef": "result://abiogenesis/0fded268b0fdc94585917d92fa37d8cbec83b3054e3eefe01d1a6e0ae3cf2b5e",
+          "retryAttemptRef": "retry-attempt://abiogenesis/6036b98a2c3a20ea422ac7f30778a1be32e5e99ec1847d64a64d606a12ffce44"
+        }
+      },
+      {
+        "ordinal": 27,
+        "eventId": "event://abiogenesis/cb4b495bc8267bf0c8cc858b9e2ae9c5aaa074242a9605e0fec4797949738664",
+        "kind": "run_stopped",
+        "payload": {
+          "cCallRef": "c-call:sha256:ec833df59122b68bfd832edd6241f9d9af34031672a0346c33d135d7db0215e5",
+          "disposition": "failed",
+          "judgmentRef": "judgment://abiogenesis/9600c90145840d7ba757c7f00e879f9e5a482cad8190a2254346db206739a499",
+          "reasonRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/malformed_preparation@5",
+          "routeRef": "traversal-route://abiogenesis/ebf3e1756a22b4ebc8e1bddd0ca0d717690538bdd3d788eb23e2baeea3e96ddd"
+        }
+      }
+    ],
+    "actorLifecycleRows": [],
+    "readingScope": "Read-only original JSONL parse here; native-host physical read and current decoder equality executed before extraction assertion at line38."
+  },
+  "physicalClosure": {
+    "ownerCloseHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/close-handoff.json",
+      "bytes": 1414,
+      "sha256": "4105917e601cd1c0337887dcfa5a1710274fb10bb506fddbb1cc11db85243fb4"
+    },
+    "sameBytesAndIdentityAsHandoff": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/tmp/abiogenesis-event-store-locks-v5/16777231-719787541.lock",
+    "lockAbsent": true,
+    "hostPid": 33445,
+    "hostPidAbsent": true,
+    "hostGroupAbsent": true,
+    "timeoutOrControllerSignals": false
+  },
+  "failureMeaning": "Actual owner produced undispatched_owner_refusal at preparation, reason malformed_preparation, structural failure malformed_return and blocked judgment. Required probabilistic_transport/contract_failure/retry-judgment population absent; fixture oracle retained and generation refused. The helper predicate correction passed execution-basis setup in this attempt.",
+  "erratum": "FAILURE.json resourceClosed=true is consistent with actual close-handoff; its closure text no returned environment is generic and inaccurate here because environment and owner close receipts exist. Preserve original failure bytes.",
+  "actorAndRetryScope": "No actor process start/exit/terminal/termination rows; completion actorProcesses empty. One retry_attempt_opened followed by undispatched blocked result and run_stopped; no successful malformed transport or retry-exhaustion claim.",
+  "snapshot": null,
+  "paidProviderCalls": 0,
+  "retryOrFourthAttempt": false,
+  "sourceOrProductChanges": false,
+  "candidateStaging": false,
+  "return": "Root re-triage of preparation refusal; source support correction remains exact external03 contribution pending Root source disposition, no qualification/acceptance."
+}

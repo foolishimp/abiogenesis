@@ -1,0 +1,46 @@
+{
+  "status": "STATIC_PREFLIGHT_PASSED_EXECUTION_HELD",
+  "checks": [
+    "Python driver AST parses without execution or pycache",
+    "build.mjs Node syntax passes",
+    "lint.mjs Node syntax passes",
+    "All declared input/tool/protection pins match",
+    "All 1345 frozen and live source rows exact; no staging",
+    "Main/candidate/delivered HEADs and exact index bytes conserved",
+    "Prospective proof root absent",
+    "Zero contract seed writes expected; source wins",
+    "Literal expected populations and TAP-before-file flags agree",
+    "Global watchdog starts before Q mkdir; 600s interruptible stage alarm; commands capped by remaining less 15s cleanup; parent watchdog covers all staging/postguards/closure",
+    "TAP parser accepts retained exact 102-case/6-skip unit bytes; no live pilot",
+    "Actual Python interpreter pinned; AST rechecked after mode/tool assertions"
+  ],
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "sourceRows": 1345,
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/BINDING.json",
+    "bytes": 9473,
+    "sha256": "bfc7f0337d8e22e2678f590a80d5ae5f0c6cbabc29232154a6f773a6577fd0fd"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/CONTROLS.json",
+    "bytes": 32767,
+    "sha256": "9b2572369df3c10dddf589c419b95c4ef3de77e8133533cc9840bfe9711bbfc1"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/proof.py",
+    "bytes": 24914,
+    "sha256": "862517533438aaeb5cd09d87b56ebc6d5ce02b147074e8ae49f509456c8acca6"
+  },
+  "syntaxOnly": true,
+  "liveTestsBuildStagingRuntime": false,
+  "retainedParserInput": {
+    "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/unit/stdout.log",
+    "bytes": 220786,
+    "sha256": "8d75c4f07b87b8ee557fffa1aea9f59361f95d455e73587622a28b983f5bea38"
+  },
+  "independentSourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 2449,
+    "sha256": "bbfd304252d72b41522476ca0dcbe04f94a1b8578007e0b852674bfc62d388c2"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "status": "REPORTED_PROVIDER_TELEMETRY_EXTRACTED",
+  "recordedAt": "2026-11-08T17:42:23.541537+00:00",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/archives/fp-5c355e40194d35f5-stdout.log",
+    "bytes": 3461251,
+    "sha256": "620f1868bd176a9216ec0430c3a90daea00bc73ac244332f1d635a463caeb0c7"
+  },
+  "finalResultRecords": [],
+  "finalCostUsd": null,
+  "finalTurns": null,
+  "finalUsage": null,
+  "finalTotalsStanding": "Unavailable: actor terminated at absolute limit before a final CLI result; unknown, not zero.",
+  "lastAssistantUsage": {
+    "messageId": "msg_011CgqreydBqnyGCUcoHdmYB",
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 1277,
+      "cache_read_input_tokens": 307997,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 1277
+      },
+      "output_tokens": 3,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    }
+  },
+  "scope": "Any lastAssistantUsage is one reported message, not an aggregate. No total cost/token/turn inference or independent billing verification; excludes process actors."
+}

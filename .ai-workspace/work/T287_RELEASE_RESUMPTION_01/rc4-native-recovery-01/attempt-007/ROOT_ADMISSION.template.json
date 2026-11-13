@@ -1,0 +1,8 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "TO_BE_SELECTED_BY_ROOT",
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "sourceTree": "d3d22391589dcb6fd8d86ed128b0ede69b77348c",
+  "decision": "Preparation-only attempt007: exact original005 retained task/GovernanceWorkState54e plus acquired native historicalSource; existing leaf tmp/cache reused without mkdir. Root exact review must admit installed preflight/call construction; dispatch remains a separate actual-call selection."
+}

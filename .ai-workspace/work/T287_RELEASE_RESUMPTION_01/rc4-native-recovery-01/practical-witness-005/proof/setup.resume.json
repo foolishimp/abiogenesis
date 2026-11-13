@@ -1,0 +1,33 @@
+{
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/proof/baseline.json",
+    "bytes": 86007554,
+    "sha256": "07cd5f5a1b73389cb2c245072c4c897ef302de0e44d1b30294798c81faf2b4d6"
+  },
+  "handoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/runtime/events.jsonl",
+      "prefixLength": 3196379,
+      "prefixDigest": "sha256:152fa4a14214189ecb4cda782005c4224f9f6e45aa6eed9509cb6b9508e43b6b",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 682218298,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+      },
+      "coordinateDigest": "sha256:3b0196446d27d77980120b40b076716a73f5998c082c2a47240c2eb04592d15d"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/runtime/events.jsonl",
+      "device": 16777231,
+      "inode": 682218298,
+      "eventLogDigest": "sha256:152fa4a14214189ecb4cda782005c4224f9f6e45aa6eed9509cb6b9508e43b6b",
+      "durableByteLength": 3196379,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "authorityDigest": "sha256:54d23ae55cca93fb24120a6ddbe1ca3fb80f49f55f657dcca3544e28770cd6b7"
+    }
+  }
+}

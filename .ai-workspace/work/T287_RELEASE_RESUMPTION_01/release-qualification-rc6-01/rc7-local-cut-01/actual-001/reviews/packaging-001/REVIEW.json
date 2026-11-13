@@ -1,0 +1,375 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; unchanged fixed fifteen-family set",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "STDO 3.0.4",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "boundary": "Existing ABG runtime/admission and GTL Program authority; thin SDK/CLI and existing payload/digest/pack/install owners. Immutable RC6 builder and retained evidence remain distinct from this unqualified RC7 candidate. No new runtime, store, controller, event stream, or cache framework.",
+    "reviewSkill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+      "bytes": 8074,
+      "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df",
+      "standing": "Previously selected, manager-resolved, read and announced; reused for this proportional review."
+    }
+  },
+  "kind": "rc7_bounded_actual_packaging_review",
+  "reviewId": "RC7-PACKAGING-001",
+  "status": "closed",
+  "verdict": "satisfied",
+  "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "sourceTree": "0bce81973e212db033eba3466f0142919e6e788b",
+  "createdUtc": "2026-11-07T00:24:38.669169Z",
+  "reviewer": "/root/rc7_partial_prefix_review",
+  "executive": "/root",
+  "scope": "Mechanical RC7 identity, exact accepted source coverage, six-member generated/payload delta against the measured archive, and actual clean byte-equal reproduction. This disposition supplies packaging review evidence to the existing install owner; it does not execute or authorize installation by itself.",
+  "qualified": false,
+  "published": false,
+  "installationPerformedByReviewer": false,
+  "conclusion": "No material packaging counterexample found in the selected subject. The committed source, mechanical identity changes, generated digest relationships, member conservation, and actual reproduction support the bounded packaging claim.",
+  "inputs": {
+    "SOURCE_CHECKPOINT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+      "bytes": 4370,
+      "sha256": "2e2ee9ba7063024c5da0b9955c119b9dc7f6dee51c1ec2aaed93b7e060042b0e"
+    },
+    "ARTIFACT_IDENTITY_BRIDGE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/ARTIFACT_IDENTITY_BRIDGE.json",
+      "bytes": 3244,
+      "sha256": "ed7f2e1fc658ed1907532920bfb27a071b095b6807813e1f46d1ae8bfc7a1681"
+    },
+    "candidate/RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/candidate/RESULT.json",
+      "bytes": 638,
+      "sha256": "f90ae489fd034e2ac47887a760c037579629db1e70ae321e43c696b83e8bd8da"
+    },
+    "reproduction/RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/reproduction/RESULT.json",
+      "bytes": 1261,
+      "sha256": "d72aa3def4385d419aac75c143df12e740251e5163e1750c73a484f92ac712e3"
+    },
+    "BUILD_RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/BUILD_RESULT.json",
+      "bytes": 1408,
+      "sha256": "74e985058aa25c9405e4c3ce0c8ab67845cdc40530cf8c8fa8d52853fae3c834"
+    },
+    "INSTALL_INPUTS_PENDING.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+      "bytes": 2712,
+      "sha256": "9555d7966db2b3dea4922359e4326ebbccfaf7414d57aaf45b9ab0171fa65f6d"
+    },
+    "rootBuildBindings": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_BUILD_BINDINGS_001.json",
+      "bytes": 6266,
+      "sha256": "7e1e6ee9766e063030119a6a3910259f552556ce9ebbf33a7bf4a303b3e570ca"
+    },
+    "rootSourceCoverage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/ROOT_SOURCE_COVERAGE_001.json",
+      "bytes": 15908,
+      "sha256": "0dabdefe2fc5d4cac91106b518c4c3dfded4b4b28a2b3b44adc01c2bc09c86df"
+    },
+    "sourcePrepared": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/SOURCE_PREPARED.json",
+      "bytes": 5291,
+      "sha256": "5409766d4ec0b3f0df2947c99b044a339cb27bd0b837b49feeb734ede0b888f7"
+    },
+    "acceptedSourceInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/SOURCE_AFTER.json",
+      "bytes": 558369,
+      "sha256": "0b71ee7e97032e627869a34c66e7f0dbb7ba414df321f60704b6c49f78800253"
+    },
+    "actualNativeSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 25157,
+      "sha256": "1a216aa2b1ea9a688765a76d54249426721f5c591eb74e4db966d6649c504da3"
+    },
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/reviews/source-stage-sw3-stage-01/REVIEW.json",
+      "bytes": 52974,
+      "sha256": "a92a2cc830f2d94c911c5fb3b16c3e60c8b5ea9a1676b0be38186c75032b50b7"
+    },
+    "sourceDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 10863,
+      "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+    },
+    "growthDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_GROWTH_AND_S6_DISPOSITION_001.json",
+      "bytes": 9204,
+      "sha256": "59669f1d27df76a098917addd2ce10dac7ca9640acf8567828f2413e9dd3d922"
+    },
+    "measuredSourceArtifactRelation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 4866,
+      "sha256": "abce5ba8307cca776181bbbe7c11374b372bf33dad00561de33882f12b3de950"
+    },
+    "setupReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-005/reviews/setup-001/REVIEW.json",
+      "bytes": 12639,
+      "sha256": "ffc591bab42dc007c95c5231b3696cbdf4ef05c586274381fe8bde70d3d3bb9c"
+    }
+  },
+  "artifacts": {
+    "measuredArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+      "bytes": 11021939,
+      "sha256": "ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693"
+    },
+    "candidateArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+      "bytes": 11022180,
+      "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+    },
+    "candidateManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548"
+    },
+    "reproductionArchive": {
+      "path": "/private/tmp/abg-r7c/reproduction/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.7.tgz",
+      "bytes": 11022180,
+      "sha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+    },
+    "reproductionManifest": {
+      "path": "/private/tmp/abg-r7c/reproduction/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548"
+    },
+    "reproductionSourceArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/reproduction-source.tar",
+      "bytes": 39086080,
+      "sha256": "1f886b04333ff3ef3f489d6d882e19054c884d5b2ccb37f5b8db8080d4e0d070"
+    },
+    "expectedInstalledIdentity": {
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.7",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.7",
+      "manifestDigest": "sha256:cc96a3d25120d5a5a5ff944251e0616bd5260ada08e99df3f038a06f37ee385c",
+      "productContentDigest": "sha256:8c66c6ff87bdf00c23fdd141447205660e0a50210a1193eadb0753a178bbd37c",
+      "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+      "artifactDigest": "sha256:2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1"
+    }
+  },
+  "sourceConservation": {
+    "baseCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "baseTree": "ff447cb7c9cf04c2af9cc784ef3ff0e1892ab702",
+    "selectedSourceRows": 451,
+    "verification": "Read exact commit/tree objects with read-only Git commands. All 451 selected committed blobs match the accepted frozen source inventory except the three authorized mechanical identity files. The separate selected release claim matches its pinned proposed bytes. The 86 base-to-checkpoint changed paths contain no unexpected path beyond the selected source/identity/claim and existing generated outputs.",
+    "identityChanges": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/package.json",
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/package.json",
+          "bytes": 10003,
+          "sha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/package.json",
+          "bytes": 10003,
+          "sha256": "535f08828c79bbd48602dffb886a56409f1927d2fb7be686734c126b9da70278"
+        },
+        "meaning": "existing package/root-lock version fields only"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/package-lock.json",
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/package-lock.json",
+          "bytes": 8001,
+          "sha256": "e5f693f2405874936a9831fd33dcdc246a16274679d028cfada2d9465d0496ed"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/package-lock.json",
+          "bytes": 8001,
+          "sha256": "542f812b7493ab8f6a729979b8dc5c3451293f6ce6a1b29b3771ae161705d5a8"
+        },
+        "meaning": "existing package/root-lock version fields only"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+          "bytes": 13080,
+          "sha256": "4df18ecb36338172f9dcca8549e105357c5dd4a759b169b5765167f881280688"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+          "bytes": 13080,
+          "sha256": "b5e957b5bd693b8cb9c0927546b19fb584a86bc3b7b52c3837a9bc02292634d0"
+        },
+        "meaning": "two existing Product/package identity constants only"
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/release-claim.md",
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/release-claim.md",
+          "bytes": 3670,
+          "sha256": "100bf2841ea82bb3ba7dfde95161c91e6d2b2458adaf0aa227d740e409bd5fbe"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/release-claim.md",
+          "bytes": 2163,
+          "sha256": "f28027fae6412d4efd6eea4f21baeaf9ac870b2b4e089abf2db3eb1bfcbc87e2"
+        },
+        "meaning": "Root-selected bounded local claim"
+      }
+    ],
+    "exactMechanicalMeaning": [
+      "package.json changes only version 5.0.0-rc.6 to 5.0.0-rc.7.",
+      "package-lock.json changes only root version and packages[empty-string].version.",
+      "code/src/product/contracts.ts changes only the two existing RC6 Product/package identity literals to RC7.",
+      "release-claim.md adopts the selected local, unqualified RC7 claim with qualification, publication and selector limits retained."
+    ],
+    "generatedPathsOutsideSelectedInventory": [
+      "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+      "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    ],
+    "coverageLimit": "Inherited base and accepted source are reused by exact reference. No whole historical-tree audit or fresh semantic qualification of unchanged Product source was performed."
+  },
+  "archiveConservation": {
+    "memberCount": 5325,
+    "unchangedMembers": 5319,
+    "changedMembers": [
+      {
+        "path": "package/build/code/src/product/builtin_semantics.d.ts",
+        "beforeBytes": 11545,
+        "afterBytes": 11545,
+        "beforeSha256": "ad95a042fccd82e67ad77ad4b1ff85640d20027cc7606b9b811ce05e393765d0",
+        "afterSha256": "ad4c0eea205d9b56474534f621a1f15f147bcc254978b4f788db7c5600ec1ad0",
+        "classification": "existing identity constants or their derived declaration only"
+      },
+      {
+        "path": "package/build/code/src/product/contracts.d.ts",
+        "beforeBytes": 13303,
+        "afterBytes": 13303,
+        "beforeSha256": "06f55cb153b089b7cce6a2cb25c1ff541c68688556d2d5af4f3a07fa239e11c4",
+        "afterSha256": "7d7975b695eb15adcae939c9944673a898814352a07e076d7b25481555cc867f",
+        "classification": "existing identity constants or their derived declaration only"
+      },
+      {
+        "path": "package/build/code/src/product/contracts.js",
+        "beforeBytes": 880,
+        "afterBytes": 880,
+        "beforeSha256": "1949314ec3ad66af243a23417a5114a0408a3b410064497ae056dacc58476953",
+        "afterSha256": "b74671c786ae10ffff42c9355e0944ee711773339ed9c423c7885838b283dc68",
+        "classification": "existing identity constants or their derived declaration only"
+      },
+      {
+        "path": "package/contracts/capabilities/capability-definition-graph.json",
+        "beforeBytes": 197474,
+        "afterBytes": 197474,
+        "beforeSha256": "814b8b85c955ca461a7317e60e915d5d45a928163a41b4a7fad083a6d451e83a",
+        "afterSha256": "835a595ec0b025ded19a6d11fedf0bb8026d7acb1909911aed1f8d96ec89e24d",
+        "classification": "existing generated projection; exact changed bytes require packaging review"
+      },
+      {
+        "path": "package/package.json",
+        "beforeBytes": 10003,
+        "afterBytes": 10003,
+        "beforeSha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da",
+        "afterSha256": "535f08828c79bbd48602dffb886a56409f1927d2fb7be686734c126b9da70278",
+        "classification": "package identity only"
+      },
+      {
+        "path": "package/product-toolchain-manifest.json",
+        "beforeBytes": 3266103,
+        "afterBytes": 3266103,
+        "beforeSha256": "07626f47b6060024b8faec7541ca7068fad0de1ce64162aa1259c9be324aae85",
+        "afterSha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548",
+        "classification": "existing generated projection; exact changed bytes require packaging review"
+      }
+    ],
+    "sameMemberSet": true,
+    "sameMemberTypesAndModes": true,
+    "duplicateMemberNames": 0,
+    "allMembersRegularFiles": true,
+    "independentComparison": "Both actual archive byte pins and every member body/type/mode were compared without extraction. Exactly the six bridge members differ; no additional member or mode change was found.",
+    "simpleDelta": "Three compiled identity constants/declarations and package.json contain only RC6-to-RC7 identity literals; capability IDs, effects, proofs, interfaces and algorithms were not altered by those edits.",
+    "generatedDelta": {
+      "structureConserved": true,
+      "arrayMembershipAndOrderConserved": true,
+      "graphChangedLeafCount": 1033,
+      "graphChangedFields": {
+        "graphDigest": 1,
+        "capabilityDefinitionDigest": 34,
+        "capabilityDefinitionRef": 34,
+        "catalogDigest": 241,
+        "catalogId": 241,
+        "productContentDigest": 241,
+        "productId": 241
+      },
+      "manifestChangedLeafCount": 318,
+      "manifestChangedFields": {
+        "contentDigest": 1,
+        "graphDigest": 2,
+        "contributionManifestRef": 2,
+        "descriptorRef": 2,
+        "productContentDigest": 2,
+        "productId": 2,
+        "productVersion": 1,
+        "publicContractCatalogDigest": 1,
+        "publicContractCatalogId": 1,
+        "publicationDigest": 10,
+        "owningProductId": 48,
+        "provenanceRef": 49,
+        "contributionManifestDigest": 1,
+        "packageVersion": 1,
+        "catalogDigest": 1,
+        "catalogId": 1,
+        "owningProduct": 75,
+        "declarationDigest": 96,
+        "contractDigest": 22
+      },
+      "meaning": "Changes propagate the selected Product/package identity and the resulting declaration/content/catalog/contribution/publication/graph coordinates. No graph topology, capability/effect/proof selection, schema shape, manifest key, member set or array-order delta was found.",
+      "ownerRelations": "The unchanged canonical generator derives declaration inventories and catalog digests, constructs the capability graph through the existing shared owner, and obtains publication digests from modulePublicationSemanticDigest. The existing shared digests owner defines sorted path/digest payload identity. No parallel Product implementation was introduced.",
+      "independentlyCheckedEquations": [
+        "Product content digest equals the canonical sorted actual hashes of all 5,323 declared product-relative payload members.",
+        "Contribution-manifest digest equals its canonical body hash.",
+        "Public contract catalog digest equals the canonical catalog body without catalogDigest.",
+        "Capability graph digest equals the canonical graph body without graphDigest; all 16 definition-row body digests match the existing rowDefinitionBody relation.",
+        "All 22 changed native contract digests match their exact declaration inventories; the changed declaration hashes are accounted for by the two changed declaration members.",
+        "Logical manifest digest cc96a3d2... equals the canonical parsed manifest; the retained file-byte SHA 3c7de622... is a distinct, correctly preserved coordinate."
+      ],
+      "verificationLimit": "Publication construction was checked through its unchanged generator owner and the exact generated delta plus independent clean reproduction. The reviewer did not run publication constructors or regenerate artifacts."
+    }
+  },
+  "reproduction": {
+    "status": "actual_byte_equal",
+    "archiveBytes": 11022180,
+    "archiveSha256": "2e0861339fc78ead42a7ac8768caa224bcf7c7437d09a2a12a73419b6441c8c1",
+    "manifestBytes": 3266103,
+    "manifestSha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548",
+    "evidence": "Actual candidate and clean reproduction receipts name the exact source commit. Both actual archive bytes compare equal; both manifest byte pins and the retained reproduction source-archive pin were independently checked. Root-reported completed build process exited 0; BUILD_RESULT records completion with installation unbound.",
+    "notReviewerExecution": true,
+    "timingClaim": "No measured speedup, general build-performance or runtime-performance inference is made from phase timings."
+  },
+  "boundedEvidenceReuse": {
+    "source": "Root source/HS03 disposition 9d1de838... and independent source review a92a2cc8... retain their actual 33 selected passing tests and explicit premises. This review does not relabel them as RC7 installed qualification.",
+    "growth": "Root disposition 59669f1d... accepts the measured ff38 archive for the bounded installed S4/HS02 read-only scripted 1 MiB/4 MiB fixture. Result payload was 2,617 bytes in both cases; warm history work was zero and full run_result warm/cold agreement held at final P2. This exact mechanical bridge preserves the basis for that bounded claim, not a new measurement on the RC7 installation.",
+    "s6": "S6 remains not activated.",
+    "procedure": "Historical process departures and unavailable whole-procedure compliance claims remain preserved. Independent source/function evidence adoption does not retroactively repair those departures."
+  },
+  "findings": [],
+  "riskDisposition": {
+    "materialBlockers": 0,
+    "repairRequired": false,
+    "ranking": "No concrete selected-scope trigger/harm requiring repair was established; no speculative hardening or new qualification gate is selected."
+  },
+  "residuals": [
+    "Root must separately bind and perform installation through the existing owner using these exact source and archive coordinates; this review makes no installed RC7 claim.",
+    "Same-family component review is not formal F11 J, fifteen-family release qualification, human acceptance, stable release, publication, tag, merge, push, or global selector change.",
+    "Growth evidence remains a two-call scripted read-only installed fixture, not provider/native coding productivity, full installed workflow latency, aggregate process RSS, or general/matched performance evidence.",
+    "Full final-P2 cold equality in the growth fixture concerns run_result; prior smaller replay evidence retains its own scope.",
+    "Fresh W-store and exact historical read compatibility boundaries, absence of newly authorized old-profile append migration, S2 historical-writer stand-in, actor-test premises, and earlier review/procedure limits remain unchanged.",
+    "No source repair, test, build, runtime acquisition, provider call, install, publication or existing-worktree mutation was performed by this reviewer."
+  ],
+  "effects": {
+    "permitted": "Create-only REVIEW.json and README.md under the granted packaging review directory.",
+    "productOrControlMutation": false
+  }
+}

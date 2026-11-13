@@ -1,0 +1,26 @@
+[
+  {
+    "id": "d5-lifecycle-profile",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-lifecycle-failure-carrier.test.mjs test_env/tests/t287-calculus-fold.test.mjs test_env/tests/m5-event-store-reopen.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-dev2/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "ms": 57210,
+    "tests": 48,
+    "pass": 45,
+    "fail": 3,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 3,
+    "failing": [
+      "owned causation lookup grows with causal references in live admission and cold reconstruction",
+      "D5 current probabilistic evidence omits the four lifecycle copies; L and the artifact arm keep them",
+      "D5 cold evidence projection: current evidence without copies reads them from the fold; partial, crossed and L-without-copies refuse"
+    ],
+    "stdoutSha256": "5ae03e7195ce2ca7db6089808e84175146e6c11af8c4f3fc928cfd6e47805ea4",
+    "stdoutBytes": 26779,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

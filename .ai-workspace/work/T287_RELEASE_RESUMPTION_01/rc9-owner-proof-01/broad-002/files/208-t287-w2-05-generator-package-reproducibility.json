@@ -1,0 +1,48 @@
+{
+  "file": "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 127133.73462499958,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 2,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 2,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/208-t287-w2-05-generator-package-reproducibility.jsonl",
+    "bytes": 1102,
+    "sha256": "a04f49bf43dfde21192faf173c51314493c54cf05556651c02799f16a0975fc6"
+  },
+  "commandReceipt": "commands/208-t287-w2-05-generator-package-reproducibility.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/x207",
+  "isolatedBuildEffect": true,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    },
+    {
+      "path": "test_env/evidence/t287-w2-05-generator-package.json",
+      "kind": "file",
+      "bytes": 8973,
+      "sha256": "df0021e2773aad4efbbad3240bd9839c27940cda02021a5f7b854c51c717471d",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

@@ -1,0 +1,68 @@
+{
+  "kind": "proof_only_operator_effect_grant",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_REENTRY_10.md",
+    "bytes": 4811,
+    "sha256": "f0881c924dce8bbb85b4752cefbada9c03199a021defe17e54a39435493b31d0"
+  },
+  "selectedOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+    "bytes": 6177,
+    "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+  },
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/SUBJECT.json",
+    "bytes": 225298,
+    "sha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13"
+  },
+  "productWritePaths": [],
+  "originalHandoffPaths": [
+    "consolidation-scratch/native-09/return.json",
+    "consolidation-scratch/native-09/readiness.json",
+    "consolidation-scratch/native-09/progress.json"
+  ],
+  "expectedNewNativeHandoffs": [],
+  "workOrders": [
+    "testing",
+    "uat"
+  ],
+  "testingAllowedWriteTerritories": [
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/build"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/contracts"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/node_modules"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/artifacts"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs"
+    },
+    {
+      "pathKind": "file",
+      "relativePath": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/evidence"
+    }
+  ],
+  "externalTemporaryEffectProposal": {
+    "testTMPDIR": "/private/tmp/abg-n09",
+    "scope": "Necessary selected sandbox test temporary effects only; later Root admission must rebind. No arbitrary external temp/cache cleanup.",
+    "hostTMPDIR": "/private/tmp/abg-rc5",
+    "providerScratch": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09"
+  },
+  "gate": "Actual09 close/fresh/resume, closed independent review and Root disposition must be pinned in ROOT_FINALIZATION_BINDINGS.json before finalization or installed preparation.",
+  "permittedCurrentEffects": "Control preparation only; no preflight/provider/Run/runtime/test/build effects executed."
+}

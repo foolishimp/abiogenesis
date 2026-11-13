@@ -1,0 +1,943 @@
+{
+  "status": "ACTUAL_RECORDED_TOOL_REQUESTS_ONLY_NO_PRIVATE_REASONING",
+  "stream": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/runtime-001/resources/archives/fp-08aecac671f6f574-stdout.log",
+    "bytes": 3143020,
+    "sha256": "5821512b669b112cb2e176c822bee0f5094e3b5c469765169ea43f826bef630f"
+  },
+  "toolCallCount": 74,
+  "toolRequests": [
+    {
+      "type": "tool_use",
+      "id": "toolu_01M4ePwmaD8B6ZPyTj3moMVN",
+      "name": "Bash",
+      "input": {
+        "command": "ls -la qualification-inputs/rc11-qualification-01/native-01/ && wc -c qualification-inputs/rc11-qualification-01/native-01/* AGENTS.md build_tenants/abiogenesis/typescript/test_env/tests/t287-*.test.mjs",
+        "description": "List input files and sizes"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01SpnMtJYHaPrLAVQPEe9QNQ",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-qualification-20261109/qualification-inputs/rc11-qualification-01/native-01 && cat ROOT_SCOPE.json && echo ---- && cat PRECISION_ADDENDUM.json && echo ---- && cat EXTERNAL_TOOLS.json",
+        "description": "Read root scope, addendum, tools"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_017XrJdLgC3anvr9ScUQx2qV",
+      "name": "Bash",
+      "input": {
+        "command": "cat EVIDENCE_REPORT.md",
+        "description": "Read evidence report"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_019d6YE6PqTTd7mE2vpw6Ax3",
+      "name": "Bash",
+      "input": {
+        "command": "cat LIFETIME_RESULT.md",
+        "description": "Read lifetime result"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01NFVAKLBWd3TGzxaNMmuLLk",
+      "name": "Bash",
+      "input": {
+        "command": "cat STDO_STDO_WORK_SKILL.md",
+        "description": "Read STDO work skill"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01MLxas4GBX9XnCJNg5mMyKW",
+      "name": "Bash",
+      "input": {
+        "command": "cat APPS_AGENTS.md",
+        "description": "Read apps AGENTS input"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01E5ByVsza6AyXGzaYA1Gy4U",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-qualification-20261109 && cat AGENTS.md",
+        "description": "Read worksite AGENTS.md"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_019cg3HAo61U4c87XKVAqgbM",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-qualification-20261109/qualification-inputs/rc11-qualification-01/native-01 && python3 -c \"import json;d=json.load(open('EVIDENCE_REPORT.json'));print(json.dumps(d,indent=1)[:14000])\"",
+        "description": "Read evidence report JSON"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01PkbAJ2SNfiDHemueRou9BZ",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript && sed -n 1,200p test_env/tests/t287-native-assessment-evidence.test.mjs",
+        "description": "Read native assessment test part 1"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_014o9CqfGkTacoRvFAEQdRBL",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n '\"kind\": \"\\|^const \\|^function \\|^test(\\|^after\\|^];\\|admissionOrdinal' test_env/tests/t287-native-assessment-evidence.test.mjs | head -80",
+        "description": "Locate structure in native test"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01DjbeY52Kz3v7Kwvi6smcBB",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 200,547p test_env/tests/t287-native-assessment-evidence.test.mjs",
+        "description": "Read native test rows 4-13"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_0181HtywxFygPCadqiAm9dSU",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 547,800p test_env/tests/t287-native-assessment-evidence.test.mjs",
+        "description": "Read native test logic"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01VFizMJDh9AohFSQJmKKT5X",
+      "name": "Bash",
+      "input": {
+        "command": "cat test_env/tests/t287-selected-action-authority.test.mjs",
+        "description": "Read selected-action-authority test"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_019YdMPVu13cSBBcU371hjyM",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,120p test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "Read lifetime test part 1"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01Rwd8rr6N5DYB6FjLjs4BeF",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"^test(\\|^function \\|^async function \\|^const \\|^let \" test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "List tests in lifetime file"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01TG3anGxpdHnHg5ffppqEhN",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 325,460p test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "Read helperModule and http declaration"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01QB1RTosLYuFiVqH6sBft9a",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 459,700p test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "Read physical lifetime tests"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_015J8jEsTCYaFKcJTAoC5mxE",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"spawn\\|^import\\|^async function\\|^function\\|listenerCount\\|eventNames\" code/src/implementation/worksite_command_helper.ts | head -80",
+        "description": "Find spawn sites in helper"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01RfqWR9jbQ8ZPpLqLh8T94c",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 814,900p code/src/implementation/worksite_command_helper.ts && echo ------- && sed -n 1119,1272p code/src/implementation/worksite_command_helper.ts",
+        "description": "Read runCommand and runHttpProbe"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_017VbQVt7Vw392n4ARDn8gT2",
+      "name": "Bash",
+      "input": {
+        "command": "wc -l code/src/shared/owned_process_lifetime.ts && grep -n \"listenerCount\\|eventNames\\|\\.on(\\|\\.once(\\|probeGroup\\|export function\\|export interface\\|readonly [a-zA-Z]*:\" code/src/shared/owned_process_lifetime.ts | head -60",
+        "description": "Inspect lifetime owner seams"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01Q7PxADyNgHBAHrPn2nD43K",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 80,92p code/src/shared/owned_process_lifetime.ts && sed -n 139,298p code/src/shared/owned_process_lifetime.ts",
+        "description": "Read lifetime owner body"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_018cDby7GbSGfXnuw2pzFTUT",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"processId\\|pid\\b\\|\\.pid\\|onSpawn\\|export async function runWorkerTransport\\|export function runWorkerTransport\" code/src/abg/worker_transport.ts | head -30",
+        "description": "Find pid exposure in worker transport"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_013B1Y4yz1zVQGksQd7WhMoa",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 60,130p code/src/abg/worker_transport.ts && sed -n 1113,1135p code/src/abg/worker_transport.ts",
+        "description": "Read worker transport input/observer"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_011231G9zKLsxPuMsm13ghTz",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"observer\" code/src/abg/worker_transport.ts | grep -v \"^\\s*//\" | head -50",
+        "description": "Find observer usage in worker transport"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01VQMiKKEjP6SeCuuky9kSCv",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 486,530p code/src/abg/worker_transport.ts && sed -n 640,680p code/src/abg/worker_transport.ts",
+        "description": "Check observer-presence conditions in worker launch"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01QZ7gY7xspXrcvbKdp6fJ7Q",
+      "name": "Bash",
+      "input": {
+        "command": "cat test_env/support/language-structural-fixture.mjs",
+        "description": "Read language structural fixture support"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_012nAst5CMGRFn4CJFEwNFek",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"FP_RETRY\\|retry\\|workerRequest\\|responsePresentation\\|responseJsonSchema\\|export \\|actorRef\\|lane\\|closed_prompt\" test_env/fixtures/language-structural/program.mjs | head -60",
+        "description": "Locate retry fixture details in program.mjs"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01UuPQjdtQpfzVJHY4iREfCu",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,10p test_env/fixtures/language-structural/program.mjs | cut -c1-600 && sed -n 25,46p test_env/fixtures/language-structural/program.mjs | cut -c1-900 && sed -n 100,140p test_env/fixtures/language-structural/program.mjs | cut -c1-1500",
+        "description": "Read worker fixture spec in program.mjs"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_011CJwLWfbeV8F1jqZXNGBDj",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"workerRequest\\|responseJsonSchema\\|responsePresentation\\|lane\\|prompt\\|actorRef\\|worker\" test_env/fixtures/language-structural/leaf.mjs | cut -c1-700 | head -30",
+        "description": "Locate worker request in leaf.mjs"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01KhCZE7YT9u1GtoPGkXPzSv",
+      "name": "Bash",
+      "input": {
+        "command": "grep -ln \"FP_RETRY_IDS\" test_env -r; grep -rn \"ABG_TS_CLAUDE_COMMAND\" code/src test_env --include=*.ts --include=*.mjs | head -20",
+        "description": "Find FP_RETRY_IDS and claude command users"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01UjVY1jEvKsxWBWoEPQctTj",
+      "name": "Bash",
+      "input": {
+        "command": "grep -rn \"ABG_TS_CLAUDE_COMMAND\" code/src test_env 2>/dev/null | cut -c1-300 | head -20; echo ---; grep -rln \"prepareLanguageStructuralFixture\" test_env | head; echo ---; grep -rn \"FP_IDS\\b\" test_env/tests | cut -c1-200 | head -10",
+        "description": "Locate claude command and fixture users"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_011q1Atrg5nEwmGKGgkjopRF",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"^export\\|^async function\\|^function\\|^const [A-Za-z]* *=\" test_env/support/root-installed-environment.mjs | cut -c1-220",
+        "description": "List exports in root installed environment"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01SUJrJ9Kz8pfzdwpHKevqDg",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,56p test_env/support/root-installed-environment.mjs | cut -c1-400 && sed -n 168,240p test_env/support/root-installed-environment.mjs | cut -c1-400",
+        "description": "Read setup root catalog head"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01VgRbc5JraXagoLG5FcsKWz",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 240,420p test_env/support/root-installed-environment.mjs | cut -c1-300",
+        "description": "Continue reading setup root catalog"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_0197NEuU433WcBwJiryRoYWe",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 420,640p test_env/support/root-installed-environment.mjs | cut -c1-260",
+        "description": "Continue reading setup root catalog return"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_015uHWu5S5EStvVzFB9njKzt",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 640,700p test_env/support/root-installed-environment.mjs | cut -c1-260; echo ....; sed -n 840,870p test_env/support/root-installed-environment.mjs | cut -c1-260; echo ....; sed -n 1000,1200p test_env/support/root-installed-environment.mjs | cut -c1-260",
+        "description": "Read invocation and execution basis setup"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01BU519wi69nseJpQNoP1u3D",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 700,840p test_env/support/root-installed-environment.mjs | cut -c1-260",
+        "description": "Read invocation input construction"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01ERXCGocD3LuW16n54XTwVs",
+      "name": "Bash",
+      "input": {
+        "command": "wc -l test_env/support/registered-graph-selection.mjs test_env/support/t287-selected-action-host.mjs test_env/uat/public-setup.mjs test_env/uat/runner.mjs test_env/fixtures/t287-selected-action-product/index.mjs test_env/tests/t287-selected-action.test.mjs; grep -n \"hog\\.\\|executeAdmitted\\|runHoG\\|traverse\\|^export\" test_env/support/registered-graph-selection.mjs | cut -c1-220 | head -30",
+        "description": "Size and HoG usage in support files"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01RntFfgRNUEvdWDqgxKZ9cd",
+      "name": "Bash",
+      "input": {
+        "command": "cat test_env/support/t287-selected-action-host.mjs",
+        "description": "Read selected-action host"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01MAj28KBscX1dEWt3irp7vD",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,120p test_env/tests/t287-selected-action.test.mjs | cut -c1-700",
+        "description": "Read selected-action test head"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01LdxUaw4UgiuFQePhbRHo8z",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 120,250p test_env/tests/t287-selected-action.test.mjs | cut -c1-900 | grep -n \"runHost\\|recover(\\|initial\\|test(\\|runtimeTmp\\|mkdtemp\\|context(\" | head -40",
+        "description": "Find initial host run and recovery in test"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01FxNefgc3eGhUmT6TiTE2r3",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 199,250p test_env/tests/t287-selected-action.test.mjs | cut -c1-1200",
+        "description": "Read selected-action composition test body"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01XjPN5BEjRJenXVqqetVU8h",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"export function projectCCallRuntimeFailureSignal\\|export function projectActorTransportForResult\\|export function projectAdmittedTransportEvidenceLifecycle\\|AdmittedCCallRuntimeFailureClose\\b\\|export function planCCallRuntimeFailureClose\\|function runtimeFailureSignal\\|interface CCallRuntimeFailureSignal\\|export type CCallRuntimeFailureSignal\" code/src/abg/c_call.ts | head -20",
+        "description": "Locate failure signal owners in c_call"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_0153XCFevtgWNfaTtE9ZzZYb",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 825,900p code/src/abg/c_call.ts && sed -n 3521,3620p code/src/abg/c_call.ts",
+        "description": "Read signal types and projector"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01S7F82pYQdRSuF1htVfBc1V",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 3620,3660p code/src/abg/c_call.ts; grep -n \"function exactProbabilisticFailureSource\" code/src/abg/c_call.ts",
+        "description": "Read projector tail"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01VxG8inaeKWVFftQjTvqh9C",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1800,1900p code/src/abg/c_call.ts",
+        "description": "Read transport evidence lifecycle projector"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01NVn92M4VuqC48c1MqTZwmr",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 3881,4010p code/src/abg/c_call.ts",
+        "description": "Read projectActorTransportForResult"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01Xn8Rvw8z5ThESN8JWdJC9B",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"export interface ActorProcessRequest\\|export type ActorProcessRequest\\|export interface ActorProcessObservation\\|export type ActorProcessObservation\" code/src/abg/*.ts code/src/shared/*.ts 2>/dev/null | head; sed -n 1040,1080p code/src/abg/actor_process.ts; sed -n 920,940p code/src/abg/actor_process.ts",
+        "description": "Find actor process request type"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01VcsCWn6MnGYSsYixkaFm9c",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 90,160p code/src/abg/actor_process.ts; grep -n \"requestDigest\\|sha256Canonical(input.request\\|sha256Canonical(request\" code/src/abg/actor_process.ts | head -20; grep -n \"environment = \\|const environment\\b\\|process.env\" code/src/abg/actor_process.ts | head",
+        "description": "Read ActorProcessRequest/Observation types"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01WD5RvghvhVEx8KKeqCopvn",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 895,918p code/src/abg/actor_process.ts; grep -n \"^export async function\\|^export function\" code/src/abg/actor_process.ts | head -20",
+        "description": "Read request digest construction"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01LE1gZrSe5rUTDRVRtjqEKS",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"worker_instruction\\|export function constructWorker\\|export const constructWorker\" test_env/fixtures/language-structural/program.mjs | cut -c1-400; sed -n 1,3p test_env/fixtures/language-structural/leaf.mjs | cut -c1-600; sed -n 19,24p test_env/fixtures/language-structural/leaf.mjs; sed -n 54,60p test_env/fixtures/language-structural/leaf.mjs | cut -c1-2500",
+        "description": "Read worker leaf and contracts"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01YDnQFP3XAeV19EL7dqAK29",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 330,450p code/src/abg/worker_transport.ts",
+        "description": "Read result_text parsing path"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_012xqMyBtPef86ZNMV3AYPGW",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"export function selectValidatedRuntimeEventPrefix\\|export function validateHistoricalEvents\\|export function recoverInterruptedEventStore\\|export function readRuntimeEventsAtDurablePrefix\" code/src/abg/event_prefix.ts code/src/abg/event_store.ts",
+        "description": "Locate prefix and decoder owners"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01KfTu3HoGEQRPtQMeQPAdDx",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 455,560p code/src/abg/event_prefix.ts",
+        "description": "Read selectValidatedRuntimeEventPrefix"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01HRqG3VvqjD6tnLFHh6XYvX",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 560,640p code/src/abg/event_prefix.ts",
+        "description": "Read cold prefix selection checks"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_016i7rtDME7n8mH8sp93yMZe",
+      "name": "Bash",
+      "input": {
+        "command": "grep -rn \"export function projectRootEventProfileSchedule\" code/src/abg/*.ts; grep -n \"export function\\|export const [A-Z_]* =\" code/src/abg/event_contract_profiles.ts | head -30",
+        "description": "Locate profile schedule owner"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_016MSLL47MGDzKLRkrqW7Fhx",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 3969,4000p code/src/abg/event_store.ts; sed -n 3400,3470p code/src/abg/event_store.ts",
+        "description": "Read profile schedule and historical decoder"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01WjdkP6cRVnYaq6bnzotpR2",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"export interface DurablePrefixCoordinate\\|export type DurablePrefixCoordinate\\|export interface EventStoreCloseHandoff\\|export type EventStoreCloseHandoff\\|projectReopenAuthorityAndClose\\b.*(\" code/src/abg/event_store.ts | head; grep -n \"interface InterruptedEventStoreSelection\\|type InterruptedEventStoreSelection\\|type InterruptedEventStoreRecovery\\|interface InterruptedEventStoreRecovery\" code/src/abg/event_store.ts",
+        "description": "Locate handoff and recovery types"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01Pg13ZPcTQmeaQm85TW2hM7",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1305,1375p code/src/abg/event_store.ts; sed -n 4066,4100p code/src/abg/event_store.ts; sed -n 4160,4185p code/src/abg/event_store.ts",
+        "description": "Read coordinate, handoff, recovery types"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01MkBwoQSkrQW4fsUHBRwpix",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"prefixLength:\" code/src/abg/event_store.ts | head -5; grep -n \"function constructDurablePrefixCoordinate\\|function durablePrefixCoordinate\" code/src/abg/event_store.ts",
+        "description": "Check prefixLength semantics"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01T5faG3rwamMBTWUC31Rfpu",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1957,1980p code/src/abg/event_store.ts",
+        "description": "Read durable prefix coordinate builder"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01FKLuiy2YxbAWfa3enZgRUT",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"export function projectSelectedActionContinuations\\|function pendingSelectedOccurrence\\|export function selectPendingActionUse\\|export function prepareSelectedActionContinuation\" code/src/abg/construction_continuation.ts",
+        "description": "Locate selected action projectors"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01UMaSEKgMf4Nr5vH672pYGM",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1760,1872p code/src/abg/construction_continuation.ts",
+        "description": "Read selected action continuation projector"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_011YL3MMo5Uo7d9g19DUxGBu",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 49,70p test_env/fixtures/language-structural/program.mjs | cut -c1-1800",
+        "description": "Read program.mjs graph/addProgram helpers"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01WnXaqgvf1rGmtUXS8NXZxy",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 70,76p test_env/fixtures/language-structural/program.mjs | cut -c1-1500",
+        "description": "Read addProgram contribution handle"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01K5FAmRjW8UgZeXBfgYsjSy",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 865,1000p test_env/support/root-installed-environment.mjs | cut -c1-220 | grep -v \"^\\s*$\" | head -120",
+        "description": "Read setup resolution phase"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01Nq2q14PyL6hRuDKeyt5Mwn",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 110,130p test_env/uat/runner.mjs | cut -c1-400; grep -n \"ABG_TS_WORKER_SANDBOX\\|ABG_TS_CLAUDE_APPEND_ARGS\\|ABG_TS_FP_\" code/src/abg/actor_process.ts code/src/abg/transport_contracts.ts code/src/abg/worker_transport.ts | head",
+        "description": "Check scripted provider environment needs"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01913mEdfHfTKzCh1gdsMUyB",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 320,345p code/src/abg/transport_contracts.ts; grep -n \"export function classifyWorkerTransportFailure\" -A30 code/src/abg/transport_contracts.ts | head -40",
+        "description": "Read sandbox env and classifier"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01Pa1vhReFg1dj8f1PTBRhtj",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/design && grep -n \"^#\\+ \" ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md | sed -n 1,200p | grep -n \"10\\.\\|^.*## \" | head -60; grep -n \"^#\\+ \" T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        "description": "List design doc headings"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01PPVLN12JhvPruvTfBGgMtF",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 614,650p ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md; sed -n 856,936p ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md | grep -n \"^\\*\\*\\|^- \\*\\*\\|^[EFG]\\.\\|^#### \\|E\\.\\|F\\.\\|G\\.\" | head -20",
+        "description": "Read 10.2/10.4 and locate 10.10 E-G"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_016LTcBbfNBDiasps3SdN1oo",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript && grep -n \"RETIRED_ACTOR_LIFECYCLE_COPY_KEYS\\|export function durableActorObservationOfArtifact\\|export function projectDurableActorObservation\" code/src/abg/transport_contracts.ts; n=$(grep -n \"export function durableActorObservationOfArtifact\" code/src/abg/transport_contracts.ts | cut -d: -f1); sed -n \"$((n-30)),$((n+30))p\" code/src/abg/transport_contracts.ts",
+        "description": "Read durable artifact observation projection"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01RXdjrd6RzkdF3VGafCnCpe",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"5\\.0\\.0-rc\\.10\\|rc\\.10\\|\\\"version\\\"\" package.json | head; grep -n \"5\\.0\\.0-rc\\.10\" package-lock.json | head; sed -n 1,12p package-lock.json; grep -n \"5\\.0\\.0-rc\\.10\\|rc\\.10\" code/src/product/contracts.ts",
+        "description": "Find RC10 version identity sites"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01SEri636u6Xq3usmYfHJGw9",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,20p code/src/product/contracts.ts; git -C /private/tmp/abg-rc11-qualification-20261109 status --short | head; ls test_env/fixtures/ | head -50; ls test_env/fixtures/t287-current-owner 2>&1; ls test_env/support/t287-current-owner-evidence.mjs 2>&1; ls /private/tmp/abg-rc11-qualification-20261109/qualification-scratch 2>&1",
+        "description": "Read contracts identity and before-state"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_017husFeFzNRmRpjJJPYw8CE",
+      "name": "Bash",
+      "input": {
+        "command": "shasum -a 256 test_env/tests/t287-native-assessment-evidence.test.mjs test_env/tests/t287-selected-action-authority.test.mjs test_env/tests/t287-owned-process-lifetime.test.mjs package.json package-lock.json code/src/product/contracts.ts; /opt/homebrew/Cellar/node/24.7.0/bin/node --version",
+        "description": "Hash existing write-scope files"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    }
+  ],
+  "materialReadDeviation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/READ_SCOPE_OBSERVATION.json",
+    "bytes": 2784,
+    "sha256": "c690683448f8927a4d8f0454a613a1325362348c8514fd1c4dc3d9cb50c554c4"
+  },
+  "additionalReadonlyObservations": [
+    {
+      "type": "tool_use",
+      "id": "toolu_01Xn8Rvw8z5ThESN8JWdJC9B",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"export interface ActorProcessRequest\\|export type ActorProcessRequest\\|export interface ActorProcessObservation\\|export type ActorProcessObservation\" code/src/abg/*.ts code/src/shared/*.ts 2>/dev/null | head; sed -n 1040,1080p code/src/abg/actor_process.ts; sed -n 920,940p code/src/abg/actor_process.ts",
+        "description": "Find actor process request type"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_016i7rtDME7n8mH8sp93yMZe",
+      "name": "Bash",
+      "input": {
+        "command": "grep -rn \"export function projectRootEventProfileSchedule\" code/src/abg/*.ts; grep -n \"export function\\|export const [A-Z_]* =\" code/src/abg/event_contract_profiles.ts | head -30",
+        "description": "Locate profile schedule owner"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    },
+    {
+      "type": "tool_use",
+      "id": "toolu_01SEri636u6Xq3usmYfHJGw9",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,20p code/src/product/contracts.ts; git -C /private/tmp/abg-rc11-qualification-20261109 status --short | head; ls test_env/fixtures/ | head -50; ls test_env/fixtures/t287-current-owner 2>&1; ls test_env/support/t287-current-owner-evidence.mjs 2>&1; ls /private/tmp/abg-rc11-qualification-20261109/qualification-scratch 2>&1",
+        "description": "Read contracts identity and before-state"
+      },
+      "caller": {
+        "type": "direct"
+      }
+    }
+  ],
+  "limits": "Commands and selected postimages are evidence, not proof that all external filesystem effects are absent. Main index unchanged; GIT_OPTIONAL_LOCKS=0 was declared. No complete read-scope conformance claim."
+}

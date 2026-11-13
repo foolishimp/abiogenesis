@@ -1,0 +1,117 @@
+{
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3274041,
+    "sha256": "69044fb6ef2367e6275eb578720605a09911a002bb7d37124d2d7a43f5faacce"
+  },
+  "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.3",
+  "catalogDigest": "sha256:dc7094e35ecb8c386dc28c6f9b958f010b4062ed02336fd02a94cd463f135f5c",
+  "publicEntrypoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    "bytes": 575,
+    "sha256": "22b6b16e4a025a23a79933a1ec48f6aa25f751426880b27ffbe8c4d586e5bdcd"
+  },
+  "publicDeclaration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.d.ts",
+    "bytes": 1476,
+    "sha256": "e6e8cee30b1f93560b1a4bff30288839b760e4b3e9ce8b645dc41c069ab9415c"
+  },
+  "schemas": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/catalog/admit/operation-contract.json",
+      "bytes": 5941,
+      "sha256": "65ac5f6409c9440617080d61357086237dbb9576f6e22286785c36a390d54f3c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/catalog/apply/operation-contract.json",
+      "bytes": 10721,
+      "sha256": "72037f468a9447ff56e624740ce7e733eeaac80572345a1fa06744c8dadb624e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/catalog/view/operation-contract.json",
+      "bytes": 6053,
+      "sha256": "15a3777064de8005552832187d84a244f5453149bb0dd63769d44e4bb4e173cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/conformance/evaluate/operation-contract.json",
+      "bytes": 6207,
+      "sha256": "5d716075a641fb73c4c12ae379f743fd92bd283eb2693a7ed85d73a842dd988e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/interaction/respond/operation-contract.json",
+      "bytes": 30349,
+      "sha256": "44106108b17e68b8defd3fbe912c4e46f123765f24e372f8098b21f088ef1125"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/product/install/operation-contract.json",
+      "bytes": 5954,
+      "sha256": "7f314eb90fc9f46918e58828156eb2cc5ed61e6dff0781737b24c9ee923510c4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/product/materialize/operation-contract.json",
+      "bytes": 11023,
+      "sha256": "471bb069c0635d1b50ec9ab991a6edf50395699847a226ca4e4e7c3fbe166beb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/product/resolve/operation-contract.json",
+      "bytes": 6080,
+      "sha256": "4513fc5ac3f8fc273360ada1c9a1f5c71aec3952974e7e97e4c77d1088f0548c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/product/verify/operation-contract.json",
+      "bytes": 5952,
+      "sha256": "2fb127d30d58af3d3a83c627fe4e29ee32c9cc1fe07ff15d9ffff1c0e80205d2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/project/read/operation-contract.json",
+      "bytes": 114486,
+      "sha256": "c43bc4284423f57bed5a594bd030ffec6b7d614562148bbfc390a9bbece32c02"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/release/snapshot/operation-contract.json",
+      "bytes": 11097,
+      "sha256": "ef53142a730b50e279e06d6e106352fa72e1d2728ae55179f6293cc2c7be0d8f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/result/assess/operation-contract.json",
+      "bytes": 6871,
+      "sha256": "634b4aa1533018192c10e7fef842ad7deab5c989f7077467ceea9a43fb21c062"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/run/continue/operation-contract.json",
+      "bytes": 12809,
+      "sha256": "812ad0e274362fcb6cb32ffafce55627572a71e10d7bf3dbc45ebd1d32c8d2d6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/run/invoke/operation-contract.json",
+      "bytes": 12327,
+      "sha256": "12443ceea2d97ac6729fa5e44669b41770978f2181aef648704cda1044de164d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/witness/admit/operation-contract.json",
+      "bytes": 29041,
+      "sha256": "38c23fa0afa13ecc84c89ecc1c40defc0ffa9327083b1b476db019b061898b3b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/workspace/bind/operation-contract.json",
+      "bytes": 6006,
+      "sha256": "9e2b513438132c37e98876f712b17f0d42940f6c8c2168d4ccf1b8c748db2722"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/workspace/create/operation-contract.json",
+      "bytes": 10823,
+      "sha256": "14ac3865748315ddbf93147dd47f160c6933d9f319b9f47f8864bb63e54d1b50"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/workspace/open/operation-contract.json",
+      "bytes": 6009,
+      "sha256": "ee248ff666fa14fca80fb9b389e3f5441b0da31dcd6fcf53a4b9668eebc2413b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-002/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/public-operation.schema.json",
+      "bytes": 2870138,
+      "sha256": "a389406e73cd8a2880526298171e4315d565fb5e70d4ae32602fbe58772610a6"
+    }
+  ],
+  "meaning": "Exact candidate definition assets before Root setup; owner-verified definitionContractCoordinates are produced by existing verifyProduct during Root setup, never invented."
+}

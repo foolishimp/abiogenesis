@@ -1,0 +1,45 @@
+{
+  "id": "t287-effect-phase2-native-03-r1",
+  "status": "READY_FOR_ADMITTED_NATIVE_SOURCE_AUTHOR",
+  "outcome": "Repair A probe entry accounting and current-origin result/continuation eligibility, preserving synchronous lifetime contracts and all prior cases.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-03",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/tsconfig.json"
+  ],
+  "maxContextFiles": 24,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc11-effect-phase2-01/native-03/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-03/EXECUTED_DESIGN.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-03/EXECUTED_PROOF.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-03/EXTERNAL_TOOLS.json",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "qualification-scratch/rc11-effect-phase2-01/native-03"
+  ],
+  "checks": [
+    "Fresh scratch-only compiler <=240s/Bash300000ms",
+    "Actual-owner ^controlled (timing|lifetime): <=60s/Bash90000ms; retain first red",
+    "Preserve all other source, actual entry counts/currentness and honest total bridge+state accounting"
+  ],
+  "instructions": [
+    "Repair only R1 in the existing A implementation. The admitted source is native02 freeze b5a8316d / source cddcc3bc, not the original baseline. Read the short Root scope, executed Design/Proof evidence and the two current shared modules, then implement the narrow entry/result-boundary repair. Accepted upstream Product/Design and all previous behavior remain; no broad A redesign or B command/main work. Only the four named source files and scratch are writable. The addressed readRoots list is initial context, not a ban on relevant read-only repository contracts.\n\nCount each actual eligible probe assessment at entry through pure immutable state, immediately before the existing fast-path evaluation or host probe can reenter. Preserve assessment counts for no-child/Windows/undefined-PID paths and throwing probes. A proposed tail cancelled by preceding signal/reconcile is not an entered assessment: do not count it early. Do not decrement an entered attempt when its result becomes stale. Bind result plus continuation to its current origin; reject stale/sealed results before any absence/fact writes or downstream actions, including when reentry has not yet sealed. Keep the existing synchronous bridge and single state owner. Do not add a parallel counter, generic scheduler, blanket tail rejection or suppress legitimate dispose/seal continuations.\n\nThe retained actual candidate fixture entered two probes before completion but sealed count1, then accepted stale present. The baseline sealed count2 correctly at that cut, then its obsolete outer continuation reopened cleanup, performed a third probe, TERM and a second disposal. Never describe these as the same accounting mechanism or preserve invalid post-seal work as compatibility. The fixed completed-reentry expectation is two actual probe calls, count2 in frozen completion and later fresh snapshots, absent throughout after nested confirmation, zero signals, exactly three stream destroys and no timer residue.\n\nAdd small controlled actual-owner tests with independent host-call counters and fixed physical expectations: completed exit+close reentry; exit-only draining before explicit close; active immediate strengthening with tightened bounds unchanged and no stale TERM; ordinary/throwing assessments and cancelled-tail-before-entry accounting. For active strengthening derive and assert the finite actual call trace independently; the Design's four-call handtrace is not executed evidence. No reducer action-list oracle, copied implementation model or sleeps. Retain the existing 13 controlled timing/lifetime cases and all other test bodies/oracles. Preserve Error references, first-error/disposal order, fresh snapshot identity/recomputed elapsed and separately sealed completion. Keep createMonotonicDeadline unchanged; no production clock or physical policy change.\n\nUpdate only the permitted plan's current A/R1 status and truthful responsibility/accounting map. A consolidates state/decisions; total old/new executable coordination must include both modules and cannot be called net deletion. Preserve both original red probe records, prior native01 failure and all qualification limits. B and peer retained-fact coverage stay separate and unimplemented by this task.\n\nUse pinned EXTERNAL_TOOLS: compile fresh changed source only into the new scratch tenant (240s outer cap, Bash300000ms). Then run exactly ^controlled (timing|lifetime): with the actual scratch-compiled owner (60s outer cap, Bash90000ms). Preserve raw output and the first failed check; compiler diagnostics may be fixed within this call, but do not relax an oracle or retry a semantic failure blindly. No stale compiled behavior credit, whole lifetime/physical/m5/unit/installed tests, pack/generation/install, Git, paid child or provider nesting. The fixed native envelope is900s absolute/180s inactivity/100turns, Opus5.5 xhigh. Return actual changes, both-file accounting, check results/first red and gaps. Stop source edits at return; source/proof acceptance belongs to Root."
+  ]
+}

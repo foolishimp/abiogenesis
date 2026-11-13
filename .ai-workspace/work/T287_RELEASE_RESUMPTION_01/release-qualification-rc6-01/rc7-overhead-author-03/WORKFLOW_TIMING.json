@@ -1,0 +1,66 @@
+{
+  "kind": "bounded_actual_bridge_workflow_timing",
+  "at": "2026-11-06T07:51:21.575452+00:00",
+  "setup": {
+    "reused": true,
+    "measuredSetupMs": null
+  },
+  "successfulR2": {
+    "parentModuleToDispatchMs": 90564.78037499999,
+    "parentPhaseMs": {
+      "control-pin-verification": 7.452124999999999,
+      "resume-config-parse": 357.815792,
+      "source-control-verification": 163.14162499999998,
+      "installed-modules": 412.02595800000006,
+      "caller-refresh": 85860.645,
+      "prefix-identity": 809.6676250000019,
+      "context-observation": 254.7206670000014,
+      "construct-call": 1715.7367090000043,
+      "capacity-canonical-digest": 193.6516249999986,
+      "prefix-preservation": 785.7155000000057,
+      "moduleBodyToStartedMs": 90564.78037499999
+    },
+    "dispatchToNativeWorkerMs": 88162.0,
+    "moduleEntryToNativeWorkerMs": 178726.78037499997,
+    "nativeActorWallMs": 1228795.0,
+    "hostWallMs": 1424517.558583,
+    "invocationWallMs": 1332309.270583,
+    "selectedProofWallMs": 519747,
+    "selectedProofOverlapsNativeWall": true,
+    "reviewOverlapsTesting": true
+  },
+  "failedFirstLaunch": {
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/FAILED_RUNTIME_CLOSE.json",
+      "bytes": 6592,
+      "sha256": "0936b54d9bb24d43d59af7f3e6c1ca5bd4a80aeb3955a5389d1783866949d483"
+    },
+    "modeTriage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_LAUNCH_FAILURE_TRIAGE.json",
+      "bytes": 4664,
+      "sha256": "830697a49638b306d938aea5dd3981b677e1a29f629aaf16013179a353bead93"
+    },
+    "noChild": true,
+    "hostWallMs": 183375.74850000002
+  },
+  "betweenAttempts": {
+    "failedHostReturnToR2DispatchMs": 937265.0,
+    "meaning": "Operator diagnosis, failed custody, control reentry and next parent preparation; not native worker execution."
+  },
+  "nativeProviderTerminalMetadata": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "num_turns": 93,
+    "duration_ms": 1226394,
+    "duration_api_ms": 638515,
+    "total_cost_usd": 7.195637,
+    "stop_reason": "tool_use",
+    "session_id": "55a9df91-72ea-4159-b470-d6f994fc38e9"
+  },
+  "limits": [
+    "Native/test/review wall intervals overlap; do not add them as sequential duration.",
+    "This is immutable RC6 execution of the bridge, not matched RC7 native workflow or CPU attribution.",
+    "Original failed launch and operator preparation costs remain explicit."
+  ]
+}

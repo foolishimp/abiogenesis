@@ -1,0 +1,60 @@
+{
+  "kind": "s5_actual_h06_binding_preflight",
+  "at": "2026-11-06T19:53:27.588057+00:00",
+  "RootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 9575,
+    "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_AFTER.json",
+    "bytes": 563047,
+    "sha256": "b4a2fdc723a131caed5bb323157a55416c2ed9974edab7fbe68ff10efa8d8fa1"
+  },
+  "originalPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/ACTIVATION_MANIFEST.json",
+    "bytes": 19875,
+    "sha256": "e983f5aae5410790707d74617ba1d220b341b9093faba8bff913e1a5752f54a9"
+  },
+  "closedPreparationPinsEqual": 29,
+  "sourceRowsLiveAndSnapshotEqual": 451,
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "branch": "codex/t287-5-release-qualification",
+  "indexEmpty": true,
+  "trackedChangedCount": 69,
+  "trackedSetEqualsAcceptedInheritedSet": true,
+  "inheritedNewProductPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+  ],
+  "untrackedCensusPerformed": false,
+  "providersExecutableAndPinned": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/claude-provider.sh",
+      "bytes": 733,
+      "sha256": "7725a378820b2a0ea901e8ba53ba3fb9af1b608864d096165ef52bc0e58f2b39",
+      "mode": "0o755"
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b",
+      "mode": "0o755"
+    }
+  ],
+  "actualSlotsAndNamespacesAbsent": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/commands",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/ROOT_CONTROL_ADMISSION.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/RUNTIME_BINDINGS.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/workload.json",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-stdout-window-author-01",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw1",
+    "/private/tmp/abg-sw1"
+  ],
+  "runtimeAcquired": false,
+  "providerExecuted": false,
+  "staged": false,
+  "preliminaryReadOnlyCheckError": "First ad hoc preflight used an invalid Python stat-result method and stopped before any write; corrected to stat.S_ISREG. No source/runtime/build/test effect."
+}

@@ -1,0 +1,18 @@
+{
+  "status": "ROOT_SELECTED_PREPARATION_ONLY",
+  "at": "2026-11-07T09:32:46.859366+00:00",
+  "sourcePreimageDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+  "sourceStanding": "A8 physical frozen source reviewed only; A8 native failed; no A8 source acceptance asserted.",
+  "actualPriorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "2320c892bb0d6d276e18cb67360710527196ff32c9cd21422aa419b682ac4b9a"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/native-worksite-012-plan/REVIEW.json",
+    "bytes": 16184,
+    "sha256": "72de32fe9e25518734040a1a6e018dfd418e582c360a8dc1bae96de3c43d4140"
+  },
+  "scratchRoot": "/private/tmp/abg-r8-a09-x5mx_vsm",
+  "nativeDispatch": false
+}

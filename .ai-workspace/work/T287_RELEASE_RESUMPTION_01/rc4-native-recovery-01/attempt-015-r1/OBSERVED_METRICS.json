@@ -1,0 +1,400 @@
+{
+  "status": "RUN_STOPPED_BLOCKED_BOUND_EXHAUSTED_FRESH_READS_COMPLETE",
+  "actors": [
+    {
+      "cCallRef": "c-call:sha256:11cbadd2932a0be6c5dc073c6e194b34d14cb773e303240139e30ca0baf5e995",
+      "transportOrdinal": 20137,
+      "paths": {
+        "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-d341502d31616f91-output.txt",
+        "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-d341502d31616f91-prompt.txt",
+        "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-d341502d31616f91-stderr.log",
+        "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-d341502d31616f91-stdout.log",
+        "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-d341502d31616f91-transport.json"
+      },
+      "closedProviderReport": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 2,
+        "duration_ms": 75942,
+        "duration_api_ms": 63952,
+        "total_cost_usd": 2.934316,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 355261,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 4611,
+          "output_tokens_details": {
+            "thinking_tokens": 1224
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 355261,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 4611,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 355261,
+            "webSearchRequests": 0,
+            "costUSD": 2.934316,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 1224,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        }
+      }
+    },
+    {
+      "cCallRef": "c-call:sha256:73281d59a5da27c1081069e578b6dc1b941dba262be225e8bcc0f824cd54abcd",
+      "transportOrdinal": 20427,
+      "paths": {
+        "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-af609158247331ae-output.txt",
+        "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-af609158247331ae-prompt.txt",
+        "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-af609158247331ae-stderr.log",
+        "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-af609158247331ae-stdout.log",
+        "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-af609158247331ae-transport.json"
+      },
+      "closedProviderReport": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 226,
+        "duration_ms": 3257438,
+        "duration_api_ms": 2949290,
+        "total_cost_usd": 20.714266799999994,
+        "usage": {
+          "input_tokens": 434,
+          "cache_creation_input_tokens": 750037,
+          "cache_read_input_tokens": 43771432,
+          "output_tokens": 262575,
+          "output_tokens_details": {
+            "thinking_tokens": 156599
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 750037,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 5856,
+            "outputTokens": 289267,
+            "cacheReadInputTokens": 44494484,
+            "cacheCreationInputTokens": 751299,
+            "webSearchRequests": 0,
+            "costUSD": 20.714266799999994,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 156599,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        }
+      }
+    },
+    {
+      "cCallRef": "c-call:sha256:4900665f936351faf9cd788568d185b89068ec05cdf93f8c0a5f7d59e42a40ec",
+      "transportOrdinal": 27511,
+      "paths": {
+        "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-336b9915e2a13598-output.txt",
+        "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-336b9915e2a13598-prompt.txt",
+        "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-336b9915e2a13598-stderr.log",
+        "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-336b9915e2a13598-stdout.log",
+        "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-336b9915e2a13598-transport.json"
+      },
+      "closedProviderReport": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 2,
+        "duration_ms": 74536,
+        "duration_api_ms": 61944,
+        "total_cost_usd": 3.013988,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 362720,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 5611,
+          "output_tokens_details": {
+            "thinking_tokens": 1957
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 362720,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 5611,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 362720,
+            "webSearchRequests": 0,
+            "costUSD": 3.013988,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 1957,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        }
+      }
+    },
+    {
+      "cCallRef": "c-call:sha256:c7376aea26c084f2591c485788ef42dfc50e99382158ae5126918a003d83ff1c",
+      "transportOrdinal": 27807,
+      "paths": {
+        "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-db12e34675b8cff8-output.txt",
+        "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-db12e34675b8cff8-prompt.txt",
+        "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-db12e34675b8cff8-stderr.log",
+        "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-db12e34675b8cff8-stdout.log",
+        "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-db12e34675b8cff8-transport.json"
+      },
+      "closedProviderReport": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 3,
+        "duration_ms": 143585,
+        "duration_api_ms": 9907,
+        "total_cost_usd": 0.36226780000000003,
+        "usage": {
+          "input_tokens": 4,
+          "cache_creation_input_tokens": 42015,
+          "cache_read_input_tokens": 41059,
+          "output_tokens": 896,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 42015,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 4,
+            "outputTokens": 896,
+            "cacheReadInputTokens": 41059,
+            "cacheCreationInputTokens": 42015,
+            "webSearchRequests": 0,
+            "costUSD": 0.36226780000000003,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 0,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        }
+      }
+    },
+    {
+      "cCallRef": "c-call:sha256:cd82799b604221522c542a4d7ac0998919bdbf6b6f624154d467d446ceaa5b0a",
+      "transportOrdinal": 27971,
+      "paths": {
+        "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-3f6e41c0d4f42ba3-output.txt",
+        "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-3f6e41c0d4f42ba3-prompt.txt",
+        "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-3f6e41c0d4f42ba3-stderr.log",
+        "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-3f6e41c0d4f42ba3-stdout.log",
+        "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-3f6e41c0d4f42ba3-transport.json"
+      },
+      "closedProviderReport": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 2,
+        "duration_ms": 130685,
+        "duration_api_ms": 118645,
+        "total_cost_usd": 3.309012,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 385443,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 11273,
+          "output_tokens_details": {
+            "thinking_tokens": 5999
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 385443,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 11273,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 385443,
+            "webSearchRequests": 0,
+            "costUSD": 3.309012,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 5999,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        }
+      }
+    },
+    {
+      "cCallRef": "c-call:sha256:e574ed794b4667596181d51b265848b977c24f2a9f0889e3a6a9c20ae9e7d892",
+      "role": "second_same_run_Construction",
+      "paths": {
+        "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-0883e31b97db9777-stdout.log",
+        "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-0883e31b97db9777-output.txt",
+        "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-0883e31b97db9777-prompt.txt",
+        "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/fp-0883e31b97db9777-transport.json"
+      },
+      "closedProviderReport": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 44,
+        "duration_ms": 485531,
+        "duration_api_ms": 447750,
+        "total_cost_usd": 3.5219044000000004,
+        "usage": {
+          "input_tokens": 84,
+          "cache_creation_input_tokens": 193146,
+          "cache_read_input_tokens": 6418602,
+          "output_tokens": 34634,
+          "output_tokens_details": {
+            "thinking_tokens": 12571
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 193146,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 84,
+            "outputTokens": 34634,
+            "cacheReadInputTokens": 6418602,
+            "cacheCreationInputTokens": 193146,
+            "webSearchRequests": 0,
+            "costUSD": 3.5219044000000004,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 12571,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        }
+      }
+    }
+  ],
+  "closedProviderReports": 6,
+  "reportedSubtotalUsd": 33.855755,
+  "priorClosedNativeCampaignUsd": 199.3751932,
+  "priorClosedNativeCampaignFP": 39,
+  "currentPlusPriorReportedUsd": 233.2309482,
+  "practical004ExcludedUsd": 0.8784886,
+  "limit": "Actual provider reports and retained owner readbacks. First native C2 red; bounded same-Run repair admitted, no second C2/UAT. Wrapper process exit is Root-owned. No acceptance or performance claim.",
+  "currentPlusPriorFP": 45,
+  "totalReportedTurns": 279,
+  "providerDurationMs": 4167717,
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/execution/outcome-summary.json",
+    "bytes": 550,
+    "sha256": "fa34c1a0fcbfc923db4a744c3811bb0fbefb383ea50f8a938af462248fa4f246"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/execution/fresh-reads.json",
+    "bytes": 2398,
+    "sha256": "2bdb298345a709695d400d72388a7ff8699d1430f93f7a7381962f5e08ad3a19"
+  },
+  "afterRunResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/execution/after-run-resume.json",
+    "bytes": 99891224,
+    "sha256": "e752f2fefade58e45f288d564a9d13d43cf9f6294dd358f632ba9c77f6de081e"
+  },
+  "eventResourceCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:d8a979d171567668e797e1426fceb195eed15276e4cf69d5b51cc6f45ebe780b",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:ff1bfb79cb650004f64d8be6d74d00f1dd481010044db8faabf58150e2d0631b",
+      "prefixLength": 435431583,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 680756193
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:362bacf16c8ab8b1c4cf9f55f4571a37be0e227fa1452dcef6f3113b2165fa68",
+      "device": 16777231,
+      "durableByteLength": 435431583,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:ff1bfb79cb650004f64d8be6d74d00f1dd481010044db8faabf58150e2d0631b",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/events/runtime.events.jsonl",
+      "inode": 680756193,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "physicalEventBytes": 435431583,
+  "eventBytesBefore": 295097466,
+  "eventDeltaBytes": 140334117
+}

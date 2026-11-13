@@ -1,0 +1,41 @@
+{
+  "standing": "Actual physical admission coordinates; no execution-success inference",
+  "recordedUtc": "2026-11-04T14:44:12.703534+00:00",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+  "runRef": "run://abiogenesis/5c4bc7882ac58cb455efc4ec16451884b278c7e4052da91c208ba27096fd5806",
+  "coordinates": [
+    {
+      "kind": "public_operation_admitted",
+      "admissionOrdinal": 63427,
+      "eventId": "event://abiogenesis/ad40e3ec4aa237d055ab05ac52bc674fad94b26b89648ec7141a60cf6bb5177b",
+      "eventTime": "2026-11-04T14:43:07.716Z",
+      "runId": null,
+      "graphFunctionRef": null,
+      "offset": 837277102,
+      "rowBytes": 4344,
+      "rowSha256": "da6c4365449abe73513e51ca34857922ba8f1eef9ea32a6e64c019d3ce4c6dc3"
+    },
+    {
+      "kind": "invocation_admitted",
+      "admissionOrdinal": 63428,
+      "eventId": "event://abiogenesis/3ff94e0d6d8cb623ee142f710569e28fdb4ab8b843b5cfaac67c38a532ff9c54",
+      "eventTime": "2026-11-04T14:43:07.716Z",
+      "runId": null,
+      "graphFunctionRef": null,
+      "offset": 837281446,
+      "rowBytes": 439981,
+      "rowSha256": "4af5d293aa1929210cbaddae2f7765c63afc9a7834d9b59a0bc149d15e3c69d6"
+    },
+    {
+      "kind": "run_segment_opened",
+      "admissionOrdinal": 63431,
+      "eventId": "event://abiogenesis/73816805248184ee0e431085dead4c769952f4f0501b281d3ca9a154916bf658",
+      "eventTime": "2026-11-04T14:43:13.794Z",
+      "runId": "run://abiogenesis/5c4bc7882ac58cb455efc4ec16451884b278c7e4052da91c208ba27096fd5806",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "offset": 837973208,
+      "rowBytes": 2354,
+      "rowSha256": "759caa16fe99e7a4c21bea6af63440c8f956757bc0c206d5b5a4ba1df562d1bb"
+    }
+  ]
+}

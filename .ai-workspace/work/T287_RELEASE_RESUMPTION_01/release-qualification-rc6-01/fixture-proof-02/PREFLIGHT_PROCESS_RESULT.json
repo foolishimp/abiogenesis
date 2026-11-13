@@ -1,0 +1,12 @@
+{
+  "startedUtc": "2026-11-05T09:14:58.542802+00:00",
+  "endedUtc": "2026-11-05T09:16:09.414256+00:00",
+  "elapsedMs": 70869.58849988878,
+  "exitCode": 0,
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/prepare-r1.mjs"
+  ],
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

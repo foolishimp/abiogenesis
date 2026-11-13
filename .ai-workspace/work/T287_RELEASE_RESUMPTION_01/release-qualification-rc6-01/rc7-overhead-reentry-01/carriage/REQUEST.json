@@ -1,0 +1,39 @@
+{
+  "kind": "root_selected_rc7_overhead_frame_reentry",
+  "at": "2026-11-06T02:08:48.644832+00:00",
+  "role": "Independent frozen-source evaluator/architect, max; contributing readiness only, no implementation authority",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_RC7_OVERHEAD_SELECTION.json",
+    "bytes": 4848,
+    "sha256": "9a2289d723d4ea138b520bc68249270fffd93ece12dc2f11eae2656c90bcf765"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "productFrame": "Unchanged ABIogenesis5 fifteen families/GOAL-035/T287; remove demonstrated interface overhead through existing shared owners while preserving physical facts and deterministic cold reconstruction; STDO3.0.4.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5608,
+    "sha256": "6ca141a406721beb702b64706ba867d8af58488b067f5fbe203b3582f0a20929"
+  },
+  "scope": "Existing observation/body representation owners",
+  "questions": [
+    "Use pinned actual N2 and N3 native Result/binding rows and retained size maps to distinguish necessary information from duplicate task.context/before/unchanged after and executionBasis carriage.",
+    "Identify the already implemented canonical shared owner/library that can retire this duplication at all selected interfaces, and explain why existing whole-body references did not cover these shapes.",
+    "Specify the smallest coherent lawful repair, affected owner paths and exact same-workload byte/semantic/cold-read/refusal discriminator. Preserve historical profiles and values; propose no rival store/serializer/runtime/validation layer.",
+    "Relate the actual installed RC6 realization to the frozen RC7 candidate; identify any difference material to the proposed remedy. Keep CPU/time attribution explicitly unknown when unmeasured."
+  ],
+  "sources": [
+    "Exact selected immutable STDO3.0.4 skills/Definition/Product/frame/design as needed, no renewed complete unrelated qualification.",
+    "d5-author-02/TIMING_BREAKDOWN.json, READBACK_LATENCY_OWNER_OBSERVATION.json, REMAINING_CARRIAGE_OWNER_MAP.json, RESULT_CARRIAGE_OWNER_OBSERVATION.json",
+    "d5-author-03/LAUNCH_TIMING.json, execution/TIMING_OBSERVATION_ENVELOPES.json, HOST_RESULT.json and metadata-only command records",
+    "Exact frozen source owners, immutable installed builder implementations and operator-client controls, acquired/hash-pinned as used"
+  ],
+  "effects": "Read-only source/evidence evaluation; write only REQUEST-copy, READINESS.md and READINESS.json in this assigned output directory. No Product/control edits, testing/build/runtime/provider/network/auth/Git mutation or delegation.",
+  "privacy": "Never read/output private provider reasoning/narrative/tool_result, raw provider stderr or credentials. Bound event-row traversal to metadata/field sizes/equality; no massive bodies in output.",
+  "proportionality": "Reuse existing measurements/closed findings. Report finite causal owner map and implementation-ready relation with limits; do not create a new exhaustive framework or review cycle.",
+  "return": "Product Frame then closed readiness, exact pins, proposed bounded owner changes/reuse, invalidated evidence/reproof, genuine missing input and residuals. Return to Root; never activate a Worker/Reviewer."
+}

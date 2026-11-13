@@ -1,0 +1,96 @@
+{
+  "status": "HELD_NOT_EXECUTABLE",
+  "activation": null,
+  "executionEnabled": false,
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+    "bytes": 27954,
+    "sha256": "bac74938257736015dc6c71f26dcd0a40e79115ea8bc82f9e2ff9aa04e5e3425"
+  },
+  "build": {
+    "argvPrefix": [
+      "/opt/homebrew/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+      "build"
+    ],
+    "bindingPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+    "bindingSha256": null,
+    "requiredStatus": "ROOT_SELECTED_LOCAL_RC9_BUILD_ONLY"
+  },
+  "install": {
+    "argvPrefix": [
+      "/opt/homebrew/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+      "install"
+    ],
+    "bindingPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-binding-001/ROOT_INSTALL_BINDINGS.json",
+    "bindingSha256": null,
+    "requiredStatus": "ROOT_SELECTED_LOCAL_CANDIDATE_INSTALL_ONLY"
+  },
+  "argumentRule": "Append the actual frozen binding path and SHA256 after exact Root selection; no placeholder is executable.",
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "requiredBuildAbsences": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001",
+    "/private/tmp/abg-r9c-cut",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9"
+  ],
+  "requiredInstallAbsences": [
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/install-001",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json"
+  ],
+  "expectedBuildFiles": [
+    "SOURCE_PREPARED.json",
+    "SOURCE_CHECKPOINT.json",
+    "candidate/RESULT.json",
+    "REPRODUCTION_INPUTS_VERIFIED.json",
+    "reproduction/RESULT.json",
+    "EXACT_TESTED_ARTIFACT.json",
+    "INSTALL_INPUTS_PENDING.json",
+    "BUILD_RESULT.json"
+  ],
+  "expectedInstallFiles": [
+    "install-001/INPUT_MANIFEST.json",
+    "install-001/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+    "install-001/INSTALLED_OWNER_SMOKE.json",
+    "install-001/RESULT.json",
+    "FINAL_INSTALL_VERIFICATION.json"
+  ],
+  "expectedReleaseFiles": [
+    "abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "verification.json",
+    "resolved-lock.json",
+    "installation.json",
+    "payload-correspondence.json",
+    "LOCAL_CUT_RECORD.json",
+    "SHA256SUMS"
+  ],
+  "boundsMs": {
+    "git": 120000,
+    "dependencies": 120000,
+    "compile": 240000,
+    "generate": 600000,
+    "pack": 120000,
+    "inventory": 120000,
+    "install": 1200000,
+    "installedOwner": 900000
+  },
+  "reserveBytes": 4294967296,
+  "rc8Observed": {
+    "buildWallMs": 38648,
+    "installIncludingSmokeWallMs": 68329,
+    "buildResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/BUILD_RESULT.json",
+      "bytes": 1308,
+      "sha256": "5c1b562874f4d8a5b64b0aedda84c64629197f2652024f582f6a0589d42dffce"
+    },
+    "installReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/OPERATOR_RETURN.json",
+      "bytes": 6599,
+      "sha256": "07ae6d2f127200843a5c403cba1b13eaee57c3bbc64cd1655305c457f61bb22d"
+    }
+  },
+  "preservation": "No mutation of existing releases, installed RC8, main/RC7/RC8 worktrees or indexes, global selector or unselected C9 paths. Source verification begins only at final frozen subject and later execution admission."
+}

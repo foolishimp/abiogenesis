@@ -1,0 +1,45 @@
+{
+  "kind": "bounded_authored_bootstrap_receipt_custody",
+  "observedUtc": "2026-11-06T20:34:22.984388+00:00",
+  "authoredProgress": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/handoffs/progress-c172f4cf3e29.json",
+    "bytes": 4613,
+    "sha256": "c172f4cf3e294af1bb17057e0d905dc0fcb382b8c2f4aa486ae268eda23dc883"
+  },
+  "methodEntryArtifact": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "bytes": 13369,
+    "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+  },
+  "readFirstPinCount": 18,
+  "allDeclaredReadFirstPinsEqualExistingArtifacts": true,
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_BEFORE.json",
+    "bytes": 274671,
+    "sha256": "e32e8c0815d30893c1281c0b86a7d9153267a154118993dc83f024f7c7c5c5cc"
+  },
+  "actualToolMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_014.json",
+    "bytes": 6876,
+    "sha256": "c2a4d71ec70ec40a41c0839a4144213690c552b531695e3c322ff7e6aac23817"
+  },
+  "actualSelectedSourceStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/SOURCE_METADATA_006.json",
+    "bytes": 5416,
+    "sha256": "eab82f1cefe94e64f526b50d0b0b21629c33b9ff98a0c845485a651ec49d96a3"
+  },
+  "firstMethodPathRequestUtc": "2026-11-06T20:04:18.332Z",
+  "authoredProgressWriteRequestUtc": "2026-11-06T20:32:37.998Z",
+  "progressFileMtimeUtc": "2026-11-06T20:32:38.005178+00:00",
+  "actorStartToProgressWriteRequestMs": 1707900,
+  "firstSelectedProductEditObserved": null,
+  "firstSelectedBuildObserved": null,
+  "sourceStatRelation": "All17 selected Product/HOW/test path sizes and mtimes remained unchanged at20:32:50.399537Z, after the progress Write request. No moving source bodies read.",
+  "verificationLimits": [
+    "Artifact pin equality and tool path ordering are independently observed. Successful manager invocation and complete read-first content acquisition/interpretation remain unconfirmed under permitted metadata.",
+    "The author claims all451 baseline equality; this observation verifies the referenced baseline metadata pin, not a new read of moving451 source bodies.",
+    "Forward tool-result status scope began after archive byte4842390; earlier statuses remain unknown.",
+    "Authored recursive acquisition-grep disclosure at /disclosures/1 is preserved for Root disposition. No private result contents acquired."
+  ],
+  "authorityAndAcceptanceStanding": "No Product acceptance or complete procedure/read-scope compliance claim. Root retains disposition."
+}

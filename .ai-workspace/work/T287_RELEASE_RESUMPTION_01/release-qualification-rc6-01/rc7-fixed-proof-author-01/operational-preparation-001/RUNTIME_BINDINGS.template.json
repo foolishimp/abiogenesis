@@ -1,0 +1,46 @@
+{
+  "kind": "existing_native_author_runtime_bindings",
+  "sourceCommit": null,
+  "builder": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.6",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+    "manifestDigest": "sha256:404905f00e9d79bd7cc1da592a492b19443b809d3b81c12ec8af9af947c2a64a",
+    "productContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+    "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.6/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "resume": null,
+  "actualClosePrefix": null,
+  "workspaceAuthority": null,
+  "priorSetupReused": true,
+  "setupRunsAuthorized": 0,
+  "limits": [
+    "Static operator template. All future N source/checker/close/resume/admission pins remain null.",
+    "One same-process acquisition, environment and constructed call through mechanical preflight and SDK invocation; no fresh CLI, preparation restart or reparse of recorded call.",
+    "Retain exact binding/catalog/catalogView-only overlay and current actual close. No old observations/synthesis/close transplant.",
+    "Root owns actual execution, full cold readbacks, source review/proof and final admission; no current SDK/provider/runtime/credential access."
+  ],
+  "retainedAuthorBinding": null,
+  "bindingOverlayFields": [
+    "binding",
+    "catalog",
+    "catalogView"
+  ],
+  "status": "TEMPLATE_ONLY_N_SOURCE_CHECKER_CLOSE_AND_ADMISSION_UNBOUND",
+  "requiredPredecessor": "Root-selected completed N/reentry frozen source, admitted maintained checker export and genuine latest close/resume after its actual disposition; no moving source or predecessor close.",
+  "actualClose": null,
+  "rootControlAdmission": null,
+  "frozenSubject": null,
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/ROOT_SELECTION.json",
+    "bytes": 3886,
+    "sha256": "ccb6b9060049213605af4f8327347a95349bb8d8ce0af21e19fe59eb3a05cddc"
+  },
+  "operatorRunner": null,
+  "operatorPublicSetup": null,
+  "maintainedCheckerSource": null
+}

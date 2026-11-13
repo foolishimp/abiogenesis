@@ -1,0 +1,103 @@
+{
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "id": "T287-RC8-REF01-AUTHOR02-ROOT-SCOPE",
+  "recordedUtc": "2026-11-07T03:50:41.251650+00:00",
+  "authority": "Executive /root final successor disposition and explicit prepare-to-held-gate instruction; existing user approval ok move to rc7 build rc8",
+  "method": "STDO3.0.4, empty composition, existing ABI5 project reference frame, fixed15families GOAL035/T287; Product and requirements unchanged",
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-001/REVIEW.json",
+    "bytes": 32984,
+    "sha256": "0e236b5cc3e1b9e6c4e93a8da9840dee45478fee2366b55461c23b6fe94fad16"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-001/README.md",
+    "bytes": 9468,
+    "sha256": "dab882ed949ab7b3659b0a7bf6ecfce957bdc43ca3f36d50318b3832adac0c16"
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source-freeze.json",
+    "bytes": 293771,
+    "sha256": "0b387280632b2bb43220a867c6d8563b9153f43a1783e510f5721f989523e022"
+  },
+  "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/resource-close.json",
+    "bytes": 2304,
+    "sha256": "469e6ab2f2bc0818a8e8c9629a242fd885e6e0ea46fde66d6360d583294ead73"
+  },
+  "rootMultiFrameConjunction": {
+    "requirements": [
+      "REQ-P-PUBLIC-CONTRACTS-009",
+      "REQ-P-PUBLIC-CONTRACTS-010",
+      "REQ-P-CATALOG-014",
+      "REQ-P-CATALOG-017",
+      "REQ-P-CATALOG-029",
+      "REQ-P-CATALOG-030"
+    ],
+    "disposition": "Stage-02 withheld; adopt twoS2 findings and select bounded repair within the same REF-01 realization outcome.",
+    "schemaLaw": "Generic frozen raw reuse violates canonical request/schema output and raw IJSON refusal semantics; preserve defaults, transformations, normalized invocation/request identity and non-enumerable refusal.",
+    "workLaw": "First post-setup Catalog/view full copying, schema reconstruction and deep walk are certain despite zero Catalog cache misses; reuse explicit established existing-owner facts before whole-tree gates.",
+    "authorityBoundary": "Currentness and effects remain; no ABG authority bypass shown. Three existing binders and static owner composition remain; no fourth binder/controller/runtime/persistence authority."
+  },
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts"
+  ],
+  "conditionalPathLimits": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts": "Only if necessary to compose or forward existing owner resource facts.",
+    "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts": "TYPE DECLARATION ONLY if required for unchanged three binder contracts."
+  },
+  "progressWriteRoot": "qualification-scratch/rc8-reference-preservation-01/author-02",
+  "requiredDiscriminators": [
+    "Existing defaulted-start witness at static-binding-algebra302-339: missing raw fhMode canonicalizes to direct; established invocation and request consumed by real owner must be the actual canonical normalized constructed objects.",
+    "Resource member transform/default output and non-enumerable IJSON refusal must match canonical admitContract. Retire arbitrary-schema/member identity-preservation inference.",
+    "First real post-setup call and warm calls: actual request/Catalog/view references and full JSON tree copy/schema reconstruction/deep walk counts including binder even when Catalog cache misses are zero.",
+    "Frozen rebox precise law: owned component reuse can be lawful, but changed/fake resources must not inherit unearned facts.",
+    "Distinguish transport verifier reattachment from actual native module/declaration linking. Use existing owner/test hook where available; propose exact necessary bounded extension before any outside-path edit. No false zero claim.",
+    "Preserve mutable prepared command, raw/CLI, recovery, held/history and prepareModule content/currentness law."
+  ],
+  "prohibitedExpansion": [
+    "No admit/json/contract/value/immutable primitive redesign.",
+    "No generic Valibot interpreter/cache or generic trust registry.",
+    "No library purity project, all-cold-read migration, S7 deletion or raw/currentness weakening."
+  ],
+  "budgets": {
+    "nativeAbsoluteMs": 3600000,
+    "additionalSourceStages": 2,
+    "stageLabels": [
+      "stage-03",
+      "stage-04"
+    ],
+    "priorStagesSpent": 2,
+    "successorFocusedInvocations": 8,
+    "priorFocusedInvocations": 6,
+    "priorResults": "48passes/2historicalskips and prior failed stage retained",
+    "serial": true,
+    "perInvocationMs": 600000,
+    "reserveBytes": 4294967296
+  },
+  "measurements": "Baseline performance closed; matched candidate after/profile and broad close stay separately assigned. Worker does not duplicate them.",
+  "permissions": {
+    "nativeAuthoringScopeSelected": true,
+    "ownerPrepareToHeldGate": true,
+    "providerDispatch": false,
+    "sourceAccepted": false,
+    "cutInstall": false
+  }
+}

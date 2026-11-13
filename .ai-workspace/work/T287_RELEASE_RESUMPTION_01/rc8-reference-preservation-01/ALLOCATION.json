@@ -1,0 +1,8 @@
+{
+  "createdUtc": "2026-11-07T02:52:10.960330+00:00",
+  "scratchRoot": "/private/tmp/abg-r8-uozznezy",
+  "purpose": "Declared operator-managed setup/platform and separate source/build/test scratch",
+  "owner": "/root/rc8_operator",
+  "observationLimit": "External scratch effects are separately recorded, outside native task worksite changedPaths",
+  "cleanup": "No historical deletion. Existing fixture cleanup owners may remove their own disposable fixture outputs; source-stage snapshots and logs are retained."
+}

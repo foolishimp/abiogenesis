@@ -1,0 +1,35 @@
+{
+  "classification": "counterfactual actual historical preparation occurrence; no admitted Result or runtime continuation",
+  "task": null,
+  "refusals": [
+    {
+      "stage": "native_request_construction",
+      "relation": "caught",
+      "selectors": {},
+      "error": {
+        "name": "TypeError",
+        "message": "native reacquisition requires exact retained context, source selector and current authority"
+      }
+    },
+    {
+      "stage": "testing_reacquisition",
+      "relation": "callback_entered_refused",
+      "selectors": {
+        "resultRef": "result://abiogenesis/0dbf0d3bc826245b7b290aed0b6b419b71d88bb3fef81d33c2faa52e423005c2",
+        "contextRef": "worksite-context-observation://abiogenesis/5777411a7e7cff6b645e8e9b5ae96eae4fe4d21ebdcc17c3c921648c9170f8a6"
+      },
+      "error": null
+    }
+  ],
+  "contexts": [
+    {
+      "observationRef": "worksite-context-observation://abiogenesis/5777411a7e7cff6b645e8e9b5ae96eae4fe4d21ebdcc17c3c921648c9170f8a6",
+      "observationDigest": "sha256:5777411a7e7cff6b645e8e9b5ae96eae4fe4d21ebdcc17c3c921648c9170f8a6",
+      "entries": 1283
+    }
+  ],
+  "reacquisitionEntered": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "C2Commands": 0
+}

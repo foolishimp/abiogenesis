@@ -1,0 +1,38 @@
+{
+  "status": "UNBOUND_PREPARATION_ONLY",
+  "activation": null,
+  "preparationManifest": null,
+  "finalSourceSubject": null,
+  "finalSourceInventory": null,
+  "sourceArtifactRelation": null,
+  "candidateArchive": null,
+  "bootstrapInstallHost": null,
+  "packageRoot": null,
+  "helperPins": null,
+  "candidateAcceptance": null,
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001",
+  "tempRoot": "/private/tmp/abg-r7m",
+  "node": {
+    "configuredPath": "/opt/homebrew/bin/node",
+    "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "contextBodyBytes": [
+    1048576,
+    4194304
+  ],
+  "proposedBounds": {
+    "hostMs": 900000,
+    "coldReadMs": 300000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  },
+  "boundsSelectedByRoot": null,
+  "scriptedActorOnly": true,
+  "qualification": false,
+  "S6Disposition": null,
+  "bootstrapInstallReceipt": null
+}

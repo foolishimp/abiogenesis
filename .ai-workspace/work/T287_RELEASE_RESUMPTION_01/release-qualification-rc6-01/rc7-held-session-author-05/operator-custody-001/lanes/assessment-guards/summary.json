@@ -1,0 +1,35 @@
+[
+  {
+    "id": "assessment-guards",
+    "mode": "after",
+    "setupMs": 68,
+    "priorLaneAllocations": 2,
+    "laneAllocationCap": 5,
+    "stageSourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "integrationEvidenceSourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+    "integrationEvidenceReused": false,
+    "activeRc7": [],
+    "requiredActivePass": false,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7\\ assessment\\ dependency:\\ exact\\ admitted\\ consumer\\ selection,\\ refusals\\ and\\ cold\\ preimage$ test_env/tests/t287-default-library.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "ms": 64430,
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 1,
+    "failing": [
+      "RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage"
+    ],
+    "stdoutSha256": "9d16753e2bc2ba507d074b8caed6ad1da7fb858eb717f78f782c9a79d5a50c92",
+    "stdoutBytes": 1764,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

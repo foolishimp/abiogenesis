@@ -1,0 +1,69 @@
+{
+  "role": "resumed Design/Owner follow-up, not independent implementation assurance",
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "coalescing": "lawful local preservation of in-flight kill/deadline duty under stale-result rejection",
+  "residual": "Immediate request replaced by nested graceful request is unchanged from native02 but contradicts the cited pre-A source behavior",
+  "actualNewExecution": false,
+  "materialDiscriminator": {
+    "host": "Root-selected first probe one-shot emits exit only; all probes return present",
+    "graceMs": 100,
+    "clockMs": 0,
+    "request": "immediate",
+    "beforeClockAdvancePredictions": {
+      "baselineSignals": [
+        "SIGTERM",
+        "SIGKILL"
+      ],
+      "baselineCleanupDeadlineNs": "200000000",
+      "native03Signals": [
+        "SIGTERM"
+      ],
+      "native03CleanupDeadlineNs": "300000000"
+    },
+    "requiredBound": "KILL before handback and cleanupDeadlineNs <=200000000 at grace100/clock0"
+  },
+  "dispositionAdvice": "Conjoin coalescing separately; if actual discriminator confirms residual, correct within A strengthening law before acceptance",
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-freeze.json",
+      "bytes": 295947,
+      "sha256": "954c2609173832ea9942c7317c4216f138e98543fab1f533e7d0a46fe4aa2c4f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/WORKER_REPORT.json",
+      "bytes": 6910,
+      "sha256": "079671bfd78714f855adc6aa6aae886fe76344bc9634b445d3e4b847405db929"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 13490,
+      "sha256": "6af5f671477c20c98e3893f67957dd93d69ea674935e3c2426eb12a7ccf2d0e3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11658,
+      "sha256": "fbb571cc96fa60b4a7000c61063b060c7fcb14c11bed8ed96c40cbfe4bfa9e6f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 69020,
+      "sha256": "bde24cca3b0e10d2589790a0847725b303070b993a26fb5ac2e9102a76787736"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 12604,
+      "sha256": "9c555e755cfb2d1b35cf6ba4f7b5eb8afc5c06e2de6ca000960828430edbd3c8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-triage-design/ASSESSMENT.md",
+      "bytes": 7465,
+      "sha256": "46155a87d5b32671b25a6cf01ff30f8ab35cd0b335099c3c0cf66197ca3e1a21"
+    }
+  ],
+  "reportSha256": "51f6a3c41c30652c8f2e4be86b4c5eba94cd0b21f3ee3b3855670d635584df8f"
+}

@@ -1,0 +1,54 @@
+{
+  "status": "ROOT_ADMITTED_ONE_METADATA_BOUND_CLEAN_REPRODUCTION_ONLY",
+  "rootDecision": "Root conjoins exact npm rejection logs/tree correspondence and independent packaging causal trace. CONTROL/BUILD-INPUT realization_refactor: directory metadata changed hidden-lock branch and projected dependency docs/identities. Preserve failed local-cut-02 and both archives. One fresh clean reproduction only from existing e2ba05da/tree1aabb064, original Python copytree/copy2 semantics, capture tested/donor metadata before effects and verify before generator/pack. Same pinned tool/seed/bounds and source wins. Require full archive/member/manifest equality to tested f0f5717e,11045484B,5327members. No source changes, second commit, candidate rebuild/repack, tests or install; stop first failure, no retry. Metadata-dependent reproducibility limit remains explicit.",
+  "priorFailureReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/CHECKPOINT_REPRODUCTION_RETURN.json",
+    "bytes": 3241,
+    "sha256": "f1fd3791fbf91514a977f9bf6b51a33fcf84a2e2c006aec670e84ecb9a80ac77"
+  },
+  "mechanicalTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/REPRODUCTION_TRIAGE.json",
+    "bytes": 17383,
+    "sha256": "2a83088fe670e983e759bb699c025b135cc72fc7aacbcef3338c6c58f55902fa"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9481,
+    "sha256": "fbe6ec76f782ae2926f6d27bdd21c8f5ddec2ff5ca4b3463359ddc49610e091e"
+  },
+  "sourceCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/actual-001/SOURCE_CHECKPOINT.json",
+    "bytes": 1254,
+    "sha256": "351ad5ccc49b34d4567ae69accfbdf063abab4d214023d9a09959cfc3bc387c9"
+  },
+  "candidateArchive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "dependencyMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/DEPENDENCY_METADATA.json",
+    "bytes": 5242,
+    "sha256": "76e95e5611c5c96c9069ffe231865f35e0abcb2d73e38fae4015a10911922ad1"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/run-clean-reproduction.mjs",
+    "bytes": 19072,
+    "sha256": "0802748671f052b253246009fd25117b57fa4ac7de11c1045a1cabf59bd4f3ff"
+  },
+  "copyHelper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-03/stage-dependencies.py",
+    "bytes": 1989,
+    "sha256": "dbf65ba3ce4be75a5262661ac023deb4a2f7fa426b890ba930e08ccd7c402fa8"
+  },
+  "newTemp": "/private/tmp/abg-rc11-reproduction-20261109-03",
+  "effectsHeld": [
+    "source edits",
+    "Git mutation",
+    "candidate repack/rebuild",
+    "tests",
+    "release/install",
+    "main/tracking/pin changes"
+  ],
+  "attempts": 1
+}

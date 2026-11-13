@@ -1,0 +1,25 @@
+{
+  "status": "UNBOUND_PREPARATION_ONLY",
+  "activation": null,
+  "preparationManifest": null,
+  "buildBindings": null,
+  "sourceCheckpoint": null,
+  "candidate": null,
+  "reproduction": null,
+  "artifactIdentityBridge": null,
+  "independentPackagingReview": null,
+  "boundedClaim": null,
+  "residuals": null,
+  "rootAuthority": null,
+  "claim": "Local unqualified RC7 development candidate; exact accepted source and mechanical identity successor only.",
+  "limits": [
+    "No full qualification claim or completed qualification rerun.",
+    "No publication, push, merge, tag, global selector or immutable-cut mutation.",
+    "No source implementation: only exact frozen overlay and three identity files plus release claim in isolated worktree.",
+    "No automatic retries, cleanup, overwrite of failed allocations or widened bounds."
+  ],
+  "published": false,
+  "qualified": false,
+  "selectorChanged": false,
+  "installInputs": null
+}

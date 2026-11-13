@@ -1,0 +1,58 @@
+{
+  "closedLogUnchanged": true,
+  "files": [
+    {
+      "bytes": 8439,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/MEASUREMENT_SELECTION.json",
+      "sha256": "5b179515dfc9f734492925171094391207d6ca9a82b11729ae5aa7057a2dadca"
+    },
+    {
+      "bytes": 2393,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/MEASUREMENT_INPUT_CUSTODY.json",
+      "sha256": "5543422de4816b0fa74bbd418c94a6495e90806335bd7976d1106c0f2cf3327d"
+    },
+    {
+      "bytes": 2133,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/measure-event-families.py",
+      "sha256": "32b4a6fa32219f5066dbec3f22164333b71fcb83714b556ea3b42a6bddc4e0e7"
+    },
+    {
+      "bytes": 115786,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/event-analysis.json",
+      "sha256": "34725e42d9d0aece389442e562ec9a98eb581be163a4c4418c0a6bb9eae41aaa"
+    },
+    {
+      "bytes": 5824,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/measure-context-occurrences.py",
+      "sha256": "b47f2f69edf9f5947e3c7e47b560bb10420176fc3d5614cb748b26cfc5cf9f2b"
+    },
+    {
+      "bytes": 19542,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/context-occurrences.json",
+      "sha256": "79e5cc1bcbe3f9ac9c2efaea5b82558aea98baab9d7316cc88cbe88c5e0d7486"
+    },
+    {
+      "bytes": 7077,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/route-context-occurrences.json",
+      "sha256": "a5f718cc68a2ab5e5853c37860a7ba079b41f1c3e7396ced38c9c5e1d2a6a5c1"
+    },
+    {
+      "bytes": 1969,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/physical-codec-observation.json",
+      "sha256": "7be7811c4dbe065e3bd24bac48c6eb6f216395c2ecc5a118bdcbde58858912e6"
+    },
+    {
+      "bytes": 972,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/COLD_READER_OBSERVATION.json",
+      "sha256": "bd15c7ea925fe475ad22e3e332372fc955344ecf5431101b1b8adf85081baa08"
+    },
+    {
+      "bytes": 4697,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/SIZE_OBSERVATION.md",
+      "sha256": "488b14303bea0a56dc02009653ee0cf8fe92dc51e1540dd60207f9cd37f4764b"
+    }
+  ],
+  "kind": "postproof_measurement_result_custody",
+  "runtimeMeasurementsSource": "Root actual completed one-shot reader report",
+  "scope": "Pure retained-byte size observations plus attributed Root owner timings; no Writer runtime import/reader/Public/provider"
+}

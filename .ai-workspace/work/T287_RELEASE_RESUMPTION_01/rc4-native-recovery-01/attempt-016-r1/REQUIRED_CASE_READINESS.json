@@ -1,0 +1,38 @@
+{
+  "status": "STATIC_SELECTED_CASE_READINESS",
+  "sourceCommit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+  "exactPendingCases": [
+    {
+      "case": "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+      "matchingSource": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "sha256": "2496802e0a6156a08244a2c3808f3210f60120fffb69c41f4617c615f49f46ed",
+        "nameOccurrences": 1
+      },
+      "declaredSkip": false
+    },
+    {
+      "case": "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+      "matchingSource": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "sha256": "2496802e0a6156a08244a2c3808f3210f60120fffb69c41f4617c615f49f46ed",
+        "nameOccurrences": 1
+      },
+      "declaredSkip": false
+    },
+    {
+      "case": "interrupted recursive workflow resumes once through the cold Public run.continue pending_execution arm",
+      "matchingSource": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "sha256": "9a6ea5ebb1b0ee43ace33d17d779ddb8084ffd66c27cc390f7ebeb50e744e592",
+        "nameOccurrences": 1
+      },
+      "declaredSkip": false
+    }
+  ],
+  "selectedActionRequiredGateSupplied": true,
+  "selectedActionGate": "ABI5_SELECTED_ACTION_EVIDENCE_ROOT explicitly nonempty; no preflight/resume branch env selected",
+  "currentIntentRequiredGateSupplied": true,
+  "newProofObligations": "Native Worker extends existing ST1 composition to shipped canonical direct invoke and all6 reads; future assertions/execution remain C2/UAT obligations. Mixed union/all9/strict config likewise not claimed passed.",
+  "meaning": "Static presence and selected configuration only; no tests/build/Runtime/provider. Exact named matches required in actual C2; filtered unrelated cases do not supply coverage."
+}

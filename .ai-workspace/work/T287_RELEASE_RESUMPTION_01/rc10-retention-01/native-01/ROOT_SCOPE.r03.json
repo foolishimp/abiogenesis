@@ -1,0 +1,84 @@
+{
+  "id": "RC10-CORE-DESIGN-01+RC10-DEAD-02",
+  "status": "ROOT_DESIGN_SELECTED_EXECUTION_HELD",
+  "recordedAt": "2026-11-09T02:59:46.545617+00:00",
+  "recordedBy": "/root/rc10_operator",
+  "decisionOwner": "/root",
+  "decisionVerbatim": "Root conjunction RC10-CORE-DESIGN-01: consume closed triage P10/triage-lifetime/RESULT.md (read/pin exact bytes) with PREPARATION. Admit bounded design_reframe under unchanged Product/requirements: full basis record/body retention is disposable computation owned by existing run operation Effect.scoped/acquireRelease. Exact store/generation + selected admitted invocation/basis eligibility only; descendants use existing actual invocation relation, continuation uses prepared original invocation, not public continuation op ref. Finalize on all exits, including nonterminal held/gap, without declaring semantic closure; historical/cold reads cannot mint retention. Both EXECUTION_BASIS_ROW_FACTS and RuntimeHistory.#verifiedBodies basis events must obey that lifetime. Physical close/abandon and rollback invalidate handles/cache roots; one scope disposal must preserve other active scope entries. Preserve per-cut membership/cardinality/refusal, full basis return contract and active identity/work reuse. No new runtime authority, global registry/cache, WeakRef, old-cut tombstone ledger, hostile-host requirement or blanket heap-bound claim. Bound is completed operations released, not rows <= invocations for arbitrary child graphs. Strict child-level eviction not selected. Native Worker writes HOW before implementation. Internal observations retainedRows/payloadBytes and history-retained basis counts with clearly logical canonical-byte meaning, no snapshot rescan; heap separately. Update OWN-01 historical identity expectation lawfully and false duplicate-proof sentence. Include duplicate/foreign/rollback actual cases if needed for changed cache boundary; only executed results carry closure.\nExact candidate write territory relative tenant: design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md; code/src/abg/calculus/execution_basis_record.ts; code/src/abg/runtime_derivation.ts; code/src/abg/runtime_history.ts; code/src/abg/event_prefix.ts; code/src/abg/event_store.ts; code/src/owner_bindings/run_invocation.ts; test_env/tests/t287-held-owner-fold-reuse.test.mjs; new test_env/tests/t287-held-basis-lifetime.test.mjs. Conditional integration only code/src/abg/definition_event_resource.ts. RC10 identity metadata package.json,package-lock.json,code/src/product/contracts.ts exact5.0.0-rc.10 only. Optional owning design/ABI5_STDO3_COMPUTATIONAL_BINDING.md only if existing lifetime sentence affected. W2 named oracle allowlist only if changed legitimate cache identifier requires it: test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs; preserve all dynamic/export assertions. No four-capsule or O3 implementation yet.\nRecord exact Root decision in P10/native-01 controls under your Writer grant, then concretize native call. Native author bound1800s/300s/200turns remains for construction + build and a fast focused falsifier if feasible; freeze/return truthful incomplete proof rather than repeated full suite. Frozen proof separate: build600s, ordinary900s, 50-call900s with compact per-call accounting, finite historical sentinel reads and all known overrides conserved. Concrete ready TASK/BINDING/host hashes/limits and installed-call selection should return to Root for final execution admission. No runtime/provider effect yet.",
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/triage-lifetime/RESULT.md",
+    "bytes": 17253,
+    "sha256": "09cc510f60565e1f089c1a78ea41f438039a30e29782f56e7f35f78f59525eb1"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/PREPARATION.md",
+    "bytes": 12974,
+    "sha256": "d93c99f01c29a4e834fb79607fb86bdb9bdce685bdc7112de0de6be4f6790fdc"
+  },
+  "changeClass": "design_reframe",
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/traversal_failure.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/traversal_completion.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+    "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md"
+  ],
+  "optionalNewSourceFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs"
+  ],
+  "conditionalPaths": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts": "Only if exact operation-disposal integration belongs here; preserve physical ownership contract.",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md": "Only if existing lifetime sentence is affected.",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs": "Named legitimate cache allowlist only; preserve all dynamic/export assertions.",
+    "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md": "Only the specified Public run projection authority lifecycle Update/Transition cell; preserve constructor/parser/type/refusal and immutable authority meaning."
+  },
+  "metadataConstraint": "Only 5.0.0-rc.9 to exact 5.0.0-rc.10 identity values in package.json/package-lock.json/code/src/product/contracts.ts. No script/dependency change.",
+  "sourceRoot": "/private/tmp/abg-rc10-retention-20261109",
+  "sourceCommit": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "sourceMutator": "later admitted native Claude Worker only",
+  "runtimeAcquisition": false,
+  "providerDispatch": false,
+  "predecessorControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/ROOT_SCOPE.r02.json",
+    "bytes": 7378,
+    "sha256": "a29b3e932bead23c4fdabea2b71e1b1792e5599d1bcb1b86cc59c9efac4cc56f"
+  },
+  "deadSourceAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEAD_SOURCE_ADMISSION.r03.json",
+    "bytes": 20071,
+    "sha256": "c5f9dd6aee622717ddca050b6f528beacab34376c6a34cc63166b8228f02ce43"
+  },
+  "changeClasses": [
+    "design_reframe",
+    "realization_refactor"
+  ],
+  "requiredNewSourceFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs"
+  ],
+  "wholeFileDeletionGranted": false
+}

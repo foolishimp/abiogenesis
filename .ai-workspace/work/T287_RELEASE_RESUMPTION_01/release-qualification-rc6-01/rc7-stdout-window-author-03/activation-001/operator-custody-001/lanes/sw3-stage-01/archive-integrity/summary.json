@@ -1,0 +1,38 @@
+[
+  {
+    "id": "archive-integrity",
+    "mode": "after",
+    "setupMs": 66,
+    "priorLaneAllocations": 3,
+    "laneAllocationCap": 6,
+    "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+    "activeRc7": [
+      "RC7 HS03 archive: cold reopen adopts exact W window ranges and refuses missing, changed or truncated archive bytes before any history, with the log unchanged",
+      "RC7 HS03 archive: cold recover validates W window ranges inside its one decode and refuses missing, changed or truncated archive bytes with cleanup",
+      "RC7 HS03 archive: cold read through both direct readers, descriptor and byte-array, validates W window ranges once and refuses missing, changed or truncated bytes",
+      "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+      "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+      "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 HS03 archive: test_env/tests/m5-worker-transport.test.mjs test_env/tests/m5-event-store-reopen.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 1674,
+    "tests": 6,
+    "pass": 6,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 6,
+    "failing": [],
+    "stdoutSha256": "4b3280342e2943dc2f7293edef1abfea8928e47200ec806c9385d8222fb80114",
+    "stdoutBytes": 2587,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

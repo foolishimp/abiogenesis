@@ -1,0 +1,74 @@
+{
+  "status": "DIRECT_INSTALLED_OWNER_SMOKE_CLOSED",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant",
+  "version": "5.0.0-rc.11",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.11",
+  "shippedArchive": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+  "artifactDigest": "sha256:f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455",
+  "verification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/actual-001/INSTALLED_OWNER_SMOKE.json.verification.json",
+    "bytes": 15794345,
+    "sha256": "24623b3cc5d6083663ac8a59a9ffdc1599864286fb2639a15e9ba9a577d5a0b6"
+  },
+  "installedContentMatches": true,
+  "exportedDefinitionCount": 56,
+  "packageExportPathCount": 15,
+  "importedModules": [
+    "product",
+    "abg",
+    "public",
+    "validator"
+  ],
+  "resource": {
+    "eventLogPath": "/private/tmp/abg-rc11-install-20261109-01/owner-smoke/events.jsonl",
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-rc11-install-20261109-01/owner-smoke/events.jsonl",
+      "prefixLength": 0,
+      "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 720095112,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:55484b4095374abdc536e48626e75d99d5e9dfb4b7d50089c19365036a5322a6"
+    }
+  },
+  "ownerRead": [],
+  "actualClose": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-rc11-install-20261109-01/owner-smoke/events.jsonl",
+      "prefixLength": 0,
+      "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 720095112,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:55484b4095374abdc536e48626e75d99d5e9dfb4b7d50089c19365036a5322a6"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/private/tmp/abg-rc11-install-20261109-01/owner-smoke/events.jsonl",
+      "device": 16777231,
+      "inode": 720095112,
+      "eventLogDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "durableByteLength": 0,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+      "authorityDigest": "sha256:ae5a74c23679d51c475cfcedf15d001e5c8de1123f19406c2da61d72fd1fb839"
+    }
+  },
+  "nativeTransportInvoked": false,
+  "providerCalls": 0,
+  "qualified": false,
+  "scope": "Actual immutable-install verification/content/export and empty-resource read/close only. Full lifecycle/performance belongs to exact-shipped-archive installed scratch proof.",
+  "closedEmptyLog": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scratchCleanup": "removed_only_fresh_closed_empty_resource_scratch"
+}

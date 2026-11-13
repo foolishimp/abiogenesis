@@ -1,0 +1,39 @@
+{
+  "adaptation": "two exact data-location literal substitutions only; algorithm unchanged",
+  "adaptedFamilyScript": {
+    "bytes": 2133,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/measure-event-families.py",
+    "sha256": "32b4a6fa32219f5066dbec3f22164333b71fcb83714b556ea3b42a6bddc4e0e7"
+  },
+  "executions": "No runtime module/owner reader/Public/provider invoked by Writer; pure log analysis separately selected",
+  "independentOracleCriteria": 14,
+  "installedOwner": {
+    "bytes": 196501,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/runs/basic-cli/2026-11-01T08-58-45-762Z-afb1e3ec-20af-4e60-9610-b76d7a00afb4/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+    "sha256": "ac8397814aefb939c445488a8a9fd1582247b0f00e5921494a62f0f389fd15da"
+  },
+  "ownerTarMemberEquality": true,
+  "parentFamilyScript": {
+    "bytes": 1906,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/efficiency-p1-01/scripts/b11_measure_events.py",
+    "sha256": "24e187cc8dd6916a5c5e00ac343c113b0571a1508e62c3d15af5ed54bf0a6a20"
+  },
+  "physicalEventLog": {
+    "bytes": 24293608,
+    "device": 16777231,
+    "inode": 673043539,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/runs/basic-cli/2026-11-01T08-58-45-762Z-afb1e3ec-20af-4e60-9610-b76d7a00afb4/resources/events/runtime.events.jsonl",
+    "sha256": "5bcdeb0ddfbc4d970b868cfadf15b070738d6290a0039ba0a9781ff02ff4f79b"
+  },
+  "prefix": {
+    "bytes": 740,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/CLOSED_PREFIX.json",
+    "sha256": "cf36bbafdff8e194d7576fd330d387730b2385dedf10f9e9e3c15873c3107158"
+  },
+  "selection": {
+    "bytes": 8439,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/MEASUREMENT_SELECTION.json",
+    "sha256": "5b179515dfc9f734492925171094391207d6ca9a82b11729ae5aa7057a2dadca"
+  },
+  "summaryPassed": true
+}

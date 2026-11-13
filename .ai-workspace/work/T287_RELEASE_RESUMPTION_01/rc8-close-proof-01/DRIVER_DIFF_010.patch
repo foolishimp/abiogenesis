@@ -1,0 +1,66 @@
+--- close-proof.corrected-009.mjs
++++ close-proof.corrected-010.mjs
+@@ -120,20 +120,25 @@
+     assert.equal(row.testSha256,available.get(join(tenant,row.file)).sha256);assert(row.evidencePins.length);for(const p of row.evidencePins)await checked(p);
+     assert(row.counts&&Number.isInteger(row.counts.passed)&&Number.isInteger(row.counts.skipped));credited.add(row.file);
+   }
++  const deferred=c.deferredFiles;
++  assert.deepEqual(deferred.map(r=>r.file).sort(),['test_env/tests/t287-governed-context.test.mjs','test_env/tests/t287-single-address-space-consolidation.test.mjs']);
++  for(const row of deferred){assert(tests.includes(row.file)&&!credited.has(row.file));assert.equal(row.disposition,'SCHEDULING_DEFERRED_NO_COVERAGE');
++    assert.equal(row.testSha256,available.get(join(tenant,row.file)).sha256);assert(row.evidencePins.length);for(const p of row.evidencePins)await checked(p);}
+   await mkdir(c.bindingRoot);
+   const bound={status:'BOUND_NOT_EXECUTION_ADMITTED',at:new Date().toISOString(),config:configPin,subject:c.subject,freezeReceipt:c.stage.freezeReceipt,
+     stageRoot:c.stage.root,stageFiles:files,stageDigest:digestRows(files),dependencyRoot:c.dependencies.root,dependencyFiles:dependencies,dependencyDigest:digestRows(dependencies),
+     retainedCreditSourceRelation:relation??null,tests,counts:{testFiles:tests.length-1,harnessFiles:1,allTestDirectoryMjs:(await readdir(testDir)).filter(x=>x.endsWith('.mjs')).length,
+-      focusedWholeFiles:credited.size,scheduledFiles:tests.length-credited.size},focusedCoverage:c.focusedCoverage,buildEffectFiles:buildEffects,
++      focusedWholeFiles:credited.size,deferredFiles:deferred.length,scheduledFiles:tests.length-credited.size-deferred.length},focusedCoverage:c.focusedCoverage,deferredFiles:deferred,buildEffectFiles:buildEffects,
+     skipDeclarations,timeoutDeclarations,skipStanding:'Declarations are source facts, not executed coverage. Actual skips and TODOs remain separate; Root owns their disposition.'};
+   const result=await record(c.bindingRoot,'BOUND_INVENTORY.json',bound);console.log(JSON.stringify({status:bound.status,inventory:result,counts:bound.counts,stageDigest:bound.stageDigest,dependencyDigest:bound.dependencyDigest}));
+ }
+ async function emittedFiles(root){const rows=[];for(const p of outputPaths){try{const s=await lstat(join(root,p));if(s.isDirectory())rows.push(...await inventory(root,[p],{dependencies:true,retainLinks:true}));}catch(e){if(e.code!=='ENOENT')throw e;}}return rows;}
+ async function run(c,configPin,inventoryPin,admissionPin){
+   const bound=JSON.parse(await checked(inventoryPin)),admission=JSON.parse(await checked(admissionPin));
++  assert.deepEqual(bound.deferredFiles,c.deferredFiles);
+   assert.equal(bound.config.sha256,configPin.sha256);assert.equal(admission.status,'ROOT_ADMITTED_RC8_BROAD_CLOSE');assert.equal(admission.configSha256,configPin.sha256);
+   assert.equal(admission.inventorySha256,inventoryPin.sha256);assert.equal(admission.frozenStageReceiptSha256,c.stage.freezeReceipt.sha256);
+-  const prep=JSON.parse(await readFile(join(here,'PREPARATION_MANIFEST_CORRECTED_009.json'),'utf8'));assert.equal(await hashFile(join(here,'PREPARATION_MANIFEST_CORRECTED_009.json')),admission.preparationManifestSha256);
++  const prep=JSON.parse(await readFile(join(here,'PREPARATION_MANIFEST_CORRECTED_010.json'),'utf8'));assert.equal(await hashFile(join(here,'PREPARATION_MANIFEST_CORRECTED_010.json')),admission.preparationManifestSha256);
+   for(const p of prep.files)await checked(p);
+   assert.equal(bound.stageRoot,c.stage.root);assert.equal(bound.dependencyRoot,c.dependencies.root);await verify(c.stage.root,bound.stageFiles);await verify(c.dependencies.root,bound.dependencyFiles);
+   assert.equal(digestRows(bound.stageFiles),bound.stageDigest);assert.equal(digestRows(bound.dependencyFiles),bound.dependencyDigest);
+@@ -191,10 +196,11 @@
+     assert.equal(refreshedArchive.bytes,refresh.archive.bytes);assert.equal(refreshedArchive.sha256,refresh.archive.sha256);
+     for(const k of fields)assert.equal(refreshedBasis[k],externalVerification[k],'candidate basis differs from fixed verified RC8 identity: '+k);
+     await verify(common,derivedStageFiles);resources.push(await resource(c));
+-    const credits=new Map(c.focusedCoverage.map(r=>[r.file,r]));
++    const credits=new Map(c.focusedCoverage.map(r=>[r.file,r])),deferred=new Map(bound.deferredFiles.map(r=>[r.file,r]));
+     const ordered=[...bound.tests.filter(p=>!buildEffects.includes(p)),...buildEffects];
+     for(const [i,file]of ordered.entries()){
+       if(credits.has(file)){results.push({file,kind:'credited_whole_file',credit:credits.get(file)});continue;}
++      if(deferred.has(file)){const entry={file,kind:'deferred_no_coverage',deferral:deferred.get(file)};await record(c.outputRoot,'deferred/'+String(i+1).padStart(3,'0')+'.json',entry);results.push(entry);continue;}
+       const remaining=c.bounds.overallMs-(Date.now()-start);assert(remaining>0,'OVERALL_TIME_STOP');resources.push(await resource(c));
+       const label=String(i+1).padStart(3,'0')+'-'+file.split('/').at(-1).replace('.test.mjs',''),isolated=buildEffects.includes(file),work=isolated?join(c.scratchRoot,'x'+i):common;
+       if(isolated){await materialize(c.stage.root,work,bound.stageFiles);await materialize(c.dependencies.root,join(work,tenant,'node_modules'),bound.dependencyFiles);await writeFile(join(work,basisRelative),refreshedBasisBytes);await verify(work,derivedStageFiles);}
+@@ -255,17 +261,19 @@
+   }catch(e){failure=String(e?.stack??e);await record(c.outputRoot,'FAILURE.json',{at:new Date().toISOString(),failure,retainedScratch:c.scratchRoot,autoRetry:false});}
+   let primaryPreserved=false;try{await verify(c.stage.root,bound.stageFiles);await verify(c.dependencies.root,bound.dependencyFiles);primaryPreserved=true;}catch(e){failure??=String(e);}
+   const completed=results.filter(r=>r.kind==='executed'&&r.passed).length+results.filter(r=>r.kind==='credited_whole_file').length;
+-  const status=!failure&&completed===bound.tests.length&&primaryPreserved?'BOUNDED_BROAD_CLOSE_COMMANDS_COMPLETE':'BROAD_CLOSE_STOPPED_INCOMPLETE';
++  const deferredFiles=bound.deferredFiles.map(r=>r.file);
++  const status=!failure&&completed+deferredFiles.length===bound.tests.length&&primaryPreserved?'BOUNDED_REMAINDER_COMPLETE_WITH_DEFERRED':'BROAD_CLOSE_STOPPED_INCOMPLETE';
+   const countsFor=kind=>{const total={};for(const r of results.filter(r=>r.kind===kind))for(const [key,n]of Object.entries(r.counts??r.credit?.counts??{}))if(Number.isInteger(n))total[key]=(total[key]??0)+n;return total;};
+   const out=await record(c.outputRoot,'SUMMARY.json',{status,at:new Date().toISOString(),subject:c.subject,inventory:inventoryPin,wallMs:Date.now()-start,failure,
+     files:{inventoried:bound.tests.length,executed:results.filter(r=>r.kind==='executed').length,creditedWhole:results.filter(r=>r.kind==='credited_whole_file').length,
+-      passedThisRun:results.filter(r=>r.kind==='executed'&&r.passed).length,pending:bound.tests.filter(p=>!results.some(r=>r.file===p))},
++      passedThisRun:results.filter(r=>r.kind==='executed'&&r.passed).length,deferredSelected:deferredFiles.length,deferredRecorded:results.filter(r=>r.kind==='deferred_no_coverage').length,
++      pending:bound.tests.filter(p=>!results.some(r=>r.file===p&&(r.kind==='credited_whole_file'||r.kind==='executed'&&r.passed)))},deferredFiles:bound.deferredFiles,
+     observedTestCounts:countsFor('executed'),creditedTestCounts:countsFor('credited_whole_file'),results,resourceBoundarySamples:resources,primaryPreserved,providerCallsSelected:0,wholeReleaseQualified:false,
+     limits:['Per-file and credited counts remain separate; skips and TODOs are not passed coverage.','Resource bounds are monitored, not quota enforced. Escaped descendants are not proven absent.',
+       'Independent findings, exact-installed proof, measurement/profile and broader 5.0/human gates retain their owners. No source repair or automatic retry.']});
+   console.log(JSON.stringify({status,summary:out}));if(failure)process.exitCode=1;
+ }
+-const [mode,configPath,configSha,...rest]=process.argv.slice(2);assert(['bind','run'].includes(mode),'usage: close-proof.corrected-009.mjs bind CONFIG SHA | run CONFIG SHA INVENTORY SHA ADMISSION SHA');
++const [mode,configPath,configSha,...rest]=process.argv.slice(2);assert(['bind','run'].includes(mode),'usage: close-proof.corrected-010.mjs bind CONFIG SHA | run CONFIG SHA INVENTORY SHA ADMISSION SHA');
+ const c=await loadConfig(resolve(configPath),configSha),configPin=await pin(resolve(configPath));
+ if(mode==='bind'){assert.equal(rest.length,0);await bind(c,configPin);}else{assert.equal(rest.length,4);
+   await run(c,configPin,{...await pin(resolve(rest[0])),sha256:rest[1]},{...await pin(resolve(rest[2])),sha256:rest[3]});}

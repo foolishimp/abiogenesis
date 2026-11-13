@@ -1,0 +1,143 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "activation": "T287_RC5_F4_02",
+  "admittedUtc": "2026-11-03T10:33:50.998859+00:00",
+  "roleTransition": "Executive actual failure triangulation and exact existing-owner feasibility decision -> bounded Root operator Writer",
+  "userAuthority": "Owner approved boundedRC5 scope; exact F4-01/REENTRY_TRIAGE plus source custody53ac and independent fixture feasibility",
+  "operationGrant": "Invoke prepared installedRC4 fresh start for one continuation Construction, unchanged C2 Testing, native UAT and genuine fresh reads; passive custody and status. No manual Product coding.",
+  "sourceCommit": "53acfe7c6a51e0b0a1d354fbc79ef3d391cb7573",
+  "sourceTree": "bd8af2c00d5ef3e1340fb5351c8b6543ad47d2e0",
+  "nativeContractDigest": "sha256:ec2dad5c5aee61bba8b274bc88165f4b6b24b9c876ebd4d49a24d8bb7e4eb5fc",
+  "workloadDigest": "sha256:b719b443ea78f896422e6d53c1fc64e9f34148178fb9a36b65933f032269f00b",
+  "preparedCall": "sha256:f237e38621bc10a2f8a0ca7072160a80dae92c0e9a17f3fef0b003af18517ea4",
+  "contextDigest": "sha256:a23aa0639be1b50caca5a00cc19e87e9c78f87ea1404f8b1ead47974bb5bc423",
+  "nativeRuntimeAdmission": "Existing installed Public/ABG owner on dispatch",
+  "maxTurns": 256,
+  "C2RecipeChanged": false,
+  "reviewBaseCommit": "9f3f22b0f733718bee88d5ca1cc306ed0446797a",
+  "review": "Frozen complete F4 delta requires independent max review alongside C2; feasibility review does not accept implementation",
+  "exclusions": [
+    "Product/requirements/Public schema changes",
+    "unselected owners, cold-history rewrite and new store/service/controller",
+    "GC03 host rewrite or full qualification",
+    "canonical generated/build/package/install writes",
+    "old histories/releases, push/tag/global selector"
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/NATIVE_GRANT.json",
+      "bytes": 3193,
+      "sha256": "ec2dad5c5aee61bba8b274bc88165f4b6b24b9c876ebd4d49a24d8bb7e4eb5fc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/TASK.md",
+      "bytes": 8509,
+      "sha256": "a7b97650c4063b8beef58caf30b05cba340910d268b996f73a3b4a97abc9a6b3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/workload.json",
+      "bytes": 174081,
+      "sha256": "b719b443ea78f896422e6d53c1fc64e9f34148178fb9a36b65933f032269f00b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/PROVIDER_PROFILE.json",
+      "bytes": 1435,
+      "sha256": "6d47c8880a846d89b34fbfc3753828b63c20db7e5bc3bb48842b36eb1dbcaa21"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/claude-provider.sh",
+      "bytes": 337,
+      "sha256": "90779ec0f33594c1c1623b200d94f1a99090a95c0f2e68a840164a0fa7170849"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/prepare.mjs",
+      "bytes": 6188,
+      "sha256": "fda5e0efe36c2b45c1398cad7340634603376d6d1d28e56c81fbbe0f6185a2a9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/dispatch.mjs",
+      "bytes": 5194,
+      "sha256": "1ba56bee61652cdfe3ead6fc6d383bef2f5d055118560b2c2821b1fb2243ad68"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/freeze-source.mjs",
+      "bytes": 5652,
+      "sha256": "8f17fb91a39e6c37911251f15d29401bd8418221fc3087ceddcba3c3848d036f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/ROOT_PREPARATION_ACTIVATION.json",
+      "bytes": 464,
+      "sha256": "1e51cd55c3da7625ceb3533b521bc5f96917314b809de2693baf25817a41a4cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/ROOT_ADMISSION.json",
+      "bytes": 1772,
+      "sha256": "e608fcc07a904389cc47e290351a5aa2677d115f98141345c5596d3b1f602f9d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/execution/PREPARED_CALL.json",
+      "bytes": 3559,
+      "sha256": "bd9493115a7ca0061484df719a29959adc25fc00608c30502452d7c99be0a2fe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/execution/prepared-call.json",
+      "bytes": 29879428,
+      "sha256": "97cd0d933157597882a3d0a353345b55e8062781fa8083f8bd60574fabd429d9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/execution/input.json",
+      "bytes": 179542,
+      "sha256": "9cedc91820e67ab3debccd65fa4e23c892ca5323cf0d4b0df0309d5a2d985b85"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/execution/resume.json",
+      "bytes": 99460277,
+      "sha256": "319abb6a1daadea5fef4bd2e34d708ca8cbe1d0db1aac22ee28fb1fed01b748f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/operator-client/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/operator-client/public-setup.mjs",
+      "bytes": 26465,
+      "sha256": "48419fcbbe095b2cb7ff986f8476c03cbcff17d77490137d2f694de7259ee3ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/operator-client/runner.mjs",
+      "bytes": 37818,
+      "sha256": "bdb52b7870d583ecff5c20d318ba36c361ae943d9d23a32f2bec23e40dd3be2c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/REENTRY_TRIAGE.md",
+      "bytes": 3790,
+      "sha256": "922ed21e3a008d91ca10cef0cd356042741191515859a1aca775454a8ddbac05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/INSTALLED_FIXTURE_FEASIBILITY.md",
+      "bytes": 4373,
+      "sha256": "bb1945cd7a797f68daebb60eb2cd37ddfb0bdecfe98273a1baeef5c6127eda69"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/PARTIAL_CUSTODY_CHECKPOINT.json",
+      "bytes": 990,
+      "sha256": "e584a8d1837b88263cbc367b4c07c64f90941bcb9957cc5398e4f0b7815b6699"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/NATIVE_PROVIDER_FAILURE.json",
+      "bytes": 2797,
+      "sha256": "17dc05c11de0f67019a3c7151623c2c7629bd2042670489cb6b3a2fef6103ee0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-01/AUTHOR_FEEDBACK.json",
+      "bytes": 12771,
+      "sha256": "bbc9195ebca805b21a87e9fb98209a62c968d34ec383fd7d9df0491f4f83abe0"
+    }
+  ]
+}

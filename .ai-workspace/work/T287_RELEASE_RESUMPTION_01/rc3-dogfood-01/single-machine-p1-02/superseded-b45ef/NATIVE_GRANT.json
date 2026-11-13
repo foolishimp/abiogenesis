@@ -1,0 +1,536 @@
+{
+  "Construction": {
+    "existingWritePathsVerified": true,
+    "howPaths": [
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md"
+    ],
+    "limits": [
+      "Only53 existing canonical Product write paths; worker only author.",
+      "Fresh exclusive owned TMPDIR/current declared copies/pinned offline tools; ordinary emit/build/focused checks there, no network/install/original-dependency/canonical-generated writes.",
+      "First emitted actual-owner965 discriminator plus real affected guard feedback; disclose actual outputs and then Return for full native nine-command C2."
+    ],
+    "localHelperPlacement": "Native realization may name private functions only inside the listed existing owners; no new Product file/module/helper service is selected",
+    "newProductPaths": [],
+    "outcome": "Complete all original P1 criteria over exact current second partial source; no tsc-only or six-file-only completion.",
+    "preimages": [
+      {
+        "bytes": 92553,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+        "sha256": "4e4a5e5a5fa515f15276213bf94c054b24424b0015671db1eccd25692fce369b"
+      },
+      {
+        "bytes": 48707,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+        "sha256": "21982a24dc289e5abd375f009cb6d628f390f916e35daed251cf27a8989fa85b"
+      },
+      {
+        "bytes": 21332,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+        "sha256": "d0b8f6ce763f9511bd2c3dded9ad05238909ff1b2f39cd206e44c554043d21ca"
+      },
+      {
+        "bytes": 7671,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+        "sha256": "a0466006270f103352a86fd0faa4bd531997b7372d4d68e147b8e3975af06e85"
+      },
+      {
+        "bytes": 36411,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "sha256": "7177148ab49e3ce1a8cd35f2cf5f6bb49c52465ac7907708ec27835ec037aa36"
+      },
+      {
+        "bytes": 23018,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+        "sha256": "6b5aff7dc2e95462af389d06d10868013211636b24271e3464c6a29c9d8ca693"
+      },
+      {
+        "bytes": 142929,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "sha256": "0d9a1332eeef34e065275fa17da41729bd21a52e725a8a70b13f9b3c66c29edf"
+      },
+      {
+        "bytes": 15389,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts",
+        "sha256": "7b51d07ad2c03510dc66b642519b7799608cca5ad0d144c32983d16b7f96ecbb"
+      },
+      {
+        "bytes": 18831,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation.ts",
+        "sha256": "ef55daddb577b836982d7e910503de1041d64b51fb7522fb7f9be07edff127f9"
+      },
+      {
+        "bytes": 63239,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+        "sha256": "84e5288f43469b6494cd88b307b3c93bf4fb531a68508f1aff250f26f886d5eb"
+      },
+      {
+        "bytes": 26467,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "sha256": "4cc58ef811bae9549f8801180bf4fa8657e928bde24982c05b642b45577bfc57"
+      },
+      {
+        "bytes": 25279,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+        "sha256": "0f90a162f7be7590fbaa312e61c62a59af5e5c4b894c0cf7b815f740b21f0f47"
+      },
+      {
+        "bytes": 96061,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+        "sha256": "8b3cbb16cc2c07af50b180e5cb29442c465719fa04ae887ecee501c3d10bb753"
+      },
+      {
+        "bytes": 38287,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+        "sha256": "6775e8b1e1e8529cd39ad328e3654ab8a03a65923c1fc3235b3cc2cb02613cc0"
+      },
+      {
+        "bytes": 47208,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "sha256": "256373b03534d39930b69056623f5946f404865a52f8fcdf10f42d2524e224ac"
+      },
+      {
+        "bytes": 38179,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+        "sha256": "0e037aa24c16f6389601eb2ac7fe782dbccbfd251842550ee38d69689e8ad7e5"
+      },
+      {
+        "bytes": 222772,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+        "sha256": "1fd8ae75296c6000b923c86533a742b85ba9b228904b5dcbd9139d98f09befb0"
+      },
+      {
+        "bytes": 120502,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "sha256": "3f78db27edb607b0ed2405e106abeb43c96a09df9b2b3fd4ec9eab974070274a"
+      },
+      {
+        "bytes": 79977,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "sha256": "d2e29a5fb054952e544e252c588621cbd095d6f4c59c5a46e9f6f448c1858faf"
+      },
+      {
+        "bytes": 211352,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "sha256": "6b367a622af8ef0aec5f55d4192b0b80fae1ba884fea9c23cdcaf25b6402fbcd"
+      },
+      {
+        "bytes": 10636,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "sha256": "2ce5203d275ebbf6debf21ec4ca7dad4c9699177a960832f255aeac867a7b1a6"
+      },
+      {
+        "bytes": 57842,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "sha256": "eb527b9a5a8649d9f35e5f7270273d1d79f91619901073633f19577a5a986a68"
+      },
+      {
+        "bytes": 43473,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "sha256": "a0ba80a5744cc70309bcd39d7d008b6f015f104744036c0df0f9b81623532942"
+      },
+      {
+        "bytes": 76639,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+        "sha256": "6c328e506f8c7423df5b5cdfdb76efd86a06d0d785557263db71819d14c7ba03"
+      },
+      {
+        "bytes": 56749,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+        "sha256": "9f31ae048962ea6f84fcea7e661e9dc01f4a0f5f2e07d4a4736226c00d2be79d"
+      },
+      {
+        "bytes": 96806,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "sha256": "ae296cd0d5fd5d7221854937f1ee0eae835a6c2d7c6de36ccf01e59bf52e3c72"
+      },
+      {
+        "bytes": 7018,
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+        "sha256": "5ac2af8837e88feaddc073b35ac90e830a5ba2b7399586194f45cb7eafa874fa"
+      },
+      {
+        "bytes": 39900,
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+        "sha256": "21c63203dcf831cc86eefe0f32126f3c1b5a5c9302ac1a183ad6c37c9b28a945"
+      },
+      {
+        "bytes": 68872,
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+      },
+      {
+        "bytes": 20097,
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+        "sha256": "48c53298d8046e250230fb5f9c771fc2e80c8cb071b5911394107fe6d1873e33"
+      },
+      {
+        "bytes": 82281,
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "8901e6682a62a39fe57d8f9d8302cdc83196e63d63120e603254115a0f8a24b6"
+      },
+      {
+        "bytes": 8726,
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+        "sha256": "e46879346a2bbf47e0e37e529582a01c1f37c955fc5d9fb9f3a175010813ae25"
+      },
+      {
+        "bytes": 20546,
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "sha256": "653b0f0d8567636d5c66a5c77bce38b76a2765c9ba7337c7ebd8782bbbc2ff1b"
+      },
+      {
+        "bytes": 56725,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+        "sha256": "821b5e08ea33365bb304674650399f98701236797c881ca7a8f2d499676680ec"
+      },
+      {
+        "bytes": 108713,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "sha256": "1c02eada9753ef982fc744e6dd8e2b0652c7040b26f60116c9def17b2a636efd"
+      },
+      {
+        "bytes": 108269,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+        "sha256": "947813b7e0a9f60ab2adc7a6ae95fa972b3774351d961eb2e4bad48f30417427"
+      },
+      {
+        "bytes": 7488,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-cold-record-decoder.test.mjs",
+        "sha256": "68aeea29169084d3bf4e884aa7531ba58af6a00966c37dd5aa1f43bb831a4cec"
+      },
+      {
+        "bytes": 84957,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        "sha256": "ff28021b9a3b9acffe947ba146ce5ceaffb67fdf13a494de62a995c415e1a68a"
+      },
+      {
+        "bytes": 8597,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+        "sha256": "d3a70467a62346d006ade9318a6b4aa3861f1a5677faf518ab604bb81b15de12"
+      },
+      {
+        "bytes": 18584,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+        "sha256": "53ae12e95eb62b6ea74e267872d2eee5c647da79c11a3d4565dd2e3dd58fb991"
+      },
+      {
+        "bytes": 7078,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "sha256": "3c6a310d4719acf0f0db7689abfda2953d8404a7939e80a58b89850bc222feba"
+      },
+      {
+        "bytes": 25087,
+        "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+        "sha256": "b04e6d685bba02af568c08e3bcc6044bfc90b90426954366fbfdba972b423806"
+      },
+      {
+        "bytes": 71983,
+        "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "sha256": "b24a1272ba436bc082f9eb8e161ae4b5a95b7bc7b8e01178bb3454fa920ecca4"
+      },
+      {
+        "bytes": 19137,
+        "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+        "sha256": "a9594ae35df45aee492255f0ef9e7bfb8725927440b9a1f8303a3e6f52a585a2"
+      },
+      {
+        "bytes": 212367,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "sha256": "b0309476da10eb52f343f8d43d95aea3572cb082cd4b5fd7b0d30411bde56649"
+      },
+      {
+        "bytes": 91894,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "sha256": "4f4dce1d67b3962cbb3f9cd0463be9ea51dde4d61961a081322d528daba558a7"
+      },
+      {
+        "bytes": 21321,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+        "sha256": "661bfa3d62331bada881024922fcaea82a465f0f77d0b02275919a42a3096ef6"
+      },
+      {
+        "bytes": 129875,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+        "sha256": "2811b8363e2fbd3117509f4ef9bfba54b0bb4060bf4003094a357f6c93e5933b"
+      },
+      {
+        "bytes": 2175,
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work_identity.ts",
+        "sha256": "5295c7980634a861b55cc9dd45757515703351e6c61de121cfa0b732177e325b"
+      },
+      {
+        "bytes": 29104,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+        "sha256": "cc8cb70f6155762f808d13cce5f7b914477e862588fe1188191c50112d400dc5"
+      },
+      {
+        "bytes": 49136,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "sha256": "b79d5265dcf83d76792e3035bb4b76f8082b5bb8edf7320edd6ee524ccf3c609"
+      },
+      {
+        "bytes": 15687,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+        "sha256": "84966692897bd9be54ec2ece0a52b947863a71e3ab933a61aecf9beb3cb9e47f"
+      },
+      {
+        "bytes": 24181,
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+        "sha256": "edeb3857b126608f34b041302b591444140797e806a308d87e2aa84b4d590508"
+      }
+    ],
+    "writeGrantStanding": "finite outer bound, not mandatory edits; only causally required changes; delete superseded paths",
+    "writePathCount": 53,
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-cold-record-decoder.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work_identity.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts"
+    ]
+  },
+  "RootAdmission": {
+    "actualDispatchGate": "Root-only final exact input/call/source/roles/limits/prefix/manifest preflight and reviewed one-shot launch",
+    "authority": "Root current-session explicit53-path completion preparation after first Run/fresh reads closed, preserved in ROOT_AUTHORITY.md",
+    "decision": "Admit original P1 completion preparation over exact second partial source; actual dispatch remains Root after final exact review",
+    "mechanism": "Explicit Root instruction retained by this operator admission record; not a native Result/event/cryptographic signature",
+    "preserved": "All old verdicts and currentProduct outcome, saga/typedrefusal/cold boundaries remain",
+    "selectedSubject": "9c4a5c5e136ec564c66d1598fd32161ad4101f24"
+  },
+  "RootAuthority": {
+    "bytes": 1586,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/ROOT_AUTHORITY.md",
+    "sha256": "b4673c3f2572c94881bf3ae4d8653cb5183135105d2a3f2ecc039cbb8e60e083"
+  },
+  "Testing": {
+    "canonicalWritePaths": [],
+    "changedOperatorArguments": [
+      "source-correspondence exact affected source/test/HOW member list",
+      "focused-owner-chain these eight existing test files with new required cases"
+    ],
+    "focusedFiles": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-cold-record-decoder.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs"
+    ],
+    "metricClaim": "source-proven old expanded representation versus actual new owner reconstruction/counts and new-owner cold/warm resources; not an old-runtime benchmark",
+    "outcome": "All nine actual commands pass on exact new source; all53 correspondence rows; original criteria and required current guard/cold/recovery cases.",
+    "purposes": 9,
+    "readRootCount": 970,
+    "requiredExistingAffectedFiles": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "selectedPathCount": 963,
+    "sourceClosure": "Conserved963 producer dependencies; seven separate P1-02 diagnostic/assessment reads give970 readRoots.",
+    "sourceClosureAmendment": {
+      "bytes": 4904,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/AMENDMENT_01.md",
+      "sha256": "b59c6cb61a7f99cf2ff6eef170821881862b8ae1cae3dd8d2152f15608a0973e"
+    },
+    "sourceClosureManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/B11_C2_961_PREPARATION.json",
+      "sha256": "554172089688e2ba1768856f91d7d3b8a2409a170011fc46da5667282aa3696f"
+    },
+    "sourceCorrespondencePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-cold-record-decoder.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work_identity.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts"
+    ],
+    "toolchainEnvironment": "reuse exact existing offline/STDO/Node/npm/Python pins; no rebuild/install"
+  },
+  "UAT": {
+    "canonicalWritePaths": [],
+    "criteriaCount": 4,
+    "criteriaSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/DESIGN_AND_ACTIVATION.md",
+    "criterion4Override": {
+      "bytes": 4904,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/AMENDMENT_01.md",
+      "sha256": "b59c6cb61a7f99cf2ff6eef170821881862b8ae1cae3dd8d2152f15608a0973e"
+    },
+    "outcome": "Evaluate original criteria1\u20133 and prospectively amended4 on actual admitted C2; no future Root live/resource facts"
+  },
+  "actualSetupCallManifest": null,
+  "amendment": {
+    "bytes": 4904,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/AMENDMENT_01.md",
+    "sha256": "b59c6cb61a7f99cf2ff6eef170821881862b8ae1cae3dd8d2152f15608a0973e"
+  },
+  "basis": {
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "uri": "stdo://releases/v3.0.2/"
+  },
+  "builderArchiveSha256": "0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c",
+  "changeClass": "bounded_design_contract_reentry_then_realization",
+  "completionAmendment": {
+    "bytes": 12602,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/AMENDMENT_DRAFT.md",
+    "sha256": "53681c81615885fbf1a0eabb64fbae2811471ae05a6ec195d34e3b5842d8053a"
+  },
+  "designDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/DESIGN_AND_ACTIVATION.md",
+    "sha256": "1f8ac926fdecc1a1a842f77a6571ef28c97307407e2b0aa901fe774d8b4177f8"
+  },
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "futureInstalledWitness": "Root separate one bounded actual installed-newcandidate composition after deterministicproof; not nativeUATcriterion",
+  "helperEffects": "Root-authorized operator documentation/input materialization/model-free preparation and exact20-path native-source preservation checkpoint only; no Product authorship/native/Public/provider execution",
+  "initialState": {
+    "observations": [],
+    "sourceBasis": "none",
+    "synthesis": null
+  },
+  "kind": "single_machine_p1_02_root_admitted_native_preparation",
+  "nativeResourceSelection": "Root selected xhigh240turns/90minabsolute/40minidle/3houter/no$cap",
+  "originalDraft": {
+    "bytes": 19220,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/NATIVE_GRANT_DRAFT.json",
+    "sha256": "612d1c3d7efbe5f523741b4a9a12d67982c173aab4df6db1133573aa6503ebef"
+  },
+  "originalRootAdmission": {
+    "actualDispatchGate": "Root-only final exact input/call/source/roles/limits/prefix/manifest preflight and reviewed one-shot launch",
+    "authority": "Owner actual single-machine fix instruction and Root explicit current-session conditional-GO/two-test/criterion4/963 amendment ruling",
+    "decision": "Admit finite bounded HOW/contract re-entry and native Worker preparation, not actual dispatch",
+    "mechanism": "Explicit Root instruction retained by this operator admission record; not a native Result/event/cryptographic signature",
+    "preserved": "All old verdicts and currentProduct outcome, saga/typedrefusal/cold boundaries remain",
+    "selectedSubject": "97406077c9a91e18e9425c3df55c6cd80f4c2073"
+  },
+  "packageVersionSelection": "preserve5.0.0-rc.3; no operator-selected identity change",
+  "proofPlan": {
+    "bytes": 7080,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/PROOF_PLAN.md",
+    "sha256": "3c223a8963f4cc7ab34017e3872633ab9c784d5749223e85fce65c6136c2d579"
+  },
+  "proposedNativeLimits": {
+    "absoluteTimeoutMs": 5400000,
+    "effort": "xhigh",
+    "inactivityTimeoutMs": 2400000,
+    "maxBudgetUsd": null,
+    "maxTurns": 240,
+    "model": "claude-opus-5-5",
+    "outerTimeoutMs": 10800000,
+    "recursionBound": 4,
+    "selection": "Root-selected resource ceilings; actual input/call/manifest still requires review"
+  },
+  "sourceCheckpoint": {
+    "bytes": 15673,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-02/SOURCE_CHECKPOINT_53.json",
+    "sha256": "eaf9372495ba34789d240f3bb16e2cc29327f93255818c0b7bf084aab3050f0a"
+  },
+  "sourceCommit": "9c4a5c5e136ec564c66d1598fd32161ad4101f24",
+  "status": "ROOT_ADMITTED_COMPLETION_PREPARATION",
+  "stopBefore": [
+    "Any actual provider dispatch without Root final exactcall/manifest selection",
+    "new publicmeaning/eventauthority/store or missing firstcustody owner",
+    "causal owner beyond finite grant",
+    "missing required protectedsource materialization"
+  ],
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-machine-p1"
+}

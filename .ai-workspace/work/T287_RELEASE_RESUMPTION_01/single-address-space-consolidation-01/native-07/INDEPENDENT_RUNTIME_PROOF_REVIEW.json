@@ -1,0 +1,912 @@
+{
+  "kind": "independent_native07_runtime_identity_proof_review",
+  "recordedUtc": "2026-11-04T05:14:26.843Z",
+  "productFrame": {
+    "product": "ABIogenesis5 / fixed fifteen5.0 families / GOAL-035 / T-287",
+    "scope": "Original R1-R7/C1-C5 unchanged; exact native07 returned proof/test increment, Runtime/identity claims only",
+    "method": {
+      "basis": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "composition": []
+    },
+    "runtime": "Immutable installed RC5 is the builder. Native07 is a separately frozen partial successor candidate; f49 alone is not that successor.",
+    "authority": "GTL defines semantics, HoG traverses, ABG owns admission/runtime truth; event readers and preparers preserve their RAW/owned/current/cold distinctions. Review evidence creates none of those authorities.",
+    "prohibitions": [
+      "No Product code/law repair, new runtime/store/service/controller/private writer or authority widening",
+      "No manufactured acquired/held handle, mutation of retained installed history, current grant-law change or Public F_H resume claim",
+      "No C2/UAT/fresh/release/source acceptance from author feedback or static review"
+    ],
+    "severityScale": "ABI5_PROJECT_REFERENCE_FRAME_BASIS.md370-380: S0 highest through S4; S2 material proof defect with bounded workaround. Root owns priority/disposition."
+  },
+  "subjects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/SUBJECT.json",
+      "bytes": 184296,
+      "sha256": "46bb8546b515e044011e4f3c129b1aba2947ddfc13396e870392532ea4b344ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/derived-review-001/SUBJECT.json",
+      "bytes": 5754,
+      "sha256": "bf2ebb7b3baa5a5fa4de2d58fee4eb9bd9e7f84fbea36741fed688a74dbb3c21"
+    }
+  ],
+  "nativeResult": {
+    "ref": "result://abiogenesis/0138c3581877dcadcdaa5dd1426ff1d55f29e86f17cdb1685168dcd3a2da0a8b",
+    "digest": "sha256:0138c3581877dcadcdaa5dd1426ff1d55f29e86f17cdb1685168dcd3a2da0a8b",
+    "eventOrdinal": 54503,
+    "eventTime": "2026-11-04T04:56:31.911Z",
+    "afterObservationRef": "worksite-context-observation://abiogenesis/ac6bb17a83e1010d32993394c00f755a05ebb356acadb8c7c54b179ccb37bd59",
+    "afterObservationDigest": "sha256:ac6bb17a83e1010d32993394c00f755a05ebb356acadb8c7c54b179ccb37bd59"
+  },
+  "custody": {
+    "verifiedSourceCount": 122,
+    "verifiedSourceBytes": 5403101,
+    "changedFromHeld": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 143598,
+        "sha256": "3148d08b537f53cff92777660f5fe92dc1df8ef001206e07a581546ed13ce8e1",
+        "heldPreimageSha256": "61fdfd9f68ed4e1b94aa143542d5f7919221f688b140e94fa9b7c52faba2591f",
+        "changedFromHeld": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "bytes": 90554,
+        "sha256": "deb87b9693556f5d6f778ca3bb5dd929c5080f47577626361fbeb7530935a28c",
+        "heldPreimageSha256": "9407605058cce466f6efe2d2e4b11bf0198e77cfacbc9fef109070ff4ec41cb3",
+        "changedFromHeld": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+        "bytes": 23609,
+        "sha256": "3f1e6bf8249e48977261e5e63d065ab32f52540092e2f49af1dcf05ce81b0349",
+        "heldPreimageSha256": "90540971276c92787e9a10877c2ccfe2798b58d1e438abf9b96167a7d4ecd7c8",
+        "changedFromHeld": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+        "bytes": 80836,
+        "sha256": "c62071e4afc2f938ba9d84f67071686c8c2286ec1efcbd1d61a16ead7d7051f2",
+        "heldPreimageSha256": "8e6176b038ce315697921846a2055b0d6bf0a06e2f88399a906b3a7c49ad0960",
+        "changedFromHeld": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+        "bytes": 27448,
+        "sha256": "651a4cad61fd64e2fa514951492474073e652989fb48a23995a3c1af19f79462",
+        "heldPreimageSha256": "7c04193bf6b0feb2d90268a4e8e529f2f75ddeba590d0bea277cfb95893f74ab",
+        "changedFromHeld": true
+      }
+    ],
+    "incrementDiff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/derived-review-001/increment.diff",
+      "bytes": 74824,
+      "sha256": "174895efa6e1227ab678f3302283bff639239b49b77934f6df029f9b02809c9f"
+    },
+    "noProductCodeIncrement": true,
+    "sourcePopulationStanding": "122 frozen source hashes verified; only five match the declared changed-from-held set. Metadata identity verification is not a repeated full semantic review."
+  },
+  "result": "falsified",
+  "resultScope": "Selection07 Runtime proof completeness / claimed need for a new RAW producer scope is falsified by N7-PROOF-01. The returned partial/ready=false standing is truthful. Bounded supported claims below remain supported; no new Product-source defect found in this increment.",
+  "findings": [
+    {
+      "id": "N7-PROOF-01",
+      "rank": 1,
+      "result": "falsified",
+      "technicalSeverity": "S2",
+      "classification": "Selected proof-completion and scope-intake gap; no newly demonstrated Product-source defect",
+      "claim": "The missing RAW F_H positive requires another lawful record-producer selection because current invocation admission is module-private/direct-invoke-only",
+      "counterexample": "ROOT_REENTRY_SELECTION_07.md66-87 already selects a fresh immutable RAW input, explicit response-grant reader premise, real gates and both existing preparation owners. NATIVE_GRANT.json202-211 already permits the SAS test/support paths. The changed exact-intent test179-190 already constructs a test-owned invocation record/digest with the actual canonical hash, actual event projection and actual rehydration, without the current admission factory.",
+      "actualOmission": "Frozen return/readiness explicitly state no RAW F_H seed was built and no gate was attempted. Current-intent positivity and empty F_H baselines do not discriminate an implementation that always refuses a nonempty response pair.",
+      "violatedRelation": "Selected lower-reader proof construction was incorrectly treated as depending on a new current-authority producer grant. The selected proof obligation remains unmet; module privacy creates no additional authority requirement for explicitly conditional RAW test data.",
+      "causalAssessment": {
+        "supportedOrigin": "Intake conflates current root admission with immutable RAW reader construction",
+        "downstream": "No nonempty F_H response fact or combined priorAdmission proof; readiness remains false",
+        "whyPriorEvidenceMissedIt": "Prior triage provided a finite dependency route and explicitly no ready-made seed. Selection07 admitted that task. Author completed other proof and returned the already-known lack of a current admission factory instead of constructing and testing the selected raw seed gates.",
+        "jointCauses": "Building the full self-consistent F_H lower-reader seed is real fixture work; no concrete refusing first gate was recorded.",
+        "confidence": "high for already-selected scope and unattempted omission; static/conditional for full seed feasibility until actual gates execute"
+      },
+      "impact": {
+        "triggerProbability": "observed in this return",
+        "realizedHarm": "Selected completion evidence is absent; no actual runtime corruption/admission or new Product regression demonstrated",
+        "blastRadius": "The F_H nonempty response-pair/combined effectful-owner claim and dependent original C4/C5 conjunction; completed retry/current-intent/ambiguity evidence is not invalidated",
+        "dependentPaths": "F_H response projection and global effectful invocation pairing; this does not create a 5.0 Public F_H resume qualification claim",
+        "containment": "Author returns partial/ready=false; Root has not accepted original completion",
+        "workaround": "Finish the already-selected finite RAW test in existing SAS test/support paths, stopping on the first actual gate refusal. No Product/library export or grant-law change is presently needed.",
+        "repairComplexity": "Bounded medium fixture/proof construction; no runtime implementation or foundation redesign justified",
+        "regressionRisk": "Low Product mutation risk because no Product source change is needed; material proof-masking risk if rehydration/phase/ownership gates are stubbed or raw data relabeled admitted"
+      },
+      "priority": "Root reserved",
+      "promotionBoundaryEffect": "Root reserved; this review does not choose acceptance or deferral",
+      "revisingObservation": "An actual real gate rejection naming its exact candidate/value and source guard, or successful full selected RAW positive/negative proof on final frozen bytes"
+    }
+  ],
+  "supportedClaims": [
+    {
+      "id": "retry-current-producer",
+      "result": "satisfied",
+      "scope": "Static conformance and final author feedback, pending actual C2",
+      "routes": [
+        "t287-retry-run-prefix.test.mjs35-70,79-173,198-258",
+        "root-installed-environment.mjs343-353,456-477,1026-1147 (unchanged f49 context)",
+        "developer-mini-product.mjs279-381 (unchanged f49 context)"
+      ],
+      "evidence": "Publication variant has real nested c_retry budgets2/2, is packed/digest-bound by existing variant helper and admitted through current installed catalog/execution helpers. Implementation/ABG/HoG/event/retry owners load from the same env.installedRoot. Three ordinary engine Runs produce [1] and [1,1] attempts, advance/blocked judgments and real stops; selected Run uses real render c-call completion before entering both depths. Explicit actual activity probes are excluded only from semantic row-shape assertions; appended rows must all stay in selected Run.",
+      "limits": "Fixture-controlled deterministic mini Product and component retry-entry transitions; no live provider, retry-exhaustion or many-attempt proof inferred."
+    },
+    {
+      "id": "retry-scope-and-atomicity",
+      "result": "satisfied",
+      "scope": "Foreign target, stale/spent source and duplicate attempt return exact refused codes; durable log byte equality and no selected entry c-calls/stops",
+      "routes": [
+        "t287-retry-run-prefix.test.mjs220-257,261-279,310-312"
+      ],
+      "evidence": "At both depths selected/whole frontier attempts fully match; previous authority and neighbouring Run scopes cannot authorize the new route. Duplicate route -> retry_admission_refusal/route_mismatch. Foreign target -> candidate_mismatch, old prefix -> replay_mismatch, refreshed prefix with spent source -> candidate_mismatch. Whole file bytes remain equal on refusals.",
+      "limits": "Real held/owned workspace selection is used; this does not claim a copied nominal prefix is an owned selection."
+    },
+    {
+      "id": "current-intent-complete-pair",
+      "result": "satisfied",
+      "scope": "Changed actual installed lifecycle and complete priorAdmission assertions, final author feedback pending C2",
+      "routes": [
+        "t287-exact-construction-intent.test.mjs21-114,115-139,140-175"
+      ],
+      "evidence": "Existing actual frontier -> SDK population -> cold CLI current_intent continuation remains. One real Public current_intent operation joins one basis with constructionContinuationUse/source root. Expected full six-field priorAdmission is compared at P, copiedP, validated RAW final history and historical after-continue cut; before-continue invocation is available. A genuinely distinct installed root-Program Run is invoked before invalid RAW suffixes, reaches its own undispatched frontier/runtime_failed stop with no actor, and yields its own run.invoke fact while the prior pair remains exact at Q/copyQ/RAWQ/historicalP.",
+      "limits": "The second Run is genuine but intentionally runtime_failed at preparation; no claim it completed successfully or all global facts stayed identical. Fixed local F_P transport is declared fixture behavior, not a live-model adequacy test. The first pair has full six-field equality; the second Run own-fact assertion checks disposition and selected identity fields, not every six-field member."
+    },
+    {
+      "id": "raw-cross-kind-ambiguity",
+      "result": "satisfied",
+      "scope": "Explicit RAW negative premise and global duplicate law; final author feedback pending C2",
+      "routes": [
+        "t287-exact-construction-intent.test.mjs176-210",
+        "effectful_invocation_truth.ts121-210 and complete global fact join"
+      ],
+      "evidence": "Fresh synthetic vectors are stamped by real event projection, deep-frozen, selected by real validated-prefix owner and gated by real invocation rehydration. Collisions with actual artifact/current-intent facts require duplicate_outer_invocation and exact unique sorted event refs even for unrelated queried refs. Warm repeats, fresh cloned RAW selection and unrelated RAW suffix preserve full outputs. A structured-cloned prefix handle is correctly refused as artifact_truth_invalid.",
+      "limits": "This re-keys copied event data solely as a declared RAW counterexample; it is not an admitted or durable history. The assert message owner-issued admission at189 should be understood only as successful real record rehydration; it does not make the synthetic record owner-admitted."
+    },
+    {
+      "id": "retained-global-boundaries",
+      "result": "satisfied",
+      "scope": "Exact previously reviewed assertions retained in native07; no new execution credit",
+      "routes": [
+        "t287-single-address-space-consolidation.test.mjs299-350,353-642,762-865"
+      ],
+      "evidence": "SAS delta is only allocation wording/counters at197-247. Earlier real-cut Run orphan/paired/foreign-vs-missing controls, owned/stale/copied/foreign/rollback/cold boundaries, and actual orphan/mixed-arm stage/order/global refusal controls are unchanged in Runtime semantics.",
+      "limits": "Method reviewer separately owns fork/query/allocation/HOW judgment. This review does not duplicate it or infer full ordinary-workflow performance."
+    }
+  ],
+  "qualifiedPremises": [
+    {
+      "id": "retry-failed-scope",
+      "grade": "not_applicable: no new Product defect or typed-refusal closure supported",
+      "routes": [
+        "t287-retry-run-prefix.test.mjs282-312",
+        "hog/structural_transition.ts76-107 (f49)",
+        "runtime_failure.ts263-331",
+        "traversal_route.ts5016-5025,5487-5528",
+        "runtime_liveness.ts83-110",
+        "event_store.ts4145-4157 (f49)",
+        "author-feedback/retry-12.tap"
+      ],
+      "premise": "leafPort:{} is not a nominal admitted LeafInvocationPort. The actual structural owner first detects that and routes through actual failTraversal/runtime failure owner. One real runtime_failure_observed is asserted in the exact Run/frame.",
+      "observed": "Pre-failure route replay state is stale -> candidate_mismatch. Rebuilt post-failure route reaches the actual frame-liveness observation and its native admission validation throws TypeError(native liveness relation refused the selected observation). Transaction abort/rollback leaves the complete durable file unchanged and zero retry attempts.",
+      "validCredit": "Defensive nominal-port guard; real failed-scope event lower premise; failed-Run noncommit/rollback and foreign authority refusal.",
+      "notCredit": "Typed traversal refusal for the rebuilt candidate, a supported ordinary valid-port failure producer, or equivalence of returned refusal values. Native07 accurately discloses this limit.",
+      "inheritedVersusRegression": "Product code is unchanged by native07. Structural guard and event-store throw are unchanged f49 source, while current migrated owners are exact native06-held bytes. A new sunny-day Product regression is not established by this deliberately unsupported port argument.",
+      "rootReentry": "Retain the explicit lower premise and narrow noncommit credit. If a valid-port/typed result is necessary for the original claim, select that exact existing-owner producer/falsifier separately; do not suppress liveness admission or rename a TypeError as a typed refusal."
+    }
+  ],
+  "fhFiniteReentry": {
+    "alreadyAuthorized": {
+      "selection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_07.md:66-87",
+      "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/NATIVE_GRANT.json:202-211",
+      "paths": [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs"
+      ],
+      "effect": "Finite test-owned raw data/fixture and proof only; a later native activation still needs Root admission. No additional Product source export or write territory has been demonstrated necessary."
+    },
+    "existingProducerRoute": [
+      {
+        "step": "RAW root record",
+        "route": "Use existing canonical sha256Canonical on one fresh declared raw admission body; derive invocation-admission ref from that digest; create matching run.invoke Public/invocation events through projectRuntimeEventFromValidatedHistory; real reader gate required",
+        "owners": [
+          "invocation_execution_truth.ts324-420,432-528,637-658",
+          "event_store.ts2396-2408 (f49)",
+          "invocation_admission.ts1640-1712 is production-format reference, not a called/duplicated authority factory",
+          "exact-construction-intent.test.mjs179-190 is an already implemented test-owned canonical/projection/rehydration precedent"
+        ],
+        "guard": "Actual digest, exact fixed run.invoke definition/member, cause/ordinal order, full Public/owner coordinate correspondence, no malformed/duplicate prefix."
+      },
+      {
+        "step": "Explicit RAW response grant",
+        "route": "Build plain conditional response-grant fixture data against the real public packet and actual structural grant checker; include it/ref in that root record; never claim current admission produced it",
+        "owners": [
+          "product/interaction_operation_contracts.ts66-142: INTERACTION_OPERATION_CONTRACTS.respond.approve (or another existing variant)",
+          "product/invocation.ts594-685 (f49): isCapabilityGrantValue",
+          "continuation.ts1056-1112: exact response grant/variant/actor/workspace resolution"
+        ],
+        "guard": "Canonical grant digest/ref, exact keys and contract, root actor/workspace/policy/ref correspondence; current invocation_admission.ts781-800 remains direct-invoke-only and is not invoked for this conditional RAW test."
+      },
+      {
+        "step": "Finite open-continuation seed gates",
+        "route": "One fresh exact basis/Run binding; one F_H pending c-call open/fibre/evidence/result/hold-judgment/cursor chain; one hold route and exact fh_interaction_opened; choose null construction intent to omit unrelated construction/resume prerequisites",
+        "owners": [
+          "invocation_execution_truth.ts661-714",
+          "c_call.ts4957-4984 (unchanged native06/native07 source pin)",
+          "fh_continuation_projection.ts144-286,552-650",
+          "event_prefix.ts actual selectValidatedRuntimeEventPrefix; actual deriveRuntimeHeldFluentProjection"
+        ],
+        "guard": "Assert real exact basis/root/run binding, pending carrier, held fluent and full open-continuation reconstruction before any response. Deep-freeze fresh raw vectors and stamp each event through actual projector. No unconditional owner stubs, acquired handles, held resource claim or modified retained installed history."
+      },
+      {
+        "step": "Actual pure response output",
+        "route": "Call existing prepareContinuationPublicOperation then prepareFhInteractionResponse, require actual prepared discriminants/events/projected prefix and exact nonempty six-field F_H fact/combined priorAdmission",
+        "owners": [
+          "continuation.ts936-1053,1469-1561",
+          "fh_continuation_projection.ts818-1127",
+          "effectful_invocation_truth.ts112-210"
+        ],
+        "guard": "Operation source coordinates, open status, actor/capability/response contract, exact eventTime/correlation and empty explicit response causes remain enabled. Use fresh response invocationRef and no global invalid suffix."
+      },
+      {
+        "step": "Minimal discriminator/comparisons",
+        "route": "Available before operation; operation-only orphan invalid; paired response valid with one full six-field fact and exact combined duplicate priorAdmission; fresh unrelated ref available. Repeat on same RAW selection, historical cuts, fresh deep-frozen clone and allowed unrelated raw growth; preserve exact source/ref/digest/order negatives.",
+        "guard": "Fresh clone means fresh RAW reconstruction, not physical cold reopening. No actual current root admission, commit, Public dispatch/resume, owned/held/current resource authority, installed F_H qualification or release credit."
+      }
+    ],
+    "feasibility": "Static route remains feasible under the selected conditional RAW lower-reader contract; no actual missing lawful owner relation has been demonstrated. A valid complete positive seed and actual gate success remain unverified, because native07 attempted none. Return a precise first gate/candidate refusal if construction exposes one; do not infer full execution success from static feasibility.",
+    "noReadyMadeSeed": true,
+    "scopeIntakeDisposition": "Module-private production construction and its direct-invoke-only admission law explain why a current admitted response transaction cannot be used. They do not bar the already-selected test-owned RAW data producer."
+  },
+  "retainedResiduals": [
+    "Required RAW F_H response-pair positive and real gate sequence remain unbuilt/unexecuted.",
+    "Selected-action complete positive remains an inherited unverified relation from prior triage, not a newly selected broad qualification task here.",
+    "Failed-scope proof is explicitly conditional/noncommit as classified, not typed ordinary-route refusal evidence.",
+    "Actual native C2, UAT, fresh result/replay and Root original R1-R7/C1-C5 conjunction remain pending; static/source/author evidence cannot establish them.",
+    "Method reviewer separately handles fork/query/allocation proof and HOW."
+  ],
+  "independence": {
+    "authorship": "Reviewer did not author native07 changes and did not contact the native actor",
+    "priorAdvice": "Reviewer authored the closed native06 FH premise triage. This follow-up independently checks its exact owner/control compatibility and intake, but is not independent validation of authorship of that earlier advice.",
+    "host": "Unrestricted shared host; no enforced acquisition barrier or clean-family independence claim"
+  },
+  "limits": [
+    "Read frozen subject/derived files/handoffs/author TAP/control only, plus named directly implicated unchanged f49 owners. No moving source or live C2 subject was read.",
+    "No tests/builds/provider/actors/runtime effects, Product/test/control edits or delegation. Only the two granted review outputs are written.",
+    "All24 frozen author TAP hashes verified and scalar outcomes retained. Their final passes are author feedback, not actual C2 or qualification.",
+    "Exact f49 context outside the122-file population is identified separately; its unchanged applicability follows Root/frozen increment custody, not a new mutable-worktree read or executable-currentness proof.",
+    "No whole Product audit, foundation redesign, optional constructor changes, performance CPU attribution or source/release acceptance."
+  ],
+  "invalidation": [
+    "Changed frozen subject/derived diff/handoff/control or implicated source bytes invalidates the associated finding/claim.",
+    "New actual seed gate/refusal evidence can revise the conditional static feasibility; actual C2 on final hashes can add execution credit within its selected predicates.",
+    "Any stronger failed-scope domain or typed-response claim requires its supported producer and exact governing contract; the current deliberately unadmitted leafPort cannot supply that extension."
+  ],
+  "controlIdentities": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/SUBJECT.json",
+      "bytes": 184296,
+      "sha256": "46bb8546b515e044011e4f3c129b1aba2947ddfc13396e870392532ea4b344ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/derived-review-001/SUBJECT.json",
+      "bytes": 5754,
+      "sha256": "bf2ebb7b3baa5a5fa4de2d58fee4eb9bd9e7f84fbea36741fed688a74dbb3c21"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_07.md",
+      "bytes": 12312,
+      "sha256": "24fb0de17574b992d28fab71009f086f56c346e84effd98e9b7654b4551d6bc2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/FH_POSITIVE_PREMISE_TRIAGE.json",
+      "bytes": 25031,
+      "sha256": "21c0b17d83a2cab5404274ecdcb53fd7d685846de54e4cc128df2d3b8d4b8f44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/CONTEXT_AND_CAUSAL_MAP.md",
+      "bytes": 11069,
+      "sha256": "951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/return.json",
+      "bytes": 47515,
+      "sha256": "0a50973bdfbbc167764f2d3da8b7b4e69058b68a356545342642a83d6d822732"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/readiness.json",
+      "bytes": 2323,
+      "sha256": "d5890a8f290eea37aa0b9ebca3186e00d3b39017f778b4010ec85eac166ddb19"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/progress.json",
+      "bytes": 663,
+      "sha256": "3a3254295c91b88106c4a240055a744cc4a898703bcde2d94c200eae90f7dbc6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/NATIVE_GRANT.json",
+      "bytes": 17783,
+      "sha256": "d75aca0b77bb8fa54394ecc6c0bed35df0aa4d5f3d63e7d9ef31f0ccac7503a4"
+    }
+  ],
+  "reviewedOwnerAndTestIdentities": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 90554,
+      "sha256": "deb87b9693556f5d6f778ca3bb5dd929c5080f47577626361fbeb7530935a28c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "bytes": 23609,
+      "sha256": "3f1e6bf8249e48977261e5e63d065ab32f52540092e2f49af1dcf05ce81b0349"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 27448,
+      "sha256": "651a4cad61fd64e2fa514951492474073e652989fb48a23995a3c1af19f79462"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs [native06 preimage]",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "bytes": 9421,
+      "sha256": "90540971276c92787e9a10877c2ccfe2798b58d1e438abf9b96167a7d4ecd7c8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "bytes": 222555,
+      "sha256": "42ef88f96981adc827aa40bf3c6d3af3a9af7ef3278a6e958f2aebd513f6a38b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "bytes": 222875,
+      "sha256": "cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+      "bytes": 15934,
+      "sha256": "ea2df4a553c8fea801277f9b68707ae7cd7ce08bff7c10e3d1552d6d01bfce8c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "bytes": 29515,
+      "sha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "bytes": 41277,
+      "sha256": "6a254033a8ea50a1f313340e7ba22c07a1797ff618e6527c473751bac0fdfc89"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "bytes": 62559,
+      "sha256": "25aad5b6abaf0630976f18c74f65c2fb8105510294cc8a0f8b6ea7f85e6e2252"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 61840,
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 11967,
+      "sha256": "dcd891fcb9f07a1ba5220c0ff21351c1f2a7c25884b7dcaadb60ceeb8faf4ac3"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 49351,
+      "sha256": "a2da3031ca7c408bac41fea0c39a7043333ce0b14a6769fd82979733b7de22ab"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/structural_transition.ts",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "bytes": 9772,
+      "sha256": "2cd043820485c949405a8b23a0bb32abbabe9e3d6bf958d66c7897040ae2a742",
+      "standing": "Exact unchanged baseline context; outside native07 increment and frozen trackedChangedPaths"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "bytes": 213856,
+      "sha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c",
+      "standing": "Exact unchanged baseline context; outside native07 increment and frozen trackedChangedPaths"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+      "standing": "Exact unchanged baseline context; outside native07 increment and frozen trackedChangedPaths"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/developer-mini-product.mjs",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "bytes": 13419,
+      "sha256": "9c1aaa148aee8a1403db0f068fc47afa16a147c0be7d27c1bd74ddc7c9f4b39a",
+      "standing": "Exact unchanged baseline context; outside native07 increment and frozen trackedChangedPaths"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "bytes": 52769,
+      "sha256": "4338a0b84b6190e7053c5b348b6ae196cec181f8d9a6928818cfde9e5f1e2225",
+      "standing": "Exact unchanged baseline context; outside native07 increment and frozen trackedChangedPaths"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "bytes": 77248,
+      "sha256": "094cce6fb3c539d56c21df0d46550b788f3fb4442016472d0199950b06d23e16"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/interaction_operation_contracts.ts",
+      "commit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "bytes": 8336,
+      "sha256": "bc8498676d016e076af25cef6d14498ead6b5733ce1dc5b781abb9cd6875d266",
+      "standing": "Exact unchanged baseline context; outside native07 increment and frozen trackedChangedPaths"
+    }
+  ],
+  "authorFeedback": [
+    {
+      "name": "exact-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/exact-1.tap",
+      "bytes": 1518,
+      "sha256": "d11a781cfcc5bbd707226088b539f6778f75eed0931ce27591c3abdfa2ab56aa",
+      "tallies": {
+        "pass": "0",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [
+        "not ok 1 - actual One Surface producer, undispatched preparation frontier and current-intent remainder"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'"
+      ]
+    },
+    {
+      "name": "exact-2.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/exact-2.tap",
+      "bytes": 1404,
+      "sha256": "fb90587f47b2ba329ae043394ad4e79716c27319bdf140afddbb8df6f1c6f5c8",
+      "tallies": {
+        "pass": "0",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [
+        "not ok 1 - actual One Surface producer, undispatched preparation frontier and current-intent remainder"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: '{\"kind\":\"product_run_invocation_preparation_refusal\",\"memberKey\":\"start\",\"ownerOutput\":{\"outcomeKind\":\"refusal\",\"value\":{\"code\":\"invalid_target\",\"issuePaths\":[\"/program\"],\"evidenceRefs\":[]}}}'",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'"
+      ]
+    },
+    {
+      "name": "exact-3.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/exact-3.tap",
+      "bytes": 1892,
+      "sha256": "9851712a97a74203015d43cabe1d45f1e0310cd007d7013a56ba03e2467f2c00",
+      "tallies": {
+        "pass": "0",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [
+        "not ok 1 - actual One Surface producer, undispatched preparation frontier and current-intent remainder"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'"
+      ]
+    },
+    {
+      "name": "exact-4.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/exact-4.tap",
+      "bytes": 377,
+      "sha256": "94ecd76ce73f7c665372268e781e30f03d9cdd5d4024b68bd69cddcfa563d8b7",
+      "tallies": {
+        "pass": "1",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "exact-5.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/exact-5.tap",
+      "bytes": 378,
+      "sha256": "eb44dd69c9d803fc62c5b7b827d24e80878f6783229bc0b442c31db09f6bc95b",
+      "tallies": {
+        "pass": "1",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "fold-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/fold-1.tap",
+      "bytes": 2432,
+      "sha256": "8fae3ae04338352209535de16fd6f6931bb46c374fe55dbb4245a0e6ba78dd7d",
+      "tallies": {
+        "pass": "1",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "fold-full-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/fold-full-1.tap",
+      "bytes": 11479,
+      "sha256": "3b321cafce3578e15cb225e1beb246a6a67246d04606cf1a21fea33c5d865c4f",
+      "tallies": {
+        "pass": "19",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "19"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "retry-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-1.tap",
+      "bytes": 6795,
+      "sha256": "79d263797dd9a47ccc3e85b7cef621f43a3378f057184f2a042a8b50224002ac",
+      "tallies": {
+        "pass": "0",
+        "fail": "3",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [
+        "not ok 1 - retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs",
+        "not ok 2 - retry entry refuses foreign scope and stale source without committing a partial transition",
+        "not ok 3 - retry entry retains the failed native scope refusal and refuses an unrelated authority prefix"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'",
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'",
+        "  failureType: 'testCodeFailure'"
+      ]
+    },
+    {
+      "name": "retry-10.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-10.tap",
+      "bytes": 1037,
+      "sha256": "b49b1422f21171e78f130ae3ea922735e6c1a7ac3cb1689522e9b63658bdb5bc",
+      "tallies": {
+        "pass": "3",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "retry-11.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-11.tap",
+      "bytes": 2062,
+      "sha256": "81ddda7a2d49102b440e2b24cdf7db05bafcaae6a482a9cd31b89f539cb70c9d",
+      "tallies": {
+        "pass": "3",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "retry-12.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-12.tap",
+      "bytes": 3074,
+      "sha256": "6880a7b48a8c8b859df25ef56754beb3a84911d2efdeb45c06f7fa0d4081b7cc",
+      "tallies": {
+        "pass": "0",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [
+        "not ok 1 - retry entry retains the failed native scope refusal and refuses an unrelated authority prefix"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: 'native liveness relation refused the selected observation'",
+        "  code: 'ERR_TEST_FAILURE'",
+        "  name: 'TypeError'"
+      ]
+    },
+    {
+      "name": "retry-13.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-13.tap",
+      "bytes": 1038,
+      "sha256": "b62539c97b8f002d26edcca6f875ab402741ab29cd052e1a3c5e1d99f742a89e",
+      "tallies": {
+        "pass": "3",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "retry-14.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-14.tap",
+      "bytes": 1037,
+      "sha256": "a9422e5b8038de7f8dd0ff354c4c742dede5e5ed874dfb7749beb38aa018247a",
+      "tallies": {
+        "pass": "3",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "retry-2.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-2.tap",
+      "bytes": 6964,
+      "sha256": "1f779005788c2ab5284849a82c43159b991d9e0dea377d2e516a0442fce58012",
+      "tallies": {
+        "pass": "0",
+        "fail": "3",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [
+        "not ok 1 - retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs",
+        "not ok 2 - retry entry refuses foreign scope and stale source without committing a partial transition",
+        "not ok 3 - retry entry retains the failed native scope refusal and refuses an unrelated authority prefix"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'",
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'",
+        "  failureType: 'testCodeFailure'"
+      ]
+    },
+    {
+      "name": "retry-3.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-3.tap",
+      "bytes": 1941,
+      "sha256": "4acb40d5f37bfa059260e71268c0008c74a1348c69be8b56954a2c8aed323893",
+      "tallies": {
+        "pass": "2",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [
+        "not ok 1 - retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'"
+      ]
+    },
+    {
+      "name": "retry-4.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-4.tap",
+      "bytes": 3726,
+      "sha256": "c0f96de50d9276f8cf80b5b5ba626c3b333784b539a358cd4f73bf097edfaea4",
+      "tallies": {
+        "pass": "0",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [
+        "not ok 1 - retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'"
+      ]
+    },
+    {
+      "name": "retry-5.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-5.tap",
+      "bytes": 2524,
+      "sha256": "fbc327d0a7fe203cacfedb71a0f7ac9767a9bae0e63b008df5f02a0f596b94f0",
+      "tallies": {
+        "pass": "0",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [
+        "not ok 1 - retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'"
+      ]
+    },
+    {
+      "name": "retry-6.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-6.tap",
+      "bytes": 2845,
+      "sha256": "ce5b82d6ef4ee75b136ead7b957cec9bede4e3b24645ddf6e3f4dcacbb5ea161",
+      "tallies": {
+        "pass": "0",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [
+        "not ok 1 - retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'"
+      ]
+    },
+    {
+      "name": "retry-7.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-7.tap",
+      "bytes": 6930,
+      "sha256": "8758a7e323989ad117e5c987713bf32e9a65c199c72e153e52e6613204e88ce3",
+      "tallies": {
+        "pass": "0",
+        "fail": "3",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [
+        "not ok 1 - retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs",
+        "not ok 2 - retry entry refuses foreign scope and stale source without committing a partial transition",
+        "not ok 3 - retry entry retains the failed native scope refusal and refuses an unrelated authority prefix"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'",
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'",
+        "  failureType: 'testCodeFailure'"
+      ]
+    },
+    {
+      "name": "retry-8.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-8.tap",
+      "bytes": 2958,
+      "sha256": "6d11cc9e038fce94aeff481467cc9b4bd0010c5f86c8a991be16419607181696",
+      "tallies": {
+        "pass": "2",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [
+        "not ok 1 - retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: \"Cannot read properties of undefined (reading 'slice')\"",
+        "  code: 'ERR_TEST_FAILURE'",
+        "  name: 'TypeError'"
+      ]
+    },
+    {
+      "name": "retry-9.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/retry-9.tap",
+      "bytes": 1923,
+      "sha256": "5d37717a8ffcf9b49c703df3b6edbfb6b017db8081dba37645e21ed0731526d0",
+      "tallies": {
+        "pass": "2",
+        "fail": "1",
+        "skipped": "0",
+        "tests": "3"
+      },
+      "notOk": [
+        "not ok 1 - retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs"
+      ],
+      "errors": [
+        "  failureType: 'testCodeFailure'",
+        "  error: |-",
+        "  code: 'ERR_ASSERTION'",
+        "  name: 'AssertionError'"
+      ]
+    },
+    {
+      "name": "sas-fork-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/sas-fork-1.tap",
+      "bytes": 1895,
+      "sha256": "2d71de849bf53152f28870a7d2e3473140e71a7155b921d4c780cbd2f9dab0ef",
+      "tallies": {
+        "pass": "1",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "sas-fork-2.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/sas-fork-2.tap",
+      "bytes": 3000,
+      "sha256": "d4ff1fe613efcac87302de5bd5470850f59c34d2c8fa6ed7e988c08b5b5b59b7",
+      "tallies": {
+        "pass": "1",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "1"
+      },
+      "notOk": [],
+      "errors": []
+    },
+    {
+      "name": "sas-full-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/author-feedback/native-scratch-runs/sas-full-1.tap",
+      "bytes": 58027,
+      "sha256": "3f4cb5cbff238c289f554e7bb5535a3285f3ac23a356e9622a2f61facb7d478a",
+      "tallies": {
+        "pass": "9",
+        "fail": "0",
+        "skipped": "0",
+        "tests": "9"
+      },
+      "notOk": [],
+      "errors": []
+    }
+  ]
+}

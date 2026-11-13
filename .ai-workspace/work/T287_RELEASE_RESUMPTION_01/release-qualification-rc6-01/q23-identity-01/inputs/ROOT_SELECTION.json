@@ -1,0 +1,118 @@
+{
+  "kind": "root_q23_native_increment_selection",
+  "recordedUtc": "2026-11-05T15:31:35.082144+00:00",
+  "roleTransition": "Executive -> separately bound coordination/operator Writer under ROOT_ACTIVATION; Product/HOW/test construction delegated to one ABG-native Worker",
+  "ownerInstruction": "go, after the remaining RC7/5.0 task list",
+  "admission": "Bind the existing owner continuation to the demonstrated Q23 blocker under ROOT_ACTIVATION. Default STDO3.0.4 same-family non-independence applies; no exception, novel family taxonomy or new Product outcome is admitted.",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "outcome": "Existing F11/F15 independence claims use actual configured identity through current ABG owners; unknown or ineligible required assessment cannot launch or become green.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "source": {
+    "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "tree": "ff447cb7c9cf04c2af9cc784ef3ff0e1892ab702",
+    "trackedClean": true
+  },
+  "authorities": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_IDENTITY_DISPOSITION.json",
+      "bytes": 3523,
+      "sha256": "fe0ac1db2499a2ec73456d50a9a8f57df4cf70ac23c1ccbc8ec375882f7b9497"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/IDENTITY_DESIGN_REENTRY.json",
+      "bytes": 20929,
+      "sha256": "7ec6f271253664b7a571d636ef65fddcf77015ed06795238b382368d91165876"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+      "bytes": 28638,
+      "sha256": "085c993048138ee929c07cd3be709e867fa51c3d0b0fe9bcf77497b1b8bc1c69"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/PROVENANCE_READINESS_REVIEW.json",
+      "bytes": 29844,
+      "sha256": "163d0a6484dab2b9f1f53a3519a95429479dcbb58affe894b8c75a765d08f574"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_PROVENANCE_SUPPLEMENT.json",
+      "bytes": 3754,
+      "sha256": "f223f1fa69ffcfad814b1d24c7c6b877923afa0bf48b82cd0680e12745500f92"
+    }
+  ],
+  "targetTruth": [
+    "One owner-defined configured actor/profile identity with exact source correspondence, checked against final composed transport arguments and captured environment; unknown or ambiguous effective selection remains unknown. No remote provider attestation claim.",
+    "Extend existing actor_transport_binding_admitted evidence and its canonical projection. Result/J consumers reuse existing invocation/binding refs; do not carry identity bodies through intermediate interfaces.",
+    "Existing qualification owners, not transport, apply source-bound policy. Distinct role/model names do not establish independence; same declared family is non-independent by default; unresolved family or prior authorship is unknown.",
+    "Existing call-bound preparation enforces required eligibility before dependent paid provider invocation; ordinary not_required work remains unchanged. Missing owner connection cannot bypass required qualification.",
+    "External attribution whose only sufficiency would come from the future J cannot establish its own pre-paid eligibility. Preserve unknown pending QR02 rather than fabricate earlier judgments or owner acknowledgments.",
+    "Minimal coherent HOW re-entry and finite tests on the existing owner path. One source-bound eligible native-provenance fixture and closest required negative cases, cold projection/readback where affected. No assertion of production F11 readiness from this component proof."
+  ],
+  "scope": {
+    "design": [
+      "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md"
+    ],
+    "codeOwners": [
+      "abg/transport_contracts.ts",
+      "abg/worker_transport.ts",
+      "abg/actor_process.ts",
+      "abg/event_store.ts",
+      "abg/c_call.ts",
+      "abg/qualification_proof.ts",
+      "validator/qualification_contracts.ts",
+      "validator/qualification.ts",
+      "implementation/leaf_invocation_port.ts"
+    ],
+    "codeRoot": "build_tenants/abiogenesis/typescript/code/src",
+    "tests": "Existing affected transport/actor/qualification tests; exact file territory bound by operator packet before dispatch. No broad test cleanup.",
+    "readScope": "Current Product, requirements and selected HOW, source-bound proposal/audits and material producer/consumer/library owners across the selected causal cone. Existing local tests/fixtures and necessary dependency closure. No private native provider reasoning/text/tool_result reads.",
+    "deferred": "QR02 historical surviving-contributor reconstruction; QR03 prospective resource restaging; actual positive paid F11/alternate-family routing until their prerequisites are sufficient. Existing source law unchanged."
+  },
+  "closureLaw": [
+    "Exact frozen successor source and explicit HOW/requirements correspondence",
+    "Focused meaningful positive/negative owner-path tests and affected build pass",
+    "Independent MAX frozen-source review alongside native Testing/UAT",
+    "Actual admitted C2, UAT and fresh result/replay conjoined within their scope; failures preserved",
+    "No duplicated owner contract, new registry/controller/store/event stream, or body baggage"
+  ],
+  "preserved": [
+    "N9 accepted source1f62c0095 and all historical failures",
+    "Immutable RC6 source/install/release",
+    "Unrelated dirty/untracked work and accepted R2b/R2c/D2/D3/F17"
+  ],
+  "controls": {
+    "directory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01",
+    "reuseCampaign": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001",
+    "resume": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/execution/after-run-resume.json",
+    "oneNativeCodingWorker": true,
+    "codingEffort": "xhigh",
+    "sourceReviewEffort": "max",
+    "setupRepeats": 0,
+    "diskFreeObserved": "7.8GiB; bounded staging only"
+  },
+  "stops": [
+    "Missing or inconsistent source-bound required policy/identity returns unknown rather than inferred permission",
+    "Cross-territory/Product law change returns to Root",
+    "Unexpected effects or failed discriminator requires causal triage before retry"
+  ],
+  "reserved": [
+    "push",
+    "merge",
+    "tag",
+    "publication",
+    "global selector change",
+    "stable-release claim",
+    "actual human acceptance"
+  ]
+}

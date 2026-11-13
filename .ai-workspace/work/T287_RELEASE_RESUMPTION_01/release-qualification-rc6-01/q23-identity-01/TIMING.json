@@ -1,0 +1,16 @@
+{
+  "kind": "q23_operator_and_native_timing",
+  "selectionUtc": "2026-11-05T15:31:35.082144+00:00",
+  "preflightStartUtc": "2026-11-05T15:59:34.962000+00:00",
+  "selectionToPreflightMs": 1679879.856,
+  "preflightMs": 17870.653834193945,
+  "dispatchAdmittedUtc": "2026-11-05T16:02:01.829841+00:00",
+  "setupRerun": false,
+  "nativeLaunchMs": null,
+  "betweenTaskMs": null,
+  "limits": "Operator selection/policy/control preparation is not runtime startup; this selection-based interval excludes earlier turn intake. No matched comparative performance claim.",
+  "dispatchUtc": "2026-11-05T16:02:09.665Z",
+  "dispatchToInitialSelectorProcessMs": 12331.0,
+  "dispatchToNativeWorkerProcessMs": 81973.0,
+  "nativeWorkerStartedUtc": "2026-11-05T16:03:31.638Z"
+}

@@ -1,0 +1,40 @@
+{
+  "lastCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:336d24b9bed7617f715a61f5ac58bf7fc204b6021d89000a6b2d7ba12041e407",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:5bafaf2e0f558500436ed65e7042c57ce294aaa5266029139a106a654e6ad15f",
+      "prefixLength": 3195666,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 681463484
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:45ed2ce4ca6b760ca435915a4f6748241dc91cf54276140076ba17b7d0714a90",
+      "device": 16777231,
+      "durableByteLength": 3195666,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:5bafaf2e0f558500436ed65e7042c57ce294aaa5266029139a106a654e6ad15f",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+      "inode": 681463484,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "ownerPid": 46056,
+  "expectedCurrent": {
+    "byteLength": 343947182,
+    "digest": "sha256:fd59afe44981b901a40c5b2ef9b359b952d4cc8b52bcda86041e48ddb7a40ed7"
+  },
+  "abandonedLock": {
+    "path": "/private/tmp/abiogenesis-rc4-runtime-01/abiogenesis-event-store-locks-v5/16777231-681463484.lock",
+    "device": 16777231,
+    "inode": 681495049,
+    "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NjgxNDYzNDg0LCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NDYwNTYsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+    "digest": "sha256:49b4e3b0c28694f34de566772f8d72e46a6093b4af439514d3b5f17a812a1873"
+  }
+}

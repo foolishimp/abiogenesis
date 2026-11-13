@@ -1,0 +1,42 @@
+[
+  {
+    "id": "transport",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/m5-worker-transport.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-02/tmp/a3/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 9354,
+    "tests": 23,
+    "pass": 23,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 23,
+    "failing": [],
+    "stdoutSha256": "6c864f95edaa023dba1e226b6647695286b5d5481fd916b308862d14473b3f4c",
+    "stdoutBytes": 6651,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "id": "qualification",
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/t287-result-evidence-lineage-projection.test.mjs test_env/tests/t287-qualification-producer-context.test.mjs test_env/tests/t287-qualification-contraction.test.mjs test_env/tests/t287-qualification-scopes.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/q23-identity-02/tmp/a3/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 5738,
+    "tests": 32,
+    "pass": 32,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 32,
+    "failing": [],
+    "stdoutSha256": "31edee55576f2288e95a5d740c6e479efc2d361f42f9025651a525fa26c9e087",
+    "stdoutBytes": 13722,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

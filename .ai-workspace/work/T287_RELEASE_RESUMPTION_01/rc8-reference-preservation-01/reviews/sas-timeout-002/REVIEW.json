@@ -1,0 +1,178 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; fixed fifteen families F01-F07, F09-F11, F13-F17; GOAL-035 / T-287 / RC8 REF-01.",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "productDefinitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "method": "STDO 3.0.4, manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; empty composition; installed stdo-review.",
+    "role": "Independent Reviewer; source/evidence reading only. Root alone owns acceptance, residual adoption and further execution.",
+    "classification": "ABG owns admission, immutable event identity and replay truth. Test setup and measured comparisons are Proof; source hashes, file custody and scheduling are deterministic tool/operating records, not new Runtime authority. SDK remains a thin caller."
+  },
+  "recordedUtc": "2026-11-07T10:36:41.102952+00:00",
+  "scope": "One completed external SAS command timeout on frozen A8. No full source re-audit, tests, imports, profiling, process actions or repair.",
+  "requirementsAndOwningHow": [
+    "EVENTS-001/002/003: sole event admission, replay truth and immutable identity; PUBLIC-CONTRACTS-004: exact identity retains schema/semantics/digest; PROJECTION-001/002/025: deterministic derivation, cold/live equivalence and exact subject/basis/provenance reuse.",
+    "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:648 (Runtime history prefixes and held event resources) retains history-wide complete-pair refusals, original F_H/construction join predicates, exact owner borrowing and copied/cold/stale/foreign/rollback authentication. Borrowing does not imply materialization-free total work.",
+    "Same HOW section 10.5 P-FH-PAIR: explicit RAW conditional reader proof is distinct from Event Store admission, held authority, installed F_H qualification or cold reopen. Section 10.9 governs maintained held setup. Section 10.11 owns the separately accepted RC8 reference refactor.",
+    "CONSOLIDATION_ADMISSION_003 selected all twelve cases plus final aggregate, under unchanged per-case limits and a one-hour command cap. Six partial passes do not satisfy that predicate."
+  ],
+  "subject": {
+    "sourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/source-freeze.json",
+      "bytes": 296040,
+      "sha256": "efba6bea8f3d0e1b0695772c18bdd731652b0f0652a2a878619b2445c073fc50"
+    },
+    "test": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 124657,
+      "sha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314"
+    },
+    "executedTestMatchesFrozenSha256": "977d406502ab8e795b11178bc2da7ac78badab952e92e92bd40fdff53ef97314",
+    "archive": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "compiledManifest": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102",
+    "custodyLimit": "Archive/compiled relation is the existing verified binding, not a fresh full-archive rehash in this review. Twelve reference-directed source files matched A8 manifest rows; no full inventory hashing repeated.",
+    "unchangedCase7": {
+      "bytes": 10877,
+      "sha256": "fb1e5e3773e2f1e34fac1aee5e2f11c663faf55591da48c35c83804ab55a8087",
+      "comparison": "Exact case-7 body equals original stage04; A7/A8 historical-profile edits are elsewhere."
+    },
+    "priorSourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-008/REVIEW.json",
+      "sha256": "239114a205733bbb66fa4c69b9ddc099926c5d365a03857e7fdd942baaa99224"
+    },
+    "priorNativeFailure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-008/BUDGET_TRIAGE.json",
+      "sha256": "d7aa2a76a126e8317b5703c8deaa8a31b965d4c2bb8a12b56cfa1b6a4802567f",
+      "standing": "Original A8 native Run runtime_failed at its separate 900 s absolute bound. This external command does not relabel it."
+    }
+  },
+  "verdict": {
+    "selectedWholeFileProof": "falsified",
+    "productSemanticCounterexample": "not observed",
+    "productPerformanceCause": "indeterminate",
+    "sourceAcceptance": "Root-owned; no new source change"
+  },
+  "findings": [
+    {
+      "id": "SAS-TIMEOUT-002",
+      "severity": "S3",
+      "title": "The selected complete SAS proof exceeded both its case-7 and command operating bounds.",
+      "trigger": "Unchanged case 7 under timeout 900000 ms, reached after six serial cases; whole command limited to 3600000 ms.",
+      "actual": "TAP reports ERR_TEST_FAILURE / testTimeoutFailure, test timed out after 900000ms, duration 919400.30575ms. Final command reports timedOut=true, SIGTERM, exitCode=null, truncated=false at 3600075.445625ms. RESULT is FAILED, counts=null; reporter has no end or full summary.",
+      "harm": "Whole-file/aggregate proof is unavailable. Case-7 complete-pair behavior has no passing receipt; cases 8-12 have no completed proof in this execution. There is no reported wrong value, missed refusal or admitted invalid operation.",
+      "likelihood": "This operating failure is observed on the exact subject. Recurrence probability and the underlying phase cost are not measured; the prior partial native stop is a separate budget failure.",
+      "failClosed": "Existing case and command limits reject completion credit. Operator reports source/input preservation, supervisor exit 1 and all proved test PIDs absent; Reviewer performed no process observation or signal. Runtime guards were not changed. No inference that every Product performance effect is contained.",
+      "dependentPaths": "Case 7 covers global invocation duplication and available refs, orphan construction-intent/selected-action/F_H admission order, mixed-arm unwritten refusal, warm/copied/cold equivalence, historical cuts, stale handoff and unrelated growth. Its timeout proves none of those assertions failed and does not complete their conjunction. Later maintained setup, RAW F_H pair and aggregate remain unproved here.",
+      "causalConfidence": "High for operating-limit/proof failure; insufficient for provisioning versus CLI versus owner computation versus cleanup, a regression, pathological replay, infinite loop, or unique CPU/host/disk cause.",
+      "scopeAndCost": "No Product or test algorithm repair follows from this receipt. A new exact-input two-case filtered proof is a small control change plus bounded execution; repeating all six completed cases spends about 42 measured minutes before reaching the gap. Later localization/closure of case 7 is separate work.",
+      "severityLimit": "S3 describes the demonstrated Proof interruption, not Executive priority or automatic promotion permission. Current Runtime latency impact remains unknown."
+    }
+  ],
+  "causalPath": [
+    {
+      "source": "test_env/tests/t287-single-address-space-consolidation.test.mjs:781-886",
+      "relation": "Two sequential fresh histories, A then B. Each calls runInstalledLanguageTest before the controlled operations. This case does not consume the 586361364-byte retained RC5 log."
+    },
+    {
+      "source": "test_env/support/installed-language-test.mjs:11-65; root-installed-environment.mjs:168-442; registered-graph-selection.mjs:416-454",
+      "relation": "Provision/install/load real owners, admit setup/workspace, construct and run the installed CLI call; default readback then runs run_result and run_replay with unchanged-log assertions. Planned maximum is three CLI calls for each successful Run. These awaited subprocess calls have no per-call timeout in this helper; whole-case bound encloses setup and readbacks. No phase timing was selected here."
+    },
+    {
+      "source": "test_env/tests/t287-single-address-space-consolidation.test.mjs:799-847",
+      "relation": "Reopen the actual Run handoff, establish exact Run facts, project two invocation refs plus F_H facts at each cut, admit contract-valid controls, compare fresh copied coordinates, close and refuse stale handoff, reopen fresh and compare every historical cut."
+    },
+    {
+      "source": "code/src/abg/effectful_invocation_truth.ts:121-248; artifact_truth.ts:841-856; event_prefix.ts:81-87; event_store.ts:3639-3667",
+      "relation": "Exact coordinates borrow authenticated owner derivations; unbound/copied coordinates authenticate bytes cold. Effectful truth derives artifact truth, exact Run pairs, F_H pairs and construction operations in the existing order, returning invalid_history for failed joins. Fresh-read semantics and identity checks remain in the owner."
+    },
+    {
+      "source": "code/src/abg/fh_continuation_projection.ts:825 onward; invocation_execution_truth.ts:436 onward",
+      "relation": "Class-indexed public/owner operations and historical boundaries drive the existing pair predicates. The case orchestration has finite controls/cuts, not a test-level retry loop; this reading is not a transitive termination or complexity proof."
+    },
+    {
+      "source": "test_env/tests/t287-single-address-space-consolidation.test.mjs:863-882",
+      "relation": "Only after each history returns do the outer assertions establish baseline values, first-refusal ordering and mixed-arm admission refusal. No per-phase marker proves whether this execution reached history B or any particular inner assertion."
+    }
+  ],
+  "budgetAssessment": {
+    "caseDurationsMs": [
+      303398.66275,
+      173051.529166,
+      194450.3735,
+      296420.326458,
+      722454.643625,
+      825489.000708,
+      919400.30575
+    ],
+    "firstSixMs": 2515264.536207,
+    "firstSevenMs": 3434664.841957,
+    "remainingOfHourAfterSevenMs": 165335.15804299992,
+    "declaredCaseCaps": "Six 600 s cases plus four 900 s cases total 7200 s, before case 9 (no explicit case cap), aggregate and overhead. This is an allocation envelope, not an assertion that each consumes its maximum.",
+    "observedConclusion": "One hour has no demonstrated margin for the remaining five cases on this common clock. Increasing only that outer cap cannot remove the actual case-7 900 s failure. The 19.4 s excess over the declared case limit is reported elapsed time, not a new cause diagnosis.",
+    "baselineLimit": "proof-10 MEASURED_BASELINE.json 774df745 measures selected retained-log operations (cold auth 14.835 s, owned prefix/liveness 1.964 s, expanded prefix 6.891 s, repeated owned read 0.000252 s). It does not time two fresh installed setups/CLI readbacks or complete case 7. Those historical values cannot justify a present full-file completion bound or a speedup/regression ratio."
+  },
+  "proofPopulation": {
+    "retained": "Cases 1-6 passed: retained-context/work counts; candidate-liveness fork isolation; class predicates; global Run pairs/foreign-vs-missing; installed warm/cold/stale/copied/foreign/rollback behavior; qualification cut invalidation and historical reuse. These are real positive evidence with their own predicates, not substitutes for case 7.",
+    "A8ChangedCases": "Cases 3/4 exercised A8 historical-profile coordinate repairs and passed. A8 retainedOwnedPrefix change at 1196-1222 serves cases 10/11, neither completed here. A8 coordinate fixture separately passed all 11 cases.",
+    "unproved": "Case 7 complete-pair controls; case 8 maintained SDK resource ownership/cleanup; case 9 RAW F_H response-pair controls; case 10 historical revision cuts; case 11 semantic stage authentication; case 12 final aggregate. Reporter shows no completed outcomes after case 7; do not infer finer execution progress from that absence.",
+    "aggregate": "Line 1362 requires the actual shared proof.cases population and writes the aggregate. A filtered run must exclude this aggregate and cannot fabricate it by joining partial records."
+  },
+  "recommendation": {
+    "smallestNow": "Subject to a new Root selection, run only unchanged case 10 (historical revision cuts) and case 11 (semantic stage authentication) against exact A8 source, compiled inputs, artifact and proof-10 inputs. Each independently constructs retainedOwnedPrefix and needs no earlier case state. Keep all identity, value, work-count and refusal assertions; no source edits, restamping, baseline substitution, builds or provider calls.",
+    "control": "Use a new versioned name-filtered control with expected selected population exactly 2, preserve actual reporter counts and excluded population, retain each 600 s limit, and provide an outer command budget exceeding their 1200 s sum plus startup/reporting margin (e.g. 1500 s), with separately budgeted materialization/conservation. This is an envelope, not a promise of success. No retry is implied.",
+    "boundedCredit": "If both pass and readbacks conserve the subject, conjoin them with existing SAS cases 3/4, coordinate 11/11 and source review for A8 fixture-maintenance evidence. Explicitly revise any prior whole-file prerequisite for that bounded claim; do not mark the failed full-file selection satisfied or manufacture a native successful Run.",
+    "residualOption": "For the explicitly unqualified REF-01 cut only, Root may retain a durable RC8-SAS-WHOLE-PROOF residual for case-7 timeout, cases 8/9 and the full-file/aggregate conjunction, adding cases 10/11 until their proof closes. This is defensible as a bounded evidence exclusion, not demonstrated Runtime performance containment. A full-SAS or qualification claim remains blocked.",
+    "triggerAndClosure": "Before claiming complete SAS/complete-pair warm-copied-cold proof, maintained-setup/RAW-pair coverage or release qualification, separately authorize phase evidence that locates provisioning, CLI execution/readbacks, projections/cold decoding or cleanup. Preserve original cases and refusals; require actual case-7 completion and all outstanding cases/aggregate with coherent budgets. A concrete current wrong/refused sunny-day result, missed guard or repeatable owner computation defect requires Product triage rather than automatic residual reuse.",
+    "notSelected": "No automatic rerun, deadline increase, profiling, optimization, helper API, test split/rewrite or source repair."
+  },
+  "evidencePins": {
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/RESULT.json",
+      "bytes": 733,
+      "sha256": "b6a00d23643936cea846ae154293c52cbc7ebe9ddd4e68da2723f5faf54a057f"
+    },
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/commands/test.result.json",
+      "bytes": 1483,
+      "sha256": "8554b5cb6047d41dfcb4f50cdd1d796f86445c70cebd38f4e5c7db4ed0b77ba9"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/commands/test.stdout",
+      "bytes": 40643,
+      "sha256": "22757fa83b7bb51f042699f7ea49928c47088a8e4d8c8dab0d03f735e8b7c4f3"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/events.jsonl",
+      "bytes": 3010,
+      "sha256": "bfb724fe5c145a33ebb87e211c511e9e8ece60b622b6a77511bd20679535f4e8"
+    },
+    "halt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/actual-002/HALT.json",
+      "bytes": 44910,
+      "sha256": "272e83b676600653d955d53c01cb5addc1470bceaeb17b9c5fae375a734b0be2"
+    },
+    "operatorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/OPERATOR_RETURN_REENTRY_003.json",
+      "bytes": 8655,
+      "sha256": "2b736982f6d72e0d859f938b22ddc0f09b3ec1cc6570abfa3374217e9cedc11d"
+    },
+    "admission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/CONSOLIDATION_ADMISSION_003.json",
+      "bytes": 2024,
+      "sha256": "fea0c1aef6671e794785f36a2127bdb7d17c54789871b9f40a5ed0fdc771fc6d"
+    },
+    "coordinateResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/coordinates-001/RESULT.json",
+      "bytes": 870,
+      "sha256": "1fd5cc47b8cb2c000a3474015f6882c395cfc4fa36b34027b03eed4a3f05f40e"
+    },
+    "baseline": {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+      "bytes": 5575,
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+    }
+  },
+  "effects": "Only this new review capsule was written. No Product/test/provider invocation, process inspection/signals, Git effects, source change, cleanup or full-inventory rehash."
+}

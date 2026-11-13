@@ -1,0 +1,22 @@
+{
+  "status": "UNBOUND_AWAITING_ACTUAL_AUTHOR02_FREEZE_CLOSE_AND_ROOT_ADMISSION",
+  "frozenSubject": null,
+  "actualResume": null,
+  "actualClosePrefix": null,
+  "rootControlAdmission": null,
+  "consumerBindingSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/CONSUMER_BINDING_RETAINED.json",
+    "bytes": 28708880,
+    "sha256": "66b6584dff16c8c3f4833650a2c780232d1bd58434aa5e05cb9088d7eae63dad"
+  },
+  "overlayFields": [
+    "binding",
+    "catalog",
+    "catalogView"
+  ],
+  "sourceBasis": "none",
+  "limit": "No final subject/result/handoff/close is bound. Root supplies the actual complete author02 freeze and genuine final close, reconciles all pins, then admits finalization. Prior author01/setup/proof closes are prohibited.",
+  "expectedAuthorDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02",
+  "actualClose": null,
+  "authorHandoffs": null
+}

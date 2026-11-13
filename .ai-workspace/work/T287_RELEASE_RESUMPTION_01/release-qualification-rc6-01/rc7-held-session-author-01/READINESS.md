@@ -1,0 +1,15 @@
+# HS01 operator preparation
+
+**PREPARED_NOT_STAGED_NOT_DISPATCHED.** User build authority and F1–F7 corrections are recorded in the native task/grant and T-287 current plan. This Writer changed controls and that ticket only.
+
+F's actual SDK return, one outer close and both full typed cold reads are closed; source remains bounded partial under F-FIXED-SOURCE-001. F2 is executing its separate five-path admission repair. **HS01 source, maintained checker, successor close/resume and Root admission remain unbound until actual F2 disposition.** F450 is a frozen reference, never prospective acceptance.
+
+The packet reuses F's successful one-process SDK host, exported maintained checker route and existing launcher/stage/lane owners. It retains the acquired resource/caller/environment/call in memory, records stable preparation metadata, and persists the genuine owner outcome/SDK receipt/completion successor before one outer close. No copied checker, call-capability serialization, fresh-CLI author boundary or extra controller was added. The provider wrapper is executable; launch retains availability checks without executing it during preparation.
+
+The finite cone is **27 existing paths**, with450 frozen reference source/resource rows (12,255,245 bytes),290 TypeScript sources,19 planned native inputs and3 handoffs:472 context entries. The baseline inventory is external custody metadata, excluded from native context. Actual rendered capacity remains Root preflight; the planning estimate is45–90kB against1MiB, using F's actual42,811-byte order as reference.
+
+Root-selected ceilings are320turns,90minutes absolute,30minutes inactivity,3hours host,8GiB; four stages/eight serial300-second lane invocations. Allocation is before, measured held-session before deletion, final held-session after justified deletion/no-deletion, then exact read-owner/caller/fixed-route/cold-resume/body lanes on the same final source. Positive Node filters partition the two cold tests. Three historical fixed-route cases remain uncovered; mandatory new/current proof cannot skip. Stages emit source/HOW freeze receipts before build/feedback, allowing max review while native tests run.
+
+Native order is owning HOW → borrowed reads/completion/contracts → canonical held caller → exact counters/installed proof → only justified S2/S7 retirement. Cold/recovery/body/historical-cut/provenance reachability is required before deletion. Canonical regeneration/C2 pins and full same-boundary warm/cold equality are mandatory. Preserve S4; no S5 coding. Q2/Q3 await Root before HS03; S3 stays withdrawn and S6 conditional. Under30s is a forecast.
+
+Root's remaining work is finite: dispose F2; bind source/checker/actual close by reference; materialize/admit the19 inputs and exact dispatch manifest; run the existing owner preflight and one native Worker. Subsequent frozen review, installed proof and actual cold reads remain Root-owned. Syntax and static packet relations passed. No build/test, C staging, SDK/runtime/provider/credential/network or Git/release effect occurred here. This is no independent review or acceptance claim.

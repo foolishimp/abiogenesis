@@ -1,0 +1,605 @@
+{
+  "schema": "passive_runtime_observation_v2",
+  "attempt": "006",
+  "source_commit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "sourceBasis": "admitted_source_result",
+  "started": "2026-11-01T23:56:55.078Z",
+  "dispatch_pid": 98468,
+  "root_exec_session": 93196,
+  "manifest_sha256": "c4f6da32c021db72172e5e47107ef3d8b7ffa70d8b66fea23354a3d83bed9fee",
+  "status": "CLOSED_RUNTIME_FAILED",
+  "run_ids": [
+    "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+  ],
+  "event_observation": {
+    "initial_cursor": 314517064,
+    "cursor": 376089208,
+    "incremental_complete_rows": 424,
+    "incremental_kind_counts": {
+      "public_operation_admitted": 1,
+      "invocation_admitted": 1,
+      "implementation_admitted": 1,
+      "abg_admitted_body_reference_record": 3,
+      "run_segment_opened": 1,
+      "graph_call_opened": 3,
+      "frame_opened": 3,
+      "runtime_activity_probe_observed": 218,
+      "traversal_cursor_entered": 3,
+      "c_call_opened": 6,
+      "c_call_fibre_selected": 6,
+      "c_call_evidenced": 6,
+      "c_call_judged": 6,
+      "c_call_result_admitted": 5,
+      "traversal_route_admitted": 5,
+      "actor_transport_binding_admitted": 1,
+      "actor_invocation_started": 1,
+      "actor_process_started": 1,
+      "actor_process_stdout_observed": 147,
+      "actor_process_exited": 1,
+      "actor_result_artifact_observed": 1,
+      "actor_invocation_closed": 1,
+      "basis_admitted": 1,
+      "child_foldback_admitted": 1,
+      "runtime_failure_observed": 1
+    },
+    "incremental_kind_row_bytes": {
+      "public_operation_admitted": 4349,
+      "invocation_admitted": 635966,
+      "implementation_admitted": 53553,
+      "abg_admitted_body_reference_record": 19175,
+      "run_segment_opened": 2359,
+      "graph_call_opened": 7613,
+      "frame_opened": 7868,
+      "runtime_activity_probe_observed": 909419,
+      "traversal_cursor_entered": 9341,
+      "c_call_opened": 16240,
+      "c_call_fibre_selected": 13710,
+      "c_call_evidenced": 19314,
+      "c_call_judged": 15473,
+      "c_call_result_admitted": 57478685,
+      "traversal_route_admitted": 296206,
+      "actor_transport_binding_admitted": 1471614,
+      "actor_invocation_started": 2576,
+      "actor_process_started": 1861,
+      "actor_process_stdout_observed": 277250,
+      "actor_process_exited": 1777,
+      "actor_result_artifact_observed": 15844,
+      "actor_invocation_closed": 15293,
+      "basis_admitted": 289124,
+      "child_foldback_admitted": 3997,
+      "runtime_failure_observed": 3537
+    },
+    "cold_prefix_validated": false,
+    "stat_bytes": 376089208,
+    "last_ordinal": 25432,
+    "last_time": "2026-11-02T00:01:10.041Z",
+    "appended_bytes": 61572144,
+    "evidence_limit": "Incremental complete physical JSONL records and serialized row-byte accounting; no validated cold-prefix or body-only accounting claim."
+  },
+  "actors": {
+    "actor-invocation://abiogenesis/58d16805c8f6315cef49bf96c477c5d730018c765115a8370c50717406d3547c": {
+      "implementation": "implementation://abiogenesis/default-library/select@5",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "run_id": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11",
+      "last_event_kind": "actor_invocation_closed",
+      "last_ordinal": 25365,
+      "last_time": "2026-11-02T00:00:49.439Z",
+      "pid": 924,
+      "exited": true,
+      "process_alive": false,
+      "exit_status": 0
+    }
+  },
+  "archives": {
+    "fp-db7674c0c8753507-stdout.log": {
+      "cursor": 308835,
+      "tool_counts": {
+        "StructuredOutput": 1
+      },
+      "provider_result": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 2,
+        "duration_ms": 73686,
+        "duration_api_ms": 61744,
+        "total_cost_usd": 2.6669959999999997,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 318756,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 5847,
+          "output_tokens_details": {
+            "thinking_tokens": 2013
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 318756,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 5847,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 318756,
+            "webSearchRequests": 0,
+            "costUSD": 2.6669959999999997,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 2013,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "terminal_reason": "completed",
+        "stop_reason": "tool_use"
+      },
+      "stat_bytes": 308835,
+      "output_path": "runtime-001/resources/archives/fp-db7674c0c8753507-output.txt"
+    }
+  },
+  "tool_requests": {
+    "toolu_011sw6haBCdMJ63yppMNQo8g": {
+      "tool": "StructuredOutput",
+      "id": "toolu_011sw6haBCdMJ63yppMNQo8g",
+      "path": "",
+      "command_excerpt": "",
+      "test_or_build_candidate": false
+    }
+  },
+  "explicit_skill_observations": [],
+  "settings_design_reads": [],
+  "milestones": [
+    {
+      "observation_kind": "actual_run_observed",
+      "observed_at": "2026-11-01T23:59:32.779254+00:00",
+      "run_id": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11",
+      "ordinal": 25013,
+      "time": "2026-11-01T23:59:09.243Z"
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-01T23:59:32.901635+00:00",
+      "event_kind": "actor_invocation_started",
+      "ordinal": 25059,
+      "time": "2026-11-01T23:59:30.812Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": null,
+      "status": null
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-01T23:59:32.901676+00:00",
+      "event_kind": "actor_process_started",
+      "ordinal": 25060,
+      "time": "2026-11-01T23:59:30.856Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": 924,
+      "status": null
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T00:01:02.922487+00:00",
+      "event_kind": "actor_process_exited",
+      "ordinal": 25362,
+      "time": "2026-11-02T00:00:48.679Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": null,
+      "status": 0
+    },
+    {
+      "observation_kind": "actor_event",
+      "observed_at": "2026-11-02T00:01:02.922527+00:00",
+      "event_kind": "actor_invocation_closed",
+      "ordinal": 25365,
+      "time": "2026-11-02T00:00:49.439Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "pid": null,
+      "status": null
+    },
+    {
+      "observation_kind": "role_graph_call_opened",
+      "observed_at": "2026-11-02T00:01:02.922582+00:00",
+      "ordinal": 25402,
+      "time": "2026-11-02T00:01:01.927Z",
+      "graph": "graph-function://abiogenesis/default-library/testing@5",
+      "graphCallId": "graph-call://abiogenesis/f4903b34bcbe4bd861143f5cd7c60843e817d832b4681d77ddfba1e1c290a0d6",
+      "stageRole": "result",
+      "evidence_limit": "Observed call start, not successful stage completion."
+    },
+    {
+      "observation_kind": "provider_result",
+      "observed_at": "2026-11-02T00:01:02.924546+00:00",
+      "archive": "fp-db7674c0c8753507-stdout.log",
+      "result": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 2,
+        "duration_ms": 73686,
+        "duration_api_ms": 61744,
+        "total_cost_usd": 2.6669959999999997,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 318756,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 5847,
+          "output_tokens_details": {
+            "thinking_tokens": 2013
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 318756,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 5847,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 318756,
+            "webSearchRequests": 0,
+            "costUSD": 2.6669959999999997,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 2013,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "terminal_reason": "completed",
+        "stop_reason": "tool_use"
+      },
+      "output_path": "runtime-001/resources/archives/fp-db7674c0c8753507-output.txt"
+    },
+    {
+      "observation_kind": "runtime_failure",
+      "observed_at": "2026-11-02T00:01:47.933091+00:00",
+      "ordinal": 25432,
+      "time": "2026-11-02T00:01:10.041Z",
+      "graph": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "payload": {
+        "diagnosticRef": "data:application/json;charset=utf-8,%7B%22cause%22%3Anull%2C%22computeRegime%22%3A%22F_D%22%2C%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fdefault-library%2Fmissing-owned-prepare-testing%405%22%2C%22implementationRef%22%3A%22implementation%3A%2F%2Fabiogenesis%2Fdefault-library%2Fprepare-testing%405%22%2C%22inputDigest%22%3A%22sha256%3A2138b40b3946302a8b6f16851f15fa2055b0ec9309921d5fa4b1bf135ef1ba82%22%2C%22occurrence%22%3A%7B%22attempt%22%3A1%2C%22cCallRef%22%3A%22c-call%3Asha256%3Ab9a37c86acb1df50bbbd4d3bcb655b0860b3bf9f448065df35d1598097ed3cf1%22%2C%22frameId%22%3A%22frame%3A%2F%2Fabiogenesis%2F1c5541944b08fbf7285e066414f66b7278eb83f00da0b041d65cec6bf463d093%22%2C%22graphCallId%22%3A%22graph-call%3A%2F%2Fabiogenesis%2Ff4903b34bcbe4bd861143f5cd7c60843e817d832b4681d77ddfba1e1c290a0d6%22%2C%22programLocusRef%22%3A%22graph-function%3A%2F%2Fabiogenesis%2Fdefault-library%2Ftesting%405%2Fprepare%22%2C%22runId%22%3A%22run%3A%2F%2Fabiogenesis%2F4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11%22%2C%22taskOrdinal%22%3Anull%7D%2C%22relation%22%3A%22resource_absent%22%2C%22selectors%22%3A%7B%7D%2C%22stage%22%3A%22native_historical_declaration%22%7D",
+        "failureDigest": "sha256:8eaca3c1de10382ec069fdbe0dc2cc885aeb5a3800ffe94beb920d058c6a70cd",
+        "failureRef": "runtime-failure://abiogenesis/8eaca3c1de10382ec069fdbe0dc2cc885aeb5a3800ffe94beb920d058c6a70cd",
+        "stage": "route"
+      }
+    },
+    {
+      "observation_kind": "wrapper_artifact",
+      "observed_at": "2026-11-02T00:02:32.936766+00:00",
+      "path": "attempt-006/execution/execution.json",
+      "bytes": 31583675
+    },
+    {
+      "observation_kind": "wrapper_artifact",
+      "observed_at": "2026-11-02T00:02:32.936880+00:00",
+      "path": "attempt-006/execution/outcome-summary.json",
+      "bytes": 646,
+      "contents": {
+        "ended": "2026-11-02T00:02:06.370Z",
+        "exitCode": 0,
+        "outcomeKind": "result",
+        "disposition": "runtime_failed",
+        "run": {
+          "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+          "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+        },
+        "terminal": null,
+        "sourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+        "qualification": false,
+        "R2Closure": false,
+        "meaning": "Fresh retained work. Any predecessor-context refusal is exact evidence for Root; no bypass or replayed progress."
+      },
+      "ended": "2026-11-02T00:02:06.370Z",
+      "exitCode": 0,
+      "outcomeKind": "result",
+      "disposition": "runtime_failed",
+      "run": {
+        "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+        "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+      },
+      "terminal": null,
+      "sourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+      "qualification": false,
+      "R2Closure": false,
+      "meaning": "Fresh retained work. Any predecessor-context refusal is exact evidence for Root; no bypass or replayed progress."
+    },
+    {
+      "observation_kind": "wrapper_artifact",
+      "observed_at": "2026-11-02T00:04:02.950106+00:00",
+      "path": "attempt-006/execution/fresh-reads.json",
+      "bytes": 2396,
+      "contents": [
+        {
+          "memberKey": "run_result",
+          "ownerOutput": {
+            "outcomeKind": "refusal",
+            "value": {
+              "code": "not_found",
+              "evidenceRefs": [],
+              "issuePaths": []
+            }
+          }
+        },
+        {
+          "memberKey": "run_replay",
+          "projection": {
+            "fromOrdinal": 0,
+            "kind": "run_replay_projection",
+            "limit": 4096,
+            "replay": {
+              "digest": "sha256:6a27059bdd843e15cfcb2c8a01b85194f38126e89cd7d76e29ccf8bf27d7cf75",
+              "ref": "replay://abiogenesis/6a27059bdd843e15cfcb2c8a01b85194f38126e89cd7d76e29ccf8bf27d7cf75"
+            },
+            "status": "failed",
+            "subject": {
+              "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+              "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+            },
+            "terminalResult": null
+          },
+          "source": {
+            "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+            "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+          },
+          "ownerOutput": {
+            "outcomeKind": "result",
+            "value": {
+              "caseKey": "run_replay",
+              "projection": {
+                "fromOrdinal": 0,
+                "kind": "run_replay_projection",
+                "limit": 4096,
+                "replay": {
+                  "digest": "sha256:6a27059bdd843e15cfcb2c8a01b85194f38126e89cd7d76e29ccf8bf27d7cf75",
+                  "ref": "replay://abiogenesis/6a27059bdd843e15cfcb2c8a01b85194f38126e89cd7d76e29ccf8bf27d7cf75"
+                },
+                "status": "failed",
+                "subject": {
+                  "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+                  "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+                },
+                "terminalResult": null
+              },
+              "projectionBasis": {
+                "digest": "sha256:6d015b28790780e92275896d460433ffdec6c82f1dce2f05fe3117f6dd5a3979",
+                "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl"
+              },
+              "source": {
+                "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+                "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "wrapper_artifacts": {
+    "execution.json": {
+      "path": "attempt-006/execution/execution.json",
+      "bytes": 31583675
+    },
+    "outcome-summary.json": {
+      "path": "attempt-006/execution/outcome-summary.json",
+      "bytes": 646,
+      "contents": {
+        "ended": "2026-11-02T00:02:06.370Z",
+        "exitCode": 0,
+        "outcomeKind": "result",
+        "disposition": "runtime_failed",
+        "run": {
+          "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+          "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+        },
+        "terminal": null,
+        "sourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+        "qualification": false,
+        "R2Closure": false,
+        "meaning": "Fresh retained work. Any predecessor-context refusal is exact evidence for Root; no bypass or replayed progress."
+      },
+      "ended": "2026-11-02T00:02:06.370Z",
+      "exitCode": 0,
+      "outcomeKind": "result",
+      "disposition": "runtime_failed",
+      "run": {
+        "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+        "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+      },
+      "terminal": null,
+      "sourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+      "qualification": false,
+      "R2Closure": false,
+      "meaning": "Fresh retained work. Any predecessor-context refusal is exact evidence for Root; no bypass or replayed progress."
+    },
+    "fresh-reads.json": {
+      "path": "attempt-006/execution/fresh-reads.json",
+      "bytes": 2396,
+      "contents": [
+        {
+          "memberKey": "run_result",
+          "ownerOutput": {
+            "outcomeKind": "refusal",
+            "value": {
+              "code": "not_found",
+              "evidenceRefs": [],
+              "issuePaths": []
+            }
+          }
+        },
+        {
+          "memberKey": "run_replay",
+          "projection": {
+            "fromOrdinal": 0,
+            "kind": "run_replay_projection",
+            "limit": 4096,
+            "replay": {
+              "digest": "sha256:6a27059bdd843e15cfcb2c8a01b85194f38126e89cd7d76e29ccf8bf27d7cf75",
+              "ref": "replay://abiogenesis/6a27059bdd843e15cfcb2c8a01b85194f38126e89cd7d76e29ccf8bf27d7cf75"
+            },
+            "status": "failed",
+            "subject": {
+              "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+              "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+            },
+            "terminalResult": null
+          },
+          "source": {
+            "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+            "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+          },
+          "ownerOutput": {
+            "outcomeKind": "result",
+            "value": {
+              "caseKey": "run_replay",
+              "projection": {
+                "fromOrdinal": 0,
+                "kind": "run_replay_projection",
+                "limit": 4096,
+                "replay": {
+                  "digest": "sha256:6a27059bdd843e15cfcb2c8a01b85194f38126e89cd7d76e29ccf8bf27d7cf75",
+                  "ref": "replay://abiogenesis/6a27059bdd843e15cfcb2c8a01b85194f38126e89cd7d76e29ccf8bf27d7cf75"
+                },
+                "status": "failed",
+                "subject": {
+                  "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+                  "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+                },
+                "terminalResult": null
+              },
+              "projectionBasis": {
+                "digest": "sha256:6d015b28790780e92275896d460433ffdec6c82f1dce2f05fe3117f6dd5a3979",
+                "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl"
+              },
+              "source": {
+                "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+                "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "provider_reported": {
+    "completed_reports": 1,
+    "known_completed_cost_subtotal_usd": 2.666996,
+    "total_cost_usd": 2.666996,
+    "inflight_cost_usd": null,
+    "basis": "One completed selector provider report at list cost; not billing verification. Prior completed $60.7322358 excluded from attempt006.",
+    "prior_attempts_cost_usd_excluded": 60.7322358,
+    "inflight_actor_count": 0,
+    "total_with_prior_completed_usd": 63.3992318
+  },
+  "qualification": false,
+  "release": false,
+  "point_one_complete": false,
+  "preparation_separate": {
+    "basis": "Root reviewed frozen manifest; prior attempt preparation statistics not reused"
+  },
+  "provider_limits": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/PROVIDER_PROFILE.json",
+    "bytes": 3255,
+    "sha256": "9f612b25fb81acce3ffda6172689905ca4c4d9e3b1b9b2ce24538953ac28a753"
+  },
+  "call_canonical_sha256": "a0c6105eed8fe41100cb3450408f5cf5cf774a580f00dbbff2da00b797849d65",
+  "evidence_limit": "Fresh retained-work start from genuine attempt005 completed Construction; not pending-frontier recovery or R2 proof. Actual reuse and Testing/UAT must be observed.",
+  "limits": "Retained files/process metadata only. No Product/API/source/Git/test/build/provider calls by observer. No acceptance or validated cold-prefix claim.",
+  "observed_at": "2026-11-02T00:04:44.132413+00:00",
+  "dispatch_alive": false,
+  "observed_role_graph_calls": [
+    {
+      "ordinal": 25402,
+      "time": "2026-11-02T00:01:01.927Z",
+      "graph": "graph-function://abiogenesis/default-library/testing@5",
+      "graphCallId": "graph-call://abiogenesis/f4903b34bcbe4bd861143f5cd7c60843e817d832b4681d77ddfba1e1c290a0d6",
+      "stageRole": "result",
+      "evidence_limit": "Observed call start, not successful stage completion."
+    }
+  ],
+  "observation_closed": true,
+  "sourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+  "final_observation": {
+    "outcome_summary": {
+      "ended": "2026-11-02T00:02:06.370Z",
+      "exitCode": 0,
+      "outcomeKind": "result",
+      "disposition": "runtime_failed",
+      "run": {
+        "digest": "sha256:3c7d0b5bc4dc10db2a8546f550043b3d9e3294a6eccf60a044c0056be7152a07",
+        "ref": "run://abiogenesis/4111362c712888e39aa29e7bf6c4646a0585a6b935d2b5f36000991d5ef01d11"
+      },
+      "terminal": null,
+      "sourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+      "qualification": false,
+      "R2Closure": false,
+      "meaning": "Fresh retained work. Any predecessor-context refusal is exact evidence for Root; no bypass or replayed progress."
+    },
+    "host_execution": {
+      "started": "2026-11-01T23:56:55.708Z",
+      "wallMs": 310006.159542,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    "host_receipt_failure": null,
+    "fresh_read_summary": {
+      "run_result": "refusal/not_found",
+      "run_replay": "failed",
+      "terminalResult": null
+    },
+    "actual_fp_roles": {
+      "selection": 1,
+      "native_construction": 0,
+      "command_execution": 0,
+      "assessment": 0,
+      "other": 0
+    },
+    "actual_testing_prepare": {
+      "opened_ordinal": 25402,
+      "opened_at": "2026-11-02T00:01:01.927Z",
+      "failure_result_ordinal": 25409,
+      "runtime_failure_ordinal": 25432,
+      "runtime_failure_at": "2026-11-02T00:01:10.041Z",
+      "diagnosticClassRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-testing@5",
+      "relation": "resource_absent",
+      "stage": "native_historical_declaration",
+      "implementationRef": "implementation://abiogenesis/default-library/prepare-testing@5",
+      "resultClass": "failure",
+      "valueKind": "governance_failure"
+    },
+    "observation_helpers_exited": true,
+    "no_runtime_intervention": true
+  },
+  "retained_construction_selection": {
+    "output": "runtime-001/resources/archives/fp-db7674c0c8753507-output.txt",
+    "subjectEvidenceRef": "result://abiogenesis/0dbf0d3bc826245b7b290aed0b6b419b71d88bb3fef81d33c2faa52e423005c2",
+    "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+    "gaps": [],
+    "revisionReason": "This revises prior judgment cd0012f6\u2026, which selected Construction as the first unmet link. Construction has since completed and returned native-work Result 0dbf0d3b\u2026, and the current worksite observation shows its changed paths and an empty missing-selected-path set.\n\nThe Construction row is retired from this mapping as completed work. It is cited through evidenceRefs and not rerun. Testing's dependency on Construction is now satisfied by that prior Result rather than by a current-mapping row, and Testing binds that Result as its subject.\n\nThe UAT row is preserved, now depending on Testing, with explicit attention to the residuals the Construction report disclosed. No new Induction, Specification or Design activation is warranted: the existing task, rubric, requirements and Root diagnosis remain sufficient, and no counterevidence invalidates them.\n\nRevisit this mapping if C2 measurement or UAT exposes a candidate failure requiring bounded local repair, or if the worksite observation changes the candidate bytes.",
+    "observed_construction_repeat": false,
+    "limit": "Selector acknowledged retained completed Construction and selected Testing. Consumer preparation failed; no successful C2 reuse, pending-frontier recovery, original R2 or acceptance follows."
+  },
+  "skill_effectiveness_limit": "No explicit skill read observed in the one selector session. No isolated skill effectiveness inference."
+}

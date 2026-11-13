@@ -1,0 +1,47 @@
+{
+  "id": "RC11-PREP-01-WRITER",
+  "utc": "2026-11-09T06:11:23.790056+00:00",
+  "role": "Writer/Operator",
+  "actor": "/root/rc10_operator",
+  "effort": "xhigh",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SELECTION.json",
+    "bytes": 1687,
+    "sha256": "6570f98651c4a4c2df803c2b0a78198bb6b5dbc3f85a753eb29fbf4ce5b9fdf3"
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "frame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "stdo": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "nativeSkill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    }
+  },
+  "worktree": "/private/tmp/abg-rc11-qualification-20261109",
+  "branch": "codex/rc11-qualification",
+  "operations": [
+    "Verify exact RC10 builder pins, accepted source commit/tree and fresh branch/path absence.",
+    "git worktree add --no-checkout -b codex/rc11-qualification /private/tmp/abg-rc11-qualification-20261109 93a0de75a16c9e4cd29ec561d159b12add4bb3fd.",
+    "Initialize cone sparse checkout and select build_tenants/abiogenesis/typescript and specification; materialize exact HEAD only.",
+    "Create read-only-authority node_modules symlink to the previously pinned shared dependency root; no install or dependency mutation.",
+    "Inventory materialized baseline, preserve exact original source/RC10/main/RC9 guards and prepare reusable fresh imported Public setup route; no runtime identity exists yet.",
+    "Prepend the admitted concise current selection in main GOALS/T287, conserving their prior complete bytes.",
+    "Return exact preparation pins/dependencies to Root and stop before source-scope conjoining/setup/dispatch."
+  ],
+  "limits": "No source change/commit, runtime allocation/provider, build/tests/install, review activation, main merge, evidence deletion or selector change. Shared filesystem; no technical isolation claim.",
+  "stops": "Missing/stale/dirty baseline, existing target/branch, conflicting ownership, missing native authority or unexpected effects returns without repair/retry.",
+  "returnTo": "/root Executive"
+}

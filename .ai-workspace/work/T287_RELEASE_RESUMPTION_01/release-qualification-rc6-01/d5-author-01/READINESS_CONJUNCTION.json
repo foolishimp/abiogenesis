@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-05T22:00:00.693958+00:00",
+  "qr02": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr02-materials-01/PREPARATION_RETURN.json",
+    "bytes": 4693,
+    "sha256": "ed015a808745d66908c73e781f17f15b010fe0cb489440b92166def050a36c3f"
+  },
+  "qr03": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR03_PROVIDER_ROUTE_READINESS.json",
+    "bytes": 23566,
+    "sha256": "fb11ed28f67244c4bc97265b62bdd90de3172af2356fd700f4f37e9435c50da2"
+  },
+  "standing": "Closed contributing readiness consumed by Root; no new code or provider activation. D5 remains sole active native coder."
+}

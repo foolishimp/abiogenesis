@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-installed-qualification-conservation.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 683.5477089999986,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "installed qualification conservation over the installed territory, package, archive and pinned interpreter",
+      "file": "test_env/tests/t287-installed-qualification-conservation.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_INSTALLED_CONSERVATION_ROOT, _PACKAGE_ROOT, _ARCHIVE or _NODE unset; requires the installed conservation territory, the installed package, its archive and the pinned interpreter",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/events/098-t287-installed-qualification-conservation.jsonl",
+    "bytes": 1037,
+    "sha256": "9f3206f967a538977b7650fa9e58d870f9eada00f5a3ba54ee41811b18143589"
+  },
+  "commandReceipt": "commands/098-t287-installed-qualification-conservation.result.json",
+  "workspace": "/private/tmp/abg-r8c-011/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

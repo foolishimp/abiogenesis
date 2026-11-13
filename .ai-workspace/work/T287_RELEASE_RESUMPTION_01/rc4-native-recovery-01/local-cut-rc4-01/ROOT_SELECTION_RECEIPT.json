@@ -1,0 +1,24 @@
+{
+  "status": "ROOT_SELECTED_EXACT_LOCAL_INSTALL_PACKET_FILE_VERIFIED",
+  "recordedAt": "2026-11-03T04:08:58.798264+00:00",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/INPUT_MANIFEST.json",
+    "bytes": 11321,
+    "sha256": "392daf56b628641f4070ab330e37c8b584cadbc669f72146fe85e51ecba5658d"
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/ROOT_AUTHORITY.md",
+    "bytes": 2590,
+    "sha256": "3733ae763e8e5e4a69bc1dc54a87dbfa868003fcb8cebd1f315a85ce9416b6e6"
+  },
+  "reviewedPreselection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/INPUT_MANIFEST.preselection.json",
+    "sha256": "c10ac1aa0eb7dddf3701768ee1692e7cb76ed0cf394c200ca17c6d901113e445"
+  },
+  "currentFilePinsVerified": 25,
+  "archivePinVerified": true,
+  "toolPinsVerified": 4,
+  "sourceHeadTreeAndTrackedCleanVerified": true,
+  "freshRootsAbsent": true,
+  "writerRuntimeProviderInstallCalls": 0
+}

@@ -1,0 +1,58 @@
+{
+  "at": "2026-11-08T19:21:14.812Z",
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-007.json",
+    "bytes": 47083,
+    "sha256": "a2ba7d6fd3f757329cdcdb95002e684d91dce89ec17e1f9288ee375e456828ee"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-001/BOUND_INVENTORY.json",
+    "bytes": 1701389,
+    "sha256": "e75c167187c939e5c54e5de207d978697829ba953e7fea944dae28ed05d2966d"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_007_RUN_ADMISSION.json",
+    "bytes": 4089,
+    "sha256": "051fcf4bf6a445d2dd7b00c6892572baab6a2cdf1b6bb75b75ee88427df0e138"
+  },
+  "subject": {
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceCommit": null,
+    "sourceTree": null,
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "builder": "5.0.0-rc.8",
+    "method": "stdo://releases/v3.0.4/"
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/private/tmp/abg-r9c-broad-001/b:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r9c-broad-001/t",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-r9c-broad-001/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-r9c-broad-001/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-r9c-broad-001/n",
+    "npm_config_offline": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "ABG_TS_CLAUDE_COMMAND": "/private/tmp/abg-r9c-broad-001/UNSELECTED_PROVIDER",
+    "ABG_TS_LIVE_CLAUDE_COMMAND": "/private/tmp/abg-r9c-broad-001/UNSELECTED_PROVIDER",
+    "ABI5_UAT_UNIT_ROOT": "/private/tmp/abg-r9c-broad-001/w/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat-units"
+  },
+  "bounds": {
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "overallMs": 14400000,
+    "defaultFileMs": 600000,
+    "outputBytes": 16777216,
+    "pollMs": 10000,
+    "nodeHeapMiB": 8192
+  },
+  "primaryStage": "/private/tmp/abg-r9-owner-native-003/stage-01/work",
+  "primaryStageWritesSelected": 0,
+  "providerCallsSelected": 0,
+  "resourceEnforcement": "Ten-second monitored operational stop plus file boundaries; not a quota. Overshoot and detached descendants remain possible."
+}

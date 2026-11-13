@@ -1,0 +1,32 @@
+{
+  "kind": "current_fixture_support_identity",
+  "recordedUtc": "2026-11-03T23:16:51.749940+00:00",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-support-current-001/root-cli-environment.mjs",
+      "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+      "bytes": 9963,
+      "equalImmutableF49": true,
+      "selectedCurrentC2": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-support-current-001/root-installed-environment.mjs",
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511",
+      "bytes": 42751,
+      "equalImmutableF49": true,
+      "selectedCurrentC2": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/developer-mini-product.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/fixture-support-current-001/developer-mini-product.mjs",
+      "sha256": "9c1aaa148aee8a1403db0f068fc47afa16a147c0be7d27c1bd74ddc7c9f4b39a",
+      "bytes": 13419,
+      "equalImmutableF49": true,
+      "selectedCurrentC2": true
+    }
+  ],
+  "standing": "Passive frozen current support bytes, independently equal exact f49 git objects; no execution/source acceptance."
+}

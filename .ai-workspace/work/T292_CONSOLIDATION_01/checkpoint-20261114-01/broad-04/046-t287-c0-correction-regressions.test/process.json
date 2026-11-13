@@ -1,0 +1,32 @@
+{
+  "label": "046-t287-c0-correction-regressions.test",
+  "started": "2026-11-13T11:03:48.290869+00:00",
+  "ended": "2026-11-13T11:04:57.739178+00:00",
+  "wallMs": 69448,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/046-t287-c0-correction-regressions.test/stdout.raw",
+      "bytes": 855,
+      "sha256": "a3825f5d87a3aad85340c834e4755612f18d3fc5d38e918b8a1f8319d517e8ab"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/046-t287-c0-correction-regressions.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 10,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

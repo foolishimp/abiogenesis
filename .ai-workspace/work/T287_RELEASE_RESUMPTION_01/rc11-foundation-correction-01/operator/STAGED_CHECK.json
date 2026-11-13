@@ -1,0 +1,132 @@
+{
+  "selectedPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "specification/GOALS.md",
+    "specification/PRODUCT.md",
+    "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md"
+  ],
+  "stagedPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "specification/GOALS.md",
+    "specification/PRODUCT.md",
+    "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md"
+  ],
+  "pathspec": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/CHECKPOINT_PATHS.nul",
+    "bytes": 1014,
+    "sha256": "19ff07f7eceed481594a24c6c70900072e7fcc78a59641950b24b6feb6cda30e"
+  },
+  "sourcePins": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 813148,
+      "sha256": "b178a52e36ff055c42fb8d3c1e941157d6ae17789ab4884d8df56a776c9739e3"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/AGENTS.md",
+      "bytes": 13754,
+      "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/CLAUDE.md",
+      "bytes": 7128,
+      "sha256": "e859444d725a3775f876f0ea121cfb54936cca2d4ac1bdb28b7238c0aa653cec"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197956,
+      "sha256": "abb2d91c0aca011b00791b92e04c0b1facf714fa9f2be4ba0cbb39f6553e7683"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+      "bytes": 27912,
+      "sha256": "f9c6c00ddd87abe1bbaddfb7a9d40b16d0f5f9100746dfa9d4882414a2917423"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+      "bytes": 11425,
+      "sha256": "9f2973505984f414cf07d40f560c6cb536a4d5bec7e0c9a352e797613b112c2d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+      "bytes": 28320,
+      "sha256": "3f317f3188ca41b65874a2d8325e7e2dae828708da791418dd1a9080169ff3ac"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+      "bytes": 1770456,
+      "sha256": "33dd421084fd678f87098265c418f29f8b25e409c6bbfb7b4515c57fe792579f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+      "bytes": 101285,
+      "sha256": "c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "bytes": 8046,
+      "sha256": "f3b05d8b98c769f595ef8379edac09d1a9d579c6823b4d3e89f813e48c58df0d"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 396214,
+      "sha256": "43ce5ccae4fc28a4ac5d20cc14b2188ff7176c8a06bec9e89c5c39ac1f0e3536"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 11973,
+      "sha256": "3da4e193dc63c958602a5a900677bd5f7602953ce3666da9a9d8fa062f88e969"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266309,
+      "sha256": "53c884303235e4de5d33c1bc58d31bcab77c0e0fad725d48caf73d871f93d3ad"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+      "bytes": 164348,
+      "sha256": "97d4b4b70f48e8d7755762982896f337c543ccf7d415d44699c3c103502897e8"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/PRODUCT.md",
+      "bytes": 101285,
+      "sha256": "c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "bytes": 8046,
+      "sha256": "f3b05d8b98c769f595ef8379edac09d1a9d579c6823b4d3e89f813e48c58df0d"
+    }
+  ],
+  "diffCheckPassed": true,
+  "noProductionOrTestSourceChanges": true,
+  "mainIndexConserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "kind": "single_address_space_native_consolidation_grant",
+  "status": "ROOT_SELECTED_CONTINUATION_PREPARATION",
+  "taskId": "T287_SINGLE_ADDRESS_SPACE_NATIVE_02",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "sourceTree": "6b40c56409c7e8990028644048b4aaad1b9ae027",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "builderRuntimeBasis": "stdo://releases/v3.0.4/",
+  "builder": "immutable installed RC5 archive4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-address-space",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "changeClass": "realization_refactor under existing common-library design",
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-family.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-initial-cursor-entry.test.mjs"
+  ],
+  "newFilesExpectedAfterConstruction": [],
+  "scratchWriteRoots": [
+    "consolidation-scratch/native-02/return.json",
+    "consolidation-scratch/native-02/readiness.json",
+    "consolidation-scratch/native-02/progress.json",
+    "consolidation-scratch/native-02/tmp"
+  ],
+  "readAccess": "Complete affected producer/consumer/owner cone in this checkout, exact installed STDO3.0.4, immutable installed RC5, existing offline dependency tree and explicitly named external captured log/proof paths. The enumerated observed readset is evidence input, not a claim of filesystem confidentiality.",
+  "independentReview": "Reuse native-01 max review on unchanged source; any necessary independent recheck is limited to repaired findings and their complete causal relation. Root conjoins original outcome.",
+  "closure": "Whole affected caller inventory, measured same-cut equivalence and reduced duplicate work, deleted redundant paths or exact concrete retention reasons, installed producer/consumer/reopen/resource proof, source correspondence, native C2/UAT and fresh result/replay. All log red-flag categories retain a disposition.",
+  "effectOwner": "One ABG native coding Worker. Root only prepares and evaluates.",
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 1024,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null
+  },
+  "exclusions": [
+    "Product/requirement/Public serialized semantic changes",
+    "new store/cache/registry/authority/controller/parallel coding agent",
+    "mutation of canonical common prefix/history/resource/instruction machinery without returned concrete gap and Root reentry",
+    "immutable releases, old logs/evidence, push/tag/merge/global selector",
+    "canonical build/contracts/generated manifest/package identity writes; C2 owns candidate build outputs"
+  ],
+  "normalTools": "Read source and existing owners across the causal cone. Syntax, scoped type/build/test feedback is allowed only in declared scratch copied inputs using read-only offline dependencies. No provider/subagent, git commit, canonical generated outputs or release mutation. Return any integration failure with exact evidence before changing authority or expanding scope.",
+  "sourceStanding": "HEAD is only the unchanged RC5 baseline. Exact current source is held subject plus the bound 43-file before snapshot; 24 changes are unaccepted and must be preserved.",
+  "continuation": {
+    "heldSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-01/review-subject-001/SUBJECT.json",
+      "bytes": 1997417,
+      "sha256": "6302095ec9826d892f620e805cd6336082265721fe8660147299ff4d8bd8ab29"
+    },
+    "failureAfterObservationDigest": "sha256:8f9e3f2644906fdaa9b6c1e6c2a20f3fda97b747f8d8cff212d8fef107476dd8",
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-01/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 6417,
+      "sha256": "b77e69ae38c04c2a8c71b8c376ab7c68d8425018f0f779115d6f18965a95de38"
+    },
+    "rootSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_02.md",
+      "bytes": 3988,
+      "sha256": "862316ebc39370dc4842848ac23cc6f677efe90802174cae585ff873c2de12ca"
+    },
+    "selectedResiduals": [
+      "SAS-01",
+      "SAS-02",
+      "SAS-03",
+      "missing native handoff and actual C2/UAT/fresh proof"
+    ],
+    "unchangedCoverage": "Reuse the prior independent review for unchanged source; original R1-R7 and all five acceptance criteria remain operative."
+  }
+}

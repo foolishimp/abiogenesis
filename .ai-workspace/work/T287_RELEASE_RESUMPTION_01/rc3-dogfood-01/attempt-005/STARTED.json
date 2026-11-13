@@ -1,0 +1,26 @@
+{
+  "kind": "rc3_b03_root_operator_dispatch",
+  "startedUtc": "2026-10-31T10:01:25.653Z",
+  "pid": 61362,
+  "activationSha256": "48eebe9a6791dbb48c45befa05e5a0a2a0a2a0c94f4524047cb5a1e48bbd3648",
+  "preparedCallSha256": "7637950c6c652f4a1106da0d0b3659900b49f52b2c8636a75559b571a393ad9d",
+  "provider": {
+    "agent": "claude",
+    "command": "/Users/jim/.local/bin/claude",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "maxTurns": 120,
+    "maxBudgetUsdPerProcess": 8
+  },
+  "budget": {
+    "historicalReportedNativeUsd": 46.3959266,
+    "knownAggregateStopForTriageUsd": 76,
+    "initialBFamilyTargetUsd": 32,
+    "reservedForLaterWitnessUsd": 6,
+    "aggregateStopUsd": 90,
+    "aggregateAllocationUsd": 100,
+    "unmeasuredCharges": "unknown"
+  },
+  "monitoring": "Root monitors native stream result usage; no automatic aggregate cap",
+  "automaticRetry": false
+}

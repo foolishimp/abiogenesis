@@ -1,0 +1,364 @@
+{
+  "status": "PREPARED_GENERATED_ADOPTION_PENDING_UAT_AND_ROOT_CONJUNCTION",
+  "sourceBaseCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "frozenSubjectSha256": "6dcb7b4dd0eb84b8d5706c3e50a3cf3576796f0bc77418fcd3ee68ee85e6dbee",
+  "sourceMeaning": "Base commit is the native preimage; exact successor bytes are the admitted and independently frozen native return. A later adoption checkpoint names the complete committed candidate.",
+  "nativeSourceResultRef": "result://abiogenesis/c39dfcf7ed519a1e0aab19121b3862fd57783d67ded22cd05c31012a7512a2de",
+  "priorNativeSourceResultRef": "result://abiogenesis/4accfc2ff24ed5231e50bee7e5150fc7297a10f43675e3ed1ee9d6a0cccc1996",
+  "heldPriorSubjectSha256": "e82e3e6391a9f16199b684b0b553564ed09bdfdfc45107accda3bdb45d959fb8",
+  "c2ResultRef": "result://abiogenesis/a2a62ff6976dd579012ee6e1e036516eb3bf8c27018114d205f699e9222bd567",
+  "c2EventOrdinal": 23869,
+  "helperPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/worksite-command-execution/6d280b985987bf92feec3bbbe276a3b702f42ee7073b76a7ea65d11cc171ddba/ed5cd8a376c009be762b66f11b4a5ff0e8e3e31b9df2a5ec7d1dc055fd3bf59b/result.json",
+  "helperSha256": "5b20994e035b72963b9b78c3c68200792b400a8021b872652f9a228d8dba792a",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/a008d80440d4f2f8447fba22e7b7d98dc17b43c6ded0c99c9125a1115b60404d",
+  "helperArtifactDigest": "sha256:a008d80440d4f2f8447fba22e7b7d98dc17b43c6ded0c99c9125a1115b60404d",
+  "snapshotRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/worksite-command-execution/6d280b985987bf92feec3bbbe276a3b702f42ee7073b76a7ea65d11cc171ddba/ed5cd8a376c009be762b66f11b4a5ff0e8e3e31b9df2a5ec7d1dc055fd3bf59b/sandbox",
+  "snapshotRef": "worksite-command-snapshot://abiogenesis/46f641a4da86ef73bb7bca7006a903e5c49231c22816780538ec6a8135a6d162",
+  "snapshotDigest": "sha256:46f641a4da86ef73bb7bca7006a903e5c49231c22816780538ec6a8135a6d162",
+  "commands": 7,
+  "exitPredicatesAllZero": true,
+  "proofArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/worksite-command-execution/6d280b985987bf92feec3bbbe276a3b702f42ee7073b76a7ea65d11cc171ddba/ed5cd8a376c009be762b66f11b4a5ff0e8e3e31b9df2a5ec7d1dc055fd3bf59b/sandbox/build_tenants/abiogenesis/typescript/artifacts/rc5-final-proof.json",
+    "bytes": 10016,
+    "sha256": "725c025819827af4577fa5ebed8e276da3c15d2594921ce05677f91d11c0dbfe"
+  },
+  "proof": {
+    "kind": "rc5_f4_and_method_gap_candidate_proof",
+    "packageVersion": "5.0.0-rc.5",
+    "artifactDigest": "sha256:4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+    "manifestDigest": "sha256:0a897768a558df57842b47a9ec2947562f6c7e7730bc711fa85f791655e90db0",
+    "productContentDigest": "sha256:95d6634615c069e41c6b1ddd950454995f69d75cf03d3a43a8c9cbce97547b7c",
+    "method": {
+      "basis": "stdo://releases/v3.0.4/",
+      "manifestDigest": "sha256:102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+    },
+    "inheritedMethodEvidence": {
+      "c2ResultRef": "result://abiogenesis/177a06b017ffd095b0bf01c9b5746ec9d898b9a8b3a2011d15906f3ddef41137",
+      "helperArtifactDigest": "sha256:c7ef7d75ccd67a5ffdc91f196339ce3b634ed2ea180207907e5387a0e8348091",
+      "sourceCommit": "90721c86680f17c1877dc26c9eb93b4243188785",
+      "selectedPass": 18,
+      "selectedFail": 0,
+      "selectedSkip": 0,
+      "unchangedSourceFiles": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+          "sha256": "b3c030f8797b4ef7e5e04008b7c323783e840b2e3abb40bd03a97a48c50f7735"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+          "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+          "sha256": "48ca205b9d8094425e1451f533cc01b64c0fa43028017324bbbb01fca9cd623b"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "sha256": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+          "sha256": "99c29aad2003c671fc2b547b6ee61caf175820f125a25640d31540f5515468b5"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+          "sha256": "1c3ed38533ae7f31828ea66be173bf19dec30ad8479b8c3a1f39f13c51e7fd42"
+        }
+      ],
+      "qualificationFilesUnchanged": 99,
+      "scope": "Exact method declaration/generator/HOW/tests and qualification inputs; prior native UAT indeterminate retained. No prior completed verdict substituted."
+    },
+    "runs": [
+      {
+        "label": "method-selector-planning",
+        "args": [
+          "--experimental-vm-modules",
+          "--test",
+          "--test-reporter=tap",
+          "--test-concurrency=1",
+          "--test-name-pattern=^selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges$",
+          "test_env/tests/t287-default-library.test.mjs"
+        ],
+        "wallMs": 644.2619169999998,
+        "pass": 1,
+        "fail": 0,
+        "skipped": 0,
+        "stdoutSha256": "b3c41ce028f88045fdd89e9a1aa84d9d4ae33beb030201b7565d5932fabd17f9",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "retained-route-codec",
+        "args": [
+          "--experimental-vm-modules",
+          "--test",
+          "--test-reporter=tap",
+          "--test-concurrency=1",
+          "test_env/tests/t287-event-body-encoding.test.mjs"
+        ],
+        "wallMs": 15752.19225,
+        "pass": 24,
+        "fail": 0,
+        "skipped": 0,
+        "stdoutSha256": "c8af16374e6b93d506e467730112161496ec6fbc336713039c6a3322d07a0464",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "route-reconstruction",
+        "args": [
+          "--experimental-vm-modules",
+          "--test",
+          "--test-reporter=tap",
+          "--test-concurrency=1",
+          "test_env/tests/t287-route-reconstruction.test.mjs"
+        ],
+        "wallMs": 9492.326125,
+        "pass": 10,
+        "fail": 0,
+        "skipped": 3,
+        "stdoutSha256": "c237cf26fc560d87084b3c993339d42ef8eca93f247fae0d56064c8482c69dae",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "installed-retained-route",
+        "args": [
+          "--experimental-vm-modules",
+          "--test",
+          "--test-reporter=tap",
+          "--test-concurrency=1",
+          "test_env/tests/m5-installed-graph-edge.test.mjs"
+        ],
+        "wallMs": 92420.089083,
+        "pass": 2,
+        "fail": 0,
+        "skipped": 0,
+        "stdoutSha256": "962cde17ac85bcc3a17ec1b5b37ad0db4a6ccdbc3d98aca1fe366c337150aa57",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "capturedRouteMeasurement": {
+      "sample": "captured-route-37961",
+      "beforeBytes": 3139020,
+      "afterBytes": 1678257,
+      "netSavedBytes": 1460763,
+      "logicalUnchanged": true,
+      "rows": 3,
+      "routeBeforeBytes": 1673358,
+      "routeAfterBytes": 212595,
+      "grossSourceBytes": 1461164,
+      "sourceStoreRowOrdinals": [
+        37940,
+        37953,
+        37961
+      ],
+      "limits": "three captured physical rows only; no complete admitted history, campaign saving or latency claim"
+    },
+    "otherMeasurements": [
+      {
+        "sample": "component-retained-history",
+        "beforeBytes": 113561,
+        "afterBytes": 61898,
+        "netSavedBytes": 51663,
+        "logicalUnchanged": true,
+        "logicalEvents": 7,
+        "sourceBytes": 52064,
+        "consumedResultPhysicalForm": "v1_reference"
+      }
+    ],
+    "exclusions": {
+      "selectedPlanningCase": "selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges",
+      "retainedMethodCases": [
+        "RC5 STDO 3.0.4 default role content is the exact packaged subset with its selected skill closure and capability instructions separate",
+        "RC5 STDO 3.0.4 actual acquisition delivers each role its selected skill closure and refuses altered, missing and unpermitted members"
+      ],
+      "unselectedDefaultLibraryCases": [
+        "default library preserves cumulative wrapper bindings and rejects duplicate carried refs",
+        "installed root publication precondition rejects a bad non-selected publication",
+        "default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation",
+        "independent consumer restricts choices while preserving actual native role and schema owners",
+        "retention and execution share root, imported and exact external semantics owner selection",
+        "declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+        "framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe",
+        "framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+        "selector planning delivers a short strict UTF-8 stream whole and keeps longer, binary or unverified streams as explicit omissions",
+        "native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+        "native observation facts preserve captured history through preparation admission and complete assembly",
+        "fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+        "UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+        "C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+        "parent conservation joins the pre-Run root basis through exact invocation and root implementation set",
+        "one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root",
+        "DataMapper caller separates author territories and baseline inputs from future final proof",
+        "consumer-authored source and scope remain exact application data; no solution is in library",
+        "observed child provenance joins the current preparation and rejects crossed or missing causal facts",
+        "observed command correspondence conserves explicit input across empty and different process environments",
+        "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+      ],
+      "captureOrLiveNotSelected": [
+        "ABI5_PLANNING_PROJECTION_CAPTURE: captured18/51 complete assemblies; capacity remains unverified",
+        "ABI5_NATIVE_OBSERVATION_CAPTURE: complete captured native observations",
+        "ABI5_DEFAULT_LIBRARY_LIVE: unrelated full native default-library lane",
+        "P0_RETAINED_NATIVE_SCRATCH: two route reconstruction retained full-outcome cases",
+        "ABI5_EVIDENCE_ROOT: S01 persisted-history subcase"
+      ],
+      "limits": [
+        "No skip is selected proof.",
+        "No completed RC4 qualification is repeated.",
+        "No full fifteen-family, F11/AF22, GC03 host-adapter, whole-method or stable-release qualification."
+      ]
+    },
+    "qualification": false,
+    "limits": [
+      "Selected affected proof only; no full Product/GC03/native capacity qualification.",
+      "Captured sample is three exact historical physical rows, not a standalone admitted history or whole-campaign/latency saving.",
+      "Actual native UAT and final result/replay follow through ABG; local cut/install follow Root conjunction."
+    ]
+  },
+  "sourceCorrespondence": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "bytes": 16414,
+      "sha256": "5013543113cd3a2b30c7a22726da885debcf72f54bc812b2632f940e70ac2789"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 213856,
+      "sha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 98123,
+      "sha256": "50fdb8c5cefc1183545642d7fc1606f6611c95009b3090a3c3f74032fa4c8904"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+      "bytes": 14154,
+      "sha256": "74346a233678f1af5443b5175a2361c8fd5345b4ed8be31743199998e7589733"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md",
+      "bytes": 16467,
+      "sha256": "b214b9f7a83b233d835bcdd58056e811db62bd919400e3a111de7b17e9c07a18"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "bytes": 103223,
+      "sha256": "ecc78c3935be552e04039853af6487a483c18bdfe2ac5fc6e1eacbf278136260"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10003,
+      "sha256": "be7fab6a3b53a38d1ccf693679f72969fad06597dbded76fe5143ecde34e1ade"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "bytes": 8001,
+      "sha256": "db7b208ebd03e5a589ccac81a7a30b790ac4b407e5a0d259beb682b830bacf85"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "bytes": 13080,
+      "sha256": "4575820a1978ac8dbab8f81b6de6e61fd1fcbf71fc8096c1c6c42e7e70b3d756"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md",
+      "bytes": 6722,
+      "sha256": "e1b0c75608a457468d6e8b9f0b73debfec5a07c60669e1c02ebc0de762f1c28b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "bytes": 24296,
+      "sha256": "b3c030f8797b4ef7e5e04008b7c323783e840b2e3abb40bd03a97a48c50f7735"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 53308,
+      "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "bytes": 82241,
+      "sha256": "48ca205b9d8094425e1451f533cc01b64c0fa43028017324bbbb01fca9cd623b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 290041,
+      "sha256": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "bytes": 16545,
+      "sha256": "99c29aad2003c671fc2b547b6ee61caf175820f125a25640d31540f5515468b5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "bytes": 27705,
+      "sha256": "1c3ed38533ae7f31828ea66be173bf19dec30ad8479b8c3a1f39f13c51e7fd42"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "bytes": 4878,
+      "sha256": "9099c80e78261f507288c8597bad0495d70628a9b21990f1e3283c536df70c65"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    }
+  ],
+  "generatedFilesChecked": 203,
+  "changes": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/worksite-command-execution/6d280b985987bf92feec3bbbe276a3b702f42ee7073b76a7ea65d11cc171ddba/ed5cd8a376c009be762b66f11b4a5ff0e8e3e31b9df2a5ec7d1dc055fd3bf59b/sandbox/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "target": "/Users/jim/src/apps/abiogenesis-rc5-performance/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "3420ba8c5b2f7b122d59ddea842fa46e7a2535d98243b3041d3f82e2a63c9d85",
+      "before": {
+        "bytes": 197474,
+        "sha256": "f0565016acdeac105afe7a59f54c84ef7842392f39ba920f13f8ed51b754a646"
+      },
+      "ownerAfter": {
+        "byteLength": 197474,
+        "digest": "sha256:3420ba8c5b2f7b122d59ddea842fa46e7a2535d98243b3041d3f82e2a63c9d85",
+        "kind": "worksite_path_observation",
+        "nodeKind": "file",
+        "relativePath": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "schemaVersion": "5.0.0",
+        "symlinkTarget": null
+      },
+      "matchedTerritoryRef": "worksite-command-write-territory://abiogenesis/e5e70382d8b187841dbc4cc6b940fda1c13be5556786a3604f1a5dbbe70797b2"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/worksite-command-execution/6d280b985987bf92feec3bbbe276a3b702f42ee7073b76a7ea65d11cc171ddba/ed5cd8a376c009be762b66f11b4a5ff0e8e3e31b9df2a5ec7d1dc055fd3bf59b/sandbox/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "target": "/Users/jim/src/apps/abiogenesis-rc5-performance/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3274341,
+      "sha256": "e7be8d66767366459ea50271be50d8f5c1a47b68b7f6bacb0fa0e1e7adfea27c",
+      "before": {
+        "bytes": 3274341,
+        "sha256": "8d0edaf80039a578532af27707342f2f0b15a9f1b1e649fbb96f00f2a3634754"
+      },
+      "ownerAfter": {
+        "byteLength": 3274341,
+        "digest": "sha256:e7be8d66767366459ea50271be50d8f5c1a47b68b7f6bacb0fa0e1e7adfea27c",
+        "kind": "worksite_path_observation",
+        "nodeKind": "file",
+        "relativePath": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "schemaVersion": "5.0.0",
+        "symlinkTarget": null
+      },
+      "matchedTerritoryRef": "worksite-command-write-territory://abiogenesis/d9ca95b996b58cb65b265b5e785c4811e459c0de4d990420db73c4ce241e3ae9"
+    }
+  ],
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/worksite-command-execution/6d280b985987bf92feec3bbbe276a3b702f42ee7073b76a7ea65d11cc171ddba/ed5cd8a376c009be762b66f11b4a5ff0e8e3e31b9df2a5ec7d1dc055fd3bf59b/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+    "bytes": 10998785,
+    "sha256": "4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8"
+  },
+  "role": "Root operator Writer passive correspondence; no canonical mutation, qualification or acceptance"
+}

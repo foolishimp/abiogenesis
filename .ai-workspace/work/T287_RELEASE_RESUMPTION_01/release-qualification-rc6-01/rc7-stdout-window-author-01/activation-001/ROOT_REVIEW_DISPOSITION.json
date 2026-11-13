@@ -1,0 +1,161 @@
+{
+  "kind": "root_bounded_source_and_continuation_disposition",
+  "status": "ROOT_SELECTED_PARTIAL_S5_SOURCE_FOR_BOUNDED_NATIVE_COMPLETION",
+  "createdUtc": "2026-11-06T21:52:02.730533+00:00",
+  "actor": "Root",
+  "role": "Executive/evaluator/architect; separately bound operator Writer for control preparation",
+  "rootActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": {
+    "product": "ABIogenesis5.0 fixed fifteen families",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "method": "STDO3.0.4",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": []
+  },
+  "basis": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/SOURCE_AFTER.json",
+      "bytes": 559922,
+      "sha256": "c65b3703473186207d4787ec0998e6120099f41661b112d3ea0b55760e87e814"
+    },
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+      "bytes": 11876,
+      "sha256": "8b155cbaa167dc2eaf2b0d515f448d3728ccdc6ce2cb771d4a03b95e3669eac1"
+    },
+    "finalRuntimeClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 8546,
+      "sha256": "0d084ff96cc77d612f0accc75aa8ade031271505d6f3335ee7b5d62ac8440933"
+    },
+    "originalResume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/after-run-resume.json",
+      "bytes": 72498693,
+      "sha256": "f77ae5b6fa0e291c5e700abb5e634959939d360de279a04d02b992e6c711d699"
+    },
+    "transportOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TRANSPORT_OUTCOME_METADATA.json",
+      "bytes": 1673,
+      "sha256": "b704f978063bd6bc0495d1ebf895102713b5d5694fd46c3c3c5ee99e4a3bec52"
+    },
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-final-001/REVIEW.json",
+      "bytes": 26134,
+      "sha256": "3212eab2eb4cfab51562d87ab6bdde529391c148251a28fec85989dd8b456f68"
+    },
+    "buildAddendum": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-final-001/BUILD_DECLARATION_ADDENDUM.json",
+      "bytes": 11745,
+      "sha256": "1c27ebfade1323a7e39c7d479c02ad94eb84b8daf4ba4f8df90fa88400b64174"
+    },
+    "operatorBuild": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-author-build-001/build/SUMMARY.json",
+      "bytes": 1611,
+      "sha256": "fa0b2083aba4bdcd8aa654e6d4d114ba7a6ddae14e6d13357dc85d1a11aff113"
+    },
+    "operatorStage": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-01/tmp/sw1-stage-02-stage.json",
+      "bytes": 98048,
+      "sha256": "f93450ebe9044325d964cc6dea99e417b8044b68c941717eeaa59ba5418a9f78"
+    },
+    "baselineProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/summary.json",
+      "bytes": 1508,
+      "sha256": "b2b210c971ede687abe790b4a7689a1e684d4b536f69bba32e70b515777c4e18"
+    },
+    "baselineReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-sw1-stage-01/REVIEW.json",
+      "bytes": 7711,
+      "sha256": "9c2aec81de47d1a72b8fd366b66d7d4e5afcda4e9527497e751854372a27dd8c"
+    },
+    "priorHeldSessionAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 9575,
+      "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+    }
+  },
+  "disposition": {
+    "selectedWorkingBasis": true,
+    "HS03ImplementationAccepted": false,
+    "baselineCadenceDiscriminatorAccepted": true,
+    "baselineTests": 2,
+    "baselinePassed": 1,
+    "baselineExpectedFailed": 1,
+    "baselineSkipped": 0,
+    "compilePassed": true,
+    "generationPassed": false,
+    "lifecycleExecuted": false,
+    "finalProofLanesExecuted": 0,
+    "sourceRows": 451,
+    "selectedChangedRows": 6,
+    "protectedUnchangedRows": 445,
+    "nativeResultAvailable": false,
+    "nativeBeforeAfterEqualityAvailable": false,
+    "originalFailure": "Witnessed5400000ms absolute timeout, runtime_failed, termination/physical close confirmed; preserve source and all receipts."
+  },
+  "selectedNativeCompletion": [
+    {
+      "id": "S5-C1",
+      "action": "Preserve structured boundary positions through the existing incremental classifier/transport, partition each coalesced captured byte range at completed boundaries, and preserve segment-local qualifying/result classification so a noise-only tail is not activity. Reuse the existing parser and archive; no new framework."
+    },
+    {
+      "id": "S5-C2",
+      "action": "Mark actor-internal nextNativeProcessStreamOrdinal as @internal so its declaration cannot reference the stripped RuntimeEventPrefix type. Do not publish that internal type, weaken the declaration checker or edit owner_contract_source_set without a new concrete need."
+    },
+    {
+      "id": "S5-C3",
+      "action": "Author the already-selected mandatory timeout/interruption and archive-integrity cases in the existing selected test owners; correct HOW coverage standing. Preserve all historical and previously accepted proof."
+    },
+    {
+      "id": "S5-C4",
+      "action": "Run two bounded AFTER stages at most and the six unallocated final lanes once each on final source, with independent frozen review alongside proof. Reuse the exact accepted stdout-before proof by reference; no baseline or completed qualification repetition."
+    }
+  ],
+  "successorBounds": {
+    "nativeCodingWorkers": 1,
+    "reasoning": "xhigh",
+    "absoluteMs": 3600000,
+    "inactivityMs": 1800000,
+    "maxTurns": 320,
+    "nodeHeapMiB": 8192,
+    "hostMs": 10800000,
+    "maxStages": 2,
+    "maxLaneInvocations": 6,
+    "stageMs": {
+      "compile": 240000,
+      "generate": 600000,
+      "lifecycle": 60000
+    },
+    "laneMs": 300000,
+    "concurrency": 1,
+    "lanes": [
+      "stdout-differential",
+      "scope-ordering",
+      "timeout-interruption",
+      "archive-integrity",
+      "legacy-replay",
+      "native-caller"
+    ]
+  },
+  "scope": "Same17-path ceiling; source-specific minimal repair/testing above. No other Product functionality, store, service, parser, event stream, controller, cleanup census or release change. Operator Writer may prepare successor controls by reusing existing maintained owners; actual native activation remains separately Root-bound after concrete reviewable controls.",
+  "processStanding": {
+    "wholeAuthorProcedureConformant": false,
+    "meaning": "Bootstrap artifacts/order are preserved; a broad recursive acquisition search outside the finite selection was disclosed. No full manager/read-scope compliance inferred. No authored readiness/return exists after timeout. These limits do not manufacture NativeResult evidence or accept incomplete Product source."
+  },
+  "remaining": [
+    "HS03 passing final build, six final lanes, frozen source review and actual close",
+    "Installed S4 growth and conditional S6 disposition",
+    "Reproducible bounded local RC7 cut/install",
+    "Remaining independent5.0 release/qualification obligations"
+  ],
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "newNativeWorkerLaunched": false
+}

@@ -1,0 +1,17 @@
+{
+  "status": "EXACT_FROZEN_SOURCE_PHYSICALLY_VERIFIED",
+  "utc": "2026-11-09T03:17:28.038327+00:00",
+  "freeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292744,
+    "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+  },
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "recomputedDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "rows": 1334,
+  "sourceBytes": 38184937,
+  "mismatches": [],
+  "unexpected": [],
+  "missing": [],
+  "standing": "Physical frozen stage only; native-after/live-source correspondence and semantic review remain pending."
+}

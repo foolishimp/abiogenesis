@@ -1,0 +1,8 @@
+{
+  "startedUtc": "2026-11-03T21:26:14.971488+00:00",
+  "endedUtc": "2026-11-03T21:26:40.579365+00:00",
+  "wallMs": 25607.818874996156,
+  "exitCode": 1,
+  "providerDispatch": false,
+  "meaning": "Exact installed-owner continuation preflight; distinct from setup and Worker launch"
+}

@@ -1,0 +1,37 @@
+{
+  "status": "BOUND_ADMITTED_COMMAND_NOT_YET_LAUNCHED",
+  "at": "2026-11-07T22:42:25.990847+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_ADMISSION.json",
+    "bytes": 15629,
+    "sha256": "2f87f6aa0c11738712baae6a25fb957cc22d12dc3180d42ece4762385022c3ec"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+    "bytes": 19284,
+    "sha256": "4f0f115220003b5c95e03d2602abc4118fe1f49917afa787a890096ca18d92f3"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "bytes": 27890,
+    "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+  },
+  "changedFields": [
+    "activation",
+    "executionEnabled",
+    "executionStanding",
+    "status"
+  ],
+  "allOtherBindingValuesUnchanged": true,
+  "commandArgv": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "build",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+    "4f0f115220003b5c95e03d2602abc4118fe1f49917afa787a890096ca18d92f3"
+  ],
+  "command": "/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs build /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json 4f0f115220003b5c95e03d2602abc4118fe1f49917afa787a890096ca18d92f3",
+  "expectedOutputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001",
+  "singleAttempt": true,
+  "installEnabled": false
+}

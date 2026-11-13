@@ -1,0 +1,16 @@
+{
+  "id": "current-intent-complete-pair",
+  "files": [
+    "test_env/tests/t287-exact-construction-intent.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 1,
+  "fail": 0,
+  "skipped": 0,
+  "wallMs": 64050.65554100007,
+  "stdoutSha256": "8bf51c64024d268f186ca46e778be9caade4f27988a829e6ffe73bf7565f63e1",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

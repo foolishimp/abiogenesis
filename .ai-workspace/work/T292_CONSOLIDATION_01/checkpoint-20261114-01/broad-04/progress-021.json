@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 8,
+    "pass": 8,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/021-m5-retry-lifecycle-authority.test/process.json",
+    "bytes": 1096,
+    "sha256": "508e910f08d93bda574eac214bb7cdd0b180f1b6e9e6340b18c7c5d3ef50185a"
+  }
+}

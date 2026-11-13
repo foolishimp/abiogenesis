@@ -1,0 +1,18 @@
+{
+  "kind": "source_custody_selection",
+  "status": "UNBOUND_ACCEPTED_H03_RETURN_REQUIRED",
+  "sourceBefore": null,
+  "sourceCommit": null,
+  "frozenSubject": null,
+  "sourceAfter": null,
+  "sourceDisposition": null,
+  "actualClose": null,
+  "actualResume": null,
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/SOURCE_SELECTION.reference.json",
+    "bytes": 43932,
+    "sha256": "7cf6388101e1feb89c51840ddd3ddf05e66c31461749b717886507dc17484993"
+  },
+  "sourceCount": 451,
+  "meaning": "451 names derive from actual H03 input controls. Root binds accepted returned H03 source, tested-stage/native.after equality, disposition and genuine close/resume; every operative source/runtime binding remains null."
+}

@@ -1,0 +1,40 @@
+{
+  "predecessorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/BINDING.json",
+    "bytes": 19497,
+    "sha256": "85479530623a587e48c154ec877d7c5b4c264e33b00f7f6c81291318f1baa825"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/BINDING.json",
+    "bytes": 19936,
+    "sha256": "b6582ff36d7efff98fa5470642e95b5d17eca8f1365da92b59a4e6065e6ddcf2"
+  },
+  "changedTopLevelFields": [
+    "id",
+    "activation",
+    "task",
+    "sourceInventory",
+    "sourceMaterialization",
+    "environment",
+    "provider",
+    "providerWrapper",
+    "scratchRoot",
+    "runtimeRoot",
+    "proofControls",
+    "readOnlyInputPins",
+    "nativeScratchRoot",
+    "workerEnvironment",
+    "nativeScratchDirectories",
+    "scopeInputGrant",
+    "sourceSelection",
+    "preservationGuards"
+  ],
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/host.mjs",
+    "bytes": 15522,
+    "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+  },
+  "hostByteIdenticalToSuccessfulSetup02": true,
+  "validatorByteIdentical": true,
+  "meaning": "New narrow R1 task/source/input/guard pins and fresh native03 paths only. No host/validator mechanism or envelope change. Actual Bash maximum300000 in both environments; native900000/180000/100 unchanged. Direct Node PTY launch, no stdin wrapper."
+}

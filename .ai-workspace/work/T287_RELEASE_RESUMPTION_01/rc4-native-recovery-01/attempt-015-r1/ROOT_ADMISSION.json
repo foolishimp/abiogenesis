@@ -1,0 +1,9 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "faa94e541393d40ef6c161438cc17d7c305f5e9e6b909580ca7e1887457ed46c",
+  "sourceCommit": "5331e3ae707fa258fec14bf7b9f7ede76f805fe3",
+  "sourceTree": "8fb09903f1466dd40fc0444e3ab8eb1b4e56f158",
+  "decision": "Root admits corrected HC1 installed zero-provider preflight/call preparation only. Actual frozen-call review precedes one-shot dispatch;015 failure retained, HC2 and005 remain required.",
+  "at": "2026-11-02T16:09:50.812416+00:00"
+}

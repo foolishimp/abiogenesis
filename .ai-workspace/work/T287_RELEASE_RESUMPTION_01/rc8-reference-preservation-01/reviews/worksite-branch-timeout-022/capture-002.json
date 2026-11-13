@@ -1,0 +1,20 @@
+{
+  "standing": "LIVE_OBSERVATION_NOT_FINAL_RECEIPT",
+  "observedUtc": "2026-11-07T14:39:22.488072+00:00",
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/events/192-t287-worksite-branch-construction.jsonl",
+    "bytes": 1714,
+    "sha256": "9f9341b297aa7cd6fdd72ec153dfc9e9e61db62bd38a9dc988d7da96618b83e1",
+    "text": "{\"ordinal\":0,\"type\":\"begin\",\"format\":\"node-test-events-jsonl@1\",\"nodeVersion\":\"v24.7.0\"}\n{\"ordinal\":1,\"type\":\"case\",\"passed\":false,\"name\":\"T-287 C3 Parallel topology constructs canonically and closes installed C1 children\",\"file\":\"test_env/tests/t287-worksite-branch-construction.test.mjs\",\"nesting\":0,\"testNumber\":1,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":{\"name\":\"Error\",\"message\":\"test timed out after 240000ms\",\"stack\":\"Error [ERR_TEST_FAILURE]: test timed out after 240000ms\",\"code\":\"ERR_TEST_FAILURE\",\"failureType\":\"testTimeoutFailure\",\"cause\":{\"name\":\"Error\",\"message\":\"test timed out after 240000ms\",\"stack\":null,\"code\":null,\"failureType\":null,\"cause\":null}}}\n{\"ordinal\":2,\"type\":\"case\",\"passed\":false,\"name\":\"T-287 C3 preserves outer and nested partial prefixes and never opens fan-in\",\"file\":\"test_env/tests/t287-worksite-branch-construction.test.mjs\",\"nesting\":0,\"testNumber\":2,\"suite\":false,\"skip\":false,\"todo\":false,\"error\":{\"name\":\"Error\",\"message\":\"test timed out after 240000ms\",\"stack\":\"Error [ERR_TEST_FAILURE]: test timed out after 240000ms\",\"code\":\"ERR_TEST_FAILURE\",\"failureType\":\"testTimeoutFailure\",\"cause\":{\"name\":\"Error\",\"message\":\"test timed out after 240000ms\",\"stack\":null,\"code\":null,\"failureType\":null,\"cause\":null}}}\n{\"ordinal\":3,\"type\":\"summary\",\"file\":\"test_env/tests/t287-worksite-branch-construction.test.mjs\",\"counts\":{\"tests\":2,\"failed\":0,\"passed\":0,\"cancelled\":2,\"skipped\":0,\"todo\":0,\"topLevel\":2,\"suites\":0},\"success\":false,\"durationMs\":483204.728666}\n{\"ordinal\":4,\"type\":\"summary\",\"file\":null,\"counts\":{\"tests\":2,\"failed\":0,\"passed\":0,\"cancelled\":2,\"skipped\":0,\"todo\":0,\"topLevel\":2,\"suites\":0},\"success\":false,\"durationMs\":483575.844834}\n{\"ordinal\":5,\"type\":\"end\"}\n"
+  },
+  "knownRoots": [
+    {
+      "path": "/private/tmp/abg-r8c-022/t/abi5-root-env-fuL96n",
+      "exists": false
+    },
+    {
+      "path": "/private/tmp/abg-r8c-022/t/abi5-root-env-fcSIFT",
+      "exists": false
+    }
+  ]
+}

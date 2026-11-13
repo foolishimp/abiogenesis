@@ -1,0 +1,114 @@
+{
+  "kind": "post_return_reproof_disposition",
+  "status": "ROOT_SELECTED_SOURCE_ONLY_SEQUENCING_ACTUAL_CUSTODY_CLOSED_SOURCE_PARTIAL",
+  "recordedUtc": "2026-11-06T12:33:42.319177+00:00",
+  "authority": "Root Executive instruction after F2 launch, reaffirmed after actual host exit: preserve original pending selection historically; do not automatically repeat unchanged RC6 full result/replay drains.",
+  "originalReadbackSelectionPreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/POST_RETURN_READBACK_SELECTION.json",
+    "bytes": 3437,
+    "sha256": "8fadff26c663722b717a44f2787aa6e58fe8e04277904b177de6cddf4fd67e92"
+  },
+  "actualReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/post-return-controls/actual-001/CLOSE.json",
+    "bytes": 5790,
+    "sha256": "a0c7312331eef99815ea21ff81c7d585f8dfdc144f20d170451b58d7d3eb673b"
+  },
+  "actualSourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/SOURCE_AFTER.json",
+    "bytes": 504858,
+    "sha256": "0fee4bdb8486eb84390b1c6d19e4a197c6244b2b366b4c3704359e17e18f9bae"
+  },
+  "actualSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 18826,
+    "sha256": "fa6db03cfdc19517ba0107a49bcb2e2b83ef82f003b05e9eb82b2da9a8f5e400"
+  },
+  "affectedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-stage-001/PROOF_INVENTORY.json",
+    "bytes": 15493,
+    "sha256": "b3d317d0a83d2a655f424a1779c07a04b7809e437b09e7db1138cffe4f5a997f"
+  },
+  "unchangedBuilderEvidence": {
+    "predecessorFullClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 9267,
+      "sha256": "a76d3fa989c53dd6dcadcd77a9433804a12364976fd9f28229117a80065d95fb"
+    },
+    "fullTypedColdReadSummaries": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/post-return-controls/actual-001/run_result/SUMMARY.json",
+        "bytes": 2585,
+        "sha256": "411d623df32fea436f911e3992dd2be339cc551644d1aa20d6dddb92fa2e956c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/post-return-controls/actual-001/run_replay/SUMMARY.json",
+        "bytes": 2589,
+        "sha256": "f08414272acad9a32d8475a65c8be3df6a6f9d660e80f0d3e5e73298559d36a7"
+      }
+    ],
+    "operatorOwnerPins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+        "bytes": 39766,
+        "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/public-setup.mjs",
+        "bytes": 29259,
+        "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/consumer.mjs",
+        "bytes": 11420,
+        "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/scenarios.mjs",
+        "bytes": 7569,
+        "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+      }
+    ],
+    "scope": "RC6 installed builder SDK/read/replay owners remain unchanged; F2 five source paths concern fixed-route direct admission and its owning HOW/test."
+  },
+  "selectedNow": {
+    "passiveActualTypedTerminalAndPhysicalResultCustody": "closed",
+    "genuineSuccessorCloseAndResume": "closed",
+    "nativeAfterFrozenStageLiveSourceEquality": "471 selected entries matched; 450 source rows equal frozen tested stage",
+    "independentReview": "Root-owned; separate frozen review disposition pending",
+    "additionalF2ColdReads": false
+  },
+  "actualProofStanding": {
+    "before": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "after": {
+      "tests": 9,
+      "pass": 8,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "realAdmission": "Blocked at Product population invalid_target /program in both stages; actual invocation_admission discriminator and post-population assertions unexercised.",
+    "boundedPasses": "Six direct-route regression cases and two actual cold-resume cases passed.",
+    "sourceAcceptance": false
+  },
+  "targetedReentryTriggers": [
+    "Actual receipt/producer/value/physical Result discrepancy.",
+    "Native-after, tested/frozen source, live source or staged-control discrepancy.",
+    "Unexpected physical prefix or genuine close/resume relation.",
+    "Later repair affects the installed read/replay owners or requires a new read/replay relation."
+  ],
+  "qualificationLimits": [
+    "No fresh F2 cold result/replay equality is claimed.",
+    "F cold evidence is the unchanged builder relation, not qualification of F2 source.",
+    "Root must conjoin independent review and the actual partial result before selecting further work.",
+    "Final installed RC7 held/cold equality and all remaining release/human gates remain open.",
+    "No actual re-entry, retry, new tests, source edit or runtime acquisition selected by this record."
+  ]
+}

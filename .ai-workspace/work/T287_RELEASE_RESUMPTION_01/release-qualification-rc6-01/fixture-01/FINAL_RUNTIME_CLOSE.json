@@ -1,0 +1,50 @@
+{
+  "at": "2026-11-05T09:07:44.810644+00:00",
+  "executionOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/outcome-summary.json",
+    "bytes": 543,
+    "sha256": "c0438d54197cf5cdc0638a899ee60e4273fc8a8a6154bac6e95ea1fa3fedae40"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/fresh-reads.json",
+    "bytes": 2402,
+    "sha256": "f713d76d31ac8f2b9533c29302c4672e49e49f48f538b711f77ad3d8a2708c80"
+  },
+  "afterRunResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/after-run-resume.json",
+    "bytes": 72660008,
+    "sha256": "ec616ff48620b547405c04cda52e9b1086c16924b0c41694b980abba2c05bb19"
+  },
+  "actualCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:4604288fe2cf83f30d4e40985590c183dfdc00987f4c3ea7357e7c37bad8344f",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:8fc1ffe9bb4afb91c450735c74fce68e609b75f2666f9b7c84d66dfd45c8c14d",
+      "prefixLength": 43778059,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 701759869
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:dc62e30cb2a9772d3149d7ac76f3d4fff0c4008a3f6ebaf6c9d045f19e25b8b3",
+      "device": 16777231,
+      "durableByteLength": 43778059,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:8fc1ffe9bb4afb91c450735c74fce68e609b75f2666f9b7c84d66dfd45c8c14d",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "inode": 701759869,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "actualLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "bytes": 43778059,
+    "sha256": "8fc1ffe9bb4afb91c450735c74fce68e609b75f2666f9b7c84d66dfd45c8c14d"
+  },
+  "meaning": "Failure is durably closed and freshly projected; source proof separately accepted. No terminal/UAT/qualification acceptance."
+}

@@ -1,0 +1,7 @@
+{
+  "status": "PRESERVED_CONTROL_SYNTAX_FAILURE",
+  "effect": "Inline Node --input-type=module pure validator launcher failed parsing before import or validation; no runtime/provider/source effect.",
+  "error": "SyntaxError: Unexpected token ')'",
+  "cause": "One extra closing parenthesis in Operator inline JSON.stringify wrapper; unchanged validator/host/task/binding.",
+  "disposition": "Routine same-scope wrapper correction; separate binding/result below, no source or native envelope change."
+}

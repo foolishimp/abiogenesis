@@ -1,0 +1,49 @@
+{
+  "recordedUtc": "2026-11-04T09:24:10.982Z",
+  "coordinates": {
+    "kind": "c_call_result_admitted",
+    "admissionOrdinal": 59005,
+    "eventId": "event://abiogenesis/332a774f76b9b6f7c76f7bc76f38eac5c457cf12855a7a37340dddb0087ba646",
+    "eventTime": "2026-11-04T08:15:14.217Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "runId": "run://abiogenesis/99401be166a6e661abaefe396c5fc033ad529261ccf7342569d0c08529131af3",
+    "offset": 749291888,
+    "rowBytes": 1782168,
+    "rowSha256": "43270d303187cc05cee23b525c1f3fae12689752c621a0740d65429885b47086",
+    "resultRef": "result://abiogenesis/ae75d21445ea98541163373cf7fc7f4cd001cfe1d7ee861d29307eb447a30190",
+    "resultDigest": "sha256:ae75d21445ea98541163373cf7fc7f4cd001cfe1d7ee861d29307eb447a30190",
+    "valueKind": "native_workspace_work_observation"
+  },
+  "assessment": {
+    "disposition": "indeterminate",
+    "kind": "sandbox_uat_assessment",
+    "reason": "The actual admitted evidence satisfies the selected native-08 increment (N7-PROOF-01). It does not establish the full original R1-R7/C1-C5 outcome, because several required predicates are absent from the admitted evidence or remain open. No counterexample falsifies any criterion.\n\nVerified independently, read-only:\n(1) Testing Result 38c30ebd: all 7 process_exit predicates observed 0, with no timeout, signal or stderr.\n(2) Source correspondence: recomputing the exact command over C2_INPUTS.sourceCorrespondencePaths (125 paths) in the current worksite reproduces the admitted stdout byte for byte (22895 B, sha256 95b974fc...).\n- The three changed files match return.json after-identities: HOW 3c412df1/145004, SAS test f514341d/108147, support 5ae58446/29332. Their before-hashes equal the native07 sourceHashes. The other 115 native07 files in that list are unchanged.\n- The handoffs match: return f9ee3261, readiness 4fd0e92d, progress 34c53015.\n- All 893 NATIVE08_EVIDENCE_REUSE unchangedSourceFiles still match. The packed archive 091ab10a/11003160 equals the retained package identity. The worksite has no build/, artifacts/, test_runs/ or node_modules/, and contracts/ is unmodified.\n(3) Returned evidence: nativeTestProof.path is 181197 B, sha256 c6cbd12a..., matching. single-address-space-c2.json in that same report directory is 11022 B, sha256 390eebbf. Its lanes, failures [], nativeTestProof and sourceManifestSha256 5306b001 agree with the affected-proof stdout. The lane stdout logs hash to the admitted stdoutSha256 values.\n(4) Whole-path TAP shows a distinct test 9, 'RAW F_H response pair...', ok, with 10 pass, 0 fail, 0 skipped. Shared-owner is 31/0/0 and current-intent is 1/0/0. The proof file contains cases.fhResponsePair.\n(5) Code review of the test and seed:\n- Every one of the 10 rows is stamped by the actual projectRuntimeEventFromValidatedHistory and deep-frozen.\n- The real gates (invocation, basis, Run, pending, held-fluent, open-continuation) are asserted absent one row before cut 2/3/4/8/10/10 and present at it.\n- The actual prepareContinuationPublicOperation and prepareFhInteractionResponse produce events 11 and 12 with matching projected prefixes, one six-field F_H fact and the exact combined duplicate priorAdmission.\n- Controls pass: before-operation available, operation-only invocation_pair_invalid orphan, unused ref available. Four crossed source/ref/digest/order controls are refused with sorted refs. Ungranted-root, foreign-actor and foreign-contract guards refuse. Repeated reads, historical cuts, a frozen clone and unrelated growth give equal values.\n- No stubs or owned handles are used. The HOW bullet P-FH-PAIR accurately states the claim and its limits.\n(6) The ten retained lanes carry newExecution:false with native06/native07 provenance, and none is counted as new.\n\nNot established:\n- No independent max review of this increment, UAT-to-fresh result/replay close or Root conjunction is admitted.\n- The F_H positive is conditional RAW reader data only. There is no current admitted F_H response commit, Public dispatch/resume, physical cold reopen or installed F_H qualification.\n- The selected-action positive is still unverified. The failed-scope proof is still narrow.\n- Successor bytes, CPU, whole allocation and whole-workflow timing are still unmeasured.\n- Final caller-census conjunction is inherited, not re-established. Native08 migrated no caller. Spot checks found the named R1/R2 bypasses absent, and the remaining traversal_route readAll calls only in explicit complete-mode branches.\n\nScope disclosure: the carried Testing Result has no snapshotRoot/worksiteDelta. The declared after-digest route for c2.json therefore could not be applied, and I read that file as a sibling in the directory named by nativeTestProof.path. I made no worksite or scratch writes. Platform tool-output persistence under ~/.claude occurred. The Worker disclosed a /tmp/dummy_ignore write, since removed, and possible unknown user-level cache writes by subprocesses. Neither is resolvable here.",
+    "unresolvedCriteria": [
+      "C1: complete affected caller census, migration and retirement conjunction is inherited from native06/native07 and remains Root's. Native08 migrated no caller, and this assessment re-established only spot checks, not completeness.",
+      "C2: same-input reductions are shown only for bounded measured paths (owned liveness prefix, fork/query and reference-write bounds). Successor bytes, CPU, whole allocation and whole-workflow timing remain unmeasured, and R6 probe CPU share is unattributed.",
+      "C3: installed producer/consumer and maintained SDK cases were newly executed in actual C2, but fresh result/replay closure for this Run is absent from admitted evidence.",
+      "C3/R3: the F_H positive is a conditional RAW reader proof only. No current admitted F_H response commit (commitFhInteractionResponseAtExpectedPrefix) exists, because current root admission accepts only the direct-invoke grant. There is also no Public dispatch/resume, physical cold reopen or installed F_H qualification.",
+      "The grant's operationContract catalog coordinate and capabilityDefinition graph values are RAW declarations checked for shape only, not tied to an installed capability graph.",
+      "The inherited selected-action complete positive remains unverified under the no-current-producer scope.",
+      "The failed-scope retry premise remains narrow: fail-closed/no-write under an unadmitted port, with no typed ordinary-route refusal.",
+      "C4: R1-R7 dispositions are present by exact reuse, but the R4/R5 removal of operator carriage and broad search for the actual successor workflow is not measured in admitted evidence.",
+      "C5: the independent max review of the exact native08 increment (new RAW F_H proof and HOW bullet) is absent from admitted evidence.",
+      "C5: the UAT-to-fresh close and the Root conjunction of the original R1-R7/C1-C5 outcome have not occurred.",
+      "C5: the declared snapshotRoot/worksiteDelta after.byteLength/digest verification of single-address-space-c2.json could not be performed, because those fields are absent from the carried Testing Result. Only content correspondence with the affected-proof stdout was checked.",
+      "Historical evidence and release immutability beyond the 893 protected worksite files and the package identity was not independently re-verified in this assessment.",
+      "The committed qualification inventory and recipe still list the old HOW digest (stale; qualification excluded).",
+      "Off-scope effects: a disclosed /tmp/dummy_ignore write (removed), and unknown user-level cache writes by test and C2 sandbox subprocesses."
+    ]
+  },
+  "nativeProvenance": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/47882e8cdb8f7f723b16950150971239f6dae4af6fd090d7c53971319803b8d5",
+    "cCallRef": "c-call:sha256:f2d46e6399b7c9e51e1394fa89fd776bd5d7ddf4b39bbc513e56d4102146e0d3",
+    "executionAuthorityDigest": "sha256:36fa59429b347106cdea8720a5e34d53565a618be324bd65164dd16061978817",
+    "executionAuthorityRef": "leaf-execution-authority://abiogenesis/36fa59429b347106cdea8720a5e34d53565a618be324bd65164dd16061978817",
+    "promptDigest": "sha256:82ca09fd74d6aa4e91971d139b170b1119d564d8639c44eb21920f0f4573d888",
+    "transportBindingDigest": "sha256:b7c4c33fd66e9b7ae72335a02a8f8c58648a12d289805b9ce82fea07ff921ae1",
+    "transportBindingRef": "transport-binding://abiogenesis/b7c4c33fd66e9b7ae72335a02a8f8c58648a12d289805b9ce82fea07ff921ae1",
+    "transportDigest": "sha256:6ff0259224e208c719aba98e678d7b220d70aa57f62279b40b7cc8d064194e66"
+  },
+  "standing": "Actual native assessment preserved; Root may separately conjoin bounded evidence corrections. No acceptance inferred."
+}

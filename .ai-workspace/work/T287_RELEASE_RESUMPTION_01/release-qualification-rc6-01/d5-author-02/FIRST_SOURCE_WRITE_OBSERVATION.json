@@ -1,0 +1,11 @@
+{
+  "kind": "first_selected_new_product_file_physical_observation",
+  "observedUtc": "2026-11-05T23:52:40.700369+00:00",
+  "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+  "bytesAtObservation": 42648,
+  "birthUtc": "2026-11-05T23:51:17.869883+00:00",
+  "mtimeUtc": "2026-11-05T23:51:51.432852+00:00",
+  "nativeStartUtc": "2026-11-05T23:22:27.163+00:00",
+  "nativeStartToBirthMs": 1730706.8827152252,
+  "standing": "Mutable author source only; not an admitted after-observation, test result or acceptance."
+}

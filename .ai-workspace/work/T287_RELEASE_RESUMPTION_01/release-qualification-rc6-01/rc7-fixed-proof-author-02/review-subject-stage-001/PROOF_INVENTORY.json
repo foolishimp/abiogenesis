@@ -1,0 +1,357 @@
+{
+  "kind": "frozen_stage_selected_proof_inventory",
+  "status": "SELECTED_PROOF_CLOSED_REAL_ADMISSION_BLOCKED",
+  "createdUtc": "2026-11-06T12:26:42.783599+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/review-subject-stage-001/SUBJECT.json",
+    "bytes": 262855,
+    "sha256": "be89fd7c2d333ebc3051cad32c9cd336e7e057629be0be54fc3bbcff9529cfe1"
+  },
+  "controlAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 5678,
+    "sha256": "daaea087de12a9fcc60afa9c7c5db3d5e8a08e3d130e8849404e5aead539cdaf"
+  },
+  "laneSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/inputs/C2_INPUTS.json",
+    "bytes": 41330,
+    "sha256": "88feb60fecd86f6605ae339e7f8580165beb7f9c0f09bcc98ba07c4981b95e4c"
+  },
+  "bounds": {
+    "maxStages": 3,
+    "maxLaneInvocations": 5,
+    "compileTimeoutMs": 240000,
+    "generationTimeoutMs": 180000,
+    "guardTimeoutMs": 60000,
+    "laneTimeoutMs": 300000,
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "hostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0
+  },
+  "stages": [
+    {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-stage.json",
+        "bytes": 97387,
+        "sha256": "f04e1c1e353244007e79da3eb539db858480dccd482d5219867dffe71c5e5c65"
+      },
+      "label": "f2-stage-01",
+      "mode": "before",
+      "sourceCount": 450,
+      "sourceDigest": "f0ecc3474e151bfa15763234866c486722fd1bcc2517c4cd80c93f2e80f607c0",
+      "sourceStageMatchesFrozenSubject": false,
+      "setupMs": 1866,
+      "commands": {
+        "compile": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json",
+          "exitCode": 0,
+          "signal": null,
+          "error": null,
+          "ms": 8745
+        },
+        "generate": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs",
+          "exitCode": 0,
+          "signal": null,
+          "error": null,
+          "ms": 36086
+        },
+        "lifecycle": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/check-lifecycle-boundary.mjs",
+          "exitCode": 0,
+          "signal": null,
+          "error": null,
+          "ms": 709
+        }
+      }
+    },
+    {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-stage.json",
+        "bytes": 97407,
+        "sha256": "c1e6fe7c042be6c5cfbda88a5bb0c8fb10b567d40cf3ea5fa4dd19ad9557d5cc"
+      },
+      "label": "f2-stage-02",
+      "mode": "after",
+      "sourceCount": 450,
+      "sourceDigest": "5fa9b8924e4af45127e556a2683ae1624fa366cf675ac88b299e216ad37a1282",
+      "sourceStageMatchesFrozenSubject": true,
+      "setupMs": 1602,
+      "commands": {
+        "compile": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json",
+          "exitCode": 0,
+          "signal": null,
+          "error": null,
+          "ms": 8708
+        },
+        "generate": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs",
+          "exitCode": 0,
+          "signal": null,
+          "error": null,
+          "ms": 35325
+        },
+        "lifecycle": {
+          "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/check-lifecycle-boundary.mjs",
+          "exitCode": 0,
+          "signal": null,
+          "error": null,
+          "ms": 704
+        }
+      }
+    }
+  ],
+  "lanes": [
+    {
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-lanes-admission/summary-admission.json",
+        "bytes": 1230,
+        "sha256": "89ab8090613bf9280a52e57ad80294072855b2c00f86144f9e384eb820a6a72e"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-lanes-admission/admission.stdout.tap",
+        "bytes": 1887,
+        "sha256": "49cb13ca574aa73e7b82ca0e0a65923867ea2cf600341417263c960841dbb502"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-lanes-admission/admission.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stage": "f2-stage-01",
+      "lane": "admission",
+      "mode": "before",
+      "stageSourceDigest": "f0ecc3474e151bfa15763234866c486722fd1bcc2517c4cd80c93f2e80f607c0",
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 fixed admission:  test_env/tests/t287-default-library.test.mjs",
+      "exitCode": 1,
+      "signal": null,
+      "error": null,
+      "ms": 67261,
+      "setupMs": 74,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "selectedTestNames": [
+        "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+      ],
+      "failing": [
+        "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+      ],
+      "requiredActivePass": false,
+      "historicalSkipsDeclared": true,
+      "skippedNames": [],
+      "minimumTests": 1
+    },
+    {
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-admission/summary-admission.json",
+        "bytes": 1230,
+        "sha256": "0a5d133afe9318c19b27e8bcd1523ce5a96d31fad2615a1536e70cd2191f6127"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-admission/admission.stdout.tap",
+        "bytes": 1885,
+        "sha256": "7e564033c7d10607cd2c71f6dbd37702ceba0861254c79a0acbf6ec792905694"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-admission/admission.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stage": "f2-stage-02",
+      "lane": "admission",
+      "mode": "after",
+      "stageSourceDigest": "5fa9b8924e4af45127e556a2683ae1624fa366cf675ac88b299e216ad37a1282",
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 fixed admission:  test_env/tests/t287-default-library.test.mjs",
+      "exitCode": 1,
+      "signal": null,
+      "error": null,
+      "ms": 68356,
+      "setupMs": 146,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "selectedTestNames": [
+        "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+      ],
+      "failing": [
+        "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+      ],
+      "requiredActivePass": false,
+      "historicalSkipsDeclared": true,
+      "skippedNames": [],
+      "minimumTests": 1
+    },
+    {
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-direct-route-regression/summary-direct-route-regression.json",
+        "bytes": 1985,
+        "sha256": "a3f7a0adf9d1636bcef540650f5078689e919d7db55dbe579e91c5f37c8f7520"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-direct-route-regression/direct-route-regression.stdout.tap",
+        "bytes": 2345,
+        "sha256": "03c0770202f1e2f284a41cd7c012400415c62f5ddd79d2f271ec2c113f6e42d7"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-direct-route-regression/direct-route-regression.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stage": "f2-stage-02",
+      "lane": "direct-route-regression",
+      "mode": "after",
+      "stageSourceDigest": "5fa9b8924e4af45127e556a2683ae1624fa366cf675ac88b299e216ad37a1282",
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 fixed proof:  test_env/tests/t287-default-library.test.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 1257,
+      "setupMs": 185,
+      "counts": {
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "selectedTestNames": [
+        "RC7 fixed proof: direct root Testing prepares the observed C2 task and folds one selector-free Testing observation",
+        "RC7 fixed proof: direct Testing refuses open scope, fabricated or retained input, and a selector-free fold off the root Testing wrapper",
+        "RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector",
+        "RC7 fixed proof: direct UAT refuses crossed source, row population, producer identity, currentness and off-root relations",
+        "RC7 fixed proof: selected children keep the synthesis target guard, selected Result ref and selected instruction order",
+        "RC7 fixed proof: public-setup invokes Testing directly, derives its admitted state Result once and invokes UAT over exactly that source; the lifecycle start is unchanged"
+      ],
+      "failing": [],
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": true,
+      "skippedNames": [],
+      "minimumTests": 6
+    },
+    {
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-cold-resume/summary-cold-resume.json",
+        "bytes": 1364,
+        "sha256": "aebe3030e48acca5efc5ad754412bef1056cae275b2844160d9ee3afe60b3e04"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-cold-resume/cold-resume.stdout.tap",
+        "bytes": 9307,
+        "sha256": "ada1b782fdce78a598d29a4569837758be758481edb5431aa660d7db7a4a800c"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-cold-resume/cold-resume.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stage": "f2-stage-02",
+      "lane": "cold-resume",
+      "mode": "after",
+      "stageSourceDigest": "5fa9b8924e4af45127e556a2683ae1624fa366cf675ac88b299e216ad37a1282",
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$ test_env/tests/t287-default-library.test.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 243168,
+      "setupMs": 78,
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "selectedTestNames": [
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+      ],
+      "failing": [],
+      "requiredActivePass": true,
+      "historicalSkipsDeclared": true,
+      "skippedNames": [],
+      "minimumTests": 2
+    }
+  ],
+  "allocationObservation": {
+    "stageDirectories": [
+      "f2-stage-01",
+      "f2-stage-02"
+    ],
+    "laneDirectories": [
+      "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-01-lanes-admission",
+      "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-admission",
+      "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-direct-route-regression",
+      "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-fixed-proof-author-02/tmp/f2-stage-02-lanes-cold-resume"
+    ],
+    "stageCount": 2,
+    "laneCount": 4,
+    "allClosed": true,
+    "noExtraExecutionPerformed": true
+  },
+  "counts": {
+    "before": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "after": {
+      "tests": 9,
+      "pass": 8,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  },
+  "findings": [
+    {
+      "id": "F2-ACTUAL-PROOF-001",
+      "relation": "before/after admission discriminator",
+      "observation": "Both original TAP outputs report product_run_invocation_preparation_refusal, invalid_target at /program during population. Neither reaches invocation_admission. Planned before authority_mismatch and after positive direct UAT are not proved.",
+      "outcome": "blocked"
+    },
+    {
+      "id": "F2-ACTUAL-PROOF-002",
+      "relation": "affected regression and cold composition",
+      "observation": "Six direct-route regression cases and two actual cold-resume cases passed on the exact frozen after-stage.",
+      "outcome": "bounded_pass"
+    }
+  ],
+  "timings": {
+    "stageSetupMs": 3468,
+    "compileGenerateGuardMs": 90277,
+    "laneSetupMs": 483,
+    "laneCommandMs": 380042,
+    "hostStartUtc": "2026-11-06T11:52:06.460Z",
+    "nativeStartUtc": "2026-11-06T11:54:18.734Z",
+    "afterStageReceiptMtimeUtc": "2026-11-06T12:18:44.409009Z",
+    "nativeStartToAfterStageReceiptMs": 1465675.009,
+    "firstAuthoredChangeUtc": null,
+    "standing": "Stage/test time is inside native work; no matched runtime speedup claim."
+  },
+  "limits": [
+    "Runtime/SDK actual return and source-after join remain pending.",
+    "Operator read-only evidence collection; no rerun, retry, source edit, build, qualification or acceptance.",
+    "Actual worker handoff may report additional limitations; original receipts and failures are preserved."
+  ]
+}

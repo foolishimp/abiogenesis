@@ -1,0 +1,91 @@
+{
+  "status": "ROOT_REGISTERED_OPEN_DEFERRED_TECHNICAL_DEBT",
+  "role": "separate Writer following closed reentry-05 postguards",
+  "rootDecision": "Root explicitly adopts the lifetime S3 capsule and defers unresolved m5 transport Proof as a qualification blocker. No-block rationale applies only to bounded local RC11 outcomes. No source, Product, runtime or Git effect is selected by debt registration.",
+  "proofReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/RETURN.json",
+    "bytes": 5416,
+    "sha256": "e637941505a491fe365f346e8c368c0849286b81af928a014830a9a68377dc7b"
+  },
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/POSTGUARDS.json",
+    "bytes": 6145,
+    "sha256": "4261e54986917094561d268a267aaf2b22d28e05e3b3cb4df93d8c3465f46a37"
+  },
+  "lifetime": {
+    "id": "RC11-LIFETIME-OBS-LATE-001",
+    "status": "OPEN_DEFERRED_TECHNICAL_DEBT",
+    "adoptedExactProposal": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/lifetime-assurance-001/DEBT_CAPSULE.json",
+      "bytes": 3761,
+      "sha256": "7757c094d27698fbf41653d981efa8c3335f6e42e275ee39845b15a68c4cfa5c"
+    },
+    "adoptedFields": "Exact proposal frame, evidence, finite counterexample, no-block rationale, triggers, closure falsifier/evidence, owner and scope are adopted unchanged; only proposed status becomes registered.",
+    "actualRunLimit": "All eighteen cases remain supported by individually timely timestamps. No universal asynchronous observation-stop claim."
+  },
+  "m5": {
+    "id": "RC11-M5-TRANSPORT-PROOF-001",
+    "status": "OPEN_UNRESOLVED_PROOF_GAP_QUALIFICATION_BLOCKER",
+    "frame": "Proof plus transport/physical lifecycle under the fixed ABI5 Project reference frame and unchanged Product/requirements",
+    "owner": "Root and the existing transport proof owner",
+    "evidence": {
+      "originalUnit": {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-03/unit/RETURN.json",
+        "bytes": 2621,
+        "sha256": "46d3a6b984a1d08a8b7405c3c47f7a014630d3bad3ffa41ceb59ef943171be4d"
+      },
+      "unchangedWholeFile": {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-04/m5-discriminator/RETURN.json",
+        "bytes": 2201,
+        "sha256": "0aaf25a9fcfbddf4b41907504ec5b2107663bcf3739118ab94414c8b4dd4171a"
+      },
+      "diagnostic": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/RETURN.json",
+        "bytes": 16613,
+        "sha256": "2041b6e3c7f35e8984891b2b1111a7677943cb55989d39af6645de2371ea33de"
+      },
+      "independentSourceTriage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/source-assurance-001/UNIT_TRIAGE_01.md",
+        "bytes": 14343,
+        "sha256": "43c28cefc8b3f0485f30bd21df8bd5a03c1af0179d4f95b146fdd9c3b87be141"
+      },
+      "rootConjunction": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/ROOT_M5_DISPOSITION.json",
+        "bytes": 1499,
+        "sha256": "5f34872ac04a9aef114ebe3609811c654fabed8d3b0ec26fd1dbccdd885c4251"
+      }
+    },
+    "actualPopulations": {
+      "originalUnit": "95 tests:84 pass,5 fail,6 skip",
+      "wholeFileDiscriminator": "32 tests:29 pass,3 fail,0 skip",
+      "observationalDerivative": "3 tests:2 pass,1 fail,0 skip"
+    },
+    "cause": "Undetermined. Original actor facts were removed by test cleanup. Callback-count-as-write-count is a structural oracle weakness, not established cause. Diagnostic false-ack callback did not run; no inference of harmlessness, host load or flakiness.",
+    "noBlockRationale": "Only bounded local RC11 outcomes: native assessment4pass; selector2pass with optional physical case skipped; lifetime18pass with individually timely observations. Relevant production bytes are unchanged; diagnostic owners closed cleanly and established no authority contradiction. This does not close m5 or qualify RC11.",
+    "lawfulReentry": "Proof diagnostic or realization_refactor at the existing test owner; a demonstrated runtime defect returns to its owning Design/realization relation.",
+    "activationTriggers": [
+      "Qualification or changed transport proof is selected",
+      "Readiness, capture or lifetime evidence contradicts the bounded current claims"
+    ],
+    "dependentBoundary": "RC11 and whole5.0 qualification; no all-green unit or repaired-transport claim",
+    "closureFalsifier": "Retained per-actor observations contradict a declared nominal, negative or physical outcome, or a count/progress premise remains ungrounded.",
+    "closureEvidence": "Retained per-actor launch/readiness/capture/acknowledgement/deadline/result and cleanup facts with decisive nominal, negative and physical evidence over the selected transport owner; independent assessment. A repeated pass or assumption of harmlessness is insufficient."
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/source-assurance-001/REVIEW.md",
+    "bytes": 13579,
+    "sha256": "77011801b26e427a43f7d140cafafb04356e1d3b12798b841f199af8673428bd"
+  },
+  "componentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/source-assurance-001/PROOF_ADDENDUM_01.md",
+    "bytes": 8342,
+    "sha256": "d29f8d9b682b7369ce47a786b0a9b45735262be72f70f85357d8f5f93c32f317"
+  },
+  "lifetimeReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/lifetime-assurance-001/RESULT.md",
+    "bytes": 9841,
+    "sha256": "7f2a06ac511de2cc903ebc2b458ba7c520866aa443934c5b75fce986d06d3eb3"
+  },
+  "qualified": false,
+  "unitPassed": false
+}

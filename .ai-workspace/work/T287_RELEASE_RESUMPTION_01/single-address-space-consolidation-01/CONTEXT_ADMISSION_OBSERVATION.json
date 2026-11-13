@@ -1,0 +1,86 @@
+{
+  "kind": "actual_context_admission_information_sufficiency_observation",
+  "recordedUtc": "2026-11-03T14:21:20.500234+00:00",
+  "role": "Root operator/evidence Writer; passive physical event observation",
+  "logPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+  "eventRef": "event://abiogenesis/8171f70da139ec7cdf79a226e3693d92f58aa887d7cac9b399e6eda95f079cca",
+  "eventOrdinal": 40,
+  "eventTime": "2026-11-03T13:56:09.627Z",
+  "rowOffset": 3966944,
+  "rowBytes": 28508442,
+  "rowSha256": "3baaba4275d3dc40b04c34237ce0c6f277da2eadc0f854a6cd7a265d86e92a40",
+  "contextDigest": "sha256:bc71da7bad2629d19c60852abd3cd45b4c15f7b86f429057539ab55784bc42a6",
+  "entries": 807,
+  "files": 803,
+  "decodedFileBytes": 21039884,
+  "absent": [
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "state": "absent"
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "state": "absent"
+    },
+    {
+      "relativePath": "consolidation-scratch/native-01/readiness.json",
+      "state": "absent"
+    },
+    {
+      "relativePath": "consolidation-scratch/native-01/return.json",
+      "state": "absent"
+    }
+  ],
+  "largest": [
+    {
+      "relativePath": "consolidation-inputs/native-01/contract-seeds/schemas/public-operation.schema.json",
+      "byteLength": 2870138
+    },
+    {
+      "relativePath": "consolidation-inputs/native-01/contract-seeds/qualification/rule-catalog.json",
+      "byteLength": 1770456
+    },
+    {
+      "relativePath": "consolidation-inputs/native-01/contract-seeds/schemas/self-conformance.schema.json",
+      "byteLength": 1050028
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "byteLength": 294538
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "byteLength": 290041
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "byteLength": 222772
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "byteLength": 221745
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "byteLength": 213856
+    },
+    {
+      "relativePath": "consolidation-inputs/native-01/contract-seeds/capabilities/capability-definition-graph.json",
+      "byteLength": 197474
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/src/index.ts",
+      "byteLength": 190503
+    }
+  ],
+  "inputSufficiencyManifest": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/native-01/INPUT_SUFFICIENCY.json",
+  "wholeMapAdmitted": true,
+  "wholeSelectionAdmitted": true,
+  "taskAdmitted": true,
+  "excludedOldBodiesPresent": [],
+  "limits": [
+    "Different task and input set from RC4 campaign; no causal runtime speedup inferred.",
+    "Physical envelope observation, not independent admission/replay truth.",
+    "Current compiler, source, test, fixture and contract seed bodies remain; external raw evidence stays at pinned custody routes."
+  ]
+}

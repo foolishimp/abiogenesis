@@ -1,0 +1,168 @@
+{
+  "status": "SOURCE_PROOF_ACCEPTED_CHECKPOINT_PREPARED_LIVE_WRITES_AND_GIT_HELD",
+  "observedUtc": "2026-11-10T05:00:24.971285+00:00",
+  "candidateRoot": "/private/tmp/abg-rc11-foundation-20261110-01",
+  "branch": "codex/rc11-foundation-correction",
+  "parent": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+  "parentTree": "3be0362585865f52e231b84d87824c229fc6323d",
+  "stagedPaths": [],
+  "currentTrackedDeltaPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "selectedSixPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 75347,
+      "sha256": "c1b6ded8611016673f5ac6dd020af020e2d9135e7478dc4146070dda284994a6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 92784,
+      "sha256": "4ae70f3c9a8d36ed6541c8ce52551c27c2e31b6b346795a02c53e6d54021a6cf"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 147783,
+      "sha256": "ac430f557e3e4eaa9b66f697123ea74675ae5494e149df62f94546fa81d273a4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "bytes": 53486,
+      "sha256": "4a8b300e5855cf440e7429f958ea7a3501f06f100a358c4f36b4a0f51be1f0ad"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "bytes": 72343,
+      "sha256": "dc73d27148042d6a4f5c7e7b434b00141d32cceb66e884401c8e482513aa8ce1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 26041,
+      "sha256": "6a2b34229ecd23aba4790b3682a6ab7a584de5dbb1aeefb1699223879a7c6f90"
+    }
+  ],
+  "testedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+    "bytes": 295433,
+    "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+  },
+  "testedSourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "unitReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/EXECUTION_RETURN.json",
+    "bytes": 9302,
+    "sha256": "6e8e323d39103eaa71bc33df08f3a6a59f70eac5651f6919a61d743e39872ff0"
+  },
+  "productionProofConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+    "bytes": 6141,
+    "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+  },
+  "proposedPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.proposed.r02.md",
+    "bytes": 26772,
+    "sha256": "07068863546b610af9b20c6b2d9e5da2884a462e37bb50ac56cc3dfda43a4ebd"
+  },
+  "proposedPlanDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/EFFECT_PLAN_STATUS.r02.diff",
+    "bytes": 17335,
+    "sha256": "2325571eaeba8d443fcd7fbda48dcecf116f82b6d2e39c2669b66d5ad58608fa"
+  },
+  "proposedMainPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/MAIN_STATUS_PREFIX.proposed.r02.md",
+    "bytes": 1425,
+    "sha256": "c0864b14c732b348781431b7823c4f89615b7df9deee0e81fb9dba9ac173a075"
+  },
+  "trackingProposal": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 196005,
+        "sha256": "edcbdf8affddfa6918dada6fd1a79409144e9240cb0d5139ed863b69015ed6ff"
+      },
+      "proposedAfter": {
+        "bytes": 197430,
+        "sha256": "9461d420cb85d4a4d09f2653b3300c1b8c8cf2e96d33d6f1ffc642161c9f7df3"
+      },
+      "operation": "prepend exact prefix; preserve every prior byte",
+      "written": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 847640,
+        "sha256": "9c4a973baa5d0218a56e00457b6a79c2c15b69738c64b813484b7958bb9be15c"
+      },
+      "proposedAfter": {
+        "bytes": 849065,
+        "sha256": "7a1dc17372ffd5bf914efc4fcde85afd5cd69c396cad3cdc5ed44a6a4ebfec1c"
+      },
+      "operation": "prepend exact prefix; preserve every prior byte",
+      "written": false
+    }
+  ],
+  "existingGuardBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/BINDING.json",
+    "bytes": 14125,
+    "sha256": "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a"
+  },
+  "existingHeadsVerified": {
+    "/Users/jim/src/apps/abiogenesis": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+    "/private/tmp/abg-rc11-foundation-20261110-01": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+    "/private/tmp/abg-rc11-qualification-20261109": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4"
+  },
+  "existingPreservationPinsVerified": true,
+  "candidateIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+    "bytes": 29655224,
+    "sha256": "bc07c7f9439cea13cbeb210beffb330ed9fc0950afa63c4d755741bc858c39eb"
+  },
+  "mainIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29373151,
+    "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+  },
+  "projectedRelation": {
+    "sourceRowCount": 1345,
+    "onlyPostProofCandidateChange": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "otherRowsToRemainByteIdentical": 1344,
+    "executableAndTestChanges": false,
+    "noNewProofClaim": true
+  },
+  "prospectiveCommit": {
+    "message": "refactor: scope command execution with Effect",
+    "exactPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+    ],
+    "requiresFutureRootGrant": true,
+    "staging": "explicit paths only; --sparse when required; never broad add",
+    "stop": "Any unexpected staged path, guard drift or mutating hook stops before commit."
+  },
+  "effectsThisPreparation": "Only create-once proposal/control files here; no live source/tracking/index/HEAD/test/build/pack/install changes.",
+  "predecessorPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/CHECKPOINT_PLAN.json",
+    "bytes": 8084,
+    "sha256": "82372ad2c655f352346f8ea15c091a78e9dc91fe1ff49b7d155561afdfb9298b"
+  },
+  "rootFinalAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4520,
+    "sha256": "2a0935527e62dba1f6aab5c6d709468ed1d971ea85078585d6b66e364a88f3d4"
+  },
+  "compactExactDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/checkpoint-proposal/PROPOSED_DELTA.r02.md",
+    "bytes": 4476,
+    "sha256": "03a7ae697d472191c15cd74f625830638a66ec0642bc9d5b8f27433aef3c14cb"
+  }
+}

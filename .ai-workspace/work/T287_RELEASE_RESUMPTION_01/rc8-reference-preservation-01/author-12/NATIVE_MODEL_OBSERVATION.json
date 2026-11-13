@@ -1,0 +1,15 @@
+{
+  "status": "ACTUAL_NATIVE_PROCESS_ARGUMENTS_OBSERVED",
+  "at": "2026-11-07T22:25:12.699375+00:00",
+  "pid": 40460,
+  "executable": "/Users/jim/.local/share/claude/versions/2.1.306",
+  "selectedArgs": {
+    "--model": "claude-opus-5-5",
+    "--max-turns": "400",
+    "--effort": "xhigh"
+  },
+  "source": "/bin/ps -p40460 -o pid=,command=; projection of selected flags only",
+  "processEnvironmentRead": false,
+  "credentialValuesRecorded": false,
+  "limit": "Actual native process invocation configuration corroborates selected model/effort; this is not remote provider telemetry or a semantic proof."
+}

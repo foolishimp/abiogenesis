@@ -1,0 +1,50 @@
+{
+  "status": "ADDITIVE_AUTHOR_EVIDENCE_CUSTODY_NOT_ACCEPTANCE",
+  "subjectSha256": "1d232ff1a8a576ac558a58c3b6123329e1fdebb456a1041e1f3d1d2772fac06d",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/author-return.json",
+      "bytes": 6401,
+      "sha256": "1e53eea92e40cadb44a9229ebe35f959d5a4422b634435737450cb2697f8fbdd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/author-readiness.json",
+      "bytes": 416,
+      "sha256": "da38465bf700b1a1c13fe15be76c908e585fb0ab3ed3e8d8d48f3048dbeb8fdb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-001/author-notes.md",
+      "bytes": 1393,
+      "sha256": "4daf76ac58c9d9610c1746cefc64fad8563973353620304de3f6d4522d7b1212"
+    }
+  ],
+  "outsideGrantHarness": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+    "sourceCommit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+    "bytes": 65788,
+    "sha256": "28663af973777af8e223347c2931163d78b4e77470b751b266e8ca331277e3fa"
+  },
+  "residuals": [
+    {
+      "path": "test_env/uat/public-setup.mjs",
+      "line": 237,
+      "classification": "Live lifecycle framework request/slots/authority/resource population remains; granted path. Outside-grant harness mocks are a consumer dependency, not retirement proof."
+    },
+    {
+      "path": "test_env/uat/runner.mjs",
+      "line": 239,
+      "classification": "Live fresh-read request/slots/grants population remains; granted path."
+    },
+    {
+      "path": "test_env/qualification/dispatch.mjs",
+      "line": 38,
+      "classification": "Live duplicate root grant/authority preparation remains; granted path. observedC2Task134 consumes its grant; startCall97 also resolves it before shipped constructor."
+    },
+    {
+      "path": "test_env/support/declared-testing-capability.mjs",
+      "line": 493,
+      "classification": "Scenario-conditioned resource patch after canonical construction remains; granted path. Calls actual invoke at502; not merely archived evidence. Semantic validity unreviewed."
+    }
+  ],
+  "limit": "Read-only source localization; Root/reviewer disposition and actual C2 remain pending."
+}

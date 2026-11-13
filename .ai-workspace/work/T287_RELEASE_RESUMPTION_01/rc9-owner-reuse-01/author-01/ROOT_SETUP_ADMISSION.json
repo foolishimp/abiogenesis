@@ -1,0 +1,29 @@
+{
+  "id": "RC9-SETUP-01",
+  "status": "ROOT_ADMITTED_FRESH_SETUP_ONLY",
+  "recordedAt": "2026-11-08T06:25:13.630985+00:00",
+  "decisionOwner": "/root Executive",
+  "recordedBy": "/root/rc9_operator",
+  "decisionVerbatim": "ROOT RC9-SETUP-01 ACCEPT: reviewed concrete host594b1bef, TASKf4f6905a, BINDING268322e4, scope0af265d9, final focused proof6071eab6/template884bf0fa; independently rechecked25control pins,0mismatches. Execute exact STATIC_PREFLIGHT setup command once as Operator, with declared runtime/scratch/C9workspace-manifest effects and full1339preimage guards. Retain same process at HELD_PREPARED_NO_NATIVE_DISPATCH; return actual PREPARED pin/session/typedsetup outcome, no provider dispatch until Root supplies prepared-bound admission. This decision also accepts the reviewed proof-binding production as part of later selected native dispatch, no added review stage needed. Persist this admission within currentcontrolcarrier beforeeffect, then run.",
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/host.mjs",
+    "bytes": 12117,
+    "sha256": "594b1bef94f170c0bc7eb3188d651366aea1f07249a1c7148322d798eb32a7ae"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/TASK.json",
+    "bytes": 13263,
+    "sha256": "f4f6905a6d858dfff8c92b757204979ad2581f2fb1e05bbc53c1483be45b6ce3"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/BINDING.json",
+    "bytes": 9615,
+    "sha256": "268322e4bd0437fce8a5b6898fff36154fcf43adc444734ea0bd95239ceecfd5"
+  },
+  "staticPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/STATIC_PREFLIGHT.json",
+    "bytes": 2819,
+    "sha256": "ec6932128fb3b7f3ebc353a5844688ac868f9c37c1053c76a6cf7ab16884e0d9"
+  },
+  "providerDispatch": false
+}

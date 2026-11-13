@@ -1,0 +1,11 @@
+--- host.mjs
++++ host.r03.mjs
+@@ -17,7 +17,7 @@
+ assert.equal(binding.status,'PREPARED_PHASE2_NATIVE_EXECUTION_HELD');
+ assert.equal(setupAdmission.scopeSha256,binding.activation.sha256);
+ assert.equal(binding.sourceRoot,'/private/tmp/abg-rc11-foundation-20261110-01');
+-assert.equal(binding.runtimeRoot,join(dir,'runtime-001'));
++assert.equal(binding.runtimeRoot,join(dir,'runtime-002'));
+ assert(setupAdmission.grantsFreshPublicSetup===true&&setupAdmission.providerDispatch===false,'setup grant must hold native dispatch');
+ Object.assign(process.env,binding.environment);
+ const pinned=async p=>{const b=await readFile(p.path);assert.equal(b.length,p.bytes,p.path);assert.equal(sha(b),p.sha256,p.path);return b;};

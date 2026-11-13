@@ -1,0 +1,65 @@
+{
+  "status": "ROOT_SELECTED_OPERATOR_STAGING_RECOVERY",
+  "identity": "T287-RC8-OPERATOR-CONTROL-RECOVERY-003",
+  "recordedUtc": "2026-11-07T03:30:51.209579+00:00",
+  "authority": "Executive /root exact triage and selected recovery message; same owner-approved RC8 REF-01 work selection",
+  "recorder": "/root/rc8_operator",
+  "classification": "operator index enumeration failure; no Product compiler/test/native functional red",
+  "cause": "Original proof002 called full git ls-files before sparse filtering under execFileSync default1MiB stdout buffer; ENOBUFS before source freeze/build/test.",
+  "disposition": "Use the exact pinned sparse-checkout literal paths as Git literal pathspecs before enumeration. Do not raise the full-index buffer or alter Product. Preserve original controls, failed allocation and HALT.",
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/CHECKOUT.json",
+    "bytes": 979,
+    "sha256": "1029612b57297aabe3c1ce7ada654146e39881af4919a978920b0101b2226f4a"
+  },
+  "sparseSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc8-reference-preservation/info/sparse-checkout",
+    "bytes": 36309,
+    "sha256": "cc5bf156a20e9042817f7c751ecd0d58f9dfea3a752622f833bd30a1142a9e26"
+  },
+  "supersededRecipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/proof.002.mjs",
+    "bytes": 5804,
+    "sha256": "20b964b0900b15c25306a20061b18b03a5c792e6231daa98d929f0fcbd9fc395"
+  },
+  "failedAllocation": {
+    "path": "/private/tmp/abg-r8-uozznezy/proof/stage-01/RESULT.json",
+    "bytes": 87,
+    "sha256": "04f61fb84684c58fd9c744639446f793ad48c83a3b61a62a698b70feb63dab09"
+  },
+  "retainedHalt": {
+    "path": "/private/tmp/abg-r8-uozznezy/proof/HALT.json",
+    "bytes": 107,
+    "sha256": "844663baeabb52f5f2fec6bcd06c820e8af9aa9ae7fb6bb05865ea32216c6c55"
+  },
+  "newProofRoot": "/private/tmp/abg-r8-uozznezy/proof-003",
+  "stageBudget": {
+    "total": 4,
+    "spentOperatorFailure": 1,
+    "remaining": 3,
+    "labels": [
+      "stage-02",
+      "stage-03",
+      "stage-04"
+    ]
+  },
+  "proofInvocations": {
+    "total": 8,
+    "spent": 0,
+    "remaining": 8,
+    "concurrency": 1,
+    "timeoutMs": 600000
+  },
+  "executionCondition": "Actual native Worker return/closed editing boundary before Operator freezes/builds final source. No second native coding activation for this operator recipe error.",
+  "construction": "Same exact maintained source/dependency/RC7contract-seed build and declared focused lane commands; ordinary compile readiness correction remains within budget; integration/test red returns to Root.",
+  "readOnlyDiscriminatorConsumed": {
+    "producer": "Root",
+    "literalSparseLines": 456,
+    "uniqueLiteralPaths": 453,
+    "gitOutputBytes": 116184,
+    "materializedTrackedRows": 1336,
+    "wallSecondsApprox": 0.25
+  },
+  "qualified": false,
+  "sourceAccepted": false
+}

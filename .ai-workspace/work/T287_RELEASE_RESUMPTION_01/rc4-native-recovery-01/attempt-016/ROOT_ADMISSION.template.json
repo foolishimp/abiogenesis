@@ -1,0 +1,8 @@
+{
+  "status": "TEMPLATE_NOT_ADMISSION",
+  "operator": "Root",
+  "bindingSha256": "ROOT_SELECTS_EXACT_BINDING",
+  "sourceCommit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+  "sourceTree": "e669e2a903de1893a38271b4010a785cc840333e",
+  "decision": "Root may admit HC2 zero-provider installed preflight/call construction; actual frozen call review before one-shot dispatch. No automatic replacement Run, scope expansion or acceptance; declared same-Run correction remains lawful. Fresh005 required."
+}

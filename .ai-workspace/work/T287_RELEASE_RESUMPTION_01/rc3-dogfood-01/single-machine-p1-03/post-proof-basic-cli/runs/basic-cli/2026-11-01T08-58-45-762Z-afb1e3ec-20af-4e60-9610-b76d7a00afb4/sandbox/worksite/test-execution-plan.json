@@ -1,0 +1,47 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-CLI-BASIC",
+  "stage": "test_execution_plan",
+  "authority": [
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "design/test-design.md"
+  ],
+  "command": "node",
+  "args": [
+    "--test",
+    "test/component/hello-cli.test.mjs",
+    "test/uat/hello-cli.uat.test.mjs"
+  ],
+  "cwd": ".",
+  "cwdResolution": "project root: the directory that contains this plan, generated/hello-world.mjs and test/",
+  "env": {},
+  "envResolution": "no variables are added or required; the command inherits the invoking environment and needs no package installation",
+  "expectedExitCode": 0,
+  "expectedTestPassCount": 2,
+  "expectedTestPassCountMeaning": "floor: the component and UAT coverage floor; the observed pass count must be at least this value",
+  "expectedTestFailCount": 0,
+  "expectedStdoutMatch": [
+    "fail 0"
+  ],
+  "assertedReturnValue": "Hello, world!",
+  "testFiles": [
+    {
+      "role": "component",
+      "path": "test/component/hello-cli.test.mjs"
+    },
+    {
+      "role": "uat",
+      "path": "test/uat/hello-cli.uat.test.mjs"
+    }
+  ],
+  "cliUnderTest": {
+    "path": "generated/hello-world.mjs",
+    "arguments": [],
+    "expectedExitStatus": 0,
+    "expectedStdout": "Hello, world!\n"
+  },
+  "representationChanges": [
+    "The original test_execution_plan stage produced test-execution-plan.json and test-execution-result.json and had the worker run the command. Under the installed lifecycle this plan is written without a result file: the execution result is the admitted observation of running this plan's command, args and cwd, judged against expectedExitCode, expectedTestPassCount, expectedTestFailCount and expectedStdoutMatch.",
+    "expectedStdoutMatch is a list of fragments that stdout must contain. It holds only the zero-failure fragment and no pass-count fragment, because the tests add depth cases above the 2-test floor."
+  ]
+}

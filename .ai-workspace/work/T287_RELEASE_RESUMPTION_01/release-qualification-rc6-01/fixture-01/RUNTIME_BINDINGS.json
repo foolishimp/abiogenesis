@@ -1,0 +1,54 @@
+{
+  "kind": "actual_rc6_sdk_binding",
+  "status": "ACTUAL_SETUP_CLOSED_NO_NATIVE_DISPATCH",
+  "summary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/summary.json",
+    "bytes": 2146,
+    "sha256": "5f459c37a0d3b8d884e15baaf8bdf1113e782cb0bf05acc7ea96151b51683c0a"
+  },
+  "resumeMaterial": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/operator-resume-material.json",
+    "bytes": 72658275,
+    "sha256": "c84c68d3b403aa538120032edfd406c8ebc9530d70f3790aefb23a2d5c0e11a0"
+  },
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/SETUP_TIMING.json",
+    "bytes": 5837,
+    "sha256": "d676ebfbbb8971a58187c31004c03a66d5ea01d759a7c9b189a8b8afdbe5f7cf"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/fb1d26ecb625f2f2788403a6989144ee756ac687c38dd36ac04ba45817f8c4ac",
+    "digest": "sha256:fb1d26ecb625f2f2788403a6989144ee756ac687c38dd36ac04ba45817f8c4ac"
+  },
+  "catalogDigest": "sha256:74fc64a9409509bbd4e2611353a63d267556999485dfd7e1c19e507176e79a8e",
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 3186855,
+      "prefixDigest": "sha256:d4b2231dd20498332d71ccc33d7d31c3f245f70b151d73609a79c86f7dfaa26c",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 701759869,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+      },
+      "coordinateDigest": "sha256:8d7d3631edc5772510a874d19b9ebcb1a70b081c864a98327ae6b206019d46bf"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "device": 16777231,
+      "inode": 701759869,
+      "eventLogDigest": "sha256:d4b2231dd20498332d71ccc33d7d31c3f245f70b151d73609a79c86f7dfaa26c",
+      "durableByteLength": 3186855,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "authorityDigest": "sha256:beea53a9b91c8d723320c1ee0ca951c3b1ea8f2a28349cbd5e7efe647ae0f3a6"
+    }
+  },
+  "providerCalls": 0,
+  "meaning": "Actual maintained SDK close/state, not invented previous native work. Large resume/catalog bodies remain at owner-returned paths, not in task context."
+}

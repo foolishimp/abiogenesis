@@ -1,0 +1,33 @@
+--- operational-preparation-002/prepare-and-dispatch.template.mjs
++++ prepare-and-dispatch.mjs
+@@ -21,7 +21,7 @@
+ assert.equal(binding.rootControlAdmission.path,join(dir,'ROOT_CONTROL_ADMISSION.json'));
+ assert(binding.resume?.path&&binding.resume?.sha256&&binding.actualClosePrefix,'Actual predecessor close unbound');
+ const actualCloseBytes=await readFile(binding.actualClose.path);assert.equal(hash(actualCloseBytes),binding.actualClose.sha256);assert.equal(actualCloseBytes.length,binding.actualClose.bytes);
+-assert.deepEqual(JSON.parse(actualCloseBytes).prefix,binding.actualClosePrefix);
++assert.deepEqual(JSON.parse(actualCloseBytes).closeHandoff.prefix,binding.actualClosePrefix);
+ const pinnedJson=async pin=>{assert(pin?.path&&pin?.sha256&&Number.isSafeInteger(pin?.bytes),'Required control pin missing');const b=await readFile(pin.path);assert.equal(b.length,pin.bytes,pin.path);assert.equal(hash(b),pin.sha256,pin.path);return JSON.parse(b);};
+ const retained=await pinnedJson(binding.resume),profile=await json(join(dir,'PROVIDER_PROFILE.json')),w=await json(join(dir,'workload.json')),grant=await json(join(dir,'NATIVE_GRANT.json'));
+ // Root's new exact selection supersedes the prior two-file review conjunction.
+--- operational-preparation-001/launch-owner-script.template.mjs
++++ launch-owner-script.mjs
+@@ -1,6 +1,7 @@
+ // Thin adaptation of the existing owner launcher; commandRecorder owns deadline/process-group termination.
+ import assert from 'node:assert/strict';
+-import {readFile} from 'node:fs/promises';
++import {readFile,lstat,access} from 'node:fs/promises';
++import {constants} from 'node:fs';
+ import {dirname,join} from 'node:path';
+ import {fileURLToPath,pathToFileURL} from 'node:url';
+ import {createHash} from 'node:crypto';
+@@ -9,7 +10,9 @@
+ for(const p of manifest.files){const b=await readFile(p.path);assert.equal(b.length,p.bytes,p.path);assert.equal(sha(b),p.sha256,p.path);}
+ const binding=JSON.parse(await readFile(join(dir,'RUNTIME_BINDINGS.json'))),p=binding.operatorRunner;assert(p?.path&&p?.sha256);const rb=await readFile(p.path);assert.equal(rb.length,p.bytes);assert.equal(sha(rb),p.sha256);
+ const {commandRecorder}=await import(pathToFileURL(p.path));const profile=JSON.parse(await readFile(join(dir,'PROVIDER_PROFILE.json')));
+-assert.equal(profile.outerTimeoutMs,10800000);const environment={...process.env,NODE_OPTIONS:profile.runtimeEnvironment.NODE_OPTIONS};
++assert.equal(profile.outerTimeoutMs,10800000);
++for(const file of [profile.provider.command,profile.realClaude]){const st=await lstat(file);assert(st.isFile()&&!st.isSymbolicLink(),'Exact provider file required');assert((st.mode&0o111)!==0,'Provider executable mode absent');await access(file,constants.X_OK);}
++const environment={...process.env,NODE_OPTIONS:profile.runtimeEnvironment.NODE_OPTIONS};
+ const command=commandRecorder(dir,{environment,timeoutMs:profile.outerTimeoutMs,maxOutputBytes:536870912});
+ const result=await command('sdk-native-host','/opt/homebrew/Cellar/node/24.7.0/bin/node',[join(dir,'prepare-and-dispatch.mjs'),process.argv[2]],{cwd:dir});
+ console.log(JSON.stringify({status:'SDK_NATIVE_HOST_RETURNED',exitCode:result.exitCode,signal:result.signal,timedOut:result.timedOut,truncated:result.truncated,failure:result.failure,wallMs:result.wallMs}));

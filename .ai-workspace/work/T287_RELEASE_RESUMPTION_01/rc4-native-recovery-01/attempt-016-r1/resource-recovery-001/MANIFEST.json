@@ -1,0 +1,67 @@
+{
+  "status": "PREPARED_FOR_ROOT_OWNER_RECOVERY_REVIEW_NOT_EXECUTED",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/resource-recovery-001/SELECTION.json",
+    "bytes": 13316,
+    "sha256": "525dd629b37bd1f02b460d91c685fee09f44fe3567e5b924f6227efe8783df17"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/resource-recovery-001/recover.mjs",
+      "bytes": 6962,
+      "sha256": "22d57de2d865d0a298a5eb56a8fdb5f8852187332214e4f55161480bcc872d4f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/CALL_PREPARATION_BINDING.json",
+      "bytes": 49836,
+      "sha256": "673b67eef9fe61192f55a575b56433814506ee629a7a593071880cb2895fc662"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/setup-state.mjs",
+      "bytes": 6888,
+      "sha256": "300c9787df3d6408a8951aa86bfbad1ac034d74b54ce712c8525946435652763"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/execution/calls/lifecycle-start.request.jsonl",
+      "bytes": 22662600,
+      "sha256": "d068e1de36d5a83a4f1c6db2e826afa70fc7a0388df383977add4dea320bf5d1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/operator-resume-material.json",
+      "bytes": 73465082,
+      "sha256": "12b1d20c1375b7160e5192a5b7765b8c1a6822c746adfc039de968b389b1d565"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "bytes": 196501,
+      "sha256": "ac8397814aefb939c445488a8a9fd1582247b0f00e5921494a62f0f389fd15da"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/execution/dispatch-failure.json",
+      "bytes": 2987,
+      "sha256": "c884020dad62b66c10ed3f20dd86ea3801dabae0e1f32f5dddc96bab6b813365"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/PARTIAL_CHECKPOINT.json",
+      "bytes": 13140,
+      "sha256": "1d5bbe07a6b3531f820e76b81b84c264868dad3d272631e2a14a04bd0d2f9783"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/payload-correspondence.json",
+      "bytes": 1034311,
+      "sha256": "4ff5b2918cd4f431729fb05c1bbcc228ddad97966bbf64199735ed4e03a6ede0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/toolchain-census.py",
+      "bytes": 1736,
+      "sha256": "ede46567623c3e8cf6adf9a1a4c359cff071afadfb234cfdb55b036251081024"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/toolchain-census.json",
+      "bytes": 425,
+      "sha256": "08bd785ff5aa9795b4b042f477d24cf312e0a9f0525f8366bc6f26252bb80030"
+    }
+  ],
+  "checks": "node --check exit0; all selected existing owner exports statically resolved. Complete source/install/dependency/quiescence/extent/lock checks run by Root immediately before maintenance.",
+  "effects": "Existing recoverInterruptedEventStore only, ordinary exact abandoned-lock maintenance; unchanged event bytes, no Public/Run/provider calls. New external receipts/authentic recovered resume only."
+}

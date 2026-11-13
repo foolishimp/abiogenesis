@@ -1,0 +1,40 @@
+{
+  "kind": "bounded_method_bootstrap_before_first_selected_edit_observation",
+  "createdUtc": "2026-11-06T20:36:36.153849+00:00",
+  "bootstrapCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/BOOTSTRAP_CUSTODY_001.json",
+    "bytes": 3085,
+    "sha256": "d0875dfea60a253aac0e51d4a6199efc1e9900e5242eb46426a3a55d8b61b07f"
+  },
+  "toolMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TOOL_ACTIVITY_015.json",
+    "bytes": 13309,
+    "sha256": "6a7feb8fb7a1cd15ba38a54a909e7974fa41c4af2a7a1442de90205a9e201bd4"
+  },
+  "sourceMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/SOURCE_METADATA_007.json",
+    "bytes": 5415,
+    "sha256": "c2d56b3a66833679c1cca879ae0218b601abda316c4cb87ae16deece386ad40f"
+  },
+  "firstSelectedEdit": {
+    "name": "Edit",
+    "timestamp": "2026-11-06T20:33:52.895Z",
+    "toolUseRef": "toolu_01WSST6BNTpMxfbR8FUVVPUp",
+    "archiveLine": 7874,
+    "byteOffset": 6126904,
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "sensitivePathRedacted": false,
+    "selectedReadFirstPath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "selectedReadFirstPathMentions": [],
+    "selectedMethodPathPresence": [],
+    "selectedMethodManagerCommandPresence": false,
+    "selectedStageExecutionSyntaxPresent": false,
+    "selectedLaneExecutionSyntaxPresent": false,
+    "selectedProductWriteTool": true
+  },
+  "bootstrapProgressWriteRequestUtc": "2026-11-06T20:32:37.998Z",
+  "progressWriteToFirstSelectedEditMs": 74897,
+  "actorToFirstSelectedEditMs": 1782797,
+  "firstSelectedBuildObserved": null,
+  "standing": "Observed first direct selected Edit is HOW, after authored bootstrap and a stat check showing all17sourcepaths unchanged. No source body acquired; unclassified Bash effects and complete method compliance are not inferred."
+}

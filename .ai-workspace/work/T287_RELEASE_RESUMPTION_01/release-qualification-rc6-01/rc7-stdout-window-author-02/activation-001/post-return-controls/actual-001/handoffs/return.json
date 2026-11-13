@@ -1,0 +1,86 @@
+{
+  "kind": "native_author_return",
+  "task": "rc7-stdout-window-author-02",
+  "status": "STOPPED_ON_FINAL_LANE_FAILURE",
+  "createdUtc": "2026-11-06T22:27:30Z",
+  "summary": "C1-C3 implemented on the 451-row basis; sw2-stage-01 compile/generation/lifecycle passed; stdout-differential and scope-ordering passed; timeout-interruption failed 9/10 on a test-input defect in the authored absolute case; three lanes unrun.",
+  "frozenStage": {
+    "label": "sw2-stage-01",
+    "sourceFreezeReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-source-freeze.json",
+      "bytes": 96809,
+      "sha256": "af46c37f7c6774746f5cbefef4ee46edb04d917c532c224208e828e9e9778cab"
+    },
+    "stageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01-stage.json",
+      "bytes": 97761,
+      "sha256": "e7de38a04478b44ce5d47e56c972e1ee8a48d5c64d8ad306de86c96207e8e64f"
+    },
+    "sourceDigest": "c23199f8d96ca058708453bc4753ad6c99c437d3268231a68ab0b4080e4198d7",
+    "sourceCount": 451,
+    "compile": "exit0 7487ms",
+    "generate": "exit0 22530ms (packed native declaration closure now valid)",
+    "lifecycle": "exit0; 290 modules, 7 allow-listed sites, no offender",
+    "worksiteEqualsFrozenStage": true,
+    "changedRowsVsSourceBefore": {
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts": "69a50dbcdc2c60fba90f7e1719f1fb597e6a113758d6d04403da830ed5af3852",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts": "d84d5ab75a556ae5d4e58bfa42d8084a7a39c45e3cdc957c1b2817d9379a2940",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts": "7c29c93c50b9ba904a061963083dc5c59df160e8204c5ba6697b6ee849505725",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "e43002becb6f277247d03dc504e29817139484927ec14dfcef055c02cba29fa8",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs": "48565c1d13129aafd765db2009ecab210f086f372e2cc3fe655633c5504edd6b"
+    }
+  },
+  "allocation": {
+    "stagesUsed": 1,
+    "stagesCap": 2,
+    "stageLabels": [
+      "sw2-stage-01"
+    ],
+    "stage2": "unused; not spent after the lane failure (would be a retry, and the lane runner refuses further lanes on any source after a failed final lane)",
+    "lanesUsed": 3,
+    "lanesCap": 6,
+    "lanesRun": [
+      "stdout-differential (pass 2/2)",
+      "scope-ordering (pass 2/2)",
+      "timeout-interruption (FAIL 9/10)"
+    ],
+    "lanesUnrun": [
+      "archive-integrity",
+      "legacy-replay",
+      "native-caller"
+    ],
+    "automaticRetries": 0
+  },
+  "failure": {
+    "lane": "timeout-interruption",
+    "test": "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization",
+    "error": "TypeError: worker transport absolute timeout must be one safe integer greater than its inactivity timeout",
+    "at": "prepareWorkerTransport -> resolveAbsoluteTimeoutMs (pre-launch refusal), called from m5-worker-transport.test.mjs:1900",
+    "classification": "Test-input defect authored in this activation: the case passed timeoutMs 5000 with absoluteTimeoutMs 500. The existing transport owner correctly refuses absolute <= inactivity before launch. No worker launched; the windowed absolute-interruption drain was not exercised. Not a product-code counterexample, but the mandatory absolute-interruption discriminator remains unproved.",
+    "localizedCorrection": "In that one case only, use { timeoutMs: 300, absoluteTimeoutMs: 600, terminationGraceMs: 200 } (DELTA every 30 ms renews the 300 ms lease; absolute fires at 600 ms). Not applied: the worksite must equal the frozen stage source, and the lane runner refuses further lanes after a failed allocation on this source.",
+    "otherCasesInLane": "7 M5 timeout/cleanup guards and RC7 HS03 timeout inactivity-drain case passed (9/10)."
+  },
+  "residuals": [
+    "Mandatory absolute timeout/interruption discriminator unproved (test-input defect above).",
+    "archive-integrity, legacy-replay and native-caller final lanes unrun; the three RC7 HS03 archive: cases and C1 coalesced-boundary partition are authored but unexecuted.",
+    "Cold refusal of window rows by worksite construction recovery is not separately executed; archive cases use the transport's existing archive-equals-observed comparison for missing/changed/truncated bytes.",
+    "C1 proof uses the shared observer classifyChunk with the real transport; the actor_process closure itself is exercised only through native-caller (unrun).",
+    "Nonadmitting-successor adoption in actor_process has source join only; stdout-differential/scope-ordering passes cover the runtime_liveness threshold/successor relation on the real store.",
+    "Original S5 absolute-timeout failure, retained stdout-before red (911 vs 3) and operator sw1-stage-02 generator refusal remain preserved as history; no acceptance, qualification or speedup claim."
+  ],
+  "disclosure": [
+    "Read-only in-memory checks outside the selected command list: node --check on the test file; node imports of the frozen stage build to confirm test-referenced exports exist and to exercise createWorkerTransportOutputObserver.classifyChunk on literal strings. No writes, no test runner, no provider.",
+    "HELD_SESSION_DESIGN.md/REVIEW.md, AGENTS.md, PRODUCT.md, REQ-R-ABG3-PROJECTION/EVENTS and frame basis were not re-read in full; Root selections and HOW \u00a710.10 were the operative relation.",
+    "stdo verify was first invoked with a URI form (refused by the tool), then with v3.0.4 (valid).",
+    "Created qualification-scratch/rc7-stdout-window-author-02/ and tmp/ (declared scratch); stage/lane owners wrote under tmp and /private/tmp/abg-sw2; tests created and removed mkdtemp dirs under /private/tmp/abg-sw2."
+  ],
+  "handoffs": [
+    "qualification-scratch/rc7-stdout-window-author-02/progress.json",
+    "qualification-scratch/rc7-stdout-window-author-02/readiness.json",
+    "qualification-scratch/rc7-stdout-window-author-02/return.json"
+  ],
+  "rootOwns": "disposition, any correction stage/lane re-allocation, frozen review, acceptance, installed/release proof, continuation and publication",
+  "accepted": false,
+  "qualified": false,
+  "published": false
+}

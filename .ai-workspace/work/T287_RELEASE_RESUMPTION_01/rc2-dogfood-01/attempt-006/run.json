@@ -1,0 +1,6 @@
+{
+  "runId": "rc2-dogfood-01-attempt-006",
+  "priorAttempt": "attempt-005",
+  "relation": "new Run, diagnostic-04 test-first; existing source/pin, supported foreground-host settings and enlarged consistent time limits; no inherited completion credit",
+  "at": "2026-10-30T14:27:10.646Z"
+}

@@ -1,0 +1,401 @@
+{
+  "kind": "bounded_d5_causation_measurement_triage",
+  "status": "closed",
+  "completedUtc": "2026-11-05T22:38:39.582591+00:00",
+  "productFrame": {
+    "product": "ABIogenesis",
+    "goal": "GOAL-035 / T-287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "F10 selected D5 lifecycle-copy retirement; bounded diagnosis of one recurring causation-count assertion on an intermediate author stage.",
+    "outcome": "ABG retains one causal admission/replay authority and primary lifecycle facts while selected redundant copies are retired. Tests must measure the actual owner computations truthfully.",
+    "authority": "Product/requirements own outcomes; accepted HOW owns the selected implementation boundary. Test counters are derived measurement tools. They cannot create or remove ABG runtime authority, change causal validity or establish release truth.",
+    "prohibitions": [
+      "No new store, event stream, lifecycle authority, replay algebra or requirement change.",
+      "No source repair, moving worksite read, test/build/provider/runtime execution, private logs or Git mutation.",
+      "No final D5 readiness, independent acceptance or release conclusion."
+    ]
+  },
+  "evaluatedClaim": "The live counter classifies every event-reference map operation in the measured transaction into its declared source-owner categories, leaving unattributed zero.",
+  "result": "falsified",
+  "diagnosis": "Existing durable-encoding batch-map entries are unclassified by the test; the observed128 is not evidence of128 extra or unowned causation lookups.",
+  "technicalSeverity": "S3",
+  "priority": null,
+  "subject": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/REVIEW_REQUEST.md",
+      "bytes": 2958,
+      "sha256": "4760dd68edf1bb487f4a23f5b6f7bf6dc1c7249a32bead417943182e119f9932"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/SUBJECT.json",
+      "bytes": 4827,
+      "sha256": "d98aacf9449794e2268b44cee3da485d474d222d5a40a7915621a9f74168f476"
+    },
+    "standing": "Exact intermediate d5a-s3 only. The live author remained active; no final candidate was acquired or accepted.",
+    "packetFilesVerified": 6,
+    "packetMismatches": [],
+    "predecessor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+      "bytes": 434234,
+      "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+    },
+    "stageManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/evidence/d5a-s3-stage.json",
+      "bytes": 75539,
+      "sha256": "b582a2a4cb8ab2636891585292b1e5ce389b8f16399c2838ed194549ec168fe6"
+    },
+    "stageSourceCount": 357
+  },
+  "authority": {
+    "rootSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_SELECTION.json",
+      "bytes": 10325,
+      "sha256": "7c748823ac447064b1dd31d5e42f50680365ca588240e4420c57ccad6663f3c1"
+    },
+    "rootActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "reviewSkill": {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+      "bytes": 8074,
+      "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+    },
+    "methodVerification": "Reuse exact unchanged Product Definition/installed-basis verification from the immediately preceding frozen-F6 recheck; current skill bytes retain its verified digest.",
+    "predecessorReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/codex-review-001/REVIEW.json",
+      "bytes": 30397,
+      "sha256": "f357978e161011120a58171c8c9d240e815468068a98660566c9b8a803205ea3"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "lines": [
+        1240,
+        1256
+      ]
+    },
+    "requirement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 36574,
+      "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28",
+      "lines": [
+        364,
+        386
+      ]
+    },
+    "projectFrame": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "lines": [
+        330,
+        405
+      ]
+    },
+    "selectedHow": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 147084,
+        "sha256": "e3233793d10b6ffdafa41f414821b9fa6a64b9fd9cebba8a612b1b73389594ad",
+        "lines": [
+          615,
+          625
+        ]
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3/build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        "bytes": 21963,
+        "sha256": "0a05f75ab566602af154e99044a24760e0ef1fb46a5393ef44ab024ef40d4919",
+        "lines": [
+          9,
+          24
+        ]
+      }
+    ]
+  },
+  "observedEvidence": {
+    "laneSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/evidence/summary.json",
+      "bytes": 2666,
+      "sha256": "3ff8ab9e48fab7a7b015f62470ee199f2fbce051b8df78af53766d840e3deb7f"
+    },
+    "tap": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/evidence/d5-lifecycle-profile.stdout.tap",
+      "bytes": 24583,
+      "sha256": "b61b8c5d838166f152845df41dc465267fbcf75e4666728083b16e51aa8aed45",
+      "lines": [
+        20,
+        66
+      ]
+    },
+    "failedTest": "owned causation lookup grows with causal references in live admission and cold reconstruction",
+    "reportedStage": "d5a-s3",
+    "reportedD5Lane": {
+      "tests": 48,
+      "passed": 47,
+      "failed": 1,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "otherReportedLanes": {
+      "transportPassed": 27,
+      "qualificationPassed": 36
+    },
+    "firstPopulation": 128,
+    "expectedLiveCounts": {
+      "admissionCauseLookups": 127,
+      "locationCauseLookups": 127,
+      "historyOrdinalEntries": 128,
+      "stagedBodyEntries": 128,
+      "stagedEventEntries": 128,
+      "coldCauseLookups": 0,
+      "coldEventEntries": 0,
+      "unattributed": 0
+    },
+    "actualLiveCounts": {
+      "admissionCauseLookups": 127,
+      "locationCauseLookups": 127,
+      "historyOrdinalEntries": 128,
+      "stagedBodyEntries": 128,
+      "stagedEventEntries": 128,
+      "coldCauseLookups": 0,
+      "coldEventEntries": 0,
+      "unattributed": 128
+    },
+    "reviewerExecution": "None. These are retained author-stage observations, independently pinned and read.",
+    "recurrence": "Root reports recurrence in three local stages. Only the granted retained s3 failure was independently inspected; no earlier-stage or moving-source claim is made."
+  },
+  "finding": {
+    "id": "D5-CAUSATION-MEASUREMENT-01",
+    "severity": "S3",
+    "title": "Counter classifier omits the existing durable-encoding batch map",
+    "violatedRelation": "The measurement claims total source attribution for event-reference Map operations, but declares only two non-ordinal live-map categories while the measured owner path performs three such maps' inserts. Unknown-operation zero is the correct guard; the category population is incomplete.",
+    "cause": "Map.prototype.get and Map.prototype.set both increment the same unattributed bucket. The set wrapper classifies live numeric entries during appendValidated separately, then assigns the first two other map identities to stagedBodyEntries/stagedEventEntries. Every further identity goes to unattributed. appendDurablyBatch creates a separate batchEvents map and sets each already-admitted event once while encoding the transaction.",
+    "causalChain": [
+      "The test measures the entire admitRuntimeEventTransaction, including the final durable commit, for a chain of N workspace public_operation_admitted events with E=N-1 causes.",
+      "Inside the transaction, admitRuntimeEventInternal skips immediate durable append and calls stageRuntimeEvent. Admission validates each causal ref through RuntimeHistorySelection.rowById; RuntimeHistory.appendValidated separately checks its causal location and inserts its event-id ordinal.",
+      "stageRuntimeEvent then inserts into runtimeHistoryStagedBodies and state.eventsById. These are the first two non-ordinal event-reference Map identities captured by the classifier.",
+      "After the callback returns, the transaction calls appendDurablyBatch. Its local batchEvents map retains this batch's earlier events for existing body-encoding references, with committed-row fallback constrained to the committed prefix.",
+      "Each event is encoded before batchEvents.set(event.eventId,event). This adds exactly N sets to the third non-ordinal live map and preserves earlier-only lookup semantics.",
+      "The classifier maps that third identity to unattributed. For N=128, the predicted128 entries equal the entire observed unattributed total. All counter contributions are nonnegative, so no additional unknown gets/sets are needed to explain that observed total."
+    ],
+    "operationAccounting": [
+      {
+        "operation": "Admission causal lookup",
+        "owner": "event_store.projectRuntimeEventAtContract -> RuntimeHistorySelection.rowById/indexById",
+        "count": "E=N-1",
+        "observedAt128": 127,
+        "classification": "admissionCauseLookups"
+      },
+      {
+        "operation": "History-location causal lookup",
+        "owner": "RuntimeHistory.appendValidated -> rowById/indexById",
+        "count": "E=N-1",
+        "observedAt128": 127,
+        "classification": "locationCauseLookups"
+      },
+      {
+        "operation": "History event-id ordinal insertion",
+        "owner": "RuntimeHistory.appendValidated #byId.set",
+        "count": "N",
+        "observedAt128": 128,
+        "classification": "historyOrdinalEntries"
+      },
+      {
+        "operation": "Tentative body insertion",
+        "owner": "event_store.stageRuntimeEvent runtimeHistoryStagedBodies map",
+        "count": "N",
+        "observedAt128": 128,
+        "classification": "stagedBodyEntries"
+      },
+      {
+        "operation": "Staged admission lookup insertion",
+        "owner": "event_store.stageRuntimeEvent state.eventsById",
+        "count": "N",
+        "observedAt128": 128,
+        "classification": "stagedEventEntries"
+      },
+      {
+        "operation": "Earlier-event insertion for durable batch encoding",
+        "owner": "event_store.appendDurablyBatch batchEvents.set",
+        "count": "N",
+        "observedAt128": 128,
+        "classification": "currently unattributed; should be explicitly owned in measurement"
+      }
+    ],
+    "realOperationVersusMeasurement": "The batch-map writes are real existing O(N) work, not imaginary operations. Their ownership is known from source. The error is treating them as unattributed causal lookups or a D5-introduced runtime regression. This does not establish total transaction complexity or latency.",
+    "confidence": {
+      "classificationCause": "high: static owner trace plus exact count reconciliation with retained TAP",
+      "noD5IntroductionOfBatchMap": "high: relevant functions are byte-identical to frozen F6",
+      "oldTestClassifierUnchanged": "not established: predecessor SUBJECT omits this test file",
+      "postRepairCountsOrFinalD5": "unperformed"
+    },
+    "evidence": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+        "bytes": 88005,
+        "sha256": "4dc4968664b8592b09cf6a9cd35e56b3bb0ae426fa6046cb36ba78b31908a22d",
+        "lines": [
+          392,
+          479
+        ]
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 214920,
+        "sha256": "8d75f892fd73811ced3f2f6392e86487d4b862eb273509ccc1a0407169b3a3ad",
+        "lines": [
+          2306,
+          2349
+        ]
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 214920,
+        "sha256": "8d75f892fd73811ced3f2f6392e86487d4b862eb273509ccc1a0407169b3a3ad",
+        "lines": [
+          2454,
+          2477
+        ]
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 214920,
+        "sha256": "8d75f892fd73811ced3f2f6392e86487d4b862eb273509ccc1a0407169b3a3ad",
+        "lines": [
+          4184,
+          4189
+        ]
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 214920,
+        "sha256": "8d75f892fd73811ced3f2f6392e86487d4b862eb273509ccc1a0407169b3a3ad",
+        "lines": [
+          4297,
+          4314
+        ]
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "bytes": 44193,
+        "sha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4",
+        "lines": [
+          128,
+          158
+        ]
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "bytes": 44193,
+        "sha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4",
+        "lines": [
+          235,
+          246
+        ]
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "bytes": 44193,
+        "sha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4",
+        "lines": [
+          397,
+          401
+        ]
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "bytes": 16414,
+        "sha256": "5013543113cd3a2b30c7a22726da885debcf72f54bc812b2632f940e70ac2789",
+        "lines": [
+          211,
+          226
+        ]
+      }
+    ]
+  },
+  "predecessorComparison": {
+    "eventStore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 214382,
+      "sha256": "c7dc17fdc2139343d20217646e3df0d7a2254b3057394e67151041692d5e3f70"
+    },
+    "stageRuntimeEvent": {
+      "oldLine": 2300,
+      "intermediateLine": 2306,
+      "bytesEqual": true,
+      "blockSha256": "d80bb804307006cbaeaff35712edbe0358e2ce2b64309e003127fc567b7a9ac2"
+    },
+    "appendDurablyBatch": {
+      "oldLine": 2311,
+      "intermediateLine": 2317,
+      "bytesEqual": true,
+      "blockSha256": "b3de649073cc02f8d176faebbd39faa2340ad6acdd3a1b54c2ac8c7807e51da1"
+    },
+    "eventStoreDelta": "Only two hunks: new retired-copy key/filter declarations and their use in probabilistic_transport payload variants. The measured workspace-event route and lookup/staging/encoding functions are unchanged.",
+    "runtimeHistoryAndBodyEncoding": "Both stage hashes match their frozen F6 source hashes.",
+    "testPreimageLimit": "m5-event-store-reopen.test.mjs is absent from the supplied F6 SUBJECT inventory. No moving or guessed preimage was substituted; the prior classifier identity and historical introduction date are not claimed."
+  },
+  "priorCheckCoverageGap": {
+    "predecessorC2Inputs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/qualification-inputs/q23-author-06/C2_INPUTS.json",
+      "bytes": 102948,
+      "sha256": "1bdfcff8cfbe68ad50d677acd70c36c18353cef22ce5c45b9ec6e93b8f281c5e"
+    },
+    "assessment": "The prior Q23 six-module population includes transport and qualification modules, not m5-event-store-reopen.test.mjs. Its63 passes cannot establish this measurement. The s3 test fails at the first live-count assertion for N=128 before the staging-map cardinality, cold-count/equality checks and N=256 growth checks. Cold decoding for N=128 returned before that assertion, but its count/equality assertions did not run. Repeating unchanged stages reproduces the omitted category; it does not distinguish a new runtime lookup."
+  },
+  "triage": {
+    "realizedHarm": "One selected stage lane fails, consuming author cycles and withholding its proof. No corrupt event, wrong causal admission, unintended effect, data loss, extra provider work or runtime performance regression is demonstrated.",
+    "triggerProbability": "Deterministic whenever this exact durable transaction measurement runs: every batch event adds one entry to batchEvents. Source predicts N unattributed entries, with retained evidence for N=128 only.",
+    "sunnyDayImpact": "The runtime path admits and persists the measured events; its counter assertion is red. The selected release/proof path remains incomplete until the truthful measurement is repaired and re-proved. Runtime behavior need not be changed to satisfy an obsolete category inventory.",
+    "failClosedControls": "Unknown-operation assertion remains red. Existing causal membership/run-scope checks, rollback and durable append checks remain in source; the adjacent rollback/refusal test reports pass in s3. This diagnosis does not waive those controls or promote the failed lane.",
+    "blastRadius": "Measurement attribution in one test and its derived performance/proof claim. The actual temporary encoding map remains within the existing event-store owner; no new authority or durable store is implicated.",
+    "repairComplexity": "Small test-only change in the already selected m5-event-store-reopen.test.mjs measurement and explanatory expectations.",
+    "regressionRisk": "Low if attribution remains explicit and zero unknown operations is retained. High/unnecessary churn if the author deletes the runtime map, redesigns encoding, changes replay algebra or suppresses unknown counts solely to satisfy the test.",
+    "priorityOwner": "Root; no Product priority or implementation activation assigned."
+  },
+  "boundedRecommendation": {
+    "owningReentry": "Existing selected test measurement in m5-event-store-reopen.test.mjs, under Root/sole-native-author authority.",
+    "action": "Account explicitly for the source-owned durable-batch encoding event map, using its known owner/phase relation; retain separately named admission/location lookups and ordinal/body/staged-event entries. Require the new batch-entry population to be exactly N and its absence in cold measurement. Preserve unattributed=0 and exact map-population accounting.",
+    "doNotDo": [
+      "Do not change expected unattributed to128/N or simply ignore additional map writes.",
+      "Do not classify every extra map as the known encoding map without an owner/phase or exact-population constraint.",
+      "Do not delete the causal/growth check, skip it, or relax semantic/cold equality/rollback assertions.",
+      "Do not change runtime encoding/constructors/fold/replay or launch a general performance campaign for this diagnosis."
+    ],
+    "meaningfulReproof": [
+      "Run the affected measurement at both existing N=128 and256 after the authorized correction, with exact per-owner entries and zero unknown operations.",
+      "Preserve live admission and location lookup counts E=N-1, their existing delta128, cold lookup count E and cold index countN.",
+      "Preserve exact canonical persisted bytes, cold event equality and per-prefix projection equality already in this test.",
+      "Retain the adjacent batch/transaction rollback, reappend and refusal-precedence test; then conjoin the already selected affected D5 lane/command outcomes through Root."
+    ],
+    "falsifier": "Any remaining unattributed operation after the known batch-map category is correctly bound, non-N batch entries, a changed causal-lookup slope or failed cold/semantic checks requires renewed causal triage at that owner. No automatic retry or repair is activated here."
+  },
+  "limits": [
+    "Intermediate s3 only; live source was not read and final D5 readiness was not assessed.",
+    "No tests/builds/runtime/providers/Git mutations were performed. Additional source was read only from the s3 stage after matching the retained manifest hash.",
+    "The source predicts linear counts for the measured operations only; array copying, memory, physical I/O and end-to-end latency remain unmeasured.",
+    "Reported three-stage recurrence was not independently re-read. The exact predecessor test preimage is unavailable in the granted snapshot.",
+    "M2 digest coupling, authentic recovery proof and other D5 author residuals are outside this diagnosis.",
+    "Same OpenAI family as Root architect, separate from Claude author; not formal independent acceptance, native J or release proof."
+  ],
+  "invalidation": [
+    "Any changed test instrumentation, measured action/fixture, source-owned lookup/encoding function, runtime-history/body-encoding contract or source pin.",
+    "A retained trace showing additional unknown operations beyond the identified N batch writes.",
+    "New final candidate or broader performance/qualification claim requires its own selected evaluation."
+  ],
+  "return": {
+    "owner": "Root Executive",
+    "diagnosisComplete": true,
+    "finalD5ReviewComplete": false,
+    "sourceAcceptance": false,
+    "additionalCycleActivated": false,
+    "stop": "Return this bounded diagnosis; Root conjoins after the actual author return."
+  }
+}

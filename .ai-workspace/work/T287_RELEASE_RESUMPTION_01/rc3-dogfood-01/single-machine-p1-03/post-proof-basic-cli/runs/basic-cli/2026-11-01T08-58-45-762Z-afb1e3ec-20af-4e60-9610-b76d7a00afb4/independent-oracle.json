@@ -1,0 +1,124 @@
+{
+  "disposition": "satisfied",
+  "criteria": [
+    {
+      "id": "original-source:source/basic-cli/source.original.txt",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "source/basic-cli/source.original.txt",
+        "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+      ],
+      "reason": "The immutable acquired source/oracle must retain its exact bytes."
+    },
+    {
+      "id": "original-source:source/basic-cli/obligations.json",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "source/basic-cli/obligations.json",
+        "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+      ],
+      "reason": "The immutable acquired source/oracle must retain its exact bytes."
+    },
+    {
+      "id": "original-source:source/basic-cli/oracle.json",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "source/basic-cli/oracle.json",
+        "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+      ],
+      "reason": "The immutable acquired source/oracle must retain its exact bytes."
+    },
+    {
+      "id": "execution:command://abiogenesis-sandbox-uat/basic-cli/cli",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/918e680860ad0070be923ce230e25b822f0528e5345e11456c6a9792579b240e",
+        "sha256:918e680860ad0070be923ce230e25b822f0528e5345e11456c6a9792579b240e"
+      ],
+      "reason": "Actual exact original executable/argv/cwd/limits/reports and full owner-bound environment must terminate and exit zero."
+    },
+    {
+      "id": "execution:command://abiogenesis-sandbox-uat/basic-cli/tests",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/791b1791432c9ab7e298abfa4dc4ae33e0ad27703fa72868d06925405135f9af",
+        "sha256:791b1791432c9ab7e298abfa4dc4ae33e0ad27703fa72868d06925405135f9af"
+      ],
+      "reason": "Actual exact original executable/argv/cwd/limits/reports and full owner-bound environment must terminate and exit zero."
+    },
+    {
+      "id": "artifact:specification/project-conformance.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "specification/project-conformance.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:design/implementation-design.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "design/implementation-design.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:generated/hello-world.mjs",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "generated/hello-world.mjs"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:design/test-design.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "design/test-design.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:test/component/hello-cli.test.mjs",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "test/component/hello-cli.test.mjs"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:test/uat/hello-cli.uat.test.mjs",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "test/uat/hello-cli.uat.test.mjs"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:test-execution-plan.json",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "test-execution-plan.json"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "original-test-floor",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/791b1791432c9ab7e298abfa4dc4ae33e0ad27703fa72868d06925405135f9af"
+      ],
+      "reason": "The real admitted original node:test plan must meet its unchanged pass floor."
+    },
+    {
+      "id": "original-stdout",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/918e680860ad0070be923ce230e25b822f0528e5345e11456c6a9792579b240e"
+      ],
+      "reason": "Actual original CLI stdout must be exact."
+    }
+  ],
+  "unresolvedCriteria": [],
+  "reason": "basic-cli: independent mechanical original-contract checks satisfied. Native independent semantic UAT, exact installed runtime admission and fresh result/replay closure remain separate necessary evidence."
+}

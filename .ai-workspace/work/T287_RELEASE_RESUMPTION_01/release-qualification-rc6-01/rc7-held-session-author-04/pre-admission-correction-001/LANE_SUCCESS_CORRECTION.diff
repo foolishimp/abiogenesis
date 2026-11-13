@@ -1,0 +1,18 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/inputs/prior-author-lanes.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/pre-admission-correction-001/prior-author-lanes.mjs
+@@ -53,7 +53,8 @@
+  if(priorLane===only)throw Error('Selected single lane allocation already consumed; no retry');
+  priorByLane.set(priorLane,JSON.parse(await readFile(join(tmp,name,'summary-'+priorLane+'.json'),'utf8'))[0]);
+ }
+-const passed=r=>r&&r.exitCode===0&&r.fail===0&&r.cancelled===0&&r.todo===0&&r.requiredActivePass&&r.historicalSkipsDeclared;
++const passed=r=>r&&r.exitCode===0&&r.signal===null&&r.error===null&&r.tests!==null&&r.tests>=r.minimumTests&&r.pass+r.skipped===r.tests&&r.fail===0&&(r.skipped===0||r.historicalSkipsDeclared)&&r.requiredActivePass&&r.cancelled===0&&r.todo===0;
++for(const prior of priorByLane.values())if(!passed(prior)||prior.stageSourceDigest!==stageReport.sourceDigest)throw Error('Every prior lane must pass completely on this source; stop and return');
+ if(label!==bounds.stageLabels[0]||only!==bounds.laneIds[allocatedLanes.length])throw Error('Exact one-stage/five-lane serial order required');
+ const integration=priorByLane.get('fixed-route'),heldSession=priorByLane.get('held-session');
+ if(only!=='fixed-route'&&(!passed(integration)||integration.stageSourceDigest!==stageReport.sourceDigest))throw Error('Actual fixed integration must pass first on this source');
+@@ -95,4 +96,4 @@
+ console.log(JSON.stringify(lanes.map(({ id, exitCode, ms, tests, pass, fail, skipped, cancelled, todo, failing }) =>
+   ({ id, exitCode, ms, tests, pass, fail, skipped, cancelled, todo, failing })), null, 1));
+ 
+-if (lanes.length === 0 || lanes.some(r => r.exitCode !== 0 || r.signal !== null || r.error !== null || r.tests === null || r.tests < r.minimumTests || r.pass + r.skipped !== r.tests || r.fail !== 0 || (r.skipped !== 0 && !r.historicalSkipsDeclared) || !r.requiredActivePass || r.cancelled !== 0 || r.todo !== 0)) process.exitCode = 1;
++if (lanes.length === 0 || lanes.some(r => !passed(r))) process.exitCode = 1;

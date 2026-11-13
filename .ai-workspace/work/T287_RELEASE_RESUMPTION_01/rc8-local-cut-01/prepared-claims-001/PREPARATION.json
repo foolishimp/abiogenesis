@@ -1,0 +1,214 @@
+{
+  "status": "PREPARED_CLAIMS_RESIDUALS_AUTHORITY_DRAFTS_NO_EXECUTION_OR_FINAL_ACCEPTANCE",
+  "preparedAt": "2026-11-07T11:39:55Z",
+  "executive": "/root",
+  "writer": "/root/rc7_reference_ticket_writer",
+  "role": "bounded documentation Writer",
+  "authority": {
+    "upstreamUserInstruction": "ok move to rc7 build rc8",
+    "rootGrant": "Prepare only BOUNDED_CANDIDATE_CLAIM.md, RESIDUALS.md, ROOT_AUTHORITY.md and PREPARATION.json under new CUT8/prepared-claims-001; no execution/final acceptance or other edits.",
+    "methodSkill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "admission": "Exact continuing Root Writer grant consumed; no new approval round.",
+    "returnTo": "/root",
+    "hostBoundary": "Ordinary packet-only subagent on shared filesystem; scope is procedural, not an enforced acquisition sandbox; no independent assurance claim."
+  },
+  "basis": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "method": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "ticket": "T-287",
+    "goal": "GOAL035",
+    "fixedFamilies": 15,
+    "basisSelection": "Unchanged Root-verified definition urn:stdo:product-definition:abiogenesis; selection reused for this preparation."
+  },
+  "source": {
+    "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+    "sourceCommit": null,
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "baseCommitRole": "base_only",
+    "sourceRows": 1339,
+    "selectedPaths": 25,
+    "trackedModifications": 22,
+    "newFiles": 3,
+    "exactSelectedPathsOwner": {
+      "path": "../CUT8_FINAL_SOURCE_INVENTORY_002.json",
+      "bytes": 541529,
+      "sha256": "b0710113167753ca54d5e9045ec8fc0a15aae5f3c264b96bdc44e54e76316f10"
+    },
+    "checkpointPending": true,
+    "archiveAndRuntimeUnchangedByLaterTestOnlyIncrements": true
+  },
+  "inputs": {
+    "originalProductAcceptance": {
+      "path": "../../rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 18167,
+      "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+    },
+    "finalBoundedSourceAcceptance": {
+      "path": "../../rc8-reference-preservation-01/author-10/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 4408,
+      "sha256": "d9adadd2558622cb8f60a20055509a160dd0e4a96f204bce368f19e809663922"
+    },
+    "sourceFreeze": {
+      "path": "../../rc8-reference-preservation-01/author-10/proof-evidence/source-freeze.json",
+      "bytes": 295542,
+      "sha256": "e2db4c2e9356da0d97d6277567504650078a8bf1d5b7085dfaee63a4dbae5007"
+    },
+    "sourceInventory": {
+      "path": "../CUT8_FINAL_SOURCE_INVENTORY_002.json",
+      "bytes": 541529,
+      "sha256": "b0710113167753ca54d5e9045ec8fc0a15aae5f3c264b96bdc44e54e76316f10"
+    },
+    "sourcePreparationBinding": {
+      "path": "../CUT8_BUILD_BINDINGS_FINAL_SOURCE_002.prepared.json",
+      "bytes": 27039,
+      "sha256": "f389b23e8c3b6d8241c012860bae25824411fbb775c7f7bf4dc056195ecce320"
+    },
+    "testedArchive": {
+      "path": "../../rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "testedBuildManifest": {
+      "path": "../../../../../../../../../../private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    },
+    "measurementAcceptance": {
+      "path": "../../rc8-reference-measurement-01/ROOT_MEASUREMENT_ACCEPTANCE_004.json",
+      "bytes": 5739,
+      "sha256": "e4e961ab00b4c4c2cffebd95609fecab0c9b06dc32705f10bd5e3606692d4c86"
+    },
+    "registeredSelectionAcceptance": {
+      "path": "../../rc8-reference-preservation-01/registered-selection-whole-001/ROOT_PROOF_ACCEPTANCE.json",
+      "bytes": 5538,
+      "sha256": "7c1f566e0ce754acaba86a5c71e499099c207effd4a94ff54d4628196c239bc8"
+    },
+    "broad016Start": {
+      "path": "../../rc8-close-proof-01/execution-016/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "07d3a955ffdcc5b7f9fe4d90206a7deab386421fbda4258d86e4c54c9313e176"
+    },
+    "broad016StoppedReturn": {
+      "path": "../../rc8-close-proof-01/OPERATOR_RETURN_016.json",
+      "bytes": 10507,
+      "sha256": "1a53977e9bbeb224b88511768a4fee503630bc05853a0c45a2710fbf7306133e"
+    }
+  },
+  "residuals": [
+    {
+      "id": "RC8-GC03-METHOD-304",
+      "status": "OPEN",
+      "review": {
+        "path": "../../rc8-reference-preservation-01/reviews/gc03-method-fixture-001/REVIEW.json",
+        "bytes": 23747,
+        "sha256": "93291ad19d2d2ee01cd9c6e762047b47372a3208312701385ece3822c4d35502"
+      }
+    },
+    {
+      "id": "RC8-NATIVE-ASSESSMENT-PROFILE",
+      "status": "OPEN",
+      "review": {
+        "path": "../../rc8-reference-preservation-01/reviews/native-assessment-011-plan/REVIEW.json",
+        "bytes": 11933,
+        "sha256": "6041d3abf85dbe8e51c7214f40b65e8abcadd347f45d334665dac371e32eecb6"
+      }
+    },
+    {
+      "id": "RC8-SAS-WHOLE-PROOF",
+      "status": "OPEN",
+      "review": {
+        "path": "../../rc8-reference-preservation-01/reviews/sas-timeout-002/REVIEW.json",
+        "bytes": 17734,
+        "sha256": "aa795159f828488487fd02bdc82392718cbfa2203d270fa8e705537ff8c75930"
+      }
+    },
+    {
+      "id": "RC8-PHYSICAL-LIFETIME-013",
+      "status": "OPEN",
+      "review": {
+        "path": "../../rc8-reference-preservation-01/reviews/owned-lifetime-010/REVIEW.json",
+        "bytes": 26564,
+        "sha256": "d911366f66a792dfa24981021d0e430ad7e34b8c74e3fd2ca5a8181abef2b067"
+      }
+    },
+    {
+      "id": "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+      "status": "OPEN",
+      "review": {
+        "path": "../../rc8-reference-preservation-01/reviews/recursive-timeout-014/REVIEW.json",
+        "bytes": 17312,
+        "sha256": "7b1b63bcc12f7e91a5803714881de362f1026e063f2a2ffd012d5ad4c302496a"
+      }
+    }
+  ],
+  "ticketResidualAuthority": {
+    "path": "../../../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "ticketSha256AtRead": "757ae79d12bc123f4b01e2a30c984417e860ef5aa728b1fb1f9c24bb547a9c56",
+    "selectedCapsulesBytes": 12359,
+    "selectedCapsulesSha256": "504b596d16bc4c00941da72638f14b7e64c8432b1706cd86c40eef6847c06d67",
+    "capsules": 5,
+    "standing": "Existing Root-adopted OPEN dispositions; no new debt or waiver."
+  },
+  "proofStanding": {
+    "registeredSelection": "Closed whole final-source proof, separately Root-accepted; one file/one top-level pass/zero skips/seven scenarios/four complete readbacks. Original015 timeout retained; no new technical debt.",
+    "broad016": "Stopped on actual required-operation-bindings assertion; Root causal/source-proof disposition and final aggregation pending. No current Product defect or new technical debt established; no retry/continuation or final coverage claim by this preparation.",
+    "finalCoverageCounts": null,
+    "twelveColdReadResiduals": "preserved",
+    "S7": "preserved, no deletion authority",
+    "broader5AndHumanQualification": "open",
+    "prospectiveAuthor11": "Root selected preparation-only fixture one-name correction and filtered final test, independently triaged first; no source change or native dispatch yet. Current draft subject remains6c8d/25 paths; Root/Operator must bind any eventual successor rather than infer future pins."
+  },
+  "futureBindings": {
+    "finalBroadConjunction": null,
+    "checkpointCommit": null,
+    "checkpointTree": null,
+    "cleanReproductionReceipt": null,
+    "independentReview": null,
+    "immutableInstallReceipt": null,
+    "installedOwnerSmoke": null,
+    "finalExecutionBinding": null
+  },
+  "effects": {
+    "createdFiles": [
+      "BOUNDED_CANDIDATE_CLAIM.md",
+      "RESIDUALS.md",
+      "ROOT_AUTHORITY.md",
+      "PREPARATION.json"
+    ],
+    "otherDocumentWrites": false,
+    "productSourceEdits": false,
+    "testsOrProviderCalls": false,
+    "nativeDispatch": false,
+    "gitOrIndexEffects": false,
+    "checkpointCutInstallExecuted": false,
+    "selectorPublicationOrQualificationEffects": false
+  },
+  "documents": [
+    {
+      "path": "BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 2955,
+      "sha256": "9e46ea544baa60c1eaea92792f41ba2dfd999afb955ce9bbd1374cbdccbddb66"
+    },
+    {
+      "path": "RESIDUALS.md",
+      "bytes": 5073,
+      "sha256": "2c018b77ded7e4563a42092d19cd1b07523e9004f519c45d12ae15ddc167a3dc"
+    },
+    {
+      "path": "ROOT_AUTHORITY.md",
+      "bytes": 2366,
+      "sha256": "5f2ce75d86e92a8bc83ada414f5d8ed7f0abdb58ce1b7e2ef88c22f5c845ab2d"
+    }
+  ],
+  "validation": {
+    "relativeEvidenceLinksChecked": 25,
+    "allFiveResidualsReferenced": true,
+    "draftMarkersPresent": true,
+    "futurePinsNotInvented": true
+  },
+  "closedResult": "Four reviewable preparation drafts only. Root/Operator bind final versions after actual remaining proof; no further work selected.",
+  "reconciledBeforeReturnAt": "2026-11-07T11:41:48Z"
+}

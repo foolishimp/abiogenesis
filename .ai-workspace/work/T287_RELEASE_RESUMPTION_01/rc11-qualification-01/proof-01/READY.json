@@ -1,0 +1,70 @@
+{
+  "id": "RC11-PROOF-READY-01",
+  "state": "PREPARATION_CLOSED_EXECUTION_HELD",
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/ACTIVATION.json",
+      "bytes": 1244,
+      "sha256": "86ec3410c81ee9a241104eb368007dc6c76cd76a4bbe430862f18b508bc57d06"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/CONTROLS.json",
+      "bytes": 5596,
+      "sha256": "e56ad4df8c29ea7226d277a47a91fc9edd3f126126e4c68584fe1cecedfdc6d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/proof.py",
+      "bytes": 11223,
+      "sha256": "078bbdfb90ee2cf803b998438d50606e505205e7abb20e39e32be95408758b0f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/NPM_INVENTORY.json",
+      "bytes": 467075,
+      "sha256": "b597b11aaf3b313e3bc93bb67242c69331cd9ee4e246f0a9f39cdc24f3384e7c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/CONTRACT_SEED_INVENTORY.json",
+      "bytes": 41794,
+      "sha256": "17aa6d466007ec56173587205f9ad0a7d458b3bdfc272ed5b8a9fb7dde750636"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/CONTROLLED_BASELINE.json",
+      "bytes": 4097,
+      "sha256": "4279c66d0d0f9199065a30f723ea7d7ec72c5814efef4418ef3ee935003ff682"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/ROUTE_READINESS.json",
+      "bytes": 5801,
+      "sha256": "c10e6b2529f7b88e37da64dae303e52b1fdf34f14123d109e6641172ec7139bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/README.md",
+      "bytes": 2580,
+      "sha256": "6e408ee0d52eda9b9c7764091628d6f11ec38cdbb3fde00609b88a0290a96bc9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/BINDING.template.json",
+      "bytes": 493,
+      "sha256": "a817f5f822441c3f83fbf58facd831c682cb30158bac592ed05c5dbb5925610c"
+    }
+  ],
+  "sourceBinding": "pending exact frozenC11source; no moving source claimed",
+  "executionAdmission": "not supplied; no build/test/Productimports authorized yet",
+  "commandIds": [
+    "build",
+    "lint",
+    "native-assessment",
+    "selected-action",
+    "owned-lifetime",
+    "unit",
+    "r6",
+    "f04a"
+  ],
+  "privateTmpProofRoot": "/private/tmp/abg-rc11-proof-20261109-01",
+  "syntaxOnlyChecked": true,
+  "dependencyRowsVerified": 4576,
+  "blockedApplicability": [
+    "Exact final frozen source inventory/digest and separate Root execution admission are not supplied yet. Final changed test routes must match the frozen binding."
+  ],
+  "runtimeExecuted": false
+}

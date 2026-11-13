@@ -1,0 +1,48 @@
+{
+  "kind": "root_pending_replay_control_predicate_correction",
+  "at": "2026-11-06T03:14:12.104982+00:00",
+  "status": "ADMITTED_PENDING_REPLAY_ONLY",
+  "originalAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/ROOT_ADMISSION.json",
+    "bytes": 7008,
+    "sha256": "9a35786d7a2841286cd8a02492ef0eee5229385bcc6b1669b34f86314fae8e9d"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/CONTROL_PREDICATE_TRIAGE.json",
+    "bytes": 2529,
+    "sha256": "54e1ad805a2b4d8fd3a99a2e273d7f3d01393405ede0bb7293c3fa05f61989ab"
+  },
+  "hostMemoryReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/host-memory-triage-001/REVIEW.json",
+    "bytes": 37612,
+    "sha256": "bd8532ff2bad99188064b52af441be24304548c60bbee6efb448d26f9d975029"
+  },
+  "scope": "Only pending run_replay once under identical8GiB/cap/close/owner path. Preserve firstreadandhelperfailure. Correct strict distinction between truthful not_found and replayprojection; no control/source/runtimecontract change.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/INPUT.json",
+      "bytes": 250729,
+      "sha256": "2814fe922464f0203b6d8520411d063ba1fda7194aa24161ccc8c569a5055d5e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/read-one-r2.mjs",
+      "bytes": 5459,
+      "sha256": "c9c63c7fdc5402585d6fdae489e519a179c6c3700eeb08f776fa0307964eb82d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/readback-recovery-001/launch-read-r2.py",
+      "bytes": 1805,
+      "sha256": "b1499f26a94caffc97f8a12558b56d9899a3844503faa533a9bdad2b1656289f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    }
+  ]
+}

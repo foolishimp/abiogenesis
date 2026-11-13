@@ -1,0 +1,30 @@
+{
+  "status": "READ_ONLY_COMPILED_OWNER_AND_DEPENDENCY_BYTES_VERIFIED",
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182855,
+    "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+  },
+  "selectedPrefix": "build/code/src/",
+  "compiledRowsEqual": 580,
+  "sourceRoot": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript",
+  "dependencyInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json",
+    "bytes": 901147,
+    "sha256": "f28e1d19b5f62e3cf9d33b2ee95d528686d85d06fdc02a626eaf60d1a0f29a44"
+  },
+  "actualDependencyRoot": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules",
+  "dependencyEntriesEqual": 4576,
+  "effectVersion": "3.22.1",
+  "effectPackage": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+    "bytes": 40617,
+    "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2"
+  },
+  "privateOwnerHarness": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "bytes": 1349,
+    "sha256": "603feef050dc15e99b59eef38196bcfedd396285033f939cdb21ca24b26d8ec0"
+  },
+  "standing": "No build/test/import executed. Existing compiled production owner closure equals retained RC11 build; all dependency file/link entries equal pinned closure. Contract/manifest authority outputs are outside this code-only comparison."
+}

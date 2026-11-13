@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/058-t287-d1-semantic-stage.test/process.json",
+    "bytes": 1077,
+    "sha256": "6bd585c387413b1dbb00ab6437d76f854f30d75cc858e39943e58e5daee0c059"
+  }
+}

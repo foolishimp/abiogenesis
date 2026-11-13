@@ -1,0 +1,102 @@
+{
+  "status": "ROOT_ADMITTED_PROOF_ONLY_COMPLETION",
+  "recordedUtc": "2026-11-04T14:33:43.642646+00:00",
+  "activation": "T287_TARGETED_INTERFACE_PROOF_10",
+  "frame": "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+  "purpose": "Complete only the selected targeted IR01/IR02 verification using the unchanged accepted native09 source and original handoffs.",
+  "role": "Root Executive selection followed by separately bound Root operator/evidence Writer effects; ABG owns Testing and UAT runtime admission.",
+  "method": "STDO3.0.4",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/SUBJECT.json",
+    "bytes": 225298,
+    "sha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13"
+  },
+  "controlSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/control-review-001/SUBJECT.json",
+    "bytes": 20855,
+    "sha256": "fa65e809cb06026545c5832d8787e0400101b0558c9adc090e8b71a0854be990"
+  },
+  "controlReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/FINAL_CONTROL_REVIEW.json",
+    "bytes": 27931,
+    "sha256": "dc9016ed78938f230b687122f18b85e741d1d3dc885803cd42fc3dce61ba805e"
+  },
+  "candidatePins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/DISPATCH_CANDIDATE_PINS.json",
+    "bytes": 271469,
+    "sha256": "d99417dae78f680210ecb448777810e19dd7a284eda9458d732474d5d0ec6d53"
+  },
+  "contextDigest": "sha256:d9d293cc1820b59bb4d06988dfe1109bf508a9c38968bad04fafbf0627f271c3",
+  "callCanonicalDigest": "sha256:540614ea65f9fc30ec6ac571669fe4661e769be893335e90b3958f600c1b756a",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_REENTRY_10.md",
+    "bytes": 4811,
+    "sha256": "f0881c924dce8bbb85b4752cefbada9c03199a021defe17e54a39435493b31d0"
+  },
+  "boundedDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_PROOF_ONLY_DISPOSITION_10.md",
+    "bytes": 2492,
+    "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+  },
+  "closedPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ROOT_CONJUNCTION.json",
+    "bytes": 6282,
+    "sha256": "a614dda3c362103d615c5545fccab5a0afda340a4caf2fa2072756ff66e2d0c4"
+  },
+  "effects": {
+    "nativeCodingWorkers": 0,
+    "workOrders": [
+      "testing",
+      "uat"
+    ],
+    "nativeRoleWriteRoots": [],
+    "productSourceWrites": [],
+    "testingTerritories": [
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/build"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/contracts"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/node_modules"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/artifacts"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs"
+      },
+      {
+        "pathKind": "file",
+        "relativePath": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/evidence"
+      }
+    ],
+    "hostAndCliTMPDIR": "/private/tmp/abg-rc5",
+    "selectedTestTemporaryRoot": "/private/tmp/abg-n09",
+    "selectedTestTemporaryEffect": "Admitted only for temporary effects necessary to the selected existing 12-case sandbox lane; no arbitrary external temp/cache cleanup.",
+    "providerScratch": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09",
+    "operatorEvidenceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10",
+    "runtimeEffects": "Existing installed lifecycle and observed-C2/UAT owners using the genuine prior close/resume."
+  },
+  "stops": [
+    "Any prepared context, source, handoff, input, control or installed owner mismatch stops dispatch.",
+    "One exact invocation; no automatic retry, in-flight edit, actor feedback or extra coding stage.",
+    "Any actual failure remains evidence and returns to Root for bounded triage; no historical red becomes a new pass."
+  ],
+  "expectedReturn": "Actual C2 report/proof and source/protected-input/delta correspondence, actual native UAT, genuine final close/fresh reads, then Root conjunction.",
+  "claimLimits": [
+    "Current controls are sufficient for dispatch only.",
+    "Revision4/1/2 and original09 failures/skips remain preserved with N9-RETAINED-FIXTURE-01.",
+    "No feature, whole qualification, cut, install, global selector, stable release or Git publication selected."
+  ]
+}

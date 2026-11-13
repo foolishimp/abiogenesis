@@ -1,0 +1,14 @@
+{
+  "kind": "rc7_held_session_author_progress",
+  "task": "rc7-held-session-author-03",
+  "status": "HOW_WRITTEN_IMPLEMENTATION_IN_PROGRESS",
+  "updatedUtc": "2026-11-07T00:00:00Z",
+  "controlsVerified": ["ROOT_CONTROL_ADMISSION selection/architecture/command-bounds sha256 match", "EXTERNAL_READ_INPUTS 7/7 bytes+sha256 match", "HEAD 1f62c0095e6196b089071bb72e88217792edf6ff", "69 tracked modified paths present", "STDO v3.0.4 verify failures: []"],
+  "howFirst": [
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md: Setup Program binding (HS3)",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md: 10.9 Setup Program binding, refusal diagnostics and fixture migration (HS3)"
+  ],
+  "stages": [],
+  "lanes": [],
+  "sourceFreeze": null
+}

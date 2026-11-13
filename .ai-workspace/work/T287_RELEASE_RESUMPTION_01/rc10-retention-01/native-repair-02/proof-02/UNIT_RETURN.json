@@ -1,0 +1,23 @@
+{
+  "status": "PASSED",
+  "result": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/unit-01/RESULT.json",
+    "bytes": 6777,
+    "sha256": "8ad8cc41bf49b86c92079f9105078cc1d01016013067672a0b17a3333cdb4624"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "counts": {
+    "tests": 95,
+    "failed": 0,
+    "passed": 89,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0,
+    "topLevel": 95,
+    "suites": 0
+  },
+  "wholeFiles": 9,
+  "wallMs": 179571.80920800002,
+  "next": "One previously admitted6-file affected lane; no repeat.",
+  "qualified": false
+}

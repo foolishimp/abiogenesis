@@ -1,0 +1,64 @@
+{
+  "kind": "native_author_progress",
+  "worker": "rc7-overhead-author-03",
+  "at": "2026-11-06T07:42:18Z",
+  "phase": "returned",
+  "controlIntake": {
+    "admission": "qualification-inputs/rc7-overhead-author-03/ROOT_CONTROL_ADMISSION.json",
+    "pinsVerified": [
+      "ROOT_SELECTION.json",
+      "ROOT_SCOPE_ADDENDUM_01.json",
+      "SOURCE_CUSTODY.json",
+      "NATIVE_GRANT.json",
+      "INHERITED_FACTS.json",
+      "ROOT_REVIEW_DISPOSITION.json"
+    ],
+    "stdoBasis": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "verify": "stdo verify v3.0.4 -> valid true"
+    },
+    "sourceBeforeRowsMatched": 449
+  },
+  "changedSource": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "bytes": 24181,
+      "sha256": "527cc1336c4286779d59dd699ff0e8921cb10c665f616e9108251c95b5cf23c2"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 156293,
+      "sha256": "2f80715880c73f366b0fd4232e34c504db0ebadadfd156e2014deb919fbf481f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 292701,
+      "sha256": "2d956ee914d4a100beb3e2c1f178d0260dc84141e51c023467b28875d78aa15e"
+    }
+  ],
+  "allocations": {
+    "stages": 1,
+    "lanes": 4,
+    "stageCap": 2,
+    "laneCap": 6,
+    "failedOrIncomplete": 0
+  },
+  "completed": [
+    "C2 member/span pin",
+    "checkInstalledIdentity export",
+    "cold case 1 migration",
+    "cold case 2 migration",
+    "HOW 10.8 residual",
+    "stage o7c-stage-01 compile/generate/guard",
+    "lanes publication/c1-consumers/cold-resume/runner"
+  ],
+  "remaining": [
+    "Root custody, freeze, independent review and next fixed Testing/UAT increment"
+  ]
+}

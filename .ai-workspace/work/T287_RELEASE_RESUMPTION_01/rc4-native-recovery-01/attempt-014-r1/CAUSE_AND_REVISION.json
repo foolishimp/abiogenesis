@@ -1,0 +1,51 @@
+{
+  "status": "ZERO_PROVIDER_OPERATOR_PREPARATION_REVISION",
+  "priorBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/CALL_PREPARATION_BINDING.json",
+    "bytes": 75987,
+    "sha256": "6ab7cf5c7fedddfb77fbdeb56cdd56bcdcb98da1b0a0f427494fd327375b4734"
+  },
+  "priorPacket": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/PACKET_MANIFEST.json",
+    "bytes": 6515,
+    "sha256": "5b20c1322e22085ac668584aa97efeae9b871775e5371b61b1b0846d8245bb2e"
+  },
+  "priorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/PREPARATION_FAILURE.json",
+    "bytes": 374,
+    "sha256": "0dd6793e5fbb53cddd134ed33c0d74d5db628b8730031b477f252dbfeecdcfd3"
+  },
+  "ownerDiagnostic": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/diagnostic-001/OWNER_OBSERVATION.json",
+    "bytes": 275,
+    "sha256": "e0f91cdfa8b8ebc8986849c0b101266cc51f02b40574820f3048fd3e868a379f"
+  },
+  "diagnosticResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-014/diagnostic-001/RESULT.json",
+    "bytes": 708,
+    "sha256": "a94b0ca90b75e0fab1a6d60237ad6e9745d951359b3322d7c35373fb3dce867b"
+  },
+  "cause": "Locator correction replaced nonexistent implementation/worksite_operations.ts with already-selected product/worksite_operations.ts without deduplicating both caller arrays. Owner refused invalid_coordinate: worksite context requires finite explicit limits and exact relative read roots. Limits were valid.",
+  "duplicatePath": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+  "priorCounts": {
+    "readRoots": {
+      "listCount": 983,
+      "uniqueCount": 982
+    },
+    "selectedPaths": {
+      "listCount": 968,
+      "uniqueCount": 967
+    }
+  },
+  "successorCounts": {
+    "readRoots": 982,
+    "readRootsUnique": 982,
+    "selectedPaths": 967,
+    "selectedPathsUnique": 967
+  },
+  "correction": "Stable unique caller lists; file-only preflight explicitly rejects duplicates before its set-based traversal. Complete typed owner refusal retained as error.observation in future preparation failure. Installed owner remains final validator.",
+  "unchanged": "Same014 task/grant/source16d/scratch14/semantic inputs/profile resources; sourceBasis:none and exact closed013/runtime002 handoff. No Product/runtime defect or provider call. This is preparation revision, not native attempt015.",
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "ProductImportsByWriter": 0
+}

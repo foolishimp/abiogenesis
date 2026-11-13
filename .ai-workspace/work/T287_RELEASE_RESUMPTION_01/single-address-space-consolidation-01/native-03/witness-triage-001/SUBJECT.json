@@ -1,0 +1,49 @@
+{
+  "recordedUtc": "2026-11-03T19:01:05.135798+00:00",
+  "kind": "frozen_historical_witness_count_contract_diagnostic",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md",
+      "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/witness-triage-001/baseline/build_tenants/abiogenesis/typescript/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md",
+      "bytes": 14728,
+      "sha256": "29cf85bdaa9d18f89542c0e2215bf8130123481ba13c91a624221e1e1c4c855b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/witness-triage-001/baseline/build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "bytes": 25633,
+      "sha256": "4bd8ca0fff90958a769d15dba4587d1b99ef17db609e78618088246f14093ce0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/witness-triage-001/baseline/build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "bytes": 20746,
+      "sha256": "015ae03145f80bbad1d5560404482bbc3bd19150ac28c5af8a5e9dad801620d1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+      "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/witness-triage-001/baseline/build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+      "bytes": 40211,
+      "sha256": "8287cb9a8760690b0c096b12b1c23677156cf0e62dbfe8b28fe4b0cfc45a5efd"
+    }
+  ],
+  "authorFailure": {
+    "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp03/wf-lane0.tap",
+    "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/witness-triage-001/wf-lane0.tap",
+    "bytes": 542428,
+    "sha256": "6643d9ae6df5c8bc818454b364dcff1d1f34b3d396193e7ab7079bae743ce8f8",
+    "reportedCounts": {
+      "materialHistoryExpected": 324,
+      "materialHistoryActual": 323,
+      "profileExpected": 4,
+      "profileActual": 3
+    }
+  },
+  "claim": "Determine whether the historical owning contract mandates each exact observed read count, or whether the count assertion encodes the former array implementation. Do not assess the withdrawn moving native03 code as a frozen candidate.",
+  "standing": "Read-only multi-frame triage input; no source acceptance or repair authority."
+}

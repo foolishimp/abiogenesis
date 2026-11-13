@@ -1,0 +1,27 @@
+{
+  "status": "PARTIAL",
+  "startedUtc": "2026-11-06T23:54:27.842Z",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 25157,
+    "sha256": "1a216aa2b1ea9a688765a76d54249426721f5c591eb74e4db966d6649c504da3"
+  },
+  "reusedBuild": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/stages/sw3-stage-01/stage.json",
+    "bytes": 97762,
+    "sha256": "27c2c400baf15dd1a4c754fed7df0bfbd22f6af13f6ff7473a084904cabc7340"
+  },
+  "compileExecuted": false,
+  "generationExecuted": false,
+  "lifecycleExecuted": false,
+  "packCount": 1,
+  "bootstrapInstallCount": 1,
+  "qualified": false,
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.6.tgz",
+    "bytes": 11021939,
+    "sha256": "ff38a3067f12fdd690834cb9b8ca8fc8b77d835761ee7fc089966fda9851a693"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Product verification/installation failed; preserve original receipt, no retry",
+  "endedUtc": "2026-11-06T23:54:49.399Z"
+}

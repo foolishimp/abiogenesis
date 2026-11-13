@@ -1,0 +1,39 @@
+{
+  "recordedUtc": "2026-11-04T00:42:57.760700+00:00",
+  "binding": {
+    "eventId": "event://abiogenesis/52a55efe59868dd97ad98c0c9b40e137629b2d9c619f89da6c3f5bb26cbc0e99",
+    "eventTime": "2026-11-04T00:37:24.626Z",
+    "admissionOrdinal": 44774,
+    "offset": 519976362,
+    "rowBytes": 857310,
+    "rowSha256": "580f244bf63e9ca6f53e876ca8d76adf7b668a9ecb63506e21d2ad9a7c44b67f",
+    "kind": "actor_transport_binding_admitted",
+    "payloadDigest": "sha256:9d5b4f3e86471479f971cb9a6f388815b3ce4239b098472a7131c0cfa836ca74"
+  },
+  "nativeStartCoordinates": {
+    "kind": "actor_process_started",
+    "admissionOrdinal": 44776,
+    "eventId": "event://abiogenesis/ff8c77f2557daac8f8651a0267fba8129088c3ad0c58d1b80908694b5803ebc1",
+    "eventTime": "2026-11-04T00:37:24.668Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "runId": "run://abiogenesis/ae4338b56e450fcb8b3f8c934c1b1475eb5be4a6c99332bc45fd0b68cb762495",
+    "offset": 520836273,
+    "rowBytes": 1888,
+    "rowSha256": "06197003ad9fd27cac174c693c9fc0132ab5b4f261dc78e2e7b1ce6e6b125b96",
+    "processRef": "process://abiogenesis/a5373e17e00f57de400af586df1552bd0393222177861823543f69d89f7eba29",
+    "pid": 46857
+  },
+  "actorInvocationRef": "actor-invocation://abiogenesis/bed5c7fbf82dca695e3af126b9af4e1858b38f84a10b6dac1b06c4abc63095ab",
+  "cCallRef": "c-call:sha256:ddbed3db819a66e4114748a977e1798464e934dd18684b68e1a54f905a6841be",
+  "transportBindingRef": "transport-binding://abiogenesis/fe0e3bdac9cf00761837168527f10786b31e6c43c5835a1aaec93f04da4c4a9c",
+  "transportBindingDigest": "sha256:fe0e3bdac9cf00761837168527f10786b31e6c43c5835a1aaec93f04da4c4a9c",
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-582415d944d7b543-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-582415d944d7b543-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-582415d944d7b543-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-582415d944d7b543-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-582415d944d7b543-transport.json"
+  },
+  "standing": "Exact inline path coordinates in physical admitted binding, joined to actual invocation/process records. Passive tool metadata only; no hidden thinking inspection or whole-source acceptance.",
+  "priorOperatorObservation": "One lsof snapshot found no persistent open stdout descriptor; no record was produced and no runtime effect occurred. This actual binding supplies the path."
+}

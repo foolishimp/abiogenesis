@@ -1,0 +1,270 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; GOAL-035/T-287 and fifteen feature families",
+    "slice": "Q23 source-bound component proof03, recurrent default-consumer UAT task construction",
+    "outcome": "Identify the complete concrete packet violation, conserve valid actual C2, and avoid an unsupported repeat or framework shortcut.",
+    "frames": [
+      "Product/contract",
+      "Design/ownership",
+      "Integration/currentness",
+      "Effect/cost",
+      "Proof"
+    ],
+    "standing": "Contributing read-only triage under STDO 3.0.4; no independent acceptance, Product repair or retry authority."
+  },
+  "status": "CLOSED_CONCRETE_STALE_ASSESSMENT_SOURCE_SELECTION_REPRODUCED_CORRECTION_PASSES_PURE_OWNER",
+  "decision": "Delete exactly three obsolete author-05 scratch paths from the future packet's assessment.sources. Preserve current author-06 handoffs, source, candidate, rubric, read roots and C2 dependencies. The original admitted packet and failed Run remain unchanged.",
+  "cause": {
+    "classification": "Operator assessment-selection baggage; no missing Product mechanism demonstrated.",
+    "paths": [
+      "qualification-scratch/q23-author-05/progress.json",
+      "qualification-scratch/q23-author-05/readiness.json",
+      "qualification-scratch/q23-author-05/return.json"
+    ],
+    "actualRelation": "Each path is selected by assessment.sources but absent from the admitted context, readRoots, original.sources, UAT readFirst and C2 protected observations. The current author-06 progress/readiness/return paths remain selected and observed.",
+    "failingOwner": "Installed abg/default_library.js:281-282, the assessment asset projection: context.entries.find(relativePath); throw TypeError('assessment file missing') unless state is file. The first missing source prevents construction; there are exactly three missing selections, all enumerated.",
+    "priorCorrections": "Actual UAT readFirst is 44/44 unique. Assessment sources are unique and exclude candidate/rubric. Those corrections hold; the later stale source-selection defect remains.",
+    "diagnosticBoundary": "The quoted TypeError is reproduced by the pure installed-owner projection. It is not a recovered hidden runtime exception message or interpretation of provider stderr."
+  },
+  "transformation": {
+    "scope": "Future operator input only; no editing old admitted state or historical artifacts.",
+    "operations": [
+      {
+        "path": "/assessment/sources",
+        "operation": "stable filter removing only the three listed obsolete author-05 paths",
+        "beforeCount": 54,
+        "afterCount": 51
+      }
+    ],
+    "preserved": [
+      "The three current qualification-scratch/q23-author-06 handoffs",
+      "Candidate HOW and unchanged Q1-Q7 rubric",
+      "All remaining assessment source order and membership",
+      "Existing 44-entry unique UAT readFirst, empty writeRoots and checks",
+      "All 10 original source declarations, current read roots and bounds",
+      "All 367 C2 protected source/input dependencies and their evidence"
+    ],
+    "derived": "Existing native task owner adds missing selected assets to readFirst, yielding 53 unique observed paths. Regenerate any future consumer original-task input, raw-input admission and public invocation request/digests using their existing constructors. Do not edit an old request, admitted observation, synthesis, prefix or result to impersonate this correction.",
+    "noScopeExpansion": "Do not add old scratch paths to readRoots merely to satisfy a stale selection, copy their bodies into new proof inputs, or carry them into subsequent packets. If old material is newly required for a different criterion, Root must select and bind that distinct material explicitly."
+  },
+  "pureProbe": {
+    "method": "Reacquired actual admitted UAT rawInputValue and authentic retained parent context. Reproduced the installed nativeTask asset lookup exactly, reused its installed-source instruction/producer rendering statements in memory, then called actual exported constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceAssessmentSelection, nativeWorkspaceAssessmentSubjectMatches, resolveNativeWorkspaceAssessmentSchema and renderNativeWorkspaceWorkOrder.",
+    "fixtureBoundary": "The passing task is a pure computed fixture, not an admitted native task, runtime repair, new observation or UAT verdict. No projectGovernanceNativeTask runtime invocation, event admission, filesystem observation fabrication or provider call occurred. The retained context is the actual admitted pre-UAT synthesis context; future dispatch still requires the owner's fresh current observation.",
+    "result": {
+      "before": {
+        "accepted": false,
+        "name": "TypeError",
+        "message": "assessment file missing"
+      },
+      "afterAccepted": true,
+      "sourceCountBefore": 54,
+      "sourceCountAfter": 51,
+      "readFirstCount": 53,
+      "allSelectedPathsObserved": true,
+      "schemaResolved": true,
+      "promptBytes": 87892,
+      "maxPromptBytes": 1048576,
+      "promptWithinBound": true,
+      "dependencyCount": 367,
+      "unmatchedDependencies": [],
+      "originalSourceCount": 10,
+      "originalSourcesMatch": true,
+      "contextFiles": 371,
+      "maxContextFiles": 512,
+      "taskDigest": "sha256:8f9b729e1e263311fd0bb9baa362f60e407d1e1cf3d9d18f153d83317e86a73f"
+    },
+    "exactInput": {
+      "basisEventId": "event://abiogenesis/bcd93da7a8aed8c7c746c9715033827190e945a33f94356737ae4c1382a97185",
+      "ordinal": 95399,
+      "rawInputDigest": "sha256:e3b3cd8ed51c2600143587e8ef724cef3ce93fbd753ab04831fad380872c7012",
+      "stateDigest": "sha256:e3b3cd8ed51c2600143587e8ef724cef3ce93fbd753ab04831fad380872c7012",
+      "equal": true
+    },
+    "context": {
+      "eventOrdinal": 93680,
+      "eventId": "event://abiogenesis/890947ad588a58dd6a9295a32318e5f8caf0dddcb2a576971f8a9958380eb43a",
+      "offset": 566123696,
+      "rowBytes": 320907,
+      "rowSha256": "942b0acba2c34494522697cb045dcbf921aaa7ce7601c1eac3390a2ff93c36bf",
+      "observationRef": "worksite-context-observation://abiogenesis/e30c9e7481a9e8bf06ad8855bf1117b3890e0df42df7ba27897ad815efaf505d",
+      "observationDigest": "sha256:e30c9e7481a9e8bf06ad8855bf1117b3890e0df42df7ba27897ad815efaf505d"
+    },
+    "selectedInput": {
+      "eventOrdinal": 95384,
+      "eventId": "event://abiogenesis/808516418ad1bdbc7b80a2a88ce1a29f34f4b918bbca75115d78841d4a1c6e96",
+      "offset": 572727173,
+      "rowBytes": 107696,
+      "rowSha256": "000dffe887e871bcec87e9a3b1e16b50829618da7aaa409d82ebe61a0114ead7"
+    },
+    "failure": {
+      "eventOrdinal": 95411,
+      "eventId": "event://abiogenesis/874947f4643077ed81a8025d65a550b92a0e9c299cbf949a017145f02f093c36",
+      "eventTime": "2026-11-05T21:30:19.268Z",
+      "resultRef": "result://abiogenesis/47e64c8cee515b477762c0a3a711f80d0a424db1a4f0b46b9f8d7387cfbf0409",
+      "offset": 573136154,
+      "rowBytes": 2764,
+      "rowSha256": "576ccfcd7e26b0b8e7e3110808f40548cbda85576ef8b0299199ec3986212b62"
+    },
+    "producer": {
+      "eventOrdinal": 93589,
+      "eventId": "event://abiogenesis/d9f6f5c17f3ac0a918d43d70508914f44b3e971c7a22b438da6d483b954a3ad5",
+      "resultRef": "result://abiogenesis/9b3b4e60d90c54456654f1ad88fefc5aa7544537380b7a5982a72a8a41f9cd57",
+      "resultDigest": "sha256:9b3b4e60d90c54456654f1ad88fefc5aa7544537380b7a5982a72a8a41f9cd57",
+      "cCallRef": "c-call:sha256:19c2616f18635bfad879ac639a11ff23204eeca6922585ddb0b424183903c34e",
+      "actorInvocationRef": "actor-invocation://abiogenesis/7857917a133888a88c064fe31d5a8943a7bfa9a9dcfe6300a732536a3b58a858"
+    }
+  },
+  "causalFrames": [
+    {
+      "frame": "Product/contract",
+      "finding": "The asset projector requires every selected assessment source/candidate/rubric to be an observed file. The three stale selected paths violate this existing contract."
+    },
+    {
+      "frame": "Design/ownership",
+      "finding": "The operator packet retained old author-05 handoff paths while the source/read/context set had moved to author-06. Correct the input selection at its preparation owner; no constructor redesign is required."
+    },
+    {
+      "frame": "Integration/currentness",
+      "finding": "Actual UAT input joins through its admitted execution basis. Corrected pure construction preserves current producer dependencies, authority/binding/grant, installed consumer schema and source material; unobserved old evidence is not silently promoted."
+    },
+    {
+      "frame": "Effect/cost",
+      "finding": "Failure occurred before an assessment actor. Repeating 63-pass C2 solely for this packet defect would buy no new component fact. Root retains C2 and plans to conjoin the correction with already-required future D5 affected proof."
+    },
+    {
+      "frame": "Proof",
+      "finding": "Complete missing-path enumeration and failing-before/passing-after owner predicates distinguish this closure from a necessary-only guess. Pure success does not establish future runtime admission or semantic UAT."
+    }
+  ],
+  "c2Reuse": {
+    "status": "Retain actual six-command/63-test success on the frozen author-06 subject and its 367 exact protected inputs.",
+    "counts": {
+      "commands": 6,
+      "tests": 63,
+      "transport": 27,
+      "qualification": 36,
+      "fail": 0,
+      "skip": 0,
+      "cancel": 0,
+      "todo": 0
+    },
+    "reuseRule": "Removing three paths that were never in the protected C2 dependency set does not invalidate those component results. A later changed Product source or affected dependency requires newly source-bound proof for its affected claims; retain old passes with their original scope.",
+    "routeLimit": "The earlier Q23_UAT_RECOVERY_READINESS remains exact: no code-free standalone assessment or retained continuation route skipping C2 was established under retained declarations. This triage does not establish one and does not repair a framework to obtain one.",
+    "costAwareNext": "Root's stated disposition is to conjoin this operator-only correction with D5's already-required future affected C2/UAT through the known default consumer route. No additional C2 run or retry is selected by this report."
+  },
+  "residualGates": [
+    "Freeze and bind the actual future source and proof inputs; old C2 cannot authenticate changed D5 bytes.",
+    "Regenerate the future packet via existing owners and validate all selected assessment paths against its actual observed context before paid traversal.",
+    "Use the real final prefix, authorized workspace/binding/capabilities, selected consumer Program, admitted schema publication and producer lineage; no state injection.",
+    "Existing runtime source-use/currentness and invalidation checks must still pass at the actual future consumer prefix.",
+    "The complete role-context plus task prompt must pass the existing assembly bound. This probe measured the native task renderer only, not a newly assembled admitted role envelope.",
+    "Actual native assessor start, result admission, semantic rubric decision and fresh close/replay remain unperformed.",
+    "Production eligibility, QR02/QR03, F11 and whole-release qualification are not established."
+  ],
+  "effects": {
+    "sourceWrites": false,
+    "runtimeEvents": false,
+    "providers": false,
+    "testsOrBuilds": false,
+    "retry": false,
+    "catalogProgramBindingChanges": false,
+    "privateProviderTextInspected": false,
+    "onlyReportWrites": true
+  },
+  "returnTo": "Root; closed exact constructor triage, stop.",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/ROOT_UAT_TRIAGE_REQUEST.md",
+      "bytes": 2734,
+      "sha256": "2bfde73aecdb37504cb5a302d252ae386b0b619f6a8bca93b503bb165648c6e2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/workload.json",
+      "bytes": 81087,
+      "sha256": "292fc16caf656bdb71334a3bff5c850dd938f2fa75bc15cc451ea7359a10c4f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/ACTUAL_C2_SUMMARY.json",
+      "bytes": 4012,
+      "sha256": "24e6fdedf097e1f3f092dc731066346fa6ad82943a5c52a0d1ee096d00596e14"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 4232,
+      "sha256": "b167846018da7215c64edee479447c2ef653f0e5d0b8b5e75726c043bc6905b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/after-run-resume.json",
+      "bytes": 72670663,
+      "sha256": "8d9c19df694447d33ddce20475c516851647007b763703e249aaf2a44f44ba02"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-03/execution/TIMING_OBSERVATION_ENVELOPES.json",
+      "bytes": 18860,
+      "sha256": "26210ef8c14f276d77d68368a55406f22ded483ff2e8427ce9d438dd96d77848"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+      "bytes": 434234,
+      "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/Q23_UAT_RECOVERY_READINESS.json",
+      "bytes": 24449,
+      "sha256": "64acf9078699829ed3a69cc6402b9bfdd7aa6127a1dd86b27951fbd2fe52f523"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+      "bytes": 44995,
+      "sha256": "d4799e3fe08e53ea47a058abe17ac367f4854f6e39d3bfaede76b89099728400"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "bytes": 34310,
+      "sha256": "e4090de450b9e80c7de43f3ca16df7cec5de0b43c6e101453e45093a4b5c437a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 18062,
+      "sha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_assessment.js",
+      "bytes": 6396,
+      "sha256": "c46085d2409f8aa00d35d4c1aa94b89daf19687c28f02e2a6d966050781ed049"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_body_encoding.js",
+      "bytes": 14291,
+      "sha256": "2358fe1ce79b18d07676c6cc42224770b80e0847fb44d3e626bb0a6b7d4615ae"
+    }
+  ],
+  "ownerLineRoutes": {
+    "abg/default_library.js": [
+      189,
+      215,
+      229,
+      300
+    ],
+    "product/native_workspace_work.js": [
+      18,
+      43,
+      76,
+      96
+    ],
+    "product/native_workspace_assessment.js": [
+      56,
+      64,
+      78,
+      105
+    ]
+  },
+  "finalClose": {
+    "prefixLength": 573221934,
+    "frozenMembers": 364,
+    "proofInputs": 371,
+    "runRef": "run://abiogenesis/1cb95e5319975e0420a6ec6c5bd4acd6aeb2cbabef2d0fdf1761d5f0a7dc4497",
+    "runDisposition": "runtime_failed",
+    "standing": "Root final close retained; this triage does not change runtime truth."
+  }
+}

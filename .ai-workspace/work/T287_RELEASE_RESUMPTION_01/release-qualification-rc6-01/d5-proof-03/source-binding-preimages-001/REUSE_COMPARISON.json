@@ -1,0 +1,113 @@
+{
+  "kind": "bounded_existing_control_reuse_comparison",
+  "scripts": [
+    {
+      "file": "prepare-r1.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/prepare-r1.mjs",
+        "bytes": 21293,
+        "sha256": "277c441d42354bea5aa255e96fb086d5ceafc065cf533d96cec3c7a3a5669528"
+      },
+      "prepared": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/prepare-r1.mjs",
+        "bytes": 21293,
+        "sha256": "500058c8aa0984b74eb1dbc858b8f82477ca2877e4c9ccd9977d6297c7b6f02c"
+      },
+      "changes": [
+        "proof namespace/scratch substitutions where present",
+        "current author handoff and directory assertion labels N2 -> N3; actual values remain unbound"
+      ],
+      "identical": false
+    },
+    {
+      "file": "dispatch.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/dispatch.mjs",
+        "bytes": 11850,
+        "sha256": "af2bcbc6cd35a451964222dae74f043f7198d5b713ae78bebd8f5a7b0efbfa44"
+      },
+      "prepared": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/dispatch.mjs",
+        "bytes": 11850,
+        "sha256": "af2bcbc6cd35a451964222dae74f043f7198d5b713ae78bebd8f5a7b0efbfa44"
+      },
+      "changes": [
+        "proof namespace/scratch substitutions where present"
+      ],
+      "identical": true
+    },
+    {
+      "file": "capture-c2.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/capture-c2.mjs",
+        "bytes": 11297,
+        "sha256": "382280fbcea5d6f4575a2bf6a57a9a5fe8819e74d664581a1a04b1ff316935d9"
+      },
+      "prepared": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/capture-c2.mjs",
+        "bytes": 11689,
+        "sha256": "f87d97ab208c17b602f0126dfb6e091ed093d12b5d7d7fa4db69dbad7494b0f4"
+      },
+      "changes": [
+        "Report exact helper407 declaration separately from all420 protected snapshot members, as Root selected.",
+        "Passive population omission guard uses retained113 per-lane observations; no command/helper/Product predicate edit.",
+        "Explicit counts in captured summary; same admitted commands/report receipts/byte provenance and total failure handling."
+      ],
+      "identical": false
+    },
+    {
+      "file": "capture-assessment.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/capture-assessment.mjs",
+        "bytes": 7314,
+        "sha256": "d8a5e258871f6e54b804afb1f578112123db9667bf3922df63956f0f940a5a0a"
+      },
+      "prepared": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/capture-assessment.mjs",
+        "bytes": 7314,
+        "sha256": "d8a5e258871f6e54b804afb1f578112123db9667bf3922df63956f0f940a5a0a"
+      },
+      "changes": [
+        "proof namespace/scratch substitutions where present"
+      ],
+      "identical": true
+    },
+    {
+      "file": "claude-provider.sh",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/claude-provider.sh",
+        "bytes": 422,
+        "sha256": "8c8e70d68fbfc2ebc0db3956dae7f06a8cc7535728bc9d60839ffa8656e746cf"
+      },
+      "prepared": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/claude-provider.sh",
+        "bytes": 422,
+        "sha256": "2e27ae9aad6bf5f31caa9655657a6d1e2da4081aa43521dd5bbc98b4cd48c781"
+      },
+      "changes": [
+        "proof namespace/scratch substitutions where present"
+      ],
+      "identical": false
+    }
+  ],
+  "timing": [
+    {
+      "file": "prepare-r1.mjs",
+      "phaseBlockCount": 30,
+      "phaseBlocksByteIdentical": true,
+      "fullScriptEqualsOnlyDeclaredPathSubstitutions": true,
+      "artifact": "PREPARE_PHASE_TIMING.json",
+      "limitations": "Existing bounded sequential wall timing only. Static imports/host start and hard-kill absence retain their prior limits; no timing framework or owner sequence changed."
+    },
+    {
+      "file": "dispatch.mjs",
+      "phaseBlockCount": 21,
+      "phaseBlocksByteIdentical": true,
+      "fullScriptEqualsOnlyDeclaredPathSubstitutions": true,
+      "artifact": "DISPATCH_PHASE_TIMING.json",
+      "limitations": "Existing bounded sequential wall timing only. Static imports/host start and hard-kill absence retain their prior limits; no timing framework or owner sequence changed."
+    }
+  ],
+  "ownerCallsExecuted": 0,
+  "limits": "Static text comparison only. Runtime actual measurements remain future."
+}

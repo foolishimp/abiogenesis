@@ -1,0 +1,160 @@
+{
+  "kind": "finite_supplementary_existing_test_fixture_manifest",
+  "status": "PREPARED_ONLY_NOT_STAGED_NOT_EXECUTED_NO_ADMISSION",
+  "recordedUtc": "2026-11-06T04:45:21.525438+00:00",
+  "authority": "Root direct follow-up selected a finite manifest and exact two-test rerun readiness only, after the preserved 77/63/2/12 consumer result. Root must separately select any staged copy and execution.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "existingResourceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/proof-resource-preparation-001/RESOURCE_MANIFEST.json",
+    "bytes": 60869,
+    "sha256": "cfe6bccd52ae7873a0fdebefdf2e9c9a080a3ff1e891b2dc42befbff508de6d4"
+  },
+  "failureReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/consumers.result.json",
+    "bytes": 36725,
+    "sha256": "75091ca5400d373efafef3b3b5755275d5ec227d78dab1a28a892f3865c3dd22"
+  },
+  "resources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+      "bytes": 730,
+      "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41",
+      "headSha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41",
+      "matchesTrackedHead": true,
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+      "stageRelativePath": "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+      "newRelativeToAuthor397AndPrior50": true
+    }
+  ],
+  "additionalFileCount": 1,
+  "additionalBytes": 730,
+  "dependencies": [
+    {
+      "specifier": "@abiogenesis/typescript-tenant/product",
+      "kind": "package import",
+      "owner": "The actual staged candidate is packed by existing setupInstalledRootCatalog; registered-graph-selection.mjs:32 supplies this package via the actual abiPackageArchivePath. No extra external package or local fixture file is imported by index.mjs.",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/stage/build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+        "bytes": 25817,
+        "sha256": "722efdc516c910083b216121843c46ad3d2a4c1975d7e14615b94e30b2c40952"
+      },
+      "generatedEntry": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/stage/build_tenants/abiogenesis/typescript/build/code/src/product/index.js",
+        "bytes": 13690,
+        "sha256": "163f1e44620fa7049ff97f6973fca01ef5e205846945e15188511571b28e2f0d"
+      },
+      "generatedManifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3265439,
+        "sha256": "ba8d342851d3a19c5127d7cbb7a6214e3e73c83f8a71bacd4b659f754d11c3c9"
+      }
+    },
+    {
+      "kind": "existing fixture preparation metadata",
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+        "bytes": 9876,
+        "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4"
+      },
+      "standing": "Already author397; owner imports its packageName/version/declarations. No new selection."
+    },
+    {
+      "kind": "generated per-test schema asset",
+      "path": "<fresh fixture scratch>/assessment.schema.json",
+      "owner": "The two tests write assessmentSchema before prepareRegisteredSelectionProduct at lines1753 and1928. Existing schemaAssets copy at registered-graph-selection.mjs:63 consumes that generated file. No additional maintained read dependency."
+    }
+  ],
+  "consumerReferences": [
+    {
+      "file": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "lines": [
+        1745,
+        1749,
+        1753,
+        1754,
+        1755,
+        1756
+      ],
+      "case": "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "lines": [
+        1922,
+        1924,
+        1928,
+        1929,
+        1930,
+        1931
+      ],
+      "case": "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "lines": [
+        6,
+        9,
+        10,
+        26,
+        32,
+        63
+      ]
+    }
+  ],
+  "unchangedStageSelection": {
+    "compileReceiptReused": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/compile.result.json",
+      "bytes": 844,
+      "sha256": "1d8a6110c59b34712649f7b2bfc54a0e6f3a4964054707040ecbec2ffe7b8e77"
+    },
+    "generationReceiptReused": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate-env-01.result.json",
+      "bytes": 814,
+      "sha256": "eb18b17d7f66fc95fe09bbf11d512edf1ba92f2431fbe70c2d8262295c9f4575"
+    },
+    "lifecycleReceiptReused": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/lifecycle.result.json",
+      "bytes": 908,
+      "sha256": "255963f7ef8f398da0a72377f5c094a16e2ff0320bf6c58bd074387dd946db2e"
+    },
+    "source397Digest": "f74c9abcdc2e9463c1ce8d13b3b60cd657db6e366fd2b09c4c57de512c6f527b",
+    "noCompileOrGenerationRepeat": true
+  },
+  "proposedFiniteCommand": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "--test-name-pattern",
+      "^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$",
+      "test_env/tests/t287-default-library.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/stage/build_tenants/abiogenesis/typescript",
+    "timeoutMs": 300000,
+    "budgetStanding": "Preserve the original lane maximum; actual re-entry not yet selected.",
+    "commandLabel": "default-library-two-cases-001",
+    "selection": [
+      "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+      "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+    ],
+    "meaning": "Only these two cases may execute; name-filtered test exclusions must be reported separately from source-declared historical skips. Preserve63 prior passes without repeating them."
+  },
+  "environmentSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/ROOT_ENV_CORRECTION.json",
+    "bytes": 7215,
+    "sha256": "87d11fd7a9a555457c1e0c228415768df9d97156db10988981ffcb5162cf619c"
+  },
+  "limits": [
+    "No added fixture was staged or admitted and no retry was executed.",
+    "No broad fixture inventory, Product/test/HOW edit, other source acquisition, compile/generation repeat or runtime/campaign read.",
+    "One existing fixture file has one actual package dependency and no local imports. Later dynamic fixture sufficiency remains for actual selected proof.",
+    "ABI5_F11_CARRIER_FULL_FIXTURE remains unbound; seven carrier cases stay uncovered."
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "status": "TESTED_SOURCE_BUILD_ARCHIVE_CORRESPONDENCE_RECORDED",
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/source-freeze.json",
+    "bytes": 298978,
+    "sha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621"
+  },
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/SOURCE_SELECTION.json",
+    "bytes": 3025,
+    "sha256": "6a61df0b17f3522422e142dfb997aebfcb2a3951994146822f05ac4bc1fed743"
+  },
+  "sourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/SOURCE_CUSTODY.json",
+    "bytes": 9865,
+    "sha256": "d0cf6f94f204ea41358bf3c69a9d75b25007305966782b018fa7d4c1843fc05d"
+  },
+  "candidateBaseCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceCheckpoint": null,
+  "archive": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "buildReceipt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/build/RETURN.json",
+    "bytes": 1895,
+    "sha256": "7e8649729c090ca6b0e732284dd11726f4df154fd9fc4b279e2a52d6a3b730fa"
+  },
+  "stage": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/STAGE.json",
+    "bytes": 1124,
+    "sha256": "bda690c4d79cda21f13291d2d79f233e53f1e71dd4c48e5b6e0bc08dd6118208"
+  },
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182855,
+    "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+  },
+  "retainedGeneratedSourceDeltas": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "835a595ec0b025ded19a6d11fedf0bb8026d7acb1909911aed1f8d96ec89e24d"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197956,
+        "sha256": "dd1d79bb8843aaba2b83ddf0030bdd7ffe72de88a0e2c60dd90eda9831da5dd8"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266103,
+        "sha256": "3c7de6220ed1ce4371a52281599a1a40e00cf1a3686133e65e7389b0e122b548"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266309,
+        "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+      }
+    }
+  ],
+  "testedBuildSnapshot": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/TESTED_BUILD_SNAPSHOT.json",
+    "bytes": 526,
+    "sha256": "de1c55ed2ba1ef9713fa88baeec2e1b249a5d54d59cba2ef09448470dbf685a0"
+  },
+  "memberReceipt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/ARCHIVE_MEMBERS.json",
+    "bytes": 1099502,
+    "sha256": "4c348ac2aa2a1783545280e54393c25a7c19a2fa4db618b61458dde336c40250"
+  },
+  "members": 5327,
+  "payloadBytes": 71838919,
+  "packageFilesPolicy": [
+    "build/**",
+    "contracts/**",
+    "product-toolchain-manifest.json"
+  ],
+  "sourceOnlyProofInputs": "Source tests, loader and actual compressed fixtures are excluded by unchanged package policy. They remain frozen source proof inputs; no shipped-fixture or installed-test claim.",
+  "sourceAndCompiledConserved": true,
+  "allArchiveMembersMatchTestedTree": true,
+  "all996CompiledContractManifestMembersPresentAndExact": true,
+  "unitPassed": false,
+  "m5QualificationBlockerOpen": true,
+  "qualified": false
+}

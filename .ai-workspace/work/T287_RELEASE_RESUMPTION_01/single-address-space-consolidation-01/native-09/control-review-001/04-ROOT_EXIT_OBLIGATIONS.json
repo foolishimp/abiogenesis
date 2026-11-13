@@ -1,0 +1,16 @@
+{
+  "kind": "Root_owned_targeted_exit_obligations",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+    "bytes": 6177,
+    "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+  },
+  "nativeAssessment": "Targeted T1-T5 only, T4 limited to available source/C2; no unavailable future/parallel Root receipt enters native unresolvedCriteria.",
+  "requiredLater": [
+    "Independent max frozen targeted increment/caller-retirement review",
+    "Actual post-UAT fresh reads and genuine close",
+    "Root bounded targeted acceptance decision"
+  ],
+  "state": "Pending, not assumed satisfied",
+  "outsideNativeAssessorCriteria": true
+}

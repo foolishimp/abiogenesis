@@ -1,0 +1,119 @@
+{
+  "kind": "failed_native_preparation_source_custody",
+  "status": "FAILED_PREPARATION_CLOSED_NO_NATIVE_INVOCATION",
+  "createdUtc": "2026-11-06T16:41:31.872269+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 6179,
+    "sha256": "f1687c50a378dc09b3652b4b5aa9f0ee07f629bf1167ddccc9206bf090692e56"
+  },
+  "dispatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/DISPATCH_MANIFEST.json",
+    "bytes": 26101,
+    "sha256": "716f8e346cdba46d2a35e410ea3d44503e36eb93aa4dac44dbaaf702c2388860"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/SOURCE_BEFORE.json",
+    "bytes": 240531,
+    "sha256": "7ce1d6d5e80c70362406963b8662b4d79f44cc0fee16d978299bb57fee12d0dd"
+  },
+  "sourceAfter": null,
+  "nativeBefore": null,
+  "nativeAfter": null,
+  "sourceRowsVerifiedUnchanged": 451,
+  "stagedControlsVerifiedUnchanged": 18,
+  "dispatchPinsVerifiedUnchanged": 67,
+  "checks": {
+    "heldAndLiveSourceEqualsExactBaseline": true,
+    "controlsAndDispatchPinsUnchanged": true,
+    "allThreeNativeHandoffsAbsent": true,
+    "noPreparedCallStartOrExecutionReceipt": true,
+    "actualResumeEqualsActualCloseHandoff": true,
+    "actualEntryAndSuccessorEqualPredecessor": true
+  },
+  "handoffAbsences": {
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/return.json": true,
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/readiness.json": true,
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/progress.json": true
+  },
+  "actualFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/DISPATCH_FAILURE.json",
+    "bytes": 725,
+    "sha256": "6ff93195c077dd1bedcc6129b104f6bcd381b3ce81a63490307c1521c4ec0291"
+  },
+  "outcomeSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/outcome-summary.json",
+    "bytes": 633,
+    "sha256": "e3176f02ad6d760af708029d2e516687d63467f3d05035cd733654ae503e8bd0"
+  },
+  "actualResourceClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/resource-close.json",
+    "bytes": 2308,
+    "sha256": "213a443f65d082653eb1481e93884ab75940775f60640c6a05f47da7d3793d9d"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution/after-run-resume.json",
+    "bytes": 72498689,
+    "sha256": "daaa3b3868d7e9e1461c0f081584a012d6aa674f6a171579882f01803480142f"
+  },
+  "physicalPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "observedBytes": 2052404992,
+    "device": 16777231,
+    "inode": 701759869,
+    "actualOwnerPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 2052404992,
+      "prefixDigest": "sha256:0c6cdd8b361e21206d68a31927759696b8a2e95e371e9223c64666726ad8d926",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 701759869,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537"
+      },
+      "coordinateDigest": "sha256:2a1e037bdf9900e4adfb8712cb019b16a685b765183f4f36b60f9e765ff46188"
+    },
+    "samePredecessorCoordinateAndReportedDigest": true,
+    "freshFullPrefixHashPerformed": false,
+    "priorVerifiedPhysicalPrefix": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 10421,
+      "sha256": "7ddb9f2f715158677c4c11564b3996d43e13131d0cc9efb3524a3baef28ad494"
+    },
+    "standing": "Fresh size/device/inode observation plus actual owner close equality to the already verified predecessor. No second full campaign scan/hash or event decode."
+  },
+  "host": {
+    "rootSession": 47574,
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 457897.731625,
+    "owner": "Root actual exec return"
+  },
+  "operatorCause": "Prepared NATIVE_CAPACITY_PREFLIGHT.json estimate occupied the create-only actual capacity receipt destination; EEXIST before SDK invocation. This is an operator-control defect, not a Product/runtime failure.",
+  "capacityStanding": {
+    "preparedEstimate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/NATIVE_CAPACITY_PREFLIGHT.json",
+      "bytes": 654,
+      "sha256": "f269ce2b33658b61759f782dbcc0c346c48a802eb91cc9b6cd44493f0f14e3ff"
+    },
+    "actualOwnerRenderedReceipt": null,
+    "standing": "Estimate is not an actual rendered native-order receipt."
+  },
+  "rootPreparationSamplePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/ROOT_PREPARATION_SAMPLE_001.txt",
+      "bytes": 729500,
+      "sha256": "0075a1f352c0b465902899e26d02bd48ca08c8e30611dd4c330dbc0f76eceecb"
+    }
+  ],
+  "limits": [
+    "No SDK/Run/actor/source-effect claim; no native.after or handoff fabricated.",
+    "Only451 selected source rows,18 staged controls and67 pins were compared; no full no-outside-effects assertion.",
+    "Original estimate/attempt/controls remain immutable. Root owns fresh execution-recovery-001 host using the same unconsumed H03 coding scope.",
+    "No new packet/task/source edit, staging, build/test/runtime acquisition/provider or cold drain by custody Writer."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "status": "EXACT_FOUR_PATH_STAGE_VERIFIED",
+  "base": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+  "paths": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "nameStatus": "M\tbuild_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts\nA\tbuild_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts\nM\tbuild_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md\nM\tbuild_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs\n",
+  "stat": " .../code/src/shared/owned_process_lifetime.ts      | 203 ++++++--------\n .../code/src/shared/owned_process_state.ts         | 241 +++++++++++++++++\n .../design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md |  20 +-\n .../tests/t287-owned-process-lifetime.test.mjs     | 293 +++++++++++++++++++++\n 4 files changed, 637 insertions(+), 120 deletions(-)\n",
+  "stagedBlobs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11658,
+      "sha256": "fbb571cc96fa60b4a7000c61063b060c7fcb14c11bed8ed96c40cbfe4bfa9e6f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 13755,
+      "sha256": "235fc19c3469c7d62f61834ae29f7bbba4b2e3866876af193ebbf44d35af3b01"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 72946,
+      "sha256": "222afb37b5bf1f7f18005dddc555ba5aa0fc133a00be04fe99f39b5f23796a84"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "bytes": 21129,
+      "sha256": "31957341c3efa5aa47f6ab8fc660dae5bb19640d205a1d0822b2249dc2f54427"
+    }
+  ],
+  "diffCheckExit": 0,
+  "mainAndDeliveredIndexExact": true
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/generic-input-retention.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 4,
+    "pass": 4,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/010-generic-input-retention.test/process.json",
+    "bytes": 1081,
+    "sha256": "4e8883aa4d754c3b36e45be6a27d6fa87ed2334ceaeb5d08784038b94260d000"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "single_address_space_whole_path_acceptance",
+  "criteria": [
+    {
+      "id": "C1",
+      "criterion": "Complete affected caller inventory uses existing canonical prefix/native-facts/resource/digest code; redundant production paths removed or each retained path has a concrete different contract and actual supported consumer. No partial local fix claimed as whole consolidation."
+    },
+    {
+      "id": "C2",
+      "criterion": "Actual same-input measurements demonstrate fewer full materializations/reads/rehashes/encodings without shifted work; exact values and currentness/stale/copied/foreign/rollback refusals preserved. Event-log intervals and measured CPU causes remain distinguished."
+    },
+    {
+      "id": "C3",
+      "criterion": "Actual candidate installed producer-consumer and maintained SDK borrowed-resource setup execute with exact final close, failure ownership and cold reopen; fresh result/replay and event semantics preserved, no replacement runtime or authority."
+    },
+    {
+      "id": "C4",
+      "criterion": "All R1-R7 red-flag categories and startup/digest caller families have explicit evidence-backed dispositions. Required work information, original outcome/rubric/current input/provenance remain sufficient while unrelated archive/history carriage and broad searches are removed from the current task."
+    },
+    {
+      "id": "C5",
+      "criterion": "Actual affected C2 source corresponds to frozen native return, all selected commands pass, new consolidation cases execute without optional skips, independent review conjoins, and historical evidence/releases stay unchanged. No full qualification or general speedup claim."
+    }
+  ],
+  "excluded": [
+    "Whole fifteen-family/F11/AF22/GC03 qualification",
+    "global selector/push/tag/merge/new release",
+    "performance extrapolation from incomparable workloads"
+  ]
+}

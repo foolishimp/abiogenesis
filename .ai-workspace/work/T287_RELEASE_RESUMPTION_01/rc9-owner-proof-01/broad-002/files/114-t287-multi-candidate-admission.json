@@ -1,0 +1,41 @@
+{
+  "file": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 2111.2567920000292,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 75,
+    "failed": 0,
+    "passed": 75,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 75,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/114-t287-multi-candidate-admission.jsonl",
+    "bytes": 18720,
+    "sha256": "813dd76b034efccecf42245741187311c36ccd69aa83c83dff77670b9fb17d34"
+  },
+  "commandReceipt": "commands/114-t287-multi-candidate-admission.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

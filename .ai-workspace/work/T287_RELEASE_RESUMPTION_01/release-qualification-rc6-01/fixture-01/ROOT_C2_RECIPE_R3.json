@@ -1,0 +1,165 @@
+{
+  "kind": "existing_owner_component_c2_recipe",
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/qualification/fixture-01/immutable-build",
+      "executable": "/bin/cp",
+      "args": [
+        "-cR",
+        "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build",
+        "build"
+      ],
+      "relativeCwd": "build_tenants/abiogenesis/typescript",
+      "environment": {
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "TMPDIR": "/private/tmp/abg-r6f1"
+      },
+      "timeoutMs": 60000,
+      "terminationGraceMs": 5000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/fixture-01/immutable-contracts",
+      "executable": "/bin/cp",
+      "args": [
+        "-cR",
+        "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts",
+        "contracts"
+      ],
+      "relativeCwd": "build_tenants/abiogenesis/typescript",
+      "environment": {
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "TMPDIR": "/private/tmp/abg-r6f1"
+      },
+      "timeoutMs": 60000,
+      "terminationGraceMs": 5000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies",
+      "executable": "/bin/cp",
+      "args": [
+        "-cR",
+        "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/node_modules",
+        "node_modules"
+      ],
+      "relativeCwd": "build_tenants/abiogenesis/typescript",
+      "environment": {
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "TMPDIR": "/private/tmp/abg-r6f1"
+      },
+      "timeoutMs": 60000,
+      "terminationGraceMs": 5000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/fixture-01/component-proof",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "qualification-inputs/fixture-01/c2-proof.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "NODE_OPTIONS": "--max-old-space-size=8192",
+        "TMPDIR": "/private/tmp/abg-r6f1"
+      },
+      "timeoutMs": 660000,
+      "terminationGraceMs": 5000,
+      "expectedReports": []
+    }
+  ],
+  "outcomePredicates": [
+    {
+      "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-build/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/qualification/fixture-01/immutable-build"
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-contracts/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/qualification/fixture-01/immutable-contracts"
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies"
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/qualification/fixture-01/component-proof/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "equals": 0,
+        "validationCommandId": "command://abiogenesis/qualification/fixture-01/component-proof"
+      }
+    }
+  ],
+  "allowedWriteTerritories": [
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/build"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/contracts"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/node_modules"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs"
+    }
+  ],
+  "protectedCurrentPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/evidence-root.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/package.json"
+  ],
+  "expectedFutureSourceHandoffs": [
+    "qualification-scratch/fixture-01/return.json",
+    "qualification-scratch/fixture-01/readiness.json",
+    "qualification-scratch/fixture-01/progress.json"
+  ],
+  "immutableDependencyCorrespondence": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/SETUP_SELECTION.json",
+      "bytes": 6364,
+      "sha256": "ba0807540a2e74997b35a80ee875b93ba39a9045b37046ea63452f9376b7548e"
+    },
+    "compiledBuild": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build",
+    "contracts": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts",
+    "nodeModules": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/node_modules",
+    "principle": "Existing cp -cR staging in isolated C2 sandbox only; exact Root-verified RC6 installed product is the immutable source, not mutable checkout build. Helper command results and worksite deltas retain copy observations. No compile/generate/pack or new validation interface."
+  },
+  "node": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "selectedFileBudgetProposal": {
+    "maxFiles": 128,
+    "maxBytes": 16777216,
+    "maxPromptBytes": 1048576
+  },
+  "futurePreflight": "Root uses maintained observed/native C2 constructors and budget projection after input staging; no owner preflight executed here.",
+  "rootReentry": {
+    "triage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_FAILURE_TRIAGE.json",
+    "change": "Containing report subtree, including newly created parent; matches accepted proof-10 recipe",
+    "commandsAndPredicatesUnchanged": true,
+    "sourceUnchanged": true
+  }
+}

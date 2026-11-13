@@ -1,0 +1,123 @@
+{
+  "id": "RC10-DEAD-01",
+  "status": "ROOT_SOURCE_SCOPE_SELECTED_EXECUTION_HELD",
+  "recordedAt": "2026-11-09T02:54:18.550846+00:00",
+  "decisionOwner": "/root",
+  "recordedBy": "/root/rc10_operator",
+  "decisionVerbatim": "Root RC10-DEAD-01 source admission: user 'i want to remove dead code' conjoined with closed P10/dead-code-triage/RESULT.md final hash6856fd5a5c013e75f6360ca02435309b220f352f5380f6207a76c6df49c969ec (verify exact current bytes). Same native author/freeze as core, realization_refactor of eight confirmed unreferenced non-barrel helpers: event_store.ts projectHeldRuntimeEventsAtDurablePrefix and isEventStoreAdmissionOpen; event_prefix.ts runtimeEventProfileSourceFromValidatedPrefix; runtime_history.ts runtimeHistoryPayload; abg/project_read_ports.ts projectGraphCallSourceAtDurablePrefix and projectGapReadAtValidatedPrefix; shared/public_function_contracts.ts resultWithEvidence and contractSchemaEntries. Exact spans/preimage hashes from report; 65LOC/3049B are measured declaration spans only. Remove only these declarations, exclusively descriptive adjacent comments and newly unused imports in same five files. Underlying owners/current read ports/schema declarations remain. Any real dynamic/package/contract/test consumer disproves deadness and returns instead of removing consumer/test. Add only code/src/abg/project_read_ports.ts and code/src/shared/public_function_contracts.ts to existing source-write territory; first3 files already granted. No whole-file removal. Known active historical ownership machinery/GC03 and public surfaces remain outside deletion. Full Product qualification unchanged. Read-only triage of17 other candidates continues separately, no other deletion selected yet.",
+  "conjunctionGuardVerbatim": "Baseline deadness is not a deletion quota. If the admitted lifetime repair naturally needs one of these existing helpers, reuse it and report its new real consumer rather than delete/reimplement it under another name. No artificial caller added to retain dead code; otherwise exact eight deletions stand.",
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/dead-code-triage/RESULT.md",
+    "bytes": 13901,
+    "sha256": "6856fd5a5c013e75f6360ca02435309b220f352f5380f6207a76c6df49c969ec"
+  },
+  "selectedDeclarations": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "symbol": "projectHeldRuntimeEventsAtDurablePrefix",
+      "firstLine": 2326,
+      "lastLine": 2330,
+      "bytes": 207,
+      "sha256": "9d6540d76bddfabf85b22a716ecaadfc6c808d400dc43485a4204a5f26866d66",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 225695,
+        "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "symbol": "isEventStoreAdmissionOpen",
+      "firstLine": 2773,
+      "lastLine": 2776,
+      "bytes": 176,
+      "sha256": "af5599b98abe4a05547d151568e557f4fd953d38a43bdb94bd417ecbe227f52e",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 225695,
+        "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "symbol": "runtimeEventProfileSourceFromValidatedPrefix",
+      "firstLine": 381,
+      "lastLine": 384,
+      "bytes": 204,
+      "sha256": "a30d2efd24ecf344dce53eb6d5240761586aa26c5180cc50b7deb55d3cba2264",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+        "bytes": 64754,
+        "sha256": "cfe2ce70db4935aac785bc92c24fa3634bd8e14ff38476fb612afe4cc12f512b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "symbol": "runtimeHistoryPayload",
+      "firstLine": 541,
+      "lastLine": 545,
+      "bytes": 254,
+      "sha256": "d13de94363b397bd0d8eb1f5b009ac5930c6cad9cae86a974d788fd57573839b",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "bytes": 44501,
+        "sha256": "58bfd6ef4d02b60dd3159a8485846561d48cb94fef01003584d26d21777d9217"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "symbol": "projectGraphCallSourceAtDurablePrefix",
+      "firstLine": 962,
+      "lastLine": 972,
+      "bytes": 610,
+      "sha256": "d5891b4134a914fe6a9fb859162409f50841dbbd4401ab2c5fe7c06591f3e8f9",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "bytes": 92881,
+        "sha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "symbol": "projectGapReadAtValidatedPrefix",
+      "firstLine": 1504,
+      "lastLine": 1518,
+      "bytes": 970,
+      "sha256": "421353d1b141d27931a336c034fc569ad84facaf69e05f926becb356f3f6ed74",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "bytes": 92881,
+        "sha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "symbol": "resultWithEvidence",
+      "firstLine": 414,
+      "lastLine": 421,
+      "bytes": 211,
+      "sha256": "8bd6409ed3e2be803114859d7b0d0cc6c419c1f23649bb364539ef3a3dff2c05",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+        "bytes": 26029,
+        "sha256": "add45e14c6b77eb342ab4858cee7cbc43204553b9b2a8b8c5a159a853cb53814"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "symbol": "contractSchemaEntries",
+      "firstLine": 669,
+      "lastLine": 681,
+      "bytes": 417,
+      "sha256": "ae5d7a0d705fa380ed3bdd88a7f46adbd6fdafeec341136171a9baaafe35cb29",
+      "filePreimage": {
+        "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+        "bytes": 26029,
+        "sha256": "add45e14c6b77eb342ab4858cee7cbc43204553b9b2a8b8c5a159a853cb53814"
+      }
+    }
+  ],
+  "wholeFileDeletionGranted": false,
+  "scopeClass": "realization_refactor",
+  "nativeRuntimeAdmission": false
+}

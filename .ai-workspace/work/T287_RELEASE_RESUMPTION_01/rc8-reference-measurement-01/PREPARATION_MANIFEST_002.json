@@ -1,0 +1,77 @@
+{
+  "kind": "rc8_reference_measurement_corrected_preparation",
+  "status": "EXACT_KNOWN_OPERATOR_CORRECTION_CHECKED",
+  "at": "2026-11-07T03:12:46.512364+00:00",
+  "actor": "/root/rc7_reference_ticket_writer",
+  "consumer": "/root",
+  "basis": {
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "definitionPath": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "goals": "GOAL-035; fixed fifteen families/T-287",
+    "verification": "stdo status --definition --verify: installed=true, valid=true, failures=[]"
+  },
+  "authority": "Root selected only direct target next, versioned controls and one corrected baseline execution after Writer exact diff/pin readback. No further approval or review layer; return on any new integration failure.",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/PREPARATION_MANIFEST.json",
+    "bytes": 5290,
+    "sha256": "864159e991957948383ae6e8136743c5bdf1182302c188d17e5f67f5d2b19b1c"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/TRIAGE_002.json",
+    "bytes": 5480,
+    "sha256": "236d50f6cd008c8049b5445f81d71b4d78b80909f92a3bf49da636209b04aab7"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement-002.mjs",
+      "bytes": 7192,
+      "sha256": "d8aacc1ee82a3c8914171e19a4ae8fdab5a922ef65dc35328106105c8695aa03"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement-002.test.mjs",
+      "bytes": 23072,
+      "sha256": "4e1f72c4df690c242fc4775dd74ec5157e18e4851f8ad210dfd98a597124f9b7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC7_BEFORE_002.bindings.json",
+      "bytes": 4862,
+      "sha256": "5d1176b2e91655eba2fcafb3414e6f4f079c1600aa83bf7b01b99d295c3c4e18"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/OWNER_REFERENCES.json",
+      "bytes": 2465,
+      "sha256": "f3099fbc32b8d6b83c6dcd909ca31f2d230d623af80dc15985843762a7c24e0f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC8_AFTER.bindings.template.json",
+      "bytes": 2964,
+      "sha256": "a888cb81f6f4775c6fb5e19ab13a6bfa600813f9f692887cad2c98e4b4f2200e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/TRIAGE_002.json",
+      "bytes": 5480,
+      "sha256": "236d50f6cd008c8049b5445f81d71b4d78b80909f92a3bf49da636209b04aab7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/SYNTAX_CHECKS_002.json",
+      "bytes": 1454,
+      "sha256": "ec9293831b6cda2b2eab2b7008cafcad4bfd1f27ce0a26ec38e993675b68f5c8"
+    }
+  ],
+  "frozenFixtureDelta": "Only target:{kind:'declared_start',startRef:ids.startRef} to target:{kind:'next'}; all memory/counter/profile/budget logic and assertions conserved.",
+  "proof": "Both syntax checks and exact inverse diff/pin readback passed; no new performance success is inferred.",
+  "command": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement-002.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/RC7_BEFORE_002.bindings.json",
+    "5d1176b2e91655eba2fcafb3414e6f4f079c1600aa83bf7b01b99d295c3c4e18",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_ADMISSION_002.json",
+    "<admission SHA256>"
+  ],
+  "preservation": "Original scripts, original manifest/admission and failed before-rc7-001 evidence remain byte-exact; no cleanup by this correction."
+}

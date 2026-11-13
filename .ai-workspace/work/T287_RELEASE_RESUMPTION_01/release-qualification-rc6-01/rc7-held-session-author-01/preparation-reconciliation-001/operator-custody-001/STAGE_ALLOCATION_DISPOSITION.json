@@ -1,0 +1,51 @@
+{
+  "kind": "root_stage_allocation_disposition",
+  "status": "ORIGINAL_FOUR_STAGE_CEILING_UNCHANGED",
+  "recordedUtc": "2026-11-06T13:34:48.606531+00:00",
+  "authority": "Root explicit disposition delivered to operator custody",
+  "stage01": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-001/BUILD.json",
+      "bytes": 2163,
+      "sha256": "54f92cdf6d87c4d741cbaa9ba7627e11b267fde41d352ca762fcf31325b14170"
+    },
+    "outcome": "GENERATION_TIMEOUT",
+    "cause": "unresolved; host contention plausible",
+    "notInferred": [
+      "Product defect",
+      "expected baseline discriminator",
+      "specific process caused timeout"
+    ]
+  },
+  "stage02": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/before-stage-002/BUILD.json",
+      "bytes": 2259,
+      "sha256": "1208843959392575daeab856fb8d76c86d39ebd3766a485243fa292e8a8b341a"
+    },
+    "outcome": "BEFORE_BUILD_PASSED",
+    "standing": "Counted within original four-stage grant; supplies needed baseline build. Both before TypeScript trees remain unchanged F2; no generator code diagnostic emerged."
+  },
+  "rootObservedHostMetadata": {
+    "loadAverages": [
+      12.15,
+      12.86,
+      11.2
+    ],
+    "ramGiB": 128,
+    "swapGiB": 3.8,
+    "concurrentNonABIWork": true,
+    "limit": "Context only; no specific causal attribution for timeout."
+  },
+  "allocation": {
+    "selectedCap": 4,
+    "consumed": 2,
+    "remaining": 2,
+    "remainingObligations": [
+      "measured pre-deletion after-source and discriminator",
+      "final source and required final proof"
+    ]
+  },
+  "rootSelection": "No extra allocation or time increase; preserve stage01. No further same-condition retry selected. Resource insufficiency returns to Root.",
+  "limits": "No Product/runtime/provider/build/test effects by custody; actual before-lane outcomes and after-source remain pending."
+}

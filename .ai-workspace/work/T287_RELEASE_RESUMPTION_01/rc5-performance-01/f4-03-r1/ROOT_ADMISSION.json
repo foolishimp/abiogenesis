@@ -1,0 +1,49 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "activation": "T287_RC5_F4_03_R1",
+  "admittedUtc": "2026-11-03T11:46:36.532846+00:00",
+  "roleTransition": "Executive actual packet-failure triage -> bounded Root operator Writer",
+  "userAuthority": "Approved RC5 and same3file fixture repair; f4-03/CLOSED_FAILURE_TRIAGE.json plus fresh failed close",
+  "operationGrant": "One ABG native3file repair with prior compiled scratch author feedback; actual same C2/native UAT/fresh reads; no Root Product code or widened prompt bound",
+  "sourceCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "sourceTree": "c4b60c78533eeff2734c289eccb1b37df982f3b9",
+  "nativeContractDigest": "sha256:53a43ee65fdf3f96fc79abec13b75001ccf6624f6bdd9fadc44dd11172dd7a40",
+  "workloadDigest": "sha256:703166786d415765e8045de720fc2e350a15d6b1e2762e3d1544c7bdd18a0465",
+  "preparedCall": "sha256:1643f103fed5ee561f2987779b8771f128964da2a3c362f665ff8d813ccd9372",
+  "contextDigest": "sha256:715536cae96279b00b372bf1c83f95b1d904649621973454d9ab1aeb0a5df134",
+  "selectorCapacity": {
+    "kind": "predictive_selector_capacity",
+    "installedRendererSha256": "3ba9e751bf3b2ca805ebafbd4678d96fffb9aff2055e301e7b78a70b483b518a",
+    "historicalOtherSections": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/fp-0141c53486056a96-prompt.txt",
+      "sha256": "6b9ec2ce3cccc5fb165fd72b6e81208eaafc3b7513d70421c8ea1fd9000a5a54"
+    },
+    "currentContextDigest": "sha256:715536cae96279b00b372bf1c83f95b1d904649621973454d9ab1aeb0a5df134",
+    "currentInputDigest": "sha256:cd43ce53abad82c74173255b880bb6fb2683fdc57481704039d6df8a8885fb48",
+    "sourceCount": 21,
+    "taskProjectionBytes": 545639,
+    "promptBytes": 566936,
+    "promptBound": 1048576,
+    "reserveBytes": 65536,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Actual installed owner task projection and renderer format; other sections are exact prior RC4 selector sections with controlled historical bindings.",
+      "Predictive operator check with64KiB reserve, not native assembly/admission or a proof of all future role contexts. Runtime owners remain authoritative."
+    ]
+  },
+  "nativeRuntimeAdmission": "Unchanged installed Public/ABG owner on dispatch",
+  "maxTurns": 256,
+  "reviewBaseCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "heldPriorSubjectSha256": "e82e3e6391a9f16199b684b0b553564ed09bdfdfc45107accda3bdb45d959fb8",
+  "C2FinalProofRecipeChanged": false,
+  "review": "Independent max3file frozen repair review conjoined with held codec/source result",
+  "exclusions": [
+    "Product/requirements/Public schema changes",
+    "unselected owners, cold-history rewrite and new store/service/controller",
+    "GC03 host rewrite or full qualification",
+    "canonical generated/build/package/install writes",
+    "old histories/releases, push/tag/global selector"
+  ]
+}

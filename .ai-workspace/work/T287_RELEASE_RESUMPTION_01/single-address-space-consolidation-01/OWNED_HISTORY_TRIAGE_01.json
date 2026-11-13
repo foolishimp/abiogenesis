@@ -1,0 +1,15 @@
+{
+  "recordedUtc": "2026-11-03T13:30:15.322599+00:00",
+  "kind": "root_diagnostic_reentry",
+  "failure": "First diagnostic asserted a CCall liveness context for an F_P fibre; the source intentionally returns null for F_P and event23800 is a frame probe.",
+  "sourceEvidence": [
+    "calculus/liveness.ts deriveCCallLivenessContext excludes selected.payload.regime F_P",
+    "closed log23799 F_P fibre,23800 frame_progress probe with scope.cCallRef null"
+  ],
+  "classification": "Operator discriminator subject error; not a Product defect or failed candidate",
+  "change": "Use exact recorded frameId and projectFrameLivenessContext on the same cut23799; preserve all first diagnostic outputs.",
+  "originalScriptSha256": "d9b71c974b49ecceec9e3eb6f93565572ac20270c852d4722e6da32ccb1bdb8a",
+  "successorScriptSha256": "d543b9fea8ec327e90a4a36d59a53573b28fb8b3111541fbf9399bcb9735c5e6",
+  "effectGrant": "Same read-only owner projection and operator result files; no source/runtime modification.",
+  "prelaunchFailure": "Initial command requested the not-yet-created successor working directory and failed before execution; this continuation creates it from the existing parent."
+}

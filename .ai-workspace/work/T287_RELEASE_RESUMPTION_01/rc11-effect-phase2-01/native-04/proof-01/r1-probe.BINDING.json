@@ -1,0 +1,32 @@
+{
+  "status": "PREPARED_FROZEN_R2_PROBE_HELD",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-freeze.json",
+    "bytes": 295850,
+    "sha256": "06dac8db990b326559fedef24968e95ec7ad80da89778a1f51ddc0bb3ae55cf4"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/probe-reentry.mjs",
+    "bytes": 4720,
+    "sha256": "904f5bfc90e1ebbb0092530de564c8fda16f5fa1d609d5929ebc2c14f1ca00e4"
+  },
+  "subjects": {
+    "candidate": {
+      "ownerModule": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src/shared/owned_process_lifetime.js",
+      "modulePins": [
+        {
+          "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src/shared/owned_process_lifetime.js",
+          "bytes": 10055,
+          "sha256": "5f3cc53f6bfc5fe116e3c6c119ff8a65d45a095d964b45af1da6df15d233a743"
+        },
+        {
+          "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-04/tenant/build/code/src/shared/owned_process_state.js",
+          "bytes": 9132,
+          "sha256": "0688546fa4e395b300bc4a267e1e1f733dafe87f2a1b571ece899096901a1972"
+        }
+      ],
+      "outputRoot": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/r1-probe/observation"
+    }
+  },
+  "standing": "Same byte-identical preserved fixture; only actual repaired module/output bindings change. No execution yet."
+}

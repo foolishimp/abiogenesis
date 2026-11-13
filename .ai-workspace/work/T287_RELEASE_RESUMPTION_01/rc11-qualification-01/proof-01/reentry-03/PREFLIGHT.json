@@ -1,0 +1,33 @@
+{
+  "status": "THREE_COMMAND_REENTRY_PREFLIGHT_PASSED",
+  "utc": "2026-11-09T08:54:46.336847+00:00",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/BINDING.json",
+    "bytes": 4993,
+    "sha256": "8488d7c684e99fc7f0bd296d5be23f3bab763cf4e7020ad506c3d3805be71eb5"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/continuation.py",
+    "bytes": 10756,
+    "sha256": "a0e31ba7c7e418f921c5cdac0344078b2f843a133c06f5d328da6a5d55d548ea"
+  },
+  "sourceRows": 1340,
+  "compiledRows": 996,
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182855,
+    "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+  },
+  "controlledBlocksByteExact": 14,
+  "retainedSourceWorkCompiledDependenciesNpmEnvironmentExact": true,
+  "commandIds": [
+    "unit",
+    "r6",
+    "f04a"
+  ],
+  "allAbsoluteSeconds": 900,
+  "explicitTapBeforeFiles": true,
+  "unitPopulationUnchangedNineFiles": true,
+  "noSourceExecutionDuringPreflight": true,
+  "runnerPythonSyntaxChecked": true
+}

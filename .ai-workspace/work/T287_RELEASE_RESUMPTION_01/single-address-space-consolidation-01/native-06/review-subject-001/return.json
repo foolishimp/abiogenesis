@@ -1,0 +1,1183 @@
+{
+ "kind": "native_06_return",
+ "returnedUtc": "2026-11-04T01:37:32Z",
+ "status": "partial",
+ "readiness": false,
+ "basis": {
+  "stdo": "3.0.4",
+  "stdoManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "baselineCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "native05Subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/review-subject-001/SUBJECT.json",
+  "native05SubjectSha256": "509603ed3f8f1a1c1e71a6a37b7e4769f869094924618d687c81516c97321ab4",
+  "inputs": {
+   "ROOT_REENTRY_SELECTION_06.md": "d5ed3bbf5c2c632c8c8ecb43abb364d99275a632bdde5417aabe37f2665baba3",
+   "NATIVE_GRANT.json": "4549ebb7628b42da04a3b28eb80d01702958e6feab8309b5ba6ef1a927c98d1b",
+   "TASK.md": "381155ca36a694c80c265fcb9473adefbdfcbc85bb3b0315d99b14e6a4e1d32c",
+   "rubric.json": "987adaade5d582b1a9bf616a38e90e2ae18db7b154aa297459e4c61e973dcae9",
+   "CONTEXT_AND_CAUSAL_MAP.md": "951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec",
+   "PREVIOUS_NATIVE_RETURN.json": "7de01e762fc955f3134779cfade0ef7a67ff2581eebe737e5d1830c136081133"
+  },
+  "changeClass": "realization_refactor"
+ },
+ "changedFromNative05": [
+  {
+   "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+   "native05Sha256": "5173d59042e89399c35a092363c1722e1a67f6aec6fd4011b7d5f3cf8ab961ce",
+   "sha256": "61fdfd9f68ed4e1b94aa143542d5f7919221f688b140e94fa9b7c52faba2591f",
+   "bytes": 142609,
+   "changedFromNative05": true
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+   "native05Sha256": "cbe17a4e483a2f4ddb6ed0fe0d9b38979a1becc80429ecb2d33c42e9259d45c9",
+   "sha256": "9407605058cce466f6efe2d2e4b11bf0198e77cfacbc9fef109070ff4ec41cb3",
+   "bytes": 87641,
+   "changedFromNative05": true
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+   "native05Sha256": "44fa23a3288ec3ab756c57ece114acfd34fda4902944b04ab27be62cd2813dfc",
+   "sha256": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4",
+   "bytes": 11376,
+   "changedFromNative05": true
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+   "native05Sha256": "c9ea7515696efdc160c59f6faa3f0f28243f20b247b164baea3c64ec3c4f6993",
+   "sha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+   "bytes": 92279,
+   "changedFromNative05": true
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+   "native05Sha256": "4e0c0fdcd94cd586019c622aa9a2a1703ab720b576e091378c67c96627defee1",
+   "sha256": "42ef88f96981adc827aa40bf3c6d3af3a9af7ef3278a6e958f2aebd513f6a38b",
+   "bytes": 222555,
+   "changedFromNative05": true
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+   "native05Sha256": "544b44c5250610fe9c8830b332eda51e9bb943264339701eebca309f17284475",
+   "sha256": "51cd9b45a10e5f464c01a4b1a979f4c780ca5360a9b3200e7f5a156b7bdd72c0",
+   "bytes": 23344,
+   "changedFromNative05": true
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+   "native05Sha256": "aa1ab8ed6a5cd947f35ffab910e4a840db70592ea4bbeadaf709d5cdcefb9778",
+   "sha256": "af65174bcb7ea1fb37d358650c70b4dd310408a391291c7f2439e22549ee8c36",
+   "bytes": 33658,
+   "changedFromNative05": true
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+   "native05Sha256": "a0536113e290c074ea8a8066ea734fd798153808ec72b7faf6d1d8228e90a1b2",
+   "sha256": "8e6176b038ce315697921846a2055b0d6bf0a06e2f88399a906b3a7c49ad0960",
+   "bytes": 77817,
+   "changedFromNative05": true
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+   "native05Sha256": "ca9b7b4ceb2933c8b013ebcedbc3edfab5d05558f7f575d03510dcef514b1403",
+   "sha256": "b768ee0976a20b66a8ae204b9452742ed9afca2008f75dc98240bc648f910236",
+   "bytes": 13745,
+   "changedFromNative05": true
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+   "native05Sha256": "2125bd4fc66a3218827f3cc859a566836ded0dcf6096d81a90e4eff721b7cc56",
+   "sha256": "b581f43132bfafe9b11a90af90130d3b1a70fe5c355ba336d595805571963fab",
+   "bytes": 7649,
+   "changedFromNative05": true
+  }
+ ],
+ "unchangedFromNative05Count": 107,
+ "grantPathsOutsideSubject": [
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+   "sha256": "bf86720cb046017715ad345b1cf7e392af914d903e0c04b2c867edf37070f226"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+   "sha256": "48e43ae17b1b0cd7cf36d47bc71e01729d77cf2962225ceb222d9fba483a8b9d"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+   "sha256": "14102c36ffa9761598fbd12c7774dff7e06edea05477a25cef15309a3d94d2ba"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+   "sha256": "ea517677bea5b6fe4c246f8f95de2e69e7c766dad6c0166ab5371b2783edfbd7"
+  }
+ ],
+ "trackedChangedOutsideGrant": [],
+ "trackedChangedNewSinceSubject": [
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs"
+ ],
+ "scratchCorrespondence": [
+  {
+   "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+   "scratchEqual": false,
+   "scratchSha256": "5173d59042e89399c35a092363c1722e1a67f6aec6fd4011b7d5f3cf8ab961ce"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+   "scratchEqual": true,
+   "scratchSha256": "9407605058cce466f6efe2d2e4b11bf0198e77cfacbc9fef109070ff4ec41cb3"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+   "scratchEqual": true,
+   "scratchSha256": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+   "scratchEqual": true,
+   "scratchSha256": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+   "scratchEqual": true,
+   "scratchSha256": "42ef88f96981adc827aa40bf3c6d3af3a9af7ef3278a6e958f2aebd513f6a38b"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+   "scratchEqual": true,
+   "scratchSha256": "51cd9b45a10e5f464c01a4b1a979f4c780ca5360a9b3200e7f5a156b7bdd72c0"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+   "scratchEqual": true,
+   "scratchSha256": "af65174bcb7ea1fb37d358650c70b4dd310408a391291c7f2439e22549ee8c36"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+   "scratchEqual": true,
+   "scratchSha256": "8e6176b038ce315697921846a2055b0d6bf0a06e2f88399a906b3a7c49ad0960"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+   "scratchEqual": true,
+   "scratchSha256": "b768ee0976a20b66a8ae204b9452742ed9afca2008f75dc98240bc648f910236"
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+   "scratchEqual": true,
+   "scratchSha256": "b581f43132bfafe9b11a90af90130d3b1a70fe5c355ba336d595805571963fab"
+  }
+ ],
+ "sourceHashes": {
+  "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+  "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts": "70808821083b7c0d7abe595f05d42188868b631bef441152573658b4d9b7a99c",
+  "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+  "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts": "8feeb5ab8bf7f4582828aaa5420ad0b956f492a9f3bb2b68123b24a52fad71e4",
+  "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts": "25aad5b6abaf0630976f18c74f65c2fb8105510294cc8a0f8b6ea7f85e6e2252",
+  "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts": "51c49b7069a6a56362cfc53e8d7681b855ca8b28af77e9fd49c18defd3f57eff",
+  "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts": "79788a830ca61f6c31397c85a95f373d3cddc77e0457c6907452d4b70d452422",
+  "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts": "cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1",
+  "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts": "7941cbb38813805ab6e8c053e176a8c7e99e380ab0e1879b0d6ebd6f16d156bb",
+  "build_tenants/abiogenesis/typescript/code/src/abg/index.ts": "ded48ff44daab08cc8841dd454155dd736efc8c81fb7a7a147df52ce8ddd3304",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts": "5ce21cf9f9e234ebd2e5bae2ec9df96083214f667e1e9c23ecb15f908c6b3189",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts": "c1ae30fe5ce0adae13613da1d5882d475230355713da12b4e85b22b1fff94fc1",
+  "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts": "a634bb0b19affc2e3cbb093101df3537a31c7e220962b7e9fc2a2c1a0a10709a",
+  "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts": "a9cdf5c7688efee2754ea92bf682b703e89792c4cd4171c51be64d9b66351a4e",
+  "build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts": "27125e01d9b2a479d2c76cf942a24d2833a3a95614b41fbd895cbcda68ad1efd",
+  "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05",
+  "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2",
+  "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "61fdfd9f68ed4e1b94aa143542d5f7919221f688b140e94fa9b7c52faba2591f",
+  "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": "c1b71cc0f1c0dd946d91f58c0e50a59a1bd0d33084667a18e82e5c849d261ec8",
+  "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md": "11d4dac7fb052b8cad1b0e9e6a6aaef7185ed7891de6fc4f4b1b329dc57fb636",
+  "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md": "2e906352d2b83f13635126608467fc4898af2c7916ac7eb8d0c6aee882120121",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs": "eec3a064046060312ef0201bce20df5b46f781b48da2bd9f628a39faf3c1c4ad",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs": "f6ce712c35478568a0e7bd08722c8804b2d7c88ac58920273ce6abaf7163ae7a",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs": "10f5b68598a3206f9a631643bec2314d1515f21a0065e08c6fc370b6bb94a7ea",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-family.test.mjs": "e1c90c79cf3f58bac6c12f54c094470b04a5865f044676358e244fdd809d809b",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs": "b5ab9c0faad5048fd8e9e3e7a39ec08c540a568a56e0b16baaa846dd5aea5686",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs": "f4cbf1fed4b4d671c7c7f7e6fc4e378ec1abf22965384d1fc73c385786ada6ef",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs": "4718c90ba665fe2d2103ef4a13e433575b7f0f0e33e05cc225210c74fd91c7b5",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs": "b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs": "390667fdfb25dfbb198df335db6518449410d954f60b2914f7c9c9283d8efc49",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs": "a56347f2621ec53733c27de869c1d0396d07f3bae09384a8dc5a8659958a9d99",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs": "9407605058cce466f6efe2d2e4b11bf0198e77cfacbc9fef109070ff4ec41cb3",
+  "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4",
+  "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts": "ce9cc8c74568ec7a8fe6dc2f061a3fb8693416f0874739345c286bdce12aec5d",
+  "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts": "72e13aa3a21b2f49e5b4b00b0a768efd92bf20c635ad8f6a657120af4825bc16",
+  "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts": "78d213d48e697882b8614d825c8a6cb4b4c7ee9ef5b5f3a75cbc72f80c33ec49",
+  "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts": "93b5f832601192409dbdbdb9db0cc9988c6c3d7e1d94026504008b28ab07cc74",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts": "7da8c71f162549621ea2adebe149fdd5509c85046c7d57ad50e35985493db0c6",
+  "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs": "3d336f70e8b21349fd0768a1abed407debcc6d0edf6dffa5c570b6bdc6b80efd",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs": "e2d74fde4a620024c97641939e2d50fd988437804b87121484a513cb24b778be",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs": "e8b911080ff7ef26ef7b6472471223abf44a187ff48ae659385edc4b5a163eac",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs": "5f746eec8f1f598fe3ce5ea2d9698d44338842cf4470fb7195836b4f36917160",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t288-initial-cursor-entry.test.mjs": "3032b45c11c7b081cb8732c9875f4aff08ccec359de504a101f4bde7c93d884b",
+  "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335",
+  "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts": "dcd891fcb9f07a1ba5220c0ff21351c1f2a7c25884b7dcaadb60ceeb8faf4ac3",
+  "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts": "a2da3031ca7c408bac41fea0c39a7043333ce0b14a6769fd82979733b7de22ab",
+  "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts": "8b8cdd35d0298469424d7226d0fb58a125b64cd6556eddfc7ff716c0aea372ea",
+  "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts": "5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7",
+  "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts": "094cce6fb3c539d56c21df0d46550b788f3fb4442016472d0199950b06d23e16",
+  "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts": "6a254033a8ea50a1f313340e7ba22c07a1797ff618e6527c473751bac0fdfc89",
+  "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697",
+  "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts": "f87040f477712381b91a62b5f6be59ee3815770cd1827270b21816acb4b21b84",
+  "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts": "73c27a0ed2d4e65a0317a1c6f5e16e5294248db7077960d273e9213f62052dc0",
+  "build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts": "76d38a6b1f7c7a18321a609df9fb17f15be6fd179da4de34884f900c0ad6542c",
+  "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts": "8c3a5e21adcb002d34ba5487d44fe2c8ad34c3f618472781f96bd2524ffce4cf",
+  "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts": "0487b8b2f1f909adb043722d15ee7018c03b21942ed642cf35960f7bf087e284",
+  "build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts": "d54ace08f6eea2e5c18c058c0e61a485161fbd572548a0a8e9c35d56069f9845",
+  "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts": "42ef88f96981adc827aa40bf3c6d3af3a9af7ef3278a6e958f2aebd513f6a38b",
+  "build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts": "ea2df4a553c8fea801277f9b68707ae7cd7ce08bff7c10e3d1552d6d01bfce8c",
+  "build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts": "b6f77d6f8b26718040e0d558bcecab0781d5864bc7dd2108a6779f0ee63881e0",
+  "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts": "6917be69cee67d6f3383bc7b7f9cce1bee2c338478c394afe89a5512496597b9",
+  "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts": "209968ba13beeb5160d6bb51a65bca5431f4e2f94497f3c8f7130624ad776c60",
+  "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts": "7dfe27e457a1b04c677382696524aed744b75c4079132837a78bc2c9ea20b208",
+  "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts": "c16c27de89523969d3f4a4b066c539115aff0150f5abe00ef147728763291e8f",
+  "build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts": "9d37ed9c8d216dd6420d7254571fd555d67d653b367c9d5a25eefefbb42a857a",
+  "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts": "e657a900c12f7ceee1152711845518a96cf48ac0b67a5566ec47fa516824190d",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": "3ad3fba807e2a22ec31403048ed02a652a4de3fa1b0434a3f531fafbb72f0aa6",
+  "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts": "0b748040414ae9ab6b46d29678a7dee7855db86a2c3f05cde7eb0908e78fb409",
+  "build_tenants/abiogenesis/typescript/code/src/product/result_definition_bindings.ts": "80384b0f1fe02452720a0439daceee8868c9c85b69e7d04701f8b34b1f11f40d",
+  "build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts": "27595e7d07b94d7144f66d3264ae8a1b8266838588a568ab74b0f7a454f936e0",
+  "build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts": "1d7dbc683a541bccc08a4bcd7f7f09140da321d2cf0266b05dc70870ae4389d3",
+  "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts": "7d267578046f50f08d5724a450633e193470a46eaf1d842330507d87b50b447b",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs": "e3d9d16cbf136031ff199cb9f718eaf7cde6c9cd4c3bd29e3c28ee19610dad4a",
+  "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs": "b106e1de259ec993469a3d320316646eae9490330ec0bcb86fad2be7214dee7f",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs": "09ec146a4bd4a789f28a11d04b72ea86a936414318dba433eff25848dfa2dadc",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs": "e17e26f31e1c85a285420bc2f74c66cddf22d960943020007583919729eef519",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-environment-projection-conservation.test.mjs": "07912e09bcb432f4f7cf3e6b240dd27a9d54a891eee161aea4e28f6e5756da71",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs": "397b99b3401c13fb6591d55b3a2abab347fd5cc510c43b83b714f6cae29b30cb",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": "a0984ff7f82cb0ac57175e7fa858e8b928e469704f3a25326ccb38868df7717f",
+  "build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs": "9db87e6586201f7ac806df00076fd4a289241750c9bb6cf367081b50f613cd94",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-reconstruction-conservation.test.mjs": "bfeccd64488a0f32f23e905c55e035858e2cf98ab30cfad6d6550e1f99f34854",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs": "90540971276c92787e9a10877c2ccfe2798b58d1e438abf9b96167a7d4ecd7c8",
+  "build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs": "5dd7aefe879b65d2baf7e01d7d83eea6444848f5ae24f0c3b98ad68a5e164feb",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-cross-cut-public-read.test.mjs": "1b3fcf8c7862c1c1b18bf1fbe3f6afd2759c66d7df6e50685e15f2d36f8551b9",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-failure-diagnostic.test.mjs": "d8b216839f1882003f0c82339110dbb0bf5be6de580a6a8ae5d947c3eeef24f0",
+  "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs": "25c3756928fb8a568e515538ed38500e8a8bbb8ec695e76fdcc380b3a6a7c37d",
+  "build_tenants/abiogenesis/typescript/test_env/tests/witness-run-stopped-definition-binding.test.mjs": "a8201916bcb5892c04de594bf48136624d0b2bee36eb1e526cd3155ae03e568b",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs": "69344dc2df9b76e0bf18c9b1adade8bbd249e5d97cac7de430498695d0d75087",
+  "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs": "4ec5ecc1aba27aaba522dffef69776c8fd8afcb79fda17cc6ce7245e30a448d3",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs": "bc155c423a992e376be7c6fe55ce0043e0172340318103aa298a83e19015d827",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs": "a8f0525caa1b047f304fe87afaa80b51854b5c050b384c8c7098609bab290067",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs": "23afb69fc48c66844b1172858d0bcb9f736fd23ab09a7f4e0e31fc75c8c39429",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs": "8f4d2f649bce9bf26d279cfc4ee3f856b32511db9172649ebec87ca5ff89959c",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs": "8928a5cf1e3753517cb9e7b5202e20f7594d82e9bdd044f9a0ae69212e336d81",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs": "c18384e6cdc80cd8fcd7cac2108ed29fb10569a62f42c652937e1c85b984ac87",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs": "efc165d2f823fe874418aa3ecdf5d5d65b27f18ed047997bb00f3afcd21b9dbf",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs": "1d395a555ac1917700243b1acd6258b5f1800184ee54395305ec072ef0bab462",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs": "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs": "200f4a94e0fd84296f35816f663e747830c1690375daa986d51cfaa3c0c2d51e",
+  "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts": "ab53666bd5c40d2a8de5f20c925462be9bba9353c39325589f35c771ab1f1f3a",
+  "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+  "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts": "59db62729425cb8c7ed871348cb44e5e9c8cbe283b8e6f35c7bb35f3187e1d31",
+  "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4",
+  "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs": "51cd9b45a10e5f464c01a4b1a979f4c780ca5360a9b3200e7f5a156b7bdd72c0",
+  "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a",
+  "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs": "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3",
+  "build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs": "d221155c75ad5a059e7523bdd62c53e27d70ad02675d91ea0d284645aaa2aedc",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs": "af65174bcb7ea1fb37d358650c70b4dd310408a391291c7f2439e22549ee8c36",
+  "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs": "379a3434a504128e2e8e16e44e0bf1d61d924158af4f323c4860535629637f43",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs": "8e6176b038ce315697921846a2055b0d6bf0a06e2f88399a906b3a7c49ad0960",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-malformed-gtl-gate.test.mjs": "ba7506e029f26e2175a0c02ce5f7976032ccce22e15a9b825d9e6f79571253b3",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs": "cc296f454540913704d3e48d1fdc240c935cc0616098f61381e38f025ec75e5e",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs": "4f92919b9dbd537eaefc9899a56caf3edffb4ce4d9783aa315ddcbb71c3ee8f6",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs": "ea2e0464b25199867753b2a11de04527d051a86e6992c3a29645521e7dbb7f67",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs": "b768ee0976a20b66a8ae204b9452742ed9afca2008f75dc98240bc648f910236",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs": "b581f43132bfafe9b11a90af90130d3b1a70fe5c355ba336d595805571963fab",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs": "b374f43c7b600dbfe07024f092a31c54e5ab019250b4b12d45d5e3ba917e330b"
+ },
+ "census": {
+  "basis": "native05 return census (PREVIOUS_NATIVE_RETURN.json sha256 7de01e762fc955f3134779cfade0ef7a67ff2581eebe737e5d1830c136081133) carried in full; native06 entries prefixed [native06]",
+  "migrated": [
+   "calculus/liveness.ts livenessReconstruction: forks the admitted predecessor selected by runtimeEventValidationBase (forkAt) for each validation prefix; layered base indexes; byIdentity buckets (someIdentified) for terminal/process identities replace kind-wide some() scans; context declarations read their aggregate related: bucket",
+   "runtime_history.ts runtimeHistorySelectorKeys (shared by live append and cold decode): public-operation:<operationId>, public-continuation:<continuationKind>, construction-operation:<operationAdmissionEventRef>",
+   "invocation_execution_truth.projectExactRunInvocationFactsAtPrefix, fh_continuation_projection (respond/continue classes, kind-indexed owner events, envelope order, owned-cut predecessor digest), effectful_invocation_truth (one owned acquisition, construction classes and construction-operation joins): shared classification, unchanged predicates",
+   "worksite_revision.ts internal RuntimeEventPrefix overload; worksite_command_forward.ts caller cast removed",
+   "qualification_proof.ts ExecutionSourceFacts carries the owned prefix (projectOwnedPrefixArtifactTruth + runtimePrefixFromOwnedArtifactTruth); joins via related:/id:/kind:/run:/payload:resultRef: indexes; readOwnedRuntimeEventPrefixAtDurablePrefix; exported projectQualificationConsumer returns the same value fields and keeps the prefix internal (qualificationConsumerOwner)",
+   "test_env/support/malformed-gtl-native-fixture.mjs synthetic event_prefix/artifact_truth stubs for the owned interfaces (lower-owner premises unchanged)",
+   "t287-qualification-producer-acquisition-reuse: checked owner copy (ABI5_PRODUCER_OWNER_COPY_FIXTURE), archive dd76783f sha/bytes and in-memory ustar member equality for every materialized source-map file and the materializer, historical module URLs from materializedOwnerRoot; bridges call the historical owners",
+   "adapter consumers t287-ordered-reconstruction, t287-authenticated-owner-values, t289-install-event-bodies -> runtimePrefixFromOwnedArtifactTruth with writeRuntimeEventPrefixValue complete values",
+   "eleven request consumers (c0-correction 1, c0-post-publication 2, live-worksite 1, post-binding 2, worksite-branch 2, worksite-command-execution 1, worksite-construction 2) -> owner replay / projectOwnedRuntimeTruthAtDurablePrefix",
+   "fresh-process-runtime-proof.mjs and runtime-retained-projections-worker.mjs: direct installed replay.js/event_prefix.js owners; complete values via writeRuntimeEventPrefixValue and materializeRuntimeReplayGuard; children consume reopened.prefix after the correspondence check",
+   "direct consumers: c0-post-publication, post-binding, st1, deferred-application-restoration, held-prefix (with predecessor-cut discriminator); runtime-f09-worker uses replay.projectOwnedRuntimeTruthAtDurablePrefix from the same environment.installedRoot module instance as its retry owner, and its route-failure fault reaches the owned frame-liveness read",
+   "t287-release-acceptance stubs renamed to projectOwnedPrefixArtifactTruth (held drift)",
+   "[native06] qualification_proof.ts graphOwner/stateAt: the retained GraphOwner and admitted CCall state are keyed by the exact deciding cut (runtimeEventPrefixExtent(prefix).count + ref) inside the existing NativeProofDerivation maps. A cut not yet asked calls deriveGraphOwner -> projectExactExecutionBasisAtPrefix / projectExactInvocationAdmissionAtPrefix / projectOpenedCCallCarrierAtPrefix and projectAdmittedCCallStateAtPrefix (whose projectCCallPhase refuses a duplicate fibre). The repeat at the same cut keeps the identity reuse. No new map, cache, phase law or dependency mechanism",
+   "[native06] test_env/support/malformed-gtl-native-fixture.mjs event_prefix stub adds runtimeEventPrefixExtent (rows count, last admissionOrdinal) as an explicit lower-owner premise of the synthetic fixture",
+   "[native06] t287-qualification-contraction and t287-qualification-producer-context count assertions re-expressed per deciding cut; the impossible-peer and repeat-reuse discriminators kept",
+   "[native06] t289-install-event-bodies: setupInstalledRootCatalog candidates, installation lock, workspace binding and workspace authority; owners loaded from env.installedRoot (cold child from input.installedRoot), one module family; strict identity via selectRuntimeEventPrefixFromStore; cold semantic equality against semantic inputs by artifactRef; reference chain and 12 negatives; all four tests run without env skips",
+   "[native06] single-address-space-consolidation.mjs openMeasurer: anchored module@source keys count a function by the exact start offset of its unique compiled source; COUNTED adds the qualification CCall owners, event_prefix index readers and liveness#layered"
+  ],
+  "deleted": [
+   "artifact_truth.runtimePrefixFromArtifactTruth (no production or current test consumer; the producer test bridge calls the historical module of that name)",
+   "replay.projectRuntimeTruthAtDurablePrefix, replay.projectRuntimePrefixesAtDurablePrefix, interface ActiveRuntimeTransactionProjection",
+   "abg/index export projectRuntimeTruthAtDurablePrefix",
+   "[native06] retry.ts unused import readRuntimeEventsAtDurablePrefix (no use in the file; production consumers of that export are unchanged)",
+   "[native06] t289 \"mixed historical/new projection probe\" and its legacy T288 history premise (stale selected premise per the fixture triage); the legacy history is not rewritten"
+  ],
+  "retained": [
+   "artifact_truth.projectExactPrefixArtifactTruth: cold copied-coordinate reconstruction (different contract: authenticates bytes cold)",
+   "deferred_application.ts:51 readRuntimeEventsAtDurablePrefix: complete restoration snapshot (named complete output)",
+   "replay.projectOwnedRuntimeTruthAtDurablePrefix / OwnedActiveRuntimeTransactionProjection: the owned direct-module operation consumed by c_call_outcome and the migrated tests",
+   "global pair walks in projectExactRunInvocationFactsAtPrefix and the F_H/effectful owners: history-wide refusals over the classified bodies",
+   "test_env/qualification/inventory.json and recipe: historical rc.1 evidence, unchanged",
+   "[native06] qualification_proof NativeProofDerivation.declarations: immutable declaration reconstruction keyed by catalog basis/view digest and reused across cuts (unrelated growth asks reconstructHistoricalDeclarationCatalog 0 times)",
+   "[native06] executionSources/assessments/verdicts/terminals maps unchanged: keyed by their own complete inputs, not by a cut-free CCall ref"
+  ],
+  "remaining": [
+   "retry.ts import: resolved in native06 (previous remaining[0])",
+   "runtime-f09-worker consumers (t287-f09-frontier-handoff, t287-r4-aba-retry, falsifiers/runtime-f09.mjs, runtime-f09-product.mjs): selected for actual C2 by ROOT_REENTRY_SELECTION_06; not run in native06",
+   "t287-retry-run-prefix.test.mjs: still pinned to the S02 rc.1 fixture (ABI5_S02_RETRY_FIXTURE); the F09-producer rebuild is not done"
+  ]
+ },
+ "dispositions": {
+  "R1": "Source unchanged in native06 (native05 fork repair retained). Selected discriminators added to t287-calculus-fold C-12b over budgetLivenessFixture and the actual projectRuntimeRetryBudgetFacts owner: valid non-null scope, authenticated null scope, missing CCall, foreign Run, foreign basis, other attempt, many attempts (absent), many progress rows (progress facts unset), irrelevant scopes, unrelated growth; each equal cold, warm, streaming and forked (assertFoldAgreement). Stale cuts before progress give unset progress, before opening give absent; a structuredClone prefix throws for null and non-null scope. Visited work through openMeasurer/selectorExtent: unrelated growth leaves basis buckets, body reads and selections equal; related growth adds 16 basis rows with equal body reads and selections. Fork layered accounting (final2 whole-path, same retained RC5 input): 4 forks visit 4 index rows plus 14 inherited rows across 607 layered queries, counted at the exact compiled filter; the rebuild visits 699 index rows and 0 layered rows; heap deltas -12.7 MB fork vs +342 MB rebuild (GC-noisy); see proof.livenessForkWork. Allocation is accounted as rows visited plus heap deltas (noisy); no allocation-byte meter per query. Retry-entry discriminators (nested depths 1/2, neighbour, failed scope on F09 producers) are not built.",
+  "R2": "No change in native06; held native01/02 disposition stands.",
+  "R3": "N5-CODE-01 repaired: qualification graph/state reuse no longer crosses cuts, so current truth and refusal at a new cut come from the indexed execution-basis, opened-carrier and admitted-CCall owners. N5-PROOF-01 partial: actual effectful-truth and F_H owners on real installed history give stage-then-admission-order refusals for orphan construction intent, orphan selected action and orphan F_H respond, before and after an unrelated workspace operation, equal warm, copied and freshly reopened; a mixed-arm payload is refused at Event Store admission with bytes unchanged. Not exercised: duplicate_outer_invocation, a valid F_H/construction complete pair, and growth by a second unrelated Run.",
+  "R4": "Outside grant. Native06 used only the declared inputs and scratch roots.",
+  "R5": "Outside grant. Exact routes from consolidation-inputs/native-06 and NEXT_PROOF_EXTERNAL_INPUTS; no broad search or archive copy.",
+  "R6": "Liveness meaning unchanged: fork/fresh decisions and context equal; budget refusals equal across routes. Probe CPU share not measured.",
+  "R7": "Cold routes keep their checks: qualification copied and cold reopen refuse at P2 with full declaration reconstruction; complete-pair stale pre-control handoff refused, fresh reopen equal; T289 cold child loads from input.installedRoot with full semantic comparison. Actual C2/UAT fresh result/replay closure open."
+ },
+ "rubric": {
+  "C1": "partial: N5-CODE-01 shortcut returns now delegate per cut to the canonical owners; retry import deleted; caller census complete above. Not whole consolidation: the retry fixture rebuild and the F09 consumers remain.",
+  "C2": "partial (scratch, author-run): same-input owner-call counts for the qualification cut, per-query layered rows for liveness forks, budget visited-work equality under unrelated growth; exact values and stale/copied/foreign/rollback refusals kept. No actual C2; no speedup claim.",
+  "C3": "scratch only: installed producer/consumer, maintained SDK and the new qualification-cut and complete-pair cases pass on installed scratch history (final2 whole-path). Actual installed C2/UAT not executed.",
+  "C4": "R1-R7 dispositioned above with named residuals.",
+  "C5": "unmet: actual C2, independent review and Root conjunction are outside this Worker; retry-entry lane (t287-retry-run-prefix) still needs a rebuilt fixture and will not meet minimum 3 passes without skips."
+ },
+ "proof": {
+  "build": "tmp06/w from the worktree selected paths; tsc and generate-product-manifest exit 0 (tmp06/logs/tsc-3.log, gen-3.log, empty)",
+  "env": "cwd tmp06/w tenant; TMPDIR=tmp06/t; NODE_OPTIONS=--max-old-space-size=8192; ABI5_CONSOLIDATION_INPUTS=consolidation-inputs/native-06; node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap",
+  "lanes": [
+   "started 2026-11-04T01:19:14Z",
+   "qualification-owner-components exit=0 seconds=17",
+   "historical-producer-acquisition exit=0 seconds=0",
+   "shared-owner-declaration-regressions exit=0 seconds=60",
+   "single-address-space-whole-path exit=0 seconds=439",
+   "ended 2026-11-04T01:27:50Z",
+   "single-address-space-whole-path exit=0 seconds=442 ended=2026-11-04T01:35:54Z"
+  ],
+  "runs": [
+   {
+    "label": "final-qualification-owner-components",
+    "tap": "tmp06/runs/final-qualification-owner-components.tap",
+    "tapSha256": "6e335a683003693918243e80d5a6c2bad7789004befd2561d5af831b812b856b",
+    "err": "tmp06/runs/final-qualification-owner-components.err",
+    "errBytes": 0,
+    "purpose": "final scratch build: qualification-owner-components lane (t287-malformed-gtl-gate, native-runtime-gate, native-structural-gates, qual056-material, qualification-contraction, qualification-producer-context, release-acceptance)",
+    "tests": 44,
+    "pass": 43,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "durationMs": 17497.212208,
+    "failed": [],
+    "declaredSkips": [
+     "ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body"
+    ],
+    "note": "one declared skip ABI5_OWNED_PROOF_DECLARATION, unchanged from native05"
+   },
+   {
+    "label": "final-shared-owner-declaration-regressions",
+    "tap": "tmp06/runs/final-shared-owner-declaration-regressions.tap",
+    "tapSha256": "6ca2bf227822d936d9a4061ab944f040a27c45179cb8b4ebe38109e10caced8f",
+    "err": "tmp06/runs/final-shared-owner-declaration-regressions.err",
+    "errBytes": 0,
+    "purpose": "final build before the layered-row edit: t287-calculus-fold, t289-install-event-bodies, r4-catalog-admission",
+    "tests": 31,
+    "pass": 31,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 59966.11425,
+    "failed": [],
+    "declaredSkips": []
+   },
+   {
+    "label": "final2-shared-owner-declaration-regressions",
+    "tap": "tmp06/runs/final2-shared-owner-declaration-regressions.tap",
+    "tapSha256": "089e5c38c59bba542be21a52fbcac4008177c3a691a68dd6e9ba1d7d7a154e10",
+    "err": "tmp06/runs/final2-shared-owner-declaration-regressions.err",
+    "errBytes": 0,
+    "purpose": "final bytes: t287-calculus-fold, t289-install-event-bodies, r4-catalog-admission",
+    "tests": 31,
+    "pass": 31,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 59319.133625,
+    "failed": [],
+    "declaredSkips": []
+   },
+   {
+    "label": "final-single-address-space-whole-path",
+    "tap": "tmp06/runs/final-single-address-space-whole-path.tap",
+    "tapSha256": "140995624ec1c94def89176bcc1a5ead9cbe064f8098b92f0ee91b9fe2e56b17",
+    "err": "tmp06/runs/final-single-address-space-whole-path.err",
+    "errBytes": 0,
+    "purpose": "whole-path lane before the layered-row accounting edit (support + consolidation test)",
+    "tests": 9,
+    "pass": 9,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 439081.055958,
+    "failed": [],
+    "declaredSkips": []
+   },
+   {
+    "label": "final2-single-address-space-whole-path",
+    "tap": "tmp06/runs/final2-single-address-space-whole-path.tap",
+    "tapSha256": "e3031435bc325e8168044c6c2ad13a5542d4b63b14dc30e899156db8360df781",
+    "err": "tmp06/runs/final2-single-address-space-whole-path.err",
+    "errBytes": 0,
+    "purpose": "final bytes: whole-path lane t287-single-address-space-consolidation",
+    "tests": 9,
+    "pass": 9,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 441738.278916,
+    "failed": [],
+    "declaredSkips": []
+   },
+   {
+    "label": "hist-producer-1",
+    "tap": "tmp06/runs/hist-producer-1.tap",
+    "tapSha256": "c50542ee353484c941208504fbb039a422df33494a0849832978699cbb679788",
+    "err": "tmp06/runs/hist-producer-1.err",
+    "errBytes": 0,
+    "purpose": "historical-producer lane t287-qualification-producer-acquisition-reuse with the declared NEXT_PROOF_EXTERNAL_INPUTS environment",
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 16151.385541,
+    "failed": [],
+    "declaredSkips": [],
+    "note": "the final-lanes run without that environment declared-skipped (final-historical-producer-acquisition 0/1 skip); this run is the counted one"
+   },
+   {
+    "label": "final-historical-producer-acquisition",
+    "tap": "tmp06/runs/final-historical-producer-acquisition.tap",
+    "tapSha256": "e32ad935803ff971c91018722799d2d74a302bd5eb26d6839a991bdb6b520084",
+    "err": "tmp06/runs/final-historical-producer-acquisition.err",
+    "errBytes": 0,
+    "purpose": "same lane without the declared external environment",
+    "tests": 1,
+    "pass": 0,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "durationMs": 80.421,
+    "failed": [],
+    "declaredSkips": [
+     "ABI5_PRODUCER_HISTORY_FIXTURE, ABI5_PRODUCER_CONTEXT_FIXTURE, ABI5_PRODUCER_OWNER_FIXTURE, ABI5_PRODUCER_OWNER_SOURCE_FIXTURE, ABI5_PRODUCER_OWNER_COPY_FIXTURE unset; requires the finite copied producer history, its retained context, the exact historical owner fixtures and their checked owner copy"
+    ],
+    "note": "declared skip; earns no credit"
+   },
+   {
+    "label": "qual-two-3",
+    "tap": "tmp06/runs/qual-two-3.tap",
+    "tapSha256": "d646a60bf74a01108ef46dfbf3d34773aff96d99aa7dfdc8518934f6fa295f88",
+    "err": "tmp06/runs/qual-two-3.err",
+    "errBytes": 0,
+    "purpose": "t287-qualification-contraction + t287-qualification-producer-context after the per-cut assertions",
+    "tests": 8,
+    "pass": 8,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 2920.381542,
+    "failed": [],
+    "declaredSkips": []
+   },
+   {
+    "label": "qcut-2",
+    "tap": "tmp06/runs/qcut-2.tap",
+    "tapSha256": "2054e3fc1df1fd5a10a0ded09e7759850f81d8fac573e7c9019e091e3170a9c0",
+    "err": "tmp06/runs/qcut-2.err",
+    "errBytes": 0,
+    "purpose": "N5-CODE-01 genuine owned cut case (isolated) on the repaired source",
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 60231.42475,
+    "failed": [],
+    "declaredSkips": []
+   },
+   {
+    "label": "qual-extra-2",
+    "tap": "tmp06/runs/qual-extra-2.tap",
+    "tapSha256": "f1debe72e89e3463fb0848ad50bc4bcd249cb2d1b9b780d6cb6e45340a36bf7a",
+    "err": "tmp06/runs/qual-extra-2.err",
+    "errBytes": 0,
+    "purpose": "five further qualification consumers of qualification_proof (installed-qualification-conservation, carrier-resource, law, parent-alias, scopes)",
+    "tests": 39,
+    "pass": 26,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 13,
+    "todo": 0,
+    "durationMs": 2232.132875,
+    "failed": [],
+    "declaredSkips": [
+     "ABI5_INSTALLED_CONSERVATION_ROOT, _PACKAGE_ROOT, _ARCHIVE or _NODE unset; requires the installed conservation territory, the installed package, its archive and the pinned interpreter",
+     "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+     "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+     "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+     "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+     "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+     "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+     "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+     "ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied",
+     "ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied",
+     "ABG_QUALIFICATION_SOURCE_ROOT or ABG_QUALIFICATION_RELEASE_ROOT unset; exact installed source acquisition roots not supplied",
+     "ABG_QUALIFICATION_STAGE_FIXTURES unset; exact current staging fixture not supplied",
+     "ABI5_PARENT_ALIAS_BINDINGS unset; requires the explicit frozen fixture and isolated emitted-owner binding"
+    ],
+    "note": "13 declared env skips (ABI5_F11_CARRIER_FULL_FIXTURE, ABG_QUALIFICATION_STAGE_FIXTURES, ABG_QUALIFICATION_SOURCE/RELEASE_ROOT, ABI5_INSTALLED_CONSERVATION_*, ABI5_PARENT_ALIAS_BINDINGS); none earns credit"
+   },
+   {
+    "label": "t289-1",
+    "tap": "tmp06/runs/t289-1.tap",
+    "tapSha256": "ac6414fa4fae5779261363d03375034762090d1f981b1d1202f8ea20d720f57d",
+    "err": "tmp06/runs/t289-1.err",
+    "errBytes": 0,
+    "purpose": "t289-install-event-bodies rebuilt on setupInstalledRootCatalog",
+    "tests": 4,
+    "pass": 4,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 63870.745625,
+    "failed": [],
+    "declaredSkips": []
+   },
+   {
+    "label": "r1-2",
+    "tap": "tmp06/runs/r1-2.tap",
+    "tapSha256": "9c910a60bf1f104d60de58bddbd5910ed7c810d8c8964d285ff7f1c92dea51c6",
+    "err": "tmp06/runs/r1-2.err",
+    "errBytes": 0,
+    "purpose": "t287-calculus-fold with the C-12b budget discriminators",
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 674.160917,
+    "failed": [],
+    "declaredSkips": []
+   },
+   {
+    "label": "pair-3",
+    "tap": "tmp06/runs/pair-3.tap",
+    "tapSha256": "15cccd45eed82eee64350c96e1519f5f3bbeb9c0e96f84074d7c9015aae1ba3d",
+    "err": "tmp06/runs/pair-3.err",
+    "errBytes": 0,
+    "purpose": "N5-PROOF-01 complete-pair controls case (isolated)",
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 89332.352791,
+    "failed": [],
+    "declaredSkips": []
+   },
+   {
+    "label": "fork-1",
+    "tap": "tmp06/runs/fork-1.tap",
+    "tapSha256": "c43237c222fd872eb8a58fd179611e16e990525d4cee14cde22ddf11452ba2b4",
+    "err": "tmp06/runs/fork-1.err",
+    "errBytes": 0,
+    "purpose": "liveness fork case with layered-row accounting (isolated)",
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 17550.423959,
+    "failed": [],
+    "declaredSkips": []
+   }
+  ],
+  "preservedFailedRuns": [
+   {
+    "label": "qcut-native05-before",
+    "tap": "tmp06/runs/qcut-native05-before.tap",
+    "tapSha256": "42c1417d79347394af981a747e5d3468cf6e8ff323ec69f804557ba2b17ec2b2",
+    "err": "tmp06/runs/qcut-native05-before.err",
+    "errBytes": 0,
+    "purpose": "genuine owned cut case against a scratch build of the native05 qualification_proof.ts bytes",
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 44837.854459,
+    "failed": [
+     "qualification material at a genuine owned cut: an invalidating producer fibre refuses warm, copied and cold alike; the historical cut stays valid and unrelated growth reuses declarations"
+    ],
+    "declaredSkips": [],
+    "note": "native05 reuses the ref-keyed graph/state at the extended cut: no CCall owner decides it there"
+   },
+   {
+    "label": "qcut-native05-divergence",
+    "tap": "tmp06/runs/qcut-native05-divergence.tap",
+    "tapSha256": "93ea2576fd00f522733009b48fa744428df181e98e7d130ff0bf9c660d7589e8",
+    "err": "tmp06/runs/qcut-native05-divergence.err",
+    "errBytes": 0,
+    "purpose": "divergence probe on the native05 bytes (tmp06/probe/zz-native05-divergence-probe.test.mjs)",
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 49389.226125,
+    "failed": [
+     "qualification material at a genuine owned cut: an invalidating producer fibre refuses warm, copied and cold alike; the historical cut stays valid and unrelated growth reuses declarations"
+    ],
+    "declaredSkips": [],
+    "note": "reproduces N5-CODE-01: the warm scope returns material at the invalidating cut P2 where copied and cold refuse"
+   },
+   {
+    "label": "qual-components-1",
+    "tap": "tmp06/runs/qual-components-1.tap",
+    "tapSha256": "9be205e049e056653ee2301dad008033669751a246d3ef6fe449bbf5323f2d3d",
+    "err": "tmp06/runs/qual-components-1.err",
+    "errBytes": 7,
+    "purpose": "first build with the exact-cut repair: qualification-owner-components lane (t287-malformed-gtl-gate, native-runtime-gate, native-structural-gates, qual056-material, qualification-contraction, qualification-producer-context, release-acceptance)",
+    "tests": 44,
+    "pass": 41,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "durationMs": 16385.7225,
+    "failed": [
+     "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked",
+     "same candidate in distinct original install/workspace/resource authenticates and conserves original producer material"
+    ],
+    "declaredSkips": [
+     "ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body"
+    ],
+    "note": "contraction and producer-context count assertions encoded ref-keyed reuse across cuts; re-expressed per deciding cut (qual-two-3)"
+   },
+   {
+    "label": "qual-two-2",
+    "tap": "tmp06/runs/qual-two-2.tap",
+    "tapSha256": "b6bb435b07619bb7574fec36ce50c05d2095b962cd78b5e53cdd1652e69619f2",
+    "err": "tmp06/runs/qual-two-2.err",
+    "errBytes": 0,
+    "purpose": "same two files, intermediate assertion edit",
+    "tests": 8,
+    "pass": 6,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 2841.289084,
+    "failed": [
+     "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked",
+     "same candidate in distinct original install/workspace/resource authenticates and conserves original producer material"
+    ],
+    "declaredSkips": [],
+    "note": "superseded by qual-two-3"
+   },
+   {
+    "label": "r1-1",
+    "tap": "tmp06/runs/r1-1.tap",
+    "tapSha256": "c6445e8268015bd1a8e8843370223b6bf65ab904206c52e0c80abe49a37b8be7",
+    "err": "tmp06/runs/r1-1.err",
+    "errBytes": 0,
+    "purpose": "t287-calculus-fold without --experimental-vm-modules",
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 220.3395,
+    "failed": [
+     "test_env/tests/t287-calculus-fold.test.mjs"
+    ],
+    "declaredSkips": [],
+    "note": "module load failure (SourceTextModule); rerun as r1-2"
+   },
+   {
+    "label": "pair-1",
+    "tap": "tmp06/runs/pair-1.tap",
+    "tapSha256": "d8a4b16ba6ae1b70ddaaee380018cbeaa1118bba6d3d509b2b9a76badd9e1224",
+    "err": "tmp06/runs/pair-1.err",
+    "errBytes": 0,
+    "purpose": "complete-pair case, first payload shape",
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 41532.084917,
+    "failed": [
+     "complete-pair owners refuse orphan F_H, orphan construction and mixed-arm operations by stage and admission order, alike warm, copied and cold; the valid baseline and unrelated growth keep their values"
+    ],
+    "declaredSkips": [],
+    "note": "Event Store refused the hand-built payload (no admitted event-contract variant); exact variant keys used after"
+   },
+   {
+    "label": "pair-2",
+    "tap": "tmp06/runs/pair-2.tap",
+    "tapSha256": "35164581f8e44512cc0fff3709ebdebdf600c25629053053cc77f772e6e278e4",
+    "err": "tmp06/runs/pair-2.err",
+    "errBytes": 0,
+    "purpose": "complete-pair case, baseline on a fresh ref",
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 45853.799708,
+    "failed": [
+     "complete-pair owners refuse orphan F_H, construction-intent and selected-action operations by stage and admission order, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values"
+    ],
+    "declaredSkips": [],
+    "note": "baseline Run ref is duplicate, fresh ref available; baseline rebuilt on the Run fact publicInvocationRef"
+   },
+   {
+    "label": "t289-probe",
+    "tap": "tmp06/runs/t289-probe.tap",
+    "tapSha256": "4ff97aeb21707662555e6c3f8972d25c663fa84f29f37fa5e73c17382b6b713e",
+    "err": "tmp06/runs/t289-probe.err",
+    "errBytes": null,
+    "purpose": "T289 shape probe (tmp06/probe/zz-t289-shape-probe.test.mjs)",
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 51140.471084,
+    "failed": [
+     "probe"
+    ],
+    "declaredSkips": [],
+    "note": "probe used to read the current installed row shapes; deliberate failing diff"
+   },
+   {
+    "label": "t289-probe-2",
+    "tap": "tmp06/runs/t289-probe-2.tap",
+    "tapSha256": "ae499766d551800a9df4f315b96c265694ef86c4177458ebf2c7b11426bc6538",
+    "err": "tmp06/runs/t289-probe-2.err",
+    "errBytes": null,
+    "purpose": "T289 shape probe 2",
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 50359.615042,
+    "failed": [
+     "probe"
+    ],
+    "declaredSkips": [],
+    "note": "same"
+   }
+  ],
+  "wholePathArtifact": {
+   "path": "tmp06/w/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+   "sha256": "1b99d77dc728fb7586f4c5c64dc0ebca158bf034f2bed90f083107ac019844c1",
+   "startedUtc": "2026-11-04T01:28:32.965Z",
+   "endedUtc": "2026-11-04T01:35:54.245Z",
+   "qualified": false,
+   "published": false,
+   "cases": [
+    "completePairControls",
+    "globalRunInvocationPairs",
+    "installedPath",
+    "livenessFork",
+    "maintainedSetup",
+    "publicOperationClassification",
+    "qualificationCut",
+    "retainedHistory"
+   ]
+  },
+  "earlierWholePathArtifact": {
+   "path": "tmp06/runs/final-single-address-space-proof.json",
+   "sha256": "52506c2273aa42f7a746da232ceb2dcf9a7d7da05b1c52baab77b7b949846c46"
+  },
+  "livenessForkWork": {
+   "forks": 4,
+   "forkIndexRows": 4,
+   "freshIndexRows": 699,
+   "forkLayeredQueries": 607,
+   "forkLayeredRows": 14,
+   "freshLayeredRows": 0,
+   "freshLayeredQueries": 1271,
+   "forkHeapUsedDelta": -12738536,
+   "freshHeapUsedDelta": 342141496,
+   "forkBodyDecodes": 0,
+   "freshBodyDecodes": 0,
+   "constructorCoverage": {
+    "forked": 2,
+    "fresh": 7
+   }
+  },
+  "qualificationCut": {
+   "producer": "c-call:sha256:d3d1b404400168990ce93bdd16cbb4ea4ca5eb8bf05c3ac004aa28bc64f436cd",
+   "cuts": {
+    "P": 3368359,
+    "unrelated": 3369325,
+    "invalidated": 3371626
+   },
+   "invalidatingFibre": {
+    "copiedFrom": "event://abiogenesis/aa52394a5e7be8416e353970ade42d6a4d7aaedf53d9826146a1eee053404841"
+   },
+   "phaseRefusal": "CCall c-call:sha256:d3d1b404400168990ce93bdd16cbb4ea4ca5eb8bf05c3ac004aa28bc64f436cd violates the atomic open/fibre pair or exact phase cardinality",
+   "materialDigest": "sha256:b47beba2d74e87261c3e773883fa83f2381520f40620d770cba0bd8836c9841b",
+   "refusals": {
+    "warm": null,
+    "copied": null,
+    "cold": null
+   },
+   "ownerCalls": [
+    {
+     "name": "qualification_material_P",
+     "wallMs": 1138.7,
+     "reconstructHistoricalDeclarationCatalog": 1,
+     "projectExactExecutionBasisAtPrefix": 3,
+     "projectOpenedCCallCarrierAtPrefix": 1,
+     "projectAdmittedCCallStateAtPrefix": 1,
+     "projectCCallPhase": 1
+    },
+    {
+     "name": "qualification_material_P_repeat",
+     "wallMs": 641.7,
+     "reconstructHistoricalDeclarationCatalog": 0,
+     "projectExactExecutionBasisAtPrefix": 1,
+     "projectOpenedCCallCarrierAtPrefix": 0,
+     "projectAdmittedCCallStateAtPrefix": 0,
+     "projectCCallPhase": 0
+    },
+    {
+     "name": "qualification_material_unrelated_extension",
+     "wallMs": 1110.0,
+     "reconstructHistoricalDeclarationCatalog": 0,
+     "projectExactExecutionBasisAtPrefix": 3,
+     "projectOpenedCCallCarrierAtPrefix": 1,
+     "projectAdmittedCCallStateAtPrefix": 1,
+     "projectCCallPhase": 1
+    },
+    {
+     "name": "qualification_material_invalidated_warm",
+     "wallMs": 1051.0,
+     "reconstructHistoricalDeclarationCatalog": 0,
+     "projectExactExecutionBasisAtPrefix": 2,
+     "projectOpenedCCallCarrierAtPrefix": 1,
+     "projectAdmittedCCallStateAtPrefix": 1,
+     "projectCCallPhase": 1
+    },
+    {
+     "name": "qualification_material_invalidated_copied",
+     "wallMs": 3459.3,
+     "reconstructHistoricalDeclarationCatalog": 1,
+     "projectExactExecutionBasisAtPrefix": 2,
+     "projectOpenedCCallCarrierAtPrefix": 1,
+     "projectAdmittedCCallStateAtPrefix": 1,
+     "projectCCallPhase": 1
+    },
+    {
+     "name": "qualification_material_historical_P",
+     "wallMs": 642.6,
+     "reconstructHistoricalDeclarationCatalog": 0,
+     "projectExactExecutionBasisAtPrefix": 1,
+     "projectOpenedCCallCarrierAtPrefix": 0,
+     "projectAdmittedCCallStateAtPrefix": 0,
+     "projectCCallPhase": 0
+    },
+    {
+     "name": "qualification_material_historical_P1",
+     "wallMs": 643.9,
+     "reconstructHistoricalDeclarationCatalog": 0,
+     "projectExactExecutionBasisAtPrefix": 1,
+     "projectOpenedCCallCarrierAtPrefix": 0,
+     "projectAdmittedCCallStateAtPrefix": 0,
+     "projectCCallPhase": 0
+    },
+    {
+     "name": "qualification_material_invalidated_cold",
+     "wallMs": 2919.8,
+     "reconstructHistoricalDeclarationCatalog": 1,
+     "projectExactExecutionBasisAtPrefix": 2,
+     "projectOpenedCCallCarrierAtPrefix": 1,
+     "projectAdmittedCCallStateAtPrefix": 1,
+     "projectCCallPhase": 1
+    },
+    {
+     "name": "qualification_material_historical_P_cold",
+     "wallMs": 5935.6,
+     "reconstructHistoricalDeclarationCatalog": 2,
+     "projectExactExecutionBasisAtPrefix": 5,
+     "projectOpenedCCallCarrierAtPrefix": 2,
+     "projectAdmittedCCallStateAtPrefix": 2,
+     "projectCCallPhase": 2
+    }
+   ]
+  },
+  "completePairControls": {
+   "summary": {},
+   "histories": {
+    "a": {
+     "admitted": {
+      "orphan-intent": "event://abiogenesis/3c79eccc219d5440cfcb44e542a91546d239c2760199c5cfdbba9b86d0af0ab0",
+      "orphan-selected": "event://abiogenesis/f900aefa7ebb82404ad07ae9f2f4bbd60543933d1aa0113faf3f1f2ec8012f4c",
+      "orphan-respond": "event://abiogenesis/783119e933364fb204c4c9423033c18f99a1008b2645f276f5a7654da877a55f",
+      "unrelated": "event://abiogenesis/b27056aeabbee821ca180af7c31cdef39f0577bee2af6b001c178dc0ea1570f9"
+     }
+    },
+    "b": {
+     "admitted": {
+      "orphan-selected": "event://abiogenesis/b9a7c23e7f2945fd2c800ade24735d0bf2eadabe57dbb0dc978cf15ca6e6a3d5",
+      "unrelated": "event://abiogenesis/1812030650ca5a58d48e45a817d78a7313b3ad78a057b501dc2ac4076cbf8828"
+     }
+    }
+   },
+   "cuts": {
+    "a": [
+     {
+      "label": "baseline",
+      "prefixLength": 3368252,
+      "truth": [
+       {
+        "disposition": "duplicate",
+        "code": null,
+        "eventRefs": null
+       },
+       {
+        "disposition": "available",
+        "code": null,
+        "eventRefs": null
+       }
+      ],
+      "fh": {
+       "disposition": "valid",
+       "facts": []
+      }
+     },
+     {
+      "label": "orphan-intent",
+      "prefixLength": 3371591,
+      "truth": [
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/3c79eccc219d5440cfcb44e542a91546d239c2760199c5cfdbba9b86d0af0ab0"
+        ]
+       },
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/3c79eccc219d5440cfcb44e542a91546d239c2760199c5cfdbba9b86d0af0ab0"
+        ]
+       }
+      ],
+      "fh": {
+       "disposition": "valid",
+       "facts": []
+      }
+     },
+     {
+      "label": "orphan-selected",
+      "prefixLength": 3375891,
+      "truth": [
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/3c79eccc219d5440cfcb44e542a91546d239c2760199c5cfdbba9b86d0af0ab0"
+        ]
+       },
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/3c79eccc219d5440cfcb44e542a91546d239c2760199c5cfdbba9b86d0af0ab0"
+        ]
+       }
+      ],
+      "fh": {
+       "disposition": "valid",
+       "facts": []
+      }
+     },
+     {
+      "label": "orphan-respond",
+      "prefixLength": 3378819,
+      "truth": [
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/783119e933364fb204c4c9423033c18f99a1008b2645f276f5a7654da877a55f"
+        ]
+       },
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/783119e933364fb204c4c9423033c18f99a1008b2645f276f5a7654da877a55f"
+        ]
+       }
+      ],
+      "fh": {
+       "disposition": "invalid_history",
+       "eventRefs": [
+        "event://abiogenesis/783119e933364fb204c4c9423033c18f99a1008b2645f276f5a7654da877a55f"
+       ]
+      }
+     },
+     {
+      "label": "unrelated",
+      "prefixLength": 3379872,
+      "truth": [
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/783119e933364fb204c4c9423033c18f99a1008b2645f276f5a7654da877a55f"
+        ]
+       },
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/783119e933364fb204c4c9423033c18f99a1008b2645f276f5a7654da877a55f"
+        ]
+       }
+      ],
+      "fh": {
+       "disposition": "invalid_history",
+       "eventRefs": [
+        "event://abiogenesis/783119e933364fb204c4c9423033c18f99a1008b2645f276f5a7654da877a55f"
+       ]
+      }
+     }
+    ],
+    "b": [
+     {
+      "label": "baseline",
+      "prefixLength": 3368247,
+      "truth": [
+       {
+        "disposition": "duplicate",
+        "code": null,
+        "eventRefs": null
+       },
+       {
+        "disposition": "available",
+        "code": null,
+        "eventRefs": null
+       }
+      ],
+      "fh": {
+       "disposition": "valid",
+       "facts": []
+      }
+     },
+     {
+      "label": "orphan-selected",
+      "prefixLength": 3372547,
+      "truth": [
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/b9a7c23e7f2945fd2c800ade24735d0bf2eadabe57dbb0dc978cf15ca6e6a3d5"
+        ]
+       },
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/b9a7c23e7f2945fd2c800ade24735d0bf2eadabe57dbb0dc978cf15ca6e6a3d5"
+        ]
+       }
+      ],
+      "fh": {
+       "disposition": "valid",
+       "facts": []
+      }
+     },
+     {
+      "label": "unrelated",
+      "prefixLength": 3373600,
+      "truth": [
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/b9a7c23e7f2945fd2c800ade24735d0bf2eadabe57dbb0dc978cf15ca6e6a3d5"
+        ]
+       },
+       {
+        "disposition": "invalid_history",
+        "code": "invocation_pair_invalid",
+        "eventRefs": [
+         "event://abiogenesis/b9a7c23e7f2945fd2c800ade24735d0bf2eadabe57dbb0dc978cf15ca6e6a3d5"
+        ]
+       }
+      ],
+      "fh": {
+       "disposition": "valid",
+       "facts": []
+      }
+     }
+    ]
+   }
+  }
+ },
+ "gaps": [
+  "Retry: t287-retry-run-prefix is not rebuilt on F09 producers. It still names the S02 rc.1 fixture and refuses before retry assertions; nested depths 1/2, neighbour, foreign, stale, failed-scope and many-match retry controls do not exist on current history. The retry-entry lane (minimum 3, no skips) will fail actual C2.",
+  "F09 consumers (t287-f09-frontier-handoff, t287-r4-aba-retry, runtime-f09/runtime-f09-product) not run in native06; the native05 route-fault adaptation still needs review in the final F09 delta.",
+  "N5-PROOF-01: duplicate_outer_invocation, a valid F_H/construction complete-pair baseline, and growth by a second unrelated Run are not exercised; unrelated growth used a workspace operation.",
+  "R1 allocation: per-query layered work is measured as rows visited and noisy heap deltas, not allocated bytes.",
+  "Qualification per-cut retention grows with the number of distinct cuts asked in one derivation scope; bounded by scope lifetime, not separately metered.",
+  "Scratch design file holds the native05 bytes (design is not consumed by tests); the worktree design HOW carries the native06 sentence.",
+  "Author-run scratch passes are not actual C2, UAT or independent review."
+ ],
+ "disclosures": [
+  "Scratch only under tmp06 (build tmp06/w, TMPDIR tmp06/t, runs tmp06/runs, logs tmp06/logs, probes tmp06/probe); harness npm pack/offline install wrote tmp06/_cacache, tmp06/_logs and tmp06/_update-notifier-last-checked. No network fetch, publication or dependency install into the source tree.",
+  "tmp06/w was rebuilt once with the native05 qualification_proof.ts bytes (tsc-n05/gen-n05 logs) to reproduce N5-CODE-01, then rebuilt from the worktree bytes (tsc-3/gen-3 at 01:00:10Z). No build ran under an active test.",
+  "Probe files zz-native05-divergence-probe, zz-t289-shape-probe and zz-t289-shape-probe-2 (tmp06/probe) were run from copies inside tmp06/w test_env/tests; those copies are no longer present. The t289 probe taps (8.7 MB each) are retained.",
+  "Five qualification test files (installed-qualification-conservation, carrier-resource, law, parent-alias, scopes) were copied from the worktree into tmp06/w for qual-extra-2; qual-extra-1 failed to find them before the copy.",
+  "The whole-path proof artifact from the first final run was moved to tmp06/runs/final-single-address-space-proof.json so the wx writer could record the final2 run.",
+  "One earlier shell redirection attempt through /tmp/../dev/null failed without effect.",
+  "Read-only external reads: the native05 SUBJECT.json, retained RC5 history, NEXT_PROOF_EXTERNAL_INPUTS producer fixtures, installed STDO 3.0.4 skill files.",
+  "Untracked .abiogenesis/ and .claude/ in the worktree predate this activation (mtimes 2026-11-03T13:37Z and 13:43Z); not touched.",
+  "No commit, stash, push, selector change, provider, subagent, release or installed Product/runtime change."
+ ]
+}

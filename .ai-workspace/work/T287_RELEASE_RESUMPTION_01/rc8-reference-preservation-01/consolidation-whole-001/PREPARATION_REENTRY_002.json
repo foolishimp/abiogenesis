@@ -1,0 +1,42 @@
+{
+  "status": "PREPARED_EXACT_REVIEW_LITERAL_CORRECTION",
+  "at": "2026-11-07T09:20:10.659170+00:00",
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-002.mjs",
+    "bytes": 9248,
+    "sha256": "191a43bcf4531b928a854f300bd1851fbf672ae14a20f7aefd055e0bf177c625"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/REENTRY_DIFF_002.patch",
+    "bytes": 1412,
+    "sha256": "270279595e32e36f90b053123103baeae450c16d7ce3cd02a93cd354535ecc6b"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/PREPARATION_REENTRY_001.json",
+    "bytes": 4076,
+    "sha256": "444013fec5e10f16b3837c19f0cb083b8f63d5ff9c6abcdd7089887f1c2e5eb4"
+  },
+  "preservedFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/COORDINATE_PREFLIGHT_FAILURE_001.json",
+    "bytes": 1014,
+    "sha256": "1fb9460129217a8fb92e36930f4dcdc8c3728503d5fb8f06dcccf9dfb1d2b1d9"
+  },
+  "onlyChange": {
+    "before": "satisfied",
+    "after": "satisfied_for_bounded_frozen_source_delta; focused_execution_pending"
+  },
+  "rootDisposition": "Root verified the exact bounded source review verdict and authorized this sole literal correction plus one coordinate execution, then whole SAS only after exact coordinate 11-pass/source/whole-file result. Operator and Root control read missed the literal; no source/review/test failure and no first-attempt allocation.",
+  "allOtherRecipeBytesUnchanged": true,
+  "bindings": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/COORDINATE_BINDING_001.json",
+      "bytes": 7957,
+      "sha256": "1f797674c97ea4a4c81fc413d8d89218c06e5f920f1c1622b11dd08e29f64207"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/CONSOLIDATION_BINDING_001.json",
+      "bytes": 8147,
+      "sha256": "ccd638b11a2e35bd6b19724e35f929776bbb8261d06c3c095eed67290150161b"
+    }
+  ]
+}

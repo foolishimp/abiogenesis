@@ -1,0 +1,126 @@
+{
+  "status": "BOUNDED_RC5_CANDIDATE_ACCEPTED_NOT_QUALIFIED",
+  "recordedUtc": "2026-11-03T12:53:58.247989+00:00",
+  "operator": "Root Executive",
+  "basis": "stdo://releases/v3.0.4/",
+  "basisManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "builder": "immutable installedRC4/source3c113133d with original runtime302 basis",
+  "scope": "Selected304 default-library/qualification inputs, private retained-route exact admitted-Result carriage, complete installed witness and bounded proof; source/evidence custody and local cut follow under separate Writer effects",
+  "sourcePreimageCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "sourceSubjectSha256": "6dcb7b4dd0eb84b8d5706c3e50a3cf3576796f0bc77418fcd3ee68ee85e6dbee",
+  "nativeSourceResultRef": "result://abiogenesis/c39dfcf7ed519a1e0aab19121b3862fd57783d67ded22cd05c31012a7512a2de",
+  "priorNativeSourceResultRef": "result://abiogenesis/4accfc2ff24ed5231e50bee7e5150fc7297a10f43675e3ed1ee9d6a0cccc1996",
+  "c2ResultRef": "result://abiogenesis/a2a62ff6976dd579012ee6e1e036516eb3bf8c27018114d205f699e9222bd567",
+  "artifactDigest": "sha256:4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+  "manifestDigest": "sha256:0a897768a558df57842b47a9ec2947562f6c7e7730bc711fa85f791655e90db0",
+  "productContentDigest": "sha256:95d6634615c069e41c6b1ddd950454995f69d75cf03d3a43a8c9cbce97547b7c",
+  "observedProof": {
+    "currentSelectedPass": 37,
+    "currentFail": 0,
+    "excludedSkips": 3,
+    "retainedMethodPass": 18,
+    "retainedMethodFail": 0,
+    "retainedMethodSkip": 0,
+    "qualificationFilesByteEqual": 99,
+    "commandsExitZero": 7,
+    "independentSourceReview": "satisfied/no findings; held method and codec/store review conjoined",
+    "uat": "satisfied/unresolvedCriteria[]",
+    "resultReplayOutcomeTerminalEqual": true,
+    "replayStatus": "closed",
+    "terminalResult": {
+      "digest": "sha256:1cb1898a8cd62439d8740259676f2ba2b732672adfa8e91156fab96086e6e972",
+      "ref": "result://abiogenesis/1cb1898a8cd62439d8740259676f2ba2b732672adfa8e91156fab96086e6e972"
+    },
+    "capturedRouteMeasurement": {
+      "sample": "captured-route-37961",
+      "beforeBytes": 3139020,
+      "afterBytes": 1678257,
+      "netSavedBytes": 1460763,
+      "logicalUnchanged": true,
+      "rows": 3,
+      "routeBeforeBytes": 1673358,
+      "routeAfterBytes": 212595,
+      "grossSourceBytes": 1461164,
+      "sourceStoreRowOrdinals": [
+        37940,
+        37953,
+        37961
+      ],
+      "limits": "three captured physical rows only; no complete admitted history, campaign saving or latency claim"
+    }
+  },
+  "historicalStanding": [
+    "Method firstC2 missing selectedfixture failure preserved",
+    "Method r2 nativeUAT indeterminate remains; current planning test closes its missing evidence prospectively",
+    "F4-01 turn-cap failure/partial source retained",
+    "F4-02 installed fixture failure and original independentS2 retained; successor3file correction proven",
+    "F4-03 assessment-role preparation refusal and selector-bound failure retained; zero actor/provider/source effects on that failed Run",
+    "All accepted RC4 and attributed reviewer evidence retains its exact historical scope"
+  ],
+  "disposition": "Bounded candidate source/artifact proof accepted. Complete source checkpoint, byte-equal independent build/pack and all-payload local installation are required before claiming completed local cut.",
+  "metadataDisposition": "UAT nonblocking stale source-root/claim standing will be refreshed by bounded Root release-metadata Writer, preserving exact preimage and reviewed Native Product/test bytes; no runtime-code or identity change.",
+  "limits": [
+    "Setup and initial artifact verification are separate; setup belongs to the campaign, not repeated for this attempt.",
+    "Launch4m11s does not establish overall speedup: coding-return-to-C2 launch was14m25s.",
+    "Different histories, packets and source states prevent causal comparison with prior14-minute launches.",
+    "Actor durations include native tools and model work; the UAT repository search alone reported at least390seconds.",
+    "No provider-only compute, universal throughput, capacity or causal percentage claim.",
+    "Successful attempt duration excludes earlier failed/indeterminate attempts and Root preparation; their exact records remain preserved.",
+    "Cold-history/transition cause remains unlocalized; no extra runtime repair selected.",
+    "No full fifteen-family/F11/AF22/GC03/whole-method qualification, stable release, push, tag, merge or global selector change.",
+    "Older readers do not support new v3 physical rows; old inline/v1/v2 histories remain readable byRC5.",
+    "Same-family nonauthor source-review limitation; no family-diverse assurance claimed."
+  ],
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/CLOSED_CONJUNCTION_OBSERVATION.json",
+      "bytes": 11638,
+      "sha256": "9f7e56cdce252a5bc7fb245d50289c7a0f4b1d9e9ae2899549a9f30c720c8522"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 2758,
+      "sha256": "f28e739baf2f5a4935b393c9a15204226d5cb252ef066ffa587461c3f4d8c661"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/review-subject-001/SUBJECT.json",
+      "bytes": 88235,
+      "sha256": "6dcb7b4dd0eb84b8d5706c3e50a3cf3576796f0bc77418fcd3ee68ee85e6dbee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/GENERATED_ADOPTION.PREPARED.json",
+      "bytes": 20436,
+      "sha256": "6aa9cc17bb7bd745e378280302b9fda4115a67079ec0fb39a76aaf299c5056dc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/WORKFLOW_PERFORMANCE.json",
+      "bytes": 13686,
+      "sha256": "3b948422ad490ebec2c293fd2a2833ff9c241eef43eedf77411139b7f7a03bbd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 2563,
+      "sha256": "a0c4c3d44bd453d27c68262c0841d25d59330269a1f6bd6be1790131b15f2a53"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/method-01-r2/ROOT_REPRICING.json",
+      "bytes": 3214,
+      "sha256": "e76694421806047da77e06e29ae757ac8c12ae4c40d840bfe5637aeeaa16939c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 3041,
+      "sha256": "1cd3895ca6353419024197ca9d531afc01204c34e3aff6220532490889769150"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-02/CLOSED_FAILED_CONJUNCTION.json",
+      "bytes": 3100,
+      "sha256": "848b2cc5d87fc8fef2bc37312cefd71866d0dfd640efe3ac073d03d790f809b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/CLOSED_FAILURE_TRIAGE.json",
+      "bytes": 2453,
+      "sha256": "a7c0e44b9edb820331d19b7af2cf3076bb84ae9bac0263cf03e19804cb3f86ef"
+    }
+  ]
+}

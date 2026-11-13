@@ -1,0 +1,42 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "at": "2026-11-07T11:03:15.889405+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "configSha256": "052e28bd3df0f6f83a806e5be261ca589261d3dec90429b3479d7f86310d7356",
+  "inventorySha256": "be06177e975d0eee00bf2ff2a3b9aca236ab63994ac3b83d29a7bcd35d54e55a",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "bf3e1ce66e79781e15c7f8f97574ba2df8841b326fb67d0b74da3c612e7b18b3",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_015.json",
+    "bytes": 5063,
+    "sha256": "bf3e1ce66e79781e15c7f8f97574ba2df8841b326fb67d0b74da3c612e7b18b3"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-015.mjs",
+    "bytes": 33074,
+    "sha256": "0fde65dfee43ec92fd3ccf8c94897b4ad24ee548412cb8b292c84df549cbec17"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "rootDisposition": "Root read exact minimal driver/config/preparation and closed recursive014 triage, adopting RC8-RECURSIVE-REGISTERED-SELECTION-PROOF OPEN for explicitly unqualified REF01 only. Admit one independent54-file remainder on unchanged A6 stage, seven deferrals without coverage. Three partial recursive passes remain excluded; preserve all147 prior whole credits including unvisited prior. No failed-file or accepted-qualification rerun.",
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 147,
+    "passed": 801,
+    "skipped": 192,
+    "scheduled": 54,
+    "deferredNoCoverage": 7
+  },
+  "effects": "Same serial owners/time/resource/output bounds and exact source/tool/env/oracle rows. First new red/incomplete/resource/input drift stops, no automatic retry/continuation/cleanup. No provider, Product edits, Git/cut/install or whole-broad green claim with residuals.",
+  "closedTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/recursive-timeout-014/REVIEW.json",
+    "bytes": 17312,
+    "sha256": "7b1b63bcc12f7e91a5803714881de362f1026e063f2a2ffd012d5ad4c302496a"
+  }
+}

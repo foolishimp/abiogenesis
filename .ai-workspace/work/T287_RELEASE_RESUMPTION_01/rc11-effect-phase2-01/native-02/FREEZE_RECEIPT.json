@@ -1,0 +1,82 @@
+{
+  "status": "CLOSED_A_FROZEN",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+    "bytes": 296057,
+    "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+  },
+  "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+  "rowCount": 1345,
+  "changed": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+        "bytes": 12633,
+        "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+        "bytes": 11508,
+        "sha256": "4dd9aa2ac5d53529dac83b165775fb8980d9b3fc57997a148efde00d8563d51b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 16214,
+        "sha256": "c4580846ef6a09ca26413b691960ecd2e04074cc263e92844b4f18f2a52a451e"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 17290,
+        "sha256": "d796e140aa827974f949ef56bcb8569e3c77756bafcfc7391896c1efc3646199"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 52787,
+        "sha256": "4db80cc8cf535099e138138720dc0ffb196e81ed35a8c9fe3b3037fee9a1ab91"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 58244,
+        "sha256": "bdd6fd7a051ce7a399275b61c6902c7e34c5db9526ace96298798aea324b8680"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "before": null,
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+        "bytes": 12604,
+        "sha256": "9c555e755cfb2d1b35cf6ba4f7b5eb8afc5c06e2de6ca000960828430edbd3c8"
+      }
+    }
+  ],
+  "unchangedOriginalRows": 1341,
+  "newFiles": 1,
+  "deletedFiles": 0,
+  "gitDiffFromCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/SOURCE_DELTA.diff",
+    "bytes": 29378,
+    "sha256": "c1ab41fde4020d5f580624be26fc744306d76d8dd38a58d38434a6a12ac289d1"
+  },
+  "diffLimit": "Tracked diff is from ed17 checkpoint; exact prior native01 plan comparison is in before/after inventory rows. New state complete in frozen-source.",
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/resource-close.json",
+    "bytes": 2326,
+    "sha256": "e1389d0698bfdd02d3b6ed698cbdb7214d084bdcac42fbe166eb6fb519848056"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/setup-02/runtime-001/FRESH_READBACKS.json",
+    "bytes": 6815,
+    "sha256": "09af2d919c94c8f88096d0a5635fcc315fdb9dba03a44301680d7eca38721273"
+  },
+  "nativeStatus": "success/status0/assessment admitted/19tools/0retry",
+  "selfchecks": "Scratchcompile exit0; controlled baseline10/10 then13/13 after3test additions. Native evidence only, independent review/externalproof pending.",
+  "materialReportGap": "Native reports skipped redundant probes/stale KILL/timer-after-completion under reentry, possibly lower probeCount; old discriminator only hand-traced. No disposition inferred."
+}

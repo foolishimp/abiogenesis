@@ -1,0 +1,9 @@
+{
+  "kind": "root_operator_argument_correction",
+  "at": "2026-11-06T05:10:03.123340+00:00",
+  "firstCommand": "python3 launch-owner-script.py prepare",
+  "failure": "assert mode in (preflight, dispatch) at line8",
+  "effects": "Rejected before any child launch, runtime call, source effect or execution record",
+  "correctCommand": "python3 launch-owner-script.py preflight",
+  "standing": "Caller verb error, not Product/preflight failure; rejected tool result remains retained"
+}

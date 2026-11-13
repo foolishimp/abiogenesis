@@ -1,0 +1,63 @@
+{
+  "kind": "retained_intermediate_author_feedback",
+  "at": "2026-11-06T00:26:25.277300+00:00",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-dev2-stage.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/development-feedback-002/d5b-dev2-stage.json",
+      "bytes": 78906,
+      "sha256": "1300cbeb28ea977956e6afbd7beaf32ff4577f104bc082f426a293c55b8f53f7"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-dev2-lanes-d5-lifecycle-profile/summary-d5-lifecycle-profile.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/development-feedback-002/summary-d5-lifecycle-profile.json",
+      "bytes": 1208,
+      "sha256": "b46d122f5cf9e4b706425b70518d751b9d4501f2dbff311d12ab398393a4af66"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-dev2-lanes-d5-lifecycle-profile/d5-lifecycle-profile.stdout.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/development-feedback-002/d5-lifecycle-profile.stdout.tap",
+      "bytes": 26779,
+      "sha256": "5ae03e7195ce2ca7db6089808e84175146e6c11af8c4f3fc928cfd6e47805ea4"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-dev2-lanes-d5-lifecycle-profile/d5-lifecycle-profile.stderr.log",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/development-feedback-002/d5-lifecycle-profile.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "summary": [
+    {
+      "id": "d5-lifecycle-profile",
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap test_env/tests/t287-lifecycle-failure-carrier.test.mjs test_env/tests/t287-calculus-fold.test.mjs test_env/tests/m5-event-store-reopen.test.mjs",
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-dev2/build_tenants/abiogenesis/typescript",
+      "exitCode": 1,
+      "signal": null,
+      "error": null,
+      "ms": 57210,
+      "tests": 48,
+      "pass": 45,
+      "fail": 3,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "minimumTests": 3,
+      "failing": [
+        "owned causation lookup grows with causal references in live admission and cold reconstruction",
+        "D5 current probabilistic evidence omits the four lifecycle copies; L and the artifact arm keep them",
+        "D5 cold evidence projection: current evidence without copies reads them from the fold; partial, crossed and L-without-copies refuse"
+      ],
+      "stdoutSha256": "5ae03e7195ce2ca7db6089808e84175146e6c11af8c4f3fc928cfd6e47805ea4",
+      "stdoutBytes": 26779,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "standing": "Development feedback while the native Worker is editing; no acceptance or final source correspondence.",
+  "triage": {
+    "knownCounter": "The prior diagnosed128 unattributed durable batch writes recur with127/127 causal lookups; the selected test attribution correction remains pending.",
+    "artifactExpectation": "The red explicitly expects the current artifact copy exitObserved to remain; M2 selects its removal. The selected current-profile test migration remains pending.",
+    "coldProjection": "The copy-free-current assertion returns null. Do not infer a Product defect or final disposition from the test title alone; exact final source, fixture and affected checks remain required."
+  },
+  "sourceLimit": "The development stage is mutable: its lifecycle test was already changed when Root later inspected it, so that later read is not used as the exact source of this red. Original stage metadata and TAP are retained. Only the actual final NativeWork return will become the frozen review subject."
+}

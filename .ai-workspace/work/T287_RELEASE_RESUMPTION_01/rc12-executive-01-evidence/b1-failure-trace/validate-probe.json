@@ -1,0 +1,165 @@
+{
+ "baseline": {
+  "kind": "program_validation",
+  "disposition": "valid",
+  "diagnostics": []
+ },
+ "reenterDeclaration": {
+  "sourceNode": "graph-function://abiogenesis/default-library/construction@5/invoke",
+  "sourceTermKind": "c_workflow",
+  "sourceLocus": null,
+  "targetNode": "graph-function://abiogenesis/default-library/executive-step@5/prepare",
+  "targetLocus": "graph-function://abiogenesis/default-library/executive-step@5/prepare"
+ },
+ "reenterConstruct": "constructed",
+ "reenterValidation": {
+  "kind": "static_validation_refusal",
+  "disposition": "invalid",
+  "diagnostics": [
+   {
+    "code": "invalid_application",
+    "path": "$.graphFunctions[graph-function://abiogenesis/default-library/executive-step@5].template.applications[graph-function-application://abiogenesis/818dcc1f98a376cfad2052bf2b71bf7d71a0ffc4b4acddae23a99bef7f11db60]",
+    "message": "re-enter application requires one bounded earlier locus in the same static graph span with exact source-output and target-input contracts"
+   }
+  ]
+ },
+ "reenterPublication": "valid",
+ "retryConstruct": {
+  "kind": "c_retry",
+  "inner": "c_workflow"
+ },
+ "retryValidation": {
+  "kind": "static_validation_refusal",
+  "disposition": "invalid",
+  "diagnostics": [
+   {
+    "code": "carrier_mismatch",
+    "path": "$.graphFunctions[graph-function://abiogenesis/default-library/executive-step@5].template.edges[graph-vector://abiogenesis/c9bf41d3980bd3c2a9f8639633a7790463360b0eec092898ec46a152ba116343]",
+    "message": "ordinary graph edge requires exact source-output and target-input equality"
+   },
+   {
+    "code": "invalid_application",
+    "path": "$.graphFunctions[graph-function://abiogenesis/default-library/executive-step@5].template.applications[graph-function-application://abiogenesis/82d81452e4476d800f937ce6165eab4f867259987397720a3507f06bd99e197f]",
+    "message": "registered selection requires an exact evaluator/policy source and unique permitted workflow targets with one shared interface and purpose"
+   }
+  ]
+ },
+ "retryPublication": "valid",
+ "wrapperRetryConstruct": {
+  "node": "graph-function://abiogenesis/default-library/construction@5/work",
+  "kind": "c_retry",
+  "inner": "c_workflow"
+ },
+ "wrapperRetryValidation": {
+  "kind": "static_validation_refusal",
+  "disposition": "invalid",
+  "diagnostics": [
+   {
+    "code": "carrier_mismatch",
+    "path": "$.graphFunctions[graph-function://abiogenesis/default-library/construction@5].template.edges[graph-vector://abiogenesis/e8ac1caa7acfad32e5420fb4053061b9ccb22d46575747db7e2e1019a4e3ba24].inputBinding",
+    "message": "retention requires the exact owner-derived E/S/T schema tuple and preserved entry/source bindings"
+   }
+  ]
+ },
+ "declaredToday": [
+  {
+   "name": "construction@5",
+   "applications": [],
+   "termKinds": [
+    "c_of",
+    "c_workflow",
+    "c_of"
+   ],
+   "bound": null
+  },
+  {
+   "name": "design@5",
+   "applications": [],
+   "termKinds": [
+    "c_of",
+    "c_workflow",
+    "c_of"
+   ],
+   "bound": null
+  },
+  {
+   "name": "executive-step@5",
+   "applications": [
+    "registered_selection"
+   ],
+   "termKinds": [
+    "c_of",
+    "c_of",
+    "c_of",
+    "c_workflow",
+    "c_workflow",
+    "c_workflow",
+    "c_workflow",
+    "c_workflow",
+    "c_workflow",
+    "c_workflow"
+   ],
+   "bound": null
+  },
+  {
+   "name": "executive@5",
+   "applications": [
+    "recurse"
+   ],
+   "termKinds": [
+    "c_of"
+   ],
+   "bound": 12
+  },
+  {
+   "name": "induction@5",
+   "applications": [],
+   "termKinds": [
+    "c_of",
+    "c_workflow",
+    "c_of"
+   ],
+   "bound": null
+  },
+  {
+   "name": "review@5",
+   "applications": [],
+   "termKinds": [
+    "c_of",
+    "c_workflow",
+    "c_of"
+   ],
+   "bound": null
+  },
+  {
+   "name": "specification@5",
+   "applications": [],
+   "termKinds": [
+    "c_of",
+    "c_workflow",
+    "c_of"
+   ],
+   "bound": null
+  },
+  {
+   "name": "testing@5",
+   "applications": [],
+   "termKinds": [
+    "c_of",
+    "c_workflow",
+    "c_of"
+   ],
+   "bound": null
+  },
+  {
+   "name": "uat@5",
+   "applications": [],
+   "termKinds": [
+    "c_of",
+    "c_workflow",
+    "c_of"
+   ],
+   "bound": null
+  }
+ ]
+}

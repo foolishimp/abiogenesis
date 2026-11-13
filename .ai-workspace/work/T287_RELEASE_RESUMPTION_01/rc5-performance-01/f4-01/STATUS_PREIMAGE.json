@@ -1,0 +1,27 @@
+{
+  "status": "METHOD_01_R2_TESTING_ONLY_RUNNING",
+  "recordedUtc": "2026-11-03T09:02:52.783949+00:00",
+  "sourceCommit": "90721c86680f17c1877dc26c9eb93b4243188785",
+  "sourceReview": "satisfied, exact7file native return; INDEPENDENT_SOURCE_REVIEW.json",
+  "firstRun": "blocked; failed selected import before tests, FIRST_C2_FAILURE_TRIAGE.json",
+  "currentActivation": "method-01-r2",
+  "started": "2026-11-03T09:01:51.075Z",
+  "execSession": 17583,
+  "manifestSha256": "f45990b3785ab5a3e11dc8da792f34b93dea9a055721dcae57bae6d7766340de",
+  "constructionGranted": false,
+  "predicate": "unchanged6commands plus exactomittedfixture; actualC2/UAT/freshreads pending",
+  "next": "After acceptedmethodstaging, serialF4codec/rc5identityincrement",
+  "metrics": {
+    "sdkSetupMs": 27849.5,
+    "artifactVerificationMs": 18897.741833,
+    "firstTaskAdmissionToWorkerProcessMs": 6065.0,
+    "firstDispatchToWorkerProcessMs": 79426.0,
+    "nativeResultToC2ProcessMs": 164524.0,
+    "betweenCodingTasksMs": null
+  },
+  "qualified": false,
+  "localRC5CutExists": false,
+  "notes": [
+    "STARTED inherited role label mentions native coding; exactadmittedr2grant forbids Construction and grants Testing/UAT only."
+  ]
+}

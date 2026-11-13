@@ -1,0 +1,96 @@
+{
+  "id": "T287-RC9-OWNER-REUSE-PREP-01",
+  "status": "ADMITTED_PREPARATION_ONLY",
+  "recordedAt": "2026-11-08T06:10:52.145614+00:00",
+  "role": "separate Operator/Writer",
+  "actor": "/root/rc9_operator",
+  "consumer": "/root Executive",
+  "goal": "GOAL-035",
+  "ticket": "T-287",
+  "userInstruction": "use RC8, pin to RC8 and use it to build RC9",
+  "changeIntent": "Pin installed immutable RC8 as RC9 operational builder and materialize the isolated successor worktree; prepare control reuse routes while implementation triage remains pending.",
+  "changeClass": "goal_reprice",
+  "reentry": "Current selection and operational preparation only; Product/requirements/design/code remain unchanged.",
+  "targetTruth": "Exact RC8 builder pin and pristine exact-RC8 successor source recorded; native control proposal bound to installed RC8 owners.",
+  "supersededTruth": "RC8 local delivery complete with no successor selected; historical delivery/qualification standing unchanged.",
+  "closureLaw": "Preparation closes when source/archive/install pins verify, exact worktree exists, current selections preserve history, and concrete native-control reuse needs and unresolved authority differences return to Root.",
+  "contract": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_PACKET.txt",
+    "bytes": 4097,
+    "sha256": "3298b4738612e748d4b7b97cc410ba2253a4239b1c823a88aa2d6949c0b62618"
+  },
+  "admission": {
+    "id": "RC9-PREP-01",
+    "decision": "ACCEPT",
+    "mechanism": "Existing explicit Root Executive operation grant and admitting decision under owner instruction and adopted Executive profile; no deterministic ABI admission or human override is invented.",
+    "evidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_PREPARATION_ADMISSION.txt",
+      "bytes": 717,
+      "sha256": "761d34afd6afdaa74bcf142051e8225b9f52111be1400a374ffab1c33404ca80"
+    }
+  },
+  "method": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "basisUri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "verification": "STDO_BASIS_CHECK.json"
+  },
+  "frame": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "bytes": 27131,
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "authorityRoutes": [
+    "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md#governance-and-release-boundary",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md#current-selection",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan"
+  ],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse and associated new branch/worktree metadata only"
+  ],
+  "permittedEffects": [
+    "new preparation records",
+    "exact RC8 builder operational pin",
+    "new isolated exact-RC8 worktree/branch",
+    "narrow current-selection projection updates",
+    "native control proposal/pins without activation"
+  ],
+  "excludedEffects": [
+    "Product source/test/design edits",
+    "runtime allocation",
+    "native or provider dispatch",
+    "build",
+    "install",
+    "push",
+    "tag",
+    "merge",
+    "global selector/configuration change"
+  ],
+  "host": {
+    "context": "Parent-declared fresh packet context plus environment/system instructions",
+    "filesystem": "Shared unrestricted filesystem; no technical read-isolation claim",
+    "modelPolicy": {
+      "processAgents": "gpt-6-astra xhigh",
+      "nativeAuthor": "claude-opus-5-5 xhigh",
+      "humanProxyRoot": "gpt-6-astra max"
+    },
+    "runtimeTelemetryAssurance": false
+  },
+  "resultSurface": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/PREPARATION_RETURN.json",
+  "nonClosure": [
+    "builder/source mismatch",
+    "unknown required control capability",
+    "unresolved material authority transplantation",
+    "scope or authority widening"
+  ],
+  "stop": "Return to Root after preparation; no native activation or runtime allocation."
+}

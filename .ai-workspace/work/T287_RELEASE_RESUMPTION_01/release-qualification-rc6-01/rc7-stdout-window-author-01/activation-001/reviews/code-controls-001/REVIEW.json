@@ -1,0 +1,74 @@
+{
+  "reviewId": "S5-ACTIVATION-CONTROLS-001",
+  "status": "closed",
+  "verdict": "no_concrete_blocker_in_bounded_control_delta",
+  "createdAt": "2026-11-06T19:10:19.959543+00:00",
+  "productFrame": {
+    "product": "ABIogenesis 5.0 fixed fifteen feature families",
+    "goal": "GOAL-035 / T-287",
+    "method": "STDO 3.0.4",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "boundary": "Existing ABG authority; immutable RC6 builder and prospective RC7. Operator controls only; no Product or runtime authority change."
+  },
+  "subject": {
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001",
+    "pins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/CODE_CONTROL_PINS.json",
+        "bytes": 3175,
+        "sha256": "c9027ecab09a751db9a41d583b5eb605252378445c5e7f06e6a4a3563a2380b0"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/CONTROL_DELTA.json",
+        "bytes": 6065,
+        "sha256": "cb3e139d32c32e2cd1900717e14a76cf33a3990a5da60d51f0ff4c0b23e5073e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/inputs/prior-author-lanes.mjs",
+        "bytes": 10812,
+        "sha256": "cd12153f75b704b86bff85d1e3ef48878e3a3db07246be6dd9d0cd48b4731808"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/prepare-and-dispatch.mjs",
+        "bytes": 19666,
+        "sha256": "7ae4d14404c11792c7f8f8894200c18aa0ae345322182bad4d414c091d8a34fc"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/launch-owner-script.mjs",
+        "bytes": 2527,
+        "sha256": "26cf022c696712d652b9a59538185629693df3f5c7260f511e0ace3d30dd0413"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/LANE_SUCCESS_CORRECTION.diff",
+        "bytes": 2115,
+        "sha256": "f8740a2556f9cefcbcbc5a8fde4f6b24a18b972d7b84f64923efe72fb4003101"
+      }
+    ],
+    "referencedStageOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-004/inputs/prior-author-stage.mjs",
+      "bytes": 8291,
+      "sha256": "fb98dcb5447a3c4554594ad8cae67b1b3f0a357f142a6879fffbdb6daa625347"
+    }
+  },
+  "reviewScope": "Frozen activation code/map delta against preserved preparation 001 through 004 and the already reviewed H05 predecessor-success owner. Final activation metadata and actual H05 acceptance/close/source binding remain Root-owned.",
+  "verification": [
+    "Fourteen closed code/map/preparation/basis pins checked; replacement-map targets checked without modifying original preparations.",
+    "Preparation 002 supplies the durable nonadmitting-successor obligation and preallocation validation; preparation 003 supplies host and launcher; preparation 004 supplies the sole selected generation timeout increase. Activation host and launcher are byte-identical to preparation 003.",
+    "Lane helper uses the H05 complete passed predicate for terminal success and all-prior non-stdout-before checks, with the same stageSourceDigest. Failed non-baseline lanes stop allocation. The stdout-before exception preserves the intentional historical red and does not itself prove a semantic red.",
+    "Exact mode/lane, metadata pin, 300000 ms lane limit and positive filter validation precede output allocation. Four stages, seven once-only lanes and concurrency one remain unchanged.",
+    "The stage-owner delta changes only generation 180000 to 600000 ms; compile 240000 and guard 60000 ms remain. No retry authorization is introduced.",
+    "Host checks fifteen actual output slots before acquisition; actual capacity receipt is inside execution output. Launcher checks request/stdout/stderr/result slots before spawning. Actual close/resume/source admission assertions precede acquisition.",
+    "Native 5400000 ms absolute, 1800000 ms inactivity, 320 turns, 10800000 ms host and 8192 MiB bounds remain selected."
+  ],
+  "findings": [],
+  "residuals": [
+    "Actual H05 accepted-source/close/resume bindings are intentionally future and null; this review does not substitute for Root admission or bless placeholder execution.",
+    "No candidate stdout-window implementation, source acceptance, test result, runtime acquisition, installed performance, or full qualification was reviewed or produced.",
+    "No control or Product edits, process launch, tests, builds, providers, private actor bodies or credentials were used; only these review artifacts were written.",
+    "This same-family component review is not formal ABI5 F11 J, release qualification, or a measured speedup claim."
+  ]
+}

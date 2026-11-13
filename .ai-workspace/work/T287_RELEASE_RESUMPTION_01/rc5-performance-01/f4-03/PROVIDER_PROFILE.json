@@ -1,0 +1,39 @@
+{
+  "kind": "rc5_f4_fixture_repair_profile",
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 256,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-rc5",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "BASH_DEFAULT_TIMEOUT_MS": "4500000",
+    "BASH_MAX_TIMEOUT_MS": "4500000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "outerTimeoutMs": 10800000,
+  "maxBudgetUsd": null,
+  "realClaude": "/Users/jim/.local/share/claude/versions/2.1.306",
+  "realClaudeSha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b",
+  "providerScratch": "/Users/jim/src/apps/abiogenesis-rc5-performance/rc5-scratch/f4-03/tmp",
+  "noGlobalPluginChange": true,
+  "selectedSkill": "exact local .claude/skills/stdo-work/SKILL.md from verified3.0.4",
+  "credentialPresent": true
+}

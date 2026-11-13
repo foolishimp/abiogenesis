@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {join,dirname} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import {gunzipSync} from 'node:zlib';
+const root=dirname(fileURLToPath(import.meta.url)),raw=join(root,'raw/native-assessment'),generated=join(root,'generated/native-assessment');
+const json=async p=>JSON.parse(await fs.readFile(p,'utf8')),sha=b=>createHash('sha256').update(b).digest('hex');
+const pin=async p=>{const b=await fs.readFile(p);return {path:p,bytes:b.length,sha256:sha(b)};};
+const absent=p=>{try{process.kill(p,0);return false;}catch(e){if(e.code==='ESRCH')return true;throw e;}};
+const cfg=await json(join(root,'CONTROLS.json')),handoff=await json(join(raw,'close-handoff.json')),fixture=await json(join(generated,'fixture.json')),completion=await json(join(raw,'completion.json')),host=await json(join(raw,'HOST_TERMINATION.json'));
+for(const p of [...cfg.inputs,...cfg.controlFiles])assert.deepEqual(await pin(p.path),p);
+const storePath=join(cfg.installedRoot,'build/code/src/abg/event_store.js'),store=await import(pathToFileURL(storePath).href);
+const log=fileURLToPath(handoff.prefix.eventLogRef),bytes=await fs.readFile(log),zipped=await fs.readFile(join(generated,'events.jsonl.gz'));assert.deepEqual(gunzipSync(zipped),bytes);assert.equal(sha(bytes),fixture.prefix.sha256);assert.equal(sha(zipped),fixture.prefix.compressedSha256);
+const physical=store.readRuntimeEventsAtDurablePrefix(handoff.prefix),decoded=store.validateHistoricalEvents(bytes,fixture.eventContractDigest);assert.deepEqual(physical,decoded);assert.equal(decoded.length,fixture.eventCount);assert.equal(decoded.length,79);
+const st=await fs.stat(log);assert.equal(st.dev,handoff.prefix.storeIdentity.device);assert.equal(st.ino,handoff.prefix.storeIdentity.inode);
+const lock=join(raw,'tmp/abiogenesis-event-store-locks-v5',`${st.dev}-${st.ino}.lock`);let lockAbsent=false;try{await fs.lstat(lock);}catch(e){if(e.code==='ENOENT')lockAbsent=true;else throw e;}assert.equal(lockAbsent,true);assert.equal(absent(host.pid),true);assert.equal(absent(-host.pgid),true);
+const actors=[];for(const start of decoded.filter(e=>e.kind==='actor_process_started')){
+ const id=start.payload.actorInvocationRef,actorRows=decoded.filter(e=>e.payload.actorInvocationRef===id),exit=actorRows.find(e=>e.kind==='actor_process_exited'),terminal=actorRows.find(e=>e.kind==='actor_invocation_failed'),artifact=actorRows.find(e=>e.kind==='actor_result_artifact_observed'),projection=completion.replayState.actorProcesses.find(p=>p.actorInvocationRef===id);
+ assert.ok(exit&&terminal&&artifact&&projection);assert.equal(exit.payload.status,0);assert.equal(exit.payload.signal,null);assert.equal(artifact.payload.finalOutput,'{not-json');assert.equal(artifact.payload.failureClass,'contract_failure');assert.equal(artifact.payload.nativeResultAssessment.disposition,'rejected');assert.equal(projection.terminationConfirmed,true);assert.equal(projection.timedOut,false);assert.deepEqual(projection.signalSequence,[]);assert.equal(absent(start.payload.processId),true);
+ actors.push({actorInvocationRef:id,processId:start.payload.processId,pidAbsent:true,processRef:start.payload.processRef,startEventRef:start.eventId,exitEventRef:exit.eventId,terminalEventRef:terminal.eventId,artifactEventRef:artifact.eventId,exitStatus:0,exitSignal:null,terminationConfirmed:projection.terminationConfirmed,timedOut:projection.timedOut,signalSequence:projection.signalSequence,finalOutput:artifact.payload.finalOutput,nativeAssessment:artifact.payload.nativeResultAssessment,transportDigest:artifact.payload.transportDigest});
+}
+assert.equal(actors.length,2);const kinds={};for(const row of decoded)kinds[row.kind]=(kinds[row.kind]??0)+1;
+const rows=decoded.filter(e=>['retry_attempt_opened','retry_progress_recorded','c_call_judged','run_stopped'].includes(e.kind)).map(e=>({ordinal:e.admissionOrdinal,eventId:e.eventId,kind:e.kind,payload:e.payload}));
+const result={status:'generated_snapshot_and_actual_owner_closure_verified',ownerModule:await pin(storePath),snapshot:[await pin(join(generated,'events.jsonl.gz')),await pin(join(generated,'fixture.json'))],originalPhysicalBytes:await pin(log),physicalReadEqualsCurrentDecoder:true,logicalEventCount:decoded.length,logicalEventKinds:kinds,lockPath:lock,lockAbsent,hostPidAbsent:true,hostGroupAbsent:true,actors,completion:{disposition:completion.disposition,runId:completion.replayState.runId,cCallRef:completion.cCallRef,resultRef:completion.resultRef,judgmentRef:completion.judgmentRef,resultValue:completion.resultValue,runStoppedEventRef:completion.replayState.runStoppedEventRef,runClosedEventRef:completion.replayState.runClosedEventRef},retryAndJudgmentRows:rows,sourceControlsAndSelected02Conserved:true,scope:'Read-only existing owner physical read/current decoder and exact recorded PID checks. Two recorded actor invocations; no universal descendant or whole-Run retry-exhaustion claim. No new execution or event admission.'};
+await fs.writeFile(join(root,'ACTUAL_CLOSURE.json'),JSON.stringify(result,null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({logicalEventCount:decoded.length,actors:actors.map(a=>({processId:a.processId,pidAbsent:a.pidAbsent,terminationConfirmed:a.terminationConfirmed})),lockAbsent,completion:completion.disposition,receipt:await pin(join(root,'ACTUAL_CLOSURE.json'))}));

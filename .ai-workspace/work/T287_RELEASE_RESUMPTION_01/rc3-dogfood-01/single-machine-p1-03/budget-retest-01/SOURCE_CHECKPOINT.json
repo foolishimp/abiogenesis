@@ -1,0 +1,96 @@
+{
+  "actualSourceChangeCount": 10,
+  "files": [
+    {
+      "bytes": 121881,
+      "gitBlob": "b2d7e15946bc3064ce3b703c6fc12b2d62f322e5",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "6c4a00507c9b276f478ab3ededf15513fb3c517217eea833245fc46eae71ef4b"
+    },
+    {
+      "bytes": 37094,
+      "gitBlob": "643e88e57d4f78ea036f89e620c750cea6a1ff9d",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "sha256": "2ea8516698f0578bd7eb1882919ba100741eea6fddd2528fa33eccd195ed97e1"
+    },
+    {
+      "bytes": 24181,
+      "gitBlob": "98d52e0be187da0c242b92a6c5f6279ae95e6079",
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "2faf93d2def13bc8f8eb9d2759e190994712f575f39b5ef567ec407686c1b22b"
+    },
+    {
+      "bytes": 143027,
+      "gitBlob": "1ca9395541ee514e0eecf17c2c39ef5ee58349f2",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "6766194e77012654f660814674842ec372e63bc6020df3ffc3110debb2bf5db1"
+    },
+    {
+      "bytes": 20174,
+      "gitBlob": "403f7c7ce606872ae4df12b79b34351d47117edd",
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "sha256": "190bbc2d6115ce8eae8021d25d3f27f42be3536fe326dee762fe35dbcc0c065f"
+    },
+    {
+      "bytes": 26079,
+      "gitBlob": "32fa8738d89acca07d4fc02c28400e2cbdc32e3b",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "cb1c5405e9136128c713c2d3630818821e12a2be0e7f8f5cfd4c17b1527b750f"
+    },
+    {
+      "bytes": 72393,
+      "gitBlob": "0c0b0cff714f8b80410e4beb614215604b801163",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "533480ed2edcfe90f878ab17f2f473af7906bdce2c73178c78c78d0c741dcc2d"
+    },
+    {
+      "bytes": 57354,
+      "gitBlob": "aac994648ae778f02bd5673c92a4d0a6de04525c",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "sha256": "7c3656c791b6cb207ff3f059d4f0145781c1d05db4951a05e977501fab29fc11"
+    },
+    {
+      "bytes": 14920,
+      "gitBlob": "8eac0ff63973350b0ff34d4527562193f472dd80",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "sha256": "fafb8eb47d56a3c3534dfb046b9aea9d3fc9d59754fd9e1bf1c26f0eb7d37921"
+    },
+    {
+      "bytes": 52744,
+      "gitBlob": "664b8e1035d7cce3ae9b44180b09af8589857a1a",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "b36b41eb6d95ad77bbfd776c31483dbae0ec09fb817e062d3b86c4cce367e2a8"
+    }
+  ],
+  "firstReturnCustody": {
+    "bytes": 8378,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/construction-return-custody/CUSTODY.json",
+    "sha256": "4f2310b52bc6d27ff1553aceaaecdcc469ce97881699d1f0af71f01abd5d2358"
+  },
+  "gitEffect": "Root-selected Writer preservation commit of exactly native-authored Product paths; no helper authorship/release/tag/push; hook returned0",
+  "kind": "frozen_native_p3_candidate_checkpoint",
+  "parentCommit": "9c4a5c5e136ec564c66d1598fd32161ad4101f24",
+  "priorClosure": {
+    "bytes": 3482,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/P3_CLOSED_RUN_CUSTODY.json",
+    "sha256": "081263abaa65250603193f970f7d7f0d5b68b17542257f08da49f17c158d5b01"
+  },
+  "priorConstructionExternalCustody": {
+    "bytes": 3502,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/PRIOR_CONSTRUCTION_ADMISSION.json",
+    "sha256": "e56ca30b480683d69dfe39b946166ef216d9f4d626dbd336db011759c29dc403"
+  },
+  "secondReturnCustody": {
+    "bytes": 3090,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/second-construction-return-custody/CUSTODY.json",
+    "sha256": "cf449a9e3726a8d87b33a6a658bcebf9d38576a025eb614cc077ff13f44f7fc5"
+  },
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "standing": "Frozen candidate only; actual C2 failed time budget, qualification requires new Testing/UAT",
+  "untrackedPreserved": [
+    ".abiogenesis/",
+    ".claude/",
+    "rc3-operator-inputs/"
+  ],
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-machine-p1"
+}

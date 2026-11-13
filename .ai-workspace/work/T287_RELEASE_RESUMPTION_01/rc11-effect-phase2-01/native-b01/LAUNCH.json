@@ -1,0 +1,22 @@
+{
+  "status": "EXACT_SINGLE_SETUP_LAUNCH_BOUND",
+  "utc": "2026-11-10T02:48:08.089155+00:00",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/host.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/BINDING.json",
+    "eff4c339e3d8e252b347e7a68810feeeee8d2c9da730dc5860859ad0deee0d1a",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/ROOT_SETUP_ADMISSION.json",
+    "49b36a0b50d17bc8c3470115ef24cd972382ebfee960fc2698341b7d0453458c"
+  ],
+  "options": {
+    "tty": true,
+    "login": false
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/ROOT_SETUP_ADMISSION.json",
+    "bytes": 7083,
+    "sha256": "49b36a0b50d17bc8c3470115ef24cd972382ebfee960fc2698341b7d0453458c"
+  },
+  "stdin": "Retained PTY; no redirection, heredoc or pipeline. Provider admission absent."
+}

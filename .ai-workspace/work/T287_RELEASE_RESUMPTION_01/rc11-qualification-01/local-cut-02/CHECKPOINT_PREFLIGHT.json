@@ -1,0 +1,56 @@
+{
+  "status": "EXACT_GUARDS_AND_SELECTION_PASSED",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-02/ROOT_CHECKPOINT_BINDINGS.json",
+    "bytes": 9579,
+    "sha256": "2388c670d09bbc6b1cbee4812c745899ec1568bcaedd9c1f7fdd8b6e9b71c128"
+  },
+  "mainAndTrackingPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 176302,
+      "sha256": "c7f0586b208c001e35c54a2db1571d858140f9cc06d1ff14711f72766923b94a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 827077,
+      "sha256": "f2bd87d7d29c02d80a5c18fa5782b6de3d07abb42833999efda4ff6e64d9bf19"
+    }
+  ],
+  "candidateBase": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "candidateTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "branch": "codex/rc11-qualification",
+  "sourceRowsConserved": 1340,
+  "selectedPaths": 14,
+  "newPaths": 6,
+  "deletedPaths": 0,
+  "candidateIndexEmpty": true,
+  "excludedUntrackedPaths": [
+    ".abiogenesis/workspace-manifest.json",
+    "build_tenants/abiogenesis/typescript/node_modules",
+    "qualification-inputs/rc11-qualification-01/native-01/APPS_AGENTS.md",
+    "qualification-inputs/rc11-qualification-01/native-01/EVIDENCE_REPORT.json",
+    "qualification-inputs/rc11-qualification-01/native-01/EVIDENCE_REPORT.md",
+    "qualification-inputs/rc11-qualification-01/native-01/EXTERNAL_TOOLS.json",
+    "qualification-inputs/rc11-qualification-01/native-01/LIFETIME_RESULT.md",
+    "qualification-inputs/rc11-qualification-01/native-01/PRECISION_ADDENDUM.json",
+    "qualification-inputs/rc11-qualification-01/native-01/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-qualification-01/native-01/STDO_STDO_WORK_SKILL.md",
+    "qualification-inputs/rc11-qualification-01/native-02/ACTUAL_EVIDENCE_BASIS.json",
+    "qualification-inputs/rc11-qualification-01/native-02/APPS_AGENTS.md",
+    "qualification-inputs/rc11-qualification-01/native-02/EXTERNAL_TOOLS.json",
+    "qualification-inputs/rc11-qualification-01/native-02/LIFETIME_RESULT.md",
+    "qualification-inputs/rc11-qualification-01/native-02/LOADER_CONTRACT.md",
+    "qualification-inputs/rc11-qualification-01/native-02/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-qualification-01/native-02/STDO_STDO_WORK_SKILL.md",
+    "qualification-inputs/rc11-qualification-01/native-02/helper.postimage.mjs",
+    "qualification-inputs/rc11-qualification-01/native-02/leaf.postimage.mjs"
+  ],
+  "outputTempReleaseInstallAbsent": true,
+  "gitEffects": false
+}

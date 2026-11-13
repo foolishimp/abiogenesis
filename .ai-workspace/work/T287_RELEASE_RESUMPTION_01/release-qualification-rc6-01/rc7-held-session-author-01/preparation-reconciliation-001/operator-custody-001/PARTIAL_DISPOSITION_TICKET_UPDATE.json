@@ -1,0 +1,26 @@
+{
+  "kind": "operator_root_disposition_ticket_update",
+  "createdUtc": "2026-11-06T14:06:48.863588+00:00",
+  "rootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 7500,
+    "sha256": "c1a3d77c74c716e4b5413067aed917560318b1239c2244e6f2356ae8ba3ac20f"
+  },
+  "postAuthorSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/POST_AUTHOR_PROOF_SELECTION.json",
+    "bytes": 2336,
+    "sha256": "ed509250221433c72cd79813f93a030d0c70449856f5314eeb2b5c62cd40ec49"
+  },
+  "ticketBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/TICKET_BEFORE_PARTIAL.md",
+    "bytes": 710565,
+    "sha256": "cf80422d7317cdc7f44e5a79e4bced5448ed95e5273fc9afd93ec918a5998817"
+  },
+  "ticketAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 712972,
+    "sha256": "d89e6476f03afcc16289254749111d104003dc806061f23cef786fc6394e8d6b"
+  },
+  "effects": "Operator records and active T287 plan only; no Product/source/runtime/build/test/Git/release effects.",
+  "next": "Prepare rc7-held-session-author-02 controls with assessment sub-scope pending; Root alone binds final activation."
+}

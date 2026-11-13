@@ -1,0 +1,61 @@
+{
+  "status": "CHILD_CLOSED",
+  "samples": [
+    {
+      "at": "2026-11-07T15:10:29.697Z",
+      "freeBytes": 328494399488,
+      "ownedBytes": 123782994
+    },
+    {
+      "at": "2026-11-07T15:10:39.864Z",
+      "freeBytes": 328395431936,
+      "ownedBytes": 123786418
+    },
+    {
+      "at": "2026-11-07T15:10:49.865Z",
+      "freeBytes": 328292302848,
+      "ownedBytes": 123786418
+    },
+    {
+      "at": "2026-11-07T15:10:59.866Z",
+      "freeBytes": 328163352576,
+      "ownedBytes": 150453214
+    },
+    {
+      "at": "2026-11-07T15:11:09.867Z",
+      "freeBytes": 328092762112,
+      "ownedBytes": 134816011
+    },
+    {
+      "at": "2026-11-07T15:11:19.868Z",
+      "freeBytes": 327963774976,
+      "ownedBytes": 172741173
+    },
+    {
+      "at": "2026-11-07T15:11:29.869Z",
+      "freeBytes": 327839277056,
+      "ownedBytes": 231834600
+    },
+    {
+      "at": "2026-11-07T15:11:39.870Z",
+      "freeBytes": 327802646528,
+      "ownedBytes": 266292189
+    },
+    {
+      "at": "2026-11-07T15:11:49.870Z",
+      "freeBytes": 327767519232,
+      "ownedBytes": 329402259
+    },
+    {
+      "at": "2026-11-07T15:11:54.747Z",
+      "freeBytes": 327733788672,
+      "ownedBytes": 333397570
+    }
+  ],
+  "maxOwnedBytes": 333397570,
+  "minFreeBytes": 327733788672,
+  "monitorFailure": null,
+  "overshootPossible": true,
+  "quotaEnforced": false,
+  "detachedDescendantAbsenceProven": false
+}

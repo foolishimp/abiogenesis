@@ -1,0 +1,99 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedUtc": "2026-11-07T07:24:11.872701+00:00",
+  "authority": "Root author05 final selection plus explicit reviewed read-grant/cumulative-overlay/CLI correction concurrence: one actual prepared dispatch authorized without further GO.",
+  "bindingSha256": "a7efa8cc77bee902caa92675725c1f10ab43cac7bb3b3a41c9551ed6ac4857e1",
+  "preparedSha256": "1944e1a9a875c1167fc65e42c5dc40d4e96cbfde70a795590a95f475f8cb73cc",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/runtime-001/PREPARED.json",
+    "bytes": 6151,
+    "sha256": "1944e1a9a875c1167fc65e42c5dc40d4e96cbfde70a795590a95f475f8cb73cc"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/ROOT_SCOPE.json",
+      "bytes": 7090,
+      "sha256": "f83525d69de8b3e1018c42911f29459ad7532934871b88f001a4ce832e1ca8e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/TASK.json",
+      "bytes": 8380,
+      "sha256": "8ebdc044e6988da7812e4bc4a167a48217b48d742990cc00e273ca163370dd5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/PREPARATION.json",
+      "bytes": 7139,
+      "sha256": "302277aed8da697f20cd38ea33276c8e09eb3a2089f3a6414ceee35e742ca8c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/BINDING.json",
+      "bytes": 5058,
+      "sha256": "a7efa8cc77bee902caa92675725c1f10ab43cac7bb3b3a41c9551ed6ac4857e1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/host.mjs",
+      "bytes": 12242,
+      "sha256": "e130b07056829ffc665d5f1bfd49b704fbe673597871099289f5a95f3222a1ba"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof.mjs",
+      "bytes": 10613,
+      "sha256": "e1c1bdcc7624730808649994d812d3cdc3c2e83802e2f1664cd11eadd42ed653"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-004/REVIEW.json",
+      "bytes": 25224,
+      "sha256": "f106c14c9138f4d3bc50ceeac46646851ef70a6a0604a2a8622f0cad10cd4c8a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-004/README.md",
+      "bytes": 4339,
+      "sha256": "1c67058f53fbf9494850c1e3cf10a3876e930a159608ffd903f71fa3074d4ebf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/CONTROL_FREEZE.json",
+      "bytes": 2454,
+      "sha256": "7444d9c1d42416a069b76f4a35289a0e8b412069d09724af3020353a990aa4dc"
+    }
+  ],
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/ROOT_SCOPE.json",
+    "bytes": 7090,
+    "sha256": "f83525d69de8b3e1018c42911f29459ad7532934871b88f001a4ce832e1ca8e0"
+  },
+  "budgets": {
+    "sourceOverlayFreezes": 1,
+    "buildInvocations": 0,
+    "focusedWholeFileInvocations": 2,
+    "serial": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "outputBytes": 16777216,
+    "nodeHeapMiB": 8192,
+    "reserveBytes": 4294967296,
+    "maxOwnedBytes": 4294967296,
+    "pollMs": 10000
+  },
+  "host": {
+    "pid": 77855,
+    "sessionId": 65421,
+    "sameHeldCall": true,
+    "additionalPreparation": false
+  },
+  "operatorPreflightCorrection": {
+    "classification": "OPERATOR_CLI_ARGUMENT_MISMATCH",
+    "failedCommand": "/opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/host.mjs 0000000000000000000000000000000000000000000000000000000000000000",
+    "observedExitCode": 1,
+    "toolReportedWallSeconds": 9.875e-06,
+    "refusal": "host.mjs:12 binding digest assertion, expected all-zero placeholder, actual a7efa8cc77bee902caa92675725c1f10ab43cac7bb3b3a41c9551ed6ac4857e1",
+    "effectsBeforeRefusal": "No owner imports, runtime directory creation, resource acquisition or provider dispatch; controls and source unchanged.",
+    "correction": "CLI argument only changed to exact existing binding SHA; standing Root authorization retained.",
+    "exactFailureUtcRecorded": false,
+    "boundedAfterUtc": "2026-11-07T07:21:30.384554+00:00",
+    "boundedBeforeUtc": "2026-11-07T07:22:34.824Z"
+  },
+  "providerCallsAuthorized": 1,
+  "sourceAccepted": false,
+  "qualified": false
+}

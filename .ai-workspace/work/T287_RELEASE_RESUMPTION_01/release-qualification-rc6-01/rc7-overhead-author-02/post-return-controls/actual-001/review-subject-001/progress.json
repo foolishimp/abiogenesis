@@ -1,0 +1,24 @@
+{
+ "kind": "rc7_overhead_author_02_progress",
+ "at": "2026-11-06T06:07:24.170Z",
+ "phase": "frozen",
+ "controlIntake": "ROOT_CONTROL_ADMISSION, ROOT_SELECTION, ROOT_REVIEW_DISPOSITION, TASK, NATIVE_GRANT, SOURCE_CUSTODY, AFFECTED_PROOF_BINDING, CARRIAGE_REVIEW, PREFIX_RUNNER_REVIEW, LOGICAL_BOUNDARY, METHOD_ACCESS, COMMAND_BOUNDS, C2_INPUTS, MEASUREMENT_PLAN read; stdo verify v3.0.4 manifest 102817a3 valid; stdo-work SKILL and COORDINATED_HANDOFF Receive applied.",
+ "design": "R1-task: prospective native Result/failure carry inputDigest (= basis rawInputDigest = actor inputDigest) instead of task; input-dependent checks take the task resolved through the CCall/execution-basis owner (projectExactExecutionBasisAtPrefix(result.basisId).rawInputValue). R2: WorksiteContextBodyMember gains the admitted basis-input holder {basisRef, basisDigest, path} for unchanged after bodies.",
+ "stagesUsed": 5,
+ "laneInvocationsUsed": 13,
+ "budgetOverrun": "stages 5/4 and lanes 13/12, disclosed in return.json",
+ "completed": [
+  "R1-task",
+  "R2",
+  "PC-001",
+  "PC-002",
+  "RC7-PREFIX-RUNNER-01",
+  "consumer migration",
+  "before failure retained",
+  "final lanes on o7b-after-04"
+ ],
+ "remaining": [
+  "out-of-cone C2 pin reconciliation (Root)",
+  "Root-owned installed proof/readback/review"
+ ]
+}

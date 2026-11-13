@@ -1,0 +1,63 @@
+{
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "controlRevision": "exact-source-selection-and-archive-inputs-002",
+  "preparedAt": "2026-11-08T06:38:26.338361+00:00",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/INTAKE.json",
+    "bytes": 4992,
+    "sha256": "f4f93a3025221b08d211099a9505b093968b057354e7a31b1e05524e6709333d"
+  },
+  "consumer": "/root",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_002.json",
+    "bytes": 4182,
+    "sha256": "64e5c7a9bb4092fdc9334e9f78898e5cdd401d58059f2098c9a7f68a87c1ef39"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/INTAKE.json",
+      "bytes": 4992,
+      "sha256": "f4f93a3025221b08d211099a9505b093968b057354e7a31b1e05524e6709333d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/VERSION_ROUTE.json",
+      "bytes": 4067,
+      "sha256": "3e532ef79c55bbb47f29460ce6f5c178a23f1b1abbd27253ae0b9f6ffcfc0a1e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/OWNER_AND_TOOL_PINS.json",
+      "bytes": 5585,
+      "sha256": "10fec0edb91cf9c774c9635fd615b30c845a0370f24cef49d19bf87279c6f677"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+      "bytes": 27954,
+      "sha256": "bac74938257736015dc6c71f26dcd0a40e79115ea8bc82f9e2ff9aa04e5e3425"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-local-rc9.mjs",
+      "bytes": 7172,
+      "sha256": "e93175f3f58c03a6aef0ec89c3f990d11d333475fcce1744887eb5011b342c48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/installed-owner-smoke.mjs",
+      "bytes": 4375,
+      "sha256": "1862ba726edc8419cc8bfa57abcfd113643ed5a6e656dd5069e6c99ada3b7f11"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/exact-artifact-correspondence.py",
+      "bytes": 1321,
+      "sha256": "f3a731fa5ea4d4e6c9b3930e8393ea4c1991706f7103a120f744e8bef935e7a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/CONTROL_DIFF.patch",
+      "bytes": 30136,
+      "sha256": "134710e34fc2707b209ff3f5e8ab98cc79c29c7385a64d9b01c0723659af172d"
+    }
+  ],
+  "sourceBinding": null,
+  "testedArchiveBinding": null,
+  "executionAdmission": null,
+  "effectStanding": "Preparation only; exact source/checkpoint/reproduction/install remain held.",
+  "adaptation": "RC9 identity and labels; existing RC8 owner semantics and bounds; add RC8 head/index preservation; use byte-identical retained consumer helper from immutable C8; explicit executionEnabled guard. No Product implementation or packaging version override."
+}

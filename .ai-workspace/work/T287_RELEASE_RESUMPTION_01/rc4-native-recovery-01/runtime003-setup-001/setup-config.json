@@ -1,0 +1,69 @@
+{
+  "status": "PREPARED_NOT_EXECUTED",
+  "runId": "rc4-native-runtime003",
+  "sourceCommit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003",
+  "bootstrapRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3/node_modules/@abiogenesis/typescript-tenant",
+  "builder": {
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3/node_modules/@abiogenesis/typescript-tenant",
+    "cliRelativePath": "build/code/src/public/cli.js",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "archiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+    "manifestSha256": "8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+    "productContentSha256": "c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4"
+  },
+  "nodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "pythonPath": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+  "toolchains": {
+    "npm": {
+      "executable": "/opt/homebrew/bin/npm"
+    }
+  },
+  "recursionBound": 8,
+  "outerTimeoutMs": 10800000,
+  "maxProcessOutputBytes": 536870912,
+  "toolchainEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TMPDIR": "/private/tmp/abiogenesis-rc4-runtime-01",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "BASH_DEFAULT_TIMEOUT_MS": "4500000",
+    "BASH_MAX_TIMEOUT_MS": "4500000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO"
+  },
+  "provider": {
+    "enabled": false,
+    "agent": "claude",
+    "command": "/Users/jim/.local/bin/claude",
+    "model": "claude-opus-5-5",
+    "maxTurns": 384,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "inheritEnvironment": [],
+    "maxBudgetUsd": null
+  },
+  "initialState": {
+    "sourceBasis": "none",
+    "observations": [],
+    "synthesis": null
+  },
+  "focusedC2TimeoutMs": 2700000,
+  "sourceTree": "e669e2a903de1893a38271b4010a785cc840333e",
+  "setupOnly": "No lifecycle/provider admission. HC2+three HC1 residuals follow separate Root packet selection; source is unaccepted partial custody.",
+  "workspaceAcquisition": {
+    "kind": "open",
+    "expectedAuthority": {
+      "ref": "workspace-authority://abiogenesis/3ee3dc200fd65d6e77d89359eb671a5c926b4b8e18861d1bfb0ec254ca1cb0b4",
+      "digest": "sha256:3ee3dc200fd65d6e77d89359eb671a5c926b4b8e18861d1bfb0ec254ca1cb0b4"
+    }
+  },
+  "expectedConsumerDeclarationDigest": "sha256:e133e2328933c90950b466f5bddc030831b898198ef155a4c65537b2e521fc33"
+}

@@ -1,0 +1,45 @@
+{
+  "kind": "operator_control_writer_template_return",
+  "status": "STATIC_TEMPLATE_PREPARED_NOT_DISPATCHED",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/PREPARATION_MANIFEST.json",
+    "bytes": 9510,
+    "sha256": "f582b18851ba6d5da85c47805137c0ec689dcf46eac88a96471b7373f2096786"
+  },
+  "futureBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/FUTURE_BINDINGS.json",
+    "bytes": 1298,
+    "sha256": "eba9cf8c848614f1e74aa84e19cb0ba2b684cd8da633a5b5577efed9ae5ae0fc"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/ROOT_SELECTION.json",
+    "bytes": 3886,
+    "sha256": "ccb6b9060049213605af4f8327347a95349bb8d8ce0af21e19fe59eb3a05cddc"
+  },
+  "sourceNames": 448,
+  "prospectiveContextPaths": 465,
+  "fiveWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/PROVIDER_PROFILE.template.json",
+    "bytes": 2458,
+    "sha256": "d92df8c7d9e6ac5862433a0f488799e2290f23d18db2f631729051a017c42a34"
+  },
+  "baselineBound": false,
+  "runtimeBound": false,
+  "rootAdmissionBound": false,
+  "staged": false,
+  "preflightOrDispatch": false,
+  "sequencing": "After completed carrier consolidation; current A partial source is not selected. Root owns source freeze/review/proof sequence.",
+  "residuals": [
+    "Completed-carrier exact SUBJECT/head/448-row source-resource baseline and inherited state.",
+    "Genuine latest actual close/readback resume plus current workspace/native-author binding.",
+    "Root final materialization/admission and existing owner capacity/preflight."
+  ],
+  "limits": "No Product/HOW edits, moving-source acquisition, source-local staging/scratch/temp, runtime/provider/credential access, build/tests, acceptance, timing claim, new helper framework or review loop."
+}

@@ -1,0 +1,230 @@
+{
+  "status": "BROAD_CLOSE_STOPPED_ASSERTION_RED",
+  "recordedUtc": "2026-11-07T06:39:13.408988+00:00",
+  "operator": "/root/rc8_operator",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_006.json",
+    "bytes": 5291,
+    "sha256": "f7e3f6b02410a5a06890d8599e8600d1e7a9d95405d18d148c5bf875b48172ee"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_006.json",
+    "bytes": 3314,
+    "sha256": "e698f47317308fa9f4a3d942827893cb608b90b38ad6387bf4983ef809c51fca"
+  },
+  "predecessorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_005.json",
+    "bytes": 9372,
+    "sha256": "bdd0b8caee3345dd8b4df06959afbaaf61ae504e1a9745c1fed828b73ee43f40"
+  },
+  "actualInvocation": {
+    "sessionId": 5848,
+    "observedPid": 21270,
+    "exitCode": 1,
+    "liveExecSession": false,
+    "invocationsForSelectedContinuation": 1,
+    "started": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/EXECUTION_STARTED.json",
+      "bytes": 2652,
+      "sha256": "2ba728afd0a336162c32083250305589f319a0c9c9c85b7daa0e3811dfaafa42"
+    },
+    "closedAt": "2026-11-07T06:37:28.169Z",
+    "driverWallMs": 947248,
+    "failingChildWallMs": 37550.62629200006,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false
+  },
+  "selectedSetup": {
+    "packageLayout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/PACKAGE_LAYOUT_READBACK.json",
+      "bytes": 651,
+      "sha256": "5cd3a5f444ea7623c540862996696831f27c24d4dcdd2898813a2d1f7ef06839"
+    },
+    "candidateBasisRefresh": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/CANDIDATE_BASIS_REFRESH.json",
+      "bytes": 3194,
+      "sha256": "1f434906d192ba992e0cc8abcc8a4bbf92ed431ee24e9539c3d47b59c0ed7c0f"
+    },
+    "scopedHistoricalMetadataBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/external-inputs/057-t287-calculus-fold.json",
+      "bytes": 1159,
+      "sha256": "73dc3fe50a6231d5bd712b7b021bbb2f6578fd03cfb9a37f013215f1796dc989"
+    },
+    "historicalMetadataStanding": "Pinned external metadata is a read-only test oracle. Current tests synthesize chunk lengths and admit current events; no historical events are imported or relabelled. Only calculus-fold received the selected environment entry.",
+    "refreshInvocations": 1,
+    "allSixFieldsMatchFixedRC8": true,
+    "primaryFixtureUnchanged": true
+  },
+  "repairedPreparationProof": {
+    "file": "test_env/tests/t287-calculus-fold.test.mjs",
+    "fileResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/files/057-t287-calculus-fold.json",
+      "bytes": 1136,
+      "sha256": "23a00c2bcb6c10a3bb1e90f26a83c5b18b51f3a1a5e018615ad120e603e3aee7"
+    },
+    "counts": {
+      "tests": 25,
+      "failed": 0,
+      "passed": 25,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 25,
+      "suites": 0
+    },
+    "standing": "Full current command passed 25/25 after the selected missing oracle binding. Prior execution005 partial23 passes remain historical, not added."
+  },
+  "d5CompleteResult": {
+    "fileResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/files/067-t287-d5-authentic-preserved-result.json",
+      "bytes": 1180,
+      "sha256": "eb3cb41caadf823f5e42cdc495cb8710ab678e7f86b8d7a89c1b369bbb836011"
+    },
+    "commandResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/commands/067-t287-d5-authentic-preserved-result.result.json",
+      "bytes": 1513,
+      "sha256": "2b33fa3840b688e89969732f83f7043911ef1d34ef7668672689ebf9fa5013ef"
+    },
+    "reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/events/067-t287-d5-authentic-preserved-result.jsonl",
+      "bytes": 846,
+      "sha256": "e76639202a3b067294f5cd71c69ee32542ad370abfdfe0fcaa336d08c996a4b6"
+    },
+    "counts": {
+      "tests": 1,
+      "failed": 0,
+      "passed": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 1,
+      "suites": 0
+    },
+    "wallMs": 117774.76620799996,
+    "standing": "Actual command exit0 and complete success/end; no timeout or cancellation. Full host wall duration is not equated to the top-level test callback timeout."
+  },
+  "observedFailure": {
+    "file": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "test": "F04-A exact request-bound raw result admission is pure and decision-exact",
+    "caseNumber": 1,
+    "assertionLocation": "finalizedArtifactCases at test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs:323",
+    "actual": "TypeError: event store was not constructed by this ABG module",
+    "expected": "The retained stream Error object for valid, code EPIPE",
+    "origin": "isRuntimeEventTransactionActive -> admitStdoutWindow -> worker_transport stdout hook",
+    "secondCase": "F04 same native contract proof is reused while raw and changed bases still check: passed",
+    "standing": "Observed assertion red with complete command/end. Root owns causal classification and any successor selection; no Product repair or retry is inferred."
+  },
+  "evidence": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/SUMMARY.json",
+      "bytes": 168776,
+      "sha256": "7e0a26418589b3c20eafe8eb1468d90ea03245ac722e9fe5ed69ce2ab4bb96e7"
+    },
+    "failure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/FAILURE.json",
+      "bytes": 621,
+      "sha256": "aa7cb26f77ea651d7c786f4eb185a9f4397e21a2fc35b9c51eb5918de823616a"
+    },
+    "fileResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/files/078-t287-f04a-probabilistic-result-candidate.json",
+      "bytes": 1200,
+      "sha256": "27a0090b26db68cb68e2c8beedaaddda6e65cdcb89d25ad70bf0100f0ed4ab72"
+    },
+    "commandRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/commands/078-t287-f04a-probabilistic-result-candidate.request.json",
+      "bytes": 993,
+      "sha256": "681ab99f62313544a4a12a256039fc296bd253832bab526952aeb2533534e2b8"
+    },
+    "commandResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/commands/078-t287-f04a-probabilistic-result-candidate.result.json",
+      "bytes": 1530,
+      "sha256": "74dfd2813a2ee275ab44facf2f230c7daa413e8b74990047d0465493a2ecac99"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/commands/078-t287-f04a-probabilistic-result-candidate.stdout",
+      "bytes": 6317,
+      "sha256": "ef6fc6350def2c56254fb7a90665943767d063ded073e6b90131d8e5698c8485"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/commands/078-t287-f04a-probabilistic-result-candidate.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/events/078-t287-f04a-probabilistic-result-candidate.jsonl",
+      "bytes": 11163,
+      "sha256": "fa3885f03863ac5a02948071a69cd43f1102f3776d20d535d8bb6937e90b8158"
+    },
+    "resources": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/resources/078-t287-f04a-probabilistic-result-candidate.json",
+      "bytes": 819,
+      "sha256": "9fcb62f6c2dd417cdc36a9aea8944c6b17c825d2b918d273e73dad561d570b5f"
+    }
+  },
+  "coverage": {
+    "inventoriedFiles": 208,
+    "selectedScheduledFiles": 150,
+    "attemptedFiles": 22,
+    "successfulNewWholeFiles": 21,
+    "failedFiles": 1,
+    "remainingScheduledUnrun": 128,
+    "unresolvedIncludingFailedFile": 129,
+    "observedCountsIncludingFailedFile": {
+      "tests": 159,
+      "failed": 1,
+      "passed": 134,
+      "cancelled": 0,
+      "skipped": 24,
+      "todo": 0,
+      "topLevel": 152,
+      "suites": 0
+    },
+    "newCompleteFilePasses": 133,
+    "newCompleteFileSkips": 24,
+    "failedFilePasses": 1,
+    "failedFileAssertions": 1,
+    "selectedPriorWholeFileCredits": 58,
+    "selectedPriorPasses": 322,
+    "selectedPriorSkips": 81,
+    "creditsEnteredByLoop": 56,
+    "loopCreditCounts": {
+      "tests": 397,
+      "failed": 0,
+      "passed": 318,
+      "cancelled": 0,
+      "skipped": 79,
+      "todo": 0,
+      "topLevel": 317,
+      "suites": 0
+    },
+    "priorCreditsNotYetEncountered": 2,
+    "retainedCompletedWholeFileTotal": 79,
+    "retainedCompletePasses": 455,
+    "retainedCompleteSkips": 105,
+    "standing": "All58 prior credits remain retained. The stopped loop pending130 entries are128 unrun scheduled files plus2 prior credits. The failed file remains unresolved and its1pass is partial only. New completed receipt/command/output/reporter-end joins were checked."
+  },
+  "custody": {
+    "scratchRoot": "/private/tmp/abg-r8c-006",
+    "executions001Through006Retained": true,
+    "originalStageAndDependenciesPreserved": true,
+    "preservationEvidence": "Existing driver final verification of original frozen inventories.",
+    "resourceRecords": 23,
+    "resourceStatuses": [
+      "CHILD_CLOSED"
+    ],
+    "monitorFailures": [],
+    "capacitySteering": "User owns disk recovery; no Operator cleanup or disk diagnosis. Automatic limits unchanged.",
+    "detachedDescendantAbsenceProven": false
+  },
+  "selectedEffects": {
+    "sourceEdits": false,
+    "git": false,
+    "dependencyVersionChanges": false,
+    "providerCallsSelected": 0,
+    "automaticRetries": 0,
+    "operatorCleanup": false,
+    "furtherExecutionSelected": false
+  },
+  "qualification": false
+}

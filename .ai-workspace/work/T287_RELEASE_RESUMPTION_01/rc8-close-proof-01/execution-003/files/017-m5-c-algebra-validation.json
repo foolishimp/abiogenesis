@@ -1,0 +1,73 @@
+{
+  "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1009.8695000000007,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 22,
+    "failed": 0,
+    "passed": 19,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 22,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 19,
+      "type": "case",
+      "passed": true,
+      "name": "M5 resolves and independently validates the complete executable root set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 19,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 20,
+      "type": "case",
+      "passed": true,
+      "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 20,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 21,
+      "type": "case",
+      "passed": true,
+      "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 21,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-003/events/017-m5-c-algebra-validation.jsonl",
+    "bytes": 6613,
+    "sha256": "ab9c060fa0ce3a3f9147aa50f39772e0d4a7df74db5465583571225beefcf37c"
+  },
+  "commandReceipt": "commands/017-m5-c-algebra-validation.result.json",
+  "workspace": "/private/tmp/abg-r8c-003/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

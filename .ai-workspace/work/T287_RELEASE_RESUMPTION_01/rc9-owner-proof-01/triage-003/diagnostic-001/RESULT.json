@@ -1,0 +1,38 @@
+{
+  "status": "DIAGNOSTIC_FAILED",
+  "counts": {
+    "tests": 32,
+    "failed": 6,
+    "passed": 26,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 32,
+    "suites": 0
+  },
+  "skips": [],
+  "reporterComplete": true,
+  "parseFailure": null,
+  "command": {
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 67568.418459
+  },
+  "commandFailure": null,
+  "conservationFailure": null,
+  "ancestryFailure": null,
+  "postAncestryFailure": "Error: Command failed: /bin/ps -axo pid=,ppid=,pgid=,stat=,etime=,comm=\n",
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/events.jsonl",
+    "bytes": 15014,
+    "sha256": "fcd16fef99d09f16296564933a2fbde154487859c3c4d4563882955e7e031d4c"
+  },
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "wholeFile": false,
+  "originalUnitStanding": "FAILED/INCOMPLETE_UNCHANGED",
+  "sourceAcceptance": false,
+  "standing": "Actual outcome before success assertion. No automatic retry; Root conjoins diagnosis. Native003 unit and OWN remain unproved."
+}

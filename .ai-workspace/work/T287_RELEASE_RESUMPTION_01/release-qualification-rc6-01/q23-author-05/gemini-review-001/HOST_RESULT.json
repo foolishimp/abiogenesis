@@ -1,0 +1,19 @@
+{
+  "startedUtc": "2026-11-05T19:46:26.660511+00:00",
+  "endedUtc": "2026-11-05T19:46:30.736912+00:00",
+  "wallMs": 4076.492791995406,
+  "exitCode": 55,
+  "timeout": false,
+  "frozenSourceUnchanged": true,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/REVIEW.stdout.json",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/REVIEW.stderr",
+    "bytes": 1232,
+    "sha256": "e1b61474ee4223774662acbdd2182cd1d7f9ba0e9c9adc3bff2b3a2016afb24d"
+  },
+  "standing": "Actual final response/model/tool metadata and exact review must be inspected before acceptance."
+}

@@ -1,0 +1,6 @@
+{
+  "observedAt": "2026-11-08T17:38:27.997809+00:00",
+  "method": "Read-only ps node/npm candidates plus lsof cwd; no process mutation",
+  "candidateNodeNpmProcesses": 23,
+  "liveProcessesWithAuthor03ProofCwd": []
+}

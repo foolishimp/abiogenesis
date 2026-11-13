@@ -1,0 +1,72 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "PREPARATION_ONLY_ROOT_ADMISSION_PENDING",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_SELECTION.json",
+    "bytes": 4740,
+    "sha256": "24eb682953a83305c5765268668bc63b9b9ccfed1d03f9fdc3fa694b25134a5c"
+  },
+  "scopeAddendum": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_SCOPE_ADDENDUM_01.json",
+    "bytes": 3732,
+    "sha256": "a7a6c55080b90a1a0655990842df785edb977d6211f809d9f95e299d8f35c45b"
+  },
+  "stageLabels": [
+    "o7c-stage-01",
+    "o7c-stage-02"
+  ],
+  "maxStages": 2,
+  "maxLaneInvocations": 6,
+  "laneIds": [
+    "publication",
+    "c1-consumers",
+    "cold-resume",
+    "runner"
+  ],
+  "concurrency": 1,
+  "compileTimeoutMs": 240000,
+  "generateTimeoutMs": 180000,
+  "guardTimeoutMs": 60000,
+  "perLaneTimeoutMs": 300000,
+  "automaticRetries": 0,
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-overhead-author-03/prior-author-stage.mjs",
+        "<o7c-stage-01|o7c-stage-02>",
+        "after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut"
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-overhead-author-03/prior-author-lanes.mjs",
+        "<successful-stage-label>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut"
+    }
+  ],
+  "allocationLaw": "Derive stage usage from selected allocated stage directories and stage receipts; derive lane usage from selected allocated lane output directories including missing/incomplete summaries. Count failed/incomplete allocations. Check before create-only allocation. Selected operation is serial; do not run helpers concurrently or delete/reuse prior output. No separate counter/store.",
+  "sequence": "Preserved B final failures are the before evidence. Make only selected correction, then one stage compile/generate/guard and publication1/C1-consumers3/cold2/runner1. A second stage and up to two additional lane allocations are ceilings for a concrete changed-condition correction within grant, never blind retries. A build failure stops that stage; no lane on missing/failed generation or guard. No tsc outside selected stage.",
+  "externalTemporaryEffects": {
+    "runtimeAndProviderRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpo7c",
+    "testRoot": "/private/tmp/abg-o7c",
+    "npmUserConfig": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-03/npm-user.npmrc",
+    "npmGlobalConfig": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-overhead-author-03/npm-global.npmrc",
+    "preservation": "Distinct empty files; preserve previous outputs and existing temporary content."
+  },
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "parallelNativeWorkers": 1
+  },
+  "excluded": "No broad rerun, required skips, ceiling increase, provider/native UAT, actual campaign invocation by author tests, Git mutation, installed mutation, test/source repair outside four paths, or speculative resource acquisition."
+}

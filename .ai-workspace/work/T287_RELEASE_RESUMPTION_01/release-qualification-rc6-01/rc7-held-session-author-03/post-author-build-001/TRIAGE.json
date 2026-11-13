@@ -1,0 +1,105 @@
+{
+  "kind": "h03_generation_timeout_bounded_triage",
+  "status": "CONTROL_RESOURCE_TIMING_UNASSIGNED_NO_PRODUCT_REGRESSION_DEMONSTRATED",
+  "createdUtc": "2026-11-06T17:40:37.278474+00:00",
+  "productFrame": "Fixed fifteen-family ABIogenesis 5.0; GOAL035/T287; immutable RC6 builder; prospective RC7; ABG sole runtime/admission, GTL sole Program language, SDK/CLI thin shells.",
+  "methodManifest": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "H03Subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/SUBJECT.json",
+    "bytes": 267155,
+    "sha256": "1c0531c2ce628677ccfb7ac4f78ce812ad031d91689f0c23b69fda67102e3447"
+  },
+  "H03FailedReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/stage-001/stage.json",
+    "bytes": 97531,
+    "sha256": "9ad0946d9c442075add5a0d6bc216f70981ef80471eb8b3858ce1c2e3aff312b"
+  },
+  "H02Report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/evidence/hs2-stage-01-stage.json",
+    "bytes": 97757,
+    "sha256": "e91a116e3706599ec51e7f24fe03e80c2ade7a0531694411510e9249da5dd5d4"
+  },
+  "identityInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/SOURCE_AND_COMPILED_PINS.json",
+    "bytes": 491235,
+    "sha256": "a763f1f267442d3e3ac54bbeee521e2660c8a42b44abf3303cab8cf17b557820"
+  },
+  "partialPreimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/PARTIAL_OUTPUT_PREIMAGES.json",
+    "bytes": 1978,
+    "sha256": "7bd987a278e5091d0e6c809e7f6fdd333055cc9fa1aca5a4f73138e01263048b"
+  },
+  "phaseMs": {
+    "H02": {
+      "setup": 1600,
+      "compile": 7628,
+      "generate": 22604,
+      "lifecycle": 610
+    },
+    "H03": {
+      "setup": 40841,
+      "compile": 116576,
+      "generate": 180074,
+      "lifecycle": null
+    },
+    "deltas": {
+      "setup": 39241,
+      "compile": 108948,
+      "generate": 157470
+    }
+  },
+  "inputs": {
+    "same451Names": true,
+    "changed": [
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs"
+    ],
+    "changedBytesDelta": 19724,
+    "same290TypeScriptAnd580EmittedFiles": true,
+    "generatorSha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f",
+    "tsconfigSha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+    "packageAndLockEqual": true,
+    "dependencyRootsAndSelectedEntryPinsEqual": true,
+    "actualStagedTscSha256": "a040f97c9d0223f64c8ebc380c5e48eb7945f1142f7c1dc9c3ec4acdb6c1c613",
+    "actualStagedTypescriptSha256": "e5f1f6b3e82228a89873cc7b941b2465185e839c0692860f83e3e63e53f94c2b",
+    "sameNodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sameCompileGenerateGuardBoundsMs": [
+      240000,
+      180000,
+      60000
+    ],
+    "sameProfileHeapPathLocale": true,
+    "packageFiles": [
+      "build/**",
+      "contracts/**",
+      "product-toolchain-manifest.json"
+    ]
+  },
+  "causeStanding": "Slowdown predates generator; environment/resource timing is implicated but not causally assigned. Changed HOW/tests are outside compiler and npm payload selection. No generator assertion, OOM or source error was recorded. Inherited effective process environment and whole-phase CPU/IO/RSS were not retained. H01 historical180s generation timeout remains unassigned.",
+  "osObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/ROOT_BUILD_TIMEOUT_OS_OBSERVATION.json",
+    "bytes": 5775,
+    "sha256": "2046b5c3328b99397de1df024a02e9eae9e2f74e6757c0893ee2fecd2c5552e7"
+  },
+  "osLimits": "Post-timeout snapshot only; cannot attribute whole-phase CPU, I/O, memory or latency. Root separately observed16cores/128GiB, memory pressure1 and no pmset performance warning.",
+  "survivingWriterCheck": {
+    "observedUtc": "2026-11-06T17:34:52.978034+00:00",
+    "method": "ps PID/PPID/executable, then lsof cwd for30 node/npm candidates; separate exact stage/tenant cwd query",
+    "candidateCount": 30,
+    "unresolvedCwd": 0,
+    "matchingStageOrDescendants": 0,
+    "exactCwdQueryExitCode": 1,
+    "exactCwdQueryOutputBytes": 0,
+    "limits": "Point-in-time metadata only; no process arguments/environment/private content or termination."
+  },
+  "partialOutputSemantics": "Both manifest and capability graph are generator-owned3-byte placeholders. Canonical generator resets generated directories/graph and overwrites derived outputs; no exclusive-output absence precondition. This establishes progress through placeholder creation, not whether npm projection or subsequent computation dominated.",
+  "selectedNextStep": "After genuine host close and Root admission, reuse exact compiled stage for one generator600s then guard60s; stop first failure. Preserve original180s failure. Separate four primary lane allocation only after new completed build report. No compile/new native worker/source edits.",
+  "limitations": [
+    "No Product acceptance or completed generation/lane proof.",
+    "No cause inferred from elapsed time alone.",
+    "No build/runtime/test operation performed by this triage."
+  ]
+}

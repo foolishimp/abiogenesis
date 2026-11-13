@@ -1,0 +1,99 @@
+{
+  "rootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/ROOT_FINAL_ACCEPTANCE.json",
+    "bytes": 4623,
+    "sha256": "733e4e94a79c038774011f7db46d9f0d459f8871d387c41110bff150138ce85a"
+  },
+  "changes": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 167610,
+        "sha256": "2eee0e510ece90daf00b6f91a259d57593323a9175f9f9e38ed7c263e4134239"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 169150,
+        "sha256": "4ea9c08995b2424c90b0376092fcda989e9458c74634648f6bb3cae2df968a78"
+      },
+      "kind": "current-status prefix only",
+      "prefixBytes": 1540,
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 817325,
+        "sha256": "c6f7e18121d734156055795746d56a276ab973c487f19e9821e7bc49aa63ef8d"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 818865,
+        "sha256": "f046291f4a4330a0b5db33a999c7c6aa4ac1758b4e5ce8649af996aa800dc643"
+      },
+      "kind": "current-status prefix only",
+      "prefixBytes": 1540,
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 185314,
+        "sha256": "8dac4c0015e87c241008cefc60c774273d9631c96ec093f11ff5091d71439d5a"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 186854,
+        "sha256": "8caa13f06a1faffdeb5c80664dc660ffd5e2ac8db6388794aede5259ea406f47"
+      },
+      "kind": "current-status prefix only",
+      "prefixBytes": 1540,
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 836949,
+        "sha256": "ba9bba44b8d4847ce8745b58cc88f7341efcce393a1ca0c0fb874d2138948dbb"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 838489,
+        "sha256": "d23df534c62030355983856b42e02af01de4f0ac436cdf6557f37feecbcf8c98"
+      },
+      "kind": "current-status prefix only",
+      "prefixBytes": 1540,
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 12488,
+        "sha256": "1e74bd81742816ff4ecb7c82606a27bae60cef6889b8dafc4bf827b4e21d49d8"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "bytes": 12980,
+        "sha256": "3c0820e1959dfbd1ac73e857036aa347475643d597096dbb921faae2ad41d574"
+      },
+      "kind": "single current-status paragraph only",
+      "priorStatus": "Status: **Phase1A/1B accepted on exact successor; later production phases remain unactivated.** Root [PHASE1-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_FINAL_ACCEPTANCE.json) accepts source `c4a8c7cc\u2026` with lint/build, deterministic 29/29, lifetime 18/18, m5 39/39 and original nine-file unit 96 passes/six declared skips. The four tested files remain exact; this status update and two tracking prefixes are documentary post-proof deltas. `FOUNDATION-ORACLE-001` is a separate active narrow oracle/Design follow-up. No production refactor, dependency upgrade, release or qualification result is selected.",
+      "newStatus": "Status: **Phase1A/1B and FOUNDATION-ORACLE-001 accepted for their exact successor sources and selected proofs; phases 2\u20134 and GC03 remain planned and unactivated.** Root [PHASE1-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_FINAL_ACCEPTANCE.json) retains the phase1 closure: deterministic 29/29, lifetime 18/18, m5 39/39 and original nine-file unit 96 passes/six declared skips. Root [FOUNDATION-ORACLE-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/ROOT_FINAL_ACCEPTANCE.json) accepts native04 source `002e481a\u2026` and whole installed W2-05 3/3 with zero skips on proof archive `fdbf93de\u2026`. The two oracle/Design files and prior four phase1 test/support files remain exact; this status and tracking prefixes are documentary post-proof deltas. Historical failures, six skipped claims, synthetic pending-owner limit and wider qualification obligations remain. Installed old RC11 is unchanged/unqualified/unpublished; RC10 remains pinned. No later production implementation or release is activated.",
+      "allOtherBytesPreserved": true
+    }
+  ],
+  "candidatePostProofChangedPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "specification/GOALS.md"
+  ],
+  "allOther1341FrozenRowsUnchanged": true,
+  "sixTestedSourceFilesUnchanged": true,
+  "mainIndexUnchanged": true,
+  "candidateUntrackedPathListUnchanged": true
+}

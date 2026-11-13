@@ -1,0 +1,18 @@
+{
+  "kind": "actual_c2_retained_package_identity",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/7a17edf415156e3b9f816db0b7f500e5e8efe0f0501740ab609389d8a2ceb3ae",
+  "commandId": "command://abiogenesis/single-address-space/native-08/pack",
+  "commandExitStatus": 0,
+  "stdoutDigest": "sha256:eeab5bd3d5cbe1a5a69b0a61cb760538f0481bee6a9e58550e71c83ead4b4cf1",
+  "relativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+  "filename": "abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+  "bytes": 11003160,
+  "sha256": "091ab10a500eea30f59cc3952c21d181eb9d85277c4b2591556308faa435f0e2",
+  "integrity": "sha512-brBeDiZdepxOza+Jm5MiQBGggpc/DtEieOE5+jUw2xnkaCxTN2UhT+dggwPsoRrCAI1t9G2VpvlLiR8rFZ5zgA==",
+  "retainedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/actual-c2-001/candidate-package.tgz",
+    "bytes": 11003160,
+    "sha256": "091ab10a500eea30f59cc3952c21d181eb9d85277c4b2591556308faa435f0e2"
+  },
+  "standing": "Actual command-5 filename and helper-observed archive custody agree; exact archive retained. Not a release."
+}

@@ -1,0 +1,16 @@
+{
+  "status": "PREPARATION_HELD_FOR_IMMEDIATE_REENTRY_TRIAGE",
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "selectedFutureMembers": [
+    "Same byte-identical external probe on repaired native scratch owner",
+    "Whole lifetime on same repaired output",
+    "Baseline-only exact controlled re-entrant signal-notice case"
+  ],
+  "prospectiveSeconds": [
+    10,
+    300,
+    60
+  ],
+  "execution": false,
+  "remaining": "Final driver/binding sealing deferred; Root selected immediate paired discriminator first. No stage, runtime, compile or test performed."
+}

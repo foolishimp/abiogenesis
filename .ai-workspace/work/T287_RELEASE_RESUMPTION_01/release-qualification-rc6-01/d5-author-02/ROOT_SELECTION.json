@@ -1,0 +1,149 @@
+{
+  "kind": "root_d5_completion_selection",
+  "at": "2026-11-05T22:59:21.469776+00:00",
+  "status": "SELECTED_FOR_CONTROL_PREPARATION_NOT_DISPATCHED",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "F10 D5 current-profile lifecycle copy retirement with affected F04/F11 retained provenance; preserve Q23 Q1-Q7",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "outcome": "Complete the already selected D5 retirement through one typed existing-owner projection and authentic affected proof; no new feature or competing runtime."
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "frozenPartial": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 461262,
+    "sha256": "601d6588e7c8c9f03a5305a378fb3454f815e641003668677b51142b590b096f"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 4606,
+    "sha256": "d316f1fb0fcf161775c2ae3db38afcc3be386e29e89e8b37cc8dbfecb53eca48"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/after-run-resume.json",
+    "bytes": 72493736,
+    "sha256": "f4d410411915f05b8fb83f56ca5d3aaba5c61d58fd73b155eef23d9c1aa09371"
+  },
+  "closedInputs": {
+    "partialReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/return.json",
+      "bytes": 17280,
+      "sha256": "09981772fb4a212adb06454e5681e43f465d88d9a4fd4be006de4c4985f68b5f"
+    },
+    "partialReadiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/readiness.json",
+      "bytes": 3097,
+      "sha256": "ffcdd69d36e8fb8288000705b8ae99eb24d2b0a32a0d1e9e9280896a7dd96ef0"
+    },
+    "M2": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/m2-owner-reentry-001/READINESS.json",
+      "bytes": 40558,
+      "sha256": "d51ebb3313975211c4887d6c2f4a7406eaea244a35bb5c5c34a111b84475c558"
+    },
+    "profilePremise": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/m2-owner-reentry-001/PROFILE_APPLICABILITY.json",
+      "bytes": 15104,
+      "sha256": "b7ee0d3895c91a4aa4131f8c3f0f5ab28c896c3b5ae6a1f883cf411f6c807809"
+    },
+    "recoveryBuild": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/recovery-owner-reentry-001/READINESS.json",
+      "bytes": 58108,
+      "sha256": "19030a67c0a85e83af2d6a7cafda74b18093e157b868f52089ee475efa71e56b"
+    },
+    "causation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/causation-triage-001/TRIAGE.json",
+      "bytes": 24351,
+      "sha256": "7f27ca61097b174e776a64cc00865d2672f0eb34b41511a8173688883cb082ec"
+    },
+    "causationDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_CAUSATION_DISPOSITION.json",
+      "bytes": 2797,
+      "sha256": "c9f49ea69c69ffde287cda970c7e2e0dd25d9ee4fe1040befe7f412c932c2736"
+    },
+    "effects": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_EFFECT_DISPOSITION.json",
+      "bytes": 2346,
+      "sha256": "10ceb36d49e94728c0be34cc18e0db36ed43528c9c7662426ba939ce09088c57"
+    }
+  },
+  "sequence": [
+    "First construct the finite test-only installed declaration/Program bundle and workflow-root driver through existing owners; two selected targets and one declared command, both target payloads returned in order. Retain an authentic non-null recovery positive on the preserved partial source BEFORE M2 edits or broad test lanes.",
+    "Then complete M2 using one typed pure projection in existing abg/transport_contracts.ts shared by artifact and qualification digest producers and cold proof. Authenticated qualification already forces current P. Preserve full live physical observation and the separate full probabilistic candidate digest. Adapt existing CCall/recovery consumers through existing lifecycle owner computation, preserving direct exit versus confirmed owned termination.",
+    "Correct only the measured test attribution: an explicit durable-encoding map category with expected N entries; preserve exact known-map accounting, unattributed=0, 128/256 growth/cold bytes/projections and rollback/refusal checks. No event-store redesign.",
+    "Reprove the authentic fixture on a fresh store under the completed new descriptor with retired artifact/evidence/archive copies absent. Run finite real nonzero and timeout, crossed ack/artifact and foreign actual ancestry negatives; retain the exact baseline separately.",
+    "After the two composition discriminators succeed, compile/generate/guard and run the complete affected ten-module population with zero failures/skips/cancelled/todo; return exact source/check/proof custody and stop. Root freezes, reviews and invokes affected C2/UAT separately."
+  ],
+  "unconditionalProductWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+  ],
+  "conditionalProductWrite": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/check-lifecycle-boundary.mjs",
+      "condition": "Only exact existing recovery-artifact exception text if the admitted expression moves; no new allow-list site or weakened guard."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "condition": "Only a required type alias/declaration for the shared projection. Preserve the full live physical observation and existing port; no serialized profile field or carrier rewrite."
+    }
+  ],
+  "newProductFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+  ],
+  "proofScope": {
+    "retainOriginalP1toP5P7": "Full original D5 invariants and preserved Q23 Q1-Q7, with exact affected-source invalidation/reproof.",
+    "correctP6": "Two selected targets, paired real role/source/policy/shape joins and one command. Actual owner-issued semantic assessment/bridge/preparation/Construction ancestry, physical archives and prefix. Baseline positive precedes M2 edits; final positive has selected copies absent. No fake prefix, literal proof or verifyAuthority=>true.",
+    "M2Discriminator": "Real full live carrier through shared artifact/qualification completion and cold J relation. The minimal {finalOutput} Q23 fixture does not supply this proof. Retain negative unilateral/stale/crossed/profile/binding relations.",
+    "fixturePopulation": "Existing nine modules plus new t287-d5-authentic-preserved-result.test.mjs; no full suite/history census.",
+    "unconfirmedPhysicalResidual": "Do not fabricate or count a mocked owner boundary as an authentic full-recovery negative. Existing P3 lower-owner physical evidence retains its limited scope. Genuine timeout/nonzero exercise N1; authentic unconfirmed full-chain case remains an explicit residual for Root proportional disposition, not a reason to withhold constructing the positive.",
+    "profile": "Complete CT02 descriptor/digest/name and HOW reconciliation within existing event profile owner before any RC7 acceptance/cut; use a fresh successor store. No old-current reopen or restamp. Legacy L and immutable RC6 histories/executable remain exact."
+  },
+  "readOnlyBoundaries": [
+    "calculus fold/rules/replay and runtime_liveness",
+    "OwnedProcessFacts, ProcessObservation, shared process/command helper owners",
+    "implementation/leaf_invocation_port.ts and implementation/consensus.ts",
+    "validator/qualification.ts and validator/qualification_contracts.ts",
+    "existing root-installed-environment/language-smoke/D1/native-semantic support; reuse without rewrite"
+  ],
+  "preparationEffects": "One separate control Writer may prepare only d5-author-02 controls and passive helpers. No Product edits, staging, preflight, scratch creation, tests/build/runtime/provider/network/Git effects until Root final admission.",
+  "workerProfile": "One fresh native Claude Opus5.5 xhigh Worker; 384 turns, 2h absolute, 30m inactivity, 3h host, no saved session, no selector, no automatic retry.",
+  "environment": "Reuse maintained RC6 SDK/NativeWork Program owners and authentic author binding/catalog/view with the latest actual D5 close. Explicit offline/notifier/cache/TMPPREFIX and short test scratch; exact historical S01 fixtures remain readonly and hash-bound.",
+  "stops": [
+    "Material external owner input/authority absent or source mismatch",
+    "Required Product/WHAT or runtime mechanism change outside this cone",
+    "Unexpected actual integration refusal requiring Root triage; do not convert it into a synthetic passing premise",
+    "No actual baseline non-null recovery positive: return exact diagnostics/prerequisite before M2 edits or broad lanes"
+  ],
+  "exclusions": [
+    "No new store, event stream, controller, framework, profile port, generic provider migration or Production test hook",
+    "No source or whole-release acceptance, QR02/QR03/F11 production eligibility, formal independent review or human acceptance inferred",
+    "No push/merge/tag/publication/global selector, immutable-release edits or unrelated dirty/untracked changes"
+  ]
+}

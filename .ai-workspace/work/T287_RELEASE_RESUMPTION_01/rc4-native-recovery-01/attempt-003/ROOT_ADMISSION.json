@@ -1,0 +1,28 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "dda93f58b496878adc30b0193d75932fe894625db2e8bd7ed4658c22b62b6c95",
+  "sourceCommit": "6dffbc0adbe19c3cae4eba4248173108a1c45477",
+  "decision": "Root admits this exact packet under existing owner point-one/continue authority and recorded bounded reprice for Root installed preflight and call construction only. Actual dispatch awaits exact generated-call review. Preserve full R1-R5, same-Run-first sequencing followed by original predecessor-Run retained-context recovery; no same-Run-only closure.",
+  "recordedAt": "2026-11-01T15:23:46.148553+00:00",
+  "sourceTree": "83b0847252d829d3140db667bace91153ae3c5bc",
+  "packetSha256": "e4514166b44f10c47ed83efe4cce24a37c7a3297f726b099d2e91febf1e09b29",
+  "review": "Root reviewed actual task, rubric, grant, operator scripts and resource delta; independently verified48 binding pins and18 packet pins.",
+  "ProductWritePaths": 52,
+  "scratchWriteRoots": 1,
+  "resourceReprice": {
+    "maxTurns": 480,
+    "effort": "xhigh",
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "focusedTimeoutMs": 2700000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null,
+    "delta": "Only maxTurns raised; time limits unchanged"
+  },
+  "ProductAuthorship": "ABG-native Worker only",
+  "nativeDispatch": "not authorized until generated-call review",
+  "qualification": false,
+  "release": false,
+  "recordingActor": "Separately bound bookkeeping Writer; no runtime/provider/build/test executed"
+}

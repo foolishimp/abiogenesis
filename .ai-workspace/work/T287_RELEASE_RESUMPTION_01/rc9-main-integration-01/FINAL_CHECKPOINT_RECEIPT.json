@@ -1,0 +1,161 @@
+{
+  "status": "CLOSED_RC9_LOCAL_MAIN_INTEGRATION",
+  "at": "2026-11-09T00:52:45.902658+00:00",
+  "mainHead": "10e09eeec5a6433ea7e12c96f4817ecec671e7d7",
+  "finalBookkeepingParents": [
+    "3e050ecf24819bb5d5d9f067b8f2b88dcefb76f7"
+  ],
+  "ordinaryMerge": "3e050ecf24819bb5d5d9f067b8f2b88dcefb76f7",
+  "ordinaryMergeParents": [
+    "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+    "e30ac16b4a9406c43d054f45bad864746352dad6"
+  ],
+  "preservationCheckpoint": "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+  "originalMain": "1344547c94dc0684af0cd83260438c41245a6f8a",
+  "rc9Commit": "e30ac16b4a9406c43d054f45bad864746352dad6",
+  "mainTree": "15ec5135d14da7fa8f644a84265c6288ad65a6dc",
+  "recordOnlyFinalChanges": [
+    "specification/GOALS.md",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/STATUS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/MERGE_COMMIT.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/RESULT.json"
+  ],
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/RESULT.json",
+    "bytes": 7816,
+    "sha256": "cab5f5d29c553bb81982f4e9a5414efbb277b8f724671e13fac5232d2d135421"
+  },
+  "nonRecordEntryCount": 1842,
+  "physicalBytes": 98874144,
+  "gitTreeEntryMismatches": 0,
+  "physicalBlobModeMismatches": 0,
+  "originalMainAndRC9Ancestors": true,
+  "allPreexistingTrackedRecords": "Retained exactly from preservation checkpoint except explicitly prepended GOALS/T287 and current STATUS, whose checkpoint preimages remain reachable.",
+  "preexistingUntracked": {
+    "count": 35836,
+    "allPresent": true,
+    "unchangedStatCount": 35835,
+    "authorizedStatusChange": [
+      ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/STATUS.json"
+    ],
+    "statusPreimageCommit": "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+    "rawEvidenceMissingOrModified": 0
+  },
+  "residualState": {
+    "trackedDirty": 0,
+    "staged": 0,
+    "unresolved": 0,
+    "activeGitOperation": [],
+    "untrackedBeforeThisReceipt": 35781,
+    "untrackedBytesBeforeThisReceipt": 38652905231,
+    "thisReceiptIsOneNewUntrackedFile": true,
+    "untrackedIncludingThisReceipt": 35782,
+    "untrackedPolicy": "Raw evidence remains in place; no blanket add. Large preflight stat snapshot and this closing receipt remain local/untracked.",
+    "outsideWorkspaceUntracked": []
+  },
+  "currentTrackerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 161038,
+      "sha256": "3a2f6e6f6c54e3baadffcf32b40114692d0004259a75ce149f472ac75684b4d8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 809837,
+      "sha256": "b8be48d3ec2be5074d857a5c2f62b4882e992dc3aa7d2b4fb51a54a7fc5ba1f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/STATUS.json",
+      "bytes": 18298,
+      "sha256": "313fade187fa1cf4e1088bb0bd335dd9abc73416e3adf01dd4632e523e43476c"
+    }
+  ],
+  "operationalBuilderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 6302,
+    "sha256": "cf78adcc3b44737b813c721704470e2ad4674c7dde9631dd7168ff0b724932bb"
+  },
+  "historicalRC8BuilderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "commands": [
+    {
+      "arguments": [
+        "add",
+        "--pathspec-from-file=-",
+        "--pathspec-file-nul"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "commit",
+        "-m",
+        "Record completed RC9 local-main integration"
+      ],
+      "exitCode": 0,
+      "stdout": "[main 10e09eeec] Record completed RC9 local-main integration\n 5 files changed, 202 insertions(+), 25 deletions(-)\n create mode 100644 .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/MERGE_COMMIT.json\n create mode 100644 .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/RESULT.json\n",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "merge-base",
+        "--is-ancestor",
+        "1344547c94dc0684af0cd83260438c41245a6f8a",
+        "10e09eeec5a6433ea7e12c96f4817ecec671e7d7"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "merge-base",
+        "--is-ancestor",
+        "e30ac16b4a9406c43d054f45bad864746352dad6",
+        "10e09eeec5a6433ea7e12c96f4817ecec671e7d7"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "merge-base",
+        "--is-ancestor",
+        "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+        "10e09eeec5a6433ea7e12c96f4817ecec671e7d7"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "merge-base",
+        "--is-ancestor",
+        "3e050ecf24819bb5d5d9f067b8f2b88dcefb76f7",
+        "10e09eeec5a6433ea7e12c96f4817ecec671e7d7"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "noFurtherEffects": "No source/runtime/test/build/provider, remote push/tag/merge, release/install byte change or global selector effect. Local ordinary merge and bookkeeping only; wider qualification/residuals stay open."
+}

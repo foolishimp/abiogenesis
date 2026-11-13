@@ -1,0 +1,87 @@
+{
+  "kind": "isolated_source_reproduction",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "sourceArchiveSha256": "491768db9bd8529bfe0bd61b2877c6805c7d4e183d7f81d11fccf7eee5af1434",
+  "scratch": "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv",
+  "role": "Root operator Writer isolated reproducibility discriminator under approved RC5 scope; no canonical mutation, provider, native Run or qualification suite",
+  "startedUtc": "2026-11-03T13:05:57.487779+00:00",
+  "status": "BYTE_EQUAL",
+  "archive": "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+  "archiveBytes": 10998785,
+  "archiveSha256": "4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+  "expectedArchiveSha256": "4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+  "endedUtc": "2026-11-03T13:06:33.246512+00:00",
+  "commands": [
+    {
+      "label": "extract",
+      "args": [
+        "/usr/bin/tar",
+        "-xf",
+        "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv/source.tar",
+        "-C",
+        "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv",
+      "wallMs": 145.4704999923706,
+      "exit": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "offline-dependencies",
+      "args": [
+        "/bin/cp",
+        "-cR",
+        "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+        "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv/build_tenants/abiogenesis/typescript/node_modules"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv",
+      "wallMs": 595.0344582088292,
+      "exit": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compile",
+      "args": [
+        "/opt/homebrew/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv/build_tenants/abiogenesis/typescript",
+      "wallMs": 7867.472417186946,
+      "exit": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "generate",
+      "args": [
+        "/opt/homebrew/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv/build_tenants/abiogenesis/typescript",
+      "wallMs": 23410.693666432053,
+      "exit": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "pack",
+      "args": [
+        "/opt/homebrew/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "artifacts"
+      ],
+      "cwd": "/private/tmp/abg-rc5/rc5-reproduction-g1i8tbyv/build_tenants/abiogenesis/typescript",
+      "wallMs": 3730.0680419430137,
+      "exit": 0,
+      "stdoutSha256": "cfa1f8c7765ab8e2da001ff10e7624ec01cbe601dfe339f60620763f23db0ba9",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+ "kind": "rc7_overhead_author_03_return",
+ "schemaVersion": "1",
+ "at": "2026-11-06T07:42:18Z",
+ "status": "AUTHOR_CANDIDATE_RETURNED_SELECTED_PROOF_PASSED",
+ "claims": {
+  "acceptance": false,
+  "qualification": false,
+  "publication": false,
+  "speedup": false,
+  "wholeObjective": false,
+  "sourceWidePass": false
+ },
+ "controlIntake": {
+  "admission": {
+   "path": "qualification-inputs/rc7-overhead-author-03/ROOT_CONTROL_ADMISSION.json",
+   "bytes": 10455,
+   "sha256": "976489f9077e82fbd07ff3f893641f7cb6cd7e470d5ff371326d3109ad8dfc22"
+  },
+  "verifiedPins": "ROOT_SELECTION, ROOT_SCOPE_ADDENDUM_01, SOURCE_CUSTODY, NATIVE_GRANT, INHERITED_FACTS and ROOT_REVIEW_DISPOSITION local copies match admission bytes/sha256; authority, sourceBefore, actualClose, postReturn, reentryTriage, modeRepair and hostAdaptation paths match their pins.",
+  "method": {
+   "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+   "handoff": "references/COORDINATED_HANDOFF.md Control Intake and Receive applied",
+   "basis": "stdo://releases/v3.0.4/",
+   "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+   "verify": "stdo verify v3.0.4 -> valid true"
+  },
+  "sourceBeforeRowsMatchedAtStart": 449,
+  "activation": "Receive binding valid; direct construction inside the packet grant. No coordinator, Worker, Reviewer or ticket activated."
+ },
+ "outcome": [
+  "C2 member/span pin: gtl/worksite_command_execution.ts member byteCount 118773->119249, digest sha256:89dbe9ba...7f3c -> sha256:b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790, span 108688-111120 -> 109164-111596. Renderer text (renderWorksiteCommandExecutionPrompt.toString()) and span digest sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf unchanged. Generator unchanged; contracts inventory not patched.",
+  "Runner: test_env/uat/runner.mjs exports the existing checkInstalledIdentity unchanged (one token: 'export'). invokeLifecycle still calls it before/after. No new checker, mode, controller or helper.",
+  "Cold case 1 (pending Testing): nativeValue.task reads replaced by the native owner projectNativeWorkspaceWorkResultTaskAtPrefix(prefix, constructionResult) and checked deep-equal to the rawInputValue of the Result's own basis_admitted row. writeRoots/readRoots W-outside-R, nativeWorkImpact and worksiteCommandSourcesInvalidatedAfter now take that task. All prior assertions retained.",
+  "Cold case 2 (cross-Run retained source): N.payload.value.task.context replaced by the owner-joined task (retained original Result task, otherwise N's own basis rawInputValue, asserted admitted in Run A and deep-equal). declaredBy names the inline holder as the original Result coordinate or N's basis coordinate {basisRef,basisDigest,path:['context','entries',i]}, mirroring event_prefix.ts sourceUseDeclaresMember. holderOf resolves basisRef members through their basis_admitted row and resultRef members through their Result row. Lineage diagnostic records holderResult/holderBasis. Every positive, negative (foreign x3, tampered, stale, denied, missing, pending), body-equality, prompt, cold-read and conservation assertion retained.",
+  "HOW section 10.8: R6 row states the unchanged checker export; closing residual states the realized pin coordinates, the test consumers' task/holder route and the selected affected proof set, with whole installed R1/R2 composition, matched performance and qualification not claimed. No executed result is recorded in the design."
+ ],
+ "changedSource": {
+  "count": 4,
+  "allInWriteScope": true,
+  "exactlyGrantedPaths": true,
+  "liveEqualsStage": true,
+  "files": [
+   {
+    "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "bytes": 24181,
+    "sha256": "527cc1336c4286779d59dd699ff0e8921cb10c665f616e9108251c95b5cf23c2",
+    "before": {
+     "bytes": 24181,
+     "sha256": "2faf93d2def13bc8f8eb9d2759e190994712f575f39b5ef567ec407686c1b22b"
+    }
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "bytes": 39766,
+    "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b",
+    "before": {
+     "bytes": 39759,
+     "sha256": "40f54b3e0901431b8d46556866c4277b10253bddc1ff320e5c01fd6e095094b3"
+    }
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "bytes": 156293,
+    "sha256": "2f80715880c73f366b0fd4232e34c504db0ebadadfd156e2014deb919fbf481f",
+    "before": {
+     "bytes": 154467,
+     "sha256": "2eac881080d095ac05644a2440597c92f08d48d26cd1eae14ac92db829b105f0"
+    }
+   },
+   {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "bytes": 292701,
+    "sha256": "2d956ee914d4a100beb3e2c1f178d0260dc84141e51c023467b28875d78aa15e",
+    "before": {
+     "bytes": 290877,
+     "sha256": "4fcbd6e2c470d506df9c319a3b7108450f887cef3373cca3813e2f66d97ea138"
+    }
+   }
+  ],
+  "inheritedPreserved": "Other 445 selected rows equal SOURCE_BEFORE (stage helper verified read-only rows); 54 inherited tracked changes and 2 inherited new Product files untouched."
+ },
+ "compiledMemberDerivation": {
+  "source": "qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js (B final stage, compiled from product/worksite_command_execution.ts unchanged since B; all 449 live rows equal o7b-after-04 sources)",
+  "observed": {
+   "bytes": 119249,
+   "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+   "spanStart": 109164,
+   "spanEnd": 111596,
+   "spanSha256": "1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf",
+   "renderPrefixOccurrences": 1
+  },
+  "agreesWith": "ROOT_REVIEW_DISPOSITION 119249B/b43945f5/1fcd7184 and rc7-overhead-author-02 readiness.json blockedOn.required",
+  "verifiedAfterStage": {
+   "member": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+    "bytes": 119249,
+    "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790"
+   },
+   "spanSha256": "1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf",
+   "manifest": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3265439,
+    "sha256": "4f65a5138613f3417d48c30d8053ac419d430050be3ef14ec606d76a44b45844"
+   },
+   "inventory": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01/build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+    "bytes": 255,
+    "sha256": "7bc5c5edda1829087b3e746c3406a3a90917a0014442444ef99b2e423df196fd"
+   }
+  }
+ },
+ "stage": {
+  "label": "o7c-stage-01",
+  "command": "node qualification-inputs/rc7-overhead-author-03/prior-author-stage.mjs o7c-stage-01 after",
+  "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "report": {
+   "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-stage.json",
+   "bytes": 97218,
+   "sha256": "e532290786dba62a7e232c8f7eef0e4b3b6872ed5542a5e1866e098fb4d167c9"
+  },
+  "sourceCount": 449,
+  "sourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737",
+  "setupMs": 1651,
+  "compile": {
+   "exitCode": 0,
+   "ms": 8239
+  },
+  "generate": {
+   "exitCode": 0,
+   "ms": 38414
+  },
+  "lifecycle": {
+   "exitCode": 0,
+   "ms": 661,
+   "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender"
+  }
+ },
+ "lanes": [
+  {
+   "lane": "publication",
+   "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:native publication agrees with actual generated artifact manifest identity)$ test_env/tests/t287-native-workspace-work.test.mjs",
+   "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01/build_tenants/abiogenesis/typescript",
+   "exitCode": 0,
+   "ms": 493,
+   "tests": 1,
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0,
+   "cancelled": 0,
+   "todo": 0,
+   "exactSelectedPass": true,
+   "selectedPassedNames": [
+    "native publication agrees with actual generated artifact manifest identity"
+   ],
+   "skippedNames": [],
+   "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737",
+   "priorLaneAllocations": 0,
+   "summary": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-publication/summary-publication.json",
+    "bytes": 1556,
+    "sha256": "6e02e5ef8ffd46baae6ed380fc0b5df2ab4b39a5a363ae25de3c30253de9e492"
+   },
+   "stdout": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-publication/publication.stdout.tap",
+    "bytes": 516,
+    "sha256": "041b6d79925c438af9c05e84d9240d97488ad0efe10d513a41192c23fa5b2340"
+   },
+   "stderr": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-publication/publication.stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "lane": "c1-consumers",
+   "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:T-287 C1 remains singular inside the C3 composite publication|T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay|T-287 C1 retains an exact partial prefix when a later C0 member refuses)$ test_env/tests/t287-worksite-construction.test.mjs",
+   "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01/build_tenants/abiogenesis/typescript",
+   "exitCode": 0,
+   "ms": 157911,
+   "tests": 3,
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0,
+   "cancelled": 0,
+   "todo": 0,
+   "exactSelectedPass": true,
+   "selectedPassedNames": [
+    "T-287 C1 remains singular inside the C3 composite publication",
+    "T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay",
+    "T-287 C1 retains an exact partial prefix when a later C0 member refuses"
+   ],
+   "skippedNames": [],
+   "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737",
+   "priorLaneAllocations": 1,
+   "summary": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-c1-consumers/summary-c1-consumers.json",
+    "bytes": 2023,
+    "sha256": "efa5abd78560cc592c1ef352eb1687792077da7dc953c65496dd62eb51168c4e"
+   },
+   "stdout": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-c1-consumers/c1-consumers.stdout.tap",
+    "bytes": 1325,
+    "sha256": "4c19669d774045990b5da691aa5e625dee7e65c1acf93a64ebf5276c9a66d066"
+   },
+   "stderr": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-c1-consumers/c1-consumers.stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "lane": "cold-resume",
+   "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$ test_env/tests/t287-default-library.test.mjs",
+   "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01/build_tenants/abiogenesis/typescript",
+   "exitCode": 0,
+   "ms": 254311,
+   "tests": 2,
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0,
+   "cancelled": 0,
+   "todo": 0,
+   "exactSelectedPass": true,
+   "selectedPassedNames": [
+    "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+    "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+   ],
+   "skippedNames": [],
+   "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737",
+   "priorLaneAllocations": 2,
+   "summary": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-cold-resume/summary-cold-resume.json",
+    "bytes": 2172,
+    "sha256": "87f02fc67f2524288af1868b1a6e9d78b19c76b5f7ea7cafdbf922a49cff84ce"
+   },
+   "stdout": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-cold-resume/cold-resume.stdout.tap",
+    "bytes": 9312,
+    "sha256": "7e0983b16ce2ec0999d014582a23bea5479bbe088befe914ba20479e93cedbe5"
+   },
+   "stderr": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-cold-resume/cold-resume.stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "lane": "runner",
+   "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:Maintained setup retains actual owner verification through ten native calls and preserves configured environment)$ test_env/uat/harness.test.mjs",
+   "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01/build_tenants/abiogenesis/typescript",
+   "exitCode": 0,
+   "ms": 107032,
+   "tests": 1,
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0,
+   "cancelled": 0,
+   "todo": 0,
+   "exactSelectedPass": true,
+   "selectedPassedNames": [
+    "Maintained setup retains actual owner verification through ten native calls and preserves configured environment"
+   ],
+   "skippedNames": [],
+   "stageSourceDigest": "8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737",
+   "priorLaneAllocations": 3,
+   "summary": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-runner/summary-runner.json",
+    "bytes": 1648,
+    "sha256": "5ebfd167ac3e2ae98d8134320664b9c00f74c24849b3ba70fa65349b6d7c3064"
+   },
+   "stdout": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-runner/runner.stdout.tap",
+    "bytes": 2188,
+    "sha256": "e68201005d4e0c40e9da287fcc51ac3d363502a367993e310f80abc8969f25c2"
+   },
+   "stderr": {
+    "path": "qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01-lanes-runner/runner.stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  }
+ ],
+ "proofSummary": {
+  "uniqueCases": 7,
+  "passed": 7,
+  "failed": 0,
+  "skipped": 0,
+  "duplicateInvocations": 0,
+  "order": "publication1 -> c1-consumers3 -> cold-resume2 -> runner1, serial, one stage",
+  "coldDiagnostics": {
+   "pendingTesting": "same Run, chain root/recursion/workflow, W outside R native-tools/scratch.txt unobserved (changedPaths [generated/hello-world.mjs]), actor roles select/native/select/c2/select/assess, 633 final events",
+   "retainedSource": "A and B distinct Runs; B roles select/c2/select/assess; every declared source resolved to an A Result holder (holderBasis null, memberPath ['context','entries',i]); repaired candidate born in B"
+  }
+ },
+ "beforeFailure": {
+  "evidence": "AFFECTED_PROOF_BINDING finalLanes (o7b-after-04): generator exit 1 'C2 declared context member differs from its packaged Product source'; all 9 final failures ENOENT product-toolchain-manifest.json (publication 1, runner 1, consumers 5 incl. 2 duplicate cold, cold-resume 2). Stale cold relations named by R1-CONSUMER-001 were masked by the manifest failure.",
+  "stageReport": {
+   "path": "qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-stage.json",
+   "bytes": 97468,
+   "sha256": "3b3b6e94b77a390286276f36cd0dd9978548505b149eca05a041a75604c3199e"
+  },
+  "coldTap": {
+   "path": "qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-cold-resume/cold-resume.stdout.tap",
+   "bytes": 3115,
+   "sha256": "a8df2302af0b11036f2a407f9e4e2531c2879639b47f9e5cea8351158fcbe0b9"
+  },
+  "carriageTap": {
+   "path": "qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-carriage/carriage.stdout.tap",
+   "bytes": 33480,
+   "sha256": "a50bd1347c0d8080eac115d9f4529656fd43e3db13555fecef05b5cb069b4ada"
+  },
+  "runnerTap": {
+   "path": "qualification-scratch/rc7-overhead-author-02/tmp/o7b-after-04-lanes-runner/runner.stdout.tap",
+   "bytes": 9417,
+   "sha256": "0ad63b54be714018d90ff68bb25359753d5ff2db5978030c2a24eab5c1cf5697"
+  }
+ },
+ "reuse": "178 prior final passing observations reused only for relations unchanged by this patch; the patch changes only the C2 pin, one export token, the two selected cold tests and HOW prose. 19 historical/F11 cases remain uncovered.",
+ "budget": {
+  "stages": {
+   "used": 1,
+   "max": 2,
+   "labels": [
+    "o7c-stage-01"
+   ]
+  },
+  "laneInvocations": {
+   "used": 4,
+   "max": 6
+  },
+  "failedOrIncomplete": 0,
+  "automaticRetries": 0,
+  "tscOutsideStage": false,
+  "ceilingsChanged": false,
+  "laneTimes": {
+   "publication": 493,
+   "c1-consumers": 157911,
+   "cold-resume": 254311,
+   "runner": 107032
+  },
+  "note": "cold-resume used 254311 of its 300000 ms ceiling."
+ },
+ "scopeDisclosures": [
+  "Read-only reads beyond the listed worksite scope, each named by an admitted control: rc7-overhead-author-02 B final stage report, lane TAPs and handoffs (AFFECTED_PROOF_BINDING, AUTHOR_FEEDBACK_PINS, INHERITED_FACTS); the B stage compiled member build/code/src/product/worksite_command_execution.js inside o7b-after-04 (path not itself named); SOURCE_BEFORE.json; AUTHOR_FEEDBACK_PINS.json; R1 REVIEW.json (admission closedSourceReviews, sha256 verified).",
+  "Ran `stdo verify v3.0.4` (manager verification) and `node --check` syntax checks on runner.mjs and t287-default-library.test.mjs; neither writes worksite files.",
+  "Stage/lane helpers created qualification-scratch/rc7-overhead-author-03/tmp/o7c-stage-01* and used /private/tmp/abg-o7c (selected test temp, including event-store lock files and test scratch). tmpo7c was not written by this Worker.",
+  "No git mutation, install mutation, network, provider/credential use, other graph work or file outside the four paths and three handoffs plus helper scratch."
+ ],
+ "residuals": [
+  "The basis-member arm of the migrated cold-case-2 helpers (declaredBy basis coordinate, holderOf basisRef) was not exercised: the observed composition held every declared source in an A Result. Positive basis-member resolution is covered by t287-event-body-encoding RC7 tests, not rerun here.",
+  "Original-contract arm (Result carrying task) in cold case 2 is retained code but not exercised by these fresh Runs.",
+  "Whole installed R1/R2 composition, aggregate/matched performance, D5 recovery, 19 uncovered historical/F11 cases and the different-family production qualification route remain open.",
+  "checkInstalledIdentity export is not yet consumed by an ordinary acquired-resource SDK caller in this increment; Root admission of the export precedes that use.",
+  "Root owns CLI receipt/close custody, passive source freeze, independent review and the next fixed Testing/UAT increment."
+ ],
+ "freeze": "Source frozen at o7c-stage-01 digest 8c93b01acb65941e77c79658b3b967b40672976fcc70b46413904eb42a13e737; Worker stops."
+}

@@ -1,0 +1,67 @@
+{
+  "role": "resumed Design/Owner input; not implementation assurance",
+  "subject": "Peer F2 and F3 only; A unchanged",
+  "sourceBasis": "native-01 frozen source 64afc834b8442a42b42663ecca5514e33832edc531e9f01f03c9eacb4b67098b",
+  "rootSuppliedMainCommit": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+  "recommendation": "Refine B for measured shared physical resource ownership; retain caller capture/deadline/result policies; small helper only with actual deletion correspondence",
+  "releaseOrdering": "Immediate ownership; finite termination request then same completion before each subsequent resource disposal; no wait-before-request or second lifecycle decision source",
+  "compatibility": "Canonical completion Promise and Scope coexist lawfully; retirement only when actual callers no longer need it",
+  "notSelected": [
+    "common captured-result envelope",
+    "generic inactivity policy",
+    "new process-capture byte cap",
+    "asynchronous archive/capture delivery",
+    "HTTP/worker adoption",
+    "automatic Promise retirement",
+    "API approval gate"
+  ],
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261110T001300Z_REVIEW_RC11_FOUNDATION_CORRECTION_SLICE/README.md",
+      "bytes": 18045,
+      "sha256": "1e3460f5db2749990f535a033773ffb6f5a2c763dcab730e632b2a270ad143af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/design-intake/ASSESSMENT.md",
+      "bytes": 10454,
+      "sha256": "2076fe346f4345d3f2f1ae5425ea981fe4b6750f92335bc007a5e74dc355f13b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/triage-design/ASSESSMENT.md",
+      "bytes": 7837,
+      "sha256": "8078d559c667982ab73e913dc4260a3697771b0fb0d339e61eabc31469963401"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/source-freeze.json",
+      "bytes": 295251,
+      "sha256": "9a82a2297b03cec7da18862acca7d12c2625d8f6a85f4d0cf39069de0279e548"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/specification/PRODUCT.md",
+      "bytes": 101285,
+      "sha256": "c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 396214,
+      "sha256": "43ce5ccae4fc28a4ac5d20cc14b2188ff7176c8a06bec9e89c5c39ac1f0e3536"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 68872,
+      "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 50429,
+      "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    }
+  ],
+  "effects": "read-only source/evidence and two create-once reports",
+  "reportSha256": "02e1e491dd7d3f3892cfd9ff29efb0e002d2a89716f9de49c1851a89febd462f"
+}

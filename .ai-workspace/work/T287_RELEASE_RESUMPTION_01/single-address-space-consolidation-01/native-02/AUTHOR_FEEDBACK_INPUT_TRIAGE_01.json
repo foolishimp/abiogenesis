@@ -1,0 +1,32 @@
+{
+  "kind": "root_native_feedback_input_triage",
+  "observedUtc": "2026-11-03T16:50:34.461841+00:00",
+  "authority": "ROOT_REENTRY_SELECTION_02.md; native-02/NATIVE_GRANT.json normal author feedback",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-02/tmp/sas01-paths.tap",
+    "bytes": 29927,
+    "sha256": "0b5f3227863799189dca1835d74ebb56bc23a29523b1f2100c52b17da5aa07de",
+    "tally": {
+      "pass": 23,
+      "fail": 1,
+      "skipped": 15
+    },
+    "cause": "ENOENT in the additional selected-action authority test; selected-action-04/environment.json absent from author scratch"
+  },
+  "frames": {
+    "Product": "The failing file did not enter the repaired behavior; no Product regression established by ENOENT",
+    "Design": "Existing preserved fixture is test input, not a new runtime owner or changed output",
+    "Integration": "Additional author feedback selected a test whose historical input was not copied into scratch; test already supports ABI5_SELECTED_ACTION_OWNER_SUBJECT",
+    "Identity": {
+      "fixture": "/Users/jim/src/apps/abiogenesis-single-address-space/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/environment.json",
+      "sha256": "36e5184c773b2db277347d2417b49df88d3168dea5665f2780481597326628cb",
+      "bytes": 38680887
+    },
+    "Effect": "Read existing canonical fixture through the supported test binding; normal feedback writes remain in native-02 scratch",
+    "Proof": "Retain the first failed lane, rerun only the blocked test, keep current C2/native/acceptance obligations open"
+  },
+  "lawfulReentry": "Existing test-input binding under normal author feedback; no Product repair, semantic waiver or new work authority",
+  "currentC2IncludesThisExtraTest": false,
+  "note": "Membership in selectedPaths alone is not scheduled C2 test execution. This extra lane is author feedback; the actual C2 recipe remains frozen.",
+  "retryStanding": "Worker has invoked the existing fixture override; outcome not yet adjudicated."
+}

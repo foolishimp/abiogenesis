@@ -1,0 +1,125 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "MATERIALIZED_F2_SOURCE_CORRECTED_HS01_ROOT_ADMISSION_PENDING",
+  "readCommands": [
+    "Exact future SOURCE_BEFORE names, selected control inputs, installed STDO3.0.4 skill/direct references and exact offline toolchain/contract seed. No broad tree/history/private-provider scans.",
+    "Read-only rg and git diff/status/rev-parse/show on the admitted selected source; no Git mutation."
+  ],
+  "writeCommands": [
+    "Only30 named existing owner/HOW/test paths, three handoffs and selected scratch. Added gtl/default_library and default-governance HOW own F2-PROGRAM-001; test support/default-library is conditional only for exact existing library environment. Stop on any outside path.",
+    "Runtime/provider temp /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmphs1 and test temp /private/tmp/abg-hs1, named cache/zsh children; preserve all existing contents. Distinct staged empty npm user/global configs."
+  ],
+  "stageLabels": [
+    "hs1-stage-01",
+    "hs1-stage-02",
+    "hs1-stage-03",
+    "hs1-stage-04"
+  ],
+  "maxStages": 4,
+  "maxLaneInvocations": 8,
+  "concurrency": 1,
+  "laneIds": [
+    "held-session-before",
+    "held-session-measured",
+    "held-session-final",
+    "read-owner",
+    "caller",
+    "fixed-route",
+    "cold-resume",
+    "body-conservation"
+  ],
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-01/prior-author-stage.mjs",
+        "<next-fresh-selected-label>",
+        "before|after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 4,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 180000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-01/prior-author-lanes.mjs",
+        "<successful-frozen-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "held-session-before",
+        "held-session-measured",
+        "held-session-final",
+        "read-owner",
+        "caller",
+        "fixed-route",
+        "cold-resume",
+        "body-conservation"
+      ],
+      "maxLaneInvocations": 8,
+      "perLaneTimeoutMs": 300000,
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "invocationAllocation": [
+    {
+      "phase": "before",
+      "lane": "held-session-before",
+      "maximum": 1
+    },
+    {
+      "phase": "after_before_deletion",
+      "lane": "held-session-measured",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "held-session-final",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "read-owner",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "caller",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "fixed-route",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "cold-resume",
+      "maximum": 1
+    },
+    {
+      "phase": "final_after_deletion_or_explicit_no_deletion",
+      "lane": "body-conservation",
+      "maximum": 1
+    }
+  ],
+  "allocationLaw": "Existing create-only reservations count failed/incomplete allocations. Eight unique serial lane ids total. held-session-before includes both HS02 and fixed-admission baseline cases. Measured held-session precedes deletion/final; final held-session and five affected lanes share one source digest. Final fixed-route must pass actual maintained-caller admission plus six regressions. No retry or manual extra build/test.",
+  "missingResources": "Exact450 frozen F2 source files are bound with59 tracked changes+2existing new Product files preserved. Real fixed-admission path is selected corrective work, not a skip. Unselected historical/F11 tests remain unexercised; no pass credit. Root source disposition does not require a duplicate RC6 cold drain.",
+  "freezeBeforeFeedback": "Stage sources and HOW are create-only snapshots with source-freeze receipt before build/testing. Publish that exact path/digest through progress.json immediately; Root may issue max frozen review while native lanes continue. Final native.after must match final staged source/HOW.",
+  "partitionStanding": "Positive prefix filter combines two before cases within one lane; final fixed-route positively selects actual admission and six regressions. Cold-resume remains the exact positive two-case lane. All mandatory cases execute; no negative lookahead, no skipped failure, no timeout increase."
+}

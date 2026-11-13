@@ -1,0 +1,113 @@
+{
+  "productFrame": "ABIogenesis5.0 fixed fifteen families F01-F07,F09-F11,F13-F17, GOAL-035/T-287/REF-01, STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b, empty composition. ABG owns admission/event/replay truth. Process lifetime facts are attributed physical evidence; raw exit alone is not confirmed owned-scope termination. Independent bounded review of test6 only.",
+  "frame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "recordedUtc": "2026-11-07T09:46:55.388206+00:00",
+  "subject": {
+    "broadSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "freezeSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "correspondence": "worker_transport.ts, owned_process_lifetime.ts and the complete test file match A6 manifest and actual execution013 staged bytes. Product is unchanged from A8; other fixture increments do not touch this causal cone."
+  },
+  "owningRelations": [
+    "Accepted Common Computational Capability Library HOW4.6 and9.4 require final OwnedProcessFacts handback on success/failure, preserve first Error attribution and distinguish exit from confirmed owned-scope absence.",
+    "HOW10.10 E-A establishes one stdout archive descriptor before paid process bytes. worker_transport executeWorkerTransport765-767 creates exclusive empty stdout/stderr archives before runProcess771. Missing archive is a legitimate pre-launch refusal.",
+    "EVENTS-001/002/003 preserve sole owner, replay/identity truth. Local fixture objects and callback counters are supplied component premises, not EventStore or physical-process authority. No new registry/language/owner primitive is warranted."
+  ],
+  "verdict": "falsified_component_archive_precondition; no_Runtime_handback_regression_established",
+  "findings": [
+    {
+      "id": "OWNED-HANDBACK-013",
+      "severity": "S3",
+      "title": "Private runProcess fixture omits the archive that its enclosing owner prepares",
+      "trigger": "Test6 calls private runProcess209 with stdoutPath=/controlled/no-output and no archive preparation. Deterministic in the observed absent-path environment.",
+      "causalChain": [
+        "runProcess484 openSync(stdoutPath,r+) fails ENOENT before spawn495 or createOwnedProcessLifetime503.",
+        "refuseBeforeLaunch706-709 calls onSpawnFailed, suppresses a later observer error and throws the original ENOENT. The async runProcess call therefore returns an already-rejected promise. The fixture's assertion that a child is already established is only its local mistaken premise; no owner spawn occurred.",
+        "ControlledChild52-62 has no stderr error listener until lifetime installation. The fixture nevertheless emits its first EPIPE216/218. Node EventEmitter throws that same Error synchronously; its retained stack points to creation182.",
+        "The test exits before await pending221. The pre-launch rejected promise is unconsumed, producing the separate after-test unhandled ENOENT diagnostic. No canonical completion facts were produced or assertions reached."
+      ],
+      "actual": "Whole file18tests:15passed,3failed,0skip; test6 failed original stream error/EPIPE with a later unhandled ENOENT /controlled/no-output. Tests15/16 are separate HTTP-frame failures and are not adjudicated here.",
+      "harm": "The12-combination handback/final-observer matrix is unproved and leaks an unhandled fixture promise. The initial combination stops the case; no credit for the remaining combinations. No demonstrated production first-Error replacement, facts loss, native dispatch or leaked owned child.",
+      "failClosed": "Archive failure occurs before spawn. Normal owner prepares archives first and retains the original pre-launch cause. Existing lifetime guards/handback semantics never get an opportunity to execute in this failing fixture.",
+      "scopeAndRisk": "One private-function component case with2orders x3absence states x2observer outcomes. Low-risk fixture setup correction; changing runtime exception/facts behavior or suppressing unhandled rejections would weaken the oracle.",
+      "confidence": "High: exact source ordering explains both observed errors without a transport/lifetime hypothesis."
+    }
+  ],
+  "contractDistinction": {
+    "privateRunProcess": "After valid preparation, runProcess670-687 awaits lifetime.completion, drains windows, invokes final observer, captures observer/close failure as finalizationError, and RETURNS ProcessObservation carrying the exact facts object even when facts.firstError is non-null. Existing test awaiting resolution is correct.",
+    "outerTransport": "executeWorkerTransport784-792/900-903 later throws the retained first Error, after required current-profile artifact assessment where applicable. Do not change private test6 to expect EPIPE rejection.",
+    "lifetime": "owned_process_lifetime198-213 disconnects owned guards, publishes one frozen facts object;267-270 keeps the first Error. Test6 should continue verifying facts identity, first Error identity, direct exit, scopeAbsence, confirmation, no-child distinction, finalizationError and inactive timers."
+  },
+  "RC8Relation": {
+    "sameAsRC7": [
+      "complete owned_process_lifetime.ts12633B/77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+      "complete test43537B/b0427b38d3b8831ceb0d863eeb2b368f06f35933cfa3701fb3fe10a4f3ab9c5f",
+      "runProcess slice12634B/2f55fc5cf524db5f322e1c4957084a3331ac25a91f5aec694944a478a2891b43",
+      "refuseBeforeLaunch slice290B/826e4ec22d7441b632dca3ee2fba9907ce4adceb376600ecb74ed4f5ad878acf",
+      "enclosing archive-preparation/call slice1039B/28b956af4a9423538b5ac5498ca5c8ce6087dba4b0367163dcf72784786ebcc4"
+    ],
+    "comparison": "Read-only exact byte comparison against named immutable RC7 local-cut worktree. worker_transport whole file differs for RC8 reference-preservation changes elsewhere; the entire causal slices above are byte-identical. No causal RC8 regression is demonstrated."
+  },
+  "affectedCone": {
+    "privateCaller": "Search of selected code/tests/support found one direct private runProcess test caller: test6. Production caller executeWorkerTransport supplies the archive precondition.",
+    "otherObservers": "Prepared transport consumers in F04, lifecycle-failure-carrier, m5-worker-transport and management-stream-drain use the enclosing/prepared route; their mere use of onProcessFinalized is not the same missing-archive seam.",
+    "excluded": "HTTP tests15/16 and their environment contracts belong to the separately assigned review; no disposition or repair recommendation for those cases here."
+  },
+  "proofLimits": {
+    "F04": "Actual A6 full F04 RESULTb57f0ef2 records2passes/0skip,37.028s, including13 finalized-artifact modes and retained Error identity. It exercises prepared transport with lawful archive preparation; it does not replace this controlled12-combination exit/error/uncertainty/final-observer matrix.",
+    "otherFileCases": "The15 actual passes remain bounded individual evidence. This review does not turn the18-case file green or attribute its HTTP failures.",
+    "reviewer": "No tests, Product calls, profiling, process cleanup or Worker activation performed."
+  },
+  "recommendation": {
+    "smallestLawfulRepair": "One test6 setup correction: provide real temporary precreated empty stdout/stderr archive files, using existing fs helpers and fixture cleanup. Unique per-case paths avoid shared external path assumptions. Keep the controlled child/clock/host and all12 existing assertions/combinations. Setup assertions may confirm the spawn override and lifetime were actually installed before emitting synthetic events.",
+    "doNot": "Do not launch a real worker, replace lifetime algorithms, mock successful finalization, change await pending to rejection, catch-and-ignore EPIPE/ENOENT, suppress unhandledRejection, weaken final-observer failure checks or alter Product code.",
+    "minimalProof": "Frozen test-only diff review, then execute the complete named test6 matrix and require its one top-level pass with no asynchronous-activity error. Whole-file assurance still requires separately resolving/reproving the HTTP cases and then actual whole-file execution; do not merge their outcomes here.",
+    "disposition": "Prefer this small lawful fixture repair over another residual. Root alone selects repair/defer and cut acceptance. For an explicitly unqualified cut, any deferred claim must be named as this unexecuted matrix, never as accepted handback coverage or whole5.0 qualification."
+  },
+  "pins": [
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 43537,
+      "sha256": "b0427b38d3b8831ceb0d863eeb2b368f06f35933cfa3701fb3fe10a4f3ab9c5f"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 50429,
+      "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 194356,
+      "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/commands/131-t287-owned-process-lifetime.stdout",
+      "bytes": 8164,
+      "sha256": "56dc83affb7b717cfb528bd8f18b59d2272456c55164faacc49015b5c2be5938"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/files/131-t287-owned-process-lifetime.json",
+      "bytes": 1158,
+      "sha256": "582101cad174afd22e5eb92925f8f91ac79422def9f29a5019606d35ad056464"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-013/SUMMARY.json",
+      "bytes": 317449,
+      "sha256": "f67d671de4d17f4f0d6e9e91cadd77c65b1e7a271958ec748cd9e2990b92f096"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/RESULT.json",
+      "bytes": 793,
+      "sha256": "b57f0ef2d61fbe4c76cc1b6b5834026fe2ca951b9823cf47d60f290dc2434f8f"
+    }
+  ],
+  "effects": "Only this new review capsule is written. No Product/source/runtime/process/provider mutations."
+}

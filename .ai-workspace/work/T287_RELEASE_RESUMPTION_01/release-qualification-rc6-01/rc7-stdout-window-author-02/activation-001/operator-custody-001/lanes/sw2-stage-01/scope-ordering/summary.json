@@ -1,0 +1,34 @@
+[
+  {
+    "id": "scope-ordering",
+    "mode": "after",
+    "setupMs": 68,
+    "priorLaneAllocations": 1,
+    "laneAllocationCap": 6,
+    "stageSourceDigest": "c23199f8d96ca058708453bc4753ad6c99c437d3268231a68ab0b4080e4198d7",
+    "activeRc7": [
+      "RC7 HS03 scopes: interleaved actor scopes on one store; frame and CCall producers drain no window, an actor probe and a threshold drain only their own scope, and a refused decision keeps its committed window",
+      "RC7 HS03 scopes: an enclosing transaction owns a flushed window; rollback restores it and commit keeps it, then noise-only and result windows keep exact lastActivity"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 HS03 scopes: test_env/tests/t287-calculus-fold.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-02/tmp/sw2-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 715,
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 1,
+    "failing": [],
+    "stdoutSha256": "a902e2d09fde163ffeb7e5f44b2fb75680ca92303c958846f0d8fcb8c048938d",
+    "stdoutBytes": 1007,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

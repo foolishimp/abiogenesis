@@ -1,0 +1,105 @@
+{
+  "status": "BROAD020_PREPARED_NO_EXECUTION",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_020.json",
+    "bytes": 7366,
+    "sha256": "c8304fa7265a2577bd8648ece9bd32c979b9353adbe12f1b6fb704680b5c0cbc"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-020.mjs",
+    "bytes": 36429,
+    "sha256": "1f7020bda5fa8131308c233d6ca2f9556afed552047a8425a7b1faba1cb33a84"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_020.patch",
+    "bytes": 4245,
+    "sha256": "0c167eb5b87f76f9e9e4419f371355f39603c2d8e5e884903d690c9e67563faa"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_021.json",
+    "bytes": 404251,
+    "sha256": "77edaa1612c5eade074415506644fce98fe6227de7898867e4d09c98b6b341fa"
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-021/BOUND_INVENTORY.json",
+    "bytes": 2074249,
+    "sha256": "f4e637981405ca46c3d3b4f06bb0cc43f55fea351ecdeaabbf0c8d7090173d17"
+  },
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 162,
+    "passed": 862,
+    "skipped": 199,
+    "scheduled": 35,
+    "deferredNoCoverage": 11
+  },
+  "changedInventoryFields": [
+    "at",
+    "config",
+    "counts",
+    "deferredFiles"
+  ],
+  "changedConfigFields": [
+    "bindingRoot",
+    "outputRoot",
+    "scratchRoot",
+    "executionStanding",
+    "deferredFiles"
+  ],
+  "allSourceDependencyExternalTestRowsUnchanged": true,
+  "all162CreditAndTenPriorDeferralObjectsPreserved": true,
+  "deferralSerialization": "Config lists all eleven deferrals alphabetically; prior ten objects are exact. Existing driver already compares sorted names and executes according to bound.tests, so no execution-order change. A preparation metadata assertion initially expected array-order equality; object correspondence and unchanged test-order checks pass.",
+  "newSchedulingDeferral": {
+    "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+    "testSha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Root profile triage pending after019 unknown native profile at top-level initialization. Temporary scheduling only; zero test/whole credit, no permanent assurance deferral or repair selected.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_019.json",
+        "bytes": 8949,
+        "sha256": "82eb2c4528d67adf24929366cf0b4ec5ff59a6ee23dc468e813de68f93dc207c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/files/171-t287-selected-action-authority.json",
+        "bytes": 1169,
+        "sha256": "bfb0c0c444764831b388ec415734bce3ac704d2a0e0036cd2ac1a503e593d95f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/commands/171-t287-selected-action-authority.result.json",
+        "bytes": 1501,
+        "sha256": "efdd0968ff1be72a5b0654c3540fb7cbae7438e7c168e4bdee2b543f04c9b3c9"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/commands/171-t287-selected-action-authority.stdout",
+        "bytes": 1418,
+        "sha256": "5f42cacf7b78eb398df3a02a1b878bd792ac1a0fb1d64b3f97d23c5bc58dc9a3"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/events/171-t287-selected-action-authority.jsonl",
+        "bytes": 767,
+        "sha256": "c9ffe1058c8b2b2eaea02da5bce56bd6ddb2e16dbc29941d1a686afe3bb095db"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/FAILURE.json",
+        "bytes": 619,
+        "sha256": "921c73d5f36c5363a9ac48b7b5df300146278d91d2d1256a18a4bb1182d0d809"
+      }
+    ]
+  },
+  "syntaxPassed": true,
+  "bindOnlyExitCode": 0,
+  "testsExecuted": 0,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-020.mjs",
+    "run",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_021.json",
+    "77edaa1612c5eade074415506644fce98fe6227de7898867e4d09c98b6b341fa",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-021/BOUND_INVENTORY.json",
+    "f4e637981405ca46c3d3b4f06bb0cc43f55fea351ecdeaabbf0c8d7090173d17",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/ROOT_ADMISSION_020.json",
+    "<exact future Root admission SHA256>"
+  ]
+}

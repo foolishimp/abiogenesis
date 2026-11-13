@@ -1,0 +1,42 @@
+[
+ {
+  "ord": 227,
+  "kind": "c_call_result_admitted",
+  "gf": "graph-function://default-library-witness/executive-step@5",
+  "aggregateType": "c_call",
+  "payload": {
+   "cCallRef": "c-call:sha256:f49e1dbbd6c425f1e776d36e2592ac5df77e804bc36d2b2e5568c981ac5830bc",
+   "contractRef": "contract://abiogenesis/default-library/failure@5",
+   "evidenceRefs": [
+    "evidence://abiogenesis/ca668a0c701f51daf8bbba1e6bb6b6c9dd05bc672ccad03b4df6ee5066cbd4d4"
+   ],
+   "resultClass": "failure",
+   "resultDigest": "sha256:832c7f8ccf17751a644e359b26287153ae74bd84646a2820084d25671fe2f0c9",
+   "resultRef": "result://abiogenesis/832c7f8ccf17751a644e359b26287153ae74bd84646a2820084d25671fe2f0c9",
+   "value": {
+    "diagnosticRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-selection@5",
+    "kind": "governance_failure",
+    "schemaVersion": "5.0.0"
+   },
+   "valueDigest": "sha256:e18fc737d4b7889b39a5ef492ee4056c3a1fc4eba250708b8b34547403492945",
+   "valueKind": "governance_failure"
+  }
+ },
+ {
+  "ord": 237,
+  "kind": "runtime_failure_observed",
+  "gf": "graph-function://default-library-witness/executive@5",
+  "aggregateType": "run",
+  "payload": {
+   "basisId": "execution-basis://abiogenesis/19a145fcffe2e62a7d15253e5158355eda6c97458fbed192da746349ac6f65dc",
+   "diagnosticRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-selection@5",
+   "failureDigest": "sha256:dbd1e18740835881f9e193c6ece175622106d8ad71d1d02ae5388df4787b4305",
+   "failureRef": "runtime-failure://abiogenesis/dbd1e18740835881f9e193c6ece175622106d8ad71d1d02ae5388df4787b4305",
+   "frameId": "frame://abiogenesis/c20941b761640ac5b67594640f968cdce4fd7a2daa0bd96dbe5a1794c981954a",
+   "graphCallId": "graph-call://abiogenesis/f8b465c3785106cf794ca37d787f915990d2174745e22560b9c72c87e1b60229",
+   "runId": "run://abiogenesis/74444b605a4ecc71d1bfbffd8013603e0272cb78b40177919a9a32776ab44058",
+   "stage": "route",
+   "subjectDigest": "sha256:7892811ad33c30c63b7cd0c0f11bc2cc02b237a66d9abcfa4d8f921a574cc425"
+  }
+ }
+]

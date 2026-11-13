@@ -1,0 +1,31 @@
+{
+  "kind": "q23_author_05_readiness",
+  "readyForRootFreeze": true,
+  "readyMeaning": "The mechanical author predicate holds on the final worktree: b2 compile 0, canonical generation 0, transport 26/26 and qualification 36/36, with zero fail/skipped/cancelled/todo. This is not acceptance, review, C2 or UAT.",
+  "subject": {
+    "commit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "worktreeDiffSha256": "bd187b1533f04e5a963bb0612ef7e1eb1e32c917f9feab385d9c9652988d24b1",
+    "stagedSourceDigest": "2e6b853f0c522a6f413fb04a17c608be47c636976e1329de1507cb6026538ab3",
+    "changedPathCount": 13,
+    "editsAfterFinalStage": false
+  },
+  "c2Lanes": {
+    "transport": {"tests": 26, "minimumTests": 23, "pass": 26},
+    "qualification": {"tests": 36, "minimumTests": 35, "pass": 36},
+    "allSixModulesExecuted": true,
+    "skips": 0
+  },
+  "blockingForRootDecision": [
+    "R1: the current event-contract profile digest changes (RC6 sha256:5b35ab53... -> sha256:1c881564...), so this candidate cannot read RC6-stamped current-profile stores. Accept the successor profile, or grant predecessor-profile retention across owners outside this grant."
+  ],
+  "unknownsForRoot": [
+    "R2: suites outside the six selected modules were not run; R1 may affect persisted-store fixtures there.",
+    "Independent MAX review should check identity grammar sufficiency (R4) and peer ordering (R5) against the selected HOW."
+  ],
+  "notClaimed": [
+    "production cross-family eligibility or a positive paid Q23/F11",
+    "QR02 external attribution sufficiency",
+    "physical admission of any synthetic fixture event",
+    "independence of this Worker from the Q23-02 author (same declared family)"
+  ]
+}

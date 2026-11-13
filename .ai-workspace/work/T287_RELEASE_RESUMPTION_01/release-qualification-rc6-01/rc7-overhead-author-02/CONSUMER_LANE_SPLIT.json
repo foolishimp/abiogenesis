@@ -1,0 +1,225 @@
+{
+  "kind": "root_selected_observed_consumer_budget_split",
+  "at": "2026-11-06T05:05:13.374911+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/ROOT_SELECTION.json",
+    "bytes": 6421,
+    "sha256": "937a55890b738b8f4783e2a7d65178bb5a2731a5650ef46128c793dff8efedd5"
+  },
+  "source": "Root explicit final control correction: preserve every selected test exactly once using Node built-in anchored name filters, no deadline change.",
+  "observations": {
+    "originalConsumerWallMs": 225415.244,
+    "missingFixtureFailureMs": [
+      17779.213125,
+      20016.501916
+    ],
+    "estimatedOtherCasesMs": 187619.52895900002,
+    "correctedExactTwoCaseWallMs": 244431.585458,
+    "combinedForecastMs": 432051.114417,
+    "standing": "Forecast from different observed runs, not a measured combined run, speedup or bound guarantee."
+  },
+  "partition": {
+    "consumers": {
+      "testNamePattern": "^(?!(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$).*$",
+      "baselineExpectedActivePasses": 63,
+      "baselineDeclaredUncoveredSkips": 12
+    },
+    "cold-resume": {
+      "testNamePattern": "^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$",
+      "files": [
+        "test_env/tests/t287-default-library.test.mjs"
+      ],
+      "mandatoryPasses": 2,
+      "allowedSkips": 0
+    },
+    "exactSelectedNames": [
+      "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+      "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use"
+    ],
+    "relation": "Anchored positive selects exactly the two named tests; anchored negative is their complement across existing consumer files. Name-filtered exclusions are not source-declared skips or pass credit."
+  },
+  "bounds": {
+    "eachLaneTimeoutMs": 300000,
+    "testConcurrency": 1,
+    "maxStages": 4,
+    "maxTotalLaneInvocations": 12,
+    "perTestLimitsChanged": false,
+    "timeoutIncrease": false
+  },
+  "preimages": [
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/inputs/C2_INPUTS.json",
+        "bytes": 57434,
+        "sha256": "a2070d7b29052bf10899ce6bb9995618b7da45a76382144e6440746c8e78e538"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/inputs/C2_INPUTS.json",
+        "bytes": 57434,
+        "sha256": "a2070d7b29052bf10899ce6bb9995618b7da45a76382144e6440746c8e78e538"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/inputs/COMMAND_BOUNDS.json",
+        "bytes": 4081,
+        "sha256": "64c9536bb8ec70f433bf384298d41d890587ce8387ab50b67cc8b4048ab4ef25"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/inputs/COMMAND_BOUNDS.json",
+        "bytes": 4081,
+        "sha256": "64c9536bb8ec70f433bf384298d41d890587ce8387ab50b67cc8b4048ab4ef25"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/inputs/TASK.md",
+        "bytes": 5928,
+        "sha256": "07c0af9ff73025e4afd041e299df6d0031b25d07ed39617f136629b1524920f1"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/inputs/TASK.md",
+        "bytes": 5928,
+        "sha256": "07c0af9ff73025e4afd041e299df6d0031b25d07ed39617f136629b1524920f1"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/inputs/prior-author-lanes.mjs",
+        "bytes": 5278,
+        "sha256": "9a753d8ec5b61d0c12d9616a1edd806d80581b9a76539fb399124f0feeb2fc56"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/inputs/prior-author-lanes.mjs",
+        "bytes": 5278,
+        "sha256": "9a753d8ec5b61d0c12d9616a1edd806d80581b9a76539fb399124f0feeb2fc56"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/AFFECTED_PROOF_BINDING.json",
+        "bytes": 5038,
+        "sha256": "125cbe3de4f96aacb56ddef028a1733f8d5543216aa2b4ce19308bd2f217f002"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/AFFECTED_PROOF_BINDING.json",
+        "bytes": 5038,
+        "sha256": "125cbe3de4f96aacb56ddef028a1733f8d5543216aa2b4ce19308bd2f217f002"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/inputs/AFFECTED_PROOF_BINDING.json",
+        "bytes": 5038,
+        "sha256": "125cbe3de4f96aacb56ddef028a1733f8d5543216aa2b4ce19308bd2f217f002"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/inputs/AFFECTED_PROOF_BINDING.json",
+        "bytes": 5038,
+        "sha256": "125cbe3de4f96aacb56ddef028a1733f8d5543216aa2b4ce19308bd2f217f002"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/inputs/MEASUREMENT_PLAN.json",
+        "bytes": 6589,
+        "sha256": "77e8226cd34ac08061a2b28d11cdb69f46aadf4ae6c52531f64c55a7412c21ea"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/inputs/MEASUREMENT_PLAN.json",
+        "bytes": 6589,
+        "sha256": "77e8226cd34ac08061a2b28d11cdb69f46aadf4ae6c52531f64c55a7412c21ea"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/STAGING_MANIFEST.json",
+        "bytes": 10638,
+        "sha256": "aae9b5ce892605eddecf595293784d3c8b3383658eddf7699fb9bbf01f790bc8"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/STAGING_MANIFEST.json",
+        "bytes": 10638,
+        "sha256": "aae9b5ce892605eddecf595293784d3c8b3383658eddf7699fb9bbf01f790bc8"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/workload.json",
+        "bytes": 97201,
+        "sha256": "3edbe3d3875d73318fa451fe42856ecbf8b823770921912770502508bb67e6c3"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/workload.json",
+        "bytes": 97201,
+        "sha256": "3edbe3d3875d73318fa451fe42856ecbf8b823770921912770502508bb67e6c3"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/STATIC_CHECKS.json",
+        "bytes": 2427,
+        "sha256": "07fe90306028118dc9440a08a49671e2234dbece126b77709590159821b0a978"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/STATIC_CHECKS.json",
+        "bytes": 2427,
+        "sha256": "07fe90306028118dc9440a08a49671e2234dbece126b77709590159821b0a978"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/CONTROL_REUSE.json",
+        "bytes": 2979,
+        "sha256": "87f52fde7e2c920c0e24e6c9e073381ab5cf79cf3d805157c69b6ca40cd4dfb9"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/CONTROL_REUSE.json",
+        "bytes": 2979,
+        "sha256": "87f52fde7e2c920c0e24e6c9e073381ab5cf79cf3d805157c69b6ca40cd4dfb9"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREPARATION_MANIFEST.json",
+        "bytes": 32176,
+        "sha256": "7f911eb8d98cacd5342abc9b58ce8cf02ea6e4804081e52eea557f5ead6b9e49"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/PREPARATION_MANIFEST.json",
+        "bytes": 32176,
+        "sha256": "7f911eb8d98cacd5342abc9b58ce8cf02ea6e4804081e52eea557f5ead6b9e49"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREPARATION_RETURN.json",
+        "bytes": 5802,
+        "sha256": "8f4a78d16257b148bcb1b814d86a3e659c19bb7a9c892d9484c40577df8b9d25"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/PREPARATION_RETURN.json",
+        "bytes": 5802,
+        "sha256": "8f4a78d16257b148bcb1b814d86a3e659c19bb7a9c892d9484c40577df8b9d25"
+      }
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREPARATION_RETURN.md",
+        "bytes": 1697,
+        "sha256": "5f33610c79b2aec1429a9bf268d147620cf72b8f548a592bc0c2efc892dd87a4"
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/PREPARATION_RETURN.md",
+        "bytes": 1697,
+        "sha256": "5f33610c79b2aec1429a9bf268d147620cf72b8f548a592bc0c2efc892dd87a4"
+      }
+    }
+  ],
+  "limits": "Operator input/runner argument correction only. No Product/test edits, new supervisor/framework, C staging, runtime, tests/builds or provider calls."
+}

@@ -1,0 +1,46 @@
+{
+  "kind": "task_input_sufficiency_and_baggage_disposition",
+  "groups": {
+    "method-and-current-control": {
+      "files": 189,
+      "bytes": 2118153
+    },
+    "compiler-and-runtime-source": {
+      "files": 290,
+      "bytes": 7905464
+    },
+    "affected-tests-and-fixtures": {
+      "files": 199,
+      "bytes": 3924919
+    },
+    "contract-seeds": {
+      "files": 202,
+      "bytes": 9025518
+    }
+  },
+  "futureFiles": [
+    "consolidation-scratch/native-05/return.json",
+    "consolidation-scratch/native-05/readiness.json",
+    "consolidation-scratch/native-05/progress.json"
+  ],
+  "omittedFromOrdinaryContext": [
+    "Prior11MB compiled RC5 archive; use immutable installed baseline resource",
+    "Prior7.4MB C2 event and7.2MB helper result; their accepted evidence remains at pinned RC5 custody",
+    "Prior3.1MB captured codec sample; unrelated to this caller migration",
+    "Whole586MB runtime log; explicit read-only diagnostic resource by path/hash, not embedded task context",
+    "Historical .ai-workspace tree and broad digest searches"
+  ],
+  "preserved": "Original outcome, complete causal map, exact owner/code/current input/rubric and necessary build/test seeds remain. Required external evidence is explicit; no semantic truncation claim.",
+  "note": "The declared read set is sufficient for build/proof; permission to read the causal cone is broader and is not an instruction to serialize all reachable files.",
+  "continuation": "Exact native04 held source and compact closed evidence, original full scope plus source recheck and shared-owner/fixture triage; exact selected-file guide prevents broad historical copies.",
+  "literalModuleClosure": {
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/C2_LITERAL_IMPORT_CLOSURE.json",
+      "bytes": 9057,
+      "sha256": "8a2631c32d9101933172a375a4429d5e310badf2637831f1ee159d96f32235ac"
+    },
+    "addedPaths": [],
+    "scope": "Literal imports only; generated imports use declared producers. Dynamic fixtures retain explicit inputs and actual C2 proof."
+  },
+  "groupCountScope": "Current existing selected files excluding this self-describing input and three future native handoffs; PACKET_PREPARATION_COMPLETE includes every existing selected file."
+}

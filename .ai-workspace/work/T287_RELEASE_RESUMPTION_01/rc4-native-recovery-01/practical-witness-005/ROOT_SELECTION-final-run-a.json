@@ -1,0 +1,11 @@
+{
+  "status": "ROOT_SELECTED_ONE_SHOT_A",
+  "operator": "Root",
+  "bindingSha256": "be5a291b2390e1a5fed5c0a2ddcb008f097ea0fcdddaf19d21a1810c5335d92b",
+  "allowedStages": [
+    "run-a"
+  ],
+  "callSha256": "ed738d4daf241ff5b09200caa47705608d923bedb8f984c3648f8dcf61056b57",
+  "decision": "Root independently verified the final binding, packet,68 current pins, unchanged4589 candidate installation, exact two-locator driver delta and genuine setup prefix. Select exactly one run-a on the reviewed actual call, source:none/empty observations/next/direct, for accepted source1100/archive4589. No B stage, retry or later acquisition/read/preparation stage is selected; those require actual A return and separate Root decision.",
+  "selectedAt": "2026-11-02T23:51:51.568566+00:00"
+}

@@ -1,0 +1,63 @@
+{
+  "recordedUtc": "2026-11-04T11:24:58.018965+00:00",
+  "status": "TARGETED_CONTROLS_VALIDATED_FROZEN_NOT_DISPATCHED",
+  "role": "Root operator/evidence Writer completion; independent assurance remains separate",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+    "bytes": 6177,
+    "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+  },
+  "priorWriterReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/CONTROL_PREPARATION_RETURN.json",
+    "bytes": 15350,
+    "sha256": "a053a3091bdc045bdd85050fd1fda0cce0cf97158817b01b1b9b22e50a8aa5e6"
+  },
+  "priorDraftPreservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ORIGINAL_DRAFT_PRESERVATION.json",
+    "bytes": 38630,
+    "sha256": "e248660bf2ef9d124aba3073723bd8f14619fec409920819196738886451a343"
+  },
+  "targetedRevision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/targeted-revision-01.py",
+    "bytes": 22923,
+    "sha256": "caf54b4e487834e77f5af25b6d7912596b0470556281daa7db350d9ede78c1aa"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/SOURCE_BEFORE.json",
+    "bytes": 71946,
+    "sha256": "6e2f16c51ecf043a1f15b35895b863b911ec9951f90d58596d296bb92e02c00b"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/workload.json",
+    "bytes": 213229,
+    "sha256": "7f289583b8a4c9691527037358ed8241ad817ee478c698e11932c62dbc853447"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_GRANT.json",
+    "bytes": 24976,
+    "sha256": "a89d48742879ae1afbb8f35d78e0807922994c26ebe76ddd80405de151554415"
+  },
+  "counts": {
+    "selected": 969,
+    "inline": 14,
+    "assessment": 20,
+    "custody": 157,
+    "permittedPaths": 43,
+    "ProductImplementationPaths": 8
+  },
+  "checks": [
+    "Node syntax checks for prepare/dispatch/capacity/C2 wrapper",
+    "All current source pins and selected file existence/expected absence agree",
+    "All157 live source custody entries match native09 preimage",
+    "Construction-only exact granted writes; assessment/read roles readonly",
+    "Targeted rubric/authority current; all required assessment paths readable",
+    "Short test TMPDIR declared; host/CLI and provider namespaces unchanged"
+  ],
+  "pending": [
+    "Installed-owner provider-free preparation/capacity",
+    "Independent proportional frozen control review",
+    "Root exact native dispatch admission"
+  ],
+  "testsBuildsProviders": 0,
+  "nativeDispatched": false
+}

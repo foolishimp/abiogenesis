@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 39565.67833300028,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/209-t287-w2-05-release-snapshot-definition-bindings.jsonl",
+    "bytes": 840,
+    "sha256": "040b97696cd50ebd3561f1f6496c29a0a12b6b2254d909dc8657d234804ce69e"
+  },
+  "commandReceipt": "commands/209-t287-w2-05-release-snapshot-definition-bindings.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/x208",
+  "isolatedBuildEffect": true,
+  "effects": [],
+  "sourceEffects": []
+}

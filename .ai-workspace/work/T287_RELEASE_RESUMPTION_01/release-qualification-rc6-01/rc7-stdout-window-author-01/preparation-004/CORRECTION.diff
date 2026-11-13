@@ -1,0 +1,70 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/COMMAND_BOUNDS.json
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-004/inputs/COMMAND_BOUNDS.json
+@@ -38,7 +38,7 @@
+       "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+       "maxStages": 4,
+       "compileTimeoutMs": 240000,
+-      "generateTimeoutMs": 180000,
++      "generateTimeoutMs": 600000,
+       "guardTimeoutMs": 60000
+     }
+   ],
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/inputs/prior-author-stage.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-004/inputs/prior-author-stage.mjs
+@@ -73,7 +73,7 @@
+ };
+ const setupMs=Date.now()-setupStarted;
+ const compile = run(process.execPath, ['node_modules/typescript/bin/tsc', '-p', 'tsconfig.json'], 240000);
+-const generate = compile.exitCode === 0 ? run(process.execPath, ['scripts/generate-product-manifest.mjs'], 180000) : null;
++const generate = compile.exitCode === 0 ? run(process.execPath, ['scripts/generate-product-manifest.mjs'], 600000) : null;
+ const lifecycle = generate?.exitCode === 0 ? run(process.execPath, ['scripts/check-lifecycle-boundary.mjs'], 60000) : null;
+ const sourceDigest = sha(Buffer.from(JSON.stringify(sources)));
+ const report = { label, mode, stage, freezePath, setupMs, priorStageLabels:allocatedStages, stageAllocationCap:bounds.maxStages, sourceCount: sources.length, sourceDigest, sources, compile, generate, lifecycle };
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/TASK.md
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-004/inputs/TASK.md
+@@ -34,6 +34,6 @@
+ 
+ Name new cases under `RC7 HS03 actual-stream:`, `RC7 HS03 scopes:`, `RC7 HS03 timeout:`, `RC7 HS03 archive:`, and `RC7 HS03 historical:` in the selected existing tests. Mandatory cases cannot skip. Only the two differential invocations receive `ABI5_HS03_STREAM_METADATA`, after its explicit pin is checked by the lane control. This is a test input, not a Product switch. The46.7MB file is referenced once outside native context and staging; do not duplicate it into each stage or embed it in a work order.
+ 
+-Four create-only staged builds maximum; each freezes exact source/HOW before canonical compile/generation/test and emits a source-freeze receipt. Publish its path/digest in progress.json so Root can issue max review concurrently. After the final differential passes, all five affected lanes use the same final source digest. No manual extra build/test, broad suite, retry, timeout increase, provider/network/credential access or control edits. Use existing320turn/90minute absolute/30minute inactivity,3hour host/8GiB caps; exactly one future native Worker. Short task temp and distinct empty npm user/global configs are selected. Actual Root admission is still required.
++Four create-only staged builds maximum; each canonical compile/generation/lifecycle command has a240/600/60-second ceiling respectively. Root repriced only generation from180s to600s after the unchanged canonical owner completed in197.973s; cause remains unassigned and no further increase or retry is authorized; each freezes exact source/HOW before canonical compile/generation/test and emits a source-freeze receipt. Publish its path/digest in progress.json so Root can issue max review concurrently. After the final differential passes, all five affected lanes use the same final source digest. No manual extra build/test, broad suite, retry, timeout increase, provider/network/credential access or control edits. Use existing320turn/90minute absolute/30minute inactivity,3hour host/8GiB caps; exactly one future native Worker. Short task temp and distinct empty npm user/global configs are selected. Actual Root admission is still required.
+ 
+ Return exact source/HOW delta, frozen stage/native.after equality, generation/C2 pins, before/final receipts, real-stream/synthetic proof limits, original archive byte identities and old/current contract conservation, and all allocations or unused/missing reasons. Record window/row/probe/fsync counts and setup/worker/native-testing/readback/Root-delay phases separately. No timing or release claim follows from reduced rows or static source. Freeze three handoffs and stop; Root owns independent review, actual installed qualification and disposition. S3 remains withdrawn; S6 stays conditional Product repricing, and every remaining release gate is preserved.
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/NATIVE_GRANT.template.json
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-004/NATIVE_GRANT.template.json
+@@ -592,6 +592,9 @@
+   },
+   "stageAndLaneBounds": {
+     "stages": 4,
+-    "lanes": 7
++    "lanes": 7,
++    "compileTimeoutMs": 240000,
++    "generateTimeoutMs": 600000,
++    "guardTimeoutMs": 60000
+   }
+ }
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/inputs/HS03_SELECTION.json
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-004/inputs/HS03_SELECTION.json
+@@ -36,7 +36,10 @@
+     "inactivityTimeoutMs": 1800000,
+     "hostTimeoutMs": 10800000,
+     "heapMiB": 8192,
+-    "automaticRetries": 0
++    "automaticRetries": 0,
++    "compileTimeoutMs": 240000,
++    "generateTimeoutMs": 600000,
++    "guardTimeoutMs": 60000
+   },
+   "operativePrerequisites": {
+     "HS01Subject": null,
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/workload.template.json
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-004/workload.template.json
+@@ -2378,7 +2378,7 @@
+         "Invoke exact installed STDO3.0.4 stdo-work/stdo-ticket. Require Root-bound actual accepted H03 returned source/disposition/genuine close, conserving selected HS01/HS02 proof/measurements. Apply TASK, selected defaults and17-path grant; no outside writes or new Product files.",
+         "Write owning HOW before code. One window closes at structured turn boundary or maximum30000ms actor-clock interval; unchanged progress classification, last qualifying activity distinct from byte/flush time. Actual worker_transport archive fsync precedes one window observation reference.",
+         "Use one central scope-owned flush from common liveness ingress and before threshold projection including not-reached; preserve all four producer routes, two-scope separation, recursion/enclosing transaction ownership, final-window drain and failure/recovery. Preserve old per-chunk rows/contracts; regenerate affected canonical identities and C2 pins.",
+-        "Use only four create-only stages and seven serial300-second lanes including failed/incomplete attempts, no retries or manual extra tests. One baseline counterexample then final actual-stream differential and five focused affected lanes on identical source. Metadata is a pinned external oracle only, not history; missing turn/noise capture times remain missing.",
++        "Use only four create-only stages and seven serial300-second lanes including failed/incomplete attempts, no retries or manual extra tests. One baseline counterexample then final actual-stream differential and five focused affected lanes on identical source. Metadata is a pinned external oracle only, not history; missing turn/noise capture times remain missing. Canonical compile/generation/lifecycle ceilings are240/600/60seconds. Root repriced generation only after unchanged-owner completion in197.973s; no cause resolution, speedup or further timeout increase is implied.",
+         "Publish source-freeze receipt through progress.json before feedback for concurrent max review. Record phase/count/decision/byte evidence and limits, return three handoffs, freeze and stop. No raw provider narrative/auth, performance/release claim or runtime qualification inferred.",
+         "Apply the exact non-admitting successor obligation delivered in TASK and MEASUREMENT_PLAN: durable flush before durableOnly projection; return and adopt the actual advanced successor even when runtime_threshold_not_reached admits no threshold event. Prove this in the existing selected lanes."
+       ],

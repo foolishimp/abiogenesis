@@ -1,0 +1,44 @@
+{
+  "kind": "bounded_author_feedback_plan",
+  "nearestBefore": "Correct lawful unstamped L fixture with original cold reader in a separate fresh stage; run the actual M2 legacy discriminator and retain meaningful failure. No provider/owner fixture or setup failure substitution.",
+  "finalBuildRoutes": [
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "timeoutMs": 240000
+    },
+    {
+      "command": [
+        "node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "timeoutMs": 180000
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-lifecycle-boundary.mjs"
+      ],
+      "timeoutMs": 60000
+    }
+  ],
+  "finalLane": {
+    "id": "qualification",
+    "files": [
+      "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "test_env/tests/t287-qualification-producer-context.test.mjs",
+      "test_env/tests/t287-qualification-contraction.test.mjs",
+      "test_env/tests/t287-qualification-scopes.test.mjs"
+    ],
+    "timeoutMs": 300000,
+    "minimumTests": 37
+  },
+  "sumFinalCommandCapsMs": 780000,
+  "selectedInactivityMs": 1800000,
+  "meaning": "Finite reused author checks, not a C2 owner budget projection or actual execution. Only qualification lane is supplied; no full113/recovery rerun. Actual before/after results and final source remain future."
+}

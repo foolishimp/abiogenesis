@@ -1,0 +1,8 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "9669eec8d9b35c27ed3882924aa371afba49d3b1456aed3109cc1bc1584e5f06",
+  "sourceCommit": "45554d0be9b2b01d3b90867137c55bacb5a5f9da",
+  "sourceTree": "0461e4d60afdc31c2a6a02c08021e9f7a2bd5210",
+  "decision": "TEMPLATE ONLY: Root must select installed zero-provider preparation for020 setup owner reuse. Actual frozen-call review precedes one-shot dispatch. No local cut/provider/Runtime selection is implied."
+}

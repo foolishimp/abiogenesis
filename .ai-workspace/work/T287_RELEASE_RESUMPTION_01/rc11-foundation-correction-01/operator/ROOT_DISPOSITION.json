@@ -1,0 +1,84 @@
+{
+  "id": "FOUNDATION-CHECKPOINT-01",
+  "status": "ROOT_ACCEPTED_PRINCIPLE_CORRECTION_AND_ORDERED_PLAN_IMPLEMENTATION_UNSTARTED",
+  "recordedUtc": "2026-11-09T17:33:06.463450+00:00",
+  "decisionOwner": "Root Executive",
+  "decision": "Bounded Product realization-profile correction, coherent Design/bootstrap/requirement clarification and requested phased Functional plan accepted. FND-CLARITY-001 closed by exact recheck. Five authority documents and eight generated outputs satisfy the bounded basis review. No production behavior changed.",
+  "basisReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/review-basis/REVIEW.json",
+    "bytes": 6394,
+    "sha256": "4977c129f29fd397aae6d701fe346c218805d5dda605ad23ec68a21b9864081c"
+  },
+  "targetedRecheck": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/review-basis/REVIEW_RECHECK.json",
+    "bytes": 2500,
+    "sha256": "95ac44ba9c4ae862713cc62f407cec11fcf2ffb9d7186b04233101382d77d796"
+  },
+  "authorityPredecessorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/AUTHORITY_COMPONENT_FREEZE.json",
+    "bytes": 1306,
+    "sha256": "dc186d357dcdf29d378ccee136d74caaa6b836474247c9d48ebbc0cf50a05d92"
+  },
+  "clarityFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/CLARITY_FREEZE.json",
+    "bytes": 2978,
+    "sha256": "1cb40eb030d499424183ceeaad41ea896ff9b4cb65ec35c9f50489f63c6f9093"
+  },
+  "acceptedPlan": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "bytes": 11973,
+    "sha256": "3da4e193dc63c958602a5a900677bd5f7602953ce3666da9a9d8fa062f88e969"
+  },
+  "acceptedPlanLinkReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/PLAN_LINK_RETURN.json",
+    "bytes": 1493,
+    "sha256": "478bffecc3d842131e72ed61fbe28d97efa754700157e0ecce0524c2c94a2a89"
+  },
+  "mechanicalEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/RETURN.json",
+    "bytes": 6994,
+    "sha256": "15743f162d7c94a72ef7609169d3f8e782b7d9dbbc435bd2687afd8cb6e357f8"
+  },
+  "checks": "Compiler and generation passed; qualification-law 11 cases/7 pass/4 fixture-dependent skips/0 fail; no repeat tests.",
+  "checkpointGrant": {
+    "sourceRoot": "/private/tmp/abg-rc11-foundation-20261110-01",
+    "branch": "codex/rc11-foundation-correction",
+    "baseCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+    "selectedPaths": [
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+      "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "specification/GOALS.md",
+      "specification/PRODUCT.md",
+      "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md"
+    ],
+    "message": "docs(t287): correct Effect foundation principle and record refactor plan",
+    "effects": "Prepend current tracking to main and successor preserving bodies; stage and commit exactly sixteen paths only in successor. No main index/HEAD mutation, merge/push/tag/install/runtime or operational pin change."
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-foundation-correction-01/operator/checkpoint-foundation.py",
+    "bytes": 9711,
+    "sha256": "e5dee796ca6593295617af8d24d083084f4361142ee395143e39c761173644fe"
+  },
+  "mainIndexBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "successorIndexBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+    "bytes": 29654624,
+    "sha256": "d54e6de36c16a0f4dec19ea1bcd3650c79a85abca98d9f10ec88bf20aa0c1880"
+  },
+  "standing": "Implementation unstarted; future phases are an ordered plan, not execution authority. Both bug debts, original reds/native failures, qualification/full5.0/S7/other backlog remain open. Local delivered RC11 and pinned RC10 unchanged."
+}

@@ -1,0 +1,30 @@
+{
+  "status": "PASSED",
+  "sourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+  "file": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+  "wholeFile": true,
+  "counts": {
+    "tests": 11,
+    "failed": 0,
+    "passed": 11,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 11,
+    "suites": 0
+  },
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/coordinates-001/events.jsonl",
+    "bytes": 3707,
+    "sha256": "beaa256ac6f5529e7d5df53db3aca651e9168aae43d04c8323caca8e6a9e95ef"
+  },
+  "wallMs": 26500.139833999998,
+  "totalMs": 56772.221625,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "primaryPreserved": true,
+  "buildInvocations": 0,
+  "providerCalls": 0
+}

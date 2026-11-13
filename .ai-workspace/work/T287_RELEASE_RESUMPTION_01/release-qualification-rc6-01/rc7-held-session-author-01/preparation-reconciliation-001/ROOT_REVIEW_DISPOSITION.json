@@ -1,0 +1,127 @@
+{
+  "kind": "root_native_author_review_disposition",
+  "status": "PARTIAL_SOURCE_PRESERVED_HS01_INTEGRATION_OPEN",
+  "createdUtc": "2026-11-06T14:06:48.863588+00:00",
+  "authority": "Root explicit disposition recorded by separately bound operator Writer; no independent source acceptance by this Writer",
+  "productFrame": "Fixed fifteen-family ABIogenesis5.0 / GOAL-035 / T287 / STDO3.0.4 composition[]; immutable RC6 builder, prospective RC7; ABG sole runtime/admission, GTL sole Program language, thin SDK/CLI.",
+  "actualSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/SOURCE_AFTER.json",
+    "bytes": 510126,
+    "sha256": "692a29f93a48d755f973cee94d73f3952c7920e1d54f710e4e6c30f6a812efdc"
+  },
+  "actualSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 30936,
+    "sha256": "7472605835633a071ab803a9e697581ed998c829a3ed83dd252cf26709b650b6"
+  },
+  "actualSourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-return-controls/actual-001/CUSTODY.json",
+    "bytes": 16048,
+    "sha256": "28cfc93e7e4f6772530a34a77e374a9f0838973a9b8d02c7705095e457f8cadb"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 8825,
+    "sha256": "87de60b343daddd37b9b2aa085c9fe8d2ba0eb56a1c0925d64eae57eeb9eca70"
+  },
+  "actualExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/execution/execution.json",
+    "bytes": 53092920,
+    "sha256": "604c96527eef64819af0e0c35054668204735e2cc560a980d4d31e6db340a5de"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/execution/after-run-resume.json",
+    "bytes": 72498720,
+    "sha256": "210d24c9c839d8cae6c2dddd78c1ff5cd37abc0e4e7e8c58633f6b344722da5a"
+  },
+  "proofInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-return-controls/actual-001/PROOF_INVENTORY.json",
+    "bytes": 7205,
+    "sha256": "660823bff1c392f9a872e5de67d1964802f745ef88e756c8d1eeb9721688b791"
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/reviews/held-stage03-001/REVIEW.json",
+    "bytes": 38486,
+    "sha256": "7eadf0c978a64c5491ba556f79cf7f3846ea476d199a9828fa93b6105f086cae"
+  },
+  "reviewReadme": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/reviews/held-stage03-001/README.md",
+    "bytes": 8639,
+    "sha256": "4f41c646b83071570d7e1c209a418387c1095a0aeceb578a68029563fb6d412b"
+  },
+  "stage03": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-001/SUBJECT.json",
+    "bytes": 274008,
+    "sha256": "04bf02b9607e53ac1bcc065eaf4cd9dff77d321fb41abd5e189f98475c10ccc6"
+  },
+  "stage04": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-002/SUBJECT.json",
+    "bytes": 296146,
+    "sha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741"
+  },
+  "conjunction": {
+    "sourceRows": 450,
+    "controls": 19,
+    "handoffs": 3,
+    "dispatchPins": 68,
+    "stage04NativeAfterLiveEqual": true,
+    "trackedChangedPaths": 63,
+    "existingNewProductPaths": 2,
+    "genuineSdkReceiptSuccessorCloseResumeEqual": true,
+    "physicalPrefixSizeHashInodeDeviceVerified": true,
+    "independentReviewStanding": "Closed stage03 review with bounded stage04 test delta; stage04 statically fixes stale-test construction only.",
+    "authorReady": false
+  },
+  "preserve": [
+    "Eleven-path authored delta as partial source.",
+    "Borrowed-read/current-selection/completion work and R5; actual counter-assertion limits retained.",
+    "All historical source, build/lane, author, review, runtime and control-deviation records."
+  ],
+  "blocking": [
+    {
+      "id": "HS01-RUNNER-001",
+      "meaning": "Maintained runner lacks the required abg binding on the completed-Run readback path.",
+      "standing": "Definite selected local native repair plus actual maintained-runner proof."
+    },
+    {
+      "id": "HS01-ASSESSMENT-001",
+      "meaning": "Direct UAT assessment identity and Program-declared response/closure relation remain open.",
+      "standing": "Bounded architectural evaluation pending; no invented repair scope."
+    },
+    {
+      "id": "HS01-MEASURED-001",
+      "meaning": "Stage03 measured test red; stage04 correction remains unexecuted. Final HS02 complete same-boundary cold/value/producer/projection-basis, refusal, cleanup and recovery evidence remains open.",
+      "standing": "No source or qualification acceptance from earlier assertions."
+    }
+  ],
+  "retainedFailures": [
+    "Stage01 genuine GENERATION_TIMEOUT; cause unresolved, host contention plausible, no specific process causal claim.",
+    "Baseline HS02 missing staged import prevented its discriminator; no genuine HS02 before red.",
+    "Actual baseline fixed-admission refusal preserved.",
+    "Stage03 measured test-construction red preserved.",
+    "Scratch-root stdout/stderr redirection is a bounded control-scope deviation; no full no-outside-effects claim."
+  ],
+  "scopeLimits": [
+    "No wholesale S2 deletion or broad constructor redesign.",
+    "No HS01/02 completion, whole release qualification, performance or speedup claim.",
+    "No merge/push/tag/install/selector/publication effects."
+  ],
+  "postAuthorProofSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/POST_AUTHOR_PROOF_SELECTION.json",
+    "bytes": 2336,
+    "sha256": "ed509250221433c72cd79813f93a030d0c70449856f5314eeb2b5c62cd40ec49"
+  },
+  "nextNativePreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02",
+    "status": "PREPARATION_ONLY_NOT_DISPATCHED",
+    "sourceAndCloseBound": true,
+    "assessmentSubscopePending": true,
+    "sourceWritesAuthorizedToThisWriter": false
+  },
+  "partialSourcePreserved": true,
+  "accepted": false,
+  "qualified": false,
+  "published": false,
+  "hs03Activation": null,
+  "releaseCut": null
+}

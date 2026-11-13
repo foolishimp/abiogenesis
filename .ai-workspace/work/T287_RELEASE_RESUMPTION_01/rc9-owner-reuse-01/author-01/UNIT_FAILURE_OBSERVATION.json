@@ -1,0 +1,56 @@
+{
+  "status": "UNIT_FAILED_RETURN_ROOT_NO_RETRY",
+  "recordedAt": "2026-11-08T06:47:40.468516+00:00",
+  "stageResult": {
+    "path": "/private/tmp/abg-r9-owner-native-001/stage-01/RESULT.json",
+    "bytes": 916,
+    "sha256": "9a28f23a723030ae2f4ffbb21bf3e97b15b858495ce652e8433bd7844490fcc3"
+  },
+  "freeze": {
+    "path": "/private/tmp/abg-r9-owner-native-001/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "528a04c0c171c56affaa1a2f9ba2b66413b7d6007d92bbbe092143a726938c49"
+  },
+  "unitResult": {
+    "path": "/private/tmp/abg-r9-owner-native-001/unit-01/RESULT.json",
+    "bytes": 237,
+    "sha256": "0fa1c03454f55b24bbc66902fdde34aa188ee09299e7c5e4cb4790df69806c3f"
+  },
+  "unitCommand": {
+    "path": "/private/tmp/abg-r9-owner-native-001/unit-01/commands/unit.result.json",
+    "bytes": 1133,
+    "sha256": "1a58d5f32442f492ea425120a4b7a23fa282173de8aff3b5dc97dd118a25aa17"
+  },
+  "stdout": {
+    "path": "/private/tmp/abg-r9-owner-native-001/unit-01/commands/unit.stdout",
+    "bytes": 23792,
+    "sha256": "e2abf9ad00bd1137fddded4a942d7258ed77641ef69f3a7d0a41ad201e9d6536"
+  },
+  "stderr": {
+    "path": "/private/tmp/abg-r9-owner-native-001/unit-01/commands/unit.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "halt": {
+    "path": "/private/tmp/abg-r9-owner-native-001/HALT.json",
+    "bytes": 164,
+    "sha256": "fe85eb6e257ac60d3d5ad6667412f928a81b19db08c98f253c16424a24e6de0b"
+  },
+  "counts": {
+    "tests": 95,
+    "pass": 88,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0
+  },
+  "failingCase": "RC9 OWN-01: owner folds over immutable rows and bytes are reused within their territory; changed, copied, earlier and cold inputs keep their checks and refusals",
+  "failureLocation": "test_env/tests/t287-held-owner-fold-reuse.test.mjs:86",
+  "actualKind": "installed_definition_call_transport_refusal",
+  "expectedKind": "installed_definition_call_transport_result",
+  "code": "acquisition_mismatch",
+  "message": "TypeError: ABG held store differs from the selected durable prefix",
+  "separateControlObservation": "focused-proof.mjs parses only TAP # counters; actual npm output uses Node spec \u2139 counters. This run exited1 independently of that parser mismatch. Root/proof-owner re-entry is required before a successor invocation.",
+  "nativeCallClosed": false,
+  "sourceAccepted": false
+}

@@ -1,0 +1,113 @@
+{
+  "kind": "operator_control_writer_continuation_return",
+  "status": "PREPARED_NOT_DISPATCHED",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREPARATION_MANIFEST.json",
+    "bytes": 32469,
+    "sha256": "2725edb78da13f7f5e0425407bf510e0b40509072047a03ee313c9a0ed6cfe69"
+  },
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/SOURCE_BEFORE.json",
+    "bytes": 396203,
+    "sha256": "1237b28d89dbd4e2da393d26f0e098d0e781d155431a9659a1e575f618dc493a"
+  },
+  "affectedProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/AFFECTED_PROOF_BINDING.json",
+    "bytes": 5352,
+    "sha256": "da32999cc9b59d793e7b330ce4c40d3718eb805a31aa06d013b40fe9e55c9e87"
+  },
+  "runtimeBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/RUNTIME_BINDINGS.json",
+    "bytes": 5136,
+    "sha256": "bd46af98db59783867ef92ad95f8310c47e6309dc860abfbfd69970d5d15f699"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/NATIVE_GRANT.json",
+    "bytes": 246566,
+    "sha256": "5f8dd03d22add7b9afef0a48c059dd6934fad937c0a3c728285e117e6b718c68"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/workload.json",
+    "bytes": 97201,
+    "sha256": "a3b5d71c1ce920d6c6c3be7158344b600bb36398155b43ade7bee0b657060416"
+  },
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PROVIDER_PROFILE.json",
+    "bytes": 2774,
+    "sha256": "aa0ca65f2eb00e42fc8c49d2bf85f05030e156e93b97c110e14966ab1a6a9ded"
+  },
+  "staging": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/STAGING_MANIFEST.json",
+    "bytes": 10638,
+    "sha256": "2fcd4770d56e50d139859c3b64d6380742aefd84ca00583b5e82a02dcec0ceaf"
+  },
+  "staticChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/STATIC_CHECKS.json",
+    "bytes": 2888,
+    "sha256": "ccca7d1d1a1670733226ec80440afd0c3035495baf9badfc5458c5f12750eb0d"
+  },
+  "preparationTiming": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/PREPARATION_TIMING.json",
+    "bytes": 385,
+    "sha256": "31bb6a0391036e41c49104278fcb499fa21c7edaacd5523d5ecef5e3b774ce2f"
+  },
+  "counts": {
+    "sourceRows": 449,
+    "A_admitted_after_source": 397,
+    "readonlyResourceRows": 51,
+    "freshHarness": 1,
+    "oldAAfterInventoryIncludingControls": 417,
+    "ProductWritePaths": 86,
+    "contextPaths": 472,
+    "controlFiles": 20,
+    "physicalBodyBytes": 12524792,
+    "orderEstimateBytes": 51547
+  },
+  "actualResumeReusedByReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/after-run-resume.json",
+    "bytes": 72497347,
+    "sha256": "8cd7aa806aa2cbe96ce095201a25e22f764e93b24f24d75b49666ae0397d082a"
+  },
+  "actualPrefixBytes": 1178736411,
+  "boundedExecution": {
+    "oneWorker": true,
+    "model": "Claude Opus5.5",
+    "effort": "xhigh",
+    "turns": 320,
+    "absoluteMs": 5400000,
+    "inactivityMs": 1800000,
+    "hostMs": 10800000,
+    "heapMiB": 8192,
+    "stages": 4,
+    "laneInvocations": 12,
+    "automaticRetry": false
+  },
+  "remainingRootSteps": [
+    "Admit exact current packet and write the existing ROOT_CONTROL_ADMISSION/RUNTIME_BINDINGS admission fields; preserve preimages of subsequent binding updates.",
+    "Stage the20 exact input files and declared scratch/short temps only after admission; npm user/global inputs are distinct empty files.",
+    "Run existing owner preparation/capacity and one admitted native dispatch; no broad feedback front-load.",
+    "After actual return, retain receipt/resume, exit host, then Root owns source freeze, full-terminal cold reads, review and actual affected installed/D5 proof."
+  ],
+  "materialPreparationRelationUnresolved": null,
+  "nonClosure": [
+    "R1-task/R2 and three review corrections are native work still to execute.",
+    "Twelve exact historical/F11 cases, including seven F11 carriers, remain unbound/uncovered. New body/input/recorder discriminators cannot use their skip allowances.",
+    "Existing declared-testing cold companion route remains pattern-only and excluded from commands.",
+    "No actual owner preflight, Product build/test, provider dispatch, C staging, source edit, independent acceptance or timing savings claim."
+  ],
+  "rootAffectedProofDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/ROOT_AFFECTED_PROOF_DISPOSITION.json",
+    "bytes": 5538,
+    "sha256": "684c4ea5ea1bd3d161d71a88c84ae373501a0b6f97575a26280378156c6e952c"
+  },
+  "supersedes": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/pre-consumer-split-001/PREPARATION_RETURN.json",
+    "bytes": 5802,
+    "sha256": "8f4a78d16257b148bcb1b814d86a3e659c19bb7a9c892d9484c40577df8b9d25"
+  },
+  "consumerLaneSplit": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-02/CONSUMER_LANE_SPLIT.json",
+    "bytes": 12229,
+    "sha256": "ae40ff141c7a5391f741bc2999f118ae85deeb9149dd8deed0bd32aff2001204"
+  }
+}

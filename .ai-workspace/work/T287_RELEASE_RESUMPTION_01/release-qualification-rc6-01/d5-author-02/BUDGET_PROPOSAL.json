@@ -1,0 +1,49 @@
+{
+  "kind": "d5_completion_existing_budget_formula",
+  "status": "STATIC_RECONCILIATION_ROOT_OWNER_PREFLIGHT_PENDING",
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/source-correspondence",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 5000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/offline-toolchain",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 5000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/contract-seeds",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 5000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/compile",
+      "timeoutMs": 240000,
+      "terminationGraceMs": 5000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/generate",
+      "timeoutMs": 180000,
+      "terminationGraceMs": 5000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/lifecycle-boundary",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 5000
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/d5-author-02/component-proof",
+      "timeoutMs": 900000,
+      "terminationGraceMs": 5000
+    }
+  ],
+  "commandTimeoutSumMs": 1560000,
+  "ownerFormula": "sum(timeoutMs + 2*terminationGraceMs + min(terminationGraceMs,250)) + 5000",
+  "projectedBudgetMs": 1636750,
+  "inactivityLimitMs": 1800000,
+  "laneTimeoutSumMs": 840000,
+  "componentCommandTimeoutMs": 900000,
+  "componentOrchestrationHeadroomMs": 60000,
+  "standing": "Same seven command bounds as admitted author01. Added recovery120s fits inside unchanged component900s; actual fixture duration unmeasured. A real timeout returns exact diagnostics; no retry or weakened population."
+}

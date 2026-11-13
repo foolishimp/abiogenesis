@@ -1,0 +1,73 @@
+{
+  "status": "ROOT_ADMITTED_FILTERED_CONFIGURED_C2_POSITIVE",
+  "at": "2026-11-07T15:10:23.034540+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "fixedScope": "fixed15 / GOAL035 / T287 / REF01; empty composition",
+  "bindingSha256": "699dfbe58ffc35d56bf32c582c6da307871896245fb53e2d2c38fe350e26c31c",
+  "reviewSha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/PREPARATION.json",
+      "bytes": 11139,
+      "sha256": "d019762c99a062a7866072485f516c9b25622df373036a92317e7e2f8fac8528"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/BINDING.json",
+      "bytes": 15328,
+      "sha256": "699dfbe58ffc35d56bf32c582c6da307871896245fb53e2d2c38fe350e26c31c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/run.mjs",
+      "bytes": 10436,
+      "sha256": "470f79316350362919fc3a16d47b80809e5a76a5ded98ee87420746f45051c4d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/PROOF_CONFIG.json",
+      "bytes": 1262,
+      "sha256": "cdd10b76fa9397b455fd4ff0053acd2e87be4f4b9a0482b0c8dde17fef30454d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/c2-configured-positive-001/ROOT_PREPARATION.json",
+      "bytes": 2859,
+      "sha256": "2d1a56d1944a88adfd9ecb2f9ced730f4ad60e49d33d66cdb58eda9a373bd022"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-command-timeout-023/REVIEW.json",
+      "bytes": 20463,
+      "sha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 7205,
+      "sha256": "f6438805d8ac2e24e1c47ae7ccf424cf5788a04270286bcac26a009886cbc1ba"
+    }
+  ],
+  "rootSelection": "Root read the full frozen recipe, configured input, preparation, binding and existing owner route, the closed review0bb7370d and actual f743 manifest bytes; admits exactly one configured compact-acknowledgment positive case.",
+  "actualEffectGrant": "P5_INSTALLED_EXECUTION_GRANTED_BY_EXECUTIVE solely for the unchanged selected positive case: existing verify/lock/install/controlled actor/replay/close owners in new /private/tmp/abg-r8-c2p-001 and this campaign actual-001. No live provider or repack.",
+  "population": {
+    "expectedPasses": 1,
+    "expectedReportedSkips": 0,
+    "excludedCases": 11,
+    "wholeFile": false,
+    "sixComponentsRepeated": false,
+    "namePattern": "^T-287 C2 compact acknowledgment preserves installed large-log observation and replay$",
+    "providerCalls": 0
+  },
+  "bounds": {
+    "commandMs": 900000,
+    "resourceCeilingMs": 1800000,
+    "existingInnerCaseMs": 600000,
+    "existingActorInactivityMs": 60000,
+    "existingActorAbsoluteMs": 90000,
+    "existingReplayMs": 30000,
+    "existingReplayGraceMs": 1000
+  },
+  "environment": "NODE_OPTIONS empty; explicit 8192MiB test argv; existing selectors and owner caps unchanged.",
+  "standing": "One heavy proof only; broad024 preparation may proceed independently, not execute. Stop at actual red/incomplete/resource/input failure; no automatic retry, source/Git/cut/global mutation or general cleanup. Earlier023 remains preserved; five negative variants and nine durable residuals are not proved by this case.",
+  "preservedPriorStop": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_023.json",
+    "bytes": 13134,
+    "sha256": "9191ae6376601e9e91562936363e070d0a2bf0c00c57e60565c177a9b01dd207"
+  }
+}

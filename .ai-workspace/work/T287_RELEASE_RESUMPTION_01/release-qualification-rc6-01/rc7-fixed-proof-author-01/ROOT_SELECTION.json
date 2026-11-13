@@ -1,0 +1,48 @@
+{
+  "kind": "root_fixed_proof_route_existing_owner_disposition",
+  "at": "2026-11-06T03:37:15.713056+00:00",
+  "id": "RC7-LAUNCH-02",
+  "status": "SELECTED_RC7_RELEASE_INCREMENT_AFTER_CURRENT_CARRIER_CONSOLIDATION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "ownerScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_RC7_OVERHEAD_SELECTION.json",
+    "bytes": 4848,
+    "sha256": "9a2289d723d4ea138b520bc68249270fffd93ece12dc2f11eae2656c90bcf765"
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/latency/FIXED_PROOF_ROUTE.json",
+    "bytes": 19922,
+    "sha256": "cc73e3b71b338817d0f6d5bebc825d4e8d670923000022df13300a4ff63b98da"
+  },
+  "measuredTrigger": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/TIMING_FAILURE_BREAKDOWN.json",
+    "bytes": 3442,
+    "sha256": "e8e32b5c001c541762714be37425fe5b84894bd12531da2001adf585e760a80d"
+  },
+  "decision": "Select finite existing Testing/UAT wrapper direct-call HOW/library-contract re-entry for fixed proof input. Existing consumerProgram and native assessor remain; exact actual Testing stateResult supplies UAT producer. No newProgram, selector/controller, inventedF_Psynthesis or bareNativeTasksource extension.",
+  "why": "Two selectors spent651988ms combined deciding alreadyfixed Testing/UAT work. Product makes Executive optional; current nullsynthesis/fold/source restriction is owning library HOW and can be changed under unchangedProductmeaning. Savings remain unmeasured.",
+  "requiredRelations": [
+    "Authenticate exact direct-root Testing or UAT wrapper invocation through existing root/basis/target owners. Nullable selector provenance means no selector occurred; never manufacture one.",
+    "FreshfixedTesting has source:none; directUAT consumes exact admitted Testing stateResult and its one actual C2 child through existing sourceResultBasis/rehydration. No latest/eligible/ambiguoussubject choice.",
+    "Preserve source/actor/WorkspaceBinding/currentness/independence/full-evidence/schema/role checks and red/unmet/indeterminate results. NativeUAT is still actualF_Pjudgment.",
+    "Openwork/subjectchoice remains actualjudgment; directfixedroute refuses unsupportedscope. Wrapperresult does notclaim parentExecutiveconvergence."
+  ],
+  "finiteCone": [
+    "product/default_library.ts",
+    "abg/default_library.ts",
+    "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "test_env/uat/public-setup.mjs",
+    "test_env/tests/t287-default-library.test.mjs"
+  ],
+  "sequence": "Current firstcarrierpacket staysunchanged. After its frozenreturn, rebind this exact ownerrelation to actual changedsource and admit the small nativeincrement without another broad explorationcycle. Reuse exactstillvalid proof; classify interactions with changednative-result consumers. One nativecodingWorker atatime.",
+  "exitProof": "One installedfixed Testing->actualstateResult->nativeUAT withzeroselectors; source/child/replayjoins and specifiednegativecontrols; matchedworkload timing splitRootpreparation, launches,C2,UAT,folds,reads. Formalqualification/fullrelease remainsseparate.",
+  "limitations": [
+    "Readiness is contributingarchitecture, not independentacceptanceofownfutureimplementation.",
+    "No currentRC6source/control changes or directroute claim; preserved RC6 builder remainsimmutable.",
+    "No extension into newproviderqualification, selector-freegeneralgovernance ornewfeaturefamily."
+  ]
+}

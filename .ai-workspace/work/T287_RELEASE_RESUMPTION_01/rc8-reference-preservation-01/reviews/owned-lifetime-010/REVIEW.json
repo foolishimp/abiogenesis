@@ -1,0 +1,358 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0",
+    "families": "F01-F07, F09-F11, F13-F17 (fixed fifteen)",
+    "wave": "GOAL-035 / T-287 / RC8 REF-01",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "outcome": "One bounded test-only correction: restore the existing private transport archive premise and retain physical owner/readiness evidence before assertions. Existing reference-preservation Product outcome and runtime are unchanged.",
+    "authoritySplit": "Product/requirements own WHAT; accepted HOW and existing library owners own realization; ABG alone admits runtime/event/replay truth. Test evidence is observation, not runtime authority. Reviewer evaluates and Root decides acceptance/disposition.",
+    "prohibitions": "No Product/HOW/helper/API/harness change, deadline/grace extension, weaker oracle, rejection masking, added skip, repair or retry after freeze."
+  },
+  "reviewId": "T287-RC8-A10-OWNED-LIFETIME-SOURCE",
+  "at": "2026-11-07T10:55:45.320775+00:00",
+  "actor": "/root/rc8_http_lifetime_review",
+  "consumer": "/root",
+  "activation": {
+    "readOnlySubject": true,
+    "writeGrant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-010",
+    "authorship": "Reviewer authored neither A10 source nor adopted code/design. Prior HTTP review specified required evidence and reported counterexamples; source was independently reacquired.",
+    "hostLimit": "Unrestricted filesystem tooling; acquisition constrained to exact controls, frozen overlay and supporting retained proof. No technical isolation claim.",
+    "sourceOnlyVerdict": "satisfied",
+    "sourceFindings": [],
+    "sourceTriage": "not_applicable",
+    "wholeFileAcceptanceVerdict": "falsified",
+    "wholeFileTriage": "indeterminate for Product defect severity; exact failure branches are retained below.",
+    "disposition": "Not selected by Reviewer. Native close/readbacks, source acceptance and continuation remain Root-owned."
+  },
+  "controlPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SCOPE.json",
+      "bytes": 5681,
+      "sha256": "47cc041d88ab63eabe3ee626d769cdd11e5d4c48ad35405758e74d3b830cff63"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/TASK.json",
+      "bytes": 6443,
+      "sha256": "a841aa2e6759ce1bb51b2661046b82ef698d0e97f2507a7cce76d93966f5d60f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/PREPARATION.json",
+      "bytes": 8154,
+      "sha256": "0723feeced1303f42a0b9b84b195ce8a6955d20f8b118d3bba72ce4749731db0"
+    }
+  ],
+  "adoptedReviewPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-handback-013/REVIEW.json",
+      "bytes": 11213,
+      "sha256": "a19c188666aa1b34043d621f96ab0dfedc2b9ee6dd4fb17818ad62836f760f9f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/owned-lifetime-http-013/REVIEW.json",
+      "bytes": 26086,
+      "sha256": "d104515cea3dca505c1716e0c6bd382753f4856e9e9ea171ddbd146686526b9d"
+    }
+  ],
+  "basisReuse": {
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "verification": "Current definition and frame hashes reacquired. Prior verified immutable STDO3.0.4 member readings and sixteen unchanged material authority/source pins from HTTP013 reused; no material invalidator found.",
+    "law": [
+      "REQ-P-QUAL-004/005 failure-class diagnosis;017 evidence before assertion;010/011 explicit proportional/enclosing bounds",
+      "Common Computational Capability Library HOW4.6 canonical physical facts;10.10 prepared stdout archive",
+      "C2 HOW6 conservative enclosing budget;7 physical port/request observation; retained timeout/capture semantics",
+      "STDO EVALUATION3/4/5 and ASSURANCE12; source conformance remains distinct from proof satisfaction"
+    ]
+  },
+  "subject": {
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/source-freeze.json",
+      "bytes": 295542,
+      "sha256": "e2db4c2e9356da0d97d6277567504650078a8bf1d5b7085dfaee63a4dbae5007"
+    },
+    "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+    "preimageFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-09/proof-evidence/source-freeze.json",
+      "bytes": 295548,
+      "sha256": "e0a0c4ebc6b46c45e6f325760307fd30e949f71eee2fb3719cff103734665f9c"
+    },
+    "preimageSourceDigest": "d521558b06efbec82eae02a5405a3bb3ac494842be24e700a5ec61548a9eec35",
+    "rows": 1339,
+    "sourceDigestRecomputed": true,
+    "addedPaths": [],
+    "removedPaths": [],
+    "changedPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs"
+    ],
+    "overlay": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 45742,
+        "sha256": "59fa9dc768b052149ee036577a23d60a55c1747b75337aebdce61027c20a6918"
+      }
+    ],
+    "preimageTest": {
+      "path": "/private/tmp/abg-r8-a09-x5mx_vsm/p/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 43537,
+      "sha256": "b0427b38d3b8831ceb0d863eeb2b368f06f35933cfa3701fb3fe10a4f3ab9c5f"
+    },
+    "ready": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/READY.json",
+      "bytes": 572457,
+      "sha256": "348ec08d485ccdef5139f1852064c2cc7dc4155f1255290173175cf66ad19f32"
+    },
+    "materializedWork": "/private/tmp/abg-r8-a10-o7l27nv6/p/w",
+    "materializedTestVerified": true,
+    "buildInvocations": 0,
+    "productArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "archiveStanding": "Existing external archive freshly hash-verified unchanged. No emitted archive exists in this test-only worktree; recipe makes its check conditional and runs no build.",
+    "runtimeCorrespondence": "Six actual A10 emitted JavaScript owners match prior frozen runtime pins: worker transport, transport contracts, HTTP/command helper, shared lifetime, canonical process facts, Product command contract. All 1,338 non-delta source rows match exact A9. All sixteen previously read material authority/source pins match A10."
+  },
+  "sourceAssessment": [
+    {
+      "claim": "Restore private runProcess archive precondition without replacing owner behavior.",
+      "result": "satisfied",
+      "evidence": "Overlay lines177-224 creates existing scratch(t), then twelve unique stdout/stderr file pairs with wx before private runProcess; controlled spawn override remains. Added lifetime assertion precedes synthetic child events. No mocked open/finalization and no promise rejection suppression."
+    },
+    {
+      "claim": "Preserve twelve controlled order/scope/observer combinations and exact first-error/final-facts oracles.",
+      "result": "satisfied",
+      "evidence": "2 exit/error orders x3 scope values x2 final-observer outcomes remain unchanged. Same canonical facts identity, first Error identity, observerError identity, raw exit distinction, scopeAbsence, terminationConfirmed, noChildEstablished and zero-active-timer assertions remain. Private runProcess still resolves its ProcessObservation; it was not changed to expect rejection."
+    },
+    {
+      "claim": "Retain selected physical failure diagnostics before existing assertions and preserve oracles.",
+      "result": "satisfied",
+      "evidence": "Test15 captures PID-read error, emits the caught existing owner observation/error plus decoded streams before rethrowing the PID error and before original mode/group assertions. Test16 captures/rethrows owner errors and emits the complete existing observation, stdout/stderr, worker archive contents and bounded existing ready/PID observation before original capture/group assertions. Worker processFacts remain the owner result field; HTTP success observations use their existing process carrier and failures retain existing diagnostic messages, without inventing a new facts carrier.",
+      "coverage": "Instrumentation is inside all five HTTP modes and all three capture legs. Actual proof reached only response mode in test15; other four remain unexecuted in this invocation. All three capture legs were reached in test16."
+    },
+    {
+      "claim": "No scope, guards, timing or skip weakening.",
+      "result": "satisfied",
+      "evidence": "Read-only diff shows exactly one granted test file changed. All eighteen test declarations and all twenty-seven timeout/grace/skip expressions compare unchanged. All previous assertions remain; two capture assertions move after diagnostics, with probe.response renamed to observed.response. No runtime, Product, helper, API or new harness delta."
+    }
+  ],
+  "proof": {
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/lane-01/RESULT.json",
+      "bytes": 873,
+      "sha256": "f8d24a21181d6ae8fbe0c6568503f562982ab250da7c81ca58fc3127daf3d2ef"
+    },
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/lane-01/commands/test.result.json",
+      "bytes": 1451,
+      "sha256": "b804962232970997aca44ebb849def6ca5932c069c5679a0f48626e5672f96e9"
+    },
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/lane-01/commands/test.request.json",
+      "bytes": 992,
+      "sha256": "615c16d4f8ee12412137830d31e8029fdb05b61560eb1a191e5274ba71197b03"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/lane-01/file-host-binding.json",
+      "bytes": 1494,
+      "sha256": "eb9637de879982b5a1a32d4013e5badabb826bacae58d7388f9e0cdc8fc2d821"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/lane-01/commands/test.stdout",
+      "bytes": 13057,
+      "sha256": "69e1e251a60110bb7e5e52de3eb4e88c57f5ec37c84d3ac11806adf921b8f883"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/lane-01/commands/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/lane-01/events.jsonl",
+      "bytes": 7903,
+      "sha256": "ff7ac84ed19f27db9dfa7e6274f34d94c0ce52759cddba91c2de929357be682e"
+    },
+    "halt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/proof-evidence/HALT.json",
+      "bytes": 422,
+      "sha256": "c60959b80a486d96696fe721e717244b551f377c55b9e0271caba028363b3008"
+    },
+    "wholeFile": true,
+    "namePattern": null,
+    "counts": {
+      "tests": 18,
+      "failed": 2,
+      "passed": 16,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 18,
+      "suites": 0
+    },
+    "wallMs": 26683.131666999994,
+    "exitCode": 1,
+    "timedOut": false,
+    "truncated": false,
+    "signals": null,
+    "eventSummaryVerified": true,
+    "eventEndPresent": true,
+    "autoRetry": false,
+    "test6": "Passed in350.750459ms; all twelve fixed loop combinations completed; no asynchronous-activity or unhandledRejection diagnostic in complete retained stdout.",
+    "executionStanding": "One full18-case invocation,16pass/2fail/0skip; required18/18 result is not satisfied. No current whole-file or broad-green claim."
+  },
+  "freshPhysicalObservations": [
+    {
+      "test": 15,
+      "case": "response",
+      "result": "failed",
+      "durationMs": 378.86525,
+      "frontier": "HTTP owner reports port_file_timeout; PID read ENOENT is retained separately.",
+      "ownerObservation": {
+        "request": null,
+        "response": null,
+        "portFileState": "absent",
+        "portFileIssue": "port_file_timeout",
+        "stdoutBytes": 0,
+        "stderrBytes": 0,
+        "processSignal": "SIGTERM",
+        "exitStatus": 128,
+        "timedOut": false,
+        "signalSequence": [
+          "SIGTERM"
+        ],
+        "terminationConfirmed": true
+      },
+      "retainedError": "Missing response.pid; no caught owner error.",
+      "unexecuted": [
+        "invalid",
+        "missing",
+        "request-failure",
+        "owner-error"
+      ]
+    },
+    {
+      "test": 16,
+      "case": "worker",
+      "result": "passed leg",
+      "stdoutBytes": 14,
+      "stdoutMeaning": "leader-output with newline; no late-diagnostic in finalOutput or stdout.",
+      "status": 0,
+      "timeoutClass": null,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "descendantAlive": false,
+      "processFacts": "Full existing canonical encoded facts retained, firstError=null, scopeAbsence=absent, directExit.status=0; archive stdout/stderr retained in diagnostic."
+    },
+    {
+      "test": 16,
+      "case": "command",
+      "result": "passed leg",
+      "stdoutBytes": 14,
+      "timedOut": false,
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "descendantAlive": false,
+      "signalSequence": [
+        "SIGTERM",
+        "SIGKILL"
+      ],
+      "stdoutMeaning": "leader-output with newline; no late-diagnostic."
+    },
+    {
+      "test": 16,
+      "case": "http",
+      "result": "failed leg",
+      "frontier": "HTTP owner reports port_file_timeout and ready read ENOENT; empty output fails preserved leader-output assertion.",
+      "request": null,
+      "response": null,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "processSignal": "SIGTERM",
+      "exitStatus": 128,
+      "timedOut": false,
+      "signalSequence": [
+        "SIGTERM"
+      ],
+      "terminationConfirmed": true
+    }
+  ],
+  "interpretation": {
+    "currentFailureLocalization": "Both remaining A10 failures now expose the HTTP port-wait/deadline frontier and owner-confirmed cleanup. It is no longer necessary to infer that branch solely from ENOENT/empty stdout. Missing readiness is observed; the underlying reason the processes did not publish readiness within the existing envelope remains unresolved.",
+    "timedOutFalseMeaning": "In the unchanged helper, timedOut is launchExpired && portFileIssue===null. Port_file_timeout can therefore coexist with timedOut=false. The request/port gate is300ms in both fixtures, including HTTP capture whose launch limit is1000ms.",
+    "lawBoundary": "C2 HOW conservative launch+request budget is not a guarantee of a fresh post-port interval. No definite Product clock-origin violation follows from the red. Exact source is unchanged; no new host-load, disk or provider attribution is made.",
+    "historicalSeparation": "Broad013 remains15pass/3fail. Its test16 failed on the first worker leg, with command/HTTP unexecuted. A10 worker/command success and HTTP failure do not relabel that original failure. The original controlled EPIPE/unhandled ENOENT is preserved; A10 is a successor proof."
+  },
+  "recommendation": "Source-only conformance and the passing archive-premise matrix/working diagnostic increment may be consumed separately from the failed18/18 claim. Root may accept that bounded source increment with an explicit unqualified REF-01 physical-proof residual if the selected boundary does not require those open obligations. No Product/category violation or unconstructable selected sunny-day path has been established. No automatic A11, retry or deadline change is recommended; further work follows only Root-selected ordinary re-entry. Native close/readbacks and all acceptance remain Root-owned.",
+  "limits": [
+    "Source conformance is not source acceptance or whole-file success.",
+    "Four HTTP modes were not reached after response failure; their diagnostics are assessed statically only.",
+    "Component private-owner proof is not installed Public/ABG admission/replay qualification.",
+    "No guarantee is made about arbitrary diagnostic I/O faults outside the fixed fixture population.",
+    "No tests, Product processes, providers, profiler, network, cleanup or Git operations were performed by this Reviewer. Only the two granted review artifacts were written.",
+    "Native close and fresh terminal readbacks were not independently evaluated under this source-review grant."
+  ],
+  "invalidation": [
+    "Any changed frozen overlay/source/runtime/authority byte or evidence pin",
+    "New material physical observations or changed fixture/time/environment contract",
+    "Changed capability/independence conditions"
+  ],
+  "closedReturn": "Source-only satisfied, no source findings; whole-file18/18 predicate falsified by retained16/2 result. Root receives both without acceptance or continuation authority.",
+  "actualRedTriage": {
+    "claim": "The existing physical HTTP response and HTTP late-output fixtures complete their required observations under their unchanged finite controls on A10.",
+    "result": "falsified",
+    "sourceDeltaFinding": false,
+    "productDefectSeverity": "indeterminate",
+    "causalConfidence": "High for the two actual port_file_timeout branches and preserved failure classification; indeterminate for why readiness was not published within the gate.",
+    "frames": [
+      {
+        "frame": "Product/requirements",
+        "assessment": "No new or shown Product/category/authority violation. REF-01 concerns preservation of established references across existing owners; A10 changes only test setup and observation. These component failures do not establish an unconstructable selected REF-01 sunny-day path. Required Product qualification is not waived."
+      },
+      {
+        "frame": "Design/time",
+        "assessment": "The unchanged owner starts its request/port clock at spawn. Both actual failed legs have request300ms; test15 launch600ms and test16 HTTP launch1000ms are separate limits. No acquired HOW clause promises an independent post-port request interval. The conservative enclosing budget does not imply that promise. Missing readiness under these controls is supported; a Product timing-law breach is not."
+      },
+      {
+        "frame": "Integration/context",
+        "assessment": "Private helper fixtures supply absolute Node and empty environment and bypass full Product task/PATH/admission. Test15 includes Node initialization plus synchronous /bin/ps before PID publication; test16 requires two Node processes and a ready file before leader output. The local expected readiness/observed output relation is false in this invocation. No claim about an ordinary installed declared HTTP task is exercised."
+      },
+      {
+        "frame": "Effect/lifetime/authority",
+        "assessment": "Both failed HTTP owners report SIGTERM and terminationConfirmed=true, with no caught owner error or unknown-scope result. This is attributed owner evidence, not independent physical HTTP PID/group proof: missing PID/readiness prevents the latter assertions. Worker and command legs do obtain descendant PID observations and assert absence. No ABG event or cleanup authority is manufactured."
+      },
+      {
+        "frame": "Identity/history",
+        "assessment": "A10 source and six runtime owners are pinned; runtime and Product archive are unchanged. A10 test16 worker/command passes precede its HTTP failure. Broad013 retains its different first-worker failure and missing diagnostics. New evidence corroborates a bounded timing/readiness hypothesis without rewriting the old run."
+      },
+      {
+        "frame": "Proof",
+        "assessment": "The new diagnostic discriminator is constructive progress: test6 and its12 combinations pass, and both physical failures now retain the branch/outcome before assertion and cleanup. The18/18 predicate remains false, all four later test15 modes remain unexecuted, and neither local pass nor source review supplies installed or whole-Product qualification."
+      }
+    ],
+    "triggerProbability": "Observed twice in this exact A10 whole-file invocation. Both exercised the shared300ms port/request gate. Recurrence probability on another host/run or supported Product declaration is unmeasured.",
+    "realizedHarm": "The requested18-case whole-file pass is unmet; ordinary physical response and HTTP late-output confirmation remain open. No semantic data corruption, rival runtime, unauthorized effect, retained-reference failure or false ABG closure is established.",
+    "failClosedContainment": "Preserved assertions fail, full-file RESULT is FAILED with exit1, no skip or timeout extension is introduced, and HALT forbids automatic retry. Actual HTTP owner cleanup is reported confirmed; independent PID-based confirmation remains missing rather than fabricated.",
+    "sunnyDayAssessment": "No observed failure of the selected lawful REF-01 reference-preservation sunny-day path. HTTP ordinary response behavior is not proved by this run; its absence in a300ms component fixture does not show the supported installed response path is unconstructable. A later ordinary installed-path failure, false cleanup claim or owner-law counterexample would materially change this conclusion.",
+    "smallestLaterReentry": "If Root selects closure of these physical obligations, re-enter at the existing test-owner readiness/time-budget relation. Preserve current raw diagnostics and original failure; bind an explicit finite setup/observation envelope and distinguish startup/readiness from the controlled timer-law tests. A changed test requires a new exact source subject and proportionate affected execution. Do not change Product timeout semantics merely to make this fixture green; an owner/HOW change is justified only by a separately established violated or intentionally changed contract. This is a scope recommendation, not an instruction to change a deadline now.",
+    "requiredLaterEvidence": "Retain exact process/result and readiness observations, all five HTTP modes and all three owner capture legs with their unchanged semantic/cleanup/capture oracles, and sufficient full-file evidence for any whole-file claim. Reuse unaffected controlled-case evidence under exact correspondence. No broad campaign, provider run or library redesign follows automatically.",
+    "cost": "Immediate bounded source acceptance/residual recording requires no further Product execution. A later test-only correction is one existing file with low implementation/regression cost if oracles stay fixed. This one whole-file proof consumed26.683s host wall time; its600s command cap is an upper control, not a cost forecast. Native setup/coordination cost is separate and not assessed here. Product/lifetime/admission redesign carries materially greater regression and delivery cost without a demonstrated need."
+  },
+  "residualProposal": {
+    "id": "RC8-PHYSICAL-LIFETIME-013",
+    "status": "proposal only; Root has not registered or selected it through this review",
+    "owner": "Root Executive disposition; existing ABI test owner for any later closure",
+    "frame": "Product/Design/Integration/lifetime/Proof",
+    "exactEvidence": "A10 source6c8d900c / freezee2db4c2e; whole-file RESULTf8d24a21 and stdout69e1e251, plus historical broad013 stdout56dc83af. Full pins are in this report.",
+    "limitedNoBlockRationale": "Defensible only for explicitly unqualified REF-01 source/cut use: the test delta conforms, test6 and diagnostic retention are demonstrated, runtime/archive are unchanged, and no Product/category violation or unconstructable selected sunny-day path is established. This does not satisfy physical HTTP,18/18, broad-green, whole5.0 or release gates. Root may accept only the bounded increment while retaining those failures explicitly.",
+    "activationTrigger": [
+      "Before any claim of complete physical-owner/HTTP response proof,18/18 or broad qualification that depends on this file",
+      "Before a release boundary whose applicable acceptance requires these obligations",
+      "A retained ordinary installed-path counterexample, unconfirmed/false cleanup, authority breach or failed selected REF-01 sunny-day relation"
+    ],
+    "dependentBoundary": "Whole-file and applicable integrated/release physical-owner claims; no general waiver of mandatory Product gates.",
+    "closureFalsifier": "A required mode/leg remains red or unexecuted, lacks sufficient owner/readiness evidence, weakens its semantic/cleanup/capture oracle, or masks timeout/error truth. A Product/category or selected sunny-day violation invalidates the limited no-block rationale.",
+    "closureEvidence": "Exact successor subject and declared finite controls; all selected physical modes/legs and applicable affected proof satisfy their unchanged oracles with retained owner/readiness outcomes; original013 andA10 reds remain immutable historical evidence."
+  }
+}

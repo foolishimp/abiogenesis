@@ -1,0 +1,45 @@
+{
+  "selectedPaths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+    "specification/GOALS.md"
+  ],
+  "stagedDiffStat": ".../T-287-deliver-abiogenesis-5-feature-waves.md   |   8 +\n .../design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md |   4 +-\n .../test_env/support/t287-publication-observer.mjs | 158 ++++++\n .../test_env/tests/m5-worker-transport.test.mjs    | 563 +++++++++++++++++----\n .../tests/t287-owned-process-lifetime.test.mjs     |  75 ++-\n .../tests/t287-publication-observer.test.mjs       | 146 ++++++\n specification/GOALS.md                             |   8 +\n 7 files changed, 823 insertions(+), 139 deletions(-)",
+  "diffCheck": "passed",
+  "codeAndTestPinsConserved": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 145250,
+      "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 52787,
+      "sha256": "4db80cc8cf535099e138138720dc0ffb196e81ed35a8c9fe3b3037fee9a1ab91"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+      "bytes": 8589,
+      "sha256": "9cbe06469224c20e3f58792a1791b9886b72b3876812787330be098ddd878d9e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+      "bytes": 9781,
+      "sha256": "44733710fd85aa4b6bc3ed2decc875e7334e7778a1358e3564a0ab39da4f0c61"
+    }
+  ],
+  "documentaryDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/TRACKING_AND_DOCUMENTATION.json",
+    "bytes": 4168,
+    "sha256": "29b58ccf514a86b1d2cb32674c6fd715891d450b28914e9b7eccb8af0c3c9de3"
+  },
+  "sparseControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/SPARSE_ADD_CONTROL.json",
+    "bytes": 1001,
+    "sha256": "f13faa9d65fa806c28d81e1c113c22c76e3ce9d4750c805e101ded05ae81f520"
+  }
+}

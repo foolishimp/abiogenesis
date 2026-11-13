@@ -1,0 +1,65 @@
+{
+  "requirementId": "REQ-ORDER-APPROVAL",
+  "requirementPath": "specification/requirements/REQ-ORDER-APPROVAL.md",
+  "roles": {
+    "@amended.requirement": [
+      "specification/requirements/REQ-ORDER-APPROVAL.md"
+    ],
+    "@amended.realization": [
+      "src/approval.mjs",
+      "src/order.mjs"
+    ],
+    "@amended.primary": [
+      "src/approval.mjs"
+    ],
+    "@amended.shared": [
+      "src/order.mjs"
+    ],
+    "@amended.tests": [
+      "test/approval.test.mjs"
+    ],
+    "@other.requirements": [
+      "specification/requirements/REQ-ORDER-DISCOUNT.md"
+    ],
+    "@other.realization": [
+      "src/discount.mjs"
+    ],
+    "@other.tests": [
+      "test/discount.test.mjs"
+    ],
+    "@trace": [
+      "specification/PRODUCT.md"
+    ]
+  },
+  "examplesChanged": true,
+  "writeRoots": [
+    "design/impact-assessment.md",
+    "src/approval.mjs",
+    "src/order.mjs",
+    "test/approval.test.mjs",
+    "work/intake-triage.md"
+  ],
+  "protectedPaths": [
+    "review/acceptance-rubric.md",
+    "review/assessment-result.schema.json",
+    "review/impact-rubric.md",
+    "review/preservation-rubric.md",
+    "specification/INTENT.md",
+    "specification/PRODUCT.md",
+    "specification/requirements/REQ-ORDER-APPROVAL.md",
+    "specification/requirements/REQ-ORDER-DISCOUNT.md",
+    "src/discount.mjs",
+    "test/discount.test.mjs"
+  ],
+  "reviews": [
+    {
+      "name": "impact",
+      "reviewRef": "review://amendment-witness/impact@5"
+    },
+    {
+      "name": "preservation",
+      "reviewRef": "review://amendment-witness/preservation@5"
+    }
+  ],
+  "notApplicable": []
+}

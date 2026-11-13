@@ -1,0 +1,144 @@
+{
+  "status": "CONTROL_REPAIR_PREPARED_DISCRIMINATOR_PASSED_NATIVE_HELD",
+  "at": "2026-11-08T06:56:02.378680+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/REPAIR_002_ADMISSION.json",
+    "bytes": 2138,
+    "sha256": "3df6e9094b02325b9e1e666e81bc136c63fad57c82390f71c22e096ebcd72fea"
+  },
+  "successorScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-002.mjs",
+    "bytes": 13305,
+    "sha256": "93187b4943f22cb4d601341962faa617a3b8a551b7b733187784f594c39c9170"
+  },
+  "successorBindingTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FOCUSED_BINDING.PREPARATION.002.json",
+    "bytes": 5758,
+    "sha256": "9c8322a919101bec5b6fe54e89695b997f44f4618ec1dc0845fc6c8c33bfd99d"
+  },
+  "baselineCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/REPAIR_002_SOURCE_CORRESPONDENCE.json",
+    "bytes": 603,
+    "sha256": "cc1ad690ae5fac55ef0bbbfe82e71e1465fcddc4ed3e857f74d368bd4432ac87"
+  },
+  "preservedAuthor01": {
+    "script": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof.mjs",
+      "bytes": 9699,
+      "sha256": "6071eab6a360e4def955e651df6fe81090ab371f05c6cda733241b8b895171cc"
+    },
+    "template": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FOCUSED_BINDING.PREPARATION.json",
+      "bytes": 4680,
+      "sha256": "884bf0faf069bf7146366ed4917612f27045748b804b2e44f59368e282b34315"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PREPARATION_MANIFEST.json",
+      "bytes": 5835,
+      "sha256": "d179449a1ef0e9b33abd55ceba1021cf98744db223366b9fbf71837b2a2b8d74"
+    }
+  },
+  "change": "Exact npm/source script and finite file population preserved; explicit unit-only NODE_OPTIONS spec+JSONL reporters; mature structured summary/end parser; actual command/counts/skips/parse failures recorded before success assertion; required new/reference cases must have observed non-skipped passes; fresh native-002 allocation only.",
+  "discriminator": {
+    "route": "Exact Node24.7 -> npm CLI run test:unit -> Node test runner, inherited explicit NODE_OPTIONS",
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/RESULT.json",
+      "bytes": 706,
+      "sha256": "f0c9c3d6594d82f0d28fddc6d789c52d1c1960d59b47e9ac024012b800edd84a"
+    },
+    "observations": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/OBSERVATIONS.json",
+      "bytes": 4128,
+      "sha256": "8bd4fabecdb1b832710ebae0b0a09e548a22bb96a1558dfb4c143329385da636"
+    },
+    "commandRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.request.json",
+      "bytes": 709,
+      "sha256": "2ee9a1a60fa13a10dea6e7f3f79a9efafdd644046808ca0298fc74e9f153ec00"
+    },
+    "commandReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.result.json",
+      "bytes": 1173,
+      "sha256": "15be5cb0f26b7b1b06bb3e9ebcfe98d9706649b050bb8d10f16e8cb6a855d8fe"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.stdout",
+      "bytes": 1316,
+      "sha256": "d4d469a777f6f68cb0f7cf9b0a4c022e362710992874a196f2537f068d5bfd7d"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/commands/control-unit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/events.jsonl",
+      "bytes": 2005,
+      "sha256": "3aca8779fa27b1e05bcf3c8eb457de80a6875f926a98b8c52909296c90dd24da"
+    },
+    "configuration": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/CONTROL_REQUEST.json",
+      "bytes": 2531,
+      "sha256": "910199dd6ebbac9992c307dacb3a754475b6ba5b26f23c2f83884a7a03a943ae"
+    },
+    "counts": {
+      "tests": 2,
+      "failed": 1,
+      "passed": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 2,
+      "suites": 0
+    },
+    "actualNpmExitCode": 1,
+    "wallMs": 1008.506,
+    "streamShape": {
+      "beginRows": 1,
+      "endRows": 1,
+      "globalSummaries": 1,
+      "caseRows": 2
+    },
+    "incompleteVariants": [
+      "missing",
+      "missingEnd",
+      "missingSummary",
+      "malformed"
+    ],
+    "classification": "Expected intentional red, successful control discriminator; no Product proof"
+  },
+  "syntaxChecks": [
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-002.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/reporter-discriminator-002/run.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "pendingBindings": [
+    "Root author02 exact allowed write territory and RC9 metadata scope",
+    "actual author02 admission pin",
+    "prospective exact native STARTED path",
+    "native run execution permission"
+  ],
+  "nativeScratch": {
+    "path": "/private/tmp/abg-r9-owner-native-002",
+    "allocated": false
+  },
+  "performed": {
+    "controlTest": true,
+    "candidateBuild": false,
+    "candidateUnit": false,
+    "ProductSourceChange": false,
+    "GitChange": false,
+    "provider": false,
+    "nativeRuntimeAllocation": false
+  },
+  "limits": "Reporter discriminator is one two-case control population, not the future nine-file Product lane. Source-fixture failure and any install finding remain native/Root-owned. No actual native proof admission or execution."
+}

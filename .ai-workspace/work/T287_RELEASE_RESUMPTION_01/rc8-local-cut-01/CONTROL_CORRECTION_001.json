@@ -1,0 +1,83 @@
+{
+  "status": "PREPARATION_CORRECTION_ONLY_UNEXECUTED",
+  "at": "2026-11-07T04:29:23.669306+00:00",
+  "activation": "/root/rc7_reference_ticket_writer",
+  "consumer": "/root",
+  "authority": "Root explicitly selected versioned exact-source staging and clean-archive seed/control verification; no C8 changes or cut execution.",
+  "predecessorManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST.json",
+    "bytes": 3392,
+    "sha256": "bfa920098c0f6245aa2978d19fd2b8e6f21327de3fa80b4af04f6a7eb5884f16"
+  },
+  "predecessorDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.mjs",
+    "bytes": 23510,
+    "sha256": "d4e3a56f22046bcd237f5a66ee694001f6616f0b00e17b44ff6ba9a836d1500d"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-001.mjs",
+    "bytes": 27888,
+    "sha256": "c563c22709857bfa915bf00b3c3bb537ff97358aaccb502664ae3efeb0c32633"
+  },
+  "finding": "Original driver unioned all untracked paths with tracked changes, so retained .abiogenesis/ and qualification-scratch/ progress could enter selection or cause false exact-delta refusal. Preparation defect, not Product failure.",
+  "correction": [
+    "Select only exact bound changed paths; require all tracked delta inside that set, explicit expected new files present with frozen byte custody, and exact staged-path readback.",
+    "Record excluded untracked paths without reading their bodies, deleting or staging them.",
+    "Verify the clean extracted source archive contains the exact frozen generator seed and control inputs before compile. No extra seed copy."
+  ],
+  "generatorInputEvidence": {
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "readOnlyGitLsTreeExitCode": 0,
+    "allRequiredInputsTracked": true,
+    "requiredInputCount": 115,
+    "qualificationSourceCount": 95,
+    "requiredPathsSha256": "7b6d2504a1a78b1bf97bdecda6cbe93fd1aae01fa669edfa166902213fd20948",
+    "generator": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 53308,
+      "sha256": "c49bf97138d573aa96acfdcc9693cff513047fef1783f0706ee8ef29af5b781f"
+    },
+    "qualificationGenerator": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "bytes": 13649,
+      "sha256": "8482aaf2721d21918603e11e16a001d5235abfcbff0a74dbadbcaa87e4621293"
+    },
+    "directSeedAndControlPaths": [
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json",
+      "scripts/generate-product-manifest.mjs",
+      "scripts/generate-qualification-rule-catalog.mjs",
+      "code/src/gtl/default_library.ts",
+      "code/src/gtl/worksite_command_execution.ts",
+      "code/src/product/worksite_command_execution.ts",
+      "code/support/governed-context/host_adapter.py",
+      "contracts/qualification/authority-inputs.json",
+      "contracts/schemas/public-contract-catalog.schema.json",
+      "contracts/schemas/product-toolchain-manifest.schema.json",
+      "contracts/conformance/gtl-language-conformance-corpus.json",
+      "contracts/default-library/stdo/manifest.json",
+      "contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+      "contracts/default-library/stdo/standards/ASSURANCE.md",
+      "contracts/default-library/stdo/plugins/spec/skills/stdo-work/SKILL.md",
+      "contracts/default-library/stdo/plugins/spec/skills/stdo-review/SKILL.md",
+      "contracts/default-library/stdo/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "contracts/default-library/stdo/plugins/spec/references/PRODUCT_BASIS.md"
+    ],
+    "qualificationSourceManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+      "bytes": 27912,
+      "sha256": "dc2a5b62856e7619c5cecbb54525e4812374c0c4e4f7ccf48d36e391a7d8cd1a"
+    },
+    "distinction": "rule-catalog.json is generated from authority-inputs.json and its 95 frozen source members; STDO member bytes, schemas, corpus, package/compiler controls and governed-context adapter already exist in the tracked base."
+  },
+  "sourceStanding": "Current stage03 remains withheld; author03 repair active per operator notice. No final source/archive binding implied.",
+  "effectsPerformed": [
+    "New versioned preparation files only. Read-only Git tree membership query. Node syntax check only."
+  ],
+  "syntax": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/SYNTAX_CHECKS_CORRECTED_001.json",
+    "bytes": 983,
+    "sha256": "9b91546a0c08ffd03760299d36f4a0e53c8d8be1e78acca192ab00e01a43576e"
+  }
+}

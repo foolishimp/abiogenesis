@@ -1,0 +1,10 @@
+{
+  "recordedUtc": "2026-11-04T00:00:57.494596+00:00",
+  "finalTimingRecordSha256": "c9d4efad8f6ae42c89607190ca6ed879cbf5b411c2bd450d4fac2ec4c96b4215",
+  "distinction": "Initial observation counted UTF8 bytes of JSON encoding of tool-result content; final timing record counts decoded UTF8 content for string content and JSON encoding for structured content. These sizes are not a performance reduction. Timing intervals are unaffected.",
+  "finalJsonEncodedContentBytes": 1129476,
+  "initialToolsJsonEncodedContentBytes": 1111352,
+  "initialRecordedTotal": 1111352,
+  "priorPerToolMismatches": 0,
+  "authority": "Metadata diagnostic only; no unique prompt-token or CPU claim"
+}

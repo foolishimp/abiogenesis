@@ -1,0 +1,747 @@
+{
+  "attribution": "Visible assistant text/tool requests from native provider stdout, not a manufactured structured return; thinking blocks excluded. Actual tool requests do not define provider num_turns.",
+  "providerResult": {
+    "line": 5981,
+    "subtype": "error_max_turns",
+    "is_error": true,
+    "num_turns": 97,
+    "duration_ms": 1400322,
+    "total_cost_usd": 9.025734799999999
+  },
+  "visibleAssistantStatements": [
+    {
+      "stdoutLine": 14,
+      "text": "I'll start by reading the mandatory inputs in order."
+    },
+    {
+      "stdoutLine": 80,
+      "text": "Now Product basis selection step 2\u20135: discover candidates and verify the selected definition."
+    },
+    {
+      "stdoutLine": 175,
+      "text": "Basis verified: one definition, `installed: true`, `valid: true`, manifest digest matches. Now the bootstrap entrypoint via the same basis, and the grant/selection inputs."
+    },
+    {
+      "stdoutLine": 308,
+      "text": "Now the work-unit inputs (task, grant, selection, rubric, disposition, prior routes)."
+    },
+    {
+      "stdoutLine": 471,
+      "text": "Checkpoint confirmed (`4fda33bb\u2026` / tree `d136d90f\u2026`), working tree clean for Product files. Reading AGENTS.md, the instruction-assembly requirement and the registered-selection HOW."
+    },
+    {
+      "stdoutLine": 536,
+      "text": "Now the owner code. Let me map `instruction_assembly.ts` structure before reading the target function."
+    },
+    {
+      "stdoutLine": 718,
+      "text": "Now the governance task carrier and its prompt projection in `product/default_library.ts`."
+    },
+    {
+      "stdoutLine": 796,
+      "text": "Now the compact B custody record (pinned before-evidence) to see what \"current B\" facts look like."
+    },
+    {
+      "stdoutLine": 1432,
+      "text": "Now the default-library Program shape (roots, executive step, bound) in `gtl/default_library.ts`."
+    },
+    {
+      "stdoutLine": 1481,
+      "text": "The root executive carries a `recurseApplication` with `bound` over the shared executive-step. Let me see how the witness fixture declares its A/B roots and starts."
+    },
+    {
+      "stdoutLine": 1609,
+      "text": "Let me read only the two pinned pointers from the B owner resolution (40MB, so loading in-process and printing just those)."
+    },
+    {
+      "stdoutLine": 2411,
+      "text": "There's an existing authentic A\u2192B retained-source integration at line 1746. Let me read it and its setup."
+    },
+    {
+      "stdoutLine": 2467,
+      "text": "This test drives authentic A then B via installed Public starts with a scripted actor capturing prompts. Let me see the rest of it, the scripted actor, and the seed witness contract text."
+    },
+    {
+      "stdoutLine": 2838,
+      "text": "Now the existing framed-synthesis assembly component test (lines 289\u2013533) to see how `candidate` bases are built."
+    },
+    {
+      "stdoutLine": 3420,
+      "text": "Not reusable for this. Let me set up the scratch12 build mirror. First check the environment's TMPDIR and the offline dependency root size."
+    },
+    {
+      "stdoutLine": 3477,
+      "text": "TMPDIR/npm cache already point at scratch12/tmp. Creating the scratch mirror script (tenant sources + only the witness subtree; node_modules copied, not symlinked)."
+    },
+    {
+      "stdoutLine": 3600,
+      "text": "Let me check what the owning generator writes, since a source change may require regenerating the canonical manifest."
+    },
+    {
+      "stdoutLine": 3834,
+      "text": "Baseline generator output is byte-identical to canonical. Now the two focused test files I must extend."
+    },
+    {
+      "stdoutLine": 3980,
+      "text": "Let me run the baseline focused tests in the scratch build (pre-change) to record their state and timing."
+    },
+    {
+      "stdoutLine": 4077,
+      "text": "The fulfillment fixture also reads `s6-witness-contract.md` (in my readable scope). Adding that single file to the mirror and rerunning."
+    },
+    {
+      "stdoutLine": 4192,
+      "text": "Baseline focused set: 12 pass, 0 fail, 3 env-gated skips. Now the baseline of the heavy `t287-default-library.test.mjs` (installed owner paths) for timing and status."
+    },
+    {
+      "stdoutLine": 4915,
+      "text": "Let me see what the admitted `c_call_opened` payload records for a leaf, to choose the lightest exact join from a recursion child to its root application."
+    },
+    {
+      "stdoutLine": 5211,
+      "text": "Implementing the current-binding projection in `instruction_assembly.ts` next; checking three owner fields first (declaration graph functions, basis class, selected definition)."
+    },
+    {
+      "stdoutLine": 5517,
+      "text": "Writing the binding projection now; confirming the basis carries the parent definition and the invocation digest relation."
+    },
+    {
+      "stdoutLine": 5793,
+      "text": "Checking that inline-body reads don't depend on `sourceResults`, then writing the edit."
+    }
+  ],
+  "toolRequests": [
+    {
+      "stdoutLine": 37,
+      "tool": "Bash",
+      "path": null,
+      "command": "cat .claude/references/PRODUCT_BASIS.md && echo ===== && cat .claude/skills/stdo-work/SKILL.md && echo ===== && cat stdo_abiogenesis.json"
+    },
+    {
+      "stdoutLine": 61,
+      "tool": "Bash",
+      "path": null,
+      "command": "cat .claude/skills/stdo-work/SKILL.md; echo \"-----\"; cat stdo_abiogenesis.json"
+    },
+    {
+      "stdoutLine": 110,
+      "tool": "Bash",
+      "path": null,
+      "command": "ls stdo_*.json; find . -maxdepth 3 -name 'stdo_*.json' -not -path './node_modules/*' -not -path './rc3-operator-inputs/*' 2>/dev/null | head; which stdo; stdo status --definition stdo_abiogenesis.json --verify 2>&1 | head -50"
+    },
+    {
+      "stdoutLine": 147,
+      "tool": "Bash",
+      "path": null,
+      "command": "stdo status --definition stdo_abiogenesis.json --verify 2>&1 | python3 -c 'import json,sys; d=json.load(sys.stdin); print({k:d[k] for k in (\"basis\",\"definition_id\",\"installed\",\"valid\",\"manifest_sha256\",\"failures\") if k in d}); print([k for k in d])'"
+    },
+    {
+      "stdoutLine": 218,
+      "tool": "Bash",
+      "path": null,
+      "command": "stdo resolve 'stdo://releases/v3.0.2/standards/frames/bootstrap.md' 2>&1 | head -20; P=\"/Users/jim/Library/Application Support/STDO/releases/v3.0.2\"; shasum -a 256 \"$P/standards/frames/bootstrap.md\"; stdo status --definition stdo_abiogenesis.json --verify | python3 -c 'import json,sys; d=json.load(sys.stdin); [print(m) for m in d[\"standards\"][\"members\"] if m[\"path\"] in (\"frames/bootstrap.md\",\"ACTIVATION.md\",\"EXECUTIVE_BASELINE.md\")]'; wc -c \"$P/standards/frames/bootstrap.md\""
+    },
+    {
+      "stdoutLine": 287,
+      "tool": "Bash",
+      "path": null,
+      "command": "P=\"/Users/jim/Library/Application Support/STDO/releases/v3.0.2\"; grep -n '^#' \"$P/standards/frames/bootstrap.md\" | head -60; head -c 3000 \"$P/standards/frames/bootstrap.md\""
+    },
+    {
+      "stdoutLine": 331,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-operator-inputs/native-recovery-12 && ls -la; cat CURRENT_SELECTION.DRAFT.md; echo ------; cat NATIVE_GRANT.DRAFT.json"
+    },
+    {
+      "stdoutLine": 367,
+      "tool": "Bash",
+      "path": null,
+      "command": "cat task.DRAFT.md; echo -----; cat rubric.DRAFT.json; echo -----; cat PARTIAL_DISPOSITION.DRAFT.md; echo ------; cat REVIEWED_ROUTES_AND_PRIOR_RESULTS.md; echo -----; cat readiness.py"
+    },
+    {
+      "stdoutLine": 442,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && wc -c AGENTS.md specification/PRODUCT.md specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md specification/requirements/product/REQ-P-POLICY.md build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs; git status --short | head; git log -1 --format='%H %T'"
+    },
+    {
+      "stdoutLine": 482,
+      "tool": "Read",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/AGENTS.md",
+      "command": null
+    },
+    {
+      "stdoutLine": 497,
+      "tool": "Read",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "command": null
+    },
+    {
+      "stdoutLine": 514,
+      "tool": "Read",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "command": null
+    },
+    {
+      "stdoutLine": 559,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg && grep -n '^export\\|^function\\|^const\\|^async function\\|^type\\|^interface' instruction_assembly.ts | head -200"
+    },
+    {
+      "stdoutLine": 579,
+      "tool": "Read",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "command": null
+    },
+    {
+      "stdoutLine": 652,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && grep -rn 'active_binding_semantics' code/src design/*.md ../../../specification 2>/dev/null | grep -v '^.*\\.test\\.' | head -40"
+    },
+    {
+      "stdoutLine": 693,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 195,235p design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md; echo ----; sed -n 150,175p code/src/gtl/stdo_run_environment.ts; echo ----; grep -n 'active_binding\\|activeBinding\\|binding semantics' code/src/abg/*.ts code/src/product/*.ts code/src/gtl/*.ts | head -30"
+    },
+    {
+      "stdoutLine": 748,
+      "tool": "Bash",
+      "path": null,
+      "command": "wc -l code/src/product/default_library.ts code/src/gtl/default_library.ts code/src/abg/default_library.ts code/src/abg/execution_basis.ts; grep -n '^export\\|^function\\|^const' code/src/product/default_library.ts | head -100"
+    },
+    {
+      "stdoutLine": 770,
+      "tool": "Read",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "command": null
+    },
+    {
+      "stdoutLine": 855,
+      "tool": "Bash",
+      "path": null,
+      "command": "E=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004; shasum -a 256 $E/proof/v2/B_STOPPED_CUSTODY.json $E/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-prompt.txt $E/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-output.txt; python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps(d,indent=1)[:9000])' $E/proof/v2/B_STOPPED_CUSTODY.json"
+    },
+    {
+      "stdoutLine": 971,
+      "tool": "Bash",
+      "path": null,
+      "command": "P=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-prompt.txt; grep -n '^## ' $P; python3 - \"$P\" <<'EOF'\nimport json,sys\nt=open(sys.argv[1],encoding='utf8').read()\nparts={}\ncur=None\nfor line in t.split('\\n'):\n    if line.startswith('## '): cur=line[3:]; parts[cur]=''\n    elif cur: parts[cur]+=line+'\\n'\nfor k,v in parts.items(): print(k,len(v.encode()))\ntask=json.loads(parts['task'])\nprint(list(task.keys()))\nprint('originalTask bytes',len(task['originalTask'].encode()))\nprint(task['originalTask'][:3000])\nEOF"
+    },
+    {
+      "stdoutLine": 1062,
+      "tool": "Bash",
+      "path": null,
+      "command": "P=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-prompt.txt; python3 - \"$P\" <<'EOF'\nimport json,sys\nt=open(sys.argv[1],encoding='utf8').read()\nparts={};cur=None\nfor line in t.split('\\n'):\n    if line.startswith('## '): cur=line[3:]; parts[cur]=''\n    elif cur: parts[cur]+=line+'\\n'\ntask=json.loads(parts['task'])\nimport re\not=task['originalTask']\nfor m in re.finditer(r'root|first|bound|one child',ot,re.I):\n    s=max(0,m.start()-200); print('...',ot[s:m.end()+200].replace('\\n',' '),'\\n')\n    break\ni=ot.find('first root'); print(ot[i-1500:i+800] if i>=0 else 'no first root')\nprint('priorJudgment', json.dumps(task['priorJudgment'])[:1500])\nprint('worksite keys', list(task['worksite'].keys()))\nprint('obs', [ (o['purpose'],o['resultRef'],o['synthesisResultRef']) for o in task['observations']])\nEOF"
+    },
+    {
+      "stdoutLine": 1150,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg && grep -n 'export function authenticateOwnedNativeInstructionAssemblyBasis\\|export function authenticateNativeInstructionAssemblyBasis\\|export function constructNativeInstructionAssemblyBasis\\|export type NativeInstructionAssemblyBasis\\|export interface NativeInstructionAssemblyBasis' execution_basis.ts"
+    },
+    {
+      "stdoutLine": 1172,
+      "tool": "Read",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "command": null
+    },
+    {
+      "stdoutLine": 1219,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'export interface ExecutionBasis\\|export type ExecutionBasis' execution_basis.ts; sed -n \"$(grep -n 'export interface ExecutionBasis\\|export type ExecutionBasis ' execution_basis.ts | head -1 | cut -d: -f1),+45p\" execution_basis.ts"
+    },
+    {
+      "stdoutLine": 1253,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 414,445p execution_basis.ts; grep -n 'export interface InvocationAdmission\\b\\|export type InvocationAdmission\\b\\|export interface InvocationAdmission ' invocation_admission.ts"
+    },
+    {
+      "stdoutLine": 1277,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 100,300p invocation_admission.ts"
+    },
+    {
+      "stdoutLine": 1372,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -rn 'export type ProductInvocationSourceResultBasis\\|export interface ProductInvocationSourceResultBasis' . ; grep -n 'export function governanceContextBodyUse\\|export function projectExactInvocationAdmissionAtPrefix\\|export function projectGovernanceCoveredSourceUse' abg/invocation_execution_truth.ts"
+    },
+    {
+      "stdoutLine": 1404,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 1,80p product/semantics.ts; echo -----; sed -n 270,300p abg/invocation_execution_truth.ts; echo ----; sed -n 415,470p abg/invocation_execution_truth.ts"
+    },
+    {
+      "stdoutLine": 1448,
+      "tool": "Read",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "command": null
+    },
+    {
+      "stdoutLine": 1517,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && wc -c build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json; cat build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs | head -150"
+    },
+    {
+      "stdoutLine": 1553,
+      "tool": "Bash",
+      "path": null,
+      "command": "cat .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json; grep -n 'executive-b\\|executive-a\\|bound\\|start://\\|retained-native-candidate' build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs | head -60"
+    },
+    {
+      "stdoutLine": 1583,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && wc -l test_env/support/default-library.mjs && sed -n 1,80p test_env/support/default-library.mjs"
+    },
+    {
+      "stdoutLine": 1662,
+      "tool": "Bash",
+      "path": null,
+      "command": "F=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/b-start.owner.json; shasum -a 256 $F | cut -c1-64; python3 - $F <<'EOF'\nimport json,sys\nd=json.load(open(sys.argv[1]))\nr=d['resolution']\nprint(json.dumps(r['resolvedProgramStart'],indent=1)[:3000])\napps=r['selectedCatalogEntry']['definition']['template']['applications']\nprint(json.dumps(apps,indent=1)[:3000])\nEOF"
+    },
+    {
+      "stdoutLine": 1744,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -rn '\"public_start_identity\"' --include=*.ts . | head; grep -rn 'resolved_program_start' --include=*.ts . | head"
+    },
+    {
+      "stdoutLine": 1770,
+      "tool": "Grep",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src",
+      "command": null
+    },
+    {
+      "stdoutLine": 1806,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 1,130p gtl/public_start.ts; sed -n 1140,1160p abg/invocation_admission.ts; sed -n 1305,1370p abg/invocation_admission.ts"
+    },
+    {
+      "stdoutLine": 1909,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'export function semanticJobRootAtPrefix' -A 30 abg/semantic_job.ts; grep -n 'declarationGraphFunctions' hog/ccall_lifecycle.ts abg/actor_process.ts implementation/leaf_invocation_port.ts | head -20"
+    },
+    {
+      "stdoutLine": 1949,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 86,100p abg/semantic_job.ts; sed -n 1490,1515p implementation/leaf_invocation_port.ts; sed -n 455,500p hog/ccall_lifecycle.ts"
+    },
+    {
+      "stdoutLine": 2041,
+      "tool": "Bash",
+      "path": null,
+      "command": "wc -l hog/recursion_lifecycle.ts; grep -n 'bound\\|parentExecutionBasisRef\\|iteration\\|applicationRef' hog/recursion_lifecycle.ts | head -60"
+    },
+    {
+      "stdoutLine": 2073,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 640,680p hog/recursion_lifecycle.ts; sed -n 740,815p hog/recursion_lifecycle.ts"
+    },
+    {
+      "stdoutLine": 2155,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n '^export\\|^function\\|^const\\|invocationRootAtPrefix\\|sourceResultBasis\\|publicStart\\|bound' abg/default_library.ts | head -80"
+    },
+    {
+      "stdoutLine": 2178,
+      "tool": "Read",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "command": null
+    },
+    {
+      "stdoutLine": 2280,
+      "tool": "Grep",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript",
+      "command": null
+    },
+    {
+      "stdoutLine": 2316,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 760,800p abg/actor_process.ts; echo ....; sed -n 855,900p abg/actor_process.ts"
+    },
+    {
+      "stdoutLine": 2390,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests && grep -n \"^test(\\|^describe(\\|^  test(\\|^it(\\|^async function\\|^function\\|^const [a-zA-Z]*=async\" t287-default-library.test.mjs | head -120"
+    },
+    {
+      "stdoutLine": 2436,
+      "tool": "Bash",
+      "path": null,
+      "command": "wc -l t287-default-library.test.mjs; awk 'NR>=1746' t287-default-library.test.mjs | cut -c1-600 | head -150"
+    },
+    {
+      "stdoutLine": 2503,
+      "tool": "Bash",
+      "path": null,
+      "command": "awk 'NR>=1896' t287-default-library.test.mjs | cut -c1-700; echo; cat /Users/jim/src/apps/abiogenesis-rc4-native-recovery/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/witness-contract.md"
+    },
+    {
+      "stdoutLine": 2606,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && grep -n 'SCRIPTED_ACTOR\\s*=' -A 60 test_env/tests/t287-default-library.test.mjs | cut -c1-400 | head -90"
+    },
+    {
+      "stdoutLine": 2696,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && python3 -c 'import json;d=json.load(open(\"build_tenants/abiogenesis/typescript/package.json\"));print(json.dumps(d.get(\"scripts\"),indent=1));print(d.get(\"name\"),d.get(\"version\"));print(list(d.get(\"devDependencies\",{}).keys()),list(d.get(\"dependencies\",{}).keys()))'; ls -la rc4-scratch/native-recovery-12 | head; du -sh rc4-scratch/native-recovery-12; ls rc4-scratch/"
+    },
+    {
+      "stdoutLine": 2777,
+      "tool": "Bash",
+      "path": null,
+      "command": "cat rc4-scratch/native-recovery-09/sync.sh 2>/dev/null | head -60; ls rc4-scratch/native-recovery-11 | head -30; ls rc4-scratch/native-recovery-10 | head"
+    },
+    {
+      "stdoutLine": 2813,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && sed -n 1,90p test_env/tests/t287-default-library.test.mjs | cut -c1-500"
+    },
+    {
+      "stdoutLine": 2859,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 289,533p test_env/tests/t287-default-library.test.mjs | cut -c1-900"
+    },
+    {
+      "stdoutLine": 2881,
+      "tool": "Read",
+      "path": "/Users/jim/.claude/projects/-Users-jim-src-apps-abiogenesis-rc4-native-recovery/abb39cff-a488-41a9-b594-2d9a80733043/tool-results/bn5za01pv.txt",
+      "command": null
+    },
+    {
+      "stdoutLine": 2954,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 160,210p test_env/tests/t287-default-library-fulfillment.test.mjs | cut -c1-1200"
+    },
+    {
+      "stdoutLine": 2990,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'async function controlledOwner' -A 30 test_env/tests/t287-default-library-fulfillment.test.mjs | cut -c1-1500"
+    },
+    {
+      "stdoutLine": 3097,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-operator-inputs/native-recovery-12 && python3 -c '\nimport json;d=json.load(open(\"readiness-inputs.json\"))\nprint(list(d.keys()))\nfor k,v in d.items():\n  if k not in (\"sourceFiles\",\"readRoots\"): print(k, json.dumps(v)[:1500])\nprint(len(d[\"readRoots\"]), d[\"readRoots\"][:5])\nprint(len(d[\"sourceFiles\"]))\nimport re\nprint([s[\"path\"] for s in d[\"sourceFiles\"] if \"test\" in s[\"path\"]][:60])\n'"
+    },
+    {
+      "stdoutLine": 3137,
+      "tool": "Bash",
+      "path": null,
+      "command": "python3 -c '\nimport json;d=json.load(open(\"readiness-inputs.json\"))\nfor s in d[\"sourceFiles\"]: print(s[\"path\"], s[\"bytes\"])\nprint([r for r in d[\"readRoots\"] if \"scratch\" in r or \"contracts\" == r.split(\"/\")[-1]])\n'"
+    },
+    {
+      "stdoutLine": 3299,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch && cat native-recovery-10/build.sh | head -40; ls native-recovery-11/tmp | head; python3 -c 'import json;d=json.load(open(\"native-recovery-11/acquisition-receipt.json\"));print(json.dumps(d)[:2500])'"
+    },
+    {
+      "stdoutLine": 3388,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -n 'export function projectRunEnvironmentRoleEvidenceAtPrefix' -A 40 abg/stdo_environment.ts | head -60"
+    },
+    {
+      "stdoutLine": 3449,
+      "tool": "Bash",
+      "path": null,
+      "command": "echo \"TMPDIR=$TMPDIR NPM_CONFIG_CACHE=$NPM_CONFIG_CACHE\"; node --version; N=\"/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules\"; du -sh \"$N\"; find \"$N\" | wc -l; find \"$N\" -type l | head -5; ls \"$N\" | head -30"
+    },
+    {
+      "stdoutLine": 3542,
+      "tool": "Write",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-12/sync.sh",
+      "command": null
+    },
+    {
+      "stdoutLine": 3576,
+      "tool": "Write",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-12/build.sh",
+      "command": null
+    },
+    {
+      "stdoutLine": 3633,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && wc -l scripts/generate-product-manifest.mjs scripts/clean.mjs && grep -n 'writeFile\\|mkdir\\|rm(\\|rmSync\\|writeFileSync\\|join(root\\|resolve(' scripts/generate-product-manifest.mjs | head -40; cat scripts/clean.mjs | head -30"
+    },
+    {
+      "stdoutLine": 3711,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n '\"code/\\|code/src\\|test_env\\|design/\\|sourceDigest\\|productContent\\|files\\b' scripts/generate-product-manifest.mjs | head -30; python3 -c 'import json;d=json.load(open(\"product-toolchain-manifest.json\"));print(list(d.keys()));print(json.dumps(d)[:1500])'"
+    },
+    {
+      "stdoutLine": 3811,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-12 && chmod +x sync.sh build.sh && ./sync.sh && (time ./build.sh) > build-baseline.log 2>&1; echo exit=$?; tail -5 build-baseline.log; R=/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript; T=repo/build_tenants/abiogenesis/typescript; diff -rq $R/contracts $T/contracts && cmp $R/product-toolchain-manifest.json $T/product-toolchain-manifest.json && echo BASELINE_GENERATED_EQUAL"
+    },
+    {
+      "stdoutLine": 3854,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests && cat t287-native-assembly-retained-input.test.mjs | cut -c1-1200"
+    },
+    {
+      "stdoutLine": 3892,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n \"^test(\\|^function\\|^async function\\|^const [a-zA-Z_]* *= *async\\|^const [a-zA-Z_]* *=\" t288-instruction-assembly-owner.test.mjs | head -60; sed -n 1,40p t288-instruction-assembly-owner.test.mjs | cut -c1-300"
+    },
+    {
+      "stdoutLine": 3918,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 226,350p t288-instruction-assembly-owner.test.mjs | cut -c1-400"
+    },
+    {
+      "stdoutLine": 3955,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 388,420p t288-instruction-assembly-owner.test.mjs | cut -c1-300; wc -l t288-instruction-assembly-owner.test.mjs"
+    },
+    {
+      "stdoutLine": 4027,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-12/repo/build_tenants/abiogenesis/typescript && (time node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-native-assembly-retained-input.test.mjs test_env/tests/t288-instruction-assembly-owner.test.mjs test_env/tests/t287-default-library-fulfillment.test.mjs) > ../../../../baseline-focused.log 2>&1; echo exit=$?; grep -E '^# (tests|pass|fail|skipped|duration)' ../../../../baseline-focused.log; grep -E '^not ok|^ok|^# Subtest' ../../../../baseline-focused.log | head -40"
+    },
+    {
+      "stdoutLine": 4051,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-12 && tail -60 baseline-focused.log | cut -c1-400"
+    },
+    {
+      "stdoutLine": 4110,
+      "tool": "Edit",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-12/sync.sh",
+      "command": null
+    },
+    {
+      "stdoutLine": 4160,
+      "tool": "Bash",
+      "path": null,
+      "command": "./sync.sh && cd repo/build_tenants/abiogenesis/typescript && (time node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-native-assembly-retained-input.test.mjs test_env/tests/t288-instruction-assembly-owner.test.mjs test_env/tests/t287-default-library-fulfillment.test.mjs) > ../../../../baseline-focused.log 2>&1; echo exit=$?; grep -E '^\u2139 (tests|pass|fail|skipped|duration)' ../../../../baseline-focused.log; grep -E '^\u2716|^\u2714|^\ufe63' ../../../../baseline-focused.log | cut -c1-200 | head -40"
+    },
+    {
+      "stdoutLine": 4230,
+      "tool": "Bash",
+      "path": null,
+      "command": "(time node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-default-library.test.mjs) > ../../../../baseline-default-library.log 2>&1; echo exit=$?; grep -E '^\u2139 (tests|pass|fail|skipped|duration)' ../../../../baseline-default-library.log; grep -E '^\u2716|^\u2714|^\ufe63' ../../../../baseline-default-library.log | cut -c1-180"
+    },
+    {
+      "stdoutLine": 4474,
+      "tool": "Bash",
+      "path": null,
+      "command": "node -e '\nconst t=await import(\"./build/code/src/abg/invocation_execution_truth.js\");\ntry{console.log(\"inv\",t.projectExactInvocationAdmissionAtPrefix({},\"x\"));}catch(e){console.log(\"throws\",e.message);}\nconst j=await import(\"./build/code/src/abg/semantic_job.js\");\ntry{console.log(\"root\",j.semanticJobRootAtPrefix({},{invocationRef:\"i\",parentExecutionBasisRef:null}));}catch(e){console.log(\"root throws\",e.message);}\n' --input-type=module; grep -n 'publicAssetTargets\\|export interface ProgramStart\\|export type ProgramStart' code/src/gtl/contracts.ts | head; grep -n 'selectedDefinitionRef' code/src/abg/invocation_admission.ts | head -5; grep -n 'export function hasExactInvocationRunBindingAtPrefix' -A 25 code/src/abg/invocation_execution_truth.ts | head -40"
+    },
+    {
+      "stdoutLine": 4574,
+      "tool": "Grep",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env",
+      "command": null
+    },
+    {
+      "stdoutLine": 4629,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env && grep -n \"framed-synthesis\\|framed_synthesis_task\\|'## task\\|sectionOrder\" tests/t287-event-body-encoding.test.mjs tests/t287-worksite-command-execution.test.mjs tests/t287-gtl-serialization-publication.test.mjs support/t287-predecessor-context.mjs | cut -c1-260 | head -20; grep -rn \"framed\\|executive-step\\|default_library\\|defaultGovernance\" uat/*.mjs | cut -c1-200 | head -20"
+    },
+    {
+      "stdoutLine": 4736,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery && grep -rl \"t287-default-library-fulfillment\" rc4-operator-inputs rc4-scratch --include=*.json --include=*.md --include=*.sh 2>/dev/null | head; grep -rho \"test_env/tests/[a-z0-9-]*\\.test\\.mjs\" rc4-operator-inputs/native-recovery-12 rc4-scratch/native-recovery-11 rc4-scratch/native-recovery-10/*.sh 2>/dev/null | sort | uniq -c | sort -rn | head -30"
+    },
+    {
+      "stdoutLine": 4863,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -n 'compositionRef' abg/c_call.ts | head -20; grep -n 'export function projectOpenedCCallCarrierAtPrefix' -A 12 abg/c_call.ts | head -30; grep -n 'export function recurseApplication' -A 25 gtl/graph_applications.ts | head -40"
+    },
+    {
+      "stdoutLine": 4945,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 2495,2560p abg/c_call.ts; grep -n 'function projectOpenedLeafCCallCarrier' -A 30 abg/c_call.ts | head -50"
+    },
+    {
+      "stdoutLine": 5006,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 1,80p abg/instruction_assembly.ts; grep -n 'function synthesisContext\\|function synthesisBoundBasis\\|export function evaluateFramedSynthesisInstructionAssembly\\|function selectorRunEnvironmentIdentity\\|function declaredRunPromptBound\\|function assemblyRefusal\\|export function framedSynthesisInstructionResultMatches\\|governanceContextBodyUse\\|projectExactInvocationAdmissionAtPrefix\\|semanticJobRootAtPrefix' abg/instruction_assembly.ts"
+    },
+    {
+      "stdoutLine": 5037,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 90,140p abg/instruction_assembly.ts; echo \"-----\"; sed -n 275,470p abg/instruction_assembly.ts"
+    },
+    {
+      "stdoutLine": 5089,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'export function hasExactInvocationRunBindingAtPrefix' -A 25 abg/invocation_execution_truth.ts; grep -n 'export function rehydrateExecutionBasisAtPrefix' -A 12 abg/execution_basis.ts; grep -n 'export function semanticJobRootAtPrefix\\|export const semanticJobRootAtPrefix' -A 5 abg/semantic_job.ts; grep -rn 'export function invocationRootAtPrefix' -A 40 abg/ | head -60"
+    },
+    {
+      "stdoutLine": 5130,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'PublicStartAdmissionIdentity\\b' -A 14 abg/invocation_admission.ts | head -60; grep -n 'export function resolveProgramStart' -B 3 -A 50 gtl/public_start.ts | head -120"
+    },
+    {
+      "stdoutLine": 5155,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 1270,1345p abg/invocation_admission.ts; sed -n 91,140p gtl/public_start.ts"
+    },
+    {
+      "stdoutLine": 5249,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'declarationGraphFunctions' abg/execution_basis.ts | head -12; grep -n 'basisClass' abg/execution_basis.ts | head -8; grep -n 'selectedDefinitionRef' abg/invocation_admission.ts | head -8; grep -n 'applications' gtl/graph_applications.ts | head -10; grep -n 'parentExecutionBasisRef\\|basisClass' hog/recursion_lifecycle.ts | head -12"
+    },
+    {
+      "stdoutLine": 5284,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 150,200p abg/execution_basis.ts; sed -n 750,800p hog/recursion_lifecycle.ts; grep -n 'relationKind' gtl/graph_applications.ts | head; grep -n 'readonly applications' gtl/*.ts | head"
+    },
+    {
+      "stdoutLine": 5327,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -rn 'applications' gtl/*.ts | grep -i 'readonly\\|template\\.' | head -10; sed -n 20,40p gtl/graph_applications.ts; sed -n 150,175p gtl/graph_applications.ts"
+    },
+    {
+      "stdoutLine": 5374,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 160,180p abg/invocation_admission.ts; sed -n 192,240p abg/invocation_admission.ts"
+    },
+    {
+      "stdoutLine": 5429,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript && grep -rln 'conserved problem\\|sectionOrder\\|## task\\|\"choices\", \"task\"' test_env/tests code/src | head -30; grep -rn 'maxPromptBytes' test_env/support/*.mjs | head -10"
+    },
+    {
+      "stdoutLine": 5467,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'conserved problem\\|sectionOrder\\|## task\\|\"choices\", \"task\"' test_env/tests/t287-gtl-serialization-publication.test.mjs test_env/tests/t287-worksite-command-execution.test.mjs | head; grep -n \"## task\\|sectionOrder\\|## role\\|split('## \\|'## \" test_env/tests/t287-default-library.test.mjs | head -30"
+    },
+    {
+      "stdoutLine": 5573,
+      "tool": "Bash",
+      "path": null,
+      "command": "cd /Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src && grep -n 'export function constructNativeInstructionAssemblyBasis' -A 25 abg/execution_basis.ts | grep -n 'declarationGraphFunctions' ; grep -rn 'declarationGraphFunctions:' --include=*.ts . | head -8; grep -n 'invocationDigest:' abg/execution_basis.ts | head -4; grep -n 'assemblyRefusal(\"[a-z_]*\", \"' abg/instruction_assembly.ts | head -5; grep -n 'export type ProgramStartRequest' -A 8 gtl/public_start.ts; grep -n 'readonly programs' product/publication.ts gtl/*.ts | head -3"
+    },
+    {
+      "stdoutLine": 5596,
+      "tool": "Grep",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src",
+      "command": null
+    },
+    {
+      "stdoutLine": 5617,
+      "tool": "Grep",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/gtl",
+      "command": null
+    },
+    {
+      "stdoutLine": 5650,
+      "tool": "Grep",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src",
+      "command": null
+    },
+    {
+      "stdoutLine": 5677,
+      "tool": "Bash",
+      "path": null,
+      "command": "sed -n 1495,1512p implementation/leaf_invocation_port.ts; sed -n 370,378p implementation/contracts.ts"
+    },
+    {
+      "stdoutLine": 5733,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'export function governanceContextBodyUse' -A 14 abg/invocation_execution_truth.ts; grep -n 'export function worksiteContextBodyReaderAtPrefix' -A 30 abg/event_prefix.ts | grep -n 'sourceResults\\|runId' "
+    },
+    {
+      "stdoutLine": 5769,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'worksiteContextBodyReaderAtPrefix' abg/event_prefix.ts; n=$(grep -n 'export function worksiteContextBodyReaderAtPrefix' abg/event_prefix.ts | tail -1 | cut -d: -f1); sed -n \"$n,$((n+45))p\" abg/event_prefix.ts"
+    },
+    {
+      "stdoutLine": 5824,
+      "tool": "Bash",
+      "path": null,
+      "command": "n=$(grep -n 'function resolveWorksiteContextBodyAtPrefix' abg/event_prefix.ts | tail -1 | cut -d: -f1); sed -n \"$n,$((n+40))p\" abg/event_prefix.ts | grep -n 'inline\\|sourceResults\\|admitted_member\\|use\\.' "
+    },
+    {
+      "stdoutLine": 5893,
+      "tool": "Edit",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "command": null
+    },
+    {
+      "stdoutLine": 5932,
+      "tool": "Edit",
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "command": null
+    },
+    {
+      "stdoutLine": 5976,
+      "tool": "Bash",
+      "path": null,
+      "command": "grep -n 'export interface RecurseApplication\\|export type RecurseApplication' -A 14 gtl/contracts.ts; grep -n 'readonly starts' -B2 -A2 gtl/contracts.ts | head; grep -n 'export interface GtlProgramStart\\|export interface ProgramStart\\b' -A 8 gtl/contracts.ts | head -12"
+    }
+  ],
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/archives/fp-40ea0125bdb11140-stdout.log",
+    "bytes": 4209166,
+    "sha256": "e210ae5428a55090ab1608eb6f15ba4208c6217250f8d95cc371459ef2613d8b"
+  },
+  "monitorToolCounts": {
+    "Bash": 82,
+    "Read": 9,
+    "Grep": 6,
+    "Write": 2,
+    "Edit": 3
+  },
+  "scratchRootFiles": [
+    "baseline-default-library.log",
+    "build-baseline.log",
+    "baseline-focused.log",
+    "build.sh",
+    "sync.sh"
+  ],
+  "reportStanding": "Native output.txt is empty; no structured native result/report manufactured. No report/plan file was present at scratch root; deeper disposable installations were not searched."
+}

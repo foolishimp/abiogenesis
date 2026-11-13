@@ -1,0 +1,56 @@
+{
+  "authorRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03",
+  "outputName": "actual-001",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 9016,
+    "sha256": "225dd021ab6b4d336ba4f7cce7b43eef969ec5dde0bd749607880ca252532ec7"
+  },
+  "hostManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/HOST_MANIFEST.json",
+    "bytes": 12419,
+    "sha256": "a31fc65ff359598137396a3af3df5e3632c6bbd764f24efa26305253f46c7726"
+  },
+  "stagedControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/STAGED_CONTROL_PINS.json",
+    "bytes": 11083,
+    "sha256": "3139bbcb5c1841d39f8832e1ad855eb2b4a4b7297938bcee3de6b2ce02a28322"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/POST_RETURN_CUSTODY.json",
+    "bytes": 4686,
+    "sha256": "a47b7c1cdc2ec4f9f64742bae018b361d627dd55a02be74a20a7fdb2501df7e6"
+  },
+  "heapMiB": 8192,
+  "selectedFeedback": [],
+  "hostResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/host-supervision/HOST_RETURN.json",
+    "bytes": null,
+    "sha256": null
+  },
+  "hostLaunch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/STARTED.json",
+    "bytes": null,
+    "sha256": null
+  },
+  "execution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/execution.json",
+    "bytes": null,
+    "sha256": null
+  },
+  "resume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/after-run-resume.json",
+    "bytes": null,
+    "sha256": null
+  },
+  "pending": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/READBACKS_PENDING.json",
+    "bytes": null,
+    "sha256": null
+  },
+  "timing": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/TIMING_OBSERVATION_ENVELOPES.json",
+    "bytes": null,
+    "sha256": null
+  }
+}

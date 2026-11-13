@@ -1,0 +1,9 @@
+{
+  "stage": "BEFORE_PAID_A_SIGNATURE_AND_OWNER_COMPATIBILITY_ONLY",
+  "exports": [
+    "constructInstalledPendingCall"
+  ],
+  "actualPendingCall": "Requires genuine B entered Testing frontier after actual A/B; no fabricated preview Run",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

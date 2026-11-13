@@ -1,0 +1,14 @@
+{
+  "status": "OWNER_PROJECTED",
+  "nativeResult": {
+    "digest": "sha256:0dbf0d3bc826245b7b290aed0b6b419b71d88bb3fef81d33c2faa52e423005c2",
+    "ref": "result://abiogenesis/0dbf0d3bc826245b7b290aed0b6b419b71d88bb3fef81d33c2faa52e423005c2"
+  },
+  "input": {
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "contractRef": "contract://abiogenesis/worksite/native-work/task@5",
+    "valueDigest": "sha256:5e6935dbb7513ee27e5e295ed8e9bf56e7b0830192ce8b3586f75e6d362361e0"
+  },
+  "publicationDigest": "sha256:b06f9f4ce4a46b91758fc2329f3adb7fbf1eaacf04958473fd43a6c4d1bd54f8",
+  "governanceStateSourceUnchanged": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342"
+}

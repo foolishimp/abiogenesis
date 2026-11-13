@@ -1,0 +1,92 @@
+{
+  "kind": "native_author_progress",
+  "task": "rc7-stdout-window-author-02",
+  "startedUtc": "2026-11-06T22:14:15Z",
+  "methodBootstrap": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/manifest.json",
+    "manifestSha256Observed": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "manifestMatchesMethodAccess": true,
+    "stdoVerify": "stdo verify v3.0.4 -> valid:true",
+    "entrypoint": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "entrypointSha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+    "entrypointReadUtc": "2026-11-06T22:15:00Z",
+    "hostPluginRegistrationClaimed": false
+  },
+  "readFirst": {
+    "startedUtc": "2026-11-06T22:15:30Z",
+    "paths": [
+      "qualification-inputs/rc7-stdout-window-author-02/METHOD_ACCESS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/TASK.md",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/COMMAND_BOUNDS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/SOURCE_CUSTODY.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_CONTROL_ADMISSION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/ROOT_DEPENDENCY_READY_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/HS03_SELECTION.json",
+      "qualification-inputs/rc7-stdout-window-author-02/NATIVE_GRANT.json",
+      "qualification-inputs/rc7-stdout-window-author-02/MEASUREMENT_PLAN.json",
+      "qualification-inputs/rc7-stdout-window-author-02/EXTERNAL_READ_INPUTS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/C2_INPUTS.json",
+      "qualification-inputs/rc7-stdout-window-author-02/prior-author-stage.mjs",
+      "qualification-inputs/rc7-stdout-window-author-02/prior-author-lanes.mjs",
+      "ROOT_REVIEW_DISPOSITION.json (edd58154, pinned)",
+      "reviews/source-stage-final-001/REVIEW.json (3212eab2, findings HS03-BOUNDARY-001, HS03-PROOF-001 only)",
+      "reviews/source-stage-final-001/BUILD_DECLARATION_ADDENDUM.json (1c27ebfa, HS03-DECLARATION-001 only)",
+      "sw1-stage-02-stage.json generate.stderr only",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts (classifier/observer regions)",
+      "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts (nextNativeProcessStreamOrdinal region)",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md \u00a710.10",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs (HS03 region)",
+      "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts (cold range check region)",
+      "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs (closure check region)"
+    ],
+    "notRead": "HELD_SESSION_DESIGN.md/HELD_SESSION_REVIEW.md bodies, AGENTS.md, PRODUCT.md, REQ-R-ABG3-PROJECTION/EVENTS and frame basis were not re-read in full this activation; Root selections and pinned HOW \u00a710.10 were used as the operative relation. Disclosed.",
+    "completedUtc": "2026-11-06T22:17:00Z"
+  },
+  "stages": [],
+  "lanes": [],
+  "edits": [
+    {
+      "id": "S5-C2",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "change": "nextNativeProcessStreamOrdinal JSDoc marked @internal (actor-internal); no type published, checker and owner_contract_source_set unchanged"
+    },
+    {
+      "id": "S5-C1",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "change": "shared incremental observer records chunk-relative turn-boundary ends with standing; classifyChunk partitions each capture into segment-local classes; WorkerStdoutChunkSegment type; window mode partitions each capture at segment ends, closing a window at each completed boundary with exact archive offsets; segments validated to partition chars and bytes"
+    },
+    {
+      "id": "S5-C1",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "change": "current-profile classifier returns observer.classifyChunk segments; removed one-boolean boundary reduction"
+    },
+    {
+      "id": "S5-C3",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "change": "\u00a710.10 E-A/E-E segment relation, internal declaration note, truthful proof standing (cases named per owner; proof only when lanes pass)"
+    },
+    {
+      "id": "S5-C3",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "change": "3 RC7 HS03 archive: cases (coalesced boundary partition + fsync-before-reference; injected write/fsync failure; missing/changed/truncated archive refusal) and 2 RC7 HS03 timeout: cases (inactivity drain with exact lastQualifying and noise no-renew; absolute interruption drain)"
+    }
+  ],
+  "sourceBaselineCheck": {
+    "utc": "2026-11-06T22:16:30Z",
+    "rows": 451,
+    "differingFromSOURCE_BEFORE": 0
+  },
+  "localChecks": [
+    {
+      "command": "node --check test_env/tests/m5-worker-transport.test.mjs",
+      "result": "syntax ok",
+      "note": "parse-only, no test execution, no writes"
+    }
+  ],
+  "codeReadyUtc": "2026-11-06T22:23:55Z"
+}

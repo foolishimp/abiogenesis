@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/w2-steel-single-start.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 714.2605420000036,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 8,
+    "failed": 0,
+    "passed": 7,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 8,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 7,
+      "type": "case",
+      "passed": true,
+      "name": "pure preparation preserves actual recorded A/W, grant, source and command configuration",
+      "file": "test_env/tests/w2-steel-single-start.test.mjs",
+      "nesting": 0,
+      "testNumber": 7,
+      "suite": false,
+      "skip": "W2_STEEL_RETAINED_EVENT_PATH unset; explicit historical carrier fixture is optional outside this focused proof",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/events/203-w2-steel-single-start.jsonl",
+    "bytes": 2734,
+    "sha256": "166980de5b656001fcc2957fa7550f9b4329b78077d5e00e7e8d59df6cbf7874"
+  },
+  "commandReceipt": "commands/203-w2-steel-single-start.result.json",
+  "workspace": "/private/tmp/abg-r8c-024/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

@@ -1,0 +1,123 @@
+{
+ "kind": "native_06_progress",
+ "recordedUtc": "2026-11-04T01:37:32Z",
+ "workerStartedUtc": "2026-11-04T00:37Z (approximate)",
+ "selected": {
+  "N5-CODE-01": "done (source + proof)",
+  "N5-PROOF-01": "partial",
+  "R1": "done for budget/growth/layered accounting; allocation bytes not metered",
+  "Retry": "not done",
+  "T289": "done",
+  "retryImport": "done"
+ },
+ "lanes": [
+  "started 2026-11-04T01:19:14Z",
+  "qualification-owner-components exit=0 seconds=17",
+  "historical-producer-acquisition exit=0 seconds=0",
+  "shared-owner-declaration-regressions exit=0 seconds=60",
+  "single-address-space-whole-path exit=0 seconds=439",
+  "ended 2026-11-04T01:27:50Z",
+  "single-address-space-whole-path exit=0 seconds=442 ended=2026-11-04T01:35:54Z"
+ ],
+ "runs": [
+  {
+   "label": "final-qualification-owner-components",
+   "tests": 44,
+   "pass": 43,
+   "fail": 0,
+   "skipped": 1
+  },
+  {
+   "label": "final-shared-owner-declaration-regressions",
+   "tests": 31,
+   "pass": 31,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "final2-shared-owner-declaration-regressions",
+   "tests": 31,
+   "pass": 31,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "final-single-address-space-whole-path",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "final2-single-address-space-whole-path",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "hist-producer-1",
+   "tests": 3,
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "final-historical-producer-acquisition",
+   "tests": 1,
+   "pass": 0,
+   "fail": 0,
+   "skipped": 1
+  },
+  {
+   "label": "qual-two-3",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "qcut-2",
+   "tests": 1,
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "qual-extra-2",
+   "tests": 39,
+   "pass": 26,
+   "fail": 0,
+   "skipped": 13
+  },
+  {
+   "label": "t289-1",
+   "tests": 4,
+   "pass": 4,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "r1-2",
+   "tests": 3,
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "pair-3",
+   "tests": 1,
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  {
+   "label": "fork-1",
+   "tests": 1,
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  }
+ ],
+ "editingStopped": true
+}

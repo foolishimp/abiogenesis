@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-common-computational-library.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 16,
+    "pass": 16,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/055-t287-common-computational-library.test/process.json",
+    "bytes": 1111,
+    "sha256": "4621431d6a95a4c939f7cdac899fbbe1f6b27c288269b2de91f42e382d00f672"
+  }
+}

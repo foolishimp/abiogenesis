@@ -1,0 +1,84 @@
+{
+  "ProductFrame": "Fixed fifteen-family ABIogenesis5.0, GOAL035/T287, STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b, empty composition. Selected proof frame: exact003 process-lifetime/worker-transport component evidence. Product/requirements own runtime truth; test fixtures observe physical processes, ABG owners contain and record them. No altered lifecycle law, source repair or qualification claim.",
+  "activation": {
+    "id": "RC9-PROOF-TRIAGE-004",
+    "role": "separate Proof frame; external evidence record Writer only",
+    "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003",
+    "effects": "Read prior/current proof/source; copy bounded observed reporter prefix and write this triage. No tests/retry/build/runtime/native/source mutation, cleanup or bound change."
+  },
+  "status": "M5_FILE_TRIAGE_CLOSED_OVERALL_UNIT_PENDING",
+  "evidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/EVIDENCE.json",
+    "bytes": 42130,
+    "sha256": "d3b54d945afb3f57787604c8d47641aa6d569658090bd2acc99a8d1d24f14f9d"
+  },
+  "violatedRelation": "Unchanged timing-dependent process fixtures failed their observed callback/startup/deadline/output expectations on003; whole M5 proof is red and cannot be replaced by002 credit. No production/source003 regression has been established.",
+  "cases": [
+    {
+      "caseLine": 802,
+      "relation": "Seven or more stdout observation callbacks after progress-0 plus six40ms interval writes,120ms inactivity/600ms absolute/75ms grace.",
+      "observed": "Callback count >=7 is false; exact count/result status not retained. Prior295.837958ms pass.",
+      "inference": "Observer counts data chunks, not child writes; delayed/coalesced captures or early timeout can falsify this fixture assumption. Actual causal branch unresolved."
+    },
+    {
+      "caseLine": 843,
+      "relation": "At least one20ms interval output before150ms inactivity/600ms absolute/75ms grace; observer deliberately returns false.",
+      "observed": "rawObservations>0 is false, hence zero callbacks. Prior156.4845ms pass. Later timeout assertions were not reached.",
+      "inference": "Consistent with no child output reaching observer inside startup budget; cannot infer retained status/timing absent archive."
+    },
+    {
+      "caseLine": 888,
+      "relation": "Child installs SIGTERM handler before150ms inactivity, then emits late_worker_output during250ms grace;600ms absolute.",
+      "observed": "Failure/transport_failure/inactivity timeout and empty semantic output assertions passed; raw stdout is empty instead of containing late marker. Prior162.660625ms pass.",
+      "inference": "Consistent with handler not installed in time or output lost before direct exit; exact branch not retained."
+    },
+    {
+      "caseLine": 944,
+      "relation": "Command owner normal leader+descendant setup/completion within700ms;150ms grace. Overall test20s. Worker normal/TERM subcases precede command-normal.",
+      "observed": "command-normal exitStatus124 instead of0. runCommand maps timedOut to124, so its700ms timeout fired. Prior complete six-combination case3324.984792ms pass.",
+      "inference": "Command-normal completion missed declared owner deadline; which startup/readiness/dispatch delay dominated is unavailable."
+    },
+    {
+      "caseLine": 1023,
+      "relation": "Leader spawns descendant and exits47 after50ms, before150ms inactivity; descendant late output225ms, grace500ms.",
+      "observed": "Failure/transport_failure assertions passed; status is null rather than47. Prior102.691084ms pass. Later timeout/process-facts assertions were not reached.",
+      "inference": "Expected direct exit47 was not observed as status. Timeout/signalled/missing direct-exit distinction remains unresolved."
+    }
+  ],
+  "supportedCauseAssessment": "Strong scheduling-sensitivity evidence: identical material code/configuration; all four preceding file durations increased, and five failures cluster in120\u2013150ms startup/output assumptions or700ms completion. Parent arms worker deadlines immediately after spawn, before a readiness handshake. Physical load context supports this hypothesis but does not prove its causal mechanism.",
+  "OWNCausality": "M5 imports production/support, not OWN. Actual JSONL completes all32 M5 cases atordinal74 before any OWN result; default file-process isolation plus unchanged --test-concurrency=1 prevents later OWN in-memory mutations from reaching earlier M5. No shared later OWN effect causal path found. Earlier files/external host activity are not ruled out by this conclusion.",
+  "limitations": [
+    "Current unit/OWN and final command stdout still pending at observation; complete M5 summary is retained but exact current five case durations are unavailable until normal command close.",
+    "Existing test context.after hooks delete all five fixture scratch directories, including transport/process facts. Both prior/current relevant scratch lookups are empty; this triage did not clean anything.",
+    "Progress assertion counts chunks, so seven timed writes do not guarantee seven callback observations. This static oracle sensitivity does not establish the actual failed run took the coalescing branch.",
+    "No child scheduling timestamps, exact callback count, process terminal facts or event-loop-delay evidence retained for failed cases; no diagnosed production defect or load-exonerated green claim."
+  ],
+  "smallestRemainingSteps": [
+    {
+      "step": 1,
+      "kind": "read-only",
+      "action": "After current native close, append a successor readback of actual RESULT/HALT/command receipt, all final reporters and five spec durations. Preserve this partial snapshot. Root conjoins OWN outcome and independent source review; no artifact binding from a red unit."
+    },
+    {
+      "step": 2,
+      "kind": "conditional Root selection, NOT executed",
+      "action": "If a discriminator is needed, one complete unchanged32-case M5 file on the exact built003 stage in a fresh finite proof allocation under documented quiet-host conditions, same Node/dependencies/flags and original inner deadlines. Capture normal outputs/reporters. A pass supports schedule sensitivity but neither erases003 nor proves the full unit lane."
+    },
+    {
+      "step": 3,
+      "kind": "alternative Root selection, NOT executed",
+      "action": "If source review and OWN close cleanly and the goal is the focused bootstrap gate, one fresh unchanged nine-file unit command against existing built003 under documented quiet-host conditions is the smallest direct gate proof; retain900s bound and use a newly admitted proof allocation/control. No duplicate build or native source task. First red/incomplete stops; no automatic retry or budget extension."
+    }
+  ],
+  "sourceTaskStanding": "No new native production repair is supported by this evidence. Re-enter source work only for a concrete demonstrated owner or proof-oracle defect, selected separately by Root.",
+  "artifactBinding": "Paused/HELD; prior concrete bindings untouched.",
+  "performed": {
+    "tests": 0,
+    "retries": 0,
+    "builds": 0,
+    "runtimeAllocations": 0,
+    "sourceChanges": 0,
+    "cleanup": 0,
+    "budgetChanges": 0
+  }
+}

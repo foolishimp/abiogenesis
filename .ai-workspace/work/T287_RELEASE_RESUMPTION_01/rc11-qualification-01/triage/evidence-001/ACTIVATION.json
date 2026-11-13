@@ -1,0 +1,32 @@
+{
+  "role": "Worker; separately granted Writer only for new activation/report files",
+  "actor": "/root/rc11_evidence_triage",
+  "decisionOwner": "/root Executive",
+  "at": "2026-11-09T06:19:26.349923+00:00",
+  "instruction": "Root NEW_TASK: RC11 current-owner native-assessment and selected-action evidence triage; user selected RC11 and the three proposed items. Root subsequent messages select a durable full-prefix snapshot route, result_text fixture transform and four plus two fast component cases.",
+  "existingAuthority": "Exact Root assignment under /Users/jim/src/apps/AGENTS.md and ABIogenesis AGENTS.md; report-only Writer grant consumed, not enlarged.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "purpose": "Return current failure causes, genuine owner evidence route, exact author territory and proof scope; Executive conjoins and admits later native source/proof work.",
+  "subject": {
+    "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+    "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+    "checkout": "/private/tmp/abg-rc10-retention-20261109"
+  },
+  "method": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "composition": [],
+    "verification": "stdo status --definition stdo_abiogenesis.json --verify: installed=true valid=true failures=[]; all87 standards members additionally hashed equal to manifest."
+  },
+  "builder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/triage/evidence-001",
+  "allowed": "Read exact authority, source and evidence; write only new activation/report files here.",
+  "excluded": "No source/design/test/runtime mutation; no build, test, Product import, runtime/native/provider execution, process operation, network, cleanup or Git mutation; no Reviewer activation or acceptance.",
+  "hostBinding": "Shared filesystem; no claimed secrecy/isolation. Full inherited parent context available; relevant acquisition limited by declared frame. Tools permit more than this grant; availability confers no effect authority.",
+  "return": "Durable report plus closed return to /root Executive; then stop."
+}

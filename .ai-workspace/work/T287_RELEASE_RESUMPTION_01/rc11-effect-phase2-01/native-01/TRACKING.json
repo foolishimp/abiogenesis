@@ -1,0 +1,41 @@
+{
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json",
+    "bytes": 5536,
+    "sha256": "8d45c82e7e9f39628e4063c28902ec89091de37f60137663c530a7a83f708a7f"
+  },
+  "changes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 186854,
+        "sha256": "8caa13f06a1faffdeb5c80664dc660ffd5e2ac8db6388794aede5259ea406f47"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 188006,
+        "sha256": "2d0a93463e7f16f7e20452c8bbc6592ffb68e7f481ef5923eef50bbce17cf5fc"
+      },
+      "prefixBytes": 1152,
+      "priorBodyPreserved": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 838489,
+        "sha256": "d23df534c62030355983856b42e02af01de4f0ac436cdf6557f37feecbcf8c98"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 839641,
+        "sha256": "e1eb897d9bd6c98706c7db867200f5d147915389ab05ece182f2ce876cb6b7c5"
+      },
+      "prefixBytes": 1152,
+      "priorBodyPreserved": true
+    }
+  ],
+  "candidateSourceTrackingUnchanged": true,
+  "mainIndexUnchanged": true
+}

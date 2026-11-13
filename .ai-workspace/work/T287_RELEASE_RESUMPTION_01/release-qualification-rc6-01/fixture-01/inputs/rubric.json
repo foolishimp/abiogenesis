@@ -1,0 +1,26 @@
+{
+  "kind": "bounded_existing_component_fixture_acceptance",
+  "criteria": [
+    {
+      "id": "F1",
+      "criterion": "Local fixture supplies the actual owned-prefix reader premise with explicit supported component assumptions; no real no-journal read or production/interface change."
+    },
+    {
+      "id": "F2",
+      "criterion": "Existing first-test refusal and downstream correction assertions execute. Full seven-test lane records5pass/0fail/2existing historical gates; no expectation weakening or new skip. A newly reached real failure remains explicit."
+    },
+    {
+      "id": "F3",
+      "criterion": "Only exact test premise and necessary bounded assertions change. Immutable RC6 and all other source/requirements/HOW remain unchanged."
+    },
+    {
+      "id": "F4",
+      "criterion": "Actual source/command/results correspond to the frozen test and staged immutable RC6 build/dependencies; component limits and historical exclusions remain truthful."
+    }
+  ],
+  "rootExitOutsideNativeAssessor": [
+    "Independent frozen-source review where Root selects it",
+    "Actual fresh close/conjunction and registered-debt disposition",
+    "Wider D2/scenario/fifteen-family/F11/release qualification remain separate"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "recordedUtc": "2026-11-03T20:45:44.558682+00:00",
+  "nativeResultTime": "2026-11-03T20:32:13.851Z",
+  "testingActorStartedTime": "2026-11-03T20:40:10.247Z",
+  "nativeResultToTestingActorMs": 476396,
+  "selectorStartedTime": "2026-11-03T20:33:46.480Z",
+  "selectorExitedTime": "2026-11-03T20:36:38.161Z",
+  "selectorActorMs": 171681,
+  "outsideSelectorMs": 304715,
+  "standing": "Installed immutable RC5 builder performance; no successor or controlled before/after gain claim",
+  "operatorPreparationFailure": {
+    "error": "KeyError nativeResult in first record attempt",
+    "cause": "Observer console summary key was incorrectly assumed present in detailed JSON; source Result time reacquired from frozen SUBJECT",
+    "effect": "C2 actor coordinate file created correctly and reverified; timing file was not created by failed attempt; no Product/runtime/test changes"
+  }
+}

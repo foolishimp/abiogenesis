@@ -1,0 +1,217 @@
+{
+  "status": "CLOSED_NATIVE_B_SOURCE_CUSTODY_RECORDED_UNACCEPTED",
+  "freezeReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/FREEZE_RECEIPT.json",
+    "bytes": 22139,
+    "sha256": "c059004f17523d0ee5be0bb4c5f9cc8311f7ad226042d4c8e967cc6e3fa55dfd"
+  },
+  "nativeAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/NATIVE_AFTER_CORRESPONDENCE.json",
+    "bytes": 7276,
+    "sha256": "6790bb09b815712ce3f1cbef2edfd5267ec413acde8ece0273fe38394127e33c"
+  },
+  "toolHistory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/TOOL_HISTORY.json",
+    "bytes": 132594,
+    "sha256": "0d4846b58bc62adc5624c5f9157e2736b31335afead0c76b4688c68d0ac98fd6"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/NATIVE_CHECKS.json",
+    "bytes": 144542,
+    "sha256": "5877e954961de192dc11af80048129ebdc98c67aecfb7c2a2c9a38c93a628a1d"
+  },
+  "compiledRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/SCRATCH_COMPILE_RELATION.json",
+    "bytes": 64238,
+    "sha256": "a4a6c67d09040429ce7862eebef439ce73d782f4ddd35e069f46a731e579ffd4"
+  },
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/COMPILED_SCRATCH_INVENTORY.json",
+    "bytes": 107097,
+    "sha256": "77903b39c566c34441e5aa2c7ea5c85f78b307986a815cfa58538d70cfdce31c"
+  },
+  "nativeFinal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/runtime-001/FINAL.json",
+    "bytes": 2653,
+    "sha256": "969d0553d37a31663f66796a35bf8fd8114c2768492b897bf284ee88d51c868b"
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/runtime-001/NATIVE_RETURN.json",
+    "bytes": 2176,
+    "sha256": "3540c5904799b32e65057b309919c25bdda2b07af74cbcb45fe52f8c514a3737"
+  },
+  "freshReadbacks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/runtime-001/FRESH_READBACKS.json",
+    "bytes": 6807,
+    "sha256": "55c166f04cc7dab1511e39d6f613e7d2c25bfc42189fdf9fdbb465e988c58868"
+  },
+  "workerReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/WORKER_REPORT.json",
+    "bytes": 9102,
+    "sha256": "f2eeb8bac132650b4cf75024f73ddf3160da843fcc42e92eea38636558777d83"
+  },
+  "transport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/runtime-001/resources/archives/fp-9ef74b9f9504af5d-transport.json",
+    "bytes": 7040958,
+    "sha256": "4b996c4b6ee815c571ecc6761e832bafeb3198863258c7a21b3b39303fd302c1"
+  },
+  "transportSummary": {
+    "status": 0,
+    "signal": null,
+    "disposition": "success",
+    "timeoutClass": null,
+    "failureClass": null,
+    "toolCallCount": 74,
+    "apiRetryCount": 0,
+    "processFacts": {
+      "cleanupDeadlineNs": {
+        "kind": "bigint",
+        "value": "3112881697828833"
+      },
+      "cleanupElapsedMs": 0.22575,
+      "closeObserved": true,
+      "directExit": {
+        "signal": null,
+        "status": 0
+      },
+      "drainExpired": false,
+      "firstError": null,
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "probeCount": 1,
+      "scopeAbsence": "absent",
+      "scopeKind": "posix_process_group",
+      "signalAttempts": 0,
+      "streamsDisposed": true
+    }
+  },
+  "assessmentDisposition": "admitted",
+  "ownerDisposition": "completed",
+  "result": {
+    "ref": "result://abiogenesis/06820b3bf92e654f8db2fee32334e14e153e74b36fafaf6fb98c85642bc11107",
+    "digest": "sha256:06820b3bf92e654f8db2fee32334e14e153e74b36fafaf6fb98c85642bc11107"
+  },
+  "sdkIntervalMs": 1663194.6559590003,
+  "actualPhysicalCloseAt": "2026-11-10T03:23:29.997Z",
+  "coldReads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "result",
+      "status": null,
+      "terminal": "sha256:7b9b25c4f4ffb5e3ffd688cc7e1c8ad81075e51c627b6ee3232977fe52e83b19"
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "status": "closed",
+      "terminal": "sha256:7b9b25c4f4ffb5e3ffd688cc7e1c8ad81075e51c627b6ee3232977fe52e83b19"
+    }
+  ],
+  "processesAbsent": {
+    "9123": true,
+    "14446": true
+  },
+  "actorGroupAbsent": true,
+  "inputAndPrebuiltPinsExact": true,
+  "allFileDeltas": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "before": {
+        "lines": 1589,
+        "bytes": 68872,
+        "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+      },
+      "after": {
+        "lines": 1697,
+        "bytes": 75347,
+        "sha256": "c1b6ded8611016673f5ac6dd020af020e2d9135e7478dc4146070dda284994a6"
+      },
+      "lineDelta": 108,
+      "byteDelta": 6475
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+      "before": {
+        "lines": 64,
+        "bytes": 21129,
+        "sha256": "31957341c3efa5aa47f6ab8fc660dae5bb19640d205a1d0822b2249dc2f54427"
+      },
+      "after": {
+        "lines": 67,
+        "bytes": 26041,
+        "sha256": "6a2b34229ecd23aba4790b3682a6ab7a584de5dbb1aeefb1699223879a7c6f90"
+      },
+      "lineDelta": 3,
+      "byteDelta": 4912
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "before": {
+        "lines": 1134,
+        "bytes": 72393,
+        "sha256": "533480ed2edcfe90f878ab17f2f473af7906bdce2c73178c78c78d0c741dcc2d"
+      },
+      "after": {
+        "lines": 1134,
+        "bytes": 72343,
+        "sha256": "dc73d27148042d6a4f5c7e7b434b00141d32cceb66e884401c8e482513aa8ce1"
+      },
+      "lineDelta": 0,
+      "byteDelta": -50
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "before": {
+        "lines": 2295,
+        "bytes": 145250,
+        "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+      },
+      "after": {
+        "lines": 2297,
+        "bytes": 145462,
+        "sha256": "f4f9893e30f32ae7a17d242f69997a0c71812ce5084f57e75dc4af5c1cc8d892"
+      },
+      "lineDelta": 2,
+      "byteDelta": 212
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "before": {
+        "lines": 697,
+        "bytes": 53258,
+        "sha256": "8bff42467575b20f9cdfa1792ebd7ac6b462b11c753303a66d0523b93f901cac"
+      },
+      "after": {
+        "lines": 701,
+        "bytes": 53486,
+        "sha256": "4a8b300e5855cf440e7429f958ea7a3501f06f100a358c4f36b4a0f51be1f0ad"
+      },
+      "lineDelta": 4,
+      "byteDelta": 228
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "before": {
+        "lines": 1031,
+        "bytes": 72946,
+        "sha256": "222afb37b5bf1f7f18005dddc555ba5aa0fc133a00be04fe99f39b5f23796a84"
+      },
+      "after": {
+        "lines": 1321,
+        "bytes": 92784,
+        "sha256": "4ae70f3c9a8d36ed6541c8ce52551c27c2e31b6b346795a02c53e6d54021a6cf"
+      },
+      "lineDelta": 290,
+      "byteDelta": 19838
+    }
+  ],
+  "optionalNewModuleCreated": false,
+  "productionCoordinationClaim": "Helper only:1589->1697 lines,68872->75347 bytes; no new module. Worker responsibility/deletion map is in WORKER_REPORT and plan; measured net growth, not net deletion/performance/reliability proof.",
+  "scopeNotes": [
+    "Material readonly source/Effect API reads retained in exact public tool history; initial addressed roots are not a blanket source-read ban. No complete read-scope conformance claim.",
+    "Six commissioned source paths changed; A modules/HTTP bodies and all other1345-row subject members exact.",
+    "Native selfchecks and typed result success do not accept B or discharge joint Phase2/installed/qualification proof.",
+    "Worker report disclosures require Root conjunction, including controlled ack seam and potential packaged Effect-copy loader issue."
+  ],
+  "qualified": false
+}

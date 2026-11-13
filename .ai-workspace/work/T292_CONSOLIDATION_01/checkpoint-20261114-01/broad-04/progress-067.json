@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-event-body-encoding.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 25,
+    "pass": 25,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/067-t287-event-body-encoding.test/process.json",
+    "bytes": 1085,
+    "sha256": "c477f636e14eef9422f18fb155dc87ba4fa48e646ac62f67b217ee5576545b62"
+  }
+}

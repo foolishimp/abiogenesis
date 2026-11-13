@@ -1,0 +1,146 @@
+{
+  "kind": "bounded_operator_phase_wall_timing",
+  "script": "prepare-r1.mjs",
+  "moduleBodyEnteredUtc": "2026-11-06T02:17:31.268Z",
+  "endedUtc": "2026-11-06T02:18:36.416Z",
+  "moduleBodyElapsedMs": 65147.044666999995,
+  "status": "script_threw_before_completion",
+  "markerOverflow": false,
+  "phases": [
+    {
+      "phase": "module_body_entry",
+      "enteredUtc": "2026-11-06T02:17:31.269Z",
+      "offsetMs": 0.6925830000000026,
+      "durationMs": 0.016499999999997073
+    },
+    {
+      "phase": "binding_and_admission_pin_checks",
+      "enteredUtc": "2026-11-06T02:17:31.269Z",
+      "offsetMs": 0.7090829999999997,
+      "durationMs": 38.317958999999995
+    },
+    {
+      "phase": "actual_resume_parse_and_close_check",
+      "enteredUtc": "2026-11-06T02:17:31.307Z",
+      "offsetMs": 39.027041999999994,
+      "durationMs": 118.91820799999999
+    },
+    {
+      "phase": "workload_and_grant_load",
+      "enteredUtc": "2026-11-06T02:17:31.426Z",
+      "offsetMs": 157.94525,
+      "durationMs": 0.538958000000008
+    },
+    {
+      "phase": "consumer_binding_verify_parse_and_overlay",
+      "enteredUtc": "2026-11-06T02:17:31.427Z",
+      "offsetMs": 158.484208,
+      "durationMs": 66.98250000000002
+    },
+    {
+      "phase": "source_identity_and_hash_correspondence",
+      "enteredUtc": "2026-11-06T02:17:31.494Z",
+      "offsetMs": 225.466708,
+      "durationMs": 148.534959
+    },
+    {
+      "phase": "selected_environment_preparation",
+      "enteredUtc": "2026-11-06T02:17:31.642Z",
+      "offsetMs": 374.001667,
+      "durationMs": 0.3528329999999755
+    },
+    {
+      "phase": "installed_owner_loading",
+      "enteredUtc": "2026-11-06T02:17:31.643Z",
+      "offsetMs": 374.3545,
+      "durationMs": 297.18304200000006
+    },
+    {
+      "phase": "governance_input_construction",
+      "enteredUtc": "2026-11-06T02:17:31.940Z",
+      "offsetMs": 671.537542,
+      "durationMs": 0.67674999999997
+    },
+    {
+      "phase": "command_and_actor_owner_loading",
+      "enteredUtc": "2026-11-06T02:17:31.941Z",
+      "offsetMs": 672.214292,
+      "durationMs": 0.18554100000005747
+    },
+    {
+      "phase": "existing_budget_projection_and_guard",
+      "enteredUtc": "2026-11-06T02:17:31.941Z",
+      "offsetMs": 672.3998330000001,
+      "durationMs": 0.10437499999989086
+    },
+    {
+      "phase": "dry_caller_setup",
+      "enteredUtc": "2026-11-06T02:17:31.941Z",
+      "offsetMs": 672.504208,
+      "durationMs": 0.09629200000006222
+    },
+    {
+      "phase": "environment_refresh",
+      "enteredUtc": "2026-11-06T02:17:31.941Z",
+      "offsetMs": 672.6005,
+      "durationMs": 62318.64775
+    },
+    {
+      "phase": "installed_content_verification",
+      "enteredUtc": "2026-11-06T02:18:34.260Z",
+      "offsetMs": 62991.24825,
+      "durationMs": 1214.6575000000012
+    },
+    {
+      "phase": "physical_prefix_read_and_hash",
+      "enteredUtc": "2026-11-06T02:18:35.475Z",
+      "offsetMs": 64205.90575,
+      "durationMs": 657.9087080000027
+    },
+    {
+      "phase": "worksite_observation",
+      "enteredUtc": "2026-11-06T02:18:36.132Z",
+      "offsetMs": 64863.814458,
+      "durationMs": 256.8964999999953
+    },
+    {
+      "phase": "observed_source_and_assessment_asset_checks",
+      "enteredUtc": "2026-11-06T02:18:36.389Z",
+      "offsetMs": 65120.710957999996,
+      "durationMs": 1.4772920000032173
+    },
+    {
+      "phase": "projection_owner_loading",
+      "enteredUtc": "2026-11-06T02:18:36.391Z",
+      "offsetMs": 65122.18825,
+      "durationMs": 0.2946250000022701
+    },
+    {
+      "phase": "initial_projection_and_size_calculation",
+      "enteredUtc": "2026-11-06T02:18:36.391Z",
+      "offsetMs": 65122.482875,
+      "durationMs": 21.710499999993772
+    },
+    {
+      "phase": "capacity_record_persistence",
+      "enteredUtc": "2026-11-06T02:18:36.413Z",
+      "offsetMs": 65144.193374999995,
+      "durationMs": 2.565792000001238
+    },
+    {
+      "phase": "capacity_guard",
+      "enteredUtc": "2026-11-06T02:18:36.415Z",
+      "offsetMs": 65146.759167,
+      "durationMs": 0.28549999999813735
+    }
+  ],
+  "existingCommandTiming": "execution/commands/<existing-label>.request.json started; result.json started,wallMs,exitCode,signal,timedOut,truncated. Reuse only these scalar fields; command recorder unchanged.",
+  "limits": [
+    "Module body begins after static imports; host launch and static import time require existing external launch evidence.",
+    "Sequential monotonic wall intervals include I/O, scheduling and bookkeeping, not CPU attribution or causal speedup.",
+    "invokeLifecycle includes its existing before/after installed-content checks; existing command wall times overlap this interval. Do not add them.",
+    "Fresh-readback command details remain in existing run_result/run_replay command metadata. Selected record phases start at record entry after argument evaluation.",
+    "Timing artifact serialization/write is excluded. A hard kill or static import failure may leave no artifact. Existing artifact is never overwritten.",
+    "Timing is observation only, with no new predicate, owner admission, retry, provider telemetry, private payload, environment value or credential."
+  ]
+}

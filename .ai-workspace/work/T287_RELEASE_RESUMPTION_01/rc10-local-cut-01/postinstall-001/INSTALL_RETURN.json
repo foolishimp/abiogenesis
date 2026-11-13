@@ -1,0 +1,164 @@
+{
+  "id": "RC10-LOCAL-INSTALL-001-RETURN",
+  "status": "ACTUAL_LOCAL_RC10_INSTALL_COMPLETE_UNQUALIFIED_RETURNED_TO_ROOT",
+  "recordedUtc": "2026-11-09T05:11:35.949326+00:00",
+  "phaseRuns": 1,
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/install-admission-001/ROOT_INSTALL_ADMISSION.json",
+    "bytes": 5049,
+    "sha256": "4b5d25ea2b8502865461e8d0cb8e9bfa80e47e4ee66b74511eef87090757c5db"
+  },
+  "executableBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/install-admission-001/ROOT_INSTALL_BINDINGS.json",
+    "bytes": 5319,
+    "sha256": "597d62fdd0a9fb2c5bf837e2ec4b7b1d796f56450ec3abf27641a85cfb6f6dbe"
+  },
+  "packagingReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/reviews/packaging-001/REVIEW.json",
+    "bytes": 22735,
+    "sha256": "72b6984c8f9991a4710de9ffc99d8bc719e806e015b0253e80863fd59f748f45"
+  },
+  "receipts": {
+    "finalVerification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+      "bytes": 9222,
+      "sha256": "1cf59e16087fbc9fdbf2867adff0b20b972ddffacb3c781385b86c1059273719"
+    },
+    "installResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/RESULT.json",
+      "bytes": 775,
+      "sha256": "8338f4a44e87fb25c857e6b634f75ce1eec7882df0fe6974654072bdf3cd7fbe"
+    },
+    "productVerification": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/verification.json",
+      "bytes": 15794345,
+      "sha256": "ee3754fdd3c71c1225790ef0845f76f4bdedf50e75b259d09db7645713e9c037"
+    },
+    "resolvedLock": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/resolved-lock.json",
+      "bytes": 4563584,
+      "sha256": "e289ee75aa54a9202b525221bfb9d661416c40bf2e854a67de61eb67badfa538"
+    },
+    "installation": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/installation.json",
+      "bytes": 4232315,
+      "sha256": "de0a3290f98e99e032642a3304259fa2784d68b21976c1032e6ddac9a90d5633"
+    },
+    "allMemberCorrespondence": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/payload-correspondence.json",
+      "bytes": 1035177,
+      "sha256": "3abcafc1a1f6f8ae67823496e1b60fb27f9deea1f8897691e0a15f2f85ff704c"
+    },
+    "checksums": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/SHA256SUMS",
+      "bytes": 989,
+      "sha256": "e725a2cf3b7b9a86d9f8d438111d1b082c6f2ae77e9867ac81a74350c308c2ad"
+    },
+    "cutRecord": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/LOCAL_CUT_RECORD.json",
+      "bytes": 3311,
+      "sha256": "88c7a34bd3696597d7773fbe858d474382ff15e4874c7cde770d3854482d57c4"
+    },
+    "installedOwnerReadClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/INSTALLED_OWNER_SMOKE.json",
+      "bytes": 3101,
+      "sha256": "cb8be3ed8255d0ed7097c49dade514d40328732cd7ddab673072a9105f8269ca"
+    },
+    "freshVerification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/INSTALLED_OWNER_SMOKE.json.verification.json",
+      "bytes": 15794345,
+      "sha256": "ee3754fdd3c71c1225790ef0845f76f4bdedf50e75b259d09db7645713e9c037"
+    },
+    "sourceArtifactEvidenceMap": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 9884,
+      "sha256": "1e861ed6ecab4ef88ead4dabfa7e6e3bd3f7731363bb2cfd277037e3a5ea142c"
+    }
+  },
+  "commandReceipts": {
+    "owner-install": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/commands/owner-install.result.json",
+      "bytes": 1330,
+      "sha256": "635b2ca83520616cbe1b1b02edbffe4ef9aa9e9ebbf24ac9b402e993d8d4e084"
+    },
+    "fresh-installed-owner-smoke": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/commands/fresh-installed-owner-smoke.result.json",
+      "bytes": 1654,
+      "sha256": "d01ede6edb0db61e2817347f995feabe890601af8bf3e4acf2a55552f9c85aae"
+    },
+    "after-main-head": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/commands/after-main-head.result.json",
+      "bytes": 1095,
+      "sha256": "602ba253f54faf229cb8afd26d98b4066d43896874501dda4464e812ca750abf"
+    },
+    "after-main-index": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/commands/after-main-index.result.json",
+      "bytes": 1115,
+      "sha256": "4bcfab09e14874c4a0bc85233505c035ce3e02c9b96cf8045de101f572a16581"
+    },
+    "after-main-tracked-paths": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/commands/after-main-tracked-paths.result.json",
+      "bytes": 1137,
+      "sha256": "dc994f64f1a14958c2afb82098b46af97c210dfaacab66e0b055c7a31da283da"
+    }
+  },
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "shippedArchive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028443,
+    "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10",
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant",
+  "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.10/beaaae0e01cf6b059539590f39ad61f849d689193f44b728f26fb59f4266b197/33f058d86bbffbb4b96b5b714ce89795779dacabeed62425ce6dbefc4d7ef14a",
+  "allMemberCount": 5325,
+  "releaseChecksumCount": 11,
+  "installedOwner": {
+    "contentMatches": true,
+    "exports": 56,
+    "emptyRead": true,
+    "actualPhysicalClose": true,
+    "nativeTransportInvoked": false,
+    "providerCalls": 0
+  },
+  "preservationAtInstallCompletion": {
+    "mainHead": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+    "mainIndex": {
+      "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+      "bytes": 29372910,
+      "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+    },
+    "mainTrackedEditedFiles": [
+      {
+        "relativePath": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 817015,
+        "sha256": "4c57b8606b481c2777b055a4245a1a7c49013595b368460d5828721b804a9372"
+      },
+      {
+        "relativePath": "specification/GOALS.md",
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 168282,
+        "sha256": "4f04d84f6de75aa6f23c52199b08b643ad6c8a2c21e8d0692c63386ee9a9d2e1"
+      }
+    ],
+    "immutableRC9Archive": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "standing": "Driver before/after equality and final source reconservation passed. These main tracking hashes were rechecked before subsequently authorized bookkeeping; no complete unrelated-byte audit is claimed."
+  },
+  "scope": "Actual immutable-install verification/content/export and empty-resource read/close only. Full selected lifecycle behavior retains exact-shipped-archive scratch proof and all stated exclusions.",
+  "rootDecision": "Root subsequently accepted bounded local delivery through RC10-DELIVERY-CLOSE-001; see ROOT_FINAL_DISPOSITION.json for acceptance, distinct from this factual install return.",
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "mainMerged": false,
+  "tagsOrPush": false,
+  "rebuild": false,
+  "providerOrNewNativeWorkflow": false
+}

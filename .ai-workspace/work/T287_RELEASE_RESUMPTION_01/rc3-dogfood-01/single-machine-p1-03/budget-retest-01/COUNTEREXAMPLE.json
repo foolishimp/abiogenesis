@@ -1,0 +1,55 @@
+{
+  "actualFailedC2": {
+    "bytes": 9017,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/c2-helper-custody/CUSTODY.json",
+    "sha256": "63e31fedbf9740205dc25038a06f3325728c8b02a27a6cbd3a647d4dad872b13"
+  },
+  "finalSourceCheckpoint": null,
+  "focused": {
+    "commandId": "command://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain",
+    "exitStatus": 124,
+    "observationDigest": "sha256:5c3c48e167e5e2a97ec2198f60936b5e468dda52e74c3eddba8c1f1dfd37d2f7",
+    "observationRef": "worksite-command-observation://abiogenesis/5c3c48e167e5e2a97ec2198f60936b5e468dda52e74c3eddba8c1f1dfd37d2f7",
+    "processSignal": null,
+    "streams": {
+      "stderr": {
+        "bytes": 49,
+        "path": "focused-owner-chain.stderr",
+        "sha256": "3154960decd075ed56867dec48e15e1eca0f810701e871b0c8e67620b32612cc"
+      },
+      "stdout": {
+        "bytes": 37291,
+        "path": "focused-owner-chain.stdout",
+        "sha256": "333800f5ced552e49cd809b19e2da3c77f63bee599d548bc837ea1a66fbb19c7"
+      }
+    },
+    "terminationConfirmed": true,
+    "timedOut": true,
+    "timeoutMs": 600000
+  },
+  "kind": "p3_resource_only_retest_counterexample",
+  "limits": [
+    "No actual new C2 or acceptance yet.",
+    "Final source must match actual retained authored candidate after prior parent returns."
+  ],
+  "observedPackageSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+  "priorConstructionAdmission": null,
+  "priorParentClosure": null,
+  "resourceDelta": {
+    "absoluteMs": 5400000,
+    "focusedTimeoutMs": [
+      600000,
+      1200000
+    ],
+    "idleAndBashMs": [
+      2400000,
+      3600000
+    ],
+    "outerMs": 10800000,
+    "requiredHelperBudgetMs": [
+      2167250,
+      2767250
+    ]
+  },
+  "standing": "Observed package from failed overall C2, not selected qualified artifact"
+}

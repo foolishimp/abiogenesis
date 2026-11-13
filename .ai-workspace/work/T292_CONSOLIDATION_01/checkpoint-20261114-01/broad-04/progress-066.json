@@ -1,0 +1,22 @@
+{
+  "file": "test_env/tests/t287-default-library.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 35,
+    "pass": 34,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 31 - one installed Public default-library invocation reuses observed files, corrects actual work and independently closes # SKIP ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation",
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/066-t287-default-library.test/process.json",
+    "bytes": 1076,
+    "sha256": "80e3cdaafdd218e10ee85e3aebf4d759070e4147c5e370c34f54632921bc2c1b"
+  }
+}

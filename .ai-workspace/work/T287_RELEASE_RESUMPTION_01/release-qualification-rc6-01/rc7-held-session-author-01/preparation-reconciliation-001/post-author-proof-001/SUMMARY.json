@@ -1,0 +1,145 @@
+{
+  "status": "SELECTED_PROOF_HAS_FAILURE",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-002/SUBJECT.json",
+    "bytes": 296146,
+    "sha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741"
+  },
+  "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/ROOT_ADMISSION.json",
+    "sha256": "0b4b7591cb7d8b3fb6e78707fc6d1c90f834f3f3ec1ace095aa9ab6d0eecb697"
+  },
+  "completedLanes": 2,
+  "maximumLanes": 2,
+  "results": [
+    {
+      "label": "operator-hs02-once",
+      "testName": "RC7 HS02: one held acquisition serves warm Runs and held run_result/run_replay without another decode, reopen or append, refuses stale/copied/foreign/closed selections, closes once and equals the cold reads",
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "selectedNames": [
+        "RC7 HS02: one held acquisition serves warm Runs and held run_result/run_replay without another decode, reopen or append, refuses stale/copied/foreign/closed selections, closes once and equals the cold reads"
+      ],
+      "selectedPass": true,
+      "processExitCode": 0,
+      "signal": null,
+      "failure": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 260137.987667,
+      "maximumResidentSetSizeBytes": 3093086208,
+      "rssOwner": "/usr/bin/time -l, macOS maximum resident set size",
+      "diagnosticLines": [
+        "# RC7_HS02_MEASUREMENT {\"phases\":[{\"name\":\"acquisition\",\"ms\":458.2,\"rss\":2816098304,\"work\":{\"historyDecodes\":1,\"decodedRows\":34,\"historyBytesRead\":3290300,\"storeReopens\":1,\"coldHistoryReads\":0,\"bodyReads\":0,\"bodyBytesRead\":0}},{\"name\":\"warm_calls\",\"ms\":13586.2,\"rss\":2781265920,\"work\":{\"historyDecodes\":0,\"decodedRows\":0,\"historyBytesRead\":0,\"storeReopens\":0,\"coldHistoryReads\":0,\"bodyReads\":96,\"bodyBytesRead\":3500127},\"calls\":2},{\"name\":\"warm_reads\",\"ms\":3148.2,\"rss\":2802253824,\"work\":{\"historyDecodes\":0,\"decodedRows\":0,\"historyBytesRead\":0,\"storeReopens\":0,\"coldHistoryReads\":0,\"bodyReads\":0,\"bodyBytesRead\":0},\"reads\":2},{\"name\":\"selected_cold_proof\",\"ms\":16576.8,\"rss\":2828156928,\"work\":{\"historyDecodes\":2,\"decodedRows\":192,\"historyBytesRead\":7000254,\"storeReopens\":0,\"coldHistoryReads\":2,\"bodyReads\":192,\"bodyBytesRead\":7000254},\"processes\":2,\"note\":\"cold work runs in child CLI processes; this process counts only its own\"}],\"refusals\":[{\"label\":\"stale\",\"outcomeKind\":\"installed_definition_call_transport_refusal\",\"code\":null},{\"label\":\"copied\",\"outcomeKind\":\"installed_definition_call_transport_refusal\",\"code\":null},{\"label\":\"foreign\",\"outcomeKind\":\"installed_definition_call_transport_refusal\",\"code\":null},{\"label\":\"closed\",\"outcomeKind\":\"installed_definition_call_transport_refusal\",\"code\":null}],\"initial\":{\"reopens\":1,\"decodes\":1,\"decodedRows\":34,\"historyBytesRead\":3290300},\"prefix\":{\"bytes\":3500127,\"coordinateDigest\":\"sha256:dd58ef6b5e84117f15b70e387cfccfb56460e80413b45181ae2cd32075ff5208\"},\"resultDigest\":\"sha256:cc18e11e162aa8e2ea6df78d5c8533ff0ff58676e82f0b58aeee2b31ba121294\",\"replayDigest\":\"sha256:ddd8dc600f5d39ce3b67725f72406b75b0f5a6c8784f994654107efa6ac283eb\",\"totalMs\":254846,\"limit\":\"Smallest installed F_D fixture in one test process; not the installed large-log S4 growth result and no performance claim.\"}"
+      ],
+      "commandReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-hs02-once.result.json",
+        "bytes": 1502,
+        "sha256": "e761c26b3cd9db59b8c8c27c44cc9be576aa4f79429e5cfd95daae2f9db02067"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-hs02-once.stdout",
+        "bytes": 2450,
+        "sha256": "a4734d93d9088699ffd413ad4d57fb0f83378e8c18f073fd4a1f1e985279f974"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-hs02-once.stderr",
+        "bytes": 777,
+        "sha256": "8f27a3bf493f71d8d17bada817b13dea9f03631477f3a82d94e4865042f98d9f"
+      },
+      "sourceAfter": {
+        "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+        "sourceRows": 450,
+        "generatedManifest": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+          "bytes": 3266103,
+          "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+        },
+        "matched": true
+      },
+      "unsafeExecution": false
+    },
+    {
+      "label": "operator-fixed-admission-once",
+      "testName": "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "selectedNames": [
+        "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+      ],
+      "selectedPass": false,
+      "processExitCode": 1,
+      "signal": null,
+      "failure": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 286825.12299999996,
+      "maximumResidentSetSizeBytes": 3290890240,
+      "rssOwner": "/usr/bin/time -l, macOS maximum resident set size",
+      "diagnosticLines": [],
+      "commandReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-fixed-admission-once.result.json",
+        "bytes": 1420,
+        "sha256": "f86f0fd733d7ad7e00b50e0a88909fd871d6e02c757fbb8e62adcdb17c2f6bd1"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-fixed-admission-once.stdout",
+        "bytes": 3546,
+        "sha256": "3ec2eae8b8b0d40d8b0e781d9d64c4b8ff94aab81a0cc5e39b7a5d182c44b59c"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/post-author-proof-001/commands/operator-fixed-admission-once.stderr",
+        "bytes": 777,
+        "sha256": "12948f4cca8003ae36d02e2c265e0334ea0675fc3c2c1aefa3c8bb8a2d51d2e0"
+      },
+      "sourceAfter": {
+        "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+        "sourceRows": 450,
+        "generatedManifest": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+          "bytes": 3266103,
+          "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+        },
+        "matched": true
+      },
+      "unsafeExecution": false
+    }
+  ],
+  "sourceBefore": {
+    "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+    "sourceRows": 450,
+    "generatedManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+    },
+    "matched": true
+  },
+  "sourceAfter": {
+    "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+    "sourceRows": 450,
+    "generatedManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+    },
+    "matched": true
+  },
+  "originalAuthorLedgerUnchanged": true,
+  "ProductAccepted": false,
+  "runnerRegressionClosed": false,
+  "qualified": false
+}

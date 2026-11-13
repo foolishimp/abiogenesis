@@ -1,0 +1,5 @@
+{
+  "allocation": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof-evidence/lane-01",
+  "error": "AssertionError [ERR_ASSERTION]: Selected whole-file proof failed or incomplete\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-04/proof.mjs:80:5",
+  "autoRetry": false
+}

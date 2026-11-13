@@ -1,0 +1,19 @@
+{
+  "status": "PURE_OWNER_BOUND8_READY",
+  "sourceCommit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+  "priorBound4MatchesActualConsumer": true,
+  "priorDeclarationDigest": "sha256:069e77e9dbed0459aa2e4db0bd6450c07198e0f723be6ade977e17a8941e876c",
+  "proposedDeclarationDigest": "sha256:e133e2328933c90950b466f5bddc030831b898198ef155a4c65537b2e521fc33",
+  "programObjectUnchanged": true,
+  "entryResolution": {
+    "kind": "resolved_program_start",
+    "targetKind": "next",
+    "start": {
+      "startRef": "start://abi5-tests/sandbox-uat/lifecycle@5",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5"
+    },
+    "assetRef": null
+  },
+  "PublicRuntimeProviderInstallBuildCalls": 0,
+  "meaning": "Pure construction/control readiness only; actual new consumer package/install/catalog/conformance remains Root-owned."
+}

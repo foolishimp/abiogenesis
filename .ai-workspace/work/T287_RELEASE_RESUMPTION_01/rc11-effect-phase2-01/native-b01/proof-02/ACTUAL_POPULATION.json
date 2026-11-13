@@ -1,0 +1,698 @@
+{
+  "counts": {
+    "tests": 102,
+    "pass": 95,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0
+  },
+  "completeTAP": true,
+  "names": [
+    "native whole-Program validator accepts exactly prepare plus nested C2, with no historical call rights",
+    "native validator rejects crossed raw/output and child closure; exact declaration owner refuses extra calls",
+    "closed Product carriers preserve all controlled supplied source observations; no fabricated cover qualifies native currentness",
+    "explicit zero write territory survives C1 and forward cold carrier round-trip without adding rights",
+    "missing reordered duplicate changed or crossed retained members refuse at real Product constructor",
+    "a sparse retained bindingCoverEventRefs throws at the real Product constructor; the dense control constructs",
+    "the forward constructors admit their three array inputs at ingress: a one-hole vector throws; the dense controls validate and round-trip",
+    "real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm",
+    "raw namespaces, attempt/task/artifact and actor/tool mismatches remain refused",
+    "step and terminal predicates preserve honest command failure but reject incomplete or crossed final carriers",
+    "synthetic current native lookup maps all controlled retained C0 owners only under exact witness",
+    "synthetic cover wrong direction, scope, missing member and unrelated origin refuse in unchanged native owners",
+    "synthetic workflow alias does not add a C0 owner; distinct same-value producer is ambiguity",
+    "synthetic later cross-W post-publication failure invalidates the old subject alias without fabricating O1",
+    "synthetic current-prefix consumption refuses another exact producer, unresolved admission and ignores unrelated scope",
+    "canonical native entry and occurrence owners refuse same-Run transfer, standalone task, foreign GF and missing native basis",
+    "M5 GTL exposes exactly seven direct C constructors",
+    "M5 C.compose is canonical, flat, and identity-eliding",
+    "M5 GraphFunction composition preserves exact left and right identity",
+    "M5 GraphFunction promotion preserves topology and semantic truth",
+    "M5 native constructors refuse invalid batch, retry, and F_H realization",
+    "M5 native GTL constructs all ten graph relations with derived identities",
+    "M5 same-object relation is one validator-owned canonical identity witness",
+    "M5 closure validation distinguishes run and child GraphCall scope",
+    "M5 whole-program validation admits exact recursion law and refuses its substitutes",
+    "M5 whole-program validation binds gate law to published Rule and Evaluator declarations",
+    "M5 fan-out materialization derives one exact task per admitted input member",
+    "M5 fan-out and fan-in outer contracts equal their declared vectors",
+    "M5 native GraphFunction composition materializes source GTL without a second executable carrier",
+    "M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL",
+    "M5 whole-program validation refuses forged or widened graph-edge declarations",
+    "M5 raw admission and validator reject invented or contradictory C data",
+    "M4 independently authored data fixture remains one valid direct C.of Program",
+    "M5 whole-root validation keeps F_H interaction keys out of executable resolution",
+    "M5 resolves and independently validates the complete executable root set",
+    "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+    "M5 F_H-only roots produce one valid empty executable-resolution set",
+    "TD-14: Rule.config is admitted at its parse; an unsafe integer or a lone surrogate is refused",
+    "M5 B-001 preserves lane-owned Claude execution posture",
+    "M5 native report keeps its original host schema presentation",
+    "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+    "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+    "M5 B-001 bounds append arguments for all four transport contracts",
+    "M5 B-001 gives agent-specific sandbox binding precedence",
+    "M5 transport identity changes with parser and prompt-delivery semantics",
+    "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+    "M5 Bash tool identity ignores only optional string description metadata",
+    "M5 B-001 rejects tool activity only in the closed-prompt lane",
+    "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+    "M5 selected result text cannot admit a valid file without its final carrier",
+    "M5 actual owner, controlled clock: a true acknowledgement renews inactivity and the timeout cutoff excludes later semantic bytes",
+    "M5 actual owner, controlled clock: a false acknowledgement never renews inactivity",
+    "M5 actual owner, controlled clock: continuous true acknowledgements never renew the absolute deadline",
+    "M5 actual owner, controlled clock: descendant bytes after direct exit reach the closed-capture branch and stay outside raw and semantic output",
+    "M5 actual owner, controlled clock: identical ordered progress gives one outcome under split and coalesced capture",
+    "M5 actual owner, controlled clock: the progress completion instant is the capture that completes the ordered record under every split, and incomplete completion has none",
+    "M5 actual owner, controlled clock: a rejected drive retains its available trace without awaiting the pending owner and rethrows the identical failure",
+    "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+    "M5 ABG transport renews its inactivity lease only from observed progress",
+    "M5 ABG transport does not renew from unacknowledged output",
+    "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+    "owned process groups retain descendant cleanup after normal and TERM leader exits",
+    "M5 ABG transport excludes descendant output emitted after direct-process exit",
+    "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+    "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+    "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+    "TD-11: the incremental tool projection equals the head projection at every cut",
+    "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+    "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+    "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+    "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+    "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+    "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+    "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+    "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+    "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+    "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization",
+    "RC9 OWN-01: owner folds over immutable rows and bytes are reused within their territory; changed, copied, earlier and cold inputs keep their checks and refusals",
+    "ordinary native runtime declaration passes the existing raw/Program owner",
+    "native source joins and cloned judgment retain their actual assessment; no owning adapter",
+    "caller-editable qualification owner views cannot mutate retained input authority; warm and cold agree",
+    "declared wrong value computes red; foreign law, changed installed subject, stale frontier and result substitute refuse",
+    "same-valued duplicate witness after assessment invalidates current consumption; supplied prefix substitution refuses",
+    "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+    "different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation",
+    "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+    "native revision complete publication admits unique carriers and retains the exact factory graph",
+    "native revision installed descriptor loader discovers every declared leaf through module exports",
+    "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+    "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+    "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+    "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring",
+    "atomic_call: actual assessment owner remains evidence; no duplicate result leaf",
+    "flat_composition: actual assessment owner remains evidence; no duplicate result leaf",
+    "edge_program: actual assessment owner remains evidence; no duplicate result leaf",
+    "flat_composition: finite declaration passes actual raw/Program validation",
+    "edge_program: finite declaration passes actual raw/Program validation",
+    "same final value does not hide a missing first step, wrong composition or foreign Result",
+    "order, value chain, declared coverage and intermediate expectations remain material",
+    "edge: the same final value cannot replace declared kind, role order or intermediate provenance",
+    "edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red",
+    "RC8 REF-01: constructed canonical calls and setup Catalog/view reach the run owner by reference from the first call; canonical outputs, refusals and copies keep their admission"
+  ],
+  "skippedNames": [
+    "M5 resolves and independently validates the complete executable root set",
+    "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+    "M5 F_H-only roots produce one valid empty executable-resolution set",
+    "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+    "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+    "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings"
+  ],
+  "rawSkipLines": [
+    "ok 35 - M5 resolves and independently validates the complete executable root set # SKIP ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+    "ok 36 - M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases # SKIP ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+    "ok 37 - M5 F_H-only roots produce one valid empty executable-resolution set # SKIP ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+    "ok 84 - material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction # SKIP ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body",
+    "ok 89 - native D2 root-backed binding cover authenticates source ancestry and preserves first refusals # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+    "ok 90 - native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings # SKIP ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)"
+  ],
+  "failedCases": [
+    {
+      "result": "not ok",
+      "ordinal": 62,
+      "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "skip": false
+    }
+  ],
+  "failureTAPBlock": "not ok 62 - owned process groups retain descendant cleanup after normal and TERM leader exits\n  ---\n  duration_ms: 22417.15025\n  type: 'test'\n  location: '/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:1224:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    http-normal: port published within the request window\n    + actual - expected\n    \n    + 'absent'\n    - 'observed'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 'observed'\n  actual: 'absent'\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:1298:36)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)\n  ...",
+  "m5": {
+    "tests": 39,
+    "pass": 38,
+    "fail": 1,
+    "skipped": 0,
+    "results": [
+      {
+        "result": "ok",
+        "ordinal": 39,
+        "name": "M5 B-001 preserves lane-owned Claude execution posture",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 40,
+        "name": "M5 native report keeps its original host schema presentation",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 41,
+        "name": "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 42,
+        "name": "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 43,
+        "name": "M5 B-001 bounds append arguments for all four transport contracts",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 44,
+        "name": "M5 B-001 gives agent-specific sandbox binding precedence",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 45,
+        "name": "M5 transport identity changes with parser and prompt-delivery semantics",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 46,
+        "name": "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 47,
+        "name": "M5 Bash tool identity ignores only optional string description metadata",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 48,
+        "name": "M5 B-001 rejects tool activity only in the closed-prompt lane",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 49,
+        "name": "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 50,
+        "name": "M5 selected result text cannot admit a valid file without its final carrier",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 51,
+        "name": "M5 actual owner, controlled clock: a true acknowledgement renews inactivity and the timeout cutoff excludes later semantic bytes",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 52,
+        "name": "M5 actual owner, controlled clock: a false acknowledgement never renews inactivity",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 53,
+        "name": "M5 actual owner, controlled clock: continuous true acknowledgements never renew the absolute deadline",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 54,
+        "name": "M5 actual owner, controlled clock: descendant bytes after direct exit reach the closed-capture branch and stay outside raw and semantic output",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 55,
+        "name": "M5 actual owner, controlled clock: identical ordered progress gives one outcome under split and coalesced capture",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 56,
+        "name": "M5 actual owner, controlled clock: the progress completion instant is the capture that completes the ordered record under every split, and incomplete completion has none",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 57,
+        "name": "M5 actual owner, controlled clock: a rejected drive retains its available trace without awaiting the pending owner and rethrows the identical failure",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 58,
+        "name": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 59,
+        "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 60,
+        "name": "M5 ABG transport does not renew from unacknowledged output",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 61,
+        "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+        "skip": false
+      },
+      {
+        "result": "not ok",
+        "ordinal": 62,
+        "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 63,
+        "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 64,
+        "name": "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 65,
+        "name": "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 66,
+        "name": "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 67,
+        "name": "TD-11: the incremental tool projection equals the head projection at every cut",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 68,
+        "name": "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 69,
+        "name": "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 70,
+        "name": "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 71,
+        "name": "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 72,
+        "name": "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 73,
+        "name": "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 74,
+        "name": "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 75,
+        "name": "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 76,
+        "name": "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+        "skip": false
+      },
+      {
+        "result": "ok",
+        "ordinal": 77,
+        "name": "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization",
+        "skip": false
+      }
+    ],
+    "evidenceCount": 33,
+    "expectedEvidenceCount": 34,
+    "missingEvidenceIds": [
+      "owned-group-http-TERM"
+    ],
+    "extraEvidenceIds": []
+  },
+  "evidence": [
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-absolute--87629.json",
+        "bytes": 2879,
+        "sha256": "a36c68f58d8b5198c43ce534a83de9ea4fe09564a65015af09a2bca54fbd39dc"
+      },
+      "caseId": "controlled-absolute",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-coalesced--87629.json",
+        "bytes": 2861,
+        "sha256": "e1456f73b0a5c9054b0a27a23706d976a0fe8f7bde050e9321a5d14c593ff5d0"
+      },
+      "caseId": "controlled-completion-coalesced",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-coalescedSplit--87629.json",
+        "bytes": 2956,
+        "sha256": "b70106db80fe48e6adb97a01e6b74b0074ff0ef1aea73d6f2aa278d8ea479005"
+      },
+      "caseId": "controlled-completion-coalescedSplit",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-eachByte--87629.json",
+        "bytes": 3210,
+        "sha256": "b748e0e49ff836b8f056d10a9ac1e3487ffd8eb256aa35097baacf4ffca2b166"
+      },
+      "caseId": "controlled-completion-eachByte",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-intact--87629.json",
+        "bytes": 2868,
+        "sha256": "e7338c7208accb27ed14f29081dc6e1fc6d140722c1aa9f10cf726180de83eba"
+      },
+      "caseId": "controlled-completion-intact",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-missing--87629.json",
+        "bytes": 2799,
+        "sha256": "a40b9d6b8ae902bc2cd1b85790fbcc452bd698cf0357b69aecdd25ababe0960c"
+      },
+      "caseId": "controlled-completion-missing",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split1--87629.json",
+        "bytes": 2908,
+        "sha256": "b259361a9e01857f5203441687606765db7ca884aa2369fc07f2c1ef9492b024"
+      },
+      "caseId": "controlled-completion-split1",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split2--87629.json",
+        "bytes": 2908,
+        "sha256": "38e916b093178576c4879b7fb4aabe6b1bacbc39cd35cb673c916ac5f5262b16"
+      },
+      "caseId": "controlled-completion-split2",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split3--87629.json",
+        "bytes": 2908,
+        "sha256": "3059efd47ef4bc1a65bd5f01cd013f13938828f5a32ead55cb808b5861bdd3be"
+      },
+      "caseId": "controlled-completion-split3",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split4--87629.json",
+        "bytes": 2908,
+        "sha256": "1f70069eedc22cd672035ce7a11db657ab1c0eb559cb37073e810b2869b66c56"
+      },
+      "caseId": "controlled-completion-split4",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split5--87629.json",
+        "bytes": 2908,
+        "sha256": "9a87f10dbfcd738f8b3b52347ddbd83995e409976693f4dcdb03b2cde308c6d0"
+      },
+      "caseId": "controlled-completion-split5",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split6--87629.json",
+        "bytes": 2908,
+        "sha256": "c3a52ec2db959863443f9794f2714877191792502afe6feb76703f6f46cf698a"
+      },
+      "caseId": "controlled-completion-split6",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split7--87629.json",
+        "bytes": 2908,
+        "sha256": "b309fc52952d5a939013d40f170bfce8d55e264bdb4b05a7a3997c02eaac7c10"
+      },
+      "caseId": "controlled-completion-split7",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-split8--87629.json",
+        "bytes": 2908,
+        "sha256": "300d5b7648223116267965f17cbd41d828b10a623f023ff706e5d541b9813994"
+      },
+      "caseId": "controlled-completion-split8",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-completion-unterminated--87629.json",
+        "bytes": 2926,
+        "sha256": "889f4a53caaffb4ba2e3bf2f1d11c8f7dbf9fed4f3a0409b05dcae8975d32203"
+      },
+      "caseId": "controlled-completion-unterminated",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-drive-rejected--87629.json",
+        "bytes": 1548,
+        "sha256": "34994cf638c2f60e9d933f029473fb0af7daa4765d7f5845d99638874e8e1028"
+      },
+      "caseId": "controlled-drive-rejected",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-false-ack--87629.json",
+        "bytes": 2804,
+        "sha256": "93382fd15a5813948c6801e9e258ddbd3b23d82bbe8158f6ca4f8cda7a5c0fc5"
+      },
+      "caseId": "controlled-false-ack",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-partition-fourScheduled--87629.json",
+        "bytes": 3038,
+        "sha256": "fc7d356bd479cc2dc045c97396d6c0d3eabb7eba8e0d7a3fe594610eaf148c43"
+      },
+      "caseId": "controlled-partition-fourScheduled",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-partition-oneCoalesced--87629.json",
+        "bytes": 2910,
+        "sha256": "f8acb529b546d82e00decde5ce22cbeafa04537efa27cfd24f61f45e44fc6558"
+      },
+      "caseId": "controlled-partition-oneCoalesced",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-partition-recordByRecord--87629.json",
+        "bytes": 3205,
+        "sha256": "d98b335603f87a4e48718e2f9af6776fd4c0ba2c1b3443959f442d2286a7245e"
+      },
+      "caseId": "controlled-partition-recordByRecord",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-partition-splitEachByte--87629.json",
+        "bytes": 6314,
+        "sha256": "2ea324ef1c8c158ceda4ee2510b38d775810fc97134c68d8e2fa442e6c4af305"
+      },
+      "caseId": "controlled-partition-splitEachByte",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-post-exit--87629.json",
+        "bytes": 2539,
+        "sha256": "191e8793aa3e71dfcf08e72a3b7927b05b33540284078c3c9437e0d4cd0dac7e"
+      },
+      "caseId": "controlled-post-exit",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--controlled-true-ack--87629.json",
+        "bytes": 2668,
+        "sha256": "a7d481d5da986614dec1375f429569ea99716ec69e9a102d8a13aaf6aace522c"
+      },
+      "caseId": "controlled-true-ack",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-TERM--87629.json",
+        "bytes": 1698,
+        "sha256": "ecd4324b5a0c2c0c57bbc31ed16e402f78fb0826ffe5b578651ad8f4b32b26c2"
+      },
+      "caseId": "owned-group-command-TERM",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-command-normal--87629.json",
+        "bytes": 1697,
+        "sha256": "40b85a0e4a47195c3defa3f77f3bbe0665d34cfcffd3d4d95ca604470e28bab7"
+      },
+      "caseId": "owned-group-command-normal",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-http-normal--87629.json",
+        "bytes": 1128,
+        "sha256": "da28348aebff578cfe586f6c6371d3f2ea58a5049d4f1f1975afbd29ff1e6bf6"
+      },
+      "caseId": "owned-group-http-normal",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-TERM--87629.json",
+        "bytes": 4907,
+        "sha256": "09601b247e15a0fc23c3faaaffc3a982ad6bac365200a4ea008504304533a60e"
+      },
+      "caseId": "owned-group-worker-TERM",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--owned-group-worker-normal--87629.json",
+        "bytes": 4858,
+        "sha256": "cc42776d93da1ecbbe5666f40f0c5b7c17f8532d5e75e9d479443bdcd3235f85"
+      },
+      "caseId": "owned-group-worker-normal",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--post-exit-output--87629.json",
+        "bytes": 5442,
+        "sha256": "ed11828ddea2eec162d27270b1a8ead446044bec3617f84995f31b73b870a6eb"
+      },
+      "caseId": "post-exit-output",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--post-timeout-output--87629.json",
+        "bytes": 5799,
+        "sha256": "174784fc9920c531d8edd68b6f0b5f0c503032d2dc55493f88c0a1c17b978104"
+      },
+      "caseId": "post-timeout-output",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--progress-lease--87629.json",
+        "bytes": 15245,
+        "sha256": "9004c07e573ac1861f5b03011e81842d7630b92d6212eb2b0a732f9bed06bc32"
+      },
+      "caseId": "progress-lease",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--resistant-worker--87629.json",
+        "bytes": 27860,
+        "sha256": "fd4ce867973fcb8bf65b56f9f16e591fbceb938ce5757a652bc42655b0bdaf08"
+      },
+      "caseId": "resistant-worker",
+      "evidence": "m5-worker-transport"
+    },
+    {
+      "pin": {
+        "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/evidence/m5-worker-transport--unacknowledged-output--87629.json",
+        "bytes": 33812,
+        "sha256": "9060073339f8aa834785b681967c140dbbaa3dc62ecbfade4f124fe55b06f5bd"
+      },
+      "caseId": "unacknowledged-output",
+      "evidence": "m5-worker-transport"
+    }
+  ],
+  "stdout": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/stdout.log",
+    "bytes": 220444,
+    "sha256": "1d997fad2657e460b312a8c17703cacd8d678a8b07b49cf1c6362d7387e017cc"
+  },
+  "stderr": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02/unit/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "standing": "Complete actual red population; no expected-pass substitution. Derived result names strip the TAP SKIP directive before applying existing unescape function; controller output unchanged."
+}

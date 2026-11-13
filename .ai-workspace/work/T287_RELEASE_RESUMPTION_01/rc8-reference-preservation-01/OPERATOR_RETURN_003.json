@@ -1,0 +1,341 @@
+{
+  "status": "SOURCE_PARTIAL_REPAIR_REQUIRED_NATIVE_CLOSED",
+  "recordedUtc": "2026-11-07T03:39:46.442456+00:00",
+  "authority": "Root selected corrected Operator mechanical proof after actual native return; Root instructed hold after active held lane pending independent review and bounded repair",
+  "writer": "/root/rc8_operator",
+  "source": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source-freeze.json",
+      "bytes": 293771,
+      "sha256": "0b387280632b2bb43220a867c6d8563b9153f43a1783e510f5721f989523e022"
+    },
+    "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+    "frozenRoot": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/source",
+    "currentSourceExactlyMatchesFrozenRows": 1338,
+    "reviewPacket": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/REVIEW_PACKET_STAGE02.json",
+      "bytes": 6893,
+      "sha256": "0228bf8bff6b4279be2f0e5e1895e9d699ba61bbbeddaef94d50bdc692e6757b"
+    },
+    "logicalFileDelta": 15,
+    "sdkChangedEntries": 16,
+    "directoryObservationEntry": "build_tenants/abiogenesis/typescript/test_env/support"
+  },
+  "native": {
+    "dispatchCount": 1,
+    "actualSdkReturned": true,
+    "actualPhysicalClose": true,
+    "final": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/FINAL.json",
+      "bytes": 3195,
+      "sha256": "fec4bae74c1c65fe611baf1dae157a094e2a0b35dbd343672e03c614f79208f9"
+    },
+    "completeSdkOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/calls/lifecycle-start.outcome.json",
+      "bytes": 1647630,
+      "sha256": "3dd78a68391b946907dd578ed21f7b51957d3a826167af3040f26072eab98b51"
+    },
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resume-002/resource-close.json",
+      "bytes": 2304,
+      "sha256": "469e6ab2f2bc0818a8e8c9629a242fd885e6e0ea46fde66d6360d583294ead73"
+    },
+    "run": {
+      "ref": "run://abiogenesis/0526a286827851182b39b6bc2df9007e588ec2b972854d6248e924f84b8afd77",
+      "digest": "sha256:af4c0d5afd8500110da59dc3eef989d858796e82c99e48a6c15115c4e1692dc7"
+    },
+    "failure": null,
+    "runResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/readbacks-001/calls/run_result.outcome.json",
+      "bytes": 1496451,
+      "sha256": "9046dae5807e90e19e3df9bf13201f6dbaaea07e5d48348857e80e971736c353"
+    },
+    "runReplay": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/readbacks-001/calls/run_replay.outcome.json",
+      "bytes": 1496040,
+      "sha256": "25889165654ce5c51cd0483b64a8f05daa69799338917d6448a5c83888bb350d"
+    },
+    "freshReadbacks": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/readbacks-001/RESULT.json",
+      "bytes": 6379,
+      "sha256": "32e87582ec2024f1721715a1a5d27abc403dc2cc0f514f3e09ec9780151c82fa"
+    },
+    "readbackSubjectPinnedBeforeCalls": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/readbacks-001/run.json",
+      "bytes": 4049,
+      "sha256": "1c90ad78f3ac6c89e434e34f541dc96f482f34e4355e4cae86e7e3124a2da98a"
+    },
+    "freshReadsPrefixAndPhysicalIdentityUnchanged": true,
+    "finalPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 29300126,
+      "prefixDigest": "sha256:04d44238a28b53aaff7bb0c5bf91f10e09fd21cf8cbbe3b60b5a158df5559da9",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 708868359,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:2f1eb18513d99f5bba052dc9726a7672910f29580aa7d52f54a1e8d654591c51"
+    }
+  },
+  "proof": {
+    "stageResult": {
+      "path": "/private/tmp/abg-r8-uozznezy/proof-003/stage-02/RESULT.json",
+      "bytes": 843,
+      "sha256": "c95cbbde589d8cf990f0f6df4df714a899641b4bc3399b6fb6309d3e271b183e"
+    },
+    "buildResults": [
+      {
+        "id": "compile",
+        "exitCode": 0,
+        "wallMs": 7243.923957999999,
+        "timedOut": false
+      },
+      {
+        "id": "generate",
+        "exitCode": 0,
+        "wallMs": 22007.820333000003,
+        "timedOut": false
+      },
+      {
+        "id": "imports",
+        "exitCode": 0,
+        "wallMs": 35.382165999999415,
+        "timedOut": false
+      },
+      {
+        "id": "lifecycle",
+        "exitCode": 0,
+        "wallMs": 581.0218749999985,
+        "timedOut": false
+      },
+      {
+        "id": "calculus",
+        "exitCode": 0,
+        "wallMs": 215.49941700000272,
+        "timedOut": false
+      }
+    ],
+    "lanes": [
+      {
+        "status": "PASSED",
+        "name": "lane-01",
+        "lane": "owned-call",
+        "stage": "stage-02",
+        "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+        "counts": {
+          "tests": 1,
+          "pass": 1,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 38384.297291,
+        "pattern": null,
+        "record": {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/lane-01/RESULT.json",
+          "bytes": 341,
+          "sha256": "9d6b23f9b454492cdc6ee588a77a86e0ca34bb0171bba2a2d044e645d780d73d"
+        }
+      },
+      {
+        "status": "PASSED",
+        "name": "lane-02",
+        "lane": "binding",
+        "stage": "stage-02",
+        "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+        "counts": {
+          "tests": 5,
+          "pass": 3,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 2,
+          "todo": 0
+        },
+        "wallMs": 618.962,
+        "pattern": null,
+        "record": {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/lane-02/RESULT.json",
+          "bytes": 333,
+          "sha256": "4190eb72622a10be9c128a18b3ab100da6846dc913f15a8768773f31ab899006"
+        }
+      },
+      {
+        "status": "PASSED",
+        "name": "lane-03",
+        "lane": "catalog",
+        "stage": "stage-02",
+        "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+        "counts": {
+          "tests": 8,
+          "pass": 8,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 557.716583,
+        "pattern": null,
+        "record": {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/lane-03/RESULT.json",
+          "bytes": 336,
+          "sha256": "deafc65216b3da5bb234ba53e57ccee1dbf6850d904a2001ec68ad523eabcb08"
+        }
+      },
+      {
+        "status": "PASSED",
+        "name": "lane-04",
+        "lane": "invocation",
+        "stage": "stage-02",
+        "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+        "counts": {
+          "tests": 2,
+          "pass": 2,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 72814.234875,
+        "pattern": null,
+        "record": {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/lane-04/RESULT.json",
+          "bytes": 341,
+          "sha256": "38bd628927e4f67a83fa2b35497eeb93672d40ef1b9175a1e3cb8f9980542ace"
+        }
+      },
+      {
+        "status": "PASSED",
+        "name": "lane-05",
+        "lane": "worker",
+        "stage": "stage-02",
+        "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+        "counts": {
+          "tests": 32,
+          "pass": 32,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 11692.977958000001,
+        "pattern": null,
+        "record": {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/lane-05/RESULT.json",
+          "bytes": 345,
+          "sha256": "65e4c0c1ca90594f2a60698d94ac4710e55e721ceba673a348d8d8c16e0bb09d"
+        }
+      },
+      {
+        "status": "PASSED",
+        "name": "lane-06",
+        "lane": "held",
+        "stage": "stage-02",
+        "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+        "counts": {
+          "tests": 2,
+          "pass": 2,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "wallMs": 43337.7385,
+        "pattern": "^(T287 disposable reuse|RC7 HS02:)",
+        "record": {
+          "path": "/private/tmp/abg-r8-uozznezy/proof-003/lane-06/RESULT.json",
+          "bytes": 365,
+          "sha256": "dc00d6f20bcca9e3fc5895f2af02dca5d4715261d89ad9421bb6cc695cd68dc0"
+        }
+      }
+    ],
+    "aggregate": {
+      "tests": 50,
+      "pass": 48,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 2,
+      "todo": 0
+    },
+    "skips": [
+      "binding: preparation resolution retains its established native link and raw lock refusals; ABI5_PREPARATION_RESOLVE_CALL unset",
+      "binding: native detachment retains only actual immutable verifier bodies and detaches raw copies; ABI5_PREPARATION_RESOLVE_CALL unset"
+    ],
+    "heldSelection": "Positive pattern ^(T287 disposable reuse|RC7 HS02:) on current fresh fixtures; retained history dependent cases were not selected",
+    "selectedStages": 4,
+    "spentStages": 2,
+    "spentStagesExplanation": "stage-01 Operator source enumeration ENOBUFS before compiler/test; stage-02 corrected source snapshot/build",
+    "remainingStages": 2,
+    "selectedProofInvocations": 8,
+    "spentProofInvocations": 6,
+    "remainingProofInvocations": 2,
+    "nextEffectsHeld": true
+  },
+  "timing": {
+    "initialSetupFunctionalMs": 40213.242708,
+    "actualCloseResumeFunctionalMs": 21254.930333,
+    "dispatchToActorStartMs": 7076,
+    "dispatchToSdkReturnMs": 1587843.004458,
+    "buildCommandWallMs": 30083.647749000003,
+    "focusedCommandWallMs": 167405.927207,
+    "freshReadbacksWallMs": 9143.269416000001,
+    "classification": "Functional owner setup/resume and actual dispatch/return intervals are separate from coordination, preparation, review and operator-control triage. Initial setup context closure and stage-01 index failure were Operator control errors."
+  },
+  "rootReviewDispositionPending": [
+    "First setup-owned Catalog/view still structurally copied/reconstructed/walked at first binder sight; full selected REF-01 work bound not yet achieved.",
+    "Generic admitResources may return original frozen input instead of schema-transformed output and omit schema-created default keys by reconstructing original members only. Root independently observed this material issue.",
+    "Current native-relinks counter measures verifier reattachment, not expensive native module/declaration linking.",
+    "Owner-bindings schema extension remains a proposal outside the first native grant. Root must select full causal re-entry before any new coding."
+  ],
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/ROOT_ADMISSION_002.json",
+      "bytes": 5734,
+      "sha256": "516e250dde002f70c885c28c5fcc542bd3534dd6286fed3d551359f1e47b06b7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+      "bytes": 9837,
+      "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/TASK.002.json",
+      "bytes": 10804,
+      "sha256": "aedba92096b81986f2371f941eb9d427368aae11c46f70c327564a3cbb54d8f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/host.002.mjs",
+      "bytes": 12842,
+      "sha256": "bbf4bd81e711b6ec78e5035151c452c5ed7604856cc242e16493642323e5638b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/proof.003.mjs",
+      "bytes": 6674,
+      "sha256": "3291c57cdc1fbcafea2b8ccc32a901ee943c5162ff02d8c3a324b634fdab7364"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/ROOT_CONTROL_RECOVERY_003.json",
+      "bytes": 3026,
+      "sha256": "b8d63afa24798c4681e0c5883cb2cccdadc0b9471e74335a0cab52c4b41fe767"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/readbacks.001.mjs",
+      "bytes": 4281,
+      "sha256": "d1097e584b4271b5b8a87c34f43c8ff69a23d9e8051906c668a78acbaa567ad2"
+    }
+  ],
+  "remainingBoundaries": {
+    "sourceAccepted": false,
+    "qualified": false,
+    "cut": false,
+    "installedRc8": false,
+    "nextNativeDispatchAuthorized": false,
+    "measurements": "Separate Root Operator; not duplicated here"
+  },
+  "freeBytes": 11128803328
+}

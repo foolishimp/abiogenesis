@@ -1,0 +1,12 @@
+{
+  "startedUtc": "2026-11-05T18:36:53.325Z",
+  "endedUtc": "2026-11-05T18:37:15.824Z",
+  "wallMs": 22498.208584000004,
+  "exitCode": 1,
+  "outcomeKind": "refusal",
+  "disposition": null,
+  "run": null,
+  "terminal": null,
+  "qualified": false,
+  "meaning": "Native return; independent source review and actual C2/UAT determine bounded acceptance."
+}

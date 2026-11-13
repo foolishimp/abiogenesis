@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/r5-invocation-admission.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/032-r5-invocation-admission.test/process.json",
+    "bytes": 1081,
+    "sha256": "82cf753668e7477d9351d327b7f02fcf2bd06ad3e50a5c8b8de4ef212f37f659"
+  }
+}

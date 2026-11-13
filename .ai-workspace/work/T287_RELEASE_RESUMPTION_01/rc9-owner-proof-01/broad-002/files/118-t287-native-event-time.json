@@ -1,0 +1,81 @@
+{
+  "file": "test_env/tests/t287-native-event-time.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 2009.2609170000069,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 5,
+    "failed": 0,
+    "passed": 2,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 5,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "same real HoG basis constructor path reproduces the old seed bug and discriminates the repair",
+      "file": "test_env/tests/t287-native-event-time.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_EVENT_TIME_BASELINE_ROOT unset; requires the old-seed baseline build root",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "exact paired admission producer preserves recognition across forced clock movement",
+      "file": "test_env/tests/t287-native-event-time.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_EVENT_TIME_HISTORY_PATH unset; requires the retained historical event history",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "retained historical identity is unchanged; no wall clock is read by the historical event projector",
+      "file": "test_env/tests/t287-native-event-time.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABI5_EVENT_TIME_HISTORY_PATH unset; requires the retained historical event history",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/118-t287-native-event-time.jsonl",
+    "bytes": 2199,
+    "sha256": "0a0ad56143bca068a496206b0dfe8dc1cce33e8ef5739828a3d57187b9b3062c"
+  },
+  "commandReceipt": "commands/118-t287-native-event-time.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

@@ -1,0 +1,76 @@
+{
+  "kind": "root_q23_six_path_counterexample_reentry",
+  "at": "2026-11-05T20:28:53.790756+00:00",
+  "status": "SELECTED_FOR_NATIVE_PACKET_PREPARATION",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/ROOT_FAILURE_TRIAGE.json",
+    "bytes": 7169,
+    "sha256": "fd3e8eaea7821b1d29fe2ba70883efda9c6f1b90a082398c42c06d3d4bb6e211"
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "outcome": "Existing F11/F15 independence claims use actual configured identity through current ABG owners; unknown or ineligible required assessment cannot launch or become green.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "sourceTree": "ff447cb7c9cf04c2af9cc784ef3ff0e1892ab702",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "outcome": "Close exactly Q1 prompt-operand false identity and Q4 missing required declared-peer pre-dispatch eligibility, preserving remainingQ1-Q7 and all accepted boundaries.",
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs"
+  ],
+  "nativeScratchRoot": "qualification-scratch/q23-author-06",
+  "inputRoot": "qualification-inputs/q23-author-06",
+  "providerScratch": "tmpq23f",
+  "testTemporaryRoot": "/private/tmp/abg-q23f",
+  "roleBoundary": "Mechanical controls writer prepares only D/q23-author-06. Root stages/checks/dispatches. One ABG-native ClaudeOpus5.5 xhigh Worker alone edits selectedProduct/HOW/tests. Reviewers inspectfrozen snapshots atmax.",
+  "route": {
+    "programRef": "program://abiogenesis/worksite/native-work@5",
+    "latestClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/after-run-resume.json",
+      "bytes": 72668372,
+      "sha256": "e10435e6bbaf9d0d3320d7868b356aca71c2bdba01a4104903eeb55aa205d3d6"
+    },
+    "retainedAuthorBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/after-binding-resume.json",
+      "bytes": 72486815,
+      "sha256": "1fba84d6a7a09d402a18e858fff3e4f29ce4ae95b3f2d99125575f6512cb78ff"
+    },
+    "meaning": "Restore only authentic ABI binding/catalog/author view from retainedbinding source while conserving latestPclose; no rebind/catalogadmission/reinstall. Existing installedowner validates actualprefix."
+  },
+  "provider": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "maxTurns": 384,
+    "absoluteTimeoutMs": 7200000,
+    "oneCodingWorker": true,
+    "automaticRetry": false
+  },
+  "proof": "Preserve previous62tests as old-subject evidence. Do not run baseline. Correctsource, compile/generate using existing offline roots in unique scratch, then six existing modules with finite added negatives, zero skips/fails/cancel/todo. Native actualC2/UAT follows sourcefreeze through defaultconsumer with unique readFirst; no standaloneUAT route change.",
+  "exclusions": [
+    "D5 retirement remains a separate preRC7 obligation",
+    "QR02 survivor correspondence and QR03/productioneligible route",
+    "No generic provider grammar, catalog/controller, additionalProgram or Product WHAT",
+    "No privateprovider/authlogs, sessionresume, dependencyinstall, Gitmutation, release/global selector or push"
+  ],
+  "return": "Actual native result + allthree handoffs with sourcechanges/checks/exactlimits; Root freezes once and conjoinsreview/proof. No sourceacceptance or qualifiedrelease fromthis selection."
+}

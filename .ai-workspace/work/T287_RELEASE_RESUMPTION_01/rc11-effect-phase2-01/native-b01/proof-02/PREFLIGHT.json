@@ -1,0 +1,39 @@
+{
+  "status": "STATIC_AND_RETAINED_STATE_PREFLIGHT_PASSED_UNIT_HELD",
+  "actualGuardResult": {
+    "sourceRows": 1345,
+    "compiledRows": 998,
+    "archiveMembers": 5329,
+    "typedRawJoin": {
+      "typed": "sha256:7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+      "raw": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8",
+      "payloadEqual": true
+    },
+    "sourceBuildDependencyArchiveInstallProtectionExact": true
+  },
+  "controller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/unit.py",
+    "bytes": 17434,
+    "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/BINDING.json",
+    "bytes": 10420,
+    "sha256": "b61368b7b505cc42fe04650e22819c68e0bf0a9a255045a8c1024b37df360755"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/CONTROLS.json",
+    "bytes": 21010,
+    "sha256": "fc1a51fafd6eeb5dc4928441945ed9d6a762a14a5672c67acb145edbb3be1980"
+  },
+  "discriminator": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator-actual-01/RETURN.json",
+    "bytes": 3716,
+    "sha256": "aa8bed9682146c177aee583bdde47395585e88275048418c26669cb2201c8e9b"
+  },
+  "controllerUnchangedSinceDiscriminator": true,
+  "prospectiveRootAbsent": true,
+  "sourceBuildArchiveBootstrapAndOldEvidenceReadOnly": true,
+  "mainTrackingUpdates": false,
+  "ProductOrTestExecution": false
+}

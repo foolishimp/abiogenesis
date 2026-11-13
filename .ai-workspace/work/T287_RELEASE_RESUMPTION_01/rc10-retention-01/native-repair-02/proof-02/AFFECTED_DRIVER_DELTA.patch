@@ -1,0 +1,37 @@
+--- proof-02/frozen-proof.mjs
++++ proof-02/affected-proof.mjs
+@@ -25,7 +25,7 @@
+ // UNIT_REPORTER_PARSER_END
+ 
+ const [bindingPath,bindingSha,mode,stageName,executionAdmissionPath,executionAdmissionSha]=process.argv.slice(2);
+-assert(bindingPath&&bindingSha&&['stage','focused','unit'].includes(mode),'usage: node frozen-proof.mjs ADMITTED_BINDING SHA stage | ADMITTED_BINDING SHA unit stage-01');
++assert(bindingPath&&bindingSha&&['stage','focused','unit','affected'].includes(mode),'usage: node frozen-proof.mjs ADMITTED_BINDING SHA stage | ADMITTED_BINDING SHA unit stage-01');
+ const raw=await readFile(bindingPath);assert.equal(sha(raw),bindingSha);
+ const b=JSON.parse(raw);assert(['PREPARED_RC10_FROZEN_PROOF','ROOT_ADMITTED_RC10_FROZEN_PROOF'].includes(b.status),'unknown proof control status');
+ assert(b.allowedModes.includes(mode),'this proof mode has no admitted grant');
+@@ -97,11 +97,11 @@
+   }else{
+     assert.equal(stageName,'stage-01');assert(!await exists(join(b.proofRoot,'HALT.json')),'failed predecessor; Root re-entry');
+     const stage=JSON.parse(await readFile(join(b.proofRoot,stageName,'RESULT.json')));assert.equal(stage.status,'BUILT');assert.equal(stage.bindingSha256,b.stageBindingSha256??bindingSha);
+-    output=join(b.proofRoot,mode==='focused'?'focused-01':'unit-01');assert(!await exists(output),'one unit allocation only');await mkdir(output);
+-    const pkg=JSON.parse(await readFile(join(stage.tenant,'package.json'))),script=mode==='focused'
++    output=join(b.proofRoot,mode==='focused'?'focused-01':mode==='affected'?'affected-01':'unit-01');assert(!await exists(output),'one unit allocation only');await mkdir(output);
++    const pkg=JSON.parse(await readFile(join(stage.tenant,'package.json'))),script=mode!=='unit'
+       ?['node','--experimental-vm-modules','--test','--test-concurrency=1',...b.focusedFiles].join(' '):pkg.scripts[b.unitScriptName],tokens=script.trim().split(/\s+/u);
+     if(mode==='unit')assert.equal(script,b.expectedUnitScript,'unit source script identity changed');
+-    const requiredTests=mode==='focused'?b.focusedFiles:b.requiredUnitTests;
++    const requiredTests=mode!=='unit'?b.focusedFiles:b.requiredUnitTests;
+     assert.deepEqual(tokens.slice(0,4),['node','--experimental-vm-modules','--test','--test-concurrency=1']);
+     assert(tokens.slice(4).every(p=>/^test_env\/tests\/[a-zA-Z0-9_.-]+\.test\.mjs$/u.test(p)),'normal finite unfiltered unit lane required');
+     for(const f of requiredTests)assert(tokens.includes(f),'required owner regression missing from unit lane: '+f);
+@@ -110,8 +110,8 @@
+     const reporterOptions=['--test-reporter=spec','--test-reporter-destination=stdout','--test-reporter='+reporterPath,'--test-reporter-destination='+events];
+     assert(reporterOptions.every(v=>!/[\s"'\\]/u.test(v)),'reporter option requires explicit quoting support');
+     const unitEnvironment={...env,NODE_OPTIONS:[env.NODE_OPTIONS,...reporterOptions].join(' ')};
+-    await exclusiveRecord(output,'REPORTER_CONFIGURATION.json',{unitScript:script,unitScriptSha256:sha(Buffer.from(script)),executable:process.execPath,args:mode==='focused'?tokens.slice(1):[b.npmCli.path,'run',b.unitScriptName],cwd:stage.tenant,nodeOptions:unitEnvironment.NODE_OPTIONS,reporter:reporterPin,structuredDestination:events,stdoutReporter:'spec',population:tokens.slice(4),scope:'Unit subprocess only; source script/population/order/concurrency unchanged. Reporter configuration is explicit.'});
+-    const selectedArgs=mode==='focused'?tokens.slice(1):[b.npmCli.path,'run',b.unitScriptName];
++    await exclusiveRecord(output,'REPORTER_CONFIGURATION.json',{unitScript:script,unitScriptSha256:sha(Buffer.from(script)),executable:process.execPath,args:mode!=='unit'?tokens.slice(1):[b.npmCli.path,'run',b.unitScriptName],cwd:stage.tenant,nodeOptions:unitEnvironment.NODE_OPTIONS,reporter:reporterPin,structuredDestination:events,stdoutReporter:'spec',population:tokens.slice(4),scope:'Unit subprocess only; source script/population/order/concurrency unchanged. Reporter configuration is explicit.'});
++    const selectedArgs=mode!=='unit'?tokens.slice(1):[b.npmCli.path,'run',b.unitScriptName];
+     const r=await commandRecorder(output,{environment:unitEnvironment,timeoutMs:mode==='focused'?b.focusedTimeoutMs:b.unitTimeoutMs,maxOutputBytes:b.maxOutputBytes})(mode,process.execPath,selectedArgs,{cwd:stage.tenant});
+     let reporterBytes=null,reporterReadFailure=null;try{const st=await lstat(events);assert(st.size<=b.maxOutputBytes,'structured reporter output bound exceeded');reporterBytes=await readFile(events);}catch(error){reporterReadFailure=String(error);}
+     const evidence=parseUnitReporter(reporterBytes,b.maxOutputBytes),counts=evidence.counts;

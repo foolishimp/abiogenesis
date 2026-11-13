@@ -1,0 +1,397 @@
+[
+  {
+    "worktree": "/Users/jim/src/apps/abiogenesis",
+    "HEAD": "3f6a4cb1a2b0cbd6a0218d777ca69e1733ba70bb",
+    "branch": "refs/heads/main",
+    "disposition": "keep"
+  },
+  {
+    "worktree": "/private/tmp/abg-post",
+    "HEAD": "e9846da2bb1ffe8ed530e8bad75eb0087a51d6f0",
+    "detached": "",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 830228,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 985,
+    "discardedIgnoredReproducibleCount": 38376,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": [],
+    "localArchive": {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/checkpoint-20261114-01/worktrees/abg-post/local-files.tar.gz",
+      "bytes": 42320947,
+      "sha256": "f67e5c8ef67902bbb77d28d93c2715a9d9f5a0be0f4017437a4d22ff619d89b5",
+      "members": 985,
+      "sourceBytes": 168427179,
+      "verified": true
+    }
+  },
+  {
+    "worktree": "/private/tmp/abg-rc10-retention-20261109",
+    "HEAD": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+    "branch": "refs/heads/codex/rc10-retention",
+    "prunable": "gitdir file points to non-existent location",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 0,
+    "staleRegistration": true,
+    "residual": [
+      {
+        "path": "qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/node_modules/.bin/tsserver",
+        "mode": 493,
+        "kind": "symlink",
+        "target": "../typescript/bin/tsserver"
+      },
+      {
+        "path": "qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/node_modules/.bin/tsc",
+        "mode": 493,
+        "kind": "symlink",
+        "target": "../typescript/bin/tsc"
+      },
+      {
+        "path": "qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/node_modules/.bin/tsserver",
+        "mode": 493,
+        "kind": "symlink",
+        "target": "../typescript/bin/tsserver"
+      },
+      {
+        "path": "qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/node_modules/.bin/tsc",
+        "mode": 493,
+        "kind": "symlink",
+        "target": "../typescript/bin/tsc"
+      }
+    ]
+  },
+  {
+    "worktree": "/private/tmp/abg-rc11-foundation-20261110-01",
+    "HEAD": "b7cf409fc74eca639525fccbea52e666be7743d4",
+    "branch": "refs/heads/codex/rc11-foundation-correction",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 216044,
+    "trackedStatus": [],
+    "untrackedCount": 738,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 7697,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": [],
+    "localArchive": {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/checkpoint-20261114-01/worktrees/abg-rc11-foundation-20261110-01/local-files.tar.gz",
+      "bytes": 13561754,
+      "sha256": "941b90b5c214c022475d4d9063d2a8e38396cbef1c908e22f46d8da456d9883f",
+      "members": 738,
+      "sourceBytes": 19783725,
+      "verified": true
+    }
+  },
+  {
+    "worktree": "/private/tmp/abg-rc11-qualification-20261109",
+    "HEAD": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+    "branch": "refs/heads/codex/rc11-qualification",
+    "prunable": "gitdir file points to non-existent location",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 0,
+    "staleRegistration": true,
+    "residual": []
+  },
+  {
+    "worktree": "/private/tmp/abg-rc13-composed-final",
+    "HEAD": "e36e4b316503053a81c4556f0bda73216e76cdf6",
+    "detached": "",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 157764,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 5349,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-rc13-composed-final-02",
+    "HEAD": "98c258643857e395ebca3a4646b369e086b042f9",
+    "detached": "",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 158436,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 5349,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-rc13-composed-final-03",
+    "HEAD": "21e6d7571e1897322cb73e96045c08c78413e8d0",
+    "detached": "",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 158888,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 5349,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-rc13-composed-final-04",
+    "HEAD": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+    "detached": "",
+    "disposition": "keep"
+  },
+  {
+    "worktree": "/private/tmp/abg-rc13-delivery-prep",
+    "HEAD": "9cf3285baec1f1ae80758a332ec06358a04d6804",
+    "branch": "refs/heads/codex/rc13-delivery-prep",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 636,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 0,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-t292-b08",
+    "HEAD": "7f0318ad83245a65186eee35a79acb1364c0a987",
+    "branch": "refs/heads/codex/t292-b08-design",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 44840,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 0,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-t292-b28",
+    "HEAD": "cb1eb011e7fd569218523bfa7288b2a7c88c307b",
+    "branch": "refs/heads/codex/t292-b28-d2-premise",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 157456,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 5349,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-t292-b29",
+    "HEAD": "61c6465899a619d3b368b7cd396afe3e1f3236ba",
+    "branch": "refs/heads/codex/t292-b29-vm-context",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 158784,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 5349,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-t292-b30",
+    "HEAD": "e181671c15addca6ce7e82cdfde482f02b6d1fe1",
+    "branch": "refs/heads/codex/t292-b30-catalog-proof",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 159280,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 5349,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-td26p5",
+    "HEAD": "bcb1a93c6d1633c4112ed60e4c7f9ec4d6e3f237",
+    "branch": "refs/heads/claude/td26-p5-readers-and-gap-family",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 157832,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 5351,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-td26p6",
+    "HEAD": "fddbdcea71c0222c6c869ef413bec6df33f6b947",
+    "branch": "refs/heads/codex/td26-p6-language",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 149940,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 5351,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-td26p7",
+    "HEAD": "2a5ff36806752a5816312e2e8266c8c4cff8ccfa",
+    "branch": "refs/heads/codex/td26-p7-members",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 142020,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 0,
+    "discardedIgnoredReproducibleCount": 5349,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": []
+  },
+  {
+    "worktree": "/private/tmp/abg-td77",
+    "HEAD": "820206a4ea1ed1e4b2f356d625e6f6482ce3cc23",
+    "branch": "refs/heads/claude/td77-recorded-lock-truth",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 192620,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 6,
+    "discardedIgnoredReproducibleCount": 5351,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": [],
+    "localArchive": {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/checkpoint-20261114-01/worktrees/abg-td77/local-files.tar.gz",
+      "bytes": 4584025,
+      "sha256": "3076eb403ba053020c8739d1b5def409c9e7fbb253649f1ce5955bfcb957e87a",
+      "members": 6,
+      "sourceBytes": 35681037,
+      "verified": true
+    }
+  },
+  {
+    "worktree": "/private/tmp/abg-td78",
+    "HEAD": "fb973fa5ce1138d28e665a2fe38c1327c0017877",
+    "branch": "refs/heads/codex/td78-bound-product",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 142508,
+    "trackedStatus": [],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 1,
+    "discardedIgnoredReproducibleCount": 5351,
+    "unstaged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": [],
+    "localArchive": {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/checkpoint-20261114-01/worktrees/abg-td78/local-files.tar.gz",
+      "bytes": 1392,
+      "sha256": "469255f7b8881912ef5d19f4d3b60ed1bce459cda5666c282f8c0e2542892ab0",
+      "members": 1,
+      "sourceBytes": 2444,
+      "verified": true
+    }
+  },
+  {
+    "worktree": "/private/tmp/abg-td82",
+    "HEAD": "97371cec79b7874afc0a1712aa6008a75e728762",
+    "branch": "refs/heads/claude/td82-lock-namespace",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 500188,
+    "trackedStatus": [
+      " M build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      " M build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    ],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 59,
+    "discardedIgnoredReproducibleCount": 21854,
+    "unstaged.patchSha256": "9b362bbde2e8f00d1691482c6684742871afef55ff986900c7ee734b6918b01f",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": 420,
+        "kind": "file",
+        "bytes": 197956,
+        "sha256": "edb534989e08f92bac12676d2c078567690d7042fe4fc05be7e2c2ef97a8cdd9"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "mode": 420,
+        "kind": "file",
+        "bytes": 3188542,
+        "sha256": "2ffa8ff3ba779f19e2d3bc1948d73b0852cd68a49ce6aaff4a8efed57e87387b"
+      }
+    ],
+    "trackedArchive": {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/checkpoint-20261114-01/worktrees/abg-td82/tracked-postimages.tar.gz",
+      "bytes": 776009,
+      "sha256": "2b1947063801f88c0a60ce3c5e8dd197aa8d6286d109760a6b2012c584d34eb5",
+      "members": 2,
+      "sourceBytes": 3386498,
+      "verified": true
+    },
+    "localArchive": {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/checkpoint-20261114-01/worktrees/abg-td82/local-files.tar.gz",
+      "bytes": 22308989,
+      "sha256": "0d08ea34ebcc60d3495ce53e73395f3fbde6953e5da5a23c8847e4c891130f36",
+      "members": 59,
+      "sourceBytes": 92743928,
+      "verified": true
+    }
+  },
+  {
+    "worktree": "/private/tmp/abg-td85n",
+    "HEAD": "fd73e7a0d56c8371ec724b84d29d77dda9a5fe4b",
+    "branch": "refs/heads/claude/td85n-absent-protected-root",
+    "disposition": "remove_after_verified_checkpoint",
+    "allocatedKiBBefore": 176796,
+    "trackedStatus": [
+      " M build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      " M build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    ],
+    "untrackedCount": 0,
+    "ignoredEvidenceCount": 2,
+    "discardedIgnoredReproducibleCount": 5351,
+    "unstaged.patchSha256": "42a4721cef01a48793487fbca47b2aaedb19047f196f9e474959888cd2425e60",
+    "staged.patchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirtyTrackedFiles": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": 420,
+        "kind": "file",
+        "bytes": 197956,
+        "sha256": "cb2fae97837a5644420c0a60bb16013202935536058cdd65a3463964171f6b63"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "mode": 420,
+        "kind": "file",
+        "bytes": 3188542,
+        "sha256": "f24efffa584b227781c19ce25ec804891834f04bf3b3ec01586c6e33b48af103"
+      }
+    ],
+    "trackedArchive": {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/checkpoint-20261114-01/worktrees/abg-td85n/tracked-postimages.tar.gz",
+      "bytes": 776010,
+      "sha256": "8bc95d2221dcf4f005f042db4e1e1c5ee4d029ee082b824f22dbb8210985b2c9",
+      "members": 2,
+      "sourceBytes": 3386498,
+      "verified": true
+    },
+    "localArchive": {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/checkpoint-20261114-01/worktrees/abg-td85n/local-files.tar.gz",
+      "bytes": 2670787,
+      "sha256": "0a9fef62ea7c35dfd14a26029a9a186d1e8ffb6114e00238d99110676097df1a",
+      "members": 2,
+      "sourceBytes": 19975187,
+      "verified": true
+    }
+  }
+]

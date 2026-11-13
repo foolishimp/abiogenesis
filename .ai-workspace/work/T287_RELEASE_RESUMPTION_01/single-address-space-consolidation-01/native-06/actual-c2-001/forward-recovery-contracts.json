@@ -1,0 +1,18 @@
+{
+  "id": "forward-recovery-contracts",
+  "files": [
+    "test_env/tests/forward-command-owners.test.mjs",
+    "test_env/tests/forward-command-contracts.test.mjs",
+    "test_env/tests/d1-preserved-result-mechanics.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 17,
+  "fail": 0,
+  "skipped": 1,
+  "wallMs": 1445.1814999999478,
+  "stdoutSha256": "56861aaeb0c347183f96a1c4ca21b9520d6161418fdd8d5aae2c4970617f94ea",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "checked": [
+    "pure-config-readiness.mjs",
+    "setup-state.mjs",
+    "prepare-native-call.mjs",
+    "dispatch.mjs"
+  ],
+  "ProductRuntimeCalls": 0
+}

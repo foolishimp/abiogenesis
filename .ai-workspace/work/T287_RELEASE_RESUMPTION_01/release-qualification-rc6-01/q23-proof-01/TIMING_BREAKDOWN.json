@@ -1,0 +1,117 @@
+{
+  "kind": "q23_separated_observed_timing",
+  "at": "2026-11-05T20:18:28.808083+00:00",
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/execution/TIMING_OBSERVATION_ENVELOPES.json",
+      "bytes": 19128,
+      "sha256": "0d2314ced99a203074fd8137eb7dad2cc67f06868d4ba20159c04b258e9f6b9e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-proof-01/HOST_RESULT.json",
+      "bytes": 153,
+      "sha256": "6c0fadee4b415e12f0ad4df9e9775df295fc6e103e940fcd1cafbcfe5c5197a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/HOST_RESULT.json",
+      "bytes": 154,
+      "sha256": "f47a5c38c7993120a7152186d4b1ba4a61fd72eafbbdc98c413cc6702eb1243c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/LAUNCH_TIMING.json",
+      "bytes": 673,
+      "sha256": "2883058420501a51117bf5d1135071b827359cfe4c3812e1e11db091cf0d3db2"
+    }
+  ],
+  "setup": {
+    "reused": true,
+    "newSetupRuns": 0,
+    "historicalSetup": "../TIMING_BREAKDOWN.json"
+  },
+  "authorLaunch": {
+    "kind": "separated_native_launch_timing",
+    "at": "2026-11-05T19:18:47.285889+00:00",
+    "setupReused": true,
+    "newSetupRuns": 0,
+    "preflightMs": 22571.813125163317,
+    "dispatchToNativeWorkerMs": 24467.0,
+    "priorHostCloseToDispatchOperatorAndReentryMs": 1058858.153,
+    "selectorMs": null,
+    "limits": [
+      "Prior host close to dispatch includes Root evidence/control preparation and owner preflight; not runtime between-node latency.",
+      "Native author completion, later proof transitions and full workflow performance remain unmeasured.",
+      "Direct NativeWork event log grew by roughly25MB before source completion; retained-carriage issue remains open."
+    ]
+  },
+  "proof": {
+    "preflightMs": 53682.810541708,
+    "hostBeforeDispatchMs": 24940.715,
+    "dispatchToFirstSelectorMs": 29050.0,
+    "dispatchToC2Ms": 86871.0,
+    "processes": [
+      {
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "startOrdinal": 74695,
+        "endOrdinal": 75733,
+        "startUtc": "2026-11-05T19:53:16.659Z",
+        "endUtc": "2026-11-05T19:54:06.875Z",
+        "wallMs": 50216.0
+      },
+      {
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "startOrdinal": 75805,
+        "endOrdinal": 76110,
+        "startUtc": "2026-11-05T19:54:14.480Z",
+        "endUtc": "2026-11-05T19:55:33.685Z",
+        "wallMs": 79205.0
+      },
+      {
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "startOrdinal": 76223,
+        "endOrdinal": 77387,
+        "startUtc": "2026-11-05T19:55:58.941Z",
+        "endUtc": "2026-11-05T19:56:50.947Z",
+        "wallMs": 52006.0
+      }
+    ],
+    "selector1ExitToC2StartMs": 7605.0,
+    "c2ExitToSelector2StartMs": 25256.0,
+    "runToReturnedOutcomeMs": 258331.94279200002,
+    "outcomeReturnToFreshCloseHostEndMs": 195518.086,
+    "completeHostMs": 478795.6184996292,
+    "uatLaunched": false
+  },
+  "betweenActivations": {
+    "authorHostCloseToProofDispatchMs": 440658.161,
+    "meaning": "Root freeze, control construction, review/auth work, source/binding checks and proof preflight are included; not runtime-only latency."
+  },
+  "redFlags": [
+    {
+      "id": "ROOT_PACKET_DUPLICATES",
+      "observation": "Three duplicated UAT readFirst paths survived initial Governance preflight; UAT task construction failed after successful C2.",
+      "owner": "Root operator packet assembly",
+      "status": "Triage and UAT-only recovery readiness active"
+    },
+    {
+      "id": "FRESH_READ_WALL",
+      "observation": "About195.5s between returned failed outcome and host end, including fresh result/replay/close.",
+      "owner": "Existing readback/operator path",
+      "status": "Measured wall time only; no CPU cause attributed"
+    },
+    {
+      "id": "RETAINED_CONTEXT_CARRIAGE",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/STARTUP_BODY_SHAPE.json",
+        "bytes": 14138,
+        "sha256": "d397ddca58517841c8c59d515c50673d02ae43b2eed09fa46ec3c61b118424fb"
+      },
+      "observation": "Author startup admitted about24.19MB across first15events; context body appears in basis raw input and transport envelope while rendered work order is39563B.",
+      "status": "Open outside Q23 identity increment; size is measured, CPU cause unproved"
+    }
+  ],
+  "limits": [
+    "A failed workflow is not a complete successful RC6 workflow benchmark.",
+    "No matched speedup claimed; no prior qualification rerun.",
+    "Wall measurements separate process work, launch, fresh reads and Root between-activation work."
+  ]
+}

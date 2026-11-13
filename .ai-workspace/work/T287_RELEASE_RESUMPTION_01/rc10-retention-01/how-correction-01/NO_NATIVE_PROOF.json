@@ -1,0 +1,5 @@
+{
+  "status": "NO_NATIVE_PROOF_SELECTED",
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "meaning": "Host proof pin field binds this no-proof selection only. No driver is dispatched. Existing build/unit retained; Operator checks exact unchanged input closure for successor."
+}

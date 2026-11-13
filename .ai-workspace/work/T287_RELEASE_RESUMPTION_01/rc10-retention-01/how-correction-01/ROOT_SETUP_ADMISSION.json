@@ -1,0 +1,53 @@
+{
+  "id": "RC10-HOW-SETUP-01",
+  "status": "ROOT_ADMITTED_RC10_SETUP",
+  "utc": "2026-11-09T03:43:31.661844+00:00",
+  "bindingSha256": "f3cdc9ada321ac05955ac89cb2ccd4b216bb4ec96671ec402c7cac112ca3450e",
+  "scopeSha256": "4ccc10ddff51ad67c21b88a5e032ef7cb79c9b3abef32b9db6ba2271af18c9ac",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/READY.json",
+    "bytes": 4195,
+    "sha256": "c691768590ce1787dd206e9fc3574b925df112e73cd32becdbd604fd61302960"
+  },
+  "grantsFreshPublicSetup": true,
+  "providerDispatch": false,
+  "setupBudgetMs": 900000,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/host.mjs",
+      "bytes": 13629,
+      "sha256": "940b1d9d8e75775959bb850e42b54011611f1c7bd1dccd9c08d3ee2a2705a611"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/TASK.json",
+      "bytes": 2856,
+      "sha256": "6b7b9af2323ca5c94ab164b6102fdc5898729ef3148eef6615aebef24c015283"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/ROOT_SCOPE.json",
+      "bytes": 2789,
+      "sha256": "4ccc10ddff51ad67c21b88a5e032ef7cb79c9b3abef32b9db6ba2271af18c9ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/BINDING.PREPARATION.json",
+      "bytes": 12668,
+      "sha256": "f3cdc9ada321ac05955ac89cb2ccd4b216bb4ec96671ec402c7cac112ca3450e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/NO_NATIVE_PROOF.json",
+      "bytes": 318,
+      "sha256": "11f76bc76e6db4b233af90570c36ae2bf472f4a95f6ea15666fead750dda808d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/SOURCE_INVENTORY.json",
+      "bytes": 292209,
+      "sha256": "f03711b3306f3d212bbe8c3cb8c02d90e34f38082a044412ebf5880934380d65"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/how-correction-01/MATERIALIZATION.json",
+      "bytes": 267,
+      "sha256": "cbf92447ed80db88d65f98a2ce0dab463c0559376242b61da0bdd7a36aa61263"
+    }
+  ],
+  "scope": "One fresh actual installed-RC9 Public setup on existing exact1334-row source; no native dispatch, source/build/test effects. Keep live caller/resource through PREPARED for separate Root admission."
+}

@@ -1,0 +1,149 @@
+{
+  "$schema": "stdo://releases/v3.0.1-rc.1/standards/schemas/product-definition.schema.json",
+  "kind": "stdo.product-definition",
+  "product": {
+    "definition_id": "urn:stdo:product-definition:stdo-skills",
+    "name": "STDO Skills",
+    "source_project": "./",
+    "bounded_context": {
+      "id": "urn:stdo-skills:bounded-context:agent-method-application",
+      "definition": "./specification/PRODUCT.md#product-boundary"
+    }
+  },
+  "constitution": {
+    "stdo": {
+      "source": {
+        "repository": "https://github.com/foolishimp/specification_methodology.git"
+      },
+      "selector": "stdo://channels/3.0.1",
+      "basis": {
+        "uri": "stdo://releases/v3.0.1-rc.1/",
+        "manifest_sha256": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8"
+      }
+    },
+    "additional_authorities": [
+      "./specification/INTENT.md",
+      "./specification/PRODUCT.md"
+    ],
+    "entrypoints": [
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/frames/bootstrap.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/SPEC_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/REFERENCE_FRAME.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/EXECUTIVE_BASELINE.md"
+      }
+    ],
+    "agent_bootstrap": {
+      "entrypoint": "#/constitution/entrypoints/0",
+      "targets": [
+        "./AGENTS.md",
+        "./CLAUDE.md"
+      ]
+    }
+  },
+  "local_constitution": {
+    "axioms": [],
+    "overrides": [],
+    "disambiguations": []
+  },
+  "reference_frame_bases": [
+    {
+      "uri": "./specification/REFERENCE_FRAME_BASIS.md",
+      "authority": [
+        "./specification/PRODUCT.md#construction-authority",
+        "./.ai-workspace/work/COMPOSITION_01/operator-successor-05/OWNER.json"
+      ],
+      "applies_to": [
+        "urn:stdo:product-definition:stdo-skills"
+      ]
+    }
+  ],
+  "what": {
+    "intent": "./specification/INTENT.md",
+    "product": "./specification/PRODUCT.md",
+    "specification": [
+      "./specification/requirements/"
+    ]
+  },
+  "how": {
+    "common": [
+      "./.ai-workspace/work/T001/operator/OWNER.json",
+      "./.ai-workspace/work/T001/operator/successor-1/OWNER.json"
+    ],
+    "build_tenants": [
+      {
+        "id": "urn:stdo-skills:build-tenant:codex",
+        "root": "./build_tenants/codex/",
+        "design": [
+          "./build_tenants/codex/design/"
+        ],
+        "implementation": [
+          "./build_tenants/codex/skills/"
+        ]
+      },
+      {
+        "id": "urn:stdo-skills:build-tenant:claude",
+        "root": "./build_tenants/claude/",
+        "design": [
+          "./build_tenants/claude/design/"
+        ],
+        "implementation": [
+          "./build_tenants/claude/skills/"
+        ]
+      }
+    ]
+  },
+  "ticketing": {
+    "goals": "./specification/GOALS.md",
+    "tickets": {
+      "root": "./.ai-workspace/tickets/",
+      "lanes": {
+        "backlog": "./.ai-workspace/tickets/backlog/",
+        "active": "./.ai-workspace/tickets/active/",
+        "completed": "./.ai-workspace/tickets/completed/"
+      }
+    },
+    "comments": {
+      "root": "./.ai-workspace/comments/"
+    },
+    "sprints": {
+      "root": "./.ai-workspace/sprints/"
+    }
+  },
+  "composition": [
+    {
+      "product_definition": "../a_c/stdo_a_c.json",
+      "target_definition_id": "urn:stdo:product-definition:a-c-implementations",
+      "relation": "specification/composition/A_C_REPRESENTATION.md#selected-representation-build",
+      "contracts": [
+        "../a_c/specification/requirements/project-use.md",
+        "../a_c/build_tenants/graphify/design/project-build.md",
+        "../a_c/specification/requirements/code-realization.md",
+        "../a_c/build_tenants/graphify/design/code-realization.md",
+        "specification/composition/REPRESENTATION_MANIFEST.json"
+      ]
+    },
+    {
+      "product_definition": "../a_c/stdo_a_c.json",
+      "target_definition_id": "urn:stdo:product-definition:a-c-implementations",
+      "relation": "specification/composition/A_C_SUPPORT.md#skills-ac-support",
+      "contracts": [
+        "../a_c/specification/requirements/fd-stdo-3.0.1-binding.md",
+        "../a_c/build_tenants/graphify/design/fd-support-stdo-3.0.1.md",
+        "../a_c/build_tenants/graphify/design/fd-support.md",
+        "../a_c/build_tenants/graphify/design/fd-composition.md",
+        "specification/composition/SOURCE_MANIFEST.json"
+      ]
+    }
+  ]
+}

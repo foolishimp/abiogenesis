@@ -1,0 +1,2307 @@
+{
+  "status": "MATCHED_REFERENCE_MEASUREMENT_CLOSED",
+  "contexts": [
+    1048576,
+    4194304
+  ],
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "subject": {
+    "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceCommitRole": "base_only",
+    "baseCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceDigest": "2b5849ec8b4fea58173c47109d9a89128e40d67745f69789c080eb6ac16b75bd",
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "73bf1ee98bbe79ff9cbb93148f5b8bc848b39b44a7a74e5461961a86a67ed7f1"
+    },
+    "identityKind": "base_plus_exact_frozen_overlay",
+    "label": "RC8-after",
+    "phase": "after"
+  },
+  "helperRoot": "/Users/jim/src/apps/abiogenesis-rc7-local-cut/build_tenants/abiogenesis/typescript",
+  "phases": [
+    {
+      "name": "installed_fixture_setup",
+      "wallMs": 27689.681125,
+      "startMemory": {
+        "rss": 185712640,
+        "heapUsed": 61231928,
+        "external": 2748458,
+        "arrayBuffers": 88950
+      },
+      "endMemory": {
+        "rss": 2710634496,
+        "heapUsed": 308761872,
+        "external": 5889598,
+        "arrayBuffers": 3234289
+      },
+      "memoryDelta": {
+        "rss": 2524921856,
+        "heapUsed": 247529944,
+        "external": 3141140,
+        "arrayBuffers": 3145339
+      },
+      "work": null,
+      "counters": {
+        "call": {
+          "callAdmissions": null,
+          "establishedInvocations": null,
+          "establishmentWalks": null,
+          "invocationReuses": null,
+          "resourceGates": null,
+          "resourceMemberAdmissions": null,
+          "resourceMemberReuses": null
+        },
+        "transport": {
+          "detaches": null,
+          "verifierReattachments": null,
+          "establishedCarries": null
+        },
+        "catalog": {
+          "fullAdmissions": null,
+          "viewConstructions": null
+        },
+        "resolution": {
+          "catalogComparisons": null,
+          "viewComparisons": null
+        },
+        "input": {
+          "inputCopies": null,
+          "inputReuses": null
+        },
+        "worker": {
+          "contractCopies": null,
+          "schemaCopies": null,
+          "reuses": null,
+          "deepFrozenChecks": null
+        }
+      }
+    },
+    {
+      "name": "fixture_bytes",
+      "wallMs": 3.7302079999972193,
+      "startMemory": {
+        "rss": 2682142720,
+        "heapUsed": 244228024,
+        "external": 6565805,
+        "arrayBuffers": 3910496
+      },
+      "endMemory": {
+        "rss": 2686353408,
+        "heapUsed": 244326488,
+        "external": 17056765,
+        "arrayBuffers": 14401456
+      },
+      "memoryDelta": {
+        "rss": 4210688,
+        "heapUsed": 98464,
+        "external": 10490960,
+        "arrayBuffers": 10490960
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      }
+    },
+    {
+      "name": "held_acquisition",
+      "wallMs": 97.0480000000025,
+      "startMemory": {
+        "rss": 2686353408,
+        "heapUsed": 244432080,
+        "external": 17057365,
+        "arrayBuffers": 14402056
+      },
+      "endMemory": {
+        "rss": 2695921664,
+        "heapUsed": 287991280,
+        "external": 12245410,
+        "arrayBuffers": 9590101
+      },
+      "memoryDelta": {
+        "rss": 9568256,
+        "heapUsed": 43559200,
+        "external": -4811955,
+        "arrayBuffers": -4811955
+      },
+      "work": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      }
+    },
+    {
+      "name": "construct_1MiB",
+      "wallMs": 836.2372920000016,
+      "startMemory": {
+        "rss": 2709372928,
+        "heapUsed": 261797768,
+        "external": 6549805,
+        "arrayBuffers": 3894496
+      },
+      "endMemory": {
+        "rss": 3022389248,
+        "heapUsed": 415279720,
+        "external": 14452096,
+        "arrayBuffers": 3398770
+      },
+      "memoryDelta": {
+        "rss": 313016320,
+        "heapUsed": 153481952,
+        "external": 7902291,
+        "arrayBuffers": -495726
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 1,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      "profileOnly": false
+    },
+    {
+      "name": "sdk_call_1MiB",
+      "wallMs": 2992.388332999999,
+      "startMemory": {
+        "rss": 2918449152,
+        "heapUsed": 328799144,
+        "external": 10949183,
+        "arrayBuffers": 4099562
+      },
+      "endMemory": {
+        "rss": 3095576576,
+        "heapUsed": 604228536,
+        "external": 24597705,
+        "arrayBuffers": 3767044
+      },
+      "memoryDelta": {
+        "rss": 177127424,
+        "heapUsed": 275429392,
+        "external": 13648522,
+        "arrayBuffers": -332518
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 46,
+        "bodyBytesRead": 4780970
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 5,
+          "resourceMemberReuses": 2,
+          "gated.kind": null,
+          "gated.schemaVersion": null,
+          "gated.eventResource": null,
+          "gated.applications": null,
+          "gated.source": null
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 1
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 1
+        },
+        "worker": {
+          "contractCopies": 1,
+          "schemaCopies": 0,
+          "reuses": 1,
+          "deepFrozenChecks": 1
+        }
+      },
+      "profiled": false,
+      "matched": true
+    },
+    {
+      "name": "construct_4MiB",
+      "wallMs": 894.8210830000025,
+      "startMemory": {
+        "rss": 3087122432,
+        "heapUsed": 580845576,
+        "external": 25351483,
+        "arrayBuffers": 4491635
+      },
+      "endMemory": {
+        "rss": 3474292736,
+        "heapUsed": 766365304,
+        "external": 58070724,
+        "arrayBuffers": 3638435
+      },
+      "memoryDelta": {
+        "rss": 387170304,
+        "heapUsed": 185519728,
+        "external": 32719241,
+        "arrayBuffers": -853200
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0,
+          "gated.kind": 0,
+          "gated.schemaVersion": 0,
+          "gated.eventResource": 0,
+          "gated.applications": 0,
+          "gated.source": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 1,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      "profileOnly": false
+    },
+    {
+      "name": "sdk_call_4MiB",
+      "wallMs": 3585.985916999998,
+      "startMemory": {
+        "rss": 3027943424,
+        "heapUsed": 219561824,
+        "external": 11812847,
+        "arrayBuffers": 2137839
+      },
+      "endMemory": {
+        "rss": 3233759232,
+        "heapUsed": 382221944,
+        "external": 36411983,
+        "arrayBuffers": 4367343
+      },
+      "memoryDelta": {
+        "rss": 205815808,
+        "heapUsed": 162660120,
+        "external": 24599136,
+        "arrayBuffers": 2229504
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 44,
+        "bodyBytesRead": 5779567
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 5,
+          "resourceMemberReuses": 2,
+          "gated.kind": 1,
+          "gated.schemaVersion": 1,
+          "gated.eventResource": 1,
+          "gated.applications": 1,
+          "gated.source": 1
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 1
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 1
+        },
+        "worker": {
+          "contractCopies": 1,
+          "schemaCopies": 0,
+          "reuses": 1,
+          "deepFrozenChecks": 0
+        }
+      },
+      "profiled": false,
+      "matched": true
+    },
+    {
+      "name": "profile_construct_4MiB",
+      "wallMs": 917.6726659999986,
+      "startMemory": {
+        "rss": 3079651328,
+        "heapUsed": 183404872,
+        "external": 10169047,
+        "arrayBuffers": 494039
+      },
+      "endMemory": {
+        "rss": 3255762944,
+        "heapUsed": 370835272,
+        "external": 43705013,
+        "arrayBuffers": 457564
+      },
+      "memoryDelta": {
+        "rss": 176111616,
+        "heapUsed": 187430400,
+        "external": 33535966,
+        "arrayBuffers": -36475
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0,
+          "gated.kind": 0,
+          "gated.schemaVersion": 0,
+          "gated.eventResource": 0,
+          "gated.applications": 0,
+          "gated.source": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 1,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      "profileOnly": true
+    },
+    {
+      "name": "profile_call_4MiB",
+      "wallMs": 3678.8917500000025,
+      "startMemory": {
+        "rss": 3119611904,
+        "heapUsed": 249203848,
+        "external": 27615996,
+        "arrayBuffers": 1163764
+      },
+      "endMemory": {
+        "rss": 3295182848,
+        "heapUsed": 457992216,
+        "external": 55762966,
+        "arrayBuffers": 1348694
+      },
+      "memoryDelta": {
+        "rss": 175570944,
+        "heapUsed": 208788368,
+        "external": 28146970,
+        "arrayBuffers": 184930
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 44,
+        "bodyBytesRead": 181463
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 5,
+          "resourceMemberReuses": 2,
+          "gated.kind": 1,
+          "gated.schemaVersion": 1,
+          "gated.eventResource": 1,
+          "gated.applications": 1,
+          "gated.source": 1
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 1
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 1
+        },
+        "worker": {
+          "contractCopies": 1,
+          "schemaCopies": 0,
+          "reuses": 1,
+          "deepFrozenChecks": 0
+        }
+      },
+      "profiled": true,
+      "matched": false
+    },
+    {
+      "name": "warm_result_1MiB",
+      "wallMs": 340.7292920000036,
+      "startMemory": {
+        "rss": 3193864192,
+        "heapUsed": 320428024,
+        "external": 56539432,
+        "arrayBuffers": 2125160
+      },
+      "endMemory": {
+        "rss": 3181232128,
+        "heapUsed": 343711784,
+        "external": 55625606,
+        "arrayBuffers": 1211334
+      },
+      "memoryDelta": {
+        "rss": -12632064,
+        "heapUsed": 23283760,
+        "external": -913826,
+        "arrayBuffers": -913826
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 3,
+          "resourceMemberReuses": 0,
+          "gated.kind": 1,
+          "gated.schemaVersion": 1,
+          "gated.eventResource": 1,
+          "gated.applications": 0,
+          "gated.source": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 1
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      }
+    },
+    {
+      "name": "warm_result_4MiB",
+      "wallMs": 284.6680419999975,
+      "startMemory": {
+        "rss": 3181232128,
+        "heapUsed": 344158136,
+        "external": 55642740,
+        "arrayBuffers": 1228468
+      },
+      "endMemory": {
+        "rss": 3205513216,
+        "heapUsed": 380446720,
+        "external": 55625606,
+        "arrayBuffers": 1211334
+      },
+      "memoryDelta": {
+        "rss": 24281088,
+        "heapUsed": 36288584,
+        "external": -17134,
+        "arrayBuffers": -17134
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 3,
+          "resourceMemberReuses": 0,
+          "gated.kind": 1,
+          "gated.schemaVersion": 1,
+          "gated.eventResource": 1,
+          "gated.applications": 0,
+          "gated.source": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 1
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      }
+    },
+    {
+      "name": "outer_close",
+      "wallMs": 0.6820420000003651,
+      "startMemory": {
+        "rss": 3176873984,
+        "heapUsed": 291941696,
+        "external": 55742276,
+        "arrayBuffers": 1328004
+      },
+      "endMemory": {
+        "rss": 3176873984,
+        "heapUsed": 292062224,
+        "external": 55742876,
+        "arrayBuffers": 1328604
+      },
+      "memoryDelta": {
+        "rss": 0,
+        "heapUsed": 120528,
+        "external": 600,
+        "arrayBuffers": 600
+      },
+      "work": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 0,
+        "bodyBytesRead": 0
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0,
+          "gated.kind": 0,
+          "gated.schemaVersion": 0,
+          "gated.eventResource": 0,
+          "gated.applications": 0,
+          "gated.source": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      }
+    },
+    {
+      "name": "cold_result_1MiB",
+      "wallMs": 2065.7082080000037,
+      "startMemory": {
+        "rss": 3176873984,
+        "heapUsed": 292084824,
+        "external": 55743076,
+        "arrayBuffers": 1328804
+      },
+      "endMemory": {
+        "rss": 3127443456,
+        "heapUsed": 171115120,
+        "external": 15343920,
+        "arrayBuffers": 76504
+      },
+      "memoryDelta": {
+        "rss": -49430528,
+        "heapUsed": -120969704,
+        "external": -40399156,
+        "arrayBuffers": -1252300
+      },
+      "work": {
+        "historyDecodes": 1,
+        "decodedRows": 134,
+        "historyBytesRead": 10742000,
+        "storeReopens": 0,
+        "coldHistoryReads": 1,
+        "bodyReads": 134,
+        "bodyBytesRead": 10742000
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0,
+          "gated.kind": 0,
+          "gated.schemaVersion": 0,
+          "gated.eventResource": 0,
+          "gated.applications": 0,
+          "gated.source": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      "childWallMs": 1268.7545000000027,
+      "parentCountersExcludeChild": true
+    },
+    {
+      "name": "cold_result_4MiB",
+      "wallMs": 2162.353041999995,
+      "startMemory": {
+        "rss": 3127443456,
+        "heapUsed": 171340080,
+        "external": 15374175,
+        "arrayBuffers": 106759
+      },
+      "endMemory": {
+        "rss": 3151609856,
+        "heapUsed": 213523448,
+        "external": 22361120,
+        "arrayBuffers": 103192
+      },
+      "memoryDelta": {
+        "rss": 24166400,
+        "heapUsed": 42183368,
+        "external": 6986945,
+        "arrayBuffers": -3567
+      },
+      "work": {
+        "historyDecodes": 1,
+        "decodedRows": 134,
+        "historyBytesRead": 10742000,
+        "storeReopens": 0,
+        "coldHistoryReads": 1,
+        "bodyReads": 134,
+        "bodyBytesRead": 10742000
+      },
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0,
+          "gated.kind": 0,
+          "gated.schemaVersion": 0,
+          "gated.eventResource": 0,
+          "gated.applications": 0,
+          "gated.source": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 0,
+          "viewConstructions": 0
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      "childWallMs": 1321.2083330000023,
+      "parentCountersExcludeChild": true
+    }
+  ],
+  "cases": [
+    {
+      "label": "1MiB",
+      "contextBodyBytes": 1048576,
+      "contextCanonicalBytes": 1399148,
+      "taskCanonicalBytes": 1404575,
+      "sdkCall": {
+        "kind": "operator_serialization_receipt",
+        "serializedBytes": 23645257,
+        "sha256": "bfbb5fe1e32780fd04276874d9c717528bcfd79c889b3b9730f32672d6ba0d20",
+        "serializationMs": 35.64345800000228,
+        "startMemory": {
+          "rss": 3022389248,
+          "heapUsed": 415302608,
+          "external": 14452096,
+          "arrayBuffers": 3398770
+        },
+        "endMemory": {
+          "rss": 2953035776,
+          "heapUsed": 345908872,
+          "external": 10248391,
+          "arrayBuffers": 3398770
+        },
+        "payloadRetained": false,
+        "coordinate": {
+          "definitionKey": {
+            "operationId": "abg.operation.run.invoke",
+            "memberKey": "start"
+          },
+          "invocationRef": "invocation://abiogenesis/4f7480cdecd269de92db6d0985cded007b2c4d172cbe799f4d1090336dfe3446",
+          "requestRef": "request://abi5-tests/reference-measurement/1MiB"
+        },
+        "standing": "Optional operator serialization outside construction/call measurements; not a clone allocation or required runtime cost."
+      },
+      "sdkOutcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/calls/1MiB.sdk-outcome.json",
+        "bytes": 16243,
+        "sha256": "1d1eb97a2f74abf74c3d5daf7f0db30f7c1dabb3c17432f050e4f9da1d61064d",
+        "serializedBytes": 16242,
+        "serializationMs": 0.05662500000471482,
+        "serializationAndCustodyMs": 0.5525840000045719,
+        "startMemory": {
+          "rss": 3072606208,
+          "heapUsed": 547695736,
+          "external": 24598896,
+          "arrayBuffers": 3768235
+        },
+        "endMemory": {
+          "rss": 3072606208,
+          "heapUsed": 547767744,
+          "external": 24632582,
+          "arrayBuffers": 3801921
+        }
+      },
+      "callWallMs": 2992.388332999999,
+      "resultCanonicalBytes": 2617,
+      "eventLog": {
+        "beforeBytes": 3177941,
+        "afterBytes": 4780970,
+        "appendedBytes": 1603029
+      },
+      "terminalIdentity": {
+        "result": {
+          "ref": "result://abiogenesis/ff18fd3fd2369a486e4cc3fa60f8920ca63da0f47aa684ae5eebf0e9eb1c1bcb",
+          "digest": "sha256:ff18fd3fd2369a486e4cc3fa60f8920ca63da0f47aa684ae5eebf0e9eb1c1bcb"
+        },
+        "producer": {
+          "runRef": "run://abiogenesis/be4b5456ae21d5ef11819f7056ddefbc6a053e50827eff3708ad22c8c9baba9b",
+          "graphCallRef": "graph-call://abiogenesis/6a0314789ded8e1b5f8878a9f05ba4cc1fc7eb140e0e088c87374f4d5adfb66f",
+          "invocationAdmissionRef": "invocation-admission://abiogenesis/f9ce0e3369cf7a8535d1dadeb171d4cf008c0bdd3486ae1e6cb9b3f15314fd6b",
+          "program": {
+            "ref": "program://abiogenesis/worksite/native-work@5",
+            "digest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f"
+          },
+          "graphFunction": {
+            "ref": "graph-function://abiogenesis/worksite/native-work@5",
+            "digest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+          },
+          "executionBasis": {
+            "ref": "execution-basis://abiogenesis/483099c581284990869732d99743ca065dc0196ad3df39ee1a1c98e9662cc75b",
+            "digest": "sha256:483099c581284990869732d99743ca065dc0196ad3df39ee1a1c98e9662cc75b"
+          },
+          "cCallRef": "c-call:sha256:c6b6bccba41dbd013974869e54ad75d2c845ea5cc1c66514c8e16e148025a932",
+          "resultAdmissionEventRef": "event://abiogenesis/78f06d206455808005096695f06238d17f6e3896f98636566cf48dad0fe0fa33",
+          "judgmentRef": "judgment://abiogenesis/fe8e12894ad49454b13460e286b63f7403796eadb20da19f113be98afd901417",
+          "judgmentAdmissionEventRef": "event://abiogenesis/89728bd663f7e8dcba6f85fd462b2c5bd3684bed80d0d5ab87c86c7feed555b9",
+          "terminalRoute": {
+            "ref": "traversal-route://abiogenesis/7280eb835c3fa29121992c602e0585b624db5508922a4270e7369fc284bc14a9",
+            "digest": "sha256:7280eb835c3fa29121992c602e0585b624db5508922a4270e7369fc284bc14a9"
+          }
+        },
+        "valueDigest": "sha256:4589c5e476cc9dab096304728ae3e108806fb5d87a5d00ea1e73b0034210c0a9",
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+          "digest": "sha256:e5982b6786e8085aa09ce0bc8498bee4de37b8b918ba9b58801079acdd64a595"
+        }
+      },
+      "warmRead": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/calls/1MiB.warm-run-result.json",
+        "bytes": 7967,
+        "sha256": "f5132e7429f631981a8d86beb50b39aef3d24d44dca58883b47cc6cc2f2b062d",
+        "serializedBytes": 7966,
+        "serializationMs": 0.02049999999871943,
+        "serializationAndCustodyMs": 0.4744169999976293,
+        "startMemory": {
+          "rss": 3181232128,
+          "heapUsed": 343728296,
+          "external": 55625606,
+          "arrayBuffers": 1211334
+        },
+        "endMemory": {
+          "rss": 3181232128,
+          "heapUsed": 343782728,
+          "external": 55642740,
+          "arrayBuffers": 1228468
+        },
+        "originalRunIdentityEquality": true,
+        "projectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+          "digest": "sha256:16ab45bf5c2d8634b32b410cbdb03176da3941fc24c38fc7810d71d02f2f3457"
+        },
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+          "digest": "sha256:e5982b6786e8085aa09ce0bc8498bee4de37b8b918ba9b58801079acdd64a595"
+        }
+      },
+      "coldRead": {
+        "outcome": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/calls/cold-1MiB.outcome.json",
+          "bytes": 11159,
+          "sha256": "908192b44279bcbb0cb86c9dc1e8029bedacb35582905b2a27d8aeee68db419a"
+        },
+        "request": {
+          "path": "/private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/raw-cli-requests/calls/cold-1MiB.request.jsonl",
+          "bytes": 8878,
+          "sha256": "2e50e46884df6631d4056a249ffc6867ce159871a563b4d6ee74aeba3ce8f859",
+          "retained": false,
+          "cleanup": "existing fixture hook"
+        },
+        "rawStdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/commands/cold-1MiB.stdout",
+          "bytes": 8418,
+          "sha256": "04132f63c9a271c1b7c2e9ffd4049e368562aaeaf2e463d5bc4d31363d9309e5"
+        },
+        "originalRunIdentityEquality": true,
+        "projectionBasis": {
+          "digest": "sha256:16ab45bf5c2d8634b32b410cbdb03176da3941fc24c38fc7810d71d02f2f3457",
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl"
+        },
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+          "digest": "sha256:e5982b6786e8085aa09ce0bc8498bee4de37b8b918ba9b58801079acdd64a595"
+        },
+        "fullTypedTerminalEquality": true,
+        "fullReadOwnerOutputEquality": true,
+        "terminalComparison": "COMPLETE_WARM_COLD_AT_FINAL_SELECTED_PREFIX",
+        "unchangedPrefix": true
+      }
+    },
+    {
+      "label": "4MiB",
+      "contextBodyBytes": 4194304,
+      "contextCanonicalBytes": 5593452,
+      "taskCanonicalBytes": 5598879,
+      "sdkCall": {
+        "kind": "operator_serialization_receipt",
+        "serializedBytes": 32033865,
+        "sha256": "92b8abb8da762b3c8bd9505574622e8fe3f39aa45634b2410c64a0a903757b0c",
+        "serializationMs": 42.51275000000169,
+        "startMemory": {
+          "rss": 3474292736,
+          "heapUsed": 766391608,
+          "external": 58070724,
+          "arrayBuffers": 3638435
+        },
+        "endMemory": {
+          "rss": 3379773440,
+          "heapUsed": 671765416,
+          "external": 41275507,
+          "arrayBuffers": 3638435
+        },
+        "payloadRetained": false,
+        "coordinate": {
+          "definitionKey": {
+            "operationId": "abg.operation.run.invoke",
+            "memberKey": "start"
+          },
+          "invocationRef": "invocation://abiogenesis/79dfb13b3a718227474b1830322e27fed77c15b0ff9e375af71599dfae5cbbc6",
+          "requestRef": "request://abi5-tests/reference-measurement/4MiB"
+        },
+        "standing": "Optional operator serialization outside construction/call measurements; not a clone allocation or required runtime cost."
+      },
+      "sdkOutcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/calls/4MiB.sdk-outcome.json",
+        "bytes": 16244,
+        "sha256": "339c7c1513883a859b0d5d17ec7dacc5a44b3abd29e20b33a782eef859e5a35c",
+        "serializedBytes": 16243,
+        "serializationMs": 0.06158299999515293,
+        "serializationAndCustodyMs": 0.4557910000003176,
+        "startMemory": {
+          "rss": 3081601024,
+          "heapUsed": 205491120,
+          "external": 10998647,
+          "arrayBuffers": 1323639
+        },
+        "endMemory": {
+          "rss": 3081601024,
+          "heapUsed": 205564624,
+          "external": 11032335,
+          "arrayBuffers": 1357327
+        }
+      },
+      "callWallMs": 3585.985916999998,
+      "resultCanonicalBytes": 2617,
+      "eventLog": {
+        "beforeBytes": 4780970,
+        "afterBytes": 10560537,
+        "appendedBytes": 5779567
+      },
+      "terminalIdentity": {
+        "result": {
+          "ref": "result://abiogenesis/a73d3e3d77e2a0664b4de992df5bfdebb88f337ed5a2a7fbac17a3b0de175671",
+          "digest": "sha256:a73d3e3d77e2a0664b4de992df5bfdebb88f337ed5a2a7fbac17a3b0de175671"
+        },
+        "producer": {
+          "runRef": "run://abiogenesis/61bf8bd6705157369bca55d34429878a9bbe43c70df3777f4dcfeeaf5095bc40",
+          "graphCallRef": "graph-call://abiogenesis/b6d349c041dae99a8da4e7adf3c25d9f2987adf1b34331862fcb36cb5fcdd406",
+          "invocationAdmissionRef": "invocation-admission://abiogenesis/9f51eb01407e58202acb7e61660ef8c97f7be64fd8f4ede0643d3739ec26461c",
+          "program": {
+            "ref": "program://abiogenesis/worksite/native-work@5",
+            "digest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f"
+          },
+          "graphFunction": {
+            "ref": "graph-function://abiogenesis/worksite/native-work@5",
+            "digest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+          },
+          "executionBasis": {
+            "ref": "execution-basis://abiogenesis/1cb88de20af201024194a97900783b512ff93017c24f07868a61001ee0d099f2",
+            "digest": "sha256:1cb88de20af201024194a97900783b512ff93017c24f07868a61001ee0d099f2"
+          },
+          "cCallRef": "c-call:sha256:b3a3367c8e8f12bdff239c3e0515954bbc3fabda3e52a4f57f1f90f917eb071d",
+          "resultAdmissionEventRef": "event://abiogenesis/b09e40719474df0d1fdeade787ab8c4e4f0f28ede72a8c106d45b90ba3af8bc0",
+          "judgmentRef": "judgment://abiogenesis/4ff7743a6901951040e8f49595329eec2c58a4da2b06cd4b994c974d8d8b8909",
+          "judgmentAdmissionEventRef": "event://abiogenesis/f0ea0e10ef382813583fa5f5a658a5ceceae7558fd7b5e7990a5f3cfd61b1d6c",
+          "terminalRoute": {
+            "ref": "traversal-route://abiogenesis/24ad467d5d22ea2e5d0a4152a38d883ac982de9cc2cfb90b76056bb852533ccb",
+            "digest": "sha256:24ad467d5d22ea2e5d0a4152a38d883ac982de9cc2cfb90b76056bb852533ccb"
+          }
+        },
+        "valueDigest": "sha256:8fc19e17f63db0e4d5199e50f42c69003cf1476a28df5773938a8b1077b46d0b",
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+          "digest": "sha256:3974e7bac87557bdfe879e50d731453871d609fbe6b64561ba4468ab0a03a4a8"
+        }
+      },
+      "warmRead": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/calls/4MiB.warm-run-result.json",
+        "bytes": 7967,
+        "sha256": "585cb05ceed6244ebe5ea19824c2d13599a6a9ea104c1a2c8a8aaf5aa3a14ae3",
+        "serializedBytes": 7966,
+        "serializationMs": 0.02491599999484606,
+        "serializationAndCustodyMs": 1.2826249999998254,
+        "startMemory": {
+          "rss": 3205513216,
+          "heapUsed": 380463272,
+          "external": 55625606,
+          "arrayBuffers": 1211334
+        },
+        "endMemory": {
+          "rss": 3176873984,
+          "heapUsed": 291170464,
+          "external": 55642740,
+          "arrayBuffers": 1228468
+        },
+        "originalRunIdentityEquality": true,
+        "projectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+          "digest": "sha256:16ab45bf5c2d8634b32b410cbdb03176da3941fc24c38fc7810d71d02f2f3457"
+        },
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+          "digest": "sha256:3974e7bac87557bdfe879e50d731453871d609fbe6b64561ba4468ab0a03a4a8"
+        }
+      },
+      "coldRead": {
+        "outcome": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/calls/cold-4MiB.outcome.json",
+          "bytes": 11159,
+          "sha256": "c8b13e354798fe9373aa149017d8306910733b7806fa21ec33b3e71c045fbd0b"
+        },
+        "request": {
+          "path": "/private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/raw-cli-requests/calls/cold-4MiB.request.jsonl",
+          "bytes": 8878,
+          "sha256": "1681e1ec008df427c012016238f2217aca3b17af661137b804667096325f7380",
+          "retained": false,
+          "cleanup": "existing fixture hook"
+        },
+        "rawStdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/commands/cold-4MiB.stdout",
+          "bytes": 8418,
+          "sha256": "61484c1e947da9f890e3d95cb8f94fea8a82667a7a417a669eedf2954a6a0b89"
+        },
+        "originalRunIdentityEquality": true,
+        "projectionBasis": {
+          "digest": "sha256:16ab45bf5c2d8634b32b410cbdb03176da3941fc24c38fc7810d71d02f2f3457",
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl"
+        },
+        "originalProjectionBasis": {
+          "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+          "digest": "sha256:3974e7bac87557bdfe879e50d731453871d609fbe6b64561ba4468ab0a03a4a8"
+        },
+        "fullTypedTerminalEquality": true,
+        "fullReadOwnerOutputEquality": true,
+        "terminalComparison": "COMPLETE_WARM_COLD_AT_FINAL_SELECTED_PREFIX",
+        "unchangedPrefix": true
+      }
+    }
+  ],
+  "budgetObservations": [
+    {
+      "label": "after_setup",
+      "logicalBytes": 208152486,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_construct_1MiB",
+      "logicalBytes": 213396560,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_call_1MiB",
+      "logicalBytes": 213397489,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_1MiB",
+      "logicalBytes": 215007421,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_construct_4MiB",
+      "logicalBytes": 215023664,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_call_4MiB",
+      "logicalBytes": 215024593,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_4MiB",
+      "logicalBytes": 220811063,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_construct_4MiB-profile",
+      "logicalBytes": 220827307,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "before_call_4MiB-profile",
+      "logicalBytes": 220828243,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_call_4MiB-profile",
+      "logicalBytes": 222460742,
+      "bound": 1073741824,
+      "quota": false
+    },
+    {
+      "label": "after_cold_parity",
+      "logicalBytes": 223402388,
+      "bound": 1073741824,
+      "quota": false
+    }
+  ],
+  "counterAvailability": [
+    {
+      "name": "runtimeHistoryWork",
+      "available": true
+    },
+    {
+      "name": "call",
+      "module": "public/binding/definition_binding_mechanics",
+      "exportName": "observeDefinitionCallWork",
+      "required": true,
+      "available": true
+    },
+    {
+      "name": "transport",
+      "module": "public/installed_definition_call_transport",
+      "exportName": "observeDefinitionTransportWork",
+      "required": true,
+      "available": true
+    },
+    {
+      "name": "catalog",
+      "module": "product/catalog",
+      "exportName": "observeCatalogWork",
+      "required": true,
+      "available": true
+    },
+    {
+      "name": "resolution",
+      "module": "product/execution_resolution",
+      "exportName": "observeExecutionResolutionWork",
+      "required": true,
+      "available": true
+    },
+    {
+      "name": "input",
+      "module": "product/semantics",
+      "exportName": "observeProductInputWork",
+      "required": true,
+      "available": true
+    },
+    {
+      "name": "worker",
+      "module": "abg/worker_transport",
+      "exportName": "observeWorkerTransportCopyWork",
+      "required": true,
+      "available": true
+    }
+  ],
+  "ownerCounterSnapshots": [
+    {
+      "point": "after_setup",
+      "observedAtMs": 28097.049959,
+      "counters": {
+        "call": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 0,
+        "decodedRows": 0,
+        "historyBytesRead": 0,
+        "storeReopens": 0,
+        "coldHistoryReads": 0,
+        "bodyReads": 2,
+        "bodyBytesRead": 3177941
+      }
+    },
+    {
+      "point": "before_construct_1MiB",
+      "observedAtMs": 28662.419375,
+      "counters": {
+        "call": {
+          "callAdmissions": 0,
+          "establishedInvocations": 0,
+          "establishmentWalks": 0,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 0,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 2,
+        "bodyBytesRead": 3177941
+      }
+    },
+    {
+      "point": "after_construct_1MiB",
+      "observedAtMs": 29498.769,
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 1,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 2,
+        "bodyBytesRead": 3177941
+      }
+    },
+    {
+      "point": "before_call_1MiB",
+      "observedAtMs": 29778.349375,
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 0,
+          "resourceGates": 0,
+          "resourceMemberAdmissions": 0,
+          "resourceMemberReuses": 0
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 0
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 1,
+          "inputReuses": 0
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 2,
+        "bodyBytesRead": 3177941
+      }
+    },
+    {
+      "point": "after_call_1MiB",
+      "observedAtMs": 32770.824167,
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 5,
+          "resourceMemberReuses": 2,
+          "gated.kind": 1,
+          "gated.schemaVersion": 1,
+          "gated.eventResource": 1,
+          "gated.applications": 1,
+          "gated.source": 1
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 1
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 1,
+          "inputReuses": 1
+        },
+        "worker": {
+          "contractCopies": 1,
+          "schemaCopies": 0,
+          "reuses": 1,
+          "deepFrozenChecks": 1
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 48,
+        "bodyBytesRead": 7958911
+      }
+    },
+    {
+      "point": "before_construct_4MiB",
+      "observedAtMs": 33181.522292,
+      "counters": {
+        "call": {
+          "callAdmissions": 1,
+          "establishedInvocations": 1,
+          "establishmentWalks": 1,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 5,
+          "resourceMemberReuses": 2,
+          "gated.kind": 1,
+          "gated.schemaVersion": 1,
+          "gated.eventResource": 1,
+          "gated.applications": 1,
+          "gated.source": 1
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 1
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 1,
+          "inputReuses": 1
+        },
+        "worker": {
+          "contractCopies": 1,
+          "schemaCopies": 0,
+          "reuses": 1,
+          "deepFrozenChecks": 1
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 48,
+        "bodyBytesRead": 7958911
+      }
+    },
+    {
+      "point": "after_construct_4MiB",
+      "observedAtMs": 34076.471667,
+      "counters": {
+        "call": {
+          "callAdmissions": 2,
+          "establishedInvocations": 2,
+          "establishmentWalks": 2,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 5,
+          "resourceMemberReuses": 2,
+          "gated.kind": 1,
+          "gated.schemaVersion": 1,
+          "gated.eventResource": 1,
+          "gated.applications": 1,
+          "gated.source": 1
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 1
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 2,
+          "inputReuses": 1
+        },
+        "worker": {
+          "contractCopies": 1,
+          "schemaCopies": 0,
+          "reuses": 1,
+          "deepFrozenChecks": 1
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 48,
+        "bodyBytesRead": 7958911
+      }
+    },
+    {
+      "point": "before_call_4MiB",
+      "observedAtMs": 34415.332709,
+      "counters": {
+        "call": {
+          "callAdmissions": 2,
+          "establishedInvocations": 2,
+          "establishmentWalks": 2,
+          "invocationReuses": 1,
+          "resourceGates": 1,
+          "resourceMemberAdmissions": 5,
+          "resourceMemberReuses": 2,
+          "gated.kind": 1,
+          "gated.schemaVersion": 1,
+          "gated.eventResource": 1,
+          "gated.applications": 1,
+          "gated.source": 1
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 1
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 2,
+          "inputReuses": 1
+        },
+        "worker": {
+          "contractCopies": 1,
+          "schemaCopies": 0,
+          "reuses": 1,
+          "deepFrozenChecks": 1
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 48,
+        "bodyBytesRead": 7958911
+      }
+    },
+    {
+      "point": "after_call_4MiB",
+      "observedAtMs": 38001.38775,
+      "counters": {
+        "call": {
+          "callAdmissions": 2,
+          "establishedInvocations": 2,
+          "establishmentWalks": 2,
+          "invocationReuses": 2,
+          "resourceGates": 2,
+          "resourceMemberAdmissions": 10,
+          "resourceMemberReuses": 4,
+          "gated.kind": 2,
+          "gated.schemaVersion": 2,
+          "gated.eventResource": 2,
+          "gated.applications": 2,
+          "gated.source": 2
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 2
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 2,
+          "inputReuses": 2
+        },
+        "worker": {
+          "contractCopies": 2,
+          "schemaCopies": 0,
+          "reuses": 2,
+          "deepFrozenChecks": 1
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 92,
+        "bodyBytesRead": 13738478
+      }
+    },
+    {
+      "point": "before_construct_4MiB-profile",
+      "observedAtMs": 38459.96275,
+      "counters": {
+        "call": {
+          "callAdmissions": 2,
+          "establishedInvocations": 2,
+          "establishmentWalks": 2,
+          "invocationReuses": 2,
+          "resourceGates": 2,
+          "resourceMemberAdmissions": 10,
+          "resourceMemberReuses": 4,
+          "gated.kind": 2,
+          "gated.schemaVersion": 2,
+          "gated.eventResource": 2,
+          "gated.applications": 2,
+          "gated.source": 2
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 2
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 2,
+          "inputReuses": 2
+        },
+        "worker": {
+          "contractCopies": 2,
+          "schemaCopies": 0,
+          "reuses": 2,
+          "deepFrozenChecks": 1
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 92,
+        "bodyBytesRead": 13738478
+      }
+    },
+    {
+      "point": "after_construct_4MiB-profile",
+      "observedAtMs": 39377.743542,
+      "counters": {
+        "call": {
+          "callAdmissions": 3,
+          "establishedInvocations": 3,
+          "establishmentWalks": 3,
+          "invocationReuses": 2,
+          "resourceGates": 2,
+          "resourceMemberAdmissions": 10,
+          "resourceMemberReuses": 4,
+          "gated.kind": 2,
+          "gated.schemaVersion": 2,
+          "gated.eventResource": 2,
+          "gated.applications": 2,
+          "gated.source": 2
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 2
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 3,
+          "inputReuses": 2
+        },
+        "worker": {
+          "contractCopies": 2,
+          "schemaCopies": 0,
+          "reuses": 2,
+          "deepFrozenChecks": 1
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 92,
+        "bodyBytesRead": 13738478
+      }
+    },
+    {
+      "point": "before_call_4MiB-profile",
+      "observedAtMs": 39677.469667,
+      "counters": {
+        "call": {
+          "callAdmissions": 3,
+          "establishedInvocations": 3,
+          "establishmentWalks": 3,
+          "invocationReuses": 2,
+          "resourceGates": 2,
+          "resourceMemberAdmissions": 10,
+          "resourceMemberReuses": 4,
+          "gated.kind": 2,
+          "gated.schemaVersion": 2,
+          "gated.eventResource": 2,
+          "gated.applications": 2,
+          "gated.source": 2
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 2
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 3,
+          "inputReuses": 2
+        },
+        "worker": {
+          "contractCopies": 2,
+          "schemaCopies": 0,
+          "reuses": 2,
+          "deepFrozenChecks": 1
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 92,
+        "bodyBytesRead": 13738478
+      }
+    },
+    {
+      "point": "after_call_4MiB-profile",
+      "observedAtMs": 43556.061584,
+      "counters": {
+        "call": {
+          "callAdmissions": 3,
+          "establishedInvocations": 3,
+          "establishmentWalks": 3,
+          "invocationReuses": 3,
+          "resourceGates": 3,
+          "resourceMemberAdmissions": 15,
+          "resourceMemberReuses": 6,
+          "gated.kind": 3,
+          "gated.schemaVersion": 3,
+          "gated.eventResource": 3,
+          "gated.applications": 3,
+          "gated.source": 3
+        },
+        "transport": {
+          "detaches": 0,
+          "verifierReattachments": 0,
+          "establishedCarries": 3
+        },
+        "catalog": {
+          "fullAdmissions": 1,
+          "viewConstructions": 1
+        },
+        "resolution": {
+          "catalogComparisons": 0,
+          "viewComparisons": 0
+        },
+        "input": {
+          "inputCopies": 3,
+          "inputReuses": 3
+        },
+        "worker": {
+          "contractCopies": 3,
+          "schemaCopies": 0,
+          "reuses": 3,
+          "deepFrozenChecks": 1
+        }
+      },
+      "runtimeHistoryWork": {
+        "historyDecodes": 1,
+        "decodedRows": 2,
+        "historyBytesRead": 3177941,
+        "storeReopens": 1,
+        "coldHistoryReads": 0,
+        "bodyReads": 136,
+        "bodyBytesRead": 13919941
+      }
+    }
+  ],
+  "cpuProfileCall": "4MiB-profile",
+  "qualified": false,
+  "setupAccounting": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 406.69374999999997,
+      "provisioning_verify_artifact": 21874.976,
+      "provisioning_install": 3206.4507919999996,
+      "provisioning_installed_content_check": 623.2588340000002,
+      "provisioning_additional_products": 0.003125000002910383,
+      "installed_owner_loading": 298.4963330000028,
+      "environment_install_and_workspace_admission": 824.3517089999987,
+      "execution_preparation_publication_program_and_catalog": 449.90799999999945
+    }
+  },
+  "installedRoot": "/private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "installCandidate": {
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.8/5dd1e8165ec9fb25dceec68c6f81e79afd8b94debddbce77a15f02ab2928d6cb/19038a14cc5e6c1cba734b2b7329655ab2ffcd71a2465e020e9aec5b43691805",
+    "installedRoot": "/private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "productContentDigest": "sha256:5dd1e8165ec9fb25dceec68c6f81e79afd8b94debddbce77a15f02ab2928d6cb",
+    "manifestDigest": "sha256:0fc9fc5e92cb8bfbfc064f18e50324358f19d418ea508d41d6a5f3e69547da3b"
+  },
+  "fixtureSourcePins": [
+    {
+      "path": "/private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/workspace/context-1MiB.txt",
+      "bytes": 1048576,
+      "sha256": "4e29ad18ab9f42d7c233500771a39d7c852b200baf328fd00fbbe3fecea1eb56"
+    },
+    {
+      "path": "/private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/workspace/context-4MiB.txt",
+      "bytes": 4194304,
+      "sha256": "5947c00ce4da5eac3e8b3731df34e42a2d7b7e88bdb7bd93b8152afcedaa2f92"
+    }
+  ],
+  "cpuProfilePath": "profiles/4MiB-profile.cpuprofile",
+  "profileCall": {
+    "label": "4MiB-profile",
+    "contextBodyBytes": 4194304,
+    "contextCanonicalBytes": 5593452,
+    "taskCanonicalBytes": 5598879,
+    "sdkCall": {
+      "kind": "operator_serialization_receipt",
+      "serializedBytes": 32033898,
+      "sha256": "55f58a92a8113ef93c5ee30e02a8dd4647bae4c082a7e4a2507f5fd3917db5e4",
+      "serializationMs": 39.888082999998005,
+      "startMemory": {
+        "rss": 3255762944,
+        "heapUsed": 370862552,
+        "external": 43705013,
+        "arrayBuffers": 457564
+      },
+      "endMemory": {
+        "rss": 3161243648,
+        "heapUsed": 276273168,
+        "external": 26909796,
+        "arrayBuffers": 457564
+      },
+      "payloadRetained": false,
+      "coordinate": {
+        "definitionKey": {
+          "operationId": "abg.operation.run.invoke",
+          "memberKey": "start"
+        },
+        "invocationRef": "invocation://abiogenesis/6b1493f7986b923a9aadd2de3f150b9a21278f985bf2b23264f2f9aac7527c61",
+        "requestRef": "request://abi5-tests/reference-measurement/4MiB-profile"
+      },
+      "standing": "Optional operator serialization outside construction/call measurements; not a clone allocation or required runtime cost."
+    },
+    "sdkOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/calls/4MiB-profile.sdk-outcome.json",
+      "bytes": 16245,
+      "sha256": "aed326956af832a67111752ccc2da3950458293f764d110174f45d683e1aee1b",
+      "serializedBytes": 16244,
+      "serializationMs": 0.06041700000059791,
+      "serializationAndCustodyMs": 0.4205839999995078,
+      "startMemory": {
+        "rss": 3165847552,
+        "heapUsed": 291279360,
+        "external": 56405606,
+        "arrayBuffers": 1991334
+      },
+      "endMemory": {
+        "rss": 3165847552,
+        "heapUsed": 291349624,
+        "external": 56439296,
+        "arrayBuffers": 2025024
+      }
+    },
+    "callWallMs": 3678.8917500000025,
+    "resultCanonicalBytes": 2617,
+    "eventLog": {
+      "beforeBytes": 10560537,
+      "afterBytes": 10742000,
+      "appendedBytes": 181463
+    },
+    "terminalIdentity": {
+      "result": {
+        "ref": "result://abiogenesis/1d7625937837e29fbf609e292abec2c66c8d36cf487be9c7955066e5dc5e9180",
+        "digest": "sha256:1d7625937837e29fbf609e292abec2c66c8d36cf487be9c7955066e5dc5e9180"
+      },
+      "producer": {
+        "runRef": "run://abiogenesis/4888d4db6912ddbd2b491c0ee4023a00c561d1f302eb0eef45a460ad5dbe2663",
+        "graphCallRef": "graph-call://abiogenesis/5f03b7116988c763114c39260030b65006fb776a7ff4dd5cdb28010f6cfdca99",
+        "invocationAdmissionRef": "invocation-admission://abiogenesis/ccb115f0e2ee48149f30ddf37372f73ecc5ca93e71e16e982637abcc032c2eb9",
+        "program": {
+          "ref": "program://abiogenesis/worksite/native-work@5",
+          "digest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f"
+        },
+        "graphFunction": {
+          "ref": "graph-function://abiogenesis/worksite/native-work@5",
+          "digest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+        },
+        "executionBasis": {
+          "ref": "execution-basis://abiogenesis/38808bc050dac74d882d12b0a082764a9243cc1ae5832c5e32106294c00907df",
+          "digest": "sha256:38808bc050dac74d882d12b0a082764a9243cc1ae5832c5e32106294c00907df"
+        },
+        "cCallRef": "c-call:sha256:cf48f1ceefec36314ea41324f296202e79d9b28a95d1d323f919724271775302",
+        "resultAdmissionEventRef": "event://abiogenesis/f56b6b2b7aaa5114a5458a73b70a10153cddfcaa677dc3ffc33dbc31eaa100bb",
+        "judgmentRef": "judgment://abiogenesis/3ebcf409d570c506b5dec947406d4c9eb4c696567080272ff79f0415c8a0a8f9",
+        "judgmentAdmissionEventRef": "event://abiogenesis/1c9c909d64d8bf59dbcf4528100082dcb78c276de3cf54945d7df3ce18f12e73",
+        "terminalRoute": {
+          "ref": "traversal-route://abiogenesis/976176de88910ecc2da67b8331c1cfd2d71fd4b16b8f60f129d3ed442a8ebead",
+          "digest": "sha256:976176de88910ecc2da67b8331c1cfd2d71fd4b16b8f60f129d3ed442a8ebead"
+        }
+      },
+      "valueDigest": "sha256:f6f82b95bf25191d1811bece37349d3ad82c3cb93020b551ee48d8d725c49500",
+      "originalProjectionBasis": {
+        "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+        "digest": "sha256:16ab45bf5c2d8634b32b410cbdb03176da3941fc24c38fc7810d71d02f2f3457"
+      }
+    },
+    "matched": false,
+    "cpuProfilePath": "profiles/4MiB-profile.cpuprofile",
+    "completeNativeResult": true,
+    "successorPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+      "prefixLength": 10742000,
+      "prefixDigest": "sha256:b316b8c62e1fe6814e0bb4f271f5b4ffec2185ce9f5c43930300187e23bb1cf3",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 709356444,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:16ab45bf5c2d8634b32b410cbdb03176da3941fc24c38fc7810d71d02f2f3457"
+    }
+  },
+  "readProjectionBasis": {
+    "ref": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+    "digest": "sha256:16ab45bf5c2d8634b32b410cbdb03176da3941fc24c38fc7810d71d02f2f3457"
+  },
+  "eventLog": {
+    "originalPath": "/private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+    "physicalBytes": 10742000,
+    "physicalSha256": "b316b8c62e1fe6814e0bb4f271f5b4ffec2185ce9f5c43930300187e23bb1cf3",
+    "retained": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/after-rc8-004/runtime.events.jsonl.gz",
+      "bytes": 842018,
+      "sha256": "8f8300776b6be3109a15d3925b2a18e4a6b37ad13cd87c0c3ffc3e2d27badd34"
+    },
+    "compression": "gzip",
+    "closedPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-r8m-rc8-after-004/tmp/abi5-root-env-zOWUIk/runtime/events.jsonl",
+      "prefixLength": 10742000,
+      "prefixDigest": "sha256:b316b8c62e1fe6814e0bb4f271f5b4ffec2185ce9f5c43930300187e23bb1cf3",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 709356444,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:16ab45bf5c2d8634b32b410cbdb03176da3941fc24c38fc7810d71d02f2f3457"
+    },
+    "readOnlyIdentity": {
+      "device": 16777231,
+      "inode": 709356444,
+      "byteCount": 10742000,
+      "digest": "sha256:b316b8c62e1fe6814e0bb4f271f5b4ffec2185ce9f5c43930300187e23bb1cf3"
+    }
+  },
+  "twoPointGrowth": {
+    "contextBodyDelta": 3145728,
+    "sdkCallSerializedDelta": 8388608,
+    "resultCanonicalDelta": 0,
+    "sdkOutcomeSerializedDelta": 1,
+    "note": "Two sequential fixture sizes; compare exact before/after subjects and profiling flags, not an isolated causal slope."
+  },
+  "totalWallMs": 48513.478667,
+  "nodeResourceUsage": {
+    "userCPUTime": 47475806,
+    "systemCPUTime": 5721588,
+    "maxRSS": 3392864,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 550604,
+    "majorPageFault": 87,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 5,
+    "ipcReceived": 9,
+    "signalsCount": 2972,
+    "voluntaryContextSwitches": 2533,
+    "involuntaryContextSwitches": 1183014
+  },
+  "measuredPhaseWallMs": 45550.597,
+  "unassignedFixtureSerializationOrOtherMs": 2962.8816670000015,
+  "limits": [
+    "Scripted actor; no provider/coding productivity, causal clone allocation, speedup or release qualification claim.",
+    "Construction, calls, operator serialization, setup, custody and cold CLI phases stay separate; RSS includes retained allocations and GC effects.",
+    "Memory and counters describe this parent; child peak memory is not measured. Missing optional work counters remain unavailable, never inferred zero.",
+    "After-only raw absolute owner snapshots are retained after setup and before/after construction and SDK calls, outside timed phases and the CPU-profile interval. Existing phase delta collection is unchanged. Missing dynamic keys stay absent and first-appearing-key deltas stay null; no zero baseline is inferred. Exact owner implementation and named focused receipts govern any zero interpretation or binder-work claim.",
+    "Both matched calls are unprofiled. One optional after-only third 4 MiB call is separately profiled; its timing/counters are excluded from the matched pair. Actual close includes its successor; cold parity is scoped to the pair at that final prefix.",
+    "Budget checks occur at phase boundaries outside timed calls; aggregate 1 GiB is a monitored operational stop, not a filesystem quota, and may overshoot between checks.",
+    "Raw CLI requests live only in fixture-owned scratch and are cleaned by its existing hook; retained digests and actual cold outcomes/streams preserve the observed check.",
+    "Fixture setup materializes the already-packed artifact into disposable scratch through existing owners; immutable bootstrap install is not written.",
+    "Only two full run_result cold equalities are exercised here; historical raw CLI/replay proof retains its original scope."
+  ]
+}

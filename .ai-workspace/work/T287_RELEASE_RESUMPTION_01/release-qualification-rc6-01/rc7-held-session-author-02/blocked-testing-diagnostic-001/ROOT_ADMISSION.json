@@ -1,0 +1,92 @@
+{
+  "kind": "root_bounded_diagnostic_admission",
+  "status": "ROOT_ADMITTED_ONCE_ONLY_BLOCKED_TESTING_DIAGNOSIS",
+  "admittedUtc": "2026-11-06T15:48:24.687197+00:00",
+  "authority": "User instructed build RC7 applying corrections; Root separate operator Writer under ROOT_ACTIVATION bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f, STDO3.0.4 unchanged fixed15 Product Frame.",
+  "purpose": "The new actual fixed Testing Run returned blocked, but the unchanged fixture removed its diagnostic receipts during cleanup. Run exactly that one failed case once to retain its existing log via a read-only file descriptor across normal unlink. This adds an observation unavailable in the first lane, not a second qualification attempt.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/SUBJECT.json",
+    "bytes": 272692,
+    "sha256": "4e51195fb89bd95e51a65806e6f985c5843cc375bf1f42450941b6262fb7b187"
+  },
+  "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+  "stage": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "tenant": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01/build_tenants/abiogenesis/typescript",
+  "tempRoot": "/private/tmp/abg-hd1",
+  "node": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "npmUser": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-02/npm-user.npmrc",
+  "npmGlobal": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-02/npm-global.npmrc",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/run-diagnostic.mjs",
+      "bytes": 4533,
+      "sha256": "2e53f7ceb089ced58e59ef8259c0db385533d8fe3a85b374e1949992a5ac3dee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/review-subject-stage-001/SUBJECT.json",
+      "bytes": 272692,
+      "sha256": "4e51195fb89bd95e51a65806e6f985c5843cc375bf1f42450941b6262fb7b187"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/post-author-proof-001/SUMMARY.json",
+      "bytes": 4466,
+      "sha256": "35f8270721f683d0855f3a363523bede1da76d5a524456722ea227c9b02d486b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 10421,
+      "sha256": "7ddb9f2f715158677c4c11564b3996d43e13131d0cc9efb3524a3baef28ad494"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_AFTER.json",
+      "bytes": 557347,
+      "sha256": "515dd6b7d33208e4fa5fed02f7d15ebac853eefc7467c9da6c856e7f29fe3006"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-02/tmp/hs2-stage-01/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-02/npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-02/npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "bounds": {
+    "commands": 1,
+    "timeoutMs": 600000,
+    "existingTestTimeoutMs": 540000,
+    "automaticRetries": 0,
+    "sourceEdits": 0,
+    "realProviderCalls": 0,
+    "capturePerFileMaxBytes": 134217728,
+    "readOnlyCapturePaths": [
+      "caller/resources/events/runtime.events.jsonl",
+      "caller/calls/fixed-testing.outcome.json"
+    ]
+  },
+  "conservation": [
+    "Original failed lane, native return, all original controls and proof budgets unchanged.",
+    "No assertions, input semantics, admission/role guards or cleanup are intercepted or changed.",
+    "The observer opens existing regular fixture files for read only, retaining them after their own normal deletion; it authors no runtime event.",
+    "The dedicated short temp root and operator records are the only additional write roots.",
+    "No acceptance/qualification credit; stop after this diagnosis and classify the actual owner refusal before selecting repair."
+  ]
+}

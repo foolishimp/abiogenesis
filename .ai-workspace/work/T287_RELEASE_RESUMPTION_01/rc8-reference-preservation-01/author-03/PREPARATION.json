@@ -1,0 +1,84 @@
+{
+  "status": "ROOT_SELECTED_SUCCESSOR_PREPARATION",
+  "recordedUtc": "2026-11-07T04:20:31.153642+00:00",
+  "authority": "Executive /root author03 preparation-to-held-gate grant and closed-owner clarification; existing user approval unchanged",
+  "baseControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+    "bytes": 9837,
+    "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source-freeze.json",
+    "bytes": 293777,
+    "sha256": "5805c757c7baca31e4b81b7775c5210d84a87c5a11238360e50f6587f7aebf6a"
+  },
+  "sourceDigest": "b884ca1fe49d31b1fd2d3b6f8ade9c64fba911b83dc37fee069d74453cd4ff81",
+  "sourceRows": 1338,
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/runtime-001/resource-close.json",
+    "bytes": 2305,
+    "sha256": "d62c0b72fa45809c1d06cafc81483206e7d17f341fbdac9b155bdcd2203023a6"
+  },
+  "priorPreparedCoordinates": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/runtime-001/PREPARED.json",
+    "bytes": 6155,
+    "sha256": "fb063ccbf42269a0df1ea71b45e182a7d314230c1550aac0760f1b6648829c4b"
+  },
+  "consumerAcquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/runtime-001/consumer-reacquisition.json",
+    "bytes": 10159,
+    "sha256": "5f7d70f56a2aa521b67f9092a47c6953f35fe69415eb89ed56180f702b9b9684"
+  },
+  "catalogBasisDigest": "sha256:dea7a607e5f1aa0709b3f73350c733c3e0ba7c1d8eec35d345494907b798cb79",
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/CHECKOUT.json",
+    "bytes": 979,
+    "sha256": "1029612b57297aabe3c1ce7ada654146e39881af4919a978920b0101b2226f4a"
+  },
+  "sparseSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abiogenesis-rc8-reference-preservation/info/sparse-checkout",
+    "bytes": 36309,
+    "sha256": "cc5bf156a20e9042817f7c751ecd0d58f9dfea3a752622f833bd30a1142a9e26"
+  },
+  "priorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/OPERATOR_RETURN.json",
+    "bytes": 12455,
+    "sha256": "9cc782e4d408ee48db76f669b1e6ef91104ea47a59bc4f58c2839ebb6914a59b"
+  },
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/runtime-001",
+  "proofRoot": "/private/tmp/abg-r8-uoznnezy/author-03-proof",
+  "progressRoot": "qualification-scratch/rc8-reference-preservation-01/author-03",
+  "budgets": {
+    "totalSourceStages": 4,
+    "alreadySpentSourceStages": 3,
+    "successorSourceStages": 1,
+    "stageLabels": [
+      "stage-04"
+    ],
+    "alreadySpentSuccessorFocusedInvocations": 1,
+    "remainingSuccessorFocusedInvocations": 7,
+    "serialProof": true,
+    "perInvocationMs": 600000,
+    "nativeAbsoluteMs": 2400000,
+    "reserveBytes": 4294967296
+  },
+  "predecessorRecipes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/host.mjs",
+      "bytes": 12242,
+      "sha256": "5c95825b6873b784337bd75b9f10193876505ded549d0fc408346951029a7267"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/proof.mjs",
+      "bytes": 7053,
+      "sha256": "137a37075dadb9fb0455886227fdbfdd64d1f9efd39e4b869ce006b2927c6c46"
+    }
+  ],
+  "retainedHalt": {
+    "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/HALT.json",
+    "bytes": 124,
+    "sha256": "efa159c8fc1f2bf0a221a6ef9c8f3209028015dd8915b54931356657213ab7aa"
+  },
+  "setupComposition": "Existing installedModules/verifyArtifact/publicCaller and actual-close reopen -> owner refresh gives resolvedProductLock/productInstalls/workspaceAuthorityBasis -> maintained core/consumer publications -> CatalogOperationPort.admit -> separate native Program catalogView -> canonical task/start constructor. No prior serialized Catalog, lock, installation graph or call is copied/re-ingested.",
+  "nextGate": "One actual-close owner preparation, then exact Root PREPARED readback/admission before any provider dispatch."
+}

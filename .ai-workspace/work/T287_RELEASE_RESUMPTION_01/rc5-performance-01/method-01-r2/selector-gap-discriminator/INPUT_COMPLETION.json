@@ -1,0 +1,12 @@
+{
+  "kind": "diagnostic_input_completion",
+  "recordedUtc": "2026-11-03T09:20:50.802204+00:00",
+  "prior": "RESULT.json / stdout.txt retained",
+  "cause": "Newly selected planning test dynamically imports unchanged uat/consumer.mjs; not in priorC2 because prior testfilter excluded planning test. No Product predicate evaluated by missingmodule.",
+  "added": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+    "bytes": 11420,
+    "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+  },
+  "effect": "Copy exact trackedconsumer into isolateddiagnostic only; rerun sameonecase. C2snapshot and canonical source unchanged."
+}

@@ -1,0 +1,103 @@
+{
+  "status": "DRAFT_NOT_FINALIZED_NO_DISPATCH_AUTHORITY",
+  "outcome": "Consume actual current-owner snapshots, preserve component discriminator oracles, implement exact physical-test envelope and RC11 identity metadata.",
+  "requiredActualReadonlyFixtures": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+    "qualification-scratch/rc11-qualification-01/native-02"
+  ],
+  "readFirstPlan": [
+    "qualification-inputs/rc11-qualification-01/native-02/ROOT_SCOPE.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/selected-action/fixture.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+    "qualification-inputs/rc11-qualification-01/native-02/LOADER_CONTRACT.md",
+    "qualification-inputs/rc11-qualification-01/native-02/LIFETIME_RESULT.md"
+  ],
+  "readonlyOwnerSections": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts": [
+      "validateHistoricalEvents (3408ff)",
+      "projectRootEventProfileSchedule (3969ff)"
+    ],
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts": [
+      "selectValidatedRuntimeEventPrefix (555ff)"
+    ],
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts": [
+      "projectCCallRuntimeFailureSignal and projectActorTransportForResult; only as needed for existing consumer behavior"
+    ],
+    "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts": [
+      "projectSelectedActionContinuations and pendingSelectedOccurrence (1789-1872)"
+    ]
+  },
+  "instructions": [
+    "Use concrete staged fixture manifest fields, coordinates, generation receipts and retained tests; no generator or setup-API research/implementation. No fixture generation inside author.",
+    "Additional ninth path only: in test_env/support/root-installed-environment.mjs change the legacy predicate from rootRows.length === 1 to rootRows.length === 1 && gtl.isExecutableCLeaf(node.term). Apply the supplied exact proofed helper delta after Root binds its actual external result. Keep the complete validated implementation-set path for composites, cardinality/construction/validation assertions, direct C.of legacy behavior and original C.retry term/bound. No validator substitution, unwrapping, invented validation, generator implementation or setup-API rediscovery.",
+    "Additional tenth path only: test_env/fixtures/language-structural/leaf.mjs. Apply the supplied concrete freeze-only execution-view delta once Root binds its actual proof. Use local in-place recursive freezing of the newly constructed prepared object and all fresh object/array data descendants, returning the same object; preserve the complete callback and every output/request value, original request presentation default and hashing. No private shared-module import, cloning/JSON serialization, shallow-only freeze, callback-output freeze, runtime/validator change or generator work. The later capture fixture result_text transformation is not a source-author change.",
+    "Write actual construction/proof README from the supplied concrete external receipts first. Distinguish genuine current owner generation from fast snapshot component predicates and the still-gated physical case3.",
+    "Preserve all four native cases and negative oracles, two selector cases/orders/ambiguity/crossed basis checks and lazy separately selected physical third case. Use exact event-identity cuts and owner-derived expected identities supplied by actual manifests, never projector-under-test expected minting.",
+    "Load-only support follows the small loader contract. Four fixture files are readonly; do not rewrite, re-admit, restamp, regenerate or invent their provenance.",
+    "Physical test only: S=5000, S2=10005. Five HTTP modes L5600/R5300/g120; capture worker inactivity11005/absolute12005/g150, command L11005/g150, HTTP L11005/R10305/g150. Top-level caps62000/51000. Preserve controlled clocks/all12 combinations byte-for-byte and every original five-mode/three-leg/error/output/absence/escaped-pipe oracle. Parent-monotonic attributable PID/PGID/readiness observations; no Product clock/timer/callback change or adaptive retry/skip.",
+    "Version-only RC10->RC11 in package.json/package-lock.json/code/src/product/contracts.ts; no dependency/script/runtime/HOW/requirements changes.",
+    "Pinned Node --check and mechanical source/JSON readback only; no build, tests, runtime, setup, generation, install, network, Git effects or nested provider. Source author stops at SDK return and reports actual writes/gaps; Root owns proof and acceptance."
+  ],
+  "provisionalLimits": {
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "unbound": [
+    "Actual four staged fixture pins/manifest schema/coordinates and external construction receipts",
+    "Root final scope and exact immutable readInputs/context list",
+    "Successor source inventory including actual staged files",
+    "Task/binding/setup admission and actual fresh resource/call; none constructed",
+    "Actual external03 helper postimage/Run proof and exact source-helper delta correspondence",
+    "Actual external04 freeze-only leaf postimage proof, distinct from separately result_text-transformed installed capture product"
+  ],
+  "fixedHelperDelta": {
+    "source": {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    "before": "  const resolutionCandidate = rootRows.length === 1",
+    "after": "  const resolutionCandidate = rootRows.length === 1 && gtl.isExecutableCLeaf(node.term)",
+    "report": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/native-setup-002/REVIEW.md",
+      "bytes": 9376,
+      "sha256": "282baa43c72cd8a1d7c206376f9caa9fe3f719045e6e95db84497c575d550e2a"
+    },
+    "proofStanding": "Future exact execution-view helper postimage/outcome pins still required; no successful composite run presumed."
+  },
+  "fixedLeafConstructionDelta": {
+    "preimage": {
+      "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "bytes": 10407,
+      "sha256": "63ca4427b4509f643fb58c38dd5e231c485187ae381082f710007872356e6c95"
+    },
+    "report": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/native-preparation-003/REVIEW.md",
+      "bytes": 13034,
+      "sha256": "2ea9753a5c3593e4555bf32a9a39184e7be1eff417ba76151321a4a1ba61750a"
+    },
+    "repair": "Fixture-local in-place recursive freeze of fresh prepared carrier and data descendants only; same callback/output/request values/default presentation.",
+    "proofStanding": "Actual freeze-only external04 view postimage and genuine owner evidence pending; never copy the result_text-transformed installed capture leaf into source."
+  }
+}

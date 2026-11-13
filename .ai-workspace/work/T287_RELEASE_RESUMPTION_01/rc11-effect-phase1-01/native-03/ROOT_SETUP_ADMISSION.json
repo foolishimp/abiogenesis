@@ -1,0 +1,119 @@
+{
+  "id": "PHASE1-M5-REPAIR-SETUP-03",
+  "status": "ROOT_ADMITTED_PHASE1_SETUP",
+  "basis": "Root PHASE1-M5-REPAIR-01 expressly admits preparation and genuine RC10 Public open/context/native-call construction; final closed two-finding review pins consumed. Paid provider remains held.",
+  "bindingSha256": "abaf5423730a191340dabf2a52f494a89af9f5b8ab19277c8ef57ce97dbb6a3d",
+  "scopeSha256": "2bb5afc98c04876b63cc2bc7b51bb6b1bb90bb56795df61a4a0f2b48444d99ea",
+  "grantsFreshPublicSetup": true,
+  "providerDispatch": false,
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/READY.json",
+    "bytes": 4921,
+    "sha256": "b1706729840f1fbee6cb28ec65e6d17867c2ebe58782e938d5f3b18c0865609c"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/host.mjs",
+      "bytes": 15522,
+      "sha256": "723a94a1973fa2c9c74b3315d295bb75c99bc3f7358109c6c0494f2ce2c821fb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "e136a40002fb82db21cb30f9a88945d35c8aeabc68213d6ba8e767de3bbfc311"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_REVIEW.md",
+      "bytes": 11867,
+      "sha256": "2599ce4606269a626428044284188f7ca65ed052a884859e238ab9bb96d0884b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/review-01/SOURCE_REVIEW.json",
+      "bytes": 5140,
+      "sha256": "7b5e75cd7ca6b17854cb98ff7e097f12896e04d123a99fcb8f62df48f7c16e2e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+      "bytes": 1839,
+      "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/PREBUILT_IDENTITY.json",
+      "bytes": 1788,
+      "sha256": "abad835f122aad5c64ddb8f379d262a915671f88ecda2ef1999cabb615deac79"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-03/PRESERVATION_GUARDS.json",
+      "bytes": 2183,
+      "sha256": "7baba5f81dc7cce89e85f223ef09ef9de393ff041cc5e17286d56926d163363f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+      "bytes": 43447,
+      "sha256": "1dc256ef154543dbbeed9832abd881915ab715b350e9d0ddc4ace05455cc4159"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/abg/transport_contracts.js",
+      "bytes": 22850,
+      "sha256": "96b1b26f8ba3b817643a6fd6759f24f2f0b34a43f18391797dd7abb0871410f9"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/build/code/src/shared/effect_definition.js",
+      "bytes": 1873,
+      "sha256": "863f4f23036a0804f19e9eeed5ec67e9b8d0e966e5e1be3da5947ab8a0dced13"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+      "bytes": 40617,
+      "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/index.js",
+      "bytes": 49548,
+      "sha256": "d01a7afc13ac36758aaec93e494cf81e947836f55131bb3f1e66d32ae5d6d191"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Effect.js",
+      "bytes": 333597,
+      "sha256": "8f12ad8374f95b25cd4816f3deb45fbfaa547cef71e0f33b0fde8463011e74f5"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Deferred.js",
+      "bytes": 4596,
+      "sha256": "f2be3acd3c3069fb970834e26f3fa5c05a58604e7b4be65af349759b1cd46094"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Ref.js",
+      "bytes": 1410,
+      "sha256": "808cc110719697e535c4bf10826aa378191fdf9991004de8b4bcf8af2ea01719"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/effect/dist/esm/Fiber.js",
+      "bytes": 8706,
+      "sha256": "2dc1bbd03b813200aaf4768deac3e91c626639ebe98027a6f33026065e3c7c67"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "bytes": 1349,
+      "sha256": "603feef050dc15e99b59eef38196bcfedd396285033f939cdb21ca24b26d8ec0"
+    }
+  ],
+  "setupBudgetMs": 900000,
+  "setupPerCommandMs": 300000,
+  "reserveBytes": 4294967296
+}

@@ -1,0 +1,74 @@
+{
+  "kind": "bounded_operator_phase_wall_timing",
+  "script": "prepare-r1.mjs",
+  "moduleBodyEnteredUtc": "2026-11-06T02:12:52.466Z",
+  "endedUtc": "2026-11-06T02:12:53.238Z",
+  "moduleBodyElapsedMs": 772.953292,
+  "status": "script_threw_before_completion",
+  "markerOverflow": false,
+  "phases": [
+    {
+      "phase": "module_body_entry",
+      "enteredUtc": "2026-11-06T02:12:52.466Z",
+      "offsetMs": 0.6828749999999992,
+      "durationMs": 0.02537500000000037
+    },
+    {
+      "phase": "binding_and_admission_pin_checks",
+      "enteredUtc": "2026-11-06T02:12:52.466Z",
+      "offsetMs": 0.7082499999999996,
+      "durationMs": 34.031
+    },
+    {
+      "phase": "actual_resume_parse_and_close_check",
+      "enteredUtc": "2026-11-06T02:12:52.500Z",
+      "offsetMs": 34.73925,
+      "durationMs": 117.68525000000002
+    },
+    {
+      "phase": "workload_and_grant_load",
+      "enteredUtc": "2026-11-06T02:12:52.618Z",
+      "offsetMs": 152.42450000000002,
+      "durationMs": 0.6044169999999554
+    },
+    {
+      "phase": "consumer_binding_verify_parse_and_overlay",
+      "enteredUtc": "2026-11-06T02:12:52.619Z",
+      "offsetMs": 153.02891699999998,
+      "durationMs": 66.5915
+    },
+    {
+      "phase": "source_identity_and_hash_correspondence",
+      "enteredUtc": "2026-11-06T02:12:52.685Z",
+      "offsetMs": 219.62041699999997,
+      "durationMs": 162.57412500000004
+    },
+    {
+      "phase": "selected_environment_preparation",
+      "enteredUtc": "2026-11-06T02:12:52.848Z",
+      "offsetMs": 382.194542,
+      "durationMs": 0.35337499999997135
+    },
+    {
+      "phase": "installed_owner_loading",
+      "enteredUtc": "2026-11-06T02:12:52.848Z",
+      "offsetMs": 382.547917,
+      "durationMs": 390.123417
+    },
+    {
+      "phase": "governance_input_construction",
+      "enteredUtc": "2026-11-06T02:12:53.238Z",
+      "offsetMs": 772.671334,
+      "durationMs": 0.28195800000003146
+    }
+  ],
+  "existingCommandTiming": "execution/commands/<existing-label>.request.json started; result.json started,wallMs,exitCode,signal,timedOut,truncated. Reuse only these scalar fields; command recorder unchanged.",
+  "limits": [
+    "Module body begins after static imports; host launch and static import time require existing external launch evidence.",
+    "Sequential monotonic wall intervals include I/O, scheduling and bookkeeping, not CPU attribution or causal speedup.",
+    "invokeLifecycle includes its existing before/after installed-content checks; existing command wall times overlap this interval. Do not add them.",
+    "Fresh-readback command details remain in existing run_result/run_replay command metadata. Selected record phases start at record entry after argument evaluation.",
+    "Timing artifact serialization/write is excluded. A hard kill or static import failure may leave no artifact. Existing artifact is never overwritten.",
+    "Timing is observation only, with no new predicate, owner admission, retry, provider telemetry, private payload, environment value or credential."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "kind": "q23_preserved_partial_fresh_context_completion_basis",
+  "at": "2026-11-05T19:16:06.017258+00:00",
+  "partial": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/SUBJECT.json",
+    "bytes": 174679,
+    "sha256": "9c59c4d96ecf0ce3980a7cd6ee611539f3ff9a2de6f3654bc2cc876b24942e34"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/execution/after-run-resume.json",
+    "bytes": 72488402,
+    "sha256": "2c6e349a238a12df475a290d9d2c9f4836e5084c79ae7ecb37b02bbe830afa52"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-04/ROOT_FAILURE_TRIAGE.json",
+    "bytes": 3325,
+    "sha256": "6fe57e729301d0ae6ce591eb57aa56d3d04bb02722639e98e8112c784af83f55"
+  },
+  "existingOwnerRoute": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/NATIVE_AUTHOR_CONTINUATION_ROUTE.json",
+    "bytes": 22751,
+    "sha256": "8718180d620d3d9c2ecb992399180c1cbd7f73211c153bf2812634d78cb9efd8"
+  },
+  "remaining": "Finish and self-check Q1-Q7 tests, update selected HOW, return exact three handoffs. Twelve current files are unaccepted partial. Correct code only as needed within unchanged17-path grant. Preserve every observed failure and test skip/unknown; do not delete prior reports.",
+  "sessionMeaning": "Fresh CLI context only. The immutable transport uses --no-session-persistence; the prior session ID is unavailable. No --resume or --fork-session. The ABG Run is new/source:none using the actual latest close. Reacquire the selected partial diff, HOW/owners and preserved feedback; do not rediscover unchanged baseline.",
+  "scopeUpdate": "Current scratch/handoff root qualification-scratch/q23-author-05. Previous roots are historical read-only. Same17 Product paths and ABI Product-root binding. Q23-author-04 launched an actor but performed zero model turns/tools and left source unchanged.",
+  "resourceSelection": {
+    "maxTurns": 384,
+    "absoluteTimeoutMs": 7200000,
+    "inactivityTimeoutMs": 1800000,
+    "effort": "xhigh",
+    "setupRepeats": 0
+  },
+  "claims": "No acceptance, independent review, native C2/UAT or qualification from prior partial/intermediate tests.",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/native-author-binding-01/BINDING_RESULT.json",
+    "bytes": 823,
+    "sha256": "e6c6c214ff279ad4698a6bfe25de827089921055afbffdce3b74c83ac9157be1"
+  },
+  "refusedActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/RUNTIME_FAILURE_TRIAGE_01.json",
+    "bytes": 3925,
+    "sha256": "74ab5b2277c32688fea3b2dd58161d29f2f2307bc4e1b443cf324a5bf163ef13"
+  },
+  "partialDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/inputs/CURRENT_PARTIAL_DIFF.patch",
+    "bytes": 98049,
+    "sha256": "f9b7476574029bcac261e51867f0e4ae4d4112cc6c1ebbcd287d975643cfca58"
+  }
+}

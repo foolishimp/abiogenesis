@@ -1,0 +1,180 @@
+{
+  "productFrame": {
+    "families": "F01-F07,F09-F11,F13-F17",
+    "goal": "GOAL-035 / T-287",
+    "slice": "N9 retained component fixture, existing native Testing/UAT closure",
+    "basis": "stdo://releases/v3.0.4/",
+    "authority": "Product/requirements own meaning; current installed owners admit runtime truth; Root operator controls declare sandbox effects; replay projects actual history.",
+    "classification": "Operator test recipe and deterministic evidence; no Product/requirements/HOW change or runtime authority added."
+  },
+  "kind": "root_fixture_native_failure_triangulation",
+  "recordedUtc": "2026-11-05T09:07:44.810644+00:00",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "result": "operator_recipe_reentry_selected_source_predicate_accepted_runtime_closure_open",
+  "failure": {
+    "outcome": {
+      "startedUtc": "2026-11-05T08:36:12.019Z",
+      "endedUtc": "2026-11-05T08:56:00.690Z",
+      "wallMs": 1188661.82175,
+      "exitCode": 0,
+      "outcomeKind": "result",
+      "disposition": "runtime_failed",
+      "run": {
+        "digest": "sha256:17d6e6118cec3119e6574ef3c11fbc706bda5dfaf0e42eeea2d56415892b1c3a",
+        "ref": "run://abiogenesis/6bda9cbfba8d55b0447a307fcdbe2f060e16800c3d079fac6976bebfcf68d315"
+      },
+      "terminal": null,
+      "qualified": false,
+      "meaning": "Native return; independent source review and actual C2/UAT determine bounded acceptance."
+    },
+    "diagnosticRef": "diagnostic://abiogenesis/worksite/command-execution/helper-territory-mismatch@5",
+    "failureEventOrdinal": 11644,
+    "helper": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d0e27da6a7e402f63b2e1c6ba96d4b7ed5a7100156941b65f1bde99de985dd88/35917ce7967af2cf733aac107025dcf6e599c0fcc585ee980a887828320ecb10/result.json",
+      "bytes": 4005489,
+      "sha256": "07e29b5988b2583cc4ea3df9c1a2ca1b8e9795f665aaa1da110b3c1b26e082c3"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d0e27da6a7e402f63b2e1c6ba96d4b7ed5a7100156941b65f1bde99de985dd88/35917ce7967af2cf733aac107025dcf6e599c0fcc585ee980a887828320ecb10/task.json",
+      "bytes": 271083,
+      "sha256": "d9d681cf633906e053e55a30c7b00e15311358e26a7c07ea3ba3754681804260"
+    },
+    "unmatchedDelta": [
+      {
+        "after": {
+          "byteLength": null,
+          "digest": "sha256:333178788eae3e0b14c9b07bbbb6232bfa4689c7f134eeaa9daae60aba96de53",
+          "kind": "worksite_path_observation",
+          "nodeKind": "directory",
+          "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs",
+          "schemaVersion": "5.0.0",
+          "symlinkTarget": null
+        },
+        "before": null,
+        "changeKind": "created",
+        "kind": "worksite_path_delta",
+        "matchedTerritoryRef": null,
+        "ordinal": 5905,
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs",
+        "schemaVersion": "5.0.0"
+      }
+    ],
+    "commands": [
+      {
+        "ordinal": 0,
+        "commandId": "command://abiogenesis/qualification/fixture-01/immutable-build",
+        "exitStatus": 0,
+        "terminationConfirmed": true,
+        "timedOut": false
+      },
+      {
+        "ordinal": 1,
+        "commandId": "command://abiogenesis/qualification/fixture-01/immutable-contracts",
+        "exitStatus": 0,
+        "terminationConfirmed": true,
+        "timedOut": false
+      },
+      {
+        "ordinal": 2,
+        "commandId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies",
+        "exitStatus": 0,
+        "terminationConfirmed": true,
+        "timedOut": false
+      },
+      {
+        "ordinal": 3,
+        "commandId": "command://abiogenesis/qualification/fixture-01/component-proof",
+        "exitStatus": 0,
+        "terminationConfirmed": true,
+        "timedOut": false
+      }
+    ],
+    "productDeltaCount": 0,
+    "protectedBeforeAfterEqual": true,
+    "nativeComponentReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d0e27da6a7e402f63b2e1c6ba96d4b7ed5a7100156941b65f1bde99de985dd88/35917ce7967af2cf733aac107025dcf6e599c0fcc585ee980a887828320ecb10/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-fixture-01/component-result.json",
+      "bytes": 615,
+      "sha256": "f44d9831da8d58f8d215b0b5e3fae96a5eea5ccd6db8e86d6abd032a6ef8c7ef"
+    },
+    "tally": {
+      "tests": 7,
+      "pass": 5,
+      "fail": 0,
+      "skipped": 2
+    },
+    "freshReadbacks": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/execution/fresh-reads.json",
+      "bytes": 2402,
+      "sha256": "f713d76d31ac8f2b9533c29302c4672e49e49f48f538b711f77ad3d8a2708c80"
+    },
+    "freshMeaning": "run_result not_found; run_replay failed with null terminal; no UAT and no accepted C2 Result"
+  },
+  "causalFrames": {
+    "origin": "Root operator recipe selected child report directory while wrapper mkdir(recursive) also creates absent test_env/test_runs parent in fresh sandbox.",
+    "integration": "All four declared commands completed successfully; helper directory inventory found exactly one unmatched new parent.",
+    "effect": "Existing helper worksiteDelta correctly refuses ungranted path. No changed protected observations or Product delta.",
+    "proof": "Component TAP5/0/2 is observed but not a successful admitted Testing/UAT/whole-run result.",
+    "identity": "Frozen candidate equals current test; actual final close prefix43,778,059B/8fc1ffe9 holds. No old setup close may substitute.",
+    "design": "Existing constructWorksiteCommandConfiguration and helper territory owner remain authoritative; correction is recipe data only.",
+    "whyPriorChecksMissed": "Preflight checked source, constructors, identifiers, budget and input isolation, but did not prove the runtime-created ancestor set. Author self-check does not execute C2 write-territory judgment.",
+    "recurrence": "Earlier native-03 already retained an omitted C2 output territory; accepted proof-10/workload.json selects the containing test_env/test_runs subtree. Root failed to carry that existing recipe relation into this minimized packet. This is an operator work-decision recurrence, not a new Product requirement.",
+    "repair": "Reuse accepted proof-10 containing report territory in successor recipe; keep commands/predicates/source unchanged. Reuse admitted Construction through supported recovery/forward owner if its actual contracts permit; no coding redispatch or event mutation.",
+    "uncertainty": "Exact supported retained-Construction recovery route is under bounded audit; no fabricated continuation basis."
+  },
+  "sourceConjunction": {
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/SUBJECT.json",
+      "bytes": 3447,
+      "sha256": "49cd1586df2600490b6d0625562a4ee76374421a57c7b460c9d1645f30f36c9d"
+    },
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 67553,
+      "sha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc"
+    },
+    "independentReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/INDEPENDENT_SOURCE_REVIEW.json",
+      "bytes": 28642,
+      "sha256": "9a8fd82261cc8854d809857c7865cec1c2b6f4929c0ebd86f6743a4eaf5c1aa3"
+    },
+    "decision": "Accept bounded source repair including adjacent P2 canonical run/related selector premise within existing lower-owner fixture scope. Preserve186 assertions,7 test bodies and2 historical gates.",
+    "accessObservation": "Author disclosed extra adjacent reads. Retain as acquisition-conformance observation; no clean access claim; no evidence that these changed Product meaning or invalidate bounded source predicate.",
+    "limits": "N9 whole work-item closure awaits successful installed C2/UAT and fresh close; no native journal/D2/full qualification claim."
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:4604288fe2cf83f30d4e40985590c183dfdc00987f4c3ea7357e7c37bad8344f",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:8fc1ffe9bb4afb91c450735c74fce68e609b75f2666f9b7c84d66dfd45c8c14d",
+      "prefixLength": 43778059,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 701759869
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:dc62e30cb2a9772d3149d7ac76f3d4fff0c4008a3f6ebaf6c9d045f19e25b8b3",
+      "device": 16777231,
+      "durableByteLength": 43778059,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:8fc1ffe9bb4afb91c450735c74fce68e609b75f2666f9b7c84d66dfd45c8c14d",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "inode": 701759869,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "next": "Prepare proof-only corrected C2/UAT through existing admitted source recovery; Root reviews exact control before dispatch.",
+  "reserved": [
+    "No Product/test edits by Root",
+    "No repeat native coding",
+    "No push/merge/tag/publication/selector/stable claim"
+  ]
+}

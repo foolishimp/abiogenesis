@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-02T09:06:02.870Z",
+  "name": "AssertionError",
+  "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'result://abiogenesis/118bb63c73181a9e89d79b88c42bc0ef8c5e914721c3ced627386bd7b939ab6b'\n- 'result://abiogenesis/47a3504e9ab0dd16ef8da229b6243a183566829c32b54acc0482b4538b611c7d'\n",
+  "meaning": "Actual fault retained; no automatic retry, fabricated state, stale handoff or acceptance."
+}

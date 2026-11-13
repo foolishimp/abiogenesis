@@ -1,0 +1,94 @@
+{
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "GOAL-035/T287/F10 D5 affected C2/UAT and preserved Q23 Q1-Q7",
+    "outcome": "Retire only redundant current-profile ABG lifecycle copies through existing owners; preserve physical/helper observations, primary facts, deterministic fold/replay and exact historical profile standing.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Current admitted author02 controls declare acquisition; the authentic baseline is retained on its exact partial. Final author02 source Result, SUBJECT and three handoffs remain unbound; no moving Product reads.",
+      "tool": "Exact STDO3.0.4 and existing installed RC6/default-consumer/operator-client owners. This Writer prepares controls and passive capture only.",
+      "runtime": "Actual completed author02 final close/resume must be supplied by Root. Existing fresh source:none Testing/UAT route is guarded by complete physical frozen-source custody; no source-binding bypass, old close, injected observations/synthesis or invented native ancestry."
+    },
+    "prohibitions": [
+      "No Product/source edits, coding Worker, staging, preflight, tests/build, provider/runtime/Git/network/credential operation in preparation.",
+      "No current/future candidate or close substitution; no old handoffs added to satisfy stale selectors; no private diagnostics/provider output or terminal source-body printing.",
+      "Native max UAT is component feedback, not formal independent third-family judgment or Q23/release acceptance."
+    ]
+  },
+  "kind": "closed_prior_operator_instruction_array_defect",
+  "scope": "Read-only control diagnosis; active author02 preserved exactly. No Product repair or latency attribution.",
+  "mutation": {
+    "site": "This operator Writer preceding author02 generation command; no persisted generator file.",
+    "language": "Python",
+    "statement": "w['workOrders']['construction']['instructions'] += ' Run only the explicit recovery lane for the baseline before M2 or broader lanes. Fixture actor commands must be explicitly local controlled executables; never inherit real-provider defaults or make paid test-provider calls.'",
+    "before": "list[str] with one complete main instruction",
+    "rightOperand": "str with 224 characters",
+    "operation": "Python list.__iadd__ extends the list with iterable string characters; it does not append one string.",
+    "after": "list[str] with 225 entries: one complete main instruction plus 224 one-character entries."
+  },
+  "currentField": {
+    "path": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/workload.json",
+      "bytes": 101204,
+      "sha256": "a9be7b1ed8294dba48f9322281c7497d11bd58cf981d5f1f36532557b5a20628"
+    },
+    "jsonPointer": "/workOrders/construction/instructions",
+    "type": "array",
+    "length": 225,
+    "singleCharacterEntries": 224,
+    "firstInstruction": "Apply exact ROOT_SELECTION and TASK; fixture-first baseline positive precedes M2 or broad lanes. Return only within NATIVE_GRANT; no source or release acceptance.",
+    "fragmentedSupplementRejoined": " Run only the explicit recovery lane for the baseline before M2 or broader lanes. Fixture actor commands must be explicitly local controlled executables; never inherit real-provider defaults or make paid test-provider calls."
+  },
+  "actualPreparedInput": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/input.json",
+      "bytes": 14358875,
+      "sha256": "8d1cdfc5e513c13beb95a6841203e01659750ed18fac4312f3616f9a829903c5"
+    },
+    "instructionsEqualCurrentField": true,
+    "preparedCallMetadata": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/PREPARED_CALL.json",
+      "bytes": 3652,
+      "sha256": "73c88d542fdc0a96408301ae86de181160325ee981b2a4f00badd9985bce0657"
+    },
+    "actualRenderMeasurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/NATIVE_CAPACITY_PREFLIGHT.json",
+      "bytes": 458,
+      "sha256": "b4b647014f1d905cb79a812cc98e167b01e58c3310050e3a2f0f75f07f53e896"
+    },
+    "renderedNativeOrderBytes": 36503,
+    "effect": "Installed renderer spreads task.instructions and joins all lines with newline (owner lines98-109). Thus the supplemental sentence appears one character per line after the valid main instruction. Relative to one supplemental string, this instruction segment has223 additional newline bytes; this is a static derivation, not a newly rendered call.",
+    "owner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 18062,
+      "sha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443"
+    },
+    "ownerLines": [
+      98,
+      101,
+      109
+    ]
+  },
+  "operativeTask": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/inputs/TASK.md",
+      "bytes": 6104,
+      "sha256": "49ce96bc86988aaa657ee39191fb099b469b4b5906ffc0f71ea057d862c5bba8"
+    },
+    "readFirstPath": "qualification-inputs/d5-author-02/TASK.md",
+    "observedContextDigest": "sha256:49ce96bc86988aaa657ee39191fb099b469b4b5906ffc0f71ea057d862c5bba8",
+    "observedContextByteLength": 6104,
+    "inActualReadFirst": true,
+    "completeInstruction": "TASK.md retains the explicit recovery-only baseline command, baseline-before-M2/broad-lane order, and local controlled fixture executables with no inherited real-provider defaults or paid provider calls."
+  },
+  "whyEarlierChecksMissedIt": "Earlier checks covered syntax, unique readFirst/roles/territories, source populations, hashes, budgets and helper behavior. They did not validate the semantic shape of instructions arrays. Characters are strings, so JSON parsing and a simple string-array contract do not distinguish this accidental fragmentation.",
+  "proof02Correction": "Rebuild only testing/uat instructions explicitly as complete strings and validate array/string/nonblank/full-instruction shape. No construction field is inherited.",
+  "limits": [
+    "No active control edited; no author interruption or instruction replacement.",
+    "No private provider text/history inspected.",
+    "Actual baseline passed on retained source, but neither that result nor static carriage proves absence of effect on author behavior. No latency/cost/comprehension claim."
+  ]
+}

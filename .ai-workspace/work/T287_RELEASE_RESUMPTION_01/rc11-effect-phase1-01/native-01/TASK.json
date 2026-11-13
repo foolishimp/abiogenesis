@@ -1,0 +1,59 @@
+{
+  "id": "t287-effect-phase1-author-01",
+  "status": "READY_FOR_ADMITTED_NATIVE_SOURCE_AUTHOR",
+  "outcome": "Repair test-owned publication observer lifetime and m5 causal Proof premises/oracles under accepted Phase1 plan; preserve production behavior and existing failures.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "qualification-inputs/rc11-effect-phase1-01/native-01",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/node_modules/effect/src/Effect.ts",
+    "build_tenants/abiogenesis/typescript/node_modules/effect/src/Deferred.ts",
+    "build_tenants/abiogenesis/typescript/node_modules/effect/src/Ref.ts",
+    "build_tenants/abiogenesis/typescript/node_modules/effect/src/Fiber.ts",
+    "build_tenants/abiogenesis/typescript/node_modules/effect/src/Scope.ts",
+    "build_tenants/abiogenesis/typescript/node_modules/effect/src/Clock.ts",
+    "build_tenants/abiogenesis/typescript/node_modules/effect/src/Duration.ts",
+    "build_tenants/abiogenesis/typescript/node_modules/effect/src/TestClock.ts",
+    "build_tenants/abiogenesis/typescript/node_modules/effect/src/internal/clock.ts"
+  ],
+  "maxContextFiles": 80,
+  "maxContextBytes": 8388608,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc11-effect-phase1-01/native-01/ROOT_SCOPE.json",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "qualification-inputs/rc11-effect-phase1-01/native-01/ROOT_CAUSE_ASSESSMENT.md",
+    "qualification-inputs/rc11-effect-phase1-01/native-01/FOUNDATION_AUTHORITY_EXCERPTS.json",
+    "AGENTS.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "qualification-inputs/rc11-effect-phase1-01/native-01/EXTERNAL_TOOLS.json"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+    "qualification-scratch/rc11-effect-phase1-01/native-01"
+  ],
+  "checks": [
+    "Compact scratch design note before source edits",
+    "Pinned Node --check changed .mjs",
+    "One model-free focused observer file,60s maximum; no whole existing files/build/physical tests",
+    "Read back exact four-path delta; report actual checks and retained evidence interface"
+  ],
+  "instructions": "You are the admitted native source Worker for Phase1A/1B of the accepted Effect Functional plan. Implement both test-Proof repairs now, then return a truthful compact source/check report. The host already supplies a real installed RC10 native call; do not investigate or construct setup APIs, generators, installs or another author. Product meaning and production code remain unchanged. Core Effect3.22.1 mechanisms and a test-owned Effect runner are lawful; production's canonical-runner rule does not prohibit test execution. Ordinary algorithms/API choices need no per-helper approval.\n\nBegin with the work order, plan, root-cause assessment and current exact target source. Read the small authority excerpts; do not scan the full400KB constitution, fullticket or fullproject. Relevant source anchors: lifetime test observePublication near562 and physical call sites614/662; m5 tests700\u20131026 plus their existing controlled-module seams; owned_process_lifetime.ts createMonotonicDeadline29/createOwnedProcessLifetime139; worker_transport.ts runProcess452; worksite_command_helper.ts runCommand814/oneHttpRequest1057/runHttpProbe1119. These production owners are read-only. Existing privateOwner/VM controlled-loading seams may exercise actual owners; never duplicate the production deadline, lease or transport algorithm as the test oracle.\n\nWrite exactly the two existing tests plus new support/t287-publication-observer.mjs and tests/t287-publication-observer.test.mjs if needed. Both new files are the declared bounded slots; add no other support framework or test file. Preserve existing case intent, controlled timing laws and all unrelated tests; add meaningful discriminators rather than deleting/skipping failures. No production, package, lock, design, fixture, tracking, Git or dependency edits. Before code, record a short local design note under granted scratch: observer handoff, actual owner controls, retained facts and finite cleanup; this is not another approval gate.\n\n1A: replace the stopped/wake/done observer protocol with one scoped Effect observation computation, explicit stop/completion and immutable terminal snapshot. Use the existing start/setup cutoff and one monotonic domain. Eligibility before each probe and after every await; stop or deadline seals once, returns boundedly even if a read never resolves, starts no further probe and permits no late mutation. Effect raceFirst waits for loser termination; acquireRelease finalizers can be uninterruptible. Never await an arbitrary unresolved read during cleanup, hide live cleanup using disconnect or assert underlying I/O cancellation from interruption/AbortSignal. Preserve read error/null and original owner result/error. A Ref may hold immutable snapshots and a Deferred stop/completion. No Stream/Queue framework is needed. Focused controls must cover stop-during-await, cutoff10/resolve11, exact10, never-resolving read, error, timely completion and late resolution/nonmutation; demonstrate no owned timer/fiber residue. TestClock cannot stand in for Node I/O or a different clock epoch. Keep bigint/ceil/chunked huge-deadline production law untouched; Effect sleeps>2^31-1ms are infinite, currentTimeMillis is Date.now rather than performance.now.\n\n1B: fix all six diagnosed physical m5 predicates (ignoresTERM, progress renewal, false acknowledgement, grouped HTTP-normal leader readiness, directexit47, post-timeout output) and the vacuous post-exit emission case. Separate deterministic actual-owner lease/ack/cutoff proof from finite physical startup/emission premises. A spawn callback is not bodyentry. Physical clocks remain anchored at spawn; finite prospective setup bounds must still let the progress workload outlast its initial inactivity lease and exercise renewal. No blanket timeout inflation, extra acknowledgement, clock restart, classifier/native-supervision shortcut or retry-until-green. Verify true ack renews, false ack never renews, absolute deadline never renews and cutoff excludes later semantic bytes through actual owner controls. Replace >=7 callback oracle with ordered complete bytes/records invariant under split/coalesced delivery. A late-data assertion must exercise actual emission attempt/capture-closed relation, not pass because the producer died before its timer fired. Preserve force-KILL, direct-exit/status, group absence and escaped-pipe/error/output oracles; no relaxed success criteria.\n\nRetain immediate owner-settle timestamp and complete result/error, raw stdout/stderr/transport artifacts and fixture-side readiness/write/exit/cleanup evidence BEFORE assertions and scratch cleanup, including failure cases. Use bounded explicit test evidence output that external proof can retain; report its environment/interface. Keep own process cleanup in finally/t.after even when assertion fails. Observer timestamps are observations, not exact timer arms or proof of signal delivery. Keep parent/child clock domains distinct. Raw capture differs from semantic admission; write intention differs from completed write/capture; kill request differs from absence. Preserve first-error, fsync-before-reference and rollback law. Do not patch production to force a test outcome. If real unchanged owner contradicts its accepted law, return the concrete trace instead of weakening the oracle.\n\nSelfchecks: pinned Node --check each changed file, then ONLY the new model-free focused observer file, max60s, stdout/stderr under granted scratch. No physical child/HTTP cases, full existing lifetime/m5 files, unit, builds, fixture generation, paid provider or nested native work inside this author. The external frozen proof will run those populations after return. Diagnose and repair cheap focused selfcheck failures within the single900s/100turn cap; do not spend the call running broad tests. Finish source and return even if an external proof obligation remains unexecuted. Report all paths, key mechanism, cheapcheck actual counts/results, evidence retention interface, unresolved counterexamples and unexecuted suffix. No self-acceptance/qualification or assertion that syntax alone closes either debt. Stop source edits at return."
+}

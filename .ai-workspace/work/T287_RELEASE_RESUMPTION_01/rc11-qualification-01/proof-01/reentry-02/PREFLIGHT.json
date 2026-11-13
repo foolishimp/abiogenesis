@@ -1,0 +1,30 @@
+{
+  "status": "FIVE_COMMAND_REPORTER_REENTRY_PREFLIGHT_PASSED",
+  "utc": "2026-11-09T08:44:34.831643+00:00",
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/continuation.py",
+    "bytes": 10755,
+    "sha256": "5febefd7a90c6a849e5f53e9fff18b4543ee9062b8c62071155caa1797f5670a"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/BINDING.json",
+    "bytes": 4690,
+    "sha256": "fe50c370b0a637cf77ab466a047b7c303d8204f6d211e5a9f75e8f9770a7dc63"
+  },
+  "sourceRows": 1340,
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/COMPILED_BUILD_INVENTORY.json",
+    "bytes": 182855,
+    "sha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db"
+  },
+  "compiledRows": 996,
+  "controlledBlocksByteExact": 14,
+  "sourceWorkCompiledDependencyNpmGuardsPassed": true,
+  "unitScriptExactlyFrozen": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-held-owner-fold-reuse.test.mjs test_env/tests/t287-owned-call-reference.test.mjs test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+  "unitFileCount": 9,
+  "prePostUnitHooksAbsent": true,
+  "NODE_OPTIONS": "",
+  "adaptation": "Every test command adds only --test-reporter=tap before file arguments. Unit invokes pinned Node directly with the exact frozen nine-file script arguments plus that reporter; no npm hooks are bypassed because none exist. TAP parser and reporter selector agree statically. No pilot/test rerun.",
+  "runnerPythonSyntaxChecked": true,
+  "runtimeExecuted": false
+}

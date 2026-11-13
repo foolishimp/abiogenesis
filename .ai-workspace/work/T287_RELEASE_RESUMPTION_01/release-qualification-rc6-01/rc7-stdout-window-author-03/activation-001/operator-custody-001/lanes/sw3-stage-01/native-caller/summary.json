@@ -1,0 +1,33 @@
+[
+  {
+    "id": "native-caller",
+    "mode": "after",
+    "setupMs": 69,
+    "priorLaneAllocations": 5,
+    "laneAllocationCap": 6,
+    "stageSourceDigest": "38024eddb10df7fb9c500fcabd420ca906652737e91419ecdddc54737672c17f",
+    "activeRc7": [
+      "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy"
+    ],
+    "requiredActivePass": true,
+    "historicalSkipsDeclared": true,
+    "skippedNames": [],
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:native\\ work\\ publishes\\ one\\ ordinary\\ callable\\ effect\\ with\\ run\\ and\\ child\\ closure|actual\\ observation\\ remains\\ independent\\ of\\ report\\ and\\ consumer\\ judgment|native\\ timeout\\ retains\\ actual\\ partial\\ edit\\ and\\ refuses\\ success|read\\-only\\ native\\ assessment\\ returns\\ observed\\ assets\\ and\\ an\\ empty\\ change\\ set|RC7\\ complete\\ carriage:\\ the\\ basis\\ holds\\ the\\ task\\ once;\\ Result,\\ failure\\ and\\ binding\\ carry\\ no\\ task,\\ before,\\ raw\\ input\\ or\\ unchanged\\-after\\ copy|native\\ publication\\ agrees\\ with\\ actual\\ generated\\ artifact\\ manifest\\ identity)$ test_env/tests/t287-native-workspace-work.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-stdout-window-author-03/tmp/sw3-stage-01/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 501,
+    "tests": 6,
+    "pass": 6,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "minimumTests": 6,
+    "failing": [],
+    "stdoutSha256": "a456e2bc1b78a5e0f08ff4bb432fdae8cb47c66f41b2e944e623267b11a1f8f9",
+    "stdoutBytes": 1930,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

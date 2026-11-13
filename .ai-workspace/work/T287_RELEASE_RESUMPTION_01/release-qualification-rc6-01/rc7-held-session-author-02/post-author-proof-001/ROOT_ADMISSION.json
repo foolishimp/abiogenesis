@@ -1,0 +1,50 @@
+{
+  "kind": "root_post_author_proof_admission",
+  "status": "ROOT_ADMITTED_CORRECTED_POST_AUTHOR_PROOF",
+  "admittedUtc": "2026-11-06T15:42:13.704563+00:00",
+  "manifestSha256": "2b20e27c2b392d3a1d8f016230e293324c11cb4c52dab0f520f0b75f2e48533e",
+  "sourceDigest": "4ee90cb440d44ecefb0f19e3521f099e559b16921c6d48e0720b5ac5a3243120",
+  "role": "Separate operator Writer for mechanical proof; Root retains evaluation",
+  "authority": {
+    "userInstruction": "ok build the RC7 according to this design applying any corrections",
+    "rootActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "method": "STDO3.0.4",
+    "frame": "Unchanged fixed fifteen-feature ABIogenesis5.0 / GOAL-035 / T287; empty composition"
+  },
+  "decision": "Run the corrected helper outside original active inputs on the final frozen built stage through unchanged commandRecorder. Reuse the unconsumed primary three lane allocations; no original control mutation, no native return rewrite, no extra coding launch. Stop on any failed lane.",
+  "preflight": {
+    "stagedAndLiveRowsMatched": 451,
+    "stageCompileGenerateLifecyclePassed": true,
+    "nativeHostReturned": true,
+    "actualPhysicalClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/resource-close.json",
+      "bytes": 2308,
+      "sha256": "e1cd98901b3b8b44c6ff6370673c2aa930711b94042a31ec815dc3326e561fc7"
+    },
+    "originalControlsMatch": true,
+    "priorLaneAllocations": 0
+  },
+  "bounds": {
+    "laneInvocations": 3,
+    "laneTimeoutsMs": [
+      600000,
+      300000,
+      300000
+    ],
+    "outerDrainMarginMs": 20000,
+    "automaticRetries": 0,
+    "newStages": 0,
+    "sourceEdits": false,
+    "coldCampaignReads": 0,
+    "realProviderCalls": false
+  },
+  "limits": [
+    "Native.after conjunction and independent source disposition remain separate from this mechanical proof.",
+    "Existing retained assessment fixture migration is separately open; these three lanes do not cover that defect.",
+    "No qualification, release or performance claim follows from admission."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "kind": "metadata_only_activity_suffix",
+  "observedUtc": "2026-11-06T17:12:14.235836+00:00",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "startOffset": 2087965522,
+  "endOffset": 2093044280,
+  "bytesRead": 5078758,
+  "completeRows": 1676,
+  "eventKindCounts": {
+    "runtime_activity_probe_observed": 831,
+    "actor_process_stdout_observed": 845
+  },
+  "selectedProcessPayloadShapes": {
+    "actor_process_stdout_observed": [
+      "actorInvocationRef",
+      "byteLength",
+      "chunkDigest",
+      "processRef",
+      "streamOrdinal"
+    ]
+  },
+  "lastSelectedProcessEvents": {
+    "actor_process_stdout_observed": {
+      "eventTime": "2026-11-06T17:12:13.830Z",
+      "offset": 2093042415,
+      "bytes": 1865,
+      "sha256": "bdc0cc9d0f3a503f3da571ce936001ec3053b8fcd3353d7ec3a11fca782f868d"
+    }
+  },
+  "privateTextRetained": false
+}

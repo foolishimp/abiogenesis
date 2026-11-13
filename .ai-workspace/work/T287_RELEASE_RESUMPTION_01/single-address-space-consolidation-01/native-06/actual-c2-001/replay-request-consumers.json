@@ -1,0 +1,25 @@
+{
+  "id": "replay-request-consumers",
+  "files": [
+    "test_env/tests/t287-c0-correction-regressions.test.mjs",
+    "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "test_env/tests/t287-deferred-application-restoration.test.mjs",
+    "test_env/tests/t287-held-prefix.test.mjs",
+    "test_env/tests/t287-live-worksite-construction.test.mjs",
+    "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+    "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+    "test_env/tests/t287-worksite-branch-construction.test.mjs",
+    "test_env/tests/t287-worksite-command-execution.test.mjs",
+    "test_env/tests/t287-worksite-construction.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "pass": 57,
+  "fail": 0,
+  "skipped": 9,
+  "wallMs": 1987995.568959,
+  "stdoutSha256": "9957b08c7c4842cbb4194f32f2ce4839d8c73313b77a784d9183cbb733030dba",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "unmet": []
+}

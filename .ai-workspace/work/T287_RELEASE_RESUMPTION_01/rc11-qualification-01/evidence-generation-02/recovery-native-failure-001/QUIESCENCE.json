@@ -1,0 +1,12 @@
+{
+  "ownerPid": 23372,
+  "pidAbsent": true,
+  "groupAbsent": true,
+  "lsof": {
+    "status": 1,
+    "signal": null,
+    "stdout": "",
+    "stderr": ""
+  },
+  "scope": "Exact two file paths only; no competing open descriptors returned."
+}

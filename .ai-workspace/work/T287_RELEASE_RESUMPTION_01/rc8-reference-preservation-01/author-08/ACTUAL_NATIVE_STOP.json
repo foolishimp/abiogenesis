@@ -1,0 +1,145 @@
+{
+  "status": "ACTUAL_NATIVE_FAILURE_AND_INCOMPLETE_FOCUSED_PROOF",
+  "at": "2026-11-07T09:10:58.896428+00:00",
+  "nativeEventMetadata": [
+    {
+      "kind": "actor_process_stdout_observed",
+      "eventId": "event://abiogenesis/e1b4de32fd02a1be0773862cc0f40fb85362bf1474875f401767f989460f3ca9",
+      "at": "2026-11-07T09:05:46.269Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f"
+      }
+    },
+    {
+      "kind": "actor_process_stdout_observed",
+      "eventId": "event://abiogenesis/407e8d5804ae081e134ccc22eead6ddd2da89edd140da72e610d4980f8c86372",
+      "at": "2026-11-07T09:06:16.333Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f"
+      }
+    },
+    {
+      "kind": "actor_process_stdout_observed",
+      "eventId": "event://abiogenesis/7140843f9c4b6abb59ded145a1c4113cfc04a67f36e2562bda3da589449fdc98",
+      "at": "2026-11-07T09:06:17.253Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f"
+      }
+    },
+    {
+      "kind": "actor_process_stdout_observed",
+      "eventId": "event://abiogenesis/1b2f2f551f2439ac5ca0c738c8696875b1ba98dca3bf65da9c8e80c241f22110",
+      "at": "2026-11-07T09:06:20.884Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f"
+      }
+    },
+    {
+      "kind": "actor_process_timeout_observed",
+      "eventId": "event://abiogenesis/10714a2e51fa8671c5f9c9cb6ddbd8dccc3ff347063bef4999b02ee2651eabb2",
+      "at": "2026-11-07T09:06:20.877Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f"
+      }
+    },
+    {
+      "kind": "actor_process_signal_requested",
+      "eventId": "event://abiogenesis/66c9b2701f817bdb75c01f0ff2fea3f1e0653d390b2ab93fd45f176ac2cd8dc9",
+      "at": "2026-11-07T09:06:21.003Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f",
+        "signal": "SIGTERM"
+      }
+    },
+    {
+      "kind": "actor_process_stdout_observed",
+      "eventId": "event://abiogenesis/33545c613e861e4754a9594480bd2b4a47409f3e3171254526e8bf0d9fa17b24",
+      "at": "2026-11-07T09:06:21.668Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f"
+      }
+    },
+    {
+      "kind": "actor_process_exited",
+      "eventId": "event://abiogenesis/332018af6336ccbb7de2fdab99ee72c9ef07fc7e090254b6a54b92fe7891777b",
+      "at": "2026-11-07T09:06:21.677Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f",
+        "signal": null,
+        "status": 143
+      }
+    },
+    {
+      "kind": "actor_result_artifact_observed",
+      "eventId": "event://abiogenesis/52ebd790da92cfd5c3dc89c35077c4de5454ec264c0d14d337b20f544ac735f6",
+      "at": "2026-11-07T09:06:22.047Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "disposition": "failure",
+        "failureClass": "transport_failure",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f"
+      }
+    },
+    {
+      "kind": "actor_invocation_failed",
+      "eventId": "event://abiogenesis/5a2bba2f363130af911fdccf227d2438d5e5798fbd61280c7c5fd5f3def259a4",
+      "at": "2026-11-07T09:06:22.059Z",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/6caf4560fa072e473216895c1b30cecd7fdd9065f60a164eb05ec3735348fa6b",
+        "disposition": "failure",
+        "failureClass": "transport_failure",
+        "processRef": "process://abiogenesis/17f6ceaf3419b8659b5af4224bb5ec91015db713c1a3533d051456d20668a35f"
+      }
+    }
+  ],
+  "boundedLogRead": {
+    "offset": 145886512,
+    "bytes": 524288,
+    "fileBytes": 146410800
+  },
+  "proofRequestStartedUtc": "2026-11-07T08:56:25.221Z",
+  "proofTimeoutMs": 600000,
+  "partialCases": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "shared public-operation classification equals the complete class predicates of the retained history, with orphan and mixed-arm facts kept",
+      "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "global run-invocation pairs stay history-wide on real earlier cuts, and a foreign Run stays distinct from a missing one",
+      "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    }
+  ],
+  "proofCommandResultPresent": false,
+  "proofResultPresent": false,
+  "proofHaltPresent": false,
+  "coordinateLaneStarted": false,
+  "manualSignalsSent": false,
+  "fullConsolidationExecuted": false,
+  "operatorRetry": false
+}

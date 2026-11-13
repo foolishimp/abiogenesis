@@ -1,0 +1,268 @@
+{
+  "status": "CANDIDATE_CONSERVED_MAIN_CONCURRENT_REVIEW_COMMIT_DISCLOSED",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/source-freeze.json",
+    "bytes": 295251,
+    "sha256": "9a82a2297b03cec7da18862acca7d12c2625d8f6a85f4d0cf39069de0279e548"
+  },
+  "sourceDigest": "64afc834b8442a42b42663ecca5514e33832edc531e9f01f03c9eacb4b67098b",
+  "unchangedSourceRows": 1343,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+  ],
+  "protectionChecks": [
+    {
+      "key": "indices",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29372910,
+        "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+        "bytes": 29373151,
+        "sha256": "981e50d87b55729a9bf64a2e08ed2bfc539b7208dab861b710b7050257b77c15"
+      },
+      "equal": false
+    },
+    {
+      "key": "indices",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+        "bytes": 29654632,
+        "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+      },
+      "equal": true
+    },
+    {
+      "key": "indices",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29655080,
+        "sha256": "98894232f012280d3b8c3acd7e9e45f0819418abe7d3923de4a16addbae73f49"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-foundation-20261110-01/index",
+        "bytes": 29655080,
+        "sha256": "98894232f012280d3b8c3acd7e9e45f0819418abe7d3923de4a16addbae73f49"
+      },
+      "equal": true
+    },
+    {
+      "key": "mainTracking",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 188006,
+        "sha256": "2d0a93463e7f16f7e20452c8bbc6592ffb68e7f481ef5923eef50bbce17cf5fc"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 188006,
+        "sha256": "2d0a93463e7f16f7e20452c8bbc6592ffb68e7f481ef5923eef50bbce17cf5fc"
+      },
+      "equal": true
+    },
+    {
+      "key": "mainTracking",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 839641,
+        "sha256": "e1eb897d9bd6c98706c7db867200f5d147915389ab05ece182f2ce876cb6b7c5"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 839641,
+        "sha256": "e1eb897d9bd6c98706c7db867200f5d147915389ab05ece182f2ce876cb6b7c5"
+      },
+      "equal": true
+    },
+    {
+      "key": "candidateTracking",
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 169150,
+        "sha256": "4ea9c08995b2424c90b0376092fcda989e9458c74634648f6bb3cae2df968a78"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 169150,
+        "sha256": "4ea9c08995b2424c90b0376092fcda989e9458c74634648f6bb3cae2df968a78"
+      },
+      "equal": true
+    },
+    {
+      "key": "candidateTracking",
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 818865,
+        "sha256": "f046291f4a4330a0b5db33a999c7c6aa4ac1758b4e5ce8649af996aa800dc643"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 818865,
+        "sha256": "f046291f4a4330a0b5db33a999c7c6aa4ac1758b4e5ce8649af996aa800dc643"
+      },
+      "equal": true
+    },
+    {
+      "key": "builderPin",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+        "bytes": 7591,
+        "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+        "bytes": 7591,
+        "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+      },
+      "equal": true
+    },
+    {
+      "key": "archive",
+      "before": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+        "bytes": 11028443,
+        "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+      },
+      "after": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+        "bytes": 11028443,
+        "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+      },
+      "equal": true
+    },
+    {
+      "key": "sourceInventory",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_INVENTORY.json",
+        "bytes": 294794,
+        "sha256": "e003b09affcd088fd0900d853ca60d7d157696a0a998e86e94f1dbeaa522e69b"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_INVENTORY.json",
+        "bytes": 294794,
+        "sha256": "e003b09affcd088fd0900d853ca60d7d157696a0a998e86e94f1dbeaa522e69b"
+      },
+      "equal": true
+    },
+    {
+      "key": "workspaceManifest",
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+        "bytes": 1839,
+        "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+        "bytes": 1839,
+        "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+      },
+      "equal": true
+    }
+  ],
+  "heads": {
+    "/Users/jim/src/apps/abiogenesis": {
+      "before": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+      "after": "df7e5f80f5bbe3916bb97e3843c570f619de06ad",
+      "equal": false
+    },
+    "/private/tmp/abg-rc11-foundation-20261110-01": {
+      "before": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+      "after": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+      "equal": true
+    },
+    "/private/tmp/abg-rc11-qualification-20261109": {
+      "before": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+      "after": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+      "equal": true
+    }
+  },
+  "stagedPaths": {
+    "/Users/jim/src/apps/abiogenesis": "",
+    "/private/tmp/abg-rc11-foundation-20261110-01": "",
+    "/private/tmp/abg-rc11-qualification-20261109": ""
+  },
+  "mainDriftDisposition": "Root independently identified concurrent comment-only commit df7e5f80 (one review README); original main HEAD/index preservation is false. No authority/source change, restoration or merge. Current main pins may govern subsequent controls.",
+  "readOnlyInputsEqual": 7,
+  "compiledCodeRowsEqual": 580,
+  "dependencyEntriesEqual": 4576,
+  "oldExcludedUntrackedEqual": {
+    "count": 655,
+    "sha256": "fbe0dd5db00dcbc787579d74d855d9b2bba9ab50a21428ac20ca60cdd393fe62"
+  },
+  "authorizedInputCopies": [
+    "qualification-inputs/rc11-effect-phase2-01/native-01/DESIGN_ASSESSMENT.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/EXACT_SOURCE_ROUTES.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/EXTERNAL_TOOLS.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/PREBUILT_IDENTITY.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_INTAKE.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_SCOPE_CLARIFICATION.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json"
+  ],
+  "nativeAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/NATIVE_AFTER_OBSERVATION.json",
+    "bytes": 43147,
+    "sha256": "1938e6089354795e1d98a0263cdb7d5523a7ae245eeefac5836834f30c964474"
+  },
+  "nativeAfterCorrespondence": true,
+  "scratchFiles": [],
+  "processObservation": {
+    "utc": "2026-11-10T00:31:50.716988+00:00",
+    "hostPid73828Absent": true,
+    "nativePidAndPgid75518Absent": true,
+    "ownerFacts": {
+      "cleanupDeadlineNs": {
+        "kind": "bigint",
+        "value": "3101943614602833"
+      },
+      "cleanupElapsedMs": 358.993167,
+      "closeObserved": true,
+      "directExit": {
+        "signal": null,
+        "status": 143
+      },
+      "drainExpired": false,
+      "firstError": null,
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "probeCount": 35,
+      "scopeAbsence": "absent",
+      "scopeKind": "posix_process_group",
+      "signalAttempts": 1,
+      "streamsDisposed": true
+    }
+  },
+  "archives": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/archives/fp-3b22023555e14491-output.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/archives/fp-3b22023555e14491-prompt.txt",
+      "bytes": 9621,
+      "sha256": "29ff179162939a630ef0d14bd3cd343dfbfef6670f64a4c3cfadd81a5a7d54db"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/archives/fp-3b22023555e14491-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/archives/fp-3b22023555e14491-stdout.log",
+      "bytes": 2214480,
+      "sha256": "a18557813eb9f1b324abf106a836e46f4a3af45f0e75bb07a6fe57ad23c5e891"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/archives/fp-3b22023555e14491-transport.json",
+      "bytes": 2363086,
+      "sha256": "6084390a9f5b4da973d85e5d3a77657a70a8671743fde33075a18ba0796e7a64"
+    }
+  ]
+}

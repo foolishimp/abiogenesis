@@ -1,0 +1,21 @@
+{
+  "kind": "actual_s2_host_preparation_observation",
+  "observedUtc": "2026-11-06T22:14:11.682708+00:00",
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/execution/HOST_PREPARATION_STARTED.json",
+    "bytes": 200,
+    "sha256": "6e3d672cea325477a21553e96139798f7b44f55447be7b9e2429ebbd0d3d0b14"
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/commands/sdk-native-host.request.json",
+    "bytes": 1873,
+    "sha256": "c73b44f9240ee3590df81b726ad2a11e9207a66f974ce499c154aeb8ab1f862e"
+  },
+  "hostStartedUtc": "2026-11-06T22:11:45.439Z",
+  "hostPid": 38035,
+  "requestToHostMs": 1014.0,
+  "predecessorOwnerEndUtc": "2026-11-06T21:34:44.248Z",
+  "predecessorOwnerEndToHostMs": 2221191.0,
+  "actorStartedUtc": null,
+  "standing": "Host marker is not actor start. Previous owner-end to host is between-task/operator time, not native runtime performance."
+}

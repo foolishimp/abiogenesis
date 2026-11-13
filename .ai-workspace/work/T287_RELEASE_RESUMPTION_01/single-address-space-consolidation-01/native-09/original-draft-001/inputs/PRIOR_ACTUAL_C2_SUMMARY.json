@@ -1,0 +1,664 @@
+{
+  "recordedUtc": "2026-11-04T09:31:16.427Z",
+  "status": "ACTUAL_SELECTED_C2_PREDICATES_SATISFIED",
+  "standing": "Actual helper and admitted C2 Result conjoined; Root acceptance remains separate.",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/7a17edf415156e3b9f816db0b7f500e5e8efe0f0501740ab609389d8a2ceb3ae",
+  "helperArtifactDigest": "sha256:7a17edf415156e3b9f816db0b7f500e5e8efe0f0501740ab609389d8a2ceb3ae",
+  "helperPhysicalSha256": "3400a91d0f834880efb3e933e40f8cfa0836dc4ece37ef821e3072555d951068",
+  "helperProducer": {
+    "attemptRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/ba6c12b18a03bf7e6a04c1885c0a6a79d51b874478293cf1e650f8dd78b16c71/8b19eb22587efb7cab4154f4647d15eb1316d78dd018624255afd39e9c3bca8c",
+    "taskRef": "worksite-command-execution-task://abiogenesis/ba6c12b18a03bf7e6a04c1885c0a6a79d51b874478293cf1e650f8dd78b16c71",
+    "taskDigest": "sha256:ba6c12b18a03bf7e6a04c1885c0a6a79d51b874478293cf1e650f8dd78b16c71",
+    "coordinates": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/C2_HELPER_COORDINATES.json",
+      "bytes": 3742,
+      "sha256": "fcbbe93b29e097bd1b7be1a5e915c4e99c4d6fe269794c9c110b920988c68641"
+    }
+  },
+  "commands": [
+    {
+      "ordinal": 0,
+      "commandId": "command://abiogenesis/single-address-space/native-08/source-correspondence",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 22895,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 1,
+      "commandId": "command://abiogenesis/single-address-space/native-08/offline-toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 2,
+      "commandId": "command://abiogenesis/single-address-space/native-08/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 3,
+      "commandId": "command://abiogenesis/single-address-space/native-08/compile",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 4,
+      "commandId": "command://abiogenesis/single-address-space/native-08/generate",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 5,
+      "commandId": "command://abiogenesis/single-address-space/native-08/pack",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 45,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 6,
+      "commandId": "command://abiogenesis/single-address-space/native-08/affected-proof",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 10504,
+      "stderrBytes": 0
+    }
+  ],
+  "predicateObservedValues": [
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-08/source-correspondence/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-08/offline-toolchain/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-08/contract-seeds/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-08/compile/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-08/generate/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-08/pack/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/native-08/affected-proof/exit",
+      "observedValue": 0
+    }
+  ],
+  "sourceCorrespondence": {
+    "count": 125,
+    "allEqualFrozenSourceAndHandoff": true,
+    "subjectSha256": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/actual-c2-001/SOURCE_CORRESPONDENCE.json",
+      "bytes": 63957,
+      "sha256": "bec9311728ef0ddd91614363c7dde34603d00efba2e32512c3a9e343eadeeabf"
+    }
+  },
+  "protectedInputCount": 918,
+  "protectedBeforeEqualsAfter": true,
+  "productDelta": [],
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 10,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 434630.335542,
+      "stdoutSha256": "a4d3c997492a4c2e5ecee85ca224ba76d57e414a2e3a269dc4e7415f97d7f3ef",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "shared-owner-declaration-regressions",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 31,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 58384.946915999986,
+      "stdoutSha256": "fd65dea7d0911e3d1c92d754b252ec5f357bd8ee6f8da8b4b34225ecb37a835b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    },
+    {
+      "id": "current-intent-complete-pair",
+      "files": [
+        "test_env/tests/t287-exact-construction-intent.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 62895.91966699995,
+      "stdoutSha256": "f75348ffdda20eea29fe9718a0fad1232373d15bfa34d761dacc948713370352",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    }
+  ],
+  "tally": {
+    "pass": 42,
+    "fail": 0,
+    "skipped": 0
+  },
+  "retainedEvidenceVerification": {
+    "kind": "retained_c2_evidence_correspondence",
+    "manifestSha256": "a66c4447bed2b621dd102df8779a0d854ed1308f7d1a5b98fcbe9e374d61a902",
+    "actualPriorC2ResultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+    "priorSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/review-subject-001/SUBJECT.json",
+      "bytes": 184296,
+      "sha256": "46bb8546b515e044011e4f3c129b1aba2947ddfc13396e870392532ea4b344ae"
+    },
+    "packageArchiveSha256": "091ab10a500eea30f59cc3952c21d181eb9d85277c4b2591556308faa435f0e2",
+    "packageArchiveIntegrity": "sha512-brBeDiZdepxOza+Jm5MiQBGggpc/DtEieOE5+jUw2xnkaCxTN2UhT+dggwPsoRrCAI1t9G2VpvlLiR8rFZ5zgA==",
+    "unchangedFiles": 893,
+    "retainedLaneIds": [
+      "affected-owner-lanes",
+      "qualification-owner-components",
+      "historical-producer-acquisition",
+      "replay-request-consumers",
+      "fresh-process-semantic-values",
+      "forward-recovery-contracts",
+      "installed-affected-lane",
+      "maintained-setup-harness",
+      "retry-entry-consumers",
+      "current-f09-retry-consumers"
+    ],
+    "newExecution": false,
+    "originalExecutions": [
+      {
+        "id": "affected-owner-lanes",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "qualification-owner-components",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "historical-producer-acquisition",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "replay-request-consumers",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "fresh-process-semantic-values",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "forward-recovery-contracts",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "installed-affected-lane",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "maintained-setup-harness",
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      },
+      {
+        "id": "retry-entry-consumers",
+        "activation": "native-07",
+        "resultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+          "bytes": 17240,
+          "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+        },
+        "newExecution": false
+      },
+      {
+        "id": "current-f09-retry-consumers",
+        "activation": "native-07",
+        "resultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+          "bytes": 17240,
+          "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+        },
+        "newExecution": false
+      }
+    ],
+    "meaning": "Exact runtime archive and declared test/helper/source dependencies agree with closed prior evidence; these lanes were not rerun here."
+  },
+  "retainedPriorEvidence": [
+    {
+      "id": "affected-owner-lanes",
+      "files": [
+        "test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+        "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+        "test_env/tests/t287-authenticated-owner-values.test.mjs",
+        "test_env/tests/t287-authenticated-owner-family.test.mjs",
+        "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "test_env/tests/t287-declared-testing-capability.test.mjs",
+        "test_env/tests/t287-default-library.test.mjs",
+        "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "test_env/tests/t287-continuation-causation.test.mjs",
+        "test_env/tests/t287-owned-native-proof.test.mjs",
+        "test_env/tests/t287-native-owner-reuse.test.mjs",
+        "test_env/tests/t288-initial-cursor-entry.test.mjs",
+        "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+        "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/t287-cross-cut-public-read.test.mjs",
+        "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "test_env/tests/witness-run-stopped-definition-binding.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 106,
+      "fail": 0,
+      "skipped": 30,
+      "wallMs": 364187.12912500004,
+      "stdoutSha256": "7a9e4db5acc70412b38b03ac56b3e5c7dde5c264a66845bef5ee42b48fe758e5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      }
+    },
+    {
+      "id": "qualification-owner-components",
+      "files": [
+        "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+        "test_env/tests/t287-native-runtime-gate.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 43,
+      "fail": 0,
+      "skipped": 1,
+      "wallMs": 17077.846791999997,
+      "stdoutSha256": "34f47ea437546fc3ae676931eb67c799ef64819b08a724caf24a83445150ac1a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      }
+    },
+    {
+      "id": "historical-producer-acquisition",
+      "files": [
+        "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 15944.27099999995,
+      "stdoutSha256": "234f37ab9f56c14fb5dfd30d98e5133491309a92bf568bb71b4aebbc0367cb32",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      }
+    },
+    {
+      "id": "replay-request-consumers",
+      "files": [
+        "test_env/tests/t287-c0-correction-regressions.test.mjs",
+        "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+        "test_env/tests/t287-deferred-application-restoration.test.mjs",
+        "test_env/tests/t287-held-prefix.test.mjs",
+        "test_env/tests/t287-live-worksite-construction.test.mjs",
+        "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+        "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+        "test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "test_env/tests/t287-worksite-command-execution.test.mjs",
+        "test_env/tests/t287-worksite-construction.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 57,
+      "fail": 0,
+      "skipped": 9,
+      "wallMs": 1987995.568959,
+      "stdoutSha256": "9957b08c7c4842cbb4194f32f2ce4839d8c73313b77a784d9183cbb733030dba",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      }
+    },
+    {
+      "id": "fresh-process-semantic-values",
+      "files": [
+        "test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 38557.39254199993,
+      "stdoutSha256": "e817c40edc9f43c8d9b793cc1fcbb42b4c212f5cc0af1dccc56e188bb338b1db",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      }
+    },
+    {
+      "id": "forward-recovery-contracts",
+      "files": [
+        "test_env/tests/forward-command-owners.test.mjs",
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/d1-preserved-result-mechanics.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 17,
+      "fail": 0,
+      "skipped": 1,
+      "wallMs": 1445.1814999999478,
+      "stdoutSha256": "56861aaeb0c347183f96a1c4ca21b9520d6161418fdd8d5aae2c4970617f94ea",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      }
+    },
+    {
+      "id": "installed-affected-lane",
+      "files": [
+        "test_env/tests/m5-installed-graph-edge.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 81072.54487500014,
+      "stdoutSha256": "671d1393e2cc4755c9735c962252fef339c36136ba184b322a1144d40dc83a78",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      }
+    },
+    {
+      "id": "maintained-setup-harness",
+      "files": [
+        "test_env/uat/harness.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 32,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 67467.79991700035,
+      "stdoutSha256": "21945d1781dc2dbfca89ea9a8e92666cd60131f1a295c087b661f4b9cec0434c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-06",
+        "resultRef": "result://abiogenesis/cfd2f57237bd028e6e63dd54d81ab0b20f60d96cdad30c1c5b0a1a8188a04b60",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_C2_SUMMARY.json",
+          "bytes": 15561,
+          "sha256": "db9376ec78a44ac96151984a8de517c054c3d235aa658f69eb7938654952b6d3"
+        },
+        "correspondenceRevalidatedBy": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "newExecution": false
+      }
+    },
+    {
+      "id": "retry-entry-consumers",
+      "files": [
+        "test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 45525.58729200001,
+      "stdoutSha256": "b8e4d89bcde327520c03075c809b1c74d0b8add58455f853c0c1b79677b02012",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-07",
+        "resultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+          "bytes": 17240,
+          "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+        },
+        "newExecution": false
+      }
+    },
+    {
+      "id": "current-f09-retry-consumers",
+      "files": [
+        "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+        "test_env/tests/t287-r4-aba-retry.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 116304.731042,
+      "stdoutSha256": "58d935cb6f5f640dbcf507a64de1f17ef3615fe36d166aa7cc333c63872c2d00",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": [],
+      "executionProvenance": {
+        "activation": "native-07",
+        "resultRef": "result://abiogenesis/5e6b19977f71dda291bd7a6d14bbffeafcc7426f20e2df3514d0469bfcdc57f6",
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_C2_SUMMARY.json",
+          "bytes": 17240,
+          "sha256": "278c1c3423070bc55285cbf38cfbb397f7ef6e0789efe7d0dc00f61a6b3224ca"
+        },
+        "newExecution": false
+      }
+    }
+  ],
+  "retainedEvidenceStanding": "Prior rows are not included in newly executed tally and receive credit only if exact correspondence succeeded.",
+  "nativeProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/ba6c12b18a03bf7e6a04c1885c0a6a79d51b874478293cf1e650f8dd78b16c71/8b19eb22587efb7cab4154f4647d15eb1316d78dd018624255afd39e9c3bca8c/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-08/single-address-space-proof.json",
+    "producerPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/ba6c12b18a03bf7e6a04c1885c0a6a79d51b874478293cf1e650f8dd78b16c71/8b19eb22587efb7cab4154f4647d15eb1316d78dd018624255afd39e9c3bca8c/sandbox/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+    "bytes": 181197,
+    "sha256": "c6cbd12a15aac014125dacb096a06947b75c9f53214943568286688884b0a90c",
+    "producerLanePassed": true,
+    "custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-08/actual-c2-001/single-address-space-proof.json",
+      "bytes": 181197,
+      "sha256": "c6cbd12a15aac014125dacb096a06947b75c9f53214943568286688884b0a90c"
+    }
+  },
+  "failure": [],
+  "unrunLanes": [],
+  "priorEvidencePreserved": true
+}

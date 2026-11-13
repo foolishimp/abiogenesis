@@ -1,0 +1,82 @@
+{
+  "status": "ROOT_ADMITTED_PHASE2_B_PROOF",
+  "bindingSha256": "bfc7f0337d8e22e2678f590a80d5ae5f0c6cbabc29232154a6f773a6577fd0fd",
+  "controlsSha256": "9b2572369df3c10dddf589c419b95c4ef3de77e8133533cc9840bfe9711bbfc1",
+  "readySha256": "7c6f4c4d02c3bec73cec55377badaacf78a4253f248b65ebb4ac0f8c1513c7a2",
+  "commandIds": [
+    "lint",
+    "build",
+    "helper-prerequisite",
+    "b-selected",
+    "pack",
+    "bootstrap",
+    "c2-positive",
+    "owned-lifetime",
+    "unit"
+  ],
+  "sourceDisposition": {
+    "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-review/ASSESSMENT.md",
+      "bytes": 9652,
+      "sha256": "aed4625a9ae365ac807a85824078d565598fb12e814c3c3fb8ec5a67fa9f9e77"
+    }
+  },
+  "id": "PHASE2-B-PROOF-01",
+  "decisionOwner": "Root",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/READY.json",
+      "bytes": 9126,
+      "sha256": "7c6f4c4d02c3bec73cec55377badaacf78a4253f248b65ebb4ac0f8c1513c7a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/BINDING.json",
+      "bytes": 9473,
+      "sha256": "bfc7f0337d8e22e2678f590a80d5ae5f0c6cbabc29232154a6f773a6577fd0fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/CONTROLS.json",
+      "bytes": 32767,
+      "sha256": "9b2572369df3c10dddf589c419b95c4ef3de77e8133533cc9840bfe9711bbfc1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/proof.py",
+      "bytes": 24914,
+      "sha256": "862517533438aaeb5cd09d87b56ebc6d5ce02b147074e8ae49f509456c8acca6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/build.mjs",
+      "bytes": 2004,
+      "sha256": "ebfc7376401281633291ad4e18ab264ee01386efe62a0166e7ce197c0d634739"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/STATIC_PREFLIGHT.json",
+      "bytes": 2393,
+      "sha256": "7b276b6416e1df838f252e2a7c14ea71d33990721677582044bce3138e74e717"
+    }
+  ],
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-01/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 2449,
+    "sha256": "bbfd304252d72b41522476ca0dcbe04f94a1b8578007e0b852674bfc62d388c2"
+  },
+  "effectGrant": "One create-only staged campaign on frozen source 97e05ec3: copy2 source/dependencies, normal build and origin check, exact selected cases, one pack/bootstrap and configured C2/replay, whole lifetime34 and original unit102 with M5 39/34 evidence subset.",
+  "limits": {
+    "globalSeconds": 5400,
+    "stageSeconds": 600,
+    "perCommandSeconds": [
+      120,
+      600,
+      60,
+      60,
+      120,
+      180,
+      900,
+      300,
+      1800
+    ],
+    "cleanupReserveSeconds": 15
+  },
+  "standing": "Root execution admission only, no acceptance/qualification/checkpoint. Six unit skips, both deferred capsules and all original red evidence preserved. First unexpected failure stops; no retry, extension, rebuild, repack, provider, source/main/Git/pin/release/selector effect."
+}

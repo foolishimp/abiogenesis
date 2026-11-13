@@ -1,0 +1,60 @@
+{
+  "kind": "bounded_component_execution_assurance",
+  "reviewer": "/root/rc11_source_assurance",
+  "returnedTo": "/root",
+  "utc": "2026-11-09T08:56:55.638826+00:00",
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "freezeSha256": "45ad2d4e789d898b8af158f1b8ff11d8da5c817803d3a6930c53eb92913df621",
+  "compiledInventorySha256": "50adfb6f2ec32aa76e8ce0f378e5430b1f3119284a4d6bf7735b7c1e18eb13db",
+  "compiledInventoryDigest": "16497c6763f0cb07a2227cb0ce6de2445e14044b94c6542d0523adbd1ad18d7c",
+  "independentlyCheckedCompiledRows": 996,
+  "independentlyCheckedSourceFixtureRows": 13,
+  "result": "satisfied",
+  "findings": [],
+  "triage": "not_applicable",
+  "scope": "Four native-assessment and two mandatory pendingSelectedOccurrence cases on unchanged reviewed source/build; existing physical selector skip preserved.",
+  "native": {
+    "returnSha256": "5efc15c7479874162a15af2d84d597ccf9d6136bb820c5ea47a79189723c3da3",
+    "stdoutSha256": "b7fa1f6e6928bb23abe3b25ec301fed854e9eea772a019d25c0d9cab3a009e92",
+    "pass": 4,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "exit": 0,
+    "preservedControllerStatus": "FAILED_OR_INCOMPLETE",
+    "preservedControllerReason": "incomplete TAP framing",
+    "reporter": "spec"
+  },
+  "selected": {
+    "returnSha256": "2653a4b4b0a21f3197f3eacde484e8f3b4d8a2b5da4439d5663b267ee44d637c",
+    "stdoutSha256": "b2d4d20482d692b74dfe9f47f7d5a4e3ada5bfa0992b33a88ff02ef6c95cdf25",
+    "pass": 2,
+    "fail": 0,
+    "skip": 1,
+    "cancelled": 0,
+    "todo": 0,
+    "exit": 0,
+    "reporter": "tap",
+    "physicalCredit": false
+  },
+  "buildObserved": "passed",
+  "syntaxObserved": "ten selected mjs/json inputs passed after recipe correction; original failure preserved",
+  "notAssessed": [
+    "unit",
+    "R6",
+    "F04A",
+    "physical lifetime",
+    "optional selected physical behavior",
+    "installed qualification or release",
+    "native author acquisition scope"
+  ],
+  "nativeWorkflowPass": false,
+  "wholeProductQualification": false,
+  "reviewerReruns": false,
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/source-assurance-001/PROOF_ADDENDUM_01.md",
+    "bytes": 8342,
+    "sha256": "d29f8d9b682b7369ce47a786b0a9b45735262be72f70f85357d8f5f93c32f317"
+  }
+}

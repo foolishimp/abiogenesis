@@ -1,0 +1,113 @@
+{
+  "kind": "root_d5_frozen_review_conjunction_and_repair_disposition",
+  "at": "2026-11-06T01:25:27.350509+00:00",
+  "status": "ONE_BOUNDED_REPAIR_SELECTED_CANDIDATE_ACCEPTANCE_WITHHELD",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "nativeClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5475,
+    "sha256": "05964a28314c79e70a6ee83e5f5bfc4c2ac2901e2bf1bafa081d6eb13cd1537f"
+  },
+  "reviews": {
+    "projection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/projection-review-001/REVIEW.json",
+      "bytes": 34305,
+      "sha256": "c1811a40ab78f1d0666a7ea0a36a722f4d2a98d28ca14e63d765c807721ee3f1"
+    },
+    "recovery": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/recovery-review-001/REVIEW.json",
+      "bytes": 33264,
+      "sha256": "6400f8cf2aaaf4cdcb56d738d111222459b7978ae6cc0a47d7ba2e8cd3a068a7"
+    }
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17 unchanged",
+    "slice": "F10 D5 durable lifecycle observation, affected F11 cold qualification and historical L compatibility",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Preserve lawful exact-L cold judgment while keeping the current copy-free shared projection and all existing owner admission boundaries."
+  },
+  "conjunction": {
+    "projectionResult": "falsified",
+    "projectionFinding": "D5-PROJ-001 S2, retained unchanged",
+    "recoveryResult": "satisfied within exact component/owner-composition scope",
+    "independence": "Both reviewers independent from native author; same family as Root. Neither supplies formal independent F11 J or accepts Root policy.",
+    "candidateAccepted": false
+  },
+  "triage": {
+    "violatedRelation": "Real unstamped legacy event -> profile selection -> full durable observation preimage -> cold historical judgment",
+    "cause": "Consumer compares stamp against legacy digest despite legacy owner omitting the stamp; test uses forbidden explicit legacy stamp and masks omission.",
+    "supportedFrames": [
+      "Product historical evidence conservation",
+      "Design exact L/P schedule",
+      "Integration producer/consumer envelope",
+      "Identity/admission",
+      "Proof fixture validity"
+    ],
+    "containment": "False rejection only; current P supported; original immutable owners preserve history. No production incident or false acceptance established.",
+    "whyNow": "Independent frozen source review crossed real store envelope rules and the synthetic L placement premise; author green tests did not.",
+    "priorityDecision": "Resolve now: material historical compatibility promise and a low-cost two-file correction; do not expand into profile/runtime/constructor redesign.",
+    "reentry": "Realization and existing test only under unchanged HOW/WHAT",
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+    ]
+  },
+  "evidenceReuse": {
+    "preserve": [
+      "Original113 author passes on exact N2 source, all earlier failures and operator-control errors",
+      "Verified404 files,372 final stage members,actual Result and fresh close",
+      "Recovery positive and finite real invalid relations; unchanged owning source/fixture supporting this review",
+      "Shared projection/live-candidate distinction, causation attribution and profile schema bytes"
+    ],
+    "invalidate": [
+      "Legacy cold-selector claim and synthetic L premise",
+      "Affected qualification lane against changed cold reader and scope fixture"
+    ],
+    "reproof": "Worker nearest failing-before/passing-after and existing five-module qualification lane; frozen two-file max recheck, then already required affected installed C2/UAT. No gratuitous full author rerun."
+  },
+  "profileDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/ROOT_PROFILE_DISPOSITION.json",
+    "bytes": 3595,
+    "sha256": "7d59b01affb25c812f11c3e1f2228bcf56c1aaabec75afdde6ca8564172ac5ea"
+  },
+  "capsuleDisposition": {
+    "capsule": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/D5_P6_UNCONFIRMED_CAPSULE.json",
+      "bytes": 3483,
+      "sha256": "a63523824ed3086c2d896f19138703800eae22ac75819734c8c85f06c22e5ef1"
+    },
+    "decision": "Retain registered explicit debt and triggers. No physical full-chain unconfirmed attempt proved; no supported false recovery. Two-file cold legacy correction does not alter physical lifecycle/recovery owners. No invasive fixture/process hooks selected."
+  },
+  "proofLimits": [
+    "Controlled semantic candidates and local actors demonstrate bounded owner composition, not semantic UAT/J quality.",
+    "Recovery component teardown removes its log/archive; retained source/TAP/diagnostics are not independent retained scenario replay. Future qualification must supply its required retained artifacts.",
+    "Observed10.089s outer/7.218s internal margin is no flake estimate or whole-workflow guarantee."
+  ],
+  "nextControlSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/ROOT_SELECTION.json",
+    "bytes": 7456,
+    "sha256": "8d3e52bce4bf3c69c21e2300ce0804a672d367c474a5caa153330ce6633ea943"
+  },
+  "proof02": {
+    "bindingReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/SOURCE_BINDING_RETURN.json",
+      "bytes": 25972,
+      "sha256": "dead69dc5973e31f0bf18f50558ea3a8a91ebc082cb518fac3865cc1a6dc8c9f"
+    },
+    "status": "Held; no C2/UAT started. Rebind only corrected actual source and its genuine close."
+  },
+  "runtimeActivation": "Only after exact control preparation and Root final admission; no provider dispatch by this record.",
+  "remaining": "QR02/QR03, eligible formal J, applicable S01/S02/S03/S06, exact RC7 qualification and reserved human release acceptance."
+}

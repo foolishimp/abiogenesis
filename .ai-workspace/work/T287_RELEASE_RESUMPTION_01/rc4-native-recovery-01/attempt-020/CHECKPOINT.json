@@ -1,0 +1,38 @@
+{
+  "status": "SOURCE_TRACKED_CLEAN",
+  "sourceCommit": "45554d0be9b2b01d3b90867137c55bacb5a5f9da",
+  "sourceTree": "0461e4d60afdc31c2a6a02c08021e9f7a2bd5210",
+  "branch": "codex/rc4-native-recovery",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 25076,
+      "sha256": "26c38cf79f253c2d293e6960c0f52f24d6115177f0281efcef970ce587eab8b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 36084,
+      "sha256": "a09343856e9fd6571b0947993679f6724aac3af123eec12d6ff93e57daa716ce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 68209,
+      "sha256": "170946abe010e3a053ae7ced60f184feb95b0c6738226439878dc0945de9e08b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "bytes": 17624,
+      "sha256": "04093bd312d84e54dec0b098f3d3a4ff0afb61a8619b7133b7e9a118a4892cf3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+      "bytes": 93155,
+      "sha256": "10ad90958034378544ef830dfa3aa6122721b1aa9ed9d35de6d29d6cac0d4d15"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "bytes": 42977,
+      "sha256": "798a34c0d2e59720be334fa278ae99ea12f193e22ff9e1892bc49872b3abc2da"
+    }
+  ]
+}

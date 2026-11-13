@@ -1,0 +1,19 @@
+{
+  "status": "FILE_ONLY_SETUP_READY",
+  "sourceCommit": "6937d30e869c23d819e98be26b136e090ec541d7",
+  "sourceStanding": "unfinished partial6937, not fixed candidate",
+  "runtimeRootAbsent": true,
+  "workspaceAcquisition": "existing owner.open; manifest preserved",
+  "workspaceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/.abiogenesis/workspace-manifest.json",
+    "bytes": 1880,
+    "sha256": "75708aba80e8c7d2a588a698c45fb23080eca2bab3fdc1760717c5966f14cedc"
+  },
+  "payloadMembersVerified": 5321,
+  "syntaxChecked": [
+    "public-setup.mjs",
+    "prepare-runtime.mjs"
+  ],
+  "PublicRuntimeProviderInstallBuildCalls": 0,
+  "limit": "Actual owner open/install/bind/catalog/conformance and returned handoff remain unexecuted; Root setup selection required."
+}

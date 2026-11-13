@@ -1,0 +1,77 @@
+{
+  "status": "PREPARED_FOR_ROOT_SETUP_REVIEW_NO_ADMISSION",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/BINDING.json",
+    "bytes": 14375,
+    "sha256": "1d7f21cb548f4a16aa871f4328f5a61ea35847a76357a2b36d120fa7c951a8c1"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/BINDING.json",
+      "bytes": 14375,
+      "sha256": "1d7f21cb548f4a16aa871f4328f5a61ea35847a76357a2b36d120fa7c951a8c1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/CANDIDATE_CUSTODY.json",
+      "bytes": 999459,
+      "sha256": "165d25db289e339edca8e9609fe32921fd99305648fc78ad77332d9acb55f8b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/DEFINITION_ROOTS.json",
+      "bytes": 8407,
+      "sha256": "5a60f9437b8497565a7c9adbcabda0b5841f6279a433c3aee1e0e7cd5ceb7993"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/HANDOFF.md",
+      "bytes": 6312,
+      "sha256": "ae7ed92dce888986318e94f149d77be7665f39e9cc0dbc66fa118bc86993a136"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/HELPER_CUSTODY.json",
+      "bytes": 6060,
+      "sha256": "42115d1990664a16b786bd66437580c19ef01ac28fe0e89f5a9bc0090e07b786"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/ROOT_SELECTION.template.json",
+      "bytes": 362,
+      "sha256": "deede56d04bd1f169d52eedfcd3663d18f0d37d6914a0b7bbf35a96b201c5294"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/claude-provider.sh",
+      "bytes": 592,
+      "sha256": "91a303617720345bf9a07fe1108f9b3f686c65ea7dae1259573dd4b80648f4b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/entered-testing-host.mjs",
+      "bytes": 1981,
+      "sha256": "03b99e783ebc20f36dd2cb43f83392a7b951cfd65073a1aa24065837969fe642"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/operator.mjs",
+      "bytes": 8078,
+      "sha256": "ef539a7ee7f4c6988a947aba3e3988ff0321999f22caff8ce9604dcdd624c811"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/readiness.py",
+      "bytes": 2570,
+      "sha256": "4807b1deb8182c538988475deed4c60d0de174facffdc7012ec1f40853da919b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/selection.json",
+      "bytes": 5835,
+      "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/verify-files.py",
+      "bytes": 922,
+      "sha256": "36a8718334d9d1f589b9a83ebfe6e307d1e3d82d803c3620f85edcb7d777367c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/witness.mjs",
+      "bytes": 32608,
+      "sha256": "0293dfd51ba06622ec60e358a95f88935a2675e7e67aaa21f7b2ead81b267bca"
+    }
+  ],
+  "sourceCommit": "4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e",
+  "candidateArchiveSha256": "b0451c1be5bbe95c6d7bb24d01eb91eb44527d254872b19d1971d87307c732c7"
+}

@@ -1,0 +1,3 @@
+015-r1 is the zero-provider preparation revision of frozen015. The only command configuration change is the neutral byte-copy path for ABI5_HC1_BASELINE_PACKAGE_PATH. Original failure, packet and inputs remain unchanged. Pure owner comparison reproduces the original refusal and accepts the revised eight-command configuration. No Product change or admission.
+
+Root: materialize ROOT_ADMISSION.json from template after review; then run the pinned Node prepare-native-call.mjs with the final binding digest. Freeze and dispatch require separate Root selections. Source5331, grant, all eight command purposes/predicates and budgets remain unchanged.

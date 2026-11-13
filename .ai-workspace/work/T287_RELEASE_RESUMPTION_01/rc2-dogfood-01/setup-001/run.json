@@ -1,0 +1,34 @@
+{
+  "kind": "rc2_operator_workspace_preparation",
+  "classification": "Real RC2 source worksite using the frozen generic consumer declaration; no UAT or native qualification claim",
+  "operator": "actor://abiogenesis/operator/codex-root",
+  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "timestamp": "2026-10-30T11:58:17.675Z",
+  "providerCalls": 0,
+  "budget": "pending",
+  "config": {
+    "runId": "rc2-dogfood-01-setup-001",
+    "bootstrapRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.1/node_modules/@abiogenesis/typescript-tenant",
+    "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc2-dogfood",
+    "nodePath": "/opt/homebrew/bin/node",
+    "toolchains": {
+      "npm": {
+        "executable": "/opt/homebrew/bin/npm"
+      }
+    },
+    "recursionBound": 4,
+    "setupEnvironment": {
+      "keys": [
+        "HOME",
+        "PATH",
+        "TMPDIR",
+        "LANG",
+        "LC_ALL"
+      ]
+    },
+    "importAuthority": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/OPERATOR.md",
+      "digest": "sha256:3459fbf26460275ec10a36150f2d8f4f705df81224059fc9fb82697b06cb7f7e"
+    }
+  }
+}

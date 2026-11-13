@@ -1,0 +1,28 @@
+{
+  "kind": "selected_fixed_proof_route_proof_plan",
+  "status": "DECLARED_F2_NOT_RUN_F_SOURCE_BOUND",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-02/ROOT_SELECTION.json",
+    "bytes": null,
+    "sha256": null
+  },
+  "positive": "One installed direct Testing -> actual admitted Testing state Result -> direct UAT -> independent native assessor; zero governance selectors; exact source, causal child and replay identities; preserved originals and truthful bounded closure.",
+  "negative": [
+    "fabricated/copied/mutated retained observations with source:none",
+    "missing source Result or wrong result/digest/CCall/actor/foreign wrapper",
+    "zero/multiple producer rows or non-fixed/open-fulfillment scope",
+    "changed measured dependency or later invalidating effect",
+    "missing schema/role, changed rubric, aliased assessor or prompt overflow",
+    "red C2/unmet or indeterminate UAT must not become parent success"
+  ],
+  "regression": "Existing genuine-selector wrappers retain authentic synthesis refs and parent evaluation",
+  "authorFeedback": "Real Public invoke/admission and genuine source-derived Testing-to-UAT basis before/after using exact existing owner support, plus6fixed-route regressions and2cold consumers. No controlled/mock admission credit.",
+  "installedProofOwner": "Root subsequent exact installed Testing -> admitted Testing stateResult -> UAT -> actual independent native assessor. Zero selectors for this fixed work; existing genuine-selector flow remains. Author mocks or syntactic checks do not satisfy this native proof.",
+  "measurement": "Same files/commands/rubric/capacity/installed mode; separate Root prep, extra invocation boundaries, C2, UAT, fold and fresh reads; no651988ms savings claim",
+  "limits": [
+    "Inherited F72passes and3historical skips remain partial and do not prove actual direct-UAT admission.",
+    "Root owns later independent native assessment and whole installed route proof.",
+    "Current RC6 SDK/cold-read timings are measured data, not HS02 or matched speedup claims."
+  ],
+  "repairSpecificStanding": "Separate actual RC6 SDK acquisition/preflight/native/feedback/readback phases; no HS02 or matched speedup claim."
+}

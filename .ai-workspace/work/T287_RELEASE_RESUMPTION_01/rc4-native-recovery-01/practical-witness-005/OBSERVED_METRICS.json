@@ -1,0 +1,219 @@
+{
+  "status": "ACTUAL_A_AND_COLD_B_PROVIDER_METRICS_READBACK_PROOF_PENDING",
+  "observedAt": "2026-11-03T00:08:29.301922+00:00",
+  "providers": [
+    {
+      "actor": "fp-4b53cd8df528babb",
+      "role": "A-selector",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-4b53cd8df528babb-stdout.log",
+      "stdoutSha256": "803389bb57ae0f02275633c24939c607763f572fec5bc01a14a380c1a11ee947",
+      "subtype": "success",
+      "num_turns": 2,
+      "total_cost_usd": 0.23184,
+      "duration_ms": 48174,
+      "duration_api_ms": 36342,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 19739,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 3696,
+        "output_tokens_details": {
+          "thinking_tokens": 1349
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 19739,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-dfed6db7618639a4",
+      "role": "A-native-Construction",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-stdout.log",
+      "stdoutSha256": "aa400af2d30f756f235991743430ee2338259eba14976380675cd170136ca45d",
+      "subtype": "success",
+      "num_turns": 9,
+      "total_cost_usd": 0.33181239999999995,
+      "duration_ms": 88493,
+      "duration_api_ms": 44065,
+      "usage": {
+        "input_tokens": 14,
+        "cache_creation_input_tokens": 27559,
+        "cache_read_input_tokens": 189122,
+        "output_tokens": 3673,
+        "output_tokens_details": {
+          "thinking_tokens": 595
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 27559,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-afbf62cf903a7c63",
+      "role": "B-Testing-selector",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-afbf62cf903a7c63-stdout.log",
+      "stdoutSha256": "915b442f93087b435ef2d1e6cd8b3f03e5da65e2a50602e49f9d42788e4a7a7b",
+      "subtype": "success",
+      "num_turns": 2,
+      "total_cost_usd": 0.273604,
+      "duration_ms": 47932,
+      "duration_api_ms": 36460,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 24867,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 3733,
+        "output_tokens_details": {
+          "thinking_tokens": 904
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 24867,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-13dc3089351e5c32",
+      "role": "B-continued-C2",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-13dc3089351e5c32-stdout.log",
+      "stdoutSha256": "3e0f8c37c2f573f3df4125df3de13a87ce75893936d328f8df9311b66d2993bf",
+      "subtype": "success",
+      "num_turns": 3,
+      "total_cost_usd": 0.357433,
+      "duration_ms": 43925,
+      "duration_api_ms": 15333,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 41117,
+        "cache_read_input_tokens": 40205,
+        "output_tokens": 1022,
+        "output_tokens_details": {
+          "thinking_tokens": 83
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 41117,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-3f7250185cc86a5e",
+      "role": "B-post-Testing-selector",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-3f7250185cc86a5e-stdout.log",
+      "stdoutSha256": "d99f2eaa6d88adb4cf271e09873009a47940169f57225d4098cd2b5a9ff29361",
+      "subtype": "success",
+      "num_turns": 2,
+      "total_cost_usd": 0.318852,
+      "duration_ms": 52627,
+      "duration_api_ms": 42275,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 29248,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 4243,
+        "output_tokens_details": {
+          "thinking_tokens": 1064
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 29248,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "actor": "fp-c89328318c2093e3",
+      "role": "B-UAT",
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-c89328318c2093e3-stdout.log",
+      "stdoutSha256": "c2193c96de901d88e575661ae22cea9290a1cb56e092eee81b1e3112a6f2fea5",
+      "subtype": "success",
+      "num_turns": 6,
+      "total_cost_usd": 0.4586076,
+      "duration_ms": 103509,
+      "duration_api_ms": 59265,
+      "usage": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 41173,
+        "cache_read_input_tokens": 178218,
+        "output_tokens": 4677,
+        "output_tokens_details": {
+          "thinking_tokens": 1582
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 41173,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    }
+  ],
+  "FP": 6,
+  "providerCostUsd": 1.972149,
+  "reportedTurns": 24,
+  "hostWallMs": {
+    "A": 157091.435291,
+    "BToInterruption": 61747.00925,
+    "BContinuation": 247258.77049999998
+  },
+  "eventBytes": {
+    "initial": 3196379,
+    "afterA": 9932482,
+    "interruptedB": 13831280,
+    "closedB": 21014910
+  },
+  "limit": "Forced-interruption recovery study; excluded from uninterrupted basic-cli denominator. Provider reports/host timings do not establish phase attribution, speedup or matched-agent efficiency. Setup/Root preparation and idle review time remain separate retained command records."
+}

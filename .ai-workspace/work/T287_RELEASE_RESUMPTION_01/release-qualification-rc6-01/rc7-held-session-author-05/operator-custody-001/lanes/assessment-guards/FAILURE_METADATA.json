@@ -1,0 +1,64 @@
+{
+  "kind": "bounded_existing_test_failure_metadata",
+  "observedUtc": "2026-11-06T19:05:16.791201+00:00",
+  "tap": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01-lanes-assessment-guards/assessment-guards.stdout.tap",
+    "bytes": 1764,
+    "sha256": "9d16753e2bc2ba507d074b8caed6ad1da7fb858eb717f78f782c9a79d5a50c92"
+  },
+  "selectedFailureFields": [
+    {
+      "line": 3,
+      "text": "not ok 1 - RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage"
+    },
+    {
+      "line": 7,
+      "text": "  location: '/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-05/tmp/hs5-stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:2671:1'"
+    },
+    {
+      "line": 8,
+      "text": "  failureType: 'testCodeFailure'"
+    },
+    {
+      "line": 9,
+      "text": "  error: |-"
+    },
+    {
+      "line": 10,
+      "text": "    missing or ambiguous exact consumer declaration refuses before assessment dispatch: The expression evaluated to a falsy value:"
+    },
+    {
+      "line": 11,
+      "text": "    "
+    },
+    {
+      "line": 12,
+      "text": "      assert.ok(relation.nativeWorkspaceAssessmentSchema(undeclared))"
+    },
+    {
+      "line": 13,
+      "text": "    "
+    },
+    {
+      "line": 14,
+      "text": "  code: 'ERR_ASSERTION'"
+    },
+    {
+      "line": 15,
+      "text": "  name: 'AssertionError'"
+    },
+    {
+      "line": 16,
+      "text": "  expected: true"
+    },
+    {
+      "line": 17,
+      "text": "  actual: ~"
+    },
+    {
+      "line": 18,
+      "text": "  operator: '=='"
+    }
+  ],
+  "standing": "Actual existing test assertion metadata only; no source repair or Product-defect inference."
+}

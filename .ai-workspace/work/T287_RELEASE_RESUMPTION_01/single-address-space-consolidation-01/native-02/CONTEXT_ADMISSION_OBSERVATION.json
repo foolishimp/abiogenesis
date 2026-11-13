@@ -1,0 +1,134 @@
+{
+  "kind": "actual_continuation_context_admission",
+  "observedUtc": "2026-11-03T16:18:35.053922+00:00",
+  "eventOrdinal": 10175,
+  "eventTime": "2026-11-03T16:14:13.610Z",
+  "physicalOffset": 71794406,
+  "physicalRowBytes": 28797001,
+  "physicalRowSha256": "af5bcf19ebe80d3891d348d01c27269ae27e04950e29c3873bcdfe69e215de47",
+  "contextDigest": "sha256:9d0bafbcf716ab4fa831627c07587a72626e2c0143ab8a8ee9a7a5e3382e9c5e",
+  "entries": 815,
+  "files": 812,
+  "decodedBytes": 21249923,
+  "absent": [
+    "consolidation-scratch/native-02/progress.json",
+    "consolidation-scratch/native-02/readiness.json",
+    "consolidation-scratch/native-02/return.json"
+  ],
+  "controlCoverage": [
+    {
+      "relativePath": "consolidation-inputs/native-02/C2_INPUTS.json",
+      "digest": "sha256:271f20e35332183d3173f0e39f1d5292c13eb54298bd128399bd4d4d8b6ce070",
+      "byteLength": 6742
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/CONTEXT_AND_CAUSAL_MAP.md",
+      "digest": "sha256:951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec",
+      "byteLength": 11069
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/EXTERNAL_READ_RESOURCES.json",
+      "digest": "sha256:5934e0091ba7a7c0e19c740c4c9d90cbf0ed5c95bece381c5ac7764294cf4eac",
+      "byteLength": 1105
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/HELD_SOURCE_AND_EVIDENCE.json",
+      "digest": "sha256:4296e03548010ed1cf93414de3287044b286f75e12af5835f4ee9f38f04f058d",
+      "byteLength": 21854
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/INDEPENDENT_SOURCE_REVIEW.json",
+      "digest": "sha256:b77e69ae38c04c2a8c71b8c376ab7c68d8425018f0f779115d6f18965a95de38",
+      "byteLength": 6417
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/INPUT_SUFFICIENCY.json",
+      "digest": "sha256:fd9b22cb25b21213b8da4849ae68ac99f67eed48eecfb9b449fa785ecf238552",
+      "byteLength": 2157
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/MEASURED_BASELINE.json",
+      "digest": "sha256:774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06",
+      "byteLength": 5575
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/NATIVE_GRANT.json",
+      "digest": "sha256:6fa57007974f5d963cabc60e8bc76b397e8b7a2f11857828d59a08958c3c0eba",
+      "byteLength": 8493
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/PERFORMANCE_DETAIL.json",
+      "digest": "sha256:803cec15d5944c0af5aba557d20fce03b775f509b2f852686973a1dbec4c15c5",
+      "byteLength": 11922
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/PERFORMANCE_DETAIL.md",
+      "digest": "sha256:93218ff1e5bd4591b71274f36716656d70b795815c7bc8758c99d8f7673e059f",
+      "byteLength": 3524
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/ROOT_REENTRY_SELECTION_02.md",
+      "digest": "sha256:862316ebc39370dc4842848ac23cc6f677efe90802174cae585ff873c2de12ca",
+      "byteLength": 3988
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/ROOT_TRIAGE_AND_SELECTION.md",
+      "digest": "sha256:071176d93d9b20f0d7ecc0db7f9fa0a6fea1f6d432766807b6e6ea6a7831de5d",
+      "byteLength": 7947
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/TASK.md",
+      "digest": "sha256:e7d810fb39be84b7f0b02d0bc26e10912ffbe698c1922be8517e5eadb7d45d10",
+      "byteLength": 5309
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/c2-proof.mjs",
+      "digest": "sha256:371c8c9a3ae858d47e43889cfc47bb4ff64d0a757c86209656ac509291e918cd",
+      "byteLength": 2901
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/rubric.json",
+      "digest": "sha256:987adaade5d582b1a9bf616a38e90e2ae18db7b154aa297459e4c61e973dcae9",
+      "byteLength": 1879
+    }
+  ],
+  "largestRequiredFiles": [
+    {
+      "relativePath": "consolidation-inputs/native-02/contract-seeds/schemas/public-operation.schema.json",
+      "digest": "sha256:a389406e73cd8a2880526298171e4315d565fb5e70d4ae32602fbe58772610a6",
+      "byteLength": 2870138
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/contract-seeds/qualification/rule-catalog.json",
+      "digest": "sha256:785d9194baca2817e65b7f9f333716d0f8bd1c8e7b7d1da134be94f6bc179583",
+      "byteLength": 1770456
+    },
+    {
+      "relativePath": "consolidation-inputs/native-02/contract-seeds/schemas/self-conformance.schema.json",
+      "digest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "byteLength": 1050028
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "digest": "sha256:10cac78fc4123c186c3153adcb0a8ea990592e60f188ab6ddcc112258831697c",
+      "byteLength": 294547
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "digest": "sha256:b6137dd1f272362386d77f179dc59fbc1f3108dad64f4fc78a120e1c72cdfaed",
+      "byteLength": 290041
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "digest": "sha256:cd4701ea58f0929507857bf34c82c518ac0da5f6e9e426aa03d90bdc12aecbc1",
+      "byteLength": 222875
+    },
+    {
+      "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "digest": "sha256:631ea93a706f2de70e06c1d9b0e549caf4fffb73117285206e309d15d67f6c88",
+      "byteLength": 221745
+    }
+  ],
+  "exclusions": "No prior tarball, raw log, expanded failed-native result or whole historical .ai-workspace tree admitted as task inputs. Full sources/evidence remain at declared exact paths.",
+  "standing": "Actual initial admission only; no native completion or causal speedup inferred."
+}

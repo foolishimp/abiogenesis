@@ -1,0 +1,81 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "fixedFifteenFamilies": true,
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "scope": "original R1-R7/C1-C5",
+    "sourceDefinition": "STDO3.0.4",
+    "builderRuntime": "immutable installed RC5/STDO3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "emptyCompanions": true,
+    "rootOwnsFinalSelectionAdmissionAcceptance": true
+  },
+  "recordedUtc": "2026-11-04T02:31:32.247177+00:00",
+  "kind": "bounded_prospective_evidence_reuse_control_review",
+  "subjects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-07-r1.py",
+      "bytes": 18670,
+      "sha256": "3a2320716e8966be542ef1b050a7fba6133827a974efb61abd2a04a5cd37e83e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native07-c2-proof-template-r1.mjs",
+      "bytes": 7069,
+      "sha256": "ec0a3f69045de0b5dcb749bf03cbd88f9c2b626163e348ab01059cbdc2e5f2bb"
+    }
+  ],
+  "role": "independent nonauthor MAX reviewer, same-family limits",
+  "verdict": "one bounded custody correction; aggregate fails closed; final Root assembly/evidence remains prospective",
+  "findings": [
+    {
+      "id": "N7-CTRL-01",
+      "severity": "S3",
+      "category": "operator evidence custody",
+      "subject": "native07-c2-proof-template-r1.mjs",
+      "lines": "31-50;53 onward",
+      "trigger": "Actual new npm archive length or integrity differs from closed-prior expected package",
+      "problem": "Candidate archive is written only after both assertions pass. Failure records mismatch then continues lanes; later fixture cleanup can remove the differing archive before it is retained.",
+      "impact": "Refusal-path package bytes unavailable for later audit; before-tests archive retention claim false on this path. No false green or Product defect.",
+      "sunnyPath": "Matched package is retained; unaffected.",
+      "smallestCorrection": "Preserve actual packed bytes and length/sha256/sha512 before comparison; retain mismatch record and existing aggregate failure while running independent lanes. Keep expected metadata sourced from closed native06 command5 npm output.",
+      "cost": "small local operator wrapper ordering/identity-record change; no Product/test change, new framework or gate",
+      "rootOwnsDisposition": true
+    }
+  ],
+  "retainedControlClaims": [
+    {
+      "generatorLines": "41-61,73-90,188-197",
+      "claim": "Preparation consumes future Root genuine-close/conjunction/selection, held source, effects and exact recipe; no author inference/automatic dispatch"
+    },
+    {
+      "templateLines": "21-39",
+      "claim": "Pinned retained-record and actual package/dependency correspondence required; mismatch fails aggregate"
+    },
+    {
+      "templateLines": "40-44,53-78",
+      "claim": "Retained outcomes labelled not-new-execution; every selected new lane runs with process/fail/pass-minimum/no-skip checks and preserved logs"
+    },
+    {
+      "templateLines": "80-105",
+      "claim": "Whole-path proof preservation and predicates retained; aggregate failure cannot become green"
+    }
+  ],
+  "finalAssemblyDependencies": [
+    "Genuine native06 close and actual admitted C2, not interim observations",
+    "Final Root conjunction, source/permitted effects, exact affected recipe and reuse manifest",
+    "Closed native06 command5 npm output supplies expected old archive size/integrity; missing old archive is not reconstructed",
+    "Complete exact declared unchanged tests/helpers/source dependencies for each reused lane",
+    "Generator unversioned template path must resolve to reviewed r1 bytes or changed delta receives review",
+    "Root exact installed preflight/admission"
+  ],
+  "limits": [
+    "No final conjunction/reuse-manifest absence finding",
+    "No execution/preparation/tests/builds/providers/native contact",
+    "No moving Product reads or Product/test/control edits",
+    "Only report pair written",
+    "No current native06 lane stopped or skipped",
+    "No admission, actual evidence, package correspondence, new test, source acceptance or completion credit"
+  ],
+  "priorFindings": "Existing N5-PROOF-01, N6-R1-PROOF-01 and N6-R1-PROOF-02 unchanged"
+}

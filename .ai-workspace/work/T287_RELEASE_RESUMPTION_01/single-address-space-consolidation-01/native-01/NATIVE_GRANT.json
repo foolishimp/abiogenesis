@@ -1,0 +1,80 @@
+{
+  "kind": "single_address_space_native_consolidation_grant",
+  "status": "ROOT_SELECTED_NATIVE_PREPARATION",
+  "taskId": "T287_SINGLE_ADDRESS_SPACE_NATIVE_01",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "sourceTree": "6b40c56409c7e8990028644048b4aaad1b9ae027",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "builderRuntimeBasis": "stdo://releases/v3.0.4/",
+  "builder": "immutable installed RC5 archive4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-single-address-space",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "changeClass": "realization_refactor under existing common-library design",
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts",
+    "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-family.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs"
+  ],
+  "newFilesExpectedAfterConstruction": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs"
+  ],
+  "scratchWriteRoots": [
+    "consolidation-scratch/native-01/return.json",
+    "consolidation-scratch/native-01/readiness.json",
+    "consolidation-scratch/native-01/tmp"
+  ],
+  "readAccess": "Complete affected producer/consumer/owner cone in this checkout, exact installed STDO3.0.4, immutable installed RC5, existing offline dependency tree and explicitly named external captured log/proof paths. The enumerated observed readset is evidence input, not a claim of filesystem confidentiality.",
+  "independentReview": "One max frozen full-delta review with C2; Root conjoins full causal map, no isolated six-call closure.",
+  "closure": "Whole affected caller inventory, measured same-cut equivalence and reduced duplicate work, deleted redundant paths or exact concrete retention reasons, installed producer/consumer/reopen/resource proof, source correspondence, native C2/UAT and fresh result/replay. All log red-flag categories retain a disposition.",
+  "effectOwner": "One ABG native coding Worker. Root only prepares and evaluates.",
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 256,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null
+  },
+  "exclusions": [
+    "Product/requirement/Public serialized semantic changes",
+    "new store/cache/registry/authority/controller/parallel coding agent",
+    "mutation of canonical common prefix/history/resource/instruction machinery without returned concrete gap and Root reentry",
+    "immutable releases, old logs/evidence, push/tag/merge/global selector",
+    "canonical build/contracts/generated manifest/package identity writes; C2 owns candidate build outputs"
+  ],
+  "normalTools": "Read source and existing owners across the causal cone. Syntax, scoped type/build/test feedback is allowed only in declared scratch copied inputs using read-only offline dependencies. No provider/subagent, git commit, canonical generated outputs or release mutation. Return any integration failure with exact evidence before changing authority or expanding scope."
+}

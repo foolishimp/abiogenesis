@@ -1,0 +1,9 @@
+{
+  "kind": "between_task_operator_preparation_timing",
+  "startedUtc": "2026-11-06T04:38:43Z",
+  "sourcePacketWrittenUtc": "2026-11-06T04:45:44.937682+00:00",
+  "closedUtc": "2026-11-06T04:56:43.891878+00:00",
+  "standing": "Separate control preparation latency; not native work or measured runtime improvement.",
+  "elapsedMs": 1080891.8779999998,
+  "includesAwaitingAffectedProof": true
+}

@@ -1,0 +1,483 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0 / GOAL-035 / T-287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "purpose": "Prepare the smallest existing-owner native qualification lane for later Root selection; strict author-family independence remains unchanged.",
+    "classification": "Derived tool protocol and observation/evidence mapping; no runtime authority is created."
+  },
+  "kind": "closed_contributing_native_qualification_protocol_readiness",
+  "closedAt": "2026-11-05T23:42:25.082413+00:00",
+  "scope": "Frozen F6 plus selected installed public Gemini CLI 0.42.0 source. Native closed_prompt_proof qualification only; no full native coding parity.",
+  "standing": {
+    "status": "closed",
+    "staticFeasibility": "conditional",
+    "implementedEligibleGeminiNativeRoute": false,
+    "independentAcceptance": false,
+    "profileSelected": false,
+    "activationSelected": false,
+    "runtimeOrProviderProofPerformed": false
+  },
+  "conclusion": "Gemini CLI 0.42.0 supplies headless input, real generation-config schema plumbing, JSONL tool/result witnesses and policy enforcement primitives. F6 does not connect them to an eligible native Gemini qualification actor. A bounded existing-owner adapter cone is identifiable, but literal prompt preprocessing, effective configuration custody and exact model/retry truth remain open. These are finite protocol joins, not evidence of a complete executable route or a new selected profile.",
+  "pins": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr03-protocol-preparation-01/ROOT_SELECTION.json",
+      "bytes": 5108,
+      "sha256": "62dac8eae942c68f8164868e4104af8e9d279f5e75a865bb020f01abfaa0d1af"
+    },
+    "rootAuthority": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "frozenF6Subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+      "bytes": 434234,
+      "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+    },
+    "baseCommitFromClosedRoute": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "methodUri": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "closedReadiness": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR03_PROVIDER_ROUTE_READINESS.json",
+        "bytes": 23566,
+        "sha256": "fb11ed28f67244c4bc97265b62bdd90de3172af2356fd700f4f37e9435c50da2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR03_PROVIDER_ROUTE_READINESS.md",
+        "bytes": 7505,
+        "sha256": "45855c2a4b4960478a13df7234cf66b25082dafdb58ea811bcb1ac50b2bb3c55"
+      }
+    ],
+    "publicInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr03-protocol-preparation-01/PUBLIC_CODE_INVENTORY.json",
+      "bytes": 15468,
+      "sha256": "e7a4fa482e2b73d68d506efae34536e21e8fc5aea13a349b1cbc920689ce6c53"
+    },
+    "publicInventoryMemberCount": 72,
+    "publicInspectedFiles": [
+      {
+        "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/package.json",
+        "bytes": 707,
+        "sha256": "c16e6c2aa6ae57a88475e791037a28df55a0a446402fc6ac0152ab1fc51ee1bc"
+      },
+      {
+        "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini.js",
+        "bytes": 5099,
+        "sha256": "dc0f81c4898b93ce79b30baa0dd4f38903ab4c8460d63aa2462446bf253b8866"
+      },
+      {
+        "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/gemini-QSTQ2DBG.js",
+        "bytes": 582804,
+        "sha256": "c375ee6b91ac3fcd2a1cc4a850e7a22b2de2b059d82da47468ffe1a6f74687e8"
+      },
+      {
+        "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js",
+        "bytes": 14722071,
+        "sha256": "38ea40ff0e78168243378aa05bf188e52bb88fb04886c03f7df462be906238b0"
+      },
+      {
+        "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-FCAODPNO.js",
+        "bytes": 2782086,
+        "sha256": "5d8ac4575326b8cb62c5872ade402cfcfa9bb42c7fb1b7d673dd40a9d42bd3d5"
+      },
+      {
+        "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-EDKX67D6.js",
+        "bytes": 658056,
+        "sha256": "e6d90fed79600ee20c1022804ff3751f0f11e117c391c51c6811c7781c383e34"
+      },
+      {
+        "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/bundle/chunk-JEW7ZIWE.js",
+        "bytes": 1970519,
+        "sha256": "04843eb536d652934f2f119ba36c753e832530ea98b6cce9c2534e1af9b29bc6"
+      }
+    ],
+    "frozenOwners": [
+      {
+        "sourcePath": "specification/PRODUCT.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+      },
+      {
+        "sourcePath": "specification/requirements/product/REQ-P-QUAL.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/specification/requirements/product/REQ-P-QUAL.md",
+        "bytes": 36574,
+        "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+        "bytes": 55857,
+        "sha256": "b5cf1ecc08df2593214a4e6e9b97d5c4c936bf7513549ee0b77e361db175728a"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 82336,
+        "sha256": "94908ca0c4900dcf7be787f207dafe87be9288f0da1b75c88b9cfb5cec33679b"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "bytes": 23728,
+        "sha256": "3ea897beaddc78f9887a0dd1c726565f7e895914e69fc2b5fd8f611fab1be2b1"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 37000,
+        "sha256": "2f19a31bf833e9b651b0077ac5de1d8d21dc2b488e663b1893f228c317a77f26"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 296901,
+        "sha256": "cf7151bf17b124577c67e279c1a487723607431814c374364b7059ea9c364a59"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+        "bytes": 42257,
+        "sha256": "e96f3f83600db08d3145b468895de887d375d764e8ae4f0929e886207383e4cd"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "bytes": 79234,
+        "sha256": "1f7a1590b36022d705edddb373107d473b2d38181601974f723736b038beeda4"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "bytes": 101944,
+        "sha256": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+        "bytes": 9802,
+        "sha256": "dc021e2712cae19e8dfd6be56d33c239105115c483ae6381983f154a70ddff31"
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 83701,
+        "sha256": "6b91dcbd8327b922a6c563685fa3aa1346ea3e5fdda56015bef8a66eec93753b"
+      }
+    ],
+    "lineConvention": "1-based newline-delimited source lines; public file short names resolve through publicInspectedFiles; ABI paths resolve under frozenOwners, never the moving checkout."
+  },
+  "feasibilityMatrix": [
+    {
+      "id": "G01",
+      "relation": "Finite noninteractive request",
+      "standing": "supported public primitive; input fidelity remains conditional",
+      "publicEvidence": [
+        "gemini-QSTQ2DBG.js:8029-8038",
+        "gemini-QSTQ2DBG.js:8707-8761",
+        "gemini-QSTQ2DBG.js:16083-16145",
+        "chunk-7VVHSNDQ.js:245342-245354"
+      ],
+      "facts": [
+        "Non-TTY input/output or prompt selection enters headless mode. --model and --output-format stream-json are supported. Stdin can carry the prompt without an argv-sized prompt. Supplying both -p and stdin concatenates them.",
+        "readStdin caps input at 8 MiB, warns and truncates; its initial no-input timer is 500 ms. Neither truncation nor prompt duplication may be silently treated as the exact request."
+      ],
+      "abiOwner": "abg/transport_contracts.ts:439-447; abg/worker_transport.ts:755-816",
+      "missingJoin": "A selected Gemini native contract must bind exact input bytes, finite input handling and effective configuration. No command or profile is selected here."
+    },
+    {
+      "id": "G02",
+      "relation": "Literal closed prompt without undeclared reads",
+      "standing": "unresolved protocol closure; concrete counterexample in public source",
+      "publicEvidence": [
+        "gemini-QSTQ2DBG.js:10339-10375",
+        "chunk-FCAODPNO.js:45992-46018",
+        "chunk-FCAODPNO.js:46062-46087",
+        "chunk-FCAODPNO.js:46280-46308",
+        "chunk-FCAODPNO.js:46393-46468",
+        "gemini-QSTQ2DBG.js:16092-16107"
+      ],
+      "facts": [
+        "Headless processing interprets slash commands and @ references before sending the query. It emits the original input as the user message, not necessarily the processed model input.",
+        "readLocalFiles constructs ReadManyFilesTool directly and invokes it; it does not obtain that reader through the registered-tool selection. Empty coreTools and model tool denial alone therefore do not close this preprocessing path.",
+        "Resolved @ resources/files and enabled hooks can add content. The public user-message echo and zero model tool_use events are insufficient proof of literal prompt fidelity."
+      ],
+      "abiOwner": "validator/qualification.ts:726-749 embeds arbitrary quoted source data; abg/worker_transport.ts:800-808 binds the original prompt/environment",
+      "missingJoin": "The bounded adapter must resolve literal-input/preprocessing behavior for the actual closed qualification prompt and bind the effective context/settings. No supported universal literal-input switch was established in this pass; do not assume quoting JSON source text disables @ interpretation."
+    },
+    {
+      "id": "G03",
+      "relation": "Structured model response against the existing raw contract",
+      "standing": "static settings-to-provider path present; provider compatibility unproved",
+      "publicEvidence": [
+        "gemini-QSTQ2DBG.js:8160-8181",
+        "gemini-QSTQ2DBG.js:8634",
+        "chunk-EDKX67D6.js:13285-13328",
+        "chunk-7VVHSNDQ.js:301350-301409",
+        "chunk-7VVHSNDQ.js:293535-293567",
+        "chunk-7VVHSNDQ.js:293617-293621",
+        "chunk-JEW7ZIWE.js:28826-28835",
+        "chunk-JEW7ZIWE.js:33305-33308"
+      ],
+      "facts": [
+        "--output-format json/stream-json formats the CLI output envelope. There is no --json-schema option in the strict main CLI parser.",
+        "modelConfigs.customOverrides can carry modelConfig.generateContentConfig; resolution deeply merges it and the main chat request passes the resulting config to generateContentStream. The public SDK maps responseMimeType and responseJsonSchema.",
+        "A settings override matching an exactly selected model can thus carry application/json plus the existing request.responseJsonSchema. This is a static path, not a demonstrated successful schema-constrained provider response."
+      ],
+      "abiOwner": "validator/qualification.ts:737-749; abg/transport_contracts.ts:486-493; implementation/qualification.ts:51-66",
+      "missingJoin": "Bind the complete derived settings/schema bytes and verify the exact provider/model/auth path accepts the schema. Retain the existing ABI raw-contract validator; no JSON envelope or schema request creates a Judgment."
+    },
+    {
+      "id": "G04",
+      "relation": "Actual model-tool restriction",
+      "standing": "enforcement primitives present; effective configuration must be bounded",
+      "publicEvidence": [
+        "gemini-QSTQ2DBG.js:8069-8103",
+        "gemini-QSTQ2DBG.js:8401-8437",
+        "gemini-QSTQ2DBG.js:8456-8458",
+        "gemini-QSTQ2DBG.js:8532-8544",
+        "gemini-QSTQ2DBG.js:8636",
+        "chunk-7VVHSNDQ.js:337642-337716",
+        "chunk-7VVHSNDQ.js:323112-323158",
+        "chunk-7VVHSNDQ.js:323270-323285",
+        "chunk-7VVHSNDQ.js:320505-320565",
+        "chunk-7VVHSNDQ.js:307767-307788"
+      ],
+      "facts": [
+        "--allowed-tools grants confirmation bypass, not a no-tools allowlist. Plan mode still permits read-only tools. Neither is the required closed lane.",
+        "Explicit empty tools.core removes built-in registration; discovery can still supply tools. The policy engine evaluates deny rules before model-requested tool invocation and can exclude denied tools from active declarations.",
+        "User exclusions have priority 4.4; administrator policy is tier 5. A user policy file does not supersede every ambient administrator rule. MCP, extensions, discovery and before-tool hooks also need a bounded effective selection.",
+        "The direct @ preprocessing path in G02 remains separate even if registered model tools are absent."
+      ],
+      "abiOwner": "abg/transport_contracts.ts:72,85-87,487-489; implementation/qualification.ts:55",
+      "missingJoin": "Select and retain a complete effective no-tools configuration/policy under existing transport custody, including precedence and disabled/bounded hook/discovery surfaces. A pathname alone is not a digest of loaded policy/configuration."
+    },
+    {
+      "id": "G05",
+      "relation": "Truthful tool-use witness and result correlation",
+      "standing": "supported event protocol; ABI parser absent",
+      "publicEvidence": [
+        "gemini-QSTQ2DBG.js:10881-10891",
+        "gemini-QSTQ2DBG.js:10967-10988",
+        "gemini-QSTQ2DBG.js:10526-10558",
+        "chunk-7VVHSNDQ.js:337878-337893",
+        "chunk-7VVHSNDQ.js:337901-337934"
+      ],
+      "facts": [
+        "JSONL tool_use carries tool_name, tool_id and parameters before scheduled execution. tool_result carries the same tool_id, success/error and optional result/error fields.",
+        "The witness must count attempted requests, including denied requests. stats.tool_calls alone is not sufficient, nor does it cover G02 preprocessing.",
+        "The CLI has legacy and experimental AgentSession branches; both emit the central tool events. A finite adapter should pin the branch/configuration it supports."
+      ],
+      "abiOwner": "abg/worker_transport.ts:579-592 currently assigns plain text zero tool calls/retries without observation; implementation/qualification.ts:55 requires zero tool calls",
+      "missingJoin": "A Gemini JSONL normalizer must provide the existing canonical tool count/invocation observations and reject tool attempts in closed_prompt_proof. Do not reuse the present plain_text zero as evidence."
+    },
+    {
+      "id": "G06",
+      "relation": "Exact final output, completion and errors",
+      "standing": "supported event primitives; normalization must account for concrete negative cases",
+      "publicEvidence": [
+        "gemini-QSTQ2DBG.js:10014-10165",
+        "gemini-QSTQ2DBG.js:10863-10889",
+        "gemini-QSTQ2DBG.js:10916-10964",
+        "gemini-QSTQ2DBG.js:11015-11060",
+        "gemini-QSTQ2DBG.js:10616-10649",
+        "gemini-QSTQ2DBG.js:16126-16145"
+      ],
+      "facts": [
+        "Assistant message.content deltas carry answer text; the terminal result normally carries status/stats, not the answer. Concatenate only assistant deltas in order; user echoes and tool results are not the raw assessment.",
+        "Fatal errors/cancellation/max-turn handling can emit error information and nonzero exits. InvalidStream can emit an error and terminal error while the main path subsequently exits success.",
+        "Some stop paths emit terminal success without establishing a complete assessment. A last success or exit 0 is therefore insufficient. An exact admitted raw result remains the existing semantic owner."
+      ],
+      "abiOwner": "abg/transport_contracts.ts:66-88; abg/actor_process.ts:530-544; implementation/qualification.ts:51-66",
+      "missingJoin": "Normalize framing, result-bearing text, terminal/error facts and completeness into existing validation. Preserve the current nativeResultDisposition rule rather than inventing a blanket exit/retry policy; malformed/truncated/conflicting streams cannot fabricate success."
+    },
+    {
+      "id": "G07",
+      "relation": "Configured actor identity, model resolution and retry truth",
+      "standing": "configured primitive present; exact effective selection and retry observation unresolved",
+      "publicEvidence": [
+        "gemini-QSTQ2DBG.js:8438-8441",
+        "gemini-QSTQ2DBG.js:10331-10337",
+        "chunk-EDKX67D6.js:13303-13354",
+        "chunk-7VVHSNDQ.js:301388-301409",
+        "chunk-7VVHSNDQ.js:293535-293647",
+        "chunk-7VVHSNDQ.js:270385-270421",
+        "chunk-7VVHSNDQ.js:273550-273565",
+        "chunk-7VVHSNDQ.js:337901-337934"
+      ],
+      "facts": [
+        "init.model is config.getModel(): configured selection, not remote attestation. CLI/environment/settings, alias overrides, model resolution, hooks and fallback can affect the actual request.",
+        "Automatic fallback can change the active model. retryWithBackoff emits internal RetryAttempt events; a complete retry counter is not established by the six public JSONL event kinds.",
+        "Final per-model statistics can use response.modelVersion or requested model. They are useful evidence, but not by themselves an exact call identity or a proof that no fallback/subcall occurred.",
+        "Gemini CLI modelDefinitions.family is not the Product-owned STDO profile-to-family correspondence. No family/model is inferred or selected here."
+      ],
+      "abiOwner": "abg/transport_contracts.ts:103-107,135-206; abg/actor_process.ts:1070-1088; validator/qualification.ts:504-568",
+      "missingJoin": "Extend the existing exact configured-selection grammar only for a later explicitly selected model/profile and bound effective configuration. Preserve unknown when aliases/fallback/retry cannot be determined. No fabricated zero retry count or external attestation claim."
+    },
+    {
+      "id": "G08",
+      "relation": "Native provenance, liveness and admission",
+      "standing": "existing ABI owners reusable; Gemini route not connected",
+      "publicEvidence": [
+        "gemini.js: public relaunch/child-close handling",
+        "gemini-QSTQ2DBG.js:10014-10165"
+      ],
+      "facts": [
+        "Use the existing owned process, timeout/termination, transport binding, CCall and raw-result admission chain. CLI result success is not process-group cleanup or native qualification proof.",
+        "F6 actor_process selects Claude unconditionally; its governed-context path explicitly requires Claude stream-json. The generic Gemini transport is not a native qualification actor.",
+        "The closed qualification request can be targeted without claiming Gemini native editing, native_workspace_work tool-result parity or governed-context protocol support."
+      ],
+      "abiOwner": "abg/actor_process.ts:1043-1088,1475-1489; abg/c_call.ts:2055; abg/qualification_proof.ts:576-623,824-834; implementation/leaf_invocation_port.ts:1610-1631",
+      "missingJoin": "Connect only the selected qualification assessment to the existing transport and pre-paid eligibility owner, then preserve actual P/J lineage. The current two-profile publication and QR02 attribution limits remain separate prerequisites."
+    }
+  ],
+  "minimalProtocolSkeleton": {
+    "standing": "illustrative argument shape only; not an executable grant or selected model",
+    "args": [
+      "--output-format",
+      "stream-json",
+      "--model",
+      "<Root-selected exact model>"
+    ],
+    "promptTransport": "non-TTY stdin; exactly one prompt; no duplicate -p input",
+    "responseSchemaRoute": "modelConfigs.customOverrides matching the exact model -> modelConfig.generateContentConfig.responseMimeType = application/json and responseJsonSchema = existing request.responseJsonSchema",
+    "requiredConditions": "Bound complete effective configuration and literal-input closure; no inferred no-tools guarantee; existing configured identity/eligibility remains authoritative."
+  },
+  "smallestExistingOwnerCone": [
+    {
+      "owner": "abg/transport_contracts.ts",
+      "relation": "Finite Gemini closed_prompt_proof contract, explicit JSONL/parser/input/model grammar, tool/schema configuration material and exact configured identity. Reuse the existing contract/plan identity; no parallel actor registry.",
+      "currentRoutes": [
+        98,
+        103,
+        135,
+        439,
+        486
+      ]
+    },
+    {
+      "owner": "abg/worker_transport.ts",
+      "relation": "Gemini JSONL normalization into existing observations; actual attempted tool witnesses, answer deltas, completion/error/retry truth and bound effective configuration. Reuse prepared plan/archive custody and canonical raw-result checks. Path strings/environment digests alone do not bind referenced settings/policy bytes.",
+      "currentRoutes": [
+        499,
+        579,
+        755,
+        800,
+        808
+      ]
+    },
+    {
+      "owner": "abg/actor_process.ts",
+      "relation": "Scoped selection for the qualification assessment request with no native task; remove the relevant Claude-only parser assumptions only as required for this lane. Preserve pre-paid eligibility, one transport binding, owned process/liveness and termination. Do not extend governed native editing.",
+      "currentRoutes": [
+        530,
+        1043,
+        1068,
+        1074,
+        1084,
+        1475
+      ]
+    },
+    {
+      "owner": "abg/c_call.ts",
+      "relation": "Dependent typed parser projection/admission at the existing interface if a Gemini structured-parser tag is introduced; no replacement invocation or proof system.",
+      "currentRoutes": [
+        2055
+      ]
+    },
+    {
+      "owner": "validator/qualification.ts and qualification Product/HOW publication",
+      "relation": "Later Product-owned explicit profile/model/family publication and Root actor selection under unchanged independence law. Existing two profiles do not admit Gemini. This policy input is separate from protocol implementation and remains unselected.",
+      "currentRoutes": [
+        504,
+        568,
+        726,
+        749
+      ]
+    },
+    {
+      "owner": "implementation/qualification.ts; abg/qualification_proof.ts; implementation/leaf_invocation_port.ts",
+      "relation": "Reuse existing exact raw contract, CCall/actor/transport provenance, owner connection and eligibility validation. No new proof ledger or external review substitution.",
+      "currentRoutes": [
+        "implementation/qualification.ts:41-66",
+        "abg/qualification_proof.ts:576-623,824-834",
+        "implementation/leaf_invocation_port.ts:1610-1631"
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "U1",
+      "type": "bounded protocol/configuration implementation dependency",
+      "question": "How does the selected native adapter ensure exact literal qualification input and no undeclared @/slash/hook/context preprocessing?",
+      "known": "Direct @ file reads exist before streamed model tools; current quoted source JSON does not establish immunity.",
+      "status": "open; no universal bypass or completed closure established"
+    },
+    {
+      "id": "U2",
+      "type": "effective configuration and evidence custody",
+      "question": "What exact retained settings/policy/extension/discovery/hook/model configuration is loaded and how is its byte identity bound to the prepared plan?",
+      "known": "Public settings/priority primitives exist; present plan binds argument/environment strings, not arbitrary referenced file contents.",
+      "status": "open; actual private configuration was neither acquired nor assumed"
+    },
+    {
+      "id": "U3",
+      "type": "configured identity and observation completeness",
+      "question": "Which exact selected model grammar/configuration prevents or truthfully exposes remapping/fallback and retries?",
+      "known": "init.model and token statistics cannot answer this alone; current plain_text zeros are not observations.",
+      "status": "open; use existing unknown/fail-closed rules"
+    },
+    {
+      "id": "U4",
+      "type": "future credentialed discriminator",
+      "question": "Does the selected credentialed model accept the exact schema/configuration and produce a valid closed assessment with real tool restriction under the installed CLI?",
+      "known": "Public settings-to-generateContentStream path is present; no provider was called.",
+      "status": "unperformed; credentials pending owner replacement outside this task"
+    },
+    {
+      "id": "U5",
+      "type": "separate Product/qualification authority",
+      "question": "Which concrete published profile-to-family correspondence and eligible subject attribution authorize a later native assessor?",
+      "known": "F6 publishes two profiles, native assembly is Claude-only, and retained QR02 mixed-author/unknown prior-source attribution is not solved by a third adapter.",
+      "status": "unselected; no family inference, waiver, future Judgment or synthetic history"
+    }
+  ],
+  "laterDiscriminators": [
+    {
+      "id": "L1",
+      "needsProvider": false,
+      "discriminator": "Finite parser/input fixtures: arbitrary quoted @ and slash-like source data, exact prompt bytes, 8 MiB boundary and truncation, no prompt duplication; malformed/truncated/duplicate/conflicting JSONL; assistant-only reconstruction; denied tool requests count as attempts."
+    },
+    {
+      "id": "L2",
+      "needsProvider": false,
+      "discriminator": "Public configuration/plan fixtures: exact effective settings and policy precedence, hook/discovery/MCP/extension closure, referenced-byte custody, exact model resolution and unknown identity/retry behavior; process completion/liveness observations use existing owners."
+    },
+    {
+      "id": "P1",
+      "needsProvider": true,
+      "discriminator": "One later Root-authorized real eligible native closed_prompt_proof positive with the exact selected profile/configuration/schema and unchanged raw Judgment/provenance owners. Preserve actual CCall, actor invocation, transport binding, source and result evidence."
+    },
+    {
+      "id": "P2",
+      "needsProvider": true,
+      "discriminator": "Nearest real negative: requested forbidden tool is unavailable/denied without effects; any observed tool request makes the closed assessment fail. Include the actual source-data preprocessing case rather than relying solely on stats.tool_calls."
+    },
+    {
+      "id": "P3",
+      "needsProvider": true,
+      "discriminator": "Exact model/schema/error behavior: configured versus actually resolved model, unsupported schema/refusal/error and alias/fallback/retry behavior. Bound tests to the selected path; provider capability remains unknown until observed."
+    }
+  ],
+  "retainedLimits": [
+    "No Gemini CLI execution, auth/config-home access, network/provider call, tests/builds, runtime event, source edit or moving D5 read occurred.",
+    "Only the two selected report files are written. The 72-file inventory is a source grant, not a claim that every file was exhaustively inspected.",
+    "No generic Gemini success, external review, token statistics, model prefix or CLI family metadata is native qualification/independence evidence.",
+    "Strict same-family default, published policy correspondence and prior-source unknowns remain unchanged. Any eligible future fixture must bind actual native source/provenance under existing owners.",
+    "No requirement to build a provider framework or implement native editing/governed-context parity follows from this report."
+  ],
+  "nextLawfulAction": "Return to Root. Root may select a finite existing-owner adapter task that resolves U1-U3 and retains U4-U5 as explicit prerequisites to a genuine eligible native positive. No coding, policy publication, profile selection or activation is authorized by this contributing report.",
+  "returnTo": "Root"
+}

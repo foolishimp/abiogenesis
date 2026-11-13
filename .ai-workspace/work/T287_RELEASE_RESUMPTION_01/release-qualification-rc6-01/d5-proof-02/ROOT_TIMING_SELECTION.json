@@ -1,0 +1,52 @@
+{
+  "kind": "root_selected_operator_phase_timing_amendment",
+  "at": "2026-11-06T00:36:45.632056+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/CONTROL_PREPARATION.json",
+    "bytes": 25517,
+    "sha256": "0e858c1ff159a238f2b0f99d56453f508e3693b93644c3124cdd7640d77f490e"
+  },
+  "purpose": "Measure setup/preflight, worker launch and close/readback components separately under the owner request for fine-grained timing and red flags. This is Root observation only, not a Product event stream or new acceptance gate.",
+  "subjects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/prepare-r1.mjs",
+      "bytes": 13432,
+      "sha256": "ad54eb621646194993d94360edd03eed3f0408fbbe12e89d50529a9f3f9e83a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    }
+  ],
+  "readTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/TIMING_BREAKDOWN.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/commands"
+  ],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-02"
+  ],
+  "task": [
+    "Inspect existing command recorder timing metadata first; reuse it instead of duplicating command/provider telemetry.",
+    "Preserve exact current script bytes and original closed returns. Add small phase markers to operator prepare/dispatch only, without altering owner calls, call order, inputs, guards, environment, effects, budgets or outcome handling.",
+    "Separate module-body entry (versus host launch), installed owner loading, source/hash checks, governance construction/budget, environment refresh and installed-content checks, prefix reads/hashes, worksite observation, projection/configuration, lifecycle-call construction, invocation, output persistence and fresh readback/close where the existing code can attribute these honestly.",
+    "Use monotonic wall durations with UTC anchors. A single bounded operator timing artifact per script is sufficient, including failure if practical without altering exception semantics. Do not print payloads, paths from private provider records, environment values or raw response contents.",
+    "Run syntax/static-only checks, prove the semantic owner-call sequence and operands unchanged, and return a compact additive TIMING_AMENDMENT.json/.md with pins and measurement limits. No script execution/preflight/provider/Run."
+  ],
+  "prohibitions": [
+    "No Product/HOW/test or moving-source reads/changes",
+    "No modification of active author02",
+    "No timing-based acceptance predicate or optimization guess",
+    "No new framework/controller/service/clock authority",
+    "No raw provider/private/auth content",
+    "No staging, owner call construction or actual execution"
+  ],
+  "return": "Additive control amendment only. Root must include final script pins at later actual admission; original preparation remains preserved."
+}

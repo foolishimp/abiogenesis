@@ -1,0 +1,47 @@
+{
+  "status": "ROOT_ADMITTED_READY_TO_RUN_ONCE",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/UNIT_BINDING.001.json",
+    "bytes": 11687,
+    "sha256": "dc3fa00f5a3803f6cd382367a222e3c80f6d6a448e50ff261eabed12b9a12136"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/ROOT_UNIT_ADMISSION.001.json",
+    "bytes": 1486,
+    "sha256": "f091513f72c60a8565156470cf9622ed5a0293826628b3297e0965bb9fad2fb2"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/frozen-proof.unit-r02.mjs",
+    "bytes": 15201,
+    "sha256": "6856997d9e8fdbcf6b937da0709d38c5c2f7ce7d07765b6813cb86d5ecd45355"
+  },
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292744,
+    "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+  },
+  "ownedProofBytes": 186524040,
+  "copiedDependencyRows": 4576,
+  "dependencyMismatches": [],
+  "launchArgv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/frozen-proof.unit-r02.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/UNIT_BINDING.001.json",
+    "dc3fa00f5a3803f6cd382367a222e3c80f6d6a448e50ff261eabed12b9a12136",
+    "unit",
+    "stage-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/ROOT_UNIT_ADMISSION.001.json",
+    "f091513f72c60a8565156470cf9622ed5a0293826628b3297e0965bb9fad2fb2"
+  ],
+  "population": [
+    "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "test_env/tests/t287-owned-call-reference.test.mjs",
+    "test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-native-runtime-gate.test.mjs",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/forward-command-contracts.test.mjs",
+    "test_env/tests/forward-command-owners.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ]
+}

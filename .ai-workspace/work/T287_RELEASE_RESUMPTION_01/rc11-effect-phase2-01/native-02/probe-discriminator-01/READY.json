@@ -1,0 +1,39 @@
+{
+  "status": "PROBE_DISCRIMINATOR_READY_NO_EXECUTION",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/BINDING.json",
+    "bytes": 3687,
+    "sha256": "00745d4c29fad7a2df6c31a3ed59578c8c8705e8a1b7028f866aae8d6d9551c0"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/probe-reentry.mjs",
+    "bytes": 4720,
+    "sha256": "904f5bfc90e1ebbb0092530de564c8fda16f5fa1d609d5929ebc2c14f1ca00e4"
+  },
+  "inputRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/INPUT_RELATION.json",
+    "bytes": 3793,
+    "sha256": "8415e5b8a070d466b697888d9feb24861668961eb2f46e2840c321d694e583f1"
+  },
+  "commands": {
+    "candidate": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/probe-reentry.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/BINDING.json",
+      "00745d4c29fad7a2df6c31a3ed59578c8c8705e8a1b7028f866aae8d6d9551c0",
+      "candidate"
+    ],
+    "baseline": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/probe-reentry.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/BINDING.json",
+      "00745d4c29fad7a2df6c31a3ed59578c8c8705e8a1b7028f866aae8d6d9551c0",
+      "baseline"
+    ]
+  },
+  "syntaxExitCode": 0,
+  "candidateExpectation": "Unexecuted hypothesis: nested closure seals probeCount1/absenceabsent, outer stale return later produces snapshotcount2/present. Observations before assertion decide.",
+  "baselineStanding": "Exactoriginalsource/compile relation bound; no result predicted or execution admitted. Samefixture only if Root selects.",
+  "oracle": "All performed probes counted in sealed/current facts; non-time physical fields aligned, fresh snapshots retained, completion frozen, no timer residue. cleanupElapsedMs intentionally excluded from physical equality because currentlaw recomputes it.",
+  "closure": "10s outer command/30s campaign prospective, retain full stdout/stderr and observation before assertions; no automatic retry. Await Root exact execution admission."
+}

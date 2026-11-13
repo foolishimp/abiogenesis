@@ -1,0 +1,58 @@
+{
+  "status": "PASSED",
+  "sourceDigest": "1b8bb6c426e339e22ef5c1ab07b453d6ecfe52092c07e79dd0fb1852dee077b6",
+  "sourceRows": 1345,
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/CHECKPOINT_SOURCE_INVENTORY.json",
+    "bytes": 295782,
+    "sha256": "ce1b3debd80d153e878d6b52a6ce8fa5c7d6963cf2dd2738078dddf37e0028dd"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/SOURCE_SUBJECT.json",
+    "bytes": 4506,
+    "sha256": "ccdeaa357bf3323343ccbd15795fa9e7e80c7bd17dfc491308cebf12fc7ac44e"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/BINDING.json",
+    "bytes": 20570,
+    "sha256": "eff4c339e3d8e252b347e7a68810feeeee8d2c9da730dc5860859ad0deee0d1a"
+  },
+  "basis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/BASIS.json",
+    "bytes": 806,
+    "sha256": "4ddd926dd00339de3401f6e3586db76ecc54dffbe27dca07f9459f46b105cc88"
+  },
+  "hostSyntaxExit": 0,
+  "providerShellSyntaxExit": 0,
+  "transport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/TRANSPORT_PREFLIGHT.json",
+    "bytes": 1073,
+    "sha256": "878bd3c7d4b03ce145a8be9582ef80ee3aa3336bb054e08569cb4f212225120a"
+  },
+  "referencedPinChecks": 93,
+  "protectedHeadIndexTrackingPinsVerified": true,
+  "candidateTrackedClean": true,
+  "candidateIndexStagedEmpty": true,
+  "priorUntrackedPreserved": 704,
+  "newUntrackedOnlyDeclaredInputs": [
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/API_RESULT.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/B_ERROR_BOUNDARY.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/COMMON_LIBRARY_9_3.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/CONTROLLED_CENSUS.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/EXTERNAL_TOOLS.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/PEER_DESIGN.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-b01/SOURCE_SUBJECT.json"
+  ],
+  "optionalScopeModuleAbsent": true,
+  "runtimeAndHostScratchAbsent": true,
+  "context": {
+    "files": 23,
+    "sourceMemberBytes": 559090,
+    "instructionUtf8Bytes": 6386,
+    "sourceContentsInlined": false,
+    "renderedBytes": "Actual installed renderer measures at future PREPARED; no runtime allocated."
+  },
+  "instructionContract": "Canonical string[]; actual installed task constructor validates during separately admitted setup before provider.",
+  "effects": "Control syntax and exact installed pure timeout validator only. No runtime/provider/source/build/test allocation."
+}

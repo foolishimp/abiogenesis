@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-proof-02/FROZEN_SUBJECT.json",
+      "bytes": 982,
+      "sha256": "e9bbaec6850d777d6ba56e23273d3554fc14ab626cf13afdb06eb33fbdf94c2e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-proof-02/PROOF_ONLY_GRANT.json",
+      "bytes": 4630,
+      "sha256": "bc74aac8b6b9394db07016269474e505727fc0d0fccb6c6c4c6add39f48d32cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-proof-02/ROOT_PROFILE_DISPOSITION.json",
+      "bytes": 3110,
+      "sha256": "59b29a543a0df68313dc1ed48ea3cfdb42fc37196a827fffaac6a39a396e2f11"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-proof-02/TASK.md",
+      "bytes": 2323,
+      "sha256": "e195d23e0f1269025d124fab872611be44fc3b54aa7929c3da1f8fb7b730e983"
+    }
+  ]
+}

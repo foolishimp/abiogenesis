@@ -1,0 +1,5 @@
+# B06 budget selection draft
+
+Root reports current conservative native amount $88.3403848, including the full $8 reserve for B03's ended process with unknown cost. Root explicitly replaces the earlier B05 thresholds: B06 reviews are $90 and $94, the pre-witness stop is $96, and the later-witness reserve is $4. The original $100 user allocation is unchanged.
+
+The selected B06 planning envelope is $2.50 per process and at most three paid processes (one selector, one Construction, one selector to C2), or $7.50 maximum. With the $4 witness reserve, $88.3403848 + $7.50 + $4 = $99.8403848. This is a planning allowance, not a guarantee that actual charges or all witness work fit. Before each additional provider, Root must count all reported prior costs, the $8 unknown B03 reserve, every full active-process cap and the $4 witness reserve against $100; other charges remain unknown. No automatic retry, extra Construction or paid UAT. Final exact budget binding awaits B05 closure and all telemetry. Root monitors manually; no enforceable aggregate cap or native admission is implied.

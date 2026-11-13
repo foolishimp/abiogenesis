@@ -1,0 +1,111 @@
+{
+  "status": "CHECKED_POST_NATIVE_CUSTODY",
+  "utc": "2026-11-09T03:23:09.923859+00:00",
+  "sourceDigest": "86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34",
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292744,
+    "sha256": "85dac0eb011d9da008da8aa7713098fdf966689d8de07bda042a80a114464b19"
+  },
+  "sourceRows": 1334,
+  "sourceBytes": 38184937,
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/traversal_completion.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/traversal_failure.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-basis-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+  ],
+  "deletedPaths": [],
+  "outsideGrantedSourceChanges": [],
+  "nativeChangedPathsMatch": true,
+  "nativeAfterFrozenFileComparisons": 296,
+  "nativeAfterFrozenMismatches": [],
+  "nativeAfterPhysicalMismatches": [],
+  "changedPathsMissingNativeFileObservation": [],
+  "frozenPhysicalMismatches": [],
+  "liveSourceFrozenMismatches": [],
+  "mainBaselineMismatches": [
+    "specification/GOALS.md"
+  ],
+  "dependencyMismatches": [],
+  "immutableBuilderArchiveComparison": {
+    "archive": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "members": 5325,
+    "payloadBytes": 71772472,
+    "mismatches": []
+  },
+  "mainHead": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "worktreeHead": "dd6938dd84fac37a76128d14cf1b5f0fa8aec299",
+  "mainTrackedStatus": [
+    " M .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    " M specification/GOALS.md"
+  ],
+  "native": {
+    "outcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 3115643,
+      "sha256": "7ccd210c9315e209655c23cfce363c3e0edcd54428983434ff3dac0ce1bd1337"
+    },
+    "exitCode": 0,
+    "failure": null,
+    "disposition": "completed",
+    "observationDigest": "sha256:cbd72d712ecde6f8b48a900b851e573cc24697d1ab0fc3f98f4354f5636e12a5",
+    "afterObservationDigest": "sha256:27669152b91fc263f90012dbb1afcd9e0a0fd6abe6e220cffa52d31d63fa0263"
+  },
+  "freshReadbacks": [
+    {
+      "memberKey": "run_result",
+      "exitCode": 0,
+      "failure": null,
+      "outcomeKind": "result",
+      "caseKey": "run_result",
+      "projectionKind": "run_result_projection",
+      "source": {
+        "digest": "sha256:4fdce0603e5f2c680a18fc74b891ab831d8f2d974d341ba459324f561bbaa67b",
+        "ref": "run://abiogenesis/f42219ed6d37c3c46e9246df1da3a08c76ac91d4f28e30f591886c0992b56917"
+      },
+      "terminalMatchesNative": true
+    },
+    {
+      "memberKey": "run_replay",
+      "exitCode": 0,
+      "failure": null,
+      "outcomeKind": "result",
+      "caseKey": "run_replay",
+      "projectionKind": "run_replay_projection",
+      "source": {
+        "digest": "sha256:4fdce0603e5f2c680a18fc74b891ab831d8f2d974d341ba459324f561bbaa67b",
+        "ref": "run://abiogenesis/f42219ed6d37c3c46e9246df1da3a08c76ac91d4f28e30f591886c0992b56917"
+      },
+      "terminalMatchesNative": true
+    }
+  ],
+  "standing": "Exact observed source custody and readback correspondence only. Native report is not independent semantic acceptance. Unobserved filesystem territory is not proven unchanged."
+}

@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:6a68c5f1e05bf8add70de4a6df05d0374fd02c17f5a8de2a94334bc18c858726",
+    "eventLogRef": "file:///private/tmp/abg-r8-selection-001/t/abi5-root-env-Au08Ju/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:331889efb85286e28c8766c2710b3c241fcd315f5193217a883ddd1aba31d4a0",
+    "prefixLength": 4187258,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+      "inode": 713170183
+    }
+  },
+  "reopenAuthority": {
+    "authorityDigest": "sha256:25588b4f64b7c761715e91dd3aa9f20e77a852a20d8e8e0eb6c90b942aa70049",
+    "device": 16777231,
+    "durableByteLength": 4187258,
+    "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+    "eventLogDigest": "sha256:331889efb85286e28c8766c2710b3c241fcd315f5193217a883ddd1aba31d4a0",
+    "eventLogPath": "/private/tmp/abg-r8-selection-001/t/abi5-root-env-Au08Ju/runtime/events.jsonl",
+    "inode": 713170183,
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0"
+  }
+}

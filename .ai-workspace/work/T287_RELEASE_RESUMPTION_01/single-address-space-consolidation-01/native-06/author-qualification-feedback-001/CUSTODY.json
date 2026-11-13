@@ -1,0 +1,65 @@
+{
+  "recordedUtc": "2026-11-04T01:03:32.446300+00:00",
+  "role": "Root operator/evidence Writer",
+  "nativeRun": "run://abiogenesis/ae4338b56e450fcb8b3f8c934c1b1475eb5be4a6c99332bc45fd0b68cb762495",
+  "standing": "Frozen author feedback and observed tool metadata; no actual C2, current source acceptance or full native05 rebuild claimed",
+  "files": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/runs/qcut-1.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/author-qualification-feedback-001/files/tmp06/runs/qcut-1.tap",
+      "bytes": 3614,
+      "sha256": "fdb96f32d508459cb8ad674b84f2d7be00e7bdbbd6c5aed0fb4f6d7cc6e80c08"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/runs/qcut-2.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/author-qualification-feedback-001/files/tmp06/runs/qcut-2.tap",
+      "bytes": 3608,
+      "sha256": "2054e3fc1df1fd5a10a0ded09e7759850f81d8fac573e7c9019e091e3170a9c0"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/runs/qcut-native05-before.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/author-qualification-feedback-001/files/tmp06/runs/qcut-native05-before.tap",
+      "bytes": 1310,
+      "sha256": "42c1417d79347394af981a747e5d3468cf6e8ff323ec69f804557ba2b17ec2b2"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/runs/qcut-native05-divergence.tap",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/author-qualification-feedback-001/files/tmp06/runs/qcut-native05-divergence.tap",
+      "bytes": 7665,
+      "sha256": "93ea2576fd00f522733009b48fa744428df181e98e7d130ff0bf9c660d7589e8"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/runs/qcut-native05-divergence.err",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/author-qualification-feedback-001/files/tmp06/runs/qcut-native05-divergence.err",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/logs/tsc-n05.log",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/author-qualification-feedback-001/files/tmp06/logs/tsc-n05.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp06/logs/gen-n05.log",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/author-qualification-feedback-001/files/tmp06/logs/gen-n05.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "toolMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/author-qualification-feedback-001/TOOL_CALLS_AND_RESULTS.json",
+    "sha256": "1b573ffa3600f5cb1ab0955c97d34e2a1f33c44eda574c98ebd74fd9ed1da611"
+  },
+  "observations": [
+    "Current focused qcut-1 and qcut-2 each record 1 pass, no fail or skip",
+    "First old-owner run fails unrelated-extension delegation counter before invalidating append",
+    "Scratch diagnostic removes that counter and records old warm material non-null while copied current material is null, then fails semantic refusal assertion",
+    "Observed native tool command copied the frozen native05 qualification owner, rebuilt scratch and ran the bounded changed-owner negative control. This is not a clean native05 full build."
+  ],
+  "limits": [
+    "Initial broader capture failed before writes because author had already removed the scratch-only probe and restored the current owner. Do not mislabel present scratch bytes as executed predecessor bytes. Exact probe construction and run command/results are retained as observed metadata.",
+    "Current Product source is still changing; final source and actual C2 must be conjoined",
+    "Only tool-use/tool-result metadata and author artifact bytes inspected; no hidden model reasoning"
+  ]
+}

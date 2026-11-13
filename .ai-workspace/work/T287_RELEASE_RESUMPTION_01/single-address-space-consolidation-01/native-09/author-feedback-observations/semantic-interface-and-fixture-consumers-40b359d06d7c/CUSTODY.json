@@ -1,0 +1,22 @@
+{
+  "kind": "passive_complete_author_feedback_custody",
+  "observedUtc": "2026-11-04T12:34:37.251496+00:00",
+  "source": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09/runs/semantic-interface-and-fixture-consumers.tap",
+  "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/author-feedback-observations/semantic-interface-and-fixture-consumers-40b359d06d7c/semantic-interface-and-fixture-consumers.tap",
+  "bytes": 52675,
+  "sha256": "40b359d06d7c76aa6431ec4aa30a86562aaf46a6381064e620f4d2f166eb33bc",
+  "tally": {
+    "pass": 59,
+    "fail": 0,
+    "skipped": 73
+  },
+  "durationMs": 195235.699916,
+  "completeDurationFooter": true,
+  "sourceCoordinates": "Exact Root-named scratch output and expected physical hash; current in-flight native09 author feedback",
+  "standing": "Preserved historical author feedback, not final handoff, frozen-source correctness, actual C2 or acceptance",
+  "limits": [
+    "No actor contacted; no failure investigation or source inspection",
+    "No new test/build/provider/runtime operation",
+    "Later source/output changes do not erase this observed artifact"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-c8226095f01c6e69-stdout.log",
+    "bytes": 5872883,
+    "sha256": "559f2a019478523eabb706d43e58781205e701fac043680cc5676f857db76918"
+  },
+  "metadataOnly": [
+    {
+      "type": "result",
+      "subtype": "error_max_turns",
+      "is_error": true,
+      "num_turns": 129,
+      "duration_ms": 1455380,
+      "duration_api_ms": 1250936,
+      "total_cost_usd": 12.561159400000003,
+      "session_id": "45f07a77-fef0-4455-bc71-d06afa5ca212",
+      "stop_reason": "tool_use"
+    }
+  ]
+}

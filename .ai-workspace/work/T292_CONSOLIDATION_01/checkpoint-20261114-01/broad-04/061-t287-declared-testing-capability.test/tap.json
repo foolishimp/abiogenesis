@@ -1,0 +1,17 @@
+{
+  "complete": true,
+  "counts": {
+    "tests": 5,
+    "pass": 3,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 2 - declared testing preparation keeps prospective criteria and explicit transport modes # SKIP ABG_TS_CLAUDE_COMMAND unset; requires the live claude command",
+    "ok 3 - declared testing live actor allowance preserves defaults and existing transport policy # SKIP ABG_TS_CLAUDE_COMMAND unset; requires the live claude command",
+    "# todo 0"
+  ]
+}

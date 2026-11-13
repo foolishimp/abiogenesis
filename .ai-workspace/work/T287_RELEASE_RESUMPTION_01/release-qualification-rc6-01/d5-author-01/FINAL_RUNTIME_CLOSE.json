@@ -1,0 +1,96 @@
+{
+  "kind": "d5_native_author_actual_close",
+  "at": "2026-11-05T22:40:58.226798+00:00",
+  "status": "COMPLETED_PARTIAL_SOURCE_RETURN_FROZEN_UNACCEPTED",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 461262,
+    "sha256": "601d6588e7c8c9f03a5305a378fb3454f815e641003668677b51142b590b096f"
+  },
+  "run": {
+    "digest": "sha256:5af57617a090dcfeb26d0b00f431fa121f7fd931769a466cd8fd43521e959d78",
+    "ref": "run://abiogenesis/1a1804d5f1f46e0e47cd6f52397daac409030769591efe12c53fb304d0be51a2"
+  },
+  "result": {
+    "digest": "sha256:59fca6278b522da77bf12388de1d33eec009461898e437079d0a2fa0dc21d4eb",
+    "ref": "result://abiogenesis/59fca6278b522da77bf12388de1d33eec009461898e437079d0a2fa0dc21d4eb"
+  },
+  "replay": {
+    "digest": "sha256:f57281afc19f86e2dd56f0afc1c85468902a1e9248506a4367058108b2ff7291",
+    "ref": "replay://abiogenesis/f57281afc19f86e2dd56f0afc1c85468902a1e9248506a4367058108b2ff7291"
+  },
+  "terminalValueDigest": "sha256:b084236810b23a6f38daa3aeefd80c60675c96ad1e2ca57c0be6d5d607f48751",
+  "freshTerminalEqual": true,
+  "freshReplayStatus": "closed",
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/after-run-resume.json",
+    "bytes": 72493736,
+    "sha256": "f4d410411915f05b8fb83f56ca5d3aaba5c61d58fd73b155eef23d9c1aa09371"
+  },
+  "freshReads": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/execution/fresh-reads.json",
+    "bytes": 164341963,
+    "sha256": "b04b643d2b99604ad5f955ff265f683d9c0351fb53adbd335de12f81ad008ca6"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:9f47b8785ed37e4c1007cb07eeccf3a60a041fafd569eb5c19a7cd153995db4d",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:91354f99a1720234954a6caca2e0d08c6b258fa3821ab11d80f007c45b926981",
+    "prefixLength": 716470691,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "physicalPrefixVerified": true,
+  "allFrozenLiveMembersEqual": 386,
+  "authorStageSourceMatches": 357,
+  "authorChecks": {
+    "compileExit": 0,
+    "generateExit": 0,
+    "lifecycleGuardExit": 0,
+    "tests": 111,
+    "pass": 110,
+    "fail": 1,
+    "skip": 0,
+    "stage": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3-stage.json",
+      "bytes": 75539,
+      "sha256": "b582a2a4cb8ab2636891585292b1e5ce389b8f16399c2838ed194549ec168fe6"
+    },
+    "lanes": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-01/tmp/d5a-s3-lanes/summary.json",
+      "bytes": 2666,
+      "sha256": "3ff8ab9e48fab7a7b015f62470ee199f2fbce051b8df78af53766d840e3deb7f"
+    }
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/return.json",
+    "bytes": 17280,
+    "sha256": "09981772fb4a212adb06454e5681e43f465d88d9a4fd4be006de4c4985f68b5f"
+  },
+  "nativeReadiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/readiness.json",
+    "bytes": 3097,
+    "sha256": "ffcdd69d36e8fb8288000705b8ae99eb24d2b0a32a0d1e9e9280896a7dd96ef0"
+  },
+  "remaining": [
+    "M2 artifact/qualification observation digest owner coupling",
+    "Authentic recovery positive and N1-N3 not constructed",
+    "One causation instrumentation assertion remains red; bounded independent triage required"
+  ],
+  "host": {
+    "startedUtc": "2026-11-05T21:46:49.559549+00:00",
+    "endedUtc": "2026-11-05T22:39:12.693844+00:00",
+    "wallMs": 3143040.100166,
+    "exitCode": 0
+  },
+  "limits": [
+    "Actual completed native Run returned partial source. No affected C2/UAT or acceptance; Root re-entry required.",
+    "All intermediate failures and prior accepted evidence retain their exact subjects.",
+    "No Q23 production eligibility, formal independent acceptance, QR02/QR03, qualification or release closure."
+  ]
+}

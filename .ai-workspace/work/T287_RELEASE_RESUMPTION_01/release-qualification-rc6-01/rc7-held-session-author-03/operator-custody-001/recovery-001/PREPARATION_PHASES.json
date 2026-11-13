@@ -1,0 +1,66 @@
+{
+  "kind": "actual_native_host_preparation_phase_observation",
+  "status": "ACTUAL_CALL_PREPARED_SAME_PROCESS_NATIVE_DISPATCH_PENDING_ACTOR_OBSERVATION",
+  "observedUtc": "2026-11-06T17:00:20.124230+00:00",
+  "hostStartedUtc": "2026-11-06T16:47:42.126Z",
+  "hostPid": 77268,
+  "hostPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/HOST_PREPARATION_STARTED.json",
+    "bytes": 200,
+    "sha256": "8de02d0b8b5027f70cd9aeb27b20fa45c286ae7eaa6ba25efeae672b4403ebaf"
+  },
+  "startedReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/STARTED.json",
+    "bytes": 878,
+    "sha256": "34c28d76b243637a963440bfbf800337de649de81ed32c7b1c27b37db0931e76"
+  },
+  "preparedCall": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/PREPARED_CALL.json",
+    "bytes": 3066,
+    "sha256": "4258e1bc2d254981958c2173c3909a47d7289b1600d348e63da50812a78c94e9"
+  },
+  "actualCapacity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/execution-recovery-001/NATIVE_CAPACITY_PREFLIGHT.json",
+    "bytes": 458,
+    "sha256": "59871172c7a6c8f35d5b7ab5fc292e6f086786435445da598a62a98b35d06ac1"
+  },
+  "marks": {
+    "beforeRunIdentityMs": 8177.685583,
+    "acquiredMs": 348666.376208,
+    "environmentMs": 665631.318875,
+    "preparedMs": 668389.979792
+  },
+  "durations": {
+    "identityMs": 8177.685583,
+    "acquisitionAfterIdentityMs": 340488.690625,
+    "environmentAfterAcquisitionMs": 316964.942667,
+    "constructionAfterEnvironmentMs": 2758.66091700003,
+    "totalPreparedMs": 668389.979792
+  },
+  "observedEntries": 472,
+  "selectedFiles": 472,
+  "inputCanonicalDigest": "sha256:6c630fc35e3b63483a8297c6fe1a40f27990fcbb4d90a961b3b91e923b9e63a6",
+  "invocationRef": "invocation://abiogenesis/27cc50a99510bdda0cefac686c43fa30fd1d70ba2c46f4e3310ba40b4f1baa57",
+  "invocationDigest": "sha256:27cc50a99510bdda0cefac686c43fa30fd1d70ba2c46f4e3310ba40b4f1baa57",
+  "contextDigest": "sha256:9d366b2bd26c7bc32f82503c04f60c2ab8063036b8a9e3b71f85a0a75d4826b7",
+  "capacity": {
+    "kind": "actual_existing_native_order_render_measurement",
+    "renderedNativeOrderBytes": 49436,
+    "maxPromptBytes": 1048576,
+    "reserveBytes": 131072,
+    "fitsWithReserve": true,
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "Actual owner work-order text, not complete transport/instruction assembly. Existing dispatch owners apply actual remaining guards.",
+      "No selector is part of the selected one-node native author Program."
+    ]
+  },
+  "actualActorStart": null,
+  "standing": [
+    "The actual capacity receipt is in the fresh output root; the original prepared estimate and failed attempt remain unchanged.",
+    "STARTED.startedUtc is the host start, not actor start. Root/event metadata must supply actual actor start separately.",
+    "Only coordinates/capacity/phase scalars selected; no ambient environment values, live call/resource serialization, provider payload or runtime acquisition.",
+    "No matched performance or setup-cause claim."
+  ]
+}

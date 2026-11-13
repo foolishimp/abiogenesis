@@ -1,0 +1,25 @@
+{
+  "recordedUtc": "2026-11-04T03:16:43.223517+00:00",
+  "sdkSetupReusedMs": 28938.979459,
+  "initialArtifactVerificationMs": 19748.530083,
+  "nativeLaunchMs": 562357,
+  "nativeWorkerMs": 3632161,
+  "nativeResultToC2LaunchMs": 718199,
+  "c2ActorMs": 3292741.0,
+  "selectedC2LaneMs": 3198174.4050860004,
+  "replayLaneMs": 1987995.568959,
+  "c2ResultToAssessorPreparationFailureMs": 766108.0,
+  "nativeUatActorMs": null,
+  "nativeUatStanding": "No actor launched; assessor instruction assembly refused maxPromptBytes",
+  "dispatchToOutcomeMs": 9247006.419959001,
+  "outcomeToActualFreshCloseMs": 593723.508,
+  "dispatchToFinalCloseMs": 9840805.508,
+  "rootAfterPreviousActualCloseToDispatchMs": 505204.855,
+  "builderStanding": "Immutable RC5 builder; different history/workload; not successor workflow performance or a causal speedup",
+  "finalOutcome": "runtime_failed; fresh result not_found; replay failed",
+  "limits": [
+    "Wall intervals are not CPU shares.",
+    "The original complete native-workflow performance remains unmeasured on the successor.",
+    "No native07 Root-between-task delay is included until its actual dispatch."
+  ]
+}

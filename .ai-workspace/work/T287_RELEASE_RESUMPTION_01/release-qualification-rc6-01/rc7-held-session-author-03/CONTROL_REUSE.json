@@ -1,0 +1,98 @@
+{
+  "kind": "bounded_existing_operator_control_reuse",
+  "status": "PREPARED_NOT_EXECUTED",
+  "hostPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/prepare-and-dispatch.mjs",
+    "bytes": 19224,
+    "sha256": "7794131f5bfc458eab0578dd2a980188a8b9ccc287ef34e6f1f4043d39354898"
+  },
+  "stagePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/inputs/prior-author-stage.mjs",
+    "bytes": 8318,
+    "sha256": "746e64b4009aad7c656686179892addfa4a878e9e41c43a49276c6f01580f78f"
+  },
+  "lanePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-control-correction-001/prior-author-lanes.mjs",
+    "bytes": 11032,
+    "sha256": "a1ec9ae1d1fcf4c2f7a06e934fcca74e58a41f7dc194b42ac8c2ec03a69f1081"
+  },
+  "operatorClients": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/OPERATOR_CLIENT_PINS.json",
+    "bytes": 1808,
+    "sha256": "6b92623b481d15eecdcf72c6103f3c1c3e8832ef16a0568e389ea57f7baaa5c7"
+  },
+  "exactDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/CONTROL_DIFF.patch",
+    "bytes": 20129,
+    "sha256": "f6b44cd58491c4e37d47abddd537cb74980bbd8b10f575595fd2b941b2ea1441"
+  },
+  "changes": [
+    "Task/Run/stage/temp names only in same-process SDK host; original frozen F checker/client APIs unchanged.",
+    "Stage/lane caps2/8; four permitted base lanes and conditional failure checks updated together.",
+    "Safe-integer/exact canonical lane timeout and positive filter checks moved before every output allocation. No test/helper execution."
+  ],
+  "verification": {
+    "laneValues": [
+      {
+        "id": "fixed-route",
+        "timeoutMs": 600000
+      },
+      {
+        "id": "assessment-guards",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "native-workspace-owner",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "caller",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "fixed-route-correction",
+        "timeoutMs": 600000
+      },
+      {
+        "id": "assessment-guards-correction",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "native-workspace-owner-correction",
+        "timeoutMs": 300000
+      },
+      {
+        "id": "caller-correction",
+        "timeoutMs": 300000
+      }
+    ],
+    "allConfigBeforeOutputReservation": true,
+    "nativeContextCount": 472,
+    "sourceCount": 451,
+    "compileClosure": 290,
+    "syntax": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/prepare-and-dispatch.mjs",
+        "exitCode": 0
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/launch-owner-script.mjs",
+        "exitCode": 0
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/inputs/prior-author-stage.mjs",
+        "exitCode": 0
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/inputs/prior-author-lanes.mjs",
+        "exitCode": 0
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/claude-provider.sh",
+        "exitCode": 0
+      }
+    ],
+    "providerWrapperMode": "0o755"
+  },
+  "limits": "No new helper framework, Product edit, C staging, build/test/runtime/provider/auth/network/Git effect. Original H02 records preserved."
+}

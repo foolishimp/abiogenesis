@@ -1,0 +1,66 @@
+{
+  "standing": "Exact pure installed task rendering; no assembly authentication, admission, provider or actor",
+  "taskSha256": "f8d585d107f847decc652cef2f93a230c1f0b863e5e4d763c3d22bd77aba9455",
+  "validTask": true,
+  "promptBytes": 1033310,
+  "promptSha256": "75de1c756c83b976f2b42249e449ec9b6e9d4cabb4d140bf92db836fafcc7ee6",
+  "bound": 1048576,
+  "overBoundWithoutRole": -15266,
+  "instructionTextBytes": 949366,
+  "instructions": [
+    {
+      "index": 0,
+      "bytes": 266,
+      "sha256": "fa2fe89d0a262a0b6e3c5cde8d60f20821ce08f9ec97c9d2d05b9d96eaa038e2"
+    },
+    {
+      "index": 1,
+      "bytes": 260,
+      "sha256": "e98cd673693ed29dd97a097cc52f9f683b7dd2debccb65c58521b0ba6ad6eb18"
+    },
+    {
+      "index": 2,
+      "bytes": 212,
+      "sha256": "738a2f53f79b297d86edd5ca4b6cf917fc24098e48851b4766466fcaa631e776"
+    },
+    {
+      "index": 3,
+      "bytes": 102,
+      "sha256": "8318905903ee7196305da250a4cef0959ff11b2182216e11e39ffc89701bf2c8"
+    },
+    {
+      "index": 4,
+      "bytes": 58525,
+      "sha256": "81c6ce177d3feb0383be451ffb34ef649a065d609a48bce3ba19b3baa19bf3f6"
+    },
+    {
+      "index": 5,
+      "bytes": 545,
+      "sha256": "b5589898fbfe54ea1f0902921a7f41a1056dbfa3dbb4d010e2de613f2e29957c"
+    },
+    {
+      "index": 6,
+      "bytes": 231,
+      "sha256": "24cac56a7fe44d0793505c29a7b71a99deaabcc16bae347f701b6fe5fa40379c"
+    },
+    {
+      "index": 7,
+      "bytes": 6930,
+      "sha256": "04f15e3c47a3db59dee83f9599fd25856533b3a38ee3b6fcc8eb08560362a103"
+    },
+    {
+      "index": 8,
+      "bytes": 583,
+      "sha256": "21f6aa4845a4faf94a79a2dd75a7a2df64527ee30555624c02d265bb51d311a2"
+    },
+    {
+      "index": 9,
+      "bytes": 881712,
+      "sha256": "a323010fc9dc0a5290a2d52b2c06edaaeb44985d2996874636daee9d73c588ea"
+    }
+  ],
+  "readRootsJsonBytes": 73050,
+  "readFirstJsonBytes": 2287,
+  "canonicalTaskBytes": 1628996,
+  "responseSchemaBytes": 461
+}

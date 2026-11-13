@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 16,
+    "pass": 16,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/048-t287-c0-post-publication-failure.test/process.json",
+    "bytes": 1111,
+    "sha256": "380f9f1f78774632ac966faf04c20cf4442f7d88c2f061a4f74da7397d1c0901"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "PHASE2-B02-SOURCE-ACCEPTANCE-01",
+  "status": "ROOT_ACCEPTED_BOUNDED_SOURCE_AND_PRODUCTION_PROOF_CONSERVATION",
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-freeze.json",
+    "bytes": 295433,
+    "sha256": "b4825ce8577172c61a7d2d6c81ce8d4879c8f2859ac2e80e1c6f1c0a61ec376e"
+  },
+  "reviewPins": {
+    "EVIDENCE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-review/EVIDENCE.json",
+      "bytes": 10471,
+      "sha256": "73c08bff8e0790cfdd0c9cc32e79ac3536d82c9b6724315269768d4c9b7c9fd7"
+    },
+    "ASSESSMENT.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/source-review/ASSESSMENT.md",
+      "bytes": 5567,
+      "sha256": "da69bf664d086070df58a3a5fc147d2d795f4687dd6cb22bad5ef9ac5d5fb134"
+    }
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+    "bytes": 6141,
+    "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+  },
+  "RootDisposition": "Root read frozen delta/return/custody, independent source assessment/evidence, unit binding/conservation/control delta. Accept bounded actual request-before-normal-exit fixture repair, not physical/unit proof yet. Adopt1344other source rows/998build/deps/archive-bootstrap conservation; old accepted C2/lifetime observations retain original subjects. No failed campaign relabeled green. Preserve inherited publication/response limits, six skips/two capsules, native read-only Git deviation and closed pyc custody; no waiver/retrospective authorization.",
+  "qualification": false
+}

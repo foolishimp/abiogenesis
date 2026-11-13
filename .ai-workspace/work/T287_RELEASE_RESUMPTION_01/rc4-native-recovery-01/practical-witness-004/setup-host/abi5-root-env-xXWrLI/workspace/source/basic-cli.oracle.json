@@ -1,0 +1,10 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-CLI-BASIC",
+  "purpose": "Independent evaluation of the unchanged complete original basic-cli declaration.",
+  "cases": [{ "arguments": [], "stdout": "Hello, world!\n", "exitStatus": 0 }],
+  "minimumTestPasses": 2,
+  "requiredArtifacts": ["specification/project-conformance.md", "design/implementation-design.md", "generated/hello-world.mjs", "design/test-design.md", "test/component/hello-cli.test.mjs", "test/uat/hello-cli.uat.test.mjs", "test-execution-plan.json"],
+  "requiredTestFiles": ["test/component/hello-cli.test.mjs", "test/uat/hello-cli.uat.test.mjs"],
+  "requiredStageMeanings": ["conformance_project", "implementation_design", "source", "test_design", "component_test_source", "uat_test_source", "test_execution_plan", "test_execution_result"],
+  "assessment": "Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report."
+}

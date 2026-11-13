@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.4/41c0540f2888495e252e83ff0108455c9077fb1b0bfa35276043cac4bdc6c1ae/d7d72f31ba4c299b219758eadab3d654c4d49044785d5600b49582f690ee5fb8",
+      "admissionEventRef": "event://abiogenesis/5893c2c18a09488eef1262016c8556c8d0508e1cc03eaafe5bf0601e656d9979",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.4",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+      "productContentDigest": "sha256:41c0540f2888495e252e83ff0108455c9077fb1b0bfa35276043cac4bdc6c1ae",
+      "manifestDigest": "sha256:fd3cc983ea7490407ac629a249b9ef42ce77c61cdefc2ad5147d1a02be2c0d6a",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/2e97c5214f50124db570893c64eab5f4bfa425ee09b5f93b67cc8b611f178954/d7d72f31ba4c299b219758eadab3d654c4d49044785d5600b49582f690ee5fb8",
+      "admissionEventRef": "event://abiogenesis/3170fa8e173fe603876624603476855cf52716aa89f95781a9c8aa0d8e4605b9",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:b34f450067715596301e8e622f0c26d2a2fa1b0f2e0358e9cf4f11049d6b1a14",
+      "productContentDigest": "sha256:2e97c5214f50124db570893c64eab5f4bfa425ee09b5f93b67cc8b611f178954",
+      "manifestDigest": "sha256:1204799ed3563c07d5887ef0a1bc383a052c562cf08191f65cf6b7335eb2c163",
+      "contentMatches": true
+    }
+  ]
+}

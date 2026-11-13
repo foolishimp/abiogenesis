@@ -1,0 +1,53 @@
+{
+  "kind": "root_s4_default_start_corrected_measurement_activation",
+  "status": "ROOT_SELECTED_S4_INSTALLED_CARRIAGE_MEASUREMENT",
+  "at": "2026-11-07T00:11:58.956034+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "selectionAndTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/ROOT_SELECTION_AND_TRIAGE.json",
+    "bytes": 3700,
+    "sha256": "e8d36ccbcc9172cf3c77f852f00a8ecc206ba00036f287af9af767833d0eec9b"
+  },
+  "correctionReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/preparation-003/reviews/correction-001/REVIEW.json",
+    "bytes": 5720,
+    "sha256": "42de4312c439cd6ea98a6f7fa75ee8aa93ff356f192c492dd32c3ae22c02e766"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 10863,
+    "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-install-002/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 4866,
+    "sha256": "abce5ba8307cca776181bbbe7c11374b372bf33dad00561de33882f12b3de950"
+  },
+  "priorFailedMeasurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001/MEASUREMENT.json",
+    "bytes": 6591,
+    "sha256": "088cdee7b7d581ae9606837a2e54927356b0359fc008d4316ba2c305ce5bbdbe"
+  },
+  "priorActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_MEASUREMENT_ACTIVATION_001.json",
+    "bytes": 3021,
+    "sha256": "df67b9a99086d3fdaa6103d5f80d6e4b3e4c0735b8f25a0b73b57b2b5b00e843"
+  },
+  "selection": "One corrected operator measurement using existing direct next start and the same Program, source/archive/bootstrap, contexts, assertions and bounds. Original attempt had zero launched tasks and is retained.",
+  "boundsSelectedByRoot": {
+    "hostMs": 900000,
+    "coldReadMs": 300000,
+    "actorAbsoluteMs": 60000,
+    "actorInactivityMs": 30000,
+    "outputBytes": 536870912,
+    "nodeHeapMiB": 8192
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-002",
+  "tempRoot": "/private/tmp/abg-r7m2",
+  "limits": "No Product changes, repeated focused qualification, pack/bootstrap install, source mutation, retry, cleanup, release or selector. Existing measurement fixture performs its ordinary disposable install. Same held/cold P2 equality and S6 decision obligations remain.",
+  "qualified": false
+}

@@ -1,0 +1,98 @@
+{
+  "kind": "fixed_route_prerequisite_admission_reentry",
+  "status": "ROOT_SELECTED_PREPARATION_EXACT_NATIVE_ADMISSION_PENDING",
+  "productFrame": "fixed15 ABIogenesis5.0 / GOAL035 T287 / STDO3.0.4 unchanged; ABG sole runtime authority, pure reads, thin SDK/CLI",
+  "authority": "User: ok build the RC7 according to this design applying any corrections; Root selects this finite prerequisite after independent review confirmed the lawful sunny-day cannot enter.",
+  "basisManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 18126,
+    "sha256": "6ac0839037dd7e61c2f0efaa3700d5d1067bb7ca63a6e5758de982361bc681cc"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/SOURCE_AFTER.json",
+    "bytes": 498560,
+    "sha256": "1cf6f5123700b283298b2e922b68b7ed7a375b9b58691af28390e7518c256e79"
+  },
+  "sourceEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/post-return-controls/actual-001/CUSTODY_AND_PROOF.json",
+    "bytes": 4376,
+    "sha256": "34e0cc20e4f19213d18cb60b00da6e1b604c2ff590f612a00855f293c675e26f"
+  },
+  "proofInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/post-return-controls/actual-001/PROOF_INVENTORY.json",
+    "bytes": 26474,
+    "sha256": "8a7fac97aa273fea9e06818dedb3a8e94a376908e922642545b104252621426a"
+  },
+  "sourceFinding": {
+    "handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/review-subject-001/handoffs/return.json",
+      "bytes": 18760,
+      "sha256": "2ae30478ef0c32515ab2d0b4368a105e4d1fb9b037e5ccde63ea77a9193fcc48"
+    },
+    "pointer": "/ownerDependency"
+  },
+  "conjunction": {
+    "Product": "Outcome unchanged: ordinary fixed Testing state Result must admit direct UAT under actual existing authority; no fake fulfillment capability.",
+    "Design": "Missing sourceResult-to-invoke owning handshake. Existing private directFixedState semantic predicate is the finite shared relation; actual root basis remains owner-authenticated.",
+    "Integration": "Public invoke passes the selected GraphFunction into retained-source admission; only the Executive fulfillment-profile arm exists today. Direct-UAT selected sunny-day is unconstructable.",
+    "Authority": "False refusal bounds harm; it does not satisfy the selected direct route. Keep source-derived basis/value, actual Program/catalog/binding/capability and currentness checks.",
+    "Proof": "F tests supplied controlled invocation/basis/source derivation; omitted real admission owner and five-path grant missed the interface.72passing feedback remains partial, not installed route proof."
+  },
+  "smallestRepair": {
+    "changeClass": "realization_refactor with bounded owning HOW amendment",
+    "productWritePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "readOnlyExistingSupport": [
+      "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs"
+    ],
+    "relation": "Share the finite directFixedState predicate through the existing Product library owner without circular imports or cloned predicates. Existing ABG default-library consumer and invocation_admission ordinary direct-UAT arm consume it; retain the Executive fulfillment-profile arm.",
+    "conservedChecks": [
+      "actual root execution basis",
+      "derived source Result basis and complete value",
+      "Program/catalog/WorkspaceBinding/capability",
+      "source use/current input/currentness",
+      "exact one selector-free Testing producer observation",
+      "selected Executive route",
+      "refuse other wrappers/crossed identities/open fulfillment"
+    ],
+    "forbidden": [
+      "fake abg.supported_fulfillment_profile on UAT",
+      "caller-shaped references as authority",
+      "new Program/controller/runtime abstraction",
+      "generic source-admission bypass",
+      "support edits without a concrete demonstrated helper limitation and Root selection"
+    ]
+  },
+  "proofSelection": {
+    "realAdmission": "Existing t287-default-library.test.mjs and three unchanged support owners: genuine Public invoke -> invocation_admission -> actual Testing state Result -> UAT admission. Do not stub invocation/basis/source derivation.",
+    "before": "Retained candidate fails at authority_mismatch before repair under actual admission.",
+    "after": "Positive direct UAT plus crossed/unsupported/open-fulfillment negatives and Executive conservation.",
+    "regression": "Exact existing RC7 fixed proof cases and two real cold consumers. No broad unrelated rerun.",
+    "earlyFreeze": "After successful after-stage, publish exact stage/source pins in progress handoff before any test lane; hold source unchanged for review."
+  },
+  "rootFinalSourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 8972,
+    "sha256": "17438e94cecd3c7c433ed6a52ae2b1239d6c88d4a6ff678dcee0b1e13431bddd"
+  },
+  "actualColdReadConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 9267,
+    "sha256": "a76d3fa989c53dd6dcadcd77a9433804a12364976fd9f28229117a80065d95fb"
+  },
+  "nativeAdmission": null,
+  "nativeLaunched": false,
+  "closedIndependentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/reviews/fixed-route-001/REVIEW.json",
+    "bytes": 37839,
+    "sha256": "535c4ca93659438ab897b362a11053042df2ee51d696fe031b5a8c4b019a26f3"
+  }
+}

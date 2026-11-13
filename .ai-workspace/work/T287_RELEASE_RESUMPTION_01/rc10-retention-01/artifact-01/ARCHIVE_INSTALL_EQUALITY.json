@@ -1,0 +1,43 @@
+{
+  "status": "ALL_ARCHIVE_MEMBERS_EQUAL_TEMPORARY_INSTALL",
+  "utc": "2026-11-09T03:52:16.848192+00:00",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "bytes": 11028335,
+    "sha256": "bff1a5214f198f5f133c8643f653dc3cb55022622009c23070e779f0ec2dadec"
+  },
+  "installation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/installation.json",
+    "bytes": 4232296,
+    "sha256": "30fa6702122bce6d0c0a844c3a8f5a9772a1e99d7bd61cd273be3c52b56a9d22"
+  },
+  "installedRoot": "/private/tmp/abg-rc10-measurement-bootstrap-001/host/node_modules/@abiogenesis/typescript-tenant",
+  "members": 5325,
+  "payloadBytes": 71763910,
+  "mismatches": [],
+  "actualPackageDesignMembers": [],
+  "sourceInputClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/INPUT_CLOSURE.json",
+    "bytes": 2688,
+    "sha256": "134a03577b6e4c84e914a5706f2a2d531315ee3c5dea515fcc85681f41e50bdf"
+  },
+  "sourceArtifactRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/SOURCE_ARTIFACT_RELATION.json",
+    "bytes": 2864,
+    "sha256": "2f1ae77669e3b84857975abeb66a8f4c0480ea9dae639912e58e1e3aa90ec2e0"
+  },
+  "manifest": {
+    "path": "/private/tmp/abg-rc10-measurement-bootstrap-001/host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3266232,
+    "sha256": "07fafff8e5146f33e38dca93845a0e78eb7aaa865bad3d7a5268de75971a1c9c"
+  },
+  "ownerContentCheck": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/OWNER_CONTENT_CHECK.json",
+    "bytes": 538,
+    "sha256": "2c5a3280710b9dc125034f3017b9807faebacc38f322d70ce57dfee9f7a73399"
+  },
+  "compiledOrGeneratedAgain": false,
+  "globalInstallOrRelease": false,
+  "qualified": false,
+  "finalHOWSuccessorRelation": "Pending actual correction; this is provisional artifact evidence."
+}

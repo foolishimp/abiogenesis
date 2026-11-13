@@ -1,0 +1,56 @@
+{
+  "id": "t287-effect-phase2-native-01",
+  "status": "READY_FOR_ADMITTED_NATIVE_SOURCE_AUTHOR",
+  "outcome": "Replace shared parallel physical lifecycle decisions and command cleanup coordination with immutable transition and actual scoped Effect command ownership, preserving synchronous/physical/D15 contracts.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-01",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/process/index.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/tsconfig.json",
+    "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+    "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md"
+  ],
+  "maxContextFiles": 40,
+  "maxContextBytes": 2097152,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/DESIGN_ASSESSMENT.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_SCOPE_CLARIFICATION.md",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/EXACT_SOURCE_ROUTES.json",
+    "qualification-inputs/rc11-effect-phase2-01/native-01/EXTERNAL_TOOLS.json",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "qualification-scratch/rc11-effect-phase2-01/native-01"
+  ],
+  "checks": [
+    "Non-emitting TypeScript check or scratch-only compilation",
+    "Only bounded deterministic actual-owner ^controlled lifetime selector",
+    "HTTP region and all off-scope source preserved; actual deletion map and gaps"
+  ],
+  "instructions": [
+    "Implement the accepted PHASE2-SCOPE-01 lifetime/command refactor on this exact checkpoint as the bounded source Worker using installed STDO3.0.4 stdo-work. Read copied Root scope, Design assessment, Proof scope clarification and exact routes first. Do not rediscover workspace/setup. Write only the eight named source paths (owned_process_state.ts is optional) and granted scratch. No Product/dependency/public/event/replay/metadata change.\n\nReplace the shared lifetime's parallel mutable decisions with one small immutable physical state and pure transition. Preserve original Error objects as opaque references. A narrow synchronous Node bridge interprets physical actions; publish state before callbacks and reread after callbacks/host observations before further actions. Preserve immediate factory/method signatures, completion Promise, synchronous observe<T> return, snapshot/capture visibility, first-error suppression and inline strengthening. An onSignalRequested(TERM) callback can reenter KILL: no stale TERM may follow. No queued supervisor, async per-event fiber, duplicated old coordinator or executable semantic plan. Seal exactly one final facts object after finite disposal can record its first error; retain inert error/close guards until natural stream close, with no late mutation authority. Preserve createMonotonicDeadline bigint/ceil/huge finite chunking/stale-arm/absolute nonrenewal and cleanup strengthening. Effect clocks/sleep are not substitutes for its domain.\n\nMake runCommand a real scoped Effect composition owning child/lifetime, capture listeners, existing heartbeat cadence and timeout resources. Establish ownership before fallible post-spawn setup; finalization requests the existing finite cleanup and awaits its actual completion before detaching. Scope interruption is not physical absence, and an unresolved finalizer is not made finite by acquireRelease/raceFirst. Preserve direct ordered Buffer capture, cutoff, exact status/signal/launch127/timeout124, absent/present/unknown and first error. Delete the displaced command try/finally coordinator rather than wrapping it. Compose through helper main and existing runEffectProgram only at the host boundary; preserve top-level await main() exposure. Other async work may be narrowly lifted with its original rejection value. No shared/effect_definition change, nested production runner, automatic retry/concurrency or Effect API approval gate.\n\nHTTP oneHttpRequest/runHttpProbe bodies remain unchanged (exact pinned region in SOURCE_ROUTES); worker_transport, shared/process, Product, schemas, dependencies and parent admission/replay remain read-only. Preserve existing emergency process.exit boundary without claiming ordinary finalizers run through it. D15 is operative: catch only WorksiteHelperFailure; publish/verify bound failure artifact for the next undone operation, drain canonical stdout acknowledgment, then rethrow that same failure. Preserve after-observation/inventory and first-error law. Reconcile only stale C2 sibling-file/inspector opening/section6 text to later Common Library \u00a79.3; do not implement that superseded mechanism.\n\nAdd meaningful actual-owner controlled lifetime/command cases for reentrant strengthening, callback/disposal errors before final publication, synchronous observations, stale action invalidation, no late mutation and finite scoped disposal as needed. Keep independent behavioral expectations, not reducer action-list copies. Preserve all existing physical and controlled oracles. Adapt only needed bare-import/private Effect exposure in m5-worker-transport and lifecycle-failure-carrier; no oracle weakening or broader rewrite. Actual Effect/module origin must be current pinned dependency tree, not stubbed Effect. The lifetime fixture already supports ABI5_OWNED_PROCESS_PACKAGE_ROOT, so scratch-compiled successor owners can be exercised without stale F/build or a new harness. Update functional plan with compact accepted phase2 HOW, exact deletion map/current status and remove stale active FOUNDATION-ORACLE-001 wording; keep later phases/GC03 unactivated and qualification limits.\n\nBefore implementing, state the removed responsibilities and selected replacement in the permitted plan, then construct the coherent change. Source selfchecks are limited to pinned non-emitting typecheck, optional TypeScript emission into declared scratch and the exact <=60s ^controlled lifetime selector in EXTERNAL_TOOLS. New phase2 deterministic cases use that prefix. No broad, installed, physical or nine-file unit execution; no generator/pack/install, paid child actor, Git or tracking changes. Scratch compilation is not a qualified Product build. Finish within900s/100turns; report actual modified paths, deleted fields/decision/cleanup responsibilities, check names/counts and unresolved proof/contract gaps. After returning, no more edits. Root conjoins separate source review and external successor build/helper/C2/compatibility proof; do not self-accept."
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "productFrame": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "selection": "Fixed15 F01-F07,F09-F11,F13-F17 / GOAL035 / T287 / RC8 REF-01; explicitly unqualified realization-refactor cut",
+    "method": "STDO3.0.4; empty composition; previously verified manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Keep published C3 composition, exact C1/C0 child ownership, admitted effects, partial-stop law and fresh replay. No new scheduler, host controller, copied algorithm or runtime authority.",
+    "classification": "Node test deadline is Proof operating policy, not an ABG liveness threshold. Captured serialized event fragments are observations, not newly admitted runtime truth. Product definitions/catalog facts and physical worksite effects keep their separate owners.",
+    "authorityPinsReused": {
+      "product": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "frame": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "definition": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    }
+  },
+  "reviewId": "WORKSITE-BRANCH-TIMEOUT-022",
+  "recordedUtc": "2026-11-07T14:45:23.549381+00:00",
+  "role": "Independent MAX Reviewer; no authoring/execution/disposition",
+  "verdict": "Both original C3 cases are cancelled by their 240s inner proof deadlines. Outer600s deadline did not fire. No semantic assertion counterexample or unique host/setup cause is established. Current positive C3 completion, partial-stop completion and fresh replay remain unproved by this file; zero whole-case credit.",
+  "owningRelations": {
+    "product": "The fixed construction capabilities preserve GTL meaning, thin adapters, ABG-only effect/event admission and replay over admitted truth. No Product requirement supplies a240s performance SLA here.",
+    "how": "T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN sections1,11.3,11.4,12: serial ordered C1 children, ordinary C0 effects and child closure, complete authenticated fan-out before reducer, partial prefixes without fan-in, fresh replay. Applies existing HOF009-012 and ABG lineage/event/projection laws; no authority amendment selected.",
+    "proof": "Original test586-669 covers five-branch/six-target positive construction and guards;671-777 covers nested partial-stop, retained effects, absent fan-in and cold replay. Both consume fresh installed setup inside their240s timers."
+  },
+  "subject": {
+    "broadSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "acceptedA11SourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "rc7Base": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "sourceRelation": "Reused budget021 exact A6/A11 correspondence. Fresh read compared the C3 test, root setup helper, fresh-process proof helper, Product C3 owner and implementation adapter byte-for-byte with the RC7 comparison tree: all equal. This excludes direct changes to those files, not a transitive/performance regression in shared RC8 code."
+  },
+  "terminalEvidence": {
+    "started": "2026-11-07T14:30:35.180Z",
+    "firstStop": "2026-11-07T14:38:39.778Z",
+    "commandWallMs": 484520.0068330001,
+    "exitCode": 1,
+    "signal": null,
+    "outerCapMs": 600000,
+    "outerTimedOut": false,
+    "counts": {
+      "tests": 2,
+      "failed": 0,
+      "passed": 0,
+      "cancelled": 2,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 2,
+      "suites": 0
+    },
+    "caseDurationsMs": [
+      241640.564334,
+      241553.03325
+    ],
+    "caseFailureType": "Both testTimeoutFailure after240000ms; final Node totals0passed,0failed,2cancelled,0skipped.",
+    "reporter": "Complete end retained. No whole-file or case success. No final assertion failure reported.",
+    "conservation": {
+      "primaryPreserved": true,
+      "externalInputsPreserved": true,
+      "externalTestInputDigest": "04c98f99415488f1b18605899b2789fe4d3ba6f2adf4c8b5803f63e6daa1ecd9",
+      "sourceEffects": [],
+      "providerCallsSelected": 0,
+      "wholeReleaseQualified": false,
+      "measuredArchiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    }
+  },
+  "observedPhases": [
+    {
+      "case": "positive parallel",
+      "scratch": "/private/tmp/abg-r8c-022/t/abi5-root-env-fuL96n",
+      "observations": "Retained npm logs show pack exit0 (log filename14:30:37.763; last write14:30:50.452) and install exit0 (14:32:38.215; last write14:32:48.112). Root was no longer present at the first14:37:56 capture.",
+      "frontier": "Successful archive pack and physical install reached; later setup/basis construction, Run start, runtime progress, terminal result and replay cannot be located from retained first-case evidence.",
+      "limit": "Npm file timestamps are observed command-log metadata, not precise owner phase receipts. Do not infer that this Run never began or that setup alone exhausted240s."
+    },
+    {
+      "case": "nested partial stop",
+      "scratch": "/private/tmp/abg-r8c-022/t/abi5-root-env-fcSIFT",
+      "observations": "Root birth14:34:37.657888. Pack and install logs exit0; install last write14:37:03.196. Generated deterministic c3-bin/claude mtime14:37:23.304391 places execution preparation after setup. At14:37:56, runtime log was3780473bytes, mtime14:37:52.966232.",
+      "runId": "run://abiogenesis/a1e485f765baf1db5c9e9996331b0b4b86fdeff47e004625613718473b27a25f",
+      "frontier": "Captured complete tail rows130-132 are runtime_activity_probe_observed events for graph-function://abiogenesis/worksite/file-replace@5, correlation .../c3/partial/hog/workflow/1/child/workflow/0/child/workflow/2/child/workflow/0/child/leaf/0/open; eventTime14:37:52.948Z. C3 entered a real nested C1/C0 path.",
+      "limit": "This is observed forward progress, not proof of eventual termination or a validated full-prefix replay. No terminal or replay receipt was captured. The later cancelled result does not establish whether a terminal event occurred between the capture and cleanup."
+    }
+  ],
+  "cleanupAndEvidenceLimits": {
+    "rootOwner": "root-installed-environment174-178 registers context.after: close durable store and recursively remove scratch.",
+    "observed": "Both named roots were absent at14:39:22.488072. Captures preserve only bounded head/tail evidence and npm-log facts.",
+    "freshReplay": "C3 calls fresh-process proof without ownedProcessProof; helper180-214 writes retained evidence only when that option is supplied. Default result/child outputs are in-memory. No separate archived replay proof can be inferred or recovered from these removed roots.",
+    "physicalCustody": {
+      "hostPid": 45731,
+      "sessionId": 72765,
+      "hostPidAbsentAtReturn": true,
+      "toolSessionClosedExitCode": 1,
+      "manualSignalsSent": 0,
+      "retainedScratch": "/private/tmp/abg-r8c-022",
+      "autoRetry": false,
+      "noGeneralCleanupPerformed": true,
+      "escapedDescendantAbsenceProven": false
+    },
+    "distinction": "Root-directory removal and host absence do not prove escaped-descendant absence or successful Run closure. Operator records escapedDescendantAbsenceProven=false; retain that limit."
+  },
+  "finding": {
+    "id": "C3-PROOF-022-01",
+    "severity": "S3",
+    "frame": "Proof/common-clock and lifecycle evidence",
+    "trigger": "Each fresh installed C3 composition exceeds its explicit240s test allocation.",
+    "demonstratedHarm": "Both cases lose completion/replay evidence; current C3 sunny completion and partial-stop acceptance remain open. No actual unlawful workspace effect or semantic owner failure is shown.",
+    "failClosed": "Test process returns1; both cases are cancelled and receive no coverage. Existing runtime admissions/refusals and physical owner algorithms were not weakened.",
+    "cause": "Exact immediate cause is inner Node test budget exhaustion. The second case progressed beyond setup into runtime; first-case phase and cost distribution are unknown. Setup pressure is observed, but no unique slow-owner, host contention, disk, CPU, loop or Product defect is established.",
+    "recurrence": "Budget021 already identified2x240s within600s and explicitly warned that outer allocation cannot fix inner pressure. The actual result confirms that boundary, not a new outer-cap contradiction.",
+    "repairScope": "No Product repair supported. Closing this proof requires a selected test-only inner-budget change or existing lawful effective inner override; merely increasing the600s outer cap is ineffective."
+  },
+  "smallestReproof": {
+    "population": "Both original top-level cases, with every positive/negative/currentness/partial-prefix/reducer/receipt/replay assertion and the exact installed owner path preserved. Neither has a completed pass to reuse.",
+    "candidateBudget": "If Root selects proof re-entry,600s per case and1500s command are a finite candidate allocation: two600s cases plus300s aggregate margin. This is an operating hypothesis, not a demonstrated upper bound or automatic retry authorization. Explicit240s test options must actually be superseded through a frozen authorized test-only successor; CLI/Operator outer changes alone do not do so.",
+    "cost": "One bounded proof-policy successor/review plus both installed compositions and fresh reads; maximum candidate outer allowance25min. No new controller/helper/API or changed Product artifact is justified.",
+    "closureEvidence": "Complete original case population/reporters; actual positive terminal/closure and exact intended partial terminal; fresh-process projection equality and unchanged historical bytes; retained exact source/archive relation; positive physical close and observed absence for the proved child lineage, with any remaining descendant uncertainty explicit.",
+    "stop": "Any semantic assertion red, incomplete reporter, inner/outer timeout or unresolved physical ownership returns for new triage; do not automatically keep increasing budgets."
+  },
+  "proposedCapsule": {
+    "id": "RC8-C3-COMPOSITION-PROOF-BUDGET",
+    "status": "PROPOSED_ONLY_ROOT_SELECTS",
+    "owner": "T287 Executive / C3 proof owner",
+    "dispositionOption": "A durable current-C3 assurance residual may be selected for the explicitly unqualified REF-01 cut while retaining this red. It supplies no current C3 completion or release qualification.",
+    "noBlockRationale": "No current Product defect or unconstructable ordinary path is demonstrated; unchanged C3 owners and second-case nested execution progress support a bounded proof-budget interpretation. This is not proof that the full ordinary path succeeds.",
+    "trigger": "Before claiming current installed C3 positive/partial/fresh-replay closure, dependent C3 assurance, whole-file/broad-green evidence or release qualification; any concrete runtime semantic failure independently reopens Product triage.",
+    "closure": "Select and freeze the smallest inner-budget re-entry, then obtain the full unchanged two-case evidence and physical custody described above. No receipt restamping."
+  },
+  "c1C2Relation": "C1 and C2 use the same cold root helper with180s inner timers. That is a concrete shared exposure; C2 outer1200s does not supersede its inner timers. They remain unexecuted and scheduled. This review neither predicts their failure nor grants a skip/deferral/source change.",
+  "limits": "Reviewer performed read-only file/evidence acquisition and wrote only this capsule/captures. No tests, Product imports, providers, process actions, signals, cleanup, source/control/Git edits or retry. Root alone selects disposition.",
+  "roots": {
+    "M": "/Users/jim/src/apps/abiogenesis",
+    "P": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01",
+    "BC": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01",
+    "S": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source",
+    "RC7": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+    "REVIEW": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/worksite-branch-timeout-022"
+  },
+  "pins": [
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "bytes": 28631,
+      "sha256": "1d395a555ac1917700243b1acd6258b5f1800184ee54395305ec072ef0bab462"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 42751,
+      "sha256": "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9594,
+      "sha256": "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts",
+      "bytes": 26990,
+      "sha256": "8770fabe44f58e390019fdc1e9caf42d3ab370bb776f0d73062cb42932c11bc2"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_branch_construction.ts",
+      "bytes": 4215,
+      "sha256": "e182f40bfe3fb984b3bf51df8cce49c004e9e54bea6639bc26a0c561c7880438"
+    },
+    {
+      "ref": "S/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "bytes": 44256,
+      "sha256": "c3eab3c20faf42c133876ec9586db04b88e2e146559cf38b90fe6080e59f1658"
+    },
+    {
+      "ref": "P/reviews/remaining-proof-budget-021/REVIEW.json",
+      "bytes": 16426,
+      "sha256": "f0f6f32dee333e2dd2cdbc6bfc6a00c49ada0061f0adeea9fc74a59352457876"
+    },
+    {
+      "ref": "BC/OPERATOR_RETURN_022.json",
+      "bytes": 14281,
+      "sha256": "bf078a7467d74812e957a0ec93a912ff113877fff187e9ed3f72927af442b975"
+    },
+    {
+      "ref": "BC/execution-022/SUMMARY.json",
+      "bytes": 499641,
+      "sha256": "b0d5034f09a65028654e4065850f4dc6682d9d294ed65673bf5b8cfc302122ac"
+    },
+    {
+      "ref": "BC/execution-022/observations/branch-first-red-001/OBSERVATION.json",
+      "bytes": 3204,
+      "sha256": "078dca11948a16a5d1f452e2760721dd4c2c289fd112c16028ff215448ec753e"
+    },
+    {
+      "ref": "REVIEW/capture-001.json",
+      "bytes": 21387,
+      "sha256": "c0058e1e7ec535ed557edb4e3898aa0e7e345609415d6ed171d558056a12603b"
+    },
+    {
+      "ref": "REVIEW/capture-002.json",
+      "bytes": 2578,
+      "sha256": "a3c1d7a692537f0a7a114e4b51ffd40fc0372611cb9e8f96b8600232a8742a84"
+    },
+    {
+      "ref": "BC/execution-022/commands/192-t287-worksite-branch-construction.request.json",
+      "bytes": 986,
+      "sha256": "9d6fbcb767e404ac76217ac8068e98246f1c21e02889422a4b59c962e787934d"
+    },
+    {
+      "ref": "BC/execution-022/commands/192-t287-worksite-branch-construction.result.json",
+      "bytes": 1509,
+      "sha256": "47fbaa70cf7b9a98c20c1a56e17435c70c185a473985332caf24d68fa97fe3b9"
+    },
+    {
+      "ref": "BC/execution-022/commands/192-t287-worksite-branch-construction.stdout",
+      "bytes": 1087,
+      "sha256": "79513dc517f4fa62475170d6342cf5c24fa79ad38b9b4d8475a3fd22373147d3"
+    },
+    {
+      "ref": "BC/execution-022/files/192-t287-worksite-branch-construction.json",
+      "bytes": 1178,
+      "sha256": "a5963273a77b89ed9db71847bd94f24fb20b5a12bed48cd238953c5efc74bb69"
+    },
+    {
+      "ref": "BC/execution-022/events/192-t287-worksite-branch-construction.jsonl",
+      "bytes": 1714,
+      "sha256": "9f9341b297aa7cd6fdd72ec153dfc9e9e61db62bd38a9dc988d7da96618b83e1"
+    }
+  ]
+}

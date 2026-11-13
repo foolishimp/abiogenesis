@@ -1,0 +1,50 @@
+{
+  "kind": "rc3_increment_a_model_free_preflight",
+  "status": "prepared_not_dispatched",
+  "selectedRuntime": {
+    "artifactPath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.2/abiogenesis-typescript-tenant-5.0.0-rc.2.tgz",
+    "artifactRef": "file:///Users/jim/Library/Application%20Support/ABIogenesis/releases/5.0.0-rc.2/abiogenesis-typescript-tenant-5.0.0-rc.2.tgz",
+    "expectedArtifactDigest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+    "expectedProductContentDigest": "sha256:828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8",
+    "expectedManifestDigest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+    "expectedProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.2",
+    "expectedPackageName": "@abiogenesis/typescript-tenant",
+    "expectedPackageVersion": "5.0.0-rc.2"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "sourceCommit": "d1e4527dbbc0b9ca1a929122c62ca225184f3341",
+  "workloadSha256": "5b27f6ed16f82e2f3f8016f5cbd4609b3ec61168111c3ff907934edc45a59164",
+  "protectedFiles": 904,
+  "readBytes": 27271859,
+  "commandCount": 6,
+  "criteria": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5"
+  ],
+  "uatOutcome": "An ABG-authored unqualified RC3 Increment A that preserves original UAT meaning and complete short diagnostic visibility",
+  "requiredExecutionBudgetMs": 1656500,
+  "candidateTimeoutLimits": {
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 2100000
+  },
+  "offlineToolchain": "6aba0391382aae398fe2ddc62536491ed189d45aa1b36d896fe226a09e409049",
+  "freshSetupEventLog": {
+    "bytes": 3195599,
+    "sha256": "297e1dd25ab2626403357e567e1140e03eb0b6bd4a6cb4c2ad120c74c3ac8b8c",
+    "unchanged": true
+  },
+  "observations": [
+    "actual RC2 pure governance and worksite-configuration owners accepted inputs",
+    "complete selected tracked test inputs and exact witness/contract seed preimages checked",
+    "no call or provider was prepared, admitted or dispatched"
+  ],
+  "limits": [
+    "Future actual producer/assessment evidence must be authenticated by its native owner",
+    "Candidate timeout values are a comparison with historical limits, not a selected provider configuration",
+    "Existing gated historical tests may skip; they cannot count as this increment's required proof",
+    "Native Claude tool allowlist excludes Skill; exact method bytes are supplied for declared reads, no Skill invocation claimed"
+  ]
+}

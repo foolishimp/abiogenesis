@@ -1,0 +1,8 @@
+{
+  "kind": "bounded_rc6_fixture_native_preparation",
+  "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+  "heldSourceSnapshotSha256": "a6d85d55b6cb2b2177963d5fdb754ba020e6bb609ba966a31fc7728f548921e2",
+  "sourceBasis": "none",
+  "providerCalls": 0,
+  "RunAdmissions": 0
+}

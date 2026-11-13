@@ -1,0 +1,10 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "6ab7cf5c7fedddfb77fbdeb56cdd56bcdcb98da1b0a0f427494fd327375b4734",
+  "sourceCommit": "16d245c1e30119c4f8bbadce06c63d857a576ee4",
+  "sourceTree": "8da4f23ce03482ad294b434322261a2f40e57edd",
+  "decision": "Root reviewed exact014 task/grant/rubric, packet/binding/source/resource scope and independently verified referenced pins. Admit Root-only installed zero-provider native preflight and call construction. Preserve nine manual repair paths, conditional canonical helper, zero Construction generated writes/four scratch entries, source-only/C2-owned-build bootstrap and current profile. No freeze, dispatch, provider/Run admission, automatic retry or acceptance is selected.",
+  "createdUtc": "2026-11-02T13:20:50.046175+00:00",
+  "packetSha256": "5b20c1322e22085ac668584aa97efeae9b871775e5371b61b1b0846d8245bb2e"
+}

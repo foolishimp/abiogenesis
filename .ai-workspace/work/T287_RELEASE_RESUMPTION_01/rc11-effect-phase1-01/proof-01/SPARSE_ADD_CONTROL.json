@@ -1,0 +1,15 @@
+{
+  "attempt": "git add -- exact seven selected paths",
+  "exitCode": 1,
+  "stderr": "The following paths and/or pathspecs matched paths that exist outside of your sparse-checkout definition, so will not be updated in the index: .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+  "actualPartialStagedPaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+    "specification/GOALS.md"
+  ],
+  "repair": "git add --sparse -- same exact seven paths; ordinary compatible sparse-index control correction within granted checkpoint",
+  "sourceOrScopeRepair": false
+}

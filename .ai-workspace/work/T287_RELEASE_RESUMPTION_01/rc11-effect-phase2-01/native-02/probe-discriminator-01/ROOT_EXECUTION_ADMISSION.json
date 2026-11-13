@@ -1,0 +1,68 @@
+{
+  "id": "PHASE2-A-PROBE-DISCRIMINATOR-01",
+  "status": "ROOT_ADMITTED_CONTROLLED_PROBE_DISCRIMINATORS",
+  "recordedAt": "2026-11-10T01:07:15.595399+00:00",
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/READY.json",
+    "bytes": 2710,
+    "sha256": "fc9c1d6b7e7d19e178bd2c2139b3140d7d8e77ee3763ab92768a8b6a8475ac8b"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/BINDING.json",
+    "bytes": 3687,
+    "sha256": "00745d4c29fad7a2df6c31a3ed59578c8c8705e8a1b7028f866aae8d6d9551c0"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/probe-reentry.mjs",
+    "bytes": 4720,
+    "sha256": "904f5bfc90e1ebbb0092530de564c8fda16f5fa1d609d5929ebc2c14f1ca00e4"
+  },
+  "inputRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/INPUT_RELATION.json",
+    "bytes": 3793,
+    "sha256": "8415e5b8a070d466b697888d9feb24861668961eb2f46e2840c321d694e583f1"
+  },
+  "commandIds": [
+    "candidate",
+    "baseline"
+  ],
+  "rootDecision": "Exactly candidate then baseline once each. Candidate assertion failure is anticipated evidence, not grounds to repeat/skip separately selected baseline. Stop on inputdrift or fixture/runner failure preventing intended observations. No source/build/provider mutation; wholelifetime/B held.",
+  "limits": {
+    "perCommandSeconds": 10,
+    "totalSeconds": 30,
+    "outputBytes": 1048576,
+    "harnessCompletionObservationMs": 250
+  },
+  "preflight": {
+    "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+    "sourceRows": 1345,
+    "sourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+      "bytes": 296057,
+      "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+    },
+    "preservationGuards": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/PRESERVATION_GUARDS.json",
+      "bytes": 3317,
+      "sha256": "6913ad226439cd28b7f8b534a46881da5d92678245e27b7cd57770f063d70608"
+    },
+    "modulePins": [
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 9891,
+        "sha256": "563448e7dc2f8e9a053ba8ac1dd49baf884e021cf301c7a352ace1ee7d33e897"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-02/tenant/build/code/src/shared/owned_process_state.js",
+        "bytes": 8361,
+        "sha256": "4d3863302d3a141dff2154ca1edc438dbc854985dfd8094617de885999e38880"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/work/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 11604,
+        "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+      }
+    ],
+    "passed": true
+  }
+}

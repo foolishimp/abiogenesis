@@ -1,0 +1,143 @@
+{
+  "status": "DIRECT_RETURN_OBSERVED_EXTERNAL_ACCEPTANCE_PENDING",
+  "observedAt": "2026-11-03T00:24:25.660159+00:00",
+  "subjectFiles": [
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/design/implementation-design.md",
+      "bytes": 3246,
+      "sha256": "89becee76466bca3c226b3b1988657741810fbe24b0453a7e94296c8d34988cf"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/design/test-design.md",
+      "bytes": 2803,
+      "sha256": "7aff20353c0c645b54d31ee048edb16633437317cffcff6502d195a06225b9eb"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/generated/hello-world.mjs",
+      "bytes": 41,
+      "sha256": "28f2a389bcd8996da86d6ca79e0df4d2c17a003a78df09a440fb3aa4ff09f261"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source/basic-cli/obligations.json",
+      "bytes": 4916,
+      "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source/basic-cli/oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/source/basic-cli/source.original.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/specification/project-conformance.md",
+      "bytes": 4108,
+      "sha256": "899742f754df0a7d5dbde534a0684a755e0849f8ec56817cdbb6840fa492c9c5"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/test/component/hello-cli.test.mjs",
+      "bytes": 613,
+      "sha256": "173249e71c5eede38ca706cd0c7dfeacd8300fe167b087b40c06dd643ff22b7c"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/test/uat/hello-cli.uat.test.mjs",
+      "bytes": 705,
+      "sha256": "337e9ff6a8a2e0508df6210d4e5e12ad413b88ace63c6f26bfe2b66c3aef9125"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/test-execution-plan.json",
+      "bytes": 482,
+      "sha256": "d99e0af25fe61ec87f5b6b0e413dfd1631765ec3628de4ef1b1894e6bc268583"
+    }
+  ],
+  "unexpectedRelativeFiles": [],
+  "inputPreserved": true,
+  "execution": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 175318.79833299998,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "externalAcceptance": "PENDING independent exact CLI/node:test/content checks; host exit is not acceptance"
+  },
+  "provider": {
+    "subtype": "success",
+    "is_error": false,
+    "num_turns": 19,
+    "total_cost_usd": 0.7862238,
+    "duration_ms": 173742,
+    "duration_api_ms": 171543,
+    "usage": {
+      "input_tokens": 28,
+      "cache_creation_input_tokens": 26768,
+      "cache_read_input_tokens": 263309,
+      "output_tokens": 11367,
+      "output_tokens_details": {
+        "thinking_tokens": 1406
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 24562,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1250,
+          "cache_read_input_tokens": 28035,
+          "cache_creation_input_tokens": 1195,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1195
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "recorderFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/direct-run/commands/direct-agent.request.json",
+      "bytes": 2427,
+      "sha256": "31a008ae261c845fe0609ec1e19f72ec30ecb1bddebe7ff33a629394b0c5b456"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/direct-run/commands/direct-agent.result.json",
+      "bytes": 788887,
+      "sha256": "07cca65457c17a07643150bcbb3393b67565f4d7e2d7b48bb2b193f7eb17897e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/direct-run/commands/direct-agent.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/direct-run/commands/direct-agent.stdout",
+      "bytes": 711391,
+      "sha256": "ee5b03b4a2b9fbbd2bd71c84fef41762d1f4bccff031f6e34ffff177afb261ef"
+    }
+  ],
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/DIRECT_CONFIG.DRAFT.json",
+    "bytes": 3608,
+    "sha256": "f6523d9845ee1fec86da7fc25e6863c840264ae96bec41d29955dd723fb0fac9"
+  },
+  "provisioning": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/PROVISIONING_RECEIPT.json",
+    "bytes": 9585,
+    "sha256": "c708d8540d378f6c34e7aba658187b0649913ebaaeb6ef90c1884557f92b097a"
+  },
+  "operatorCost": "Unknown/unpriced; Root selection/provisioning/review and external checks are separate, not included or assumed zero.",
+  "acceptance": "Root executes identical external commands and independent content assessment; no ABG receipt/admission fabricated for direct."
+}

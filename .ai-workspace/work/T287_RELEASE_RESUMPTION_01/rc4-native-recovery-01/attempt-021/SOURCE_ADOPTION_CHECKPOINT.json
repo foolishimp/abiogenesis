@@ -1,0 +1,47 @@
+{
+  "status": "ROOT_SELECTED_BOUNDED_SOURCE_GENERATED_ADOPTION_COMMITTED",
+  "recordedAt": "2026-11-03T04:05:48.903505+00:00",
+  "commit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+  "tree": "6ff1f9c51c6353abfaf01ced28a2f243a7a54d4d",
+  "parent": "72eea8f0cd384e7eaeb64ff1ba47b0a3ac2858d4",
+  "branch": "codex/rc4-native-recovery",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "ad76d9ad9e887dfd330a23265c2f7ed900c6a8079515d1bb2d7b102efe22e087",
+      "blob": "a75b0a7411d55843a3853c31896d0f258754ec80"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3274041,
+      "sha256": "940efb406b0da172f42a76f502ea0153f260da43b1cf417a1d46bbe6835cffd0",
+      "blob": "d1b4de621dee73b70400f6f80bab9e76d131f6a0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "6ffd15ef70b90f9a310911d5912fab3fe2272f18e394171b174e9cb2d1379790",
+      "blob": "9c568747c99ab34efabeb7baee742e322cda08cd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 93494,
+      "sha256": "d5aeb3b306c370918cd4514cc9dc8e2da5ea7442650e02b29e59c3ab4920622a",
+      "blob": "6b39c2592e94f9f61c885394ba99750e618765d6"
+    }
+  ],
+  "patch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-021/ADOPTED_SOURCE.diff",
+    "bytes": 6959505,
+    "sha256": "894f72d7df5efc66989a58631ccee93ba4efb1076ccb7843515cf8b37d4bc63f"
+  },
+  "stat": "commit 3c113133d96d013743c1c1ec77d562abb0b2c05b\nAuthor: Dimitar Popov <jimpopov@gmail.com>\n\n    Complete bounded maintained setup proof and adopt exact RC4 generated evidence\n\n .../capabilities/capability-definition-graph.json  |  2 +-\n .../typescript/product-toolchain-manifest.json     |  2 +-\n .../fixtures/abi5-root-candidate-basis.json        | 10 +--\n .../typescript/test_env/uat/harness.test.mjs       | 82 ++++++++++++++++++----\n 4 files changed, 75 insertions(+), 21 deletions(-)\n",
+  "trackedClean": true,
+  "indexEmpty": true,
+  "exactFourPathsCommitted": true,
+  "untrackedExcluded": true,
+  "acceptanceSha256": "258052689a61016e66d872eaad081bd5f340efd568dadf3a570f81e793ecb6c3",
+  "generatedAdoptionSha256": "92b3b4fdbe5f1dfcd2a0927c88189982d94a40c03f630c22db7d8e4ef20bb755",
+  "limits": "Selected bounded setup completion and exact producer-generated adoption; no local installation, whole qualification, publication, selector, tag, push or main merge."
+}

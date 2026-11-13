@@ -1,0 +1,238 @@
+{
+  "productFrame": "ABIogenesis 5.0 retains its fixed fifteen families (A5-F01\u2013F07, F09\u2013F11, F13\u2013F17) under GOAL-035/T-287. This slice covers exact-prefix Run-read construction and successor runner evidence carriage for F01/F06/F10/F13, with F15/F17 evidence consequences. Published GTL defines meaning, HoG traverses, existing owners perform effects, ABG alone admits runtime truth, and replay derives it. The outcome is exact installed read/currentness and truthful retained evidence through those owners. The prefix/environment is a discardable pure projection; runner records are evidence, not runtime authority. No new cache, controller, event store, serializer or compact Public mode is authorized. Immutable installed RC6 remains the builder; this frozen prospective RC7 source is partial.",
+  "kind": "rc7_partial_prefix_runner_review",
+  "reviewId": "partial-prefix-runner-001",
+  "at": "2026-11-06T04:32:43.301762+00:00",
+  "status": "CLOSED_RETURNED_TO_ROOT",
+  "coreResult": "falsified",
+  "claim": "The realized prefix/runner slice completely preserves exact read and retained-evidence relations and is sufficiently proved for acceptance.",
+  "recommendation": "Preserve the realized prefix and runner changes as a partial implementation basis for the already-selected remaining consolidation. Correct RC7-PREFIX-RUNNER-01 in that continuation and obtain bounded missing proof. Do not accept whole consolidation or RC7.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c",
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "snapshotCount": 417,
+    "handoffCount": 3,
+    "incrementChangedPathCount": 15,
+    "verification": "All 417 frozen file snapshots, all 3 handoffs, and every declared heldPreimage matched their declared hash and byte length. Only relevant owners and the held prefix/runner/test deltas were semantically reviewed."
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/stdo_abiogenesis.json",
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+      "identity": "urn:stdo:product-definition:abiogenesis"
+    },
+    "product": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/specification/PRODUCT.md",
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    "frame": {
+      "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "method": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "managerVerification": {
+        "installed": true,
+        "valid": true,
+        "failures": []
+      },
+      "skill": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+      "skillSha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+    },
+    "currentControls": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "sha256": "7f4d8a628f25d5fd5b6ec37fba9dc048da7ae0997095365359d50d844ad2b335",
+        "verified": true
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "sha256": "7c48d333ce2d84027796af73bbdac19ba05ebd95e9e69b49323e1ef9e5bd6c41",
+        "verified": true
+      }
+    ],
+    "authorityNote": "Bounded main current headers govern selection; their running label is historical relative to the later frozen host-exit subject. The source worktree GOALS header alone is not the current campaign status."
+  },
+  "scope": [
+    "Frozen prefix handoff and canonical runner delta over held preimages.",
+    "Nearest existing artifact-truth, workspace-environment, read preparation/kernel, SDK call construction, event resource/currentness, terminal schema and runner consumers.",
+    "Owning Product reuse/authority law, REQ-P-QUAL-018 and HOW 10.8."
+  ],
+  "evidence": [
+    {
+      "label": "prefix",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "sha256": "68ee96e433caa079dd7c26de3ed0f072d6fb18e17e0a1058d78a3447ea076ff8"
+    },
+    {
+      "label": "runner",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "5d3850a9c4c6157bce7d0d4491c0d0c0b50ec85471708a05a43b2ff81247a551"
+    },
+    {
+      "label": "setup",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "label": "ports",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "sha256": "e78700981aba2ecb2b0b8b4f893b226f51685d2f5aa4f5e2e953888981e1a697"
+    },
+    {
+      "label": "artifact",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "sha256": "48e71a7eae9405e0a54418a3d908e1be86f11f8a0f5d44c8f248bb2b2e059335"
+    },
+    {
+      "label": "store",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "01c82b88e65e12b367b9683241407bcc7707531679963c04a580855bcfa1df71"
+    },
+    {
+      "label": "resource",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+      "sha256": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9"
+    },
+    {
+      "label": "installed",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "sha256": "27de3ce5c295b3aaa76b58bb062357763a6109ddf6d55ba9b1844fd75914bd29"
+    },
+    {
+      "label": "terminal",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+      "sha256": "87dd714a4da3a6639c56bdc01a5268aa1f06b5753aef48a71389fb12cfa72256"
+    },
+    {
+      "label": "test",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "sha256": "a8cc28369dc70e05ab229ef5c8bc489e4669d3faddea601c60908b7c2b2eeef6"
+    },
+    {
+      "label": "how",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "87ef39bb7bd73cfe516e1ddadaf811657f5418203774ba660693f9528ebda7dd"
+    },
+    {
+      "label": "product",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/specification/PRODUCT.md",
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "label": "qual",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/specification/requirements/product/REQ-P-QUAL.md",
+      "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28"
+    },
+    {
+      "label": "frame",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    }
+  ],
+  "evaluatedRelations": [
+    {
+      "predicate": "Prefix change preserves the exact existing owner relation without adding runtime authority.",
+      "result": "satisfied",
+      "finding": "none",
+      "triage": "not_applicable",
+      "evidence": "populate 684-719; prepareRead 687-706; artifact truth 853-877; installed constructor 646-684; read kernel 728-850. The just-acquired environment.artifactTruth.prefix enters the already-existing acquired overload. Packet admission and canonical equality remain; deserialized copies still acquire; request source/basis and authority owners are unchanged.",
+      "limit": "Static preservation judgment; successful positive populated Run proof remains missing."
+    },
+    {
+      "predicate": "Runner skips only redundant same-prefix preparation while fresh read execution and retained terminal evidence remain owner-controlled.",
+      "result": "satisfied",
+      "finding": "none",
+      "triage": "not_applicable",
+      "evidence": "runner 265-319, 421-453; public-setup 126-133; definition_event_resource 319-353; event_store 2601-2623. Existing equal-prefix environment is reused; changed handoff takes refresh. Two fresh installed CLI processes still reacquire resource authority. Same-content prefix substitution preserves handoff digest. Full call outcomes are written before terminal checks; result/producer/value comparison, absent-terminal truth and read-only file identity checks remain. The compact record is not used by the UAT verdict.",
+      "limit": "Static changed-path review; author performed syntax check only. Maintained harness is Root-owned and unobserved here."
+    },
+    {
+      "predicate": "Each new command stream reference authenticates the bytes retained at its named file.",
+      "result": "falsified",
+      "findingIds": [
+        "RC7-PREFIX-RUNNER-01"
+      ],
+      "triage": "complete"
+    }
+  ],
+  "findings": [
+    {
+      "id": "RC7-PREFIX-RUNNER-01",
+      "predicate": "Each new command stream reference authenticates the bytes retained at its named file.",
+      "result": "falsified",
+      "evidence": [
+        {
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+          "lines": "64-72"
+        },
+        {
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+          "lines": "719-720"
+        },
+        {
+          "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/files/specification/requirements/product/REQ-P-QUAL.md",
+          "lines": "110-123"
+        }
+      ],
+      "counterexample": "A child emits a non-UTF-8 byte such as 0xff on stdout or stderr. The file receives the UTF-8 encoding of the replacement character because result.stdout/result.stderr are decoded strings, while byteCount and digest describe the original Buffer. A raw one-byte stream becomes three file bytes. This is a static counterexample; it was not executed in this review.",
+      "originatingRelation": "REQ-P-QUAL-018B/C exact command observations and owning HOW 10.8 R6 retained files by size and digest.",
+      "triage": {
+        "class": "complete",
+        "severity": "Bounded evidence-integrity defect; no numeric Product severity scale was selected for this component activation.",
+        "triggerProbability": "Low for normal UTF-8 CLI JSON and version output; certain conditional on non-UTF-8 process output, including failure output.",
+        "realizedHarm": "No observed run loss is established. Under the counterexample the named stream reference cannot authenticate its file and original non-UTF-8 bytes are unavailable there. The pre-existing text conversion caused byte loss; this increment newly asserts raw-buffer size/digest as a file reference.",
+        "causalConfidence": "High from direct write and hash inputs.",
+        "blastRadius": "This runner commandRecorder metadata, both stdout and stderr; no ABG admission, terminal-value change or general runtime effect is shown.",
+        "controls": "Expected JSON/version output is UTF-8; complete parsed CLI outcomes retain separate custody, and malformed CLI output fails parsing. No recorder check makes raw bytes equal the retained decoded file.",
+        "repairComplexity": "Small, inside the existing recorder; make retained files and their references describe the same original byte sequence while keeping parser text as a view.",
+        "regressionRisk": "Low for a byte-preserving recorder correction; preserve the returned text shape and failure/timeout/truncation metadata.",
+        "repairRabbitHoleRisk": "Low if restricted to this recorder and one byte-preservation assertion; no codec, serializer or SDK redesign is justified.",
+        "sunnyDayImpact": "No obstruction demonstrated on supported UTF-8 command paths; this does not justify reverting the realized prefix/runner work."
+      },
+      "boundedRemedyAndProof": "Fold the existing-recorder byte correspondence correction into the already-selected R1-task/R2 completion. One maintained-harness check should compare both retained files to their references for valid UTF-8 and non-UTF-8 output, preserving the synchronous caller text contract. No broad suite or separate repair loop is requested.",
+      "dispositionOwner": "Root Executive; recommendation only"
+    }
+  ],
+  "proofSufficiency": {
+    "prefix": "Frozen test 188 onward exercises unknown Run refusal, raw/copy/acquired identity counts, foreign binding and corrupt prefix refusals, and unchanged event bytes. Author reports 2-to-1 cold decode discrimination; no positive populated_run_read exists in that discriminator. No claim of successful end-to-end populated request follows.",
+    "runner": "Author runner proof is syntax-only. Existing maintained harness and missing-resource consumer proof are being handled by Root; this review performed neither and claims no result for them.",
+    "needed": "One positive admitted-Run population equivalence through the existing installed constructor, plus maintained runner retained-file/reference and fresh-readback consumer checks. Use affected currentness/refusal coverage and actual successor installed proof as selected; do not repeat all qualification.",
+    "timing": "No speedup or OOM-cause claim. Lane/compile durations do not isolate setup/preflight, host startup, dispatch, native work, closure, parent refresh, physical authentication, construction, child cold-read wall time, parse/write, terminal agreement or between-task cost. Canonical successor runner changes cannot explain current immutable RC6 timings."
+  },
+  "residuals": [
+    "R1 Result.task removal and R2 unchanged-after basis-holder sharing are selected unfinished requirements, not optional deferrals. Their source review belongs to the other assigned reviewer.",
+    "Matched retained-workload total event/lifecycle/readback/command carriage and separate phase timing remain unproved.",
+    "Author reports 28 before/after staged ENOENT consumer failures and the undeclared historical skip; they are coverage limits, not 28 new regressions or passing consumers.",
+    "Prior 112-pass P3 evidence, 117000 ms recovery cancellation, later parent 8 GiB OOM before the first fresh read, and capture-once SDK recovery under the same 8 GiB remain distinct historical evidence. Exact heap-retainer cause is unknown. These are retained task/author-return facts, not independently replayed here.",
+    "Actual native host exit zero and admitted-after custody do not establish fresh terminal/replay success, successor UAT, acceptance or release. Root owns cold readback results."
+  ],
+  "independence": {
+    "role": "Separately activated non-authoring component Reviewer; Root Executive owns disposition; ABG-native Worker alone codes.",
+    "expectationSource": "Product/requirements require exact owner reuse, currentness, complete terminal evidence and immutable archives; parent-supplied hypotheses were routing, not evidence of their conclusions.",
+    "limits": "Same assistant-family component review, not formal ABIogenesis 5.0 qualification J or a cross-family independence claim. No code authorship or repair in this activation. The parent task and author reports were visible. No harness or runtime execution was performed."
+  },
+  "invalidation": [
+    "Changed frozen file, held comparison, Product/method/frame or owner grant.",
+    "Different installed module identity, prefix/store identity, current close handoff, workspace binding, ProductSet/lock or capability authority.",
+    "A positive/cold/maintained-consumer counterexample, changed event resource, or proof that metadata no longer resolves its retained outcome.",
+    "Any assumption that the component result establishes whole R1-R6 consolidation, current RC6 speedup, independent qualification or release."
+  ],
+  "effectsPerformed": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/reviews/partial-prefix-runner-001/REVIEW.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/reviews/partial-prefix-runner-001/REVIEW.json"
+  ],
+  "notPerformed": [
+    "Source/control/Git/credential/runtime mutation",
+    "Builds, tests, provider calls or independent reruns",
+    "Inherited D5 full-source review",
+    "Formal qualification J",
+    "Repair or disposition"
+  ],
+  "returnTo": "Root Executive",
+  "memoryUse": "MEMORY.md:570-576 supplied general review-only and component-versus-integrated-evidence cautions; all current authority/source conclusions were freshly checked."
+}

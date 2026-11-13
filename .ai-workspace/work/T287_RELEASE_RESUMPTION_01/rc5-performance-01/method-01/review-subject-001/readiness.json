@@ -1,0 +1,24 @@
+{
+  "kind": "rc5_method_01_readiness",
+  "candidate": "uncommitted worktree delta on 3e2304de7 (7 product paths; digests in return.json)",
+  "readyFor": "C2 recipe c2-method-proof.mjs: compile, stage DEFAULT_LIBRARY_STDO_SOURCE manifest/members from stdo-3.0.4 to contracts/default-library/stdo/<path>, qualification staging, product generator, selected suites",
+  "c2Assertions": {
+    "basisRef": "stdo://releases/v3.0.4/",
+    "manifestDigest": "sha256:102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "allAssetPathsUnder": "contracts/default-library/stdo/",
+    "declaredMembers": 6
+  },
+  "selectedCases": [
+    "RC5 STDO 3.0.4 default role content is the exact packaged subset with its selected skill closure and capability instructions separate",
+    "RC5 STDO 3.0.4 actual acquisition delivers each role its selected skill closure and refuses altered, missing and unpermitted members"
+  ],
+  "localEvidence": {
+    "tscNoEmit": "exit 0",
+    "selectedCasesInMemory": "2 pass, 0 fail, 0 skipped",
+    "selectionFalsifiers": "2 mutations, each fails both cases",
+    "retained302RunEnvironmentSuite": "5 pass, 0 fail, 0 skipped",
+    "generatorBlock": "exact staged accepted; 8 negatives refused",
+    "realOwners": "program_validation (4 F_P leaves); acquisition observed; per-role source exactly the HOW table"
+  },
+  "notEvidence": "in-memory transpile and served bytes are Writer feedback only; no C2, UAT or acceptance result exists"
+}

@@ -1,0 +1,60 @@
+{
+  "status": "REPORTED_PROVIDER_TELEMETRY_EXTRACTED",
+  "recordedAt": "2026-11-08T07:18:24.922556+00:00",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/archives/fp-afe2a360287759a3-stdout.log",
+    "bytes": 3328805,
+    "sha256": "742d683cc25150171fae549915a047be094ba21717a856c3a7ce222ee31e16b1"
+  },
+  "results": [
+    {
+      "type": "result",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 786271,
+      "duration_api_ms": 488321,
+      "num_turns": 61,
+      "total_cost_usd": 3.3636786000000014,
+      "usage": {
+        "input_tokens": 108,
+        "cache_creation_input_tokens": 157043,
+        "cache_read_input_tokens": 5821513,
+        "output_tokens": 47130,
+        "output_tokens_details": {
+          "thinking_tokens": 20024
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 157043,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 108,
+          "outputTokens": 47130,
+          "cacheReadInputTokens": 5821513,
+          "cacheCreationInputTokens": 157043,
+          "webSearchRequests": 0,
+          "costUSD": 3.3636786000000014,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 20024,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "permission_denials": []
+    }
+  ],
+  "scope": "Actual Claude CLI reported telemetry, not independently verified billing. Native author02 only; excludes Root/operator/review/control cost. No speedup claim."
+}

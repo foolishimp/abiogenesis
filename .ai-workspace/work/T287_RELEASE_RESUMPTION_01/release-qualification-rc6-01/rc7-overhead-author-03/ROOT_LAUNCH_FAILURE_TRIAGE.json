@@ -1,0 +1,68 @@
+{
+  "kind": "root_multi_frame_launch_failure_triage",
+  "at": "2026-11-06T07:11:27.596846+00:00",
+  "id": "RC7-N3-OPERATOR-EXECUTABLE-MODE-001",
+  "productFrame": {
+    "method": "stdo://releases/v3.0.4/",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "goal": "GOAL-035/T-287, unchanged fixed15 ABIogenesis5.0",
+    "changeClass": "Existing GTL physical pin, maintained runner export, exact existing test-consumer migration and HOW residual; Product WHAT unchanged"
+  },
+  "rootActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "failedHostReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/host-supervision/HOST_RETURN.json",
+    "bytes": 556,
+    "sha256": "c9b6d57d1d97b07c852b300156679f5e302d57c94721c635572ef12e843718dd"
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/outcome-summary.json",
+    "bytes": 1199,
+    "sha256": "ffadf75ec6778c0147752f0586e61c27b589615d3615c3d05c1fed2023f5c7c4"
+  },
+  "physicalObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/execution/TIMING_OBSERVATION_ENVELOPES.json",
+    "bytes": 4164,
+    "sha256": "1a0ac88968ad35cb1807dec47aec2b12a4e0451bcfc1dd5d2f3c843b724c5ae6"
+  },
+  "wrapperBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/claude-provider.sh",
+    "bytes": 419,
+    "sha256": "c07e691b38f829afee758b56731cca19d605d0c7d199039d5b1cd82461cd1ac6",
+    "mode": "0o644",
+    "executable": false
+  },
+  "diagnostic": {
+    "expectedMessage": "spawn /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/claude-provider.sh EACCES",
+    "canonicalMessageDigest": "sha256:7a62438149220052a045b872d82dafb52e49800b3467ce7c0e88566157411e7f",
+    "matchesAdmittedSpawnDiagnostic": true
+  },
+  "facts": {
+    "actorProcessStarted": false,
+    "toolCalls": 0,
+    "stdoutBytes": 0,
+    "stderrBytes": 0,
+    "sourceFilesVerifiedUnchanged": 449,
+    "nativeHandoffsPresent": false,
+    "sourceAcceptance": false
+  },
+  "frames": {
+    "ProductAndEffect": "Existing ABG native path lawfully admitted a no-child spawn failure and transport_failure Result. No Product defect or native work effect established.",
+    "DesignAndIntegration": "Prepared operator wrapper content was valid shell but lacked executable mode. Hash-only control verification and shell syntax did not prove executable availability.",
+    "Identity": "Body digest is unchanged; executable metadata is a material selected launch input. Admitted diagnostic exactly matches EACCES for this command.",
+    "Lifecycle": "No actor_process_started; spawn_failed and zero transport activity establish the no-child route. Actual host returned a successor close; reentry must use it, never B predecessor.",
+    "Proof": "All449 selected Product/resource files remain exact. Failed Run stays failed. No automatic rerun, omitted failure or retrospective success."
+  },
+  "disposition": "local_repair_operator_mode_and_reenter_once_after_actual_failed_close_binding",
+  "repair": {
+    "effect": "Set only existing wrapper mode0644->0755; unchanged bytes. Add X_OK access check to the separate R2 launcher before host allocation. Preserve original scripts/manifests/output and source grant.",
+    "newHostControls": "Separate *_R2 controls, single-host-r2.mjs, launch-host-r2.mjs, execution-r2 and host-supervision-r2. Same four source paths,2stage/6lane ceilings; no Product source edits by Root.",
+    "entry": "Actual N successor close/resume from failed host; genuine physical Result/after/source custody required before launch.",
+    "budget": "One Root-triaged changed-condition reentry; unchanged provider/host/time/heap limits. No blind retries."
+  },
+  "requiredReproof": "Existing mechanical owner preflight plus actual native process start, then the already-selected seven unique tests and frozen source closure; no repetition of B qualification/readbacks."
+}

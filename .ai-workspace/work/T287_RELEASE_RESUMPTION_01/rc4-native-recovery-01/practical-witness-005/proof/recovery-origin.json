@@ -1,0 +1,29 @@
+{
+  "lastCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:8f03ab91d514a0d6597e9cded23428faedaa3410df6fa5f2c867021e9d14a6e4",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:95acf94861abf3e37ecd0117ebc2c0f4b2fe8fdcd7dc16d5e1fd94dfe77db994",
+      "prefixLength": 9932482,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 682218298
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:ca99071f96d7eb2e7195ce2d5c7b6db007724e2266f8c24c3a447dc4aaee02d7",
+      "device": 16777231,
+      "durableByteLength": 9932482,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:95acf94861abf3e37ecd0117ebc2c0f4b2fe8fdcd7dc16d5e1fd94dfe77db994",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/runtime/events.jsonl",
+      "inode": 682218298,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "ownerPid": 62336
+}

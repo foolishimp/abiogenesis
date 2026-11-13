@@ -1,0 +1,53 @@
+{
+  "kind": "root_bounded_control_preparation_selection",
+  "status": "PREPARATION_ONLY_SUCCESSOR_SOURCE_AND_ACTIVATION_UNBOUND",
+  "at": "2026-11-06T01:54:47.897366+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "basis": "stdo://releases/v3.0.4/",
+  "goal": "GOAL-035/T287 unchanged ABIogenesis5 fifteen families; QR02 F11/F15 surviving-contributor attribution through existing external arm",
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/qr02-reentry-02/READINESS.json",
+    "bytes": 42699,
+    "sha256": "8bf14e581effd0b2e87851293e1092cdffc2baac6447820f5ddd211e0d926902"
+  },
+  "purpose": "Prepare the next finite native Worker controls while D5 repair/proof proceeds; do not activate or edit Product. Avoid another idle control-preparation interval.",
+  "scope": "Six existing-owner HOW/contract/realization paths and at most one real-material fixture from the closed readiness. Distinguish checked historical continuity, supported surviving contributors and explicitly unresolved semantic completeness. Preserve fail-closed paid eligibility and exact resource/ref owner reuse.",
+  "prospectiveWritePaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+  ],
+  "optionalNewFixture": "build_tenants/abiogenesis/typescript/test_env/fixtures/qualification-provenance-survival.json",
+  "permittedEffects": [
+    "Write only new qr02-author-01 controls/scripts and compact preparation return.",
+    "Read exact pinned readiness/material sources and existing operator-control templates; use source pins from frozen N2 only as declared preparation placeholders.",
+    "Mechanical static/syntax checks, no builds/tests/owner construction/runtime/provider effects."
+  ],
+  "dependencies": [
+    "Actual closed D5 author03 source and bounded recheck, then proof03 C2/UAT disposition before any QR02 implementation activation.",
+    "Rebind the two shared owner/test files and actual latest closed campaign prefix/resume; no active close substitution.",
+    "Root final selection/resource admission; at most one native coding Worker."
+  ],
+  "preparationConstraints": [
+    "Use smallest sufficient source/control context; do not mechanically inherit unrelated predecessor control/handoff chains. Keep real material bodies once with compact existing refs/spans; no new store/library/schema for workflow.",
+    "Keep native xhigh author; proposer may size finite turns/time from coherent six-owner task, but no paid call until Root admission.",
+    "Author checks: meaningful nearest real two-step positive and falsifiers, existing affected qualification lanes and required compile/generation guard; do not repeat unrelated completed RC6 qualification.",
+    "One genuine native handoff and frozen subject; reviewer independently reacquires selected exact source at max. No autonomous patch-review loop.",
+    "Typed existing SDK setup/dispatch owners and maintained source:none/custody route; no fabricated prior observations, imported ancestry, handoff accommodation or automatic retry.",
+    "Do not change strict family policy, providers, physical event profiles, Product/requirements, external paid-eligibility refusal, or infer all authors from byte survival.",
+    "No source editing/staging/preflight/tests/build/runtime/Git/network/credential operation in this preparation."
+  ],
+  "stops": [
+    "Material mismatch or unavailable dependency; retain null binding and report to Root.",
+    "Missing owner/design relation or required scope expansion."
+  ],
+  "return": "Closed compact CONTROL_PREPARATION with exact files/hashes, reuse choices, minimum actual source/material inventory, source/profile/runtime dependencies left null, budgets and deferred finalization steps. Return to Root; no reviewer activation."
+}

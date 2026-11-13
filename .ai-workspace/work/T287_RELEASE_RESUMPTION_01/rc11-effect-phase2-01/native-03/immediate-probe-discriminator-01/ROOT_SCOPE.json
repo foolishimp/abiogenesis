@@ -1,0 +1,21 @@
+{
+  "id": "PHASE2-A-IMMEDIATE-DISCRIMINATOR-PREP-01",
+  "status": "ROOT_SELECTED_PREPARATION_EXECUTION_HELD",
+  "role": "Bounded Proof/End-to-End Integration mechanical Worker/Writer",
+  "rootDecision": "Root and independent Design/source assurance source-confirm a distinct A immediate-strengthening compatibility gap. Prepare one paired controlled actual-owner discriminator before selecting any repair. Repaired current owner and original baseline; exit-only reentry, all probes present, immediate request. Capture immediate facts/signals before clock advance, then finite controlled cleanup. No source edit, compiler, provider or additional campaign.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/source-freeze.json",
+    "bytes": 295947,
+    "sha256": "954c2609173832ea9942c7317c4216f138e98543fab1f533e7d0a46fe4aa2c4f"
+  },
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "sourceRows": 1345,
+  "expectedLaw": "SIGKILL has been requested before the outer immediate call returns; cleanup deadline <=200ms at grace100ms. Predictions are not execution evidence.",
+  "predictions": {
+    "baseline": "TERM,KILL;200ms",
+    "candidate": "TERM only;300ms"
+  },
+  "selection": "baseline once then candidate once; <=10s each/30s campaign/1MiB combined stdout+stderr per command. No OS child or OS signals; no blind retry.",
+  "priorThreeMemberProof": "Held, unexecuted at native-03/proof-01/PREPARATION_HELD.json",
+  "basisAndFrame": "Same verified STDO3.0.4/Product frame; Root PHASE2-A-R1 scope and current closed freeze; no authority change."
+}

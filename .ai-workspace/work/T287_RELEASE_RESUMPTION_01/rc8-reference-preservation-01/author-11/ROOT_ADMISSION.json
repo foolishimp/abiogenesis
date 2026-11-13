@@ -1,0 +1,79 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "at": "2026-11-07T12:03:18.216234+00:00",
+  "authority": "Root explicitly admitted this one A11 held native call after reading the actual PREPARED, final scope/task/binding/control freeze. Existing user RC7-to-RC8 approval and fixed method/frame remain unchanged.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "fixedFamilies": 15,
+  "bindingSha256": "d172b81abff26cd54198429f4ccf965fcca7624f591add59709d1a7859fdb359",
+  "preparedSha256": "48b3467078e80f16f4ae61aacad6f26b3e6db39c1776411a690396aa2b32f4ca",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/PREPARED.json",
+    "bytes": 6159,
+    "sha256": "48b3467078e80f16f4ae61aacad6f26b3e6db39c1776411a690396aa2b32f4ca"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/PREPARATION.json",
+      "bytes": 7299,
+      "sha256": "10d491d1e7483ce99453844ff9d8c0cb60605130d62cbd78bd6b4c5abfb6145c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SCOPE.json",
+      "bytes": 5575,
+      "sha256": "4383c2cb32444b8f1d17c1b46197e5eba10b559c74a77a77a25d18978f2b2b0c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/TASK.json",
+      "bytes": 5287,
+      "sha256": "eff444d271d53121f8e9497dc701433f0cce3a1a9dfe62d1c4c040d24c3044b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/host.mjs",
+      "bytes": 12242,
+      "sha256": "ab2e3601532519e6a5b8ceff7cf2434cc2d7ccbc8659255782e5dc9778eb9709"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs",
+      "bytes": 10763,
+      "sha256": "c2f7225fbf3f790d2bf139774b89763febbe8017ef4c2deba17f7a7a75186bcf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/BINDING.json",
+      "bytes": 5090,
+      "sha256": "d172b81abff26cd54198429f4ccf965fcca7624f591add59709d1a7859fdb359"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/HOST_DIFF.patch",
+      "bytes": 4064,
+      "sha256": "1580aa113f71f5f7e8097e7d1c3680ebee0220870d48197c35f46a829b743003"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/PROOF_DIFF.patch",
+      "bytes": 1527,
+      "sha256": "219c9a3ec04d58d90fc68c71fcb73412f273a87cd5c615368b4f28a7645125f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/CONTROL_FREEZE.json",
+      "bytes": 3486,
+      "sha256": "1e3ff96a17f52939861a741bdbf8efc2d03c8083d9d9851044b9a5fdbc4cc517"
+    }
+  ],
+  "hostPid": 54814,
+  "hostSession": 34423,
+  "selectedInvocation": "invocation://abiogenesis/999377d99857953d587ce5740ac9ae5158f52f1ffa25b28050d962b54b9e7ee7",
+  "scope": "Only callback-local projectExactPrefixArtifactTruth to projectOwnedPrefixArtifactTruth key in t287-required-operation-bindings.test.mjs; unchanged result stub/assertions/all other cases. One freeze/one exact-filtered proof; no whole-file credit.",
+  "bounds": {
+    "nativeAbsoluteMs": 1800000,
+    "nativeInactivityMs": 300000,
+    "proofMs": 600000,
+    "codingWorkers": 1,
+    "sourceFreezes": 1,
+    "proofAttempts": 1,
+    "builds": 0
+  },
+  "custody": "Use existing held resource from genuine A10 close. Stop first scope/proof/basis/lifecycle failure; no automatic repair/retry. Retain actual SDK result and physical close. No Product/Git/cut/global/cleanup effects; independent broad017 unchanged."
+}

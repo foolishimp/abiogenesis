@@ -1,0 +1,98 @@
+{
+  "id": "T287-RC8-REF01-AUTHOR02",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "baseControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/BINDING.002.json",
+    "bytes": 9837,
+    "sha256": "c619ad12377b3f25eb1550a4855351cc6564c4574b9e958ce5552122c52384f2"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/PREPARATION.json",
+    "bytes": 4508,
+    "sha256": "f3afdc84146103d8059b793662b5ba893162dca593268fc194bcb5312ffe0bbc"
+  },
+  "scopeGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/ROOT_SCOPE.json",
+    "bytes": 6774,
+    "sha256": "ce0ddb1af07e4759affdfc7ff901fb21bae1b0ae10ca552c7f217af43bfb0cbb"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/TASK.json",
+    "bytes": 11827,
+    "sha256": "ac69cb3e3e15d10a07790b6677d90127dcae4bf0a322a3ef1f24ac9c67d129c9"
+  },
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation",
+  "sourceCommit": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/runtime-001",
+  "proofRoot": "/private/tmp/abg-r8-uozznezy/author-02-proof",
+  "sourceDigest": "95522fb5aea199812c23c220542266247a0e08d4b1fb98dc15a7e834bcf61dbd",
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 400,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 3600000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "maxStages": 4,
+  "maxProofInvocations": 8,
+  "proofTimeoutMs": 600000,
+  "reserveBytes": 4294967296,
+  "lanes": {
+    "owned-call": {
+      "files": [
+        "t287-owned-call-reference.test.mjs"
+      ]
+    },
+    "binding": {
+      "files": [
+        "t287-w2-05-static-binding-algebra.test.mjs"
+      ]
+    },
+    "catalog": {
+      "files": [
+        "r4-catalog-admission.test.mjs"
+      ]
+    },
+    "invocation": {
+      "files": [
+        "r5-invocation-admission.test.mjs"
+      ]
+    },
+    "worker": {
+      "files": [
+        "m5-worker-transport.test.mjs"
+      ]
+    },
+    "held": {
+      "files": [
+        "t287-exact-prefix-projection-reuse.test.mjs"
+      ],
+      "pattern": "^(T287 disposable reuse|RC7 HS02:)"
+    }
+  },
+  "controlFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/host.mjs",
+      "bytes": 12242,
+      "sha256": "5c95825b6873b784337bd75b9f10193876505ded549d0fc408346951029a7267"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/proof.mjs",
+      "bytes": 7053,
+      "sha256": "137a37075dadb9fb0455886227fdbfdd64d1f9efd39e4b869ce006b2927c6c46"
+    }
+  ],
+  "providerDispatch": false,
+  "sourceAccepted": false,
+  "qualified": false,
+  "meaning": "Immutable prior builder/helper/dependency pins are referenced; latest Root scope supersedes old source/test budgets. No historical graphs/control files are copied or repinned."
+}

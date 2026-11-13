@@ -1,0 +1,19 @@
+{
+  "kind": "root_failed_native_source_custody_authority",
+  "recordedUtc": "2026-11-03T15:32:17.765665+00:00",
+  "roleTransition": "Executive failure triage -> separately bound Root operator/evidence Writer",
+  "basis": "CONTEXT_AND_CAUSAL_MAP.md operator Writer activation and owner continuing whole-path instruction",
+  "failure": "Actual native failure at256 configured turns,257 reported; code and final feedback exist, author return/readiness absent. Runtime failed; fresh result not_found and replay failed with null terminal.",
+  "permittedEffects": [
+    "Freeze exact admitted after-observation and33 selected source files plus retained preimages",
+    "Preserve physical failure record, full author feedback, scratch proof and absence of author handoff",
+    "Update current coordination state with preimages",
+    "Prepare and activate one independent max frozen-source review; Root determines remaining native continuation from this held state"
+  ],
+  "exclusions": [
+    "No Product/test edits by Root",
+    "No acceptance, actual C2/UAT, new release, push, merge, tag or selector claim",
+    "No rewriting the failed run, prior cuts or completed evidence",
+    "No implementation restart or new coding dispatch before Root residual triage"
+  ]
+}

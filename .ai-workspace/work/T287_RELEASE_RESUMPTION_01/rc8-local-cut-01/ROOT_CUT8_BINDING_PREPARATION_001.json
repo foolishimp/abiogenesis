@@ -1,0 +1,24 @@
+{
+  "status": "ROOT_SELECTED_CUT8_BINDING_PREPARATION_ONLY",
+  "at": "2026-11-07T04:55:17.500299+00:00",
+  "executive": "/root",
+  "writer": "/root/rc7_reference_ticket_writer",
+  "rootDisposition": "After measurement acceptance/docs are complete, prepare corrected CUT8 build binding concretely with current exact source/archive/stage/focused/source003/after acceptance pins and18selectedpaths/2newpaths. Only broad acceptance remains pending. No execution/checkpoint/archive/rebuild or fresh testing/repeated fulltree verification. Root final broad disposition binds the missing evidence before separate build execution.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "goal": "GOAL-035",
+  "ticket": "T-287",
+  "fixedFamilies": 15,
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_001.json",
+    "bytes": 3657,
+    "sha256": "2590a9475777ca956cdd638250a274901e67a3d0d520f5909797147dc433617b"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-001.mjs",
+    "bytes": 27888,
+    "sha256": "c563c22709857bfa915bf00b3c3bb537ff97358aaccb502664ae3efeb0c32633"
+  },
+  "executionAdmitted": false
+}

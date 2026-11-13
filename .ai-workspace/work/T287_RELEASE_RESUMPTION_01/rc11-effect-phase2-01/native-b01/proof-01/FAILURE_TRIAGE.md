@@ -1,0 +1,9 @@
+# Preserved B proof control failure
+
+The actual configured C2 test passed its one selected case, exited 0, and closed its group. Its retained summary and fresh replay/cleanup records exist. The controller then compared owner `summary.artifactSha256` (`sha256:7b16ac56…`) to raw archive hex (`7b16ac56…`). The payload digest is identical; the representations are not. The bare assertion produced an empty error message. The original C2 RETURN remains FAILED_OR_INCOMPLETE.
+
+A second control bug let the campaign continue: status selection used `error is None`, but the stop branch used `if error`. The empty string was therefore marked failed without stopping. The later whole lifetime completed 34/34 with zero skips. Unit then started; the Operator detected the failed C2 receipt and sent one SIGTERM to its actual owned group. Unit is incomplete (61 emitted result lines, no final plan/count summary), not a passing unit or an independently established Product failure. The campaign exited 1. No earlier receipt or driver was rewritten.
+
+EXECUTION_RETURN.json pins every stage and original failure. POSTGUARDS.json confirms all 1,345 frozen/live/staged rows, 998 compiled rows, exact retained generated delta, dependencies/npm/metadata, 5,329 archive/bootstrap members and main/candidate/delivered protections. CLOSURE_RETURN.json adds the current actual physical-record PID/group census and exact Q command/cwd census after the stop. No additional descendant signal was needed; absence is limited to identified/currently observed processes.
+
+The smallest prospective control repair is explicit tagged/raw digest comparison and presence-based failure handling, with a preserved failed predecessor. Root must conjoin the actual C2/lifetime evidence and decide any continuation. No rerun, source repair, new build, repack, reinstall or control successor was executed here. Both deferred capsules and wider qualification remain open.

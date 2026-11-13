@@ -1,0 +1,42 @@
+{
+  "testPath": "/private/tmp/abg-r8-c2p-001/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+  "packageRoot": "/private/tmp/abg-r8-c2p-001/w/build_tenants/abiogenesis/typescript",
+  "subjects": [
+    [
+      "/private/tmp/abg-r8-c2p-001/w/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "d15535e8385c4945614495145b891400979f4b6368f4a8268d570187fcb536bf"
+    ],
+    [
+      "/private/tmp/abg-r8-c2p-001/w/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "9fa2c9686a9911674495eb5d8b0bfa45a86ef832ddae4a1cfbd89e7cad2d758a"
+    ],
+    [
+      "/private/tmp/abg-r8-c2p-001/w/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "48b5c453864c41d2b506801869e17b3a21ef5f3232a69c421e69168dbce15511"
+    ],
+    [
+      "/private/tmp/abg-r8-c2p-001/w/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "af81425b8d2fa750f18b0bcfa46a0066650e51146e8c03ccdee8e5dc78b5a3f3"
+    ],
+    [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    ],
+    [
+      "/private/tmp/abg-r8m-rc8-bootstrap-001/host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    ],
+    [
+      "/private/tmp/abg-r8-c2p-001/w/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    ]
+  ],
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "controlledProvider": true,
+  "nativeSemanticCredit": false,
+  "testTimeoutMs": 600000,
+  "actorInactivityTimeoutMs": 60000,
+  "actorAbsoluteTimeoutMs": 90000,
+  "replayTimeoutMs": 30000,
+  "replayGraceMs": 1000
+}

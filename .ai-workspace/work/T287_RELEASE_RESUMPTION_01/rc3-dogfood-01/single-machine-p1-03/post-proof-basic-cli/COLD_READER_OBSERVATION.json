@@ -1,0 +1,27 @@
+{
+  "cold": {
+    "cpuMs": 710.242,
+    "events": 5629,
+    "lastOrdinal": 5629,
+    "maxRssKiB": 316048,
+    "wallMs": 628.890417
+  },
+  "kind": "root_reported_installed_owner_resource_observation",
+  "limits": [
+    "Cold after module import; filesystem cache uncontrolled",
+    "Warm projection differs from cold read; maxRSS processwide",
+    "No matched oldruntime cost or965 efficiency conclusion",
+    "No runtime reader invoked by Writer"
+  ],
+  "provenance": "Root collaboration report of completed actual fresh-process reader; no separate raw stdout file asserted",
+  "selection": {
+    "bytes": 8439,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/post-proof-basic-cli/MEASUREMENT_SELECTION.json",
+    "sha256": "5b179515dfc9f734492925171094391207d6ca9a82b11729ae5aa7057a2dadca"
+  },
+  "warmProjection": {
+    "cpuMs": 648.613,
+    "maxRssKiB": 379216,
+    "wallMs": 602.137
+  }
+}

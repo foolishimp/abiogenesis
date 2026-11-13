@@ -1,0 +1,54 @@
+{
+  "kind": "stdlib_test_filter_operator_discriminator",
+  "source": "Three inert stdlib-only cases; no Product/runtime/provider calls or C changes",
+  "node": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "nodeVersion": "v24.7.0",
+  "rows": [
+    {
+      "label": "negative-name",
+      "flag": "--test-name-pattern",
+      "pattern": "^(?!(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$).*$",
+      "exitCode": 0,
+      "lines": [
+        "ok 1 - ordinary selected case",
+        "ok 2 - default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "ok 3 - retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+        "# tests 3",
+        "# pass 3",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0"
+      ]
+    },
+    {
+      "label": "positive-skip",
+      "flag": "--test-skip-pattern",
+      "pattern": "^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$",
+      "exitCode": 0,
+      "lines": [
+        "ok 1 - ordinary selected case",
+        "# tests 1",
+        "# pass 1",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0"
+      ]
+    },
+    {
+      "label": "positive-name",
+      "flag": "--test-name-pattern",
+      "pattern": "^(?:default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm|retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use)$",
+      "exitCode": 0,
+      "lines": [
+        "ok 1 - default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "ok 2 - retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+        "# tests 2",
+        "# pass 2",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0"
+      ]
+    }
+  ],
+  "standing": "Control runner matching semantics only; not Product test or release proof"
+}

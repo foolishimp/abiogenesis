@@ -1,0 +1,36 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "at": "2026-11-07T08:38:49.664725+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "configSha256": "216f31b8c88c0fed8b86417a192f0031f69b8cb5728b642e944d2a1020ced347",
+  "inventorySha256": "8d1c47795dc9349c4c35d48a2f6ad3e39e3f6c03c09b328c4f84c52fd16b2951",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "8a24486aafe7f190d3abe46e1df0f5c8c2aa47969950e73db8256036ba7a4e12",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_011.json",
+    "bytes": 5992,
+    "sha256": "8a24486aafe7f190d3abe46e1df0f5c8c2aa47969950e73db8256036ba7a4e12"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-011.mjs",
+    "bytes": 32843,
+    "sha256": "27cbf698aac45b9d65763d7ff0a5dedc3029ad15deecc9f0de0cab0f6ba09957"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "rootDisposition": "Root selected one independent107-file remainder continuation if exact third deferral/version-only driver delta and six actual010 credits join unchanged inputs. Those predicates passed; no further GO. All3deferred files remain uncredited.",
+  "counts": {
+    "wholeCredits": 98,
+    "passed": 547,
+    "skipped": 133,
+    "scheduled": 107,
+    "deferredNoCoverage": 3
+  },
+  "effects": "Existing serial proof owners and limits; first unexpected red/incomplete/resource/input drift stops. No retry, source/provider/Git/cut effects; preserve failed histories. Native author08 is not authorized by this admission."
+}

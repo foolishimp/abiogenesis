@@ -1,0 +1,28 @@
+{
+  "kind": "prepared_control_recursive_pin_verification",
+  "status": "PASS",
+  "createdUtc": "2026-11-06T16:21:21.358873+00:00",
+  "preparationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/PREPARATION_MANIFEST.json",
+    "bytes": 14576,
+    "sha256": "aa935a1693f06aa27c6cde6432b7bd05068414747f73f49969fd0607327b7984"
+  },
+  "correction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/pre-admission-correction-001/CORRECTION.json",
+    "bytes": 9220,
+    "sha256": "c17c918d5d753e6026150a0bf9f8d1d1d01b53826556cc4e7b05da9f0f36d60e"
+  },
+  "operativeJsonRoots": 29,
+  "pinOccurrences": 687,
+  "uniqueActualTargets": 535,
+  "mismatches": [],
+  "partialPinShapes": [],
+  "workloadAndStagingDigestsEqualPreparedControls": true,
+  "all451SourceSnapshotPinsVerified": true,
+  "explicitFuturePlaceholders": [
+    "workload.sources[qualification-inputs/rc7-held-session-author-03/ROOT_CONTROL_ADMISSION.json].digest = null",
+    "RUNTIME_BINDINGS.rootControlAdmission = null and PREPARED_NOT_DISPATCHED status",
+    "ROOT_SELECTION.future admission/dispatch/actual-return/review/acceptance/release fields and ROOT_ARCHITECTURE_SELECTION.nativeAdmission remain null"
+  ],
+  "scope": "Recursive object traversal of every operative prepared JSON file and final manifest; verify each actual path/sourceSnapshot + bytes + sha256, including preserved-preimage byte pins. Historical target JSON internals are retained as history, not chased into another active control graph. No runtime/test/provider effect."
+}

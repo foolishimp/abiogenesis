@@ -1,0 +1,77 @@
+{
+  "kind": "bounded_existing_owner_identity_design_reentry",
+  "recordedUtc": "2026-11-05T08:46:50.046763+00:00",
+  "role": "Read-only architecture evaluator; no coding or native dispatch",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_QUALIFICATION_PLAN.json",
+    "bytes": 6440,
+    "sha256": "f6c318797e831d6a0cedaa1143ca3f0aef4c227ec1274143af9f0ba333e4e04b"
+  },
+  "audit": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+    "bytes": 28638,
+    "sha256": "085c993048138ee929c07cd3be709e867fa51c3d0b0fe9bcf77497b1b8bc1c69"
+  },
+  "subject": {
+    "sourceCommit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "root": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "concurrentScope": "Only one unrelated retained test fixture is being repaired by the native Worker. The selected Product owners remain unchanged."
+  },
+  "purpose": "Make Q23 implementation concrete at existing owners without inventing a duplicate identity interface or an independence policy. Current audit already establishes defect; do not repeat it.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "readRoutes": [
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/AGENTS.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/PRODUCT.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/product/REQ-P-QUAL.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_D4_SELF_CONFORMANCE_DESIGN.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_PROVENANCE_SUPPLEMENT.json",
+    "Direct import/caller/type seams needed to resolve existing configured-plan and published-role owners; bounded pointed reads only.",
+    "Verified installed STDO3.0.4 native skills and directly relevant governing standards, especially EVALUATION independence."
+  ],
+  "architecturalConstraints": [
+    "Bind truthful actual configured identity once at the existing per-invocation transport binding. Reuse its existing digest/reference and admitted lineage; do not copy the body/identity through every Result/J/CCall when its existing transport reference suffices.",
+    "Resolve source-bound policy at the published qualification role/Validator owner. Same model family is not independent by default; unequal role refs/model strings cannot prove independence. No inferred prefix matching or policy waiver.",
+    "Preserve historical missing identity as unknown and unrelated not_required behavior. No global identity service, registry, extra ledger, duplicate actor controller or provider attestation claim.",
+    "Stop dependent independence work before paid calls where correspondence is unknown/conflicting. Locate the existing placement for that check and effective-model check; do not invent another dispatch path.",
+    "Choose the smallest owning HOW re-entry and meaningful positive/nearest negative proof. Operator-declared identity can be checked against effective configuration, but must not be described as cryptographic provider attestation."
+  ],
+  "questions": [
+    "Which exact existing canonical contract and projection/owner carry the identity and enforce its effective-config match? Which existing references already suffice at J/native-construction consumers?",
+    "Where can required-independence eligibility be checked before provider execution using the current role/binding and native call path? Identify a concrete missing seam if no existing extension suffices.",
+    "What exact remaining source-bound policy declaration is needed to apply the STDO same-family default without equating different model names with independent families? Distinguish implementation choice from a required Product-owner decision.",
+    "Return a small sequence diagram, minimal affected owner/file set and finite acceptance discriminator. No broad hardening or complete F11 plan."
+  ],
+  "writes": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/IDENTITY_DESIGN_REENTRY.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/IDENTITY_DESIGN_REENTRY.md"
+  ],
+  "forbidden": [
+    "Product/test/HOW edits",
+    "code patches",
+    "builds/tests/providers/native calls",
+    "bulk history/log/scratch scans",
+    "raw provider private content",
+    "activation of another actor"
+  ],
+  "return": "Closed proposal to Root, not an adopted contract, source edit, implementation authority or qualification claim. Begin with Product Frame. One bounded causal pass; unresolved policy remains explicit."
+}

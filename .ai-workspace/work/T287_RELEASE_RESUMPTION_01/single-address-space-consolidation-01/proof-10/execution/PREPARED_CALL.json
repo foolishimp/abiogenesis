@@ -1,0 +1,263 @@
+{
+  "status": "PREPARED_NOT_DISPATCHED",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "heldSourceSnapshotSha256": "90d4820b07cc00f3a181dd0670fd67ae459e1cc2ba2c4292148baf326f7595ab",
+  "worksite": "/Users/jim/src/apps/abiogenesis-single-address-space",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "contextDigest": "sha256:d9d293cc1820b59bb4d06988dfe1109bf508a9c38968bad04fafbf0627f271c3",
+  "observedEntries": 986,
+  "selectedFiles": 986,
+  "commands": 7,
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 2171750,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 2176750
+  },
+  "limits": {
+    "absoluteTimeoutMs": 9000000,
+    "inactivityTimeoutMs": 7200000
+  },
+  "selectorCapacity": {
+    "kind": "predictive_current_role_multi_stage_capacity",
+    "installedRenderer": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+      "bytes": 124308,
+      "sha256": "3ba9e751bf3b2ca805ebafbd4678d96fffb9aff2055e301e7b78a70b483b518a"
+    },
+    "taskProjectionOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "bytes": 34310,
+      "sha256": "e4090de450b9e80c7de43f3ca16df7cec5de0b43c6e101453e45093a4b5c437a"
+    },
+    "nativeWorkRenderer": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 18062,
+      "sha256": "24cda58bbe32f877fd629055970d053ca84a0a658cc1b8bc17016e055082a443"
+    },
+    "actualCurrentSelectorAssemblies": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/selector-capacity-triage/actual-selector-assemblies.json",
+      "bytes": 2336525,
+      "sha256": "af4f61ac1767fa98e718be097d9fa7a7354eea0603f8ad4f79b2aa257898684f"
+    },
+    "actualHistoricalPostC2Task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/ACTUAL_POST_C2_SELECTOR_TASK.json",
+      "bytes": 1046417,
+      "sha256": "a9f2f0c0b8dcbdc4de224b675930e9f4c88ec9da15919cb26eb8cc091f3e8bb7"
+    },
+    "historicalUatObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/f4-03-r1/CLOSED_CONJUNCTION_OBSERVATION.json",
+      "bytes": 11638,
+      "sha256": "9f7e56cdce252a5bc7fb245d50289c7a0f4b1d9e9ae2899549a9f30c720c8522"
+    },
+    "historicalAssessorTask": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/ACTUAL_UAT_TASK.json",
+      "bytes": 1798584,
+      "sha256": "f8d585d107f847decc652cef2f93a230c1f0b863e5e4d763c3d22bd77aba9455"
+    },
+    "actualAssessorRole": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/uat-capacity-triage-001/actual-role-content.json",
+      "bytes": 208995,
+      "sha256": "c666c9671dc84358284c08c8531d57630c057e13cc478ba4bac21d03f535668c"
+    },
+    "assessorAssessmentBasis": {
+      "candidate": {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "digest": "sha256:a9a69cdf6657e90581d3cfe5482668872bb7bc7b572a4b3ac97d628c414248f9"
+      },
+      "rubric": {
+        "path": "consolidation-inputs/proof-10/targeted-rubric.json",
+        "digest": "sha256:67abbd06cbb78c8fc2ae3cbdf712b71b63c181fffcea4b2698ce22ef24623926"
+      },
+      "standing": "Current observed basis; historical parent/producer/task labels are diagnostic only"
+    },
+    "currentContextDigest": "sha256:d9d293cc1820b59bb4d06988dfe1109bf508a9c38968bad04fafbf0627f271c3",
+    "currentInputDigest": "sha256:594a2e23007e2091503cb33b889216a1b4adbf6c51bdebfba0efe59f3e175105",
+    "sourceCount": 18,
+    "taskProjectionBytes": 595491,
+    "promptBytes": 650870,
+    "promptBound": 1048576,
+    "reserveBytes": 131072,
+    "fitsWithReserve": true,
+    "phases": [
+      {
+        "phase": "initial_selector",
+        "standing": "Exact final initial state/context with verified current STDO3.0.4 role/choice/evidence and installed response-schema owner. Historical binding shape remains a labelled byte premise, not a future basis.",
+        "baseEnvelopeBytes": 650870,
+        "allowanceBytes": 0,
+        "promptBytes": 650870,
+        "taskProjectionBytes": 595491,
+        "sectionBytes": {
+          "role": 43099,
+          "choices": 5212,
+          "task": 595491,
+          "binding": 1564,
+          "evidence": 21,
+          "response": 5411
+        },
+        "maxPromptBytes": 1048576,
+        "headroomBytes": 397706,
+        "reserveBytes": 131072,
+        "fitsWithReserve": true
+      },
+      {
+        "phase": "post_C2_selector",
+        "standing": "Only the unchanged actual historical native07 C2 observation and prior judgment supply a labelled size baseline; no construction observation enters this proof-only phase. Final current sources/commands/file extents apply. 64KiB future metadata allowance, plus separate reserve.",
+        "baseEnvelopeBytes": 714812,
+        "allowanceBytes": 65536,
+        "promptBytes": 780348,
+        "taskProjectionBytes": 658548,
+        "sectionBytes": {
+          "role": 43099,
+          "choices": 5212,
+          "task": 658548,
+          "binding": 1564,
+          "evidence": 21,
+          "response": 6296
+        },
+        "maxPromptBytes": 1048576,
+        "headroomBytes": 268228,
+        "reserveBytes": 131072,
+        "fitsWithReserve": true
+      },
+      {
+        "phase": "post_UAT_selector_historical_satisfied",
+        "standing": "Unchanged actual historical satisfied UAT observation from the bounded RC5 cut, used only as a size/domain baseline alongside current controls. It is not current-scope UAT evidence.",
+        "baseEnvelopeBytes": 721511,
+        "allowanceBytes": 65536,
+        "promptBytes": 787047,
+        "taskProjectionBytes": 664895,
+        "sectionBytes": {
+          "role": 43099,
+          "choices": 5212,
+          "task": 664895,
+          "binding": 1564,
+          "evidence": 21,
+          "response": 6648
+        },
+        "maxPromptBytes": 1048576,
+        "headroomBytes": 261529,
+        "reserveBytes": 131072,
+        "fitsWithReserve": true
+      },
+      {
+        "phase": "post_UAT_selector_adverse_or_indeterminate_allowance",
+        "standing": "Same unchanged historical UAT envelope plus 32KiB explicit adverse/indeterminate diagnostic/domain allowance and 64KiB metadata allowance. No assessment body is altered under an actual Result ref. Larger future free text is unmeasured.",
+        "baseEnvelopeBytes": 721511,
+        "allowanceBytes": 98304,
+        "promptBytes": 819815,
+        "taskProjectionBytes": 664895,
+        "sectionBytes": {
+          "role": 43099,
+          "choices": 5212,
+          "task": 664895,
+          "binding": 1564,
+          "evidence": 21,
+          "response": 6648
+        },
+        "maxPromptBytes": 1048576,
+        "headroomBytes": 228761,
+        "reserveBytes": 131072,
+        "fitsWithReserve": true
+      },
+      {
+        "phase": "UAT_assessor",
+        "standing": "Installed native-work renderer; actual closed STDO3.0.4 assessor role and full actual native07 C2 streams/predicates; final assessment source/read scopes and task text. Native06 parent/candidate/advisory identities remain historical diagnostic labels. 64KiB formatting/metadata allowance; no actual future assessor task claimed.",
+        "baseEnvelopeBytes": 262205,
+        "allowanceBytes": 65536,
+        "promptBytes": 327741,
+        "maxPromptBytes": 1048576,
+        "headroomBytes": 720835,
+        "reserveBytes": 131072,
+        "fitsWithReserve": true
+      }
+    ],
+    "providerCalls": 0,
+    "RunAdmissions": 0,
+    "limits": [
+      "All rows are predictive accounting; existing actual runtime assembly/refusal remains authoritative.",
+      "Actual historical observations retain their identities and bodies. Cross-subject diagnostic combinations establish no semantic adequacy, currentness or future Result.",
+      "Future candidate/handoff metadata and free text are bounded only by stated allowances/reserve, not by a universal proof; arbitrary unbounded output remains unknown.",
+      "Selector source extents must still preserve every decision-bearing premise; exact full read inputs and assessment sources retain their separate roles."
+    ]
+  },
+  "ambientEnvironment": [
+    {
+      "name": "HOME",
+      "value": "/Users/jim"
+    },
+    {
+      "name": "TMPDIR",
+      "value": "/private/tmp/abg-rc5"
+    },
+    {
+      "name": "LANG",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "LC_ALL",
+      "value": "en_US.UTF-8"
+    },
+    {
+      "name": "PATH",
+      "value": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  ],
+  "eventPrefix": {
+    "coordinateDigest": "sha256:3b01f1706a0c0767d4cbbe5e44dda035f126468d6807f9d856138f8d1fd3a0ba",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:6a62387a9796036a3cd055af13e47a6f9d6bc5515737df33f7268ae2bc2caaae",
+    "prefixLength": 837277102,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 685986968
+    }
+  },
+  "inputCanonicalDigest": "sha256:594a2e23007e2091503cb33b889216a1b4adbf6c51bdebfba0efe59f3e175105",
+  "callCanonicalDigest": "sha256:540614ea65f9fc30ec6ac571669fe4661e769be893335e90b3958f600c1b756a",
+  "callFileSha256": "8b9e70df3379fa112e1d8ddc1ab2ead66fcca6fe111edb6566c9212c95b49df8",
+  "workloadSha256": "34dd154be96f2a6753490bc16b7aee4d56d9f8ca9828c6ca9c423747b7929006",
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-rc5",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "BASH_DEFAULT_TIMEOUT_MS": "7200000",
+    "BASH_MAX_TIMEOUT_MS": "7200000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "meaning": "Actual installed constructors/configuration/context and Public proof-only start-call population; no construction order, dispatch or candidate acceptance."
+}

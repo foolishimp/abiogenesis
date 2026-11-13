@@ -1,0 +1,83 @@
+{
+  "kind": "root_frozen_q23_independent_source_review_activation",
+  "at": "2026-11-05T19:46:26.657742+00:00",
+  "status": "ADMITTED_ONE_READ_ONLY_REVIEW",
+  "role": "Executive -> read-only non-contributing reviewer; Root operator captures final response",
+  "ownerInstruction": "go; independent frozen-snapshot review under exact STDO3.0.4",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "exactSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "sourceDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/source.diff",
+    "bytes": 143488,
+    "sha256": "bd187b1533f04e5a963bb0612ef7e1eb1e32c917f9feab385d9c9652988d24b1"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "nativeResultRef": "result://abiogenesis/3d8ed6167e91545cfa65ef12d0e10356afd09489c37acba85ee72265db6e58b6",
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "slice": "Q23 actual configured assessor identity, existing transport/proof/Validator causal cone",
+    "outcome": "Existing F11/F15 independence claims use actual configured identity through current ABG owners; unknown or ineligible required assessment cannot launch or become green.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "sourcePolicy": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/ROOT_POLICY_HOW_SELECTION.json",
+    "bytes": 3891,
+    "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9"
+  },
+  "provider": {
+    "cliPackage": {
+      "path": "/opt/homebrew/lib/node_modules/@google/gemini-cli/package.json",
+      "bytes": 707,
+      "sha256": "c16e6c2aa6ae57a88475e791037a28df55a0a446402fc6ac0152ab1fc51ee1bc"
+    },
+    "cliVersion": "0.42.0",
+    "requestedModel": "gemini-3.1-pro-preview",
+    "requestedThinking": "HIGH",
+    "reasoningStanding": "Highest installed supported level; no literal max enum",
+    "maximumSessionTurns": 32,
+    "actualModel": "UNOBSERVED"
+  },
+  "independence": "Gemini has not contributed to these candidate bytes or selected HOW. No author conversation/session supplied. Actual model/tool posture must match; this is source assurance, not Product F11 admission or a new Product profile.",
+  "permittedTools": [
+    "read_file",
+    "list_directory",
+    "glob",
+    "grep_search"
+  ],
+  "readScope": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001",
+    "/Users/jim/Library/Application Support/STDO/releases/v3.0.4",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/frozen-authority"
+  ],
+  "writeEffects": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/gemini-home",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/gemini-review-001/tmp",
+    "Root final response and metadata under this control directory"
+  ],
+  "forbidden": [
+    "Product/subject changes",
+    "tests or shell tool",
+    "delegation",
+    "private provider logs/auth/session reads",
+    "unbound model fallback acceptance",
+    "release claims"
+  ],
+  "stops": [
+    "Unknown/different effective model or auth failure",
+    "Unexpected tool access or source mutation",
+    "Missing material necessary for a verdict"
+  ],
+  "closure": "Exact source-grounded Q1-Q7 result, concrete findings, independence and evidence limits; Root conjoins with actual native proof separately."
+}

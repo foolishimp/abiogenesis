@@ -1,0 +1,51 @@
+{
+  "kind": "local_cut_selected_generator_bound_repricing",
+  "status": "PREPARED_UNBOUND_NO_EXECUTION",
+  "createdUtc": "2026-11-06T18:30:34.150228+00:00",
+  "rootSelection": "Root explicitly selected preparation004 to change only the generation ceiling/build binding and matching documentation from180000 to600000 for candidate and clean reproduction.",
+  "predecessorManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/PREPARATION_MANIFEST.json",
+    "bytes": 4957,
+    "sha256": "c8648ce29d969df7c7425d86b101b773240495d8ccc2eeb08737316fe42ca3bb"
+  },
+  "observedCompletedBuild": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+    "bytes": 102337,
+    "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+  },
+  "observedGeneratorMs": 197972.945292,
+  "causeOrSpeedClaim": false,
+  "selectedDelta": {
+    "executableField": "ceilings.generate",
+    "bindingField": "/boundsMs/generate",
+    "beforeMs": 180000,
+    "afterMs": 600000,
+    "commands": [
+      "candidate-generate",
+      "reproduction-generate"
+    ]
+  },
+  "entrypoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/run-local-cut.mjs",
+    "bytes": 25084,
+    "sha256": "c79196ca7f25db1c4c758a034512e7124d74d3b2adb6bacc4a3d45bc65d5750a"
+  },
+  "buildBindingsTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/ROOT_BUILD_BINDINGS.template.json",
+    "bytes": 1979,
+    "sha256": "eb10a17912f560baea48db608904b9a06ed9fa61a401113640f3742552f32c9b"
+  },
+  "exactDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/CORRECTION.diff",
+    "bytes": 4487,
+    "sha256": "268995d4a49133a0e6b1abefc8e3cf13fc7044cfcc86f957a6f6c98d73322b5b"
+  },
+  "syntax": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/SYNTAX_CHECKS.json",
+    "bytes": 1004,
+    "sha256": "24b37c2612694f305d6349d69e46e442d81593310770e458680798704da59d37"
+  },
+  "unchanged": "Compile240s; pack/setup/archive/other120s; install600s; fresh installed owner60s;64MiB output;8GiB heap; two builds/one install/no retry; canonical owners, early output checks and all null activation/source/acceptance/archive inputs. Growth preparation002 unchanged.",
+  "futureSourceAcceptanceArchiveAndActivation": null,
+  "effects": "Only new preparation004 controls and syntax checks; no generation/build/install/source/runtime/Git/release effects."
+}

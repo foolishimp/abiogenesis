@@ -1,0 +1,25 @@
+{
+  "kind": "root_final_host_filename_binding",
+  "draftAdaptation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/R2_HOST_ADAPTATION.json",
+    "bytes": 1160,
+    "sha256": "0e7ca589b68801c835c8115950227d3bcd0acee9c63991c94a756cdb308bbde2"
+  },
+  "draftHostPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/single-host-r2.pre-workload-binding.mjs",
+    "bytes": 16203,
+    "sha256": "d029e244243dfea5b5d5e9384442fd6f96a6478558567aa7f6b1343777fc002c"
+  },
+  "finalHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/single-host-r2.mjs",
+    "bytes": 16206,
+    "sha256": "24ecd2de514fc04b0efeaaeb598092cb946f8e6ec42a3701698477a782f43c5e"
+  },
+  "finalManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-03/HOST_MANIFEST_R2.json",
+    "bytes": 14193,
+    "sha256": "330c43086dc156e4f16656026cb9ad8465c813af77c13036fda1870cabd8c2e8"
+  },
+  "change": "Bind prepared R2 host workload filename to workload-r2.json; all other owner calls unchanged. Final HOST_MANIFEST binds executing script. Prior adaptation pins describe the preserved preparation draft, not the executing script.",
+  "finalSyntaxExit": 0
+}

@@ -1,0 +1,15 @@
+{
+  "actualCommandId": "command://abiogenesis/rc3-dogfood/increment-b-08/source-correspondence",
+  "byteLength": 6063,
+  "exitStatus": 0,
+  "fullPathMapping": "exact common prefix header plus ordered relative path/byte length/SHA rows",
+  "kind": "single_machine_p1_compact_correspondence_preflight",
+  "maxBytes": 8192,
+  "negativeChangedPath": {
+    "disposition": "refused",
+    "reason": "missing, changed, duplicate or reordered path"
+  },
+  "pathCount": 46,
+  "sha256": "977c9c3cceeac906f9ffbb20056c11f55b32657037b18406c5a01cee9cda9d33",
+  "standing": "current preimage check, not native C2 or UAT"
+}

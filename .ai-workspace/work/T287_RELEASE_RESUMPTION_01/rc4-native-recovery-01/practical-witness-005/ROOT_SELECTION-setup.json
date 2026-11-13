@@ -1,0 +1,14 @@
+{
+  "status": "ROOT_SELECTED_SETUP",
+  "operator": "Root",
+  "bindingSha256": "18a0e1a327d2dc102427fd3df7ff047f89526cc11606e54bace810dfd51a605f",
+  "allowedStages": [
+    "setup"
+  ],
+  "callSha256": null,
+  "decision": "Root selects isolated provisional C3 archive4589 setup only after exact bootstrap receipt76113e80. Existing owners establish install, definitions and A/B preflight. Zero provider or A/B Run dispatch; no candidate acceptance. Final accepted candidate binding gates every later stage.",
+  "selectedUtc": "2026-11-02T21:58:00.822337+00:00",
+  "bootstrapMaterializationSha256": "76113e8034cb4337213b344a27616c996bce6c6e3c750e04db94c601a25a4659",
+  "providerDispatch": false,
+  "RunDispatch": false
+}

@@ -1,0 +1,21 @@
+{
+  "standing": "Passive transport metadata, no C2 verdict",
+  "rows": [
+    {
+      "physicalOffset": 506173594,
+      "physicalBytes": 4037725,
+      "admissionOrdinal": 28499,
+      "eventTime": "2026-11-02T23:08:24.644Z",
+      "cCallRef": "c-call:sha256:91465b132a4ebdeec60a327fe1c33505c41d070ebf8243f136586fdfd3ffa523",
+      "paths": {
+        "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-a589fa9b50395075-output.txt",
+        "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-a589fa9b50395075-prompt.txt",
+        "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-a589fa9b50395075-stderr.log",
+        "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-a589fa9b50395075-stdout.log",
+        "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-a589fa9b50395075-transport.json"
+      },
+      "actorRef": "actor://abiogenesis/worksite/command-execution-worker@5",
+      "promptDigest": "sha256:4f61136134da4d475417729663b73678bcd7c70b4bf8230e3f7b0908c4299143"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "native_author_progress",
+  "task": "rc7-held-session-author-02",
+  "status": "IN_PROGRESS_READING_AUTHORITY",
+  "startedUtc": "2026-11-06T14:52:25Z",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "preservedTrackedChanges": 63,
+  "inheritedNewProductPaths": 2,
+  "harnessPins": {
+    "prior-author-lanes.mjs": "211bb0e2f91cf6210adf7ce64b23cf0fc4f64bb1f10aea00795baa7541e16dc2",
+    "prior-author-stage.mjs": "746e64b4009aad7c656686179892addfa4a878e9e41c43a49276c6f01580f78f",
+    "C2_INPUTS.json": "7808e4f75ac2253ac2a50826ff02f5157c6e39155966e447da865b1b3be5f04e",
+    "COMMAND_BOUNDS.json": "195c06b45e4a853e272dd86b9f57dcf693471ea7b0b3b16342dcee7f62c9dfb5"
+  },
+  "controlObservations": [
+    {
+      "id": "HS2-CONTROL-001",
+      "observedUtc": "2026-11-06T14:52:25Z",
+      "subject": "qualification-inputs/rc7-held-session-author-02/prior-author-lanes.mjs",
+      "relation": "Line 81 throws 'Selected finite per-lane bound and positive filter required' unless lane.timeoutMs===300000. C2_INPUTS lanes fixed-route and fixed-route-correction declare timeoutMs 600000 (the Root-selected primary bound). Line 74 creates the lane allocation directory before line 81, so invoking fixed-route deterministically reserves an allocation with no summary; every later lane and stage invocation then stops with 'Prior lane allocation incomplete'. Guard and caller lanes require a passed fixed-route first.",
+      "standing": "Static read of the supplied harness; not executed. The Worker cannot edit qualification-inputs. Running fixed-route would consume an allocation for a known harness refusal and block all remaining lanes and stage02, so this Worker does not invoke it unless Root corrects the control."
+    }
+  ],
+  "stages": [],
+  "lanes": []
+}

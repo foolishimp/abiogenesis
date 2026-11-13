@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/m5-worker-transport.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 39,
+    "pass": 39,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/025-m5-worker-transport.test/process.json",
+    "bytes": 1073,
+    "sha256": "a59c4b0a013acc7dcbe25e37ca8298d034c4d97d000e28751cb5049d5f93b3c4"
+  }
+}

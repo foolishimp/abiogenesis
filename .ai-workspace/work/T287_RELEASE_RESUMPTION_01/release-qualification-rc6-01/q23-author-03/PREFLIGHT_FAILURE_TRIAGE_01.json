@@ -1,0 +1,36 @@
+{
+  "kind": "root_author_program_preflight_failure_triage",
+  "at": "2026-11-05T18:34:00.287118+00:00",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/preflight-attempt-01/PREFLIGHT.stderr",
+    "bytes": 754,
+    "sha256": "28f2bf0816cee5d0dd3d893f68db66ec39fdfd2e5c48e60e94cdedc9610327d7"
+  },
+  "actualResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-03/preflight-attempt-01/PREFLIGHT_RESULT.json",
+    "bytes": 193,
+    "sha256": "87042f4737f7fc969f8beccd071700e4008c0e743a4edcfbd5fb4393278b4b09"
+  },
+  "owner": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/public_start.js",
+    "bytes": 3006,
+    "sha256": "640071fde6cee3e4302af81cfb3eff70f2cc7c29afd416a44d19ba93b246d571"
+  },
+  "cause": "Operator schematic combined rootMode direct with declared_start. Existing public_start owner permits explicit declared start only for supervised control; direct control requires next or published asset. Current catalog/view already contains the exact native-work Program and GraphFunction membership.",
+  "frames": [
+    {
+      "frame": "operator call population",
+      "finding": "Correct target to existing {kind:next} for the same exact programRef and direct mode. No semantic selector is added: the Program default start is resolved by the declared owner."
+    },
+    {
+      "frame": "capability return and Root admission",
+      "finding": "Static capability identified the existing route but its schematic call combination was invalid. Root actual preflight caught it before admission; the schematic is not executed evidence."
+    },
+    {
+      "frame": "Product runtime and source",
+      "finding": "Owner refusal is correct, with zero Run admissions/provider calls, unchanged source and event prefix. No Product/catalog repair or setup rerun is selected."
+    }
+  ],
+  "correction": "prepare-r2.mjs uses target.kind next under unchanged NativeWork Program/direct mode, scope, actual close and provider selection.",
+  "authorization": "Existing Root activation and author-only control admission; this is a mechanical operator input correction after causal triage, not automatic runtime retry."
+}

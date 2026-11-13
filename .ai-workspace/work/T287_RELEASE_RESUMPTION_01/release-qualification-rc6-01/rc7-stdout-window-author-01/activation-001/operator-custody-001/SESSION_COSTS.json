@@ -1,0 +1,157 @@
+{
+  "kind": "actual_s5_session_costs",
+  "createdUtc": "2026-11-06T21:39:31.398975+00:00",
+  "sources": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/commands/sdk-native-host.request.json",
+      "bytes": 1873,
+      "sha256": "7a03c81fe4642ca82bab704e4f5399c57076dfb9aa7cb2a2a08160622739b5e7"
+    },
+    "hostPreparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/HOST_PREPARATION_STARTED.json",
+      "bytes": 200,
+      "sha256": "2ce6f28df7e0ede89292260430fa023864dda63462ad3e5674d4e1449dbd748b"
+    },
+    "phaseReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/PREPARATION_PHASES.json",
+      "bytes": 3464,
+      "sha256": "5b6b8b9f013d33636b30c73b96bb3c2414864359d9674aa4bf0a1b519b20ecfb"
+    },
+    "actualActorStart": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/ACTOR_START.json",
+      "bytes": 2086,
+      "sha256": "d2739327702300a3ce6fc66701d188844bd8f8fc546902595b81893f1bf5fcdb"
+    },
+    "outcomeSummary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/outcome-summary.json",
+      "bytes": 832,
+      "sha256": "427d9048e9936c135d592a969b4b3aff0eca633cdb3b691ab584228cf5575a27"
+    },
+    "resourceClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/execution/resource-close.json",
+      "bytes": 2308,
+      "sha256": "92103f73770530f6eeda5eb890bd64f5f58e579906b1aaf2ee67b083603660c3"
+    },
+    "transportFailureMetadata": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/TRANSPORT_OUTCOME_METADATA.json",
+      "bytes": 1673,
+      "sha256": "b704f978063bd6bc0495d1ebf895102713b5d5694fd46c3c3c5ee99e4a3bec52"
+    },
+    "proofInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/post-return-controls/actual-001/PROOF_INVENTORY.json",
+      "bytes": 8373,
+      "sha256": "13946807a222323825f1dd0f08d80f8b65d7cb0eabc5a9fc3109d2982e61b5ee"
+    },
+    "bootstrapOrder": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/BOOTSTRAP_ORDER_001.json",
+      "bytes": 2370,
+      "sha256": "925c5bd06ea5c3e25fda4ec3cded3d1c075a74959c0e25992f3e53efaffcc436"
+    }
+  },
+  "requestUtc": "2026-11-06T20:01:58.434Z",
+  "hostStartedUtc": "2026-11-06T20:01:59.357Z",
+  "actorStartedUtc": "2026-11-06T20:04:10.098Z",
+  "ownerEndedUtc": "2026-11-06T21:34:44.248Z",
+  "requestToHostMs": 923.0,
+  "setupPhasesMs": {
+    "identity": 1188.0755419999998,
+    "acquisition": 52156.575,
+    "environment": 69505.443791,
+    "callConstruction": 1876.3735420000012
+  },
+  "marksMs": {
+    "beforeRunIdentityMs": 1188.0755419999998,
+    "acquiredMs": 53344.650541999996,
+    "environmentMs": 122850.094333,
+    "preparedMs": 124726.467875
+  },
+  "hostToActorMs": 130741.00000000001,
+  "preparedToActorMs": 6014.5321250000125,
+  "actorToOwnerSummaryEndMs": 5434150.0,
+  "nativeAbsoluteBudgetMs": 5400000,
+  "actualTransportTimeoutClass": "absolute",
+  "nativeActualWorkOnlyMs": null,
+  "exactActorTerminationUtc": null,
+  "sdkReturnToPhysicalCloseMs": null,
+  "timingPartitionLimit": "Actual absolute timeout witnessed; no exact actor-termination/SDK-return/physical-close wallclock timestamps observed. Actor-to-owner-end includes work/testing and failure/return/close overhead.",
+  "stages": [
+    {
+      "label": "sw1-stage-01",
+      "mode": "before",
+      "sourceDigest": "5d51fb333507b2e38183f40c96101358c426c2fa7b49bcb7dc31589e085d063a",
+      "sourceFreeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/stages/sw1-stage-01/source-freeze.json",
+        "bytes": 96809,
+        "sha256": "bc2444779c9f0dd71186b7d5b2c457cf10a88167b0deaf509466ec668a3deb1c"
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/stages/sw1-stage-01/stage.json",
+        "bytes": 97761,
+        "sha256": "d104a9f37a433fc9fd9e75150d99dbc23cfb4994b80fbe8a0c95f68d8600c45b"
+      },
+      "sameAll451AsFinalSource": false,
+      "differingPaths": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs"
+      ],
+      "setupMs": 1944,
+      "phases": {
+        "compile": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 7716,
+          "error": null
+        },
+        "generate": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 22860,
+          "error": null
+        },
+        "lifecycle": {
+          "exitCode": 0,
+          "signal": null,
+          "ms": 600,
+          "error": null
+        }
+      }
+    }
+  ],
+  "laneDurationsMs": {
+    "sw1-stage-01/stdout-before": 2584
+  },
+  "laneSetupMs": {
+    "sw1-stage-01/stdout-before": 67
+  },
+  "nestedTimingLimit": "Stage/lane durations occur inside actor-to-owner-end and must not be added to it.",
+  "bootstrapObservation": {
+    "actorToAuthoredProgressWriteMs": 1707900,
+    "actorToFirstHowEditMs": 1782797,
+    "authoredBootstrapRecordedAt": "2026-11-06T20:32:10Z",
+    "actualWriteRequestUtc": "2026-11-06T20:32:37.998Z",
+    "firstHowEditRequestUtc": "2026-11-06T20:33:52.895Z",
+    "limit": "Authored timestamps remain separate from request/observation timestamps; unknown Bash purposes do not yield preparation execution durations."
+  },
+  "betweenTaskOperator": {
+    "predecessorOwnerEndedUtc": "2026-11-06T19:39:15.357Z",
+    "hostStartedUtc": "2026-11-06T20:01:59.357Z",
+    "ms": 1364000,
+    "classification": "Between-task/operator interval; not RC7 native runtime performance."
+  },
+  "ownerWallMs": 5564907.0230829995,
+  "rootObservedHost": {
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 5566144.001625,
+    "observedUtc": "2026-11-06T21:34:51Z",
+    "source": "Root actual exec21560 host exit"
+  },
+  "noMatchedSpeedupClaim": true
+}

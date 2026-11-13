@@ -1,0 +1,102 @@
+{
+  "kind": "rc4_hc2_actual_c2_red_localization",
+  "status": "TWO_EXISTING_PROOF_CALLER_REPAIRS_REQUIRED_ORIGINAL_C2_RED_PRESERVED",
+  "subjectSha256": "1d232ff1a8a576ac558a58c3b6123329e1fdebb456a1041e1f3d1d2772fac06d",
+  "candidateSha256": "6698e6379503595426bcb599c21109f77aa5029344889709ca82bfc890ab0607",
+  "helperResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/result.json",
+    "bytes": 22730796,
+    "sha256": "a8dc18ab6a98cda61bc85c42b6d1fc827b87180524679aab41b368f61999d21a",
+    "artifactDigest": "sha256:22884f011319d1f88fb5d25e521bd04f95c226deb947989a7ce0e52ef87bc850"
+  },
+  "summaryObservedSha256": "7e0d5bf19bf206343b073f6465c9d08161012f0d1a4d8fd372659da97b92fe45",
+  "summaryObservationNote": "Summary has additive admittedCoordinates; helper result and original source/candidate unchanged.",
+  "overall": {
+    "passedCommands": 9,
+    "totalCommands": 11,
+    "timeouts": 0,
+    "failedOrdinals": [
+      6,
+      8
+    ]
+  },
+  "findings": [
+    {
+      "command": 6,
+      "owner": "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs:1388",
+      "actual": "run_read_population_refusal unknown_source at helper assertion505",
+      "cause": "terminalRun is requested using setupHandoff, which predates the Run. Canonical population correctly refuses before this deliberate stale-acquisition negative reaches its target.",
+      "smallestRepair": "Construct canonical read at current terminal/read handoff, then explicitly patch only eventResource to stale setupHandoff for this negative. Retain resource_acquisition/acquisition_refused and zero-byte assertions.",
+      "productChangeRequired": false,
+      "unexecuted": "Later ST1 assertions, including added direct invoke and six-member read composition, did not run."
+    },
+    {
+      "command": 8,
+      "owner": "test_env/tests/t287-exact-construction-intent.test.mjs:11",
+      "actual": "current_intent admitted, result disposition runtime_failed; retained stop166 reports preparation ENOENT for relative consumer-ready.txt",
+      "cause": "C2 supplies a relative proof root. Test writes under helper cwd; installed CLI changes cwd to scratch at support/registered-graph-selection.mjs439. Both readyPath and fixed transport command derive from the unresolved relative root.",
+      "smallestRepair": "Resolve configured proof root to an absolute path at test entry before producing readyPath and fixed command. Preserve initial absence/undispatched frontier and existing runtime failure behavior.",
+      "productChangeRequired": false,
+      "unexecuted": "Successful actor completion, terminal readbacks and consumed resend proof remain unearned."
+    }
+  ],
+  "positiveEvidence": {
+    "packedType": "6/6, no skips;224 schema slots/178 contracts equal baseline,56declared/47callable/all9 raw unavailable cases and19 negative compiler probes",
+    "pendingRetained": "3/3 no skips",
+    "selectedAction": "1/1 no skips",
+    "artifact": "1/1 no skips",
+    "limit": "Existing packed type lane does not exercise new factory-to-transport chains; independent typed-chain blocker remains."
+  },
+  "reproof": "After one bounded repair return, rerun the existing ST1 and current-intent cases through the exact packed candidate, plus the already selected typed-chain and caller completion checks. No new test family, runtime schema or provider needed for these two causes.",
+  "testOrRuntimeCommandsRunByReviewer": [],
+  "effect": "Read-only analysis and small isolated evidence projection; no rerun, source edits, Git, provider or runtime invocation.",
+  "retainedEvidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/test_env/evidence/hc2-current-intent/setup.json",
+      "bytes": 1854,
+      "sha256": "5ec41f29887714fc043f7c6c9c048e1947df391e658cbcf6481f21cf22d3604d",
+      "observedAfterDigest": "sha256:5ec41f29887714fc043f7c6c9c048e1947df391e658cbcf6481f21cf22d3604d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/test_env/evidence/hc2-current-intent/prepared-relation.json",
+      "bytes": 33473,
+      "sha256": "04ed2cd2d9a77e5557fd9d8677bb98dc355232aaee1bb4ffb8cb3b3e57c75ea7",
+      "observedAfterDigest": "sha256:04ed2cd2d9a77e5557fd9d8677bb98dc355232aaee1bb4ffb8cb3b3e57c75ea7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/test_env/evidence/hc2-current-intent/continue-call.json",
+      "bytes": 27920579,
+      "sha256": "0c589377b1b33da7230aa39ccb920ce670d46457daa8fab04792a066760b7834",
+      "observedAfterDigest": "sha256:0c589377b1b33da7230aa39ccb920ce670d46457daa8fab04792a066760b7834"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/test_env/evidence/hc2-current-intent/continue-receipt.json",
+      "bytes": 17408,
+      "sha256": "35fda7ee15d101b01c1ffd4b214f14e6d38be62e0f81321cd60f60e654a118cc",
+      "observedAfterDigest": "sha256:35fda7ee15d101b01c1ffd4b214f14e6d38be62e0f81321cd60f60e654a118cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/test_env/evidence/hc2-current-intent/continue-events.jsonl",
+      "bytes": 3810474,
+      "sha256": "e0d62b1e222a4d847f8f636d784e71ba3b575c3cea7be9828dd38ae8ad642d29",
+      "observedAfterDigest": "sha256:e0d62b1e222a4d847f8f636d784e71ba3b575c3cea7be9828dd38ae8ad642d29"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/test_env/evidence/hc2-current-intent/consumer-ready.txt",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b",
+      "observedAfterDigest": "sha256:ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/e66d5c0f94de2b2049b2623036d7aea5063728fa4b913b480697fcaebfb09b0d/7eff06ce218dabc49007a14424cab4098a600fd1c5ff7db2a1cd25b3f709f476/sandbox/build_tenants/abiogenesis/typescript/test_env/evidence/hc2-current-intent/fixed-transport.cjs",
+      "bytes": 396,
+      "sha256": "1a86fe61abbbb6141eb49da7732e62a3c2ea50c2de4f0ceb49495320941f0503",
+      "observedAfterDigest": "sha256:1a86fe61abbbb6141eb49da7732e62a3c2ea50c2de4f0ceb49495320941f0503"
+    }
+  ],
+  "causalExtract": {
+    "path": "/private/tmp/rc4-016-independent-review-uki2gn2f/C2_CURRENT_INTENT_CAUSAL_EXTRACT.json",
+    "bytes": 5871,
+    "sha256": "5eb3bb06b49e4444e265270d819c1b4605aac6a0efb3c489120a48a553f6fbd9"
+  }
+}

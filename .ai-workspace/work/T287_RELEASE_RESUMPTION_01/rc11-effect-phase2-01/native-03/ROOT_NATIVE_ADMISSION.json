@@ -1,0 +1,124 @@
+{
+  "id": "PHASE2-A-R1-NATIVE-01",
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedAt": "2026-11-10T01:20:43.260202+00:00",
+  "bindingSha256": "b6582ff36d7efff98fa5470642e95b5d17eca8f1365da92b59a4e6065e6ddcf2",
+  "preparedSha256": "02734a787ebbc400a506454fd4512adabb8f24c40c61bffeae55dda3e55f7cdb",
+  "taskSha256": "2ea47c686d5b0ab01c4c86d147cf5280a57201b2556f416b2f700d9ed0bafa16",
+  "scopeSha256": "fe58bceb2a12ade9a022136dda5bf1516525dea803fb2203a42ef7fc0c06de07",
+  "invocationRef": "invocation://abiogenesis/5541391cd1e0be119309c33d00f452ce541cf5fedc9e23cac17a628155544a29",
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188181,
+    "prefixDigest": "sha256:adb968652ee4941dd5e8c2ec59926d7be7f718a38c3f97de4922e9c82dba4b2a",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 720607359,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:9ae23000675940ef517584524b0f87310323b7b3927c73dd8de5f1646b0a80a6"
+  },
+  "nativeSelection": {
+    "programRef": "program://abiogenesis/worksite/native-work@5",
+    "startRef": "start://abiogenesis/worksite/native-work@5",
+    "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+    "viewDigest": "sha256:0fedc421a9e32fd11ca527a1256eb159cfc30465d792184811f2f9bc5fc3dcf3"
+  },
+  "sessionId": 99751,
+  "pid": 29993,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/host.mjs",
+      "bytes": 15522,
+      "sha256": "3da8af91ca199bf6d2324d4efb66a91fea690c6993f8bf7eec705a2fc8ca143e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/TRANSPORT_PREFLIGHT.json",
+      "bytes": 1072,
+      "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/TASK.json",
+      "bytes": 6503,
+      "sha256": "2ea47c686d5b0ab01c4c86d147cf5280a57201b2556f416b2f700d9ed0bafa16"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/ROOT_SCOPE.json",
+      "bytes": 6711,
+      "sha256": "fe58bceb2a12ade9a022136dda5bf1516525dea803fb2203a42ef7fc0c06de07"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+      "bytes": 296057,
+      "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/PRESERVATION_GUARDS.json",
+      "bytes": 3317,
+      "sha256": "362287f97c80890269b5fdc471fbf057d9554938e118158b917816d7fd889d9b"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/.abiogenesis/workspace-manifest.json",
+      "bytes": 1839,
+      "sha256": "c40d3782bb43ebbe634c48fa2229c92094902bed696fee2faf930efd6ed6de97"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03/BASELINE_OBSERVATION.json",
+      "bytes": 2931,
+      "sha256": "7db4f706c63a52d5e5e94e73a71328c17598a93b3ef33597dae365b7270e59d6"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03/CANDIDATE_OBSERVATION.json",
+      "bytes": 2980,
+      "sha256": "0f3d6150b9570ec1fa8195ab3a01b6a2b0cad264fe3e03be6f046c1378b101be"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03/DESIGN_R1.md",
+      "bytes": 7465,
+      "sha256": "46155a87d5b32671b25a6cf01ff30f8ab35cd0b335099c3c0cf66197ca3e1a21"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03/EXECUTED_DESIGN.md",
+      "bytes": 4158,
+      "sha256": "ff4849936ed0b28004212cc018bb31e80567c2b029f667f3ece051c0548416bd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03/EXECUTED_PROOF.md",
+      "bytes": 3371,
+      "sha256": "2fe847eb71baf7f19d40eda5e9f4685e4b29de63cddb9ad22b1c347e1b9a28af"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03/EXTERNAL_TOOLS.json",
+      "bytes": 3888,
+      "sha256": "00412244034486e29ba87a89fb51fa3728716659dc9fbe9ee7730caaf4f5861e"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03/ROOT_SCOPE.json",
+      "bytes": 6711,
+      "sha256": "fe58bceb2a12ade9a022136dda5bf1516525dea803fb2203a42ef7fc0c06de07"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-03/SOURCE_REVIEW.md",
+      "bytes": 8027,
+      "sha256": "17ec6ffc730c4ebe27cc7e972739b810766fa8bc520a3c0c7e4ce7c5d0706c54"
+    }
+  ],
+  "rootDecision": "Root PHASE2-A-R1-NATIVE-01 admits ONE repair dispatch on the actual PREPARED02734a78/BINDINGb6582ff3/TASK2ea47c68/sourcecddcc3bc1345rows. Deliver this admission pin once to same live PTY99751/PID29993 and actual constructed invocation5541391c. No new call or closed-resource reuse. Exact four source paths and scratch only; no automatic retry, whole-file proof, B or commit. Capture actual start/result/first red/source freeze/physical close/fresh replay.",
+  "limits": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "sourcePreflightRows": 1345,
+  "sourcePreflightPassed": true,
+  "qualified": false
+}

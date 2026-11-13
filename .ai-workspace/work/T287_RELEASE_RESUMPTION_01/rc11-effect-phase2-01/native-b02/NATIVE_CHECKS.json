@@ -1,0 +1,40 @@
+{
+  "status": "ACTUAL_SYNTAX_ONLY_NOT_SEMANTIC_PROOF",
+  "actualTool": {
+    "line": 1337,
+    "id": "toolu_0165J1r4rrr68WPxrBzJ8QEs",
+    "name": "Bash",
+    "input": {
+      "command": "N=/opt/homebrew/Cellar/node/24.7.0/bin/node && shasum -a 256 $N && S=qualification-scratch/rc11-effect-phase2-01/native-b02 && ls -la $S/evidence $S/tmp && /usr/bin/perl -e 'alarm 60; exec @ARGV' $N --check build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs > $S/node-check.stdout 2> $S/node-check.stderr; st=$?; echo \"$st\" > $S/node-check.status; echo \"status=$st\"; wc -c $S/node-check.stdout $S/node-check.stderr; cat $S/node-check.stderr",
+      "description": "Run pinned node syntax check and retain outputs",
+      "timeout": 90000
+    },
+    "ordinal": 17,
+    "result": {
+      "line": 1341,
+      "isError": false,
+      "contentSha256": "7de223bd1a741ddd73469b3674186a469fdf0801832f83bec32bafed392e5755"
+    }
+  },
+  "actualOutput": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f  /opt/homebrew/Cellar/node/24.7.0/bin/node\nqualification-scratch/rc11-effect-phase2-01/native-b02/evidence:\ntotal 0\ndrwx------  2 jim  wheel   64 Nov 10 15:33 .\ndrwx------  5 jim  wheel  160 Nov 10 15:33 ..\n\nqualification-scratch/rc11-effect-phase2-01/native-b02/tmp:\ntotal 0\ndrwx------  2 jim  wheel   64 Nov 10 15:36 .\ndrwx------  5 jim  wheel  160 Nov 10 15:33 ..\nstatus=0\n       0 qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.stdout\n       0 qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.stderr\n       0 total",
+  "statusFile": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.status",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "stdout": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.stdout",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b02/node-check.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "exitCode": 0,
+  "declaredMaxSeconds": 60,
+  "bashTimeoutMs": 90000,
+  "testsBuildPackRun": false,
+  "laterSourceWrites": false
+}

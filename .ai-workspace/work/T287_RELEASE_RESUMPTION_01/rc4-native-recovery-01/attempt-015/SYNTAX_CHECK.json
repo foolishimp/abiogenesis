@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "exitCode": 0,
+  "output": "MJS and Python syntax passed without module execution or bytecode writes\n",
+  "meaning": "Syntax only; no installed module/runtime execution."
+}

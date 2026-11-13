@@ -1,0 +1,164 @@
+{
+  "status": "R6_F04A_CLOSED_PASSED_M5_QUALIFICATION_BLOCKER_OPEN",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/BINDING.json",
+    "bytes": 5568,
+    "sha256": "8b684197a40c53601ba715afa53d281d5aad1736771e5f95a5df35aaf50dd3cf"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 2732,
+    "sha256": "b2b44a0ac7ab0d013c010de245ec231a94a76e2429e7388443c17a0d40eff163"
+  },
+  "actualFinal": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-05/FINAL_RETURN.json",
+    "bytes": 1446,
+    "sha256": "fdfbf6a9d17a3375fcc74d01fe850d4d7c50981bde85e806c1e5f2af4c4e1834"
+  },
+  "postguards": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/POSTGUARDS.json",
+    "bytes": 6145,
+    "sha256": "4261e54986917094561d268a267aaf2b22d28e05e3b3cb4df93d8c3465f46a37"
+  },
+  "commands": [
+    {
+      "id": "r6",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-05/r6/RETURN.json",
+        "bytes": 2328,
+        "sha256": "755f0a28c284818f5d68d470ad1d35d909328382789bfda410e21e72b4727ed0"
+      },
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "wallSeconds": 469.5944101251662,
+      "groupAbsentFresh": true
+    },
+    {
+      "id": "f04a",
+      "receipt": {
+        "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-05/f04a/RETURN.json",
+        "bytes": 2348,
+        "sha256": "c0f87bfa6e6d7851db445f5743a747bf879e4913e1bd065bf615c3e2d0a937c8"
+      },
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "wallSeconds": 421.09376045828685,
+      "groupAbsentFresh": true
+    }
+  ],
+  "priorEvidence": {
+    "build": {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/build/RETURN.json",
+      "bytes": 1895,
+      "sha256": "7e8649729c090ca6b0e732284dd11726f4df154fd9fc4b279e2a52d6a3b730fa"
+    },
+    "lint": {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-01/lint/RETURN.json",
+      "bytes": 2176,
+      "sha256": "3d743e35a7c8f5003617751a593753978a74c2a1324f17980b4b2b79ad0b3537"
+    },
+    "nativeAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/ROOT_NATIVE_PROOF_ACCEPTANCE.json",
+      "bytes": 924,
+      "sha256": "73dc3d4bd4c5b7d1dfd3433cc0fdb0b3ba4843a3df2a3330615ecf22dfdecb02"
+    },
+    "selectedAndLifetimeAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-03/ROOT_PASSED_PROOF_ACCEPTANCE.json",
+      "bytes": 1646,
+      "sha256": "e50577076302db84617479a1c536712384c7405534dd24c66458e0073da99bd1"
+    },
+    "unitRed": {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-03/unit/RETURN.json",
+      "bytes": 2621,
+      "sha256": "46d3a6b984a1d08a8b7405c3c47f7a014630d3bad3ffa41ceb59ef943171be4d"
+    },
+    "wholeM5Red": {
+      "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-04/m5-discriminator/RETURN.json",
+      "bytes": 2201,
+      "sha256": "0aaf25a9fcfbddf4b41907504ec5b2107663bcf3739118ab94414c8b4dd4171a"
+    },
+    "diagnostic": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/RETURN.json",
+      "bytes": 16613,
+      "sha256": "2041b6e3c7f35e8984891b2b1111a7677943cb55989d39af6645de2371ea33de"
+    },
+    "m5RootDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-05/ROOT_M5_DISPOSITION.json",
+      "bytes": 1499,
+      "sha256": "5f34872ac04a9aef114ebe3609811c654fabed8d3b0ec26fd1dbccdd885c4251"
+    }
+  },
+  "cumulativeDistinctTAPPopulations": {
+    "nativeAssessment": {
+      "tests": 4,
+      "pass": 4,
+      "fail": 0,
+      "skip": 0
+    },
+    "selectedAction": {
+      "tests": 3,
+      "pass": 2,
+      "fail": 0,
+      "skip": 1
+    },
+    "physicalLifetime": {
+      "tests": 18,
+      "pass": 18,
+      "fail": 0,
+      "skip": 0
+    },
+    "maintainedUnit": {
+      "tests": 95,
+      "pass": 84,
+      "fail": 5,
+      "skip": 6
+    },
+    "r6": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    "f04a": {
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "distinctTotal": {
+    "tests": 123,
+    "pass": 111,
+    "fail": 5,
+    "skip": 7,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "separateRepeatedOrDiagnosticPopulations": {
+    "wholeM5Discriminator": {
+      "tests": 32,
+      "pass": 29,
+      "fail": 3,
+      "skip": 0
+    },
+    "observationalDerivative": {
+      "tests": 3,
+      "pass": 2,
+      "fail": 1,
+      "skip": 0
+    }
+  },
+  "standing": "Original unit remains red. Additional m5/diagnostic populations do not replace it. Bounded selected proof only; no source acceptance, qualification, artifact, installation or next runtime."
+}

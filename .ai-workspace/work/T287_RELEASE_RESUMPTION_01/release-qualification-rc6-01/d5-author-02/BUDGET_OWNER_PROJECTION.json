@@ -1,0 +1,43 @@
+{
+  "kind": "actual_existing_owner_budget_projection",
+  "at": "2026-11-05T23:19:14.130Z",
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 1631750,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 1636750
+  },
+  "limits": {
+    "absoluteTimeoutMs": 7200000,
+    "inactivityTimeoutMs": 1800000
+  },
+  "fits": true,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "standing": "Pure owner calculation under the exact maintained workerEnvironment; no command, fixture, test or native execution."
+}

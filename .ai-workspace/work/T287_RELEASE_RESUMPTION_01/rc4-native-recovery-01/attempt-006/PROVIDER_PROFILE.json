@@ -1,0 +1,83 @@
+{
+  "kind": "rc4_retained_work_attempt_006_provider_profile",
+  "authority": {
+    "source": "Root preparation-only selection following genuine source-acquisition-001",
+    "status": "PREPARED_FOR_EXACT_ROOT_REVIEW"
+  },
+  "model": "claude-opus-5-5",
+  "effort": "xhigh",
+  "maxTurns": 480,
+  "maxBudgetUsd": null,
+  "inactivityTimeoutMs": 4500000,
+  "absoluteTimeoutMs": 5400000,
+  "outerTimeoutMs": 10800000,
+  "toolchainEnvironment": {
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "BASH_DEFAULT_TIMEOUT_MS": "4500000",
+    "BASH_MAX_TIMEOUT_MS": "4500000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1",
+    "TMPDIR": "/private/tmp/abiogenesis-rc4-runtime-01",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO"
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-006/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 480,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "executables": [
+    {
+      "configuredPath": "/opt/homebrew/bin/node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "configuredPath": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+      "path": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+      "bytes": 152096,
+      "sha256": "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539"
+    },
+    {
+      "configuredPath": "/Users/jim/.local/bin/claude",
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+    }
+  ],
+  "providerCalls": 0,
+  "limits": "Original005 retained task and480turn/xhigh profile;75min inactivity/90min absolute/45min focused/3h outer/no dollar cap. Fresh retained-source invocation, no R2 closure.",
+  "providerScratch": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006/tmp",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-05/provider-006/npm-cache"
+  },
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "BASH_DEFAULT_TIMEOUT_MS": "4500000",
+    "BASH_MAX_TIMEOUT_MS": "4500000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1",
+    "TMPDIR": "/private/tmp/abiogenesis-rc4-runtime-01",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO"
+  },
+  "realClaude": "/Users/jim/.local/share/claude/versions/2.1.306"
+}

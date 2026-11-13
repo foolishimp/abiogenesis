@@ -1,0 +1,171 @@
+{
+  "kind": "native_08_return",
+  "returnedUtc": "2026-11-04T07:31:00Z",
+  "status": "returned",
+  "readiness": {
+    "authorReady": true,
+    "meaning": "Worker-side mechanical readiness of the selected native08 increment for freezing. This is not actual C2, independent review, UAT, fresh close or Root acceptance.",
+    "readinessFile": "consolidation-scratch/native-08/readiness.json"
+  },
+  "basis": {
+    "productFrame": "ABIogenesis 5, GOAL-035/T-287, realization_refactor, immutable STDO 3.0.4 manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b, empty companion composition",
+    "builder": "immutable installed RC5/f49 (source preimage f49e7533ebedff0946383cb0c5380a6ecac7889d); this worktree is the uncommitted successor",
+    "predecessorSubject": {"path": "native-07/review-subject-001/SUBJECT.json", "sha256": "46bb8546b515e044011e4f3c129b1aba2947ddfc13396e870392532ea4b344ae"},
+    "inputs": {
+      "consolidation-inputs/native-08/TASK.md": "f08770569fa857811c666c979149ab72f43a4402326a62408e0d8dc3eb06f828",
+      "consolidation-inputs/native-08/ROOT_REENTRY_SELECTION_08.md": "e9a9090c91c3fa99493110d0a8176ef94de8d9f40fc13aa43956bf24fb70b1d7",
+      "consolidation-inputs/native-08/PRIOR_ACTIVATION_CONJUNCTION.json": "53552405caf9ca8f7b5eb04f6c9a25985e8d9980fcf14763323c153d71144a80",
+      "consolidation-inputs/native-08/NATIVE_GRANT.json": "c505a15eca08fda5bc12084c8e1fd59d292ebf653842af0cf88cc6f3fb3fe691",
+      "consolidation-inputs/native-08/FH_COMPLETION_INTAKE_TRIAGE.json": "a92a3fefee3df09c22f851cea52b2d1c2fd8a9114e879f60096502d9300272a7",
+      "consolidation-inputs/native-08/INDEPENDENT_RUNTIME_PROOF_REVIEW.json": "1205fe2ebeb4a7849f5f99eb6781c9d162eea24bf07315625c77ff147f73d3b4",
+      "consolidation-inputs/native-08/CONTEXT_AND_CAUSAL_MAP.md": "951b7022ae583285d6f6f455f881b54645f2ab435c1d5c6a0081adeb610c92ec",
+      "consolidation-inputs/native-08/rubric.json": "987adaade5d582b1a9bf616a38e90e2ae18db7b154aa297459e4c61e973dcae9",
+      "consolidation-inputs/native-08/C2_INPUTS.json": "5306b00163571fafa257fb999a20ec7230e0e3ab6ddeb5a1554ff43192fa406c",
+      "consolidation-inputs/native-08/PREVIOUS_NATIVE_RETURN.json": "0a50973bdfbbc167764f2d3da8b7b4e69058b68a356545342642a83d6d822732"
+    }
+  },
+  "changedFromNative07": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "before": {"sha256": "deb87b9693556f5d6f778ca3bb5dd929c5080f47577626361fbeb7530935a28c", "bytes": 90554, "source": "PREVIOUS_NATIVE_RETURN sourceHashes"},
+      "after": {"sha256": "f514341d76b7fea6bed87394f96ccfb30c56517d16c04642fc2f912058a8d113", "bytes": 108147},
+      "change": "Imports freezeRaw and rawFhResponseSeed. Adds test 9, 'RAW F_H response pair ...', at line 1002. The final proof-record test (line 1175) now also requires proof.cases.fhResponsePair. The suite has 10 tests. No existing assertion was removed or weakened."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "before": {"sha256": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4", "bytes": 11376, "source": "PREVIOUS_NATIVE_RETURN sourceHashes"},
+      "after": {"sha256": "5ae58446ee3139f81d1503864d2e404c0aaa18c807f1d203cfeff2639cca74e7", "bytes": 29332},
+      "change": "Adds two exports: freezeRaw (line 164), a deep freeze for fresh RAW vectors, and rawFhResponseSeed (line 171), the test-owned RAW seed producer. Existing exports are unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "before": {"sha256": "3148d08b537f53cff92777660f5fe92dc1df8ef001206e07a581546ed13ce8e1", "bytes": 143598, "source": "verified on disk before edit"},
+      "after": {"sha256": "3c412df13f7647ba7c770177b31347f65788680b5e668f9c82cea5a847674312", "bytes": 145004},
+      "change": "Adds one factual proof bullet, P-FH-PAIR, to section 10.5 (line 657). It records the RAW claim and its limits. The design's existing evidence-boundary sentence ('this design records no executed test, build, native call or measurement') still holds, so execution evidence lives only in these handoffs."
+    }
+  ],
+  "unchangedByThisWorker": "This Worker wrote no other worksite path. Every other file of the native07 subject (122 source files and the other changed test files) is as native07 left it. No Product code or law, contract, build/ output, package file or manifest changed.",
+  "scratchCorrespondence": "All three changed files are byte-equal (cmp) to their copies in tmp08/w/build_tenants/abiogenesis/typescript, where every lane below ran. The test and support bytes did not change after the lanes ran. The design file was copied to scratch after the lanes ran, and no lane reads it.",
+  "newCase": {
+    "name": "RAW F_H response pair: an explicit conditional root grant and one exact basis/Run/pending/hold/open seed let the actual preparers yield one six-field response fact and its combined prior admission, refused as an orphan or with a crossed source, ref, digest or order, alike over repeated reads, historical cuts, a fresh frozen clone and unrelated growth",
+    "location": "t287-single-address-space-consolidation.test.mjs:1002",
+    "premise": "Conditional immutable RAW reader data. Each row was stamped by the actual store.projectRuntimeEventFromValidatedHistory over the rows before it, deep-frozen, and selected by the actual selectValidatedRuntimeEventPrefix. The seed is not Event Store admission and not current root admission. Current invocation_admission.ts:781-800 accepts exactly one direct-invoke grant, and it was not invoked.",
+    "seed": {
+      "prefixLength": 10,
+      "events": [
+        ["public_operation_admitted (run.invoke, variant direct, memberKey invoke, intrinsic invoke definitionDigest)", "event://abiogenesis/cbebeb27b0d7ddb703f6dae800725dd17f1e4aca010342775802d97a4aa64f8f"],
+        ["invocation_admitted (record body digest names the admission ref; capabilityGrants [response grant])", "event://abiogenesis/cf2cf7efdf9dc0e0a6a83d898646cecc463ed7a2d30a80ff2ec5c2364f77f385"],
+        ["basis_admitted (root; rawInputDigest = canonicalRecordDigest)", "event://abiogenesis/13b3efffbf1683e280a433f8381848792675a661b62643672f9cd3c54af85cee"],
+        ["run_segment_opened (runId from the production run body digest)", "event://abiogenesis/d215dd22bed3cf42663190edac0cd239414ed11924ea0bdd07462cfcdd373a2c"],
+        ["c_call_opened (leaf; cCallDigest per isCCall identity; held cursor ref/digest)", "event://abiogenesis/1cbd5d4071f4693b59cb97c7aeef3cf31ed607fb058d9968c72e80ccf5cfb3e3"],
+        ["c_call_fibre_selected (F_H, actorCapabilityRef = approve packet capability)", "event://abiogenesis/24380b389150510ce4394a2df5221ec0f89fc09deea39ac6c1f5025c74f2888d"],
+        ["c_call_result_admitted (pending, value {requestRef, requestDigest, request})", "event://abiogenesis/14ef8248357f47910836a857f731bcb0db5b0fb8250fc93595df2be55e65f2e0"],
+        ["c_call_judged (pending, caused by result)", "event://abiogenesis/5983ddbb7addcda61f858126970694bef3f157c052dee27a779398ee3688bffe"],
+        ["traversal_route_admitted (hold; consumes the judgment; source = held cursor)", "event://abiogenesis/f8a48118c353ffe41733085b3595ef8a5408a3afa5b5a94db34c71538f0e24ce"],
+        ["fh_interaction_opened (payload variant 0, no construction intent; caused by the hold route)", "event://abiogenesis/0c7a191465e2bdc8546feebdb5058f73e44b74eeabc6e2ea2444caf76a7e321f"]
+      ],
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/98567436e6388d262e4173b760d63f0010e8205f885d80f3ad842d41c740200e",
+      "basisRef": "execution-basis://abiogenesis/76a8a7bfc25c040fe80a200636c394578340184cf68aee8f6f7fb7bb95d4221e",
+      "runId": "run://abiogenesis/3faf0fbe186e8b6be6bd33fec716d4a4e4e712e4d01a3809e1ac37b70b1ff3bf",
+      "continuationRef": "continuation://abiogenesis/c9f259729ec8e3d313d1e41d4aaa3d05b95df152bc27c1c8a6404c55ea0400e2"
+    },
+    "grant": {
+      "grantRef": "capability-grant://abiogenesis/b39fd6fb460820015463aaf99afb0b808f713e5401126900934ef6ce3628784d",
+      "grantDigest": "sha256:b39fd6fb460820015463aaf99afb0b808f713e5401126900934ef6ce3628784d",
+      "contract": "definitionKey {abg.operation.interaction.respond, approve}. definitionRef and definitionDigest come from selectIntrinsicPublicFunctionDefinition. The builder asserts that the packet's definitionKey and owner authorityRef equal the intrinsic definition's. capabilityRef = INTERACTION_OPERATION_CONTRACTS.respond.approve.metadata.capabilityRefs[0], and the builder asserts that list equals capabilityRefsForDefinition.",
+      "rawDeclared": "The operationContract catalog coordinate and the capabilityDefinition graph digest/ref values are RAW declarations; only their shape is checked, by publicContractCoordinateSchema through isCapabilityGrantValue.",
+      "binding": "actorRef, scopeRef/scopeDigest (workspace binding) and policyRef/policyDigest equal the rehydrated root's. Root capabilityGrants = [grant] and capabilityGrantRefs = [grantRef].",
+      "checks": "isCapabilityGrantValue(grant) is true. A copy with a foreign actorRef is false. No claim is made that current root admission produced this grant."
+    },
+    "gatesInOrder": "Each gate is absent one row before its cut and holds at its cut. invocation: rehydrateInvocationAdmissionAtPrefix, cut 2. basis: projectExactExecutionBasisAtPrefix, cut 3. run: hasExactInvocationRunBindingAtPrefix, cut 4. pending: projectPendingInteractionCarrier, cut 8. heldFluent: continuation_open + interaction_pending + frame_held, without continuation_response_available, on deriveRuntimeHeldFluentProjection over the Run selection, cut 10. openContinuation: projectFhContinuations returns exactly one open continuation, cut 10. Also asserted: hasAdmittedInvocationAtPrefix is true, constructionIntentRef is null, and actorCapabilityRef equals the grant capabilityRef.",
+    "availableBefore": "At the seed prefix: response ref and unused ref are 'available'. The root invocation is 'duplicate', with priorAdmission equal to the single run.invoke fact. F_H facts = {valid, []}.",
+    "prepared": {
+      "operation": "prepareContinuationPublicOperation(P, root, interaction.respond, open continuation, 'approve', actor, capability, basis) returns kind prepared_continuation_public_operation. The operation equals the exact continuation_public_operation_admission record (capabilityGrantRef = grantRef). The event is public_operation_admitted at ordinal 11, with parentAggregateId = response ref, capabilityGrantRefs [grantRef] and invocationDigest = coordinate digest. projectedPrefix bodies = seed + event.",
+      "response": "prepareFhInteractionResponse(prepared, continuation, responseContractRef, value, {same time/correlation, causes []}) returns kind prepared_fh_interaction_response, disposition responded. The event is fh_interaction_responded at ordinal 12, causes [opened, operation], with responseDigest = sha256Canonical(value). projectedPrefix bodies = seed + operation + response.",
+      "operationEventRef": "event://abiogenesis/0a6087928ddac478cc1bff454ac5c7a154ecaf97eb8300e63038f2297406b044",
+      "responseEventRef": "event://abiogenesis/23640536358f8062a7e9d944fd3a298445932719844000797e8ad59bc3d51972",
+      "responseInvocationRef": "invocation://single-address-space/raw-fh/respond",
+      "responseInvocationDigest": "sha256:e0c63ff30eeceb72e46d8988d8b957ca25c47b63139a62baa53010d725dd2571"
+    },
+    "fact": {
+      "operationId": "abg.operation.interaction.respond",
+      "publicInvocationRef": "invocation://single-address-space/raw-fh/respond",
+      "ownerInvocationRef": "invocation://single-address-space/raw-fh/respond",
+      "ownerInvocationDigest": "sha256:e0c63ff30eeceb72e46d8988d8b957ca25c47b63139a62baa53010d725dd2571",
+      "publicOperationEventRef": "event://abiogenesis/0a6087928ddac478cc1bff454ac5c7a154ecaf97eb8300e63038f2297406b044",
+      "admissionEventRef": "event://abiogenesis/23640536358f8062a7e9d944fd3a298445932719844000797e8ad59bc3d51972"
+    },
+    "completedPair": "projectFhEffectfulPublicInvocationFacts = {valid, [fact]}, exactly six keys. projectEffectfulPublicInvocationTruthAtPrefix(response ref) = duplicate, with priorAdmission deep-equal to fact. The unused ref is available. The root ref is duplicate, with the unchanged run.invoke fact. The prepared projectedPrefix reads deep-equal to the fresh selection. projectFhContinuations shows status responded, with respondedEventRef/respondedPublicOperationEventRef equal to the two prepared events.",
+    "operationOnly": "Every requested ref gets [effectful_public_invocation_truth_invalid_history, invalid_history, invocation_pair_invalid, [operationEventRef], null]. F_H facts = {invalid_history, [operationEventRef]}.",
+    "preparerGuards": "Re-preparing the used ref on the completed prefix returns the combined owner's duplicate value, and on the operation-only prefix returns its invalid_history value; no second event is planned in either case. A root record without the response grant (same seed builder, responseGrant false; all gates still open) makes prepareContinuationPublicOperation throw 'requires the exact admitted run authority'. A foreign actor throws the same. A foreign responseContractRef makes prepareFhInteractionResponse throw 'requires one exact prefix-projected operation and open continuation'.",
+    "negativeControls": {
+      "method": "Change one field and restamp through the actual projector over the seed. The unchanged restamp reproduces the prepared event ids and the warm owner values exactly.",
+      "source (operation names a grant the root does not carry)": {"operationEventRef": "event://abiogenesis/9bfe041b8c83e6d2d726a02b7e90bc56a3254322373f7b9de4a326dba97105ed", "responseEventRef": "event://abiogenesis/d453dd72c12c279486e67fcf28cd204cd0a6a9f0fa00bf48909e59bf378efdb5"},
+      "ref (response publicOperationEventRef names the root run.invoke event)": {"operationEventRef": "event://abiogenesis/0a6087928ddac478cc1bff454ac5c7a154ecaf97eb8300e63038f2297406b044", "responseEventRef": "event://abiogenesis/cebff52535627d8a427c10820ba61b7172b920919b39cdaa1a446e2f98c02b5d"},
+      "digest (operation invocationDigest crossed)": {"operationEventRef": "event://abiogenesis/8d50dc083bbc56f39d885de5aa23c053c6f4232e8d7220cf072f46fb050d4c4f", "responseEventRef": "event://abiogenesis/b046beb9754c353e3c2a5d1082b2865e698de3665c701ab3cc075cf6fb91485a"},
+      "order (response causes reversed)": {"operationEventRef": "event://abiogenesis/0a6087928ddac478cc1bff454ac5c7a154ecaf97eb8300e63038f2297406b044", "responseEventRef": "event://abiogenesis/42216135fd50f4ebfa55b8a52915322cb04b666031a4c42cb471df642b9a8ad7"},
+      "result": "Each control refuses every requested ref with invocation_pair_invalid and eventRefs = sorted [operation, response]. F_H facts = {invalid_history, same refs}."
+    },
+    "rawComparisons": "For the seed (10), operation-only (11) and completed (12) vectors, three readings deep-equal the warm owner values: a repeated selection, the historical cut of the completed vector, and a fresh structuredClone that is deep-frozen and reselected. Comparison is over complete values, including each truth's validated prefix. After unrelated RAW growth (unrelatedWorkspaceEvent through the projector, event://abiogenesis/d67a999e16f75ddaa03f9c5347aee012b96c88c5adf114e908b9a716de848e91 in the recorded run, prefix 13), the F_H facts, Run facts and every truth value are unchanged; only the bound prefix differs. These are RAW reconstruction claims only.",
+    "limits": [
+      "Not current root admission and not Event Store admission. The seed's grant is test-owned conditional data.",
+      "No held or owned resource, acquired handle, Public dispatch, commit or resume.",
+      "A fresh frozen clone is RAW reconstruction, not a physical cold reopen.",
+      "No installed F_H qualification and no release claim. The catalog and capability-graph coordinates inside the grant are RAW declarations.",
+      "No current F_H commit path is shown: commitFhInteractionResponseAtExpectedPrefix still needs a root admission that carries a response grant, and current root admission does not emit one."
+    ]
+  },
+  "proof": {
+    "build": "tmp08/w/build_tenants/abiogenesis/typescript is a scratch copy of the worktree tenant, with node_modules copied from the declared offline toolchain (/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules); nothing was installed. tsc -p tsconfig.json and scripts/generate-product-manifest.mjs both exited 0 (tmp08/logs/tsc-1.log and gen-1.log, empty). Product source did not change, and no rebuild ran under an active test.",
+    "env": "cwd = scratch tenant. TMPDIR=tmp08, NODE_OPTIONS=--max-old-space-size=8192, ABI5_CONSOLIDATION_INPUTS=consolidation-inputs/native-08. Command: node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap <lane files>. The current-intent lane adds ABI5_EXACT_INTENT_EVIDENCE_ROOT=tmp08/runs/exact-1.",
+    "focused": [
+      {"path": "tmp08/runs/focused-1/stdout.tap", "sha256": "2dc3ae7566ea1fe89da564e2ba83e6c6ee1bb3cefa39f6ee692895878a930957", "pass": 0, "fail": 1, "skip": 0, "preservedFailure": "A fixture assertion error: it compared a RuntimeEventBodyView with an array. Fixed by spreading the iterable view. No gate or owner was involved."},
+      {"path": "tmp08/runs/focused-2/stdout.tap", "sha256": "9b70876a089e2e94188ead9396dc876e4bce4ff4e1197f0a3bf9be23d0088fd7", "pass": 1, "fail": 0, "skip": 0, "note": "--test-name-pattern '^RAW F_H response pair' (cheapest author check, run first)"}
+    ],
+    "lanes": {
+      "single-address-space-whole-path": {"path": "tmp08/runs/sas-full-1.tap", "sha256": "d974b347da9053c92f75dd4de51d5881ff2835c5fead9ae8cddd7a3c0a817383", "pass": 10, "fail": 0, "skip": 0, "cancelled": 0, "minimum": 10, "window": "07:16:17Z-07:23:35Z", "stderrBytes": 0, "proofArtifact": {"path": "tmp08/w/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json", "sha256": "4bf28c05e799647708df455e47b47f31b41d13ca175e1cc7b9721f3a98a4e458", "cases": ["retainedHistory", "livenessFork", "publicOperationClassification", "globalRunInvocationPairs", "installedPath", "qualificationCut", "completePairControls", "maintainedSetup", "fhResponsePair"], "qualified": false, "published": false}},
+      "shared-owner-declaration-regressions": {"files": ["t287-calculus-fold", "t289-install-event-bodies", "r4-catalog-admission"], "path": "tmp08/runs/shared-owner-1.tap", "sha256": "656f951a4106346234c329875c9ddb5d43a267506eee428dae1d9c8de13619ef", "pass": 31, "fail": 0, "skip": 0, "minimum": 31, "window": "07:23:48Z-07:24:48Z", "stderrBytes": 0},
+      "current-intent-complete-pair": {"path": "tmp08/runs/exact-1.tap", "sha256": "ce600f4c9d94d095ce61a67cee6f1b372e24da1ce7c4bd643350fca042166b9b", "pass": 1, "fail": 0, "skip": 0, "minimum": 1, "window": "07:24:54Z-07:26:00Z", "stderrBytes": 0, "evidenceRoot": "tmp08/runs/exact-1", "evidence": {"complete-pair.json": "a70eeb8e2b9344edcab27a504ea3fd01d06129954087d1391a5ebd0789951c54", "collision.json": "daaeae1774eb7b3d2ce21877d9107251e804752f72c411419811c212ea9a027c", "second-run-receipt.json": "334a1d4e8b4e9b35db63864d528caeb8447f27159643a6bf5c1ebcfaa4454035", "result.json": "0eae960a27d36ceebfbf39116c966cfbda0f1d3361c6e26f24d9d778c9a526ed"}}
+    },
+    "supportImporters": "Exactly three test files import the support module: t287-calculus-fold, t287-exact-construction-intent and t287-single-address-space-consolidation. All three ran in the lanes above.",
+    "retainedLanes": "This Worker did not rerun the ten retained lanes: eight native06 and two native07 (retry-entry, F09). They keep their original execution provenance in consolidation-inputs/native-08/NATIVE08_EVIDENCE_REUSE.json and are not new execution. A string check of that manifest finds none of the three changed paths in any retained lane row. All three are listed in its selectedChangedProofPaths.",
+    "packageImpact": "The package files field is [build/**, contracts/**, product-toolchain-manifest.json], which excludes all three changed paths. The worktree has no build/, and package bytes were not repacked."
+  },
+  "census": {"reference": "consolidation-inputs/native-08/PREVIOUS_NATIVE_RETURN.json#/census", "sha256": "0a50973bdfbbc167764f2d3da8b7b4e69058b68a356545342642a83d6d822732", "native08": "Unchanged. Native08 migrated no caller and retired no path. It adds one test-owned RAW proof over existing owners."},
+  "dispositions": {
+    "R1": {"native08": "No change.", "reuse": "PREVIOUS_NATIVE_RETURN.json#/dispositions/R1 (sha 0a50973b...) unchanged."},
+    "R2": {"native08": "No change.", "reuse": "PREVIOUS_NATIVE_RETURN.json#/dispositions/R2 unchanged (held native01/02 disposition)."},
+    "R3": {"native08": "Increment N7-PROOF-01 is complete. The F_H continuation cone (continuation.ts prepareContinuationPublicOperation/prepareFhInteractionResponse, fh_continuation_projection, effectful_invocation_truth, invocation_execution_truth, c_call pending carrier) now has a nonempty positive response pair on one RAW seed, and every gate is real (see newCase). An always-invalid or always-empty F_H owner can no longer pass the whole-path lane. Explicit full-output APIs keep their declared outputs: both preparers' projectedPrefix equal the seed plus their event.", "reuse": "PREVIOUS_NATIVE_RETURN.json#/dispositions/R3 (current-intent positive, second Run, duplicate_outer_invocation) unchanged."},
+    "R4": {"native08": "Outside the grant's Product scope. Native08 used only the declared inputs, the three declared write paths, tmp08 and consolidation-scratch/native-08. No archive was copied and no complete body was carried beyond the declared input files.", "reuse": "PREVIOUS_NATIVE_RETURN.json#/dispositions/R4."},
+    "R5": {"native08": "Exact owner routes came from the declared FH_COMPLETION_INTAKE_TRIAGE, FH_POSITIVE_PREMISE_TRIAGE and the closed runtime review. Supporting reads were targeted greps and reads of named owner modules in the readable worksite. No broad workspace search.", "reuse": "PREVIOUS_NATIVE_RETURN.json#/dispositions/R5."},
+    "R6": {"native08": "No change. Liveness meaning is unchanged and no Product source changed.", "reuse": "PREVIOUS_NATIVE_RETURN.json#/dispositions/R6 unchanged, including the fail-closed thrown retry observation."},
+    "R7": {"native08": "RAW reconstruction comparisons only: repeated reads, historical cuts, a fresh frozen clone and unrelated growth. No physical cold reopen, currentness, ownership or fresh result/replay closure is claimed for the RAW seed. The existing copied and cold cases in whole-path tests 5-8 ran again in sas-full-1 (10/0/0).", "reuse": "PREVIOUS_NATIVE_RETURN.json#/dispositions/R7. Actual C2/UAT fresh result/replay closure remains open."}
+  },
+  "rubric": {
+    "C1": "Partial; unchanged. Native08 changes no caller. The caller inventory and retirement judgments are inherited (PREVIOUS_NATIVE_RETURN.json#/rubric/C1 and PRIOR_ACTIVATION_CONJUNCTION currentOriginalCriterionStanding.C1). Final census conjunction is Root's.",
+    "C2": "Partial; unchanged from native07 (PREVIOUS_NATIVE_RETURN.json#/rubric/C2). The new case adds same-input value and refusal conservation for F_H: exact values across repeated, historical, cloned and grown RAW reads. It makes no materialization, CPU, byte or speed claim.",
+    "C3": "Scratch only. Whole-path 10/10 includes the installed producer/consumer and maintained SDK cases and the RAW F_H pair. Actual installed C2/UAT was not executed by this Worker. Native07 UAT never started.",
+    "C4": "R1-R7 are dispositioned above, with residuals named. F_H positivity is no longer an open proof gap under its RAW premise.",
+    "C5": "Unmet here. The three author lanes ran in scratch: whole-path 10/0/0 (min 10), shared-owner 31/0/0 (min 31), current-intent 1/0/0 (min 1), all without skips. Actual C2 over the frozen bytes, independent review of the increment, UAT and Root conjunction are outside this Worker."
+  },
+  "preservedLimits": {
+    "selectedActionPositive": "Still open at its existing scope. The inherited selected-action complete positive remains unverified under the prior no-current-producer triage (REMAINING_PAIR_PROOF_TRIAGE). Native08 did not select or build it.",
+    "failedScopePremise": "Still open at its existing scope. The retry failed-scope case proves fail-closed/no-write only under its explicit unadmitted-port premise; no typed ordinary-route refusal follows (PRIOR_ACTIVATION_CONJUNCTION rootRulings).",
+    "wholeWorkflowTiming": "Still open at its existing scope. Setup reuse, host preparation, worker launch and duration, handoff, C2, assessment and recovery costs stay separate. No whole successor workflow speedup and no bytes, CPU or whole-allocation claim. The lane wall windows above are observations only.",
+    "inherited": "Fork queries over the synthetic lower premise, source-derived allocation bounds (42/50, 620/8) and owned-receipt separation remain as native07 returned them (PREVIOUS_NATIVE_RETURN.json#/gaps)."
+  },
+  "gaps": [
+    "Actual affected C2 over these exact bytes, the required independent max review of the new proof/HOW, UAT and fresh close, and Root conjunction have not run; they are outside this Worker.",
+    "The RAW F_H positive is conditional reader proof. A current admitted F_H response transaction (commitFhInteractionResponseAtExpectedPrefix) remains unshown, because current root admission accepts only the direct-invoke grant. Closing that would be a Product/grant-law decision, which was not selected.",
+    "The grant's operationContract catalog coordinate and capabilityDefinition graph values are RAW-declared. Only their shape is checked, by isCapabilityGrantValue. They are not tied to an installed capability graph.",
+    "The selected-action positive, the failed-scope premise and whole-workflow timing remain open at their existing scope (preservedLimits).",
+    "The ten retained lanes were not rerun; their credit is native06/native07 execution only.",
+    "test_env/qualification/inventory.json and recipe/verification-recipe.json name the HOW file by path and digest. Like the earlier uncommitted changes, this Worker's change leaves that committed inventory stale. Qualification is excluded and the inventory was not touched."
+  ],
+  "disclosures": [
+    "Before the lanes ran, one shell redirection wrote a stray file at /tmp/dummy_ignore, outside the declared scope. It was removed with rm -f. No other actor write outside the declared roots is known.",
+    "Scratch writes, all under tmp08: the tenant copy w/ (with its build/ and the lane-written artifacts/single-address-space-proof.json), logs/ (tsc-1.log, gen-1.log, contracts.txt), probe/fh-seed.mjs (the RAW seed probe), runs/ (focused-1, focused-2, sas-full-1, shared-owner-1, exact-1 and its evidence root), and tool-created tmp content (npm _cacache/_logs, node-compile-cache, event-store locks, abi5-root-env-*) written by test subprocesses under TMPDIR.",
+    "A read-only check of ~/.npm/_logs found entries at 07:01Z from an unrelated 'npm exec @playwright/mcp' process, not from this work. No ~/.npm entry is newer than the probe file. Whether installed-fixture subprocesses touch other user-level caches is not fully known.",
+    "No network, install, commit, push, provider subagent or second coding Worker. The NATIVE_GRANT productWritePaths list is broader than this activation's permitted scope; only the three permitted paths were written."
+  ]
+}

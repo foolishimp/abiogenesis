@@ -1,0 +1,160 @@
+{
+  "kind": "t287_current_owner_evidence_fixture",
+  "schemaVersion": "1",
+  "producer": {
+    "version": "5.0.0-rc.10",
+    "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+    "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+    "builderPinSha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0",
+    "archiveSha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+  },
+  "prefix": {
+    "file": "events.jsonl.gz",
+    "bytes": 3467880,
+    "sha256": "0a381f83b731b54f64df27945a9906bc790ff628ce38e092d7df22ee73efa01e",
+    "compressedBytes": 779443,
+    "compressedSha256": "66162a9332dcabf7410d630551cdf12b4b272c70aa02d777f879a165a7fa8a2e"
+  },
+  "population": "native-assessment",
+  "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+  "eventCount": 79,
+  "runId": "run://abiogenesis/52dc79c4ae2cd3c5f180e0b2a341c3f4f296c7adf34b5d999dd01eb61c7222bb",
+  "expected": {
+    "cCallRef": "c-call:sha256:96d14ac470752d81a7fd0732bb6638363833c433314f381b935b02a1348e52d7",
+    "resultRef": "result://abiogenesis/4858aa320425f2cc40b6e616673d77edaae37ec9cdb85f075adbf93069ac0760",
+    "judgmentRef": "judgment://abiogenesis/e0e5d58f1c638ebad0ac196d0376f418cf51211847b4d307aab4478a46ad9ce4",
+    "signal": {
+      "kind": "c_call_runtime_failure_signal",
+      "schemaVersion": "5.0.0",
+      "failureClass": "contract_failure",
+      "sourceClass": "probabilistic_transport",
+      "sourceDigest": "sha256:c48c8a72fab4ba0883ea324fe26d5742ce69d6d6c6f515927de6c6722d08ce87",
+      "failureSignalDigest": "sha256:fd2fd90eb6dea1f1d5be7eac46ac92eea91f888f4a7b8aae382b2e40b5716c69",
+      "failureSignalRef": "retry-failure-signal://abiogenesis/fd2fd90eb6dea1f1d5be7eac46ac92eea91f888f4a7b8aae382b2e40b5716c69"
+    }
+  },
+  "request": {
+    "responsePresentation": "result_text",
+    "actorRef": "actor://abi5-tests/structural/worker@5",
+    "workerBindingRef": "worker-binding://abi5-tests/structural/worker@5",
+    "implementationRef": "implementation://abi5-tests/structural/worker@5",
+    "inputDigest": "sha256:406b942fc1e702940cac0b06ad2175c80770297d5bf8a981958b24bb92c3bb75",
+    "materializationPlanRef": "prompt-plan://abi5-tests/structural/worker@5",
+    "rendererRef": "renderer://abi5-tests/structural/worker@5",
+    "instructionContractRef": "contract://abi5-tests/structural/worker/input@5",
+    "resultContractRef": "contract://abi5-tests/structural/worker/output@5",
+    "transportLane": "closed_prompt_proof",
+    "prompt": "Independent structural worker fixture\nSubject: \"World\"\nInstruction: Return the fixed declared test payload.",
+    "responseJsonSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "resultContractRef",
+        "actorRef",
+        "message"
+      ],
+      "properties": {
+        "kind": {
+          "const": "worker_output"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "resultContractRef": {
+          "const": "contract://abi5-tests/structural/worker/output@5"
+        },
+        "actorRef": {
+          "const": "actor://abi5-tests/structural/worker@5"
+        },
+        "message": {
+          "const": "World"
+        }
+      }
+    }
+  },
+  "observation": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/27d1b1566d82cb07189cf607a7b85c64a41d2723eadff22c97c0832195e1ba84",
+    "actorRef": "actor://abi5-tests/structural/worker@5",
+    "apiRetryCount": 0,
+    "artifactDigests": {
+      "output": "sha256:f1dec6e9ee608550bd1c39ff2b90134059bac5d02e4e78f6410aed2fbd870bd0",
+      "prompt": "sha256:474d7637f5f669f8f739ae1ec6af9f50b00f1f87b362b31727311063953dd315",
+      "stderr": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "sha256:86284eefdff0f99938c46bc91389ca50bc3d88811b4fcf23ffbf24b322e808ef",
+      "transport": "sha256:8818a1282cb3b956d2828a563dad15bb4d6955627f9af53f98220afb55399b57"
+    },
+    "disposition": "failure",
+    "failureClass": "contract_failure",
+    "finalOutput": "{not-json",
+    "implementationRef": "implementation://abi5-tests/structural/worker@5",
+    "inputDigest": "sha256:406b942fc1e702940cac0b06ad2175c80770297d5bf8a981958b24bb92c3bb75",
+    "instructionContractRef": "contract://abi5-tests/structural/worker/input@5",
+    "materializationPlanRef": "prompt-plan://abi5-tests/structural/worker@5",
+    "nativeResultAssessment": {
+      "disposition": "rejected",
+      "inputDigest": "sha256:406b942fc1e702940cac0b06ad2175c80770297d5bf8a981958b24bb92c3bb75",
+      "kind": "native_worker_result_assessment",
+      "rawOutputDigest": "sha256:f1dec6e9ee608550bd1c39ff2b90134059bac5d02e4e78f6410aed2fbd870bd0",
+      "resultContractRef": "contract://abi5-tests/structural/worker/output@5",
+      "schemaVersion": "5.0.0",
+      "verification": null
+    },
+    "observedOutputDigest": "sha256:2f4149cda6f0f448d27f4addbd440a7045b66ab9ee51d2eb593f9402ad0c79e5",
+    "processRef": "process://abiogenesis/c1d717d3a6c5e8403755adccb2300d6bf28afcfa79b34b9d2a8d09d7d2de919e",
+    "processSignal": null,
+    "processStatus": 0,
+    "progressEventCount": 0,
+    "promptDigest": "sha256:b609039c16147d84fdca2498b7ab9f382bd7f75a54cca0db66d66aa6ae89c253",
+    "rendererRef": "renderer://abi5-tests/structural/worker@5",
+    "resultContractRef": "contract://abi5-tests/structural/worker/output@5",
+    "stderrByteLength": 0,
+    "stdoutByteLength": 111,
+    "structuredEventCount": 2,
+    "timeoutClass": null,
+    "toolCallCount": 0,
+    "toolInvocations": [],
+    "transportBindingDigest": "sha256:b0c55f8e1c3054c8cae2f15bb51f2fbd54a70f896d32b5ee807df0ee0ace5dd5",
+    "transportBindingRef": "transport-binding://abiogenesis/b0c55f8e1c3054c8cae2f15bb51f2fbd54a70f896d32b5ee807df0ee0ace5dd5",
+    "transportDigest": "sha256:8818a1282cb3b956d2828a563dad15bb4d6955627f9af53f98220afb55399b57",
+    "transportLane": "closed_prompt_proof",
+    "workerBindingRef": "worker-binding://abi5-tests/structural/worker@5",
+    "timedOut": false,
+    "exitObserved": true,
+    "terminationConfirmed": true,
+    "signalSequence": []
+  },
+  "actorTerminalEventRef": "event://abiogenesis/64fbf68d85480d51988111de2322cbd7ff6bb4582b020a335dab7167aaaeb075",
+  "transportPrefixCount": 36,
+  "preterminalPrefixCount": 35,
+  "sourceEvidence": {
+    "artifactEventRef": "event://abiogenesis/97e2c5ee6e1cf179019d73683b20f17be829ce4aa49e4455eaa4931510e6f41e",
+    "evidenceEventRef": "event://abiogenesis/5fb5450046fcf82f1e43abc9ccafdfe66f4cc403d9ea9e6f802a17887d23c553",
+    "resultEventRef": "event://abiogenesis/9f64914d9ec97106727ae82f903874c31be5fe9752003a4a188afc4f7d0087a5",
+    "judgmentEventRef": "event://abiogenesis/55baa21530eb22f89977f33cb32727ab61d15d85ce7beb977af30ef919c8a816"
+  },
+  "externalEvidence": {
+    "closeHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/close-handoff.json",
+      "bytes": 1414,
+      "sha256": "e7ad822e9d9ae0e7bdf3fcb5419808c66ab722f1022dec1bce7ca85c20bc696e"
+    },
+    "extraction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/owner-extraction.json",
+      "bytes": 7980,
+      "sha256": "7a456144ab4db439403007bfbdbd710c8ae25dbe928583e00261dc200476fbe1"
+    },
+    "setup": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/setup.json",
+      "bytes": 1727,
+      "sha256": "1bb52e44a96ae1884b8756d0a68c8843a01dc809ea5e3d629756276b063ce4cc"
+    },
+    "script": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/malformed-actor.mjs",
+      "bytes": 354,
+      "sha256": "11225f275863fd370717968b02104c964bbd222c53f679ab27619854ed5461f0"
+    }
+  },
+  "proofClass": "real installed RC10 owners with deterministic scripted process; historical projection component input, no present physical authority"
+}

@@ -1,0 +1,6 @@
+{
+  "kind": "explicit_external_read_selection",
+  "root": null,
+  "files": [],
+  "standing": "No historical D4/F11/provider capture activated. All actual proof uses selected current source/fixture owners. Historical capture-dependent tests remain unbound, uncovered and excluded from active predicates."
+}

@@ -1,0 +1,37 @@
+{
+  "kind": "native_fixture_repair_progress",
+  "fixture": "N9-RETAINED-FIXTURE-01",
+  "recordedUtc": "2026-11-05T08:52:00Z",
+  "state": "frozen_returned",
+  "handoffs": {
+    "return": { "path": "qualification-scratch/fixture-01/return.json", "bytes": 20672, "sha256": "d1f881e522f6ccb476813980bdc5e827d009d410653bc0bd2b578a9b61a7aad8" },
+    "readiness": { "path": "qualification-scratch/fixture-01/readiness.json", "bytes": 3365, "sha256": "cd1a4f2fdd54aaf054e61ba4343e564a5f35c1e764856a78d5743acc1da16f2d" }
+  },
+  "steps": [
+    { "step": 1, "action": "Control intake: read TASK, NATIVE_GRANT, ROOT_CONTROL_SELECTION, METHOD_ACCESS, DEPENDENCY_SOURCE_SELECTION, FIXTURE_TRIAGE, rubric, C2_INPUTS, ROOT_ACTIVATION, WORKSPACE_REENTRY_01, c2-proof.mjs", "result": "bound; handoffs absent at start" },
+    { "step": 2, "action": "Product basis: stdo status --definition stdo_abiogenesis.json --verify; skill/reference digests", "result": "verified v3.0.4 manifest 102817a3…; digests match supplied members" },
+    { "step": 3, "action": "Read subject test, semantic_revision.ts, event_prefix.ts; git show e7179b19 for the reader and admittedLeaves changes", "result": "originating relation located" },
+    { "step": 4, "action": "Stage preimage sandbox (tmp/preimage) from worksite sources + RC6 clones; diff -rq identical", "result": "ok" },
+    { "step": 5, "action": "Run preimage (approx 08:43Z, TMPDIR /private/tmp/abg-r6f1/author-preimage)", "result": "7/4/1/2 exit 1; test 1 intake_projection_exception vs cause_absent (reproduces triage)" },
+    { "step": 6, "action": "In-memory probe: real readOwnedRuntimeEventPrefixAtDurablePrefix on component coordinate", "result": "throws ENOENT /component/no-journal" },
+    { "step": 7, "action": "Edit P1 (owned reader lookup premise) and P3 (retire dead Event Store reader premise)", "result": "applied" },
+    { "step": 8, "action": "Stage candidate sandbox (tmp/build_tenants/...) + RC6 clones; run candidate-01 (approx 08:44Z)", "result": "7/4/1/2 exit 1; absent-cause passes; ambiguous-cause fails (cause_absent): index premise lacks run:/related:" },
+    { "step": 9, "action": "In-memory probe of RC6 runtimeHistorySelectorKeys on harness-shaped events; enumerate owner index keys", "result": "run:<runId>, related:<aggregateId> confirmed" },
+    { "step": 10, "action": "Edit P2 (run:/related: selectors via owner selector keys) and C1 (import + comment); run candidate-02 (approx 08:46Z)", "result": "7/5/0/2 exit 0" },
+    { "step": 11, "action": "Layout-only reorder of prefixOverrides; node --check; restage; run candidate-03 on frozen bytes (approx 08:47Z)", "result": "7/5/0/2 exit 0; terminal diagnostic of test 1 present" },
+    { "step": 12, "action": "Post-run fidelity: sandbox sources cmp, RC6 subtrees diff -rq, tree digests, git status, assertion conservation", "result": "all pass" },
+    { "step": 13, "action": "Write return.json, readiness.json, progress.json; freeze", "result": "done" }
+  ],
+  "tallies": {
+    "preimage": { "tests": 7, "pass": 4, "fail": 1, "skipped": 2 },
+    "candidate-01": { "tests": 7, "pass": 4, "fail": 1, "skipped": 2 },
+    "candidate-02": { "tests": 7, "pass": 5, "fail": 0, "skipped": 2 },
+    "candidate-03 (frozen)": { "tests": 7, "pass": 5, "fail": 0, "skipped": 2 }
+  },
+  "remainingForRoot": [
+    "Independent frozen-source review (including P2 grant fit)",
+    "Root C2 with the fixed recipe in its own output directory",
+    "UAT over rubric F1-F4 and fresh closure/registered-debt disposition"
+  ],
+  "frozen": true
+}

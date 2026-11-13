@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-06T14:56:18.881546+00:00",
+  "paths": [
+    {
+      "key": "worktree",
+      "path": "/Users/jim/src/apps/abiogenesis-rc7-local-cut",
+      "exists": false,
+      "isSymlink": false
+    },
+    {
+      "key": "output",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001",
+      "exists": false,
+      "isSymlink": false
+    },
+    {
+      "key": "temp",
+      "path": "/private/tmp/abg-r7c",
+      "exists": false,
+      "isSymlink": false
+    },
+    {
+      "key": "releaseRoot",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.7",
+      "exists": false,
+      "isSymlink": false
+    },
+    {
+      "key": "installHost",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.7",
+      "exists": false,
+      "isSymlink": false
+    }
+  ],
+  "branch": "codex/rc7-local-cut",
+  "branchPresent": false,
+  "toolPinsMatch": true,
+  "offlineEntryPinsMatch": true,
+  "effects": "Preparation files only. No worktree/source/build/pack/install/runtime/selector effects.",
+  "availabilityMustBeRecheckedAtActivation": true
+}

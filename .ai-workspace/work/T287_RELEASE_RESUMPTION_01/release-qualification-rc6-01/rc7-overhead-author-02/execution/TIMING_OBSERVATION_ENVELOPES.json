@@ -1,0 +1,187 @@
+{
+  "kind": "incremental_physical_envelope_metadata_timing_observation",
+  "activation": "rc7-overhead-author-02",
+  "startedUtc": "2026-11-06T05:17:02.857Z",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "fromByte": 1178736411,
+  "throughCompleteByte": 1326572300,
+  "counts": {
+    "public_operation_admitted": {
+      "rows": 1,
+      "physicalBytes": 4271
+    },
+    "invocation_admitted": {
+      "rows": 1,
+      "physicalBytes": 10162
+    },
+    "implementation_admitted": {
+      "rows": 1,
+      "physicalBytes": 6257
+    },
+    "basis_admitted": {
+      "rows": 1,
+      "physicalBytes": 16902950
+    },
+    "run_segment_opened": {
+      "rows": 1,
+      "physicalBytes": 2342
+    },
+    "graph_call_opened": {
+      "rows": 1,
+      "physicalBytes": 2251
+    },
+    "frame_opened": {
+      "rows": 1,
+      "physicalBytes": 2529
+    },
+    "runtime_activity_probe_observed": {
+      "rows": 10257,
+      "physicalBytes": 43060099
+    },
+    "traversal_cursor_entered": {
+      "rows": 1,
+      "physicalBytes": 3059
+    },
+    "c_call_opened": {
+      "rows": 1,
+      "physicalBytes": 2569
+    },
+    "c_call_fibre_selected": {
+      "rows": 1,
+      "physicalBytes": 2194
+    },
+    "actor_transport_binding_admitted": {
+      "rows": 1,
+      "physicalBytes": 17015967
+    },
+    "actor_invocation_started": {
+      "rows": 1,
+      "physicalBytes": 2536
+    },
+    "actor_process_started": {
+      "rows": 1,
+      "physicalBytes": 1823
+    },
+    "actor_process_stdout_observed": {
+      "rows": 10300,
+      "physicalBytes": 19024713
+    },
+    "actor_process_exited": {
+      "rows": 1,
+      "physicalBytes": 1737
+    },
+    "actor_result_artifact_observed": {
+      "rows": 1,
+      "physicalBytes": 68552
+    },
+    "actor_invocation_closed": {
+      "rows": 1,
+      "physicalBytes": 898564
+    },
+    "c_call_evidenced": {
+      "rows": 1,
+      "physicalBytes": 6568
+    },
+    "c_call_result_admitted": {
+      "rows": 1,
+      "physicalBytes": 50805102
+    },
+    "c_call_judged": {
+      "rows": 1,
+      "physicalBytes": 2169
+    },
+    "traversal_route_admitted": {
+      "rows": 1,
+      "physicalBytes": 2674
+    },
+    "terminal_reached": {
+      "rows": 1,
+      "physicalBytes": 2156
+    },
+    "frame_closed": {
+      "rows": 1,
+      "physicalBytes": 1641
+    },
+    "graph_call_closed": {
+      "rows": 1,
+      "physicalBytes": 1557
+    },
+    "run_closed": {
+      "rows": 1,
+      "physicalBytes": 1447
+    }
+  },
+  "processes": [
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 188935,
+      "eventId": "event://abiogenesis/cf9c38088287f07e7e441c171a2f1b17246c55a762507baad9f8fbf4f9a1cf34",
+      "eventTime": "2026-11-06T05:19:52.640Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9",
+      "offset": 1212700848,
+      "rowBytes": 1823,
+      "rowSha256": "d9450f989ba270817a6686ed2a658cf09ca553c070bbff9f3c6fc290dd5afd2d",
+      "processRef": "process://abiogenesis/419ba07f7606f4d754857f58fc8fcc6f31186b9fd6850fc052ae5d6afbf6d6ac",
+      "pid": 73671
+    },
+    {
+      "kind": "actor_process_exited",
+      "admissionOrdinal": 209484,
+      "eventId": "event://abiogenesis/576258707d9e73841891c5afc188e2fda5c5067850cbc71ccc916da6874b7194",
+      "eventTime": "2026-11-06T06:07:39.146Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9",
+      "offset": 1274753398,
+      "rowBytes": 1737,
+      "rowSha256": "85b4e28fb1ce220e5341fd39ac2e46eb29b7b759b7ebdc4ec40d0580bd818016",
+      "processRef": "process://abiogenesis/419ba07f7606f4d754857f58fc8fcc6f31186b9fd6850fc052ae5d6afbf6d6ac",
+      "pid": null
+    }
+  ],
+  "results": [
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 209491,
+      "eventId": "event://abiogenesis/033ca39dd582df3a30caa44e9a3b9e3251ab5b0f1eee8a0be0dadde389908c78",
+      "eventTime": "2026-11-06T06:07:39.894Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9",
+      "offset": 1275740577,
+      "rowBytes": 50805102,
+      "rowSha256": "84c196d94f4e0f3aa1e877d75d7e6779128ece3f9fa12bbef7f6847f8198b0aa",
+      "resultRef": "result://abiogenesis/72d70c4073d225f15fb92f1bebb0ab59a94453ac082e64108beb86f7c2b82a66",
+      "valueKind": "native_workspace_work_observation"
+    }
+  ],
+  "setupReused": true,
+  "sdkSetupMs": null,
+  "artifactVerificationMs": null,
+  "setupProcessEndedUtc": null,
+  "limits": [
+    "Incremental physical envelope metadata, not runtime admission or acceptance.",
+    "No raw provider thinking/text/tool-result/stdout is output or inspected for semantic content.",
+    "Wall intervals are not CPU attribution or matched causal speedup.",
+    "Setup-to-dispatch includes separate Root audit/control/preflight time, not between-task runtime latency."
+  ],
+  "throughOrdinal": 209501,
+  "latestEventTime": "2026-11-06T06:07:56.406Z",
+  "setupToDispatchOperatorPreparationMs": null,
+  "rootBetweenActivationMs": null,
+  "dispatchToInitialSelectorProcessMs": null,
+  "dispatchToNativeWorkerProcessMs": 169783.0,
+  "dispatchToC2ProcessMs": null,
+  "nativeResultToC2ProcessMs": null,
+  "recordedUtc": "2026-11-06T06:09:02.476387+00:00",
+  "outcomeReturned": true,
+  "closed": true,
+  "outcome": {
+    "outcomeKind": "result",
+    "disposition": "completed",
+    "run": {
+      "digest": "sha256:6647f0df247870454b7ab337896cc7ff86d8a078f87f0a958e4413040f7e335f",
+      "ref": "run://abiogenesis/2e7335785eb3ea0a5f58da89a43828f5b8e6b267349e8cd28936fbdf4e30e2c9"
+    },
+    "qualified": false
+  }
+}

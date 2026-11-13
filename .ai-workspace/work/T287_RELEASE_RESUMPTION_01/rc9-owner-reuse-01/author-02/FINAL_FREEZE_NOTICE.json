@@ -1,0 +1,19 @@
+{
+  "kind": "FINAL_FREEZE",
+  "observedAt": "2026-11-08T07:11:02.794448+00:00",
+  "freeze": {
+    "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+  },
+  "sourceDigest": "41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3",
+  "rows": 1340,
+  "stageFiles": [
+    "source",
+    "work",
+    "BUILD_INPUTS.json",
+    "source-freeze.json",
+    "commands"
+  ],
+  "sourceAccepted": false
+}

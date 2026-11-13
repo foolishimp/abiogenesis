@@ -1,0 +1,12 @@
+{
+  "kind": "triage_precision_addendum",
+  "reports": {
+    "REPORT.json": "96a02f11e96daf11f2cd2d6fe3c0f43be7420b938e8a0842f036724529164db9",
+    "REPORT.md": "5181c8e1409a1e6c8a74e0031faf713a08edcf4e51611b0baf29ef607049b8c5"
+  },
+  "correction": "The existing independent structural fixture declares C.retry(...,3). The report wording at most existing bound3 scripted attempts is not a proven total actor-call cardinality. Preserve the declared bound unchanged, let its owner determine actual attempts, and admit/record the exact execution envelope separately. No measured execution-time or actor-call upper bound is claimed by this triage.",
+  "sourceReadback": {
+    "pinnedInputsChecked": 36,
+    "mismatches": []
+  }
+}

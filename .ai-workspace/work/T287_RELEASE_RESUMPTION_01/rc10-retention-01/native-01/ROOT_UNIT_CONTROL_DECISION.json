@@ -1,0 +1,19 @@
+{
+  "id": "RC10-UNIT-01+RC10-UNIT-CONTROL-01",
+  "utc": "2026-11-09T03:34:41.854056+00:00",
+  "owner": "Root",
+  "status": "ONE_ORDINARY_UNIT_LANE_ADMITTED",
+  "scope": "One unchanged test:unit lane in existing frozen stage-01. No source/test edits/rebuild.900s/8192MiB/16MiBoutput/4GiBreserve. Exact frozen source86e9de76d65a61d9d9ae392dc2591217df8c4d3e5827699fd7f30befbfe6dd34.",
+  "triage": "The former binding->admission-hash->binding-hash relation cannot be constructed. No Product defect or test execution occurred.",
+  "controlDecision": "Preserve original driver. Smallest control-only realization_refactor: external CLI admission path+SHA verified against separately pinned binding; preserve all author/stage/source/reporter/population/limits/one-allocation guards. Execute already admitted lane once after guards; any further failure stops, no retry.",
+  "originalDriver": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-inputs/rc10-retention-01/selection-04/frozen-proof.mjs",
+    "bytes": 14904,
+    "sha256": "4c9c633f7256c13bd22f9f76780cc7682c5d9c6d8fb395a8fc66745137828bf9"
+  },
+  "successorDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/frozen-proof.unit-r02.mjs",
+    "bytes": 15201,
+    "sha256": "6856997d9e8fdbcf6b937da0709d38c5c2f7ce7d07765b6813cb86d5ecd45355"
+  }
+}

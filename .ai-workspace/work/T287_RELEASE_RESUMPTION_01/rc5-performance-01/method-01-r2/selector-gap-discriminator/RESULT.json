@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-reporter=tap",
+    "--test-concurrency=1",
+    "--test-name-pattern=^selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges$",
+    "test_env/tests/t287-default-library.test.mjs"
+  ],
+  "cwd": "/private/tmp/abg-rc5/method-gap-01/build_tenants/abiogenesis/typescript",
+  "exitCode": 1,
+  "wallMs": 471.50558279827237,
+  "stdoutSha256": "e7bb65c71fa8f330ffffc71416f1e49e90252644872d3c5add885121d884ed36",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceCommit": "90721c86680f17c1877dc26c9eb93b4243188785",
+  "c2ResultRef": "result://abiogenesis/177a06b017ffd095b0bf01c9b5746ec9d898b9a8b3a2011d15906f3ddef41137",
+  "meaning": "ActualsingleaffectedtestonisolatedexactC2build; Rootoperator evidence, not newABG Result/nativeUAT orqualification."
+}

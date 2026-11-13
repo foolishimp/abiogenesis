@@ -1,0 +1,222 @@
+{
+  "kind": "root_actual_native_runtime_close",
+  "at": "2026-11-06T04:35:35.481517+00:00",
+  "status": "ACTUAL_NATIVE_RESOURCE_CLOSED_FULL_TYPED_READBACKS_AGREE_SOURCE_PARTIAL",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "sourceConservation": {
+    "selectedFiles": 417,
+    "handoffs": 3,
+    "liveBytesStillEqual": true,
+    "authenticatedNativeAfter": true
+  },
+  "actualExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/execution.json",
+    "bytes": 215694883,
+    "sha256": "0abf50e39e46e0167cc27f571cb0616db30b690e63be5c2dc50c1de4e2babcd0"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/execution/after-run-resume.json",
+    "bytes": 72497347,
+    "sha256": "8cd7aa806aa2cbe96ce095201a25e22f764e93b24f24d75b49666ae0397d082a"
+  },
+  "actualHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/HOST_RESULT.json",
+    "bytes": 154,
+    "sha256": "198326e5f00f7423e8c203b693a8ec52f5ddc1ef34dbd76a69ac378d9a1be863"
+  },
+  "run": {
+    "digest": "sha256:a897a4ea6d2a0310630a24bbe3cee4f486cf90767aadf3c7a9208fe53fa377fa",
+    "ref": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632"
+  },
+  "actualCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:5a540432e4bdeacfeec25462215529e4ae22c8569f6f83b0936de13ae67309df",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:4ab7e037f9ebcedaf4a5a2c7ecfca613b2e74e2c6ece16bc7efdba5d47af192e",
+      "prefixLength": 1178736411,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+        "inode": 701759869
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:c15d0c3e5654dcb723ce1ebc3099d6fca339c7c33bb8431bed54d1b02a56162c",
+      "device": 16777231,
+      "durableByteLength": 1178736411,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "eventLogDigest": "sha256:4ab7e037f9ebcedaf4a5a2c7ecfca613b2e74e2c6ece16bc7efdba5d47af192e",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+      "inode": 701759869,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "fullTerminal": {
+    "terminalDigest": "sha256:48c271abbf47fd76b46e8e0f9bdf19395b57fd2271f40f7f887d6ceb0d28f1b9",
+    "result": {
+      "digest": "sha256:29ce05da44ebff17763c6a567fd274001a42f59b23d3a50f76573d1603514f7b",
+      "ref": "result://abiogenesis/29ce05da44ebff17763c6a567fd274001a42f59b23d3a50f76573d1603514f7b"
+    },
+    "contract": {
+      "digest": "sha256:e99c9eb1b4838652e97ab3df28b6d9b14d9558ac4ebd0772669f3df44720f152",
+      "ref": "contract://abiogenesis/worksite/native-work/observation@5"
+    },
+    "valueKind": "native_workspace_work_observation",
+    "valueDigest": "sha256:38b566897a0e17a32db475b1b77c8b25434c6e91f2451a6a063a099768b59787",
+    "producerDigest": "sha256:f235d61009b8de2ea33137bf32ed3587f5b7a6ed088d62dff41dc4fe74663933",
+    "valueCanonicalDigest": "sha256:38b566897a0e17a32db475b1b77c8b25434c6e91f2451a6a063a099768b59787",
+    "sourcePointer": "/receipt/ownerOutput/value/terminalResult"
+  },
+  "readbacks": [
+    {
+      "member": "run_result",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/run_result/SUMMARY.json",
+        "bytes": 2548,
+        "sha256": "bb882806d7d611d4409b8f347f66f08f0f25147a4ee0ba357ba213e34d5db80b"
+      },
+      "hostResult": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/run_result-host/HOST_RESULT.json",
+        "bytes": 597,
+        "sha256": "4afb7d28dc0a971d52cfdc69f3c5f8a61c9e17f5e91ea5b385cf061f0627b0bf"
+      },
+      "ownerOutput": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/run_result/calls/run_result.outcome.json",
+        "bytes": 48438036,
+        "sha256": "6b93bea1b5d1213bd19d0ac631168f3393bf182bf839d5ffb8a6be9c7949dcda"
+      },
+      "relation": "FULL_TYPED_TERMINAL_EQUAL",
+      "wallMs": 159359.806959,
+      "phases": [
+        {
+          "phase": "physical_prefix_checked",
+          "at": "2026-11-06T04:25:00.609Z",
+          "offsetMs": 1123.96,
+          "memory": {
+            "rss": 186679296,
+            "heapTotal": 111427584,
+            "heapUsed": 36419720,
+            "external": 2805932,
+            "arrayBuffers": 387557
+          }
+        },
+        {
+          "phase": "cold_installed_read",
+          "at": "2026-11-06T04:26:19.247Z",
+          "offsetMs": 79761.52925,
+          "memory": {
+            "rss": 4814143488,
+            "heapTotal": 4120035328,
+            "heapUsed": 3921242168,
+            "external": 99044325,
+            "arrayBuffers": 96601277
+          }
+        },
+        {
+          "phase": "cold_read_returned",
+          "at": "2026-11-06T04:27:37.777Z",
+          "offsetMs": 158290.687625,
+          "memory": {
+            "rss": 4815470592,
+            "heapTotal": 3322068992,
+            "heapUsed": 2827273928,
+            "external": 196081433,
+            "arrayBuffers": 193636649
+          }
+        }
+      ],
+      "terminalDigest": "sha256:48c271abbf47fd76b46e8e0f9bdf19395b57fd2271f40f7f887d6ceb0d28f1b9"
+    },
+    {
+      "member": "run_replay",
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/run_replay/SUMMARY.json",
+        "bytes": 2561,
+        "sha256": "eedefa94e647ac1017caa0597c3d193c87f95d09efe536dacf66be37d6b72284"
+      },
+      "hostResult": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/run_replay-host/HOST_RESULT.json",
+        "bytes": 592,
+        "sha256": "7d9ec42d72dd45b94a09cc3cdc31e95ba6b2ac4bcbbd01c18f099c3a2f083ed9"
+      },
+      "ownerOutput": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/run_replay/calls/run_replay.outcome.json",
+        "bytes": 48437625,
+        "sha256": "c24f31d2c31a5d852b2e2109d460d8e8a993dd44fb942f0ae56177c81b7d8b0d"
+      },
+      "relation": "FULL_TYPED_TERMINAL_EQUAL",
+      "wallMs": 155837.900667,
+      "phases": [
+        {
+          "phase": "physical_prefix_checked",
+          "at": "2026-11-06T04:30:05.997Z",
+          "offsetMs": 919.623917,
+          "memory": {
+            "rss": 186318848,
+            "heapTotal": 110903296,
+            "heapUsed": 36549456,
+            "external": 2815732,
+            "arrayBuffers": 397357
+          }
+        },
+        {
+          "phase": "cold_installed_read",
+          "at": "2026-11-06T04:31:21.732Z",
+          "offsetMs": 76653.93804200001,
+          "memory": {
+            "rss": 4829118464,
+            "heapTotal": 4120166400,
+            "heapUsed": 3922119344,
+            "external": 99044325,
+            "arrayBuffers": 96601277
+          }
+        },
+        {
+          "phase": "cold_read_returned",
+          "at": "2026-11-06T04:32:39.880Z",
+          "offsetMs": 154801.683375,
+          "memory": {
+            "rss": 4905140224,
+            "heapTotal": 3324690432,
+            "heapUsed": 2827349408,
+            "external": 244276604,
+            "arrayBuffers": 241831820
+          }
+        }
+      ],
+      "terminalDigest": "sha256:48c271abbf47fd76b46e8e0f9bdf19395b57fd2271f40f7f887d6ceb0d28f1b9"
+    }
+  ],
+  "codingScopeComplete": false,
+  "authorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/return.json",
+    "bytes": 35881,
+    "sha256": "221af383a2cb3245c17fe996df79995a847c932a8de92b678b69602072347456"
+  },
+  "remainingSelectedWork": [
+    "Remove native Result.task and join exact current/progressed input through existing owners",
+    "Share unchanged after bodies through exact admitted basis holder",
+    "Resolve bounded review findings and complete affected proof"
+  ],
+  "proofStanding": "Source custody and exact current resource closure only. Partial candidate review/affected proof are separate. Old P3 recovery cancellation remains open.",
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "limits": [
+    "No old close or inferred terminal used.",
+    "Read operations left physical prefix unchanged; actual after-run resume is reused by reference, not copied into another full resume.",
+    "Cold reads execute immutableRC6; no RC7 performance claim."
+  ]
+}

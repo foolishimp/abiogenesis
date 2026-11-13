@@ -1,0 +1,16 @@
+{
+  "status": "READY_FOR_INSTALLED_PREFLIGHT",
+  "recordedUtc": "2026-11-03T13:45:35.496741+00:00",
+  "selectedFiles": 807,
+  "existingSelectedBytes": 21039884,
+  "futureFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "consolidation-scratch/native-01/readiness.json",
+    "consolidation-scratch/native-01/return.json"
+  ],
+  "sourcePins": 19,
+  "commands": 7,
+  "workloadSha256": "cbbb96556e7738dd1632b4f83af3aac383d557598bdce12c5d0f6c0d538c0729",
+  "limits": "No native dispatch. Future files must be produced by coding before C2. No historical archive/helper/event body or raw log in ordinary read roots."
+}

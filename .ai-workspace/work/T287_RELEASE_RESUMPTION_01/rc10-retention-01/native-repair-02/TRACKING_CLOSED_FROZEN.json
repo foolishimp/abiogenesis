@@ -1,0 +1,30 @@
+{
+  "utc": "2026-11-09T04:26:01.474654+00:00",
+  "changes": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 815959,
+        "sha256": "5ddff80473a6fb1e55b58fcc9f11d865467b0fe66658a29815c0985dc34479eb"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 817015,
+        "sha256": "4c57b8606b481c2777b055a4245a1a7c49013595b368460d5828721b804a9372"
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 167215,
+        "sha256": "77661b73d623e2d6660b41320f8a7b23bceeccbdda7a9321eef9826571ae6b2c"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 168282,
+        "sha256": "4f04d84f6de75aa6f23c52199b08b643ad6c8a2c21e8d0692c63386ee9a9d2e1"
+      }
+    }
+  ],
+  "sourceChanged": false
+}

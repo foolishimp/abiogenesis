@@ -1,0 +1,522 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/archives/fp-3b22023555e14491-stdout.log",
+    "bytes": 2214480,
+    "sha256": "a18557813eb9f1b324abf106a836e46f4a3af45f0e75bb07a6fe57ad23c5e891"
+  },
+  "toolCount": 34,
+  "tools": [
+    {
+      "line": 33,
+      "id": "toolu_01VoxDa5f8KZLtk5PQWhcviw",
+      "name": "Bash",
+      "input": {
+        "command": "ls qualification-inputs/rc11-effect-phase2-01/native-01/ && cat qualification-inputs/rc11-effect-phase2-01/native-01/ROOT_SCOPE.json",
+        "description": "List inputs and read root scope"
+      },
+      "result": {
+        "line": 85,
+        "bytes": 6065,
+        "sha256": "6f6a6f6fa622a17056b0cf4c7e297c0af865a0ca93a45ad6e9c1b490a64763e0",
+        "isError": false
+      }
+    },
+    {
+      "line": 57,
+      "id": "toolu_014LszvgyGgnPg7hCcufz7Hz",
+      "name": "Bash",
+      "input": {
+        "command": "cat qualification-inputs/rc11-effect-phase2-01/native-01/DESIGN_ASSESSMENT.md qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_SCOPE_CLARIFICATION.md",
+        "description": "Read design assessment and proof scope"
+      },
+      "result": {
+        "line": 84,
+        "bytes": 13034,
+        "sha256": "d930c491e15aaa3b442329207b5e2a7ddf81ac4776d11b45c54409303b0f30be",
+        "isError": false
+      }
+    },
+    {
+      "line": 79,
+      "id": "toolu_0166qcFeuqnVpiftf74yhtCY",
+      "name": "Bash",
+      "input": {
+        "command": "cat qualification-inputs/rc11-effect-phase2-01/native-01/EXACT_SOURCE_ROUTES.json qualification-inputs/rc11-effect-phase2-01/native-01/EXTERNAL_TOOLS.json",
+        "description": "Read source routes and external tools"
+      },
+      "result": {
+        "line": 86,
+        "bytes": 2365,
+        "sha256": "c3a34e25a29a8e161fec997e6246bc24653aa570ebd3c6f97a96ca980bd20d65",
+        "isError": false
+      }
+    },
+    {
+      "line": 126,
+      "id": "toolu_01UTFWzCc71SbbLTZxB8v8nZ",
+      "name": "Bash",
+      "input": {
+        "command": "python3 -c \"\nimport json\nd=json.load(open('qualification-inputs/rc11-effect-phase2-01/native-01/EXACT_SOURCE_ROUTES.json'))\nfor k,v in d.items():\n  if k!='routes': print(k, json.dumps(v,indent=1)[:3000])\nfor r in d['routes']:\n  print('=====', r['source']['path'], r['source'].get('sha256'))\n  for e in r['excerpts']:\n    print('--- lines', e.get('lines'))\n    print(e.get('text'))\n\"",
+        "description": "Print source routes excerpts readably"
+      },
+      "result": {
+        "line": 130,
+        "bytes": 25815,
+        "sha256": "5036832d4700f3f982a1f41c7e1432c09cfe105a2cf7885a653bc0dc25dba605",
+        "isError": false
+      }
+    },
+    {
+      "line": 166,
+      "id": "toolu_01FKZ3fJff8LSjc8QupQCaUV",
+      "name": "Bash",
+      "input": {
+        "command": "cat qualification-inputs/rc11-effect-phase2-01/native-01/EXTERNAL_TOOLS.json; echo; cat qualification-inputs/rc11-effect-phase2-01/native-01/PREBUILT_IDENTITY.json | head -50; wc -c qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_INTAKE.md",
+        "description": "Read external tools and prebuilt identity"
+      },
+      "result": {
+        "line": 170,
+        "bytes": 5543,
+        "sha256": "f82bffc7740348d0cc28c5bddcdb855b1386aab4b5b16bd9f52116ccaef54f2a",
+        "isError": false
+      }
+    },
+    {
+      "line": 188,
+      "id": "toolu_01XsTwB26Lwavss5ihcbT5GJ",
+      "name": "Bash",
+      "input": {
+        "command": "cat -n build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+        "description": "Read shared owned process lifetime source"
+      },
+      "result": {
+        "line": 192,
+        "bytes": 15586,
+        "sha256": "5879740fd813f548dd87fe6b1a1a2036cf91549c21ad23e1f49183b6cad05d62",
+        "isError": false
+      }
+    },
+    {
+      "line": 205,
+      "id": "toolu_01DTGYjTjhsHqNWCVS2HmmjQ",
+      "name": "Bash",
+      "input": {
+        "command": "cat qualification-inputs/rc11-effect-phase2-01/native-01/PROOF_INTAKE.md",
+        "description": "Read proof intake"
+      },
+      "result": {
+        "line": 209,
+        "bytes": 11335,
+        "sha256": "4dd1ba757973220a40d490f0db26a11df957368ae7492d88c2b9bf708a9eacd8",
+        "isError": false
+      }
+    },
+    {
+      "line": 233,
+      "id": "toolu_01S5qG9Nkf9nwKqQQP9rztBU",
+      "name": "Bash",
+      "input": {
+        "command": "wc -l build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts && sed -n 1,200p build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "description": "Read helper part 1"
+      },
+      "result": {
+        "line": 237,
+        "bytes": 10238,
+        "sha256": "14faed5fa5092a61265775e33169aa934aa4ac86d921d5b975f85867857f0584",
+        "isError": false
+      }
+    },
+    {
+      "line": 258,
+      "id": "toolu_01JgFYzRuGnybD95cpecmuXf",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 640,1000p build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "description": "Read helper command region"
+      },
+      "result": {
+        "line": 262,
+        "bytes": 15069,
+        "sha256": "d02ccbc0a51d3f39a9f8f3f9718ce56f01bbf0c0847877061d7b485a7904be73",
+        "isError": false
+      }
+    },
+    {
+      "line": 301,
+      "id": "toolu_01QAi1hRHZFEZBnkteeY5iz5",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1100,1300p build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "description": "Read helper HTTP region"
+      },
+      "result": {
+        "line": 306,
+        "bytes": 10197,
+        "sha256": "d7a67f2812fea874faf97317b3e9ec4c407976b3ff6ebe1845166cc7d6b5d508",
+        "isError": false
+      }
+    },
+    {
+      "line": 320,
+      "id": "toolu_01SR7WqHWkpthoeZy2MEGxY3",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1300,1589p build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "description": "Read helper main region"
+      },
+      "result": {
+        "line": 324,
+        "bytes": 13425,
+        "sha256": "d74e257513618a6929351643c767c94bfa01483d19cb7674dd32f919ce72b686",
+        "isError": false
+      }
+    },
+    {
+      "line": 364,
+      "id": "toolu_01H8PAtRfJDAkx7k4yeKQvEr",
+      "name": "Bash",
+      "input": {
+        "command": "cd /private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript && wc -l test_env/tests/t287-owned-process-lifetime.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs && sed -n 1,140p test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "Read lifetime test start"
+      },
+      "result": {
+        "line": 368,
+        "bytes": 8560,
+        "sha256": "3fd010c1013fe5e20256728a0d7b0c8e644aa5d3d7a4653f23592c86cf2e57e5",
+        "isError": false
+      }
+    },
+    {
+      "line": 388,
+      "id": "toolu_01PaU3KFukyo1jtA4iXTZK5M",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 140,420p test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "Read lifetime test middle"
+      },
+      "result": {
+        "line": 392,
+        "bytes": 19204,
+        "sha256": "2c50999c05ac5fc11b48ec77c42419903559bbb286b12277fbd7df562b1976b1",
+        "isError": false
+      }
+    },
+    {
+      "line": 412,
+      "id": "toolu_01QxTi9x3hA5XVy7G1QLqtyJ",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 420,738p test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "description": "Read lifetime test end"
+      },
+      "result": {
+        "line": 416,
+        "bytes": 26448,
+        "sha256": "147db4e06185c5698b6dcd1c9d03710335d80ba8c49c946ed92a60c389ce2a9a",
+        "isError": false
+      }
+    },
+    {
+      "line": 530,
+      "id": "toolu_018adp2ExY7VZywqfp6pbsoF",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"worksite_command_helper\\|await main\\|SourceTextModule\\|link(\\|runCommand\\|controlledMain\\|startsWith('node:')\\|startsWith(\\\"node:\\\")\" test_env/tests/m5-worker-transport.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs test_env/support/r10-private-owner-harness.mjs | head -60",
+        "description": "Find helper VM loading in other tests"
+      },
+      "result": {
+        "line": 534,
+        "bytes": 3509,
+        "sha256": "69bda608cc77561b3180ff66ddf341c84d2359ca4d813d98306d3cf7aac47957",
+        "isError": false
+      }
+    },
+    {
+      "line": 571,
+      "id": "toolu_016ar8Yb5HQhsA5BjxEf1PCi",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1,60p test_env/tests/t287-lifecycle-failure-carrier.test.mjs; echo ----; sed -n 300,400p test_env/tests/t287-lifecycle-failure-carrier.test.mjs; echo ----; cat test_env/support/r10-private-owner-harness.mjs",
+        "description": "Read lifecycle-failure-carrier relevant regions"
+      },
+      "result": {
+        "line": 575,
+        "bytes": 12493,
+        "sha256": "0831d4c43fc1c9b09898d87410e3e07ef4838de7e1b917f0a871e8859337d0a0",
+        "isError": false
+      }
+    },
+    {
+      "line": 632,
+      "id": "toolu_01MwaJMYVR6vkzXJSMQ9zfAR",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 1220,1300p test_env/tests/m5-worker-transport.test.mjs",
+        "description": "Read m5 helper exposure region"
+      },
+      "result": {
+        "line": 636,
+        "bytes": 7585,
+        "sha256": "b09c831fe7766359ef805bdd52640e63d3bf0b8f55d2d6c66638eb25f7bf9666",
+        "isError": false
+      }
+    },
+    {
+      "line": 654,
+      "id": "toolu_01GEZmwRNi4PWpQzFvnXh3yh",
+      "name": "Bash",
+      "input": {
+        "command": "cat design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "description": "Read Effect functional refactor plan"
+      },
+      "result": {
+        "line": 658,
+        "bytes": 13125,
+        "sha256": "633bd00172827eedae0c990e8b49b9aa04e46c791489cfc23d4726fa76b2df76",
+        "isError": false
+      }
+    },
+    {
+      "line": 697,
+      "id": "toolu_014bHH3exPR5LZ5S7pC3r3AK",
+      "name": "Bash",
+      "input": {
+        "command": "wc -l design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md && sed -n 1,40p design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md && grep -n \"^#\" design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "description": "Read C2 design header and sections"
+      },
+      "result": {
+        "line": 701,
+        "bytes": 3699,
+        "sha256": "27d7bbf364fe977070807389355a08e0cbaad20ca54d1cbec95c9f23fac54b80",
+        "isError": false
+      }
+    },
+    {
+      "line": 732,
+      "id": "toolu_01Bb6JnbdRkBEssLEYxvkswo",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n -i \"sibling\\|inspector\\|process-failure\\|failure-only\\|helper failure\\|failure artifact\\|D15\\|\u00a79.3\\|9\\.3\" design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md | head -40",
+        "description": "Find stale sibling/inspector wording in C2"
+      },
+      "result": {
+        "line": 736,
+        "bytes": 1310,
+        "sha256": "5e01f6ad29e26a695af8ae73f34ccf86715e266378849af93d34acd2ec12f584",
+        "isError": false
+      }
+    },
+    {
+      "line": 775,
+      "id": "toolu_01WeDpr3xaSXnvHBsXL4C31o",
+      "name": "Bash",
+      "input": {
+        "command": "sed -n 40,76p design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md; echo -----; sed -n 643,760p design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md; echo ----; sed -n 815,835p design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "description": "Read C2 amendment and section 6"
+      },
+      "result": {
+        "line": 779,
+        "bytes": 11681,
+        "sha256": "14334d5c04ca8cb4be9e71f754c859098617574cdae77df7c3ce9564781cd0ca",
+        "isError": false
+      }
+    },
+    {
+      "line": 820,
+      "id": "toolu_01KtpMwPpqdC2frrAhxYeEnj",
+      "name": "Bash",
+      "input": {
+        "command": "cat tsconfig.json && sed -n 1,80p package.json && ls build/code/src | head; ls node_modules/effect/package.json && grep -n '\"version\"' node_modules/effect/package.json",
+        "description": "Read tsconfig and package.json"
+      },
+      "result": {
+        "line": 824,
+        "bytes": 3626,
+        "sha256": "7e29ae858146506a5caae7a96a3eedd8f25dcddd16f34fe2b74abefa88a1000e",
+        "isError": false
+      }
+    },
+    {
+      "line": 853,
+      "id": "toolu_01AsBW8Yk6uj5tvf278XGJAi",
+      "name": "Bash",
+      "input": {
+        "command": "cat code/src/shared/process/index.ts | head -80; grep -rn \"from \\\"effect\" code/src --include=*.ts | awk -F: '{print $1}' | sort | uniq -c | sort -rn | head -20",
+        "description": "Read process index and Effect usage"
+      },
+      "result": {
+        "line": 857,
+        "bytes": 787,
+        "sha256": "2d50d315075500ad2cbc3854249d24eba97e429fb2f4792d321c84b7253d7773",
+        "isError": false
+      }
+    },
+    {
+      "line": 876,
+      "id": "toolu_012Da7gMPJ4Pz4WjmgE2bQ9M",
+      "name": "Grep",
+      "input": {
+        "pattern": "from \"effect/",
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src",
+        "output_mode": "count"
+      },
+      "result": {
+        "line": 880,
+        "bytes": 1124,
+        "sha256": "c63b7825e11067f5b4cbd8f0b62332ac2ff585c7035737c7b90d62864f5a821d",
+        "isError": false
+      }
+    },
+    {
+      "line": 911,
+      "id": "toolu_01JJ2e8w8WdS7JVWaGm4Ct7E",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"Effect\\.\\|import \\* as\" code/src/owner_bindings/run_invocation.ts | head -50",
+        "description": "Inspect Effect idioms in run_invocation"
+      },
+      "result": {
+        "line": 915,
+        "bytes": 3216,
+        "sha256": "cdb499d8201f96a7f408b1efa6f5d35d40c856961b68ab9319ca1fdd9f8a36f8",
+        "isError": false
+      }
+    },
+    {
+      "line": 970,
+      "id": "toolu_01N8iHVpzqBjRNtD7Qz8mLXm",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"export const squashWith\\|export const squash \" -A 22 node_modules/effect/dist/esm/internal/cause.js | head -45; grep -n \"^export const async\\b\\|^export const async =\" -A3 node_modules/effect/dist/esm/Effect.js | head",
+        "description": "Check Cause.squash and Effect.async"
+      },
+      "result": {
+        "line": 974,
+        "bytes": 247,
+        "sha256": "9e1fa235c435b5c750fb4d4f719b78862bab4cdb3e6c0513ba1972896cb4ed39",
+        "isError": false
+      }
+    },
+    {
+      "line": 997,
+      "id": "toolu_01Y6hAsmFUKMC3Zcf6F8hZJF",
+      "name": "Bash",
+      "input": {
+        "command": "grep -rn \"squashWith = \\|const squash = \" node_modules/effect/dist/esm/internal/ | head; ",
+        "description": "Locate squash implementation"
+      },
+      "result": {
+        "line": 1001,
+        "bytes": 130,
+        "sha256": "2d14a00a0518c2ebe80b3656087d84f92df47ae653d69e5c821d644f28d1784e",
+        "isError": false
+      }
+    },
+    {
+      "line": 1027,
+      "id": "toolu_01UKsFjt8kLxgNzgd9ZpiHpJ",
+      "name": "Bash",
+      "input": {
+        "command": "grep -rn \"squashWith\" node_modules/effect/dist/esm/internal/*.js node_modules/effect/dist/esm/Cause.js | head -5",
+        "description": "Locate squashWith"
+      },
+      "result": {
+        "line": 1031,
+        "bytes": 316,
+        "sha256": "a3062efd5b437430638153f7c23d88771e3f6739011bdfe10cef45e0862953d5",
+        "isError": false
+      }
+    },
+    {
+      "line": 1057,
+      "id": "toolu_01BpdfR9wLADVvXc1arf6xox",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"causeSquashWith = \\|causeSquash = \" -A 18 node_modules/effect/dist/esm/internal/core.js | head -40",
+        "description": "Read causeSquashWith implementation"
+      },
+      "result": {
+        "line": 1061,
+        "bytes": 1043,
+        "sha256": "f39b1f73f861f9e9872ea036ef02a0e3759d961dbb0118ef1f5e17b0771482d3",
+        "isError": false
+      }
+    },
+    {
+      "line": 1377,
+      "id": "toolu_018saM54SwBFt8FjhjJhSza3",
+      "name": "Bash",
+      "input": {
+        "command": "grep -rn \"probeCount\\|signalAttempts\" test_env/tests/*.mjs test_env/support/*.mjs | grep -v \"^.*diagnostic\" | head -30",
+        "description": "Check test reliance on probeCount"
+      },
+      "result": {
+        "line": 1381,
+        "bytes": 789,
+        "sha256": "e1da09aec0b8f24029acbb052b5c05682bea68cf56d9e2600da9083377e33fea",
+        "isError": false
+      }
+    },
+    {
+      "line": 1613,
+      "id": "toolu_01GGvR11wYsN3utgUtejKQYU",
+      "name": "Bash",
+      "input": {
+        "command": "ls; grep -l \"owned_process_lifetime\" *.json 2>/dev/null; grep -rln \"owned_process_lifetime\" --include=*.json . 2>/dev/null | grep -v node_modules | head",
+        "description": "Check for manifests enumerating source files"
+      },
+      "result": {
+        "line": 1617,
+        "bytes": 340,
+        "sha256": "f0f3a94a8c002eb312330d670762d48463c2378804f5e17b22941be3747c6d2b",
+        "isError": false
+      }
+    },
+    {
+      "line": 1646,
+      "id": "toolu_01VCbPjDy9GeQHAdEGLDWW9c",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"owned_process_lifetime\" product-toolchain-manifest.json | head -5; grep -c '\"code/src/' product-toolchain-manifest.json",
+        "description": "Inspect manifest entries for lifetime file"
+      },
+      "result": {
+        "line": 1650,
+        "bytes": 2472,
+        "sha256": "f7400bbf82bc97de86db9757c0496b9788bb9b9f7c83fd33b24a8a142062c16c",
+        "isError": false
+      }
+    },
+    {
+      "line": 1829,
+      "id": "toolu_017f8AbxNACAa7gGXfu87XpF",
+      "name": "Bash",
+      "input": {
+        "command": "grep -n \"runCommand\\|activeCommand\\|main()\" code/src/implementation/worksite_command_helper.ts; grep -rn \"worksite_command_helper\" code/src --include=*.ts 2>/dev/null | head; grep -rln \"worksite_command_helper\" code/src test_env | head -20",
+        "description": "Find runCommand callers and helper references"
+      },
+      "result": {
+        "line": 1833,
+        "bytes": 1685,
+        "sha256": "9299a074ace373f662524e3613c703852e5c9ec9ef99a5ddf0430fedb393c2e5",
+        "isError": false
+      }
+    },
+    {
+      "line": 2839,
+      "id": "toolu_01MCdNZsVDUh7i6AFa7mz4FL",
+      "name": "Bash",
+      "input": {
+        "command": "python3 - <<'EOF'\np='design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md'\ns=open(p).read()\nold_status=s.split('\\n',3)[2]\nassert old_status.startswith('Status: **Phase1A/1B and FOUNDATION-ORACLE-001 accepted')\nnew_status=(\"Status: **Phase1A/1B and FOUNDATION-ORACLE-001 accepted for their exact successor sources and selected proofs; Root PHASE2-SCOPE-01 activates the phase2 lifetime/command source slice below on checkpoint `ed17ab14\u2026`; its source is authored, unreviewed and unproved. Phases 3\u20134 and GC03 remain planned and unactivated.** \"\n \"Root [PHASE1-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_FINAL_ACCEPTANCE.json) retains the phase1 closure: deterministic 29/29, lifetime 18/18, m5 39/39 and original nine-file unit 96 passes/six declared skips. Root [FOUNDATION-ORACLE-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/ROOT_FINAL_ACCEPTANCE.json) accepts native04 source `002e481a\u2026` and whole installed W2-05 3/3 with zero skips on proof archive `fdbf93de\u2026`; that oracle is closed. Those counts are baseline for their exact sources, not evidence for the phase2 successor. Historical failures, six skipped claims, synthetic pending-owner limit and wider qualification obligations remain. Installed old RC11 is unchanged/unqualified/unpublished; RC10 remains pinned. No release is activated.\")\ns=s.replace(old_status,new_status,1)\nold_tail=\"`FOUNDATION-ORACLE-001` is active for the separate W2-05 collection-token oracle and matching Design sentence; it does not reopen Phase1 proof.\"\nassert old_tail in s\ns=s.replace(old_tail,\"`FOUNDATION-ORACLE-001` is closed by its own Root acceptance above; it does not reopen Phase1 proof.\",1)\nanchor=\"## Phase1 causal proof and retained effects\"\nphase2='''## Phase2 accepted HOW (PHASE2-SCOPE-01)\n\nRemoved responsibilities, decided before source change:\n\n| Displaced mechanism | Selected replacement |\n|---|---|\n| `createOwnedProcessLifetime`'s seventeen parallel mutable fields (`phase`, `directExit`, `launchFailure`, `firstError`, `scopeAbsence`, `closeObserved`, `streamsDisposed`, `drainExpired`, `cleanupStartedNs`, `scopeDeadlineNs`, `cleanupDeadlineNs`, `probeCount`, `signalAttempts`, `killAttempted`, `completionPublished`) and its mutually re-entrant decision closures `probe`, `signal`, `complete`, `finishScope`, `check`, `startKill`, the decision body of `requestTermination`/`fail`, and the `if (phase !== \"term\") return` stale-TERM patch | One frozen `OwnedProcessState` and pure `transitionOwnedProcess(timing, state, input, nowNs)` in `shared/owned_process_state.ts`. Each step returns the next state and a finite physical action list (`notify`, `signal`, `probe`, `finalize`); a callback or host probe is always the step's last action and its continuation is a new input decided against the then-current state, so an obsolete TERM/KILL cannot follow re-entrant strengthening or completion. The three wait deadlines are state values. |\n| Imperative timer arming inside each closure | The narrow synchronous bridge reconciles the three existing `createMonotonicDeadline` waits from the current state after every step; a fired wait is accepted only while it is still the state's wait. Deadline arithmetic, chunking, stale-arm guards and already-due synchronous action are unchanged. |\n| Snapshot recomputation after completion | One frozen facts object is sealed after finite disposal has recorded its synchronous errors and owner error reporting is disconnected; `snapshot()` then returns that same object. Inert stream/child error guards remain until natural close and hold no mutation authority. |\n| `runCommand`'s ad hoc `try/finally` coordinator (timeout cancel, heartbeat clear, `activeCommand` reset, capture close and listener removal) and its Promise result | `runCommand` returns one Effect. A Scope owns: the spawned child and lifetime (acquired together; release requests the existing finite cleanup, awaits the lifetime's own completion, then clears `activeCommand`), the unchanged heartbeat interval, and the capture listeners plus command timeout (released only after that physical completion). Ownership precedes fallible listener/timeout setup, whose error remains `lifetime.fail`. No retry, race or Effect timeout is added; Scope interruption is not physical absence. |\n| `main`'s Promise sequencing | One helper Effect program, executed once through `runEffectProgram` in `main`; `await main()` stays. Existing async owners are lifted with their original rejection value; only `WorksiteHelperFailure` is caught for D15; the acknowledgment write is drained before the same failure is the program failure; `main` rethrows the squashed original cause. |\n\nHTTP `oneHttpRequest`/`runHttpProbe` bodies, `worker_transport`, `shared/process`, `shared/effect_definition`, the SIGTERM/SIGINT `process.exit` emergency boundary (ordinary finalizers do not run through it), Product, schemas and admission/replay stay unchanged.\n\n'''\nassert anchor in s\ns=s.replace(anchor,phase2+anchor,1)\nopen(p,'w').write(s)\nEOF\ngrep -n \"Phase2 accepted HOW\\|FOUNDATION-ORACLE-001\" design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+        "description": "Add Phase2 HOW to refactor plan"
+      },
+      "result": {
+        "line": 2843,
+        "bytes": 2163,
+        "sha256": "b25fae067687fbe76f999015cc90d6344c8107b3534df5d64b4d94c74f9d1d2f",
+        "isError": false
+      }
+    }
+  ],
+  "standing": "Exact public inputs and matching output line/hash in retained stdout. Additional material repository reads permitted by Root read-scope clarification."
+}

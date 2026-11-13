@@ -1,0 +1,47 @@
+{
+  "id": "FOUNDATION-ORACLE-PACK-01",
+  "status": "ROOT_ADMITTED_FOUNDATION_ORACLE_PROOF_PACK",
+  "utc": "2026-11-09T18:55:52.614108+00:00",
+  "decisionOwner": "/root",
+  "controlsSha256": "bc1a6cf37809b716819821c62a80542989f10119236f15aff2c6a4dbbb8f65fe",
+  "sourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/candidate-pack.py",
+      "bytes": 8852,
+      "sha256": "dc02d51288ffe24fbbd38b8a7b455d7af254339309718b2eb1d0d6b5a3fbae4e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/PACK_CONTROLS.json",
+      "bytes": 5982,
+      "sha256": "bc1a6cf37809b716819821c62a80542989f10119236f15aff2c6a4dbbb8f65fe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/READY.json",
+      "bytes": 2533,
+      "sha256": "202cfababf2c34f377b268c7d1565ace856065259e922cb878a6f95b40356f58"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/BUILD_INPUT_RELATION.json",
+      "bytes": 6080,
+      "sha256": "41ba68f729a1da03bae445a58e8d9cf0ec91c70d685e1de7b0810255fdffdbc6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/INSTALLED_PROOF_ROUTE.json",
+      "bytes": 4210,
+      "sha256": "8de7e6a8137347bccd85b2247707f385bed84d4fd6e355d34157a3b96cf5f163"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/SOURCE_REVIEW_NATIVE04.md",
+      "bytes": 6895,
+      "sha256": "0621d27db3f95762aff9ec1414ddb27f2e9add15e174d3f3d06d1b15e75f9a99"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-followup/review/SOURCE_REVIEW_NATIVE04.json",
+      "bytes": 4765,
+      "sha256": "08256201f29d8179abbd2a62e3835eb78de38734fbaa803125b09298f8d5703a"
+    }
+  ],
+  "grant": "One offline ignore-scripts pack from exact retained Q1 tested build,120s/16MiB; all-member equality and actual group absence. No rebuild, cleanup/retry, global install or release. On success bind actual archive and prepare temporary bootstrap plus complete three-case W2-05 controls; test execution remains held for concrete artifact binding.",
+  "qualification": false
+}

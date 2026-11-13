@@ -1,0 +1,13 @@
+{
+  "startedUtc": "2026-11-04T14:33:55.090668+00:00",
+  "role": "Root admitted proof-only Testing to UAT dispatch",
+  "argv": [
+    "node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/dispatch.mjs",
+    "0d10c41287228d2c7bb5ebb5db2a6f30b1938f4f0acac76ebe0ee9a1289630f4"
+  ],
+  "manifestSha256": "0d10c41287228d2c7bb5ebb5db2a6f30b1938f4f0acac76ebe0ee9a1289630f4",
+  "codingWorkers": 0,
+  "automaticRetry": false
+}

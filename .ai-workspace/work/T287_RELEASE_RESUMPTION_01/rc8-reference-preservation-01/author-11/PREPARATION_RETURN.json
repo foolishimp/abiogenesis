@@ -1,0 +1,84 @@
+{
+  "status": "HELD_PREPARED_PENDING_ROOT_DISPATCH_ADMISSION",
+  "at": "2026-11-07T12:02:35.769497+00:00",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/runtime-001/PREPARED.json",
+    "bytes": 6159,
+    "sha256": "48b3467078e80f16f4ae61aacad6f26b3e6db39c1776411a690396aa2b32f4ca"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/BINDING.json",
+    "bytes": 5090,
+    "sha256": "d172b81abff26cd54198429f4ccf965fcca7624f591add59709d1a7859fdb359"
+  },
+  "controlFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/CONTROL_FREEZE.json",
+    "bytes": 3486,
+    "sha256": "1e3ff96a17f52939861a741bdbf8efc2d03c8083d9d9851044b9a5fdbc4cc517"
+  },
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/ROOT_SCOPE.json",
+    "bytes": 5575,
+    "sha256": "4383c2cb32444b8f1d17c1b46197e5eba10b559c74a77a77a25d18978f2b2b0c"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/TASK.json",
+    "bytes": 5287,
+    "sha256": "eff444d271d53121f8e9497dc701433f0cce3a1a9dfe62d1c4c040d24c3044b6"
+  },
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/PREPARATION.json",
+    "bytes": 7299,
+    "sha256": "10d491d1e7483ce99453844ff9d8c0cb60605130d62cbd78bd6b4c5abfb6145c"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/host.mjs",
+    "bytes": 12242,
+    "sha256": "ab2e3601532519e6a5b8ceff7cf2434cc2d7ccbc8659255782e5dc9778eb9709"
+  },
+  "proof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof.mjs",
+    "bytes": 10763,
+    "sha256": "c2f7225fbf3f790d2bf139774b89763febbe8017ef4c2deba17f7a7a75186bcf"
+  },
+  "hostDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/HOST_DIFF.patch",
+    "bytes": 4064,
+    "sha256": "1580aa113f71f5f7e8097e7d1c3680ebee0220870d48197c35f46a829b743003"
+  },
+  "proofDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/PROOF_DIFF.patch",
+    "bytes": 1527,
+    "sha256": "219c9a3ec04d58d90fc68c71fcb73412f273a87cd5c615368b4f28a7645125f0"
+  },
+  "pid": 54814,
+  "session": 34423,
+  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+  "sourceRows": 1339,
+  "actualPriorClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/runtime-001/resource-close.json",
+    "bytes": 2308,
+    "sha256": "d708e7218bd3ddc0c3b8286732c0767a31fb2aa422fcaf0fc5d47a6e7488dceb"
+  },
+  "heldPrefixEqualsActualClose": true,
+  "invocationRef": "invocation://abiogenesis/999377d99857953d587ce5740ac9ae5158f52f1ffa25b28050d962b54b9e7ee7",
+  "invocationDigest": "sha256:999377d99857953d587ce5740ac9ae5158f52f1ffa25b28050d962b54b9e7ee7",
+  "phaseElapsedMs": {
+    "artifactVerified": 274063.81495800003,
+    "consumerArtifactVerified": 27.565957999962848,
+    "resourceReacquired": 32647.548791999987,
+    "environmentReconstructed": 43212.45516700001,
+    "catalogReconstructed": 4149.409333000018,
+    "contextObserved": 6563.820208000019,
+    "nativeCallConstructed": 36754.47204199998
+  },
+  "ownerSetupMs": 397419.086458,
+  "controlAndImportMs": 11211.91875,
+  "hostToPreparedMs": 408631.08437500003,
+  "contextEntries": 476,
+  "renderedTaskBytes": 6497,
+  "standing": "One-key callback fixture correction and one filtered case only. Existing host/resource remains held; native dispatch awaits Root exact admission. Broad017 is independent. Focused proof will not create whole-file credit.",
+  "sourceEdits": 0,
+  "providerCalls": 0,
+  "qualified": false
+}

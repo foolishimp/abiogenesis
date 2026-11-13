@@ -1,0 +1,14 @@
+{
+  "recordedUtc": "2026-11-04T00:58:39.688702+00:00",
+  "role": "Root operator/evidence Writer",
+  "change": "Copy eventual completed author TAP from both explicitly granted scratch roots; preserve original freezer. No Product/test, admitted control or runtime effect.",
+  "original": {
+    "path": "native-06/freeze-source.mjs",
+    "sha256": "cb5999484c472fadc0ced8a9a8a4b74d046260165b65b973780143bfc9577450"
+  },
+  "revised": {
+    "path": "native-06/freeze-source-r1.mjs",
+    "sha256": "936bf659cb562a987ed587345aba5f38b5586d00c97d27fda9d7de91c1e533f5"
+  },
+  "standing": "Not executed; only after actual native source return. Author feedback is distinct from C2 and acceptance."
+}

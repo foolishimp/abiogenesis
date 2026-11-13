@@ -1,0 +1,87 @@
+{
+  "status": "ACTUAL_INSTALL_BINDING_PREPARED_REVIEW_AND_ROOT_ACTIVATION_HELD",
+  "at": "2026-11-08T21:42:29.418Z",
+  "authority": "Root Writer preparation-only grant after closed build3881f100; only new held install binding and this compact preparation return.",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/INSTALL_BINDINGS.actual008.held-001.json",
+    "bytes": 6208,
+    "sha256": "eb9276e704ea5eefa5392ff5464ac1942ba304681b03abc31f4c742ecba2dc81"
+  },
+  "template": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/INSTALL_BINDINGS.prepared.json",
+    "bytes": 2643,
+    "sha256": "0e3530cfc3ec186152a9788bfd1e22f3264d3925c3dbc5cc40c146eecd159192"
+  },
+  "closedBuildReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/OPERATOR_RETURN.json",
+    "bytes": 7733,
+    "sha256": "3881f100db3f57d81e84e75bd6f6e7c933ed58316f68cc2662a42c9786e9af01"
+  },
+  "buildBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/ROOT_BUILD_BINDINGS.json",
+    "bytes": 26455,
+    "sha256": "fe16d77b2de8a38276ec613fac9d877add9932e5478cf18a2a54b54f7af2528c"
+  },
+  "checkedActualInputs": {
+    "buildBindings": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/ROOT_BUILD_BINDINGS.json",
+      "bytes": 26455,
+      "sha256": "fe16d77b2de8a38276ec613fac9d877add9932e5478cf18a2a54b54f7af2528c"
+    },
+    "sourceCheckpoint": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+      "bytes": 1187,
+      "sha256": "f0870b39939c6aa279f4886ff79a20a49c880bbe7ac8a39636e3383ac1c03610"
+    },
+    "candidate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/candidate/RESULT.json",
+      "bytes": 782,
+      "sha256": "a0bf12fc4c9d4e8e430c780df3432f620d737962de65fa2c9ad7359c89e24a05"
+    },
+    "reproduction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/reproduction/RESULT.json",
+      "bytes": 1274,
+      "sha256": "a89501cd7f7a8ade2bb50ac29d4af2fa25118858933ba3fffd0abc2ed1ea89e3"
+    },
+    "exactTestedArtifact": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+      "bytes": 831,
+      "sha256": "c130049c2da5eca6f70604236ab7463201d8bc3dde275f0f32e229146e3119ef"
+    },
+    "installInputs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+      "bytes": 2744,
+      "sha256": "afe7f0f945dcc8384b9bf846efa1ccbf4df23adf3a24549b9c44a7aa268ddc49"
+    },
+    "boundedClaim": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 3505,
+      "sha256": "e82e74f10d1c764440baef622a7f6857005fd2da72cbdc67636e95d241df6dbf"
+    },
+    "residuals": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/RESIDUALS.md",
+      "bytes": 15882,
+      "sha256": "a17c7d2b8a31e1da9f658a575495617f8862b5c73ad4758a0c9c52d7c5922c4a"
+    },
+    "rootAuthority": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/ROOT_AUTHORITY.md",
+      "bytes": 2171,
+      "sha256": "26906fa93fe72c9ce595663d688ee35c2e96c0bd9e9f10ea13e575856b4cbdb3"
+    }
+  },
+  "relations": "Exact checkpoint/tree, candidate/tested archive, reproduction archive/manifest,5325 unchanged members, pending identity and fixed final claims agree. Existing paths/tools/bounds inherited through unchanged active build binding; no new inventory or execution.",
+  "pendingFields": {
+    "independentPackagingReview": null,
+    "activation": null,
+    "executionEnabled": false
+  },
+  "next": "Bind the actual closed independent packaging review; Root then supplies separate install activation. No extra review or effects are selected here.",
+  "checks": {
+    "actualFilePinsVerified": 11,
+    "jsonAndWhitespace": "passed",
+    "qualified": false,
+    "published": false,
+    "selectorChanged": false
+  },
+  "effects": "Only two new CUT9 preparation files written; no final-doc/source/Git/test/runtime/release/install/smoke or tracker effect."
+}

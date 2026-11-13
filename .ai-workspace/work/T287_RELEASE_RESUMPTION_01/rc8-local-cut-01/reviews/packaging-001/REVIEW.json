@@ -1,0 +1,364 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0, PROD-001, immutable source-independent package-first GTL.TypeScript/HoG/ABG Product for a trusted developer desktop.",
+    "fixedFeatureFamilies": [
+      "A5-F01",
+      "A5-F02",
+      "A5-F03",
+      "A5-F04",
+      "A5-F05",
+      "A5-F06",
+      "A5-F07",
+      "A5-F09",
+      "A5-F10",
+      "A5-F11",
+      "A5-F13",
+      "A5-F14",
+      "A5-F15",
+      "A5-F16",
+      "A5-F17"
+    ],
+    "activeSelection": "GOAL-035 / T-287 / REF-01; RC8-05 bounded local checkpoint, byte-equal clean reproduction, independent packaging assessment, then separately admitted installation.",
+    "selectedProductOutcome": "Preserve the accepted exact source-to-artifact relation and supply one identity-bound immutable archive plus truthful local unqualified claims to existing Product verification/resolved-lock/install owners. This evaluates F01 packaging/install inputs and F15/F16/S07 claim boundaries, without closing those whole families.",
+    "sourceToolRuntimeSplit": "The exact source checkpoint and package definitions are immutable definition evidence; manifests and catalogs are deterministic construction/read models; command receipts and this review are observation/evaluation evidence. Product verification and installation own their declared artifact effects. GTL owns meaning, HoG direct traversal and ABG alone runtime admission/events/replay truth; SDK/CLI/install wrappers gain no controller or qualification authority.",
+    "prohibitions": "No mutable source import as installed proof, hidden product selector, identity substitution/bridge, invented native qualification or human acceptance, rival runtime/registry/controller/private event writer, future success claim, or omitted residual. F08/F12 and reserved human-response/host-parity portions retain 5.1 allocation.",
+    "basis": {
+      "uri": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "composition": [],
+      "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+    }
+  },
+  "verdict": "satisfied",
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+  "kind": "independent_bounded_rc8_packaging_review",
+  "at": "2026-11-07T22:48:49.530143+00:00",
+  "activation": "Root exact frozen-build activation to /root/rc8_packaging_review, followed by exact install-claims-001 pins; authority-intake expectations were established before candidate exposure.",
+  "actor": "/root/rc8_packaging_review",
+  "role": "Independent bounded Reviewer",
+  "consumer": "/root Executive",
+  "independence": {
+    "authoredCandidate": false,
+    "authoredBuildOrClaims": false,
+    "repairPerformed": false,
+    "method": "Independent judgment over exact Git objects, archive/manifest bytes, selected control code and final claims; author mechanical evidence reacquired. Source/proof judgments reused only at their existing limits. User-selected process-agent model policy retained."
+  },
+  "claim": "The frozen local RC8 checkpoint exactly preserves the accepted source inventory and selected delta, its clean reproduction exactly equals the tested archive/manifest/member set without identity bridging, and the bound claim/residual/authority documents and selected install inputs support only the authorized local unqualified candidate.",
+  "subject": {
+    "status": "BUILT_EXACT_LOCAL_UNQUALIFIED_RC8_SUBJECT_FOR_PACKAGING_REVIEW",
+    "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "sourceDigest": "60f8e595cfcf1b11f01dd0d46c9030d5042fc3edb076d20993c583e0b6b98e32",
+    "sourceInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-preparation-001/SOURCE_INVENTORY.json",
+      "bytes": 541876,
+      "sha256": "311af9d981a6d5369d8a90fb1c31243bf0452208eefb43d10aa55240bb6c7db2"
+    },
+    "sourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 26861,
+      "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+    },
+    "sourceBroadConjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/ROOT_SOURCE_BROAD_CONJUNCTION.json",
+      "bytes": 51978,
+      "sha256": "2fdc2bd5c58ad400183462c3357768eb513f645d4b86bcb4d85b8823d27958b8"
+    },
+    "buildAdmission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_ADMISSION.json",
+      "bytes": 15629,
+      "sha256": "2f87f6aa0c11738712baae6a25fb957cc22d12dc3180d42ece4762385022c3ec"
+    },
+    "buildBindings": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+      "bytes": 19284,
+      "sha256": "4f0f115220003b5c95e03d2602abc4118fe1f49917afa787a890096ca18d92f3"
+    },
+    "driver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+      "bytes": 27890,
+      "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+    },
+    "buildResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/BUILD_RESULT.json",
+      "bytes": 1308,
+      "sha256": "5c1b562874f4d8a5b64b0aedda84c64629197f2652024f582f6a0589d42dffce"
+    },
+    "sourceCheckpoint": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+      "bytes": 1380,
+      "sha256": "51ee2a7656199e4b735f9dd7e6609c19cab9708d33169546c9e9390a15383679"
+    },
+    "candidate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/candidate/RESULT.json",
+      "bytes": 808,
+      "sha256": "50d7f6bfc2a4538e23e6747d54514f07b253c7322f16bc9b12b1e237da94058b"
+    },
+    "reproduction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/reproduction/RESULT.json",
+      "bytes": 1284,
+      "sha256": "7333fc0619f9414cf8a5bfdb2e117128c2516686398b5de8567760f7feaadcf7"
+    },
+    "exactTestedArtifact": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+      "bytes": 841,
+      "sha256": "51fc962bcb739f0b3d198cb3893d80db2b831cecfe274fb507a53f2336ecd88d"
+    },
+    "installInputs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+      "bytes": 2765,
+      "sha256": "72d9d5720047331786d6453eed7bb3c52a7ac05b2e14455d97b7076ee2615226"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+    },
+    "manifest": {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+    },
+    "archiveMembers": 5325,
+    "identityBridgeAllowance": false,
+    "custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/BUILD_CUSTODY.json",
+      "bytes": 18686,
+      "sha256": "5103c8267344e59c524f536d579401e07b5e02f5d299d200a7518e57cbd62f71"
+    },
+    "independentPackagingReview": null,
+    "installAdmission": null,
+    "actualFinalInstallVerification": null,
+    "qualified": false,
+    "published": false
+  },
+  "reviewedClaims": {
+    "boundedClaim": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 6739,
+      "sha256": "d163f677072c9e3c143635f8859bf1cd03e49bd910162e86769b47d2e822d9cd"
+    },
+    "residuals": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/RESIDUALS.md",
+      "bytes": 12832,
+      "sha256": "396b1c7c0ae1f7ac39b9a7d53d54aae7c0e9317997055207d5b8254198a13e00"
+    },
+    "rootAuthority": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/ROOT_AUTHORITY.md",
+      "bytes": 4191,
+      "sha256": "b003d26342b03b3ac40ffbd7e176ff801295ab4dead15ae788dfed14d94513f4"
+    }
+  },
+  "reviewedControl": {
+    "buildAdmission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_ADMISSION.json",
+      "bytes": 15629,
+      "sha256": "2f87f6aa0c11738712baae6a25fb957cc22d12dc3180d42ece4762385022c3ec"
+    },
+    "buildBindings": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+      "bytes": 19284,
+      "sha256": "4f0f115220003b5c95e03d2602abc4118fe1f49917afa787a890096ca18d92f3"
+    },
+    "driver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+      "bytes": 27890,
+      "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+    },
+    "installOwnerDriver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-local-rc8.mjs",
+      "bytes": 7172,
+      "sha256": "af384db8543ae85f8604c7d0913bd8449d458ee579d538f7677112f889be11f1"
+    },
+    "preparationManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/PREPARATION_MANIFEST_CORRECTED_002.json",
+      "bytes": 4182,
+      "sha256": "64e5c7a9bb4092fdc9334e9f78898e5cdd401d58059f2098c9a7f68a87c1ef39"
+    },
+    "sourceArtifactRelation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 13564,
+      "sha256": "0876bdcb97f14949fb68be7e720db89a8fc15cbd72e7765536c6187d01373138"
+    },
+    "installInputs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+      "bytes": 2765,
+      "sha256": "72d9d5720047331786d6453eed7bb3c52a7ac05b2e14455d97b7076ee2615226"
+    }
+  },
+  "evaluations": [
+    {
+      "predicate": "Exact accepted source -> checkpoint",
+      "verdict": "satisfied",
+      "evidence": "All 1,339 accepted inventory rows equal frozen snapshots and Git blobs. Commit has expected sole predecessor and exact tree; all 27 selected paths and modes match with no extra committed delta. Current tracked/index state is clean; excluded progress files do not enter source/archive membership."
+    },
+    {
+      "predicate": "Exact checkpoint -> clean reproduction inputs and execution",
+      "verdict": "satisfied",
+      "evidence": "All 1,325 source-tar members match the selected Git tree bytes/modes/set. The retained driver validates 115 canonical generator/qualification inputs before compile, copies selected offline dependencies, then compiles/generates/packs once. All 30 actual retained command result/stream receipts are successful and hash-consistent; no replay was run."
+    },
+    {
+      "predicate": "Tested archive == reproduced archive and manifest",
+      "verdict": "satisfied",
+      "evidence": "Both 11,027,562-byte archives independently hash to a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9 and are byte-equal; all 5,325 members, bytes, modes and regular-file types equal. Manifest bytes hash f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102. Identity bridge false; no changed members."
+    },
+    {
+      "predicate": "Manifest/package/source-to-install identity",
+      "verdict": "satisfied",
+      "evidence": "Manifest package/product/version, canonical manifest digest and payload inventory digest independently agree with pending install inputs. All 30 export targets exist. Exact generator excludes only manifest and separately content-bound capability graph from 5,323 payload locators; their union is the complete 5,325-member package. Nine later fixture paths remain unshipped."
+    },
+    {
+      "predicate": "Claim/authority/residual conservation",
+      "verdict": "satisfied",
+      "evidence": "Exact final pins reacquired. Phase-neutral claim text binds actual commit/tree/reproduction and assigns actual installation standing solely to later receipts. Nine OPEN capsules and twelve cold/S7/full5.0/human gates remain; bounded proof, negative-case, performance, custody and case-wise limitations match reused Root acceptances."
+    },
+    {
+      "predicate": "Selected install-input path remains local and unqualified",
+      "verdict": "satisfied",
+      "evidence": "Read-only control tracing follows pinned build/subject/review/claim checks -> fresh no-clobber local custody -> exact archive import -> existing Product verify -> resolved lock -> install -> all-member installed equality -> later narrow smoke receipt. Flags remain published=false/qualified=false/selectorChanged=false. No native qualification or selector publication path is selected. Root install admission and actual execution remain separate."
+    },
+    {
+      "predicate": "Preservation",
+      "verdict": "satisfied",
+      "evidence": "Main and RC7 HEAD/index pins independently match preserved-before records; C8 exact tracked/index state is clean. Both selected install locations are absent at this review observation."
+    }
+  ],
+  "evidence": {
+    "authority": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/reviews/packaging-001/AUTHORITY_REACQUISITION.json",
+      "bytes": 3573,
+      "sha256": "bd6e06b41252d0b8b0f46212e3f987de0a09c0c272c5fe93e9de01f81a068657"
+    },
+    "mechanical": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/reviews/packaging-001/MECHANICAL_REACQUISITION_v2.json",
+      "bytes": 11703,
+      "sha256": "9f7dda5be9071d4119e0abfd98c05eedba6d26c2ad5dcc9fc2b8dec8fec40f8e"
+    },
+    "mechanicalScript": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/reviews/packaging-001/verify-frozen-v2.py",
+      "bytes": 10571,
+      "sha256": "7b00767c74a8deca59d089158fb4e7bf20e04105e3a85229788b53aa9e448322"
+    },
+    "builtSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/BUILT_SUBJECT.json",
+      "bytes": 4670,
+      "sha256": "0c0e90d8ce272d2ebd24817c3b7ecde283a184e8855e91877c338cf116a117b5"
+    },
+    "operatorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/OPERATOR_RETURN.json",
+      "bytes": 4719,
+      "sha256": "b6748da823db72cf8d85e8f7e2e48833b602ae54a01ef237be26d0941eebaaa5"
+    },
+    "buildCustody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/BUILD_CUSTODY.json",
+      "bytes": 18686,
+      "sha256": "5103c8267344e59c524f536d579401e07b5e02f5d299d200a7518e57cbd62f71"
+    }
+  },
+  "reusedJudgments": [
+    {
+      "question": "Accepted final source and A12 case-wise fixture conjunction",
+      "owner": "Root Executive",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 26861,
+        "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+      },
+      "subject": "sourceDigest60f8e595cfcf1b11f01dd0d46c9030d5042fc3edb076d20993c583e0b6b98e32; unchanged tested archivea178e960",
+      "conclusion": "Bounded fixture acceptance only; no whole-file credit, installed L-to-W bridge or new shipped runtime bytes.",
+      "reviser": "Source, oracle, test/evidence identity, archive relation or authority changes."
+    },
+    {
+      "question": "Bounded source/broad population standing",
+      "owner": "Root Executive",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-resumption-20261108/ROOT_SOURCE_BROAD_CONJUNCTION.json",
+        "bytes": 51978,
+        "sha256": "2fdc2bd5c58ad400183462c3357768eb513f645d4b86bcb4d85b8823d27958b8"
+      },
+      "subject": "Same exact source and archive; 208 files as192 ledger credits plus16 separate populations",
+      "conclusion": "Accepted only for explicitly unqualified local REF01 cut; all nine residual capsules remain OPEN.",
+      "reviser": "Affected source/proof population, residue/no-block relation or authority changes."
+    },
+    {
+      "question": "Original Product refactor acceptance",
+      "owner": "Root Executive",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SOURCE_ACCEPTANCE.json",
+        "bytes": 18167,
+        "sha256": "813bbf5196856a071e7dee08a2c5cef407ca2b14d4656332b2a6bf08270dfed6"
+      },
+      "subject": "Original A3 exact source and retained artifact relation",
+      "conclusion": "Preserved accepted executable bytes; subsequent test-only increments do not silently broaden it.",
+      "reviser": "Executable/archive bytes or accepted ownership/invariant evidence changes."
+    },
+    {
+      "question": "Matched performance and installed scratch lifecycle",
+      "owner": "Root Executive",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/ROOT_MEASUREMENT_ACCEPTANCE_004.json",
+        "bytes": 5739,
+        "sha256": "e4e961ab00b4c4c2cffebd95609fecab0c9b06dc32705f10bd5e3606692d4c86"
+      },
+      "subject": "Exact tested archive installed scratch; one1MiB/4MiB pair plus separate third parent profile",
+      "conclusion": "Original limited observations retained; no statistical or whole-workflow claim and no final local installation credit.",
+      "reviser": "Artifact, instrumentation, scope, physical/lifecycle evidence or declared claim changes."
+    }
+  ],
+  "findings": [],
+  "counterexamples": [],
+  "triage": "not_applicable",
+  "severity": "not_applicable",
+  "priority": "not_applicable",
+  "disposition": "reserved_to_root",
+  "residuals": [
+    "Local, explicitly unqualified RC8 REF-01 packaging and install-input subject only. No qualification, publication, stable release, adoption or installed behavior is established by this review.",
+    "Nine OPEN assurance capsules remain open. Twelve cold-read residuals, S7, fixed fifteen-family/full 5.0 qualification and actual human acceptance remain unchanged.",
+    "192 whole-file ledger credits, 986 actual passes and 227 historical skips retain their original identity. The 16 separate populations remain four whole proofs, three case-wise acceptances and nine OPEN residuals; no whole-broad-green claim.",
+    "A12 is an unshipped two-reference fixture correction with one complete focused case, conjoined case-wise with fourteen original024 passes. The original red remains and there is no new whole-file credit or installed L-to-W bridge proof.",
+    "Configured C2 positive is one separately accepted case. Five installed-negative variants remain open; six earlier component passes and 21 local refusal checks do not close them.",
+    "Prior performance/lifecycle acceptance remains exact tested-archive installed scratch evidence with one sample per size and a separate parent profile. It supports no statistical speedup, consistent memory gain, blanket zero-copy, provider productivity or native RC8 coding-workflow qualification.",
+    "Known process and command-stream observations do not prove universal detached-descendant absence, physical cleanup or quota enforcement.",
+    "Actual installation, all-member installed correspondence and narrow installed export/verify/empty-resource read/close smoke are not yet performed here. Separate Root install admission and actual final receipt remain required.",
+    "No push, tag, merge, publication, global selector, source edit, project test, build, repack, SDK/provider/native execution, cleanup or retry was performed by this Reviewer."
+  ],
+  "adjacentObservations": [
+    {
+      "kind": "reviewer_check_correction",
+      "claimRelativeTriage": "not_applicable",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/reviews/packaging-001/MECHANICAL_REACQUISITION.json",
+        "bytes": 11316,
+        "sha256": "575260f1aeecb8c4b718ab5d015aeae850639aed75aaa4776c97b12fabf7c59f"
+      },
+      "detail": "Initial independent locator check assumed package.json was excluded. Exact frozen generator lines519-523 establishes manifest and capability graph as exclusions. Corrected read-only check reconstructs owner payload/graph/manifest identities successfully; no candidate defect or repair follows."
+    }
+  ],
+  "uncertainty": "Source/proof semantic judgments remain bounded to their existing acceptances. Packaging equivalence establishes identity/correspondence, not unperformed installed usability, qualification or full workflow behavior.",
+  "unperformedCoverage": [
+    "Actual final local installation and installed-owner smoke",
+    "New or repeated project tests, native SDK/provider execution, semantic source review",
+    "S07/full fifteen-family qualification, actual human acceptance, publication and adoption"
+  ],
+  "invalidation": [
+    "Material change to bound source commit/tree/inventory, archive/member/manifest/identity, final claim/residual/authority pins, selected install inputs or controls",
+    "Changed Product/method/frame/operation or independence basis",
+    "New admissible counterexample to a reviewed relation or a revising observation identified by reused owner results"
+  ],
+  "owningReentry": "Root Executive consumes this exact packaging result. Any affected failure returns to its existing owner through bounded intake; this review grants no install, repair, qualification or publication.",
+  "recommendation": "Consume this satisfied bounded packaging result only for the exact subject and claim pins; retain all residuals and the separate Root install admission/actual-evidence boundary.",
+  "effects": {
+    "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/reviews/packaging-001",
+    "candidateEdits": 0,
+    "gitMutations": 0,
+    "tests": 0,
+    "builds": 0,
+    "repack": 0,
+    "installs": 0,
+    "sdk": 0,
+    "providers": 0,
+    "nativeRuns": 0,
+    "cleanup": 0
+  }
+}

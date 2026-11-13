@@ -1,0 +1,93 @@
+{
+  "kind": "rc7_selected_refactor_and_cut_timeline",
+  "at": "2026-11-07T00:27:49.031830+00:00",
+  "timezone": "Australia/Sydney; AEDT UTC+11 on2026-11-07",
+  "phases": [
+    {
+      "task": "HS01 borrowed reads/maintained caller",
+      "acceptedUtc": "2026-11-06T19:49:56.157Z",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_REVIEW_DISPOSITION.json",
+        "bytes": 9575,
+        "sha256": "60c9e5a1b1ef87840c32d569499e728855c5a91e6c21ed25268c9b313d4dc5b9"
+      }
+    },
+    {
+      "task": "S5 first stdout author",
+      "actorStartUtc": "2026-11-06T20:04:10.098Z",
+      "ownerEndUtc": "2026-11-06T21:34:44.248Z",
+      "standing": "Timed out/partial, original evidence retained"
+    },
+    {
+      "task": "S2 first completion",
+      "actorStartUtc": "2026-11-06T22:14:07.275Z",
+      "ownerEndUtc": "2026-11-06T22:28:12.539Z",
+      "standing": "Partial; original fixture failure and archive/profile gap retained"
+    },
+    {
+      "task": "S3 final stdout/archive/profile completion",
+      "actorStartUtc": "2026-11-06T23:12:54.942Z",
+      "ownerEndUtc": "2026-11-06T23:44:02.784Z",
+      "acceptedUtc": "2026-11-06T23:54:21.665022+00:00",
+      "actorToOwnerEndMs": 1867842,
+      "setupMs": 138783.379,
+      "preparedToActorMs": 6518.62,
+      "priorOwnerEndToHostMs": 2537101,
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/operator-custody-001/SESSION_COSTS.json",
+        "bytes": 12155,
+        "sha256": "bcdfd5120b33de66299cf4655a27a0ffe6e9dfdcb43a5cc26e07371b3aa41884"
+      }
+    },
+    {
+      "task": "Installed growth measurement",
+      "hostStartUtc": "2026-11-07T00:12:05.581Z",
+      "hostWallMs": 44487.618333,
+      "fixtureWallMs": 43671.960083,
+      "acceptedUtc": "2026-11-07T00:14:22.044943+00:00",
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/ROOT_GROWTH_AND_S6_DISPOSITION_001.json",
+        "bytes": 9204,
+        "sha256": "59669f1d27df76a098917addd2ce10dac7ca9640acf8567828f2413e9dd3d922"
+      }
+    },
+    {
+      "task": "Local RC7 build and clean reproduction",
+      "startedUtc": "2026-11-07T00:14:30.049Z",
+      "endedUtc": "2026-11-07T00:15:41.774Z",
+      "wallMs": 71725.0,
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/BUILD_RESULT.json",
+        "bytes": 1408,
+        "sha256": "74e985058aa25c9405e4c3ce0c8ab67845cdc40530cf8c8fa8d52853fae3c834"
+      }
+    },
+    {
+      "task": "Build end to install start",
+      "wallMs": 582651.0,
+      "meaning": "Packaging review and Root/operator binding interval; separate from build/install runtime."
+    },
+    {
+      "task": "Local RC7 install/all-payload/fresh-owner verification",
+      "startedUtc": "2026-11-07T00:25:24.425Z",
+      "endedUtc": "2026-11-07T00:26:09.548Z",
+      "wallMs": 45123.0,
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/actual-001/install-001/RESULT.json",
+        "bytes": 812,
+        "sha256": "bfa889e9fa8982959a3b305e87241ed9c649992dc7c1ec8786a0013a7788d648"
+      }
+    }
+  ],
+  "setupFailuresRetained": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/artifact-001/SUMMARY.json",
+      "standing": "Old-builder lock basis refusal before install; archive verified."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001/MEASUREMENT.json",
+      "standing": "Invalid direct/declared_start fixture, before any actor."
+    }
+  ],
+  "limits": "No matchedRC6 baseline, actual provider/native-coding speedup, aggregate child RSS or whole-workflow performance claim. Phases and between-task intervals remain distinct."
+}

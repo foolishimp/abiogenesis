@@ -1,0 +1,49 @@
+{
+  "status": "BUILT_ALL_FIVE_COMMANDS_SUCCEEDED_SOURCE_CONSERVED",
+  "result": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/RESULT.json",
+    "bytes": 986,
+    "sha256": "ae5cf7e38f13a03e1f27eb90aa3f26c9c78be29243b8cc9d5298ee62fa4f2045"
+  },
+  "stageSourceFreeze": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/stage-01/source-freeze.json",
+    "bytes": 292778,
+    "sha256": "b25b278f9b599700a3bc1a2c68a92bc21025e09b62c3116e580fb3223776cd6e"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "rowsMatchedAcrossLiveAuthorFreezeStageFreeze": 1334,
+  "results": [
+    {
+      "id": "compile",
+      "exitCode": 0,
+      "wallMs": 8133.80925,
+      "timedOut": false
+    },
+    {
+      "id": "generate",
+      "exitCode": 0,
+      "wallMs": 33957.75683300001,
+      "timedOut": false
+    },
+    {
+      "id": "imports",
+      "exitCode": 0,
+      "wallMs": 40.48254199999792,
+      "timedOut": false
+    },
+    {
+      "id": "lifecycle",
+      "exitCode": 0,
+      "wallMs": 640.7997500000056,
+      "timedOut": false
+    },
+    {
+      "id": "calculus",
+      "exitCode": 0,
+      "wallMs": 236.83666700000322,
+      "timedOut": false
+    }
+  ],
+  "conditionalFocusedGrantSatisfied": true,
+  "next": "Exactly one focused LIFE-01 modefunctional run; workload50 remains separately unexecuted."
+}

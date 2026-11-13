@@ -1,0 +1,50 @@
+{
+  "kind": "root_original_source_and_routing_disposition",
+  "at": "2026-11-05T19:30:46.440035+00:00",
+  "sourceResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_D5_SOURCE_RESULT.json",
+    "sha256": "eeb520bfd1598adef50ffef7fa80323b1158d6741938255c17b1d963dd491233"
+  },
+  "verified": {
+    "commitObjects": 4,
+    "sourceMembers": [
+      "activation",
+      "workerReturn",
+      "executiveClosure",
+      "workerReadme",
+      "provenanceRecord"
+    ],
+    "spansAndDirectParents": true
+  },
+  "decision": "Accept documentary location/support of original D5 grant, declared Opus5.5 writer, exact implementation and bounded Executive closure. Reuse these original sources for the selected QR02 external-arm increment after Q23. The original-source location gap is closed.",
+  "limits": [
+    "No inherited-contributor census or complete semantic-survival judgment.",
+    "External construction record sufficiency stays with its existing owner; no new historical native-invocation requirement is added.",
+    "No production independence, paid-assessment eligibility or release verdict."
+  ],
+  "S02Correction": {
+    "rows": [
+      "B19 traversal/structural/batch",
+      "B56 C.batch"
+    ],
+    "decision": "Disregard branch-construction/N06 replay-lane as batch evidence. The retained isolated calculus8/8 source-equal evidence remains. No extra batch execution selected.",
+    "source": {
+      "commit": "56015068371277c8efed53f0f40d1e53bdee79ea",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md",
+      "blob": "90a1ac57b7f1a186e177e3f239bf6ccac05c188b",
+      "bytes": 929142,
+      "sha256": "dc3863d51bfc28219d7a436158d3875a93f2cf257fbcfaa405df4b5d05e057b1",
+      "spans": [
+        {
+          "startLine": 5550,
+          "endLine": 5550,
+          "startByte": 919362,
+          "endByte": 920898,
+          "bytes": 1536,
+          "sha256": "2c3bd3268c42b6971ccec22eaa822c8911a19c2df8192126f923334fc8dfed88"
+        }
+      ]
+    },
+    "previousMapPreserved": true
+  }
+}

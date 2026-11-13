@@ -1,0 +1,60 @@
+{
+  "status": "ROOT_ADMITTED_PHASE2_B_UNIT_CONTINUATION",
+  "bindingSha256": "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a",
+  "readySha256": "4a4efef760649ad5fe26e146c88141cee3de2d6789824c3f8408986e1c8f2079",
+  "commandIds": [
+    "unit"
+  ],
+  "retrospectiveDisposition": {
+    "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+      "bytes": 6141,
+      "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+    },
+    "predecessorAcceptance": {
+      "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+        "bytes": 2281,
+        "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+      }
+    },
+    "standing": "Proposed exact conserved production relation; new fixture proof not accepted. Root execution admission conjoins this receipt."
+  },
+  "id": "PHASE2-B02-UNIT-PROOF-01",
+  "sourceDigest": "71b97e13067da3f8defbb070ed7381bb0e93cb4d05103ed328be49bdd8d7269d",
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 1986,
+    "sha256": "c74b62ce83ca614552304cf0c4a9edad9449162164170d49cd9577a81c5d0c4e"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/READY.json",
+      "bytes": 20752,
+      "sha256": "4a4efef760649ad5fe26e146c88141cee3de2d6789824c3f8408986e1c8f2079"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/BINDING.json",
+      "bytes": 14125,
+      "sha256": "98c543c6aacde10c2491e049b2b4cd173ee63d3f816f2e434eb5f77a6190e24a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/CONTROLS.json",
+      "bytes": 21010,
+      "sha256": "71b21d2b528482397ce2e9fcaf1ad6d8703c20deacc54bf1ca7e908adab767aa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/unit.py",
+      "bytes": 17434,
+      "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/PRODUCTION_PROOF_CONSERVATION.json",
+      "bytes": 6141,
+      "sha256": "5fd43b5db68a99f8eb2cbe161d319a46814da0576d4d8af532a25f3a7863bf52"
+    }
+  ],
+  "RootDecision": "Root admits one original9-file unit on frozen staged successor. Only fresh unit03 output/TMP/evidence; no source/Git/tracking/repeat/extra group/M5/build/pack/bootstrap/C2/lifetime effects. Fixed1800s command/2400s campaign/15sreserve/100MiB. Allow admitted Node command to reach bounded terminal despite a case red; stop dependent effects and retain complete result/closure. Final A+B acceptance held for actual unit plus independent Proof."
+}

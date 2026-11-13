@@ -1,0 +1,46 @@
+{
+  "status": "NATIVE04_ACTUAL_INPUT_STAGED_NO_TEST_OR_RUNTIME",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/fixture-staging-01/ROOT_NATIVE_FIXTURE_STAGE_ADMISSION.json",
+    "bytes": 1539,
+    "sha256": "1dc6f0992cfaa8ba231991e3d4ef6bd99f537189c7154ffde6166d86906a56d6"
+  },
+  "copied": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/generated/native-assessment/events.jsonl.gz",
+        "bytes": 779443,
+        "sha256": "66162a9332dcabf7410d630551cdf12b4b272c70aa02d777f879a165a7fa8a2e"
+      },
+      "destination": {
+        "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz",
+        "bytes": 779443,
+        "sha256": "66162a9332dcabf7410d630551cdf12b4b272c70aa02d777f879a165a7fa8a2e"
+      },
+      "byteEquality": true
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/generated/native-assessment/fixture.json",
+        "bytes": 8208,
+        "sha256": "2c3330b69ca39febeb0e01760a4b6f7bb1af1758b8b33f2dcc54eeb017e1ecb6"
+      },
+      "destination": {
+        "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+        "bytes": 8208,
+        "sha256": "2c3330b69ca39febeb0e01760a4b6f7bb1af1758b8b33f2dcc54eeb017e1ecb6"
+      },
+      "byteEquality": true
+    }
+  ],
+  "raw": {
+    "bytes": 3467880,
+    "sha256": "0a381f83b731b54f64df27945a9906bc790ff628ce38e092d7df22ee73efa01e",
+    "eventRows": 79
+  },
+  "originalRowsConserved": 1334,
+  "selected02Conserved": true,
+  "mainIndexAndBuildersConserved": true,
+  "sourceAuthorStarted": false,
+  "finalFreeze": false
+}

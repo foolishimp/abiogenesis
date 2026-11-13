@@ -1,0 +1,297 @@
+{
+  "status": "CONTINUATION_READY_FOR_EXISTING_DEPENDENCIES_EXECUTION_HELD",
+  "recordedAt": "2026-11-08T18:58:58.290Z",
+  "actor": "/root/rc9_operator",
+  "authority": "Root dependency-independent CUT9 continuation preparation after green full-unit007. Only this record writable; no Q9/source/tracking/Git/build/test/pack/install/native effects.",
+  "basis": "STDO3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; unchanged ABI5 execution/delivery frame, GOAL-035/T-287.",
+  "reusedControls": {
+    "PREPARATION_RETURN.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/PREPARATION_RETURN.json",
+      "bytes": 9601,
+      "sha256": "f181bfd6a9f25f33576c7cf7f8194d1191cc35fdc2200d7763ea1c812bf27819"
+    },
+    "PREPARATION_MANIFEST.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/PREPARATION_MANIFEST.json",
+      "bytes": 3194,
+      "sha256": "ef706217b8a134a2bd7c363357bca168c9291cb60f4890f1975698f39ab7e796"
+    },
+    "run-local-cut.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+      "bytes": 27954,
+      "sha256": "bac74938257736015dc6c71f26dcd0a40e79115ea8bc82f9e2ff9aa04e5e3425"
+    },
+    "BUILD_BINDINGS.prepared.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/BUILD_BINDINGS.prepared.json",
+      "bytes": 4177,
+      "sha256": "9fd1ba76ade39177d79e2766d1d737e00074a65f77c7af84ce85be9347b2ab45"
+    },
+    "INSTALL_BINDINGS.prepared.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/INSTALL_BINDINGS.prepared.json",
+      "bytes": 2643,
+      "sha256": "0e3530cfc3ec186152a9788bfd1e22f3264d3925c3dbc5cc40c146eecd159192"
+    },
+    "LAUNCH_PLAN.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/LAUNCH_PLAN.json",
+      "bytes": 4131,
+      "sha256": "875b2a8ea530af501483e2066816ded4366e2ef317a426ff205ab46fa835d31d"
+    }
+  },
+  "existingAcceptanceTemplates": {
+    "build": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+      "bytes": 19284,
+      "sha256": "4f0f115220003b5c95e03d2602abc4118fe1f49917afa787a890096ca18d92f3"
+    },
+    "install": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/ROOT_INSTALL_BINDINGS.json",
+      "bytes": 5813,
+      "sha256": "f9942a31e02472b9b5799879e0fe95881f63151b8bc852755e5f7ceedb07d541"
+    },
+    "rule": "Reuse these maintained field/claim relations with actual RC9 pins. No new gate or extra independent assurance round."
+  },
+  "availableEvidence": {
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "builtStage": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+      "bytes": 929,
+      "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+    },
+    "buildInputs": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/BUILD_INPUTS.json",
+      "bytes": 658,
+      "sha256": "c42d1febdcdab91abab2550b6337d63ec17be1310a8d5cb8e37693518224d232"
+    },
+    "stageManifest": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+    },
+    "normalUnit007": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/RESULT.json",
+      "bytes": 9382,
+      "sha256": "3a500ece3a4e8331ce1d33242f4a56658c0355dace659516a22629a5eb93a934"
+    },
+    "unitReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_RETURN.json",
+      "bytes": 26007,
+      "sha256": "9fe606951d0a15376699a43ecd50eba13db2a8cde1d79a8c56d971558c40c3f0"
+    },
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003/REVIEW.json",
+      "bytes": 27681,
+      "sha256": "2cf53adc40d567eec2d43e728df8a67717d5dd9c0500a3e6182d26bf813ac37c"
+    },
+    "closedNativeReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/OPERATOR_RETURN.json",
+      "bytes": 18459,
+      "sha256": "8ff0ea154dea162edce372007c739ca4e8c3e3fae40c4b3978ba39ae3fa531ca"
+    },
+    "proofScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PROOF_SCOPE_002.json",
+      "bytes": 9982,
+      "sha256": "26ab250198e3e2973113688d580d0443f23c82a9910d7eace6352db646e17ffc"
+    }
+  },
+  "applicability": {
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "rows": 1340,
+    "inventoryAdapter": "Existing driver accepts source-freeze rows with source/path/bytes/sha256 directly; no replacement exhaustive inventory required. Bind source.subject and source.inventory to the same exact freeze if Root selects.",
+    "sourceBaseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceBaseTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "recordedDeltaOnly": {
+      "derivation": "Compare two existing retained inventory records; no new filesystem enumeration.",
+      "changedPaths": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+        "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+        "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+        "build_tenants/abiogenesis/typescript/package-lock.json",
+        "build_tenants/abiogenesis/typescript/package.json",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+      ],
+      "newPaths": [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+      ],
+      "deletedPaths": [],
+      "fileModes": "Bind actual selected path modes during final binding; no mode or Git change in this operation."
+    },
+    "metadataVersion": "5.0.0-rc.9",
+    "metadataComplete": true,
+    "materialByteChecks": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10104,
+        "sha256": "b512d5c008500dcf8d2cbc70f174b1ed6186259aece7af982fc1427cf492d61a",
+        "liveEqualsFrozen": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/package-lock.json",
+        "bytes": 8001,
+        "sha256": "516f0180ef41bb88e7b95eaf14cd045bc7d8f51f5fc2a0b8ddc7c3b801764e89",
+        "liveEqualsFrozen": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "bytes": 13080,
+        "sha256": "24d667f6da7b243f9bab0141f9781cf14035185e5fada4aa203b1f853e78051c",
+        "liveEqualsFrozen": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "bytes": 29474,
+        "sha256": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe",
+        "liveEqualsFrozen": true,
+        "equalsRC8": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 84866,
+        "sha256": "e5a6448c5896225d47645a8458ffc25f2ea1d6fccdffa182163363eb6ad34846",
+        "liveEqualsFrozen": true,
+        "equalsRC8": true
+      }
+    ],
+    "owningScope": "O1 checked row facts, O2 environment invariant-body retention and O4 final native contract freeze remain selected, with F3/F4/F6. O3 physical verification restored at prior consumers/effect boundaries; reuse performance remains OPEN.",
+    "normalUnitCounts": {
+      "tests": 95,
+      "failed": 0,
+      "passed": 89,
+      "cancelled": 0,
+      "skipped": 6,
+      "todo": 0,
+      "topLevel": 95,
+      "suites": 0
+    },
+    "normalUnitStanding": "Full unchanged ordinary nine-file unit PASSED. Independent check and Root conjunction are separate pending dependencies; no qualification or archive proof inferred.",
+    "generatorInputs": "BUILT003 has seededContracts=[]; all95 qualification source rows occur in the retained freeze. Prepared clean reproduction uses source-owned canonical inputs and externalSeedCopy=false.",
+    "controlPinChecks": {
+      "uniquePins": 31,
+      "mismatches": [],
+      "toolRealpaths": 6,
+      "dependencyEntryPinsMatchingBuilt003Inventory": 6,
+      "limit": "Entry/lock correspondence only; no new full dependency inventory or whole-tree equality claim."
+    }
+  },
+  "staleNarrationAndDisposition": [
+    {
+      "where": "PREPARATION_RETURN mandatoryInputs/minimalNextOperations and VERSION_ROUTE",
+      "observation": "Native metadata successor is described as future, but author02 and final003 already carry package/lock/contracts RC9 identity.",
+      "requiredUpdate": "Successor final bindings/claims cite final003 and existing metadata/source review conjunction; do not launch another metadata author or patch identity. Original preparation remains historical."
+    },
+    {
+      "where": "PREPARATION_RETURN/BUILD_BINDINGS.prepared/INSTALL_BINDINGS.prepared limits",
+      "observation": "Same prepared-resolution install-verification carriage remains narrated, but Root RC9-REPAIR-02 withdrew that optimization.",
+      "requiredUpdate": "Replace that sentence in eventual actual bindings/claims with retained physical verification and O3 performance follow-up OPEN; no once-per-resolution or O3 speedup claim."
+    },
+    {
+      "where": "Final limits and residuals",
+      "observation": "F4 exact W2 closure and other residuals are still conditional.",
+      "requiredUpdate": "All nine historical RC8 residuals remain OPEN until exact proof and Root disposition. Do not convert a passing unit into W2, broad, measurement, residual closure or qualification."
+    },
+    {
+      "where": "Bootstrap unit gate",
+      "observation": "Old script expects unit/build binding identity;007 is separately admitted external execution over BUILT003.",
+      "requiredUpdate": "Separate Proof Writer owns minimal gate007 successor already selected by Root. CUT9 consumes its eventual actual archive/source relation; no cut-script or source workaround."
+    }
+  ],
+  "outstandingBindingMap": [
+    {
+      "fields": "acceptance.source, acceptance.focusedAndReview, source.cumulativeSourceCoverageDisposition, source.finalMetadataAcceptance",
+      "actualPin": null,
+      "needs": "Existing Root source/focused/review/metadata conjunction on25121e78 after independent007 check. May reuse one concrete conjunction pin where it owns these relations; no extra acceptance round invented."
+    },
+    {
+      "fields": "source.nativeTestedArchive, source.nativeTestedArchiveSourceRelation",
+      "actualPin": null,
+      "expectedRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-001/SOURCE_ARTIFACT_RELATION.json",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-001/BOOTSTRAP_SUMMARY.json"
+      ],
+      "needs": "Actual admitted bootstrap007 archive and source relation after source/unit gate; pack/install scratch proof is separate from final immutable install. No candidate rebuild during cut."
+    },
+    {
+      "fields": "source.testedManifest, source.testedStageRoot",
+      "available": "availableEvidence.stageManifest and /private/tmp/abg-r9-owner-native-003/stage-01/work",
+      "needs": "Conjoin actual bootstrap relation to these existing BUILT003 bytes; no identity bridge."
+    },
+    {
+      "fields": "acceptance.referenceAfter",
+      "actualPin": null,
+      "expectedRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/after-rc9-001",
+      "needs": "Actual selected RC8-before versus frozen RC9 archive measurement/profile/close/fresh reads and Root acceptance, with O3 work observational and no O3 optimization claim."
+    },
+    {
+      "fields": "acceptance.broadClose and bounded F4 disposition",
+      "actualPin": null,
+      "expectedRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001",
+      "needs": "Actual selected full W2 exact-archive and affected/broad evidence plus Root conjunction retaining failed runs and open residuals. Historical RC8 broad credit is not automatically RC9 credit."
+    },
+    {
+      "fields": "build.activation and status/executionEnabled",
+      "actualPin": null,
+      "expectedRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+      "needs": "Actual Root build selection on filled maintained template, exact selected12paths/1new/0deleted/modes and actual archive/proof pins."
+    },
+    {
+      "fields": "install.sourceCheckpoint/candidate/reproduction/exactTestedArtifact/installInputs",
+      "actualPin": null,
+      "expectedRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/candidate/RESULT.json",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/reproduction/RESULT.json",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json"
+      ],
+      "needs": "Actual checkpoint and clean git-archive reproduction; archive SHA/bytes, manifest SHA and every regular package member equal tested archive."
+    },
+    {
+      "fields": "install.independentPackagingReview/boundedClaim/residuals/rootAuthority/activation",
+      "actualPin": null,
+      "needs": "Existing independent packaging review of actual checkpoint/tree/tested archive/byte-equal reproduction/final phase-neutral claims, then separate Root local install selection. No extra review round."
+    }
+  ],
+  "concreteSequence": [
+    "Receive existing source/unit conjunction, bootstrap archive/source relation, exact-archive W2/measurement/broad disposition; populate successor held build binding with corrected narration and unchanged driver.",
+    "After exact Root build admission, execute maintained build command once: verify actual source and absent roots; preserve main/C7/C8 head/index; stage only selected C9 delta, checkpoint, git-archive clean reproduction, compile/generate/npm-pack once and require byte/member equality with tested archive.",
+    "Bind resulting checkpoint/tree/archive/reproduction to final claims and existing independent packaging review; then fill maintained install binding and obtain the already-required separate Root install selection.",
+    "Execute maintained install command once: fresh immutable RC9 release custody; candidate Product verify/resolved-lock/install; all-member correspondence/checksums; fresh installed Product/content/export/empty-resource read and actual close; final unqualified install receipt. No workflow/provider call or global selector."
+  ],
+  "heldCommands": {
+    "build": [
+      "/opt/homebrew/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+      "build",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-001/ROOT_BUILD_BINDINGS.json",
+      "<actual binding SHA256>"
+    ],
+    "install": [
+      "/opt/homebrew/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+      "install",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-binding-001/ROOT_INSTALL_BINDINGS.json",
+      "<actual binding SHA256>"
+    ],
+    "standing": "Not executable until actual bound pins/admission; placeholders are not receipts."
+  },
+  "currentAbsences": {
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001": true,
+    "/private/tmp/abg-r9c-cut": true,
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9": true,
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9": true
+  },
+  "concreteMechanismMismatch": null,
+  "rootDispositionNeeded": "Accept corrected scope/version narration in eventual actual bindings and supply existing pending acceptance/result pins. No prepared executor change identified.",
+  "preservation": "Main/C7/C8, all source and prior failures remain unchanged. Nine RC8 residuals,12cold,S7,full5.0/human and O3 performance remain OPEN. No cut, install, publication, qualification or source acceptance performed.",
+  "executionEnabled": false,
+  "effects": "Only PREPARATION_CONTINUATION_007.json written. No Q9 edit, exhaustive inventory, test/build/native/Git/pack/install/cleanup or main tracker change."
+}

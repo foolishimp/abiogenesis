@@ -6,9 +6,9 @@
 - owner: abiogenesis
 - build_tenant: typescript
 - parent: T-287
-- updated_at: 2026-11-13
+- updated_at: 2026-11-14
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected consolidation and B28/B29/B30 proof repairs integrated; composed broad-04 selected on exact a2626fa54; history and local delivery unperformed
+- current_package: broad-04 halted at file069 (B31), 68 files/530 passes/14 skips; user-selected main checkpoint and obsolete-worktree cleanup; history and delivery unperformed
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -688,3 +688,22 @@ Four physical path distinctions, exact blocked-stop delta, two actual-retirement
 refusals and shared deadline remain. `physical-prep-04/` preserves the scope and
 review. Recording Writer `T292-PHYSICAL-PREP-RECORD-04` checkpoints that preparation
 and returns to Executive; no physical read is yet executed or accepted.
+
+## Owner checkpoint and cleanup, 2026-11-14
+
+The owner instructed "checkpoint everything into main remove any old worktrees
+that are no longer needed". Writer `T292-MAIN-CHECKPOINT-CLEANUP-20261114-01`
+preserves all visible outstanding main work, old-worktree local evidence and
+dirty generated postimages before deletion. Every worktree HEAD is already
+an ancestor of main. The current C4 proof worktree and external proof/baseline
+roots remain. The baseline node_modules link into P5 is replaced with a physical
+copy whose 4,576 file/link members match exactly before donor removal.
+
+The unattended broad-04 stopped at 2026-11-13T11:38:47Z: 68 whole files,
+530 passes and 14 skips; file069 t287-f04a-probabilistic-result-candidate has
+two failures (expected valid candidate, actual refusal). B31 is untriaged.
+No later file, history or physical witness ran. The original six-hour clock
+has expired and is not reset by this checkpoint. Source a2626fa54, unqualified
+archive 12d49bad… and installed RC11 builder pin remain distinct. There is no
+RC13 install, qualification, pin, push or publication. Exact stopped receipts
+and recovery manifests are in `checkpoint-20261114-01/`.

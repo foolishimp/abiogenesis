@@ -1,0 +1,78 @@
+{
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "checks": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/common.mjs",
+        "bytes": 2784,
+        "sha256": "d888e6a5d2a605856452aefc3cc321cfc57366dc0d3721a93a2654f73510d1f5"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/malformed-actor.mjs",
+        "bytes": 354,
+        "sha256": "11225f275863fd370717968b02104c964bbd222c53f679ab27619854ed5461f0"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/native-host.mjs",
+        "bytes": 10116,
+        "sha256": "e97056e7f1ab539db1a991af43cee4cdc339420bbabfec9587efabd8d561ba68"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/run.mjs",
+        "bytes": 9052,
+        "sha256": "9f6a8b501f221b9e5b495c52b78ee3f7cf3112c9f4a10dfcaf7dc0af4e9a82cd"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/resolve_view.mjs",
+        "bytes": 2042,
+        "sha256": "8ba5b21f2d501e65cc4c6fc604e974bbf9c3043bf261c14cfef62cdeffe9d8b2"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/check_construction.mjs",
+        "bytes": 4472,
+        "sha256": "89243f444757436e7fbb609d55304f0db1fbd1bc5a4c0eb1398c00f2321406cb"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/root-installed-environment.mjs",
+        "bytes": 42787,
+        "sha256": "de52e0b3114318420ce56d83dff9de3ac2f8c3ed431b0f0a965dd9acad9b1436"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/language-structural/leaf.mjs",
+        "bytes": 10611,
+        "sha256": "dfd366a2711bd4325f48c2249d10b74aafb59af7eb91e77a9a9804668c9ea67f"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/construction-preflight/leaf.mjs",
+        "bytes": 10646,
+        "sha256": "4f4b67f1b7ffd9cc09cfbcba9072b5529d8b3f84405803e103b198231f307549"
+      },
+      "exitCode": 0
+    }
+  ],
+  "fourRuntimeScriptsByteEqual03": true
+}

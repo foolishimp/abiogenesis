@@ -1,0 +1,262 @@
+{
+  "historicalSameInput": [
+    {
+      "contextDigest": "sha256:1e8a1892fd522bf92bb881a21f342d716edb372a09743ed87371bf0bdbbb7a6e",
+      "contextJsonBytes": 130700,
+      "coordinates": [
+        {
+          "eventRef": "event://abiogenesis/df70c097a64ab96fb46f9333c154f3af9a5c4765d4d8e0a0d52726dcac42a793",
+          "ordinal": 2523,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "after"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/306a05c79c3149bc2df522f6dc174dcc1a3dba55e47d6827e1dbf0f8f1caac93",
+          "ordinal": 3748,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "sourceNativeWork",
+            "after"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/65928d5cee6f29a4f74694f0a4db955c3d75132b7006699cdebd9333e8a56495",
+          "ordinal": 5163,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "after"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/65928d5cee6f29a4f74694f0a4db955c3d75132b7006699cdebd9333e8a56495",
+          "ordinal": 5163,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "before"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/65928d5cee6f29a4f74694f0a4db955c3d75132b7006699cdebd9333e8a56495",
+          "ordinal": 5163,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "context"
+          ]
+        }
+      ],
+      "inlineDecodedBytes": 85000,
+      "inlineEntries": 50,
+      "memberEntries": 0,
+      "occurrences": 5
+    },
+    {
+      "contextDigest": "sha256:96cc5ab277d5b9b84f704cdec3eac0f402dc5e06aac6b672f106eb5377b5c09d",
+      "contextJsonBytes": 64428,
+      "coordinates": [
+        {
+          "eventRef": "event://abiogenesis/df70c097a64ab96fb46f9333c154f3af9a5c4765d4d8e0a0d52726dcac42a793",
+          "ordinal": 2523,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "before"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/df70c097a64ab96fb46f9333c154f3af9a5c4765d4d8e0a0d52726dcac42a793",
+          "ordinal": 2523,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "context"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/306a05c79c3149bc2df522f6dc174dcc1a3dba55e47d6827e1dbf0f8f1caac93",
+          "ordinal": 3748,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "sourceNativeWork",
+            "before"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/306a05c79c3149bc2df522f6dc174dcc1a3dba55e47d6827e1dbf0f8f1caac93",
+          "ordinal": 3748,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "sourceNativeWork",
+            "task",
+            "context"
+          ]
+        }
+      ],
+      "inlineDecodedBytes": 41412,
+      "inlineEntries": 12,
+      "memberEntries": 0,
+      "occurrences": 4
+    }
+  ],
+  "new": [
+    {
+      "contextDigest": "sha256:2ed688dcdb4ebbec90f4f7f607c50d2c8aeedcbf96035d06641ef57f90602e1b",
+      "contextJsonBytes": 55703,
+      "coordinates": [
+        {
+          "eventRef": "event://abiogenesis/2bdb0dfc32f1d64ddff804e6096164b504cfca7e4e30da5ac79c29c2d2ba5145",
+          "ordinal": 2786,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "after"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/8658dc01b45579af7fdff3a87f8c6f8a85ab00cb96ccda222063aabeb417a2f0",
+          "ordinal": 3992,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "sourceNativeWork",
+            "after"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/333ea51432df27a7e23982607e978149b13b12d21c8c25fc213a3a206db2da26",
+          "ordinal": 5565,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "after"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/333ea51432df27a7e23982607e978149b13b12d21c8c25fc213a3a206db2da26",
+          "ordinal": 5565,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "before"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/333ea51432df27a7e23982607e978149b13b12d21c8c25fc213a3a206db2da26",
+          "ordinal": 5565,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "context"
+          ]
+        }
+      ],
+      "inlineDecodedBytes": 22646,
+      "inlineEntries": 14,
+      "memberEntries": 36,
+      "occurrences": 5
+    },
+    {
+      "contextDigest": "sha256:b2cbc32170267e5a6aa94accff3c7b6f98e2002dc716813755ab25097f5b647d",
+      "contextJsonBytes": 11944,
+      "coordinates": [
+        {
+          "eventRef": "event://abiogenesis/2bdb0dfc32f1d64ddff804e6096164b504cfca7e4e30da5ac79c29c2d2ba5145",
+          "ordinal": 2786,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "before"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/2bdb0dfc32f1d64ddff804e6096164b504cfca7e4e30da5ac79c29c2d2ba5145",
+          "ordinal": 2786,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "context"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/8658dc01b45579af7fdff3a87f8c6f8a85ab00cb96ccda222063aabeb417a2f0",
+          "ordinal": 3992,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "sourceNativeWork",
+            "before"
+          ]
+        },
+        {
+          "eventRef": "event://abiogenesis/8658dc01b45579af7fdff3a87f8c6f8a85ab00cb96ccda222063aabeb417a2f0",
+          "ordinal": 3992,
+          "path": [
+            "payload",
+            "boundInput",
+            "value",
+            "source",
+            "task",
+            "sourceNativeWork",
+            "task",
+            "context"
+          ]
+        }
+      ],
+      "inlineDecodedBytes": 0,
+      "inlineEntries": 0,
+      "memberEntries": 12,
+      "occurrences": 4
+    }
+  ]
+}

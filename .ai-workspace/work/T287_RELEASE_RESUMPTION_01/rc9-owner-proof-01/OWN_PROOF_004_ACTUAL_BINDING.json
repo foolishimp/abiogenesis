@@ -1,0 +1,28 @@
+{
+  "status": "BOUND_AND_ROOT_EXECUTION_ADMITTED_NOT_YET_STARTED",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-owner-proof-004.mjs",
+    "bytes": 11645,
+    "sha256": "36d9aefd720728908bc8d37e2d9403b875b75e3cde326ea592e43e0c76bbfefa"
+  },
+  "reviewedHeldBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_BINDING.HELD.004.json",
+    "bytes": 18307,
+    "sha256": "a1d3b37cf974a18c882caeb192715d8a656f810869f872662db03e102416db1e"
+  },
+  "actualBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_BINDING.BOUND.004.json",
+    "bytes": 18308,
+    "sha256": "6ad2325368b23d11b06b8c7e0b4130822f7885cf70002beb3479388dbc33a68f"
+  },
+  "actualAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_OWN_PROOF_004_ADMISSION.json",
+    "bytes": 2839,
+    "sha256": "b2eca922a615b3c01aa5c6b1b658685c340bf26b5da38573ceb71b41531d3850"
+  },
+  "bindingChanges": [
+    "status HELD_RC9_OWN_PROOF to BOUND_RC9_OWN_PROOF only; Root admission supplied separately"
+  ],
+  "commandUnchanged": true,
+  "boundsUnchanged": true
+}

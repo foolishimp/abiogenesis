@@ -1,0 +1,54 @@
+{
+  "status": "ROOT_SELECTED_CLEANUP_COMPLETED",
+  "completedUtc": "2026-11-02T06:15:51.579746+00:00",
+  "selection": "Root explicit owned disposable cleanup; no Product implementation change",
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/physical-candidate-001/SELECTED_CLEANUP_INVENTORY.json",
+    "bytes": 15062007,
+    "sha256": "3234240da1c0ac5f4c697751edb94ac85e56469f8be43f7792b725d70a6c89bd"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/physical-candidate-001/SUBJECT.json",
+    "bytes": 8351,
+    "sha256": "1cb35abe1e645376b8086060ecd34f46925190d2b1d60879a893dedb37511d2a"
+  },
+  "proofCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/physical-candidate-001/PROOF_CUSTODY.json",
+    "bytes": 19232,
+    "sha256": "6515336036ad6f354b12836329900ced1ac758d8796a26fceeef0fed0a135def"
+  },
+  "additionalProofCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/physical-candidate-001/ADDITIONAL_PROOF_CUSTODY.json",
+    "bytes": 20245,
+    "sha256": "aa236100446ecbba7bffddfa13377afeca0df41d02792fa4a8c0dc9526d0a457"
+  },
+  "removed": {
+    "repoRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/repo",
+    "tmpContentsOnly": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/tmp",
+    "inventoryEntriesRemoved": 44070,
+    "repoRootRemoved": true,
+    "followedSymlinks": false
+  },
+  "retainedTmpRoot": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-10/tmp",
+    "device": 16777231,
+    "inode": 678358047,
+    "empty": true
+  },
+  "fileOnlyReadRootProjection": {
+    "entries": 1310,
+    "regularBytes": 42385214,
+    "maxEntries": 10000,
+    "maxBytes": 268435456,
+    "forbiddenSymlinks": 0,
+    "ProductObservation": false
+  },
+  "preservation": {
+    "all12NativeSourceHashesUnchanged": true,
+    "allOriginalOutsideProofFilesUnchanged": true,
+    "frozenPacketAndReturnRecordsUnchanged": true,
+    "oldScratchInstalledRC3RuntimeResourcesUntouched": true,
+    "GitNotYetChanged": true
+  },
+  "claim": "Cleanup restores physical observation feasibility only; no successful native after-observation/C2/UAT or recovery acceptance."
+}

@@ -1,0 +1,66 @@
+{
+  "status": "UNFROZEN_EXACT_SOURCE_PROOF_SELECTION",
+  "sourceCommit": "3c3c6e803b02bc7078f7ff115b0dc37a04ea8a6f",
+  "sourceTree": "e669e2a903de1893a38271b4010a785cc840333e",
+  "commandCount": 11,
+  "selectedPathCount": 978,
+  "selectedPathUniqueCount": 978,
+  "requiredNamedCases": [
+    {
+      "command": "type-proof",
+      "files": [
+        "t287-framework-handoff-types.test.mjs"
+      ],
+      "required": "All existing six framework proof cases plus native-added strict/all9/mixed-union controls; no required skip. Retain actual candidate-vs014 comparison."
+    },
+    {
+      "command": "installed-bootstrap-read",
+      "files": [
+        "t287-st1-installed-cross-owner-hello.test.mjs"
+      ],
+      "required": "Existing ST-4 refusal and ST-1 installed composition. Extend this existing home through native Worker to consume shipped constructors, test direct invoke and all six read/bootstrap calls; current base has only run_status/result/replay, so missing three are an implementation proof obligation."
+    },
+    {
+      "command": "installed-pending-retained",
+      "files": [
+        "t287-default-library.test.mjs",
+        "t287-recursive-registered-selection.test.mjs"
+      ],
+      "required": "Three named installed cold cases selected exactly in command regex; same-Run pending, retainedA/B asset/current authority/actual held body, generic cold pending. Scripted local actors, not live providers. Existing measured cases~91.6s+88.9s+40.479s;600s finite ceiling, no inferred future pass."
+    },
+    {
+      "command": "current-intent",
+      "files": [
+        "t287-exact-construction-intent.test.mjs"
+      ],
+      "required": "actual One Surface producer, undispatched preparation frontier and current-intent remainder; canonical installed population and preserved negative causes."
+    },
+    {
+      "command": "selected-action",
+      "files": [
+        "t287-selected-action.test.mjs"
+      ],
+      "required": "complete selected-action acquisition, occurrence and cold-proof composition; evidence root explicitly supplied so the required case cannot skip; supervised declared-start, same/changed basis and refusal controls retained.900s prospective cap, no historical duration claimed."
+    }
+  ],
+  "inheritedEvidence": "Unchanged014 guard proof and HC1 independent strict/schema evidence retained; no qualification sweep. The fresh005 real-provider discriminator remains later.",
+  "limits": "No Product scaffolds or tests run by Writer. Existing test home extensions are native Worker effects within34-path cone. Actual current authority whole-configuration construction follows runtime003 owner receipt.",
+  "budget": {
+    "owner": "product/worksite_command_execution.projectWorksiteCommandExecutionBudget",
+    "requiredExecutionBudgetMs": 4137750,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "fits": true
+  },
+  "sourceOnlyRead": "All lookup used immutable3c3c6e803 via main Git; no native-worktree/tooling/scratch commands during runtime003 setup.",
+  "importDirectoryExclusions": {
+    "paths": [
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE",
+      ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01",
+      "build_tenants/abiogenesis",
+      "build_tenants/abiogenesis/typescript",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product"
+    ],
+    "reason": "Directory-valued new URL references are not file import dependencies; only exact existing fixture/file selections retained. No parent tree or S7 selection."
+  }
+}

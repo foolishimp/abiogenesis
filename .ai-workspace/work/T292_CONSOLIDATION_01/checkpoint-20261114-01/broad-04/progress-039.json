@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/rival-authority-mutations.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/039-rival-authority-mutations.test/process.json",
+    "bytes": 1089,
+    "sha256": "19e15e7fb8f4d3d338d4357ab323ee7e0aae5b79c40097cc82b189525b152fb5"
+  }
+}

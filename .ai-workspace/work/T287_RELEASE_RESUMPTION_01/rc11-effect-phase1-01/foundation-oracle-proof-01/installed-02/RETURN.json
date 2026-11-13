@@ -1,0 +1,146 @@
+{
+  "status": "WHOLE_W2_05_PASSED_PENDING_ROOT_CONJUNCTION",
+  "recordedAt": "2026-11-09T19:16:05.009763+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 2541,
+    "sha256": "1a24c0e19936ae0b468ddb5bfe236a95be26030c4f4ecd1e53b713d244438d92"
+  },
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/READY.json",
+    "bytes": 5742,
+    "sha256": "81d534b90cb69f45573d79bc27f5e8441656df236a350153a01eb20ac194a405"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/BINDING.json",
+    "bytes": 12559,
+    "sha256": "a4db01e7a17adfab94dbfa9e6c4b9185410d04e327f5ea71e64760ef462992be"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/source-freeze.json",
+    "bytes": 295048,
+    "sha256": "12d3f6f9517d3b1173351877303fce46f007974c88e8fb0892b85389fbc700e0"
+  },
+  "sourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "commandsExecuted": [
+    "w2-05"
+  ],
+  "testReceipt": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/continuation-01/w2-05/RETURN.json",
+    "bytes": 4846,
+    "sha256": "9bc2f50a5d8a697250c33de2389bdc116c5193ba14010ed3ee414d7bda7bc33c"
+  },
+  "finalReceipt": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/continuation-01/FINAL_RETURN.json",
+    "bytes": 946,
+    "sha256": "de7d828f7099754b57b421925df439d47f12bc2130e261e4f07980174cd9278a"
+  },
+  "stdout": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/continuation-01/w2-05/stdout.log",
+    "bytes": 2331,
+    "sha256": "3e58515ecbb51a51f61796815a3dade67409f4fa8bb97fb6ceb4754c0de17f47"
+  },
+  "stderr": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/continuation-01/w2-05/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "counts": {
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "caseNames": [
+    "W2-05 owner-chain static oracle permits call-local collections and mentions",
+    "W2-05 owner-chain static oracle rejects removed legacy root seams",
+    "W2-05 installed Product install and catalog owners compose without catalog runtime truth"
+  ],
+  "wallSeconds": 73.96165949990973,
+  "exitCode": 0,
+  "physicalProcessClosure": {
+    "pid": 52177,
+    "pgid": 52177,
+    "groupAbsent": true,
+    "cleanupNeeded": false,
+    "signals": [],
+    "freshObservedAbsentGroups": [
+      33114,
+      52177
+    ]
+  },
+  "actualInstalledOwnerProof": {
+    "tarballDigest": "sha256:fdbf93de131905f79e96c8716dbb833ae8b308b3e791e1ac63a79b59a1c74d46",
+    "artifactDigest": "sha256:fdbf93de131905f79e96c8716dbb833ae8b308b3e791e1ac63a79b59a1c74d46",
+    "productContentDigest": "sha256:778f5667e380f52fdf35398c48b24ff875598a6c3588cc030faa440283c11587",
+    "manifestDigest": "sha256:c928de69d58b3555e2c6b03edd023a5c48db4294ea6fce6385392e619934cfcb",
+    "censusSha256": "sha256:61f325bb83414a53a47c15cb2fa0af4162833c138fdc2e8bb6985dcf25f2c193",
+    "callableCount": 47,
+    "definitionCount": 56,
+    "addedKeys": [
+      "abg.operation.catalog.admit#admit",
+      "abg.operation.catalog.apply#node_type",
+      "abg.operation.catalog.apply#overlay",
+      "abg.operation.catalog.view#allowlist",
+      "abg.operation.conformance.evaluate#gtl_program",
+      "abg.operation.product.install#install",
+      "abg.operation.project.read#catalog_describe",
+      "abg.operation.project.read#catalog_list",
+      "abg.operation.project.read#install_evidence",
+      "abg.operation.project.read#ticket_consensus",
+      "abg.operation.project.read#workspace_status"
+    ],
+    "remainingKeys": [
+      "abg.operation.interaction.respond#answer_escalation",
+      "abg.operation.interaction.respond#approve",
+      "abg.operation.interaction.respond#assess",
+      "abg.operation.interaction.respond#reject",
+      "abg.operation.interaction.respond#select",
+      "abg.operation.witness.admit#attest",
+      "abg.operation.witness.admit#hygiene-stamp",
+      "abg.operation.witness.admit#intake",
+      "abg.operation.witness.admit#run-resumed"
+    ],
+    "eventCountBeforeCatalog": 2,
+    "eventCountAfterCatalog": 2,
+    "ticketConsensusUnavailableCode": "resource_relation_mismatch"
+  },
+  "archiveInstallEquality": {
+    "archive": {
+      "path": "/private/tmp/abg-rc11-foundation-oracle-artifact-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+      "bytes": 11045845,
+      "sha256": "fdbf93de131905f79e96c8716dbb833ae8b308b3e791e1ac63a79b59a1c74d46"
+    },
+    "regularFiles": 5327,
+    "payloadBytes": 71840473,
+    "allRegularMembersEqual": true,
+    "extraMissingSymlinkMembers": []
+  },
+  "preservation": {
+    "originalFrozenStageWorkAndLiveSourceRows": 1344,
+    "sourcePostDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+    "workSourceDelta": [],
+    "compiledDonorAndWorkRows": 996,
+    "retainedCompiledInventory": {
+      "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+      "bytes": 183261,
+      "sha256": "04cd7213cb4d3f3d9063943a15385c88c2869eeb1f8eff6d0ac7090ea1a78ab1"
+    },
+    "dependencyNpmAndMetadataGuardsPassed": true,
+    "preservationPinsExact": 8,
+    "priorControlReceiptPinsExact": 17
+  },
+  "predecessorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/FAILURE_RETURN.json",
+    "bytes": 2275,
+    "sha256": "502541af5c556f7a72e8039dd7b02d1d7643b169174836210d92a15faaa1c888"
+  },
+  "bootstrapReturn": {
+    "path": "/private/tmp/abg-rc11-foundation-oracle-proof-20261110-01/bootstrap/RETURN.json",
+    "bytes": 1400,
+    "sha256": "a82a410efb83b5590be6977cae9d87030e5f51a5a34371d38a626407a4e425c6"
+  },
+  "scope": "One unstarted whole-file invocation only. Existing pack, bootstrap, stage and compiled build reused. No reinstall/repack/rebuild/source/tracking/Git/release/selector change. Prior failed comparison remains failed; current passing result requires Root acceptance and independent assurance, and is not broad qualification."
+}

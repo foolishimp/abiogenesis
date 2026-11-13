@@ -1,0 +1,76 @@
+{
+  "at": "2026-11-05T09:21:08.409Z",
+  "status": "ACTUAL_SELECTED_C2_PREDICATES_SATISFIED",
+  "coordinates": {
+    "kind": "c_call_result_admitted",
+    "admissionOrdinal": 12996,
+    "eventId": "event://abiogenesis/e32f1771f7766342beb1f74c74b6b51cb4385b886a1793dbf3adacbc2b980422",
+    "eventTime": "2026-11-05T09:20:00.766Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "runId": "run://abiogenesis/812aad09966e3567acd6d3fcede2a83e7912af6f1ff7cb1e4305464946c2e171",
+    "offset": 50221114,
+    "rowBytes": 4026704,
+    "rowSha256": "b0f0975f3602b433f0a4e22601e2f1125f8366b105df984d380d72ce71117b9d",
+    "resultRef": "result://abiogenesis/700e84281b0974cd4f30bee33615c788cb2844cfe7d0f5af0e2d9ce0fcc8dd36",
+    "resultDigest": "sha256:700e84281b0974cd4f30bee33615c788cb2844cfe7d0f5af0e2d9ce0fcc8dd36",
+    "valueKind": "worksite_command_execution_observation"
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/56cc37044f07707525db2c1333399224921521175ee5b5295a5ae035513ae0c4/0d0bcb418e70fd150bf1b7c70df6095f5c77387d3330c0f2aaa7fecbb52bd81c/result.json",
+    "bytes": 4001622,
+    "sha256": "b29323929474ea626870f918b68a4a43ec9874433e2ef9c2108ad3d2fdd3ef1b",
+    "artifactRef": "worksite-command-helper-artifact://abiogenesis/dfab103997a600eb3a6fcb9eaf2337004f6d1382a652ea74e37fab4fd123e2cf",
+    "artifactDigest": "sha256:dfab103997a600eb3a6fcb9eaf2337004f6d1382a652ea74e37fab4fd123e2cf"
+  },
+  "task": {
+    "taskRef": "worksite-command-execution-task://abiogenesis/56cc37044f07707525db2c1333399224921521175ee5b5295a5ae035513ae0c4",
+    "taskDigest": "sha256:56cc37044f07707525db2c1333399224921521175ee5b5295a5ae035513ae0c4"
+  },
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/qualification/fixture-01/immutable-build",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/fixture-01/immutable-contracts",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/fixture-01/immutable-dependencies",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/fixture-01/component-proof",
+      "exitStatus": 0,
+      "terminationConfirmed": true,
+      "timedOut": false
+    }
+  ],
+  "tally": {
+    "tests": 7,
+    "pass": 5,
+    "fail": 0,
+    "skipped": 2
+  },
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/actual-c2-001/component-result.json",
+    "bytes": 615,
+    "sha256": "5d74ea295a51867166922264dee18b897f2fe910a486f078bcbec1a0dcbe6c5b"
+  },
+  "sourceCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/SOURCE_CORRESPONDENCE.json",
+    "bytes": 7596,
+    "sha256": "df8683365643bab3076f3fe8f3646c317f96498c84f810edba8f98016d17d8d8"
+  },
+  "protectedInputCount": 30,
+  "protectedBeforeAfterEqual": true,
+  "productDeltaCount": 0,
+  "unmatchedTerritoryCount": 0,
+  "standing": "Actual admitted current Testing of frozen files; historical Construction/coding failures retain their provenance. UAT/fresh close/Root acceptance remain separate."
+}

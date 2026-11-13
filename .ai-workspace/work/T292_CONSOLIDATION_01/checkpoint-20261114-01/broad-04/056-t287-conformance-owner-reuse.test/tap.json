@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 0,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "ok 1 - conformance owner reuse over the predecessor build, the proof territory and the retained declaration metadata # SKIP ABI5_CONFORMANCE_PREDECESSOR_ROOT, ABI5_CONFORMANCE_PROOF_ROOT or ABI5_CONFORMANCE_METADATA unset; requires the predecessor build, the proof territory and the retained declaration metadata",
+    "# todo 0"
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "kind": "bounded_d5_candidate_component_results",
+  "lanes": [
+    {
+      "id": "transport",
+      "files": [
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "tests": 27,
+      "pass": 27,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "sourceDeclaredMinimumTests": 26,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d211adaa304bc4d037ed7f32c6d546af2cf653bd15fb478523c53ed3ab85a788/d2717d841a97ca3a7a32ab22208571043576f8959b76f936517e8988bee68c93/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-d5-author-02/transport.stdout.tap",
+        "bytes": 7947,
+        "sha256": "7e07a97fa95fd9c7e843794eceea93e942f48a4a57554a43dbdabc400a974000"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d211adaa304bc4d037ed7f32c6d546af2cf653bd15fb478523c53ed3ab85a788/d2717d841a97ca3a7a32ab22208571043576f8959b76f936517e8988bee68c93/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-d5-author-02/transport.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "qualification",
+      "files": [
+        "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+        "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-scopes.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "tests": 37,
+      "pass": 37,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "sourceDeclaredMinimumTests": 36,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d211adaa304bc4d037ed7f32c6d546af2cf653bd15fb478523c53ed3ab85a788/d2717d841a97ca3a7a32ab22208571043576f8959b76f936517e8988bee68c93/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-d5-author-02/qualification.stdout.tap",
+        "bytes": 15447,
+        "sha256": "7197069dd00d2de3d4d4fa499aae2df8c73237f8450919ea0c3da7c1b95afdae"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d211adaa304bc4d037ed7f32c6d546af2cf653bd15fb478523c53ed3ab85a788/d2717d841a97ca3a7a32ab22208571043576f8959b76f936517e8988bee68c93/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-d5-author-02/qualification.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "d5-lifecycle-profile",
+      "files": [
+        "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "tests": 48,
+      "pass": 48,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "sourceDeclaredMinimumTests": 3,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d211adaa304bc4d037ed7f32c6d546af2cf653bd15fb478523c53ed3ab85a788/d2717d841a97ca3a7a32ab22208571043576f8959b76f936517e8988bee68c93/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-d5-author-02/d5-lifecycle-profile.stdout.tap",
+        "bytes": 24309,
+        "sha256": "6c43efe8f15db366583620adac8811d3d346dab49843f36e6076736d97bef519"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d211adaa304bc4d037ed7f32c6d546af2cf653bd15fb478523c53ed3ab85a788/d2717d841a97ca3a7a32ab22208571043576f8959b76f936517e8988bee68c93/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-d5-author-02/d5-lifecycle-profile.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "recovery",
+      "files": [
+        "test_env/tests/t287-d5-authentic-preserved-result.test.mjs"
+      ],
+      "exitCode": 1,
+      "signal": null,
+      "error": null,
+      "tests": 1,
+      "pass": 0,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 1,
+      "todo": 0,
+      "sourceDeclaredMinimumTests": 1,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d211adaa304bc4d037ed7f32c6d546af2cf653bd15fb478523c53ed3ab85a788/d2717d841a97ca3a7a32ab22208571043576f8959b76f936517e8988bee68c93/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-d5-author-02/recovery.stdout.tap",
+        "bytes": 5364,
+        "sha256": "7949f32978808108a1bf04a8aac7b01e466532f02eef8611dbae86767ba48479"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/worksite-command-execution/d211adaa304bc4d037ed7f32c6d546af2cf653bd15fb478523c53ed3ab85a788/d2717d841a97ca3a7a32ab22208571043576f8959b76f936517e8988bee68c93/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-d5-author-02/recovery.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "failures": [
+    "recovery: process failure",
+    "recovery: full selected unskipped population did not pass"
+  ],
+  "claim": "Ten unique affected modules on one exact completed candidate after the two composition discriminators; zero skipped/failed/cancelled/todo. This is component feedback, not formal independent or release acceptance.",
+  "limits": [
+    "Source-derived population floors are guards against omitted tests, not semantic sufficiency.",
+    "Actual new positive/negative assertions and fixture premises require rubric assessment.",
+    "No actual production cross-family eligibility, paid F11 or whole-release closure is claimed."
+  ]
+}

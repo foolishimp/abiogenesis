@@ -1,0 +1,174 @@
+{
+  "status": "FILE_ONLY_INSTRUCTION_SOURCE_AND_ROOT_INVENTORY",
+  "observedAt": "2026-11-03T00:10:14.126370+00:00",
+  "proposedDirectRootAbsent": true,
+  "directRootAndAncestorEntries": [
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/AGENTS.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/.claude/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/.claude/settings.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/.claude/settings.local.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/abiogenesis-rc4-basic-cli-direct-001/.git",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/AGENTS.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/.claude/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/.claude/settings.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/.claude/settings.local.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/tmp/.git",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/AGENTS.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/.claude/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/.claude/settings.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/.claude/settings.local.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/private/.git",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/AGENTS.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/.claude/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/.claude/settings.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/.claude/settings.local.json",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/.git",
+      "exists": false,
+      "symlink": false
+    }
+  ],
+  "repositoryInstructionInheritance": false,
+  "globalAndHomeSources": [
+    {
+      "path": "/Users/jim/.claude/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/Users/jim/.claude/settings.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 2412,
+      "sha256": "a2d78366d3ce107e63c9e159a25b2eb0127de0af76dca3e0ddf28351907d9375"
+    },
+    {
+      "path": "/Users/jim/.claude/settings.local.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 925,
+      "sha256": "bf6aa12ed9d87d486c0280fa556c2dbe334a2d996b6f7358fb6f1a91b2fd04b8"
+    },
+    {
+      "path": "/Users/jim/.claude.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 134122,
+      "sha256": "fb4719c4c7a5f057bcd760e21f389d654e0c4370106208b50282dc2329473de1"
+    },
+    {
+      "path": "/Users/jim/CLAUDE.md",
+      "exists": false,
+      "symlink": false
+    },
+    {
+      "path": "/Users/jim/AGENTS.md",
+      "exists": false,
+      "symlink": false
+    }
+  ],
+  "globalContentInspection": "Presence/hash only. No secrets/config values emitted or contents interpreted. Normal native/global defaults are disclosed common potential influences; hash inventory alone does not prove their semantic content empty or method-free. No new method instructions are added.",
+  "autoMemory": "New absent direct path has no explicitly provisioned project memory; standard CLI may discover global/plugin/default configuration. Root reviews defaults before launch; no memory copied from repository.",
+  "nativeTransport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace/.ai-workspace/archive/fp-dfed6db7618639a4-transport.json",
+    "bytes": 291228,
+    "sha256": "55abe99a0c22e73158d3467f15b41b783df6e3c866973ec7d491caefa30e8495"
+  },
+  "noProviderOrRuntimeExecution": true
+}

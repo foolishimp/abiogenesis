@@ -1,0 +1,33 @@
+{
+  "id": "RC10-MEASURE-01",
+  "status": "ROOT_ADMITTED_RC10_FROZEN_RETENTION_MEASUREMENT",
+  "utc": "2026-11-09T03:54:20.976620+00:00",
+  "bindingSha256": "39e8c557cb55b8b72e3009b6941f7c346b2e18765eb8aa578de66619fe2fe4a6",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/MEASUREMENT_BINDING.PRE_ADMISSION.json",
+    "bytes": 9722,
+    "sha256": "39e8c557cb55b8b72e3009b6941f7c346b2e18765eb8aa578de66619fe2fe4a6"
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+    "bytes": 18586,
+    "sha256": "6ee572a47ba4fef8ac35ef0a8130415e306986da8aa306675ec2149b2cf44663"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/run-measurement.mjs",
+    "bytes": 6877,
+    "sha256": "232618be9344c8e1b17c6e2fe4da5ac45e98ffb77904c201bd8b4f7b0b9e17d3"
+  },
+  "archiveEquality": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-01/ARCHIVE_INSTALL_EQUALITY.json",
+    "bytes": 2202,
+    "sha256": "dd30bf578060a261747bc952f96f678071b73944f9fb65ca458b283e67e9bdcd"
+  },
+  "rootIndependentVerification": "Root independently compared5325files/71763910payload bytes; zero mismatches/extra/missing against archivebff1a521.",
+  "capacity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/CAPACITY.001.json",
+    "bytes": 405,
+    "sha256": "a1703f0a99c5a677ce2a421863c29a37dfd74c17c74cb05c0de4ef71f8f7fab7"
+  },
+  "grant": "One actual reviewed50-call1/4MiB measurement.900s/1GiB/8192MiB/4GiB reserve; positive actual-owner identity/work, completed-release, historical/fresh-read and physical-close gates retained. No real provider/source edit. Any failure stops without retry. Final acceptance waits HOW successor and proof."
+}

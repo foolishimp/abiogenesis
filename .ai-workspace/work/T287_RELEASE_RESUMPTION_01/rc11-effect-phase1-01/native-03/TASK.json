@@ -1,0 +1,37 @@
+{
+  "id": "t287-effect-phase1-m5-repair-03",
+  "status": "READY_FOR_ADMITTED_NARROW_NATIVE_SOURCE_AUTHOR",
+  "outcome": "Chunk-independent completion timestamp and failure-safe retained controlled-owner evidence, each with a finite discriminator",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "qualification-inputs/rc11-effect-phase1-01/native-03",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/package.json"
+  ],
+  "maxContextFiles": 30,
+  "maxContextBytes": 2097152,
+  "maxPromptBytes": 1048576,
+  "readFirst": [
+    "qualification-inputs/rc11-effect-phase1-01/native-03/ROOT_SCOPE.json",
+    "qualification-inputs/rc11-effect-phase1-01/native-03/SOURCE_REVIEW.json",
+    "qualification-inputs/rc11-effect-phase1-01/native-03/EXACT_SOURCE_ROUTES.json",
+    "qualification-inputs/rc11-effect-phase1-01/native-03/EXTERNAL_TOOLS.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "qualification-scratch/rc11-effect-phase1-01/native-03"
+  ],
+  "checks": [
+    "One-file syntax",
+    "One real-owner controlled M5 group only,60s, explicit TAP and retained evidence",
+    "Report actual changed relation/check counts/gaps; no full file or source acceptance"
+  ],
+  "instructions": [
+    "Repair only the remaining chunk-dependent completion timestamp oracle in test_env/tests/m5-worker-transport.test.mjs. The prior native workflow reached its 900 s ceiling; preserve that failed Run and useful frozen source. Observer support/new observer tests/lifetime integration are read-only and already have bounded syntax/8-case evidence. Do not repeat their implementation or broad authority discovery.\n\nRead the exact Root work order and frozen m5 sections 865\u2013883 and 1003\u20131021. The aggregate byte assertion is chunk-independent, but captures.find(row => row.chunk.includes(\"complete\\n\")) makes the completion timestamp null if the final record is split across callbacks. Correct the timestamp/premise using the ordered captured bytes and actual capture times, preserving owner clocks, all acknowledgements and bytes. Add a finite split-completion discriminator to the existing controlled real-owner group in this same m5 file. It must exercise this actual timestamp oracle, preserve the absolute/inactivity laws, and fail the predecessor implementation. No duplicate production algorithm, physical timeout inflation, new helper file or observer change. Preserve all other existing cases and assertions unless this exact oracle correction necessarily changes their calculation.\n\nUse the existing privateOwner controlled module-loading seam; no setup API discovery or runtime production rewrite. Read-only prebuilt compiled owners/dependencies may support this narrow test when the Operator-bound exact identities pass. Allowed cheap checks: Node --check this file, plus one bounded 60 s invocation selecting ONLY the exact `M5 actual owner, controlled clock:` group with explicit TAP and concurrency1. No physical cases, full file, unit, build, generation, package, provider nesting or Git mutation. Retain check stdout/stderr and immediate result under the declared scratch, including any failure. The native time ceiling is 600 s absolute/180 s inactivity/100 turns; source writes stop at return, and Root owns external proof and acceptance. Report the exact change, executed check counts and remaining gaps; do not claim the failed predecessor native Run succeeded.\n\nThe same-file m5ControlledRun drive path (around 800\u2013802; assertions around 812\u2013814, 829\u2013830, 841\u2013842 and 853\u2013855) can reject before evidence is retained. Retain the accumulated actual capture/ack/timeout/signal and owner pending-or-settled facts when drive/assertions reject, before cleanup and rethrowing the identical original failure. Do not await an owner that cannot finish, fabricate physical close, or replace the original error with diagnostic failure. Add a finite meaningful discriminator of this rejection path inside the existing actual-owner controlled group. Preserve the successful path and original acknowledgement/timing behavior. This and the completion-partition oracle are the only selected source corrections.\n\nThe final independent review is closed and copied in SOURCE_REVIEW.md/json. Implement both required relations and their finite discriminators in this one call. In particular, the SAME completion-time relation used by the physical test must consume intact/coalesced completion, split completion at each relevant boundary, and incomplete/missing completion; preserve the timestamp at which the ordered complete record actually became available. Never substitute owner duration/default time. The controlled failure discriminator must observe the exact original thrown identity and available causal facts without waiting on an unresolved owner or claiming close. Inspect only relevant current sections and the small helper contract; no broad repository scan or setup API work. Native02's four source files and failed Run remain predecessor history. The other three source files are read-only.\n\nUse Node with --experimental-vm-modules for the controlled privateOwner seam. The exact selected prefix is `^M5 actual owner, controlled clock:`; put --test-name-pattern before the test path and explicit TAP. Use Python subprocess.run(timeout=60) to bound this one selfcheck, with all logs/evidence under granted scratch; no missing GNU timeout tool. Syntax is allowed before/after the selected edit. If an unrelated real owner contradiction occurs, preserve facts and return rather than weaken an assertion. Finish a concise result even when a broader obligation remains unexecuted. No Git commands or tracking edits. No new helper/module/API approval gate."
+  ]
+}

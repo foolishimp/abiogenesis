@@ -1,0 +1,53 @@
+{
+  "status": "FILE_ONLY_SYNTAX_CHECKED",
+  "results": [
+    {
+      "path": "budget-readiness.mjs",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "path": "dispatch.mjs",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "path": "identity-and-smoke.mjs",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "path": "prepare-native-call.mjs",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "path": "pure-config-readiness.mjs",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "path": "selected-proof-checks.mjs",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "path": "setup-state.mjs",
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "path": "freeze-dispatch.py",
+      "parse": "passed"
+    },
+    {
+      "path": "operator-preflight.py",
+      "parse": "passed"
+    },
+    {
+      "path": "readiness.py",
+      "parse": "passed"
+    }
+  ],
+  "RuntimeImports": 0
+}

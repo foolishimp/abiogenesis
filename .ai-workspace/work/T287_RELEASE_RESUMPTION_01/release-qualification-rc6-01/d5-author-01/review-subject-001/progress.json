@@ -1,0 +1,28 @@
+{
+  "kind": "d5_author_01_progress",
+  "status": "RETURNED_PARTIAL",
+  "activation": {
+    "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "immutablePinsVerified": 344,
+    "immutablePinMismatches": 0,
+    "sixD5OwnersMatchReadiness": true
+  },
+  "steps": [
+    "control intake and receive binding verified",
+    "M3: P probabilistic_transport evidence arm omits the four lifecycle copies; c_call writes them only for a non-P store",
+    "M3: c_call cold projection accepts all-or-none copies and derives absent values from the fold",
+    "M4: worker transport archive omits timedOut/exitObserved/terminationConfirmed; live result keeps them",
+    "recovery archive read accepts all-or-none archive copies; guard allow-list lines unchanged",
+    "M2 not implemented: owner relation outside write scope (Q23 J join, ProbabilisticWorkerObservation)",
+    "HOW updated: common library D5 bullet, section 9.2/9.3 text; T287 compatibility section 2",
+    "D5 discriminator tests added in the four D5 modules",
+    "in-worksite tsc --noEmit green",
+    "d5a-s1: stage green; lanes 27/27, 36/36, 45/47 (fold fixture bug fixed; pre-existing causation failure)",
+    "d5a-s2: stage green; lanes 27/27, 36/36, 46/47 (pre-existing causation failure)",
+    "d5a-s3: stage green; lanes 27/27, 36/36, 47/48 (pre-existing causation failure)",
+    "recovery positive not established; N1-N3 not run; missing owner-issued fixture returned",
+    "return.json and readiness.json written"
+  ],
+  "returnRef": "qualification-scratch/d5-author-01/return.json",
+  "readinessRef": "qualification-scratch/d5-author-01/readiness.json"
+}

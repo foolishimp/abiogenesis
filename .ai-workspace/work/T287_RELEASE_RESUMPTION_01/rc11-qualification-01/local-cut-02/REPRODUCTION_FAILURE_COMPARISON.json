@@ -1,0 +1,61 @@
+{
+  "status": "NOT_BYTE_EQUAL",
+  "candidate": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/candidate-pack-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "reproduction": {
+    "path": "/private/tmp/abg-rc11-cut-20261109-02/reproduction/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11028588,
+    "sha256": "5c82a6296b8a183cc5cebe3f08cff9ac076df4d5ecc108d1ebf219e499206a34"
+  },
+  "candidateMembers": 5327,
+  "reproductionMembers": 5325,
+  "addedInReproduction": [],
+  "missingInReproduction": [
+    {
+      "path": "package/node_modules/fast-check/CHANGELOG.md",
+      "bytes": 68677,
+      "sha256": "1928e49c090a706a61c20fc620e97f22e83e0d154e758f869ccd6cdbcd634f34",
+      "mode": 420
+    },
+    {
+      "path": "package/node_modules/pure-rand/CHANGELOG.md",
+      "bytes": 6039,
+      "sha256": "f6e1f6802a0205dcc17d5d117a9af83a63947ac722dd7de32e1d98b070c02c87",
+      "mode": 420
+    }
+  ],
+  "changedSharedMembers": [
+    {
+      "path": "package/contracts/capabilities/capability-definition-graph.json",
+      "candidate": {
+        "bytes": 197956,
+        "sha256": "dd1d79bb8843aaba2b83ddf0030bdd7ffe72de88a0e2c60dd90eda9831da5dd8",
+        "mode": 420
+      },
+      "reproduction": {
+        "bytes": 197956,
+        "sha256": "27bc7983050f51fea40fb48a315d4f0c430099ccd9f67f186b0aec937d9fa575",
+        "mode": 420
+      }
+    },
+    {
+      "path": "package/product-toolchain-manifest.json",
+      "candidate": {
+        "bytes": 3266309,
+        "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb",
+        "mode": 420
+      },
+      "reproduction": {
+        "bytes": 3266232,
+        "sha256": "fd8a60ab776e49fe42d98a52d0e8a935149ca9fc6eafa8fcc64dca8e628485af",
+        "mode": 420
+      }
+    }
+  ],
+  "candidatePayloadBytes": 71838919,
+  "reproductionPayloadBytes": 71764126,
+  "standing": "Read-only failure characterization after first mismatch. No replacement candidate, repair or repack; cause not assigned."
+}

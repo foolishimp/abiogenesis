@@ -1,0 +1,61 @@
+{
+  "status": "REVIEWABLE_DIRECT_FIRST_MATCHED_PILOT_NO_EXECUTION",
+  "preparedAt": "2026-11-03T00:13:31.632205+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/ABG_CONFIG.DRAFT.json",
+      "bytes": 2319,
+      "sha256": "201b57323f9fa373851a93e10b665d765eb5a9a1f0253c1248f0f9688b16bb2b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/CHECKLIST.md",
+      "bytes": 2025,
+      "sha256": "f9738c0a4720ccdd862fc322b19e9c8124a84c0970e6c41f3cc288da3408b93c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/DEFAULTS_INVENTORY.json",
+      "bytes": 4772,
+      "sha256": "2fe550013bf375cdc0827f3e82d98d7d042d53335118ba9009b2b1bcef499455"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/DIRECT_CONFIG.DRAFT.json",
+      "bytes": 3608,
+      "sha256": "f6523d9845ee1fec86da7fc25e6863c840264ae96bec41d29955dd723fb0fac9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/DIRECT_PROMPT.txt",
+      "bytes": 1579,
+      "sha256": "28c1abd66a532ea166202387a08e9745e28edaf2936c5117f81830414e7a2db1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/INPUT_PINS.json",
+      "bytes": 11341,
+      "sha256": "0fd0ea974900d46f1d7822e20271f34f36d8f66d27851b63291d3562efa41898"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/PLAN.md",
+      "bytes": 6448,
+      "sha256": "e8b3a9c232c0a51d97adbdc988f6c180613e2855b080f9c9cf16fff5dc64cfd4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/direct-run.mjs",
+      "bytes": 3153,
+      "sha256": "ebc20993dd3eca883e2cf7bde71ac823edade9528e988c964a0ea8e387a57fab"
+    }
+  ],
+  "selectedOrder": [
+    "direct",
+    "ABG"
+  ],
+  "providerCalls": 0,
+  "RuntimeCalls": 0,
+  "workspaceMaterialized": false,
+  "syntaxCheck": "node --check direct-run.mjs exit0; no imports/execution",
+  "remainingSelections": [
+    "Root conjunction of005 proof",
+    "Root exact pilot packet/defaults/profile review",
+    "Root-selected identical application input materialization and exact command execution",
+    "Symmetric external command/content assessment"
+  ],
+  "limits": "Single instrumentation pair, not speedup percentage/causal generalization or whole qualification. All setup/operator/role/failure costs retained; forced005interruption costs separate."
+}

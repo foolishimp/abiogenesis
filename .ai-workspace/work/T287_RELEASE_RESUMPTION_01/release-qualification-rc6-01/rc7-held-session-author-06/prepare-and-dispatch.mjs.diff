@@ -1,0 +1,29 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/prepare-and-dispatch.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/prepare-and-dispatch.mjs
+@@ -27,7 +27,7 @@
+ assert.deepEqual(JSON.parse(actualCloseBytes).closeHandoff.prefix,binding.actualClosePrefix);
+ const pinnedJson=async pin=>{assert(pin?.path&&pin?.sha256&&Number.isSafeInteger(pin?.bytes),'Required control pin missing');const b=await readFile(pin.path);assert.equal(b.length,pin.bytes,pin.path);assert.equal(hash(b),pin.sha256,pin.path);return JSON.parse(b);};
+ const retained=await pinnedJson(binding.resume),profile=await json(join(dir,'PROVIDER_PROFILE.json')),w=await json(join(dir,'workload.json')),grant=await json(join(dir,'NATIVE_GRANT.json'));
+-// Root binds the single H05 architecture selection, actual H04 source/close and final admission.
++// Root binds the single H06 architecture selection, actual H04 source/close and final admission.
+ const selected=await pinnedJson(grant.selection);assert.equal(selected.status,'ROOT_SELECTED_NATIVE_ONE_TEST_ORACLE_CORRECTION');
+ const admitted=JSON.parse(admissionBytes);assert.deepEqual(admitted.selection,grant.selection);assert.deepEqual(admitted.actualClose,binding.actualClose);assert.deepEqual(admitted.sourceBefore,await (async()=>{const path=join(dir,'SOURCE_BEFORE.json'),b=await readFile(path);return {path,bytes:b.length,sha256:hash(b)};})());
+ assert.deepEqual(binding.bindingOverlayFields,['binding','catalog','catalogView'],'Only the maintained native-author binding/catalog overlay is permitted; actual current close is retained');
+@@ -49,7 +49,7 @@
+ const {installedModules,publicCaller}=await import(pathToFileURL(binding.operatorPublicSetup.path));
+ const {exclusiveRecord,workerEnvironment,checkInstalledIdentity}=await import(pathToFileURL(binding.operatorRunner.path));
+ assert.equal(typeof checkInstalledIdentity,'function','Selected maintained checker export unavailable');
+-const config={...retained.config,processTimeoutMs:profile.outerTimeoutMs,sourceCommit:grant.sourceCommit,runId:'release-qualification-rc7-held-session-author-05',provider:profile.provider,toolchainEnvironment:profile.runtimeEnvironment};
++const config={...retained.config,processTimeoutMs:profile.outerTimeoutMs,sourceCommit:grant.sourceCommit,runId:'release-qualification-rc7-held-session-author-06',provider:profile.provider,toolchainEnvironment:profile.runtimeEnvironment};
+ assert(getHeapStatistics().heap_size_limit>=8192*1024*1024);const environment=workerEnvironment(config);
+ for(const k of Object.keys(process.env))if(/CLAUDE|ANTHROPIC|OPENAI|AZURE_OPENAI|PROVIDER/iu.test(k)||['HOME','PATH','TMPDIR','LANG','LC_ALL','NPM_CONFIG_CACHE'].includes(k))delete process.env[k];Object.assign(process.env,environment);
+ const runtime=await installedModules(retained.installedRoot),{product,abg,api}=runtime;
+@@ -79,7 +79,7 @@
+ const context=await product.observeWorksiteContext({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,protectedInstallRoots:env.productInstalls.map(i=>i.installedRoot),readRoots:w.readRoots,maxFiles:w.maxContextFiles,maxBytes:w.maxContextBytes});assert.equal(context.kind,'worksite_context_observation');
+ const entries=new Map(context.entries.map(e=>[e.relativePath,e])),future=new Set(grant.expectedFutureFiles);for(const p of w.testing.selectedPaths)assert.equal(entries.get(p)?.state,future.has(p)?'absent':'file',p);for(const s of w.sources)assert.equal(entries.get(s.path)?.digest,s.digest,s.path);
+ await record('run.json',{kind:'existing_native_author_program_preparation',sourceCommit:grant.sourceCommit,sourceBasis:'none',providerCalls:0,RunAdmissions:0,programRef:product.NATIVE_WORKSPACE_WORK_IDS.programRef});
+-let input;const ids=product.NATIVE_WORKSPACE_WORK_IDS,order=w.workOrders.construction,ns='abiogenesis/t287/rc7-held-session-author-05/recovery-001';
++let input;const ids=product.NATIVE_WORKSPACE_WORK_IDS,order=w.workOrders.construction,ns='abiogenesis/t287/rc7-held-session-author-06/recovery-001';
+ const constructed=await api.constructInstalledStartCall({selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},programRef:ids.programRef,catalog:caller.state.catalog,catalogView:caller.state.catalogView,applications:[],admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(env.artifactTruth,i),actorRef:caller.actorRef,
+  input:{factory:({workspaceBinding,grants})=>{assert.equal(grants.length,1);input=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:order.outcome,instructions:order.instructions,readFirst:order.readFirst,writeRoots:order.writeRoots,checks:order.checks});assert(product.isNativeWorkspaceWorkTask(input));assert.equal(input.assessment,undefined);return input;}},inputValueRef:'value://'+ns+'/input',source:{kind:'none'},eventResource:entry,envelope:{definitionContractCoordinates:retained.native.verified.definitionContractCoordinates,requestRef:'request://'+ns+'/start',correlationRef:'correlation://'+ns,eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'ROOT_CONTROL_ADMISSION.json')).href]}});
+ assert.equal(constructed?.kind,'installed_start_call','Start constructor returned '+String(constructed?.kind??'missing')+(typeof constructed?.code==='string'?' / '+constructed.code:''));const call=constructed.call;assert.strictEqual(call.resources.eventResource,entry,'Keep the actual acquired selection in the actual call');

@@ -1,0 +1,117 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "ROOT_SELECTED_HS03_ACTUAL_H06_DEPENDENCY_READY",
+  "readCommands": [
+    "Exact future SOURCE_BEFORE, named controls, pinned historical metadata external oracle, installed STDO3.0.4/direct references and offline toolchain/seed only; no private provider/archive/auth content or broad scans.",
+    "Read-only rg and git diff/status/rev-parse/show on the admitted selected source; no Git mutation."
+  ],
+  "writeCommands": [
+    "Only17 named existing owner/HOW/test paths, three handoffs and selected scratch; conditional paths only for required contract/replay/C2 conservation. No new Product files.",
+    "Runtime/provider temp /Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpsw1 and test /private/tmp/abg-sw1, named cache/zsh children; preserve existing contents. Distinct empty npm user/global configs."
+  ],
+  "stageLabels": [
+    "sw1-stage-01",
+    "sw1-stage-02",
+    "sw1-stage-03",
+    "sw1-stage-04"
+  ],
+  "maxStages": 4,
+  "maxLaneInvocations": 7,
+  "concurrency": 1,
+  "laneIds": [
+    "stdout-before",
+    "stdout-differential",
+    "scope-ordering",
+    "timeout-interruption",
+    "archive-integrity",
+    "legacy-replay",
+    "native-caller"
+  ],
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-stdout-window-author-01/prior-author-stage.mjs",
+        "<next-fresh-selected-label>",
+        "before|after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 4,
+      "compileTimeoutMs": 240000,
+      "generateTimeoutMs": 600000,
+      "guardTimeoutMs": 60000
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-stdout-window-author-01/prior-author-lanes.mjs",
+        "<successful-frozen-stage>",
+        "<exact-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "stdout-before",
+        "stdout-differential",
+        "scope-ordering",
+        "timeout-interruption",
+        "archive-integrity",
+        "legacy-replay",
+        "native-caller"
+      ],
+      "maxLaneInvocations": 7,
+      "perLaneTimeoutMs": 300000,
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "invocationAllocation": [
+    {
+      "phase": "before",
+      "lane": "stdout-before",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "stdout-differential",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "scope-ordering",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "timeout-interruption",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "archive-integrity",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "legacy-replay",
+      "maximum": 1
+    },
+    {
+      "phase": "final",
+      "lane": "native-caller",
+      "maximum": 1
+    }
+  ],
+  "allocationLaw": "Existing create-only reservations count failed/incomplete attempts; one each exact lane id, seven total. Genuine before red first. Passing final stdout-differential and five affected lanes use the same final source digest. No retries, broad suites or manual extra build/test. Four stages permit bounded compile correction. Before a next allocation, every previously allocated non-stdout-before lane must pass the complete shared terminal predicate on the same final source; intentional genuine before red remains allowed.",
+  "missingResources": "451 actual accepted H06 source rows are bound. Historical46.7MB metadata remains the same external read-only oracle, never context/stage bytes. Preserve absent original turn/noise capture facts and all unchanged bounds; use the exact finite source list, not an untracked census.",
+  "freezeBeforeFeedback": "Stage sources and HOW are create-only snapshots with source-freeze receipt before build/testing. Publish that exact path/digest through progress.json immediately; Root may issue max frozen review while native lanes continue. Final native.after must match final staged source/HOW."
+}

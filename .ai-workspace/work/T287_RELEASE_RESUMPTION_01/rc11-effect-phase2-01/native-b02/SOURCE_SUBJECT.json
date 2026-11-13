@@ -1,0 +1,54 @@
+{
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/source-freeze.json",
+    "bytes": 295988,
+    "sha256": "2ed1b3ab7758905dc0c33702893898130de2758d0b026af20898833d5bebe9eb"
+  },
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "parentCommit": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+  "sourceRows": 1345,
+  "operatorVerifiedAllRows": true,
+  "onlyTarget": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "bytes": 145462,
+    "sha256": "f4f9893e30f32ae7a17d242f69997a0c71812ce5084f57e75dc4af5c1cc8d892"
+  },
+  "readOnlyPattern": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "bytes": 92784,
+    "sha256": "4ae70f3c9a8d36ed6541c8ce52551c27c2e31b6b346795a02c53e6d54021a6cf"
+  },
+  "readOnlyOwner": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "bytes": 75347,
+    "sha256": "c1b6ded8611016673f5ac6dd020af020e2d9135e7478dc4146070dda284994a6"
+  },
+  "targetUnrelatedPrefix": {
+    "bytes": 67946,
+    "sha256": "f7ce98203f13a0ce7d656858e6237122c89f3d5b3806e6267947930355d0b6e8"
+  },
+  "targetUnrelatedSuffix": {
+    "startByte": 76241,
+    "bytes": 69221,
+    "sha256": "d135c27378e4069ccb6ab374108809498b972d9c426dcf9f70a25ef98ce0e520"
+  },
+  "permittedRegion": "HTTP-normal branch and associated premise evidence/assertions within existing six-row group case; region pin does not grant changing other rows.",
+  "routes": "m5:1218-1311; lifetime:1164-1214; helper runHttpProbe body",
+  "readOnlyA": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11658,
+      "sha256": "fbb571cc96fa60b4a7000c61063b060c7fcb14c11bed8ed96c40cbfe4bfa9e6f"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 13755,
+      "sha256": "235fc19c3469c7d62f61834ae29f7bbba4b2e3866876af193ebbf44d35af3b01"
+    }
+  ],
+  "closedRed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/EXECUTION_RETURN.json",
+    "bytes": 4247,
+    "sha256": "c9adc0cb0e19bd79fae9b81485051b50b646f4cffe523a9afda9699d6268beac"
+  }
+}

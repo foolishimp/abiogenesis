@@ -1,0 +1,144 @@
+{
+ "scenario": "heartbeat",
+ "tag": "before",
+ "wallMs": 20452,
+ "policy": {
+  "startupMs": 6000,
+  "inactivityMs": 6000,
+  "hardCapMs": 12000,
+  "terminationGraceMs": 1500
+ },
+ "ownerValue": {
+  "disposition": "runtime_failed"
+ },
+ "actorRef": "actor-invocation://abiogenesis/1b65747758c4bd90baef0fe7b918c8e6765c2c1747392b6b6d455902a289b3ff",
+ "threshold": {
+  "ord": 226,
+  "timeoutClass": "absolute",
+  "timeoutMs": 12000,
+  "thresholdElapsedMs": 12003,
+  "wallMsFromProcessStart": 12002
+ },
+ "timeoutFacts": [
+  "absolute"
+ ],
+ "interruptions": 1,
+ "terminal": {
+  "ord": 231,
+  "kind": "actor_invocation_failed",
+  "failureClass": "transport_failure"
+ },
+ "runStatus": [
+  {
+   "ord": 267,
+   "kind": "runtime_failure_observed"
+  }
+ ],
+ "projections": [
+  {
+   "label": "last admitted sample",
+   "elapsedMs": 11790,
+   "cutOrdinal": 225,
+   "coverage": {
+    "stdout": "observed",
+    "stderr": "observed",
+    "structured_output": "unknown",
+    "tool_progress": "unknown",
+    "api_progress": "unknown",
+    "process_lifecycle": "observed",
+    "archive": "unknown",
+    "result_artifact": "unknown"
+   },
+   "lastActivityElapsedMs": 11790,
+   "leaseDeadlineElapsedMs": 17790,
+   "hardDeadlineElapsedMs": 12000,
+   "leaseExpired": false,
+   "hardCapReached": false,
+   "externallyInterrupted": false,
+   "artifactState": "absent",
+   "disposition": "continue_waiting",
+   "reason": "unknown_required_coverage"
+  },
+  {
+   "label": "declared inactivity deadline",
+   "elapsedMs": 17790,
+   "cutOrdinal": 225,
+   "coverage": {
+    "stdout": "observed",
+    "stderr": "observed",
+    "structured_output": "unknown",
+    "tool_progress": "unknown",
+    "api_progress": "unknown",
+    "process_lifecycle": "observed",
+    "archive": "unknown",
+    "result_artifact": "unknown"
+   },
+   "lastActivityElapsedMs": 11790,
+   "leaseDeadlineElapsedMs": 17790,
+   "hardDeadlineElapsedMs": 12000,
+   "leaseExpired": true,
+   "hardCapReached": true,
+   "externallyInterrupted": false,
+   "artifactState": "absent",
+   "disposition": "controlled_terminate",
+   "reason": "absolute_safety_cap"
+  },
+  {
+   "label": "one wake after the deadline",
+   "elapsedMs": 23790,
+   "cutOrdinal": 225,
+   "coverage": {
+    "stdout": "observed",
+    "stderr": "observed",
+    "structured_output": "unknown",
+    "tool_progress": "unknown",
+    "api_progress": "unknown",
+    "process_lifecycle": "observed",
+    "archive": "unknown",
+    "result_artifact": "unknown"
+   },
+   "lastActivityElapsedMs": 11790,
+   "leaseDeadlineElapsedMs": 17790,
+   "hardDeadlineElapsedMs": 12000,
+   "leaseExpired": true,
+   "hardCapReached": true,
+   "externallyInterrupted": false,
+   "artifactState": "absent",
+   "disposition": "controlled_terminate",
+   "reason": "absolute_safety_cap"
+  },
+  {
+   "label": "declared absolute ceiling",
+   "elapsedMs": 12000,
+   "cutOrdinal": 225,
+   "coverage": {
+    "stdout": "observed",
+    "stderr": "observed",
+    "structured_output": "unknown",
+    "tool_progress": "unknown",
+    "api_progress": "unknown",
+    "process_lifecycle": "observed",
+    "archive": "unknown",
+    "result_artifact": "unknown"
+   },
+   "lastActivityElapsedMs": 11790,
+   "leaseDeadlineElapsedMs": 17790,
+   "hardDeadlineElapsedMs": 12000,
+   "leaseExpired": false,
+   "hardCapReached": true,
+   "externallyInterrupted": false,
+   "artifactState": "absent",
+   "disposition": "controlled_terminate",
+   "reason": "absolute_safety_cap"
+  }
+ ],
+ "actorLog": [
+  {
+   "role": "select:construction"
+  },
+  {
+   "role": "hold:heartbeat",
+   "t": 1794359405308
+  }
+ ]
+}

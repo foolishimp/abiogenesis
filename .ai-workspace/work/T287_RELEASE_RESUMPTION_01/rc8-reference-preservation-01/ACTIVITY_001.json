@@ -1,0 +1,92 @@
+{
+  "observedUtc": "2026-11-07T03:14:13.851481+00:00",
+  "streams": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/archives/fp-6f939422816e9d88-stdout.log",
+      "bytes": 2427684,
+      "mtimeUtc": "2026-11-07T03:14:13.130764+00:00",
+      "boundedTailBytes": 130984,
+      "records": [
+        {
+          "type": "stream_event",
+          "blocks": []
+        },
+        {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "blocks": []
+        },
+        {
+          "type": "stream_event",
+          "blocks": []
+        },
+        {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "blocks": []
+        },
+        {
+          "type": "stream_event",
+          "blocks": []
+        },
+        {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "blocks": []
+        },
+        {
+          "type": "stream_event",
+          "blocks": []
+        },
+        {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "blocks": []
+        },
+        {
+          "type": "stream_event",
+          "blocks": []
+        },
+        {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "blocks": []
+        },
+        {
+          "type": "stream_event",
+          "blocks": []
+        },
+        {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "blocks": []
+        },
+        {
+          "type": "stream_event",
+          "blocks": []
+        },
+        {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "blocks": []
+        },
+        {
+          "type": "stream_event",
+          "blocks": []
+        }
+      ],
+      "stderrEmpty": null
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/runtime-001/resources/archives/fp-6f939422816e9d88-stderr.log",
+      "bytes": 0,
+      "mtimeUtc": "2026-11-07T03:04:41.865248+00:00",
+      "boundedTailBytes": 0,
+      "records": [],
+      "stderrEmpty": true
+    }
+  ],
+  "nativeChildren": [],
+  "scope": "Only bounded latest native stream record type/tool name/error flags and file times; no source/tool-output/thinking bodies copied",
+  "qualified": false
+}

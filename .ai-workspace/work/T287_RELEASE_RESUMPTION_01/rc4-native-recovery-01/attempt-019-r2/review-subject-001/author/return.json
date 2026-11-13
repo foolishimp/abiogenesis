@@ -1,0 +1,129 @@
+{
+  "kind": "rc4_local_identity_construction_return",
+  "observedAt": "2026-11-03T01:20:07Z",
+  "role": {
+    "activation": "Writer (Worker activation with bounded source-mutation grant); not Executive, not Reviewer",
+    "frameRefs": [
+      "stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md#9-derived-worker-frame",
+      "stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set"
+    ],
+    "projectFrameBasis": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+    "families": "Owner/Install/Effect/Proof per task; Writer self-review only",
+    "returnTo": "Executive"
+  },
+  "basis": {
+    "productDefinition": "stdo_abiogenesis.json (urn:stdo:product-definition:abiogenesis)",
+    "stdoBasisUri": "stdo://releases/v3.0.2/",
+    "stdoManifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "stdoBasisVerification": "not re-run by this Writer (no `stdo status --verify` call); consumed from the supplied grant/selection",
+    "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+    "sourceTree": "d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6",
+    "headAtStart": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+    "acceptedArchiveSha256": "4589f5c5174cb84ba37f4efecd15f52f6437fa696d117aeff58b84bd5f8363ac",
+    "grant": "rc4-operator-inputs/native-recovery-19/NATIVE_GRANT.DRAFT.json sha256:ebe8cb43c1c7494db4c121bcbd20fe1ff9f3b0427a4ed3c16a399a32e9a6c677",
+    "selection": "result://abiogenesis/4727116abd7bf93569d95a96ffdcd59210e0496dd7b0dc416da4d430c86d8575",
+    "changeClass": "release_identity_realization (realization change; Goals/Intent/Product/requirements/design unchanged)",
+    "productAuthorityForIdentity": "specification/PRODUCT.md#abg5-s07-exact-qualification-and-release (`v5.0.0-rc.<n>` cuts under the one-project unqualified profile)"
+  },
+  "workResult": "candidate_ready",
+  "workResultMeaning": "Source identity candidate exists in the uncommitted worktree over HEAD 1100bd8. Not acceptance, not C2, not UAT, not qualification.",
+  "candidate": {
+    "form": "uncommitted worktree delta over HEAD (no commit, no stash, no Git mutation)",
+    "gitDiffStat": "3 files changed, 5 insertions(+), 5 deletions(-)"
+  },
+  "changedPaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "fields": { ".version": ["5.0.0-rc.3", "5.0.0-rc.4"] },
+      "before": { "bytes": 10003, "sha256": "9efb911e450196243dec704592b6d515ba6e877340fd4e1008ee5dcc1c0ff2de", "gitBlob": "f9e26733b0360b398909e356578539752d241816", "equalsHEAD": true },
+      "after": { "bytes": 10003, "sha256": "c5e2d05d145a5fa296b1b4c553231bdbe83b2af65baa75e93074860d8c1bf3d0", "gitBlob": "c94c2f924ebc6db3d604714e800841f99dc1b7f9" },
+      "changedByteOffsets": [[69, "3", "4"]]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "fields": { ".version": ["5.0.0-rc.3", "5.0.0-rc.4"], ".packages[\"\"].version": ["5.0.0-rc.3", "5.0.0-rc.4"] },
+      "before": { "bytes": 8001, "sha256": "d7d6c706bba57775e6ee775dc82e6095acc8f0764c16be61fdc6bc9367022471", "gitBlob": "db77a086b064d918728b7dba54998edab5d9329f", "equalsHEAD": true },
+      "after": { "bytes": 8001, "sha256": "6dc353222902ed4cfca0873555408bd0f4307e7faaaa88bc1376113c1f892fda", "gitBlob": "218ac8a81760606939ced9252fc3abbca080dcd8" },
+      "changedByteOffsets": [[69, "3", "4"], [218, "3", "4"]]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "fields": {
+        "ABI5_PRODUCT_ID": ["product://abiogenesis/typescript-tenant@5.0.0-rc.3", "product://abiogenesis/typescript-tenant@5.0.0-rc.4"],
+        "ABI5_PACKAGE_VERSION": ["5.0.0-rc.3", "5.0.0-rc.4"]
+      },
+      "before": { "bytes": 13080, "sha256": "ed665e03de6cef8b93d54c298b80128e6911d3d155b75379b5735c8881d347c7", "gitBlob": "27a86f127248531f1c76a1999a574b57cff80b9a", "equalsHEAD": true },
+      "after": { "bytes": 13080, "sha256": "d0dd137a8e88719e7368c3ef7d2de65d7b55287192d96184035b52f3f469f74c", "gitBlob": "27b9b6b538370dfb1713af41cc2f5ec355ae83dc" },
+      "changedByteOffsets": [[517, "3", "4"], [634, "3", "4"]],
+      "changedLines": [10, 12]
+    }
+  ],
+  "alreadyRc4Observed": [],
+  "conservationChecks": {
+    "method": "in-memory python3 -I comparison of HEAD bytes (git show) against worktree bytes",
+    "package.json": "parsed object equals HEAD except .version; key order preserved",
+    "package-lock.json": "parsed object equals HEAD except .version and packages[\"\"].version; every non-root packages entry identical; root dependencies/devDependencies/bundleDependencies identical",
+    "dependenciesAgreeWithLockRoot": true,
+    "contracts.ts": "361 lines before/after; only lines 10 and 12 differ; \"5.0.0\" literal count 16 -> 16; @5 reference count 1 -> 1; ABI5_PACKAGE_NAME unchanged; no rc.3 remains in this file",
+    "generatorIdentityGuardStatic": "scripts/generate-product-manifest.mjs:91 derives productId from package.json version; its guard at :131-134 holds statically over the edited source (name, version, productId agree). Not executed.",
+    "globalReplacement": "none; only the five granted identity occurrences were edited"
+  },
+  "checks": [
+    {
+      "command": "node_modules/.bin/tsc -p tsconfig.json --noEmit --incremental false",
+      "cwd": "build_tenants/abiogenesis/typescript",
+      "tool": "typescript 5.9.2 (pinned devDependency; node_modules symlink to operator toolchain store, read-only use), node v24.7.0",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationSeconds": 7,
+      "postcondition": "no build/ directory and no *.tsbuildinfo created",
+      "claim": "type-checks code/src/**/*.ts with the new identity constants; it is not build, generator, package or install evidence"
+    },
+    {
+      "command": "python3 -I rc4-operator-inputs/native-recovery-19/readiness.py rc4-operator-inputs/native-recovery-19/readiness-inputs.json",
+      "exit": 1,
+      "stderr": "KeyError: 'bytes' at readiness.py line 40",
+      "claim": "operator script/input schema mismatch; see readiness.json"
+    }
+  ],
+  "scopeEvidence": {
+    "worktreeInventory": "metadata inventory (path, kind, size, mtime_ns, mode; no symlink following; .git and rc4-scratch/native-recovery-19 excluded) taken before the edits and after tsc",
+    "beforeEntries": 894970,
+    "beforeInventoryDigest": "sha256:7d0e3b0ce0ce9e4c2b3b479f5e8d4ef38cdb2d532613940515a40e92ad4098c7",
+    "beforeInventoryFileSha256": "f41d340f9695cbb9500feb2b6a3846a23e0e15dbead7a4a736f582cef7c35774",
+    "afterEntries": 894970,
+    "added": [],
+    "removed": [],
+    "changed": [
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/package.json"
+    ],
+    "gitStatusAfter": "M on exactly the three granted paths; untracked set unchanged (.abiogenesis/, .claude/, node_modules link, rc3-operator-inputs/, rc4-operator-inputs/, rc4-scratch/)",
+    "notCovered": "the operator dependency store behind the node_modules symlink (outside the worktree) was not censused by this Writer; it was only read by tsc"
+  },
+  "writesDisclosed": [
+    "three granted Product source paths above",
+    "rc4-scratch/native-recovery-19/tmp/before-inventory.tsv.gz: created for the scope comparison, then deleted (digest recorded above)",
+    "rc4-scratch/native-recovery-19/tmp/node-compile-cache/: created by Node's compile cache under the environment TMPDIR during a `tsc --version` probe; left in place",
+    "rc4-scratch/native-recovery-19/return.json, readiness.json, notes.md"
+  ],
+  "notPerformed": [
+    "build, generator run, pack, dependency copy/install, generated or canonical output writes",
+    "C2 commands, identity-and-smoke.mjs prepare/smoke, installed-language-smoke",
+    "commit, stash, tag, selector, publication, local install, adoption"
+  ],
+  "deliberateNonChanges": [
+    "build_tenants/abiogenesis/typescript/release-claim.md stays the historical RC3 claim (not packed: package.json files = build/**, contracts/**, product-toolchain-manifest.json; outside grant)",
+    "product-toolchain-manifest.json and contracts/capabilities/capability-definition-graph.json still carry rc.3 identity; C2's generator owns their regeneration",
+    "test_env/fixtures/abi5-root-candidate-basis.json still names 5.0.0-rc.2; C2's scripts/refresh-candidate-basis.mjs owns it",
+    "test_env/qualification/** rc.1 identities are historical and unrelated (task excludes test:r1/r2 pins)"
+  ],
+  "gaps": [
+    "C2 (seven declared commands) and UAT (RC4-ID-2, RC4-ID-3) have not run; RC4-ID-1 has only this Writer's self-check, no independent assessment",
+    "Operator readiness.py cannot consume readiness-inputs.json (rows carry `digest`, script expects `bytes`/`sha256`); repair belongs to the operator",
+    "No RC4 release-claim surface exists in source; whether one is required before adoption/publication is a Root/Executive decision outside this grant",
+    "Parent outcome support://abiogenesis/rc4/hc2-canonical-owner-population is not addressed by this unit"
+  ]
+}

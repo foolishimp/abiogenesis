@@ -1,0 +1,57 @@
+{
+  "kind": "bounded_historical_stdout_metadata_projection",
+  "close": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5608,
+    "sha256": "6ca141a406721beb702b64706ba867d8af58488b067f5fbe203b3582f0a20929"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:5c942c00d3162ce72124df839c4c477a8e2a4ae06c44741d2e6c565d1ed9adbc",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9e62b2f99cc16de07ec9ff3804ade2f61db007c951cbda6d9a141fa505982e00",
+    "prefixLength": 1016286093,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 701759869
+    }
+  },
+  "physicalRows": 170487,
+  "stdoutRows": 84498,
+  "probeRows": 85006,
+  "decisionRows": 53,
+  "scopeCount": 24,
+  "probeContractCount": 552,
+  "stdoutWithQualifyingActivityProbe": 83866,
+  "stdoutWithoutQualifyingActivityProbe": 632,
+  "metadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/metadata.json",
+    "bytes": 46684229,
+    "sha256": "2c9328e4abb8e25f8fbfc7a1e4574e481fb5889bf17bc04108f2571d2d3536b9"
+  },
+  "derivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/derive.py",
+    "bytes": 6798,
+    "sha256": "2e2f3a8b23f18eeb27acdeb73e560e68968a81f00885d5c1b772e0bfce03bf7b"
+  },
+  "physicalPrefixSha256": "9e62b2f99cc16de07ec9ff3804ade2f61db007c951cbda6d9a141fa505982e00",
+  "physicalIdentityBefore": {
+    "device": 16777231,
+    "inode": 701759869,
+    "size": 1721998630
+  },
+  "physicalIdentityAfter": {
+    "device": 16777231,
+    "inode": 701759869,
+    "size": 1722034950
+  },
+  "limits": [
+    "Only public mechanical metadata is selected. No provider reasoning/text/tool_result/stderr/auth/credentials or raw Result/task/binding bodies are emitted.",
+    "No structured turn boundaries are invented. Historical stdout eventTime is its admitted wall-clock stamp; exact actor capture elapsedMs is only supplied by corresponding admitted probes. Noise-only chunk actor-clock instants are not inferred from wall time.",
+    "Actual-stream differential may compare recorded qualifying activity and decision points, within supplied clocks/scopes. Synthetic non-private mixed/noise/two-scope/turn-boundary cases separately prove classifier/window scheduling.",
+    "Archive byte integrity and original provider chunk content cannot be reconstructed from this metadata; current-owner archive failure/cold-replay discriminators are separate.",
+    "No runtime acquisition, provider invocation or log mutation. Only the exact closed historical prefix was read while later bytes may exist."
+  ]
+}

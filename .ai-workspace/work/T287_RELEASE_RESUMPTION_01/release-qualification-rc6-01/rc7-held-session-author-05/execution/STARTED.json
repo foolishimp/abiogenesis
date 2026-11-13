@@ -1,0 +1,19 @@
+{
+  "startedUtc": "2026-11-06T18:52:08.621Z",
+  "pid": 67069,
+  "manifestSha256": "ea51fe3805aecac005a30afd64f552d10ab535047a52a1700ebc9db8c4ac64c3",
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "contextDigest": "sha256:1b0d91ac22c46fe1733888230a488fc37e96d45c01a8d86384402309483abc87",
+  "invocationRef": "invocation://abiogenesis/69f7ba6803300863ae2356e239de4d22358dc16a7cb6f4ded71392ac8defb98b",
+  "invocationDigest": "sha256:69f7ba6803300863ae2356e239de4d22358dc16a7cb6f4ded71392ac8defb98b",
+  "marks": {
+    "beforeRunIdentityMs": 1197.447416,
+    "acquiredMs": 51867.489166,
+    "environmentMs": 117031.87820800001,
+    "preparedMs": 119435.35200000001
+  },
+  "automaticRetry": false,
+  "qualified": false,
+  "transport": "runInstalledDefinitionCallWithResource",
+  "meaning": "One already authorized native SDK invocation; no child CLI metadata is produced."
+}

@@ -1,0 +1,18 @@
+{
+  "phase": "install",
+  "startedUtc": "2026-11-09T05:05:55.172Z",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/install-admission-001/ROOT_INSTALL_BINDINGS.json",
+    "bytes": 5319,
+    "sha256": "597d62fdd0a9fb2c5bf837e2ec4b7b1d796f56450ec3abf27641a85cfb6f6dbe"
+  },
+  "status": "LOCAL_RC10_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED",
+  "qualified": false,
+  "published": false,
+  "verification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+    "bytes": 9222,
+    "sha256": "1cf59e16087fbc9fdbf2867adff0b20b972ddffacb3c781385b86c1059273719"
+  },
+  "endedUtc": "2026-11-09T05:06:56.706Z"
+}

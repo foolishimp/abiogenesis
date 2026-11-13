@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-07T12:35:22.748Z",
+  "pid": 78800,
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/BINDING.json",
+    "bytes": 7975,
+    "sha256": "a722ab60d762a731e1cf5a050989875a07b65d0a97a7425fe34cb58ed5dbc3b6"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/ROOT_ADMISSION.json",
+    "bytes": 3526,
+    "sha256": "bce42ac46efcc70fd0aa8e4190ae655e159b5aaa488c2f24323a77afa24198a9"
+  },
+  "sourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+  "file": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+  "wholeFile": true,
+  "expectedCases": 1,
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/private/tmp/abg-r8-correction-001/b:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r8-correction-001/t",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-r8-correction-001/user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-r8-correction-001/global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-r8-correction-001/n",
+    "npm_config_offline": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "ABG_TS_CLAUDE_COMMAND": "/private/tmp/abg-r8-correction-001/UNSELECTED_PROVIDER",
+    "ABG_TS_LIVE_CLAUDE_COMMAND": "/private/tmp/abg-r8-correction-001/UNSELECTED_PROVIDER",
+    "ABI5_UAT_UNIT_ROOT": "/private/tmp/abg-r8-correction-001/w/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat-units",
+    "ABI5_RP2_CORRECTION_EVIDENCE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/rp2-correction-whole-001/actual-001/correction-evidence"
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "productFrame": "ABIogenesis 5.0 fixed fifteen families F01-F07,F09-F11,F13-F17; GOAL-035/T-287/REF-01, STDO 3.0.4 manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b, empty composition. ABG alone owns admission/event/replay truth. This is a bounded fixture/proof applicability review for the explicitly unqualified RC8 reference-preservation cut.",
+  "frame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "role": "Independent Reviewer; no Product or test execution, edits, provider activity or disposition selection.",
+  "subject": {
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/source-freeze.json",
+      "bytes": 295567,
+      "sha256": "a4ded31e5b6e2601969af0bbc050191da458d6520c1397dbd56850eace7e47c7"
+    },
+    "sourceDigest": "b2ca1a756b264c1ee13e3bca9ba324d8d499619a28f97874d8fafde6d82ad146",
+    "rows": 1339,
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "sourceVerification": "Seven causal-cone source/descriptor bytes reacquired from stage04 and matched exactly to accepted A7 manifest. No Product source change inferred from this failure."
+  },
+  "relations": [
+    "EVENTS-001/002/003: sole owner, replay truth and immutable identities; PUBLIC-CONTRACTS-004: an exact identity cannot denote changed schema/semantics; PROJECTION-001/002: deterministic current/cold truth.",
+    "Accepted Common Computational Capability Library HOW sections10.10 E-G and D5: exact L/RC6/S2/W profiles, four lifecycle copies retired in S2/W; W retains direct per-chunk stdout variant. Unknown intermediate profiles are not implicitly migrated. Existing owner algorithms remain authority; fixture bookkeeping is a derived test tool."
+  ],
+  "verdict": "falsified_fixture_current_profile_compatibility; no current-runtime defect established",
+  "findings": [
+    {
+      "id": "NATIVE-ASSESSMENT-011",
+      "severity": "S3",
+      "title": "Old golden actor rows are re-admitted against a profile that forbids their lifecycle copies",
+      "trigger": "Any import of t287-native-assessment-evidence.test.mjs under current compiled owner; deterministic initialization failure before all four test bodies.",
+      "cause": "Test549-565 strips original eventId, admissionOrdinal, payloadDigest and unsupported4196 profile then calls current admitRuntimeEvent. First key/expected-value mismatch is ordinal9 actor_result_artifact_observed at317ff: exitObserved, signalSequence, terminationConfirmed,timedOut are absent from every allowed current payload variant. Ordinal11 probabilistic c_call_evidenced at419ff has the same four extras. Static descriptor comparison of all13 payloads finds matching variants for every other row; binding3 and stdout6/7 are not the cause. Actual stdout exposes the common gate, not the row ordinal; row9 identification is source/descriptor inference.",
+      "ownerEvidence": [
+        "event_store.ts1097-1106,1163-1184,1198-1205,2852-2872",
+        "transport_contracts.ts44-82",
+        "c_call.ts1973-1988"
+      ],
+      "realHarm": "Four specific projector/classifier regression claims are unexecuted; broad run stops. No bad current native observation is admitted and no Product archive change is implicated.",
+      "failClosed": "Current payload gate refuses copied lifecycle fields; fold/projector additionally selects representation from the actual event profile. Profile4196 is absent from the exact L/RC6/S2/W classifier, and test562 discards it before this failure.",
+      "probability": "Certain for this fixture/current-owner pairing; not an inferred probability of production failure.",
+      "affectedCone": {
+        "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+        "cases": [
+          "573: authenticated malformed-result assessment conserves exact failure signal",
+          "581: foreign producer/assessment/disposition/missing assessment/artifact correspondence refuse",
+          "597: absent-assessment and ordinary failure classes retain meaning",
+          "607: transport authentication before candidate association; crossed facts/foreign CCall/preterminal prefix refuse"
+        ],
+        "otherExactProfileConsumer": "t287-qualification-producer-acquisition-reuse.test.mjs19-80 explicitly loads original-byte historical owner modules from exact archive dd76783f7fc92873d9d21ca66c7f91f9be0eaad77248954ada99f5e265a04dbe and asserts its4196 digest. It is not the current-owner reconstruction seam; no new failure or success claim for that conditional lane."
+      },
+      "costAndRisk": "Fixing only row9 defers row11 failure. Removing copies or relabeling a supported profile does not establish the golden source/result/judgment hashes and may invalidate artifact/evidence authentication. Existing projectDurableActorObservation is the lawful current writer projection, but using it alone is not a complete fixture repair. Coherent current owner premises and causally derived evidence/result/judgment closure need a separate bounded fixture task; no new owner API or Product algorithm is warranted.",
+      "confidence": "High for initial key-schema cause and bounded unexecuted claim; no assertion about later reconstructed golden outcomes."
+    }
+  ],
+  "currentNegativeEvidence": {
+    "F04": "Previously executed current F04 full file passed2, including13 finalized-artifact modes. Source223-377 preserves original EPIPE identity, rejected invalid-artifact assessment and artifact_rejected probe, no artifact under refused/unavailable/conflict premises, real calculus and cold component equivalence. Source887-901 explicitly refuses malformed JSON, framing, duplicate keys, unsafe integral numbers and nonobject results. These are current component/raw-result controls, not a replacement for the exact four historical CCall golden oracles.",
+    "calculus": "Execution006 current calculus full file passed25. Source693-720 tests malformed native liveness observations refused at every holding cold/warm/streaming cut. That is liveness/fold evidence, not evidence of this malformed-result failure-signal golden closure."
+  },
+  "recommendation": {
+    "kind": "registered_residual_for_unqualified_REF01_cut",
+    "suggestedId": "RC8-NATIVE-ASSESSMENT-PROFILE",
+    "retainedFailure": "Keep actual execution011 red and all original source assertions/bytes. Do not report the file or broad suite green. Root has selected residual direction; this Reviewer does not decide cut acceptance.",
+    "trigger": "Before claiming native-assessment golden-projection coverage, enabling/claiming unsupported4196 history compatibility, or whole5.0/release qualification. A fresh current raw-native refusal regression remains a blocker rather than being absorbed into this historical residual.",
+    "closure": "Separately authorize one coherent current-owner component fixture (or exact historical-owner proof kept distinct), preserve all four behavioral and negative oracles and original historical record, derive any changed source/result/judgment identities through existing owners, then execute the complete file with exact admitted profile plus required correspondence controls. No restamp, migration, guard bypass, hash substitution, fake owner success, or Product API expansion.",
+    "falsifier": "A lawful current-owner malformed result is accepted, a foreign/crossed/preterminal artifact authenticates, or current failure projection differs from its correctly owner-derived expected signal. Such evidence changes the runtime disposition; it is not excused by this fixture finding."
+  },
+  "limits": [
+    "No dynamic invocation/test performed by Reviewer.",
+    "Exact all13 payload key/expected-value comparison is static evidence, not an independent Product admission proof.",
+    "No historical reconstruction or general qualification audit selected.",
+    "Archive identity is retained from prior accepted relation, not requalified here.",
+    "Root alone conjoins native receipts, broad proof, cut and residual disposition."
+  ],
+  "pins": [
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "bytes": 41843,
+      "sha256": "1ddd434b186c73fc9fa37d6579f008071381f7a194d228edfe148e667bfc5289"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "bytes": 21136,
+      "sha256": "397b99b3401c13fb6591d55b3a2abab347fd5cc510c43b83b714f6cae29b30cb"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 225695,
+      "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "bytes": 14485,
+      "sha256": "f242656d220350439cf699d1654ce324cb2d6fb4d80b2567b5ba4bd8a7c89994"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 301329,
+      "sha256": "e3d837eb473ecb9ceb272451b485f22e24693337cd32cf2eaca8bc2373bb022c"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 29112,
+      "sha256": "a550c3c8d0e595f5c2020841018c6842f76df8e5f85a2874c96b688c43c32f5b"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 153007,
+      "sha256": "f940670cfb03f4cc587d91537b1082b2563b6399332d687ef9319ac6289757de"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_011.json",
+      "bytes": 11060,
+      "sha256": "d0e57ed210542f6dc92286d82ad577dc4660f5c6bcfdf7db78705c2d4fc8d712"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/commands/109-t287-native-assessment-evidence.stdout",
+      "bytes": 1933,
+      "sha256": "5ac03b537a3aebe0e44ab7cd5ea772a7ee070edf37236c6d80090ccfb7ffa10c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/files/109-t287-native-assessment-evidence.json",
+      "bytes": 1171,
+      "sha256": "bd4ac7517cc4633efabd6ef96d79fc33da5b995cf7af1bdb33f6a6217c681d3d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/commands/109-t287-native-assessment-evidence.result.json",
+      "bytes": 1503,
+      "sha256": "c963483f887afc9b8796666e3ca9808fe4b1ce7226568f3c6cc94851148418d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/lane-01/RESULT.json",
+      "bytes": 793,
+      "sha256": "b57f0ef2d61fbe4c76cc1b6b5834026fe2ca951b9823cf47d60f290dc2434f8f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-006/files/057-t287-calculus-fold.json",
+      "bytes": 1136,
+      "sha256": "23a00c2bcb6c10a3bb1e90f26a83c5b18b51f3a1a5e018615ad120e603e3aee7"
+    }
+  ]
+}

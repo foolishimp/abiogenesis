@@ -1,0 +1,73 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "configSha256": "ec924fa08fb808a596988fb72ceb900965e90c1e74fac9c0157255e00064e2b8",
+  "inventorySha256": "8c693c5b81066602c45f754793feac54a2c7c42518d8e0ad42babb89337f5948",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "935f05f55b720e1a28c87d442c058b93cf791c9cc6a87f557f8b42baa0510296",
+  "at": "2026-11-07T14:43:35.082869+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "rootSelection": "Root admits exactly one broad023 execution over16 independent remaining files on retained A6 source. Root verified exact controls/diffs and four022 whole-file joins. Preserve178whole919passes211historical skips and14 scheduling deferrals; C3 pending causal disposition adds no pass/whole credit. C1/C2 remain scheduled under original inner timers and reviewed outer ceilings.",
+  "preparationReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_RETURN_023.json",
+    "bytes": 4742,
+    "sha256": "6894542db2a11c96e74a6ef5f3760d7366cb816977b511fa284ad7e3cc8450ee"
+  },
+  "controls": {
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_023.json",
+      "bytes": 8706,
+      "sha256": "935f05f55b720e1a28c87d442c058b93cf791c9cc6a87f557f8b42baa0510296"
+    },
+    "driver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-023.mjs",
+      "bytes": 36627,
+      "sha256": "d30091b1d2e83511dcfc87c57a87f5c2e3467297a86b60efa56747229308edc7"
+    },
+    "config": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_025.json",
+      "bytes": 456061,
+      "sha256": "ec924fa08fb808a596988fb72ceb900965e90c1e74fac9c0157255e00064e2b8"
+    },
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-025/BOUND_INVENTORY.json",
+      "bytes": 2125831,
+      "sha256": "8c693c5b81066602c45f754793feac54a2c7c42518d8e0ad42babb89337f5948"
+    },
+    "driverDiff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/DRIVER_DIFF_023.patch",
+      "bytes": 4634,
+      "sha256": "87097d3d30af6a512e2e160d2c27b34ad8af30b314d9960f90e7d29f885ee7f8"
+    },
+    "configDiff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CONFIG_DIFF_023.patch",
+      "bytes": 16753,
+      "sha256": "f39749ea226b91b330ebf5f6f154fb729a26487cf8a0da0421649066ed3c23b8"
+    }
+  },
+  "stoppedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_022.json",
+    "bytes": 14281,
+    "sha256": "bf078a7467d74812e957a0ec93a912ff113877fff187e9ed3f72927af442b975"
+  },
+  "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+    "bytes": 295568,
+    "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+  },
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 178,
+    "passed": 919,
+    "skipped": 211,
+    "scheduled": 16,
+    "deferredNoCoverage": 14
+  },
+  "allowedEffects": [
+    "Existing controlled BC/execution-023 records and proof allocations",
+    "/private/tmp/abg-r8c-023 through existing proof owners",
+    "Existing two isolated test-build effects and successful-derived-copy cleanup as frozen driver grants"
+  ],
+  "bounds": "All selected inner/outer deadlines, other limits, env, tools, oracles and external inputs unchanged. One heavy proof only. Stop first red/incomplete/input/resource/deadline; no automatic retry, source/timer change, provider, general cleanup, Git, checkpoint, cut or install.",
+  "preservation": "All prior failed allocations/receipts/skips/exclusions and accepted separate proofs retain original identities. Seven durable residuals OPEN; C3 final disposition pending. No native coding Worker. CUT8 held."
+}

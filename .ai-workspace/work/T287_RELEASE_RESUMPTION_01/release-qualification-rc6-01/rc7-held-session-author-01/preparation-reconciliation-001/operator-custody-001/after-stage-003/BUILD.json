@@ -1,0 +1,49 @@
+{
+  "kind": "frozen_after_stage_build_observation",
+  "status": "INTERIM_AFTER_BUILD_PASSED",
+  "createdUtc": "2026-11-06T13:52:22.827770+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-001/SUBJECT.json",
+    "bytes": 274008,
+    "sha256": "04bf02b9607e53ac1bcc065eaf4cd9dff77d321fb41abd5e189f98475c10ccc6"
+  },
+  "stageReceipt": {
+    "original": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-stage.json",
+      "bytes": 97585,
+      "sha256": "e5f826fc562cacb1ad72e851daea0a5ffd34eb3694f4c5694c970db71345bed2"
+    },
+    "frozen": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/operator-custody-001/after-stage-003/evidence/hs1-stage-03-stage.json",
+      "bytes": 97585,
+      "sha256": "e5f826fc562cacb1ad72e851daea0a5ffd34eb3694f4c5694c970db71345bed2"
+    }
+  },
+  "sourceCount": 450,
+  "sourceDigest": "1adb7041ad05452d412b538b68a3c03334aa53c47526711380392f1eba60a2d3",
+  "setupMs": 16333,
+  "build": {
+    "compile": {
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 69273
+    },
+    "generate": {
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 92205
+    },
+    "lifecycle": {
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/check-lifecycle-boundary.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "ms": 2985
+    }
+  },
+  "standing": "Actual build passed; measured and final qualification remain separate."
+}

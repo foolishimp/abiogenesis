@@ -1,0 +1,186 @@
+{
+  "kind": "layered_allocation_bound_triage",
+  "recordedUtc": "2026-11-04T01:54:27.739Z",
+  "role": "Root architectural/evidence triage input; no Product repair or automatic acceptance",
+  "frame": {
+    "product": "ABIogenesis5",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "originalOutcome": "R1-R7/C1-C5 remains open"
+  },
+  "subjects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/SUBJECT.json",
+      "sha256": "8fe230782673ff859a756245a6041eb6a9e6ce0da0c54fa3cd00fef933173670"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/interim-r1-pair-proof-review-002/SUBJECT.json",
+      "sha256": "2a0f2b449464b008161d53ba8dc928073f5b97cb73710bb80d470bad9540c666"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/INDEPENDENT_INTERIM_R1_PAIR_PROOF_REVIEW.json",
+      "sha256": "4fc3d7903cbe03b4c14c4f76d85c8c6efb5d98d3a37a2f5e9662071b6802d5a3"
+    }
+  ],
+  "question": "Does a conservative source-derived bound close the omitted filtered/merged element work for the exact flat-base/single-candidate fork fixture, and what allocation/performance claims remain unsupported?",
+  "answer": {
+    "narrow": "Yes: given the retained14 inherited filter visits, current source bounds layered filter/merge element-reference writes by42 for this fixture. This is sufficient to account for that omitted vector-element category without new instrumentation.",
+    "broader": "It does not establish fewer array objects, allocated bytes, CPU, whole invocation cost or absence of all shifted allocation. Existing N6-R1-PROOF-02 retains its original finding/disposition until Root conjoins this bounded calculation with its selected claim; this triage does not mark it accepted or withdrawn."
+  },
+  "inputs": {
+    "source": "Frozen final author return proof.livenessForkWork",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/return.json",
+    "sha256": "da660fb70a04e7b0603cddb4c0439f502f6e026a7f2ecd5dd6ceca5d6320d938",
+    "work": {
+      "forks": 4,
+      "forkIndexRows": 4,
+      "freshIndexRows": 699,
+      "forkLayeredQueries": 607,
+      "forkLayeredRows": 14,
+      "freshLayeredRows": 0,
+      "freshLayeredQueries": 1271,
+      "forkHeapUsedDelta": -12738536,
+      "freshHeapUsedDelta": 342141496,
+      "forkBodyDecodes": 0,
+      "freshBodyDecodes": 0,
+      "constructorCoverage": {
+        "forked": 2,
+        "fresh": 7
+      }
+    },
+    "standing": "Author observations, not newly executed measurements or actual C2. Bound depends on these reported counters and exact frozen source."
+  },
+  "sourcePins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "sha256": "5b8f8a84e2f11b38378de709cad7527a345a9dbd2d058e7a12fe47d3e08d3ec7",
+      "bytes": 71127
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "649952f8fca83d0e47350ed346282b9e3799c5be70f3981d261f7f8fe68edb97",
+      "bytes": 29515
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "sha256": "9407605058cce466f6efe2d2e4b11bf0198e77cfacbc9fef109070ff4ec41cb3",
+      "bytes": 87641
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "sha256": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4",
+      "bytes": 11376
+    }
+  ],
+  "actualLayeredDomain": {
+    "routes": [
+      "calculus/liveness.ts:391-398",
+      "calculus/liveness.ts:479-499"
+    ],
+    "returns": [
+      "declarationsByIdentity bucket via declarationsFor",
+      "observations bucket via observationEnvelopes",
+      "byKind bucket via some",
+      "byIdentity bucket via someIdentified; fallback delegates to some"
+    ],
+    "notReturned": [
+      "sampleHistory arrays (353,410-411,468-469,517-521)",
+      "declarationAt/budgetAt/duplicateDeclarationAt numeric vectors (355,362-363,442-444)",
+      "fold obligations/evidence arrays, contextStamp/declarationRows/observationRows output arrays and other caller collections"
+    ],
+    "writerRelation": "Every member of the four layered envelope-bucket stores enters through the local add at421-422 (call sites427,430,439,450,454). That fact does not make all liveness arrays add-bounded.",
+    "intervalCaveat": "The recursive flat base returns its own pre-existing bucket. Its members were registered before the measured fork interval, so they are NOT bounded by reported forkIndexRows4. Only the new fork own buckets start empty. Base membership scanning/copying is bounded here by the counted inherited filter visits, not by the candidate add count."
+  },
+  "fixturePremises": [
+    {
+      "path": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "lines": "145-166,174-182",
+      "fact": "Base is an actual physical admitted cut; each validation call appends one candidate to that cut. Fresh comparison has no admitted base. All candidates retain target kind runtime_activity_probe_observed; controls mutate only payload/causation."
+    },
+    {
+      "path": "code/src/abg/runtime_liveness.ts",
+      "lines": "187-195",
+      "fact": "Actual validation extends predecessor by the candidate, checks exact extension and passes resulting prefix to liveness reconstruction."
+    },
+    {
+      "path": "code/src/abg/calculus/liveness.ts",
+      "lines": "374-380,413-424,570-577",
+      "fact": "A genuine candidate fork starts with empty own maps, borrows the flat admitted reconstruction, sets processed at base extent, then advances only the candidate. The base is not a validation fork and remains unchanged by sibling candidates."
+    }
+  ],
+  "boundDerivation": {
+    "symbols": {
+      "V": "sum of inherited filter callback visits=14",
+      "F": "forks=4",
+      "Q": "all layered method entries, including recursion and flat-base-only calls=607",
+      "L": "unknown number of layered calls whose receiver has a base",
+      "M": "unknown number of nonempty inherited merge outputs"
+    },
+    "perQuery": "For a fork query, let n be inherited input length, k<=n retained by filter and o own bucket length. Filter writes k references; a merge exists only if k>0 and own exists and writes k+o references. Otherwise layered borrows own or returns the filter result without another copy.",
+    "ownBucketBound": "Each queried fork-own bucket has length<=1: a single candidate can enter a kind bucket once, each declaration identity once (Set), each relevant terminal/process identity once (disjoint source kinds), and one observation-scope bucket once. Base-own buckets are excluded from this one-candidate bound.",
+    "sum": "M<=sum(k)<=V. Thus filter-result writes<=V, merge inherited writes<=V and merge own writes<=M<=V. Total layered element-reference writes<=3V=42.",
+    "values": {
+      "maxFilterOutputReferenceWrites": 14,
+      "maxMergedInheritedReferenceWrites": 14,
+      "maxMergedOwnReferenceWrites": 14,
+      "maxLayeredFilterAndMergeReferenceWrites": 42
+    },
+    "looserAddBound": "If reported add4 is complete for new fork membership registrations, o<=4 gives2V+4V=84. This looser result is unnecessary: the stronger42 bound follows from the static one-candidate bucket premise without using4 to bound warmed base vectors.",
+    "indexComparison": "For this exact runtime_activity_probe_observed candidate kind, only byKind and at most one observations bucket are populated by each fork (427,453-454); no terminal/declaration/process-start bucket applies (333-340). Source therefore bounds new fork bucket registrations by2F=8 independently of the reported4. Index-plus-layered member-reference writes<=8+42=50, versus699 observed fresh index-add calls, each of which executes a member push. This is a scoped row-reference-store comparison, not a total-work or allocation-byte comparison.",
+    "comparisonValues": {
+      "reportedForkIndexAdds": 4,
+      "sourceMaxForkIndexMembershipWrites": 8,
+      "maxForkIndexPlusLayeredReferenceWrites": 50,
+      "reportedFreshIndexAdds": 699
+    },
+    "excluded": "Filter comparisons14 remain a separate unit. Some/context/contextStamp/declarationRows/observationRows, Maps/Sets/folds, validation prefix creation, array growth/capacity copies and other caller work are not silently included."
+  },
+  "arrayObjects": {
+    "definition": "Source-level array-creation expressions in layered, not measured heap allocations; engine allocation/elision/capacity behavior is not inferred.",
+    "formula": "Every base-bearing layered call creates one filter result; it may create one [] fallback input if recursive base result is undefined and one spread result if inherited is nonempty and own exists. Let U<=L be fallback count. Arrays created inside layered=L+U+M.",
+    "oneBaseCallBound": "Each such call also has one recursive flat-base layered entry, so2L<=Q, henceL<=303. M<=V14.",
+    "maxLayeredSourceArrayCreations": 620,
+    "arithmetic": "L+U+M<=2*303+14=620.",
+    "indexBucketArrayBound": "For the fixed probe candidates, newly created own bucket arrays<=2F=8; these are separate from the layered bound.",
+    "fresh": "A flat reconstruction has base===undefined and returns its stored own bucket directly: freshLayeredQueries1271 creates no arrays inside layered itself. Fresh index buckets, caller fallbacks/maps/filter/flatMap and other arrays still allocate outside that method.",
+    "limits": "Q607 does not give exact L,U,M. Do not call607 the array count. Do not compare the620 upper bound with a fresh lower bound that has not been measured. No claim of fewer array objects or total heap allocation follows."
+  },
+  "avoidableRealizationWork": [
+    {
+      "path": "code/src/abg/calculus/liveness.ts:394-395",
+      "observation": "If the base has no bucket, recursive layered returns undefined, but the current expression creates an empty [] fallback and a separate empty filter result before returning own. This is avoidable empty-array/filter setup, even though filter callback visits are zero.",
+      "boundedOwnerDirection": "An existing-owner absence check can return own before filtering. This is a finite local fast-path observation, not a selected repair, new cache or authority."
+    },
+    {
+      "path": "code/src/abg/calculus/liveness.ts:394",
+      "observation": "In the exact unchanged flat-base fixture, inherited rows already lie at/before the fork cut, so filtering creates another vector of the same references. The generic implementation still needs clipping if the base has since advanced.",
+      "boundedOwnerDirection": "Any future existing-owner fast path must preserve historical-cut clipping and readonly/base isolation. No lazy-view/constructor/scope redesign is required or proposed here."
+    }
+  ],
+  "unitSeparation": {
+    "rowCopies": "References to envelope objects copied into language-level array elements; no payload cloning is implied.",
+    "arrayObjects": "Different category from element count; even zero-row filter/fallback arrays create source-level array objects. Exact counts and actual heap allocations are unmeasured.",
+    "cpu": "Comparisons, recursion, calls, allocation, GC and other work have different costs. Counter inequalities and negative/positive heap deltas do not prove CPU savings or regression.",
+    "bytes": "Slot widths, capacity growth, array headers, allocator behavior and GC are not measured. Do not multiply reference counts by an assumed pointer width to claim allocated bytes.",
+    "bodies": "Reported0body decodes is retained as a separate observation; it proves no allocation/CPU total."
+  },
+  "smallestFollowup": "Root may record this explicit derived42-reference-copy/50-index-plus-copy bound as a bounded supplement to the existing same-input fixture, retaining full-value/decision/base/sibling equality and all assumptions. Relabel the old4+14 inequality as index additions plus inherited predicate visits, not actual total row work. If the selected claim includes array-object or byte/whole-runtime no-shift savings, retain that row open or obtain its separate bounded observation through existing owner/probe; no Product repair is activated by this triage.",
+  "limits": [
+    "No tests/builds, new profiling, runtime/provider calls, native contact, moving source reads, Product/test/control changes or edits. Only the two authorized evidence outputs written.",
+    "No claim of measured realization regression or speedup, allocated bytes, whole allocation closure or automatic acceptance of N6-R1-PROOF-02.",
+    "Bound applies to exact flat-base/single-candidate shape and reported counter interval. Multiple candidate rows, nested fork depth, mutated/extended base behavior or additional layered readers/writers require their own finite bound.",
+    "Shared-family/non-authorship and prior advisory-role limits apply. Root owns disposition/closure."
+  ],
+  "invalidation": [
+    "Changed layered return stores, writers, merge behavior or candidate shape invalidates dependent bound.",
+    "Changed or incomplete source anchor/counter interval, or contrary actual visit counts, requires recomputing the arithmetic.",
+    "Nested fork depths invalidate the simple2L<=Q/one-base accounting unless separately included.",
+    "No source-derived bound from this record may be promoted to actual C2, CPU or bytes evidence without its required observation."
+  ]
+}

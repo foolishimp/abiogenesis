@@ -1,0 +1,48 @@
+{
+  "kind": "root_prospective_current_profile_selection",
+  "at": "2026-11-06T01:25:27.350509+00:00",
+  "status": "PROSPECTIVE_DESCRIPTOR_REF_SELECTED_RELEASE_ACCEPTANCE_RESERVED",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/projection-review-001/REVIEW.json",
+    "bytes": 34305,
+    "sha256": "c1811a40ab78f1d0666a7ea0a36a722f4d2a98d28ca14e63d765c807721ee3f1"
+  },
+  "how": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+    "bytes": 22350,
+    "sha256": "5fd66737b877301cad2ac3f3c3605a68ba9ee83fc01f4d8be56359b7cdddc4fb"
+  },
+  "decision": "Retain abg.event-contract.root/p5-run-environment-role-context@1 for the exact successor descriptor whose identity is D. No rename or further descriptor change is selected. This resolves the prospective ref/descriptor choice, not immutable RC7 or release acceptance.",
+  "currentDigest": "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0",
+  "legacyDigest": "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c",
+  "descriptorAndGeneratedContract": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/profile-selection-001/native-runtime-observation.json",
+    "bytes": 152525,
+    "sha256": "ae38fb37e3c59079e1acab2d920fb2d46d867a3150e89029323014288fa36b2c"
+  },
+  "originalGeneratedContract": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/d5-author-02/tmp/d5b-final2/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+    "bytes": 152525,
+    "sha256": "ae38fb37e3c59079e1acab2d920fb2d46d867a3150e89029323014288fa36b2c"
+  },
+  "canonicalDescriptorDigestRecomputed": true,
+  "verificationMethod": "SHA256 of exact retained descriptor using sorted-key UTF-8 canonical JSON; matches the generated contract and author constructor result. No runtime or test was run.",
+  "nativeOwner": "abg/event_contract_profiles.ts constructRootCurrentEventContractDescriptor / event_store.ts ROOT_EVENT_CONTRACT_DIGEST",
+  "preservation": "Legacy L remains exact and unstamped. Old current D stays with its original immutable owner; no reopening or restamping under this successor. New candidate work uses fresh successor stores.",
+  "remaining": [
+    "Repair D5-PROJ-001 and conjoin affected proof.",
+    "Reacquire exact generated contract and computed descriptor from the eventual frozen RC7 source/build; require these same selected coordinates or return for re-entry.",
+    "Publish exact descriptor/D/native typed locator with prospective source/package freeze before installed candidate preparation.",
+    "Reserved qualification, release and actual human acceptance remain separate."
+  ]
+}

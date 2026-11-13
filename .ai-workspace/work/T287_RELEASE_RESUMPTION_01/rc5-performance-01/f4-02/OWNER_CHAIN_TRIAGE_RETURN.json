@@ -1,0 +1,30 @@
+{
+  "kind": "root_attributed_triage_advisor_return",
+  "at": "2026-11-03T11:36:14.175863+00:00",
+  "advisor": "/root/rc5_scope_review",
+  "effort": "max",
+  "independence": "Advisor supplied earlier feasibility; this is causal triage, not independent evaluation of that earlier advice",
+  "subjectSha256": "e82e3e6391a9f16199b684b0b553564ed09bdfdfc45107accda3bdb45d959fb8",
+  "origin": "Fixture T omitted to retain correct ownership, but preliminary helper validates only local declarations; missing-contract/retention refusal then masked by undefined.kind",
+  "downstreamSourceCounterexample": "rc5Consumer descriptor not exported; implementation_absent would follow, not observed execution",
+  "correctOwnerPath": [
+    "existing additionalCorePublicationConstructors supplies canonical ABI CommandExecution",
+    "forward through installed-language-test",
+    "after actual Catalog creation resolveProgramDeclarationClosure -> constructCatalogProgramValidationInput -> validateProgram",
+    "exact packaged consumer descriptor exported via existing test-local sourceTransform",
+    "installed workflow/retained-route and fresh reads"
+  ],
+  "sourceTerritories": [
+    "test_env/tests/m5-installed-graph-edge.test.mjs",
+    "test_env/support/installed-language-test.mjs",
+    "test_env/support/root-installed-environment.mjs"
+  ],
+  "prohibitions": [
+    "No local T copy",
+    "No fake semanticLifecycle bypass",
+    "No Product runtime/validator owner change"
+  ],
+  "acknowledgedPriorAdviceGap": "Earlier one-file feasibility missed publication-local prevalidation, exact CommandExecution owner and new consumer descriptor obligation. Native retained T ownership but did not complete those handoffs.",
+  "remainingStructure": "Workflow E/S carries, parent/child membership, consumer guard and terminal closure coherent; root-only allowlist permits full Program internal child resolution",
+  "effects": "No advisor writes/tests/builds/providers; Root decides reentry"
+}

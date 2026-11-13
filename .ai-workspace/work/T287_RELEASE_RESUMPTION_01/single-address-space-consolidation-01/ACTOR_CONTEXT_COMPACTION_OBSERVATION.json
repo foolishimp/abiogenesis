@@ -1,0 +1,26 @@
+{
+  "kind": "native_actor_context_compaction_observation",
+  "recordedUtc": "2026-11-03T14:28:19.539547+00:00",
+  "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-32ab2b36fa2c8225-stdout.log",
+  "observedCompletePrefixBytes": 6127854,
+  "observations": [
+    {
+      "archiveOffset": 3998018,
+      "rowBytes": 1007,
+      "rowSha256": "659645223bede1e860ec65f9849010e4752ebab8beb9636c09800e58ae4b7f43",
+      "actorToolCallsBeforeBoundary": 97,
+      "trigger": "auto",
+      "preTokens": 367884,
+      "postTokens": 12628,
+      "reportedDurationMs": 124534,
+      "cumulativeDroppedTokens": 355256
+    }
+  ],
+  "causalMapRelation": "R5 actor information acquisition/history; supplements R4 physical task context. It is not ABG inter-task latency.",
+  "disposition": "Carry forward in Root whole-path closure. Exact task/map/rubric remain pinned inputs; independently compare every required row and caller family at return. Compaction summary is not authority or sufficiency proof.",
+  "limits": [
+    "Provider-reported compaction duration, not independently measured CPU.",
+    "No conclusion that every pre-compaction token was unnecessary or that a smaller summary retained all required facts.",
+    "No model or Product behavior changed by this observation."
+  ]
+}

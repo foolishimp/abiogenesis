@@ -1,0 +1,19 @@
+{
+  "kind": "operator_packet_preparation_refusal",
+  "recordedUtc": "2026-11-03T13:49:40.922134+00:00",
+  "failure": "governance input requires complete original source, scope and declared work contracts",
+  "violatedRelation": "governanceAssessmentRolesDistinct: rubricPath was also included in assessment.sources",
+  "actualOverlap": [
+    "consolidation-inputs/native-01/rubric.json"
+  ],
+  "rootCause": "Root reused one invariant-source list for distinct assessment roles while assembling the new packet. This repeats the earlier f4-03 preparation-role mistake; it is an operator population defect, not a new Product defect.",
+  "owner": "product/default_library.ts governanceAssessmentRolesDistinct and constructGovernanceWorkState",
+  "disposition": "Preserve original input/driver/logs; remove only rubric from assessment.sources. Keep it as rubric and original invariant source. Run the existing installed constructor before file observation; no new validator.",
+  "providerCalls": 0,
+  "nativeActors": 0,
+  "sourceEdits": 0,
+  "RunAdmissions": 0,
+  "successorDriver": "prepare-r1.mjs",
+  "successorWorkloadSha256": "75828666ad0947c8624271d58d73b68cc8a7c82ae2439b4c6aadcb9862cb3945",
+  "wholePathScopeChanged": false
+}

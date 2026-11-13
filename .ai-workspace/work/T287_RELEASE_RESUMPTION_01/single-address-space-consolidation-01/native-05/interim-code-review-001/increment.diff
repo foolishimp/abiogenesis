@@ -1,0 +1,1684 @@
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/index.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/index.ts
+@@ -327,7 +327,6 @@
+   type ReplayContinuationState,
+ } from "./continuation.js";
+ export {
+-  projectRuntimeTruthAtDurablePrefix,
+   projectRunQuiescence,
+   projectRunSemanticReplayProjection,
+   replay,
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs
+@@ -42,7 +42,7 @@
+  try{
+   const committed=store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store,acquired.prefix,()=>store.admitRuntimeEvent(acquired.store,candidate('one')));
+   const coordinate=committed.successorPrefix;const value=artifact.projectExactPrefixArtifactTruth(coordinate);assert.equal(value.kind,'exact_prefix_artifact_truth_projection');
+-  const warm=artifact.runtimePrefixFromArtifactTruth(value);
++  const warm=artifact.runtimePrefixFromOwnedArtifactTruth(value);
+   const expectedEc=deriveRuntimeEventCalculusProjection(warm);
+   assert.equal(projectActorLivenessContext(warm,'actor://read05/absent'),null);
+   const deriveSameLineage=events=>{
+@@ -62,11 +62,12 @@
+ 
+   const before=counts();for(let i=0;i<5;i++)assert.equal(artifact.validateArtifactTruthProjectionValue(value),true);const after=counts();
+   if(globalThis.p0Work)assert.equal(difference(before,after,'physicalReads'),0);
+-  assert.deepEqual(artifact.runtimePrefixFromArtifactTruth(value).events,acquired.store.readAll());
+-  assert.equal(artifact.runtimePrefixFromArtifactTruth(structuredClone(value)),null);
++  let complete='';prefix.writeRuntimeEventPrefixValue(artifact.runtimePrefixFromOwnedArtifactTruth(value),part=>{complete+=part;});
++  assert.deepEqual(JSON.parse(complete).events,acquired.store.readAll(),'the canonical writer emits the complete owner value');
++  assert.equal(artifact.runtimePrefixFromOwnedArtifactTruth(structuredClone(value)),null);
+   assert.equal(artifact.validateArtifactTruthProjectionValue(structuredClone(value)),true);
+   const stolen={...value,prefixEventCount:99};for(const symbol of Object.getOwnPropertySymbols(value))Object.defineProperty(stolen,symbol,Object.getOwnPropertyDescriptor(value,symbol));deepFreeze(stolen);
+-  assert.equal(artifact.validateArtifactTruthProjectionValue(stolen),false);assert.equal(artifact.runtimePrefixFromArtifactTruth(stolen),null);
++  assert.equal(artifact.validateArtifactTruthProjectionValue(stolen),false);assert.equal(artifact.runtimePrefixFromOwnedArtifactTruth(stolen),null);
+   const pureBefore=counts();assert.equal(store.projectRuntimeEventsAtDurablePrefix(coordinate)[0],acquired.store.readAll()[0]);
+   if(globalThis.p0Work)assert.equal(difference(pureBefore,counts(),'physicalReads'),0);
+   assert.deepEqual(store.projectRuntimeEventsAtDurablePrefix(structuredClone(coordinate)),acquired.store.readAll());
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts
+@@ -42,7 +42,6 @@
+ } from "./event_store.js";
+ import {
+   runtimeEventPrefixExtent,
+-  isOwnedRuntimeEventPrefix,
+   projectOwnedRuntimeEventPrefixAtDurablePrefix,
+   type RuntimeEventPrefix,
+   runtimePrefixComputation,
+@@ -838,11 +837,6 @@
+ export function validateArtifactTruthProjectionValue(value: unknown): value is ExactPrefixArtifactTruthProjection {
+   return ArtifactTruthDerivation.isFor(value) || validateExactPrefixArtifactTruthProjection(value);
+ }
+-export function runtimePrefixFromArtifactTruth(value: ExactPrefixArtifactTruthProjection): ValidatedRuntimeEventPrefix | null {
+-  const prefix = ArtifactTruthDerivation.prefix(value);
+-  if (prefix === null || prefix.kind === "runtime_validation_event_prefix") return null;
+-  return isOwnedRuntimeEventPrefix(prefix) ? selectValidatedRuntimeEventPrefix(prefix.selection.materialize()) : prefix;
+-}
+ /** @internal Borrow the actual owner representation; copies have no binding. */
+ export function runtimePrefixFromOwnedArtifactTruth(value: ExactPrefixArtifactTruthProjection): RuntimeEventPrefix | null {
+   return ArtifactTruthDerivation.prefix(value);
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts
+@@ -213,7 +213,7 @@
+   // fails its owner's projection and refuses the whole history.
+   const constructionIntentFact = (operation: RuntimeEvent): EffectfulPublicInvocationPriorAdmission | null => {
+     const p = operation.payload;
+-    const bases = indexedRuntimeEvents(validatedPrefix, "kind:basis_admitted").filter(e => e.kind === "basis_admitted" &&
++    const bases = indexedRuntimeEvents(validatedPrefix, "construction-operation:" + operation.eventId).filter(e => e.kind === "basis_admitted" &&
+       isRecord(e.payload) && isRecord(e.payload.constructionContinuationUse) &&
+       e.payload.constructionContinuationUse.operationAdmissionEventRef === operation.eventId);
+     const basisMatch = onlyExactMatch(bases);
+@@ -232,7 +232,10 @@
+       ownerInvocationRef: p.invocationRef, ownerInvocationDigest: p.invocationDigest as Sha256Digest,
+       publicOperationEventRef: operation.eventId, admissionEventRef: basis.admissionEventRef };
+   };
+-  for (const operation of indexedRuntimeEvents(validatedPrefix, "kind:public_operation_admitted").filter(e => e.kind === "public_operation_admitted" &&
++  const constructionOperations = (["construction_intent", "selected_action", "pending_execution"] as const)
++    .flatMap(kind => indexedRuntimeEvents(validatedPrefix, "public-continuation:" + kind))
++    .sort((left, right) => left.admissionOrdinal - right.admissionOrdinal);
++  for (const operation of constructionOperations.filter(e => e.kind === "public_operation_admitted" &&
+     isRecord(e.payload) && isConstructionContinuationKind(e.payload.continuationKind))) {
+     const kind = (operation.payload as Record<string, unknown>).continuationKind;
+     const fact = kind === "construction_intent" ? constructionIntentFact(operation)
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts
+@@ -825,7 +825,12 @@
+ export function projectFhEffectfulPublicInvocationFacts(
+   prefix: RuntimeEventPrefix,
+ ): FhEffectfulPublicInvocationFactProjection {
+-  const publicEvents = indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted").filter((event) =>
++  // The shared public-operation classification selects both F_H operation
++  // families; this owner's predicate is unchanged.
++  const publicEvents = [
++    ...indexedRuntimeEvents(prefix, "public-operation:" + "abg.operation.interaction.respond"),
++    ...indexedRuntimeEvents(prefix, "public-operation:" + "abg.operation.run.continue"),
++  ].sort((left, right) => left.admissionOrdinal - right.admissionOrdinal).filter((event) =>
+     event.kind === "public_operation_admitted" &&
+     isRecord(event.payload) && !isConstructionContinuationKind(event.payload.continuationKind) &&
+     (
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts
+@@ -66,7 +66,6 @@
+ } from "./invocation_admission.js";
+ import {
+   selectActiveRuntimeTransactionHistoryAtDurablePrefix,
+-  projectRuntimeEventsAtDurablePrefix,
+   type AbgEventStore,
+   type DurablePrefixCoordinate,
+   type RootEventKind,
+@@ -108,32 +107,6 @@
+   readonly judgment: string | null;
+   readonly status: "fibre_selected" | "judged" | "opened" | "result_admitted";
+ };
+-
+-export interface ActiveRuntimeTransactionProjection {
+-  readonly authorityPrefix: ValidatedRuntimeEventPrefix;
+-  readonly runtimePrefix: ValidatedRuntimeEventPrefix;
+-  readonly replayState: ReplayState;
+-}
+-
+-/** Complete validated output: authority and Run prefixes plus their replay.
+- * Ordinary owners select owned prefixes instead. */
+-export function projectRuntimeTruthAtDurablePrefix(
+-  predecessorPrefix: DurablePrefixCoordinate,
+-  runId: string,
+-  priorDerivation?: ReplayState,
+-): ActiveRuntimeTransactionProjection {
+-  const authorityPrefix = selectValidatedRuntimeEventPrefix(projectRuntimeEventsAtDurablePrefix(predecessorPrefix));
+-  const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId });
+-  return deepFreeze({
+-    authorityPrefix,
+-    runtimePrefix,
+-    replayState: replayValidatedRuntimeEventPrefix(
+-      runtimePrefix,
+-      authorityPrefix,
+-      priorDerivation,
+-    ),
+-  });
+-}
+ 
+ /** @internal The ordinary handoff retains guard/current coordinates, never a
+  * complete historical ReplayState or a counterfeit of that Public output. */
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts
+@@ -17,7 +17,7 @@
+ import type { RuntimeEventPrefix, ValidatedRuntimeEventPrefix } from "../event_prefix.js";
+ import { indexedRuntimeEvents, runtimeEventPrefixDigest, runtimeEventEnvelopesAtPrefix, runtimeEventPrefixExtent,
+   runtimeEventAtPrefix, indexedRuntimeEventEnvelopes, runtimePrefixComputation, runtimeEventBodiesAtPrefix, unscopedRuntimeEventPrefix,
+-  selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent,
++  runtimeEventValidationBase, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent,
+   validatedRuntimeEventPrefixBeforeEvent } from "../event_prefix.js";
+ import { ROOT_EVENT_CONTRACT_DIGEST, type RuntimeEvent } from "../event_store.js";
+ import {
+@@ -56,12 +56,14 @@
+   return { context, scopeDigest };
+ }
+ /** Reconstruct predeclared actor probes from admitted owner coordinates, never from observed paths. */
++// Each declaration lookup reads the `related:` bucket of the aggregate it
++// compares: a superset of its exact matches in the same ordinal order.
+ function deriveActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationRef: string): RuntimeLivenessContext | null {
+   try {
+-    const started = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:actor_invocation_started"), e => e.kind === "actor_invocation_started" && e.aggregateId === actorInvocationRef));
++    const started = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + actorInvocationRef), e => e.kind === "actor_invocation_started" && e.aggregateId === actorInvocationRef));
+     if (started === null || !record(started.payload)) return null;
+     const p = started.payload;
+-    const bindingEvent = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:actor_transport_binding_admitted"), e => e.kind === "actor_transport_binding_admitted" &&
++    const bindingEvent = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + String(p.transportBindingRef)), e => e.kind === "actor_transport_binding_admitted" &&
+       e.aggregateId === p.transportBindingRef && e.admissionOrdinal < started.admissionOrdinal));
+     const b = bindingEvent?.payload;
+     if (bindingEvent === null || !record(b) || !isRuntimeLivenessBinding(b.livenessBinding) ||
+@@ -76,8 +78,8 @@
+     if (digest(bindingBody) !== b.transportBindingDigest ||
+         b.transportBindingRef !== `transport-binding://abiogenesis/${String(b.transportBindingDigest).slice(7)}`) return null;
+     const basis = rehydrateExecutionBasisAtPrefix(prefix, started.basisId);
+-    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_opened"), e => e.kind === "c_call_opened" && e.aggregateId === p.cCallRef));
+-    const fibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected"), e => e.kind === "c_call_fibre_selected" && e.aggregateId === p.cCallRef));
++    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + String(p.cCallRef)), e => e.kind === "c_call_opened" && e.aggregateId === p.cCallRef));
++    const fibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + String(p.cCallRef)), e => e.kind === "c_call_fibre_selected" && e.aggregateId === p.cCallRef));
+     if (basis === null || opened === null || fibre === null || !record(opened.payload) || !record(fibre.payload) ||
+         opened.basisId !== basis.basisRef || fibre.payload.regime !== "F_P" || fibre.payload.callClass !== "leaf" ||
+         fibre.payload.implementationRef !== b.implementationRef ||
+@@ -130,8 +132,8 @@
+  * register a source, borrow an actor clock, or supply an undeclared timeout. */
+ function deriveCCallLivenessContext(prefix: RuntimeEventPrefix, cCallRef: string): RuntimeLivenessContext | null {
+   try {
+-    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_opened"), e => e.kind === "c_call_opened" && e.aggregateId === cCallRef));
+-    const selected = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected"), e => e.kind === "c_call_fibre_selected" && e.aggregateId === cCallRef));
++    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === cCallRef));
++    const selected = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + cCallRef), e => e.kind === "c_call_fibre_selected" && e.aggregateId === cCallRef));
+     if (opened === null || selected === null || !record(opened.payload) || !record(selected.payload) ||
+         selected.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || selected.payload.regime === "F_P" ||
+         selected.admissionOrdinal <= opened.admissionOrdinal || !selected.causationEventRefs.includes(opened.eventId) ||
+@@ -167,10 +169,10 @@
+ /** The opening fact declares the occurrence; a probe never registers it. */
+ function deriveFrameLivenessContext(prefix: RuntimeEventPrefix, frameId: string): RuntimeLivenessContext | null {
+   try {
+-    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:frame_opened"), e => e.kind === "frame_opened" && e.aggregateId === frameId));
++    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + frameId), e => e.kind === "frame_opened" && e.aggregateId === frameId));
+     if (opened === null || !record(opened.payload) || opened.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return null;
+     const p = opened.payload;
+-    const graph = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:graph_call_opened"), e => e.kind === "graph_call_opened" && e.aggregateId === opened.graphCallId));
++    const graph = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + String(opened.graphCallId)), e => e.kind === "graph_call_opened" && e.aggregateId === opened.graphCallId));
+     const basis = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
+     if (graph === null || !record(graph.payload) || basis === null || !opened.causationEventRefs.includes(graph.eventId) ||
+         graph.admissionOrdinal >= opened.admissionOrdinal || graph.runId !== opened.runId || graph.basisId !== opened.basisId ||
+@@ -320,87 +322,152 @@
+ /** Disposable indexes subordinate to this exact admitted value. Declarations
+  * and retry law cannot change at a stdout/stderr/probe row. Reconstruct their
+  * owner facts once per structural cut; look up producers and fold observations
+- * directly without constructing a pair of historical prefixes per event. */
++ * directly without constructing a pair of historical prefixes per event.
++ * A prospective candidate forks its admitted predecessor's reconstruction, as
++ * the Event Calculus derivation does: it reads the base through the base cut
++ * and advances only its own rows, so the admitted indexes and folds never see
++ * a candidate. Values at a cut at or before the base are admitted-history
++ * facts, so the fork delegates those cut computations to the base owner. */
++type LivenessEnvelope = Omit<RuntimeEvent, "payload">;
++/** The one envelope identity each terminal liveness query compares. */
++const TERMINAL_IDENTITY: Readonly<Partial<Record<RuntimeEvent["kind"], "aggregateId" | "runId" | "graphCallId" | "frameId">>> = Object.freeze({
++  actor_invocation_closed: "aggregateId", actor_invocation_failed: "aggregateId", c_call_judged: "aggregateId",
++  run_closed: "runId", run_stopped: "runId", runtime_failure_observed: "runId",
++  graph_call_closed: "graphCallId", frame_closed: "frameId",
++});
++const DECLARATION_KINDS: ReadonlySet<string> = new Set(["actor_invocation_started", "actor_transport_binding_admitted", "c_call_opened",
++  "c_call_fibre_selected", "basis_admitted", "frame_opened", "graph_call_opened"]);
++const BUDGET_KINDS: ReadonlySet<string> = new Set(["c_call_opened", "retry_attempt_opened", "retry_progress_recorded"]);
++const OBSERVED_KINDS: ReadonlySet<string> = new Set(["runtime_activity_probe_observed", "runtime_external_interruption_observed", "actor_process_timeout_observed"]);
++function copyFold(fold: RuntimeLivenessHistoryFold): RuntimeLivenessHistoryFold {
++  return { ...fold, obligations: [...fold.obligations], seen: new Map(fold.seen), sourceTimes: new Map(fold.sourceTimes),
++    coverage: new Set(fold.coverage), evidenceRefs: [...fold.evidenceRefs], systemActivity: new Map(fold.systemActivity) };
++}
+ /** @internal */
+ export class RuntimeLivenessReconstruction {
+   private processed = 0;
+   private lastOrdinal = 0;
++  private base: RuntimeLivenessReconstruction | undefined;
++  private baseOrdinal = 0;
+   prefix: RuntimeEventPrefix;
+-  readonly sampleHistory = new Map<string, { ordinal: number; sample: RuntimeLivenessSample }[]>();
+-  readonly declarations: Omit<RuntimeEvent, "payload">[] = [];
+-  readonly declarationsByIdentity = new Map<string, Omit<RuntimeEvent, "payload">[]>();
+-  readonly duplicateDeclarationAt: number[] = [0];
+-  readonly byId = new Map<string, Omit<RuntimeEvent, "payload">>();
+-  readonly byOrdinal = new Map<number, Omit<RuntimeEvent, "payload">>();
+-  readonly byKind = new Map<RuntimeEvent["kind"], Omit<RuntimeEvent, "payload">[]>();
+-  readonly declarationAt: number[] = [0];
+-  readonly budgetAt: number[] = [0];
+-  readonly observations = new Map<string, Omit<RuntimeEvent, "payload">[]>();
+-  readonly structural: Omit<RuntimeEvent, "payload">[] = [];
+-  readonly structuralAt: number[] = [0];
++  private readonly sampleHistory = new Map<string, { ordinal: number; sample: RuntimeLivenessSample }[]>();
++  private readonly declarationsByIdentity = new Map<string, LivenessEnvelope[]>();
++  private readonly duplicateDeclarationAt: number[] = [0];
++  private readonly byId = new Map<string, LivenessEnvelope>();
++  private readonly byOrdinal = new Map<number, LivenessEnvelope>();
++  private readonly byKind = new Map<RuntimeEvent["kind"], LivenessEnvelope[]>();
++  // Terminal kinds by their compared envelope identity; process starts by the
++  // actor their body names. Rows enter in ordinal order with their kind bucket.
++  private readonly byIdentity = new Map<string, LivenessEnvelope[]>();
++  private readonly declarationAt: number[] = [0];
++  private readonly budgetAt: number[] = [0];
++  private readonly observations = new Map<string, LivenessEnvelope[]>();
+   readonly folds: RuntimeLivenessHistoryFolds = new Map();
+   // Earlier reads have their own disposable progress. They cannot rewind or
+   // mutate the later-cut fold, but an ordered historical walk need not restart.
+   readonly historicalFolds: RuntimeLivenessHistoryFolds = new Map();
+-  readonly contexts = new Map<string, RuntimeLivenessContextFacts | null>();
+-  readonly budgets = new Map<string, RuntimeLivenessBudgetFacts>();
++  private readonly contexts = new Map<string, RuntimeLivenessContextFacts | null>();
++  private readonly budgets = new Map<string, RuntimeLivenessBudgetFacts>();
+ 
+   constructor(prefix: RuntimeEventPrefix) { this.prefix = prefix; this.advance(prefix); }
++  /** A disposable candidate fork at the exact admitted `cut`. */
++  forkAt(cut: RuntimeEventPrefix): RuntimeLivenessReconstruction {
++    const extent = runtimeEventPrefixExtent(cut);
++    if (extent.count > this.processed) throw new TypeError("a liveness fork requires its advanced admitted base");
++    const fork = new RuntimeLivenessReconstruction(selectValidatedRuntimeEventPrefix(Object.freeze([])));
++    fork.base = this; fork.baseOrdinal = extent.lastOrdinal;
++    fork.processed = extent.count; fork.lastOrdinal = extent.lastOrdinal; fork.prefix = cut;
++    return fork;
++  }
++  private inBase(ordinal: number): boolean { return this.base !== undefined && ordinal <= this.baseOrdinal; }
++  private ordinalAt(values: readonly number[], ordinal: number, read: (base: RuntimeLivenessReconstruction) => number): number {
++    return this.inBase(ordinal) ? read(this.base!) : values[ordinal] ?? 0;
++  }
++  declarationOrdinal(ordinal: number): number { return this.ordinalAt(this.declarationAt, ordinal, base => base.declarationOrdinal(ordinal)); }
++  budgetOrdinal(ordinal: number): number { return this.ordinalAt(this.budgetAt, ordinal, base => base.budgetOrdinal(ordinal)); }
++  duplicateDeclarationOrdinal(ordinal: number): number {
++    return this.ordinalAt(this.duplicateDeclarationAt, ordinal, base => base.duplicateDeclarationOrdinal(ordinal));
++  }
++  private layered(read: (owner: RuntimeLivenessReconstruction) => readonly LivenessEnvelope[] | undefined): readonly LivenessEnvelope[] | undefined {
++    const own = read(this);
++    if (this.base === undefined) return own;
++    const inherited = (this.base.layered(read) ?? []).filter(row => row.admissionOrdinal <= this.baseOrdinal);
++    return inherited.length === 0 ? own : own === undefined ? inherited : [...inherited, ...own];
++  }
++  private declarationsFor(identity: string): readonly LivenessEnvelope[] {
++    return this.layered(owner => owner.declarationsByIdentity.get(identity)) ?? [];
++  }
++  /** The envelope at an exact admitted ordinal of this cut. */
++  envelopeAt(ordinal: number): LivenessEnvelope | undefined {
++    return this.inBase(ordinal) ? this.base!.envelopeAt(ordinal) : this.byOrdinal.get(ordinal);
++  }
++  private envelope(ref: string): LivenessEnvelope | undefined {
++    const own = this.byId.get(ref);
++    if (own !== undefined || this.base === undefined) return own;
++    const inherited = this.base.envelope(ref);
++    return inherited !== undefined && inherited.admissionOrdinal <= this.baseOrdinal ? inherited : undefined;
++  }
++  private lastSample(scope: string): RuntimeLivenessSample | undefined {
++    return this.sampleHistory.get(scope)?.at(-1)?.sample ?? (this.base === undefined ? undefined : this.base.sample(this.baseOrdinal, scope) ?? undefined);
++  }
+   advance(prefix: RuntimeEventPrefix): void {
+     const extent = runtimeEventPrefixExtent(prefix);
+     if (extent.count <= this.processed) return;
+     const processed = this.processed;
+-    let declaration = this.declarationAt[this.lastOrdinal] ?? 0;
+-    let budget = this.budgetAt[this.lastOrdinal] ?? 0;
+-    let duplicateDeclaration = this.duplicateDeclarationAt[this.lastOrdinal] ?? 0;
++    let declaration = this.declarationOrdinal(this.lastOrdinal);
++    let budget = this.budgetOrdinal(this.lastOrdinal);
++    let duplicateDeclaration = this.duplicateDeclarationOrdinal(this.lastOrdinal);
+     this.prefix = prefix;
++    const add = (target: Map<string, LivenessEnvelope[]>, key: string, event: LivenessEnvelope) => {
++      const rows = target.get(key) ?? []; rows.push(event); target.set(key, rows);
++    };
+     for (const event of runtimeEventEnvelopesAtPrefix(prefix, processed)) {
+       this.byId.set(event.eventId, event);
+       this.byOrdinal.set(event.admissionOrdinal, event);
+-      const family = this.byKind.get(event.kind) ?? [];
+-      family.push(event); this.byKind.set(event.kind, family);
++      add(this.byKind as Map<string, LivenessEnvelope[]>, event.kind, event);
++      const field = TERMINAL_IDENTITY[event.kind];
++      const identity = field === undefined ? undefined : event[field];
++      if (typeof identity === "string") add(this.byIdentity, event.kind + "\0" + identity, event);
+       // Exactly the declarations read by the three context owners and their
+       // execution-basis owner. Duplicate declarations change this cut too.
+-      if (["actor_invocation_started", "actor_transport_binding_admitted", "c_call_opened",
+-           "c_call_fibre_selected", "basis_admitted", "frame_opened", "graph_call_opened"].includes(event.kind)) { declaration = event.admissionOrdinal; this.declarations.push(event);
++      if (DECLARATION_KINDS.has(event.kind)) { declaration = event.admissionOrdinal;
+         const identities = new Set([event.aggregateId]);
+         if (event.kind === "frame_opened" && event.frameId !== undefined) identities.add(event.frameId);
+         if (event.kind === "basis_admitted" && event.basisId !== undefined) identities.add(event.basisId);
+         for (const identity of identities) {
+-          const rows = this.declarationsByIdentity.get(identity) ?? [];
+-          if (rows.some(row => row.kind === event.kind)) duplicateDeclaration = event.admissionOrdinal;
+-          rows.push(event); this.declarationsByIdentity.set(identity, rows);
++          if (this.declarationsFor(identity).some(row => row.kind === event.kind)) duplicateDeclaration = event.admissionOrdinal;
++          add(this.declarationsByIdentity, identity, event);
+         } }
+-      if (["c_call_opened", "retry_attempt_opened", "retry_progress_recorded"].includes(event.kind)) budget = event.admissionOrdinal;
++      if (BUDGET_KINDS.has(event.kind)) budget = event.admissionOrdinal;
+       this.declarationAt[event.admissionOrdinal] = declaration;
+       this.duplicateDeclarationAt[event.admissionOrdinal] = duplicateDeclaration;
+       this.budgetAt[event.admissionOrdinal] = budget;
+-      const observed = ["runtime_activity_probe_observed", "runtime_external_interruption_observed", "actor_process_timeout_observed"].includes(event.kind)
++      const observed = OBSERVED_KINDS.has(event.kind) || event.kind === "actor_process_started"
+         ? runtimeEventAtPrefix(prefix, event.eventId) : undefined;
+       const payload = observed?.payload;
++      if (event.kind === "actor_process_started") {
++        if (record(payload) && typeof payload.actorInvocationRef === "string")
++          add(this.byIdentity, event.kind + "\0" + payload.actorInvocationRef, event);
++        continue;
++      }
+       if ((event.kind === "runtime_activity_probe_observed" || event.kind === "runtime_external_interruption_observed") &&
+-          record(payload) && isRuntimeProbeObservation(payload.observation)) {
+-        const key = payload.observation.scopeDigest;
+-        const rows = this.observations.get(key) ?? [];
+-        rows.push(event); this.observations.set(key, rows);
+-      }
+-      if (!["runtime_activity_probe_observed", "runtime_external_interruption_observed",
+-            "actor_process_stdout_observed", "actor_process_stderr_observed"].includes(event.kind)) this.structural.push(event);
+-      this.structuralAt[event.admissionOrdinal] = this.structural.length;
++          record(payload) && isRuntimeProbeObservation(payload.observation)) add(this.observations, payload.observation.scopeDigest, event);
+       if (record(payload)) {
+         const observation = payload.observation, threshold = payload.thresholdObservation;
+         const scopes = new Set<string>();
+         if (isRuntimeProbeObservation(observation)) scopes.add(observation.scopeDigest);
+         if (isRuntimeThresholdObservation(threshold)) scopes.add(threshold.scopeDigest);
+         for (const scope of scopes) {
+-          const rows = this.sampleHistory.get(scope) ?? [];
+-          let sample = rows.at(-1)?.sample;
++          let sample = this.lastSample(scope);
+           if (isRuntimeProbeObservation(observation) && observation.scopeDigest === scope &&
+               (sample === undefined || observation.elapsedMs > sample.elapsedMs))
+             sample = { clockOriginRef: observation.clockOriginRef, elapsedMs: observation.elapsedMs, eventRef: event.eventId };
+           if (isRuntimeThresholdObservation(threshold) && threshold.scopeDigest === scope)
+             sample = { clockOriginRef: threshold.clockOriginRef, elapsedMs: threshold.elapsedMs, eventRef: event.eventId };
+-          if (sample !== undefined) { rows.push({ ordinal: event.admissionOrdinal, sample }); this.sampleHistory.set(scope, rows); }
++          if (sample !== undefined) {
++            const rows = this.sampleHistory.get(scope) ?? [];
++            rows.push({ ordinal: event.admissionOrdinal, sample }); this.sampleHistory.set(scope, rows);
++          }
+         }
+       }
+     }
+@@ -410,42 +477,57 @@
+     return runtimeEventBodiesAtPrefix(this.cut(ordinal));
+   }
+   declarationRows(identity: string): readonly RuntimeEvent[] {
+-    return (this.declarationsByIdentity.get(identity) ?? []).map(row => runtimeEventAtPrefix(this.prefix, row.eventId)!);
++    return this.declarationsFor(identity).map(row => runtimeEventAtPrefix(this.prefix, row.eventId)!);
++  }
++  /** Observation envelopes of one scope in ordinal order; undefined when none was admitted. */
++  observationEnvelopes(scope: string): readonly LivenessEnvelope[] | undefined {
++    return this.layered(owner => owner.observations.get(scope));
+   }
+   observationRows(scope: string, ordinal: number): readonly RuntimeEvent[] {
+-    return (this.observations.get(scope) ?? []).filter(row => row.admissionOrdinal <= ordinal).map(row => runtimeEventAtPrefix(this.prefix, row.eventId)!);
++    return (this.observationEnvelopes(scope) ?? []).filter(row => row.admissionOrdinal <= ordinal).map(row => runtimeEventAtPrefix(this.prefix, row.eventId)!);
+   }
+   some(ordinal: number, kinds: readonly RuntimeEvent["kind"][], predicate: (event: RuntimeEvent) => boolean): boolean {
+-    return kinds.some(kind => {
+-      for (const event of this.byKind.get(kind) ?? []) {
+-        if (event.admissionOrdinal > ordinal) break;
+-        if (predicate(runtimeEventAtPrefix(this.prefix, event.eventId)!)) return true;
+-      }
+-      return false;
+-    });
++    return kinds.some(kind => this.someRows(this.layered(owner => owner.byKind.get(kind)) ?? [], ordinal, predicate));
++  }
++  /** The same query, selecting each kind's rows by the one envelope (or, for
++   * process starts, body) identity its predicate compares before any body
++   * read. A non-string identity keeps the complete kind bucket. */
++  someIdentified(ordinal: number, selectors: readonly (readonly [RuntimeEvent["kind"], unknown])[],
++    predicate: (event: RuntimeEvent) => boolean): boolean {
++    return selectors.some(([kind, identity]) => typeof identity === "string" && (TERMINAL_IDENTITY[kind] !== undefined || kind === "actor_process_started")
++      ? this.someRows(this.layered(owner => owner.byIdentity.get(kind + "\0" + identity)) ?? [], ordinal, predicate)
++      : this.some(ordinal, [kind], predicate));
++  }
++  private someRows(rows: readonly LivenessEnvelope[], ordinal: number, predicate: (event: RuntimeEvent) => boolean): boolean {
++    for (const event of rows) {
++      if (event.admissionOrdinal > ordinal) break;
++      if (predicate(runtimeEventAtPrefix(this.prefix, event.eventId)!)) return true;
++    }
++    return false;
+   }
+   event(ref: string, ordinal: number): RuntimeEvent | undefined {
+-    const event = this.byId.get(ref);
++    const event = this.envelope(ref);
+     return event !== undefined && event.admissionOrdinal <= ordinal ? runtimeEventAtPrefix(this.prefix, ref) : undefined;
+   }
+   cut(ordinal: number): RuntimeEventPrefix {
+-    return ordinal === 0 ? selectValidatedRuntimeEventPrefix(Object.freeze([])) :
+-      validatedRuntimeEventPrefixThroughEvent(this.prefix, this.byOrdinal.get(ordinal)!.eventId);
++    if (ordinal === 0) return selectValidatedRuntimeEventPrefix(Object.freeze([]));
++    if (this.inBase(ordinal)) return this.base!.cut(ordinal);
++    return validatedRuntimeEventPrefixThroughEvent(this.prefix, this.byOrdinal.get(ordinal)!.eventId);
+   }
+   sample(ordinal: number, scopeDigest: string): RuntimeLivenessSample | null {
+     const rows = this.sampleHistory.get(scopeDigest) ?? [];
+     let low = 0, high = rows.length;
+     while (low < high) { const middle = (low + high) >>> 1; if (rows[middle]!.ordinal <= ordinal) low = middle + 1; else high = middle; }
+-    return rows[low - 1]?.sample ?? null;
++    return rows[low - 1]?.sample ?? (this.base === undefined ? null : this.base.sample(Math.min(ordinal, this.baseOrdinal), scopeDigest));
+   }
+   contextStamp(ordinal: number, occurrenceRef: string): string {
+-    const own = (this.declarationsByIdentity.get(occurrenceRef) ?? []).filter(e => e.admissionOrdinal <= ordinal);
++    const own = this.declarationsFor(occurrenceRef).filter(e => e.admissionOrdinal <= ordinal);
+     const header = own.find(e => ["actor_invocation_started", "c_call_opened", "frame_opened"].includes(e.kind));
+     const opened = header === undefined ? undefined : runtimeEventAtPrefix(this.prefix, header.eventId);
+     if (opened === undefined || !record(opened.payload)) return occurrenceRef + "/" + own.map(e => e.eventId).join("/");
+     const identities = [occurrenceRef, opened.basisId, opened.payload.cCallRef, opened.payload.transportBindingRef];
+     if (opened.kind === "frame_opened") identities.push(opened.graphCallId, opened.payload.parentFrameId);
+-    const rows = [...new Set(identities.flatMap(identity => typeof identity === "string" ? this.declarationsByIdentity.get(identity) ?? [] : []))]
++    const rows = [...new Set(identities.flatMap(identity => typeof identity === "string" ? this.declarationsFor(identity) : []))]
+       .filter(e => e.admissionOrdinal <= ordinal).sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
+     return occurrenceRef + "/" + rows.map(e => e.eventId).join("/");
+   }
+@@ -454,13 +536,18 @@
+     return this.contextFacts(ordinal, occurrenceRef)?.context ?? null;
+   }
+   contextFacts(ordinal: number, occurrenceRef: string): RuntimeLivenessContextFacts | null {
++    // No candidate declaration at or before `ordinal`: the base's own cut decides.
++    if (this.base !== undefined && this.declarationOrdinal(ordinal) <= this.baseOrdinal)
++      return this.base.contextFacts(Math.min(ordinal, this.baseOrdinal), occurrenceRef);
+     const key = this.contextStamp(ordinal, occurrenceRef);
+     if (!this.contexts.has(key)) this.contexts.set(key,
+-      livenessContextFacts(contextForOccurrence(this.cut(this.declarationAt[ordinal] ?? 0), occurrenceRef)));
++      livenessContextFacts(contextForOccurrence(this.cut(this.declarationOrdinal(ordinal)), occurrenceRef)));
+     return this.contexts.get(key)!;
+   }
+   budget(ordinal: number, context: RuntimeLivenessContext): RuntimeLivenessBudgetFacts {
+-    const at = this.budgetAt[ordinal] ?? 0, key = at + "/" + digest(context.scope);
++    const at = this.budgetOrdinal(ordinal);
++    if (this.base !== undefined && at <= this.baseOrdinal) return this.base.budget(Math.min(ordinal, this.baseOrdinal), context);
++    const key = at + "/" + digest(context.scope);
+     let budget = this.budgets.get(key);
+     if (budget === undefined) {
+       budget = projectRuntimeRetryBudgetFacts(this.cut(at), context.scope);
+@@ -468,12 +555,25 @@
+     }
+     return budget;
+   }
++  /** A disposable copy of the admitted base fold through the base cut; the
++   * base's own lane is never advanced by a candidate. */
++  inheritedFold(key: string): RuntimeLivenessHistoryFold | undefined {
++    const base = this.base;
++    if (base === undefined) return undefined;
++    const fold = base.folds.get(key) ?? base.inheritedFold(key);
++    if (fold === undefined || fold.rowCount === 0) return undefined;
++    const rows = base.observationEnvelopes(key.slice(key.lastIndexOf("/") + 1)) ?? [];
++    return rows[fold.rowCount - 1] !== undefined && rows[fold.rowCount - 1]!.admissionOrdinal <= this.baseOrdinal ? copyFold(fold) : undefined;
++  }
+ }
+ 
+ const LIVENESS_DERIVATION = Symbol("ordered_runtime_liveness_derivation");
+ /** @internal */
+ export function livenessReconstruction(prefix: RuntimeEventPrefix): RuntimeLivenessReconstruction {
+-  const reconstruction = runtimePrefixComputation(prefix, LIVENESS_DERIVATION, () => new RuntimeLivenessReconstruction(prefix));
++  const reconstruction = runtimePrefixComputation(prefix, LIVENESS_DERIVATION, () => {
++    const base = runtimeEventValidationBase(prefix);
++    return base === undefined ? new RuntimeLivenessReconstruction(prefix) : livenessReconstruction(base).forkAt(base);
++  });
+   reconstruction.advance(prefix); return reconstruction;
+ }
+ 
+@@ -506,7 +606,7 @@
+     if (context === null || event.runId !== context.scope.runId || event.basisId !== context.scope.basisRef ||
+         event.graphCallId !== context.scope.graphCallId || event.frameId !== context.scope.frameId ||
+         event.graphFunctionRef !== context.scope.graphFunctionRef ||
+-        actor !== null && reconstruction.some(ordinal, ["actor_invocation_closed", "actor_invocation_failed"], e => e.aggregateId === actor)) return false;
++        actor !== null && reconstruction.someIdentified(ordinal, [["actor_invocation_closed", actor], ["actor_invocation_failed", actor]], e => e.aggregateId === actor)) return false;
+     if (event.kind === "actor_process_timeout_observed") {
+       const t = p.thresholdObservation;
+       prefix = reconstruction.cut(ordinal);
+@@ -518,7 +618,7 @@
+       return projection?.projectionDigest === t.projectionDigest && projection.disposition.disposition === "controlled_terminate" &&
+         p.timeoutClass === (projection.hardCapReached ? "absolute" : "inactivity") &&
+         p.timeoutMs === (projection.hardCapReached ? context.binding.policy.hardCapMs : context.binding.policy.inactivityMs) &&
+-        reconstruction.some(ordinal, ["actor_process_started"], e => e.kind === "actor_process_started" && e.aggregateId === p.processRef && record(e.payload) && e.payload.actorInvocationRef === actor);
++        reconstruction.someIdentified(ordinal, [["actor_process_started", actor]], e => e.kind === "actor_process_started" && e.aggregateId === p.processRef && record(e.payload) && e.payload.actorInvocationRef === actor);
+     }
+     if (probe === null || !isRuntimeProbeObservation(p.observation) ||
+         p.observation.scopeDigest !== digest(context.scope) ||
+@@ -528,14 +628,19 @@
+         (p.observation.signal === "external_interruption") !== (event.kind === "runtime_external_interruption_observed")) return false;
+     const underlyingEventRef = p.observation.underlyingEventRef;
+     const frameOccurrence = context.scope.actorInvocationRef === null && context.scope.cCallRef === null;
+-    const previousEvent = reconstruction.byOrdinal.get(ordinal);
++    const previousEvent = reconstruction.envelopeAt(ordinal);
+     const terminalFrameSample = frameOccurrence && previousEvent?.kind === "frame_closed" &&
+       previousEvent?.eventId === underlyingEventRef && previousEvent?.frameId === context.scope.frameId;
+     const frameScopeDigest = frameOccurrence ? digest(context.scope) : null;
+     if (frameOccurrence && (reconstruction.observationRows(frameScopeDigest!, ordinal)).some(e => e.admissionOrdinal <= ordinal && e.kind === "runtime_activity_probe_observed" && record(e.payload) &&
+         isRuntimeProbeObservation(e.payload.observation) && e.payload.observation.scopeDigest === frameScopeDigest &&
+         e.payload.observation.underlyingEventRef === underlyingEventRef)) return false;
+-    if (reconstruction.some(ordinal, ["run_closed", "run_stopped", "graph_call_closed", "frame_closed", "runtime_failure_observed", "c_call_judged"], e => (e.kind === "run_closed" || e.kind === "run_stopped") && e.runId === context.scope.runId ||
++    // Each kind is selected by the identity its disjunct compares; a kind no
++    // disjunct can match for this occurrence is not read.
++    if (reconstruction.someIdentified(ordinal, [["run_closed", context.scope.runId], ["run_stopped", context.scope.runId],
++        ["graph_call_closed", context.scope.graphCallId], ["frame_closed", context.scope.frameId],
++        ...(frameOccurrence ? [["runtime_failure_observed", context.scope.runId] as const] : []),
++        ...(context.scope.cCallRef !== null ? [["c_call_judged", context.scope.cCallRef] as const] : [])], e => (e.kind === "run_closed" || e.kind === "run_stopped") && e.runId === context.scope.runId ||
+         e.kind === "graph_call_closed" && e.graphCallId === context.scope.graphCallId ||
+         e.kind === "frame_closed" && e.frameId === context.scope.frameId && !terminalFrameSample ||
+         frameOccurrence && frameFailureApplies(e, context.scope) ||
+@@ -596,16 +701,16 @@
+         !(budget.continuationRef === null || typeof budget.continuationRef === "string" && budget.continuationRef.length > 0) ||
+         !["block", "escalate", "reprice_policy"].includes(budget.terminalPolicy) ||
+         budget.remaining !== null && (!Number.isSafeInteger(budget.remaining) || budget.remaining < 0)) return null;
+-    const rows = reconstruction.observations.get(scopeDigest) ?? events().filter(e =>
++    const rows = reconstruction.observationEnvelopes(scopeDigest) ?? events().filter(e =>
+       (e.kind === "runtime_activity_probe_observed" || e.kind === "runtime_external_interruption_observed") &&
+       record(e.payload) && isRuntimeProbeObservation(e.payload.observation) && e.payload.observation.scopeDigest === scopeDigest);
+     const foldKey = (context.scope.actorInvocationRef === null && context.scope.cCallRef === null
+-      ? reconstruction.contextStamp(ordinal, occurrence) + "/duplicates:" + (reconstruction.duplicateDeclarationAt[ordinal] ?? 0)
++      ? reconstruction.contextStamp(ordinal, occurrence) + "/duplicates:" + reconstruction.duplicateDeclarationOrdinal(ordinal)
+       : reconstruction.contextStamp(ordinal, occurrence)) + "/" + scopeDigest;
+     const later = reconstruction.folds.get(foldKey);
+     const historical = later !== undefined && later.rowCount > 0 && rows[later.rowCount - 1]!.admissionOrdinal > ordinal;
+     const folds = historical ? reconstruction.historicalFolds : reconstruction.folds;
+-    const previous = folds.get(foldKey);
++    const previous = folds.get(foldKey) ?? (historical ? undefined : reconstruction.inheritedFold(foldKey));
+     folds.delete(foldKey);
+     // The index owns the immutable sequence. A reverse read starts a fresh fold
+     // in its selected lane; successful increasing cuts retain that lane's work.
+@@ -657,19 +762,19 @@
+     obligations.push(...rowObligations);
+     folds.set(foldKey, { rowCount, obligations: rowObligations, seen, sourceTimes, coverage, evidenceRefs, systemActivity,
+       lastElapsed, maxElapsed, lastActivity, interrupted, lastArtifactObservationRef, artifactState });
+-    const any = (kinds: readonly RuntimeEvent["kind"][], predicate: (event: RuntimeEvent) => boolean) =>
+-      reconstruction.some(ordinal, kinds, predicate);
++    const any = (selectors: readonly (readonly [RuntimeEvent["kind"], unknown])[], predicate: (event: RuntimeEvent) => boolean) =>
++      reconstruction.someIdentified(ordinal, selectors, predicate);
+     const policy = context.binding.policy;
+     const leaseDeadlineElapsedMs = policy === null ? null : lastActivity === null ? policy.startupMs : lastActivity + policy.inactivityMs;
+     const hardCapReached = policy !== null && sample.elapsedMs >= policy.hardCapMs;
+     const leaseExpired = leaseDeadlineElapsedMs !== null && sample.elapsedMs >= leaseDeadlineElapsedMs;
+     const completeCoverage = context.probes.every(p => !p.required || coverage.has(p.probeRef));
+     const actorRef = context.scope.actorInvocationRef;
+-    const actorDone = actorRef !== null && any(["actor_invocation_closed", "actor_invocation_failed"], e => e.aggregateId === actorRef);
++    const actorDone = actorRef !== null && any([["actor_invocation_closed", actorRef], ["actor_invocation_failed", actorRef]], e => e.aggregateId === actorRef);
+     const frameOccurrence = actorRef === null && context.scope.cCallRef === null;
+-    if (frameOccurrence && any(["run_stopped", "runtime_failure_observed"], e => (e.kind === "run_stopped" && e.runId === context.scope.runId) ||
++    if (frameOccurrence && any([["run_stopped", context.scope.runId], ["runtime_failure_observed", context.scope.runId]], e => (e.kind === "run_stopped" && e.runId === context.scope.runId) ||
+         frameFailureApplies(e, context.scope))) interrupted = true;
+-    const occurrenceDone = actorDone || actorRef === null && any(["frame_closed", "c_call_judged"], e => frameOccurrence
++    const occurrenceDone = actorDone || actorRef === null && any(frameOccurrence ? [["frame_closed", context.scope.frameId]] : [["c_call_judged", context.scope.cCallRef]], e => frameOccurrence
+       ? e.kind === "frame_closed" && e.frameId === context.scope.frameId
+       : e.kind === "c_call_judged" && e.aggregateId === context.scope.cCallRef);
+     // Process liveness is the fold's actor_process_live, read by the caller:
+@@ -678,7 +783,7 @@
+     // event); in the public path at the prefix itself. The start event only
+     // binds processRef.
+     const started = { processRef: null as string | null };
+-    const processLive = actorRef !== null && any(["actor_process_started"], e => {
++    const processLive = actorRef !== null && any([["actor_process_started", actorRef]], e => {
+       if (!record(e.payload) || e.payload.actorInvocationRef !== actorRef) return false;
+       started.processRef = e.aggregateId; return true;
+     }) && !actorDone && started.processRef !== null && processLiveAt(started.processRef);
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts
+@@ -595,7 +595,7 @@
+       admissionEventRef: admission.admissionEventRef,
+     }));
+   }
+-  const publicRunEventRefs = indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted")
++  const publicRunEventRefs = indexedRuntimeEvents(prefix, "public-operation:" + "abg.operation.run.invoke")
+     .filter((event) =>
+       event.kind === "public_operation_admitted" &&
+       isRecord(event.payload) &&
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts
+@@ -1,4 +1,3 @@
+-import type { RuntimeEventScan } from "./runtime_history.js";
+ import { isQualificationReferenceForm, resolveQualificationAssessment, resolveQualificationProof, resolveSelfConformanceInput, type QualificationResources } from "../validator/qualification_resources.js";
+ import { canonicalJson } from "../shared/canonical_json.js";
+ import { isDeepStrictEqual } from "node:util";
+@@ -10,14 +9,14 @@
+ import { modulePublicationSemanticDigest } from "../product/publication.js";
+ import { reconstructHistoricalDeclarationCatalog, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
+ import { projectExactPrefixWorkspaceEnvironment, projectWorkspaceEnvironmentFromArtifactTruth, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
+-import { projectExactPrefixArtifactTruth, runtimePrefixFromArtifactTruth, type ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
++import { projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth, type ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
+ import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
+ import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
+ import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix,
+   type RehydratedAdmittedCCallState, type AdmittedCCallEvidence, type AdmittedCCallResult, type AdmittedCCallJudgment } from "./c_call.js";
+ import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
+-import { readRuntimeEventsAtDurablePrefix, assertDurableRuntimePrefixCurrent, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
+-import { selectValidatedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix, runtimePrefixComputation, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
++import { assertDurableRuntimePrefixCurrent, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
++import { indexedRuntimeEvents, readOwnedRuntimeEventPrefixAtDurablePrefix, runtimePrefixComputation, type RuntimeEventPrefix } from "./event_prefix.js";
+ import { projectFhContinuations } from "./fh_continuation_projection.js";
+ import { deriveRuntimeEventCalculusProjection } from "./event_calculus.js";
+ import { GraphCallProjectionPort, projectRunTruthAtDurablePrefix } from "./project_read_ports.js";
+@@ -93,7 +92,7 @@
+   const facts = executionProofFacts.get(proof);
+   const selectedResources = resources ?? facts?.resources, selectedCatalogs = catalogs ?? facts?.catalogs;
+   const resolved = resolveQualificationProof(proof, selectedResources);
+-  if (facts !== undefined || resources !== undefined || catalogs !== undefined) executionProofFacts.set(resolved, { ...facts, events: facts?.events ?? readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate), environments: facts?.environments ?? new Map(), ...(selectedResources === undefined ? {} : { resources: selectedResources }),
++  if (facts !== undefined || resources !== undefined || catalogs !== undefined) executionProofFacts.set(resolved, { ...facts, prefix: facts?.prefix ?? readOwnedRuntimeEventPrefixAtDurablePrefix(proof.prefix as DurablePrefixCoordinate), environments: facts?.environments ?? new Map(), ...(selectedResources === undefined ? {} : { resources: selectedResources }),
+     ...(selectedCatalogs === undefined ? {} : { catalogs: selectedCatalogs }) });
+   return resolved;
+ }
+@@ -114,7 +113,7 @@
+   readonly assessments = new Map<string, { input: NativeRuntimeAssessmentInput; value: Readonly<NativeRuntimeAssessment> }>();
+   readonly verdicts = new Map<string, { input: QualificationVerdictInput; value: Readonly<ExactCandidateQualification<"verdict">> }>();
+ }
+-const nativeFacts = (prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>) =>
++const nativeFacts = (prefix: RuntimeEventPrefix) =>
+   runtimePrefixComputation(prefix, NATIVE_PROOF, () => new NativeProofDerivation());
+ // Equality is only a positive reuse discriminator for an already authenticated
+ // immutable fact. The canonical relation remains the fallback for all data:
+@@ -130,32 +129,35 @@
+ // One operation borrows each authenticated source prefix and workspace
+ // projection. These private associations cannot be supplied in JSON or confer
+ // authority on copied coordinates. The existing cold owners still acquire it.
+-type ExecutionSourceFacts = { events: readonly RuntimeEvent[];
++// The carrier is the owner's prefix: joins select their rows through its
++// indexes, and no complete event vector crosses an owner boundary.
++type ExecutionSourceFacts = { prefix: RuntimeEventPrefix;
+   artifactTruth?: ExactPrefixArtifactTruthProjection;
+   environments: Map<string, ReturnType<typeof projectExactPrefixWorkspaceEnvironment>>; resources?: QualificationResources | undefined;
+   catalogs?: QualificationCatalogs | undefined };
+ const executionProofFacts = new WeakMap<QualificationProofResource, ExecutionSourceFacts>();
+ function acquireExecutionSource(coordinate: DurablePrefixCoordinate): ExecutionSourceFacts | null {
+-  const artifactTruth = projectExactPrefixArtifactTruth(coordinate);
++  // A copied coordinate authenticates cold; an established one borrows its receipt.
++  const artifactTruth = projectOwnedPrefixArtifactTruth(coordinate);
+   if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return null;
+-  const prefix = runtimePrefixFromArtifactTruth(artifactTruth);
+-  if (prefix === null) return null;
+-  return { events: runtimeEventsFromValidatedPrefix(prefix), artifactTruth, environments: new Map() };
+-}
+-function proofEvents(proof: QualificationProofResource): readonly RuntimeEvent[] {
+-  return executionProofFacts.get(proof)?.events ?? readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
++  const prefix = runtimePrefixFromOwnedArtifactTruth(artifactTruth);
++  if (prefix === null || prefix.kind === "runtime_validation_event_prefix") return null;
++  return { prefix, artifactTruth, environments: new Map() };
++}
++function proofPrefix(proof: QualificationProofResource): RuntimeEventPrefix {
++  return executionProofFacts.get(proof)?.prefix ?? readOwnedRuntimeEventPrefixAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
+ }
+ function graphOwner(coordinate: DurablePrefixCoordinate, ref: string, declarations: readonly AbgHistoricalDeclarationProof[], source?: ExecutionSourceFacts) {
+-  const events = source?.events ?? readRuntimeEventsAtDurablePrefix(coordinate), prefix = selectValidatedRuntimeEventPrefix(events);
+-  const opened = exactOrNull(onlyExactMatch(events.filter(e => e.kind === "c_call_opened" && e.aggregateId === ref)));
++  const prefix = source?.prefix ?? readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate);
++  const opened = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "related:" + ref).filter(e => e.kind === "c_call_opened" && e.aggregateId === ref)));
+   if (opened === null) return null;
+   const facts = nativeFacts(prefix), known = facts.graphs.get(ref);
+   if (known !== undefined && referenceDependencies(known.root.rawInputValue, source?.resources) === false) return null;
+   const selectedProofs = known === undefined ? [] : (declarations.length === 0 ? [known.proof] :
+     declarations.filter(d => d.catalog?.basisDigest === known.root.catalogBasisDigest && d.catalogView?.viewDigest === known.root.catalogViewDigest));
+   if (known !== undefined && known.opened === opened && selectedProofs.length === 1 && sameFact(selectedProofs[0], known.proof))
+-    return { ...known, events, prefix };
+-  const owner = deriveGraphOwner(coordinate, ref, declarations, events, prefix, opened, source);
++    return { ...known, prefix };
++  const owner = deriveGraphOwner(coordinate, ref, declarations, prefix, opened, source);
+   // Retention owns a distinct small wrapper. The returned projection view
+   // remains caller-editable without editing an authenticated retained fact.
+   if (owner !== null) facts.graphs.set(ref, Object.freeze({ ...owner }));
+@@ -164,7 +166,7 @@
+ /** Reuses the historical Product verifier and native CCall owner. No supplied
+  * declaration becomes authority by passing its own structural guard. */
+ function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: string, declarations: readonly AbgHistoricalDeclarationProof[],
+-  events: readonly RuntimeEvent[], prefix: ValidatedRuntimeEventPrefix, opened: RuntimeEvent, source?: ExecutionSourceFacts) {
++  prefix: RuntimeEventPrefix, opened: RuntimeEvent, source?: ExecutionSourceFacts) {
+   const execution = opened?.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prefix, opened.basisId);
+   if (execution === null || opened === null) return null;
+   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
+@@ -185,9 +187,9 @@
+       : projectWorkspaceEnvironmentFromArtifactTruth(source.artifactTruth, coord(root.workspaceBindingId, root.workspaceBindingDigest)));
+   source?.environments.set(environmentKey, environment);
+   if (environment.kind !== "exact_prefix_workspace_environment") return null;
+-  const invocationEvent = exactOrNull(onlyExactMatch(events.filter(e => e.eventId === invocation.admissionEventRef)));
++  const invocationEvent = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "id:" + invocation.admissionEventRef).filter(e => e.eventId === invocation.admissionEventRef)));
+   if (invocationEvent === null || [...environment.productInstalls.map(i => i.admissionEventRef), environment.workspaceBinding.admissionEventRef].some(ref =>
+-    events.filter(e => e.eventId === ref && e.admissionOrdinal < invocationEvent.admissionOrdinal).length !== 1)) return null;
++    indexedRuntimeEvents(prefix, "id:" + ref).filter(e => e.eventId === ref && e.admissionOrdinal < invocationEvent.admissionOrdinal).length !== 1)) return null;
+   if (!referenceDependencies(root.rawInputValue, source?.resources)) return null;
+   const supplied = declarations.length === 0 ? declarationsOf(root.rawInputValue, source?.resources, source?.catalogs) : declarations;
+   const proofs = supplied.filter(d => d.catalog?.basisDigest === root.catalogBasisDigest && d.catalogView?.viewDigest === root.catalogViewDigest);
+@@ -238,11 +240,12 @@
+   // an outer workflow passes each child's own admitted raw input. This does not
+   // infer arbitrary same-graph intermediate values from result bytes.
+   const input = execution.rawInputValue;
+-  return { events, prefix, opened, execution, root, invocation, environment, closure, publication, graph, call, resolution, input, proof: ownedProof };
++  return { prefix, opened, execution, root, invocation, environment, closure, publication, graph, call, resolution, input, proof: ownedProof };
+ }
+ function stateAt(owner: NonNullable<ReturnType<typeof graphOwner>>): RehydratedAdmittedCCallState | null {
+-  const result = exactOrNull(onlyExactMatch(owner.events.filter(e => e.kind === "c_call_result_admitted" && e.aggregateId === owner.call.cCallRef)));
+-  const judgment = exactOrNull(onlyExactMatch(owner.events.filter(e => e.kind === "c_call_judged" && e.aggregateId === owner.call.cCallRef)));
++  const related = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef);
++  const result = exactOrNull(onlyExactMatch(related.filter(e => e.kind === "c_call_result_admitted" && e.aggregateId === owner.call.cCallRef)));
++  const judgment = exactOrNull(onlyExactMatch(related.filter(e => e.kind === "c_call_judged" && e.aggregateId === owner.call.cCallRef)));
+   if (result === null || judgment === null || !record(result.payload) || !record(judgment.payload)) return null;
+   const facts = nativeFacts(owner.prefix), known = facts.states.get(owner.call.cCallRef);
+   if (known?.result === result && known.judgment === judgment) return known.value;
+@@ -280,13 +283,22 @@
+   };
+   return countGraph(owner.root.graphFunctionRef, []) === 1;
+ }
++/** The admitted consumer owner. Its source prefix stays with this owner; only
++ * the internal relation below carries it to the joins that select from it. */
+ export function projectQualificationConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources,
+   catalogs?: QualificationCatalogs) {
++  const owner = qualificationConsumerOwner(basis, input, requireCurrent, resources, catalogs);
++  if (owner === null) return null;
++  const { prefix: _prefix, ...value } = owner;
++  return value;
++}
++function qualificationConsumerOwner(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources,
++  catalogs?: QualificationCatalogs) {
+   try {
+     if (!referenceDependencies(input, resources)) return null;
+-    const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
++    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
+     const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input, resources, catalogs),
+-      { events, environments: new Map(), ...(resources === undefined ? {} : { resources }), ...(catalogs === undefined ? {} : { catalogs }) });
++      { prefix, environments: new Map(), ...(resources === undefined ? {} : { resources }), ...(catalogs === undefined ? {} : { catalogs }) });
+     if (owner === null || !QUALIFICATION_IMPLEMENTATION_REFS.includes(owner.call.implementationRef ?? "") ||
+         !sameFact(owner.input, input) || projectCCallCarrierPhaseAtPrefix(owner.prefix, owner.call)?.phase !== "selected_no_evidence") return null;
+     if (requireCurrent && owner.call.implementationRef === SELF && record(input) && record(input.qualification) &&
+@@ -334,7 +346,7 @@
+         !canonicalEquals(source.state.result.value, assessment) || !sameFact(source.owner.input, assessment.input) ||
+         !malformedSubjectMatches(source.owner, assessment.input) ||
+         projectQualificationConsumer(assessment.nativeBasis, assessment.input, false, undefined, catalogs) === null) return false;
+-    const competitors = source.owner.events.filter(e => e.kind === "c_call_opened" && e.aggregateId !== source.state.cCall.cCallRef)
++    const competitors = indexedRuntimeEvents(source.owner.prefix, "kind:c_call_opened").filter(e => e.kind === "c_call_opened" && e.aggregateId !== source.state.cCall.cCallRef)
+       .map(e => nativeState(proof, e.aggregateId)).filter(s => s !== null && s.state.cCall.callClass === "leaf" &&
+         s.state.cCall.implementationRef === MALFORMED_ASSESS && s.state.cCall.programLocusRef === source.state.cCall.programLocusRef &&
+         s.owner.execution.invocationAdmissionRef === source.owner.execution.invocationAdmissionRef &&
+@@ -344,11 +356,11 @@
+ }
+ /** Exclude only calls unable to affect the selected uniqueness relation.
+  * Every potentially eligible successful producer still enters nativeState. */
+-function eligibleCalls(events: RuntimeEventScan, selected: GraphOwner, implementation?: string) {
+-  const results = new Set(events.filter(e => e.kind === "c_call_result_admitted").map(e => e.aggregateId));
+-  const implementations = implementation === undefined ? null : new Set(events.filter(e =>
++function eligibleCalls(prefix: RuntimeEventPrefix, selected: GraphOwner, implementation?: string) {
++  const results = new Set(indexedRuntimeEvents(prefix, "kind:c_call_result_admitted").filter(e => e.kind === "c_call_result_admitted").map(e => e.aggregateId));
++  const implementations = implementation === undefined ? null : new Set(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected").filter(e =>
+     e.kind === "c_call_fibre_selected" && record(e.payload) && e.payload.implementationRef === implementation).map(e => e.aggregateId));
+-  return events.filter(e => e.kind === "c_call_opened" && record(e.payload) &&
++  return indexedRuntimeEvents(prefix, "kind:c_call_opened").filter(e => e.kind === "c_call_opened" && record(e.payload) &&
+     e.payload.callClass === "leaf" && e.payload.programLocusRef === selected.call.programLocusRef &&
+     results.has(e.aggregateId) && (implementations === null || implementations.has(e.aggregateId)) &&
+     // All callers select uniqueness within this admitted invocation. Resolve
+@@ -374,7 +386,7 @@
+   if (evidence.length !== 1 || evidence[0]!.evidenceClass !== "deterministic" ||
+     evidence[0]!.implementationRef !== step.implementationRef || evidence[0]!.inputDigest !== step.inputDigest ||
+     evidence[0]!.outputDigest !== selected.state.result.valueDigest) return null;
+-  const peers = eligibleCalls(selected.owner.events, selected.owner).map(e => nativeState(proof, e.aggregateId)).filter(s =>
++  const peers = eligibleCalls(selected.owner.prefix, selected.owner).map(e => nativeState(proof, e.aggregateId)).filter(s =>
+     s !== null && s.state.cCall.callClass === "leaf" && s.state.cCall.programLocusRef === step.slotRef &&
+     s.owner.execution.invocationAdmissionRef === c.invocationAdmissionRef && s.owner.execution.graphFunctionRef === c.graphFunction.ref &&
+     s.state.result.resultClass === "success" && s.state.judgment.judgment === "advance");
+@@ -408,7 +420,7 @@
+             call.frameId !== first.state.cCall.frameId || call.basisId !== first.state.cCall.basisId) return null;
+         if (i > 0) {
+           const previous = sources[i - 1]!;
+-          const judgment = exactOrNull(onlyExactMatch(previous.owner.events.filter(e => e.kind === "c_call_judged" && e.aggregateId === previous.state.cCall.cCallRef)));
++          const judgment = exactOrNull(onlyExactMatch(indexedRuntimeEvents(previous.owner.prefix, "related:" + previous.state.cCall.cCallRef).filter(e => e.kind === "c_call_judged" && e.aggregateId === previous.state.cCall.cCallRef)));
+           if (judgment === null || judgment.admissionOrdinal >= source.owner.opened.admissionOrdinal ||
+               steps[i]!.inputDigest !== previous.state.result.valueDigest) return null;
+         }
+@@ -422,7 +434,7 @@
+         substituteRefused: producerForResult(proof, coord(step.result.ref, step.substituteResultDigest)) === null };
+     });
+     const facts = nativeFacts(selected.owner.prefix), terminalKey = selected.state.cCall.graphCallId;
+-    const runRows = selected.owner.events.filter(e => e.runId === selected.state.cCall.runId);
++    const runRows = indexedRuntimeEvents(selected.owner.prefix, "run:" + selected.state.cCall.runId).filter(e => e.runId === selected.state.cCall.runId);
+     const knownTerminal = facts.terminals.get(terminalKey);
+     const retainedTerminal = knownTerminal !== undefined && runRows.length === knownTerminal.rows.length &&
+       runRows.every((e, i) => e === knownTerminal.rows[i]) ? knownTerminal : undefined;
+@@ -448,13 +460,12 @@
+   try {
+     if (!referenceDependencies(input, resources)) return null;
+     const coordinate = basis.predecessorPrefix as DurablePrefixCoordinate;
+-    const events = readRuntimeEventsAtDurablePrefix(coordinate, { requireCurrent });
+-    const facts = nativeFacts(selectValidatedRuntimeEventPrefix(events)), key = coordinate.coordinateDigest + ":" + basis.cCallRef;
++    const facts = nativeFacts(readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate, { requireCurrent })), key = coordinate.coordinateDigest + ":" + basis.cCallRef;
+     const known = facts.assessments.get(key);
+     if (known !== undefined && sameFact(known.input, input)) return known.value;
+     if (!isNativeRuntimeAssessmentInput(input, catalogs) || !proofWithin(input.proof, basis)) return null;
+-    readRuntimeEventsAtDurablePrefix(reidentifyHistoricalDurablePrefixCoordinate(coordinate, input.proof.prefix as DurablePrefixCoordinate));
+-    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources, catalogs);
++    readOwnedRuntimeEventPrefixAtDurablePrefix(reidentifyHistoricalDurablePrefixCoordinate(coordinate, input.proof.prefix as DurablePrefixCoordinate));
++    const owner = qualificationConsumerOwner(basis, input, requireCurrent, resources, catalogs);
+     if (owner === null || owner.call.implementationRef !== RUNTIME_ASSESS) return null;
+     const cases = nativeRuntimeCases(input, { ...input.proof, prefix: basis.predecessorPrefix });
+     if (cases === null) return null;
+@@ -477,7 +488,7 @@
+       !sameFact(source.state.result.value, assessment) || !sameFact(projectNativeRuntimeAssessment({ ...assessment.nativeBasis,
+         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(proof.prefix as DurablePrefixCoordinate,
+           assessment.nativeBasis.predecessorPrefix as DurablePrefixCoordinate) }, assessment.input, false, undefined, catalogs), assessment)) return false;
+-    const peers = eligibleCalls(source.owner.events, source.owner, RUNTIME_ASSESS).map(e => nativeState(proof, e.aggregateId)).filter(s =>
++    const peers = eligibleCalls(source.owner.prefix, source.owner, RUNTIME_ASSESS).map(e => nativeState(proof, e.aggregateId)).filter(s =>
+       s !== null && s.state.cCall.callClass === "leaf" && s.state.cCall.implementationRef === RUNTIME_ASSESS &&
+       s.state.cCall.programLocusRef === source.state.cCall.programLocusRef && s.owner.execution.invocationAdmissionRef === source.owner.execution.invocationAdmissionRef &&
+       s.state.result.resultClass === "success" && s.state.judgment.judgment === "advance");
+@@ -489,7 +500,7 @@
+   catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
+   try {
+     if (!referenceDependencies(input, resources)) return null;
+-    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources, catalogs);
++    const owner = qualificationConsumerOwner(basis, input, requireCurrent, resources, catalogs);
+     if (owner === null || owner.call.implementationRef !== RULING) return null;
+     const admittedInput = admitJson(input);
+     if (admittedInput.kind !== "ok") return null;
+@@ -497,7 +508,7 @@
+       c.runId === owner.call.runId && (c.status === "responded" || c.status === "resolved") && canonicalEquals(c.responseValue, admittedInput.value));
+     const row = exactOrNull(onlyExactMatch(rows)); if (row === null) return null;
+     const requestOwner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, row.cCallRef, [owner.proof]);
+-    const response = exactOrNull(onlyExactMatch(owner.events.filter(e => e.eventId === row.respondedEventRef)));
++    const response = exactOrNull(onlyExactMatch(indexedRuntimeEvents(owner.prefix, "id:" + row.respondedEventRef).filter(e => e.eventId === row.respondedEventRef)));
+     if (requestOwner === null || requestOwner.call.regime !== "F_H" || requestOwner.call.actorCapabilityRef !== QUALIFICATION_ROLE_POLICY.authorityRef ||
+         response === null || response.kind !== "fh_interaction_responded" || !record(response.payload) || typeof response.payload.actorRef !== "string" ||
+         response.payload.capabilityRef !== QUALIFICATION_ROLE_POLICY.authorityRef ||
+@@ -516,15 +527,15 @@
+   if (owner === null || state === null) return null;
+   // These rows are consumed only after the existing native outcome projector
+   // authenticates the exact evidence/result/judgment relation above.
+-  const evidence = owner.events.filter(e => e.kind === "c_call_evidenced" && e.aggregateId === ref &&
++  const evidence = indexedRuntimeEvents(owner.prefix, "related:" + ref).filter(e => e.kind === "c_call_evidenced" && e.aggregateId === ref &&
+     record(e.payload) && state.result.evidenceRefs.includes(String(e.payload.evidenceRef))).map(e =>
+       ({ ...e.payload as Record<string, JsonValue>, admissionEventRef: e.eventId }) as unknown as AdmittedCCallEvidence);
+   return { owner, state: { ...state, evidence } };
+ }
+ /** Parent folds alias only through the authenticated sub-traversal evidence. */
+ function producerForResult(proof: QualificationProofResource, result: QualificationCoordinate) {
+-  const events = proofEvents(proof);
+-  const event = exactOrNull(onlyExactMatch(events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
++  const prefix = proofPrefix(proof);
++  const event = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "payload:resultRef:" + result.ref).filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
+     e.payload.resultRef === result.ref && e.payload.resultDigest === result.digest)));
+   if (event === null) return null;
+   let current = nativeState(proof, event.aggregateId); const seen = new Set<string>();
+@@ -533,7 +544,7 @@
+     seen.add(current.state.cCall.cCallRef);
+     const evidence = exactOrNull(onlyExactMatch(current.state.evidence.filter(e => e.evidenceClass === "sub_traversal")));
+     if (evidence?.childResultRef === undefined || evidence.childResultDigest === undefined) return null;
+-    const child = exactOrNull(onlyExactMatch(events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
++    const child = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "payload:resultRef:" + evidence.childResultRef).filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
+       e.payload.resultRef === evidence.childResultRef && e.payload.resultDigest === evidence.childResultDigest)));
+     if (child === null || child.graphCallId !== evidence.childGraphCallId) return null;
+     const next = nativeState(proof, child.aggregateId);
+@@ -556,7 +567,7 @@
+     if (selected === null || selected.owner.execution.programRef !== selection.programRef ||
+         selected.owner.execution.invocationAdmissionRef !== selection.invocationAdmissionRef) return null;
+     const eligible: { cCallRef: string; value: QualificationJudgment }[] = [];
+-    for (const event of selected.owner.events.filter(e => e.kind === "c_call_opened")) {
++    for (const event of indexedRuntimeEvents(selected.owner.prefix, "kind:c_call_opened").filter(e => e.kind === "c_call_opened")) {
+       const candidate = nativeState(proof, event.aggregateId);
+       if (candidate === null || candidate.state.cCall.callClass !== "leaf" || candidate.state.cCall.implementationRef !== ASSESS ||
+           candidate.owner.execution.programRef !== selection.programRef || candidate.owner.execution.invocationAdmissionRef !== selection.invocationAdmissionRef ||
+@@ -568,9 +579,9 @@
+       const value = candidate.state.result.value, transport = exactOrNull(onlyExactMatch(candidate.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport")));
+       const view = resolveQualificationAssessment(candidate.owner.input, resources ?? executionProofFacts.get(proof)?.resources);
+       const preparation = graphOwner(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate, value.nativeBasis.cCallRef, view.task.declarations,
+-        { events: readRuntimeEventsAtDurablePrefix(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources: resources ?? executionProofFacts.get(proof)?.resources,
++        { prefix: readOwnedRuntimeEventPrefixAtDurablePrefix(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources: resources ?? executionProofFacts.get(proof)?.resources,
+           catalogs: selectedCatalogs });
+-      const started = exactOrNull(onlyExactMatch(candidate.owner.events.filter(e => e.kind === "actor_invocation_started" && e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef)));
++      const started = exactOrNull(onlyExactMatch(indexedRuntimeEvents(candidate.owner.prefix, "related:" + value.source.actorInvocationRef).filter(e => e.kind === "actor_invocation_started" && e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef)));
+       if (!canonicalEquals(value.task, candidate.owner.input.task) || !canonicalEquals(value.plan, plan) ||
+           !qualificationRawMatches(candidate.owner.input, value.raw, view, selectedCatalogs) || preparation === null || started === null || !record(started.payload) ||
+           preparation.call.cCallRef !== candidate.state.cCall.cCallRef || preparation.execution.basisDigest !== candidate.owner.execution.basisDigest ||
+@@ -587,7 +598,7 @@
+           value.source.requestDigest !== transport.requestDigest || value.source.actorInvocationRef !== transport.actorInvocationRef ||
+           value.source.transportBindingRef !== transport.transportBindingRef || value.source.transportBindingDigest !== transport.transportBindingDigest ||
+           value.source.rawValueDigest !== hash(value.raw)) continue;
+-      const artifact = exactOrNull(onlyExactMatch(candidate.owner.events.filter(e => e.kind === "actor_result_artifact_observed" &&
++      const artifact = exactOrNull(onlyExactMatch(indexedRuntimeEvents(candidate.owner.prefix, "related:" + value.source.actorInvocationRef).filter(e => e.kind === "actor_result_artifact_observed" &&
+         e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef)));
+       if (artifact === null || !record(artifact.payload) || typeof artifact.payload.finalOutput !== "string") continue;
+       const finalOutput: JsonValue = JSON.parse(artifact.payload.finalOutput);
+@@ -606,13 +617,13 @@
+   catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
+   try {
+     proof = ownedProof(proof, resources, catalogs);
+-    const events = readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate), prefix = selectValidatedRuntimeEventPrefix(events);
++    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
+     const rows = projectFhContinuations(prefix, deriveRuntimeEventCalculusProjection(prefix)).filter(c =>
+       c.continuationRef === selection.continuationRef && c.requestRef === selection.request.ref &&
+       c.requestDigest === selection.request.digest && (c.status === "responded" || c.status === "resolved"));
+     const row = exactOrNull(onlyExactMatch(rows)); if (row === null) return null;
+     const owner = graphOwner(proof.prefix as DurablePrefixCoordinate, row.cCallRef, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof));
+-    const response = exactOrNull(onlyExactMatch(events.filter(e => e.eventId === row.respondedEventRef)));
++    const response = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "id:" + row.respondedEventRef).filter(e => e.eventId === row.respondedEventRef)));
+     if (owner === null || owner.call.regime !== "F_H" || owner.call.actorCapabilityRef !== plan.ownerAuthorityRef ||
+         response === null || response.kind !== "fh_interaction_responded" || !record(response.payload) || response.payload.actorRef !== plan.ownerActorRef || response.payload.capabilityRef !== plan.ownerAuthorityRef ||
+         !record(owner.input) || owner.input.slotRef !== selection.slotRef || owner.input.actorRef !== plan.ownerActorRef ||
+@@ -666,8 +677,8 @@
+       const ruling = projectQualificationOwnerRuling(proof, plan, selected[0]!, undefined, catalogs);
+       if (ruling?.disposition !== "acknowledged") return null;
+       const selectedContinuationRef = selected[0]!.continuationRef;
+-      const events = proofEvents(proof);
+-      const continuation = projectFhContinuations(selectValidatedRuntimeEventPrefix(events), deriveRuntimeEventCalculusProjection(selectValidatedRuntimeEventPrefix(events)))
++      const prefix = proofPrefix(proof);
++      const continuation = projectFhContinuations(prefix, deriveRuntimeEventCalculusProjection(prefix))
+         .find(c => c.continuationRef === selectedContinuationRef);
+       const request = continuation === undefined ? null : graphOwner(proof.prefix as DurablePrefixCoordinate, continuation.cCallRef, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof))?.input;
+       if (!record(request) || (request.recordSet === undefined || !canonicalEquals(request.recordSet, provenance.recordSet)) || (request.attributedIdentities === undefined || !canonicalEquals(request.attributedIdentities, identityPairs))) return null;
+@@ -682,10 +693,10 @@
+     if (!proofWithin(proof, consumer) || !qualificationPlanMatches(plan)) return null;
+     // Re-read the exact resource prefix: a declared earlier prefix cannot stand
+     // for bytes from another store, even when their values match.
+-    readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
++    readOwnedRuntimeEventPrefixAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
+     const currentProof = { ...proof, prefix: consumer.predecessorPrefix };
+     const inherited = executionProofFacts.get(proof);
+-    if (inherited !== undefined) executionProofFacts.set(currentProof, { ...inherited, events: readRuntimeEventsAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate) });
++    if (inherited !== undefined) executionProofFacts.set(currentProof, { ...inherited, prefix: readOwnedRuntimeEventPrefixAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate) });
+     const out: QualificationJudgment[] = [];
+     for (const slot of plan.slots) {
+       const selections = proof.selections.filter((s): s is Extract<QualificationEvidenceSelection, { kind: "judgment_selection" }> =>
+@@ -707,7 +718,7 @@
+   catalogs?: QualificationCatalogs): boolean {
+   try {
+     const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input, resources, catalogs),
+-      resources === undefined && catalogs === undefined ? undefined : { events: readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(),
++      resources === undefined && catalogs === undefined ? undefined : { prefix: readOwnedRuntimeEventPrefixAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(),
+         ...(resources === undefined ? {} : { resources }), ...(catalogs === undefined ? {} : { catalogs }) });
+     if (owner === null) return false;
+     const install = exactOrNull(onlyExactMatch(owner.environment.productInstalls.filter(i => i.productId === manifest.productId)));
+@@ -735,8 +746,7 @@
+     refs = new Set(selections.flatMap(s => s.source === undefined ? [] : [s.source.sourceRef]));
+   if (!unique(sources.map(s => s.sourceRef)) || !unique(sources.map(s => hash([s.prefix, s.basis, s.declarations]))) ||
+       refs.size !== sources.length || sources.some(s => !refs.has(s.sourceRef))) return null;
+-  const events = readRuntimeEventsAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate),
+-    facts = nativeFacts(selectValidatedRuntimeEventPrefix(events)), out = new Map<string, QualificationProofResource>(),
++  const facts = nativeFacts(readOwnedRuntimeEventPrefixAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate)), out = new Map<string, QualificationProofResource>(),
+     acquired = new Map<string, ExecutionSourceFacts>(), currentChecked = new Set<string>();
+   for (const source of sources) {
+     if (!sameImmutableCandidate(source.basis, basis) || source.basis.installedProduct === null || source.basis.workspaceBinding === null) return null;
+@@ -814,10 +824,10 @@
+   try {
+     proof = ownedProof(proof, resources, catalogs);
+     if (!isQualificationProofResource(proof) || !proofWithin(proof, consumer)) return null;
+-    readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
++    readOwnedRuntimeEventPrefixAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
+     const current = { ...proof, prefix: consumer.predecessorPrefix };
+     const inherited = executionProofFacts.get(proof);
+-    if (inherited !== undefined) executionProofFacts.set(current, { ...inherited, events: readRuntimeEventsAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate) });
++    if (inherited !== undefined) executionProofFacts.set(current, { ...inherited, prefix: readOwnedRuntimeEventPrefixAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate) });
+     const selections = proof.selections.filter(s => s.kind === "execution_selection"), sources = executionSourceProofs(proof, basis, consumer);
+     if (sources === null || !unique(selections.map(s => s.selectionRef)) || !unique(selections.map(s => s.result.ref))) return null;
+     const producers = new Set<string>();
+@@ -837,7 +847,7 @@
+       const producerKey = sourceProof.prefix.eventLogRef + ":" + hash(sourceProof.prefix.storeIdentity) + ":" + selected.state.cCall.cCallRef;
+       if (producers.has(producerKey)) return null;
+       producers.add(producerKey);
+-      const peers = eligibleCalls(selected.owner.events, selected.owner).map(e => nativeState(sourceProof, e.aggregateId)).filter(s =>
++      const peers = eligibleCalls(selected.owner.prefix, selected.owner).map(e => nativeState(sourceProof, e.aggregateId)).filter(s =>
+         s !== null && s.state.cCall.programLocusRef === selection.slotRef && s.owner.execution.programRef === selection.programRef &&
+         s.owner.execution.invocationAdmissionRef === selection.invocationAdmissionRef && s.state.result.resultClass === "success" &&
+         s.state.judgment.judgment === "advance");
+@@ -891,7 +901,7 @@
+         selected.state.result.resultClass !== "success" || selected.state.judgment.judgment !== "advance" ||
+         selected.owner.execution.programRef !== selection.programRef ||
+         selected.owner.execution.invocationAdmissionRef !== selection.invocationAdmissionRef) return null;
+-    const peers = eligibleCalls(selected.owner.events, selected.owner, SELF).map(e => nativeState(proof, e.aggregateId)).filter(s =>
++    const peers = eligibleCalls(selected.owner.prefix, selected.owner, SELF).map(e => nativeState(proof, e.aggregateId)).filter(s =>
+       s !== null && s.state.cCall.callClass === "leaf" && s.state.cCall.implementationRef === SELF &&
+       s.state.cCall.programLocusRef === selection.slotRef && s.owner.execution.invocationAdmissionRef === selection.invocationAdmissionRef &&
+       s.state.result.resultClass === "success" && s.state.judgment.judgment === "advance");
+@@ -910,7 +920,7 @@
+   catalogs?: QualificationCatalogs): boolean {
+   try {
+     if (!isQualificationVerdictInput(input, catalogs) || !proofWithin(input.proof, consumer)) return false;
+-    readRuntimeEventsAtDurablePrefix(reidentifyHistoricalDurablePrefixCoordinate(
++    readOwnedRuntimeEventPrefixAtDurablePrefix(reidentifyHistoricalDurablePrefixCoordinate(
+       consumer.predecessorPrefix as DurablePrefixCoordinate, input.proof.prefix as DurablePrefixCoordinate));
+     const selections = input.proof.selections.filter((s): s is Extract<QualificationEvidenceSelection, { kind: "self_conformance_selection" }> =>
+       s.kind === "self_conformance_selection" && s.selectionRef === input.selectionRef);
+@@ -927,14 +937,13 @@
+   try {
+     if (!referenceDependencies(input, resources)) return null;
+     const coordinate = basis.predecessorPrefix as DurablePrefixCoordinate;
+-    const events = readRuntimeEventsAtDurablePrefix(coordinate, { requireCurrent });
+-    const facts = nativeFacts(selectValidatedRuntimeEventPrefix(events)), key = coordinate.coordinateDigest + ":" + basis.cCallRef;
++    const facts = nativeFacts(readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate, { requireCurrent })), key = coordinate.coordinateDigest + ":" + basis.cCallRef;
+     const known = facts.verdicts.get(key);
+     if (known !== undefined && sameFact(known.input, input)) {
+       if (record(input) && isQualificationReferenceForm(input.proof) && !qualificationHasNativeSelfConformance(input as unknown as QualificationVerdictInput, basis, resources, catalogs)) return null;
+       return known.value;
+     }
+-    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources, catalogs);
++    const owner = qualificationConsumerOwner(basis, input, requireCurrent, resources, catalogs);
+     if (owner === null || owner.call.implementationRef !== VERDICT ||
+         !qualificationHasNativeSelfConformance(input as QualificationVerdictInput, basis, resources, catalogs)) return null;
+     const value = reduceExactCandidateQualification(input as QualificationVerdictInput, basis, catalogs);
+@@ -975,13 +984,13 @@
+     const admitted = catalogs ?? executionProofFacts.get(proof)?.catalogs ?? ownerInstallCatalogs(selected.owner);
+     if (admitted === null || !sameFact(projectExactCandidateQualification(nativeBasis, originalInput, false,
+       resources ?? executionProofFacts.get(proof)?.resources, admitted), value)) return null;
+-    const peers = eligibleCalls(selected.owner.events, selected.owner, VERDICT).map(e => nativeState(proof, e.aggregateId)).filter(s =>
++    const peers = eligibleCalls(selected.owner.prefix, selected.owner, VERDICT).map(e => nativeState(proof, e.aggregateId)).filter(s =>
+       s !== null && s.state.cCall.callClass === "leaf" && s.state.cCall.implementationRef === VERDICT &&
+       s.owner.execution.invocationAdmissionRef === input.selection.invocationAdmissionRef &&
+       s.state.cCall.programLocusRef === input.selection.slotRef && s.state.result.resultClass === "success" && s.state.judgment.judgment === "advance");
+     if (peers.length !== 1 || peers[0]!.state.cCall.cCallRef !== selected.state.cCall.cCallRef) return null;
+     const facts = nativeFacts(selected.owner.prefix), terminalKey = selected.state.cCall.graphCallId;
+-    const runRows = selected.owner.events.filter(e => e.runId === selected.state.cCall.runId);
++    const runRows = indexedRuntimeEvents(selected.owner.prefix, "run:" + selected.state.cCall.runId).filter(e => e.runId === selected.state.cCall.runId);
+     const knownTerminal = facts.terminals.get(terminalKey);
+     const retainedTerminal = knownTerminal !== undefined && runRows.length === knownTerminal.rows.length &&
+       runRows.every((e, i) => e === knownTerminal.rows[i]) ? knownTerminal : undefined;
+@@ -999,7 +1008,7 @@
+   catalogs?: QualificationCatalogs): SelfConformanceOwner | null {
+   try {
+     if (!referenceDependencies(input, resources)) return null;
+-    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources, catalogs);
++    const owner = qualificationConsumerOwner(basis, input, requireCurrent, resources, catalogs);
+     if (owner === null || owner.call.implementationRef !== SELF || owner.resolution === null) return null;
+     const row = owner.resolution;
+     const install = exactOrNull(onlyExactMatch(owner.environment.productInstalls.filter(i => i.productId === row.implementationOwnerProductId &&
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts
+@@ -23,7 +23,7 @@
+ import { projectOpenedCCallCarrierAtPrefix, projectAdmittedCCallStateAtPrefix, projectCCallCarrierPhaseAtPrefix, type CCall } from "./c_call.js";
+ import { projectClosedGraphCallTerminalAtDurablePrefix } from "./project_read_ports.js";
+ import { projectSameRunWorksiteCommandSourceAtPrefix } from "./worksite_input_provenance.js";
+-import { projectClosedConstructionRetainedVector as projectRetainedVector, retainedWorksitePhysicalMatches } from "./worksite_revision.js";
++import { projectClosedConstructionRetainedVector, retainedWorksitePhysicalMatches } from "./worksite_revision.js";
+ import { rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
+ import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
+ import { projectRuntimeReplayRouteRefsAndCCalls, projectRuntimeReplayStatus } from "./replay.js";
+@@ -32,10 +32,6 @@
+ import { admitJson } from "../shared/admit/index.js";
+ import { resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
+ const hash=(a:JsonValue)=>sha256Canonical(a);
+-/** The retained-vector owner reads only through RuntimeEventPrefix selectors
+- * (worksite_revision RetainedOriginSession); its public signature is narrower. */
+-const projectClosedConstructionRetainedVector=projectRetainedVector as (prefix:RuntimeEventPrefix,
+-  ...rest:Parameters<typeof projectRetainedVector> extends [unknown,...infer R]?R:never)=>ReturnType<typeof projectRetainedVector>;
+ const record=(v:unknown):v is Record<string,JsonValue>=>v!==null&&typeof v==="object"&&!Array.isArray(v);
+ /** Owner boundary: `absent` and `many` map to `null`. */
+ const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs
+@@ -13,7 +13,11 @@
+ import { sha256Canonical } from '../../build/code/src/shared/digests.js';
+ import { admitIJsonValue } from '../../build/code/src/shared/i_json.js';
+ import { projectRunTruthAtDurablePrefix } from '../../build/code/src/abg/project_read_ports.js';
+-import { projectOwnedPrefixArtifactTruth, projectExactPrefixArtifactTruth, validateExactPrefixArtifactTruthProjection, runtimePrefixFromArtifactTruth } from '../../build/code/src/abg/artifact_truth.js';
++import { projectOwnedPrefixArtifactTruth, projectExactPrefixArtifactTruth, validateExactPrefixArtifactTruthProjection, runtimePrefixFromOwnedArtifactTruth } from '../../build/code/src/abg/artifact_truth.js';
++import { writeRuntimeEventPrefixValue } from '../../build/code/src/abg/event_prefix.js';
++// The existing canonical prefix writer is the complete-value boundary; an owned
++// handle is never compared through its own JSON.
++const completeEvents=prefix=>{let out='';writeRuntimeEventPrefixValue(prefix,part=>{out+=part;});return JSON.parse(out).events;};
+ const counts=()=>({...globalThis.p0Work});
+ const delta=(before,after)=>Object.fromEntries([...new Set([...Object.keys(before),...Object.keys(after)])].map(k=>[k,(after[k]??0)-(before[k]??0)]));
+ const select=(events,runId)=>{const authority=prefixOwner.selectValidatedRuntimeEventPrefix(events);return {authority,run:prefixOwner.selectRuntimeEventPrefixFromAuthority(authority,{runId})};};
+@@ -84,7 +88,7 @@
+     // M05_S06 design :361: "equal prefix reconstructs equal result"; object
+     // identity supports mechanics only (constitution :136), so the pure
+     // projections are equal to the acquired rows, not the same vector.
+-    assert.deepEqual(runtimePrefixFromArtifactTruth(truth).events,rows);
++    assert.deepEqual(completeEvents(runtimePrefixFromOwnedArtifactTruth(truth)),rows);
+     assert.deepEqual(storeOwner.projectRuntimeEventsAtDurablePrefix(captured),rows,'pure projection reconstructs the acquired rows');
+     const fresh=storeOwner.readRuntimeEventsAtDurablePrefix(captured,{requireCurrent:true});
+     assert.deepEqual(fresh,rows);assert.notEqual(fresh,rows,'explicit physical read reacquires');
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs
+@@ -10,16 +10,17 @@
+ import {join,resolve} from 'node:path';
+ import {pathToFileURL} from 'node:url';
+ import {createHash} from 'node:crypto';
++import {gunzipSync} from 'node:zlib';
+ import {nativeJoinFixture,coverage,hash,identity} from '../support/malformed-gtl-native-fixture.mjs';
+ import {privateOwner} from '../support/r10-private-owner-harness.mjs';
+ import {SELF_CONFORMANCE_IDS as self} from '../../build/code/src/gtl/self_conformance.js';
+ import {QUALIFICATION_ROLE_POLICY as policy} from '../../build/code/src/validator/qualification_contracts.js';
+ import {isSelfConformanceResult} from '../../build/code/src/validator/self_conformance_contracts.js';
+-// The copied producer history, its retained context and the historical owner
+-// fixtures are named by their variables; the lane skips with the unset names
+-// when any is absent.
+-const unset=['ABI5_PRODUCER_HISTORY_FIXTURE','ABI5_PRODUCER_CONTEXT_FIXTURE','ABI5_PRODUCER_OWNER_FIXTURE','ABI5_PRODUCER_OWNER_SOURCE_FIXTURE'].filter(name=>!process.env[name]);
+-const skip=unset.length>0&&unset.join(', ')+' unset; requires the finite copied producer history, its retained context and the exact historical owner fixtures';
++// The copied producer history, its retained context, the historical owner
++// fixtures and the checked owner-copy record are named by their variables; the
++// lane skips with the unset names when any is absent.
++const unset=['ABI5_PRODUCER_HISTORY_FIXTURE','ABI5_PRODUCER_CONTEXT_FIXTURE','ABI5_PRODUCER_OWNER_FIXTURE','ABI5_PRODUCER_OWNER_SOURCE_FIXTURE','ABI5_PRODUCER_OWNER_COPY_FIXTURE'].filter(name=>!process.env[name]);
++const skip=unset.length>0&&unset.join(', ')+' unset; requires the finite copied producer history, its retained context, the exact historical owner fixtures and their checked owner copy';
+ if(skip)test('T-287 qualification producer acquisition reuse over the copied producer history and the historical owner',{skip},()=>{});
+ else await (async()=>{
+ const root=resolve(import.meta.dirname,'../..'), c=(ref,digest=hash(ref))=>({ref,digest});
+@@ -32,8 +33,29 @@
+ const context=JSON.parse(contextBytes),bytes=allBytes.subarray(0,context.prefixLength);
+ const ownerPins=JSON.parse(fs.readFileSync(ownerFixture)),sourcePins=JSON.parse(fs.readFileSync(ownerSourceFixture));
+ assert.equal(ownerPins.ownerRoot,context.install.installedRoot);
++// The original installation is absent. Its exact released archive was copied
++// into one separately materialized package. Check the archive identity, every
++// original pin against both the archive member and the materialized file, and
++// load only that package's original-byte modules; the pin records stay unchanged.
++const copy=JSON.parse(fs.readFileSync(process.env.ABI5_PRODUCER_OWNER_COPY_FIXTURE));
++assert.equal(copy.originalOwnerRoot,ownerPins.ownerRoot);
++assert.equal(copy.archive.sha256,'dd76783f7fc92873d9d21ca66c7f91f9be0eaad77248954ada99f5e265a04dbe');
++const archiveBytes=fs.readFileSync(copy.archive.path);assert.equal(archiveBytes.length,copy.archive.bytes);assert.equal(digest(archiveBytes),'sha256:'+copy.archive.sha256);
++const members=new Map(),tar=gunzipSync(archiveBytes);
++for(let at=0;at+512<=tar.length&&tar[at]!==0;){
++ const field=(o,n)=>tar.subarray(at+o,at+o+n).toString('utf8').replace(/\0.*$/s,''),size=parseInt(field(124,12).trim()||'0',8);
++ const prefix=field(345,155),name=(prefix?prefix+'/':'')+field(0,100);
++ if(['0','\0',''].includes(field(156,1)))members.set(name,tar.subarray(at+512,at+512+size));at+=512+Math.ceil(size/512)*512;
++}
++const ownerRoot=copy.materializedOwnerRoot,located=path=>path.startsWith(copy.originalOwnerRoot+'/')?join(ownerRoot,path.slice(copy.originalOwnerRoot.length+1)):path;
++for(const entry of copy.verifiedSourceMap){
++ assert.equal(entry.materializedPath,located(entry.originalPath));const body=fs.readFileSync(entry.materializedPath);
++ assert.equal(body.length,entry.bytes);assert.equal(digest(body),'sha256:'+entry.sha256);
++ if(entry.originalPath!==entry.materializedPath)assert(members.get('package/'+entry.originalPath.slice(copy.originalOwnerRoot.length+1))?.equals(body),'archive member '+entry.originalPath);
++}
+ for(const pin of [...ownerPins.readOnlySources,sourcePins.source,sourcePins.freeze]){
+- const body=fs.readFileSync(pin.path);assert.equal(body.length,pin.bytes);assert.equal(digest(body),'sha256:'+pin.sha256);
++ const body=fs.readFileSync(located(pin.path));assert.equal(body.length,pin.bytes);assert.equal(digest(body),'sha256:'+pin.sha256);
++ if(located(pin.path)!==pin.path)assert(copy.verifiedSourceMap.some(e=>e.originalPath===pin.path&&e.sha256===pin.sha256),'mapped pin '+pin.path);
+ }
+ assert.equal(sourcePins.source.sha256,'ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf');
+ assert.equal(sourcePins.freeze.sha256,'4b47285b95656c83dd07f0d6cbcf794738b8328404aacc35cb9e0111e62559a3');
+@@ -43,7 +65,7 @@
+ const opened=rows.find(e=>e.kind==='c_call_opened'&&e.payload.callClass==='leaf');
+ const basisRow=rows.find(e=>e.kind==='basis_admitted'&&e.payload.basisRef===opened.basisId).payload;
+ const result=rows.find(e=>e.kind==='c_call_result_admitted'&&e.aggregateId===opened.aggregateId).payload;
+-const modules={},historicalEventStoreUrl=pathToFileURL(join(ownerPins.ownerRoot,'build/code/src/abg/event_store.js')).href;
++const modules={},historicalEventStoreUrl=pathToFileURL(join(ownerRoot,'build/code/src/abg/event_store.js')).href;
+ // The original accepted component used this exact source owner for currentness.
+ // Its one module URL preserves the historical package's ordinary import identity;
+ // the consumer and realization below continue to load the current copied tenant.
+@@ -52,12 +74,13 @@
+  ?{format:'module',source:stripTypeScriptTypes(historicalSource,{mode:'transform',sourceUrl:url}),shortCircuit:true}:next(url,context);}});
+ try{
+  for(const name of ['abg/event_store','abg/event_prefix','abg/artifact_truth','abg/environment_admission','abg/invocation_execution_truth','abg/execution_basis','abg/c_call','product/declaration_closure'])
+-  modules[name+'.js']={...await import(pathToFileURL(join(ownerPins.ownerRoot,'build/code/src',name+'.js')))};
++  modules[name+'.js']={...await import(pathToFileURL(join(ownerRoot,'build/code/src',name+'.js')))};
+ }finally{sourceHook.deregister();}
+ const events=modules['abg/event_store.js'],prefixes=modules['abg/event_prefix.js'],artifact=modules['abg/artifact_truth.js'];
+ assert.equal(events.ROOT_EVENT_CONTRACT_DIGEST,'sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0');
+-const historicalMaterializerPath=join(ownerPins.ownerRoot,'build/code/src/gtl/materialize.js');
++const historicalMaterializerPath=join(ownerRoot,'build/code/src/gtl/materialize.js');
+ assert.equal(digest(fs.readFileSync(historicalMaterializerPath)),'sha256:82e4abcb65d7cb92d28683173916348331da995f5cda11d8a4af22f7528550ea');
++assert(members.get('package/build/code/src/gtl/materialize.js')?.equals(fs.readFileSync(historicalMaterializerPath)),'archive materializer member');
+ const historicalMaterializer=await import(pathToFileURL(historicalMaterializerPath));
+ const catalog=JSON.parse(fs.readFileSync(join(root,'contracts/qualification/rule-catalog.json'),'utf8'));
+ const law=JSON.parse(fs.readFileSync(join(root,'contracts/qualification/law-basis.json'),'utf8'));
+@@ -81,8 +104,13 @@
+     const owned=historicalMaterializer.rehydrateMaterializedGtlGraph(graph);assert(owned,'exact historical materialization');
+     assert.deepEqual(owned,graph);assert.equal(owned.materializationDigest,graph.materializationDigest);
+     return modules['abg/c_call.js'].projectOpenedCCallCarrierAtPrefix(prefix,owned,...args);}},
+-  'abg/artifact_truth.js':{...artifact,projectExactPrefixArtifactTruth(p){const a=artifact.projectExactPrefixArtifactTruth(p);acquisitions.push(a);return a;},
+-    runtimePrefixFromArtifactTruth(a){const p=artifact.runtimePrefixFromArtifactTruth(a);if(p)representations.add(prefixes.runtimeEventsFromValidatedPrefix(p));return p;}},
++  // The current consumer selects the owned-prefix operations. This rc.1 owner
++  // family predates those names, so each test bridge calls the same-named
++  // historical owner acquisition and its own prefix accessor; nothing is
++  // reconstructed from equal JSON.
++  'abg/artifact_truth.js':{...artifact,projectOwnedPrefixArtifactTruth(p){const a=artifact.projectOwnedPrefixArtifactTruth(p);acquisitions.push(a);return a;},
++    runtimePrefixFromOwnedArtifactTruth(a){const p=artifact.runtimePrefixFromArtifactTruth(a);if(p)representations.add(prefixes.runtimeEventsFromValidatedPrefix(p));return p;}},
++  'abg/event_prefix.js':{...prefixes,readOwnedRuntimeEventPrefixAtDurablePrefix(p,o){return prefixes.selectValidatedRuntimeEventPrefix(events.readRuntimeEventsAtDurablePrefix(p,o));}},
+   'abg/event_store.js':{...events,assertDurableRuntimePrefixCurrent(p){currentness++;return events.assertDurableRuntimePrefixCurrent(p);}},
+   'abg/environment_admission.js':{...modules['abg/environment_admission.js'],projectWorkspaceEnvironmentFromArtifactTruth(a,w){
+     const e=modules['abg/environment_admission.js'].projectWorkspaceEnvironmentFromArtifactTruth(a,w);environments.push(e);
+@@ -121,9 +149,9 @@
+  // Execute the exact ordinary dispatch expression, retaining the actual owner
+  // resolver; the unrelated dispatch/loading shell is outside this component.
+  const dispatchSource=fs.readFileSync(join(root,'build/code/src/implementation/leaf_invocation_port.js'),'utf8');
+- const expression=dispatchSource.match(/resolveSelfConformanceOwner\(qualificationOwnerBasis, call\.input, true, authority\.qualificationResources\)/g);assert.equal(expression.length,1);
+- const dispatch=Function('resolveSelfConformanceOwner','qualificationOwnerBasis','call','authority','return '+expression[0]);
+- const check=p=>dispatch(resolver.resolveSelfConformanceOwner,p.call.basis,{input:p.input},{qualificationResources:undefined});
++ const expression=dispatchSource.match(/resolveSelfConformanceOwner\(qualificationOwnerBasis, call\.input, true, authority\.qualificationResources, qualificationCatalogs\)/g);assert.equal(expression.length,1);
++ const dispatch=Function('resolveSelfConformanceOwner','qualificationOwnerBasis','call','authority','qualificationCatalogs','return '+expression[0]);
++ const check=p=>dispatch(resolver.resolveSelfConformanceOwner,p.call.basis,{input:p.input},{qualificationResources:undefined},undefined);
+  const occurrence=p=>({...p.call.call,executionAuthority:null,qualificationOwnerBasis:p.call.basis});
+  const realize=(p,o=occurrence(p))=>port.invokeLeafOwnerBoundary({resolution:{implementationRef:self.implementationRef,computeRegime:'F_D',inputContractRef:self.inputContractRef,outputContractRef:self.outputContractRef},
+   value:p.input,inputDigest:hash(p.input),occurrence:o,failureValueKind:'self_conformance_failure',verifyAuthority:()=>true,
+--- native04/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs
+@@ -24,6 +24,10 @@
+ const installedEventStoreOwner = await import(pathToFileURL(join(
+   dirname(installedAbgEntryPath),
+   "event_store.js",
++)).href);
++const installedReplayOwner = await import(pathToFileURL(join(
++  dirname(installedAbgEntryPath),
++  "replay.js",
+ )).href);
+ const installedHogEntryPath = fileURLToPath(
+   import.meta.resolve("@abiogenesis/typescript-tenant/hog"),
+@@ -1220,7 +1224,7 @@
+     JSON.stringify(lifecycle),
+   );
+   const admitted = lifecycle.outcome;
+-  const transitionPrefix = abg.projectRuntimeTruthAtDurablePrefix(
++  const transitionPrefix = installedReplayOwner.projectOwnedRuntimeTruthAtDurablePrefix(
+     admitted.successorPrefix,
+     stop.cursor.runId,
+   ).authorityPrefix;
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs
+@@ -103,7 +103,7 @@
+   assert.equal(product.canonicalJson({ A: env.workspaceAuthority, W: env.workspaceBinding, B: executionBasis }), coordinates);
+   const logPath = store.configuredDurableLogPath();
+   const fresh = await proveFreshProcessRuntimeProjectionEquality({ abg, product, installedPackageRoot: env.installedRoot, store,
+-    requests: [{ rowId: label, owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] }],
++    requests: [{ rowId: label, owner: "replay", exportName: "projectOwnedRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] }],
+   });
+   const replay = fresh.retainedRows[0].projection.replayState;
+   assert.deepEqual(replay.cCalls.find(row => row.cCallRef === callRef).resultValue, candidate.resultCandidate);
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs
+@@ -670,7 +670,10 @@
+     potentialFacts.push({ ...after, retainedOriginViews: originViews(env, prefixes, retained, false) });
+     if (prepublication) potentialFacts.push({ label: "five deep semantic negatives", coordinate: after.coordinate,
+       negatives: deepOccurrenceNegatives(admission, product, store.readAll(), capturedCall.occurrence.executionAuthority.cCall.fibreSelectedEventRef) });
+-    const aliasReplay = abg.projectRuntimeTruthAtDurablePrefix(abg.selectHeldEventStoreDurablePrefix(store), aliasOpened.scope.runId).replayState;
++    // The existing direct replay owner; its guard materializes the complete value.
++    const installedReplay = await import(pathToFileURL(join(env.installedRoot, "build/code/src/abg/replay.js")).href);
++    const aliasReplay = installedReplay.materializeRuntimeReplayGuard(installedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
++      abg.selectHeldEventStoreDurablePrefix(store), aliasOpened.scope.runId).replayState);
+     assert.deepEqual(aliasReplay.currentWorksiteObservations, []);
+     assert.equal(aliasReplay.activeFluents.some(key => key.includes(alias.input.predecessorObservation.observationRef)), false);
+     if (failure || unadmitted || prepublication) {
+@@ -688,8 +691,8 @@
+   const logPath = store.configuredDurableLogPath();
+   const fresh = await proveFreshProcessRuntimeProjectionEquality({
+     abg, product, installedPackageRoot: env.installedRoot, store,
+-    requests: [{ rowId: label, owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] },
+-      ...(aliasOpened === null ? [] : [{ rowId: label + "-alias", owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [aliasOpened.scope.runId] }])],
++    requests: [{ rowId: label, owner: "replay", exportName: "projectOwnedRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] },
++      ...(aliasOpened === null ? [] : [{ rowId: label + "-alias", owner: "replay", exportName: "projectOwnedRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [aliasOpened.scope.runId] }])],
+     ...(potentialProof ? { ownedProcessProof: { evidenceRoot: join(proofRoot, label + "-fresh-children") } } : {}),
+   });
+   const replay = fresh.retainedRows[0].projection.replayState;
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs
+@@ -8,7 +8,7 @@
+ import ts from "typescript";
+ 
+ import * as events from "../../build/code/src/abg/event_store.js";
+-import { projectRuntimeTruthAtDurablePrefix } from "../../build/code/src/abg/replay.js";
++import { materializeRuntimeReplayGuard, projectOwnedRuntimeTruthAtDurablePrefix } from "../../build/code/src/abg/replay.js";
+ import { projectExecutableTraversalCompletion } from "../../build/code/src/hog/traversal_completion.js";
+ import { sha256Bytes, sha256Canonical } from "../../build/code/src/shared/digests.js";
+ 
+@@ -88,7 +88,7 @@
+   const completionAt = prefix => {
+     const projected = owner.projectDeferredApplicationAtPrefix(prefix, f.coordinates);
+     assert.ok(projected);
+-    const truth = projectRuntimeTruthAtDurablePrefix(prefix, runId);
++    const truth = { replayState: materializeRuntimeReplayGuard(projectOwnedRuntimeTruthAtDurablePrefix(prefix, runId).replayState) };
+     assert.equal(projected.replayState.lastAdmissionOrdinal, truth.replayState.lastAdmissionOrdinal);
+     assert.deepEqual(projected.replayState, truth.replayState);
+     const values = {
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs
+@@ -183,7 +183,7 @@
+  const graph=gtl.materializeGraph(graphFunction,{invocationAdmissionRef:basis.invocationAdmissionRef,
+   admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:basis.rawInputValue});
+  assert.equal(graph.materializationDigest,basis.graphDigest);
+- const truth=replay.projectRuntimeTruthAtDurablePrefix(acquired.prefix,events.find(e=>e.kind==='run_segment_opened').runId);
++ const truth=replay.projectOwnedRuntimeTruthAtDurablePrefix(acquired.prefix,events.find(e=>e.kind==='run_segment_opened').runId);
+  const resultEvent=events.find(e=>e.kind==='c_call_result_admitted');
+  const cCall=ccall.projectOpenedCCallCarrierAtPrefix(truth.authorityPrefix,graph,resultEvent.payload.cCallRef);assert(cCall);
+  const result=ccall.projectAdmittedCCallResultAtPrefix(truth.authorityPrefix,cCall,deepFreeze({
+@@ -243,7 +243,12 @@
+  assert.equal(old.reads,0);assert.equal(current.reads,0);
+  for(const [f,result]of [[a,old.value],[b,current.value]]){
+   assert.equal(prefixes.runtimeEventPrefixDigest(result.runtimePrefix),sha256Canonical(result.runtimePrefix.events));
+-  assert.equal(replay.projectRuntimeTruthAtDurablePrefix(result.successorPrefix,result.admitted.cCall.runId).replayState.replayDigest,result.replayState.replayDigest);
++  // Complete values come from the replay owner's materializer; the judged cut
++  // and its authentic predecessor cut remain unequal.
++  const complete=replay.materializeRuntimeReplayGuard(replay.projectOwnedRuntimeTruthAtDurablePrefix(result.successorPrefix,result.admitted.cCall.runId).replayState);
++  assert.equal(complete.replayDigest,result.replayState.replayDigest);
++  const predecessor=replay.materializeRuntimeReplayGuard(replay.projectOwnedRuntimeTruthAtDurablePrefix(f.prefix,result.admitted.cCall.runId).replayState);
++  assert.notDeepEqual(predecessor,complete);assert(predecessor.lastAdmissionOrdinal<complete.lastAdmissionOrdinal);
+   assert.equal(f.store.readAll().filter(e=>e.kind==='c_call_judged').length,1);
+   const bytes=fs.readFileSync(new URL(result.successorPrefix.eventLogRef));
+   assert.throws(()=>after.admitCCallJudgment(f),/current|prefix|predecessor/i);
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs
+@@ -271,8 +271,8 @@
+     store: environment.store,
+     requests: [{
+       rowId: "c1-live-worksite-construction-runtime-truth",
+-      owner: "abg",
+-      exportName: "projectRuntimeTruthAtDurablePrefix",
++      owner: "replay",
++      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
+       input: "durable_prefix",
+       args: [opened.scope.runId],
+     }],
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs
+@@ -892,8 +892,8 @@
+     store,
+     requests: [{
+       rowId: "c0-worksite-runtime-truth",
+-      owner: "abg",
+-      exportName: "projectRuntimeTruthAtDurablePrefix",
++      owner: "replay",
++      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
+       input: "durable_prefix",
+       args: [opened.scope.runId],
+     }],
+@@ -988,8 +988,8 @@
+     store: staleOwner.store,
+     requests: [{
+       rowId: "c0-stale-owner-runtime-truth",
+-      owner: "abg",
+-      exportName: "projectRuntimeTruthAtDurablePrefix",
++      owner: "replay",
++      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
+       input: "durable_prefix",
+       args: [staleOpened.scope.runId],
+     }],
+@@ -1150,10 +1150,12 @@
+   // unadmitted O1 is not runtime truth (C0 design :612-620).
+   assert.equal(abg.holdsAt(conflictCalculus, beforeFluent), false);
+   assert.equal(abg.holdsAt(conflictCalculus, afterFluent), false);
+-  const conflictReplay = abg.projectRuntimeTruthAtDurablePrefix(
++  // The existing direct replay owner; its guard materializes the complete value.
++  const installedReplay = await import(pathToFileURL(join(installedRoot, "build/code/src/abg/replay.js")).href);
++  const conflictReplay = installedReplay.materializeRuntimeReplayGuard(installedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
+     abg.selectHeldEventStoreDurablePrefix(conflict.store),
+     conflictOpened.scope.runId,
+-  ).replayState;
++  ).replayState);
+   assert.deepEqual(conflictReplay.currentWorksiteObservations, []);
+ 
+   assert.ok(retainedConflict.call);
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs
+@@ -1733,10 +1733,12 @@
+     "acquisition flip-getter read appends zero bytes",
+   );
+ 
+-  const st4SemanticReplay = abg.projectRuntimeTruthAtDurablePrefix(
++  // The existing direct replay owner; its guard materializes the complete value.
++  const installedReplay = await import(pathToFileURL(join(environment.installedRoot, "build/code/src/abg/replay.js")).href);
++  const st4SemanticReplay = installedReplay.materializeRuntimeReplayGuard(installedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
+     st4TerminalPrefix,
+     st4Run.ref,
+-  ).replayState;
++  ).replayState);
+   assert.equal(st4SemanticReplay.replayRef, st4Replay.ref);
+   assert.equal(st4SemanticReplay.replayDigest, st4Replay.digest);
+   const [st4TerminalRoute] = st4SemanticReplay.routes.filter(
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs
+@@ -562,8 +562,8 @@
+     store: environment.store,
+     requests: [{
+       rowId: `c3-${label}-runtime-truth`,
+-      owner: "abg",
+-      exportName: "projectRuntimeTruthAtDurablePrefix",
++      owner: "replay",
++      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
+       input: "durable_prefix",
+       args: [opened.scope.runId],
+     }],
+@@ -757,8 +757,8 @@
+     store: environment.store,
+     requests: [{
+       rowId: "c3-partial-runtime-truth",
+-      owner: "abg",
+-      exportName: "projectRuntimeTruthAtDurablePrefix",
++      owner: "replay",
++      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
+       input: "durable_prefix",
+       args: [opened.scope.runId],
+     }],
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs
+@@ -1026,7 +1026,7 @@
+   const freshProof = await proveFreshProcessRuntimeProjectionEquality({
+     abg, product, installedPackageRoot: environment.installedRoot, store: reopened.store,
+     ...(proof === null ? {} : { ownedProcessProof: { evidenceRoot: join(proof.root, "fresh-replay") } }),
+-    requests: [{ rowId: "c2-compact-ack-runtime", owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [c2RunId] }],
++    requests: [{ rowId: "c2-compact-ack-runtime", owner: "replay", exportName: "projectOwnedRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [c2RunId] }],
+   });
+   if (proof !== null) await proof.write("fresh-proof.json", freshProof);
+   const replay = freshProof.retainedRows[0].projection.replayState;
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs
+@@ -668,8 +668,8 @@
+     store: environment.store,
+     requests: [{
+       rowId: "c1-worksite-construction-runtime-truth",
+-      owner: "abg",
+-      exportName: "projectRuntimeTruthAtDurablePrefix",
++      owner: "replay",
++      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
+       input: "durable_prefix",
+       args: [opened.scope.runId],
+     }],
+@@ -981,8 +981,8 @@
+     store: environment.store,
+     requests: [{
+       rowId: "c1-worksite-construction-partial-runtime-truth",
+-      owner: "abg",
+-      exportName: "projectRuntimeTruthAtDurablePrefix",
++      owner: "replay",
++      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
+       input: "durable_prefix",
+       args: [opened.scope.runId],
+     }],
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts
+@@ -632,10 +632,17 @@
+   return candidates.at(-1) ?? null;
+ }
+ 
++type ClosedConstructionRetainedVector=Readonly<{snapshotSources:WorksiteCommandForwardSnapshotSource[];
++  bindingCoverEventRefs:NonNullable<ReturnType<typeof projectWorksiteRevisionBindingCover>>}>|null;
+ /** Closed construction seed, separate from D2's semantic-stage seed. Reuses
+  * the same native C0 currentness, physical-alias invalidation and cover owners. */
+ export function projectClosedConstructionRetainedVector(prefix:ValidatedRuntimeEventPrefix,
+-  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]) {
++  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]):ClosedConstructionRetainedVector;
++/** @internal The same owner relation over the owner-selected prefix. */
++export function projectClosedConstructionRetainedVector(prefix:RuntimeEventPrefix,
++  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]):ClosedConstructionRetainedVector;
++export function projectClosedConstructionRetainedVector(prefix:RuntimeEventPrefix,
++  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]):ClosedConstructionRetainedVector {
+   try {
+     const current=nativeBinding(prefix,request.workspaceBinding);
+     if(current===null||!canonicalEquals(current.authority, request.workspaceAuthorityBasis)||
+--- native04/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts
++++ native05-interim/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts
+@@ -593,6 +593,15 @@
+   if (typeof event.basisId === "string") keys.push("basis:" + event.basisId);
+   if (typeof event.graphCallId === "string") keys.push("graph-call:" + event.graphCallId);
+   if (payload !== undefined) {
++    // One shared classification of admitted public operations by the payload
++    // members their Run, F_H and construction consumers select on.
++    if (event.kind === "public_operation_admitted") {
++      if (typeof payload.operationId === "string") keys.push("public-operation:" + payload.operationId);
++      if (typeof payload.continuationKind === "string") keys.push("public-continuation:" + payload.continuationKind);
++    }
++    if (event.kind === "basis_admitted" && record(payload.constructionContinuationUse) &&
++        typeof payload.constructionContinuationUse.operationAdmissionEventRef === "string")
++      keys.push("construction-operation:" + payload.constructionContinuationUse.operationAdmissionEventRef);
+     for (const field of ["resultRef", "parentCCallRef", "cursorRef", "sourceCursorRef", "routeRef", "invocationAdmissionRef", "progressRef", "implementationSetRef", "interactionSetRef", "basisRef", "artifactRef"] as const)
+       if (typeof payload[field] === "string") keys.push("payload:" + field + ":" + payload[field]);
+     for (const value of [payload.rawInputValue, payload.value])
+--- native04/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs
+@@ -135,6 +135,7 @@
+   }
+   const realDeclarations = await import('../../build/code/src/product/declaration_closure.js');
+   const qualification = await import('../../build/code/src/validator/qualification.js');
++  const runtimeHistory = await import('../../build/code/src/abg/runtime_history.js');
+   const stubs = {
+     'validator/qualification.js': {...qualification, constructNativeRuntimeAssessment: (...args) => { counts.assessment++; return qualification.constructNativeRuntimeAssessment(...args); },
+       reduceExactCandidateQualification: (...args) => { counts.verdict++; return qualification.reduceExactCandidateQualification(...args); }},
+@@ -151,10 +152,14 @@
+       if (p.eventLogRef !== prefixBase.eventLogRef || p.storeIdentity.inode !== 2 || p.prefixLength > events.length ||
+         prefixDigest(p.prefixLength) !== p.prefixDigest || options?.requireCurrent && p.prefixLength !== events.length) throw Error('foreign/stale mechanical prefix');
+       return events.slice(0, p.prefixLength); } },
+-    'abg/event_prefix.js': { selectValidatedRuntimeEventPrefix: e => e, runtimeEventsFromValidatedPrefix: p => p,
++    // The owned prefix is the fixture's admitted array. Its finite selector
++    // buckets use the actual runtime-history vocabulary, so joins keep their
++    // real keys while the lower owner's acquisition stays an explicit premise.
++    'abg/event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: (p, options) => stubs['abg/event_store.js'].readRuntimeEventsAtDurablePrefix(p, options),
++      indexedRuntimeEvents: (p, key) => p.filter(e => runtimeHistory.runtimeHistorySelectorKeys(e).includes(key)),
+       runtimePrefixComputation: (_p,key,construct) => { if(!computations.has(key))computations.set(key,construct()); return computations.get(key); } },
+-    'abg/artifact_truth.js': { projectExactPrefixArtifactTruth: p => ({kind:'exact_prefix_artifact_truth_projection',prefix:p,
+-      fixtureEvents:stubs['abg/event_store.js'].readRuntimeEventsAtDurablePrefix(p)}), runtimePrefixFromArtifactTruth: p => p.fixtureEvents },
++    'abg/artifact_truth.js': { projectOwnedPrefixArtifactTruth: p => ({kind:'exact_prefix_artifact_truth_projection',prefix:p,
++      fixtureEvents:stubs['abg/event_store.js'].readRuntimeEventsAtDurablePrefix(p)}), runtimePrefixFromOwnedArtifactTruth: p => p.fixtureEvents },
+     'abg/invocation_execution_truth.js': { projectExactExecutionBasisAtPrefix: (_p, ref) => { counts.execution++; return executions.get(ref) ?? null; },
+       projectExactInvocationAdmissionAtPrefix: (_p, ref) => invocations.get(ref) ?? null },
+     'abg/environment_admission.js': { projectExactPrefixWorkspaceEnvironment: () => {counts.environment++;return environment;},
+--- native04/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs
+@@ -10,7 +10,29 @@
+   "../falsifiers/runtime-retained-projections-worker.mjs",
+ );
+ 
+-function observeRetained(abg, product, store, requests, durablePrefix) {
++// Runtime-truth rows select the existing direct replay owner of the installed
++// package. Its owned prefixes and replay guard cross this proof boundary only
++// as complete values from the canonical prefix writer and the replay-guard
++// materializer; an owned handle is never compared through its own JSON.
++async function loadDirectOwners(installedPackageRoot) {
++  const at = (path) => import(pathToFileURL(join(installedPackageRoot, "build/code/src/abg", path)).href);
++  return { replay: await at("replay.js"), prefixes: await at("event_prefix.js") };
++}
++
++function completeRuntimeTruth({ replay, prefixes }, truth) {
++  const prefix = (value) => {
++    let out = "";
++    prefixes.writeRuntimeEventPrefixValue(value, (part) => { out += part; });
++    return JSON.parse(out);
++  };
++  return {
++    authorityPrefix: prefix(truth.authorityPrefix),
++    runtimePrefix: prefix(truth.runtimePrefix),
++    replayState: replay.materializeRuntimeReplayGuard(truth.replayState),
++  };
++}
++
++function observeRetained(abg, product, direct, store, requests, durablePrefix) {
+   return requests.map((request) => {
+     if (request.availability === "blocked_migration") {
+       return {
+@@ -20,14 +42,15 @@
+         reason: request.reason,
+       };
+     }
+-    const owner = request.owner === "product" ? product : abg;
++    const owner = request.owner === "product" ? product
++      : request.owner === "replay" ? direct.replay : abg;
+     const projector = owner[request.exportName];
+     assert.equal(
+       typeof projector,
+       "function",
+       `installed ABG export ${request.exportName} is unavailable`,
+     );
+-    const projection = request.owner === "product"
++    const projected = request.owner === "product"
+       ? projector(...(request.args ?? []))
+       : request.input === "durable_prefix"
+       ? projector(durablePrefix, ...(request.args ?? []))
+@@ -40,6 +63,8 @@
+           ...(request.args ?? []),
+         )
+       : projector(store, ...(request.args ?? []));
++    const projection = request.owner === "replay"
++      ? completeRuntimeTruth(direct, projected) : projected;
+     return {
+       rowId: request.rowId,
+       availability: "available",
+@@ -170,6 +195,7 @@
+   const retainedRows = observeRetained(
+     abg,
+     product,
++    await loadDirectOwners(installedPackageRoot),
+     store,
+     requests,
+     closeHandoff.prefix,
+--- native04/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs
+@@ -17,6 +17,24 @@
+   input.installedPackageRoot,
+   "build/code/src/product/index.js",
+ )).href);
++// The existing direct replay owner and canonical prefix writer of the same
++// installed package; runtime-truth rows leave this child as complete values.
++const direct = {
++  replay: await import(pathToFileURL(join(input.installedPackageRoot, "build/code/src/abg/replay.js")).href),
++  prefixes: await import(pathToFileURL(join(input.installedPackageRoot, "build/code/src/abg/event_prefix.js")).href),
++};
++function completeRuntimeTruth(truth) {
++  const prefix = (value) => {
++    let out = "";
++    direct.prefixes.writeRuntimeEventPrefixValue(value, (part) => { out += part; });
++    return JSON.parse(out);
++  };
++  return {
++    authorityPrefix: prefix(truth.authorityPrefix),
++    runtimePrefix: prefix(truth.runtimePrefix),
++    replayState: direct.replay.materializeRuntimeReplayGuard(truth.replayState),
++  };
++}
+ 
+ const reopened = abg.reopenEventStore(input.reopenAuthority);
+ assert.equal(
+@@ -24,11 +42,14 @@
+   "reopened_event_store_context",
+   JSON.stringify(reopened),
+ );
++// The transported coordinate only corresponds; the reopened owner's own
++// authenticated prefix is what every durable-prefix projection consumes.
+ assert.deepEqual(reopened.prefix, input.prefix);
+ 
+ try {
+   function invoke(request) {
+-    const owner = request.owner === "product" ? product : abg;
++    const owner = request.owner === "product" ? product
++      : request.owner === "replay" ? direct.replay : abg;
+     const projector = owner[request.exportName];
+     assert.equal(
+       typeof projector,
+@@ -43,7 +64,8 @@
+       return projector(prefix, ...(request.args ?? []));
+     }
+     if (request.input === "durable_prefix") {
+-      return projector(input.prefix, ...(request.args ?? []));
++      const projection = projector(reopened.prefix, ...(request.args ?? []));
++      return request.owner === "replay" ? completeRuntimeTruth(projection) : projection;
+     }
+     if (request.owner === "product") {
+       return projector(...(request.args ?? []));
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs
+@@ -53,7 +53,7 @@
+     let consumerWork;
+     if (value.kind === "artifact_owner_result" && value.value.kind === "product_install") {
+       const truth = value.artifactTruth;
+-      assert.ok(owners.artifact.runtimePrefixFromArtifactTruth(truth), "append returns the actual owner derivation");
++      assert.ok(owners.artifact.runtimePrefixFromOwnedArtifactTruth(truth), "append returns the actual owner derivation");
+       const row = truth.rows.find(row => row.admissionEventRef === value.admissionEventRef);
+       const installed = owners.environment.projectAdmittedProductInstall(truth, row.artifact, row.invocationRef);
+       coverage = await post("Profiler.takePreciseCoverage");
+@@ -64,7 +64,7 @@
+ 
+       assert.deepEqual(installed, value.value);
+       const copy = structuredClone(truth);
+-      assert.equal(owners.artifact.runtimePrefixFromArtifactTruth(copy), null);
++      assert.equal(owners.artifact.runtimePrefixFromOwnedArtifactTruth(copy), null);
+       assert.deepEqual(owners.environment.projectAdmittedProductInstall(copy, row.artifact, row.invocationRef), installed);
+       coverage = await post("Profiler.takePreciseCoverage");
+       consumerWork.copiedProjectionValidations = calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection");
+--- native04/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs
++++ native05-interim/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs
+@@ -125,7 +125,7 @@
+   const successor={fixture:'actual-successor-premise'},seen=[];
+   const module=await privateOwner('product/release_snapshot_definition_bindings.js',['tappedOwner'],{
+    '../abg/environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>environment,admitArtifact:(_store,basis,_operation,ref,digest,metadata)=>{seen.push({basis,ref,digest,value:metadata.artifact});return {disposition:'admitted',admissionEventRef:'fixture://admitted',successorPrefix:successor};}},
+-   '../abg/artifact_truth.js':{projectExactPrefixArtifactTruth:()=>({kind:'exact_prefix_artifact_truth_projection',rows:f.rows})},
++   '../abg/artifact_truth.js':{projectOwnedPrefixArtifactTruth:()=>({kind:'exact_prefix_artifact_truth_projection',rows:f.rows})},
+    '../abg/effectful_invocation_truth.js':{projectEffectfulPublicInvocationTruthAtPrefix:()=>({disposition:'available'})},
+    '../product/verify_product.js':{verifyProduct:async()=>({kind:'verified_product_artifact'})},
+    './verify_product.js':{verifyProduct:async()=>({kind:'verified_product_artifact'})},
+@@ -152,7 +152,7 @@
+    const coordinate=releaseArtifactCoordinate(a),prefix={fixture:'admitted-prefix'},row={operationId:'abg.operation.release.snapshot',memberKey:'tapped_release',artifactRef:coordinate.ref,artifactDigest:coordinate.digest,artifact:a,admissionEventRef:'fixture://admitted',admissionEventDigest:hash('admitted')};
+    const packet={kind:'product_project_read_packet',schemaVersion:'5.0.0',memberKey:'release_evidence',sourceRef:a.scope.ref,sourceDigest:a.scope.digest,projectionBasis:{basisRef:'fixture://prefix',basisDigest:hash(prefix),value:prefix},prefix,artifact:coordinate,artifactPath:'fixture://retained-artifact',selector:{kind:'release_operation_observation',artifact:coordinate}};
+    const input=join(f.root,decision+'-'+incomplete+'.json');await fs.writeFile(input,JSON.stringify({a,row,packet,rows:[...f.rows,row]}));
+-   const code=`import fs from 'node:fs';import {privateOwner} from ${JSON.stringify(sourceModule)};const x=JSON.parse(fs.readFileSync(process.argv[1]));const m=await privateOwner('product/project_read_ports.js',[],{'../abg/artifact_truth.js':{projectExactPrefixArtifactTruth:()=>({kind:'exact_prefix_artifact_truth_projection',rows:x.rows})},'../implementation/release_publication.js':{readReleaseArtifactBytes:()=>x.a,projectReleaseAcceptance:()=>({decision:x.a.decision})}});console.log(JSON.stringify(m.projectReleaseEvidence(x.packet)));`;
++   const code=`import fs from 'node:fs';import {privateOwner} from ${JSON.stringify(sourceModule)};const x=JSON.parse(fs.readFileSync(process.argv[1]));const m=await privateOwner('product/project_read_ports.js',[],{'../abg/artifact_truth.js':{projectOwnedPrefixArtifactTruth:()=>({kind:'exact_prefix_artifact_truth_projection',rows:x.rows})},'../implementation/release_publication.js':{readReleaseArtifactBytes:()=>x.a,projectReleaseAcceptance:()=>({decision:x.a.decision})}});console.log(JSON.stringify(m.projectReleaseEvidence(x.packet)));`;
+    const result=JSON.parse((await exec(process.execPath,['--experimental-vm-modules','--input-type=module','-e',code,input])).stdout);
+    assert.deepEqual(result.projection.originalRuling,f.ruling);assert.equal(result.projection.disposition,incomplete?'incomplete_effect':decision==='accept'?'accepted':'qualified_unaccepted');
+    assert.equal(result.projection.acceptance,decision==='withhold'?'withheld':incomplete?'incomplete':'accepted');

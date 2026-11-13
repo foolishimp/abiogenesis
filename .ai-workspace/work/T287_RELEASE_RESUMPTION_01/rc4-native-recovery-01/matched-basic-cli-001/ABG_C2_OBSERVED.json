@@ -1,0 +1,113 @@
+{
+  "status": "ADMITTED_C2_OBSERVATION",
+  "eventOrdinal": 4227,
+  "eventTime": "2026-11-03T00:37:42.256Z",
+  "resultRef": "result://abiogenesis/e8ff8b34e8fb45c28cd8887e084b8b41f8b2ac393d8847046e9ba245f6c0a40e",
+  "physicalEvent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/resources/events/runtime.events.jsonl",
+    "offset": 18437391,
+    "bytes": 108133,
+    "sha256": "6face36ce11633c550bb973c4424ef623ffef4d3c6fe3c847bb226224a308cbb"
+  },
+  "helperArtifactDigest": "sha256:b0d6e5bcc80d715e65b4ab53c447983fdb40a39a1a341fbb5cf494b069e8eb60",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/b0d6e5bcc80d715e65b4ab53c447983fdb40a39a1a341fbb5cf494b069e8eb60",
+  "commandResults": [
+    {
+      "commandId": "command://abiogenesis-sandbox-uat/basic-cli/cli",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "processSignal": null,
+      "stdout": "Hello, world!\n",
+      "stderr": ""
+    },
+    {
+      "commandId": "command://abiogenesis-sandbox-uat/basic-cli/tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "processSignal": null,
+      "stdout": "\u2714 component: hello-world CLI exits 0 and writes exactly \"Hello, world!\\n\" to stdout (25.071083ms)\n\u2714 uat: user running the CLI sees exactly \"Hello, world!\\n\" (25.276458ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 61.48025\n",
+      "stderr": ""
+    }
+  ],
+  "predicateObservations": [
+    {
+      "evidence": [
+        {
+          "digest": "sha256:e1869affd584717de4ecf76c5fb8fbe4a77415eae7878c96ee75121b50d3c524",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/e1869affd584717de4ecf76c5fb8fbe4a77415eae7878c96ee75121b50d3c524",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/e1869affd584717de4ecf76c5fb8fbe4a77415eae7878c96ee75121b50d3c524"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 0,
+      "predicateId": "predicate://abiogenesis-sandbox-uat/basic-cli/cli-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:eed4450547d49b0047c718d6bbb6387b9252d23acdebb9146f5559a609378d26",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/eed4450547d49b0047c718d6bbb6387b9252d23acdebb9146f5559a609378d26",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/eed4450547d49b0047c718d6bbb6387b9252d23acdebb9146f5559a609378d26"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 0,
+      "ordinal": 1,
+      "predicateId": "predicate://abiogenesis-sandbox-uat/basic-cli/tests-exit",
+      "predicateKind": "process_exit",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:eed4450547d49b0047c718d6bbb6387b9252d23acdebb9146f5559a609378d26",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/eed4450547d49b0047c718d6bbb6387b9252d23acdebb9146f5559a609378d26",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/eed4450547d49b0047c718d6bbb6387b9252d23acdebb9146f5559a609378d26"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": 2,
+      "ordinal": 2,
+      "predicateId": "predicate://abiogenesis-sandbox-uat/basic-cli/test-count",
+      "predicateKind": "test_pass_count",
+      "schemaVersion": "5.0.0"
+    },
+    {
+      "evidence": [
+        {
+          "digest": "sha256:e1869affd584717de4ecf76c5fb8fbe4a77415eae7878c96ee75121b50d3c524",
+          "kind": "worksite_command_observation_coordinate",
+          "ref": "worksite-command-observation://abiogenesis/e1869affd584717de4ecf76c5fb8fbe4a77415eae7878c96ee75121b50d3c524",
+          "schemaVersion": "5.0.0"
+        }
+      ],
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/e1869affd584717de4ecf76c5fb8fbe4a77415eae7878c96ee75121b50d3c524"
+      ],
+      "kind": "worksite_predicate_observation",
+      "observedValue": "Hello, world!\n",
+      "ordinal": 3,
+      "predicateId": "predicate://abiogenesis-sandbox-uat/basic-cli/stdout",
+      "predicateKind": "stdout_exact",
+      "schemaVersion": "5.0.0"
+    }
+  ],
+  "limit": "Native evidence only. UAT, final closure and separately selected symmetric external checks remain pending."
+}

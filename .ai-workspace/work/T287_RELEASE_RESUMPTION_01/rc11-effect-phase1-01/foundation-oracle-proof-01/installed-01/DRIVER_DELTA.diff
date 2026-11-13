@@ -1,0 +1,107 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.r02.py
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-01/proof.py
+@@ -91,21 +91,38 @@
+   st=p.stat();result.append({'path':'.package-lock.json','mtimeNs':st.st_mtime_ns,'mode':st.st_mode & 0o7777})
+  return sorted(result,key=lambda r:r['path'])
+ 
++def installed_archive_equality():
++ checked(b['proofArchive']);record=json.loads(checked(b['archiveMembers']));assert record['archive']==b['proofArchive']
++ root=Path(b['bootstrapHost'])/'node_modules/@abiogenesis/typescript-tenant'
++ actual=[]
++ for p in sorted(root.rglob('*')):
++  assert not p.is_symlink(),'unexpected installed package symlink '+str(p)
++  if p.is_file():v=pin(p);actual.append({'path':p.relative_to(root).as_posix(),'bytes':v['bytes'],'sha256':v['sha256']})
++ expected=[{k:r[k] for k in ['path','bytes','sha256']} for r in record['rows']]
++ assert actual==expected,'temporary installation differs from exact archive members'
++ manifest=json.loads((root/'product-toolchain-manifest.json').read_text());assert manifest['productContentDigest']==b['expectedProductContentDigest']
++ return {'archive':b['proofArchive'],'archiveMembers':b['archiveMembers'],'installedPackageRoot':str(root),'regularFiles':len(actual),'payloadBytes':sum(r['bytes'] for r in actual),'allRegularMembersEqual':True,'extraMissingSymlinkMembers':[],'manifest':pin(root/'product-toolchain-manifest.json'),'productContentDigest':manifest['productContentDigest']}
++
+ binding_path,binding_sha,admission_path,admission_sha=sys.argv[1:]
+ assert sha(Path(binding_path).read_bytes())==binding_sha; b=json.loads(Path(binding_path).read_text())
+ assert sha(Path(admission_path).read_bytes())==admission_sha; admission=json.loads(Path(admission_path).read_text())
+ c=json.loads((O/'CONTROLS.json').read_text());ready=json.loads((O/'READY.json').read_text())
+-assert admission['status']=='ROOT_ADMITTED_PHASE1_PROOF' and admission['bindingSha256']==binding_sha
++assert admission['status']=='ROOT_ADMITTED_FOUNDATION_ORACLE_INSTALLED_PROOF' and admission['bindingSha256']==binding_sha
+ assert admission['controlsSha256']==pin(O/'CONTROLS.json')['sha256'] and admission['readySha256']==pin(O/'READY.json')['sha256']
+ assert admission['commandIds']==[x['id'] for x in c['commands']]
+-assert b['status']=='FROZEN_PHASE1_PROOF_SUBJECT' and b['proofRoot']==c['proofRoot']
++assert b['status']=='FROZEN_FOUNDATION_ORACLE_INSTALLED_PROOF_SUBJECT' and b['proofRoot']==c['proofRoot']
+ for p in ready['controls']:checked(p)
+ for k in ['node','npmCli','builderPin','archive']:checked(c[k])
+ inv=json.loads(checked(b['sourceInventory']));source=Path(b['frozenSourceRoot']);rows=inv['rows'];assert inv['sourceDigest']==b['sourceDigest'];same_source(source,rows)
+ dep=json.loads(checked(c['dependencyInventory']));seed=json.loads(checked(c['contractSeedInventory']));npm=json.loads(checked(c['npmInventory']));base=json.loads(checked(c['controlledBaseline']))
+ dep={**dep,'root':c['dependencyRoot']}
++reused=json.loads(checked(b['reusedCompiledInventory']));checked(b['proofArchive']);checked(b['archiveMembers']);checked(b['packReturn']);checked(b['buildInputRelation'])
++assert reused['sourceDigest']==b['reusedBuildSourceDigest']
++assert compiled_rows(Path(reused['root']))==reused['rows'],'accepted compiled donor changed'
++assert not Path(b['bootstrapHost']).exists(),'create-once bootstrap host exists'
+ for v in [dep,seed,npm]:verify_tree(v)
+ for p in b['preservationPins']:checked(p)
++same_source(Path(b['liveSourceRoot']),rows)
+ assert shutil.disk_usage(source).free>c['reserveBytes']
+ assert controlled((source/c['tenantRelative']/'test_env/tests/t287-owned-process-lifetime.test.mjs').read_text())==base['blocks'],'controlled source altered'
+ proof=Path(c['proofRoot']);assert not proof.exists(),'create-once proof root already exists'
+@@ -123,24 +140,32 @@
+   if not dest.exists():dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(Path(seed['root'])/row['path'],dest);applied.append(row)
+  assert applied==b['expectedAbsentSeeds'],'undeclared absent seed population'
+  assert rows_at(work,rows)==rows,'seed overwrote original source'
++ for r in reused['rows']:
++  dst=tenant/safe(r['path']);dst.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(Path(reused['root'])/r['path'],dst)
++ assert compiled_rows(tenant)==reused['rows'],'reused compiled copy mismatch'
++ assert rows_at(work,rows)==rows,'compiled copy changed frozen source'
++ bootstrap=Path(b['bootstrapHost']);bootstrap.mkdir();save(bootstrap/'package.json',{'name':'abiogenesis-root-cli-host','version':'0.0.0','private':True,'type':'module'})
+  save(proof/'STAGE.json',{'sourceInventory':b['sourceInventory'],'sourceDigest':b['sourceDigest'],'frozenStage':str(stage),'work':str(work),'dependencyInventory':c['dependencyInventory'],'contractSeedInventory':c['contractSeedInventory'],'appliedAbsentSeeds':applied,'allOriginalSourceBytesEqual':True})
+  assert time.monotonic()-began<c['stageMaximumSeconds'],'stage budget'
+  pkg=json.loads((tenant/'package.json').read_text());assert pkg['scripts']['build']==c['expectedBuildScript'] and pkg['scripts']['lint']==c['expectedLintScript'] and pkg['scripts']['test:unit']==c['expectedUnitScript'],'selected npm scripts changed'
+  for n in ['npm-user.npmrc','npm-global.npmrc']:(proof/n).write_text('')
+  env={k:os.environ[k] for k in ['HOME','USER','LOGNAME','SHELL','LANG'] if k in os.environ};env.update(PATH=str(Path(c['node']['path']).parent)+':/usr/bin:/bin:/usr/sbin:/sbin',TMPDIR=str(tmp),NODE_OPTIONS='',NODE_PATH='',NODE_COMPILE_CACHE=str(tmp/'node-compile-cache'),FORCE_COLOR='0',npm_config_offline='true',npm_config_audit='false',npm_config_fund='false',npm_config_update_notifier='false',npm_config_cache=str(tmp/'npm-cache'),npm_config_userconfig=str(proof/'npm-user.npmrc'),npm_config_globalconfig=str(proof/'npm-global.npmrc'))
++ env.update(ABI5_WAVE1_FROZEN_ARTIFACT_PATH=b['proofArchive']['path'],ABI5_WAVE1_FROZEN_INSTALL_HOST=b['bootstrapHost'],ABI5_WAVE1_FROZEN_ARTIFACT_SHA256=b['proofArchive']['sha256'])
+  assert not any(k in env for k in c['unsetOptIns']);save(proof/'ENVIRONMENT.json',{'environment':env,'unsetOptIns':c['unsetOptIns'],'excludedAmbientNames':sorted(k for k in os.environ if k not in env),'paidProviderSelected':False,'networkPolicy':'Offline npm; only mandatory local loopback HTTP fixtures; no live provider selection.'})
+- results=[];retainedDelta=None;compiled=None
++ results=[];retainedDelta=[];compiled=reused['rows']
++ save(proof/'COMPILED_BUILD_INVENTORY.json',{'root':str(tenant),'sourceDigest':b['sourceDigest'],'scopes':reused['scopes'],'rows':compiled,'inventoryDigest':reused['inventoryDigest'],'actualBuild':reused['actualBuild'],'reuseBasis':b['reusedCompiledInventory'],'buildInputRelation':b['buildInputRelation'],'rebuildPerformed':False})
+  for command in c['commands']:
+   assert time.monotonic()-began<c['campaignMaximumSeconds'],'campaign bound'
+   assert shutil.disk_usage(proof).free>c['reserveBytes'],'disk reserve'
+   out=proof/command['id'];out.mkdir();evidence=out/'evidence';evidence.mkdir();pre=same_source(source,rows);same_source(stage,rows)
+   if compiled is not None:assert compiled_rows(tenant)==compiled,'retained tested build changed'
+   for p in b['preservationPins']:checked(p)
++  same_source(Path(b['liveSourceRoot']),rows)
+   argv=[c['node']['path']]+([c['npmCli']['path']] if command['kind']=='npm' else [])+command['args'];signals=[];timed_out=False;command_timed_out=False;campaign_timed_out=False;too_large=False;start=time.monotonic()
+   with (out/'stdout.log').open('xb') as stdout,(out/'stderr.log').open('xb') as stderr:
+    commandEnv={**env,'ABI5_TEST_EVIDENCE_DIR':str(evidence)}
+-   child=subprocess.Popen(argv,cwd=tenant,env=commandEnv,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,start_new_session=True)
+-   save(out/'LAUNCH.json',{'argv':argv,'cwd':str(tenant),'pid':child.pid,'pgid':child.pid,'absoluteSeconds':command['timeoutSeconds'],'sourcePreDigest':pre,'evidenceDirectory':str(evidence),'environmentDelta':{'ABI5_TEST_EVIDENCE_DIR':str(evidence)}})
++   commandCwd=Path(command.get('cwd',str(tenant)));child=subprocess.Popen(argv,cwd=commandCwd,env=commandEnv,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,start_new_session=True)
++   save(out/'LAUNCH.json',{'argv':argv,'cwd':str(commandCwd),'pid':child.pid,'pgid':child.pid,'absoluteSeconds':command['timeoutSeconds'],'sourcePreDigest':pre,'evidenceDirectory':str(evidence),'environmentDelta':{'ABI5_TEST_EVIDENCE_DIR':str(evidence)}})
+    while child.poll() is None:
+     command_timed_out=time.monotonic()-start>=command['timeoutSeconds'];campaign_timed_out=time.monotonic()-began>=c['campaignMaximumSeconds'];timed_out=command_timed_out or campaign_timed_out;too_large=(out/'stdout.log').stat().st_size+(out/'stderr.log').stat().st_size>c['maxOutputBytes']
+     if timed_out or too_large:break
+@@ -170,14 +195,27 @@
+    report['retainedEvidence']=[pin(p) for p in sorted(evidence.iterdir()) if p.is_file()]
+    for p in evidence.iterdir():assert p.is_file() and p.suffix=='.json';json.loads(p.read_text())
+    for p in b['preservationPins']:checked(p)
++   same_source(Path(b['liveSourceRoot']),rows)
+    assert code==0 and not timed_out and not too_large and group_gone and not cleanup_needed,'command failed/incomplete or owned group cleanup required'
+    if command['kind']=='testfile' or command['id']=='unit':report['tap']=tap((out/'stdout.log').read_text(),command)
++   if command['id']=='bootstrap':
++    equality=installed_archive_equality();save(out/'ARCHIVE_INSTALL_EQUALITY.json',equality);report['archiveInstallEquality']=pin(out/'ARCHIVE_INSTALL_EQUALITY.json')
++   if command['id']=='w2-05':
++    lines=re.findall(r'^# W2_05_PROOF (\{.*\})$',(out/'stdout.log').read_text(),re.M);assert len(lines)==1,'missing/duplicate actual W2_05_PROOF'
++    actual=json.loads(untap(lines[0]));assert actual['tarballDigest']==actual['artifactDigest']=='sha256:'+b['proofArchive']['sha256']
++    assert actual['productContentDigest']==b['expectedProductContentDigest'] and actual['definitionCount']==56
++    assert actual['addedKeys']==b['expectedAddedKeys'];assert actual['eventCountBeforeCatalog']==actual['eventCountAfterCatalog']==2
++    report['installedOwnerProof']=actual;report['actualCallableCensusStanding']='Reported actual callableCount/remainingKeys; no invented fixed callable quota.'
++    report['archiveInstallEqualityAfterTest']=installed_archive_equality()
+   except Exception as e:error=str(e)
+   report['status']='PASSED' if error is None else 'FAILED_OR_INCOMPLETE';report['failure']=error;save(out/'RETURN.json',report);results.append({'id':command['id'],'status':report['status'],'receipt':pin(out/'RETURN.json')});print(json.dumps(results[-1]),flush=True)
+   if error:raise RuntimeError(error)
+  verify_tree(dep);verify_tree(npm);verify_tree({**dep,'root':str(tenant/'node_modules')});same_source(source,rows);same_source(stage,rows)
+  assert compiled_rows(tenant)==compiled,'final tested build changed'
++ assert compiled_rows(Path(reused['root']))==reused['rows'],'retained build donor changed'
++ installed_archive_equality()
+  for p in b['preservationPins']:checked(p)
++ same_source(Path(b['liveSourceRoot']),rows)
+  save(proof/'FINAL_RETURN.json',{'status':'MECHANICAL_PROOF_COMMANDS_PASSED_PENDING_ROOT_REVIEW','sourceDigest':b['sourceDigest'],'commands':results,'originalFrozenSourceConserved':True,'dependencyAndNpmAuthorityConserved':True,'compiledInventory':pin(proof/'COMPILED_BUILD_INVENTORY.json'),'retainedWorkDelta':retainedDelta,'standing':'Finite commands/full selected files only; skips recorded, no assurance/qualification/acceptance.'})
+ except Exception as e:
+  save(proof/'HALT.json',{'error':str(e),'standing':'Stopped; preserve actual outputs/process receipts/work. No automatic retry, source repair, broader cleanup or following command.'});raise

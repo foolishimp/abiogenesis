@@ -1,0 +1,228 @@
+{
+  "kind": "d5_completion_author_workflow_timing",
+  "at": "2026-11-06T01:15:34.157921+00:00",
+  "standing": "Actual native author source return and fresh close, before C2/UAT/acceptance; no matched performance comparison.",
+  "inputs": {
+    "launch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/LAUNCH_TIMING.json",
+      "bytes": 1839,
+      "sha256": "f00354449fb43cc3fb4dca693ca13487638738f42ff144961a098182e50ad683"
+    },
+    "host": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/HOST_RESULT.json",
+      "bytes": 153,
+      "sha256": "e9daefb0d6775bf5abc43628bcea5ce267069ec2463bba94c5566377b92a1ec5"
+    },
+    "nativeMetadata": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/NATIVE_TOOL_METADATA.json",
+      "bytes": 1442,
+      "sha256": "f703360aafe5d65a43253628229589de810afc75e3c2c5587401c55710e31798"
+    },
+    "physicalEnvelopes": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/TIMING_OBSERVATION_ENVELOPES.json",
+      "bytes": 5945,
+      "sha256": "4ce37bda36fd2de4eb0630861cd75cf5823b28dafdebe652df2b75bb4b02b0e9"
+    },
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 5475,
+      "sha256": "05964a28314c79e70a6ee83e5f5bfc4c2ac2901e2bf1bafa081d6eb13cd1537f"
+    }
+  },
+  "setup": {
+    "reused": true,
+    "executedMs": null
+  },
+  "preflight": {
+    "startedUtc": "2026-11-05T23:19:14.200673+00:00",
+    "endedUtc": "2026-11-05T23:20:00.654570+00:00",
+    "wallMs": 46454.21799970791,
+    "exitCode": 0
+  },
+  "intervalsMs": {
+    "hostStartupToDispatch": 42471.366,
+    "dispatchToNative": 46682.0,
+    "nativeActor": 6076019.0,
+    "nativeExitToOutcome": 42640.0,
+    "outcomeToFreshClose": 551533.04,
+    "nativeExitToFreshClose": 594173.04,
+    "hostTotal": 6759330.471917056,
+    "previousHostCloseToHostLaunch": 2505315.79
+  },
+  "commands": [
+    {
+      "name": "lifecycle-start",
+      "started": "2026-11-05T23:21:41.231Z",
+      "wallMs": 6161874.631417,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/commands/lifecycle-start.result.json",
+        "bytes": 50870101,
+        "sha256": "79071638ac6f94de0d547faa8f2103ed6fefc2c8cbfc66803a866064cdd9d0ef"
+      }
+    },
+    {
+      "name": "run_result",
+      "started": "2026-11-06T01:08:00.785Z",
+      "wallMs": 85709.91191700008,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/commands/run_result.result.json",
+        "bytes": 43190265,
+        "sha256": "e7f0e337aa0d84e5028e4f88222a78854ed954603baba3264803c188087b68b8"
+      }
+    },
+    {
+      "name": "run_replay",
+      "started": "2026-11-06T01:12:08.112Z",
+      "wallMs": 86359.34341700003,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/commands/run_replay.result.json",
+        "bytes": 43189908,
+        "sha256": "e565db4c089f56ba3c01f579c9125fbf774391ca704b03466fed80680071e6c5"
+      }
+    }
+  ],
+  "nativeTerminalMetadata": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "num_turns": 349,
+    "duration_ms": 6073598,
+    "duration_api_ms": 3640306,
+    "total_cost_usd": 30.289988200000007,
+    "stop_reason": "tool_use",
+    "session_id": "2d90435c-e842-44f4-bf70-82a5f0ac8821"
+  },
+  "uniqueTools": 345,
+  "log": {
+    "startBytes": 716470691,
+    "endBytes": 914514036,
+    "growthBytes": 198043345,
+    "counts": {
+      "public_operation_admitted": {
+        "rows": 1,
+        "physicalBytes": 4261
+      },
+      "invocation_admitted": {
+        "rows": 1,
+        "physicalBytes": 10142
+      },
+      "implementation_admitted": {
+        "rows": 1,
+        "physicalBytes": 6247
+      },
+      "basis_admitted": {
+        "rows": 1,
+        "physicalBytes": 14325731
+      },
+      "run_segment_opened": {
+        "rows": 1,
+        "physicalBytes": 2332
+      },
+      "graph_call_opened": {
+        "rows": 1,
+        "physicalBytes": 2241
+      },
+      "frame_opened": {
+        "rows": 1,
+        "physicalBytes": 2519
+      },
+      "runtime_activity_probe_observed": {
+        "rows": 20579,
+        "physicalBytes": 86192700
+      },
+      "traversal_cursor_entered": {
+        "rows": 1,
+        "physicalBytes": 3049
+      },
+      "c_call_opened": {
+        "rows": 1,
+        "physicalBytes": 2559
+      },
+      "c_call_fibre_selected": {
+        "rows": 1,
+        "physicalBytes": 2184
+      },
+      "actor_transport_binding_admitted": {
+        "rows": 1,
+        "physicalBytes": 14412670
+      },
+      "actor_invocation_started": {
+        "rows": 1,
+        "physicalBytes": 2526
+      },
+      "actor_process_started": {
+        "rows": 1,
+        "physicalBytes": 1813
+      },
+      "actor_process_stdout_observed": {
+        "rows": 20682,
+        "physicalBytes": 38003614
+      },
+      "actor_process_exited": {
+        "rows": 1,
+        "physicalBytes": 1727
+      },
+      "actor_result_artifact_observed": {
+        "rows": 1,
+        "physicalBytes": 97502
+      },
+      "actor_invocation_closed": {
+        "rows": 1,
+        "physicalBytes": 1801788
+      },
+      "c_call_evidenced": {
+        "rows": 1,
+        "physicalBytes": 6559
+      },
+      "c_call_result_admitted": {
+        "rows": 1,
+        "physicalBytes": 43149597
+      },
+      "c_call_judged": {
+        "rows": 1,
+        "physicalBytes": 2159
+      },
+      "traversal_route_admitted": {
+        "rows": 1,
+        "physicalBytes": 2664
+      },
+      "terminal_reached": {
+        "rows": 1,
+        "physicalBytes": 2146
+      },
+      "frame_closed": {
+        "rows": 1,
+        "physicalBytes": 1631
+      },
+      "graph_call_closed": {
+        "rows": 1,
+        "physicalBytes": 1547
+      },
+      "run_closed": {
+        "rows": 1,
+        "physicalBytes": 1437
+      }
+    }
+  },
+  "limits": [
+    "Intervals are wall time, not CPU attribution. Nested command intervals overlap host intervals and must not be added twice.",
+    "Previous-close to host-launch includes Root triage, controls, preflight and audit; it is not pure runtime between-task latency.",
+    "Command results can contain body carriage; only selected timing/exit metadata was inspected here.",
+    "No matched RC6/RC7 full workflow, provider or all-interface efficiency claim."
+  ]
+}

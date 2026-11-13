@@ -1,0 +1,11 @@
+{
+  "recordedUtc": "2026-11-04T01:31:09.046873+00:00",
+  "standing": "Read-only exact existing baseline proof route; no execution or current C2 credit",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+  "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-06/existing-duplicate-owner-proof-001/m5-event-store-reopen.test.mjs",
+  "sha256": "ff28021b9a3b9acffe947ba146ce5ceaffb67fdf13a494de62a995c415e1a68a",
+  "bytes": 84957,
+  "route": "cross-kind collision control at lines953-997 exercises duplicate_outer_invocation through actual projector; validated-history lower fixture explicitly distinguished from native06 actual held-prefix pair case",
+  "selectedNative06C2": false
+}

@@ -1,0 +1,38 @@
+{
+  "recordedUtc": "2026-11-03T23:57:50.915542+00:00",
+  "status": "ACTUAL_C2_RESULT_ADMITTED_COMMAND_FAILED",
+  "coordinates": {
+    "kind": "c_call_result_admitted",
+    "admissionOrdinal": 43003,
+    "eventId": "event://abiogenesis/7a4a7f848de3ba5173d10c089b48e36c1887cc5c17a2a67cccc93f4b05c75d2c",
+    "eventTime": "2026-11-03T23:46:21.282Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "runId": "run://abiogenesis/c4581064ff35c1127d0e65366bc6d662fa29d87bbfbaa874206e954b2782ee73",
+    "offset": 444429126,
+    "rowBytes": 11017193,
+    "rowSha256": "8224b1453239458f533bb93c16a7a36abfd9fffb656146efe1249e948c6fc83e",
+    "resultRef": "result://abiogenesis/3e585ae89d7a9edfb8f0c594df663d3503dd38b566100aae36db0a829a3e524d",
+    "resultDigest": "sha256:3e585ae89d7a9edfb8f0c594df663d3503dd38b566100aae36db0a829a3e524d",
+    "valueKind": "worksite_command_execution_observation"
+  },
+  "observationRef": "worksite-command-execution-observation://abiogenesis/c557604f78755d3683630867cc4955b154441e895de345a8b3dede53b3980482",
+  "observationDigest": "sha256:c557604f78755d3683630867cc4955b154441e895de345a8b3dede53b3980482",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/95a2e9e8dd3f08962b27a618266f61f5204e811f4ca6343927460811ad613181",
+  "exactHelperComparisons": {
+    "commandResults": true,
+    "predicateObservations": true,
+    "productDelta": true,
+    "worksiteDelta": true
+  },
+  "actualSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/ACTUAL_C2_SUMMARY.json",
+    "bytes": 10432,
+    "sha256": "0bf0f9f59ee76ebfd00ff5d3b23a2a0f09fd916742804f50f4b75b80c8f9b4c4"
+  },
+  "actualSourceCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/actual-c2-001/SOURCE_CORRESPONDENCE.json",
+    "bytes": 26741,
+    "sha256": "822ff3cfeac79807f86e8b9bb673c26682a95bd42de20931c2be9e80a1744b3e"
+  },
+  "standing": "Native admitted observation corroborates captured helper command/predicate/delta values. Commands0-5 exit0; command6 exit1. No whole acceptance; UAT/final close remain pending."
+}

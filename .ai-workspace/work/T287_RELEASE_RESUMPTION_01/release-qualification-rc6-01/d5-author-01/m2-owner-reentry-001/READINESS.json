@@ -1,0 +1,458 @@
+{
+  "productFrame": {
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "goal": "GOAL-035/T287",
+    "slice": "F10 D5 durable lifecycle-copy retirement, affected F04 result integrity and F11/Q23 provenance",
+    "outcome": "One exact typed durable observation relation shared by artifact production and qualification proof, with live physical observations, one ABG truth owner, deterministic current-profile reading and exact retained history.",
+    "authoritySplit": {
+      "source": "Frozen Product/requirements own WHAT; common-library, native-event-profile and qualification HOW own realization. Root controls own this readiness scope.",
+      "tool": "Exact immutable STDO3.0.4 review; host filesystem tools are behaviorally scoped, not OS confinement. This actor reads frozen sources and writes only this return.",
+      "runtime": "ABG alone admits events; pure projections and review reports create no runtime truth, grant, source standing or native J."
+    },
+    "prohibitions": [
+      "No Product/HOW/code/test edits, dispatch, staging, tests/builds, provider/runtime/Git/network/credential effects.",
+      "No new registry, store, event stream, controller, execution router or universal migration.",
+      "No physical-fact deletion, duplicate handwritten durable filters, invented native ancestry or accepted-candidate claim."
+    ]
+  },
+  "kind": "d5_m2_owner_reentry_readiness",
+  "status": "CLOSED_READ_ONLY_OWNER_REENTRY_REQUIRED",
+  "at": "2026-11-05T22:45:22.716117+00:00",
+  "result": "falsified",
+  "evaluatedClaim": "The earlier six-owner D5 cone was complete for retiring the current-profile actor artifact copies while preserving qualification and recovery joins.",
+  "conclusion": "The digest coupling is confirmed. The original cone is incomplete. No existing fully typed copy-free durable-observation projection was found in the relevant frozen owners. The existing pure transport_contracts owner is the minimum common placement for that relation; Root must select any repair and its precise realization.",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/m2-owner-reentry-001/REVIEW_REQUEST.md",
+    "bytes": 3507,
+    "sha256": "12738bd5fabdb4eb603f605c9619c704c44f2a989f9c12bad71ead2c81164290"
+  },
+  "authority": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/ROOT_SELECTION.json",
+      "bytes": 10325,
+      "sha256": "7c748823ac447064b1dd31d5e42f50680365ca588240e4420c57ccad6663f3c1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/ROOT_PROFILE_DISPOSITION.json",
+      "bytes": 3110,
+      "sha256": "59b29a543a0df68313dc1ed48ea3cfdb42fc37196a827fffaac6a39a396e2f11"
+    }
+  ],
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "definition": {
+      "path": "stdo_abiogenesis.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+      "lines": "constitution.stdo.basis; no companion"
+    },
+    "verification": "Exact previously verified immutable basis reused; no manager/runtime invocation in this pass."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 461262,
+    "sha256": "601d6588e7c8c9f03a5305a378fb3454f815e641003668677b51142b590b096f"
+  },
+  "subjectStanding": {
+    "files": 386,
+    "nativeResultRef": "result://abiogenesis/59fca6278b522da77bf12388de1d33eec009461898e437079d0a2fa0dc21d4eb",
+    "eventOrdinal": 120005,
+    "base": "1f62c0095e6196b089071bb72e88217792edf6ff",
+    "acceptance": false,
+    "authorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/return.json",
+      "bytes": 17280,
+      "sha256": "09981772fb4a212adb06454e5681e43f465d88d9a4fd4be006de4c4985f68b5f"
+    },
+    "authorReadiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/readiness.json",
+      "bytes": 3097,
+      "sha256": "ffcdd69d36e8fb8288000705b8ae99eb24d2b0a32a0d1e9e9280896a7dd96ef0"
+    },
+    "sourceReady": false
+  },
+  "independence": {
+    "standing": "Same-family-to-Root technical owner evaluation; not formal independent acceptance or native J.",
+    "context": "This actor prepared earlier D5 readiness and operator controls; that prior role is disclosed. Current findings independently reacquired from the exact frozen source.",
+    "hostBoundary": "Unrestricted filesystem capability; acquisition/effects constrained by the request and recorded here."
+  },
+  "findings": [
+    {
+      "id": "M2-OWNER-01",
+      "severity": "S2",
+      "confidence": "high, source-grounded",
+      "property": "One authoritative durable observation representation must preserve the qualified artifact/source join without removing required live physical facts.",
+      "counterexample": "Delete the four fields only from the current artifact payload: actor_process still returns the full live observation; implementation/qualification hashes it, while qualification_proof hashes the smaller persisted body. The hashes differ and the J cold join refuses. Deleting the same fields from the live observation instead violates the required ActorProcessObservation/ProbabilisticWorkerObservation contracts and carrier validation.",
+      "causalChain": [
+        "actor_process.ts:1358-1394 constructs the full observation; :1395-1405 adds cCallRef/requestRef/requestDigest and persists it; :1411 returns the same full body live.",
+        "implementation/qualification.ts:51-65 consumes ActorProcessCarrierValidation and sets QualificationJudgment.source.observationDigest = hash(exchange.observation).",
+        "qualification_proof.ts:613-621 finds the unique artifact for the actual actor/CCall, verifies finalOutput against raw, removes only cCallRef/requestRef/requestDigest, then compares the body hash to source.observationDigest.",
+        "The current event-store artifact arm still extends the exact L payload key set with required nativeResultAssessment; it has not retired the four copies.",
+        "M3 c_call.ts:2086-2092 still compares all four artifact fields to its lifecycle projection. Recovery :253-257 strips request/call coordinates and feeds the retained full artifact body to validateActorProcessCarrierPair. Both are affected consumers, beyond the hash comparison."
+      ],
+      "blastRadius": "Current-P M2 artifact retirement affects every probabilistic artifact carrier read and the Q23 J/source/artifact join; preserved Construction recovery is also affected. The existing partial keeps artifact copies and fails closed; no source/data-loss or accepted-release regression is demonstrated.",
+      "workaround": "Retain the exact partial, keep M2 open, and keep the dormant proof template unactivated. Original RC6 runtime history remains with its immutable owner.",
+      "repairComplexity": "Bounded multi-owner representation/consumer change plus two added qualification code owners and the existing pure transport contract owner. Common projection itself is small; meaningful end-to-end fixture premises are the larger dependency.",
+      "regressionRisk": "Moderate: asymmetric digests, legacy reinterpretation, incomplete physical-carrier reconstruction, or weakening source/binding checks. Avoid a generic registry/migration or changed live carrier semantics.",
+      "priority": "Executive-owned; not assigned by this review."
+    }
+  ],
+  "ownerRelation": {
+    "classification": "Pure deterministic projection of an already validated physical observation into the declared durable event representation; no event, fold, store, actor or runtime lifecycle of its own.",
+    "existingFullyTypedProjection": false,
+    "existingOwner": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "reason": "It already owns pure transport classifications, configured identity and native result assessment contracts used by actor and event owners. Runtime imports are shared immutable/admit/digest atoms only; imports of Node SpawnOptions and implementation VerifiedProbabilisticResultContractPreimage are type-only. No actor invocation, prefix read, store or leaf-port dependency is needed by a pure projection.",
+    "placementCorrection": "actor_process is the owning producer but should not be made the new shared callable dependency for implementation/qualification. The earlier provisional message naming it as the common seam is superseded by this dependency-grounded placement.",
+    "dependencyFacts": [
+      "actor_process.ts:56-62 already imports transport_contracts values; event_store.ts:38 also does.",
+      "qualification_proof.ts:51 and validator/qualification.ts:32 currently consume ConfiguredActorSelection as a type from the same lower owner.",
+      "implementation/qualification.ts:1 imports the actor carrier as a type; :2 already imports qualification_proof values. A blanket implementation-to-ABG import prohibition is therefore not supported.",
+      "actor_process.ts:75 imports isAdmittedLeafInvocationPort; leaf_invocation_port.ts:91-94 imports validateActorProcessCarrierPair and prepareActorProcessInvocation: an existing direct runtime cycle. The port loads the installed leaf implementation at :1105-1112 and calls its completion at :790.",
+      "A bounded static value-import scan did not find an actor_process-to-implementation/qualification static path. No new static cycle or exact lint violation from the proposed direct import is asserted. It would nevertheless make a pure consumer depend on the execution owner and its existing cycle; the lower contract owner avoids that unnecessary edge.",
+      "No actor-specific projection belongs in shared/: the common-library HOW forbids shared importing owner modules. Reuse the existing shared JSON/hash/admission atoms inside the owner; do not add a new framework or barrel."
+    ],
+    "requiredTransformations": [
+      "Preserve the full live ActorProcessObservation and existing ActorProcessCarrierValidation; preserve the physical transport result and helper observations.",
+      "Specify one typed current-profile durable observation projection in the pure transport contract owner. Its output retains every non-retired observation member, including optional nativeResultAssessment when applicable, identity, input/output/request-related digests, processStatus/processSignal/timeoutClass, counts, tool evidence and artifact digests. Only the four selected durable lifecycle copies are excluded.",
+      "The actual current-profile artifact writer and the qualification source-digest producer must consume that same owner definition. The cold proof must compare the same exact durable representation under the artifact\u2019s actual profile, without separately restating a filtering rule.",
+      "Keep request/call envelope coordinates distinct from the observation digest, while preserving all existing joins authenticating them. A projection is not admission or authority to ignore malformed/unknown profile input.",
+      "Keep the full live probabilistic-result candidate digest and its matching CCall validation unchanged unless an owning relation separately requires a change: probabilistic_result.ts:582-584 and c_call.ts:3824-3835 currently hash the same full live observation. That digest is a different internal carrier relation from QualificationJudgment.source.observationDigest.",
+      "Adapt the affected CCall and recovery durable reads to the same profile-owned representation and already-authenticated lifecycle relation. Reuse the existing CCall lifecycle computation; if its typed result must be made available to recovery, expose that existing computation within the owner rather than duplicating timeout/signal derivation or defaulting missing booleans."
+    ],
+    "profilePremise": "The actor writer has an authenticated currentProfile from the held successor prefix (:1256); the cold reader has the artifact/event profile and native prefix. Qualification completion has its authenticated nativeBasis/predecessorPrefix but its live carrier has no explicit event-profile field. The owner must bind current-P digest semantics through that existing lawful basis/port relation, or explicitly constrain the supported producer to current P. Do not guess profile from model names, optional-field presence, or labels. Exact callable/type shape remains Worker/HOW-owned; no new serialized profile field or new port is selected here.",
+    "physicalCorrection": "The author correctly identified required live fields. More precisely, consensus.ts accepts ProbabilisticWorkerObservation at :379/:477, but its actual member reads are transportDigest, finalOutput, disposition and failureClass, not direct timedOut/exitObserved/terminationConfirmed reads. The required physical contract/actor validator is the direct reason to preserve the full live carrier; this review does not overstate the consensus reads."
+  },
+  "currentPartial": {
+    "M2": "Not implemented. Actor, pure transport contracts, qualification producer and qualification proof are byte-identical to the exact predecessor F6.",
+    "M3": "P evidence copies are removed; the CCall projection derives absent values from admitted process facts/fold but still requires matching artifact copies. Thus M3 is useful partial progress, not a standalone proof that M2 can be removed. Preserve its source and bounded author observations; reprove the affected composition after M2 changes.",
+    "M4": "The archive omits three booleans while the live WorkerTransportResult retains them. Archive digest changes flow through the retained artifactDigests/transportDigest; they do not by themselves solve the live-versus-durable observation hash. Recovery\u2019s all-three-or-none archive branch is separate from its still-full actor carrier read.",
+    "physicalBoundary": "Do not equate direct physical exitObserved with terminationConfirmed globally. An observed exit can coexist with unresolved descendant scope. Any cold reconstruction must remain within the owner\u2019s admitted lifecycle domain.",
+    "notReassessed": "The reported causation-lookup test failure, positive preserved-recovery fixture gap, timeout-positive gap and overall nine-module gate remain open. No independent build/test validation or candidate acceptance occurred."
+  },
+  "compatibility": {
+    "L": "The exact legacy event-contract table text is unchanged from F6; its retained full observation bytes and legacy source.observationDigest meaning must remain exact. A current-P projection must not be applied retroactively to L judgments.",
+    "legacyTableTextSha256": "750cee5e7bbbd0b2c330ca2375d28a6b87a9294bd6de59c1423f593f363bc8f8",
+    "currentP": "M3 already changes ROOT_EVENT_CONTRACTS and therefore the canonical current descriptor digest. M2 would change it again. This pass did not execute module initialization or calculate the runtime descriptor digest.",
+    "profileRef": "ROOT_CURRENT_EVENT_PROFILE_REF remains abg.event-contract.root/p5-run-environment-role-context@1 at event_contract_profiles.ts:11-12, byte-identical to F6. A changed digest is not evidence that a successor profile name/package cut was selected.",
+    "CT01": "Original RC6-current histories retain their immutable executable, admitted events and genuine closes. No direct successor reopen, restamp or migration of those P stores is selected; use a fresh successor store.",
+    "CT02": "OPEN_BEFORE_PROSPECTIVE_RC7_PROFILE_ACCEPTANCE under ROOT_PROFILE_DISPOSITION. This partial draft neither accepts nor cuts the successor profile. Reconcile the exact current descriptor/digest/ref and governing HOW at that prospective boundary, including the historical p3 wording in the profile supplement versus the implemented p5 ref. Do not create a registry or infer universal backward compatibility.",
+    "observationDigest": "Changing the durable observation preimage changes future qualification source digests and their enclosing judgment/result identities. Recreate affected future evidence from the exact successor; never rewrite old J/source/artifact bytes or treat their hashes as the new projection. Preserve distinct rawValueDigest, transportDigest and native provenance joins."
+  },
+  "minimumCone": {
+    "selectionStanding": "Proposed owner readiness only; no repair or enlarged mutation grant is selected by this report.",
+    "newlyRequiredExistingCodeOwners": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts"
+    ],
+    "alreadySelectedM2AffectedOwners": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts"
+    ],
+    "retainCurrentM3M4AndProfileOwners": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts"
+    ],
+    "conditionalTypeOwner": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "condition": "Only if the lawful typed handoff requires a type declaration/alias. Do not remove the existing physical fields or select a broader carrier rewrite."
+    },
+    "readOnlyDependencies": [
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/consensus.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts",
+      "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+      "build_tenants/abiogenesis/typescript/code/src/shared/process/",
+      "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts"
+    ],
+    "how": [
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#D5",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md#profiles",
+      "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md#one-native-proof-owner"
+    ],
+    "nearestAffectedTests": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+    ],
+    "retainedProofPopulation": "Keep the existing nine-module affected scope and exact source closure. Expand test support only for the missing concrete producer/artifact/J composition, with declared lower-owner premises; no broad suite or history census is selected. Existing lifecycle lint remains exact if an allow-listed recovery expression changes."
+  },
+  "predictedDiscriminators": [
+    {
+      "id": "PD1",
+      "question": "One current-P observation representation",
+      "positive": "For an owner-validated full live observation, the real current artifact projection and qualification completion produce the same copy-free digest preimage; current contract admits it, the existing live carrier remains valid, and the cold J join returns the exact selected J.",
+      "negative": "Changing only the persisted payload while retaining hash(full live observation) must refuse the cold J join. A test that merely handwrites the same small object on both sides is insufficient."
+    },
+    {
+      "id": "PD2",
+      "question": "Exact retained content and profile",
+      "positive": "Retained non-lifecycle coordinates/digests/nativeResultAssessment and output remain identical through the owner projection; L keeps the exact old full preimage.",
+      "negative": "Crossed kept content, wrong actor/CCall/request/binding, stale observationDigest, duplicate artifact, malformed/current reinserted copy, or applying current projection to an L preimage must not yield a valid J."
+    },
+    {
+      "id": "PD3",
+      "question": "CCall/lifecycle/recovery composition",
+      "positive": "Current copy-free artifact plus copy-free evidence reaches the real admitted transport projection with unchanged failure classification and authoritative fold truth; meaningful preserved recovery reaches non-null only with the authentic assessed bridge/process/artifact premises already recorded in D5_RECOVERY_PROOF_READINESS.",
+      "negative": "Crossed/partial carrier or archive, timeout/nonzero/unconfirmed boundary, foreign producer and tampered digest-bound bytes refuse. No fabricated success/advance Result, fake prefix, or verifyAuthority=>true can establish the recovery positive."
+    }
+  ],
+  "nearestProofLimits": {
+    "qualificationFixture": "t287-qualification-scopes:446-452 declares process/artifact/terminal joins assumed; admitJudgment:504-509 creates observation={finalOutput:...} and hashes that same hand-built object. It proves its stated identity/J relation under those premises, not actor_process emission or implementation/qualification completion of a full physical carrier. Preserve that evidence, add the missing representation composition rather than relabeling it.",
+    "contractFixture": "m5-event-store-reopen:1348ff explicitly asserts that the artifact arm keeps copies; it is valid for this partial, must change with the selected M2 current-profile contract, and cannot be reused as evidence for copy-free artifacts.",
+    "lifecycleFixture": "t287-lifecycle-failure-carrier:428ff is a declared synthetic immutable prefix for the real CCall projection. It must cover the new copy-free artifact as well as evidence; it supplies no native ancestry or successful preserved-recovery result.",
+    "fullNativeProof": "No complete producer-to-J/current-profile artifact proof or authentic preserved-recovery positive was executed or acquired as complete evidence in this pass. Future owner fixtures may declare lower-owner premises, but claims must remain bounded to the exercised relation."
+  },
+  "whyEarlierScopeMissedIt": {
+    "cause": "The earlier retirement map followed named lifecycle fields through actor/event/evidence/archive/recovery owners and classified the live/helper fields separately. It omitted the whole-object hash relation: a digest consumes every observation member without naming timedOut/exitObserved/terminationConfirmed/signalSequence. The qualification producer and J verifier therefore did not appear in the six-owner scope.",
+    "missedRelation": "ActorProcessObservation -> artifact body -> QualificationJudgment.source.observationDigest -> projectQualificationJudgment, plus the still-copy-dependent M3/recovery consumer joins.",
+    "proofBlindSpot": "Retained Q23 local positives manually pair a minimal observation and its hash while explicitly assuming artifact/process joins; their passes cannot reveal full-carrier persistence drift. Protected compile closure made these owners readable, but did not select their semantic relation or edits.",
+    "accountability": "This is a gap in this actor\u2019s earlier D5 readiness/scope assessment. The native author obeyed the extension stop and returned the missing relation instead of widening the grant. The coupling existed before D5; six relevant owners are byte-identical to F6.",
+    "reentry": "Root-owned common-library/native-profile/qualification HOW conjunction, then only the complete affected existing-owner cone and nearest composition proof. No new WHAT is established as necessary."
+  },
+  "reuseAndInvalidation": {
+    "reuse": [
+      "Exact original RC6 histories/executables and bounded prior acceptances remain unchanged.",
+      "Earlier D5 physical/helper exclusion and immutable-L findings survive. M3/M4 source and reported author checks remain exact partial evidence.",
+      "Q23 eligibility/identity fixture evidence remains valid within its declared premises; configured identity policy is not reselected."
+    ],
+    "invalidatedClaims": [
+      "Original six-owner scope sufficiency for full M2 retirement.",
+      "Any future proof/template claim using this partial as a completed D5 subject.",
+      "Any reuse of full-observation J hashes as current copy-free hashes or claim that the synthetic Q23 fixture closes the newly exposed producer/artifact relation."
+    ],
+    "invalidators": [
+      "Material change to the exact subject, invoked owner/profile/contract meaning, authenticated source/evidence population or capability envelope.",
+      "A new counterexample or acquired complete owner fixture changing the stated support.",
+      "Changed governing Product/requirement/method basis."
+    ]
+  },
+  "unknowns": [
+    "Exact repair callable/type shape and owner selection remain unchosen.",
+    "Current-P versus L producer applicability must be explicit through existing authenticated basis/port owners; no profile inference is supplied.",
+    "Actual new-profile digest, name/cut and installed closure are not computed or accepted.",
+    "No provider identity/auth/independence eligibility is established by this capability/technical review.",
+    "The genuine preserved-recovery positive fixture and the reported causation failure require their separate existing-owner dispositions."
+  ],
+  "reusedEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_PROFILE_RETIREMENT_READINESS.json",
+      "bytes": 30505,
+      "sha256": "b57e3ef562309c85f68fe9e12fba52e03b70d196c139ee4ddd0189f2ff70573b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_RECOVERY_PROOF_READINESS.json",
+      "bytes": 24139,
+      "sha256": "a1844b66d6eb4177ea642ea38ad4c7da9938cf171667c9e1167a57cb0c1db65d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/D5_PROOF_INPUT_READINESS.json",
+      "bytes": 44901,
+      "sha256": "46c4ced838d1f6a2250f901c958d6708a3ad8ea3e0623188e157fab9157e9b5b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+      "bytes": 434234,
+      "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "specification/PRODUCT.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "lines": "574-603,1240-1284,1478-1491"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 36574,
+      "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28",
+      "lines": "38-56,94-123,236ff"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "lines": "22-47,304-380"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 147084,
+      "sha256": "e3233793d10b6ffdafa41f414821b9fa6a64b9fd9cebba8a612b1b73389594ad",
+      "lines": "9-32,34-78,201-215,534-571,621-625"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+      "bytes": 21963,
+      "sha256": "0a05f75ab566602af154e99044a24760e0ef1fb46a5393ef44ab024ef40d4919",
+      "lines": "9-88"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "bytes": 55857,
+      "sha256": "b5cf1ecc08df2593214a4e6e9b97d5c4c936bf7513549ee0b77e361db175728a",
+      "lines": "39-47,67-97,270-272"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 82336,
+      "sha256": "94908ca0c4900dcf7be787f207dafe87be9288f0da1b75c88b9cfb5cec33679b",
+      "lines": "56-76,102-155,357-574,1256,1358-1411"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 23728,
+      "sha256": "3ea897beaddc78f9887a0dd1c726565f7e895914e69fc2b5fd8f611fab1be2b1",
+      "lines": "1-38,52-88,103-239; all exports inspected"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "bytes": 9802,
+      "sha256": "dc021e2712cae19e8dfd6be56d33c239105115c483ae6381983f154a70ddff31",
+      "lines": "1-12,41-67"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 101944,
+      "sha256": "283a4db69b5eb9aaaee1cb753c267a45995398dd8f49e044164654487cecc264",
+      "lines": "1-51,300-315,569-625"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bytes": 19897,
+      "sha256": "7da8c71f162549621ea2adebe149fdd5509c85046c7d57ad50e35985493db0c6",
+      "lines": "77-102,104-156"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/consensus.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/consensus.ts",
+      "bytes": 27051,
+      "sha256": "376f4d183b8ecf432a28db8742953a61dc0966b3949d5384b6c7a021b5035f81",
+      "lines": "379,477,612-619; transport member reads"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 83701,
+      "sha256": "6b91dcbd8327b922a6c563685fa3aa1346ea3e5fdda56015bef8a66eec93753b",
+      "lines": "91-94,767-796,1105-1112"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 299344,
+      "sha256": "e9f472b98bde917ee24abeed90fca70439ce8621a23c09f663ef4034b0cde4d6",
+      "lines": "2024-2139,2152-2175,3824-3839"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 214920,
+      "sha256": "8d75f892fd73811ced3f2f6392e86487d4b862eb273509ccc1a0407169b3a3ad",
+      "lines": "293-295,325-1078,1154-1192"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "bytes": 10724,
+      "sha256": "830a42927e739f732e610f5a57daf6f941b4cd5ffcc0aeddf7906cab8183f7a0",
+      "lines": "8-16,160-176"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 37162,
+      "sha256": "352e98b9faf3713166b3a39271ba472c62b40b67546a8443df1681f119c5aab9",
+      "lines": "612-668"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "bytes": 40227,
+      "sha256": "06afb4725c375d5bce2e28f4415c7f47ceb9e9e8f11422bf5b4400a37a924a82",
+      "lines": "53-77,225-294"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts",
+      "bytes": 24140,
+      "sha256": "bc6f1b5e10bc38c1d5ff89b2f3a45e1de47eb7ef42f650ec49fb913af752b60b",
+      "lines": "579-584"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "bytes": 42257,
+      "sha256": "e96f3f83600db08d3145b468895de887d375d764e8ae4f0929e886207383e4cd",
+      "lines": "259 source observationDigest"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "bytes": 88039,
+      "sha256": "b698ed3cc75fbf9cdcc9e632f7ed8e30155b8b199322324decab7b177f92efdf",
+      "lines": "446-452,462-518,521ff"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "bytes": 88005,
+      "sha256": "4dc4968664b8592b09cf6a9cd35e56b3bb0ae426fa6046cb36ba78b31908a22d",
+      "lines": "1348ff"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "bytes": 36543,
+      "sha256": "2d1bb0cf164a28e931d76155ad7efe084f68edce623519dd22b6cb74ce8d7abc",
+      "lines": "179,397-415,428-521"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 96693,
+      "sha256": "aff4484204b9309acd2abef27c296b6b0a1fb89aa66c4661f88d540a04b83657",
+      "lines": "source identity; retained physical/archive proof route"
+    }
+  ],
+  "effects": {
+    "reads": "Own control; Root controls; exact frozen source and six material F6 member comparisons; prior named readiness; immutable method; lightweight memory search yielded no current task evidence and was not used as basis. No moving Product source or private provider history acquired.",
+    "writes": [
+      "READINESS.json",
+      "READINESS.md"
+    ],
+    "notPerformed": [
+      "Product/HOW/code/test edits",
+      "Git",
+      "tests/builds",
+      "provider/runtime/network/credential calls",
+      "staging or proof activation",
+      "implementation selection",
+      "independent acceptance/native J"
+    ]
+  },
+  "return": "Closed to Root for conjunction and any exact owner re-entry selection. D5 proof template remains dormant; stop."
+}

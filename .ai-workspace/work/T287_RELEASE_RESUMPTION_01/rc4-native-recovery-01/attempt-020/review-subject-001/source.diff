@@ -1,0 +1,540 @@
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md b/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md
+index 58ee49c52..52bb6545b 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md
+@@ -124,6 +124,40 @@ reappend, immutable prior prefixes and refusal isolation remain binding.
+ Recovery reconstructs; a handoff or query within the live lifetime is not itself
+ a reason to reconstruct history. No competing persistent state is introduced.
+ 
++### Maintained setup owner reuse (RC4 setup020)
++
++Maintained setup composes the canonical installed calls in one installed module
++instance. `publicCaller.invoke` hands the actual constructed DefinitionCall to
++that instance's `runInstalledDefinitionCallTransport`, which retains the actual
++owner-verified artifact and its exact request relation through authorization,
++verification, resolution and installation and detaches every other caller
++value. Setup records compact request/resource coordinates, the actual SDK
++outcome, close handoff and timing as evidence; it never re-ingests a persisted
++projection. Cold/raw ingress and new target Products still verify,
++installations keep their physical checks and locks, and owners retain
++permissions, currentness, close and reopen. There is no alternate legacy mode,
++cache, service or receipt authority.
++
++Installation runs npm in the ambient process environment and the event-resource
++lock namespace follows `TMPDIR`, so the caller scopes the configured setup
++`PATH` and `TMPDIR` over the complete serial setup and authorization and
++restores the ambient values in `finally`. Lifecycle supervision and fresh Run
++reads keep one explicitly named cold entry: one canonical JSONL request to a
++fresh installed CLI process under its declared environment. Setup adds no
++timeout race that could abandon an active owner.
++
++```mermaid
++sequenceDiagram
++  participant Setup as populateSandbox
++  participant SDK as installed module instance
++  participant Owner as fixed Product/ABG owner
++  Setup->>SDK: authorize(packet, request, owned verified values)
++  SDK-->>Setup: constructed DefinitionCall
++  Setup->>SDK: runInstalledDefinitionCallTransport(acquisition, call)
++  SDK->>Owner: detached call with retained verifier bodies
++  Owner-->>Setup: receipt and close handoff (recorded as evidence only)
++```
++
+ ### Authenticated read-source handoff (T287/Writer51)
+ 
+ One cold read authenticates the detached immutable durable coordinate and its
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs
+index 6ee7af878..c2bbe5244 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs
+@@ -794,7 +794,10 @@ test('preparation resolution retains its established native link and raw lock re
+     ...call, resources,
+   }));
+   assert.equal(links, 1, 'one actual link, reused by the output projection');
+-  const prior = JSON.parse(await readFile(preparationCallPath.replace('/calls/', '/receipts/'), 'utf8'));
++  // The genuine setup proof retains the call's returned source receipt beside it.
++  const receiptPath = preparationCallPath.replace(/-call\.json$/u, '-receipt.json');
++  assert.notEqual(receiptPath, preparationCallPath, 'retained call requires its sibling returned receipt');
++  const prior = JSON.parse(await readFile(receiptPath, 'utf8'));
+   assert.deepEqual(value.ownerOutput, prior.receipt.ownerOutput);
+   assert.deepEqual(value.resources, prior.receipt.resources);
+   const artifacts = resources.verifiedPreimages.map(x => x.verifiedArtifact);
+diff --git a/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs b/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
+index ea8363a68..f04c6c7fd 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
+@@ -1,5 +1,5 @@
+ import assert from 'node:assert/strict';
+-import { mkdir, mkdtemp, readFile, realpath, rename, rm, stat, symlink, writeFile } from 'node:fs/promises';
++import { access, lstat, mkdir, mkdtemp, readFile, readdir, realpath, rename, rm, stat, symlink, writeFile } from 'node:fs/promises';
+ import fs from 'node:fs';
+ import { syncBuiltinESMExports } from 'node:module';
+ import { tmpdir } from 'node:os';
+@@ -12,7 +12,8 @@ import * as abg from '../../build/code/src/abg/index.js';
+ import * as storeOwner from '../../build/code/src/abg/event_store.js';
+ import * as gtl from '../../build/code/src/gtl/index.js';
+ import { assessmentSelection, consumerDeclaration, IDS } from './consumer.mjs';
+-import { constructLifecycleCall, installedModules, publicCaller } from './public-setup.mjs';
++import { constructLifecycleCall, installedModules, populateSandbox, publicCaller, verifyArtifact } from './public-setup.mjs';
++import { readCandidateBasis } from '../support/candidate-basis.mjs';
+ import { acquireArchivedScenario, acquireScenario, constructWorkloadInput, digest, fixturePath, loadScenarios, selectScenarios, snapshotScenario } from './scenarios.mjs';
+ import { acquireResumeMaterial, applyCommandTimeoutOverrides, commandObservationOwner, commandObservationSourceUse, commandRecorder, configuration, eventResourceIdentity, exclusiveRecord, freshReadbacks, invokeLifecycle, main, newArchive, readOracleEvents, transferResumeMaterial, workerEnvironment } from './runner.mjs';
+ 
+@@ -553,21 +554,32 @@ test('Both retained install roots are checked before dispatch and before fresh r
+   for(const failure of [null,...['before-run','after-run'].flatMap(phase=>['abg','consumer'].map(installId=>({phase,installId,value:false}))),
+     {phase:'after-run',installId:'consumer',value:undefined}]) {
+     const steps=[],records=[];let phase='before-run',freshReaderExecuted=false;
+-    const caller={installedRoot:installations[0].installedRoot,
+-      runtime:{product:{async installedProductContentMatches(install){
++    // The controlled process stands in for the one cold lifecycle entry; the
++    // actual entry frames the request and parses the returned outcome line.
++    const supervision={ABI5_CONTROLLED_SUPERVISION:'lifecycle'},completion={kind:'installed_definition_call_transport_result',
++      receipt:{exitCode:0,ownerOutput:{outcomeKind:'result',value:null}}};
++    const call={invocation:{definitionKey:{operationId:'controlled',memberKey:'start'},invocationRef:'invocation://controlled/start'},resources:{}};
++    const caller={root:'/controlled/archive',installedRoot:installations[0].installedRoot,config:{nodePath:'/controlled/node'},state:{closeHandoff:null,calls:[]},
++      runtime:{product:{canonicalJson:product.canonicalJson,async installedProductContentMatches(install){
+         assert.ok(installations.includes(install));steps.push('check:'+phase+':'+install.installId);
+         return failure?.phase===phase&&failure.installId===install.installId?failure.value:true;
+       }}},
+-      async record(path,record){steps.push('record:'+record.phase);records.push({path,record});},
+-      async invoke(label){assert.equal(label,'lifecycle-start');steps.push('dispatch');phase='after-run';return {kind:'controlled-completion'};}};
+-    const consume=async()=>{const result=await invokeLifecycle(caller,installations,{kind:'controlled-call'},{});steps.push('fresh-read');freshReaderExecuted=true;return result;};
++      async record(path,record){if(path.startsWith('installed-content-')){steps.push('record:'+record.phase);records.push({path,record});}},
++      async command(label,executable,args,{environment}){
++        assert.equal(label,'lifecycle-start');assert.equal(executable,'/controlled/node');assert.equal(environment,supervision);
++        assert.deepEqual(args,[join(installations[0].installedRoot,'build/code/src/public/cli.js'),'--jsonl','/controlled/archive/calls/lifecycle-start.request.jsonl']);
++        steps.push('dispatch');phase='after-run';return {exitCode:0,stdout:JSON.stringify(completion)+'\n'};
++      }};
++    const consume=async()=>{const result=await invokeLifecycle(caller,installations,call,supervision);steps.push('fresh-read');freshReaderExecuted=true;return result;};
+     if(failure) {
+       await assert.rejects(consume(),error=>error.stage==='installed-content-'+failure.phase);
+       assert.equal(freshReaderExecuted,false);
+       assert.equal(steps.includes('dispatch'),failure.phase==='after-run');
+       assert.equal(records.at(-1).record.observations.find(row=>row.installId===failure.installId).contentMatches,false);
+     }else {
+-      assert.deepEqual(await consume(),{kind:'controlled-completion'});
++      const dispatched=await consume();
++      assert.deepEqual(dispatched.outcome,completion);assert.equal(dispatched.call,call);
++      assert.deepEqual(caller.state.calls.map(row=>row.label),['lifecycle-start']);
+       assert.equal(freshReaderExecuted,true);
+     }
+     const expected=['check:before-run:abg','check:before-run:consumer','record:before-run'];
+@@ -715,7 +727,7 @@ test('Caller run-environment support is canonical, strictly contained and admitt
+ 
+ test('Native refusal without an admitted Run is preserved before any refresh, reopen or read',async()=>{
+   const touched=()=>assert.fail('No runtime or read activity is permitted without an admitted Run');
+-  const caller={get runtime(){return touched();},refresh:touched,reopen:touched,invoke:touched};
++  const caller={get runtime(){return touched();},refresh:touched,reopen:touched,invoke:touched,command:touched,record:touched};
+   const ownerOutput={outcomeKind:'refusal',value:{code:'invalid_capability',issuePaths:['/invocationAuthority'],evidenceRefs:[]}};
+   await assert.rejects(freshReadbacks(caller,{receipt:{resources:{run:null},ownerOutput}}),error=>{
+     assert.equal(error.stage,'lifecycle-start');assert.deepEqual(error.observation,ownerOutput);return true;
+@@ -732,22 +744,30 @@ test('Admitted failed and blocked Runs retain both fresh reads and unchanged eve
+   for(const status of ['failed','blocked']) {
+     const eventPath=join(scratch,status+'.events.jsonl'),bytes=Buffer.from('controlled admitted '+status+' Run premise\n');
+     await writeFile(eventPath,bytes,{flag:'wx'});
+-    const prefix={eventLogRef:pathToFileURL(eventPath).href,coordinateDigest:hash(status)},calls=[],constructed=[];
++    const prefix={eventLogRef:pathToFileURL(eventPath).href,coordinateDigest:hash(status)},calls=[],constructed=[],requests=[];
+     const run={ref:'run://controlled/'+status,digest:hash(status)},coordinates={operations:[]};
++    const readEnvironment={ABI5_CONTROLLED_READ:status},reopened={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:{prefix},handoffDigest:hash({prefix})};
++    const readCall=memberKey=>({invocation:{definitionKey:{operationId:'abg.operation.project.read',memberKey},invocationRef:'invocation://controlled/'+memberKey},
++      resources:{eventResource:reopened}});
+     let population=null;
+-    // Run admission, read population and Public projection are controlled
+-    // premises. The actual two-read caller checks source and physical bytes.
+-    const caller={root:scratch,installedRoot:'/controlled/installed',actorRef:'actor://controlled/readback',config:{runId:status},
+-      state:{binding:{ref:'binding://controlled',digest:hash('binding')},closeHandoff:{prefix}},native:{verified:{definitionContractCoordinates:coordinates}},
++    // Run admission, read population, the fresh process and Public projection
++    // are controlled premises. The actual two-read caller and its one cold
++    // entry frame each request and check source and physical bytes.
++    const caller={root:scratch,installedRoot:'/controlled/installed',actorRef:'actor://controlled/readback',config:{runId:status,nodePath:'/controlled/node',setupEnvironment:readEnvironment},
++      state:{binding:{ref:'binding://controlled',digest:hash('binding')},closeHandoff:{prefix},calls:[]},native:{verified:{definitionContractCoordinates:coordinates}},
+       runtime:{product,abg,api:{constructInstalledRunReadCall(input){
+         constructed.push(input);
+-        return population??{kind:'installed_run_read_call',call:{controlled:input.memberKey},population:{source:{ref:run.ref,digest:run.digest}}};
++        return population??{kind:'installed_run_read_call',call:readCall(input.memberKey),population:{source:{ref:run.ref,digest:run.digest}}};
+       }}},
+-      refresh:()=>({}),reopen:()=>({kind:'controlled-event-resource'}),
+-      async invoke(memberKey,call){
+-        calls.push({memberKey,call});
+-        return {receipt:{ownerOutput:memberKey==='run_result'?{outcomeKind:'refusal',value:{code:'absent_terminal_result'}}:
+-          {outcomeKind:'result',value:{projection:{status,terminalResult:null}}}}};
++      refresh:()=>({}),reopen:()=>reopened,invoke:()=>assert.fail('Fresh reads never use the native setup transport'),
++      async record(path,value){if(path.endsWith('.request.jsonl'))requests.push(JSON.parse(value));},
++      async command(memberKey,executable,args,{cwd,environment}){
++        assert.equal(executable,'/controlled/node');assert.equal(cwd,scratch);assert.equal(environment,readEnvironment);
++        assert.deepEqual(args,[join('/controlled/installed','build/code/src/public/cli.js'),'--jsonl',join(scratch,'calls',memberKey+'.request.jsonl')]);
++        calls.push({memberKey,request:requests.at(-1)});
++        const ownerOutput=memberKey==='run_result'?{outcomeKind:'refusal',value:{code:'absent_terminal_result'}}:
++          {outcomeKind:'result',value:{projection:{status,terminalResult:null}}};
++        return {exitCode:memberKey==='run_result'?1:0,stdout:JSON.stringify({kind:'installed_definition_call_transport_result',receipt:{ownerOutput}})+'\n'};
+       }};
+     const ownerOutput=status==='failed'?{outcomeKind:'refusal',value:{code:'controlled_failure'}}:
+       {outcomeKind:'result',value:{kind:'governance_work_state',terminal:false}};
+@@ -759,9 +779,10 @@ test('Admitted failed and blocked Runs retain both fresh reads and unchanged eve
+     for(const [i,input] of constructed.entries()) {
+       assert.equal(input.workspaceBinding,caller.state.binding);assert.equal(input.sourceRef,run.ref);
+       assert.deepEqual(input.selector,input.memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'});
+-      assert.deepEqual(input.eventResource,{kind:'controlled-event-resource'});assert.equal(input.envelope.definitionContractCoordinates,coordinates);
++      assert.equal(input.eventResource,reopened);assert.equal(input.envelope.definitionContractCoordinates,coordinates);
+       assert.equal(input.envelope.requestRef,'request://abi5-tests/sandbox-uat/'+status+'/'+input.memberKey);
+-      assert.deepEqual(calls[i].call,{controlled:input.memberKey});
++      assert.deepEqual(calls[i].request,{kind:'abg_cli_transport_request',schemaVersion:'5.0.0',
++        acquisition:{kind:'reopen',closeHandoff:{prefix}},invocation:readCall(input.memberKey)});
+     }
+     // A population refusal or a foreign source dispatches no read.
+     for(const [refused,stage] of [[{kind:'run_read_population_refusal',code:'unknown_source',issuePath:'/source/sourceRef'},'run_result-read-population'],
+@@ -773,3 +794,208 @@ test('Admitted failed and blocked Runs retain both fresh reads and unchanged eve
+     assert.deepEqual(await readFile(eventPath),bytes);assert.deepEqual(caller.state.closeHandoff.prefix,prefix);
+   }
+ });
++
++// Provider-free default setup over the fresh packed candidate. Pass-through
++// observers count the owners' genuine heavy entries without replacing them: a
++// cold verifier reads its artifact inside verifyProduct, and every declaration
++// closure or native link TypeScript program reads the bundled default library
++// once. A PATH wrapper records the environment the installation npm receives.
++test('Maintained setup retains actual owner verification through ten native calls and preserves configured environment',async t=>{
++  const tenantRoot=fileURLToPath(new URL('../../',import.meta.url)),basis=await readCandidateBasis(tenantRoot);
++  const packagePath=join(tenantRoot,'artifacts',basis.packageName.replace(/^@/u,'').replace('/','-')+'-'+basis.packageVersion+'.tgz');
++  assert.equal(digest(await readFile(packagePath)),basis.artifactDigest,'the fresh package is the candidate basis artifact');
++  const archive=await newArchive(archives,'maintained-setup'),root=archive.path;
++  const ambient={PATH:process.env.PATH,TMPDIR:process.env.TMPDIR};
++  let realNpm=null;
++  for(const directory of (ambient.PATH??'').split(':').filter(Boolean)) {
++    try{await access(join(directory,'npm'),fs.constants.X_OK);realNpm=join(directory,'npm');break;}catch{}
++  }
++  assert.ok(realNpm,'setup requires an npm executable on the ambient PATH');
++  const setupTmp=join(root,'setup-tmp'),setupBin=join(root,'setup-bin'),npmLog=join(root,'installation-npm-environment.log');
++  await mkdir(setupTmp);await mkdir(setupBin);
++  const quoted=value=>{assert.ok(!value.includes("'"),'shell-safe path');return "'"+value+"'";};
++  await writeFile(join(setupBin,'npm'),'#!/bin/sh\n{ printf \'PATH=%s\\n\' "$PATH"; printf \'TMPDIR=%s\\n\' "${TMPDIR-}"; printf \'ARGS=%s\\n\' "$*"; } >> '+
++    quoted(npmLog)+'\nexec '+quoted(realNpm)+' "$@"\n',{flag:'wx',mode:0o755});
++  const inheritedKeys=['HOME','LANG','LC_ALL','NPM_CONFIG_CACHE','npm_config_cache'].filter(key=>process.env[key]!==undefined);
++  const setupEnvironment={...Object.fromEntries(inheritedKeys.map(key=>[key,process.env[key]])),PATH:setupBin+':'+ambient.PATH,TMPDIR:setupTmp};
++  assert.notEqual(setupEnvironment.PATH,ambient.PATH);assert.notEqual(setupEnvironment.TMPDIR,ambient.TMPDIR);
++
++  const phases=[],records=[],commands=[],environmentAtRecord=[];let phase=null;
++  const enter=name=>{const now=performance.now();if(phase)phase.endMs=now;phase={name,startMs:now,endMs:null};phases.push(phase);};
++  const recorder=commandRecorder(root,{environment:setupEnvironment,timeoutMs:600000});
++  const command=async(label,executable,args,options)=>{
++    commands.push({label,executable,args});
++    if(label==='pack-consumer')enter('consumer-preparation');
++    const result=await recorder(label,executable,args,options);
++    if(label==='pack-consumer')enter('consumer-verification');
++    return result;
++  };
++  const record=async(path,value,raw=false)=>{
++    records.push(path);environmentAtRecord.push({path,PATH:process.env.PATH,TMPDIR:process.env.TMPDIR});
++    const marker=phase.name==='restoration-control'?null:/^calls\/(.+)\.(request|outcome)\.json$/u.exec(path);
++    if(marker)enter(marker[2]==='request'?marker[1]:'after:'+marker[1]);
++    else if(path==='abg-acquisition.json')enter('after:core-initial-verification');
++    else if(path==='consumer-acquisition.json')enter('after:consumer-verification');
++    return exclusiveRecord(root,path,value,raw);
++  };
++  const bootstrapRoot=join(root,'bootstrap/node_modules/@abiogenesis/typescript-tenant');await mkdir(bootstrapRoot,{recursive:true});
++  enter('bootstrap-acquisition');
++  assert.equal((await command('acquire-bootstrap','/usr/bin/tar',['-xzf',packagePath,'--strip-components=1','-C',bootstrapRoot])).exitCode,0);
++  const instanceRoot=await realpath(bootstrapRoot),toolchainRoot=join(instanceRoot,'build/toolchain')+'/';
++
++  const entries=[];
++  const stack=()=>{const limit=Error.stackTraceLimit;Error.stackTraceLimit=Infinity;try{return new Error().stack??'';}finally{Error.stackTraceLimit=limit;}};
++  const observe=(kind,path,owners)=>{
++    const frame=[...stack().matchAll(/at (?:async )?([A-Za-z]+) \((file:\/\/[^)]+?):\d+:\d+\)/gu)].find(match=>owners.includes(match[1]));
++    entries.push({kind,path,phase:phase.name,owner:frame?.[1]??null,module:frame?fileURLToPath(frame[2]).slice(instanceRoot.length+1):null,
++      sameInstance:frame?fileURLToPath(frame[2]).startsWith(instanceRoot+'/'):null,atMs:performance.now()});
++  };
++  const original={readFile:fs.promises.readFile,readFileSync:fs.readFileSync};
++  fs.promises.readFile=function(path,...rest){
++    if(typeof path==='string'&&path.endsWith('.tgz'))observe('verifier',path,['verifyProduct']);
++    return original.readFile.call(this,path,...rest);
++  };
++  fs.readFileSync=function(path,...rest){
++    if(typeof path==='string'&&path.startsWith(toolchainRoot)&&/^lib\.[a-z0-9]+\.full\.d\.ts$/u.test(path.slice(toolchainRoot.length)))
++      observe('type-program',path,['resolveNativeDeclarationClosures','linkNativeContractSet']);
++    return original.readFileSync.call(this,path,...rest);
++  };
++  syncBuiltinESMExports();
++  let runtime,native,caller,setup;const observed=new Map();
++  try {
++    enter('installed-module-load');
++    runtime=await installedModules(bootstrapRoot);
++    const manifest=JSON.parse(await readFile(join(bootstrapRoot,'product-toolchain-manifest.json'),'utf8'));
++    assert.equal(runtime.product.sha256Canonical(manifest),basis.manifestDigest);assert.equal(manifest.productContentDigest,basis.productContentDigest);
++    enter('core-initial-verification');
++    native=await verifyArtifact(runtime,{artifactPath:packagePath,manifest,expectedArtifactDigest:basis.artifactDigest},record,'abg');
++    caller=publicCaller({root,runtime,native,command,record,config:{runId:archive.runId,bootstrapRoot,worksiteRoot:join(root,'sandbox/worksite'),
++      setupEnvironment,recursionBound:1000,nodePath:process.execPath,toolchains:{npm:{executable:realNpm}}}});
++    const nativeInvoke=caller.invoke;
++    caller.invoke=async(label,call,options)=>{const result=await nativeInvoke(label,call,options);observed.set(label,result);return result;};
++    setup=await populateSandbox(caller);
++    enter('complete');
++    assert.deepEqual({PATH:process.env.PATH,TMPDIR:process.env.TMPDIR},ambient,'ambient PATH/TMPDIR return after setup');
++    // A failing serial setup restores the same ambient state in finally.
++    enter('restoration-control');
++    await assert.rejects(populateSandbox(caller),error=>error.code==='EEXIST');
++    assert.deepEqual({PATH:process.env.PATH,TMPDIR:process.env.TMPDIR},ambient,'ambient PATH/TMPDIR return after refusal');
++  }finally {
++    fs.promises.readFile=original.readFile;fs.readFileSync=original.readFileSync;syncBuiltinESMExports();
++  }
++  const {product,abg}=runtime,hash=product.sha256Canonical;
++
++  // Ten actual owner receipts, in one module instance, with chained actual closes.
++  const labels=['workspace-create','product-verify-0','product-verify-1','product-resolve','product-install-0','product-install-1',
++    'workspace-bind','catalog-admit','catalog-view','program-conformance'];
++  const setupCalls=caller.state.calls.slice(0,labels.length);
++  assert.deepEqual(setupCalls.map(row=>row.label),labels);
++  let close=null;const closes=[];
++  for(const label of labels) {
++    const {call,outcome,receipt}=observed.get(label),resource=call.resources.eventResource,returned=receipt.resources?.eventResource?.closeHandoff;
++    assert.equal(outcome.kind,'installed_definition_call_transport_result',label);
++    assert.equal(receipt.exitCode,0,label);assert.equal(receipt.failure,null,label);assert.equal(receipt.ownerOutput.outcomeKind,'result',label);
++    const owner=call.resources.admissionAuthority.basis.ownerArtifact;
++    assert.equal(owner.verified,native.verified,label+' carries the actual verified owner');assert.deepEqual(owner.request,native.request,label+' keeps its exact request');
++    assert.equal(product.selectOwnedProductVerification(owner.request,owner.verified),native.verified,label+' request selects the owned verification');
++    if(!resource){assert.equal(returned,undefined,label+' is eventless');continue;}
++    assert.ok(returned?.prefix,label+' returns its owner close');
++    if(resource.kind==='new_abg_event_resource')assert.equal(close,null,label);
++    else {assert.equal(resource.closeHandoff,close,label+' reopens the actual preceding close');assert.equal(resource.handoffDigest,hash(close));}
++    assert.equal(returned.prefix.eventLogRef,(close??returned).prefix.eventLogRef);
++    closes.push({label,acquisition:outcome.acquisitionKind,prefix:returned.prefix});close=returned;
++  }
++  assert.deepEqual(closes.map(row=>row.label),['product-install-0','product-install-1','workspace-bind','catalog-admit']);
++  assert.equal(caller.state.closeHandoff,close);
++  const eventLog=fileURLToPath(close.prefix.eventLogRef),identity=await eventResourceIdentity(eventLog);
++  const events=abg.readRuntimeEventsAtDurablePrefix(abg.captureDurablePrefixCoordinate(close.prefix));
++  assert.ok(events.length>0);assert.deepEqual(await eventResourceIdentity(eventLog),identity,'cold authentication of the final close changes nothing');
++
++  // Verification, resolution and installation keep the actual owner bodies.
++  const natives=[native.verified,observed.get('product-verify-1').call.resources.verifiedArtifact];
++  for(const [i,verified]of natives.entries()) {
++    const packed=observed.get('product-verify-'+i).call.resources.packedArtifact;
++    assert.equal(product.selectOwnedProductVerification({artifactPath:packed.artifactPath,artifactRef:verified.artifactRef,
++      expectedArtifactDigest:verified.artifactDigest,expectedProductContentDigest:verified.productContentDigest,expectedManifestDigest:verified.manifestDigest,
++      expectedProductId:verified.productId,expectedPackageName:verified.packageName,expectedPackageVersion:verified.packageVersion},verified),verified,
++      'the verifier owns this exact request/body relation');
++    assert.equal(observed.get('product-verify-'+i).call.resources.verifiedArtifact,verified);
++    assert.equal(observed.get('product-resolve').call.resources.verifiedPreimages[i].verifiedArtifact,verified);
++    assert.equal(observed.get('product-install-'+i).call.resources.verifiedArtifact,verified);
++  }
++  assert.deepEqual(observed.get('catalog-admit').call.resources.verifiedProducts,natives);
++  assert.ok(observed.get('catalog-admit').call.resources.verifiedProducts.every((value,i)=>value===natives[i]));
++  assert.deepEqual(observed.get('product-resolve').receipt.ownerOutput.value.resolvedLock,{ref:caller.state.resolvedLock.lockId,digest:caller.state.resolvedLock.lockDigest});
++
++  // Two genuine Products, admitted installs and conserved physical content.
++  assert.deepEqual(setup.installations.map(install=>install.productId),natives.map(value=>value.productId));
++  assert.notEqual(natives[0].productId,natives[1].productId);
++  const environment=caller.refresh();
++  for(const [i,install]of setup.installations.entries()) {
++    assert.equal(abg.hasAdmittedProductInstall(environment.artifactTruth,install),true);
++    assert.equal(install.artifactDigest,natives[i].artifactDigest);
++    assert.equal(await product.installedProductContentMatches(install),true,'installed content matches its verified Product');
++  }
++  assert.equal(digest(await readFile(packagePath)),basis.artifactDigest);
++  assert.equal(digest(await readFile(observed.get('product-verify-1').call.resources.packedArtifact.artifactPath)),natives[1].artifactDigest);
++
++  // Zero setup CLI children and zero JSONL setup replay.
++  assert.deepEqual(commands.map(row=>row.label),['acquire-bootstrap','pack-consumer']);
++  assert.ok(commands.every(row=>!row.args.some(arg=>String(arg).endsWith('public/cli.js'))));
++  assert.equal(records.some(path=>path.endsWith('.jsonl')),false);
++  assert.equal((await readdir(join(root,'calls'))).some(name=>name.endsWith('.jsonl')),false);
++
++  // Configured PATH/TMPDIR reach every setup record, the installation npm and
++  // the event-resource lock namespace; ambient values hold outside the scope.
++  const inside=environmentAtRecord.filter(row=>row.path.startsWith('calls/')||row.path==='consumer-acquisition.json');
++  assert.ok(inside.length>=labels.length*2);
++  assert.ok(inside.every(row=>row.PATH===setupEnvironment.PATH&&row.TMPDIR===setupEnvironment.TMPDIR));
++  const outside=environmentAtRecord.find(row=>row.path==='abg-acquisition.json');
++  assert.deepEqual({PATH:outside.PATH,TMPDIR:outside.TMPDIR},ambient);
++  const received=(await readFile(npmLog,'utf8')).trim().split('\n'),npmCalls=[];
++  for(let i=0;i<received.length;i+=3)npmCalls.push({PATH:received[i].slice(5),TMPDIR:received[i+1].slice(7),args:received[i+2].slice(5)});
++  assert.equal(npmCalls.length,2,'two genuine installation npm processes');
++  for(const [i,row]of npmCalls.entries()) {
++    assert.equal(row.PATH,setupEnvironment.PATH);assert.equal(row.TMPDIR,setupEnvironment.TMPDIR);
++    assert.match(row.args,/^install /u);assert.ok(row.args.endsWith(' '+observed.get('product-install-'+i).call.resources.packedArtifact.artifactPath));
++  }
++  assert.equal((await lstat(join(setupTmp,'abiogenesis-event-store-locks-v5'))).isDirectory(),true);
++
++  // Heavy owner entries by Product and phase, all in the one installed instance.
++  const productOf=path=>path===packagePath?'core':path===observed.get('product-verify-1').call.resources.packedArtifact.artifactPath?'consumer':'other';
++  const heavy=entries.filter(row=>row.owner!==null);
++  assert.ok(heavy.every(row=>row.sameInstance),'heavy owner work runs in the installed setup module instance');
++  assert.equal(entries.filter(row=>row.kind==='type-program'&&row.owner===null).length,0);
++  const verifiers=heavy.filter(row=>row.kind==='verifier').map(row=>({product:productOf(row.path),phase:row.phase}));
++  assert.deepEqual(verifiers,[{product:'core',phase:'core-initial-verification'},{product:'consumer',phase:'consumer-verification'}]);
++  const programs=heavy.filter(row=>row.kind==='type-program').map(row=>({owner:row.owner,phase:row.phase}));
++  const closurePrograms=programs.filter(row=>row.owner==='resolveNativeDeclarationClosures');
++  assert.equal(closurePrograms.filter(row=>row.phase==='core-initial-verification').length,1,'core declaration closure once');
++  assert.ok(closurePrograms.every(row=>['core-initial-verification','consumer-verification'].includes(row.phase)));
++  assert.ok(programs.filter(row=>row.owner==='linkNativeContractSet').length<=1);
++  assert.equal(programs.filter(row=>labels.includes(row.phase)).length,0,'unchanged owned values cause no further declaration programs');
++  assert.ok(programs.every(row=>['core-initial-verification','consumer-verification','after:product-verify-1'].includes(row.phase)),
++    'only first verification of each Product and the first product-set lock link build TypeScript programs');
++
++  const timing=phases.filter(row=>row.endMs!==null).map(row=>({phase:row.name,wallMs:Math.round((row.endMs-row.startMs)*10)/10}));
++  const counts={};for(const row of [...verifiers.map(x=>({...x,kind:'verifier'})),...programs.map(x=>({product:x.phase==='core-initial-verification'?'core':x.phase==='consumer-verification'?'consumer':'product-set',phase:x.phase,kind:x.owner}))])
++    counts[row.product+'/'+row.phase+'/'+row.kind]=(counts[row.product+'/'+row.phase+'/'+row.kind]??0)+1;
++  const resolved=observed.get('product-resolve');
++  const proof={kind:'maintained_setup_owner_reuse_proof',schemaVersion:'5.0.0',support:'support://abiogenesis/rc4/maintained-setup-owner-reuse',
++    package:{path:packagePath,artifactDigest:basis.artifactDigest,manifestDigest:basis.manifestDigest,productContentDigest:basis.productContentDigest},
++    archive:root,calls:setupCalls.map(({label,acquisitionKind,outcomeKind,exitCode,invocationRef,closeDigest,wallMs})=>
++      ({label,acquisitionKind,outcomeKind,exitCode,invocationRef,closeDigest,wallMs:Math.round(wallMs*10)/10})),
++    closes:closes.map(row=>({label:row.label,acquisition:row.acquisition,prefixDigest:hash(row.prefix)})),finalEventCount:events.length,
++    installs:setup.installations.map(install=>({productId:install.productId,installId:install.installId,contentMatches:true})),
++    heavyEntries:counts,phases:timing,environment:{configuredKeys:['PATH','TMPDIR'],installationNpmCalls:npmCalls.length,lockNamespaceUnderConfiguredTmp:true,
++      restoredAfterSuccess:true,restoredAfterFailure:true},setupCliChildren:0,setupJsonlRequests:0,
++    resolveCall:{invocationRef:resolved.call.invocation.invocationRef,invocationDigest:resolved.call.invocation.invocationDigest},
++    limits:'Provider-free setup proof only: measured phases of this run; no lifecycle, pilot, history or whole-qualification claim.'};
++  await exclusiveRecord(root,'maintained-setup-proof.json',proof);
++  // Test-only evidence for the existing raw controls; never re-ingested by setup.
++  const evidence=join(tenantRoot,'artifacts/setup020');await mkdir(evidence,{recursive:true});
++  await writeFile(join(evidence,'preparation-resolve-call.json'),JSON.stringify(resolved.call)+'\n',{flag:'wx'});
++  await writeFile(join(evidence,'preparation-resolve-receipt.json'),JSON.stringify(resolved.outcome)+'\n',{flag:'wx'});
++  await writeFile(join(evidence,'maintained-setup-proof.json'),JSON.stringify(proof,null,2)+'\n',{flag:'wx'});
++  t.diagnostic(JSON.stringify({heavyEntries:counts,phases:timing}));
++});
+diff --git a/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs b/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs
+index 02827a609..b040d3231 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs
+@@ -60,11 +60,32 @@ export async function authorizeInstalledOperation({runtime,native,actorRef,packe
+     requestRef,correlationRef,eventTime:new Date().toISOString(),provenanceRefs});
+ }
+ 
++/** The transport acquisition named by the call's own event resource. */
++export function transportAcquisition(call) {
++  const resource=call.resources.eventResource;
++  return !resource?{kind:'eventless'}:resource.kind==='new_abg_event_resource'?{kind:'new',eventLogPath:resource.eventLogPath}
++    :{kind:'reopen',closeHandoff:resource.closeHandoff};
++}
++
+ /** CLI framing is a single JSON line; canonical encoding preserves the owner's value. */
+ export function cliTransportJsonl(product,call,acquisition) {
+   return product.canonicalJson({kind:'abg_cli_transport_request',schemaVersion:version,acquisition,invocation:call})+'\n';
+ }
+ 
++// Installation runs npm in the ambient process environment and the event
++// resource lock namespace follows TMPDIR: serial setup runs under the
++// configured values, and the ambient values return in finally.
++const SETUP_ENVIRONMENT_KEYS=['PATH','TMPDIR'];
++async function withSetupEnvironment(environment,body) {
++  if(environment===null||typeof environment!=='object')throw new BoundaryFailure('setup-environment','Explicit setup environment required');
++  const ambient=SETUP_ENVIRONMENT_KEYS.map(key=>[key,process.env[key]]);
++  const assign=([key,value])=>{if(value===undefined)delete process.env[key];else process.env[key]=value;};
++  try {
++    for(const key of SETUP_ENVIRONMENT_KEYS)assign([key,environment[key]]);
++    return await body();
++  }finally {ambient.forEach(assign);}
++}
++
+ export async function verifyArtifact(runtime,{artifactPath,manifest,expectedArtifactDigest},record,label) {
+   const {product}=runtime;
+   const request={artifactPath,artifactRef:pathToFileURL(artifactPath).href,expectedArtifactDigest,
+@@ -103,29 +124,35 @@ export function publicCaller({root,runtime,native,command,record,config,actorRef
+       correlationRef:'correlation://abi5-tests/sandbox-uat/'+config.runId,
+       authorityRef:'authority://abi5-tests/sandbox-uat/'+config.runId,provenanceRefs:[pathToFileURL(join(root,'run.json')).href]});
+   }
+-  async function invoke(label,call,{runtimeRoot=config.bootstrapRoot,environment=config.setupEnvironment,expectResult=true}={}) {
+-    const resources=call.resources.eventResource;
+-    const acquisition=!resources?{kind:'eventless'}:resources.kind==='new_abg_event_resource'?{kind:'new',eventLogPath:resources.eventLogPath}
+-      :{kind:'reopen',closeHandoff:resources.closeHandoff};
+-    const requestPath=join(root,'calls',label+'.request.jsonl');
+-    await record('calls/'+label+'.request.jsonl',cliTransportJsonl(product,call,acquisition),true);
+-    const execution=await command(label,config.nodePath,[join(runtimeRoot,'build/code/src/public/cli.js'),'--jsonl',requestPath],{cwd:root,environment});
+-    let outcome;
+-    try{const lines=execution.stdout.trim().split(/\r?\n/u);if(lines.length!==1)throw new Error('Expected one CLI outcome');outcome=JSON.parse(lines[0]);}
+-    catch(error){throw new BoundaryFailure(label+'-transport',{...execution,parseError:String(error)});}
++  /** The installed SDK transport receives the actual constructed call in this
++   * module instance; records are compact evidence, never re-ingested. */
++  async function invoke(label,call,{expectResult=true}={}) {
++    const acquisition=transportAcquisition(call),invocation=call.invocation,resources=call.resources;
++    await record('calls/'+label+'.request.json',{kind:'installed_setup_call_coordinates',label,acquisitionKind:acquisition.kind,
++      definitionKey:invocation.definitionKey,invocationRef:invocation.invocationRef,invocationDigest:invocation.invocationDigest,
++      requestDigest:hash(invocation.request),resourceKind:resources.kind,resourcesDigest:hash(resources),
++      eventResource:resources.eventResource?{kind:resources.eventResource.kind,digest:hash(resources.eventResource)}:null});
++    const started=new Date().toISOString(),startedMs=performance.now();
++    const outcome=await api.runInstalledDefinitionCallTransport(acquisition,call);
++    const wallMs=performance.now()-startedMs;
+     await record('calls/'+label+'.outcome.json',outcome);
+     const receipt=outcome.receipt, handoff=receipt?.resources?.eventResource?.closeHandoff;
+     if(handoff){state.closeHandoff=handoff;await record('calls/'+label+'.close.json',handoff);}
+-    state.calls.push({label,exitCode:execution.exitCode,definitionKey:call.invocation.definitionKey,
+-      outcomeKind:receipt?.ownerOutput?.outcomeKind??outcome.kind,invocationRef:call.invocation.invocationRef});
++    state.calls.push({label,exitCode:receipt?.exitCode??null,definitionKey:invocation.definitionKey,
++      outcomeKind:receipt?.ownerOutput?.outcomeKind??outcome.kind,invocationRef:invocation.invocationRef,
++      acquisitionKind:acquisition.kind,closeDigest:handoff?hash(handoff):null,started,wallMs});
+     requireKind(outcome,'installed_definition_call_transport_result',label+'-transport');
+-    if(expectResult&&(execution.exitCode!==0||receipt?.ownerOutput?.outcomeKind!=='result'))throw new BoundaryFailure(label,receipt);
+-    return {call,outcome,receipt,execution};
++    if(expectResult&&(receipt.exitCode!==0||receipt.ownerOutput?.outcomeKind!=='result'))throw new BoundaryFailure(label,receipt);
++    return {call,outcome,receipt};
+   }
+   return {root,runtime,native,config,record,command,state,actorRef,actor,contractCatalog,reopen,refresh,boundSlots,authorize,invoke};
+ }
+ 
+ export async function populateSandbox(caller) {
++  return withSetupEnvironment(caller.config.setupEnvironment,()=>populateInstalledSetup(caller));
++}
++
++async function populateInstalledSetup(caller) {
+   const {root,runtime,native,config,record,state,actor,actorRef,authorize,invoke}=caller;
+   const {product,abg,gtl,validator}=runtime, hash=product.sha256Canonical;
+   const created=await invoke('workspace-create',await authorize(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.clean,
+diff --git a/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs b/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs
+index f3ce42733..e676b7d37 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs
+@@ -7,7 +7,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
+ import { isDeepStrictEqual } from 'node:util';
+ import { acquireArchivedScenario, acquireScenario, constructWorkloadInput, digest, fixturePath, inside, loadScenarios, readJson, selectScenarios, snapshotScenario } from './scenarios.mjs';
+ import { assessmentSelection } from './consumer.mjs';
+-import { BoundaryFailure, constructLifecycleCall, installedModules, populateSandbox, publicCaller, requireKind, verifyArtifact } from './public-setup.mjs';
++import { BoundaryFailure, cliTransportJsonl, constructLifecycleCall, installedModules, populateSandbox, publicCaller, requireKind, transportAcquisition, verifyArtifact } from './public-setup.mjs';
+ 
+ const tenantRoot=fileURLToPath(new URL('../..',import.meta.url));
+ const defaultFixtures=join(tenantRoot,'test_env/fixtures/sandbox-uat');
+@@ -236,6 +236,27 @@ export async function preflight(config,selected,root) {
+   return {disposition:issues.length?'blocked':'ready',issues,observations,providerReachability:'Not dispatched or network-qualified',selectedCases:selected.map(row=>row.key)};
+ }
+ 
++// The one explicitly named cold entry. Lifecycle supervision and fresh Run
++// reads cross a fresh installed CLI process: one canonical JSONL request under
++// the declared environment and one parsed outcome. Maintained setup uses the
++// installed SDK transport in its own module instance instead.
++export async function invokeColdInstalledEntry(caller,label,call,{runtimeRoot,environment=caller.config.setupEnvironment}) {
++  const {root,record,command,config,state}=caller,acquisition=transportAcquisition(call);
++  const requestPath=join(root,'calls',label+'.request.jsonl');
++  await record('calls/'+label+'.request.jsonl',cliTransportJsonl(caller.runtime.product,call,acquisition),true);
++  const execution=await command(label,config.nodePath,[join(runtimeRoot,'build/code/src/public/cli.js'),'--jsonl',requestPath],{cwd:root,environment});
++  let outcome;
++  try{const lines=execution.stdout.trim().split(/\r?\n/u);if(lines.length!==1)throw new Error('Expected one CLI outcome');outcome=JSON.parse(lines[0]);}
++  catch(error){throw new BoundaryFailure(label+'-transport',{...execution,parseError:String(error)});}
++  await record('calls/'+label+'.outcome.json',outcome);
++  const receipt=outcome.receipt, handoff=receipt?.resources?.eventResource?.closeHandoff;
++  if(handoff){state.closeHandoff=handoff;await record('calls/'+label+'.close.json',handoff);}
++  state.calls.push({label,exitCode:execution.exitCode,definitionKey:call.invocation.definitionKey,
++    outcomeKind:receipt?.ownerOutput?.outcomeKind??outcome.kind,invocationRef:call.invocation.invocationRef});
++  requireKind(outcome,'installed_definition_call_transport_result',label+'-transport');
++  return {call,outcome,receipt,execution};
++}
++
+ export async function freshReadbacks(caller,execution) {
+   const receipt=execution.receipt,run=receipt.resources.run,terminal=receipt.ownerOutput.value?.terminalResult;
+   if(!run) {
+@@ -254,7 +275,7 @@ export async function freshReadbacks(caller,execution) {
+     if(constructed.kind!=='installed_run_read_call')throw new BoundaryFailure(memberKey+'-read-population',constructed);
+     if(constructed.population.source.ref!==run.ref||constructed.population.source.digest!==run.digest)throw new BoundaryFailure(memberKey+'-read-source',{run,source:constructed.population.source});
+     const call=constructed.call;
+-    const observed=await caller.invoke(memberKey,call,{runtimeRoot:caller.installedRoot,expectResult:false});
++    const observed=await invokeColdInstalledEntry(caller,memberKey,call,{runtimeRoot:caller.installedRoot});
+     const projection=observed.receipt.ownerOutput.value?.projection;
+     if(hash(caller.state.closeHandoff.prefix)!==hash(prefix)||!isDeepStrictEqual(identityBefore,await eventResourceIdentity(fileURLToPath(prefix.eventLogRef))))throw new BoundaryFailure(memberKey+'-read-only','Read changed event resource');
+     reads.push({memberKey,projection,source:observed.receipt.ownerOutput.value?.source,ownerOutput:observed.receipt.ownerOutput});
+@@ -327,7 +348,7 @@ async function checkInstalledIdentity(caller,installations,phase) {
+ export async function invokeLifecycle(caller,installations,call,environment) {
+   await checkInstalledIdentity(caller,installations,'before-run');
+   try {
+-    return await caller.invoke('lifecycle-start',call,{runtimeRoot:caller.installedRoot,environment,expectResult:false});
++    return await invokeColdInstalledEntry(caller,'lifecycle-start',call,{runtimeRoot:caller.installedRoot,environment});
+   }finally {
+     await checkInstalledIdentity(caller,installations,'after-run');
+   }

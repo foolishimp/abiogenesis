@@ -1,0 +1,46 @@
+{
+  "kind": "root_q23_profile_boundary_disposition",
+  "at": "2026-11-05T19:46:20.582449+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/compatibility-triage-01/RESULT.json",
+    "bytes": 24413,
+    "sha256": "c8e823ce100c35e347e9c4a1f46c6e47f6c00e90f40ccdf852f1a635fbec9265"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-05/review-subject-001/SUBJECT.json",
+    "bytes": 411940,
+    "sha256": "60da1eb6b26bd478014ec01d4a49364ec962f74ca3c97c4b91bbee960ba0e638"
+  },
+  "verifiedEvidence": {
+    "baselineMembers": 11,
+    "frozenOwnerMembers": 9
+  },
+  "CT01": {
+    "decision": "Select existing original-owner retention plus fresh successor store. No direct successor open/append of RC6-current-profile logs is selected or claimed. Unsupported old-current digest refusal is expected, not a defect on this selected path.",
+    "required": "Keep immutable RC6 executable, events, exact closes and historical failures. Any use of their runtime proof remains on authentic original owner/basis. Fresh successor requires actual create/install/bind and its own evidence.",
+    "references": [
+      "PRODUCT.md:985-992",
+      "T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md:469-486",
+      "T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md:sections2-5"
+    ]
+  },
+  "CT02": {
+    "decision": "Activate and retain the pre-existing D5 payload-retirement obligation at the prospective RC7 event-profile cut. Q23 remains a bounded source/component increment; it does not accept or cut the new profile.",
+    "status": "OPEN_BEFORE_PROSPECTIVE_RC7_PROFILE_ACCEPTANCE",
+    "owner": "Existing common-library HOW/event contract/actor lifecycle owners; Root selects the bounded native follow-up after current component evidence.",
+    "trigger": "Q23 configuredIdentity changes current root event-contract descriptor.",
+    "dependentBoundary": "Prospective RC7 profile/package cut and affected installed qualification.",
+    "closureFalsifier": "Successor profile is accepted/cut while derivable lifecycle payload copies remain without lawful owning HOW re-entry.",
+    "closureEvidence": "Exact bounded native owner change, affected lifecycle/replay/current-profile proof and Root conjunction, or lawful owning HOW disposition.",
+    "scope": "terminationConfirmed, exitObserved, timedOut, signalSequence only where existing fold derives them; no new store/registry or generic migration.",
+    "reference": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:621"
+  },
+  "sourceAcceptance": false,
+  "releaseQualification": false,
+  "effects": "Coordination/status and frozen authority acquisition only; no Product changes or runtime calls."
+}

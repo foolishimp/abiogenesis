@@ -1,0 +1,50 @@
+{
+  "status": "NEXT_TYPED_REFUSAL_RETAINED",
+  "omissionReproduced": true,
+  "correctedTaskKind": null,
+  "firstRefusal": {
+    "stage": "native_request_construction",
+    "relation": "caught",
+    "selectors": {},
+    "error": {
+      "name": "TypeError",
+      "message": "native reacquisition requires exact retained context, source selector and current authority"
+    }
+  },
+  "sourceCommit": "365d2ed2b2fbe879a5803798bcddf7404206a126",
+  "governanceSourceBasisRef": "invocation-source-result://abiogenesis/829f55b4902e7dd9bfea677aef87794bc9b8127204cf7d5da659f4a4d101b342",
+  "nativeResultRef": "result://abiogenesis/0dbf0d3bc826245b7b290aed0b6b419b71d88bb3fef81d33c2faa52e423005c2",
+  "currentPrefix": {
+    "coordinateDigest": "sha256:6d015b28790780e92275896d460433ffdec6c82f1dce2f05fe3117f6dd5a3979",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:6a88860afbab86f75c974a88cf2adafe1eb76f476e296dacd404463bc752c7b7",
+    "prefixLength": 376089208,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 673308256
+    }
+  },
+  "historicalDiagnosticPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 375982132,
+    "prefixDigest": "sha256:ff286a3e62b6fcb2d8f642e9d5fe4576a56e8f82057a6136df0dc4271ff6aa57",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 673308256,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:efbee53c1f7d4d95733859d76422c0dcdd90ce2e416a29930678cb7b1f4296c3"
+  },
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "C2Commands": 0,
+  "paidRetrySelected": false,
+  "nativeTesting": false,
+  "R2Closure": false,
+  "qualification": false
+}

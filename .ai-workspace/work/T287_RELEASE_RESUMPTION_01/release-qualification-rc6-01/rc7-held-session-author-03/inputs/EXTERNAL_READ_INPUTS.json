@@ -1,0 +1,42 @@
+{
+  "kind": "bounded_external_read_selection",
+  "status": "SELECTED_READ_ONLY",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 5681,
+      "sha256": "056516a52d383b7837ea32cf82342ba49187acd818406fcddbf776ed05061e6e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/reviews/held-stage01-001/REVIEW.json",
+      "bytes": 10579,
+      "sha256": "029493c54b7354aea260184b28890456fb13cdec7d4eba6f715b4abe53d65bd4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/reviews/blocked-testing-001/REVIEW.json",
+      "bytes": 9036,
+      "sha256": "06f25f80ac2e5fde9a45e1c0b055131d1704ee2ac878248605be7b8cf1b835ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/blocked-testing-diagnostic-001/SUMMARY.json",
+      "bytes": 948,
+      "sha256": "0303c6c97dcdbfac1945b347f2d3205b71f9a541a03b0d4e2be9ad7b3df8b482"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md",
+      "bytes": 30820,
+      "sha256": "b1290a84e7c44e8a73486923ab254c7c8cedeea2568c018bc9be1b73273f0f36"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/operator-custody-001/return-handoff-001/return.json",
+      "bytes": 10048,
+      "sha256": "385bc1d2ec56b2320c68547cf4aab26d79c06f4bf11d1b766827e3957ae11352"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/post-return-controls/actual-001/PROOF_INVENTORY.json",
+      "bytes": 5703,
+      "sha256": "a71bcdead5bd892ab618d8b9ceee48cf5aef60d4f7f59eb4647eb6a9e3d86e7f"
+    }
+  ],
+  "meaning": "Root/review/diagnostic and handoff metadata only. SINGLE_START is an exact read-only HOW outside451 context rows. No raw diagnostic/provider output, full runtime resume or credentials enter native context."
+}

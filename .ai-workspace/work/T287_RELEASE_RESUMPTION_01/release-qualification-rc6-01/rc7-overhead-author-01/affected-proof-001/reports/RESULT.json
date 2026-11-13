@@ -1,0 +1,114 @@
+{
+  "kind": "root_affected_frozen_source_proof",
+  "status": "STOPPED_WITH_PRESERVED_PARTIAL_EVIDENCE",
+  "startedUtc": "2026-11-06T04:33:32.109Z",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/post-return-controls/actual-001/review-subject-001/SUBJECT.json",
+    "bytes": 668238,
+    "sha256": "559b05be5d27263be4b53728d78a3b3226dc9830ac70a0808ab1863890fd9e5c"
+  },
+  "resourceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/proof-resource-preparation-001/RESOURCE_MANIFEST.json",
+    "bytes": 60869,
+    "sha256": "cfe6bccd52ae7873a0fdebefdf2e9c9a080a3ff1e891b2dc42befbff508de6d4"
+  },
+  "source397Digest": "f74c9abcdc2e9463c1ce8d13b3b60cd657db6e366fd2b09c4c57de512c6f527b",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/INPUTS.json",
+    "bytes": 231601,
+    "sha256": "ff54ef079550a990702876fc6defd66c5724c6863a16f4df338b62eb91e8fad6"
+  },
+  "commands": [
+    {
+      "label": "compile",
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/compile.request.json",
+        "bytes": 684,
+        "sha256": "205324d17c72353d30fe0f106c5e9fc3aefe91e1b60d2c1f6704d82350261f47"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/compile.result.json",
+        "bytes": 844,
+        "sha256": "1d8a6110c59b34712649f7b2bfc54a0e6f3a4964054707040ecbec2ffe7b8e77"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/compile.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/compile.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "wallMs": 8098.897500000001
+    },
+    {
+      "label": "generate",
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate.request.json",
+        "bytes": 659,
+        "sha256": "55f9d750ea30af53001291f9a04ce144b34f09555b8249dfcbd022e6b12f9f77"
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate.result.json",
+        "bytes": 1737,
+        "sha256": "bdeeaea06b34942e6afb36a3d8fd6da7e7bca8095d176c5b32b722f16a661502"
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/generate.stderr",
+        "bytes": 877,
+        "sha256": "afdcb026833bfa898db957726024c2f3bbd2be012fb0a8df3813a27cca4b8ee8"
+      },
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "wallMs": 826.0280419999999
+    }
+  ],
+  "timings": {
+    "setupMs": 1638.670834,
+    "compileMs": 8098.897500000001,
+    "generateMs": 826.0280419999999,
+    "totalMs": 10567.10275
+  },
+  "limits": [
+    "Separate Root affected proof; does not extend exhausted author feedback budget.",
+    "No live campaign runtime, original source or prior stage writes; fresh owned test fixtures only.",
+    "Only compile240s, generate180s, lifecycle60s, exact consumers300s and harness300s once each. No retry or test/code edits.",
+    "Sanitized explicit environment; no inherited provider, credentials or external ABI5 selectors. Only local UAT unit output root selected.",
+    "Result.task and unchanged after inline remain partial-author residuals; no whole objective, source acceptance or qualification claim."
+  ],
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/private/tmp/abg-o7p",
+    "TMPPREFIX": "/private/tmp/abg-o7p/zsh",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-o7p/npm-cache",
+    "NPM_CONFIG_USERCONFIG": "/dev/null",
+    "NPM_CONFIG_GLOBALCONFIG": "/dev/null",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "ABI5_UAT_UNIT_ROOT": "/private/tmp/abg-o7p/uat-units"
+  },
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "error": "Error: Build phase stopped: generate",
+  "endedUtc": "2026-11-06T04:33:42.676Z"
+}

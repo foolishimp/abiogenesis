@@ -1,0 +1,8 @@
+{
+  "currentRef": "worksite-context-observation://abiogenesis/c54c59fb77e2b242b65b624a7ec4f1fe1c3eb739616b0cc315df6d07a1921a7f",
+  "currentDigest": "sha256:c54c59fb77e2b242b65b624a7ec4f1fe1c3eb739616b0cc315df6d07a1921a7f",
+  "afterRef": "worksite-context-observation://abiogenesis/c54c59fb77e2b242b65b624a7ec4f1fe1c3eb739616b0cc315df6d07a1921a7f",
+  "afterDigest": "sha256:c54c59fb77e2b242b65b624a7ec4f1fe1c3eb739616b0cc315df6d07a1921a7f",
+  "identityEqual": true,
+  "providerCalls": 0
+}

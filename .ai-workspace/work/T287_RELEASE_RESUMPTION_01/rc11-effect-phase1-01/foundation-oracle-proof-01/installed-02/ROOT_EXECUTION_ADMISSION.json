@@ -1,0 +1,43 @@
+{
+  "status": "ROOT_ADMITTED_FOUNDATION_ORACLE_INSTALLED_CONTINUATION",
+  "id": "FOUNDATION-ORACLE-INSTALLED-CONTINUATION-01",
+  "recordedAt": "2026-11-09T19:13:53.859387+00:00",
+  "bindingSha256": "a4db01e7a17adfab94dbfa9e6c4b9185410d04e327f5ea71e64760ef462992be",
+  "controlsSha256": "02b8c0accbd75bb5298afcb9c8acfab13c16d1082c720340715548ea20e12c4e",
+  "readySha256": "81d534b90cb69f45573d79bc27f5e8441656df236a350153a01eb20ac194a405",
+  "driverSha256": "10f167d0a051fd41a175526e680c6fd7f6759bf9a342cebc7df1ba16379d6d5c",
+  "controlPins": {
+    "READY.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/READY.json",
+      "bytes": 5742,
+      "sha256": "81d534b90cb69f45573d79bc27f5e8441656df236a350153a01eb20ac194a405"
+    },
+    "BINDING.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/BINDING.json",
+      "bytes": 12559,
+      "sha256": "a4db01e7a17adfab94dbfa9e6c4b9185410d04e327f5ea71e64760ef462992be"
+    },
+    "proof.py": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/proof.py",
+      "bytes": 19052,
+      "sha256": "10f167d0a051fd41a175526e680c6fd7f6759bf9a342cebc7df1ba16379d6d5c"
+    },
+    "CONTROLS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/installed-02/CONTROLS.json",
+      "bytes": 4414,
+      "sha256": "02b8c0accbd75bb5298afcb9c8acfab13c16d1082c720340715548ea20e12c4e"
+    }
+  },
+  "commandIds": [
+    "w2-05"
+  ],
+  "sourceDigest": "002e481ab05da5d77c8153ddff59fce5e63cb990d3bc55bcf33162afe92ce168",
+  "archiveSha256": "fdbf93de131905f79e96c8716dbb833ae8b308b3e791e1ac63a79b59a1c74d46",
+  "limits": {
+    "wholeFileSeconds": 900,
+    "campaignSeconds": 1500,
+    "outputBytes": 104857600
+  },
+  "rootDecision": "Root admits after reading complete driver delta, READY, preflight and independent failure review. Exactly one previously unstarted whole W2-05 using retained stage/work/build/bootstrap; original comparison failure remains preserved.",
+  "effects": "Create-once continuation output, isolated scratch/cache and owned test runtime only. No source/tracking/Git/release/selector effects; no reinstall/repack/rebuild or retry. Stop and return actual failure."
+}

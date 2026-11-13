@@ -1,0 +1,30 @@
+{
+  "status": "MATERIALIZED_NO_RUNTIME_ACTIVATION",
+  "sourceCount": 450,
+  "stagedControlCount": 17,
+  "pendingFinalAdmissionCount": 1,
+  "futureHandoffs": 3,
+  "finalContextCount": 471,
+  "presentBytesExcludingFutureAdmission": 12370859,
+  "maxContextBytes": 16777216,
+  "distinctEmptyNpmConfigs": true,
+  "stageAllocations": 0,
+  "laneAllocations": 0,
+  "providerInvocations": 0,
+  "runtimeAcquisitions": 0,
+  "stagedControlPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/STAGED_CONTROL_PINS.json",
+    "bytes": 12754,
+    "sha256": "9390a8ec7a9ecbce217fc983969158d3adb8c32b4e71bc5d3980fa6c4a9c6510"
+  },
+  "workload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/workload.json",
+    "bytes": 179569,
+    "sha256": "ec547eba847183c445f37f82850bce49187d6893d41262065a158fb5ee8a60ce"
+  },
+  "dispatchTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/DISPATCH_MANIFEST.materialized-template.json",
+    "bytes": 11111,
+    "sha256": "130bfe5856cd7aac88f996103cd4170360e76e71cd7cecbb2a6f179c2c1ab857"
+  }
+}

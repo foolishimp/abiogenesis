@@ -1,0 +1,288 @@
+{
+  "ordinal": 9425,
+  "time": "2026-11-02T12:43:31.276Z",
+  "resultRef": "result://abiogenesis/3e6c411c3c160c872bef4b2ab1313195dfefdda23dc8333e90cd7ce0ee1e4512",
+  "terminal": false,
+  "unresolvedSupportRefs": [
+    "support://abiogenesis/rc4-native-recovery-01/registered-selection-pending-testing"
+  ],
+  "observations": [
+    {
+      "actorInvocationRef": "actor-invocation://abiogenesis/4663063cedebdf43906454eeec4f3fe8cb35b6e31fbc2f340a12ef3b1619f6d3",
+      "cCallRef": "c-call:sha256:bcd8be32098543c9f4f3d4105da6bf2b0505f1487b7a1325c2f66b030825f1c5",
+      "purpose": "construction",
+      "resultDigest": "sha256:f8e4b1ea92ad41b4635826b8ae34373cbc70178dc5581204ca414ea1efe09783",
+      "resultRef": "result://abiogenesis/f8e4b1ea92ad41b4635826b8ae34373cbc70178dc5581204ca414ea1efe09783",
+      "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "synthesisResultRef": "result://abiogenesis/0323abfed0ef21e1b768cf6ba9e5bd32827a2ee18674d7032230d650fd33ce90",
+      "value_keys": [
+        "changedPaths",
+        "report"
+      ],
+      "value_projection": {
+        "changedPaths": [
+          "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+          "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+          "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+          "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+          "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+          "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+          "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+          "rc4-scratch/native-recovery-13/notes.md",
+          "rc4-scratch/native-recovery-13/readiness.json",
+          "rc4-scratch/native-recovery-13/return.json"
+        ]
+      }
+    },
+    {
+      "actorInvocationRef": "actor-invocation://abiogenesis/4c85be45be3de35009e8c82a6b5a13a2df4fb5fa1bd2c91fc28c0839316be236",
+      "cCallRef": "c-call:sha256:feb8237cf9bc137cd64b7e289e3d7b11a611595699ee0159fbd075305da27136",
+      "purpose": "testing",
+      "resultDigest": "sha256:9263883269e2da497b5589197aea9ec04484ec36631a2e0d5701392848178899",
+      "resultRef": "result://abiogenesis/9263883269e2da497b5589197aea9ec04484ec36631a2e0d5701392848178899",
+      "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "synthesisResultRef": "result://abiogenesis/10113febd7f1d5076a44ad481fcb913724288e651da0bfe260710d08c85b250c",
+      "value_keys": [
+        "commandResults",
+        "predicateObservations"
+      ],
+      "value_projection": {
+        "predicateObservations": [
+          {
+            "evidence": [
+              {
+                "digest": "sha256:f43ba866b63a7787bd04298a87ce9f1af5b91eb420f601932cf6fd3c9ec07b4d",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/f43ba866b63a7787bd04298a87ce9f1af5b91eb420f601932cf6fd3c9ec07b4d",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/f43ba866b63a7787bd04298a87ce9f1af5b91eb420f601932cf6fd3c9ec07b4d"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 0,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/fixture-current-measurement-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:f00444276e9e7f769e2d7a0a4efe689e58af5c6659f123e9fd5470f7dddaff03",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/f00444276e9e7f769e2d7a0a4efe689e58af5c6659f123e9fd5470f7dddaff03",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/f00444276e9e7f769e2d7a0a4efe689e58af5c6659f123e9fd5470f7dddaff03"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 1,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/source-correspondence-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:e4ac9d21f8c24bb119458980ecd59c9ff0c065f6f0cdfb6e997edfdc0d2e7cb9",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/e4ac9d21f8c24bb119458980ecd59c9ff0c065f6f0cdfb6e997edfdc0d2e7cb9",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/e4ac9d21f8c24bb119458980ecd59c9ff0c065f6f0cdfb6e997edfdc0d2e7cb9"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 2,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/toolchain-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:d22cc7117c5fbd143e5526ba96f2ceccc3a8b721ca9ed97510a6a497d5cbe9f4",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/d22cc7117c5fbd143e5526ba96f2ceccc3a8b721ca9ed97510a6a497d5cbe9f4",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/d22cc7117c5fbd143e5526ba96f2ceccc3a8b721ca9ed97510a6a497d5cbe9f4"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 3,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/contract-seeds-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:fa17d24afafdeb4f4cef12b95965cd9a37494220befe14a2ec99ef394c3f9322",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/fa17d24afafdeb4f4cef12b95965cd9a37494220befe14a2ec99ef394c3f9322",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/fa17d24afafdeb4f4cef12b95965cd9a37494220befe14a2ec99ef394c3f9322"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 4,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/build-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:da760ece86d39eddb125184e4255e84ae2c76a6e9d62d14ef1625847206cba84",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/da760ece86d39eddb125184e4255e84ae2c76a6e9d62d14ef1625847206cba84",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/da760ece86d39eddb125184e4255e84ae2c76a6e9d62d14ef1625847206cba84"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 5,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/package-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:39e6e0d17aeeca14681dba1a3053fbde234768a639809d427273d28572352122",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/39e6e0d17aeeca14681dba1a3053fbde234768a639809d427273d28572352122",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/39e6e0d17aeeca14681dba1a3053fbde234768a639809d427273d28572352122"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 6,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:56a7ad5af05a8a208f34a4528c69b71ba13fbaf8df7d041fe3376b7bc305e3f7",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/56a7ad5af05a8a208f34a4528c69b71ba13fbaf8df7d041fe3376b7bc305e3f7",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/56a7ad5af05a8a208f34a4528c69b71ba13fbaf8df7d041fe3376b7bc305e3f7"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 7,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:39e6e0d17aeeca14681dba1a3053fbde234768a639809d427273d28572352122",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/39e6e0d17aeeca14681dba1a3053fbde234768a639809d427273d28572352122",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/39e6e0d17aeeca14681dba1a3053fbde234768a639809d427273d28572352122"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 63,
+            "ordinal": 8,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/affected-owner-tests-pass",
+            "predicateKind": "test_pass_count",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:56a7ad5af05a8a208f34a4528c69b71ba13fbaf8df7d041fe3376b7bc305e3f7",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/56a7ad5af05a8a208f34a4528c69b71ba13fbaf8df7d041fe3376b7bc305e3f7",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/56a7ad5af05a8a208f34a4528c69b71ba13fbaf8df7d041fe3376b7bc305e3f7"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 2,
+            "ordinal": 9,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/artifact-tests-pass",
+            "predicateKind": "test_pass_count",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:655468d90151db34c1ca4575df08b811989693a52d942505c18c29015c9dfe8c",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/655468d90151db34c1ca4575df08b811989693a52d942505c18c29015c9dfe8c",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/655468d90151db34c1ca4575df08b811989693a52d942505c18c29015c9dfe8c"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 10,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          },
+          {
+            "evidence": [
+              {
+                "digest": "sha256:655468d90151db34c1ca4575df08b811989693a52d942505c18c29015c9dfe8c",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/655468d90151db34c1ca4575df08b811989693a52d942505c18c29015c9dfe8c",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/655468d90151db34c1ca4575df08b811989693a52d942505c18c29015c9dfe8c"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 56,
+            "ordinal": 11,
+            "predicateId": "predicate://abiogenesis/rc3-dogfood/increment-b-08/focused-owner-chain-pass",
+            "predicateKind": "test_pass_count",
+            "schemaVersion": "5.0.0"
+          }
+        ]
+      }
+    }
+  ],
+  "limit": "Projection of actual Testing fold; command/predicate evidence does not automatically establish UAT."
+}

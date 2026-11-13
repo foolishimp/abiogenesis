@@ -1,0 +1,91 @@
+{
+  "providerResult": [
+    {
+      "duration_api_ms": 1567143,
+      "stop_reason": "tool_use",
+      "session_id": "ebc7e197-7d19-44f2-be14-bd26125d1dc3",
+      "total_cost_usd": 11.978208000000006,
+      "usage": {
+        "input_tokens": 256,
+        "cache_creation_input_tokens": 569833,
+        "cache_read_input_tokens": 23229478,
+        "output_tokens": 121271,
+        "output_tokens_details": {
+          "thinking_tokens": 84782
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 569833,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 2367,
+          "outputTokens": 134281,
+          "cacheReadInputTokens": 23592830,
+          "cacheCreationInputTokens": 571011,
+          "webSearchRequests": 0,
+          "costUSD": 11.978208000000006,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 84782,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "permission_denials": [],
+      "terminal_reason": "max_turns",
+      "fast_mode_state": "off",
+      "fast_mode_disabled_reason": "sdk_opt_in_required",
+      "subagent_stats": {
+        "spawned": 0,
+        "requested": {
+          "background": 0,
+          "foreground": 0,
+          "unset": 0
+        },
+        "started_in_background": 0,
+        "max_depth": 0,
+        "spawned_by_subagents": 0,
+        "completed": 0,
+        "failed": 0,
+        "killed": {
+          "parent": 0,
+          "user": 0,
+          "system": 0
+        },
+        "refused": {
+          "depth_limit": 0,
+          "concurrency_limit": 0,
+          "budget": 0
+        },
+        "by_type": {}
+      },
+      "safety_stops": 0,
+      "is_error": true,
+      "num_turns": 129,
+      "subtype": "error_max_turns",
+      "errors": [
+        "Reached maximum number of turns (128)"
+      ],
+      "type": "result",
+      "duration_ms": 2183012,
+      "uuid": "899922ff-16eb-4323-80d2-d93a9f1dfc4c",
+      "queued_turn_count": 0,
+      "result_index": 0
+    }
+  ],
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/archives/fp-553c01a69200eecc-stdout.log",
+  "archiveSha256": "a2ddcace6950b5c8774c6642b0a62923a976236e4c8ae546df7b6122a2ecb942",
+  "meaning": "Actual provider max-turn failure; not Product defect or completed source delivery"
+}

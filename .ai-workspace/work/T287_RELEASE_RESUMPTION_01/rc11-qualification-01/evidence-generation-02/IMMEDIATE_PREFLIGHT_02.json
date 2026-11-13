@@ -1,0 +1,40 @@
+{
+  "status": "conserved",
+  "at": "2026-11-09T07:15:24.312812+00:00",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/ROOT_ADMISSION_02.json",
+    "bytes": 1931,
+    "sha256": "d871e3f7711d573acd7ccccb02d00a42bef5f19b95f54dff3874def3255ff20b"
+  },
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/verify_view.py"
+      ],
+      "exitCode": 0,
+      "stdoutMatches": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/TARGET_VERIFICATION.json",
+        "bytes": 3031,
+        "sha256": "b70d702cc2108abedcbb470cc2db696650e49b1c9c4d357788dcb30c4649d48a"
+      },
+      "stderrBytes": 0
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-import-meta-resolve",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/resolve_view.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutMatches": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/RESOLUTION.json",
+        "bytes": 12430,
+        "sha256": "6f3b4014d064d4701404cca9ec97baffb158e0779bf7527f8be3c96c3eda0555"
+      },
+      "stderrBytes": 0
+    }
+  ],
+  "allReadyAndControlPinsVerified": true,
+  "productModulesImported": false
+}

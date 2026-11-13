@@ -1,0 +1,65 @@
+{
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/construction-preflight/package.json",
+      "bytes": 10105,
+      "sha256": "ddbfcc0f5ce3f9242b372b7ee89bc5bebf23ed7d390587c6f0bcc33456dec2b8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/construction-preflight/program.mjs",
+      "bytes": 23558,
+      "sha256": "1bdef2c4eaeb50bb3bfebe48de0c7c3ee169a1adff26687169bf7f38d6f19c91"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/construction-preflight/leaf.mjs",
+      "bytes": 10646,
+      "sha256": "4f4b67f1b7ffd9cc09cfbcba9072b5529d8b3f84405803e103b198231f307549"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/environment.json",
+      "bytes": 16049090,
+      "sha256": "4146fb95929d2b735856cbd83a852cf8a771ba62a1cfed85618bb2b813cdfdfa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/request.json",
+      "bytes": 1399,
+      "sha256": "ad92c8662d50dd7c4170b25b6dcadd64acddc1a070d9294dd3fe45c57963999e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js",
+      "bytes": 77741,
+      "sha256": "e7586704fa456c6561fa7aff66a4508dda496a0b09f6524e1afe5338dadebb64"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/immutable.js",
+      "bytes": 962,
+      "sha256": "147bc7a25a76babf73ee75b77e128f39445cafeb7759135da450689f8208dbaa"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admission_predicates.js",
+      "bytes": 735,
+      "sha256": "8bfe2292acec341331d74bf870b1d691ca11b49e2400241efc49742c7c797720"
+    }
+  ],
+  "sourceTransform": "Exactly existing prepack sourceTransform result_text addition, on repaired viewleaf; no package/runtime invocation.",
+  "links": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/construction-preflight/build",
+      "target": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/construction-preflight/node_modules",
+      "target": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/node_modules"
+    }
+  ],
+  "normalViewLeaf": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/language-structural/leaf.mjs",
+    "bytes": 10611,
+    "sha256": "dfd366a2711bd4325f48c2249d10b74aafb59af7eb91e77a9a9804668c9ea67f"
+  },
+  "priorActualLeaf": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03/raw/native-assessment/tmp/abi5-root-env-MdmivN/consumer-additional-0/node_modules/@abi5-tests/structural-fixtures/build/leaf.mjs",
+    "bytes": 10442,
+    "sha256": "7937a5bd3dc5b199e1ec2f44663b0a972f817c96c69c22075044f96804d49dc8"
+  }
+}

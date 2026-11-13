@@ -1,0 +1,55 @@
+{
+  "id": "T287-RC8-AUTHOR05-FIXTURE-PREREQUISITES",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "outcome": "Complete the F04 component fixture producer prerequisites so ActorProcess and real stdout/probe owners consume the same real liveness context over current rows; prove the two complete affected files without Product changes.",
+  "readRoots": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures",
+    "build_tenants/abiogenesis/typescript/code/src"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/retry_progress.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs",
+    "qualification-scratch/rc8-reference-preservation-01/author-05"
+  ],
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "maxPromptBytes": 1048576,
+  "checks": [],
+  "instructions": [
+    "Receive installed STDO3.0.4 stdo-work/coordinated handoff and exact project frame. Existing user approval and Root author05 final selection authorize this one native Claude Opus5.5 xhigh increment. Fixed15families/GOAL035/T287/empty composition unchanged. Read complete predecessor handoff /Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/author-04/HANDOFF.md and exact closed review /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-004/REVIEW.json SHAf106c14c9138f4d3bc50ceeac46646851ef70a6a0604a2a8622f0cad10cd4c8a plus adjacent README. These named external governance/review/handoff references are expressly authorized read-only. Source preimage is withheld A4 f83837d581e02cc4a3fa4be8aa41dfe9d0722ea1be81df1b05de95ed25edaa0f,1339rows; accepted Product source2b5849ec/archivea178e960 unchanged. Do not restart the already completed seam work.",
+    "Root and max reviewer localized the remaining cause: deriveActorLivenessContext in abg/calculus/liveness.ts:60\u2013123 needs exact basis_admitted, one c_call_opened and complete leaf/F_P fibre, then the actual transport-binding/start pair. F04 starts rows empty and seeds bare fibre{cCallRef}; actor-level contextAtActor hid the absent producer relation. A4 now reaches the real stageNativeStdoutWindow, which correctly refuses missing admitted declaration before EPIPE. Native-work fixture already prepares/preflights those context prerequisites but has not run. Preserve both actual prior reds and current partial changes.",
+    "IMPORTANT read-scope correction: the whole code/src owner-library tree is READABLE and you may follow every needed actual transitive import/contract/constructor there. Prior omission of calculus owners was an Operator task-scope defect, not a reason to refuse necessary reads now. Priority reads include abg/calculus/liveness.ts, calculus/execution_basis_record.ts, retry_progress.ts, runtime_liveness_contracts.ts, runtime_liveness.ts, event_prefix.ts and event_store.ts. Read only needed source sections by reference; the entire code tree is not pasted into your prompt. Read scope is not write authority. A4 disclosed three grep lines of runtime_liveness_contracts; preserve disclosure, no permission round.",
+    "Implement the smallest test-only completion. Seed F04 controlled current recorder from already retained real execution-basis evidence in basis.prefix/current owner source, then coherent CCall-opened and complete F_P fibre matching existing occurrence+resolution. Reuse canonical constructors/projectors. Retire F04 contextAtActor/projectActorLivenessContext stand-in; do not merely add a preflight while leaving the fake. ActorProcess and the actual window/probe owner must consume the same ACTUAL projector/current prefix. Use actual projectActorLivenessContext preflight once the necessary real actor-binding/start facts exist and before transport stdout can run, so a missing join fails fixture preparation. No handcrafted probe contracts/new context mock/Product change.",
+    "Only the same two test files and optional existing3.7KB stdout-component-fixture helper may be edited. Preserve all13 F04 modes, exact EPIPE identity, all original assertions and native effect/group/conflict/currentness/no-fabricated-exchange checks; keep real stageNativeStdoutWindow/stageRuntimeActivityProbe algorithms and permitted component admission/physical premises. Existing helper can remain. No HOW/Product/runtime code change, full-runtime conversion or generic framework. This is not native held-store/rollback/flush qualification.",
+    "After correction invoke /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof.mjs freeze ONCE. The existing recipe composes A4 source/derived inputs with original exact compiled/dependency inventory, emits a new immutable overlay+complete sourceDigest immediately, and performs zero builds/generation. Publish FREEZE_NOTICE promptly in the new author05 progress subtree; no edits after freeze. Root independently reviews while proof runs. All compiled/config/dependency/archive bytes must remain equal; all old evidence/HALT retained.",
+    "Invoke /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof.mjs test f04 and only if it fully passes /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-05/proof.mjs test native-workspace. Exactly two maximum complete serial file invocations,600000ms each,16MiB output,8GiB heap,4GiB reserve/owned cap, short scratch /private/tmp/abg-r8-a05-4f6heblw/p. One native absolute30min/inactivity5min, inherited grace. Stop first red/incomplete/resource/input mismatch, retain outputs and return; NO repair/retry loop. Do not redirect away useful recipe console metadata. Syntax-only checks may be read-only; no auxiliary tests or rebuilds.",
+    "No further provider/reviewer/delegation, network/npm install, Git/cut/push/global selector/cleanup or completed broad rerun. Broad007 draft remains preparation only. Root retains79whole-file receipts455passes105skips with original source/time; no restamping. Write observed intake/freeze notice/HANDOFF under qualification-scratch/rc8-reference-preservation-01/author-05, with source delta, proof result/remaining gaps/disclosures. Report to Root; acceptance/next execution are Root effects."
+  ]
+}

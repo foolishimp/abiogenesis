@@ -1,0 +1,49 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-003/run-local-cut.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/run-local-cut.mjs
+@@ -38,7 +38,7 @@
+ let build=b;
+ if(phase==='install')build=await jsonPin(b.buildBindings);
+ assert.deepEqual(build.paths,p);assert.equal(build.nodeHeapMiB,8192);assert.equal(build.maxOutputBytes,67108864);
+-const ceilings={git:120000,dependencies:120000,compile:240000,generate:180000,pack:120000,inventory:120000,install:600000,installedOwner:60000};
++const ceilings={git:120000,dependencies:120000,compile:240000,generate:600000,pack:120000,inventory:120000,install:600000,installedOwner:60000};
+ for(const [k,v] of Object.entries(ceilings))assert(Number.isInteger(build.boundsMs[k])&&build.boundsMs[k]>0&&build.boundsMs[k]<=v,k);
+ async function openCommands(root){const command=commandRecorder(root,{environment:env,maxOutputBytes:build.maxOutputBytes});return async(label,exe,args,cwd=W,kind='git')=>{const r=await command(label,exe,args,{cwd,environment:env,timeoutMs:build.boundsMs[kind]});assert(!r.timedOut&&!r.truncated&&!r.failure&&r.exitCode===0&&r.signal===null,'command failed; retained original receipt: '+label);return r;};}
+ const gitArgs=(root,args)=>['-C',root,'-c','core.hooksPath=/dev/null',...args];
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/ROOT_BUILD_BINDINGS.template.json
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/ROOT_BUILD_BINDINGS.template.json
+@@ -41,7 +41,7 @@
+     "git": 120000,
+     "dependencies": 120000,
+     "compile": 240000,
+-    "generate": 180000,
++    "generate": 600000,
+     "pack": 120000,
+     "inventory": 120000,
+     "install": 600000,
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/README.md
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/README.md
+@@ -16,8 +16,8 @@
+ Run only after Root binds actual inputs and grants that phase:
+ 
+ ```sh
+-/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/run-local-cut.mjs build /absolute/ROOT_BUILD_BINDINGS.json SHA256_HEX
+-/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-002/run-local-cut.mjs install /absolute/ROOT_INSTALL_BINDINGS.json SHA256_HEX
++/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/run-local-cut.mjs build /absolute/ROOT_BUILD_BINDINGS.json SHA256_HEX
++/opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-local-cut-01/preparation-004/run-local-cut.mjs install /absolute/ROOT_INSTALL_BINDINGS.json SHA256_HEX
+ ```
+ 
+ The commands consume the two templates' existing-style file pins. The templates
+@@ -93,9 +93,10 @@
+ historical F2 owner references supplied for signature comparison.
+ 
+ Proposed finite ceilings, requiring Root selection: compile 240 s, generator
+-180 s, pack/setup/archive/other commands 120 s, Product install 600 s and fresh
+-installed check 60 s; 64 MiB per-command output and 8 GiB Node heap. These are
+-bounded at or below the RC6 command ceiling. Two builds and one install, no retry.
++600 s, pack/setup/archive/other commands 120 s, Product install 600 s and fresh
++installed check 60 s; 64 MiB per-command output and 8 GiB Node heap. Root reprices only generation from 180 s to 600 s after the same canonical
++generator completed in 197.973 s in H03; this neither assigns cause nor claims a
++speedup. All other limits remain unchanged. Two builds and one install, no retry.
+ Two distinct empty npm configs and `/private/tmp/abg-r7c/tmp` are created only on
+ activation. Environment is explicit/offline and carries no inherited provider,
+ credential or external ABI5 selectors. Commands use canonical supervision.

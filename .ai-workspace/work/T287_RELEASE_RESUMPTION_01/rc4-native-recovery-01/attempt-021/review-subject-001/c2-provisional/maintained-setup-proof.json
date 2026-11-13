@@ -1,0 +1,322 @@
+{
+  "kind": "maintained_setup_owner_reuse_proof",
+  "schemaVersion": "5.0.0",
+  "support": "support://abiogenesis/rc4/maintained-setup-owner-reuse",
+  "package": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/4a2daf8632291a4993b91da5a968386bd45023cf05e329bb27ffcc2b5fdda532/1a5584640f404fbc8462e9018310f73c0a0cbe7e423243516af1083b15d45359/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+    "artifactDigest": "sha256:f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70",
+    "manifestDigest": "sha256:fd3cc983ea7490407ac629a249b9ef42ce77c61cdefc2ad5147d1a02be2c0d6a",
+    "productContentDigest": "sha256:41c0540f2888495e252e83ff0108455c9077fb1b0bfa35276043cac4bdc6c1ae"
+  },
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/worksite-command-execution/4a2daf8632291a4993b91da5a968386bd45023cf05e329bb27ffcc2b5fdda532/1a5584640f404fbc8462e9018310f73c0a0cbe7e423243516af1083b15d45359/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat-units/maintained-setup/2026-11-03T03-33-19-564Z-f18edf9d-d540-4af9-8146-21a2dfa23563",
+  "calls": [
+    {
+      "label": "workspace-create",
+      "acquisitionKind": "eventless",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/fd857fd9df56f9618ae86346ebde5b24dbac3d0f36d57f642fc1185e91c15b41",
+      "closeDigest": null,
+      "wallMs": 69.9
+    },
+    {
+      "label": "product-verify-0",
+      "acquisitionKind": "eventless",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/1420f160b852edb0ee2e149f396e080d92f67f2e5c818cbdee645cc0c03e1894",
+      "closeDigest": null,
+      "wallMs": 203.7
+    },
+    {
+      "label": "product-verify-1",
+      "acquisitionKind": "eventless",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/7233934f60423389596fa0fde706f1451e729cf1cd73ba1d553cd55e5d58bebc",
+      "closeDigest": null,
+      "wallMs": 65.4
+    },
+    {
+      "label": "product-resolve",
+      "acquisitionKind": "eventless",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/a7f9ffe0f288d34a24b515c89d8b854f4bd255659f4c53c1b61a293d5a32262a",
+      "closeDigest": null,
+      "wallMs": 284.8
+    },
+    {
+      "label": "product-install-0",
+      "acquisitionKind": "new",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/26ba6d899ca31e1a9ce6c341e1306fd157e94b9b1d62ffdbed51b850bf0b2b3e",
+      "closeDigest": "sha256:f38d872ca898249294fc5b41383ffdf55b8b4b61db93ec107a31574e75b8ddf5",
+      "wallMs": 5399.9
+    },
+    {
+      "label": "product-install-1",
+      "acquisitionKind": "reopen",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/9929300cbeeca772978c6910f0d4dcb52062a135b788cf85497f55e92c87a338",
+      "closeDigest": "sha256:0dec7d42a235cb686f9390fedbefad2acfb80b868f9c9c7874c2f35d7bab154a",
+      "wallMs": 3212.3
+    },
+    {
+      "label": "workspace-bind",
+      "acquisitionKind": "reopen",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/8ccea880c8335c5fd2c92a0ebf95d42be1417a2b800f53d5886639d93a2e0290",
+      "closeDigest": "sha256:77ac884b509aa6d20d0064b0dc8fa75d081493c217c6c2a53d4061303b4d39e2",
+      "wallMs": 1431.2
+    },
+    {
+      "label": "catalog-admit",
+      "acquisitionKind": "reopen",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/2c6b325c25771f1ef8cd85df4be03128a9a68ed2206f9248cb3225a54ec331ed",
+      "closeDigest": "sha256:77ac884b509aa6d20d0064b0dc8fa75d081493c217c6c2a53d4061303b4d39e2",
+      "wallMs": 5498.7
+    },
+    {
+      "label": "catalog-view",
+      "acquisitionKind": "eventless",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/18667bb6c24a0da2813ca8c6141a8cb4208e1b0adb0098de8f0fc8f92ae5b2be",
+      "closeDigest": null,
+      "wallMs": 1565.1
+    },
+    {
+      "label": "program-conformance",
+      "acquisitionKind": "eventless",
+      "outcomeKind": "result",
+      "exitCode": 0,
+      "invocationRef": "invocation://abiogenesis/a890bde3613f2ee3af3ff5befae5947fd30ede72f735c33960e64d7062ef14e4",
+      "closeDigest": null,
+      "wallMs": 1878.4
+    }
+  ],
+  "closes": [
+    {
+      "label": "product-install-0",
+      "acquisition": "new",
+      "prefixDigest": "sha256:f92d47704c8b6773b00288fb3b92e7556bcc6ec9b1f243f89685bc37e8ddf0f3"
+    },
+    {
+      "label": "product-install-1",
+      "acquisition": "reopen",
+      "prefixDigest": "sha256:7c95a1572b59c5966d6b4cb231b3ccecf44908e439f272dc815744e4d21e5cb5"
+    },
+    {
+      "label": "workspace-bind",
+      "acquisition": "reopen",
+      "prefixDigest": "sha256:56ad75ee06af5a2c95ef4b3ddacd001e8c2e4a09ac01ebb6d2fdf40a64931fd0"
+    },
+    {
+      "label": "catalog-admit",
+      "acquisition": "reopen",
+      "prefixDigest": "sha256:56ad75ee06af5a2c95ef4b3ddacd001e8c2e4a09ac01ebb6d2fdf40a64931fd0"
+    }
+  ],
+  "finalEventCount": 3,
+  "installs": [
+    {
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.4",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.4/41c0540f2888495e252e83ff0108455c9077fb1b0bfa35276043cac4bdc6c1ae/8b6777d938c4c58cd701b579d438f16964000dea6d385d9042cfc7342f6a653e",
+      "contentMatches": true
+    },
+    {
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/aaee1e9a04f20c1dd7920eeb38276deb053acb51edf5d7a66391425c4d84935b/8b6777d938c4c58cd701b579d438f16964000dea6d385d9042cfc7342f6a653e",
+      "contentMatches": true
+    }
+  ],
+  "heavyEntries": {
+    "core/core-initial-verification/verifier": 1,
+    "consumer/consumer-verification/verifier": 1,
+    "core/core-initial-verification/resolveNativeDeclarationClosures": 1,
+    "product-set/after:product-verify-1/linkNativeContractSet": 1
+  },
+  "phases": [
+    {
+      "phase": "bootstrap-acquisition",
+      "wallMs": 528.1
+    },
+    {
+      "phase": "installed-module-load",
+      "wallMs": 384.4
+    },
+    {
+      "phase": "core-initial-verification",
+      "wallMs": 18495.9
+    },
+    {
+      "phase": "after:core-initial-verification",
+      "wallMs": 178.1
+    },
+    {
+      "phase": "workspace-create",
+      "wallMs": 70.3
+    },
+    {
+      "phase": "after:workspace-create",
+      "wallMs": 6
+    },
+    {
+      "phase": "consumer-preparation",
+      "wallMs": 238.6
+    },
+    {
+      "phase": "consumer-verification",
+      "wallMs": 1.5
+    },
+    {
+      "phase": "after:consumer-verification",
+      "wallMs": 229.9
+    },
+    {
+      "phase": "product-verify-0",
+      "wallMs": 205
+    },
+    {
+      "phase": "after:product-verify-0",
+      "wallMs": 118.5
+    },
+    {
+      "phase": "product-verify-1",
+      "wallMs": 65.8
+    },
+    {
+      "phase": "after:product-verify-1",
+      "wallMs": 4384
+    },
+    {
+      "phase": "product-resolve",
+      "wallMs": 285.3
+    },
+    {
+      "phase": "after:product-resolve",
+      "wallMs": 280.2
+    },
+    {
+      "phase": "product-install-0",
+      "wallMs": 5400.4
+    },
+    {
+      "phase": "after:product-install-0",
+      "wallMs": 447
+    },
+    {
+      "phase": "product-install-1",
+      "wallMs": 3212.7
+    },
+    {
+      "phase": "after:product-install-1",
+      "wallMs": 488.6
+    },
+    {
+      "phase": "workspace-bind",
+      "wallMs": 1431.6
+    },
+    {
+      "phase": "after:workspace-bind",
+      "wallMs": 1282.7
+    },
+    {
+      "phase": "catalog-admit",
+      "wallMs": 5499
+    },
+    {
+      "phase": "after:catalog-admit",
+      "wallMs": 1163.4
+    },
+    {
+      "phase": "catalog-view",
+      "wallMs": 1565.5
+    },
+    {
+      "phase": "after:catalog-view",
+      "wallMs": 824.4
+    },
+    {
+      "phase": "program-conformance",
+      "wallMs": 1878.8
+    },
+    {
+      "phase": "after:program-conformance",
+      "wallMs": 19.9
+    },
+    {
+      "phase": "complete",
+      "wallMs": 0
+    },
+    {
+      "phase": "restoration-control",
+      "wallMs": 116.5
+    },
+    {
+      "phase": "warm-control",
+      "wallMs": 18768.2
+    }
+  ],
+  "setupInterval": {
+    "fromPhase": "installed-module-load",
+    "toPhase": "after:program-conformance",
+    "wallMs": 48157.5,
+    "heavyEntries": {
+      "core/core-initial-verification/verifier": 1,
+      "consumer/consumer-verification/verifier": 1,
+      "core/core-initial-verification/resolveNativeDeclarationClosures": 1,
+      "product-set/after:product-verify-1/linkNativeContractSet": 1
+    }
+  },
+  "warmControl": {
+    "phase": "warm-control",
+    "owner": "ProductVerificationPort.verify (verifyProductArtifact -> verifyProduct)",
+    "product": "core",
+    "request": "the fixed core verification request, no owned verified value",
+    "verificationDigest": "sha256:a871c10018fe38098b954f6725a2ef40583a18bc6d81a8d1111cf28a9e0b0dae",
+    "nativeContracts": 50,
+    "declarationClosures": 15,
+    "wallMs": 18768.2,
+    "heavyEntries": {
+      "core/warm-control/verifier": 1,
+      "core/warm-control/resolveNativeDeclarationClosures": 1
+    }
+  },
+  "librarySentinel": {
+    "claim": "Each fresh full TypeScript program constructed by resolveNativeDeclarationClosures or linkNativeContractSet on this successful fixed nonempty declaration path reads the installed bundled lib.*.full.d.ts default-library root once; the warm control shows the read persists after compiler warm-up.",
+    "limits": [
+      "It does not count every verifier invocation or all declaration work.",
+      "Zero reads in a phase exclude only fresh full program construction there, not preliminary parsing."
+    ]
+  },
+  "environment": {
+    "configuredKeys": [
+      "PATH",
+      "TMPDIR"
+    ],
+    "installationNpmCalls": 2,
+    "lockNamespaceUnderConfiguredTmp": true,
+    "restoredAfterSuccess": true,
+    "restoredAfterFailure": true,
+    "ambientInProcessKeys": [
+      "HOME",
+      "LANG",
+      "LC_ALL"
+    ],
+    "fullEnvironmentEquivalence": false
+  },
+  "setupCliChildren": 0,
+  "setupJsonlRequests": 0,
+  "resolveCall": {
+    "invocationRef": "invocation://abiogenesis/a7f9ffe0f288d34a24b515c89d8b854f4bd255659f4c53c1b61a293d5a32262a",
+    "invocationDigest": "sha256:a7f9ffe0f288d34a24b515c89d8b854f4bd255659f4c53c1b61a293d5a32262a"
+  },
+  "limits": "Provider-free setup proof only: measured phases of this run; library reads bound only fresh full TypeScript program construction on this path; only PATH and TMPDIR are scoped in-process, other configured environment keys stay ambient; no full environment equivalence, lifecycle, pilot, history or whole-qualification claim."
+}

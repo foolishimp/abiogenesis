@@ -1,0 +1,49 @@
+{
+  "status": "CONCRETE_AUTHOR03_CONTROLS_READY_FOR_ROOT_REVIEW",
+  "recordedAt": "2026-11-08T16:59:39.187631+00:00",
+  "controls": {
+    "ROOT_PACKET.txt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/ROOT_PACKET.txt",
+      "bytes": 3418,
+      "sha256": "76ede7c8dbba002e8b7c6283585046cb872199a6f4553381e7f4801d0e9772cc"
+    },
+    "ROOT_SCOPE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/ROOT_SCOPE.json",
+      "bytes": 2607,
+      "sha256": "b71b1be56c1a8c2e7c30b16d61cce9a5f370895efc9e9a99c083099cbff725ae"
+    },
+    "TASK.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/TASK.json",
+      "bytes": 8281,
+      "sha256": "12c1e88f2f8cfb7cba084ccd8e629f88563f3c6a9263bd54edc9ef147e91e5ea"
+    },
+    "BINDING.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/BINDING.json",
+      "bytes": 9996,
+      "sha256": "6e47b6ad4d772080bde671e3a171a2156cac10cfe13ed1cdd037d152daad2721"
+    },
+    "host.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/host.mjs",
+      "bytes": 13593,
+      "sha256": "cbd3b42dc3ec1c8b13fd4b7e90788733da1ca1772c6c7e4d3af8b7eef90c34c4"
+    },
+    "PREPARATION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PREPARATION.json",
+      "bytes": 2330,
+      "sha256": "045ec4dc70925de2352a24e9f01e07266ce0ed0327d6cb8757a348cf0598b67d"
+    },
+    "STATIC_PREFLIGHT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/STATIC_PREFLIGHT.json",
+      "bytes": 13319,
+      "sha256": "a594bd457a3c21d2b4dac2631e3ea992d35554ccd0d0a87f6d538dfe1a7e8883"
+    }
+  },
+  "all1340PreimagesEqual": true,
+  "oneSourcePathInReadRoots": true,
+  "actualAuthor02ClosedPrefixUnchanged": true,
+  "newInstallOrSetupReplay": false,
+  "runtimeAllocated": false,
+  "providerDispatched": false,
+  "requestedOperation": "Execute exact STATIC_PREFLIGHT command once; hold one owner at HELD_PREPARED_NO_NATIVE_DISPATCH. Reviewed host produces focused003 binding only after actual PREPARED-bound admission.",
+  "O3Residual": "OPEN separate performance follow-up; all previous physical verification boundaries retained; all prior failed proofs/residuals preserved."
+}

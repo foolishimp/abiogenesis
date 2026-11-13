@@ -1,0 +1,1083 @@
+--- subject002/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts
++++ subject003/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts
+@@ -917,6 +917,11 @@
+   // Policy and grants depend on the resolved declaration only; an input
+   // factory may name the grant it observes under.
+   const policy = constructRunOperationPolicy(input.workspaceBinding, resolution, input.applications);
++  // Grants, authority and the actor slot name one actor: the binding's
++  // authorized actor, which `runOperationAuthorityMatches` compares.
++  if (input.actorRef !== input.workspaceBinding.authorizedActorRef) {
++    return preparationRefusal(memberKey, "invalid_capability", ["/invocationAuthority"]);
++  }
+   const { grants, authority } = constructRunInvocationAuthorityBasis(
+     memberKey,
+     input.actorRef,
+--- subject002/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
++++ subject003/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
+@@ -1776,6 +1776,149 @@
+ import { constructCapabilityGrant } from "../product/invocation.js";
+ import { constructRunOperationPolicy, expectedRunOperationAuthoritySlots, runOperationAuthorityMatches } from "../product/run_invocation_operation.js";
+ import { projectPendingExecutionContinuations, projectPendingExecutionUseRequest } from "../abg/construction_continuation.js";
++import type { LoadedProductExecutionResolution } from "../product/execution_resolution.js";
++
++type ContinuationPrefix = ReturnType<typeof projectRuntimePrefixesAtDurablePrefix>["authorityPrefix"];
++type ContinuationRefusal<C extends string> = Readonly<{ kind: "refused"; code: C; path: string }>;
++
++/** The fault stages one continuation selection runs under: each owner's own
++ * call-bound stages, or plain evaluation for population. */
++type ContinuationStages<E> = Readonly<{
++  sync: <A>(stage: "runtime_truth", action: () => A) => Effect.Effect<A, E>;
++  async: <A>(stage: "product_execution_resolution", action: () => Promise<A>) => Effect.Effect<A, E>;
++}>;
++
++function ownerContinuationStages<TPacket extends RunPacket>(
++  call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
++): ContinuationStages<DefinitionExecutionFault<TPacket["definitionKey"]>> {
++  return Object.freeze({
++    sync: (stage, action) => syncStage(call, stage, action),
++    async: (stage, action) => asyncStage(call, stage, action),
++  });
++}
++
++const POPULATION_CONTINUATION_STAGES: ContinuationStages<never> = Object.freeze({
++  sync: (_stage, action) => Effect.sync(action),
++  async: (_stage, action) => Effect.promise(action),
++});
++
++/** Plain evaluation of a population selection; an owner throw stays the
++ * thrown value, as before the selection was shared. */
++async function runPopulationSelection<A>(selection: Effect.Effect<A>): Promise<A> {
++  const exit = await Effect.runPromiseExit(selection);
++  if (exit._tag === "Failure") throw Cause.squash(exit.cause);
++  return exit.value;
++}
++
++function resolveContinuationBasis<E>(
++  stages: ContinuationStages<E>,
++  setup: AdmittedSetupTruth,
++  resources: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
++  basis: Readonly<{ programRef: string; graphFunctionRef: string }>,
++) {
++  return stages.async("product_execution_resolution", () => ProductExecutionResolutionPort.resolve({
++    catalog: resources.catalog, catalogView: resources.catalogView, admittedInstalls: setup.admittedInstalls,
++    verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),
++    programRef: basis.programRef, selection: { kind: "admitted", graphFunctionRef: basis.graphFunctionRef },
++  }));
++}
++
++/**
++ * Select, resolve and prepare one current-intent continuation at the Run's
++ * authority prefix. The owner and population share this sequence, its
++ * refusal codes and their order; the owner then checks the supplied request
++ * and authority against the prepared values, population emits them.
++ */
++function selectConstructionIntentAtPrefix<E>(
++  stages: ContinuationStages<E>,
++  setup: AdmittedSetupTruth,
++  resources: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
++  prefix: ContinuationPrefix,
++  runRef: string,
++  continuation: Readonly<{ ref: string; digest: string }>,
++): Effect.Effect<
++  | Readonly<{
++      kind: "selected";
++      selected: ReturnType<typeof projectConstructionIntentContinuations>[number];
++      resolution: LoadedProductExecutionResolution;
++      prepared: NonNullable<ReturnType<typeof prepareConstructionIntentContinuation>>;
++    }>
++  | ContinuationRefusal<"missing_continuation" | "resolved_continuation" | "basis_mismatch">,
++  E
++> {
++  return Effect.gen(function* () {
++    const continuations = yield* stages.sync("runtime_truth", () => projectConstructionIntentContinuations(prefix, runRef));
++    const selected = continuations.find(c => c.continuationRef === continuation.ref && c.continuationDigest === continuation.digest);
++    if (selected === undefined) return Object.freeze({ kind: "refused" as const, code: "missing_continuation" as const, path: "/continuation" });
++    if (selected.status !== "open") return Object.freeze({ kind: "refused" as const, code: "resolved_continuation" as const, path: "/continuation" });
++    const sourceRoot = projectExactExecutionBasisAtPrefix(prefix, selected.parentExecutionBasisRef);
++    if (sourceRoot === null) return Object.freeze({ kind: "refused" as const, code: "basis_mismatch" as const, path: "/expectedBasis" });
++    const resolution = yield* resolveContinuationBasis(stages, setup, resources, sourceRoot);
++    if (resolution.kind !== "loaded_product_execution_resolution") return Object.freeze({ kind: "refused" as const, code: "basis_mismatch" as const, path: "/program" });
++    const prepared = yield* stages.sync("runtime_truth", () => prepareConstructionIntentContinuation(prefix, selected, resolution));
++    if (prepared === null) return Object.freeze({ kind: "refused" as const, code: "basis_mismatch" as const, path: "/continuation" });
++    return Object.freeze({ kind: "selected" as const, selected, resolution, prepared });
++  });
++}
++
++/** Select, resolve and prepare one pending execution use; shared by its owner
++ * and population as above. */
++function selectPendingExecutionAtPrefix<E>(
++  stages: ContinuationStages<E>,
++  setup: AdmittedSetupTruth,
++  resources: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
++  prefix: ContinuationPrefix,
++  request: PendingExecutionUseRequest,
++): Effect.Effect<
++  | Readonly<{
++      kind: "selected";
++      use: Extract<ReturnType<typeof selectPendingExecutionUse>, { kind: "pending_execution_use" }>;
++      resolution: LoadedProductExecutionResolution;
++      prepared: NonNullable<ReturnType<typeof preparePendingExecutionContinuation>>;
++    }>
++  | ContinuationRefusal<Extract<ReturnType<typeof selectPendingExecutionUse>, { kind: "refused" }>["code"] | "basis_mismatch">,
++  E
++> {
++  return Effect.gen(function* () {
++    const use = yield* stages.sync("runtime_truth", () => selectPendingExecutionUse(prefix, request));
++    if (use.kind === "refused") return Object.freeze({ kind: "refused" as const, code: use.code, path: use.path });
++    const resolution = yield* resolveContinuationBasis(stages, setup, resources, use.rootBasis);
++    if (resolution.kind !== "loaded_product_execution_resolution") return Object.freeze({ kind: "refused" as const, code: "basis_mismatch" as const, path: "/program" });
++    const prepared = yield* stages.sync("runtime_truth", () => preparePendingExecutionContinuation(prefix, use, resolution));
++    if (prepared === null) return Object.freeze({ kind: "refused" as const, code: "basis_mismatch" as const, path: "/continuation" });
++    return Object.freeze({ kind: "selected" as const, use, resolution, prepared });
++  });
++}
++
++/** Select, resolve and prepare one selected-action use; shared by its owner
++ * and population as above. */
++function selectSelectedActionAtPrefix<E>(
++  stages: ContinuationStages<E>,
++  setup: AdmittedSetupTruth,
++  resources: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
++  prefix: ContinuationPrefix,
++  request: SelectedActionUseRequest,
++  currentExecutionBasis: Parameters<typeof selectPendingActionUse>[2],
++): Effect.Effect<
++  | Readonly<{
++      kind: "selected";
++      use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>;
++      resolution: LoadedProductExecutionResolution;
++      prepared: NonNullable<ReturnType<typeof prepareSelectedActionContinuation>>;
++    }>
++  | ContinuationRefusal<Extract<ReturnType<typeof selectPendingActionUse>, { kind: "refused" }>["code"] | "basis_mismatch">,
++  E
++> {
++  return Effect.gen(function* () {
++    const use = yield* stages.sync("runtime_truth", () => selectPendingActionUse(prefix, request, currentExecutionBasis));
++    if (use.kind === "refused") return Object.freeze({ kind: "refused" as const, code: use.code, path: "/request" });
++    const resolution = yield* resolveContinuationBasis(stages, setup, resources, use.currentBasis);
++    if (resolution.kind !== "loaded_product_execution_resolution") return Object.freeze({ kind: "refused" as const, code: "basis_mismatch" as const, path: "/program" });
++    const prepared = yield* stages.sync("runtime_truth", () => prepareSelectedActionContinuation(prefix, use, resolution));
++    if (prepared === null) return Object.freeze({ kind: "refused" as const, code: "basis_mismatch" as const, path: "/continuation" });
++    return Object.freeze({ kind: "selected" as const, use, resolution, prepared });
++  });
++}
+ 
+ function runCurrentIntentOwner(call: DefinitionCall<ContinuePacket, RunInvocationResourceAssertion>): ReturnType<RunCallable<ContinuePacket>> {
+   // The request alternative selects the owner; the strict schemas are exclusive.
+@@ -1798,20 +1941,10 @@
+     const prefix = prefixes.authorityPrefix;
+     const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
+     if (duplicate.disposition !== "available") return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
+-    const continuations = yield* syncStage(call, "runtime_truth", () => projectConstructionIntentContinuations(prefix, request.run.ref));
+-    const selected = continuations.find(c => c.continuationRef === request.continuation.ref && c.continuationDigest === request.continuation.digest);
+-    if (selected === undefined) return yield* refuse("missing_continuation", "/continuation");
+-    if (selected.status !== "open") return yield* refuse("resolved_continuation", "/continuation");
+-    const sourceRoot = projectExactExecutionBasisAtPrefix(prefix, selected.parentExecutionBasisRef);
+-    if (sourceRoot === null) return yield* refuse("basis_mismatch", "/expectedBasis");
+-    const resolution = yield* asyncStage(call, "product_execution_resolution", () => ProductExecutionResolutionPort.resolve({
+-      catalog: call.resources.catalog, catalogView: call.resources.catalogView, admittedInstalls: setup.admittedInstalls,
+-      verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),
+-      programRef: sourceRoot.programRef, selection: { kind: "admitted", graphFunctionRef: sourceRoot.graphFunctionRef },
+-    }));
+-    if (resolution.kind !== "loaded_product_execution_resolution") return yield* refuse("basis_mismatch", "/program");
+-    const prepared = yield* syncStage(call, "runtime_truth", () => prepareConstructionIntentContinuation(prefix, selected, resolution));
+-    if (prepared === null) return yield* refuse("basis_mismatch", "/continuation");
++    const selection = yield* selectConstructionIntentAtPrefix(ownerContinuationStages(call), setup, call.resources, prefix,
++      request.run.ref, request.continuation);
++    if (selection.kind === "refused") return yield* refuse(selection.code, selection.path);
++    const { resolution, prepared } = selection;
+     if (request.run.digest !== prepared.rootScope.runDigest ||
+       request.expectedBasis.ref !== prepared.child.basisRef || request.expectedBasis.digest !== prepared.child.basisDigest)
+       return yield* refuse("basis_mismatch", "/expectedBasis");
+@@ -1886,16 +2019,10 @@
+     const prefix = prefixes.authorityPrefix;
+     const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
+     if (duplicate.disposition !== "available") return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
+-    const use = yield* syncStage(call, "runtime_truth", () => selectPendingActionUse(prefix, request as SelectedActionUseRequest, call.invocation.invocationAuthority.slots.execution_basis));
+-    if (use.kind === "refused") return yield* refuse(use.code, "/request");
+-    const resolution = yield* asyncStage(call, "product_execution_resolution", () => ProductExecutionResolutionPort.resolve({
+-      catalog: call.resources.catalog, catalogView: call.resources.catalogView, admittedInstalls: setup.admittedInstalls,
+-      verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),
+-      programRef: use.currentBasis.programRef, selection: { kind: "admitted", graphFunctionRef: use.currentBasis.graphFunctionRef },
+-    }));
+-    if (resolution.kind !== "loaded_product_execution_resolution") return yield* refuse("basis_mismatch", "/program");
+-    const prepared = yield* syncStage(call, "runtime_truth", () => prepareSelectedActionContinuation(prefix, use, resolution));
+-    if (prepared === null) return yield* refuse("basis_mismatch", "/continuation");
++    const selection = yield* selectSelectedActionAtPrefix(ownerContinuationStages(call), setup, call.resources, prefix,
++      request as SelectedActionUseRequest, call.invocation.invocationAuthority.slots.execution_basis);
++    if (selection.kind === "refused") return yield* refuse(selection.code, selection.path);
++    const { use, resolution, prepared } = selection;
+     const policy = constructRunOperationPolicy(setup.workspaceBinding, resolution, call.resources.applications);
+     const packet = RUN_OPERATION_CONTRACTS.continue.selected_action;
+     const grant = constructCapabilityGrant(policy, use.invocation.actorRef, "abg.operation.run.continue", packet.metadata.capabilityRefs[0]!,
+@@ -1971,16 +2098,10 @@
+     const prefix = prefixes.authorityPrefix;
+     const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
+     if (duplicate.disposition !== "available") return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
+-    const use = yield* syncStage(call, "runtime_truth", () => selectPendingExecutionUse(prefix, request as PendingExecutionUseRequest));
+-    if (use.kind === "refused") return yield* refuse(use.code, use.path);
+-    const resolution = yield* asyncStage(call, "product_execution_resolution", () => ProductExecutionResolutionPort.resolve({
+-      catalog: call.resources.catalog, catalogView: call.resources.catalogView, admittedInstalls: setup.admittedInstalls,
+-      verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),
+-      programRef: use.rootBasis.programRef, selection: { kind: "admitted", graphFunctionRef: use.rootBasis.graphFunctionRef },
+-    }));
+-    if (resolution.kind !== "loaded_product_execution_resolution") return yield* refuse("basis_mismatch", "/program");
+-    const prepared = yield* syncStage(call, "runtime_truth", () => preparePendingExecutionContinuation(prefix, use, resolution));
+-    if (prepared === null) return yield* refuse("basis_mismatch", "/continuation");
++    const selection = yield* selectPendingExecutionAtPrefix(ownerContinuationStages(call), setup, call.resources, prefix,
++      request as PendingExecutionUseRequest);
++    if (selection.kind === "refused") return yield* refuse(selection.code, selection.path);
++    const { use, resolution, prepared } = selection;
+     const policy = constructRunOperationPolicy(setup.workspaceBinding, resolution, call.resources.applications);
+     const packet = RUN_OPERATION_CONTRACTS.continue.current_intent;
+     const grant = constructCapabilityGrant(policy, use.invocation.actorRef, "abg.operation.run.continue", packet.metadata.capabilityRefs[0]!,
+@@ -2072,10 +2193,10 @@
+ /**
+  * Populate one exact run.continue request and authority slots at the
+  * supplied durable prefix through the same owners the three continuation
+- * owners consult: setup truth, the Run's authority prefix, the selected
+- * continuation or action use, admitted-selection execution resolution, the
+- * continuation preparation, the shared run policy and grant, and the shared
+- * expected run-operation slots. Recovery reconstructs from the log; no prior
++ * owners consult: setup truth, the Run's authority prefix, the shared
++ * select-resolve-prepare sequence of the selected continuation or action
++ * use, the shared run policy and grant, and the shared expected
++ * run-operation slots. Recovery reconstructs from the log; no prior
+  * start object supplies authority. Construction admits and appends nothing.
+  */
+ export async function populateRunContinuationAtDurablePrefix(input: Readonly<{
+@@ -2095,11 +2216,7 @@
+   if (setup === null) return refuse("basis_mismatch", "/workspace");
+   const runRef = selection.kind === "selected_action" ? selection.request.run.ref : selection.runRef;
+   const prefix = projectRuntimePrefixesAtDurablePrefix(input.prefix, runRef).authorityPrefix;
+-  const resolve = (programRef: string, graphFunctionRef: string) => ProductExecutionResolutionPort.resolve({
+-    catalog: input.catalog, catalogView: input.catalogView, admittedInstalls: setup.admittedInstalls,
+-    verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),
+-    programRef, selection: { kind: "admitted", graphFunctionRef },
+-  });
++  const resources = Object.freeze({ catalog: input.catalog, catalogView: input.catalogView });
+   const inputContract = (resolution: import("../product/execution_resolution.js").LoadedProductExecutionResolution, contractRef: string) => {
+     const contracts = resolution.declarationPublications.flatMap(p => p.contracts).filter(c => c.contractRef === contractRef);
+     return contracts.length === 1 && contracts[0] !== undefined ? coordinate(contractRef, sha256Canonical(contracts[0] as unknown as JsonValue)) : null;
+@@ -2127,16 +2244,10 @@
+     });
+   };
+   if (selection.kind === "current_intent") {
+-    const selected = projectConstructionIntentContinuations(prefix, runRef).find(c =>
+-      c.continuationRef === selection.continuation.ref && c.continuationDigest === selection.continuation.digest);
+-    if (selected === undefined) return refuse("missing_continuation", "/continuation");
+-    if (selected.status !== "open") return refuse("resolved_continuation", "/continuation");
+-    const sourceRoot = projectExactExecutionBasisAtPrefix(prefix, selected.parentExecutionBasisRef);
+-    if (sourceRoot === null) return refuse("basis_mismatch", "/expectedBasis");
+-    const resolution = await resolve(sourceRoot.programRef, sourceRoot.graphFunctionRef);
+-    if (resolution.kind !== "loaded_product_execution_resolution") return refuse("basis_mismatch", "/program");
+-    const prepared = prepareConstructionIntentContinuation(prefix, selected, resolution);
+-    if (prepared === null) return refuse("basis_mismatch", "/continuation");
++    const shared = await runPopulationSelection(selectConstructionIntentAtPrefix(POPULATION_CONTINUATION_STAGES, setup, resources,
++      prefix, runRef, selection.continuation));
++    if (shared.kind === "refused") return refuse(shared.code, shared.path);
++    const { selected, resolution, prepared } = shared;
+     const contract = inputContract(resolution, prepared.failedCall.inputContractRef);
+     if (contract === null) return refuse("basis_mismatch", "/invocationAuthority");
+     const basis = coordinate(prepared.child.basisRef, prepared.child.basisDigest);
+@@ -2155,12 +2266,10 @@
+     if (pending === undefined) return refuse("missing_continuation", "/continuation");
+     const useRequest = projectPendingExecutionUseRequest(prefix, pending);
+     if (useRequest === null) return refuse("basis_mismatch", "/run");
+-    const use = selectPendingExecutionUse(prefix, useRequest);
+-    if (use.kind === "refused") return refuse(use.code, use.path);
+-    const resolution = await resolve(use.rootBasis.programRef, use.rootBasis.graphFunctionRef);
+-    if (resolution.kind !== "loaded_product_execution_resolution") return refuse("basis_mismatch", "/program");
+-    const prepared = preparePendingExecutionContinuation(prefix, use, resolution);
+-    if (prepared === null) return refuse("basis_mismatch", "/continuation");
++    const shared = await runPopulationSelection(selectPendingExecutionAtPrefix(POPULATION_CONTINUATION_STAGES, setup, resources,
++      prefix, useRequest));
++    if (shared.kind === "refused") return refuse(shared.code, shared.path);
++    const { use, resolution, prepared } = shared;
+     const graphFunctions = resolution.declarationPublications.flatMap(p => p.graphFunctions);
+     const pendingInput = projectPendingExecutionInputAtPrefix(prefix, use,
+       ref => graphFunctions.find(g => g.name === ref) ?? null, resolution.programValidation);
+@@ -2171,12 +2280,10 @@
+       pendingInput.input as unknown as Readonly<{ inputRef: string; inputDigest: Sha256Digest; value: JsonValue }>,
+       coordinate(prepared.root.basisRef, prepared.root.basisDigest));
+   }
+-  const use = selectPendingActionUse(prefix, selection.request, selection.currentExecutionBasis);
+-  if (use.kind === "refused") return refuse(use.code, "/request");
+-  const resolution = await resolve(use.currentBasis.programRef, use.currentBasis.graphFunctionRef);
+-  if (resolution.kind !== "loaded_product_execution_resolution") return refuse("basis_mismatch", "/program");
+-  const prepared = prepareSelectedActionContinuation(prefix, use, resolution);
+-  if (prepared === null) return refuse("basis_mismatch", "/continuation");
++  const shared = await runPopulationSelection(selectSelectedActionAtPrefix(POPULATION_CONTINUATION_STAGES, setup, resources,
++    prefix, selection.request, selection.currentExecutionBasis));
++  if (shared.kind === "refused") return refuse(shared.code, shared.path);
++  const { use, resolution, prepared } = shared;
+   const contract = inputContract(resolution, prepared.term.inputCarrierRef);
+   if (contract === null) return refuse("basis_mismatch", "/invocationAuthority");
+   return populated("selected_action", selection.request as unknown as Readonly<Record<string, JsonValue>>, resolution, use.invocation, contract,
+--- subject002/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts
++++ subject003/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts
+@@ -1,8 +1,11 @@
+ import { admitJson } from "../shared/admit/index.js";
++import { isRecord } from "../shared/admission_predicates.js";
+ import * as abg from "../abg/index.js";
+ import * as product from "../product/index.js";
+ import { PUBLIC_FUNCTION_DEFINITION_FAMILY, PUBLIC_OPERATION_CONTRACT_PROJECTIONS } from "./binding/public_function_family.js";
+ import { PUBLIC_PROJECTION_PAYLOADS } from "./binding/public_function_projections.js";
++import { admitExactDefinitionCall } from "./binding/definition_binding_mechanics.js";
++import { OWNER_CONTRACT_SOURCES } from "./binding/owner_contract_source_set.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import type { Sha256Digest } from "../shared/digests.js";
+ import type {
+@@ -120,17 +123,20 @@
+     InstalledPublicDefinitionCallSelection,
+ > = InstalledPublicDefinitionCallEnvironment & S;
+ 
+-/** The constructed envelope keeps the selected key, request and resources. */
++/** The constructed envelope keeps the selected key, request and resources.
++ * A union of selections stays a union of calls: each alternative keeps its
++ * own key, request variant, slots and resources. */
+ export type InstalledPublicDefinitionCall<
+   S extends InstalledPublicDefinitionCallSelection =
+     InstalledPublicDefinitionCallSelection,
+-> = Readonly<{
++> = S extends unknown ? Readonly<{
+   invocation: AdmittedPublicInvocation<
+     Readonly<{ operationId: S["operationId"]; memberKey: S["memberKey"] }>,
+     S["request"] & Readonly<Record<string, JsonValue>>
+   >;
+   resources: S["resources"];
+-}>;
++}>
++  : never;
+ 
+ type ConstructionProduct = InstalledPublicDefinitionCallEnvironment["product"];
+ 
+@@ -381,29 +387,102 @@
+   return member.slots.request.contractCatalog;
+ }
+ 
+-function constructEnvelope(
++type CallableMemberAt<O extends string, K extends string> = Extract<
++  OwnerCallableDefinitionMember,
++  Readonly<{ definitionKey: Readonly<{ operationId: O; memberKey: K }> }>
++>;
++
++type MemberSelection<O extends string, K extends string> =
++  InstalledPublicDefinitionCallSelection<CallableMemberAt<O, K>>;
++
++/** The `run.invoke` alternative one selection intent names: the start
++ * variant of its target kind, or the direct GraphFunction member. */
++export type InstalledStartCallSelection<
++  S extends product.ProductRunInvocationSelectionIntent =
++    product.ProductRunInvocationSelectionIntent,
++> = S extends Readonly<{ memberKey: "start"; target: Readonly<{ kind: infer T }> }>
++  ? Extract<
++    MemberSelection<"abg.operation.run.invoke", "start">,
++    Readonly<{ request: Readonly<{ target: Readonly<{ kind: T }> }> }>
++  >
++  : MemberSelection<"abg.operation.run.invoke", "invoke">;
++
++/** The `run.continue` alternative one continuation intent names. */
++export type InstalledPendingCallSelection<
++  S extends product.RunContinuationSelectionIntent =
++    product.RunContinuationSelectionIntent,
++> = S extends Readonly<{ kind: "selected_action" }>
++  ? MemberSelection<"abg.operation.run.continue", "selected_action">
++  : Extract<
++    MemberSelection<"abg.operation.run.continue", "current_intent">,
++    Readonly<{
++      request: S extends Readonly<{ kind: "pending_execution" }>
++        ? Readonly<{ pendingCursor: unknown }>
++        : Readonly<{ currentIntent: unknown }>;
++    }>
++  >;
++
++type RunReadCallSelections = {
++  readonly [K in abg.AbgRunReadMemberKey]:
++    MemberSelection<"abg.operation.project.read", K>;
++};
++
++/** The `project.read` member one run-read key names. */
++export type InstalledRunReadCallSelection<
++  K extends abg.AbgRunReadMemberKey = abg.AbgRunReadMemberKey,
++> = RunReadCallSelections[K];
++
++/**
++ * The checked boundary between owner population and the correlated call
++ * type. Product and ABG own the populated request and slots; the constructed
++ * invocation is typed as the selected member and variant only after it
++ * satisfies that installed member's own exact invocation contract (key,
++ * request schema, the variant's conditional slots, digests and coordinates)
++ * and names the requested variant. A crossed population is an owner defect,
++ * never a call. The transport and the owner still admit the call, its
++ * resources, authority and currentness; this check admits nothing.
++ */
++function checkedInstalledCall<S extends InstalledPublicDefinitionCallSelection>(
+   envelope: InstalledCallEnvelopeIdentity,
+-  operationId: string,
+-  memberKey: string,
+-  request: unknown,
+-  slots: unknown,
+-  resources: unknown,
+-): InstalledPublicDefinitionCall {
+-  return constructInstalledPublicDefinitionCall({
++  key: Readonly<{ operationId: S["operationId"]; memberKey: S["memberKey"] }>,
++  population: Readonly<{ request: JsonValue; slots: unknown; resources: unknown }>,
++  variant: (request: Readonly<Record<string, unknown>>) => boolean,
++): InstalledPublicDefinitionCall<S> {
++  // The one typing step: bound to S here and released below only after the
++  // member contract and variant checks.
++  const selection = {
++    operationId: key.operationId,
++    memberKey: key.memberKey,
++    request: population.request,
++    slots: population.slots,
++    resources: population.resources,
++  } as unknown as S;
++  const environment: InstalledPublicDefinitionCallEnvironment = {
+     product: product,
+     installedPublic: INSTALLED_PUBLIC,
+     definitionContractCoordinates: envelope.definitionContractCoordinates,
+-    contractCatalog: verifiedContractCatalog(envelope.definitionContractCoordinates, operationId, memberKey),
+-    operationId,
+-    memberKey,
+-    request,
+-    slots,
+-    resources,
++    contractCatalog: verifiedContractCatalog(envelope.definitionContractCoordinates, key.operationId, key.memberKey),
+     requestRef: envelope.requestRef,
+     correlationRef: envelope.correlationRef,
+     eventTime: envelope.eventTime,
+     provenanceRefs: envelope.provenanceRefs,
+-  } as unknown as InstalledPublicDefinitionCallInput) as InstalledPublicDefinitionCall;
++  };
++  const call = constructInstalledPublicDefinitionCall<S>({ ...environment, ...selection });
++  const sources = OWNER_CONTRACT_SOURCES.filter(({ packet }) =>
++    packet.definitionKey.operationId === key.operationId &&
++    packet.definitionKey.memberKey === key.memberKey
++  );
++  const request: unknown = call.invocation.request;
++  if (
++    sources.length !== 1 ||
++    admitExactDefinitionCall(call, sources[0]!.declaration) === null ||
++    !isRecord(request) || !variant(request)
++  ) {
++    throw new TypeError(
++      `${key.operationId}#${key.memberKey} population differs from its installed member contract or variant`,
++    );
++  }
++  return call;
+ }
+ 
+ /** Optional run resources the caller supplies explicitly; none is defaulted. */
+@@ -452,7 +531,7 @@
+   }>): Promise<
+   | Readonly<{
+       kind: "installed_start_call";
+-      call: InstalledPublicDefinitionCall;
++      call: InstalledPublicDefinitionCall<InstalledStartCallSelection<S>>;
+       population: product.PopulatedProductRunInvocation<S["memberKey"]>;
+     }>
+   | product.ProductRunInvocationPreparationRefusal<S["memberKey"]>
+@@ -476,10 +555,19 @@
+       workspaceBinding: input.workspaceBinding,
+     }),
+   });
++  const selection: product.ProductRunInvocationSelectionIntent = input.selection;
++  if (population.memberKey !== selection.memberKey) {
++    throw new TypeError("run.invoke population differs from its selected member");
++  }
+   return Object.freeze({
+     kind: "installed_start_call" as const,
+-    call: constructEnvelope(input.envelope, "abg.operation.run.invoke", population.memberKey,
+-      population.request, population.slots, resources),
++    call: checkedInstalledCall<InstalledStartCallSelection<S>>(
++      input.envelope,
++      { operationId: "abg.operation.run.invoke", memberKey: population.memberKey },
++      { request: population.request, slots: population.slots, resources },
++      (request) => selection.memberKey === "invoke" ||
++        isRecord(request.target) && request.target.kind === selection.target.kind,
++    ),
+     population,
+   });
+ }
+@@ -491,15 +579,21 @@
+  * continuation, resolution, policy, grant and attribution from the log; no
+  * prior start object supplies authority.
+  */
+-export async function constructInstalledPendingCall(input: InstalledRunCallResourceIntent & Readonly<{
+-  selection: product.RunContinuationSelectionIntent;
++export async function constructInstalledPendingCall<
++  S extends product.RunContinuationSelectionIntent,
++>(input: InstalledRunCallResourceIntent & Readonly<{
++  selection: S;
+   catalog: product.ReadyGraphFunctionCatalog;
+   catalogView: product.GraphFunctionCatalogView;
+   applications: readonly product.DeclarationApplication[];
+   eventResource: abg.ReopenedAbgEventResourceInput;
+   envelope: InstalledCallEnvelopeIdentity;
+ }>): Promise<
+-  | Readonly<{ kind: "installed_pending_call"; call: InstalledPublicDefinitionCall; population: product.PopulatedRunContinuation }>
++  | Readonly<{
++      kind: "installed_pending_call";
++      call: InstalledPublicDefinitionCall<InstalledPendingCallSelection<S>>;
++      population: product.PopulatedRunContinuation;
++    }>
+   | product.RunContinuationPopulationRefusal
+ > {
+   const population = await product.populateRunContinuationAtDurablePrefix({
+@@ -525,10 +619,20 @@
+       workspaceBinding: population.workspaceBinding,
+     }),
+   });
++  const selection: product.RunContinuationSelectionIntent = input.selection;
++  const memberKey = selection.kind === "selected_action" ? "selected_action" : "current_intent";
++  if (population.memberKey !== memberKey) {
++    throw new TypeError("run.continue population differs from its selected member");
++  }
+   return Object.freeze({
+     kind: "installed_pending_call" as const,
+-    call: constructEnvelope(input.envelope, "abg.operation.run.continue", population.memberKey,
+-      population.request, population.slots, resources),
++    call: checkedInstalledCall<InstalledPendingCallSelection<S>>(
++      input.envelope,
++      { operationId: "abg.operation.run.continue", memberKey },
++      { request: population.request, slots: population.slots, resources },
++      (request) => selection.kind === "selected_action" ||
++        Object.hasOwn(request, selection.kind === "pending_execution" ? "pendingCursor" : "currentIntent"),
++    ),
+     population,
+   });
+ }
+@@ -550,7 +654,7 @@
+ }>):
+   | Readonly<{
+       kind: "installed_run_read_call";
+-      call: InstalledPublicDefinitionCall;
++      call: InstalledPublicDefinitionCall<InstalledRunReadCallSelection<K>>;
+       population: Extract<ReturnType<typeof abg.populateRunReadAtDurablePrefix<K>>, { readonly kind: "populated_run_read" }>;
+     }>
+   | Extract<ReturnType<typeof abg.populateRunReadAtDurablePrefix<K>>, { readonly kind: "run_read_population_refusal" }> {
+@@ -570,8 +674,12 @@
+   });
+   return Object.freeze({
+     kind: "installed_run_read_call" as const,
+-    call: constructEnvelope(input.envelope, population.packet.definitionKey.operationId, input.memberKey,
+-      population.request, population.slots, resources),
++    call: checkedInstalledCall<InstalledRunReadCallSelection<K>>(
++      input.envelope,
++      { operationId: population.packet.definitionKey.operationId, memberKey: population.memberKey },
++      { request: population.request, slots: population.slots, resources },
++      () => true,
++    ),
+     population,
+   });
+ }
+--- subject002/build_tenants/abiogenesis/typescript/code/src/public/index.ts
++++ subject003/build_tenants/abiogenesis/typescript/code/src/public/index.ts
+@@ -57,7 +57,10 @@
+   constructInstalledRunReadCall,
+   constructInstalledStartCall,
+   type InstalledCallEnvelopeIdentity,
++  type InstalledPendingCallSelection,
+   type InstalledRunCallResourceIntent,
++  type InstalledRunReadCallSelection,
++  type InstalledStartCallSelection,
+   type InstalledPublicDefinitionCall,
+   type InstalledPublicDefinitionCallEnvironment,
+   type InstalledPublicDefinitionCallInput,
+--- subject002/build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs
++++ subject003/build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs
+@@ -33,9 +33,10 @@
+ });
+ export const SELECTION_PREFIX = 'selection://abiogenesis/t287/qualification/';
+ 
+-/** The root invocation authority of one Program's graph function over the current environment
+- * (installed-qualification-conservation.mjs constructStart; public-setup.mjs constructLifecycleCall). */
+-export async function rootAuthority(caller, { programRef, graphFunctionRef }, cache) {
++/** The owner-resolved root of one Program's graph function over the current environment: the environment and the
++ * exact graph_function start resolution. Policy, grants and invocation authority are not assembled here: the canonical
++ * start population owns them (product/run_invocation_operation.ts populateProductRunInvocation). */
++export async function rootResolution(caller, { programRef, graphFunctionRef }, cache) {
+   const { product, abg } = caller.runtime, state = caller.state;
+   // A cache is valid only while the prefix is unchanged (the dry mode); the live mode passes none.
+   const key = programRef + '\n' + product.sha256Canonical(state.closeHandoff);
+@@ -45,18 +46,21 @@
+     verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), programRef,
+     selection: { kind: 'start', scope: 'program', target: 'graph_function', graphFunctionHandle: graphFunctionRef, until: 'converged', rootMode: 'direct' } });
+   if (resolution.kind !== 'loaded_product_execution_resolution') throw new TypeError('resolution of ' + programRef + ': ' + (resolution.code ?? resolution.kind));
+-  // The policy the run invocation preparation constructs (product/run_invocation_operation.ts constructRunOperationPolicy).
+-  const validation = resolution.programValidation;
+-  const regimes = new Set([...validation.executableLeafRows.map(row => row.fibre), ...validation.interactionLeafRows.map(row => row.fibre)]);
+-  const policy = product.constructRunOperationPolicy(workspaceBinding, resolution, []);
+-  const fixedPacket = product.RUN_OPERATION_CONTRACTS.invoke.start;
+-  const grants = [product.constructCapabilityGrant(policy, caller.actorRef, fixedPacket.definitionKey.operationId, product.DIRECT_INVOKE_CAPABILITY,
+-    { admittedInstalls, workspaceBinding, fixedPacket })];
+-  const authority = product.constructInvocationAuthority(caller.actorRef, workspaceBinding, state.catalogView, programRef, resolution.selectedCatalogEntry,
+-    policy, grants, { admittedInstalls, workspaceBinding, fixedPacket });
+-  const value = { environment, admittedInstalls, workspaceBinding, resolution, policy, fixedPacket, grants, authority, regimes: [...regimes].sort() };
++  const value = { environment, admittedInstalls, workspaceBinding, resolution };
+   cache?.set(key, value);
+   return value;
++}
++
++/** The canonical run.invoke start population of one Program's graph function over a factory-built input: the Product
++ * run owner resolves, constructs the policy and grants, and hands them to the factory before it admits the input. */
++function populateStart(caller, root, program, factory) {
++  const { product, abg } = caller.runtime, state = caller.state, { environment, admittedInstalls, workspaceBinding } = root;
++  return product.populateProductRunInvocation({
++    selection: { memberKey: 'start', target: { kind: 'graph_function', handle: program.graphFunctionRef }, rootMode: 'direct', fhMode: 'direct' },
++    programRef: program.programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [], admittedInstalls, workspaceBinding,
++    verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), actorRef: caller.actorRef,
++    input: { factory }, inputValueRef: 'input://abiogenesis/t287/qualification/' + caller.config.runId + '/population', source: { kind: 'none' },
++    transportResourceAssertion: caller.reopen() });
+ }
+ 
+ /** The input admitted by the Program's declared input contract (the admission returns the admitted value, or null on
+@@ -96,7 +100,7 @@
+ /** The run.invoke start call of one Program's graph function over one input, through the shipped SDK constructor. */
+ export async function startCall(caller, program, input, { qualificationResources, label, cache }) {
+   const { product, abg, api } = caller.runtime, state = caller.state, hash = product.sha256Canonical;
+-  const root = await rootAuthority(caller, program, cache), { resolution, admittedInstalls, workspaceBinding, environment } = root;
++  const root = await rootResolution(caller, program, cache), { resolution, admittedInstalls, workspaceBinding, environment } = root;
+   const inputAdmitted = admitsInput(caller, resolution, input);
+   if (!inputAdmitted) return { root, inputAdmitted, call: null };
+   const constructed = await api.constructInstalledStartCall({
+@@ -130,12 +134,16 @@
+ }
+ 
+ /** The observed C2 task over the prepared worksite: the protected inputs as observed by the installed owner, the bound
+- * commands, predicates and write territories, and the C2 Program's root invocation grant. */
++ * commands, predicates and write territories, and the C2 Program's root invocation grant. The canonical start
++ * population constructs that grant and hands it to the task factory; the population is not dispatched. */
+ export async function observedC2Task(caller, q, c2, declared, ambient) {
+-  const root = await rootAuthority(caller, PROGRAMS.c2);
+-  const task = q.product.constructObservedWorksiteCommandExecutionTask({ workspaceAuthorityBasis: root.environment.workspaceAuthorityBasis,
+-    workspaceBinding: root.workspaceBinding, capabilityGrant: root.grants[0], observedFiles: c2.subjects.map((subject, n) => ({ subject, observation: c2.observations[n] })),
+-    commands: commandInput(declared), outcomePredicates: declared.outcomePredicates, allowedWriteTerritories: declared.allowedWriteTerritories }, ambient);
++  const root = await rootResolution(caller, PROGRAMS.c2);
++  let task;
++  const population = await populateStart(caller, root, PROGRAMS.c2, ({ workspaceBinding, grants }) =>
++    task = q.product.constructObservedWorksiteCommandExecutionTask({ workspaceAuthorityBasis: root.environment.workspaceAuthorityBasis,
++      workspaceBinding, capabilityGrant: grants[0], observedFiles: c2.subjects.map((subject, n) => ({ subject, observation: c2.observations[n] })),
++      commands: commandInput(declared), outcomePredicates: declared.outcomePredicates, allowedWriteTerritories: declared.allowedWriteTerritories }, ambient));
++  if (task === undefined) throw new TypeError('the C2 start population refused before its task: ' + JSON.stringify(population.ownerOutput?.value ?? population.kind));
+   return { task, root, observed: q.deep.c2.isObservedWorksiteCommandExecutionTask(task) };
+ }
+ 
+--- subject002/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs
++++ subject003/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs
+@@ -2002,7 +2002,101 @@
+     sdkReadOutputs.get("run_result").result,
+     invokeOutcome.receipt.ownerOutput.value.result,
+   );
++
++  // The shipped start constructor populates the graph_function and asset
++  // starts from the same owner. The language Program publishes no asset
++  // target, so the asset start meets the existing invalid_target class.
++  const sdkStart = (identity, target) => publicApi.constructInstalledStartCall({
++    selection: Object.freeze({
++      memberKey: "start",
++      target,
++      rootMode: "direct",
++      fhMode: "direct",
++    }),
++    programRef: languageFixture.ids.programRef,
++    catalog,
++    catalogView,
++    applications: Object.freeze([]),
++    admittedInstalls,
++    workspaceBinding,
++    verifyInstallAdmission: (install) =>
++      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
++    actorRef: workspaceBinding.authorizedActorRef,
++    input: Object.freeze({ value: gtl.constructLanguageTestInput("World") }),
++    inputValueRef: `value://abi5-tests/sdk/${identity}-input`,
++    source: Object.freeze({ kind: "none" }),
++    eventResource: reopenedReadResource(product, sdkHandoff),
++    envelope: sdkEnvelope(identity),
++  });
++  const graphStartTarget = Object.freeze({
++    kind: "graph_function",
++    handle: languageFixture.ids.graphFunctionRef,
++  });
++  const graphStart = await sdkStart("graph-function-start", graphStartTarget);
++  if (graphStart.kind !== "installed_start_call") {
++    assert.fail(JSON.stringify(graphStart));
++  }
++  assert.deepEqual(graphStart.call.invocation.definitionKey, {
++    operationId,
++    memberKey: "start",
++  });
++  assert.deepEqual(graphStart.call.invocation.request.target, graphStartTarget);
++  assert.ok(
++    graphStart.call.invocation.invocationAuthority.slots.graph_function,
++    "a graph_function start carries its GraphFunction slot",
++  );
++  const graphStartOutcome = await publicApi.runInstalledDefinitionCallTransport(
++    Object.freeze({ kind: "reopen", closeHandoff: sdkHandoff }),
++    graphStart.call,
++  );
++  assert.equal(
++    graphStartOutcome.kind,
++    "installed_definition_call_transport_result",
++    JSON.stringify(graphStartOutcome).slice(0, 4000),
++  );
++  assert.equal(
++    graphStartOutcome.receipt.ownerOutput.outcomeKind,
++    "result",
++    JSON.stringify(graphStartOutcome.receipt.ownerOutput).slice(0, 4000),
++  );
++  assert.equal(graphStartOutcome.receipt.ownerOutput.value.disposition, "completed");
++  const graphStartRun = graphStartOutcome.receipt.resources.run;
++  assert.ok(graphStartRun);
++  assert.notEqual(graphStartRun.ref, invokeRun.ref, "the graph_function start opens its own Run");
++  sdkHandoff = graphStartOutcome.receipt.resources.eventResource.closeHandoff;
++  const graphStartGraphCall = graphStartOutcome.receipt.ownerOutput.value.graphCall;
++  assert.ok(graphStartGraphCall, "the graph_function start result names its GraphCall");
++  assert.deepEqual(
++    abg.readRuntimeEventsAtDurablePrefix(sdkHandoff.prefix)
++      .filter((event) =>
++        event.kind === "graph_call_opened" && event.runId === graphStartRun.ref
++      )
++      .map((event) => event.graphCallId),
++    [graphStartGraphCall.ref],
++    "the graph_function start Run opens exactly its result GraphCall",
++  );
++  const assetLogBytes = await readFile(new URL(sdkHandoff.prefix.eventLogRef));
++  const assetStart = await sdkStart("asset-start", Object.freeze({
++    kind: "asset",
++    handle: "asset-handle://abi5-tests/language-smoke/unpublished@5",
++  }));
++  assert.equal(
++    assetStart.kind,
++    "product_run_invocation_preparation_refusal",
++    JSON.stringify(assetStart).slice(0, 4000),
++  );
++  assert.equal(assetStart.ownerOutput.outcomeKind, "refusal");
++  assert.equal(assetStart.ownerOutput.value.code, "invalid_target");
++  assert.deepEqual(assetStart.ownerOutput.value.issuePaths, ["/program"]);
++  assert.equal(
++    Buffer.compare(
++      await readFile(new URL(sdkHandoff.prefix.eventLogRef)),
++      assetLogBytes,
++    ),
++    0,
++    "an unpublished asset start appends zero bytes",
++  );
+   context.diagnostic(
+-    "SDK: shipped constructors populate 1 direct invoke and 6 run reads, 0 read bytes",
++    "SDK: shipped constructors populate 1 direct invoke, 1 graph_function start, 6 run reads and 1 invalid_target asset start, 0 read bytes",
+   );
+ });
+--- subject002/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs
++++ subject003/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs
+@@ -69,8 +69,11 @@
+   const eventResource=resource(),steering=product.sha256Canonical(eventResource),{definitionContractCoordinates,requestRef,correlationRef,eventTime,provenanceRefs}=envelope(identity);
+   return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates,contractCatalog:canonical.call.invocation.contractCatalog,operationId:'abg.operation.run.continue',memberKey:'current_intent',request:{...canonical.population.request,...patch},slots:{...canonical.population.slots,transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering}},resources:{...canonical.call.resources,eventResource},requestRef,correlationRef,eventTime,provenanceRefs});
+  };
+- const results=[];
+- for(const [name,patch]of [['wrong-basis',{expectedBasis:{ref:prepared.root.basisRef,digest:prepared.root.basisDigest}}],['wrong-input',{continuationInput:{ref:prepared.pending.input.inputRef,digest:'sha256:'+'0'.repeat(64)}}],['wrong-intent',{currentIntent:{ref:prepared.intent.constructionIntentRef,digest:'sha256:'+'0'.repeat(64)}}],['unknown-continuation',{continuation:{ref:'continuation://abiogenesis/'+'0'.repeat(64),digest:'sha256:'+'0'.repeat(64)}}],['continue',null],['consumed',{}]]) {
++ const results=[],handoffs={};
++ // The continuation is Run-scoped: a Run that does not hold it, or the Run under another digest, is refused.
++ const expectedRefusals={'wrong-run':['missing_continuation','/continuation'],'wrong-run-digest':['basis_mismatch','/expectedBasis']};
++ for(const [name,patch]of [['wrong-basis',{expectedBasis:{ref:prepared.root.basisRef,digest:prepared.root.basisDigest}}],['wrong-input',{continuationInput:{ref:prepared.pending.input.inputRef,digest:'sha256:'+'0'.repeat(64)}}],['wrong-intent',{currentIntent:{ref:prepared.intent.constructionIntentRef,digest:'sha256:'+'0'.repeat(64)}}],['unknown-continuation',{continuation:{ref:'continuation://abiogenesis/'+'0'.repeat(64),digest:'sha256:'+'0'.repeat(64)}}],['wrong-run',{run:{ref:`${opened.scope.runId}/absent`,digest:'sha256:'+'0'.repeat(64)}}],['wrong-run-digest',{run:{ref:opened.scope.runId,digest:'sha256:'+'0'.repeat(64)}}],['continue',null],['consumed',{}]]) {
++  handoffs[name]=handoff;
+   const call=await makeCall(name,patch);await save(`${name}-call.json`,call);
+   const execution=await runInstalledCliRequest({scratch:e.scratch,installedRoot:e.installedRoot,identity:`exact-${name}`,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:{ABG_TS_CLAUDE_COMMAND:command}});
+   await save(`${name}-receipt.json`,execution);const receipt=execution.output.receipt;assert.ok(receipt,JSON.stringify(execution));
+@@ -79,8 +82,21 @@
+   assert.equal(receipt.failure,null,JSON.stringify(receipt));results.push({name,wallMs:execution.wallMs,ownerOutput:receipt.ownerOutput});
+   if(name==='continue') {assert.equal(receipt.ownerOutput.value.disposition,'completed',JSON.stringify(receipt.ownerOutput));
+    for(const memberKey of ['run_result','run_replay']) {const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};const{call:readCall}=constructInstalledRunReadCall({environment:e,publicApi,projectReadContracts,memberKey,selector:memberKey==='run_result'?{kind:'none'}:{kind:'ordinal_page',fromOrdinal:0,limit:1024},source:receipt.resources.run,eventResource,identity:`exact-${memberKey}`});const read=await runInstalledCliRequest({scratch:e.scratch,installedRoot:e.installedRoot,identity:`exact-${memberKey}`,acquisition:{kind:'reopen',closeHandoff:handoff},call:readCall,expectedExitCode:null});await save(`${memberKey}.json`,read);assert.equal(read.output.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(read.output));}
+-  } else assert.equal(receipt.ownerOutput.outcomeKind,'refusal',JSON.stringify(receipt.ownerOutput));
++  } else {assert.equal(receipt.ownerOutput.outcomeKind,'refusal',JSON.stringify(receipt.ownerOutput));
++   if(expectedRefusals[name])assert.deepEqual([receipt.ownerOutput.value.code,receipt.ownerOutput.value.issuePaths],[expectedRefusals[name][0],[expectedRefusals[name][1]]],name);}
+  }
++ // Population names the Run: one that does not hold the continuation is refused before any call exists.
++ const absentRun=await publicApi.constructInstalledPendingCall({selection:{kind:'current_intent',runRef:`${opened.scope.runId}/absent`,continuation:{ref:pending[0].continuationRef,digest:pending[0].continuationDigest}},catalog:e.catalog,catalogView:e.catalogView,applications:[],eventResource:resource(),envelope:envelope('absent-run-population')});
++ assert.deepEqual(absentRun,{kind:'run_continuation_population_refusal',code:'missing_continuation',issuePath:'/continuation'});
++ // Stale prefix: population at the pre-continue handoff still finds the then-open continuation; the
++ // superseded handoff is refused at resource acquisition, before any owner truth, and appends nothing.
++ const staleHandoff=handoffs.continue,stale=await construct('stale-prefix',{kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:staleHandoff,handoffDigest:product.sha256Canonical(staleHandoff)});
++ const staleBytes=await readFile(new URL(handoff.prefix.eventLogRef));
++ const staleExecution=await runInstalledCliRequest({scratch:e.scratch,installedRoot:e.installedRoot,identity:'exact-stale-prefix',acquisition:{kind:'reopen',closeHandoff:staleHandoff},call:stale.call,expectedExitCode:null,environment:{ABG_TS_CLAUDE_COMMAND:command}});
++ await save('stale-prefix-receipt.json',staleExecution);const staleFault=staleExecution.output.receipt?.failure?.fault;
++ assert.deepEqual([staleFault?.stage,staleFault?.code],['resource_acquisition','acquisition_refused'],JSON.stringify(staleExecution.output).slice(0,4000));
++ assert.equal(Buffer.compare(await readFile(new URL(handoff.prefix.eventLogRef)),staleBytes),0,'a stale prefix appends zero bytes');
++ results.push({name:'stale-prefix',wallMs:staleExecution.wallMs,fault:{stage:staleFault.stage,code:staleFault.code}});
+  const finalEvents=(await load('abg/event_store')).readRuntimeEventsAtDurablePrefix(handoff.prefix);
+  assert.equal(finalEvents.filter(v=>v.kind==='c_call_fibre_selected'&&v.payload.implementationRef===ref('implementation','producer')).length,1);
+  assert.equal(finalEvents.filter(v=>v.kind==='actor_invocation_started').length,1);
+--- subject002/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs
++++ subject003/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs
+@@ -129,13 +129,17 @@
+  const canonical=await construct('population');
+  assert.deepEqual(canonical.population.request,selectedRequest,'the owner populates the selected request');
+  assert.deepEqual([canonical.population.authority.authorityDigest,canonical.population.policy.policyDigest],[e.invocationAuthority.authorityDigest,e.policy.policyDigest],'attribution and policy are the original admission');
++ // The selected continuation is Run-scoped: population and the owner refuse a Run that does not hold it.
++ const absentRun={ref:`${selectedRequest.run.ref}/absent`,digest:'sha256:'+'0'.repeat(64)};
++ assert.deepEqual(await c.publicApi.constructInstalledPendingCall({selection:{kind:'selected_action',request:{...selectedRequest,run:absentRun},currentExecutionBasis:coord(e.executionBasis)},catalog:e.catalog,catalogView:e.catalogView,applications:[],eventResource:resource(c),envelope:envelope('absent-run-population')}),
++  {kind:'run_continuation_population_refusal',code:'missing_continuation',issuePath:'/request'});
+  async function makeCall(name,patch=null,slotPatch={},view=e.catalogView){
+   if(patch===null&&Object.keys(slotPatch).length===0&&view===e.catalogView)return (await construct(name)).call;
+   const er=resource(c),steering=c.product.sha256Canonical(er),identity=envelope(name);
+   const viewScope=view===e.catalogView?{}:{catalog_scope:{...canonical.population.slots.catalog_scope,view:{ref:`graph-function-catalog-view://abiogenesis/${view.viewDigest.slice(7)}`,digest:view.viewDigest},allowlist:view.allowlist}};
+   return c.publicApi.constructInstalledPublicDefinitionCall({product:c.product,installedPublic:c.publicApi,definitionContractCoordinates:identity.definitionContractCoordinates,contractCatalog:canonical.call.invocation.contractCatalog,operationId:'abg.operation.run.continue',memberKey:'selected_action',request:{...canonical.population.request,...patch},slots:{...canonical.population.slots,...viewScope,transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering},...slotPatch},resources:{...canonical.call.resources,eventResource:er,catalogView:view},requestRef:identity.requestRef,correlationRef:identity.correlationRef,eventTime:identity.eventTime,provenanceRefs:identity.provenanceRefs});
+  }
+- const negatives=[['alternate-view',{}, {},'basis_mismatch','/continuation',alternate],['crossed-basis',{}, {execution_basis:{ref:e.executionBasis.basisRef,digest:'sha256:'+'0'.repeat(64)}},'stale_action','/request'],...extraNegatives];const results=[];
++ const negatives=[['absent-run',{run:absentRun},{},'missing_continuation','/request'],['alternate-view',{}, {},'basis_mismatch','/continuation',alternate],['crossed-basis',{}, {execution_basis:{ref:e.executionBasis.basisRef,digest:'sha256:'+'0'.repeat(64)}},'stale_action','/request'],...extraNegatives];const results=[];
+  for(const[name,patch,slots,code,path,view]of negatives){const before=c.handoff.prefix;const out=await cli(c,dir,name,await makeCall(name,patch,slots,view));assert.equal(out.receipt.ownerOutput.outcomeKind,'refusal');assert.equal(out.receipt.ownerOutput.value.code,code);assert.deepEqual(out.receipt.ownerOutput.value.issuePaths,[path]);assert.deepEqual(c.handoff.prefix,before,'refusal has no use/admission');results.push({name,wallMs:out.wallMs,...out.receipt.ownerOutput});}
+  const output=await cli(c,dir,'continue',await makeCall('continue'));assert.equal(output.receipt.ownerOutput.value.disposition,'completed',JSON.stringify(output.receipt.ownerOutput));assert.deepEqual(output.receipt.resources.run,currentIdentity.run);assert.deepEqual(output.receipt.ownerOutput.value.run,currentIdentity.run);await coldOracle(c,e,dir,output.receipt.resources.run,current,currentOpened.scope,prepared);
+  const completedBoundary=c.handoff.prefix;for(const[name,patch]of [['duplicate',{}],...(relation.kind==='authority_changed'?[['duplicate-current',{run:currentIdentity.nativeRun,continuation:{ref:current.continuationRef,digest:current.continuationDigest},basisRelation:{kind:'same_basis'}}]]:[])]){const out=await cli(c,dir,name,await makeCall(name,patch));assert.equal(out.receipt.ownerOutput.outcomeKind,'refusal');assert.equal(out.receipt.ownerOutput.value.code,'resolved_continuation');assert.deepEqual(c.handoff.prefix,completedBoundary);results.push({name,wallMs:out.wallMs,...out.receipt.ownerOutput});}
+--- subject002/build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts
++++ subject003/build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts
+@@ -1,9 +1,13 @@
+-// T287 HC1 owner-derived native call typing. Compiler proof only: canonical
+-// package declarations, no source or private import, no cast that erases the
+-// relation. Each negative is one statement on the line after its marker; the
+-// marker names the diagnostic codes that make the case a real refusal.
++// T287 HC1 owner-derived native call typing and the HC2 shipped constructor
++// types. Compiler proof only: canonical package declarations, no source or
++// private import, no cast that erases the relation. Each negative is one
++// statement on the line after its marker; the marker names the diagnostic
++// codes that make the case a real refusal.
+ import {
++  constructInstalledPendingCall,
+   constructInstalledPublicDefinitionCall,
++  constructInstalledRunReadCall,
++  constructInstalledStartCall,
+   runInstalledDefinitionCallTransport,
+   type InstalledDefinitionCallAcquisition,
+   type InstalledDefinitionCallTransportOutcome,
+@@ -21,7 +25,10 @@
+ import type {
+   ExactDirectRunInvocationRequest,
+   ExactStartRunInvocationRequest,
++  ProductRunInvocationSelectionIntent,
++  RunContinuationSelectionIntent,
+ } from "@abiogenesis/typescript-tenant/product";
++import type { AbgRunReadMemberKey } from "@abiogenesis/typescript-tenant/abg";
+ 
+ type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends
+   (<T>() => T extends B ? 1 : 2) ? true : false;
+@@ -344,3 +351,144 @@
+   // @ts-expect-error HC1-NEG transport-refuses-mixed-union-crossed-request 2345
+   void runInstalledDefinitionCallTransport(acquisition, mixedRequestUnion);
+ }
++
++// HC2 shipped constructors. Each returns the operation- and variant-correlated
++// alternative its selection names; the typed transport accepts that output,
++// narrows its key and keeps the member's own owner receipt.
++type AssetIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "asset"; handle: string }>; rootMode: "direct"; fhMode: "direct" }>;
++type GraphIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "graph_function"; handle: string }>; rootMode: "direct"; fhMode: "direct" }>;
++type NextIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "next" }>; rootMode: "direct"; fhMode: "direct" }>;
++type DeclaredIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "declared_start"; startRef: string }>; rootMode: "supervised"; fhMode: "human-proxy" }>;
++type DirectIntent = Readonly<{ memberKey: "invoke"; catalogHandle: string }>;
++type CurrentIntentKey = Extract<RunContinuationSelectionIntent, { readonly kind: "current_intent" }>;
++type PendingKey = Extract<RunContinuationSelectionIntent, { readonly kind: "pending_execution" }>;
++type SelectedKey = Extract<RunContinuationSelectionIntent, { readonly kind: "selected_action" }>;
++type ShippedStartCall<S extends ProductRunInvocationSelectionIntent> =
++  Extract<Awaited<ReturnType<typeof constructInstalledStartCall<S>>>, { readonly kind: "installed_start_call" }>["call"];
++type ShippedPendingCall<S extends RunContinuationSelectionIntent> =
++  Extract<Awaited<ReturnType<typeof constructInstalledPendingCall<S>>>, { readonly kind: "installed_pending_call" }>["call"];
++type ShippedReadCall<K extends AbgRunReadMemberKey> =
++  Extract<ReturnType<typeof constructInstalledRunReadCall<K>>, { readonly kind: "installed_run_read_call" }>["call"];
++type ShippedOutcomeHolds<C, K extends CallableKey> = Mutual<
++  InstalledDefinitionCallTransportOutcomeOf<C>,
++  InstalledDefinitionCallTransportOutcome<CallableMemberOf<K>["packet"], CallableMemberOf<K>["binding"]["resourceReceipt"]>
++>;
++type SlotOf<C, S extends "graph_function"> = C extends { readonly invocation: { readonly invocationAuthority: { readonly slots: infer T extends Readonly<Record<S, unknown>> } } } ? T[S] : never;
++type TargetKindOf<C> = C extends { readonly invocation: { readonly request: { readonly target: { readonly kind: infer T } } } } ? T : never;
++type ReadMember = CallableMemberOf<"abg.operation.project.read#run_status">;
++
++export type ShippedConstructorProof = [
++  Assert<Equal<ShippedStartCall<AssetIntent>["invocation"]["definitionKey"]["operationId"], "abg.operation.run.invoke">>,
++  Assert<Equal<ShippedStartCall<AssetIntent>["invocation"]["definitionKey"]["memberKey"], "start">>,
++  Assert<Equal<TargetKindOf<ShippedStartCall<AssetIntent>>, "asset">>,
++  Assert<Equal<TargetKindOf<ShippedStartCall<GraphIntent>>, "graph_function">>,
++  Assert<Equal<TargetKindOf<ShippedStartCall<NextIntent>>, "next">>,
++  Assert<Equal<TargetKindOf<ShippedStartCall<DeclaredIntent>>, "declared_start">>,
++  Assert<Equal<SlotOf<ShippedStartCall<AssetIntent>, "graph_function">, null>>,
++  Assert<Equal<SlotOf<ShippedStartCall<NextIntent>, "graph_function">, null>>,
++  Assert<Equal<SlotOf<ShippedStartCall<GraphIntent>, "graph_function"> extends null ? true : false, false>>,
++  Assert<Equal<SlotOf<ShippedStartCall<DirectIntent>, "graph_function"> extends null ? true : false, false>>,
++  Assert<Equal<ShippedStartCall<DirectIntent>["invocation"]["definitionKey"]["memberKey"], "invoke">>,
++  Assert<Equal<ShippedStartCall<ProductRunInvocationSelectionIntent>["invocation"]["definitionKey"]["memberKey"], "start" | "invoke">>,
++  Assert<Equal<ShippedStartCall<AssetIntent>["resources"], StartMember["binding"]["resources"]>>,
++  Assert<ShippedOutcomeHolds<ShippedStartCall<AssetIntent>, "abg.operation.run.invoke#start">>,
++  Assert<ShippedOutcomeHolds<ShippedStartCall<DeclaredIntent>, "abg.operation.run.invoke#start">>,
++  Assert<ShippedOutcomeHolds<ShippedStartCall<DirectIntent>, "abg.operation.run.invoke#invoke">>,
++  Assert<Equal<ShippedPendingCall<CurrentIntentKey>["invocation"]["definitionKey"]["memberKey"], "current_intent">>,
++  Assert<Equal<ShippedPendingCall<PendingKey>["invocation"]["definitionKey"]["memberKey"], "current_intent">>,
++  Assert<Equal<ShippedPendingCall<SelectedKey>["invocation"]["definitionKey"]["memberKey"], "selected_action">>,
++  Assert<Equal<ShippedPendingCall<CurrentIntentKey>["invocation"]["request"] extends { readonly currentIntent: unknown } ? true : false, true>>,
++  Assert<Equal<ShippedPendingCall<PendingKey>["invocation"]["request"] extends { readonly pendingCursor: unknown } ? true : false, true>>,
++  Assert<ShippedOutcomeHolds<ShippedPendingCall<PendingKey>, "abg.operation.run.continue#current_intent">>,
++  Assert<ShippedOutcomeHolds<ShippedPendingCall<SelectedKey>, "abg.operation.run.continue#selected_action">>,
++  Assert<Equal<{ readonly [K in AbgRunReadMemberKey]: ShippedOutcomeHolds<ShippedReadCall<K>, `abg.operation.project.read#${K}`> }[AbgRunReadMemberKey], true>>,
++  Assert<Equal<ShippedReadCall<"graph_call_replay">["invocation"]["definitionKey"]["memberKey"], "graph_call_replay">>,
++  Assert<Equal<ShippedReadCall<"run_status">["resources"], ReadMember["binding"]["resources"]>>,
++];
++
++declare const assetStartInput: Parameters<typeof constructInstalledStartCall<AssetIntent>>[0];
++declare const graphStartInput: Parameters<typeof constructInstalledStartCall<GraphIntent>>[0];
++declare const directInput: Parameters<typeof constructInstalledStartCall<DirectIntent>>[0];
++declare const anyStartInput: Parameters<typeof constructInstalledStartCall<ProductRunInvocationSelectionIntent>>[0];
++declare const pendingInput: Parameters<typeof constructInstalledPendingCall<PendingKey>>[0];
++declare const selectedInput: Parameters<typeof constructInstalledPendingCall<SelectedKey>>[0];
++declare const anyPendingInput: Parameters<typeof constructInstalledPendingCall<RunContinuationSelectionIntent>>[0];
++declare const replayInput: Parameters<typeof constructInstalledRunReadCall<"graph_call_replay">>[0];
++
++export async function shippedTransport(): Promise<void> {
++  const asset = await constructInstalledStartCall(assetStartInput);
++  if (asset.kind === "installed_start_call") {
++    const operationId: "abg.operation.run.invoke" = asset.call.invocation.definitionKey.operationId;
++    void operationId;
++    const outcome = await runInstalledDefinitionCallTransport(acquisition, asset.call);
++    if (outcome.kind === "installed_definition_call_transport_result") {
++      const key: StartMember["packet"]["definitionKey"] = outcome.receipt.definitionKey;
++      void key;
++    }
++  }
++  const graph = await constructInstalledStartCall(graphStartInput);
++  if (graph.kind === "installed_start_call") await runInstalledDefinitionCallTransport(acquisition, graph.call);
++  const direct = await constructInstalledStartCall(directInput);
++  if (direct.kind === "installed_start_call") {
++    const outcome = await runInstalledDefinitionCallTransport(acquisition, direct.call);
++    if (outcome.kind === "installed_definition_call_transport_result") {
++      const key: DirectMember["packet"]["definitionKey"] = outcome.receipt.definitionKey;
++      void key;
++    }
++  }
++  // An unselected intent yields the union of start and invoke alternatives;
++  // each alternative is checked against its own member.
++  const any = await constructInstalledStartCall(anyStartInput);
++  if (any.kind === "installed_start_call") await runInstalledDefinitionCallTransport(acquisition, any.call);
++  for (const input of [pendingInput, selectedInput, anyPendingInput]) {
++    const pending = await constructInstalledPendingCall(input);
++    if (pending.kind === "installed_pending_call") {
++      const operationId: "abg.operation.run.continue" = pending.call.invocation.definitionKey.operationId;
++      void operationId;
++      await runInstalledDefinitionCallTransport(acquisition, pending.call);
++    }
++  }
++  const replay = constructInstalledRunReadCall(replayInput);
++  if (replay.kind === "installed_run_read_call") {
++    const outcome = await runInstalledDefinitionCallTransport(acquisition, replay.call);
++    if (outcome.kind === "installed_definition_call_transport_result" && outcome.receipt.ownerOutput?.outcomeKind === "result") {
++      const kind: "graph_call_replay_projection" = outcome.receipt.ownerOutput.value.projection.kind;
++      void kind;
++    }
++  }
++}
++
++declare const shippedAsset: ShippedStartCall<AssetIntent>;
++declare const shippedNext: ShippedStartCall<NextIntent>;
++declare const shippedPending: ShippedPendingCall<PendingKey>;
++declare const shippedSelected: ShippedPendingCall<SelectedKey>;
++declare const shippedStatus: ShippedReadCall<"run_status">;
++declare const shippedStartWithReadResources: Omit<ShippedStartCall<AssetIntent>, "resources"> & { readonly resources: ShippedReadCall<"run_status">["resources"] };
++declare const shippedCrossedUnion: ShippedStartCall<AssetIntent> | typeof shippedStartWithReadResources;
++declare const pendingSelection: PendingKey;
++
++export function shippedNegatives(): void {
++  // @ts-expect-error HC1-NEG hc2-asset-start-is-not-graph-function-start 2322 2719
++  const assetAsGraph: ShippedStartCall<GraphIntent> = shippedAsset;
++  // @ts-expect-error HC1-NEG hc2-next-start-is-not-direct-invoke 2322
++  const nextAsDirect: ShippedStartCall<DirectIntent> = shippedNext;
++  // @ts-expect-error HC1-NEG hc2-start-operation-is-not-continue 2322
++  const startOperation: "abg.operation.run.continue" = shippedAsset.invocation.definitionKey.operationId;
++  // @ts-expect-error HC1-NEG hc2-pending-execution-is-not-current-intent 2322
++  const pendingAsCurrent: ShippedPendingCall<CurrentIntentKey> = shippedPending;
++  // @ts-expect-error HC1-NEG hc2-selected-action-is-not-current-intent 2322
++  const selectedAsCurrent: ShippedPendingCall<CurrentIntentKey> = shippedSelected;
++  // @ts-expect-error HC1-NEG hc2-run-status-read-is-not-run-result 2322
++  const statusAsResult: ShippedReadCall<"run_result"> = shippedStatus;
++  // @ts-expect-error HC1-NEG hc2-read-is-not-start 2322
++  const readAsStart: ShippedStartCall<NextIntent> = shippedStatus;
++  // @ts-expect-error HC1-NEG hc2-start-constructor-refuses-continuation-selection 2322 2345 2769
++  void constructInstalledStartCall({ ...assetStartInput, selection: pendingSelection });
++  // @ts-expect-error HC1-NEG hc2-read-constructor-refuses-non-run-read-member 2322 2345 2769
++  void constructInstalledRunReadCall({ ...replayInput, memberKey: "run_lawful_actions" });
++  // @ts-expect-error HC1-NEG hc2-transport-refuses-shipped-start-with-read-resources 2345
++  void runInstalledDefinitionCallTransport(acquisition, shippedStartWithReadResources);
++  // @ts-expect-error HC1-NEG hc2-transport-refuses-shipped-union-with-crossed-alternative 2345
++  void runInstalledDefinitionCallTransport(acquisition, shippedCrossedUnion);
++  void [assetAsGraph, nextAsDirect, startOperation, pendingAsCurrent, selectedAsCurrent, statusAsResult, readAsStart];
++}
+--- subject002/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs
++++ subject003/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs
+@@ -1,7 +1,8 @@
+-// T287 HC1 owner-derived native call typing. Real compiler checks of the
+-// canonical and packed package declarations, packed-runtime inventory and raw
+-// refusals, and a per-slot schema comparison with the exact014 baseline. Not
+-// HC2 population, installed Run proof, qualification or release evidence.
++// T287 HC1 owner-derived native call typing and the HC2 shipped constructor
++// types. Real compiler checks of the canonical and packed package
++// declarations, packed-runtime inventory and raw refusals, and a per-slot
++// schema comparison with the exact014 baseline. Not HC2 runtime population,
++// installed Run proof, qualification or release evidence.
+ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import fs from 'node:fs';
+@@ -19,7 +20,8 @@
+ const PACKAGE_NAME = '@abiogenesis/typescript-tenant';
+ const CANONICAL_IMPORTS = /^@abiogenesis\/typescript-tenant\/(public|product|abg|validator)$/;
+ const HC1_DECLARATIONS = ['OwnerCallableDefinitionMember', 'OwnerUnavailableDefinitionMember',
+-  'InstalledPublicDefinitionCallSelection', 'InstalledDefinitionCallTransportOutcomeOf'];
++  'InstalledPublicDefinitionCallSelection', 'InstalledDefinitionCallTransportOutcomeOf',
++  'InstalledStartCallSelection', 'InstalledPendingCallSelection', 'InstalledRunReadCallSelection'];
+ const SLOTS = ['request', 'result', 'refusal', 'nonTerminal'];
+ 
+ const proofText = fs.readFileSync(proofPath, 'utf8');
+@@ -167,6 +169,8 @@
+   assert.equal(proofText.match(/@ts-expect-error/g).length, markers.length, 'every expected error is a named HC1 negative');
+   assert.equal(new Set(markers.map(m => m.name)).size, markers.length);
+   assert.ok(markers.length >= 17);
++  // The shipped constructors' crossed operation/variant pairings.
++  assert.ok(markers.filter(m => m.name.startsWith('hc2-')).length >= 11);
+   assert.equal(oracle('DECLARED').length, 56);
+   assert.equal(oracle('UNAVAILABLE').length, 9);
+ });
+--- subject002/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
++++ subject003/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+@@ -1744,6 +1744,14 @@
+   const crossed=(await cli('crossed',pending.replay('crossed',{pendingCursor:{ref:p.pendingCursorRef,digest:zero}}))).receipt;
+   assert.equal(crossed.ownerOutput.outcomeKind,'refusal');assert.equal(crossed.ownerOutput.value.code,'response_mismatch');assert.deepEqual(crossed.ownerOutput.value.issuePaths,['/pendingCursor']);
+   assert.equal(read().length,interrupted.length,'a crossed request admits nothing');
++  // The pending execution is Run-scoped: a Run that does not hold it, or its Run under another digest, is refused.
++  for(const [name,run,code,path] of [['wrong-run',{ref:`${runId}/absent`,digest:zero},'missing_continuation','/continuation'],['wrong-run-digest',{ref:runId,digest:zero},'basis_mismatch','/run']]){
++    const out=(await cli(name,pending.replay(name,{run}))).receipt;
++    assert.equal(out.ownerOutput.outcomeKind,'refusal',name);assert.equal(out.ownerOutput.value.code,code,name);assert.deepEqual(out.ownerOutput.value.issuePaths,[path],name);
++    assert.equal(read().length,interrupted.length,`${name} admits nothing`);
++  }
++  // Populated at the pre-continue handoff, executed after the use: the superseded prefix is refused at acquisition.
++  const staleHandoff=handoff,staleCall=await pending.call('stale-prefix');
+   const resumedAt=performance.now(),continued=await cli('continue',await pending.call('continue'));
+   assert.equal(continued.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(continued.receipt.ownerOutput).slice(0,4000));
+   const value=continued.receipt.ownerOutput.value;assert.equal(value.continuationKind,'pending_execution');assert.equal(value.admittedIntent,null);
+@@ -1753,6 +1761,10 @@
+   const afterContinue=read().length,second=(await cli('second-use',pending.replay('second-use'))).receipt;
+   assert.equal(second.ownerOutput.outcomeKind,'refusal');assert.equal(second.ownerOutput.value.code,'resolved_continuation');assert.deepEqual(second.ownerOutput.value.issuePaths,['/continuation'],'one use');
+   assert.equal(read().length,afterContinue,'second use admits nothing');
++  const staleExecution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity:'stale-prefix',acquisition:{kind:'reopen',closeHandoff:staleHandoff},call:staleCall,expectedExitCode:null,environment:actorEnvironment});
++  const staleFault=staleExecution.output.receipt?.failure?.fault;
++  assert.deepEqual([staleFault?.stage,staleFault?.code],['resource_acquisition','acquisition_refused'],JSON.stringify(staleExecution.output).slice(0,4000));
++  assert.equal(read().length,afterContinue,'a stale prefix admits nothing');
+   // 5. Conservation over the completed same Run.
+   const all=read(),final=runAt(all.slice(before)),finalPrefix=env.abg.selectValidatedRuntimeEventPrefix(all);
+   const interruptedCalls=new Set(runAt(run0).filter(e=>e.kind==='c_call_opened').map(e=>e.payload.cursorRef));
+@@ -1866,6 +1878,12 @@
+   // 2. B: a separately authorized Public start over A's retained state, killed at its durable Testing entry.
+   // The shared start support assembles B: same Program, A's admitted source result, B's own resource and identity.
+   const A0=startA.call.invocation;
++  // A start whose historical source Result the log does not hold is refused at source observation and admits nothing.
++  const missingSource=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input:inputB,identity:'retained-b-missing-source',
++    sourceResult:{basis:{...S,sourceResultRef:`${S.sourceResultRef}/absent`},projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest}}});
++  const beforeMissing=read().length,missing=(await cli('retained-b-missing-source',missingSource.call,actorEnvironment(logB))).receipt;
++  assert.equal(missing.ownerOutput.outcomeKind,'refusal',JSON.stringify(missing.ownerOutput).slice(0,4000));assert.equal(missing.ownerOutput.value.code,'invalid_input');
++  assert.equal(read().length,beforeMissing,'a missing historical source admits nothing');
+   const startB=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input:inputB,identity:'retained-b',runEnvironmentResourceFactory:selectedEnvironment.resources,
+     sourceResult:{basis:S,projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest}}});
+   const B0=startB.call.invocation;

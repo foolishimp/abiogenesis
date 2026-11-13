@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-live-worksite-construction.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 360.9381250000006,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "T-287 C1 traverses one installed real-Claude candidate through C0 and fresh replay",
+      "file": "test_env/tests/t287-live-worksite-construction.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_T287_C1_LIVE is not '1'; environment://abiogenesis/t287/c1/live-worker-not-requested",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-011/events/102-t287-live-worksite-construction.jsonl",
+    "bytes": 899,
+    "sha256": "3d519caea93a66366165cda9895ab74ab323fbe6e1e37f797d1fd856dc16f253"
+  },
+  "commandReceipt": "commands/102-t287-live-worksite-construction.result.json",
+  "workspace": "/private/tmp/abg-r8c-011/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

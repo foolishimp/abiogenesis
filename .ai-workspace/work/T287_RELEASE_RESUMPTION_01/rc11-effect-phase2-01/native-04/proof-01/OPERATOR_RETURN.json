@@ -1,0 +1,121 @@
+{
+  "status": "SELECTED_A_EXTERNAL_PROOF_COMPLETED_ROOT_CONJUNCTION_PENDING",
+  "campaign": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/RETURN.json",
+    "bytes": 1673,
+    "sha256": "58acaa6d47f52bbc06cf9c142b3d51796be09c616ef450322bee0e97858e35f5"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-freeze.json",
+    "bytes": 295850,
+    "sha256": "06dac8db990b326559fedef24968e95ec7ad80da89778a1f51ddc0bb3ae55cf4"
+  },
+  "sourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+  "compiledInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/COMPILED_SCRATCH_INVENTORY.json",
+    "bytes": 107618,
+    "sha256": "2b92e21c27b9905f4b7da1bef75079229132ce2f18ee52230b1c906db1188d86"
+  },
+  "receipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/r1-probe.RETURN.json",
+      "bytes": 1607,
+      "sha256": "0d32f90eb2404fa1fd0e70f6d61e130ee21210ef0a066599241b3dfdeaa0cf7e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/r2-immediate.RETURN.json",
+      "bytes": 1631,
+      "sha256": "84bb3fddc69b0c7f583592e14b001bdf59974c8bb40a9a609f14e90b94d60c22"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/baseline-signal.RETURN.json",
+      "bytes": 1699,
+      "sha256": "393b19438c5b587cadc857cc5695217f18857f7943f6859ef80515f7315d4bfc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/owned-lifetime.RETURN.json",
+      "bytes": 124206,
+      "sha256": "51ed135444308e011b7fa986cc6d51491b747b87aa91a768dd2356d940bf0cf2"
+    }
+  ],
+  "r1": {
+    "hostCalls": 2,
+    "sealedCount": 2,
+    "scopeAbsence": "absent",
+    "signalRequests": 0,
+    "streamDisposals": 3,
+    "timerResidue": 0
+  },
+  "r2": {
+    "immediateHostCalls": 6,
+    "immediateRecordedCount": 6,
+    "signalsBeforeReturn": [
+      "SIGTERM",
+      "SIGKILL"
+    ],
+    "deadlineNs": "200000000",
+    "completionClockMs": 200,
+    "streamDisposals": 3,
+    "timerResidue": 0
+  },
+  "baseline": {
+    "counts": {
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "classification": "Exact expected assertion red, separately retained; not a passing test",
+    "sourceLocation": "t287-owned-process-lifetime.test.mjs:382:10",
+    "message": "no KILL after the attempt finished during its own notice",
+    "actual": "[{value:SIGKILL,time:0n}]",
+    "expected": "[]",
+    "rawStdout": {
+      "path": "/private/tmp/abg-rc11-effect-phase2-a-r2-proof-20261110-01/baseline-signal/stdout.log",
+      "bytes": 1251,
+      "sha256": "d7c86e8fbce3d1bde4637d86745b834594d83057712bb5b7d282bb025669d2b9"
+    },
+    "limit": "Later suffix assertions were not executed after failure."
+  },
+  "wholeLifetime": {
+    "counts": {
+      "tests": 28,
+      "pass": 28,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "wallSeconds": 12.325371916,
+    "physicalDiagnostics": 8,
+    "physicalEvidenceFiles": 8,
+    "unchangedHandbackCombinations": 12,
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/owned-lifetime.RETURN.json",
+      "bytes": 124206,
+      "sha256": "51ed135444308e011b7fa986cc6d51491b747b87aa91a768dd2356d940bf0cf2"
+    }
+  },
+  "campaignSeconds": 16.471993333,
+  "closure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/PHYSICAL_CLOSURE.json",
+    "bytes": 14284,
+    "sha256": "200cfbebd1ff8f4410856db8253cbd8a4fb6cd0be0110b3455edbae9a4d28149"
+  },
+  "postguards": {
+    "passed": true,
+    "sourceDigest": "cbc3e5270839a31535a75e3c59483c1109c465e27b4fd89eeb91da6631f638a4",
+    "sourceRows": 1345,
+    "compiledRows": 582,
+    "baselineCompiledRows": 996,
+    "stagedInputsVerified": true
+  },
+  "deferredRootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/DEFERRED_ROOT_DISPOSITION.json",
+    "bytes": 2543,
+    "sha256": "52a4d987ec67f638cc42c1439489ad69ab40977bf06fdb281b54404dd8ca1048"
+  },
+  "standing": "No source/tracking/Git/compile/other tests or advanced-clock experiment. Source/Proof acceptance belongs to Root; B and joint Phase2/qualification remain open."
+}

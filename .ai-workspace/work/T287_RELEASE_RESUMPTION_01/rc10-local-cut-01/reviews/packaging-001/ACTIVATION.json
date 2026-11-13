@@ -1,0 +1,112 @@
+{
+  "id": "RC10-PACKAGING-001",
+  "recordedUtc": "2026-11-09T05:04:00.185694+00:00",
+  "role": "Reviewer",
+  "actor": "/root/rc10_packaging_review",
+  "consumer": "/root Root Executive",
+  "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+  "entry": "Recipient of exact Root RC10-PACKAGING-001 intake under AGENTS.md; authorized read-only acquisition plus only these three review artifacts. No repair or next-actor activation.",
+  "productFrame": {
+    "fixedProduct": "ABIogenesis 5.0 has fifteen selected feature families; F08/F12 and other expressly reserved portions remain 5.1. GTL.TypeScript is the sole language, HoG traverses directly, ABG exclusively admits runtime events and Event Calculus truth; SDK/CLI and install tools do not become controllers.",
+    "activeSelection": "GOAL-035 / T-287 continued Wave-2 owner-runtime retention increment and selected 23 helper removals; this activation covers only RC10 local candidate packaging/custody and held install handoff.",
+    "selectedOutcome": "Exact accepted frozen source checkpoint and tested package are traceably equal to clean reproduction, with truthful bounded source/proof claims and an existing-owner local install handoff. No full qualification or release acceptance is inferred.",
+    "authoritySplit": "Product/requirements own outcomes and release applicability; accepted tenant HOW owns packaging/install realization; source and package are immutable-definition/artifact inputs; build/reproduction are deterministic tool constructions; receipts/reviews are observation/evidence. Installation is a separately granted filesystem effect. Runtime admission and current truth remain with ABG.",
+    "releaseBoundary": "Product Release Boundaries, A5-F15/F16 and S07 keep pre-RC qualification, exact installed-RC qualification, actual human acceptance and publication distinct. This bounded local unqualified development candidate supplies no green native release.snapshot verdict and does not advance a selector.",
+    "prohibitions": [
+      "No mutable source dependency for installed Product behavior",
+      "No identity rewrite or substitution of reproduction for measured archive",
+      "No promotion of receipts, test counts or review events into qualification or acceptance",
+      "No runtime/controller/selector/publication authority created by packaging"
+    ],
+    "sourceRoutes": [
+      "specification/PRODUCT.md#installed-product-and-catalog",
+      "specification/PRODUCT.md#50-and-51-release-boundaries",
+      "specification/PRODUCT.md#complete-50-feature-set",
+      "specification/PRODUCT.md#abg5-s07-exact-qualification-and-release",
+      "specification/PRODUCT.md#governance-and-release-boundary",
+      "specification/GOALS.md",
+      "specification/requirements/product/REQ-P-INSTALL.md (001/002, 044/051/055-058)",
+      "specification/requirements/product/REQ-P-QUAL.md (026, release snapshot scope clarification, 050-056)",
+      "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md#managed-product-dependency-materialization-correspondence"
+    ]
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "acceptedFrame": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "manager": "/Users/jim/.local/bin/stdo",
+    "store": "/Users/jim/Library/Application Support/STDO",
+    "verification": {
+      "tool": "plugins/spec/scripts/read_basis.py check/read",
+      "installed": true,
+      "valid": true,
+      "status": "checked"
+    },
+    "methodSections": [
+      "standards/frames/bootstrap.md",
+      "standards/ACTIVATION.md#7-closed-result-and-reuse",
+      "standards/EVALUATION.md#3-independent-assessment",
+      "standards/EVALUATION.md#4-review-results",
+      "standards/EVALUATION.md#landing-closure-and-release",
+      "standards/RELEASE.md#mutable-candidate-construction"
+    ]
+  },
+  "subject": {
+    "buildReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postbuild-001/BUILD_RETURN.json",
+      "bytes": 5327,
+      "sha256": "4c233a9d912ec57f2777dfbc35f8049ec4e88c19af9a242751e6c08a1fc60bf6"
+    },
+    "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+    "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+    "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/archive/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+      "bytes": 11028443,
+      "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+    },
+    "heldInstallBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/postbuild-001/INSTALL_BINDINGS.001.HELD.json",
+      "bytes": 4763,
+      "sha256": "5ec2644bd9ed9c911c78c5cf6cba7eefab6cba366f73be9a87f04d46f03ae271"
+    }
+  },
+  "scope": [
+    "checkpoint/freeze and exact 27-path correspondence",
+    "measured archive and clean reproduction byte/member/manifest equality",
+    "bounded source/proof/artifact custody and truthful exclusions",
+    "main and immutable RC9 preservation",
+    "held existing-owner install route and no premature installation/publication claims"
+  ],
+  "permittedWrites": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/reviews/packaging-001/ACTIVATION.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/reviews/packaging-001/REVIEW.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/reviews/packaging-001/REVIEW.md"
+  ],
+  "prohibitedEffects": [
+    "source/design/Product repair",
+    "Git mutation",
+    "build/test/install/runtime/provider execution",
+    "selector/tag/push/main merge",
+    "subagent activation"
+  ],
+  "host": {
+    "context": "fresh recipient without parent implementation conversation; generic host instructions and memory guidance were supplied",
+    "filesystem": "shared unrestricted workspace; no technical acquisition isolation is claimed",
+    "independence": "Reviewer authored no candidate source, cut controls, claims, proof adapter or repair. Derives expectations from governing Product before substantive candidate assessment; shared mechanical proof reused within exact scope; Root hypotheses are inputs only.",
+    "gitReads": "GIT_OPTIONAL_LOCKS=0"
+  },
+  "severityScale": "Project S0-S4; priority/disposition remain Root-owned",
+  "stop": "Preserve a material counterexample and return; do not repair or execute the held installation."
+}

@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
+import {pathToFileURL,fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
+import {runtimeEnvironment,selectProcessEnvironment} from '../attempt-015/setup-state.mjs';
+const dir=fileURLToPath(new URL('.',import.meta.url)), old=join(dir,'../attempt-015');
+const json=async p=>JSON.parse(await readFile(p,'utf8')),sha=b=>createHash('sha256').update(b).digest('hex');
+const binding=await json(join(old,'CALL_PREPARATION_BINDING.json')),retained=await json(binding.afterResume.path),w=await json(binding.workload.path),profile=await json(binding.profile.path),custody=await json(join(dir,'BASELINE_CUSTODY.json'));
+assert.equal(sha(await readFile(binding.afterResume.path)),binding.afterResume.sha256);
+const prefixBefore=sha(await readFile(binding.eventPrefix.path));assert.equal(prefixBefore,binding.eventPrefix.sha256);
+const {workerEnvironment}=await import(pathToFileURL(binding.operatorClosure[1].path));selectProcessEnvironment(runtimeEnvironment(profile,workerEnvironment,retained).environment);
+const load=p=>import(pathToFileURL(join(binding.installedRoot,'build/code/src',p+'.js')));
+const product=await load('product/index'),c2=await load('product/worksite_command_execution'),actor=await load('abg/actor_process');
+const env=retained.state.environment,authority={workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding};
+assert.equal(authority.workspaceAuthorityBasis.canonicalRoot,retained.workspaceAuthority.canonicalRoot);
+const subjects=w.testing.selectedPaths.map(relativePath=>product.constructWorksiteSubject({...authority,relativePath,subjectUri:pathToFileURL(join(retained.workspaceAuthority.canonicalRoot,relativePath)).href}));
+const ambient=actor.selectedWorksiteCommandAmbientEnvironment();assert.equal(ambient.find(x=>x.name==='TMPDIR')?.value,profile.runtimeEnvironment.TMPDIR);
+const args={...authority,protectedSubjects:subjects,commands:w.testing.commands,outcomePredicates:w.testing.outcomePredicates,allowedWriteTerritories:w.testing.allowedWriteTerritories};
+let original;try{c2.constructWorksiteCommandConfiguration(args,ambient);throw Error('Expected original refusal absent')}catch(e){assert.equal(e.message,'worksite command and predicate identities must be unique');original={name:e.name,message:e.message};}
+const corrected=structuredClone(args);assert.equal(corrected.commands[5].environment.ABI5_HC1_BASELINE_PACKAGE_PATH,binding.readOnlyBaselineArchive.path);corrected.commands[5].environment.ABI5_HC1_BASELINE_PACKAGE_PATH=custody.copy.path;
+const result=c2.constructWorksiteCommandConfiguration(corrected,ambient);
+assert.equal(result.commands.length,8);assert.equal(sha(await readFile(binding.eventPrefix.path)),prefixBefore);
+const receipt={kind:'pure_existing_owner_configuration_comparison',at:new Date().toISOString(),sourceCommit:binding.sourceCommit,original,corrected:{kind:result.kind,commands:result.commands.length},onlyConfigurationDelta:{field:'commands[5].environment.ABI5_HC1_BASELINE_PACKAGE_PATH',before:binding.readOnlyBaselineArchive.path,after:custody.copy.path},authorityDigest:product.sha256Canonical(authority),ambient,prefixUnchanged:true,providerCalls:0,RunAdmissions:0,scope:'Pure constructor readiness, not actual installed Public preflight or admission'};
+await writeFile(join(dir,'PURE_CONFIG_READINESS.json'),JSON.stringify(receipt,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify(receipt));

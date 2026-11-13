@@ -1,0 +1,50 @@
+{
+  "kind": "root_s4_measurement_fixture_control_triage",
+  "status": "OPERATOR_FIXTURE_DEFAULT_START_CORRECTION_SELECTED",
+  "at": "2026-11-07T00:10:18.873586+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 10863,
+    "sha256": "9d1de838f011ea03784865a4222f30c241200a0d0dabc83fa1b7871b0f60211f"
+  },
+  "failedMeasurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001/MEASUREMENT.json",
+    "bytes": 6591,
+    "sha256": "088cdee7b7d581ae9606837a2e54927356b0359fc008d4316ba2c305ce5bbdbe"
+  },
+  "failedHost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-carriage-measurement-01/actual-001/HOST_SUMMARY.json",
+    "bytes": 316,
+    "sha256": "452a93481e59677f8b3bc9d8f15156c890e9b34419ebf6a2c1f77d668d125791"
+  },
+  "actualResult": "Call construction refused invalid_target /program before either scripted actor; zero measurement cases. Held resource abandoned/closed by existing cleanup.",
+  "productFrame": "Unchanged ABI5 fixed15 families, GOAL035/T287, STDO3.0.4; no Product/authority change.",
+  "cause": "Operator fixture selected declared_start with rootMode direct. Existing gtl/public_start.ts requires direct next or asset with no caller-selected start; declared_start requires supervised. Native publication is direct and provides exactly the selected defaultstart.",
+  "selectedCorrection": "Change only selection.target from {kind:'declared_start',startRef:ids.startRef} to {kind:'next'}. Same Program/default graph function, input/body sizes, actor, all assertions/oracles and bounds. Existing owned resolver chooses the declared default; no guard bypass.",
+  "ownerEvidence": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/public_start.ts",
+      "lines": "51-112",
+      "relation": "supervised declared-start vs direct next/asset closed control law"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+      "lines": "38-40",
+      "relation": "native Program direct with exact defaultstart"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "lines": "257-265",
+      "relation": "existing maintained caller defaults direct selection to next"
+    }
+  ],
+  "recurrence": "Prepared fixture used an allowed target shape with incompatible rootMode; prior static review did not conjoin both semantics. Product correctly refused. Correct data at caller, not Product.",
+  "allocationCorrection": "Fresh actual-002 and /private/tmp/abg-r7m2; original actual-001 preserved. Reuse prior002 owner references and scripted actor by path, not copied bodies.",
+  "priorProofReuse": "Accepted451-row S3 source/build/33focusedpasses and prior HS01/small HS02 remain exact. No Product implementation or affected proof rerun. The failed new growth measurement has no successful tasks to repeat.",
+  "next": "One separately bound growth measurement after proportional correction review; no automatic retry, pack or bootstrap reinstall. Existing fixture performs its ordinary isolated installation."
+}

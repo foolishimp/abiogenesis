@@ -1,0 +1,356 @@
+{
+  "ProductFrame": "Same ABIogenesis Product/STDO3.0.4 and frozen BUILT003. This returns actual bounded proof/diagnosis evidence; Root retains source, unit, broad and cut acceptance. O3 physical verification remains at each boundary; performance reuse follow-up OPEN.",
+  "status": "OWN_CASE_PASSED_CPU_DIAGNOSIS_PARTIAL",
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "originalTestVerdict": "passed",
+  "actualCounts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "testCaseDurationMs": 38146.618916,
+  "command": {
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 38862.481125
+  },
+  "wrapperExitCode": 1,
+  "wrapperExitReason": "Required complete sampled runner profile missing; test-file profile is complete and matched. Original command/test exit0 and full final diagnostic remain separate from this diagnostic insufficiency.",
+  "reporterComplete": true,
+  "parseFailure": null,
+  "ownerObservationFailure": null,
+  "conservationFailure": null,
+  "cpuDiagnosticsComplete": false,
+  "ownerObservations": {
+    "environment": {
+      "first": {
+        "environmentDerivations": 1
+      },
+      "copied": {
+        "environmentDerivations": 1
+      },
+      "rebuilt": {
+        "environmentDerivations": 1
+      }
+    },
+    "runs": [
+      {
+        "environment": {
+          "environmentDerivations": 1
+        },
+        "basis": {
+          "rowAdmissions": 2,
+          "bodyDigests": 2
+        },
+        "install": {
+          "contentVerifications": 4,
+          "lstats": 32,
+          "lists": 12,
+          "fileHashes": 16,
+          "graphCarrierReads": 4
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      {
+        "environment": {
+          "environmentDerivations": 0
+        },
+        "basis": {
+          "rowAdmissions": 2,
+          "bodyDigests": 2
+        },
+        "install": {
+          "contentVerifications": 4,
+          "lstats": 32,
+          "lists": 12,
+          "fileHashes": 16,
+          "graphCarrierReads": 4
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      },
+      {
+        "environment": {
+          "environmentDerivations": 0
+        },
+        "basis": {
+          "rowAdmissions": 2,
+          "bodyDigests": 2
+        },
+        "install": {
+          "contentVerifications": 4,
+          "lstats": 32,
+          "lists": 12,
+          "fileHashes": 16,
+          "graphCarrierReads": 4
+        },
+        "worker": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        }
+      }
+    ],
+    "prefix": {
+      "source": "projectOwnedRuntimeEventPrefixAtDurablePrefix",
+      "kind": "owned_runtime_event_prefix",
+      "coordinateLength": 3504569,
+      "events": 97,
+      "basisRows": 3,
+      "row": 8
+    },
+    "basis": {
+      "first": {
+        "rowAdmissions": 0,
+        "bodyDigests": 0
+      },
+      "later": {
+        "rowAdmissions": 0,
+        "bodyDigests": 0
+      },
+      "earlier": {
+        "rowAdmissions": 0,
+        "bodyDigests": 0
+      },
+      "copied": {
+        "rowAdmissions": 1,
+        "bodyDigests": 1
+      },
+      "changedRawInput": {
+        "path": "cold_prefix_admitted_row_law_refused",
+        "first": {
+          "rowAdmissions": 1,
+          "bodyDigests": 0
+        },
+        "again": {
+          "rowAdmissions": 1,
+          "bodyDigests": 0
+        }
+      },
+      "changedBasisDigest": {
+        "path": "cold_prefix_admitted_row_law_refused",
+        "first": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "again": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        }
+      }
+    },
+    "close": {
+      "kind": "abg_event_resource_receipt",
+      "closePrefixLength": 3504569
+    },
+    "worker": {
+      "frozen": {
+        "contractCopies": 0,
+        "schemaCopies": 0,
+        "reuses": 2,
+        "deepFrozenChecks": 1
+      },
+      "mutable": {
+        "contractCopies": 1,
+        "schemaCopies": 0,
+        "reuses": 0,
+        "deepFrozenChecks": 0
+      },
+      "command": [
+        "command",
+        "contractDigest",
+        "planDigest"
+      ],
+      "environment": [
+        "environmentDigest",
+        "planDigest"
+      ]
+    },
+    "firstConsumer": {
+      "acquisition": {
+        "contentVerifications": 1,
+        "lstats": 8,
+        "lists": 3,
+        "fileHashes": 4,
+        "graphCarrierReads": 1
+      },
+      "firstUse": {
+        "contentVerifications": 1,
+        "lstats": 8,
+        "lists": 3,
+        "fileHashes": 4,
+        "graphCarrierReads": 1
+      },
+      "refusedResolution": {
+        "code": "wrong_owner",
+        "stage": "implementation"
+      }
+    },
+    "install": {
+      "contentVerifications": 2,
+      "lstats": 16,
+      "lists": 6,
+      "fileHashes": 8,
+      "graphCarrierReads": 2
+    },
+    "limit": "Smallest installed language fixture in one test process; counters observe this process only; no performance claim.",
+    "unproved": [
+      "duplicate, foreign and rollback rows",
+      "the actual actor producer (the worker plan probe is synthetic)",
+      "O3 retained verification reuse: physical verification stays at every consumer/effect boundary; no zero/once-per-resolution claim"
+    ]
+  },
+  "cpuAnalysis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/CPU_ANALYSIS.json",
+    "bytes": 12982,
+    "sha256": "391db0c58f43ddfe1d008d810ad4a2695e676972f784a71302fa713db4eccde6"
+  },
+  "hostContext": {
+    "samples": 40,
+    "logicalCPUs": 16,
+    "loadOneMinuteMin": 4.0859375,
+    "loadOneMinuteMax": 4.87646484375,
+    "nodeFreeMemoryMinBytes": 15027732480,
+    "nodeFreeMemoryMaxBytes": 19514916864,
+    "quietHostClaim": false,
+    "standing": "Current run context only. Neither a matched comparison nor a diagnosis of earlier host conditions."
+  },
+  "close": {
+    "resources": {
+      "status": "CHILD_CLOSED",
+      "maxOwnedBytes": 167172578,
+      "maxProfileBytes": 15704311,
+      "minFreeBytes": 337694670848,
+      "childOutcome": {
+        "exitCode": 0,
+        "signal": null
+      },
+      "monitorFailure": null,
+      "overshootPossible": true,
+      "quotaEnforced": false,
+      "detachedDescendantAbsenceProven": false
+    },
+    "ancestryFailure": null,
+    "postAncestryFailure": null,
+    "lastAncestryAt": "2026-11-08T18:33:23.744Z",
+    "observedAfterRows": "External host11144, ancestors and ps11555 only; previously observed test/file-host/runner/npm children absent from host-related rows.",
+    "standing": "Actual child closure and bounded point-in-time ancestry; no unknown detached-descendant absence guarantee. No cleanup occurred."
+  },
+  "limits": [
+    "One unchanged OWN file on the existing BUILT003; no full-unit or broad acceptance.",
+    "O1/O2/O4 and changed-content/refusal evidence is limited to this fixture and actual final diagnostic; duplicate/foreign/rollback rows and actual actor producer remain unproved.",
+    "No RC8 before/after speedup qualification; profile covers whole test including fixture setup and is instrumented.",
+    "Original native unit incompleteness, both M5 reds and OWN004 cancellation remain preserved.",
+    "Seven-file remainder, bootstrap strict gate, broad201 and cut remain held. No automated retry or further execution selected."
+  ],
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/BINDING.BOUND.json",
+      "bytes": 23014,
+      "sha256": "4523b88efca75d3d58c65903223a5bfb61b630ecbf7267d6f954042b81870e04"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/ROOT_EXECUTION_ADMISSION.json",
+      "bytes": 3817,
+      "sha256": "ae8c3b438ae241ddd314371d3301ab41e65d16125fe2d83d664b695ebf52cf51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/PREPARATION_RETURN.json",
+      "bytes": 4292,
+      "sha256": "4159866e3714cd19d4944fc6e57dddd294cc076ef0bef7e32ed743de82120e64"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/REQUEST.json",
+      "bytes": 4109,
+      "sha256": "f5f2236bda63db538e038ec3b1e69413054d22f23a22d663d0b8c998d6aa0062"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/FILE_CHILD_STARTED.json",
+      "bytes": 612,
+      "sha256": "82ad3aaddbead677466f7fc9b7470d2284db3c23d00033b3f1e92e2b04a8ce56"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/commands/own01.request.json",
+      "bytes": 964,
+      "sha256": "ccf8dbf78636a936ca845f9d4fa79601ab0a2fc45cb676b64186755736af8bc6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/commands/own01.result.json",
+      "bytes": 1418,
+      "sha256": "f62bf3cd807a2752cd3732016a515fd0e2d092a288d1988179afa9317304b05b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/commands/own01.stdout",
+      "bytes": 3025,
+      "sha256": "878b7217a7b8434bb8b9ce8f23488f5267983cd5bd1ddb6ca7d5021b0f92d131"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/commands/own01.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/RESULT.json",
+      "bytes": 2429,
+      "sha256": "49f7705822c9371864973c8d8e92f5b04aecb5598725cfbb33052529ebd1a560"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/events.jsonl",
+      "bytes": 888,
+      "sha256": "1a6d7754e57af030bf9314114ce11ccc1a23b84b50e7687ecfbec7aa2be65627"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/OWN01_OBSERVATIONS.json",
+      "bytes": 7656,
+      "sha256": "fa2018c5cf22e009eb7f6a8aa37d8e63fbc2df3f1208b339ce223527f8ab0bc6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/PROFILE_COLLECTION.json",
+      "bytes": 929,
+      "sha256": "f7f568875b99a173073c52f6bc0bb4f19dfc6f89de8c2104b0de53c607f7ffbc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/PROCESS_CPU_OBSERVATIONS.json",
+      "bytes": 1351,
+      "sha256": "2cf8609ee3a85392f3d1778ef192e446e40a0d2ca32a8bcafa1692828a1f3f70"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/PHASE_OBSERVATION.json",
+      "bytes": 117,
+      "sha256": "bed5d370afa61b8ab900eda7cdc794596bcd081195309ec5ea12dabe85e58d47"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/HOST_OBSERVATIONS.json",
+      "bytes": 12837,
+      "sha256": "c3d216a7f03b86094473f043142d5efab06d019196f5c4333e99597e6f3854f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/RESOURCES.json",
+      "bytes": 1035,
+      "sha256": "4766a2996dfeee169951fef49632675001512f4b8ecb8c6f264546bf34cc4507"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/execution-001/ancestry-after.json",
+      "bytes": 2847,
+      "sha256": "0d8fba18fac87e75faf4723e1bfccab46cf811d56efaddab4182d5cf28d2cbca"
+    }
+  ]
+}

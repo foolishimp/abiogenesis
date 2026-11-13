@@ -1,0 +1,79 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/diagnostic.py
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/root-cause-01/operator/diagnostic.py
+@@ -42,8 +42,8 @@
+  counts={k:int(v) for k,v in re.findall(r'^# (tests|pass|fail|cancelled|skipped|todo) (\d+)\s*$',text,re.M)}
+  assert 'TAP version 13' in text and re.search(r'^1\.\.\d+\s*$',text,re.M),'incomplete TAP framing'
+  assert all(k in counts for k in ['tests','pass','fail','cancelled','skipped','todo']),'incomplete TAP counts'
+- assert counts['tests']>0 and counts['fail']==counts['cancelled']==counts['todo']==0,'test failure/cancellation/todo'
+- if 'expectedTests' in command:assert counts['tests']==command['expectedTests'] and counts['skipped']==command['expectedSkipped'] and counts['pass']==command['expectedTests']-command['expectedSkipped'],'selected case population differs'
++ assert counts['tests']>0 and counts['cancelled']==counts['todo']==0,'test failure/cancellation/todo'
++ if 'expectedTests' in command:assert counts['tests']==command['expectedTests'] and counts['skipped']==command['expectedSkipped'] and counts['pass']+counts['fail']==command['expectedTests']-command['expectedSkipped'],'selected case population differs'
+  skips=[l for l in text.splitlines() if re.search(r'#\s*(SKIP|TODO)\b',l,re.I)]
+  diagnostics=[]
+  for line in text.splitlines():
+@@ -64,14 +64,14 @@
+ binding_path,binding_sha,admission_path,admission_sha=sys.argv[1:]
+ assert sha(Path(binding_path).read_bytes())==binding_sha;b=json.loads(Path(binding_path).read_text())
+ assert sha(Path(admission_path).read_bytes())==admission_sha;a=json.loads(Path(admission_path).read_text())
+-assert a['status']=='ROOT_ADMITTED_RC11_PROOF_CONTINUATION' and a['bindingSha256']==binding_sha
++assert a['status']=='ROOT_ADMITTED_RC11_CAUSE_STAGE1' and a['bindingSha256']==binding_sha
+ for p in a['files']:checked(p)
+ assert b['status']=='RETAINED_BUILD_CONTINUATION_READY'
+ c=json.loads(checked(b['originalControls']));commands=json.loads(checked(b['commands']));assert a['commandIds']==[x['id'] for x in commands]
+ transform=json.loads(checked(b['diagnosticTransform']));checked(transform['original']);checked(transform['derivative']);checked(transform['diff'])
+ for link,target in transform['readonlyLinks'].items():assert Path(link).is_symlink() and os.readlink(link)==target
+ expectedPattern='^(?:'+'|'.join(re.escape(n) for n in b['selectedCaseNames'])+')$'
+-assert commands==[{'id':'three-case-diagnostic','kind':'testfile','args':['--experimental-vm-modules','--test','--test-concurrency=1','--test-reporter=tap','--test-name-pattern='+expectedPattern,transform['derivative']['path']],'timeoutSeconds':300}]
++assert commands==[{'id':'six-case-diagnostic','kind':'testfile','args':['--experimental-vm-modules','--test','--test-concurrency=1','--test-reporter=tap','--test-name-pattern='+expectedPattern,transform['derivative']['path']],'timeoutSeconds':300}]
+ checked(b['closedFailureTriage'])
+ checked(b['acceptedNativeProof']);checked(b['acceptedPhysicalProof']);checked(b['priorContinuationReturn']);ready=json.loads(checked(b['originalReady']))
+ for p in ready['controls']:checked(p)
+@@ -95,8 +95,8 @@
+ current=rows_at(work,rows);assert [{'before':x,'after':z} for x,z in zip(rows,current) if x!=z]==b['retainedWorkDelta']
+ assert controlled((tenant/'test_env/tests/t287-owned-process-lifetime.test.mjs').read_text())==base['blocks']
+ for tree in [dep,npm,{**dep,'root':str(tenant/'node_modules')}]:verify_tree(tree)
+-check_compiled();env=json.loads(checked(b['environment']))['environment'];assert not any(k in env for k in c['unsetOptIns'])
+-proof=Path(b['continuationOutput']);assert proof.parent==Path(b['diagnosticRecords']).parent and not proof.exists();proof.mkdir()
++check_compiled();[checked(p) for p in b['protectionPins']];env=json.loads(checked(b['environment']))['environment'];assert not any(k in env for k in c['unsetOptIns'])
++proof=Path(b['continuationOutput']);assert proof.parent==Path(b['diagnosticRecords']).parent and not proof.exists();assert shutil.disk_usage(proof.parent).free>=4294967296;proof.mkdir()
+ save(proof/'STARTED.json',{'bindingSha256':binding_sha,'admissionSha256':admission_sha,'sourceDigest':b['sourceDigest'],'compiledInventory':b['compiledInventory'],'buildReceipt':b['buildReceipt'],'restaged':False,'rebuilt':False})
+ try:
+  results=[]
+@@ -122,25 +122,32 @@
+    except subprocess.TimeoutExpired:code=None
+   group_gone=group_absent(child.pid);report={'id':command['id'],'argv':argv,'pid':child.pid,'pgid':child.pid,'exitCode':code,'wallSeconds':time.monotonic()-start,'timedOut':timed_out,'outputBudgetExceeded':too_large,'signals':signals,'groupAbsent':group_gone,'cleanupNeeded':cleanup_needed,'stdout':pin(out/'stdout.log'),'stderr':pin(out/'stderr.log')}
+   error=None
++  [checked(p) for p in b['protectionPins']]
+   try:
+    report['sourcePostDigest']=same_source(source,rows);same_source(stage,rows)
+    current=rows_at(work,rows);delta=[{'before':a,'after':z} for a,z in zip(rows,current) if a!=z];report['generatedWorkSourceDifferences']=delta
+    assert delta==b['retainedWorkDelta'],'retained source/build deltas changed'
+    report['compiledInventoryDigest']=check_compiled()
+    records=[]
+-   for label in ['progress-worker','unadmitted-progress-worker','post-timeout-output']:
++   required={'resistant-worker','progress-worker','unadmitted-progress-worker','post-timeout-output','post-exit-output','worker-normal'}
++   observed={p.name for p in Path(b['diagnosticRecords']).iterdir() if p.is_dir()}
++   assert required.issubset(observed),'missing owner returns '+str(required-observed)
++   for label in sorted(observed):
+     file=Path(b['diagnosticRecords'])/label/'record.json';record=json.loads(file.read_text());assert record['captureComplete'] and record['label']==label
+-    for name in ['stdout','stderr','transport']:assert name in record['artifacts']
+     for art in record['artifacts'].values():checked({k:art[k] for k in ['path','bytes','sha256']})
+     records.append(pin(file))
+    report['diagnosticRecords']=records
++   report['notObservedGroupedModes']=sorted({'worker-normal','worker-TERM','command-normal','command-TERM','http-normal','http-TERM'}-observed)
+ 
+-   assert code==0 and not timed_out and not too_large and group_gone and not cleanup_needed,'command failed/incomplete or owned group cleanup required'
++   assert code in [0,1] and not timed_out and not too_large and group_gone and not cleanup_needed,'command failed/incomplete or owned group cleanup required'
+    if command['kind']=='testfile' or command['id']=='unit':report['tap']=tap((out/'stdout.log').read_text(),command)
++   assert report['tap']['counts']['tests']==6 and report['tap']['counts']['skipped']==0,'six-case population incomplete'
++   assert (code==0)==(report['tap']['counts']['fail']==0),'TAP/exit mismatch'
+   except Exception as e:error=str(e)
+-  report['status']='PASSED' if error is None else 'FAILED_OR_INCOMPLETE';report['failure']=error;save(out/'RETURN.json',report);results.append({'id':command['id'],'status':report['status'],'receipt':pin(out/'RETURN.json')});print(json.dumps(results[-1]),flush=True)
++  report['status']='DIAGNOSTIC_FACTS_RETAINED' if error is None else 'FAILED_OR_INCOMPLETE';report['failure']=error;save(out/'RETURN.json',report);results.append({'id':command['id'],'status':report['status'],'receipt':pin(out/'RETURN.json')});print(json.dumps(results[-1]),flush=True)
+   if error:raise RuntimeError(error)
+  verify_tree(dep);verify_tree(npm);verify_tree({**dep,'root':str(tenant/'node_modules')});same_source(source,rows);same_source(stage,rows);check_compiled()
+- save(proof/'FINAL_RETURN.json',{'status':'MECHANICAL_PROOF_COMMANDS_PASSED_PENDING_ROOT_REVIEW','sourceDigest':b['sourceDigest'],'commands':results,'priorBuildReceipt':b['buildReceipt'],'compiledInventory':b['compiledInventory'],'originalFrozenSourceConserved':True,'dependencyAndNpmAuthorityConserved':True,'standing':'Finite commands/full selected files only; skips recorded, no assurance/qualification/acceptance.'})
++ [checked(p) for p in b['protectionPins']]
++ save(proof/'FINAL_RETURN.json',{'status':'SINGLE_DIAGNOSTIC_RUN_CLOSED_PENDING_ROOT_CAUSAL_CONJUNCTION','sourceDigest':b['sourceDigest'],'commands':results,'priorBuildReceipt':b['buildReceipt'],'compiledInventory':b['compiledInventory'],'originalFrozenSourceConserved':True,'dependencyAndNpmAuthorityConserved':True,'standing':'Original assertions retained; diagnostic pass or fail does not replace unit red. No followup experiment selected.'})
+ except Exception as e:
+  save(proof/'HALT.json',{'error':str(e),'standing':'Stopped; preserve actual outputs/process receipts/work. No automatic retry, source repair, broader cleanup or following command.'});raise

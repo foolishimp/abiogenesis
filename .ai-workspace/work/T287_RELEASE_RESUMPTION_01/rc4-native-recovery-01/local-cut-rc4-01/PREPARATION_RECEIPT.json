@@ -1,0 +1,55 @@
+{
+  "status": "THIN_INSTALLER_PREPARED_NOT_EXECUTED",
+  "historicalSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/local-cut-01/install-local-rc3.mjs",
+    "bytes": 7131,
+    "sha256": "5bdc09f07598723e74e3ee31e54883186d46c8743cb25a8f697c3212a2173f37"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/BOUNDED_CANDIDATE_CLAIM.DRAFT.md",
+      "bytes": 1169,
+      "sha256": "fc50a4a6048cfb2daed022f98484fda1febc04efa41c60092ddb05cc1d80d265"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/HANDOFF.md",
+      "bytes": 1297,
+      "sha256": "af10fc31ac278f1301258fa9bf1deb2f6412cfb7e65264f871b322c438249650"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/INPUT_MANIFEST.template.json",
+      "bytes": 3298,
+      "sha256": "92c970ccfa645fb86cef044f97100dffbadd614a3aa0845a8e4823349d13d521"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/INSTALLER_DELTA.patch",
+      "bytes": 5846,
+      "sha256": "f53f0f09ad73b07a40e62b01e7a846158fed736ea926e366cd749e012313fb9d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/RESIDUALS.DRAFT.md",
+      "bytes": 554,
+      "sha256": "a9dd16453198e825f06a82d48e6a74b954474b6451418e0cbe7e22cb7864197f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/ROOT_AUTHORITY.template.json",
+      "bytes": 186,
+      "sha256": "b0db3de0694d07ab30d8c014dacdb6f2820da1c3e07ba983138f476dcbca9d2d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/SOURCE_ARTIFACT_EVIDENCE_MAP.DRAFT.json",
+      "bytes": 1589,
+      "sha256": "d6049f60c1cb2f36fad0468eb81ad0167f97dfc7a3b8e984bcccd88bdcdf73ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/install-local-rc4.mjs",
+      "bytes": 7831,
+      "sha256": "16921ca6a09b919bd0d57dd43bf9c0c5a5c6631f4e32116c6e5e9c9ece54e575"
+    }
+  ],
+  "syntaxExitCode": 0,
+  "ProductImports": 0,
+  "RuntimeCalls": 0,
+  "providerCalls": 0,
+  "actualInputManifestPresent": false
+}

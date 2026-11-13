@@ -1,0 +1,17 @@
+{
+  "kind": "frozen_q23_subject_coordinates",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/SUBJECT.json",
+    "bytes": 434234,
+    "sha256": "676931d181dff38febc508ddf1f6da00cb414a9db7cb4902d284217f9af91dd5"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "nativeResultRef": "result://abiogenesis/29d0ae0f59885533d681c73f4bcb49fa1c00c00f47295a96dd415c4fcc14b28e",
+  "afterObservationDigest": "sha256:740c79a70e08dd5b5a76264fd43c531f8f8047260a99916d183b4d5a13281bbb",
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-author-06/review-subject-001/source.diff",
+    "bytes": 157458,
+    "sha256": "b7c0d7f0ec4e14a93e5b00aaed41dfff84e6a1e50a51554093e64de9c647566a"
+  },
+  "limits": "Physical frozen source correspondence; not C2 or release acceptance."
+}

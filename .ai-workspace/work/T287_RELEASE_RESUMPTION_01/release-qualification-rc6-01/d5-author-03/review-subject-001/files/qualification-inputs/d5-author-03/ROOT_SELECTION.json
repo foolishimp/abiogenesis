@@ -1,0 +1,108 @@
+{
+  "kind": "root_bounded_legacy_profile_repair_selection",
+  "at": "2026-11-06T01:21:10.484485+00:00",
+  "status": "SELECTED_CONTROL_PREPARATION_ONLY_REVIEW_CONJUNCTION_PENDING",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/review-subject-001/SUBJECT.json",
+    "bytes": 482797,
+    "sha256": "1cc4af139db74980cc637b11b229dba8ac2f02c30c8a920a7fea3e533c1dd290"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "worksite": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 5475,
+    "sha256": "05964a28314c79e70a6ee83e5f5bfc4c2ac2901e2bf1bafa081d6eb13cd1537f"
+  },
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/execution/after-run-resume.json",
+    "bytes": 72494784,
+    "sha256": "bb9d4dd3d7f130c76a546b7f6bc03d2d67058bebaba89e83734090406328cbab"
+  },
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17 unchanged",
+    "slice": "F10 D5 durable lifecycle observation, affected F11 cold qualification and historical L compatibility",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Preserve lawful exact-L cold judgment while keeping the current copy-free shared projection and all existing owner admission boundaries."
+  },
+  "failure": {
+    "reviewStanding": "Independent projection reviewer reports S2 counterexample; closed report and recovery conjunction required before final activation. Root independently read exact frozen owner and test locations.",
+    "origin": "qualification_proof.ts classifies current via eventContractDigest != LEGACY digest. Real legacy event has no stamp, so undefined is misclassified as current and its valid full observation is rejected.",
+    "masking": "M2 positive assigns LEGACY digest to the fixture envelope, but actual legacy store rejects any stamp. Green test validates an impossible legacy event shape.",
+    "sourceRoutes": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts:622",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts:1215",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts:3483",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs:807"
+    ],
+    "causalFrames": [
+      "Product/requirement historical evidence preservation",
+      "Design exact L/P envelope and digest law",
+      "Integration producer event shape to cold consumer",
+      "Identity/profile admission and Proof fixture validity"
+    ],
+    "containment": "False negative; current P unaffected in reviewed cone, no invalid judgment acceptance shown. Immutable prior owners remain available.",
+    "smallestReentry": "Realization and affected test under unchanged WHAT/HOW; no profile rename, owner extension or new abstraction."
+  },
+  "productWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+  ],
+  "newProductFiles": [],
+  "requiredBehavior": [
+    "Use the existing authenticated owned-prefix schedule: L has no stamp; P has the exact current stamp; unknown or mixed profiles are refused by the existing owner. No new guard, contract, helper framework or import cycle is required.",
+    "Use a lawful unstamped legacy artifact in the affected cold judgment fixture. Demonstrate that the old reader rejects this valid premise, then correct the reader and retain passing current/legacy positives and unilateral/stale/crossed/reinserted/profile negatives.",
+    "Keep the shared pure projection and full live/candidate digest relations unchanged; preserve Q23 identity/provenance and exact L/P descriptor bytes."
+  ],
+  "authorProof": [
+    "Reproduce the closest legacy counterexample with corrected fixture and pre-fix reader; preserve its exact output/source.",
+    "Build/generate/guard a fresh final stage; run the existing five-module qualification lane (37 current tests, plus any justified added case) with zero failures/skips/cancelled/todo.",
+    "Do not rerun authentic recovery or all ten author modules merely for another count. Their prior evidence remains exact; Root will run the already required affected seven-command ten-module C2/UAT on the corrected frozen successor.",
+    "Return exact two-file changes, final stage/source correspondence, failing-before/passing-after proof, three handoffs, and stop."
+  ],
+  "preserve": [
+    "All404 frozen members and20 cumulative tracked changes plus2 new Product files; only the two selected paths may differ.",
+    "Original113-pass author evidence, review counterexample, all failures, actual close, profile/capsule boundaries, P proof02 held packet.",
+    "No legacy profile stamp or new current digest/ref generated by this repair."
+  ],
+  "preparationGrant": {
+    "writer": "separate control Writer",
+    "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03",
+    "effects": "Prepare exact controls/passive helpers and bounded task using existing N2 NativeWork/operator owners and latest actual close; no Product edit, staging, preflight, runtime, provider, tests or Git.",
+    "sourceAccess": "Frozen F and exact retained stage/authority material; verify live identity/custody mechanically only as necessary for control pins.",
+    "reuse": "Reuse existing setup/catalog/workspace binding and source stage/C2 helpers, retain explicit complete instruction strings; no cold history narrative census."
+  },
+  "workerProfile": {
+    "nativeCodingWorkers": 1,
+    "agent": "claude",
+    "model": "existing pinned Opus5.5",
+    "reasoning": "xhigh",
+    "maxTurns": 96,
+    "absoluteTimeoutMs": 2700000,
+    "inactivityTimeoutMs": 1800000,
+    "outerTimeoutMs": 5400000,
+    "savedSession": false,
+    "automaticRetry": false
+  },
+  "stops": [
+    "Missing or conflicting final review/Root conjunction before dispatch",
+    "Source or actual close drift",
+    "Material HOW/WHAT/contract change required beyond two-file realization",
+    "Unexpected integration refusal requiring Root triage"
+  ],
+  "exclusions": [
+    "No runtime/store/controller/profile-port or general fixture redesign",
+    "No other Product/HOW edits",
+    "No push/merge/tag/publication/global selector/immutable release edits or release acceptance",
+    "No provider/auth retries or private native narrative/credential reads"
+  ],
+  "return": "Control Writer returns concrete controls and pins to Root. Root consumes closed reviews, records final admission, stages and preflights before one native dispatch."
+}

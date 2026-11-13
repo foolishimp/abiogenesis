@@ -1,0 +1,81 @@
+{
+  "id": "PHASE2-SCOPE-01",
+  "status": "ROOT_ADMITTED_SOURCE_SCOPE_PREPARATION_SETUP_AND_PROVIDER_HELD",
+  "ownerInstruction": "User continue selects next planned Phase2 lifetime/command slice.",
+  "subject": {
+    "root": "/private/tmp/abg-rc11-foundation-20261110-01",
+    "branch": "codex/rc11-foundation-correction",
+    "commit": "ed17ab1487bf4934bf12da88e28c3f6cfa76061e",
+    "tree": "3bc9e2e3c36f29646dfd2c7a46006c33054ccbe0"
+  },
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/SOURCE_INVENTORY.json",
+    "bytes": 294794,
+    "sha256": "e003b09affcd088fd0900d853ca60d7d157696a0a998e86e94f1dbeaa522e69b"
+  },
+  "reentry": "design_reframe of production realization under unchanged Product outcomes/requirements/Public event and replay law; exact HOW adopted by Root",
+  "designAndProofReports": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/design-intake/ASSESSMENT.md",
+      "bytes": 10454,
+      "sha256": "2076fe346f4345d3f2f1ae5425ea981fe4b6750f92335bc007a5e74dc355f13b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/design-intake/EVIDENCE.json",
+      "bytes": 6011,
+      "sha256": "6a7044e8a604e16e7fbcb116b139457926aaad4674f689ca24cb6dd41e24082e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/INTAKE.md",
+      "bytes": 11205,
+      "sha256": "194f5fd553125c1b7ada07d433b853a4970df49ba643956f0026f8023b2893ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/INTAKE.json",
+      "bytes": 9237,
+      "sha256": "057aef7343fc2b3ccd448c3248f361717fa07a2e17ea33e67e4ea67bbf6db039"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/SCOPE_CLARIFICATION.md",
+      "bytes": 2441,
+      "sha256": "2b3e1b24d6420ac6550fcbe807e0158fca072e257ea2337932f6e5023989a07b"
+    }
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+    "qualification-scratch/rc11-effect-phase2-01/native-01"
+  ],
+  "optionalNewSourceFile": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+  "constraints": "Shared immutable physical state/pure transition replaces parallel mutable lifecycle decisions; narrow synchronous Node bridge preserves inline return/reentry. Actual scoped Effect command child/lifetime/capture/heartbeat/deadline, composed through helper main and canonical runEffectProgram only at host boundary. No wrapper-only or dual supervisor. Preserve first Error/final facts, nanosecond deadline/capture/scope law and D15 artifact\u2192drained acknowledgment\u2192same rethrow. HTTP owner body unchanged; worker_transport/shared effect_definition/Product/schemas/dependencies/parent admission/replay/release metadata read-only.",
+  "nativeEnvelope": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 900000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "authorChecks": "Typecheck/TypeScript scratch compilation and cheap deterministic actual-owner cases only; no broad/installed/physical population or nested provider. Declare deleted responsibilities before freeze.",
+  "externalProofSelection": "Successor build, earliest actual helper/command discriminator, single configured installed C2 compact-ack positive, controlled/whole lifetime/m5/original unit, affected lifecycle-carrier selectors. Exact selectors/bounds follow frozen source. No whole C2 or blanket installed negative campaign/full installed failure-path qualification claim.",
+  "operatorEffects": "Prepare controls/readonly input copies and main GOALS/T287 prefixes only. F Product source untouched until admitted native dispatch. Setup/runtime/provider held for exact Root bindings.",
+  "scratchAndInputs": {
+    "immutableInputs": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-inputs/rc11-effect-phase2-01/native-01",
+    "nativeScratch": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-01",
+    "hostControls": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01"
+  },
+  "basis": {
+    "basis": "stdo://releases/v3.0.4/",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4"
+  }
+}

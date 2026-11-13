@@ -1,0 +1,90 @@
+{
+  "status": "ADMITTED_CONSTRUCTION_OBSERVED_PENDING_TESTING",
+  "observedAt": "2026-11-03T00:36:58.554618+00:00",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/sandbox/worksite",
+  "eventOrdinal": 2809,
+  "eventTime": "2026-11-03T00:35:34.989Z",
+  "physicalEvent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/resources/events/runtime.events.jsonl",
+    "offset": 13045465,
+    "bytes": 53399,
+    "sha256": "24ca4ee21521717491100ab49d3f8972f87fd4beaf152511f50d562103bbc64a"
+  },
+  "nativeResultRef": "result://abiogenesis/95d0688aa2f9f013ea30d7365c66b62d5bbdd405c5a0a9e47c36360ed219348e",
+  "observationRef": "native-work-observation://abiogenesis/c35eb287ffff308c136f52800035f3fbe15206d507e70296bdc61ae4bb6b0e99",
+  "afterObservationRef": "worksite-context-observation://abiogenesis/0a8364134af932507d3156c6cb956a66c6240e46ef9d40757485d7bf2f48c6bd",
+  "afterObservationDigest": "sha256:0a8364134af932507d3156c6cb956a66c6240e46ef9d40757485d7bf2f48c6bd",
+  "changedPaths": [
+    "design/implementation-design.md",
+    "design/test-design.md",
+    "generated/hello-world.mjs",
+    "specification/project-conformance.md",
+    "test-execution-plan.json",
+    "test/component/hello-cli.test.mjs",
+    "test/uat/hello-cli.uat.test.mjs"
+  ],
+  "files": [
+    {
+      "relativePath": "design/implementation-design.md",
+      "sha256": "fd8f0aa5326091690b801cd7bc2749d6edcd17163c62e06afa4d18426e028963",
+      "bytes": 1838,
+      "admittedDigest": "sha256:fd8f0aa5326091690b801cd7bc2749d6edcd17163c62e06afa4d18426e028963"
+    },
+    {
+      "relativePath": "design/test-design.md",
+      "sha256": "16f651cbcf539b561519a2f71c8a6a1a150979ee36e0af6e0181167257a057ae",
+      "bytes": 1880,
+      "admittedDigest": "sha256:16f651cbcf539b561519a2f71c8a6a1a150979ee36e0af6e0181167257a057ae"
+    },
+    {
+      "relativePath": "generated/hello-world.mjs",
+      "sha256": "fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115",
+      "bytes": 61,
+      "admittedDigest": "sha256:fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115"
+    },
+    {
+      "relativePath": "source/basic-cli/obligations.json",
+      "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+      "bytes": 4916,
+      "admittedDigest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+    },
+    {
+      "relativePath": "source/basic-cli/oracle.json",
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "bytes": 1112,
+      "admittedDigest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    },
+    {
+      "relativePath": "source/basic-cli/source.original.txt",
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "bytes": 4325,
+      "admittedDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    },
+    {
+      "relativePath": "specification/project-conformance.md",
+      "sha256": "7708068a5a8d82550d9f809b0aa08c0d6009fbfef3e5f887ecaaabc981af818f",
+      "bytes": 2450,
+      "admittedDigest": "sha256:7708068a5a8d82550d9f809b0aa08c0d6009fbfef3e5f887ecaaabc981af818f"
+    },
+    {
+      "relativePath": "test-execution-plan.json",
+      "sha256": "eb9c22af770518cac08f9d07df1955e161d3618afc7ef78691f499802eabaa87",
+      "bytes": 779,
+      "admittedDigest": "sha256:eb9c22af770518cac08f9d07df1955e161d3618afc7ef78691f499802eabaa87"
+    },
+    {
+      "relativePath": "test/component/hello-cli.test.mjs",
+      "sha256": "e293cbaabfe1fff5e9d98b232ca2c700649d9c289fc146ea444a9179f1e9bcf8",
+      "bytes": 686,
+      "admittedDigest": "sha256:e293cbaabfe1fff5e9d98b232ca2c700649d9c289fc146ea444a9179f1e9bcf8"
+    },
+    {
+      "relativePath": "test/uat/hello-cli.uat.test.mjs",
+      "sha256": "5644e1c033f593a5479e7ba2090346b24ba14b08ccf1e8f1fd17383abd4dd2f2",
+      "bytes": 687,
+      "admittedDigest": "sha256:5644e1c033f593a5479e7ba2090346b24ba14b08ccf1e8f1fd17383abd4dd2f2"
+    }
+  ],
+  "limit": "Physical file hashes matched admitted after entries at capture. This is not C2, UAT, external acceptance or final closure."
+}

@@ -1,0 +1,303 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "at": "2026-11-05T16:02:01.829841+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_CONTROL_ADMISSION.json",
+    "bytes": 7445,
+    "sha256": "edafeb300fcc791bebb2b36bbd356fdffe330f76b8ff608e6ebefe39b1334d7a"
+  },
+  "sourceCommit": "1f62c0095e6196b089071bb72e88217792edf6ff",
+  "contextDigest": "sha256:9c4556186c5b5ef22a714820c9de361715d6ebb03601759064c2d7a930479eaa",
+  "callCanonicalDigest": "sha256:3bb9f814e62dd98290a9c267f3d4bc6770c1f170be45e8d9916d3d7bffee87e7",
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 128,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 3600000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "actualPreflight": {
+    "wallMs": 17870.653834193945,
+    "budget": {
+      "rule": {
+        "aggregation": "sum",
+        "commandFields": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "httpResponseFields": {
+          "launch": [
+            "timeoutMs",
+            "terminationGraceMs",
+            "terminationGraceMs"
+          ],
+          "request": [
+            "timeoutMs"
+          ]
+        },
+        "perOperationDrain": {
+          "field": "terminationGraceMs",
+          "maximumMs": 250,
+          "operation": "minimum"
+        },
+        "ownerAllowanceMs": 5000,
+        "limitComparison": "required_budget_strictly_less_than_each_limit",
+        "limitOrdering": "absolute_strictly_greater_than_inactivity"
+      },
+      "commandBudgetMs": 1561500,
+      "httpProbeBudgetMs": 0,
+      "requiredExecutionBudgetMs": 1566500
+    },
+    "limits": {
+      "absoluteTimeoutMs": 3600000,
+      "inactivityTimeoutMs": 1800000
+    },
+    "selectorCapacity": {
+      "kind": "bounded_current_initial_projection_measurement",
+      "projectionBytes": 342120,
+      "selectedFiles": 333,
+      "sourceCount": 13,
+      "contextBytes": 11747554,
+      "maxPromptBytes": 1048576,
+      "reserveBytes": 131072,
+      "initialProjectionFitsWithReserve": true,
+      "providerCalls": 0,
+      "RunAdmissions": 0,
+      "limits": [
+        "Initial owner task projection only; not complete rendered request or future-stage fit.",
+        "Existing native assembly applies actual prompt limit before each paid invocation.",
+        "No historical task/prompt bodies or invented future producer observations used."
+      ]
+    }
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/SOURCE_BEFORE.json",
+      "bytes": 70175,
+      "sha256": "8eddcdbb875eca26b3f7133e8278c0aafbf14012a0a71a28b4ffab679c582d03"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/NATIVE_GRANT.json",
+      "bytes": 33151,
+      "sha256": "9f529297f949c082158b505f8fabc86c3acf6c935fec52cb90ec03fad4aaa9a4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/NATIVE_TASK.json",
+      "bytes": 42385,
+      "sha256": "74bb62225006fec0980c4456cdfb67b78cefa7cd3d6e5b6a54f6c6b50ca0c914"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/C2_RECIPE.json",
+      "bytes": 37005,
+      "sha256": "a2b9140a86a7dba6f5f66a29dcccc9e641158432790c7028c597cda047985917"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/workload.json",
+      "bytes": 92204,
+      "sha256": "b60d8a72d2e4577e4daaf624e78f444ac3ff41aaeb4b5a167b72f1f12a504677"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/prepare-r1.mjs",
+      "bytes": 8948,
+      "sha256": "bf8fca184dd56e901ed228648699532afe727e135cb18ef10f09433b9ba9e5af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/PROVIDER_PROFILE.json",
+      "bytes": 1852,
+      "sha256": "b1f43f49973420a8059f0e583fa3a3cce9a7bc09f0879a31d02ab172965ff6a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/claude-provider.sh",
+      "bytes": 239,
+      "sha256": "dde239ee37cc238609bf8f481b4e8d2978d689836178c6fce706def15dc11b63"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/RUNTIME_BINDINGS.json",
+      "bytes": 3212,
+      "sha256": "993a8897ed5da7372490ae7b7cd82e5ae7491dbcf28f1ebd71c8620a43e589b2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/EXPECTED_FUTURE_FILES.json",
+      "bytes": 173,
+      "sha256": "f608b360379768b35e914c4d784ebf539f0254dcc26cc833922ca6973ac1cd14"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/STAGING_MANIFEST.json",
+      "bytes": 6466,
+      "sha256": "91ca7aa86d601dc660ee66046142267aac6c70731950010db3ca2502bb508140"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/freeze-source.mjs",
+      "bytes": 8503,
+      "sha256": "32cc45e5ee93ca8bc7849c20b333a2bc4572318a4c2c76ef6f5936211407be8e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/observe-progress.py",
+      "bytes": 4827,
+      "sha256": "0237722d4567ffabb7574ba0c222ba27afb6c26ca54db699fd3490ad9e05836b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_CONTROL_ADMISSION.json",
+      "bytes": 7445,
+      "sha256": "edafeb300fcc791bebb2b36bbd356fdffe330f76b8ff608e6ebefe39b1334d7a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_SELECTION.json",
+      "bytes": 7544,
+      "sha256": "dd2fd4b091990e326740b06849321542f9bdb6a85ed23fa8ed92d6ad1503bd7e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_POLICY_HOW_SELECTION.json",
+      "bytes": 3891,
+      "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_SCOPE_CLARIFICATION.json",
+      "bytes": 1397,
+      "sha256": "22bb0fd012df55c925623c256118596ce5e38d0c345da986fa7b8c0136d73647"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/METHOD_VERIFICATION.json",
+      "bytes": 1368,
+      "sha256": "1f9b60d56d52c6ca935d28439c9e081fbf67c6841d33f9c4b398dbff09d8a652"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/PREPARATION_RETURN.json",
+      "bytes": 9764,
+      "sha256": "0a250f271e501fb8043ed55317d16e6703b27dcaed6b4dd07858abf94c8237b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/PREFLIGHT_RESULT.json",
+      "bytes": 154,
+      "sha256": "0fb2fcb99a24a17eb163ecf4dd311f263978dcdac57379fe5ffe445f6b23b338"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/SELECTOR_CAPACITY_PREFLIGHT.json",
+      "bytes": 596,
+      "sha256": "bfd94fe021f2c2ba63dd4c698635bbda1450bfda57fca5bbdc8f4a1b6b45f027"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/PREPARED_CALL.json",
+      "bytes": 4333,
+      "sha256": "d5f4c47d66648f17294281847ac4bcb624e79bb756be09b9d3469730f5707c13"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/prepared-call.json",
+      "bytes": 29585689,
+      "sha256": "0269d765a97098670ac140402a4061e8b747ed3fcffaf6eb6c9fef83e1da93e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/input.json",
+      "bytes": 95811,
+      "sha256": "9ba15579268f6d39c0ec51a275f4d0b4bcd392018739be4d8b9565d21b16a51c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/execution/resume.json",
+      "bytes": 72661066,
+      "sha256": "c3f13472e7730d97259f109a782173a0ce4ec9a47959c695dc3df23e1bfcdc0f"
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/C2_INPUTS.json",
+      "bytes": 94094,
+      "sha256": "351c584ea9bcf8604789e6c47e85948e81b38001ac59c8f1ec5e4aa147b58740"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/DEPENDENCY_SOURCE_SELECTION.json",
+      "bytes": 5413,
+      "sha256": "1bbf0cfff8d25c43052038d1498d54aba109fed33cb8d57e8983ffc2a5613f56"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/IDENTITY_DESIGN_REENTRY.json",
+      "bytes": 20929,
+      "sha256": "7ec6f271253664b7a571d636ef65fddcf77015ed06795238b382368d91165876"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/MATERIAL_AND_C2_SCOPE.json",
+      "bytes": 27218,
+      "sha256": "896b4c624f2301ea03804979cf04191dc5597786d922ec64f550d746e89a8293"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/METHOD_ACCESS.json",
+      "bytes": 939,
+      "sha256": "6343d7c3c3a8eb0553e9b1452ae36cc70209c222cdde0edf502e102ba0c88d84"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/METHOD_VERIFICATION.json",
+      "bytes": 1368,
+      "sha256": "1f9b60d56d52c6ca935d28439c9e081fbf67c6841d33f9c4b398dbff09d8a652"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/NATIVE_GRANT.json",
+      "bytes": 33151,
+      "sha256": "9f529297f949c082158b505f8fabc86c3acf6c935fec52cb90ec03fad4aaa9a4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/ROOT_IDENTITY_DISPOSITION.json",
+      "bytes": 3523,
+      "sha256": "fe0ac1db2499a2ec73456d50a9a8f57df4cf70ac23c1ccbc8ec375882f7b9497"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/ROOT_POLICY_HOW_SELECTION.json",
+      "bytes": 3891,
+      "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/ROOT_SCOPE_CLARIFICATION.json",
+      "bytes": 1397,
+      "sha256": "22bb0fd012df55c925623c256118596ce5e38d0c345da986fa7b8c0136d73647"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/ROOT_SELECTION.json",
+      "bytes": 7544,
+      "sha256": "dd2fd4b091990e326740b06849321542f9bdb6a85ed23fa8ed92d6ad1503bd7e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/TASK.md",
+      "bytes": 6605,
+      "sha256": "dcb648baf9de7740cdb2667ba3e50d7572324c6038da5328cfc91d0a5137fc4e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/c2-proof.mjs",
+      "bytes": 3330,
+      "sha256": "0d08e420afdb8259f6b4d6a0edc6a2fe7b8692da811c7a6334a4dd81d938213e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/rubric.json",
+      "bytes": 4044,
+      "sha256": "553e2301669b92ac2c54ae0ba5d89ad24f08850bbe037b8c458459b329065556"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-01/source-correspondence.mjs",
+      "bytes": 2375,
+      "sha256": "7610714960baa2b0ab618af6d5664a2a002c329fed3e3a1a209322a8b07f2ca9"
+    }
+  ],
+  "automaticRetry": false,
+  "qualification": false,
+  "meaning": "One native Q23 component construction/Testing/UAT under installed RC6, exact preflight and declared scope. No formal release qualification claim."
+}

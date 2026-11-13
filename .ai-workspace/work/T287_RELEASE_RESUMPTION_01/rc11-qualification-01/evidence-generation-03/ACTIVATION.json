@@ -1,0 +1,60 @@
+{
+  "id": "RC11-NATIVE-FIXTURE-03",
+  "role": "External fixture proof-control Writer then conditionally admitted Operator",
+  "at": "2026-11-09T07:27:18.656646+00:00",
+  "issuer": "/root Executive",
+  "changeClass": "realization_refactor",
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "rootDecision": "After Product/Design/identity/integration/proof conjunction with independent reviewer trace, add executable-C-leaf predicate to existing test-helper legacy-single resolution gate. Validator correctly rejects C.retry wrapper as leaf. Established sufficient cause only, not proof every other validation disjunct passed.",
+  "predicate": {
+    "grant": "RC11-NATIVE-FIXTURE-03",
+    "from": "const resolutionCandidate = rootRows.length === 1",
+    "to": "const resolutionCandidate = rootRows.length === 1 && gtl.isExecutableCLeaf(node.term)",
+    "classification": "test-helper realization_refactor only",
+    "basis": "Root conjoined independent cause trace: legacy single resolution requires actual executable C leaf; complete setvalidation and joins remain required."
+  },
+  "rootScope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_SCOPE.json",
+    "bytes": 7770,
+    "sha256": "96771f46109ffd8fe96316e47a2f7174f4898d58edcbd3998e703def8ce3855f"
+  },
+  "rootReprice": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_REPRICE_01.json",
+    "bytes": 3254,
+    "sha256": "596ee32800d6173c5dcb5224d6deb688533905c77bd564252a04b79b23c351e9"
+  },
+  "priorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/FAILURE.json",
+    "bytes": 1816,
+    "sha256": "1e6cf61759500041d87a14693b53c779d47be7ed1f51fa27f5d98e2b81aabb73"
+  },
+  "priorRecovery": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/recovery-native-failure-001/RECOVERY.json",
+    "bytes": 1537,
+    "sha256": "31d9d5f1cfb39672bc2092e99a5a1a5cb988252b8c87a609a4ef197afec52f53"
+  },
+  "priorRecoveryReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/recovery-native-failure-001/RETURN.json",
+    "bytes": 2374,
+    "sha256": "7d5b55ff67790e5dfdda417c8be3dcaa81212069335e7545472a8141aeb1819d"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-03",
+  "conditionalExecutionGrant": "One native-assessment03 after byte-equal4runtimecontrols, exactlydefinedhelperchange, immutable source/build/dependencies conserved, static selfresolutionRC10, actual02recoveryclosed, no03raw/output. Record READY pins and admission and notifyRoot before start; no new roundtrip required.",
+  "bounds": {
+    "callerMaximumMs": 1050000,
+    "hostMaximumMs": 900000,
+    "groupGraceMs": 5000,
+    "pollMaximumMs": 50000,
+    "actorAbsoluteMs": 120000,
+    "actorInactivityMs": 60000,
+    "actorGraceMs": 1000
+  },
+  "excluded": "No selected-action rerun, paid provider/network, C10/C11 source edits, Product/runtime/validator/fixtureProgram/oracle changes, extra attempt, staging, cleanup or acceptance. Failure stops and returns.",
+  "independentClosedTrace": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/reviews/native-setup-002/REVIEW.md",
+    "bytes": 9376,
+    "sha256": "282baa43c72cd8a1d7c206376f9caa9fe3f719045e6e95db84497c575d550e2a"
+  },
+  "conjunctionNote": "Review physical-closure-unknown describes pre-recovery02; Root conjoins actual recovery RETURN7d5b55ff and RECOVERY31d9d5f1. Recommendation is an adopted contribution, not independent acceptance of repaired03."
+}

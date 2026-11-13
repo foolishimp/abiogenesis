@@ -1,0 +1,65 @@
+{
+  "kind": "bounded_native_packet_preparation",
+  "role": "Separate operator Writer, not Product coding Worker or independent Reviewer",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "bytes": 4646,
+    "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+  },
+  "workspaceReentry": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/WORKSPACE_REENTRY_01.json",
+    "bytes": 2473,
+    "sha256": "768de1d1395e9497b3cc01b3514c25f72f98ea8a7bc99acbe9b43085a074eeaa"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/FIXTURE_TRIAGE.json",
+    "bytes": 3051,
+    "sha256": "022dfbb1e946412a5f11788bb424506580bb4475196f34a07dbb1fc471a0a630"
+  },
+  "basis": {
+    "definition": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "frame": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "outcome": "Prepare the smallest existing-owner native coding/test task to repair only N9-RETAINED-FIXTURE-01 against installed RC6, normally xhigh coding Worker, one at a time. Return exact controls for Root preflight/dispatch.",
+  "readGrant": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/AGENTS.md",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/stdo_abiogenesis.json",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/design",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/scripts",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/TARGETED_CONTROL_RETURN.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/workload.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_GRANT.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/prepare.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/dispatch.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/operator-client"
+  ],
+  "methodRoutes": "Exact selected skill relative references and selected STDO3.0.4 standards are authorized. Do not acquire another method or companion.",
+  "exclusions": [
+    "No raw provider thinking/text/tool-result/stdout acquisition; no bulk archive/log/scratch scan",
+    "No Product/test/HOW edits",
+    "No runtime setup/preflight/dispatch/provider/build/test execution",
+    "No duplicate SDK/interface/runtime or recreated default-library controller",
+    "No copying the prior157-file or entire-history context merely because it existed"
+  ],
+  "writeGrant": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01"
+  ],
+  "runtimeBinding": "Root prepares maintained RC6 SDK setup under ../runtime-001. Its actual summary/close handoff must bind final inputs before packet readiness; until available preserve explicit pending coordinates.",
+  "proofSizing": "The selected source change is a component-test premise. Prefer the existing compiled immutable RC6 for that component lane when its admitted C2 recipe supports this, avoiding a needless Product rebuild/pack. Use meaningful existing assertions, not a synthetic new test. Preserve limits if current legal C2 requires a broader preparation boundary.",
+  "nativeScope": "Only exact test premise repair, no feature/production/HOW changes; actor may read relevant producer/consumer code across the causal cone. Separate source evidence, author feedback, actual testing and acceptance.",
+  "host": "General tools available; access bounds are behavioral, no clean-family or technical sandbox claim.",
+  "returnFiles": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/PREPARATION_RETURN.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/HANDOFF.md"
+  ],
+  "return": "Root evaluates exact controls and any genuine unresolved owner/capability relation. Stop at prepared return; do not activate a Reviewer or native task."
+}

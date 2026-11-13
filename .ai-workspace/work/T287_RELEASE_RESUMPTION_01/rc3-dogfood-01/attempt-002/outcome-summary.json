@@ -1,0 +1,22 @@
+{
+  "ended": "2026-10-31T07:40:58.678Z",
+  "exitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "blocked",
+  "run": {
+    "digest": "sha256:88bc954819b76d3c190cd4eac1d65d065a3d37868a33ddac3f14d1fdd0a52b41",
+    "ref": "run://abiogenesis/45af15ca3f2cbb3c68aa2dad02849b4c77e062c7ea347fa70d30adb0c23189dd"
+  },
+  "terminal": null,
+  "reads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "refusal"
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result"
+    }
+  ],
+  "qualification": false
+}

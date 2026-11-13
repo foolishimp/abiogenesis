@@ -1,0 +1,11 @@
+{
+  "kind": "single_address_space_workspace_import_authority",
+  "status": "ROOT_AUTHORIZED_FRESH_IMPORTED_WORKSPACE",
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis-single-address-space",
+  "sourceCommit": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+  "authorizedActorRef": "actor://abiogenesis/operator/codex-root",
+  "createPolicy": "imported",
+  "preservationPolicy": "preserve_all_existing",
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TRIAGE_AND_SELECTION.md",
+  "nativeDispatch": false
+}

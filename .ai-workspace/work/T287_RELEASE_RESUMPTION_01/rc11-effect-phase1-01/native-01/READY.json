@@ -1,0 +1,89 @@
+{
+  "status": "PHASE1_FRESH_SETUP_READY_NATIVE_HELD",
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/ROOT_SCOPE.json",
+    "bytes": 3541,
+    "sha256": "b7339f2b7304b9fb8bc75ecc945ed1aff6091b4e02b56a75f5bfda53647ad1bd"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/TASK.json",
+    "bytes": 9921,
+    "sha256": "21ecfddf911c4c269ec4f2200892b55b65211bc9cefd044af1bb5c505895a966"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/BINDING.json",
+    "bytes": 15048,
+    "sha256": "a23311096f67881738a022d5869b726053cfa4d23d03b3646f4396efb678554d"
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/host.mjs",
+    "bytes": 13807,
+    "sha256": "f4334c52a59d0eb8102768132e9e1032d3e35d9d190ea576b7e9e5d09d533aa0"
+  },
+  "hostDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/HOST_DELTA.diff",
+    "bytes": 4370,
+    "sha256": "4aa9db0ffa660d3a4d4da83f082da5dd656bedfc472c2de17eea96678a5017d2"
+  },
+  "transportPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/TRANSPORT_PREFLIGHT.json",
+    "bytes": 1072,
+    "sha256": "1e5a4d8611aa1a3ecc05a6598b417638170184aca6b4c96126b9c5fde8cffd96"
+  },
+  "context": {
+    "fileMembers": 32,
+    "sourceMemberBytes": 1517650,
+    "absentTargets": [
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs"
+    ],
+    "instructionUtf8Bytes": 6158,
+    "taskJsonBytes": 9921,
+    "renderedBytes": "Measured by installed renderer at actual PREPARED",
+    "maxContextFiles": 80,
+    "maxContextBytes": 8388608
+  },
+  "syntax": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/host.mjs",
+        "bytes": 13807,
+        "sha256": "f4334c52a59d0eb8102768132e9e1032d3e35d9d190ea576b7e9e5d09d533aa0"
+      },
+      "exitCode": 0
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/transport-preflight.mjs",
+        "bytes": 1458,
+        "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+      },
+      "exitCode": 0
+    }
+  ],
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/SOURCE_INVENTORY.json",
+    "bytes": 294548,
+    "sha256": "98a84890cf6f04c7552356404aead51784446fcf5f25f22d1b99f5e520a0d8cf"
+  },
+  "sourceDigest": "804eaa90bedbb77ff40ea69fecc26f66d03db765c564fd9337235add20702ed0",
+  "writePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-publication-observer.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs"
+  ],
+  "setupBudgetMs": 900000,
+  "setupPerCommandMs": 300000,
+  "reserveBytes": 4294967296,
+  "freeBytes": 385046827008,
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-01/runtime-001",
+  "scratch": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase1-01/native-01",
+  "tty": true,
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "nextOwner": "Root consumes actual PREPARED and admits paid dispatch separately."
+}

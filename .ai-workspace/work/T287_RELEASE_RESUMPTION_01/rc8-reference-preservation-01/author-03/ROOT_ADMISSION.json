@@ -1,0 +1,112 @@
+{
+  "status": "ROOT_ADMITTED_NATIVE_DISPATCH",
+  "recordedUtc": "2026-11-07T04:22:14.605095+00:00",
+  "activation": "Separate Operator Writer activation from exact Executive author03 admission; feed one pin to the existing held call only",
+  "bindingSha256": "781d805351dcab39fdccf59b87e8538afe7accd3870e315e42f5900d03975114",
+  "preparedSha256": "edb1c5ff82bf7f579a27f45a73dab60c22907ae844b665aa46ff1e264fe72ea0",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/BINDING.json",
+      "bytes": 3620,
+      "sha256": "781d805351dcab39fdccf59b87e8538afe7accd3870e315e42f5900d03975114"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/runtime-001/PREPARED.json",
+      "bytes": 6174,
+      "sha256": "edb1c5ff82bf7f579a27f45a73dab60c22907ae844b665aa46ff1e264fe72ea0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SCOPE.json",
+      "bytes": 7102,
+      "sha256": "757afe1a967d7b3f07d23c225beac1a4d75b90811548cad4fabd61781111d098"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/TASK.json",
+      "bytes": 10079,
+      "sha256": "e55a0164fc3592bb2a73f6e23b10acc2f16250409d5a62a2283a2ec6cf724fe7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/host.mjs",
+      "bytes": 12242,
+      "sha256": "a1ee90828a5b4bfda1de6cc17d6f4b29e4425e98e26d35ae4599fa9bed099b45"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/proof.mjs",
+      "bytes": 7049,
+      "sha256": "88079977af71de5efbd5577302842629e386887799e548ec186fc9df67604667"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/PREPARATION.json",
+      "bytes": 4584,
+      "sha256": "966dada790b4cdedda8ba1fa43016bf838fb91c653b3ff019458ef25e5b19f0b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/CONTROL_FREEZE.json",
+      "bytes": 1862,
+      "sha256": "7cc5150387af15229daee4967ecbf3b98a5c4b2a3d538f014651cf9ead9ffbaa"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/stage-03/source-freeze.json",
+      "bytes": 293777,
+      "sha256": "5805c757c7baca31e4b81b7775c5210d84a87c5a11238360e50f6587f7aebf6a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/runtime-001/resource-close.json",
+      "bytes": 2305,
+      "sha256": "d62c0b72fa45809c1d06cafc81483206e7d17f341fbdac9b155bdcd2203023a6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/source-002/REVIEW.json",
+      "bytes": 35488,
+      "sha256": "44359f5a2f1fa5fc054ed35af97f529ea15701201fc311fd0d47681b04b0d98d"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uozznezy/author-02-proof/lane-01/commands/test.stdout",
+      "bytes": 2031,
+      "sha256": "e44728b0c890897e0831761e7fdc23e395a229e894b08112f0417e18be0389c0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-02/OPERATOR_RETURN.json",
+      "bytes": 12455,
+      "sha256": "9cc782e4d408ee48db76f669b1e6ef91104ea47a59bc4f58c2839ebb6914a59b"
+    }
+  ],
+  "rootDisposition": "Root read final scope/task/binding, exact host/proof diffs and actual PREPARED; admits this one existing held call. Stage03 remains withheld under RC8-SOURCE-003. Select the narrow existing Product-input owner handoff of actual canonical constructor output, not a new trust protocol/re-walk/registry. Raw canonical ingress and Product semantic guard/currentness/effects remain.",
+  "scope": {
+    "rootGrant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-03/ROOT_SCOPE.json",
+      "bytes": 7102,
+      "sha256": "757afe1a967d7b3f07d23c225beac1a4d75b90811548cad4fabd61781111d098"
+    },
+    "native": "One Claude Opus5.5 xhigh Worker",
+    "absoluteTimeoutMs": 2400000,
+    "sourceStages": [
+      "stage-04"
+    ],
+    "remainingSerialFocusedInvocations": 7,
+    "nextSuccessorLaneOrdinal": 2,
+    "perInvocationMs": 600000,
+    "reserveBytes": 4294967296
+  },
+  "readback": {
+    "sourceRowsVerified": 1338,
+    "sourceDigest": "b884ca1fe49d31b1fd2d3b6f8ade9c64fba911b83dc37fee069d74453cd4ff81",
+    "physicalLogBytes": 54572019,
+    "physicalLogSha256": "47916659c024fa449802684a93efd1eb1a2960755586e6d5139d3b09f70aa25d",
+    "physicalLogDevice": 16777231,
+    "physicalLogInode": 708868359,
+    "heldHostPid": 91601,
+    "ptySession": 41214,
+    "ownerCurrentness": "Existing held host asserts acquired selection current after consuming this pin and before dispatch; physical readback is evidence only."
+  },
+  "timing": {
+    "functionalPrepareMs": 22499.524374999997,
+    "hostPrepareMs": 23261.857791,
+    "preparedToAdmissionRecordMs": 50960.095,
+    "dispatchToActorStartMs": "pending actual actor event"
+  },
+  "sourceAccepted": false,
+  "qualified": false,
+  "additionalDispatch": false,
+  "cutInstall": false
+}

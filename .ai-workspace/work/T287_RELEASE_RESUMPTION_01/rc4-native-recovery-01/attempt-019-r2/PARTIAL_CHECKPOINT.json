@@ -1,0 +1,72 @@
+{
+  "status": "SOURCE_CUSTODY_ONLY_RC4_ID1_ACCEPTED_C2_RED_NO_CUT",
+  "recordedAt": "2026-11-03T01:48:35.378675+00:00",
+  "parent": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "commit": "45554d0be9b2b01d3b90867137c55bacb5a5f9da",
+  "tree": "0461e4d60afdc31c2a6a02c08021e9f7a2bd5210",
+  "branch": "codex/rc4-native-recovery",
+  "onlyCommittedPaths": [
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts"
+  ],
+  "subjectSha256": "89e7abe672385edc706037488e32a355237985cf0238450854e1b72a8b1e0be3",
+  "subjectDiffSha256": "ade7733cc3e3f450fb8f5b77ab8faf30071608e37a5e86f4fd3a410a6525acf2",
+  "sourceHashesConserved": true,
+  "trackedClean": true,
+  "quiescence": "Observed wrapper/provider PIDs absent; no matching lifecycle-start/helper owner processes found before commit.",
+  "finalResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r2/execution/after-run-resume.json",
+    "bytes": 99887476,
+    "sha256": "c542964bad333d804e8bf2f66518deeb44b3d7f843cb80af1a0d158feacbf8b3"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:cb949707fee8b9a9a40b8f2eae9f92d8dfce4a6b70ca2d708cf006fa38de4738",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:9a6ff804dabc33c74bc0eb1605667fad3ba84770e1b7935e250a985ed1fd95db",
+      "prefixLength": 704518010,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 681463484
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:90f3e083cb5491e517e78ea2ea1337f490cf98cdd97cf8c57e39245a4ad7a183",
+      "device": 16777231,
+      "durableByteLength": 704518010,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:9a6ff804dabc33c74bc0eb1605667fad3ba84770e1b7935e250a985ed1fd95db",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+      "inode": 681463484,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "closureEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r2/execution/outcome-summary.json",
+      "bytes": 550,
+      "sha256": "73468db5dd8b45a29668d85b81a79a6dbef8ead185f28d70783d4d97b6958e60"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r2/execution/fresh-reads.json",
+      "bytes": 2398,
+      "sha256": "847892f05755e698f2aa28c5b954713b977daa3c3bff2205341aebc595df87b7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r2/execution/installed-content-after-run.json",
+      "bytes": 2033,
+      "sha256": "bc559aecd11510cf8652955c048993d484d4eda946ba5db983afca4210700521"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-019-r2/execution/offline-dependency-after-run.json",
+      "bytes": 425,
+      "sha256": "08bd785ff5aa9795b4b042f477d24cf312e0a9f0525f8366bc6f26252bb80030"
+    }
+  ],
+  "standing": "Run blocked/no terminal; C2 six commands0 and identity inventory1, smoke1pass0skip, UAT not selected. No generated adoption, install, push, selector or release effect."
+}

@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "behaviors": [
+    "inspect_runtime_archive",
+    "escalate"
+  ],
+  "humanResponse": "reserved 5.1; not exercised"
+}

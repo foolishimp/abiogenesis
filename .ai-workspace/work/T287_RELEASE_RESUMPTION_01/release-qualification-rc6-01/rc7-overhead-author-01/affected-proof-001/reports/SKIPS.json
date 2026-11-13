@@ -1,0 +1,87 @@
+{
+  "kind": "actual_consumer_skip_standing",
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/affected-proof-001/commands/consumers.stdout",
+    "bytes": 34379,
+    "sha256": "2eac76cee0d3ad4092faeb56c46ddc39b21fc28dc38faf2d64c0e41ca00cce2f"
+  },
+  "skipped": 12,
+  "declaredHistorical": 5,
+  "outsideDeclaredHistoricalList": 7,
+  "predicate": false,
+  "cases": [
+    {
+      "tapNumber": 23,
+      "name": "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies",
+      "reason": "ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture",
+      "declaredHistoricalSkip": true
+    },
+    {
+      "tapNumber": 24,
+      "name": "native observation facts preserve captured history through preparation admission and complete assembly",
+      "reason": "ABI5_NATIVE_OBSERVATION_CAPTURE unset; requires the captured native observation fixture",
+      "declaredHistoricalSkip": true
+    },
+    {
+      "tapNumber": 34,
+      "name": "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+      "reason": "ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation",
+      "declaredHistoricalSkip": true
+    },
+    {
+      "tapNumber": 50,
+      "name": "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "reason": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "declaredHistoricalSkip": true
+    },
+    {
+      "tapNumber": 51,
+      "name": "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "reason": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "declaredHistoricalSkip": true
+    },
+    {
+      "tapNumber": 68,
+      "name": "closed resource forms retain nonempty group arrays and actual old embedded identities",
+      "reason": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "declaredHistoricalSkip": false
+    },
+    {
+      "tapNumber": 69,
+      "name": "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+      "reason": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "declaredHistoricalSkip": false
+    },
+    {
+      "tapNumber": 70,
+      "name": "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+      "reason": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "declaredHistoricalSkip": false
+    },
+    {
+      "tapNumber": 71,
+      "name": "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+      "reason": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "declaredHistoricalSkip": false
+    },
+    {
+      "tapNumber": 72,
+      "name": "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+      "reason": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "declaredHistoricalSkip": false
+    },
+    {
+      "tapNumber": 73,
+      "name": "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+      "reason": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "declaredHistoricalSkip": false
+    },
+    {
+      "tapNumber": 74,
+      "name": "full F11 input and scope output keep compact identities and whole-scope blocked findings",
+      "reason": "ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture",
+      "declaredHistoricalSkip": false
+    }
+  ],
+  "meaning": "The sanitized proof intentionally omitted external selectors. Actual current skips are preserved; unbound qualification-carrier cases have no pass credit and the lane skip predicate remains false."
+}

@@ -1,0 +1,22 @@
+{
+  "status": "ROOT_ACCEPTED_EXACT_FOUR_CASE_NATIVE_ASSESSMENT_PROOF",
+  "stdout": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-01/native-assessment/stdout.log",
+    "bytes": 547,
+    "sha256": "b7fa1f6e6928bb23abe3b25ec301fed854e9eea772a019d25c0d9cab3a009e92"
+  },
+  "actualReceiptWithParserFailurePreserved": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-01/native-assessment/RETURN.json",
+    "bytes": 2152,
+    "sha256": "5efc15c7479874162a15af2d84d597ccf9d6136bb820c5ea47a79189723c3da3"
+  },
+  "counts": {
+    "tests": 4,
+    "pass": 4,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "rootDisposition": "Root independently verified four expected named passes, complete spec counts, exit0, group absence and source/compiled guards; accepted this bounded proof. Original TAP-parser failure status retained as control error. No native test rerun."
+}

@@ -1,0 +1,145 @@
+{
+  "id": "RC11-NATIVE04-FINAL-RETURN",
+  "status": "actual_native_assessment_snapshot_ready_for_Root_review",
+  "at": "2026-11-09T07:56:51.280358+00:00",
+  "executionAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/ROOT_EXECUTION_ADMISSION_04.json",
+    "bytes": 1683,
+    "sha256": "313559d70750cf003e12d325a7688ed303f4c0b3ae9903db86f34946980752e3"
+  },
+  "ready": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/READY4.json",
+    "bytes": 6238,
+    "sha256": "8b4129667ddb4ea1e2b52a693e17e873c61a80fc769ff1aab9f2bd002e2d4963"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/CONTROLS.json",
+    "bytes": 16033,
+    "sha256": "ed78c1dcd579120aec2b87cfdfd4896c2be1f829b9d2dc6b6836d8866bfa32a9"
+  },
+  "snapshot": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/generated/native-assessment/events.jsonl.gz",
+      "bytes": 779443,
+      "sha256": "66162a9332dcabf7410d630551cdf12b4b272c70aa02d777f879a165a7fa8a2e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/generated/native-assessment/fixture.json",
+      "bytes": 8208,
+      "sha256": "2c3330b69ca39febeb0e01760a4b6f7bb1af1758b8b33f2dcc54eeb017e1ecb6"
+    }
+  ],
+  "prefix": {
+    "file": "events.jsonl.gz",
+    "bytes": 3467880,
+    "sha256": "0a381f83b731b54f64df27945a9906bc790ff628ce38e092d7df22ee73efa01e",
+    "compressedBytes": 779443,
+    "compressedSha256": "66162a9332dcabf7410d630551cdf12b4b272c70aa02d777f879a165a7fa8a2e"
+  },
+  "logicalEventCount": 79,
+  "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+  "runId": "run://abiogenesis/52dc79c4ae2cd3c5f180e0b2a341c3f4f296c7adf34b5d999dd01eb61c7222bb",
+  "actualClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/ACTUAL_CLOSURE.json",
+    "bytes": 18524,
+    "sha256": "4274b9a472698fbf33bac373e9c4d2ac6165043200de9e10a3ec8e68659faabd"
+  },
+  "ownerCloseHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/close-handoff.json",
+    "bytes": 1414,
+    "sha256": "e7ad822e9d9ae0e7bdf3fcb5419808c66ab722f1022dec1bce7ca85c20bc696e"
+  },
+  "completion": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/completion.json",
+    "bytes": 35014,
+    "sha256": "aa0a154be6693baaf775a945c3242d2cd17749795d42826d4a62f9e296aa3bad"
+  },
+  "generation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/GENERATION.json",
+    "bytes": 1186,
+    "sha256": "f03a15d2f8c64f7c6e22fdb4d3a9ff01473f2964603110176e67b7900042419c"
+  },
+  "hostTermination": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/HOST_TERMINATION.json",
+    "bytes": 154,
+    "sha256": "d836b45a1ec9ebe9e8da0b3d5ca5893bfe5c117394dced500fce78021268a6bf"
+  },
+  "controllerReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/RETURN.json",
+    "bytes": 757,
+    "sha256": "4ed11022cbaffbd4dbea2528b6327d0c1d3b88959d7435f10c9a49a293b0a7bd"
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/request.json",
+    "bytes": 1399,
+    "sha256": "ad92c8662d50dd7c4170b25b6dcadd64acddc1a070d9294dd3fe45c57963999e"
+  },
+  "setup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/raw/native-assessment/setup.json",
+    "bytes": 1727,
+    "sha256": "1bb52e44a96ae1884b8756d0a68c8843a01dc809ea5e3d629756276b063ce4cc"
+  },
+  "closureSummary": {
+    "hostPid": 52202,
+    "hostExitCode": 0,
+    "hostPidAndGroupAbsent": true,
+    "timedOut": false,
+    "controllerSignals": [],
+    "actorPids": [
+      52653,
+      52661
+    ],
+    "actorPidsAbsent": true,
+    "eachActorExitStatus": 0,
+    "eachActorTerminationConfirmed": true,
+    "eachActorFinalOutput": "{not-json",
+    "eachNativeAssessment": "rejected",
+    "failureClass": "contract_failure",
+    "storeLockAbsent": true,
+    "physicalReadMatchesCurrentDecoderAndSnapshot": true,
+    "completionDisposition": "blocked",
+    "runStoppedEventRef": "event://abiogenesis/a4e5b5ea81a54714ab02dcb3470b85603343a771a09e094c9bb6fa4f9c2af32c",
+    "runClosedEventRef": null
+  },
+  "conservation": {
+    "sourceInputs": true,
+    "fourRuntimeScripts": true,
+    "all5121InstalledBuildDependencyFiles": true,
+    "selected02Snapshot": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/events.jsonl.gz",
+        "bytes": 823504,
+        "sha256": "b86084dc4a61fc84f0231e20d76b9d91c236ed7a7fa34b7436ed489d8ab21f4d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/generated/selected-action/fixture.json",
+        "bytes": 11153,
+        "sha256": "1712be167cf4ef6cb97bf9e8f11271afed44bdeb4e9e012dbc12341e433b6743"
+      }
+    ],
+    "previousSubjectsPreserved": true
+  },
+  "producerProvenance": {
+    "runtimeBuilder": "Immutable installedRC10/archive1354b327, sourcecommit93a0de75/tree27489cb8.",
+    "externalConstruction": "Exact04executionview includes two declared source preimage/view deltas; generated manifest producer C10 identifies runtime/source basis, not a claim that corrected fixture helper bytes belong to the original C10 source cut.",
+    "deltas": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/HELPER.diff",
+        "bytes": 511,
+        "sha256": "d15f69a28c19434fddf53abb38cea06d8fc4aba616659c8340d6db696bded82c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/LEAF.diff",
+        "bytes": 3695,
+        "sha256": "11fce4538ce16a784fe5523704e061ea82dc5b6187665833b3ea79fdd986297f"
+      }
+    ],
+    "sourceTransform": "Existing result_text addition before independent fixture package/manifest identity; setup and retained install evidence bind actual new fixture."
+  },
+  "scope": "Current-owner native-assessment component fixture with full original physical prefix, actual request/source/result/judgment/terminal identities and two recorded actor closures. No whole-Run retry-exhaustion, universal descendant, optional physical-selector, qualification, staging or acceptance claim.",
+  "paidProviderCalls": 0,
+  "selectedActionRepeated": false,
+  "sourceOrProductMutation": false,
+  "candidateStaging": false,
+  "additionalAttempt": false
+}

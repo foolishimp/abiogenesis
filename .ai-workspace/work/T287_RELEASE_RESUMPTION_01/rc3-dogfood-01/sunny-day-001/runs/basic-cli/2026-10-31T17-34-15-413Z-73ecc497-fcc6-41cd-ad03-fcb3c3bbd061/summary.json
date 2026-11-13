@@ -1,0 +1,9 @@
+{
+  "scenario": "basic-cli",
+  "runId": "2026-10-31T17-34-15-413Z-73ecc497-fcc6-41cd-ad03-fcb3c3bbd061",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-34-15-413Z-73ecc497-fcc6-41cd-ad03-fcb3c3bbd061",
+  "mode": "prepare",
+  "status": "prepared",
+  "uatPass": false,
+  "reason": "Clean Public install and generic lifecycle request resolved; no provider dispatch or UAT result"
+}

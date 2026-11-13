@@ -1,0 +1,97 @@
+{
+  "source": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "bytes": 45742,
+    "sha256": "59fa9dc768b052149ee036577a23d60a55c1747b75337aebdce61027c20a6918"
+  },
+  "blocks": [
+    {
+      "name": "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+      "bytes": 1216,
+      "sha256": "2c6a4fc203f91390428290bfe73f70588ddb4a54d401e4851037d4ce8a72b41f"
+    },
+    {
+      "name": "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+      "bytes": 1010,
+      "sha256": "56f7dc61e77274f557ffcc265da1259729f9ede88653770ce15ac7bba230c6e6"
+    },
+    {
+      "name": "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+      "bytes": 1222,
+      "sha256": "a34cebfb4b8a2bc61a9ffce168314f3a4bddc34379044d417db59a14ab0c6248"
+    },
+    {
+      "name": "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+      "bytes": 1404,
+      "sha256": "69311f784a1d32a2b10c678e6a47922dbf33724b357d32f50413fe5f87948a71"
+    },
+    {
+      "name": "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+      "bytes": 1982,
+      "sha256": "fda0d51e658961fe768773228a241183b7cfdf09d9b98a427f779fd2fba17ed7"
+    },
+    {
+      "name": "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+      "bytes": 3991,
+      "sha256": "2e577e456b1b86c3c82c0482e73d420e53373f162221a7603b3ebe804474c560"
+    },
+    {
+      "name": "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+      "bytes": 1463,
+      "sha256": "5a7babae946092a1a5b4eabd2c59632e1bb66657b41e50305afa09dc8ab07bcf"
+    },
+    {
+      "name": "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+      "bytes": 2287,
+      "sha256": "35038577ef6bd1bbe3f43dccde509ce95b0ca54b46af1fefc01339c3a88ad6d1"
+    },
+    {
+      "name": "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+      "bytes": 1126,
+      "sha256": "d4c4c4e51d1c5c6c4cdcfbda84d31b54f518b38528b56289a8e1102830489b7d"
+    },
+    {
+      "name": "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+      "bytes": 1536,
+      "sha256": "a9b5aa25b86da49f72c2464a4af30049fa8a8e808d4e8a8f49538129a9f6285d"
+    },
+    {
+      "name": "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+      "bytes": 2226,
+      "sha256": "012a3923fd4e81895120310a3b9ba49ab424e0545e90f9f9dda23f3f54c79bce"
+    },
+    {
+      "name": "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+      "bytes": 2338,
+      "sha256": "3dc2d5fcf7a24ba3e0f6b0f5b10bb2ed0d21b9d5712e0d9acd9004a1891590b6"
+    },
+    {
+      "name": "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+      "bytes": 3432,
+      "sha256": "99a1c9e0800975cbf3d9299e01ea51e79b1d3576e1c64f5556c84005520c0997"
+    },
+    {
+      "name": "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+      "bytes": 1214,
+      "sha256": "c8a0c75cf45bfe048c36126c7c08d89946d8df11b5027809da3d17fd78cd3299"
+    }
+  ],
+  "handback": {
+    "name": "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+    "orders": [
+      "error-exit",
+      "exit-error"
+    ],
+    "scopes": [
+      "absent",
+      "present",
+      "unknown"
+    ],
+    "observerFails": [
+      false,
+      true
+    ],
+    "combinations": 12,
+    "proof": "Unchanged exact finite2x3x2loop plus whole testcase pass; no per-iteration diagnostic instrumentation added or required."
+  }
+}

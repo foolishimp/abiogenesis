@@ -1,0 +1,64 @@
+{
+  "status": "PREPARATION_ONLY_COMMIT_REPRODUCTION_INSTALL_HELD",
+  "precedent": {
+    "run-local-cut.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/run-local-cut.mjs",
+      "bytes": 30160,
+      "sha256": "9179188b656f119b669880c32081c5ab01629376ea21c5c80c74e393c8d88cf0"
+    },
+    "install-local-rc10.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/install-local-rc10.mjs",
+      "bytes": 7385,
+      "sha256": "0f0875d8d36eb7f7c373962dd2dc6fd5fdac3f45201d559cb65d26676dfe9687"
+    },
+    "exact-artifact-correspondence.py": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/exact-artifact-correspondence.py",
+      "bytes": 1322,
+      "sha256": "3089de86f40fad23c68026862ba84c38dd52f19b46c905edf57d9a83491d2c03"
+    },
+    "OWNER_AND_TOOL_PINS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/OWNER_AND_TOOL_PINS.json",
+      "bytes": 5006,
+      "sha256": "83c430a888b56cba611ae37e5b185fe13603a0c1e40cec0ef32af6abea41eaad"
+    },
+    "BUILD_BINDINGS.prepared.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/BUILD_BINDINGS.prepared.json",
+      "bytes": 6396,
+      "sha256": "c57960d2a97dcc41aac331f02f8112f0bf4233189815e651e1fb94fd6c174847"
+    },
+    "INSTALL_BINDINGS.prepared.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/INSTALL_BINDINGS.prepared.json",
+      "bytes": 2087,
+      "sha256": "1fe4fc0d9ef3adbc8493ba0a1a637770a4d80a5e13fc758716f9d95c3d1e1620"
+    }
+  },
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/local-cut-01/SOURCE_SELECTION.json",
+    "bytes": 2808,
+    "sha256": "63e30afbafbe4f37653adfff355eb1744f901ff3005e150a0367342e2dba3a29"
+  },
+  "worktree": "/private/tmp/abg-rc11-qualification-20261109",
+  "branch": "codex/rc11-qualification",
+  "baseCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "requiredAdaptations": [
+    "Use source-freeze sourceRoot/frozenRoot fields; never assume source key.",
+    "Commit only exact14 selected paths,6new,0deleted; no new worktree or identity rewrite.",
+    "Clean reproduction must exactly equal retained tested-tree candidate archive and every member; no replacement archive.",
+    "Use installedRC10 builder/dependency/seed provenance; no RC9 construction confusion.",
+    "Keep source/packaging acceptance, commit/reproduction and release/install admissions unbound pending Root."
+  ],
+  "prospectiveReleaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11",
+  "prospectiveInstallRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11",
+  "effectsHeld": [
+    "git index/commit",
+    "clean reproduction build",
+    "release/install allocation",
+    "installed owner verification"
+  ],
+  "preservation": [
+    "main HEAD/index/tracking",
+    "RC10 operational pin/archive/install",
+    "all old evidence/control failures",
+    "no merge/push/tag/global selector"
+  ]
+}

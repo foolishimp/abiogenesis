@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/host.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/BINDING.FINAL.json",
+    "98ebd56cb07423f7fde5169dc8ec30a26c8e323635913359e0d566710b325a20",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/ROOT_SETUP_ADMISSION.json",
+    "cda9f15fddecef13bd6eab0740cfc5dfb588c12c34909255e540c42f0e44e343"
+  ],
+  "tty": true,
+  "status": "ONE_SETUP_NOT_YET_LAUNCHED"
+}

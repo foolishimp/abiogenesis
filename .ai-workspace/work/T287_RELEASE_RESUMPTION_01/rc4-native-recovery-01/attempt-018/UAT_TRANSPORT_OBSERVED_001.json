@@ -1,0 +1,16 @@
+{
+  "physicalOffset": 567390799,
+  "physicalBytes": 1245391,
+  "admissionOrdinal": 28973,
+  "eventTime": "2026-11-02T23:29:09.205Z",
+  "actorRef": "actor://abiogenesis/worksite/native-work@5",
+  "cCallRef": "c-call:sha256:d24f62272850ba45c7b2136f2291afd472677bebc53995820e12a4fa71832dc9",
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-84e17db0eb8ce31e-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-84e17db0eb8ce31e-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-84e17db0eb8ce31e-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-84e17db0eb8ce31e-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/archives/fp-84e17db0eb8ce31e-transport.json"
+  },
+  "promptDigest": "sha256:8056845cdde032f3a5d1815c8bc5d6d71e8c3bd07f4f57cd93850f63fed0ccec"
+}

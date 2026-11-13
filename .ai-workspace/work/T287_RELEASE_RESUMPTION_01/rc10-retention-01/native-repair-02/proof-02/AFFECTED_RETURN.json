@@ -1,0 +1,204 @@
+{
+  "status": "PASSED_ALL_SIX_WHOLE_FILES",
+  "result": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/affected-01/RESULT.json",
+    "bytes": 4851,
+    "sha256": "65412e60b1982b08587c3f277f1e47c151b130d2fd20a0184aad51cbd0713cc7"
+  },
+  "reporter": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof/affected-01/events.jsonl",
+    "bytes": 18269,
+    "sha256": "62369898a570207c0d406bcf5a819b7cb047a62c3e0704d2269f83523305cb4b"
+  },
+  "sourceDigest": "f242bd4d6f97b99dc6d3fdaa49025bb461fbbaa957fc5ef09c789bff1f223806",
+  "counts": {
+    "tests": 58,
+    "failed": 0,
+    "passed": 56,
+    "cancelled": 0,
+    "skipped": 2,
+    "todo": 0,
+    "topLevel": 58,
+    "suites": 0
+  },
+  "fileCompletion": [
+    {
+      "file": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "summaries": 1,
+      "complete": true
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "summaries": 1,
+      "complete": true
+    },
+    {
+      "file": "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "summaries": 1,
+      "complete": true
+    },
+    {
+      "file": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "summaries": 1,
+      "complete": true
+    },
+    {
+      "file": "test_env/tests/runtime-scope-regressions.test.mjs",
+      "summaries": 1,
+      "complete": true
+    },
+    {
+      "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "summaries": 1,
+      "complete": true
+    }
+  ],
+  "wholeFileSummaries": [
+    {
+      "ordinal": 20,
+      "type": "summary",
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "counts": {
+        "tests": 19,
+        "failed": 0,
+        "passed": 18,
+        "cancelled": 0,
+        "skipped": 1,
+        "todo": 0,
+        "topLevel": 19,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 314943.574042
+    },
+    {
+      "ordinal": 48,
+      "type": "summary",
+      "file": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "counts": {
+        "tests": 27,
+        "failed": 0,
+        "passed": 26,
+        "cancelled": 0,
+        "skipped": 1,
+        "todo": 0,
+        "topLevel": 27,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 81247.933417
+    },
+    {
+      "ordinal": 50,
+      "type": "summary",
+      "file": "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 74565.32
+    },
+    {
+      "ordinal": 58,
+      "type": "summary",
+      "file": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "counts": {
+        "tests": 7,
+        "failed": 0,
+        "passed": 7,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 7,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 61.189917
+    },
+    {
+      "ordinal": 61,
+      "type": "summary",
+      "file": "test_env/tests/runtime-scope-regressions.test.mjs",
+      "counts": {
+        "tests": 2,
+        "failed": 0,
+        "passed": 2,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 2,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 147394.801083
+    },
+    {
+      "ordinal": 64,
+      "type": "summary",
+      "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "counts": {
+        "tests": 2,
+        "failed": 0,
+        "passed": 2,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 2,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 118095.120417
+    }
+  ],
+  "explicitSkips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "nominal prefix reuse preserves full historical EC and replay including fresh process",
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 42,
+      "type": "case",
+      "passed": true,
+      "name": "TD-23 (c) the retained S01 store keeps its historical prefix through rows that straddle 64 KiB reads",
+      "file": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "nesting": 0,
+      "testNumber": 41,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl (sha256:3d4adcf61633)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "wallMs": 738193.579916,
+  "command": {
+    "exitCode": 0,
+    "signal": null,
+    "failure": null,
+    "timedOut": false,
+    "truncated": false,
+    "wallMs": 738193.579916,
+    "receipt": "commands/affected.result.json"
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-repair-02/proof-02/FINAL_CONSERVATION.json",
+    "bytes": 2499,
+    "sha256": "b8d6fb0a0de0595184003eb3c28d341ec8d3a7f5c19de64c64f49d242dd4c897"
+  },
+  "standing": "Six selected unfiltered files only. Explicit skips and historical capsules remain open; no full qualification claim."
+}

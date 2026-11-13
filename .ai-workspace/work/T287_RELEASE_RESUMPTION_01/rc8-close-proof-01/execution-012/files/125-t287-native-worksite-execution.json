@@ -1,0 +1,81 @@
+{
+  "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+  "kind": "executed",
+  "passed": false,
+  "wallMs": 9347.672999999952,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 7,
+    "failed": 4,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 3,
+    "todo": 0,
+    "topLevel": 7,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "native source selection preserves complete values and exact membership across long producer history and cold coordinates",
+      "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": "ABI5_NATIVE_SOURCE_READY_CATALOG unset; requires the supplied native source-ready catalog",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "retained actual native producer joins C2 source admission; absent and foreign origins refuse",
+      "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": "ABG_NATIVE_EXECUTION_RETAINED_LOG unset; requires the retained native producer event log",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "native source currentness includes admitted failed-write residue after the child basis cut",
+      "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": "ABG_NATIVE_EXECUTION_RETAINED_LOG unset; requires the retained native producer event log",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-012/events/125-t287-native-worksite-execution.jsonl",
+    "bytes": 7359,
+    "sha256": "86b1b0ff6ca6c37758ad0e4927b8cd2ea5be07a551c04122f96fde6c865fa3b7"
+  },
+  "commandReceipt": "commands/125-t287-native-worksite-execution.result.json",
+  "workspace": "/private/tmp/abg-r8c-012/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+      "kind": "file",
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

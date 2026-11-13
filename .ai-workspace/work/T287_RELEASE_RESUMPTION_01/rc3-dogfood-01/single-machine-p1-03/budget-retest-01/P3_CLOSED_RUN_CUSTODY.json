@@ -1,0 +1,73 @@
+{
+  "freshReads": {
+    "run_replay": "result/blocked",
+    "run_result": "refusal/not_found",
+    "terminal": null
+  },
+  "kind": "p3_closed_failed_run_custody",
+  "nativeStop": {
+    "admissionOrdinal": 15998,
+    "eventTime": "2026-11-01T07:56:54.607Z",
+    "reason": "recursion/bound-exhausted"
+  },
+  "physicalCheck": {
+    "bytes": 2720064402,
+    "device": 16777231,
+    "digestOrigin": "Actual returned coordinate plus existing runner fresh-read unchanged-prefix checks; no new independent full-log hash claimed",
+    "inode": 669167670,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/events/runtime.events.jsonl"
+  },
+  "priorFailedC2": {
+    "bytes": 9017,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/c2-helper-custody/CUSTODY.json",
+    "sha256": "63e31fedbf9740205dc25038a06f3325728c8b02a27a6cbd3a647d4dad872b13"
+  },
+  "publicOutcome": {
+    "RootConfirmedClosedAt": "2026-11-01T08:05:19.217Z",
+    "disposition": "blocked",
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "qualification": false,
+    "terminal": null
+  },
+  "records": {
+    "after-run-resume.json": {
+      "bytes": 60950181,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/after-run-resume.json",
+      "sha256": "7a30fcca0ff649419ba936c291969cf9f6d1ca9964a747daf2e389ac8b480ee3"
+    },
+    "execution.json": {
+      "bytes": 34916380,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/execution.json",
+      "sha256": "683a000441444b0ec472dcc85cf106d8193aca8748b38691189c18006aefaa3b"
+    },
+    "fresh-reads.json": {
+      "bytes": 2411,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/fresh-reads.json",
+      "sha256": "9e427fbb3765ee35678d07112e66702be81835fa28795406ffc6a0e9f24dc181"
+    },
+    "outcome-summary.json": {
+      "bytes": 361,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/outcome-summary.json",
+      "sha256": "4cd617a5f6251ecc9c804880e44f4e5d24c1184cc57895df6da2d111a5788e8a"
+    }
+  },
+  "returnedPrefix": {
+    "coordinateDigest": "sha256:c297e64ceb0ff9ca55483ed17047d6e2197c97fea3826897419db3247c3ce8d2",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:3afcfdda9ab6254ffa52ef971e84102e9bd23990943b785cead1ea0844c5561e",
+    "prefixLength": 2720064402,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 669167670
+    }
+  },
+  "run": {
+    "digest": "sha256:6c15377ddf7e4ef1057d12cab0817bdebf2ba223bbbc6fb54d1ba5658c6ef448",
+    "ref": "run://abiogenesis/e6ee3d50951b8ff6ef88ba2cf19090e9c24f3387d70b32d9a5e99907b4fc4df5"
+  },
+  "sourceStanding": "First/second native source equal; blocked Run not qualified; no historical verdict altered"
+}

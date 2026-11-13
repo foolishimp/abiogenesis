@@ -1,0 +1,92 @@
+{
+  "status": "MISSING_HS03_PROOF_INPUT_BOUND",
+  "at": "2026-11-07T06:21:22.877345+00:00",
+  "executive": "/root",
+  "operator": "/root/rc8_operator",
+  "rootDisposition": "One continuation006 is conditionally selected for this exact missing proof input; no further GO. Stop first red/incomplete/resource/authority/input mismatch; no retry.",
+  "rootTriage": "Integration/proof preparation defect: explicit environment omitted the historical oracle required by calculus-fold1194\u20131195 before bytes/hash or body. Product/design source unchanged. Current tests synthesize recorded-length chunks and admit new current events; historical metadata is not an imported/restamped event stream.",
+  "oracle": {
+    "testFile": "test_env/tests/t287-calculus-fold.test.mjs",
+    "environmentVariable": "ABI5_HS03_STREAM_METADATA",
+    "metadata": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/metadata.json",
+      "bytes": 46684229,
+      "sha256": "2c9328e4abb8e25f8fbfc7a1e4574e481fb5889bf17bc04108f2571d2d3536b9"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+      "bytes": 3196,
+      "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+    }
+  },
+  "historicalSelectionRoute": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-03/activation-001/inputs/EXTERNAL_READ_INPUTS.json",
+    "bytes": 3715,
+    "sha256": "4dd77e6be055b27fc4d6ce4f8ba970769996565c2fa62b37ac2e4f184f7f3b21"
+  },
+  "consumerPinMatches": true,
+  "consumerPin": {
+    "bytes": 46684229,
+    "sha256": "2c9328e4abb8e25f8fbfc7a1e4574e481fb5889bf17bc04108f2571d2d3536b9"
+  },
+  "predecessorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_005.json",
+    "bytes": 9372,
+    "sha256": "bdd0b8caee3345dd8b4df06959afbaaf61ae504e1a9745c1fed828b73ee43f40"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-006.mjs",
+    "bytes": 25815,
+    "sha256": "6fceaed4185bdb897cf175269ce21b0e67f0956221406bd5717ddc71352e2c12"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/STAGE04_CLOSE_BINDINGS_007.json",
+    "bytes": 110151,
+    "sha256": "decb2fbe7c97d5ee33945ad788d88bd01b37e24676405deba41ef55403ed81e6"
+  },
+  "changes": [
+    "Pin/check metadata and adjacent manifest by read-only reference only",
+    "Set ABI5_HS03_STREAM_METADATA only for calculus-fold through existing commandRecorder/file-host and retain binding",
+    "Preparation/usage version names and fresh roots",
+    "Exactly4complete execution005 files add46passes; prior23passes in failed calculus file remain partial"
+  ],
+  "syntax": {
+    "command": "node --check close-proof.corrected-006.mjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  "bind": {
+    "count": 1,
+    "exitCode": 0,
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-007/BOUND_INVENTORY.json",
+      "bytes": 1785300,
+      "sha256": "45dfcadf337a23342919228fe52989f3e64efb9dba04b79fd25309701c91811d"
+    },
+    "onlyChangedFields": [
+      "at",
+      "config",
+      "counts",
+      "focusedCoverage"
+    ],
+    "stageRows": 2131,
+    "dependencyRows": 4576,
+    "stageDigest": "d5976daaa2fd294fe703e10a325a3c60a76e391fb6c1f37ac9b46823aa30303d",
+    "dependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+    "allRowsUnchanged": true
+  },
+  "credits": {
+    "newFiles": 4,
+    "newPasses": 46,
+    "totalFiles": 58,
+    "totalPasses": 322,
+    "totalSkips": 81,
+    "scheduled": 150,
+    "verified": "Exact source/test bytes, successful whole commands and complete reporter/end receipts; failed calculus file receives no credit."
+  },
+  "unchanged": "Physical dependencies, fixed maintained candidate basis, all bounds/timeouts including calculus600000ms",
+  "oracleCopiedOrRederived": false,
+  "testsExecutedDuringPreparation": 0,
+  "sourceEdits": false,
+  "cleanup": false
+}

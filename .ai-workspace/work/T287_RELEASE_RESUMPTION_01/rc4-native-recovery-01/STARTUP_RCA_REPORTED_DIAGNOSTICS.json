@@ -1,0 +1,86 @@
+{
+  "status": "REPORTED_READ_ONLY_DIAGNOSTICS_NOT_LIVE_CAUSAL_DECOMPOSITION",
+  "recordedAt": "2026-11-03T01:38:19.401245+00:00",
+  "standing": "Tool returns reported by Root and typed_handoff_design; no raw profile files exist and no probe rerun performed by Writer. User-selected bounded consolidation is being scoped separately; current019 inputs unchanged.",
+  "setupCandidate4589": {
+    "reporter": "typed_handoff_design",
+    "importProbe": {
+      "chunk": "0353e7",
+      "exit": 0,
+      "toolWallSeconds": 0.358349834,
+      "internalColdImportMs": 449.74345800000003,
+      "internalRepeatImportMs": 0.031916000000023814,
+      "cpuMicroseconds": {
+        "user": 391164,
+        "system": 72172
+      },
+      "maxRSSKiB": 199392
+    },
+    "verificationProbe": {
+      "initialChunk": "709342",
+      "session": 6283,
+      "finalChunk": "661336",
+      "exit": 0,
+      "kind": "verified_product_artifact",
+      "disposition": "verified",
+      "wallMs": 19645.770582999998,
+      "cpuMicroseconds": {
+        "user": 24236823,
+        "system": 509064
+      },
+      "maxRSSKiB": 2789776,
+      "checkedPayloadFiles": 5319,
+      "retainedSelectionMs": 0.19391699999687262,
+      "retainedSameObject": true,
+      "profileSampledMs": 19664.791,
+      "leafSamplesMs": {
+        "typescript": 12010.451,
+        "product/declaration_exports.js": 5284.891,
+        "node:path": 893.741,
+        "GC": 510.706,
+        "shared/canonical_json.js": 122.915,
+        "product/verify_product.js": 86.043
+      }
+    },
+    "archiveSha256": "4589f5c5174cb84ba37f4efecd15f52f6437fa696d117aeff58b84bd5f8363ac",
+    "requestLocator": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/matched-basic-cli-001/abg-runs/basic-cli/2026-11-03T00-27-16-649Z-52724c53-6716-44bc-858f-bb636125546e/calls/workspace-create.request.jsonl",
+    "requestBytes": 14354340,
+    "nativeDeclarationEvidenceSerializedBytes": 11019248,
+    "sourceRelation": "Ten fresh CLI processes lose in-process verified-object provenance; admission owner selects owned verification or performs full verify. First/raw/cold verification and physical checks remain required.",
+    "limits": [
+      "One instrumented verification, not ten-call profile or measured savings.",
+      "No exact probe wall-clock timestamp printed.",
+      "Outer tool duration and internal import duration retained independently.",
+      "Profile only in memory, aggregated then discarded."
+    ]
+  },
+  "runtime003ColdProjection": {
+    "reporter": "Root",
+    "session": 86887,
+    "chunk": "58a995",
+    "exit": 0,
+    "reportedCompletionUtc": "2026-11-03T01:35:33Z",
+    "owner": "projectOwnedPrefixArtifactTruth",
+    "exactPrefixBytes": 578251344,
+    "exactPrefixSha256": "a5ebee451ee9a9751b7cb4184ac7dc31f521153cea9d0295265d936da26c4451",
+    "outputKind": "exact_prefix_artifact_truth_projection",
+    "importMs": 417.716292,
+    "projectionMs": 40933.79525,
+    "maxRSSKiB": 1906896,
+    "topCpuSelfMs": {
+      "canonical_json.js:10 writeCanonicalJson": 11997.768,
+      "native update": 9770.987,
+      "node crypto/hash:134 update": 4315.902,
+      "worksite_effect.js:1357": 1969.837,
+      "GC": 1268.656,
+      "utf8Write": 982.337,
+      "event_store:2642": 979.043,
+      "worksiteContextObservation:1337": 860.08,
+      "shared value/equality:15": 734.13
+    },
+    "commandDescription": "Read prepared-call prefix, assert exact bytes/digest; import exact installed operational RC3 artifact_truth; one pure projection with in-memory inspector Profiler.",
+    "effects": "No store acquisition/lock/admission/provider/writes/profile file.",
+    "limits": "One cold reconstruction diagnostic; not causal decomposition of observed live142/97/203second intervals."
+  },
+  "current019SourceDisposition": "Root classifies omitted builtin_semantics.d.ts identity-only derivative as proof allowance listing defect; original C2 red preserved. Prospective020 may permit exact six identity-related payload paths, subject to its separately bound scope."
+}

@@ -1,0 +1,130 @@
+{
+  "status": "FAILED_OR_INCOMPLETE",
+  "command": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=spec",
+      "--test-reporter-destination=stdout",
+      "--test-reporter=/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+      "--test-reporter-destination=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/events.jsonl",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs"
+    ],
+    "cwd": "/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof/stage-01/work/build_tenants/abiogenesis/typescript",
+    "started": "2026-11-09T03:54:31.996Z",
+    "environmentKeys": [
+      "ABG_TS_CLAUDE_COMMAND",
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+      "ABG_TS_FP_TERMINATION_GRACE_MS",
+      "ABG_TS_FP_TIMEOUT_MS",
+      "ABI5_RETENTION_BINDING",
+      "ABI5_RETENTION_BINDING_SHA256",
+      "CI",
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "NODE_OPTIONS",
+      "PATH",
+      "TMPDIR",
+      "npm_config_audit",
+      "npm_config_cache",
+      "npm_config_fund",
+      "npm_config_globalconfig",
+      "npm_config_ignore_scripts",
+      "npm_config_offline",
+      "npm_config_userconfig"
+    ],
+    "timeoutMs": 900000,
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 52283.025084,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "stdout": "✖ RC10 exact installed candidate: fifty 1MiB/4MiB native calls release both basis-retaining owners (51775.087334ms)\nℹ RC10_RETENTION {\"status\":\"PARTIAL\",\"calls\":1,\"totalWallMs\":51636.74175,\"actualPhysicalClose\":false}\nℹ tests 1\nℹ suites 0\nℹ pass 0\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 52233.711292\n\n✖ failing tests:\n\ntest at ../../../../../../../../../../../../Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs:27:1\n✖ RC10 exact installed candidate: fifty 1MiB/4MiB native calls release both basis-retaining owners (51775.087334ms)\n  AssertionError [ERR_ASSERTION]: first actual call at each input size needs the in-flight identity/work witness\n      at oneCall (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs:85:120)\n      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs:96:12)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n",
+    "stderr": ""
+  },
+  "reporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/events.jsonl",
+    "bytes": 2131,
+    "sha256": "2c2265da4a71075a3f128cd0632f2c7f69583d985767922505a50f18e6040bdc",
+    "begin": true,
+    "end": true,
+    "globalSummaries": 1,
+    "summary": {
+      "ordinal": 3,
+      "type": "summary",
+      "file": null,
+      "counts": {
+        "tests": 1,
+        "failed": 1,
+        "passed": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "success": false,
+      "durationMs": 52233.711292
+    },
+    "fileSummaries": [
+      {
+        "ordinal": 2,
+        "type": "summary",
+        "file": "../../../../../../../../../../../../Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+        "counts": {
+          "tests": 1,
+          "failed": 1,
+          "passed": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 1,
+          "suites": 0
+        },
+        "success": false,
+        "durationMs": 51777.644291
+      }
+    ],
+    "cases": [
+      {
+        "ordinal": 1,
+        "type": "case",
+        "passed": false,
+        "name": "RC10 exact installed candidate: fifty 1MiB/4MiB native calls release both basis-retaining owners",
+        "file": "../../../../../../../../../../../../Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs",
+        "nesting": 0,
+        "testNumber": 1,
+        "suite": false,
+        "skip": false,
+        "todo": false,
+        "error": {
+          "name": "Error",
+          "message": "first actual call at each input size needs the in-flight identity/work witness",
+          "stack": "Error [ERR_TEST_FAILURE]: first actual call at each input size needs the in-flight identity/work witness",
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure",
+          "cause": {
+            "name": "AssertionError",
+            "message": "first actual call at each input size needs the in-flight identity/work witness",
+            "stack": "AssertionError [ERR_ASSERTION]: first actual call at each input size needs the in-flight identity/work witness\n    at oneCall (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs:85:120)\n    at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/measurement.test.mjs:96:12)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+            "code": "ERR_ASSERTION",
+            "failureType": null,
+            "cause": null
+          }
+        }
+      }
+    ]
+  },
+  "measurement": {
+    "status": "PARTIAL",
+    "calls": 1,
+    "actualPhysicalClose": false
+  },
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(command.exitCode===0&&!command.signal&&!command.timedOut&&!command.truncated&&!command.failure)\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/run-measurement.mjs:30:92",
+  "qualified": false,
+  "providerCallsSelected": 0,
+  "standing": "Actual command, complete structured reporter, 50-call accounting and physical close are all required. No retry or source change."
+}

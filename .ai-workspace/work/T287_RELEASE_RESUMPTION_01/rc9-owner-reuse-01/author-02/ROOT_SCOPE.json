@@ -1,0 +1,61 @@
+{
+  "id": "RC9-REPAIR-02",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE_CONTROLS_PREPARING",
+  "recordedAt": "2026-11-08T06:57:21.563848+00:00",
+  "decisionOwner": "/root Executive",
+  "recordedBy": "/root/rc9_operator",
+  "admittingDecision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_PACKET.txt",
+    "bytes": 3131,
+    "sha256": "7f001fe1bfb10f86f78959932599339b64e8da290db84b7a4bef004d3a9c91cd"
+  },
+  "activationVerbatim": "Activate RC9-REPAIR-02 preparation now under the exact Root conjunction/operation grant just sent in send_message (after your author01 return). Consume that complete message as operative contract, persist its verbatimtext/admission beforeeffects, preparethe8-pathnative02source/test/metadata repair andclosed-resourcecontinuation. Thisfollowup triggersyourcompletedagent; it addsnoscope. ReturnconcretecontrolsforRootreview beforeallocation/dispatch. Ifpreviousmessageunavailable,sayso ratherthan reconstructingbyguess.",
+  "classification": "local_repair with explicit O3 performance scope reprice",
+  "blockingFindings": [
+    "RC9-SOURCE-001",
+    "RC9-SOURCE-002"
+  ],
+  "sourceWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts"
+  ],
+  "sourcePreimage": {
+    "path": "/private/tmp/abg-r9-owner-native-001/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "528a04c0c171c56affaa1a2f9ba2b66413b7d6007d92bbbe092143a726938c49"
+  },
+  "priorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/OPERATOR_RETURN.json",
+    "bytes": 12600,
+    "sha256": "93ac35d59595375ed1d214c77301d9a6873e6681045713a8a5fe987b29aab6a6"
+  },
+  "sourceProgressRoot": "qualification-scratch/rc9-owner-reuse-01/author-02",
+  "controlRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001",
+  "scratchRoot": "/private/tmp/abg-r9-a02-001",
+  "proofScratchRoot": "/private/tmp/abg-r9-owner-native-002",
+  "residuals": [
+    "O3 installed verification reuse remains OPEN as a separate T287 performance follow-up; physical checks are required at every previous consumer/effect boundary, and no zero/once-per-resolution claim is selected.",
+    "All nine RC8 capsules remain OPEN pending exact successor proof and Root disposition.",
+    "Twelve cold residuals, S7, fixed fifteen/full5.0 qualification and human gates remain open."
+  ],
+  "nativeLimits": {
+    "absoluteTimeoutMs": 1800000,
+    "inactivityTimeoutMs": 300000,
+    "maxTurns": 200
+  },
+  "constructionFeedback": {
+    "scratchRoot": "/private/tmp/abg-r9-a02-001/author-checks",
+    "maxCompileInvocations": 2,
+    "perInvocationMs": 120000
+  },
+  "runtimeAllocation": "held pending exact controls review",
+  "providerDispatch": "held pending actual PREPARED-bound admission",
+  "operatorProductMutation": false
+}

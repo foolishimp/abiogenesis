@@ -1,0 +1,139 @@
+{
+  "status": "ONE_ADMITTED_INSTALL_AND_INSTALLED_OWNER_SMOKE_COMPLETED_UNQUALIFIED",
+  "at": "2026-11-07T22:55:25.618400+00:00",
+  "actor": "/root/rc8_cut_preparation",
+  "consumer": "/root",
+  "actualHostCustody": {
+    "sessionId": 81103,
+    "sessionExitCode": 0,
+    "source": "Actual exec/write_stdin completion observed by this Operator",
+    "driverStartedUtc": "2026-11-07T22:52:04.578Z",
+    "driverEndedUtc": "2026-11-07T22:53:12.907Z",
+    "driverElapsedMs": 68329,
+    "attempts": 1,
+    "retry": false,
+    "extension": false,
+    "scope": "Known command/session closure only; no universal descendant-absence claim."
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/ROOT_INSTALL_ADMISSION.json",
+    "bytes": 10103,
+    "sha256": "da67a6ac0b02947a284bbc4c40c0a7d99f33dad292c5d4adaa8bb1cb7ff0edd1"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-binding-001/ROOT_INSTALL_BINDINGS.json",
+    "bytes": 5813,
+    "sha256": "f9942a31e02472b9b5799879e0fe95881f63151b8bc852755e5f7ceedb07d541"
+  },
+  "finalVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+    "bytes": 9161,
+    "sha256": "a5c674c5bd83a154bd02427c5f8cdb06c5c6cbbfc76188c7343079c000e029d1"
+  },
+  "driverResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/RESULT.json",
+    "bytes": 770,
+    "sha256": "ddcaf6b5b25928f622baeb20303861ddce00262f991c4f826704fcae7dcda35e"
+  },
+  "cutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/LOCAL_CUT_RECORD.json",
+    "bytes": 4040,
+    "sha256": "d3d7cf0ead6c3d40d2aa524efc08e9b387c07efcbbc56158c353d5dc46032519"
+  },
+  "checksumFile": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/SHA256SUMS",
+    "bytes": 988,
+    "sha256": "70ffbd589b104fe3ee79d62870829ad66f089f50cb3fb1479ab1009ae23813cd"
+  },
+  "checksumFilesVerified": 11,
+  "payloadCorrespondence": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/payload-correspondence.json",
+    "bytes": 1035176,
+    "sha256": "175b8aa08a60a0842bf7350793e46bc34f4bbe2015a77afc8f27a8093a02cf2a"
+  },
+  "payloadMembers": 5325,
+  "smoke": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/INSTALLED_OWNER_SMOKE.json",
+    "bytes": 3075,
+    "sha256": "17537cf8d8fdd96571e3975cac8e89811be6cba98e3e6b08f98f463bfb60c3fc"
+  },
+  "ownerInstallCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/commands/owner-install.result.json",
+    "bytes": 1345,
+    "sha256": "1abeed941b2a3c590592352c2910d583e0fb3a73dc287bfd367c128e44425e3c"
+  },
+  "installedOwnerCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/commands/fresh-installed-owner-smoke.result.json",
+    "bytes": 1583,
+    "sha256": "4d35e8383635f6ca386d475cd801deff41d6499fe1331a8e4e79a1788a446cf0"
+  },
+  "commandCustody": {
+    "commands": 13,
+    "allExitZero": true,
+    "signalsTimeoutsTruncationFailures": 0,
+    "allStdoutStderrBytesAndDigestsMatched": true,
+    "ownerInstallWallMs": 47563.335667,
+    "installedOwnerWallMs": 20190.600208000003
+  },
+  "preservation": {
+    "baseline": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/PRESERVED_BEFORE.json",
+      "bytes": 655,
+      "sha256": "55c121ebceabffcc2e5e4d249afc6d5d1b9285756bf7221903c9949b81680830"
+    },
+    "mainAfterHeadReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/commands/after-main-head.result.json",
+      "bytes": 1095,
+      "sha256": "12ad689884440f7b487dc756bca57fc3a1cc8c8104ce86e8856c1f80d4137bc4"
+    },
+    "rc7AfterHeadReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/actual-001/install-001/commands/after-rc7-head.result.json",
+      "bytes": 1121,
+      "sha256": "87284043f772c1ea4299f921e68a2b3a72ea5a96174daffd945877611de76ff1"
+    },
+    "mainAndRc7HeadsAndIndexesMatchBuildBaseline": true,
+    "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "c8TrackedAndIndexCleanAfterInstall": true,
+    "readOnlyOperatorCommands": [
+      "git --no-optional-locks rev-parse HEAD",
+      "git --no-optional-locks diff --no-ext-diff --quiet",
+      "git --no-optional-locks diff --cached --no-ext-diff --quiet"
+    ],
+    "readOnlyCommandOutcomes": "Exact checkpoint HEAD; both diffs exited0 with GIT_OPTIONAL_LOCKS=0.",
+    "finalFrozenAndLiveSourceConservation": "Existing corrected002 sourceRows/conserve checks passed before its successful return."
+  },
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8",
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8/node_modules/@abiogenesis/typescript-tenant",
+  "observedSmoke": {
+    "status": "DIRECT_INSTALLED_OWNER_SMOKE_CLOSED",
+    "installedContentMatches": true,
+    "exportedDefinitionCount": 56,
+    "emptyOwnerRead": true,
+    "actualClosePrefixEqualsAcquiredPrefix": true,
+    "nativeTransportInvoked": false,
+    "providerCalls": 0
+  },
+  "limits": {
+    "published": false,
+    "qualified": false,
+    "globalSelectorChanged": false,
+    "nativeWorkflowClaim": false,
+    "nineResidualsRemainOpen": true,
+    "noNewSourceOrQualificationAcceptanceByOperator": true
+  },
+  "effectsNotPerformed": [
+    "new native/provider call",
+    "project tests",
+    "source edit",
+    "Git commit/push/tag/merge",
+    "publication",
+    "qualification",
+    "cleanup",
+    "retry",
+    "extension"
+  ],
+  "readbackStanding": "Records already completed canonical receipt/checksum/preservation readbacks; no additional audit or execution for this record.",
+  "returnBoundary": "Operation complete; available for separately requested read-only status. No further effects selected."
+}

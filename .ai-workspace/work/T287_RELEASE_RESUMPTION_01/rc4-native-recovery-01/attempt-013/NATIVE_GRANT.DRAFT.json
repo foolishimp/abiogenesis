@@ -1,0 +1,137 @@
+{
+  "kind": "rc4_native_consolidation_attempt_013_grant",
+  "status": "PREPARED_FOR_ROOT_REVIEW",
+  "basis": {
+    "uri": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "sourceCommit": "6937d30e869c23d819e98be26b136e090ec541d7",
+  "sourceTree": "914ebdee0d897784313dcf2705adf35db09a4cd6",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "builder": {
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3/node_modules/@abiogenesis/typescript-tenant",
+    "cliRelativePath": "build/code/src/public/cli.js",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "archiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+    "manifestSha256": "8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+    "productContentSha256": "c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4"
+  },
+  "changeClass": "realization_refactor",
+  "Construction": {
+    "productWritePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs"
+    ],
+    "generatedOutputWriteRoots": [],
+    "scratchWriteRoots": [
+      "rc4-scratch/native-recovery-13/return.json",
+      "rc4-scratch/native-recovery-13/readiness.json",
+      "rc4-scratch/native-recovery-13/notes.md",
+      "rc4-scratch/native-recovery-13/tmp"
+    ],
+    "generatedOutputBoundary": "Zero canonical generated/dependency/mirror writes by Construction. Existing nativeC2 owns isolated generation/build/package; actual archive output/adoption reported separately."
+  },
+  "otherRoleCanonicalWritePaths": [],
+  "tooling": {
+    "offlineReadRoot": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "scratchRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-13",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-13/tmp",
+    "readOnlyProof": "reuse existing offline census and verification script",
+    "normalDevelopmentMethods": "Source/HOW edits and ordinary reads; node --check editedMJS and file-only readiness. C2 alone compiles/builds/generates/packages/tests; no actor dependency/test mirror or prebaseline rerun.",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-13/tmp",
+    "environmentBoundary": "All current RC3 writes contained in observedR. Provider-only existingtmp; neutral RuntimeTMP; no RuntimeNPM. Candidate W outsideR proof requires successor installed runtime."
+  },
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 256,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "focusedTimeoutMs": 2700000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null,
+    "maxContextBytes": 268435456
+  },
+  "acceptance": "Finish presentation/effect separation and canonical helper consolidation with actual nativeC2/UAT; canonical generated adoption and real-provider witness remain explicit.",
+  "scopeExclusions": [
+    "No paths beyond13manual and four small scratch entries",
+    "No Construction generated/dependency/testmirror/build/test writes",
+    "No old scratch/runtime/evidence mutation",
+    "No newschema/API/failure-set/WHAT/authority/controller",
+    "No automaticretry/migration/release"
+  ],
+  "checkpointMeaning": "Unfinished import-only partial custody after012, not accepted repair.",
+  "proposedScopeReason": "Root accepted boundedHOW refinement and bootstrap after012 failure; exact13paths, no new feature.",
+  "reviewStanding": "Accepted direction, source unfinished6937; native implementation and successor-runtime proof pending.",
+  "evidenceBoundary": "011 accepted; practical gap before-evidence. New candidate actual practical proof separate.",
+  "readOnlyPriorEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-output.txt",
+      "bytes": 9085,
+      "sha256": "a1ca292d873b095408c81f3e5210844292a87912074d1faa299544a6ca144579",
+      "purpose": "actual B selector output"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/setup-host/abi5-root-env-xXWrLI/workspace/.ai-workspace/archive/fp-c6bf304b3d5669df-prompt.txt",
+      "bytes": 44960,
+      "sha256": "0b1918f621f585b1b3e8daf6a22a4b84fb2f13c166b3e08464a478e154d4db5d",
+      "purpose": "actual B selector prompt"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/b-stopped.transport-output.json",
+      "bytes": 300645,
+      "sha256": "a2b7ee9791a3333b313faead34693fa2d12bbe3053ab52e4c9804d3aa83a70fe",
+      "purpose": "typed actual B transport receipt; blocked before Testing"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/b-start.owner.json",
+      "bytes": 40093833,
+      "sha256": "85c499f024148ea0785ae8ea6f829904887fa75f9830b3443d8aeadb8cf42912",
+      "purpose": "read-only B installed owner resolution; inspect only /resolution/resolvedProgramStart and /resolution/selectedCatalogEntry/definition/template/applications, not whole file"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-004/proof/v2/B_STOPPED_CUSTODY.json",
+      "bytes": 9976,
+      "sha256": "0c1dc85f93101771793fa78575558394056b2dbbb155538a7b396688bd8a2442",
+      "purpose": "compact custody, actual Run/admission/gap and exact evidence coordinates"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/failure-custody-001/WORKER_VISIBLE_LOOKUP_SUMMARY.json",
+      "bytes": 40634,
+      "sha256": "013bf14f6db4749214eff43312059ae90f308a9c9ad5dc8e789d176080c430b7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/NEXT_NATIVE_DESIGN_DISPOSITION.md",
+      "bytes": 5993,
+      "sha256": "718fbdebba1c72ad0c6d66b4bc7de600b21097d6b2be291c20a7f3d41b6d712f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/NEXT_NATIVE_HELPER_CONSOLIDATION_DRAFT.md",
+      "bytes": 6586,
+      "sha256": "42193d78b070d9c12cec56d867e93668efa741958cc906111914f527f6ba8eab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/failure-custody-001/receipts/baseline-focused.log",
+      "bytes": 4182,
+      "sha256": "ddea7828a309d921deca32fff4310857a9f54f6a50a2185cce522bd5dcc50d34"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/failure-custody-001/receipts/baseline-default-library.log",
+      "bytes": 12415,
+      "sha256": "049ab869153dd0e7257e0ff8bd065f373d8e6a6fe483acceb949158bb301cbaf"
+    }
+  ],
+  "reviewedRoutes": "Existing instruction-assembly, native_work_effect/currentness, canonical start and pending call owners.",
+  "laterCampaignBoundary": "R1\u2013R5 unchanged; S7 unexecuted, practical real-native witness and empirical/release acceptance remain distinct."
+}

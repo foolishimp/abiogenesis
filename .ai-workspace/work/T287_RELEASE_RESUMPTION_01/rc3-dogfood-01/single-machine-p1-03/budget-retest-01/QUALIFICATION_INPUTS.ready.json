@@ -1,0 +1,66 @@
+{
+  "count": 7,
+  "inputs": [
+    {
+      "bytes": 1360,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/task.md",
+      "role": "task",
+      "sha256": "4142e44e3858d32ee0aeb742333273cbc01e36711be87effcf5cc3816aaab275",
+      "target": "rc3-operator-inputs/single-machine-p1-03-budget-retest-01/task.md"
+    },
+    {
+      "bytes": 1524,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/HOW.md",
+      "role": "how",
+      "sha256": "1e971c42733df7226411cabca649006773430a445b46e79922382ddd72663b89",
+      "target": "rc3-operator-inputs/single-machine-p1-03-budget-retest-01/HOW.md"
+    },
+    {
+      "bytes": 1843,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/rubric.json",
+      "role": "rubric",
+      "sha256": "b460a5b77875c5e7006eece0043cedae0e6d76439fe2b928831b96d33d4b781e",
+      "target": "rc3-operator-inputs/single-machine-p1-03-budget-retest-01/rubric.json"
+    },
+    {
+      "bytes": 4412,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/NATIVE_GRANT.json",
+      "role": "grant",
+      "sha256": "a1afa32f633983d8a613f6326c4c26922f56bc17e68e68bc157512758ccddf5c",
+      "target": "rc3-operator-inputs/single-machine-p1-03-budget-retest-01/NATIVE_GRANT.json"
+    },
+    {
+      "bytes": 2741,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/COUNTEREXAMPLE.call.json",
+      "role": "counterexample",
+      "sha256": "a6c7b140cffc38dcb455f0ed1cd60ac7044e8467f2fddae11ac388ed8ba37882",
+      "target": "rc3-operator-inputs/single-machine-p1-03-budget-retest-01/COUNTEREXAMPLE.call.json"
+    },
+    {
+      "bytes": 561,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/DIAGNOSTICS.md",
+      "role": "diagnostics",
+      "sha256": "e7ffc20b97ee4561a8792db9f05ac7ecbf465175bed9ce440875c765b422200a",
+      "target": "rc3-operator-inputs/single-machine-p1-03-budget-retest-01/DIAGNOSTICS.md"
+    },
+    {
+      "bytes": 37291,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/attempt-001/c2-helper-custody/focused-owner-chain.stdout",
+      "role": "focused_stdout",
+      "sha256": "333800f5ced552e49cd809b19e2da3c77f63bee599d548bc837ea1a66fbb19c7",
+      "target": "rc3-operator-inputs/single-machine-p1-03-budget-retest-01/PRIOR_FOCUSED_STDOUT.txt"
+    }
+  ],
+  "materialized": false,
+  "rootAuthority": {
+    "bytes": 2294,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/ROOT_RETEST_AUTHORITY.md",
+    "sha256": "fc0c21b60bd28bf32fbe0ff9a8a26cac7f0093f84947ad13ec99ee1fae7d6613"
+  },
+  "sourceCheckpoint": {
+    "bytes": 4728,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/budget-retest-01/SOURCE_CHECKPOINT.json",
+    "sha256": "68e6d2dec5fb9c3c6bfa7d605f74e6818d3bc0adee8d815a9ace7d4b489d5d77"
+  },
+  "standing": "Operator records ready; no canonical input materialization until successful setup confirmation"
+}

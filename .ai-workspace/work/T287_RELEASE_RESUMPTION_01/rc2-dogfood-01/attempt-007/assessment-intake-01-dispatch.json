@@ -1,0 +1,25 @@
+{
+  "started": "2026-10-30T15:26:31.998Z",
+  "operatorPid": 65094,
+  "ownerApprovedUsd": 100,
+  "operatorStopThresholdUsd": 90,
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/bin/claude",
+    "model": "claude-opus-5-5",
+    "maxTurns": 60,
+    "maxBudgetUsd": 5,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 2100000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "invocationRef": "invocation://abiogenesis/768a04a01344432e6530380c46aba038287ff792f1837f4cf2b28c65621777cb",
+  "classification": "Actual RC2 source task through installed RC1; no whole-product qualification claim"
+}

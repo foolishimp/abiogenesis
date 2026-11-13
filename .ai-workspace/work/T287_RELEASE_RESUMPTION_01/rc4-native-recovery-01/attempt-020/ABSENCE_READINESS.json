@@ -1,0 +1,18 @@
+{
+  "status": "EXACT_GRANTED_FUTURE_OUTPUTS_ONLY",
+  "missingReadRoots": [
+    "rc4-scratch/native-recovery-20/return.json",
+    "rc4-scratch/native-recovery-20/readiness.json",
+    "rc4-scratch/native-recovery-20/notes.md"
+  ],
+  "allowedAbsentRoots": [
+    "rc4-scratch/native-recovery-20/return.json",
+    "rc4-scratch/native-recovery-20/readiness.json",
+    "rc4-scratch/native-recovery-20/notes.md"
+  ],
+  "placeholdersCreated": false,
+  "readRootCount": 745,
+  "readRootUniqueCount": 745,
+  "selectedPathCount": 734,
+  "selectedPathUniqueCount": 734
+}

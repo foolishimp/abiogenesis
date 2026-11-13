@@ -1,0 +1,76 @@
+--- native-01/frozen-proof.unit-r02.mjs
++++ native-repair-02/proof-02/frozen-proof.mjs
+@@ -1,4 +1,4 @@
+-// RC10-UNIT-CONTROL-01: external CLI admission pin removes only the control hash cycle.
++// RC10-REPAIR-PROOF-02: preserved external CLI admission route; closed frozen successor only.
+ // RC10 adaptation of pinned RC9 focused-proof-003: same frozen build and JSONL evidence owners.
+ // Stage/focused author modes and separately admitted frozen unit mode. Preparation is not admission.
+ import assert from 'node:assert/strict';
+@@ -30,7 +30,7 @@
+ const b=JSON.parse(raw);assert(['PREPARED_RC10_FROZEN_PROOF','ROOT_ADMITTED_RC10_FROZEN_PROOF'].includes(b.status),'unknown proof control status');
+ assert(b.allowedModes.includes(mode),'this proof mode has no admitted grant');
+ assert.equal(b.maxStages,1);assert.equal(b.maxProofInvocations,1);assert.equal(b.stageTimeoutMs,600000);assert.equal(b.unitTimeoutMs,900000);
+-assert.equal(b.proofRoot,"/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-01/frozen-proof");
++assert.equal(b.proofRoot,"/private/tmp/abg-rc10-retention-20261109/qualification-scratch/rc10-retention-01/proof-02/frozen-proof");
+ const checked=async pin=>{assert(pin&&typeof pin.path==='string'&&/^[a-f0-9]{64}$/.test(pin.sha256),'unresolved pin');const bytes=await readFile(pin.path);assert.equal(bytes.length,pin.bytes);assert.equal(sha(bytes),pin.sha256);return bytes;};
+ assert(typeof b.nativeStartedReceiptPath==='string'&&isAbsolute(b.nativeStartedReceiptPath),'exact native STARTED route required');
+ const startedBytes=await readFile(b.nativeStartedReceiptPath);assert(startedBytes.length>0,'native dispatch has no STARTED evidence');
+@@ -38,18 +38,20 @@
+ const started=JSON.parse(startedBytes),nativeAdmission=JSON.parse(await checked(started.admission));
+ assert.equal(nativeAdmission.status,'ROOT_ADMITTED_NATIVE_DISPATCH');
+ assert.equal(nativeAdmission.proofBindingSha256,b.authorProofBindingSha256??bindingSha,'actual native admission must name the immutable author-proof binding');
+-if(mode==='unit'){
+-  assert(executionAdmissionPath&&executionAdmissionSha&&b.frozenStage,'separate external frozen unit admission and actual frozen-stage pin required');
+-  const executionBytes=await readFile(executionAdmissionPath);assert.equal(sha(executionBytes),executionAdmissionSha,'unit execution admission pin');
+-  const execution=JSON.parse(executionBytes);assert.equal(execution.status,'ROOT_ADMITTED_RC10_FROZEN_PROOF');
+-  assert.equal(execution.proofBindingSha256,bindingSha);await checked(b.frozenStage);
+-}
++assert(executionAdmissionPath&&executionAdmissionSha,'separate external proof admission required for every mode');
++const executionBytes=await readFile(executionAdmissionPath);assert.equal(sha(executionBytes),executionAdmissionSha,'external execution admission pin');
++const execution=JSON.parse(executionBytes);assert.equal(execution.status,'ROOT_ADMITTED_RC10_FROZEN_PROOF');
++assert.equal(execution.proofBindingSha256,bindingSha);assert.equal(execution.mode,mode);
++const custody=JSON.parse(await checked(b.nativeCustody));assert.equal(custody.status,'NATIVE_REPAIR_CLOSED_FROZEN');
++assert.equal(custody.sourceDigest,b.sourceDigest);assert.deepEqual(custody.sourceFreeze,b.sourceInventory);
++if(mode!=='stage')await checked(b.frozenStage);
+ for(const input of b.readOnlyInputPins??[])await checked(input);
+ 
+ await checked(b.node);assert.equal(await realpath(process.execPath),b.node.path);await checked(b.npmCli);
+ for(const p of Object.values(b.sourceHelpers))await checked(p);
+ const {commandRecorder,exclusiveRecord}=await import(pathToFileURL(b.sourceHelpers['runner.mjs'].path));
+ const inventory=JSON.parse(await checked(b.sourceInventory));assert.equal(inventory.sourceCommit,b.sourceCommit);
++assert.equal(inventory.sourceDigest,b.sourceDigest);assert.equal(inventory.source,b.frozenSourceRoot);assert.equal(inventory.rows.length,1334);assert.equal(b.optionalNewSourceFiles.length,0);
+ assert.equal(execFileSync('/usr/bin/git',['-C',b.sourceRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),b.sourceCommit);
+ assert(Array.isArray(b.allowedChangedPaths)&&b.allowedChangedPaths.length,'exact native write territory missing');
+ const safe=p=>{assert(typeof p==='string'&&!isAbsolute(p)&&!p.split('/').includes('..')&&!p.includes('\0'));return p;};
+@@ -58,7 +60,7 @@
+ const dep=JSON.parse(await checked(b.dependencyInventory)),seed=JSON.parse(await checked(b.contractSeedInventory));
+ async function verifyRows(root,rows){for(const r of rows){const p=join(root,safe(r.path)),s=await lstat(p);if(r.kind==='symlink'){assert(s.isSymbolicLink());assert.equal(await readlink(p),r.target);const real=await realpath(p),rel=relative(await realpath(root),real);assert(rel&&!rel.startsWith('..')&&!isAbsolute(rel),'dependency link escapes');}else{assert(s.isFile());const v=await readFile(p);assert.equal(v.length,r.bytes);assert.equal(sha(v),r.sha256,'input changed '+p);}}}
+ async function size(root){let n=0;for(const name of await readdir(root)){const p=join(root,name),s=await lstat(p);n+=s.isDirectory()?await size(p):s.size;}return n;}
+-async function budget(){const disk=await statfs(dirname(b.proofRoot));assert(disk.bavail*disk.bsize>=b.reserveBytes,'free-space reserve');if(await exists(b.proofRoot))assert(await size(b.proofRoot)<=b.maxOwnedBytes,'owned-byte stop');}
++async function budget(){const disk=await statfs(b.sourceRoot);assert(disk.bavail*disk.bsize>=b.reserveBytes,'free-space reserve');if(await exists(b.proofRoot))assert(await size(b.proofRoot)<=b.maxOwnedBytes,'owned-byte stop');}
+ await budget();
+ const env={...b.environment};assert(!Object.keys(env).some(k=>/CLAUDE|ANTHROPIC|OPENAI|PROVIDER/.test(k)),'proof must not receive provider environment');
+ let output=null;
+@@ -66,18 +68,18 @@
+   if(mode==='stage'){
+     assert(!await exists(b.proofRoot),'preserve prior proof allocation; Root re-entry required');
+     await verifyRows(dep.root,dep.rows);await verifyRows(seed.root,seed.rows);
+-    await mkdir(b.proofRoot);await mkdir(join(b.proofRoot,'tmp'));
++    await mkdir(b.proofRoot,{recursive:true});await mkdir(join(b.proofRoot,'tmp'));
+     for(const name of ['npm-user.npmrc','npm-global.npmrc'])await writeFile(join(b.proofRoot,name),'',{flag:'wx'});
+     output=join(b.proofRoot,'stage-01');await mkdir(output);
+     const source=join(output,'source'),work=join(output,'work'),rows=[];
+     const previous=new Map(inventory.rows.map(r=>[r.path,r]));
+     for(const path of [...new Set([...previous.keys(),...extra])].sort()){
+-      safe(path);const from=join(b.sourceRoot,path);assert((await lstat(from)).isFile());const bytes=await readFile(from),row={path,bytes:bytes.length,sha256:sha(bytes)};
+-      if(previous.has(path)&&!allowed.has(path))assert.deepEqual(row,previous.get(path),'ungranted change '+path);
++      safe(path);const from=join(b.frozenSourceRoot,path);assert((await lstat(from)).isFile());const bytes=await readFile(from),row={path,bytes:bytes.length,sha256:sha(bytes)};
++      assert.deepEqual(row,previous.get(path),'closed frozen source changed '+path);
+       if(!previous.has(path))assert(extra.includes(path)&&allowed.has(path),'ungranted new source '+path);
+       const to=join(source,path);await mkdir(dirname(to),{recursive:true});await writeFile(to,bytes,{flag:'wx'});await chmod(to,(await lstat(from)).mode&0o777);rows.push(row);
+     }
+-    const sourceDigest=sha(Buffer.from(JSON.stringify(rows)));
++    const sourceDigest=sha(Buffer.from(JSON.stringify(rows)));assert.equal(sourceDigest,b.sourceDigest);
+     await exclusiveRecord(output,'source-freeze.json',{status:'FROZEN_BEFORE_BUILD',source,sourceCommit:b.sourceCommit,sourceDigest,rows,binding:{path:resolve(bindingPath),sha256:bindingSha},nativeStartedReceipt});
+     console.log(JSON.stringify({status:'FROZEN_BEFORE_BUILD',stage:'stage-01',sourceDigest,freeze:join(output,'source-freeze.json')}));
+     await cp(source,work,{recursive:true});const tenant=join(work,b.tenantRelative);

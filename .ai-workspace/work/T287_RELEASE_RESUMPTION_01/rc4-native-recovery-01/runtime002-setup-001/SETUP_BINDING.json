@@ -1,0 +1,175 @@
+{
+  "kind": "rc4_fresh_event_resource_setup_binding",
+  "status": "PREPARED_FOR_ROOT_SETUP_REVIEW",
+  "authority": "Root selects preparation only of ordinary existing-workspace open and fresh runtime002 setup; actual Public/Runtime/install effects require Root setup selection. No native task/provider selected.",
+  "sourceCommit": "6937d30e869c23d819e98be26b136e090ec541d7",
+  "sourceTree": "914ebdee0d897784313dcf2705adf35db09a4cd6",
+  "sourceStanding": "unfinished partial6937, not accepted repair",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "runtimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002",
+  "runtimeTmp": {
+    "path": "/private/tmp/abiogenesis-rc4-runtime-01",
+    "device": 16777231,
+    "inode": 677101022
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/runner.mjs",
+    "bytes": 36805,
+    "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9"
+  },
+  "executables": [
+    {
+      "configuredPath": "/opt/homebrew/bin/node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    }
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+      "bytes": 3728,
+      "sha256": "e88f3b3f9c3392e4e3a30bedf502580ad2639a0f293c583755dc3cdc43224e6d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.3/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3274041,
+      "sha256": "9aeeb1848ba03cec4617a7c46b1b65801165e95f543d197b900e87d1c9ebf0fe"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/LOCAL_CUT_RECORD.json",
+      "bytes": 2064,
+      "sha256": "352c6e474bc14da68d9962c2d69a98a03e29b66a18a0abd190348d19bba04614"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+      "bytes": 10942981,
+      "sha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/installation.json",
+      "bytes": 4242784,
+      "sha256": "1e774e2d70dd967c469e1197088ba66f5d253aea8b3c9405b46df1cdf5bb7a75"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/payload-correspondence.json",
+      "bytes": 1034311,
+      "sha256": "4ff5b2918cd4f431729fb05c1bbcc228ddad97966bbf64199735ed4e03a6ede0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/.abiogenesis/workspace-manifest.json",
+      "bytes": 1880,
+      "sha256": "75708aba80e8c7d2a588a698c45fb23080eca2bab3fdc1760717c5966f14cedc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 122618,
+      "sha256": "e2867ea29d2bbef94f276562a155a00e8cd493c5672dacfcfb258b7e9f046ef1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/public-setup.mjs",
+      "bytes": 28050,
+      "sha256": "85781ebc5dddde17356c3f1a9ddc815c9bc982040a809be19c1b93e1f0c1811f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/runner.mjs",
+      "bytes": 36805,
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-012/failure-custody-001/CLOSURE_AND_CHECKPOINT.json",
+      "bytes": 3380,
+      "sha256": "cbac8c3f5edfde6377519fab476056c6d26a1c20b1f5c84ce9dad470ffcca05e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/prepare-rc3-builder.v2.mjs",
+      "bytes": 7581,
+      "sha256": "c29a11236931746e8a611113d37cdd04e049c0d36c9d45c8a90122987b91999d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/FILE_CHECK_RESULT.json",
+      "bytes": 794,
+      "sha256": "cca30010161c5c902bbd9646ef1e7fcecab4499b5a796a8b3013cde66c82541d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/HANDOFF.md",
+      "bytes": 3753,
+      "sha256": "e1542faf475e7c06c7995664e6d82392027240919c0de929b4d258b5564d3b2e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/ROOT_SETUP_SELECTION.template.json",
+      "bytes": 482,
+      "sha256": "cd84b2fe8684b84442f6f64338ee053acac10aef8cf5a85025f199aaa772ee05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/SOURCE_BINDINGS.json",
+      "bytes": 4013,
+      "sha256": "585fc3136a849da0b4ec16b560e190a7d77514f1dd62e55497f80edc4c6181da"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/file-check.py",
+      "bytes": 2835,
+      "sha256": "05ff2811c4dd0fda5f821ac18a7439a78fbd8f4952418dceea8dc7e8a30c88a5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/prepare-runtime.mjs",
+      "bytes": 7883,
+      "sha256": "0eb90ceb0c6b1f92d8c128841ba7c7fab0cdc3f2a9df693eab8bc0223826ee2a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/public-setup.delta.diff",
+      "bytes": 3817,
+      "sha256": "cb140d6207b1cf005b42bfe5e3d4872a096eb7ae3486491d7a5ac3db80d3b0a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/public-setup.mjs",
+      "bytes": 29256,
+      "sha256": "5966fbe1a0fa2935d9b0c65aa9c297e9a97ad3ce3649a6d9d6691f3629fcb918"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime002-setup-001/setup-config.json",
+      "bytes": 2867,
+      "sha256": "1391f6ed1a9c2fb38132958794315c6f4db1a9ae38642e10a0277d8f64e0e656"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    }
+  ],
+  "workspaceAcquisition": {
+    "kind": "open",
+    "expectedAuthority": {
+      "ref": "workspace-authority://abiogenesis/3ee3dc200fd65d6e77d89359eb671a5c926b4b8e18861d1bfb0ec254ca1cb0b4",
+      "digest": "sha256:3ee3dc200fd65d6e77d89359eb671a5c926b4b8e18861d1bfb0ec254ca1cb0b4"
+    }
+  },
+  "builderArchiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+  "freshEventResource": true,
+  "retainedRunSource": false,
+  "historyCopyAsAuthority": false,
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "changeBoundary": "One workspace acquisition branch in maintained operator setup copy; existing typed Public owners and other helpers reused by reference."
+}

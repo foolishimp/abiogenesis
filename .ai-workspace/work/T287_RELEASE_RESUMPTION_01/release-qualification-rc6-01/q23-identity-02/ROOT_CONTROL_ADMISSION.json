@@ -1,0 +1,170 @@
+{
+  "kind": "root_exact_q23_continuation_control_admission",
+  "at": "2026-11-05T17:04:48.187077+00:00",
+  "status": "ADMITTED_FOR_INSTALLED_PREFLIGHT_AND_ONE_NATIVE_DISPATCH_IF_OWNER_PREFLIGHT_PASSES",
+  "roleTransition": "Executive -> separately bound operator Writer under ROOT_ACTIVATION/WORKSPACE_REENTRY_01",
+  "ownerInstruction": "go",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/NATIVE_GRANT.json",
+    "bytes": 33507,
+    "sha256": "ae20f502362713195c2420923522ac269720b05f24e23b308a261f05a251208b"
+  },
+  "preparationReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/PREPARATION_RETURN.json",
+    "bytes": 3569,
+    "sha256": "936f32a24a4732db26eb40098bb3f920b50d4df4cea24b1d9141597b1fce114c"
+  },
+  "policyHow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/ROOT_POLICY_HOW_SELECTION.json",
+    "bytes": 3891,
+    "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9"
+  },
+  "stage": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/C2_INPUTS.json",
+      "bytes": 95602,
+      "sha256": "5180ae49f2fffc2827860c70979847bffb2626290c2cd48e3ae7e7184cfd253b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/CONTINUATION_BASIS.json",
+      "bytes": 5394,
+      "sha256": "67bacd33da1fdbcf3d3945743df7f3b29b96b13da6a40a04c688b31a85a9efa6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/DEPENDENCY_SOURCE_SELECTION.json",
+      "bytes": 5419,
+      "sha256": "0d41875b43634ef746790ee83699d04def577d5b1b00f29e5d6b73e58140ce75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/IDENTITY_DESIGN_REENTRY.json",
+      "bytes": 20929,
+      "sha256": "7ec6f271253664b7a571d636ef65fddcf77015ed06795238b382368d91165876"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/MATERIAL_AND_C2_SCOPE.json",
+      "bytes": 27566,
+      "sha256": "846fcb04d4208ccf1c68aca6b834b00b4896ddd35380dc0406ac1f576aaafc2f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/METHOD_ACCESS.json",
+      "bytes": 939,
+      "sha256": "6343d7c3c3a8eb0553e9b1452ae36cc70209c222cdde0edf502e102ba0c88d84"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/METHOD_VERIFICATION.json",
+      "bytes": 1368,
+      "sha256": "1f9b60d56d52c6ca935d28439c9e081fbf67c6841d33f9c4b398dbff09d8a652"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/NATIVE_GRANT.json",
+      "bytes": 33507,
+      "sha256": "ae20f502362713195c2420923522ac269720b05f24e23b308a261f05a251208b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/PRIOR_AUTHOR_FEEDBACK.json",
+      "bytes": 11265,
+      "sha256": "eb9dc22b64af676500fde63b02ff4c021ec53f59d96f77d7879a6bc12e1b429c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_IDENTITY_DISPOSITION.json",
+      "bytes": 3523,
+      "sha256": "fe0ac1db2499a2ec73456d50a9a8f57df4cf70ac23c1ccbc8ec375882f7b9497"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_POLICY_HOW_SELECTION.json",
+      "bytes": 3891,
+      "sha256": "3472be46a3ce21f4dfd6310fa6c7826a10c7fce113816d97c2a5bba52f04b5e9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_SCOPE_CLARIFICATION.json",
+      "bytes": 1397,
+      "sha256": "22bb0fd012df55c925623c256118596ce5e38d0c345da986fa7b8c0136d73647"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/ROOT_SELECTION.json",
+      "bytes": 8486,
+      "sha256": "0378fd25947f07c02f8ea959434793ef6daea050dd238a28afff3e9852e02dab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/TASK.md",
+      "bytes": 7296,
+      "sha256": "a3fc971b41fee721892bb1de9d496c7c72e06f3c556708a60ed83790117da006"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/c2-proof.mjs",
+      "bytes": 3330,
+      "sha256": "7515af2b875932c7aa12717bb318a31b5158b1e5d4f477993f87667593a1c26d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/prior-author-lanes.mjs",
+      "bytes": 2813,
+      "sha256": "b570358c0eec89e0c25e5a10d39b7794f7b7c0d135a04ae652816a9478209f6b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/prior-author-stage.mjs",
+      "bytes": 3726,
+      "sha256": "bda7e065c4851c5caebeb5ff7ef26a70edecce68edec4cb8167f0e28a4501d45"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/rubric.json",
+      "bytes": 4050,
+      "sha256": "33debdd071f1261a0f31fa587191897e2f858378ece460a67fa24bc2a497155d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/q23-identity-02/source-correspondence.mjs",
+      "bytes": 2375,
+      "sha256": "0c53ffbf86260d204cb18676a83926c26572181627c64272443b671c647f5484"
+    }
+  ],
+  "externalTemporaryEffects": [
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpq23b",
+    "/private/tmp/abg-q23b"
+  ],
+  "runtimeReuse": "Actual q23-identity-01 failed after-run-resume; no setup rerun",
+  "checks": "318 current source pins match the frozen held partial and four additional existing fixtures. Same17 Product write paths, same six-command/two-lane C2 owners. Exact policy HOW retained. Turn limit384 with unchanged xhigh/time bounds. Only sufficient prior source/baseline metadata is carried; no global session resume. Static syntax/reference checks passed. Actual installed owner preflight still required.",
+  "nativeScope": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+  ],
+  "limits": "Component identity/owner proof only; actual production cross-family eligibility and QR02/F11 remain open. Same-family native UAT is not formal independence.",
+  "reserved": [
+    "push",
+    "merge",
+    "tag",
+    "publication",
+    "global selector",
+    "stable claim",
+    "actual human acceptance"
+  ],
+  "automaticRetry": false,
+  "continuationBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/CONTINUATION_BASIS.json",
+    "bytes": 5394,
+    "sha256": "67bacd33da1fdbcf3d3945743df7f3b29b96b13da6a40a04c688b31a85a9efa6"
+  },
+  "failureTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-01/ROOT_FAILURE_TRIAGE.json",
+    "bytes": 6780,
+    "sha256": "18a279b98ade4dd072b87a776c1e4fc2e2d9187e67452cddb48472bc2b7620c8"
+  }
+}

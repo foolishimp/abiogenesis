@@ -1,0 +1,22 @@
+{
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/ROOT_SETUP_ADMISSION.json",
+    "bytes": 7040,
+    "sha256": "9effe50a23f01084e13383fbf0c00153810743aa43b6e1203b1d74befe919f50"
+  },
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/host.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/BINDING.json",
+    "b6582ff36d7efff98fa5470642e95b5d17eca8f1365da92b59a4e6065e6ddcf2",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/ROOT_SETUP_ADMISSION.json",
+    "9effe50a23f01084e13383fbf0c00153810743aa43b6e1203b1d74befe919f50"
+  ],
+  "options": {
+    "tty": true,
+    "login": false
+  },
+  "sourceRows": 1345,
+  "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+  "preflightPassed": true
+}

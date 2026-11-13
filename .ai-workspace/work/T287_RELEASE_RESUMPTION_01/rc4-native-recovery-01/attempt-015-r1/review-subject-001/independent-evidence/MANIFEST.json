@@ -1,0 +1,38 @@
+{
+  "kind": "rc4_hc1_independent_bounded_probe",
+  "scratchRoot": "/private/tmp/rc4-015-independent-review-eou4p8fp",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/SUBJECT.json",
+    "sha256": "b0fa68e5e06a0d228f564b90bf5952141a1fc1e9a509a29fc4dee0f13a55024d"
+  },
+  "c2Custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/C2_CUSTODY.json",
+    "sha256": "f74d444c6a4e4984c120b4982f7d4338926b8902fc456e5a5455657858912751"
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-002/resources/archives/worksite-command-execution/c54ee942d3352989a5b8cc6c8d43f3694bde6150762622ed3cb962919d0035d4/5e983cee43acb2b8aeecfe2fc3ff9752816d43e79bbdb35243870f9a4f848840/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "bytes": 10960912,
+    "sha256": "2296fb98614bc00ca04645a427f5cb85083c282a9e0b9247072697a00481895d"
+  },
+  "copiedCandidateSha256": "2296fb98614bc00ca04645a427f5cb85083c282a9e0b9247072697a00481895d",
+  "sourceFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+      "sha256": "2cdec19a8daf761eea013fcf7b7cb9422e04781f924affb7c9fc09993c53caa3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+      "sha256": "dbe62f2acd7b750bc0fc2cd19360e586d4a67dc81470f83b558e016ad0280c82"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-015-r1/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json",
+      "sha256": "208a0f142f3bb522b167db19b0f2de10081f663bcfce6bbb653c3182df28d389"
+    }
+  ],
+  "compiler": {
+    "path": "/private/tmp/rc4-015-independent-review-eou4p8fp/compiler/node_modules/typescript/bin/tsc",
+    "packageVersion": "5.9.2",
+    "librarySha256": "a040f97c9d0223f64c8ebc380c5e48eb7945f1142f7c1dc9c3ec4acdb6c1c613"
+  },
+  "changes": "No candidate source or declaration edits. Isolated proof config sets skipLibCheck false and copied typeRoots path; independent union control will be a separate consumer source. Existing harness and proof bytes unchanged. No repository or frozen archive writes."
+}

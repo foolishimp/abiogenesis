@@ -1,0 +1,32 @@
+{
+  "label": "024-m5-terminal-quiescence-owner.test",
+  "started": "2026-11-13T10:31:10.635359+00:00",
+  "ended": "2026-11-13T10:31:11.777588+00:00",
+  "wallMs": 1142,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/024-m5-terminal-quiescence-owner.test/stdout.raw",
+      "bytes": 1692,
+      "sha256": "8c0336e4120a0cb78cc0ff9735ffbf710c8475ed40d1308958ed88b883e32b8d"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/024-m5-terminal-quiescence-owner.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 1,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

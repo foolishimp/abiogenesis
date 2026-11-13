@@ -1,0 +1,34 @@
+{
+ "kind": "native_07_readiness",
+ "recordedUtc": "2026-11-04T04:56:06Z",
+ "authorReady": false,
+ "reason": "Items 1, 2, 4 and the current_intent/second-Run/duplicate_outer_invocation parts of item 3 are complete with author-run focused proof. The RAW F_H response-pair seed of item 3 is not built: a missing RAW invocation-record producer relation is returned to Root. Actual C2, independent review, UAT and Root conjunction are outside this Worker.",
+ "changedSources": {
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs": "3f1e6bf8249e48977261e5e63d065ab32f52540092e2f49af1dcf05ce81b0349",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs": "c62071e4afc2f938ba9d84f67071686c8c2286ec1efcbd1d61a16ead7d7051f2",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs": "deb87b9693556f5d6f778ca3bb5dd929c5080f47577626361fbeb7530935a28c",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs": "651a4cad61fd64e2fa514951492474073e652989fb48a23995a3c1af19f79462",
+  "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "3148d08b537f53cff92777660f5fe92dc1df8ef001206e07a581546ed13ce8e1"
+ },
+ "unchangedSupport": {
+  "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs": "ddb88d8c2aea1f2cd139a05c485dbe636a62a9d145a276f1db93b857eab88ec4"
+ },
+ "authorLanes": {
+  "retry-entry-consumers": "3/0/0 (min 3)",
+  "current-intent-complete-pair": "1/0/0 (min 1)",
+  "single-address-space-whole-path": "9/0/0 (min 9)",
+  "calculus-fold file": "19/0/0",
+  "t289, r4, F09 consumers": "not rerun (unchanged)"
+ },
+ "packageImpact": "No build/, contracts/ or product-toolchain-manifest.json change (the package files set); package bytes not re-packed by this Worker. All five changed paths are selectedChangedProofPaths in NATIVE07_EVIDENCE_REUSE.json.",
+ "openForRoot": [
+  "RAW F_H seed producer selection",
+  "N6-R1-PROOF-02 disposition",
+  "actual C2 over these exact bytes",
+  "independent review of the changed assertions/HOW"
+ ],
+ "return": {
+  "path": "consolidation-scratch/native-07/return.json",
+  "sha256": "0a50973bdfbbc167764f2d3da8b7b4e69058b68a356545342642a83d6d822732"
+ }
+}

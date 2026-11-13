@@ -1,0 +1,16 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 197956,
+    "sha256": "cb2fae97837a5644420c0a60bb16013202935536058cdd65a3463964171f6b63"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 3188542,
+    "sha256": "f24efffa584b227781c19ce25ec804891834f04bf3b3ec01586c6e33b48af103"
+  }
+]

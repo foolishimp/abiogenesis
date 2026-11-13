@@ -1,0 +1,55 @@
+{
+  "file": "test_env/tests/t287-qualification-parent-alias.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 1632.315249999985,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 1,
+    "failed": 0,
+    "passed": 0,
+    "cancelled": 0,
+    "skipped": 1,
+    "todo": 0,
+    "topLevel": 1,
+    "suites": 0
+  },
+  "skips": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "native parent alias conserves the original child/J and rejects crossed provenance and competing producers",
+      "file": "test_env/tests/t287-qualification-parent-alias.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": "ABI5_PARENT_ALIAS_BINDINGS unset; requires the explicit frozen fixture and isolated emitted-owner binding",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/events/148-t287-qualification-parent-alias.jsonl",
+    "bytes": 938,
+    "sha256": "7b59bc7043bf91dbb22328e0b09968e96f883091ab9ad10d8dd01d9339712886"
+  },
+  "commandReceipt": "commands/148-t287-qualification-parent-alias.result.json",
+  "workspace": "/private/tmp/abg-r9c-broad-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "kind": "file",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+      "executable": false
+    }
+  ],
+  "sourceEffects": []
+}

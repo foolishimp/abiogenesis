@@ -1,0 +1,173 @@
+{
+  "kind": "bounded_control_semantic_delta",
+  "priorActualControls": {
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/NATIVE_GRANT.json",
+      "bytes": 54870,
+      "sha256": "f7b040f911fc0548d90e3268086e04a3411c1e8f6fb58b4ac8491f45992d50a8"
+    },
+    "workload": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/workload.json",
+      "bytes": 185784,
+      "sha256": "abc44ca14a3708e926eb0fcb1455d73b1acecdd0461530986077e1baeb910be1"
+    },
+    "bounds": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/inputs/COMMAND_BOUNDS.json",
+      "bytes": 4317,
+      "sha256": "1ac031b47fdfeb823f9f488022fac1e42201487c927682053de478036abd8248"
+    },
+    "lanes": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/inputs/C2_INPUTS.json",
+      "bytes": 49251,
+      "sha256": "ccba0e3043ac21a9cbbc5288ff0da5977569cda6d708268c0f93bc2c937f1623"
+    }
+  },
+  "RootDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/ROOT_REVIEW_DISPOSITION.json",
+    "bytes": 13105,
+    "sha256": "0abeadd4419584f3170b01e02cd3e79741f25666f095d524925f8dcf92acaa61"
+  },
+  "ownerAddendum": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-02/activation-001/reviews/source-stage-sw2-stage-01/OWNER_ROUTE_ADDENDUM.json",
+    "bytes": 36192,
+    "sha256": "f5df2cbfe11c56855ed2377094318bb83ae6516cf0a7ef1c150d7c3d762af281"
+  },
+  "sameSourceNames": 451,
+  "writeCeilingBefore": 17,
+  "writeCeilingAfter": 25,
+  "sourceBodyCopies": 0,
+  "resumeCopies": 0,
+  "scope": "Durable range/capture clocks, cold archive validation, exact L/RC6/S2/W profiles, invalid timeout fixture and actual actor successor proof; no P-to-W migration/warm archive reads.",
+  "lanes": [
+    {
+      "id": "stdout-differential",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs"
+      ],
+      "testNamePattern": "^RC7 HS03 actual-stream:",
+      "minimumTests": 2,
+      "requiredActivePrefixes": [
+        "RC7 HS03 actual-stream:"
+      ],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "scope-ordering",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t287-lifecycle-failure-carrier.test.mjs"
+      ],
+      "testNamePattern": "^RC7 HS03 (?:scopes:|actor successor:)",
+      "minimumTests": 3,
+      "requiredActivePrefixes": [
+        "RC7 HS03 scopes:",
+        "RC7 HS03 actor successor:"
+      ],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "timeout-interruption",
+      "files": [
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "testNamePattern": "^(?:RC7 HS03 timeout:.*|M5\\ ABG\\ transport\\ force\\-terminates\\ a\\ worker\\ that\\ ignores\\ SIGTERM|M5\\ ABG\\ transport\\ renews\\ its\\ inactivity\\ lease\\ only\\ from\\ observed\\ progress|M5\\ ABG\\ transport\\ does\\ not\\ renew\\ from\\ unacknowledged\\ output|M5\\ ABG\\ transport\\ excludes\\ semantic\\ output\\ emitted\\ after\\ its\\ timeout\\ boundary|M5\\ ABG\\ transport\\ excludes\\ descendant\\ output\\ emitted\\ after\\ direct\\-process\\ exit|M5\\ admitted\\ long\\ inactivity,\\ absolute\\ and\\ grace\\ values\\ do\\ not\\ become\\ one\\-millisecond\\ timeouts|M5\\ a\\ finite\\ native\\ wakeup\\ above\\ the\\ host\\ timer\\ domain\\ does\\ not\\ fire\\ before\\ its\\ owner\\ deadline)$",
+      "minimumTests": 9,
+      "requiredActivePrefixes": [
+        "RC7 HS03 timeout: an inactivity timeout drains the pending partial window",
+        "RC7 HS03 timeout: an absolute interruption under steady qualifying progress"
+      ],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "archive-integrity",
+      "files": [
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "testNamePattern": "^RC7 HS03 archive:",
+      "minimumTests": 6,
+      "requiredActivePrefixes": [
+        "RC7 HS03 archive: one coalesced capture",
+        "RC7 HS03 archive: a failed archive write or fsync",
+        "RC7 HS03 archive: missing, changed or truncated archive bytes",
+        "RC7 HS03 archive: cold reopen",
+        "RC7 HS03 archive: cold recover",
+        "RC7 HS03 archive: cold read"
+      ],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "legacy-replay",
+      "files": [
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "testNamePattern": "^(?:RC7 HS03 historical:.*|C\\-12\\ fold\\ law:\\ a\\ declared\\ actor\\ with\\ probe,\\ threshold\\ and\\ interruption\\ observations\\ folds\\ cold,\\ warm,\\ streaming\\ and\\ forked\\ alike\\ at\\ every\\ cut|C\\-12\\ fold\\ law:\\ a\\ malformed\\ native\\ observation\\ is\\ refused\\ by\\ the\\ fold\\ with\\ one\\ message\\ at\\ every\\ cut\\ that\\ holds\\ it|TD\\-23\\ \\(a\\)\\ both\\ durable\\ history\\ readers\\ keep\\ head's\\ errors,\\ rows,\\ offsets\\ and\\ digests|M5\\ reopens\\ one\\ exact\\ durable\\ prefix\\ without\\ restamping\\ and\\ appends\\ at\\ max\\ ordinal\\ plus\\ one)$",
+      "minimumTests": 7,
+      "requiredActivePrefixes": [
+        "RC7 HS03 historical: retained per-chunk rows",
+        "RC7 HS03 historical: RC6",
+        "RC7 HS03 historical: S2"
+      ],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "native-caller",
+      "files": [
+        "test_env/tests/t287-native-workspace-work.test.mjs"
+      ],
+      "testNamePattern": "^(?:native\\ work\\ publishes\\ one\\ ordinary\\ callable\\ effect\\ with\\ run\\ and\\ child\\ closure|actual\\ observation\\ remains\\ independent\\ of\\ report\\ and\\ consumer\\ judgment|native\\ timeout\\ retains\\ actual\\ partial\\ edit\\ and\\ refuses\\ success|read\\-only\\ native\\ assessment\\ returns\\ observed\\ assets\\ and\\ an\\ empty\\ change\\ set|RC7\\ complete\\ carriage:\\ the\\ basis\\ holds\\ the\\ task\\ once;\\ Result,\\ failure\\ and\\ binding\\ carry\\ no\\ task,\\ before,\\ raw\\ input\\ or\\ unchanged\\-after\\ copy|native\\ publication\\ agrees\\ with\\ actual\\ generated\\ artifact\\ manifest\\ identity)$",
+      "minimumTests": 6,
+      "requiredActivePrefixes": [
+        "RC7 complete carriage:"
+      ],
+      "timeoutMs": 300000
+    }
+  ],
+  "executableChangesFromS2": "Only namespace/stage labels/short temps; same full passed/filter/once-only/stop predicate. CONTROL_NAMESPACE.diff is exact; no helper semantics changed.",
+  "historicalOwners": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "bytes": 198998,
+      "sha256": "706acaaa7300686eed4bcfa739347c12261c874adb20b3d354c7a9f195627199"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_contract_profiles.js",
+      "bytes": 9153,
+      "sha256": "bdace2720987c3e7cf7f7a1f94bfc22e56f865a69e20f44ca4352d4349b2bedb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/transport_contracts.js",
+      "bytes": 11516,
+      "sha256": "db506fd86877170e6783463c06ac37027e895d15cb029700a2d772e39a69812b"
+    }
+  ],
+  "resources": {
+    "nativeCodingWorkers": 1,
+    "reasoning": "xhigh",
+    "absoluteMs": 3600000,
+    "inactivityMs": 1800000,
+    "maxTurns": 320,
+    "nodeHeapMiB": 8192,
+    "hostMs": 10800000,
+    "maxStages": 2,
+    "maxLaneInvocations": 6,
+    "stageMs": {
+      "compile": 240000,
+      "generate": 600000,
+      "lifecycle": 60000
+    },
+    "laneMs": 300000,
+    "concurrency": 1,
+    "lanes": [
+      "stdout-differential",
+      "scope-ordering",
+      "timeout-interruption",
+      "archive-integrity",
+      "legacy-replay",
+      "native-caller"
+    ]
+  },
+  "RootAdmission": null,
+  "dispatch": null
+}

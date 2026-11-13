@@ -1,0 +1,30 @@
+{
+  "status": "PARTIAL_PUBLIC_STREAM_USAGE_ONLY",
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/runtime-001/resources/archives/fp-3b22023555e14491-stdout.log",
+    "bytes": 2214480,
+    "sha256": "a18557813eb9f1b324abf106a836e46f4a3af45f0e75bb07a6fe57ad23c5e891"
+  },
+  "completedMessageCount": 27,
+  "startedMessageCount": 28,
+  "completedMessageUsageSum": {
+    "input_tokens": 54,
+    "cache_creation_input_tokens": 167336,
+    "cache_read_input_tokens": 2445626,
+    "output_tokens": 94111
+  },
+  "incompleteMessageStartUsage": [
+    {
+      "id": "msg_011CgtHqJBM683rthiZJFbVc",
+      "line": 2845,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 43266,
+        "cache_read_input_tokens": 167336,
+        "output_tokens": 2
+      }
+    }
+  ],
+  "terminalProviderResultPresent": false,
+  "standing": "27 completed-message final usage records summed once. Last message has no ending usage; whole-call output/usage total is unknown. No internal reasoning copied."
+}

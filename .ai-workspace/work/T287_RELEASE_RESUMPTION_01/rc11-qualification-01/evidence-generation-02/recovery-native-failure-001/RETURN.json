@@ -1,0 +1,45 @@
+{
+  "status": "physical_maintenance_recovered_and_closed",
+  "recovery": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/recovery-native-failure-001/RECOVERY.json",
+    "bytes": 1537,
+    "sha256": "31d9d5f1cfb39672bc2092e99a5a1a5cb988252b8c87a609a4ef197afec52f53"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/recovery-native-failure-001/RECOVERY_SELECTION.json",
+    "bytes": 1389,
+    "sha256": "3f53e1c1bad1964904fa7761aa1bf92677f9d34f5fd3a95749e25a4bc4f45e3a"
+  },
+  "quiescence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/recovery-native-failure-001/QUIESCENCE.json",
+    "bytes": 238,
+    "sha256": "1b1aab57505c0c487b22d0d71cb8215aafd638ff50020f857d8449e9a603b0da"
+  },
+  "originalBytes": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-02/raw/native-assessment/tmp/abi5-root-env-c1Y6ZD/runtime/events.jsonl",
+    "bytes": 3210242,
+    "sha256": "4d88f0bbde1cb70f28ab7d499bf18d23d2f22cf08d2dcfe2b6cee347faaa2dc6"
+  },
+  "validatedEventCount": 5,
+  "eventKinds": {
+    "public_operation_artifact_admitted": 3,
+    "public_operation_admitted": 1,
+    "invocation_admitted": 1
+  },
+  "originalEventIds": [
+    "event://abiogenesis/56a8ce6db1b71e762f1d69512714ea295ab8f7ad793fbf14a12ff4584ce50d57",
+    "event://abiogenesis/4de018a3eb448f19a782faea16c38395262408d720799216e6b50687dd180c44",
+    "event://abiogenesis/c918d2c3e209f9ef2e1f282ef7a774d5101dda30ea857da8cf5613969dedbf81",
+    "event://abiogenesis/0997948d71db95a127d673bb6692ccc46243615c72fc7150830a24df83e33f55",
+    "event://abiogenesis/0afe98d0a36e7451402f9f8da76fc41a01fb8d5e6240e861c11aa7c5359c7206"
+  ],
+  "lockAbsent": true,
+  "pidAbsent": true,
+  "groupAbsent": true,
+  "sourceControlsAndSelectedSnapshotConserved": true,
+  "eventsAppended": 0,
+  "semanticClosureClaim": false,
+  "fixtureGeneration": false,
+  "retry": false,
+  "originProvenance": "Reconstructed initialOrigin from exact setup source createNewEmptyAppendSink request at lines356-360 and current file coordinates; not a captured creation receipt."
+}

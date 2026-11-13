@@ -1,0 +1,160 @@
+{
+  "allSevenNewVersions": {
+    "base64BytesPerCopy": 15108,
+    "decodedBytesPerCopy": 11323,
+    "laterBase64Bytes": 75540,
+    "laterBase64FractionOfLog": 0.0031094599040208436,
+    "laterCopies": 5,
+    "laterDecodedBytes": 56615,
+    "routeBase64Bytes": 30216,
+    "routeCopies": 2,
+    "routeDecodedBytes": 22646
+  },
+  "fullRouteSourceUpperBoundBytes": 163413,
+  "limit": "Source bytes saved only before backreference overhead; storage-only proposal not implemented/executed",
+  "positions": [
+    {
+      "base64Bytes": 84,
+      "birthRelation": "first admitted birth",
+      "byteLength": 61,
+      "digest": "sha256:fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115",
+      "eventBytes": 56163,
+      "eventRef": "event://abiogenesis/b178c773931bf2fadfc79d44562de038e9b040f762c68a8d10e43f16c58eb1c7",
+      "kind": "c_call_result_admitted",
+      "offset": 12898255,
+      "ordinal": 2765,
+      "path": [
+        "payload",
+        "value",
+        "after",
+        "entries",
+        2
+      ]
+    },
+    {
+      "base64Bytes": 84,
+      "birthRelation": "later than admitted birth",
+      "byteLength": 61,
+      "digest": "sha256:fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115",
+      "eventBytes": 87619,
+      "eventRef": "event://abiogenesis/2bdb0dfc32f1d64ddff804e6096164b504cfca7e4e30da5ac79c29c2d2ba5145",
+      "kind": "traversal_route_admitted",
+      "offset": 13019913,
+      "ordinal": 2786,
+      "path": [
+        "payload",
+        "boundInput",
+        "value",
+        "source",
+        "after",
+        "entries",
+        2
+      ]
+    },
+    {
+      "base64Bytes": 84,
+      "birthRelation": "later than admitted birth",
+      "byteLength": 61,
+      "digest": "sha256:fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115",
+      "eventBytes": 89284,
+      "eventRef": "event://abiogenesis/b489846d2e9ca0f76123fae7082299c6397e900fbbb18a5eaf0b2a71375c7fe1",
+      "kind": "c_call_result_admitted",
+      "offset": 16463139,
+      "ordinal": 3718,
+      "path": [
+        "payload",
+        "value",
+        "sourceNativeWork",
+        "after",
+        "entries",
+        2
+      ]
+    },
+    {
+      "base64Bytes": 84,
+      "birthRelation": "later than admitted birth",
+      "byteLength": 61,
+      "digest": "sha256:fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115",
+      "eventBytes": 231981,
+      "eventRef": "event://abiogenesis/a1396a8e667e7f43c42847786626c31cedd2d18b1fe0da65892fa7cc000a9017",
+      "kind": "actor_transport_binding_admitted",
+      "offset": 16631810,
+      "ordinal": 3741,
+      "path": [
+        "payload",
+        "instructionAssembly",
+        "envelope",
+        "nativeBasis",
+        "executionBasis",
+        "rawInputValue",
+        "sourceNativeWork",
+        "after",
+        "entries",
+        2
+      ]
+    },
+    {
+      "base64Bytes": 84,
+      "birthRelation": "later than admitted birth",
+      "byteLength": 61,
+      "digest": "sha256:fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115",
+      "eventBytes": 111419,
+      "eventRef": "event://abiogenesis/4f73a3d03d55e5f97b6dde62be5daf3beef5fd06460ed5d39a7495a523641574",
+      "kind": "c_call_result_admitted",
+      "offset": 17613025,
+      "ordinal": 3971,
+      "path": [
+        "payload",
+        "value",
+        "task",
+        "sourceNativeWork",
+        "after",
+        "entries",
+        2
+      ]
+    },
+    {
+      "base64Bytes": 84,
+      "birthRelation": "later than admitted birth",
+      "byteLength": 61,
+      "digest": "sha256:fdca85874e82266bc49aed9eab50772858a0ce96e47aa2b513aa8866b89c8115",
+      "eventBytes": 146440,
+      "eventRef": "event://abiogenesis/8658dc01b45579af7fdff3a87f8c6f8a85ab00cb96ccda222063aabeb417a2f0",
+      "kind": "traversal_route_admitted",
+      "offset": 17790044,
+      "ordinal": 3992,
+      "path": [
+        "payload",
+        "boundInput",
+        "value",
+        "source",
+        "task",
+        "sourceNativeWork",
+        "after",
+        "entries",
+        2
+      ]
+    }
+  ],
+  "representative": "generated/hello-world.mjs",
+  "routeSources": [
+    {
+      "compactSourceBytes": 54087,
+      "exactPriorResultEquality": true,
+      "routeOrdinal": 2786,
+      "sourceOrdinal": 2765
+    },
+    {
+      "compactSourceBytes": 109326,
+      "exactPriorResultEquality": true,
+      "routeOrdinal": 3992,
+      "sourceOrdinal": 3971
+    }
+  ],
+  "sourceCommit": "bcb1faf63cfb39bd7ccf7e14b48b133d1163216b",
+  "unchangedPrefix": {
+    "bytes": 24293608,
+    "inode": 673043539,
+    "sha256": "5bcdeb0ddfbc4d970b868cfadf15b070738d6290a0039ba0a9781ff02ff4f79b"
+  }
+}

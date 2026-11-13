@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-05T09:14:43.243269+00:00",
+  "status": "pre-execution_control_shape_correction",
+  "reason": "Canonical constructGovernanceWorkState owns observations=[] and synthesis=null; Root preflight assertion now uses that exact shape. No prior preflight ran.",
+  "source": "code/src/product/default_library.ts:84-86",
+  "original": "prepare.mjs",
+  "selected": "prepare-r1.mjs",
+  "selectedSha256": "4ef4f068d910c8b474890a8354288523a619e8ab2142ee139bb14378676fea81"
+}

@@ -1,0 +1,34 @@
+// Preparation-only until exact frozen artifact and Root admission are bound.
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir,lstat,realpath,statfs} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {dirname,join,resolve,relative} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+const here=dirname(fileURLToPath(import.meta.url)),hex=b=>createHash('sha256').update(b).digest('hex');
+async function checked(p){assert(p&&typeof p.path==='string'&&typeof p.bytes==='number'&&/^[a-f0-9]{64}$/.test(p.sha256),'missing exact pin');const z=await readFile(p.path);assert.equal(z.length,p.bytes);assert.equal(hex(z),p.sha256);return z;}
+assert.equal(process.argv.length,6,'node run-measurement.mjs BINDING SHA ROOT_ADMISSION SHA');
+const bindingPath=resolve(process.argv[2]),bytes=await readFile(bindingPath);assert.equal(hex(bytes),process.argv[3]);const b=JSON.parse(bytes);assert.equal(b.status,'PREPARED_RC10_FROZEN_RETENTION_MEASUREMENT','held binding cannot allocate');
+const admissionPath=resolve(process.argv[4]);assert.equal(dirname(admissionPath),here);const ar=await readFile(admissionPath);assert.equal(hex(ar),process.argv[5]);const a=JSON.parse(ar);assert.equal(a.status,'ROOT_ADMITTED_RC10_FROZEN_RETENTION_MEASUREMENT');assert.equal(a.bindingSha256,process.argv[3]);
+assert.deepEqual(b.contextBodyBytes,[1048576,4194304]);assert.equal(b.calls,50);assert.equal(b.sampleIntervalMs,20);assert.equal(b.providerCallsSelected,0);assert.equal(b.qualified,false);
+const K=b.bounds;assert.deepEqual(K,{hostMs:900000,aggregateBytes:1073741824,outputBytes:16777216,rawCliRequestBytes:67108864,nodeHeapMiB:8192,coldReadMs:120000,actorInactivityMs:30000,actorAbsoluteMs:60000,reserveBytes:4294967296});
+assert.equal(await realpath(process.execPath),b.node.realPath);await checked({path:b.node.realPath,bytes:b.node.bytes,sha256:b.node.sha256});
+for(const p of b.controlPins)await checked(p);await checked(b.runner);await checked(b.reporter);await checked(b.scriptedActor);for(const p of b.helperPins)await checked(p);
+const frozen=JSON.parse(await checked(b.subject.sourceFreeze));assert.equal(frozen.sourceDigest,b.subject.sourceDigest);await checked(b.candidateArchive);await checked(b.installReceipt);for(const p of b.installIdentityPins)await checked(p);
+const relation=JSON.parse(await checked(b.sourceArtifactRelation));assert.deepEqual(relation.sourceIdentity,b.subject);assert.deepEqual(relation.archive,b.candidateArchive);assert.deepEqual(relation.installation,b.installReceipt);assert.equal(relation.identityEdited,false);
+assert.equal(b.installRoot,join(b.bootstrapInstallHost,'node_modules/@abiogenesis/typescript-tenant'));assert.equal(JSON.parse(await readFile(join(b.installRoot,'package.json'),'utf8')).version,'5.0.0-rc.10');
+assert.equal(b.outputRoot,join(here,'actual-001'));assert.equal(b.tempRoot,'/private/tmp/abg-rc10-retention-measurement-001');
+for(const p of [b.outputRoot,b.tempRoot]){try{await lstat(p);throw Error('preserve existing allocation: '+p);}catch(e){if(e.code!=='ENOENT')throw e;}}
+const fs=await statfs(here);assert(Number(fs.bavail)*Number(fs.bsize)>K.reserveBytes);
+const {commandRecorder,exclusiveRecord}=await import(pathToFileURL(b.runner.path));await mkdir(b.outputRoot,{mode:0o700});await mkdir(b.tempRoot,{mode:0o700});await mkdir(join(b.tempRoot,'tmp'));for(const n of ['npm-user.npmrc','npm-global.npmrc'])await writeFile(join(b.tempRoot,n),'',{flag:'wx'});
+const env={HOME:process.env.HOME,PATH:'/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin',LANG:'en_US.UTF-8',LC_ALL:'en_US.UTF-8',CI:'1',TMPDIR:join(b.tempRoot,'tmp'),NODE_OPTIONS:'--max-old-space-size=8192',npm_config_userconfig:join(b.tempRoot,'npm-user.npmrc'),npm_config_globalconfig:join(b.tempRoot,'npm-global.npmrc'),npm_config_cache:join(b.tempRoot,'npm-cache'),npm_config_offline:'true',npm_config_ignore_scripts:'true',npm_config_audit:'false',npm_config_fund:'false',ABG_TS_CLAUDE_COMMAND:b.scriptedActor.path,ABG_TS_FP_TIMEOUT_MS:String(K.actorInactivityMs),ABG_TS_FP_ABSOLUTE_TIMEOUT_MS:String(K.actorAbsoluteMs),ABG_TS_FP_TERMINATION_GRACE_MS:'2000',ABI5_RETENTION_BINDING:bindingPath,ABI5_RETENTION_BINDING_SHA256:process.argv[3]};
+const events=join(b.outputRoot,'events.jsonl'),script=join(here,'measurement.test.mjs');await exclusiveRecord(b.outputRoot,'STARTED.json',{utc:new Date().toISOString(),binding:{path:bindingPath,sha256:process.argv[3]},admission:{path:admissionPath,sha256:process.argv[5]},environment:env,bounds:K,providerCallsSelected:0});
+let command=null,error=null,reporter=null,measurement=null;
+try{
+ command=await commandRecorder(b.outputRoot,{environment:env,timeoutMs:K.hostMs,maxOutputBytes:K.outputBytes})('retention50',b.node.realPath,['--test','--test-concurrency=1','--test-reporter=spec','--test-reporter-destination=stdout','--test-reporter='+b.reporter.path,'--test-reporter-destination='+events,script],{cwd:b.packageRoot,environment:env});
+ const er=await readFile(events);assert(er.length<=K.outputBytes);const rows=er.toString().trim().split('\n').map(x=>JSON.parse(x)),global=rows.filter(x=>x.type==='summary'&&x.file===null),files=rows.filter(x=>x.type==='summary'&&x.file!==null),cases=rows.filter(x=>x.type==='case');
+ reporter={path:events,bytes:er.length,sha256:hex(er),begin:rows[0]?.type==='begin',end:rows.at(-1)?.type==='end',globalSummaries:global.length,summary:global[0]??null,fileSummaries:files,cases};
+ const mr=await readFile(join(b.outputRoot,'MEASUREMENT.json'));measurement=JSON.parse(mr);assert(command.exitCode===0&&!command.signal&&!command.timedOut&&!command.truncated&&!command.failure);
+ assert(reporter.begin&&reporter.end&&global.length===1&&files.length===1&&global[0].success===true&&files[0].success===true);assert.equal(files[0].file,relative(b.packageRoot,script).split('\\').join('/'));assert.equal(cases.length,1);assert.equal(cases[0].file,files[0].file);assert(cases[0].passed&&!cases[0].skip&&!cases[0].todo);for(const k of ['failed','cancelled','skipped','todo'])assert.equal(global[0].counts[k],0);assert.equal(global[0].counts.passed,1);
+ assert.equal(measurement.status,'FIFTY_CALL_RETENTION_MEASUREMENT_CLOSED');assert.equal(measurement.perCall.length,50);assert.equal(measurement.actualPhysicalClose,true);assert(!measurement.error&&!measurement.logCustodyFailure);
+}catch(e){error=String(e?.stack??e);}
+const passed=error===null;await exclusiveRecord(b.outputRoot,'HOST_RESULT.json',{status:passed?'PASSED':'FAILED_OR_INCOMPLETE',command,reporter,measurement:measurement?{status:measurement.status,calls:measurement.perCall.length,actualPhysicalClose:measurement.actualPhysicalClose}:null,error,qualified:false,providerCallsSelected:0,standing:'Actual command, complete structured reporter, 50-call accounting and physical close are all required. No retry or source change.'});if(!passed)process.exitCode=1;

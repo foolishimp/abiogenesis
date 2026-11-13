@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-03T12:09:51.804102+00:00",
+  "roleTransition": "Executive -> bounded status projection Writer",
+  "grant": [
+    "Update current campaign STATUS and T287 activation header from exact native return and frozen subject"
+  ],
+  "sourceSubjectSha256": "6dcb7b4dd0eb84b8d5706c3e50a3cf3576796f0bc77418fcd3ee68ee85e6dbee",
+  "previousStatusSha256": "d1a68eb911b6503542836cc3c0a0864d55bff62451fcff3dc990c042639b6772",
+  "exclusions": [
+    "No Product or native input edits",
+    "No acceptance or release inferred",
+    "Preserve historical records"
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "productFrame": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "families": "F01-F07,F09-F11,F13-F17 (fixed 15)",
+    "selection": "GOAL-035 / T-287 / RC8 REF-01; explicitly unqualified local cut",
+    "method": "STDO3.0.4; empty composition",
+    "scope": "Independent read-only Proof budget recurrence check over exactly 31 unexecuted files. No Product review or qualification disposition.",
+    "authorityPins": {
+      "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+      "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+    }
+  },
+  "reviewedAtUtc": "2026-11-07T13:53:09.760964+00:00",
+  "boundedVerdict": "One finite Operator-cap adjustment is supported; no other numerical increase is supported by this bounded review. Six C2 inner timers remain unchanged and unproved. Root alone selects controls and conjoins actual results.",
+  "relations": [
+    {
+      "requirement": "Faithful bounded Proof of existing installed owner paths; Product EVENTS001/002, PROJECTION002/025 and PUBLIC-CONTRACTS004 remain unchanged.",
+      "owningHow": "Common computational capability library HOW sections10.9-10.11 and the existing installed setup/test owners.",
+      "application": "Proof must include actual default-reachable setup and assertions on one common clock. Operating cap accounting creates no ABG authority, alters no admission/replay contract, and supplies no runtime-success credit."
+    }
+  ],
+  "sourceRelation": {
+    "broadSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "selectedFinalSourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "compiledManifestSha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102",
+    "verification": "Actual bytes of all31 remaining test files and four named setup helpers matched both A6 and A11 manifest rows. No full inventory or archive rehash.",
+    "helperPaths": [
+      "root-installed-environment.mjs",
+      "root-cli-environment.mjs",
+      "t287-wave2-owner-chain-worker.mjs",
+      "language-smoke-fixture.mjs"
+    ]
+  },
+  "population": {
+    "inventoryTests": 208,
+    "creditedFiles": 165,
+    "deferredFiles": 12,
+    "remainingFiles": [
+      "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+      "test_env/tests/t287-static-declaration-closure.test.mjs",
+      "test_env/tests/t287-stdo-environment-citation.test.mjs",
+      "test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "test_env/tests/t287-stdo-run-environment.test.mjs",
+      "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+      "test_env/tests/t287-undispatched-diagnostic.test.mjs",
+      "test_env/tests/t287-value-equality.test.mjs",
+      "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+      "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+      "test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+      "test_env/tests/t287-wave2-installed-product-verification.test.mjs",
+      "test_env/tests/t287-wave2-owner-chain.test.mjs",
+      "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+      "test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "test_env/tests/t287-worksite-construction.test.mjs",
+      "test_env/tests/t288-initial-cursor-entry.test.mjs",
+      "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "test_env/tests/t288-logical-prefix-digest.test.mjs",
+      "test_env/tests/t289-install-event-bodies.test.mjs",
+      "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+      "test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+      "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "test_env/tests/w2-steel-single-start-installed.test.mjs",
+      "test_env/tests/w2-steel-single-start.test.mjs",
+      "test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+      "test_env/uat/harness.test.mjs"
+    ],
+    "derivation": "binding-021 BOUND_INVENTORY tests minus CLOSE_BINDINGS_022 focusedCoverage and deferredFiles"
+  },
+  "environment": "Driver lines174-178 construct an allowlisted environment: no frozen-artifact selector, C2 proof config, STDO pilot inputs or STEEL retained/live selectors. Optional gates stay unset. Node runs the original full files, serially; no new filters proposed.",
+  "findings": [
+    {
+      "id": "PB21-01",
+      "severity": "S3",
+      "frame": "Proof/common-clock budget",
+      "trigger": "Six default installed C2 cases need appreciable setup/execution time within one600s file command.",
+      "evidence": "Each independently calls setupInstalledRootExecutionBasis at665; call sites1190,1197,1451,1455,1636,1640 carry180s internal timers. Sum of declared individual allocations is1080s before other cases/teardown.",
+      "harm": "An outer stop may remove later-case evidence even when earlier cases satisfy their own declared budget; no Product semantic failure is inferred.",
+      "failClosed": "Original caps/results remain exact; timeouts are failures, never passes or coverage credit.",
+      "smallestRecommendation": "Operator may set only t287-worksite-command-execution.test.mjs fileTimeoutMs to1200000 before its first execution. Keep all source, gates, inner timers and assertions unchanged.",
+      "cost": "One numeric control override; maximum command allowance increases600s. No test rerun selected.",
+      "uncertainty": "120s aggregate margin is an operating allocation, not a proved maximum. Existing180s inner limits may fail first; increasing the outer cap cannot cure that."
+    }
+  ],
+  "materialFiles": [
+    {
+      "files": [
+        "t287-worksite-command-execution.test.mjs"
+      ],
+      "defaultComposition": "Six separate installedC2Case calls; each reaches a fresh setupInstalledRootExecutionBasis, then its installed C1/C2/runtime and replay/negative assertions. No ABG_T287_C2_PROOF_CONFIG is supplied.",
+      "sourceLines": "632-675;1190-1199;1451-1457;1636-1642",
+      "outerMs": 600000,
+      "innerMs": "6 x 180000",
+      "proposedOuterMs": 1200000,
+      "rationale": "Finite allocation for the existing 1080000ms sum of case timers plus 120000ms for other cases and teardown. This does not change or guarantee sufficiency of each inner timer."
+    },
+    {
+      "files": [
+        "t287-worksite-construction.test.mjs"
+      ],
+      "defaultComposition": "Two independent fresh installed root execution bases, one per installed case.",
+      "sourceLines": "374-388;701-716",
+      "outerMs": 600000,
+      "innerMs": "2 x 180000",
+      "proposedOuterMs": 600000,
+      "rationale": "Declared case timers total 360s. No supported outer-only fix for a slow setup exceeding the existing 180s inner timer."
+    },
+    {
+      "files": [
+        "t287-worksite-branch-construction.test.mjs"
+      ],
+      "defaultComposition": "Two setupFixture calls, each through setupCompositeRootExecutionBasis to a fresh installed root invocation.",
+      "sourceLines": "14-19;354-379;586-604;671-678",
+      "outerMs": 600000,
+      "innerMs": "2 x 240000",
+      "proposedOuterMs": 600000,
+      "rationale": "Declared case timers total 480s. Same inner-timer limitation; no new execution failure asserted."
+    },
+    {
+      "files": [
+        "t287-st2a-g-capability-definition-graph.test.mjs",
+        "t287-wave2-owner-chain.test.mjs"
+      ],
+      "defaultComposition": "One fresh pack/verify/install sequence per file; owner-chain helper is invoked once. Earlier/source-only cases do not repeat installation.",
+      "sourceLines": "ST2A-G403-448;owner-chain15-18;support/t287-wave2-owner-chain-worker21-105",
+      "outerMs": 600000,
+      "proposedOuterMs": 600000,
+      "rationale": "No repeated-setup population or directly measured same-file cost justifies a proactive increase."
+    },
+    {
+      "files": [
+        "t287-w2-05-install-catalog-owner-chain.test.mjs"
+      ],
+      "defaultComposition": "One CLI harness pack/bootstrap npm install and fixture preparation; one packed Product verification and one subsequent Product install. These are not multiple fresh root-catalog setups.",
+      "sourceLines": "303-305;356-375;454-495;support/root-cli-environment87-128,198-209",
+      "outerMs": 600000,
+      "proposedOuterMs": 600000,
+      "rationale": "Substantial one-time composition and many owner assertions, but its exact current duration is unmeasured. No defensible numerical increase from case/grep counts alone."
+    },
+    {
+      "files": [
+        "t287-wave2-installed-product-verification.test.mjs"
+      ],
+      "defaultComposition": "One fresh installed root catalog, followed by unchanged/stale verification calls; second case uses a small unreadable-archive probe.",
+      "sourceLines": "17-74;109-149",
+      "outerMs": 600000,
+      "proposedOuterMs": 600000,
+      "rationale": "No second setup. Entry calls are not evidence of repeated full verification work or a quantified timing defect."
+    },
+    {
+      "files": [
+        "t289-install-event-bodies.test.mjs"
+      ],
+      "defaultComposition": "Four cases share one memoized installed() promise: one root setup containing core and language fixture installs.",
+      "sourceLines": "126-154;343-344;392;447",
+      "outerMs": 1200000,
+      "innerMs": "900000 per case",
+      "proposedOuterMs": 1200000,
+      "rationale": "Existing 20min override; four callers do not mean four cold installations. Later owner/cold probes remain real unexecuted work."
+    },
+    {
+      "files": [
+        "t287-w2-05-generator-package-reproducibility.test.mjs",
+        "t287-w2-05-release-snapshot-definition-bindings.test.mjs"
+      ],
+      "defaultComposition": "Generator: two deliberate builds, one pack/extract/verify. Release snapshot: one build/pack and export proof. Driver isolates both build-effect files.",
+      "sourceLines": "generator321-354;release13-44;driver13,218-224",
+      "outerMs": 900000,
+      "proposedOuterMs": 900000,
+      "rationale": "Existing 15min overrides; no measured build composition contradicts them."
+    },
+    {
+      "files": [
+        "uat/harness.test.mjs"
+      ],
+      "defaultComposition": "The maintained setup case performs one fresh bootstrap/setup with two genuine installation npm processes and a warm verification control, not ten cold setups.",
+      "sourceLines": "833-935;1025-1027;1092",
+      "outerMs": 1200000,
+      "proposedOuterMs": 1200000,
+      "rationale": "Existing 20min override. Ten native calls are owner steps in one setup and cannot be multiplied as independent setup costs."
+    },
+    {
+      "files": [
+        "t287-stdo3-run-environment.test.mjs"
+      ],
+      "defaultComposition": "One shared before hook resolves/copies the pinned STDO inventory and constructs its environment; no Product installation per case.",
+      "sourceLines": "17-35",
+      "outerMs": 600000,
+      "proposedOuterMs": 600000,
+      "rationale": "Shared before hook counted once. No supported further adjustment."
+    }
+  ],
+  "defaultExcludedCost": "Installed steel Thread3 and both Thread4 cases skip before setup without their exact evidence/run/artifact selectors. STDO pilot/proof-entry retained lanes and all retained single-start-closure lanes are likewise gated. Other remaining files have source/component/cold-record work, with no further demonstrated repeated cold installation pattern; no runtime-cost assurance is claimed.",
+  "measuredBasis": {
+    "completedRegisteredWholeMs": 206459.410375,
+    "completedRegisteredSetupMs": 175058.951332,
+    "earlierRegisteredCompletedSetupMs": 469386.782501,
+    "st2aEFirstCasePassMs": 599196.256042,
+    "interpretation": "These are observed same-helper compositions, not universal per-setup costs. They establish variation and plausible setup pressure. They do not justify multiplying six identical durations, a host/CPU/disk diagnosis, or guarantees for any new file. ST2A-E second-case proof is separate and was not rerun or credited here."
+  },
+  "innerTimerObservation": "C1 has2x180s and C3 has2x240s; their600s outer caps exceed those sums. The observed shared-helper timings expose possible inner-budget pressure but do not prove these files will fail. No inner-source change or preemptive deferral is authorized or recommended here.",
+  "overallClock": "Config retains14400000ms overall. Driver228 selects min(file cap, remaining overall). A proposed full file allowance is conditional on enough remaining overall time; no claim that all31 fit the campaign cap. No overall-cap change proposed.",
+  "closureFalsifier": "Actual complete C2 reporter for the original full case population, with no assertion loss and exact source correspondence, is required to credit that file. Any inner timeout, outer timeout, semantic failure or incomplete final reporter remains its own red. Other31-file execution outcomes remain unobserved here.",
+  "triage": {
+    "classification": "Proof planning; no Product/source defect established",
+    "priorityAndDispositionOwner": "Root Executive",
+    "additionalActionsTaken": "Read-only source/evidence acquisition and creation of this capsule only; no execution, source/control edit, provider or process effect"
+  },
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/CLOSE_BINDINGS_022.json",
+      "bytes": 414994,
+      "sha256": "5a9012724e6363968f883a767c4dbfa63982d977e140a8a588ba3246759d4775"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-021.mjs",
+      "bytes": 36502,
+      "sha256": "fc5716a4e38b17d5c5afcf040864128a39bb007e27794f26126893656e773fb4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/binding-021/BOUND_INVENTORY.json",
+      "bytes": 2074249,
+      "sha256": "f4e637981405ca46c3d3b4f06bb0cc43f55fea351ecdeaabbf0c8d7090173d17"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/source-freeze.json",
+      "bytes": 295552,
+      "sha256": "422808c5850d72cb0533fa7ddba6864c757f9b23eeba756466f4157f20cd7879"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/actual-001/selection-evidence/setup.json",
+      "bytes": 1464,
+      "sha256": "9c44541ff6457f56c8ff464e8ef9757b95fecb242af7346ab673643a3660650b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/registered-selection-whole-001/actual-001/RESULT.json",
+      "bytes": 872,
+      "sha256": "180a8774cf4524556521bdd1747378a2b7df04c468ad355d3ccf0dbb26192189"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/registered-selection-timeout-015/REVIEW.json",
+      "bytes": 14762,
+      "sha256": "cb0753e3a28e4c76b34d86606d9665e350f136256096faf17eaa669641c372bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/st2a-e-timeout-020/REVIEW.json",
+      "bytes": 12607,
+      "sha256": "d9bf534b4f491b689574205682c6ac7754e65ae9f45b7e282862b9d6df29c80d"
+    }
+  ]
+}

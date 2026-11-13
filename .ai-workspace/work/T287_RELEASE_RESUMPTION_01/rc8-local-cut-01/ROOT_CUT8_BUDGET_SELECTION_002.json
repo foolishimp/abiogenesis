@@ -1,0 +1,83 @@
+{
+  "status": "ROOT_SELECTED_CUT8_OPERATOR_BUDGET_CORRECTION_PREPARATION_ONLY",
+  "at": "2026-11-07T11:20:57.611862+00:00",
+  "writer": "/root/rc8_operator",
+  "consumer": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "composition": [],
+  "fixedFamilies": 15,
+  "ticket": "T-287",
+  "goal": "GOAL-035",
+  "sourceDigest": "6c8d900caa803df6e662f8cb5b40f199f773d2f464b17f9a05f39e0c34310ed8",
+  "sourcePaths": 25,
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-10/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 4408,
+    "sha256": "d9adadd2558622cb8f60a20055509a160dd0e4a96f204bce368f19e809663922"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/bootstrap-rc8-001/archive/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "rootSelection": "Root selected installedOwner900000ms and install1200000ms to prevent the observed verification/control-cap mismatch. These are outer Operator command custody limits; no Product deadline, performance promise or execution admission changes.",
+  "rationale": "Smoke performs verifyProduct plus installed-content verification and empty-resource read/close. Install performs verification, lock/materialization, content verification and5325member byte checks. The retained291.862s artifact-verification phase is a corresponding observation, not a pure microbenchmark or upper bound.",
+  "timingEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/CUT8_TIMING_SUFFICIENCY_002.json",
+    "bytes": 7063,
+    "sha256": "0a1b4d7af98055e443d2547cd9e674e455cdc1cadff6417d9cc81c5bfc690a6d"
+  },
+  "predecessorDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-001.mjs",
+    "bytes": 27888,
+    "sha256": "c563c22709857bfa915bf00b3c3bb537ff97358aaccb502664ae3efeb0c32633"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs",
+    "bytes": 27890,
+    "sha256": "d2a4080a9e6ed4d728fb57d3e67cc62af076061cd5f27009ac7f97c6cd7ec77c"
+  },
+  "exactDriverDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/DRIVER_DIFF_CORRECTED_002.patch",
+    "bytes": 3300,
+    "sha256": "aa4f9ad878495454d82eac75c6976fce6845a4b0a62b95e0febf925cfcb93434"
+  },
+  "selectedBoundsMs": {
+    "installedOwner": {
+      "before": 60000,
+      "after": 900000
+    },
+    "install": {
+      "before": 600000,
+      "after": 1200000
+    }
+  },
+  "allOtherBoundsUnchanged": true,
+  "syntaxCheck": {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/run-local-cut.corrected-002.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "functionalInputsAndChecksChanged": false,
+  "sourceChanged": false,
+  "broad015": "Stopped; no continuation selected in this activation.",
+  "executionEnabled": false,
+  "excludedEffects": [
+    "checkpoint",
+    "build",
+    "pack",
+    "install",
+    "smoke",
+    "retry",
+    "provider",
+    "source edits",
+    "method/global changes",
+    "cleanup"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "status": "PREPARED_EXTERNAL_FROZEN_SOURCE_REENTRY_NOT_EXECUTION_ADMITTED",
+  "at": "2026-11-07T09:14:17.704163+00:00",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/ROOT_REENTRY_001.json",
+    "bytes": 3462,
+    "sha256": "d437a7374fc31d580a1fd53ccc7b9f70fed47e6480bc1d0bfed8f5f4855048ab"
+  },
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-001.mjs",
+    "bytes": 9189,
+    "sha256": "e888139aa2b955716d0cd1f6396413025b9255539d6e84791fd1f2d4c27ad829"
+  },
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/REENTRY_DIFF_001.patch",
+    "bytes": 5919,
+    "sha256": "1be3b209255a32b8ade990e091a72f35ebdacfc401b05b24866003c0dc1d9d56"
+  },
+  "bindings": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/COORDINATE_BINDING_001.json",
+      "bytes": 7957,
+      "sha256": "1f797674c97ea4a4c81fc413d8d89218c06e5f920f1c1622b11dd08e29f64207"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/CONSOLIDATION_BINDING_001.json",
+      "bytes": 8147,
+      "sha256": "ccd638b11a2e35bd6b19724e35f929776bbb8261d06c3c095eed67290150161b"
+    }
+  ],
+  "sourceRecheck": {
+    "digest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+    "rows": 1339,
+    "currentSourceMismatches": [],
+    "standing": "Physical frozen source matches; nativeRun remains failed and supplied no successful terminalArtifact/final work observation."
+  },
+  "proofOrder": "Whole coordinates11/600000ms; only after PASSED exact source/result pin, whole consolidation12/3600000ms with aggregate. No old filtered lane rerun.",
+  "preservedFailedNative": {
+    "sdk": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 45728,
+      "sha256": "4ba0a8b728f8d9a79a19d0646f1a37722e2d19ba8e2b5a766fa7f1a11d8b1615"
+    },
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/runtime-001/resource-close.json",
+      "bytes": 2308,
+      "sha256": "2320c892bb0d6d276e18cb67360710527196ff32c9cd21422aa419b682ac4b9a"
+    },
+    "partialProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof-evidence/lane-01/events.jsonl",
+      "bytes": 755,
+      "sha256": "3432f3aea4ff6fc3d33fdb592cc30b320a99ac23e86ae832e6faf123ce98c7f8"
+    }
+  },
+  "candidateFixture": "Existing current-candidate bytes reused and checked against independent verification; no refresh owner invocation.",
+  "syntaxCheck": "node --check passed",
+  "effectsSoFar": "Controls and read-only source recheck only; no proof workspace/test/provider/source/Git/cleanup effects.",
+  "coordinateCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--max-old-space-size=8192",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/run.reentry-001.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/COORDINATE_BINDING_001.json",
+    "1f797674c97ea4a4c81fc413d8d89218c06e5f920f1c1622b11dd08e29f64207",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/COORDINATE_ADMISSION_001.json",
+    "<actual Root admission SHA256>"
+  ],
+  "rootConcreteAdmissionRequired": true
+}

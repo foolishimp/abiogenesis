@@ -1,0 +1,59 @@
+{
+  "kind": "hs03_corrected_preparation_readiness",
+  "status": "CLOSED_STATIC_OVERLAY_NOT_ACTIVATED",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "version": "ABIogenesis5.0",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "runtimeOwner": "ABG alone",
+    "programLanguage": "GTL alone",
+    "shells": "SDK/CLI thin transport",
+    "builder": "immutable installed RC6",
+    "candidate": "prospective RC7",
+    "scope": "HS03 bounded design_reframe for stdout windows and central pre-decision flush; E1-E4 and all Product outcomes conserved; historical contract/replay and canonical generation required."
+  },
+  "correction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/CORRECTION.json",
+    "bytes": 12540,
+    "sha256": "c3361b90ac03198b6f58382e8e696311962d878a4267bf6011042e6e14a3f3a8"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/preparation-002/STATIC_CHECKS.json",
+    "bytes": 2005,
+    "sha256": "c854076907c314424295b1cb252ec8100efd5d7214696637d300a8c66932f5da"
+  },
+  "populations": {
+    "sourceNames": 451,
+    "nativeInputs": 20,
+    "presentSourceAndControlPaths": 471,
+    "handoffs": 3,
+    "plannedContextEntries": 474,
+    "productWritePaths": 17,
+    "stages": 4,
+    "serialLaneInvocations": 7
+  },
+  "nativeInputDelivery": "Use the corrected preparedSource pins in this manifest for the existing20 inputs. NONADMITTING_SUCCESSOR_OBLIGATION is folded verbatim into TASK/proof/Q3; no21st input was added.",
+  "oldPacketStanding": "All original35 pins stay preserved. Original READINESS/STATIC_CHECKS/counts remain historical preparation-001; this overlay is the current corrected preparation.",
+  "sourceStanding": "H03 input selection establishes451 names only; accepted actual H03 returned source bytes/subject/disposition/close/resume remain null. The added native-workspace HOW is read-only in this17-path grant.",
+  "futureBindings": {
+    "acceptedH03Subject": null,
+    "acceptedH03SourceAfter": null,
+    "H03RootDisposition": null,
+    "actualH03Close": null,
+    "actualH03Resume": null,
+    "RootAdmission": null
+  },
+  "materialization": [
+    "Conjoin actual accepted H03 source/native.after/stage equality, review/disposition and genuine close/resume with conserved HS01/HS02 evidence.",
+    "Use existing Root materialization and host owners; apply these13 explicit control replacements while preserving original packet and oracle by reference. Bind451 actual source rows and20 actual controls, with3 future handoffs; verify actual admitted TASK/proof include this obligation.",
+    "Bind final Root selection/admission, executable wrapper and exact checker/host pins before any native activation. Keep four-stage/seven-lane ceilings and all current per-command bounds."
+  ],
+  "limits": [
+    "No Product source or HOW changes here; future native task still owns HOW-first realization.",
+    "No runtime acquisition, test/build, C staging, provider/auth or Git/release effects.",
+    "No Product acceptance, measured performance, release qualification or success inferred."
+  ]
+}

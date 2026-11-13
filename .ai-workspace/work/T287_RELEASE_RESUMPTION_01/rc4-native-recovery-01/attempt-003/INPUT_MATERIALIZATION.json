@@ -1,0 +1,66 @@
+{
+  "status": "PREPARED_OPERATOR_INPUTS",
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/CURRENT_SELECTION.DRAFT.md",
+        "bytes": 3848,
+        "sha256": "452744f6d949338d97d669db0733a32ee925f2a7c175c22412464dc8a652e3f5"
+      },
+      "target": "rc4-operator-inputs/native-recovery-03/CURRENT_SELECTION.DRAFT.md",
+      "bytes": 3848,
+      "sha256": "452744f6d949338d97d669db0733a32ee925f2a7c175c22412464dc8a652e3f5"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/task.DRAFT.md",
+        "bytes": 7023,
+        "sha256": "ac565aa347da4d57f8ab61cf7d62aadd492e242c04f7570a3e49365a33aafb5f"
+      },
+      "target": "rc4-operator-inputs/native-recovery-03/task.DRAFT.md",
+      "bytes": 7023,
+      "sha256": "ac565aa347da4d57f8ab61cf7d62aadd492e242c04f7570a3e49365a33aafb5f"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/rubric.DRAFT.json",
+        "bytes": 4037,
+        "sha256": "a07d3c9b5d7085e9792c9802ea569fb08afa1b949bbf232bd23e8647f6cba6bf"
+      },
+      "target": "rc4-operator-inputs/native-recovery-03/rubric.DRAFT.json",
+      "bytes": 4037,
+      "sha256": "a07d3c9b5d7085e9792c9802ea569fb08afa1b949bbf232bd23e8647f6cba6bf"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/NATIVE_GRANT.DRAFT.json",
+        "bytes": 13274,
+        "sha256": "4a2d196f7bd2859bb51e076e59cead1216ded9e18c106b193bf53b3a20736669"
+      },
+      "target": "rc4-operator-inputs/native-recovery-03/NATIVE_GRANT.DRAFT.json",
+      "bytes": 13274,
+      "sha256": "4a2d196f7bd2859bb51e076e59cead1216ded9e18c106b193bf53b3a20736669"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/PARTIAL_DISPOSITION.DRAFT.md",
+        "bytes": 1905,
+        "sha256": "e7aee2867040018bf319ee921e6a693b6021433df81f305418a99f4bee44c202"
+      },
+      "target": "rc4-operator-inputs/native-recovery-03/PARTIAL_DISPOSITION.DRAFT.md",
+      "bytes": 1905,
+      "sha256": "e7aee2867040018bf319ee921e6a693b6021433df81f305418a99f4bee44c202"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+        "bytes": 5708,
+        "sha256": "541e152ea07d9dd0773eaa5062923ce96c1f550b5e516c09fbef22a717493528"
+      },
+      "target": "rc4-operator-inputs/native-recovery-03/REVIEWED_ROUTES_AND_PRIOR_RESULTS.md",
+      "bytes": 5708,
+      "sha256": "541e152ea07d9dd0773eaa5062923ce96c1f550b5e516c09fbef22a717493528"
+    }
+  ],
+  "meaning": "Exact source-pinned operator task/authority/evidence notes; editable Product remains live"
+}

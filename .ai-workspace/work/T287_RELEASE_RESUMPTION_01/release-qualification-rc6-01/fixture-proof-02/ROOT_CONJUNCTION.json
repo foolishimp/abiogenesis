@@ -1,0 +1,81 @@
+{
+  "productFrame": {
+    "families": "F01-F07,F09-F11,F13-F17",
+    "goal": "GOAL-035 / T-287",
+    "slice": "N9 retained component fixture, existing native Testing/UAT closure",
+    "basis": "stdo://releases/v3.0.4/",
+    "authority": "Product/requirements own meaning; current installed owners admit runtime truth; Root operator controls declare sandbox effects; replay projects actual history.",
+    "classification": "Operator test recipe and deterministic evidence; no Product/requirements/HOW change or runtime authority added."
+  },
+  "kind": "root_bounded_n9_fixture_conjunction",
+  "at": "2026-11-05T09:30:12.859266+00:00",
+  "result": "satisfied",
+  "scope": "N9-RETAINED-FIXTURE-01 current-reader/index component premise and preserved formerly unreachable first-test suffix",
+  "decision": "Close bounded N9 fixture debt on exact successor source; no unchanged historical failure is relabeled.",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "bytes": 67553,
+    "sha256": "b8f223b947a2a1c4692bf8fd200474f4077cb59196e72c467db1d99236cbbbbc"
+  },
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/review-subject-001/SUBJECT.json",
+    "bytes": 3447,
+    "sha256": "49cd1586df2600490b6d0625562a4ee76374421a57c7b460c9d1645f30f36c9d"
+  },
+  "nativeConstructionResult": "result://abiogenesis/ae95925f07b9ac9ce4123cccc831a7f05a1fe2f0977611c956ab03299a949960",
+  "independentMaxSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/INDEPENDENT_SOURCE_REVIEW.json",
+    "bytes": 28642,
+    "sha256": "9a8fd82261cc8854d809857c7865cec1c2b6f4929c0ebd86f6743a4eaf5c1aa3"
+  },
+  "sourceScope": "P1 current owned-prefix reader premise and P2 canonical runtimeHistorySelectorKeys run/related lookup are within selected local fixture scope. All186 assertions,7 test bodies,2 historical gates conserved.",
+  "actualCurrentC2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/ACTUAL_C2_SUMMARY.json",
+    "bytes": 3557,
+    "sha256": "ca802f674674798a300b393dfe58b49c5ba60542f773106214d9eb346a35d7fc"
+  },
+  "tally": {
+    "tests": 7,
+    "pass": 5,
+    "fail": 0,
+    "skipped": 2
+  },
+  "currentSourceMatches": 30,
+  "currentStagedDependencyMatches": 5323,
+  "actualNativeUat": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/NATIVE_UAT_CLOSED_RESULT.json",
+    "bytes": 6542,
+    "sha256": "6d93d19dc81d50f556ce8383639f127b8e91536d653c9d92d1e7c4c94f341c8d"
+  },
+  "nativeUat": "satisfied, no unresolvedCriteria",
+  "uatIndependenceLimit": "The raw UAT narrative calls itself independent. Root accepts its bounded workflow assessment and does not adopt that phrase as source-bound family-independence or F11 qualification proof. The separate MAX source review retains its exact declared authorship/evidence limits.",
+  "freshAndClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 4521,
+    "sha256": "d18674bc678878a16c16c595d9d56f7ad275a0432ab3bc5e6b49b32447772543"
+  },
+  "finalSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-proof-02/SOURCE_AFTER_FINAL_CLOSE.json",
+    "bytes": 7151,
+    "sha256": "8b6bbc4e98d9fdea6e1e80b8f0a65d3ae6b6d16a05bc1585804c6813f0e3aff9"
+  },
+  "preservedFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/fixture-01/ROOT_FAILURE_TRIAGE.json",
+    "bytes": 10440,
+    "sha256": "6f844b501da56a06443811a554c3004be82221828a0fb1674496ad2ad15feacc"
+  },
+  "reuseBoundary": "Second Run used source-none current observed files, no second coding Worker and no injected prior Result. Original native Construction provenance remains original.",
+  "retainedLimits": [
+    "Two original captured-envelope historical tests remain skipped; no historical archive activation",
+    "Synthetic component premises do not prove native journal, whole D2, correction or full15family/scenario qualification",
+    "Author disclosed adjacent reads; no clean access-conformance claim",
+    "No change to immutable RC6 release/install, no push/merge/tag/publication/selector/human acceptance"
+  ],
+  "remaining5_0": [
+    "Q23 actual assessor identity/correspondence and inherited contributor attribution",
+    "Current candidate material and bounded F11 resource/eligibility readiness",
+    "Affected S01/S02/S03/S06 proofs and whole applicable coverage",
+    "S07 pre-RC qualification, prospective immutable candidate, installed qualification and actual human acceptance/publication"
+  ],
+  "next": "Preserve this accepted source locally; identity/provenance implementation re-entry awaits selected governing reviewer-family policy. Default same-family non-independent remains in effect."
+}

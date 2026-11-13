@@ -1,0 +1,1118 @@
+{
+  "status": "ACTUAL_TOOL_REQUESTS_WITH_RETAINED_EXACT_ARCHIVE_LOCATORS",
+  "stream": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-02/runtime-001/resources/archives/fp-977fff0aa7576271-stdout.log",
+    "bytes": 3926990,
+    "sha256": "4ccb6328d3f7ebc7751d0e4558cf72bd9f720cdec033b938dd9ec04eb0faa889"
+  },
+  "toolCallCount": 56,
+  "terminalMessages": [],
+  "toolRequests": [
+    {
+      "ordinal": 1,
+      "line": 36,
+      "timestamp": "2026-11-09T08:11:45.130Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01LkPpcNAamK1SWfkPpQKQ3p",
+        "name": "Bash",
+        "input": {
+          "command": "ls -la qualification-inputs/rc11-qualification-01/native-02/ && cat qualification-inputs/rc11-qualification-01/native-02/ROOT_SCOPE.json",
+          "description": "List native-02 inputs and read root scope"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 41
+    },
+    {
+      "ordinal": 2,
+      "line": 72,
+      "timestamp": "2026-11-09T08:11:48.489Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_019YRdPTLzaBQnYnvq9j5Wd9",
+        "name": "Bash",
+        "input": {
+          "command": "cat qualification-inputs/rc11-qualification-01/native-02/ACTUAL_EVIDENCE_BASIS.json && echo ---- && cat qualification-inputs/rc11-qualification-01/native-02/LOADER_CONTRACT.md && echo ---- && cat qualification-inputs/rc11-qualification-01/native-02/EXTERNAL_TOOLS.json",
+          "description": "Read evidence basis, loader contract, external tools"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 76
+    },
+    {
+      "ordinal": 3,
+      "line": 88,
+      "timestamp": "2026-11-09T08:11:49.280Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01EerC4xD8BqrkqwqDcMoQVf",
+        "name": "Bash",
+        "input": {
+          "command": "cat qualification-inputs/rc11-qualification-01/native-02/LIFETIME_RESULT.md",
+          "description": "Read lifetime result document"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 92
+    },
+    {
+      "ordinal": 4,
+      "line": 109,
+      "timestamp": "2026-11-09T08:11:51.914Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01RTYEKJj3k7C1e2K9M3Sw6K",
+        "name": "Bash",
+        "input": {
+          "command": "cat qualification-inputs/rc11-qualification-01/native-02/STDO_STDO_WORK_SKILL.md",
+          "description": "Read copied STDO work skill"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 113
+    },
+    {
+      "ordinal": 5,
+      "line": 128,
+      "timestamp": "2026-11-09T08:11:52.835Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01HRM3gpRTmdAUnn6p7QAJVX",
+        "name": "Bash",
+        "input": {
+          "command": "cat qualification-inputs/rc11-qualification-01/native-02/APPS_AGENTS.md && echo ---- && cat AGENTS.md",
+          "description": "Read APPS_AGENTS and AGENTS.md"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 132
+    },
+    {
+      "ordinal": 6,
+      "line": 169,
+      "timestamp": "2026-11-09T08:11:55.560Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_013yW2euhVJcx2NZbgCu6Fm4",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript && cat test_env/fixtures/t287-current-owner/native-assessment/fixture.json; echo; ls -la test_env/fixtures/t287-current-owner/ test_env/fixtures/t287-current-owner/*",
+          "description": "Read native-assessment fixture manifest"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 173
+    },
+    {
+      "ordinal": 7,
+      "line": 186,
+      "timestamp": "2026-11-09T08:11:56.443Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01FZCkrnUPFRnU98YnBd6xkC",
+        "name": "Bash",
+        "input": {
+          "command": "cat test_env/fixtures/t287-current-owner/selected-action/fixture.json",
+          "description": "Read selected-action fixture manifest"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 190
+    },
+    {
+      "ordinal": 8,
+      "line": 221,
+      "timestamp": "2026-11-09T08:11:59.361Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01SsVTmWjvAg8g2QaUgoSxDr",
+        "name": "Bash",
+        "input": {
+          "command": "wc -l test_env/tests/t287-*.test.mjs test_env/support/t287-current-owner-evidence.mjs test_env/fixtures/t287-current-owner/README.md 2>&1; ls test_env/support/ | head -50",
+          "description": "Line counts of target tests and support"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 225
+    },
+    {
+      "ordinal": 9,
+      "line": 253,
+      "timestamp": "2026-11-09T08:12:02.288Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01GzXQDH1ZH3b8wUiPeeUBeo",
+        "name": "Bash",
+        "input": {
+          "command": "cat -n test_env/tests/t287-native-assessment-evidence.test.mjs | sed -n '1,260p'",
+          "description": "Read native assessment test part 1"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 257
+    },
+    {
+      "ordinal": 10,
+      "line": 273,
+      "timestamp": "2026-11-09T08:12:03.292Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_014qh2iKxWnJG9LYEkaG78zz",
+        "name": "Bash",
+        "input": {
+          "command": "cat -n test_env/tests/t287-native-assessment-evidence.test.mjs | sed -n '260,632p'",
+          "description": "Read native assessment test part 2"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 277
+    },
+    {
+      "ordinal": 11,
+      "line": 291,
+      "timestamp": "2026-11-09T08:12:04.182Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01LKWzFGQS6NhTRczgNaReyW",
+        "name": "Bash",
+        "input": {
+          "command": "cat -n test_env/tests/t287-selected-action-authority.test.mjs",
+          "description": "Read selected-action authority test"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 295
+    },
+    {
+      "ordinal": 12,
+      "line": 338,
+      "timestamp": "2026-11-09T08:12:14.968Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01PMBLXVRucGDfFxWnr4ehZe",
+        "name": "Bash",
+        "input": {
+          "command": "cat -n test_env/tests/t287-owned-process-lifetime.test.mjs | sed -n '1,240p'",
+          "description": "Read owned-process-lifetime test part 1"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 342
+    },
+    {
+      "ordinal": 13,
+      "line": 363,
+      "timestamp": "2026-11-09T08:12:16.183Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01PwgMZ5R2BT7L1AyYnvjCmc",
+        "name": "Bash",
+        "input": {
+          "command": "cat -n test_env/tests/t287-owned-process-lifetime.test.mjs | sed -n '240,654p'",
+          "description": "Read owned-process-lifetime test part 2"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 367
+    },
+    {
+      "ordinal": 14,
+      "line": 385,
+      "timestamp": "2026-11-09T08:12:18.493Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01NjzfVPHFWZZ8LQ6kL4poBX",
+        "name": "Read",
+        "input": {
+          "file_path": "/Users/jim/.claude/projects/-private-tmp-abg-rc11-qualification-20261109/bff1400c-6128-4cfd-9c98-5fa152e8ebda/tool-results/b3ips8l1u.txt"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 389
+    },
+    {
+      "ordinal": 15,
+      "line": 487,
+      "timestamp": "2026-11-09T08:12:48.862Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01ScX8b2b55VgnjUDuthVpsN",
+        "name": "Bash",
+        "input": {
+          "command": "grep -n \"spawn\\|function runHttpProbe\\|function runCommand\\|processId\\|performance\\|portFile\\b\" code/src/implementation/worksite_command_helper.ts | head -60; echo ----; grep -n \"spawn\\|export async function runWorkerTransport\\|export function runWorkerTransport\\|processId\\|async function runProcess\\|onSpawn\\|observer\" code/src/abg/worker_transport.ts | head -60",
+          "description": "Locate spawn and probe seams in helper and worker transport"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 491
+    },
+    {
+      "ordinal": 16,
+      "line": 518,
+      "timestamp": "2026-11-09T08:12:51.460Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01T9QDejzzNiWP2mbW1rsqBy",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 84,130p code/src/abg/worker_transport.ts; echo ----; sed -n 1119,1260p code/src/implementation/worksite_command_helper.ts",
+          "description": "Read worker observer type and HTTP probe owner"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 522
+    },
+    {
+      "ordinal": 17,
+      "line": 669,
+      "timestamp": "2026-11-09T08:13:59.723Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_011xqkm4nMEvNqEfFGmkbpZW",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 486,512p code/src/abg/worker_transport.ts; echo ----; sed -n 814,840p code/src/implementation/worksite_command_helper.ts; echo ----; grep -n \"onSpawn\\|'spawn'\\|\\\"spawn\\\"\" code/src/shared/owned_process_lifetime.ts | head",
+          "description": "Read worker and command spawn options"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 673
+    },
+    {
+      "ordinal": 18,
+      "line": 765,
+      "timestamp": "2026-11-09T08:14:38.718Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01Q7cUxyFR8kek77HcFs28am",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 1040,1120p code/src/abg/worker_transport.ts",
+          "description": "Read worker transport preparation entry"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 769
+    },
+    {
+      "ordinal": 19,
+      "line": 915,
+      "timestamp": "2026-11-09T08:15:13.238Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01Xjrp297NYWpT4B6Mpkrvcy",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-qualification-20261109 && Q=qualification-inputs/rc11-qualification-01/native-02 T=build_tenants/abiogenesis/typescript; shasum -a 256 $Q/helper.postimage.mjs $Q/leaf.postimage.mjs $T/test_env/support/root-installed-environment.mjs $T/test_env/fixtures/language-structural/leaf.mjs $T/test_env/fixtures/t287-current-owner/*/* ; wc -c $Q/helper.postimage.mjs $Q/leaf.postimage.mjs $T/test_env/support/root-installed-environment.mjs $T/test_env/fixtures/language-structural/leaf.mjs; diff $T/test_env/support/root-installed-environment.mjs $Q/helper.postimage.mjs; echo ==== ; diff $T/test_env/fixtures/language-structural/leaf.mjs $Q/leaf.postimage.mjs",
+          "description": "Hash postimages/fixtures and diff postimages vs targets"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 919
+    },
+    {
+      "ordinal": 20,
+      "line": 970,
+      "timestamp": "2026-11-09T08:15:17.947Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01SxDpwb937EF2y2J5wyAMLF",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-qualification-20261109 && diff build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs qualification-inputs/rc11-qualification-01/native-02/leaf.postimage.mjs",
+          "description": "Diff leaf postimage against current target"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 974
+    },
+    {
+      "ordinal": 21,
+      "line": 1052,
+      "timestamp": "2026-11-09T08:15:23.214Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_018cPGauXqx7bvz9iwo1FfNK",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-qualification-20261109 && Q=qualification-inputs/rc11-qualification-01/native-02 T=build_tenants/abiogenesis/typescript && cp $Q/helper.postimage.mjs $T/test_env/support/root-installed-environment.mjs && cp $Q/leaf.postimage.mjs $T/test_env/fixtures/language-structural/leaf.mjs && shasum -a 256 $T/test_env/support/root-installed-environment.mjs $T/test_env/fixtures/language-structural/leaf.mjs && wc -c $T/test_env/support/root-installed-environment.mjs $T/test_env/fixtures/language-structural/leaf.mjs && grep -c result_text $T/test_env/fixtures/language-structural/leaf.mjs",
+          "description": "Copy exact postimages to targets and verify hashes"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1056
+    },
+    {
+      "ordinal": 22,
+      "line": 1099,
+      "timestamp": "2026-11-09T08:15:26.984Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_014MXdo8AwCkuPWLFiR539Hx",
+        "name": "Bash",
+        "input": {
+          "command": "grep -n \"5\\.0\\.0-rc\\.1[01]\" package.json package-lock.json code/src/product/contracts.ts; echo; head -12 package-lock.json",
+          "description": "Find RC10 identity strings in metadata targets"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1103
+    },
+    {
+      "ordinal": 23,
+      "line": 1153,
+      "timestamp": "2026-11-09T08:15:32.110Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_016TDCFBdfhY5twkbksbuvvF",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 1,20p code/src/product/contracts.ts; git -C /private/tmp/abg-rc11-qualification-20261109 log --oneline -S'5.0.0-rc.10' -- build_tenants/abiogenesis/typescript/code/src/product/contracts.ts | head -3",
+          "description": "Read contracts.ts identity header and prior bump commit"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1157
+    },
+    {
+      "ordinal": 24,
+      "line": 1191,
+      "timestamp": "2026-11-09T08:15:35.648Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01YLEcMvFinpuwgsH3vdcGEy",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-qualification-20261109 && git show 93a0de75a --stat | grep -E \"package|contracts.ts\" ; git show 93a0de75a -- build_tenants/abiogenesis/typescript/code/src/product/contracts.ts build_tenants/abiogenesis/typescript/package.json build_tenants/abiogenesis/typescript/package-lock.json | grep -E \"^[+-][^+-]\"",
+          "description": "Check precedent RC10 version bump diff"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1195
+    },
+    {
+      "ordinal": 25,
+      "line": 1282,
+      "timestamp": "2026-11-09T08:15:41.571Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01DitujWcECk2NM8ZmSyAHEW",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript && sed -i '' -e '3s/\"version\": \"5\\.0\\.0-rc\\.10\"/\"version\": \"5.0.0-rc.11\"/' package.json && sed -i '' -e '3s/\"version\": \"5\\.0\\.0-rc\\.10\"/\"version\": \"5.0.0-rc.11\"/' -e '9s/\"version\": \"5\\.0\\.0-rc\\.10\"/\"version\": \"5.0.0-rc.11\"/' package-lock.json && sed -i '' -e '10s/typescript-tenant@5\\.0\\.0-rc\\.10\"/typescript-tenant@5.0.0-rc.11\"/' -e '12s/= \"5\\.0\\.0-rc\\.10\"/= \"5.0.0-rc.11\"/' code/src/product/contracts.ts && git diff --stat -- package.json package-lock.json code/src/product/contracts.ts && git diff -U0 -- package.json package-lock.json code/src/product/contracts.ts | grep -E '^[+-][^+-]'; grep -rn \"rc\\.10\" package.json package-lock.json code/src/product/contracts.ts",
+          "description": "Bump RC10 to RC11 identity in three metadata targets"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1286
+    },
+    {
+      "ordinal": 26,
+      "line": 1338,
+      "timestamp": "2026-11-09T08:15:46.347Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01AhetxxpsZq8CRoSZd8vWRX",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript && grep -n \"export function validateHistoricalEvents\\|export function selectValidatedRuntimeEventPrefix\\|export function decode\\|export function readHistorical\" code/src/abg/event_store.ts code/src/abg/event_prefix.ts",
+          "description": "Locate decoder and prefix selector exports"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1342
+    },
+    {
+      "ordinal": 27,
+      "line": 1366,
+      "timestamp": "2026-11-09T08:15:48.948Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_015et6uWy69G1agsRu7hWtmc",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 3380,3470p code/src/abg/event_store.ts; echo ----; sed -n 440,520p code/src/abg/event_prefix.ts",
+          "description": "Read decoder and prefix selector sections"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1370
+    },
+    {
+      "ordinal": 28,
+      "line": 1410,
+      "timestamp": "2026-11-09T08:16:01.213Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_011Zqka25FKYJhrVm2f9awKp",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 3470,3560p code/src/abg/event_store.ts",
+          "description": "Read historical decoder body"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1414
+    },
+    {
+      "ordinal": 29,
+      "line": 1433,
+      "timestamp": "2026-11-09T08:16:03.652Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01QZuGv4ooci7TVQx4YnRDjc",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 3560,3600p code/src/abg/event_store.ts",
+          "description": "Read decoder tail"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1437
+    },
+    {
+      "ordinal": 30,
+      "line": 1558,
+      "timestamp": "2026-11-09T08:16:19.219Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01333HWTNDgEXpXf9xhmzELW",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner && for p in native-assessment selected-action; do printf '%s ' $p; gunzip -c $p/events.jsonl.gz | wc -c | tr -d ' \\n'; printf ' '; gunzip -c $p/events.jsonl.gz | shasum -a 256 | cut -c1-64; done; gunzip -c native-assessment/events.jsonl.gz | jq -c '[.admissionOrdinal, .kind, (.eventId|.[-12:]), .aggregateType, (.aggregateId|.[-16:]), (.payload|type), ((keys - [\"admissionOrdinal\",\"kind\",\"eventId\",\"aggregateType\",\"aggregateId\",\"payload\",\"payloadDigest\",\"eventContractDigest\",\"causationEventRefs\",\"correlationId\",\"eventTime\",\"parentAggregateId\",\"materializationRef\",\"frameLineageId\",\"basisId\",\"frameId\",\"graphCallId\",\"graphFunctionRef\",\"runId\",\"scopeClass\",\"workflowVersion\"]))]' | head -90",
+          "description": "Verify decompressed hashes and index native rows"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1562
+    },
+    {
+      "ordinal": 31,
+      "line": 1689,
+      "timestamp": "2026-11-09T08:16:30.914Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_017KPD338ZyNHuu6LA9kkoMx",
+        "name": "Bash",
+        "input": {
+          "command": "gunzip -c native-assessment/events.jsonl.gz | jq -c 'select(.admissionOrdinal==40 or .admissionOrdinal==41) | {o:.admissionOrdinal,id:.eventId,c:.causationEventRefs,p:.payload}'; gunzip -c native-assessment/events.jsonl.gz | jq -c 'select(.admissionOrdinal==38) | {o:.admissionOrdinal,id:.eventId,c:.causationEventRefs,p:(.payload|{cCallRef,evidenceClass,evidenceRef,evidenceDigest,outputDigest,rawOutputDigest,transportFailureClass,transportDisposition,actorInvocationRef,candidateRef,nativeResultAssessment})}'; gunzip -c native-assessment/events.jsonl.gz | jq -c 'select(.admissionOrdinal==36 or .admissionOrdinal==34) | {o:.admissionOrdinal,id:.eventId,k:.kind,p:(.payload|del(.artifactDigests,.toolInvocations))}'",
+          "description": "Read first-actor admitted result, judgment, evidence rows"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1693
+    },
+    {
+      "ordinal": 32,
+      "line": 1776,
+      "timestamp": "2026-11-09T08:16:43.452Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01CWorWyphFC71YwQEqVdV7o",
+        "name": "Bash",
+        "input": {
+          "command": "cd /private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript && sed -n 405,440p code/src/abg/event_prefix.ts; grep -n \"^export function\\|^export const\" code/src/abg/event_prefix.ts | head -40; grep -n \"export function isImmutableRuntimeValue\\|function isImmutableRuntimeValue\" -r code/src | head",
+          "description": "Read prefix cut function and export list"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1780
+    },
+    {
+      "ordinal": 33,
+      "line": 1825,
+      "timestamp": "2026-11-09T08:16:49.733Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_018H3obFJaWKnchz6MEa898J",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 216,230p code/src/abg/event_prefix.ts; sed -n 342,382p code/src/abg/event_prefix.ts; grep -n \"function ownedRuntimeDerivationSource\" -A8 code/src/abg/*.ts | head -20",
+          "description": "Read prefix extent, immutability and owned source checks"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1829
+    },
+    {
+      "ordinal": 34,
+      "line": 1888,
+      "timestamp": "2026-11-09T08:17:00.382Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01VaW9zqmcsFg8GepP8dnSma",
+        "name": "Bash",
+        "input": {
+          "command": "grep -n \"export function projectCCallRuntimeFailureSignal\\|export function projectActorTransportForResult\" code/src/abg/c_call.ts",
+          "description": "Locate CCall projector functions"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1892
+    },
+    {
+      "ordinal": 35,
+      "line": 1911,
+      "timestamp": "2026-11-09T08:17:02.696Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01G2mbxHRy7nydurkTEQ6Wwe",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 3521,3640p code/src/abg/c_call.ts",
+          "description": "Read CCall failure signal projector"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1915
+    },
+    {
+      "ordinal": 36,
+      "line": 1968,
+      "timestamp": "2026-11-09T08:17:21.888Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01BLRrz1fwrmu4uA4U4RbSXJ",
+        "name": "Bash",
+        "input": {
+          "command": "sed -n 3881,3990p code/src/abg/c_call.ts",
+          "description": "Read actor transport projector"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 1972
+    },
+    {
+      "ordinal": 37,
+      "line": 2129,
+      "timestamp": "2026-11-09T08:17:51.622Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01BaqQzA9jnU7mku84Bzre7h",
+        "name": "Bash",
+        "input": {
+          "command": "gunzip -c test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz | sed -n 72p | jq -c '{kind, codecVersion, bodyReference: (.bodyReference|if type==\"object\" then (to_entries|map({key, v:(.value|tostring|.[0:80])})) else . end), event: (.event|{kind, admissionOrdinal, eventId, aggregateId, payloadType:(.payload|type), payloadKeys:(.payload|if type==\"object\" then keys else . end)})}'; gunzip -c test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz | jq -c 'select(.admissionOrdinal==73 or .admissionOrdinal==79 or .admissionOrdinal==66) | {o:.admissionOrdinal,k:.kind,c:.causationEventRefs,j:.payload.judgment,r:.payload.resultRef,f:.payload.finalOutput,a:.payload.nativeResultAssessment.disposition, s:(.payload|if .stopReason then .stopReason else null end)}'",
+          "description": "Inspect body-reference row 72 and second actor rows"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 2133
+    },
+    {
+      "ordinal": 38,
+      "line": 2300,
+      "timestamp": "2026-11-09T08:18:15.493Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01YLacbApFgh58A2EmAJqZPb",
+        "name": "Bash",
+        "input": {
+          "command": "gunzip -c test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz | jq -c 'if .kind==\"abg_admitted_body_reference_record\" then {o:.event.admissionOrdinal,k:(\"BODYREF:\"+.event.kind),id:(.event.eventId|.[-12:])} else {o:.admissionOrdinal,k:.kind,id:(.eventId|.[-12:])} end' | awk 'NR<=3 || /BODYREF/ || /728ad2571d60|6c4880d86bee|ce7d6abc713e|8122346bd19a|1a7fa5076fa2/ {print NR\": \"$0} END{print \"rows=\"NR}'; gunzip -c test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz | jq -c 'select(.eventId==\"event://abiogenesis/728ad2571d60a0e2d2cb4d315c4f5ba613532643020cb5ddb0cbc4e36cc7e08b\") | {k:.kind, agg:.aggregateId, pk:(.payload|keys)}'; gunzip -c test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz | tail -1 | jq -c '{o:.admissionOrdinal,k:.kind}'",
+          "description": "Index selected-action anchors and body-reference rows"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 2304
+    },
+    {
+      "ordinal": 39,
+      "line": 2384,
+      "timestamp": "2026-11-09T08:18:23.110Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_019BKXoeiKwi8PYKDoyu2kgi",
+        "name": "Bash",
+        "input": {
+          "command": "gunzip -c test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz | tail -1 | jq -c '{id:.eventId, agg:.aggregateId, run:.runId, basis:.basisId, frame:.frameId, gc:.graphCallId, c:.causationEventRefs, p:(.payload|{constructionIntentRef,constructionIntentDigest,nextActionProjectionRef,nextActionProjectionDigest,targetCursorRef,targetCursorDigest})}'; gunzip -c test_env/fixtures/t287-current-owner/selected-action/events.jsonl.gz | jq -c 'select(.eventId==\"event://abiogenesis/6c4880d86bee58f02103d54677f64e030b5768f16ce7d28ba3e6c23cd43653b7\") | {o:.admissionOrdinal,k:.kind}'",
+          "description": "Read selected-action terminal intent event anchors"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 2388
+    },
+    {
+      "ordinal": 40,
+      "line": 2488,
+      "timestamp": "2026-11-09T08:18:40.216Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_014RK3zQvd2kmEWeV2TbfFBi",
+        "name": "Bash",
+        "input": {
+          "command": "head -12 test_env/support/d5-authentic-preserved-result-fixture.mjs; echo ----; grep -n \"^import\\|^export\" test_env/support/evidence-root.mjs | head; echo ----; grep -rn \"validateHistoricalEvents\" test_env --include=*.mjs | head -5; grep -n \"validateHistoricalEvents\\|selectValidatedRuntimeEventPrefix\\|validatedRuntimeEventPrefixThroughEvent\" build/code/src/abg/index.js 2>/dev/null | head; ls build/code/src/abg/event_store.js build/code/src/abg/event_prefix.js 2>&1",
+          "description": "Check support import conventions and build exports"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 2492
+    },
+    {
+      "ordinal": 41,
+      "line": 2527,
+      "timestamp": "2026-11-09T08:19:04.946Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01Um64WXRUiWtqN8wk6gFv8N",
+        "name": "Grep",
+        "input": {
+          "pattern": "validateHistoricalEvents|validatedRuntimeEventPrefixThroughEvent|runtimeEventPrefixLastEnvelope",
+          "path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env",
+          "output_mode": "content",
+          "head_limit": 8
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 2531
+    },
+    {
+      "ordinal": 42,
+      "line": 3447,
+      "timestamp": "2026-11-09T08:20:06.396Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_011U8H6jD25ytJXmCGZan4kY",
+        "name": "Write",
+        "input": {
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+          "content": {
+            "bytes": 6967,
+            "sha256": "2e21f8d56b4651822ee091900bf51efd390f6e02dc435ffe078f5fa9353d1dc6",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 3451
+    },
+    {
+      "ordinal": 43,
+      "line": 3751,
+      "timestamp": "2026-11-09T08:22:44.368Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01Ag8fCWnJmaXsWETz39tAsr",
+        "name": "Bash",
+        "input": {
+          "command": "grep -n \"probeGroup\\|process.kill(-\\|ESRCH\\|EPERM\" code/src/shared/owned_process_lifetime.ts | head -20",
+          "description": "Locate owner group probe implementation"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 3755
+    },
+    {
+      "ordinal": 44,
+      "line": 3945,
+      "timestamp": "2026-11-09T08:22:56.319Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01JfMMKx9UNaNDdJhEKk55mr",
+        "name": "Write",
+        "input": {
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/support/t287-current-owner-evidence.mjs",
+          "content": {
+            "bytes": 2433,
+            "sha256": "d04cc52725bfa74c925e0cfc84fb1522b292abd5660a56dfacf43dcbcd92244f",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 3947
+    },
+    {
+      "ordinal": 45,
+      "line": 3984,
+      "timestamp": "2026-11-09T08:22:59.560Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01Mdwaav7jSjAuHmFt73WH6T",
+        "name": "Bash",
+        "input": {
+          "command": "grep -n \"export function deepFreeze\" -A10 code/src/shared/immutable.ts | head -14; grep -n \"export function runtimeEventPrefixLastEnvelope\" -A4 code/src/abg/event_prefix.ts",
+          "description": "Check deepFreeze and last-envelope helpers"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 3988
+    },
+    {
+      "ordinal": 46,
+      "line": 4544,
+      "timestamp": "2026-11-09T08:23:29.185Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01V5Dk5UmEoQ8z1TjpJqZu3S",
+        "name": "Write",
+        "input": {
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+          "content": {
+            "bytes": 9616,
+            "sha256": "39c0bfff51ba8655f4de58c3ec237cf46dec03c03458d3db52cd466bf476ebc5",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 4548
+    },
+    {
+      "ordinal": 47,
+      "line": 5003,
+      "timestamp": "2026-11-09T08:23:56.953Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_013NepcRZrsbEL5MWT4ufwan",
+        "name": "Write",
+        "input": {
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+          "content": {
+            "bytes": 7517,
+            "sha256": "d45882de023a77e423bf92a05b8908502294b6d80560466487e4f4725bbacf32",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 5007
+    },
+    {
+      "ordinal": 48,
+      "line": 5117,
+      "timestamp": "2026-11-09T08:24:10.115Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01UNDW6gLSuXjxaSMjTerWp8",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": {
+            "bytes": 570,
+            "sha256": "7725c5b7b4a5f59723a19a19420aa211f0982a91b8c538be701d2b7eeb3e8566",
+            "exactValue": "Original request at retained stdout JSON line"
+          },
+          "new_string": {
+            "bytes": 614,
+            "sha256": "9601eddec2c3c9f1319c79642cda094f9fea9a5b401d38f139617a89496ba23d",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 5121
+    },
+    {
+      "ordinal": 49,
+      "line": 5567,
+      "timestamp": "2026-11-09T08:25:41.230Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01DepGeXLo8q6ySPgxWxjGDa",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": {
+            "bytes": 302,
+            "sha256": "8d5fd9edc1b5ad3e416b7253f168837f1b5238ae481b2e6a55ac12124a05905d",
+            "exactValue": "Original request at retained stdout JSON line"
+          },
+          "new_string": {
+            "bytes": 4720,
+            "sha256": "144b25d61ae0420734a57a0637735f2c4730ecce7e9cc6eeefd817dda5ae6453",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 5571
+    },
+    {
+      "ordinal": 50,
+      "line": 5610,
+      "timestamp": "2026-11-09T08:25:45.472Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_0144kHKQbCTgXacDkUU4gDfX",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": {
+            "bytes": 62,
+            "sha256": "dd271d476eaba298a844aec483996cc3d62f547ea3f9b9bc47ec916ddbdac752",
+            "exactValue": "Original request at retained stdout JSON line"
+          },
+          "new_string": {
+            "bytes": 190,
+            "sha256": "07ca29054981fdd6eeaa1ae88e31668975f0f9f5102abb4d7216b6ac03b4d756",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 5614
+    },
+    {
+      "ordinal": 51,
+      "line": 5732,
+      "timestamp": "2026-11-09T08:25:51.681Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_013qxTW9H7A66QMoEDbSVw8d",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": {
+            "bytes": 720,
+            "sha256": "707e238381c785e1121239aaeea4d45fcd7ebb13b8b488b0a4345ec3a41b56b7",
+            "exactValue": "Original request at retained stdout JSON line"
+          },
+          "new_string": {
+            "bytes": 1191,
+            "sha256": "004dd92f41f355e7a03c78fda978b9abf2511fa5db7b73f46763e2e117a004b5",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 5736
+    },
+    {
+      "ordinal": 52,
+      "line": 5777,
+      "timestamp": "2026-11-09T08:25:53.847Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_012WPprxmzQX1JbNrnpzK4b3",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": {
+            "bytes": 195,
+            "sha256": "0495dd8c49d251db06e64238e1e268c84c7409392bbc8657a3f6998e01538ab3",
+            "exactValue": "Original request at retained stdout JSON line"
+          },
+          "new_string": {
+            "bytes": 292,
+            "sha256": "f220c8314ed590d3ab7a7eaeceec688ef9aa1c3ba2fd47b2d5fa99798b2c6d6f",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 5779
+    },
+    {
+      "ordinal": 53,
+      "line": 5948,
+      "timestamp": "2026-11-09T08:26:12.265Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01M1oGxvy2M1uF2Kew5B8xtN",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": {
+            "bytes": 807,
+            "sha256": "ec98c4026a914fa38d7069e7bbfe0fcb53430916f3a0eaff87a46c5a82049ac7",
+            "exactValue": "Original request at retained stdout JSON line"
+          },
+          "new_string": {
+            "bytes": 1288,
+            "sha256": "92eb1973c1918d96dbfc2f513b036f4ea9df6bf87c381d0febb447ac81949c13",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 5950
+    },
+    {
+      "ordinal": 54,
+      "line": 6228,
+      "timestamp": "2026-11-09T08:26:27.640Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_016bzhBqjeq1Qhn6x6V5osky",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": {
+            "bytes": 1783,
+            "sha256": "9e6605adaf9aeebc2260f98175083561f3ceadc07d6b30010c9c9718100d2c59",
+            "exactValue": "Original request at retained stdout JSON line"
+          },
+          "new_string": {
+            "bytes": 3021,
+            "sha256": "c79a8b3944221f738ffa081c346bcf7de764a0f49baf20e963dad0fb10065abd",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 6232
+    },
+    {
+      "ordinal": 55,
+      "line": 6278,
+      "timestamp": "2026-11-09T08:26:30.177Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01PoNCjk4am5EkJ9CkEBvspy",
+        "name": "Edit",
+        "input": {
+          "replace_all": false,
+          "file_path": "/private/tmp/abg-rc11-qualification-20261109/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "old_string": {
+            "bytes": 133,
+            "sha256": "823cfe9b474f99e4d59241ae696ad7a793d2a929b55e18efa80678ff086239e3",
+            "exactValue": "Original request at retained stdout JSON line"
+          },
+          "new_string": {
+            "bytes": 429,
+            "sha256": "2f01dec3527f078207648882cfe6dcda325e831c67299ad080cfaa952fed9949",
+            "exactValue": "Original request at retained stdout JSON line"
+          }
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 6280
+    },
+    {
+      "ordinal": 56,
+      "line": 6321,
+      "timestamp": "2026-11-09T08:26:33.512Z",
+      "request": {
+        "type": "tool_use",
+        "id": "toolu_01S6YE72DdZbUj5wCjM8a25k",
+        "name": "Bash",
+        "input": {
+          "command": "git diff -U0 -- test_env/tests/t287-owned-process-lifetime.test.mjs | grep '^@@'",
+          "description": "List lifetime test diff hunks"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "resultLine": 6325
+    }
+  ],
+  "standing": "Private reasoning omitted. Source write contents remain exact in the retained original stream and source freeze; no read-scope conformance claim."
+}

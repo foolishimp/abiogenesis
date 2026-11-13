@@ -1,0 +1,98 @@
+{
+  "status": "CONTINUATION_SCRIPT_SYNTAX_CHECKED_NOT_EXECUTED",
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/continuation.py",
+    "bytes": 10130,
+    "sha256": "62e9095f5ab9ef25a29699644b14db61efb12fe1d26fe8e5ff68b42804282793"
+  },
+  "originalRunner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/proof.py",
+    "bytes": 11223,
+    "sha256": "078bbdfb90ee2cf803b998438d50606e505205e7abb20e39e32be95408758b0f"
+  },
+  "implementationDelta": "Reuse original helper/TAP parsing and bounded sequential command execution/group cleanup. Bind retained successful work, supply exact recipe argument, require exact recorded generated deltas and compiled inventory. No stage/build/allocation reuse of a native Run.",
+  "commands": [
+    {
+      "id": "lint",
+      "kind": "npm",
+      "args": [
+        "run",
+        "lint",
+        "--",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-01/lint-recipe.json"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "native-assessment",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-native-assessment-evidence.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 4,
+      "expectedSkipped": 0
+    },
+    {
+      "id": "selected-action",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-selected-action-authority.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 3,
+      "expectedSkipped": 1
+    },
+    {
+      "id": "owned-lifetime",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-owned-process-lifetime.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 18,
+      "expectedSkipped": 0
+    },
+    {
+      "id": "unit",
+      "kind": "npm",
+      "args": [
+        "run",
+        "test:unit"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "id": "r6",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/r6-implementation-resolution.test.mjs"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "id": "f04a",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs"
+      ],
+      "timeoutSeconds": 900
+    }
+  ],
+  "sourceRuntimeExecutedByCheck": false
+}

@@ -1,0 +1,43 @@
+{
+  "kind": "root_retained_fixture_profile_triage",
+  "observedUtc": "2026-11-03T16:54:39.623133+00:00",
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-scratch/native-02/tmp/sas01-selected-authority.tap",
+    "sha256": "ccb52f11b906b2fcbb8b609cd8b924d6c7449848775abb63e0ec4474d88c1adc",
+    "pass": 0,
+    "fail": 1,
+    "reason": "profile schedule requires the original gap-free stamped history"
+  },
+  "fixture": {
+    "path": "/Users/jim/src/apps/abiogenesis-single-address-space/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/interrupted-prefix.jsonl",
+    "sha256": "450e1cb9e597dd5ccc0a9d9fa00fe423006e81ee26cc7225f7277e2f155063bb",
+    "rows": 216,
+    "firstNonSequentialOrdinal": null
+  },
+  "unchangedSubjects": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "sameAsBaseline": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "8730d29eca87a1fbdb71da35b41e7f0185751d9e4493f3af1119040f064c288c",
+      "sameAsBaseline": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "sha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740",
+      "sameAsBaseline": true
+    }
+  ],
+  "frames": {
+    "Product": "Refusal occurs in unchanged raw history authentication before changed continuation projection is called",
+    "Identity": "Test and validating owners are byte-equal to f49; retained fixture does not establish current positive proof",
+    "Integration": "Historical JSONL is directly parsed as logical stamped events by this test; current owned/physical readers must retain their real input contract",
+    "Effect": "No alteration of retained fixture or owner checks is authorized or needed",
+    "Proof": "Preserve both the original missing-fixture failure and this current raw-prefix refusal; neither counts as a passed lane"
+  },
+  "rootDisposition": "Use existing current-artifact selected-action producer/test for the affected positive path; consume its exact result when complete. No lowering raw admission, fixture rewriting, new Product owner or repeat of unrelated qualification.",
+  "newProofStanding": "Worker invoked current selected-action live harness in declared scratch; outcome pending."
+}

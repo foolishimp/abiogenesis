@@ -1,0 +1,32 @@
+{
+  "kind": "source_derived_unix_socket_path_evidence",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+    "bytes": 6177,
+    "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+  },
+  "hostTMPDIR": "/private/tmp/abg-rc5",
+  "providerTMPDIR": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09",
+  "testTMPDIR": "/private/tmp/abg-n09",
+  "sourceRoutes": [
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs:869,881,884",
+    "f49 code/src/abg/governed_context.ts:349,389"
+  ],
+  "mkdtempAssumption": "Six-character suffix represented by ABCDEF; existing source layout, no socket operation.",
+  "paths": [
+    {
+      "TMPDIR": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09",
+      "nestedPath": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09/abi5-single-address-setup-ABCDEF/setup-tmp/abg-gc-ABCDEF/s",
+      "utf8Bytes": 117,
+      "below108": false
+    },
+    {
+      "TMPDIR": "/private/tmp/abg-n09",
+      "nestedPath": "/private/tmp/abg-n09/abi5-single-address-setup-ABCDEF/setup-tmp/abg-gc-ABCDEF/s",
+      "utf8Bytes": 79,
+      "below108": true
+    }
+  ],
+  "effectPermission": "Root targeted09 conditionally grants the necessary short task-specific test/selfcheck scratch. Only /private/tmp/abg-n09 temporary effects; not arbitrary /private/tmp. Native worksite writeRoots do not enforce external temp permissions.",
+  "testsBuildsProviders": 0
+}

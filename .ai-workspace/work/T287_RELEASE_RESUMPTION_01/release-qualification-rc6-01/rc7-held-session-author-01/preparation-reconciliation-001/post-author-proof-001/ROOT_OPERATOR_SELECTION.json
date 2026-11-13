@@ -1,0 +1,241 @@
+{
+  "kind": "root_post_author_two_case_operator_selection",
+  "status": "RECORDED_ROOT_SELECTION_FINAL_PACKET_ADMISSION_PENDING",
+  "createdUtc": "2026-11-06T14:05:19.071601+00:00",
+  "authority": {
+    "rootActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+      "bytes": 4646,
+      "sha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f"
+    },
+    "instruction": "Root separately activates two once-only serial post-author proofs on exact final frozen HS01 stage04, repricing the consumed measured-lane gate without changing the original author ledger. Root subsequently selects existing canonical commandRecorder; final packet admission required before execution."
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/review-subject-stage-002/SUBJECT.json",
+    "bytes": 296146,
+    "sha256": "4317dcdc4f9840591194d68b4338744377df021c3dd819dc8e8c7726efb60741"
+  },
+  "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+  "stage": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04",
+  "stageReport": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04-stage.json",
+    "bytes": 97605,
+    "sha256": "9761816ef334d08004125782074fec993662a87ded6142b6739e8a2ec50c51ee"
+  },
+  "dependencySelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/inputs/DEPENDENCY_SOURCE_SELECTION.json",
+    "bytes": 4499,
+    "sha256": "f82aeda2e13ef017d7fe53ab0da3f391fad613a2a430af2218e31b685595e225"
+  },
+  "dependencyPins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/.package-lock.json",
+      "bytes": 7232,
+      "sha256": "a1794bd45aaf7c95b74cf346123594372f153787e5592dc549e4da3e72ea1a3e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/typescript/bin/tsc",
+      "bytes": 45,
+      "sha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/typescript/package.json",
+      "bytes": 3620,
+      "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/@types/node/package.json",
+      "bytes": 4509,
+      "sha256": "89cb280743d8e75899ce6848e2d6502b47b0409e403a7fbc956a2d0aec9cb182"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/undici-types/package.json",
+      "bytes": 1193,
+      "sha256": "3235a70e0936b193bd993a1f48221f2ada41bc5ae48eb84735f5aa83c30236e5"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules/valibot/package.json",
+      "bytes": 1914,
+      "sha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 10003,
+      "sha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3265439,
+      "sha256": "b18114a29e8aaa207f5f3d04849d6da1a72d0c1d05e5841ee66db12fa52a22cc"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/authority-inputs.json",
+      "bytes": 27912,
+      "sha256": "dc2a5b62856e7619c5cecbb54525e4812374c0c4e4f7ccf48d36e391a7d8cd1a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/rule-catalog.json",
+      "bytes": 1770456,
+      "sha256": "785d9194baca2817e65b7f9f333716d0f8bd1c8e7b7d1da134be94f6bc179583"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/law-basis.json",
+      "bytes": 28320,
+      "sha256": "5e9be0a0a6b980ef07ebfc683f6415a0f9a38f362199ea3f7c6095446d214424"
+    }
+  ],
+  "operatorOwnerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/runner.mjs",
+      "bytes": 39766,
+      "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-fixed-proof-author-01/operator-client/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "toolPins": [
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/usr/bin/time",
+      "bytes": 134960,
+      "sha256": "0ebe053d95315476e7e9dbfa78f75f2e72e2c772b9dc850d1a3811b01871db1c"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    }
+  ],
+  "npmConfigPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-01/npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-01/npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "generatedManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+  },
+  "commands": [
+    {
+      "label": "operator-hs02-once",
+      "executable": "/usr/bin/time",
+      "args": [
+        "-l",
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-name-pattern",
+        "^RC7 HS02: one held acquisition serves warm Runs and held run_result/run_replay without another decode, reopen or append, refuses stale/copied/foreign/closed selections, closes once and equals the cold reads$",
+        "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript",
+      "testName": "RC7 HS02: one held acquisition serves warm Runs and held run_result/run_replay without another decode, reopen or append, refuses stale/copied/foreign/closed selections, closes once and equals the cold reads",
+      "authoredTestTimeoutMs": 280000,
+      "laneTimeoutMs": 300000,
+      "maxOutputBytes": 67108864,
+      "expectedSelectedTests": 1,
+      "allowedSkipped": 0,
+      "automaticRetries": 0
+    },
+    {
+      "label": "operator-fixed-admission-once",
+      "executable": "/usr/bin/time",
+      "args": [
+        "-l",
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-name-pattern",
+        "^RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission$",
+        "test_env/tests/t287-default-library.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript",
+      "testName": "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+      "authoredTestTimeoutMs": 290000,
+      "laneTimeoutMs": 300000,
+      "maxOutputBytes": 67108864,
+      "expectedSelectedTests": 1,
+      "allowedSkipped": 0,
+      "automaticRetries": 0
+    }
+  ],
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "TMPDIR": "/private/tmp/abg-hp1",
+    "TMPPREFIX": "/private/tmp/abg-hp1/zsh",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-hp1/npm-cache",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-01/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-inputs/rc7-held-session-author-01/npm-global.npmrc"
+  },
+  "budget": {
+    "laneAllocations": 2,
+    "serial": true,
+    "testTimeoutsMs": [
+      280000,
+      290000
+    ],
+    "laneTimeoutMs": 300000,
+    "combinedOutputLimitPerLane": 67108864,
+    "automaticRetries": 0,
+    "newStages": 0,
+    "builds": 0,
+    "generations": 0,
+    "campaignColdReads": 0
+  },
+  "ownerBoundary": {
+    "originalOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/inputs/prior-author-lanes.mjs",
+      "bytes": 10073,
+      "sha256": "7b22c3e9fbbb0449356b725e8906879e5e929c8902d7c6077727e71f3bacbcf2"
+    },
+    "originalBounds": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/preparation-reconciliation-001/inputs/COMMAND_BOUNDS.json",
+      "bytes": 4996,
+      "sha256": "2880e974265027539d08fef8948bde866621071fba1ab8131330e6bbf9a96f62"
+    },
+    "reason": "Original author owner has hardcoded inputs/ledger and rejects consumed measured IDs or affected lanes without a passing final lane; it cannot receive this grant. No original owner/ledger/prerequisite changes. This fresh selection uses unchanged canonical commandRecorder directly and does not claim original author-lane eligibility."
+  },
+  "proofMeaning": "One corrected HS02 installed held-relation case and one actual maintained fixed-admission case. Existing test-owned packing/install/scripted fixture effects occur under the short temp root; no Product source edits or provider call.",
+  "failurePolicy": "Retain complete stdout/stderr, time/RSS, TAP and authored diagnostics. Ordinary assertion failure may be followed by the second independently selected case; stop on timeout/output truncation/signal/spawn or resource failure. No retries.",
+  "notClosed": [
+    "Product acceptance",
+    "Maintained runner regression",
+    "Original author measured/final prerequisite gate",
+    "Full qualification or release"
+  ]
+}

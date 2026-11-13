@@ -1,0 +1,15 @@
+{
+  "status": "ROOT_SELECTED_ZERO_PROVIDER_STAGE",
+  "operator": "Root",
+  "decidedUtc": "2026-11-02T09:14:51.521602+00:00",
+  "bindingSha256": "1f68439e4039ed6a7ed43b66728ec20a80085a621140f02be0e788bfdb78c5c2",
+  "allowedStages": [
+    "read-a"
+  ],
+  "callSha256": null,
+  "basis": [
+    "Root inspected frozen v2 delta/HANDOFF/observer and exact owner-field contracts;45 binding pins match",
+    "Root verified source readinesscf5d4e872fc11ce0620a1843058aa63193cc785c29ad0ed034a0880e364031d3 and comparison32fb258276d00fbbc436ad0c78801a2cd49a26c3edf3b2cfb9fe04aee736c249"
+  ],
+  "decision": "Root selects read-a only in the sequence acquire-a, read-a, prepare-b, executing one stage at a time and stopping on any fault. Zero providers; acquisition/Public reads/preparation only. No paid B or interrupt-b selection. Root must inspect the actual prepared B call before any later dispatch. No automatic retry or witness acceptance follows."
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "root_proof_template_hold",
+  "at": "2026-11-05T22:37:01.784084+00:00",
+  "reason": "Actual native D5 source returned partial: M2 and authentic recovery proof unperformed; one author check red. No C2/UAT on this incomplete subject. The template remains exact, unbound and unexecuted.",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/SUBJECT.json",
+    "bytes": 461262,
+    "sha256": "601d6588e7c8c9f03a5305a378fb3454f815e641003668677b51142b590b096f"
+  },
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-01/review-subject-001/return.json",
+    "bytes": 17280,
+    "sha256": "09981772fb4a212adb06454e5681e43f465d88d9a4fd4be006de4c4985f68b5f"
+  },
+  "effects": "No staging, preflight, provider or proof execution selected.",
+  "next": "Root conjoins closed diagnoses before selecting successor source task or proof packet."
+}

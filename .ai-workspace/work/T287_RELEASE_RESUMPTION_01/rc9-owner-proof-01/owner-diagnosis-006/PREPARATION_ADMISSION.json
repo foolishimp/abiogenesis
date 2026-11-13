@@ -1,0 +1,15 @@
+{
+  "status": "ROOT_SELECTED_RC9_OWNER_DIAGNOSIS_006_PREPARATION",
+  "at": "2026-11-08T18:27:46.769387+00:00",
+  "ProductFrame": "Same STDO3.0.4/Product and frozen BUILT003; external control authoring only.",
+  "selectedBy": "Root RC9-OWNER-DIAGNOSIS-006",
+  "acceptedPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/PLAN.HELD.json",
+    "bytes": 13495,
+    "sha256": "0bc05ede85bdf08600447b1e450965cbb84a4bd7b931894aa6cb0f1fd39d8a00"
+  },
+  "selectedRefinement": "CPU interval10000us; finite64MiB total profile collection cap; preserve original test verdict. Profile disk bound is operational sampled, with final close check and no truncation/cleanup.",
+  "allowed": "New006 successors of reviewed004 runner/file-host, external CPU/phase observation, held binding/diff/receipts; normal fixture effects remain future execution scope.",
+  "execution": false,
+  "unchanged": "500s inner/600s outer,8GiBheap,16MiB command output,4GiB free/owned; no Product/source/test/build/native/provider/Git/cleanup or automated retry; seven-file remainder and bootstrap/broad/cut stay held."
+}

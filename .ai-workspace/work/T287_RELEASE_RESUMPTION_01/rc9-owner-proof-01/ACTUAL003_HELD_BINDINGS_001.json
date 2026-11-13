@@ -1,0 +1,57 @@
+{
+  "status": "ACTUAL003_FIELDS_BOUND_EXECUTION_HELD",
+  "at": "2026-11-08T17:26:47.764977+00:00",
+  "sourceValidation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ACTUAL003_SOURCE_HELPER_VALIDATION_001.json",
+    "bytes": 10154,
+    "sha256": "8ec1de7fe7a3298f776ca90e4473fbed093b4689212e8b17eae269ffc7d56b01"
+  },
+  "compiledValidation": null,
+  "bootstrapBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_BINDINGS.actual003.held-001.json",
+    "bytes": 6065,
+    "sha256": "37168e2f33309c7b88c620e2674ef550915973d0af2d51469462d2f03fb6fdac"
+  },
+  "beforeBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC8_BEFORE.actual003.held-001.json",
+    "bytes": 6559,
+    "sha256": "463083b17c76d32a48f9186d42f75cb808ffcc263f6234cdf3b40a60e35d2a8b"
+  },
+  "afterBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RC9_AFTER.actual003.held-001.json",
+    "bytes": 6536,
+    "sha256": "af319d3cee475c41a2cf21214dd4785112313456b27e1802193916ddb65ddd34"
+  },
+  "closedControlReviewRetained": {
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_PREPARATION_003.json",
+      "bytes": 4397,
+      "sha256": "5a74a7d66a168546f864248a2f670f11697f05cba8cbd3a5e633789a0c4f3458"
+    },
+    "script": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/prepare-rc9-bootstrap-001.mjs",
+      "bytes": 15441,
+      "sha256": "e1b003e346f6b99133eb2a745501771952a75372d1df8112c13f5dc092e168fb"
+    },
+    "RootReview": "Root read full fa741e8f bootstrap diff and5a74a7d6 preparation; accepted controls. No repeat review or modification."
+  },
+  "actualSourceFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "actualSourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "actualStageResult": null,
+  "missingFields": [
+    "completedUnit",
+    "unitReporter",
+    "unitCommandReceipt",
+    "sourceAcceptance",
+    "execution activation",
+    "archive/install relation",
+    "completedStage",
+    "stageManifest",
+    "compiled candidateOwnerPins/finalCounterValidation"
+  ],
+  "performed": "Read/hash exact source/helper/current receipt bytes; new held JSON only. No command/protocol/script changes and no Product/test/build/pack/runtime/provider execution."
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "passive_exact_row_observation",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/resources/events/runtime.events.jsonl",
+  "rows": [
+    {
+      "kind": "invocation_admitted",
+      "ordinal": 30276,
+      "eventTime": "2026-11-03T01:10:39.458Z",
+      "offset": 578255696,
+      "bytes": 352592,
+      "sha256": "9f50b87c2c49e998cd0f09239bdeeeb1ffa58f37708956486972594cbe9d8c92",
+      "invocationRef": "invocation://abiogenesis/928100b507889e9c8e9a159f33e8e53d45e98c78da8967cb23fde00570c06461",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/93dea427ed605644cce5f955bc78719dafefb0c708d02c94272356a74c85a3e4",
+      "runId": null
+    },
+    {
+      "kind": "run_segment_opened",
+      "ordinal": 30279,
+      "eventTime": "2026-11-03T01:10:43.404Z",
+      "offset": 578862772,
+      "bytes": 2362,
+      "sha256": "1ee00795bf0cc4241df3a259a0208576730304d29f6dfaa33aa1d89ac3082cb9",
+      "invocationRef": "invocation://abiogenesis/928100b507889e9c8e9a159f33e8e53d45e98c78da8967cb23fde00570c06461",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/93dea427ed605644cce5f955bc78719dafefb0c708d02c94272356a74c85a3e4",
+      "runId": "run://abiogenesis/3237b5513d2f636430bb5702775b416fa0862d57178a1e0e625b18b70c1beeb1"
+    }
+  ],
+  "startupMsSTARTEDToRunOpen": 142663,
+  "meaning": "Actual admission, not native Construction/proof/acceptance; preparation/operator refusals and provider cost separate."
+}

@@ -1,0 +1,101 @@
+{
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17; unchanged fifteen ABIogenesis5 families",
+    "slice": "GOAL-035/T287/F10 D5 affected C2/UAT, lawful legacy cold qualification and preserved Q23 Q1-Q7",
+    "outcome": "Retire only redundant current-profile ABG lifecycle copies through existing owners; preserve physical/helper observations, primary facts, deterministic fold/replay and exact historical profile standing.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "authoritySplit": {
+      "source": "Admitted author03 two-file legacy repair over frozen author02 inheritance. Actual author03 native Result,417-member freeze and three handoffs remain unbound; no moving Product reads.",
+      "tool": "Exact STDO3.0.4 and existing installed RC6/default-consumer/operator-client owners. This Writer prepares controls and passive capture only.",
+      "runtime": "Genuine future author03 final close/resume required. Existing fresh source:none Testing/UAT with exact physical source custody; retained consumer binding/catalog/view only, no old close or invented governance ancestry."
+    },
+    "prohibitions": [
+      "No Product/source edits, coding Worker, staging, preflight, tests/build, provider/runtime/Git/network/credential operation in preparation.",
+      "No current/future candidate or close substitution; no old handoffs added to satisfy stale selectors; no private diagnostics/provider output or terminal source-body printing.",
+      "Native max UAT is component feedback, not formal independent third-family judgment or Q23/release acceptance."
+    ]
+  },
+  "kind": "closed_successor_control_static_checks",
+  "status": "PASSED_STATIC_ONLY_ACTUAL_BINDINGS_PENDING",
+  "at": "2026-11-06T01:48:48.482574+00:00",
+  "syntaxChecks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/prepare-r1.mjs",
+      "check": "node --check",
+      "passed": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/dispatch.mjs",
+      "check": "node --check",
+      "passed": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/capture-c2.mjs",
+      "check": "node --check",
+      "passed": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/capture-assessment.mjs",
+      "check": "node --check",
+      "passed": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/claude-provider.sh",
+      "check": "sh -n",
+      "passed": true
+    }
+  ],
+  "counts": {
+    "proofStagedInputs": 6,
+    "contextPaths": 426,
+    "ownerProtectedInputs": 420,
+    "expectedN3FrozenFiles": 417,
+    "actualN3HandoffsPending": 3,
+    "helperReportedInputs": 407,
+    "additionalN3ControlsAndHandoffs": 13,
+    "compileSupportMembers": 372,
+    "commands": 7,
+    "modules": 10,
+    "retainedPopulation": 113,
+    "assessmentSources": 70
+  },
+  "recipeComparison": {
+    "commandsByteEquivalentAsJSON": true,
+    "commandIdsUnchanged": true,
+    "predicatesUnchanged": true,
+    "helperBytesUnchanged": true,
+    "allowedWriteTerritoriesUnchanged": true,
+    "commandTimeoutSumMs": 1560000,
+    "projectedExistingFormulaMs": 1636750,
+    "inactivityMs": 1800000,
+    "laneSumMs": 840000,
+    "componentCommandMs": 900000
+  },
+  "guards": [
+    "All actual N3 native Result/SUBJECT/handoff/close/resume/Root admission values remain null.",
+    "Only Testing/UAT with complete two-string instruction arrays, empty write roots, unique current assets and actual future handoffs required.",
+    "Full420 snapshot/owner protected correspondence is distinct from retained407 helper declaration.",
+    "The two N3 mutable paths are excluded from retained immutable-source pins.",
+    "Same372 compile/support closure; short TMPDIR and exact selected evidence-root clearing/setting retained.",
+    "P2 predecessor/current closed returns unchanged; timed scripts retain identical phase blocks.",
+    "Authority refs use current proof03 preparation/grant and admitted N3 selection; held proof02 controls remain provenance only."
+  ],
+  "resourceNote": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-proof-03/RESOURCE_NOTE.json",
+    "bytes": 4011,
+    "sha256": "49e3aae8efb66e87f79770ad3ec9269b993945affa1079d6bf840976ac8fec18"
+  },
+  "noExecution": {
+    "ownerCalls": 0,
+    "staging": 0,
+    "builds": 0,
+    "tests": 0,
+    "providerCalls": 0,
+    "runtimeWrites": 0,
+    "ProductEdits": 0,
+    "GitEffects": 0
+  }
+}

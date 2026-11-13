@@ -1,0 +1,10 @@
+{
+  "startingStageDigest": "860a77f27357793b982d1943b6f8aff1dda3fce523d88c15d7ac43c56f36b26d",
+  "primaryStageDigest": "860a77f27357793b982d1943b6f8aff1dda3fce523d88c15d7ac43c56f36b26d",
+  "startingDependencyDigest": "d2d0b2dafc0774955c52db12837478ea20a225f35e6c96b25b09b9d3b84474a8",
+  "externalTestInputDigest": "04c98f99415488f1b18605899b2789fe4d3ba6f2adf4c8b5803f63e6daa1ecd9",
+  "externalTestInputsPreserved": true,
+  "effects": [],
+  "sourceEffects": [],
+  "cleanup": "Only this successful derived source/build copy; retained test outputs above are preserved."
+}

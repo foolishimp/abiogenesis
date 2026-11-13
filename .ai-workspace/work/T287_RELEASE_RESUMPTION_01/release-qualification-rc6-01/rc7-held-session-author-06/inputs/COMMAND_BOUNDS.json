@@ -1,0 +1,99 @@
+{
+  "kind": "bounded_native_author_command_selection",
+  "status": "ROOT_SELECTED_H06_ONE_REUSED_PRODUCT_STAGE_THREE_LANES",
+  "readCommands": [
+    "Read only451 exact selected filenames, named controls and immutable owner/review references in EXTERNAL_READ_INPUTS; use explicit filenames for rg, no broad directory/glob Grep or additional source acquisition.",
+    "Read-only git diff/status/rev-parse metadata for preservation; no Git mutation or provider narrative/credential scans."
+  ],
+  "writeCommands": [
+    "Only one selected existing test mjs, three handoffs and one scratch stage; no Product/HOW/public-setup/helper/test-timeout/control edits.",
+    "Provider temp C/tmphs6 and tests/private/tmp/abg-hs6 with distinct empty npm configs; preserve existing contents."
+  ],
+  "stageLabels": [
+    "hs6-stage-01"
+  ],
+  "maxStages": 1,
+  "maxLaneInvocations": 3,
+  "concurrency": 1,
+  "laneIds": [
+    "assessment-guards",
+    "native-workspace-owner",
+    "caller"
+  ],
+  "laneTimeouts": {
+    "assessment-guards": 300000,
+    "native-workspace-owner": 300000,
+    "caller": 300000
+  },
+  "buildCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-06/prior-author-stage.mjs",
+        "hs6-stage-01",
+        "after"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "maxStages": 1,
+      "meaning": "Freeze451 sources, verify450 read-only inputs and complete5325-member Product payload with existing pinned owner; reuse actual H03 build receipts via H04 inventory reference. No compiler/generator/lifecycle execution."
+    }
+  ],
+  "testCommands": [
+    {
+      "argv": [
+        "node",
+        "qualification-inputs/rc7-held-session-author-06/prior-author-lanes.mjs",
+        "hs6-stage-01",
+        "<exact-next-lane-id>"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+      "laneIds": [
+        "assessment-guards",
+        "native-workspace-owner",
+        "caller"
+      ],
+      "maxLaneInvocations": 3,
+      "laneTimeouts": {
+        "assessment-guards": 300000,
+        "native-workspace-owner": 300000,
+        "caller": 300000
+      },
+      "concurrency": 1
+    }
+  ],
+  "ceilings": {
+    "providerTurns": 320,
+    "providerAbsoluteTimeoutMs": 5400000,
+    "providerInactivityTimeoutMs": 1800000,
+    "outerHostTimeoutMs": 10800000,
+    "heapMiB": 8192,
+    "automaticRetries": 0,
+    "parallelNativeWorkers": 1
+  },
+  "invocationAllocation": [
+    {
+      "lane": "assessment-guards",
+      "maximum": 1,
+      "order": 1
+    },
+    {
+      "lane": "native-workspace-owner",
+      "maximum": 1,
+      "order": 2
+    },
+    {
+      "lane": "caller",
+      "maximum": 1,
+      "order": 3
+    }
+  ],
+  "allocationLaw": "One create-only stage; three once-only serial lanes assessment-guards then native-workspace-owner then caller. Every allocated predecessor must satisfy the complete shared passed predicate on the same source. Failed/incomplete allocations count; stop first failure, no retry/correction stage or additional proof.",
+  "missingResources": "All451 actual H05 source names and exact unchanged Product payload selected. Named assessment review owners are inside451; no new resource acquisition. Preserve only the existing retained-root skip. H05 fixed/held proof stays historical and conditional on unchanged dependency closures.",
+  "freezeBeforeFeedback": "Publish exact source-freeze before payload copying/proof for parallel independent frozen review. Final native.after/stage/live correspondence required.",
+  "partitionStanding": "Existing positive exact selectors; no negative-lookahead filters, no widened authored test timeout.",
+  "rootSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json",
+    "bytes": 9291,
+    "sha256": "d3b7b87fab998bca08bc8572ddea2c34e4342378d30981c6a4b033416c3bc258"
+  }
+}

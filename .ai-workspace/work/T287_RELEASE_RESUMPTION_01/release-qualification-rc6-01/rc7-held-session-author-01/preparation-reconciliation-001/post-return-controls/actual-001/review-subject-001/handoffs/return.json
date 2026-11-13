@@ -1,0 +1,527 @@
+{
+  "kind": "rc7_held_session_author_return",
+  "task": "rc7-held-session-author-01",
+  "worker": "native Opus 5.5 (claude-opus-5-5)",
+  "basis": "stdo://releases/v3.0.4/",
+  "createdUtc": "2026-11-06T13:51:49.502Z",
+  "status": "PARTIAL_FROZEN_CANDIDATE_PROOF_INCOMPLETE",
+  "finalFrozenSource": {
+    "stage": "hs1-stage-04",
+    "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04-source-freeze.json",
+      "bytes": 96589,
+      "sha256": "7c8072728547bf714c4e9902a904df6bc3fce6b1de206595946221165eb5da31"
+    },
+    "worksiteEqualsFinalFreeze": true
+  },
+  "changedPaths": [
+    {
+      "path": "code/src/abg/event_store.ts",
+      "inGrant": true,
+      "before": {
+        "bytes": 215016,
+        "sha256": "01c82b88e65e12b367b9683241407bcc7707531679963c04a580855bcfa1df71"
+      },
+      "after": {
+        "bytes": 215977,
+        "sha256": "c1ccb6d04d413f946c87a3586934428c61a319ef9b86f6b2ff225575db4c973e"
+      }
+    },
+    {
+      "path": "code/src/abg/exact_prefix_bindings.ts",
+      "inGrant": true,
+      "before": {
+        "bytes": 7694,
+        "sha256": "f4034bd7f9fa18ede51dc9ad17f966f54f83b4d53e2f22eda7d43f35cc2462de"
+      },
+      "after": {
+        "bytes": 8083,
+        "sha256": "fdb190c81419ed33cf3cc53f3ef3930cfe05135dc3460285cc28f6948e3c5199"
+      }
+    },
+    {
+      "path": "code/src/abg/project_read_definition_bindings.ts",
+      "inGrant": true,
+      "before": {
+        "bytes": 37639,
+        "sha256": "68ee96e433caa079dd7c26de3ed0f072d6fb18e17e0a1058d78a3447ea076ff8"
+      },
+      "after": {
+        "bytes": 38532,
+        "sha256": "07e9c5cd51918bb335ab2ac83618f972ffdc820666b1eab56a6875423af7f99b"
+      }
+    },
+    {
+      "path": "code/src/gtl/default_library.ts",
+      "inGrant": true,
+      "before": {
+        "bytes": 24296,
+        "sha256": "b3c030f8797b4ef7e5e04008b7c323783e840b2e3abb40bd03a97a48c50f7735"
+      },
+      "after": {
+        "bytes": 24384,
+        "sha256": "ead200f24d363839aea0e57e0773f2bed05c3f060246464da74adeaf47458ef1"
+      }
+    },
+    {
+      "path": "code/src/public/installed_public_definition_call.ts",
+      "inGrant": true,
+      "before": {
+        "bytes": 27318,
+        "sha256": "27de3ce5c295b3aaa76b58bb062357763a6109ddf6d55ba9b1844fd75914bd29"
+      },
+      "after": {
+        "bytes": 27277,
+        "sha256": "d3afab39d2a86ec5aa590ea5445248768896d60636aab7e7dd86da41c92cb52e"
+      }
+    },
+    {
+      "path": "design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "inGrant": true,
+      "before": {
+        "bytes": 156293,
+        "sha256": "2f80715880c73f366b0fd4232e34c504db0ebadadfd156e2014deb919fbf481f"
+      },
+      "after": {
+        "bytes": 162715,
+        "sha256": "dc3cf54e17e1e55e85878c9f3183c4dc2266dc6ecbdd256ac34d82046a9b611d"
+      }
+    },
+    {
+      "path": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "inGrant": true,
+      "before": {
+        "bytes": 91874,
+        "sha256": "744cefbf0c13d5d60b4ba32efd7e92565b20f712f9877609a7284808d9809559"
+      },
+      "after": {
+        "bytes": 92447,
+        "sha256": "fc17cc3836ba98ecbf062b8dc2dbbf17cbb08985401631d40f059746b323cf9f"
+      }
+    },
+    {
+      "path": "test_env/tests/t287-default-library.test.mjs",
+      "inGrant": true,
+      "before": {
+        "bytes": 339637,
+        "sha256": "5d5278db16a4345e19e7d54bcafad505c012705c3f2626221892dc6dc3ed2c27"
+      },
+      "after": {
+        "bytes": 340007,
+        "sha256": "bba57cddf31d255a0dc939d844a20719493cc2bb0e2d90d736c6f376298e1150"
+      }
+    },
+    {
+      "path": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "inGrant": true,
+      "before": {
+        "bytes": 8003,
+        "sha256": "e3d9d16cbf136031ff199cb9f718eaf7cde6c9cd4c3bd29e3c28ee19610dad4a"
+      },
+      "after": {
+        "bytes": 20375,
+        "sha256": "78d7ab6648212ff8702f1b3fdc6f8a761d60b6b4a2b6e0e53f915990260dfe65"
+      }
+    },
+    {
+      "path": "test_env/uat/public-setup.mjs",
+      "inGrant": true,
+      "before": {
+        "bytes": 32732,
+        "sha256": "0fa5de4056bbe525c231cee5eb037cb03b43bcf78647fe3b407cf25afe99e665"
+      },
+      "after": {
+        "bytes": 35391,
+        "sha256": "0ba9523bb899b00a0d33a0800fdc5beca26ddc98d4ea5eb373c8f754069d8dd5"
+      }
+    },
+    {
+      "path": "test_env/uat/runner.mjs",
+      "inGrant": true,
+      "before": {
+        "bytes": 39766,
+        "sha256": "55c4b8e7199d6c35fb722590fd748f05e6933af94ec3807946e59064d392932b"
+      },
+      "after": {
+        "bytes": 42200,
+        "sha256": "fe5a11bbc10df563c52ed9ab6eff6042ae6ef3477026895b4a1fd9d4f914b4cd"
+      }
+    }
+  ],
+  "changedPathCount": 11,
+  "allChangedPathsInGrant": true,
+  "howRelation": {
+    "design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "§10.9 added (R-A held acquisition, R-B borrowed read, R-G held caller, responsibilities, counters, deletion predicate, proof); §10.8 left current",
+    "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": "Resolution dependency (open) replaced by Fixed-route Program (F2-PROGRAM-001): library contributes one Catalog row per published GraphFunction incl. executive-step; both fixed calls select program://abiogenesis/default-library/default@5, its declared environment, permission, binding and narrowed Catalog view",
+    "code/src/abg/project_read_definition_bindings.ts": "R-B: run-read assertion admits ReopenedAbgEventResourceInput; receipt admits reopen receipt or completion; kernel completes via completeAbgEventResource at entryPrefix; legacy reads stay reopen-only",
+    "code/src/abg/exact_prefix_bindings.ts": "R-B: bindExactPrefixRead admits a reopen assertion or current held selection; exactReadReceipt checks completion correspondence and unchanged prefix",
+    "code/src/public/installed_public_definition_call.ts": "R-B: constructInstalledRunReadCall accepts ReopenedAbgEventResourceInput",
+    "code/src/abg/event_store.ts": "observation-only counters (historyDecodes, decodedRows, historyBytesRead, storeReopens, coldHistoryReads, bodyReads, bodyBytesRead) and @internal observeRuntimeHistoryWork; not exported from abg/index",
+    "code/src/gtl/default_library.ts": "F2-PROGRAM-001: contributions cover every published GraphFunction including executive-step",
+    "test_env/uat/public-setup.mjs": "R-G: populateSandbox retain option and this-setup-only cleanup; refresh() without readSource; held selection as run eventResource; fixed calls select library Program/environment/view; deriveFixedTestingSource reads at completion successor; constructFixedWrapperCall for admission negatives",
+    "test_env/uat/runner.mjs": "R-G: in-process held lifecycle under scoped worker environment (cold CLI kept when no selection); heldReadbacks; one session close; cold freshReadbacks without R6 splice; warm/cold ownerOutput equality; failure close/abandon",
+    "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs": "RC7 HS02 case",
+    "test_env/tests/t287-default-library.test.mjs": "RC7 fixed admission through maintained caller; public-setup regression updated for library Program; contribution count 8"
+  },
+  "stages": [
+    {
+      "label": "hs1-stage-01",
+      "mode": "before",
+      "sourceDigest": "5b48091aba36f04f328a89fd21050e82038002a221f0392e781448c590ace87f",
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-01-source-freeze.json",
+        "bytes": 96590,
+        "sha256": "7d775a14e6be83b1b8882aa9174ddcf618a2accd754a49061400b13ec371f4a9"
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-01-stage.json",
+        "bytes": 97314,
+        "sha256": "55260151d2780528d4c35fbf08622865fe642ccc8b87e271bbd143625b9e68b6"
+      },
+      "compile": {
+        "exitCode": 0,
+        "ms": 74397
+      },
+      "generate": {
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "error": "spawnSync /opt/homebrew/Cellar/node/24.7.0/bin/node ETIMEDOUT",
+        "ms": 180073
+      },
+      "lifecycle": null,
+      "generatedManifest": null,
+      "c2RendererMember": null
+    },
+    {
+      "label": "hs1-stage-02",
+      "mode": "before",
+      "sourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd",
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-source-freeze.json",
+        "bytes": 96590,
+        "sha256": "bec208ac07f79a5a9605eec183baa0f2bf1dc2ddd2f1758951a71eca3f88cd34"
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-stage.json",
+        "bytes": 97566,
+        "sha256": "d269046de5449d4f0332dfcbff16b4111b77ab4536332fcf8193826175b591b7"
+      },
+      "compile": {
+        "exitCode": 0,
+        "ms": 54547
+      },
+      "generate": {
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 95967
+      },
+      "lifecycle": {
+        "exitCode": 0,
+        "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender"
+      },
+      "generatedManifest": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3265439,
+        "sha256": "6ba81749a8ffe188b477d85c3b7938eee18775858e489beadba6989046c04147"
+      },
+      "c2RendererMember": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+        "bytes": 119249,
+        "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+        "declaredBytes": 119249,
+        "declaredSha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+        "matchesDeclaredPin": true
+      }
+    },
+    {
+      "label": "hs1-stage-03",
+      "mode": "after",
+      "sourceDigest": "1adb7041ad05452d412b538b68a3c03334aa53c47526711380392f1eba60a2d3",
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-source-freeze.json",
+        "bytes": 96589,
+        "sha256": "ae7e7c0e9f70f38dcc712743a133785950141bde2e62491f95d3f7030b62f93c"
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-stage.json",
+        "bytes": 97585,
+        "sha256": "e5f826fc562cacb1ad72e851daea0a5ffd34eb3694f4c5694c970db71345bed2"
+      },
+      "compile": {
+        "exitCode": 0,
+        "ms": 69273
+      },
+      "generate": {
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 92205
+      },
+      "lifecycle": {
+        "exitCode": 0,
+        "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender"
+      },
+      "generatedManifest": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266103,
+        "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+      },
+      "c2RendererMember": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+        "bytes": 119249,
+        "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+        "declaredBytes": 119249,
+        "declaredSha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+        "matchesDeclaredPin": true
+      }
+    },
+    {
+      "label": "hs1-stage-04",
+      "mode": "after",
+      "sourceDigest": "5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04-source-freeze.json",
+        "bytes": 96589,
+        "sha256": "7c8072728547bf714c4e9902a904df6bc3fce6b1de206595946221165eb5da31"
+      },
+      "stageReport": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04-stage.json",
+        "bytes": 97605,
+        "sha256": "9761816ef334d08004125782074fec993662a87ded6142b6739e8a2ec50c51ee"
+      },
+      "compile": {
+        "exitCode": 0,
+        "ms": 51926
+      },
+      "generate": {
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "ms": 100154
+      },
+      "lifecycle": {
+        "exitCode": 0,
+        "stdout": "check-lifecycle-boundary: 290 modules under code/src; 7 allow-listed site(s), no offender"
+      },
+      "generatedManifest": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266103,
+        "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+      },
+      "c2RendererMember": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+        "bytes": 119249,
+        "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+        "declaredBytes": 119249,
+        "declaredSha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+        "matchesDeclaredPin": true
+      }
+    }
+  ],
+  "laneAllocations": {
+    "used": [
+      {
+        "id": "held-session-before",
+        "stage": "hs1-stage-02",
+        "stageSourceDigest": "78fd11b85379a9a6fdd4db20b4493b40e637dbb619f147e029c6f59c1d96fddd",
+        "exitCode": 1,
+        "ms": 251117,
+        "tests": 2,
+        "pass": 0,
+        "fail": 2,
+        "skipped": 0,
+        "failing": [
+          "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+          "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+        ],
+        "activeRc7": [],
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-lanes-held-session-before/summary-held-session-before.json",
+          "bytes": 1385,
+          "sha256": "d78ea9d3e7a746eadd7093999eebbe867a299a574091991391f7ae6fc88b8d92"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-02-lanes-held-session-before/held-session-before.stdout.tap",
+          "bytes": 3315,
+          "sha256": "3af4e4a388c211a16e89819e9c0f8e9adeeeddfdf24513e1a792f56e1ed18976"
+        },
+        "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:RC7 HS02:|RC7 fixed admission: ) test_env/tests/t287-exact-prefix-projection-reuse.test.mjs test_env/tests/t287-default-library.test.mjs",
+        "discrimination": {
+          "RC7 fixed admission": "GENUINE baseline red: BoundaryFailure fixed-testing-population, Public refusal invalid_target at /program, from baseline public-setup constructConsumerRunCall on the consumer Program route (F2-PROGRAM-001).",
+          "RC7 HS02": "NOT GENUINE: file-level ERR_MODULE_NOT_FOUND for test_env/support/installed-language-test.mjs, which is outside the staged 450-path closure; the case never ran. The single held-session-before allocation is consumed."
+        }
+      },
+      {
+        "id": "held-session-measured",
+        "stage": "hs1-stage-03",
+        "stageSourceDigest": "1adb7041ad05452d412b538b68a3c03334aa53c47526711380392f1eba60a2d3",
+        "exitCode": 1,
+        "ms": 218339,
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "skipped": 0,
+        "failing": [
+          "RC7 HS02: one held acquisition serves warm Runs and held run_result/run_replay without another decode, reopen or append, refuses stale/copied/foreign/closed selections, closes once and equals the cold reads"
+        ],
+        "activeRc7": [],
+        "summary": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-lanes-held-session-measured/summary-held-session-measured.json",
+          "bytes": 1342,
+          "sha256": "8e06c7f3bc0b47f79ee5fa14ccc60000d49d15899315b19f49242f5c07cc282f"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-03-lanes-held-session-measured/held-session-measured.stdout.tap",
+          "bytes": 1945,
+          "sha256": "0d5313bcec521554b7524d295eb0dfcbb14b53bf237898184365c6607ff31c4c"
+        },
+        "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^RC7 HS02: test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "discrimination": "RED from an HS02 test-construction defect (test line 187): the stale-selection read call was populated over the stale prefix, where the last Run source is absent, so the support helper failed on population unknown_source before the stale guard. Corrected in the final source (hs1-stage-04); unexecuted."
+      }
+    ],
+    "notRun": [
+      {
+        "id": "held-session-final",
+        "status": "NOT_RUN",
+        "reason": "prior-author-lanes requires a passing held-session-measured; the measured allocation is consumed and red"
+      },
+      {
+        "id": "read-owner",
+        "status": "NOT_RUN",
+        "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+      },
+      {
+        "id": "caller",
+        "status": "NOT_RUN",
+        "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+      },
+      {
+        "id": "fixed-route",
+        "status": "NOT_RUN",
+        "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+      },
+      {
+        "id": "cold-resume",
+        "status": "NOT_RUN",
+        "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+      },
+      {
+        "id": "body-conservation",
+        "status": "NOT_RUN",
+        "reason": "prior-author-lanes requires a passing held-session-final on the same stage source digest; none exists"
+      }
+    ],
+    "capUsed": 2,
+    "cap": 8
+  },
+  "generation": {
+    "generator": "scripts/generate-product-manifest.mjs run by prior-author-stage in each stage; no hand-edited identities",
+    "final": {
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3266103,
+        "sha256": "079a258e2f2720188dde3d46414a35a9f73bb13a2a50ff725476cafb331de483"
+      },
+      "c2RendererMember": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-01/tmp/hs1-stage-04/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+        "bytes": 119249,
+        "sha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+        "declaredBytes": 119249,
+        "declaredSha256": "b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790",
+        "matchesDeclaredPin": true
+      }
+    }
+  },
+  "counters": {
+    "source": "held-session-measured lane on hs1-stage-03 (installed packed candidate, language-smoke fixture). The diagnostic line was not emitted because the case failed later; these values are the passed assertions, not a recorded measurement.",
+    "acquisition": {
+      "storeReopens": 1,
+      "historyDecodes": 1
+    },
+    "warmCalls": {
+      "runs": 2,
+      "addedHistoryDecodes": 0,
+      "addedStoreReopens": 0,
+      "addedColdHistoryReads": 0
+    },
+    "warmReads": {
+      "reads": [
+        "run_result",
+        "run_replay"
+      ],
+      "addedHistoryDecodes": 0,
+      "addedStoreReopens": 0,
+      "addedColdHistoryReads": 0,
+      "eventLogBytesUnchanged": true,
+      "completionPrefixUnchanged": true
+    },
+    "heldPopulationRefusal": {
+      "code": "unknown_source",
+      "addedHistoryDecodes": 0
+    },
+    "notObserved": [
+      "decodedRows",
+      "historyBytesRead",
+      "bodyReads/bodyBytesRead",
+      "RSS",
+      "phase timings",
+      "selected cold proof counts",
+      "warm/cold equality",
+      "refusal outcomes",
+      "close/recovery"
+    ],
+    "laneDurationMs": 218339
+  },
+  "reachability": {
+    "decision": "NO_DELETION",
+    "reason": "The measured discriminator did not pass, so no retirement is justified. Every inspected S2 member keeps a supported non-warm consumer.",
+    "inspected": {
+      "DurableHistoryDerivation.capture/selection/activeSelection/bindSelection (abg/event_store.ts)": "cold raw/deserialized handoff population, reopen and copied-coordinate reads; consumers via captureDurablePrefixCoordinate in product/admission_authority.ts, abg/execution_basis.ts, abg/artifact_truth.ts, abg/project_read_ports.ts and abg/index.ts",
+      "readOwnedRuntimeHistoryAtDurablePrefix cold branch": "abg/event_prefix.ts readers over raw or closed coordinates, the requireCurrent freshness path and historical cuts",
+      "projectOwnedRuntimeHistoryAtDurablePrefix": "abg/event_prefix.ts; borrows a known selection without owner, used by closed-handoff and historical-cut readers",
+      "closeHeldEventStoreAtDurablePrefix": "abg/definition_event_resource.ts close path; cold CLI reopen handoff",
+      "recoverInterruptedAbgEventResource": "interrupted-resource recovery (abg/index.ts export)",
+      "readRuntimeHistoryRowBytes": "lazy body-holder reads for selected rows",
+      "§10.8 R5 artifact-truth prefix pass (populateRunReadAtDurablePrefix -> environment.artifactTruth.prefix)": "still required for raw/deserialized cold populations; the held path reaches it with an owner-bound prefix"
+    },
+    "displacedAndRemoved": [
+      "runner freshReadbacks R6 hash-equal object splice of the close handoff prefix",
+      "public-setup refresh(readSource) exact-object argument and its runner call site"
+    ],
+    "sectionSupersession": "§10.8 R5/R6 are NOT marked superseded: the final held-session proof did not close."
+  },
+  "equalityCleanupRecovery": {
+    "warmColdEquality": "NOT OBSERVED (HS02 failed before the cold reads)",
+    "outerClose": "NOT OBSERVED in lanes",
+    "staleCopiedForeignClosedRefusals": "NOT OBSERVED in lanes (test defect at the stale case)",
+    "interruptionRecovery": "NOT EXERCISED by HS02; existing recovery owner unchanged",
+    "maintainedCallerFixedAdmissionAfter": "NOT RUN (fixed-route lane ineligible)"
+  },
+  "preserved": {
+    "coldCliReopenPath": "kept in freshReadbacks, invokeColdInstalledEntry and the reopen-only legacy read binding",
+    "historical": "retained rows/contracts untouched; no S5; S4 installed byte-growth gate remains open",
+    "inheritedTrackedChanges": "59 tracked + 2 new Product paths untouched except the 11 granted paths listed"
+  },
+  "disclosures": [
+    "stage-01 stdout/stderr were redirected to scratch-root stage-01.out/.err, outside the declared tmp/ path; later logs went under tmp/log-*.",
+    "node --check parse checks ran in memory on edited .mjs files; no other build/test outside the stage/lane owners.",
+    "hs1-stage-01 generation exceeded its 180 s bound on the unchanged baseline source under host load from unrelated processes; hs1-stage-02 reallocated the before discriminator within the four-stage cap."
+  ],
+  "handoffs": [
+    {
+      "to": "Root independent review",
+      "subject": "hs1-stage-04 frozen source 5234a14627fa76e2ec2bdb659a0789480b71c6cff4166f2537c5c6a2720c6522",
+      "content": "11 changed paths, §10.9 and T287 HOW, compile/generation/lifecycle receipts, C2 pin match, no-deletion decision"
+    },
+    {
+      "to": "Root proof allocation",
+      "content": "Fresh lane allocations are needed: held-session-measured/final (HS02 corrected), read-owner, caller, fixed-route (real maintained-caller admission plus six regressions), cold-resume and body-conservation, all on one final source digest. Observed so far: warm-path counter assertions passed; nothing after the stale case ran."
+    },
+    {
+      "to": "Root triage / next author",
+      "content": "No genuine HS02 baseline red exists (before-lane HS02 failed on an unstaged import). The fixed-admission baseline red is genuine. §10.8 R5/R6 supersession, S4 growth, HS03 and all release gates remain open."
+    }
+  ]
+}

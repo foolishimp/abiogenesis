@@ -1,0 +1,127 @@
+{
+  "kind": "root_native_workflow_phase_observation",
+  "at": "2026-11-06T04:35:35.481517+00:00",
+  "launchTiming": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/LAUNCH_TIMING.json",
+    "bytes": 2343,
+    "sha256": "64e4c50235197c077c95c31984c974849947aa0296a3d9ec542f869a13045b82"
+  },
+  "sourceRuntimeClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-author-01/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 10277,
+    "sha256": "ac9a2e6425ea18490d5b1ee2c5bcfc985a3ecac4bae7b2908571de857ee5848f"
+  },
+  "setup": {
+    "reused": true,
+    "newSetupMs": null,
+    "standing": "No new setup measurement"
+  },
+  "preflight": {
+    "startedUtc": "2026-11-06T03:41:15.774235+00:00",
+    "endedUtc": "2026-11-06T03:42:29.731820+00:00",
+    "wallMs": 73956.8099998869,
+    "exitCode": 0
+  },
+  "hostStartupBeforeDispatchMs": 65457.221000000005,
+  "dispatchToNativeActorMs": 70851.0,
+  "hostLaunchToNativeActorMs": 136308.221,
+  "nativeActorMs": 2062654.0,
+  "nativeExitToHostEndMs": 19270.568,
+  "hostTotalMs": 2218197.1254171804,
+  "coldReads": [
+    {
+      "member": "run_result",
+      "wallMs": 159359.806959,
+      "phases": [
+        {
+          "phase": "physical_prefix_checked",
+          "at": "2026-11-06T04:25:00.609Z",
+          "offsetMs": 1123.96,
+          "memory": {
+            "rss": 186679296,
+            "heapTotal": 111427584,
+            "heapUsed": 36419720,
+            "external": 2805932,
+            "arrayBuffers": 387557
+          }
+        },
+        {
+          "phase": "cold_installed_read",
+          "at": "2026-11-06T04:26:19.247Z",
+          "offsetMs": 79761.52925,
+          "memory": {
+            "rss": 4814143488,
+            "heapTotal": 4120035328,
+            "heapUsed": 3921242168,
+            "external": 99044325,
+            "arrayBuffers": 96601277
+          }
+        },
+        {
+          "phase": "cold_read_returned",
+          "at": "2026-11-06T04:27:37.777Z",
+          "offsetMs": 158290.687625,
+          "memory": {
+            "rss": 4815470592,
+            "heapTotal": 3322068992,
+            "heapUsed": 2827273928,
+            "external": 196081433,
+            "arrayBuffers": 193636649
+          }
+        }
+      ]
+    },
+    {
+      "member": "run_replay",
+      "wallMs": 155837.900667,
+      "phases": [
+        {
+          "phase": "physical_prefix_checked",
+          "at": "2026-11-06T04:30:05.997Z",
+          "offsetMs": 919.623917,
+          "memory": {
+            "rss": 186318848,
+            "heapTotal": 110903296,
+            "heapUsed": 36549456,
+            "external": 2815732,
+            "arrayBuffers": 397357
+          }
+        },
+        {
+          "phase": "cold_installed_read",
+          "at": "2026-11-06T04:31:21.732Z",
+          "offsetMs": 76653.93804200001,
+          "memory": {
+            "rss": 4829118464,
+            "heapTotal": 4120166400,
+            "heapUsed": 3922119344,
+            "external": 99044325,
+            "arrayBuffers": 96601277
+          }
+        },
+        {
+          "phase": "cold_read_returned",
+          "at": "2026-11-06T04:32:39.880Z",
+          "offsetMs": 154801.683375,
+          "memory": {
+            "rss": 4905140224,
+            "heapTotal": 3324690432,
+            "heapUsed": 2827349408,
+            "external": 244276604,
+            "arrayBuffers": 241831820
+          }
+        }
+      ]
+    }
+  ],
+  "betweenTask": {
+    "priorHostEndToCurrentHostLaunchMs": 3016451.8419999997,
+    "packetSelectionToPreparedReturnMs": 2180578.102
+  },
+  "limits": [
+    "Phase wall intervals, not CPU costs; nested phase counters cannot be summed indiscriminately.",
+    "RC6 builder and separate post-return controls measured; prospectiveRC7 changes not executed here.",
+    "Memory values are checkpoints, not peaks.",
+    "No matched whole-carriage or complete RC7 performance result yet."
+  ]
+}

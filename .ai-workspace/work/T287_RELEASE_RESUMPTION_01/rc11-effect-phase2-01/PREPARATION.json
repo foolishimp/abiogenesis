@@ -1,0 +1,189 @@
+{
+  "status": "PREPARATION_COMPLETE_EXACT_SCOPE_AND_EXECUTION_HELD",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/ACTIVATION.json",
+    "bytes": 2753,
+    "sha256": "4654dfcb96b62b8eb107a15a175e4d318af5c42643b452e49cbd53882587325d"
+  },
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/BASELINE.json",
+    "bytes": 7543,
+    "sha256": "a1a5eaf562ac5cf4cc1d19f60fff7f3609b4662e52de7d84c7abefae35b2f012"
+  },
+  "plan": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md",
+    "bytes": 12980,
+    "sha256": "3c0820e1959dfbd1ac73e857036aa347475643d597096dbb921faae2ad41d574"
+  },
+  "scopeStanding": "Phase2 shared physical lifetime plus runCommand is selected for preparation. Root owns exact Design/Proof/source conjunction; other consumers are compatibility-proof subjects, not implicitly writable.",
+  "candidateOwnerRoutes": [
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 68872,
+      "sha256": "9f87e7315b815d1b5028ab1e8e146e7c5ccc04d84956b25a0ac9b365f1d626df"
+    }
+  ],
+  "nativeRoute": {
+    "reuseHost": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/host.mjs",
+      "bytes": 15522,
+      "sha256": "723a94a1973fa2c9c74b3315d295bb75c99bc3f7358109c6c0494f2ce2c821fb"
+    },
+    "transportPreflight": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-04/transport-preflight.mjs",
+      "bytes": 1458,
+      "sha256": "b86bd881a4b0c2452503d490964d2dbc29deddab5ddefcf803e0277e55f5081a"
+    },
+    "canonicalTaskOwner": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 22870,
+      "sha256": "fc58ed982728c9fb40811c2f5bc44faae35ca25e119de1f3aaf1295b3f2b693c"
+    },
+    "publicHelpers": {
+      "public-setup.mjs": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "bytes": 39883,
+        "sha256": "55bc83d7ad26c24be1ddcf7bbaee973de79db9bbd50ee1a6ecfcbdb235958e34"
+      },
+      "runner.mjs": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "bytes": 42204,
+        "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+      },
+      "consumer.mjs": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+        "bytes": 11420,
+        "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+      },
+      "scenarios.mjs": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+        "bytes": 7569,
+        "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+      }
+    },
+    "freshSetup": "Same existing worktree; Public workspace.open.open with exact current expectedAuthority and empty slots, assert actual unbound manifest locator/digest before/after. Fresh runtime/scratch paths and new caller/resource; retain same live process through PREPARED. No existing Runtime/Run reused.",
+    "nativeSelection": {
+      "memberKey": "start",
+      "target": {
+        "kind": "next"
+      },
+      "rootMode": "direct",
+      "fhMode": "direct",
+      "programOwnerSymbol": "product.NATIVE_WORKSPACE_WORK_IDS.programRef",
+      "callConstructor": "public.constructInstalledStartCall",
+      "transport": "public.runInstalledDefinitionCallWithResource through maintained runner.invokeLifecycle",
+      "resource": "fresh owner acquisition and actual returned successor, never old RC8/9 identity"
+    },
+    "typedTask": "instructions is canonical string[]; actual installed constructNativeWorkspaceWorkTask. Native Program/view selection separate from setup library; measure addressed context and rendered prompt bytes before dispatch.",
+    "actualRequiredEffects": "Future genuine setup creates runtime metadata and observes context/constructs held start call. None allocated now. Root must admit exact setup/binding, then exact PREPARED before paid dispatch.",
+    "providerExecutable": {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "bytes": 272984176,
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "recommendedFiniteEnvelope": {
+      "absoluteTimeoutMs": 900000,
+      "inactivityTimeoutMs": 180000,
+      "maxTurns": 100,
+      "setupMs": 900000,
+      "setupCommandMs": 300000,
+      "reserveBytes": 4294967296
+    },
+    "budgetBasis": "Existing working native03/native04 routes use100turns and180s inactivity; propose900s absolute for one coherent two-owner production slice, source/cheap controlled checks only. Full physical/unit proof stays external. Strict absolute>inactivity; no automatic extension or retry. Final allocation remains Root scope decision.",
+    "contextPolicy": "Targets, exact owner contracts, compact plan/closed triage and small test seams. Pin larger Effect/runtime sources with targeted read routes; no entire Effect.ts or constitution inline.",
+    "minimalControlDelta": "Reuse host/transport/provider wrappers; fresh phase2 identifiers, admitted scopes, source inventory, task, read-only input/scratch roots and pins. No new generic runner."
+  },
+  "proofRoute": {
+    "reuseDriver": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/proof.r02.py",
+      "bytes": 15445,
+      "sha256": "1fa3405b6170235857c8f23433e45f267ff0b9fd7e3f4747690bda22f4021290"
+    },
+    "controlsPrecedent": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/CONTROLS.json",
+      "bytes": 28145,
+      "sha256": "5f09730a45ea2a3220e070feb4ac81f642e762f6810261c220aa9bc56a5bd2ff"
+    },
+    "closedCampaign": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/FINAL_RETURN.json",
+      "bytes": 2384,
+      "sha256": "dd108d63df4222cd9859a07b29fcc287e16e36b198ff4b5d192540ee9a68ff75"
+    },
+    "compiledPredecessor": {
+      "path": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01/COMPILED_BUILD_INVENTORY.json",
+      "bytes": 182705,
+      "sha256": "3db4a581d6d81128f477de20b3e9591ce462e0be11dacb27f101fca2a34f2f35"
+    },
+    "scripts": {
+      "lint": "node scripts/lint-verification.mjs",
+      "build": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
+      "test:unit": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-held-owner-fold-reuse.test.mjs test_env/tests/t287-owned-call-reference.test.mjs test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+      "lint:imports": "node scripts/check-import-direction.mjs",
+      "lint:lifecycle": "node scripts/check-lifecycle-boundary.mjs"
+    },
+    "candidateExistingProofFiles": [
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 52787,
+        "sha256": "4db80cc8cf535099e138138720dc0ffb196e81ed35a8c9fe3b3037fee9a1ab91"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 145250,
+        "sha256": "7c1e5e42621d01beaab830a687a863b6e447d4b0a9152d0ea16841b2a884f4a6"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/forward-command-contracts.test.mjs",
+        "bytes": 12710,
+        "sha256": "b5b590373ba9377d3f48bc5b412b6e5a1cea4286b6d816d5ef9c5886a50d2cf3"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/forward-command-owners.test.mjs",
+        "bytes": 5962,
+        "sha256": "7e7bf90bfb563654189e3bf284d24c13a4d63a08c1262e74f43460f74d0d3939"
+      },
+      {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+        "bytes": 9781,
+        "sha256": "44733710fd85aa4b6bc3ed2decc875e7334e7778a1358e3564a0ab39da4f0c61"
+      }
+    ],
+    "selectionHeld": "Root Proof scope must bind exact controlled selectors/full compatibility files, counts and skip names. Prior9-file unit script remains unchanged; no broad campaign selected.",
+    "buildRelation": "Future production-code edits invalidate prior compiled build reuse for successor acceptance. Stage current frozen source with metadata-preserving dependencies, normal single build/manifest, then external targeted proof. Keep lint recipe argv and explicit TAP flags; preserve final-burst/output and campaign deadline accounting.",
+    "boundPrecedent": {
+      "lint": 120,
+      "build": 600,
+      "deterministic": 60,
+      "lifetime": 300,
+      "m5": 600,
+      "originalUnit": 1800,
+      "campaign": 4200,
+      "outputMiB": 100
+    },
+    "capStanding": "Precedent only, not newly admitted proof limits or guaranteed fit; final scopes/populations/physical cap arithmetic await Root."
+  },
+  "remainingDependencies": [
+    "Closed Phase2 Design and Proof reports and Root exact source/write scope",
+    "Exact new native task/control/input/scratch grants and concrete setup admission",
+    "Actual PREPARED current resource/prefix and Root provider admission",
+    "Successor source freeze before external proof binding"
+  ],
+  "noEffects": {
+    "sourceWrites": 0,
+    "trackingWrites": 0,
+    "gitWrites": 0,
+    "runtimeAllocations": 0,
+    "providerCalls": 0,
+    "builds": 0,
+    "tests": 0,
+    "packs": 0
+  },
+  "returnConsumer": "/root"
+}

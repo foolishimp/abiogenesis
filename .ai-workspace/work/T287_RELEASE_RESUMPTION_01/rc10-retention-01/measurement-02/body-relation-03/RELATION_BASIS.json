@@ -1,0 +1,33 @@
+{
+  "status": "SOURCE_AND_ACTUAL_EVENT_RELATION_VERIFIED_NO_RUNTIME_EXECUTED",
+  "historySource": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "bytes": 49843,
+    "sha256": "df69e55518f88c01ec98c3edbf5480c4dbc8956693ab44a6e5d63a89a922534d"
+  },
+  "admissionSource": {
+    "path": "/private/tmp/abg-rc10-retention-20261109/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+    "bytes": 77610,
+    "sha256": "89aee2eb45c514af1061336b7c7a537892129699a590ef317e902d8b45bf90aa"
+  },
+  "schema": "RuntimeEventHistoryRow scalarPayload is whitelisted. invocationRef is indexed; publicRequestInvocationRef is absent. Existing selection.eventById checks selected row membership then returns its actual verified body.",
+  "sourceLines": {
+    "scalarWhitelist": "runtime_history.ts:37-39,600-606",
+    "ownerBodyRead": "runtime_history.ts:472-475",
+    "actualRelationProducer": "invocation_admission.ts:1583-1594"
+  },
+  "actualHistoricalAdmissionRelations": [
+    {
+      "eventId": "event://abiogenesis/5d07218f1b332e32760547808ac2b792a546f535636388765fc7cbb84c618b3c",
+      "admissionOrdinal": 4,
+      "invocationRef": "invocation://abiogenesis/e97a8b9458695c2f3954b1c9127c050705db682299048a57e2e114b612601087",
+      "publicRequestInvocationRef": "invocation://abiogenesis/c29a45acabcb9d2651b5f40f709b07d29983c564ce31e5110fe57a08d617e70b"
+    }
+  ],
+  "actualLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-01/actual-001/runtime.events.jsonl.gz",
+    "bytes": 794043,
+    "sha256": "a126f0677a7fbf1ec214bd4c44b02688131eb90238bd9c0c75393ffaea48f1e0"
+  },
+  "proofMeaning": "Historical relations substantiate carrier shape only. New active witness requires actual new installed candidate, positive gauges, body-backed current relation and strict basis identity/zero work; no Product index expansion."
+}

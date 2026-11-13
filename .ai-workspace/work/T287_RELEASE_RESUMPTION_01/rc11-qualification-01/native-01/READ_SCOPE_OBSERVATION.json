@@ -1,0 +1,30 @@
+{
+  "status": "OBSERVED_READONLY_LISTED_SCOPE_DEVIATION_RETAINED",
+  "streamPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/native-01/runtime-001/resources/archives/fp-08aecac671f6f574-stdout.log",
+  "hits": [
+    {
+      "toolUse": {
+        "type": "tool_use",
+        "id": "toolu_016i7rtDME7n8mH8sp93yMZe",
+        "name": "Bash",
+        "input": {
+          "command": "grep -rn \"export function projectRootEventProfileSchedule\" code/src/abg/*.ts; grep -n \"export function\\|export const [A-Z_]* =\" code/src/abg/event_contract_profiles.ts | head -30",
+          "description": "Locate profile schedule owner"
+        },
+        "caller": {
+          "type": "direct"
+        }
+      },
+      "toolResults": [
+        {
+          "tool_use_id": "toolu_016i7rtDME7n8mH8sp93yMZe",
+          "type": "tool_result",
+          "content": "code/src/abg/event_store.ts:3969:export function projectRootEventProfileSchedule(events: readonly RuntimeEvent[], emptyProfileDigest: Sha256Digest = ROOT_EVENT_CONTRACT_DIGEST): RootEventProfileSchedule {\n9:export const LEGACY_ROOT_EVENT_CONTRACT_DIGEST =\n11:export const ROOT_CURRENT_EVENT_PROFILE_REF =\n13:export const ROOT_EVENT_PROFILE_DECLARATION_REF =\n15:export const ROOT_EVENT_PROFILE_UPGRADE_REASON =\n23:export const ROOT_WINDOW_EVENT_PROFILE_REF =\n53:export function constructRootEventContractProfiles<T>(tables: Readonly<Record<RootEventContractProfileName, RootEventContractProfileTable<T>>>): RootEventContractProfiles<T> {\n71:export const UNDISPATCHED_OWNER_STAGE_VALUES = Object.freeze([\n75:export const UNDISPATCHED_OWNER_REASON_VALUES = Object.freeze([\n111:export function undispatchedOwnerDiagnosticRef(stage: UndispatchedOwnerStage, reason: UndispatchedOwnerReason, error?: unknown): string {\n133:export function sanitizeUndispatchedOwnerError(error: unknown): Readonly<{ errorClass: string | null; errorCode: string | null }> {\n158:export function retainCaughtCause(error: unknown): RetainedCaughtCause {\n189:export function isUndispatchedOwnerObservation(value: unknown): value is UndispatchedOwnerObservation {\n213:export function constructRootCurrentEventContractDescriptor(input: Readonly<{",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "rootDisposition": "Preserve actual command/matching output and pinned candidate preimages; continue same call without grant/Run changes. Root notes read-only discovery in full pinned baseline, no user restriction against candidate source reading. No complete read-scope conformity claim. Escalate external/sensitive reads or off-scope writes.",
+  "sourceBaseline": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/SOURCE_INVENTORY.json"
+}

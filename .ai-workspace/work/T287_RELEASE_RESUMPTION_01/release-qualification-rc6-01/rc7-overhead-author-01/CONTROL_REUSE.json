@@ -1,0 +1,72 @@
+{
+  "kind": "mechanical_maintained_control_reuse",
+  "predecessor": "d5-author-03 direct-native controls; no governance selector",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/prepare-r1.mjs",
+      "bytes": 11603,
+      "sha256": "caf252495d8f505a6e4d2477a875520e42fd5876c92608fbff889d0454b3863a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/dispatch.mjs",
+      "bytes": 5558,
+      "sha256": "ceaab9a0fe7ab0f8a2dd7a594354d6d117e2b88299b1f47b328461a676630822"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/launch-owner-script.py",
+      "bytes": 1866,
+      "sha256": "9b5eb990fb89e489716a8523c7e0853e38d196a99a46f2926eadae89f5e55795"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/claude-provider.sh",
+      "bytes": 419,
+      "sha256": "d080472b1dc3e216a2b7ea2d04e0ca46a978bd9d3542e7b8a6c0b0d5f917db39"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/PROVIDER_PROFILE.json",
+      "bytes": 2053,
+      "sha256": "b985d993c71482eb92f609c4857874a05069049a2f2422fc97d011457cdf6241"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/inputs/prior-author-stage.mjs",
+      "bytes": 4368,
+      "sha256": "62885ca3bbd97d5455db7a8d5bd6601b757126d3145b80f5b966ccf90417743a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/inputs/prior-author-lanes.mjs",
+      "bytes": 4208,
+      "sha256": "6412f007fc7544e72dfb2dbc8b5dabc6c63cedf2f6d59a9128c7789cd856f3d5"
+    }
+  ],
+  "sharedOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/public-setup.mjs",
+      "bytes": 29259,
+      "sha256": "d1a54d89049801e71421b8807e10f029c234e2e7705a0dfa37e1bb8d3e399e05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/operator-client/runner.mjs",
+      "bytes": 37910,
+      "sha256": "d81e54e67dbd4154fe2a2b7780612e389a90d63f1b90c6c30bdc9db3317222e2"
+    }
+  ],
+  "adaptations": [
+    "Task/path/profile and exact source/write/test selections only.",
+    "Old two-file review conjunction replaced by exact new Root selection/admission/source binding.",
+    "Maintained three-field native-author binding overlay retained; actual recovered current resume/close required, no old close or observation transplant.",
+    "Before stage reads exact original source snapshots and current selected tests; after stage reads current source.",
+    "Finite lane proof distinguishes inactive historical tests from required active RC7 tests; no passing claim for inactive tests.",
+    "Direct native preparation already has one caller/environment; retain that identity, no gratuitous extra refresh. The actual two-caller successor route uses existing refresh(env.prefix).",
+    "Root upfront 320-turn/90-minute/three-hour resource selection; per-test deadlines unchanged.",
+    "Genuine recovered P3 receipt/resume bound; Root execution admission still pending.",
+    "Author dispatch persists actual receipt/resume and exits before separately Root-bound exact reads, avoiding known parent refresh composition. Full typed terminal equality remains required."
+  ],
+  "notExecuted": [
+    "runtime preflight",
+    "native call construction",
+    "provider invocation",
+    "dispatch",
+    "Product build/tests",
+    "source freeze after native return"
+  ]
+}

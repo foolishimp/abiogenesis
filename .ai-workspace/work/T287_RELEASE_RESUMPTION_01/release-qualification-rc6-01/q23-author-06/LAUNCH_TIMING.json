@@ -1,0 +1,16 @@
+{
+  "kind": "separated_q23_author06_launch_timing",
+  "at": "2026-11-05T20:43:28.961402+00:00",
+  "setupReused": true,
+  "newSetupRuns": 0,
+  "preflightMs": 30716.855249833316,
+  "hostLaunchToDispatchMs": 26729.610999999997,
+  "dispatchToNativeWorkerMs": 32195.0,
+  "priorProofHostCloseToDispatchOperatorAndReentryMs": 2432023.914,
+  "selectorMs": null,
+  "limits": [
+    "Between-activation interval includes failed-UAT diagnosis, source/route reviews, six-pathtriage, controls preparation/staging andpreflight; it is notruntime launch latency.",
+    "No complete successfulRC6workflowbenchmark ormatchedspeedup claimed.",
+    "Author checks and laternativeC2/UAT remain open."
+  ]
+}

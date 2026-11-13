@@ -1,0 +1,232 @@
+{
+  "kind": "rc7_logical_carriage_boundary_decision",
+  "at": "2026-11-06T02:53:55.906274+00:00",
+  "status": "CLOSED_RECOMMEND_LOGICAL_OWNER_CONSOLIDATION",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/SUBJECT.json",
+    "bytes": 494547,
+    "sha256": "94c038bd5f3bbb96ba8bc749097473d9adfcce4693ccbdc9520523763e9c1d74"
+  },
+  "preservedReadiness": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/carriage/READINESS.md",
+      "bytes": 13887,
+      "sha256": "acaf0b6bfbc48181807c38f4334e6c8e81a93c883e1ee209d81cb5d8d743c169"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-overhead-reentry-01/carriage/READINESS.json",
+      "bytes": 41694,
+      "sha256": "d47ca75373cc08f1890c656f5326d2dd14af4d75dd8632c7e2da620fbc948034"
+    }
+  ],
+  "decision": "Prefer logical owner consolidation for the complete selected RC7 removal. Physical-only is a smaller patch but incomplete; physical v4 plus a compact Public selector adds avoidable machinery when current logical bags have no constitutional retention requirement.",
+  "correctionToPriorPremise": "Preserve exact historical values under their original owners. Do not freeze prospective RC7 HOW carriers as Product WHAT.",
+  "constitutionalRelations": [
+    {
+      "source": "PRODUCT.md:621-647; CCALL-018",
+      "requires": "Exact task/current input, causal producer, authority; current input may differ from graph entry.",
+      "doesNotRequire": "Whole task copied into each native output."
+    },
+    {
+      "source": "PRODUCT.md:736-740; INSTRUCTION-ASSEMBLY-019/020/022",
+      "requires": "Exact accessible selected material, supplied policy/context identity and qualifications; repeated bodies require a declared need.",
+      "doesNotRequire": "Repeated enclosing runtime carriers or inline bodies where exact owned references resolve."
+    },
+    {
+      "source": "EVENTS-002/003/030; PROJECTION-001/002/004/026",
+      "requires": "Replay reconstruction, distinct observation identities, exact source/provenance and truthful unknown after-state.",
+      "doesNotRequire": "Literal before/task/after full subtree triple."
+    },
+    {
+      "source": "PRODUCT.md:1003-1018; PUBLIC-CONTRACTS-003/-009 and lines168-171",
+      "requires": "Exact release-scoped published carrier from one canonical schema/definition owner.",
+      "doesNotRequire": "Forever freezing current implementation fields across prospective RCs."
+    },
+    {
+      "source": "SCENARIOS-008 R10; QUAL-058",
+      "requires": "Two fresh reads derive the same admitted typed terminal result and closed state; CLI returns that result.",
+      "doesNotRequire": "Current redundant native value shape, or an always-expanded historic task inside that value.",
+      "prohibitsShortcut": "Status or a caller-asserted/unverified digest is not the typed result proof."
+    }
+  ],
+  "logicalRoute": [
+    "Remove native Result task and derived before copies at their existing owning output contract. Keep after, changedPaths, report/assessment, failure states and provenance; original exact input retains task/before.",
+    "Keep input-dependent validation at nativeWorkspaceWorkResultMatches and current native effect/admission owners. Resolve needed original input through exact CCall/authority/basis and projectTraversalInputAtPrefix; never infer it by equal body or root input.",
+    "Amend the existing WorksiteContextBodyMember source domain and event-prefix resolver/index for the exact already-admitted basis-input holder. Preserve current Result-holder paths and read/scope/currentness refusals. No synthetic Result, new storage layer or parallel member schema.",
+    "Keep complete after physical-fact entries. Reference unchanged bodies through the established holder; new/changed bodies are born once in this Result. Update retained-source input joins after result.task.context is removed.",
+    "Persist native instruction basis coordinates and only uniquely required retained material. Rehydrate raw input through existing execution-basis owner; its current-input derivation remains authoritative. No physical reference-patch grammar is needed for the duplicate raw input.",
+    "Return the full new typed terminal result normally across lifecycle/result/replay/CLI. Reuse existing historical terminal selection only where that selection is the actual handoff; do not add a compact mode merely to hide old fields."
+  ],
+  "directCone": [
+    "product/native_workspace_work.ts",
+    "implementation/native_workspace_work.ts",
+    "gtl/native_workspace_work.ts",
+    "product/worksite_effect.ts",
+    "abg/event_prefix.ts",
+    "abg/runtime_history.ts",
+    "abg/execution_basis.ts",
+    "abg/instruction_assembly.ts",
+    "abg/actor_process.ts",
+    "existing generated contracts, descriptor and selected tests"
+  ],
+  "dependentCone": [
+    "abg/native_worksite_execution.ts",
+    "abg/native_work_reacquisition.ts",
+    "product/worksite_command_execution.ts",
+    "abg/default_library.ts",
+    "abg/semantic_job.ts",
+    "product/semantic_job.ts",
+    "gtl/semantic_job.ts",
+    "abg/semantic_revision.ts",
+    "product/semantic_revision.ts",
+    "abg/event_calculus.ts",
+    "abg/calculus/axioms.ts",
+    "product/builtin_semantics.ts",
+    "existing exports/declarations as required"
+  ],
+  "notSelectedByThisDecision": [
+    "New event-body physical v4 solely for these removed fields",
+    "New public compact selector solely to hide the redundant native carrier",
+    "New library, body store, serializer, summary schema or validation framework",
+    "Generic retrospective adapters or universal cross-version compatibility",
+    "Unrelated module redesign or repeated qualification"
+  ],
+  "compatibility": "Keep exact L law and declared historical joins. Retained RC6/N2/N3 values and digests are immutable and interpreted under their original owner/contract. New RC7 output schema and identities are prospective. Any required mixed L/current join stays explicit; no automatic conversion or universal decoder promise.",
+  "proof": "Conserve recoverable source input, observations, authority/effects and meaning, not obsolete canonical JSON equality between changed contracts. Prove exact new-contract result equality on both fresh reads; native same-workload bytes include binding, Result, lifecycle output, both read outputs and retained records. Exercise progressed input, retained source, basis/member refusal, changed physical identity, unknown after, and cold body resolution without the mutable worksite/cache. Existing unaffected proof is reused.",
+  "risk": "More existing caller migration than the two-file physical patch; bounded moderate risk at input validation, worksite invalidation and source-member permission joins. It removes the root repeated shape and avoids maintaining two compaction layers. No line-count or measured speedup claim.",
+  "limits": [
+    "This is source-grounded architecture readiness, not implementation or acceptance.",
+    "The current public barrel does not export the internal worksite body resolver; do not claim external source-blind byte retrieval from its internal fixture imports. Preserve every actually selected installed consumer access path and its proof when changing the member carrier.",
+    "No Product/requirement meaning change was found necessary; prospective HOW/carrier/schema projection changes need one concrete Writer grant and their affected proof.",
+    "No code, tests, build, runtime, network, Git, auth or control mutation; only this supplement pair written."
+  ],
+  "authorityPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "bytes": 12282,
+      "sha256": "0ed4ec30606484c9430354b4676f4166ca0e19fe338830a3b71bf9947e70222d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+      "bytes": 8976,
+      "sha256": "baf81ffdc9948f96a903b2f4af98b4975445d1a9f24f89a657a35b5b95743f9e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "bytes": 16630,
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 10959,
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "bytes": 17479,
+      "sha256": "5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 36574,
+      "sha256": "ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28"
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "bytes": 21411,
+      "sha256": "a74b4b064bc02691012bb770a2fd67c778f96dd077b611b4c361ba8959560292",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "bytes": 8247,
+      "sha256": "32ed7dd156ac305e79dc3a9e87f6a3e5f76d5b9087ce7a4add992e82aa0af799",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "bytes": 93164,
+      "sha256": "91731ec9443858de4f0013d877e9b00596a224347246ca6f52a9ce4f28f95338",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 61840,
+      "sha256": "acef31a99cb908687e6d68359a667075a02e759d8b6c4077089e60774ab97b40",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "bytes": 44193,
+      "sha256": "afa2c3c5926310917f57e08efeb1a54abd66a1ed4c8ada79a073e73cd905f1e4",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 129406,
+      "sha256": "0e269806fb2de242ee8e4a8c2c43cb4f2ad518008a3643e9d6ffa23136cbd1f5",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 126341,
+      "sha256": "da1228f3876aca87ba065863bc990e216214f329ddb1e3d773466af08d18ee21",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "bytes": 37252,
+      "sha256": "70808821083b7c0d7abe595f05d42188868b631bef441152573658b4d9b7a99c",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "bytes": 73973,
+      "sha256": "473c76ab37376ba3d00de076859b01947236a3da97c6773b2b961ca571453397",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 21789,
+      "sha256": "82e31562919f7463058c23e866ad8710c1bd53826056ba764286ee523b40770f",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+      "bytes": 8726,
+      "sha256": "e46879346a2bbf47e0e37e529582a01c1f37c955fc5d9fb9f3a175010813ae25",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+      "bytes": 6053,
+      "sha256": "87dd714a4da3a6639c56bdc01a5268aa1f06b5753aef48a71389fb12cfa72256",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "bytes": 15995,
+      "sha256": "d4f49ef4e14512d315b7fda23fc3855b961c934bd4599734b3b9fa6873b5d689",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-03/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 37404,
+      "sha256": "7e280a39ea57094d52c9daff5bed18f4d4d8de20fe5785b48b2a3041189c753b",
+      "subjectRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts"
+    }
+  ],
+  "returnTo": "Root Executive; stop"
+}

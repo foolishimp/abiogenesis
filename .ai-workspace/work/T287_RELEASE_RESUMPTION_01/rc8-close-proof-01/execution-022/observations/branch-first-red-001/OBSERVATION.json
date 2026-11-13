@@ -1,0 +1,65 @@
+{
+  "status": "PARTIAL_FAILURE_OBSERVATION_NOT_COMMAND_COMPLETION",
+  "observedAt": "2026-11-07T14:37:42.517510+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "liveReporterPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/events/192-t287-worksite-branch-construction.jsonl",
+  "frozenReporter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/observations/branch-first-red-001/reporter.jsonl",
+    "bytes": 676,
+    "sha256": "c0a86098b5a3400f1339af3b025f7be5d42f7f64c1a1d7665820c70b1aa0b2c0"
+  },
+  "commandRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/commands/192-t287-worksite-branch-construction.request.json",
+    "bytes": 986,
+    "sha256": "9d6fbcb767e404ac76217ac8068e98246f1c21e02889422a4b59c962e787934d"
+  },
+  "fileBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/file-bindings/192-t287-worksite-branch-construction.json",
+    "bytes": 1265,
+    "sha256": "ccc7cf752db15867ef7907ee200935a0482f2685e57cd26f6c99e86411161641"
+  },
+  "outerSetupReceipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/EXECUTION_STARTED.json",
+      "bytes": 2622,
+      "sha256": "d639d35801b1a6bea1b836ecd9d31c03e0015efa11a1490ae8d152aa8c63d829"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-022/CANDIDATE_BASIS_REFRESH.json",
+      "bytes": 3150,
+      "sha256": "cb9e7bf1bb1c3a002f0bf75370a583c24130dcd176a48ec711b17f2e165e63c7"
+    }
+  ],
+  "observedFailure": {
+    "ordinal": 1,
+    "type": "case",
+    "passed": false,
+    "name": "T-287 C3 Parallel topology constructs canonically and closes installed C1 children",
+    "file": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+    "nesting": 0,
+    "testNumber": 1,
+    "suite": false,
+    "skip": false,
+    "todo": false,
+    "error": {
+      "name": "Error",
+      "message": "test timed out after 240000ms",
+      "stack": "Error [ERR_TEST_FAILURE]: test timed out after 240000ms",
+      "code": "ERR_TEST_FAILURE",
+      "failureType": "testTimeoutFailure",
+      "cause": {
+        "name": "Error",
+        "message": "test timed out after 240000ms",
+        "stack": null,
+        "code": null,
+        "failureType": null,
+        "cause": null
+      }
+    }
+  },
+  "commandResultExists": false,
+  "reporterEndPresent": false,
+  "wholeFileCredit": false,
+  "testSetupStatusStanding": "No test-internal setup-status receipt is asserted by this bounded reporter observation. Review may follow existing fixture/helper and retained scratch references.",
+  "selection": "Root requested additive partial reporter custody while causal review proceeds. Existing command600000ms/inner240000ms caps unchanged; no manual signal, retry, extension or source effect."
+}

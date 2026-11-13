@@ -1,0 +1,49 @@
+{
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "maxPromptBytes": 1048576,
+  "checks": [],
+  "id": "T287-RC8-AUTHOR08-FIXTURE-COMPLETION",
+  "status": "ROOT_SELECTED_SUCCESSOR_SCOPE",
+  "outcome": "Complete the two selected unshipped fixture premises while preserving all assertions: four remaining historical-profile cases and current coordinate-test completion seam; prove four filtered historical cases then the whole11-case coordinate file.",
+  "readRoots": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures",
+    "build_tenants/abiogenesis/typescript/code/src"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts"
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+    "qualification-scratch/rc8-reference-preservation-01/author-08"
+  ],
+  "instructions": [
+    "Use installed STDO3.0.4 stdo-work/coordinated handoff under unchanged fixed15families/GOAL035/T287/project frame/empty composition. This one Claude Opus5.5 xhigh task executes only after Root admits its concrete held call. No second provider/reviewer/delegation.",
+    "Read adopted causal capsule /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/fixture-completion-008-plan/REVIEW.json SHA700cf20b47116a58a7a9cabb8b4463e207ec7299b5da2f66d065ba38335c4622 and adjacent README. Base is accepted A7 b2ca1a756b264c1ee13e3bca9ba324d8d499619a28f97874d8fafde6d82ad146,1339rows, actual close78f735ab; exact Product archivea178e960 unchanged. The complete A7 handoff is /Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/author-07/HANDOFF.md. These external references and needed code/src transitive owner routes are read-only authorized.",
+    "Edit ONLY build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs and build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs, plus own progress subtree. SAS: at A7 lines278,328,1205, reuse the unchanged retainedProfile(resources,baseline,events) helper for the remaining three historical coordinate constructions serving four cases: shared public-operation classification; global run-invocation pairs; historical revision cuts; semantic stage authentication. Preserve physical file device/inode/length/hash, coordinateDigest, every expected result/work check, and all current-profile fixtures. Accepted first two cases and retainedProfile itself stay unchanged.",
+    "Coordinate fixture: its six read-member cases override old close but current runReadKernel uses completeAbgEventResource. Model that exact lower-owner reopened completion seam explicitly in the existing component loader; assert the same resource and entry-prefix references, account for six completions per member, retain all canonical InstalledProduct/refusal/source-lookup checks. Unexpected abandonment must fail. No fake store, guard relaxation, harness change or claim that the component premise proves physical close. Use the adopted review for precise seam semantics; do not repair Product owners.",
+    "Historical proof inputs are exact read-only references at /Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10: EXTERNAL_READ_RESOURCES.json SHA04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee, MEASURED_BASELINE.json SHA774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06; log586361364B/SHA532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c. Never copy the log into prompt/context, import/relabel/restamp it or change baseline bytes. No broader profile migration.",
+    "After both bounded edits run /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof.mjs freeze ONCE. Recipe retains cumulative A7 READY overlays and exact compiled/dependency/config/archive inputs, then applies only the two test deltas. Zero builds/generation. Publish FREEZE_NOTICE immediately in qualification-scratch/rc8-reference-preservation-01/author-08; no edits after freeze. Root independent review runs concurrently.",
+    "Run exactly two serial commands: /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=8192 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-08/proof.mjs test historical, then the same command with test coordinates only if historical passed. Historical positive filter selects only the four later cases (expect4passes; accepted first2 excluded); coordinate lane is the whole file (expect11passes).600000ms each/16MiBoutput/8GiBheap, existing4GiBowned/reserve; native15min absolute/5min inactivity/inherited grace. Stop first unexpected red/refusal/incomplete/resource/input mismatch or larger required scope, preserve evidence and return without repair/retry. No other proof or completed-broad rerun.",
+    "Write concise intake/freeze/HANDOFF in qualification-scratch/rc8-reference-preservation-01/author-08; distinguish filtered from whole-file evidence, actual source delta, component-premise limits and any later counterexample. Preserve all previous failures and98whole-file credits at original identities. Broad011 uses immutable A6 independently. No network/npm install, source outside grant, Product/HOW/helpers, Git/cut/push/global selector/cleanup or other Worker. Acceptance remains Root."
+  ]
+}

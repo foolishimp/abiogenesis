@@ -1,0 +1,79 @@
+{
+  "status": "HELD_PREPARED_PROVIDER_NOT_DISPATCHED",
+  "recordedAt": "2026-11-10T01:20:14.169039+00:00",
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/runtime-001/PREPARED.json",
+    "bytes": 6746,
+    "sha256": "02734a787ebbc400a506454fd4512adabb8f24c40c61bffeae55dda3e55f7cdb"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/BINDING.json",
+    "bytes": 19936,
+    "sha256": "b6582ff36d7efff98fa5470642e95b5d17eca8f1365da92b59a4e6065e6ddcf2"
+  },
+  "setupAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/ROOT_SETUP_ADMISSION.json",
+    "bytes": 7040,
+    "sha256": "9effe50a23f01084e13383fbf0c00153810743aa43b6e1203b1d74befe919f50"
+  },
+  "launch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/LAUNCH.json",
+    "bytes": 1075,
+    "sha256": "b166e06af92dcc4fcda4f8f4efbf028657c78e95cca58d11e46c6276f3b07c23"
+  },
+  "sessionId": 99751,
+  "pid": 29993,
+  "processObservation": "29993 27586 29993 Ss+  01:40 /opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/host.mjs /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/BINDING.json b6582ff36d7efff98fa5470642e95b5d17eca8f1365da92b59a4e6065e6ddcf2 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/ROOT_SETUP_ADMISSION.json 9effe50a23f01084e13383fbf0c00153810743aa43b6e1203b1d74befe919f50",
+  "sameCallerRetained": true,
+  "invocationRef": "invocation://abiogenesis/5541391cd1e0be119309c33d00f452ce541cf5fedc9e23cac17a628155544a29",
+  "nativeSelection": {
+    "programRef": "program://abiogenesis/worksite/native-work@5",
+    "startRef": "start://abiogenesis/worksite/native-work@5",
+    "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+    "viewDigest": "sha256:0fedc421a9e32fd11ca527a1256eb159cfc30465d792184811f2f9bc5fc3dcf3"
+  },
+  "heldPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 3188181,
+    "prefixDigest": "sha256:adb968652ee4941dd5e8c2ec59926d7be7f718a38c3f97de4922e9c82dba4b2a",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 720607359,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:9ae23000675940ef517584524b0f87310323b7b3927c73dd8de5f1646b0a80a6"
+  },
+  "context": {
+    "digest": "sha256:4f4db40d395d0201da5549fb87e8304f825426b2abc0335c4c568790513aa6f2",
+    "entries": 19,
+    "fileMembers": 18,
+    "sourceBytes": 176714,
+    "canonicalBytes": 242314
+  },
+  "renderedBytes": 7693,
+  "renderedMeasurementScope": "Exact installed native work-order text; provider/system scaffolding is not measured.",
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "setupWallMs": 42590.090083,
+  "postguards": {
+    "passed": true,
+    "sourceInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/source-freeze.json",
+      "bytes": 296057,
+      "sha256": "b5a8316dca2e57d273ba089f6f1b37b6cc906749eaa0174618312977b30edc46"
+    },
+    "sourceDigest": "cddcc3bcabf7c0ffa94f08e177584812f2c3a42f3706a7c1277608dfa974e76b",
+    "sourceRows": 1345,
+    "preservationGuards": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/PRESERVATION_GUARDS.json",
+      "bytes": 3317,
+      "sha256": "362287f97c80890269b5fdc471fbf057d9554938e118158b917816d7fd889d9b"
+    },
+    "sourceInputPrebuiltMainIndexHeadBuilderAndManifestExact": true,
+    "heldLogExact": true
+  },
+  "closureStanding": "Live owned caller deliberately held at PREPARED; no close attempted, no native STARTED or FINAL. Stdin remains attached to retained PTY; no serialized resume. Root native admission required before sending its pin.",
+  "effects": "Fresh actual RC10 Public open/setup and native call construction only; no provider, source edit, build or test."
+}

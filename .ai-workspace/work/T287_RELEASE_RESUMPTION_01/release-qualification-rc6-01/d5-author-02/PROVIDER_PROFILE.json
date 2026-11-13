@@ -1,0 +1,44 @@
+{
+  "kind": "bounded_d5_completion_native_profile",
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/d5-author-02/claude-provider.sh",
+    "model": "claude-opus-5-5",
+    "maxTurns": 384,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 7200000,
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "runtimeEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TMPDIR": "/private/tmp/abg-d5b",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "STDO_STORE": "/Users/jim/Library/Application Support/STDO",
+    "BASH_DEFAULT_TIMEOUT_MS": "7200000",
+    "BASH_MAX_TIMEOUT_MS": "7200000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1",
+    "TMPPREFIX": "/private/tmp/abg-d5b/zsh",
+    "NPM_CONFIG_CACHE": "/private/tmp/abg-d5b/npm-cache",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false",
+    "NPM_CONFIG_OFFLINE": "true"
+  },
+  "outerTimeoutMs": 10800000,
+  "maxBudgetUsd": null,
+  "realClaude": "/Users/jim/.local/share/claude/versions/2.1.306",
+  "realClaudeSha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b",
+  "providerScratch": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/tmpd5b",
+  "noGlobalPluginChange": true,
+  "selectedSkill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+  "continuationStanding": "Fresh direct NativeWork author02 context, Claude Opus5.5 xhigh384turns/2h absolute/30m inactivity/3h host; no selector, UAT, saved session or automatic retry. Actual author01 close bound, Root final admission unbound.",
+  "credentialPresenceStanding": "Unknown for future launch; only credential name retained. Writer did not read credential values, auth files or private logs."
+}

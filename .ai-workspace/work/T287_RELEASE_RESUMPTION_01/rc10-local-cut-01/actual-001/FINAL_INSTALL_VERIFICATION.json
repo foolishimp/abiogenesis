@@ -1,0 +1,184 @@
+{
+  "kind": "rc10_final_local_install_verification",
+  "status": "LOCAL_RC10_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED",
+  "sourceCommit": "93a0de75a16c9e4cd29ec561d159b12add4bb3fd",
+  "sourceTree": "27489cb8e62e765cb1aee4b0521fc98cc72a04db",
+  "cutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/LOCAL_CUT_RECORD.json",
+    "bytes": 3311,
+    "sha256": "88c7a34bd3696597d7773fbe858d474382ff15e4874c7cde770d3854482d57c4"
+  },
+  "selectedManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/INPUT_MANIFEST.json",
+    "bytes": 8467,
+    "sha256": "97497caf4e629365f922eb9efe9543778815cf9922c09ff4a3e6ff3867257399"
+  },
+  "checksums": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+      "bytes": 11028443,
+      "sha256": "1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 2550,
+      "sha256": "bcdb0c4c71bb750e3b66053e9675dea91623178863d1ad0151dc71d48c48678f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/SOURCE_ARTIFACT_EVIDENCE_MAP.json",
+      "bytes": 9884,
+      "sha256": "1e861ed6ecab4ef88ead4dabfa7e6e3bd3f7731363bb2cfd277037e3a5ea142c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/ROOT_AUTHORITY.md",
+      "bytes": 1556,
+      "sha256": "bbc01de2eb6fa7f8a127e1bf7b8091cb4de466d864d51e8202a55e50bc63589f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/RESIDUALS.md",
+      "bytes": 2667,
+      "sha256": "611f6dcbd0f33ba18a8c5cad8af57de8c43e52bb0e1e12ac80455cce7869e6c3"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/INPUT_MANIFEST.json",
+      "bytes": 8467,
+      "sha256": "97497caf4e629365f922eb9efe9543778815cf9922c09ff4a3e6ff3867257399"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/verification.json",
+      "bytes": 15794345,
+      "sha256": "ee3754fdd3c71c1225790ef0845f76f4bdedf50e75b259d09db7645713e9c037"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/resolved-lock.json",
+      "bytes": 4563584,
+      "sha256": "e289ee75aa54a9202b525221bfb9d661416c40bf2e854a67de61eb67badfa538"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/installation.json",
+      "bytes": 4232315,
+      "sha256": "de0a3290f98e99e032642a3304259fa2784d68b21976c1032e6ddac9a90d5633"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/payload-correspondence.json",
+      "bytes": 1035177,
+      "sha256": "3abcafc1a1f6f8ae67823496e1b60fb27f9deea1f8897691e0a15f2f85ff704c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/LOCAL_CUT_RECORD.json",
+      "bytes": 3311,
+      "sha256": "88c7a34bd3696597d7773fbe858d474382ff15e4874c7cde770d3854482d57c4"
+    }
+  ],
+  "payloadMembers": 5325,
+  "payloadInventoryDigest": "sha256:2e70b0d0791ee1012a9c899dd56ffd4166c4b8b0e13ee530c7ff44f14c83a9f5",
+  "installedOwnerRead": {
+    "status": "DIRECT_INSTALLED_OWNER_SMOKE_CLOSED",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant",
+    "version": "5.0.0-rc.10",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.10",
+    "shippedArchive": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.10/abiogenesis-typescript-tenant-5.0.0-rc.10.tgz",
+    "artifactDigest": "sha256:1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9",
+    "verification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/INSTALLED_OWNER_SMOKE.json.verification.json",
+      "bytes": 15794345,
+      "sha256": "ee3754fdd3c71c1225790ef0845f76f4bdedf50e75b259d09db7645713e9c037"
+    },
+    "installedContentMatches": true,
+    "exportedDefinitionCount": 56,
+    "resource": {
+      "eventLogPath": "/private/tmp/abg-r10c-cut-001/installed-smoke/events.jsonl",
+      "prefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///private/tmp/abg-r10c-cut-001/installed-smoke/events.jsonl",
+        "prefixLength": 0,
+        "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 719619383,
+          "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+        },
+        "coordinateDigest": "sha256:0c2bd92e0b19c4f0d6363367b1e555840d08b7cae2076193fe678ed835e56aa1"
+      }
+    },
+    "ownerRead": [],
+    "actualClose": {
+      "prefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///private/tmp/abg-r10c-cut-001/installed-smoke/events.jsonl",
+        "prefixLength": 0,
+        "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 719619383,
+          "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+        },
+        "coordinateDigest": "sha256:0c2bd92e0b19c4f0d6363367b1e555840d08b7cae2076193fe678ed835e56aa1"
+      },
+      "reopenAuthority": {
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0",
+        "eventLogPath": "/private/tmp/abg-r10c-cut-001/installed-smoke/events.jsonl",
+        "device": 16777231,
+        "inode": 719619383,
+        "eventLogDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "durableByteLength": 0,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+        "authorityDigest": "sha256:537c92c6dc9af8511f3d9efdba5712ea3799d648b0796c3497be9cdc1fa6a33c"
+      }
+    },
+    "nativeTransportInvoked": false,
+    "providerCalls": 0,
+    "qualified": false,
+    "scope": "Actual immutable-install verification/content/export and empty-resource read/close only. Full lifecycle/performance belongs to exact-shipped-archive installed scratch proof."
+  },
+  "installedOwnerReadWallMs": 20281.713709000003,
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/reviews/packaging-001/REVIEW.json",
+    "bytes": 22735,
+    "sha256": "72b6984c8f9991a4710de9ffc99d8bc719e806e015b0253e80863fd59f748f45"
+  },
+  "reproduction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/reproduction/RESULT.json",
+    "bytes": 1285,
+    "sha256": "c35bb2135e03576dcf101f2461c3ac7908966eb014a738307d3efcdda6be3ae4"
+  },
+  "sourceAcceptance": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/ROOT_BOUNDED_ACCEPTANCE.002.json",
+      "bytes": 21569,
+      "sha256": "d6d22bbb4757ba931df4d4b1adbf18071773c7ddc31384bd7a5da30e7fb971e9"
+    },
+    "focusedAndReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/ROOT_BOUNDED_ACCEPTANCE.002.json",
+      "bytes": 21569,
+      "sha256": "d6d22bbb4757ba931df4d4b1adbf18071773c7ddc31384bd7a5da30e7fb971e9"
+    },
+    "unitDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/ROOT_BOUNDED_ACCEPTANCE.002.json",
+      "bytes": 21569,
+      "sha256": "d6d22bbb4757ba931df4d4b1adbf18071773c7ddc31384bd7a5da30e7fb971e9"
+    },
+    "measurementAndAffected": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/ROOT_BOUNDED_ACCEPTANCE.002.json",
+      "bytes": 21569,
+      "sha256": "d6d22bbb4757ba931df4d4b1adbf18071773c7ddc31384bd7a5da30e7fb971e9"
+    }
+  },
+  "exactInstalledFunctionalProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/actual-001/install-001/INSTALLED_OWNER_SMOKE.json",
+    "bytes": 3101,
+    "sha256": "cb8be3ed8255d0ed7097c49dade514d40328732cd7ddab673072a9105f8269ca"
+  },
+  "nativeWorkflowClaim": false,
+  "exactShippedArchiveLifecycleProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-local-cut-01/acceptance-002/ROOT_BOUNDED_ACCEPTANCE.002.json",
+    "bytes": 21569,
+    "sha256": "d6d22bbb4757ba931df4d4b1adbf18071773c7ddc31384bd7a5da30e7fb971e9"
+  },
+  "published": false,
+  "qualified": false,
+  "globalSelectorChanged": false
+}

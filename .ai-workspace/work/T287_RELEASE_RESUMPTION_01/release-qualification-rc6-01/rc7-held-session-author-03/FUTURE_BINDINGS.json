@@ -1,0 +1,38 @@
+{
+  "kind": "native_author_future_binding_boundary",
+  "status": "PREPARED_NOT_ADMITTED_OR_DISPATCHED",
+  "alreadyBound": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/SOURCE_AFTER.json",
+      "bytes": 557347,
+      "sha256": "515dd6b7d33208e4fa5fed02f7d15ebac853eefc7467c9da6c856e7f29fe3006"
+    },
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/FINAL_RUNTIME_CLOSE.json",
+      "bytes": 10421,
+      "sha256": "7ddb9f2f715158677c4c11564b3996d43e13131d0cc9efb3524a3baef28ad494"
+    },
+    "disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/ROOT_REVIEW_DISPOSITION.json",
+      "bytes": 5681,
+      "sha256": "056516a52d383b7837ea32cf82342ba49187acd818406fcddbf776ed05061e6e"
+    },
+    "architecture": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/ROOT_ARCHITECTURE_SELECTION.json",
+      "bytes": 7741,
+      "sha256": "2fe46b95de9428e86f421759ddad6dac7ed064bef9ac9180feebf7f530309c98"
+    },
+    "actualResume": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-02/execution/after-run-resume.json",
+      "bytes": 72498689,
+      "sha256": "342134fd5e693bc9f483bb71c9f2fddd10a67ec8390a01025c6e48074cfaf3aa"
+    }
+  },
+  "remaining": [
+    "Root verifies frozen/live source and prepared pins, stages controls and binds ROOT_CONTROL_ADMISSION; retain pre-admission workload/runtime bytes.",
+    "Root binds workload admission digest and RUNTIME_BINDINGS admission/status, then exact dispatch manifest.",
+    "Root alone invokes owner preflight and launches one coder once. Actual return/review/proof disposition/acceptance remain future."
+  ],
+  "actualNativeOrRuntimeEffectsHere": false,
+  "preservation": "No C staging/source/runtime effects. H02 original, post-author and diagnostic records remain immutable."
+}

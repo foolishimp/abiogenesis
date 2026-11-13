@@ -1,0 +1,141 @@
+{
+  "status": "READY_UNIT_EXECUTION_HELD",
+  "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+  "sourceRows": 1345,
+  "compiledRows": 998,
+  "archive": {
+    "path": "/private/tmp/abg-rc11-effect-phase2-b-proof-20261110-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11052094,
+    "sha256": "7b16ac56af633d76f80d4d4c6372e431c97a58cbaef74fa71a8529e16067b5f8"
+  },
+  "members": 5329,
+  "rootRetainedAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+    "bytes": 2281,
+    "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/BINDING.json",
+    "bytes": 10420,
+    "sha256": "b61368b7b505cc42fe04650e22819c68e0bf0a9a255045a8c1024b37df360755"
+  },
+  "controls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/CONTROLS.json",
+    "bytes": 21010,
+    "sha256": "fc1a51fafd6eeb5dc4928441945ed9d6a762a14a5672c67acb145edbb3be1980"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/unit.py",
+    "bytes": 17434,
+    "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+  },
+  "controlPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_SCOPE.json",
+      "bytes": 2291,
+      "sha256": "18cc14a61843ef66301db5a9dd7ddcbbb1904fd41c11e99751d797336d71c7a8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+      "bytes": 2281,
+      "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/BINDING.json",
+      "bytes": 10420,
+      "sha256": "b61368b7b505cc42fe04650e22819c68e0bf0a9a255045a8c1024b37df360755"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/CONTROLS.json",
+      "bytes": 21010,
+      "sha256": "fc1a51fafd6eeb5dc4928441945ed9d6a762a14a5672c67acb145edbb3be1980"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/unit.py",
+      "bytes": 17434,
+      "sha256": "b34a9fed1c0cee80c1614f7fb8b15b3fd6fad4a7b5879fdd89c00f3a8c6e8679"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator.py",
+      "bytes": 2468,
+      "sha256": "4e54f0fb4f9aa957c2a7d3e1e7f2b19d33c68eb3320654008dc8d16873501adb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/DISCRIMINATOR_ADMISSION.json",
+      "bytes": 1108,
+      "sha256": "d1fc832d1f730a31e903c28ff8ec16d2cd6babdf6a29b72606e23d00876aacd1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator-actual-01/RETURN.json",
+      "bytes": 3716,
+      "sha256": "aa8bed9682146c177aee583bdde47395585e88275048418c26669cb2201c8e9b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator-actual-01/stdout.log",
+      "bytes": 1895,
+      "sha256": "b48b5141a4975abfeb2e9a0176df42eedc498f5ab97b4662186b7036bfcca51f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/control-discriminator-actual-01/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/PREDECESSOR_EVIDENCE.json",
+      "bytes": 50221,
+      "sha256": "87c8d97b8e84f6dae7d4ef5fb5960a912745beaadb6e2e77301fcc839c32961a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/PREFLIGHT.json",
+      "bytes": 1790,
+      "sha256": "eb0993fbf48262572163078672cc86db7926dbfe2b6d25f4296f609130a48ce8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/CONTROL_DELTA.md",
+      "bytes": 2208,
+      "sha256": "21fe3f2878db0bf284c80fc563064f391fd7e3fffb6886b6d77dc223e228d42f"
+    }
+  ],
+  "commandIds": [
+    "unit"
+  ],
+  "unitSeconds": 1800,
+  "globalSeconds": 2400,
+  "cleanupReserveSeconds": 15,
+  "proofRoot": "/private/tmp/abg-rc11-effect-phase2-b-unit-20261110-02",
+  "proofRootAbsent": true,
+  "expected": {
+    "tests": 102,
+    "pass": 96,
+    "skipped": 6,
+    "m5Passed": 39,
+    "m5Skipped": 0,
+    "m5EvidenceIds": 34
+  },
+  "launchArgv": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/unit.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/BINDING.json",
+    "b61368b7b505cc42fe04650e22819c68e0bf0a9a255045a8c1024b37df360755",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_EXECUTION_ADMISSION.json",
+    "<actual-admission-sha256>"
+  ],
+  "admissionSchema": {
+    "status": "ROOT_ADMITTED_PHASE2_B_UNIT_CONTINUATION",
+    "bindingSha256": "b61368b7b505cc42fe04650e22819c68e0bf0a9a255045a8c1024b37df360755",
+    "readySha256": "<this-file-sha256>",
+    "commandIds": [
+      "unit"
+    ],
+    "retrospectiveDisposition": {
+      "sourceDigest": "97e05ec38a328e023acf650b396769edc06d11594cc3c1c5fba31d084f4f85f7",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b01/proof-02/ROOT_RETAINED_ACCEPTANCE.json",
+        "bytes": 2281,
+        "sha256": "33c9874df3116648b8f45c70bcc90f15a987027ce3a4635cc671fbbbb2b351b7"
+      }
+    }
+  },
+  "actualUnitExecuted": false,
+  "pending": "Exact Root unit execution admission only; retrospective bounded evidence adoption is now pinned."
+}

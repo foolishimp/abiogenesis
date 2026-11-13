@@ -1,0 +1,47 @@
+{
+  "recordedUtc": "2026-11-03T22:59:41.221747+00:00",
+  "role": "Executive/evaluator/architect",
+  "productFrame": {
+    "product": "ABIogenesis5",
+    "ticket": "T-287",
+    "method": "STDO3.0.4",
+    "outcome": "Original complete R1-R7/C1-C5 consolidation; unchanged"
+  },
+  "finding": "N5-CODE-01",
+  "severity": "S2",
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/INDEPENDENT_INTERIM_CODE_REVIEW.json",
+      "sha256": "7b92835342855fd2ec03611e74f50c00db8de6cc1870134bdb0bff8f3b34170a",
+      "bytes": 65508
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/QUALIFICATION_DOMAIN_REVIEW.json",
+      "sha256": "69fcc312115554cb6d52aadd4630144609070f6aa8d9af5666d436e993af05fe",
+      "bytes": 10891
+    }
+  ],
+  "actualSourceObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis-single-address-space/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "sha256": "c9ea7515696efdc160c59f6faa3f0f28243f20b247b164baea3c64ec3c4f6993",
+    "standing": "Working source hash matches exact interim reviewed bytes; native final after-observation still pending."
+  },
+  "applicability": "Actual held Event Store source lineage survives append; the contract-valid non-worksite extra fibre is not excluded by Event Store/EC before qualification. Current qualification graph/state shortcuts can therefore bypass the owning CCall phase refusal. This is within the existing internal negative reader domain, not a new untrusted-node requirement.",
+  "assessment": {
+    "trigger": "Warm completed source proof at P, same-owner invalidating extra fibre for source CCall at Pprime, unchanged opening/Result/judgment identities",
+    "frequency": "Unmeasured; ordinary lawful Public producer does not emit this suffix",
+    "realizedHarm": "Static warm/cold refusal divergence; no executed false qualification",
+    "failClosedBoundary": "Uncached canonical CCall owner refuses the duplicate fibre; the extra qualification cache shortcut bypasses it",
+    "blastRadius": "Qualification source material/state and its retained native proof consumers",
+    "repairRisk": "Bounded removal of redundant shortcut versus high-risk duplicate invalidation framework"
+  },
+  "disposition": "Repair through next lawful native coding activation if final returned bytes retain this finding; do not claim C2/C5 closure from passing unrelated lanes.",
+  "selectedRepair": "Bypass/remove qualification graph/state shortcut returns that skip existing indexed exact execution-basis/opened-carrier/admitted-CCall owners. Keep immutable declaration/material reuse and actual owned-prefix carriage. Do not add phase validators, dependency registries, generic caches, Product law, store or service.",
+  "selectedProof": "Native Worker constructs genuine owned P, warms source proof, admits the exact non-worksite invalidating fibre through existing Event Store, compares warm current and uncached/cold current refusal plus historical P validity, and retains unrelated-extension reuse. No forged owned handles, always-valid state stubs, or broad old qualification rerun.",
+  "activationBoundary": "Current native05 provider and actual C2/UAT/fresh close proceed unchanged. Do not mutate frozen inputs, inject an undocumented midrun message, launch a second coding Worker or patch Product as Root. Conjoin final returned source, actual tests and this finding before bounded next admission.",
+  "limits": [
+    "Final source identity/review and actual executable discriminator remain pending.",
+    "Later source changes or a demonstrated earlier mandatory refusal can invalidate this bounded finding.",
+    "All accepted evidence, historical failures and immutable releases remain preserved."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "file": "test_env/tests/r6-implementation-resolution.test.mjs",
+  "complete": true,
+  "counts": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "status": "completed",
+  "skipLines": [
+    "# todo 0"
+  ],
+  "receipt": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/033-r6-implementation-resolution.test/process.json",
+    "bytes": 1096,
+    "sha256": "f97cf7e350c731c503d37978b5d3e78fab01bf32a29cd4cc5af39e8101bebe31"
+  }
+}

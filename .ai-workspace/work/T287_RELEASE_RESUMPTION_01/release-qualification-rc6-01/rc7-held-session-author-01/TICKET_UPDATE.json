@@ -1,0 +1,17 @@
+{
+  "kind": "root_authorized_ticket_plan_update",
+  "authority": "User build instruction after committed review ba79858dec9021a9f5201e9644eade67aa289f59, relayed by Root separate operator Writer grant",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+  "before": {
+    "bytes": 703165,
+    "sha256": "ee87d4e7643f9dc325f55c8112ca52d2d4b6d1125e690d8d8f0ee83866dba427",
+    "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-01/TICKET_BEFORE.md"
+  },
+  "after": {
+    "bytes": 706873,
+    "sha256": "e37af4e0f7d92bb5c79a44dd5d348b2d040b34f9da070b6af2edd0cf7b0c09b1"
+  },
+  "scope": "Current plan lead and held-session current subsection only; build authority/F1-F7, F2 prerequisite selected and still pending; historical remainder preserved.",
+  "dispatch": false,
+  "ProductChanges": false
+}

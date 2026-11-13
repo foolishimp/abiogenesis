@@ -1,0 +1,317 @@
+--- native02/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts
++++ native03/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts
+@@ -224,8 +224,11 @@
+     const tail = step.tail;
+     let next = step.next;
+     if (tail?.kind === "notify") observe(() => notify(tail.notice));
+-    else if (tail?.kind === "probe") next = [{ kind: "probed", then: tail.then, absence: tail.known ?? probeGroup(tail.pid) }, ...next];
+-    else if (tail?.kind === "dispose") dispose();
++    else if (tail?.kind === "probe") {
++      // Count the entered assessment before evaluation or the host can re-enter.
++      dispatch({ kind: "probing", probe: tail.probe });
++      next = [{ kind: "probed", probe: tail.probe, absence: tail.known ?? probeGroup(tail.pid) }, ...next];
++    } else if (tail?.kind === "dispose") dispose();
+     else if (tail?.kind === "publish") resolveCompletion(Object.freeze(snapshot()));
+     for (const following of next) dispatch(following);
+   }
+--- native02/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts
++++ native03/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts
+@@ -25,6 +25,8 @@
+   readonly killAttempted: boolean;
+   readonly sealed: boolean;
+   readonly waits: Readonly<Record<OwnedProcessWaitName, OwnedProcessWait | null>>;
++  /** The entered assessment whose result is still current; a later entry or completion supersedes it. */
++  readonly probing: OwnedProcessProbe | null;
+ }
+ 
+ export interface OwnedProcessTiming {
+@@ -40,6 +42,8 @@
+ }
+ 
+ type ProbeContinuation = "terminate-graceful" | "terminate-immediate" | "kill" | "check" | "deadline";
++/** One proposed assessment; like a wait, its result is accepted only while it is the state's own probe. */
++export interface OwnedProcessProbe { readonly then: ProbeContinuation }
+ export type OwnedProcessNotice =
+   | { readonly kind: "error"; readonly error: Error }
+   | { readonly kind: "exit"; readonly status: number | null; readonly signal: NodeJS.Signals | null }
+@@ -55,7 +59,8 @@
+   | { readonly kind: "close" }
+   | { readonly kind: "check" }
+   | { readonly kind: "due"; readonly wait: OwnedProcessWaitName; readonly token: OwnedProcessWait }
+-  | { readonly kind: "probed"; readonly then: ProbeContinuation; readonly absence: OwnedProcessScopeAbsence }
++  | { readonly kind: "probing"; readonly probe: OwnedProcessProbe }
++  | { readonly kind: "probed"; readonly probe: OwnedProcessProbe; readonly absence: OwnedProcessScopeAbsence }
+   | { readonly kind: "notified"; readonly after: "term" | "kill" | "unconfirmed" }
+   | { readonly kind: "seal" };
+ 
+@@ -63,7 +68,7 @@
+  * continuation is a new input decided against the then-current state. */
+ export type OwnedProcessTail =
+   | { readonly kind: "notify"; readonly notice: OwnedProcessNotice }
+-  | { readonly kind: "probe"; readonly then: ProbeContinuation; readonly known: OwnedProcessScopeAbsence | null; readonly pid: number | undefined }
++  | { readonly kind: "probe"; readonly probe: OwnedProcessProbe; readonly known: OwnedProcessScopeAbsence | null; readonly pid: number | undefined }
+   | { readonly kind: "dispose" }
+   | { readonly kind: "publish" };
+ 
+@@ -79,7 +84,7 @@
+   phase: "live", directExit: null, launchFailure: null, firstError: null,
+   scopeAbsence: "unknown", closeObserved: false, streamsDisposed: false, drainExpired: false,
+   cleanupStartedNs: null, scopeDeadlineNs: null, cleanupDeadlineNs: null,
+-  probeCount: 0, signalAttempts: 0, killAttempted: false, sealed: false, waits: NO_WAITS,
++  probeCount: 0, signalAttempts: 0, killAttempted: false, sealed: false, waits: NO_WAITS, probing: null,
+ });
+ 
+ const step = (
+@@ -103,18 +108,20 @@
+   const known = noChild(s, at) ? "absent"
+     : timing.platform === "win32" ? (s.directExit === null ? "unknown" : "absent")
+     : at.pid === undefined ? "unknown" : null;
+-  return step(s, signal, { kind: "probe", then, known, pid: at.pid });
++  return step(s, signal, { kind: "probe", probe: Object.freeze({ then }), known, pid: at.pid });
+ }
+ 
+ function check(timing: OwnedProcessTiming, s: OwnedProcessState, at: OwnedProcessContext, signal: OwnedProcessSignal | null = null): OwnedProcessStep {
+   const cleared: OwnedProcessState = { ...s, waits: { ...s.waits, probe: null } };
+-  if (cleared.phase !== "term" && cleared.phase !== "kill") return step(cleared, signal);
++  // An entered assessment still in progress is this re-check: its own result
++  // decides against the then-current state, so its kill/deadline duty survives.
++  if ((cleared.phase !== "term" && cleared.phase !== "kill") || cleared.probing !== null) return step(cleared, signal);
+   return probe(timing, cleared, at, "check", signal);
+ }
+ 
+ function complete(s: OwnedProcessState): OwnedProcessStep {
+   if (s.phase === "complete") return step(s);
+-  return step({ ...s, phase: "complete", streamsDisposed: true, waits: NO_WAITS }, null, { kind: "dispose" }, [{ kind: "seal" }]);
++  return step({ ...s, phase: "complete", streamsDisposed: true, waits: NO_WAITS, probing: null }, null, { kind: "dispose" }, [{ kind: "seal" }]);
+ }
+ 
+ function drainOrComplete(timing: OwnedProcessTiming, s: OwnedProcessState, at: OwnedProcessContext): OwnedProcessStep {
+@@ -150,14 +157,16 @@
+ }
+ 
+ function probed(timing: OwnedProcessTiming, s: OwnedProcessState, input: Extract<OwnedProcessInput, { kind: "probed" }>, at: OwnedProcessContext): OwnedProcessStep {
+-  const recorded: OwnedProcessState = { ...s, probeCount: s.probeCount + 1, scopeAbsence: input.absence };
++  // Counted at entry. A superseded or completed assessment writes no fact and continues nothing.
++  if (s.probing !== input.probe) return step(s);
++  const recorded: OwnedProcessState = { ...s, probing: null, scopeAbsence: input.absence };
+   const gone = input.absence === "absent" && (recorded.directExit !== null || noChild(recorded, at));
+-  switch (input.then) {
++  switch (input.probe.then) {
+     case "terminate-graceful":
+     case "terminate-immediate":
+       if (recorded.phase !== "live") return step(recorded);
+       if (gone) return finishScope(timing, recorded, at);
+-      if (input.then === "terminate-immediate") return startKill(timing, recorded, at);
++      if (input.probe.then === "terminate-immediate") return startKill(timing, recorded, at);
+       return notifyThen({ ...recorded, phase: "term" }, { kind: "signal", signal: "SIGTERM" }, [{ kind: "notified", after: "term" }]);
+     case "kill":
+       if (recorded.phase !== "kill") return step(recorded);
+@@ -219,6 +228,7 @@
+       if (fired.phase === "term") return startKill(timing, fired, at);
+       return fired.phase === "kill" ? probe(timing, fired, at, "deadline") : step(fired);
+     }
++    case "probing": return step({ ...s, probeCount: s.probeCount + 1, probing: input.probe });
+     case "probed": return probed(timing, s, input, at);
+     case "notified": return notified(timing, s, input.after, at);
+     case "seal":
+--- native02/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md
++++ native03/build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md
+@@ -1,6 +1,6 @@
+ # T-287 Effect Functional repair and refactor plan
+ 
+-Status: **Phase1A/1B and FOUNDATION-ORACLE-001 accepted for their exact successor sources and selected proofs; Root PHASE2-SCOPE-01 activated the phase2 lifetime/command slice below on checkpoint `ed17ab14…`; native01 ended at its absolute 900s timeout with this plan edit only and zero implementation (its failed run is preserved). Root PHASE2-A-PREP-01 split phase2 into checkpoint A (shared lifetime) then B (command/main). Native02 authored A only; it is unreviewed and unproved beyond its own controlled selfcheck. B is unimplemented. Full phase2 acceptance remains joint A+B with its selected proof. Phases 3–4 and GC03 remain planned and unactivated.** Root [PHASE1-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_FINAL_ACCEPTANCE.json) retains the phase1 closure: deterministic 29/29, lifetime 18/18, m5 39/39 and original nine-file unit 96 passes/six declared skips. Root [FOUNDATION-ORACLE-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/ROOT_FINAL_ACCEPTANCE.json) accepts native04 source `002e481a…` and whole installed W2-05 3/3 with zero skips on proof archive `fdbf93de…`; that oracle is closed. Those counts are baseline for their exact sources, not evidence for the phase2 successor. Historical failures, six skipped claims, synthetic pending-owner limit and wider qualification obligations remain. Installed old RC11 is unchanged/unqualified/unpublished; RC10 remains pinned. No release is activated.
++Status: **Phase1A/1B and FOUNDATION-ORACLE-001 accepted for their exact successor sources and selected proofs; Root PHASE2-SCOPE-01 activated the phase2 lifetime/command slice below on checkpoint `ed17ab14…`; native01 ended at its absolute 900s timeout with this plan edit only and zero implementation (its failed run is preserved). Root PHASE2-A-PREP-01 split phase2 into checkpoint A (shared lifetime) then B (command/main). Native02 authored A only; it is unreviewed and unproved beyond its own controlled selfcheck. Independent source review then found A violation R1 (stale host-probe result/continuation and return-time probe accounting). Both retained red discriminator samples stand ([candidate](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-candidate-001/OBSERVATION.json) `0f3d6150…`, [baseline](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/probe-discriminator-01/actual-baseline-001/OBSERVATION.json) `7db4f706…`): the native02 candidate entered two probes yet sealed count1 and later accepted stale present/count2; the predecessor sealed count2, but its obsolete continuation reopened cleanup for a third probe, TERM and a second disposal. These are distinct mechanisms and neither is compatibility law. Under Root PHASE2-A-R1-PREP-01, native03 authored only the narrow R1 repair below on admitted source `cddcc3bc…` (freeze `b5a8316d…`); it is unreviewed and has only its own scratch compile and controlled 18/18 selfcheck. The same external probe plus whole lifetime proof remain required before B. B and peer retained-fact coverage are unimplemented. Full phase2 acceptance remains joint A+B with its selected proof. Phases 3–4 and GC03 remain planned and unactivated.** Root [PHASE1-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/ROOT_FINAL_ACCEPTANCE.json) retains the phase1 closure: deterministic 29/29, lifetime 18/18, m5 39/39 and original nine-file unit 96 passes/six declared skips. Root [FOUNDATION-ORACLE-FINAL-ACCEPTANCE-01](/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/foundation-oracle-proof-01/ROOT_FINAL_ACCEPTANCE.json) accepts native04 source `002e481a…` and whole installed W2-05 3/3 with zero skips on proof archive `fdbf93de…`; that oracle is closed. Those counts are baseline for their exact sources, not evidence for the phase2 successor. Historical failures, six skipped claims, synthetic pending-owner limit and wider qualification obligations remain. Installed old RC11 is unchanged/unqualified/unpublished; RC10 remains pinned. No release is activated.
+ 
+ ## Basis and responsibility
+ 
+@@ -25,17 +25,18 @@
+ 
+ ## Phase2 accepted HOW (PHASE2-SCOPE-01, split A/B by PHASE2-A-PREP-01)
+ 
+-Correspondence below is by status: **A removed** means absent from native02's authored, unreviewed A source; **B prospective** remains design until its source exists.
++Correspondence below is by status: **A removed** means absent from native02's authored, unreviewed A source; **A R1 repaired** is native03's authored, unreviewed correction to that source; **B prospective** remains design until its source exists.
+ 
+ | Status | Displaced mechanism | Replacement |
+ |---|---|---|
+-| **A removed** | `createOwnedProcessLifetime`'s fifteen parallel mutable fields (`phase`, `directExit`, `launchFailure`, `firstError`, `scopeAbsence`, `closeObserved`, `streamsDisposed`, `drainExpired`, `cleanupStartedNs`, `scopeDeadlineNs`, `cleanupDeadlineNs`, `probeCount`, `signalAttempts`, `killAttempted`, `completionPublished`); the decision closures `noChild`, `probe`, `signal`, `complete`, `finishScope`, `check`, `startKill`; the decision bodies of `requestTermination`, `fail`, `onError`, `onExit`, `onClose`; and the `if (phase !== "term") return` stale-TERM patch | One frozen `OwnedProcessState` (those fifteen facts, `completionPublished` as `sealed`, plus its three waits) and pure `transitionOwnedProcess(timing, state, input, at)` in `shared/owned_process_state.ts`. Each step returns the next state, at most one signal and at most one re-entrant tail (`notify`, `probe`, `dispose`, `publish`); the tail's continuation is a new input decided against the then-current state. The stale-TERM law is retained as the `notified` phase guard. Error objects remain opaque references. |
++| **A removed** | `createOwnedProcessLifetime`'s fifteen parallel mutable fields (`phase`, `directExit`, `launchFailure`, `firstError`, `scopeAbsence`, `closeObserved`, `streamsDisposed`, `drainExpired`, `cleanupStartedNs`, `scopeDeadlineNs`, `cleanupDeadlineNs`, `probeCount`, `signalAttempts`, `killAttempted`, `completionPublished`); the decision closures `noChild`, `probe`, `signal`, `complete`, `finishScope`, `check`, `startKill`; the decision bodies of `requestTermination`, `fail`, `onError`, `onExit`, `onClose`; and the `if (phase !== "term") return` stale-TERM patch | One frozen `OwnedProcessState` (those fifteen facts, `completionPublished` as `sealed`, plus its three waits and the current entered probe `probing`) and pure `transitionOwnedProcess(timing, state, input, at)` in `shared/owned_process_state.ts`. Each step returns the next state, at most one signal and at most one re-entrant tail (`notify`, `probe`, `dispose`, `publish`); the tail's continuation is a new input decided against the then-current state. The stale-TERM law is retained as the `notified` phase guard. Error objects remain opaque references. |
+ | **A removed** | Imperative `phaseTimer`/`probeTimer`/`drainTimer` arming and cancellation inside each closure | The synchronous bridge publishes state, performs the step's signal, then reconciles the three unchanged `createMonotonicDeadline` waits from state; a fired wait is accepted only while it is still the state's wait object. If an already-due wait re-enters, the step's remaining tail is dropped as obsolete. `createMonotonicDeadline` and its arithmetic are byte-identical. |
++| **A R1 repaired (native03, unreviewed)** | Native02's return-time `probeCount` increment and unconditional stale `probed` fact write/continuation | Immediately before the fast-path evaluation or host probe can re-enter, the bridge dispatches pure `probing`: it counts that entered assessment and makes the tail's probe token the state's `probing`. Like a wait, `probed` acts only while its token is current; a later entry or completion supersedes it, so a stale or sealed result writes no fact and continues nothing, and its entered count is never decremented. A tail cancelled by its own signal/reconcile re-entry never enters and is not counted. A re-check requested while an assessment is still in progress proposes no second probe; that assessment's own result decides against the then-current state, so its kill/deadline continuation cannot be lost to a nested check. Legitimate notify/dispose/seal continuations are unchanged. |
+ | **A preserved, not changed** | `snapshot()` and completion | `snapshot()` still returns a fresh unfrozen view with `cleanupElapsedMs` recomputed on each call, including after completion. Only the completion facts are sealed once, frozen after synchronous disposal errors are recorded and owner error reporting is disconnected. Inert stream/child error guards remain until natural close without mutation authority. Factory/method signatures, inline `observe<T>` return and the Promise completion are unchanged. |
+ | **B prospective** | `runCommand`'s ad hoc `try/finally` coordinator (timeout cancel, heartbeat clear, `activeCommand` reset, capture close and listener removal) and its Promise result | `runCommand` returns one Effect. A Scope owns: the spawned child and lifetime (acquired together; release requests the existing finite cleanup, awaits the lifetime's own completion, then clears `activeCommand`), the unchanged heartbeat interval, and the capture listeners plus command timeout (released only after that physical completion). Ownership precedes fallible listener/timeout setup, whose error remains `lifetime.fail`. No retry, race or Effect timeout is added; Scope interruption is not physical absence. |
+ | **B prospective** | `main`'s Promise sequencing | One helper Effect program, executed once through `runEffectProgram` in `main`; `await main()` stays. Existing async owners are lifted with their original rejection value; only `WorksiteHelperFailure` is caught for D15; the acknowledgment write is drained before the same failure is the program failure; `main` rethrows the squashed original cause. |
+ 
+-A adds no Effect wrapper, scheduler, mailbox, registry or second coordinator; its bridge still holds the current-state reference and the armed-wait record. HTTP `oneHttpRequest`/`runHttpProbe` bodies, `worker_transport`, `shared/process`, `shared/effect_definition`, the SIGTERM/SIGINT `process.exit` emergency boundary (ordinary finalizers do not run through it), Product, schemas and admission/replay stay unchanged.
++A adds no Effect wrapper, scheduler, mailbox, registry, parallel probe counter or second coordinator; its bridge still holds the current-state reference and the armed-wait record. **Accounting covers both modules.** The pre-A lifetime was 298 lines/12,633 bytes (278 non-blank, non-comment). Native02 A was lifetime 262/11,508 plus state 227/12,604, totalling 489/24,112. Native03 R1 is lifetime 265/11,658 plus state 237/13,490, totalling 502/25,148 (241 + 201 = 442 non-blank, non-comment): +204 lines/+12,515 bytes over the predecessor. A consolidates mutable decision state and scattered timer arming into one immutable state/transition plus bridge reconciliation. It is not net deletion; no speed, memory, maintenance or lifecycle-cost saving is claimed. HTTP `oneHttpRequest`/`runHttpProbe` bodies, `worker_transport`, `shared/process`, `shared/effect_definition`, the SIGTERM/SIGINT `process.exit` emergency boundary (ordinary finalizers do not run through it), Product, schemas and admission/replay stay unchanged.
+ 
+ ## Phase1 causal proof and retained effects
+ 
+--- native02/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
++++ native03/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
+@@ -406,6 +406,166 @@
+   }
+ });
+ 
++// One independent census of every host call; a fixture may re-enter the actual owner from either call.
++function censusLifetime({ probe = () => 'present', signal = () => {}, platform = 'posix', observations = {} } = {}) {
++  const timer = controlledClock(), child = new ControlledChild(), calls = [];
++  const enters = () => calls.filter(row => row[0] === 'enter').length;
++  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: 100, host: {
++    clock: timer.clock, platform,
++    probeGroup: () => {
++      const ordinal = enters() + 1; calls.push(['enter', ordinal]);
++      const absence = probe(ordinal); calls.push(['return', ordinal, absence]); return absence;
++    },
++    signal: (_child, value) => { calls.push(['signal', value]); signal(value); },
++  } }, observations);
++  return { timer, child, calls, enters, lifetime };
++}
++
++test('controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result', async () => {
++  let completions = 0;
++  const x = censusLifetime({ probe: ordinal => {
++    if (ordinal !== 1) return 'absent';
++    x.calls.push(['exit']); x.child.emit('exit', 0, null);
++    x.calls.push(['close']); x.child.emit('close');
++    return 'present';
++  } });
++  x.lifetime.completion.then(() => completions++);
++  x.lifetime.requestTermination();
++  assert.deepEqual(x.calls, [['enter', 1], ['exit'], ['enter', 2], ['return', 2, 'absent'], ['close'], ['return', 1, 'present']]);
++  const immediate = x.lifetime.snapshot(), facts = await x.lifetime.completion;
++  assert(Object.isFrozen(facts)); assert.notEqual(immediate, facts); assert.equal(facts.cleanupElapsedMs, 0);
++  for (const view of [facts, immediate]) {
++    assert.equal(view.scopeAbsence, 'absent'); assert.equal(view.probeCount, 2); assert.equal(view.signalAttempts, 0);
++    assert.deepEqual(view.directExit, { status: 0, signal: null }); assert.equal(view.closeObserved, true);
++    assert.equal(view.streamsDisposed, true); assert.equal(view.drainExpired, false); assert.equal(view.cleanupDeadlineNs, 300_000_000n);
++  }
++  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
++  x.timer.advance(25); const later = x.lifetime.snapshot();
++  assert.notEqual(later, immediate); assert.equal(later.cleanupElapsedMs, 25); assert.equal(facts.cleanupElapsedMs, 0);
++  assert.equal(later.scopeAbsence, 'absent'); assert.equal(later.probeCount, 2); assert.equal(later.signalAttempts, 0);
++  assert.equal(await x.lifetime.completion, facts); assert.equal(completions, 1);
++  assert.equal(x.calls.length, 6, 'no later probe or signal'); assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
++});
++
++test('controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close', async () => {
++  let published = null;
++  const x = censusLifetime({ probe: ordinal => {
++    if (ordinal !== 1) return 'absent';
++    x.calls.push(['exit']); x.child.emit('exit', 0, null);
++    return 'present';
++  } });
++  x.lifetime.completion.then(facts => { published = facts; });
++  x.lifetime.requestTermination();
++  assert.deepEqual(x.calls, [['enter', 1], ['exit'], ['enter', 2], ['return', 2, 'absent'], ['return', 1, 'present']]);
++  await Promise.resolve();
++  const pending = x.lifetime.snapshot();
++  assert.equal(published, null, 'the drain is still pending');
++  assert.equal(pending.scopeAbsence, 'absent'); assert.equal(pending.probeCount, 2); assert.equal(pending.signalAttempts, 0);
++  assert.equal(pending.closeObserved, false); assert.equal(pending.streamsDisposed, false); assert.equal(pending.drainExpired, false);
++  assert.equal(x.child.disposals, 0); assert.equal(x.timer.active(), 1, 'only the bounded drain wait');
++  x.child.emit('close');
++  const facts = await x.lifetime.completion;
++  assert.equal(published, facts); assert(Object.isFrozen(facts));
++  assert.equal(facts.scopeAbsence, 'absent'); assert.equal(facts.probeCount, 2); assert.equal(facts.signalAttempts, 0);
++  assert.equal(facts.closeObserved, true); assert.equal(facts.streamsDisposed, true); assert.equal(facts.drainExpired, false);
++  assert.equal(x.calls.length, 5); assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
++});
++
++test('controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result', async () => {
++  let tightened = null;
++  const x = censusLifetime({ probe: ordinal => {
++    if (ordinal !== 1) return 'present';
++    x.lifetime.requestTermination('immediate'); tightened = x.lifetime.snapshot().cleanupDeadlineNs;
++    return 'absent';
++  } });
++  x.lifetime.requestTermination();
++  assert.deepEqual(x.calls, [['enter', 1], ['enter', 2], ['return', 2, 'present'], ['enter', 3], ['return', 3, 'present'],
++    ['signal', 'SIGKILL'], ['enter', 4], ['return', 4, 'present'], ['return', 1, 'absent']]);
++  const active = x.lifetime.snapshot();
++  assert.equal(active.scopeAbsence, 'present', 'the stale absent result never becomes current');
++  assert.equal(active.probeCount, 4); assert.equal(active.signalAttempts, 1);
++  assert.equal(tightened, 200_000_000n); assert.equal(active.cleanupDeadlineNs, tightened);
++  assert.deepEqual(x.timer.arms.map(row => row.delay), [100, 10], 'KILL scope and re-check waits only');
++  x.timer.advance(200); const facts = await x.lifetime.completion;
++  assert.equal(facts.scopeAbsence, 'present'); assert.equal(facts.drainExpired, true); assert.equal(facts.cleanupDeadlineNs, tightened);
++  assert.equal(facts.probeCount, x.enters()); assert.equal(facts.signalAttempts, 1);
++  assert.deepEqual(x.calls.filter(row => row[0] === 'signal'), [['signal', 'SIGKILL']]);
++  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
++});
++
++test('controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact', async () => {
++  const x = censusLifetime({ probe: ordinal => {
++    if (ordinal === 2) { x.calls.push(['exit']); x.child.emit('exit', 0, null); }
++    return 'present';
++  } });
++  x.lifetime.requestTermination('immediate');
++  assert.deepEqual(x.calls, [['enter', 1], ['return', 1, 'present'], ['enter', 2], ['exit'], ['return', 2, 'present'],
++    ['signal', 'SIGKILL'], ['enter', 3], ['return', 3, 'present']]);
++  const active = x.lifetime.snapshot();
++  assert.equal(active.probeCount, 3); assert.equal(active.signalAttempts, 1); assert.equal(active.cleanupDeadlineNs, 200_000_000n);
++  assert.deepEqual(x.timer.arms.map(row => row.delay), [100, 10], 'KILL scope and re-check waits only');
++  x.timer.advance(200); const facts = await x.lifetime.completion;
++  assert.deepEqual(facts.directExit, { status: 0, signal: null }); assert.equal(facts.scopeAbsence, 'present');
++  assert.equal(facts.drainExpired, true); assert.equal(facts.probeCount, x.enters()); assert.equal(facts.signalAttempts, 1);
++  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
++});
++
++test('controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted', async () => {
++  const ordinary = censusLifetime({ probe: () => 'absent' });
++  ordinary.child.emit('exit', 0, null); ordinary.child.emit('close');
++  const done = await ordinary.lifetime.completion;
++  assert.deepEqual(ordinary.calls, [['enter', 1], ['return', 1, 'absent']]);
++  assert.equal(done.probeCount, 1); assert.equal(done.scopeAbsence, 'absent'); assert.equal(done.signalAttempts, 0);
++
++  const throwing = censusLifetime({ probe: () => { throw Object.assign(new Error('EPERM'), { code: 'EPERM' }); } });
++  throwing.child.emit('exit', 0, null);
++  assert.deepEqual(throwing.calls, [['enter', 1], ['signal', 'SIGTERM'], ['enter', 2], ['enter', 3]]);
++  assert.equal(throwing.lifetime.snapshot().probeCount, 3); assert.equal(throwing.lifetime.snapshot().scopeAbsence, 'unknown');
++  throwing.timer.advance(300); const unknown = await throwing.lifetime.completion;
++  assert.equal(unknown.probeCount, throwing.enters()); assert.equal(unknown.scopeAbsence, 'unknown'); assert.equal(unknown.firstError, null);
++
++  const noChild = censusLifetime(); noChild.child.pid = undefined;
++  noChild.child.emit('error', new Error('ENOENT')); noChild.child.emit('close');
++  const missing = await noChild.lifetime.completion;
++  assert.equal(missing.noChildEstablished, true); assert.equal(missing.probeCount, 1); assert.equal(missing.scopeAbsence, 'absent');
++  assert.deepEqual(noChild.calls, []);
++  const windows = censusLifetime({ platform: 'win32' });
++  windows.child.emit('exit', 0, null); windows.child.emit('close');
++  const direct = await windows.lifetime.completion;
++  assert.equal(direct.probeCount, 1); assert.equal(direct.scopeAbsence, 'absent'); assert.deepEqual(windows.calls, []);
++  const unlaunched = censusLifetime(); unlaunched.child.pid = undefined;
++  unlaunched.lifetime.requestTermination();
++  assert.deepEqual(unlaunched.calls, [['signal', 'SIGTERM']]);
++  assert.equal(unlaunched.lifetime.snapshot().probeCount, 2); assert.equal(unlaunched.lifetime.snapshot().scopeAbsence, 'unknown');
++
++  // TERM itself ends the group; the re-check proposed with that signal never enters.
++  let absent = false;
++  const bySignal = censusLifetime({ probe: () => absent ? 'absent' : 'present', signal: value => {
++    if (value !== 'SIGTERM') return;
++    absent = true; bySignal.calls.push(['exit']); bySignal.child.emit('exit', null, 'SIGTERM');
++    bySignal.calls.push(['close']); bySignal.child.emit('close');
++  } });
++  bySignal.lifetime.requestTermination();
++  assert.deepEqual(bySignal.calls, [['enter', 1], ['return', 1, 'present'], ['signal', 'SIGTERM'], ['exit'],
++    ['enter', 2], ['return', 2, 'absent'], ['close']]);
++  const signalled = await bySignal.lifetime.completion;
++  assert.equal(signalled.probeCount, 2); assert.equal(signalled.signalAttempts, 1); assert.equal(signalled.scopeAbsence, 'absent');
++  assert.equal(bySignal.child.disposals, 3); assert.equal(bySignal.timer.active(), 0);
++
++  // A slow TERM notice makes the grace wait already due; that wait re-enters and the re-check never enters.
++  let slow = true;
++  const byWait = censusLifetime({ observations: { onSignalRequested: value => {
++    if (value === 'SIGTERM' && slow) { slow = false; byWait.timer.advance(150); }
++  } } });
++  byWait.lifetime.requestTermination();
++  assert.deepEqual(byWait.calls, [['enter', 1], ['return', 1, 'present'], ['signal', 'SIGTERM'], ['enter', 2], ['return', 2, 'present'],
++    ['signal', 'SIGKILL'], ['enter', 3], ['return', 3, 'present']]);
++  assert.equal(byWait.lifetime.snapshot().probeCount, 3);
++  byWait.timer.advance(200); const waited = await byWait.lifetime.completion;
++  assert.equal(waited.probeCount, byWait.enters()); assert.equal(waited.signalAttempts, 2); assert.equal(waited.drainExpired, true);
++  assert.equal(byWait.timer.active(), 0);
++});
++
+ async function helperModule(t, control = false, overrides = {}) {
+   const path = join(packageRoot, 'build/code/src/implementation/worksite_command_helper.js');
+   let source = (await readFile(path, 'utf8')).replace(/^#!.*\n/u, '');

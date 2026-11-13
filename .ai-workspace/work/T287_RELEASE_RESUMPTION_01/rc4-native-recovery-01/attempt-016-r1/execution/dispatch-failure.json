@@ -1,0 +1,46 @@
+{
+  "at": "2026-11-02T21:28:07.132Z",
+  "name": "Error",
+  "message": "lifecycle-start-transport: {\"executable\":\"/opt/homebrew/Cellar/node/24.7.0/bin/node\",\"args\":[\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js\",\"--jsonl\",\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/execution/calls/lifecycle-start.request.jsonl\"],\"cwd\":\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/execution\",\"started\":\"2026-11-02T18:28:05.073Z\",\"environmentKeys\":[\"ABG_TS_CLAUDE_APPEND_ARGS\",\"ABG_TS_CLAUDE_COMMAND\",\"ABG_TS_FP_ABSOLUTE_TIMEOUT_MS\",\"ABG_TS_FP_TERMINATION_GRACE_MS\",\"ABG_TS_FP_TIMEOUT_MS\",\"ABG_TS_WORKER_SANDBOX\",\"BASH_DEFAULT_TIMEOUT_MS\",\"BASH_MAX_TIMEOUT_MS\",\"CLAUDE_CODE_DISABLE_BACKGROUND_TASKS\",\"CLAUDE_CODE_OAUTH_TOKEN\",\"HOME\",\"LANG\",\"LC_ALL\",\"NODE_OPTIONS\",\"PATH\",\"STDO_STORE\",\"TMPDIR\"],\"timeoutMs\":10800000,\"exitCode\":null,\"signal\":\"SIGTERM\",\"wallMs\":10800084.571584,\"timedOut\":true,\"truncated\":false,\"failure\":null,\"stdout\":\"\",\"stderr\":\"\",\"parseError\":\"SyntaxError: Unexpected end of JSON input\"}",
+  "observation": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+      "--jsonl",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/execution/calls/lifecycle-start.request.jsonl"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/execution",
+    "started": "2026-11-02T18:28:05.073Z",
+    "environmentKeys": [
+      "ABG_TS_CLAUDE_APPEND_ARGS",
+      "ABG_TS_CLAUDE_COMMAND",
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+      "ABG_TS_FP_TERMINATION_GRACE_MS",
+      "ABG_TS_FP_TIMEOUT_MS",
+      "ABG_TS_WORKER_SANDBOX",
+      "BASH_DEFAULT_TIMEOUT_MS",
+      "BASH_MAX_TIMEOUT_MS",
+      "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS",
+      "CLAUDE_CODE_OAUTH_TOKEN",
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "NODE_OPTIONS",
+      "PATH",
+      "STDO_STORE",
+      "TMPDIR"
+    ],
+    "timeoutMs": 10800000,
+    "exitCode": null,
+    "signal": "SIGTERM",
+    "wallMs": 10800084.571584,
+    "timedOut": true,
+    "truncated": false,
+    "failure": null,
+    "stdout": "",
+    "stderr": "",
+    "parseError": "SyntaxError: Unexpected end of JSON input"
+  },
+  "currentResumeWritten": false,
+  "classification": "Actual fault/refusal retained; no old handoff substitution, fabricated terminal or retry"
+}

@@ -1,0 +1,21 @@
+{
+  "providerCalls": 0,
+  "RunAdmissions": 0,
+  "sourceCommit": "0a8d330a32d5f577b424394c0424a1cd9abe519b",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-005/setup-host/abi5-root-env-s9NUlO/workspace",
+  "accounting": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 832.551875,
+      "provisioning_verify_artifact": 22234.536792,
+      "provisioning_install": 2985.8702080000003,
+      "provisioning_installed_content_check": 585.7106250000033,
+      "provisioning_additional_products": 2190.93375,
+      "installed_owner_loading": 293.3009579999998,
+      "environment_install_and_workspace_admission": 1882.6173339999987,
+      "execution_preparation_publication_program_and_catalog": 500.12024999999994
+    }
+  },
+  "callbackCount": 1,
+  "cleanup": "Retained until proof custody and Root cleanup selection; runtime store closed explicitly."
+}

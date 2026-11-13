@@ -1,0 +1,94 @@
+{
+  "status": "STOPPED_SELECTED_PROOF_FAILURE",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/SUBJECT.json",
+    "bytes": 267155,
+    "sha256": "1c0531c2ce628677ccfb7ac4f78ce812ad031d91689f0c23b69fda67102e3447"
+  },
+  "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+  "manifestSha256": "1e776dc0a74c2203a1ecbb9cefaa58a03ecd7ad97e5127bd87bc458389985d5b",
+  "admissionSha256": "d6e1ffc0f5762f52e57e934eaf4b5fdd51b87caf7c3605961686f50838830cec",
+  "results": [
+    {
+      "id": "fixed-route",
+      "pass": false,
+      "timeSeconds": {
+        "real": 48.76,
+        "user": 51.81,
+        "sys": 8.79
+      },
+      "summary": {
+        "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-lanes-fixed-route/summary-fixed-route.json",
+        "bytes": 2212,
+        "sha256": "001f623e07df6b1909e05598d6b4797a2daa7b24713c44bff0207de5d00bdb68"
+      },
+      "laneSummary": {
+        "id": "fixed-route",
+        "mode": "after",
+        "setupMs": 68,
+        "priorLaneAllocations": 0,
+        "laneAllocationCap": 8,
+        "stageSourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+        "integrationEvidenceSourceDigest": null,
+        "integrationEvidenceReused": false,
+        "activeRc7": [
+          "RC7 fixed proof: direct root Testing prepares the observed C2 task and folds one selector-free Testing observation",
+          "RC7 fixed proof: direct Testing refuses open scope, fabricated or retained input, and a selector-free fold off the root Testing wrapper",
+          "RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector",
+          "RC7 fixed proof: direct UAT refuses crossed source, row population, producer identity, currentness and off-root relations",
+          "RC7 fixed proof: selected children keep the synthesis target guard, selected Result ref and selected instruction order",
+          "RC7 fixed proof: public-setup invokes Testing directly, derives its admitted state Result once and invokes UAT over exactly that source; the lifecycle start is unchanged"
+        ],
+        "requiredActivePass": false,
+        "historicalSkipsDeclared": true,
+        "skippedNames": [],
+        "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=tap --test-name-pattern ^(?:RC7 fixed admission: |RC7 fixed proof: ) test_env/tests/t287-default-library.test.mjs",
+        "cwd": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01/build_tenants/abiogenesis/typescript",
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "ms": 48659,
+        "tests": 7,
+        "pass": 6,
+        "fail": 1,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0,
+        "minimumTests": 7,
+        "failing": [
+          "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission"
+        ],
+        "stdoutSha256": "02cc47b4fd8826e893368a5a3de7b150fa211c85cc1013c2e6382119f40ce94d",
+        "stdoutBytes": 3854,
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "commandReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/proof/commands/fixed-route.result.json",
+        "bytes": 1213,
+        "sha256": "b376d3d104609e65fcaa8b8d076bd271294d7d8c0bdec667797603d5556e08e1"
+      },
+      "wallMs": 48766.990875,
+      "maximumResidentSetSizeBytes": 2230190080,
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "sourceAfter": {
+        "sourceRows": 451,
+        "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+        "stagedAndLiveMatch": true,
+        "originalControlsUnchanged": true
+      }
+    }
+  ],
+  "sourceAfter": {
+    "sourceRows": 451,
+    "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+    "stagedAndLiveMatch": true,
+    "originalControlsUnchanged": true
+  },
+  "originalNativeReturnUnchanged": true,
+  "ProductAccepted": false,
+  "qualified": false
+}

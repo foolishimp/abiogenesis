@@ -1,0 +1,182 @@
+{
+  "reviewId": "H06-FROZEN-STAGE-001",
+  "status": "closed",
+  "createdAt": "2026-11-06T19:33:52.024812+00:00",
+  "productFrame": {
+    "product": "ABIogenesis 5.0 fixed fifteen feature families",
+    "goal": "GOAL-035 / T-287",
+    "method": "STDO 3.0.4",
+    "composition": [],
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "productSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+    "boundary": "Existing Product schema/dependency and ABG authority owners. Immutable RC6 builder, prospective RC7 source; no Product or HOW change."
+  },
+  "verdict": "no_concrete_blocker_in_selected_one_field_correction; historical_H05_evidence_applicable_with_original_limits",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/review-subject-stage-001/SUBJECT.json",
+    "bytes": 263222,
+    "sha256": "e4d84e032171d484fb0a4b21da20925c04caf540d370960bcb4d019c04cd17bc",
+    "sourceDigest": "a07beb4b5ffe861cc5610ede437e18a4089f9f23b3b9cb6cc0a8d688aeb99b91",
+    "sourceCount": 451,
+    "changedFiles": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "bytes": 372769,
+          "sha256": "c523337e02a238ea53b4b1011f03491c2981b459d8b16f822f6f46e1f94be5a1"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/review-subject-stage-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "bytes": 372837,
+          "sha256": "af146549b2d6388bf2b39e59f1c8821bb8980da98911af37c089c1111de4bf2b"
+        },
+        "withinSelectedWriteTerritory": true
+      }
+    ],
+    "unchangedRows": 450,
+    "sourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/SOURCE_BEFORE.json",
+      "bytes": 233286,
+      "sha256": "822c7268e1acdf9e1615f0811b8fa35e7656d11c952c656439674794ce156c9d"
+    },
+    "architectureSelection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/ROOT_ARCHITECTURE_SELECTION.json",
+      "bytes": 9291,
+      "sha256": "d3b7b87fab998bca08bc8572ddea2c34e4342378d30981c6a4b033416c3bc258"
+    },
+    "dispatch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/execution/DISPATCH_MANIFEST.json",
+      "bytes": 33080,
+      "sha256": "7d250ddd244620dc6d68c02af912347612a5f12892d9260f5bc6e0a82c54de31"
+    },
+    "stageReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-06/review-subject-stage-001/evidence/stage.json",
+      "bytes": 100720,
+      "sha256": "64fa600f30442a12fd5351271165b36533e55605fe9f848bd42d3fbeaa42cb8a"
+    }
+  },
+  "scope": "Only the selected local undeclared assessment fixture correction and applicability of original H05 fixed-route/held-session evidence. Reuse the closed complete schema/causal review; no new broad source or test audit.",
+  "checks": [
+    "Subject pin and exact changed before/after bodies verified. Reversing the single selected withBytes argument replacement reproduces every original byte of the372769-byte H05 test file; candidate is372837bytes. Every assertion, test registration, selected fixed-route callback, import and shared helper is otherwise byte-identical.",
+    "All451 path sets match H05. The other450 rows retain identical lengths, digests and identical immutable sourceSnapshot references; SOURCE_BEFORE pin independently matches the H05 frozen451-row baseline. Custody supplied the underlying staged/held row verification; this review did not reread450 unchanged bodies.",
+    "The additional schemaAsset clone sets only contractId:undeclaredRef before existing withBytes replaces bytesBase64. Both spreads create local objects; admitted.schemaAsset is not mutated. The schema $id and resultContract.contractRef already use undeclaredRef, so the existing three-way identity relation is restored without changing the positive installed selection.",
+    "Existing positive schema assertion and all missing/ambiguous/non-member declaration null assertions remain. The contract remains undeclared in actual authenticated Catalog/publication/install facts, so this test still addresses dependency refusal rather than granting authority to a new contract.",
+    "No Product, public-setup, HOW, caller, schema helper, held-session test, guard or runtime dependency change. New execution remains the three selected pending lanes only."
+  ],
+  "priorFindingDisposition": {
+    "finding": "H05-ASSESSMENT-FIXTURE-001",
+    "priorReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/reviews/assessment-guard-triage-001/REVIEW.json",
+      "bytes": 19247,
+      "sha256": "bee3ec529a5ed426f4018d4a128f324a496bcd42719df9a72d61554cb9d27f15"
+    },
+    "sourceCorrection": "Exact selected repair realized at t287-default-library.test.mjs:2767.",
+    "remainingProof": "The complete eight-subcase assessment case must actually pass; source correctness is not a substitute for its new receipt."
+  },
+  "findings": [],
+  "historicalEvidenceApplicability": {
+    "decision": "Applicable to this exact frozen one-field successor within the original evidence boundaries; no reexecution or relabeling required by this delta.",
+    "retainedEvidence": {
+      "fixedRoute": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/fixed-route/summary.json",
+        "bytes": 2207,
+        "sha256": "7a663214febb66f14bb77cb581d505adcd0b7a80535775650bd7d582796c7174"
+      },
+      "heldSession": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/summary.json",
+        "bytes": 1676,
+        "sha256": "3651fc18f0d9982e0a170aad6a6aee7c133115f524ee0981f06107ab104d1e8f"
+      },
+      "measurement": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-05/operator-custody-001/lanes/held-session/MEASUREMENT.json",
+        "bytes": 4046,
+        "sha256": "068aeea3d77d3dd424460fbc62f41c8194f7baee32fa5891e0fa60a6298e7eee"
+      },
+      "sourceDigest": "5340ac6d2397bec63c58eeca270fe7849d961223dd9132f39ef9b82b78bb03fd",
+      "reuseCondition": "All Product/SDK/caller/helper and fixed-route/held-session test closures remain unchanged. Independent frozen one-field diff review establishes applicability; retain original H05 identifiers and do not relabel these as H06 executions. Any affected closure change returns to Root before further execution."
+    },
+    "fixedRoute": {
+      "tests": 7,
+      "pass": 7,
+      "reason": "Only an unselected assessment callback local expression changed. All seven fixed-route selected callbacks and their helper/Product/caller closures remain unchanged.",
+      "standing": "Original H05 identifiers/source5340ac6d and actual7/7 receipt retained; includes the declared controlled/scripted premises, not a new H06 run."
+    },
+    "heldSession": {
+      "tests": 1,
+      "pass": 1,
+      "reason": "The held-session test and its helper/Product/SDK/caller closure are unchanged; the modified local callback belongs to another test case/file selection.",
+      "measurement": {
+        "acquisition": {
+          "historyDecodes": 1,
+          "storeReopens": 1
+        },
+        "twoWarmCalls": {
+          "historyDecodes": 0,
+          "storeReopens": 0,
+          "historyBytesRead": 0,
+          "bodyReads": 96,
+          "bodyBytesRead": 3500127
+        },
+        "twoHeldReads": {
+          "historyDecodes": 0,
+          "storeReopens": 0,
+          "historyBytesRead": 0,
+          "bodyReads": 0,
+          "bodyBytesRead": 0
+        },
+        "standing": "Historical H05 small installed F_D fixture measurement068aeea3 remains relevant to the unchanged implementation. Its times/RSS are H05 samples, not H06 observations; cold child CLI instrumentation remains excluded. No large-log S4 growth, aggregate peak RSS, matched performance comparison or speedup is inferred."
+      }
+    },
+    "conjunction": "Root may conjoin these original eight passes with the actual new H06 assessment-guards/native-workspace-owner/caller receipts only after final source/native.after/close custody matches this stage. Any subsequent material delta reopens applicability."
+  },
+  "buildEvidenceStanding": {
+    "stageSetupMs": 4079,
+    "productReuse": {
+      "status": "FULL_DECLARED_PAYLOAD_BYTE_EQUAL",
+      "selection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-04/REUSED_PRODUCT_PAYLOAD.json",
+        "bytes": 1466472,
+        "sha256": "0a4192fcbe7cd02985ecbca02b8badd063b976346b63c54d8d0283239f1adba0"
+      },
+      "before": {
+        "members": 5325,
+        "bytes": 71702388,
+        "productContentDigest": "sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+        "manifestSha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a",
+        "graphSha256": "82720d92dad9e7c30749042935e69793d93d99092d2a617a434e3e83da1f1432"
+      },
+      "after": {
+        "members": 5325,
+        "bytes": 71702388,
+        "productContentDigest": "sha256:1f061a506be1deb7d9f7323601c054c6060cf3996ed369883d569c372ce82689",
+        "manifestSha256": "ef811dd2a9c98042cfc836862974d097f2cb6e4cdcd7f4f537447cf594bb841a",
+        "graphSha256": "82720d92dad9e7c30749042935e69793d93d99092d2a617a434e3e83da1f1432"
+      },
+      "originalCompletedBuildReport": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+        "bytes": 102337,
+        "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+      },
+      "noCompileOrGenerationExecuted": true
+    },
+    "compileGenerationLifecycle": {
+      "reused": true,
+      "executed": false,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-author-build-001/build/COMPLETED_STAGE_REPORT.json",
+        "bytes": 102337,
+        "sha256": "5f8b65ec5e9fe46ef31dea0fd1dc64a5e1c9f30d99fe896b47e8f1ef90753581"
+      }
+    },
+    "comparisonBoundary": "450 unchanged rows are relative to H05, not a claim that all450 equal the historical H03 source. The H03 build receipt is reused through exact unchanged declared5325-member Product payload; intervening H04 caller/test corrections remain preserved."
+  },
+  "limits": [
+    "Stage-only frozen subject at review closure; actual final native.after, source return and close custody are pending. No final source acceptance inferred.",
+    "Three new lane receipts were not available to this review. Historical H05 assessment failure and previously unallocated lanes remain preserved; no source review predicts their pass.",
+    "Reviewer ran no tests, builds, runtime acquisition, providers or launch and made no source or control edits. Only these create-only review artifacts were written.",
+    "Root owns final conjunction/acceptance. Same-family component review is not formal F11 J, release qualification or installed performance proof."
+  ]
+}

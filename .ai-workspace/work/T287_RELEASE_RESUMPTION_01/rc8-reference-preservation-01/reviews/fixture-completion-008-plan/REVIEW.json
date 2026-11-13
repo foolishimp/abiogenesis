@@ -1,0 +1,303 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5.0; fixed fifteen families F01-F07,F09-F11,F13-F17; GOAL-035/T-287.",
+    "slice": "Complete two bounded RC7 fixture contracts on accepted A7 source for the unqualified RC8 reference-preservation cut.",
+    "outcome": "Keep canonical InstalledProduct authority checks and lawful historical-profile projections observable with their existing assertions.",
+    "authoritySplit": "Product/requirements own WHAT, accepted TypeScript HOW owns realization. ABG retains sole admission/events/replay and resource lifecycle authority. Component lookup/lifecycle premises and historical coordinates are derived test tools/evidence; they are not admitted runtime objects or a second authority.",
+    "prohibitions": [
+      "No Product/owner/harness redesign, schema/guard bypass, fake successful owner output or restamping.",
+      "No new generic fixture framework or historical-profile algorithm.",
+      "No whole-file/broad/release acceptance from partial proof."
+    ]
+  },
+  "kind": "independent_bounded_fixture_completion_causal_review",
+  "recordedUtc": "2026-11-07T08:42:46.653603+00:00",
+  "reviewer": {
+    "actor": "/root/rc8_source_review",
+    "role": "Reviewer only",
+    "independence": "No tests, Product calls/imports, provider, source/HOW/Git/cleanup effects or subagents. Writes only this new capsule."
+  },
+  "basis": {
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "severityScale": "Campaign S0-S4; severity is not Executive priority",
+    "pins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+        "bytes": 3136,
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+        "bytes": 100324,
+        "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 27131,
+        "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+      }
+    ]
+  },
+  "subject": {
+    "sourceDigest": "b2ca1a756b264c1ee13e3bca9ba324d8d499619a28f97874d8fafde6d82ad146",
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/source-freeze.json",
+      "bytes": 295567,
+      "sha256": "a4ded31e5b6e2601969af0bbc050191da458d6520c1397dbd56850eace7e47c7"
+    },
+    "rows": 1339,
+    "selectedSource": [
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+        "bytes": 13042,
+        "sha256": "7934030bf45017bb9d07877981d9a7b80436be52c88686a909c5390539644813"
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+        "bytes": 1349,
+        "sha256": "603feef050dc15e99b59eef38196bcfedd396285033f939cdb21ca24b26d8ec0"
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "bytes": 38532,
+        "sha256": "07e9c5cd51918bb335ab2ac83618f972ffdc820666b1eab56a6875423af7f99b"
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+        "bytes": 23451,
+        "sha256": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9"
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 225695,
+        "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb"
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "bytes": 14485,
+        "sha256": "f242656d220350439cf699d1654ce324cb2d6fb4d80b2567b5ba4bd8a7c89994"
+      },
+      {
+        "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 194356,
+        "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/overlay/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "bytes": 124515,
+        "sha256": "95b8abcca3d808a77961558f1f2a39e58cb0b89e3bfe65fb37538c0ae9c74aea"
+      }
+    ],
+    "execution010Correspondence": "Execution010 actually ran the earlier immutable A6 stage. The installed-product-coordinate file and referenced resource/kernel/harness bytes are identical in A6 and A7; this review transfers only that exact causal evidence, never relabels execution010 as an A7 run."
+  },
+  "claim": "The affected component-resource and historical-coordinate fixtures supply the current owner premises and permit their existing regression assertions to run.",
+  "verdict": "falsified",
+  "owningRelations": [
+    {
+      "requirements": [
+        "REQ-P-PUBLIC-CONTRACTS-004",
+        "REQ-P-PUBLIC-CONTRACTS-008",
+        "REQ-P-PUBLIC-CONTRACTS-009"
+      ],
+      "how": "Common library design §10.9 R-B and Held coverage: six run/graph result/replay/status/gaps reads complete at their unchanged entry prefix; reopened resources close, held resources return a completion without closing the outer owner.",
+      "relation": "The component fixture must substitute the actual current resource-completion seam when resource ownership is an explicit supplied premise. Its supplied receipt is not proof of physical close."
+    },
+    {
+      "requirements": [
+        "REQ-R-ABG3-EVENTS-002",
+        "REQ-R-ABG3-EVENTS-003",
+        "REQ-R-ABG3-PROJECTION-001",
+        "REQ-R-ABG3-PROJECTION-002",
+        "REQ-R-ABG3-PROJECTION-025"
+      ],
+      "how": "Common library design §10.10 E-G; existing retained-profile classifier and cold-reader profile check.",
+      "relation": "Every consumer of the same retained5b35 bytes must construct a coordinate with that historical profile and the actual physical file/cut identity; a current51299706 label lawfully refuses."
+    }
+  ],
+  "findings": [
+    {
+      "id": "FIXTURE-008-RESOURCE",
+      "severity": "S2",
+      "title": "Read-kernel component fixture still substitutes close while the current kernel consumes complete",
+      "actual": "Execution010 has five partial passes and six failed read cases. Each fails on its first canonical-authority invocation with owner_projection/projection_failure and undefined.closeDurableLog; its subsequent malformed-product assertions do not execute. No whole-file pass.",
+      "locations": [
+        "t287-installed-product-coordinate.test.mjs:101-137",
+        "r10-private-owner-harness.mjs:10-24",
+        "project_read_definition_bindings.ts:260-283,736-891",
+        "definition_event_resource.ts:91-97,162-171,357-378",
+        "event_store.ts:2305-2322"
+      ],
+      "cause": "The fixture overrides acquireAbgEventResource to return only {entryPrefix: prefix}, and substitutes closeAbgEventResource. Its prefix/store are explicitly not real lower-owner facts. privateOwner merges actual module exports with direct-import overrides. Current finishRunRead calls imported completeAbgEventResource; that real function uses its own lexical closeAbgEventResource, so overriding the sibling export cannot intercept it. The resource is not borrowed and real currentness/coordinate checks reject the deliberately incomplete premise. The kernel catch calls real abandonAbgEventResource; that dereferences resource.store.closeDurableLog and masks the earlier rejection. The exact first internal error is not visible in the retained output; it is not invented here.",
+      "triggerProbability": "Certain for the exact six read fixtures on current kernel; observed six times.",
+      "harm": "Six component discriminators cannot reach their expected unknown_source/refusal outcomes or complete their canonical InstalledProduct mutation checks. No current real-resource Product failure is established.",
+      "failClosed": "The real owner rejects non-owned/incomplete input; nothing is admitted or physically released by this component premise. Both real completion and abandonment guards remain unchanged.",
+      "blastRadius": "One shared per-member fixture in one file, instantiated for run_status, run_result, run_replay, run_gaps, graph_call_result and graph_call_replay. The four Run-authority cases and release-coordinate fold passed separately.",
+      "smallestRepair": "In this test file only, supply the current completeAbgEventResource lower-owner premise. Observe the exact supplied acquired resource and unchanged entry/final prefix, return the explicit reopened-resource receipt premise expected by completeRunReadEventResource, and retain six-call accounting. Rename/comment accounting accurately as six supplied reopen completions, without claiming physical close. Preserve actual runReadKernel, canonical install coordinate derivation, unknown_source result, five malformed population cases, /invocationAuthority issue path and sourceLookups===1. Do not add a fake store to satisfy real ownership guards.",
+      "cleanupBoundary": "If abandonment is modeled to prevent an unexpected original error being masked, it must be a local observed lower-owner cleanup premise; the kernel must still rethrow the original cause and unexpected abandonment must fail the case. It may not fabricate owner output or convert an error into success. No Product cleanup redesign or additional generic protocol is required.",
+      "repairCost": "Low: one shared test fixture/counter/comment update, no production build, no new helper or library.",
+      "regressionRisk": "Low if the existing checks remain actual and all semantic assertions survive; high if source lookup, authority matching or real lifecycle guards are mocked to green.",
+      "confidence": "High for causal seam and masking; repaired execution remains unperformed."
+    },
+    {
+      "id": "HIST-001-REMAINING-CONE",
+      "severity": "S3",
+      "title": "Three remaining retained-log coordinate constructors expose four later cases to the same profile mismatch",
+      "actual": "Source counterexamples, not four observed executions. A7 fixes/proves only the first two cases and its handoff explicitly flags the remaining consumers.",
+      "locations": [
+        "t287-single-address-space-consolidation.test.mjs:278",
+        "t287-single-address-space-consolidation.test.mjs:328",
+        "t287-single-address-space-consolidation.test.mjs:1194-1206,1223,1279"
+      ],
+      "cause": "All three remaining ROOT_EVENT_CONTRACT_DIGEST assignments read the same exact proof-10 retained log. The first two are case-local; retainedOwnedPrefix has exactly the two named later consumers. They label historical5b35 rows as current W51299706 before the same existing cold-reader check.",
+      "affectedCases": [
+        {
+          "line": 270,
+          "case": "shared public-operation classification equals the complete class predicates of the retained history, with orphan and mixed-arm facts kept",
+          "coordinateSite": 278,
+          "change": "Destructure baseline; obtain the retained profile through existing retainedProfile; preserve actual full-file identity, bytes/hash and canonical coordinate digest."
+        },
+        {
+          "line": 316,
+          "case": "global run-invocation pairs stay history-wide on real earlier cuts, and a foreign Run stays distinct from a missing one",
+          "coordinateSite": 328,
+          "change": "Select the retained profile once for the same log, reuse it in the existing cut(end); retain each selected length/hash, actual log identity and recomputed coordinate digest."
+        },
+        {
+          "line": 1223,
+          "case": "historical revision cuts: the shared before-event owner selects the replaced full-history filter's exact exclusive prefix with no body pass, immutability walk or cold revalidation",
+          "coordinateSite": 1205,
+          "change": "Reuse existing retainedProfile inside retainedOwnedPrefix(t); preserve the same before/after file checks, owned selection and all cut/value/profile/work/refusal assertions."
+        },
+        {
+          "line": 1279,
+          "case": "semantic stage authentication borrows the owned prefix: the retired materializing adapter's exact owner facts with no materialization or cold revalidation",
+          "coordinateSite": 1205,
+          "change": "Same shared retainedOwnedPrefix correction; preserve the actual authenticator, explicit lower assembly/publication premises, role/stage/environment checks, foreign-author refusal and work comparisons."
+        }
+      ],
+      "triggerProbability": "Certain mismatch for these exact historical inputs if reached; an earlier lawful refusal could stop first.",
+      "harm": "Four additional historical semantic/classification/cut/work claims remain unproved and would be blocked at cold acquisition. No current-profile fixture or Product defect is established.",
+      "failClosed": "Existing cold-owner authentication refuses rather than restamping/reclassifying historical rows.",
+      "smallestRepair": "Destructure the already available baseline at these three input sites and reuse A7 retainedProfile(resources,baseline,events). Replace only the wrong profile source. Keep actual device/inode, per-cut length/hash, eventLogRef, coordinateDigest and every classification, pair/orphan/foreign/missing, prefix, semantic/authentication and work/refusal assertion. No new helper or profile algorithm; no edits to current-profile fixtures.",
+      "repairCost": "Low: three coordinate sites within the already changed test file, shared helper unchanged. Four affected cases plus retained first-two evidence define the bounded historical cone.",
+      "regressionRisk": "Low for exact input selection; changing expected outcomes, counts or guard behavior would invalidate this plan.",
+      "confidence": "High for full same-file consumer closure: the file contains exactly these three remaining ROOT_EVENT_CONTRACT_DIGEST sites, and consolidationInputs/retainedOwnedPrefix call sites were checked."
+    }
+  ],
+  "scopeClosure": {
+    "includedFiles": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+    ],
+    "unchangedSeams": [
+      "privateOwner harness remains unchanged.",
+      "release-acceptance tests override close on commitReleaseArtifact/tappedOwner, which are different unchanged close-consumer seams.",
+      "t291-m6-admission-refusal-surface supplies an acquisition refusal before an acquired resource/callable exists; it never reaches completion.",
+      "Other private project-read usages expose schemas/output projections, not the runReadKernel acquisition fixture."
+    ],
+    "excluded": [
+      "Product/resource/event/contract/schema owner changes",
+      "general test audit or Runtime redesign",
+      "current-profile fixture changes",
+      "new generic helper/cache/mock protocol",
+      "cleanup, Git/provider/cut/install effects"
+    ]
+  },
+  "workDecisionGap": {
+    "evidence": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc8-reference-preservation/qualification-scratch/rc8-reference-preservation-01/author-07/HANDOFF.md",
+      "bytes": 4601,
+      "sha256": "639d4f532d973e8f4f3e399fa419bb442f9ab0c7a18821e36926d56ed705e3b6"
+    },
+    "location": "HANDOFF.md:64-76",
+    "assessment": "The earlier two-case selection was too narrow for full-file closure of the shared historical-input cause. A7 Worker accurately reported the three remaining sites/four cases and correctly did not exceed its grant. The earlier independent satisfied result is valid only for its explicit two-case claim; it did not complete the full affected cone. Root acknowledges that work-selection gap. This capsule names the remaining cone rather than hiding the residual or attributing unauthorized-work omission to the Worker.",
+    "preservation": "Keep HIST-001, A7’s two-case passing evidence/review, its explicit handoff, execution010 red, and the separate GC03 disposition unchanged. No full-file or broad credit is backdated."
+  },
+  "proposedIncrement": {
+    "classification": "Bounded test-only fixture maintenance under existing accepted HOW; no Product or requirement change.",
+    "scope": "Exactly the two listed test files, one resource seam and three historical-coordinate sites. No source authoring is performed by Reviewer.",
+    "minimalProof": [
+      "Run the full installed-product-coordinate file: four Run authority cases, six read-coordinate cases and one release fold (11 cases), with all original assertions preserved.",
+      "Run the four named affected consolidation cases on the exact proof-10 records/log; reuse unchanged A7 first-two evidence while retaining distinct execution identities.",
+      "If whole consolidation-file/broad credit is sought, execute its full file including single-address-space proof records every measured case; filtered passes alone supply no such credit.",
+      "Freeze successor, verify no other selected source/compiled/archive/manifest change, and obtain narrow independent frozen-delta review. Any new actual failure returns to Root; do not extend into a repair loop."
+    ],
+    "limits": "No repaired proof is claimed here. Operator/Root owns actual native author return, close/readbacks and broader continuation."
+  },
+  "proofPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_010.json",
+      "bytes": 10716,
+      "sha256": "5c1ceb68316e0704d5ca17b49ac56aeeb424bc4941ee48638d961f65ce046313"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-010/files/097-t287-installed-product-coordinate.json",
+      "bytes": 1182,
+      "sha256": "57c17c8dec7fa050315409885f3880f55c69f58567e89e5ee02e94eef3eba84e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-010/commands/097-t287-installed-product-coordinate.result.json",
+      "bytes": 1510,
+      "sha256": "c7a0db42b7f0e5a6b240a1582ee6549266ec3799c69e0a9af13b1c37f56552c2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-010/commands/097-t287-installed-product-coordinate.stdout",
+      "bytes": 6333,
+      "sha256": "928f2737c09d38b9bb113091163b5cde6e1da828f3605723c7c7b713888b1d89"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-010/events/097-t287-installed-product-coordinate.jsonl",
+      "bytes": 13207,
+      "sha256": "e1e0234ccfd0a2afdda3e3eec4115eb8efaabc66e5cd6505a14133bd4a3fba9f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/historical-oracles-001/REVIEW.json",
+      "bytes": 26530,
+      "sha256": "ddd9a106b33dd0ea9588fda3de271525b13963f153eb42352f68c576d8d09f12"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews/test-fixture-007/REVIEW.json",
+      "bytes": 16105,
+      "sha256": "2395b5c86b9bb73927dc4e6cfdfe778f47f81732e87b819953a35ea83db99700"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-07/proof-evidence/lane-01/RESULT.json",
+      "bytes": 1858,
+      "sha256": "13c7cb1a5c87f7c28e7c6c929fe1441cab01dcfa11aabb005280bab5faaf2da5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/EXTERNAL_READ_RESOURCES.json",
+      "bytes": 6147,
+      "sha256": "04717c70bce900fc75b84210d6af149c705fa9358808e0fd46f1250858009cee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10/MEASURED_BASELINE.json",
+      "bytes": 5575,
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+    }
+  ],
+  "uncertainty": [
+    "The four remaining historical cases are source-predicted failures, not executed observations. Their post-fixture semantic/work results are unknown.",
+    "The masked first completion/currentness exception is inferred from source; only closeDurableLog masking is in raw output.",
+    "No evidence from this review establishes current physical resource close or full installed read execution; those are deliberately outside the component fixture claim."
+  ],
+  "invalidation": [
+    "Changed frozen source or exact historical inputs.",
+    "Changing the test claim from explicit component premises to real resource lifecycle proof.",
+    "A successor modifies assertions, owner algorithms or scope beyond these two files."
+  ],
+  "effects": {
+    "writes": [
+      "REVIEW.json",
+      "README.md"
+    ],
+    "testsRun": 0,
+    "productCalls": 0,
+    "sourceOrGitEffects": 0,
+    "providerCalls": 0
+  },
+  "returnTo": "/root Executive for selection/disposition"
+}

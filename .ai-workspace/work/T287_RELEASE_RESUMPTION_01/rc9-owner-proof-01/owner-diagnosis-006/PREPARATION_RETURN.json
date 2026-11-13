@@ -1,0 +1,65 @@
+{
+  "ProductFrame": "Same ABIogenesis Product/STDO3.0.4 and unchanged BUILT003. External diagnostic controls only; Root retains all acceptance.",
+  "status": "HELD_READY_FOR_ROOT_CONTROL_REVIEW",
+  "files": {
+    "run-owner-diagnosis-006.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/run-owner-diagnosis-006.mjs",
+      "bytes": 21180,
+      "sha256": "0e715fb99e8ed20b490ed6d7b8340f7abea801f4ded55dd17bf8020b32f89b05"
+    },
+    "file-host-006.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/file-host-006.mjs",
+      "bytes": 3665,
+      "sha256": "09a57a62ce0edbb533b3bd5b238c3c27a9256e74aa6825259908b8e9a8b99134"
+    },
+    "phase-tail-006.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/phase-tail-006.mjs",
+      "bytes": 3049,
+      "sha256": "f869ff9d3a9094b774df9066cd8fd646eac88ba1dd9ee92d242c0ae99aa5ec99"
+    },
+    "BINDING.HELD.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/BINDING.HELD.json",
+      "bytes": 23013,
+      "sha256": "1bf1cc9ef37d9eada46666c898da7906ba8575118fcd1707e5bf40a075296caa"
+    },
+    "CONTROL_DIFF.patch": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/CONTROL_DIFF.patch",
+      "bytes": 34661,
+      "sha256": "47952a45343dafa564356c5b7a143d62b97a500985ab7ae5f9e08b7fee6f8f70"
+    },
+    "OWN004_OWNERSHIP_CHECK.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/OWN004_OWNERSHIP_CHECK.json",
+      "bytes": 4974,
+      "sha256": "8e9a16f6dfda939d0ee6df2d1062670f357d2f1d4c648980616e0d2af5b97528"
+    },
+    "PREPARATION_ADMISSION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/PREPARATION_ADMISSION.json",
+      "bytes": 1169,
+      "sha256": "0b0178d659d75d1b9baad7ed8cdf77d377593cbc7b446f7928e6588b2e5d4afc"
+    }
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/PREPARATION_CHECKS_FINAL.json",
+    "bytes": 1024,
+    "sha256": "6489293863dd550708de508289c0a5d61fbceaee40a58be1ac3c1f2f8c355233"
+  },
+  "minimalChanges": [
+    "Explicit test-command CPU profile flags at10000us; NODE_OPTIONS reporter setup unchanged except destination",
+    "Successor existing file-host monitors64MiB profile bytes and final close; bounded profile reads preserve missing/invalid/truncated/over-cap status",
+    "Existing ancestry probe gains cumulative CPU and PID/start identity at10s; profiles require observed test runner and unique direct isolated-test-child correspondence",
+    "One read-only external phase helper at300s with10s/1MiB limit, complete newline physical envelope metadata only",
+    "Original Node test verdict and final OWN diagnostic gates preserved; CPU diagnosis completeness recorded separately"
+  ],
+  "existingEffects": "Normal unchanged disposable fixture pack/install/content mutation/after-hooks remain authorized; no independent packaging/rebuild.",
+  "firstCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-diagnosis-006/run-owner-diagnosis-006.mjs",
+    "<status-only BOUND binding>",
+    "<actual SHA>",
+    "<Root execution admission>",
+    "<actual SHA>"
+  ],
+  "remainingActualFields": "Root execution admission and status-only bound binding; former OWN004 ownership prerequisite is concrete. Future execution receipts/PIDs/profiles are not invented.",
+  "execution": false,
+  "limits": "Inner500s/outer600s,8GiBheap,16MiB command output,4GiB free/owned.64MiB profile collection read cap; producer disk monitor is operational and may overshoot. No quiet-host claim or automatic retry. Prior unit/M5/OWN004 and remainder/bootstrap/broad/cut standing unchanged."
+}

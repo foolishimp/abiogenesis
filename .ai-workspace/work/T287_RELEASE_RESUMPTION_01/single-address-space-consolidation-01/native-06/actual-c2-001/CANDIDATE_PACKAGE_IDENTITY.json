@@ -1,0 +1,15 @@
+{
+  "kind": "actual_c2_npm_pack_producer_identity",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/a47c7a3b4cebaa43a3f165d7bd4cdab169a494dcbef990570696780f91897fbc",
+  "commandId": "command://abiogenesis/single-address-space/native-06/pack",
+  "commandExitStatus": 0,
+  "stdoutDigest": "sha256:9b892c41126234165195d628b0d095c60bc959b683808a60faeeb4a8cfb75d52",
+  "relativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+  "filename": "abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+  "bytes": 11003160,
+  "unpackedBytes": 71767759,
+  "integrity": "sha512-brBeDiZdepxOza+Jm5MiQBGggpc/DtEieOE5+jUw2xnkaCxTN2UhT+dggwPsoRrCAI1t9G2VpvlLiR8rFZ5zgA==",
+  "shasum": "1bac2b7aea915849664585eb42cc4602bafe52bb",
+  "entryCount": 5325,
+  "standing": "Identity from actual command-5 npm output; the archive may have been removed by subsequent fixture cleanup. Not a release."
+}

@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement-after-003.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/measurement-after-003.test.mjs",
+        "bytes": 24053,
+        "sha256": "c0d82450e6668764b6f619f9a0104347890302636aebc088377269bc81941658"
+      }
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement-after-003.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "subject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-measurement-01/run-measurement-after-003.mjs",
+        "bytes": 7288,
+        "sha256": "9dcfa7cc21497571cb5a4bcc181b5bc107b97568f395c3103dae2195d12b12a9"
+      }
+    }
+  ],
+  "executionPerformed": false,
+  "inverseRestoration": {
+    "fixturePreimageSha256": "4e1f72c4df690c242fc4775dd74ec5157e18e4851f8ad210dfd98a597124f9b7",
+    "wrapperPreimageSha256": "d8aacc1ee82a3c8914171e19a4ae8fdab5a922ef65dc35328106105c8695aa03",
+    "allOtherFixtureBytesConserved": true,
+    "allOtherWrapperBytesConserved": true
+  }
+}

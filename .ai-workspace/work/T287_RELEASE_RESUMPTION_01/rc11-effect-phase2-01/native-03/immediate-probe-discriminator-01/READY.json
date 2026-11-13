@@ -1,0 +1,76 @@
+{
+  "status": "READY_EXECUTION_HELD",
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/ROOT_SCOPE.json",
+    "bytes": 1678,
+    "sha256": "b49d21a7dc5c61fcc4c010f213c19d126c285bf47939b6824b2fd5f231a4d7c8"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/BINDING.json",
+    "bytes": 15037,
+    "sha256": "8b0acb78bcefdb1730856977a812de0568d70d37e5e4c0a937db7125f1268951"
+  },
+  "fixture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/immediate-probe.mjs",
+    "bytes": 5496,
+    "sha256": "0b618f9f7a8339db87ed72d9e7ee5e9813c53cebd2e8570ad7eaeb2465679ff0"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/run.py",
+    "bytes": 6076,
+    "sha256": "fc5046716566405fb5e35f7c0997c81dd2328d02cabb99ca9d94462ffd8f9e09"
+  },
+  "inputRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/INPUT_RELATION.json",
+    "bytes": 3074,
+    "sha256": "b73ef7929b08bc550bde0b642abc3780ba3a6e40eca376187afb70306b08e386"
+  },
+  "fixtureDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/FIXTURE_DELTA.diff",
+    "bytes": 10645,
+    "sha256": "3856877648f97d86a7894837e823e1ff32c2f19ef6526e8518cd266b66c22a72"
+  },
+  "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+  "sourceRows": 1345,
+  "compiledRows": 582,
+  "sequence": [
+    "baseline",
+    "candidate"
+  ],
+  "commands": [
+    [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/immediate-probe.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/BINDING.json",
+      "8b0acb78bcefdb1730856977a812de0568d70d37e5e4c0a937db7125f1268951",
+      "baseline"
+    ],
+    [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/immediate-probe.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/BINDING.json",
+      "8b0acb78bcefdb1730856977a812de0568d70d37e5e4c0a937db7125f1268951",
+      "candidate"
+    ]
+  ],
+  "launchArgv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/run.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/BINDING.json",
+    "8b0acb78bcefdb1730856977a812de0568d70d37e5e4c0a937db7125f1268951",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/ROOT_EXECUTION_ADMISSION.json",
+    "<Root admission SHA256>"
+  ],
+  "admissionStatus": "ROOT_ADMITTED_PHASE2_A_IMMEDIATE_PROBE",
+  "limits": {
+    "commandSeconds": 10,
+    "campaignSeconds": 30,
+    "outputBytes": 1048576
+  },
+  "staticChecks": {
+    "nodeSyntaxExit": 0,
+    "pythonAstParse": "passed",
+    "sourceFrozenLiveCompiledAndProtections": "passed"
+  },
+  "standing": "No execution. Root admission required. Current candidate and historical failures preserved; three-member external proof still held."
+}

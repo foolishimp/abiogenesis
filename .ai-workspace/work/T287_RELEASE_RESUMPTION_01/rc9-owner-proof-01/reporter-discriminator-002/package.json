@@ -1,0 +1,9 @@
+{
+  "name": "rc9-control-reporter-discriminator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:unit": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/control-reporter.test.mjs"
+  }
+}

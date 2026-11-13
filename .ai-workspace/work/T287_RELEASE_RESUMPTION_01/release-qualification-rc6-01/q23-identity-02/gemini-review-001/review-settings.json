@@ -1,0 +1,53 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal",
+      "enforcedType": "oauth-personal",
+      "useExternal": false
+    }
+  },
+  "general": {
+    "plan": {
+      "enabled": false,
+      "modelRouting": false
+    }
+  },
+  "model": {
+    "name": "gemini-3.1-pro-preview",
+    "maxSessionTurns": 32
+  },
+  "modelConfigs": {
+    "customOverrides": [
+      {
+        "match": {
+          "model": "gemini-3.1-pro-preview"
+        },
+        "modelConfig": {
+          "generateContentConfig": {
+            "thinkingConfig": {
+              "thinkingLevel": "HIGH",
+              "includeThoughts": false
+            }
+          }
+        }
+      }
+    ]
+  },
+  "tools": {
+    "core": [
+      "read_file",
+      "list_directory",
+      "glob",
+      "grep_search"
+    ],
+    "allowed": []
+  },
+  "hooksConfig": {
+    "enabled": false
+  },
+  "mcpServers": {},
+  "telemetry": {
+    "enabled": false,
+    "logPrompts": false
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "RC10-MEASURE-REPAIRED-02",
+  "status": "ROOT_ADMITTED_RC10_FROZEN_RETENTION_MEASUREMENT",
+  "owner": "/root Executive",
+  "recordedUtc": "2026-11-09T04:34:51.081513+00:00",
+  "bindingSha256": "a162b004989be8c39a591c7a002268b663d9408bd9ca5621bac27a4c09ea7805",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/measurement.test.mjs",
+      "bytes": 19969,
+      "sha256": "14a1e88e9d3e62faab83b78b87f1a4074c9648fbeba47aab1a32d2f672dba532"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/run-measurement.mjs",
+      "bytes": 6877,
+      "sha256": "cbf6e18c4bc639a9e9186ce142dcbace52e8a3ad1f72919a8584ea1336bece75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 2891,
+      "sha256": "4fee5659101505a05b23efce242369730e09cf951b61ce870a56c437fdae2367"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/artifact-02/ARCHIVE_INSTALL_EQUALITY.json",
+      "bytes": 2344,
+      "sha256": "a06d6baf301dcae910f5d32d3cb8859b7dac9dabf4ad203370bed660cc47afdd"
+    }
+  ],
+  "preExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/body-relation-03/PRE_EXECUTION.001.json",
+    "bytes": 1355,
+    "sha256": "3467b4089d3dbfedb1ade5d0a83f7b7a5b47b28286a7b8dd6a3cd475c7c38ff1"
+  },
+  "ownerInstruction": "Root admits exactly one corrected50-call measurement on bindinga162b004,archive1354b327,sourcef242bd4d and exactrelation/equality.900s/1GiB/8192MiB/16MiB/4GiBreserve/64MiBrequests/120scold unchanged. Positive owner gauges,actualadmittedID,strictidentity/zero repeatedwork; no forcedGC or actualprovider. Isolated002temp may overlap at most one unit/affected lane on verifiedcapacity. Failure returns actualcustody,no unchangedretry. Finalreleaseacceptance held.",
+  "bounds": {
+    "hostMs": 900000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "rawCliRequestBytes": 67108864,
+    "nodeHeapMiB": 8192,
+    "coldReadMs": 120000,
+    "actorInactivityMs": 30000,
+    "actorAbsoluteMs": 60000,
+    "reserveBytes": 4294967296
+  },
+  "providerCallsSelected": 0,
+  "noAutomaticRetry": true
+}

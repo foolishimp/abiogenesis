@@ -1,0 +1,27 @@
+{
+  "original": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "bytes": 114763,
+    "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+  },
+  "derivative": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/test_env/tests/m5-worker-transport.diagnostic.test.mjs",
+    "bytes": 119045,
+    "sha256": "1689fd2efd3cea789ad33bdb465e2713380f6ee108dc8555dea8ff1cdb8424a2"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/diagnostic-01/SOURCE_TRANSFORM.diff",
+    "bytes": 5419,
+    "sha256": "e867d5b7afbcd6502198436025b66345d7b4f06af788898d947e56c0b7fa0d40"
+  },
+  "exactChanges": [
+    "Rename one imported runWorkerTransport binding to originalRunWorkerTransport.",
+    "Insert one diagnostic wrapper before the unchanged test/helper body."
+  ],
+  "allOriginalTestBodyBytesPreserved": true,
+  "readonlyLinks": {
+    "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/build": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/build",
+    "/private/tmp/abg-rc11-proof-20261109-01/diagnostic-01/test_env/support": "/private/tmp/abg-rc11-proof-20261109-01/work/build_tenants/abiogenesis/typescript/test_env/support"
+  },
+  "semantics": "Delegate once, preserve original callback receiver/return/thrown Error, no classifier/native-supervision callbacks, no timer/script/assertion change; after-return artifact capture only. Diagnostic observer overhead remains an intervention, not baseline proof."
+}

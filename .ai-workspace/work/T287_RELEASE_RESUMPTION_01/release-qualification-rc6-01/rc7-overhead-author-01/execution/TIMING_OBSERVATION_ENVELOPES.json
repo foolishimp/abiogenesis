@@ -1,0 +1,187 @@
+{
+  "kind": "incremental_physical_envelope_metadata_timing_observation",
+  "activation": "rc7-overhead-author-01",
+  "startedUtc": "2026-11-06T03:45:31.170Z",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/events/runtime.events.jsonl",
+  "fromByte": 1057950101,
+  "throughCompleteByte": 1178736411,
+  "counts": {
+    "public_operation_admitted": {
+      "rows": 1,
+      "physicalBytes": 4271
+    },
+    "invocation_admitted": {
+      "rows": 1,
+      "physicalBytes": 10162
+    },
+    "implementation_admitted": {
+      "rows": 1,
+      "physicalBytes": 6257
+    },
+    "basis_admitted": {
+      "rows": 1,
+      "physicalBytes": 16037657
+    },
+    "run_segment_opened": {
+      "rows": 1,
+      "physicalBytes": 2342
+    },
+    "graph_call_opened": {
+      "rows": 1,
+      "physicalBytes": 2251
+    },
+    "frame_opened": {
+      "rows": 1,
+      "physicalBytes": 2529
+    },
+    "runtime_activity_probe_observed": {
+      "rows": 6579,
+      "physicalBytes": 27615301
+    },
+    "traversal_cursor_entered": {
+      "rows": 1,
+      "physicalBytes": 3059
+    },
+    "c_call_opened": {
+      "rows": 1,
+      "physicalBytes": 2569
+    },
+    "c_call_fibre_selected": {
+      "rows": 1,
+      "physicalBytes": 2194
+    },
+    "actor_transport_binding_admitted": {
+      "rows": 1,
+      "physicalBytes": 16140800
+    },
+    "actor_invocation_started": {
+      "rows": 1,
+      "physicalBytes": 2536
+    },
+    "actor_process_started": {
+      "rows": 1,
+      "physicalBytes": 1822
+    },
+    "actor_process_stdout_observed": {
+      "rows": 6588,
+      "physicalBytes": 12167361
+    },
+    "actor_process_exited": {
+      "rows": 1,
+      "physicalBytes": 1737
+    },
+    "actor_result_artifact_observed": {
+      "rows": 1,
+      "physicalBytes": 36996
+    },
+    "actor_invocation_closed": {
+      "rows": 1,
+      "physicalBytes": 575620
+    },
+    "c_call_evidenced": {
+      "rows": 1,
+      "physicalBytes": 6566
+    },
+    "c_call_result_admitted": {
+      "rows": 1,
+      "physicalBytes": 48152636
+    },
+    "c_call_judged": {
+      "rows": 1,
+      "physicalBytes": 2169
+    },
+    "traversal_route_admitted": {
+      "rows": 1,
+      "physicalBytes": 2674
+    },
+    "terminal_reached": {
+      "rows": 1,
+      "physicalBytes": 2156
+    },
+    "frame_closed": {
+      "rows": 1,
+      "physicalBytes": 1641
+    },
+    "graph_call_closed": {
+      "rows": 1,
+      "physicalBytes": 1557
+    },
+    "run_closed": {
+      "rows": 1,
+      "physicalBytes": 1447
+    }
+  },
+  "processes": [
+    {
+      "kind": "actor_process_started",
+      "admissionOrdinal": 175744,
+      "eventId": "event://abiogenesis/1b9164c58cef9c5e7c5c13e10c17644e9547ec6b3824c962a5311af746d240a0",
+      "eventTime": "2026-11-06T03:46:42.021Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632",
+      "offset": 1090174079,
+      "rowBytes": 1822,
+      "rowSha256": "67d30d7719c1e0e4f5d770e19f45a985ba1621d463ae10c441d49b77b3fe1a62",
+      "processRef": "process://abiogenesis/ee69f56adca4fd6f291f81e2b05ccb7c92696fd7c2eeb0a7a4f152fdfed6e76e",
+      "pid": 3109
+    },
+    {
+      "kind": "actor_process_exited",
+      "admissionOrdinal": 188903,
+      "eventId": "event://abiogenesis/a3ce2bf98a9d557085004e99cc853bff5491da40a55ad48729f5b863dcc5430f",
+      "eventTime": "2026-11-06T04:21:04.675Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632",
+      "offset": 1129924459,
+      "rowBytes": 1737,
+      "rowSha256": "84283da1f1e1cfbc7f0c5a0a045789278100b1ac0b09c4b7d6ec41ac054a94e0",
+      "processRef": "process://abiogenesis/ee69f56adca4fd6f291f81e2b05ccb7c92696fd7c2eeb0a7a4f152fdfed6e76e",
+      "pid": null
+    }
+  ],
+  "results": [
+    {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 188910,
+      "eventId": "event://abiogenesis/fcebde3f75af37690feb5b8e2e21d3c31a1783aff3f60ae212f410c89396ded3",
+      "eventTime": "2026-11-06T04:21:05.294Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "runId": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632",
+      "offset": 1130557143,
+      "rowBytes": 48152636,
+      "rowSha256": "f41bf60acb04ca7cf46acf0152393ad86b8b76e8fc8188f52447e23e2fe21d38",
+      "resultRef": "result://abiogenesis/29ce05da44ebff17763c6a567fd274001a42f59b23d3a50f76573d1603514f7b",
+      "valueKind": "native_workspace_work_observation"
+    }
+  ],
+  "setupReused": true,
+  "sdkSetupMs": null,
+  "artifactVerificationMs": null,
+  "setupProcessEndedUtc": null,
+  "limits": [
+    "Incremental physical envelope metadata, not runtime admission or acceptance.",
+    "No raw provider thinking/text/tool-result/stdout is output or inspected for semantic content.",
+    "Wall intervals are not CPU attribution or matched causal speedup.",
+    "Setup-to-dispatch includes separate Root audit/control/preflight time, not between-task runtime latency."
+  ],
+  "throughOrdinal": 188920,
+  "latestEventTime": "2026-11-06T04:21:16.438Z",
+  "setupToDispatchOperatorPreparationMs": null,
+  "rootBetweenActivationMs": null,
+  "dispatchToInitialSelectorProcessMs": null,
+  "dispatchToNativeWorkerProcessMs": 70851.0,
+  "dispatchToC2ProcessMs": null,
+  "nativeResultToC2ProcessMs": null,
+  "recordedUtc": "2026-11-06T04:22:16.161441+00:00",
+  "outcomeReturned": true,
+  "closed": true,
+  "outcome": {
+    "outcomeKind": "result",
+    "disposition": "completed",
+    "run": {
+      "digest": "sha256:a897a4ea6d2a0310630a24bbe3cee4f486cf90767aadf3c7a9208fe53fa377fa",
+      "ref": "run://abiogenesis/aa4f3b6999da97e6a606176d600744d64808bddb3b6348c280901834164b4632"
+    },
+    "qualified": false
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "label": "010-generic-input-retention.test",
+  "started": "2026-11-13T10:14:39.973144+00:00",
+  "ended": "2026-11-13T10:14:41.215849+00:00",
+  "wallMs": 1243,
+  "exitCode": 0,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/010-generic-input-retention.test/stdout.raw",
+      "bytes": 1692,
+      "sha256": "e7b439bbca38c760d4ae4f70e61b1d320f636dca5b2a27c237f1a6d9576ab8d3"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-04/010-generic-input-retention.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 1,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "completed"
+}

@@ -1,0 +1,42 @@
+{
+  "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "testSha256": "845f678ae01f67143f16350b7e4dc930aec1bd51b49460526f50c67c81a35fac",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Root causal review w2-05-owner-chain-021 pending after actual021 source-regex assertion red. Temporary scheduling only; zero new pass/whole credit, no final no-block or repair disposition.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_021.json",
+        "bytes": 21168,
+        "sha256": "62485a91481e52839143f5d55aff02f79978542436626911076fa601b5760682"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/files/186-t287-w2-05-install-catalog-owner-chain.json",
+        "bytes": 1188,
+        "sha256": "3cfcf288d1b7ffe5fa2d6fc145cf43fd93e343505fb2f7f29892cbcd50b86a0f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/commands/186-t287-w2-05-install-catalog-owner-chain.result.json",
+        "bytes": 1520,
+        "sha256": "6c0c3a271f5bef767e59601ae0ea2a4413c64b21701e690d29bb6dd2f7a554ea"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/commands/186-t287-w2-05-install-catalog-owner-chain.stdout",
+        "bytes": 20609,
+        "sha256": "0549bd08f7c01ce0a7517dc55d7434354cec75f41a99f495e0c01986b2172aff"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/events/186-t287-w2-05-install-catalog-owner-chain.jsonl",
+        "bytes": 1676,
+        "sha256": "6a44313c85c2bcdb54aa109cbd26927b4a25259e13bdb45b8d382b1d56a99926"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-021/FAILURE.json",
+        "bytes": 619,
+        "sha256": "ba00bbd1f301d16e5982a21c43e9f45b5327c5d0d2f46aefad8b02b93d1a359f"
+      }
+    ]
+  }
+}

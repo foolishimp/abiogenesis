@@ -1,0 +1,46 @@
+{
+  "lint": {
+    "files": [
+      {
+        "path": "test_env/support/root-installed-environment.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/language-structural/leaf.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-current-owner-evidence.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-selected-action-authority.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "package.json",
+        "kind": "json"
+      },
+      {
+        "path": "package-lock.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/t287-current-owner/native-assessment/fixture.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/t287-current-owner/selected-action/fixture.json",
+        "kind": "json"
+      }
+    ]
+  }
+}

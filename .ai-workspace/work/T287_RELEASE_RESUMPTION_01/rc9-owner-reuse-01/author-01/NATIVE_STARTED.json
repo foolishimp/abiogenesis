@@ -1,0 +1,53 @@
+{
+  "status": "ACTUAL_NATIVE_ACTOR_START_OBSERVED",
+  "recordedAt": "2026-11-08T06:28:46.507410+00:00",
+  "sessionId": 6081,
+  "hostPid": 45470,
+  "logPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/events/runtime.events.jsonl",
+  "observedLogBytes": 18948614,
+  "events": [
+    {
+      "kind": "actor_invocation_started",
+      "ordinal": 17,
+      "eventTime": "2026-11-08T06:28:06.675Z",
+      "eventId": "event://abiogenesis/22eaf50156bffc99eb9b60e8f9c53391ee1f7afbca1f44bbcb9a566ef2f5b820",
+      "runId": "run://abiogenesis/f7b6fac18ceb4d4fa52502680b99bb7b8799cbc1e94721243b52576b19b78a51",
+      "payload": {
+        "actorRef": "actor://abiogenesis/worksite/native-work@5",
+        "workerBindingRef": "worker-binding://abiogenesis/worksite/native-work@5"
+      },
+      "payloadKeys": [
+        "actorInvocationRef",
+        "actorRef",
+        "cCallRef",
+        "dispatchOrdinal",
+        "implementationRef",
+        "inputDigest",
+        "promptDigest",
+        "requestDigest",
+        "requestRef",
+        "transportBindingDigest",
+        "transportBindingRef",
+        "workerBindingRef"
+      ]
+    },
+    {
+      "kind": "actor_process_started",
+      "ordinal": 18,
+      "eventTime": "2026-11-08T06:28:06.686Z",
+      "eventId": "event://abiogenesis/2edccecd9a81edf5f584a0d218d493ca37c72086f980be9aca99123c1c856844",
+      "runId": "run://abiogenesis/f7b6fac18ceb4d4fa52502680b99bb7b8799cbc1e94721243b52576b19b78a51",
+      "payload": {
+        "processId": 47322,
+        "processRef": "process://abiogenesis/a7f24eadb1e8450e599c5c3d2bcba41811681f454c358ed111346fcbbdbceea9"
+      },
+      "payloadKeys": [
+        "actorInvocationRef",
+        "cCallRef",
+        "processId",
+        "processRef"
+      ]
+    }
+  ],
+  "observationLimit": "Physical admitted-log observation; no terminal completion or qualification claim."
+}

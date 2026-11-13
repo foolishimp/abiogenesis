@@ -1,0 +1,188 @@
+{
+  "recordedUtc": "2026-11-03T23:45:02.832466+00:00",
+  "kind": "independent_prospective_native06_draft_control_review",
+  "productFrame": {
+    "product": "ABIogenesis5, fixed fifteen families F01-F07/F09-F11/F13-F17",
+    "authority": "GOAL-035 / T-287 / original complete R1-R7 and C1-C5",
+    "method": "Exact installed STDO3.0.4 stdo-review; reused Product/GOALS/reviewer frame",
+    "sourceDefinition": "STDO3.0.4",
+    "builderRuntime": "Immutable installed RC5 under STDO3.0.4; no new release selected",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "boundary": "Prospective operator generator and C2 aggregate semantics only; no execution or admission",
+    "owner": "Root alone finalizes conjunction/budgets/dependencies, verifies installed preflight and admits; nonauthor same-family reviewer independence limit retained"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/SUBJECT.json",
+    "bytes": 2855,
+    "sha256": "3cca100b044491d9fd8cb3d9d2f1590d5738549982d8ec7d5e4cefe87d1be050"
+  },
+  "frozenFiles": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-06.py",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/prepare-native-06.py",
+      "bytes": 18500,
+      "sha256": "26e192f750310a018c1c78670e1848a170ef7a83dd84a716fc30edc9eaaf9fac"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-c2-proof-template.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/native06-c2-proof-template.mjs",
+      "bytes": 4410,
+      "sha256": "3e37afc1a9b0a35a40e6fed05a4f5521b95f5725f21c13a2bdfbcaa6b4aab191"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/c2-proof.mjs",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/native05-c2-proof.mjs",
+      "bytes": 3427,
+      "sha256": "1b3cbcbcd2f146bde3912c544bacf28bba0f507bbffdd7310e8a7405f2b5f902"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/NATIVE06_PREPARATION_PLAN.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/NATIVE06_PREPARATION_PLAN.json",
+      "bytes": 7023,
+      "sha256": "8491bf2163fe51a4fde4f38e5e8c81e3f6371964ef7df1a7646ef4d3ed8784fe"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/REPLAY_LANE_BUDGET_OBSERVATION_001.json",
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-review-001/REPLAY_LANE_BUDGET_OBSERVATION_001.json",
+      "bytes": 1457,
+      "sha256": "68088df6ce0965524fd2a7bcb63a3da3ca0bca24d9138a05c696ec1d1dc9de86"
+    }
+  ],
+  "allFiveHashesVerified": true,
+  "refinementSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-refinement-001/SUBJECT.json",
+    "bytes": 953,
+    "sha256": "faa82859205538cf964e2a6496ca931eea36e61e79863d64f0e7fdaf65a5a003"
+  },
+  "refinementTemplate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-c2-proof-template.mjs",
+    "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-refinement-001/native06-c2-proof-template.mjs",
+    "bytes": 4414,
+    "sha256": "97630dbbdfa0b61f40f7375b3ce8ac6ea82a268b394002cf5bab0c9bf9553390"
+  },
+  "verdict": {
+    "originalDraft": "One concrete aggregate minimum-predicate counterexample, N6-CTRL-01",
+    "withExactRefinement": "satisfied_for_bounded_draft_operator_control_claim; no remaining material counterexample found",
+    "readinessAdmissionAcceptance": "Not assessed or granted"
+  },
+  "findings": [
+    {
+      "id": "N6-CTRL-01",
+      "severity": "S2",
+      "domain": "Operator proof aggregate predicate equivalence",
+      "title": "Inverted minimum comparison admits an absent/nonnumeric minimum that previously failed",
+      "originalLocation": {
+        "path": "native06-c2-proof-template.mjs",
+        "line": 37,
+        "sha256": "3e37afc1a9b0a35a40e6fed05a4f5521b95f5725f21c13a2bdfbcaa6b4aab191"
+      },
+      "priorLocation": {
+        "path": "native05-c2-proof.mjs",
+        "line": 30
+      },
+      "trigger": "Operator lane metadata omits minimumPasses or contains a nonnumeric value; child otherwise exits0 with integer pass and fail0, required skips0, and whole-path artifact retained.",
+      "staticCounterexample": "For a safe-integer pass value, pass < undefined/NaN is false, so the original new-template unmet branch is skipped. The old pass >= undefined/NaN acceptance is false and its assertion fails. New wrapper could therefore emit SELECTED_C2_LANES_COMPLETED and exit0 on metadata the old wrapper rejected. No execution/mutant was run.",
+      "impact": "A concrete operator omission could suppress an unmet minimum-pass predicate; this is not a Product runtime defect or a finding that future final controls are absent.",
+      "boundedRepair": "Retain positive pass>=minimumPasses acceptance under negation, alongside safe-integer pass guard. No new schema, generic validator or trust layer.",
+      "cost": "One predicate/line; no Product/test change.",
+      "rootDisposition": "Accepted and repaired in separately frozen refinement; original subject/preimage preserved.",
+      "refinementSubject": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-refinement-001/SUBJECT.json",
+        "bytes": 953,
+        "sha256": "faa82859205538cf964e2a6496ca931eea36e61e79863d64f0e7fdaf65a5a003"
+      },
+      "refinedTemplate": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-c2-proof-template.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native06-preparation-refinement-001/native06-c2-proof-template.mjs",
+        "bytes": 4414,
+        "sha256": "97630dbbdfa0b61f40f7375b3ce8ac6ea82a268b394002cf5bab0c9bf9553390"
+      },
+      "verifiedExactDelta": "Only !Number.isSafeInteger(row.pass)||row.pass<lane.minimumPasses -> !Number.isSafeInteger(row.pass)||!(row.pass>=lane.minimumPasses)",
+      "closedForRefinedBytes": true,
+      "confidence": "high"
+    }
+  ],
+  "openMaterialFindingsForExactRefinedClaim": [],
+  "reviewRows": [
+    {
+      "id": "aggregate-failure-retention",
+      "status": "satisfied_after_exact_refinement",
+      "locations": [
+        "native06-c2-proof-template.mjs18-43,45-70"
+      ],
+      "judgment": "Independent lane child failures/signals/errors, failed/absent fail tally, missing/insufficient pass minimum, required skips and invalid/missing whole-path artifact append failures while later independent lanes continue. Refined minimum predicate preserves old acceptance. Final report selects FAILED and final assert exits nonzero whenever failures exist. No proof/artifact can green a failed lane.",
+      "limits": "Unexpected orchestration/retention I/O exceptions still fail closed; they do not generate false completed evidence. Review does not promise persistence after impossible filesystem failure or certify future manifest dependencies."
+    },
+    {
+      "id": "proof-artifact-custody",
+      "status": "satisfied_bounded_static",
+      "locations": [
+        "native06-c2-proof-template.mjs45-58,61-70"
+      ],
+      "judgment": "Whole-path exact producer bytes/object are retained immediately before later fixture cleanup, hashed and marked producerLanePassed from test predicates. A partial artifact from failed tests remains diagnostic only. Artifact parse/read/write/absence failures count against whole command; missing whole-path producer also fails final aggregate.",
+      "limits": "Actual native-authored artifact semantics remain test/source-owned, not granted by wrapper presence."
+    },
+    {
+      "id": "held-source-and-genuine-close-gates",
+      "status": "satisfied_as_prospective_generator",
+      "locations": [
+        "prepare-native-06.py41-61,73-95,119-123,178-184"
+      ],
+      "judgment": "Before any new directories/writes, requires Root conjunction nextContinuationSelected, exact subject/conjunction hash, actual prior close JSON, outcome/fresh-read records, correct baseline HEAD/no staged edits, every returned source byte/hash, exact changed-path set and all three matching frozen handoffs. Requires selection06 before creating next packet. Prepares new roots only; no Product source repair, prior history mutation or provider dispatch occurs. New grant records exact source/after-observation/close/selection/conjunction pins; preflight starts from native05 close.",
+      "limits": "Final Root selection/close/budget/pin records are prerequisites, not supplied by this draft review. Their actual future contents are not certified or treated as missing findings."
+    },
+    {
+      "id": "current-controls-and-source-body-population",
+      "status": "satisfied_bounded_static",
+      "locations": [
+        "prepare-native-06.py97-123,125-166,209-255"
+      ],
+      "judgment": "Old controls remain available in the successor input directory; overwritten current controls are explicitly recreated. ReadFirst/current task and source/assessment body populations use current selection/conjunction/previous return/current closed findings plus original map/rubric/current classification/baseline. Large inventory/guide remains readable and selected without re-embedding as source bodies. Current source pins are computed after generation; overlap with granted mutable Product paths is refused.",
+      "limits": "The inherited fixed helper bodies, final source rows/capacity and installed constructor/prepared call need their own exact final binding; this review does not inspect moving helpers or infer admission."
+    },
+    {
+      "id": "finite-fixture-closure",
+      "status": "satisfied_as_selected_prospective_route",
+      "locations": [
+        "NATIVE06_PREPARATION_PLAN.json61-83",
+        "prepare-native-06.py186-208,223-257"
+      ],
+      "judgment": "Inherits prior selected inputs, unions full grant/current readFirst/Root additional reads/all lane tests, then literal import closure and explicit file-existence checks. Framework-source carry retains unchanged example-config path/digest. Plan names both omitted F09 tests and two helpers. Historical real producer fixture variables remain; only stale retry/install variables are removed for the selected genuine-current fixture migration. If tests still require them, no-skip/minimum/exit predicates must fail instead of earning credit.",
+      "limits": "Literal import closure does not discover arbitrary file reads. Exact future fixture data and dynamic dependency closure are final Root-selection/preflight obligations; not a claim that absent future generated inputs are complete."
+    },
+    {
+      "id": "budgets-and-timing",
+      "status": "honestly_deferred",
+      "locations": [
+        "REPLAY_LANE_BUDGET_OBSERVATION_001.json8-25",
+        "NATIVE06_PREPARATION_PLAN.json85-98",
+        "prepare-native-06.py79-81,208"
+      ],
+      "judgment": "Retains actual author replay duration2037167.514917ms versus prior1500000ms lane timeout and3600000ms enclosing proof command. Repricing is delegated explicitly to final Root conjunction and installed-owner budget/capacity verification. Author wall time is not misrepresented as actual C2, CPU attribution, Product regression or controlled speedup.",
+      "limits": "No current final budget or installed preflight exists in the subject; not an absence finding."
+    }
+  ],
+  "inheritedImmutableContextRead": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-05/interim-proof-review-001/references/workload-r1.json",
+    "sha256": "8f56decb001b76131ebab9dca7783e7f36853afeb7c4127c5d39959e0ee2dc0b",
+    "purpose": "Check fixed framework/authority/support fields and retained example config; no moving candidate reads"
+  },
+  "syntaxObservation": "Root reports node --check passed for the refinement; reviewer did not execute preparation, wrapper, tests or syntax check.",
+  "futureInvalidation": [
+    "Any changed template/generator/control bytes invalidate the affected reviewed delta.",
+    "Final conjunction/source pins, affected lane dependencies, budgets, exact helper copies and installed capacity/prepared call must be bound before admission.",
+    "Genuine native05 close/fresh outcomes and new Root selection are prerequisites; their later contents remain Root-owned.",
+    "Actual source/C2/UAT/fresh conjunction and N5-CODE-01/N5-PROOF-01 remain separate."
+  ],
+  "performed": {
+    "reads": "Only frozen subject/refinement and identified immutable held control evidence",
+    "executedPreparation": false,
+    "testsBuildsProviders": false,
+    "ProductTestOrControlEdits": false,
+    "outputsOnly": [
+      "NATIVE06_DRAFT_CONTROL_REVIEW.md",
+      "NATIVE06_DRAFT_CONTROL_REVIEW.json"
+    ]
+  },
+  "memoryBasis": "MEMORY.md:179-183; bounded evidence/current authority separation"
+}

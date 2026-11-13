@@ -1,0 +1,16 @@
+{
+  "name": "@abiogenesis-fixtures/registered-selection",
+  "version": "5.0.0",
+  "type": "module",
+  "exports": {
+    "./publication": "./build/publication.json"
+  },
+  "files": [
+    "build",
+    "contracts",
+    "product-toolchain-manifest.json"
+  ],
+  "dependencies": {
+    "@abiogenesis/typescript-tenant": "file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz"
+  }
+}

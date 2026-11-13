@@ -1,0 +1,45 @@
+{
+  "runId": "run://abiogenesis/d88f718098300a640406d8982a0bfd441e7eaa5a398453f683ade9e79fd62f35",
+  "continuationRef": "continuation://abiogenesis/2f7e12af92cbe1d99526ab0ddb6cd54c92cbb5378fbc0a21bf7203d082c10ca2",
+  "chain": [
+    "root",
+    "recursion",
+    "workflow"
+  ],
+  "pendingCursorRef": "traversal-cursor://abiogenesis/07084d1bf3aef37bf83fa9ebbd6682799fd711ffdb0b14baaf64f06e32b3f84a",
+  "progressedInputRef": "raw-admission://abiogenesis/1a3770b8d4007aeca363e2851db382d82d932860106b578da9640a4b489c39af",
+  "constructionResultRef": "result://abiogenesis/3cd07fdeaf4418149893fa1b998e9f4f30caf9a5bd028fd62e209d80c26b4e44",
+  "choices": [
+    "graph-function://abiogenesis/default-library/construction@5",
+    "graph-function://abiogenesis/default-library/testing@5",
+    "graph-function://abiogenesis/default-library/uat@5"
+  ],
+  "actorRoles": [
+    "select:graph-function://abiogenesis/default-library/construction@5",
+    "native",
+    "select:graph-function://abiogenesis/default-library/testing@5",
+    "c2",
+    "select:graph-function://abiogenesis/default-library/uat@5",
+    "assess"
+  ],
+  "interruption": {
+    "hook": "test-only native fsync -> owner historical decode -> first durable Testing-wrapper cursor entry",
+    "processId": 26314,
+    "signal": "SIGKILL",
+    "eventCount": 318,
+    "entered": [
+      {
+        "eventId": "event://abiogenesis/ab92d576c11f9d8a1c00556c6c68f5325da644a8a7907142beb0048cb914d633",
+        "cursorRef": "traversal-cursor://abiogenesis/07084d1bf3aef37bf83fa9ebbd6682799fd711ffdb0b14baaf64f06e32b3f84a"
+      }
+    ],
+    "openedAtInterruption": 0
+  },
+  "eventsInterrupted": 318,
+  "eventsFinal": 633,
+  "interruptedPrefixSha256": "sha256:8b97c672feba678c5e2f264d1ec6b42ccd2b9e1a69f78ed0d4a4dda5f3537ac0",
+  "finalLogSha256": "sha256:8e3783aa27c7fbab42c1c66298cebe9e68439d83f06141d6df7c68cacaa88eb4",
+  "resumeWallMs": 28709.563458999997,
+  "hostWallMs": 18034.479790999998,
+  "proofLimit": "Actual installed default-library topology, Public start and run.continue CLI, ABG/HoG/C2/worksite owners and SIGKILL interruption; the model is a scripted stand-in process. Same-Run only: no predecessor-Run R2 recovery, no live provider, no Root installed witness."
+}

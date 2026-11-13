@@ -1,0 +1,42 @@
+{
+  "status": "ROOT_ADMITTED_RC8_BROAD_CLOSE",
+  "at": "2026-11-07T11:44:30.613780+00:00",
+  "executive": "/root",
+  "writer": "/root/rc8_operator",
+  "configSha256": "97329e02bf68dfdb4a94d22bdcc85d609cc08b9f378ccadfd4e25e4a1969040d",
+  "inventorySha256": "ad2bf8ae600bbccc2d4ee0ecc99c7263c8c85b8e34624774d11ff3ef71aff230",
+  "frozenStageReceiptSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+  "preparationManifestSha256": "64ab987addce0eb2810d2bc53d746509120e13ec93dd273068d6db150c272e1a",
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/PREPARATION_MANIFEST_CORRECTED_017.json",
+    "bytes": 5184,
+    "sha256": "64ab987addce0eb2810d2bc53d746509120e13ec93dd273068d6db150c272e1a"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/close-proof.corrected-017.mjs",
+    "bytes": 33191,
+    "sha256": "e653d0d62acf2b39a5b9bcae614ca2573f9458f680dffdcb7ba7d110089ee4c0"
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/ROOT_SOURCE_ACCEPTANCE.json",
+    "bytes": 9246,
+    "sha256": "ce9fc0f0fe2b108d438f433497fbc582a70ad2bb50e974612bab65efc1ad3d57"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "rootDisposition": "Root read complete preparedreturn8d110ce0/diffe6d079d0 and admits one50-file independent remainder on immutableA6source6e86/shippedProducta178. Retain149valid whole credits812pass193historical skips, including only the two actual016whole successes. Nine scheduling deferrals receive no additional credit. All bounds/owners/source/dependency/tool/env/oracle/first-stop predicates unchanged; A11 controls may prepare separately but no SDK/native admission is included.",
+  "counts": {
+    "inventoried": 208,
+    "wholeCredits": 149,
+    "passed": 812,
+    "skipped": 193,
+    "scheduled": 50,
+    "deferredNoCoverage": 9
+  },
+  "effects": "Existing serial owners/source/dependency/tool/env/oracle/time/resource/output bounds remain. Stop at first assertion/input/resource/time failure; preserve original custody. No automatic retry/repair, Product/source edits, cut/build/global effects, provider calls or cleanup.",
+  "priorStoppedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_016.json",
+    "bytes": 10507,
+    "sha256": "1a53977e9bbeb224b88511768a4fee503630bc05853a0c45a2710fbf7306133e"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "status": "EXACT_PREFLIGHT_PASSED_EXECUTION_CONDITIONALLY_ADMITTED_BY_ROOT",
+  "utc": "2026-11-09T09:22:54.581675+00:00",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/BINDING.json",
+    "bytes": 5279,
+    "sha256": "450451ea5aee56fc8b5344ae1b0f9f0057a3eafccb76917ab8a0daeb083ec67e"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/continuation.py",
+    "bytes": 10741,
+    "sha256": "cd9abe3d5115d5ed51b1efaf06e33c4d166d98908d5f39da1bfe83735e2e4819"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/CLOSED_TRIAGE.json",
+    "bytes": 5731,
+    "sha256": "4aa3f781b7aa17f92ee991731ddc1d610eda8708ff0ddc435f80ca06c14e2214"
+  },
+  "commands": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/COMMANDS.json",
+    "bytes": 874,
+    "sha256": "29c1db819bdca7b6cf937faaec055ccb8467e6aa533b9950da0a5b94e126d298"
+  },
+  "sourceRows": 1340,
+  "compiledRows": 996,
+  "allRetainedGuardsPassed": true,
+  "environmentUnchanged": true,
+  "internalFixtureBudgetsUnchanged": true,
+  "outerCapsSeconds": [
+    300,
+    900,
+    900
+  ],
+  "runnerSyntaxChecked": true,
+  "packHeld": true,
+  "originalUnitFailurePreserved": true
+}

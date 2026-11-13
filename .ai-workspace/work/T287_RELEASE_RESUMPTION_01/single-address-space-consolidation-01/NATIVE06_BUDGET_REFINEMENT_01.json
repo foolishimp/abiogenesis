@@ -1,0 +1,16 @@
+{
+  "kind": "prospective_measured_budget_selection",
+  "recordedUtc": "2026-11-03T23:56:57.571051+00:00",
+  "admission": false,
+  "draft": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/prepare-native-06-r1.py",
+  "draftSha256": "318b467ff1a2ce1ed406e847e05296161bddbca04b2e24b57b060c9b931744f9",
+  "proofCommandTimeoutMs": 6000000,
+  "replayLaneTimeoutMs": 2700000,
+  "nativeInactivityTimeoutMs": 7200000,
+  "helperShellTimeoutMs": 7200000,
+  "nativeAbsoluteTimeoutMs": 9000000,
+  "outerTimeoutMs": 18000000,
+  "installedBudgetProjectionMs": 6676750,
+  "reason": "Observed replay lane2037167.514917ms requires more than old25min. A100min enclosing affected-proof cap plus other commands/drain requires111.279min, exceeding old75min inactivity capacity. Select120min inactivity/helper cap and unchanged150min actor absolute cap,5h outer cap. Caps are not ETA or automatic retry. Full installed preflight still required.",
+  "preflightDiagnostic": "First direct owner projection using only toolchainEnvironment saw default3600s/60s limits and fits=false; it was not the actual workerEnvironment. Existing prepared native05 owner record verifies9000000/4500000ms. Use the actual workerEnvironment for the final selected configuration."
+}

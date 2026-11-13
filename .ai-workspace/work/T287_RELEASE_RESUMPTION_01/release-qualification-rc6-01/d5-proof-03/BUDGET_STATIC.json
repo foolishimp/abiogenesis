@@ -1,0 +1,18 @@
+{
+  "kind": "deferred_proof_static_budget_reconciliation",
+  "status": "NO_CURRENT_OWNER_PROJECTION_OR_CALL",
+  "commands": 7,
+  "timeoutSumMs": 1560000,
+  "formula": "sum(timeoutMs+2*terminationGraceMs+min(terminationGraceMs,250))+5000",
+  "staticRequiredMs": 1636750,
+  "inactivityMs": 1800000,
+  "componentMs": 900000,
+  "laneSumMs": 840000,
+  "baselineOnlyObservedRecoveryMs": 53578,
+  "finalRecoveryDurationMs": null,
+  "limits": [
+    "Seven timeout/grace/owner allowances and840000ms inner-lane sum unchanged; no new budget owner projection/call.",
+    "Retained N2 final recovery ran about109-110s under120s; actual successor C2 duration remains unknown.",
+    "Root final source/context/prompt and installed-owner budget checks remain required."
+  ]
+}

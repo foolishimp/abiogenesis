@@ -1,0 +1,35 @@
+{
+  "kind": "actual_q23_author_session_completion_basis",
+  "at": "2026-11-05T18:22:40.525225+00:00",
+  "partial": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/partial-subject-001/SUBJECT.json",
+    "bytes": 174679,
+    "sha256": "9c59c4d96ecf0ce3980a7cd6ee611539f3ff9a2de6f3654bc2cc876b24942e34"
+  },
+  "actualClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/FINAL_RUNTIME_CLOSE.json",
+    "bytes": 2276,
+    "sha256": "5f124e0248f6c3b950042e3febc1837358d3cce0ba7894b1f98901d19fe95932"
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/ROOT_FAILURE_TRIAGE.json",
+    "bytes": 5791,
+    "sha256": "c09babf7490a849479fb53ec9e406dd1bbc69dcb748487f9afbd8dd066a1103a"
+  },
+  "existingOwnerRoute": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/q23-identity-02/NATIVE_AUTHOR_CONTINUATION_ROUTE.json",
+    "bytes": 22751,
+    "sha256": "8718180d620d3d9c2ecb992399180c1cbd7f73211c153bf2812634d78cb9efd8"
+  },
+  "remaining": "Finish and self-check Q1-Q7 tests, update selected HOW, return exact three handoffs. Twelve current files are unaccepted partial. Correct code only as needed within unchanged17-path grant. Preserve every observed failure and test skip/unknown; do not delete prior reports.",
+  "sessionMeaning": "Actual prior author session is resumed and forked by CLI only on the one-node author Program. ABG Run is new/source:none. CLI context is not evidence or event-resource lineage. Root separately binds clean Testing/UAT without resume arguments.",
+  "scopeUpdate": "This new task/grant supersedes old task scratch paths. Use only qualification-scratch/q23-author-03 handoffs/tmp. Old q23-identity-01/02 controls/scratch are read-only historical evidence. Copied author helpers may be adapted within new tmp.",
+  "resourceSelection": {
+    "maxTurns": 384,
+    "absoluteTimeoutMs": 7200000,
+    "inactivityTimeoutMs": 1800000,
+    "effort": "xhigh",
+    "setupRepeats": 0
+  },
+  "claims": "No acceptance, independent review, native C2/UAT or qualification from prior partial/intermediate tests."
+}

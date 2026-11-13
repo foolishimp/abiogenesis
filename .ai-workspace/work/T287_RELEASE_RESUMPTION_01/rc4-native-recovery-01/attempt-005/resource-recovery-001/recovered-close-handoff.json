@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "prefixLength": 314517064,
+    "prefixDigest": "sha256:5b2307b5b808ee20a5dc0f7f2769dafd5964d79214adadc998756d78bdf5be21",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 673308256,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:c02e79759e6c82d298cf68a17683e9b21c9fd87ee612b5e8fe381e0f6565e6bf"
+  },
+  "reopenAuthority": {
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0",
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-001/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 673308256,
+    "eventLogDigest": "sha256:5b2307b5b808ee20a5dc0f7f2769dafd5964d79214adadc998756d78bdf5be21",
+    "durableByteLength": 314517064,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "authorityDigest": "sha256:a48b19afa7304be6bc506bfed14cb078f67e6f552ad59de666d76fab945b2767"
+  }
+}

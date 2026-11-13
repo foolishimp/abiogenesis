@@ -1,0 +1,574 @@
+{
+  "status": "STATIC_ALL_FILE_COORDINATION_ACCOUNTING_NOT_ACCEPTANCE",
+  "method": "Pinned TypeScript parser only, no emit/build or source execution. Runtime statement nodes exclude type/interface/typealias and Block nodes; nested runtime statements count separately. Lines are physical/nonblank, not semantic complexity or proven deletion. All new-module code included.",
+  "compilerPackage": {
+    "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/node_modules/typescript/package.json",
+    "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3"
+  },
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-01/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "bytes": 12633,
+    "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+    "physicalLines": 298,
+    "nonblankLines": 290,
+    "runtimeStatementNodes": 244,
+    "statementKinds": {
+      "ImportDeclaration": 1,
+      "FirstStatement": 61,
+      "FunctionDeclaration": 8,
+      "IfStatement": 35,
+      "ThrowStatement": 2,
+      "ReturnStatement": 28,
+      "ExpressionStatement": 101,
+      "TryStatement": 5,
+      "ForOfStatement": 3
+    },
+    "functionSites": [
+      {
+        "line": 13,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 14,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 15,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 18,
+        "name": "durationNs"
+      },
+      {
+        "line": 29,
+        "name": "createMonotonicDeadline"
+      },
+      {
+        "line": 34,
+        "name": "cancel"
+      },
+      {
+        "line": 39,
+        "name": "at"
+      },
+      {
+        "line": 42,
+        "name": "check"
+      },
+      {
+        "line": 55,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 83,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 87,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 123,
+        "name": "guardOwnedErrors"
+      },
+      {
+        "line": 128,
+        "name": "onError"
+      },
+      {
+        "line": 129,
+        "name": "onClose"
+      },
+      {
+        "line": 134,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 139,
+        "name": "createOwnedProcessLifetime"
+      },
+      {
+        "line": 170,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 171,
+        "name": "noChild"
+      },
+      {
+        "line": 172,
+        "name": "snapshot"
+      },
+      {
+        "line": 180,
+        "name": "probe"
+      },
+      {
+        "line": 191,
+        "name": "signal"
+      },
+      {
+        "line": 198,
+        "name": "complete"
+      },
+      {
+        "line": 215,
+        "name": "observe"
+      },
+      {
+        "line": 220,
+        "name": "finishScope"
+      },
+      {
+        "line": 224,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 228,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 230,
+        "name": "check"
+      },
+      {
+        "line": 236,
+        "name": "startKill"
+      },
+      {
+        "line": 242,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 248,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 251,
+        "name": "requestTermination"
+      },
+      {
+        "line": 260,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 267,
+        "name": "fail"
+      },
+      {
+        "line": 272,
+        "name": "onSpawn"
+      },
+      {
+        "line": 272,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 273,
+        "name": "onError"
+      },
+      {
+        "line": 276,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 280,
+        "name": "onExit"
+      },
+      {
+        "line": 282,
+        "name": "<anonymous>"
+      },
+      {
+        "line": 286,
+        "name": "onClose"
+      }
+    ],
+    "mutableBindingSites": [
+      {
+        "line": 30,
+        "name": "generation"
+      },
+      {
+        "line": 31,
+        "name": "armGeneration"
+      },
+      {
+        "line": 32,
+        "name": "timer"
+      },
+      {
+        "line": 33,
+        "name": "armed"
+      },
+      {
+        "line": 127,
+        "name": "report"
+      },
+      {
+        "line": 154,
+        "name": "phase"
+      },
+      {
+        "line": 155,
+        "name": "directExit"
+      },
+      {
+        "line": 156,
+        "name": "launchFailure"
+      },
+      {
+        "line": 157,
+        "name": "firstError"
+      },
+      {
+        "line": 158,
+        "name": "scopeAbsence"
+      },
+      {
+        "line": 159,
+        "name": "closeObserved"
+      },
+      {
+        "line": 160,
+        "name": "streamsDisposed"
+      },
+      {
+        "line": 161,
+        "name": "drainExpired"
+      },
+      {
+        "line": 162,
+        "name": "cleanupStartedNs"
+      },
+      {
+        "line": 163,
+        "name": "scopeDeadlineNs"
+      },
+      {
+        "line": 164,
+        "name": "cleanupDeadlineNs"
+      },
+      {
+        "line": 165,
+        "name": "probeCount"
+      },
+      {
+        "line": 166,
+        "name": "signalAttempts"
+      },
+      {
+        "line": 167,
+        "name": "killAttempted"
+      },
+      {
+        "line": 168,
+        "name": "completionPublished"
+      },
+      {
+        "line": 169,
+        "name": "resolveCompletion"
+      }
+    ],
+    "parseDiagnostics": 0
+  },
+  "after": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 11508,
+      "sha256": "4dd9aa2ac5d53529dac83b165775fb8980d9b3fc57997a148efde00d8563d51b",
+      "physicalLines": 262,
+      "nonblankLines": 254,
+      "runtimeStatementNodes": 169,
+      "statementKinds": {
+        "ImportDeclaration": 2,
+        "FirstStatement": 44,
+        "FunctionDeclaration": 9,
+        "IfStatement": 24,
+        "ThrowStatement": 2,
+        "ReturnStatement": 18,
+        "ExpressionStatement": 58,
+        "ExportDeclaration": 1,
+        "TryStatement": 5,
+        "ForOfStatement": 5,
+        "ContinueStatement": 1
+      },
+      "functionSites": [
+        {
+          "line": 18,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 19,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 20,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 23,
+          "name": "durationNs"
+        },
+        {
+          "line": 34,
+          "name": "createMonotonicDeadline"
+        },
+        {
+          "line": 39,
+          "name": "cancel"
+        },
+        {
+          "line": 44,
+          "name": "at"
+        },
+        {
+          "line": 47,
+          "name": "check"
+        },
+        {
+          "line": 60,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 88,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 92,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 128,
+          "name": "guardOwnedErrors"
+        },
+        {
+          "line": 133,
+          "name": "onError"
+        },
+        {
+          "line": 134,
+          "name": "onClose"
+        },
+        {
+          "line": 139,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 144,
+          "name": "createOwnedProcessLifetime"
+        },
+        {
+          "line": 166,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 168,
+          "name": "snapshot"
+        },
+        {
+          "line": 181,
+          "name": "probeGroup"
+        },
+        {
+          "line": 186,
+          "name": "notify"
+        },
+        {
+          "line": 193,
+          "name": "reconcile"
+        },
+        {
+          "line": 199,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 202,
+          "name": "dispose"
+        },
+        {
+          "line": 215,
+          "name": "dispatch"
+        },
+        {
+          "line": 226,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 232,
+          "name": "observe"
+        },
+        {
+          "line": 237,
+          "name": "requestTermination"
+        },
+        {
+          "line": 240,
+          "name": "failWith"
+        },
+        {
+          "line": 245,
+          "name": "fail"
+        },
+        {
+          "line": 246,
+          "name": "onSpawn"
+        },
+        {
+          "line": 246,
+          "name": "<anonymous>"
+        },
+        {
+          "line": 247,
+          "name": "onError"
+        },
+        {
+          "line": 251,
+          "name": "onExit"
+        },
+        {
+          "line": 254,
+          "name": "onClose"
+        }
+      ],
+      "mutableBindingSites": [
+        {
+          "line": 35,
+          "name": "generation"
+        },
+        {
+          "line": 36,
+          "name": "armGeneration"
+        },
+        {
+          "line": 37,
+          "name": "timer"
+        },
+        {
+          "line": 38,
+          "name": "armed"
+        },
+        {
+          "line": 132,
+          "name": "report"
+        },
+        {
+          "line": 164,
+          "name": "current"
+        },
+        {
+          "line": 165,
+          "name": "resolveCompletion"
+        },
+        {
+          "line": 225,
+          "name": "next"
+        }
+      ],
+      "parseDiagnostics": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_state.ts",
+      "bytes": 12604,
+      "sha256": "9c555e755cfb2d1b35cf6ba4f7b5eb8afc5c06e2de6ca000960828430edbd3c8",
+      "physicalLines": 227,
+      "nonblankLines": 207,
+      "runtimeStatementNodes": 111,
+      "statementKinds": {
+        "FirstStatement": 21,
+        "FunctionDeclaration": 11,
+        "IfStatement": 27,
+        "ReturnStatement": 50,
+        "SwitchStatement": 2
+      },
+      "functionSites": [
+        {
+          "line": 85,
+          "name": "step"
+        },
+        {
+          "line": 91,
+          "name": "earlier"
+        },
+        {
+          "line": 92,
+          "name": "noChild"
+        },
+        {
+          "line": 93,
+          "name": "observable"
+        },
+        {
+          "line": 94,
+          "name": "notifyThen"
+        },
+        {
+          "line": 97,
+          "name": "signalled"
+        },
+        {
+          "line": 102,
+          "name": "probe"
+        },
+        {
+          "line": 109,
+          "name": "check"
+        },
+        {
+          "line": 115,
+          "name": "complete"
+        },
+        {
+          "line": 120,
+          "name": "drainOrComplete"
+        },
+        {
+          "line": 127,
+          "name": "finishScope"
+        },
+        {
+          "line": 134,
+          "name": "startKill"
+        },
+        {
+          "line": 144,
+          "name": "terminate"
+        },
+        {
+          "line": 152,
+          "name": "probed"
+        },
+        {
+          "line": 175,
+          "name": "notified"
+        },
+        {
+          "line": 191,
+          "name": "transitionOwnedProcess"
+        }
+      ],
+      "mutableBindingSites": [],
+      "parseDiagnostics": 0
+    }
+  ],
+  "totals": {
+    "bytes": {
+      "before": 12633,
+      "after": 24112
+    },
+    "physicalLines": {
+      "before": 298,
+      "after": 489
+    },
+    "nonblankLines": {
+      "before": 290,
+      "after": 461
+    },
+    "runtimeStatementNodes": {
+      "before": 244,
+      "after": 280
+    }
+  },
+  "standing": "Bridge shrinkage alone is not net deletion: combined implementation grows. Claimed responsibility replacement in WORKER_REPORT is subject to independent source review, especially reentry/probeCount differences."
+}

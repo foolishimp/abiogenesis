@@ -1,0 +1,24 @@
+# F4 residual: six first-output body copies
+
+Read-only triage at exactbcb1faf63, actual closed basic-cli prefix24,293,608B/SHA5bcdeb0d…/inode673043539 unchanged. No code/runtime/test operation. Detailed event/member coordinates are in F4_CAUSAL_TRIAGE.json. Representative generated/hello-world.mjs digestfdca8587… is61B (84Bbase64). All seven newly created file versions follow the same six positions.
+
+| Ordinal/kind | Exact inline member under payload | Birth relation |
+|---|---|---|
+|2765 Result native_workspace_work_observation|value.after.entries[2]|First admitted birth|
+|2786 traversal_route_admitted|boundInput.value.source.after.entries[2]|Later|
+|3718 Result worksite_command_execution_task|value.sourceNativeWork.after.entries[2]|Later|
+|3741 actor_transport_binding_admitted|instructionAssembly.envelope.nativeBasis.executionBasis.rawInputValue.sourceNativeWork.after.entries[2]|Later|
+|3971 Result worksite_command_execution_observation|value.task.sourceNativeWork.after.entries[2]|Later|
+|3992 traversal_route_admitted|boundInput.value.source.task.sourceNativeWork.after.entries[2]|Later|
+
+The first route occurs21admissions after the native body became admitted. None of the five later copies is necessary simultaneous co-birth. Their distinct provenance/currentness/worker/evidence envelopes are legitimate; repeated physical source storage is an avoidable carriage residual. The first3immutable input files already use body references throughout this output Context.
+
+**First omission.** event_body_encoding.ts9,22–25 supports only basis_input, c_call_result_value and native_definition_material; route events have no selected body slot and encodeEventBody137–153 falls through to inline canonical event bytes. traversal_transition.ts159–160 retains boundInput; worksite_input_provenance.ts351–352 constructs exact entry+source value. Both route.source values are exactly equal to earlier admitted Result values (2765→2786:54087B;3971→3992:109326B). Their first admission remains source authority.
+
+**Other copies.** default_library.ts312–314 passes the exact authenticated p.value as sourceNativeWork. Product worksite_command_execution.ts425–447 preserves that source and physical identity;2222–2242 retains the exact task in the C2 observation. instruction_assembly.ts254–256 keeps nativeBasis, including executionBasis.rawInputValue. Existing codec extracts only the transport's finite definition bundle (event_body_encoding.ts10–11,38–44), not this input. These are later exact-source/task copies, not independent body births. Removing them semantically would re-enter the broader source/task identity work already deferred; a nested generic codec/registry is not proposed.
+
+**Size and harm.** Seven new bodies total11323decoded/15108base64 bytes per copy. Five later copies cost56615decoded/75540base64 bytes (0.311% of total log), of which the two routes carry22646decoded/30216base64 bytes. A narrow existing-codec route retained-source slot could also share the full exact source values:163413B gross upper bound before reference overhead,0.673% of this log/30.30% of route bytes. This is not an observed encoded-size saving. Probe growth877591B and stdout growth386437B dominate; total log grows761051B despite body-carriage improvement. No incorrect result, authority loss or sunny-day/recovery failure was observed from these copies.
+
+**Recommendation.** Explicitly defer F4 for a clearly limited development cut. It is a real physical-carriage residual, but is not the dominant small-case cost and does not undo14/14/terminal/cold-owner proof. If Root instead selects repair, the smallest candidate is storage-only extraction/reconstitution of route boundInput.value.source against an exact earlier committed Result via the existing codec/table, preserving canonical logical event/digest/route and all stamps. No public event/schema, source/task/nativeidentity, constructor or crossRun rewrite; unknown/nonmatching/uncommitted source stays inline. Author through ABG, reprove actual cold restoration and corruption/foreign/missing/rollback/size-win checks in existing codec tests, plus the existing sunny-day path. Integration/qualification cost is not estimated from this read-only triage.
+
+**Falsifier.** Reject the proposed route optimization if either selected source is not exactly an earlier committed Result value, provenance/currentness/replay changes, malformed/missing/foreign/tampered backreferences are accepted, or the encoded reference fails to reduce bytes. Deferral loses its proportional basis if a selected workload makes these route sources dominate resource cost or copies cause actual memory/latency failure. F5 large965 efficiency/general scaling and pending native Context/predecessor-member continuation remain unproved/open, independent of this small-case observation.

@@ -1,0 +1,49 @@
+{
+  "kind": "actual_single_address_space_c2_orchestration_result",
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 12,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 497369.56016700005,
+      "stdoutSha256": "0fa8977f18b50611b120ca5b1b8458ca6e346703d82af1267758f8c044c66a6a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    }
+  ],
+  "failures": [],
+  "retainedEvidenceVerification": null,
+  "nativeTestProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/9bce7daaaf49b6ee1634de121584ae6b6bc72474856472aa3d54ff93adf1b54a/de3d543178a2e11d245075ba72c4da2218cb2acabf7946cb13076479dc4ad769/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-proof-10/single-address-space-proof.json",
+    "producerPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/9bce7daaaf49b6ee1634de121584ae6b6bc72474856472aa3d54ff93adf1b54a/de3d543178a2e11d245075ba72c4da2218cb2acabf7946cb13076479dc4ad769/sandbox/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+    "bytes": 195681,
+    "sha256": "d9d38825be09fc49ed1cc21b71658248cf265102d877bf9bf910320ce5b4b59b",
+    "producerLanePassed": true
+  },
+  "priorActualEvidence": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ACTUAL_C2_SUMMARY.json",
+      "bytes": 10624,
+      "sha256": "796a3c82eef44ceb32425ed2a636187622d589ca6b4f3d0b88bfb638654efbef",
+      "selectedRelativePath": "consolidation-inputs/proof-10/ACTUAL_NATIVE09_C2_SUMMARY.json"
+    },
+    "closedResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_C2_CLOSED_RESULT.json",
+      "bytes": 2209,
+      "sha256": "5f93c6b93c5dc966519842450455de0ab4522130bf77cb5083d0d2471cf649be",
+      "selectedRelativePath": "consolidation-inputs/proof-10/NATIVE09_C2_CLOSED_RESULT.json"
+    },
+    "standing": "Actual09 independent executions and failure/skips retained; final Root disposition required. No prior rows count as new10 execution."
+  },
+  "sourceManifestSha256": "763bf2d1f72ca51f12fff1f21fb38fb645b40bc892429bd0d66bb309926aacef",
+  "authority": "Tests and native-authored proof retain their own claims; this wrapper records outcomes and fails every unmet selected predicate.",
+  "qualified": false,
+  "published": false
+}

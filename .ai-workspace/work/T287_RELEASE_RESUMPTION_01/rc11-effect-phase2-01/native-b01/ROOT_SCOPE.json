@@ -1,0 +1,108 @@
+{
+  "id": "PHASE2-B-PREP-01",
+  "status": "ROOT_SELECTED_B_PREPARATION_SETUP_PROVIDER_HELD",
+  "actor": "Separately activated Writer/Operator; Root remains Executive",
+  "changeClass": "realization_refactor",
+  "ownerInstruction": "User continue; Root accepts A checkpoint and selects the previously planned command/main B construction. This grant prepares controls/inputs/scratch and main current prefixes only; setup/provider/source effects await exact Root admissions.",
+  "basis": {
+    "definition": "/private/tmp/abg-rc11-foundation-20261110-01/stdo_abiogenesis.json",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "definitionPin": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "framePin": {
+      "path": "/private/tmp/abg-rc11-foundation-20261110-01/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    }
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#executive-writer-and-reviewer-binding",
+  "source": {
+    "commit": "e134103a26733dd35d94d9d1dbf73437464a87d5",
+    "tree": "3be0362585865f52e231b84d87824c229fc6323d",
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/CHECKPOINT_SOURCE_INVENTORY.json",
+      "bytes": 295782,
+      "sha256": "ce1b3debd80d153e878d6b52a6ce8fa5c7d6963cf2dd2738078dddf37e0028dd"
+    },
+    "sourceDigest": "1b8bb6c426e339e22ef5c1ab07b453d6ecfe52092c07e79dd0fb1852dee077b6",
+    "rows": 1345
+  },
+  "conjunction": {
+    "peerDesign": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/ASSESSMENT.md",
+      "bytes": 8984,
+      "sha256": "02e1e491dd7d3f3892cfd9ff29efb0e002d2a89716f9de49c1851a89febd462f"
+    },
+    "errorBoundary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/B_ERROR_BOUNDARY.md",
+      "bytes": 9460,
+      "sha256": "4c9ef7a817b93f2830d2bb84a6cf9ba2f375c2fcbc3193759ea37818bbff7f2c"
+    },
+    "apiResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/RESULT_NOTE.md",
+      "bytes": 3121,
+      "sha256": "93b475678cc8423ec217b6344f1e02d60987b6d10477b1edc223453d8d71c170"
+    },
+    "apiReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/design/api-probe-01/RETURN.json",
+      "bytes": 4127,
+      "sha256": "0337f1fa5519b6856b881174e1342f29e8b132d8b2e9648e0bc704c71cafea68"
+    },
+    "aAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/ROOT_FINAL_ACCEPTANCE.json",
+      "bytes": 4061,
+      "sha256": "a6a1b16d59f112078793743265a72308b2f59b3978db9dde68ca3b40fe8df6ea"
+    },
+    "aConjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/source-review/FINAL_CONJUNCTION.md",
+      "bytes": 5981,
+      "sha256": "9f2704e332c600879f0f0b611a2b435a9e513ca83fc8d89751febc68c161b103"
+    },
+    "configuredProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/proof-intake/CONFIGURED_PROOF_ROUTE.md",
+      "bytes": 8442,
+      "sha256": "677b9f5d5f53ad22f1201f44aba7c09dc7d905f5e5d3c55cd4b96fab3cffa39f"
+    },
+    "peerDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/peer-review-intake/ROOT_DISPOSITION.json",
+      "bytes": 2435,
+      "sha256": "fbb7f1e611cba9fba806dd7bc2612a0b815f61105306b84599bff9959f9376e1"
+    },
+    "clockDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-04/proof-01/DEFERRED_ROOT_DISPOSITION.json",
+      "bytes": 2543,
+      "sha256": "52a4d987ec67f638cc42c1439489ad69ab40977bf06fdb281b54404dd8ca1048"
+    }
+  },
+  "futureSourceWriteRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_scope.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md"
+  ],
+  "scratch": "/private/tmp/abg-rc11-foundation-20261110-01/qualification-scratch/rc11-effect-phase2-01/native-b01",
+  "targetTruth": "One closed scoped Effect command, child/lifetime owned before fallible later resources, one idempotent finite-settlement barrier before disposal; canonical completion remains publisher. One helper program crosses unchanged runEffectProgram once at main host boundary. Command-local use/closed Exit selection preserves primary use or cleanup-only failure before narrow original-loop D15 catch; later publication/path/ack failures retain precedence and raw identity.",
+  "preserved": "A lifetime/state exact; HTTP oneHttpRequest/runHttpProbe bodies, worker_transport, shared/process/effect_definition, schemas/Product/admission/replay/dependencies read-only. Preserve spawn/no-child mapping, direct-exit capture cut, bounds/heartbeat/emergency/report gating, artifact then drained ack then identical Worksite failure. No generic capture/deadline policy, duplicate supervisor, process-failure file or inspector.",
+  "optionalModule": "owned_process_scope.ts only for demonstrated shared physical acquisition/settlement and deletion benefit. Absent before; no placeholder. Operator inventories a new file after close independently; the maintained native context observation is not claimed to have observed a missing initial path.",
+  "nativeEnvelope": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteTimeoutMs": 1800000,
+    "inactivityTimeoutMs": 180000,
+    "maxTurns": 100
+  },
+  "selfchecks": "Fresh scratch compiler <=240s/Bash300000, exact controlled selector <=60s/Bash90000. No physical/whole m5/unit/installed/pack or nested provider.",
+  "nonClosure": "A is accepted only for its construction/physical contract. B and joint Phase2 not accepted. Retained-fact and reentrant-clock capsules stay deferred; prior failures, six unit skips, synthetic pending-owner and qualification limits remain. No release/install/Git/provider effects under preparation.",
+  "returnRelation": "Concrete READY to Root; actual setup, held call and provider separately admitted. Native source pass returns frozen source and actual checks, not acceptance. External joint proof follows actual freeze."
+}

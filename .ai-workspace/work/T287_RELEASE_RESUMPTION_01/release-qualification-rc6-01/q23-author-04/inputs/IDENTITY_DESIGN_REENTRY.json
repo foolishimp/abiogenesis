@@ -1,0 +1,255 @@
+{
+  "productFrame": {
+    "selectedProduct": "ABIogenesis 5.0; GOAL-035 / T-287; fixed fifteen families F01-F07,F09-F11,F13-F17.",
+    "activeSlice": "RC6-based 5.0 qualification resumption; bounded Q23 identity HOW re-entry for F11/F15, retaining F04/F10 integrity.",
+    "outcome": "An independence-dependent qualification judgment uses truthful configured assessor identity, authenticated construction identity and the governing claim policy; unknown or conflicting correspondence stops before provider execution.",
+    "authoritySplit": "Product/requirements own acceptance; published qualification role and Validator own independence meaning; ABG owns invocation/admission and replay-derived truth; transport supplies configured execution facts; drivers select data and actors without granting policy.",
+    "classification": "Policy/profile declarations are immutable definitions; configured transport plan is deterministic construction; one existing transport-binding event is admitted invocation evidence; identity/eligibility projections are read models.",
+    "prohibitions": "No second dispatch path, identity service/registry/ledger, caller-independent flag, copied runtime authority, provider-attestation claim, or F_H response/resume expansion. F08/F12 and native human-response resumption retain their 5.1 boundary.",
+    "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "kind": "closed_existing_owner_identity_design_proposal",
+  "status": "closed_proposal_returned_to_root",
+  "result": "indeterminate",
+  "claim": "Identify the smallest lawful existing-owner extension and whether current inputs already permit a positive pre-paid independence decision.",
+  "conclusion": "The owner route is concrete. Positive dispatch eligibility remains indeterminate until the claim's source-bound identity/family policy and pre-existing attribution support are resolved. This is a proposal, not an adopted contract or implementation/qualification authority.",
+  "control": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/IDENTITY_DESIGN_REENTRY_REQUEST.json",
+      "bytes": 7018,
+      "sha256": "9186cdb3f679dc0dca387f8ae104ccb2243382399ea7226f28157c12b3287085"
+    },
+    "activationSha256": "bcae405c1ba9b22adaf0bf55da2509b9e3eda7e0e8ff3d2fd829a9115b45a89f",
+    "planSha256": "f6c318797e831d6a0cedaa1143ca3f0aef4c227ec1274143af9f0ba333e4e04b",
+    "inheritedAuditSha256": "085c993048138ee929c07cd3be709e867fa51c3d0b0fe9bcf77497b1b8bc1c69"
+  },
+  "subject": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "commit": "e7179b19b50c3b2f918e59425667ed79239e4a68",
+    "tree": "68267aea291a2f8ae928d88e8956b0777726c1b5",
+    "excludedConcurrentTrackedChange": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "selectedOwnersUnchanged": true
+  },
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definition": "stdo_abiogenesis.json",
+    "composition": [],
+    "skill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+    "verification": "Previously reacquired exact installed release: installed=true, valid=true, failures=[]; current named control bytes rechecked."
+  },
+  "design": {
+    "canonicalBinding": "Extend the existing actor_transport_binding_admitted body assembled in actor_process.ts:1050 and owned by event_store.ts's current payload contract. Use one owner-defined typed identity member, defined/checked beside WorkerTransportContract in transport_contracts.ts, imported rather than redeclared.",
+    "identityContents": "Minimum semantic content: declared actor/profile identity and its source coordinate, with the exact effective configured model selection. Reuse the binding's existing agentKey, command/args, plan/contract/environment digests; do not duplicate them. The family relation belongs to published role policy, not a transport-inferred family string or independent boolean. Exact field/function names remain Worker HOW.",
+    "effectiveConfiguration": "Derive/check identity from prepareWorkerTransport's final composed args and captured sanitized environment, not the driver's requested model label. Require the selected source-bound profile to match the actual supported agent/model configuration. Conflicting or ambiguous model options, an unresolved implicit default, or unsupported correspondence stays unknown/refused for required independence. runPreparedWorkerTransport must execute the same owned frozen plan. This establishes configured-selection correspondence under the trusted-desktop boundary, not cryptographic or server-side provider attestation.",
+    "historical": "Retain old event contracts and absence as unknown; do not restamp historical events or infer identity from old actor role refs. Preserve unrelated calls with no independence obligation and existing not_required behavior; do not newly admit not_required qualification tasks.",
+    "projection": "Extend c_call.ts's AdmittedActorTransportProjection/projectAdmittedActorTransport owner to expose a checked identity projection after its existing unique binding, digest and CCall/invocation/artifact joins. Expose/reuse that owning projection for qualification_proof.ts; do not implement a rival binding verifier.",
+    "referencesSuffice": "QualificationJudgment.source and native producing Result evidence already carry actorInvocationRef plus transportBindingRef/transportBindingDigest. Resolve identity through these references for assessor, native authors and peers. No identity body is needed on every ActorProcessObservation, Result lineage, J, CCall or native provenance producer."
+  },
+  "prePaidCheck": {
+    "location": "After actor_process.ts:1027-1047 prepares the final transport plan, before transportBindingBody admission/start transaction at1116 and runPreparedWorkerTransport at1380.",
+    "policyOwner": "Use qualification_proof.ts's current consumer/role authentication and Validator's source-bound role policy. leaf_invocation_port.ts:1598-1623 already authenticates the selected call/input and retains PreparedQualificationAssessment.",
+    "smallestSeam": "Extend the existing prepareActorProcessInvocation exact input/occurrence closure (leaf_invocation_port.ts:761-783; actor_process.ts:755-795) with an internal owner operation that receives the actual prepared plan's identity projection. It calls the existing native qualification owner/Validator relation against its retained input, resources, role and predecessor prefix. The operation is not serialized or caller-supplied evidence. This is a missing internal connection, not a new dispatcher.",
+    "coldRoute": "The standalone invokeActorProcess path must authenticate the same selected qualification call and apply the same decision, or refuse when that owner context is unavailable. Existing rawResultOwner carries admitted port/resolution/input (actor_process.ts:667-668,1223-1227); its validation can support reacquisition, but presence alone is not authority. A missing closure must never bypass required eligibility.",
+    "decision": "eligible only when actual configured identity matches the allowed profile and every required author/peer comparison has a source-bound positive independence relation and sufficient prior correspondence; ineligible for established prohibited relation; unknown for missing/conflicting inputs. Ineligible/unknown return the existing actor-process refusal before any actor/provider launch and cannot manufacture a J.",
+    "postExecution": "Replay/native qualification reduction repeats the policy relation over the admitted binding and actual producing occurrences. Preflight is no substitute for completed artifact/transport evidence or semantic sufficiency.",
+    "precisePriorAttributionGap": "projectExternalConstructionAttribution currently marks grounded only using judgment.raw.attributions (qualification.ts:861-865). That J does not exist before its own provider call. A strict pre-paid gate must consume already sufficient, source-grounded correspondence through the existing provenance/proof owner, or refuse unknown. It must not fabricate a raw attribution judgment, treat byte/chain validity as semantic sufficiency, or have the assessor justify its own eligibility after payment."
+  },
+  "policy": {
+    "alreadyFixed": "Actual authorship and evidence conditions matter; a fresh context or renamed role does not erase authorship. STDO EVALUATION:257-260 defaults two activations of the same model family to non-independent absent a governing claim policy. Implementing that default needs no new waiver or Product feature.",
+    "missingDeclaration": "The published qualification role basis must name the selected actual actor/profile identities, their source-grounded model-family correspondence, and the independence relation admitted for the relevant author/assessor and, where selected, peer claims. Unequal model strings or provider-prefix heuristics supply neither family correspondence nor a positive independence declaration.",
+    "owner": "Existing Validator.Conformance/AF22 published QUALIFICATION_ROLE_POLICY at qualification_contracts.ts:110-120, source-bound to REQ-P-SELF-CONFORMANCE-007A and REQ-P-QUAL-064A through T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md:35,57-61. The Product/requirement authority owns semantic policy; Root selects actors under that policy. Worker owns representation, parser/check, closure plumbing and projection.",
+    "noInventedPolicy": "No same-family exception or concrete family taxonomy is selected by this proposal. Any requested exception requires the governing claim-policy owner, not an environment flag or ordinary Worker coding choice. Nor does merely declaring two different family labels prove independence.",
+    "laneLimit": "actor_process.ts:1023 currently selects the Claude transport. A different Claude model is not by itself proof of independence; this proposal does not add a second provider or claim an eligible live assessor exists."
+  },
+  "sequence": [
+    "Leaf owner authenticates CCall, exact task/resource and published role, retaining the native domain preparation.",
+    "Transport owner composes/freeze-checks actual plan and projects its configured identity.",
+    "Existing invocation closure asks qualification native owner/Validator for the claim's eligibility using prior authenticated authors/peers and policy.",
+    "Unknown/ineligible: existing prelaunch refusal, no actor/provider start and no J. Eligible: admit one identity-bearing transport binding and start through existing transport.",
+    "Existing Result/J retains transport coordinates; c_call projects identity from that binding; qualification_proof compares real authors/assessor/peers again at reduction/replay."
+  ],
+  "minimalOwningChanges": [
+    {
+      "owner": "Accepted qualification HOW",
+      "files": [
+        "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md"
+      ],
+      "change": "Bounded sections2-3 re-entry for actual identity and pre-paid check, including explicit correction of line41's historical claim that no generic transport change is needed."
+    },
+    {
+      "owner": "Configured transport",
+      "files": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts"
+      ],
+      "change": "One canonical identity member/guard and final effective-configuration correspondence."
+    },
+    {
+      "owner": "Actor binding/admission",
+      "files": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts"
+      ],
+      "change": "Invoke the owned check before start; admit identity once in existing binding; retain legacy unknown."
+    },
+    {
+      "owner": "Native transport lineage",
+      "files": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts"
+      ],
+      "change": "Extend/reuse the existing authenticated projection."
+    },
+    {
+      "owner": "Published qualification meaning and native join",
+      "files": [
+        "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+        "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts"
+      ],
+      "change": "Source-bound role policy and one eligibility relation, pre-dispatch and replay; prior attribution prerequisite explicit."
+    },
+    {
+      "owner": "Existing leaf owner plumbing",
+      "files": [
+        "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts"
+      ],
+      "change": "Pass only a call-bound internal operation through existing preparation; no identity body proliferation."
+    }
+  ],
+  "unchangedCarriers": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts"
+  ],
+  "acceptanceDiscriminator": {
+    "status": "Proposed finite discriminator only; none executed.",
+    "positive": "One source-bound eligible author/assessor relation with exact profile/config match traverses the existing native path; cold read/replay recovers identity only from the single binding and existing Result/J references. Exercise native construction and a separately sufficient external record-set variant of that same relation.",
+    "nearestNegatives": [
+      "Same family, unequal model strings and renamed role: non-independent under the default; zero provider starts.",
+      "Declared profile versus effective model mismatch, conflicting selector or unresolved default: refusal before binding/start.",
+      "External correspondence available only from the future J, or a conflicting/missing prior identity source: unknown and zero provider starts.",
+      "Required peer identity/family relation absent or prohibited: no dependent paid call; distinct invocation refs cannot rescue it.",
+      "Replace the referenced binding or alter its identity body: existing digest/causal join or policy projection rejects; no replay green.",
+      "Historical binding with no identity stays unknown for required independence; unrelated no-independence behavior remains unchanged. Changing ambient configuration after preparation cannot change the executed owned plan."
+    ]
+  },
+  "unresolved": [
+    {
+      "id": "U1",
+      "owner": "Existing governing qualification role-policy authority",
+      "need": "Concrete source-bound identity/family correspondence and positive independence relation for the selected claim/actors; do not assume a same-family exception."
+    },
+    {
+      "id": "U2",
+      "owner": "Existing qualification provenance/proof owner and Root's evidence selection",
+      "need": "Sufficient prior author/identity correspondence for the exact selected scope. ROOT_PROVENANCE_SUPPLEMENT locates C2 and native06 declared profiles but explicitly does not authenticate admitted identity/family or complete current authorship."
+    },
+    {
+      "id": "U3",
+      "owner": "Root/accepted HOW then separately authorized Worker",
+      "need": "Adopt or revise this minimal internal seam and finite discriminator. Positive runtime behavior remains unimplemented and untested here."
+    }
+  ],
+  "inheritedFinding": "QR01/Q23 remains inherited, not re-audited or rerated. No new defect list or complete F11 plan.",
+  "triage": {
+    "class": "bounded_existing_owner_how_reentry",
+    "policyBoundary": "Source-bound family/independence semantics may not be invented by Worker.",
+    "mechanicalScope": "Nine existing code files plus the owning HOW; exact names and helper split remain Worker-owned.",
+    "regressionRisk": "Transport payload/current event-profile and cold-path enforcement are affected; protect historical unknown and unrelated calls.",
+    "uncertainty": "Positive eligibility and operational proof are indeterminate."
+  },
+  "evidence": {
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "routes": [
+      {
+        "path": "specification/PRODUCT.md",
+        "lines": "1307-1330",
+        "meaning": "Fixed 5.0 feature set and F11/F15 outcome."
+      },
+      {
+        "path": "specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+        "lines": "82-88",
+        "meaning": "007A independent applicability/sufficiency judgment."
+      },
+      {
+        "path": "specification/requirements/product/REQ-P-QUAL.md",
+        "lines": "364-371",
+        "meaning": "064A claim-specific independent judgment; labels insufficient."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+        "lines": "29-61",
+        "meaning": "Published actual actor/profile binding; native proof owner; source-bound independence and two provenance arms."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+        "lines": "104-120",
+        "meaning": "Existing canonical role schema/published role policy and source authority."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "lines": "305-331;573-620;647-721",
+        "meaning": "Current call/published role authentication; J/native-construction transport references; reduction owner."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "lines": "90-106;242-320",
+        "meaning": "Transport contract/configuration owner; no declared family semantics."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "lines": "687-825;829-849",
+        "meaning": "Final args/environment preparation, immutable owned plan, same-plan execution."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "lines": "667-694;755-811;1023-1140;1223-1227;1380;1610-1616",
+        "meaning": "Existing exact invocation closure, raw-result owner input, binding admission and physical launch/refusal boundary."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "lines": "1087-1090;1152-1155;2960-2964",
+        "meaning": "Current actor_transport_binding_admitted payload contract and guard."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "lines": "1754-1775;1842-1896;2040-2048;3819-3845",
+        "meaning": "Existing canonical admitted actor-transport projection and digest/causal joins."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+        "lines": "13-22",
+        "meaning": "Existing actor invocation and transport binding reference/digest already suffice."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "lines": "440-455;761-783;1598-1623",
+        "meaning": "Authenticated input/occurrence preparation and captured actor invocation closure."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "lines": "689-708;812-874",
+        "meaning": "Existing prepared domain assessment; external grounded attribution presently consumes future J."
+      },
+      {
+        "path": "stdo://releases/v3.0.4/standards/EVALUATION.md",
+        "lines": "246-260",
+        "meaning": "Authorship/evidence independence and declared actor-family policy; same-family default is non-independent."
+      }
+    ],
+    "provenanceSupplementSha256": "f223f1fa69ffcfad814b1d24c7c6b877923afa0bf48b82cd0680e12745500f92"
+  },
+  "effects": {
+    "performed": "Read-only one causal pass; wrote only the two granted proposal results.",
+    "notPerformed": [
+      "source/test/HOW edits",
+      "build/test/provider/native execution",
+      "installation",
+      "raw private provider content inspection",
+      "full F11 or repeated defect audit",
+      "activation of another actor"
+    ]
+  },
+  "invalidation": "Changes to selected owners, Product/requirements, installed STDO basis, policy/profile source bytes, attribution scope/support, or prepared configuration require affected re-entry. The excluded concurrent fixture change supplies no identity evidence.",
+  "return": "Root selects disposition. This closed proposal grants no implementation or dispatch authority."
+}

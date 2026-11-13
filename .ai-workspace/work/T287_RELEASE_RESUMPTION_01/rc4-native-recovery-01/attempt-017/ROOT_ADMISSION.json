@@ -1,0 +1,9 @@
+{
+  "status": "ROOT_ADMITTED_NEXT_NATIVE_PACKET",
+  "operator": "Root",
+  "bindingSha256": "133a6538d6880ecd0d0cca870218fb0b292b8e99d1602e546b6dacaa928349c5",
+  "sourceCommit": "0a8d330a32d5f577b424394c0424a1cd9abe519b",
+  "sourceTree": "37256c94ccc68050275bfdd5e67f322911d48fc7",
+  "decision": "Root admits exact017 zero-provider installed preflight and call construction on source0a8d/genuine recovered runtime003 prefixfd59, under Owner/Install/Effect/Proof and accepted HC2 HOW, within reviewed35-path/12-command scope and unchanged profile. No native Run/provider or dispatch is selected until actual generated-call and frozen-manifest review. Inherit bounded C3 code/type proof; remaining HC2 completion, fresh005, qualification and release remain separate.",
+  "admittedUtc": "2026-11-02T21:41:35.393471+00:00"
+}

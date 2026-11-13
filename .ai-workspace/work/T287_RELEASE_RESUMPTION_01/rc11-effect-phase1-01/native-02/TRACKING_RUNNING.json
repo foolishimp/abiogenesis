@@ -1,0 +1,81 @@
+{
+  "status": "ACTUAL_NATIVE_RUNNING_TRACKING_RECORDED",
+  "rootAdmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/ROOT_NATIVE_ADMISSION.json",
+    "bytes": 4048,
+    "sha256": "e4eca09be517089b1b8613bc87815db8563e48d5b9a2a03c90255411e68a41fa"
+  },
+  "started": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/runtime-001/STARTED.json",
+    "bytes": 1607,
+    "sha256": "91d57a671c4dbea6bedeecfc50f8d5d605cc72849737761f16a9f981630d1305"
+  },
+  "nativePid": 53850,
+  "runRef": "run://abiogenesis/ef77f9930a31feacac565a220e089d29f27d2ae10b28f3819d6ff5df1e8798ea",
+  "actorInvocationRef": "actor-invocation://abiogenesis/4e0a84df5805de06165c4bb741e73d1f0c2ba8b41c3863200ca3c9087456adb0",
+  "rows": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 182248,
+        "sha256": "832b5b3bf49c73e7c7620c4dfcbff3738500aac04ea17d6b64327a1a1c3af1f5"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 182949,
+        "sha256": "3e9c4cb6b204fcbb7235b705b001ae8eec4b60418bd1d7d3c779a572a21ec99a"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 832968,
+        "sha256": "6a91168f455b17c58cec3db089cc8c80e3366ab278afca34449bcd633ab0b11a"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 833669,
+        "sha256": "c20c96be9eac3769403fee1efe486f6f429e2591c9fad9941396c2289a2286d2"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 165215,
+        "sha256": "86d90f7ed5f309ad8f7708abafd52728793d8879c2919ce1d0f1f9547a62f633"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/specification/GOALS.md",
+        "bytes": 165916,
+        "sha256": "70f25ef8f760add62b7e0ee4aefaa4dd8061b401762f07eb51b3971cdd350cac"
+      },
+      "priorBodyPreserved": true
+    },
+    {
+      "before": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 814015,
+        "sha256": "0b373d9bbf168584997244e070eece048c89ff76597783e3b169b369431ba40f"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc11-foundation-20261110-01/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 814716,
+        "sha256": "022a7a38b36737ec284a2354802076346533caad7a8f6c9c2436ac2341aaf02b"
+      },
+      "priorBodyPreserved": true
+    }
+  ],
+  "mainIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 29372910,
+    "sha256": "bf9dc283b5dfc5c80123062514252432e118915da24ea6dd4cd5ea299d09279d"
+  },
+  "deliveredIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/worktrees/abg-rc11-qualification-20261109/index",
+    "bytes": 29654632,
+    "sha256": "de8b47e01b3ce9a761a6d3ef93a551a3f55d06b737cd0353ff2674b169113184"
+  },
+  "sourceTrackingOnly": "These Operator-owned two successor prefix writes are distinct from native four-test source scope; final custody must account for both."
+}

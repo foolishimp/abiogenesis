@@ -1,0 +1,88 @@
+{
+  "status": "CONTINUATION02_HALTED_PHYSICAL_DIAGNOSTIC_DECODING_MISMATCH",
+  "utc": "2026-11-09T08:47:37.112543+00:00",
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/ROOT_EXECUTION_ADMISSION.json",
+    "bytes": 3656,
+    "sha256": "6e6e618adde3cf123fc5dddd7da43bdc45b76244ef819d3406bab7cb8a4d48ee"
+  },
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/BINDING.json",
+    "bytes": 4690,
+    "sha256": "fe50c370b0a637cf77ab466a047b7c303d8204f6d211e5a9f75e8f9770a7dc63"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/continuation.py",
+    "bytes": 10755,
+    "sha256": "5febefd7a90c6a849e5f53e9fff18b4543ee9062b8c62071155caa1797f5670a"
+  },
+  "selectedActionReceipt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-02/selected-action/RETURN.json",
+    "bytes": 2640,
+    "sha256": "2653a4b4b0a21f3197f3eacde484e8f3b4d8a2b5da4439d5663b267ee44d637c"
+  },
+  "ownedLifetimeReceipt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-02/owned-lifetime/RETURN.json",
+    "bytes": 2175,
+    "sha256": "8bf1e40136d1aebffca3401395ccb17cd311110c449310f844db1d4ba02c8c65"
+  },
+  "ownedLifetimeStdout": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-02/owned-lifetime/stdout.log",
+    "bytes": 21558,
+    "sha256": "12721b5d5a910263c4a0f8a61dcaa6cbd0139a75ca7a3dcb4e1d1fa16f989263"
+  },
+  "rawEightPhysicalRows": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-02/PHYSICAL_DIAGNOSTICS_RAW.json",
+    "bytes": 39653,
+    "sha256": "1100ae9c00f3d28021abcaafaa007b734b290e30114873ae1599783b54154d77"
+  },
+  "halt": {
+    "path": "/private/tmp/abg-rc11-proof-20261109-01/continuation-02/HALT.json",
+    "bytes": 193,
+    "sha256": "46ee2683f534fa6131075d1c6369954002dfa122ce3308bf03f3acc836524540"
+  },
+  "actualObservation": {
+    "exitCode": 0,
+    "groupAbsent": true,
+    "signals": [],
+    "TAPCounts": {
+      "tests": 18,
+      "pass": 18,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "allEighteenCaseLines": [
+      "ok 1 - controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+      "ok 2 - controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+      "ok 3 - controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+      "ok 4 - controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+      "ok 5 - controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+      "ok 6 - controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+      "ok 7 - controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+      "ok 8 - controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+      "ok 9 - controlled lifetime: callback errors stop ordinary observations and retain the first error",
+      "ok 10 - controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+      "ok 11 - controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+      "ok 12 - controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+      "ok 13 - controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+      "ok 14 - physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed",
+      "ok 15 - physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize",
+      "ok 16 - physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result",
+      "ok 17 - controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+      "ok 18 - physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded"
+    ],
+    "parserFailure": "missing five HTTP diagnostics",
+    "meaning": "The whole file returned exit0 and complete18/18pass summary. All eight physical rows exist. Existing raw-JSON diagnostic parser rejected the fifth HTTP row because TAP reporter doubled backslashes inside its nested owner error. This is not an observed case failure; original failed receipt preserved."
+  },
+  "sourceDigest": "cfd7ead1bf29c9c1eed0c97ff9e8e30fccb170d89f1f11cc2bfe4f9c90067b6c",
+  "compiledInventoryDigest": "16497c6763f0cb07a2227cb0ce6de2445e14044b94c6542d0523adbd1ad18d7c",
+  "unexecuted": [
+    "unit",
+    "r6",
+    "f04a"
+  ],
+  "noRerunOrSourceRepair": true,
+  "standing": "Root adjudicates actual case evidence/diagnostic representation. No complete full proof campaign, source acceptance, package or qualification."
+}

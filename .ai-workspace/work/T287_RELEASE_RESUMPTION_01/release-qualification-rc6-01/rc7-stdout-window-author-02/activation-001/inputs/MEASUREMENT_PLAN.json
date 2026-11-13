@@ -1,0 +1,65 @@
+{
+  "kind": "bounded_stdout_window_differential_selection",
+  "status": "ROOT_SELECTED_FINAL_MEASUREMENTS_BEFORE_RETAINED",
+  "historicalOracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/historical-metadata-001/MANIFEST.json",
+    "bytes": 3196,
+    "sha256": "e49d991168942fd4784417ce93349801c871f106f9d7dad1171b32650e7a5641"
+  },
+  "required": [
+    "same decision and exact last qualifying activity at supplied recorded decision points",
+    "all four probe producers and threshold not-reached through central owned flush",
+    "two interleaved scopes, mixed/noise and structured turn or30000ms maximum",
+    "actual archive fsync before reference, failed I/O, missing/changed/truncated bytes",
+    "old per-chunk contract/event identity/cut replay and current canonical generated identities",
+    "final partial window, timeout/interruption and enclosing transaction recursion/rollback",
+    "durableOnly threshold projection observes the flushed window; runtime_threshold_not_reached returns the actual advanced successor and actor_process adopts it, even without a threshold event"
+  ],
+  "measure": [
+    "stdout byte count",
+    "window/stdout/probe rows",
+    "fsync count per enclosing transaction and archive window",
+    "original archive range/digest",
+    "lastActivity at each supplied decision point",
+    "separate setup/launch/native/testing/readback/Root-delay durations",
+    "pre-flush predecessor, actual durable post-flush prefix, threshold decision and returned/adopted actor_process successor on non-admitting decisions"
+  ],
+  "limits": [
+    "Only public mechanical metadata is selected. No provider reasoning/text/tool_result/stderr/auth/credentials or raw Result/task/binding bodies are emitted.",
+    "No structured turn boundaries are invented. Historical stdout eventTime is its admitted wall-clock stamp; exact actor capture elapsedMs is only supplied by corresponding admitted probes. Noise-only chunk actor-clock instants are not inferred from wall time.",
+    "Actual-stream differential may compare recorded qualifying activity and decision points, within supplied clocks/scopes. Synthetic non-private mixed/noise/two-scope/turn-boundary cases separately prove classifier/window scheduling.",
+    "Archive byte integrity and original provider chunk content cannot be reconstructed from this metadata; current-owner archive failure/cold-replay discriminators are separate.",
+    "No runtime acquisition, provider invocation or log mutation. Only the exact closed historical prefix was read while later bytes may exist."
+  ],
+  "thresholdOwnerRelation": "runtime_liveness.ts must use the one central scope flush before deriveRuntimeLiveness and its no-admission not-reached arm; admission-only hook is too late. The flush must be durable before durableOnly projection, and a non-admitting decision still returns/adopts its actual advanced successor.",
+  "claimBoundary": "No new event authority, historical relabelling, raw-provider fixture, exhaustive campaign or unmeasured speedup claim.",
+  "nonAdmittingSuccessorObligation": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/NONADMITTING_SUCCESSOR_OBLIGATION.json",
+      "bytes": 1593,
+      "sha256": "6489d74427f058bc69908202442c84ddee4d6afcedfc62e45ac91df40bf98acf"
+    },
+    "obligation": "admitRuntimeThreshold opens admitRuntimeEventTransactionAtDurablePrefix at the old predecessor and uses selectActiveRuntimeTransactionHistoryAtDurablePrefix with durableOnly:true. The shared scope-window flush must be durable before the decision projection. If the flush advances the durable prefix but the decision is runtime_threshold_not_reached, return and adopt the actual successor even though no threshold event is emitted; actor_process local successorPrefix must not remain stale. Merely staging the window in transaction-local state is insufficient.",
+    "howFirst": "Resolve transaction ownership and flush recursion in the selected existing HOW before implementation; preserve E3 and exact same-decision lastActivity.",
+    "proof": "Existing selected differential and timeout/interruption proof must observe qualifying window activity and actual successor on the non-admitting branch; no additional lane or framework selected."
+  },
+  "retainedBefore": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/summary.json",
+      "bytes": 1508,
+      "sha256": "b2b210c971ede687abe790b4a7689a1e684d4b536f69bba32e70b515777c4e18"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/operator-custody-001/lanes/sw1-stage-01/stdout-before/stdout.tap",
+      "bytes": 6157,
+      "sha256": "ab1cb3bf77d06f0bb3813e2512ff7561466402fd7b2ecc40f0ee57d377c4468e"
+    },
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-stdout-window-author-01/activation-001/reviews/source-stage-sw1-stage-01/REVIEW.json",
+      "bytes": 7711,
+      "sha256": "9c2aec81de47d1a72b8fd366b66d7d4e5afcda4e9527497e751854372a27dd8c"
+    },
+    "sourceDigest": "5d51fb333507b2e38183f40c96101358c426c2fa7b49bcb7dc31589e085d063a",
+    "standing": "One genuine cadence red911 versus3, later assertions unreached. Preserved historical before evidence; no successor invocation or qualification credit."
+  }
+}

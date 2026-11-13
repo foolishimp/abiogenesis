@@ -1,0 +1,218 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis 5.0; fixed fifteen families F01-F07,F09-F11,F13-F17; GOAL-035/T-287/RC8 REF-01.",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "frameSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+    "method": "STDO 3.0.4; manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; empty composition; installed stdo-review.",
+    "role": "Independent Reviewer, read-only source and retained evidence; Root owns disposition and further execution.",
+    "classification": "Declared recursion, exact child lineage, admission and failure propagation are Product/Runtime law. The four-scenario harness and its provisioning are Proof. Command clocks, file pins and npm records are operating/custody observations, not ABG authority."
+  },
+  "recordedUtc": "2026-11-07T11:00:34.925472+00:00",
+  "scope": "Broad014 file152 only, separate from SAS. No full Runtime audit, tests, profiling, process action or repair.",
+  "subject": {
+    "sourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "sourceFreezeSha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269",
+    "test": {
+      "path": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "bytes": 68425,
+      "sha256": "b3dedc5ac34c469bcd3defd33588b26deb9519577d47c13606f3eb312e1aa38f"
+    },
+    "archiveSha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+    "verification": "Executed file, recursion_lifecycle.ts and owning HOW matched exact A6 manifest rows. Test, HoG recursion owner and root-installed-environment helper also equal the RC7-cut bytes. No inventory rehash. Unchanged local files do not rule out cost in shared RC8 Product dependencies."
+  },
+  "requirementsAndHow": [
+    {
+      "requirements": "REQ-L-GTL3-RECURSE-003..007",
+      "relation": "Declared termination/foldback, mandatory parent reevaluation, work lineage and explicit application bounds. An application-count bound is not a wall-clock bound on repeated fixture installation."
+    },
+    {
+      "requirements": "REQ-R-ABG3-FRAME-001..006; REQ-R-ABG3-LINEAGE-002/-005; EVENTS/PROJECTION identity and cold truth",
+      "relation": "Explicit event-owned frames, bounded tail-loop control, explainable child causation and Run-local continuation; historical proof does not stand in for current exact-subject proof."
+    },
+    {
+      "how": "M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md:228-249",
+      "sha256": "504a7647805304ff160c43717ec66c5fd00a73aa53360904e56ce4a44e9d9b51",
+      "relation": "Authenticate failed child route/Result/Judgment/C_Call/value/diagnostic against exact basis and scope; preserve opaque or retained-JSON diagnostic including null, stop enclosing Run through ABG, preserve earlier work, reject crossed/stale truth; no foldback/retry after failure."
+    },
+    {
+      "owner": "hog/recursion_lifecycle.ts:790-922",
+      "sha256": "a634bb0b19affc2e3cbb093101df3537a31c7e220962b7e9fc2a2c1a0a10709a",
+      "relation": "projectFailedRecursionChildTruth checks the exact child/basis/scope and admitted Result digest; completeOwnedRecursionChild propagates already-failed Runs or admits one failure with original diagnostic and child-route causation. This narrow source reading is not a new full replay proof."
+    }
+  ],
+  "verdict": {
+    "selectedWholeFileCompletionWithin600s": "falsified",
+    "observedSemanticAssertionFailure": false,
+    "ProductRegressionOrInfiniteRecursion": "not established",
+    "RootDisposition": "pending"
+  },
+  "finding": {
+    "id": "RECURSIVE-TIMEOUT-014",
+    "severity": "S3",
+    "title": "Repeated installed fixture setup exhausted the selected file budget before the four-scenario and resume proof population completed.",
+    "trigger": "One 600000 ms command encloses seven declared cases. Case4 serially provisions a complete installed execution basis for failure, retained-diagnostic, retained-null and success; each uses real lower owners. No per-scenario or case4 timeout overrides the command cap.",
+    "actual": "Command started10:35:49.258Z and stopped after600046.950833ms with timedOut=true, SIGTERM, exitCode=null, truncated=false. Three fast cases passed (1.567209,8.156416,1.192125ms); no test4/end/summary receipt. No assertion red.",
+    "harm": "No whole-file credit; full current diagnostic-retention/success/pending-resume proof remains incomplete. Runtime semantic harm or a performance regression has not been shown.",
+    "likelihoodAndConfidence": "High confidence in the observed budget/proof failure and progress into a second setup. No measured repeatability or unique Product/host/CPU/disk attribution.",
+    "failClosed": "Recorder withholds whole-file credit; source effects are empty and original receipts survive. Runtime lineage/diagnostic guards remain unchanged. Missing proof is not evidence that all Runtime effects are contained.",
+    "repairScope": "No Product fix, altered oracle, fixture bypass, default budget in Runtime, provider enablement or repeated historical reconstruction is justified. Closure is exact-subject proof with a separately selected common-clock budget, or an explicit bounded evidence residual.",
+    "priority": "Executive-owned; S3 is technical Proof severity, not automatic cut acceptance."
+  },
+  "retainedPhaseEvidence": {
+    "roots": "Exact command TMPDIR /private/tmp/abg-r8c-014/t retained recursive-failure-source-3NZVeV and two root environments. Npm logs were read only from that workspace n/_logs.",
+    "firstRun": {
+      "root": "abi5-root-env-BXZP3l",
+      "eventLog": "/private/tmp/abg-r8c-014/t/abi5-root-env-BXZP3l/runtime/events.jsonl",
+      "bytes": 3669935,
+      "sha256": "c288dcdef1bfedb89a2b0b2ef113729404c11a231e5848b6be239f8d1a729556",
+      "tailRead": {
+        "offset": 3411125,
+        "bytes": 258810,
+        "sha256": "588cf3adae023bda613be451ab4a74079fa295ff80b6c677749e8aea09174b73",
+        "completeRowsRead": 78
+      },
+      "runId": "run://abiogenesis/62367acb7e47dca418460bc143ef7bcf74d6c5305e0132eb8cc9d93fc1e2fe8a",
+      "lastRow": {
+        "ordinal": 144,
+        "kind": "runtime_failure_observed",
+        "eventId": "event://abiogenesis/cadf78fbbc9fd4812c32f0b690ceef629c7702182f98991ec6569315d77acb47",
+        "correlationId": "correlation://recursive-failure/failure/recursion/1/foldback/child-failure",
+        "diagnosticRef": "diagnostic://registered-selection/original-child-failure@5"
+      },
+      "meaning": "Actual retained bytes identify the intended failure scenario and propagated diagnostic. Last log mtime10:43:41.737748Z. This is positive event evidence, not an independent Product replay performed by Reviewer."
+    },
+    "secondSetup": {
+      "root": "abi5-root-env-v83XM9",
+      "observedChildren": [
+        "artifacts",
+        "bootstrap"
+      ],
+      "eventLogPresent": false,
+      "consumerPresent": false,
+      "packLogStamp": "2026-11-07T10:43:47.403Z",
+      "packLogFinalWrite": "2026-11-07T10:44:44.873172Z",
+      "packExit": 0,
+      "meaning": "Second setup began478.145s after command start, leaving121.855s of the selected cap. Source lines157-285 join it to the next retained-diagnostic iteration: all prior loop assertions precede the next setup call. That preceding-assertion credit is a source/control-flow inference, not a separately emitted scenario pass receipt. No second Runtime event store exists at readback."
+    },
+    "frontier": "At termination the current work had progressed into provisioning the second installed environment, before its consumer installation and Event Store creation. The evidence does not locate the exact function within extraction/import/candidate verification/lock/install preparation. It does not support a recursive traversal loop: the first scenario reached its intended failed Run, and the next iteration was still in setup.",
+    "timingLimit": "Event eventTime is fixed fixture time, not wall time. Npm filename stamps and file mtimes are wall-clock markers, not precise per-function durations. Logs show successful first-root pack/install operations and the successful second pack; no npm failure. Retained logs may have older entries pruned.",
+    "npmLogBase": "/private/tmp/abg-r8c-014/n/_logs",
+    "npmPins": [
+      {
+        "file": "2026-11-07T10_35_49_909Z-debug-0.log",
+        "bytes": 1236,
+        "sha256": "14541a90e36c8afe9d332134de44beae8f957b6698caeb2e54a3d838a3b95413",
+        "root": "abi5-root-env-BXZP3l",
+        "stampUtc": "2026-11-07T10:35:49.909+00:00",
+        "lastWriteUtc": "2026-11-07T10:35:53.612415+00:00",
+        "exit0": true,
+        "command": "npm pack"
+      },
+      {
+        "file": "2026-11-07T10_35_54_445Z-debug-0.log",
+        "bytes": 1203,
+        "sha256": "3815f6b58f4eb7d7de80ed70f43c855b3ae2395b6d78baa22c9b2d427a78f091",
+        "root": "abi5-root-env-BXZP3l",
+        "stampUtc": "2026-11-07T10:35:54.445+00:00",
+        "lastWriteUtc": "2026-11-07T10:35:54.562319+00:00",
+        "exit0": true,
+        "command": "npm pack"
+      },
+      {
+        "file": "2026-11-07T10_39_31_473Z-debug-0.log",
+        "bytes": 1909,
+        "sha256": "4c9b9b6b9c1260f6d121f94259c9ffa8c73c0906814523da397c41070ee0173b",
+        "root": "abi5-root-env-BXZP3l",
+        "stampUtc": "2026-11-07T10:39:31.473+00:00",
+        "lastWriteUtc": "2026-11-07T10:40:31.875237+00:00",
+        "exit0": true,
+        "command": "npm install /private/tmp/abg-r8c-014/t/abi5-root-env-BXZP3l/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz"
+      },
+      {
+        "file": "2026-11-07T10_40_56_084Z-debug-0.log",
+        "bytes": 2743,
+        "sha256": "44738cb64bf149f3b9d97d9d2f1910e4dd8360989809dfd6bee8383b800a78a1",
+        "root": "abi5-root-env-BXZP3l",
+        "stampUtc": "2026-11-07T10:40:56.084+00:00",
+        "lastWriteUtc": "2026-11-07T10:42:13.370038+00:00",
+        "exit0": true,
+        "command": "npm install /private/tmp/abg-r8c-014/t/abi5-root-env-BXZP3l/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz"
+      },
+      {
+        "file": "2026-11-07T10_43_47_403Z-debug-0.log",
+        "bytes": 1236,
+        "sha256": "11a9a12c822ad76d9b2dfae262376002d3bf1469005e328ee10ebf7a576b89be",
+        "root": "abi5-root-env-v83XM9",
+        "stampUtc": "2026-11-07T10:43:47.403+00:00",
+        "lastWriteUtc": "2026-11-07T10:44:44.873172+00:00",
+        "exit0": true,
+        "command": "npm pack"
+      }
+    ]
+  },
+  "causalCone": {
+    "fixture": "test:147-285 creates the four scenarios; setupInstalledRootExecutionBasis at support/root-installed-environment.mjs:1026 calls resolution/catalog setup, installs/verifies Products and creates invocation/basis/leaf port. graph_execute and recursion_lifecycle are linked in memory with observation/control seams disclosed by the test; Event Store/admission/cold projectors remain real. Retained lanes supply controlled F_D diagnostics through invokeLeafOwnerBoundary. No provider is selected.",
+    "case4Assertions": "Original opaque diagnostic; retained bytes and JSON null; no replacement subject; crossed prior parent, child call/result/judgment/value/basis/input/scope/held refusal; no events on pure refusal; prior work unchanged; exactly one enclosing failure; no mismatch substitution; cold failed truth/result absence. Success lane additionally checks pending phase boundaries, exact cursor/input/parent chain and terminal closure.",
+    "laterCases": "Case5 optional live native Public selector (ABI5_RECURSIVE_SELECTION_LIVE unset): no executed skip receipt because command stopped earlier. Cases6/7, unproved here, are nonoptional same-Run pending execution owner and cold Public CLI paths: unknown-effect/crossed-coordinate refusals, exact use, one consumption, duplicate/stale acquisition, no repeated work, parent closure, cold result/replay, child GraphCall declaration-proof positive and omission refusal.",
+    "positiveCredit": "Three completed schema/fixture/state tests remain partial. First failure scenario has identified retained event evidence and inferred progress beyond its cold assertions. Neither substitutes for remaining scenarios or the later cases.",
+    "historicalLimit": "RC4 accepted recursive proofs remain historical evidence at their own source/artifact/premises. They were not re-priced as current A6 completion. The local frozen test/owner equality to RC7 is source correspondence, not current performance proof."
+  },
+  "recommendation": {
+    "smallestProportionalDisposition": "Root may register RC8-RECURSIVE-REGISTERED-SELECTION-PROOF as a bounded residual for file152 in the explicitly unqualified REF-01 cut, preserving the timeout, three passes, identified first-Run facts and every unproved claim. This is defensible without a demonstrated current semantic counterexample; it does not establish current full recursion/resume qualification or bounded Runtime latency.",
+    "continuation": "The other54 scheduled files are an independent proof population. Only Root may admit a concrete continuation excluding this residual; Reviewer selects no execution.",
+    "proofAlternative": "If current completion is required now, use separately selected exact-input proof for the unchanged unfinished cases, with disclosed selection and a common-clock envelope that accounts for four fresh installations in case4 plus one in each resume case. A simple repeat under600s is unsupported by the observed478s before setup2. Application bound3 does not cap fixture setup time. No particular larger limit is promised sufficient, and no automatic increase/rerun is selected.",
+    "closureTrigger": "Before claiming current recursive diagnostic retention/success/pending-resume coverage, or full release qualification, obtain actual completion of all intended nonoptional cases on the exact cut, retaining the optional native case as an explicit exclusion unless separately selected.",
+    "falsifier": "A current wrong diagnostic/subject, lost prior evidence, false successful parent closure, accepted crossed/stale child or continuation, duplicate use/redispatch, or failure of the required current sunny-day path is a semantic blocker requiring Product triage. A further timeout retains the unresolved cost/proof issue; do not weaken assertions, infer a pass from logs, substitute RC4 goldens or hide the residual."
+  },
+  "pins": {
+    "operatorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_014.json",
+      "bytes": 6259,
+      "sha256": "0700752b456589a9873b246f01736b4264adf842e47598453230a4e31f11dd92"
+    },
+    "fileReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/files/152-t287-recursive-registered-selection.json",
+      "bytes": 1051,
+      "sha256": "05ee3a38c2a7ba292f97e50f482dc7d92763e6997462a953072fbccab9fdcaee"
+    },
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/commands/152-t287-recursive-registered-selection.result.json",
+      "bytes": 1521,
+      "sha256": "dcdd61aa3795917901d76fb917fbb5287a8b75d522bbfc212168665e48441a51"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/commands/152-t287-recursive-registered-selection.stdout",
+      "bytes": 956,
+      "sha256": "29effc209e0f6e4a2be59fc5d10be748733cb6a40ea831ade03368036fc110b6"
+    },
+    "reporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/events/152-t287-recursive-registered-selection.jsonl",
+      "bytes": 968,
+      "sha256": "6aa103a5314a12cea60d9b4b3cc7f1345e237d76452d29e02c1818bb0d7cdc54"
+    },
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-014/SUMMARY.json",
+      "bytes": 366344,
+      "sha256": "c4428a99771b0b90d3e3ae589565899b5e9c3fc50f4a38bf0f5c84ad5d0b6a86",
+      "basis": "Exact Operator custody; no repeated full-summary inventory acquisition."
+    },
+    "requirements": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-RECURSE.md",
+        "bytes": 1677,
+        "sha256": "448addbc9f1b94f9b19be063c7068a59ed6b1f2d7fa3c222413ee450d371883c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-FRAME.md",
+        "bytes": 1422,
+        "sha256": "36b200e1fc89e4b0a9c3f922e674c854505090fa911558d1b956b2350e287d51"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-LINEAGE.md",
+        "bytes": 1437,
+        "sha256": "968f97fd609aee04fed41160c65991683f0b113a1a3cb0b13898bc0017407fdc"
+      }
+    ]
+  },
+  "effects": "Only this capsule written. No tests, Product calls, providers, process inspection/signals, profiling, cleanup, Git effects or source changes. Only a bounded tail of one3.7MB log was decoded; no whole history or old586MB log decode."
+}

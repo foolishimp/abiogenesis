@@ -1,0 +1,13 @@
+Product Frame: unchanged ABIogenesis 5 fifteen families F01–F07, F09–F11, F13–F17; GOAL-035/T287 F10 affected D5 proof, preserving F04/F11 and Q23 Q1–Q7. Product/requirements and existing HOW own scope; immutable STDO3.0.4 and maintained RC6 owners govern tools; ABG alone admits runtime truth. This Writer prepared controls only, with no moving Product reads, source edits, staging, call construction, tests or runtime/provider activity.
+
+The proof02 template is closed. Final author02 SUBJECT/Result, return/readiness/progress, genuine close/resume and Root admission remain null. The preparer refuses that state before constructing owner inputs. The authentic 53.578-second baseline is retained as earlier partial evidence, never as the final candidate.
+
+The exact author02 C2 recipe is unchanged: seven commands, ten unique modules across four lanes, 407 protected paths. Five proof inputs bring the declared context to 412 paths. Only Testing and UAT exist; both have explicit complete instruction arrays and empty write roots. The complete assessment/readFirst union is unique and contains current author02 handoffs, with no obsolete author05/06 or author01 handoffs.
+
+Capture helpers resolve source correspondence, guard and component reports by command ID, retaining recovery plus all other lane reports. UAT capture covers success, failure, non-unique/no assessment, pending and closed-without-result. The current rubric includes final authentic recovery, full-carrier M2 and strict causation obligations; counts and the earlier baseline are insufficient.
+
+Static arithmetic remains 1,636,750 ms below the 1,800,000 ms inactivity bound. Lane caps total 840,000 ms inside the 900,000 ms component command. Final fixture duration and actual runtime-derived budget, context and prompt fit are unresolved. Root must bind and observe the actual source before those checks.
+
+Five syntax-only checks and static recipe/population/instruction-shape/hash/assessment/barrier checks passed. `CONTROL_DEFECT.json` separately records the prior author02 string-to-list-extension error and actual prepared carriage; the active author controls remain unchanged. No author latency or comprehension effect is inferred.
+
+Root must supply the actual completed source and close, bind all specified fields, rebuild source/control/staging hashes, then admit finalization and actual preflight. No dispatch is selected here. The existing fresh proof route has physical source custody and no carried prior NativeWork source-basis claim. Native max UAT remains component feedback; independent judgment and production/release obligations remain separate.

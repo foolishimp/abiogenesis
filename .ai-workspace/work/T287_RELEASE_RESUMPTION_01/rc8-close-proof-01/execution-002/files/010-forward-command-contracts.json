@@ -1,0 +1,33 @@
+{
+  "file": "test_env/tests/forward-command-contracts.test.mjs",
+  "kind": "executed",
+  "passed": true,
+  "wallMs": 860.2871660000001,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "parseFailure": null,
+  "counts": {
+    "tests": 10,
+    "failed": 0,
+    "passed": 10,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 10,
+    "suites": 0
+  },
+  "skips": [],
+  "events": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-002/events/010-forward-command-contracts.jsonl",
+    "bytes": 3509,
+    "sha256": "b6e98e3cc2d9afbec0c059dbb2d29749223f85f059345f11ced23cf909b39976"
+  },
+  "commandReceipt": "commands/010-forward-command-contracts.result.json",
+  "workspace": "/private/tmp/abg-r8c-002/w",
+  "isolatedBuildEffect": false,
+  "effects": [],
+  "sourceEffects": []
+}

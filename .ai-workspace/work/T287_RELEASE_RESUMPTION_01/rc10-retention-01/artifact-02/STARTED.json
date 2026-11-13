@@ -1,0 +1,37 @@
+{
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/BINDING.json",
+    "bytes": 6273,
+    "sha256": "1c67c2ce991052706ea3ac94782127b4bbe4e88e6cbc62f1cb422292e1b05f6f"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/measurement-02/artifact-controls-02/ROOT_ADMISSION.json",
+    "bytes": 1642,
+    "sha256": "2b01b3e09bd997f944c71c83cf81d074a723bef9d5bde7cce09ecfd8fe0d63c5"
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-rc10-measurement-bootstrap-002/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-rc10-measurement-bootstrap-002/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-rc10-measurement-bootstrap-002/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-rc10-measurement-bootstrap-002/npm-cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "bounds": {
+    "hostMs": 600000,
+    "packMs": 120000,
+    "installMs": 480000,
+    "aggregateBytes": 1073741824,
+    "outputBytes": 16777216,
+    "freeReserveBytes": 4294967296,
+    "nodeHeapMiB": 8192
+  }
+}

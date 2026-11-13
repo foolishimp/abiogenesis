@@ -1,0 +1,137 @@
+{
+  "status": "RC11_OPERATIONAL_BUILDER_PINNED_UNQUALIFIED",
+  "result": "satisfied",
+  "recordedUtc": "2026-11-10T22:15:09.174843+00:00",
+  "decisionOwner": "Root Executive under exact owner instruction",
+  "recordedBy": "/root/rc10_operator, separate stdo-work Writer/Operator",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/ACTIVATION.json",
+    "bytes": 4798,
+    "sha256": "fdfdbfc78211b638c8c9488f08a847e8d1c1d9f3b2144e260e6f34d501ef0f88"
+  },
+  "ownerInstruction": "we have been using the tool to build the next RC of the tool, pin RC11 as the abg to build what youve described above as RC12 and wait",
+  "selection": "Installed immutable RC11 is the current project/work operational builder for prospective RC12. RC12 execution remains WAITING_FOR_OWNER_RESUME. No machine-global selector is changed.",
+  "sourceCommit": "e2ba05da572f4a7e68d0629ecc83b9153a15e7c4",
+  "sourceTree": "1aabb06494de37a644b645161c6491d5b005cc73",
+  "version": "5.0.0-rc.11",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.11",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant",
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11",
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11/abiogenesis-typescript-tenant-5.0.0-rc.11.tgz",
+    "bytes": 11045484,
+    "sha256": "f0f5717edd50db30599683e8a6077ba4ac41461208b1a6f334419a014b223455"
+  },
+  "rawPackage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant/package.json",
+    "bytes": 10105,
+    "sha256": "02789c3812e488e53e7a6fe9bd3affd0d39144cd5e69b68adf48c7a7f1f6b9d1"
+  },
+  "rawProductToolchainManifest": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.11/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3266309,
+    "sha256": "3804ff1ac0f6e6e33507956e4d2093d8be025696d5c964cd6f6ac2912a5d57eb"
+  },
+  "productContentDigest": "sha256:ed3cc99b0dc268b2d7eb2cc8da29dcc68127c996e8f805957d74f23d9fcf2381",
+  "canonicalManifestDigest": "sha256:feafd6a00103a8e11db2d46b5777eeb5e62382c877aab65b3ada93fcf5afa706",
+  "contributionManifestDigest": "sha256:1c37943cba90487941f7c26711857484b61b44b26e90831c01f773dbd160956f",
+  "digestProvenance": "Retained exact owner receipts, not recomputed by importing/executing Product; fresh whole-payload equality links those original identities to these bytes.",
+  "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.11/ed3cc99b0dc268b2d7eb2cc8da29dcc68127c996e8f805957d74f23d9fcf2381/14746aee889ad6849643b4d7c6dabc266d6d94c63895b72ec404206258ce8abb",
+  "resolvedLockDigest": "sha256:14746aee889ad6849643b4d7c6dabc266d6d94c63895b72ec404206258ce8abb",
+  "freshPayloadVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/VERIFICATION.json",
+    "bytes": 13267,
+    "sha256": "4ce3cc44c99b8bcaff30756ba0e5e2ee779ac919963416f6f2e363915c7297ca"
+  },
+  "verificationScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/verify_payload.py",
+    "bytes": 11820,
+    "sha256": "84e04d5769f4230b3c1afeb11353661fb3b41a30c61594cd5693ed1c595b47ff"
+  },
+  "archiveInstalledEquality": {
+    "members": 5327,
+    "payloadBytes": 71838919,
+    "memberInventorySha256": "2e90b54e58fd3c568076fc528ed4e8dc8dd321269f4a1e9cb522e705e60adf9d",
+    "inventoryEncoding": "UTF-8 JSON compact rows ordered by canonical POSIX relative path, each object keys path,bytes,sha256; raw byte SHA-256, not Product semantic digest.",
+    "mismatches": 0,
+    "extraOrMissing": 0,
+    "unsafeDuplicateNonregularOrLinked": 0,
+    "extraction": false,
+    "ProductExecution": false
+  },
+  "retainedOwnerReceipts": {
+    "verification.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11/verification.json",
+      "bytes": 15794345,
+      "sha256": "24623b3cc5d6083663ac8a59a9ffdc1599864286fb2639a15e9ba9a577d5a0b6"
+    },
+    "resolved-lock.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11/resolved-lock.json",
+      "bytes": 4563584,
+      "sha256": "42f4b12e74ff0e6ae5075b5f8b97cdf7d7d48338320482c77252b7accd07dfb7"
+    },
+    "installation.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11/installation.json",
+      "bytes": 4232315,
+      "sha256": "a132e22503c97d48a606f4a14f7538840c440c879493389e961c2ebc7734b5db"
+    },
+    "payload-correspondence.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11/payload-correspondence.json",
+      "bytes": 1035533,
+      "sha256": "3614f2a398b4ab4b2d4ad90e2d373193d33381e59d950eece955a9068f95403a"
+    },
+    "LOCAL_CUT_RECORD.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.11/LOCAL_CUT_RECORD.json",
+      "bytes": 2626,
+      "sha256": "706764cd45ab90b6f3e256d97c53f4ca2d2514b377f38884f971490a030a6caf"
+    }
+  },
+  "acceptedOriginalDelivery": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/ROOT_FINAL_DISPOSITION.json",
+    "bytes": 14965,
+    "sha256": "5d6c3ec6d2094a041e25d5515347f83be0d5bc6694fc12e552089b66b34cf121"
+  },
+  "acceptedOriginalInstall": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/install-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+    "bytes": 8558,
+    "sha256": "499944cba2e73c51815ec69da8ce4e783cf4b09b8e785eadd579d4ae928dc8c5"
+  },
+  "previousOperationalPinAndRC11BuildProvenance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7591,
+    "sha256": "05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0"
+  },
+  "historicalBuilderStanding": "RC11 was constructed using pinned immutable RC10. The exact RC10 pin/archive/install and older provenance remain unchanged; this successor selection does not imply RC11 built itself.",
+  "prospectiveRC12": {
+    "status": "WAITING_FOR_OWNER_RESUME",
+    "intent": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/RC12_INTENT.md",
+      "bytes": 2592,
+      "sha256": "b9cda455579c090c7d947f77ef1fe3d70cd255e97b55c45bc275cb303c7f3d0e"
+    },
+    "continuationSourceCommit": "b7cf409fc74eca639525fccbea52e666be7743d4",
+    "continuationSourceTree": "0f26a089130ecc58e060698703f0407246463a35",
+    "continuationWorktree": "/private/tmp/abg-rc11-foundation-20261110-01",
+    "checkpoint": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-b02/proof-01/CHECKPOINT_RETURN.json",
+      "bytes": 4113,
+      "sha256": "dde08cec16a40289c5fba9444d003d1c75ac784288ccbec1fc41f691d9ad85d0"
+    },
+    "laterSourceIsInsideInstalledRC11": false,
+    "laterProofTransferredToBuilder": false,
+    "implementationActivated": false
+  },
+  "qualified": false,
+  "published": false,
+  "operationalPinOnly": true,
+  "globalSelectorChanged": false,
+  "sourceOrReleaseOrInstalledBytesChanged": false,
+  "runtimeAcquired": false,
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "builds": 0,
+  "tests": 0,
+  "installs": 0,
+  "GitWrites": 0,
+  "limits": "Identity-only operational selection. Historical immutable RC11 failed unit/test limits remain; later Phase1/2 closures belong only to later successor subjects. Full5.0/S7/human and other deferred obligations are not closed. No new review or qualification claim."
+}

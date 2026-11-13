@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.3/bbc9e936d5608bec37e0f17e3595c651e84051ddffb55addc01b4b46847c2aa1/daccfa63f0afba74ef40dc27a8318b9a594829fdd631ea4ae191441fe87c674c",
+      "admissionEventRef": "event://abiogenesis/a6d664898f91ad0d6b91b445f74c3ac9ecbeadf304eba2414e20ac6fd7071a68",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b10-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:5b81bd64d6114b853cf63322ea16604d158342b300565852afce56ffb3ef4744",
+      "productContentDigest": "sha256:bbc9e936d5608bec37e0f17e3595c651e84051ddffb55addc01b4b46847c2aa1",
+      "manifestDigest": "sha256:d165f43cf177dbe67687bf70ac8e1415ecf15b54f97ce298c681bd99a574162f",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/0d103174ba6bd4d12c47fa4a13e21ba3d4cb9589f24decd3813eefbc470456d4/daccfa63f0afba74ef40dc27a8318b9a594829fdd631ea4ae191441fe87c674c",
+      "admissionEventRef": "event://abiogenesis/4a710553b9f2e0c9e60a903c0390c3776929c2bc35c75f8c259afc5a36bd13b9",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b10-003/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:3afc6a53ffb16c1457fb9e24781f64187abff2143d190ff05fe021d739b24cc7",
+      "productContentDigest": "sha256:0d103174ba6bd4d12c47fa4a13e21ba3d4cb9589f24decd3813eefbc470456d4",
+      "manifestDigest": "sha256:6ce58267a65a6ed783ce332b0c8998c4a97b9ffc5da7c14a37f57462a69863e7",
+      "contentMatches": true
+    }
+  ]
+}

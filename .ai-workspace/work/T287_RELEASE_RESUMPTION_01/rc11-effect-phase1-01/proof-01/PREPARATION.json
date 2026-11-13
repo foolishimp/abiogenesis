@@ -1,0 +1,274 @@
+{
+  "status": "PREPARED_POPULATION_ROUTE_HELD_PENDING_NARROW_M5_SUCCESSOR",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/source-freeze.json",
+    "bytes": 295015,
+    "sha256": "73fa9681d7153644a5c1ca76bfb23c0282afa8005fc79cfb1e2339711a606bf2"
+  },
+  "sourceDigest": "5eb4b82b5861c25a4df23b6d42444b0ad9240d4fb76e7ac93851d5bbd9074fea",
+  "proofPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-plan/PLAN.md",
+    "bytes": 12789,
+    "sha256": "836719db934f117cbc616456e31ba8d1af01f01354f10ea5ac6aab52bcd53b38"
+  },
+  "existingRunner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/proof.py",
+    "bytes": 11223,
+    "sha256": "078bbdfb90ee2cf803b998438d50606e505205e7abb20e39e32be95408758b0f"
+  },
+  "existingContinuation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/proof-01/reentry-04/continuation.py",
+    "bytes": 10741,
+    "sha256": "cd9abe3d5115d5ed51b1efaf06e33c4d166d98908d5f39da1bfe83735e2e4819"
+  },
+  "prospectiveProofRoot": "/private/tmp/abg-rc11-effect-phase1-proof-20261110-01",
+  "population": [
+    {
+      "path": "test_env/tests/t287-publication-observer.test.mjs",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-publication-observer.test.mjs",
+        "bytes": 9781,
+        "sha256": "44733710fd85aa4b6bc3ed2decc875e7334e7778a1358e3564a0ab39da4f0c61"
+      },
+      "names": [
+        "observer: stop during a pending read seals once, starts no next probe and ignores the late resolution",
+        "observer: cutoff 10 seals at the deadline while a read is pending; its resolution at 11 is not credited",
+        "observer: a read settling at 11 or exactly 10 before any deadline wakeup is rejected by its own settlement check",
+        "observer: read errors and null are retained as not observed; polling continues until a timely value completes",
+        "observer: timely completion seals complete without stop; later owner return keeps that snapshot",
+        "observer: a huge finite cutoff arms chunked host waits and still seals on stop",
+        "observer: owner call keeps its settle instant and original result or thrown value before stopping",
+        "observer: real host never-resolving read hands back boundedly on stop and at its deadline with no timer residue"
+      ],
+      "topLevelCount": 8,
+      "prospectiveSkippedOnDarwin": 0
+    },
+    {
+      "path": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 52787,
+        "sha256": "4db80cc8cf535099e138138720dc0ffb196e81ed35a8c9fe3b3037fee9a1ab91"
+      },
+      "names": [
+        "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+        "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+        "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+        "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+        "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+        "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+        "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+        "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+        "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+        "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+        "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+        "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+        "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+        "physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed",
+        "physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize",
+        "physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result",
+        "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+        "physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded"
+      ],
+      "topLevelCount": 18,
+      "prospectiveSkippedOnDarwin": 0
+    },
+    {
+      "path": "test_env/tests/m5-worker-transport.test.mjs",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/native-02/frozen-source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 138655,
+        "sha256": "38f201421431f21120ceabe75babf54ceda8c43639d87bcfa38e8cc03c610999"
+      },
+      "names": [
+        "M5 B-001 preserves lane-owned Claude execution posture",
+        "M5 native report keeps its original host schema presentation",
+        "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+        "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+        "M5 B-001 bounds append arguments for all four transport contracts",
+        "M5 B-001 gives agent-specific sandbox binding precedence",
+        "M5 transport identity changes with parser and prompt-delivery semantics",
+        "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+        "M5 Bash tool identity ignores only optional string description metadata",
+        "M5 B-001 rejects tool activity only in the closed-prompt lane",
+        "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+        "M5 selected result text cannot admit a valid file without its final carrier",
+        "M5 actual owner, controlled clock: a true acknowledgement renews inactivity and the timeout cutoff excludes later semantic bytes",
+        "M5 actual owner, controlled clock: a false acknowledgement never renews inactivity",
+        "M5 actual owner, controlled clock: continuous true acknowledgements never renew the absolute deadline",
+        "M5 actual owner, controlled clock: descendant bytes after direct exit reach the closed-capture branch and stay outside raw and semantic output",
+        "M5 actual owner, controlled clock: identical ordered progress gives one outcome under split and coalesced capture",
+        "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+        "M5 ABG transport renews its inactivity lease only from observed progress",
+        "M5 ABG transport does not renew from unacknowledged output",
+        "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+        "owned process groups retain descendant cleanup after normal and TERM leader exits",
+        "M5 ABG transport excludes descendant output emitted after direct-process exit",
+        "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+        "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+        "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+        "TD-11: the incremental tool projection equals the head projection at every cut",
+        "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N",
+        "M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown",
+        "M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown",
+        "M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it",
+        "M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it",
+        "RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity",
+        "RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced",
+        "RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison",
+        "RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease",
+        "RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization"
+      ],
+      "topLevelCount": 37,
+      "prospectiveSkippedOnDarwin": 0
+    }
+  ],
+  "commands": [
+    {
+      "id": "lint",
+      "kind": "node",
+      "args": [
+        "scripts/lint-verification.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/LINT_RECIPE.json"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "id": "build",
+      "kind": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "deterministic",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "--test-name-pattern=^(observer:|controlled |M5 actual owner, controlled clock:)",
+        "test_env/tests/t287-publication-observer.test.mjs",
+        "test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "timeoutSeconds": 60,
+      "expectedSelectedNames": [
+        "observer: stop during a pending read seals once, starts no next probe and ignores the late resolution",
+        "observer: cutoff 10 seals at the deadline while a read is pending; its resolution at 11 is not credited",
+        "observer: a read settling at 11 or exactly 10 before any deadline wakeup is rejected by its own settlement check",
+        "observer: read errors and null are retained as not observed; polling continues until a timely value completes",
+        "observer: timely completion seals complete without stop; later owner return keeps that snapshot",
+        "observer: a huge finite cutoff arms chunked host waits and still seals on stop",
+        "observer: owner call keeps its settle instant and original result or thrown value before stopping",
+        "observer: real host never-resolving read hands back boundedly on stop and at its deadline with no timer residue",
+        "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+        "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+        "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+        "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+        "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+        "controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure",
+        "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+        "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+        "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+        "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+        "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+        "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+        "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+        "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+        "M5 actual owner, controlled clock: a true acknowledgement renews inactivity and the timeout cutoff excludes later semantic bytes",
+        "M5 actual owner, controlled clock: a false acknowledgement never renews inactivity",
+        "M5 actual owner, controlled clock: continuous true acknowledgements never renew the absolute deadline",
+        "M5 actual owner, controlled clock: descendant bytes after direct exit reach the closed-capture branch and stay outside raw and semantic output",
+        "M5 actual owner, controlled clock: identical ordered progress gives one outcome under split and coalesced capture"
+      ]
+    },
+    {
+      "id": "owned-lifetime",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "test_env/tests/t287-owned-process-lifetime.test.mjs"
+      ],
+      "timeoutSeconds": 300,
+      "expectedTests": 18,
+      "expectedSkipped": 0
+    },
+    {
+      "id": "m5",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "expectedTests": 37,
+      "expectedSkipped": 0
+    },
+    {
+      "id": "unit",
+      "kind": "testfile",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=tap",
+        "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+        "test_env/tests/t287-owned-call-reference.test.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-native-runtime-gate.test.mjs",
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/forward-command-owners.test.mjs",
+        "test_env/tests/t287-native-semantic-revision.test.mjs"
+      ],
+      "timeoutSeconds": 1800,
+      "expectedTests": 100,
+      "expectedSkipped": 6
+    }
+  ],
+  "lintRecipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase1-01/proof-01/LINT_RECIPE.json",
+    "bytes": 465,
+    "sha256": "97f2c7fc797998bff5649eaee841f67b589c041d13a3cd8f6c6223b3d8ee5dfb"
+  },
+  "limits": {
+    "stageSeconds": 600,
+    "campaignSeconds": 4200,
+    "minimumFreeBytes": 4294967296,
+    "outputBytesPerCommand": 104857600,
+    "TERMSeconds": 5,
+    "KILLSeconds": 1
+  },
+  "newPhysicalCaseCeilingsSeconds": {
+    "forceTerm": 11,
+    "progress": 21,
+    "falseAck": 16,
+    "lateTimeout": 16,
+    "groupedWorkerCommandHTTP": 77,
+    "postExit": 18,
+    "unchangedEPIPE": 10
+  },
+  "ceilingMeaning": "169 s sum of these explicit top-level caps. Other pre-existing m5 cases retain their original bounded owner contracts; complete frozen budget review precedes execution. No owner clock changes.",
+  "retainedEvidenceRoute": "Set ABI5_TEST_EVIDENCE_DIR to a create-once per-command directory. Preserve JSON evidence plus raw TAP/stdout/stderr. Decode built-in TAP backslash/hash escaping once and round-trip before JSON. No physical parser pilot or rerun.",
+  "requiredRunnerDelta": [
+    "explicit lint recipe and TAP flags",
+    "bind actual final successor inventory; never mutable author worksite",
+    "include new observer and actual controlled m5 names",
+    "retain per-command evidence and complete named populations",
+    "snapshot compiled/contracts/manifest after one build and assert exact equality for every subsequent command",
+    "preserve dependency copytree/copy2 directory metadata and hidden-lock metadata",
+    "external CLI admission, no circular hash relation"
+  ],
+  "executionHeld": "Root-confirmed m5 completion timestamp oracle defect; no source repair or runtime/proof effect selected here. Final binding follows exact corrected source freeze and Root conjunction."
+}

@@ -1,0 +1,44 @@
+{
+  "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+  "kind": "deferred_no_coverage",
+  "deferral": {
+    "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+    "testSha256": "955a1e190983ecb8960d3d7468d5203f1ac81cadea2404cf1fe6550d0dc83740",
+    "disposition": "SCHEDULING_DEFERRED_NO_COVERAGE",
+    "reason": "Root profile triage pending after019 unknown native profile at top-level initialization. Temporary scheduling only; zero test/whole credit, no permanent assurance deferral or repair selected.",
+    "evidencePins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/OPERATOR_RETURN_019.json",
+        "bytes": 8949,
+        "sha256": "82eb2c4528d67adf24929366cf0b4ec5ff59a6ee23dc468e813de68f93dc207c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/files/171-t287-selected-action-authority.json",
+        "bytes": 1169,
+        "sha256": "bfb0c0c444764831b388ec415734bce3ac704d2a0e0036cd2ac1a503e593d95f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/commands/171-t287-selected-action-authority.result.json",
+        "bytes": 1501,
+        "sha256": "efdd0968ff1be72a5b0654c3540fb7cbae7438e7c168e4bdee2b543f04c9b3c9"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/commands/171-t287-selected-action-authority.stdout",
+        "bytes": 1418,
+        "sha256": "5f42cacf7b78eb398df3a02a1b878bd792ac1a0fb1d64b3f97d23c5bc58dc9a3"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/events/171-t287-selected-action-authority.jsonl",
+        "bytes": 767,
+        "sha256": "c9ffe1058c8b2b2eaea02da5bce56bd6ddb2e16dbc29941d1a686afe3bb095db"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-019/FAILURE.json",
+        "bytes": 619,
+        "sha256": "921c73d5f36c5363a9ac48b7b5df300146278d91d2d1256a18a4bb1182d0d809"
+      }
+    ],
+    "capsule": "RC8-SELECTED-ACTION-PROFILE",
+    "successorStanding": "Root selected scheduling exclusion only; see RESIDUAL_REASSESSMENT.json, no closure or inherited semantic no-block"
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "productFrame": {
+    "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "families": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17"
+    ],
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "selectedOutcome": "RC8 REF-01 realization refactor; explicitly unqualified local cut",
+    "method": "STDO 3.0.4",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "authority": "ABG alone admits events and owns runtime/profile/replay truth. The fixture is Proof; Product/environment overrides are explicit component premises, not installed authority."
+  },
+  "review": {
+    "id": "WITNESS-REPRICE-024",
+    "role": "independent Reviewer",
+    "status": "CLOSED_CAUSAL_REVIEW",
+    "verdict": "S3 fixture profile-coordinate mismatch; no RC8 Product regression demonstrated. Recommend the bounded two-reference test-only repair and whole existing profile-case proof. Root alone selects and accepts.",
+    "effects": "Read source and receipts; wrote only this new review capsule. No tests, Product imports/calls, source or Git changes, processes, providers, repairs or dispatch."
+  },
+  "subjects": {
+    "selectedSourceDigest": "95d3d1d0430f50649e35183cb0d361393f0cd821ce3e5b80e0a3dc0c67b20c04",
+    "selectedSourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-11/proof-evidence/source-freeze.json",
+      "bytes": 295552,
+      "sha256": "422808c5850d72cb0533fa7ddba6864c757f9b23eeba756466f4157f20cd7879"
+    },
+    "broadSourceDigest": "6e86c4e432799b3bfc9bebde725e5ec30cb3403821f46ffa9ee9ae2f6424c200",
+    "broadSourceFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-06/proof-evidence/source-freeze.json",
+      "bytes": 295568,
+      "sha256": "687cb96b865fc77552c64a3b97725f7449a9ffe377a4ebb4862fa5121c58a269"
+    },
+    "rc7Base": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "archive": {
+      "bytes": 11027562,
+      "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9",
+      "standing": "same exact artifact recorded by execution-024; existing accepted archive-member relation excludes test_env"
+    },
+    "sourceCorrespondence": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "bytes": 27192,
+        "sha256": "25c3756928fb8a568e515538ed38500e8a8bbb8ec695e76fdcc380b3a6a7c37d",
+        "sameRc7Physical": true,
+        "matchesA6PhysicalAndA6A11ManifestRows": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/witness-reprice-mechanics.mjs",
+        "bytes": 21154,
+        "sha256": "38cb8a13689b744330e1bb6b57bab19911c158d8549bdc063bcbba2889bee205",
+        "sameRc7Physical": true,
+        "matchesA6PhysicalAndA6A11ManifestRows": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+        "bytes": 14485,
+        "sha256": "f242656d220350439cf699d1654ce324cb2d6fb4d80b2567b5ba4bd8a7c89994",
+        "sameRc7Physical": true,
+        "matchesA6PhysicalAndA6A11ManifestRows": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "bytes": 225695,
+        "sha256": "3ccabe2beab865f8a89181d169f9ae14b31dc4c5d9aad8e90e517b2a4c5c8fbb",
+        "sameRc7Physical": true,
+        "matchesA6PhysicalAndA6A11ManifestRows": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+        "bytes": 40995,
+        "sha256": "c16c27de89523969d3f4a4b066c539115aff0150f5abe00ef147728763291e8f",
+        "sameRc7Physical": true,
+        "matchesA6PhysicalAndA6A11ManifestRows": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+        "bytes": 21016,
+        "sha256": "76e72281b95fd00e192964ba5beb42ac550e28f78d0cc62e512071e494f61671",
+        "sameRc7Physical": true,
+        "matchesA6PhysicalAndA6A11ManifestRows": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+        "bytes": 23451,
+        "sha256": "7dff87daba510c78b553bd735b807e03a70ea5e20b7efd1eb16fad24b942e1e9",
+        "sameRc7Physical": true,
+        "matchesA6PhysicalAndA6A11ManifestRows": true
+      },
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+        "bytes": 22350,
+        "sha256": "5fd66737b877301cad2ac3f3c3605a68ba9ee83fc01f4d8be56359b7cdddc4fb",
+        "sameRc7Physical": true,
+        "matchesA6PhysicalAndA6A11ManifestRows": true
+      }
+    ]
+  },
+  "authorityPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "bytes": 9837,
+      "sha256": "f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "bytes": 16630,
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 10959,
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 194356,
+      "sha256": "1bc601d2c1b89527b092a0def3ba6ee05046210a8b03963ba7e94e161f210659"
+    },
+    {
+      "path": "/private/tmp/abg-r8-uoznnezy/author-03-proof/stage-04/source/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 153007,
+      "sha256": "f940670cfb03f4cc587d91537b1082b2563b6399332d687ef9319ac6289757de"
+    }
+  ],
+  "owningRelations": [
+    {
+      "what": "WITNESS-003/005/009/013/017; EVENTS-001/002/003/024; PROJECTION-002",
+      "how": "T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md sections 2-5, refined by common capability library HOW 10.10 E-G (line 874)",
+      "relation": "A newly admitted exact-L boundary targets current W with its own descriptor ref/digest. Original retained RC6/S2 boundaries keep their old profile ref/digest. No restamping, fallback, P-to-W migration or generic compatibility owner."
+    },
+    {
+      "what": "Selected REF-01 reference preservation, fixed Product scope",
+      "how": "Common capability library HOW 10.11",
+      "relation": "Existing admission/currentness and raw-input checks survive. This test-only stale coordinate is not authority to change an event/profile owner."
+    }
+  ],
+  "observed": {
+    "command": {
+      "started": "2026-11-07T15:17:28.407Z",
+      "wallMs": 4945.167083000008,
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    "cases": {
+      "total": 15,
+      "passed": 14,
+      "failed": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "reporterEnd": true
+    },
+    "failure": {
+      "case": 14,
+      "name": "Public profile reprice retains the exact L-to-P boundary and standalone cold content checks",
+      "assertion": "test line 232: expected result.exitCode 0, actual 70",
+      "receipt": "typed_execution_fault; stage abg_admission; code sink_unavailable; ownerOutput/resources null",
+      "message": "witness admission appended no partial truth: TypeError: profile transition is not the one exact native witnessed L-to-P boundary"
+    },
+    "standing": "A semantic assertion red in the Proof fixture, not a command timeout. No whole-file pass. The 14 other cases retain their exact observed component standing."
+  },
+  "finding": {
+    "id": "WR024-F1",
+    "severity": "S3",
+    "classification": "Proof input incoherent with accepted existing profile contract",
+    "trigger": "Every execution of this profile case constructs evidence (p5 ref, current W digest).",
+    "sourceChain": [
+      "Test lines 223-226 chooses afterDigest=ROOT_EVENT_CONTRACT_DIGEST but evidence.ref=ROOT_CURRENT_EVENT_PROFILE_REF (p5-run-environment-role-context@1).",
+      "event_store.ts:1211-1218 constructs current W with ROOT_WINDOW_EVENT_PROFILE_REF. event_contract_profiles.ts:58-64 assigns W the p6-stdout-window-witness@1 ref; RC6/S2 retain p5. Published native-runtime-observation.json:4-9 confirms W digest sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf and p6 ref.",
+      "witness_admission_operation.ts:654-670 preserves request evidence in the semantic payload; lines 1164-1171 route the reserved declaration through admitRootEventProfileUpgrade.",
+      "event_store.ts:3910-3924 requires an evidence item whose ref AND digest match the selected after profile. The fixture has no W ref, so this necessary conjunct is false. Lines 3956-3959 check it before entering the transaction.",
+      "witness_admission_operation.ts:1207-1215 maps the thrown preflight error to sink_unavailable; witness_definition_bindings.ts:169-185 maps that to the observed typed abg_admission fault."
+    ],
+    "harm": "The current profile-bridge component proof stops before its positive/cold/negative/work assertions. A real caller supplying this mismatched pair likewise receives a fail-closed fault; no evidence here says a correctly paired W request fails.",
+    "containment": "Exact profile selection and pre-transaction validation prevent this mismatched transition from appending the Public/witness pair. No event/profile guard should be relaxed. This is source-causal containment; the stopped case did not itself execute its later unchanged-byte checks.",
+    "rc8Relation": "The relevant test/helper/native owners are byte-identical to RC7 and match A6/A11. This supports an existing fixture omission after W selection, not an RC8 reference-refactor regression; classification rests on the exact accepted law and malformed pair, not on unchanged bytes alone. No historical RC7 test result is asserted.",
+    "probabilityAndCost": "Deterministic for this fixture; ordinary fresh W work does not need an L upgrade. Two test symbol references, zero Product/owner/digest changes. The original full component file took 4.945s, so a focused proof is small; no new runtime or algorithm is justified."
+  },
+  "completeAffectedCone": {
+    "source": [
+      "Only this test contains the profile-upgrade fixture and ROOT_CURRENT_EVENT_PROFILE_REF uses in the selected test tree. profileRequest() feeds the positive, wrong-reason, missing-evidence and repeated-upgrade calls in case 14.",
+      "Both line 226 evidence construction and line 241 missing-evidence removal must select ROOT_WINDOW_EVENT_PROFILE_REF. Changing only the positive makes the negative mutation ineffective."
+    ],
+    "unexecutedAfterFirstAssertion": [
+      "profile receipt kind; entry L and successor W coordinates",
+      "three native rows; exact schedule/boundary event and last-event identity",
+      "standalone copied-resource cold correspondence",
+      "changed request-content reason and forged boundary-event rejection",
+      "wrong profile reason and missing current-profile evidence refuse with unchanged bytes and authentic close/reopen",
+      "repeated upgrade refuses with unchanged bytes and authentic close/reopen",
+      "one acquisition plus selected-body work bound and final witness_profile_boundary diagnostic"
+    ],
+    "retainedEvidence": "14 other cases passed, including ordinary witness fresh-process replay, current-byte tamper refusal/cold correspondence, exact authority and member refusals, transaction first-cause/rollback, held history reuse and physical-close failure. These are controlled component proofs with stubbed Product/environment, not installed legacy-bridge proof."
+  },
+  "recommendation": {
+    "preferred": "Root-authorized native test-only increment: replace the two p5 references with ROOT_WINDOW_EVENT_PROFILE_REF; preserve all existing assertions, request digests computed by existing owners, legacy seed/byte custody, helpers, Product/HOW and archive.",
+    "proof": "Freeze the sole test delta, then execute the whole existing case with exact anchored name filter: ^Public profile reprice retains the exact L-to-P boundary and standalone cold content checks$. Require actual positive, both negative mutations, repeat refusal, cold tamper/correspondence and work assertions through final diagnostic. Preserve original 024 red.",
+    "conjunction": "The two changes are local to case 14 and its exclusive profileRequest helper. Other cases and shared helpers remain exact; countHistory restores instrumentation in finally and each fixture owns its scratch store. No cross-case precondition requiring a whole-file rerun was found. Root may conjoin the 14 retained 024 case passes and one new complete case pass, explicitly without a new whole-file pass or restamped 024 ledger.",
+    "conditionalStop": "If corrected exact-pair input still refuses, any existing negative becomes admitted, bytes are rewritten, or the closed resource/cold relation fails, preserve that new counterexample and return to its existing owner. Do not expand the test correction into profile migration.",
+    "alternativeOpenResidual": "An explicit OPEN profile-bridge assurance capsule could be bounded to the unqualified REF-01 cut because this input is invalid and new W genesis is unaffected. It must prohibit claims of current L-to-W bridge qualification and close before enabling/relying on that bridge or release qualification, with the same complete case and its existing installed/native obligations. Given the small lawful correction and cost, repair/reproof is more proportionate than adding this debt.",
+    "releaseLimits": "No 5.0 qualification, broad-green, installed profile-upgrade, publication, selector change or cut acceptance is supplied by this review."
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/SUMMARY.json",
+      "bytes": 541011,
+      "sha256": "59d7b38e94e2a8ce32770244372c7268db9a0bae7e9ece7920d7e016fe1bab65"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/FAILURE.json",
+      "bytes": 615,
+      "sha256": "08bd7f1e49f51a64e01bf6304da6559b7ee4a95bd743a4d70ffc5bfef78b08fa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/files/204-witness-reprice-definition-binding.json",
+      "bytes": 1185,
+      "sha256": "aa18c261ad492c3538e71e1afc08cb860487187c388eaab32320f05068345430"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.request.json",
+      "bytes": 987,
+      "sha256": "2a4906cf98fb5f2a3a767ac9b7941ecb43106bc417364e718cb67d294c8a8d64"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.result.json",
+      "bytes": 1512,
+      "sha256": "85659a719c4ef509a6cd46140cedd5ff4fa6aa2b254fbbd2686f80962a7c7aaf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.stdout",
+      "bytes": 6782,
+      "sha256": "433a249063a45f53a123546617f2e13af04afabdb80ea14d92dadd778d88a7d2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/commands/204-witness-reprice-definition-binding.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-close-proof-01/execution-024/events/204-witness-reprice-definition-binding.jsonl",
+      "bytes": 10512,
+      "sha256": "f2c1c83657c75efa8edf4cb596d1c810cdf079ee3f31ddc268a209872dbdb40b"
+    }
+  ]
+}

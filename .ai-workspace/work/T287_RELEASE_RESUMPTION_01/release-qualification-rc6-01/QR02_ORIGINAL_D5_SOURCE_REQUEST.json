@@ -1,0 +1,33 @@
+{
+  "kind": "root_bounded_original_source_resolution",
+  "at": "2026-11-05T19:22:35.964007+00:00",
+  "role": "Executive -> delegated read-only evidence researcher; contributing mechanics, not independent source acceptance",
+  "authority": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "goal": "GOAL-035/T-287/F11-F15",
+    "outcome": "Source-grounded surviving contributor attribution; no invented authorship or acceptance",
+    "classification": "Existing immutable source/evidence location only"
+  },
+  "exactSubject": {
+    "member": "build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+    "from": "56015068371277c8efed53f0f40d1e53bdee79ea",
+    "to": "92498a2d29eca294d851557753cbda2fe047c357",
+    "currentFrozen": "1f62c0095e6196b089071bb72e88217792edf6ff"
+  },
+  "task": "Resolve original D5 activation/grant/closure, exact writer/model identity and permitted scope for this one retained member. Begin QR02_NEXT_INCREMENT, prior review/source supplement and exact commit messages/path names. Do not redo T290/native06/RP2 locations already closed. Metadata-only author declaration is not complete proof. Return precise supported premises, gaps and lawful owner if no sufficient original material exists.",
+  "access": "Pinned Git objects plus directly referenced original D5 commentary/work records. Targeted rg/ls-tree only; no broad .ai-workspace scan, moving Q23 source read, private provider thinking/text/tool_result, unrelated history or credential content.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_D5_SOURCE_RESULT.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_D5_SOURCE_RESULT.md"
+  ],
+  "effects": {
+    "ProductWrites": 0,
+    "tests": 0,
+    "providers": 0,
+    "GitChanges": 0
+  },
+  "bound": "One focused source-location pass, approximately10minutes; stop on concrete sufficient source or bounded unresolved result. No new provenance redesign or native dispatch.",
+  "return": "Exact original source pins and lines, author/scope support versus commit metadata/inference, remaining uncertainty, closed result to Root. Do not edit prior closed maps.",
+  "operatorPreparationCorrection": "First in-memory Python request assembly failed to parse because return was used as a keyword argument. No file, source or runtime effect occurred. JSON-key construction corrects this operator syntax only; no native retry."
+}

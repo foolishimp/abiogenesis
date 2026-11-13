@@ -1,0 +1,215 @@
+{
+  "kind": "rc4_hc2_existing_candidate_acquisition_grant",
+  "status": "PREPARED_FOR_EXACT_ROOT_REVIEW",
+  "basis": {
+    "uri": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "sourceCommit": "1100bd8f2b84e03ad12479f9841b9bb53408f0db",
+  "sourceTree": "d5d1a46f4dc8fb10c0178e5b77e30d689c9476d6",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+  "builder": {
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/runtime-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "cliRelativePath": "build/code/src/public/cli.js",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.3/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "archiveSha256": "70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd",
+    "manifestSha256": "8e2230b5821c7f16df3db968862ee26e0306a845759d0d5b9a4f4cc0e498ef89",
+    "productContentSha256": "c89cf68f895743213b89c65c406f3e7ff3ed7878d24ce1fe7859403568997af4"
+  },
+  "changeClass": "acquisition_verification_with_bounded_counterevidence_repair",
+  "Construction": {
+    "productWritePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-readback.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json",
+      "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs"
+    ],
+    "generatedOutputWriteRoots": [],
+    "directoryCreationRoots": [],
+    "directoryCreationLimit": "No new Product directory or file selected. Existing proof homes only.",
+    "scratchWriteRoots": [
+      "rc4-scratch/native-recovery-18/return.json",
+      "rc4-scratch/native-recovery-18/readiness.json",
+      "rc4-scratch/native-recovery-18/notes.md",
+      "rc4-scratch/native-recovery-18/tmp"
+    ],
+    "mandatoryExistingPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+      "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-readback.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs"
+    ],
+    "conditionalExistingPaths": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json",
+        "condition": "Existing producer reuse/export or bounded required proof/transport-union repair with conserved owner meanings."
+      }
+    ],
+    "nativeCreatedPaths": [],
+    "mandatoryExistingPathsMeaning": "Existing causal owner cone to conserve; no requirement to reread/re-edit all35. First Construction briefly adopts current implemented code/proof; later actual C2 counterevidence may select bounded correction."
+  },
+  "otherRoleCanonicalWritePaths": [],
+  "tooling": {
+    "offlineReadRoot": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "scratchRoot": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-18",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-18/tmp",
+    "readOnlyProof": "reuse existing offline census and verification script",
+    "normalDevelopmentMethods": "Initial acquisition: brief exact-source/proof inspection and readiness/return only; no repeated author build, architecture audit or test suites. Ordinary official noEmit/scoped validation remains available if genuine later C2 counterevidence selects a correction. C2 owns build/package/tests.",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/rc4-scratch/native-recovery-18/tmp",
+    "environmentBoundary": "All current RC3 writes contained in observedR. Provider-only existingtmp; neutral RuntimeTMP; no RuntimeNPM. Candidate W outsideR proof requires successor installed runtime.",
+    "dependencyLink": "/Users/jim/src/apps/abiogenesis-rc4-native-recovery/build_tenants/abiogenesis/typescript/node_modules",
+    "dependencyTarget": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "dependencyAccess": "Operator-owned link/store read-only tooling; outside W and observedR. Existing full census verified before/after."
+  },
+  "limits": {
+    "effort": "xhigh",
+    "maxTurns": 384,
+    "inactivityTimeoutMs": 4500000,
+    "absoluteTimeoutMs": 5400000,
+    "focusedTimeoutMs": 2700000,
+    "outerTimeoutMs": 10800000,
+    "maxBudgetUsd": null,
+    "maxContextBytes": 268435456
+  },
+  "acceptance": "Acquire existing implemented candidate, then actual twelve C2 lanes and native UAT. Root static source review no blocker; C2/UAT still required. Fresh005/qualification/release separate.",
+  "scopeExclusions": [
+    "New Product/Public families, schemas/refusal semantics, controller/store/authority tokens",
+    "Canonical generated/build/dependency writes by Construction",
+    "Writer Product implementation or artificial receipts",
+    "Whole qualification/live005 acceptance by scripted C2"
+  ],
+  "checkpointMeaning": "017 exact seven-file return preserved as partial custody1100;017 blocked solely on mismatched operator C2 input paths before testing.",
+  "proposedScopeReason": "Existing35-path maximum retained only for genuine later same-Run C2 counterevidence; initial acquisition should not edit Product.",
+  "reviewStanding": "Root no-blocker static017 review and bounded C3 strict packed chain proof inherited; no whole HC2 acceptance.",
+  "evidenceBoundary": "Inherited014 independent cold recursive40.48s and installedWoutsideR/A-B, original C2red/UATunmet retained",
+  "readOnlyPriorEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/PARTIAL_CHECKPOINT.json",
+      "bytes": 11742,
+      "sha256": "bb9e7e56c1a2ea9de853a28d9c0bd74e8b80663731bcd0cc2c94be989ab0d1ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/review-subject-001/SUBJECT.json",
+      "bytes": 540591,
+      "sha256": "ae9c9bea661015e808e496248b07085e23395591a2b47b964366c3884bcf9e66"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/review-subject-001/native-output.txt",
+      "bytes": 3072,
+      "sha256": "09451e81986a45225af17f5f64edf16c801d43e51997967890069154945b90d7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/review-subject-001/author-return.json",
+      "bytes": 4176,
+      "sha256": "913262aaf422c2af95eb9e0a829f54cc48e7d8cc732420e5f679a4bab2b84856"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/execution/outcome-summary.json",
+      "bytes": 550,
+      "sha256": "3c4789f883abd0df496be6e35898292f36781099f0a957d5730ebd93027c3f90"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-017/execution/fresh-reads.json",
+      "bytes": 2398,
+      "sha256": "53a4fedacc0d5bdc39ad0df54ce2349e834b5acc712af0c3e808e82da9921479"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-016-r1/review-subject-003/independent-evidence/REVIEW_RECEIPT.json",
+      "bytes": 13824,
+      "sha256": "11d5d9733a8f9fa39e60487c1430b89d37fdfa1ddf434d958dc8e153400ce8b7"
+    }
+  ],
+  "reviewedRoutes": "Existing implemented canonical caller migrations and selected proofs; initial Construction conserves source and returns actual observation. No reimplementation or broad census.",
+  "laterCampaignBoundary": "R1\u2013R5 unchanged; S7 unexecuted, practical real-native witness and empirical/release acceptance remain distinct.",
+  "privateRealizationFreedom": "Ordinary private helper functions/exports/parameters inside granted existing owners may share the same guard; no Product/Public-family/schema/contract meaning change. Canonical support edits remain conditional on actual caller reuse with conserved meaning.",
+  "inheritedC3Standing": "Independent strict packed factory chains passed on4589; shared owners conserved; final candidate requires actual current C2."
+}

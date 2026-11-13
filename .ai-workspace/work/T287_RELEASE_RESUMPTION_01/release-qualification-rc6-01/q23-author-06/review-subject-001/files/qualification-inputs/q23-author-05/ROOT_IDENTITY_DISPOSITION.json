@@ -1,0 +1,38 @@
+{
+  "kind": "root_identity_how_disposition",
+  "recordedUtc": "2026-11-05T09:10:28.831424+00:00",
+  "productFrame": {
+    "goal": "GOAL-035/T287",
+    "families": "F01-F07,F09-F11,F13-F17",
+    "selectedSlice": "Q23 configured identity and inherited attribution prerequisite for F11/F15",
+    "law": "Definition-selected STDO3.0.4 and current Product/requirements",
+    "prohibitions": "No new runtime/registry/ledger/controller; no duplicate identity bodies at in-process interfaces; no remote model attestation claim"
+  },
+  "proposal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/IDENTITY_DESIGN_REENTRY.json",
+    "bytes": 20929,
+    "sha256": "7ec6f271253664b7a571d636ef65fddcf77015ed06795238b382368d91165876"
+  },
+  "decision": "Accept the existing owner seam and one-binding/reference-reuse direction as the basis for bounded HOW re-entry; do not adopt missing family-policy facts or positive eligibility.",
+  "structuralSelection": [
+    "Actual final prepared transport plan is the correspondence source; no renamed role or requested-model-only proxy.",
+    "Canonical identity shape defined once by existing transport contract owner; one admitted transport binding, consumed through existing native Result/J lineage.",
+    "Published qualification role policy and Validator retain independence meaning; existing invocation owner enforces before dependent paid effect.",
+    "Unknown legacy identity/correspondence refuses dependent required-independence claim; unrelated not_required behavior conserved.",
+    "No new historical-event rewrite, remote provider attestation, registry, second dispatcher, or body carriage."
+  ],
+  "remainingDependencies": {
+    "policy": "Exact owner policy question is pending asynchronously; default same-family non-independent remains.",
+    "attribution": "Existing external chains must conserve surviving contributors and join history to current material; no-trailer owner attribution is not retained as evidence. Original activation records located by bounded audits are sources, not an established complete authorship conclusion.",
+    "positiveInvocation": "Current specialized native actor route is Claude-only. Existing transport alternatives do not by themselves prove a selected alternative assessor traverses this route. Any necessary change stays within existing owner after policy is settled."
+  },
+  "next": "Finish frozen fixture C2/UAT; prepare one bounded native HOW/code increment after its exact prerequisites are selected. No identity coding/provider dispatch is admitted by this disposition alone.",
+  "authorityReferences": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_ACTIVATION.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QUALIFICATION_ROUTE_REVIEW.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/PROVENANCE_READINESS_REVIEW.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_PROVENANCE_SUPPLEMENT.json"
+  ],
+  "question": "Use a third non-contributing family for scopes containing Claude and Codex contributions, or explicitly permit separate same-family non-author activations subject to evidence independence?",
+  "status": "structural_direction_selected_positive_policy_pending"
+}

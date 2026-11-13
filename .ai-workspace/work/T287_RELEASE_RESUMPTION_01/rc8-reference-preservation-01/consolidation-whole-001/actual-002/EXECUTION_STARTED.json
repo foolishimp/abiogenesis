@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-07T09:24:48.403Z",
+  "pid": 61253,
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/CONSOLIDATION_BINDING_001.json",
+    "bytes": 8147,
+    "sha256": "ccd638b11a2e35bd6b19724e35f929776bbb8261d06c3c095eed67290150161b"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/consolidation-whole-001/CONSOLIDATION_ADMISSION_003.json",
+    "bytes": 2024,
+    "sha256": "fea0c1aef6671e794785f36a2127bdb7d17c54789871b9f40a5ed0fdc771fc6d"
+  },
+  "sourceDigest": "86711a566006ee30a0af381b319e0f8ccc357e3607f758557eeb845848fd41f9",
+  "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+  "wholeFile": true,
+  "expectedCases": 12,
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/private/tmp/abg-r8-sas-002/b:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "TMPDIR": "/private/tmp/abg-r8-sas-002/t",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-r8-sas-002/user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-r8-sas-002/global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-r8-sas-002/n",
+    "npm_config_offline": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "ABG_TS_CLAUDE_COMMAND": "/private/tmp/abg-r8-sas-002/UNSELECTED_PROVIDER",
+    "ABG_TS_LIVE_CLAUDE_COMMAND": "/private/tmp/abg-r8-sas-002/UNSELECTED_PROVIDER",
+    "ABI5_UAT_UNIT_ROOT": "/private/tmp/abg-r8-sas-002/w/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat-units",
+    "ABI5_CONSOLIDATION_INPUTS": "/Users/jim/src/apps/abiogenesis-single-address-space/consolidation-inputs/proof-10"
+  }
+}

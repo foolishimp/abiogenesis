@@ -1,0 +1,87 @@
+{
+  "kind": "native_author_actual_proof_inventory",
+  "status": "PARTIAL_ONE_STAGE_GENERATION_TIMEOUT_ZERO_LANES",
+  "createdUtc": "2026-11-06T17:37:20.249997+00:00",
+  "finalFrozenStage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/SUBJECT.json",
+    "bytes": 267155,
+    "sha256": "1c0531c2ce628677ccfb7ac4f78ce812ad031d91689f0c23b69fda67102e3447"
+  },
+  "sourceCount": 451,
+  "sourceDigest": "8028802d674377a559e29781712476a0be441b393da59793c7b274f08b02e97f",
+  "stageFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/review-subject-stage-001/evidence/source-freeze.json",
+    "bytes": 96806,
+    "sha256": "eb320d02899be369b64c290928c02243009c8ac97d6de922e5bbaeeb113bf9ec"
+  },
+  "stageReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/operator-custody-001/recovery-001/stage-001/stage.json",
+    "bytes": 97531,
+    "sha256": "9ad0946d9c442075add5a0d6bc216f70981ef80471eb8b3858ce1c2e3aff312b"
+  },
+  "stagesConsumed": 1,
+  "maxStages": 2,
+  "laneInvocationsConsumed": 0,
+  "maxLaneInvocations": 8,
+  "setupMs": 40841,
+  "compile": {
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "ms": 116576
+  },
+  "generate": {
+    "exitCode": null,
+    "signal": "SIGTERM",
+    "error": "spawnSync /opt/homebrew/Cellar/node/24.7.0/bin/node ETIMEDOUT",
+    "ms": 180074
+  },
+  "lifecycle": null,
+  "lanes": [],
+  "all451FinalStageFilesEqualActualNativeAfterAndLive": true,
+  "handoffs": [
+    {
+      "relativePath": "qualification-scratch/rc7-held-session-author-03/progress.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/progress.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-return-controls/actual-recovery-001/handoffs/progress.json",
+        "bytes": 3346,
+        "sha256": "ada8b7334896152a495b222016fb387234b0774587fa35b79b600e59372092bd"
+      },
+      "beforeState": "absent",
+      "afterEntryIndex": 459
+    },
+    {
+      "relativePath": "qualification-scratch/rc7-held-session-author-03/readiness.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/readiness.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-return-controls/actual-recovery-001/handoffs/readiness.json",
+        "bytes": 1646,
+        "sha256": "467ce836e1fbda705bb22d13af384c767c7d4c241657ca1f32b854bb1e9bb32b"
+      },
+      "beforeState": "absent",
+      "afterEntryIndex": 460
+    },
+    {
+      "relativePath": "qualification-scratch/rc7-held-session-author-03/return.json",
+      "actualLivePath": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/return.json",
+      "snapshot": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/rc7-held-session-author-03/post-return-controls/actual-recovery-001/handoffs/return.json",
+        "bytes": 9601,
+        "sha256": "234fff4ea3157eacc22df4b62aaf17906d1839290e10cc54d77a982d37e89c81"
+      },
+      "beforeState": "absent",
+      "afterEntryIndex": 461
+    }
+  ],
+  "failure": "HS3-STAGE01-GENERATE-TIMEOUT",
+  "causeStanding": "Cause unresolved. Resource insufficiency/host contention is an author interpretation; no Product cause or matched performance claim established.",
+  "historicalProofStanding": "Earlier failed native/operator/diagnostic records unchanged; none relabeled as H03 pass.",
+  "qualified": false,
+  "accepted": false,
+  "stageConsoleLog": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/qualification-scratch/rc7-held-session-author-03/tmp/hs3-stage-01-console.log",
+    "bytes": 711,
+    "sha256": "9a24b0847ddd23c8cffee4285f47840214e6a36804ffbffcdd45017b1ef54283"
+  }
+}

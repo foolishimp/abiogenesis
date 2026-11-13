@@ -1,0 +1,38 @@
+{
+  "kind": "allowlisted_native_activity_observation",
+  "observedUtc": "2026-11-06T15:13:52.487814+00:00",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/resources/archives/fp-71ab8612e2f7497f-stdout.log",
+  "archivePrefixBytes": 5839145,
+  "archivePrefixSha256": "d2dcbcead1087b097c004da4cdcc482c1351a2bd8192e24b590ed9dc2d07f667",
+  "device": 16777231,
+  "inode": 708017883,
+  "archiveMtimeAtObservationUtc": "2026-11-06T15:13:50.880096+00:00",
+  "completeRows": 8111,
+  "uniqueCompleteToolUses": 155,
+  "toolNameCounts": {
+    "Bash": 137,
+    "Write": 1,
+    "Read": 6,
+    "Grep": 6,
+    "Edit": 5
+  },
+  "latestToolUse": {
+    "name": "Bash",
+    "timestamp": "2026-11-06T15:13:46.418Z",
+    "toolUseRef": "toolu_01GwgsMw8QZxxURCN18AQhPa",
+    "archiveLine": 8102,
+    "byteOffset": 5832401,
+    "path": null
+  },
+  "latestPathBearingToolUse": {
+    "name": "Grep",
+    "timestamp": "2026-11-06T15:13:15.162Z",
+    "path": "/Users/jim/src/apps/abiogenesis-rc6-local-cut/build_tenants/abiogenesis/typescript/code/src"
+  },
+  "standing": [
+    "Recent source lookup and ongoing tool activity observed; Bash semantics remain uninspected. No claim that every operation is source reading or successful.",
+    "Sole new fp archive created at actual actor-start boundary, selected through retained worker_transport archive naming owner; no runtime acquisition or full event-history scan.",
+    "Only complete assistant tool-use name/id/path and envelope clocks selected. No thinking, narrative, tool-result, stderr or command string surfaced.",
+    "Root host sample001 was after preparation/actor start and cannot diagnose the earlier456.306s setup."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "kind": "operator_environment_derivation",
+  "selectedBy": "Operator/evidence Writer under exact Root selection09; not an additional Root ruling",
+  "authoritySha256": "9a4321873b6638cef5f6a3fad907a2b7240e29ad3b7ca6279af94905ad3146ff",
+  "hostTMPDIR": "/private/tmp/abg-rc5",
+  "providerTMPDIR": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09",
+  "testTMPDIR": "/Users/jim/src/apps/abiogenesis-single-address-space/tmp09",
+  "source": "native08/claude-provider.sh already exports TMPDIR and NPM_CONFIG_CACHE to providerScratch, independently of unchanged host runtimeEnvironment; selection09 grants new tmp09",
+  "meaning": "Preserve host/CLI environment namespace and existing8GB launch. Use only declared09 scratch for provider and selected test command temporary data. No claim of universal host filesystem/cache confinement.",
+  "runtimeExecuted": false
+}

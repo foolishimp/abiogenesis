@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.6/83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf/59b6f86920c35eacacc4554a89d2938ced68e1338152a0904e895841ae92d60a",
+      "admissionEventRef": "event://abiogenesis/a3d69f0f0feede394a1c32197b070508a45b6f8cdd50000261ba73615c36d3bb",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.6",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:e9ffe45c18f5a5e398ebd701d28c4e9239a9bcb1327e4ae6d8d7cec3c6f573c4",
+      "productContentDigest": "sha256:83360088d6d1b986e2d3ec4b76b798dabb02e3d34131dc9669e2d9bc4e0cb8cf",
+      "manifestDigest": "sha256:404905f00e9d79bd7cc1da592a492b19443b809d3b81c12ec8af9af947c2a64a",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/c26f074de3d597788f4af6d9c88c779fdb71c996740c106782190ae87ec86d67/59b6f86920c35eacacc4554a89d2938ced68e1338152a0904e895841ae92d60a",
+      "admissionEventRef": "event://abiogenesis/0cc4efc62b436c32015b28a9d1b7e432d3e79b07e5b62c129639a96c2fca0f43",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:a0fe55fd8a26fc503f70b63d44cde3185bd840fc8501772d632932a9b69e0feb",
+      "productContentDigest": "sha256:c26f074de3d597788f4af6d9c88c779fdb71c996740c106782190ae87ec86d67",
+      "manifestDigest": "sha256:0d0f51588d996e699ae163116347568597cfafd8306d971835977663bde9440c",
+      "contentMatches": true
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "mode": "baseline",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/immediate-probe.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/BINDING.json",
+    "8b0acb78bcefdb1730856977a812de0568d70d37e5e4c0a937db7125f1268951",
+    "baseline"
+  ],
+  "pid": 53605,
+  "pgid": 53605,
+  "exitCode": 0,
+  "wallSeconds": 0.06152062490582466,
+  "limitCause": null,
+  "cleanupNeeded": false,
+  "signals": [],
+  "groupAbsent": true,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/baseline.stdout.log",
+    "bytes": 77,
+    "sha256": "67f1eda3a8c4a17fa02b767fd5d15b0339369e81ca880770db42dcecca0affc5"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/baseline.stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-effect-phase2-01/native-03/immediate-probe-discriminator-01/actual-baseline-001/OBSERVATION.json",
+    "bytes": 11588,
+    "sha256": "88948a98a96c1eb9302d9d5bb8935c890c09ad250a621c943ab929617b53659b"
+  },
+  "postguards": {
+    "passed": true,
+    "sourceDigest": "9ef03c3355d41f940e91d703e044708d18d401858c95242fdf35df92abcf8eba",
+    "sourceRows": 1345,
+    "compiledRows": 582
+  },
+  "intendedObservationsRetained": true,
+  "status": "CONTROLLED_OBSERVATION_RETAINED",
+  "failure": null
+}

@@ -1,0 +1,284 @@
+{
+  "status": "resolved_without_product_execution",
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "nodeVersion": "v24.7.0",
+  "nodeOptions": "",
+  "nodePath": "",
+  "execArgv": [
+    "--experimental-import-meta-resolve"
+  ],
+  "scope": "All literal import specifiers in the copied helpers/fixtures; exact self-export product realpath verified. Runtime-computed fixture installs remain the admitted owner path.",
+  "productModulesImported": false,
+  "rows": [
+    {
+      "importer": "test_env/fixtures/language-structural/leaf.mjs",
+      "specifier": "@abiogenesis/typescript-tenant/product",
+      "resolved": "file:///Users/jim/Library/Application%20Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "realpath": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js"
+    },
+    {
+      "importer": "test_env/fixtures/language-structural/leaf.mjs",
+      "specifier": "./program.mjs",
+      "resolved": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/language-structural/program.mjs",
+      "realpath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/language-structural/program.mjs"
+    },
+    {
+      "importer": "test_env/fixtures/registered-selection-product/index.mjs",
+      "specifier": "@abiogenesis/typescript-tenant/product",
+      "resolved": "file:///Users/jim/Library/Application%20Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "realpath": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.10/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js"
+    },
+    {
+      "importer": "test_env/fixtures/t287-selected-action-product/index.mjs",
+      "specifier": "node:crypto",
+      "resolved": "node:crypto",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/fixtures/t287-selected-action-product/index.mjs",
+      "specifier": "node:fs/promises",
+      "resolved": "node:fs/promises",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/candidate-basis.mjs",
+      "specifier": "node:fs/promises",
+      "resolved": "node:fs/promises",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/candidate-basis.mjs",
+      "specifier": "node:path",
+      "resolved": "node:path",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-smoke-fixture.mjs",
+      "specifier": "node:assert/strict",
+      "resolved": "node:assert/strict",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-smoke-fixture.mjs",
+      "specifier": "node:child_process",
+      "resolved": "node:child_process",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-smoke-fixture.mjs",
+      "specifier": "node:fs/promises",
+      "resolved": "node:fs/promises",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-smoke-fixture.mjs",
+      "specifier": "node:path",
+      "resolved": "node:path",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-smoke-fixture.mjs",
+      "specifier": "node:util",
+      "resolved": "node:util",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-smoke-fixture.mjs",
+      "specifier": "node:url",
+      "resolved": "node:url",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-smoke-fixture.mjs",
+      "specifier": "../fixtures/language-smoke/program.mjs",
+      "resolved": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/language-smoke/program.mjs",
+      "realpath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/language-smoke/program.mjs"
+    },
+    {
+      "importer": "test_env/support/language-structural-fixture.mjs",
+      "specifier": "node:assert/strict",
+      "resolved": "node:assert/strict",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-structural-fixture.mjs",
+      "specifier": "node:child_process",
+      "resolved": "node:child_process",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-structural-fixture.mjs",
+      "specifier": "node:fs/promises",
+      "resolved": "node:fs/promises",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-structural-fixture.mjs",
+      "specifier": "node:path",
+      "resolved": "node:path",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-structural-fixture.mjs",
+      "specifier": "node:util",
+      "resolved": "node:util",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-structural-fixture.mjs",
+      "specifier": "node:url",
+      "resolved": "node:url",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/language-structural-fixture.mjs",
+      "specifier": "../fixtures/language-structural/program.mjs",
+      "resolved": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/language-structural/program.mjs",
+      "realpath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/language-structural/program.mjs"
+    },
+    {
+      "importer": "test_env/support/registered-graph-selection.mjs",
+      "specifier": "node:child_process",
+      "resolved": "node:child_process",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/registered-graph-selection.mjs",
+      "specifier": "node:fs/promises",
+      "resolved": "node:fs/promises",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/registered-graph-selection.mjs",
+      "specifier": "node:path",
+      "resolved": "node:path",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/registered-graph-selection.mjs",
+      "specifier": "node:util",
+      "resolved": "node:util",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/registered-graph-selection.mjs",
+      "specifier": "node:assert/strict",
+      "resolved": "node:assert/strict",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/registered-graph-selection.mjs",
+      "specifier": "../fixtures/registered-selection-product/index.mjs",
+      "resolved": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/registered-selection-product/index.mjs",
+      "realpath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/registered-selection-product/index.mjs"
+    },
+    {
+      "importer": "test_env/support/root-installed-environment.mjs",
+      "specifier": "node:assert/strict",
+      "resolved": "node:assert/strict",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/root-installed-environment.mjs",
+      "specifier": "node:child_process",
+      "resolved": "node:child_process",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/root-installed-environment.mjs",
+      "specifier": "node:fs/promises",
+      "resolved": "node:fs/promises",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/root-installed-environment.mjs",
+      "specifier": "node:os",
+      "resolved": "node:os",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/root-installed-environment.mjs",
+      "specifier": "node:path",
+      "resolved": "node:path",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/root-installed-environment.mjs",
+      "specifier": "node:url",
+      "resolved": "node:url",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/root-installed-environment.mjs",
+      "specifier": "node:util",
+      "resolved": "node:util",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/root-installed-environment.mjs",
+      "specifier": "./candidate-basis.mjs",
+      "resolved": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/candidate-basis.mjs",
+      "realpath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/candidate-basis.mjs"
+    },
+    {
+      "importer": "test_env/support/root-installed-environment.mjs",
+      "specifier": "./language-smoke-fixture.mjs",
+      "resolved": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/language-smoke-fixture.mjs",
+      "realpath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/language-smoke-fixture.mjs"
+    },
+    {
+      "importer": "test_env/support/t287-selected-action-host.mjs",
+      "specifier": "node:assert/strict",
+      "resolved": "node:assert/strict",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/t287-selected-action-host.mjs",
+      "specifier": "node:fs",
+      "resolved": "node:fs",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/t287-selected-action-host.mjs",
+      "specifier": "node:module",
+      "resolved": "node:module",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/t287-selected-action-host.mjs",
+      "specifier": "node:crypto",
+      "resolved": "node:crypto",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/t287-selected-action-host.mjs",
+      "specifier": "node:path",
+      "resolved": "node:path",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/t287-selected-action-host.mjs",
+      "specifier": "node:url",
+      "resolved": "node:url",
+      "realpath": null
+    },
+    {
+      "importer": "test_env/support/t287-selected-action-host.mjs",
+      "specifier": "./root-installed-environment.mjs",
+      "resolved": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/root-installed-environment.mjs",
+      "realpath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/root-installed-environment.mjs"
+    },
+    {
+      "importer": "test_env/support/t287-selected-action-host.mjs",
+      "specifier": "./registered-graph-selection.mjs",
+      "resolved": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/registered-graph-selection.mjs",
+      "realpath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/support/registered-graph-selection.mjs"
+    },
+    {
+      "importer": "test_env/support/t287-selected-action-host.mjs",
+      "specifier": "../fixtures/t287-selected-action-product/index.mjs",
+      "resolved": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "realpath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-qualification-01/evidence-generation-04/execution-view/test_env/fixtures/t287-selected-action-product/index.mjs"
+    }
+  ]
+}
